@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2014 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -50,10 +50,8 @@ extern "C" {
 #define XHdcp_KeyMgmtBlk_In32  Xil_In32    /**< Input Operations */
 #define XHdcp_KeyMgmtBlk_Out32 Xil_Out32   /**< Output Operations */
 
-#ifdef SDT
 #define XPAR_IIC_0_BASEADDR XPAR_XIIC_0_BASEADDR
 #define XPAR_IIC_1_BASEADDR XPAR_XIIC_1_BASEADDR
-#endif
 /************************** Function Prototypes ******************************/
 int XHdcp_LoadKeys(u8 *Hdcp22Lc128, u32 Hdcp22Lc128Size, u8 *Hdcp22RxPrivateKey, u32 Hdcp22RxPrivateKeySize,
 		u8 *Hdcp14KeyA, u32 Hdcp14KeyASize, u8 *Hdcp14KeyB, u32 Hdcp14KeyBSize);

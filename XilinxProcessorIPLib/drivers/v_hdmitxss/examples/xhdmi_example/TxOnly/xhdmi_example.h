@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2014 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -78,13 +78,6 @@ extern "C" {
 #endif
 #ifdef XPAR_XGPIO_NUM_INSTANCES
 #include "xgpio.h"
-#endif
-#ifndef SDT
-#if defined (ARMR5) || (__aarch64__) || (__arm__)
-#include "xscugic.h"
-#else
-#include "xintc.h"
-#endif
 #endif
 #include "xhdmi_hdcp_keys.h"
 #include "xhdcp.h"

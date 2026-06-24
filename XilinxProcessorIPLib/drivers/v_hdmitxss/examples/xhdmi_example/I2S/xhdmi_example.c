@@ -112,18 +112,14 @@
 #include "xhdmi_menu.h"
 #include "xhdmi_hdcp_keys_table.h"
 #include "xhdmi_example.h"
-#ifdef SDT
 #include "xinterrupt_wrap.h"
-#endif
 
 /***************** Macros (Inline Functions) Definitions *********************/
 /* These macro values need to changed whenever there is a change in version */
 #define APP_MAJ_VERSION 5
 #define APP_MIN_VERSION 4
 
-#ifdef SDT
 #define INTRNAME_HDMITX 0
-#endif
 /**************************** Type Definitions *******************************/
 
 /************************** Function Prototypes ******************************/
@@ -2341,43 +2337,6 @@ int SetupInterruptSystem(void) {
 #else
 	XIntc *IntcInstPtr = &Intc;
 #endif
-#ifndef SDT
-
-	/*
-	 * Initialize the interrupt controller driver so that it's ready to
-	 * use, specify the device ID that was generated in xparameters.h
-	 */
-#if defined (ARMR5) || (__aarch64__) || (__arm__)
-	XScuGic_Config *IntcCfgPtr;
-	IntcCfgPtr = XScuGic_LookupConfig(XPAR_SCUGIC_0_DEVICE_ID);
-	if(IntcCfgPtr == NULL) {
-		xil_printf("ERR:: Interrupt Controller not found");
-		return (XST_DEVICE_NOT_FOUND);
-	}
-	Status = XScuGic_CfgInitialize(IntcInstPtr,
-				IntcCfgPtr,
-				IntcCfgPtr->CpuBaseAddress);
-#else
-	Status = XIntc_Initialize(IntcInstPtr, XPAR_INTC_0_DEVICE_ID);
-#endif
-	if (Status != XST_SUCCESS) {
-		xil_printf("Intc initialization failed!\r\n");
-		return XST_FAILURE;
-	}
-
-
-	/*
-	 * Start the interrupt controller such that interrupts are recognized
-	 * and handled by the processor
-	 */
-#if defined (__MICROBLAZE__)
-	Status = XIntc_Start(IntcInstPtr, XIN_REAL_MODE);
-        /* Status = XIntc_Start(IntcInstPtr, XIN_SIMULATION_MODE); */
-	if (Status != XST_SUCCESS) {
-		return XST_FAILURE;
-	}
-#endif
-#endif
 
 	Xil_ExceptionInit();
 
@@ -2751,11 +2710,7 @@ int main() {
 	/* Initialize IIC */
 #if (defined (ARMR5) || (__aarch64__)) && (!defined XPS_BOARD_ZCU104)
 	/* Initialize PS IIC0 */
-#ifndef SDT
-	XIic0Ps_ConfigPtr = XIicPs_LookupConfig(XPAR_XIICPS_0_DEVICE_ID);
-#else
 	XIic0Ps_ConfigPtr = XIicPs_LookupConfig(XPAR_XIICPS_0_BASEADDR);
-#endif
 	if (NULL == XIic0Ps_ConfigPtr) {
 		return XST_FAILURE;
 	}
@@ -2773,11 +2728,7 @@ int main() {
 	XIicPs_SetSClk(&Ps_Iic0, PS_IIC_CLK);
 
 	/* Initialize PS IIC1 */
-#ifndef SDT
-	XIic1Ps_ConfigPtr = XIicPs_LookupConfig(XPAR_XIICPS_1_DEVICE_ID);
-#else
 	XIic1Ps_ConfigPtr = XIicPs_LookupConfig(XPAR_XIICPS_1_BASEADDR);
-#endif
 	if (NULL == XIic1Ps_ConfigPtr) {
 		return XST_FAILURE;
 	}
@@ -3000,11 +2951,7 @@ int main() {
 	/* Initialize HDMI TX Subsystem */
 
 	XV_HdmiTxSs_ConfigPtr =
-#ifndef SDT
-		XV_HdmiTxSs_LookupConfig(XPAR_XV_HDMITX_0_DEVICE_ID);
-#else
 		XV_HdmiTxSs_LookupConfig(XPAR_XV_HDMITX_0_BASEADDR);
-#endif
 
 	if(XV_HdmiTxSs_ConfigPtr == NULL) {
 		HdmiTxSs.IsReady = 0;
@@ -3024,19 +2971,6 @@ int main() {
 
 	/* Register HDMI TX SS Interrupt Handler with Interrupt Controller */
 #if defined(__arm__) || (__aarch64__)
-#ifndef SDT
-#ifndef USE_HDCP
-	Status |= XScuGic_Connect(&Intc,
-			XPAR_FABRIC_V_HDMITXSS_0_VEC_ID,
-			(XInterruptHandler)XV_HdmiTxSS_HdmiTxIntrHandler,
-			(void *)&HdmiTxSs);
-#else
-	Status |= XScuGic_Connect(&Intc,
-			XPAR_FABRIC_V_HDMITXSS_0_IRQ_VEC_ID,
-			(XInterruptHandler)XV_HdmiTxSS_HdmiTxIntrHandler,
-			(void *)&HdmiTxSs);
-#endif
-#endif
 
 
 /* HDCP 1.4 */
@@ -3063,17 +2997,6 @@ int main() {
 #endif
 
 #else
-#ifndef SDT
-	/* Register HDMI TX SS Interrupt Handler with Interrupt Controller */
-	Status |= XIntc_Connect(&Intc,
-#if defined(USE_HDCP)
-			XPAR_INTC_0_V_HDMITXSS_0_IRQ_VEC_ID,
-#else
-			XPAR_INTC_0_V_HDMITXSS_0_VEC_ID,
-#endif
-			(XInterruptHandler)XV_HdmiTxSS_HdmiTxIntrHandler,
-			(void *)&HdmiTxSs);
-#endif
 
 /* HDCP 1.4 */
 #ifdef XPAR_XHDCP_NUM_INSTANCES
@@ -3102,15 +3025,6 @@ int main() {
 
 	if (Status == XST_SUCCESS) {
 #if defined(__arm__) || (__aarch64__)
-#ifndef SDT
-#ifndef USE_HDCP
-		XScuGic_Enable(&Intc,
-			XPAR_FABRIC_V_HDMITXSS_0_VEC_ID);
-#else
-		XScuGic_Enable(&Intc,
-			XPAR_FABRIC_V_HDMITXSS_0_IRQ_VEC_ID);
-#endif
-#endif  /* SDT END */
 
 /* HDCP 1.4 */
 #ifdef XPAR_XHDCP_NUM_INSTANCES
@@ -3130,15 +3044,6 @@ int main() {
 #endif
 
 #else
-#ifndef SDT
-		XIntc_Enable(&Intc,
-#if defined(USE_HDCP)
-			XPAR_INTC_0_V_HDMITXSS_0_IRQ_VEC_ID
-#else
-			XPAR_INTC_0_V_HDMITXSS_0_VEC_ID
-#endif
-			);
-#endif
 
 /* HDCP 1.4 */
 #ifdef XPAR_XHDCP_NUM_INSTANCES
@@ -3205,13 +3110,11 @@ int main() {
 				XV_HDMITXSS_HANDLER_STREAM_DOWN,
 				(void *)TxStreamDownCallback,
 				(void *)&HdmiTxSs);
-#ifdef SDT
 	Status = XSetupInterruptSystem(&HdmiTxSs,
 				XV_HdmiTxSS_HdmiTxIntrHandler,
 				XV_HdmiTxSs_ConfigPtr->IntrId[INTRNAME_HDMITX],
 				XV_HdmiTxSs_ConfigPtr->IntrParent,
 				XINTERRUPT_DEFAULT_PRIORITY);
-#endif
 
 #ifdef USE_HDCP
 	if (XV_HdmiTxSs_HdcpIsReady(&HdmiTxSs)) {
@@ -3231,11 +3134,7 @@ int main() {
 	/* Get User Edid Info */
 	XV_HdmiRxSs_SetEdidParam(&HdmiRxSs, (u8*)&Edid, sizeof(Edid));
 	XV_HdmiRxSs_ConfigPtr =
-#ifndef SDT
-		XV_HdmiRxSs_LookupConfig(XPAR_XV_HDMIRX_0_DEVICE_ID);
-#else
 		XV_HdmiRxSs_LookupConfig(XPAR_XV_HDMIRX_0_BASEADDR);
-#endif
 
 	if(XV_HdmiRxSs_ConfigPtr == NULL) {
 		HdmiRxSs.IsReady = 0;
@@ -3258,19 +3157,6 @@ int main() {
 
 	/* Register HDMI RX SS Interrupt Handler with Interrupt Controller */
 #if defined(__arm__) || (__aarch64__)
-#ifndef SDT
-#ifndef USE_HDCP
-	Status |= XScuGic_Connect(&Intc,
-			XPAR_FABRIC_V_HDMIRXSS_0_VEC_ID,
-			(XInterruptHandler)XV_HdmiRxSS_HdmiRxIntrHandler,
-			(void *)&HdmiRxSs);
-#else
-	Status |= XScuGic_Connect(&Intc,
-			XPAR_FABRIC_V_HDMIRXSS_0_IRQ_VEC_ID,
-			(XInterruptHandler)XV_HdmiRxSS_HdmiRxIntrHandler,
-			(void *)&HdmiRxSs);
-#endif
-#endif
 
 
 #ifdef XPAR_XHDCP_NUM_INSTANCES
@@ -3295,16 +3181,6 @@ int main() {
 #endif
 
 #else
-#ifndef SDT
-	Status |= XIntc_Connect(&Intc,
-#if defined(USE_HDCP)
-			XPAR_INTC_0_V_HDMIRXSS_0_IRQ_VEC_ID,
-#else
-			XPAR_INTC_0_V_HDMIRXSS_0_VEC_ID,
-#endif
-			(XInterruptHandler)XV_HdmiRxSS_HdmiRxIntrHandler,
-			(void *)&HdmiRxSs);
-#endif
 
 #ifdef XPAR_XHDCP_NUM_INSTANCES
 	/* HDCP 1.4 Cipher interrupt */
@@ -3329,62 +3205,6 @@ int main() {
 #endif
 
 #endif
-#ifndef SDT
-	if (Status == XST_SUCCESS) {
-#if defined(__arm__) || (__aarch64__)
-#ifndef USE_HDCP
-		XScuGic_Enable(&Intc,
-				XPAR_FABRIC_V_HDMIRXSS_0_VEC_ID);
-#else
-		XScuGic_Enable(&Intc,
-				XPAR_FABRIC_V_HDMIRXSS_0_IRQ_VEC_ID);
-#endif
-#ifdef XPAR_XHDCP_NUM_INSTANCES
-		XScuGic_Enable(&Intc,
-				XPAR_FABRIC_V_HDMIRXSS_0_HDCP14_IRQ_VEC_ID);
-		XScuGic_Enable(&Intc,
-			XPAR_FABRIC_V_HDMIRXSS_0_HDCP14_TIMER_IRQ_VEC_ID);
-#endif
-#if (XPAR_XHDCP22_RX_NUM_INSTANCES)
-		XScuGic_Enable(&Intc,
-			XPAR_FABRIC_V_HDMIRXSS_0_HDCP22_TIMER_IRQ_VEC_ID);
-#endif
-
-#else
-#ifndef SDT
-		XIntc_Enable(&Intc,
-#if defined(USE_HDCP)
-			XPAR_INTC_0_V_HDMIRXSS_0_IRQ_VEC_ID
-#else
-			XPAR_INTC_0_V_HDMIRXSS_0_VEC_ID
-#endif
-			);
-#endif
-
-#ifdef XPAR_XHDCP_NUM_INSTANCES
-		/* HDCP 1.4 Cipher interrupt */
-		XIntc_Enable(&Intc,
-			XPAR_INTC_0_V_HDMIRXSS_0_HDCP14_IRQ_VEC_ID);
-
-		/* HDCP 1.4 Timer interrupt */
-		XIntc_Enable(&Intc,
-			XPAR_INTC_0_V_HDMIRXSS_0_HDCP14_TIMER_IRQ_VEC_ID);
-#endif
-
-#if (XPAR_XHDCP22_RX_NUM_INSTANCES)
-		/* HDCP 2.2 Timer interrupt */
-		XIntc_Enable(&Intc,
-			XPAR_INTC_0_V_HDMIRXSS_0_HDCP22_TIMER_IRQ_VEC_ID);
-#endif
-
-#endif
-	} else {
-		xil_printf
-			("ERR:: Unable to register HDMI RX interrupt handler");
-		xil_printf("HDMI RX SS initialization error\r\n");
-		return XST_FAILURE;
-	}
-#endif  /* SDT END */
 	/* RX callback setup */
 	XV_HdmiRxSs_SetCallback(&HdmiRxSs,
 				XV_HDMIRXSS_HANDLER_CONNECT,
@@ -3430,13 +3250,11 @@ int main() {
 	XHdcp_SetUpstream(&HdcpRepeater, &HdmiRxSs);
 #endif
 #endif
-#ifdef SDT
 	Status = XSetupInterruptSystem(&HdmiRxSs,
 					(XInterruptHandler)XV_HdmiRxSS_HdmiRxIntrHandler,
 					HdmiRxSs.Config.IntrId,
 					HdmiRxSs.Config.IntrParent,
 					XINTERRUPT_DEFAULT_PRIORITY);
-#endif
 	/*
 	 *  Initialize Video PHY
 	 *  The GT needs to be initialized after the HDMI RX and TX.
@@ -3444,36 +3262,18 @@ int main() {
 	 *  calls the RX stream down callback.
 	 *
          */
-#ifndef SDT
-	XVphyCfgPtr = XVphy_LookupConfig(XPAR_VPHY_0_DEVICE_ID);
-#else
 	XVphyCfgPtr = XVphy_LookupConfig(XPAR_XVPHY_0_BASEADDR);
-#endif
 	if (XVphyCfgPtr == NULL) {
 		xil_printf("Video PHY device not found\r\n\r\n");
 		return XST_FAILURE;
 	}
 
 	/* Register VPHY Interrupt Handler */
-#ifndef SDT
-#if defined(__arm__) || (__aarch64__)
-	Status = XScuGic_Connect(&Intc,
-				XPAR_FABRIC_VID_PHY_CONTROLLER_IRQ_INTR,
-				(XInterruptHandler)XVphy_InterruptHandler,
-				(void *)&Vphy);
-#else
-	Status = XIntc_Connect(&Intc,
-				XPAR_INTC_0_VPHY_0_VEC_ID,
-				(XInterruptHandler)XVphy_InterruptHandler,
-				(void *)&Vphy);
-#endif
-#else
 	Status = XSetupInterruptSystem(&Vphy,
 				(XInterruptHandler)XVphy_InterruptHandler,
 				XVphyCfgPtr->IntrId,
 				XVphyCfgPtr->IntrParent,
 				XINTERRUPT_DEFAULT_PRIORITY);
-#endif
 	if (Status != XST_SUCCESS) {
 		xil_printf("HDMI VPHY Interrupt Vec ID not found!\r\n");
 		return XST_FAILURE;
@@ -3488,15 +3288,6 @@ int main() {
 	}
 
 	/* Enable VPHY Interrupt */
-#ifndef SDT
-#if defined(__arm__) || (__aarch64__)
-	XScuGic_Enable(&Intc,
-			XPAR_FABRIC_VID_PHY_CONTROLLER_IRQ_INTR);
-#else
-	XIntc_Enable(&Intc,
-			XPAR_INTC_0_VPHY_0_VEC_ID);
-#endif
-#endif
 
 #ifdef XPAR_XV_HDMITXSS_NUM_INSTANCES
 	/* VPHY callback setup */
@@ -3534,11 +3325,7 @@ int main() {
 #ifdef XPAR_XV_TPG_NUM_INSTANCES
 	/* Initialize GPIO for Tpg Reset */
 	Gpio_Tpg_resetn_ConfigPtr =
-#ifndef SDT
-		XGpio_LookupConfig(XPAR_V_TPG_SS_0_AXI_GPIO_DEVICE_ID);
-#else
 		XGpio_LookupConfig(XPAR_V_TPG_SS_0_AXI_GPIO_BASEADDR);
-#endif
 
 	if(Gpio_Tpg_resetn_ConfigPtr == NULL) {
 		Gpio_Tpg_resetn.IsReady = 0;
@@ -3556,11 +3343,7 @@ int main() {
 
 	ResetTpg();
 
-#ifndef SDT
-	Tpg_ConfigPtr = XV_tpg_LookupConfig(XPAR_V_TPG_SS_0_V_TPG_DEVICE_ID);
-#else
 	Tpg_ConfigPtr = XV_tpg_LookupConfig(XPAR_V_TPG_SS_0_V_TPG_BASEADDR);
-#endif
 	if(Tpg_ConfigPtr == NULL) {
 		Tpg.IsReady = 0;
 		return (XST_DEVICE_NOT_FOUND);
@@ -3578,10 +3361,6 @@ int main() {
 	xil_printf("---------------------------------\r\n");
 
 	/* Enable exceptions. */
-#ifndef SDT
-	Xil_AssertSetCallback((Xil_AssertCallback) Xil_AssertCallbackRoutine);
-	Xil_ExceptionEnable();
-#endif
 
 	/* Initialize menu */
 	XHdmi_MenuInitialize(&HdmiMenu, UART_BASEADDR);
