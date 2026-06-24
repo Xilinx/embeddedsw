@@ -1,6 +1,6 @@
 /******************************************************************************
 Copyright (C) 2018 - 2022 Xilinx, Inc. All rights reserved.
-Copyright 2023-2024 Advanced Micro Devices, Inc. All Rights Reserved.
+Copyright 2023-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -271,13 +271,8 @@ int main()
     init_platform();
 
 #if (defined (ARMR5) || (__aarch64__)) && (!defined XPS_BOARD_ZCU104) && (!defined XPS_BOARD_VEK280)
-#ifndef SDT
-	/* Initialize PS IIC0 */
-	XIic0Ps_ConfigPtr = XIicPs_LookupConfig(XPAR_XIICPS_0_DEVICE_ID);
-#else
 	/* Initialize PS IIC0 */
 	XIic0Ps_ConfigPtr = XIicPs_LookupConfig(XPAR_XIICPS_0_BASEADDR);
-#endif
 	if (NULL == XIic0Ps_ConfigPtr) {
 		return XST_FAILURE;
 	}
@@ -293,13 +288,8 @@ int main()
 	 */
 	XIicPs_SetSClk(&Ps_Iic0, PS_IIC_CLK);
 
-#ifndef SDT
-	/* Initialize PS IIC1 */
-	XIic1Ps_ConfigPtr = XIicPs_LookupConfig(XPAR_XIICPS_1_DEVICE_ID);
-#else
 	/* Initialize PS IIC1 */
 	XIic1Ps_ConfigPtr = XIicPs_LookupConfig(XPAR_XIICPS_1_BASEADDR);
-#endif
 	if (NULL == XIic1Ps_ConfigPtr) {
 		return XST_FAILURE;
 	}

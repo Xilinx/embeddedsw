@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2018 – 2022 Xilinx, Inc.  All rights reserved.
-* Copyright 2024-2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2024-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -57,15 +57,6 @@
 
 #define EDID_SIZE XPAR_V_HDMI_RXSS1_V_HDMI_RX_DDC_EDID_SIZE
 
-#ifndef SDT
-#if defined (XPAR_V_HDMI_RX_SS_HDCP_1_4_DEVICE_ID) || \
-	defined (XPAR_XHDCP22_RX_NUM_INSTANCES)
-
-/* If HDCP 1.4 or HDCP 2.2 is in the system
- * then use the HDCP abstraction layer */
-#define USE_HDCP_HDMI_RX
-#endif
-#else
 #if (XPAR_V_HDMI_RXSS1_HDCP14_PRESENT > 0) || \
 	(XPAR_XHDCP22_RX_NUM_INSTANCES > 0)
 /*
@@ -73,7 +64,6 @@
  * then use the HDCP abstraction layer
  */
 #define USE_HDCP_HDMI_RX
-#endif
 #endif
 
 #if defined (XPS_BOARD_VEK280_ES) || \
@@ -289,13 +279,8 @@ extern XHdmiphy1 Hdmiphy1;
 extern XV_HdmiRxSs1 HdmiRxSs;
 
 /************************** Function Prototypes *****************************/
-#ifndef SDT
-u32 XV_Rx_Hdmi_Initialize(XV_Rx *InstancePtr, u32 HdmiRxSsDevId,
-			  u32 VPhyDevId, XV_Rx_IntrVecId IntrVecIds);
-#else
 u32 XV_Rx_Hdmi_Initialize(XV_Rx *InstancePtr, u32 HdmiRxSsBaseAddr,
 			  u32 VPhyBaseAddr);
-#endif
 void XV_Rx_SetDebugPrints(XV_Rx_Debug_Printf PrintFunc);
 void XV_Rx_SetDebugStateMachinePrints(XV_Rx_Debug_Printf PrintFunc);
 

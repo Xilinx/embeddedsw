@@ -75,13 +75,8 @@ XV_HdmiTxSs1_SubCores XV_HdmiTxSs1_SubCoreRepo[XPAR_XV_HDMITXSS1_NUM_INSTANCES];
                                     included in the design */
 
 /************************** Function Prototypes ******************************/
-#ifndef SDT
-static void XV_HdmiTxSs1_GetIncludedSubcores(XV_HdmiTxSs1 *HdmiTxSs1Ptr,
-                                            u16 DevId);
-#else
 static void XV_HdmiTxSs1_GetIncludedSubcores(XV_HdmiTxSs1 *HdmiTxSs1Ptr,
                                             UINTPTR BaseAddress);
-#endif
 static int XV_HdmiTxSs1_RegisterSubsysCallbacks(XV_HdmiTxSs1 *InstancePtr);
 static int XV_HdmiTxSs1_VtcSetup(XV_HdmiTxSs1 *HdmiTxSs1Ptr);
 static u64 XV_HdmiTxSS1_SetTMDS(XV_HdmiTxSs1 *InstancePtr);
@@ -409,27 +404,6 @@ static int XV_HdmiTxSs1_RegisterSubsysCallbacks(XV_HdmiTxSs1 *InstancePtr)
  *
  * @return None
  *****************************************************************************/
-#ifndef SDT
-static void XV_HdmiTxSs1_GetIncludedSubcores(XV_HdmiTxSs1 *HdmiTxSs1Ptr, u16 DevId)
-{
-  HdmiTxSs1Ptr->HdmiTx1Ptr     = ((HdmiTxSs1Ptr->Config.HdmiTx1.IsPresent)    \
-                        ? (&XV_HdmiTxSs1_SubCoreRepo[DevId].HdmiTx1) : NULL);
-  HdmiTxSs1Ptr->VtcPtr        = ((HdmiTxSs1Ptr->Config.Vtc.IsPresent)  \
-                        ? (&XV_HdmiTxSs1_SubCoreRepo[DevId].Vtc) : NULL);
-#ifdef XPAR_XHDCP_NUM_INSTANCES
-  /* HDCP 1.4*/
-  HdmiTxSs1Ptr->Hdcp14Ptr       = ((HdmiTxSs1Ptr->Config.Hdcp14.IsPresent) \
-                        ? (&XV_HdmiTxSs1_SubCoreRepo[DevId].Hdcp14) : NULL);
-  HdmiTxSs1Ptr->HdcpTimerPtr  = ((HdmiTxSs1Ptr->Config.HdcpTimer.IsPresent) \
-                        ? (&XV_HdmiTxSs1_SubCoreRepo[DevId].HdcpTimer) : NULL);
-#endif
-#ifdef XPAR_XHDCP22_TX_NUM_INSTANCES
-  /* HDCP 2.2*/
-  HdmiTxSs1Ptr->Hdcp22Ptr       = ((HdmiTxSs1Ptr->Config.Hdcp22.IsPresent) \
-                        ? (&XV_HdmiTxSs1_SubCoreRepo[DevId].Hdcp22) : NULL);
-#endif
-}
-#else
 static void XV_HdmiTxSs1_GetIncludedSubcores(XV_HdmiTxSs1 *HdmiTxSs1Ptr,
 					     UINTPTR BaseAddress)
 {
@@ -453,7 +427,6 @@ static void XV_HdmiTxSs1_GetIncludedSubcores(XV_HdmiTxSs1 *HdmiTxSs1Ptr,
                         ? (&XV_HdmiTxSs1_SubCoreRepo[Index].Hdcp22) : NULL);
 #endif
 }
-#endif
 /*****************************************************************************/
 /**
 * This function initializes the video subsystem and included sub-cores.
@@ -498,11 +471,7 @@ int XV_HdmiTxSs1_CfgInitialize(XV_HdmiTxSs1 *InstancePtr,
   HdmiTxSs1Ptr->DrmInfoframe.EOTF = 0xff;
 
   /* Determine sub-cores included in the provided instance of subsystem */
-#ifndef SDT
-  XV_HdmiTxSs1_GetIncludedSubcores(HdmiTxSs1Ptr, CfgPtr->DeviceId);
-#else
   XV_HdmiTxSs1_GetIncludedSubcores(HdmiTxSs1Ptr, HdmiTxSs1Ptr->Config.BaseAddress);
-#endif
 
   /* Initialize all included sub_cores */
 
@@ -3472,11 +3441,7 @@ static void XV_HdmiTxSs1_ConfigBridgeMode(XV_HdmiTxSs1 *InstancePtr) {
 ******************************************************************************/
 void XV_HdmiTxSs1_SetDefaultPpc(XV_HdmiTxSs1 *InstancePtr, u8 Id) {
     extern XV_HdmiTxSs1_Config
-#ifndef SDT
-                        XV_HdmiTxSs1_ConfigTable[XPAR_XV_HDMITXSS1_NUM_INSTANCES];
-#else
 			XV_HdmiTxSs1_ConfigTable[];
-#endif
     InstancePtr->Config.Ppc = XV_HdmiTxSs1_ConfigTable[Id].Ppc;
 }
 
