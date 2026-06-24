@@ -66,10 +66,8 @@ extern "C" {
 #include "xhdmiphy1_hw.h"
 #include "xvidc.h"
 
-#ifdef SDT
 #define XPAR_HDMIPHY1_0_TRANSCEIVER XPAR_XV_HDMIPHY1_0_TRANSCEIVER
 #define XPAR_HDMIPHY1_0_SPEEDGRADE_STR XPAR_XV_HDMIPHY1_0_SPEEDGRADE
-#endif
 /******************* Macros (Inline Functions) Definitions ********************/
 
 #define XHDMIPHY1_GTHE4 5
@@ -681,11 +679,7 @@ typedef struct {
  * This typedef contains configuration information for the Video PHY core.
  */
 typedef struct {
-#ifndef SDT
-    u16 DeviceId;           /**< Device instance ID. */
-#else
     char *Name;
-#endif
     UINTPTR BaseAddr;       /**< The base address of the core instance. */
     XHdmiphy1_GtType XcvrType;       /**< HDMIPHY Transceiver Type */
     u8 TxChannels;          /**< No. of active channels in TX */
@@ -716,11 +710,9 @@ typedef struct {
     u8  TxMaxRate;          /**< Max rate of TX */
     XHdmiphy1_ClkPrimitive TxClkPrimitive;      /**< TX Clock Primitive */
     XHdmiphy1_ClkPrimitive RxClkPrimitive;      /**< RX Clock Primitive */
-#ifdef SDT
     char *speedgrade;		/**< FPGA device speed grade */
     u16 IntrId; 		    /**< Interrupt ID */
     UINTPTR IntrParent; 	    /**< Bit[0] Interrupt parent type Bit[64/32:1] Parent base address */
-#endif
 } XHdmiphy1_Config;
 
 /* Forward declaration. */
@@ -975,12 +967,8 @@ void XHdmiphy1_InterruptHandler(XHdmiphy1 *InstancePtr);
 u32 XHdmiphy1_SelfTest(XHdmiphy1 *InstancePtr);
 
 /* xhdmiphy1_sinit.c: Configuration extraction function. */
-#ifndef SDT
-XHdmiphy1_Config *XHdmiphy1_LookupConfig(u16 DeviceId);
-#else
 XHdmiphy1_Config *XHdmiphy1_LookupConfig(UINTPTR BaseAddress);
 u32 XHdmiphy1_GetDrvIndex(XHdmiphy1 *InstancePtr, UINTPTR BaseAddress);
-#endif
 
 /* xhdmiphy1_hdmi.c, xhdmiphy1_hdmi_intr.c: Protocol specific functions. */
 u32 XHdmiphy1_Hdmi_CfgInitialize(XHdmiphy1 *InstancePtr, u8 QuadId,

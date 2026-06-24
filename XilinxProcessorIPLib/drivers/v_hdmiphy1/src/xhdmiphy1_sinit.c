@@ -1,6 +1,6 @@
 /*******************************************************************************
 * Copyright (C) 2015 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -41,44 +41,10 @@
  * A table of configuration structures containing the configuration information
  * for each Video PHY core in the system.
  */
-#ifndef SDT
-extern XHdmiphy1_Config XHdmiphy1_ConfigTable[XPAR_XHDMIPHY1_NUM_INSTANCES];
-#else
 extern XHdmiphy1_Config XHdmiphy1_ConfigTable[];
-#endif
 
 /**************************** Function Definitions ****************************/
 
-/******************************************************************************/
-/**
- * This function looks for the device configuration based on the unique device
- * ID. The table XHdmiphy1_ConfigTable[] contains the configuration information
- * for each device in the system.
- *
- * @param	DeviceId is the unique device ID of the device being looked up.
- *
- * @return	A pointer to the configuration table entry corresponding to the
- *		given device ID, or NULL if no match is found.
- *
- * @note	None.
- *
-*******************************************************************************/
-#ifndef SDT
-XHdmiphy1_Config *XHdmiphy1_LookupConfig(u16 DeviceId)
-{
-	XHdmiphy1_Config *CfgPtr = NULL;
-	u32 Index;
-
-	for (Index = 0; Index < XPAR_XHDMIPHY1_NUM_INSTANCES; Index++) {
-		if (XHdmiphy1_ConfigTable[Index].DeviceId == DeviceId) {
-			CfgPtr = &XHdmiphy1_ConfigTable[Index];
-			break;
-		}
-	}
-
-	return CfgPtr;
-}
-#else
 /******************************************************************************/
 /**
  * This function looks for the device configuration based on the base address.
@@ -107,4 +73,3 @@ XHdmiphy1_Config* XHdmiphy1_LookupConfig(UINTPTR BaseAddress)
   }
   return (CfgPtr);
 }
-#endif
