@@ -98,21 +98,15 @@ int XV_HdmiRxSs_SubcoreInitHdmiRx(XV_HdmiRxSs *HdmiRxSsPtr)
 #ifdef XV_HDMIRXSS_LOG_ENABLE
     XV_HdmiRxSs_LogWrite(HdmiRxSsPtr, XV_HDMIRXSS_LOG_EVT_HDMIRX_INIT, 0);
 #endif
-#ifndef SDT
-    ConfigPtr  = XV_HdmiRx_LookupConfig(HdmiRxSsPtr->Config.HdmiRx.DeviceId);
-#else
     ConfigPtr  = XV_HdmiRx_LookupConfig(HdmiRxSsPtr->Config.HdmiRx.AbsAddr);
-#endif
     if(ConfigPtr == NULL)
     {
       xdbg_printf(XDBG_DEBUG_GENERAL,"HDMIRXSS ERR:: HDMI RX device not found\r\n");
       return(XST_FAILURE);
     }
 
-#ifdef SDT
     HdmiRxSsPtr->Config.HdmiRx.AbsAddr +=  HdmiRxSsPtr->Config.BaseAddress;
     ConfigPtr->BaseAddress += HdmiRxSsPtr->Config.BaseAddress;
-#endif
     /* Initialize core */
     Status = XV_HdmiRx_CfgInitialize(HdmiRxSsPtr->HdmiRxPtr,
                                     ConfigPtr,
@@ -153,20 +147,14 @@ int XV_HdmiRxSs_SubcoreInitHdcpTimer(XV_HdmiRxSs *HdmiRxSsPtr)
 #ifdef XV_HDMIRXSS_LOG_ENABLE
     XV_HdmiRxSs_LogWrite(HdmiRxSsPtr, XV_HDMIRXSS_LOG_EVT_HDCPTIMER_INIT, 0);
 #endif
-#ifndef SDT
-    ConfigPtr  = XTmrCtr_LookupConfig(HdmiRxSsPtr->Config.HdcpTimer.DeviceId);
-#else
 	ConfigPtr  = XTmrCtr_LookupConfig(HdmiRxSsPtr->Config.HdcpTimer.AbsAddr);
-#endif
 	if (!ConfigPtr)	{
 		xdbg_printf(XDBG_DEBUG_GENERAL, "HDMIRXSS ERR:: AXIS Timer device not found\r\n");
 		return XST_FAILURE;
 	}
 
-#ifdef SDT
 	HdmiRxSsPtr->Config.HdcpTimer.AbsAddr +=  HdmiRxSsPtr->Config.BaseAddress;
 	ConfigPtr->BaseAddress += HdmiRxSsPtr->Config.BaseAddress;
-#endif
     /* Setup the instance */
     memset(HdmiRxSsPtr->HdcpTimerPtr, 0, sizeof(XTmrCtr));
 
@@ -225,20 +213,14 @@ int XV_HdmiRxSs_SubcoreInitHdcp14(XV_HdmiRxSs *HdmiRxSsPtr)
 #ifdef XV_HDMIRXSS_LOG_ENABLE
       XV_HdmiRxSs_LogWrite(HdmiRxSsPtr, XV_HDMIRXSS_LOG_EVT_HDCP14_INIT, 0);
 #endif
-#ifndef SDT
-      ConfigPtr  = XHdcp1x_LookupConfig(HdmiRxSsPtr->Config.Hdcp14.DeviceId);
-#else
 	ConfigPtr  = XHdcp1x_LookupConfig(HdmiRxSsPtr->Config.Hdcp14.AbsAddr);
-#endif
 	if (!ConfigPtr)	{
 		xdbg_printf(XDBG_DEBUG_GENERAL, "HDMIRXSS ERR:: HDCP 1.4 device not found\r\n");
 		return XST_FAILURE;
 	}
 
-#ifdef SDT
 	HdmiRxSsPtr->Config.Hdcp14.AbsAddr +=  HdmiRxSsPtr->Config.BaseAddress;
 	ConfigPtr->BaseAddress += HdmiRxSsPtr->Config.BaseAddress;
-#endif
       /* Initialize core */
       void *PhyIfPtr = HdmiRxSsPtr->HdmiRxPtr;
       Status = XHdcp1x_CfgInitialize(HdmiRxSsPtr->Hdcp14Ptr,
@@ -335,20 +317,14 @@ int XV_HdmiRxSs_SubcoreInitHdcp22(XV_HdmiRxSs *HdmiRxSsPtr)
 #ifdef XV_HDMIRXSS_LOG_ENABLE
       XV_HdmiRxSs_LogWrite(HdmiRxSsPtr, XV_HDMIRXSS_LOG_EVT_HDCP22_INIT, 0);
 #endif
-#ifndef SDT
-      ConfigPtr  = XHdcp22Rx_LookupConfig(HdmiRxSsPtr->Config.Hdcp22.DeviceId);
-#else
 	ConfigPtr  = XHdcp22Rx_LookupConfig(HdmiRxSsPtr->Config.Hdcp22.AbsAddr);
-#endif
 	if (!ConfigPtr)	{
 		xdbg_printf(XDBG_DEBUG_GENERAL, "HDMIRXSS ERR:: HDCP 2.2 device not found\r\n");
 		return XST_FAILURE;
 	}
 
-#ifdef SDT
 	HdmiRxSsPtr->Config.Hdcp22.AbsAddr +=  HdmiRxSsPtr->Config.BaseAddress;
 	ConfigPtr->BaseAddress += HdmiRxSsPtr->Config.BaseAddress;
-#endif
       /* Initialize core */
       Status = XHdcp22Rx_CfgInitialize(HdmiRxSsPtr->Hdcp22Ptr,
                                        ConfigPtr,
