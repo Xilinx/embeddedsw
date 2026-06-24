@@ -548,7 +548,7 @@ enum {
 	XASUFW_OCP_X509_MODULE_INIT_FAIL, /**< 0x171U - OCP X.509 module initialization is failed */
 	XASUFW_OCP_MODULE_REGISTRATION_FAIL, /**< 0x172U - OCP module registration is failed */
 	XASUFW_OCP_X509_CERT_GEN_FAIL, /**< 0x173U - X.509 certificate generation is failed */
-	XASUFW_OCP_DEVICE_KEY_TYPE_INVALID, /**< 0x174U - Error when device key type is invalid */
+	XASUFW_ERR_RESERVED_174, /**< 0x174U - Reserved */
 	XASUFW_INVALID_SUBSYSTEM_ID, /**< 0x175U - Error when subsystem ID is invalid */
 	XASUFW_OCP_KEY_MGMT_NOT_READY, /**< 0x176U - Error when DevIk pair is not ready */
 	XASUFW_OCP_DEVAK_NOT_READY, /**< 0x177U - Error when DevAk pair is not ready */

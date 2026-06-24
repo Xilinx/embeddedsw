@@ -588,7 +588,6 @@ END:
  *	- XASUFW_SUCCESS, if certificate is generated successfully.
  *	- XASUFW_FAILURE, in case of failure.
  *	- XASUFW_OCP_INVALID_PARAM, if input parameter is invalid.
- *	- XASUFW_OCP_DEVICE_KEY_TYPE_INVALID, if device key type is invalid.
  *	- XASUFW_OCP_KEY_MGMT_NOT_READY, if DevIk pair is not generated.
  *	- XASUFW_OCP_DEVAK_NOT_READY, if DevAk pair is not generated.
  *	- XASUFW_OCP_INVALID_SUBSYSTEM_INDEX, if subsystem index is invalid.
@@ -634,14 +633,6 @@ s32 XOcp_GetX509Cert(u32 SubsystemId, const XAsu_OcpCertParams *OcpCertParam, vo
 	CertData.DevKeyType = OcpCertParam->DevKeySel;
 	CertData.CertAddr = (u64)(UINTPTR)CertBuf;
 	CertData.CertMaxSize = X509_CERTIFICATE_MAX_SIZE_IN_BYTES;
-
-	/** Validate device key type. */
-	if (((IsCsr == XASU_TRUE) && (CertData.DevKeyType != (u32)XOCP_DEVIK)) ||
-	    ((CertData.DevKeyType != (u32)XOCP_DEVAK) &&
-	    (CertData.DevKeyType != (u32)XOCP_DEVIK))) {
-		Status = XASUFW_OCP_DEVICE_KEY_TYPE_INVALID;
-		goto END;
-	}
 
 	/** Subsystem ID should be ASU subsystem ID for DevIk. */
 	if ((CertData.DevKeyType == (u32)XOCP_DEVIK) && (SubsystemId != XASUFW_SUBSYTEM_ID)) {
