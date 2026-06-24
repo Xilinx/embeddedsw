@@ -1,5 +1,5 @@
 /**************************************************************************************************
-* Copyright (c) 2025, Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2025 - 2026, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 
@@ -17,6 +17,7 @@
  * ----- ----  -------- ----------------------------------------------------------------------------
  * 1.0   yog   02/18/25 Initial release
  *       yog   07/11/25 Added support for Edward curves.
+ *       msai  06/18/26 Added check to reject Edward curves in ECIES operations
  *
  * </pre>
  *
@@ -89,6 +90,11 @@ s32 XAsu_ValidateEciesParameters(const XAsu_EciesParams *EciesParams)
 	/** Validate ECC curve type. */
 	if (XAsu_EccValidateCurveInfo(EciesParams->EccCurveType, EciesParams->EccKeyLength) !=
 			XST_SUCCESS) {
+		goto END;
+	}
+	/** ECIES does not support Edward curves, reject them. */
+	if ((EciesParams->EccCurveType >= XASU_ECC_NIST_ED25519) &&
+	    (EciesParams->EccCurveType <= XASU_ECC_NIST_ED448_PH)) {
 		goto END;
 	}
 	/** Validate that the addresses of all input and output buffers are non-zero. */
