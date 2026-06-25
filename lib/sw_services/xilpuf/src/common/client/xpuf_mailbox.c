@@ -25,6 +25,7 @@
 *       am   02/17/23 Fixed HIS_COMF violations
 *       kpt  08/03/23 Fix security review comments
 * 2.4   ng   04/30/24 Fixed doxygen comments
+* 2.8   tbk  06/22/26 Added input parameter validation
 *
 * </pre>
 *
@@ -63,6 +64,7 @@
  *
  * @return
  *		- XST_SUCCESS if the IPI send and receive is successful
+ *		- XST_INVALID_PARAM if any input parameter is invalid
  *		- XST_FAILURE if there is a failure
  *
  * @note	Payload consists of API ID and call arguments to be written
@@ -73,6 +75,12 @@ int XPuf_ProcessMailbox(XMailbox *MailboxPtr, u32 *MsgPtr, u32 MsgLen)
 {
 	volatile int Status = XST_FAILURE;
 	u32 Response[RESPONSE_ARG_CNT];
+
+	/** - Validate input parameters. */
+	if ((MailboxPtr == NULL) || (MsgPtr == NULL) || (MsgLen == 0U)) {
+		Status = XST_INVALID_PARAM;
+		goto END;
+	}
 
 	/** - Send CDO to PLM through IPI. Return XST_FAILURE if sending data failed. */
 	Status = (int)XMailbox_SendData(MailboxPtr, XPUF_TARGET_IPI_INT_MASK, MsgPtr, MsgLen,

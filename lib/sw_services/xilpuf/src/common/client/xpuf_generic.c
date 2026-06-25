@@ -17,6 +17,7 @@
  * Ver   Who  Date     Changes
  * ----- ---- -------- ---------------------------------------------------------------------------
  * 2.7   tbk  03/24/26 Initial release for unified SMC/Mailbox handling
+ * 2.8   tbk  06/22/26 Added response buffer parameter validation
  *
  * </pre>
  *
@@ -71,6 +72,12 @@ int XPuf_SendRequest(const XPuf_ClientInstance *InstancePtr, u32 *PayloadBuf, u3
 
 	/** - Validate input parameters. */
 	if ((PayloadBuf == NULL) || (PayloadLen == 0U)) {
+		Status = XST_INVALID_PARAM;
+		goto END;
+	}
+
+	/** - Reject NULL response buffer when a non-zero response length is requested. */
+	if ((ResponseBuf == NULL) && (ResponseLen > 0U)) {
 		Status = XST_INVALID_PARAM;
 		goto END;
 	}

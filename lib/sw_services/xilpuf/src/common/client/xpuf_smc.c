@@ -17,6 +17,7 @@
  * Ver   Who  Date     Changes
  * ----- ---- -------- ---------------------------------------------------------------------------
  * 2.7   tbk  03/20/26 Initial release for SMC support
+ * 2.8   tbk  06/22/26 Added input parameter validation
  *
  * </pre>
  *
@@ -49,12 +50,14 @@
  * @brief	This function performs SMC call to communicate with PLM.
  *
  * @param	PayloadBuf	Pointer to payload buffer containing API ID and arguments
- * @param	PayloadLen	Length of payload buffer (number of u32 elements)
+ * @param	PayloadLen	Length of payload buffer in u32 elements; must be at least
+ *				(XPUF_SMC_PAYLOAD_INDEX_6 + 1)
  * @param	ResponseBuf	Pointer to store response values
  * @param	ResponseLen	Length of response buffer (pass 0U when ResponseBuf is NULL)
  *
  * @return
  *		- XST_SUCCESS on success
+ *		- XST_INVALID_PARAM if any input parameter is invalid
  *		- Error on failure
  *
 *************************************************************************************************/
@@ -67,8 +70,23 @@ int XPuf_SmcCall(u32 *PayloadBuf, u32 PayloadLen, u32 *ResponseBuf, u32 Response
 	u64 SmcArg3;
 	u64 SmcArg4;
 
-	/** - Validate input parameters. */
-	if ((PayloadBuf == NULL) || (PayloadLen == 0U)) {
+	/**
+	 * - Validate input parameters. PayloadBuf indices 0..XPUF_SMC_PAYLOAD_INDEX_6 are
+	 *   read unconditionally below, so reject payloads shorter than that to avoid
+	 *   out-of-bounds reads.
+	 */
+	if ((PayloadBuf == NULL) || (PayloadLen <= XPUF_SMC_PAYLOAD_INDEX_6)) {
+		Status = XST_INVALID_PARAM;
+		goto END;
+	}
+
+	/**
+	 * - Reject NULL response buffer when a non-zero response length is requested
+	 *   and bound the response length to the available SMC response slots.
+	 */
+	if (((ResponseBuf == NULL) && (ResponseLen > 0U)) ||
+		(ResponseLen > (XPUF_SMC_RESPONSE_INDEX_5 + 1U))) {
+		Status = XST_INVALID_PARAM;
 		goto END;
 	}
 
