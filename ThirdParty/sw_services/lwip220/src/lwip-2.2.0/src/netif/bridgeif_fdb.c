@@ -145,6 +145,7 @@ bridgeif_fdb_get_dst_ports(void *fdb_ptr, struct eth_addr *dst_addr)
   return BR_FLOOD;
 }
 
+#if LWIP_TIMERS
 /**
  * @ingroup bridgeif_fdb
  * Aging implementation of our simple fdb
@@ -186,6 +187,7 @@ bridgeif_age_tmr(void *arg)
   bridgeif_fdb_age_one_second(fdb);
   sys_timeout(BRIDGEIF_AGE_TIMER_MS, bridgeif_age_tmr, arg);
 }
+#endif /* LWIP_TIMERS */
 
 /**
  * @ingroup bridgeif_fdb
@@ -206,7 +208,9 @@ bridgeif_fdb_init(u16_t max_fdb_entries)
   fdb->max_fdb_entries = max_fdb_entries;
   fdb->fdb = (bridgeif_dfdb_entry_t *)(fdb + 1);
 
+#if LWIP_TIMERS
   sys_timeout(BRIDGEIF_AGE_TIMER_MS, bridgeif_age_tmr, fdb);
+#endif /* LWIP_TIMERS */
 
   return fdb;
 }
