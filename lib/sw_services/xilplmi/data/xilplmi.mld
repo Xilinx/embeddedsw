@@ -35,6 +35,7 @@
 #                       and redundant call verification
 #       aa   02/04/2026 Added configurable option for Macronix OSPI DDR support
 #       pre  03/12/2026 Updated description for TPM enable option
+# 2.5   am   06/24/2026 Update library version for 2026.2
 #
 ##############################################################################
 
@@ -47,7 +48,7 @@ BEGIN LIBRARY xilplmi
   OPTION SUPPORTED_PERIPHERALS = (psu_pmc psu_cortexa72 psv_pmc psv_cortexa72 psv_cortexr5 microblaze psxl_pmc psxl_cortexa78 psxl_cortexr52 psx_pmc psx_cortexa78 psx_cortexr52);
   OPTION APP_LINKER_FLAGS = "-Wl,--start-group,-lxilplmi,-lxil,-lgcc,-lc,--end-group";
   OPTION desc = "Xilinx Versal Platform Loader and Manager Interface Library";
-  OPTION VERSION = 2.4;
+  OPTION VERSION = 2.5;
   OPTION NAME = xilplmi;
   PARAM name = plm_uart_dbg_en, desc = "Enables (if enabled in hardware design too) or Disables Debug prints from UART (log to memory done irrespectively)", type = bool, default = true;
   PARAM name = plm_dbg_lvl, desc = "Selects the debug logs level", type = enum, values = (minimal = "level0", general = "level1", info = "level2", detailed = "level3"), default = "level1";

@@ -72,6 +72,7 @@
 *       aa   03/11/2025 Updated SDK release version
 *       tvp  24/12/2025 Added RTCA define for JTAG enablement for secondary PDI
 *       ias  03/26/2026 Added RTCA register and masks for boot device release policy
+* 2.5   am   06/24/2026 Updated SDK release version
 * </pre>
 *
 * @note
@@ -91,10 +92,10 @@ extern "C" {
 /************************** Constant Definitions *****************************/
 /* SDK release version */
 #define SDK_RELEASE_YEAR	"2026" /**< Specifies the SDK release year */
-#define SDK_RELEASE_QUARTER	"1"    /**< Specifies the SDK release quarter */
+#define SDK_RELEASE_QUARTER	"2"    /**< Specifies the SDK release quarter */
 
 #define XPLMI_PLM_MAJOR_VERSION		26U /**< PLM Major Version */
-#define XPLMI_PLM_MINOR_VERSION		1U  /**< PLM Minor Version */
+#define XPLMI_PLM_MINOR_VERSION		2U  /**< PLM Minor Version */
 #define XPLMI_PLM_RC_VERSION		XPLMI_PLM_PLAT_RC_VERSION  /**< PLM RC Version */
 
 #define XPLMI_PLM_MAJOR_VERSION_SHIFT	24U  /**< PLM Major Version Shift */

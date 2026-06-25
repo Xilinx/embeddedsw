@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2015 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2025, Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -35,6 +35,7 @@
 *       sd   09/17/25 Added POS Handoff macro
 * 10.0  aa   11/03/25 Updated SDK release version
 *       sd   12/15/25 Added PLL init function prototype
+* 11.0  am   06/24/26 Updated SDK release version
 *
 * </pre>
 *
@@ -113,7 +114,7 @@ typedef struct {
 
 /* SDK release version */
 #define SDK_RELEASE_YEAR	2026
-#define SDK_RELEASE_QUARTER	1
+#define SDK_RELEASE_QUARTER	2
 
 #define XFSBL_RUNNING			(0xFFFFU)
 #define XFSBL_COMPLETED			(0x0U)

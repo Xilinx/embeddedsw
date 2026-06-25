@@ -227,6 +227,7 @@
 *        pre 05/08/25   Added header version in boot header
 * 25.2   aa  06/19/25   Updated SDK release version
 * 26.1   aa  03/11/25   Updated SDK release version
+* 26.2   am  06/24/26   Updated SDK release version
 *
 * </pre>
 *
@@ -329,7 +330,7 @@ extern "C" {
  * SDK release version
  */
 #define SDK_RELEASE_YEAR	2026
-#define SDK_RELEASE_QUARTER	1
+#define SDK_RELEASE_QUARTER	2
 
 #define WORD_LENGTH_SHIFT	2
 

@@ -1,5 +1,5 @@
 /**************************************************************************************************
-* Copyright (c) 2023 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 
@@ -28,6 +28,7 @@
  *       ma   02/07/25 Moved TRNG DRBG configuration option to xilasu common code
  *       am   02/21/25 Added XASUFW_ENABLE_PERF_MEASUREMENT macro
  *       rmv  09/11/25 Added caution message for XASUFW_TRNG_IN_PTRNG_MODE macro
+ * 1.2   am   06/24/26 Updated SDK release version
  *
  * </pre>
  *
@@ -61,7 +62,7 @@ extern "C" {
 
 /** SDK release version */
 #define SDK_RELEASE_YEAR		2026	/**< Specifies the SDK release year */
-#define SDK_RELEASE_QUARTER		1	/**< Specifies the SDK release quarter */
+#define SDK_RELEASE_QUARTER		2	/**< Specifies the SDK release quarter */
 
 /************************************** Type Definitions *****************************************/
 
