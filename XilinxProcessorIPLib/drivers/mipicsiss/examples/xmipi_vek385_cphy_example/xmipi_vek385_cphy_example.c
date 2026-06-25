@@ -411,7 +411,6 @@ void XMipi_DisplayMainMenu(void)
 	xil_printf("---------------------\r\n");
 
 	xil_printf("h - Select Display Device : HDMI\n\r");
-	//xil_printf("d - Select Display Device : DSI\n\r");
 	xil_printf("r - Change the video resolution 2K/4K.\n\r");
 do {
 
