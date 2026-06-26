@@ -3379,19 +3379,17 @@ static int XLoader_AuthenticateKeys(XLoader_SecureParams *SecurePtr, XLoader_HBS
 				HBSignParams->ActualPpkSize);
 	}
 
-	Status = XLoader_ShaDigestCalculation((u8 *)&SecurePtr->AcPtr->SpkHeader,
-			XLOADER_SPK_HEADER_SIZE + SecurePtr->AcPtr->SpkHeader.SPKSize,
-			&SpkHash.Hash[0]);
-	if (Status != XST_SUCCESS) {
-		Status = XPlmi_UpdateStatus(XLOADER_ERR_SPK_HASH_CALC_FAIL,
-                                        Status);
-		goto END;
-	}
-
 	AuthType = XLoader_GetAuthPubAlgo(&SecurePtr->AcPtr->AuthHdr);
 	if ((AuthType == XLOADER_PUB_STRENGTH_RSA_4096) ||
 		(AuthType == XLOADER_PUB_STRENGTH_ECDSA_P384) ||
 		(AuthType == XLOADER_PUB_STRENGTH_ECDSA_P521)) {
+		Status = XLoader_ShaDigestCalculation((u8 *)&SecurePtr->AcPtr->SpkHeader,
+				XLOADER_SPK_HEADER_SIZE + SecurePtr->AcPtr->SpkHeader.SPKSize,
+				&SpkHash.Hash[0]);
+		if (Status != XST_SUCCESS) {
+			Status = XPlmi_UpdateStatus(XLOADER_ERR_SPK_HASH_CALC_FAIL, Status);
+			goto END;
+		}
 		XSECURE_TEMPORAL_CHECK(END, Status, XLoader_VerifySignature, SecurePtr,
 			SpkHash.Hash, &SecurePtr->AcPtr->Ppk,
 			(u8 *)&SecurePtr->AcPtr->SPKSignature);
@@ -3583,22 +3581,20 @@ static int XLoader_AuthenticateHashBlock(XLoader_SecureParams *SecurePtr,
 		goto END;
 	}
 
-	/** - Calculate HashBlock hash */
-	Status = XLoader_ShaDigestCalculation((u8 *)&MetaHdrPtr->HashBlock.HashData,
-			HBSignParams->HBSize, &HashBlockHash.Hash[0]);
-	if (Status != XST_SUCCESS) {
-		Status = XPlmi_UpdateStatus(XLOADER_ERR_HASH_BLOCK_HASH_CALC_FAIL,
-                                Status);
-		goto END;
-	}
-
 	/** - Verify HashBlock Signature with SPK */
 	if ((AuthType == XLOADER_PUB_STRENGTH_RSA_4096) ||
 		(AuthType == XLOADER_PUB_STRENGTH_ECDSA_P384) ||
 		(AuthType == XLOADER_PUB_STRENGTH_ECDSA_P521)) {
+		/** - Calculate HashBlock hash */
+		Status = XLoader_ShaDigestCalculation((u8 *)&MetaHdrPtr->HashBlock.HashData,
+				HBSignParams->HBSize, &HashBlockHash.Hash[0]);
+		if (Status != XST_SUCCESS) {
+			Status = XPlmi_UpdateStatus(XLOADER_ERR_HASH_BLOCK_HASH_CALC_FAIL, Status);
+			goto END;
+		}
 		XSECURE_TEMPORAL_IMPL(Status, SStatus, XLoader_VerifySignature, SecurePtr,
-				HashBlockHash.Hash, &SecurePtr->AcPtr->Spk,
-				(u8 *)&SecurePtr->AcPtr->HBSignature);
+			HashBlockHash.Hash, &SecurePtr->AcPtr->Spk,
+			(u8 *)&SecurePtr->AcPtr->HBSignature);
 	}
 	else if ((AuthType == XLOADER_PUB_STRENGTH_LMS) ||
 		(AuthType == XLOADER_PUB_STRENGTH_LMS_HSS)) {
@@ -3863,24 +3859,21 @@ static int XLoader_AuthenticateKeys(XLoader_SecureParams *SecurePtr,
 				 XLOADER_KEY_HDR_SIZE_IN_BYTES));
 	}
 
-	Status = XLoader_ShaDigestCalculation((u8 *)&SecurePtr->AcPtr->SPK.Header,
-			(HBSignParams->ActualSpkSize +
-			 XLOADER_KEY_HDR_SIZE_IN_BYTES), &SpkHash[0]);
-	if (Status != XST_SUCCESS) {
-		Status = XPlmi_UpdateStatus(XLOADER_ERR_SPK_HASH_CALC_FAIL,
-				Status);
-		goto END;
-	}
-
 	AuthType = XLoader_GetAuthPubAlgo(SecurePtr->AcPtr->PPK.Header);
 
 	if ((AuthType == XLOADER_PUB_STRENGTH_RSA_4096) ||
 	    (AuthType == XLOADER_PUB_STRENGTH_ECDSA_P384) ||
 	    (AuthType == XLOADER_PUB_STRENGTH_ECDSA_P521)) {
-		XSECURE_TEMPORAL_CHECK(END, Status, XLoader_VerifySignature,
-				SecurePtr,
-				(u8 *)&SpkHash, &SecurePtr->AcPtr->PPK,
-				(u8 *)&SecurePtr->AcPtr->AuthSignature);
+		Status = XLoader_ShaDigestCalculation((u8 *)&SecurePtr->AcPtr->SPK.Header,
+				(HBSignParams->ActualSpkSize + XLOADER_KEY_HDR_SIZE_IN_BYTES),
+				&SpkHash[0]);
+		if (Status != XST_SUCCESS) {
+			Status = XPlmi_UpdateStatus(XLOADER_ERR_SPK_HASH_CALC_FAIL, Status);
+			goto END;
+		}
+		XSECURE_TEMPORAL_CHECK(END, Status, XLoader_VerifySignature, SecurePtr,
+			(u8 *)&SpkHash, &SecurePtr->AcPtr->PPK,
+			(u8 *)&SecurePtr->AcPtr->AuthSignature);
 	} else if ((AuthType == XLOADER_PUB_STRENGTH_LMS) ||
 		   (AuthType == XLOADER_PUB_STRENGTH_LMS_HSS)) {
 		XSECURE_TEMPORAL_CHECK(END, Status, XLoader_VerifyLmsSignature,
@@ -4162,23 +4155,20 @@ static int XLoader_AuthHashBlockWithKeyPair(XLoader_SecureParams *SecurePtr,
 		goto END;
 	}
 
-	/** - Calculate HashBlock hash */
-	Status = XLoader_ShaDigestCalculation((u8 *)&MetaHdrPtr->HashBlock.HashData,
-			HBSignParams->HBSize, HashBlockHash);
-	if (Status != XST_SUCCESS) {
-		Status = XPlmi_UpdateStatus(XLOADER_ERR_HASH_BLOCK_HASH_CALC_FAIL,
-				Status);
-		goto END;
-	}
-
 	/** - Verify HashBlock Signature with SPK */
 	if ((AuthType == XLOADER_PUB_STRENGTH_RSA_4096) ||
 		(AuthType == XLOADER_PUB_STRENGTH_ECDSA_P384) ||
 		(AuthType == XLOADER_PUB_STRENGTH_ECDSA_P521)) {
-		XSECURE_TEMPORAL_IMPL(Status, SStatus, XLoader_VerifySignature,
-				SecurePtr, HashBlockHash,
-				&SecurePtr->AcPtr->SPK,
-				(u8 *)&SecurePtr->AcPtr->AuthSignature);
+		/** - Calculate HashBlock hash */
+		Status = XLoader_ShaDigestCalculation((u8 *)&MetaHdrPtr->HashBlock.HashData,
+				HBSignParams->HBSize, HashBlockHash);
+		if (Status != XST_SUCCESS) {
+			Status = XPlmi_UpdateStatus(XLOADER_ERR_HASH_BLOCK_HASH_CALC_FAIL, Status);
+			goto END;
+		}
+		XSECURE_TEMPORAL_IMPL(Status, SStatus, XLoader_VerifySignature,	SecurePtr,
+			HashBlockHash, &SecurePtr->AcPtr->SPK,
+			(u8 *)&SecurePtr->AcPtr->AuthSignature);
 	} else if ((AuthType == XLOADER_PUB_STRENGTH_LMS) ||
 		(AuthType == XLOADER_PUB_STRENGTH_LMS_HSS)) {
 		XSECURE_TEMPORAL_IMPL(Status, SStatus,
@@ -5810,22 +5800,20 @@ int XLoader_AuthenticateClientHashBlock(XLoader_SecureParams *SecurePtr,
 		goto END;
 	}
 
-	/** - Calculate HashBlock Hash */
-	Status = XLoader_ShaDigestCalculation((u8 *)&HashBlock.HashData,
-			HBSignParams->HBSize, &HashBlockHash[0]);
-	if (Status != XST_SUCCESS) {
-		Status = XPlmi_UpdateStatus(XLOADER_ERR_HASH_BLOCK_HASH_CALC_FAIL,
-                                Status);
-		goto END;
-	}
-
 	/** - Verify HashBlock Signature with SPK */
 	if ((AuthType == XLOADER_PUB_STRENGTH_RSA_4096) ||
 		(AuthType == XLOADER_PUB_STRENGTH_ECDSA_P384) ||
 		(AuthType == XLOADER_PUB_STRENGTH_ECDSA_P521)) {
+		/** - Calculate HashBlock Hash */
+		Status = XLoader_ShaDigestCalculation((u8 *)&HashBlock.HashData,
+				HBSignParams->HBSize, &HashBlockHash[0]);
+		if (Status != XST_SUCCESS) {
+			Status = XPlmi_UpdateStatus(XLOADER_ERR_HASH_BLOCK_HASH_CALC_FAIL, Status);
+			goto END;
+		}
 		XSECURE_TEMPORAL_IMPL(Status, SStatus, XLoader_VerifySignature, SecurePtr,
-				(u8 *)&HashBlockHash, &SecurePtr->AcPtr->Spk,
-				(u8 *)&SecurePtr->AcPtr->HBSignature);
+			(u8 *)&HashBlockHash, &SecurePtr->AcPtr->Spk,
+			(u8 *)&SecurePtr->AcPtr->HBSignature);
 	}
 	else if ((AuthType == XLOADER_PUB_STRENGTH_LMS) ||
 		(AuthType == XLOADER_PUB_STRENGTH_LMS_HSS)) {

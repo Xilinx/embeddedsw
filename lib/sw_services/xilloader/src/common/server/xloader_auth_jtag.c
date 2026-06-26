@@ -818,17 +818,16 @@ static int XLoader_AuthJtagPpkNSpk(u32 *TimeOut)
 		goto END;
 	}
 
-	/** - Calculate hash for SPK signature */
-	Status = XLoader_ShaDigestCalculation((u8 *)KeyData.SpkHeader,
-			XLOADER_SPK_HEADER_SIZE + KeyData.SpkHeader->TotalSPKSize,
-			&SpkHash[0]);
-	if (Status != XST_SUCCESS) {
-		Status = XPlmi_UpdateStatus(XLOADER_ERR_SPK_HASH_CALC_FAIL, Status);
-		goto END;
-	}
-
 	/** - Verify SPK signature */
 	if (IsLmsAuth != (u8)TRUE) {
+		/** - Calculate hash for SPK signature */
+		Status = XLoader_ShaDigestCalculation((u8 *)KeyData.SpkHeader,
+				XLOADER_SPK_HEADER_SIZE + KeyData.SpkHeader->TotalSPKSize,
+				&SpkHash[0]);
+		if (Status != XST_SUCCESS) {
+			Status = XPlmi_UpdateStatus(XLOADER_ERR_SPK_HASH_CALC_FAIL, Status);
+			goto END;
+		}
 		XSECURE_TEMPORAL_CHECK(END, Status, XLoader_VerifySignature, &SecureParams,
 			(u8 *)&SpkHash, (XLoader_AuthKey *)KeyData.PpkData, (u8*)KeyData.SPKSignature);
 	}
@@ -852,20 +851,21 @@ static int XLoader_AuthJtagPpkNSpk(u32 *TimeOut)
 		goto END;
 	}
 
-	/** - Calculate hash for Authenticated JTAG signature */
-	Status = XST_FAILURE;
-	Status = XLoader_ShaDigestCalculation((u8 *)&SecureParams.AuthJtagMessagePtr->IdWord,
-			(MsgLenInBytes - SecureParams.AuthJtagMessagePtr->ActualAuthJtagSignSize),
-			&Sha3Hash[0]);
-	if (Status != XST_SUCCESS) {
-		Status = XPlmi_UpdateStatus(XLOADER_ERR_SPK_HASH_CALC_FAIL, Status);
-		goto END;
-	}
-
 	/** - Verify signature of Auth Jtag data */
 	if (IsLmsAuth != (u8)TRUE) {
-		XSECURE_TEMPORAL_IMPL(Status, StatusTmp, XLoader_VerifySignature,
-			&SecureParams, (u8 *)&Sha3Hash, (XLoader_AuthKey *)KeyData.SpkData, (u8*)KeyData.EnableJtagSignature);
+		/** - Calculate hash for Authenticated JTAG signature */
+		Status = XST_FAILURE;
+		Status = XLoader_ShaDigestCalculation(
+				(u8 *)&SecureParams.AuthJtagMessagePtr->IdWord,
+				(MsgLenInBytes - SecureParams.AuthJtagMessagePtr->ActualAuthJtagSignSize),
+				&Sha3Hash[0]);
+		if (Status != XST_SUCCESS) {
+			Status = XPlmi_UpdateStatus(XLOADER_ERR_SPK_HASH_CALC_FAIL, Status);
+			goto END;
+		}
+		XSECURE_TEMPORAL_IMPL(Status, StatusTmp, XLoader_VerifySignature, &SecureParams,
+			(u8 *)&Sha3Hash, (XLoader_AuthKey *)KeyData.SpkData,
+			(u8*)KeyData.EnableJtagSignature);
 	}
 	else {
 		SecureParams.AcPtr->AuthHdr = SecureParams.AuthJtagMessagePtr->AuthHdr;
