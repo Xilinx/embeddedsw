@@ -526,7 +526,7 @@ static int EmacLiteRecvFrame(u32 PayloadSize)
 	 * This assumes MAC does not strip padding or CRC.
 	 */
 	if (RecvFrameLength != 0) {
-		int Index;
+		u32 Index;
 
 		/*
 		 * Verify length, which should be the payload size.

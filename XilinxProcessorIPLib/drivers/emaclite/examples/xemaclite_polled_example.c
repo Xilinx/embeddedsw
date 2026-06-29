@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2004 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc.  All rights reserved
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc.  All rights reserved
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -281,7 +281,7 @@ int EmacLitePolledExample(u16 DeviceId)
 static int EmacLiteSendFrame(XEmacLite *InstancePtr, u32 PayloadSize)
 {
 	u8 *FramePtr;
-	int Index;
+	u32 Index;
 	FramePtr = (u8 *)TxFrame;
 
 	/*
@@ -366,7 +366,7 @@ static int EmacLiteRecvFrame(u32 PayloadSize)
 	 * This assumes MAC does not strip padding or CRC.
 	 */
 	if (RecvFrameLength != 0) {
-		int Index;
+		u32 Index;
 
 		/*
 		 * Verify length, which should be the payload size.

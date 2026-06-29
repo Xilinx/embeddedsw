@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2009 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc.  All rights reserved
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc.  All rights reserved
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -361,7 +361,7 @@ int EmacLitePhyLoopbackExample(u16 DeviceId)
 static int SendFrame(XEmacLite *XEmacInstancePtr, u32 PayloadSize)
 {
 	u8 *FramePtr;
-	int Index;
+	u32 Index;
 	int Status;
 
 	/*
@@ -438,7 +438,7 @@ static int EmacLiteRecvFrame(u32 PayloadSize)
 	 * This assumes MAC does not strip padding or CRC.
 	 */
 	if (RecvFrameLength != 0) {
-		int Index;
+		u32 Index;
 
 		/*
 		 * Verify length, which should be the payload size.
@@ -513,6 +513,7 @@ static void EmacLiteSendHandler(void *CallBackRef)
 	 * Convert the argument to something useful.
 	 */
 	XEmacInstancePtr = (XEmacLite *)CallBackRef;
+	(void)XEmacInstancePtr;
 
 	/*
 	 * Handle the Transmit callback.

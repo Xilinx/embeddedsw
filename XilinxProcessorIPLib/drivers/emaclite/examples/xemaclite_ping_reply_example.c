@@ -328,6 +328,7 @@ static void ProcessRecvFrame(XEmacLite *InstancePtr)
 	 * Determine the next expected Tx buffer address.
 	 */
 	NextTxBuffBaseAddr = XEmacLite_NextTransmitAddr(InstancePtr);
+	(void)NextTxBuffBaseAddr;
 
 	/*
 	 * Check the packet type.

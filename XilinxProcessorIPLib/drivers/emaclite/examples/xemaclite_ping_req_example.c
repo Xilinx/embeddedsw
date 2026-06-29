@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2008 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc.  All rights reserved
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc.  All rights reserved
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -140,7 +140,7 @@ static void SendArpReqFrame(XEmacLite *InstancePtr);
 
 static void SendEchoReqFrame(XEmacLite *InstancePtr);
 
-static int ProcessRecvFrame(XEmacLite *InstancePtr);
+static int ProcessRecvFrame(XEmacLite *InstancePtr __attribute__((unused)));
 
 static u16 CheckSumCalculation(u16 *RxFramePtr16, int StartLoc, int Length);
 
@@ -420,6 +420,7 @@ static void SendArpReqFrame(XEmacLite *InstancePtr)
 	 * Determine the next expected transmit buffer base address.
 	 */
 	NextTxBuffBaseAddr = XEmacLite_NextTransmitAddr(InstancePtr);
+	(void)NextTxBuffBaseAddr;
 
 	/*
 	 * Add broadcast address.
@@ -521,11 +522,13 @@ static void SendEchoReqFrame(XEmacLite *InstancePtr)
 
 	TxFramePtr = (u16 *)TxFrame;
 	RxFramePtr = (u16 *)RxFrame;
+	(void)RxFramePtr;
 
 	/*
 	 * Determine the next expected transmit buffer base address.
 	 */
 	NextTxBuffBaseAddr = XEmacLite_NextTransmitAddr(InstancePtr);
+	(void)NextTxBuffBaseAddr;
 
 	/*
 	 * Add Destination MAC Address.
@@ -635,7 +638,7 @@ static void SendEchoReqFrame(XEmacLite *InstancePtr)
 * @note		This assumes MAC does not strip padding or CRC.
 *
 ******************************************************************************/
-static int ProcessRecvFrame(XEmacLite *InstancePtr)
+static int ProcessRecvFrame(XEmacLite *InstancePtr __attribute__((unused)))
 {
 	u16 *RxFramePtr;
 	u16 *TempPtr;
