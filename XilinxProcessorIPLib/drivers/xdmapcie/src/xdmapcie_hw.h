@@ -49,7 +49,7 @@ extern "C" {
 #define versal
 #endif
 
-#if defined XPAR_MDB_PCIE0_COMPATIBLE
+#if defined(XPAR_MDB_PCIE0_COMPATIBLE) || defined(XPAR_PCIE_EIO_COMPATIBLE)
 #define versal_2ve_2vm
 #endif
 
