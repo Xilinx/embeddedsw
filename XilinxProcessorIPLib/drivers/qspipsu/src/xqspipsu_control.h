@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2020 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -32,6 +32,7 @@
  * 1.18   sb   08/29/23 Added function prototypes for XQspiPsu_PolledMessageTransfer, XQspiPsu_PolledRecvData
  *                      XQspiPsu_PolledSendData, XQspiPsu_IntrDataTransfer, XQspiPsu_IntrSendData,
  *                      XQspiPsu_IntrRecvData and XQspiPsu_IntrDummyDataTransfer.
+ *        zm   06/18/26 Queued whole transfer into GENFIFO to fix bus conflict.
  *
  * </pre>
  *
@@ -96,13 +97,12 @@ s32 XQspiPsu_PolledRecvData(XQspiPsu *InstancePtr, XQspiPsu_Msg *Msg,
 s32 XQspiPsu_PolledSendData(XQspiPsu *InstancePtr, XQspiPsu_Msg *Msg,
 			    s32 Index);
 void XQspiPsu_IntrDataTransfer(XQspiPsu *InstancePtr,
-			       u32 *QspiPsuStatusReg, u8 *DeltaMsgCnt);
+			       u32 *QspiPsuStatusReg);
 void XQspiPsu_IntrSendData(XQspiPsu *InstancePtr,
-			   u32 QspiPsuStatusReg, u8 *DeltaMsgCnt);
+			   u32 QspiPsuStatusReg);
 void XQspiPsu_IntrRecvData(XQspiPsu *InstancePtr,
-			   u32 QspiPsuStatusReg, u32 DmaIntrStatusReg, u8 *DeltaMsgCnt);
-void XQspiPsu_IntrDummyDataTransfer(XQspiPsu *InstancePtr, u32 QspiPsuStatusReg,
-				    u8 DeltaMsgCnt);
+			   u32 QspiPsuStatusReg, u32 DmaIntrStatusReg);
+void XQspiPsu_IntrDummyDataTransfer(XQspiPsu *InstancePtr, u32 QspiPsuStatusReg);
 
 #if defined (ARMR5) || defined (__aarch64__) || defined (__MICROBLAZE__) || defined (__riscv)
 s32 XQspipsu_Set_TapDelay(const XQspiPsu *InstancePtr, u32 TapdelayBypass,

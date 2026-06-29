@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2020 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -30,6 +30,7 @@
  * 1.15   akm  03/03/22 Enable tapdelay settings for applications on
  * 			 Microblaze platform.
  * 1.22   sb   10/24/25 Added cache invalidate when EL1_NONSECURE is not defined.
+ *        zm   06/18/26 Queued whole transfer into GENFIFO to fix bus conflict.
  *
  * </pre>
  ******************************************************************************/
@@ -80,7 +81,9 @@ void XQspiPsu_FillTxFifo(XQspiPsu *InstancePtr, XQspiPsu_Msg *Msg, u32 Size)
 #ifdef DEBUG
 	xil_printf("\nXQspiPsu_FillTxFifo\r\n");
 #endif
-	while ((InstancePtr->TxBytes > 0) && (Count < Size)) {
+	while ((InstancePtr->TxBytes > 0) && (Count < Size) &&
+	       (!(XQspiPsu_ReadReg(InstancePtr->Config.BaseAddress,
+				XQSPIPSU_ISR_OFFSET) & XQSPIPSU_ISR_TXFULL_MASK))) {
 		if (InstancePtr->TxBytes >= 4) {
 			(void)Xil_MemCpy((u8 *)&Data, Msg->TxBfrPtr, 4);
 			Msg->TxBfrPtr += 4;

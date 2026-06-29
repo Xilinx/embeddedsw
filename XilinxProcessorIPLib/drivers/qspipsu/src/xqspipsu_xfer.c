@@ -22,6 +22,8 @@
  * 1.18   sb  08/29/2023 Restructured the code for more modularity
  * 1.18   sb  08/29/2023 Update XQspiPsu_PolledRecvData api to fix MISRA-C warnings.
  * 1.22   sb  10/24/2025 Added cache invalidate when EL1_NONSECURE is not defined.
+ *        zm  06/18/2026 Queued whole transfer into GENFIFO to fix bus conflict.
+ *        zm  06/25/2026 Skip IO read when RxBytes is zero.
  *
  * </pre>
  ******************************************************************************/
@@ -136,8 +138,10 @@ s32 XQspiPsu_PolledRecvData(XQspiPsu *InstancePtr, XQspiPsu_Msg *Msg,
 			InstancePtr->RxBytes = 0;
 		}
 	} else {
-		QspiPsuStatusReg = XQspiPsu_ReadReg(InstancePtr->Config.BaseAddress, XQSPIPSU_ISR_OFFSET);
-		XQspiPsu_IORead(InstancePtr, &Msg[Index], QspiPsuStatusReg);
+		if (InstancePtr->RxBytes != 0) {
+			QspiPsuStatusReg = XQspiPsu_ReadReg(InstancePtr->Config.BaseAddress, XQSPIPSU_ISR_OFFSET);
+			XQspiPsu_IORead(InstancePtr, &Msg[Index], QspiPsuStatusReg);
+		}
 	}
 	Status = (s32)XST_SUCCESS;
 END:
@@ -157,29 +161,15 @@ END:
  *
  *
  ******************************************************************************/
-void XQspiPsu_IntrSendData(XQspiPsu *InstancePtr,
-			   u32 QspiPsuStatusReg, u8 *DeltaMsgCnt)
+void XQspiPsu_IntrSendData(XQspiPsu *InstancePtr, u32 QspiPsuStatusReg)
 {
 	s32 MsgCnt = InstancePtr->MsgCnt;
 	XQspiPsu_Msg *Msg = InstancePtr->Msg;
-	u32 TxRxFlag = Msg[MsgCnt].Flags;
 
 	if ( ((QspiPsuStatusReg & XQSPIPSU_ISR_TXNOT_FULL_MASK) != (u32)FALSE) &&
 	     (InstancePtr->TxBytes > 0)) {
 		XQspiPsu_FillTxFifo(InstancePtr, &Msg[MsgCnt], (u32)XQSPIPSU_TXD_DEPTH);
 	}
-	/*
-	 * Check if the entry is ONLY TX and increase MsgCnt.
-	 * This is to allow TX and RX together in one entry - corner case.
-	 */
-	if (  ((QspiPsuStatusReg & XQSPIPSU_ISR_TXEMPTY_MASK) != (u32)FALSE) &&
-	      ((QspiPsuStatusReg & XQSPIPSU_ISR_GENFIFOEMPTY_MASK) != (u32)FALSE) &&
-	      (InstancePtr->TxBytes == 0) &&
-	      ((TxRxFlag & XQSPIPSU_MSG_FLAG_RX) == (u32)FALSE)) {
-		MsgCnt += 1;
-		*DeltaMsgCnt = 1U;
-	}
-	InstancePtr->MsgCnt = MsgCnt;
 }
 
 /*****************************************************************************/
@@ -197,7 +187,7 @@ void XQspiPsu_IntrSendData(XQspiPsu *InstancePtr,
  *
  ******************************************************************************/
 void XQspiPsu_IntrRecvData(XQspiPsu *InstancePtr,
-			   u32 QspiPsuStatusReg, u32 DmaIntrStatusReg, u8 *DeltaMsgCnt)
+			   u32 QspiPsuStatusReg, u32 DmaIntrStatusReg)
 {
 	s32 MsgCnt = InstancePtr->MsgCnt;
 	XQspiPsu_Msg *Msg = InstancePtr->Msg;
@@ -215,24 +205,17 @@ void XQspiPsu_IntrRecvData(XQspiPsu *InstancePtr,
 #else
 			Xil_DCacheInvalidateRange((INTPTR)Msg[MsgCnt].RxBfrPtr, (INTPTR)Msg[MsgCnt].ByteCount);
 #endif
-			if (XQspiPsu_SetIOMode(InstancePtr, &Msg[MsgCnt]) == (u32)TRUE) {
+			if (XQspiPsu_SetIOMode(InstancePtr, &Msg[MsgCnt])) {
 				XQspiPsu_GenFifoEntryData(InstancePtr, &Msg[MsgCnt]);
 				XQspiPsu_ManualStartEnable(InstancePtr);
 			} else {
 				InstancePtr->RxBytes = 0;
-				MsgCnt += 1;
-				*DeltaMsgCnt = 1U;
 			}
 		}
 	} else {
 		if (InstancePtr->RxBytes != 0) {
 			XQspiPsu_IORead(InstancePtr, &Msg[MsgCnt], QspiPsuStatusReg);
-			if (InstancePtr->RxBytes == 0) {
-				MsgCnt += 1;
-				*DeltaMsgCnt = 1U;
-			}
 		}
 	}
-	InstancePtr->MsgCnt = MsgCnt;
 }
 /** @} */

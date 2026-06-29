@@ -86,6 +86,7 @@
  * 1.18 sb  09/11/23 Fix MISRA-C violation 8.13.
  * 1.19 sb  01/12/24 Added support for baud rate divisor
  * 1.22 sb  10/24/25 Added cache invalidate when EL1_NONSECURE is not defined.
+ *      zm  06/18/26 Queued whole transfer into GENFIFO to fix bus conflict.
  *
  * </pre>
  *
@@ -562,15 +563,18 @@ s32 XQspiPsu_InterruptTransfer(XQspiPsu *InstancePtr, XQspiPsu_Msg *Msg,
 		 */
 		InstancePtr->IsBusy = (u32)TRUE;
 
-		InstancePtr->Msg = Msg;
-		InstancePtr->NumMsg = (s32)NumMsg;
-		InstancePtr->MsgCnt = 0;
-
 		/* Select slave */
 		XQspiPsu_GenFifoEntryCSAssert(InstancePtr);
 		/* This might not work if not manual start */
 		/* Put first message in FIFO along with the above slave select */
-		XQspiPsu_GenFifoEntryData(InstancePtr, &Msg[0]);
+		for (Index = 0; Index < (s32)NumMsg; Index++) {
+			XQspiPsu_GenFifoEntryData(InstancePtr, &Msg[Index]);
+		}
+
+		InstancePtr->Msg = Msg;
+		InstancePtr->NumMsg = (s32)NumMsg;
+		InstancePtr->MsgCnt = (Index - 1);
+
 		XQspiPsu_ManualStartEnable(InstancePtr);
 
 		/* Enable interrupts */
@@ -578,8 +582,7 @@ s32 XQspiPsu_InterruptTransfer(XQspiPsu *InstancePtr, XQspiPsu_Msg *Msg,
 				  (u32)XQSPIPSU_IER_TXNOT_FULL_MASK |
 				  (u32)XQSPIPSU_IER_TXEMPTY_MASK |
 				  (u32)XQSPIPSU_IER_RXNEMPTY_MASK |
-				  (u32)XQSPIPSU_IER_GENFIFOEMPTY_MASK |
-				  (u32)XQSPIPSU_IER_RXEMPTY_MASK);
+				  (u32)XQSPIPSU_IER_GENFIFOEMPTY_MASK);
 
 		if (InstancePtr->ReadMode == XQSPIPSU_READMODE_DMA) {
 			XQspiPsu_WriteReg(InstancePtr->Config.BaseAddress, XQSPIPSU_QSPIDMA_DST_I_EN_OFFSET,
@@ -612,7 +615,6 @@ s32 XQspiPsu_InterruptHandler(XQspiPsu *InstancePtr)
 	const XQspiPsu_Msg *Msg;
 	s32 NumMsg;
 	s32 MsgCnt;
-	u8 DeltaMsgCnt = 0;
 	u32 TxRxFlag;
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -623,27 +625,10 @@ s32 XQspiPsu_InterruptHandler(XQspiPsu *InstancePtr)
 	Msg = InstancePtr->Msg;
 	NumMsg = InstancePtr->NumMsg;
 	MsgCnt = InstancePtr->MsgCnt;
-	TxRxFlag = Msg[MsgCnt].Flags;
+	TxRxFlag = (MsgCnt < NumMsg) ? Msg[MsgCnt].Flags : 0U;
 
-	XQspiPsu_IntrDataTransfer(InstancePtr, &QspiPsuStatusReg, &DeltaMsgCnt);
-	MsgCnt = InstancePtr->MsgCnt;
-	/*
-	 * Dummy byte transfer
-	 * MsgCnt < NumMsg check is to ensure is it a valid dummy cycle message
-	 * If one of the above conditions increased MsgCnt, then
-	 * the new message is yet to be placed in the FIFO; hence !DeltaMsgCnt.
-	 */
-	if ((MsgCnt < NumMsg) && (DeltaMsgCnt == (u8)FALSE) &&
-	    ((TxRxFlag & XQSPIPSU_MSG_FLAG_RX) == (u32)FALSE) &&
-	    ((TxRxFlag & XQSPIPSU_MSG_FLAG_TX) == (u32)FALSE) &&
-	    ((TxRxFlag & XQSPIPSU_MSG_FLAG_POLL) == (u32)FALSE) &&
-	    ((QspiPsuStatusReg & XQSPIPSU_ISR_GENFIFOEMPTY_MASK) != (u32)FALSE)) {
-		MsgCnt += 1;
-		DeltaMsgCnt = 1U;
-	}
-	InstancePtr->MsgCnt = MsgCnt;
-
-	XQspiPsu_IntrDummyDataTransfer(InstancePtr, QspiPsuStatusReg, DeltaMsgCnt);
+	XQspiPsu_IntrDataTransfer(InstancePtr, &QspiPsuStatusReg);
+	XQspiPsu_IntrDummyDataTransfer(InstancePtr, QspiPsuStatusReg);
 	if ((TxRxFlag & XQSPIPSU_MSG_FLAG_POLL) != (u32)FALSE) {
 		XQspiPsu_PollDataHandler(InstancePtr, QspiPsuStatusReg);
 	}
