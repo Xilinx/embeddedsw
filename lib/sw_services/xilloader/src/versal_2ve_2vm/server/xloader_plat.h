@@ -58,6 +58,7 @@
 *       sri  03/26/2026 Added IPI API definition for Versal 2VE and 2VM devices
 *       sk   04/02/2026 Added TAP Unlock register defines
 *       pre  05/25/2026 Added function to calculate I2C device ID for I2C handshake feature
+* 2.5   pre  06/29/2026 Removed XLoader_GetBootHeaderIvAddr function declaration
 *
 * </pre>
 *
@@ -510,7 +511,6 @@ int XLoader_LoadAsuImage(void);
 int XLoader_CheckAndUpdateSecureState(void);
 int XLoader_MeasureNLoad(XilPdi* PdiPtr);
 void XLoader_ShaInstance1Reset(void);
-u32 XLoader_GetBootHeaderIvAddr(void);
 int XLoader_MeasureRomAndPlm(void);
 #if defined(XLOADER_PMC_IIC) && defined(PLM_I2C_MB_HANDSHAKE)
 int Xloader_GetI2CDeviceID(const char *str, u32 *I2CDevID);

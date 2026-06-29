@@ -1,6 +1,6 @@
 ###############################################################################
 # Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
-# Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+# Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 # SPDX-License-Identifier: MIT
 ##############################################################################
 #
@@ -18,6 +18,7 @@
 #       bm   05/20/2024 Add freertos10_xilinx support
 # 1.05  prt  05/15/2025 Updated library version
 # 1.06  sd   11/10/2025 Updated library version
+# 1.07  pre  06/29/2026 Updated library version
 #
 ##############################################################################
 
@@ -30,7 +31,7 @@ BEGIN LIBRARY xilloader
   OPTION SUPPORTED_PERIPHERALS = (psu_pmc psu_cortexa72 psv_pmc psv_cortexa72 psv_cortexr5 microblaze psxl_pmc psxl_cortexa78 psxl_cortexr52 psx_pmc psx_cortexa78 psx_cortexr52 );
   OPTION APP_LINKER_FLAGS = "-Wl,--start-group,-lxilloader,-lxil,-lgcc,-lc,--end-group";
   OPTION desc = "Xilinx Versal Platform Loader Library";
-  OPTION VERSION = 2.4;
+  OPTION VERSION = 2.5;
   OPTION NAME = xilloader;
   PARAM name = xloader_mode, desc = "Enables server mode for PMC and client mode for APU, RPU and Microblaze", type = enum, values = (mode = "client", mode = "server"), default = "server";
   PARAM name = xloader_cache_disable, desc = "Enables/Disables Cache for XilLoader client library", type = bool, default = true;
