@@ -648,7 +648,7 @@ enum {
 	XASUFW_LMS_OTS_SIGN_SHA_DIGEST_FAILED_ERROR, /**< 0x1C9U - LMS OTS signature SHA digest failed */
 	XASUFW_LMS_PUB_KEY_UNSUPPORTED_TYPE_1_ERROR, /**< 0x1CAU - LMS public key unsupported type 1 */
 	XASUFW_LMS_SIGN_EXPECTED_PUB_KEY_LEN_2_ERROR, /**< 0x1CBU - LMS signature expected public key length error 2 */
-	XASUFW_LMS_SIGN_LEN_1_ERROR, /**< 0x1CCU - LMS signature length error 1 */
+	XASUFW_ERR_RESERVED_1CC, /**< 0x1CCU - Reserved */
 	XASUFW_LMS_OTS_PUB_KEY_LMS_OTS_SIGN_TYPE_MISMATCH_ERROR, /**< 0x1CDU - LMS OTS public key and LMS OTS signature type mismatch */
 	XASUFW_LMS_SIGN_UNSUPPORTED_OTS_TYPE_1_ERROR, /**< 0x1CEU - LMS signature unsupported OTS type 1 */
 	XASUFW_LMS_SIGN_LEN_2_ERROR, /**< 0x1CFU - LMS signature length error 2 */

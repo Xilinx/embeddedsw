@@ -142,7 +142,6 @@ static XLms_PubKeyTmp LmsPubKeyTmpBuff; /**< Structured view over leaf/internal 
 *		- XASUFW_LMS_PUB_KEY_UNSUPPORTED_TYPE_1_ERROR - LMS public key type is unsupported
 *		- XASUFW_LMS_SIGN_EXPECTED_PUB_KEY_LEN_2_ERROR - Public key length mismatches
 								expected size
-*		- XASUFW_LMS_SIGN_LEN_1_ERROR - Signature too short to contain LMS header
 *		- XASUFW_LMS_SIGN_LEN_2_ERROR - Signature lacks the full LMS OTS section
 *		- XASUFW_LMS_OTS_PUB_KEY_LMS_OTS_SIGN_TYPE_MISMATCH_ERROR - LMS OTS types mismatch
 								between signature and public key
@@ -471,10 +470,6 @@ s32 XLms_HssInit(XSha *ShaInstPtr, XAsufw_Dma *DmaPtr,
 			Status = XASUFW_LMS_INVALID_PARAM;
 			goto END;
 		}
-		if (HssParamsPtr->SignatureLen > XLMS_HSS_LOCAL_SIGNATURE_BUFF_SIZE) {
-			Status = XASUFW_LMS_INVALID_PARAM;
-			goto END;
-		}
 	}
 
 	/**
@@ -566,11 +561,6 @@ s32 XLms_HssInit(XSha *ShaInstPtr, XAsufw_Dma *DmaPtr,
 
 		/* Signature processing - sequence. */
 
-		/* Length should have at least levels mentioned */
-		if (XLMS_HSS_LEVELS_FIELD_SIZE > HssParamsPtr->SignatureLen) {
-			Status = XASUFW_LMS_INVALID_PARAM;
-			goto END;
-		}
 
 		/**
 		 * DMA copy signature to local buffer since 64-bit addresses may not be directly accessible.
@@ -1283,7 +1273,6 @@ END:
 *		- XASUFW_LMS_PUB_KEY_UNSUPPORTED_TYPE_1_ERROR - Public key LMS type unsupported
 *		- XASUFW_LMS_SIGN_EXPECTED_PUB_KEY_LEN_2_ERROR - Public key length mismatched with
 *								expected size
-*		- XASUFW_LMS_SIGN_LEN_1_ERROR - Signature too short to contain LMS OTS header
 *		- XASUFW_LMS_SIGN_LEN_2_ERROR - Signature shorter than required LMS OTS portion
 *		- XASUFW_LMS_SIGN_LEN_3_ERROR - Signature length mismatch once auth path included
 *		- XASUFW_LMS_OTS_PUB_KEY_LMS_OTS_SIGN_TYPE_MISMATCH_ERROR - LMS OTS types mismatch
@@ -1626,7 +1615,6 @@ END:
 *		- XASUFW_MEM_COPY_FAIL - Local buffer copy failed
 *		- XASUFW_LMS_PUB_KEY_UNSUPPORTED_TYPE_1_ERROR - LMS public key type unsupported
 *		- XASUFW_LMS_SIGN_EXPECTED_PUB_KEY_LEN_2_ERROR - Public key length mismatch
-*		- XASUFW_LMS_SIGN_LEN_1_ERROR - Signature too short for LMS header
 *		- XASUFW_LMS_SIGN_LEN_2_ERROR - Signature lacks full LMS OTS section
 *		- XASUFW_LMS_SIGN_LEN_3_ERROR - Signature length mismatch after auth path
 *		- XASUFW_LMS_OTS_PUB_KEY_LMS_OTS_SIGN_TYPE_MISMATCH_ERROR - OTS type mismatch
@@ -1662,91 +1650,86 @@ static s32 XLms_ValidateInputs(XAsufw_Dma *DmaPtr,
 			goto END;
 		}
 
-	/**
-	 * Skip public key DMA if source is already the local buffer (PreHashedMsg case from HssFinish).
-	 * Otherwise, copy public key provided by user to local buffer since 64-bit address space
-	 * is not accessible to ASU processor.
-	 */
-	if (LmsSignVerifyParams->LmsHssKeyObj.PubKeyAddr != (u64)(UINTPTR)AuthenticatedKey.Buff) {
-		Status = XAsufw_DmaXfr(DmaPtr, LmsSignVerifyParams->LmsHssKeyObj.PubKeyAddr,
-			(u64)(UINTPTR)LmsLocalPubKeyBuff, LmsSignVerifyParams->LmsHssKeyObj.PubKeyLen, 0U);
-		if (Status != XASUFW_SUCCESS) {
-			Status = XASUFW_DMA_COPY_FAIL;
-			goto END;
-		}
-	} else {
 		/**
-		 * Source is AuthenticatedKey.Buff, copy to LmsLocalPubKeyBuff.
-		 * This is a local-to-local copy, use memcpy for efficiency.
+		 * Skip public key DMA if source is already the local buffer (PreHashedMsg case from HssFinish).
+		 * Otherwise, copy public key provided by user to local buffer since 64-bit address space
+		 * is not accessible to ASU processor.
 		 */
-		Status = Xil_SMemCpy((void*)LmsLocalPubKeyBuff, XLMS_PUB_KEY_TOTAL_SIZE,
-				(const void *)(UINTPTR)&AuthenticatedKey.Buff,
-				LmsSignVerifyParams->LmsHssKeyObj.PubKeyLen,
-				LmsSignVerifyParams->LmsHssKeyObj.PubKeyLen);
+		if (LmsSignVerifyParams->LmsHssKeyObj.PubKeyAddr != (u64)(UINTPTR)AuthenticatedKey.Buff) {
+			Status = XAsufw_DmaXfr(DmaPtr, LmsSignVerifyParams->LmsHssKeyObj.PubKeyAddr,
+				(u64)(UINTPTR)LmsLocalPubKeyBuff, LmsSignVerifyParams->LmsHssKeyObj.PubKeyLen, 0U);
+			if (Status != XASUFW_SUCCESS) {
+				Status = XASUFW_DMA_COPY_FAIL;
+				goto END;
+			}
+		} else {
+			/**
+			 * Source is AuthenticatedKey.Buff, copy to LmsLocalPubKeyBuff.
+			 * This is a local-to-local copy, use memcpy for efficiency.
+			 */
+			Status = Xil_SMemCpy((void*)LmsLocalPubKeyBuff, XLMS_PUB_KEY_TOTAL_SIZE,
+					(const void *)(UINTPTR)&AuthenticatedKey.Buff,
+					LmsSignVerifyParams->LmsHssKeyObj.PubKeyLen,
+					LmsSignVerifyParams->LmsHssKeyObj.PubKeyLen);
+			if (Status != XASUFW_SUCCESS) {
+				Status = XASUFW_MEM_COPY_FAIL;
+				goto END;
+			}
+		}
+
+		/**
+		 * RFC 8554 Section 5.4: LMS public key format is u32str(type) || u32str(otstype) || I || T[1].
+		 * Extract type (4 bytes) to determine tree parameters.
+		 */
+		CtxPtr->PubKeyLmsType = (XLms_Type)XAsufw_SwapBytes(
+				(const u8*)&LmsLocalPubKeyBuff[XLMS_PUB_KEY_TYPE_OFFSET], XLMS_TYPE_SIZE);
+
+		/** Extract OTS type (4 bytes) which defines Winternitz parameter w and chain configuration */
+		CtxPtr->PubKeyLmsOtsType = (XLms_OtsType)XAsufw_SwapBytes(
+				(const u8*)&LmsLocalPubKeyBuff[XLMS_PUB_KEY_OTS_TYPE_OFFSET], XLMS_OTS_TYPE_SIZE);
+
+		/** Lookup LMS parameters (tree height, hash output size, etc.) based on type */
+		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+		Status = XLms_LookupParamSet(CtxPtr->PubKeyLmsType, &CtxPtr->LmsPubKeyParam);
 		if (Status != XASUFW_SUCCESS) {
-			Status = XASUFW_MEM_COPY_FAIL;
+			Status = XASUFW_LMS_PUB_KEY_UNSUPPORTED_TYPE_1_ERROR;
 			goto END;
 		}
-	}
 
-	/**
-	 * RFC 8554 Section 5.4: LMS public key format is u32str(type) || u32str(otstype) || I || T[1].
-	 * Extract type (4 bytes) to determine tree parameters.
-	 */
-	CtxPtr->PubKeyLmsType = (XLms_Type)XAsufw_SwapBytes(
-			(const u8*)&LmsLocalPubKeyBuff[XLMS_PUB_KEY_TYPE_OFFSET], XLMS_TYPE_SIZE);
+		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+		/** Verify public key length matches: fixed fields + hash output size (m bytes) */
+		if ((XLMS_PUB_KEY_FIXED_FIELD_SIZE + CtxPtr->LmsPubKeyParam->HashOutputBytes) !=
+			LmsSignVerifyParams->LmsHssKeyObj.PubKeyLen) {
+			Status = XASUFW_LMS_SIGN_EXPECTED_PUB_KEY_LEN_2_ERROR;
+			goto END;
+		}
 
-	/** Extract OTS type (4 bytes) which defines Winternitz parameter w and chain configuration */
-	CtxPtr->PubKeyLmsOtsType = (XLms_OtsType)XAsufw_SwapBytes(
-			(const u8*)&LmsLocalPubKeyBuff[XLMS_PUB_KEY_OTS_TYPE_OFFSET], XLMS_OTS_TYPE_SIZE);
 
-	/** Lookup LMS parameters (tree height, hash output size, etc.) based on type */
-	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-	Status = XLms_LookupParamSet(CtxPtr->PubKeyLmsType, &CtxPtr->LmsPubKeyParam);
-	if (Status != XASUFW_SUCCESS) {
-		Status = XASUFW_LMS_PUB_KEY_UNSUPPORTED_TYPE_1_ERROR;
-		goto END;
-	}
-
-	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-	/** Verify public key length matches: fixed fields + hash output size (m bytes) */
-	if ((XLMS_PUB_KEY_FIXED_FIELD_SIZE + CtxPtr->LmsPubKeyParam->HashOutputBytes) !=
-		LmsSignVerifyParams->LmsHssKeyObj.PubKeyLen) {
-		Status = XASUFW_LMS_SIGN_EXPECTED_PUB_KEY_LEN_2_ERROR;
-		goto END;
-	}
-
-	/** Signature must contain at least q field (4 bytes) + OTS type (4 bytes) */
-	if ((XLMS_Q_FIELD_SIZE + XLMS_OTS_TYPE_SIZE) > LmsSignVerifyParams->SignatureLen) {
-		Status = XASUFW_LMS_SIGN_LEN_1_ERROR;
-		goto END;
-	}
-
-	/**
-	 * Skip signature DMA if source is already the local buffer (PreHashedMsg case from HssFinish).
-	 * Otherwise, DMA copy signature to local buffer.
-	 * For large signatures from external memory (> XASUFW_DMA_BLOCKING_SIZE), use non-blocking DMA.
-	 */
-	if (LmsSignVerifyParams->SignatureAddr != (u64)(UINTPTR)LmsLocalSignatureBuff) {
-		if (LmsSignVerifyParams->SignatureLen > XASUFW_DMA_BLOCKING_SIZE) {
-			Status = XAsufw_StartDmaXfr(DmaPtr, LmsSignVerifyParams->SignatureAddr,
-				(u64)(UINTPTR)LmsLocalSignatureBuff, LmsSignVerifyParams->SignatureLen, 0U);
-			if (Status != XASUFW_SUCCESS) {
-				Status = XASUFW_DMA_COPY_FAIL;
-				goto END;
-			}
-			ValidateInputsDmaState = XLMS_DMA_STATE_PENDING;
-			Status = XASUFW_CMD_IN_PROGRESS;
-		} else {
-			Status = XAsufw_DmaXfr(DmaPtr, LmsSignVerifyParams->SignatureAddr,
-				(u64)(UINTPTR)LmsLocalSignatureBuff, LmsSignVerifyParams->SignatureLen, 0U);
-			if (Status != XASUFW_SUCCESS) {
-				Status = XASUFW_DMA_COPY_FAIL;
-				goto END;
+		/**
+		 * Skip signature DMA if source is already the local buffer (PreHashedMsg case from HssFinish).
+		 * Otherwise, DMA copy signature to local buffer.
+		 * For large signatures from external memory (> XASUFW_DMA_BLOCKING_SIZE), use non-blocking DMA.
+		 */
+		if (LmsSignVerifyParams->SignatureAddr != (u64)(UINTPTR)LmsLocalSignatureBuff) {
+			if (LmsSignVerifyParams->SignatureLen > XASUFW_DMA_BLOCKING_SIZE) {
+				Status = XAsufw_StartDmaXfr(DmaPtr, LmsSignVerifyParams->SignatureAddr,
+					(u64)(UINTPTR)LmsLocalSignatureBuff, LmsSignVerifyParams->SignatureLen, 0U);
+				if (Status != XASUFW_SUCCESS) {
+					Status = XASUFW_DMA_COPY_FAIL;
+					goto END;
+				}
+				ValidateInputsDmaState = XLMS_DMA_STATE_PENDING;
+				Status = XASUFW_CMD_IN_PROGRESS;
+			} else {
+				Status = XAsufw_DmaXfr(DmaPtr, LmsSignVerifyParams->SignatureAddr,
+					(u64)(UINTPTR)LmsLocalSignatureBuff, LmsSignVerifyParams->SignatureLen, 0U);
+				if (Status != XASUFW_SUCCESS) {
+					Status = XASUFW_DMA_COPY_FAIL;
+					goto END;
+				}
 			}
 		}
-	}
-	/* When SignatureAddr == LmsLocalSignatureBuff, signature is already in place (from HssFinish) */
+		/* When SignatureAddr == LmsLocalSignatureBuff, signature is already in place (from HssFinish) */
 		break;
 
 	default:
@@ -1767,7 +1750,7 @@ static s32 XLms_ValidateInputs(XAsufw_Dma *DmaPtr,
 			/* Convert q back to BE for digest calculation */
 			DigestPrefixFields.Fields.q = Xil_Htonl(CurrentLmsQ);
 
-				/** Copy I from public key to digest prefix buffer */
+			/** Copy I from public key to digest prefix buffer */
 			ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 			Status = Xil_SMemCpy((void*)DigestPrefixFields.Fields.DigestTreeId, XLMS_I_FIELD_SIZE,
 					(void*)&LmsLocalPubKeyBuff[XLMS_PUB_KEY_I_OFFSET], XLMS_I_FIELD_SIZE,
@@ -1786,7 +1769,7 @@ static s32 XLms_ValidateInputs(XAsufw_Dma *DmaPtr,
 				&LmsLocalSignatureBuff[XLMS_SIGNATURE_OTS_FIELD_OFFSET + XLMS_OTS_SIGN_TYPE_FIELD_OFFSET],
 				XLMS_OTS_TYPE_SIZE);
 
-			/** RFC 8554 Section 5.4.2 Step 1: Signature OTS type must match public key's expected OTS type */
+		/** RFC 8554 Section 5.4.2 Step 1: Signature OTS type must match public key's expected OTS type */
 		if (CtxPtr->PubKeyLmsOtsType != SignLmsOtsType) {
 			Status = XASUFW_LMS_OTS_PUB_KEY_LMS_OTS_SIGN_TYPE_MISMATCH_ERROR;
 			goto END;
