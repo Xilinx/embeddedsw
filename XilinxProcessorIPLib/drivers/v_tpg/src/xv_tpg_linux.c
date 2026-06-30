@@ -69,7 +69,7 @@ static XV_tpg_uio_info uio_info;
  *
  * @note Buffer must be at least MAX_UIO_NAME_SIZE bytes
  *
- ******************************************************
+ ******************************************************************************/
 /************************** Function Implementation *************************/
 static int line_from_file(char* filename, char* linebuf) {
     char* s;
