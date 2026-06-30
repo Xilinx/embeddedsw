@@ -50,7 +50,9 @@ typedef struct {
 } XDsi2Ss_SubCores;
 
 /**************************** Variable Definitions ***********************************/
-XDsi2Ss_SubCores Dsi2SsSubCores[];
+
+XDsi2Ss_SubCores Dsi2SsSubCores[XPAR_XDSIRXSS_NUM_INSTANCES];
+
 /***************** Macros (Inline Functions) Definitions *********************/
 
 
