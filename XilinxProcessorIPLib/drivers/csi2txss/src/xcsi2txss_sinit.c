@@ -91,6 +91,8 @@ u32 XCsi2TxSs_GetDrvIndex(XCsi2TxSs *InstancePtr, UINTPTR BaseAddress)
 {
  u32 Index = 0;
 
+ (void)InstancePtr;
+
  for (Index = 0U; XCsi2TxSs_ConfigTable[Index].Name != NULL; Index++) {
    if ((XCsi2TxSs_ConfigTable[Index].BaseAddr == BaseAddress)) {
 	break;

@@ -54,7 +54,7 @@ typedef struct {
 /**************************** Local Global ***********************************/
 
 /* Define Driver instance of all sub-core included in the design */
-XCsi2TxSs_SubCores Csi2TxSsSubCores[];
+XCsi2TxSs_SubCores Csi2TxSsSubCores[XPAR_XCSI2TXSS_NUM_INSTANCES];
 /***************** Macros (Inline Functions) Definitions *********************/
 
 
