@@ -1,8 +1,7 @@
 /******************************************************************************
-******************************************************************************
 * Copyright 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
-/*****************************************************************************/
+******************************************************************************/
 /**
  * @file xdsi2rx_hw.h
  * @addtogroup dsi2rx Overview
@@ -54,7 +53,7 @@ extern "C" {
 
 /** @name Core configuration register masks and shifts
  *
-/* This register is used for the enabling/disabling and resetting
+ * This register is used for the enabling/disabling and resetting
  * the core of DSI Rx Controller
  * @{
  */
