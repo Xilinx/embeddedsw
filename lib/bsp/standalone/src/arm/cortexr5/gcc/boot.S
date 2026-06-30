@@ -81,6 +81,9 @@
 * 9.5  asa  03/31/26  Moved TCM region initialization earlier in the boot sequence,
 *		      before stack pointer configuration, to prevent speculative
 *		      access.
+* 9.5  vmt  05/20/26  Unified Cortex-R52 armclang and GCC startup
+*                     assembly sources to support armclang integrated
+*                     assembler.
 * </pre>
 *
 ******************************************************************************/
@@ -90,15 +93,13 @@
 #include "bspconfig.h"
 #endif
 
+.eabi_attribute Tag_ABI_align_needed, 1
+.eabi_attribute Tag_ABI_align_preserved, 1
 
 .global _prestart
+.type _prestart, %function
 .global _boot
-.global __stack
-.global __irq_stack
-.global __supervisor_stack
-.global __abort_stack
-.global __fiq_stack
-.global __undef_stack
+.type _boot, %function
 .global _vector_table
 
 #if defined (ARMR52)
@@ -107,6 +108,31 @@
 .global _TCM_C_REGION
 #endif
 
+#if defined(__clang__)
+/*
+ * armlink scatter-load symbols
+ */
+.extern Image$$ARM_LIB_STACK$$ZI$$Base
+.extern Image$$ARM_IRQ_STACK$$ZI$$Limit
+.extern Image$$ARM_SV_STACK$$ZI$$Limit
+.extern Image$$ARM_ABORT_STACK$$ZI$$Limit
+.extern Image$$ARM_FIQ_STACK$$ZI$$Limit
+.extern Image$$ARM_UNDEF_STACK$$ZI$$Limit
+
+.set SYS_stack,		Image$$ARM_LIB_STACK$$ZI$$Base
+.set IRQ_stack,		Image$$ARM_IRQ_STACK$$ZI$$Limit
+.set SPV_stack,		Image$$ARM_SV_STACK$$ZI$$Limit
+.set Abort_stack,	Image$$ARM_ABORT_STACK$$ZI$$Limit
+.set FIQ_stack,		Image$$ARM_FIQ_STACK$$ZI$$Limit
+.set Undef_stack,	Image$$ARM_UNDEF_STACK$$ZI$$Limit
+#else
+.global __stack
+.global __irq_stack
+.global __supervisor_stack
+.global __abort_stack
+.global __fiq_stack
+.global __undef_stack
+
 /* Stack Pointer locations for boot code */
 .set Undef_stack,	__undef_stack
 .set FIQ_stack,		__fiq_stack
@@ -114,6 +140,7 @@
 .set SPV_stack,		__supervisor_stack
 .set IRQ_stack,		__irq_stack
 .set SYS_stack,		__stack
+#endif
 
 .set vector_base,	_vector_table
 
@@ -149,7 +176,11 @@
 #endif
 #endif
 
+#if defined(__clang__)
+.section .boot,"ax"
+#else
 .section .boot,"axS"
+#endif
 
 /* this initializes the various processor modes */
 
@@ -220,7 +251,7 @@ InitTCMDone:
 	ldr	r1,=XCortexr52_ConfigTable
 	ldr     r0,[r1]
 #endif
-    mcr     15,0,r0,c14,c0,0        /* Write CNTFRQ */
+    mcr     p15,0,r0,c14,c0,0        /* Write CNTFRQ */
 
 /* Change EL1 exception base address */
     ldr r0, =_vector_table

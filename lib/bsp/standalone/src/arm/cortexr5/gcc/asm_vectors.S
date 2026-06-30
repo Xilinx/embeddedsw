@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2014 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2025 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 /*****************************************************************************/
@@ -18,14 +18,20 @@
 * 6.0   mus     27/07/16 Added UndefinedException handler
 * 6.3	pkp	02/13/17 Added support for hard float
 * 9.4   vmt     14/07/25 Extended FPU register support to 32 for Cortex-R52
+* 9.5   vmt     05/20/26 Unified Cortex-R52 armclang and GCC startup
+*                        assembly sources to support armclang integrated
+*                        assembler.
 * </pre>
 *
 ******************************************************************************/
 .org 0
 .text
+.eabi_attribute Tag_ABI_align_needed, 1
+.eabi_attribute Tag_ABI_align_preserved, 1
 
 .globl _boot
 .globl _vector_table
+.type _vector_table, %function
 
 .globl FIQInterrupt
 .globl IRQInterrupt
@@ -34,9 +40,16 @@
 .globl PrefetchAbortInterrupt
 
 .globl IRQHandler
+.type IRQHandler, %function
+#if !defined(__clang__)
 .globl prof_pc
+#endif
 
+#if defined(__clang__)
+.section vectors, "ax"
+#else
 .section .vectors, "a"
+#endif
 _vector_table:
 	ldr	pc,=_boot
 	ldr	pc,=Undefined
@@ -98,7 +111,11 @@ Undefined:					/* Undefined handler */
 SVCHandler:					/* SWI handler */
 	stmdb	sp!,{r0-r3,r12,lr}		/* state save from compiled code */
 	tst	r0, #0x20			/* check the T bit */
+#if !defined(__clang__)
 	ldrneh	r0, [lr,#-2]			/* Thumb mode */
+#else
+	ldrhne	r0, [lr,#-2]			/* Thumb mode */
+#endif
 	bicne	r0, r0, #0xff00			/* Thumb mode */
 	ldreq	r0, [lr,#-4]			/* ARM mode */
 	biceq	r0, r0, #0xff000000		/* ARM mode */

@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2014 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2023 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 /*****************************************************************************/
@@ -45,6 +45,9 @@
 *                     been moved to CortexR5 related flag.
 * 9.1   dp   03/26/24 Update the #ifdef check to invoke XTime_StartTimer() only when
 *                     CONFIG_R52_USE_LPD_SYS_TMR is defined.
+* 9.5   vmt  05/20/26 Unified Cortex-R52 armclang and GCC startup
+*                     assembly sources to support armclang integrated
+*                     assembler.
 * </pre>
 *
 ******************************************************************************/
@@ -52,6 +55,53 @@
 #include "xparameters.h"
 #endif
 #include "bspconfig.h"
+
+.eabi_attribute Tag_ABI_align_needed, 1
+.eabi_attribute Tag_ABI_align_preserved, 1
+
+.globl	_startup
+.type	_startup, %function
+.extern	__cpu_init
+
+#if defined(__clang__)
+
+	.section .text,"ax"
+	.align	3
+
+	.extern	__scatterload_rt2
+	.extern	__cpp_initialize__aeabi_
+	.extern	main
+	.extern	Image$$BSS_SECTION$$Base
+#ifdef SLEEP_TIMER_BASEADDR
+	.extern	XTime_StartTTCTimer
+#endif
+#if !defined(ARMR52)
+	.extern	Xil_InitializeExistingMPURegConfig
+#endif
+
+_startup:
+	bl	__cpu_init
+	bl	__scatterload_rt2
+	bl	__cpp_initialize__aeabi_
+
+#ifdef SLEEP_TIMER_BASEADDR
+	bl	XTime_StartTTCTimer
+#endif
+#if !defined(ARMR52)
+	bl	Xil_InitializeExistingMPURegConfig
+#endif
+	mov	r0, #0
+	mov	r1, #0
+#ifdef XCLOCKING
+	bl	Xil_ClockInit
+#endif
+	bl	main
+	bl	exit
+
+.Lexit:
+	b	.Lexit
+
+#else /* GCC path */
 
 	.file	"xil-crt0.S"
 	.section ".got2","aw"
@@ -86,8 +136,6 @@
 .set RPU_1_PWRCTL,	0xFF9A0208
 .set MPIDR_AFF0,	0xFF
 .set PWRCTL_MASK,	0x1
-
-	.globl	_startup
 
 _startup:
 	bl      __cpu_init		/* Initialize the CPU first (BSP provides this) */
@@ -199,3 +247,5 @@ noaccess:
 
 .Lstart:
 	.size	_startup,.Lstart-_startup
+
+#endif /* __clang__ */

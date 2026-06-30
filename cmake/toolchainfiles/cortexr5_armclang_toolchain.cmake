@@ -7,7 +7,7 @@ set( CMAKE_C_COMPILER armclang)
 set( CMAKE_CXX_COMPILER armclang )
 set( CMAKE_C_COMPILER_LAUNCHER  )
 set( CMAKE_CXX_COMPILER_LAUNCHER  )
-set( CMAKE_ASM_COMPILER armasm )
+set( CMAKE_ASM_COMPILER armclang )
 # Force ASM compiler identification to bypass timeout issues caused by PATH conflicts
 set( CMAKE_ASM_COMPILER_ID "GNU" )
 set( CMAKE_AR armar CACHE FILEPATH "Archiver" )

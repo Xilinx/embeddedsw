@@ -1,4 +1,4 @@
-# Copyright (c) 2023-2025 Advanced Micro Devices, Inc. All Rights Reserved.
+# Copyright (c) 2023-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 # SPDX-License-Identifier: MIT
 cmake_minimum_required(VERSION 3.15)
 project(xilstandalone)
@@ -88,11 +88,11 @@ set(ASM_S_FILES ${CMAKE_CURRENT_SOURCE_DIR}/arm/ARMv8/64bit/armclang/asm_vectors
 set(CLANG_TARGET --target=aarch64-arm-none-eabi)
 set(CLANG_CPU --cpu=8-A.64)
 elseif("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "cortexr5")
-set(ASM_S_FILES ${CMAKE_CURRENT_SOURCE_DIR}/arm/cortexr5/armclang/asm_vectors.S ${CMAKE_CURRENT_SOURCE_DIR}/arm/cortexr5/armclang//boot.S ${CMAKE_CURRENT_SOURCE_DIR}/arm/cortexr5/armclang/xil-crt0.S ${CMAKE_CURRENT_SOURCE_DIR}/arm/cortexr5/armclang/cpu_init.S)
+set(ASM_S_FILES ${CMAKE_CURRENT_SOURCE_DIR}/arm/cortexr5/gcc/asm_vectors.S ${CMAKE_CURRENT_SOURCE_DIR}/arm/cortexr5/gcc/boot.S ${CMAKE_CURRENT_SOURCE_DIR}/arm/cortexr5/gcc/xil-crt0.S ${CMAKE_CURRENT_SOURCE_DIR}/arm/cortexr5/gcc/cpu_init.S)
 set(CLANG_TARGET --target=arm-arm-none-eabi)
 set(CLANG_CPU --cpu=Cortex-R5)
 elseif("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "cortexr52")
-set(ASM_S_FILES ${CMAKE_CURRENT_SOURCE_DIR}/arm/cortexr5/armclang/asm_vectors.S ${CMAKE_CURRENT_SOURCE_DIR}/arm/cortexr5/armclang//boot.S ${CMAKE_CURRENT_SOURCE_DIR}/arm/cortexr5/armclang/xil-crt0.S ${CMAKE_CURRENT_SOURCE_DIR}/arm/cortexr5/armclang/cpu_init.S)
+set(ASM_S_FILES ${CMAKE_CURRENT_SOURCE_DIR}/arm/cortexr5/gcc/asm_vectors.S ${CMAKE_CURRENT_SOURCE_DIR}/arm/cortexr5/gcc/boot.S ${CMAKE_CURRENT_SOURCE_DIR}/arm/cortexr5/gcc/xil-crt0.S ${CMAKE_CURRENT_SOURCE_DIR}/arm/cortexr5/gcc/cpu_init.S)
 set(CLANG_TARGET --target=arm-arm-none-eabi)
 set(CLANG_CPU --cpu=Cortex-R52)
 elseif("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "cortexa9")
@@ -100,33 +100,40 @@ set(ASM_S_FILES ${CMAKE_CURRENT_SOURCE_DIR}/arm/cortexa9/armcc/boot.S  ${CMAKE_C
 set(CLANG_TARGET --cpu=Cortex-A9 --fpu=VFPv3)
 set(CLANG_CPU --cpu=Cortex-A9 --fpu=VFPv3)
 endif()
+get_filename_component(_asm_tool "${CMAKE_ASM_COMPILER}" NAME_WE)
 foreach(ASM_S_FILE ${ASM_S_FILES})
-    # Get the file name without the extension
-    get_filename_component(FILE_NAME ${ASM_S_FILE} NAME_WE)
+	# Get the file name without the extension
+	get_filename_component(FILE_NAME ${ASM_S_FILE} NAME_WE)
+	set(ASM_O_FILE ${CMAKE_CURRENT_BINARY_DIR}/${FILE_NAME}.o)
 
-    # Define the names of the .s and .o files
-    if ("${FILE_NAME}" STREQUAL "boot")
-        set(ASM_s_FILE ${CMAKE_CURRENT_BINARY_DIR}/${FILE_NAME}_post.s)
-    else()
-        set(ASM_s_FILE ${CMAKE_CURRENT_BINARY_DIR}/${FILE_NAME}.s)
-    endif()
-    set(ASM_O_FILE ${CMAKE_CURRENT_BINARY_DIR}/${FILE_NAME}.o)
+	# Define the names of the .s and .o files
+	if("${_asm_tool}" STREQUAL "armasm")
+		if ("${FILE_NAME}" STREQUAL "boot")
+			set(ASM_s_FILE ${CMAKE_CURRENT_BINARY_DIR}/${FILE_NAME}_post.s)
+		else()
+			set(ASM_s_FILE ${CMAKE_CURRENT_BINARY_DIR}/${FILE_NAME}.s)
+		endif()
+		# Add a custom command to convert .S to .s
+		add_custom_command(
+			OUTPUT ${ASM_s_FILE}
+			COMMAND ${CMAKE_C_COMPILER} ${CLANG_TARGET} ARGS ${CLANG_FLAGS} -I ${CMAKE_INCLUDE_PATH} -I ${CMAKE_BINARY_DIR}/include -E -o ${ASM_s_FILE} ${ASM_S_FILE}
+			DEPENDS ${ASM_S_FILE}
+		)
+		# Add a custom command to convert .s to .o
+		add_custom_command(
+			OUTPUT ${ASM_O_FILE}
+			COMMAND ${CMAKE_ASM_COMPILER} ${CLANG_CPU} -o ${ASM_O_FILE} ${ASM_s_FILE} --depend=$$*.d
+			DEPENDS ${ASM_s_FILE}
+		)
+	else()
+		add_custom_command(
+			OUTPUT ${ASM_O_FILE}
+			COMMAND ${CMAKE_C_COMPILER} ${CLANG_TARGET} ${CLANG_FLAGS} -I ${CMAKE_INCLUDE_PATH} -I ${CMAKE_BINARY_DIR}/include -c -o ${ASM_O_FILE} ${ASM_S_FILE}
+			DEPENDS ${ASM_S_FILE}
+		)
+	endif()
 
-    # Add a custom command to convert .S to .s
-    add_custom_command(
-        OUTPUT ${ASM_s_FILE}
-	COMMAND ${CMAKE_C_COMPILER} ${CLANG_TARGET} ARGS ${CLANG_FLAGS} -I ${CMAKE_INCLUDE_PATH} -I ${CMAKE_BINARY_DIR}/include -E -o ${ASM_s_FILE} ${ASM_S_FILE}
-        DEPENDS ${ASM_S_FILE}
-    )
-
-    # Add a custom command to convert .s to .o
-    add_custom_command(
-        OUTPUT ${ASM_O_FILE}
-	COMMAND ${CMAKE_ASM_COMPILER} ${CLANG_CPU} -o ${ASM_O_FILE} ${ASM_s_FILE} --depend=$$*.d
-        DEPENDS ${ASM_s_FILE}
-    )
-
-    # Add the .o file to a list of object files
+	# Add the .o file to a list of object files
     list(APPEND ASM_O_FILES ${ASM_O_FILE})
 endforeach()
 add_library(xilstandalone STATIC ${_sources} ${ASM_O_FILES})
