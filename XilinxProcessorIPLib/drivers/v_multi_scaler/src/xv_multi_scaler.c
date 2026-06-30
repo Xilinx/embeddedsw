@@ -36,7 +36,6 @@
 int XV_multi_scaler_CfgInitialize(XV_multi_scaler *InstancePtr,
 		XV_multi_scaler_Config *ConfigPtr)
 {
-	u16 i;
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(ConfigPtr != NULL);
 
@@ -791,7 +790,7 @@ u64 XV_multi_scaler_Get_HwReg_srcImgBuf0_0_V(XV_multi_scaler *InstancePtr)
 
 	Data = XV_multi_scaler_ReadReg(InstancePtr->Ctrl_BaseAddress,
 		XV_MULTI_SCALER_CTRL_ADDR_HWREG_SRCIMGBUF0_0_V_DATA);
-	Data += XV_multi_scaler_ReadReg(InstancePtr->Ctrl_BaseAddress,
+	Data += (u64)XV_multi_scaler_ReadReg(InstancePtr->Ctrl_BaseAddress,
 		XV_MULTI_SCALER_CTRL_ADDR_HWREG_SRCIMGBUF0_0_V_DATA + 4) << 32;
 	return Data;
 }
@@ -846,7 +845,7 @@ u64 XV_multi_scaler_Get_HwReg_srcImgBuf1_0_V(XV_multi_scaler *InstancePtr)
 
 	Data = XV_multi_scaler_ReadReg(InstancePtr->Ctrl_BaseAddress,
 		XV_MULTI_SCALER_CTRL_ADDR_HWREG_SRCIMGBUF1_0_V_DATA);
-	Data += XV_multi_scaler_ReadReg(InstancePtr->Ctrl_BaseAddress,
+	Data += (u64)XV_multi_scaler_ReadReg(InstancePtr->Ctrl_BaseAddress,
 		XV_MULTI_SCALER_CTRL_ADDR_HWREG_SRCIMGBUF1_0_V_DATA + 4) << 32;
 	return Data;
 }
@@ -901,7 +900,7 @@ u64 XV_multi_scaler_Get_HwReg_dstImgBuf0_0_V(XV_multi_scaler *InstancePtr)
 
 	Data = XV_multi_scaler_ReadReg(InstancePtr->Ctrl_BaseAddress,
 		XV_MULTI_SCALER_CTRL_ADDR_HWREG_DSTIMGBUF0_0_V_DATA);
-	Data += XV_multi_scaler_ReadReg(InstancePtr->Ctrl_BaseAddress,
+	Data += (u64)XV_multi_scaler_ReadReg(InstancePtr->Ctrl_BaseAddress,
 		XV_MULTI_SCALER_CTRL_ADDR_HWREG_DSTIMGBUF0_0_V_DATA + 4) << 32;
 	return Data;
 }
@@ -956,7 +955,7 @@ u64 XV_multi_scaler_Get_HwReg_dstImgBuf1_0_V(XV_multi_scaler *InstancePtr)
 
 	Data = XV_multi_scaler_ReadReg(InstancePtr->Ctrl_BaseAddress,
 		XV_MULTI_SCALER_CTRL_ADDR_HWREG_DSTIMGBUF1_0_V_DATA);
-	Data += XV_multi_scaler_ReadReg(InstancePtr->Ctrl_BaseAddress,
+	Data += (u64)XV_multi_scaler_ReadReg(InstancePtr->Ctrl_BaseAddress,
 		XV_MULTI_SCALER_CTRL_ADDR_HWREG_DSTIMGBUF1_0_V_DATA + 4) << 32;
 	return Data;
 }
@@ -1501,7 +1500,7 @@ u64 XV_multi_scaler_Get_HwReg_srcImgBuf0_1_V(XV_multi_scaler *InstancePtr)
 
 	Data = XV_multi_scaler_ReadReg(InstancePtr->Ctrl_BaseAddress,
 		XV_MULTI_SCALER_CTRL_ADDR_HWREG_SRCIMGBUF0_1_V_DATA);
-	Data += XV_multi_scaler_ReadReg(InstancePtr->Ctrl_BaseAddress,
+	Data += (u64)XV_multi_scaler_ReadReg(InstancePtr->Ctrl_BaseAddress,
 		XV_MULTI_SCALER_CTRL_ADDR_HWREG_SRCIMGBUF0_1_V_DATA + 4) << 32;
 	return Data;
 }
@@ -1556,7 +1555,7 @@ u64 XV_multi_scaler_Get_HwReg_srcImgBuf1_1_V(XV_multi_scaler *InstancePtr)
 
 	Data = XV_multi_scaler_ReadReg(InstancePtr->Ctrl_BaseAddress,
 		XV_MULTI_SCALER_CTRL_ADDR_HWREG_SRCIMGBUF1_1_V_DATA);
-	Data += XV_multi_scaler_ReadReg(InstancePtr->Ctrl_BaseAddress,
+	Data += (u64)XV_multi_scaler_ReadReg(InstancePtr->Ctrl_BaseAddress,
 		XV_MULTI_SCALER_CTRL_ADDR_HWREG_SRCIMGBUF1_1_V_DATA + 4) << 32;
 	return Data;
 }
@@ -1611,7 +1610,7 @@ u64 XV_multi_scaler_Get_HwReg_dstImgBuf0_1_V(XV_multi_scaler *InstancePtr)
 
 	Data = XV_multi_scaler_ReadReg(InstancePtr->Ctrl_BaseAddress,
 		XV_MULTI_SCALER_CTRL_ADDR_HWREG_DSTIMGBUF0_1_V_DATA);
-	Data += XV_multi_scaler_ReadReg(InstancePtr->Ctrl_BaseAddress,
+	Data += (u64)XV_multi_scaler_ReadReg(InstancePtr->Ctrl_BaseAddress,
 		XV_MULTI_SCALER_CTRL_ADDR_HWREG_DSTIMGBUF0_1_V_DATA + 4) << 32;
 	return Data;
 }
@@ -1666,7 +1665,7 @@ u64 XV_multi_scaler_Get_HwReg_dstImgBuf1_1_V(XV_multi_scaler *InstancePtr)
 
 	Data = XV_multi_scaler_ReadReg(InstancePtr->Ctrl_BaseAddress,
 		XV_MULTI_SCALER_CTRL_ADDR_HWREG_DSTIMGBUF1_1_V_DATA);
-	Data += XV_multi_scaler_ReadReg(InstancePtr->Ctrl_BaseAddress,
+	Data += (u64)XV_multi_scaler_ReadReg(InstancePtr->Ctrl_BaseAddress,
 		XV_MULTI_SCALER_CTRL_ADDR_HWREG_DSTIMGBUF1_1_V_DATA + 4) << 32;
 	return Data;
 }
@@ -2211,7 +2210,7 @@ u64 XV_multi_scaler_Get_HwReg_srcImgBuf0_2_V(XV_multi_scaler *InstancePtr)
 
 	Data = XV_multi_scaler_ReadReg(InstancePtr->Ctrl_BaseAddress,
 		XV_MULTI_SCALER_CTRL_ADDR_HWREG_SRCIMGBUF0_2_V_DATA);
-	Data += XV_multi_scaler_ReadReg(InstancePtr->Ctrl_BaseAddress,
+	Data += (u64)XV_multi_scaler_ReadReg(InstancePtr->Ctrl_BaseAddress,
 		XV_MULTI_SCALER_CTRL_ADDR_HWREG_SRCIMGBUF0_2_V_DATA + 4) << 32;
 	return Data;
 }
@@ -2266,7 +2265,7 @@ u64 XV_multi_scaler_Get_HwReg_srcImgBuf1_2_V(XV_multi_scaler *InstancePtr)
 
 	Data = XV_multi_scaler_ReadReg(InstancePtr->Ctrl_BaseAddress,
 		XV_MULTI_SCALER_CTRL_ADDR_HWREG_SRCIMGBUF1_2_V_DATA);
-	Data += XV_multi_scaler_ReadReg(InstancePtr->Ctrl_BaseAddress,
+	Data += (u64)XV_multi_scaler_ReadReg(InstancePtr->Ctrl_BaseAddress,
 		XV_MULTI_SCALER_CTRL_ADDR_HWREG_SRCIMGBUF1_2_V_DATA + 4) << 32;
 	return Data;
 }
@@ -2321,7 +2320,7 @@ u64 XV_multi_scaler_Get_HwReg_dstImgBuf0_2_V(XV_multi_scaler *InstancePtr)
 
 	Data = XV_multi_scaler_ReadReg(InstancePtr->Ctrl_BaseAddress,
 		XV_MULTI_SCALER_CTRL_ADDR_HWREG_DSTIMGBUF0_2_V_DATA);
-	Data += XV_multi_scaler_ReadReg(InstancePtr->Ctrl_BaseAddress,
+	Data += (u64)XV_multi_scaler_ReadReg(InstancePtr->Ctrl_BaseAddress,
 		XV_MULTI_SCALER_CTRL_ADDR_HWREG_DSTIMGBUF0_2_V_DATA + 4) << 32;
 	return Data;
 }
@@ -2375,7 +2374,7 @@ u64 XV_multi_scaler_Get_HwReg_dstImgBuf1_2_V(XV_multi_scaler *InstancePtr)
 
 	Data = XV_multi_scaler_ReadReg(InstancePtr->Ctrl_BaseAddress,
 		XV_MULTI_SCALER_CTRL_ADDR_HWREG_DSTIMGBUF1_2_V_DATA);
-	Data += XV_multi_scaler_ReadReg(InstancePtr->Ctrl_BaseAddress,
+	Data += (u64)XV_multi_scaler_ReadReg(InstancePtr->Ctrl_BaseAddress,
 		XV_MULTI_SCALER_CTRL_ADDR_HWREG_DSTIMGBUF1_2_V_DATA + 4) << 32;
 	return Data;
 }
@@ -2920,7 +2919,7 @@ u64 XV_multi_scaler_Get_HwReg_srcImgBuf0_3_V(XV_multi_scaler *InstancePtr)
 
 	Data = XV_multi_scaler_ReadReg(InstancePtr->Ctrl_BaseAddress,
 		XV_MULTI_SCALER_CTRL_ADDR_HWREG_SRCIMGBUF0_3_V_DATA);
-	Data += XV_multi_scaler_ReadReg(InstancePtr->Ctrl_BaseAddress,
+	Data += (u64)XV_multi_scaler_ReadReg(InstancePtr->Ctrl_BaseAddress,
 		XV_MULTI_SCALER_CTRL_ADDR_HWREG_SRCIMGBUF0_3_V_DATA + 4) << 32;
 	return Data;
 }
@@ -2975,7 +2974,7 @@ u64 XV_multi_scaler_Get_HwReg_srcImgBuf1_3_V(XV_multi_scaler *InstancePtr)
 
 	Data = XV_multi_scaler_ReadReg(InstancePtr->Ctrl_BaseAddress,
 		XV_MULTI_SCALER_CTRL_ADDR_HWREG_SRCIMGBUF1_3_V_DATA);
-	Data += XV_multi_scaler_ReadReg(InstancePtr->Ctrl_BaseAddress,
+	Data += (u64)XV_multi_scaler_ReadReg(InstancePtr->Ctrl_BaseAddress,
 		XV_MULTI_SCALER_CTRL_ADDR_HWREG_SRCIMGBUF1_3_V_DATA + 4) << 32;
 	return Data;
 }
@@ -3030,7 +3029,7 @@ u64 XV_multi_scaler_Get_HwReg_dstImgBuf0_3_V(XV_multi_scaler *InstancePtr)
 
 	Data = XV_multi_scaler_ReadReg(InstancePtr->Ctrl_BaseAddress,
 		XV_MULTI_SCALER_CTRL_ADDR_HWREG_DSTIMGBUF0_3_V_DATA);
-	Data += XV_multi_scaler_ReadReg(InstancePtr->Ctrl_BaseAddress,
+	Data += (u64)XV_multi_scaler_ReadReg(InstancePtr->Ctrl_BaseAddress,
 		XV_MULTI_SCALER_CTRL_ADDR_HWREG_DSTIMGBUF0_3_V_DATA + 4) << 32;
 	return Data;
 }
@@ -3085,7 +3084,7 @@ u64 XV_multi_scaler_Get_HwReg_dstImgBuf1_3_V(XV_multi_scaler *InstancePtr)
 
 	Data = XV_multi_scaler_ReadReg(InstancePtr->Ctrl_BaseAddress,
 		XV_MULTI_SCALER_CTRL_ADDR_HWREG_DSTIMGBUF1_3_V_DATA);
-	Data += XV_multi_scaler_ReadReg(InstancePtr->Ctrl_BaseAddress,
+	Data += (u64)XV_multi_scaler_ReadReg(InstancePtr->Ctrl_BaseAddress,
 		XV_MULTI_SCALER_CTRL_ADDR_HWREG_DSTIMGBUF1_3_V_DATA + 4) << 32;
 	return Data;
 }
@@ -3608,7 +3607,7 @@ u64 XV_multi_scaler_Get_HwReg_srcImgBuf0_4_V(XV_multi_scaler *InstancePtr)
 
 	Data = XV_multi_scaler_ReadReg(InstancePtr->Ctrl_BaseAddress,
 		XV_MULTI_SCALER_CTRL_ADDR_HWREG_SRCIMGBUF0_4_V_DATA);
-	Data += XV_multi_scaler_ReadReg(InstancePtr->Ctrl_BaseAddress,
+	Data += (u64)XV_multi_scaler_ReadReg(InstancePtr->Ctrl_BaseAddress,
 		XV_MULTI_SCALER_CTRL_ADDR_HWREG_SRCIMGBUF0_4_V_DATA + 4) << 32;
 	return Data;
 }
@@ -3661,7 +3660,7 @@ u64 XV_multi_scaler_Get_HwReg_srcImgBuf1_4_V(XV_multi_scaler *InstancePtr)
 
 	Data = XV_multi_scaler_ReadReg(InstancePtr->Ctrl_BaseAddress,
 		XV_MULTI_SCALER_CTRL_ADDR_HWREG_SRCIMGBUF1_4_V_DATA);
-	Data += XV_multi_scaler_ReadReg(InstancePtr->Ctrl_BaseAddress,
+	Data += (u64)XV_multi_scaler_ReadReg(InstancePtr->Ctrl_BaseAddress,
 		XV_MULTI_SCALER_CTRL_ADDR_HWREG_SRCIMGBUF1_4_V_DATA + 4) << 32;
 	return Data;
 }
@@ -3714,7 +3713,7 @@ u64 XV_multi_scaler_Get_HwReg_dstImgBuf0_4_V(XV_multi_scaler *InstancePtr)
 
 	Data = XV_multi_scaler_ReadReg(InstancePtr->Ctrl_BaseAddress,
 		XV_MULTI_SCALER_CTRL_ADDR_HWREG_DSTIMGBUF0_4_V_DATA);
-	Data += XV_multi_scaler_ReadReg(InstancePtr->Ctrl_BaseAddress,
+	Data += (u64)XV_multi_scaler_ReadReg(InstancePtr->Ctrl_BaseAddress,
 		XV_MULTI_SCALER_CTRL_ADDR_HWREG_DSTIMGBUF0_4_V_DATA + 4) << 32;
 	return Data;
 }
@@ -3767,7 +3766,7 @@ u64 XV_multi_scaler_Get_HwReg_dstImgBuf1_4_V(XV_multi_scaler *InstancePtr)
 
 	Data = XV_multi_scaler_ReadReg(InstancePtr->Ctrl_BaseAddress,
 		XV_MULTI_SCALER_CTRL_ADDR_HWREG_DSTIMGBUF1_4_V_DATA);
-	Data += XV_multi_scaler_ReadReg(InstancePtr->Ctrl_BaseAddress,
+	Data += (u64)XV_multi_scaler_ReadReg(InstancePtr->Ctrl_BaseAddress,
 		XV_MULTI_SCALER_CTRL_ADDR_HWREG_DSTIMGBUF1_4_V_DATA + 4) << 32;
 	return Data;
 }
@@ -4290,7 +4289,7 @@ u64 XV_multi_scaler_Get_HwReg_srcImgBuf0_5_V(XV_multi_scaler *InstancePtr)
 
 	Data = XV_multi_scaler_ReadReg(InstancePtr->Ctrl_BaseAddress,
 		XV_MULTI_SCALER_CTRL_ADDR_HWREG_SRCIMGBUF0_5_V_DATA);
-	Data += XV_multi_scaler_ReadReg(InstancePtr->Ctrl_BaseAddress,
+	Data += (u64)XV_multi_scaler_ReadReg(InstancePtr->Ctrl_BaseAddress,
 		XV_MULTI_SCALER_CTRL_ADDR_HWREG_SRCIMGBUF0_5_V_DATA + 4) << 32;
 	return Data;
 }
@@ -4343,7 +4342,7 @@ u64 XV_multi_scaler_Get_HwReg_srcImgBuf1_5_V(XV_multi_scaler *InstancePtr)
 
 	Data = XV_multi_scaler_ReadReg(InstancePtr->Ctrl_BaseAddress,
 		XV_MULTI_SCALER_CTRL_ADDR_HWREG_SRCIMGBUF1_5_V_DATA);
-	Data += XV_multi_scaler_ReadReg(InstancePtr->Ctrl_BaseAddress,
+	Data += (u64)XV_multi_scaler_ReadReg(InstancePtr->Ctrl_BaseAddress,
 		XV_MULTI_SCALER_CTRL_ADDR_HWREG_SRCIMGBUF1_5_V_DATA + 4) << 32;
 	return Data;
 }
@@ -4396,7 +4395,7 @@ u64 XV_multi_scaler_Get_HwReg_dstImgBuf0_5_V(XV_multi_scaler *InstancePtr)
 
 	Data = XV_multi_scaler_ReadReg(InstancePtr->Ctrl_BaseAddress,
 		XV_MULTI_SCALER_CTRL_ADDR_HWREG_DSTIMGBUF0_5_V_DATA);
-	Data += XV_multi_scaler_ReadReg(InstancePtr->Ctrl_BaseAddress,
+	Data += (u64)XV_multi_scaler_ReadReg(InstancePtr->Ctrl_BaseAddress,
 		XV_MULTI_SCALER_CTRL_ADDR_HWREG_DSTIMGBUF0_5_V_DATA + 4) << 32;
 	return Data;
 }
@@ -4449,7 +4448,7 @@ u64 XV_multi_scaler_Get_HwReg_dstImgBuf1_5_V(XV_multi_scaler *InstancePtr)
 
 	Data = XV_multi_scaler_ReadReg(InstancePtr->Ctrl_BaseAddress,
 		XV_MULTI_SCALER_CTRL_ADDR_HWREG_DSTIMGBUF1_5_V_DATA);
-	Data += XV_multi_scaler_ReadReg(InstancePtr->Ctrl_BaseAddress,
+	Data += (u64)XV_multi_scaler_ReadReg(InstancePtr->Ctrl_BaseAddress,
 		XV_MULTI_SCALER_CTRL_ADDR_HWREG_DSTIMGBUF1_5_V_DATA + 4) << 32;
 	return Data;
 }
@@ -4972,7 +4971,7 @@ u64 XV_multi_scaler_Get_HwReg_srcImgBuf0_6_V(XV_multi_scaler *InstancePtr)
 
 	Data = XV_multi_scaler_ReadReg(InstancePtr->Ctrl_BaseAddress,
 		XV_MULTI_SCALER_CTRL_ADDR_HWREG_SRCIMGBUF0_6_V_DATA);
-	Data += XV_multi_scaler_ReadReg(InstancePtr->Ctrl_BaseAddress,
+	Data += (u64)XV_multi_scaler_ReadReg(InstancePtr->Ctrl_BaseAddress,
 		XV_MULTI_SCALER_CTRL_ADDR_HWREG_SRCIMGBUF0_6_V_DATA + 4) << 32;
 	return Data;
 }
@@ -5025,7 +5024,7 @@ u64 XV_multi_scaler_Get_HwReg_srcImgBuf1_6_V(XV_multi_scaler *InstancePtr)
 
 	Data = XV_multi_scaler_ReadReg(InstancePtr->Ctrl_BaseAddress,
 		XV_MULTI_SCALER_CTRL_ADDR_HWREG_SRCIMGBUF1_6_V_DATA);
-	Data += XV_multi_scaler_ReadReg(InstancePtr->Ctrl_BaseAddress,
+	Data += (u64)XV_multi_scaler_ReadReg(InstancePtr->Ctrl_BaseAddress,
 		XV_MULTI_SCALER_CTRL_ADDR_HWREG_SRCIMGBUF1_6_V_DATA + 4) << 32;
 	return Data;
 }
@@ -5078,7 +5077,7 @@ u64 XV_multi_scaler_Get_HwReg_dstImgBuf0_6_V(XV_multi_scaler *InstancePtr)
 
 	Data = XV_multi_scaler_ReadReg(InstancePtr->Ctrl_BaseAddress,
 		XV_MULTI_SCALER_CTRL_ADDR_HWREG_DSTIMGBUF0_6_V_DATA);
-	Data += XV_multi_scaler_ReadReg(InstancePtr->Ctrl_BaseAddress,
+	Data += (u64)XV_multi_scaler_ReadReg(InstancePtr->Ctrl_BaseAddress,
 		XV_MULTI_SCALER_CTRL_ADDR_HWREG_DSTIMGBUF0_6_V_DATA + 4) << 32;
 	return Data;
 }
@@ -5131,7 +5130,7 @@ u64 XV_multi_scaler_Get_HwReg_dstImgBuf1_6_V(XV_multi_scaler *InstancePtr)
 
 	Data = XV_multi_scaler_ReadReg(InstancePtr->Ctrl_BaseAddress,
 		XV_MULTI_SCALER_CTRL_ADDR_HWREG_DSTIMGBUF1_6_V_DATA);
-	Data += XV_multi_scaler_ReadReg(InstancePtr->Ctrl_BaseAddress,
+	Data += (u64)XV_multi_scaler_ReadReg(InstancePtr->Ctrl_BaseAddress,
 		XV_MULTI_SCALER_CTRL_ADDR_HWREG_DSTIMGBUF1_6_V_DATA + 4) << 32;
 	return Data;
 }
@@ -5654,7 +5653,7 @@ u64 XV_multi_scaler_Get_HwReg_srcImgBuf0_7_V(XV_multi_scaler *InstancePtr)
 
 	Data = XV_multi_scaler_ReadReg(InstancePtr->Ctrl_BaseAddress,
 		XV_MULTI_SCALER_CTRL_ADDR_HWREG_SRCIMGBUF0_7_V_DATA);
-	Data += XV_multi_scaler_ReadReg(InstancePtr->Ctrl_BaseAddress,
+	Data += (u64)XV_multi_scaler_ReadReg(InstancePtr->Ctrl_BaseAddress,
 		XV_MULTI_SCALER_CTRL_ADDR_HWREG_SRCIMGBUF0_7_V_DATA + 4) << 32;
 	return Data;
 }
@@ -5707,7 +5706,7 @@ u64 XV_multi_scaler_Get_HwReg_srcImgBuf1_7_V(XV_multi_scaler *InstancePtr)
 
 	Data = XV_multi_scaler_ReadReg(InstancePtr->Ctrl_BaseAddress,
 		XV_MULTI_SCALER_CTRL_ADDR_HWREG_SRCIMGBUF1_7_V_DATA);
-	Data += XV_multi_scaler_ReadReg(InstancePtr->Ctrl_BaseAddress,
+	Data += (u64)XV_multi_scaler_ReadReg(InstancePtr->Ctrl_BaseAddress,
 		XV_MULTI_SCALER_CTRL_ADDR_HWREG_SRCIMGBUF1_7_V_DATA + 4) << 32;
 	return Data;
 }
@@ -5760,7 +5759,7 @@ u64 XV_multi_scaler_Get_HwReg_dstImgBuf0_7_V(XV_multi_scaler *InstancePtr)
 
 	Data = XV_multi_scaler_ReadReg(InstancePtr->Ctrl_BaseAddress,
 		XV_MULTI_SCALER_CTRL_ADDR_HWREG_DSTIMGBUF0_7_V_DATA);
-	Data += XV_multi_scaler_ReadReg(InstancePtr->Ctrl_BaseAddress,
+	Data += (u64)XV_multi_scaler_ReadReg(InstancePtr->Ctrl_BaseAddress,
 		XV_MULTI_SCALER_CTRL_ADDR_HWREG_DSTIMGBUF0_7_V_DATA + 4) << 32;
 	return Data;
 }
@@ -5813,7 +5812,7 @@ u64 XV_multi_scaler_Get_HwReg_dstImgBuf1_7_V(XV_multi_scaler *InstancePtr)
 
 	Data = XV_multi_scaler_ReadReg(InstancePtr->Ctrl_BaseAddress,
 		XV_MULTI_SCALER_CTRL_ADDR_HWREG_DSTIMGBUF1_7_V_DATA);
-	Data += XV_multi_scaler_ReadReg(InstancePtr->Ctrl_BaseAddress,
+	Data += (u64)XV_multi_scaler_ReadReg(InstancePtr->Ctrl_BaseAddress,
 		XV_MULTI_SCALER_CTRL_ADDR_HWREG_DSTIMGBUF1_7_V_DATA + 4) << 32;
 	return Data;
 }
@@ -5962,7 +5961,7 @@ u32 XV_multi_scaler_Write_HwReg_mm_vfltCoeff_0_Words(XV_multi_scaler
 		return 0;
 
 	for (i = 0; i < length; i++) {
-		*(int *)(InstancePtr->Ctrl_BaseAddress +
+		*(int *)(UINTPTR)(InstancePtr->Ctrl_BaseAddress +
 		XV_MULTI_SCALER_CTRL_ADDR_HWREG_MM_VFLTCOEFF_0_BASE +
 		(offset + i)*4)	= *(data + i);
 	}
@@ -5999,7 +5998,7 @@ u32 XV_multi_scaler_Read_HwReg_mm_vfltCoeff_0_Words(XV_multi_scaler
 		return 0;
 
 	for (i = 0; i < length; i++) {
-		*(data + i) = *(int *)(InstancePtr->Ctrl_BaseAddress +
+		*(data + i) = *(int *)(UINTPTR)(InstancePtr->Ctrl_BaseAddress +
 		XV_MULTI_SCALER_CTRL_ADDR_HWREG_MM_VFLTCOEFF_0_BASE +
 		(offset + i)*4);
 	}
@@ -6036,7 +6035,7 @@ u32 XV_multi_scaler_Write_HwReg_mm_vfltCoeff_0_Bytes(XV_multi_scaler
 		return 0;
 
 	for (i = 0; i < length; i++) {
-		*(char *)(InstancePtr->Ctrl_BaseAddress +
+		*(char *)(UINTPTR)(InstancePtr->Ctrl_BaseAddress +
 		XV_MULTI_SCALER_CTRL_ADDR_HWREG_MM_VFLTCOEFF_0_BASE + offset +
 		i) = *(data + i);
 	}
@@ -6073,7 +6072,7 @@ u32 XV_multi_scaler_Read_HwReg_mm_vfltCoeff_0_Bytes(XV_multi_scaler
 		return 0;
 
 	for (i = 0; i < length; i++) {
-		*(data + i) = *(char *)(InstancePtr->Ctrl_BaseAddress +
+		*(data + i) = *(char *)(UINTPTR)(InstancePtr->Ctrl_BaseAddress +
 		XV_MULTI_SCALER_CTRL_ADDR_HWREG_MM_VFLTCOEFF_0_BASE + offset +
 		i);
 	}
@@ -6224,7 +6223,7 @@ u32 XV_multi_scaler_Write_HwReg_mm_hfltCoeff_0_Words(XV_multi_scaler
 		return 0;
 
 	for (i = 0; i < length; i++) {
-		*(int *)(InstancePtr->Ctrl_BaseAddress +
+		*(int *)(UINTPTR)(InstancePtr->Ctrl_BaseAddress +
 		XV_MULTI_SCALER_CTRL_ADDR_HWREG_MM_HFLTCOEFF_0_BASE +
 		(offset + i)*4) = *(data + i);
 	}
@@ -6261,7 +6260,7 @@ u32 XV_multi_scaler_Read_HwReg_mm_hfltCoeff_0_Words(XV_multi_scaler
 		return 0;
 
 	for (i = 0; i < length; i++) {
-		*(data + i) = *(int *)(InstancePtr->Ctrl_BaseAddress +
+		*(data + i) = *(int *)(UINTPTR)(InstancePtr->Ctrl_BaseAddress +
 		XV_MULTI_SCALER_CTRL_ADDR_HWREG_MM_HFLTCOEFF_0_BASE +
 		(offset + i)*4);
 	}
@@ -6298,7 +6297,7 @@ u32 XV_multi_scaler_Write_HwReg_mm_hfltCoeff_0_Bytes(XV_multi_scaler
 		return 0;
 
 	for (i = 0; i < length; i++) {
-		*(char *)(InstancePtr->Ctrl_BaseAddress +
+		*(char *)(UINTPTR)(InstancePtr->Ctrl_BaseAddress +
 		XV_MULTI_SCALER_CTRL_ADDR_HWREG_MM_HFLTCOEFF_0_BASE + offset +
 		i) = *(data + i);
 	}
@@ -6335,7 +6334,7 @@ u32 XV_multi_scaler_Read_HwReg_mm_hfltCoeff_0_Bytes(XV_multi_scaler
 		return 0;
 
 	for (i = 0; i < length; i++) {
-		*(data + i) = *(char *)(InstancePtr->Ctrl_BaseAddress +
+		*(data + i) = *(char *)(UINTPTR)(InstancePtr->Ctrl_BaseAddress +
 		XV_MULTI_SCALER_CTRL_ADDR_HWREG_MM_HFLTCOEFF_0_BASE + offset +
 		i);
 	}
@@ -6486,7 +6485,7 @@ u32 XV_multi_scaler_Write_HwReg_mm_vfltCoeff_1_Words(XV_multi_scaler
 		return 0;
 
 	for (i = 0; i < length; i++) {
-		*(int *)(InstancePtr->Ctrl_BaseAddress +
+		*(int *)(UINTPTR)(InstancePtr->Ctrl_BaseAddress +
 		XV_MULTI_SCALER_CTRL_ADDR_HWREG_MM_VFLTCOEFF_1_BASE +
 		(offset + i)*4) = *(data + i);
 	}
@@ -6523,7 +6522,7 @@ u32 XV_multi_scaler_Read_HwReg_mm_vfltCoeff_1_Words(XV_multi_scaler
 		return 0;
 
 	for (i = 0; i < length; i++) {
-		*(data + i) = *(int *)(InstancePtr->Ctrl_BaseAddress +
+		*(data + i) = *(int *)(UINTPTR)(InstancePtr->Ctrl_BaseAddress +
 		XV_MULTI_SCALER_CTRL_ADDR_HWREG_MM_VFLTCOEFF_1_BASE +
 		(offset + i)*4);
 	}
@@ -6560,7 +6559,7 @@ u32 XV_multi_scaler_Write_HwReg_mm_vfltCoeff_1_Bytes(XV_multi_scaler
 		return 0;
 
 	for (i = 0; i < length; i++) {
-		*(char *)(InstancePtr->Ctrl_BaseAddress +
+		*(char *)(UINTPTR)(InstancePtr->Ctrl_BaseAddress +
 		XV_MULTI_SCALER_CTRL_ADDR_HWREG_MM_VFLTCOEFF_1_BASE + offset +
 		i) = *(data + i);
 	}
@@ -6597,7 +6596,7 @@ u32 XV_multi_scaler_Read_HwReg_mm_vfltCoeff_1_Bytes(XV_multi_scaler
 		return 0;
 
 	for (i = 0; i < length; i++) {
-		*(data + i) = *(char *)(InstancePtr->Ctrl_BaseAddress +
+		*(data + i) = *(char *)(UINTPTR)(InstancePtr->Ctrl_BaseAddress +
 		XV_MULTI_SCALER_CTRL_ADDR_HWREG_MM_VFLTCOEFF_1_BASE +
 		offset + i);
 	}
@@ -6748,7 +6747,7 @@ u32 XV_multi_scaler_Write_HwReg_mm_hfltCoeff_1_Words(XV_multi_scaler
 		return 0;
 
 	for (i = 0; i < length; i++) {
-		*(int *)(InstancePtr->Ctrl_BaseAddress +
+		*(int *)(UINTPTR)(InstancePtr->Ctrl_BaseAddress +
 		XV_MULTI_SCALER_CTRL_ADDR_HWREG_MM_HFLTCOEFF_1_BASE +
 		(offset + i)*4) = *(data + i);
 	}
@@ -6785,7 +6784,7 @@ u32 XV_multi_scaler_Read_HwReg_mm_hfltCoeff_1_Words(XV_multi_scaler
 		return 0;
 
 	for (i = 0; i < length; i++) {
-		*(data + i) = *(int *)(InstancePtr->Ctrl_BaseAddress +
+		*(data + i) = *(int *)(UINTPTR)(InstancePtr->Ctrl_BaseAddress +
 		XV_MULTI_SCALER_CTRL_ADDR_HWREG_MM_HFLTCOEFF_1_BASE +
 		(offset + i)*4);
 	}
@@ -6822,7 +6821,7 @@ u32 XV_multi_scaler_Write_HwReg_mm_hfltCoeff_1_Bytes(XV_multi_scaler
 		return 0;
 
 	for (i = 0; i < length; i++) {
-		*(char *)(InstancePtr->Ctrl_BaseAddress +
+		*(char *)(UINTPTR)(InstancePtr->Ctrl_BaseAddress +
 		XV_MULTI_SCALER_CTRL_ADDR_HWREG_MM_HFLTCOEFF_1_BASE + offset +
 		i) = *(data + i);
 	}
@@ -6859,7 +6858,7 @@ u32 XV_multi_scaler_Read_HwReg_mm_hfltCoeff_1_Bytes(XV_multi_scaler
 		return 0;
 
 	for (i = 0; i < length; i++) {
-		*(data + i) = *(char *)(InstancePtr->Ctrl_BaseAddress +
+		*(data + i) = *(char *)(UINTPTR)(InstancePtr->Ctrl_BaseAddress +
 		XV_MULTI_SCALER_CTRL_ADDR_HWREG_MM_HFLTCOEFF_1_BASE + offset +
 		i);
 	}
@@ -7010,7 +7009,7 @@ u32 XV_multi_scaler_Write_HwReg_mm_vfltCoeff_2_Words(XV_multi_scaler
 		return 0;
 
 	for (i = 0; i < length; i++) {
-		*(int *)(InstancePtr->Ctrl_BaseAddress +
+		*(int *)(UINTPTR)(InstancePtr->Ctrl_BaseAddress +
 		XV_MULTI_SCALER_CTRL_ADDR_HWREG_MM_VFLTCOEFF_2_BASE +
 		(offset + i)*4) = *(data + i);
 	}
@@ -7047,7 +7046,7 @@ u32 XV_multi_scaler_Read_HwReg_mm_vfltCoeff_2_Words(XV_multi_scaler
 		return 0;
 
 	for (i = 0; i < length; i++) {
-		*(data + i) = *(int *)(InstancePtr->Ctrl_BaseAddress +
+		*(data + i) = *(int *)(UINTPTR)(InstancePtr->Ctrl_BaseAddress +
 		XV_MULTI_SCALER_CTRL_ADDR_HWREG_MM_VFLTCOEFF_2_BASE +
 		(offset + i)*4);
 	}
@@ -7084,7 +7083,7 @@ u32 XV_multi_scaler_Write_HwReg_mm_vfltCoeff_2_Bytes(XV_multi_scaler
 		return 0;
 
 	for (i = 0; i < length; i++) {
-		*(char *)(InstancePtr->Ctrl_BaseAddress +
+		*(char *)(UINTPTR)(InstancePtr->Ctrl_BaseAddress +
 		XV_MULTI_SCALER_CTRL_ADDR_HWREG_MM_VFLTCOEFF_2_BASE + offset +
 		i) = *(data + i);
 	}
@@ -7121,7 +7120,7 @@ u32 XV_multi_scaler_Read_HwReg_mm_vfltCoeff_2_Bytes(XV_multi_scaler
 		return 0;
 
 	for (i = 0; i < length; i++) {
-		*(data + i) = *(char *)(InstancePtr->Ctrl_BaseAddress +
+		*(data + i) = *(char *)(UINTPTR)(InstancePtr->Ctrl_BaseAddress +
 		XV_MULTI_SCALER_CTRL_ADDR_HWREG_MM_VFLTCOEFF_2_BASE + offset
 		+ i);
 	}
@@ -7272,7 +7271,7 @@ u32 XV_multi_scaler_Write_HwReg_mm_hfltCoeff_2_Words(XV_multi_scaler
 		return 0;
 
 	for (i = 0; i < length; i++) {
-		*(int *)(InstancePtr->Ctrl_BaseAddress +
+		*(int *)(UINTPTR)(InstancePtr->Ctrl_BaseAddress +
 		XV_MULTI_SCALER_CTRL_ADDR_HWREG_MM_HFLTCOEFF_2_BASE +
 		(offset + i)*4) = *(data + i);
 	}
@@ -7309,7 +7308,7 @@ u32 XV_multi_scaler_Read_HwReg_mm_hfltCoeff_2_Words(XV_multi_scaler
 		return 0;
 
 	for (i = 0; i < length; i++) {
-		*(data + i) = *(int *)(InstancePtr->Ctrl_BaseAddress +
+		*(data + i) = *(int *)(UINTPTR)(InstancePtr->Ctrl_BaseAddress +
 		XV_MULTI_SCALER_CTRL_ADDR_HWREG_MM_HFLTCOEFF_2_BASE +
 		(offset + i)*4);
 	}
@@ -7346,7 +7345,7 @@ u32 XV_multi_scaler_Write_HwReg_mm_hfltCoeff_2_Bytes(XV_multi_scaler
 		return 0;
 
 	for (i = 0; i < length; i++) {
-		*(char *)(InstancePtr->Ctrl_BaseAddress +
+		*(char *)(UINTPTR)(InstancePtr->Ctrl_BaseAddress +
 		XV_MULTI_SCALER_CTRL_ADDR_HWREG_MM_HFLTCOEFF_2_BASE +
 		offset + i) = *(data + i);
 	}
@@ -7383,7 +7382,7 @@ u32 XV_multi_scaler_Read_HwReg_mm_hfltCoeff_2_Bytes(XV_multi_scaler
 		return 0;
 
 	for (i = 0; i < length; i++) {
-		*(data + i) = *(char *)(InstancePtr->Ctrl_BaseAddress +
+		*(data + i) = *(char *)(UINTPTR)(InstancePtr->Ctrl_BaseAddress +
 		XV_MULTI_SCALER_CTRL_ADDR_HWREG_MM_HFLTCOEFF_2_BASE +
 		offset + i);
 	}
@@ -7534,7 +7533,7 @@ u32 XV_multi_scaler_Write_HwReg_mm_vfltCoeff_3_Words(XV_multi_scaler
 		return 0;
 
 	for (i = 0; i < length; i++) {
-		*(int *)(InstancePtr->Ctrl_BaseAddress +
+		*(int *)(UINTPTR)(InstancePtr->Ctrl_BaseAddress +
 		XV_MULTI_SCALER_CTRL_ADDR_HWREG_MM_VFLTCOEFF_3_BASE +
 		(offset + i)*4) = *(data + i);
 	}
@@ -7571,7 +7570,7 @@ u32 XV_multi_scaler_Read_HwReg_mm_vfltCoeff_3_Words(XV_multi_scaler
 		return 0;
 
 	for (i = 0; i < length; i++) {
-		*(data + i) = *(int *)(InstancePtr->Ctrl_BaseAddress +
+		*(data + i) = *(int *)(UINTPTR)(InstancePtr->Ctrl_BaseAddress +
 		XV_MULTI_SCALER_CTRL_ADDR_HWREG_MM_VFLTCOEFF_3_BASE +
 		(offset + i)*4);
 	}
@@ -7608,7 +7607,7 @@ u32 XV_multi_scaler_Write_HwReg_mm_vfltCoeff_3_Bytes(XV_multi_scaler
 		return 0;
 
 	for (i = 0; i < length; i++) {
-		*(char *)(InstancePtr->Ctrl_BaseAddress +
+		*(char *)(UINTPTR)(InstancePtr->Ctrl_BaseAddress +
 		XV_MULTI_SCALER_CTRL_ADDR_HWREG_MM_VFLTCOEFF_3_BASE + offset
 		+ i) = *(data + i);
 	}
@@ -7645,7 +7644,7 @@ u32 XV_multi_scaler_Read_HwReg_mm_vfltCoeff_3_Bytes(XV_multi_scaler
 		return 0;
 
 	for (i = 0; i < length; i++) {
-		*(data + i) = *(char *)(InstancePtr->Ctrl_BaseAddress +
+		*(data + i) = *(char *)(UINTPTR)(InstancePtr->Ctrl_BaseAddress +
 		XV_MULTI_SCALER_CTRL_ADDR_HWREG_MM_VFLTCOEFF_3_BASE + offset
 		+ i);
 	}
@@ -7796,7 +7795,7 @@ u32 XV_multi_scaler_Write_HwReg_mm_hfltCoeff_3_Words(XV_multi_scaler
 		return 0;
 
 	for (i = 0; i < length; i++) {
-		*(int *)(InstancePtr->Ctrl_BaseAddress +
+		*(int *)(UINTPTR)(InstancePtr->Ctrl_BaseAddress +
 		XV_MULTI_SCALER_CTRL_ADDR_HWREG_MM_HFLTCOEFF_3_BASE +
 		(offset + i)*4) = *(data + i);
 	}
@@ -7833,7 +7832,7 @@ u32 XV_multi_scaler_Read_HwReg_mm_hfltCoeff_3_Words(XV_multi_scaler
 		return 0;
 
 	for (i = 0; i < length; i++) {
-		*(data + i) = *(int *)(InstancePtr->Ctrl_BaseAddress +
+		*(data + i) = *(int *)(UINTPTR)(InstancePtr->Ctrl_BaseAddress +
 		XV_MULTI_SCALER_CTRL_ADDR_HWREG_MM_HFLTCOEFF_3_BASE +
 		(offset + i)*4);
 	}
@@ -7870,7 +7869,7 @@ u32 XV_multi_scaler_Write_HwReg_mm_hfltCoeff_3_Bytes(XV_multi_scaler
 		return 0;
 
 	for (i = 0; i < length; i++) {
-		*(char *)(InstancePtr->Ctrl_BaseAddress +
+		*(char *)(UINTPTR)(InstancePtr->Ctrl_BaseAddress +
 		XV_MULTI_SCALER_CTRL_ADDR_HWREG_MM_HFLTCOEFF_3_BASE + offset +
 		i) = *(data + i);
 	}
@@ -7907,7 +7906,7 @@ u32 XV_multi_scaler_Read_HwReg_mm_hfltCoeff_3_Bytes(XV_multi_scaler
 		return 0;
 
 	for (i = 0; i < length; i++) {
-		*(data + i) = *(char *)(InstancePtr->Ctrl_BaseAddress +
+		*(data + i) = *(char *)(UINTPTR)(InstancePtr->Ctrl_BaseAddress +
 		XV_MULTI_SCALER_CTRL_ADDR_HWREG_MM_HFLTCOEFF_3_BASE + offset +
 		i);
 	}
@@ -8058,7 +8057,7 @@ u32 XV_multi_scaler_Write_HwReg_mm_vfltCoeff_4_Words(XV_multi_scaler
 		return 0;
 
 	for (i = 0; i < length; i++) {
-		*(int *)(InstancePtr->Ctrl_BaseAddress +
+		*(int *)(UINTPTR)(InstancePtr->Ctrl_BaseAddress +
 		XV_MULTI_SCALER_CTRL_ADDR_HWREG_MM_VFLTCOEFF_4_BASE +
 		(offset + i)*4) = *(data + i);
 	}
@@ -8095,7 +8094,7 @@ u32 XV_multi_scaler_Read_HwReg_mm_vfltCoeff_4_Words(XV_multi_scaler
 		return 0;
 
 	for (i = 0; i < length; i++) {
-		*(data + i) = *(int *)(InstancePtr->Ctrl_BaseAddress +
+		*(data + i) = *(int *)(UINTPTR)(InstancePtr->Ctrl_BaseAddress +
 		XV_MULTI_SCALER_CTRL_ADDR_HWREG_MM_VFLTCOEFF_4_BASE +
 		(offset + i)*4);
 	}
@@ -8132,7 +8131,7 @@ u32 XV_multi_scaler_Write_HwReg_mm_vfltCoeff_4_Bytes(XV_multi_scaler
 		return 0;
 
 	for (i = 0; i < length; i++) {
-		*(char *)(InstancePtr->Ctrl_BaseAddress +
+		*(char *)(UINTPTR)(InstancePtr->Ctrl_BaseAddress +
 		XV_MULTI_SCALER_CTRL_ADDR_HWREG_MM_VFLTCOEFF_4_BASE + offset +
 		i) = *(data + i);
 	}
@@ -8169,7 +8168,7 @@ u32 XV_multi_scaler_Read_HwReg_mm_vfltCoeff_4_Bytes(XV_multi_scaler
 		return 0;
 
 	for (i = 0; i < length; i++) {
-		*(data + i) = *(char *)(InstancePtr->Ctrl_BaseAddress +
+		*(data + i) = *(char *)(UINTPTR)(InstancePtr->Ctrl_BaseAddress +
 		XV_MULTI_SCALER_CTRL_ADDR_HWREG_MM_VFLTCOEFF_4_BASE + offset +
 		i);
 	}
@@ -8320,7 +8319,7 @@ u32 XV_multi_scaler_Write_HwReg_mm_hfltCoeff_4_Words(XV_multi_scaler
 		return 0;
 
 	for (i = 0; i < length; i++) {
-		*(int *)(InstancePtr->Ctrl_BaseAddress +
+		*(int *)(UINTPTR)(InstancePtr->Ctrl_BaseAddress +
 		XV_MULTI_SCALER_CTRL_ADDR_HWREG_MM_HFLTCOEFF_4_BASE +
 		(offset + i)*4) = *(data + i);
 	}
@@ -8357,7 +8356,7 @@ u32 XV_multi_scaler_Read_HwReg_mm_hfltCoeff_4_Words(XV_multi_scaler
 		return 0;
 
 	for (i = 0; i < length; i++) {
-		*(data + i) = *(int *)(InstancePtr->Ctrl_BaseAddress +
+		*(data + i) = *(int *)(UINTPTR)(InstancePtr->Ctrl_BaseAddress +
 		XV_MULTI_SCALER_CTRL_ADDR_HWREG_MM_HFLTCOEFF_4_BASE +
 		(offset + i)*4);
 	}
@@ -8394,7 +8393,7 @@ u32 XV_multi_scaler_Write_HwReg_mm_hfltCoeff_4_Bytes(XV_multi_scaler
 		return 0;
 
 	for (i = 0; i < length; i++) {
-		*(char *)(InstancePtr->Ctrl_BaseAddress +
+		*(char *)(UINTPTR)(InstancePtr->Ctrl_BaseAddress +
 		XV_MULTI_SCALER_CTRL_ADDR_HWREG_MM_HFLTCOEFF_4_BASE + offset +
 		i) = *(data + i);
 	}
@@ -8431,7 +8430,7 @@ u32 XV_multi_scaler_Read_HwReg_mm_hfltCoeff_4_Bytes(XV_multi_scaler
 		return 0;
 
 	for (i = 0; i < length; i++) {
-		*(data + i) = *(char *)(InstancePtr->Ctrl_BaseAddress +
+		*(data + i) = *(char *)(UINTPTR)(InstancePtr->Ctrl_BaseAddress +
 		XV_MULTI_SCALER_CTRL_ADDR_HWREG_MM_HFLTCOEFF_4_BASE + offset +
 		i);
 	}
@@ -8582,7 +8581,7 @@ u32 XV_multi_scaler_Write_HwReg_mm_vfltCoeff_5_Words(XV_multi_scaler
 		return 0;
 
 	for (i = 0; i < length; i++) {
-		*(int *)(InstancePtr->Ctrl_BaseAddress +
+		*(int *)(UINTPTR)(InstancePtr->Ctrl_BaseAddress +
 		XV_MULTI_SCALER_CTRL_ADDR_HWREG_MM_VFLTCOEFF_5_BASE +
 		(offset + i)*4) = *(data + i);
 	}
@@ -8619,7 +8618,7 @@ u32 XV_multi_scaler_Read_HwReg_mm_vfltCoeff_5_Words(XV_multi_scaler
 		return 0;
 
 	for (i = 0; i < length; i++) {
-		*(data + i) = *(int *)(InstancePtr->Ctrl_BaseAddress +
+		*(data + i) = *(int *)(UINTPTR)(InstancePtr->Ctrl_BaseAddress +
 		XV_MULTI_SCALER_CTRL_ADDR_HWREG_MM_VFLTCOEFF_5_BASE +
 		(offset + i)*4);
 	}
@@ -8656,7 +8655,7 @@ u32 XV_multi_scaler_Write_HwReg_mm_vfltCoeff_5_Bytes(XV_multi_scaler
 		return 0;
 
 	for (i = 0; i < length; i++) {
-		*(char *)(InstancePtr->Ctrl_BaseAddress +
+		*(char *)(UINTPTR)(InstancePtr->Ctrl_BaseAddress +
 		XV_MULTI_SCALER_CTRL_ADDR_HWREG_MM_VFLTCOEFF_5_BASE + offset +
 		i) = *(data + i);
 	}
@@ -8693,7 +8692,7 @@ u32 XV_multi_scaler_Read_HwReg_mm_vfltCoeff_5_Bytes(XV_multi_scaler
 		return 0;
 
 	for (i = 0; i < length; i++) {
-		*(data + i) = *(char *)(InstancePtr->Ctrl_BaseAddress +
+		*(data + i) = *(char *)(UINTPTR)(InstancePtr->Ctrl_BaseAddress +
 		XV_MULTI_SCALER_CTRL_ADDR_HWREG_MM_VFLTCOEFF_5_BASE + offset +
 		i);
 	}
@@ -8844,7 +8843,7 @@ u32 XV_multi_scaler_Write_HwReg_mm_hfltCoeff_5_Words(XV_multi_scaler
 		return 0;
 
 	for (i = 0; i < length; i++) {
-		*(int *)(InstancePtr->Ctrl_BaseAddress +
+		*(int *)(UINTPTR)(InstancePtr->Ctrl_BaseAddress +
 		XV_MULTI_SCALER_CTRL_ADDR_HWREG_MM_HFLTCOEFF_5_BASE +
 		(offset + i)*4) = *(data + i);
 	}
@@ -8881,7 +8880,7 @@ u32 XV_multi_scaler_Read_HwReg_mm_hfltCoeff_5_Words(XV_multi_scaler
 		return 0;
 
 	for (i = 0; i < length; i++) {
-		*(data + i) = *(int *)(InstancePtr->Ctrl_BaseAddress +
+		*(data + i) = *(int *)(UINTPTR)(InstancePtr->Ctrl_BaseAddress +
 		XV_MULTI_SCALER_CTRL_ADDR_HWREG_MM_HFLTCOEFF_5_BASE +
 		(offset + i)*4);
 	}
@@ -8918,7 +8917,7 @@ u32 XV_multi_scaler_Write_HwReg_mm_hfltCoeff_5_Bytes(XV_multi_scaler
 		return 0;
 
 	for (i = 0; i < length; i++) {
-		*(char *)(InstancePtr->Ctrl_BaseAddress +
+		*(char *)(UINTPTR)(InstancePtr->Ctrl_BaseAddress +
 		XV_MULTI_SCALER_CTRL_ADDR_HWREG_MM_HFLTCOEFF_5_BASE + offset +
 		i) = *(data + i);
 	}
@@ -8955,7 +8954,7 @@ u32 XV_multi_scaler_Read_HwReg_mm_hfltCoeff_5_Bytes(XV_multi_scaler
 		return 0;
 
 	for (i = 0; i < length; i++) {
-		*(data + i) = *(char *)(InstancePtr->Ctrl_BaseAddress +
+		*(data + i) = *(char *)(UINTPTR)(InstancePtr->Ctrl_BaseAddress +
 		XV_MULTI_SCALER_CTRL_ADDR_HWREG_MM_HFLTCOEFF_5_BASE + offset +
 		i);
 	}
@@ -9106,7 +9105,7 @@ u32 XV_multi_scaler_Write_HwReg_mm_vfltCoeff_6_Words(XV_multi_scaler
 		return 0;
 
 	for (i = 0; i < length; i++) {
-		*(int *)(InstancePtr->Ctrl_BaseAddress +
+		*(int *)(UINTPTR)(InstancePtr->Ctrl_BaseAddress +
 		XV_MULTI_SCALER_CTRL_ADDR_HWREG_MM_VFLTCOEFF_6_BASE +
 		(offset + i)*4) = *(data + i);
 	}
@@ -9143,7 +9142,7 @@ u32 XV_multi_scaler_Read_HwReg_mm_vfltCoeff_6_Words(XV_multi_scaler
 		return 0;
 
 	for (i = 0; i < length; i++) {
-		*(data + i) = *(int *)(InstancePtr->Ctrl_BaseAddress +
+		*(data + i) = *(int *)(UINTPTR)(InstancePtr->Ctrl_BaseAddress +
 		XV_MULTI_SCALER_CTRL_ADDR_HWREG_MM_VFLTCOEFF_6_BASE +
 		(offset + i)*4);
 	}
@@ -9180,7 +9179,7 @@ u32 XV_multi_scaler_Write_HwReg_mm_vfltCoeff_6_Bytes(XV_multi_scaler
 		return 0;
 
 	for (i = 0; i < length; i++) {
-		*(char *)(InstancePtr->Ctrl_BaseAddress +
+		*(char *)(UINTPTR)(InstancePtr->Ctrl_BaseAddress +
 		XV_MULTI_SCALER_CTRL_ADDR_HWREG_MM_VFLTCOEFF_6_BASE + offset +
 		i) = *(data + i);
 	}
@@ -9217,7 +9216,7 @@ u32 XV_multi_scaler_Read_HwReg_mm_vfltCoeff_6_Bytes(XV_multi_scaler
 		return 0;
 
 	for (i = 0; i < length; i++) {
-		*(data + i) = *(char *)(InstancePtr->Ctrl_BaseAddress +
+		*(data + i) = *(char *)(UINTPTR)(InstancePtr->Ctrl_BaseAddress +
 		XV_MULTI_SCALER_CTRL_ADDR_HWREG_MM_VFLTCOEFF_6_BASE + offset +
 		i);
 	}
@@ -9368,7 +9367,7 @@ u32 XV_multi_scaler_Write_HwReg_mm_hfltCoeff_6_Words(XV_multi_scaler
 		return 0;
 
 	for (i = 0; i < length; i++) {
-		*(int *)(InstancePtr->Ctrl_BaseAddress +
+		*(int *)(UINTPTR)(InstancePtr->Ctrl_BaseAddress +
 		XV_MULTI_SCALER_CTRL_ADDR_HWREG_MM_HFLTCOEFF_6_BASE +
 		(offset + i)*4) = *(data + i);
 	}
@@ -9405,7 +9404,7 @@ u32 XV_multi_scaler_Read_HwReg_mm_hfltCoeff_6_Words(XV_multi_scaler
 		return 0;
 
 	for (i = 0; i < length; i++) {
-		*(data + i) = *(int *)(InstancePtr->Ctrl_BaseAddress +
+		*(data + i) = *(int *)(UINTPTR)(InstancePtr->Ctrl_BaseAddress +
 		XV_MULTI_SCALER_CTRL_ADDR_HWREG_MM_HFLTCOEFF_6_BASE +
 		(offset + i)*4);
 	}
@@ -9442,7 +9441,7 @@ u32 XV_multi_scaler_Write_HwReg_mm_hfltCoeff_6_Bytes(XV_multi_scaler
 		return 0;
 
 	for (i = 0; i < length; i++) {
-		*(char *)(InstancePtr->Ctrl_BaseAddress +
+		*(char *)(UINTPTR)(InstancePtr->Ctrl_BaseAddress +
 		XV_MULTI_SCALER_CTRL_ADDR_HWREG_MM_HFLTCOEFF_6_BASE + offset +
 		i) = *(data + i);
 	}
@@ -9479,7 +9478,7 @@ u32 XV_multi_scaler_Read_HwReg_mm_hfltCoeff_6_Bytes(XV_multi_scaler
 		return 0;
 
 	for (i = 0; i < length; i++) {
-		*(data + i) = *(char *)(InstancePtr->Ctrl_BaseAddress +
+		*(data + i) = *(char *)(UINTPTR)(InstancePtr->Ctrl_BaseAddress +
 		XV_MULTI_SCALER_CTRL_ADDR_HWREG_MM_HFLTCOEFF_6_BASE + offset +
 		i);
 	}
@@ -9630,7 +9629,7 @@ u32 XV_multi_scaler_Write_HwReg_mm_vfltCoeff_7_Words(XV_multi_scaler
 		return 0;
 
 	for (i = 0; i < length; i++) {
-		*(int *)(InstancePtr->Ctrl_BaseAddress +
+		*(int *)(UINTPTR)(InstancePtr->Ctrl_BaseAddress +
 		XV_MULTI_SCALER_CTRL_ADDR_HWREG_MM_VFLTCOEFF_7_BASE +
 		(offset + i)*4) = *(data + i);
 	}
@@ -9667,7 +9666,7 @@ u32 XV_multi_scaler_Read_HwReg_mm_vfltCoeff_7_Words(XV_multi_scaler
 		return 0;
 
 	for (i = 0; i < length; i++) {
-		*(data + i) = *(int *)(InstancePtr->Ctrl_BaseAddress +
+		*(data + i) = *(int *)(UINTPTR)(InstancePtr->Ctrl_BaseAddress +
 		XV_MULTI_SCALER_CTRL_ADDR_HWREG_MM_VFLTCOEFF_7_BASE +
 		(offset + i)*4);
 	}
@@ -9704,7 +9703,7 @@ u32 XV_multi_scaler_Write_HwReg_mm_vfltCoeff_7_Bytes(XV_multi_scaler
 		return 0;
 
 	for (i = 0; i < length; i++) {
-		*(char *)(InstancePtr->Ctrl_BaseAddress +
+		*(char *)(UINTPTR)(InstancePtr->Ctrl_BaseAddress +
 		XV_MULTI_SCALER_CTRL_ADDR_HWREG_MM_VFLTCOEFF_7_BASE + offset +
 		i) = *(data + i);
 	}
@@ -9741,7 +9740,7 @@ u32 XV_multi_scaler_Read_HwReg_mm_vfltCoeff_7_Bytes(XV_multi_scaler
 		return 0;
 
 	for (i = 0; i < length; i++) {
-		*(data + i) = *(char *)(InstancePtr->Ctrl_BaseAddress +
+		*(data + i) = *(char *)(UINTPTR)(InstancePtr->Ctrl_BaseAddress +
 		XV_MULTI_SCALER_CTRL_ADDR_HWREG_MM_VFLTCOEFF_7_BASE + offset +
 		i);
 	}
@@ -9892,7 +9891,7 @@ u32 XV_multi_scaler_Write_HwReg_mm_hfltCoeff_7_Words(XV_multi_scaler
 		return 0;
 
 	for (i = 0; i < length; i++) {
-		*(int *)(InstancePtr->Ctrl_BaseAddress +
+		*(int *)(UINTPTR)(InstancePtr->Ctrl_BaseAddress +
 		XV_MULTI_SCALER_CTRL_ADDR_HWREG_MM_HFLTCOEFF_7_BASE +
 		(offset + i)*4) = *(data + i);
 	}
@@ -9929,7 +9928,7 @@ u32 XV_multi_scaler_Read_HwReg_mm_hfltCoeff_7_Words(XV_multi_scaler
 		return 0;
 
 	for (i = 0; i < length; i++) {
-		*(data + i) = *(int *)(InstancePtr->Ctrl_BaseAddress +
+		*(data + i) = *(int *)(UINTPTR)(InstancePtr->Ctrl_BaseAddress +
 		XV_MULTI_SCALER_CTRL_ADDR_HWREG_MM_HFLTCOEFF_7_BASE +
 		(offset + i)*4);
 	}
@@ -9966,7 +9965,7 @@ u32 XV_multi_scaler_Write_HwReg_mm_hfltCoeff_7_Bytes(XV_multi_scaler
 		return 0;
 
 	for (i = 0; i < length; i++) {
-		*(char *)(InstancePtr->Ctrl_BaseAddress +
+		*(char *)(UINTPTR)(InstancePtr->Ctrl_BaseAddress +
 		XV_MULTI_SCALER_CTRL_ADDR_HWREG_MM_HFLTCOEFF_7_BASE + offset +
 		i) = *(data + i);
 	}
@@ -10003,7 +10002,7 @@ u32 XV_multi_scaler_Read_HwReg_mm_hfltCoeff_7_Bytes(XV_multi_scaler
 		return 0;
 
 	for (i = 0; i < length; i++) {
-		*(data + i) = *(char *)(InstancePtr->Ctrl_BaseAddress +
+		*(data + i) = *(char *)(UINTPTR)(InstancePtr->Ctrl_BaseAddress +
 		XV_MULTI_SCALER_CTRL_ADDR_HWREG_MM_HFLTCOEFF_7_BASE + offset +
 		i);
 	}
