@@ -490,7 +490,7 @@ u32 XDpTxSs_SetCallBack(XDpTxSs *InstancePtr, u32 HandlerType,
 #if (XPAR_XHDCP_NUM_INSTANCES > 0)
 		case XDPTXSS_HANDLER_HDCP_RPTR_EXCHG:
 			XHdcp1x_SetCallBack(InstancePtr->Hdcp1xPtr,
-				XHDCP1X_RPTR_HDLR_REPEATER_EXCHANGE,
+				XHDCP1X_HANDLER_RPTR_RPTREXCHANGE,
 					CallbackFunc, CallbackRef);
 			Status = XST_SUCCESS;
 			break;

@@ -1761,7 +1761,7 @@ u32 XDpTxSs_Authenticate(XDpTxSs *InstancePtr)
 ******************************************************************************/
 u32 XDpTxSs_IsAuthenticated(XDpTxSs *InstancePtr)
 {
-	u32 Authenticate;
+	u32 Authenticate = FALSE;
 	/* Verify arguments.*/
 	Xil_AssertNonvoid(InstancePtr);
 #if (XPAR_XHDCP_NUM_INSTANCES)
