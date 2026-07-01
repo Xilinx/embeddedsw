@@ -185,6 +185,7 @@ static u32 XDp_TxAuxWaitReply(XDp *InstancePtr);
 static u32 XDp_TxAuxWaitReady(XDp *InstancePtr);
 /* Miscellaneous functions. */
 static u32 XDp_TxSetClkSpeed(XDp *InstancePtr, u32 Speed);
+static u32 XDp_WaitPhyReady(XDp *InstancePtr, u32 Mask);
 /* Train DP2.1 main link. */
 static u32 XDp_Tx_Run_2x_LinkTraining(XDp *InstancePtr);
 static XDp_TxTrainingState XDp_Tx_2x_ChannelEqualization(XDp *InstancePtr, u8 NumOfRepeaters);
@@ -196,8 +197,6 @@ static u32 XDp_Tx_2x_AdjustFfePresetValues(XDp *InstancePtr, u8 LaneCount);
 static u32 XDp_Tx_2x_AdjustLinkTrainparams(XDp *InstancePtr, u8 TrainingFailure);
 static void XDp_Tx_2x_LttprModeSet(XDp *InstancePtr, XDp_Tx_LttprMode mode);
 #endif /* XPAR_XDPTXSS_NUM_INSTANCES */
-
-static u32 XDp_WaitPhyReady(XDp *InstancePtr, u32 Mask);
 
 /**************************** Function Definitions ****************************/
 
@@ -2599,6 +2598,8 @@ u8 XDp_IsLinkRateValid(XDp *InstancePtr, u8 LinkRate)
 {
 	u8 Valid;
 
+	(void)InstancePtr;
+
 	if ((LinkRate != XDP_LINK_BW_SET_162GBPS) &&
 		(LinkRate != XDP_LINK_BW_SET_270GBPS) &&
 		(LinkRate != XDP_LINK_BW_SET_540GBPS) &&
@@ -2672,7 +2673,6 @@ static u32 XDp_TxInitialize(XDp *InstancePtr)
 {
 	u32 PhyVal;
 	u32 RegVal;
-	u32 Status;
 	XDp_Config *ConfigPtr = &InstancePtr->Config;
 
 	/* Preserve the current PHY settings. */
@@ -4727,6 +4727,7 @@ u32 XDp_TxCheckVscColorimetrySupport(XDp *InstancePtr)
 
 #endif /* XPAR_XDPTXSS_NUM_INSTANCES */
 
+#if XPAR_XDPTXSS_NUM_INSTANCES
 /******************************************************************************/
 /**
  * This function waits for the DisplayPort PHY to come out of reset.
@@ -4772,6 +4773,7 @@ static u32 XDp_WaitPhyReady(XDp *InstancePtr, u32 Mask)
 
 	return XST_SUCCESS;
 }
+#endif /* XPAR_XDPTXSS_NUM_INSTANCES */
 
 #if XPAR_XDPTXSS_NUM_INSTANCES
 /******************************************************************************/
@@ -5355,7 +5357,7 @@ static u32 XDp_Tx_2x_AdjustLinkTrainparams(XDp *InstancePtr, u8 TrainingFailure)
 	u32 next_id = 0;
 	int status = XST_FAILURE;
 
-
+	(void)TrainingFailure;
 
 	while (curr_id < ARRAY_SIZE(dptx_lt_fallbacks))
 		/* find current index */

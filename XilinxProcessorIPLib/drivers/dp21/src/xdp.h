@@ -1645,6 +1645,7 @@ u32 XDp_TxSetDownspread(XDp *InstancePtr, u8 Enable);
 u32 XDp_TxSetEnhancedFrameMode(XDp *InstancePtr, u8 Enable);
 u32 XDp_TxSetLaneCount(XDp *InstancePtr, u8 LaneCount);
 u32 XDp_TxSetLinkRate(XDp *InstancePtr, u8 LinkRate);
+u32 XDp_TxOverrideSetLinkRate(XDp *InstancePtr, u8 LinkRate);
 u32 XDp_TxSetScrambler(XDp *InstancePtr, u8 Enable);
 
 /* xdp.c: TX functions for VSC extended packet. */

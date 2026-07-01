@@ -1340,17 +1340,12 @@ XVidC_ColorFormat XDp_RxGetColorComponent(XDp *InstancePtr, u8 Stream)
 void XDp_RxSetLineReset(XDp *InstancePtr, u8 Stream)
 {
 	UINTPTR BaseAddr;
-	u8  LaneCount;
-	u8  BitsPerPixel, BitsPerColor, ColorComponent;
 	u32 RegVal;
 	u32 HBlank;
 	u32 HTotal, HActive;
 	u32 StreamOffset[4] = {0, XDP_RX_STREAM2_MSA_START_OFFSET,
 					XDP_RX_STREAM3_MSA_START_OFFSET,
 					XDP_RX_STREAM4_MSA_START_OFFSET};
-	u32 Mvid, Nvid;
-	u32 StreamLoad;
-	u32 HReducedBlank;
 	u32 HStart, HSyncWidth, HBackPorch, HFrontPorch;
 
 	/* Verify arguments. */
@@ -1363,25 +1358,6 @@ void XDp_RxSetLineReset(XDp *InstancePtr, u8 Stream)
 			(Stream == XDP_TX_STREAM_ID4));
 
 	BaseAddr  = InstancePtr->Config.BaseAddr;
-	LaneCount = XDp_ReadReg(BaseAddr, XDP_RX_DPCD_LANE_COUNT_SET);
-	BitsPerColor   = XDp_RxGetBpc(InstancePtr, Stream);
-	ColorComponent = XDp_RxGetColorComponent(InstancePtr, Stream);
-
-	/* Determine the number of bits per pixel for the specified color
-	 * component format. */
-	if (ColorComponent == XVIDC_CSF_YCRCB_422) {
-		/* YCbCr422 color component format. */
-		BitsPerPixel = BitsPerColor * 2;
-	}
-	else if (ColorComponent ==
-			XDP_RX_MAIN_VSC_SDP_COMPONENT_FORMAT_YCBCR420) {
-		/* YCbCr 4:2:0 color component format. */
-		BitsPerPixel = (BitsPerColor * 15) / 10;
-	}
-	else {
-		/* RGB or YCbCr 4:4:4 color component format. */
-		BitsPerPixel = BitsPerColor * 3;
-	}
 
 	HTotal      = XDp_ReadReg(BaseAddr, XDP_RX_MSA_HTOTAL +
 				StreamOffset[Stream - XDP_TX_STREAM_ID1]);
@@ -1395,17 +1371,10 @@ void XDp_RxSetLineReset(XDp *InstancePtr, u8 Stream)
 	HFrontPorch = HTotal - HSyncWidth - HActive - HBackPorch;
 	HBlank      = HBackPorch + HFrontPorch + HSyncWidth;
 
-	/* Reduced blanking starts at ceil(0.2 * HTotal). */
-	HReducedBlank = 2 * HTotal;
-	if (HReducedBlank % 10)
-		HReducedBlank += 10;
-
-	HReducedBlank /= 10;
-
 	/*Disable Line Reset only in case of fully loaded
 	 * RB2 Video bandwidth : Set Line Reset Disable for Load >95%*/
 	RegVal = XDp_ReadReg(BaseAddr, XDP_RX_LINE_RESET_DISABLE);
-	if (StreamLoad > 80 || HBlank == 80 || HBlank == 60)
+	if (HBlank == 80 || HBlank == 60)
 		RegVal |= XDP_RX_LINE_RESET_DISABLE_MASK(Stream);
 	else
 		RegVal &= ~XDP_RX_LINE_RESET_DISABLE_MASK(Stream);

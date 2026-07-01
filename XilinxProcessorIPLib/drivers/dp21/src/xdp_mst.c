@@ -344,7 +344,6 @@ u8 Dp_GetMstSideBandMsgStatus(XDp *InstancePtr)
 *******************************************************************************/
 u32 XDp_TxMstCapable(XDp *InstancePtr)
 {
-	XDp_TxLinkConfig *LinkConfig = &InstancePtr->TxInstance.LinkConfig;
 	u32 Status;
 	u8 AuxData;
 
@@ -636,7 +635,6 @@ void XDp_TxMstCfgStreamDisable(XDp *InstancePtr, u8 Stream)
  *******************************************************************************/
 void XDp_TxSetStartTimeslot(XDp *InstancePtr, u8 Stream)
 {
-	u8 MstCapable;
 	XDp_TxMainStreamAttributes *MsaConfig =
 				&InstancePtr->TxInstance.MsaConfig[Stream - 1];
 	XDp_TxLinkConfig *LinkConfig = &InstancePtr->TxInstance.LinkConfig;
@@ -1507,13 +1505,11 @@ u32 XDp_TxAllocatePayloadStreams(XDp *InstancePtr)
 	u8 StartTs = 0;
 	XDp_TxMstStream *MstStream;
 	XDp_TxMainStreamAttributes *MsaConfig;
-	XDp_TxTopology *Msatopology;
 
 	/* Verify arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 	Xil_AssertNonvoid(XDp_GetCoreType(InstancePtr) == XDP_TX);
-	Msatopology = &InstancePtr->TxInstance.Topology;
 
 	/* Allocate the payload table for each stream in both the DisplayPort TX
 	 * and RX device. */
