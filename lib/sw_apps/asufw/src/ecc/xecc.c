@@ -101,7 +101,7 @@ struct _XEcc {
 static XEcc_Config *XEcc_LookupConfig(u32 DeviceId);
 static inline s32 XEcc_WaitForDone(const XEcc *InstancePtr);
 static s32 XEcc_ConfigNStartOperation(const XEcc *InstancePtr, u32 OpCode);
-static s32 XEcc_InputValidate(const XEcc *InstancePtr, u32 CurveType);
+static s32 XEcc_InputValidate(XEcc *InstancePtr, u32 CurveType, u32 CurveLen);
 #ifdef XASU_ECC_CM_ENABLE
 static s32 XEcc_GenNdUpdateRandNumToReg(XEcc *InstancePtr, u32 CurveLen, u32 Count);
 #endif
@@ -222,24 +222,15 @@ s32 XEcc_GeneratePublicKey(XEcc *InstancePtr, XAsufw_Dma *DmaPtr, u32 CurveType,
 
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
 	XFih_Var XFihEccVar = XFih_VolatileAssignXfihVar(XFIH_FAILURE);
-	XEcc_CurveInfo *CurveInfo = NULL;
 
 	/** Validate input parameters. */
-	Status = XEcc_InputValidate(InstancePtr, CurveType);
+	Status = XEcc_InputValidate(InstancePtr, CurveType, CurveLen);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_ECC_INVALID_PARAM);
 		goto END;
 	}
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	if ((DmaPtr == NULL) || (PrivKeyAddr == 0U) || (PubKeyAddr == 0U)) {
-		Status = XASUFW_ECC_INVALID_PARAM;
-		goto END;
-	}
-
-	CurveInfo = &XEcc_CurveInfoTable[CurveType];
-	InstancePtr->CurveInfo = CurveInfo;
-
-	if (CurveLen != CurveInfo->CurveBytes) {
 		Status = XASUFW_ECC_INVALID_PARAM;
 		goto END;
 	}
@@ -348,24 +339,15 @@ s32 XEcc_ValidatePublicKey(XEcc *InstancePtr, XAsufw_Dma *DmaPtr, u32 CurveType,
 {
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
 	XFih_Var XFihEccVar = XFih_VolatileAssignXfihVar(XFIH_FAILURE);
-	XEcc_CurveInfo *CurveInfo = NULL;
 
 	/** Validate input parameters. */
-	Status = XEcc_InputValidate(InstancePtr, CurveType);
+	Status = XEcc_InputValidate(InstancePtr, CurveType, CurveLen);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_ECC_INVALID_PARAM);
 		goto END;
 	}
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	if ((DmaPtr == NULL) || (PubKeyAddr == 0U)) {
-		Status = XASUFW_ECC_INVALID_PARAM;
-		goto END;
-	}
-
-	CurveInfo = &XEcc_CurveInfoTable[CurveType];
-	InstancePtr->CurveInfo = CurveInfo;
-
-	if (CurveLen != CurveInfo->CurveBytes) {
 		Status = XASUFW_ECC_INVALID_PARAM;
 		goto END;
 	}
@@ -451,20 +433,14 @@ s32 XEcc_GenerateSignature(XEcc *InstancePtr, XAsufw_Dma *DmaPtr, u32 CurveType,
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
 	XFih_Var XFihEccVar = XFih_VolatileAssignXfihVar(XFIH_FAILURE);
 	CREATE_VOLATILE(ClearStatus, XASUFW_FAILURE);
-	XEcc_CurveInfo *CurveInfo = NULL;
 	u8 Hash[XASU_SHA_512_HASH_LEN];
 	u8 EphemeralKey[XASU_ECC_P384_PVT_KEY_SIZE_IN_BYTES];
 	u32 HashPadLen = 0U;
 
 	/** Validate input parameters. */
-	Status = XEcc_InputValidate(InstancePtr, CurveType);
+	Status = XEcc_InputValidate(InstancePtr, CurveType, CurveLen);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_ECC_INVALID_PARAM);
-		goto END;
-	}
-
-	if (CurveLen > XASU_ECC_P384_PVT_KEY_SIZE_IN_BYTES) {
-		Status = XASUFW_ECC_INVALID_PARAM;
 		goto END;
 	}
 
@@ -475,14 +451,6 @@ s32 XEcc_GenerateSignature(XEcc *InstancePtr, XAsufw_Dma *DmaPtr, u32 CurveType,
 	}
 
 	if ((HashBufLen == 0U) || (HashBufLen > XASU_SHA_512_HASH_LEN)) {
-		Status = XASUFW_ECC_INVALID_PARAM;
-		goto END;
-	}
-
-	CurveInfo = &XEcc_CurveInfoTable[CurveType];
-	InstancePtr->CurveInfo = CurveInfo;
-
-	if (CurveLen != CurveInfo->CurveBytes) {
 		Status = XASUFW_ECC_INVALID_PARAM;
 		goto END;
 	}
@@ -654,12 +622,11 @@ s32 XEcc_VerifySignature(XEcc *InstancePtr, XAsufw_Dma *DmaPtr, u32 CurveType, u
 
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
 	CREATE_VOLATILE(ClearStatus, XASUFW_FAILURE);
-	XEcc_CurveInfo *CurveInfo = NULL;
 	u8 Hash[XASU_SHA_512_HASH_LEN];
 	u32 HashPadLen = 0U;
 
 	/** Validate input parameters. */
-	Status = XEcc_InputValidate(InstancePtr, CurveType);
+	Status = XEcc_InputValidate(InstancePtr, CurveType, CurveLen);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_ECC_INVALID_PARAM);
 		goto END;
@@ -671,14 +638,6 @@ s32 XEcc_VerifySignature(XEcc *InstancePtr, XAsufw_Dma *DmaPtr, u32 CurveType, u
 	}
 
 	if ((HashBufLen == 0U) || (HashBufLen > XASU_SHA_512_HASH_LEN)) {
-		Status = XASUFW_ECC_INVALID_PARAM;
-		goto END;
-	}
-
-	CurveInfo = &XEcc_CurveInfoTable[CurveType];
-	InstancePtr->CurveInfo = CurveInfo;
-
-	if (CurveLen != CurveInfo->CurveBytes) {
 		Status = XASUFW_ECC_INVALID_PARAM;
 		goto END;
 	}
@@ -1071,16 +1030,18 @@ END:
  *
  * @param	InstancePtr	Pointer to the ECC instance.
  * @param	CurveType	Type of the curve.
+ * @param	CurveLen	Length of the curve in bytes.
  *
  * @return
  * 		- XASUFW_SUCCESS, if inputs are validated successfully.
- * 		- XASUFW_ECC_INVALID_PARAM, if InstancePtr is NULL or if curve type is invalid.
+ * 		- XASUFW_ECC_INVALID_PARAM, if InstancePtr is NULL or if curve type or length is invalid.
  * 		- XASUFW_ECC_INIT_NOT_DONE, if ECC component is not ready.
  *
  *************************************************************************************************/
-static s32 XEcc_InputValidate(const XEcc *InstancePtr, u32 CurveType)
+static s32 XEcc_InputValidate(XEcc *InstancePtr, u32 CurveType, u32 CurveLen)
 {
 	s32 Status = XASUFW_FAILURE;
+	XEcc_CurveInfo *CurveInfo = NULL;
 
 	if (InstancePtr == NULL) {
 		Status = XASUFW_ECC_INVALID_PARAM;
@@ -1095,9 +1056,19 @@ static s32 XEcc_InputValidate(const XEcc *InstancePtr, u32 CurveType)
 	if ((CurveType != XECC_CURVE_TYPE_NIST_P256) && (CurveType != XECC_CURVE_TYPE_NIST_P384)) {
 		Status = XASUFW_ECC_INVALID_PARAM;
 		goto END;
-	} else {
-		Status = XASUFW_SUCCESS;
 	}
+
+	/** Get the curve information from the curve info table. */
+	CurveInfo = &XEcc_CurveInfoTable[CurveType];
+
+	if (CurveLen != CurveInfo->CurveBytes) {
+		Status = XASUFW_ECC_INVALID_PARAM;
+		goto END;
+	}
+
+	/** Update the curve information to the instance. */
+	InstancePtr->CurveInfo = CurveInfo;
+	Status = XASUFW_SUCCESS;
 
 END:
 	return Status;
