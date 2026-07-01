@@ -1302,7 +1302,6 @@ XDp_MainStreamAttributes *XDpRxss_GetMsa(XDpRxSs *DpRxSsInst)
 	u32 rxMsaMVid = 0;
 	u32 rxMsaNVid = 0;
 	u8 bpc;
-	char *color;
 	u8 color_mode = 0;
 	XDp_MainStreamAttributes *Msa_Config =
 			(XDp_MainStreamAttributes *)&DpRxSsInst->DpPtr->RxInstance.MsaConfig;
@@ -1485,15 +1484,12 @@ XDp_MainStreamAttributes *XDpRxss_GetMsa(XDpRxSs *DpRxSsInst)
 		if (color_mode == 0) {
 			DpRxSsInst->DpPtr->RxInstance.MsaConfig[Stream -1].ComponentFormat =
 					XDP_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_RGB;
-			color = "RGB";
 		} else if (color_mode == 1) {
 			DpRxSsInst->DpPtr->RxInstance.MsaConfig[Stream - 1].ComponentFormat =
 					XDP_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_YCBCR444;
-			color = "YCbCr444";
 		} else if (color_mode == 2) {
 			DpRxSsInst->DpPtr->RxInstance.MsaConfig[Stream - 1].ComponentFormat =
 					XDP_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_YCBCR422;
-			color = "YCbCr422";
 		} else {
 			//RAW, 420, Y unsupported
 			xil_printf("Unsupported Color Format\r\n");
@@ -1529,9 +1525,6 @@ XDp_MainStreamAttributes *XDpRxss_GetMsa(XDpRxSs *DpRxSsInst)
  ******************************************************************************/
 int XDpRxSs_GetVideoStream(XDpRxSs *InstancePtr, XVidC_VideoStream *VideoStream, u8 Stream)
 {
-	XDp_MainStreamAttributes *Msa_Config;
-	u32 VTotal;
-
 	/* Verify arguments.*/
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid((Stream == XDP_TX_STREAM_ID1) ||
@@ -1539,12 +1532,7 @@ int XDpRxSs_GetVideoStream(XDpRxSs *InstancePtr, XVidC_VideoStream *VideoStream,
 			  (Stream == XDP_TX_STREAM_ID3) ||
 			  (Stream == XDP_TX_STREAM_ID4));
 
-	u32 StreamOffset[4] = {XDP_RX_STREAM1_ADAPTIVE_VBLANK_VTOTAL,
-			XDP_RX_STREAM2_ADAPTIVE_VBLANK_VTOTAL,
-			XDP_RX_STREAM3_ADAPTIVE_VBLANK_VTOTAL,
-			XDP_RX_STREAM4_ADAPTIVE_VBLANK_VTOTAL};
-
-	Msa_Config = XDpRxss_GetMsa(InstancePtr);
+	XDpRxss_GetMsa(InstancePtr);
 
 	VideoStream->Timing =
 		InstancePtr->DpPtr->RxInstance.MsaConfig[Stream - 1].Vtm.Timing;
