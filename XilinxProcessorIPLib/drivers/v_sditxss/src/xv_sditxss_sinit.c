@@ -96,6 +96,7 @@ XV_SdiTxSs_Config *XV_SdiTxSs_LookupConfig(UINTPTR BaseAddress)
  *****************************************************************************/
 u32 XV_SdiTxSs_GetDrvIndex(XV_SdiTxSs *InstancePtr, UINTPTR BaseAddress)
 {
+	(void)InstancePtr;
 	u32 Index = 0;
 
 	for (Index = 0U; XV_SdiTxSs_ConfigTable[Index].Name; Index++) {

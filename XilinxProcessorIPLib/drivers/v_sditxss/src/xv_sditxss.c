@@ -888,15 +888,16 @@ void XV_SdiTxSs_StreamConfig(XV_SdiTxSs *InstancePtr)
 		if (XV_SdiTxSs_Is3GBDLor3GA1125L(InstancePtr)) {
 			InstancePtr->SdiTxPtr->Stream[0].Video.IsInterlaced =
 			XVidC_IsInterlaced(InstancePtr->SdiTxPtr->Stream[0].Video.VmId);
-			if (InstancePtr->SdiTxPtr->Stream[0].Video.ColorDepth ==
+			if ((InstancePtr->SdiTxPtr->Stream[0].Video.ColorDepth ==
 			    XVIDC_BPC_10 &&
 			    InstancePtr->SdiTxPtr->Stream[0].Video.ColorFormatId ==
-			    XVIDC_CSF_YCRCB_422 ||
+			    XVIDC_CSF_YCRCB_422) ||
 			    InstancePtr->SdiTxPtr->Stream[0].Video.ColorFormatId ==
 			    XVIDC_CSF_YCRCB_420) {
 				InstancePtr->SdiTxPtr->Stream[0].Video.IsInterlaced = 1;
 			}
 		}
+		/* fall through */
 	case XSDIVID_MODE_HD:
 	case XSDIVID_MODE_12G:
 		PayloadLineNum1 = XV_SDITX_PAYLOADLN1_HD_3G_6G_12G;
@@ -1410,10 +1411,10 @@ void XV_SdiTxSs_SetCoreSettings(XV_SdiTxSs *InstancePtr, XV_SdiTxSs_CoreSelId Se
 		XV_SdiTx_SetCoreSettings(SdiTxPtr, XV_SDITX_CORESELID_USEANCIN, Data);
 		break;
 	case XV_SDITXSS_CORESELID_INSERTLN:
-		XV_SdiTx_SetCoreSettings(SdiTxPtr, XV_SDITXSS_CORESELID_INSERTLN, Data);
+		XV_SdiTx_SetCoreSettings(SdiTxPtr, XV_SDITX_CORESELID_INSERTLN, Data);
 		break;
 	case XV_SDITXSS_CORESELID_INSERTEDH:
-		XV_SdiTx_SetCoreSettings(SdiTxPtr, XV_SDITXSS_CORESELID_INSERTEDH, Data);
+		XV_SdiTx_SetCoreSettings(SdiTxPtr, XV_SDITX_CORESELID_INSERTEDH, Data);
 		break;
 	};
 }
