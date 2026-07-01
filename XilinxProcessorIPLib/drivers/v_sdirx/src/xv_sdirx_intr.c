@@ -1008,7 +1008,7 @@ static void SdiRx_VidLckIntrHandler(XV_SdiRx *InstancePtr)
 					else if ((color_format == XST352_BYTE3_COLOR_FORMAT_422) &&
 						 ((bitdepth == XST352_BYTE4_BIT_DEPTH_12) || (bitdepth == XST352_BYTE4_BIT_DEPTH_10)))
 							if (InstancePtr->Transport.TFamily == XV_SDIRX_SMPTE_ST_2048_2)
-								SdiStream->VmId = SdiStream->VmId = ((InstancePtr->Transport.TScan) ?
+								SdiStream->VmId = ((InstancePtr->Transport.TScan) ?
 												      XVIDC_VM_2048x1080_25_P:
 												      XVIDC_VM_2048x1080_50_I);
 							else if (InstancePtr->Transport.TFamily == XV_SDIRX_SMPTE_ST_274)

@@ -49,7 +49,7 @@ typedef struct {
 #ifndef SDT
 XV_SdiRxSs_SubCores XV_SdiRxSs_SubCoreRepo[XPAR_XV_SDIRXSS_NUM_INSTANCES];
 #else
-XV_SdiRxSs_SubCores XV_SdiRxSs_SubCoreRepo[];
+XV_SdiRxSs_SubCores XV_SdiRxSs_SubCoreRepo[XPAR_XV_SDIRXSS_NUM_INSTANCES];
 #endif
 /**< Define Driver instance of all sub-core
 									included in the design */

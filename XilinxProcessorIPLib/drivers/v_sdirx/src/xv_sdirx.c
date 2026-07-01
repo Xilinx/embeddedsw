@@ -211,7 +211,7 @@ void XV_SdiRx_ResetStream(XV_SdiRx *InstancePtr)
 	Xil_AssertVoid(InstancePtr != NULL);
 
 	for (int i = 0; i < XV_SDIRX_MAX_DATASTREAM; i++) {
-		InstancePtr->Stream[i].Video.VmId = (XSDIVID_VM_720_HD);
+		InstancePtr->Stream[i].Video.VmId = (XVidC_VideoMode)XSDIVID_VM_720_HD;
 		InstancePtr->Stream[i].Video.ColorFormatId = (XVIDC_CSF_YCBCR_422);
 		InstancePtr->Stream[i].Video.ColorDepth = (XVIDC_BPC_10);
 		InstancePtr->Stream[i].Video.FrameRate = (XVIDC_FR_UNKNOWN);
