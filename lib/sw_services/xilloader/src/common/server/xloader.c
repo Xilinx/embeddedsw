@@ -737,7 +737,7 @@ static int XLoader_ReadAndValidateHdrs(XilPdi* PdiPtr, u32 RegValue, u64 PdiAddr
 			PdiPtr->MetaHdr->ImgHdrTbl.Idcode);
 	XPlmi_Printf(DEBUG_INFO, "Attributes: 0x%x\n\r",
 			PdiPtr->MetaHdr->ImgHdrTbl.Attr);
-#ifdef VERSAL_2VE_2VM
+#if defined(VERSAL_2VE_2VM) && !defined(VERSAL_2VP_P)
 	XPlmi_Printf(DEBUG_INFO, "AutheticationHdr: 0x%x\n\r",
 			PdiPtr->MetaHdr->ImgHdrTbl.AuthenticationHdr);
 	XPlmi_Printf(DEBUG_INFO, "HashBlockSize: 0x%x\n\r",

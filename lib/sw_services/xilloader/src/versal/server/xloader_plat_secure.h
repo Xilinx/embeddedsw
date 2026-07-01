@@ -205,9 +205,6 @@ int XLoader_RsaKat(void);
 int XLoader_MaskGenFunc(XSecure_Sha3 *Sha3InstancePtr,
 	u8 * Out, u32 OutLen, u8 *Input);
 #endif
-#ifdef PLM_EN_ADD_PPKS
-int XLoader_IsAdditionalPpkFeatureEnabled(void);
-#endif
 
 /************************** Variable Definitions *****************************/
 

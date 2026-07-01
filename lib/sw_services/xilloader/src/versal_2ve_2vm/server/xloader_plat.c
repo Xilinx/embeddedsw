@@ -1607,11 +1607,41 @@ static int XLoader_SpkMeasurement(XLoader_SecureParams* SecurePtr,
 	XSecure_Sha384Hash* Sha3Hash)
 {
 	XSecure_Sha *ShaInstPtr = XSecure_GetShaInstance(XSECURE_SHA_0_DEVICE_ID);
+#ifdef VERSAL_2VP_P
+	int Status = XST_FAILURE;
+	u32 AuthType;
+	u32 SpkLen = 0U;
 
+	AuthType = XLoader_GetAuthPubAlgo(SecurePtr->AcPtr->PPK.Header);
+	if (AuthType == XLOADER_PUB_STRENGTH_RSA_4096) {
+		SpkLen = XLOADER_RSA_KEY_SIZE_IN_BYTES;
+	} else if (AuthType == XLOADER_PUB_STRENGTH_ECDSA_P384) {
+		SpkLen = XLOADER_ECDSA_P384_KEY_SIZE_IN_BYTES;
+	} else if (AuthType == XLOADER_PUB_STRENGTH_LMS_HSS) {
+		SpkLen = XLOADER_LMS_HSS_KEY_SIZE_IN_BYTES;
+	} else if (AuthType == XLOADER_PUB_STRENGTH_LMS) {
+		SpkLen = XLOADER_LMS_KEY_SIZE_IN_BYTES;
+	} else if (AuthType == XLOADER_PUB_STRENGTH_MLDSA) {
+		SpkLen = XLOADER_MLDSA_KEY_SIZE_IN_BYTES;
+	} else if (AuthType == XLOADER_PUB_STRENGTH_SLHDSA) {
+		SpkLen = XLOADER_SLHDSA_KEY_SIZE_IN_BYTES;
+	} else {
+		Status = XST_FAILURE;
+		goto END;
+	}
+
+	Status = XSecure_ShaDigest(ShaInstPtr, XSECURE_SHA3_384,
+			(UINTPTR)&SecurePtr->AcPtr->SPK.Header,
+			SpkLen + XLOADER_KEY_HDR_SIZE_IN_BYTES,
+			(u64)(UINTPTR)Sha3Hash, XSECURE_SHA_384_HASH_SIZE_IN_BYTES);
+END:
+	return Status;
+#else
 	return XSecure_ShaDigest(ShaInstPtr, XSECURE_SHA3_384,
 			(UINTPTR)&SecurePtr->AcPtr->Spk,
 			SecurePtr->AcPtr->SpkHeader.SPKSize,
 			(u64)(UINTPTR)Sha3Hash, XSECURE_SHA_384_HASH_SIZE_IN_BYTES);
+#endif
 }
 
 /*****************************************************************************/
@@ -1658,9 +1688,15 @@ END:
 static int XLoader_SpkIdMeasurement(XLoader_SecureParams* SecurePtr, XSecure_Sha384Hash* Sha3Hash)
 {
 	XSecure_Sha *ShaInstPtr = XSecure_GetShaInstance(XSECURE_SHA_0_DEVICE_ID);
-
+#ifdef VERSAL_2VP_P
+	return XSecure_ShaDigest(ShaInstPtr, XSECURE_SHA3_384,
+			(UINTPTR)&SecurePtr->AcPtr->SPK.Header,
+			XLOADER_KEY_HDR_SIZE_IN_BYTES,
+			(u64)(UINTPTR)Sha3Hash, XSECURE_SHA_384_HASH_SIZE_IN_BYTES);
+#else
 	return XSecure_ShaDigest(ShaInstPtr, XSECURE_SHA3_384, (UINTPTR)&SecurePtr->AcPtr->SpkId,
 			sizeof(SecurePtr->AcPtr->SpkId), (u64)(UINTPTR)Sha3Hash, XSECURE_SHA_384_HASH_SIZE_IN_BYTES);
+#endif
 }
 
 /*****************************************************************************/

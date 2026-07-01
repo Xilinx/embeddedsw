@@ -35,6 +35,7 @@
 #include "xplmi.h"
 #include "xplmi_status.h"
 #include "xloader_plat_secure.h"
+#include "xsecure_init.h"
 
 /************************************ Constant Definitions ****************************************/
 #define XLOADER_EFUSE_OBFUS_KEY		(0xA5C3C5A7U)	/**< eFuse obfuscated key */
@@ -264,6 +265,8 @@ END:
 	return Status;
 }
 #endif
+
+
 #endif/* END OF PLM_SECURE_EXCLUDE */
 /**************************************************************************************************/
 /**
@@ -312,5 +315,6 @@ int XLoader_CheckSecureStateAuth(volatile u32* AHWRoT)
 
 	return Status;
 }
+
 
 /** @} end of xloader_server_apis group */

@@ -593,4 +593,17 @@ int XSecure_MemCpyAndChangeEndianness(u64 DestAddress, u64 SrcAddress, u32 Lengt
 END:
 	return Status;
 }
+
+/*****************************************************************************/
+/**
+ * @brief	This function initiates the key transfer to ASU.
+ *		Not applicable for this platform; returns success immediately.
+ *
+ * @return	XST_SUCCESS
+ *
+ *****************************************************************************/
+int XSecure_InitiateASUKeyTransfer(void)
+{
+	return XST_SUCCESS;
+}
 /** @} */

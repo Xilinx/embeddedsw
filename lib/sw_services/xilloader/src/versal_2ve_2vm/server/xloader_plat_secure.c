@@ -637,6 +637,8 @@ END:
 }
 
 #endif	/* END OF PLM_CFG_LIMITER_EN */
+
+
 #endif /* END OF PLM_SECURE_EXCLUDE */
 
 /*****************************************************************************/
@@ -689,5 +691,6 @@ int XLoader_CheckSecureStateAuth(volatile u32* AHWRoT)
 
 	return Status;
 }
+
 
 /** @} end of xloader_server_apis group */

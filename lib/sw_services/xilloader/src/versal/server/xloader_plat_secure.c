@@ -249,6 +249,7 @@ END:
 }
 #endif
 
+
 #endif/* END OF PLM_SECURE_EXCLUDE */
 /*****************************************************************************/
 /**
@@ -311,40 +312,5 @@ END:
 	return Status;
 }
 
-#ifdef PLM_EN_ADD_PPKS
-
-/*****************************************************************************/
-/**
- * @brief	This function Reads Additional PPKs Enable bits.
- *
- * @return
- * 			- XST_SUCCESS on success.
- * 			- XLOADER_EFUSE_5_PPK_FEATURE_NOT_SUPPORTED if additional PPKs are
- * 			not enabled.
- *
- ******************************************************************************/
-int XLoader_IsAdditionalPpkFeatureEnabled(void)
-{
-	int Status = XST_FAILURE;
-		volatile u32 ReadReg;
-		volatile u32 ReadRegTmp;
-
-		/* Read PPK3 and PPK4 enable set bits */
-		ReadReg = Xil_In32(XLOADER_EFUSE_MISC_CTRL_OFFSET);
-		ReadRegTmp = Xil_In32(XLOADER_EFUSE_MISC_CTRL_OFFSET);
-
-		ReadReg = ReadReg & XLOADER_EFUSE_ADDITIONAL_PPK_ENABLE_BITS_MASK;
-		ReadRegTmp = ReadRegTmp & XLOADER_EFUSE_ADDITIONAL_PPK_ENABLE_BITS_MASK;
-
-		if ((ReadReg == 0x0U) || (ReadRegTmp == 0x0U)) {
-			Status = (int)XLOADER_EFUSE_5_PPK_FEATURE_NOT_SUPPORTED;
-			goto END;
-		}
-		Status = XST_SUCCESS;
-END:
-	return Status;
-}
-
-#endif /* END OF PLM_EN_ADD_PPKS */
 
 /** @} end of xloader_server_apis group */

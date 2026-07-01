@@ -157,6 +157,10 @@ typedef struct {
                     /**< PPK3 invalid value */
 #define XLOADER_EFUSE_MISC_CTRL_PPK4_INVLD              (0x00001800U)
 					/**< PPK4 invalid value */
+#define XLOADER_EFUSE_ADDITIONAL_PPK_ENABLE_BITS_MASK       (0X00030000U)
+                    /**< PPK 3&4 Enable bits mask*/
+#define XLOADER_EFUSE_PPK3_START_OFFSET                 (0xF12502C0U)
+                    /**< PPK3 start register address */
 #endif /**< END OF PLM_EN_ADD_PPKS*/
 
 #define XLOADER_PMC_TAP_INST_MASK_0_ENABLE_MASK		(0x7DFFF8C1U)

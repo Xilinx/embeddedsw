@@ -446,7 +446,7 @@ extern "C" {
 #define XLOADER_HB_PPDI_PRTN_HASH_IDX_OFFSET	(1U)
 	/**< Partition Hash index offset in HashBlock for partial PDI */
 
-#ifdef VERSAL_2VE_2VM
+#if defined(VERSAL_2VE_2VM) && !defined(VERSAL_2VP_P)
 #define XLOADER_MAX_TOTAL_KEY_SIZE	(1040U)
 	/**< Maximum size of authentication key including padding */
 #define XLOADER_AC_AH_PUB_STRENGTH_MASK		(0x0FU)
@@ -465,7 +465,8 @@ extern "C" {
 	/**< Value of LMS as Public Strength in Authentication Certificate */
 #define XLOADER_MAX_TOTAL_SIGN_SIZE		(9952U)
 	/** Maximum Signature size including padding */
-#elif defined(VERSAL_2VP_P)
+#endif
+#if defined(VERSAL_2VP_P)
 #define XLOADER_MAX_TOTAL_KEY_SIZE	(2592U)
 	/**< Maximum size of authentication key */
 #define XLOADER_PUB_STRENGTH_RSA_4096		(0x1U)
@@ -579,7 +580,7 @@ typedef struct {
 
 #else
 
-#ifdef VERSAL_2VE_2VM
+#if defined(VERSAL_2VE_2VM) && !defined(VERSAL_2VP_P)
 /**
  * Structure for SPK Header
  */
@@ -644,6 +645,9 @@ typedef struct {
 	u32 TotalSpkSize;	/**< Total SPK Size */
 	u32 ActualAuthSignSize;	/**< Actual authentication signature size */
 	u32 TotalAuthSignSize;	/**< Total authentication signature size */
+#if defined(VERSAL_2VE_2VM)
+	u32 PpkDigestLen;	/**< PPK Digest Manifest length in words */
+#endif
 } XLoader_HBSignParams;
 #endif
 typedef XLoader_HBAuthCertificate XLoader_AuthCertificate;
@@ -745,7 +749,7 @@ typedef struct {
  */
 typedef struct {
 	u32* PpkData;	/**< Pointer to PPK */
-#ifdef VERSAL_2VE_2VM
+#if defined(VERSAL_2VE_2VM) && !defined(VERSAL_2VP_P)
 	XLoader_SpkHeader* SpkHeader;	/**< Pointer to SPK header */
 #endif
 	u32* SpkData;	/**< Pointer to SPK */
@@ -907,16 +911,11 @@ int XLoader_ProcessAuthEncPrtn(XLoader_SecureParams *SecurePtr, u64 DestAddr,
 #ifndef PLM_RSA_EXCLUDE
 int XLoader_RsaPssSignVerify(u8 *MsgHash, XSecure_Rsa *RsaInstPtr, u8 *Signature, u32 KeySize);
 #endif
-int XLoader_IsPpkValid(const u8 *PpkHash);
 int XLoader_ClearAesKey(u32 *DecKeySrc);
-int XLoader_IsPpkRevoked(u32 PpkInvldMask);
-int XLoader_ValidatePpkHash(const u8 *PpkHash, u32 PpkOffset);
 #if defined(VERSAL_2VE_2VM)
 int XLoader_AuthenticateClientHashBlock(XLoader_SecureParams *SecurePtr,
         XLoader_HBSignParams *HBSignParams, XLoader_HashBlock *ClientHBInstance);
 #endif
-int XLoader_GetPpkInvalidMaskAndOffset(XLoader_PpkSel PpkSelect,
-		u32 *InvalidMask, u32 *PpkOffset);
 #endif
 int XLoader_CheckSecureStateAuth(volatile u32* AHWRoT);
 int XLoader_CheckSecureState(u32 RegVal, u32 Var, u32 ExpectedValue);

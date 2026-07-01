@@ -356,7 +356,7 @@ END:
 				PrtnHdr->DataWordOfst);
 	XPlmi_Printf(DEBUG_INFO, "Partition attributes: 0x%x\n\r",
 				PrtnHdr->PrtnAttrb);
-#ifdef VERSAL_2VE_2VM
+#if defined(VERSAL_2VE_2VM) && !defined(VERSAL_2VP_P)
 	XPlmi_Printf(DEBUG_INFO, "AC offset: 0x%x\n\r",
                                 PrtnHdr->AuthCertificateOfst);
 	XPlmi_Printf(DEBUG_INFO, "TotalPpkSize: 0x%x\n\r",

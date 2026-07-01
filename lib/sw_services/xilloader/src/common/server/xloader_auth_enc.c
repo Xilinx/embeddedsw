@@ -292,7 +292,6 @@ static int XLoader_AesDecryption(XLoader_SecureParams *SecurePtr,
 	u64 SrcAddr, u64 DestAddr, u32 Size);
 static int XLoader_AesKeySelect(const XLoader_SecureParams *SecurePtr,
 	XLoader_AesKekInfo *KeyDetails, XSecure_AesKeySrc *KeySrc);
-static int XLoader_PpkCompare(const u32 EfusePpkOffset, const u8 *PpkHash);
 static int XLoader_DecHdrs(XLoader_SecureParams *SecurePtr,
 	XilPdi_MetaHdr *MetaHdr, u64 BufferAddr);
 
@@ -405,7 +404,7 @@ int XLoader_SecureAuthInit(XLoader_SecureParams *SecurePtr,
 		SecurePtr->ProcessedLen = XLOADER_AUTH_CERT_MIN_SIZE;
 
 #else
-#ifdef VERSAL_2VE_2VM
+#if defined(VERSAL_2VE_2VM) && !defined(VERSAL_2VP_P)
 		HBSignParams.ReadOffset = PrtnHdr->AuthCertificateOfst * XIH_PRTN_WORD_LEN;
 		HBSignParams.TotalPpkSize = PrtnHdr->TotalPpkSize;
 		HBSignParams.ActualPpkSize = PrtnHdr->ActualPpkSize;
@@ -416,6 +415,9 @@ int XLoader_SecureAuthInit(XLoader_SecureParams *SecurePtr,
 #else
 		HBSignParams.ReadOffset = PrtnHdr->HashBlockOffset * XIH_PRTN_WORD_LEN;
 		HBSignParams.HBSize = PrtnHdr->HashBlockSize * XIH_PRTN_WORD_LEN;
+#if defined(VERSAL_2VE_2VM) && defined(VERSAL_2VP_P)
+		HBSignParams.PpkDigestLen = PrtnHdr->PpkDigestLen;
+#endif
 #endif
 		XSECURE_TEMPORAL_CHECK(END, Status, XLoader_AuthenticateHashBlock,
 				SecurePtr, &HBSignParams);
@@ -871,7 +873,7 @@ int XLoader_ReadAndVerifySecureHdrs(XLoader_SecureParams *SecurePtr,
 		goto ERR_END;
 	}
 
-#ifdef VERSAL_2VE_2VM
+#if defined(VERSAL_2VE_2VM) && !defined(VERSAL_2VP_P)
 	HBSignParams.ReadOffset = MetaHdr->ImgHdrTbl.AcOffset * XIH_PRTN_WORD_LEN;
 	HBSignParams.TotalPpkSize = MetaHdr->ImgHdrTbl.TotalPpkSize;
 	HBSignParams.ActualPpkSize = MetaHdr->ImgHdrTbl.ActualPpkSize;
@@ -883,6 +885,9 @@ int XLoader_ReadAndVerifySecureHdrs(XLoader_SecureParams *SecurePtr,
 #ifdef VERSAL_2VP_P
 	HBSignParams.ReadOffset = MetaHdr->ImgHdrTbl.HashBlockOffset * XIH_PRTN_WORD_LEN;
 	HBSignParams.HBSize = MetaHdr->ImgHdrTbl.HashBlockSize * XIH_PRTN_WORD_LEN;
+#if defined(VERSAL_2VE_2VM)
+	HBSignParams.PpkDigestLen = MetaHdr->ImgHdrTbl.PpkDigestLen;
+#endif
 #endif
 	/*
 	 * If headers are in encrypted format
@@ -1192,190 +1197,6 @@ END:
 	return Status;
 }
 
-/*****************************************************************************/
-/**
-* @brief	This function compares calculated PPK hash with the efuse PPK
-* 		hash.
-*
-* @param	EfusePpkOffset is PPK hash address of efuse.
-* @param	PpkHash is pointer to the PPK hash to be verified.
-*
-* @return
-* 			- XST_SUCCESS on success.
-* 			- XLOADER_SEC_PPK_HASH_COMPARE_FAIL if hash comparison failed.
-*
-******************************************************************************/
-static int XLoader_PpkCompare(const u32 EfusePpkOffset, const u8 *PpkHash)
-{
-	int Status = XST_FAILURE;
-	volatile int HashStatus = XST_FAILURE;
-	volatile int HashStatusTmp = XST_FAILURE;
-
-	XSECURE_TEMPORAL_IMPL(HashStatus,HashStatusTmp,Xil_SMemCmp_CT,PpkHash,
-						  XLOADER_EFUSE_PPK_HASH_LEN, (void *)EfusePpkOffset,
-						  XLOADER_EFUSE_PPK_HASH_LEN, XLOADER_EFUSE_PPK_HASH_LEN);
-
-	if ((HashStatus != XST_SUCCESS) || (HashStatusTmp != XST_SUCCESS)) {
-		XPlmi_Printf(DEBUG_INFO, "Error: PPK Hash comparison failed\r\n");
-		Status = XLoader_UpdateMinorErr(XLOADER_SEC_PPK_HASH_COMPARE_FAIL, 0x0);
-	}
-	else {
-		Status = XST_SUCCESS;
-	}
-
-	return Status;
-}
-
-/*****************************************************************************/
-/**
-* @brief	This function validates PPK hash against eFUSE stored hash.
-*		It iterates through all PPKs and checks if the provided hash
-*		matches any valid (non-revoked) PPK.
-*
-* @param	PpkHash  Pointer to the PPK hash to be verified.
-*
-* @return
-* 		- XST_SUCCESS on success.
-* 		- XLOADER_SEC_INVALID_PPK_CHOICE_ERR if invalid PPK selection.
-* 		- XLOADER_SEC_PPK_HASH_COMPARE_FAIL if PPK hash comparison failed.
-* 		- XLOADER_SEC_PPK_HASH_ALLZERO_INVLD if PPK hash is all zeros.
-* 		- XLOADER_SEC_ALL_PPK_REVOKED_ERR if all PPKs are revoked.
-* 		- XLOADER_SEC_SEL_PPK_REVOKED_ERR if selected PPK is revoked.
-*
-******************************************************************************/
-int XLoader_IsPpkValid(const u8 *PpkHash)
-{
-	volatile int Status = XST_FAILURE;
-	u32 PpkOffset = 0U;
-	volatile u32 PpkIndex;
-	u32 InvalidMask = 0U;
-
-	/** - Validate PPK hash for all PPKs in a loop */
-	for (PpkIndex = XLOADER_PPK_SEL_0; PpkIndex < XLOADER_PPK_SEL_MAX; PpkIndex++) {
-
-		/** - Get invalid mask and PPK offset */
-		Status = XLoader_GetPpkInvalidMaskAndOffset((XLoader_PpkSel)PpkIndex, &InvalidMask, &PpkOffset);
-		if (Status != XST_SUCCESS) {
-			XPLMI_STATUS_GLITCH_DETECT(Status);
-			goto END;
-		}
-
-		Status = XST_FAILURE;
-
-		/** - Compare PPK hash with efuse stored PPK hash */
-		Status = XLoader_ValidatePpkHash(PpkHash, PpkOffset);
-		if (Status == XST_SUCCESS) {
-			break;
-		}
-	}
-
-	if (Status != XST_SUCCESS) {
-		if (PpkIndex != XLOADER_PPK_SEL_MAX) {
-			XPLMI_STATUS_GLITCH_DETECT(Status);
-		}
-		else {
-			XPlmi_Printf(DEBUG_INFO, "Error: PPK validation failed for all PPKs\r\n");
-			goto END;
-		}
-	}
-	else {
-		/** - Check if corresponding PPK is revoked*/
-		Status = XLoader_IsPpkRevoked(InvalidMask);
-	}
-
-END:
-	return Status;
-}
-
-/*****************************************************************************/
-/**
-* @brief	This function verifies PPK.
-*
-* @param	SecurePtr is pointer to the XLoader_SecureParams instance.
-*
-* @param	PpkSize	is Size of the PPK to be verified
-*
-* @return
-* 			- XST_SUCCESS on success.
-* 			- XLOADER_SEC_ALL_PPK_REVOKED_ERR if all PPKs are revoked.
-* 			- XLOADER_SEC_PPK_HASH_CALCULATION_FAIL if PPK hash calculation fails
-* 			- XLOADER_SEC_ALL_PPK_INVALID_ERR if all PPKs are invalid.
-* 			- XLOADER_SEC_BUF_CLEAR_ERR if failed to clear buffer.
-*
-******************************************************************************/
-int XLoader_PpkVerify(const XLoader_SecureParams *SecurePtr, const u32 PpkSize)
-{
-	volatile int Status = XST_FAILURE;
-	volatile int StatusTmp = XST_FAILURE;
-	volatile int ClearStatus = XST_FAILURE;
-	XSecure_Sha384Hash Sha3Hash;
-	XSecure_Sha *ShaInstPtr = XSecure_GetSha3Instance(XSECURE_SHA_0_DEVICE_ID);
-
-	/** - Calculate PPK hash */
-	Status = XSecure_ShaStart(ShaInstPtr, XSECURE_SHA3_384);
-	if (Status != XST_SUCCESS) {
-		Status = XLoader_UpdateMinorErr(XLOADER_SEC_PPK_HASH_CALCULATION_FAIL,
-			Status);
-		goto END;
-	}
-
-	Status = XSecure_ShaLastUpdate(ShaInstPtr);
-	if (Status != XST_SUCCESS) {
-		Status = XLoader_UpdateMinorErr(XLOADER_SEC_PPK_HASH_CALCULATION_FAIL,
-			Status);
-		goto END;
-	}
-
-	/** - Update PPK  */
-	if (SecurePtr->AuthJtagMessagePtr != NULL) {
-#if !defined(VERSAL_2VE_2VM) && !defined(VERSAL_2VP_P)
-		Status = XSecure_ShaUpdate(ShaInstPtr,
-			(UINTPTR)&(SecurePtr->AuthJtagMessagePtr->PpkData), PpkSize);
-#elif defined(VERSAL_2VE_2VM)
-		Status = XSecure_ShaUpdate(ShaInstPtr,
-			(UINTPTR)&(SecurePtr->AuthJtagMessagePtr->AuthJtagData), PpkSize);
-#else
-		XPlmi_Printf(DEBUG_INFO, "Authenticated JTAG not supported\n\r");
-		Status = XPlmi_UpdateStatus(XLOADER_ERR_AUTH_JTAG_NOT_SUPPORTED, XIL_SIGNED_ZERO);
-		goto END;
-#endif
-	}
-	else {
-#ifndef VERSAL_2VP_P
-		Status = XSecure_ShaUpdate(ShaInstPtr, (UINTPTR)&SecurePtr->AcPtr->Ppk, PpkSize);
-#else
-		Status = XSecure_ShaUpdate(ShaInstPtr, (UINTPTR)&SecurePtr->AcPtr->PPK.Header,
-			PpkSize);
-#endif
-	}
-	if (Status != XST_SUCCESS) {
-		Status = XLoader_UpdateMinorErr(
-				XLOADER_SEC_PPK_HASH_CALCULATION_FAIL, Status);
-		goto END;
-	}
-
-	Status = XSecure_ShaFinish(ShaInstPtr, (u64)(UINTPTR)&Sha3Hash, XSECURE_SHA_384_HASH_SIZE_IN_BYTES);
-	if (Status != XST_SUCCESS) {
-		Status = XLoader_UpdateMinorErr(XLOADER_SEC_PPK_HASH_CALCULATION_FAIL,
-			Status);
-		goto END;
-	}
-
-	/* Validate PPK hash and check revocation */
-	XSECURE_TEMPORAL_IMPL(Status, StatusTmp, XLoader_IsPpkValid, Sha3Hash.Hash);
-	if ((Status != XST_SUCCESS) || (StatusTmp != XST_SUCCESS)) {
-		XPLMI_STATUS_GLITCH_DETECT(Status);
-		goto END;
-	}
-
-END:
-	ClearStatus = XPlmi_MemSetBytes(&Sha3Hash, XSECURE_SHA_384_HASH_SIZE_IN_BYTES, 0U,
-                        XSECURE_SHA_384_HASH_SIZE_IN_BYTES);
-	if (ClearStatus != XST_SUCCESS) {
-		Status = (int)((u32)Status | XLOADER_SEC_BUF_CLEAR_ERR);
-	}
-	return Status;
-}
 
 #ifndef PLM_RSA_EXCLUDE
 
@@ -2967,6 +2788,7 @@ int XLoader_ProcessAuthEncPrtn(XLoader_SecureParams *SecurePtr, u64 DestAddr,
 
 	XPlmi_Printf(DEBUG_INFO, "Authentication/Decryption of Block %u is "
 		"successful\r\n", SecurePtr->BlockNum);
+
 	/* In case of Authentication enabled, it is mandatory to use
 	 * same SPK for all partitions of an image. Hence secure config extend is
 	 * called only for the first partition of an image for Block 0.
@@ -2987,7 +2809,6 @@ int XLoader_ProcessAuthEncPrtn(XLoader_SecureParams *SecurePtr, u64 DestAddr,
 			Status |= SStatus;
 		}
 	}
-
 	SecurePtr->NextBlkAddr = SrcAddr + TotalSize;
 	SecurePtr->ProcessedLen = TotalSize;
 	SecurePtr->BlockNum++;
@@ -4250,8 +4071,39 @@ static int XLoader_AuthenticateHashBlock(XLoader_SecureParams *SecurePtr,
 		goto END;
 	}
 
-	/* Read PPK Header */
 	ReadOffset += HBSignParams->HBSize;
+
+#if defined(VERSAL_2VE_2VM) && defined(VERSAL_2VP_P)
+	/**
+	 * Reset the PLM manifest buffer length for this authentication round.
+	 * If the PDI carries its own manifest, load it into the dedicated PLM
+	 * buffer (never the ROM PRAM copy) and record its byte length so that
+	 * XLoader_PpkVerify can choose the correct source without a PrtnHdr
+	 * NULL-check.
+	 */
+	XLoader_SetPpkManifestLen(0U);
+	if (HBSignParams->PpkDigestLen != 0U) {
+		u32 ManifestBytes = HBSignParams->PpkDigestLen * XIH_PRTN_WORD_LEN;
+		if (ManifestBytes > XLOADER_UKM_MANIFEST_MAX_SIZE) {
+			Status = XPlmi_UpdateStatus(
+					XLOADER_ERR_PPK_MANIFEST_COPY_FAIL, Status);
+			goto END;
+		}
+		Status = MetaHdrPtr->DeviceCopy(
+				MetaHdrPtr->FlashOfstAddr + ReadOffset,
+				XLoader_GetPpkManifestBufAddr(),
+				ManifestBytes, 0x0U);
+		if (Status != XST_SUCCESS) {
+			Status = XPlmi_UpdateStatus(
+					XLOADER_ERR_PPK_MANIFEST_COPY_FAIL, Status);
+			goto END;
+		}
+		ReadOffset += ManifestBytes;
+		XLoader_SetPpkManifestLen(ManifestBytes);
+	}
+#endif
+
+	/* Read PPK Header */
 
 	Status = MetaHdrPtr->DeviceCopy(MetaHdrPtr->FlashOfstAddr + ReadOffset,
 			(u64)(UINTPTR)&SecurePtr->AcPtr->PPK.Header,
@@ -5409,235 +5261,8 @@ END:
 }
 #endif
 
-/*****************************************************************************/
-/**
-* @brief	This function calculates the invalid mask and PPK offset based on
-* 		the selected PPK.
-*
-* @param	PpkSelect is PPK selection of eFUSE.
-* @param	InvalidMask is pointer to store the invalid mask for the selected PPK.
-* @param	PpkOffset is pointer to store the PPK eFUSE offset.
-*
-* @return
-* 			- XST_SUCCESS on success.
-* 			- XLOADER_SEC_INVALID_PPK_CHOICE_ERR if invalid PPK selection.
-*
-******************************************************************************/
-int XLoader_GetPpkInvalidMaskAndOffset(XLoader_PpkSel PpkSelect,
-		u32 *InvalidMask, u32 *PpkOffset)
-{
-	volatile int Status = XST_FAILURE;
 
-	switch ((u32)PpkSelect) {
-		case XLOADER_PPK_SEL_0:
-			*InvalidMask = XLOADER_EFUSE_MISC_CTRL_PPK0_INVLD;
-			*PpkOffset = XLOADER_EFUSE_PPK0_START_OFFSET;
-			Status = XST_SUCCESS;
-			break;
-		case XLOADER_PPK_SEL_1:
-			*InvalidMask = XLOADER_EFUSE_MISC_CTRL_PPK1_INVLD;
-			*PpkOffset = XLOADER_EFUSE_PPK1_START_OFFSET;
-			Status = XST_SUCCESS;
-			break;
-		case XLOADER_PPK_SEL_2:
-			*InvalidMask = XLOADER_EFUSE_MISC_CTRL_PPK2_INVLD;
-			*PpkOffset = XLOADER_EFUSE_PPK2_START_OFFSET;
-			Status = XST_SUCCESS;
-			break;
-#ifndef VERSAL_2VP_P
-#ifdef PLM_EN_ADD_PPKS
-		case XLOADER_PPK_SEL_3:
-			XSECURE_TEMPORAL_CHECK(END, Status, XLoader_IsAdditionalPpkFeatureEnabled);
-			*InvalidMask = XLOADER_EFUSE_MISC_CTRL_PPK3_INVLD;
-			*PpkOffset = XLOADER_EFUSE_PPK3_START_OFFSET;
-			Status = XST_SUCCESS;
-			break;
-		case XLOADER_PPK_SEL_4:
-			XSECURE_TEMPORAL_CHECK(END, Status, XLoader_IsAdditionalPpkFeatureEnabled);
-			*InvalidMask = XLOADER_EFUSE_MISC_CTRL_PPK4_INVLD;
-			*PpkOffset = XLOADER_EFUSE_PPK4_START_OFFSET;
-			Status = XST_SUCCESS;
-			break;
-#endif
-#else
-		case XLOADER_PPK_SEL_3:
-			*InvalidMask = XLOADER_EFUSE_MISC_CTRL_PPK3_INVLD;
-			*PpkOffset = XLOADER_EFUSE_PPK3_START_OFFSET;
-			Status = XST_SUCCESS;
-			break;
-		case XLOADER_PPK_SEL_4:
-			*InvalidMask = XLOADER_EFUSE_MISC_CTRL_PPK4_INVLD;
-			*PpkOffset = XLOADER_EFUSE_PPK4_START_OFFSET;
-			Status = XST_SUCCESS;
-			break;
-		case XLOADER_PPK_SEL_5:
-			*InvalidMask = XLOADER_EFUSE_MISC_CTRL_PPK5_INVLD;
-			*PpkOffset = XLOADER_EFUSE_PPK5_START_OFFSET;
-			Status = XST_SUCCESS;
-			break;
-		case XLOADER_PPK_SEL_6:
-			*InvalidMask = XLOADER_EFUSE_MISC_CTRL_PPK6_INVLD;
-			*PpkOffset = XLOADER_EFUSE_PPK6_START_OFFSET;
-			Status = XST_SUCCESS;
-			break;
-		case XLOADER_PPK_SEL_7:
-			*InvalidMask = XLOADER_EFUSE_MISC_CTRL_PPK7_INVLD;
-			*PpkOffset = XLOADER_EFUSE_PPK7_START_OFFSET;
-			Status = XST_SUCCESS;
-			break;
-		case XLOADER_PPK_SEL_8:
-			*InvalidMask = XLOADER_EFUSE_MISC_CTRL_PPK8_INVLD;
-			*PpkOffset = XLOADER_EFUSE_PPK8_START_OFFSET;
-			Status = XST_SUCCESS;
-			break;
-#endif
-		default:
-			/** Unintended condition */
-			XPLMI_STATUS_GLITCH_DETECT(Status);
-			break;
-	}
-
-#ifndef VERSAL_2VP_P
-#ifdef PLM_EN_ADD_PPKS
-END:
-#endif
-#endif
-
-	return Status;
-}
-
-/*****************************************************************************/
-/**
-* @brief	This function checks if the selected PPK is revoked by reading
-*		the PPK invalid bits from eFUSE.
-*
-* @param	PpkInvldMask is the PPK invalid bit mask to check in eFUSE.
-*
-* @return
-*			- XST_SUCCESS if PPK is not revoked.
-*			- XLOADER_SEC_SEL_PPK_REVOKED_ERR if PPK is revoked (invalid bit set).
-*			- XLOADER_SEC_ALL_PPK_REVOKED_ERR if all PPKs are revoked.
-*
-******************************************************************************/
-int XLoader_IsPpkRevoked(u32 PpkInvldMask)
-{
-	volatile int Status = XST_FAILURE;
-	volatile u32 ReadReg;
-	volatile u32 ReadRegTmp;
-
-	/** - Check if all PPKs are revoked */
-	ReadReg = XPlmi_In32(XLOADER_EFUSE_MISC_CTRL_OFFSET);
-	if ((ReadReg & XLOADER_EFUSE_MISC_CTRL_ALL_PPK_INVLD) ==
-		(XLOADER_EFUSE_MISC_CTRL_ALL_PPK_INVLD)) {
-		XPlmi_Printf(DEBUG_INFO, "All PPKs are invalid\n\r");
-		Status = XLoader_UpdateMinorErr(XLOADER_SEC_ALL_PPK_REVOKED_ERR, 0x0);
-		goto END;
-	}
-
-	/** - Check if PPK is revoked by reading the PPK EFUSE invalid bits */
-	ReadReg = XPlmi_In32(XLOADER_EFUSE_MISC_CTRL_OFFSET) & PpkInvldMask;
-	ReadRegTmp = XPlmi_In32(XLOADER_EFUSE_MISC_CTRL_OFFSET) & PpkInvldMask;
-	if ((ReadReg != 0x0U) || (ReadRegTmp != 0x0U)) {
-		Status = XLoader_UpdateMinorErr(XLOADER_SEC_SEL_PPK_REVOKED_ERR, 0x0);
-	}
-	else {
-		Status = XST_SUCCESS;
-	}
-
-END:
-	return Status;
-}
-
-/*****************************************************************************/
-/**
-* @brief	This function compares the provided PPK hash with the hash
-* 		stored in eFUSE and validates it is not all zeros.
-*
-* @param	PpkHash is pointer to the PPK hash to be verified.
-* @param	PpkOffset is PPK eFUSE offset.
-*
-* @return
-* 			- XST_SUCCESS on success.
-* 			- XLOADER_SEC_PPK_HASH_COMPARE_FAIL if hash comparison fails.
-* 			- XLOADER_SEC_PPK_HASH_ALLZERO_INVLD if PPK hash is all zeros.
-*
-******************************************************************************/
-int XLoader_ValidatePpkHash(const u8 *PpkHash, u32 PpkOffset)
-{
-	volatile int Status = XST_FAILURE;
-	volatile int HashStatus = XST_FAILURE;
-	volatile int HashStatusTmp = XST_FAILURE;
-	const u8 HashZeros[XLOADER_EFUSE_PPK_HASH_LEN] = {0U};
-#ifdef VERSAL_2VE_2VM
-	u32 UserOffset = 0U;
-#endif
-
-	/** - Compare provided PPK hash with eFUSE stored hash */
-	XSECURE_TEMPORAL_CHECK(END, Status, XLoader_PpkCompare, PpkOffset, PpkHash);
-
-	Status = XST_FAILURE;
-	/** - Check if PPK hash is all zeros */
-	XSECURE_TEMPORAL_IMPL(HashStatus, HashStatusTmp, Xil_SMemCmp_CT, HashZeros,
-			XLOADER_EFUSE_PPK_HASH_LEN, (void *)PpkOffset,
-			XLOADER_EFUSE_PPK_HASH_LEN, XLOADER_EFUSE_PPK_HASH_LEN);
-	if ((HashStatus == XST_SUCCESS) || (HashStatusTmp == XST_SUCCESS)) {
-		Status = XLoader_UpdateMinorErr(
-			XLOADER_SEC_PPK_HASH_ALLZERO_INVLD, 0x0);
-		goto END;
-	}
-	else {
-		Status = XST_SUCCESS;
-	}
-
-#ifdef VERSAL_2VE_2VM
-	if (PpkOffset == XLOADER_EFUSE_PPK0_START_OFFSET) {
-		UserOffset = XLOADER_EFUSE_PPK0_USER_START_OFFSET;
-	}
-	else if (PpkOffset == XLOADER_EFUSE_PPK1_START_OFFSET) {
-		UserOffset = XLOADER_EFUSE_PPK1_USER_START_OFFSET;
-	}
-	else if (PpkOffset == XLOADER_EFUSE_PPK2_START_OFFSET) {
-		UserOffset = XLOADER_EFUSE_PPK2_USER_START_OFFSET;
-	}
-	else {
-		Status = XST_FAILURE;
-		goto END;
-	}
-
-	HashStatus = XST_FAILURE;
-	/** - Check if upper 128 PPK bits hash is valid or not by reading the User EFUSE bits */
-	HashStatus = Xil_SMemCmp_CT((void *)(PpkHash + XLOADER_EFUSE_PPK_HASH_LEN),
-				XLOADER_EFUSE_PPK_HASH_HIGH_BYTE_LEN,
-				(void *)UserOffset,
-                                XLOADER_EFUSE_PPK_HASH_HIGH_BYTE_LEN,
-				XLOADER_EFUSE_PPK_HASH_HIGH_BYTE_LEN);
-        HashStatusTmp = HashStatus;
-        if ((HashStatus != XST_SUCCESS) || (HashStatusTmp != XST_SUCCESS)) {
-                XPlmi_Printf(DEBUG_INFO, "Error: PPK Hash - Upper 128 bits comparison failed\r\n");
-                Status = XLoader_UpdateMinorErr(XLOADER_SEC_PPK_HASH_COMPARE_FAIL, 0x0);
-		goto END;
-        }
-
-	Status = XST_FAILURE;
-	/** - Check if valid upper 128 bit PPK hash is all zeros */
-	XSECURE_TEMPORAL_IMPL(HashStatus, HashStatusTmp, Xil_SMemCmp_CT, HashZeros,
-			XLOADER_EFUSE_PPK_HASH_HIGH_BYTE_LEN, (void *)UserOffset,
-			XLOADER_EFUSE_PPK_HASH_HIGH_BYTE_LEN, XLOADER_EFUSE_PPK_HASH_HIGH_BYTE_LEN);
-	if ((HashStatus == XST_SUCCESS) || (HashStatusTmp == XST_SUCCESS)) {
-		Status = XLoader_UpdateMinorErr(
-			XLOADER_SEC_PPK_HASH_ALLZERO_INVLD, 0x0);
-		goto END;
-	}
-	else {
-		Status = XST_SUCCESS;
-	}
-#endif
-
-END:
-	return Status;
-}
-
-#if defined(VERSAL_2VE_2VM)
+#if defined(VERSAL_2VE_2VM) && !defined(VERSAL_2VP_P)
 /*****************************************************************************/
 /**
 * @brief	This function authenticates a client provided Hash Block using

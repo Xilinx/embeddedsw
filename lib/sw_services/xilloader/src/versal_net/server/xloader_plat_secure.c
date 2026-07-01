@@ -385,6 +385,8 @@ int XLoader_MaskGenFunc(XSecure_Sha3 *Sha3InstancePtr,
 	return Status;
 }
 #endif
+
+
 #endif /* END OF PLM_SECURE_EXCLUDE */
 
 /*****************************************************************************/
@@ -437,5 +439,6 @@ int XLoader_CheckSecureStateAuth(volatile u32* AHWRoT)
 
 	return Status;
 }
+
 
 /** @} end of xloader_server_apis group */

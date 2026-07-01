@@ -1280,7 +1280,7 @@ static int XLoader_VerifyDataAuth(XPlmi_Cmd *Cmd)
 END:
 	return Status;
 }
-#elif defined(VERSAL_2VE_2VM)
+#elif defined(VERSAL_2VE_2VM) && !defined(VERSAL_2VP_P)
 /*****************************************************************************/
 /**
  * @brief	This function verifies the signature of the provided hash
@@ -1354,11 +1354,13 @@ static const XPlmi_ModuleCmd XLoader_Cmds[] =
 	XPLMI_MODULE_COMMAND(XLoader_WriteImageStorePdi),
 	XPLMI_MODULE_COMMAND(XLoader_ConfigureJtagState),
 	XPLMI_MODULE_COMMAND(XLoader_ReadDdrCryptoPerfCounters),
-    XPLMI_MODULE_COMMAND(XLoader_MbPmcI2cHandshake),
-#if defined(VERSAL_2VE_2VM)
+	XPLMI_MODULE_COMMAND(XLoader_MbPmcI2cHandshake),
+#if defined(VERSAL_2VE_2VM) && !defined(VERSAL_2VP_P)
 	XPLMI_MODULE_COMMAND(XLoader_VerifyAuthHashBlock),
-#else
+#elif defined(VERSAL_NET) && !defined(VERSAL_2VE_2VM)
 	XPLMI_MODULE_COMMAND(XLoader_VerifyDataAuth),
+#else
+	XPLMI_MODULE_COMMAND(NULL),
 #endif
 	XPLMI_MODULE_COMMAND(XLoader_CfiSelectiveRead),
 };
