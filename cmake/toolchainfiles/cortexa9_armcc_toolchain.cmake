@@ -10,6 +10,7 @@ set( CMAKE_ASM_COMPILER armasm )
 # Force ASM compiler identification to bypass timeout issues caused by PATH conflicts
 set( CMAKE_ASM_COMPILER_ID "GNU" )
 set( CMAKE_AR armar CACHE FILEPATH "Archiver" )
+set( CMAKE_LINKER armlink CACHE FILEPATH "Linker" )
 set( CMAKE_SYSTEM_PROCESSOR "cortexa9" )
 set( CMAKE_MACHINE "Zynq" )
 set( CMAKE_SYSTEM_NAME "Generic" )
