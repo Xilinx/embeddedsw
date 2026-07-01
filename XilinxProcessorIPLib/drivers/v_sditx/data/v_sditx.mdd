@@ -23,6 +23,6 @@ BEGIN driver v_sditx
   OPTION driver_state = ACTIVE;
   OPTION DEPENDS = (video_common sdi_common);
   OPTION copyfiles = all;
-  OPTION VERSION = 3.5;
+  OPTION VERSION = 3.6;
   OPTION NAME = v_sditx;
 END driver

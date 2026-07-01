@@ -720,7 +720,7 @@ u8 XV_SdiTx_GetPayloadColorFormat(XSdiVid_TransMode SdiMode, XVidC_ColorFormat C
 u32 XV_SdiTx_GetPayloadEotf(XV_SdiTx *InstancePtr,
 			    XVidC_Eotf Eotf, XVidC_ColorStd Colorimetry)
 {
-	XVidC_Eotf eotf;
+	XSdiVid_Eotf eotf;
 	XVidC_ColorStd colorimetry;
 	u32 payload = 0;
 
