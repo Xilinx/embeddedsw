@@ -130,9 +130,8 @@ static u32 XDp_TxAuxWaitReply(XDp *InstancePtr);
 static u32 XDp_TxAuxWaitReady(XDp *InstancePtr);
 /* Miscellaneous functions. */
 static u32 XDp_TxSetClkSpeed(XDp *InstancePtr, u32 Speed);
-#endif /* XPAR_XDPTXSS_NUM_INSTANCES */
-
 static u32 XDp_WaitPhyReady(XDp *InstancePtr, u32 Mask);
+#endif /* XPAR_XDPTXSS_NUM_INSTANCES */
 
 /**************************** Function Definitions ****************************/
 
@@ -3299,6 +3298,7 @@ static u32 XDp_TxSetClkSpeed(XDp *InstancePtr, u32 Speed)
 }
 #endif /* XPAR_XDPTXSS_NUM_INSTANCES */
 
+#if XPAR_XDPTXSS_NUM_INSTANCES
 /******************************************************************************/
 /**
  * This function waits for the DisplayPort PHY to come out of reset.
@@ -3344,4 +3344,5 @@ static u32 XDp_WaitPhyReady(XDp *InstancePtr, u32 Mask)
 
 	return XST_SUCCESS;
 }
+#endif /* XPAR_XDPTXSS_NUM_INSTANCES */
 /** @} */

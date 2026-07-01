@@ -1,6 +1,6 @@
 /*******************************************************************************
 * Copyright (C) 2015 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -3573,7 +3573,7 @@ static u32 XDp_TxSendActTrigger(XDp *InstancePtr)
 *******************************************************************************/
 static u32 XDp_SendSbMsgFragment(XDp *InstancePtr, XDp_SidebandMsg *Msg)
 {
-	u32 Status;
+	u32 Status = XST_FAILURE;
 	u8 Data[XDP_MAX_LENGTH_SBMSG];
 	XDp_SidebandMsgHeader *Header = &Msg->Header;
 	XDp_SidebandMsgBody *Body = &Msg->Body;
