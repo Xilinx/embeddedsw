@@ -919,16 +919,11 @@ u32 XDPTxss_GetMsa(XDpTxSs *InstancePtr, XDpTxSs_MainStreamAttributes *msa_tx)
 u32 XDPTxss_SetMsa(XDpTxSs *InstancePtr, XVidC_VideoStream *VidStream, u8 Stream)
 {
 	XDpTxSs_MainStreamAttributes *MsaConfig;
-	u32 WordsPerLine;
-	u8 LinkRate, LaneCount;
 
 	Xil_AssertNonvoid((Stream == XDP_TX_STREAM_ID1) ||
 			(Stream == XDP_TX_STREAM_ID2) ||
 			(Stream == XDP_TX_STREAM_ID3) ||
 			(Stream == XDP_TX_STREAM_ID4));
-
-	LinkRate = InstancePtr->DpPtr->TxInstance.LinkConfig.LinkRate;
-	LaneCount = InstancePtr->DpPtr->TxInstance.LinkConfig.LaneCount;
 
 	MsaConfig = &InstancePtr->DpPtr->TxInstance.MsaConfig[Stream - 1];
 
@@ -980,14 +975,6 @@ u32 XDpTxSs_SetVideoStream(XDpTxSs *InstancePtr, XVidC_VideoStream *VidStream, u
 	XVidC_ColorFormat ColorFormat = VidStream->ColorFormatId;
 	XVidC_ColorDepth Bpc =  VidStream->ColorDepth;
 	XVidC_PixelsPerClock Ppc = VidStream->PixPerClk;
-	XVidC_FrameRate		FrameRate = VidStream->FrameRate;
-	XVidC_AspectRatio	AspectRatio = VidStream->AspectRatio;
-	XVidC_3DInfo		Info_3D = VidStream->Info_3D;
-	XVidC_VideoTiming	Timing = VidStream->Timing;
-	XVidC_Eotf		Eotf = VidStream->Eotf;
-	XVidC_ColorStd		ColorStd = VidStream->ColorStd;
-	XVidC_FrameRate		BaseFrameRate = VidStream->BaseFrameRate;
-	XVidC_VideoTiming	BaseTiming = VidStream->BaseTiming;
 
 	/* Verify arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
