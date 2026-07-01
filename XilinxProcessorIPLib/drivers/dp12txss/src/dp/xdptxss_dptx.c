@@ -94,13 +94,7 @@ u32 XDpTxSs_DpTxStart(XDp *InstancePtr, u8 TransportMode, u8 Bpc,
 	u8 StreamIndex;
 	u8 NumOfStreams;
 	u8 Edid[128];
-	u16 FullPbn;			/**< The payload bandwidth number (PBN)
-						associated with the sink
-						connected to this port. */
-	u16 AvailPbn;			/**< The available PBN of the sink
-						connected to this port. */
 	XDp_TxTopologyNode *Sink1;
-	int i;
 
 	/* Verify arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -184,7 +178,7 @@ u32 XDpTxSs_DpTxStart(XDp *InstancePtr, u8 TransportMode, u8 Bpc,
 				"topology.\n\r");
 	    /* Wait the requested amount of time to start mst topology
 	     * discovery after link training got success */
-		usleep(10000);
+		XDp_WaitUs(InstancePtr, 10000);
 		/* Get list of sinks */
 		Status = Dp_GetTopology(InstancePtr);
 		if (Status)
@@ -653,10 +647,10 @@ u32 XDpTxSs_DpTxStart(XDp *InstancePtr, u8 TransportMode, u8 Bpc,
 		xdbg_printf(XDBG_DEBUG_GENERAL,"SS INFO:Link "
 			"is DOWN after main link enabled!\n\r\n\r");
 		return Status;
-	}
-	else
+	} else {
 		xdbg_printf(XDBG_DEBUG_GENERAL,"SS INFO:Link "
 			"is UP after main link enabled!\n\r\n\r");
+	}
 
 	xdbg_printf(XDBG_DEBUG_GENERAL,"SS INFO:Enabled main link!"
 		"\n\r\n\r");
