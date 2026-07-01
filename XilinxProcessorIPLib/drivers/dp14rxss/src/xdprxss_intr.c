@@ -581,7 +581,7 @@ u32 XDpRxSs_SetCallBack(XDpRxSs *InstancePtr, u32 HandlerType,
 #if (XPAR_XHDCP_NUM_INSTANCES > 0)
 		case XDPRXSS_HANDLER_HDCP_RPTR_TDSA_EVENT:
 			XHdcp1x_SetCallBack(InstancePtr->Hdcp1xPtr,
-				XHDCP1X_RPTR_HDLR_TRIG_DOWNSTREAM_AUTH,
+				XHDCP1X_HANDLER_RPTR_TRIGDWNSTRMAUTH,
 					CallbackFunc, CallbackRef);
 			Status = XST_SUCCESS;
 			break;

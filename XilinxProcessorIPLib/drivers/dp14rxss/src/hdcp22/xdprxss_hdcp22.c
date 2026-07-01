@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2019 - 2020 Xilinx, Inc. All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -222,8 +222,6 @@ static void XHdcp22_PortDpRxProcessHprimeReadDone(void *RefPtr)
 ******************************************************************************/
 static void XHdcp22_PortDpRxProcessPairingReadDone(void *RefPtr)
 {
-	XDpRxSs *DpRxSsPtr = (XDpRxSs *)RefPtr;
-
 	Xil_AssertVoid(RefPtr);
 	/* There is no processing is dependent on Pairing read done interrupt
 	 * event, so no need to set the interrupt event
