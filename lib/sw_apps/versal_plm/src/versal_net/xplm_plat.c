@@ -30,6 +30,7 @@
 *       obs  12/18/2024 Fixed GCC Warnings
 * 1.12  kd   08/22/2025 Added psm firmware presence check for In-Place PLM Update
 * 1.13  rmv  01/30/2026 Renamed OCP header files and keymanagment macro
+* 2.0   sd   07/01/2026 Updated logic to handle zero-length optional-data
 *
 * </pre>
 *
@@ -161,6 +162,7 @@ int XPlm_CompatibilityCheck(u32 PdiAddr)
 	u32 OptionalDataEndAddr;
 	u32 Index;
 	u32 PdiVersion;
+	u32 OptDataIncr;
 	XPlmi_DsVer *DsVerList = NULL;
 	XPlmi_DsEntry *DsEntry = NULL;
 
@@ -228,8 +230,16 @@ int XPlm_CompatibilityCheck(u32 PdiAddr)
 	while (Offset < OptionalDataEndAddr) {
 		if ((XPlmi_In32(Offset) & XIH_OPT_DATA_HDR_ID_MASK) !=
 				XIH_OPT_DATA_STRUCT_INFO_ID) {
-			Offset += ((XPlmi_In32(Offset) & XIH_OPT_DATA_HDR_LEN_MASK) >>
+			/*
+			 * Guard against a non-advancing search loop.
+			 */
+			OptDataIncr = ((XPlmi_In32(Offset) & XIH_OPT_DATA_HDR_LEN_MASK) >>
 				XIH_OPT_DATA_LEN_SHIFT) << XPLMI_WORD_LEN_SHIFT;
+			if (OptDataIncr == 0U) {
+				Offset = OptionalDataEndAddr;
+				break;
+			}
+			Offset += OptDataIncr;
 		}
 		else {
 			break;
