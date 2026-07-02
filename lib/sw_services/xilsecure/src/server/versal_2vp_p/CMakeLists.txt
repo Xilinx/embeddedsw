@@ -18,6 +18,7 @@ collect (PROJECT_LIB_HEADERS xsecure_plat_ipihandler.h)
 collect (PROJECT_LIB_HEADERS xsecure_plat_kat.h)
 collect (PROJECT_LIB_HEADERS xsecure_plat_kat_ipihandler.h)
 collect (PROJECT_LIB_HEADERS xsecure_sha_hw.h)
+collect (PROJECT_LIB_HEADERS xsecure_mldsa_hw.h)
 
 # Collect local sources
 collect (PROJECT_LIB_SOURCES xsecure_cmd.c)
