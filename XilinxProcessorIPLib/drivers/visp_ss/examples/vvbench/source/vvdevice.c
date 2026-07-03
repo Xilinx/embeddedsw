@@ -284,15 +284,15 @@ int VsiVvdeviceExecuteCaseline
 
 	bool_t initSwSimuEnable = caseCtx->swSimuCfg.enable;
 	for (int index = 0; index < totalInstance; index++) {
+
+		if (caseCtx->instanceCfgCtx[index].instanceEnable == 0) {
+			continue;
+		}
 		if (0 == caseCtx->instanceCfgCtx[index].hCamCommon) {
 			LOGE("%s: invalid cam common handle", __func__);
 			return VVCASE_EXEC_FAIL;
 		}
 		pCamCommonCtx = (CamCommonContext_t *)caseCtx->instanceCfgCtx[index].hCamCommon;
-
-		if (caseCtx->instanceCfgCtx[index].instanceEnable == 0) {
-			continue;
-		}
 
 		uint32_t instanceId = index;
 		LOGI("Testing instance: %d", instanceId);
@@ -721,7 +721,7 @@ int VsiVvdeviceExecuteCaseline
 		}
 
 		//Nr Reloc Control
-		result = VsiVvdeviceNrRelocControl(pVvbenchInstance->hCamDevice[index], caseCtx);
+		result = VsiVvdeviceNrRelocControl(pVvbenchInstance->hCamDevice[index], caseCtx, index);
 		if (0 != result) {
 			LOGE("Vsi cam device nr reloc control failed !");
 			mm_free(pVvbenchInstance);
@@ -874,6 +874,17 @@ int VsiVvdeviceExecuteCaseline
 				mm_free(pVvbenchInstance);
 				return -1;
 			}
+			//get sensor fps
+			float fps;
+			result = VsiCamDeviceSensorGetFrameRate(pVvbenchInstance->hCamDevice[index], &fps);
+			if (0 != result) {
+				LOGE("Vsi cam device sensor get frame rate failed for sensor name:%s, modeIndex:%d",
+				     caseCtx->instanceCfgCtx[index].sensorCfg.sensorName,
+				     caseCtx->instanceCfgCtx[index].sensorCfg.modeIndex);
+				mm_free(pVvbenchInstance);
+				return -1;
+			}
+			LOGI("SENSOR_FPS_GET Result, fps:%.2f", fps);
 		}
 		if (caseCtx->instanceCfgCtx[index].startPathSimultaneous) {
 			LOGI("VsiVvdevicePathEnable called Simultaneously");
@@ -946,22 +957,6 @@ int VsiVvdeviceExecuteCaseline
 				mm_free(pVvbenchInstance);
 				return -1;
 			}
-		}
-
-		if (CAMDEV_INPUT_TYPE_SENSOR == caseCtx->instanceCfgCtx[index].inputType) {
-			sensor_stream_flag = index;
-
-			//get sensor fps
-			float fps;
-			result = VsiCamDeviceSensorGetFrameRate(pVvbenchInstance->hCamDevice[index], &fps);
-			if (0 != result) {
-				LOGE("Vsi cam device sensor get frame rate failed for sensor name:%s, modeIndex:%d",
-				     caseCtx->instanceCfgCtx[index].sensorCfg.sensorName,
-				     caseCtx->instanceCfgCtx[index].sensorCfg.modeIndex);
-				mm_free(pVvbenchInstance);
-				return -1;
-			}
-			LOGI("SENSOR_FPS_GET Result, fps:%.2f", fps);
 		}
 
 		if (CAMDEV_INPUT_TYPE_IMAGE == caseCtx->instanceCfgCtx[index].inputType) {
@@ -2252,19 +2247,19 @@ int VsiVvdeviceSubModuleControl
 int VsiVvdeviceNrRelocControl
 (
 	CamDeviceHandle_t hCamDevice,
-	VvbenchVvdev_t *caseCtx
+	VvbenchVvdev_t *caseCtx,
+	uint32_t idx
 )
 {
 	int result = 0;
-	uint32_t instanceId = 0;
 	CamCommonContext_t *pCamCommonCtx = NULL;
 	LOGI("%s enter \n", __func__);
 
-	if (NULL == hCamDevice || 0 == caseCtx->instanceCfgCtx[instanceId].hCamCommon || NULL == caseCtx) {
+	if (NULL == hCamDevice || 0 == caseCtx->instanceCfgCtx[idx].hCamCommon || NULL == caseCtx) {
 		LOGE("%s: NUll pointer\n", __func__);
 		return -1;
 	}
-	pCamCommonCtx = (CamCommonContext_t *)caseCtx->instanceCfgCtx[instanceId].hCamCommon;
+	pCamCommonCtx = (CamCommonContext_t *)caseCtx->instanceCfgCtx[idx].hCamCommon;
 
 	//NR post-position in ISP
 	result = VsiCamDeviceNrRelocDisable(hCamDevice);

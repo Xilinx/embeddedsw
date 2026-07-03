@@ -644,7 +644,8 @@ int VsiVvdeviceLoadImageJsonToDatabase
 int VsiVvdeviceNrRelocControl
 (
 	CamDeviceHandle_t hCamDevice,
-	VvbenchVvdev_t *caseContext
+	VvbenchVvdev_t *caseContext,
+	uint32_t idx
 );
 
 int VsiVvdeviceSubModuleControl
