@@ -50,6 +50,9 @@ if("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "microblaze_riscv")
 
   if((XILASU_ecies_support) AND NOT ((XILASU_hmac_support)))
     set(XILASU_hmac_support TRUE CACHE BOOL "HMAC is enabled as ECIES depends on HMAC " FORCE)
+  endif()
+
+  if((XILASU_ecies_support))
     if(NOT(XILASU_ecc_p192_support) AND NOT(XILASU_ecc_p224_support) AND NOT(XILASU_ecc_p256_support)
       AND NOT(XILASU_ecc_p384_support) AND NOT(XILASU_ecc_p521_support) AND NOT(XILASU_ecc_bp_p256_support)
       AND NOT(XILASU_ecc_bp_p320_support) AND NOT(XILASU_ecc_bp_p384_support) AND NOT(XILASU_ecc_bp_p512_support))
