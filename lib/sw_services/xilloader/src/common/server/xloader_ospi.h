@@ -39,6 +39,7 @@
 *       prt  04/02/2025 Added support for Infineon OSPI flash parts
 * 2.4   abh  10/09/2025 Added macros to be MISRA-C compliant
 *       aa   02/03/2026 Added Macro for Macronix flash
+* 2.5   aa   07/02/2026 Added timeout macro for OSPI 4B address mode polling
 *
 * </pre>
 *
@@ -158,6 +159,7 @@ extern "C" {
 #define XLOADER_SPANSION_WRITE_CFG_REG_VAL		(0x43U)
 #define XLOADER_OSPI_WRITE_DONE_MASK	(0x80U)
 #define XLOADER_WRITE_CFG_ECC_REG_VAL		(0xA0U)
+#define XLOADER_OSPI_4BMODE_TIMEOUT_US		(100000U)
 
 #define SPANSION_TOTAL_SECTORS		(0x400U)
 #define SPANSION_TOTAL_PAGES		(0x100000U)

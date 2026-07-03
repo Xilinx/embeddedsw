@@ -143,6 +143,8 @@
 *       aa   03/09/2026 Added error code for USB download timeout
 *       aa   04/01/2026 Added XLOADER_ERR_USB_DDR_OVERFLOW error code
 *       obs  04/03/2026 Reserved the unused error codes
+* 2.5   aa   07/02/2026 Added XLOADER_ERR_OSPI_TIMEOUT error code for OSPI 4B
+*                       address mode polling timeout handling
 *
 * </pre>
 *
@@ -462,7 +464,8 @@ typedef enum {
 	XLOADER_ERR_OSPI_4BMODE,	/**< 0x313 - Error when OSPI is unable
 					  to enter/exit 4B mode */
 
-	XLOADER_ERR_RESERVED_314,		/**< 0x314 - XLOADER_ERR_RESERVED_314 */
+	XLOADER_ERR_OSPI_TIMEOUT,		/**< 0x314 - Error when OSPI 4B address
+						 mode polling times out */
 	XLOADER_ERR_UNSUPPORTED_QSPI_FLASH_ID,	/**< 0x315 - Error when QSPI flash ID is
 							not supported */
 	XLOADER_ERR_QSPI_INIT,		/**< 0x316 - Error when QSPI driver look

@@ -53,6 +53,8 @@
 *       aa   04/14/2026 Skip 4B address mode entry for Spansion flash
 *                       as it supports only in SDR mode
 *       aa   04/23/2026 Fix OSPI SDR fallback for Spansion flash
+* 2.5   aa   07/02/2026 Implemented timeout handling for OSPI 4B address mode
+*                       polling to prevent indefinite hangs
 *
 * </pre>
 *
@@ -80,7 +82,6 @@
 #include "xpm_nodeid.h"
 
 /************************** Constant Definitions *****************************/
-
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
@@ -555,7 +556,6 @@ END1:
 		if (OspiFlashMake != SPANSION_OCTAL_ID_BYTE0) {
 			Status = XLoader_FlashEnterExit4BAddMode(&OspiPsvInstance, (u32)TRUE);
 			if (Status != XST_SUCCESS) {
-				Status = XPlmi_UpdateStatus(XLOADER_ERR_OSPI_4BMODE, Status);
 				goto END;
 			}
 		}
@@ -569,9 +569,6 @@ END1:
 
 	if (OspiFlashMake != SPANSION_OCTAL_ID_BYTE0) {
 		Status = XLoader_FlashEnterExit4BAddMode(&OspiPsvInstance, (u32)TRUE);
-		if (Status != XST_SUCCESS) {
-			Status = XPlmi_UpdateStatus(XLOADER_ERR_OSPI_4BMODE, Status);
-		}
 	}
 
 END:
@@ -878,6 +875,8 @@ END:
  * 		- XST_SUCCESS on success.
  * 		- XLOADER_ERR_OSPI_4BMODE on OSPI driver unable to
  * 			enter/exit 4B mode.
+ * 		- XLOADER_ERR_OSPI_TIMEOUT if flash device
+ * 			does not enter/exit 4B mode within timeout period.
  *
 ******************************************************************************/
 static int XLoader_FlashEnterExit4BAddMode(XOspiPsv *OspiPsvPtr, u32 Enable)
@@ -885,6 +884,8 @@ static int XLoader_FlashEnterExit4BAddMode(XOspiPsv *OspiPsvPtr, u32 Enable)
 	int Status = XST_FAILURE;
 	u8 Command;
 	u8 FlashStatus = 0U;
+	u32 *PmcIroFreq = XPlmi_GetPmcIroFreq();
+	u64 TStart,TEnd;
 	XOspiPsv_Msg FlashMsg = {0U};
 
 	if (OspiFlashMake == MACRONIX_OCTAL_ID_BYTE0) {
@@ -951,10 +952,16 @@ static int XLoader_FlashEnterExit4BAddMode(XOspiPsv *OspiPsvPtr, u32 Enable)
 		FlashMsg.Proto = XOSPIPSV_READ_1_1_1;
 	}
 
+	TStart = XPlmi_GetTimerValue();
+	/* Max Timeout is 100ms. It is a status-register poll and completes quickly */
+	TEnd = TStart - ((u64)XLOADER_OSPI_4BMODE_TIMEOUT_US *
+			(u64)(*PmcIroFreq / XPLMI_MEGA));
+
 	while (1U) {
 		if (OspiPsvPtr->SdrDdrMode == XOSPIPSV_EDGE_MODE_DDR_PHY) {
 			FlashMsg.Dummy += XLOADER_OSPI_SDR_DUMMY_CYCLES;
 		}
+
 		Status = (int)XOspiPsv_PollTransfer(OspiPsvPtr, &FlashMsg);
 		if (Status != XST_SUCCESS) {
 			Status = XPlmi_UpdateStatus(XLOADER_ERR_OSPI_4BMODE,
@@ -964,6 +971,12 @@ static int XLoader_FlashEnterExit4BAddMode(XOspiPsv *OspiPsvPtr, u32 Enable)
 		if ((FlashStatus & XLOADER_OSPI_WRITE_DONE_MASK) ==
 			XLOADER_OSPI_WRITE_DONE_MASK) {
 			break;
+		}
+		TStart = XPlmi_GetTimerValue();
+		if (TStart <= TEnd) {
+			Status = XPlmi_UpdateStatus(XLOADER_ERR_OSPI_TIMEOUT,
+					XST_FAILURE);
+			goto END;
 		}
 	}
 
