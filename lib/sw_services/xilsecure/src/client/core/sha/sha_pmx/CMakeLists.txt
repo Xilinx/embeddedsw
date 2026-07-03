@@ -4,7 +4,5 @@
 collect (PROJECT_LIB_HEADERS xsecure_shaclient.h)
 collect (PROJECT_LIB_SOURCES xsecure_shaclient.c)
 
-if(NOT "Versal_2VP" IN_LIST VARIANT)
-	collect (PROJECT_LIB_HEADERS xsecure_sha3alginfo.h)
-	collect (PROJECT_LIB_SOURCES xsecure_sha3alginfo.c)
-endif()
+collect (PROJECT_LIB_HEADERS xsecure_sha3alginfo.h)
+collect (PROJECT_LIB_SOURCES xsecure_sha3alginfo.c)

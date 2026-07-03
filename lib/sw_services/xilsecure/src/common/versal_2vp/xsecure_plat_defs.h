@@ -19,6 +19,7 @@
 *       tvp  07/07/25 Added XSECURE_WORD_LEN
 * 5.7   tvp  11/18/25 Added support for generating shared secret
 *       tvp  11/18/25 Added support for trng operations
+* 5.8   tbk  06/17/26 Added IPI response buffer indices for algorithm info query
 *
 * </pre>
 *
@@ -38,6 +39,10 @@ extern "C" {
 
 /************************************ Constant Definitions ****************************************/
 #define XSECURE_WORD_LEN		(4U) /**< Word length */
+
+/** IPI response buffer indices for algorithm info query */
+#define XSECURE_ALGO_VERSION_RESP_INDEX		(1U)	/**< Response buffer index for algorithm version */
+#define XSECURE_NIST_STATUS_RESP_INDEX		(2U)	/**< Response buffer index for NIST compliance status */
 
 /*************************** Macros (Inline Functions) Definitions ********************************/
 
