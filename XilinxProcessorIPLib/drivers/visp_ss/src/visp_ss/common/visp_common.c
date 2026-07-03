@@ -1,7 +1,7 @@
 #include <string.h>
 // Copyright (C) 2024 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 #include "visp_common.h"
-int SetATM(void)
+int SetATM(uint32_t high_mem, uint32_t is_64bit)
 {
 	//LOGI(" ATMenable = %d\n",ATM_ENABLE);
 	RESULT result = RET_SUCCESS;
@@ -21,14 +21,12 @@ int SetATM(void)
 	p_data += sizeof(uint32_t);
 	packet.payload_size += sizeof(uint32_t);
 
-	/* Send high_mem prefix */
-	uint32_t high_mem = ATM_HIGH_MEM_PREFIX ;
+	/* Send high_mem prefix (0x0 = 32-bit/low, 0x8 = DDR_LOW_1, 0x500 = DDR_CH_1) */
 	memcpy(p_data, &high_mem, sizeof(uint32_t));
 	p_data += sizeof(uint32_t);
 	packet.payload_size += sizeof(uint32_t);
 
-	/* Send is_64bit flag */
-	uint32_t is_64bit = 1;
+	/* Send is_64bit flag (0 = 32-bit addressing, 1 = 64-bit / high memory) */
 	memcpy(p_data, &is_64bit, sizeof(uint32_t));
 	p_data += sizeof(uint32_t);
 	packet.payload_size += sizeof(uint32_t);

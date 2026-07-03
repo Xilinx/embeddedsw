@@ -14,8 +14,19 @@ MEMORY
 {
 	load_calib : ORIGIN =0xF800000 , LENGTH = 0x28000
 	  mailbox : ORIGIN = 0x1E0A8000, LENGTH = 0x400000	 /*Reserve this memory for APU<->RPU communication*/
+	  /* Tuning-database blob, pre-loaded by an external loader and read by
+	   * t_database.c (APU_TDATABASE_BIN_ADDR). Lives in the free gap between the
+	   * mailbox end (0x1E4A8000) and the DDR_LOW_0 ORIGIN (0x20000000), so it is
+	   * never overlapped by the linker-managed region. */
+	  tdatabase_bin : ORIGIN = 0x1F000000, LENGTH = 0x100000
 	/* NoC_C0_C1_ddr_memory_DDR_LOW_0 : ORIGIN = 0x12000000, LENGTH = 0x10000000*/
-   NoC_C0_C1_ddr_memory_DDR_LOW_0 : ORIGIN = 0x31000000, LENGTH = 0x10000000
+	/* Start above the firmware/RPU-reserved bottom of DDR (load_calib @0xF800000,
+	 * mailbox @0x1E0A8000, TF-A/PLM, and the tuning-DB blob @0x1F000000 loaded by
+	 * t_database.c). LENGTH caps the region at the 2GB boundary
+	 * (0x20000000 + 0x60000000 = 0x80000000) so it never overruns DDR_LOW_0.
+	 * The larger size is required when the ISP buffer pools are placed in
+	 * DDR_LOW_0 (low / 32-bit mode); see BUFFER_POOL_REGION switch below. */
+   NoC_C0_C1_ddr_memory_DDR_LOW_0 : ORIGIN = 0x20000000, LENGTH = 0x60000000
 	NoC_C0_C1_ddr_memory_DDR_LOW_1 : ORIGIN = 0x800000000, LENGTH = 0x80000000
 	NoC_C2_ddr_memory_DDR_CH_1 : ORIGIN = 0x50000000000, LENGTH = 0x80000000
 	NoC_C3_ddr_memory_DDR_CH_1A : ORIGIN = 0x60000000000, LENGTH = 0x80000000
@@ -26,6 +37,26 @@ MEMORY
 	ps_wizard_0_ps11_0_ocm_ram_3_memory_3 : ORIGIN = 0xbbe80000, LENGTH = 0x80000
 	axi_bram_ctrl_0_memory_0 : ORIGIN = 0xb0000000, LENGTH = 0x2000
 }
+
+/* ===========================================================================
+ * ISP frame-buffer pool memory selection  --  SINGLE SWITCH
+ *
+ * Pick exactly ONE region below for the ISP frame-buffer pools. Everything
+ * else auto-derives from the high 32 bits of __large_pool_mem_start:
+ *   - the RPU high-mem prefix sent by SetATM() and programmed into the HW DMA
+ *   - the is_64bit flag sent to the RPU
+ *   - the software ATM-enable used for address reconstruction
+ * so no C code needs to change when you switch regions.
+ *
+ *   DDR_LOW_0 : low / 32-bit memory, prefix 0x0.   Reachable by 32-bit cores
+ *               (Cortex-R52 / AArch32). is_64bit = 0, ATM off. (default)
+ *   DDR_LOW_1 : high memory @0x8_00000000,   prefix 0x8.   64-bit core only.
+ *               is_64bit = 1, ATM on.
+ * To switch, keep exactly ONE line below uncommented (GNU ld rejects the same
+ * alias name being defined twice, so do not enable more than one).
+ * ===========================================================================*/
+REGION_ALIAS("BUFFER_POOL_REGION", NoC_C0_C1_ddr_memory_DDR_LOW_0);   /* Low / 32-bit (default), prefix 0x0   */
+/* REGION_ALIAS("BUFFER_POOL_REGION", NoC_C0_C1_ddr_memory_DDR_LOW_1);    High memory DDR_LOW_1,   prefix 0x8   */
 
 /* Specify the default entry point to the program */
 
@@ -293,12 +324,33 @@ SECTIONS
    __bss_end__ = .;
 } > NoC_C0_C1_ddr_memory_DDR_LOW_0
 
+.large_pool_base_ptr : {
+   . = ALIGN(8);
+   /* Absolute base address of the ISP buffer-pool region, stored as a 64-bit
+    * word that ALWAYS lives in low memory (DDR_LOW_0) next to the code.
+    * memory_manager.c reads this word instead of referencing
+    * __large_pool_mem_start directly: when the pools are placed in high memory
+    * (DDR_LOW_1 @0x8_00000000) that symbol is >4GB
+    * from .text and the AArch64 small-code-model ADRP relocation
+    * (R_AARCH64_ADR_PREL_PG_HI21) overflows ("relocation truncated to fit").
+    * This pointer word is near the code, so loading it is always in range. */
+   __large_pool_mem_base = .;
+   QUAD(__large_pool_mem_start);
+} > NoC_C0_C1_ddr_memory_DDR_LOW_0
+
 .large_pool_mem (NOLOAD) : {
    . = ALIGN(64);
    __large_pool_mem_start = .;
-   . += (72 * 28 * 1024 * 1024);  /* MM_LARGE_POOL_BLOCKS * MM_LARGE_BLOCK_SIZE */
+   /* ISP frame-buffer pools (large + extralarge + 1MB) placed in
+    * BUFFER_POOL_REGION, selected by the REGION_ALIAS switch above.
+    * Software (memory_manager.c) derives the RPU high-mem prefix
+    * (0x8 high / 0x0 low) from the linked address of __large_pool_mem_start.
+    * Sizes MUST match MM_*_POOL_BLOCKS * MM_*_BLOCK_SIZE in memory_manager.h. */
+   . += (64 * 10 * 1024 * 1024);  /* MM_LARGE_POOL_BLOCKS      * MM_LARGE_BLOCK_SIZE      */
+   . += (24 * 25 * 1024 * 1024);  /* MM_EXTRALARGE_POOL_BLOCKS * MM_EXTRALARGE_BLOCK_SIZE */
+   . += (64 *  1 * 1024 * 1024);  /* MM_1MB_POOL_BLOCKS        * MM_1MB_BLOCK_SIZE        */
    __large_pool_mem_end = .;
-} > NoC_C0_C1_ddr_memory_DDR_LOW_1
+} > BUFFER_POOL_REGION
 
 _SDA_BASE_ = __sdata_start + ((__sbss_end - __sdata_start) / 2 );
 
@@ -349,5 +401,12 @@ _SDA2_BASE_ = __sdata2_start + ((__sbss2_end - __sdata2_start) / 2 );
 	*(.mbox.*)
 	__mbox_end = .;
 } > mailbox
+
+.tdatabase_bin (NOLOAD) : {
+	/* Start address of the external-loaded tuning-DB blob. t_database.c reads
+	 * __tdatabase_bin_start instead of hardcoding the address, so the memory map
+	 * is owned solely by this linker script. */
+	__tdatabase_bin_start = .;
+} > tdatabase_bin
 _end = .;
 }

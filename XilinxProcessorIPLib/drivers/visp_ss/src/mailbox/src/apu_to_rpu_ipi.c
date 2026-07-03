@@ -73,8 +73,6 @@ int mailbox_wrapper()
 	u32 ret = XST_FAILURE, i = 0;
 	uint64_t mbox_start = (uint32_t)&__mbox_start;
 	uint64_t load_calib_start = (uint32_t)&__cam_load_calib_start;
-	uint64_t HAL_RESERVED_MEM_START_RPU0 = 0, HAL_RESERVED_MEM_START_RPU1 = 0,
-						  HAL_RESERVED_MEM_SIZE = 0x20000000;
 
 	LOGI("Unified Mailbox version 1.0 \r\n");
 
@@ -91,21 +89,14 @@ int mailbox_wrapper()
 	Xil_SetTlbAttributes(load_calib_start, NORM_NONCACHE);
 #endif
 
-	HAL_RESERVED_MEM_START_RPU0 = 0x4FE00000;
-	HAL_RESERVED_MEM_START_RPU1 = 0x6FE00000;
-	HAL_RESERVED_MEM_SIZE = 0x20000000;
-
-	int num_region = HAL_RESERVED_MEM_SIZE / BLOCK_SIZE_2MB;
-
-	for (int i = 0; i < (num_region); i++) {
-#if defined __aarch64__
-		Xil_SetTlbAttributes(HAL_RESERVED_MEM_START_RPU0 + i * BLOCK_SIZE_2MB, STRONG_ORDERED);
-#ifdef MULTICORE_ON_APU
-		Xil_SetTlbAttributes(HAL_RESERVED_MEM_START_RPU1 + i * BLOCK_SIZE_2MB, STRONG_ORDERED);
-#endif
-#endif
-	}
-
+	/*
+	 * NOTE: A legacy block used to mark a fixed 512MB "HAL reserved" window at
+	 * 0x4FE00000 (and 0x6FE00000) as STRONG_ORDERED here. That region is obsolete:
+	 * it is never used as an actual data buffer by the APU or the RPU (the RPU
+	 * receives buffer addresses dynamically via SetATM()). ISP frame buffers now
+	 * come from the memory-manager pools (BUFFER_POOL_REGION in lscript.ld) as
+	 * normal cacheable memory with explicit cache maintenance.
+	 */
 
 	init_mailbox_ipi() ;
 

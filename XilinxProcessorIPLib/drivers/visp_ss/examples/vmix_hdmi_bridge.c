@@ -15,6 +15,7 @@
 #include "xil_printf.h"
 #include "xparameters.h"
 #include "xscugic.h"
+#include "memory_manager.h"   /* mm_is_high_mem(), mm_get_high_mem_prefix() */
 
 #ifdef XPAR_XV_FRMBUF_WR_NUM_INSTANCES
 #include "xv_frmbufwr_l2.h"
@@ -53,9 +54,13 @@ extern XVidC_ColorFormat FBWR_Cfmt[];
 
 /************************** Module Variables *********************************/
 
-/** ATM (Address Translation Mode) enable flag - set to 0 for direct addressing */
-static int ATM = 1;
-#define ATM_HIGH_MEM_PREFIX 0x8
+/*
+ * ATM (Address Translation Mode) and the high-mem address prefix are derived
+ * at run time from where the linker placed the ISP buffer pools (see
+ * BUFFER_POOL_REGION in lscript.ld) instead of being hard-coded:
+ *   mm_is_high_mem()         -> 1 = high memory (DDR_LOW_1, ATM), 0 = low/32-bit
+ *   mm_get_high_mem_prefix() -> 0x8 in high memory, 0x0 in low / 32-bit memory
+ */
 
 #ifdef XPAR_XV_MIX_NUM_INSTANCES
 /** VMix L2 driver instance */
@@ -766,9 +771,9 @@ int VmixHdmiBridge_UpdateBufferAddr(u64 baseAddress,
 
 	/* Map ISP format to VMix memory format */
 	u64 MemAddr = baseAddress;
-	/* Apply ATM high-mem prefix for ISP DMA buffers */
-	if (ATM) {
-		MemAddr = baseAddress | ((u64)ATM_HIGH_MEM_PREFIX << 32);
+	/* Apply high-mem prefix for ISP DMA buffers (0x8 high mem, 0x0 low/32-bit) */
+	if (mm_is_high_mem()) {
+		MemAddr = baseAddress | (mm_get_high_mem_prefix() << 32);
 	}
 	if (Vmix_format.outFormat == CAMDEV_PIX_FMT_YUV422SP) {
 		Cfmt = XVIDC_CSF_MEM_Y_UV8;
@@ -831,11 +836,11 @@ int VmixHdmiBridge_UpdateBufferAddr(u64 baseAddress,
 			if (Vmix_format.outWidth == Supported_resolutions[i].Width &&
 			    Vmix_format.outHeight == Supported_resolutions[i].Height) {
 				Status = XVMix_SetLayerBufferAddr(MixerPtr, layer_id, MemAddr);
-				/* Temp fix: write upper 32-bit addr for high mem */
+				/* Write upper 32-bit address word (0x8 high mem / 0x0 low / 32-bit) */
 				Xil_Out32(MixerPtr->Mix.Config.BaseAddress +
 					  XV_MIX_CTRL_ADDR_HWREG_LAYER1_BUF1_V_DATA +
 					  ((layer_id - 1) * 0x100) + 4,
-					  ATM_HIGH_MEM_PREFIX);
+					  (u32)mm_get_high_mem_prefix());
 				valid_format = 1;
 				break;
 			}
@@ -906,11 +911,11 @@ void VmixHdmiBridge_UpdateFbwrLayer(int fbwr_id, u64 readAddr, u64 chromaAddr)
 	} else {
 		/* Packed format - just set buffer address */
 		Status = XVMix_SetLayerBufferAddr(MixerPtr, index, readAddr);
-		/* Temp fix: write upper 32-bit addr for high mem */
+		/* Write upper 32-bit address word (0x8 high mem / 0x0 low / 32-bit) */
 		Xil_Out32(MixerPtr->Mix.Config.BaseAddress +
 			  XV_MIX_CTRL_ADDR_HWREG_LAYER1_BUF1_V_DATA +
 			  ((index - 1) * 0x100) + 4,
-			  ATM_HIGH_MEM_PREFIX);
+			  (u32)mm_get_high_mem_prefix());
 		if (Status != XST_SUCCESS) {
 			xil_printf("[VMIX-BRIDGE] ERROR: FBWR layer %d buffer addr failed\r\n", index);
 		}
@@ -1013,12 +1018,12 @@ static int SetVmixLayerandChromaBuffer(XV_Mix_l2 *MixerPtr, int Layer,
 {
 	XVidC_VideoWindow Window_conf;
 	u64 MemAddr;
-	u64 High_Mem = 8;
+	u64 High_Mem = mm_get_high_mem_prefix();
 	u32 Status = 0;
 	int XVMIX_CHROMA_ADDR_OFFSET;
 
-	/* Apply ATM address translation if enabled */
-	if (ATM) {
+	/* Apply high-mem address translation if pools live in high memory */
+	if (mm_is_high_mem()) {
 		if (isfbwrbuffer != 0) {
 			MemAddr = Addr;
 		} else {
@@ -1032,11 +1037,11 @@ static int SetVmixLayerandChromaBuffer(XV_Mix_l2 *MixerPtr, int Layer,
 
 	/* Set luma buffer address */
 	Status = XVMix_SetLayerBufferAddr(MixerPtr, Layer, MemAddr);
-	/* Temp fix: write upper 32-bit addr for high mem */
+	/* Write upper 32-bit address word (0x8 high mem / 0x0 low / 32-bit) */
 	Xil_Out32(MixerPtr->Mix.Config.BaseAddress +
 		  XV_MIX_CTRL_ADDR_HWREG_LAYER1_BUF1_V_DATA +
 		  ((Layer - 1) * 0x100) + 4,
-		  ATM_HIGH_MEM_PREFIX);
+		  (u32)mm_get_high_mem_prefix());
 	if (Status != XST_SUCCESS) {
 		xil_printf("[VMIX-BRIDGE] ERROR: Layer %d buffer addr 0x%08X failed\r\n",
 			   Layer, (u32)MemAddr);
@@ -1047,11 +1052,11 @@ static int SetVmixLayerandChromaBuffer(XV_Mix_l2 *MixerPtr, int Layer,
 	MemAddr += XVMIX_CHROMA_ADDR_OFFSET;
 
 	Status = XVMix_SetLayerChromaBufferAddr(MixerPtr, Layer, MemAddr);
-	/* Temp fix: write upper 32-bit addr for high mem (chroma) */
+	/* Write upper 32-bit address word (0x8 high mem / 0x0 low / 32-bit, chroma) */
 	Xil_Out32(MixerPtr->Mix.Config.BaseAddress +
 		  XV_MIX_CTRL_ADDR_HWREG_LAYER1_BUF2_V_DATA +
 		  ((Layer - 1) * 0x100) + 4,
-		  ATM_HIGH_MEM_PREFIX);
+		  (u32)mm_get_high_mem_prefix());
 	if (Status != XST_SUCCESS) {
 		xil_printf("[VMIX-BRIDGE] ERROR: Layer %d chroma addr 0x%08X failed\r\n",
 			   Layer, (u32)MemAddr);
