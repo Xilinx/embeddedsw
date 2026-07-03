@@ -19,6 +19,7 @@
 *       tvp  03/18/26 Add support for MLDSA signature generation and verification command
 *       tvp  03/20/26 Add support for SLHDSA signature verification command
 *       mb   04/17/26 Update XSecure_CryptoCheck API definitions
+* 5.8   tbk  06/17/26 Added support for getting crypto algorithm's version
 *
 * </pre>
 *
@@ -49,6 +50,14 @@
 #include "xsecure_plat_aes_ipihandler.h"
 #include "xsecure_mldsa_ipihandler.h"
 #include "xsecure_slhdsa_ipihandler.h"
+#include "xil_cryptoalginfo.h"
+#include "xsecure_server_aesalginfo.h"
+#include "xsecure_server_rsaalginfo.h"
+#include "xsecure_server_ellipticalginfo.h"
+#include "xsecure_server_shaalginfo.h"
+#include "xsecure_server_trngalginfo.h"
+#include "xsecure_server_mldsaalginfo.h"
+#include "xsecure_server_slhdsaalginfo.h"
 
 #ifdef SDT
 #include "xsecure_config.h"
@@ -115,27 +124,55 @@ static XPlmi_Module XPlmi_Secure =
 
 /**************************************************************************************************/
 /**
- * @brief	This function checks if a particular Secure API ID is supported or not.
+ * @brief	This function checks if a particular Secure API ID is supported
+ *		or not and retrieves algorithm information.
  *
- * @param	ApiId	API ID in the IPI request.
+ * @param	Cmd	Pointer to the command structure containing API ID for
+ *			algorithm information
  *
  * @return
- *		 - XST_SUCCESS On success.
- *		 - XST_INVALID_PARAM If API ID is unsupported.
+ *		 - XST_SUCCESS - In case of success
+ *		 - XST_INVALID_PARAM - In case of unsupported API ID or invalid parameters
+ *		 - Error - On failure
  *
  **************************************************************************************************/
-static int XSecure_FeaturesCmd(u32 ApiId)
+static int XSecure_FeaturesCmd(XPlmi_Cmd *Cmd)
 {
 	int Status = XST_INVALID_PARAM;
+	u32 ApiId;
+	u32 AlgoVersion = 0U;
+	u32 NistStatus = (u32)NIST_NON_COMPLIANT;
+
+	/* Validate command pointer */
+	if (Cmd == NULL) {
+		Status = XST_INVALID_PARAM;
+		goto END;
+	}
+
+	/* Validate payload pointer */
+	if (Cmd->Payload == NULL) {
+		Status = XST_INVALID_PARAM;
+		goto END;
+	}
+
+	ApiId = Cmd->Payload[0U];
 
 	switch (ApiId) {
 	case XSECURE_API(XSECURE_API_SHA3_OPERATION):
 	case XSECURE_API(XSECURE_API_SHA2_OPERATION):
+		/* SHA2 and SHA3 share the same driver implementation as they are
+		 * two hardware instances of the same SHA module */
+		AlgoVersion = XIL_BUILD_VERSION(XSECURE_SHA_MODULE_MAJOR_VERSION, XSECURE_SHA_MODULE_MINOR_VERSION);
+		NistStatus = (u32)NIST_COMPLIANT;
+		break;
 #ifndef PLM_SECURE_EXCLUDE
 #ifndef PLM_RSA_EXCLUDE
 	case XSECURE_API(XSECURE_API_RSA_PRIVATE_DECRYPT):
 	case XSECURE_API(XSECURE_API_RSA_PUBLIC_ENCRYPT):
 	case XSECURE_API(XSECURE_API_RSA_SIGN_VERIFY):
+		AlgoVersion = XIL_BUILD_VERSION(XSECURE_RSA_MODULE_MAJOR_VERSION, XSECURE_RSA_MODULE_MINOR_VERSION);
+		NistStatus = (u32)NIST_COMPLIANT;
+		break;
 #endif
 #ifndef PLM_ECDSA_EXCLUDE
 	case XSECURE_API(XSECURE_API_ELLIPTIC_GENERATE_KEY):
@@ -144,10 +181,11 @@ static int XSecure_FeaturesCmd(u32 ApiId)
 	case XSECURE_API(XSECURE_API_ELLIPTIC_VERIFY_SIGN):
 	case XSECURE_API(XSECURE_API_ELLIPTIC_PRIVATE_KEY_GEN):
 	case XSECURE_API(XSECURE_API_GEN_SHARED_SECRET):
+		/* ECDH shared secret generation uses the same ECC module */
+		AlgoVersion = XIL_BUILD_VERSION(XSECURE_ELLIPTIC_MODULE_MAJOR_VERSION, XSECURE_ELLIPTIC_MODULE_MINOR_VERSION);
+		NistStatus = (u32)NIST_COMPLIANT;
+		break;
 #endif
-	case XSECURE_API(XSECURE_API_SLHDSA_SIGN_VERIFY):
-	case XSECURE_API(XSECURE_API_MLDSA_SIGN_VERIFY):
-	case XSECURE_API(XSECURE_API_MLDSA_SIGN_GENERATE):
 	case XSECURE_API(XSECURE_API_AES_INIT):
 	case XSECURE_API(XSECURE_API_AES_OP_INIT):
 	case XSECURE_API(XSECURE_API_AES_UPDATE_AAD):
@@ -159,24 +197,49 @@ static int XSecure_FeaturesCmd(u32 ApiId)
 	case XSECURE_API(XSECURE_API_AES_WRITE_KEY):
 	case XSECURE_API(XSECURE_API_AES_KEK_DECRYPT):
 	case XSECURE_API(XSECURE_API_AES_SET_DPA_CM):
-	case XSECURE_API(XSECURE_API_TRNG_GENERATE):
-	case XSECURE_API(XSECURE_API_KAT):
 	case XSECURE_API(XSECURE_API_AES_PERFORM_OPERATION):
 	case XSECURE_API(XSECURE_API_AES_PERFORM_OPERATION_AND_ZEROIZE_KEY):
-#endif
-		Status = XSecure_CryptoCheck(XSECURE_CORE_ALL);
-		if (Status != XST_SUCCESS) {
-			Status |= (int)XPLMI_WARNING_MINOR_MASK;
-		}
+		AlgoVersion = XIL_BUILD_VERSION(XSECURE_AES_MODULE_MAJOR_VERSION, XSECURE_AES_MODULE_MINOR_VERSION);
+		NistStatus = (u32)NIST_COMPLIANT;
 		break;
+	case XSECURE_API(XSECURE_API_TRNG_GENERATE):
+		AlgoVersion = XIL_BUILD_VERSION(XSECURE_TRNG_MODULE_MAJOR_VERSION, XSECURE_TRNG_MODULE_MINOR_VERSION);
+		NistStatus = (u32)NIST_COMPLIANT;
+		break;
+	case XSECURE_API(XSECURE_API_KAT):
+		break;
+	case XSECURE_API(XSECURE_API_MLDSA_SIGN_VERIFY):
+	case XSECURE_API(XSECURE_API_MLDSA_SIGN_GENERATE):
+		AlgoVersion = XIL_BUILD_VERSION(XSECURE_MLDSA_MODULE_MAJOR_VERSION, XSECURE_MLDSA_MODULE_MINOR_VERSION);
+		NistStatus = (u32)NIST_COMPLIANT;
+		break;
+	case XSECURE_API(XSECURE_API_SLHDSA_SIGN_VERIFY):
+		AlgoVersion = XIL_BUILD_VERSION(XSECURE_SLHDSA_MODULE_MAJOR_VERSION, XSECURE_SLHDSA_MODULE_MINOR_VERSION);
+		NistStatus = (u32)NIST_COMPLIANT;
+		break;
+#endif
 	default:
 		XSecure_Printf(XSECURE_DEBUG_GENERAL, "Cmd not supported\r\n");
 		Status = XST_INVALID_PARAM;
-		break;
+		goto END;
+	}
+
+	/* Run crypto environment check and preserve warning status if any */
+	Status = XSecure_CryptoCheck(XSECURE_CORE_ALL);
+	if (Status != XST_SUCCESS) {
+		AlgoVersion = 0U;
+		NistStatus = (u32)NIST_NON_COMPLIANT;
+		Status |= (int)XPLMI_WARNING_MINOR_MASK;
+	}
+
+END:
+	/* Fill the version in the response buffer */
+	if (Cmd != NULL) {
+		Cmd->Response[XSECURE_ALGO_VERSION_RESP_INDEX] = AlgoVersion;
+		Cmd->Response[XSECURE_NIST_STATUS_RESP_INDEX] = NistStatus;
 	}
 
 	return Status;
-
 }
 
 /**************************************************************************************************/
@@ -207,7 +270,7 @@ static int XSecure_ProcessCmd(XPlmi_Cmd *Cmd)
 
 	switch (Cmd->CmdId & XSECURE_API_ID_MASK) {
 	case XSECURE_API(XSECURE_API_FEATURES):
-		Status = XSecure_FeaturesCmd(Pload[0]);
+		Status = XSecure_FeaturesCmd(Cmd);
 		break;
 	case XSECURE_API(XSECURE_API_SHA3_OPERATION):
 	case XSECURE_API(XSECURE_API_SHA2_OPERATION):

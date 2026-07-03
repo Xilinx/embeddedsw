@@ -4,7 +4,5 @@
 collect (PROJECT_LIB_HEADERS xsecure_aesclient.h)
 collect (PROJECT_LIB_SOURCES xsecure_aesclient.c)
 
-if(NOT "Versal_2VP_P" IN_LIST VARIANT)
-  collect (PROJECT_LIB_HEADERS xsecure_aesalginfo.h)
-  collect (PROJECT_LIB_SOURCES xsecure_aesalginfo.c)
-endif()
+collect (PROJECT_LIB_HEADERS xsecure_aesalginfo.h)
+collect (PROJECT_LIB_SOURCES xsecure_aesalginfo.c)

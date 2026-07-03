@@ -19,6 +19,13 @@ collect (PROJECT_LIB_HEADERS xsecure_plat_kat.h)
 collect (PROJECT_LIB_HEADERS xsecure_plat_kat_ipihandler.h)
 collect (PROJECT_LIB_HEADERS xsecure_sha_hw.h)
 collect (PROJECT_LIB_HEADERS xsecure_mldsa_hw.h)
+collect (PROJECT_LIB_HEADERS xsecure_server_aesalginfo.h)
+collect (PROJECT_LIB_HEADERS xsecure_server_ellipticalginfo.h)
+collect (PROJECT_LIB_HEADERS xsecure_server_rsaalginfo.h)
+collect (PROJECT_LIB_HEADERS xsecure_server_shaalginfo.h)
+collect (PROJECT_LIB_HEADERS xsecure_server_trngalginfo.h)
+collect (PROJECT_LIB_HEADERS xsecure_server_mldsaalginfo.h)
+collect (PROJECT_LIB_HEADERS xsecure_server_slhdsaalginfo.h)
 
 # Collect local sources
 collect (PROJECT_LIB_SOURCES xsecure_cmd.c)

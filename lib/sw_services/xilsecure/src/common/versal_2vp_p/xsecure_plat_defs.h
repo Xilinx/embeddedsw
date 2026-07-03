@@ -18,6 +18,7 @@
 * 5.7   tvp  03/12/26 Initial release
 *       tvp  03/18/26 Add MLDSA API ids
 *       tvp  03/20/26 Add SLHDSA API ids
+* 5.8   tbk  06/17/26 Added IPI response buffer indices for algorithm info query
 *
 * </pre>
 *
@@ -40,6 +41,10 @@ extern "C" {
 /************************************ Constant Definitions ****************************************/
 
 /*************************** Macros (Inline Functions) Definitions ********************************/
+
+/** IPI response buffer indices for algorithm info query */
+#define XSECURE_ALGO_VERSION_RESP_INDEX		(1U)	/**< Response buffer index for algorithm version */
+#define XSECURE_NIST_STATUS_RESP_INDEX		(2U)	/**< Response buffer index for NIST compliance status */
 
 /**< KAT macros */
 #define XSECURE_KAT_HDR_LEN		(1U) /**< Header Length*/
