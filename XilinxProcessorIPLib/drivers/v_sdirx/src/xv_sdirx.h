@@ -171,11 +171,7 @@ typedef enum {
 */
 
 typedef struct {
-#ifndef SDT
-	u16 DeviceId;		/**< DeviceId is the unique ID of the SDI RX core */
-#else
 	char *Name;
-#endif
 	UINTPTR BaseAddress;	/**< BaseAddress is the physical base address
 							*    of the core's registers */
 	u8 IsEdhIncluded;
@@ -271,11 +267,6 @@ typedef struct {
 
 /************************** Function Prototypes ******************************/
 /* Initialization function in xv_sdirx_sinit.c */
-#ifndef SDT
-
-
-XV_SdiRx_Config *XV_SdiRx_LookupConfig(u16 DeviceId);
-#else
 /**
  * @brief Looks up the device configuration for a SDI Rx core based on its base address.
  *
@@ -290,7 +281,6 @@ XV_SdiRx_Config *XV_SdiRx_LookupConfig(u16 DeviceId);
  *       parameters needed to initialize the SDI Rx core.
  */
 XV_SdiRx_Config *XV_SdiRx_LookupConfig(UINTPTR BaseAddress);
-#endif
 
 /* Initialization and control functions in xv_sdirx.c */
 int XV_SdiRx_CfgInitialize(XV_SdiRx *InstancePtr,
