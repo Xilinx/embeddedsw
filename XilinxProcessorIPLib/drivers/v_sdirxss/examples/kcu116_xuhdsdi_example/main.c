@@ -30,19 +30,11 @@
 #include "fzetta_fmc_ctlr.h"
 
 /************************** Constant Definitions *****************************/
-#ifndef SDT
-#define GPIO_0_TX_MODE		XPAR_GPIO_0_BASEADDR
-#define GPIO_0_RX_MODE		XPAR_GPIO_1_BASEADDR
-#define GPIO_2_TX_FORMAT	XPAR_GPIO_2_BASEADDR
-#define AUD_ATPG		XPAR_ATPG_BASEADDR
-#define GT_RESET		XPAR_GPIO_3_BASEADDR
-#else
 #define GPIO_0_TX_MODE		XPAR_XGPIO_0_BASEADDR
 #define GPIO_0_RX_MODE		XPAR_XGPIO_1_BASEADDR
 #define GPIO_2_TX_FORMAT	XPAR_XGPIO_2_BASEADDR
 #define AUD_ATPG		XPAR_ATPG_BASEADDR
 #define GT_RESET		XPAR_XGPIO_3_BASEADDR
-#endif
 #define I2C_MUX_ADDR	0x74  /**< I2C Mux Address */
 #define I2C_CLK_ADDR	0x69  /**< I2C Clk Address */
 #define I2C_CLK_ADDR_570	0x5D  /**< I2C Clk Address for Si570*/
@@ -138,19 +130,11 @@ static int I2cMux(void)
 	xil_printf("Set i2c mux... ");
 
 	Buffer = 0x18;
-#ifndef SDT
-	Status = XIic_Send((XPAR_IIC_0_BASEADDR),
-				(I2C_MUX_ADDR),
-				(u8 *)&Buffer,
-				1,
-				(XIIC_STOP));
-#else
 	Status = XIic_Send((XPAR_XIIC_0_BASEADDR),
 			   (I2C_MUX_ADDR),
 			   (u8 *)&Buffer,
 			   1,
 			   (XIIC_STOP));
-#endif
 	xil_printf("done\n\r");
 
 	return Status;
@@ -177,20 +161,12 @@ static int I2cClk(u32 InFreq, u32 OutFreq)
 	/* Free running mode */
 	if (!InFreq) {
 
-#ifndef SDT
-		Status = Si5324_SetClock((XPAR_IIC_0_BASEADDR),
-					(I2C_CLK_ADDR),
-					(SI5324_CLKSRC_XTAL),
-					(SI5324_XTAL_FREQ),
-					OutFreq);
-#else
 		Status = Si5324_SetClock((XPAR_XIIC_0_BASEADDR),
 					(I2C_CLK_ADDR),
 					(SI5324_CLKSRC_XTAL),
 					(SI5324_XTAL_FREQ),
 					OutFreq);
 
-#endif
 
 		if (Status != (SI5324_SUCCESS)) {
 			print("Error programming SI5324\n\r");
@@ -200,19 +176,11 @@ static int I2cClk(u32 InFreq, u32 OutFreq)
 
 	/* Locked mode */
 	else {
-#ifndef SDT
-		Status = Si5324_SetClock((XPAR_IIC_0_BASEADDR),
-					(I2C_CLK_ADDR),
-					(SI5324_CLKSRC_CLK1),
-					InFreq,
-					OutFreq);
-#else
 		Status = Si5324_SetClock((XPAR_XIIC_0_BASEADDR),
 					(I2C_CLK_ADDR),
 					(SI5324_CLKSRC_CLK1),
 					InFreq,
 					OutFreq);
-#endif
 
 		if (Status != (SI5324_SUCCESS)) {
 			print("Error programming SI5324\n\r");
@@ -1472,12 +1440,7 @@ int main() {
 	cls();
 	/* Setting path for Si570 chip */
 	I2cMux();
-#ifndef SDT
-	/* si570 configuration of 148.5MHz */
-	Si570_SetClock(XPAR_IIC_0_BASEADDR, I2C_CLK_ADDR_570, FREQ_148_35_MHz);
-#else
 	Si570_SetClock(XPAR_XIIC_0_BASEADDR, I2C_CLK_ADDR_570, FREQ_148_35_MHz);
-#endif
 	I2cClk(FREQ_148_43_MHz, FREQ_297_MHz);
 	sleep(1);
 	fzetta_fmc_init();

@@ -43,11 +43,7 @@ extern XIic fzetta_fmc_Iic; /* The driver instance for IIC Device */
  * @note	None.
  *
  ******************************************************************************/
-#ifndef SDT
-int fzetta_fmc_iic_init(u8 Dev_ID);
-#else
 int fzetta_fmc_iic_init(UINTPTR BaseAddress);
-#endif
 /*****************************************************************************/
 /**
  *

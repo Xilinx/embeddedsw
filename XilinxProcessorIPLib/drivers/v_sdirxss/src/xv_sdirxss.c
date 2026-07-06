@@ -46,11 +46,7 @@ typedef struct {
 } XV_SdiRxSs_SubCores;
 
 /**************************** Local Global ***********************************/
-#ifndef SDT
 XV_SdiRxSs_SubCores XV_SdiRxSs_SubCoreRepo[XPAR_XV_SDIRXSS_NUM_INSTANCES];
-#else
-XV_SdiRxSs_SubCores XV_SdiRxSs_SubCoreRepo[XPAR_XV_SDIRXSS_NUM_INSTANCES];
-#endif
 /**< Define Driver instance of all sub-core
 									included in the design */
 
@@ -162,13 +158,6 @@ static int XV_SdiRxSs_RegisterSubsysCallbacks(XV_SdiRxSs *InstancePtr)
 * @return None
 *
 ******************************************************************************/
-#ifndef SDT
-static void XV_SdiRxSs_GetIncludedSubcores(XV_SdiRxSs *SdiRxSsPtr, u16 DevId)
-{
-	SdiRxSsPtr->SdiRxPtr = ((SdiRxSsPtr->Config.SdiRx.IsPresent) ?
-	(&XV_SdiRxSs_SubCoreRepo[DevId].SdiRx) : NULL);
-}
-#else
 static void XV_SdiRxSs_GetIncludedSubcores(XV_SdiRxSs *SdiRxSsPtr, UINTPTR BaseAddress)
 {
 	u32 Index = 0;
@@ -177,7 +166,6 @@ static void XV_SdiRxSs_GetIncludedSubcores(XV_SdiRxSs *SdiRxSsPtr, UINTPTR BaseA
 	SdiRxSsPtr->SdiRxPtr = ((SdiRxSsPtr->Config.SdiRx.IsPresent) ?
 	(&XV_SdiRxSs_SubCoreRepo[Index].SdiRx) : NULL);
 }
-#endif
 
 /*****************************************************************************/
 /**
@@ -214,11 +202,7 @@ XV_SdiRxSs_Config *CfgPtr, UINTPTR EffectiveAddr)
 	InstancePtr->Config.BaseAddress = EffectiveAddr;
 
 	/* Determine sub-cores included in the provided instance of subsystem */
-#ifndef SDT
-	XV_SdiRxSs_GetIncludedSubcores(SdiRxSsPtr, CfgPtr->DeviceId);
-#else
 	XV_SdiRxSs_GetIncludedSubcores(SdiRxSsPtr, CfgPtr->BaseAddress);
-#endif
 
 	/* Initialize all included sub_cores */
 	if (SdiRxSsPtr->SdiRxPtr) {

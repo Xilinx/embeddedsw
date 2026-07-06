@@ -40,21 +40,13 @@ XIic fzetta_fmc_Iic; /* The driver instance for IIC Device */
  * @note	None.
  *
  ******************************************************************************/
-#ifndef SDT
-int fzetta_fmc_iic_init(u8 Dev_ID) {
-#else
 int fzetta_fmc_iic_init(UINTPTR BaseAddress)
 {
-#endif
 	int Status;
 	/*
 	 * Initialize the IIC driver so that it is ready to use.
 	 */
-#ifndef SDT
-	fzetta_fmc_Iic_ConfigPtr = XIic_LookupConfig(Dev_ID);
-#else
 	fzetta_fmc_Iic_ConfigPtr = XIic_LookupConfig(BaseAddress);
-#endif
 	if (fzetta_fmc_Iic_ConfigPtr == NULL) {
 		return XST_FAILURE;
 	}
@@ -63,11 +55,7 @@ int fzetta_fmc_iic_init(UINTPTR BaseAddress)
      * Initialize the IIC device driver such that it's ready to use,
      * if it didn't initialize properly, abort and return the status.
      */
-#ifndef SDT
-	Status = XIic_Initialize(&fzetta_fmc_Iic, Dev_ID);
-#else
 	Status = XIic_Initialize(&fzetta_fmc_Iic, BaseAddress);
-#endif
     if (Status != XST_SUCCESS)
     {
         return XST_FAILURE;

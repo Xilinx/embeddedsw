@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2019 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
  *****************************************************************************/
 /**
@@ -42,35 +42,15 @@
 #include "xsdiaud_hw.h"
 #endif
 
-#ifndef SDT
-#ifdef XPAR_INTC_0_DEVICE_ID
-#include "xintc.h"
-#else
-#include "xscugic.h"
-#endif
-#else
 #include "xinterrupt_wrap.h"
-#endif
 
 /************************** Constant Definitions *****************************/
-#ifndef SDT
-#define GPIO_0_TX_RST XPAR_GPIO_0_BASEADDR
-#define GPIO_1_RX_RST XPAR_GPIO_1_BASEADDR
-#else
 #define GPIO_0_TX_RST XPAR_XGPIO_0_BASEADDR
 #define GPIO_1_RX_RST XPAR_XGPIO_1_BASEADDR
-#endif
 
-#ifndef SDT
-#ifdef XPAR_XSDIAUD_NUM_INSTANCES
-#define SDI_AUD_EMBED   XPAR_V_UHDSDI_AUDIO_EMBED_1_BASEADDR
-#define SDI_AUD_EXTRT   XPAR_V_UHDSDI_AUDIO_EXTRACT_0_BASEADDR
-#endif
-#else
 #ifdef XPAR_XSDIAUD_NUM_INSTANCES
 #define SDI_AUD_EMBED   XPAR_XSDIAUD_1_BASEADDR
 #define SDI_AUD_EXTRT   XPAR_XSDIAUD_0_BASEADDR
-#endif
 #endif
 
 typedef u8 AddressType;
@@ -91,31 +71,11 @@ typedef u8 AddressType;
 #define FREQ_27_MHz	(27000000)
 #define FREQ_148_35_MHz	(148350000)
 
-#ifndef SDT
-#ifdef XPAR_XSDIAUD_NUM_INSTANCES
-#define SPDIF_0_DEVICE_ID XPAR_XSPDIF_0_DEVICE_ID
-#define SPDIF_1_DEVICE_ID XPAR_XSPDIF_1_DEVICE_ID
-
-#define SPDIF_0_INTERRUPT_ID XPAR_FABRIC_SPDIF_0_VEC_ID
-#define SPDIF_1_INTERRUPT_ID XPAR_FABRIC_SPDIF_1_VEC_ID
-
-#define SDIAUD_0_DEVICE_ID	XPAR_XSDIAUD_0_DEVICE_ID
-#define SDIAUD_1_DEVICE_ID	XPAR_XSDIAUD_1_DEVICE_ID
-
-#define SDIAUD_0_INTERRUPT_ID	XPAR_FABRIC_SDIAUD_0_VEC_ID
-#define SDIAUD_1_INTERRUPT_ID	XPAR_FABRIC_SDIAUD_1_VEC_ID
-
-#define XPAR_SDIAUD_0_BA	XPAR_V_UHDSDI_AUDIO_EXTRACT_0_BASEADDR
-#define XPAR_SDIAUD_1_BA	XPAR_V_UHDSDI_AUDIO_EMBED_1_BASEADDR
-#define XSDIAUD_QUAD_GROUP	4
-#endif
-#else
 #ifdef XPAR_XSDIAUD_NUM_INSTANCES
 #define SDIAUD_0_INTERRUPT_ID	XPAR_FABRIC_SDIAUD_0_VEC_ID
 #define SDIAUD_1_INTERRUPT_ID	XPAR_FABRIC_SDIAUD_1_VEC_ID
 #define XPAR_SDIAUD_0_BA	XPAR_V_UHDSDI_AUDIO_EXTRACT_0_BASEADDR
 #define XPAR_SDIAUD_1_BA	XPAR_V_UHDSDI_AUDIO_EMBED_1_BASEADDR
-#endif
 #endif
 
 /***************** Macros (Inline Functions) Definitions *********************/
@@ -126,9 +86,6 @@ typedef u8 AddressType;
 
 /************************** Function Prototypes ******************************/
 void ClearScreen(void);
-#ifndef SDT
-static int SetupInterruptSystem(void);
-#endif
 void GtReadyCallback(void *CallbackRef);
 void RxStreamUpCallback(void *CallbackRef);
 void RxStreamUp(void);
@@ -158,9 +115,6 @@ unsigned int IntrReceived;
 u8 AudioStatusUpdate;
 
 /************************** Variable Definitions *****************************/
-#ifndef SDT
-static XScuGic Intc;
-#endif
 XGpio Gpio_AxisFifo_resetn;
 XGpio_Config *Gpio_AxisFifo_resetn_ConfigPtr;
 
@@ -196,61 +150,6 @@ void ClearScreen(void)
 	xil_printf("%c\033[0;0H", 27);	/**< Bring Cursor to 0,0 */
 }
 
-#ifndef SDT
-/*****************************************************************************/
-/**
- *
- * This function setups the interrupt system so interrupts can occur for the
- * SDI cores. The function is application-specific since the actual system
- * may or may not have an interrupt controller. The SDI cores could be
- * directly connected to a processor without an interrupt controller.
- * The user should modify this function to fit the application.
- *
- * @return
- *		- XST_SUCCESS if interrupt setup was successful.
- *		- A specific error code defined in "xstatus.h" if an error
- *		occurs.
- *
- * @note	This function assumes a Microblaze or ARM system and no operating
- *		system is used.
- *
- ******************************************************************************/
-static int SetupInterruptSystem(void)
-{
-	int Status;
-	XScuGic *IntcInstPtr = &Intc;
-
-	/*
-	 * Initialize the interrupt controller driver so that it's ready to
-	 * use, specify the device ID that was generated in xparameters.h
-	 */
-	XScuGic_Config *IntcCfgPtr;
-	IntcCfgPtr = XScuGic_LookupConfig(XPAR_SCUGIC_0_DEVICE_ID);
-	if (!IntcCfgPtr) {
-		xil_printf("ERR:: Interrupt Controller not found");
-		return XST_DEVICE_NOT_FOUND;
-	}
-	Status = XScuGic_CfgInitialize(IntcInstPtr,
-					IntcCfgPtr,
-					IntcCfgPtr->CpuBaseAddress);
-
-	if (Status != XST_SUCCESS) {
-		xil_printf("Intc initialization failed!\r\n");
-		return XST_FAILURE;
-	}
-
-	Xil_ExceptionInit();
-
-	/*
-	 * Register the interrupt controller handler with the exception table.
-	 */
-	Xil_ExceptionRegisterHandler(XIL_EXCEPTION_ID_INT,
-				(Xil_ExceptionHandler)XScuGic_InterruptHandler,
-				(XScuGic *)IntcInstPtr);
-
-	return XST_SUCCESS;
-}
-#endif
 /*****************************************************************************/
 /**
  *
@@ -301,34 +200,20 @@ void RxStreamUpCallback(void *CallbackRef)
 		/* Read the register
 		 * clear/set some bits in it
 		 * set to the previous value*/
-#ifndef SDT
-		u32 data = Xil_In32((UINTPTR)XPAR_TX_HEIR_V_SMPTE_UHDSDI_TX_SS_0_BASEADDR);
-
-		data = data & (0xFFFFFEFF);
-		Xil_Out32((UINTPTR)(XPAR_TX_HEIR_V_SMPTE_UHDSDI_TX_SS_0_BASEADDR), data);
-		data = data | 0x1;
-		Xil_Out32((UINTPTR)(XPAR_TX_HEIR_V_SMPTE_UHDSDI_TX_SS_0_BASEADDR), data);
-#else
 		u32 data = Xil_In32((UINTPTR)XPAR_XV_SDITXSS_0_BASEADDR);
 
 		data = data & (0xFFFFFEFF);
 		Xil_Out32((UINTPTR)(XPAR_XV_SDITXSS_0_BASEADDR), data);
 		data = data | 0x1;
 		Xil_Out32((UINTPTR)(XPAR_XV_SDITXSS_0_BASEADDR), data);
-#endif
 	}
 	StartTxAfterRxFlag = (TRUE);
         XV_SdiRxSs_StreamFlowEnable(&SdiRxSs);
         StartTxAfterRx();
 
 	/* Waiting for SI5328 Lock */
-#ifndef SDT
-	Xil_Out32((UINTPTR)(XPAR_GPIO_1_BASEADDR), (u32)(0x00000001));
-	Xil_Out32((UINTPTR)(XPAR_GPIO_1_BASEADDR), (u32)(0x00000000));
-#else
 	Xil_Out32((UINTPTR)(XPAR_XGPIO_1_BASEADDR), (u32)(0x00000001));
 	Xil_Out32((UINTPTR)(XPAR_XGPIO_1_BASEADDR), (u32)(0x00000000));
-#endif
         XV_SdiTxSs_StreamStart(&SdiTxSs);
 
         /* Print stream information */
@@ -913,19 +798,11 @@ int main(void)
 	usleep(10000);
 
 	/* Rx Reset Sequence */
-#ifndef SDT
-	Xil_Out32((UINTPTR)(XPAR_GPIO_0_BASEADDR), (u32)(0x00000000));
-	Xil_Out32((UINTPTR)(XPAR_GPIO_0_BASEADDR), (u32)(0x00000001));
-	Xil_Out32((UINTPTR)(XPAR_GPIO_0_BASEADDR), (u32)(0x00000000));
-	Xil_Out32((UINTPTR)(XPAR_GPIO_2_BASEADDR), (u32)(0x00000001));
-	Xil_Out32((UINTPTR)(XPAR_GPIO_2_BASEADDR), (u32)(0x00000000));
-#else
 	Xil_Out32((UINTPTR)(XPAR_XGPIO_0_BASEADDR), (u32)(0x00000000));
 	Xil_Out32((UINTPTR)(XPAR_XGPIO_0_BASEADDR), (u32)(0x00000001));
 	Xil_Out32((UINTPTR)(XPAR_XGPIO_0_BASEADDR), (u32)(0x00000000));
 	Xil_Out32((UINTPTR)(XPAR_XGPIO_2_BASEADDR), (u32)(0x00000001));
 	Xil_Out32((UINTPTR)(XPAR_XGPIO_2_BASEADDR), (u32)(0x00000000));
-#endif
 
 	StartTxAfterRxFlag = (FALSE);
 	Xil_ExceptionDisable();
@@ -940,21 +817,9 @@ int main(void)
 	xil_printf("      Build %s - %s      \r\n", __DATE__, __TIME__);
 	xil_printf("----------------------------------------\r\n");
 
-#ifndef SDT
-	/* Initialize IRQ */
-	Status = SetupInterruptSystem();
-	if (Status == XST_FAILURE) {
-		xil_printf("IRQ init failed.\n\r\r");
-		return XST_FAILURE;
-	}
-#endif
 
 	/* Initialize SDI TX Subsystem */
-#ifndef SDT
-	XV_SdiTxSs_ConfigPtr = XV_SdiTxSs_LookupConfig(XPAR_XV_SDITXSS_0_DEVICE_ID);
-#else
 	XV_SdiTxSs_ConfigPtr = XV_SdiTxSs_LookupConfig(XPAR_XV_SDITXSS_0_BASEADDR);
-#endif
 	XV_SdiTxSs_ConfigPtr->BaseAddress = XPAR_XV_SDITXSS_0_BASEADDR;
 
 	if (!XV_SdiTxSs_ConfigPtr) {
@@ -989,11 +854,7 @@ int main(void)
 	xil_printf("GT Tx interrupt done %d\r\n");
 
 	/* Initialize SDI RX Subsystem */
-#ifndef SDT
-	XV_SdiRxSs_ConfigPtr = XV_SdiRxSs_LookupConfig(XPAR_XV_SDIRX_0_DEVICE_ID);
-#else
 	XV_SdiRxSs_ConfigPtr = XV_SdiRxSs_LookupConfig(XPAR_XV_SDIRXSS_0_BASEADDR);
-#endif
 
 	XV_SdiRxSs_ConfigPtr->BaseAddress = XPAR_XV_SDIRXSS_0_BASEADDR;
 
@@ -1036,21 +897,13 @@ int main(void)
 	*/
 
 
-#ifndef SDT
-	Status = XSdiAud_Initialize(&SdiEmbed, SDIAUD_1_DEVICE_ID);
-#else
 	Status = XSdiAud_Initialize(&SdiEmbed, XPAR_XSDIAUD_1_BASEADDR);
-#endif
 	if (Status != XST_SUCCESS) {
 		xil_printf("ERR:: SDI Embed IP Initialization failed %d\r\n", Status);
 		return XST_FAILURE;
 	}
 
-#ifndef SDT
-	Status = XSdiAud_Initialize(&SdiExtract, SDIAUD_0_DEVICE_ID);
-#else
 	Status = XSdiAud_Initialize(&SdiExtract, XPAR_XSDIAUD_0_BASEADDR);
-#endif
 	if (Status != XST_SUCCESS) {
 		xil_printf("ERR:: SDI Extract IP Initialization failed %d\r\n", Status);
 		return XST_FAILURE;
@@ -1078,20 +931,6 @@ int main(void)
 			XSdiAud_DetGroupChangeHandler,
 			(void *)&SdiExtract);
 #endif
-#ifndef SDT
-	Status = 0;
-	Status |= XScuGic_Connect(&Intc,
-				SDI_RX_SS_INTR_ID,
-				(XInterruptHandler)XV_SdiRxSS_SdiRxIntrHandler,
-				(void *)&SdiRxSs);
-	if (Status == XST_SUCCESS) {
-		XScuGic_Enable(&Intc, SDI_RX_SS_INTR_ID);
-	} else {
-		xil_printf("ERR:: Unable to register SDI RX interrupt handler");
-		xil_printf("SDI RX SS initialization error\n\r");
-		return XST_FAILURE;
-	}
-#else
 	Status = XSetupInterruptSystem(&SdiRxSs, &XV_SdiRxSS_SdiRxIntrHandler,
 					SdiRxSs.Config.IntrId,
 					SdiRxSs.Config.IntrParent,
@@ -1100,23 +939,7 @@ int main(void)
 		xil_printf("IRQ init failed.\n\r\r");
 		return XST_FAILURE;
 	}
-#endif
 
-#ifndef SDT
-	/*Register SDI TX SS Interrupt Handler with Interrupt Controller */
-	Status = 0;
-	Status |= XScuGic_Connect(&Intc,
-				SDI_TX_SS_INTR_ID,
-				(XInterruptHandler)XV_SdiTxSS_SdiTxIntrHandler,
-				(void *)&SdiTxSs);
-	if (Status == XST_SUCCESS) {
-		XScuGic_Enable(&Intc, SDI_TX_SS_INTR_ID);
-	} else {
-		xil_printf("ERR:: Unable to register SDI TX interrupt handler");
-		xil_printf("SDI TX SS initialization error\n\r");
-		return XST_FAILURE;
-	}
-#else
 	Status = XSetupInterruptSystem(&SdiTxSs, &XV_SdiTxSS_SdiTxIntrHandler,
 					SdiTxSs.Config.IntrId,
 					SdiTxSs.Config.IntrParent,
@@ -1125,25 +948,10 @@ int main(void)
 		xil_printf("IRQ init failed.\n\r\r");
 		return XST_FAILURE;
 	}
-#endif
 
 #ifdef XPAR_XSDIAUD_NUM_INSTANCES
 
 	/* Register SDI AUdio Extract Interrupt Handler with Interrupt Controller */
-#ifndef SDT
-	Status = 0;
-	Status |= XScuGic_Connect(&Intc,
-				SDIAUD_0_INTERRUPT_ID,
-				(XInterruptHandler)XSdiAud_IntrHandler,
-				(void *)&SdiExtract);
-	if (Status == XST_SUCCESS) {
-		XScuGic_Enable(&Intc, SDIAUD_0_INTERRUPT_ID);
-		xil_printf("Successfully registered SDI Audio Extract interrupt handler\n\r");
-	} else {
-		xil_printf("ERR:: Unable to register SDI Audio Extract interrupt handler\n\r");
-		return XST_FAILURE;
-	}
-#else
 	Status = XSetupInterruptSystem(&SdiExtract, &XSdiAud_IntrHandler,
 					SdiExtract.Config.IntrId,
 					SdiExtract.Config.IntrParent,
@@ -1153,22 +961,7 @@ int main(void)
 		return XST_FAILURE;
 	}
 
-#endif
 	/* Register SDI AUdio Embed Interrupt Handler with Interrupt Controller */
-#ifndef SDT
-	Status = 0;
-	Status |= XScuGic_Connect(&Intc,
-				SDIAUD_1_INTERRUPT_ID,
-				(XInterruptHandler)XSdiAud_IntrHandler,
-				(void *)&SdiEmbed);
-	if (Status == XST_SUCCESS) {
-		XScuGic_Enable(&Intc, SDIAUD_1_INTERRUPT_ID);
-		xil_printf("Successfully registered SDI Audio Embed interrupt handler\n\r");
-	} else {
-		xil_printf("ERR:: Unable to register SDI Audio Embed interrupt handler\n\r");
-		return XST_FAILURE;
-	}
-#else
 	Status = XSetupInterruptSystem(&SdiEmbed, &XSdiAud_IntrHandler,
 					SdiEmbed.Config.IntrId,
 					SdiEmbed.Config.IntrParent,
@@ -1178,7 +971,6 @@ int main(void)
 		return XST_FAILURE;
 	}
 
-#endif
 #endif
 	/* Initialize menu */
 	XSdi_MenuInitialize(&SdiMenu, XPAR_XUARTPSV_0_BASEADDR);

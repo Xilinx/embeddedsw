@@ -52,11 +52,7 @@ typedef enum{
  * @note	None.
  *
  ******************************************************************************/
-#ifndef SDT
-int fzetta_fmc_spi_init(u8 Dev_ID);
-#else
 int fzetta_fmc_spi_init(UINTPTR BaseAddress);
-#endif
 /*****************************************************************************/
 /**
  *

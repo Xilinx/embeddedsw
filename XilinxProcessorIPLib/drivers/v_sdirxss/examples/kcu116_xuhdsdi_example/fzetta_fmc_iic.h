@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2018 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
  *****************************************************************************/
 
@@ -45,11 +45,7 @@ extern XIic fzetta_fmc_Iic; /* The driver instance for IIC Device */
  * @note	None.
  *
  ******************************************************************************/
-#ifndef SDT
-int fzetta_fmc_iic_init(u8 Dev_ID);
-#else
 int fzetta_fmc_iic_init(UINTPTR BaseAddress);
-#endif
 /*****************************************************************************/
 /**
  *

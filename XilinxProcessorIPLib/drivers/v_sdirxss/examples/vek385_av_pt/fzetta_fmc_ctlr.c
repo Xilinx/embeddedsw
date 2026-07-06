@@ -42,15 +42,9 @@
 int fzetta_fmc_ip_init(){
 	int Status = XST_SUCCESS;
 
-#ifndef SDT
-	Status |= fzetta_fmc_gpio_init(fzetta_fmc_table.gpio_dev_id);
-	Status |= fzetta_fmc_iic_init(fzetta_fmc_table.iic_dev_id);
-	Status |= fzetta_fmc_spi_init(fzetta_fmc_table.spi_dev_id);
-#else
 	Status |= fzetta_fmc_gpio_init(fzetta_fmc_table.gpio_dev_baseaddress);
 	Status |= fzetta_fmc_iic_init(fzetta_fmc_table.iic_dev_baseaddress);
 	Status |= fzetta_fmc_spi_init(fzetta_fmc_table.spi_dev_baseaddress);
-#endif
 
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;

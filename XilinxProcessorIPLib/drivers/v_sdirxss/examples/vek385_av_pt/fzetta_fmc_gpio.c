@@ -35,23 +35,14 @@ unsigned char fmc_init_done_flag = 0;
  * @note	None.
  *
  ******************************************************************************/
-#ifndef SDT
-int fzetta_fmc_gpio_init(u8 Dev_ID)
-{
-#else
 int fzetta_fmc_gpio_init(UINTPTR BaseAddress)
 {
-#endif
 	int Status;
 	/*
 	 * Initialize the GPIO driver so that it's ready to use,
 	 * specify the device ID that is generated in xparameters.h
 	 */
-#ifndef SDT
-	 Status = XGpio_Initialize(&fzetta_fmc_GpioOutput, Dev_ID);
-#else
 	 Status = XGpio_Initialize(&fzetta_fmc_GpioOutput, BaseAddress);
-#endif
 	 if (Status != XST_SUCCESS)  {
 		  return XST_FAILURE;
 	 }

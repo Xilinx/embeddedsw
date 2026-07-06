@@ -42,11 +42,7 @@ extern XGpio fzetta_fmc_GpioOutput; /* The driver instance for GPIO Device confi
  * @note	None.
  *
  ******************************************************************************/
-#ifndef SDT
-int fzetta_fmc_gpio_init(u8 Dev_ID);
-#else
 int fzetta_fmc_gpio_init(UINTPTR BaseAddress);
-#endif
 /*****************************************************************************/
 /**
  *

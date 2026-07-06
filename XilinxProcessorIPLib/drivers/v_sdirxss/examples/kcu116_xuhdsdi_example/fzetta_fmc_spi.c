@@ -41,21 +41,13 @@ XSpi fzetta_fmc_Spi; /* The instance of the SPI device */
  * @note	None.
  *
  ******************************************************************************/
-#ifndef SDT
-int fzetta_fmc_spi_init(u8 Dev_ID) {
-#else
 int fzetta_fmc_spi_init(UINTPTR BaseAddress)
 {
-#endif
 	int Status;
 	/*
 	 * Initialize the SPI driver so that it is  ready to use.
 	 */
-#ifndef SDT
-	fzetta_fmc_Spi_ConfigPtr = XSpi_LookupConfig(Dev_ID);
-#else
 	fzetta_fmc_Spi_ConfigPtr = XSpi_LookupConfig(BaseAddress);
-#endif
 	if (fzetta_fmc_Spi_ConfigPtr == NULL) {
 		return XST_DEVICE_NOT_FOUND;
 	}
