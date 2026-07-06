@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2017 - 2023 Xilinx, Inc. All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -37,11 +37,6 @@
 /************************** Constant Definitions *****************************/
 
 /* The unique device ID of the SDI Tx Subsystem instance to be used */
-#ifndef SDT
-#ifndef TESTAPP_GEN
-#define XV_SDITXSS_DEVICE_ID	XPAR_XV_SDITXSS_0_DEVICE_ID
-#endif
-#endif
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
@@ -50,11 +45,7 @@
 
 
 /************************** Function Prototypes ******************************/
-#ifndef SDT
-u32 SdiTxSs_SelfTestExample(u32 DeviceId);
-#else
 u32 SdiTxSs_SelfTestExample(UINTPTR BaseAddress);
-#endif
 
 /************************** Variable Definitions *****************************/
 
@@ -83,11 +74,7 @@ int main(void)
 	xil_printf("---------------------------------\n\r");
 	xil_printf("SDI TX Subsystem self test example\n\r");
 	xil_printf("---------------------------------\n\r\n\r");
-#ifndef SDT
-	Status = SdiTxSs_SelfTestExample(XV_SDITXSS_DEVICE_ID);
-#else
 	Status = SdiTxSs_SelfTestExample(XPAR_XV_SDITXSS_0_BASEADDR);
-#endif
 	if (Status != XST_SUCCESS) {
 		xil_printf("SDI TX Subsystem self test example "
 			"failed\n\r");
@@ -118,21 +105,13 @@ int main(void)
 * @note		None.
 *
 ******************************************************************************/
-#ifndef SDT
-u32 SdiTxSs_SelfTestExample(u32 DeviceId)
-#else
 u32 SdiTxSs_SelfTestExample(UINTPTR BaseAddress)
-#endif
 {
 	u32 Status;
 	XV_SdiTxSs_Config *ConfigPtr;
 
 	/* Obtain the device configuration for the SDI TX Subsystem */
-#ifndef SDT
-	ConfigPtr = XV_SdiTxSs_LookupConfig(DeviceId);
-#else
 	ConfigPtr = XV_SdiTxSs_LookupConfig(BaseAddress);
-#endif
 	if (!ConfigPtr) {
 		return XST_FAILURE;
 	}

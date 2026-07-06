@@ -57,11 +57,7 @@ int XV_SdiTxSs_SubcoreInitSdiTx(XV_SdiTxSs *SdiTxSsPtr)
 	if (SdiTxSsPtr->SdiTxPtr) {
 		/* Get core configuration */
 		XV_SdiTxSs_LogWrite(SdiTxSsPtr, XV_SDITXSS_LOG_EVT_SDITX_INIT, 0);
-#ifndef SDT
-		ConfigPtr  = XV_SdiTx_LookupConfig(SdiTxSsPtr->Config.SdiTx.DeviceId);
-#else
 		ConfigPtr  = XV_SdiTx_LookupConfig(SdiTxSsPtr->Config.SdiTx.AbsAddr);
-#endif
 		if (ConfigPtr == NULL) {
 			xdbg_printf(XDBG_DEBUG_GENERAL,
 				"SDITXSS ERR:: SDI TX device not found\r\n");
@@ -102,11 +98,7 @@ int XV_SdiTxSs_SubcoreInitVtc(XV_SdiTxSs *SdiTxSsPtr)
 	if (SdiTxSsPtr->VtcPtr) {
 		/* Get core configuration */
 		XV_SdiTxSs_LogWrite(SdiTxSsPtr, XV_SDITXSS_LOG_EVT_VTC_INIT, 0);
-#ifndef SDT
-		ConfigPtr  = XVtc_LookupConfig(SdiTxSsPtr->Config.Vtc.DeviceId);
-#else
 		ConfigPtr  = XVtc_LookupConfig(SdiTxSsPtr->Config.Vtc.AbsAddr);
-#endif
 		if (ConfigPtr == NULL) {
 			xdbg_printf(XDBG_DEBUG_GENERAL,
 				"SDITXSS ERR:: VTC device not found\r\n");
