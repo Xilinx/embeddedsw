@@ -194,6 +194,7 @@ s32 XKeyManager_CfgInitialize(void)
 	u32 TotalSizeAllocated = 0U;
 	u32 Index = 0U;
 	u32 AllocatedDdrSize = 0U;
+	u32 KeyVaultAddr = 0U;
 
 	/** Validate that vault base address is within lower DDR memory. */
 	if (XAsufw_ReadReg(XASU_RTCA_DDR_BASEADDR_HIGH) != 0U) {
@@ -217,10 +218,25 @@ s32 XKeyManager_CfgInitialize(void)
 		Status = XASUFW_KEYMANAGER_INVALID_DDR_ADDRESS;
 		goto END;
 	} else {
+		KeyVaultAddr = XAsufw_ReadReg(XASU_RTCA_DDR_BASEADDR_LOW);
+
+		/**
+		 * Keys may only be stored in encrypted external DDR (the lower 2GB window).
+		 * Reject any region whose highest (last) byte address lies above
+		 * XASUFW_2GB_END_ADDR, i.e. extends into ASU/on-chip memory, so a key vault can
+		 * never be created inside ASU memories. A region ending exactly at
+		 * XASUFW_2GB_END_ADDR is still valid. 64-bit arithmetic prevents a 32-bit
+		 * wraparound from slipping past the bound.
+		 */
+		if (((u64)KeyVaultAddr + ((u64)AllocatedDdrSize - 1U)) > (u64)XASUFW_2GB_END_ADDR) {
+			Status = XASUFW_KEYMANAGER_INVALID_DDR_ADDRESS;
+			goto END;
+		}
+
 		VaultManager.TotalVaultSize = AllocatedDdrSize - XASUFW_DDR_RSVD_SIZE;
 
 		/** Initialize the reserved DDR area to zero. */
-		Status = Xil_SMemSet((u8 *)(XAsufw_ReadReg(XASU_RTCA_DDR_BASEADDR_LOW)),
+		Status = Xil_SMemSet((u8 *)(UINTPTR)KeyVaultAddr,
 				XASUFW_DDR_RSVD_SIZE, 0U, XASUFW_DDR_RSVD_SIZE);
 		if (Status != XASUFW_SUCCESS) {
 			Status = XASUFW_ZEROIZE_MEMSET_FAIL;
