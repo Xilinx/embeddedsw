@@ -1,6 +1,6 @@
 /*******************************************************************************
 * Copyright (C) 2017 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
  ******************************************************************************/
 
@@ -32,19 +32,10 @@
  * xparameters.h file. They are defined here such that a user can easily
  * change all the needed parameters in one place.
  */
-#ifndef SDT
-#ifndef TESTAPP_GEN
-#define AUDIO_FORMATTER_DEVICE_ID	XPAR_XAUDIOFORMATTER_0_DEVICE_ID
-#endif
-#endif
 /**************************** Type Definitions *****************************i***/
 
 /************************** Function Prototypes *******************************/
-#ifndef SDT
-int AFSelfTestExample(u16 DeviceId)
-#else
 int AFSelfTestExample(UINTPTR BaseAddress);
-#endif
 
 /************************** Variable Definitions ******************************/
 XAudioFormatter Audioformatter;		/* Instance of the Audio Formatter device */
@@ -71,11 +62,7 @@ int main(void)
 	 * Run the Audio Formatter Self Test example, specify the Device ID that is
 	 * generated in xparameters.h
 	 */
-#ifndef SDT
-	Status = AFSelfTestExample(AUDIO_FORMATTER_DEVICE_ID);
-#else
 	Status = AFSelfTestExample(XPAR_XAUDIO_FORMATTER_0_BASEADDR);
-#endif
 	if (Status != XST_SUCCESS) {
 		xil_printf("Audio Formatter Self Test Failed\r\n");
 		return XST_FAILURE;
@@ -101,11 +88,7 @@ int main(void)
  *
  *
  *****************************************************************************/
-#ifndef SDT
-int AFSelfTestExample(u16 DeviceId)
-#else
 int AFSelfTestExample(UINTPTR BaseAddress)
-#endif
 {
 	int Status;
 
@@ -114,11 +97,7 @@ int AFSelfTestExample(UINTPTR BaseAddress)
 	 * Initialize the Audio formatter driver so that it's ready to use
 	 * Look up the configuration in the config table, then initialize it.
 	 */
-#ifndef SDT
-	Config = XAudioFormatter_LookupConfig(DeviceId);
-#else
 	Config = XAudioFormatter_LookupConfig(BaseAddress);
-#endif
 
 	if (Config == NULL)
 		return XST_FAILURE;

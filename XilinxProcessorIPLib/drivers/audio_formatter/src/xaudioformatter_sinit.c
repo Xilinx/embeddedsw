@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2018 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -55,39 +55,6 @@
 *
 * @note		None.
 ******************************************************************************/
-#ifndef SDT
-XAudioFormatter_Config *XAudioFormatter_LookupConfig(u16 DeviceId)
-{
-	XAudioFormatter_Config *CfgPtr = NULL;
-	u32 Index;
-
-	/* Checks all the instances */
-	for (Index = 0; Index < XPAR_XAUDIOFORMATTER_NUM_INSTANCES;
-								Index++) {
-		if (XAudioFormatter_ConfigTable[Index].DeviceId == DeviceId) {
-			CfgPtr = &XAudioFormatter_ConfigTable[Index];
-			break;
-		}
-	}
-
-	return CfgPtr;
-}
-
-u32 XAudioFormatter_Initialize(XAudioFormatter *InstancePtr, u16 DeviceId)
-{
-	XAudioFormatter_Config *CfgPtr = NULL;
-
-	Xil_AssertNonvoid(InstancePtr != NULL);
-
-	CfgPtr = XAudioFormatter_LookupConfig(DeviceId);
-	if (CfgPtr == NULL) {
-		InstancePtr->IsReady = 0;
-		return XST_DEVICE_NOT_FOUND;
-	}
-
-	return XAudioFormatter_CfgInitialize(InstancePtr, CfgPtr);
-}
-#else
 XAudioFormatter_Config *XAudioFormatter_LookupConfig(UINTPTR BaseAddress)
 {
 	XAudioFormatter_Config *CfgPtr = NULL;
@@ -120,5 +87,4 @@ u32 XAudioFormatter_Initialize(XAudioFormatter *InstancePtr, UINTPTR BaseAddress
 
 	return XAudioFormatter_CfgInitialize(InstancePtr, CfgPtr);
 }
-#endif
 /** @} */

@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2018 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -10,25 +10,6 @@
 /*
 * The configuration table for devices
 */
-#ifndef SDT
-XAudioFormatter_Config XAudioFormatter_ConfigTable
-	[XPAR_XAUDIOFORMATTER_NUM_INSTANCES] = {
-	{
-		XPAR_AUDIO_SS_0_AUDIO_FORMATTER_0_DEVICE_ID,
-		XPAR_AUDIO_SS_0_AUDIO_FORMATTER_0_BASEADDR,
-		XPAR_AUDIO_FORMATTER_0_INCLUDE_MM2S,
-		XPAR_AUDIO_FORMATTER_0_INCLUDE_S2MM,
-		XPAR_AUDIO_FORMATTER_0_MAX_NUM_CHANNELS_MM2S,
-		XPAR_AUDIO_FORMATTER_0_MAX_NUM_CHANNELS_S2MM,
-		XPAR_AUDIO_FORMATTER_0_MM2S_ADDR_WIDTH,
-		XPAR_AUDIO_FORMATTER_0_MM2S_DATAFORMAT,
-		XPAR_AUDIO_FORMATTER_0_PACKING_MODE_MM2S,
-		XPAR_AUDIO_FORMATTER_0_PACKING_MODE_S2MM,
-		XPAR_AUDIO_FORMATTER_0_S2MM_ADDR_WIDTH,
-		XPAR_AUDIO_FORMATTER_0_S2MM_DATAFORMAT
-	}
-};
-#else
 XAudioFormatter_Config XAudioFormatter_ConfigTable[] __attribute__ ((section (".drvcfg_sec"))) = {
 
 	{
@@ -51,4 +32,3 @@ XAudioFormatter_Config XAudioFormatter_ConfigTable[] __attribute__ ((section (".
 		 NULL
 	}
 };
-#endif
