@@ -110,6 +110,7 @@
 * 5.7   tbk  04/07/2026 Optimized key zeroization by directly writing combined
 *                       key clear mask to registers
 *       mb   04/17/2026 Update crypto check for AES/SHA/RSA
+* 5.8   tvp  06/23/2026 Skip AAD size quad-word check for Versal_2VP_P
 * </pre>
 *
 ******************************************************************************/
@@ -409,9 +410,9 @@ END:
  * @param	AadAddr		Address of the additional authenticated data
  * @param	AadSize		Size of additional authenticated data in bytes,
  *				whereas number of bytes provided should be
- *				quad-word aligned(multiples of 16 bytes) for Versal
- *				For Versal Net, byte aligned data is
- *				accepted
+ *				quad-word aligned(multiples of 16 bytes) for
+ *				Versal, SpartanUP and Versal_2vp devices. For
+ *				other devices byte aligned data is accepted.
  *
  * @return
  *		 - XST_SUCCESS - On successful update of AAD
@@ -439,8 +440,8 @@ int XSecure_AesUpdateAad(XSecure_Aes *InstancePtr, u64 AadAddr, u32 AadSize)
 		goto END;
 	}
 
-#ifndef VERSAL_NET
-	/** - Validate Aad Size for versal */
+#if !defined(VERSAL_NET) && !defined(VERSAL_2VP_P)
+	/** - Validate size of Additional Authenticated Data (AAD) */
 	if ((AadSize % XSECURE_QWORD_SIZE) != 0x00U) {
 		Status = (int)XSECURE_AES_INVALID_PARAM;
 		goto END;
@@ -1790,11 +1791,13 @@ int XSecure_AesUpdateAadAndValidate(XSecure_Aes *InstancePtr, u64 AadAddr,
 		goto END;
 	}
 
-	/** - Validate Aad Size for versal */
+#if !defined(VERSAL_NET) && !defined(VERSAL_2VP_P)
+	/** - Validate size of Additional Authenticated Data (AAD) */
 	if ((AadSize % XSECURE_QWORD_SIZE) != 0x00U) {
 		Status = (int)XSECURE_AES_INVALID_PARAM;
 		goto END;
 	}
+#endif
 
 	/** - Validate AES state */
 	if (InstancePtr->AesState != XSECURE_AES_OPERATION_INITIALIZED) {
