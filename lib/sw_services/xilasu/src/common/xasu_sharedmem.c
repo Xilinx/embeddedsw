@@ -86,7 +86,9 @@ u32 XAsu_GetSubsysIdFromIpiMask(u32 IpiMask)
 
 	for (ChannelIndex = 0U; ChannelIndex < CommChannelInfo->NumOfIpiChannels; ++ChannelIndex) {
 		if (CommChannelInfo->Channel[ChannelIndex].IpiBitMask == IpiMask) {
-			SubsystemId = CommChannelInfo->Channel[ChannelIndex].SubsystemId;
+			if (CommChannelInfo->Channel[ChannelIndex].SubsystemId != 0U) {
+				SubsystemId = CommChannelInfo->Channel[ChannelIndex].SubsystemId;
+			}
 			goto END;
 		}
 	}

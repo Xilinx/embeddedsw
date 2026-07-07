@@ -71,12 +71,10 @@ s32 XAsu_KmValidateVaultParams(const XAsu_KeyManagerParams *KmParamsPtr)
 	}
 
 	/** Validate key metadata. */
-	if ((KmParamsPtr->KeyObjectAddr == 0U) &&
-	    (XAsu_KmValidateKeyMetadata(&KmParamsPtr->KeyMetadata) != XST_SUCCESS)) {
-		goto END;
+	if (KmParamsPtr->KeyObjectAddr == 0U) {
+		Status = XST_FAILURE;
+		Status = XAsu_KmValidateKeyMetadata(&KmParamsPtr->KeyMetadata);
 	}
-
-	Status = XST_SUCCESS;
 
 END:
 	return Status;
