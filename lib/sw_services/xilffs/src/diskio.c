@@ -3,7 +3,7 @@
 /*-----------------------------------------------------------------------*/
 /******************************************************************************
 * Copyright (c) 2015 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 ******************************************************************************/
 
 /*****************************************************************************/
@@ -544,6 +544,7 @@ DRESULT disk_ioctl (
 #endif
 #ifdef XPAR_XUFSPSXC_NUM_INSTANCES
 	u32 Status = XST_FAILURE;
+	DWORD PowerMode;
 #endif
 
 	if ((disk_status(pdrv) & STA_NOINIT) != 0U) {	/* Check if card is in the socket */
@@ -635,8 +636,6 @@ DRESULT disk_ioctl (
 			break;
 
 		case (BYTE)XUFSPSXC_SPEED_CHANGE :
-			DWORD PowerMode;
-
 			PowerMode = *((DWORD *)((void *)buff));
 			Status = XUfsPsxc_ConfigureSpeedGear(&UfsInstance, PowerMode);
 			if (Status != XST_SUCCESS) {
