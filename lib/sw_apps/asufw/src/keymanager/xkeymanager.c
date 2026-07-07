@@ -117,7 +117,7 @@
 /************************************** Type Definitions *****************************************/
 
 /*************************** Macros (Inline Functions) Definitions *******************************/
-#define XKEYMANAGER_GET_VAULT_BASE_PTR		((u8 *)(XAsufw_ReadReg(XASU_RTCA_DDR_BASEADDR_LOW)) + XASUFW_DDR_RSVD_SIZE)
+#define XKEYMANAGER_GET_VAULT_BASE_PTR(void)		((u8 *)(XAsufw_ReadReg(XASU_RTCA_DDR_BASEADDR_LOW)) + XASUFW_DDR_RSVD_SIZE)
 								/**< Get vault base address pointer from RTCA register */
 
 #define XKEYMANAGER_IS_VAULT_EXPORTABLE(Restrictions) \
@@ -247,7 +247,7 @@ s32 XKeyManager_CfgInitialize(void)
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	if (VaultManager.TotalVaultSize != 0U) {
 
-		VaultHeaderPtr = (XKeyManager_VaultMainHeader *)XKEYMANAGER_GET_VAULT_BASE_PTR;
+		VaultHeaderPtr = (XKeyManager_VaultMainHeader *)XKEYMANAGER_GET_VAULT_BASE_PTR();
 
 		/** Calculate total size allocated for vaults including ASU vault based on RTCA register values. */
 		for (Index = 0U; Index <= XASU_MAX_CHANNELS_SUPPORTED; Index++) {
@@ -483,7 +483,7 @@ s32 XKeyManager_CreateKeyVault(const XAsu_KeyManagerSubVaultParams *ParamsPtr, u
 	*VaultIdPtr = VaultId;
 
 	/** Calculate vault base address in DDR memory, past the internal reserved DDR memory. */
-	KeyVaultPtr = (XKeyManager *)(XKEYMANAGER_GET_VAULT_BASE_PTR +
+	KeyVaultPtr = (XKeyManager *)(XKEYMANAGER_GET_VAULT_BASE_PTR() +
 					VaultManager.TotalVaultSize - VaultManager.RemainingVaultSize);
 
 	/** Register vault base address and size in vault info. */
@@ -585,6 +585,13 @@ s32 XKeyManager_DeleteKeyVault(u32 SubsystemId, u32 VaultId)
 		goto END;
 	}
 
+	/** Validate vault size and base pointer for the given vault ID. */
+	if ((VaultManager.VaultInfo[VaultId].VaultSize == 0U) ||
+		(VaultManager.VaultInfo[VaultId].VaultBasePtr == NULL)) {
+		Status = XASUFW_KEYMANAGER_VAULT_NOT_FOUND;
+		goto END;
+	}
+
 	/** Validate vault access for the subsystem. */
 	if (VaultManager.VaultInfo[VaultId].SubSystemId != SubsystemId) {
 		Status = XASUFW_KEYMANAGER_INVALID_VAULT_ACCESS;
@@ -596,7 +603,7 @@ s32 XKeyManager_DeleteKeyVault(u32 SubsystemId, u32 VaultId)
 	DelVaultBasePtr = VaultManager.VaultInfo[VaultId].VaultBasePtr;
 
 	/** Calculate vault memory region boundaries, past the internal reserved DDR memory. */
-	VaultBaseAddr = XKEYMANAGER_GET_VAULT_BASE_PTR;
+	VaultBaseAddr = XKEYMANAGER_GET_VAULT_BASE_PTR();
 
 	/**
 	 * Compact memory with a single contiguous copy.
@@ -2721,7 +2728,7 @@ s32 XKeyManager_ExportKeyVault(XAsufw_Dma *DmaPtr, XAes *AesInstancePtr, u64 Exp
 
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
 	CREATE_VOLATILE(ClearStatus, XASUFW_FAILURE);
-	u8 *VaultBaseAddr = XKEYMANAGER_GET_VAULT_BASE_PTR;
+	u8 *VaultBaseAddr = XKEYMANAGER_GET_VAULT_BASE_PTR();
 	u32 *ActualSizePtr = NULL;
 	const XKeyManager *KeyVaultPtr = NULL;
 	XAsu_AesParams AesParams;
@@ -2982,7 +2989,7 @@ s32 XKeyManager_ImportKeyVault(XAsufw_Dma *DmaPtr, XAes *AesInstancePtr, u64 Imp
 
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
 	CREATE_VOLATILE(ClearStatus, XASUFW_FAILURE);
-	u8 *VaultBaseAddr = XKEYMANAGER_GET_VAULT_BASE_PTR;
+	u8 *VaultBaseAddr = XKEYMANAGER_GET_VAULT_BASE_PTR();
 	u8 *ActualDataPtr = NULL;
 	u8 Index = 0U;
 	u8 RevokeId = 0U;

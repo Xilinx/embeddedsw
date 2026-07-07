@@ -237,6 +237,7 @@ s32 XAsufw_ValidateCommand(const XAsu_ReqBuf *ReqBuf, u32 ChannelIndex)
 	s32 Status = XASUFW_FAILURE;
 	u32 CmdId = ReqBuf->Header & XASU_COMMAND_ID_MASK;
 	u32 ModuleId = XAsufw_GetModuleId(ReqBuf->Header);
+	u32 SubsystemId = 0U;
 	const XAsufw_Module *Module = NULL;
 	volatile u32 AccessPerm = XASUFW_NO_IPI_ACCESS;
 	u32 ReqType = XASU_CMD_NON_SECURE;
@@ -245,6 +246,13 @@ s32 XAsufw_ValidateCommand(const XAsu_ReqBuf *ReqBuf, u32 ChannelIndex)
 	/** Validate channel index. */
 	if (ChannelIndex >= XASU_MAX_CHANNELS_SUPPORTED) {
 		Status = XASUFW_VALIDATE_CMD_INVALID_CHANNEL_INDEX;
+		goto END;
+	}
+
+	/** Validate subsystem ID mapped to the channel. */
+	SubsystemId = XAsu_GetSubsysIdFromIpiMask(XAsu_GetIpiMask(ChannelIndex));
+	if (SubsystemId == XASUFW_INVALID_SUBSYS_ID) {
+		Status = XASUFW_INVALID_SUBSYSTEM_ID;
 		goto END;
 	}
 
@@ -293,6 +301,7 @@ s32 XAsufw_ValidateCommand(const XAsu_ReqBuf *ReqBuf, u32 ChannelIndex)
 			goto END;
 		}
 	}
+
 	Status = XASUFW_SUCCESS;
 
 END:
