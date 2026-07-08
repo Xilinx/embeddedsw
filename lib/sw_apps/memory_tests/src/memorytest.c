@@ -32,7 +32,7 @@
 #endif
 #endif
 
-#ifndef versal
+#if !defined(versal) || defined(__riscv) || defined(__MICROBLAZE__)
 #define XIL_INDIVIDUAL_REGION_TEST
 #endif
 
