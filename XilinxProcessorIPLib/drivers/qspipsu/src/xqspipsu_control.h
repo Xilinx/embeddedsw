@@ -33,6 +33,7 @@
  *                      XQspiPsu_PolledSendData, XQspiPsu_IntrDataTransfer, XQspiPsu_IntrSendData,
  *                      XQspiPsu_IntrRecvData and XQspiPsu_IntrDummyDataTransfer.
  *        zm   06/18/26 Queued whole transfer into GENFIFO to fix bus conflict.
+ *        zm   06/30/26 Extend the XPS_SYS_CTRL_BASEADDR macro for ARMR5, __aarch64__(non-versal) platforms.
  *
  * </pre>
  *
@@ -64,8 +65,10 @@ extern "C" {
 #define LPBK_DLY_ADJ_DLY1 0X02U
 #endif
 
-#if defined (__MICROBLAZE__) || defined (__riscv)
+#if (defined (ARMR5) || defined (__aarch64__) || defined (__MICROBLAZE__) || defined (__riscv)) && !defined (versal)
+#ifndef XPS_SYS_CTRL_BASEADDR
 #define XPS_SYS_CTRL_BASEADDR   0xFF180000U     /**< System controller Baseaddress */
+#endif
 #endif
 /************************** Function Prototypes ******************************/
 void XQspiPsu_GenFifoEntryData(XQspiPsu *InstancePtr, XQspiPsu_Msg *Msg);
