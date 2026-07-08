@@ -35,8 +35,18 @@ if("${CMAKE_MACHINE}" STREQUAL "Versal")
         SET(COMMON_EXAMPLES xilsecure_versal_aes_server_example.c;xilsecure_versal_ecdsa_server_example.c;xilsecure_versal_rsa_server_example.c;xilsecure_versal_sha_server_example.c;)
     endif()
 elseif("${CMAKE_MACHINE}" STREQUAL "VersalNet")
-    SET(COMMON_EXAMPLES xilsecure_versal_aes_client_example.c;xilsecure_versal_ecdsa_client_example.c;xilsecure_versal_rsa_client_example.c;xilsecure_versal_sha_client_example.c;
-    xilsecure_versal_net_ecdh_client_example.c;xilsecure_versal_net_keyunwrap_client_example.c;xilsecure_versal_net_trng_client_example.c;xilsecure_versal_net_rsa_client_example.c;)
+    if(NOT "${XILSECURE_mode}" STREQUAL "server")
+        set(COMMON_EXAMPLES xilsecure_versal_aes_client_example.c;
+            xilsecure_versal_ecdsa_client_example.c;xilsecure_versal_rsa_client_example.c;
+            xilsecure_versal_net_trng_client_example.c;xilsecure_versal_net_ecdh_client_example.c;)
+        if("${CMAKE_SUBMACHINE}" STREQUAL "Versal_2VE_2VM")
+            list(APPEND COMMON_EXAMPLES xilsecure_versal_2ve_2vm_sha_client_example.c;)
+        else()
+            list(APPEND COMMON_EXAMPLES xilsecure_versal_sha_client_example.c;
+                xilsecure_versal_net_rsa_client_example.c;
+                xilsecure_versal_net_keyunwrap_client_example.c;)
+        endif()
+    endif()
 elseif("${CMAKE_MACHINE}" STREQUAL "ZynqMP")
     SET(COMMON_EXAMPLES xilsecure_aes_example.c;xilsecure_rsa_example.c;xilsecure_rsa_generic_example.c;xilsecure_sha_example.c;xilsecure_simple_aes_example.c;)
 elseif("${CMAKE_MACHINE}" STREQUAL "spartanuplus")
