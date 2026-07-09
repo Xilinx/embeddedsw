@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2016 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2023 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -32,6 +32,7 @@
 * 1.12	pm  10/08/22 Update doxygen tag and addtogroup version
 * 1.14	pm  04/01/23 Use Xil_WaitForEvent() API for register bit polling
 * 1.15  np  26/03/24 Add doxygen and editorial fixes
+* 1.19  ka  07/08/26 Fix SDT build with hibernation enabled
 *
 * </pre>
 *
@@ -454,10 +455,17 @@ void XUsbPsu_WakeUpIntrHandler(void *XUsbPsuInstancePtr)
 #endif
 
 	RegVal = XUsbPsu_ReadLpdReg(RST_LPD_TOP);
+#ifndef SDT
 	if (InstancePtr->ConfigPtr->DeviceId == (u16)XPAR_XUSBPSU_0_DEVICE_ID) {
 		XUsbPsu_WriteLpdReg(RST_LPD_TOP,
 				    (u32)(RegVal & ~USB0_CORE_RST));
 	}
+#else
+	if (InstancePtr->ConfigPtr->BaseAddress == XPAR_XUSBPSU_0_BASEADDR) {
+		XUsbPsu_WriteLpdReg(RST_LPD_TOP,
+				    (u32)(RegVal & ~USB0_CORE_RST));
+	}
+#endif
 
 #if defined (PLATFORM_ZYNQMP)
 	/* change power state to D0 */
