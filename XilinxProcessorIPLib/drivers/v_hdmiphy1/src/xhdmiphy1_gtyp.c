@@ -1,6 +1,6 @@
 /*******************************************************************************
 * Copyright (C) 2015 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -221,8 +221,8 @@ u32 XHdmiphy1_HdmiLcpllParam(XHdmiphy1 *InstancePtr, u8 QuadId,
 					InstancePtr->Quads[0].Lcpll.LineRateCfg = LR1;
 			}
 			else if ((204687500 <= (*RefClkPtr)) &&
-						/* 297 MHz + 0.5% + 10 KHz error */
-						((*RefClkPtr) <= 298500000)) {
+						/* 340 MHz + 0.5% + 10 KHz error */
+						((*RefClkPtr) <= 341710000)) {
 				InstancePtr->Quads[0].Lcpll.LineRateCfg = LR2;
 			}
 			else{
@@ -429,8 +429,8 @@ u32 XHdmiphy1_HdmiRpllParam(XHdmiphy1 *InstancePtr, u8 QuadId,
 				InstancePtr->Quads[0].Rpll.LineRateCfg = LR1;
 			}
 			else if ((200000000 <= (*RefClkPtr)) &&
-						/* 297 MHz + 0.5% + 10 KHz error */
-						((*RefClkPtr) <= 298500000)) {
+						/* 340 MHz + 0.5% + 10 KHz error */
+						((*RefClkPtr) <= 341710000)) {
 				InstancePtr->Quads[0].Rpll.LineRateCfg = LR2;
 			}
 			else{
