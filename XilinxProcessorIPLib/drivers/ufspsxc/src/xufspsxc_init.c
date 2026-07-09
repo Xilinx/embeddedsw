@@ -870,7 +870,7 @@ u32 XUfsPsxc_ConfigureTxRxAttributes(const XUfsPsxc *InstancePtr, u32 SpeedGear,
 		}
 
 		/* Program initial ADAPT for G4 */
-		if (((tx_gear == XUFSPSXC_GEAR4) || (rx_gear == XUFSPSXC_GEAR4)) && (RxLanes == 2U)) {
+		if ((tx_gear == XUFSPSXC_GEAR4) && (RxLanes == 2U)) {
 			adapt_val = XUFSPSXC_PA_INITIAL_ADAPT;
 		}
 	}
