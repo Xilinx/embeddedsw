@@ -462,11 +462,6 @@ unsigned int XUartLite_SendBuffer(XUartLite *InstancePtr)
 	u8 IntrEnableStatus;
 
 	/*
-	 * Read the status register to determine if the transmitter is full
-	 */
-	StatusRegister = XUartLite_GetSR(InstancePtr);
-
-	/*
 	 * Enter a critical region by disabling all the UART interrupts to allow
 	 * this call to stop a previous operation that may be interrupt driven
 	 */
@@ -482,19 +477,26 @@ unsigned int XUartLite_SendBuffer(XUartLite *InstancePtr)
 	IntrEnableStatus = StatusRegister;
 
 	/*
+	 * Read the status register to determine if the transmitter is full
+	 */
+	StatusRegister = XUartLite_GetSR(InstancePtr);
+	
+	/*
 	 * Fill the FIFO from the the buffer that was specified
 	 */
+	if(!(StatusRegister & XUL_SR_TX_FIFO_EMPTY)) {
+		SentCount = 0;
+	} else if(InstancePtr->SendBuffer.RemainingBytes > 15) {
+		SentCount = 15;
+	} else {
+		SentCount = InstancePtr->SendBuffer.RemainingBytes;
+	}
 
-	while (((StatusRegister & XUL_SR_TX_FIFO_FULL) == 0) &&
-		(SentCount < InstancePtr->SendBuffer.RemainingBytes)) {
+	for(int i = 0; i < SentCount; i += 1) {
 		XUartLite_WriteReg(InstancePtr->RegBaseAddress,
 					XUL_TX_FIFO_OFFSET,
 					InstancePtr->SendBuffer.NextBytePtr[
-					SentCount]);
-
-		SentCount++;
-
-		StatusRegister = XUartLite_GetSR(InstancePtr);
+					i]);
 	}
 
 	/*
@@ -506,7 +508,7 @@ unsigned int XUartLite_SendBuffer(XUartLite *InstancePtr)
 	/*
 	 * Increment associated counters
 	 */
-	 InstancePtr->Stats.CharactersTransmitted += SentCount;
+	InstancePtr->Stats.CharactersTransmitted += SentCount;
 
 	/*
 	 * Restore the interrupt enable register to it's previous value such
