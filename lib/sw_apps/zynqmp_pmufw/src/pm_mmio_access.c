@@ -242,7 +242,7 @@ static const PmAccessRegion pmAccessTable[] = {
 	{
 		.startAddr = PMU_GLOBAL_PWR_STATE,
 		.endAddr = PMU_GLOBAL_PWR_STATE,
-		.access = MMIO_ACCESS_RW(IPI_PMU_0_IER_APU_MASK),
+		.access = MMIO_ACCESS_RO(IPI_PMU_0_IER_APU_MASK),
 	},
 
 	/* PMU's global gen storage */
