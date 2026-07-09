@@ -91,6 +91,9 @@ static u8 NonceBuff[XASU_OCP_UDE_NONCE_SIZE_IN_BYTES] __attribute__ ((section ("
 };
 					/**< Nonce buffer */
 
+static XAsu_OcpUdeResponse OcpUdeResponse __attribute__ ((aligned(64)))
+				__attribute__ ((section (".data.OcpUdeResponse")));
+
 /************************************ Function Definitions ***************************************/
 
 /*************************************************************************************************/
@@ -108,7 +111,6 @@ int main(void)
 	s32 Status = XST_FAILURE;
 	XMailbox MailboxInstance;
 	XAsu_ClientParams ClientParam = {0U};
-	XAsu_OcpUdeResponse OcpUdeResponse = {0U};
 	XAsu_OcpUdeParams OcpUdeParams = {0U};
 
 #ifdef	XASU_CACHE_DISABLE
