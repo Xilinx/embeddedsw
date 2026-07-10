@@ -35,20 +35,12 @@ extern "C" {
 /*
  * For MicroBlaze systems.
  */
-#ifndef SDT
-#include "xintc.h"
-#else
 #include "xinterrupt_wrap.h"
-#endif
 #else
 /*
  * For ARM/Zynq SoC systems.
  */
-#ifndef SDT
-#include "xscugic.h"
-#else
 #include "xinterrupt_wrap.h"
-#endif
 #endif /**< XPAR_INTC_0_DEVICE_ID */
 
 /*
@@ -59,11 +51,7 @@ extern "C" {
 #define VIDEO_CRC_BASEADDR 	XPAR_DP_RX_HIER_0_VIDEO_FRAME_CRC_0_BASEADDR
 #define UARTLITE_BASEADDR 	XPAR_PSU_UART_0_BASEADDR
 
-#ifndef SDT
-#define VIDPHY_BASEADDR 	XPAR_VPHY_0_BASEADDR
-#else
 #define VIDPHY_BASEADDR 	XPAR_XVPHY_0_BASEADDR
-#endif
 
 #define VID_EDID_BASEADDR 	XPAR_DP_RX_HIER_0_VID_EDID_0_BASEADDR
 #define IIC_DEVICE_ID 		XPAR_IIC_0_DEVICE_ID

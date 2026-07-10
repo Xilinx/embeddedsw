@@ -9,11 +9,7 @@
 #include "xclk_wiz.h"
 #include "main.h"
 
-#ifndef SDT
-#define CLK_WIZ_BASE      				XPAR_CLK_WIZ_0_BASEADDR
-#else
 #define CLK_WIZ_BASE      				XPAR_XCLK_WIZ_0_BASEADDR
-#endif
 #define CLK_LOCK                        1
 
 //Following limits are for ZCU102 US+ device

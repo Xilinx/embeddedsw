@@ -34,7 +34,6 @@
 
 #define PS_IIC_CLK 100000
 
-#ifdef SDT
 #define INTRNAME_DPTX   0
 #define INTRNAME_DPRX   0
 
@@ -64,7 +63,6 @@
 #define INTRNAME_DPRX_1XCIPHER    1
 #endif
 
-#endif
 
 #ifdef PLATFORM_MB
 #define 			XINTC XIntc
@@ -78,9 +76,7 @@ XINTC IntcInst; 	/**< The interrupt controller instance. */
 #include "rx.h"
 #endif
 
-#ifdef SDT
 #define XPAR_IIC_0_BASEADDR XPAR_XIIC_0_BASEADDR
-#endif
 
 #if (ENABLE_HDCP1x_IN_TX | ENABLE_HDCP1x_IN_RX)
 unsigned int gKeyMGMTBaseAddress[2] = {KEYMGMT_BASEADDR_RX, KEYMGMT_BASEADDR_TX};
@@ -91,11 +87,7 @@ void Dp21RxSs_Pt_ResetWrFb();
 void Dp21RxSs_Pt_ResetRdFb();
 void Dp21RxSs_Pt_TxMain();
 void Dp21RxSs_Pt_Setup();
-#ifndef SDT
-u32 Dp21RxSs_Pt_PhyInit(u16 DeviceId);
-#else
 u32 Dp21RxSs_Pt_PhyInit(UINTPTR BaseAddress);
-#endif
 u32 Dp21RxSs_Pt_CalcStride(XVidC_ColorFormat Cfmt, u16 AXIMMDataWidth,
 	       XVidC_VideoStream *StreamPtr);
 extern XDp_MainStreamAttributes* Msa_Pt;
@@ -254,7 +246,7 @@ XVphy_ChannelId VPHY_RX_CHANNEL_TYPE = XVPHY_CHANNEL_ID_CMN1;
 #ifdef PLATFORM_MB //VCU118 (270Mhz on REFCLK0, 400Mhz on REFCLK1)
 XVphy_PllRefClkSelType VPHY_REFCLK_SEL_270 = XVPHY_REF_CLK_SEL_XPLL_GTREFCLK0;
 XVphy_PllRefClkSelType VPHY_REFCLK_SEL_400 = XVPHY_REF_CLK_SEL_XPLL_GTREFCLK1;
-#else /**< ZCU102 (270Mhz on REFCLK0, 400Mhz on NORTHREFCLK0) */
+#else
 XVphy_PllRefClkSelType VPHY_REFCLK_SEL_270 = XVPHY_REF_CLK_SEL_XPLL_GTREFCLK0;
 XVphy_PllRefClkSelType VPHY_REFCLK_SEL_400 = XVPHY_REF_CLK_SEL_XPLL_GTNORTHREFCLK0;
 #endif
@@ -331,11 +323,7 @@ int Dp21RxSs_Pt_VideoFMC_Init(void)
 	/*
 	 * Initialize the IIC driver so that it is ready to use.
 	 */
-#ifndef SDT
-	ConfigPtr_IIC = XIic_LookupConfig(IIC_DEVICE_ID);
-#else
 	ConfigPtr_IIC = XIic_LookupConfig(XPAR_XIIC_0_BASEADDR);
-#endif
 	if (ConfigPtr_IIC == NULL) {
 		return XST_FAILURE;
 	}
@@ -643,11 +631,7 @@ static int Dp21RxSs_Pt_Init(void)
 	 * Obtain the device configuration
 	 * for the DisplayPort RX Subsystem
 	 */
-#ifndef SDT
-	ConfigPtr_rx = XDpRxSs_LookupConfig(XDPRXSS_DEVICE_ID);
-#else
 	ConfigPtr_rx = XDpRxSs_LookupConfig(XPAR_DPRXSS_0_BASEADDR);
-#endif
 	if (!ConfigPtr_rx) {
 		return XST_FAILURE;
 	}
@@ -675,11 +659,7 @@ static int Dp21RxSs_Pt_Init(void)
 #endif
 
 #if XPAR_XV_FRMBUFWR_NUM_INSTANCES		/**< FrameBuffer Wr initialization. */
-#ifndef SDT
-	Status = XVFrmbufWr_Initialize(&frmbufwr, FRMBUF_WR_DEVICE_ID);
-#else
 	Status = XVFrmbufWr_Initialize(&frmbufwr, XPAR_DP_RX_HIER_0_V_FRMBUF_WR_0_BASEADDR);
-#endif
 	if (Status != XST_SUCCESS) {
 		xil_printf("ERROR:: Frame Buffer Write "
 			   "initialization failed\r\n");
@@ -692,11 +672,7 @@ static int Dp21RxSs_Pt_Init(void)
 	/*
 	 * Obtain the device configuration for the DisplayPort TX Subsystem
 	 */
-#ifndef SDT
-	ConfigPtr_tx = XDpTxSs_LookupConfig(XPAR_DPTXSS_0_DEVICE_ID);
-#else
 	ConfigPtr_tx = XDpTxSs_LookupConfig(XPAR_DPTXSS_0_BASEADDR);
-#endif
 	if (!ConfigPtr_tx) {
 		return XST_FAILURE;
 	}
@@ -712,11 +688,7 @@ static int Dp21RxSs_Pt_Init(void)
 		return XST_FAILURE;
 	}
 
-#ifndef SDT
-	ConfigPtr_tpg = XV_tpg_LookupConfig(XPAR_DP_TX_HIER_0_V_TPG_0_DEVICE_ID);
-#else
 	ConfigPtr_tpg = XV_tpg_LookupConfig(XPAR_DP_TX_HIER_0_V_TPG_0_BASEADDR);
-#endif
 	if (!ConfigPtr_tpg) {
 		return XST_FAILURE;
 	}
@@ -728,11 +700,7 @@ static int Dp21RxSs_Pt_Init(void)
 	}
 
 #if XPAR_XV_FRMBUFRD_NUM_INSTANCES		/**< FrameBuffer Rd initialization. */
-#ifndef SDT
-	Status = XVFrmbufRd_Initialize(&frmbufrd, FRMBUF_RD_DEVICE_ID);
-#else
 	Status = XVFrmbufRd_Initialize(&frmbufrd, XPAR_DP_TX_HIER_0_V_FRMBUF_RD_0_BASEADDR);
-#endif
 	if (Status != XST_SUCCESS) {
 		xil_printf("ERROR:: Frame Buffer Read "
 			   "initialization failed\r\n");
@@ -913,11 +881,7 @@ u32 Dp21RxSs_Pt_Main(void)
 	/*
 	 * Setup Video Phy, left to the user for implementation
 	 */
-#ifndef SDT
-	Dp21RxSs_Pt_PhyInit(XVPHY_DEVICE_ID);
-#else
 	Dp21RxSs_Pt_PhyInit(XPAR_VID_PHY_CONTROLLER_0_BASEADDR);
-#endif
 
 	Status = Dp21RxSs_Pt_Init();
 	if (Status != XST_SUCCESS) {
@@ -1213,11 +1177,7 @@ u32 Dp21RxSs_Pt_PlatformInit(void)
 	/*
 	 * Initialize Timer
 	 */
-#ifndef SDT
-	Status = XTmrCtr_Initialize(&TmrCtr, XTIMER0_DEVICE_ID);
-#else
 	Status = XTmrCtr_Initialize(&TmrCtr, XPAR_XTMRCTR_0_BASEADDR);
-#endif
 	if (Status != XST_SUCCESS){
 		xil_printf("ERR:Timer failed to initialize. \r\n");
 		return XST_FAILURE;
@@ -1227,11 +1187,7 @@ u32 Dp21RxSs_Pt_PlatformInit(void)
 	XTmrCtr_Start(&TmrCtr, XTC_TIMER_0);
 
 #ifndef PLATFORM_MB
-#ifndef SDT
-	XIic1Ps_ConfigPtr = XIicPs_LookupConfig(XPAR_XIICPS_1_DEVICE_ID);
-#else
 	XIic1Ps_ConfigPtr = XIicPs_LookupConfig(XPAR_XIICPS_1_BASEADDR);
-#endif
 	if (NULL == XIic1Ps_ConfigPtr) {
 		return XST_FAILURE;
 	}
@@ -1291,153 +1247,6 @@ u32 Dp21RxSs_Pt_PlatformInit(void)
 * @note		None.
 *
 ******************************************************************************/
-#ifndef SDT
-u32 Dp21RxSs_Pt_SetupIntrSystem(void)
-{
-	u32 Status;
-	XIntc *IntcInstPtr = &IntcInst;
-
-	/*
-	 * Tx side
-	 */
-#ifdef Txo
-	Dp21RxSs_Pt_TxSetupIntrSystem();
-#endif
-	/*
-	 * Rx side
-	 */
-#ifdef Rxo
-	Dp21RxSs_Pt_RxSetupIntrSystem();
-#endif
-
-	/*
-	 * Initialize the interrupt controller driver so that it's ready to
-	 * use, specify the device ID that was generated in xparameters.h
-	 */
-	Status = XIntc_Initialize(IntcInstPtr, XINTC_DEVICE_ID);
-	if (Status != XST_SUCCESS) {
-		xil_printf("Intc initialization failed!\n\r");
-		return XST_FAILURE;
-	}
-
-	/*
-	 * Connect the device driver handler that will be called when an
-	 * interrupt for the device occurs, the handler defined
-	 * above performs the specific interrupt processing for the device.
-	 */
-#ifdef Rxo
-	/*
-	 * Hook up Rx interrupt service routine
-	 */
-	Status = XIntc_Connect(IntcInstPtr, XINTC_DPRXSS_DP_INTERRUPT_ID,
-				(XInterruptHandler)XDpRxSs_DpIntrHandler,
-				&DpRxSsInst);
-	if (Status != XST_SUCCESS) {
-		xil_printf("ERR: DP RX SS DP interrupt connect failed!\n\r");
-		return XST_FAILURE;
-	}
-
-#if XPAR_XV_FRMBUFWR_NUM_INSTANCES
-	Status = XIntc_Connect(IntcInstPtr,
-			       XPAR_INTC_0_V_FRMBUF_WR_0_VEC_ID,
-			       (XInterruptHandler)XVFrmbufWr_InterruptHandler,
-			       &frmbufwr);
-	if (Status != XST_SUCCESS) {
-		xil_printf("ERROR:: FRMBUF WR interrupt connect failed!\r\n");
-		return XST_FAILURE;
-	}
-#endif
-#endif
-	/*
-	 * Connect the device driver handler that will be called when an
-	 * interrupt for the device occurs, the handler defined above performs
-	 * the specific interrupt processing for the device
-	 */
-#ifdef Txo
-	Status = XIntc_Connect(IntcInstPtr, XINTC_DPTXSS_DP_INTERRUPT_ID,
-				(XInterruptHandler)XDpTxSs_DpIntrHandler,
-				&DpTxSsInst);
-	if (Status != XST_SUCCESS) {
-		xil_printf("ERR: DP TX SS DP interrupt connect failed!\r\n");
-		return XST_FAILURE;
-	}
-
-#if XPAR_XV_FRMBUFRD_NUM_INSTANCES
-	Status = XIntc_Connect(IntcInstPtr,
-			       XPAR_INTC_0_V_FRMBUF_RD_0_VEC_ID,
-			       (XInterruptHandler)XVFrmbufRd_InterruptHandler,
-			       &frmbufrd);
-	if (Status != XST_SUCCESS) {
-		xil_printf("ERROR:: FRMBUF RD interrupt connect failed!\r\n");
-		return XST_FAILURE;
-	}
-#endif
-#endif
-
-#if ENABLE_HDCP_IN_DESIGN
-#if (ENABLE_HDCP1x_IN_RX || ENABLE_HDCP22_IN_RX)
-	/*
-	 * Hook up Rx interrupt service routine
-	 */
-	Status = XIntc_Connect(IntcInstPtr,
-			       XPAR_INTC_0_DP21RXSS_0_DPRXSS_TIMER_IRQ_VEC_ID,
-			       (XInterruptHandler)XDpRxSs_TmrCtrIntrHandler,&DpRxSsInst);
-	if (Status != XST_SUCCESS) {
-		xil_printf("ERR: Timer interrupt connect failed!\n\r");
-		return XST_FAILURE;
-	}
-#endif
-#endif
-
-	/*
-	 * Start the interrupt controller such that interrupts are recognized
-	 * and handled by the processor
-	 */
-	Status = XIntc_Start(IntcInstPtr, XIN_REAL_MODE);
-	if (Status != XST_SUCCESS) {
-		return XST_FAILURE;
-	}
-
-#ifdef Rxo
-	/*
-	 * Enable the interrupt for the DP device
-	 */
-	XIntc_Enable(IntcInstPtr, XINTC_DPRXSS_DP_INTERRUPT_ID);
-	XIntc_Enable(IntcInstPtr, XPAR_INTC_0_V_FRMBUF_WR_0_VEC_ID);
-
-#if ENABLE_HDCP_IN_DESIGN
-#if (ENABLE_HDCP1x_IN_RX || ENABLE_HDCP22_IN_RX)
-	XIntc_Enable(IntcInstPtr, XPAR_INTC_0_DP21RXSS_0_DPRXSS_TIMER_IRQ_VEC_ID);
-#endif
-#endif
-
-#endif
-
-#ifdef Txo
-	XIntc_Enable(IntcInstPtr, XINTC_DPTXSS_DP_INTERRUPT_ID);
-	XIntc_Enable(IntcInstPtr, XPAR_INTC_0_V_FRMBUF_RD_0_VEC_ID);
-#endif
-
-	/*
-	 * Initialize the exception table.
-	 */
-	Xil_ExceptionInit();
-
-	/*
-	 * Register the interrupt controller handler with the exception table.
-	 */
-	Xil_ExceptionRegisterHandler(XIL_EXCEPTION_ID_INT,
-				     (Xil_ExceptionHandler)XINTC_HANDLER,
-				     IntcInstPtr);
-
-	/*
-	 * Enable exceptions.
-	 */
-	Xil_ExceptionEnable();
-
-	return (XST_SUCCESS);
-}
-#else
 u32 Dp21RxSs_Pt_SetupIntrSystem(void)
 {
 	u32 Status = XST_SUCCESS;
@@ -1570,7 +1379,6 @@ u32 Dp21RxSs_Pt_SetupIntrSystem(void)
 
 	return (Status);
 }
-#endif
 /*****************************************************************************/
 /**
 *
@@ -1585,22 +1393,14 @@ u32 Dp21RxSs_Pt_SetupIntrSystem(void)
 * @note        None.
 *
 ******************************************************************************/
-#ifndef SDT
-u32 Dp21RxSs_Pt_PhyInit(u16 DeviceId)
-#else
 u32 Dp21RxSs_Pt_PhyInit(UINTPTR BaseAddress)
-#endif
 {
 	XVphy_Config *ConfigPtr;
 
 	/*
 	 * Obtain the device configuration for the DisplayPort RX Subsystem
 	 */
-#ifndef SDT
-	ConfigPtr = XVphy_LookupConfig(DeviceId);
-#else
 	ConfigPtr = XVphy_LookupConfig(BaseAddress);
-#endif
 	if (!ConfigPtr) {
 		return XST_FAILURE;
 	}

@@ -1133,21 +1133,13 @@ u32 start_tx(u8 line_rate, u8 lane_count, user_config_struct user_config,
 *
 ******************************************************************************/
 static void clk_wiz_locked(void) {
-#ifndef SDT
-	volatile u32 res = XDp_ReadReg(XPAR_GPIO_0_BASEADDR,0x0);
-#else
 volatile u32 res = XDp_ReadReg(XPAR_XGPIO_0_BASEADDR,0x0);
 
-#endif
 	u32 timer=0;
 
 	while(res == 0 && timer < 1000) {
 //		xil_printf ("~/~/");
-#ifndef SDT
-		res = XDp_ReadReg(XPAR_GPIO_0_BASEADDR,0x0);
-#else
 		res = XDp_ReadReg(XPAR_XGPIO_0_BASEADDR,0x0);
-#endif
 		timer++; // timer for timeout. No need to be specific time.
 					// As long as long enough to wait lock
 	}

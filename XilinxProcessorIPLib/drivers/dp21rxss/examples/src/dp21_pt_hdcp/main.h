@@ -58,30 +58,19 @@ extern "C" {
 #include "xvidframe_crc.h"
 #include "si570drv.h"
 
-#ifdef SDT
 #define XPAR_XV_FRMBUFRD_NUM_INSTANCES XPAR_XV_FRMBUF_RD_NUM_INSTANCES
 #define XPAR_XV_FRMBUFWR_NUM_INSTANCES XPAR_XV_FRMBUF_WR_NUM_INSTANCES
-#endif
 
 #ifdef XPAR_INTC_0_DEVICE_ID
 /* For MicroBlaze systems. */
-#ifndef SDT
-#include "xintc.h"
-#else
 #include "xinterrupt_wrap.h"
-#endif
 #else
 /* For ARM/Zynq SoC systems. */
-#ifndef SDT
-#include "xscugic.h"
-#else
 #include "xinterrupt_wrap.h"
-#endif
 #endif /* XPAR_INTC_0_DEVICE_ID */
 
 #include "videofmc_defs.h"
 
-#ifndef SDT
 #if XPAR_XV_FRMBUFRD_NUM_INSTANCES
 #include "xv_frmbufrd_l2.h"
 #define FRMBUF_RD_DEVICE_ID  XPAR_XV_FRMBUFRD_0_DEVICE_ID
@@ -90,17 +79,6 @@ extern "C" {
 #if XPAR_XV_FRMBUFWR_NUM_INSTANCES
 #include "xv_frmbufwr_l2.h"
 #define FRMBUF_WR_DEVICE_ID  XPAR_XV_FRMBUFWR_0_DEVICE_ID
-#endif
-#else
-#if XPAR_XV_FRMBUFRD_NUM_INSTANCES
-#include "xv_frmbufrd_l2.h"
-#define FRMBUF_RD_DEVICE_ID  XPAR_XV_FRMBUFRD_0_DEVICE_ID
-#endif
-
-#if XPAR_XV_FRMBUFWR_NUM_INSTANCES
-#include "xv_frmbufwr_l2.h"
-#define FRMBUF_WR_DEVICE_ID  XPAR_XV_FRMBUFWR_0_DEVICE_ID
-#endif
 #endif
 
 #include "xgpio.h"
@@ -171,13 +149,6 @@ extern XHdcp22_Repeater     Hdcp22Repeater;
 #define XINTC_DEVICE_ID 	XPAR_INTC_0_DEVICE_ID
 #define XINTC_HANDLER 		XIntc_InterruptHandler
 
-#ifndef SDT
-#define XINTC_DPTXSS_DP_INTERRUPT_ID \
-	XPAR_INTC_0_DP21TXSS_0_VEC_ID
-
-#define XINTC_DPRXSS_DP_INTERRUPT_ID \
-    XPAR_INTC_0_DP21RXSS_0_VEC_ID
-#endif
 /* The unique device ID of the instances used in example
  */
 #define XDPRXSS_DEVICE_ID 	XPAR_DPRXSS_0_DEVICE_ID
@@ -193,11 +164,7 @@ extern XHdcp22_Repeater     Hdcp22Repeater;
 #define UARTLITE_BASEADDR 	XPAR_PSU_UART_0_BASEADDR
 #define VID_EDID_BASEADDR 	XPAR_DP_RX_HIER_0_VID_EDID_0_BASEADDR
 #define IIC_DEVICE_ID 		XPAR_IIC_0_DEVICE_ID
-#ifndef SDT
-#define IIC_BASE_ADDR 		XPAR_IIC_0_BASEADDR
-#else
 #define IIC_BASE_ADDR 		XPAR_XIIC_0_BASEADDR
-#endif
 
 
 #define VIDEO_FRAME_CRC_TX_BASEADDR \
@@ -205,13 +172,8 @@ extern XHdcp22_Repeater     Hdcp22Repeater;
 #define VIDEO_FRAME_CRC_RX_BASEADDR \
 			XPAR_DP_RX_HIER_0_VIDEO_FRAME_CRC_0_BASEADDR
 
-#ifndef SDT
 #define AXI_SYSTEM_CLOCK_FREQ_HZ \
 			XPAR_PROC_HIER_0_AXI_TIMER_0_CLOCK_FREQUENCY
-#else
-#define AXI_SYSTEM_CLOCK_FREQ_HZ \
-			XPAR_PROC_HIER_0_AXI_TIMER_0_CLOCK_FREQUENCY
-#endif
 
 /* Timer Specific Defines
  */

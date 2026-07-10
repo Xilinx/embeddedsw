@@ -60,17 +60,10 @@ int XVidFrameCrc_Initialize(Video_CRC_Config *VidFrameCRC)
 	 * Initialize CRC & Set default Pixel Mode
 	 */
 	VidFrameCRC->TEST_CRC_SUPPORTED = 1;
-#ifndef SDT
 	XVidFrameCrc_WriteReg(XPAR_VIDEO_FRAME_CRC_BASEADDR,
 			      VIDEO_FRAME_CRC_CONFIG,
 			      (VIDEO_FRAME_CRC_CLEAR |
 			       CRC_CFG));
-#else
-	XVidFrameCrc_WriteReg(XPAR_VIDEO_FRAME_CRC_BASEADDR,
-			      VIDEO_FRAME_CRC_CONFIG,
-			      (VIDEO_FRAME_CRC_CLEAR |
-			       CRC_CFG));
-#endif
 
 	return (XST_SUCCESS);
 }

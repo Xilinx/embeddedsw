@@ -1086,22 +1086,14 @@ u32 start_tx_only(u8 line_rate, u8 lane_count,user_config_struct user_config)
 ******************************************************************************/
 static void clk_wiz_locked(void)
 {
-#ifndef SDT
-	volatile u32 res = Dp21RxSs_PtMst_Read(XPAR_GPIO_0_BASEADDR,0x0);
-#else
 	volatile u32 res = Dp21RxSs_PtMst_Read(XPAR_XGPIO_0_BASEADDR,0x0);
 
 	(void)res;
 
-#endif
 	u32 timer=0;
 
 	while(res == 0 && timer < 1000) {
-#ifndef SDT
-		res = Dp21RxSs_PtMst_Read(XPAR_GPIO_0_BASEADDR,0x0);
-#else
 		res = Dp21RxSs_PtMst_Read(XPAR_XGPIO_0_BASEADDR,0x0);
-#endif
 		timer++; /**< Timer for timeout. No need to be specific time.
 			      As long as long enough to wait lock */
 	}
@@ -1509,9 +1501,6 @@ void main_loop()
 	user_config.user_format = XVIDC_CSF_RGB;
 
 	Dp21RxSs_PtMst_Read(DpTxSsInst.DpPtr->Config.BaseAddr, 0x140);
-#ifndef SDT
-	XScuGic_Enable(&IntcInst, XINTC_DPTXSS_DP_INTERRUPT_ID);
-#endif
 
 #ifdef Rx
 	/* Set Link rate and lane count to maximum.

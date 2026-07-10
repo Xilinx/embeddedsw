@@ -42,9 +42,7 @@
 #include <xparameters.h>
 #include <xstatus.h>
 #include <xtmrctr.h>
-#ifdef SDT
 #include "xinterrupt_wrap.h"
-#endif
 #if !defined (PLATFORM_MB) && !defined (__riscv)
 #include <xuartps_hw.h>
 #include "xscugic.h"
@@ -68,10 +66,8 @@
  * There is only one interrupt controlled to be selected from SCUGIC and GPIO
  * INTC. INTC selection is based on INTC parameters defined xparameters.h file.
  */
-#ifdef SDT
 #define XPAR_IIC_0_BASEADDR	XPAR_PROC_HIER_0_AXI_IIC_0_BASEADDR
 #define INTRNAME_DPRX		0
-#endif
 
 #if !defined (PLATFORM_MB) && !defined (__riscv)
 /** DPRX subsystem DP interrupt ID for ARM platforms */
@@ -114,13 +110,8 @@
 /** Video EDID base address */
 #define VID_EDID_BASEADDR 	XPAR_DP_RX_HIER_0_VID_EDID_0_BASEADDR
 
-#ifndef SDT
-/** IIC device ID */
-#define IIC_DEVICE_ID		XPAR_IIC_0_DEVICE_ID
-#else
 /** IIC base address for SDT builds */
 #define XIIC_BASEADDRESS	XPAR_PROC_HIER_0_AXI_IIC_0_BASEADDR
-#endif
 
 /*
  * DP Specific Defines
@@ -211,7 +202,7 @@ XVphy_ChannelId VPHY_RX_CHANNEL_TYPE = XVPHY_CHANNEL_ID_CMN1;
 #if defined (PLATFORM_MB) || defined (__riscv)	/**< VCU118 (270Mhz on REFCLK0, 400Mhz on REFCLK1) */
 XVphy_PllRefClkSelType VPHY_REFCLK_SEL_270 = XVPHY_REF_CLK_SEL_XPLL_GTREFCLK0;
 XVphy_PllRefClkSelType VPHY_REFCLK_SEL_400 = XVPHY_REF_CLK_SEL_XPLL_GTREFCLK1;
-#else			/**< ZCU102 (270Mhz on REFCLK0, 400Mhz on NORTHREFCLK0) */
+#else
 XVphy_PllRefClkSelType VPHY_REFCLK_SEL_270 = XVPHY_REF_CLK_SEL_XPLL_GTREFCLK0;
 XVphy_PllRefClkSelType VPHY_REFCLK_SEL_400 = XVPHY_REF_CLK_SEL_XPLL_GTNORTHREFCLK0;
 #endif
@@ -269,19 +260,11 @@ XIicPs_Config *XIic0Ps_ConfigPtr;
 #endif
 
 /************************** Function Prototypes ******************************/
-#ifndef SDT
-u32 DpRxSs_Main(u16 DeviceId);
-#else
 u32 DpRxSs_Main(u32 BaseAddress);
-#endif
 
 u32 DpRxSs_PlatformInit(void);
 
-#ifndef SDT
-u32 DpRxSs_VideoPhyInit(u16 DeviceId);
-#else
 u32 DpRxSs_VideoPhyInit(u32 Baseaddress);
-#endif
 
 void PLLRefClkSel (XVphy *InstancePtr, u8 link_rate);
 void AppHelp();
@@ -377,17 +360,8 @@ void enable_caches()
 	Xil_ICacheEnableRegion(CACHEABLE_REGION_MASK);
 	Xil_DCacheEnableRegion(CACHEABLE_REGION_MASK);
 #elif __MICROBLAZE__
-#ifndef SDT
-#ifdef XPAR_MICROBLAZE_USE_ICACHE
-	Xil_ICacheEnable();
-#endif
-#ifdef XPAR_MICROBLAZE_USE_DCACHE
-	Xil_DCacheEnable();
-#endif
-#else
 	Xil_ICacheEnable();
 	Xil_DCacheEnable();
-#endif
 #endif
 }
 
@@ -402,17 +376,8 @@ void enable_caches()
 void disable_caches()
 {
 #ifdef __MICROBLAZE__
-#ifndef SDT
-#ifdef XPAR_MICROBLAZE_USE_DCACHE
-	Xil_DCacheDisable();
-#endif
-#ifdef XPAR_MICROBLAZE_USE_ICACHE
-	Xil_ICacheDisable();
-#endif
-#else
 	Xil_DCacheDisable();
 	Xil_ICacheDisable();
-#endif
 #endif
 }
 
@@ -440,11 +405,7 @@ int VideoFMC_Init(void)
 	/*
 	 * Initialize the IIC driver so that it is ready to use.
 	 */
-#ifndef SDT
-	ConfigPtr_IIC = XIic_LookupConfig(IIC_DEVICE_ID);
-#else
 	ConfigPtr_IIC = XIic_LookupConfig(XIIC_BASEADDRESS);
-#endif
 	if (ConfigPtr_IIC == NULL)
 		return XST_FAILURE;
 
@@ -494,11 +455,7 @@ int main()
 	xil_printf("DisplayPort 2.x RX Only Example\n\r");
 	xil_printf("(c) 2025 by AMD\n\r");
 	xil_printf("-------------------------------------------\n\r\n\r");
-#ifndef SDT
-	Status = DpRxSs_Main(XDPRXSS_DEVICE_ID);
-#else
 	Status = DpRxSs_Main(XPAR_DPRXSS_0_BASEADDR);
-#endif
 	if (Status != XST_SUCCESS) {
 		xil_printf("DisplayPort RX Subsystem design example failed.\n");
 		return XST_FAILURE;
@@ -584,11 +541,7 @@ void PrintLinkInfo()
 * 		Refer xdprxss.h file for more info.
 *
 ******************************************************************************/
-#ifndef SDT
-u32 DpRxSs_Main(u16 DeviceId)
-#else
 u32 DpRxSs_Main(u32 BaseAddress)
-#endif
 {
 	u32 Status;
 	XDpRxSs_Config *ConfigPtr;
@@ -611,11 +564,7 @@ u32 DpRxSs_Main(u32 BaseAddress)
 	/*
 	 * Obtain the device configuration for the DisplayPort RX Subsystem
 	 */
-#ifndef SDT
-	ConfigPtr = XDpRxSs_LookupConfig(DeviceId);
-#else
 	ConfigPtr = XDpRxSs_LookupConfig(BaseAddress);
-#endif
 	if (!ConfigPtr) {
 		return XST_FAILURE;
 	}
@@ -638,11 +587,7 @@ u32 DpRxSs_Main(u32 BaseAddress)
 	/*
 	 * Setup Video Phy, left to the user for implementation
 	 */
-#ifndef SDT
-	DpRxSs_VideoPhyInit(XVPHY_DEVICE_ID);
-#else
 	DpRxSs_VideoPhyInit(XPAR_XVPHY_0_BASEADDR);
-#endif
 
 	/*
 	 * Disable Mst mode
@@ -889,11 +834,7 @@ u32 DpRxSs_PlatformInit(void)
 	/*
 	 * Initialize Timer
 	 */
-#ifndef SDT
-	Status = XTmrCtr_Initialize(&TmrCtr, XTIMER0_DEVICE_ID);
-#else
 	Status = XTmrCtr_Initialize(&TmrCtr, XPAR_XTMRCTR_0_BASEADDR);
-#endif
 	if (Status != XST_SUCCESS) {
 		xil_printf("ERR:Timer failed to initialize. \r\n");
 		return XST_FAILURE;
@@ -903,11 +844,7 @@ u32 DpRxSs_PlatformInit(void)
 	XTmrCtr_Start(&TmrCtr, XTC_TIMER_0);
 
 #if !defined (PLATFORM_MB) && !defined (__riscv)
-#ifndef SDT
-	XIic0Ps_ConfigPtr = XIicPs_LookupConfig(XPAR_XIICPS_1_DEVICE_ID);
-#else
 	XIic0Ps_ConfigPtr = XIicPs_LookupConfig(XPAR_XIICPS_1_BASEADDR);
-#endif
 	if (NULL == XIic0Ps_ConfigPtr)
 		return XST_FAILURE;
 
@@ -942,11 +879,7 @@ u32 DpRxSs_PlatformInit(void)
 * @note		None.
 *
 ******************************************************************************/
-#ifndef SDT
-u32 DpRxSs_VideoPhyInit(u16 DeviceId)
-#else
 u32 DpRxSs_VideoPhyInit(u32 Baseaddress)
-#endif
 {
 	XVphy_Config *ConfigPtr;
 	u32 Status;
@@ -954,11 +887,7 @@ u32 DpRxSs_VideoPhyInit(u32 Baseaddress)
 	/*
 	 * Obtain the device configuration for the DisplayPort RX Subsystem
 	 */
-#ifndef SDT
-	ConfigPtr = XVphy_LookupConfig(DeviceId);
-#else
 	ConfigPtr = XVphy_LookupConfig(Baseaddress);
-#endif
 	if (!ConfigPtr)
 		return XST_FAILURE;
 
@@ -1054,114 +983,6 @@ void XDpRxSs_SetUserCallBackHandlers(void)
 * @note		None.
 *
 ******************************************************************************/
-#ifndef SDT
-u32 DpRxSs_SetupIntrSystem(void)
-{
-	u32 Status;
-	XINTC *IntcInstPtr = &IntcInst;
-
-	/*
-	 * Set user callbacks for all the interrupts
-	 */
-	XDpRxSs_SetUserCallBackHandlers();
-
-	/*
-	 * Set custom timer wait
-	 */
-	XDpRxSs_SetUserTimerHandler(&DpRxSsInst, &CustomWaitUs, &TmrCtr);
-
-#if !defined (PLATFORM_MB) && !defined (__riscv)
-	/*
-	 * The configuration parameters of the interrupt controller
-	 */
-	XScuGic_Config *IntcConfig;
-
-	/*
-	 * Initialize the interrupt controller driver so that it is ready to use.
-	 */
-	IntcConfig = XScuGic_LookupConfig(XINTC_DEVICE_ID);
-	if (NULL == IntcConfig) {
-		return XST_FAILURE;
-	}
-
-	Status = XScuGic_CfgInitialize(IntcInstPtr, IntcConfig,
-				       IntcConfig->CpuBaseAddress);
-	if (Status != XST_SUCCESS) {
-		return XST_FAILURE;
-	}
-
-	/*
-	 * Connect the device driver handler that will be called when an
-	 * interrupt for the device occurs, the handler defined above performs
-	 * the specific interrupt processing for the device
-	 */
-	Status = XScuGic_Connect(IntcInstPtr, XINTC_DPRXSS_DP_INTERRUPT_ID,
-				(Xil_InterruptHandler)XDpRxSs_DpIntrHandler,
-				&DpRxSsInst);
-	if (Status != XST_SUCCESS) {
-		xil_printf("ERR: DP RX SS DP interrupt connect failed!\n\r");
-		return XST_FAILURE;
-	}
-
-	/*
-	 * Enable the interrupt for the DP device
-	 */
-	XScuGic_Enable(IntcInstPtr, XINTC_DPRXSS_DP_INTERRUPT_ID);
-
-#else
-
-	/*
-	 * Initialize the interrupt controller driver so that it's ready to use.
-	 */
-	Status = XIntc_Initialize(&IntcInst, XINTC_DEVICE_ID);
-
-	if (Status != XST_SUCCESS) {
-		return XST_FAILURE;
-	}
-
-	Status = XIntc_Connect(IntcInstPtr, XINTC_DPRXSS_DP_INTERRUPT_ID, \
-					(XInterruptHandler) XDpRxSs_DpIntrHandler, \
-					&DpRxSsInst);
-	if (Status != XST_SUCCESS) {
-			xil_printf("ERR: DP RX SS DP interrupt connect failed!\n\r");
-			return XST_FAILURE;
-	}
-
-	/*
-	 * Start the interrupt controller so interrupts are enabled for all
-	 * devices that cause interrupts.
-	 */
-	Status = XIntc_Start(IntcInstPtr, XIN_REAL_MODE);
-	if (Status != XST_SUCCESS) {
-		return XST_FAILURE;
-	}
-
-	/*
-	 * Enable the interrupt for the DP device
-	 */
-	XIntc_Enable(IntcInstPtr, XINTC_DPRXSS_DP_INTERRUPT_ID);
-#endif
-
-	/*
-	 * Initialize the exception table
-	 */
-	Xil_ExceptionInit();
-
-	/*
-	 * Register the interrupt controller handler with the exception table.
-	 */
-	Xil_ExceptionRegisterHandler(XIL_EXCEPTION_ID_INT,
-				     (Xil_ExceptionHandler)XINTC_HANDLER,
-				     IntcInstPtr);
-
-	/*
-	 * Enable exceptions
-	 */
-	Xil_ExceptionEnable();
-
-	return (XST_SUCCESS);
-}
-#else
 u32 DpRxSs_SetupIntrSystem(void)
 {
 	u32 Status;
@@ -1192,7 +1013,6 @@ u32 DpRxSs_SetupIntrSystem(void)
 
 	return (XST_SUCCESS);
 }
-#endif
 
 /*****************************************************************************/
 /**
