@@ -180,13 +180,16 @@ END:
 static int XSecure_KeyUnwrapIpi(u32 SubsystemId, u32 KeyWrapAddrLow, u32 KeyWrapAddrHigh)
 {
 	volatile int Status = XST_FAILURE;
-	u64 KeyWrapAddr = ((u64)KeyWrapAddrHigh << XSECURE_ADDR_HIGH_SHIFT) | (u64)KeyWrapAddrLow;
-
 
 #if (XSECURE_KEY_STORE_ADDR == 0U)
+	(void)SubsystemId;
+	(void)KeyWrapAddrLow;
+	(void)KeyWrapAddrHigh;
 	Status = (int)XSECURE_ERR_INVALID_KEY_STORE_ADDR;
 #else
+	u64 KeyWrapAddr = ((u64)KeyWrapAddrHigh << XSECURE_ADDR_HIGH_SHIFT) | (u64)KeyWrapAddrLow;
 	XSecure_KeyWrapData KeyWrapData = {0U};
+
 	XPLMI_VERIFY_ADDR_RANGE(SubsystemId, KeyWrapAddr, sizeof(XSecure_KeyWrapData) , Status, XSECURE_ERR_INVALID_ADDR_RANGE, END);
 	Status = XPlmi_MemCpy64((u64)(UINTPTR)&KeyWrapData, KeyWrapAddr, sizeof(XSecure_KeyWrapData));
 	if (Status != XST_SUCCESS) {
@@ -199,8 +202,8 @@ static int XSecure_KeyUnwrapIpi(u32 SubsystemId, u32 KeyWrapAddrLow, u32 KeyWrap
 	XPLMI_VERIFY_ADDR_RANGE(SubsystemId, KeyWrapData.KeyWrapAddr, KeyWrapData.TotalWrappedKeySize, Status, XSECURE_ERR_INVALID_ADDR_RANGE, END);
 
 	Status = XSecure_KeyUnwrap(&KeyWrapData);
-#endif
 END:
+#endif
 	return Status;
 }
 
