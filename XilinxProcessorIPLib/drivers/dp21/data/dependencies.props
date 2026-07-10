@@ -1,8 +1,0 @@
-xdp_selftest_example.c=xdp_selftest_example.c
-xdp_rx_sst_dp159_example.c=xdp_rx_sst_dp159_example.c
-xdp_rx_mst_example.c=xdp_rx_mst_example.c
-xdp_tx_audio_example.c=xdp_tx_example_common.h,xdp_tx_example_common.c
-xdp_tx_intr_example.c=xdp_tx_example_common.h,xdp_tx_example_common.c
-xdp_tx_mst_example.c=xdp_tx_example_common.h,xdp_tx_example_common.c
-xdp_tx_poll_example.c=xdp_tx_example_common.h,xdp_tx_example_common.c
-xdp_tx_timer_example.c=xdp_tx_example_common.h,xdp_tx_example_common.c
