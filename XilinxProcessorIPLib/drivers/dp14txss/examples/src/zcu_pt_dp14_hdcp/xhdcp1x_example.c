@@ -23,16 +23,12 @@
 
 /***************************** Include Files *********************************/
 #include "xparameters.h"
-#ifdef SDT
 #define XPAR_XHDCP_NUM_INSTANCES XPAR_XHDCP1X_NUM_INSTANCES
-#endif
 #if (XPAR_XHDCP_NUM_INSTANCES > 0)
 #include "xhdcp1x.h"
 #include "xhdcp1x_port.h"
 #include "xhdcp1x_example.h"
-#ifdef SDT
 #include "xinterrupt_wrap.h"
-#endif
 #ifdef XPAR_INTC_0_DEVICE_ID
 /* For MicroBlaze systems. */
 #include "xintc.h"
@@ -144,7 +140,6 @@ extern XINTC IntcInst;
 #define RX_KEYSELECT			(0x01u)
 //#define RX_KEYSELECT			(0x00u)
 
-#ifdef SDT
 #if (ENABLE_HDCP_IN_DESIGN && ENABLE_HDCP22_IN_TX)
 #define INTRNAME_DPTX_1XCIPHER    2
 #else
@@ -154,7 +149,6 @@ extern XINTC IntcInst;
 #define INTRNAME_DPRX_1XCIPHER    3
 #else
 #define INTRNAME_DPRX_1XCIPHER    1
-#endif
 #endif
 /***************** Macros (Inline Functions) Definitions *********************/
 
@@ -436,44 +430,6 @@ static int BusyDelay(const XHdcp1x* InstancePtr, u16 DelayInMs)
 *   None
 *
 ******************************************************************************/
-#ifndef SDT
-static int SetupInterrupts(void)
-{
-	int Status = XST_SUCCESS;
-
-#if defined(HDCP_TIMER_VEC_ID)
-	/* Connect and enable the hardware timer interrupt */
-//	XIntc_Connect(&INTC, HDCP_TIMER_VEC_ID, XTmrCtr_InterruptHandler,
-//			&HdcpTimer);
-//	XScuGic_Connect(&INTC, HDCP_TIMER_VEC_ID,
-//			(Xil_InterruptHandler)XTmrCtr_InterruptHandler,
-//			DpTxSsInst.TmrCtrPtr);
-//	XScuGic_Enable(&INTC, HDCP_TIMER_VEC_ID);
-#endif
-
-#if defined(HDCP_RX_VEC_ID)
-	/* Connect and enable the receive cipher interrupt */
-//	XIntc_Connect(&INTC, HDCP_RX_VEC_ID, XHdcp1x_CipherIntrHandler,
-//			&HdcpIf[HDCP_RX_DEV_ID]);
-	XScuGic_Connect(&INTC, HDCP_RX_VEC_ID,
-			(Xil_InterruptHandler)XHdcp1x_CipherIntrHandler,
-			DpRxSsInst.Hdcp1xPtr);
-	XScuGic_Enable(&INTC, HDCP_RX_VEC_ID);
-#endif
-
-#if defined(HDCP_TX_VEC_ID)
-	/* Connect and enable the transmit cipher interrupt */
-//	XIntc_Connect(&INTC, HDCP_TX_VEC_ID, XHdcp1x_CipherIntrHandler,
-//			&HdcpIf[HDCP_TX_DEV_ID]);
-	XScuGic_Connect(&INTC, HDCP_TX_VEC_ID,
-			(Xil_InterruptHandler)XHdcp1x_CipherIntrHandler,
-			DpTxSsInst.Hdcp1xPtr);
-	XScuGic_Enable(&INTC, HDCP_TX_VEC_ID);
-#endif
-
-	return (Status);
-}
-#else
 static int SetupInterrupts(void)
 {
 	int Status = XST_SUCCESS;
@@ -504,7 +460,6 @@ static int SetupInterrupts(void)
 
 	return (Status);
 }
-#endif
 
 /*****************************************************************************/
 /**

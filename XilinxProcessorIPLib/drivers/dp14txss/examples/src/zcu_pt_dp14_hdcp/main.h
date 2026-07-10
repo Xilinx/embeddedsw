@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2018 – 2022 Xilinx, Inc.  All rights reserved.
-* Copyright 2023-2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2023-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -48,15 +48,6 @@ extern "C" {
 
 #include "xvidframe_crc.h"
 
-#ifndef SDT
-#ifdef XPAR_INTC_0_DEVICE_ID
-/* For MicroBlaze systems. */
-#include "xintc.h"
-#else
-/* For ARM/Zynq SoC systems. */
-#include "xscugic.h"
-#endif /* XPAR_INTC_0_DEVICE_ID */
-#endif
 
 #include "xiicps.h"
 #include "videofmc_defs.h"
@@ -123,50 +114,7 @@ extern XHdcp22_Repeater     Hdcp22Repeater;
 * There is only one interrupt controlled to be selected from SCUGIC and GPIO
 * INTC. INTC selection is based on INTC parameters defined xparameters.h file.
 */
-#ifndef SDT
-#if (ENABLE_HDCP1x_IN_TX || ENABLE_HDCP22_IN_TX)
-#define XINTC_DPTXSS_DP_INTERRUPT_ID \
-	XPAR_FABRIC_DP14TXSS_0_DPTXSS_DP_IRQ_VEC_ID
-#else
-#define XINTC_DPTXSS_DP_INTERRUPT_ID \
-	XPAR_FABRIC_DP14TXSS_0_VEC_ID
-#endif
 
-#if (ENABLE_HDCP1x_IN_RX || ENABLE_HDCP22_IN_RX)
-#define XINTC_DPRXSS_DP_INTERRUPT_ID \
-    XPAR_FABRIC_DP14RXSS_0_DPRXSS_DP_IRQ_VEC_ID
-#else
-#define XINTC_DPRXSS_DP_INTERRUPT_ID \
-		XPAR_FABRIC_DP14RXSS_0_VEC_ID
-#endif
-
-#define XINTC_DEVICE_ID          XPAR_SCUGIC_SINGLE_DEVICE_ID
-#define XINTC                    XScuGic
-#define XINTC_HANDLER            XScuGic_InterruptHandler
-
-/* The unique device ID of the instances used in example
- */
-#define XDPRXSS_DEVICE_ID 	XPAR_DPRXSS_0_DEVICE_ID
-#define XVPHY_DEVICE_ID 	XPAR_VPHY_0_DEVICE_ID
-#define XTIMER0_DEVICE_ID 	XPAR_TMRCTR_0_DEVICE_ID
-#endif
-
-#ifndef SDT
-#define VIDEO_CRC_BASEADDR 	XPAR_DP_RX_HIER_0_VIDEO_FRAME_CRC_0_BASEADDR
-#define UARTLITE_BASEADDR 	XPAR_PSU_UART_0_BASEADDR
-#define VIDPHY_BASEADDR 	XPAR_VPHY_0_BASEADDR
-#define VID_EDID_BASEADDR 	XPAR_DP_RX_HIER_0_VID_EDID_0_BASEADDR
-#define IIC_DEVICE_ID 		XPAR_IIC_0_DEVICE_ID
-
-#define FRMBUF_RD_DEVICE_ID  XPAR_XV_FRMBUFRD_0_DEVICE_ID
-#define FRMBUF_WR_DEVICE_ID  XPAR_XV_FRMBUFWR_0_DEVICE_ID
-#ifdef XPAR_DP_TX_HIER_0_AV_PAT_GEN_0_BASEADDR
-#define VIDEO_FRAME_CRC_TX_BASEADDR \
-			XPAR_DP_TX_HIER_0_VIDEO_FRAME_CRC_TX_BASEADDR
-#define VIDEO_FRAME_CRC_RX_BASEADDR \
-			XPAR_DP_RX_HIER_0_VIDEO_FRAME_CRC_0_BASEADDR
-#endif
-#else
 #define VIDEO_CRC_BASEADDR	XPAR_DP_RX_HIER_0_VIDEO_FRAME_CRC_0_BASEADDR
 #define UARTLITE_BASEADDR	XPAR_UART0_BASEADDR
 #define VIDPHY_BASEADDR		XPAR_XVPHY_0_BASEADDR
@@ -179,36 +127,17 @@ extern XHdcp22_Repeater     Hdcp22Repeater;
 #define VIDEO_FRAME_CRC_RX_BASEADDR \
 			XPAR_DP_RX_HIER_0_VIDEO_FRAME_CRC_0_BASEADDR
 #endif
-#endif
-#ifndef SDT
-#define REMAP_RX_BASEADDR  XPAR_DP_RX_HIER_0_REMAP_RX_S_AXI_CTRL_BASEADDR
-#define REMAP_TX_BASEADDR  XPAR_DP_TX_HIER_0_REMAP_TX_S_AXI_CTRL_BASEADDR
-#define REMAP_RX_DEVICE_ID  XPAR_DP_RX_HIER_0_REMAP_RX_DEVICE_ID
-#define REMAP_TX_DEVICE_ID  XPAR_DP_TX_HIER_0_REMAP_TX_DEVICE_ID
-#endif
-#ifndef SDT
-#define AXI_SYSTEM_CLOCK_FREQ_HZ \
-			XPAR_PROCESSOR_HIER_0_AXI_TIMER_0_CLOCK_FREQ_HZ
-#else
 #define AXI_SYSTEM_CLOCK_FREQ_HZ \
 XPAR_PROCESSOR_HIER_0_AXI_TIMER_0_CLOCK_FREQUENCY
-#endif
 /* DP Specific Defines
  */
 #define DPRXSS_LINK_RATE        XDPRXSS_LINK_BW_SET_810GBPS
 #define DPRXSS_LANE_COUNT        XDPRXSS_LANE_COUNT_SET_4
 
-#ifndef SDT
-#define SET_TX_TO_2BYTE            \
-    (XPAR_XDP_0_GT_DATAWIDTH/2)
-#define SET_RX_TO_2BYTE            \
-    (XPAR_XDP_0_GT_DATAWIDTH/2)
-#else
 #define SET_TX_TO_2BYTE            \
 	(XPAR_XDP_0_GT_DATA_WIDTH/2)
 #define SET_RX_TO_2BYTE            \
 	(XPAR_XDP_0_GT_DATA_WIDTH/2)
-#endif
 
 #define XDP_RX_CRC_CONFIG       0x074
 #define XDP_RX_CRC_COMP0        0x078

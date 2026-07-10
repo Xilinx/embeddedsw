@@ -10,11 +10,7 @@
 #include "main.h"
 
 #ifndef versal
-#ifndef SDT
-#define CLK_WIZ_BASE      				XPAR_CLK_WIZ_0_BASEADDR
-#else
 #define CLK_WIZ_BASE                    XPAR_XCLK_WIZ_0_BASEADDR
-#endif
 #endif
 #define CLK_LOCK                        1
 
@@ -208,7 +204,7 @@ void Gen_vid_clk(XDp *InstancePtr, u8 Stream)
 	 */
 	#ifndef versal
 		ComputeMandD(((MsaConfig->PixelClockHz/1000)/MsaConfig->UserPixelWidth) + (1000 * ADAPTIVE_TYPE));
-	#else
+#else
 		XClk_Wiz_WriteReg (CfgPtr_Dynamic->BaseAddr, XCLK_WIZ_REG25_OFFSET, 0x0);
 		XClk_Wiz_SetRateHz(&ClkWiz_Dynamic, ((MsaConfig->PixelClockHz)/MsaConfig->UserPixelWidth) + (1000000 * ADAPTIVE_TYPE));
 		XClk_Wiz_WriteReg (CfgPtr_Dynamic->BaseAddr, XCLK_WIZ_RECONFIG_OFFSET, 0x3);

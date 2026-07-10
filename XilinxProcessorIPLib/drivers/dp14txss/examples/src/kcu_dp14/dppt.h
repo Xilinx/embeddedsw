@@ -1,6 +1,6 @@
 /*******************************************************************************
 * Copyright (C) 2020 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -48,9 +48,6 @@ extern "C" {
 #include "xdprxss.h"
 #include "xdp.h"
 #include "stdlib.h"
-#ifndef SDT
-#include "microblaze_sleep.h"
-#endif
 #include "xvid_pat_gen.h"
 
 #include "idt_8t49n24x.h"
@@ -131,11 +128,7 @@ typedef unsigned int    UINT32;
 #define XPAR_AV_PAT_GEN_0_BASEADDR  XPAR_DP_TX_HIER_AV_PAT_GEN_0_BASEADDR
 #define GPIO_CLK_BASEADDR XPAR_DP_TX_HIER_VID_CLK_RST_HIER_AXI_GPIO_0_BASEADDR
 
-#ifndef SDT
-#define HLS_RESET XPAR_GPIO_1_BASEADDR
-#else
 #define HLS_RESET XPAR_XGPIO_1_BASEADDR
-#endif
 
 /* Change to 1 to enable HDCP in design. */
 #if (XPAR_XHDCP_NUM_INSTANCES > 0)
@@ -196,13 +189,8 @@ typedef unsigned int    UINT32;
 #define NUM_CLOCK_REGS 			6
 #define PROG_48_KHZ_MODE   		0
 
-#ifndef SDT
-#define SET_TX_TO_2BYTE	(XPAR_DP_RX_HIER_V_DP_RXSS1_0_DP_GT_DATAWIDTH/2)
-#define SET_RX_TO_2BYTE	(XPAR_DP_TX_HIER_V_DP_TXSS1_0_DP_GT_DATAWIDTH/2)
-#else
 #define SET_TX_TO_2BYTE	(XPAR_DP_TX_HIER_V_DP_TXSS1_0_DP_GT_DATA_WIDTH/2)
 #define SET_RX_TO_2BYTE	(XPAR_DP_RX_HIER_V_DP_RXSS1_0_DP_GT_DATA_WIDTH/2)
-#endif
 #define BUFFER_BYPASS            XPAR_VID_PHY_CONTROLLER_0_TX_BUFFER_BYPASS
 
 

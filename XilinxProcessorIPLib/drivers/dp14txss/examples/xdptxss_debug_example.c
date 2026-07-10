@@ -53,9 +53,6 @@
 /* The unique device ID of the DisplayPort Transmitter Subsystem HIP instance
  * to be used
  */
-#ifndef SDT
-#define XDPTXSS_DEVICE_ID		XPAR_DPTXSS_0_DEVICE_ID
-#endif
 /* If set to 1, example will run in MST mode. Otherwise, in SST mode.
  * In MST mode, this example reads the EDID of RX devices if connected in
  * daisy-chain.
@@ -84,11 +81,7 @@
 
 
 /************************** Function Prototypes ******************************/
-#ifndef SDT
-u32 DpTxSs_DebugExample(u16 DeviceId);
-#else
 u32 DpTxSs_DebugExample(u32 BaseAddress);
-#endif
 u32 DpTxSs_PlatformInit(void);
 u32 DpTxSs_StreamSrc(u8 VerticalSplit);
 
@@ -136,11 +129,7 @@ int main()
 	xil_printf("DisplayPort TX Subsystem debug example\n\r");
 	xil_printf("(c) 2015 by Xilinx\n\r");
 	xil_printf("-------------------------------------------\n\r\n\r");
-#ifndef SDT
-	Status = DpTxSs_DebugExample(XDPTXSS_DEVICE_ID);
-#else
 	Status = DpTxSs_DebugExample(XPAR_DPTXSS_0_BASEADDR);
-#endif
 	if (Status != XST_SUCCESS) {
 		xil_printf("DisplayPort TX Subsystem debug example failed."
 				"\n\r");
@@ -170,11 +159,7 @@ int main()
 * @note		None.
 *
 ******************************************************************************/
-#ifndef SDT
-u32 DpTxSs_DebugExample(u16 DeviceId)
-#else
 u32 DpTxSs_DebugExample(u32 BaseAddress)
-#endif
 {
 	u32 Status;
 	u8 VSplitMode = 0;
@@ -191,11 +176,7 @@ u32 DpTxSs_DebugExample(u32 BaseAddress)
 	xil_printf("Platform initialization done.\n\r");
 
 	/* Obtain the device configuration for the DisplayPort TX Subsystem */
-#ifndef SDT
-	ConfigPtr = XDpTxSs_LookupConfig(DeviceId);
-#else
 	ConfigPtr = XDpTxSs_LookupConfig(BaseAddress);
-#endif
 	if (!ConfigPtr) {
 		return XST_FAILURE;
 	}
