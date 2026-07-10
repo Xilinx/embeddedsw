@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2015 - 2020 Xilinx, Inc. All rights reserved.
-* Copyright 2023-2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2023-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -49,33 +49,13 @@
 #include "xil_types.h"
 #include "xparameters.h"
 #include "xstatus.h"
-#ifndef SDT
-#ifdef XPAR_INTC_0_DEVICE_ID
-/* For MicroBlaze systems. */
-#include "xintc.h"
-#else
-/* For ARM/Zynq SoC systems. */
-#include "xscugic.h"
-#endif /* XPAR_INTC_0_DEVICE_ID */
-#endif
-#ifdef SDT
 #include "xinterrupt_wrap.h"
-#endif
 
-#ifdef SDT
 #define INTRNAME_DPTX       0
 #define INTRNAME_DPTX_CIPHER       1
 #define INTRNAME_DPTX_TIMER        2
-#endif
 /************************** Constant Definitions *****************************/
 
-/*
-* The following constants map to the names of the hardware instances.
-* They are only defined here such that a user can easily change all the
-* needed device IDs in one place.
-* There is only one interrupt controlled to be selected from SCUGIC and GPIO
-* INTC. INTC selection is based on INTC parameters defined xparameters.h file.
-*/
 #ifdef XPAR_INTC_0_DEVICE_ID
 #define XINTC_DPTXSS_DP_INTERRUPT_ID \
 	XPAR_INTC_0_DPTXSS_0_DPTXSS_DP_IRQ_VEC_ID
@@ -134,11 +114,7 @@
 
 /************************** Function Prototypes ******************************/
 
-#ifndef SDT
-u32 DpTxSs_IntrExample(u16 DeviceId);
-#else
 u32 DpTxSs_IntrExample(UINTPTR BaseAddress);
-#endif
 u32 DpTxSs_PlatformInit(void);
 u32 DpTxSs_StreamSrc(u8 VerticalSplit);
 
@@ -155,9 +131,6 @@ static void DpTxSs_HpdEventCommon(XDpTxSs *InstancePtr, u8 Mode);
 /************************** Variable Definitions *****************************/
 
 XDpTxSs DpTxSsInst;	/* The DPTX Subsystem instance.*/
-#ifndef SDT
-XINTC IntcInst;		/* The interrupt controller instance. */
-#endif
 /************************** Function Definitions *****************************/
 
 
@@ -188,11 +161,7 @@ int main()
 	xil_printf("(c) 2015 by Xilinx\n\r");
 	xil_printf("-------------------------------------------\n\r\n\r");
 
-#ifndef SDT
-	Status = DpTxSs_IntrExample(XDPTXSS_DEVICE_ID);
-#else
 	Status = DpTxSs_IntrExample(XPAR_DPTXSS_0_BASEADDR);
-#endif
 	if (Status != XST_SUCCESS) {
 		xil_printf("DisplayPort TX Subsystem interrupt example failed.");
 		return XST_FAILURE;
@@ -223,11 +192,7 @@ int main()
 *		events.
 *
 ******************************************************************************/
-#ifndef SDT
-u32 DpTxSs_IntrExample(u16 DeviceId)
-#else
 u32 DpTxSs_IntrExample(UINTPTR BaseAddress)
-#endif
 {
 	u32 Status;
 	XDpTxSs_Config *ConfigPtr;
@@ -243,11 +208,7 @@ u32 DpTxSs_IntrExample(UINTPTR BaseAddress)
 	xil_printf("Platform initialization done.\n\r");
 
 	/* Obtain the device configuration for the DisplayPort TX Subsystem */
-#ifndef SDT
-	ConfigPtr = XDpTxSs_LookupConfig(DeviceId);
-#else
 	ConfigPtr = XDpTxSs_LookupConfig(BaseAddress);
-#endif
 	if (!ConfigPtr) {
 		return XST_FAILURE;
 	}
@@ -350,148 +311,6 @@ u32 DpTxSs_StreamSrc(u8 VerticalSplit)
 * @note		None.
 *
 ******************************************************************************/
-#ifndef SDT
-u32 DpTxSs_SetupIntrSystem(void)
-{
-	u32 Status;
-	XINTC *IntcInstPtr = &IntcInst;
-
-	/* Set interrupt handlers. */
-	XDpTxSs_SetCallBack(&DpTxSsInst, XDPTXSS_HANDLER_DP_HPD_EVENT,
-				DpTxSs_HpdEventHandler, &DpTxSsInst);
-	XDpTxSs_SetCallBack(&DpTxSsInst, XDPTXSS_HANDLER_DP_HPD_PULSE,
-				DpTxSs_HpdPulseHandler, &DpTxSsInst);
-	XDpTxSs_SetCallBack(&DpTxSsInst, XDPTXSS_HANDLER_DP_LANE_COUNT_CHG,
-				DpTxSs_LaneCountChangeHandler, &DpTxSsInst);
-	XDpTxSs_SetCallBack(&DpTxSsInst, XDPTXSS_HANDLER_DP_LINK_RATE_CHG,
-				DpTxSs_LinkRateChangeHandler, &DpTxSsInst);
-	XDpTxSs_SetCallBack(&DpTxSsInst, XDPTXSS_HANDLER_DP_PE_VS_ADJUST,
-				DpTxSs_PeVsAdjustHandler, &DpTxSsInst);
-	XDpTxSs_SetCallBack(&DpTxSsInst, XDPTXSS_HANDLER_DP_SET_MSA,
-				DpTxSs_MsaHandler, &DpTxSsInst);
-
-#ifdef XPAR_INTC_0_DEVICE_ID
-
-	/* Initialize the interrupt controller driver so that it's ready to
-	 * use, specify the device ID that was generated in xparameters.h
-	 */
-	Status = XIntc_Initialize(IntcInstPtr, XINTC_DEVICE_ID);
-	if (Status != XST_SUCCESS) {
-		xil_printf("Intc initialization failed!\n\r");
-		return XST_FAILURE;
-	}
-
-	/* Hook up interrupt service routine */
-	Status = XIntc_Connect(IntcInstPtr, XINTC_DPTXSS_DP_INTERRUPT_ID,
-			(XInterruptHandler)XDpTxSs_DpIntrHandler,
-				&DpTxSsInst);
-	if (Status != XST_SUCCESS) {
-		xil_printf("ERR: DP TX SS DP interrupt connect failed!\n\r");
-		return XST_FAILURE;
-	}
-
-	/* Enable the interrupt vector at the interrupt controller */
-	XIntc_Enable(IntcInstPtr, XINTC_DPTXSS_DP_INTERRUPT_ID);
-
-#if (XPAR_XHDCP_NUM_INSTANCES > 0)
-	/* Hook up interrupt service routine */
-	Status = XIntc_Connect(IntcInstPtr, XINTC_DPTXSS_HDCP_INTERRUPT_ID,
-			(XInterruptHandler)XDpTxSs_HdcpIntrHandler,
-				&DpTxSsInst);
-	if (Status != XST_SUCCESS) {
-		xil_printf("ERR: DP TX SS DP interrupt connect failed!\n\r");
-		return XST_FAILURE;
-	}
-	/* Hook up interrupt service routine */
-	Status = XIntc_Connect(IntcInstPtr, XINTC_DPTXSS_TMR_INTERRUPT_ID,
-			(XInterruptHandler)XDpTxSs_TmrCtrIntrHandler,
-				&DpTxSsInst);
-	if (Status != XST_SUCCESS) {
-		xil_printf("ERR: DP TX SS DP interrupt connect failed!\n\r");
-		return XST_FAILURE;
-	}
-	/* Enable the interrupt vector at the interrupt controller */
-	XIntc_Enable(IntcInstPtr, XINTC_DPTXSS_HDCP_INTERRUPT_ID);
-	XIntc_Enable(IntcInstPtr, XINTC_DPTXSS_TMR_INTERRUPT_ID);
-#endif
-
-	/* Start the interrupt controller such that interrupts are recognized
-	 * and handled by the processor
-	 */
-	Status = XIntc_Start(IntcInstPtr, XIN_REAL_MODE);
-	if (Status != XST_SUCCESS) {
-		return XST_FAILURE;
-	}
-#else
-	/* The configuration parameters of the interrupt controller */
-	XScuGic_Config *IntcConfig;
-
-	/* Initialize the interrupt controller driver so that it is ready to
-	 * use.
-	 */
-	IntcConfig = XScuGic_LookupConfig(XINTC_DEVICE_ID);
-	if (NULL == IntcConfig) {
-		return XST_FAILURE;
-	}
-
-	Status = XScuGic_CfgInitialize(IntcInstPtr, IntcConfig,
-				IntcConfig->CpuBaseAddress);
-	if (Status != XST_SUCCESS) {
-		return XST_FAILURE;
-	}
-
-	/* Connect the device driver handler that will be called when an
-	 * interrupt for the device occurs, the handler defined above performs
-	 * the specific interrupt processing for the device
-	 */
-	Status = XScuGic_Connect(IntcInstPtr, XINTC_DPTXSS_DP_INTERRUPT_ID,
-			(Xil_InterruptHandler)XDpTxSs_DpIntrHandler,
-				&DpTxSsInst);
-	if (Status != XST_SUCCESS) {
-		xil_printf("ERR: DP TX SS DP interrupt connect failed!\n\r");
-		return XST_FAILURE;
-	}
-
-	/* Enable the interrupt for the Pixel Splitter device */
-	XScuGic_Enable(IntcInstance, XINTC_DPTXSS_DP_INTERRUPT_ID);
-
-#if (XPAR_XHDCP_NUM_INSTANCES > 0)
-	/* Hook up interrupt service routine */
-	Status = XIntc_Connect(IntcInstPtr, XINTC_DPTXSS_HDCP_INTERRUPT_ID,
-			(XInterruptHandler)XDpTxSs_HdcpIntrHandler,
-				&DpTxSsInst);
-	if (Status != XST_SUCCESS) {
-		xil_printf("ERR: DP TX SS DP interrupt connect failed!\n\r");
-		return XST_FAILURE;
-	}
-	/* Hook up interrupt service routine */
-	Status = XIntc_Connect(IntcInstPtr, XINTC_DPTXSS_TMR_INTERRUPT_ID,
-			(XInterruptHandler)XDpTxSs_TmrCtrIntrHandler,
-				&DpTxSsInst);
-	if (Status != XST_SUCCESS) {
-		xil_printf("ERR: DP TX SS DP interrupt connect failed!\n\r");
-		return XST_FAILURE;
-	}
-	/* Enable the interrupt vector at the interrupt controller */
-	XIntc_Enable(IntcInstPtr, XINTC_DPTXSS_HDCP_INTERRUPT_ID);
-	XIntc_Enable(IntcInstPtr, XINTC_DPTXSS_TMR_INTERRUPT_ID);
-#endif
-#endif
-	/* Initialize the exception table. */
-	Xil_ExceptionInit();
-
-	/* Register the interrupt controller handler with the exception
-	 * table.
-	 */
-	Xil_ExceptionRegisterHandler(XIL_EXCEPTION_ID_INT,
-			(Xil_ExceptionHandler)XINTC_HANDLER, IntcInstPtr);
-
-	/* Enable exceptions. */
-	Xil_ExceptionEnable();
-
-	return (XST_SUCCESS);
-}
-#else
 u32 DpTxSs_SetupIntrSystem(void)
 {
 	u32 Status;
@@ -545,7 +364,6 @@ u32 DpTxSs_SetupIntrSystem(void)
 
 	return XST_SUCCESS;
 }
-#endif
 
 /*****************************************************************************/
 /**

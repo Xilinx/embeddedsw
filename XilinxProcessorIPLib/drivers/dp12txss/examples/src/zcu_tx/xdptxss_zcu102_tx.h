@@ -1,6 +1,6 @@
 /*******************************************************************************
 * Copyright (C) 2020 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -39,13 +39,6 @@ extern "C" {
 #include "xvidframe_crc.h"
 /************************** Constant Definitions *****************************/
 
-/*
-* The following constants map to the names of the hardware instances.
-* They are only defined here such that a user can easily change all the
-* needed device IDs in one place.
-* There is only one interrupt controlled to be selected from SCUGIC and GPIO
-* INTC. INTC selection is based on INTC parameters defined xparameters.h file.
-*/
 #define XINTC_DPTXSS_DP_INTERRUPT_ID \
 	XPAR_FABRIC_DP12TXSS_0_VEC_ID
 #if (XPAR_XHDCP_NUM_INSTANCES > 0)

@@ -71,11 +71,7 @@ typedef struct {
 } XDpTxSs_SubCores;
 
 /************************** Function Prototypes ******************************/
-#ifndef SDT
-static void DpTxSs_GetIncludedSubCores(XDpTxSs *InstancePtr);
-#else
 static void DpTxSs_GetIncludedSubCores(XDpTxSs *InstancePtr, UINTPTR BaseAddress);
-#endif
 static void DpTxSs_CalculateMsa(XDpTxSs *InstancePtr, u8 Stream);
 static u32 DpTxSs_CheckRxDeviceMode(XDpTxSs *InstancePtr);
 static u32 DpTxSs_SetupSubCores(XDpTxSs *InstancePtr);
@@ -145,11 +141,7 @@ u32 XDpTxSs_CfgInitialize(XDpTxSs *InstancePtr, XDpTxSs_Config *CfgPtr,
 	InstancePtr->Config.BaseAddress = EffectiveAddr;
 
 	/* Get included sub cores in the DisplayPort TX Subsystem */
-#ifndef SDT
-	DpTxSs_GetIncludedSubCores(InstancePtr);
-#else
 	DpTxSs_GetIncludedSubCores(InstancePtr, InstancePtr->Config.BaseAddress);
-#endif
 
 	/* Check for DisplayPort availability */
 	if (InstancePtr->DpPtr) {
@@ -219,30 +211,18 @@ u32 XDpTxSs_CfgInitialize(XDpTxSs *InstancePtr, XDpTxSs_Config *CfgPtr,
 		xdbg_printf(XDBG_DEBUG_GENERAL,"SS INFO: Initializing Timer "
 			"Counter IP \n\r");
 
-#ifndef SDT
-		/* Calculate absolute base address of Timer Counter sub-core */
-		InstancePtr->Config.TmrCtrSubCore.TmrCtrConfig.BaseAddress +=
-					InstancePtr->Config.BaseAddress;
-#endif
 		/* Timer Counter config initialize */
-#ifndef SDT
-		Status = XTmrCtr_Initialize(InstancePtr->TmrCtrPtr,
-		InstancePtr->Config.TmrCtrSubCore.TmrCtrConfig.DeviceId);
-#else
 		Status = XTmrCtr_Initialize(InstancePtr->TmrCtrPtr,
 				InstancePtr->Config.TmrCtrSubCore.
 				TmrCtrConfig.BaseAddress);
-#endif
 		if (Status != XST_SUCCESS) {
 			xdbg_printf(XDBG_DEBUG_GENERAL,"SS ERR:: Timer "
 				"Counter initialization failed\n\r");
 			return XST_FAILURE;
 		}
-#ifdef SDT
 		/* Calculate absolute base address of Timer Counter sub-core */
 		InstancePtr->Config.TmrCtrSubCore.TmrCtrConfig.BaseAddress +=
 					InstancePtr->Config.BaseAddress;
-#endif
 		/* Calculate absolute base address of Timer Counter sub-core */
 		InstancePtr->TmrCtrPtr->Config.BaseAddress +=
 					InstancePtr->Config.BaseAddress;
@@ -1872,46 +1852,6 @@ static u32 DpTxSs_ConvertUsToTicks(u32 TimeoutInUs, u32 ClkFreq)
 * @note		None.
 *
 ******************************************************************************/
-#ifndef SDT
-static void DpTxSs_GetIncludedSubCores(XDpTxSs *InstancePtr)
-{
-	u32 Index;
-
-#if (XPAR_XDUALSPLITTER_NUM_INSTANCES > 0)
-	/* Assign instance of Dual Splitter core */
-	InstancePtr->DsPtr = ((InstancePtr->Config.DsSubCore.IsPresent) ?
-		(&DpTxSsSubCores[InstancePtr->Config.DeviceId].DsInst) : NULL);
-#endif
-
-#if (XPAR_XHDCP_NUM_INSTANCES > 0)
-	/* Assign instance of HDCP core */
-	InstancePtr->Hdcp1xPtr =
-		((InstancePtr->Config.Hdcp1xSubCore.IsPresent) ?
-	(&DpTxSsSubCores[InstancePtr->Config.DeviceId].Hdcp1xInst) : NULL);
-
-	/* Assign instance of Timer Counter core */
-	InstancePtr->TmrCtrPtr =
-		((InstancePtr->Config.TmrCtrSubCore.IsPresent) ?
-	(&DpTxSsSubCores[InstancePtr->Config.DeviceId].TmrCtrInst) : NULL);
-
-	/* Set Timer Counter instance in HDCP that will be used in callbacks */
-	InstancePtr->Hdcp1xPtr->Hdcp1xRef = (void *)InstancePtr->TmrCtrPtr;
-#endif
-
-	/* Assign instance of DisplayPort core */
-	InstancePtr->DpPtr = ((InstancePtr->Config.DpSubCore.IsPresent) ?
-		(&DpTxSsSubCores[InstancePtr->Config.DeviceId].DpInst) : NULL);
-
-	for (Index = 0; Index < InstancePtr->Config.NumMstStreams; Index++) {
-
-		/* Assign instances of VTC core */
-		InstancePtr->VtcPtr[Index] =
-			((InstancePtr->Config.VtcSubCore[Index].IsPresent) ?
-			(&DpTxSsSubCores[
-			InstancePtr->Config.DeviceId].VtcInst[Index]) : NULL);
-	}
-}
-#else
 static void DpTxSs_GetIncludedSubCores(XDpTxSs *InstancePtr, UINTPTR BaseAddress)
 {
 	u32 Index1, Index;
@@ -1954,7 +1894,6 @@ static void DpTxSs_GetIncludedSubCores(XDpTxSs *InstancePtr, UINTPTR BaseAddress
 	}
 }
 
-#endif
 /*****************************************************************************/
 /**
 *

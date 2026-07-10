@@ -34,9 +34,7 @@ extern "C" {
 /***************************** Include Files *********************************/
 
 #include "xparameters.h"
-#ifdef SDT
 #define XPAR_XDUALSPLITTER_NUM_INSTANCES  XPAR_XDUAL_SPLITTER_NUM_INSTANCES
-#endif
 #if (XPAR_XDUALSPLITTER_NUM_INSTANCES > 0)
 #include "xdualsplitter.h"
 #endif

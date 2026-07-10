@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2020 - 2021  Xilinx, Inc.  All rights reserved.
-* Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -28,13 +28,6 @@ extern "C" {
 #include "xil_exception.h"
 #include "keymgmt.h"
 
-#ifndef SDT
-#ifdef XPAR_INTC_0_DEVICE_ID
- #include "xintc.h"
-#else
- #include "xscugic.h"
-#endif
-#endif
 /**************************** Type Definitions *******************************/
 
 /*

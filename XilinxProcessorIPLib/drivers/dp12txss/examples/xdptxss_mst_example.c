@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2015 - 2020 Xilinx, Inc. All rights reserved.
-* Copyright 2023-2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2023-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -76,11 +76,7 @@
 
 /************************** Function Prototypes ******************************/
 
-#ifndef SDT
-u32 DpTxSs_MstExample(u16 DeviceId);
-#else
 u32 DpTxSs_MstExample(UINTPTR BaseAddress);
-#endif
 
 u32 DpTxSs_PlatformInit(void);
 u32 DpTxSs_StreamSrc(u8 VerticalSplit);
@@ -116,11 +112,7 @@ int main()
 	xil_printf("(c) 2015 by Xilinx\n\r");
 	xil_printf("-------------------------------------------\n\r\n\r");
 
-#ifndef SDT
-	Status = DpTxSs_MstExample(XDPTXSS_DEVICE_ID);
-#else
 	Status = DpTxSs_MstExample(XPAR_DPTXSS_0_BASEADDR);
-#endif
 
 	if (Status != XST_SUCCESS) {
 		xil_printf("DisplayPort TX Subsystem %s example failed."
@@ -152,11 +144,7 @@ int main()
 * @note		None.
 *
 ******************************************************************************/
-#ifndef SDT
-u32 DpTxSs_MstExample(u16 DeviceId)
-#else
 u32 DpTxSs_MstExample(UINTPTR BaseAddress)
-#endif
 {
 	u32 Status;
 	u8 VSplitMode = 0;
@@ -173,11 +161,7 @@ u32 DpTxSs_MstExample(UINTPTR BaseAddress)
 	xil_printf("Platform initialization done.\n\r");
 
 	/* Obtain the device configuration for the DisplayPort TX Subsystem */
-#ifndef SDT
-	ConfigPtr = XDpTxSs_LookupConfig(DeviceId);
-#else
 	ConfigPtr = XDpTxSs_LookupConfig(BaseAddress);
-#endif
 	if (!ConfigPtr) {
 		return XST_FAILURE;
 	}

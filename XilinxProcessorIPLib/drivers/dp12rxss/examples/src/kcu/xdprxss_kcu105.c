@@ -1743,11 +1743,10 @@ int main(void)
 						if(DpRxSsInst.TmrCtrResetDone == 1){
 							prog_tx =0;
 						}
-#else
-						//prog_tx =0;
 #endif
 					track_count1 = 0;
 				}
+
 
 #if ENABLE_HDCP_IN_DESIGN
 					XHdcp1xExample_Poll();
