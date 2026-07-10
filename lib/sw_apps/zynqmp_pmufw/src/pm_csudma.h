@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -40,10 +40,13 @@ extern "C" {
 
 extern XCsuDma CsuDma;          /* Instance of the Csu_Dma Device */
 
+/* Function declarations */
 XStatus PmDmaInit(void);
 void PmDma64BitTransfer(u32 DstAddrLow, u32 DstAddrHigh,
 			 u32 SrcAddrLow, u32 SrcAddrHigh, u32 Size);
 void PmSetCsuDmaLoopbackMode(void);
+XStatus PmCsuDmaXfer(u32 DstAddrLow, u32 DstAddrHigh, u32 SrcAddrLow,
+			 u32 SrcAddrHigh, u32 Size);
 
 #ifdef __cplusplus
 }

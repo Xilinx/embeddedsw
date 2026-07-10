@@ -51,7 +51,7 @@
 #include "pmu_iomodule.h"
 #include "xpfw_ipi_manager.h"
 #include "xpfw_restart.h"
-
+#include "pm_csudma.h"
 #ifdef ENABLE_WDT
 #include "xpfw_mod_wdt.h"
 #endif
@@ -1319,31 +1319,41 @@ static void PmSecureAes(const PmMaster *const master,
 	XilSKey_Puf InstancePtr = {0U};
 #endif
 	u64 WrAddr = ((u64)SrcAddrHigh << ADDRESS_HIGH_SHIFT) | SrcAddrLow;
-	const XSecure_AesParams *Aes = (const XSecure_AesParams *)(UINTPTR)WrAddr;
+	XSecure_AesParams Aes;
+
 #if defined(ENABLE_MEM_RANGE) && defined(ENABLE_MEM_RANGE_CRYPTO_REQUEST)
 	if (0U == PmIsValidAddressRange(master, WrAddr,
 				sizeof(XSecure_AesParams), (u32)MEM_RANGE_ANY_ACCESS)) {
 		Status = XST_PM_NO_ACCESS;
 		goto END;
 	}
-	if (0U == PmIsValidAddressRange(master, Aes->Src,
-				(u32)Aes->Size, (u32)MEM_RANGE_ANY_ACCESS)) {
+#endif
+
+	Status = PmCsuDmaXfer((u32)(UINTPTR)&Aes, 0U, SrcAddrLow, SrcAddrHigh,
+			sizeof(XSecure_AesParams)/XSECURE_WORD_LEN);
+	if (XST_SUCCESS != Status) {
+		goto END;
+	}
+
+#if defined(ENABLE_MEM_RANGE) && defined(ENABLE_MEM_RANGE_CRYPTO_REQUEST)
+	if (0U == PmIsValidAddressRange(master, Aes.Src,
+				(u32)Aes.Size, (u32)MEM_RANGE_ANY_ACCESS)) {
 		Status = XST_PM_NO_ACCESS;
 		goto END;
 	}
-	if (0U == PmIsValidAddressRange(master, Aes->Dst,
-				(u32)Aes->Size, (u32)MEM_RANGE_ANY_ACCESS)) {
+	if (0U == PmIsValidAddressRange(master, Aes.Dst,
+				(u32)Aes.Size, (u32)MEM_RANGE_ANY_ACCESS)) {
 		Status = XST_PM_NO_ACCESS;
 		goto END;
 	}
-	if (Aes->KeySrc == XSECURE_AES_KUP_KEY) {
-		if(0U == PmIsValidAddressRange(master, Aes->Key,
+	if (Aes.KeySrc == XSECURE_AES_KUP_KEY) {
+		if(0U == PmIsValidAddressRange(master, Aes.Key,
 					XSECURE_KEY_SIZE, (u32)MEM_RANGE_ANY_ACCESS)) {
 			Status = XST_PM_NO_ACCESS;
 			goto END;
 		}
 	}
-	if (0U == PmIsValidAddressRange(master, Aes->Iv,
+	if (0U == PmIsValidAddressRange(master, Aes.Iv,
 				IV_SIZE_IN_BYTES, (u32)MEM_RANGE_ANY_ACCESS)) {
 		Status = XST_PM_NO_ACCESS;
 		goto END;
@@ -1356,7 +1366,7 @@ static void PmSecureAes(const PmMaster *const master,
 				PM_NOTIFY_STL_NO_OP_ENTER);
 #endif
 
-	if (Aes->KeySrc == AES_PUF_KEY_SEL_MASK) {
+	if (Aes.KeySrc == AES_PUF_KEY_SEL_MASK) {
 		#ifndef XSK_ACCESS_PUF_USER_EFUSE
 			Status = XilSKey_Puf_Regeneration(&InstancePtr);
 			if (Status != 0U) {
@@ -1368,7 +1378,7 @@ static void PmSecureAes(const PmMaster *const master,
 		#endif
 	}
 
-	Status = XSecure_AesOperation(SrcAddrHigh, SrcAddrLow);
+	Status = XSecure_AesOperation(0U, (u32)(UINTPTR)&Aes);
 
 #if defined (ENABLE_WDT) &&	\
 	(XPFW_CFG_PMU_AES_WDT_TIMEOUT > XPFW_CFG_PMU_DEFAULT_WDT_TIMEOUT)

@@ -1,13 +1,22 @@
 /*
-* Copyright (c) 2018 - 2020 Xilinx, Inc.  All rights reserved.
-* SPDX-License-Identifier: MIT
+ * Copyright (c) 2014 - 2020 Xilinx, Inc.  All rights reserved.
+ * Copyright (c) 2026 Advanced Micro Devices, Inc. All Rights Reserved.
+ * SPDX-License-Identifier: MIT
  */
-
 
 #include "pm_csudma.h"
 
 XCsuDma CsuDma;          /* Instance of the Csu_Dma Device */
 
+/*****************************************************************************/
+/**
+ * @brief	This function initializes the CSU DMA driver.
+ *
+ * @return
+ * 			- XST_SUCCESS on success
+ * 			- XST_FAILURE on failure
+ *
+ *****************************************************************************/
 XStatus PmDmaInit(void)
 {
 	s32 Status = XST_SUCCESS;
@@ -43,6 +52,11 @@ Done:
 	return Status;
 }
 
+/*****************************************************************************/
+/**
+ * @brief	This function sets CSU DMA in loop back mode.
+ *
+ *****************************************************************************/
 void PmSetCsuDmaLoopbackMode(void)
 {
 	/*
@@ -53,6 +67,17 @@ void PmSetCsuDmaLoopbackMode(void)
 		  CSUDMA_LOOPBACK_CFG));
 }
 
+/*****************************************************************************/
+/**
+ * @brief	This function performs 64 bit transfer using CSU DMA.
+ *
+ * @param	DstAddrLow	Lower 32 bits of the destination address
+ * @param	DstAddrHigh	Upper 32 bits of the destination address
+ * @param	SrcAddrLow	Lower 32 bits of the source address
+ * @param	SrcAddrHigh	Upper 32 bits of the source address
+ * @param	Size		Number of 4-byte words to be transferred
+ *
+ *****************************************************************************/
 void PmDma64BitTransfer(u32 DstAddrLow, u32 DstAddrHigh,
 			 u32 SrcAddrLow, u32 SrcAddrHigh, u32 Size)
 {
@@ -67,4 +92,38 @@ void PmDma64BitTransfer(u32 DstAddrLow, u32 DstAddrHigh,
 	/* To acknowledge the transfer has completed */
 	XCsuDma_IntrClear(&CsuDma, XCSUDMA_SRC_CHANNEL, XCSUDMA_IXR_DONE_MASK);
 	XCsuDma_IntrClear(&CsuDma, XCSUDMA_DST_CHANNEL, XCSUDMA_IXR_DONE_MASK);
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function initializes the CSU DMA driver, sets it in
+ * 			loop back mode and performs 64 bit transfer.
+ *
+ * @param	DstAddrLow	Lower 32 bits of the destination address
+ * @param	DstAddrHigh	Upper 32 bits of the destination address
+ * @param	SrcAddrLow	Lower 32 bits of the source address
+ * @param	SrcAddrHigh	Upper 32 bits of the source address
+ * @param	Size		Number of 4-byte words to be transferred
+ *
+ * @return
+ * 			- XST_SUCCESS on success.
+ * 			- XST_FAILURE on CSU DMA initialization failure.
+ *
+ *****************************************************************************/
+XStatus PmCsuDmaXfer(u32 DstAddrLow, u32 DstAddrHigh, u32 SrcAddrLow,
+			 u32 SrcAddrHigh, u32 Size)
+{
+	s32 Status;
+
+	Status = PmDmaInit();
+	if (XST_SUCCESS != Status) {
+		goto END;
+	}
+
+	PmSetCsuDmaLoopbackMode();
+
+	PmDma64BitTransfer(DstAddrLow, DstAddrHigh, SrcAddrLow, SrcAddrHigh, Size);
+
+END:
+	return Status;
 }
