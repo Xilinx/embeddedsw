@@ -236,6 +236,7 @@ typedef struct {
 	u32 TestUnitRdyLun;	/**< LUN ID used for Test Unit Ready command during initialization */
 	u32 AllocUnitSize;	/**< Allocation unit size in bytes (from Geometry descriptor) */
 	u32 SegmentSize;	/**< Segment size in bytes (from Geometry descriptor) */
+	u64 DeviceCapacityMiB;	/**< Total raw device capacity in MiB (from Geometry descriptor) */
 	volatile u32 IsReady;	/**< Device ready status flag (1=ready, 0=not ready) */
 	/** Capacity adjustment factors per memory type:
 	 *  [0]=Normal, [1]=System Code, [2]=Non-Persistent, [3-6]=Enhanced Types 1-4 */
@@ -539,6 +540,8 @@ enum Task_Tag {
  * @{
  */
 #define XUFSPSXC_GEOMETRY_DESC_LEN			0x57U	/**< Total length of geometry descriptor */
+#define XUFSPSXC_DEV_CAPACITY_OFFSET		0x4U	/**< Offset of total raw device capacity */
+#define XUFSPSXC_DEV_CAPACITY_BYTES			0x8U	/**< qTotalRawDeviceCapacity field width in bytes per UFS spec */
 #define XUFSPSXC_MAXNUMLU_OFFSET			0xCU	/**< Offset of maximum number of LUs field */
 #define XUFSPSXC_SEGSZ_OFFSET				0xDU	/**< Offset of segment size field */
 #define XUFSPSXC_ALLOCSZ_OFFSET				0x11U	/**< Offset of allocation size field */

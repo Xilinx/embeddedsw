@@ -272,6 +272,8 @@ u32 XUfsPsxc_ReadDeviceInfo(XUfsPsxc *InstancePtr, XUfsPsxc_Xfer_CmdDesc *CmdDes
 	volatile u32 Status = (u32)XUFSPSXC_FAILURE;
 	u32 Tsf_DW0;
 	u32 SegmentSize;
+	u64 qTotalRawDeviceCapacity = 0ULL;
+	u32 ByteIdx;
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(CmdDescPtr != NULL);
@@ -303,6 +305,13 @@ u32 XUfsPsxc_ReadDeviceInfo(XUfsPsxc *InstancePtr, XUfsPsxc_Xfer_CmdDesc *CmdDes
 		Status = ((u32)XUFSPSXC_QRY_READ_GEOMETRY_DESC_ERROR << 12U) | Status;
 		goto ERROR;
 	}
+
+	for (ByteIdx = 0U; ByteIdx < XUFSPSXC_DEV_CAPACITY_BYTES; ByteIdx++) {
+		qTotalRawDeviceCapacity = (qTotalRawDeviceCapacity << 8U) |
+			(u64)CmdDescPtr->RespUpiu.QueryRespUpiu.Data[XUFSPSXC_DEV_CAPACITY_OFFSET + ByteIdx];
+	}
+	/* Convert 512-byte units to MiB (1024*1024 bytes) */
+	InstancePtr->DeviceCapacityMiB = (qTotalRawDeviceCapacity / 2048ULL);
 
 	SegmentSize = CmdDescPtr->RespUpiu.QueryRespUpiu.Data[XUFSPSXC_SEGSZ_OFFSET];
 	SegmentSize |= ((u32)CmdDescPtr->RespUpiu.QueryRespUpiu.Data[XUFSPSXC_SEGSZ_OFFSET + 1U] << 8U);
