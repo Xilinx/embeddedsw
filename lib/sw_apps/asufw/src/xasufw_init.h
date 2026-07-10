@@ -41,8 +41,6 @@ extern "C" {
 #include "xil_types.h"
 
 /************************************ Constant Definitions ***************************************/
-#define XASUFW_PUF_KEK_GEN_SUCCESS	(0x0U) /**< PUF KEK generation success status */
-#define XASUFW_PUF_KEK_GEN_FAILURE	(0x1U) /**< PUF KEK generation failure status */
 
 /** @cond xasufw_init_internal */
 /************************************** Type Definitions *****************************************/
@@ -69,12 +67,10 @@ u64 XAsufw_GetTimerValue(void);
 void XAsufw_MeasurePerfTime(u64 TCur, XAsufw_PerfTime *PerfTime);
 void XAsufw_PrintAsuTimeStamp(void);
 void XAsufw_RtcaInit(void);
-s32 XAsufw_PmcKeyTransfer(void);
 void XAsufw_UpdateModulesInfo(void);
 void XAsufw_DisableInterruptSystem(void);
 s32 XAsufw_EnableDisableEventNotifiers(u32 Enable);
 void XAsufw_RamEccInit(void);
-u32 XAsufw_GetPufKekGenStatus(void);
 
 /************************************ Variable Definitions ***************************************/
 

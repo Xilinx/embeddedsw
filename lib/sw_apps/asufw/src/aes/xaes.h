@@ -91,6 +91,15 @@ typedef struct {
 #define XAES_KEY_SIZE_CONVERSION_OFFSET		(16U) /**< Offset for AES key size enum to byte conversion */
 #define XAES_KEY_SIZE_CONVERSION_SHIFT		(3U)  /**< Shift for AES key size enum to byte conversion */
 
+#define XAES_KEY_CLEAR_MULTI_KEY_FLAG		(0x80000000U) /**< When this flag is OR'ed into the
+						KeySrc argument of XAes_KeyClear(), the remaining bits
+						are treated as a bitmask of key sources to clear in a
+						single call instead of a single key source value. */
+#define XAES_KEY_SRC_TO_CLEAR_MASK(KeySrc)	((u32)1U << (u32)(KeySrc)) /**< Converts a key source
+						value to its corresponding bit in the multi-key clear
+						bitmask used by XAes_KeyClear(). XASU_AES_EXPANDED_KEYS
+						key source cannot be used with this macro. */
+
 /************************************ Variable Definitions ***************************************/
 
 /************************************ Function Prototypes ****************************************/

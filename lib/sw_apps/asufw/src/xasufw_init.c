@@ -80,10 +80,6 @@
 #define XASUFW_PIT_FREQ_DIVISOR		(100U) /**< ASUFW PIT frequency divisor */
 #define XASUFW_MEGA			(1000000U) /**< Value for mega */
 #define XASUFW_WORD_SIZE_IN_BITS	(32U) /**< Word size in bits */
-#define XASUFW_KEY_TX_PAYLOAD_SIZE 	(1U) /**< Key transfer TX payload size */
-#define XASUFW_KEY_RX_PAYLOAD_SIZE 	(2U) /**< Key transfer RX payload size */
-#define XASUFW_RESPONSE_INDEX_0		(0U) /**< Key transfer response index 0 */
-#define XASUFW_RESPONSE_INDEX_1		(1U) /**< Key transfer response index 1 */
 
 /**
  * @brief	Initializes the version, NIST compliance status, and clears KAT bits for a
@@ -123,7 +119,6 @@ static void XAsufw_RamEccIntrHandler(void *CallbackRef);
 
 /************************************ Variable Definitions ***************************************/
 static XIOModule IOModule; /**< Instance of the IO Module */
-static u32 PufKekFlag = XASUFW_PUF_KEK_GEN_FAILURE; /**< PUF KEK generation status */
 
 /*************************************************************************************************/
 /**
@@ -584,83 +579,6 @@ void XAsufw_RtcaInit(void)
 	XAsufw_WriteReg(XASUFW_RTCA_IDENTIFICATION_ADDR, XASUFW_RTCA_IDENTIFICATION_STRING);
 	XAsufw_WriteReg(XASUFW_RTCA_VERSION_ADDR, XASUFW_RTCA_VERSION);
 	XAsufw_WriteReg(XASUFW_RTCA_SIZE_ADDR, XASUFW_RTCA_SIZE);
-}
-
-/*************************************************************************************************/
-/**
- * @brief	This function gets three 256-bit keys (two red/black and one KEK key) from PMXC to Key
- * receiver engine in ASU using 128-bit dedicated interface between PMXC and ASU.
- *
- * @return
- *		- XASUFW_SUCCESS, if all three keys are received successfully.
- *		- XASUFW_ERR_KV_INTERRUPT_DONE_TIMEOUT, if key transfer done timeout occurs.
- *		- XASUFW_FAILURE, if all three keys are not received.
- *
- *************************************************************************************************/
-s32 XAsufw_PmcKeyTransfer(void)
-{
-	s32 Status = XASUFW_FAILURE;
-	u32 Response[XASUFW_KEY_RX_PAYLOAD_SIZE] = {0U};
-	u32 Payload;
-
-	/** Transfer efuse key_0 is black or red based on user configuration. */
-	XAsufw_WriteReg((XASU_XKEY_0_BASEADDR + XAES_EFUSE_KEY_0_BLACK_OR_RED_OFFSET),
-		XASUFW_PMXC_EFUSE_USER_KEY_0);
-
-	/** Transfer efuse key_1 is black or red based on user configuration. */
-	XAsufw_WriteReg((XASU_XKEY_0_BASEADDR + XAES_EFUSE_KEY_1_BLACK_OR_RED_OFFSET),
-		XASUFW_PMXC_EFUSE_USER_KEY_1);
-
-	/** Indicate to PMXC and ASU that ASU is ready to accept key transfer. */
-	XAsufw_WriteReg((XASU_XKEY_0_BASEADDR + XAES_ASU_PMXC_KEY_TRANSFER_READY_OFFSET),
-		XAES_ASU_PMXC_KEY_TRANSFER_READY_MASK);
-
-	Payload = XASUFW_PLM_IPI_HEADER(0U, XASUFW_PLM_ASU_KEY_TX_API_ID,
-			XASUFW_PLM_ASU_MODULE_ID);
-
-	/** Send Key transfer IPI request to PLM. */
-	Status = XAsufw_SendIpiToPlm(&Payload, XASUFW_KEY_TX_PAYLOAD_SIZE);
-	if (Status != XASUFW_SUCCESS) {
-		XAsufw_Printf(DEBUG_INFO, "Send IPI to PLM failed\r\n");
-		goto END;
-	}
-
-	/** Wait till HW to set the KV interrupt status bit when key transfer(KT) is done. */
-	while ((XAsufw_ReadReg(XASU_XKEY_0_BASEADDR + XAES_KV_INTERRUPT_STATUS_OFFSET) &
-		XAES_KV_INTERRUPT_STATUS_DONE_MASK) == 0U);
-
-	/** Disable ASU Key transfer. */
-	XAsufw_WriteReg((XASU_XKEY_0_BASEADDR + XAES_ASU_PMXC_KEY_TRANSFER_READY_OFFSET),
-		XAES_ASU_PMXC_KEY_TRANSFER_READY_DISABLE);
-
-	/** Clear KV interrupt status. */
-	XAsufw_WriteReg((XASU_XKEY_0_BASEADDR + XAES_KV_INTERRUPT_STATUS_OFFSET),
-		XAES_KV_INTERRUPT_STATUS_CLEAR_MASK);
-
-	/** Read Key transfer response received from PLM. */
-	Status = XAsufw_ReadIpiRespFromPlm(Response, XASUFW_KEY_RX_PAYLOAD_SIZE);
-	if ((Status != XASUFW_SUCCESS) || (Response[XASUFW_RESPONSE_INDEX_0] != (u32)XASUFW_SUCCESS)) {
-		XAsufw_Printf(DEBUG_INFO, "Read IPI response from PLM failed\r\n");
-	}
-
-	PufKekFlag = Response[XASUFW_RESPONSE_INDEX_1];
-END:
-	return Status;
-}
-
-/*************************************************************************************************/
-/**
- * @brief	This function returns the status of PUF KEK generation which is used to determine
- * 		whether to proceed with UDE KEK generation or not.
- *
- * @return
- *	- XASUFW_PUF_KEK_GEN_SUCCESS, if PUF KEK generation is successful.
- *	- XASUFW_PUF_KEK_GEN_FAILURE, if PUF KEK generation fails.
- *
- *************************************************************************************************/
-u32 XAsufw_GetPufKekGenStatus(void)
-{
-	return PufKekFlag;
 }
 
 /*************************************************************************************************/

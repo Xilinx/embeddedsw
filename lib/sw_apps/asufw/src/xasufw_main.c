@@ -112,7 +112,6 @@ static s32 XAsufw_RunOcpKeyGeneration(void);
 int main(void)
 {
 	s32 Status = XASUFW_FAILURE;
-	XFih_Var FihVar = XFih_VolatileAssignXfihVar(XFIH_FAILURE);
 
 	/** Restore data backup if update state indicates load ELF done. */
 	if (XAsufw_GetUpdateState() == XASUFW_UPDATE_STATE_LOAD_ELF_DONE) {
@@ -175,12 +174,6 @@ int main(void)
 
 	/** Resume performance monitoring after KATs complete. */
 	XASUFW_PERF_SET_MONITORING_STATE(XASUFW_PERF_MON_RESUMED);
-
-	/** Run key transfer and PUF regeneration. */
-	XFIH_CALL(XAsufw_PmcKeyTransfer, FihVar, Status);
-	if (Status != XASUFW_SUCCESS) {
-		XAsufw_Printf(DEBUG_PRINT_ALWAYS, "PMC key transfer failed. Error: 0x%x\r\n", Status);
-	}
 
 	/** Enable event notifiers. */
 	Status = XAsufw_EnableDisableEventNotifiers(XASUFW_REGISTER_NOTIFIER_ENABLE);

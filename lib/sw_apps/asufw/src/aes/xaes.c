@@ -1764,10 +1764,15 @@ END:
 
 /*************************************************************************************************/
 /**
- * @brief	This function zeroizes the selected AES key storage register.
+ * @brief	This function zeroizes the selected AES key storage registers.
  *
- * @param	InstancePtr	Pointer to the XSecure_Aes instance.
+ * @param	InstancePtr	Pointer to the XAes instance.
  * @param	KeySrc		Select the key source which needs to be zeroized.
+ *				- By default, this is a single key source value.
+ *				- To clear multiple key sources in a single call, OR the
+ *				  XAES_KEY_CLEAR_MULTI_KEY_FLAG with a bitmask of key sources built
+ *				  using XAES_KEY_SRC_TO_CLEAR_MASK(). XASU_AES_EXPANDED_KEYS cannot be
+ *				  combined and must be cleared via a single key source call.
  *
  * @return
  *		- XASUFW_SUCCESS, if key zeroization is successful.
@@ -1778,8 +1783,10 @@ END:
 s32 XAes_KeyClear(const XAes *InstancePtr, u32 KeySrc)
 {
 	s32 Status = XASUFW_FAILURE;
-	u32 KeyClearMask;
-	u32 ZeroedStatusMask;
+	u32 KeyClearMask = 0U;
+	u32 ZeroedStatusMask = 0U;
+	u32 KeySrcMask;
+	u32 Index;
 
 	/** Validate the input arguments. */
 	if (InstancePtr == NULL) {
@@ -1787,19 +1794,43 @@ s32 XAes_KeyClear(const XAes *InstancePtr, u32 KeySrc)
 		goto END;
 	}
 
-	if (KeySrc > XASU_AES_MAX_KEY_SOURCES) {
+	/**
+	 * Get the keyclear and zeroedstatus masks based on KeySrc.
+	 * If the multi-key flag is set, KeySrc holds a bitmask of key sources to clear in a single
+	 * operation; accumulate the masks of all the selected sources. Otherwise, KeySrc is a single
+	 * key source value (backward compatible behavior).
+	 */
+	if ((KeySrc & XAES_KEY_CLEAR_MULTI_KEY_FLAG) != 0U) {
+		KeySrcMask = KeySrc & ~XAES_KEY_CLEAR_MULTI_KEY_FLAG;
+
+		/** Reject any bit that does not map to a clearable key source in the lookup table. */
+		if ((KeySrcMask == 0U) || ((KeySrcMask >> XASU_AES_MAX_KEY_SOURCES) != 0U)) {
+			Status = XASUFW_AES_INVALID_PARAM;
+			goto END;
+		}
+
+		for (Index = 0U; Index < XASU_AES_MAX_KEY_SOURCES; Index++) {
+			if ((KeySrcMask & XAES_KEY_SRC_TO_CLEAR_MASK(Index)) != 0U) {
+				KeyClearMask |= AesKeyLookupTbl[Index].KeyClearVal;
+				ZeroedStatusMask |= AesKeyLookupTbl[Index].KeyZeroedStatusMask;
+			}
+		}
+	} else if (KeySrc == XASU_AES_EXPANDED_KEYS) {
+		KeyClearMask = XAES_KEY_CLR_AES_KEY_ZEROIZE_MASK;
+		ZeroedStatusMask = XAES_KEY_ZEROED_STATUS_AES_KEY_MASK;
+	} else if (KeySrc < XASU_AES_MAX_KEY_SOURCES) {
+		KeyClearMask = AesKeyLookupTbl[KeySrc].KeyClearVal;
+		ZeroedStatusMask = AesKeyLookupTbl[KeySrc].KeyZeroedStatusMask;
+	} else {
 		Status = XASUFW_AES_INVALID_PARAM;
 		goto END;
 	}
 
-	/** Get the keyclear and zeroedstatus masks based on KeySrc. */
-	if (KeySrc == XASU_AES_EXPANDED_KEYS) {
-		KeyClearMask = XAES_KEY_CLR_AES_KEY_ZEROIZE_MASK;
-		ZeroedStatusMask = XAES_KEY_ZEROED_STATUS_AES_KEY_MASK;
-	} else if (AesKeyLookupTbl[KeySrc].KeyClearVal != XAES_INVALID_CFG) {
-		KeyClearMask = AesKeyLookupTbl[KeySrc].KeyClearVal;
-		ZeroedStatusMask = AesKeyLookupTbl[KeySrc].KeyZeroedStatusMask;
-	} else {
+	/**
+	 * As a glitch/fault-injection safeguard, verify KeyClearMask and ZeroedStatusMask are
+	 * non-zero before clearing the key.
+	 */
+	if ((KeyClearMask == 0U) || (ZeroedStatusMask == 0U)) {
 		Status = XASUFW_AES_INVALID_PARAM;
 		goto END;
 	}

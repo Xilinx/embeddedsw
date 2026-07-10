@@ -376,7 +376,6 @@ END:
  * @return
  * 	- XASUFW_SUCCESS, if AES operation is successful.
  * 	- XASUFW_OCP_UDE_KEK_GEN_FAIL, if UDE KEK generation fails.
- * 	- XASUFW_OCP_UDE_PUF_KEK_GEN_FAIL, if PUF KEK generation was not successful.
  * 	- XASUFW_OCP_UDE_KEK_NOT_PRESENT, if generated UDE KEK buffer is all zeros.
  * 	- XASUFW_OCP_AES_WRITE_KEY_FAILURE, if AES write key fails.
  * 	- Error codes from AES, if AES operation fails.
@@ -392,17 +391,11 @@ static s32 XOcp_AesCompute(XAsufw_Dma *DmaPtr, u64 IvAddr, u64 InAddr, u64 OutAd
 	XAes *AesInstancePtr = XAes_GetInstance(XASU_XAES_0_DEVICE_ID);
 	XFih_Var XFihUde = XFih_VolatileAssignXfihVar(XFIH_FAILURE);
 	u8 UdeKek[XOCP_UDE_KEK_SIZE_IN_BYTES] = {0U};
-	u32 PufKekStatus = XAsufw_GetPufKekGenStatus();
 
-	/** Generate UDE KEK on-demand if PUF KEK generation is successful. */
-	if (PufKekStatus == XASUFW_PUF_KEK_GEN_SUCCESS) {
-		Status = XOcp_GenerateUdeKek(DmaPtr, AesInstancePtr, UdeKek);
-		if (Status != XASUFW_SUCCESS) {
-			Status = XAsufw_UpdateErrorStatus(Status, XASUFW_OCP_UDE_KEK_GEN_FAIL);
-			goto END;
-		}
-	} else {
-		Status = XASUFW_OCP_UDE_PUF_KEK_GEN_FAIL;
+	/** Generate UDE KEK on-demand. */
+	Status = XOcp_GenerateUdeKek(DmaPtr, AesInstancePtr, UdeKek);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_OCP_UDE_KEK_GEN_FAIL);
 		goto END;
 	}
 
