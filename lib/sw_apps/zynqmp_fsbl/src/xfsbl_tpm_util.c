@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
  ******************************************************************************/
 
@@ -20,6 +20,8 @@
 * 1.00  bsv  04/01/21 Initial release
 * 2.00  sd   04/25/25 Fix incorrect TPM initialization
 *       pre  10/23/25 Fixed bug in TPM command transmission
+*       pre  06/26/26 Fixed RxLen variable size in XTpm_DataTransfer function
+*                     to avoid data loss
 *
 * </pre>
 *
@@ -134,7 +136,7 @@ u32 XFsbl_TpmAccessSet(u8 Access)
 * @return	XFSBL_SUCCESS if successful, else error code.
 *
 ******************************************************************************/
-static inline u32 XFsbl_TpmFifoRead(u8* DataPtr, u8 ByteCount)
+static inline u32 XFsbl_TpmFifoRead(u8* DataPtr, u16 ByteCount)
 {
 	u32 Status = XFSBL_FAILURE;
 
@@ -155,7 +157,7 @@ static inline u32 XFsbl_TpmFifoRead(u8* DataPtr, u8 ByteCount)
 * @return	XFSBL_SUCCESS if successful, else error code.
 *
 ******************************************************************************/
-static inline u32 XFsbl_TpmFifoWrite(u8* DataPtr, u8 ByteCount)
+static inline u32 XFsbl_TpmFifoWrite(u8* DataPtr, u16 ByteCount)
 {
 	u32 Status = XFSBL_FAILURE;
 
@@ -233,7 +235,7 @@ u32 XFsbl_TpmDataTransfer(u8* TxBuf, u8* RxBuf, u16 Txlen)
 {
 	u32 Status = XFSBL_FAILURE;
 	u8 StatusVal = 0U;
-	u16 RxLen;
+	u32 RxLen;
 
 	/* Set command ready request */
 	Status = XFsbl_TpmStatusSet(XFSBL_TPM_STS_CMD_READY);
@@ -277,17 +279,18 @@ u32 XFsbl_TpmDataTransfer(u8* TxBuf, u8* RxBuf, u16 Txlen)
 		goto END;
 	}
 
-	RxLen = RxBuf[XFSBL_TPM_DATA_SIZE_INDEX];
+	RxLen = ((u32)RxBuf[XFSBL_TPM_DATA_SIZE_BYTE0_INDEX] | ((u32)RxBuf[XFSBL_TPM_DATA_SIZE_BYTE1_INDEX] << 8U) |
+		((u32)RxBuf[XFSBL_TPM_DATA_SIZE_BYTE2_INDEX] << 16U) | ((u32)RxBuf[XFSBL_TPM_DATA_SIZE_BYTE3_INDEX] << 24U));
 	if (RxLen > XFSBL_TPM_RESP_MAX_SIZE) {
 		Status = XFSBL_FAILURE;
 		goto END;
 	}
 
-	if (RxBuf[XFSBL_TPM_DATA_SIZE_INDEX] > XFSBL_TPM_RX_HEAD_SIZE)
+	if (RxLen > XFSBL_TPM_RX_HEAD_SIZE)
 	{
-		RxLen = RxBuf[XFSBL_TPM_DATA_SIZE_INDEX] - XFSBL_TPM_RX_HEAD_SIZE;
+		RxLen = RxLen - XFSBL_TPM_RX_HEAD_SIZE;
 		Status = XFsbl_TpmFifoRead(&RxBuf[XFSBL_TPM_RX_HEAD_SIZE],
-			RxLen);
+			(u16)RxLen);
 		if (Status != XFSBL_SUCCESS) {
 			goto END;
 		}

@@ -20,6 +20,7 @@
 * 1.00  bsv  04/01/21 Initial release
 * 2.00  sd   04/25/25 Fix incorrect TPM initialization
 *       sd   01/08/25 Add PCR indices for partitions missing in the boot image
+*       pre  06/26/26 Added byte index macros for data size field in PCR event command
 *
 * </pre>
 *
@@ -64,7 +65,10 @@ extern "C" {
 #define XFSBL_TPM_TRUSTED_APP_PCR_INDEX	(18U)
 #define XFSBL_TPM_RPU0_PCR_INDEX		(19U)
 #define XFSBL_TPM_RPU1_PCR_INDEX		(20U)
-#define XFSBL_TPM_DATA_SIZE_INDEX		(5U)
+#define XFSBL_TPM_DATA_SIZE_BYTE3_INDEX  (2U) /**< Index for data size byte 3 in PCR event TPM command */
+#define XFSBL_TPM_DATA_SIZE_BYTE2_INDEX  (3U) /**< Index for data size byte 2 in PCR event TPM command */
+#define XFSBL_TPM_DATA_SIZE_BYTE1_INDEX  (4U) /**< Index for data size byte 1 in PCR event TPM command */
+#define XFSBL_TPM_DATA_SIZE_BYTE0_INDEX  (5U) /**< Index for data size byte 0 in PCR event TPM command */
 #define XFSBL_TPM_PCR_EXTEND_INDEX		(13U)
 #define XFSBL_EL0_VAL			(0U)
 #define XFSBL_EL1_VAL			(2U)

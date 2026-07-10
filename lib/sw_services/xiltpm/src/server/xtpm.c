@@ -23,6 +23,7 @@
 *       pre  03/16/26 Added PCR reading support in TPM
 *       pre  03/21/26 Implemented GetPcrLog feature to fetch PCR event log from TPM
 *       pre  04/22/26 Addition of access retry mechanism in case of TPM being busy
+* 1.3   pre  06/26/26 Renamed macro 'XTPM_DATA_SIZE_INDEX' to 'XTPM_DATA_SIZE_BYTE0_INDEX'
 *
 * </pre>
 *
@@ -224,7 +225,7 @@ u32 XTpm_StartUp(void)
 	 * Returns XST_SUCCESS on success. Otherwise, returns error code.
 	 */
 	Status = XTpm_DataTransfer(TpmStartup, TpmRespBuffer,
-		TpmStartup[XTPM_DATA_SIZE_INDEX]);
+		TpmStartup[XTPM_DATA_SIZE_BYTE0_INDEX]);
 
 	return Status;
 }
@@ -254,7 +255,7 @@ u32 XTpm_SelfTest(void)
 	 * Returns XST_SUCCESS on success. Otherwise, returns error code.
 	 */
 	Status = XTpm_DataTransfer(TpmSelfTest, TpmRespBuffer,
-		TpmSelfTest[XTPM_DATA_SIZE_INDEX]);
+		TpmSelfTest[XTPM_DATA_SIZE_BYTE0_INDEX]);
 
 	return Status;
 }
@@ -283,7 +284,7 @@ static u32 XTpm_GetCap(void)
 	};
 
 	/** - Sends get capability command to TPM and gets response. */
-	Status = XTpm_DataTransfer(TpmGetCap, TpmRespBuffer, TpmGetCap[XTPM_DATA_SIZE_INDEX]);
+	Status = XTpm_DataTransfer(TpmGetCap, TpmRespBuffer, TpmGetCap[XTPM_DATA_SIZE_BYTE0_INDEX]);
 	/** - If the command is not successful, returns error code */
 	if (Status != (u32)XST_SUCCESS) {
 		goto END;
@@ -429,7 +430,7 @@ u32 XTpm_Event(u32 PcrIndex, u16 size, const u8 *data)
 	/* Validate PCR Index */
 	if (PcrIndex < XTPM_MAX_PCR_CNT) {
 		XPlmi_Printf(DEBUG_INFO, "Sending PCR_Event to PCR #%d\r\n", PcrIndex);
-		TpmPcrEvent[XTPM_DATA_SIZE_INDEX] = (u8)(XTPM_PCR_EVENT_CMD_SIZE + size);
+		TpmPcrEvent[XTPM_DATA_SIZE_BYTE0_INDEX] = (u8)(XTPM_PCR_EVENT_CMD_SIZE + size);
 		TpmPcrEvent[XTPM_PCR_EXTEND_INDEX] = (u8)PcrIndex;
 		 /* Update command size in command buffer */
 		TpmPcrEvent[XTPM_PCR_EVENT_SIZE_INDEX] = (u8)size;

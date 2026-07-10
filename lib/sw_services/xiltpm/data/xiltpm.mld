@@ -10,6 +10,7 @@
 # 1.1   Pre  08/25/25 Did enhancements needed
 # 1.2   Pre  01/16/26 Updated comments for RTF documentation
 #       Pre  03/13/26 Updated description
+# 1.3   Pre  06/26/26 Updated version
 #
 ##############################################################################
 
@@ -22,7 +23,7 @@ BEGIN LIBRARY xiltpm
   OPTION REQUIRES_OS = (standalone);
   OPTION APP_LINKER_FLAGS = "-Wl,--start-group,-lxiltpm,-lxil,-lgcc,-lc,--end-group";
   OPTION desc = "Xilinx TPM library. Supported for Versal and Versal_2VE_2VM only";
-  OPTION VERSION = 1.2;
+  OPTION VERSION = 1.3;
   OPTION NAME = xiltpm;
   PARAM name = xtpm_mode, desc = "Enables server mode for PMC and client mode for APU, RPU and Microblaze", type = enum, values = (mode = "client", mode = "server"), default = "server";
   PARAM name = xtpm_cache_disable, desc = "Enables/Disables Cache for XilTpm client library", type = bool, default = true;

@@ -21,6 +21,8 @@
 *       pre  10/23/25 Fixed bug in TPM command transmission
 * 1.2   pre  01/16/25 Updated comments for RTF documentation
 *       pre  03/13/26 Added support to change TPM interface layer as per customer requirement
+* 1.3   pre  06/26/26 Removed dead code and fixed RxLen variable size in XTpm_DataTransfer function
+*                     to avoid data loss
 *
 * </pre>
 *
@@ -178,7 +180,7 @@ u32 XTpm_AccessSet(u8 Access)
  * 			- Error code if read fails
  *
  ******************************************************************************/
-static inline u32 XTpm_FifoRead(u8* DataPtr, u8 ByteCount)
+static inline u32 XTpm_FifoRead(u8* DataPtr, u16 ByteCount)
 {
 	return XTpm_Transfer(XTPM_DATA_FIFO, NULL, DataPtr, ByteCount);
 }
@@ -195,7 +197,7 @@ static inline u32 XTpm_FifoRead(u8* DataPtr, u8 ByteCount)
  * 			- Error code if write fails
  *
  ******************************************************************************/
-static inline u32 XTpm_FifoWrite(const u8* DataPtr, u8 ByteCount)
+static inline u32 XTpm_FifoWrite(const u8* DataPtr, u16 ByteCount)
 {
 	return XTpm_Transfer(XTPM_DATA_FIFO, DataPtr, NULL, ByteCount);
 }
@@ -303,7 +305,7 @@ u32 XTpm_DataTransfer(const u8* TxBuf, u8* RxBuf, u16 Txlen)
 {
 	u32 Status = (u32)XST_FAILURE;
 	u8 StatusVal = 0U;
-	u16 RxLen;
+	u32 RxLen;
 
 	/** - Sets command ready request. Returns XTPM_ERR_SET_ACCESS error in case of failure */
 	Status = XTpm_StatusSet(XTPM_STS_CMD_READY);
@@ -322,7 +324,7 @@ u32 XTpm_DataTransfer(const u8* TxBuf, u8* RxBuf, u16 Txlen)
 	} while ((StatusVal & XTPM_STS_CMD_READY) == 0U);
 
 	/** - Writes Data to device. Returns XTPM_ERR_SPIPS_FIFO_WRITE error in case of failure */
-	Status = XTpm_FifoWrite(TxBuf, (u8)Txlen);
+	Status = XTpm_FifoWrite(TxBuf, Txlen);
 	if (Status != (u32)XST_SUCCESS) {
 		Status = (u32)XTPM_ERR_SPIPS_FIFO_WRITE;
 		goto END;
@@ -357,8 +359,9 @@ u32 XTpm_DataTransfer(const u8* TxBuf, u8* RxBuf, u16 Txlen)
 	}
 
 	/* Reads received response length */
-	RxLen = RxBuf[XTPM_DATA_SIZE_INDEX];
-	if (RxLen > (u16)XTPM_RESP_MAX_SIZE) {
+	RxLen = ((u32)RxBuf[XTPM_DATA_SIZE_BYTE0_INDEX] | ((u32)RxBuf[XTPM_DATA_SIZE_BYTE1_INDEX] << 8U) |
+		((u32)RxBuf[XTPM_DATA_SIZE_BYTE2_INDEX] << 16U) | ((u32)RxBuf[XTPM_DATA_SIZE_BYTE3_INDEX] << 24U));
+	if (RxLen > (u32)XTPM_RESP_MAX_SIZE) {
 		Status = (u32)XST_FAILURE;
 		goto END;
 	}
@@ -367,10 +370,10 @@ u32 XTpm_DataTransfer(const u8* TxBuf, u8* RxBuf, u16 Txlen)
 	 * - Reads received response data. Returns XST_SUCCESS if
 	 * successful and XTPM_ERR_SPIPS_FIFO_READ in case of failure
 	 */
-	if (RxBuf[XTPM_DATA_SIZE_INDEX] > XTPM_RX_HEAD_SIZE) {
-		RxLen = ((u16)RxBuf[XTPM_DATA_SIZE_INDEX] - (u16)XTPM_RX_HEAD_SIZE);
+	if (RxLen > XTPM_RX_HEAD_SIZE) {
+		RxLen = RxLen - (u32)XTPM_RX_HEAD_SIZE;
 		Status = XTpm_FifoRead(&RxBuf[XTPM_RX_HEAD_SIZE],
-			(u8)RxLen);
+			(u16)RxLen);
 		if (Status != (u32)XST_SUCCESS) {
 			Status = (u32)XTPM_ERR_SPIPS_FIFO_READ;
 		}
@@ -452,12 +455,8 @@ u32 XTpm_Transfer(u16 Address, const u8 *TxBuf, u8 *RxBuf, u16 Len)
 		}
 		Length -= TranLen;
 	}
-	if (Length == 0U) {
-		Status = (u32)XST_SUCCESS;
-	}
-	else {
-		Status = (u32)XTPM_ERR_SPIPS_TRANSFER;
-	}
+
+	Status = (u32)XST_SUCCESS;
 
 END:
 	return Status;

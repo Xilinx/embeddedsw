@@ -21,6 +21,7 @@
  *       pre  03/13/26 Added support to change TPM interface layer as per customer requirement
  *       pre  03/16/26 Added PCR reading support in TPM
  *       pre  03/21/26 Implemented GetPcrLog feature to fetch PCR event log from TPM
+ * 1.3   pre  06/26/26 Added byte index macros for data size field in PCR event command
  *
  * </pre>
  *
@@ -51,7 +52,10 @@ extern "C" {
 /***************** Macros (Inline Functions) Definitions *********************/
 #define XTPM_TPM_ROM_PCR_INDEX		(0U) /**< TPM PCR index for ROM measurement */
 #define XTPM_TPM_PLM_PCR_INDEX		(1U) /**< TPM PCR index for PLM measurement */
-#define XTPM_DATA_SIZE_INDEX		(5U) /**< Index for data size in PCR event command */
+#define XTPM_DATA_SIZE_BYTE3_INDEX  (2U) /**< Index for data size byte 3 in PCR event TPM command */
+#define XTPM_DATA_SIZE_BYTE2_INDEX  (3U) /**< Index for data size byte 2 in PCR event TPM command */
+#define XTPM_DATA_SIZE_BYTE1_INDEX  (4U) /**< Index for data size byte 1 in PCR event TPM command */
+#define XTPM_DATA_SIZE_BYTE0_INDEX  (5U) /**< Index for data size byte 0 in PCR event TPM command */
 #define XTPM_DATA_WORD_LENGTH		(4U) /**< Data word length in bytes */
 #define XTPM_ACCESS_TX_LENGTH		(1U) /**< Access command transmit length */
 #define XTPM_PCR_EXTEND_INDEX		(13U) /**< Index for PCR number in PCR event command */

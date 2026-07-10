@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
  ******************************************************************************/
 
@@ -19,6 +19,7 @@
 * ----- ---- -------- -------------------------------------------------------
 * 1.00  bsv  04/01/21 Initial release
 * 2.00  sd   04/25/25 Fix incorrect TPM initialization
+*       pre  06/26/26 Renamed macro 'XFSBL_TPM_DATA_SIZE_INDEX' to 'XFSBL_TPM_DATA_SIZE_BYTE0_INDEX'
 *
 * </pre>
 *
@@ -126,7 +127,7 @@ static u32 XFsbl_TpmStartUp(void)
 	};
 
 	Status = XFsbl_TpmDataTransfer(TpmStartup, TpmRespBuffer,
-		TpmStartup[XFSBL_TPM_DATA_SIZE_INDEX]);
+		TpmStartup[XFSBL_TPM_DATA_SIZE_BYTE0_INDEX]);
 
 	return Status;
 }
@@ -151,7 +152,7 @@ static u32 XFsbl_TpmSelfTest(void)
 	};
 
 	Status = XFsbl_TpmDataTransfer(TpmSelfTest, TpmRespBuffer,
-		TpmSelfTest[XFSBL_TPM_DATA_SIZE_INDEX]);
+		TpmSelfTest[XFSBL_TPM_DATA_SIZE_BYTE0_INDEX]);
 
 	return Status;
 }
@@ -177,7 +178,7 @@ static u32 XFsbl_TpmGetCap(void)
 	};
 
 	Status = XFsbl_TpmDataTransfer(TpmGetCap, TpmRespBuffer,
-		TpmGetCap[XFSBL_TPM_DATA_SIZE_INDEX]);
+		TpmGetCap[XFSBL_TPM_DATA_SIZE_BYTE0_INDEX]);
 
 	return Status;
 
@@ -247,7 +248,7 @@ u32 XFsbl_TpmMeasureRom(void)
 		ShaData[Index++] = Xil_In32(RegVal);
 	}
 
-	TpmPcrExtend[XFSBL_TPM_DATA_SIZE_INDEX] = XFSBL_TPM_PCR_EXT_CMD_SIZE +
+	TpmPcrExtend[XFSBL_TPM_DATA_SIZE_BYTE0_INDEX] = XFSBL_TPM_PCR_EXT_CMD_SIZE +
 		XFSBL_TPM_DIGEST_SIZE;
 	(void)XFsbl_MemCpy(&TpmPcrExtend[XFSBL_TPM_PCR_EXT_CMD_SIZE], (u8 *)ShaData,
 		XFSBL_TPM_DIGEST_SIZE);
@@ -296,7 +297,7 @@ u32 XFsbl_TpmMeasurePartition(u8 PcrIndex, u8* PartitionHash)
 	u8 TpmRespBuffer[XFSBL_TPM_RESP_MAX_SIZE + XFSBL_TPM_TX_HEAD_SIZE] =
 		{0U};
 
-	TpmPcrExtend[XFSBL_TPM_DATA_SIZE_INDEX] = XFSBL_TPM_PCR_EXT_CMD_SIZE +
+	TpmPcrExtend[XFSBL_TPM_DATA_SIZE_BYTE0_INDEX] = XFSBL_TPM_PCR_EXT_CMD_SIZE +
 		XFSBL_TPM_DIGEST_SIZE;
 	TpmPcrExtend[XFSBL_TPM_PCR_EXTEND_INDEX] = PcrIndex;
 	(void)XFsbl_MemCpy((void *)&TpmPcrExtend[XFSBL_TPM_PCR_EXT_CMD_SIZE],
@@ -354,7 +355,7 @@ u32 XFsbl_TpmEvent(u32 PcrIndex, u16 Size, u8 *Data, u8 *Response)
 
 	if (PcrIndex < XFSBL_TPM_MAX_INDEX) {
 			XFsbl_Printf(DEBUG_INFO, "Sending PCR_Event to PCR #%d\r\n", PcrIndex);
-			TpmPcrEvent[XFSBL_TPM_DATA_SIZE_INDEX] = (u8)(XFSBL_TPM_PCR_EVENT_CMD_SIZE + Size);
+			TpmPcrEvent[XFSBL_TPM_DATA_SIZE_BYTE0_INDEX] = (u8)(XFSBL_TPM_PCR_EVENT_CMD_SIZE + Size);
 			TpmPcrEvent[XFSBL_TPM_PCR_EXTEND_INDEX] = (u8)PcrIndex;
 			/* Add the digest to the data structure */
 			CmdPtr += XFSBL_TPM_PCR_EVENT_CMD_SIZE;
@@ -427,7 +428,7 @@ static u32 XFsbl_TpmPcrReadIndex(u8 PcrIndex, u8 HashAlg)
 
 	TpmPcrRead[XFSBL_TPM_PCR_SELECT_OFFSET + (PcrIndex / XFSBL_TPM_DIVD_VAL)] = (1U << (PcrIndex % XFSBL_TPM_DIVD_VAL));
 
-	Status = XFsbl_TpmDataTransfer( TpmPcrRead, ResponseBuf, TpmPcrRead[XFSBL_TPM_DATA_SIZE_INDEX]);
+	Status = XFsbl_TpmDataTransfer( TpmPcrRead, ResponseBuf, TpmPcrRead[XFSBL_TPM_DATA_SIZE_BYTE0_INDEX]);
 	if (Status != XFSBL_SUCCESS) {
 		goto END;
 	}
