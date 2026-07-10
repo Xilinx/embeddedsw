@@ -59,6 +59,7 @@
 * 5.3   ng     01/28/24 Added SDT support
 * 5.4   kpt    06/13/24 Add AES key wrap with padding support
 * 5.7   tvp    04/04/26 Wait for RSA key pair to be available
+* 5.8   vss    06/25/26 Added cache flush/invalidate before client-server IPI calls
 *
 * </pre>
 ******************************************************************************/
@@ -280,12 +281,22 @@ int main(void)
 
 	xil_printf("\r\n RSA key pair is ready. \r\n");
 
+#ifndef XSECURE_CACHE_DISABLE
+	Xil_DCacheFlushRange((UINTPTR)&KeyWrapBuf, sizeof(KeyWrapBuf));
+	Xil_DCacheInvalidateRange((UINTPTR)Signature, XSECURE_ECC_SIGN_TOTAL_LEN);
+#endif
+
 	Status = XOcp_ClientAttestWithKeyWrapDevAk(&OcpClientInstance, (u64)(UINTPTR)&KeyWrapBuf, sizeof(KeyWrapBuf),
 			 XSECURE_KEY_WRAP_PUB_KEY_OFFSET, (u64)(UINTPTR)Signature);
 	if (Status != XST_SUCCESS) {
 		xil_printf("\r\n Attest and get RSA public key failed with status:%02x",Status);
 		goto END;
 	}
+
+#ifndef XSECURE_CACHE_DISABLE
+	Xil_DCacheInvalidateRange((UINTPTR)Signature, XSECURE_ECC_SIGN_TOTAL_LEN);
+	Xil_DCacheInvalidateRange((UINTPTR)&KeyWrapBuf, sizeof(KeyWrapBuf));
+#endif
 
 	xil_printf("\r\n Attestation signature using keywrap DevAK:");
 	xil_printf("\r\n Signature R:");
@@ -322,6 +333,13 @@ int main(void)
 		goto END;
 	}
 
+#ifndef XSECURE_CACHE_DISABLE
+	Xil_DCacheFlushRange((UINTPTR)KeyWrapBuf.PubKey,
+			XSECURE_RSA_KEY_GEN_SIZE_IN_BYTES + XSECURE_RSA_PUB_EXP_SIZE);
+	Xil_DCacheFlushRange((UINTPTR)RsaEncodedData, XSECURE_RSA_KEY_GEN_SIZE_IN_BYTES);
+	Xil_DCacheInvalidateRange((UINTPTR)WrappedKey, XSECURE_RSA_KEY_GEN_SIZE_IN_BYTES);
+#endif
+
 	/* Wrap ephemeral key with RSA public key */
 	Status = XSecure_RsaPublicEncrypt(&SecureClientInstance, (UINTPTR)KeyWrapBuf.PubKey, (UINTPTR)RsaEncodedData,
 			XSECURE_RSA_KEY_GEN_SIZE_IN_BYTES, (UINTPTR)WrappedKey);
@@ -329,6 +347,10 @@ int main(void)
 		xil_printf("\r\nFailed at RSA signature encryption\n\r");
 		goto END;
 	}
+
+#ifndef XSECURE_CACHE_DISABLE
+	Xil_DCacheInvalidateRange((UINTPTR)WrappedKey, XSECURE_RSA_KEY_GEN_SIZE_IN_BYTES);
+#endif
 
 	xil_printf("\r\n Wrapped Key:");
 	XSecure_PrintData(WrappedKey, XSECURE_RSA_KEY_GEN_SIZE_IN_BYTES);
@@ -346,6 +368,13 @@ int main(void)
 	KeyWrapData.TotalWrappedKeySize = XSECURE_RSA_KEY_GEN_SIZE_IN_BYTES + XSECURE_AES_CMK_SIZE_IN_BYTES;
 	KeyWrapData.KeyMetaData.KeyOp = XSECURE_ENC_OP;
 	KeyWrapData.KeyMetaData.AesKeySize = XSECURE_AES_CMK_SIZE_IN_BYTES;
+
+#ifndef XSECURE_CACHE_DISABLE
+	Xil_DCacheFlushRange((UINTPTR)WrappedKey, KeyWrapData.TotalWrappedKeySize);
+	Xil_DCacheFlushRange((UINTPTR)&KeyWrapData, sizeof(KeyWrapData));
+	Xil_DCacheFlushRange((UINTPTR)(XSECURE_KEY_SLOT_ADDR + XSECURE_SHARED_KEY_STORE_SIZE_OFFSET), sizeof(u32));
+#endif
+
 	Status = XSecure_KeyUnwrap(&SecureClientInstance, &KeyWrapData);
 END:
 	if (Status != XST_SUCCESS) {
