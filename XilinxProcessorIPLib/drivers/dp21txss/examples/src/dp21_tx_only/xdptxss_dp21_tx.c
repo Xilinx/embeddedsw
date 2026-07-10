@@ -31,9 +31,7 @@
 #include "xdptxss_dp21_tx.h"
 #include "xvidframe_crc.h"
 #include "xil_cache.h"
-#ifdef SDT
 #include "xinterrupt_wrap.h"
-#endif
 
 XTmrCtr TmrCtr;			/**< Timer instance */
 XIic_Config *ConfigPtr_IIC;     /**< Pointer to configuration data */
@@ -82,11 +80,7 @@ XIicPs_Config *XIic1Ps_ConfigPtr;
 #define PS_IIC_CLK 100000
 
 /************************** Function Prototypes ******************************/
-#ifndef SDT
-u32 DpTxSs_Main(u16 DeviceId);
-#else
 u32 DpTxSs_Main(UINTPTR BaseAddress);
-#endif
 u32 DpTxSs_PlatformInit(void);
 
 /*
@@ -101,11 +95,7 @@ void DpTxSs_ExtPkt_Handler(void *InstancePtr);
 void DpTxSs_Vblank_Handler(void *InstancePtr);
 
 u32 DpTxSs_SetupIntrSystem(void);
-#ifndef SDT
-u32 DpTxSs_PhyInit(u16 DeviceId);
-#else
 u32 DpTxSs_PhyInit(UINTPTR BaseAddress);
-#endif
 void DpTxSs_CustomWaitUs(void *InstancePtr, u32 MicroSeconds);
 void DpTxSs_Setup(u8 *LineRate_init, u8 *LaneCount_init, u8 Edid_org[128],
 		u8 Edid1_org[128]);
@@ -148,7 +138,7 @@ XVphy_ChannelId VPHY_TX_CHANNEL_TYPE = XVPHY_CHANNEL_ID_CMN1;
 #if defined (PLATFORM_MB) || defined (__riscv) /**< VCU118 (270Mhz on REFCLK0, 400Mhz on REFCLK1) */
 XVphy_PllRefClkSelType VPHY_TX_REFCLK_SEL_270 = XVPHY_REF_CLK_SEL_XPLL_GTREFCLK0;
 XVphy_PllRefClkSelType VPHY_TX_REFCLK_SEL_400 = XVPHY_REF_CLK_SEL_XPLL_GTREFCLK1;
-#else /**< ZCU102 (270Mhz on REFCLK0, 400Mhz on NORTHREFCLK0) */
+#else
 XVphy_PllRefClkSelType VPHY_TX_REFCLK_SEL_270 = XVPHY_REF_CLK_SEL_XPLL_GTREFCLK0;
 XVphy_PllRefClkSelType VPHY_TX_REFCLK_SEL_400 = XVPHY_REF_CLK_SEL_XPLL_GTNORTHREFCLK0;
 #endif
@@ -209,11 +199,7 @@ int main()
 	xil_printf("DisplayPort 2.x TX Subsystem Example Design\r\n");
 	xil_printf("(c) 2026 by AMD\r\n");
 	xil_printf("-------------------------------------------\r\n\r\n");
-#ifndef SDT
-	Status = DpTxSs_Main(XDPTXSS_DEVICE_ID);
-#else
 	Status = DpTxSs_Main(XPAR_DPTXSS_0_BASEADDR);
-#endif
 	if (Status != XST_SUCCESS) {
 		xil_printf("DisplayPort TX Subsystem interrupt example failed.\n");
 		return XST_FAILURE;
@@ -308,11 +294,7 @@ static int DpTxSs_ConfigAudioClock(u32 AudioClkHz)
  *		events.
  *
  ******************************************************************************/
-#ifndef SDT
-u32 DpTxSs_Main(u16 DeviceId)
-#else
 u32 DpTxSs_Main(UINTPTR BaseAddress)
-#endif
 {
 	u32 Status;
 	XDpTxSs_Config *ConfigPtr;
@@ -357,11 +339,7 @@ u32 DpTxSs_Main(UINTPTR BaseAddress)
 	 *
 	 * Obtain the device configuration for the DisplayPort TX Subsystem
 	 */
-#ifndef SDT
-	ConfigPtr = XDpTxSs_LookupConfig(DeviceId);
-#else
 	ConfigPtr = XDpTxSs_LookupConfig(BaseAddress);
-#endif
 	if (!ConfigPtr) {
 		return XST_FAILURE;
 	}
@@ -395,11 +373,7 @@ u32 DpTxSs_Main(UINTPTR BaseAddress)
 	/*
 	 * Setup Video Phy, left to the user for implementation
 	 */
-#ifndef SDT
-	DpTxSs_PhyInit(XVPHY_DEVICE_ID);
-#else
 	DpTxSs_PhyInit(XPAR_XVPHY_0_BASEADDR);
-#endif
 	DpTxSs_Setup(&LineRate_init, &LaneCount_init, Edid_org, Edid1_org);
 
 	/*
@@ -472,22 +446,6 @@ u32 DpTxSs_PlatformInit(void)
 
 	u32 Status;
 
-#ifndef SDT
-	/*
-	 * Initialize timer.
-	 */
-	Status = XTmrCtr_Initialize(&TmrCtr, XPAR_TMRCTR_0_DEVICE_ID);
-	if (Status != XST_SUCCESS) {
-		xil_printf("ERR:Timer failed to initialize. \r\n");
-		return XST_FAILURE;
-	}
-
-	/*
-	 * Set up timer options.
-	 */
-	XTmrCtr_SetResetValue(&TmrCtr, XTC_TIMER_0, TIMER_RESET_VALUE);
-	XTmrCtr_Start(&TmrCtr, XTC_TIMER_0);
-#else
 	/*
 	 * Initialize timer.
 	 */
@@ -502,14 +460,9 @@ u32 DpTxSs_PlatformInit(void)
 	 */
 	XTmrCtr_SetResetValue(&TmrCtr, XTC_TIMER_0, TIMER_RESET_VALUE);
 	XTmrCtr_Start(&TmrCtr, XTC_TIMER_0);
-#endif
 
 #if !defined (PLATFORM_MB) && !defined (__riscv)
-#ifndef SDT
-	XIic1Ps_ConfigPtr = XIicPs_LookupConfig(XPAR_XIICPS_1_DEVICE_ID);
-#else
 	XIic1Ps_ConfigPtr = XIicPs_LookupConfig(XPAR_XIICPS_1_BASEADDR);
-#endif
 	if (NULL == XIic1Ps_ConfigPtr)
 		return XST_FAILURE;
 
@@ -529,15 +482,9 @@ u32 DpTxSs_PlatformInit(void)
 	/*
 	 * Initialize the IIC driver so that it is ready to use.
 	 */
-#ifndef SDT
-	ConfigPtr_IIC = XIic_LookupConfig(IIC_DEVICE_ID);
-	if (ConfigPtr_IIC == NULL)
-		return XST_FAILURE;
-#else
 	ConfigPtr_IIC = XIic_LookupConfig(XPAR_XIIC_0_BASEADDR);
 	if (!ConfigPtr_IIC)
 		return XST_FAILURE;
-#endif
 	Status = XIic_CfgInitialize(&IicInstance, ConfigPtr_IIC,
 			ConfigPtr_IIC->BaseAddress);
 	if (Status != XST_SUCCESS)
@@ -591,108 +538,6 @@ void DpTxSs_SetUserCallBackHandlers(void)
  * @note		None.
  *
  ******************************************************************************/
-#ifndef SDT
-u32 DpTxSs_SetupIntrSystem(void)
-{
-	u32 Status;
-#if !defined (PLATFORM_MB) && !defined (__riscv)
-	XINTC *IntcInstPtr = &IntcInst;
-#else
-	XIntc *IntcInstPtr = &IntcInst;
-#endif
-
-	/*
-	 * Set user callbacks for all the interrupts
-	 */
-	DpTxSs_SetUserCallBackHandlers();
-
-#if !defined (PLATFORM_MB) && !defined (__riscv)
-	/*
-	 * The configuration parameters of the interrupt controller
-	 */
-	XScuGic_Config *IntcConfig;
-
-	/*
-	 * Initialize the interrupt controller driver so that it is ready to use.
-	 */
-	IntcConfig = XScuGic_LookupConfig(XINTC_DEVICE_ID);
-	if (NULL == IntcConfig)
-		return XST_FAILURE;
-
-	Status = XScuGic_CfgInitialize(IntcInstPtr, IntcConfig,
-			IntcConfig->CpuBaseAddress);
-	if (Status != XST_SUCCESS)
-		return XST_FAILURE;
-
-	/*
-	 * Connect the device driver handler that will be called when an
-	 * interrupt for the device occurs, the handler defined above performs
-	 * the specific interrupt processing for the device
-	 */
-	Status = XScuGic_Connect(IntcInstPtr, XINTC_DPTXSS_DP_INTERRUPT_ID,
-			(Xil_InterruptHandler)XDpTxSs_DpIntrHandler,
-			&DpTxSsInst);
-	if (Status != XST_SUCCESS) {
-		xil_printf("ERR: DP TX SS DP interrupt connect failed!\r\n");
-		return XST_FAILURE;
-	}
-
-	/*
-	 * Enable the interrupt
-	 */
-	XScuGic_Enable(IntcInstPtr, XINTC_DPTXSS_DP_INTERRUPT_ID);
-#else
-
-	/*
-	 * Initialize the interrupt controller driver so that it is ready to use.
-	 */
-	Status = XIntc_Initialize(IntcInstPtr, XINTC_DEVICE_ID);
-	if (Status != XST_SUCCESS)
-		return XST_FAILURE;
-
-	/*
-	 * Connect the device driver handler that will be called when an
-	 * interrupt for the device occurs, the handler defined above performs
-	 * the specific interrupt processing for the device
-	 */
-	Status = XIntc_Connect(IntcInstPtr, XINTC_DPTXSS_DP_INTERRUPT_ID,
-			(XInterruptHandler)XDpTxSs_DpIntrHandler,
-			&DpTxSsInst);
-	if (Status != XST_SUCCESS) {
-		xil_printf("ERR: DP TX SS DP interrupt connect failed!\r\n");
-		return XST_FAILURE;
-	}
-
-	/*
-	 * Enable the interrupt
-	 */
-	XIntc_Enable(IntcInstPtr, XINTC_DPTXSS_DP_INTERRUPT_ID);
-
-	Status = XIntc_Start(IntcInstPtr, XIN_REAL_MODE);
-	if (Status != XST_SUCCESS)
-		return XST_FAILURE;
-#endif
-
-	/*
-	 * Initialize the exception table.
-	 */
-	Xil_ExceptionInit();
-
-	/*
-	 * Register the interrupt controller handler with the exception
-	 * table.
-	 */
-	Xil_ExceptionRegisterHandler(XIL_EXCEPTION_ID_INT,
-			(Xil_ExceptionHandler)XINTC_HANDLER, IntcInstPtr);
-
-	/*
-	 * Enable exceptions.
-	 */
-	Xil_ExceptionEnable();
-
-	return (XST_SUCCESS);
-}
-#else
 u32 DpTxSs_SetupIntrSystem(void)
 {
 	u32 Status;
@@ -712,7 +557,6 @@ u32 DpTxSs_SetupIntrSystem(void)
 
 	return XST_SUCCESS;
 }
-#endif
 /*****************************************************************************/
 /**
  *
@@ -727,22 +571,14 @@ u32 DpTxSs_SetupIntrSystem(void)
  * @note		None.
  *
  ******************************************************************************/
-#ifndef SDT
-u32 DpTxSs_PhyInit(u16 DeviceId)
-#else
 u32 DpTxSs_PhyInit(UINTPTR BaseAddress)
-#endif
 {
 	XVphy_Config *ConfigPtr;
 
 	/*
 	 * Obtain the device configuration for the DisplayPort RX Subsystem
 	 */
-#ifndef SDT
-	ConfigPtr = XVphy_LookupConfig(DeviceId);
-#else
 	ConfigPtr = XVphy_LookupConfig(BaseAddress);
-#endif
 	if (!ConfigPtr)
 		return XST_FAILURE;
 
@@ -1016,11 +852,7 @@ void DpTxSs_CustomWaitUs(void *InstancePtr, u32 MicroSeconds)
 {
 	u32 TimerVal = 0, TimerVal_pre;
 	u32 NumTicks = (MicroSeconds * (
-#ifndef SDT
-				XPAR_PROCESSOR_SYSTEM_AXI_TIMER_0_CLOCK_FREQ_HZ / 1000000));
-#else
 	XPAR_PROCESSOR_SYSTEM_AXI_TIMER_0_CLOCK_FREQUENCY / 1000000));
-#endif
 	(void)InstancePtr;
 
 	XTmrCtr_Reset(&TmrCtr, 0);
@@ -1516,19 +1348,11 @@ void ClkWiz_Locked(void)
 	volatile u32 res;
 	u32 timer = 0;
 
-#ifndef SDT
-	res = XDp_ReadReg(XPAR_GPIO_0_BASEADDR, 0x0);
-#else
 	res = XDp_ReadReg(XPAR_XGPIO_0_BASEADDR, 0x0);
-#endif
 
 	while (res == 0 && timer < 1000) {
 		xil_printf("~/~/");
-#ifndef SDT
-		res = XDp_ReadReg(XPAR_GPIO_0_BASEADDR, 0x0);
-#else
 		res = XDp_ReadReg(XPAR_XGPIO_0_BASEADDR, 0x0);
-#endif
 
 		timer++;	/**< timer for timeout. No need to be specific time. As long as long enough to wait lock */
         }

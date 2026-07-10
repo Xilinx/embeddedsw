@@ -20,9 +20,7 @@
  *******************************************************************************/
 
 #include "xparameters.h"
-#ifdef SDT
 #include "bspconfig.h"
-#endif
 
 #if !defined (PLATFORM_MB) && !defined (__riscv)
 #include "xiicps.h"
