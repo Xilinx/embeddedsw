@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2015 - 2023 Xilinx, Inc. All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -62,29 +62,6 @@
 * @note		None.
 *
 ******************************************************************************/
-#ifndef SDT
-XDpRxSs_Config *XDpRxSs_LookupConfig(u16 DeviceId)
-{
-	extern XDpRxSs_Config XDpRxSs_ConfigTable[XPAR_XDPRXSS_NUM_INSTANCES];
-	XDpRxSs_Config *CfgPtr = NULL;
-	u32 Index;
-
-	/* Checking for device id for which instance it is matching */
-	for (Index = (u32)0x0; Index < (u32)(XPAR_XDPRXSS_NUM_INSTANCES);
-								Index++) {
-
-		/* Assigning address of config table if both device ids
-		 * are matched
-		 */
-		if (XDpRxSs_ConfigTable[Index].DeviceId == DeviceId) {
-			CfgPtr = &XDpRxSs_ConfigTable[Index];
-			break;
-		}
-	}
-
-	return (XDpRxSs_Config *)CfgPtr;
-}
-#else
 XDpRxSs_Config *XDpRxSs_LookupConfig(UINTPTR BaseAddress)
 {
 	extern XDpRxSs_Config XDpRxSs_ConfigTable[XPAR_XDPRXSS_NUM_INSTANCES];
@@ -107,8 +84,6 @@ XDpRxSs_Config *XDpRxSs_LookupConfig(UINTPTR BaseAddress)
 
 	return (XDpRxSs_Config *)CfgPtr;
 }
-#endif
-#ifdef SDT
 /*****************************************************************************/
 /**
 * This function returns the Index number of config table using BaseAddress.
@@ -132,5 +107,4 @@ u32 XDpRxSs_GetDrvIndex(UINTPTR BaseAddress)
     }
     return Index;
 }
-#endif
 /** @} */

@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2015 - 2020 Xilinx, Inc. All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -42,9 +42,6 @@
 /* The unique device ID of the DisplayPort Receiver Subsystem HIP instance
  * to be used
  */
-#ifndef SDT
-#define XDPRXSS_DEVICE_ID		XPAR_DPRXSS_0_DEVICE_ID
-#endif
 /***************** Macros (Inline Functions) Definitions *********************/
 
 
@@ -52,11 +49,7 @@
 
 
 /************************** Function Prototypes ******************************/
-#ifndef SDT
-u32 DpRxSs_SelfTestExample(u16 DeviceId);
-#else
 u32 DpRxSs_SelfTestExample(UINTPTR BaseAddress);
-#endif
 
 /************************** Variable Definitions *****************************/
 
@@ -87,11 +80,7 @@ int main()
 	xil_printf("DisplayPort RX Subsystem self test example\n\r");
 	xil_printf("(c) 2015 by Xilinx\n\r");
 	xil_printf("---------------------------------\n\r\n\r");
-#ifndef SDT
-	Status = DpRxSs_SelfTestExample(XDPRXSS_DEVICE_ID);
-#else
 	Status = DpRxSs_SelfTestExample(XPAR_DPRXSS_0_BASEADDR);
-#endif
 	if (Status != XST_SUCCESS) {
 		xil_printf("DisplayPort RX Subsystem self test example failed\n\r");
 		return XST_FAILURE;
@@ -121,21 +110,13 @@ int main()
 * @note		None.
 *
 ******************************************************************************/
-#ifndef SDT
-u32 DpRxSs_SelfTestExample(u16 DeviceId)
-#else
 u32 DpRxSs_SelfTestExample(UINTPTR BaseAddress)
-#endif
 {
 	u32 Status;
 	XDpRxSs_Config *ConfigPtr;
 
 	/* Obtain the device configuration for the DisplayPort RX Subsystem */
-#ifndef SDT
-	ConfigPtr = XDpRxSs_LookupConfig(DeviceId);
-#else
 	ConfigPtr = XDpRxSs_LookupConfig(BaseAddress);
-#endif
 	if (!ConfigPtr) {
 		return XST_FAILURE;
 	}

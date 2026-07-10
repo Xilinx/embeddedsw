@@ -361,13 +361,8 @@ typedef struct {
 * DpRxSs subcore instances.
 */
 typedef struct {
-#ifndef SDT
-	u16 DeviceId;	/**< Device ID of the sub-core */
-	UINTPTR AbsAddr;/**< Absolute Base Address of the Sub-cores*/
-#else
 	char *Name;
     UINTPTR BaseAddress;
-#endif
 } XDpRxSs_SubCoreConfig;
 
 typedef struct {
@@ -411,12 +406,7 @@ typedef struct
 * a configuration structure associated.
 */
 typedef struct {
-#ifndef SDT
-	u16 DeviceId;		/**< DeviceId is the unique ID of the
-				  *  DisplayPort RX Subsystem core */
-#else
     char *Name;
-#endif
 	UINTPTR BaseAddress;	/**< BaseAddress is the physical base address
 				  *  of the core's registers */
 	u8 SecondaryChEn;	/**< This Subsystem core supports audio packets
@@ -447,10 +437,8 @@ typedef struct {
 	XDpRxSs_DpSubCore DpSubCore;	/**< DisplayPort Configuration */
 	XDpRxSs_Hdcp1xSubCore Hdcp1xSubCore;	/**< HDCP Configuration */
 	XDpRxSs_Hdcp22SubCore Hdcp22SubCore;
-#ifdef SDT
 	u32 IntrId[5];
 	UINTPTR IntrParent;
-#endif
 } XDpRxSs_Config;
 
 /*****************************************************************************/
@@ -693,13 +681,8 @@ typedef struct {
 #endif
 
 /************************** Function Prototypes ******************************/
-#ifndef SDT
-/* Initialization function in xdprxss_sinit.c */
-XDpRxSs_Config* XDpRxSs_LookupConfig(u16 DeviceId);
-#else
 XDpRxSs_Config *XDpRxSs_LookupConfig(UINTPTR BaseAddress);
 u32 XDpRxSs_GetDrvIndex(UINTPTR BaseAddress);
-#endif
 /* Initialization and control functions in xdprxss.c */
 u32 XDpRxSs_CfgInitialize(XDpRxSs *InstancePtr, XDpRxSs_Config *CfgPtr,
 				UINTPTR EffectiveAddr);

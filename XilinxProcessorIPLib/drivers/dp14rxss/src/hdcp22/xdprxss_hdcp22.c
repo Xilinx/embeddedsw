@@ -623,17 +623,10 @@ int XDpRxSs_SubcoreInitHdcp22(void *InstancePtr)
 
 		/* Are the keys loaded? */
 		if (DpRxSsPtr->Hdcp22Lc128Ptr && DpRxSsPtr->Hdcp22PrivateKeyPtr) {
-#ifndef SDT
-			/* Get core configuration */
-			ConfigPtr  = XHdcp22Rx_Dp_LookupConfig(
-					DpRxSsPtr->Config.Hdcp22SubCore.
-					Hdcp22Config.DeviceId);
-#else
 			/* Get core configuration */
 			ConfigPtr  = XHdcp22Rx_Dp_LookupConfig(
 					DpRxSsPtr->Config.Hdcp22SubCore.
 					Hdcp22Config.BaseAddress);
-#endif
 			if (ConfigPtr == NULL)
 			{
 				xdbg_printf(XDBG_DEBUG_GENERAL,
@@ -641,30 +634,16 @@ int XDpRxSs_SubcoreInitHdcp22(void *InstancePtr)
 					"\r\n");
 				return XST_FAILURE;
 			}
-#ifndef SDT
-			/* Calculate absolute base address of HDCP22 sub-core */
-			DpRxSsPtr->Config.Hdcp22SubCore.Hdcp22Config.AbsAddr +=
-				DpRxSsPtr->Config.BaseAddress;
-#else
 			/* Calculate absolute base address of HDCP22 sub-core */
 			DpRxSsPtr->Config.Hdcp22SubCore.Hdcp22Config.BaseAddress +=
 				DpRxSsPtr->Config.BaseAddress;
-#endif
 			/* HDCP22 config initialize */
 			ConfigPtr->BaseAddress += DpRxSsPtr->Config.BaseAddress;
-#ifndef SDT
-			/* Initialize core */
-			Status = XHdcp22Rx_Dp_CfgInitialize(DpRxSsPtr->Hdcp22Ptr,
-					ConfigPtr,
-					DpRxSsPtr->Config.Hdcp22SubCore.
-					Hdcp22Config.AbsAddr);
-#else
 			/* Initialize core */
 			Status = XHdcp22Rx_Dp_CfgInitialize(DpRxSsPtr->Hdcp22Ptr,
 					ConfigPtr,
 					DpRxSsPtr->Config.Hdcp22SubCore.
 					Hdcp22Config.BaseAddress);
-#endif
 			if (Status != XST_SUCCESS)
 			{
 				xdbg_printf(XDBG_DEBUG_GENERAL,
