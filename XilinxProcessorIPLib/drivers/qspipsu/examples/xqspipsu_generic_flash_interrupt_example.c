@@ -168,7 +168,7 @@ u8 TxBfrPtr;
 u8 ReadBfrPtr[3];
 u32 FlashMake;
 u32 FCTIndex;	/* Flash configuration table index */
-
+u32 FlashDieSize = 0;
 
 /*
  * The instances to support the device drivers are global such that they
@@ -584,6 +584,8 @@ int FlashReadID(XQspiPsu *QspiPsuPtr)
 {
 	int Status;
 	u32 ReadId = 0;
+	u32 SectSize = 0;
+	u32 NumSect = 0;
 
 	/*
 	 * Read ID
@@ -628,6 +630,10 @@ int FlashReadID(XQspiPsu *QspiPsuPtr)
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
+
+	SectSize = (Flash_Config_Table[FCTIndex]).SectSize;
+	NumSect = (Flash_Config_Table[FCTIndex]).NumSect;
+	FlashDieSize = (NumSect * SectSize) / Flash_Config_Table[FCTIndex].NumDie;
 
 	return XST_SUCCESS;
 }
@@ -2194,6 +2200,7 @@ int FlashEnableQuadMode(XQspiPsu *QspiPsuPtr)
 	u8 WriteBuffer[6] = {0};
 	u32 DelayCount;
 	u8 NumDieCount = 0;
+	u32 Address = 0;
 	u32 RealAddr = 0;
 	u32 RealAddrCR1 = 0;
 	u8 RegCR1Data = 0;
@@ -2202,11 +2209,17 @@ int FlashEnableQuadMode(XQspiPsu *QspiPsuPtr)
 		case CYPRESS_ID_BYTE0:
 
 			NumDieCount = 0;
-			GetRealAddr(QspiPsuPtr, TEST_ADDRESS);
 
 			do{
 				/* Get Volatile CR1 */
-				RealAddr = (NumDieCount * DIE_SIZE_128MB); /* die address */
+
+				if (QspiPsuPtr->Config.ConnectionMode ==
+					XQSPIPSU_CONNECTION_MODE_PARALLEL) {
+					Address = ((NumDieCount * FlashDieSize) * 2);
+				} else {
+					Address = (NumDieCount * FlashDieSize);
+				}
+				RealAddr = GetRealAddr(QspiPsuPtr, Address);
 				RealAddrCR1 = RealAddr | REG_CR1V_ADDR_OFFSET; /* configuration register address offset */
 
 				WriteBuffer[COMMAND_OFFSET] = READ_ANY_REG_CMD;
@@ -2230,6 +2243,10 @@ int FlashEnableQuadMode(XQspiPsu *QspiPsuPtr)
 				FlashMsg[1].ByteCount = 1;
 				FlashMsg[1].BusWidth = XQSPIPSU_SELECT_MODE_SPI;
 				FlashMsg[1].Flags = XQSPIPSU_MSG_FLAG_RX;
+				if (QspiPsuPtr->Config.ConnectionMode ==
+					XQSPIPSU_CONNECTION_MODE_PARALLEL) {
+					FlashMsg[1].Flags |= XQSPIPSU_MSG_FLAG_STRIPE;
+				}
 
 				TransferDone = FALSE;
 				Status = XQspiPsu_InterruptTransfer(QspiPsuPtr,
@@ -2298,7 +2315,7 @@ int FlashEnableQuadMode(XQspiPsu *QspiPsuPtr)
 					return XST_FAILURE;
 				}
 
-				Status = GetStatusReadAnyReg(QspiPsuPtr, RealAddr);
+				Status = GetStatusReadAnyReg(QspiPsuPtr, Address);
 				if (Status != XST_SUCCESS) {
 					return XST_FAILURE;
 				}
@@ -2720,9 +2737,16 @@ int GetStatusReadAnyReg(XQspiPsu *QspiPsuPtr, u32 Address)
 	u8 WriteBuffer[6] = {0};
 
 	/* Check Status for Multi Die */
-	RealAddr = Address & (DIE_SIZE_128MB			/* die2 */
-						| (DIE_SIZE_128MB * 2)		/* die3 */
-						| (DIE_SIZE_128MB * 3)); 	/* die4 */
+	u8 NumDie = (Flash_Config_Table[FCTIndex]).NumDie;
+	u32 DieMask = 0;
+	int i;
+
+	RealAddr = GetRealAddr(QspiPsuPtr, Address);
+	for(i = 0; i < NumDie; i++)
+	{
+		DieMask |= (FlashDieSize * i);
+	}
+	RealAddr &= DieMask;
 	RealAddr |= REG_SR1V_ADDR_OFFSET;
 
 	while (1) {
