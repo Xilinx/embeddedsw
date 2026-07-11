@@ -86,6 +86,8 @@
 * 4.13  ap   08/20/24 Added logic to wait for FIFO reset to complete.
 * 4.14  sb   12/03/24 Fixed GCC warnings.
 * 4.16  zm   04/03/26 Added the Inhibit logic in XSpi_InterruptHandler.
+*       zm   07/10/26 Added ByteCount alignment check against data width in
+*                     XSpi_Transfer.
 * </pre>
 *
 ******************************************************************************/
@@ -541,6 +543,8 @@ void XSpi_Reset(XSpi *InstancePtr)
 *		progress. This is determined by the driver.
 *		- XST_SPI_NO_SLAVE indicates the device is configured as a
 *		master and a slave has not yet been selected.
+*		- XST_INVALID_PARAM if ByteCount is not a multiple of the data
+*		width in bytes.
 *
 * @note
 *
@@ -566,6 +570,15 @@ int XSpi_Transfer(XSpi *InstancePtr, u8 *SendBufPtr,
 	Xil_AssertNonvoid(SendBufPtr != NULL);
 	Xil_AssertNonvoid(ByteCount > 0);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+
+	/*
+	 * SPI core transfers data in fixed width elements (8/16/32 bit) as per
+	 * the transaction width. So ByteCount should be multiple of data width
+	 * in bytes, otherwise the FIFO read/write will go beyond the buffer.
+	 */
+	if ((ByteCount % (InstancePtr->DataWidth >> 3)) != 0U) {
+		return XST_INVALID_PARAM;
+	}
 
 	if (InstancePtr->IsStarted != XIL_COMPONENT_IS_STARTED) {
 		return XST_DEVICE_IS_STOPPED;
