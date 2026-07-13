@@ -85,6 +85,7 @@
 * 1.8 sd  8/19/24 Added XClk_Wiz_SetRateHz.
 * 1.11 sd  9/27/25 Added XClk_Wiz_GetInputRate.
 * 1.11 vlt 12/30/25 Update Doxygen comments to include SDT flow details.
+*      ss  7/10/26 Added XClk_Wiz_UpdateDivisors and XClk_Wiz_Reconfig APIs
 * </pre>
 *
 ******************************************************************************/
@@ -480,6 +481,10 @@ u32 XClk_Wiz_GetInputRate(XClk_Wiz  *InstancePtr);
 s32 XClk_Wiz_SetLeafRateHz(XClk_Wiz  *InstancePtr, u32 ClockId, u64 SetRate);
 
 void XClk_Wiz_SetMinErr(XClk_Wiz  *InstancePtr, u64 Minerr);
+
+u32 XClk_Wiz_UpdateDivisors(XClk_Wiz  *InstancePtr, u32 Mvalue, u32 Dvalue, u32 Ovalue);
+
+u32 XClk_Wiz_Reconfig(XClk_Wiz  *InstancePtr);
 
 #ifdef __cplusplus
 }

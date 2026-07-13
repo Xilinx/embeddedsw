@@ -34,6 +34,7 @@
 *      sd  10/29/25 Conditionally compile XClk_Wiz_GetInputRate.
 * 1.12 sd  11/21/25 Fix a typo in strcmp.
 * 1.13 sd  5/7/26  Add the CP and Res update on rate change.
+*      ss  7/10/26 Added XClk_Wiz_UpdateDivisors and XClk_Wiz_Reconfig APIs
 * </pre>
 ******************************************************************************/
 
@@ -616,6 +617,116 @@ static void XClk_Wiz_UpdateM(XClk_Wiz  *InstancePtr)
 	Reg = Reg | (LockRefDly << XCLK_WIZ_REG16_LOCK_REF_DLY_SHIFT);
 	XClk_Wiz_WriteReg(InstancePtr->Config.BaseAddr, XCLK_WIZ_REG16_OFFSET, Reg);
 }
+
+/****************************************************************************/
+/**
+* Set the M, D, and O divisor values directly on the instance.
+*
+* @param	InstancePtr is the XClk_Wiz instance to operate on.
+* @param	Mvalue is the feedback multiplier value.
+* @param	Dvalue is the input divider value.
+* @param	Ovalue is the output divider value.
+*
+* @return
+*		- XST_SUCCESS when divisor values are valid.
+*		- XST_FAILURE when divisor values are invalid or unsupported.
+*
+* @note		Call XClk_Wiz_Reconfig() after this to apply the new values.
+*		Should be called only if there is only one output clock.
+*****************************************************************************/
+u32 XClk_Wiz_UpdateDivisors(XClk_Wiz  *InstancePtr, u32 Mvalue, u32 Dvalue, u32 Ovalue)
+{
+	u32 Platform;
+	u32 Mmin;
+	u32 Mmax;
+	u32 Dmin;
+	u32 Dmax;
+	u32 Omin;
+	u32 Omax;
+	u32 Status = XST_FAILURE;
+
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+
+	if (InstancePtr->Config.NumClocks != 1) {
+		return Status;
+	}
+
+	Platform = XGetPlatform_Info();
+
+	if (Platform == (u32)XPLAT_VERSAL) {
+		Mmin = XCLK_M_MIN;
+		Mmax = XCLK_M_MAX;
+		Dmin = XCLK_D_MIN;
+		Dmax = XCLK_D_MAX;
+		Omin = XCLK_O_MIN;
+		Omax = XCLK_O_MAX;
+	} else {
+		Mmin = XCLK_US_M_MIN;
+		Mmax = XCLK_US_M_MAX;
+		Dmin = XCLK_US_D_MIN;
+		Dmax = XCLK_US_D_MAX;
+		Omin = XCLK_US_O_MIN;
+		Omax = XCLK_US_O_MAX;
+	}
+
+	if ((Mvalue < Mmin) || (Mvalue > Mmax) ||
+	    (Dvalue < Dmin) || (Dvalue > Dmax) ||
+	    (Ovalue < Omin) || (Ovalue > Omax)) {
+		return XST_FAILURE;
+	}
+
+	InstancePtr->MVal = Mvalue;
+	InstancePtr->DVal = Dvalue;
+	InstancePtr->OVal = Ovalue;
+
+	return XST_SUCCESS;
+}
+
+/****************************************************************************/
+/**
+* Reconfigure the clock wizard hardware with the current M, D, and O values
+* stored in the instance. For Versal, updates output, input, and feedback
+* divider registers then triggers a load. For UltraScale/ZynqMP, writes the
+* combined M/D and O registers directly.
+*
+* @param	InstancePtr is the XClk_Wiz instance to operate on.
+*
+* @return
+*		- XST_SUCCESS always.
+*
+* @note		None.
+*****************************************************************************/
+u32 XClk_Wiz_Reconfig(XClk_Wiz  *InstancePtr)
+{
+	u32 Platform;
+	u32 Reg;
+
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+
+	Platform = XGetPlatform_Info();
+
+	if (Platform != (u32)XPLAT_VERSAL) {
+		Reg = InstancePtr->MVal << 8 | InstancePtr->DVal;
+		XClk_Wiz_WriteReg((InstancePtr)->Config.BaseAddr, XCLK_WIZ_ZYNQMP_REG0_OFFSET, Reg);
+		Reg = InstancePtr->OVal;
+		XClk_Wiz_WriteReg((InstancePtr)->Config.BaseAddr, XCLK_WIZ_ZYNQMP_REG2_OFFSET, Reg);
+		return XST_SUCCESS;
+	}
+
+	/* Implement O */
+	XClk_Wiz_UpdateO(InstancePtr, 0);
+	/* Implement D */
+	XClk_Wiz_UpdateD(InstancePtr);
+	/* Implement M */
+	XClk_Wiz_UpdateM(InstancePtr);
+	XClk_Wiz_WriteReg((InstancePtr)->Config.BaseAddr, XCLK_WIZ_RECONFIG_OFFSET,
+			  (XCLK_WIZ_RECONFIG_LOAD | XCLK_WIZ_RECONFIG_SADDR));
+
+	return XST_SUCCESS;
+}
+
 /****************************************************************************/
 /**
 * Change the frequency to the given rate in Hz.
@@ -631,8 +742,6 @@ static void XClk_Wiz_UpdateM(XClk_Wiz  *InstancePtr)
 *****************************************************************************/
 u32 XClk_Wiz_SetRateHz(XClk_Wiz  *InstancePtr, u64 SetRate)
 {
-	u32 Platform;
-	u32 Reg;
 	u32 Status = XST_FAILURE;
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -647,28 +756,7 @@ u32 XClk_Wiz_SetRateHz(XClk_Wiz  *InstancePtr, u64 SetRate)
 	if ( Status != XST_SUCCESS) {
 		return Status;
 	}
-
-	Platform = XGetPlatform_Info();
-
-	if (Platform != (u32)XPLAT_VERSAL) {
-		Reg = InstancePtr->MVal << 8 | InstancePtr->DVal;
-		XClk_Wiz_WriteReg((InstancePtr)->Config.BaseAddr, XCLK_WIZ_ZYNQMP_REG0_OFFSET, Reg);
-		Reg =  InstancePtr->OVal;
-		XClk_Wiz_WriteReg((InstancePtr)->Config.BaseAddr, XCLK_WIZ_ZYNQMP_REG2_OFFSET, Reg);
-		return XST_SUCCESS;
-	}
-
-	/* Implement O */
-	XClk_Wiz_UpdateO(InstancePtr, 0);
-
-	/* Implement D */
-	XClk_Wiz_UpdateD(InstancePtr);
-
-	/* Implement M*/
-	XClk_Wiz_UpdateM(InstancePtr);
-
-	XClk_Wiz_WriteReg((InstancePtr)->Config.BaseAddr, XCLK_WIZ_RECONFIG_OFFSET,
-			  (XCLK_WIZ_RECONFIG_LOAD | XCLK_WIZ_RECONFIG_SADDR));
+	XClk_Wiz_Reconfig(InstancePtr);
 
 	return XST_SUCCESS;
 }
@@ -859,15 +947,11 @@ s32 XClk_Wiz_SetLeafRateHz(XClk_Wiz  *InstancePtr, u32 ClockId, u64 SetRate)
 *****************************************************************************/
 u32 XClk_Wiz_SetRate(XClk_Wiz  *InstancePtr, u64 SetRate)
 {
-	u32 Platform;
-	u32 Reg;
 	u32 Status = XST_FAILURE;
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 	Xil_AssertNonvoid(SetRate != 0);
-
-	Platform = XGetPlatform_Info();
 
 	if (InstancePtr->Config.NumClocks  != 1 ) {
 		return Status;
@@ -877,22 +961,7 @@ u32 XClk_Wiz_SetRate(XClk_Wiz  *InstancePtr, u64 SetRate)
 	if ( Status != XST_SUCCESS) {
 		return Status;
 	}
-
-	if (Platform != (u32)XPLAT_VERSAL) {
-		Reg = InstancePtr->MVal << 8 | InstancePtr->DVal;
-		XClk_Wiz_WriteReg((InstancePtr)->Config.BaseAddr, XCLK_WIZ_ZYNQMP_REG0_OFFSET, Reg);
-		Reg =  InstancePtr->OVal;
-		XClk_Wiz_WriteReg((InstancePtr)->Config.BaseAddr, XCLK_WIZ_ZYNQMP_REG2_OFFSET, Reg);
-		return XST_SUCCESS;
-	}
-
-	/* Implement O */
-	XClk_Wiz_UpdateO(InstancePtr, 0);
-	/* Implement D */
-	XClk_Wiz_UpdateD(InstancePtr);
-
-	/* Implement M*/
-	XClk_Wiz_UpdateM(InstancePtr);
+	XClk_Wiz_Reconfig(InstancePtr);
 
 	return XST_SUCCESS;
 }
