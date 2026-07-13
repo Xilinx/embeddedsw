@@ -7,6 +7,7 @@
 *
 * <pre>
 * Copyright (c) 2016-2021 Xilinx, Inc.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * Copyright (c) 2016 Adeas B.V. All rights reserved.
 *
 * MODIFICATION HISTORY:

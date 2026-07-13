@@ -4,6 +4,7 @@ add_definitions(-DISP_HDR_STITCH_V3_1=1 -DISP_RGBIR_V2_1=1 -DNO_TERMINAL=1 -DDUM
 include_directories(
     ${CMAKE_SOURCE_DIR}/vvbench/include
     ${CMAKE_SOURCE_DIR}/vvbench/include/submodules
+    ${CMAKE_SOURCE_DIR}/hdmi_display
 )
 
 
