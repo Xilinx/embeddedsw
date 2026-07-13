@@ -239,7 +239,7 @@ int XHdcp22Rx_Dp_CfgInitialize(XHdcp22_Rx_Dp *InstancePtr, XHdcp22_Rx_Dp_Config 
 	InstancePtr->Handles.IsRxDpSetClearAuxDeferCallbackSet = FALSE;
 
 	InstancePtr->Handles.Ske_Send_EksCallback =
-		XHdcp22_Rx_StubSetHandler;
+		XHdcp22_Rx_StubRunHandler;
 	InstancePtr->Handles.IsSke_Send_EksCallbackSet = FALSE;
 
 	/* Set RXCAPS repeater mode */
