@@ -132,7 +132,6 @@ XHdcp1x_KsvRevokeCheck XHdcp1xKsvRevokeCheck = NULL; /**< Instance of function
 int XHdcp1x_CfgInitialize(XHdcp1x *InstancePtr, const XHdcp1x_Config *CfgPtr,
 		void *PhyIfPtr, UINTPTR EffectiveAddr)
 {
-	int Status;
 	u32 RegVal;
 
 	/* Verify arguments. */

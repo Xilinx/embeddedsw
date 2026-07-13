@@ -918,8 +918,8 @@ static void XHdcp1x_RxDebugLog(const XHdcp1x *InstancePtr, const char *LogMsg)
 			 InstancePtr->Config.DeviceId);
 #else
 	/* Format Label */
-	snprintf(Label, sizeof(Label), "hdcp-rx(%hu) - ",
-		 InstancePtr->Config.BaseAddress);
+	snprintf(Label, sizeof(Label), "hdcp-rx(%lx) - ",
+		 (unsigned long)InstancePtr->Config.BaseAddress);
 #endif
 
 	/* Log it */
@@ -1109,9 +1109,6 @@ static void XHdcp1x_RxSetCheckLinkState(XHdcp1x *InstancePtr, int IsEnabled)
 ******************************************************************************/
 static void XHdcp1x_RxEnableState(XHdcp1x *InstancePtr)
 {
-	u64 MyKsv = 0;
-	u8 Buf[8];
-
 	/* Disable and register the link failure callback */
 	XHdcp1x_CipherSetLinkStateCheck(InstancePtr, FALSE);
 	XHdcp1x_CipherSetCallback(InstancePtr,

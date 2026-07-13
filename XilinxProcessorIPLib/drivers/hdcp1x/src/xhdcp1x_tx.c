@@ -1030,7 +1030,7 @@ static void XHdcp1x_TxDebugLog(const XHdcp1x *InstancePtr, const char *LogMsg)
 			 InstancePtr->Config.DeviceId);
 #else
 	/* Format Label */
-	snprintf(Label, sizeof(Label), "hdcp-tx(%hu) - ",
+	snprintf(Label, sizeof(Label), "hdcp-tx(%s) - ",
 			 InstancePtr->Config.Name);
 #endif
 
