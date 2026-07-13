@@ -4931,7 +4931,7 @@ static int XHdcp22Tx_Dp_ReadDpRxMsg(XHdcp22_Tx_Dp *InstancePtr, u8 MessageId)
 			NumRead += InstancePtr->TxDpAuxReadCallback(
 					InstancePtr->TxDpAuxReadCallbackRef,
 					XHDCP22_TX_DP_HDCPPORT_RCVR_ID_LST_OFFSET,
-					MsgPtr->Message.RepeatAuthSendRecvIDList.ReceiverIDs,
+					(u8 *)MsgPtr->Message.RepeatAuthSendRecvIDList.ReceiverIDs,
 					XHDCP22_TX_DP_HDCPPORT_RCVR_ID_LST_MAX_SIZE);
 			if (NumRead == XHDCP22_TX_DP_HDCPPORT_RX_INFO_SIZE +
 					XHDCP22_TX_DP_HDCPPORT_SEQ_NUM_V_SIZE +
