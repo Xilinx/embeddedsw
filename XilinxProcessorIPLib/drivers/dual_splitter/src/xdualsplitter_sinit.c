@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2014 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -100,8 +100,7 @@ XDualSplitter_Config *XDualSplitter_LookupConfig(u16 DeviceId)
 #else
 XDualSplitter_Config *XDualSplitter_LookupConfig(UINTPTR BaseAddress)
 {
-	extern XDualSplitter_Config
-		XDualSplitter_ConfigTable[XPAR_XDUALSPLITTER_NUM_INSTANCES];
+	extern XDualSplitter_Config XDualSplitter_ConfigTable[XPAR_XDUAL_SPLITTER_NUM_INSTANCES];
 	XDualSplitter_Config *CfgPtr = NULL;
 	int Index;
 
