@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2018 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -149,7 +149,9 @@ u32 XOspiPsv_CfgInitialize(XOspiPsv *InstancePtr,
 		 * This results in prescaler configuration failure. To avoid
 		 * this issue, initialize InstancePtr->Config.InputClockHz to 160MHz.
 		 */
-		InstancePtr->Config.InputClockHz = 160000000;
+		if (InstancePtr->Config.InputClockHz == 0U) {
+			InstancePtr->Config.InputClockHz = 160000000;
+		}
 
 #endif
 #if defined (versal) && !defined (VERSAL_NET) && !defined (SPARTANUP)
