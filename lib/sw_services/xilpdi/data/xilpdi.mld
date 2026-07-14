@@ -1,6 +1,6 @@
 ###############################################################################
 # Copyright (c) 2017 - 2022 Xilinx, Inc.  All rights reserved.
-# Copyright (c) 2023 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+# Copyright (c) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 # SPDX-License-Identifier: MIT
 #
 # Modification History
@@ -15,6 +15,7 @@
 #       bm  05/20/24  Add freertos10_xilinx support
 # 1.11  prt 06/04/25  Update library version for 2025.2
 # 1.12  sd  11/10/25  Update library version for 2026.1
+# 1.14  pre 07/14/26  Update library version for 2026.2
 ##############################################################################
 
 OPTION psf_version = 2.1;
@@ -26,6 +27,6 @@ BEGIN LIBRARY xilpdi
   OPTION SUPPORTED_PERIPHERALS = (psv_pmc psxl_pmc psx_pmc);
   OPTION APP_LINKER_FLAGS = "-Wl,--start-group,-lxilpdi,-lxil,-lgcc,-lc,--end-group";
   OPTION desc = "Xilinx Programmable Device Image (PDI) Library ";
-  OPTION VERSION = 1.13;
+  OPTION VERSION = 1.14;
   OPTION NAME = xilpdi;
 END LIBRARY

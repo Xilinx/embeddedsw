@@ -64,6 +64,8 @@
 * 1.12  prt  06/04/2025 Fixed Misra-C R8.13 and R15.7 Violations
 * 		abh	 07/16/2025 Fixed GCC warnings
 *       pre  09/16/2025 Updated comments for rtf doc
+* 1.14  pre  07/14/2026 Return type of XilPdi_IsPrtnHashPresent function is changed to
+*                       const pointer to prevent caller from modifying digest table in PMC RAM.
 *
 * </pre>
 *
@@ -598,10 +600,10 @@ u64 XilPdi_SearchOptionalData(u64 StartAddress, u64 EndAddress, u32 DataId)
 *		(to authenticate the signature as regular flow).
 *
 *****************************************************************************/
-XilPdi_PrtnHashInfo* XilPdi_IsPrtnHashPresent(u32 PrtnNum, u32 HashTableSize)
+const XilPdi_PrtnHashInfo* XilPdi_IsPrtnHashPresent(u32 PrtnNum, u32 HashTableSize)
 {
-	XilPdi_PrtnHashInfo *HashEntry = NULL;
-	XilPdi_PrtnHashInfo *HashTbl = (XilPdi_PrtnHashInfo *)(UINTPTR)XIH_PMC_RAM_IHT_OP_DATA_STORE_ADDR;
+	const XilPdi_PrtnHashInfo *HashEntry = NULL;
+	const XilPdi_PrtnHashInfo *HashTbl = (const XilPdi_PrtnHashInfo *)(UINTPTR)XIH_PMC_RAM_IHT_OP_DATA_STORE_ADDR;
 	u32 Index = 0U;
 
 	/*
@@ -621,7 +623,6 @@ XilPdi_PrtnHashInfo* XilPdi_IsPrtnHashPresent(u32 PrtnNum, u32 HashTableSize)
 			break;
 		}
 	}
-
 	return HashEntry;
 }
 

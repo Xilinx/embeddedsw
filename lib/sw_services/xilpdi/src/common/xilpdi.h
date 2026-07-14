@@ -73,6 +73,8 @@
 * 1.12  prt  06/04/2025 Fixed Misra-C R8.13 and R15.7 Violations
 *       sd   11/10/2025 Added support for VERSAL_2VP_P devices.
 * 1.13  pre  04/17/2026 Added APIs to get EL and TZ attributes from partition header
+* 1.14  pre  07/14/2026 Return type of XilPdi_IsPrtnHashPresent function is changed to
+*                       const pointer to prevent caller from modifying digest table in PMC RAM.
 *
 * </pre>
 *
@@ -600,7 +602,7 @@ int XilPdi_ReadImgHdrs(const XilPdi_MetaHdr * MetaHdrPtr);
 int XilPdi_ReadPrtnHdrs(const XilPdi_MetaHdr * MetaHdrPtr);
 int XilPdi_ReadIhtAndOptionalData(const XilPdi_MetaHdr * MetaHdrPtr, u8 PdiType);
 int XilPdi_ValidateChecksum(const void *Buffer, u32 Length);
-XilPdi_PrtnHashInfo* XilPdi_IsPrtnHashPresent(u32 PrtnNum, u32 HashTableSize);
+const XilPdi_PrtnHashInfo* XilPdi_IsPrtnHashPresent(u32 PrtnNum, u32 HashTableSize);
 int XilPdi_StoreDigestTable(XilPdi_MetaHdr * MetaHdrPtr);
 u64 XilPdi_SearchOptionalData(u64 StartAddress, u64 EndAddress, u32 DataId);
 int XilPdi_ReadOptionalData(const XilPdi_MetaHdr * MetaHdrPtr, u8 PdiType);
