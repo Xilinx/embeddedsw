@@ -55,6 +55,7 @@
 *       obs  01/27/2025 Changed DMA WaitForDone calls to use APIs which support timeout
 * 1.10  vss  02/11/2025 Updated SSS configuration correctly.
 *       ma   03/19/2025 Remove clearing the SSS configuration for SBI->DMA1
+*       pre  07/14/2026 Fixed unaligned bytes copy logic in XPlmi_MemSetBytes function
 *
 * </pre>
 *
@@ -975,21 +976,29 @@ int XPlmi_MemSetBytes(void *const DestPtr, u32 DestLen, u8 Val, u32 Length)
 		goto END;
 	}
 
+	/* Calculate leading unaligned bytes needed to reach next word boundary */
 	StartBytes = (XPLMI_WORD_LEN - (u32)(DestAddr & XPLMI_WORD_LEN_MASK)) &
 		XPLMI_WORD_LEN_MASK;
 	if (StartBytes > Len) {
-			StartBytes = Len;
-			goto END1;
+		/* Entire request fits within the leading unaligned region */
+		StartBytes = Len;
+		goto END1;
 	}
+
+	/* Subtract leading bytes before the loop so Len tracks remaining bytes */
+	Len = Len - StartBytes;
+	/* Write leading unaligned bytes one at a time to reach word alignment */
 	while (StartBytes > 0U) {
 		XPlmi_OutByte64(DestAddr, Val);
 		DestAddr++;
 		--StartBytes;
 	}
-	Len = Len - StartBytes;
+
+	/* Compute trailing bytes that fall below a word boundary at the end */
 	StartBytes = (Len & XPLMI_WORD_LEN_MASK);
 	Len = Len - StartBytes;
 
+	/* Fill the word-aligned middle region using DMA */
 	Status = XPlmi_MemSet(DestAddr, WordVal, (Len >> XPLMI_WORD_LEN_SHIFT));
 	if (Status != XST_SUCCESS) {
 		goto END;
@@ -998,6 +1007,7 @@ int XPlmi_MemSetBytes(void *const DestPtr, u32 DestLen, u8 Val, u32 Length)
 	DestAddr += Len;
 
 END1:
+	/* Write any remaining trailing unaligned bytes one at a time */
 	while (StartBytes > 0U) {
 		XPlmi_OutByte64(DestAddr, Val);
 		DestAddr++;
