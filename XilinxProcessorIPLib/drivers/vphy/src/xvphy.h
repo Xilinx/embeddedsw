@@ -93,9 +93,8 @@ extern "C" {
 #define XV_VPHY_LOG_ENABLE
 #endif
 
-#ifdef SDT
-#define XPAR_VPHY_0_TRANSCEIVER XPAR_XVPHY_0_TRANSCEIVER_TYPE
-#endif
+#define XPAR_VPHY_0_TRANSCEIVER XPAR_XVPHY_0_TRANSCEIVER_TYPE /**< Transceiver
+						type of the VPHY instance */
 /******************************* Include Files ********************************/
 
 #include "xil_assert.h"
@@ -674,11 +673,7 @@ typedef struct {
  * This typedef contains configuration information for the Video PHY core.
  */
 typedef struct {
-#ifndef SDT
-	u16 DeviceId;		/**< Unique ID  of device */
-#else
-	char *Name;
-#endif
+	char *Name;			/**< Unique name of the device */
 	UINTPTR BaseAddr;		/**< The base address of the core
 						instance. */
 	XVphy_GtType XcvrType;		/**< VPHY Transceiver Type */
@@ -708,11 +703,9 @@ typedef struct {
 	u8  DpRxProtocol;       /* DP RX protocol */
 	XVphy_ClkPrimitive TxClkPrimitive; /* TX Clock Primitive */
 	XVphy_ClkPrimitive RxClkPrimitive; /* RX Clock Primitive */
-#ifdef SDT
 	u16 IntrId;		/**< Interrupt ID */
 	UINTPTR IntrParent;	/**< Bit[0] Interrupt parent type Bit[64/32:1]
 					Parent base address */
-#endif
 } XVphy_Config;
 
 /* Forward declaration. */
@@ -959,11 +952,7 @@ void XVphy_InterruptHandler(XVphy *InstancePtr);
 u32 XVphy_SelfTest(XVphy *InstancePtr);
 
 /* xvphy_sinit.c: Configuration extraction function. */
-#ifndef SDT
-XVphy_Config *XVphy_LookupConfig(u16 DeviceId);
-#else
 XVphy_Config *XVphy_LookupConfig(UINTPTR BaseAddress);
-#endif
 /* xvphy_dp.c, xvphy_hdmi.c, xvphy_hdmi_intr.c: Protocol specific functions. */
 u32 XVphy_DpInitialize(XVphy *InstancePtr, XVphy_Config *CfgPtr, u8 QuadId,
 		XVphy_PllRefClkSelType CpllRefClkSel,
