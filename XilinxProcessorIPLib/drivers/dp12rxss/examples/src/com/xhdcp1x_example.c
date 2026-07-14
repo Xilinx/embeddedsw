@@ -23,13 +23,9 @@
 
 /***************************** Include Files *********************************/
 #include "xparameters.h"
-#ifdef SDT
 #include "xinterrupt_wrap.h"
-#endif
 
-#if SDT
 #define XPAR_XHDCP_NUM_INSTANCES XPAR_XHDCP1X_NUM_INSTANCES
-#endif
 
 #if (XPAR_XHDCP_NUM_INSTANCES > 0)
 #include "xhdcp1x.h"
@@ -115,11 +111,9 @@ extern XIntc INTC;
 #define HDCP_RX_VEC_ID			\
 	(XPAR_INTC_0_DP12RXSS_0_DPRXSS_HDCP_IRQ_VEC_ID)
 
-#ifdef SDT
 #define INTRNAME_DPTX_CIPHER       1
 #define INTRNAME_DPRX_CIPHER       1
 #define INTRNAME_DPTX_TIMER        2
-#endif
 //#undef  HDCP_TX_DEV_ID
 //#undef  HDCP_TX_VEC_ID
 
@@ -368,46 +362,6 @@ static int BusyDelay(const XHdcp1x* InstancePtr, u16 DelayInMs)
 *   None.
 *
 ******************************************************************************/
-#ifndef SDT
-static void *GetPhyIfPtr(u16 DeviceID)
-{
-	void *PhyIfPtr = NULL;
-
-	/* Which device? */
-	switch (DeviceID) {
-
-#if defined(HDMI_EXAMPLE)
-	/* Rx Device */
-	case HDCP_RX_DEV_ID:
-		PhyIfPtr = &HdmiRx;
-		break;
-	/* Tx Device */
-	case HDCP_TX_DEV_ID:
-		PhyIfPtr = &HdmiTx;
-		break;
-#endif
-#if defined(DPTX_EXAMPLE)
-	/* Tx Device */
-	case HDCP_TX_DEV_ID:
-		PhyIfPtr = DpTxSsInst.DpPtr;	//&DptxInstance;
-		break;
-#endif
-#if defined(DPRX_EXAMPLE)
-	/* Rx Device */
-	case HDCP_RX_DEV_ID:
-		//->RxInstance;		BUG IN THE CODE AS GIVEN BY ANDREI
-		PhyIfPtr = DpRxSsInst.DpPtr;
-		break;
-#endif
-
-	/* Otherwise */
-	default:
-		break;
-	}
-
-	return (PhyIfPtr);
-}
-#endif
 /*****************************************************************************/
 /**
 *
@@ -421,41 +375,6 @@ static void *GetPhyIfPtr(u16 DeviceID)
 *   None
 *
 ******************************************************************************/
-#ifndef SDT
-static int SetupInterrupts(void)
-{
-	int Status = XST_SUCCESS;
-
-#if defined(HDCP_TIMER_VEC_ID)
-	/* Connect and enable the hardware timer interrupt */
-//	XIntc_Connect(&INTC, HDCP_TIMER_VEC_ID, XTmrCtr_InterruptHandler,
-//			&HdcpTimer);
-	XIntc_Connect(&INTC, HDCP_TIMER_VEC_ID, XTmrCtr_InterruptHandler,
-			DpTxSsInst.TmrCtrPtr);
-	XIntc_Enable(&INTC, HDCP_TIMER_VEC_ID);
-#endif
-
-#if defined(HDCP_RX_VEC_ID)
-	/* Connect and enable the receive cipher interrupt */
-//	XIntc_Connect(&INTC, HDCP_RX_VEC_ID, XHdcp1x_CipherIntrHandler,
-//			&HdcpIf[HDCP_RX_DEV_ID]);
-	XIntc_Connect(&INTC, HDCP_RX_VEC_ID, XHdcp1x_CipherIntrHandler,
-			DpRxSsInst.Hdcp1xPtr);
-	XIntc_Enable(&INTC, HDCP_RX_VEC_ID);
-#endif
-
-#if defined(HDCP_TX_VEC_ID)
-	/* Connect and enable the transmit cipher interrupt */
-//	XIntc_Connect(&INTC, HDCP_TX_VEC_ID, XHdcp1x_CipherIntrHandler,
-//			&HdcpIf[HDCP_TX_DEV_ID]);
-	XIntc_Connect(&INTC, HDCP_TX_VEC_ID, XHdcp1x_CipherIntrHandler,
-			DpTxSsInst.Hdcp1xPtr);
-	XIntc_Enable(&INTC, HDCP_TX_VEC_ID);
-#endif
-
-	return (Status);
-}
-#else
 static int SetupInterrupts(void)
 {
 	int Status = XST_SUCCESS;
@@ -491,7 +410,6 @@ static int SetupInterrupts(void)
 
 	return (Status);
 }
-#endif
 
 /*****************************************************************************/
 /**
@@ -510,15 +428,6 @@ int XHdcp1xExample_Init(void)
 //	u16 DeviceID = 0;
 	int Status = XST_SUCCESS;
 
-#if defined(HDCP_TIMER_ID)
-	/* Initialize the timer for hdcp */
-//	XTmrCtr_Initialize(&HdcpTimer, HDCP_TIMER_ID);
-
-	/* Initialize the hdcp timer functions */
-//	XHdcp1x_SetTimerStart(&StartTimer);
-//	XHdcp1x_SetTimerStop(&StopTimer);
-//	XHdcp1x_SetTimerDelay(&BusyDelay);
-#endif
 
 
 	/* Initialize the debug printf function */
@@ -553,12 +462,6 @@ int XHdcp1xExample_Init(void)
 	/* Configure the key selection vectors */
 #if defined(HDCP_RX_DEV_ID)
 	XHdcp1x_SetKeySelect(&HdcpIf[HDCP_RX_DEV_ID], RX_KEYSELECT);
-#endif
-#if defined(HDCP_TX_DEV_ID)
-
-//Commented  by shadul
-//	XHdcp1x_SetKeySelect(&HdcpIf[HDCP_TX_DEV_ID], TX_KEYSELECT);
-
 #endif
 #endif
 
@@ -707,10 +610,6 @@ int XHdcp1xExample_TxEncrypt(void)
 	 * as there is only one receiver attached to the HDCP downstream
 	 * connection. In case of REPEATER please update this.
 	 */
-#if ENABLE_HDCP_DEBUG_LOG
-//	xil_printf("Encrypting Tx ... , CurrentState = %d \r\n",
-//		HdcpIf[1].Tx.CurrentState);
-#endif
 //	Status = XHdcp1x_EnableEncryption(&HdcpIf[HDCP_TX_DEV_ID],0x1);
 		Status = XDpTxSs_EnableEncryption(&DpTxSsInst,0x1);
 	if (Status!=XST_SUCCESS){

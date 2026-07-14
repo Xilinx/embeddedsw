@@ -24,14 +24,10 @@
 
 #include "dppt.h"
 #include <xil_io.h>
-#ifdef SDT
 #include "xinterrupt_wrap.h"
-#endif
-#ifdef SDT
 #define CLK_WIZ_BASE XPAR_XCLK_WIZ_0_BASEADDR
 #define INTRNAME_DPTX   0
 #define INTRNAME_DPRX   0
-#endif
 #if ENABLE_HDCP_IN_DESIGN
 unsigned int gKeyMGMTBaseAddress[2] = {
 		XPAR_DP_RX_HIER_HDCP_KEYMNGMT_BLK_0_BASEADDR,
@@ -728,10 +724,6 @@ int main(void)
 				rx_ran_once = 0;
 				vblank_done = 0;
 				if (manual_sel == 1) {
-#ifndef SDT
-					XIntc_Disable(&IntcInst, XINTC_DPRXSS_DP_INTERRUPT_ID);
-					XIntc_Enable(&IntcInst, XINTC_DPTXSS_DP_INTERRUPT_ID);
-#endif
 					XDp_WriteReg(DpRxSsInst.DpPtr->Config.BaseAddr,
 									XDP_RX_LINK_ENABLE, 0x0);
 				}
@@ -1270,10 +1262,6 @@ int main(void)
 						XDpTxSs_SetPhysicalState(&DpTxSsInst, hdcp_capable_org);
 						XHdcp1xExample_Poll();
 #endif
-#ifndef SDT
-						XIntc_Disable(&IntcInst, XINTC_DPTXSS_DP_INTERRUPT_ID);
-						XIntc_Disable(&IntcInst, XINTC_DPRXSS_DP_INTERRUPT_ID);
-#endif
 						XGpio_WriteReg (XPAR_AV_PAT_GEN_0_BASEADDR + 0x400,
 											0x0, 0x0);
 						XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,
@@ -1375,10 +1363,6 @@ int main(void)
               "+++++++ RX GT configuration encountered a failure +++++++\r\n");
                 }
 				if (manual_sel == 1) {
-#ifndef SDT
-					XIntc_Enable(&IntcInst, XINTC_DPTXSS_DP_INTERRUPT_ID);
-					XIntc_Enable(&IntcInst, XINTC_DPRXSS_DP_INTERRUPT_ID);
-#endif
 				}
 
 				rx_help_menu();
@@ -1743,10 +1727,8 @@ int main(void)
 						if(DpRxSsInst.TmrCtrResetDone == 1){
 							prog_tx =0;
 						}
-#endif
 					track_count1 = 0;
 				}
-
 
 #if ENABLE_HDCP_IN_DESIGN
 					XHdcp1xExample_Poll();
@@ -2152,12 +2134,6 @@ int main(void)
 								rx_help_menu();
 								break;
 							case 'x' :
-#ifndef SDT
-								XIntc_Disable(&IntcInst,
-										XINTC_DPTXSS_DP_INTERRUPT_ID);
-								XIntc_Disable(&IntcInst,
-										XINTC_DPRXSS_DP_INTERRUPT_ID);
-#endif
 								XDpTxSs_Stop(&DpTxSsInst);
 								XDp_WriteReg(DpRxSsInst.DpPtr->Config.BaseAddr,
 										XDP_RX_LINK_ENABLE, 0x0);
@@ -2308,24 +2284,15 @@ int init_peripherals()
 {
 	u32 Status;
 	// Initialize UART
-#ifndef SDT
-	Status = XUartLite_Initialize(&UartLite,
-			XPAR_PROCESSOR_SUBSYSTEM_INTERCONNECT_AXI_UARTLITE_1_DEVICE_ID);
-#else
 	Status = XUartLite_Initialize(&UartLite,
 				      XPAR_PROCESSOR_SUBSYSTEM_INTERCONNECT_AXI_UARTLITE_1_BASEADDR);
-#endif
 	if (Status!=XST_SUCCESS){
 	xil_printf("ERR:UART failed to initialize. \r\n");
 	return XST_FAILURE;
 	}
 
 	// Initialize timer.
-#ifndef SDT
-	Status = XTmrCtr_Initialize(&TmrCtr, XPAR_TMRCTR_0_DEVICE_ID);
-#else
 	Status = XTmrCtr_Initialize(&TmrCtr, XPAR_XTMRCTR_0_BASEADDR);
-#endif
 	if (Status != XST_SUCCESS){
 	xil_printf("ERR:Timer failed to initialize. \r\n");
 	return XST_FAILURE;
@@ -2335,11 +2302,7 @@ int init_peripherals()
 	XTmrCtr_Start(&TmrCtr, XTC_TIMER_0);
 
 	// Initialize Video PHY Controller
-#ifndef SDT
-	XVphy_Config *CfgPtr = XVphy_LookupConfig(XPAR_VID_PHY_CONTROLLER_0_DEVICE_ID);
-#else
 	XVphy_Config *CfgPtr = XVphy_LookupConfig(XPAR_XVPHY_0_BASEADDR);
-#endif
 
 	XVphy_DpInitialize(&VPhy_Instance, CfgPtr, 0,
             PHY_User_Config_Table[5].CPLLRefClkSrc,
@@ -2375,11 +2338,7 @@ int init_peripherals()
     /*
      * Initialize the IIC driver so that it is ready to use.
      */
-#ifndef SDT
-    ConfigPtr_IIC = XIic_LookupConfig(IIC_DEVICE_ID);
-#else
 	ConfigPtr_IIC = XIic_LookupConfig(XPAR_XIIC_0_BASEADDR);
-#endif
     if (ConfigPtr_IIC == NULL) {
             return XST_FAILURE;
     }
@@ -2391,11 +2350,7 @@ int init_peripherals()
     }
 
     int i = 0;
-#ifndef SDT
-	dma_struct[i].Config = XAxiVdma_LookupConfig(i);
-#else
 	dma_struct[i].Config = XAxiVdma_LookupConfig(XPAR_AXI_VDMA_0_BASEADDR);
-#endif
 	if (!dma_struct[i].Config)
 	{
 		 xil_printf("No video DMA found for ID %d\n\r", i);
@@ -2425,11 +2380,7 @@ int init_peripherals()
 int DPTxInitialize()
 {
 	u32 Status;
-#ifndef SDT
-	DPTxSSConfig = XDpTxSs_LookupConfig(XDPTXSS_DEVICE_ID);
-#else
 	DPTxSSConfig = XDpTxSs_LookupConfig(XPAR_DPTXSS_0_BASEADDR);
-#endif
 	if (DPTxSSConfig == NULL) {
 		xil_printf("ERR: DPTX SS core not found!\n\r");
 		return (XST_FAILURE);
@@ -2461,11 +2412,7 @@ int DPRxInitialize()
 	u32 Status;
 
 	// Lookup and Initialize DP Rx Subsystem
-#ifndef SDT
-	DPRxSSConfig = XDpRxSs_LookupConfig(XDPRXSS_DEVICE_ID);
-#else
 	DPRxSSConfig = XDpRxSs_LookupConfig(XPAR_DPRXSS_0_BASEADDR);
-#endif
 	if (DPRxSSConfig == NULL) {
 		xil_printf("ERR: DPRX SS core not found!\n\r");
 		return (XST_FAILURE);
@@ -3350,11 +3297,7 @@ int DPPtIntrInitialize()
 void xildpWaitmS(u32 ms)
 {
     XTmrCtr_Start(&TmrCtr, 0);
-#ifndef SDT
-    while (XTmrCtr_GetValue(&TmrCtr, 0) < (ms * (XPAR_MICROBLAZE_CORE_CLOCK_FREQ_HZ / 1000000)));
-#else
     while (XTmrCtr_GetValue(&TmrCtr, 0) < (ms * (XPAR_CPU_CORE_CLOCK_FREQ_HZ / 1000000)));
-#endif
     XTmrCtr_Stop(&TmrCtr, 0);
 }
 
@@ -3425,90 +3368,6 @@ void DpPt_TxSetMsaValuesImmediate(void *InstancePtr)
 
 }
 
-#ifndef SDT
-int DpPt_SetupIntrSystem()
-{
-	int Status;
-	XIntc *IntcInstPtr = &IntcInst;
-
-	/* Initialize the interrupt controller driver so that it's ready to
-	 * use, specify the device ID that was generated in xparameters.h
-	 */
-	Status = XIntc_Initialize(IntcInstPtr, XINTC_DEVICE_ID);
-	if (Status != XST_SUCCESS) {
-		xil_printf("Intc initialization failed!\n\r");
-		return XST_FAILURE;
-	}
-
-	/* Hook up interrupt service routine */
-	Status = XIntc_Connect(IntcInstPtr, XINTC_DPTXSS_DP_INTERRUPT_ID,
-						(XInterruptHandler)XDpTxSs_DpIntrHandler,&DpTxSsInst);
-	if (Status != XST_SUCCESS) {
-		xil_printf("ERR: DP TX SS DP interrupt connect failed!\n\r");
-		return XST_FAILURE;
-	}
-	/* Hook up Rx interrupt service routine */
-	Status = XIntc_Connect(IntcInstPtr, XINTC_DPRXSS_DP_INTERRUPT_ID,
-						(XInterruptHandler)XDpRxSs_DpIntrHandler,&DpRxSsInst);
-	if (Status != XST_SUCCESS) {
-		xil_printf("ERR: DP RX SS DP interrupt connect failed!\n\r");
-		return XST_FAILURE;
-	}
-	/* Hook up Rx interrupt service routine */
-	Status = XIntc_Connect(IntcInstPtr, XINTC_TIMER_0,
-				(XInterruptHandler)XTmrCtr_InterruptHandler,
-			&TmrCtr);
-	if (Status != XST_SUCCESS) {
-		xil_printf("ERR: Timer interrupt connect failed!\n\r");
-		return XST_FAILURE;
-	}
-
-	Status = XIntc_Connect(IntcInstPtr, XINTC_IIC_ID,
-				(XInterruptHandler) XIic_InterruptHandler,
-					   &IicInstance);
-	if (Status != XST_SUCCESS) {
-		xil_printf("ERR: IIC interrupt connect failed!\n\r");
-		return XST_FAILURE;
-	}
-
-	XIntc_Enable(IntcInstPtr, XINTC_IIC_ID);
-
-#if ENABLE_HDCP_IN_DESIGN
-	/* Hook up Rx interrupt service routine */
-	Status = XIntc_Connect(IntcInstPtr, XINTC_HDCP_TIMER_ID,
-					(XInterruptHandler)XDpRxSs_TmrCtrIntrHandler,
-					&DpRxSsInst);
-	if (Status != XST_SUCCESS) {
-		xil_printf("ERR: Timer interrupt connect failed!\n\r");
-		return XST_FAILURE;
-	}
-
-	XIntc_Enable(&IntcInst, XINTC_HDCP_TIMER_ID);
-#endif
-
-	/* Start the interrupt controller such that interrupts are recognized
-	 * and handled by the processor
-	 */
-
-	Status = XIntc_Start(IntcInstPtr, XIN_REAL_MODE);
-	if (Status != XST_SUCCESS) {
-		return XST_FAILURE;
-	}
-
-	/* Initialize the exception table. */
-	Xil_ExceptionInit();
-
-	/* Register the interrupt controller handler with the exception
-	 * table.
-	 */
-	Xil_ExceptionRegisterHandler(XIL_EXCEPTION_ID_INT,
-					(Xil_ExceptionHandler)XIntc_InterruptHandler, IntcInstPtr);
-
-	/* Enable exceptions. */
-	Xil_ExceptionEnable();
-	return (XST_SUCCESS);
-}
-#else
 int DpPt_SetupIntrSystem(void)
 {
 	int Status;
@@ -3568,7 +3427,6 @@ int DpPt_SetupIntrSystem(void)
 
 	return XST_SUCCESS;
 }
-#endif
 /*****************************************************************************/
 /**
 *

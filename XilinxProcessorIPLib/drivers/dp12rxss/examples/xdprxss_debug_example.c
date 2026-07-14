@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2015 - 2020 Xilinx, Inc. All rights reserved.
-* Copyright 2023-2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2023-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -56,9 +56,6 @@
 /* The unique device ID of the DisplayPort Receiver Subsystem HIP instance
  * to be used
  */
-#ifndef SDT
-#define XDPRXSS_DEVICE_ID		XPAR_DPRXSS_0_DEVICE_ID
-#endif
 
 /* Example will run either in MST or SST mode based upon config parameters.
  * In MST mode, this example exposes maximum number of input and output ports
@@ -75,11 +72,7 @@
 
 /************************** Function Prototypes ******************************/
 
-#ifndef SDT
-u32 DpRxSs_DebugExample(u16 DeviceId);
-#else
 u32 DpRxSs_DebugExample(UINTPTR BaseAddress);
-#endif
 
 u32 DpRxSs_PlatformInit(void);
 u32 DpRxSs_VideoPhyInit(void);
@@ -114,11 +107,7 @@ int main()
 	xil_printf("DisplayPort RX Subsystem debug example\n\r");
 	xil_printf("(c) 2015 by Xilinx\n\r");
 	xil_printf("-------------------------------------------\n\r\n\r");
-#ifndef SDT
-	Status = DpRxSs_DebugExample(XDPRXSS_DEVICE_ID);
-#else
 	Status = DpRxSs_DebugExample(XPAR_DPRXSS_0_BASEADDR);
-#endif
 	if (Status != XST_SUCCESS) {
 		xil_printf("DisplayPort RX Subsystem debug example failed."
 				"\n\r");
@@ -148,11 +137,7 @@ int main()
 * @note		None.
 *
 ******************************************************************************/
-#ifndef SDT
-u32 DpRxSs_DebugExample(u16 DeviceId)
-#else
 u32 DpRxSs_DebugExample(UINTPTR BaseAddress)
-#endif
 {
 	u32 Status;
 	XDpRxSs_Config *ConfigPtr;
@@ -168,11 +153,7 @@ u32 DpRxSs_DebugExample(UINTPTR BaseAddress)
 	xil_printf("Platform initialization done.\n\r");
 
 	/* Obtain the device configuration for the DisplayPort RX Subsystem */
-#ifndef SDT
-	ConfigPtr = XDpRxSs_LookupConfig(DeviceId);
-#else
 	ConfigPtr = XDpRxSs_LookupConfig(BaseAddress);
-#endif
 	if (!ConfigPtr) {
 		return XST_FAILURE;
 	}
