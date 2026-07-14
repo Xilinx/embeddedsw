@@ -13,6 +13,7 @@
 # 1.9   Nava 07/30/25 Fixed GCC warnings about missing field initializers
 #                     for Xuint128
 # 2.0   vid  02/03/26 Fixed the codespell errors
+# 2.1   gnr  07/13/26 Updated driver version for 2026.2
 #
 ###############################################################################
 OPTION psf_version = 2.1;
@@ -22,7 +23,7 @@ BEGIN driver cframe
   OPTION supported_peripherals = (psv_pmc_cfi_cframe psxl_pmc_cfi_cframe psx_pmc_cfi_cframe cfi_cframe);
   OPTION driver_state = ACTIVE;
   OPTION copyfiles = all;
-  OPTION VERSION = 2.0;
+  OPTION VERSION = 2.1;
   OPTION NAME = cframe;
 
 END driver

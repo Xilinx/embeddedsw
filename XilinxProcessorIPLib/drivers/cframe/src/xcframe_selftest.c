@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2017 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -23,6 +23,7 @@
 * 1.0   kc   10/22/2017 First release
 * 1.5   mss  09/04/2023 Fixed MISRA-C violation 8.13
 *       pre  01/16/2025 Fixed warning
+* 2.1   gnr  07/13/2026 Removed TODO comment
 *
 * </pre>
 *
@@ -53,14 +54,11 @@
 /*****************************************************************************/
 /**
 *
-* This function runs a self-test on the driver and hardware device.
+* This function is a dummy function and placeholder for a self-test
+* on the Cframe driver and hardware device.
 * @param	InstancePtr is a pointer to the XCframe instance.
 *
-* @return
-*		- XST_SUCCESS if the self-test passed.
-*		- XST_FAILURE otherwise.
-*
-* @note		None.
+* @return Always XST_SUCCESS
 *
 ******************************************************************************/
 s32 XCframe_SelfTest(const XCframe *InstancePtr)
@@ -70,7 +68,7 @@ s32 XCframe_SelfTest(const XCframe *InstancePtr)
 	/* Verify arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 
-	/* TODO write self test */
+	/* Place holder for Cframe self test */
 
 	return XST_SUCCESS;
 

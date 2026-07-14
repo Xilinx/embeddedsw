@@ -32,6 +32,7 @@
 * 1.9   Nava 07/30/2025 Fixed GCC warnings about missing field initializers
 *                       for Xuint128
 * 2.0   ng  03/26/2026  Fixed doxygen warnings
+* 2.1   gnr 07/13/2026 Removed TODO comment
 *
 * </pre>
 *
@@ -142,7 +143,6 @@ s32 XCframe_CfgInitialize(XCframe *InstancePtr,const XCframe_Config *CfgPtr,
 void XCframe_WriteReg(const XCframe *InstancePtr, u32 AddrOffset,
 		XCframe_FrameNo FrameNo,const Xuint128 *Val)
 {
-	/* TODO check if we need to disable interrupts */
 	XCframe_WriteReg32(InstancePtr->Config.BaseAddress +
 			((u32)FrameNo*XCFRAME_FRAME_OFFSET),
 			AddrOffset, Val->Word0);
