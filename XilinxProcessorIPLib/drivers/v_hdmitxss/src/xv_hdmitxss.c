@@ -180,7 +180,8 @@ typedef struct
 }XV_HdmiTxSs_SubCores;
 
 /**************************** Local Global ***********************************/
-XV_HdmiTxSs_SubCores XV_HdmiTxSs_SubCoreRepo[];
+/** Define Driver instance of all sub-core included in the design */
+XV_HdmiTxSs_SubCores XV_HdmiTxSs_SubCoreRepo[XPAR_XV_HDMITXSS_NUM_INSTANCES];
 /************************** Function Prototypes ******************************/
 static void XV_HdmiTxSs_GetIncludedSubcores(XV_HdmiTxSs *HdmiTxSsPtr,
 					    UINTPTR BaseAddress);
