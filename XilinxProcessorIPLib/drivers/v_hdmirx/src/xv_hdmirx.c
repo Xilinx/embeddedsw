@@ -672,8 +672,8 @@ void XV_HdmiRx_WriteScdcRegister(XV_HdmiRx *InstancePtr, u8 address, u8 data)
 {
     /* Verify arguments. */
     u16 scdcdata = 0;
-    Xil_AssertNonvoid(InstancePtr != NULL);
-    Xil_AssertNonvoid(address != 0x01 && address != 0x02 && address != 0x010 && address != 0x20 &&
+    Xil_AssertVoid(InstancePtr != NULL);
+    Xil_AssertVoid(address != 0x01 && address != 0x02 && address != 0x010 && address != 0x20 &&
                       address != 0x21 && address != 0x40);
     scdcdata = data << 8 | address;
     XV_HdmiRx_WriteReg(InstancePtr->Config.BaseAddress, XV_HDMIRX_SCDC_BRAM_OFFSET, scdcdata);
