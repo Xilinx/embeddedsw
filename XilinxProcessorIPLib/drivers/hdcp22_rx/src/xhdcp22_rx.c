@@ -2414,6 +2414,12 @@ static void *XHdcp22Rx_StateC5(XHdcp22_Rx *InstancePtr)
 			InstancePtr->Info.ReturnState = InstancePtr->Info.CurrentState;
 			InstancePtr->Info.SkipRead = TRUE;
 			return (void *)XHdcp22Rx_StateC7;
+		case XHDCP22_RX_MSG_ID_REPEATERAUTHSENDACK: /* Transition C5->C6 */
+			/* Fast transmitter sent the Ack while still in C5;
+			   hand it to C6 for verification instead of resetting. */
+			InstancePtr->Info.NextState = XHDCP22_RX_STATE_C6_VERIFY_RECEIVERIDLISTACK;
+			InstancePtr->Info.SkipRead = TRUE;
+			return (void *)XHdcp22Rx_StateC6;
 		default:
 			XHdcp22Rx_ResetAfterError(InstancePtr);
 			return (void *)XHdcp22Rx_StateB0;
