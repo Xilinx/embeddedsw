@@ -1200,10 +1200,12 @@ u32 XHdmiphy1_HdmiCfgCalcMmcmParam(XHdmiphy1 *InstancePtr, u8 QuadId,
 	u64 LineRate = 0;
 	XHdmiphy1_Mmcm *MmcmPtr;
 	XHdmiphy1_PllType PllType;
+#if !((XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYE5)&&(XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYP))
 	u64 clokoutdiv_dpll_lo;
 	u64 clokoutdiv_dpll_high;
 	u64 div_dpll_lo;
 	u64 div_dpll_high;
+#endif
 
 
 

@@ -1,6 +1,6 @@
 /*******************************************************************************
 * Copyright (C) 2015 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -915,7 +915,7 @@ u16 XHdmiphy1_DrpRd(XHdmiphy1 *InstancePtr, u8 QuadId,
         XHdmiphy1_ChannelId ChId, u16 Addr, u16 *RetVal)
 {
 	u32 Status;
-	u16 Val;
+	u16 Val = 0;
 
 	Status = XHdmiphy1_DrpAccess(InstancePtr, QuadId, ChId,
 			XHDMIPHY1_DIR_RX, /* Read. */
@@ -988,8 +988,10 @@ void XHdmiphy1_MmcmStart(XHdmiphy1 *InstancePtr, u8 QuadId,
         XHdmiphy1_DirectionType Dir)
 {
 	XHdmiphy1_Mmcm *MmcmPtr;
+#if !((XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYE5)&&(XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYP))
 	u64 clokoutdiv1_dpll_lo;
 	u64 clokoutdiv1_dpll_high;
+#endif
 
 	if (Dir == XHDMIPHY1_DIR_RX) {
 		MmcmPtr= &InstancePtr->Quads[QuadId].RxMmcm;
@@ -998,6 +1000,7 @@ void XHdmiphy1_MmcmStart(XHdmiphy1 *InstancePtr, u8 QuadId,
 		MmcmPtr= &InstancePtr->Quads[QuadId].TxMmcm;
 	}
 
+#if !((XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYE5)&&(XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYP))
 	if (Dir == XHDMIPHY1_DIR_RX) {
 					if (InstancePtr->Config.RxClkPrimitive == 1 ){
 						clokoutdiv1_dpll_lo = 1;
@@ -1019,6 +1022,7 @@ void XHdmiphy1_MmcmStart(XHdmiphy1 *InstancePtr, u8 QuadId,
 						clokoutdiv1_dpll_high = 512;
 					}
 				}
+#endif
 
 	/* Check values if valid */
 #if ((XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYE5)&&(XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYP))
