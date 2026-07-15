@@ -26,6 +26,7 @@
  * 2.4   gnr  03/18/26 Updated the Payload assignments with XPLMI_PACK_PAYLOAD macros
  *       tbk  02/24/26 Added SMC support for client applications
  *       tbk  05/19/26 Unified response indexing; helper now handles SMC/mailbox shift
+ *       pre  07/15/26 Added input parameter validation at required places
  *
  * </pre>
  *
@@ -357,10 +358,17 @@ int XPlmi_SetDDRMCMainRegSts(XPlmi_ClientInstance *InstancePtr, u32 DDRMCNum, u3
 int XPlmi_InputSlrIndex(XPlmi_ClientInstance *InstancePtr, u32 SlrIndex)
 {
 	int Status = XST_FAILURE;
+
+	/** Validate input parameters */
+	if (InstancePtr == NULL) {
+		goto END;
+	}
+
 	if (SlrIndex <= XPLMI_SLR_INDEX_3) {
 		InstancePtr->SlrIndex = SlrIndex;
 	    Status = XST_SUCCESS;
 	}
+END:
 	return Status;
 }
 

@@ -23,6 +23,7 @@
  * 2.4   tbk  02/10/26 Added SMC call support
  *       gnr  03/18/26 Updated the Payload assignments with XLOADER_PACK_PAYLOAD macros
  *       vm   03/30/26 Added support for OSPI as pdi source to get the optional data
+ *       pre  07/15/26 Added input parameter validation at required places
  *
  * </pre>
  *
@@ -430,11 +431,17 @@ int XLoader_InputSlrIndex(XLoader_ClientInstance *InstancePtr, u32 SlrIndex)
 {
 	int Status = XST_FAILURE;
 
+	/** Validate input parameters */
+	if (InstancePtr == NULL) {
+		goto END;
+	}
+
 	if (SlrIndex <= XLOADER_SLR_INDEX_3) {
 		InstancePtr->SlrIndex = SlrIndex;
 	    Status = XST_SUCCESS;
 	}
 
+END:
 	return Status;
 }
 

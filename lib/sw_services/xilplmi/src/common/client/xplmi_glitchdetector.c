@@ -26,6 +26,7 @@
  * 2.4   gnr  03/18/26 Updated the Payload assignments with XPLMI_PACK_PAYLOAD macros
  *       tbk  02/24/26 Added SMC support for client applications
  *       tbk  05/19/26 Unified response indexing; helper now handles SMC/mailbox shift
+ *       pre  07/15/26 Added input parameter validation at required places
  * </pre>
  *
  * @note
@@ -65,6 +66,7 @@
 #define XPLMI_WIDTH_BITS_SHIFT      (8U) /**< Shift value to place bits of width */
 #define XPLMI_WORD_LEN              (4U) /**< Word size in bytes */
 #define XPLMI_GD1_STATUS_POS        (16U) /**< Bit position of glitch detector1 status */
+#define XPLMI_GLITCHDETECTOR1		 (1U) /**< Glitch detector1 number */
 #ifdef XPLMI_GLITCHDETECTOR_SECURE_MODE
 #define XPLMI_PM_MODULE_ID			(2U) /**< Module ID for xilpm */
 #define XPLMI_PM_MODULE_ID_MASK		((u32)XPLMI_PM_MODULE_ID << XPLMI_MODULE_ID_SHIFT) /**< Module
@@ -174,6 +176,11 @@ int XPlmi_ReadReg32(u32 Offset, u32 *Data)
 	u32 Payload[PAYLOAD_ARG_CNT];
 	u32 Response[RESPONSE_ARG_CNT] = {0U};
 
+	/** Validate input parameters */
+	if (Data == NULL) {
+		goto END;
+	}
+
 	/** Fill IPI Payload */
 	XPLMI_PACK_PAYLOAD5(Payload, (u32)XPLMI_PM_IOCTL, PM_REG_PMC_ANALOG_ID, XPLMI_IOCTL_READ_REG,
 			Offset, XGLITCHDETECTOR_SECURE_READ_DEFAULT, XGLITCHDETECTOR_SECURE_READ_DEFAULT);
@@ -186,10 +193,16 @@ int XPlmi_ReadReg32(u32 Offset, u32 *Data)
 	}
 
 #else
+	/** Validate input parameters */
+	if (Data == NULL) {
+		goto END;
+	}
+
 	/* Read register value */
 	*Data = Xil_In32(PMC_ANALOG_BASE_ADDR + Offset);
 	Status = XST_SUCCESS;
 #endif
+END:
 	return Status;
 }
 
@@ -217,6 +230,11 @@ int XPlmi_ConfigureGlitchDetector(u8 Depth, u8 Width, u8 RefVoltage, u8 UserRegV
 	/* Caclculate offset based on glitch detector number */
 	u32 Offset = (u32)(GD_FUSE_CTRL0_OFFSET + (XPLMI_WORD_LEN * GlitchDetectorNum));
 
+	/** Validate glitch detector number */
+	if (GlitchDetectorNum > XPLMI_GLITCHDETECTOR1) {
+		goto END;
+	}
+
 	/* Frame data to be written */
 	Data = (((RefVoltage & XPLMI_REFVOL_MSBIT_MASK) << XPLMI_REFVOL_MSBIT_SHIFT) |
 	        ((RefVoltage & XPLMI_REFVOL_3LSBITS_MASK) << XPLMI_REFVOL_3LSBITS_SHIFT));
@@ -227,6 +245,7 @@ int XPlmi_ConfigureGlitchDetector(u8 Depth, u8 Width, u8 RefVoltage, u8 UserRegV
 
 	Status = XPlmi_WriteReg32(Offset, Data);
 
+END:
 	return Status;
 }
 
@@ -248,6 +267,11 @@ int XPlmi_ChangeGlitchDetectorState(u8 GlitchDetectorNum,eStatus EnableStatus)
 	u32 Mask = 1U << (GlitchDetectorNum * XPLMI_GD1_STATUS_POS);
 	u32 Data = 0;
 
+	/** Validate glitch detector number */
+	if (GlitchDetectorNum > XPLMI_GLITCHDETECTOR1) {
+		goto END;
+	}
+
 	/* Frame data to be written */
 	if (EnableStatus == DISABLE) {
 		Data = 1U << (GlitchDetectorNum * XPLMI_GD1_STATUS_POS);
@@ -256,6 +280,7 @@ int XPlmi_ChangeGlitchDetectorState(u8 GlitchDetectorNum,eStatus EnableStatus)
 	/* Update GD_CTRL register */
 	Status = XPlmi_UpdateReg32(GD_CTRL_OFFSET, Mask, Data);
 
+END:
 	return Status;
 }
 
@@ -274,6 +299,11 @@ int XPlmi_GlitchDetectorStatus(u8 GlitchDetectorNum, u8 *GlitchDetStatus)
 {
 	int Status = XST_FAILURE;
 	u32 RegVal = 0;
+
+	/** Validate glitch detector number */
+	if ((GlitchDetectorNum > XPLMI_GLITCHDETECTOR1) || (GlitchDetStatus == NULL)) {
+		goto END;
+	}
 
 	Status = XPlmi_ReadReg32(GD_CTRL_OFFSET, &RegVal);
 	if (Status != XST_SUCCESS) {
