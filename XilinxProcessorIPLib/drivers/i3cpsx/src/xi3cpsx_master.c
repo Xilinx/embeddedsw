@@ -239,7 +239,7 @@ s32 XI3cPsx_MasterSend(XI3cPsx *InstancePtr, u8 *MsgPtr,
 		       s32 ByteCount, XI3cPsx_Cmd Cmds)
 {
 	u16 WrFifoSpace;
-	u32 EnableIntr;
+	u32 EnableIntr = 0U;
 
 	if (ByteCount) {
 		if (ByteCount >= COMMAND_PORT_ARG_DATA_LEN_MAX)
@@ -250,12 +250,16 @@ s32 XI3cPsx_MasterSend(XI3cPsx *InstancePtr, u8 *MsgPtr,
 
 		WrFifoSpace = XI3cPsx_WrFifoLevel(InstancePtr);
 
-		if (WrFifoSpace > InstancePtr->SendByteCount)
+		if (XI3CPSX_WORD_TO_BYTES(WrFifoSpace) > InstancePtr->SendByteCount)
 			ByteCount = InstancePtr->SendByteCount;
 		else
-			ByteCount = WrFifoSpace;
+			ByteCount = XI3CPSX_WORD_TO_BYTES(WrFifoSpace);
 
-		XI3cPsx_WrTxFifo(InstancePtr, (u32 *)MsgPtr, ByteCount);
+		/*
+		 * Write data to tx FIFO
+		 */
+		if (ByteCount)
+			XI3cPsx_WrTxFifo(InstancePtr, (u32 *)MsgPtr, ByteCount);
 
 		/*
 		 * Enable interrupts
@@ -450,6 +454,7 @@ s32 XI3cPsx_MasterRecvPolled(XI3cPsx *InstancePtr, u8 *MsgPtr,
 	bool Resp = FALSE;
 	s32 Status = XST_FAILURE;
 	u16 RdWordCount;
+	s32 RdByteCount;
 
 	if (ByteCount >= COMMAND_PORT_ARG_DATA_LEN_MAX)
 		return XST_RECV_ERROR;
@@ -468,10 +473,20 @@ s32 XI3cPsx_MasterRecvPolled(XI3cPsx *InstancePtr, u8 *MsgPtr,
 		RdWordCount = XI3cPsx_RdFifoLevel(InstancePtr);
 
 		/*
+		 * FIFO level is in words; clamp the converted byte count to the
+		 * remaining receive count so a partial last word cannot overrun
+		 * the user buffer.
+		 */
+		if (XI3CPSX_WORD_TO_BYTES(RdWordCount) > InstancePtr->RecvByteCount)
+			RdByteCount = InstancePtr->RecvByteCount;
+		else
+			RdByteCount = XI3CPSX_WORD_TO_BYTES(RdWordCount);
+
+		/*
 		 * Read data from Rx FIFO
 		 */
-		if (RdWordCount)
-			XI3cPsx_RdRxFifo(InstancePtr, (u32 *)MsgPtr, XI3CPSX_WORD_TO_BYTES(RdWordCount));
+		if (RdByteCount)
+			XI3cPsx_RdRxFifo(InstancePtr, (u32 *)MsgPtr, RdByteCount);
 
 		/*
 		 * Response from intr status
@@ -574,14 +589,17 @@ void XI3cPsx_MasterInterruptHandler(XI3cPsx *InstancePtr)
 	if (IntrStatusReg & XI3CPSX_INTR_TX_THLD) {
 		WrFifoSpace = XI3cPsx_WrFifoLevel(InstancePtr);
 
-		if (WrFifoSpace > InstancePtr->SendByteCount)
+		if (XI3CPSX_WORD_TO_BYTES(WrFifoSpace) > InstancePtr->SendByteCount)
 			ByteCount = InstancePtr->SendByteCount;
 		else
-			ByteCount = WrFifoSpace;
+			ByteCount = XI3CPSX_WORD_TO_BYTES(WrFifoSpace);
+		/*
+		 * Write data to tx FIFO
+		 */
+		if (ByteCount)
+			XI3cPsx_WrTxFifo(InstancePtr, (u32 *)InstancePtr->SendBufferPtr, ByteCount);
 
-		XI3cPsx_WrTxFifo(InstancePtr, (u32 *)InstancePtr->SendBufferPtr, ByteCount);
-
-		if (InstancePtr->SendByteCount <= 0) {
+		if (InstancePtr->SendByteCount == 0) {
 			XI3cPsx_DisableInterrupts(InstancePtr->Config.BaseAddress,
 						  XI3CPSX_INTR_TX_THLD);
 		}
@@ -593,8 +611,19 @@ void XI3cPsx_MasterInterruptHandler(XI3cPsx *InstancePtr)
 	if (IntrStatusReg & XI3CPSX_INTR_RX_THLD) {
 		RxDataAvailable = XI3cPsx_RdFifoLevel(InstancePtr);
 
-		XI3cPsx_RdRxFifo(InstancePtr, (u32 *)InstancePtr->RecvBufferPtr, RxDataAvailable);
-		if (InstancePtr->RecvByteCount <= 0) {
+		/*
+		 * FIFO level is in words; clamp the converted byte count to the
+		 * remaining receive count so a partial last word cannot overrun
+		 * the user buffer.
+		 */
+		if (XI3CPSX_WORD_TO_BYTES(RxDataAvailable) > InstancePtr->RecvByteCount)
+			ByteCount = InstancePtr->RecvByteCount;
+		else
+			ByteCount = XI3CPSX_WORD_TO_BYTES(RxDataAvailable);
+
+		if (ByteCount)
+			XI3cPsx_RdRxFifo(InstancePtr, (u32 *)InstancePtr->RecvBufferPtr, ByteCount);
+		if (InstancePtr->RecvByteCount == 0) {
 			XI3cPsx_DisableInterrupts(InstancePtr->Config.BaseAddress,
 						  XI3CPSX_INTR_RX_THLD);
 		}
@@ -607,7 +636,17 @@ void XI3cPsx_MasterInterruptHandler(XI3cPsx *InstancePtr)
 		if (InstancePtr->RecvByteCount > 0) {
 			RxDataAvailable = XI3cPsx_RdFifoLevel(InstancePtr);
 
-			XI3cPsx_RdRxFifo(InstancePtr, (u32 *)InstancePtr->RecvBufferPtr, RxDataAvailable);
+			/*
+			 * Clamp to the remaining receive count so a partial last
+			 * word cannot overrun the user buffer.
+			 */
+			if (XI3CPSX_WORD_TO_BYTES(RxDataAvailable) > InstancePtr->RecvByteCount)
+				ByteCount = InstancePtr->RecvByteCount;
+			else
+				ByteCount = XI3CPSX_WORD_TO_BYTES(RxDataAvailable);
+
+			if (ByteCount)
+				XI3cPsx_RdRxFifo(InstancePtr, (u32 *)InstancePtr->RecvBufferPtr, ByteCount);
 		}
 
 		ResponseData = XI3cPsx_ReadReg(InstancePtr->Config.BaseAddress,

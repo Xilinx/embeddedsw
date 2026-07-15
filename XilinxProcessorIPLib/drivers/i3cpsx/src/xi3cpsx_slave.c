@@ -49,8 +49,6 @@
 * @param	InstancePtr is a pointer to the XI3cPsx instance.
 * @param	SlaveAddr is the static address of the slave we are receiving from.
 *
-* @return	None.
-*
 * @note
 *	Interrupt is always enabled no matter the transfer is interrupt-
 *	driven or polled mode. Whether device will be interrupted or not
@@ -119,8 +117,6 @@ void XI3cPsx_SetupSlave(XI3cPsx *InstancePtr, u16 SlaveAddr)
 * @param	MsgPtr is the pointer to the receive buffer.
 * @param	ByteCount is the number of bytes to be received.
 *
-* @return	None.
-*
 * @note		This routine is for interrupt-driven transfer only.
 *
 ****************************************************************************/
@@ -134,6 +130,46 @@ void XI3cPsx_SlaveRecv(XI3cPsx *InstancePtr, u8 *MsgPtr, s32 ByteCount)
 	Xil_AssertVoid(InstancePtr->IsReady == (u32)XIL_COMPONENT_IS_READY);
 	Xil_AssertVoid(ByteCount != 0);
 
+	InstancePtr->RecvBufferPtr = MsgPtr;
+	InstancePtr->RecvByteCount = (u16)ByteCount;
+	InstancePtr->IsSend = 0;
+
+	XI3cPsx_EnableInterrupts(InstancePtr->Config.BaseAddress,
+				 XI3CPSX_INTR_RX_THLD | XI3CPSX_INTR_RESP_READY |
+				 XI3CPSX_INTR_TRANSFER_ERR | XI3CPSX_INTR_TRANSFER_ABORT);
+}
+
+/*****************************************************************************/
+/**
+* @brief
+* This function sets up a slave interrupt-driven send.
+* Data processing for the send is handled by the interrupt handler.
+*
+* @param	InstancePtr is a pointer to the XI3cPsx instance.
+* @param	MsgPtr is the pointer to the send buffer.
+* @param	ByteCount is the number of bytes to be sent.
+*
+* @note		This routine is for interrupt-driven transfer only.
+*
+****************************************************************************/
+void XI3cPsx_SlaveSend(XI3cPsx *InstancePtr, u8 *MsgPtr, s32 ByteCount)
+{
+	/*
+	 * Assert validates the input arguments.
+	 */
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(MsgPtr != NULL);
+	Xil_AssertVoid(InstancePtr->IsReady == (u32)XIL_COMPONENT_IS_READY);
+	Xil_AssertVoid(ByteCount > 0);
+	Xil_AssertVoid(ByteCount < COMMAND_PORT_ARG_DATA_LEN_MAX);
+
+	InstancePtr->SendBufferPtr = MsgPtr;
+	InstancePtr->SendByteCount = (u16)ByteCount;
+	InstancePtr->IsSend = 1;
+
+	XI3cPsx_EnableInterrupts(InstancePtr->Config.BaseAddress,
+				 XI3CPSX_INTR_TX_THLD | XI3CPSX_INTR_RESP_READY |
+				 XI3CPSX_INTR_TRANSFER_ERR | XI3CPSX_INTR_TRANSFER_ABORT);
 }
 
 /*****************************************************************************/
@@ -346,13 +382,16 @@ s32 XI3cPsx_SlaveRecvPolled(XI3cPsx *InstancePtr, u8 *MsgPtr)
 *
 * @param	InstancePtr is a pointer to the XIicPs instance.
 *
-* @return	None.
-*
 * @note 	None.
 *
 ****************************************************************************/
 void XI3cPsx_SlaveInterruptHandler(XI3cPsx *InstancePtr)
 {
+	u32 IntrStatusReg;
+	u16 RxDataAvailable, WrFifoSpace;
+	s32 ByteCount;
+	u32 ResponseData;
+	u32 StatusEvent = 0U;
 
 	/*
 	 * Assert validates the input arguments.
@@ -360,5 +399,95 @@ void XI3cPsx_SlaveInterruptHandler(XI3cPsx *InstancePtr)
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(InstancePtr->IsReady == (u32)XIL_COMPONENT_IS_READY);
 
+	/*
+	 * Read the Interrupt status register.
+	 */
+	IntrStatusReg = XI3cPsx_ReadReg(InstancePtr->Config.BaseAddress, XI3CPSX_INTR_STATUS);
+
+	/*
+	 * Write the status back to clear the interrupts so no events are
+	 * missed while processing this interrupt.
+	 */
+	XI3cPsx_WriteReg(InstancePtr->Config.BaseAddress, (u32)XI3CPSX_INTR_STATUS, IntrStatusReg);
+
+	/*
+	 * Tx threshold - write data to FIFO
+	 */
+	if (IntrStatusReg & XI3CPSX_INTR_TX_THLD) {
+
+		WrFifoSpace = XI3cPsx_WrFifoLevel(InstancePtr);
+
+		if (XI3CPSX_WORD_TO_BYTES(WrFifoSpace) > InstancePtr->SendByteCount)
+			ByteCount = InstancePtr->SendByteCount;
+		else
+			ByteCount = XI3CPSX_WORD_TO_BYTES(WrFifoSpace);
+
+		if (ByteCount)
+			XI3cPsx_WrTxFifo(InstancePtr, (u32 *)InstancePtr->SendBufferPtr, ByteCount);
+
+		if (InstancePtr->SendByteCount == 0) {
+			XI3cPsx_DisableInterrupts(InstancePtr->Config.BaseAddress,
+						  XI3CPSX_INTR_TX_THLD);
+		}
+	}
+
+	/*
+	 * Rx threshold - read available data from FIFO
+	 */
+	if (IntrStatusReg & XI3CPSX_INTR_RX_THLD) {
+		RxDataAvailable = XI3cPsx_RdFifoLevel(InstancePtr);
+
+		if (XI3CPSX_WORD_TO_BYTES(RxDataAvailable) > InstancePtr->RecvByteCount)
+			ByteCount = InstancePtr->RecvByteCount;
+		else
+			ByteCount = XI3CPSX_WORD_TO_BYTES(RxDataAvailable);
+
+		if (ByteCount)
+			XI3cPsx_RdRxFifo(InstancePtr, (u32 *)InstancePtr->RecvBufferPtr, ByteCount);
+		if (InstancePtr->RecvByteCount == 0) {
+			XI3cPsx_DisableInterrupts(InstancePtr->Config.BaseAddress,
+						  XI3CPSX_INTR_RX_THLD);
+		}
+	}
+
+	/*
+	 * Response ready - transfer complete, read any remaining data
+	 */
+	if (IntrStatusReg & XI3CPSX_INTR_RESP_READY) {
+		if (InstancePtr->RecvByteCount > 0) {
+			RxDataAvailable = XI3cPsx_RdFifoLevel(InstancePtr);
+
+			if (XI3CPSX_WORD_TO_BYTES(RxDataAvailable) > InstancePtr->RecvByteCount)
+				ByteCount = InstancePtr->RecvByteCount;
+			else
+				ByteCount = XI3CPSX_WORD_TO_BYTES(RxDataAvailable);
+
+			if (ByteCount)
+				XI3cPsx_RdRxFifo(InstancePtr, (u32 *)InstancePtr->RecvBufferPtr, ByteCount);
+		}
+
+		ResponseData = XI3cPsx_ReadReg(InstancePtr->Config.BaseAddress,
+					       XI3CPSX_RESPONSE_QUEUE_PORT);
+		InstancePtr->Error = (ResponseData & XI3CPSX_RESPONSE_ERR_STS_MASK) >> XI3CPSX_RESPONSE_ERR_STS_SHIFT;
+
+		XI3cPsx_DisableInterrupts(InstancePtr->Config.BaseAddress,
+					  XI3CPSX_INTR_TX_THLD | XI3CPSX_INTR_RX_THLD | XI3CPSX_INTR_RESP_READY |
+					  XI3CPSX_INTR_TRANSFER_ERR | XI3CPSX_INTR_TRANSFER_ABORT);
+
+		InstancePtr->StatusHandler(InstancePtr->CallBackRef, InstancePtr->Error);
+	}
+	/*
+	 * Transfer Error interrupt, pass this information to application.
+	 */
+	if (0U != (IntrStatusReg & XI3CPSX_INTR_STATUS_TRANSFER_ERR_STS_MASK)) {
+		StatusEvent = XI3CPSX_EVENT_TRANSF_ERR;
+		InstancePtr->StatusHandler(InstancePtr->CallBackRef,
+					   StatusEvent);
+	}
+	if (0U != (IntrStatusReg & XI3CPSX_INTR_STATUS_TRANSFER_ABORT_STS_MASK)) {
+		StatusEvent = XI3CPSX_EVENT_TRANSF_ABORT;
+		InstancePtr->StatusHandler(InstancePtr->CallBackRef,
+					   StatusEvent);
+	}
 }
 /** @} */

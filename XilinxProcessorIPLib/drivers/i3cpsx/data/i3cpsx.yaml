@@ -1,4 +1,4 @@
-# Copyright (C) 2023 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (C) 2023-2026 Advanced Micro Devices, Inc.  All rights reserved.
 # Copyright (c) 2021 Xilinx, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 %YAML 1.2
@@ -42,5 +42,7 @@ examples:
     xi3cpsx_polled_example.c:
         - reg
     xi3cpsx_slave_loopback.c:
+        - reg
+    xi3cpsx_slave_intr_loopback.c:
         - reg
 ...

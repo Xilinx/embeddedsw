@@ -7,7 +7,7 @@
 /*****************************************************************************/
 /**
 *
-* @file I3cPsx.h
+* @file xi3cpsx.h
 * @addtogroup Overview
 * @{
 * @details
@@ -119,6 +119,7 @@ extern "C" {
 #define XI3CPSX_EVENT_TRANSF_ABORT		0x0008U  /**< Transfer abort */
 #define XI3CPSX_EVENT_SLV_WR_NACK		0x0009U  /**< I2C Slave write data NACK */
 #define XI3CPSX_EVENT_PEC			0x000CU  /**< PEC */
+#define XI3CPSX_EVENT_TRANSF_ERR		0x000DU  /**< Transfer error */
 
 /** @} */
 
@@ -185,6 +186,9 @@ typedef struct {
 	u32 DeviceCount; /**< No of I3C devices */
 } XI3cPsx_Config;
 
+/**
+ * This typedef contains Transaction command and arguments.
+ */
 typedef struct {
 	u32 TransCmd;      /**< Transaction command code */
 	u32 TransArg;      /**< Argument associated with the transaction */
@@ -196,17 +200,20 @@ typedef struct {
  * This typedef contains FIFO depth information.
  */
 typedef struct {
-	u8 Cmd_FD;
-	u8 Data_FD;
+	u8 Cmd_FD;	/**< Command FIFO depth */
+	u8 Data_FD;	/**< Data FIFO depth */
 } XI3cPsx_Master_Caps;
 
+/**
+ * This typedef contains Command information
+ */
 struct CmdInfo {
-	u8 Cmd;
-	u16 SlaveAddr;
-	u8 *TxBuff;
-	u8 *RxBuff;
-	u8 TxLen;
-	u8 RxLen;
+	u8 Cmd;		/**< Command type */
+	u16 SlaveAddr;	/**< Slave address */
+	u8 *TxBuff;	/**< Pointer to transmit buffer */
+	u8 *RxBuff;	/**< Pointer to receive buffer */
+	u8 TxLen;	/**< Transmit length in bytes */
+	u8 RxLen;	/**< Receive length in bytes */
 };
 /**
  * The XI3cPsx driver instance data. The user is required to allocate a
@@ -225,7 +232,7 @@ typedef struct {
 	u16 SendByteCount;	/**< Number of bytes still expected to send */
 	u16 RecvByteCount;	/**< Number of bytes still expected to receive */
 	u16 CurrByteCount;	/**< No. of bytes expected in current transfer */
-	u8 Error;
+	u8 Error;		/**< Error status of last transfer */
 
 	s32 UpdateTxSize;	/**< If tx size register has to be updated */
 	s32 IsSend;		/**< Whether master is sending or receiving */
