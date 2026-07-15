@@ -124,7 +124,7 @@ typedef struct
 
 /**************************** Local Global ***********************************/
 /** Define Driver instance of all sub-core included in the design */
-XV_HdmiRxSs_SubCores XV_HdmiRxSs_SubCoreRepo[];
+XV_HdmiRxSs_SubCores XV_HdmiRxSs_SubCoreRepo[XPAR_XV_HDMIRXSS_NUM_INSTANCES];
 
 /************************** Function Prototypes ******************************/
 static void XV_HdmiRxSs_GetIncludedSubcores(XV_HdmiRxSs *HdmiRxSsPtr,
@@ -1764,7 +1764,7 @@ XHdmiC_Aux *XV_HdmiRxSs_GetAuxiliary(XV_HdmiRxSs *InstancePtr)
 ******************************************************************************/
 void XV_HdmiRxSs_Write_ScdcRegister(XV_HdmiRxSs *InstancePtr, u8 address, u8 data)
 {
-    XV_HdmiRx_WriteScdcRegister(InstancePtr,address,data);
+    XV_HdmiRx_WriteScdcRegister(InstancePtr->HdmiRxPtr,address,data);
 }
 
 /*****************************************************************************/

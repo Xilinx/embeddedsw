@@ -85,6 +85,8 @@ u32 XV_HdmiRxSs_GetDrvIndex(XV_HdmiRxSs *InstancePtr, UINTPTR BaseAddress)
 {
 	u32 Index = 0;
 
+	(void)InstancePtr;
+
 	for (Index = 0U; XV_HdmiRxSs_ConfigTable[Index].Name != NULL; Index++) {
 		if ((XV_HdmiRxSs_ConfigTable[Index].BaseAddress == BaseAddress)) {
 			break;
