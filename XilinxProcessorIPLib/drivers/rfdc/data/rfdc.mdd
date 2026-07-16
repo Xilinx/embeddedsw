@@ -1,0 +1,29 @@
+###############################################################################
+# Copyright (C) 2017 - 2022 Xilinx, Inc.  All rights reserved.
+# Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
+# SPDX-License-Identifier: MIT
+#
+##############################################################################
+# MODIFICATION HISTORY:
+#
+# Ver      Who    Date     Changes
+# -------- ------ -------- ----------------------------------------------------
+# 1.0     sk    05/16/17  First releasae
+# 2.1     sk    09/21/17  Add APP_COMPILER_FLAGS Option
+#         cog   09/25/19  Added depends and APP_LINKER_FLAGS Options
+##############################################################################
+
+OPTION psf_version = 2.1;
+
+BEGIN driver rfdc
+
+  OPTION supported_peripherals = (usp_rf_data_converter);
+  OPTION driver_state = ACTIVE;
+  OPTION copyfiles = all;
+  OPTION VERSION = 13.1;
+  OPTION NAME = rfdc;
+  OPTION depends = libmetal;
+  OPTION APP_COMPILER_FLAGS = "-D __BAREMETAL__";
+  OPTION APP_LINKER_FLAGS = "-Wl,--start-group,-lxil,-lgcc,-lc,-lmetal,--end-group";
+
+END driver
