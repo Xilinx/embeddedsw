@@ -62,6 +62,7 @@
 * 5.7   bha    02/25/26 Removed ICCARM related code
 *       mb     02/29/26 Add section attribute to global variables
 *       mb     03/25/26 Remove hard code shared_mem section address
+* 5.8   rap    07/01/26 Updated the print statement to show error code when the example fails
 *
 * </pre>
 ******************************************************************************/
@@ -485,7 +486,7 @@ static int SecureAesGmacTest(XSecure_Aes *AesInstance)
 
 	Status = XSecure_AesDecryptFinal(AesInstance, (UINTPTR)GcmTag);
 	if (Status != XST_SUCCESS) {
-		xil_printf("Decryption failure- GMAC tag was not matched\n\r");
+		xil_printf("Decryption failure- GMAC tag was not matched, Status = 0x%x \n\r", Status);
 		goto END;
 	}
 
