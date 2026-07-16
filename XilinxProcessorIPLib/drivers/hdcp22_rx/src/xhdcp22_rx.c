@@ -3657,7 +3657,6 @@ static void XHdcp22Rx_SetTopologyDeviceCnt(XHdcp22_Rx *InstancePtr, u8 DeviceCnt
 {
 	/* Verify arguments */
 	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid(DeviceCnt > 0);
 	Xil_AssertVoid(DeviceCnt <= XHDCP22_RX_MAX_DEVICE_COUNT);
 
 	InstancePtr->Topology.DeviceCnt = DeviceCnt;
