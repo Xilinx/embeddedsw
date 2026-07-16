@@ -60,9 +60,10 @@
 *	"0000000000000000000000000000000000000000000000000000000000000000"
 *	The value will be converted to a hex buffer and will be written
 *	into the Spartan UltraScale Plus eFUSE array. This value should
-*	be given in string format. It should be 64 characters long, valid
-*	characters are 0-9,a-f,A-F. Any other character is considered invalid
-*	and will not burn PPK0 hash.
+*	be given in string format. The PPK hash string length depends on the
+*	platform: 64 characters for SPARTANUPLUS and 96 characters for
+*	SPARTANUPLUSAES1, valid characters are 0-9,a-f,A-F. Any other character
+*	is considered invalid and will not burn PPK0 hash.
 *	Note that,for writing the PPK0 hash, XNVM_EFUSE_WRITE_PPK0_HASH
 *	should be set to TRUE.
 *
@@ -70,9 +71,10 @@
 *	"0000000000000000000000000000000000000000000000000000000000000000"
 *	The value will be converted to a hex buffer and will be written
 *	into the Spartan UltraScale Plus eFuse array. This value should
-*	be given in string format. It should be 64 characters long, valid
-*	characters are 0-9,a-f,A-F. Any other character is considered invalid
-*	and will not burn PPK1 hash.
+*	be given in string format. The PPK hash string length depends on the
+*	platform: 64 characters for SPARTANUPLUS and 96 characters for
+*	SPARTANUPLUSAES1, valid characters are 0-9,a-f,A-F. Any other character
+*	is considered invalid and will not burn PPK1 hash.
 *	Note that,for writing the PPK1 hash, XNVM_EFUSE_WRITE_PPK1_HASH
 *	should be set to TRUE.
 *
@@ -80,9 +82,10 @@
 *	"0000000000000000000000000000000000000000000000000000000000000000"
 *	The value will be converted to a hex buffer and will be written
 *	into the Spartan UltraScale Plus eFuse array. This value should
-*	be given in string format. It should be 64 characters long, valid
-*	characters are 0-9,a-f,A-F. Any other character is considered invalid
-*	and will not burn PPK2 hash.
+*	be given in string format. The PPK hash string length depends on the
+*	platform: 64 characters for SPARTANUPLUS and 96 characters for
+*	SPARTANUPLUSAES1, valid characters are 0-9,a-f,A-F. Any other character
+*	is considered invalid and will not burn PPK2 hash.
 *	Note that,for writing the PPK2 hash, XNVM_EFUSE_WRITE_PPK2_HASH
 *	should be set to TRUE.
 *
@@ -281,7 +284,7 @@
 * 3.7   hae   02/27/2026 Support XILINX_CTRL OSPI_RESET_RECOVERY_DELAY_CTRL
 *                        and ROM_RSVD_OSPI_DEV_RESET_CHOICE
 *                        and ROM_OSPI_CMD_SEQ_CTRL eFuse bit programming
-*
+* 3.8   rpu   07/06/2026 Clean up PPK hash length macros.
 * </pre>
 *
 ******************************************************************************/
@@ -383,8 +386,6 @@ extern "C" {
 
 #define XNVM_EFUSE_PPK2_HASH	"0000000000000000000000000000000000000000000000000000000000000000"
 
-#define XNVM_EFUSE_PPK_HASH_STRING_LEN		(64U)
-
 #else
 
 #define XNVM_EFUSE_PPK0_HASH    "000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"
@@ -401,8 +402,6 @@ extern "C" {
 #define XNVM_EFUSE_XNVM_EFUSE_JTAG_MODE_DIS	FALSE
 #define XNVM_EFUSE_XNVM_EFUSE_SMAP_MODE_DIS	FALSE
 #define XNVM_EFUSE_XNVM_EFUSE_SERIAL_MODE_DIS	FALSE
-
-#define XNVM_EFUSE_PPK_HASH_STRING_LEN		(96U)
 
 #endif
 

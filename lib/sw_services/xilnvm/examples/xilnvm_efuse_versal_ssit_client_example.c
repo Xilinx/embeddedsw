@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2025 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -60,7 +60,7 @@
  * 3.5    hj   02/05/2025 First release
  * 3.5    hj   14/04/2025 Added support for unique PPK hash programming for each SLR
  * 3.6    hj   18/06/2025 Added support to program unique value of efuse for each SLR
- *
+ * 3.8    rpu  07/06/2026 Clean up PPK hash length macros.
  * </pre>
  *
  ******************************************************************************/
@@ -75,7 +75,7 @@
 
 /***************** Macros (Inline Functions) Definitions *********************/
 #define XNVM_EFUSE_AES_KEY_STRING_LEN			(64U)
-#define XNVM_EFUSE_PPK_HASH_STRING_LEN			(64U)
+#define XNVM_EFUSE_PPK_HASH_STRING_LEN			(XNVM_EFUSE_PPK_HASH_LEN_IN_BYTES * 2U)
 #define XNVM_EFUSE_ROW_STRING_LEN			(8U)
 #define XNVM_EFUSE_GLITCH_WR_LK_MASK			(0x80000000U)
 #define XNVM_EFUSE_DEC_EFUSE_ONLY_MASK			(0x0000ffffU)

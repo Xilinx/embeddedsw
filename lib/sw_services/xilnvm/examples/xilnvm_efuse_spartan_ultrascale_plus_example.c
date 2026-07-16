@@ -68,7 +68,8 @@
 #define XNVM_IV_STRING_LEN			(24U) /**< IV string length in bytes */
 #define XNVM_MAX_AES_KEY_LEN_IN_CHARS	XNVM_256_BITS_AES_KEY_LEN_IN_CHARS
 					/**< Max AES Key length in characters */
-
+#define XNVM_EFUSE_PPK_HASH_STRING_LEN \
+	(XNVM_EFUSE_PPK_HASH_SIZE_IN_BYTES * 2U)	/**< PPK hash string length */
 /**************************** Type Definitions *******************************/
 
 /**************************** Variable Definitions ***************************/

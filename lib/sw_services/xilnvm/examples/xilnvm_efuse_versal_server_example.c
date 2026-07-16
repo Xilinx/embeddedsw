@@ -58,7 +58,7 @@
  * 3.7   mb    01/06/2026 Rename XNVM_EFUSE_AES_KEY to XNVM_EFUSE_KEY,
  * 				XNVM_EFUSE_USER_KEY_0 to XNVM_EFUSE_USER_KEY0,
  * 				XNVM_EFUSE_USER_KEY_1 to XNVM_EFUSE_USER_KEY1
- *
+ * 3.8   rpu   07/06/2026 Clean up PPK hash length macros.
  * </pre>
  *
  ******************************************************************************/
@@ -75,7 +75,7 @@
 
 /***************** Macros (Inline Functions) Definitions *********************/
 #define XNVM_EFUSE_AES_KEY_STRING_LEN			(64U)
-#define XNVM_EFUSE_PPK_HASH_STRING_LEN			(64U)
+#define XNVM_EFUSE_PPK_HASH_STRING_LEN			(XNVM_EFUSE_PPK_HASH_LEN_IN_BYTES * 2U)
 #define XNVM_EFUSE_ROW_STRING_LEN			(8U)
 #define XNVM_EFUSE_GLITCH_WR_LK_MASK			(0x80000000U)
 #define XNVM_EFUSE_DEC_EFUSE_ONLY_MASK			(0x0000ffffU)

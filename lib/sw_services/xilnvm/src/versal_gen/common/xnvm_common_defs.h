@@ -21,6 +21,7 @@
 *       yog  09/13/23 Fixed review comments
 * 3.3	vss  02/23/24 Added IPI support for eFuse read and write
 *       ng   11/22/2023 Fixed doxygen grouping
+* 3.8   rpu  07/06/26 Clean up PPK hash length macros
 *
 * </pre>
 *
@@ -51,24 +52,24 @@ extern "C" {
 #define XNVM_NUM_OF_OFFCHIP_ID_FUSES			(8U)	/**< Number of offchip revocation ID eFuses */
 #define XNVM_EFUSE_AES_KEY_LEN_IN_WORDS			(8U)	/**< AES key length in words */
 #define XNVM_EFUSE_IV_LEN_IN_WORDS                      (3U)	/**< eFuse IV length in words */
+#define XNVM_WORD_LEN					(4U)	/**< WORD length */
 #ifndef VERSAL_2VE_2VM
-#define XNVM_EFUSE_PPK_HASH_LEN_IN_WORDS		(8U)	/**< PPK Hash length in words for Versal and VersalNet */
+#define XNVM_EFUSE_PPK_HASH_LEN_IN_BYTES		(32U)
+	/**< PPK hash length in bytes for Versal, VersalNet and Versal_2vp */
 #else
-#define XNVM_EFUSE_PPK_HASH_LEN_IN_WORDS                (12U)	/**< PPK Hash length in words for Versal_2Ve_2Vm */
+#define XNVM_EFUSE_PPK_HASH_LEN_IN_BYTES		(48U)
+	/**< PPK hash length in bytes for Versal_2Ve_2Vm */
 #endif
+#define XNVM_EFUSE_PPK_HASH_LEN_IN_BITS \
+		(XNVM_EFUSE_PPK_HASH_LEN_IN_BYTES * 8U)	/**< PPK hash length in bits */
+#define XNVM_EFUSE_PPK_HASH_LEN_IN_WORDS \
+		(XNVM_EFUSE_PPK_HASH_LEN_IN_BYTES / XNVM_WORD_LEN)	/**< PPK hash length in words */
 #define XNVM_EFUSE_DNA_LEN_IN_WORDS			(4U)	/**< DNA length in words */
 #define XNVM_EFUSE_IV_LEN_IN_BITS			(96U)	/**< IV length in words */
 #define XNVM_EFUSE_AES_KEY_LEN_IN_BITS			(256U)	/**< AES key length in bits */
-#ifndef VERSAL_2VE_2VM
-#define XNVM_EFUSE_PPK_HASH_LEN_IN_BITS			(256U)	/**< PPK hash length in bits for Versal and VersalNet */
-#else
-#define XNVM_EFUSE_PPK_HASH_LEN_IN_BITS                 (384U)	/**< PPK hash length in bits for Versal_2Ve_2Vm */
-#endif
 #define XNVM_EFUSE_IV_LEN_IN_BYTES			(12U)	/**< IV length in bits */
 #define XNVM_EFUSE_AES_KEY_LEN_IN_BYTES			(32U)	/**< Aes key length in bytes */
-#define XNVM_EFUSE_PPK_HASH_LEN_IN_BYTES		(32U)	/**< PPK hash length in bytes */
 #define XNVM_IV_STRING_LEN				(24U)	/**< IV length in string */
-#define XNVM_WORD_LEN					(4U)	/**< WORD length */
 #define XNVM_EFUSE_CRC_AES_ZEROS			(0x6858A3D5U)	/**< CRC value for all zero key */
 #define XNVM_EFUSE_MAX_BITS_IN_ROW			(32U)	/**< Maximum bits in a row */
 #define XNVM_MAX_REVOKE_ID_FUSES		(XNVM_NUM_OF_REVOKE_ID_FUSES	\

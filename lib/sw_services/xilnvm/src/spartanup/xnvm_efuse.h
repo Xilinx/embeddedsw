@@ -110,18 +110,18 @@ extern "C" {
  * @{
  */
 #ifndef SPARTANUPLUSAES1
-#define XNVM_EFUSE_PPK_HASH_LEN_IN_BITS		(256U) /**< PPK hash length in bits */
-#define XNVM_EFUSE_DEF_PPK_HASH_SIZE_IN_WORDS	(8U) /**< Default PPK hash size in words */
 #define XNVM_EFUSE_PPK_HASH_SIZE_IN_BYTES	XNVM_EFUSE_PPK_HASH_256_SIZE_IN_BYTES
 						/**< PPK hash size in bytes */
 #define XNVM_EFUSE_PPK_END			XNVM_EFUSE_PPK2 /**< Last PPK */
 #else
-#define XNVM_EFUSE_PPK_HASH_LEN_IN_BITS		(384U) /**< PPK hash length in bits */
-#define XNVM_EFUSE_DEF_PPK_HASH_SIZE_IN_WORDS	(12U) /**< Default PPK hash size in words */
 #define XNVM_EFUSE_PPK_HASH_SIZE_IN_BYTES	XNVM_EFUSE_PPK_HASH_384_SIZE_IN_BYTES
 						/**< PPK hash size in bytes */
 #define XNVM_EFUSE_PPK_END			XNVM_EFUSE_PPK1 /**< Last PPK */
 #endif
+#define XNVM_EFUSE_PPK_HASH_LEN_IN_BITS \
+	((XNVM_EFUSE_PPK_HASH_SIZE_IN_BYTES) * (XNVM_EFUSE_BITS_IN_A_BYTE))	/**< PPK hash length in bits */
+#define XNVM_EFUSE_DEF_PPK_HASH_SIZE_IN_WORDS \
+	((XNVM_EFUSE_PPK_HASH_SIZE_IN_BYTES) / (XNVM_EFUSE_WORD_LEN))	/**< PPK hash size in words */
 /** @} */
 
 #define XNVM_EFUSE_AES_IV_NUM_OF_ROWS		(12U) /**< AES IV number of rows */

@@ -75,7 +75,7 @@
  *                        instead of common check.
  *       mb    01/06/2026 Added support to verify CRC of AES USER keys after programming.
  *       nik   01/30/2026 Corrected PUF user fuse readback print statement to display correct programmed values for all rows.
- *
+ * 3.8   rpu   07/06/2026 Clean up PPK hash length macros.
  * </pre>
  *
  ******************************************************************************/
@@ -90,7 +90,7 @@
 
 /***************** Macros (Inline Functions) Definitions *********************/
 #define XNVM_EFUSE_AES_KEY_STRING_LEN			(64U)
-#define XNVM_EFUSE_PPK_HASH_STRING_LEN			(64U)
+#define XNVM_EFUSE_PPK_HASH_STRING_LEN			(XNVM_EFUSE_PPK_HASH_LEN_IN_BYTES * 2U)
 #define XNVM_EFUSE_ROW_STRING_LEN			(8U)
 #define XNVM_EFUSE_GLITCH_WR_LK_MASK			(0x80000000U)
 #define XNVM_EFUSE_DEC_EFUSE_ONLY_MASK			(0x0000ffffU)

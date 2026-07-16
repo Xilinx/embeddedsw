@@ -61,7 +61,7 @@
 * 3.7   hae     12/29/2025  Added support to program PUF secure control bits.
 * 3.7   nik     01/06/2026  Added support to allow use of PUF Helper Data eFUSEs for general purpose.
 *       tvp     04/27/2026  Block XilNvm_EfuseShowDmeModeBits for versal_2ve_2vm
- *
+* 3.8   rpu     07/06/2026  Clean up PPK hash length macros
  * </pre>
  *
  ******************************************************************************/
@@ -77,12 +77,8 @@
 
 /***************** Macros (Inline Functions) Definitions *********************/
 #define XNVM_EFUSE_AES_KEY_STRING_LEN			(64U)
-#ifndef VERSAL_2VE_2VM
-#define XNVM_EFUSE_PPK_HASH_STRING_LEN			(64U)
-#define XNVM_EFUSE_PPK_HASH_LENGTH_IN_BYTES		(32U)
-#else
-#define XNVM_EFUSE_PPK_HASH_LENGTH_IN_BYTES		(48U)
-#define XNVM_EFUSE_PPK_HASH_STRING_LEN                  (96U)
+#define XNVM_EFUSE_PPK_HASH_STRING_LEN			(XNVM_EFUSE_PPK_HASH_LEN_IN_BYTES * 2U)
+#ifdef VERSAL_2VE_2VM
 #define XNVM_EFUSE_NO_OF_PPK_HASH_USER_FUSES		(4U)
 #define XNVM_EFUSE_START_USER_FUSE_NUM_PPK0		(36U)
 #define XNVM_EFUSE_START_USER_FUSE_NUM_PPK1             (40U)
@@ -486,7 +482,7 @@ static int XilNvm_EfuseShowPpkHash(XNvm_PpkType PpkType)
 		Xil_DCacheInvalidateRange((UINTPTR)&SharedMem[0U],
 				XNVM_CACHE_ALIGNED_LEN);
 		xil_printf("\n\rPPK%d:", PpkType);
-		XilNvm_FormatData((u8 *)EfusePpk->Hash, (u8 *)ReadPpk, XNVM_EFUSE_PPK_HASH_LENGTH_IN_BYTES);
+		XilNvm_FormatData((u8 *)EfusePpk->Hash, (u8 *)ReadPpk, XNVM_EFUSE_PPK_HASH_LEN_IN_BYTES);
 
 #ifdef VERSAL_2VE_2VM
 		ReadUserFuses->NumOfUserFuses = XNVM_EFUSE_NO_OF_PPK_HASH_USER_FUSES;
