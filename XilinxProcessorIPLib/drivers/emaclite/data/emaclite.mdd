@@ -1,0 +1,22 @@
+###############################################################################
+# Copyright (C) 2004 - 2022 Xilinx, Inc.  All rights reserved.
+# Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
+# SPDX-License-Identifier: MIT
+#
+# MODIFICATION HISTORY:
+#
+# Ver      Who    Date     Changes
+# -------- ------ -------- --------------------------------------------------
+# 4.0     adk    10/12/13  Removed support for xps emaclite
+##############################################################################
+OPTION psf_version = 2.1;
+
+BEGIN driver emaclite
+
+  OPTION supported_peripherals = (axi_ethernetlite);
+  OPTION driver_state = ACTIVE;
+  OPTION copyfiles = all;
+  OPTION VERSION = 4.13;
+  OPTION NAME = emaclite;
+
+END driver
