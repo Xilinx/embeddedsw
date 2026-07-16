@@ -5,7 +5,7 @@
 /*****************************************************************************/
 /**
 *
-* @file	xilsecure_spartanup_sha_server_example.c
+* @file	xilsecure_spartan_ultrascale_plus_sha_server_example.c
 * @addtogroup xsecure_sha_example_apis XilSecure SHA SPARTANUP API Example Usage
 * @{
 * This example illustrates the SHA3_256 and SHAKE_256 hash calculation.
@@ -50,6 +50,7 @@
 * 5.7   tus    05/04/26 Moved SHA and PmcDma instances to data section
 *                       which is mapped to shared memory by linker script
 *       mb     03/25/26 Remove hard code shared_mem section address
+* 5.8   rap    07/03/26 Renamed filename from spartanup to spartan_ultrascale_plus
 *
 * </pre>
 ******************************************************************************/

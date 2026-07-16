@@ -5,7 +5,7 @@
 /*****************************************************************************/
 /**
 *
-* @file	xilsecure_spartanup_lms_hss_server_example.c
+* @file	xilsecure_spartan_ultrascale_plus_lms_hss_server_example.c
 * @addtogroup xsecure_lms_hss_example_apis XilSecure LMS/HSS SHAKE SPARTANUP Example
 * @{
 * This example demonstrates LMS and HSS signature verification using the
@@ -44,6 +44,8 @@
 * ----- ------ -------- -------------------------------------------------
 * 1.0   har    03/15/26 First Release
 *       mb     03/25/26 Remove hard code shared_mem section address
+* 5.8   rap    07/03/26 Renamed filename from spartanup to spartan_ultrascale_plus
+*
 * </pre>
 ******************************************************************************/
 
