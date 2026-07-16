@@ -1,0 +1,18 @@
+###############################################################################
+# Copyright (C) 2017 - 2022 Xilinx, Inc.  All rights reserved.
+# Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
+# SPDX-License-Identifier: MIT
+#
+###############################################################################
+OPTION psf_version = 2.1;
+
+BEGIN driver resetps
+
+	OPTION supported_peripherals = (psu_crf_apb);
+	OPTION driver_state = ACTIVE;
+	OPTION depends = (clockps);
+	OPTION copyfiles = all;
+	OPTION VERSION = 1.8;
+	OPTION NAME = resetps;
+
+END driver

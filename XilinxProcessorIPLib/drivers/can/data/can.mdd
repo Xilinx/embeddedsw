@@ -1,0 +1,34 @@
+###############################################################################
+# Copyright (C) 2010 - 2021 Xilinx, Inc.  All rights reserved.
+# Copyright (c) 2023 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
+# SPDX-License-Identifier: MIT
+#
+###############################################################################
+# MODIFICATION HISTORY:
+#
+# Ver      Who    Date     Changes
+# -------- ------ -------- ----------------------------------------------------
+# 3.0     adk    10/12/13  Removed support for xps can
+# 3.7     ht     07/04/23  Updated library version for 2023.2
+# 3.8     ht     12/13/23  Updated library version for 2024.1
+##############################################################################
+## @BEGIN_CHANGELOG EDK_M
+## 11/25/09 ktn removed support for opb_can
+##
+## @END_CHANGELOG
+## @BEGIN_CHANGELOG EDK_MS3
+## 07/25/10 sdm added support for axi_can
+## 12/19/12 added support for can
+## @END_CHANGELOG
+
+OPTION psf_version = 2.1;
+
+BEGIN driver can
+
+  OPTION supported_peripherals = (axi_can can);
+  OPTION driver_state = ACTIVE;
+  OPTION copyfiles = all;
+  OPTION VERSION = 3.12;
+  OPTION NAME = can;
+
+END driver

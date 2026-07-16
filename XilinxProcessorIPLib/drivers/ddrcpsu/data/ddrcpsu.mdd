@@ -1,0 +1,16 @@
+###############################################################################
+# Copyright (C) 2016 - 2022 Xilinx, Inc.  All rights reserved.
+# Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+# SPDX-License-Identifier: MIT
+#
+###############################################################################
+
+OPTION psf_version = 2.1;
+
+BEGIN driver ddrcps
+        OPTION supported_peripherals = (psu_ddrc psu_ddr);
+        OPTION driver_state = ACTIVE;
+        OPTION copyfiles = all;
+        OPTION VERSION = 1.8;
+        OPTION NAME = ddrcpsu;
+END driver

@@ -1,0 +1,37 @@
+##############################################################################
+# Copyright (C) 2005 - 2021 Xilinx, Inc.  All rights reserved.
+# Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+# SPDX-License-Identifier: MIT
+#
+#
+##############################################################################
+#
+# MODIFICATION HISTORY:
+#
+# Ver      Who    Date     Changes
+# -------- ------ -------- --------------------------------------------------
+# 3.0     adk    10/12/13  Removed support for xps_iic
+##############################################################################
+## @BEGIN_CHANGELOG EDK_M
+##
+##  - Removed support for opb_iic
+##
+## @END_CHANGELOG
+
+## @BEGIN_CHANGELOG EDK_MS3
+##
+## 06/16/10 sv Added support for axi_iic
+##
+## @END_CHANGELOG
+
+OPTION psf_version = 2.1;
+
+BEGIN driver iic
+
+  OPTION supported_peripherals = (axi_iic);
+  OPTION driver_state = ACTIVE;
+  OPTION copyfiles = all;
+  OPTION VERSION = 3.15;
+  OPTION NAME = iic;
+
+END driver

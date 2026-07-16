@@ -1,0 +1,27 @@
+###############################################################################
+# Copyright (C) 2014 - 2020 Xilinx, Inc.  All rights reserved.
+# Copyright (C) 2023 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+# SPDX-License-Identifier: MIT
+#
+###############################################################################
+
+BEGIN driver coresightps_dcc
+
+OPTION copyfiles = all;
+OPTION driver_state = ACTIVE;
+OPTION supported_peripherals = (ps7_coresight_comp psu_coresight_0 psv_coresight psx_coresight);
+OPTION VERSION = 1.13;
+OPTION NAME = coresightps_dcc;
+
+
+  BEGIN INTERFACE stdin
+    PROPERTY header = xcoresightpsdcc.h;
+    FUNCTION name = inbyte, value = XCoresightPs_DccRecvByte;
+  END INTERFACE
+
+  BEGIN INTERFACE stdout
+    PROPERTY header = xcoresightpsdcc.h;
+    FUNCTION name = outbyte, value = XCoresightPs_DccSendByte;
+  END INTERFACE
+
+END driver

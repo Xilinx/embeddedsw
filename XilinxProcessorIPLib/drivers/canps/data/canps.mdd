@@ -1,0 +1,17 @@
+###############################################################################
+# Copyright (C) 2011 - 2021 Xilinx, Inc.  All rights reserved.
+# Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
+# SPDX-License-Identifier: MIT
+#
+###############################################################################
+OPTION psf_version = 2.1;
+
+BEGIN driver canps
+
+  OPTION supported_peripherals = (ps7_can psu_can);
+  OPTION driver_state = ACTIVE;
+  OPTION copyfiles = all;
+  OPTION VERSION = 3.12;
+  OPTION NAME = canps;
+
+END driver

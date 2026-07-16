@@ -1,0 +1,43 @@
+##############################################################################
+# Copyright (c) 2007 - 2022 Xilinx, Inc.  All rights reserved.
+# Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
+# SPDX-License-Identifier: MIT
+#
+# Modification History
+#
+# Ver   Who  Date     Changes
+# ----- ---- -------- -----------------------------------------------
+# 3.00a sdm  03/03/11 Removed static flash parameters in the library
+# 3.00a sdm  03/23/11 Added new parameters to enable support for flash families
+# 4.4   ms   08/03/17 Added tags and modified comment lines style for doxygen.
+# 4.4   srm  02/16/18 Updated to pick up latest freertos port 10.0
+# 4.6	akm  01/22/19 Fixed compilation error of application with xilflash
+#		      library(CR#1018603)
+# 4.10	akm  07/14/23 Added support for system device-tree flow.
+#
+##############################################################################
+
+OPTION psf_version = 2.1;
+
+BEGIN LIBRARY xilflash
+  OPTION drc = flash_drc;
+  OPTION copyfiles = all;
+  OPTION REQUIRES_OS = (standalone xilkernel freertos10_xilinx);
+  OPTION REQUIRES_INTERFACE = (xilflash);
+  OPTION supported_peripherals = (opb_emc_v2_00_a plb_emc mch_opb_emc xps_mch_emc axi_emc);
+  OPTION APP_LINKER_FLAGS = "-lxilflash";
+  OPTION desc = "Xilinx Flash library for Intel/AMD CFI compliant parallel flash";
+  OPTION VERSION = 4.13;
+  OPTION NAME = xilflash;
+  PARAM name = enable_intel, desc = "Enables support for Intel family devices", type = bool, default = true;
+  PARAM name = enable_amd, desc = "Enables support for AMD family devices", type = bool, default = false;
+
+  #deprecated parameters
+  PARAM name = part_mode, state = DEPRECATED, desc = "Operational mode of each part in bytes. Indicates the data bus width of the Flash part actually used.", type = int, default = 2;
+  PARAM name = num_parts, state = DEPRECATED, desc = "Number of flash device parts in the array that forms the Flash Memory", type = int, default = 2;
+  PARAM name = part_width, state = DEPRECATED, desc = "Width of each part in bytes. Indicates the data bus width supported by the Flash part", type = int, default = 2;
+  PARAM name = base_address, state = DEPRECATED, desc = "Flash Base Address in Hex", type = int, default = 0x0;
+  PARAM name = flash_family, state = DEPRECATED, desc = "Indicates the flash family type. Enter 1 for INTEL and 2 for AMD.", type = int, default = 1;
+  PARAM name = platform_flash, state = DEPRECATED, desc = "Indicates the flash device type. Enter 1 for Platform flash and 0 for others.", type = int, default = 0;
+
+END LIBRARY

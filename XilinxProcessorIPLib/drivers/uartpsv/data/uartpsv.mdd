@@ -1,0 +1,27 @@
+###############################################################################
+# Copyright (C) 2017 - 2022 Xilinx, Inc.  All rights reserved.
+# Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
+# SPDX-License-Identifier: MIT
+#
+###############################################################################
+OPTION psf_version = 2.1;
+
+BEGIN driver uartpsv
+
+  OPTION supported_peripherals = (psv_sbsauart psxl_sbsauart psx_sbsauart);
+  OPTION driver_state = ACTIVE;
+  OPTION copyfiles = all;
+  OPTION VERSION = 1.14;
+  OPTION NAME = uartpsv;
+
+  BEGIN INTERFACE stdin
+    PROPERTY header = xuartpsv_hw.h;
+    FUNCTION name = inbyte, value = XUartPsv_RecvByte;
+  END INTERFACE
+
+  BEGIN INTERFACE stdout
+    PROPERTY header = xuartpsv_hw.h;
+    FUNCTION name = outbyte, value = XUartPsv_SendByte;
+  END INTERFACE
+
+END driver

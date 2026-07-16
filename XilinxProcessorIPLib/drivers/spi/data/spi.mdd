@@ -1,0 +1,35 @@
+###############################################################################
+# Copyright (C) 2004 - 2022 Xilinx, Inc.  All rights reserved.
+# Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
+# SPDX-License-Identifier: MIT
+#
+###############################################################################
+#
+# MODIFICATION HISTORY:
+# Ver      Who    Date     Changes
+# -------- ------ -------- --------------------------------------------------
+# 4.0     adk    10/12/13  Removed support for xps_spi xps_insystem_flash
+##############################################################################
+## @BEGIN_CHANGELOG EDK_M
+##
+## 11/27/09 ktn Removed support for opb_spi
+##
+## @END_CHANGELOG
+
+## @BEGIN_CHANGELOG EDK_MS3
+##
+## 06/16/10 sv Added support for axi_spi
+##
+## @END_CHANGELOG
+
+OPTION psf_version = 2.1;
+
+BEGIN driver spi
+
+  OPTION supported_peripherals = (axi_spi axi_quad_spi);
+  OPTION driver_state = ACTIVE;
+  OPTION copyfiles = all;
+  OPTION VERSION = 4.16;
+  OPTION NAME = spi;
+
+END driver
