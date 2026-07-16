@@ -66,6 +66,10 @@ XV_Tx_Debug_Printf XV_TxDebugTxNewStreamSetupPrintf = NULL;
 #ifdef USE_HDCP_HDMI_TX
 static void XV_Tx_Hdcp_Authenticated_Cb(void *CallbackRef);
 static void XV_Tx_Hdcp_Unauthenticated_Cb(void *CallbackRef);
+#if defined(USE_HDCP_HDMI_RX)
+extern void Exdes_HdcpClearRepeaterTopology(void);
+extern int Exdes_HdcpUpdateRepeaterTopology(void);
+#endif
 #endif
 
 static void XV_Tx_HdmiTx_Connect_Cb(void *CallbackRef);
@@ -1080,8 +1084,8 @@ u32 XV_Tx_Hdmi_Initialize(XV_Tx *InstancePtr, u32 HdmiTxSsBaseAddr,
 	InstancePtr->HdcpConfig.DownstreamInstanceBinded++;
 	InstancePtr->HdcpConfig.IsReady = TRUE;
 
-	/* Disable Repeater. */
-	/* XV_HdmiTxSs_HdcpSetRepeater(InstancePtr->HdmiTxSs, FALSE); */
+	XV_HdmiTxSs1_HdcpSetRepeater(InstancePtr->HdmiTxSs,
+			InstancePtr->HdcpConfig.IsRepeater);
 #endif
 	/**
 	 * Set the default HDMI Video Transmitter configurations.
@@ -1159,6 +1163,10 @@ static void XV_Tx_Hdcp_Authenticated_Cb(void *CallbackRef)
 	if (txInst->HdcpForceBlankCb != NULL) {
 		txInst->HdcpForceBlankCb(txInst->HdcpForceBlankCbRef);
 	}
+
+#if defined(USE_HDCP_HDMI_RX)
+	Exdes_HdcpUpdateRepeaterTopology();
+#endif
 }
 
 /*****************************************************************************/
@@ -1181,6 +1189,10 @@ static void XV_Tx_Hdcp_Unauthenticated_Cb(void *CallbackRef)
 	xdbg_xv_tx_print(ANSI_COLOR_HIGH_YELLOW" "ANSI_COLOR_BG_BLUE"%s, %d "
 			"Hdcp-Un-authenticated"ANSI_COLOR_RESET"\r\n",
 			__func__, __LINE__);
+
+#if defined(USE_HDCP_HDMI_RX)
+	Exdes_HdcpClearRepeaterTopology();
+#endif
 
 	if (txInst->HdcpForceBlankCb != NULL) {
 		txInst->HdcpForceBlankCb(txInst->HdcpForceBlankCbRef);
