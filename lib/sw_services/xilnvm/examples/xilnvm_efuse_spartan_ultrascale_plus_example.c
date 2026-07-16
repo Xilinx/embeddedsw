@@ -41,7 +41,7 @@
  *                        and ROM_OSPI_CMD_SEQ_CTRL eFuse bit programming
  *       mb    04/18/2026 Initialize the AesRevokeId structure only when user intends to program revoke IDs
  *       mb    05/13/2026 Removed shared memory section details from header comments as it is not required for efuse programming.
- *
+ * 3.8   rpu   07/06/2026 Fix GCC warnings
  * </pre>
  *
  ******************************************************************************/
@@ -50,6 +50,7 @@
 
 #include "xnvm_efuse.h"
 #include "xilnvm_efuse_spartan_ultrascale_plus_input.h"
+#include "xnvm_utils.h"
 #include "xil_util.h"
 
 /***************** Macros (Inline Functions) Definitions *********************/
