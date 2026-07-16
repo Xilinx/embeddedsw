@@ -59,6 +59,8 @@
 *       sk   04/02/2026 Added TAP Unlock register defines
 *       pre  05/25/2026 Added function to calculate I2C device ID for I2C handshake feature
 * 2.5   pre  06/29/2026 Removed XLoader_GetBootHeaderIvAddr function declaration
+*       pre  07/14/2026 Added XLOADER_GET_I2C_DEVICE_ID macro for I2C handshake feature and removed
+*                       XLoader_GetI2CDeviceID function declaration
 *
 * </pre>
 *
@@ -149,6 +151,23 @@ extern "C" {
 				/**< Value to lock write to PMC_TAP registers */
 #define XLOADER_PMC_TAP_UNLOCK_VAL		(0x0U)
 				/**< Value to unlock write to PMC_TAP registers */
+
+#if defined(XLOADER_PMC_IIC) && defined(PLM_I2C_MB_HANDSHAKE)
+/* I2C Master Device IDs */
+#define XLOADER_DEV_ID_PMC          PM_DEV_I2C_PMC /**< I2C Master Device ID for PMC */
+#define XLOADER_DEV_ID_PS_I2C_I3C0  PM_DEV_I2C_0 /**< I2C Master Device ID for PS_I2C_I3C0 */
+#define XLOADER_DEV_ID_PS_I2C_I3C1  PM_DEV_I2C_1 /**< I2C Master Device ID for PS_I2C_I3C1 */
+#define XLOADER_DEV_ID_PS_I2C_I3C2  PM_DEV_I2C_2 /**< I2C Master Device ID for PS_I2C_I3C2 */
+#define XLOADER_DEV_ID_PS_I2C_I3C3  PM_DEV_I2C_3 /**< I2C Master Device ID for PS_I2C_I3C3 */
+#define XLOADER_DEV_ID_PS_I2C_I3C4  PM_DEV_I2C_4 /**< I2C Master Device ID for PS_I2C_I3C4 */
+#define XLOADER_DEV_ID_PS_I2C_I3C5  PM_DEV_I2C_5 /**< I2C Master Device ID for PS_I2C_I3C5 */
+#define XLOADER_DEV_ID_PS_I2C_I3C6  PM_DEV_I2C_6 /**< I2C Master Device ID for PS_I2C_I3C6 */
+#define XLOADER_DEV_ID_PS_I2C_I3C7  PM_DEV_I2C_7 /**< I2C Master Device ID for PS_I2C_I3C7 */
+#define XLOADER_GET_I2C_DEVICE_ID_HELPER(x)  XLOADER_DEV_ID_##x /**< Token-paste helper */
+#define XLOADER_GET_I2C_DEVICE_ID(x)         XLOADER_GET_I2C_DEVICE_ID_HELPER(x)
+                                  /**< Macro to get I2C Master Device ID based on input token */
+#endif
+
 /* Minor Error Codes */
 enum {
 	/* Do not move this error, as it is used to represent XST_FAILURE */
@@ -512,9 +531,6 @@ int XLoader_CheckAndUpdateSecureState(void);
 int XLoader_MeasureNLoad(XilPdi* PdiPtr);
 void XLoader_ShaInstance1Reset(void);
 int XLoader_MeasureRomAndPlm(void);
-#if defined(XLOADER_PMC_IIC) && defined(PLM_I2C_MB_HANDSHAKE)
-int Xloader_GetI2CDeviceID(const char *str, u32 *I2CDevID);
-#endif
 
 /************************** Variable Definitions *****************************/
 

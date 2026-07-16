@@ -16,6 +16,8 @@
 * 2.3   sd  10/13/25 Initial release
 * 2.4   rmv 01/30/26 Renamed OCP keymanagment macro
 *       pre 05/25/26 Added function to calculate I2C device ID for I2C handshake feature
+*       pre 07/14/26 Added XLOADER_GET_I2C_DEVICE_ID macro for I2C handshake feature and removed
+*                    XLoader_GetI2CDeviceID function declaration
 *
 * </pre>
 *
@@ -92,6 +94,16 @@ extern "C" {
 #define XLOADER_MEASURE_FINISH		(2U) /**< Data measure finish */
 
 #define XLoader_ConfigureJtagState	(NULL) /**< Configure JTAG State */
+
+#if defined(XLOADER_PMC_IIC) && defined(PLM_I2C_MB_HANDSHAKE)
+/* I2C Master Device IDs */
+#define XLOADER_DEV_ID_PMC      PM_DEV_I2C_PMC /**< I2C Master Device ID for PMC */
+#define XLOADER_DEV_ID_PS_I2C0  PM_DEV_I2C_0 /**< I2C Master Device ID for PS_I2C0 */
+#define XLOADER_DEV_ID_PS_I2C1  PM_DEV_I2C_1 /**< I2C Master Device ID for PS_I2C1 */
+#define XLOADER_GET_I2C_DEVICE_ID_HELPER(x)  XLOADER_DEV_ID_##x /**< Token-paste helper */
+#define XLOADER_GET_I2C_DEVICE_ID(x)         XLOADER_GET_I2C_DEVICE_ID_HELPER(x)
+                            /**< Macro to get I2C Master Device ID based on input token */
+#endif
 
 /* Minor Error Codes */
 enum {
@@ -465,9 +477,6 @@ int XLoader_PlatInit(void);
 XSecure_Sha384Hash* XLoader_GetPtrnHashTable(void);
 #endif
 int XLoader_UpdateDataMeasurement(const XilPdi* PdiPtr, u64 DataAddr, u32 DataLen);
-#if defined(XLOADER_PMC_IIC) && defined(PLM_I2C_MB_HANDSHAKE)
-int Xloader_GetI2CDeviceID(const char *str, u32 *I2CDevID);
-#endif
 
 /************************************ Variable Definitions ****************************************/
 
