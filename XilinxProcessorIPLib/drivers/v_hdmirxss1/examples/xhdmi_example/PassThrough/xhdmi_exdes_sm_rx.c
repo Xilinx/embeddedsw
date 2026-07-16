@@ -69,10 +69,15 @@ XV_Rx_Debug_Printf XV_RxDebugRxSMPrintf = NULL;
 static u32 XV_Rx_HdmiRx_StreamInit_CfgMmcm(XV_Rx *InstancePtr);
 
 #ifdef USE_HDCP_HDMI_RX
+static void XV_Rx_Hdcp_AuthenticationRequest_Cb(void *CallbackRef);
 static void XV_Rx_Hdcp_StreamManageRequest_Cb(void *CallbackRef);
+static void XV_Rx_Hdcp_TopologyUpdate_Cb(void *CallbackRef);
 static void XV_Rx_Hdcp_Authenticated_Cb(void *CallbackRef);
 static void XV_Rx_Hdcp_Unauthenticated_Cb(void *CallbackRef);
 static void XV_Rx_Hdcp_EncryptionUpdate_Cb(void *CallbackRef);
+extern void Exdes_HdcpClearRepeaterTopology(void);
+extern int Exdes_HdcpHandleAuthenticationRequest(void);
+extern int Exdes_HdcpUpdateRepeaterTopology(void);
 #endif
 
 static void XV_Rx_HdmiRx_Connect_Cb(void *CallbackRef);
@@ -817,8 +822,18 @@ u32 XV_Rx_Hdcp_SetCallbacks(XV_Rx *InstancePtr)
 	u32 Status = XST_SUCCESS;
 
 	Status |= XV_HdmiRxSs1_SetCallback(InstancePtr->HdmiRxSs,
+				XV_HDMIRXSS1_HANDLER_HDCP_AUTHENTICATION_REQUEST,
+				(void *)XV_Rx_Hdcp_AuthenticationRequest_Cb,
+				(void *)InstancePtr);
+
+	Status |= XV_HdmiRxSs1_SetCallback(InstancePtr->HdmiRxSs,
 				XV_HDMIRXSS1_HANDLER_HDCP_STREAM_MANAGE_REQUEST,
 				(void *)XV_Rx_Hdcp_StreamManageRequest_Cb,
+				(void *)InstancePtr);
+
+	Status |= XV_HdmiRxSs1_SetCallback(InstancePtr->HdmiRxSs,
+				XV_HDMIRXSS1_HANDLER_HDCP_TOPOLOGY_UPDATE,
+				(void *)XV_Rx_Hdcp_TopologyUpdate_Cb,
 				(void *)InstancePtr);
 
 	Status |= XV_HdmiRxSs1_SetCallback(InstancePtr->HdmiRxSs,
@@ -837,6 +852,28 @@ u32 XV_Rx_Hdcp_SetCallbacks(XV_Rx *InstancePtr)
 				(void *)InstancePtr);
 
 	return Status;
+}
+/*****************************************************************************/
+/**
+* This function implements the callback for HDCP repeater downstream
+* authentication request.
+*
+* @param    InstancePtr is the callback reference to the HDMI RX SS instance.
+*
+* @return	None.
+*
+* @note		None.
+*
+******************************************************************************/
+static void XV_Rx_Hdcp_AuthenticationRequest_Cb(void *CallbackRef)
+{
+	Xil_AssertVoid(CallbackRef);
+
+	XV_Rx *recvInst = (XV_Rx *)CallbackRef;
+
+	if (recvInst->HdcpConfig.IsRepeater == TRUE) {
+		Exdes_HdcpHandleAuthenticationRequest();
+	}
 }
 #endif
 
@@ -1028,8 +1065,8 @@ u32 XV_Rx_Hdmi_Initialize(XV_Rx *InstancePtr, u32 HdmiRxSsBaseAddr,
 	InstancePtr->HdcpConfig.UpstreamInstanceBinded++;
 	InstancePtr->HdcpConfig.IsReady = TRUE;
 
-	/* Disable Repeater. */
-	/* XV_HdmiRxSs1_HdcpSetRepeater(InstancePtr->HdmiRxSs, FALSE); */
+	XV_HdmiRxSs1_HdcpSetRepeater(InstancePtr->HdmiRxSs,
+			InstancePtr->HdcpConfig.IsRepeater);
 #endif
 
 	/* Initialize the VPhy interrupts. */
@@ -1077,6 +1114,32 @@ static void XV_Rx_Hdcp_StreamManageRequest_Cb(void *CallbackRef)
 	if (recvInst->HdcpSetContentStreamTypeCb != NULL) {
 		recvInst->HdcpSetContentStreamTypeCb(
 			recvInst->HdcpSetContentStreamTypeCbRef);
+	}
+
+	if (recvInst->HdcpConfig.IsRepeater == TRUE) {
+		Exdes_HdcpUpdateRepeaterTopology();
+	}
+}
+
+/*****************************************************************************/
+/**
+* This function implements the callback for HDCP repeater topology update.
+*
+* @param    InstancePtr is the callback reference to the HDMI RX SS instance.
+*
+* @return	None.
+*
+* @note		None.
+*
+******************************************************************************/
+static void XV_Rx_Hdcp_TopologyUpdate_Cb(void *CallbackRef)
+{
+	Xil_AssertVoid(CallbackRef);
+
+	XV_Rx *recvInst = (XV_Rx *)CallbackRef;
+
+	if (recvInst->HdcpConfig.IsRepeater == TRUE) {
+		Exdes_HdcpUpdateRepeaterTopology();
 	}
 }
 
@@ -1149,6 +1212,7 @@ static void XV_Rx_Hdcp_Unauthenticated_Cb(void *CallbackRef)
 
 	/* Reset the stream type to type 0 stream. */
 	recvInst->HdcpConfig.StreamType = XV_HDMIRXSS1_HDCP_STREAMTYPE_0;
+	Exdes_HdcpClearRepeaterTopology();
 
 	if (recvInst->HdcpForceBlankCb != NULL) {
 		recvInst->HdcpForceBlankCb(recvInst->HdcpForceBlankCbRef);

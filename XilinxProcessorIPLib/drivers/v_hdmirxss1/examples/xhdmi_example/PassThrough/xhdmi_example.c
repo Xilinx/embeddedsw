@@ -51,8 +51,25 @@
 #include "xinterrupt_wrap.h"
 /***************** Macros (Inline Functions) Definitions *********************/
 #define AUX_FIFO_CLEAR 1
+/* HDCP repeater topology limits matching the HDMI 1.4/2.0 repeater example. */
+#define EXDES_HDCP_DEVICE_ID_SIZE 5U
+#define EXDES_HDCP_MAX_DEVICE_CNT_HDCP14 127U
+#define EXDES_HDCP_MAX_DEVICE_CNT_HDCP22 31U
+#define EXDES_HDCP_MAX_DEPTH_HDCP14 7U
+#define EXDES_HDCP_MAX_DEPTH_HDCP22 4U
 
 /**************************** Type Definitions *******************************/
+typedef struct {
+	u32 DeviceCnt;
+	u32 Depth;
+	u8 DeviceList[EXDES_HDCP_MAX_DEVICE_CNT_HDCP14]
+		     [EXDES_HDCP_DEVICE_ID_SIZE];
+	u8 MaxDevsExceeded;
+	u8 MaxCascadeExceeded;
+	u8 Hdcp2LegacyDeviceDownstream;
+	u8 Hdcp1DeviceDownstream;
+	u8 Valid;
+} Exdes_HdcpRepeaterTopology;
 
 /************************** Function Prototypes ******************************/
 int I2cMux(void);
@@ -158,6 +175,8 @@ void Exdes_UpdateVidParamstoTx(XV_HdmiRxSs1 *HdmiRxSs1Ptr,
 static void XHdcp_EnforceBlanking(XV_Rx *UpstreamInstancePtr,
 				  XV_Tx *DownstreamInstancePtr);
 #endif
+void SetHdmiRxHpd(XHdmiphy1 *Hdmiphy1Ptr, XV_HdmiRxSs1 *HdmiRxSs1Ptr,
+		  u8 Hpd);
 #endif
 #if defined (XPAR_XV_FRMBUFWR_NUM_INSTANCES) && \
                       (XPAR_XV_FRMBUFRD_NUM_INSTANCES)
@@ -291,6 +310,12 @@ extern XV_Rx xhdmi_example_rx_controller;
 extern XV_Tx xhdmi_example_tx_controller;
 #endif
 XHdmi_Exdes xhdmi_exdes_ctrlr;
+
+#if defined(XPAR_XV_HDMITXSS1_NUM_INSTANCES) && \
+	defined(XPAR_XV_HDMIRXSS1_NUM_INSTANCES) && \
+	(defined(USE_HDCP_HDMI_RX) || defined(USE_HDCP_HDMI_TX))
+static Exdes_HdcpRepeaterTopology HdcpRepeaterTopology;
+#endif
 
 /* Scratch pad for user enabled printing. */
 Exdes_Debug_Printf exdes_debug_print = NULL;
@@ -4050,6 +4075,415 @@ void DetailedInfo(void)
 /*****************************************************************************/
 /**
 *
+* This function clears the cached HDCP repeater topology.
+*
+* @param    None.
+*
+* @return   None.
+*
+* @note	    None.
+*
+******************************************************************************/
+void Exdes_HdcpClearRepeaterTopology(void)
+{
+#if defined(XPAR_XV_HDMITXSS1_NUM_INSTANCES) && \
+	defined(XPAR_XV_HDMIRXSS1_NUM_INSTANCES) && \
+	defined(USE_HDCP_HDMI_TX) && defined(USE_HDCP_HDMI_RX)
+	memset(&HdcpRepeaterTopology, 0, sizeof(HdcpRepeaterTopology));
+#endif
+}
+
+/*****************************************************************************/
+/**
+*
+* This function checks whether the upstream protocol topology limits are
+* exceeded by a candidate repeater topology.
+*
+* @param    TopologyPtr is the candidate topology.
+*
+* @return   None.
+*
+* @note	    None.
+*
+******************************************************************************/
+static void Exdes_HdcpCheckRepeaterTopologyLimits(
+		Exdes_HdcpRepeaterTopology *TopologyPtr)
+{
+#if defined(XPAR_XV_HDMIRXSS1_NUM_INSTANCES) && defined(USE_HDCP_HDMI_RX)
+	int HdcpProtocol;
+
+	Xil_AssertVoid(TopologyPtr != NULL);
+
+	HdcpProtocol = XV_HdmiRxSs1_HdcpGetProtocol(&HdmiRxSs);
+	switch (HdcpProtocol) {
+	case XV_HDMIRXSS1_HDCP_22:
+		if (TopologyPtr->DeviceCnt > EXDES_HDCP_MAX_DEVICE_CNT_HDCP22) {
+			TopologyPtr->MaxDevsExceeded = TRUE;
+		}
+		if (TopologyPtr->Depth > EXDES_HDCP_MAX_DEPTH_HDCP22) {
+			TopologyPtr->MaxCascadeExceeded = TRUE;
+		}
+		break;
+	case XV_HDMIRXSS1_HDCP_14:
+		if (TopologyPtr->DeviceCnt > EXDES_HDCP_MAX_DEVICE_CNT_HDCP14) {
+			TopologyPtr->MaxDevsExceeded = TRUE;
+		}
+		if (TopologyPtr->Depth > EXDES_HDCP_MAX_DEPTH_HDCP14) {
+			TopologyPtr->MaxCascadeExceeded = TRUE;
+		}
+		break;
+	default:
+		break;
+	}
+#endif
+}
+
+/*****************************************************************************/
+/**
+*
+* This function publishes a changed repeater topology to the upstream HDCP RX.
+*
+* @param    TopologyPtr is the candidate topology.
+*
+* @return   XST_SUCCESS if the topology is published or unchanged.
+*
+* @note	    None.
+*
+******************************************************************************/
+static int Exdes_HdcpPublishRepeaterTopology(
+		Exdes_HdcpRepeaterTopology *TopologyPtr)
+{
+#if defined(XPAR_XV_HDMIRXSS1_NUM_INSTANCES) && defined(USE_HDCP_HDMI_RX)
+	int Status = XST_SUCCESS;
+
+	Xil_AssertNonvoid(TopologyPtr != NULL);
+
+	if ((HdcpRepeaterTopology.Valid == TRUE) &&
+	    (memcmp(&HdcpRepeaterTopology, TopologyPtr,
+		    sizeof(*TopologyPtr)) == 0)) {
+		return XST_SUCCESS;
+	}
+
+	Status |= XV_HdmiRxSs1_HdcpSetTopologyField(&HdmiRxSs,
+			XV_HDMIRXSS1_HDCP_TOPOLOGY_MAXDEVSEXCEEDED,
+			TopologyPtr->MaxDevsExceeded);
+	Status |= XV_HdmiRxSs1_HdcpSetTopologyField(&HdmiRxSs,
+			XV_HDMIRXSS1_HDCP_TOPOLOGY_MAXCASCADEEXCEEDED,
+			TopologyPtr->MaxCascadeExceeded);
+	Status |= XV_HdmiRxSs1_HdcpSetTopologyField(&HdmiRxSs,
+			XV_HDMIRXSS1_HDCP_TOPOLOGY_HDCP2LEGACYDEVICEDOWNSTREAM,
+			TopologyPtr->Hdcp2LegacyDeviceDownstream);
+	Status |= XV_HdmiRxSs1_HdcpSetTopologyField(&HdmiRxSs,
+			XV_HDMIRXSS1_HDCP_TOPOLOGY_HDCP1DEVICEDOWNSTREAM,
+			TopologyPtr->Hdcp1DeviceDownstream);
+
+	if (TopologyPtr->MaxDevsExceeded == FALSE) {
+		Status |= XV_HdmiRxSs1_HdcpSetTopologyField(&HdmiRxSs,
+				XV_HDMIRXSS1_HDCP_TOPOLOGY_DEVICECNT,
+				TopologyPtr->DeviceCnt);
+		Status |= XV_HdmiRxSs1_HdcpSetTopologyReceiverIdList(
+				&HdmiRxSs, &TopologyPtr->DeviceList[0][0],
+				TopologyPtr->DeviceCnt);
+	}
+
+	if (TopologyPtr->MaxCascadeExceeded == FALSE) {
+		Status |= XV_HdmiRxSs1_HdcpSetTopologyField(&HdmiRxSs,
+				XV_HDMIRXSS1_HDCP_TOPOLOGY_DEPTH,
+				TopologyPtr->Depth);
+	}
+
+	if (Status == XST_SUCCESS) {
+		memcpy(&HdcpRepeaterTopology, TopologyPtr,
+		       sizeof(HdcpRepeaterTopology));
+		HdcpRepeaterTopology.Valid = TRUE;
+		Status |= XV_HdmiRxSs1_HdcpSetTopologyUpdate(&HdmiRxSs);
+	}
+
+	return Status;
+#else
+	return XST_SUCCESS;
+#endif
+}
+
+/*****************************************************************************/
+/**
+*
+* This function enables or disables HDCP repeater mode on the available
+* upstream and downstream HDCP interfaces.
+*
+* @param    Enable is TRUE to enable repeater mode and FALSE to disable it.
+*
+* @return   XST_SUCCESS if the repeater mode request was applied.
+*
+* @note	    RX HPD is toggled so the upstream source re-reads the repeater
+*           capability.
+*
+******************************************************************************/
+int Exdes_HdcpSetRepeaterMode(u8 Enable)
+{
+	int Status = XST_SUCCESS;
+	u8 Repeater = Enable ? TRUE : FALSE;
+
+	if (Repeater == FALSE) {
+		Exdes_HdcpClearRepeaterTopology();
+	}
+
+#if defined(XPAR_XV_HDMITXSS1_NUM_INSTANCES) && defined(USE_HDCP_HDMI_TX)
+	xhdmi_example_tx_controller.HdcpConfig.IsRepeater = Repeater;
+	if (xhdmi_example_tx_controller.HdcpConfig.IsReady == TRUE) {
+		Status |= XV_HdmiTxSs1_HdcpSetRepeater(&HdmiTxSs, Repeater);
+	}
+#endif
+
+#if defined(XPAR_XV_HDMIRXSS1_NUM_INSTANCES) && defined(USE_HDCP_HDMI_RX)
+	xhdmi_example_rx_controller.HdcpConfig.IsRepeater = Repeater;
+	if (xhdmi_example_rx_controller.HdcpConfig.IsReady == TRUE) {
+		Status |= XV_HdmiRxSs1_HdcpSetRepeater(&HdmiRxSs, Repeater);
+	}
+#endif
+
+#if defined(XPAR_XV_HDMIRXSS1_NUM_INSTANCES) && defined(USE_HDCP_HDMI_RX)
+	if (xhdmi_example_rx_controller.HdcpConfig.IsReady == TRUE) {
+		XV_HdmiRxSs1_ToggleHpd(&HdmiRxSs);
+	}
+#endif
+
+	if (Status == XST_SUCCESS) {
+		xil_printf("HDCP repeater mode %s\r\n",
+			   Repeater ? "enabled" : "disabled");
+	} else {
+		xil_printf("ERR:: Unable to update HDCP repeater mode\r\n");
+	}
+
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+*
+* This function forwards an upstream repeater authentication request to the
+* downstream HDCP transmitter.
+*
+* @param    None.
+*
+* @return   XST_SUCCESS if the request was handled.
+*
+* @note	    None.
+*
+******************************************************************************/
+int Exdes_HdcpHandleAuthenticationRequest(void)
+{
+#if defined(XPAR_XV_HDMITXSS1_NUM_INSTANCES) && \
+	defined(XPAR_XV_HDMIRXSS1_NUM_INSTANCES) && \
+	defined(USE_HDCP_HDMI_TX) && defined(USE_HDCP_HDMI_RX)
+	int Status = XST_SUCCESS;
+
+	if (xhdmi_example_rx_controller.HdcpConfig.IsRepeater == FALSE) {
+		return XST_SUCCESS;
+	}
+
+	Exdes_HdcpClearRepeaterTopology();
+
+	if (XV_HdmiRxSs1_HdcpGetProtocol(&HdmiRxSs) ==
+	    XV_HDMIRXSS1_HDCP_14) {
+		xhdmi_example_rx_controller.HdcpConfig.StreamType =
+			XV_HDMIRXSS1_HDCP_STREAMTYPE_0;
+		XV_HdmiTxSs1_HdcpSetContentStreamType(&HdmiTxSs,
+			XV_HDMITXSS1_HDCP_STREAMTYPE_0);
+	}
+
+	if ((xhdmi_example_tx_controller.HdcpConfig.IsReady == FALSE) ||
+	    (xhdmi_example_tx_controller.HdcpConfig.DownstreamInstanceConnected
+	     == FALSE)) {
+		xil_printf("HDCP repeater auth request: downstream not ready.\r\n");
+		return XST_FAILURE;
+	}
+
+	if (XV_HdmiTxSs1_HdcpIsEnabled(&HdmiTxSs) == FALSE) {
+		Status |= XV_HdmiTxSs1_HdcpEnable(&HdmiTxSs);
+	}
+
+	Status |= XV_HdmiTxSs1_HdcpAuthRequest(&HdmiTxSs);
+	XV_Tx_SetHdcpAuthReqExclusion(&xhdmi_example_tx_controller, FALSE);
+
+	if (Status == XST_SUCCESS) {
+		Status = Exdes_HdcpUpdateRepeaterTopology();
+	}
+
+	return Status;
+#else
+	return XST_SUCCESS;
+#endif
+}
+
+/*****************************************************************************/
+/**
+*
+* This function copies the downstream HDCP topology into the upstream
+* repeater topology.
+*
+* @param    None.
+*
+* @return   XST_SUCCESS if the topology update was applied or not required.
+*
+* @note	    The receiver ID list size is the number of downstream receiver IDs.
+*
+******************************************************************************/
+int Exdes_HdcpUpdateRepeaterTopology(void)
+{
+#if defined(XPAR_XV_HDMITXSS1_NUM_INSTANCES) && \
+	defined(XPAR_XV_HDMIRXSS1_NUM_INSTANCES) && \
+	defined(USE_HDCP_HDMI_TX) && defined(USE_HDCP_HDMI_RX)
+	int Status = XST_SUCCESS;
+	u32 DeviceCnt;
+	u32 Depth;
+	u8 *ReceiverIdList;
+	Exdes_HdcpRepeaterTopology Topology;
+
+	if (xhdmi_example_rx_controller.HdcpConfig.IsRepeater == FALSE) {
+		return XST_SUCCESS;
+	}
+
+	if ((XV_HdmiRxSs1_HdcpGetProtocol(&HdmiRxSs) ==
+	     XV_HDMIRXSS1_HDCP_NONE) ||
+	    (XV_HdmiTxSs1_HdcpGetProtocol(&HdmiTxSs) ==
+	     XV_HDMITXSS1_HDCP_NONE)) {
+		return XST_SUCCESS;
+	}
+
+	if (XV_HdmiTxSs1_HdcpGetTopology(&HdmiTxSs) == NULL) {
+		xil_printf("HDCP repeater topology not ready.\r\n");
+		return XST_FAILURE;
+	}
+
+	DeviceCnt = XV_HdmiTxSs1_HdcpGetTopologyField(&HdmiTxSs,
+			XV_HDMITXSS1_HDCP_TOPOLOGY_DEVICECNT);
+	ReceiverIdList = XV_HdmiTxSs1_HdcpGetTopologyReceiverIdList(&HdmiTxSs);
+
+	if ((DeviceCnt == 0U) || (ReceiverIdList == NULL)) {
+		xil_printf("HDCP repeater topology not ready.\r\n");
+		return XST_FAILURE;
+	}
+
+	memset(&Topology, 0, sizeof(Topology));
+	Topology.Valid = TRUE;
+	Topology.DeviceCnt = DeviceCnt;
+	Depth = XV_HdmiTxSs1_HdcpGetTopologyField(&HdmiTxSs,
+			XV_HDMITXSS1_HDCP_TOPOLOGY_DEPTH);
+	Topology.Depth = Depth + 1U;
+	Topology.MaxDevsExceeded = XV_HdmiTxSs1_HdcpGetTopologyField(
+			&HdmiTxSs, XV_HDMITXSS1_HDCP_TOPOLOGY_MAXDEVSEXCEEDED);
+	Topology.MaxCascadeExceeded = XV_HdmiTxSs1_HdcpGetTopologyField(
+			&HdmiTxSs,
+			XV_HDMITXSS1_HDCP_TOPOLOGY_MAXCASCADEEXCEEDED);
+	Topology.Hdcp2LegacyDeviceDownstream =
+		XV_HdmiTxSs1_HdcpGetTopologyField(&HdmiTxSs,
+		XV_HDMITXSS1_HDCP_TOPOLOGY_HDCP2LEGACYDEVICEDOWNSTREAM);
+	Topology.Hdcp1DeviceDownstream =
+		XV_HdmiTxSs1_HdcpGetTopologyField(&HdmiTxSs,
+		XV_HDMITXSS1_HDCP_TOPOLOGY_HDCP1DEVICEDOWNSTREAM);
+	Exdes_HdcpCheckRepeaterTopologyLimits(&Topology);
+	if (Topology.MaxDevsExceeded == FALSE) {
+		memcpy(&Topology.DeviceList[0][0], ReceiverIdList,
+		       DeviceCnt * EXDES_HDCP_DEVICE_ID_SIZE);
+	}
+	Status = Exdes_HdcpPublishRepeaterTopology(&Topology);
+
+	return Status;
+#else
+	return XST_SUCCESS;
+#endif
+}
+
+/*****************************************************************************/
+/**
+*
+* This function prints HDCP repeater mode and topology status.
+*
+* @param    None.
+*
+* @return   None.
+*
+* @note	    None.
+*
+******************************************************************************/
+void Exdes_HdcpPrintRepeaterStatus(void)
+{
+	xil_printf("\r\nHDCP Repeater Status\r\n");
+	xil_printf("--------------------\r\n");
+
+#if defined(XPAR_XV_HDMIRXSS1_NUM_INSTANCES) && defined(USE_HDCP_HDMI_RX)
+	xil_printf("RX protocol           : ");
+	switch (XV_HdmiRxSs1_HdcpGetProtocol(&HdmiRxSs)) {
+	case XV_HDMIRXSS1_HDCP_14:
+		xil_printf("HDCP 1.4\r\n");
+		break;
+	case XV_HDMIRXSS1_HDCP_22:
+		xil_printf("HDCP 2.x\r\n");
+		break;
+	default:
+		xil_printf("None\r\n");
+		break;
+	}
+	xil_printf("RX repeater requested : %s\r\n",
+		   xhdmi_example_rx_controller.HdcpConfig.IsRepeater ?
+		   "Yes" : "No");
+	xil_printf("RX repeater active    : %s\r\n",
+		   XV_HdmiRxSs1_HdcpIsRepeater(&HdmiRxSs) ? "Yes" : "No");
+	xil_printf("RX authenticated      : %s\r\n",
+		   XV_HdmiRxSs1_HdcpIsAuthenticated(&HdmiRxSs) ?
+		   "Yes" : "No");
+	xil_printf("RX encrypted          : %s\r\n",
+		   XV_HdmiRxSs1_HdcpIsEncrypted(&HdmiRxSs) ? "Yes" : "No");
+#endif
+
+#if defined(XPAR_XV_HDMITXSS1_NUM_INSTANCES) && defined(USE_HDCP_HDMI_TX)
+	u32 DownstreamDepth = XV_HdmiTxSs1_HdcpGetTopologyField(&HdmiTxSs,
+			XV_HDMITXSS1_HDCP_TOPOLOGY_DEPTH);
+	u32 DownstreamDevices = XV_HdmiTxSs1_HdcpGetTopologyField(&HdmiTxSs,
+			XV_HDMITXSS1_HDCP_TOPOLOGY_DEVICECNT);
+	u8 DownstreamRepeater = FALSE;
+
+	xil_printf("TX protocol           : ");
+	switch (XV_HdmiTxSs1_HdcpGetProtocol(&HdmiTxSs)) {
+	case XV_HDMITXSS1_HDCP_14:
+		xil_printf("HDCP 1.4\r\n");
+		DownstreamRepeater = XV_HdmiTxSs1_HdcpIsRepeater(&HdmiTxSs);
+		break;
+	case XV_HDMITXSS1_HDCP_22:
+		xil_printf("HDCP 2.x\r\n");
+		DownstreamRepeater =
+			((DownstreamDepth != 0U) || (DownstreamDevices > 1U)) ?
+			TRUE : FALSE;
+		break;
+	default:
+		xil_printf("None\r\n");
+		break;
+	}
+	xil_printf("Downstream repeater   : %s\r\n",
+		   DownstreamRepeater ? "Yes" : "No");
+	xil_printf("TX authenticated      : %s\r\n",
+		   XV_HdmiTxSs1_HdcpIsAuthenticated(&HdmiTxSs) ?
+		   "Yes" : "No");
+	xil_printf("TX encrypted          : %s\r\n",
+		   XV_HdmiTxSs1_HdcpIsEncrypted(&HdmiTxSs) ? "Yes" : "No");
+
+	xil_printf("Downstream depth      : %d\r\n",
+		   DownstreamDepth);
+	xil_printf("Downstream devices    : %d\r\n",
+		   DownstreamDevices);
+	xil_printf("Max devices exceeded  : %d\r\n",
+		   XV_HdmiTxSs1_HdcpGetTopologyField(&HdmiTxSs,
+		   XV_HDMITXSS1_HDCP_TOPOLOGY_MAXDEVSEXCEEDED));
+	xil_printf("Max cascade exceeded  : %d\r\n",
+		   XV_HdmiTxSs1_HdcpGetTopologyField(&HdmiTxSs,
+		   XV_HDMITXSS1_HDCP_TOPOLOGY_MAXCASCADEEXCEEDED));
+#endif
+}
+
+/*****************************************************************************/
+/**
+*
 * This function is responsible for executing the state machine for the
 * upstream interface and each connected downstream interface. The
 * state machines are executed using round robin scheduling. Interface
@@ -4286,6 +4720,15 @@ void XV_Tx_HdmiTrigCb_CableConnectionChange(void *InstancePtr)
 		}
 #endif
 		xhdmi_exdes_ctrlr.IsTxPresent = FALSE;
+#if defined(XPAR_XV_HDMIRXSS1_NUM_INSTANCES) && \
+	defined(USE_HDCP_HDMI_RX) && defined(USE_HDCP_HDMI_TX)
+		if (xhdmi_example_rx_controller.HdcpConfig.IsRepeater == TRUE) {
+			Exdes_HdcpClearRepeaterTopology();
+			if (HdmiRxSs.IsStreamConnected == TRUE) {
+				SetHdmiRxHpd(&Hdmiphy1, &HdmiRxSs, FALSE);
+			}
+		}
+#endif
 	} else {
 
 		if (Exdes_CheckDwnstrmSinkCaps() == XST_SUCCESS) {
@@ -4315,6 +4758,13 @@ void XV_Tx_HdmiTrigCb_CableConnectionChange(void *InstancePtr)
 		}
 
 		xhdmi_exdes_ctrlr.IsTxPresent = TRUE;
+#if defined(XPAR_XV_HDMIRXSS1_NUM_INSTANCES) && \
+	defined(USE_HDCP_HDMI_RX) && defined(USE_HDCP_HDMI_TX)
+		if ((xhdmi_example_rx_controller.HdcpConfig.IsRepeater == TRUE) &&
+		    (HdmiRxSs.IsStreamConnected == TRUE)) {
+			SetHdmiRxHpd(&Hdmiphy1, &HdmiRxSs, TRUE);
+		}
+#endif
 	}
 
 	EXDES_DBG_PRINT("sysEventDebug:%s:%d:::%d\r\n", __func__,
@@ -5174,6 +5624,12 @@ void XV_Rx_HdmiTrigCb_CableConnectionChange(void *InstancePtr)
 		}
 
 		xhdmi_exdes_ctrlr.IsRxPresent = FALSE;
+#if defined(XPAR_XV_HDMITXSS1_NUM_INSTANCES) && \
+	defined(USE_HDCP_HDMI_RX) && defined(USE_HDCP_HDMI_TX)
+		if (xhdmi_example_rx_controller.HdcpConfig.IsRepeater == TRUE) {
+			Exdes_HdcpClearRepeaterTopology();
+		}
+#endif
 		if (xhdmi_exdes_ctrlr.ForceIndependent == FALSE) {
 			xhdmi_exdes_ctrlr.SystemEvent = TRUE;
 		} else {

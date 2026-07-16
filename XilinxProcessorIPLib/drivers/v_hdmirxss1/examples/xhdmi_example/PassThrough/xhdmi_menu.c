@@ -166,6 +166,11 @@ extern void XV_HdmiRxSs1_LoadEdid(XV_HdmiRxSs1 *InstancePtr,
 extern void XV_HdmiRxSs1_ToggleRxHpd(XV_HdmiRxSs1 *InstancePtr);
 extern void HDCPXILCMD_ProcessKey(char theCmdKey);
 #endif
+#if defined(USE_HDCP_HDMI_RX) || defined(USE_HDCP_HDMI_TX)
+extern int Exdes_HdcpSetRepeaterMode(u8 Enable);
+extern void Exdes_HdcpPrintRepeaterStatus(void);
+extern int Exdes_HdcpUpdateRepeaterTopology(void);
+#endif
 
 /************************* Variable Definitions *****************************/
 /*HDMI Menu Variable */
@@ -392,19 +397,8 @@ void XHdmi_DisplayMainMenu(void)
 #endif
 
 #if defined(USE_HDCP_HDMI_RX) || defined(USE_HDCP_HDMI_TX)
-    /* Show HDCP menu option when HDCP is ready */
-#if defined (XPAR_XV_HDMITXSS1_NUM_INSTANCES) && \
-	defined (XPAR_XV_HDMIRXSS1_NUM_INSTANCES)
-    if (XV_HdmiRxSs1_HdcpIsReady(&HdmiRxSs) &&
-		XV_HdmiTxSs1_HdcpIsReady(&HdmiTxSs)) {
-#elif defined (XPAR_XV_HDMITXSS1_NUM_INSTANCES)
-    if (XV_HdmiTxSs1_HdcpIsReady(&HdmiTxSs)) {
-#elif defined (XPAR_XV_HDMIRXSS1_NUM_INSTANCES)
-    if (XV_HdmiRxSs1_HdcpIsReady(&HdmiRxSs)) {
-#endif
-	xil_printf("h - HDCP\r\n");
-	xil_printf("       => Goto HDCP menu.\r\n");
-    }
+    xil_printf("h - HDCP\r\n");
+    xil_printf("       => Goto HDCP menu.\r\n");
 #endif
 #if(HDMI_DEBUG_TOOLS == 1)
     xil_printf("x - Debug Tools\r\n");
@@ -637,6 +631,8 @@ static XHdmi_MenuType XHdmi_MainMenu(XHdmi_Menu *InstancePtr, u8 Input) {
 #endif
 		XHdmi_DisplayHdcpMainMenu();
 		Menu = XHDMI_HDCP_MAIN_MENU;
+	    } else {
+		xil_printf("HDCP is not ready yet.\r\n");
 	    }
 	    break;
 #endif
@@ -2184,6 +2180,10 @@ void XHdmi_DisplayHdcpDebugMenu(void) {
 	xil_printf(" 15 - Set upstream capability to HDCP22\r\n");
 	xil_printf(" 16 - Set upstream capability to HDCP14\r\n");
 	xil_printf(" 17 - Set upstream capability to none\r\n");
+    xil_printf(" 18 - Enable HDCP repeater mode\r\n");
+    xil_printf(" 19 - Disable HDCP repeater mode\r\n");
+    xil_printf(" 20 - Display HDCP repeater status\r\n");
+    xil_printf(" 21 - Refresh HDCP repeater topology\r\n");
 #elif defined (XPAR_XV_HDMIRXSS1_NUM_INSTANCES)
     xil_printf(" 1 - Set upstream capability to none\r\n");
     xil_printf(" 2 - Set upstream capability to both\r\n");
@@ -2264,7 +2264,7 @@ static XHdmi_MenuType XHdmi_HdcpDebugMenu(XHdmi_Menu *InstancePtr, u8 Input) {
 	    break;
 
 #ifdef XPAR_XV_HDMIRXSS1_NUM_INSTANCES
-	    /* 4 - Set downstream capability to 2.2 */
+	    /* 5 - Set downstream capability to 2.2 */
 	case 5:
 #else
 	    /* 3 - Set downstream capability to 2.2 */
@@ -2285,6 +2285,29 @@ static XHdmi_MenuType XHdmi_HdcpDebugMenu(XHdmi_Menu *InstancePtr, u8 Input) {
 	    xil_printf("Set downstream capability to both\r\n");
 	    XV_Tx_Hdcp_SetCapability(&xhdmi_example_tx_controller,
 			    XV_HDMITXSS1_HDCP_BOTH);
+	    break;
+
+	case 18:
+	    Exdes_HdcpSetRepeaterMode(TRUE);
+	    xil_printf("Wait for RX stream up, then use option 20 for status.\r\n");
+	    break;
+
+	case 19:
+	    Exdes_HdcpSetRepeaterMode(FALSE);
+	    xil_printf("Wait for RX stream up, then use option 20 for status.\r\n");
+	    break;
+
+	case 20:
+	    Exdes_HdcpPrintRepeaterStatus();
+	    break;
+
+	case 21:
+	    if (Exdes_HdcpUpdateRepeaterTopology() == XST_SUCCESS) {
+		    xil_printf("HDCP repeater topology refreshed.\r\n");
+	    } else {
+		    xil_printf("ERR:: Unable to refresh HDCP repeater topology.\r\n");
+	    }
+	    Exdes_HdcpPrintRepeaterStatus();
 	    break;
 
 	case 7:
@@ -2353,7 +2376,7 @@ static XHdmi_MenuType XHdmi_HdcpDebugMenu(XHdmi_Menu *InstancePtr, u8 Input) {
 
 #if defined (XPAR_XV_HDMITXSS1_NUM_INSTANCES) ||\
     defined (XPAR_XV_HDMIRXSS1_NUM_INSTANCES)
-	    /* 3 - Display log */
+	    /* 12 - Display log */
 	case 12:
 #endif
 	    xil_printf("Display log.\r\n");

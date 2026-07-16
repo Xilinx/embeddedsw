@@ -386,6 +386,14 @@ extern XTpg_PatternId Pattern;
 extern XV_HdmiRxSs1 HdmiRxSs;
 #endif /* XPAR_XV_HDMIRXSS1_NUM_INSTANCES */
 
+#if defined(USE_HDCP_HDMI_RX) || defined(USE_HDCP_HDMI_TX)
+int Exdes_HdcpSetRepeaterMode(u8 Enable);
+void Exdes_HdcpClearRepeaterTopology(void);
+int Exdes_HdcpHandleAuthenticationRequest(void);
+void Exdes_HdcpPrintRepeaterStatus(void);
+int Exdes_HdcpUpdateRepeaterTopology(void);
+#endif
+
 extern u8 AuxFifoStartFlag;
 
 #if defined (XPS_BOARD_ZCU102) || \
