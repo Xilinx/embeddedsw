@@ -23,6 +23,7 @@
  * 1.1   sb  02/12/25  Add support for MT25QU128 flash.
  * 1.3   zm  29/01/26  Add support for remaining micron OSPI and QSPI flashes.
  * 1.3   zm  03/09/26  Add support for W25Q128JW Winbond flash.
+ *       zm  07/17/26  Add support for Macronix OSPI flashes mx66um2g45g and mx66uw2g345gxrix0.
  *
  * </pre>
  *
@@ -67,6 +68,34 @@ const XFlashInfo Flash_Config_Table[] = {
 		(XSFL_FLASH_PROTO_1_1_8 << 16) | (XSFL_FLASH_PROTO_8_8_8 << 8) | XSFL_FLASH_PROTO_1_1_1,
 		XSFL_FLASH_FREQUENCY_166_MHZ, (XSFL_FLASH_DUMMY_CYCLES_16 << 8) | XSFL_FLASH_DUMMY_CYCLES_8 ,
 		XSFL_READ_FLAG_STATUS_CMD, 1, 1, XSFL_DUAL_BYTE_OP_DISABLE, XSFL_OSPI_FLASH
+	},
+	/* Macronix */
+	/*mx66um2g45g*/
+	{
+		0xc2803c, XSFL_FLASH_SECTOR_SIZE_4KB, 0x10000, XSFL_FLASH_PAGE_SIZE_256, 0x100000,
+		XSFL_FLASH_DEVICE_SIZE_2G, 0xFFFFF000, (XSFL_FAST_READ_CMD_4B << 16) |
+		(XSFL_MX_READ_CMD_OCTAL_DDR << 8) | XSFL_READ_CMD_4B,
+		(XSFL_WRITE_CMD_4B << 8) | XSFL_WRITE_CMD_4B,
+		(XSFL_BULK_ERASE_CMD << 8) | XSFL_MX_SEC_ERASE_CMD_4B,
+		(XSFL_FLASH_PROTO_1_1_1 << 16) | (XSFL_FLASH_PROTO_8_8_8 << 8) | XSFL_FLASH_PROTO_1_1_1,
+		XSFL_FLASH_FREQUENCY_133_MHZ, (XSFL_FLASH_DUMMY_CYCLES_20 << 8) | XSFL_FLASH_DUMMY_CYCLES_8,
+		XSFL_READ_STATUS_CMD, 4, 0, XSFL_DUAL_BYTE_OP_INVERT, XSFL_OSPI_FLASH
+	},
+	/*mx66uw2g345gxrix0*/
+	/*
+	 * This part powers on with 8 dummy cycles for OPI reads (mx66um2g45g
+	 * uses 20). The driver does not program the CR2 dummy-cycle field, so
+	 * the DTR-OPI read dummy must match the device default of 8.
+	 */
+	{
+		0xc2943c, XSFL_FLASH_SECTOR_SIZE_4KB, 0x10000, XSFL_FLASH_PAGE_SIZE_256, 0x100000,
+		XSFL_FLASH_DEVICE_SIZE_2G, 0xFFFFF000, (XSFL_FAST_READ_CMD_4B << 16) |
+		(XSFL_MX_READ_CMD_OCTAL_DDR << 8) | XSFL_READ_CMD_4B,
+		(XSFL_WRITE_CMD_4B << 8) | XSFL_WRITE_CMD_4B,
+		(XSFL_BULK_ERASE_CMD << 8) | XSFL_MX_SEC_ERASE_CMD_4B,
+		(XSFL_FLASH_PROTO_1_1_1 << 16) | (XSFL_FLASH_PROTO_8_8_8 << 8) | XSFL_FLASH_PROTO_1_1_1,
+		XSFL_FLASH_FREQUENCY_133_MHZ, (XSFL_FLASH_DUMMY_CYCLES_8 << 8) | XSFL_FLASH_DUMMY_CYCLES_8,
+		XSFL_READ_STATUS_CMD, 4, 0, XSFL_DUAL_BYTE_OP_INVERT, XSFL_OSPI_FLASH
 	},
 	/* Quad SPI Flash Parts */
 	/*n25q00a*/

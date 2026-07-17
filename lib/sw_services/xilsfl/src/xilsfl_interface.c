@@ -21,6 +21,8 @@
  * ----- --- -------- -----------------------------------------------
  * 1.0   sb  8/20/24  Initial release
  * 1.3   vlt 01/27/26 Fixed codespell issues
+ *       zm  07/17/26 Use FCTIndex (not [0]) for the status register protocol.
+ *       zm  07/17/26 Set 4-byte address and dummy for Macronix OPI status read.
  *
  * </pre>
  *
@@ -173,11 +175,25 @@ u32 XSfl_WaitforStatusDone(XSfl_Interface *SflInstancePtr){
 		SflMsg.Addrvalid = 0;
 		SflMsg.Addr = 0;
 		SflMsg.DualByteOpCode = 0;
-		SflMsg.Proto =  (u8)Flash_Config_Table[0].Proto;
+		SflMsg.Proto =  (u8)Flash_Config_Table[FCTIndex].Proto;
 		if (SflInstancePtr->CntrlInfo.SdrDdrMode == XSFL_EDGE_MODE_DDR_PHY) {
-			SflMsg.Proto = (u8)(Flash_Config_Table[0].Proto >> 8);
+			SflMsg.Proto = (u8)(Flash_Config_Table[FCTIndex].Proto >> 8);
 			SflMsg.ByteCount = 2;
-			SflMsg.Dummy += 8;
+			if (SflInstancePtr->SflFlashInfo.FlashMake == XSFL_MACRONIX_OCTAL_ID_BYTE0) {
+				/*
+				 * Macronix OPI status read needs a 4-byte address and a
+				 * fixed 4 dummy cycles, independent of the array read dummy
+				 * setting, so it is the same for all Macronix OPI parts and
+				 * keyed on the flash make. Other OPI parts use no address
+				 * and 8 dummy cycles.
+				 */
+				SflMsg.Addrvalid = 1;
+				SflMsg.Addrsize = 4;
+				SflMsg.Addr = 0;
+				SflMsg.Dummy = 4;
+			} else {
+				SflMsg.Dummy += 8;
+			}
 		}
 
 		if (Flash_Config_Table[FCTIndex].ExtOpCodeType == XSFL_DUAL_BYTE_OP_INVERT){

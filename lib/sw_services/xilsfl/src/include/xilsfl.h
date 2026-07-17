@@ -25,6 +25,7 @@
  * 1.1   sb  01/28/25  Add support to read in stig when DMA is not available.
  * 1.1   sb  02/11/25  Add support for x2/x4 operation.
  * 1.3   zm  03/09/26  Add support for W25Q128JW Winbond flash.
+ *       zm  07/17/26  Add support for Macronix OSPI flashes mx66um2g45g and mx66uw2g345gxrix0.
  *
  * </pre>
  *
@@ -75,6 +76,7 @@
 #define XSFL_READ_STATUS_CMD         0x05
 #define XSFL_READ_FLAG_STATUS_CMD    0x70
 #define XSFL_READ_CMD_4B             0x13
+#define XSFL_FAST_READ_CMD_4B        0x0C	/**< 4-byte address single-I/O fast read command. */
 #define XSFL_WRITE_CMD_4B            0x12
 #define XSFL_SEC_ERASE_CMD_4B        0xDC
 #define XSFL_READ_CMD_OCTAL_4B       0x7C
@@ -99,6 +101,25 @@
  * @brief No command / dummy command value (0x00)
  */
 #define XSFL_NO_CMD                  0x00
+
+/* Commands for Macronix Octal (OPI) Flash */
+/**
+ * @def XSFL_MX_WRITE_CONFIG_REG2_CMD
+ * @brief Macronix Write Configuration Register 2 (WRCR2) command.
+ */
+#define XSFL_MX_WRITE_CONFIG_REG2_CMD   0x72
+
+/**
+ * @def XSFL_MX_READ_CMD_OCTAL_DDR
+ * @brief Macronix Octal DDR read (8DTRD) command.
+ */
+#define XSFL_MX_READ_CMD_OCTAL_DDR      0xEE
+
+/**
+ * @def XSFL_MX_SEC_ERASE_CMD_4B
+ * @brief Macronix 4-byte 4KB sector erase (SE4B) command.
+ */
+#define XSFL_MX_SEC_ERASE_CMD_4B        0x21
 
 /* Commands for Winbond Flash */
 /**
@@ -143,6 +164,30 @@
 #define XSFL_FLASH_DEVICE_SIZE_2G          0x10000000
 
 #define XSFL_MICRON_OCTAL_ID_BYTE0          0x2c
+/**
+ * @def XSFL_MACRONIX_OCTAL_ID_BYTE0
+ * @brief The first byte of the Macronix ID.
+ */
+#define XSFL_MACRONIX_OCTAL_ID_BYTE0        0xc2
+
+/* Macronix Configuration Register 2 (CR2) mode address and values */
+/**
+ * @def XSFL_MX_CONFIG_REG2_MODE_ADDR
+ * @brief Macronix CR2 address selecting SPI/STR-OPI/DTR-OPI mode.
+ */
+#define XSFL_MX_CONFIG_REG2_MODE_ADDR       0x00000000
+
+/**
+ * @def XSFL_MX_CONFIG_REG2_DTR_OPI
+ * @brief CR2 value to enable DTR Octal (DOPI) mode.
+ */
+#define XSFL_MX_CONFIG_REG2_DTR_OPI         0x02
+
+/**
+ * @def XSFL_MX_CONFIG_REG2_SPI
+ * @brief CR2 value to return the device to Extended SPI mode.
+ */
+#define XSFL_MX_CONFIG_REG2_SPI             0x00
 
 #define XSFL_MICRON_BP_BITS_MASK		0x7C
 #define XSFL_CONFIG_REG2_VOLATILE_ADDR_MX 	0x00000300

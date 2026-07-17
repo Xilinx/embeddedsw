@@ -25,6 +25,7 @@
  * 1.1   sb  02/11/25  Add support for x2/x4 operation.
  * 1.2   sb  06/27/25  Copy the flash ID to driver instance irrespective of type of flash.
  * 1.3   zm  03/09/26  Add support for W25Q128JW Winbond flash.
+ *       zm  07/17/26  Add support for Macronix OSPI flashes mx66um2g45g and mx66uw2g345gxrix0.
  *
  * </pre>
  *
@@ -156,6 +157,7 @@ u32 XSfl_FlashEnterExit4BAddMode(XSfl_Interface *SflInstancePtr, int Enable, u8 
 	}
 
 	switch (FlashMake) {
+		case XSFL_MACRONIX_OCTAL_ID_BYTE0:
 		case XSFL_MICRON_OCTAL_ID_BYTE0:
 			Status = XSfl_FlashCmdTransfer(SflInstancePtr, XSFL_WRITE_DISABLE_CMD);
 			if (Status != XST_SUCCESS) {
@@ -193,8 +195,9 @@ u32 XSfl_FlashEnterExit4BAddMode(XSfl_Interface *SflInstancePtr, int Enable, u8 
 		}
 
 		switch (FlashMake) {
+			case XSFL_MACRONIX_OCTAL_ID_BYTE0:
 			case XSFL_MICRON_OCTAL_ID_BYTE0:
-				XSfl_FlashCmdTransfer(SflInstancePtr, XSFL_WRITE_DISABLE_CMD);
+				Status = XSfl_FlashCmdTransfer(SflInstancePtr, XSFL_WRITE_DISABLE_CMD);
 				if (Status != XST_SUCCESS) {
 					Status = XST_FAILURE;
 					break;
@@ -682,16 +685,35 @@ u32 XSfl_FlashSetSDRDDRMode(XSfl_Interface *SflInstancePtr, int Mode){
 #ifdef __ICCARM__
 #pragma data_alignment = 4
 	u8 Data[2];
-	u32 CmdBuffer[XSFLBUFFER_ARRAY_LEN];
+	u32 CmdBuffer[XSFL_BUFFER_ARRAY_LEN];
 #else
 	u8 Data[2] __attribute__ ((aligned(4)));
 	u32 CmdBuffer[XSFL_BUFFER_ARRAY_LEN] __attribute__ ((aligned(4)));
 #endif
 	u8 FCTIndex = SflInstancePtr->SflFlashInfo.FlashIndex;
 	u8 FlashType = Flash_Config_Table[FCTIndex].FlashType;
+	u32 FlashMake = SflInstancePtr->SflFlashInfo.FlashMake;
 
 	if (FlashType == XSFL_OSPI_FLASH) {
-		if (Mode == XSFL_EDGE_MODE_DDR_PHY) {
+		if (FlashMake == XSFL_MACRONIX_OCTAL_ID_BYTE0) {
+			/*
+			 * Macronix Octal (OPI) parts enter DTR-OPI mode by writing
+			 * Configuration Register 2 (WRCR2) at address 0x0 with 0x02.
+			 * Writing 0x00 returns the device to Extended SPI mode.
+			 */
+			Write_Reg_Opcode = XSFL_MX_WRITE_CONFIG_REG2_CMD;
+			AddrSize = 4;
+			Address = XSFL_MX_CONFIG_REG2_MODE_ADDR;
+			if (Mode == XSFL_EDGE_MODE_DDR_PHY) {
+				Data[0] = XSFL_MX_CONFIG_REG2_DTR_OPI;
+			}
+			else {
+				Data[0] = XSFL_MX_CONFIG_REG2_SPI;
+			}
+			/* Second byte is consumed only by the 2-byte CR2 write in DTR-OPI */
+			Data[1] = Data[0];
+		}
+		else if (Mode == XSFL_EDGE_MODE_DDR_PHY) {
 			Data[0] = 0xE7;
 			Data[1] = 0xE7;
 		}
