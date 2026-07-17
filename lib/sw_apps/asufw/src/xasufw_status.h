@@ -753,7 +753,7 @@ enum {
 	XASUFW_KEYMANAGER_ECC_INVALID_KEY, /**< 0x21DU - Error when both key Id and key address
 						are invalid */
 	XASUFW_AES_GET_CONTEXT_FAIL, /**< 0x21EU - Error when AES get context operation fails. */
-
+	XASUFW_ERR_KEYWRAP_NOT_ENABLED, /**< 0x21FU - Error when keywrap feature is not enabled. */
 
 	/* Additional status success codes */
 	XASUFW_OCP_CERT_GENERATION_SUCCESS = 0x3F7U, /**< 0x3F7U - OCP certificate generation

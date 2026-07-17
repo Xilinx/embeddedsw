@@ -1770,7 +1770,8 @@ static s32 XKeyManager_GetFreeKeySlot(const XKeyManager* KeyVaultPtr, void* SubV
  * @return
  *	- XASUFW_SUCCESS, when the key is stored successfully in the vault.
  *	- XASUFW_FAILURE, in case of failure.
- *	- XASUFW_KEYMANAGER_INVALID_PARAM, if any input parameter is invalid.
+ *	- XASUFW_KEYMANAGER_INVALID_PARAM, if input parameters are invalid.
+ *	- XASUFW_ERR_KEYWRAP_NOT_ENABLED, if wrapped key is used but keywrap feature is not enabled
  *	- XASUFW_X509_CERT_PARSE_FAIL, if X.509 certificate parsing fails.
  *	- XASUFW_KEYMANAGER_UPDATE_KEY_VAULT_FAIL, if updating key vault fails.
  *	- XASUFW_KEYMANAGER_STORE_X509_RAW_KEY_ERROR, if storing raw key from X.509 cert fails.
@@ -1914,7 +1915,7 @@ s32 XKeyManager_StoreKeyInVault(XAsufw_Dma *DmaPtr, XAes *AesInstancePtr, const 
 
 		LocalBuffAddr = (u64)(UINTPTR)UnwrapOutBuf;
 #else
-		Status = XASUFW_KEYMANAGER_INVALID_PARAM;
+		Status = XASUFW_ERR_KEYWRAP_NOT_ENABLED;
 		goto END;
 #endif
 	}
