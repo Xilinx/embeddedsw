@@ -335,6 +335,7 @@ static s32 XAes_DummyEncryption(XAes *InstancePtr);
 static s32 XAes_FinalizeAadUpdate(XAes *InstancePtr);
 static s32 XAes_CheckAndRestoreUserKeyContext(const XAes *InstancePtr, XAes_ContextInfo *CtxPtr);
 static s32 XAes_CcmValidatePlainTextLength(u32 PlainTextLen, u8 LengthFieldSize);
+static s32 XAes_ResetAndClearKey(XAes *InstancePtr, u32 KeySrc);
 static s32 XAes_WaitForDone(const XAes *InstancePtr);
 static s32 XAes_WaitForReady(const XAes *InstancePtr);
 
@@ -568,6 +569,12 @@ s32 XAes_WriteKey(XAes *InstancePtr, XAsufw_Dma *DmaPtr, XAsu_AesKeyObject *KeyO
 	}
 
 END_CLR:
+	if (Status != XASUFW_SUCCESS) {
+		/** Clear the key. */
+		Status = XAsufw_UpdateErrorStatus(Status,
+			XAes_KeyClear(InstancePtr, KeyObjectPtr->KeySrc));
+	}
+
 	/** Clear local key array. */
 	XFIH_CALL(Xil_SecureZeroize, XFihKeyClear, ClearStatus, (u8 *)Key,
 		XASU_AES_KEY_SIZE_256BIT_IN_BYTES);
@@ -706,11 +713,8 @@ s32 XAes_Init(XAes *InstancePtr, XAsufw_Dma *DmaPtr, u64 IvAddr, u32 IvLen,
 
 END:
 	if (Status != XASUFW_SUCCESS) {
-		/** Set AES under reset upon any failure. */
-		XAes_SetReset(InstancePtr);
-		/** Clear the XASU_AES_EXPANDED_KEYS. */
-		Status = XAsufw_UpdateErrorStatus(Status,
-			XAes_KeyClear(InstancePtr, XASU_AES_EXPANDED_KEYS));
+		/** Set AES under reset and clear the expanded key upon any failure. */
+		Status = XAsufw_UpdateErrorStatus(Status, XAes_ResetAndClearKey(InstancePtr, XASU_AES_EXPANDED_KEYS));
 	}
 
 RET:
@@ -860,11 +864,8 @@ END:
 	 * XASUFW_CMD_IN_PROGRESS.
 	 */
 	if ((Status != XASUFW_SUCCESS) && (Status != XASUFW_CMD_IN_PROGRESS)) {
-		/** Set AES under reset upon any failure. */
-		XAes_SetReset(InstancePtr);
-		/** Clear the XASU_AES_EXPANDED_KEYS. */
-		Status = XAsufw_UpdateErrorStatus(Status,
-			XAes_KeyClear(InstancePtr, XASU_AES_EXPANDED_KEYS));
+		/** Set AES under reset and clear the expanded key upon any failure. */
+		Status = XAsufw_UpdateErrorStatus(Status, XAes_ResetAndClearKey(InstancePtr, XASU_AES_EXPANDED_KEYS));
 	}
 
 RET:
@@ -974,11 +975,8 @@ s32 XAes_Final(XAes *InstancePtr, XAsufw_Dma *DmaPtr, u64 TagAddr, u32 TagLen)
 	XASUFW_MEASURE_PERF_STOP(XASU_MODULE_AES_ID);
 
 END:
-	/** Set AES under reset after AES operation is complete. */
-	XAes_SetReset(InstancePtr);
-	/** Clear the XASU_AES_EXPANDED_KEYS. */
-	Status = XAsufw_UpdateErrorStatus(Status,
-		XAes_KeyClear(InstancePtr, XASU_AES_EXPANDED_KEYS));
+	/** Set AES under reset and clear the expanded key after AES operation is complete. */
+	Status = XAsufw_UpdateErrorStatus(Status, XAes_ResetAndClearKey(InstancePtr, XASU_AES_EXPANDED_KEYS));
 
 RET:
 	if (XAes_GetContextDdrPtr(&CtxPtr) == XASUFW_SUCCESS) {
@@ -1171,8 +1169,8 @@ END:
 	 * XASUFW_CMD_IN_PROGRESS.
 	 */
 	if ((Status != XASUFW_SUCCESS) && (Status != XASUFW_CMD_IN_PROGRESS)) {
-		/** Set AES under reset on failure. */
-		XAes_SetReset(InstancePtr);
+		/** Set AES under reset and clear the expanded key upon any failure. */
+		Status = XAsufw_UpdateErrorStatus(Status, XAes_ResetAndClearKey(InstancePtr, XASU_AES_EXPANDED_KEYS));
 	}
 
 RET:
@@ -1296,8 +1294,8 @@ s32 XAes_DecryptEfuseBlackKey(XAes *InstancePtr, XAsufw_Dma *DmaPtr, u32 DecKeyS
 	Status = XAes_WaitForDone(InstancePtr);
 
 END_CLR:
-	/** Set AES under reset. */
-	XAes_SetReset(InstancePtr);
+	/** Set AES under reset and clear the expanded key upon any failure. */
+	Status = XAsufw_UpdateErrorStatus(Status, XAes_ResetAndClearKey(InstancePtr, XASU_AES_EXPANDED_KEYS));
 
 	/** Disable the key decryption operation. */
 	XAsufw_WriteReg((InstancePtr->KeyBaseAddress + XAES_KEY_DEC_TRIG_OFFSET),
@@ -1465,11 +1463,8 @@ END:
 	/** Clear the split configuration. */
 	XAsufw_WriteReg((InstancePtr->AesBaseAddress + XAES_SPLIT_CFG_OFFSET), 0U);
 
-	/** Clear the XASU_AES_EXPANDED_KEYS. */
-	Status = XAsufw_UpdateErrorStatus(Status, XAes_KeyClear(InstancePtr, XASU_AES_EXPANDED_KEYS));
-
-	/** Set AES under reset. */
-	XAes_SetReset(InstancePtr);
+	/** Set AES under reset and clear the expanded key upon any failure. */
+	Status = XAsufw_UpdateErrorStatus(Status, XAes_ResetAndClearKey(InstancePtr, XASU_AES_EXPANDED_KEYS));
 
 RET:
 	return Status;
@@ -1755,8 +1750,8 @@ END:
 	}
 
 	if ((Status != XASUFW_SUCCESS) && (InstancePtr != NULL)) {
-		/** Set AES under reset upon any failure. */
-		XAes_SetReset(InstancePtr);
+		/** Set AES under reset and clear the expanded key upon any failure. */
+		Status = XAsufw_UpdateErrorStatus(Status, XAes_ResetAndClearKey(InstancePtr, XASU_AES_EXPANDED_KEYS));
 	}
 
 	return Status;
@@ -2747,6 +2742,49 @@ static s32 XAes_CcmValidatePlainTextLength(u32 PlainTextLen, u8 LengthFieldSize)
 		}
 	}
 
+	return Status;
+}
+
+/*************************************************************************************************/
+/**
+ * @brief    This API performs secure AES cleanup by placing the AES hardware
+ *           core into reset state and clearing the specified key source from
+ *           the AES key vault.
+ *
+ * @param    InstancePtr    Pointer to the XAes instance.
+ * @param    KeySrc         Key source to be cleared.
+ *                          Supported values include:
+ *                          - XASU_AES_EXPANDED_KEYS
+ *                          - XASU_AES_USER_KEY_0 to XASU_AES_USER_KEY_7
+ *                          - XASU_AES_EFUSE_KEY_0
+ *                          - XASU_AES_EFUSE_KEY_1
+ *                          - XASU_AES_PUF_KEY
+ *                          - XASU_AES_EFUSE_KEY_RED_0
+ *                          - XASU_AES_EFUSE_KEY_RED_1
+ *
+ * @return
+ *          - XASUFW_SUCCESS, if reset and key clear are successful.
+ *          - XASUFW_AES_INVALID_PARAM, if InstancePtr is NULL or KeySrc is invalid.
+ *          - XASUFW_AES_KEY_CLEAR_ERROR, if key zeroization fails.
+ *
+ *************************************************************************************************/
+static s32 XAes_ResetAndClearKey(XAes *InstancePtr, u32 KeySrc)
+{
+	CREATE_VOLATILE(Status, XASUFW_FAILURE);
+
+	/** Validate the input arguments. */
+	if (InstancePtr == NULL) {
+		Status = XASUFW_AES_INVALID_PARAM;
+		goto END;
+	}
+
+	/** Place AES engine into reset state. */
+	XAes_SetReset(InstancePtr);
+
+	/** Zeroize the specified key source. */
+	Status = XAes_KeyClear(InstancePtr, KeySrc);
+
+END:
 	return Status;
 }
 
