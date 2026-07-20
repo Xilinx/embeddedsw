@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2014 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -45,6 +45,7 @@
 * 1.14	ab	01/18/23 Added byte-aligned transfer API for VERSAL_NET devices.
 * 1.14	bm	05/01/23 Fixed Assert condition in XCsuDma_Transfer for VERSAL_NET.
 * 2.0	sd	11/10/25 Added support for VERSAL_2VP_P devices.
+* 2.1	sd	07/20/26 Add D-cache maintenance for A53 32-bit (ARMA53_32) mode.
 * </pre>
 *
 ******************************************************************************/
@@ -173,6 +174,17 @@ void XCsuDma_Transfer(XCsuDma *InstancePtr, XCsuDma_Channel Channel,
 	 */
 	if ((Addr >> XCSUDMA_MSB_ADDR_SHIFT) == 0U) {
 		Xil_DCacheFlushRange((INTPTR)Addr, DataSize << XCSUDMA_SIZE_SHIFT);
+	}
+#elif defined(ARMA53_32)
+	/* No action if 64 bit address is used when this code is running on A53 32-bit.
+	 * Flush/invalidate if 32 bit addressing is used.
+	 */
+	if ((Addr >> XCSUDMA_MSB_ADDR_SHIFT) == 0U) {
+		if (Channel == (XCSUDMA_SRC_CHANNEL)) {
+			Xil_DCacheFlushRange((INTPTR)Addr, DataSize << XCSUDMA_SIZE_SHIFT);
+		} else {
+			Xil_DCacheInvalidateRange((INTPTR)Addr, DataSize << XCSUDMA_SIZE_SHIFT);
+		}
 	}
 #endif
 	/* No action required for PSU_PMU.
