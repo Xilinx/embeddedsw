@@ -977,8 +977,17 @@ void XVphy_SetTxVoltageSwing(XVphy *InstancePtr, u8 QuadId,
 
 	MaskVal = XVPHY_TX_DRIVER_TXDIFFCTRL_MASK(ChId);
 	RegVal &= ~MaskVal;
-	RegVal |= (Vs << XVPHY_TX_DRIVER_TXDIFFCTRL_SHIFT(ChId));
+	RegVal |= ((Vs & 0xF) << XVPHY_TX_DRIVER_TXDIFFCTRL_SHIFT(ChId));
 	XVphy_WriteReg(InstancePtr->Config.BaseAddr, RegOffset, RegVal);
+
+	RegVal = XVphy_ReadReg(InstancePtr->Config.BaseAddr,
+				XVPHY_TX_DRIVER_EXT_REG);
+	MaskVal = XVPHY_TX_DRIVER_EXT_TXDIFFCTRL_MASK(ChId);
+	RegVal &= ~MaskVal;
+	RegVal |= (((Vs & 0x10) >> 4) <<
+			XVPHY_TX_DRIVER_EXT_TXDIFFCTRL_SHIFT(ChId));
+	XVphy_WriteReg(InstancePtr->Config.BaseAddr,
+			XVPHY_TX_DRIVER_EXT_REG, RegVal);
 }
 
 /*****************************************************************************/

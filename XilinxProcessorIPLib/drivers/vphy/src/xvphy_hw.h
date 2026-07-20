@@ -103,6 +103,7 @@ extern "C" {
 #define XVPHY_TX_STATUS_REG			0x078  /**< TX status register offset */
 #define XVPHY_TX_DRIVER_CH12_REG	0x07C  /**< TX driver channel 1-2 register offset */
 #define XVPHY_TX_DRIVER_CH34_REG	0x080  /**< TX driver channel 3-4 register offset */
+#define XVPHY_TX_DRIVER_EXT_REG		0x08C  /**< TX driver extended register offset */
 /** @} */
 
 /** @name VPHY core registers: Receiver function registers.
@@ -523,6 +524,11 @@ extern "C" {
 		(0xF800 << (16 * ((Ch - 1) % 2)))
 #define XVPHY_TX_DRIVER_TXPRECURSOR_SHIFT(Ch) \
 		(11 + (16 * ((Ch - 1) % 2)))
+/* 0x084: TX_DRIVER_EXT */
+#define XVPHY_TX_DRIVER_EXT_TXDIFFCTRL_MASK(Ch) \
+		(0x0001 << (8 * (Ch - 1)))
+#define XVPHY_TX_DRIVER_EXT_TXDIFFCTRL_SHIFT(Ch) \
+		(8 * (Ch - 1))
 /* 0x100: RX_CONTROL */
 #define XVPHY_RX_CONTROL_RX8B10BEN_MASK(Ch) \
 		(0x02 << (8 * (Ch - 1)))
