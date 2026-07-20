@@ -58,11 +58,7 @@ typedef uint16_t u16;
 typedef uint32_t u32;
 #else
 typedef struct {
-#ifndef SDT
-	u16 DeviceId;
-#else
 	char *Name;
-#endif
 	UINTPTR BaseAddress;
 } XHdcp22_mmult_Config;
 #endif
@@ -95,21 +91,10 @@ typedef struct {
 
 /************************** Function Prototypes *****************************/
 #ifndef __linux__
-#ifndef SDT
-int XHdcp22_mmult_Initialize(XHdcp22_mmult *InstancePtr, u16 DeviceId);
-#endif
-#ifndef SDT
-XHdcp22_mmult_Config* XHdcp22_mmult_LookupConfig(u16 DeviceId);
-#else
 XHdcp22_mmult_Config *XHdcp22_mmult_LookupConfig(UINTPTR BaseAddress);
-#endif
 int XHdcp22_mmult_CfgInitialize(XHdcp22_mmult *InstancePtr, XHdcp22_mmult_Config *ConfigPtr, UINTPTR EffectiveAddr);
 #else
-#ifndef SDT
-int XHdcp22_mmult_Initialize(XHdcp22_mmult *InstancePtr, const char* InstanceName);
-#else
 int XHdcp22_mmult_Initialize((XHdcp22_mmult *)InstancePtr, UINTPTR BaseAddress);
-#endif
 int XHdcp22_mmult_Release(XHdcp22_mmult *InstancePtr);
 #endif
 

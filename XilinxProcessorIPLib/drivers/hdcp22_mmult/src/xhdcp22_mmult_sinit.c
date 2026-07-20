@@ -35,22 +35,6 @@
 
 extern XHdcp22_mmult_Config XHdcp22_mmult_ConfigTable[];
 
-#ifndef SDT
-XHdcp22_mmult_Config *XHdcp22_mmult_LookupConfig(u16 DeviceId) {
-	XHdcp22_mmult_Config *ConfigPtr = NULL;
-
-	int Index;
-
-	for (Index = 0; Index < XPAR_XHDCP22_MMULT_NUM_INSTANCES; Index++) {
-		if (XHdcp22_mmult_ConfigTable[Index].DeviceId == DeviceId) {
-			ConfigPtr = &XHdcp22_mmult_ConfigTable[Index];
-			break;
-		}
-	}
-
-	return ConfigPtr;
-}
-#else
 XHdcp22_mmult_Config *XHdcp22_mmult_LookupConfig(UINTPTR BaseAddress)
 {
 	XHdcp22_mmult_Config *ConfigPtr = NULL;
@@ -67,22 +51,13 @@ XHdcp22_mmult_Config *XHdcp22_mmult_LookupConfig(UINTPTR BaseAddress)
 
 	return ConfigPtr;
 }
-#endif
-#ifndef SDT
-int XHdcp22_mmult_Initialize(XHdcp22_mmult *InstancePtr, u16 DeviceId)
-#else
 int XHdcp22_mmult_Initialize(XHdcp22_mmult *InstancePtr, UINTPTR BaseAddress)
-#endif
 {
 	XHdcp22_mmult_Config *ConfigPtr;
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
 
-#ifndef SDT
-	ConfigPtr = XHdcp22_mmult_LookupConfig(DeviceId);
-#else
 	ConfigPtr = XHdcp22_mmult_LookupConfig(BaseAddress);
-#endif
 	if (ConfigPtr == NULL) {
 		InstancePtr->IsReady = 0;
 		return (XST_DEVICE_NOT_FOUND);
