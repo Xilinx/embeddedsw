@@ -6996,7 +6996,7 @@ int main()
 	if (Status != XST_SUCCESS) {
 		xil_printf("PS IIC initialization failed. \r\n");
 	}
-#elif (__microblaze__)
+#elif (__microblaze__)  || defined (__riscv)
 	/* Initialize the IIC and Initialize the clocks */
 	Status = Exdes_SetupClkSrc((u32)NULL, (u32)NULL);
 	if (Status != XST_SUCCESS) {
