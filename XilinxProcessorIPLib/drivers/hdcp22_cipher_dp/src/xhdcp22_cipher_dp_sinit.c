@@ -64,29 +64,6 @@ extern XHdcp22_Cipher_Dp_Config XHdcp22_Cipher_Dp_ConfigTable[];
 * @note   None.
 *
 ******************************************************************************/
-#ifndef SDT
-XHdcp22_Cipher_Dp_Config *XHdcp22Cipher_Dp_LookupConfig(u16 DeviceId)
-{
-
-	XHdcp22_Cipher_Dp_Config *CfgPtr = NULL;
-	u32 Index;
-
-	/* Checking for device id for which instance it is matching */
-	for (Index = (u32)0x0; Index < (u32)(XPAR_XHDCP22_CIPHER_DP_NUM_INSTANCES);
-		Index++) {
-
-		/* Assigning address of config table if both device ids
-		 * are matched
-		 */
-		if (XHdcp22_Cipher_Dp_ConfigTable[Index].DeviceId == DeviceId) {
-			CfgPtr = &XHdcp22_Cipher_Dp_ConfigTable[Index];
-			break;
-		}
-	}
-
-	return (XHdcp22_Cipher_Dp_Config *)CfgPtr;
-}
-#else
 XHdcp22_Cipher_Dp_Config *XHdcp22Cipher_Dp_LookupConfig(UINTPTR BaseAddress)
 {
 
@@ -109,5 +86,4 @@ XHdcp22_Cipher_Dp_Config *XHdcp22Cipher_Dp_LookupConfig(UINTPTR BaseAddress)
 
 	return (XHdcp22_Cipher_Dp_Config *)CfgPtr;
 }
-#endif
 /** @} */
