@@ -31,6 +31,8 @@
 *	ss   04/05/24 Fixed doxygen warnings
 * 5.5   tvp  05/13/25 Code refactoring for Platform specific TRNG functions
 *       tvp  05/14/25 XSecure_UpdateTrngCryptoStatus is not applicable for Versal_2vp
+* 5.8   tbk  07/02/26 Added redundant P-384-only curve validation for ECC key
+*                     generation APIs
 *
 * </pre>
 *
@@ -108,7 +110,11 @@ int XSecure_EllipticPrvtKeyGenerate(XSecure_EllipticCrvTyp CrvType,
 	u32 PrvtKey[XSECURE_ECC_P384_SIZE_IN_BYTES];
 	EcdsaCrvInfo *Crv = NULL;
 
-	if ((CrvType == XSECURE_ECC_NIST_P521) || (PrivateKey == NULL)) {
+	/**
+	 * - Only P-384 is supported. Reject any other curve before any entropy or
+	 *   signature-engine access.
+	 */
+	if ((CrvType != XSECURE_ECC_NIST_P384) || (PrivateKey == NULL)) {
 		Status = (int)XSECURE_ELLIPTIC_INVALID_PARAM;
 		goto RET;
 	}
@@ -192,7 +198,11 @@ int XSecure_EllipticGenerateEphemeralKey(XSecure_EllipticCrvTyp CrvType,
 	u32 EphimeralKey[XSECURE_ECC_P384_SIZE_IN_BYTES];
 	EcdsaCrvInfo *Crv = NULL;
 
-	if (CrvType == XSECURE_ECC_NIST_P521) {
+	/**
+	 * - Only P-384 is supported. Reject any other curve before any entropy or
+	 *   signature-engine access.
+	 */
+	if (CrvType != XSECURE_ECC_NIST_P384) {
 		Status = (int)XSECURE_ELLIPTIC_INVALID_PARAM;
 		goto RET;
 	}
@@ -252,8 +262,13 @@ int XSecure_EllipticGenEphemeralNSign(XSecure_EllipticCrvTyp CrvType,
 	u8 *SigS = &Signature[XSECURE_ECC_P384_SIZE_IN_BYTES];
 	XSecure_EllipticSign Sign = {SigR, SigS};
 
-	if ((CrvType == XSECURE_ECC_NIST_P521) ||
-			(HashLen != XSECURE_ECC_P384_SIZE_IN_BYTES)) {
+	/**
+	 * - Only P-384 is supported. Validate all inputs before any entropy or
+	 *   signature-engine access.
+	 */
+	if ((CrvType != XSECURE_ECC_NIST_P384) ||
+			(HashLen != XSECURE_ECC_P384_SIZE_IN_BYTES) ||
+			(Hash == NULL) || (PrvtKey == NULL) || (Signature == NULL)) {
 		Status = (int)XSECURE_ELLIPTIC_INVALID_PARAM;
 		goto END;
 	}

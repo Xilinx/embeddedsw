@@ -17,6 +17,7 @@
  * ----- ---- -------- ----------------------------------------------------------------------------
  * 1.0   mmd  12/20/24 Initial release
  * 5.6   vns  09/27/25 Added error handling for SHA1 transform
+ * 5.8   tbk  07/02/26 Added input pointer validations in XSecure_Sha1Digest
  *
  * </pre>
  *
@@ -164,6 +165,12 @@ s32 XSecure_Sha1Digest(const u8 * const Data, u32 Len, u8 *const Hash)
 	u32 AvailableBytes;
 	u32 RemianingData;
 	u8 *CtxBufferPtr = (u8 *) Ctx.Buffer;
+
+	/** - Reject a null output pointer before the digest is written */
+	if (Hash == NULL) {
+		Status = (s32)XST_INVALID_PARAM;
+		goto END;
+	}
 
 	for (Idx = 0U; Idx < (Len / XSECURE_SHA1_HASH_BLK_SIZE); Idx++) {
 		Status = XSecure_Sha1Transform(&Ctx, &Data[Idx * XSECURE_SHA1_HASH_BLK_SIZE]);

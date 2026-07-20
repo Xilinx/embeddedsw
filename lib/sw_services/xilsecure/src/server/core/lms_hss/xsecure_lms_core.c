@@ -23,6 +23,7 @@
 *       tvp  11/20/25  Code refactoring for platform specific LMS functionality
 *       tvp  12/29/25  Add LMS/LMS-HSS algorithm type macros for Versal_2vp_p
 *       tvp  02/23/26  Use platform specific configuration for hash algorithm
+* 5.8   tbk  07/02/26  Added input pointer validations across LMS/HSS APIs
 *
 * </pre>
 * @note
@@ -442,6 +443,15 @@ int XSecure_LmsSignatureVerification(XSecure_Sha *ShaInstPtr, XPmcDma *DmaPtr,
 	static u8 ExpectedPublicKey[XSECURE_LMS_OTS_PUB_KEY_K_FIELD_SIZE];
 	static const u8 XSECURE_D_LEAF[2U] = {0x82U, 0x82U};
 	static const u8 XSECURE_D_INTR[2U] = {0x83U, 0x83U};
+
+	/** - Validate top-level input pointers before any dereference */
+	if ((NULL == LmsSignVerifyParams) || (NULL == ShaInstPtr) ||
+		(NULL == DmaPtr)) {
+		Status = XSECURE_LMS_INVALID_PARAM;
+		XSecure_Printf(XSECURE_DEBUG_GENERAL,
+			"LMS signature verification - null instance/param pointer\n\r");
+		goto END;
+	}
 
 	/* ****************************************************************************************** */
 	/** - Expected public key processing - sequence - 1 */
@@ -909,8 +919,29 @@ int XSecure_HssInit(XSecure_Sha *ShaInstPtr, XPmcDma *DmaPtr, XSecure_HssInitPar
 	CurrentLmsQ = XSECURE_ALLFS;
 	SignatureLengthConsumed = 0U;
 	XSecure_LmsSignVerifyParams LmsSignVerifyParams;
-	XSecure_ShaPlatConfig *ShaPlatConfig = (XSecure_ShaPlatConfig *)ShaInstPtr->ShaPlatConfig;
+	XSecure_ShaPlatConfig *ShaPlatConfig = NULL;
 
+	/** - Validate input pointers before any dereference */
+	if ((NULL == ShaInstPtr) || (NULL == DmaPtr) || (NULL == HssInitParams)) {
+		Status = XSECURE_LMS_INVALID_PARAM;
+		XSecure_Printf(XSECURE_DEBUG_GENERAL,
+			"LMS HSS Init - null instance/param pointer\n\r");
+		goto END;
+	}
+
+	/**
+	 * - Validate the parameter lengths at entry. The public key and signature
+	 *   buffer pointers are not null-checked because address 0 is a valid
+	 *   memory location (DDR); a zero length is the meaningful invalid input.
+	 */
+	if ((0U == HssInitParams->PublicKeyLen) || (0U == HssInitParams->SignatureLen)) {
+		Status = XSECURE_LMS_INVALID_PARAM;
+		XSecure_Printf(XSECURE_DEBUG_GENERAL,
+			"LMS HSS Init - zero public key/signature length\n\r");
+		goto END;
+	}
+
+	ShaPlatConfig = (XSecure_ShaPlatConfig *)ShaInstPtr->ShaPlatConfig;
 
 	/* ****************************************************************************************** */
 	/** - Public key processing - sequence */
@@ -1247,6 +1278,14 @@ int XSecure_LmsHashMessage(XSecure_Sha *ShaInstPtr,
 	int Status = XST_FAILURE;
 	static const u8 XSECURE_D_MESG[2U] = { 0x81U, 0x81U };
 
+	/** - Validate the SHA instance pointer at entry */
+	if (NULL == ShaInstPtr) {
+		Status = XSECURE_LMS_INVALID_PARAM;
+		XSecure_Printf(XSECURE_DEBUG_GENERAL,
+			"LMS hash message - null SHA instance pointer\n\r");
+		goto END;
+	}
+
 	/** - Process XSECURE_D_MESG, to be sent in Big Endian - XSECURE_D_MESG value is same */
 	DigestPrefixFields.Fields.D_MESG[0U] = XSECURE_D_MESG[0U];
 	DigestPrefixFields.Fields.D_MESG[1U] = XSECURE_D_MESG[1U];
@@ -1329,6 +1368,14 @@ int XSecure_HssFinish(XSecure_Sha *ShaInstPtr,
 	u32 SignNpskLen = 0U;
 	volatile u32 Sign1Len = (SignatureLen - SignatureLengthConsumed);
 	XSecure_LmsSignVerifyParams LmsSignVerifyParams;
+
+	/** - Validate input pointers before any use */
+	if ((NULL == ShaInstPtr) || (NULL == DmaPtr) || (NULL == SignBuff)) {
+		Status = XSECURE_LMS_INVALID_PARAM;
+		XSecure_Printf(XSECURE_DEBUG_GENERAL,
+			"LMS HSS Finish - null instance/signature pointer\n\r");
+		goto END;
+	}
 
 	PublicKeyLmsType = (XSecure_LmsType)XSecure_SwapBytes(
 		(const void*)&AuthenticatedKey.Buff[XSECURE_LMS_PUB_KEY_TYPE_OFFSET],
@@ -1533,6 +1580,14 @@ int XSecure_GetLmsHashAlgo(u32 PubAlgo, const u8* const PubKey, XSecure_ShaMode 
 	XSecure_LmsType PublicKeyLmsType = XSECURE_LMS_NOT_SUPPORTED;
 	/** - LMS Parameters extracted from Public Key */
 	const XSecure_LmsParam* PubKeyLmsParam = NULL;
+
+	/** - Validate input pointers at entry */
+	if ((NULL == PubKey) || (NULL == SignAlgo)) {
+		Status = XSECURE_LMS_INVALID_PARAM;
+		XSecure_Printf(XSECURE_DEBUG_GENERAL,
+			"Get LMS hash algo - null public key/output pointer\n\r");
+		goto END;
+	}
 
 	if(XSECURE_PUB_ALGO_LMS_HSS == PubAlgo) {
 		PublicKeyLmsType =  (XSecure_LmsType)XSecure_SwapBytes(&PubKey[XSECURE_HSS_PUBLIC_KEY_LMS_FIELD_OFFSET],

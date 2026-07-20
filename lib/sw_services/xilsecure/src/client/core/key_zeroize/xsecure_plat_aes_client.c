@@ -18,6 +18,8 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- -------------------------------------------------------
 * 5.3   har  02/05/24 Initial release
+* 5.8   tbk  07/02/26 Validate parameter pointer and clear stale data-buffer
+*                     fields on GMAC path
 *
 * </pre>
 * @note
@@ -57,6 +59,7 @@
  * @return
  *		 - XST_SUCCESS  On success
  *		 - XST_FAILURE  On failure
+ *		 - XST_INVALID_PARAM  On invalid parameters
  *
  ******************************************************************************/
 int XSecure_AesPerformOperationAndZeroizeKey(XSecure_ClientInstance *InstancePtr, u64 KeyAddr, const XSecure_AesDataBlockParams *AesDataParams)
@@ -68,11 +71,19 @@ int XSecure_AesPerformOperationAndZeroizeKey(XSecure_ClientInstance *InstancePtr
 	u32 Payload[PAYLOAD_ARG_CNT];
 
 	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
+		Status = XST_INVALID_PARAM;
+		goto END;
+	}
+
+	/** - Validate the parameter pointer before the shared-memory bind */
+	if (AesDataParams == NULL) {
+		Status = XST_INVALID_PARAM;
 		goto END;
 	}
 
 	MemSize = XMailbox_GetSharedMem(InstancePtr->MailboxPtr, (u64**)(UINTPTR)&AesParams);
 	if ((AesParams == NULL) || (MemSize < sizeof(XSecure_AesDataBlockParams))) {
+		Status = XST_INVALID_PARAM;
 		goto END;
 	}
 
@@ -87,6 +98,13 @@ int XSecure_AesPerformOperationAndZeroizeKey(XSecure_ClientInstance *InstancePtr
 	AesParams->IsLast = TRUE;
 
 	if (AesDataParams->IsGmacEnable == TRUE) {
+		/**
+		 * - Clear the data-buffer fields on the GMAC path so a reused
+		 *   shared-memory slot never presents stale parameters to the server.
+		 */
+		AesParams->InDataAddr = 0U;
+		AesParams->Size = 0U;
+		AesParams->OutDataAddr = 0U;
 		AesParams->IsGmacEnable = TRUE;
 	}
 	else {

@@ -60,6 +60,7 @@
 *                       XPuf_IsRegistrationDisabled
 * 2.3   ng   11/22/2023 Fixed doxygen grouping
 * 2.4   ng   04/30/2024 Fixed doxygen comments
+* 2.8   tbk  07/02/2026 Added return-time redundancy guard in XPuf_Registration
 *
 * </pre>
 *
@@ -212,7 +213,7 @@ int XPuf_Registration(XPuf_Data *PufData)
 {
 	volatile int Status = XST_FAILURE;
 	volatile int IroRestoreStatus = XST_FAILURE;
-	u32 Idx = 0U;
+	volatile u32 Idx = 0U;
 	u8 IroFreqUpdated = FALSE;
 
 	/**
@@ -335,6 +336,11 @@ END:
 		if (Status == XST_SUCCESS) {
 			Status = IroRestoreStatus;
 		}
+	}
+
+	/** - Redundancy guard: on success, confirm the full syndrome capture completed. */
+	if ((Status == XST_SUCCESS) && (Idx != XPUF_4K_PUF_SYN_LEN_IN_WORDS)) {
+		Status = XPUF_ERROR_SYN_DATA_ERROR;
 	}
 
 	return Status;

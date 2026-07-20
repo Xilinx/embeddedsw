@@ -17,6 +17,7 @@
 * Ver   Who  Date        Changes
 * ----- ---- ---------- -------------------------------------------------------
 * 1.0   sd  04/13/2026 Initial release
+* 2.8   tbk 07/02/2026 Added return-time redundancy guard in XPuf_Registration
 *
 * </pre>
 *
@@ -143,7 +144,7 @@ int XPuf_Registration(XPuf_Data *PufData)
 {
 	volatile int Status = XST_FAILURE;
 	volatile int IroRestoreStatus = XST_FAILURE;
-	u32 Idx = 0U;
+	volatile u32 Idx = 0U;
 	u8 IroFreqUpdated = FALSE;
 
 	/**
@@ -223,7 +224,6 @@ int XPuf_Registration(XPuf_Data *PufData)
 		XPUF_PMC_GLOBAL_PUF_CHASH_OFFSET);
 	XPuf_CapturePufID(PufData);
 
-
 END:
 	/**
 	 * If IRO frequency is updated to 320MHz then set frequency back to 400MHz.
@@ -233,6 +233,11 @@ END:
 		if (Status == XST_SUCCESS) {
 			Status = IroRestoreStatus;
 		}
+	}
+
+	/** - Redundancy guard: on success, confirm the full syndrome capture completed. */
+	if ((Status == XST_SUCCESS) && (Idx != XPUF_SYN_LEN_IN_WORDS)) {
+		Status = XPUF_ERROR_SYN_DATA_ERROR;
 	}
 
 	return Status;
