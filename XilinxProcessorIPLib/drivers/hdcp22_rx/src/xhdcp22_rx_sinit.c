@@ -59,27 +59,6 @@
 * @note		None.
 *
 ******************************************************************************/
-#ifndef SDT
-XHdcp22_Rx_Config *XHdcp22Rx_LookupConfig(u16 DeviceId)
-{
-	extern XHdcp22_Rx_Config XHdcp22_Rx_ConfigTable[XPAR_XHDCP22_RX_NUM_INSTANCES];
-	XHdcp22_Rx_Config *CfgPtr = NULL;
-	u32 Index;
-
-	/* Checking for device id for which instance it is matching */
-	for (Index = (u32)0x0; Index < (u32)(XPAR_XHDCP22_RX_NUM_INSTANCES); Index++) {
-		/* Assigning address of config table if both device ids
-		 * are matched
-		 */
-		if (XHdcp22_Rx_ConfigTable[Index].DeviceId == DeviceId) {
-			CfgPtr = &XHdcp22_Rx_ConfigTable[Index];
-			break;
-		}
-	}
-
-	return CfgPtr;
-}
-#else
 XHdcp22_Rx_Config *XHdcp22Rx_LookupConfig(UINTPTR BaseAddress)
 {
 	extern XHdcp22_Rx_Config XHdcp22_Rx_ConfigTable[XPAR_XHDCP22_RX_NUM_INSTANCES];
@@ -100,5 +79,4 @@ XHdcp22_Rx_Config *XHdcp22Rx_LookupConfig(UINTPTR BaseAddress)
 
 	return CfgPtr;
 }
-#endif
 /** @} */
