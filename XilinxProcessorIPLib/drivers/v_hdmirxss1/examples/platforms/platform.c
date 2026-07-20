@@ -1,5 +1,6 @@
 /******************************************************************************
-* Copyright (C) 2018 – 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2018 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright 2024-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -29,7 +30,7 @@ enable_caches()
 #ifdef __PPC__
     Xil_ICacheEnableRegion(CACHEABLE_REGION_MASK);
     Xil_DCacheEnableRegion(CACHEABLE_REGION_MASK);
-#elif __MICROBLAZE__
+#elif defined (__MICROBLAZE__) || defined (__riscv)
 #ifdef XPAR_MICROBLAZE_USE_ICACHE
     Xil_ICacheEnable();
 #endif
@@ -42,7 +43,7 @@ enable_caches()
 void
 disable_caches()
 {
-#ifdef __MICROBLAZE__
+#if defined (__MICROBLAZE__) || defined (__riscv)
 #ifdef XPAR_MICROBLAZE_USE_DCACHE
     Xil_DCacheDisable();
 #endif
