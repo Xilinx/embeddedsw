@@ -13,6 +13,9 @@
 #include "xpm_defs.h"
 #include "xpm_common.h"
 #include "xplmi_ipi.h"
+#ifdef SDT
+#include "xpm_config.h"
+#endif
 
 #ifdef __cplusplus
 extern "C" {
