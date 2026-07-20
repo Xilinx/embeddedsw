@@ -20,6 +20,7 @@
  *       pre  08/22/24 Added XLOADER_CFI_SEL_READBACK_ID
  *       pre  10/26/24 Made XLOADER_CMD_ID_LOAD_READBACK_PDI command ID as reserved
  * 2.4   gnr  02/06/26 Removed conditional inclusion for XLOADER_CMD_ID_DATA_AUTH
+ *       ng   07/09/26 Added XLOADER_SET_DDR_ADDR_FOR_RESTART_IMAGE_ID command id
  *
  * </pre>
  *
@@ -62,6 +63,8 @@ extern "C" {
 #define XLOADER_CMD_ID_I2C_HANDSHAKE            (16U) /**< command id for I2C handshake */
 #define XLOADER_CMD_ID_DATA_AUTH		        (17U) /**< API ID for Data authentication */
 #define XLOADER_CFI_SEL_READBACK_ID             (18U) /**< command id for CFI selective readback */
+#define XLOADER_SET_DDR_ADDR_FOR_RESTART_IMAGE_ID (19U) /**< command id for setting DDR address to
+							 * restart image from DDR */
 
 #define XLOADER_HEADER_LEN_1			(1U) /**< Header length 1 */
 #define XLOADER_HEADER_LEN_2			(2U) /**< Header length 2 */

@@ -24,6 +24,7 @@
  *       gnr  03/18/26 Updated the Payload assignments with XLOADER_PACK_PAYLOAD macros
  *       vm   03/30/26 Added support for OSPI as pdi source to get the optional data
  *       pre  07/15/26 Added input parameter validation at required places
+ *       ng   07/09/26 Added XLoader_SetDdrAddrForRestartImage client API
  *
  * </pre>
  *
@@ -493,6 +494,43 @@ int XLoader_GetOptionalData(XLoader_ClientInstance *InstancePtr,
 	/** Send request using generic API */
 	Status = XLoader_SendRequest(InstancePtr, Payload, (u32)PAYLOAD_ARG_CNT, Response, (u32)RESPONSE_ARG_CNT);
 	*DestSize = Response[0U];
+
+END:
+	return Status;
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	This function sends an IPI request to configure the DDR address from which the PLM
+ * 		will load a subsystem image on the next restart, bypassing the Image Store PDI list.
+ *
+ * @param	InstancePtr	Pointer to the client instance.
+ * @param	DdrPdiAddr	64-bit DDR address of the PDI to use for image restart.
+ *
+ * @return
+ *		 - XST_SUCCESS on success.
+ *		 - XST_FAILURE on failure.
+ *
+ **************************************************************************************************/
+int XLoader_SetDdrAddrForRestartImage(XLoader_ClientInstance *InstancePtr, u64 DdrPdiAddr)
+{
+	volatile int Status = XST_FAILURE;
+	u32 Payload[PAYLOAD_ARG_CNT] = {0U};
+
+	/**
+	* - Perform input parameter validation. Return error if parameters are invalid.
+	*/
+	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
+		Status = XST_INVALID_PARAM;
+		goto END;
+	}
+
+	/** Fill Payload */
+	XLOADER_PACK_PAYLOAD2(Payload, (u32)XLOADER_SET_DDR_ADDR_FOR_RESTART_IMAGE_ID,
+			(u32)(DdrPdiAddr >> XLOADER_ADDR_HIGH_SHIFT), (u32)(DdrPdiAddr));
+
+	/** Send request using generic API */
+	Status = XLoader_SendRequest(InstancePtr, Payload, (u32)PAYLOAD_ARG_CNT, NULL, 0U);
 
 END:
 	return Status;

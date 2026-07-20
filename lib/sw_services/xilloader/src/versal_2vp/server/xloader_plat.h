@@ -256,6 +256,9 @@ enum {
 	/** 0x30 - Error while releasing I2C device used for Handshake */
 	XLOADER_ERR_I2C_DEV_RELEASE,
 
+	/**< 0x32 - Error when invalid address range is detected. */
+	XLOADER_ERR_INVALID_ADDR_RANGE = 0x32,
+
 	/* Platform specific Minor Error Codes start from 0x100 */
 	/** 0x104 - Error in parsing I2C master while reading device ID */
 	XLOADER_ERR_I2C_MASTER_DEVID_READ = 0x104,

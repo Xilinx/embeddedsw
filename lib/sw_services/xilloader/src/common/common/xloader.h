@@ -134,6 +134,8 @@
 *       pre  03/12/2026 Added macro needed to validate PCR number
 *       sk   04/16/2026 Added function declaration for store image info
 *       vm   03/30/2026 Moved PDI source mask from xloader_cmd.c
+*       ng   07/09/2026 Added XLoader_DdrPdiInfo, XLoader_DdrPdiAddrStatus and
+*                       XLoader_SetDdrPdiAddr for set DDR address for restart image
 * </pre>
 *
 ******************************************************************************/
@@ -454,6 +456,22 @@ typedef struct {
 	u32 OverWrite;	/**< Flag to indicate if digest can be overwritten at the measurement index */
 } XLoader_ImageMeasureInfo;
 
+/**
+ * Enum to indicate validity of DDR PDI address
+ */
+typedef enum {
+	XLOADER_DDR_PDI_ADDR_INVALID = 0, /**< Invalid DDR PDI address */
+	XLOADER_DDR_PDI_ADDR_VALID = 1 /**< Valid DDR PDI address */
+} XLoader_DdrPdiAddrStatus;
+
+/**
+ * Structure to hold DDR PDI address information
+ */
+typedef struct {
+	u64 DdrPdiAddr; /**< DDR PDI address */
+	XLoader_DdrPdiAddrStatus IsDdrAddrValid; /**< Flag to indicate if DDR PDI address is valid or not */
+} XLoader_DdrPdiInfo;
+
 /***************** Macros (Inline Functions) Definitions *********************/
 /*****************************************************************************/
 /**
@@ -491,6 +509,7 @@ int XLoader_LoadImageInfoTbl(u64 DestAddr, u32 MaxSize, u32 *NumEntries);
 int XLoader_PdiInit(XilPdi* PdiPtr, PdiSrc_t PdiSource, u64 PdiAddr);
 int XLoader_ReadImageStoreCfg(void);
 int XLoader_IsPdiAddrLookup(u32 PdiId, u64 *PdiAddr);
+int XLoader_SetDdrPdiAddr(u32 SubsystemId, u64 Addr);
 int XLoader_ClearATFHandoffParams(XilPdi* PdiPtr);
 int XLoader_LoadImage(XilPdi *PdiPtr);
 int XLoader_GetImageAndPrtnInfo(XilPdi *PdiPtr, u32 ImageId);

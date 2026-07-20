@@ -97,6 +97,7 @@
 *       sri  03/26/2026 Added new IPI API for verifying Hash block requested by Versal 2Ve 2Vm client
 *       sk   04/10/2026 Added implementation for set image info command
 *       vm   03/30/2026 Moved Mask for PDI Src in Extract Metaheader command
+*       ng   07/09/2026 Added handler for Set DDR address for restart image command
 *
 * </pre>
 *
@@ -194,6 +195,9 @@ static XPlmi_Module XPlmi_Loader;
 /* Command related macros */
 #define XLOADER_ATF_HANDOFF_FORMAT_SIZE		(8U)
 #define XLOADER_ATF_HANDOFF_PRTN_ENTRIES_SIZE	(16U)
+
+#define XLOADER_DDR_ADDR_HIGH_IDX		(0U)
+#define XLOADER_DDR_ADDR_LOW_IDX		(1U)
 
 #if (!defined(PLM_SECURE_EXCLUDE))
 #if (defined(VERSAL_NET) && !defined(VERSAL_2VE_2VM))
@@ -1327,6 +1331,33 @@ END:
 #endif // (defined(VERSAL_NET) && !defined(VERSAL_2VE_2VM))
 #endif // (!defined(PLM_SECURE_EXCLUDE))
 
+/*****************************************************************************/
+/**
+ * @brief	This function sets the DDR address of the PDI to be used for
+ *		subsystem image restart.
+ *
+ *  Command payload parameters are:
+ *	- High 32-bit address of the PDI in DDR
+ *	- Low 32-bit address of the PDI in DDR
+ *
+ * @param	Cmd is pointer to the command structure
+ *
+ * @return
+ * 		- XST_SUCCESS on success.
+ * 		- Error Code in case of failure
+ *
+ *****************************************************************************/
+static int XLoader_SetDdrAddrForImageRestart(XPlmi_Cmd *Cmd)
+{
+	int Status = XST_FAILURE;
+	u64 DdrAddr = (((u64)Cmd->Payload[XLOADER_DDR_ADDR_HIGH_IDX] << 32) |
+			(u64)Cmd->Payload[XLOADER_DDR_ADDR_LOW_IDX]);
+	XPlmi_Printf(DEBUG_INFO, "Setting DDR PDI address for image restart: 0x%08x%08x\n",
+		(u32)(DdrAddr >> 32), (u32)DdrAddr);
+	Status = XLoader_SetDdrPdiAddr(Cmd->SubsystemId, DdrAddr);
+	return Status;
+}
+
 /**
  * @cond xloader_internal
  */
@@ -1363,6 +1394,7 @@ static const XPlmi_ModuleCmd XLoader_Cmds[] =
 	XPLMI_MODULE_COMMAND(NULL),
 #endif
 	XPLMI_MODULE_COMMAND(XLoader_CfiSelectiveRead),
+	XPLMI_MODULE_COMMAND(XLoader_SetDdrAddrForImageRestart),
 };
 
 /*****************************************************************************/
@@ -1400,6 +1432,7 @@ static XPlmi_AccessPerm_t XLoader_AccessPermBuff[XPLMI_ARRAY_SIZE(XLoader_Cmds)]
 	XPLMI_ALL_IPI_NO_ACCESS(XLOADER_CMD_ID_DATA_AUTH),
 #endif
 	XPLMI_ALL_IPI_FULL_ACCESS(XLOADER_CFI_SEL_READBACK_ID),
+	XPLMI_ALL_IPI_FULL_ACCESS(XLOADER_SET_DDR_ADDR_FOR_RESTART_IMAGE_ID),
 };
 
 #if (!defined(VERSAL_NET) && !defined(VERSAL_2VE_2VM))

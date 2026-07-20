@@ -22,6 +22,7 @@
  * 2.3   aa   09/29/25 Added UFS support as pdisrc option for partial PDI load
  * 2.4   sri  03/26/26 Included header file for cache disable option
  *       vm   03/30/26 Added support for OSPI as pdi source to get the optional data
+ *       ng   07/09/26 Added XLoader_SetDdrAddrForRestartImage prototype
  *
  * </pre>
  *
@@ -124,6 +125,7 @@ int XLoader_CfiSelectiveReadback(XLoader_ClientInstance *InstancePtr,
 int XLoader_InputSlrIndex(XLoader_ClientInstance *InstancePtr, u32 SlrIndex);
 int XLoader_GetOptionalData(XLoader_ClientInstance *InstancePtr,
 		const XLoader_OptionalDataInfo* OptionalDataInfo, u64 DestAddr, u32 *DestSize);
+int XLoader_SetDdrAddrForRestartImage(XLoader_ClientInstance *InstancePtr, u64 DdrPdiAddr);
 
 /************************************ Variable Definitions ***************************************/
 

@@ -73,7 +73,8 @@ examples:
         "xilloader_load_pdi_client_example.c",
         "xilloader_update_multiboot_client_example.c",
         "xilloader_cfi_selective_readback_example.c",
-        "xilloader_get_opt_data_example.c"
+        "xilloader_get_opt_data_example.c",
+        "xilloader_set_ddr_addr_restart_image_client_example.c"
       ]
 
     if platform in ["VersalNet"] and proc in versalnet_procs:

@@ -215,6 +215,7 @@
 *                      Image Info commands.
 *       vm  03/30/2026 Added support for OSPI as pdi source to get the optional data
 *       obs 05/20/2026 Add boot PDI guard and ELF partition filter in delayed handoff loop
+*       ng  07/09/2026 Added XLoader_SetDdrPdiAddr for set DDR address for restart image
 *
 * </pre>
 *
@@ -294,6 +295,7 @@ static int XLoader_ReloadImage(XilPdi *PdiPtr, u32 ImageId, const u32 *FuncID);
 static int XLoader_ClearKeys(XilPdi * PdiPtr);
 static int XLoader_ReadIHsAndPHs(XLoader_SecureParams *SecurePtr);
 static int XLoader_VerifyIHsAndPHs(XLoader_SecureParams *SecurePtr);
+static XLoader_DdrPdiInfo *XLoader_GetDdrPdiAddr(void);
 
 /************************** Variable Definitions *****************************/
 /*****************************************************************************/
@@ -1748,6 +1750,122 @@ END:
 
 	return Status;
 }
+/*****************************************************************************/
+/**
+ * @brief	This function provides the DDR PDI info pointer, which holds the
+ *		DDR PDI address and its validity status used by subsystem restart
+ *		to load an image directly from DDR.
+ *
+ * @return	Pointer to the static XLoader_DdrPdiInfo instance
+ *
+ *****************************************************************************/
+static XLoader_DdrPdiInfo *XLoader_GetDdrPdiAddr(void)
+{
+	static XLoader_DdrPdiInfo DdrPdiAddr = {XLOADER_IMG_STORE_INVALID_ADDR,
+						XLOADER_DDR_PDI_ADDR_INVALID};
+
+	return &DdrPdiAddr;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function validates and stores the DDR PDI address used by
+ *		XLoader_RestartImage to load a subsystem image directly from DDR.
+ *		The supplied address is checked against the allowed address range
+ *		using XPlmi_VerifyAddrRange. On success, the address is cached in
+ *		the static DdrPdiInfo and IsDdrAddrValid is set to
+ *		XLOADER_DDR_PDI_ADDR_VALID so the next image restart loads from
+ *		this address. On failure, IsDdrAddrValid is cleared to
+ *		XLOADER_DDR_PDI_ADDR_INVALID, causing subsequent restarts to fall
+ *		back to the Image Store PDI list.
+ *
+ * @param	SubsystemId	Subsystem ID used for address range validation.
+ * @param	Addr	DDR address of the PDI to use for image restart.
+ *
+ * @return
+ *		- XST_SUCCESS if the address passes range validation.
+ *		- Error code from XPlmi_VerifyAddrRange if the address is outside
+ *		  the allowed range.
+ *
+ *****************************************************************************/
+int XLoader_SetDdrPdiAddr(u32 SubsystemId, u64 Addr)
+{
+	int Status = XST_FAILURE;
+	XLoader_DdrPdiInfo *DdrPdiAddr = XLoader_GetDdrPdiAddr();
+
+	XPLMI_VERIFY_ADDR_RANGE(SubsystemId, Addr, XPLMI_WORD_LEN, Status, XLOADER_ERR_INVALID_ADDR_RANGE, END);
+
+	DdrPdiAddr->IsDdrAddrValid = XLOADER_DDR_PDI_ADDR_VALID;
+	DdrPdiAddr->DdrPdiAddr = Addr;
+
+	/*
+	 * Explicit goto so the END label is always both defined and referenced,
+	 * regardless of whether XPLMI_VERIFY_ADDR_RANGE expands to a range check
+	 * (which jumps to END on failure) or to a no-op on a given platform.
+	 */
+	Status = XST_SUCCESS;
+	goto END;
+
+END:
+	if (Status != XST_SUCCESS) {
+		DdrPdiAddr->IsDdrAddrValid = XLOADER_DDR_PDI_ADDR_INVALID;
+	}
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	Detects PDI type from the header at PdiAddr, initialises the PDI,
+ * 		reloads the requested image partition, and starts it.
+ *
+ * @param	PdiAddr DDR address of the PDI to load
+ * @param	ImageId Image ID to reload
+ * @param	FuncID is verified with the FuncID present in PDI
+ *
+ * @return
+ * 		- XST_SUCCESS on success and error code on failure
+ *
+ *****************************************************************************/
+static int XLoader_LoadImageFromAddr(u64 PdiAddr, u32 ImageId, const u32 *FuncID)
+{
+	int Status = XST_FAILURE;
+	u32 IdString;
+	XilPdi *PdiPtr = XLoader_GetPdiInstance();
+
+	/* Detect full vs. partial PDI from the identity string in its header */
+	IdString = XPlmi_In64(PdiAddr + XIH_BH_IMAGE_IDENT_OFFSET);
+	if (IdString == XIH_BH_IMAGE_IDENT) {
+		PdiPtr->PdiType = XLOADER_PDI_TYPE_FULL_METAHEADER;
+	}
+	else {
+		IdString = XPlmi_In64(PdiAddr + SMAP_BUS_WIDTH_LENGTH +
+			XIH_IHT_IDENT_STRING_OFFSET);
+		if (IdString == XIH_IHT_PPDI_IDENT_VAL) {
+			PdiPtr->PdiType = XLOADER_PDI_TYPE_PARTIAL;
+		}
+	}
+
+	/** - Initialize the PDI instance with the DDR source and PdiAddr. */
+	Status = XLoader_PdiInit(PdiPtr, XLOADER_PDI_SRC_DDR, PdiAddr);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	XPlmi_Printf(DEBUG_INFO, "Loading from PdiAddr: "
+		"0x%0x%08x\n\r", (u32)(PdiAddr >> 32U), (u32)PdiAddr);
+
+	/** - Reload the requested image partition matching ImageId/FuncID. */
+	Status = XLoader_ReloadImage(PdiPtr, ImageId, FuncID);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	/** - Start the reloaded image. */
+	Status = XLoader_StartImage(PdiPtr);
+
+END:
+	return Status;
+}
 
 /*****************************************************************************/
 /**
@@ -1772,47 +1890,48 @@ int XLoader_RestartImage(u32 ImageId, u32 *FuncID)
 	int Index;
 	u64 PdiAddr;
 	XilBootPdiInfo *BootPdiInfo = XLoader_GetBootPdiInfo();
-	u32 IdString;
-
-
 	PdiPtr->IsSubsystemRestart = (u8)TRUE;
+	PdiPtr->PdiSrc = XLOADER_PDI_SRC_DDR;
+	XLoader_DdrPdiInfo *DdrPdiInfo = XLoader_GetDdrPdiAddr();
+
+	/**
+	 * - Check if a fixed DDR PDI address has been set. If so, load the image
+	 * directly from that address, bypassing the PDI list scan.
+	 */
+	if (DdrPdiInfo->IsDdrAddrValid == XLOADER_DDR_PDI_ADDR_VALID) {
+		PdiAddr = DdrPdiInfo->DdrPdiAddr;
+
+		XPlmi_Printf(DEBUG_DETAILED, "Restarting Image from DDR address configured: "
+			     "0x%0x%08x\n\r", (u32)(PdiAddr >> 32U), (u32)PdiAddr);
+		Status = XLoader_LoadImageFromAddr(PdiAddr, ImageId, FuncID);
+
+		/* Reset the DDR PDI address to invalid once it's processed */
+		DdrPdiInfo->DdrPdiAddr = XLOADER_IMG_STORE_INVALID_ADDR;
+		DdrPdiInfo->IsDdrAddrValid = XLOADER_DDR_PDI_ADDR_INVALID;
+		if (Status == XST_SUCCESS) {
+			goto END;
+		}
+		XPlmi_Printf(DEBUG_INFO, "Failed to load from configured DDR PDI address "
+			     "0x%x%08x, PLM Error: 0x%08x\n\r",
+			     (u32)(PdiAddr >> 32U), (u32)PdiAddr, Status);
+		XPlmi_Printf(DEBUG_GENERAL, "Falling back to Image Store\n\r");
+	}
+
+	if (PdiList->Count == 0U) {
+		Status = XPlmi_UpdateStatus(XLOADER_ERR_IMG_ID_NOT_FOUND, XLOADER_ERR_PDI_LIST_EMPTY);
+		goto END;
+	}
+
 	/**
 	 * - Scan through PdiList for the given ImageId and restart image from
 	 * that respective PDI if ImageId is found
 	 */
-	PdiPtr->PdiSrc = XLOADER_PDI_SRC_DDR;
 	for (Index = (int)PdiList->Count - 1; Index >= 0; Index--) {
 		PdiAddr = PdiList->ImgList[Index].PdiAddr;
-		IdString = XPlmi_In64(PdiAddr + XIH_BH_IMAGE_IDENT_OFFSET);
-		if (IdString == XIH_BH_IMAGE_IDENT) {
-			PdiPtr->PdiType = XLOADER_PDI_TYPE_FULL_METAHEADER;
-		}
-		else {
-			IdString = XPlmi_In64(PdiAddr + SMAP_BUS_WIDTH_LENGTH +
-				XIH_IHT_IDENT_STRING_OFFSET);
-			if (IdString == XIH_IHT_PPDI_IDENT_VAL) {
-				PdiPtr->PdiType = XLOADER_PDI_TYPE_PARTIAL;
-			}
-		}
-		Status = XLoader_PdiInit(PdiPtr, XLOADER_PDI_SRC_DDR, PdiAddr);
-		if (Status != XST_SUCCESS) {
-			goto END1;
-		}
-
-		XPlmi_Printf(DEBUG_GENERAL, "Loading from PdiAddr: "
-			"0x%0x%08x\n\r", (u32)(PdiAddr >> 32U),
-			(u32)PdiAddr);
-		Status = XLoader_ReloadImage(PdiPtr, ImageId,
-				FuncID);
-		if (Status != XST_SUCCESS) {
-			goto END1;
-		}
-
-		Status = XLoader_StartImage(PdiPtr);
-END1:
+		Status = XLoader_LoadImageFromAddr(PdiAddr, ImageId, FuncID);
 		if (Status != XST_SUCCESS) {
 			if ((Status != (int)XLOADER_ERR_IMG_ID_NOT_FOUND) &&
-				(Status != (int)XLOADER_ERR_FUNCTION_ID_MISMATCH)) {
+			    (Status != (int)XLOADER_ERR_FUNCTION_ID_MISMATCH)) {
 				XPlmi_Printf(DEBUG_DETAILED, "Restart Image "
 					"Failed with PLM Error: 0x%0x\n\r",
 					Status);
