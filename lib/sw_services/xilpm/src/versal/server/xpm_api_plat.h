@@ -69,7 +69,7 @@ XStatus XPm_DisableDdrSr(const u32 SubsystemId);
 XStatus XPm_ForceHouseClean(u32 NodeId);
 void XPmPlDevice_SetStlInitFinishCb(void (*Handler)(void));
 void XPm_PlatChangeCoreState(XPm_Core *Core, const u32 State);
-#if defined(XC2VP3602)
+#ifdef ENABLE_GPIO_PROC_HANDLER
 /**
  * @brief Maximum number of GPIO procs supported.
  */
@@ -102,7 +102,7 @@ typedef enum {
 	PMC_GPIO_CONTROLLER = 1U,	/**< PMC GPIO Controller */
 } XPm_GpioControllerType;
 
-#endif /* defined(XC2VP3602) */
+#endif /* ENABLE_GPIO_PROC_HANDLER */
 
 #ifdef __cplusplus
 }
