@@ -77,11 +77,7 @@ extern "C" {
 * Each HDCP22 Cipher device should have a configuration structure associated.
 */
 typedef struct {
-#ifndef SDT
-	u16 DeviceId;     /**< DeviceId is the unique ID of the HDCP22 Cipher core */
-#else
 	char *Name;
-#endif
 	UINTPTR BaseAddress;  /**< BaseAddress is the physical base address of the core's registers */
 } XHdcp22_Cipher_Config;
 
@@ -321,11 +317,7 @@ typedef struct {
 
 /************************** Function Prototypes ******************************/
 /* Initialization function in xhdcp22_cipher_sinit.c */
-#ifndef SDT
-XHdcp22_Cipher_Config *XHdcp22Cipher_LookupConfig(u16 DeviceId);
-#else
 XHdcp22_Cipher_Config *XHdcp22Cipher_LookupConfig(UINTPTR BaseAddress);
-#endif
 /* Initialization and control functions in xhdcp22_cipher.c */
 int XHdcp22Cipher_CfgInitialize(XHdcp22_Cipher *InstancePtr, XHdcp22_Cipher_Config *CfgPtr, UINTPTR EffectiveAddr);
 
