@@ -139,6 +139,7 @@
 * 2.4   tvp  02/04/26 Add support for efuse PPK3-PPK8 hash for Versal_2vp_p
 *       pre  03/12/26 Disabled partition hash table update for VERSAL_2VE_2VM devices
 *                     as the partition hash is not stored in the table for these devices.
+*       ng   07/13/26 Reduced debug print levels on error paths
 *
 * </pre>
 *
@@ -330,7 +331,7 @@ int XLoader_SecureInit(XLoader_SecureParams *SecurePtr, XilPdi *PdiPtr,
 			PrtnHdr->EncRevokeID);
 		if ((Status != XST_SUCCESS) || (StatusTmp != XST_SUCCESS)) {
 			Status |= StatusTmp;
-			XPlmi_Printf(DEBUG_GENERAL, "Partition is revoked\n\r");
+			XPlmi_Printf(DEBUG_INFO, "Partition is revoked\n\r");
 			Status = XPlmi_UpdateStatus(XLOADER_ERR_PRTN_REVOKED, Status);
 			goto END;
 		}
@@ -351,7 +352,7 @@ int XLoader_SecureInit(XLoader_SecureParams *SecurePtr, XilPdi *PdiPtr,
 			PrtnHdr->EncRevokeID);
 		if ((Status != XST_SUCCESS) || (StatusTmp != XST_SUCCESS)) {
 			Status |= StatusTmp;
-			XPlmi_Printf(DEBUG_GENERAL, "Partition is revoked\n\r");
+			XPlmi_Printf(DEBUG_INFO, "Partition is revoked\n\r");
 			Status = XPlmi_UpdateStatus(XLOADER_ERR_PRTN_REVOKED, Status);
 			goto END;
 		}

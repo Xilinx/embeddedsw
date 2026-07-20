@@ -174,6 +174,7 @@
 *       rpu  04/14/2026 Moved Hashblock related code to xloader_secure.c
 *       sd   04/13/2026 Added PUF support for VERSAL_2VP_P
 *       sri  04/24/2026 Changed LMS KAT and SignVerify APIs from static to global scope to support authenticated JTAG functionality
+*       ng   07/13/2026 Reduced debug print levels on error paths
 *
 * </pre>
 *
@@ -2945,7 +2946,7 @@ int XLoader_AuthKat(XLoader_SecureParams *SecurePtr) {
 			XPLMI_HALT_BOOT_SLD_TEMPORAL_CHECK(XLOADER_ERR_KAT_FAILED, Status, StatusTmp,
 					XLoader_RsaKat);
 #else
-			XPlmi_Printf(DEBUG_GENERAL, "RSA code is excluded\n\r");
+			XPlmi_Printf(DEBUG_INFO, "RSA code is excluded\n\r");
 			Status = XPlmi_UpdateStatus(XLOADER_ERR_RSA_NOT_ENABLED, XIL_SIGNED_ZERO);
 			goto END;
 #endif
@@ -2956,7 +2957,7 @@ int XLoader_AuthKat(XLoader_SecureParams *SecurePtr) {
 			XPLMI_HALT_BOOT_SLD_TEMPORAL_CHECK(XLOADER_ERR_KAT_FAILED, Status, StatusTmp,
 					XSecure_EllipticVerifySignKat, CrvClass);
 #else
-                        XPlmi_Printf(DEBUG_GENERAL, "ECDSA code is excluded\n\r");
+                        XPlmi_Printf(DEBUG_INFO, "ECDSA code is excluded\n\r");
                         Status = XPlmi_UpdateStatus(XLOADER_ERR_ECDSA_NOT_ENABLED, XIL_SIGNED_ZERO);
                         goto END;
 #endif
@@ -2967,12 +2968,12 @@ int XLoader_AuthKat(XLoader_SecureParams *SecurePtr) {
 			XPLMI_HALT_BOOT_SLD_TEMPORAL_CHECK(XLOADER_ERR_KAT_FAILED, Status, StatusTmp,
 					XSecure_EllipticVerifySignKat, CrvClass);
 #else
-			XPlmi_Printf(DEBUG_GENERAL, "ECDSA code is excluded\n\r");
+			XPlmi_Printf(DEBUG_INFO, "ECDSA code is excluded\n\r");
                         Status = XLoader_UpdateMinorErr(XLOADER_SEC_CURVE_NOT_SUPPORTED, 0U);
                         goto END;
 #endif
 #else
-                        XPlmi_Printf(DEBUG_GENERAL, "ECDSA code is excluded\n\r");
+                        XPlmi_Printf(DEBUG_INFO, "ECDSA code is excluded\n\r");
                         Status = XPlmi_UpdateStatus(XLOADER_ERR_ECDSA_NOT_ENABLED, XIL_SIGNED_ZERO);
                         goto END;
 #endif

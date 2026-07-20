@@ -55,6 +55,7 @@
 *       pre  04/17/2025 Passing baseaddress for XSdPs_LookupConfig in SDT flow
 * 2.01	abh	 07/21/2025 Fixed GCC warnings
 *       ias  03/26/2026 Handle XPM_PMC_BOOT_DEV_RETAINED in SD release
+*       ng   07/13/2026 Reduced debug print levels on error paths
 *
 * </pre>
 *
@@ -301,7 +302,7 @@ int XLoader_SdInit(u32 DeviceFlagsVal)
 		XLoader_Printf(DEBUG_INFO, "SD: Unable to open file %s: %d\n",
 				BootFile, Rc);
 		Status = XPlmi_UpdateStatus(XLOADER_ERR_SD_F_OPEN, (int)Rc);
-		XLoader_Printf(DEBUG_GENERAL, "XLOADER_ERR_SD_F_OPEN\n\r");
+		XLoader_Printf(DEBUG_INFO, "XLOADER_ERR_SD_F_OPEN\n\r");
 		XPlmi_Out32(SdCdnReg, SdCdnVal);
 		(void)f_unmount(BootFile);
 		goto END;
@@ -570,7 +571,7 @@ int XLoader_RawInit(u32 DeviceFlags)
 	/** - Initialise the device. */
 	Status = XSdPs_CardInitialize(&SdInstance);
 	if (Status != XST_SUCCESS) {
-		XLoader_Printf(DEBUG_GENERAL, "RAW SD Card init failed\r\n");
+		XLoader_Printf(DEBUG_INFO, "RAW SD Card init failed\r\n");
 		Status = XPlmi_UpdateStatus(XLOADER_ERR_SD_CARD_INIT, Status);
 		XPlmi_Out32(SdCdnReg, SdCdnVal);
 		goto END;

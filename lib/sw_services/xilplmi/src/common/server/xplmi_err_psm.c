@@ -22,6 +22,7 @@
 * 2.4   sk   01/18/2026 Moved PSM EAM Reg Saving Code to PM Init Function.
 *                       Added function to save LPD EAM register info to RTCA on SRST
 * 2.4   abh  10/27/2025 Fixed MISRA-C violation
+*       ng   07/13/2026 Condensed duplicate error log strings
 *
 * </pre>
 *
@@ -79,8 +80,7 @@ static void XPlmi_HandlePsmError(u32 ErrorNodeId, u32 RegMask)
 		XPlmi_EmClearError(ErrorNodeType, ErrorId);
 		XPlmi_Out32(PMC_GLOBAL_PMC_ERR1_TRIG,
 				PMC_GLOBAL_PMC_ERR1_TRIG_FW_CR_MASK);
-		XPlmi_Printf(DEBUG_GENERAL, "FW_CR error out is triggered due to "
-				"Error ID: 0x%x\r\n", ErrorId);
+		XPlmi_Printf(DEBUG_GENERAL, "FW_CR error out, ErrorId=0x%x\r\n", ErrorId);
 		break;
 	case XPLMI_EM_ACTION_CUSTOM:
 	case XPLMI_EM_ACTION_SUBSYS_SHUTDN:
@@ -95,8 +95,7 @@ static void XPlmi_HandlePsmError(u32 ErrorNodeId, u32 RegMask)
 		break;
 	default:
 		XPlmi_EmClearError(ErrorNodeType, ErrorId);
-		XPlmi_Printf(DEBUG_GENERAL, "Invalid Error Action "
-				"for PSM errors. Error ID: 0x%x\r\n", ErrorId);
+		XPlmi_Printf(DEBUG_GENERAL, "Invalid Error Action, ErrorId=0x%x\r\n", ErrorId);
 		break;
 	}
 

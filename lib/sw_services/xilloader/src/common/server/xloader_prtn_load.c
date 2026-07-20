@@ -116,6 +116,7 @@
 *       tvp  07/28/2025 Refactor platform specific code.
 *       obs  08/26/2025 Added support for address range checks
 * 2.4   pre  04/17/2026 Made updates to process optee partition as ELF.
+*       ng   07/13/2026 Reduced debug print levels on error paths
 *
 * </pre>
 *
@@ -805,7 +806,7 @@ static int XLoader_ProcessPrtn(XilPdi* PdiPtr)
 		/* Just copy the partitions to PMC RAM and skip processing */
 		PrtnParams.DeviceCopy.DestAddr = XPLMI_PMCRAM_BASEADDR;
 		Status = XLoader_PrtnCopy(PdiPtr, &PrtnParams.DeviceCopy, &SecureParams);
-		XPlmi_Printf(DEBUG_GENERAL, "Skipping MJTAG partition\n\r");
+		XPlmi_Printf(DEBUG_INFO, "Skipping MJTAG partition\n\r");
 		goto END;
 	}
 

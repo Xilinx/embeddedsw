@@ -151,6 +151,7 @@
 *       pre  09/03/2025 Added logic to avoid flooding of log buffer with repeated error messages
 * 2.4   abh  10/14/2025 Fixed MISRA-C Violations
 *       ng   04/18/2026 Removed SLD trigger for PLM errors
+*       ng   07/13/2026 Condensed duplicate error log strings
 *
 * </pre>
 *
@@ -456,8 +457,7 @@ void XPlmi_HandleSwError(u32 ErrorNodeId, u32 RegMask)
 			(void)XPlmi_UpdateNumErrOutsCount(XPLMI_UPDATE_TYPE_INCREMENT);
 			XPlmi_Out32(PMC_GLOBAL_PMC_ERR1_TRIG,
 					PMC_GLOBAL_PMC_ERR1_TRIG_FW_CR_MASK);
-			XPlmi_Printf(DEBUG_GENERAL, "FW_CR error out is triggered due to "
-					"Error ID: 0x%x\r\n", ErrorId);
+			XPlmi_Printf(DEBUG_GENERAL, "FW_CR error out, ErrorId=0x%x\r\n", ErrorId);
 			break;
 		case XPLMI_EM_ACTION_CUSTOM:
 		case XPLMI_EM_ACTION_SUBSYS_SHUTDN:
@@ -471,12 +471,11 @@ void XPlmi_HandleSwError(u32 ErrorNodeId, u32 RegMask)
 			}
 			break;
 		case XPLMI_EM_ACTION_NONE:
-			XPlmi_Printf(DEBUG_GENERAL, "No action is enabled for "
-					"Error ID: 0x%x\r\n", ErrorId);
+			XPlmi_Printf(DEBUG_GENERAL, "No Error Action, ErrorId=0x%x\r\n", ErrorId);
+
 			break;
 		default:
-			XPlmi_Printf(DEBUG_GENERAL, "Invalid Error Action "
-					"for software errors. Error ID: 0x%x\r\n", ErrorId);
+			XPlmi_Printf(DEBUG_GENERAL, "Invalid Error Action, ErrorId=0x%x\r\n", ErrorId);
 			break;
 		}
 	} else {

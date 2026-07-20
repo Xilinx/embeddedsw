@@ -216,6 +216,7 @@
 *       vm  03/30/2026 Added support for OSPI as pdi source to get the optional data
 *       obs 05/20/2026 Add boot PDI guard and ELF partition filter in delayed handoff loop
 *       ng  07/09/2026 Added XLoader_SetDdrPdiAddr for set DDR address for restart image
+*       ng  07/13/2026 Reduced debug print levels on error paths
 *
 * </pre>
 *
@@ -766,8 +767,7 @@ static int XLoader_ReadAndValidateHdrs(XilPdi* PdiPtr, u32 RegValue, u64 PdiAddr
 			PdiPtr->MetaHdr->ImgHdrTbl.AcOffset);
 #endif
 	if ((Status != XST_SUCCESS) || (StatusTemp != XST_SUCCESS)) {
-		XPlmi_Printf(DEBUG_GENERAL, "Image Header Table Validation "
-					"failed\n\r");
+		XPlmi_Printf(DEBUG_GENERAL, "Image Header Table Validation failed\n\r");
 		/* Set discard uart logs to TRUE */
 		DebugLog->DiscardLogsAndPrintToBuf |= (u8)XPLMI_BIT(XPLMI_DISCARDLOG_BIT_POS);
 		Status = XPlmi_UpdateStatus(XLOADER_ERR_IMGHDR_TBL, Status);
@@ -887,7 +887,7 @@ static int XLoader_ReadAndValidateHdrs(XilPdi* PdiPtr, u32 RegValue, u64 PdiAddr
 	IsEncrypted = XilPdi_IsEncEnabled(&PdiPtr->MetaHdr->ImgHdrTbl);
 
 	if ((IsEncrypted == (u8)TRUE) || (IsAuthenticated == (u8)TRUE)) {
-		XPlmi_Printf(DEBUG_GENERAL, "Secure Code is excluded\n\r");
+		XPlmi_Printf(DEBUG_DETAILED, "Secure Code is excluded\n\r");
 		Status = XPlmi_UpdateStatus(XLOADER_ERR_SECURE_NOT_ENABLED, XIL_SIGNED_ZERO);
 		goto END;
 	}
@@ -1218,8 +1218,8 @@ static int XLoader_LoadAndStartSubSystemPdi(XilPdi *PdiPtr)
 		Status = XLoader_SbiInit(XLOADER_PDI_SRC_JTAG);
 		if (Status != XST_SUCCESS) {
 			XPlmi_Printf(DEBUG_PRINT_ALWAYS,
-				"Sbi Init failed with error: 0x%x\n\r", Status);
-			XPlmi_Printf(DEBUG_PRINT_ALWAYS,
+				"SBI Init error: 0x%x\n\r", Status);
+			XPlmi_Printf(DEBUG_INFO,
 				"Secondary PDI load from JTAG may fail.\r\n");
 		}
 	}
@@ -1622,7 +1622,7 @@ static int XLoader_VerifyImgInfo(const XLoader_ImageInfo *ImageInfo)
 			if (ParentImageInfo->UID != ImageInfo->PUID) {
 				Status = XPlmi_UpdateStatus(
 					XLOADER_ERR_INCOMPATIBLE_CHILD_IMAGE, XIL_SIGNED_ZERO);
-				XPlmi_Printf(DEBUG_GENERAL, "Image is not "
+				XPlmi_Printf(DEBUG_INFO, "Image is not "
 					"compatible with Parent Image\r\n");
 				goto END;
 			}
