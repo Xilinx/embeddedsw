@@ -1024,15 +1024,9 @@ static void XHdcp1x_TxDebugLog(const XHdcp1x *InstancePtr, const char *LogMsg)
 {
 	char Label[16];
 
-#ifndef SDT
-	/* Format Label */
-	snprintf(Label, sizeof(Label), "hdcp-tx(%hu) - ",
-			 InstancePtr->Config.DeviceId);
-#else
 	/* Format Label */
 	snprintf(Label, sizeof(Label), "hdcp-tx(%s) - ",
 			 InstancePtr->Config.Name);
-#endif
 
 	/* Log it */
 	XHDCP1X_DEBUG_LOGMSG(Label);
@@ -2512,8 +2506,6 @@ static int XHdcp1x_TxSetRepeaterInfo(XHdcp1x *InstancePtr)
 		/* V'H4 */
 		InstancePtr->RepeaterValues.V[4] = (Buf&0xFFFF);
 
-#else
-		/* Do nothing for DP */
 #endif
 
 #if (defined(XPAR_XV_HDMITX_NUM_INSTANCES) && \

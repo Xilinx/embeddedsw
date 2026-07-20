@@ -912,15 +912,9 @@ static void XHdcp1x_RxDebugLog(const XHdcp1x *InstancePtr, const char *LogMsg)
 {
 	char Label[16];
 
-#ifndef SDT
-	/* Format Label */
-	snprintf(Label, sizeof(Label), "hdcp-rx(%hu) - ",
-			 InstancePtr->Config.DeviceId);
-#else
 	/* Format Label */
 	snprintf(Label, sizeof(Label), "hdcp-rx(%lx) - ",
 		 (unsigned long)InstancePtr->Config.BaseAddress);
-#endif
 
 	/* Log it */
 	XHDCP1X_DEBUG_LOGMSG(Label);

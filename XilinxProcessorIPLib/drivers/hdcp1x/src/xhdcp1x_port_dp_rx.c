@@ -32,11 +32,9 @@
 /***************************** Include Files *********************************/
 
 #include "xparameters.h"
-#ifdef SDT
-#define XPAR_XHDCP_NUM_INSTANCES XPAR_XHDCP1X_NUM_INSTANCES
+#define XPAR_XHDCP_NUM_INSTANCES XPAR_XHDCP1X_NUM_INSTANCES /**< Number of HDCP 1.x instances */
 #define XPAR_XDPTXSS_NUM_INSTANCES XPAR_DPTXSS_NUM_INSTANCES
 #define XPAR_XDPRXSS_NUM_INSTANCES XPAR_DPRXSS_NUM_INSTANCES
-#endif
 #if defined(XPAR_XDPRXSS_NUM_INSTANCES) && (XPAR_XDPRXSS_NUM_INSTANCES > 0)
 #include <stdlib.h>
 #include <string.h>
