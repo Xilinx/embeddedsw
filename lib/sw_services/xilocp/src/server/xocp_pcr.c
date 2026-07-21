@@ -37,6 +37,7 @@
 #include "xplmi_err.h"
 #include "xocp_pcr.h"
 #include "xsecure_init.h"
+#include "xil_sutil.h"
 
 /**************************** Type Definitions *******************************/
 
@@ -265,7 +266,8 @@ int XOcp_GetHwPcrLog(u64 HwPcrEventsAddr, u64 HwPcrLogInfoAddr, u32 NumOfLogEntr
 	 */
 	if ((HwPcrLog->TailIndex + ReqHwPcrLogEntries) >= XOCP_MAX_NUM_OF_HWPCR_EVENTS) {
 		RemHwPcrLogEvents = XOCP_MAX_NUM_OF_HWPCR_EVENTS - HwPcrLog->TailIndex;
-		Status = XPlmi_MemCpy64(HwPcrEventsAddrTmp, (u64)(UINTPTR)&HwPcrLog->Buffer[HwPcrLog->TailIndex],
+		Status = XPlmi_MemCpy64(HwPcrEventsAddrTmp,
+				(u64)(UINTPTR)&HwPcrLog->Buffer[HwPcrLog->TailIndex],
 				(RemHwPcrLogEvents * sizeof(XOcp_HwPcrEvent)));
 		if (Status != XST_SUCCESS) {
 			goto END;
@@ -279,7 +281,8 @@ int XOcp_GetHwPcrLog(u64 HwPcrEventsAddr, u64 HwPcrLogInfoAddr, u32 NumOfLogEntr
 
 	/** - Copy HW PCR log to the user buffer. */
 	if (ReqHwPcrLogEntries != 0U) {
-		Status = XPlmi_MemCpy64(HwPcrEventsAddrTmp, (u64)(UINTPTR)&HwPcrLog->Buffer[HwPcrLog->TailIndex],
+		Status = XPlmi_MemCpy64(HwPcrEventsAddrTmp,
+			(u64)(UINTPTR)&HwPcrLog->Buffer[HwPcrLog->TailIndex],
 			(ReqHwPcrLogEntries * sizeof(XOcp_HwPcrEvent)));
 		if (Status != XST_SUCCESS) {
 			goto END;
@@ -290,11 +293,8 @@ int XOcp_GetHwPcrLog(u64 HwPcrEventsAddr, u64 HwPcrLogInfoAddr, u32 NumOfLogEntr
 END1:
 	/** - Update current HWPCR log status */
 	HwPcrLog->LogInfo.HwPcrEventsRead = TotalRdHwPcrLogEvents;
-	Status = XPlmi_MemCpy64(HwPcrLogInfoAddr, (u64)(UINTPTR)&HwPcrLog->LogInfo,
+	Xil_MemCpyFrom32To64Addr(HwPcrLogInfoAddr, (u32)(UINTPTR)&HwPcrLog->LogInfo,
 				sizeof(XOcp_HwPcrLogInfo));
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
 	HwPcrLog->LogInfo.OverflowCntSinceLastRd = 0U;
 END:
 	return Status;
@@ -454,10 +454,7 @@ int XOcp_GetSwPcrData(u64 Addr)
 		goto END;
 	}
 
-	Status = XPlmi_MemCpy64((u64)(UINTPTR)&Data, Addr, sizeof(Data));
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
+	Xil_MemCpyFrom64To32Addr((u32)(UINTPTR)&Data, Addr, sizeof(Data));
 
 	if ((Data.BufAddr == 0U) || (Data.BufSize == 0U)) {
 		Status = (int)XST_INVALID_PARAM;
@@ -496,11 +493,8 @@ int XOcp_GetSwPcrData(u64 Addr)
 	}
 
 	/** - Copy the number of returned bytes to user provided buffer address */
-	Status = XPlmi_MemCpy64((Addr + (u64)ReturnedBytesOffset),
-                                (u64)(UINTPTR)&ReturnedBytes, XOCP_WORD_LEN);
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
+	Xil_MemCpyFrom32To64Addr((Addr + (u64)ReturnedBytesOffset),
+                                (u32)(UINTPTR)&ReturnedBytes, XOCP_WORD_LEN);
 
 	/** - Copy the Data with DataStartIdx to the user provided buffer address */
 	if (CurrDataLen > XOCP_PCR_HASH_SIZE_IN_BYTES) {
@@ -508,9 +502,10 @@ int XOcp_GetSwPcrData(u64 Addr)
 			(u64)(UINTPTR)SwPcr->Data[DigestIdx].DataAddr + Data.DataStartIdx,
 			ReturnedBytes);
 	} else {
-		Status = XPlmi_MemCpy64(Data.BufAddr,
-			(u64)(UINTPTR)&SwPcr->Data[DigestIdx].DataToExtend[Data.DataStartIdx],
+		Xil_MemCpyFrom32To64Addr(Data.BufAddr,
+			(u32)(UINTPTR)&SwPcr->Data[DigestIdx].DataToExtend[Data.DataStartIdx],
 			ReturnedBytes);
+		Status = XST_SUCCESS;
 	}
 
 END:
@@ -623,11 +618,8 @@ int XOcp_ExtendSwPcr(u32 PcrNum, u32 MeasurementIdx, u64 DataAddr, u32 DataSize,
 		SwPcr->Data[DigestIdxInLog].DataAddr = DataAddr;
 	}
 	else {
-		Status = XPlmi_MemCpy64((u64)(UINTPTR)&SwPcr->Data[DigestIdxInLog].DataToExtend,
+		Xil_MemCpyFrom64To32Addr((u32)(UINTPTR)&SwPcr->Data[DigestIdxInLog].DataToExtend,
 			DataAddr, DataSize);
-		if (Status != XST_SUCCESS) {
-		        goto END;
-		}
 		XOcp_PrintData((const u8 *)SwPcr->Data[DigestIdxInLog].DataToExtend,
 				DataSize, "Data to be extended:", DEBUG_INFO);
 	}
@@ -645,8 +637,9 @@ int XOcp_ExtendSwPcr(u32 PcrNum, u32 MeasurementIdx, u64 DataAddr, u32 DataSize,
 		goto END;
 	}
 
-	Status = XPlmi_MemCpy64((u64)(UINTPTR)SwPcr->Data[DigestIdxInLog].Measurement.HashOfData,
-			(u64)(UINTPTR)&DataBlobHash, XOCP_PCR_HASH_SIZE_IN_BYTES);
+	Status = Xil_SMemCpy((void *)(UINTPTR)SwPcr->Data[DigestIdxInLog].Measurement.HashOfData,
+			XOCP_PCR_HASH_SIZE_IN_BYTES, (const void *)(UINTPTR)&DataBlobHash,
+			XOCP_PCR_HASH_SIZE_IN_BYTES, XOCP_PCR_HASH_SIZE_IN_BYTES);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
@@ -688,7 +681,7 @@ int XOcp_GetSwPcrLog(u64 Addr)
 	u8 DigestCountOffset = (u8)(u32)&(((XOcp_SwPcrLogReadData *)0)->DigestCount);
 	u32 NumOfDigests;
 	u32 PcrIdxInLog;
-	u32 Index;
+	volatile u32 Index;
 	u32 BufOffset = 0U;
 
 	/** - Validate input parameters */
@@ -697,10 +690,7 @@ int XOcp_GetSwPcrLog(u64 Addr)
 		goto END;
 	}
 
-	Status = XPlmi_MemCpy64((u64)(UINTPTR)&Log, Addr, sizeof(Log));
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
+	Xil_MemCpyFrom64To32Addr((u32)(UINTPTR)&Log, Addr, sizeof(Log));
 
 	if (Log.PcrLogAddr == 0U) {
 		Status = (int)XST_INVALID_PARAM;
@@ -733,26 +723,25 @@ int XOcp_GetSwPcrLog(u64 Addr)
 	/** - Copy number of digests extended to requested SW PCR into
 	 * user provided buffer.
 	 */
-	Status = XPlmi_MemCpy64((Addr + (u64)DigestCountOffset),
-				(u64)(UINTPTR)&NumOfDigests, XOCP_WORD_LEN);
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
+	Xil_MemCpyFrom32To64Addr((Addr + (u64)DigestCountOffset),
+				(u32)(UINTPTR)&NumOfDigests, XOCP_WORD_LEN);
 
 	/** - Copy the SW PCR log for the requested PCR into user provided
 	 * buffer.
 	 */
 	for(Index = PcrIdxInLog; Index < (PcrIdxInLog + SwPcrConfig->DigestsForPcr[Log.PcrNum]); Index++) {
 		if (SwPcr->Data[Index].IsReqExtended == TRUE) {
-			Status = XPlmi_MemCpy64(Log.PcrLogAddr + BufOffset,
-				(u64)(UINTPTR)&SwPcr->Data[Index].Measurement,
+			Xil_MemCpyFrom32To64Addr(Log.PcrLogAddr + BufOffset,
+				(u32)(UINTPTR)&SwPcr->Data[Index].Measurement,
 				sizeof(XOcp_PcrMeasurement));
-			if (Status != XST_SUCCESS) {
-				goto END;
-			}
 			BufOffset += sizeof(XOcp_PcrMeasurement);
 		}
 	}
+
+	if (Index == (PcrIdxInLog + SwPcrConfig->DigestsForPcr[Log.PcrNum])) {
+		Status = XST_SUCCESS;
+	}
+
 END:
 	return Status;
 }
@@ -1833,24 +1822,27 @@ static int XOcp_ReadPpkConfig(XOcp_PpkEfuseConfig* PpkConfig)
 	PpkConfig->Ppk1Invld = MiscCtrl & XOCP_EFUSE_PPK1_INVLD_1_0_MASK;
 	PpkConfig->Ppk2Invld = MiscCtrl & XOCP_EFUSE_PPK2_INVLD_1_0_MASK;
 
-	Status = XPlmi_MemCpy64((u64)(UINTPTR)PpkConfig->Ppk0Hash,
-			(u64)(UINTPTR)XOCP_EFUSE_PPK_0_HASH_START_OFFSET,
-			XOCP_EFUSE_PPK_NUM_OF_BYTES);
+	Status = Xil_SMemCpy((void *)(UINTPTR)PpkConfig->Ppk0Hash,
+			XOCP_EFUSE_PPK_NUM_OF_BYTES,
+			(const void *)(UINTPTR)XOCP_EFUSE_PPK_0_HASH_START_OFFSET,
+			XOCP_EFUSE_PPK_NUM_OF_BYTES, XOCP_EFUSE_PPK_NUM_OF_BYTES);
         if (Status != XST_SUCCESS) {
 		Status = (int)XOCP_ERR_IN_MEMCPY;
                 goto END;
         }
-	Status = XPlmi_MemCpy64((u64)(UINTPTR)PpkConfig->Ppk1Hash,
-			(u64)(UINTPTR)XOCP_EFUSE_PPK_1_HASH_START_OFFSET,
-			XOCP_EFUSE_PPK_NUM_OF_BYTES);
+	Status = Xil_SMemCpy((void *)(UINTPTR)PpkConfig->Ppk1Hash,
+			XOCP_EFUSE_PPK_NUM_OF_BYTES,
+			(const void *)(UINTPTR)XOCP_EFUSE_PPK_1_HASH_START_OFFSET,
+			XOCP_EFUSE_PPK_NUM_OF_BYTES, XOCP_EFUSE_PPK_NUM_OF_BYTES);
         if (Status != XST_SUCCESS) {
 		Status = (int)XOCP_ERR_IN_MEMCPY;
                 goto END;
         }
 
-	Status = XPlmi_MemCpy64((u64)(UINTPTR)PpkConfig->Ppk2Hash,
-			(u64)(UINTPTR)XOCP_EFUSE_PPK_2_HASH_START_OFFSET,
-			XOCP_EFUSE_PPK_NUM_OF_BYTES);
+	Status = Xil_SMemCpy((void *)(UINTPTR)PpkConfig->Ppk2Hash,
+			XOCP_EFUSE_PPK_NUM_OF_BYTES,
+			(const void *)(UINTPTR)XOCP_EFUSE_PPK_2_HASH_START_OFFSET,
+			XOCP_EFUSE_PPK_NUM_OF_BYTES, XOCP_EFUSE_PPK_NUM_OF_BYTES);
 END:
 	return Status;
 }
@@ -1868,8 +1860,10 @@ END:
 *****************************************************************************/
 static int XOcp_ReadRevocationSpkConfig(XOcp_RevocationSpkEfuseConfig* SpkEfuseConfig)
 {
-	return XPlmi_MemCpy64((u64)(UINTPTR)SpkEfuseConfig->RevocationId,
-			(u64)(UINTPTR)XOCP_EFUSE_REVOCATION_ID_0_START_OFFSET,
+	return Xil_SMemCpy((void *)(UINTPTR)SpkEfuseConfig->RevocationId,
+			XOCP_EFUSE_REVOCATION_ID_NUM_OF_BYTES,
+			(const void *)(UINTPTR)XOCP_EFUSE_REVOCATION_ID_0_START_OFFSET,
+			XOCP_EFUSE_REVOCATION_ID_NUM_OF_BYTES,
 			XOCP_EFUSE_REVOCATION_ID_NUM_OF_BYTES);
 }
 
@@ -1895,8 +1889,10 @@ static int XOcp_ReadRevocationOtherConfig(XOcp_RevocationOtherEfuseConfig* Revok
 	RevokeOtherEfuseConfig->DmeRevoke2 = DmeFips & XOCP_EFUSE_DME_REVOKE_2_MASK;
 	RevokeOtherEfuseConfig->DmeRevoke3 = DmeFips & XOCP_EFUSE_DME_REVOKE_3_MASK;
 
-	Status = XPlmi_MemCpy64((u64)(UINTPTR)RevokeOtherEfuseConfig->OffChipRevocationId,
-                        (u64)(UINTPTR)XOCP_EFUSE_OFFCHIP_ID_0_START_OFFSET,
+	Status = Xil_SMemCpy((void *)(UINTPTR)RevokeOtherEfuseConfig->OffChipRevocationId,
+			XOCP_EFUSE_REVOCATION_ID_NUM_OF_BYTES,
+			(const void *)(UINTPTR)XOCP_EFUSE_OFFCHIP_ID_0_START_OFFSET,
+			XOCP_EFUSE_REVOCATION_ID_NUM_OF_BYTES,
 			XOCP_EFUSE_REVOCATION_ID_NUM_OF_BYTES);
 	return Status;
 }

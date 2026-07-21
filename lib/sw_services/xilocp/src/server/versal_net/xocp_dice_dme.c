@@ -37,6 +37,7 @@
 #include "xsecure_plat_kat.h"
 #include "xsecure_kat.h"
 #include "xocp_dme.h"
+#include "xil_sutil.h"
 
 /************************************ Constant Definitions ****************************************/
 
@@ -209,10 +210,7 @@ int XOcp_GenerateDmeResponseImpl(u64 NonceAddr, u64 DmeStructResAddr)
 #endif
 
 	/** - Fill the DME structure with Nonce */
-	Status = XPlmi_MemCpy64((u64)(UINTPTR)DmePtr->Nonce, NonceAddr, XOCP_DME_NONCE_SIZE_BYTES);
-	if (Status != XST_SUCCESS) {
-		goto RET;
-	}
+	Xil_MemCpyFrom64To32Addr((u32)(UINTPTR)DmePtr->Nonce, NonceAddr, XOCP_DME_NONCE_SIZE_BYTES);
 
 	/** - Store the XPPU registers initial configuration */
 	XSECURE_TEMPORAL_IMPL(Status, SStatus, XOcp_DmeStoreXppuDefaultConfig);
@@ -328,11 +326,8 @@ END:
 		if (Status != XST_SUCCESS) {
 			Status = Status | XOCP_DME_ERR;
 		}
-		Status = XPlmi_MemCpy64(DmeStructResAddr, (u64)(UINTPTR)DmeResponse,
+		Xil_MemCpyFrom32To64Addr(DmeStructResAddr, (u32)(UINTPTR)DmeResponse,
 			sizeof(XOcp_DmeResponse));
-		if (Status != XST_SUCCESS) {
-			Status = Status | XOCP_DME_ERR;
-		}
 	}
 RET:
 	if (Status != XST_SUCCESS) {

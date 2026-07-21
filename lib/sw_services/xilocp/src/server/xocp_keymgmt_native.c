@@ -62,6 +62,7 @@
 #include "xplmi_tamper.h"
 #include "xsecure_ellipticplat.h"
 #include "xil_util.h"
+#include "xil_sutil.h"
 #include "xcert_genx509cert.h"
 #include "xocp_sha.h"
 #ifndef VERSAL_2VP
@@ -270,8 +271,10 @@ int XOcp_RegenSubSysDevAk(void)
 					goto END;
 				}
 
-				Status = XPlmi_MemCpy64((u64)(UINTPTR)DevAkData->AppVersion,
-					(u64)(UINTPTR)SubSysHashDs->AppVersion,
+				Status = Xil_SMemCpy((void *)(UINTPTR)DevAkData->AppVersion,
+					XOCP_APP_VERSION_MAX_LENGTH,
+					(const void *)(UINTPTR)SubSysHashDs->AppVersion,
+					XOCP_APP_VERSION_MAX_LENGTH,
 					SubSysHashDs->AppVersionLen);
 				if (Status != XST_SUCCESS) {
 					goto END;
@@ -344,9 +347,11 @@ int XOcp_DevAkInputStore(u32 SubSystemId, u8 *PerString, u32 KeyIndex)
 	DevAkData[KeyMgmtInstance->DevAkInputIndex].SubSystemId = SubSystemId;
 	DevAkData[KeyMgmtInstance->DevAkInputIndex].KeyIndex = KeyIndex;
 
-	Status = XPlmi_MemCpy64(
-			(u64)(UINTPTR)DevAkData[KeyMgmtInstance->DevAkInputIndex].PerString,
-			(u64)(UINTPTR)PerString, XSECURE_TRNG_PER_STRING_LEN_IN_BYTES);
+	Status = Xil_SMemCpy(
+			(void *)(UINTPTR)DevAkData[KeyMgmtInstance->DevAkInputIndex].PerString,
+			XSECURE_TRNG_PER_STRING_LEN_IN_BYTES,
+			(const void *)(UINTPTR)PerString, XSECURE_TRNG_PER_STRING_LEN_IN_BYTES,
+			XSECURE_TRNG_PER_STRING_LEN_IN_BYTES);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
@@ -1108,11 +1113,8 @@ int XOcp_GenSubSysDevAk(u32 SubsystemID, u64 InHash)
 	while ((KeyIndex < XOCP_MAX_KEYS_SUPPPORTED_PER_SUBSYSTEM) &&
 		(DevAkIndex[KeyIndex] != XOCP_INVALID_DEVAK_INDEX)) {
 		DevAkData = DevAkData + DevAkIndex[KeyIndex];
-		Status = XPlmi_MemCpy64((u64)(UINTPTR)DevAkData->SubSysHash,
+		Xil_MemCpyFrom64To32Addr((u32)(UINTPTR)DevAkData->SubSysHash,
 					InHash, XOCP_CDI_SIZE_IN_BYTES);
-		if (Status != XST_SUCCESS) {
-			goto END;
-		}
 
 		KeyIndex++;
 	}
@@ -1166,20 +1168,13 @@ int XOcp_SetAppVersion(u32 SubsystemID, u64 AppVersion, u32 AppVersionLen)
 
 		SubSysHashDs = SubSysHashDs + DevAkIndex[KeyIndex];
 		DevAkData = DevAkData + DevAkIndex[KeyIndex];
-		Status = XPlmi_MemCpy64((u64)(UINTPTR)DevAkData->AppVersion,
+		Xil_MemCpyFrom64To32Addr((u32)(UINTPTR)DevAkData->AppVersion,
 					AppVersion, AppVersionLen);
-		if (Status != XST_SUCCESS) {
-			goto END;
-		}
 
 		DevAkData->AppVersionLen = AppVersionLen;
 
-		Status = XST_FAILURE;
-		Status = XPlmi_MemCpy64((u64)(UINTPTR)SubSysHashDs->AppVersion,
+		Xil_MemCpyFrom64To32Addr((u32)(UINTPTR)SubSysHashDs->AppVersion,
 					AppVersion, AppVersionLen);
-		if (Status != XST_SUCCESS) {
-			goto END;
-		}
 
 		SubSysHashDs->AppVersionLen = AppVersionLen;
 

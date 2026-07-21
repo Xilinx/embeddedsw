@@ -55,6 +55,7 @@
 #include "xsecure_init.h"
 #include "xocp_pcr.h"
 #include "xocp_dme.h"
+#include "xil_sutil.h"
 
 /************************************ Constant Definitions ****************************************/
 
@@ -890,11 +891,7 @@ int XOcp_GenerateDmeResponseImpl(u64 NonceAddr, u64 DmeStructResAddr)
 #endif
 
 	/** - Fill the DME structure with Nonce */
-	Status = XPlmi_MemCpy64((u64)(UINTPTR)DmePtr->Nonce, NonceAddr, XOCP_DME_NONCE_SIZE_BYTES);
-	if (Status != XST_SUCCESS) {
-		Status = Status | XOCP_ERR_DME_PARAM_COPY_FAILED;
-		goto RET;
-	}
+	Xil_MemCpyFrom64To32Addr((u32)(UINTPTR)DmePtr->Nonce, NonceAddr, XOCP_DME_NONCE_SIZE_BYTES);
 
 	Status = XOcp_DmeChallengeSignature(DmePtr);
 	if (Status != XST_SUCCESS) {
@@ -921,12 +918,8 @@ int XOcp_GenerateDmeResponseImpl(u64 NonceAddr, u64 DmeStructResAddr)
 			Status = Status | XOCP_DME_ERR;
 			goto RET;
 		}
-		Status = XPlmi_MemCpy64(DmeStructResAddr, (u64)(UINTPTR)DmeResponse,
+		Xil_MemCpyFrom32To64Addr(DmeStructResAddr, (u32)(UINTPTR)DmeResponse,
 				sizeof(XOcp_DmeResponse));
-		if (Status != XST_SUCCESS) {
-			Status = Status | XOCP_DME_ERR;
-			goto RET;
-		}
 	}
 RET:
 	if (Status != XST_SUCCESS) {

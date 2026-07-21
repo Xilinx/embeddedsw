@@ -52,6 +52,7 @@
 #include "xocp_init.h"
 #include "xplmi_dma.h"
 #include "xplmi_hw.h"
+#include "xil_sutil.h"
 #include "xsecure_defs.h"
 #include "xsecure_ellipticplat.h"
 #include "xsecure_elliptic.h"
@@ -316,11 +317,8 @@ static int XOcp_GetX509CertificateIpi(u32 GetX509CertAddrLow,
 				(u64)GetX509CertAddrLow;
 	XOcp_X509Cert X509Cert __attribute__ ((aligned (32U)));
 
-	Status = XPlmi_MemCpy64((u64)(UINTPTR)&X509Cert, GetX509CertAddr,
+	Xil_MemCpyFrom64To32Addr((u32)(UINTPTR)&X509Cert, GetX509CertAddr,
 				sizeof(XOcp_X509Cert));
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
 
 	Status = XOcp_GetX509Certificate(&X509Cert, SubSystemID);
 	if (Status != XST_SUCCESS) {
@@ -353,11 +351,8 @@ static int XOcp_AttestWithDevAkIpi(u32 AttestWithDevAkLow,
 			(u64)AttestWithDevAkLow;
 	XOcp_Attest AttestInstance __attribute__ ((aligned (32U)));
 
-	Status = XPlmi_MemCpy64((u64)(UINTPTR)&AttestInstance, AttestWithDevAkAddr,
+	Xil_MemCpyFrom64To32Addr((u32)(UINTPTR)&AttestInstance, AttestWithDevAkAddr,
 				sizeof(XOcp_Attest));
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
 
 	Status = XOcp_AttestWithDevAk(&AttestInstance, SubSystemID);
 	if (Status != XST_SUCCESS) {
@@ -452,7 +447,9 @@ static int XOcp_AttestWithKeyWrapDevAkIpi(u32 AttnPloadAddrLow, u32 AttnPloadAdd
 	}
 
 	/* Copy public key in local buffer */
-	Status = XPlmi_MemCpy64((u64)(UINTPTR)(AttnPloadBuf + PubKeyOffset), (u64)(UINTPTR)RsaPubKey, sizeof(XSecure_RsaPubKey));
+	Status = Xil_SMemCpy((void *)(UINTPTR)(AttnPloadBuf + PubKeyOffset), sizeof(XSecure_RsaPubKey),
+				     (const void *)(UINTPTR)RsaPubKey, sizeof(XSecure_RsaPubKey),
+				     sizeof(XSecure_RsaPubKey));
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
@@ -468,7 +465,7 @@ static int XOcp_AttestWithKeyWrapDevAkIpi(u32 AttnPloadAddrLow, u32 AttnPloadAdd
 	}
 
 	/* Copy public key in given KeyWrap buffer */
-	Status = XPlmi_MemCpy64((AttnPloadAddr + PubKeyOffset), (u64)(UINTPTR)RsaPubKey,
+	Xil_MemCpyFrom32To64Addr((AttnPloadAddr + PubKeyOffset), (u32)(UINTPTR)RsaPubKey,
 				sizeof(XSecure_RsaPubKey));
 
 END:
@@ -496,14 +493,11 @@ static int XOcp_ExtendSwPcrIpi(u32 ExtParamsAddrLow, u32 ExtParamsAddrHigh)
 	u64 Addr = ((u64)ExtParamsAddrHigh << 32U) | (u64)ExtParamsAddrLow;
 	XOcp_SwPcrExtendParams ExtendParams;
 
-	Status = XPlmi_MemCpy64((u64)(UINTPTR)&ExtendParams, Addr, sizeof(ExtendParams));
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
+	Xil_MemCpyFrom64To32Addr((u32)(UINTPTR)&ExtendParams, Addr, sizeof(ExtendParams));
 
 	Status = XOcp_ExtendSwPcr(ExtendParams.PcrNum, ExtendParams.MeasurementIdx,
 		ExtendParams.DataAddr, ExtendParams.DataSize, ExtendParams.OverWrite);
-END:
+
 	return Status;
 }
 
