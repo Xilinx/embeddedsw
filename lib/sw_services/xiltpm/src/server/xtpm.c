@@ -38,6 +38,7 @@
 #include "xil_util.h"
 #include "xtpm.h"
 #include "xplmi_hw.h"
+#include "xil_sutil.h"
 #include "xtpm_hw.h"
 #include "xtpm_error.h"
 #include "xplmi_status.h"
@@ -531,9 +532,10 @@ u32 XTpm_PcrRead(u32 PcrIndex, u8 HashAlgo, u64 ResponseBufAddr)
 	 * Copy the PCR read response from local buffer to the response buffer
 	 * address provided by the client
 	 */
-	Status = (u32)XPlmi_MemCpy64(ResponseBufAddr,
-			(u64)(UINTPTR)&TpmRespBuffer[XTPM_PCR_VALUE_START_INDEX],
+	Xil_MemCpyFrom32To64Addr(ResponseBufAddr,
+			(u32)(UINTPTR)&TpmRespBuffer[XTPM_PCR_VALUE_START_INDEX],
 			((u32)TpmRespBuffer[XTPM_INDEX_5] - (u32)XTPM_PCR_VALUE_START_INDEX));
+
 
 END:
 	return Status;
@@ -600,12 +602,8 @@ static u32 XTpm_UpdatePcrLog(u32 PcrNum, u64 ExtHashAddr, u32 DataSize)
 
 	/** - Update PCR log with extended hash */
 	PcrLog->Buffer[PcrLog->HeadIndex].PcrNo = (u8)PcrNum;
-	Status = (u32)XPlmi_MemCpy64((u64)(UINTPTR)PcrLog->Buffer[PcrLog->HeadIndex].Hash,
+	Xil_MemCpyFrom64To32Addr((u32)(UINTPTR)PcrLog->Buffer[PcrLog->HeadIndex].Hash,
 							ExtHashAddr, DataSize);
-	if (Status != (u32)XST_SUCCESS) {
-		goto END;
-	}
-
 	/** - Update PCR log with new PCR value */
 	Status = (u32)XTpm_PcrRead(PcrNum, XTPM_HASH_TYPE_SHA256,
 				(u64)(UINTPTR)PcrLog->Buffer[PcrLog->HeadIndex].PcrValue);
@@ -668,12 +666,10 @@ u32 XTpm_GetPcrLog(u64 PcrEventsAddr, u64 PcrLogInfoAddr, u32 NumOfLogEntries)
 	 */
 	if ((PcrLog->TailIndex + ReqPcrLogEntries) >= XTPM_MAX_NUM_OF_PCR_EVENTS) {
 		RemPcrLogEvents = XTPM_MAX_NUM_OF_PCR_EVENTS - PcrLog->TailIndex;
-		Status = (u32)XPlmi_MemCpy64(PcrEventsAddrTmp,
-					(u64)(UINTPTR)&PcrLog->Buffer[PcrLog->TailIndex],
+		Xil_MemCpyFrom32To64Addr(PcrEventsAddrTmp,
+					(u32)(UINTPTR)&PcrLog->Buffer[PcrLog->TailIndex],
 					(RemPcrLogEvents * sizeof(XTpm_PcrEvent_t)));
-		if (Status != (u32)XST_SUCCESS) {
-			goto END;
-		}
+
 		/** Update PCR events and log entries to handle remaining entries */
 		PcrLog->LogInfo.RemainingPcrEvents -= RemPcrLogEvents;
 		ReqPcrLogEntries -= RemPcrLogEvents;
@@ -683,12 +679,10 @@ u32 XTpm_GetPcrLog(u64 PcrEventsAddr, u64 PcrLogInfoAddr, u32 NumOfLogEntries)
 
 	/** Copy PCR log to the user buffer. */
 	if (ReqPcrLogEntries != 0U) {
-		Status = (u32)XPlmi_MemCpy64(PcrEventsAddrTmp,
-					(u64)(UINTPTR)&PcrLog->Buffer[PcrLog->TailIndex],
+		Xil_MemCpyFrom32To64Addr(PcrEventsAddrTmp,
+					(u32)(UINTPTR)&PcrLog->Buffer[PcrLog->TailIndex],
 					(ReqPcrLogEntries * sizeof(XTpm_PcrEvent_t)));
-		if (Status != (u32)XST_SUCCESS) {
-			goto END;
-		}
+
 		PcrLog->LogInfo.RemainingPcrEvents -= ReqPcrLogEntries;
 		XTpm_UpdatePcrIndex(&PcrLog->TailIndex, ReqPcrLogEntries);
 	}
@@ -696,12 +690,11 @@ END1:
 	/** Update current PCR log status */
 	PcrLog->LogInfo.PcrEventsRead = TotalRdPcrLogEvents;
 	/** Copy PCR log info to the user buffer. */
-	Status = (u32)XPlmi_MemCpy64(PcrLogInfoAddr, (u64)(UINTPTR)&PcrLog->LogInfo,
+	Xil_MemCpyFrom32To64Addr(PcrLogInfoAddr, (u32)(UINTPTR)&PcrLog->LogInfo,
 				sizeof(XTpm_PcrLogInfo_t));
-	if (Status != (u32)XST_SUCCESS) {
-		goto END;
-	}
+
 	PcrLog->LogInfo.OverflowCntSinceLastRd = 0U;
+	Status = (u32)XST_SUCCESS;
 END:
 	return Status;
 }
