@@ -15,6 +15,8 @@
 # 1.4   har  06/10/24 Updated library version for 2024.2
 # 1.6   har  07/11/25 Updated library version for 2025.2
 # 1.7   ank  12/11/25 Updated library version for 2026.1
+# 1.8   vss  07/16/26 Updated library version for 2026.2
+#
 ##############################################################################
 
 OPTION psf_version = 2.1;
@@ -26,7 +28,7 @@ BEGIN LIBRARY xilocp
   OPTION REQUIRES_OS = (standalone freertos10_xilinx);
   OPTION APP_LINKER_FLAGS = "-Wl,--start-group,-lxilocp,-lxil,-lgcc,-lc,--end-group";
   OPTION desc = "Xilinx Open Compute Platform(OCP) support Library. Supported only for Versal Net";
-  OPTION VERSION = 1.7;
+  OPTION VERSION = 1.8;
   OPTION NAME = xilocp;
   PARAM name = xocp_cache_disable, desc = "Enables/Disables Cache for XilOcp client library", type = bool, default = false;
 END LIBRARY
