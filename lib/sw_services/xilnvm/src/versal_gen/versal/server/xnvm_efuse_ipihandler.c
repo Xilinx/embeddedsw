@@ -93,7 +93,6 @@ static int XNvm_EfusePufUserFusesRead(u32 SubsystemId, u32 AddrLow, u32 AddrHigh
 static int XNvm_EfusePufWrite(u32 SubsystemId, u32 AddrLow, u32 AddrHigh);
 static int XNvm_EfusePufRead(u32 SubsystemId, u32 AddrLow, u32 AddrHigh);
 #endif
-static INLINE int XNvm_EfuseMemCopy(u64 SourceAddr, u64 DestAddr, u32 Len);
 #if (defined(XNVM_WRITE_KEY_MANAGEMENT_EFUSE)) || (defined(XNVM_WRITE_SECURITY_CRITICAL_EFUSE))
 static int XNvm_EfuseMiscCtrlWriteAccess(u32 SubsystemId, u64 Addr, u8 EnvMonitorDis);
 static int XNvm_EfuseSecCtrlWriteAccess(u32 SubsystemId, u64 Addr, u8 EnvMonitorDis);
@@ -273,11 +272,8 @@ static int XNvm_EfuseDataWrite(u32 SubsystemId, u32 AddrLow, u32 AddrHigh)
 		goto END;
 	}
 
-	Status = XNvm_EfuseMemCopy(Addr, (u64)(UINTPTR)&EfuseDataAddr,
+	Xil_MemCpyFrom64To32Addr((u32)(UINTPTR)&EfuseDataAddr, Addr,
 			sizeof(EfuseDataAddr));
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
 
 	/**
 	 * - Validate internal address fields in the copied structure
@@ -333,89 +329,62 @@ static int XNvm_EfuseDataWrite(u32 SubsystemId, u32 AddrLow, u32 AddrHigh)
 	}
 
 	if (EfuseDataAddr.AesKeyAddr != 0U) {
-		Status = XNvm_EfuseMemCopy(EfuseDataAddr.AesKeyAddr,
-				(u64)(UINTPTR)&AesKeys, sizeof(AesKeys));
-		if (Status != XST_SUCCESS) {
-			goto END;
-		}
+		Xil_MemCpyFrom64To32Addr((u32)(UINTPTR)&AesKeys,
+				EfuseDataAddr.AesKeyAddr, sizeof(AesKeys));
 		EfuseData.AesKeys = &AesKeys;
 	}
 
 	if (EfuseDataAddr.PpkHashAddr != 0U) {
-		Status = XNvm_EfuseMemCopy(EfuseDataAddr.PpkHashAddr,
-				(u64)(UINTPTR)&PpkHash, sizeof(PpkHash));
-		if (Status != XST_SUCCESS) {
-			goto END;
-		}
+		Xil_MemCpyFrom64To32Addr((u32)(UINTPTR)&PpkHash,
+				EfuseDataAddr.PpkHashAddr, sizeof(PpkHash));
 		EfuseData.PpkHash = &PpkHash;
 	}
 
 	if (EfuseDataAddr.DecOnlyAddr != 0U) {
-		Status = XNvm_EfuseMemCopy(EfuseDataAddr.DecOnlyAddr,
-				(u64)(UINTPTR)&DecOnly, sizeof(DecOnly));
-		if (Status != XST_SUCCESS) {
-			goto END;
-		}
+		Xil_MemCpyFrom64To32Addr((u32)(UINTPTR)&DecOnly,
+				EfuseDataAddr.DecOnlyAddr, sizeof(DecOnly));
 		EfuseData.DecOnly = &DecOnly;
 	}
 
 	if (EfuseDataAddr.SecCtrlAddr != 0U) {
-		Status = XNvm_EfuseMemCopy(EfuseDataAddr.SecCtrlAddr,
-				(u64)(UINTPTR)&SecCtrlBits,
+		Xil_MemCpyFrom64To32Addr((u32)(UINTPTR)&SecCtrlBits,
+				EfuseDataAddr.SecCtrlAddr,
 				sizeof(SecCtrlBits));
-		if (Status != XST_SUCCESS) {
-			goto END;
-		}
 		EfuseData.SecCtrlBits = &SecCtrlBits;
 	}
 
 	if (EfuseDataAddr.MiscCtrlAddr != 0U) {
-		Status = XNvm_EfuseMemCopy(EfuseDataAddr.MiscCtrlAddr,
-				(u64)(UINTPTR)&MiscCtrlBits,
+		Xil_MemCpyFrom64To32Addr((u32)(UINTPTR)&MiscCtrlBits,
+				EfuseDataAddr.MiscCtrlAddr,
 				sizeof(MiscCtrlBits));
-		if (Status != XST_SUCCESS) {
-			goto END;
-		}
 		EfuseData.MiscCtrlBits = &MiscCtrlBits;
 	}
 
 #ifdef XNVM_EN_ADD_PPKS
 	if (EfuseDataAddr.AdditionalPpkHashAddr != 0U) {
-		Status = XNvm_EfuseMemCopy(EfuseDataAddr.AdditionalPpkHashAddr,
-				(u64)(UINTPTR)&AdditionalPpkHash, sizeof(AdditionalPpkHash));
-		if (Status != XST_SUCCESS) {
-			goto END;
-		}
+		Xil_MemCpyFrom64To32Addr((u32)(UINTPTR)&AdditionalPpkHash,
+				EfuseDataAddr.AdditionalPpkHashAddr, sizeof(AdditionalPpkHash));
 		EfuseData.AdditionalPpkHash = &AdditionalPpkHash;
 	}
 #endif
 
 	if (EfuseDataAddr.RevokeIdAddr != 0U) {
-		Status = XNvm_EfuseMemCopy(EfuseDataAddr.RevokeIdAddr,
-				(u64)(UINTPTR)&RevokeIds,
+		Xil_MemCpyFrom64To32Addr((u32)(UINTPTR)&RevokeIds,
+				EfuseDataAddr.RevokeIdAddr,
 				sizeof(RevokeIds));
-		if (Status != XST_SUCCESS) {
-			goto END;
-		}
 		EfuseData.RevokeIds = &RevokeIds;
 	}
 
 	if (EfuseDataAddr.IvAddr != 0U) {
-		Status = XNvm_EfuseMemCopy(EfuseDataAddr.IvAddr,
-				(u64)(UINTPTR)&Ivs, sizeof(Ivs));
-		if (Status != XST_SUCCESS) {
-			goto END;
-		}
+		Xil_MemCpyFrom64To32Addr((u32)(UINTPTR)&Ivs,
+				EfuseDataAddr.IvAddr, sizeof(Ivs));
 		EfuseData.Ivs = &Ivs;
 	}
 
 	if (EfuseDataAddr.UserFuseAddr != 0U) {
-		Status = XNvm_EfuseMemCopy(EfuseDataAddr.UserFuseAddr,
-				(u64)(UINTPTR)&UserFusesAddr,
+		Xil_MemCpyFrom64To32Addr((u32)(UINTPTR)&UserFusesAddr,
+				EfuseDataAddr.UserFuseAddr,
 				sizeof(UserFusesAddr));
-		if (Status != XST_SUCCESS) {
-			goto END;
-		}
 		UserData.StartUserFuseNum = UserFusesAddr.StartUserFuseNum;
 		UserData.NumOfUserFuses = UserFusesAddr.NumOfUserFuses;
 
@@ -425,51 +394,36 @@ static int XNvm_EfuseDataWrite(u32 SubsystemId, u32 AddrLow, u32 AddrHigh)
 		XPLMI_VERIFY_ADDR_RANGE(SubsystemId, UserFusesAddr.UserFuseDataAddr,
 			UserData.NumOfUserFuses * XNVM_WORD_LEN, Status, XNVM_EFUSE_ERROR_INVALID_ADDR_RANGE, END);
 
-		Status = XNvm_EfuseMemCopy(UserFusesAddr.UserFuseDataAddr,
-					(u64)(UINTPTR)&UserFuseArr,
+		Xil_MemCpyFrom64To32Addr((u32)(UINTPTR)UserFuseArr,
+				UserFusesAddr.UserFuseDataAddr,
 				UserData.NumOfUserFuses * XNVM_WORD_LEN);
-		if (Status != XST_SUCCESS) {
-			goto END;
-		}
 		UserData.UserFuseData = UserFuseArr;
 		EfuseData.UserFuses = &UserData;
 	}
 
 	if (EfuseDataAddr.GlitchCfgAddr != 0U) {
-		Status = XNvm_EfuseMemCopy(EfuseDataAddr.GlitchCfgAddr,
-				(u64)(UINTPTR)&GlitchData, sizeof(GlitchData));
-		if (Status != XST_SUCCESS) {
-			goto END;
-		}
+		Xil_MemCpyFrom64To32Addr((u32)(UINTPTR)&GlitchData,
+				EfuseDataAddr.GlitchCfgAddr, sizeof(GlitchData));
 		EfuseData.GlitchCfgBits = &GlitchData;
 	}
 
 	if (EfuseDataAddr.BootEnvCtrlAddr != 0U) {
-		Status = XNvm_EfuseMemCopy(EfuseDataAddr.BootEnvCtrlAddr,
-				(u64)(UINTPTR)&BootEnvCtrl,
+		Xil_MemCpyFrom64To32Addr((u32)(UINTPTR)&BootEnvCtrl,
+				EfuseDataAddr.BootEnvCtrlAddr,
 				sizeof(BootEnvCtrl));
-		if (Status != XST_SUCCESS) {
-			goto END;
-		}
 		EfuseData.BootEnvCtrl = &BootEnvCtrl;
 	}
 
 	if (EfuseDataAddr.Misc1CtrlAddr != 0U) {
-		Status = XNvm_EfuseMemCopy(EfuseDataAddr.Misc1CtrlAddr,
-				(u64)(UINTPTR)&SecMisc1Bits,
+		Xil_MemCpyFrom64To32Addr((u32)(UINTPTR)&SecMisc1Bits,
+				EfuseDataAddr.Misc1CtrlAddr,
 				sizeof(SecMisc1Bits));
-		if (Status != XST_SUCCESS) {
-			goto END;
-		}
 		EfuseData.Misc1Bits = &SecMisc1Bits;
 	}
 
 	if (EfuseDataAddr.OffChipIdAddr != 0U) {
-		Status = XNvm_EfuseMemCopy(EfuseDataAddr.OffChipIdAddr,
-				(u64)(UINTPTR)&OffChipIds, sizeof(OffChipIds));
-		if (Status != XST_SUCCESS) {
-			goto END;
-		}
+		Xil_MemCpyFrom64To32Addr((u32)(UINTPTR)&OffChipIds,
+				EfuseDataAddr.OffChipIdAddr, sizeof(OffChipIds));
 		EfuseData.OffChipIds = &OffChipIds;
 	}
 
@@ -514,11 +468,8 @@ static int XNvm_EfusePufUserDataWrite(u32 SubsystemId, u32 AddrLow, u32 AddrHigh
 
 	XPLMI_VERIFY_ADDR_RANGE(SubsystemId, Addr, sizeof(PufFuseAddr), Status, XNVM_EFUSE_ERROR_INVALID_ADDR_RANGE, END);
 
-	Status = XNvm_EfuseMemCopy(Addr, (u64)(UINTPTR)&PufFuseAddr,
+	Xil_MemCpyFrom64To32Addr((u32)(UINTPTR)&PufFuseAddr, Addr,
 			sizeof(PufFuseAddr));
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
 
 	/**
 	 * - Validate internal address field for PUF fuse data
@@ -538,12 +489,9 @@ static int XNvm_EfusePufUserDataWrite(u32 SubsystemId, u32 AddrLow, u32 AddrHigh
 		 PufUserFuse.SysMonInstPtr = XPlmi_GetSysmonInst();
 	}
 
-	Status = XNvm_EfuseMemCopy(PufFuseAddr.PufFuseDataAddr,
-			(u64)(UINTPTR)&PufFusesArr,
+	Xil_MemCpyFrom64To32Addr((u32)(UINTPTR)PufFusesArr,
+			PufFuseAddr.PufFuseDataAddr,
 			PufUserFuse.NumOfPufFusesRows * XNVM_WORD_LEN);
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
 	PufUserFuse.PufFuseData = PufFusesArr;
 
 	Status = XNvm_EfuseWritePufAsUserFuses(&PufUserFuse);
@@ -578,11 +526,8 @@ static int XNvm_EfusePufUserFusesRead(u32 SubsystemId, u32 AddrLow, u32 AddrHigh
 
 	XPLMI_VERIFY_ADDR_RANGE(SubsystemId, Addr, sizeof(PufFusesAddr), Status, XNVM_EFUSE_ERROR_INVALID_ADDR_RANGE, END);
 
-	Status = XNvm_EfuseMemCopy(Addr, (u64)(UINTPTR)&PufFusesAddr,
+	Xil_MemCpyFrom64To32Addr((u32)(UINTPTR)&PufFusesAddr, Addr,
 			sizeof(PufFusesAddr));
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
 
 	/**
 	 * - Validate internal address field for PUF fuse data
@@ -598,8 +543,8 @@ static int XNvm_EfusePufUserFusesRead(u32 SubsystemId, u32 AddrLow, u32 AddrHigh
 		goto END;
 	}
 
-	Status = XNvm_EfuseMemCopy((u64)(UINTPTR)PufUserFuse.PufFuseData,
-			PufFusesAddr.PufFuseDataAddr,
+	Xil_MemCpyFrom32To64Addr(PufFusesAddr.PufFuseDataAddr,
+			(u32)(UINTPTR)PufFusesArr,
 			PufUserFuse.NumOfPufFusesRows * XNVM_WORD_LEN);
 
 END:
@@ -630,15 +575,14 @@ int XNvm_EfusePufWrite(u32 SubsystemId, u32 AddrLow, u32 AddrHigh) {
 
 	XPLMI_VERIFY_ADDR_RANGE(SubsystemId, Addr, sizeof(PufHdAddr), Status, XNVM_EFUSE_ERROR_INVALID_ADDR_RANGE, END);
 
-	Status = XNvm_EfuseMemCopy(Addr, (u64)(UINTPTR)&PufHdAddr,
+	Xil_MemCpyFrom64To32Addr((u32)(UINTPTR)&PufHdAddr, Addr,
 			sizeof(PufHdAddr));
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
 
-	Status = XNvm_EfuseMemCopy((u64)(UINTPTR)&PufHdAddr.PufSecCtrlBits,
-				(u64)(UINTPTR)&PufHd.PufSecCtrlBits,
-				sizeof(XNvm_EfusePufSecCtrlBits));
+	Status = Xil_SMemCpy(&PufHd.PufSecCtrlBits,
+			     sizeof(XNvm_EfusePufSecCtrlBits),
+			     &PufHdAddr.PufSecCtrlBits,
+			     sizeof(XNvm_EfusePufSecCtrlBits),
+			     sizeof(XNvm_EfusePufSecCtrlBits));
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
@@ -655,10 +599,11 @@ int XNvm_EfusePufWrite(u32 SubsystemId, u32 AddrLow, u32 AddrHigh) {
 		PufHd.SysMonInstPtr = XPlmi_GetSysmonInst();
 	}
 
-	Status = XNvm_EfuseMemCopy((u64)(UINTPTR)&PufHdAddr.EfuseSynData,
-				(u64)(UINTPTR)&PufHd.EfuseSynData,
-				XNVM_PUF_FORMATTED_SYN_DATA_LEN_IN_WORDS *
-				XNVM_WORD_LEN);
+	Status = Xil_SMemCpy(&PufHd.EfuseSynData,
+			     XNVM_PUF_FORMATTED_SYN_DATA_LEN_IN_WORDS * XNVM_WORD_LEN,
+			     &PufHdAddr.EfuseSynData,
+			     XNVM_PUF_FORMATTED_SYN_DATA_LEN_IN_WORDS * XNVM_WORD_LEN,
+			     XNVM_PUF_FORMATTED_SYN_DATA_LEN_IN_WORDS * XNVM_WORD_LEN);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
@@ -701,16 +646,17 @@ static int XNvm_EfusePufRead(u32 SubsystemId, u32 AddrLow, u32 AddrHigh) {
 	PufHdAddr.Aux = PufHd.Aux;
 	PufHdAddr.Chash = PufHd.Chash;
 
-	Status = XNvm_EfuseMemCopy((u64)(UINTPTR)&PufHd.EfuseSynData,
-				(u64)(UINTPTR)&PufHdAddr.EfuseSynData,
-				XNVM_PUF_FORMATTED_SYN_DATA_LEN_IN_WORDS *
-				XNVM_WORD_LEN);
+	Status = Xil_SMemCpy(&PufHdAddr.EfuseSynData,
+			     XNVM_PUF_FORMATTED_SYN_DATA_LEN_IN_WORDS * XNVM_WORD_LEN,
+			     &PufHd.EfuseSynData,
+			     XNVM_PUF_FORMATTED_SYN_DATA_LEN_IN_WORDS * XNVM_WORD_LEN,
+			     XNVM_PUF_FORMATTED_SYN_DATA_LEN_IN_WORDS * XNVM_WORD_LEN);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
 
-	Status = XNvm_EfuseMemCopy((u64)(UINTPTR)&PufHdAddr, Addr,
-				sizeof(PufHdAddr));
+	Xil_MemCpyFrom32To64Addr(Addr, (u32)(UINTPTR)&PufHdAddr,
+			sizeof(PufHdAddr));
 
 END:
 	return Status;
@@ -748,7 +694,7 @@ static int XNvm_EfuseIvRead(u32 SubsystemId, XNvm_IvType IvType, u32 AddrLow, u3
 		goto END;
 	}
 
-	Status = XNvm_EfuseMemCopy((u64)(UINTPTR)&Iv, Addr, sizeof(Iv));
+	Xil_MemCpyFrom32To64Addr(Addr, (u32)(UINTPTR)&Iv, sizeof(Iv));
 
 END:
 	return Status;
@@ -785,7 +731,7 @@ static int XNvm_EfuseRevocationIdRead(u32 SubsystemId, XNvm_RevocationId RevokeI
 		goto END;
 	}
 
-	Status = XNvm_EfuseMemCopy((u64)(UINTPTR)&RevocationId, Addr,
+	Xil_MemCpyFrom32To64Addr(Addr, (u32)(UINTPTR)&RevocationId,
 			sizeof(RevocationId));
 
 END:
@@ -819,11 +765,8 @@ static int XNvm_EfuseUserFusesRead(u32 SubsystemId, u32 AddrLow, u32 AddrHigh)
 
 	XPLMI_VERIFY_ADDR_RANGE(SubsystemId, Addr, sizeof(UserFuses), Status, XNVM_EFUSE_ERROR_INVALID_ADDR_RANGE, END);
 
-	Status = XNvm_EfuseMemCopy(Addr, (u64)(UINTPTR)&UserFuses,
+	Xil_MemCpyFrom64To32Addr((u32)(UINTPTR)&UserFuses, Addr,
 			sizeof(UserFuses));
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
 
 	UserData.StartUserFuseNum = UserFuses.StartUserFuseNum;
 	UserData.NumOfUserFuses = UserFuses.NumOfUserFuses;
@@ -833,8 +776,8 @@ static int XNvm_EfuseUserFusesRead(u32 SubsystemId, u32 AddrLow, u32 AddrHigh)
 		goto END;
 	}
 
-	Status = XNvm_EfuseMemCopy((u64)(UINTPTR)UserData.UserFuseData,
-			UserFuses.UserFuseDataAddr,
+	Xil_MemCpyFrom32To64Addr(UserFuses.UserFuseDataAddr,
+			(u32)(UINTPTR)UserFuseData,
 			UserData.NumOfUserFuses * XNVM_WORD_LEN);
 
 END:
@@ -872,8 +815,7 @@ static int XNvm_EfusePpkHashRead(u32 SubsystemId, XNvm_PpkType PpkHashType,
 		goto END;
 	  }
 
-	Status = XNvm_EfuseMemCopy((u64)(UINTPTR)&PpkHash, Addr,
-			sizeof(PpkHash));
+	Xil_MemCpyFrom32To64Addr(Addr, (u32)(UINTPTR)&PpkHash, sizeof(PpkHash));
 
 END:
 	return Status;
@@ -909,7 +851,7 @@ static int XNvm_EfuseMiscCtrlBitsRead(u32 SubsystemId, u32 AddrLow, u32 AddrHigh
 		goto END;
 	}
 
-	Status = XNvm_EfuseMemCopy((u64)(UINTPTR)&MiscCtrlBits, Addr,
+	Xil_MemCpyFrom32To64Addr(Addr, (u32)(UINTPTR)&MiscCtrlBits,
 			sizeof(MiscCtrlBits));
 
 END:
@@ -946,7 +888,7 @@ static int XNvm_EfuseSecCtrlBitsRead(u32 SubsystemId, u32 AddrLow, u32 AddrHigh)
 		goto END;
 	}
 
-	Status = XNvm_EfuseMemCopy((u64)(UINTPTR)&SecCtrlBits, Addr,
+	Xil_MemCpyFrom32To64Addr(Addr, (u32)(UINTPTR)&SecCtrlBits,
 			sizeof(SecCtrlBits));
 
 END:
@@ -983,7 +925,7 @@ static int XNvm_EfuseSecMisc1BitsRead(u32 SubsystemId, u32 AddrLow, u32 AddrHigh
 		goto END;
 	}
 
-	Status = XNvm_EfuseMemCopy((u64)(UINTPTR)&SecMisc1Bits, Addr,
+	Xil_MemCpyFrom32To64Addr(Addr, (u32)(UINTPTR)&SecMisc1Bits,
 			sizeof(SecMisc1Bits));
 
 END:
@@ -1020,7 +962,7 @@ static int XNvm_EfuseBootEnvCtrlBitsRead(u32 SubsystemId, u32 AddrLow, u32 AddrH
 		goto END;
 	}
 
-	Status = XNvm_EfuseMemCopy((u64)(UINTPTR)&BootEnvCtrlBits, Addr,
+	Xil_MemCpyFrom32To64Addr(Addr, (u32)(UINTPTR)&BootEnvCtrlBits,
 			sizeof(BootEnvCtrlBits));
 
 END:
@@ -1057,7 +999,7 @@ static int XNvm_EfusePufCtrlBitsRead(u32 SubsystemId, u32 AddrLow, u32 AddrHigh)
 		goto END;
 	}
 
-	Status = XNvm_EfuseMemCopy((u64)(UINTPTR)&PufSecCtrlBits, Addr,
+	Xil_MemCpyFrom32To64Addr(Addr, (u32)(UINTPTR)&PufSecCtrlBits,
 			sizeof(PufSecCtrlBits));
 
 END:
@@ -1095,8 +1037,8 @@ static int XNvm_EfuseOffChipIdRead(u32 SubsystemId, XNvm_OffchipId IdNum, u32 Ad
 		goto END;
 	}
 
-	Status = XNvm_EfuseMemCopy((u64)(UINTPTR)&OffChipId, Addr,
-		sizeof(OffChipId));
+	Xil_MemCpyFrom32To64Addr(Addr, (u32)(UINTPTR)&OffChipId,
+			sizeof(OffChipId));
 
 END:
 	return Status;
@@ -1130,7 +1072,7 @@ static int XNvm_EfuseDecEfuseOnlyRead(u32 SubsystemId, u32 AddrLow, u32 AddrHigh
 		goto END;
 	}
 
-	Status = XNvm_EfuseMemCopy((u64)(UINTPTR)&DecOnly, Addr,
+	Xil_MemCpyFrom32To64Addr(Addr, (u32)(UINTPTR)&DecOnly,
 			sizeof(DecOnly));
 
 END:
@@ -1167,7 +1109,7 @@ static int XNvm_EfuseDnaRead(u32 SubsystemId, u32 AddrLow, u32 AddrHigh)
 		goto END;
 	}
 
-	Status = XNvm_EfuseMemCopy((u64)(UINTPTR)&EfuseDna, Addr,
+	Xil_MemCpyFrom32To64Addr(Addr, (u32)(UINTPTR)&EfuseDna,
 			sizeof(EfuseDna));
 
 END:
@@ -1219,31 +1161,6 @@ static int XNvm_EfuseAesCheckCrc(u32 Crc, XNvm_AesKeyType AesKeyType)
 	Status = XNvm_EfuseCheckAesKeyCrc(CrcOffset, CrcDoneMask, CrcPassMask, Crc);
 
 END:
-	return Status;
-}
-
-/*****************************************************************************/
-/**
- * @brief	This function copies word aligned or non word aligned data
- * 		from source address to destination address.
- *
- * @param 	SourceAddr 	From where the buffer data is read
- *
- * @param 	DestAddr 	To which the buffer data is copied
- *
- * @param 	Len 		Length of data to be copied in bytes
- *
- * @return
- * 		- XST_SUCCESS - If the copy is successful
- * 		- XST_FAILURE - If there is a failure
- *
- *****************************************************************************/
-static INLINE int XNvm_EfuseMemCopy(u64 SourceAddr, u64 DestAddr, u32 Len)
-{
-	int Status = XST_FAILURE;
-
-	Status = XPlmi_MemCpy64(DestAddr, SourceAddr, Len);
-
 	return Status;
 }
 
@@ -1405,10 +1322,7 @@ static int XNvm_EfuseIvWriteAccess(u32 SubsystemId, u64 Addr, u8 EnvMonitorDis)
 		EfuseData.SysMonInstPtr = XPlmi_GetSysmonInst();
 	}
 
-	Status = XNvm_EfuseMemCopy(Addr, (u64)(UINTPTR)&Ivs, sizeof(Ivs));
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
+	Xil_MemCpyFrom64To32Addr((u32)(UINTPTR)&Ivs, Addr, sizeof(Ivs));
 
 	EfuseData.Ivs = &Ivs;
 	Status = XNvm_EfuseWrite(&EfuseData);
@@ -1447,10 +1361,8 @@ static int XNvm_EfuseSecMisc1WriteAccess(u32 SubsystemId, u64 Addr, u8 EnvMonito
 		EfuseData.SysMonInstPtr = XPlmi_GetSysmonInst();
 	}
 
-	Status = XNvm_EfuseMemCopy(Addr, (u64)(UINTPTR)&SecMisc1Bits, sizeof(SecMisc1Bits));
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
+	Xil_MemCpyFrom64To32Addr((u32)(UINTPTR)&SecMisc1Bits, Addr,
+			sizeof(SecMisc1Bits));
 
 	EfuseData.Misc1Bits = &SecMisc1Bits;
 	Status = XNvm_EfuseWrite(&EfuseData);
@@ -1489,10 +1401,8 @@ static int XNvm_EfuseAnlgTrimWriteAccess(u32 SubsystemId, u64 Addr, u8 EnvMonito
 		EfuseData.SysMonInstPtr = XPlmi_GetSysmonInst();
 	}
 
-	Status = XNvm_EfuseMemCopy(Addr, (u64)(UINTPTR)&GlitchCfgBits, sizeof(GlitchCfgBits));
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
+	Xil_MemCpyFrom64To32Addr((u32)(UINTPTR)&GlitchCfgBits, Addr,
+			sizeof(GlitchCfgBits));
 
 	EfuseData.GlitchCfgBits = &GlitchCfgBits;
 	Status = XNvm_EfuseWrite(&EfuseData);
@@ -1531,10 +1441,8 @@ static int XNvm_EfuseBootEnvCtrlWriteAccess(u32 SubsystemId, u64 Addr, u8 EnvMon
 		EfuseData.SysMonInstPtr = XPlmi_GetSysmonInst();
 	}
 
-	Status = XNvm_EfuseMemCopy(Addr, (u64)(UINTPTR)&BootEnvCtrl, sizeof(BootEnvCtrl));
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
+	Xil_MemCpyFrom64To32Addr((u32)(UINTPTR)&BootEnvCtrl, Addr,
+			sizeof(BootEnvCtrl));
 
 	EfuseData.BootEnvCtrl = &BootEnvCtrl;
 	Status = XNvm_EfuseWrite(&EfuseData);
@@ -1574,10 +1482,8 @@ static int XNvm_EfusePufWriteAccess(u32 SubsystemId, u64 Addr, u8 EnvMonitorDis)
 		EfuseData.SysMonInstPtr = XPlmi_GetSysmonInst();
 	}
 
-	Status = XNvm_EfuseMemCopy(Addr, (u64)(UINTPTR)&PufHdAddr, sizeof(PufHdAddr));
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
+	Xil_MemCpyFrom64To32Addr((u32)(UINTPTR)&PufHdAddr, Addr,
+			sizeof(PufHdAddr));
 
 	PufHd.Chash = PufHdAddr.Chash;
 	PufHd.Aux = PufHdAddr.Aux;
@@ -1585,10 +1491,11 @@ static int XNvm_EfusePufWriteAccess(u32 SubsystemId, u64 Addr, u8 EnvMonitorDis)
 	PufHd.SysMonInstPtr = EfuseData.SysMonInstPtr;
 	PufHd.PrgmPufHelperData = TRUE;
 
-	Status = XNvm_EfuseMemCopy((u64)(UINTPTR)&PufHdAddr.EfuseSynData,
-				   (u64)(UINTPTR)&PufHd.EfuseSynData,
-				   XNVM_PUF_FORMATTED_SYN_DATA_LEN_IN_WORDS *
-				   XNVM_WORD_LEN);
+	Status = Xil_SMemCpy(&PufHd.EfuseSynData,
+			     XNVM_PUF_FORMATTED_SYN_DATA_LEN_IN_WORDS * XNVM_WORD_LEN,
+			     &PufHdAddr.EfuseSynData,
+			     XNVM_PUF_FORMATTED_SYN_DATA_LEN_IN_WORDS * XNVM_WORD_LEN,
+			     XNVM_PUF_FORMATTED_SYN_DATA_LEN_IN_WORDS * XNVM_WORD_LEN);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
@@ -1629,10 +1536,7 @@ static int XNvm_EfuseSecMisc0WriteAccess(u32 SubsystemId, u64 Addr, u8 EnvMonito
 		EfuseData.SysMonInstPtr = XPlmi_GetSysmonInst();
 	}
 
-	Status = XNvm_EfuseMemCopy(Addr, (u64)(UINTPTR)&DecOnly, sizeof(DecOnly));
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
+	Xil_MemCpyFrom64To32Addr((u32)(UINTPTR)&DecOnly, Addr, sizeof(DecOnly));
 
 	EfuseData.DecOnly = &DecOnly;
 	Status = XNvm_EfuseWrite(&EfuseData);
@@ -1671,10 +1575,7 @@ static int XNvm_EfuseAesKeysWriteAccess(u32 SubsystemId, u64 Addr, u8 EnvMonitor
 		EfuseData.SysMonInstPtr = XPlmi_GetSysmonInst();
 	}
 
-	Status = XNvm_EfuseMemCopy(Addr, (u64)(UINTPTR)&AesKeys, sizeof(AesKeys));
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
+	Xil_MemCpyFrom64To32Addr((u32)(UINTPTR)&AesKeys, Addr, sizeof(AesKeys));
 
 	EfuseData.AesKeys = &AesKeys;
 	Status = XNvm_EfuseWrite(&EfuseData);
@@ -1715,10 +1616,8 @@ static int XNvm_EfuseOffChipIdsWriteAccess(u32 SubsystemId, u64 Addr, u8 EnvMoni
 		EfuseData.SysMonInstPtr = XPlmi_GetSysmonInst();
 	}
 
-	Status = XNvm_EfuseMemCopy(Addr, (u64)(UINTPTR)&OffChipIds, sizeof(OffChipIds));
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
+	Xil_MemCpyFrom64To32Addr((u32)(UINTPTR)&OffChipIds, Addr,
+			sizeof(OffChipIds));
 
 	EfuseData.OffChipIds = &OffChipIds;
 	Status = XNvm_EfuseWrite(&EfuseData);
@@ -1757,10 +1656,8 @@ static int XNvm_EfuseRevokeIdsWriteAccess(u32 SubsystemId, u64 Addr, u8 EnvMonit
 		EfuseData.SysMonInstPtr = XPlmi_GetSysmonInst();
 	}
 
-	Status = XNvm_EfuseMemCopy(Addr, (u64)(UINTPTR)&RevokeIds, sizeof(RevokeIds));
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
+	Xil_MemCpyFrom64To32Addr((u32)(UINTPTR)&RevokeIds, Addr,
+			sizeof(RevokeIds));
 
 	EfuseData.RevokeIds = &RevokeIds;
 	Status = XNvm_EfuseWrite(&EfuseData);
@@ -1799,10 +1696,7 @@ static int XNvm_EfusePpkhashWriteAccess(u32 SubsystemId, u64 Addr, u8 EnvMonitor
 		EfuseData.SysMonInstPtr = XPlmi_GetSysmonInst();
 	}
 
-	Status = XNvm_EfuseMemCopy(Addr, (u64)(UINTPTR)&PpkHash, sizeof(PpkHash));
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
+	Xil_MemCpyFrom64To32Addr((u32)(UINTPTR)&PpkHash, Addr, sizeof(PpkHash));
 
 	EfuseData.PpkHash = &PpkHash;
 	Status = XNvm_EfuseWrite(&EfuseData);
@@ -1843,10 +1737,8 @@ static int XNvm_EfuseUserFuseWriteAccess(u32 SubsystemId, u64 Addr, u8 EnvMonito
 		EfuseData.SysMonInstPtr = XPlmi_GetSysmonInst();
 	}
 
-	Status = XNvm_EfuseMemCopy(Addr, (u64)(UINTPTR)&UserFuses, sizeof(UserFuses));
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
+	Xil_MemCpyFrom64To32Addr((u32)(UINTPTR)&UserFuses, Addr,
+			sizeof(UserFuses));
 
 	EfuseData.UserFuses = &UserFuses;
 	Status = XNvm_EfuseWrite(&EfuseData);
@@ -1888,10 +1780,8 @@ static int XNvm_EfuseMiscCtrlWriteAccess(u32 SubsystemId, u64 Addr, u8 EnvMonito
 		EfuseData.SysMonInstPtr = XPlmi_GetSysmonInst();
 	}
 
-	Status = XNvm_EfuseMemCopy(Addr, (u64)(UINTPTR)&MiscCtrlBits, sizeof(MiscCtrlBits));
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
+	Xil_MemCpyFrom64To32Addr((u32)(UINTPTR)&MiscCtrlBits, Addr,
+			sizeof(MiscCtrlBits));
 
 	EfuseData.MiscCtrlBits = &MiscCtrlBits;
 
@@ -1949,10 +1839,8 @@ static int XNvm_EfuseSecCtrlWriteAccess(u32 SubsystemId, u64 Addr, u8 EnvMonitor
 		EfuseData.SysMonInstPtr = XPlmi_GetSysmonInst();
 	}
 
-	Status = XNvm_EfuseMemCopy(Addr, (u64)(UINTPTR)&SecCtrlBits, sizeof(SecCtrlBits));
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
+	Xil_MemCpyFrom64To32Addr((u32)(UINTPTR)&SecCtrlBits, Addr,
+			sizeof(SecCtrlBits));
 
 	EfuseData.SecCtrlBits = &SecCtrlBits;
 

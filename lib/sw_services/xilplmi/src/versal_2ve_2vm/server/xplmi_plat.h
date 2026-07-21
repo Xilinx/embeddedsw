@@ -663,7 +663,7 @@ int XPlmi_VerifyAddrRangeRedundant(u32 SubsystemId, u64 Addr, u64 Size);
 #else
 #define XPLMI_VERIFY_ADDR_RANGE(SubsysId, StartAddr, Len, StatusVar, ErrorCode, Label) \
 	do { \
-		/* Address range validation is disabled for Versal by default */ \
+		/* Address range validation disabled; if(FALSE) references Label (unused-label). */ \
 		(void)(SubsysId); \
 		(void)(StartAddr); \
 		(void)(Len); \
