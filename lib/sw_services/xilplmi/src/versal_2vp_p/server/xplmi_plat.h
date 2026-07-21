@@ -633,6 +633,9 @@ extern XPlmi_IsAddrRangeValid_t XPlmi_IsAddrRangeValid;
 		(void)(Len); \
 		(void)(StatusVar); \
 		(void)(ErrorCode); \
+		if (FALSE) { \
+			goto Label; \
+		} \
 	} while(0)
 #endif
 

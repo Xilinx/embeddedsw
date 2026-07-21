@@ -1285,9 +1285,7 @@ int XNvm_EfuseRead(u32 SubsystemId, u32 Offset, u32 AddrLow, u32 AddrHigh, u32 S
 	Status = XNvm_EfuseReadCacheRange(Offset / XNVM_EFUSE_WORD_LEN,
 					  Size / XNVM_EFUSE_WORD_LEN, (u32 *)(UINTPTR)ReadDataAddr);
 
-#ifdef PLM_ENABLE_ADDR_RANGE_VALIDATION
 END:
-#endif
 	return Status;
 }
 

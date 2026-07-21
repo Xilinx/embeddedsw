@@ -669,6 +669,9 @@ int XPlmi_VerifyAddrRangeRedundant(u32 SubsystemId, u64 Addr, u64 Size);
 		(void)(Len); \
 		(void)(StatusVar); \
 		(void)(ErrorCode); \
+		if (FALSE) { \
+			goto Label; \
+		} \
 	} while(0)
 #endif
 #endif
