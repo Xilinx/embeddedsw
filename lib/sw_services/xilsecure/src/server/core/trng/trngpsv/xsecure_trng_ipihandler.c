@@ -104,7 +104,7 @@ static int XSecure_TrngGenerateRandNum(u32 SrcAddrLow, u32 SrcAddrHigh, u32 Size
 	XSECURE_TEMPORAL_CHECK(END, Status, XSecure_GetRandomNum, RandBuf,
 				XTRNGPSV_SEC_STRENGTH_BYTES);
 
-	Status = XPlmi_MemCpy64(RandAddr, (u64)(UINTPTR)RandBuf, Size);
+	Xil_MemCpyFrom32To64Addr(RandAddr, (u32)(UINTPTR)RandBuf, Size);
 
 END:
 	return Status;

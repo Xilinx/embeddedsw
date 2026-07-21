@@ -66,7 +66,8 @@ extern "C" {
 
 /***************** Macros (Inline Functions) Definitions *********************/
 #define XSecure_MemCpy			Xil_MemCpy /**< Backward compatibility */
-#define XSecure_MemCpy64        Xil_MemCpy64 /**< Backward compatibility */
+#define XSecure_MemCpy64	Xil_MemCpy64
+			/**< Backward compatibility, this API will be deprecated from 2027.1*/
 
 /**
  * @name  Definition of asserts if macro is defined

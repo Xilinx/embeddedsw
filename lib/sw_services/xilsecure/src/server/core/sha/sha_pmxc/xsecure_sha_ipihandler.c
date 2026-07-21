@@ -150,11 +150,7 @@ static int XSecure_ShaOperation(u32 SubsystemId, XSecure_Sha *XSecureShaInstPtr,
 
 	XPLMI_VERIFY_ADDR_RANGE(SubsystemId, ShaParamsAddr, sizeof(ShaParams), Status, XSECURE_ERR_INVALID_ADDR_RANGE, END);
 
-	Status = XPlmi_MemCpy64((u64)(UINTPTR)&ShaParams, ShaParamsAddr, sizeof(ShaParams));
-	if (Status != XST_SUCCESS) {
-		XSECURE_STATUS_CHK_GLITCH_DETECT(Status);
-		goto END;
-	}
+	Xil_MemCpyFrom64To32Addr((u32)(UINTPTR)&ShaParams, ShaParamsAddr, sizeof(ShaParams));
 
 	/**
 	 * - Validate internal address fields in the copied structure

@@ -121,10 +121,7 @@ static int XSecure_GenSharedSecret(u32 SrcAddrLow, u32 SrcAddrHigh)
 	u64 PubKeyAddr = 0U;
 	u64 SharedSecretAddr = 0U;
 
-	Status = XPlmi_MemCpy64((UINTPTR)&EcdhParams, SrcAddr, sizeof(EcdhParams));
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
+	Xil_MemCpyFrom64To32Addr((u32)(UINTPTR)&EcdhParams, SrcAddr, sizeof(EcdhParams));
 
 	PrvtKeyAddr = ((u64)EcdhParams.PrivKeyAddrHigh << XSECURE_ADDR_HIGH_SHIFT) | (u64)EcdhParams.PrivKeyAddrLow;
 	PubKeyAddr = ((u64)EcdhParams.PubKeyAddrHigh << XSECURE_ADDR_HIGH_SHIFT) | (u64)EcdhParams.PubKeyAddrLow;
@@ -133,7 +130,6 @@ static int XSecure_GenSharedSecret(u32 SrcAddrLow, u32 SrcAddrHigh)
 	Status = XSecure_EcdhGetSecret((XSecure_EllipticCrvTyp)EcdhParams.CurveType, PrvtKeyAddr, PubKeyAddr,
 		SharedSecretAddr);
 
-END:
 	return Status;
 }
 

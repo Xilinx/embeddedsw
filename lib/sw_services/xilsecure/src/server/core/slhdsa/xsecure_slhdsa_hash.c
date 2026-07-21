@@ -201,7 +201,8 @@ int XSecure_SlhdsaShake256sChain(const u64 InputAddr,
 	volatile int Status = XST_FAILURE;
 	const XSecure_SlhdsaInstance *InstancePtr = XSecure_SlhdsaGetInstance();
 
-	XSecure_MemCpy64((u64)(UINTPTR)Output, InputAddr, (u32)InstancePtr->Param->n);
+	Xil_MemCpyFrom64To32Addr((u32)(UINTPTR)Output, InputAddr,
+				 (u32)InstancePtr->Param->n);
 
 	if (ChainConfig->Steps == XSECURE_ZERO) {
 		Status = XST_SUCCESS;

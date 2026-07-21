@@ -101,11 +101,8 @@ static int XSecure_MldsaSignVerifyIpi(u32 MldsaParamAddrLow, u32 MldsaParamAddrH
 				(u64)MldsaParamAddrLow;
 	XSecure_MldsaSignVerifyParams MldsaParams;
 
-	Status = XPlmi_MemCpy64((UINTPTR)&MldsaParams, MldsaParamAddr,
+	Xil_MemCpyFrom64To32Addr((u32)(UINTPTR)&MldsaParams, MldsaParamAddr,
 				sizeof(XSecure_MldsaSignVerifyParams));
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
 
 	Status = XSecure_MldsaSignVerify(&MldsaParams);
 
@@ -134,11 +131,8 @@ static int XSecure_MldsaSignGenerateIpi(u32 MldsaParamAddrLow, u32 MldsaParamAdd
 				(u64)MldsaParamAddrLow;
 	XSecure_MldsaSignGenParams MldsaParams;
 
-	Status = XPlmi_MemCpy64((UINTPTR)&MldsaParams, MldsaParamAddr,
+	Xil_MemCpyFrom64To32Addr((u32)(UINTPTR)&MldsaParams, MldsaParamAddr,
 				sizeof(XSecure_MldsaSignGenParams));
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
 
 	Status = XSecure_MldsaSignGenerate(&MldsaParams);
 

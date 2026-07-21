@@ -127,10 +127,7 @@ static int XSecure_AesPerformOperationAndZeroizeKey(u32 SubsystemId, u32 AesPara
 
 	XPLMI_VERIFY_ADDR_RANGE(SubsystemId, Addr, sizeof(AesParams), Status, XSECURE_ERR_INVALID_ADDR_RANGE, END);
 
-	Status =  XPlmi_MemCpy64((u64)(UINTPTR)&AesParams, Addr, sizeof(AesParams));
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
+	Xil_MemCpyFrom64To32Addr((u32)(UINTPTR)&AesParams, Addr, sizeof(AesParams));
 
 	Status = XSecure_AesInit();
 	if (Status != XST_SUCCESS) {

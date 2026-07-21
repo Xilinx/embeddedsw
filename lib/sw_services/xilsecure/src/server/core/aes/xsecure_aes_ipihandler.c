@@ -244,10 +244,7 @@ static int XSecure_AesOperationInit(u32 SubsystemId, u32 SrcAddrLow, u32 SrcAddr
 
 	XPLMI_VERIFY_ADDR_RANGE(SubsystemId, Addr, sizeof(AesParams), Status, XSECURE_ERR_INVALID_ADDR_RANGE, END);
 
-	Status =  XPlmi_MemCpy64((u64)(UINTPTR)&AesParams, Addr, sizeof(AesParams));
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
+	Xil_MemCpyFrom64To32Addr((u32)(UINTPTR)&AesParams, Addr, sizeof(AesParams));
 
 	/**
 	 * - Validate internal address fields in the copied structure
@@ -330,7 +327,7 @@ static int XSecure_AesEncUpdate(u32 SubsystemId, u32 SrcAddrLow, u32 SrcAddrHigh
 
 	XPLMI_VERIFY_ADDR_RANGE(SubsystemId, Addr, sizeof(InParams), Status, XSECURE_ERR_INVALID_ADDR_RANGE, END);
 
-	XSecure_MemCpy64((u64)(UINTPTR)&InParams, Addr, sizeof(InParams));
+	Xil_MemCpyFrom64To32Addr((u32)(UINTPTR)&InParams, Addr, (u32)sizeof(InParams));
 
 	XPLMI_VERIFY_ADDR_RANGE(SubsystemId, DstAddr, InParams.Size, Status, XSECURE_ERR_INVALID_ADDR_RANGE, END);
 	XPLMI_VERIFY_ADDR_RANGE(SubsystemId, InParams.InDataAddr, InParams.Size, Status, XSECURE_ERR_INVALID_ADDR_RANGE, END);
@@ -410,7 +407,7 @@ static int XSecure_AesDecUpdate(u32 SubsystemId, u32 SrcAddrLow, u32 SrcAddrHigh
 
 	XPLMI_VERIFY_ADDR_RANGE(SubsystemId, Addr, sizeof(InParams), Status, XSECURE_ERR_INVALID_ADDR_RANGE, END);
 
-	XSecure_MemCpy64((u64)(UINTPTR)&InParams, Addr, sizeof(InParams));
+	Xil_MemCpyFrom64To32Addr((u32)(UINTPTR)&InParams, Addr, (u32)sizeof(InParams));
 
 	XPLMI_VERIFY_ADDR_RANGE(SubsystemId, DstAddr, InParams.Size, Status, XSECURE_ERR_INVALID_ADDR_RANGE, END);
 	XPLMI_VERIFY_ADDR_RANGE(SubsystemId, InParams.InDataAddr, InParams.Size, Status, XSECURE_ERR_INVALID_ADDR_RANGE, END);
@@ -625,10 +622,7 @@ int XSecure_AesPerformOperation(u32 SubsystemId, u32 SrcAddrLow, u32 SrcAddrHigh
 
 	XPLMI_VERIFY_ADDR_RANGE(SubsystemId, Addr, sizeof(AesParams), Status, XSECURE_ERR_INVALID_ADDR_RANGE, END);
 
-	Status =  XPlmi_MemCpy64((u64)(UINTPTR)&AesParams, Addr, sizeof(AesParams));
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
+	Xil_MemCpyFrom64To32Addr((u32)(UINTPTR)&AesParams, Addr, sizeof(AesParams));
 
 	/**
 	 * - Validate internal address fields in the copied structure

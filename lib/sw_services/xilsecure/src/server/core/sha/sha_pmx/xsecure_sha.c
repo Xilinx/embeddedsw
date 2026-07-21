@@ -690,7 +690,7 @@ static int XSecure_Sha3DataUpdate(XSecure_Sha3 *InstancePtr,
 		/** - Handle Partial data and non dword aligned data address */
 		if ((PrevPartialLen != 0U) ||
 		    ((InDataAddr & (u64)XPMCDMA_ADDR_LSB_MASK) != 0U)) {
-			XSecure_MemCpy64((u64)(UINTPTR)&PartialData[PrevPartialLen], DataAddr,
+			Xil_MemCpyFrom64To32Addr((u32)(UINTPTR)&PartialData[PrevPartialLen], DataAddr,
 				XSECURE_SHA3_BLOCK_LEN - PrevPartialLen);
 			DmableDataAddr = (u64)(UINTPTR)PartialData;
 			DmableDataLen = XSECURE_SHA3_BLOCK_LEN;
@@ -726,7 +726,7 @@ static int XSecure_Sha3DataUpdate(XSecure_Sha3 *InstancePtr,
 	 *   data padding
 	 */
 	if(RemainingDataLen > 0U) {
-		XSecure_MemCpy64((u64)(UINTPTR)&PartialData[PrevPartialLen],
+		Xil_MemCpyFrom64To32Addr((u32)(UINTPTR)&PartialData[PrevPartialLen],
 			DataAddr, RemainingDataLen - PrevPartialLen);
 	}
 	InstancePtr->PartialLen = RemainingDataLen;

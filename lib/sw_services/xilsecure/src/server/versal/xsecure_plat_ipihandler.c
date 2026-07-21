@@ -122,10 +122,7 @@ static int XSecure_RsaDecrypt(u32 SubsystemId, u32 SrcAddrLow, u32 SrcAddrHigh,
 
 	XPLMI_VERIFY_ADDR_RANGE(SubsystemId, Addr, sizeof(RsaParams), Status, XSECURE_ERR_INVALID_ADDR_RANGE, END);
 
-	Status = XPlmi_MemCpy64((UINTPTR)&RsaParams, Addr, sizeof(RsaParams));
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
+	Xil_MemCpyFrom64To32Addr((u32)(UINTPTR)&RsaParams, Addr, sizeof(RsaParams));
 
 	/**
 	 * - Validate internal address fields in the copied structure

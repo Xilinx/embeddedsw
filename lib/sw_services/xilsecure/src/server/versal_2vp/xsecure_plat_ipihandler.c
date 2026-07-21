@@ -110,10 +110,7 @@ static int XSecure_RsaDecrypt(u32 SrcAddrLow, u32 SrcAddrHigh, u32 DstAddrLow, u
 	XSecure_RsaInParam RsaParams;
 	XSecure_Rsa *XSecureRsaInstPtr = XSecure_GetRsaInstance();
 
-	Status = XPlmi_MemCpy64((UINTPTR)&RsaParams, Addr, sizeof(RsaParams));
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
+	Xil_MemCpyFrom64To32Addr((u32)(UINTPTR)&RsaParams, Addr, sizeof(RsaParams));
 
 	Modulus = RsaParams.KeyAddr;
 	PrivateExp = RsaParams.KeyAddr + RsaParams.Size;

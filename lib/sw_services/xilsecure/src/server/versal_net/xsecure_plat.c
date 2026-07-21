@@ -449,7 +449,7 @@ static void XSecure_AesDataEndiannessChange(u64 Address, u32 Size)
 	u32 RevIndex = Size;
 	u8 EndianessChange[XSECURE_QWORD_SIZE];
 
-	XSecure_MemCpy64((u64)(UINTPTR)EndianessChange, Address, Size);
+	Xil_MemCpyFrom64To32Addr((u32)(UINTPTR)EndianessChange, Address, Size);
 	for (Index = 0; Index < Size; Index++) {
 		XSecure_OutByte64((Address + Index),
 			EndianessChange[RevIndex - 1U]);
@@ -707,14 +707,10 @@ int XSecure_MemCpyAndChangeEndianness(u64 DestAddress, u64 SrcAddress, u32 Lengt
 	volatile int Status = XST_FAILURE;
 	u8 *Buf = (u8*)(UINTPTR)DestAddress;
 
-	Status = XPlmi_MemCpy64(DestAddress, SrcAddress, Length);
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
+	Xil_MemCpyFrom64To32Addr((u32)DestAddress, SrcAddress, Length);
 
 	Status = Xil_SReverseData(Buf, Length);
 
-END:
 	return Status;
 }
 /** @} */

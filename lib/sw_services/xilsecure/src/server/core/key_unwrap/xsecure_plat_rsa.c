@@ -147,7 +147,8 @@ static int XSecure_RsaOaepEncode(XSecure_RsaOaepParam *OaepParam, u64 OutputAddr
 	Index = ActualMsgLen - OaepParam->InputDataSize;
 	DB[HashPtr->HashLen + Index] = 0x01U;
 
-	XSecure_MemCpy64((u64)(UINTPTR)&DB[HashPtr->HashLen + Index + 1U], OaepParam->InputDataAddr, OaepParam->InputDataSize);
+	Xil_MemCpyFrom64To32Addr((u32)(UINTPTR)&DB[HashPtr->HashLen + Index + 1U],
+				 OaepParam->InputDataAddr, OaepParam->InputDataSize);
 
 	XSECURE_TEMPORAL_CHECK(END, Status, XSecure_GetRandomNum, Seed, HashPtr->HashLen);
 
@@ -173,8 +174,8 @@ static int XSecure_RsaOaepEncode(XSecure_RsaOaepParam *OaepParam, u64 OutputAddr
 
 	/** - Encode the message in to OutputAddr */
 	XSecure_OutByte64(OutputAddr, 0x00U);
-	XSecure_MemCpy64((OutputAddr + 1U), (u64)(UINTPTR)Seed, HashPtr->HashLen);
-	XSecure_MemCpy64((OutputAddr + HashPtr->HashLen + 1U), (u64)(UINTPTR)DB, DBLen);
+	Xil_MemCpyFrom32To64Addr((OutputAddr + 1U), (u32)(UINTPTR)Seed, HashPtr->HashLen);
+	Xil_MemCpyFrom32To64Addr((OutputAddr + HashPtr->HashLen + 1U), (u32)(UINTPTR)DB, DBLen);
 END:
 	return Status;
 }
@@ -232,8 +233,8 @@ static int XSecure_RsaOaepDecode(XSecure_RsaOaepParam *OaepParam, u64 InputDataA
 	}
 
 	/**< Split the message in to EM = 0X00 || SeedMask || DBMask */
-	XSecure_MemCpy64((u64)(UINTPTR)SeedMask, (InputDataAddr + 1U), HashPtr->HashLen);
-	XSecure_MemCpy64((u64)(UINTPTR)DBMask, (InputDataAddr + 1U + HashPtr->HashLen),
+	Xil_MemCpyFrom64To32Addr((u32)(UINTPTR)SeedMask, (InputDataAddr + 1U), HashPtr->HashLen);
+	Xil_MemCpyFrom64To32Addr((u32)(UINTPTR)DBMask, (InputDataAddr + 1U + HashPtr->HashLen),
 			 (XSECURE_RSA_KEY_GEN_SIZE_IN_BYTES - HashPtr->HashLen - 1U));
 
 	/**< Extract seed from SeedMask */
@@ -287,7 +288,8 @@ static int XSecure_RsaOaepDecode(XSecure_RsaOaepParam *OaepParam, u64 InputDataA
 	}
 
 	OaepParam->OutputDataSize = ActualMsgLen;
-	XSecure_MemCpy64(OaepParam->OutputDataAddr, (u64)(UINTPTR)&DB[Index], ActualMsgLen);
+	Xil_MemCpyFrom32To64Addr(OaepParam->OutputDataAddr, (u32)(UINTPTR)&DB[Index],
+				 ActualMsgLen);
 	Status = XST_SUCCESS;
 END:
 	return Status;

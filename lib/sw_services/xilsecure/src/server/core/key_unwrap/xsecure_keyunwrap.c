@@ -249,17 +249,15 @@ int XSecure_KeyUnwrap(XSecure_KeyWrapData *KeyWrapData)
 	}
 
 	KeyWrapAddr = KeyWrapAddr + XSECURE_RSA_KEY_GEN_SIZE_IN_BYTES;
-	Status = XPlmi_MemCpy64((u64)(UINTPTR)WrapAesKey, KeyWrapAddr, XSECURE_AES_256BIT_KEY_BLOCK_SIZE);
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
+	Xil_MemCpyFrom64To32Addr((u32)(UINTPTR)WrapAesKey, KeyWrapAddr, XSECURE_AES_256BIT_KEY_BLOCK_SIZE);
 
 	XSECURE_TEMPORAL_CHECK(END, Status, XSecure_AesKeyUnwrap, AesInstPtr, EphAesKey,
 			       AesKeySize, WrapAesKey, DstKeySlotAddr, EncryptedKeySize);
 
 	/** - Update the key slot with metadata */
 	DstKeySlotAddr += (u64)(EncryptedKeySize - XSECURE_AES_64BIT_BLOCK_SIZE);
-	XSecure_MemCpy64(DstKeySlotAddr, (u64)(UINTPTR)&KeyWrapData->KeyMetaData, sizeof(XSecure_KeyMetaData));
+	Xil_MemCpyFrom32To64Addr(DstKeySlotAddr, (u32)(UINTPTR)&KeyWrapData->KeyMetaData,
+					(u32)sizeof(XSecure_KeyMetaData));
 	XSecure_MarkKeySlotOccupied(KeySlotStatusAddr);
 
 END:

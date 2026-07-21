@@ -375,7 +375,7 @@ int XSecure_AesWriteKey(const XSecure_Aes *InstancePtr,
 		KeySizeInWords = XSECURE_AES_KEY_SIZE_256BIT_WORDS;
 	}
 
-	XSecure_MemCpy64((u64)(UINTPTR)Key, KeyAddr, KeySizeInWords *
+	Xil_MemCpyFrom64To32Addr((u32)(UINTPTR)Key, KeyAddr, KeySizeInWords *
 				XSECURE_WORD_SIZE);
 
 	Offset = Offset + (KeySizeInWords * XSECURE_WORD_SIZE) -
@@ -991,7 +991,8 @@ int XSecure_AesEncryptFinal(XSecure_Aes *InstancePtr, u64 GcmTagAddr)
 	}
 
 	/** - Copying from local buffer which is already stored during encrypt update. */
-	XSecure_MemCpy64(GcmTagAddr, (u64)(UINTPTR)InstancePtr->GcmTag, XSECURE_SECURE_GCM_TAG_SIZE);
+	Xil_MemCpyFrom32To64Addr(GcmTagAddr, (u32)(UINTPTR)InstancePtr->GcmTag,
+					XSECURE_SECURE_GCM_TAG_SIZE);
 
 	Status = XST_SUCCESS;
 	InstancePtr->AesState = XSECURE_AES_INITIALIZED;

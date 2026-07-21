@@ -118,11 +118,8 @@ static int XSecure_SlhdsaSignVerifyIpi(u32 SlhdsaParamAddrLow, u32 SlhdsaParamAd
 	XSecure_SlhdsaInputParams SlhdsaParams;
 	XSecure_Sha *ShaInstPtr = XSecure_GetSha3Instance(XSECURE_SHA_0_DEVICE_ID);
 
-	Status = XPlmi_MemCpy64((UINTPTR)&SlhdsaParams, SlhdsaParamAddr,
+	Xil_MemCpyFrom64To32Addr((u32)(UINTPTR)&SlhdsaParams, SlhdsaParamAddr,
 				sizeof(XSecure_SlhdsaInputParams));
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
 
 	Status = XSecure_SlhdsaVerify(ShaInstPtr, &SlhdsaParams);
 

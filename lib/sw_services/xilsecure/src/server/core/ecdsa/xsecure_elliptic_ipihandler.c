@@ -217,10 +217,7 @@ static int XSecure_EllipticGenSign(u32 SubsystemId, u32 SrcAddrLow, u32 SrcAddrH
 
 	XPLMI_VERIFY_ADDR_RANGE(SubsystemId, SrcAddr, sizeof(EcdsaParams), Status, XSECURE_ERR_INVALID_ADDR_RANGE, END);
 
-	Status = XPlmi_MemCpy64((UINTPTR)&EcdsaParams, SrcAddr, sizeof(EcdsaParams));
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
+	Xil_MemCpyFrom64To32Addr((u32)(UINTPTR)&EcdsaParams, SrcAddr, sizeof(EcdsaParams));
 
 	Size = XSecure_EllipticGetCrvSize((XSecure_EllipticCrvTyp)EcdsaParams.CurveType);
 	if (Size == 0U) {
@@ -327,10 +324,7 @@ static int XSecure_EllipticVerifySignature(u32 SubsystemId, u32 SrcAddrLow, u32 
 
 	XPLMI_VERIFY_ADDR_RANGE(SubsystemId, Addr, sizeof(EcdsaParams), Status, XSECURE_ERR_INVALID_ADDR_RANGE, END);
 
-	Status = XPlmi_MemCpy64((UINTPTR)&EcdsaParams, Addr, sizeof(EcdsaParams));
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
+	Xil_MemCpyFrom64To32Addr((u32)(UINTPTR)&EcdsaParams, Addr, sizeof(EcdsaParams));
 
 	Size = XSecure_EllipticGetCrvSize((XSecure_EllipticCrvTyp)EcdsaParams.CurveType);
 	if (Size == 0U) {

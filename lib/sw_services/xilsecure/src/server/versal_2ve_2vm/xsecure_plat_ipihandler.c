@@ -109,8 +109,6 @@ static int XSecure_RsaPrivateOperationIpi(u32 SubsystemId, u32 RsaParamAddrLow, 
 	u32 DstAddrLow, u32 DstAddrHigh)
 {
 	volatile int Status = XST_FAILURE;
-	volatile int SStatus = XST_FAILURE;
-	volatile int SStatusTmp = XST_FAILURE;
 	u64 RsaParamAddr = ((u64)RsaParamAddrHigh << XSECURE_ADDR_HIGH_SHIFT) | (u64)RsaParamAddrLow;
 	u64 DstAddr = ((u64)DstAddrHigh << XSECURE_ADDR_HIGH_SHIFT) | (u64)DstAddrLow;
 	XSecure_RsaInParam RsaParams;
@@ -125,11 +123,7 @@ static int XSecure_RsaPrivateOperationIpi(u32 SubsystemId, u32 RsaParamAddrLow, 
 
 	XPLMI_VERIFY_ADDR_RANGE(SubsystemId, RsaParamAddr, sizeof(XSecure_RsaInParam), Status, XSECURE_ERR_INVALID_ADDR_RANGE, END);
 
-	Status = XPlmi_MemCpy64((UINTPTR)&RsaParams, RsaParamAddr, sizeof(XSecure_RsaInParam));
-	if (Status != XST_SUCCESS) {
-		Status = (int)XSECURE_RSA_OP_MEM_CPY_FAILED_ERROR;
-		goto END;
-	}
+	Xil_MemCpyFrom64To32Addr((u32)(UINTPTR)&RsaParams, RsaParamAddr, sizeof(XSecure_RsaInParam));
 
 	/**
 	 * - Validate internal address fields in the copied structure
@@ -146,11 +140,7 @@ static int XSecure_RsaPrivateOperationIpi(u32 SubsystemId, u32 RsaParamAddrLow, 
 	}
 
 	Status = XST_FAILURE;
-	Status = XPlmi_MemCpy64((UINTPTR)&RsaKeyParam, RsaParams.KeyAddr, sizeof(XSecure_RsaKeyParam));
-	if (Status != XST_SUCCESS) {
-		Status = (int)XSECURE_RSA_OP_MEM_CPY_FAILED_ERROR;
-		goto END;
-	}
+	Xil_MemCpyFrom64To32Addr((u32)(UINTPTR)&RsaKeyParam, RsaParams.KeyAddr, sizeof(XSecure_RsaKeyParam));
 
 	if ((RsaKeyParam.OpMode != XSECURE_RSA_CRT_MODE) &&
 		(RsaKeyParam.OpMode != XSECURE_RSA_EXPOPT_MODE) &&
@@ -316,11 +306,7 @@ static int XSecure_RsaPrivateOperationIpi(u32 SubsystemId, u32 RsaParamAddrLow, 
 		goto END;
 	}
 
-	XSECURE_TEMPORAL_IMPL(SStatus, SStatusTmp, XPlmi_MemCpy64, DstAddr, (UINTPTR)OutDataPtr, RsaParams.Size);
-	if ((SStatus != XST_SUCCESS) || (SStatusTmp != XST_SUCCESS)) {
-		Status = (int)XSECURE_RSA_OP_MEM_CPY_FAILED_ERROR;
-	}
-
+	XSECURE_REDUNDANT_IMPL(Xil_MemCpyFrom32To64Addr, DstAddr, (u32)(UINTPTR)OutDataPtr, RsaParams.Size);
 END:
 	return Status;
 }

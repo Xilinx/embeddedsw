@@ -33,6 +33,7 @@
 #include "xsecure_defs.h"
 #include "xsecure_utils.h"
 #include "xsecure_plat.h"
+#include "xplmi_dma.h"
 
 /************************************ Constant Definitions ****************************************/
 
@@ -178,24 +179,30 @@ int XSecure_MldsaSignVerify(const XSecure_MldsaSignVerifyParams *MldsaParams)
 			      MldsaParams->ContextLen);
 
 		/** - Transfer context to hardware registers */
-		Xil_MemCpy64((u64)(UINTPTR)(XSECURE_MLDSA_BASEADDR +
+		Xil_MemCpyFrom64To32Addr((u32)(XSECURE_MLDSA_BASEADDR +
 						XSECURE_MLDSA_CTX_0_OFFSET),
 				 MldsaParams->ContextAddr, MldsaParams->ContextLen);
 	}
 
-	/** - Transfer public key to hardware registers */
+	/** - Transfer public key to hardware registers using DMA as the data to be copied is > 1KB */
 	XSecure_Printf(XSECURE_DEBUG_GENERAL, "MLDSA signature verification - Writing PK\r\n");
-	Xil_MemCpy64((u64)(UINTPTR)(XSECURE_MLDSA_BASEADDR + XSECURE_MLDSA_PK_0_OFFSET),
+	Status = XPlmi_MemCpy64((u64)(UINTPTR)(XSECURE_MLDSA_BASEADDR + XSECURE_MLDSA_PK_0_OFFSET),
 			 MldsaParams->PubKeyAddr, XSECURE_MLDSA_PK_LEN);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
 
 	/** - Transfer signature to hardware registers */
 	XSecure_Printf(XSECURE_DEBUG_GENERAL, "MLDSA signature verification - "
 					      "Writing Signature\r\n");
 
-	/** - Transfer word-aligned portion (4624 bytes = 1156 words) */
+	/** - Transfer word-aligned portion (4624 bytes = 1156 words) using DMA as the data to be copied is > 1KB */
 	AlignedLen = XSECURE_MLDSA_SIGN_LEN & ~(XSECURE_WORD_SIZE - XSECURE_VALUE_ONE);
-	Xil_MemCpy64((u64)(UINTPTR)(XSECURE_MLDSA_BASEADDR + XSECURE_MLDSA_SIGN_0_OFFSET),
+	Status = XPlmi_MemCpy64((u64)(UINTPTR)(XSECURE_MLDSA_BASEADDR + XSECURE_MLDSA_SIGN_0_OFFSET),
 			 MldsaParams->SignAddr, AlignedLen);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
 
 	/** - Handle last 3 bytes using intermediate word buffer */
 	LastWord = (u32)XSecure_InByte64(MldsaParams->SignAddr + AlignedLen);
@@ -351,20 +358,34 @@ int XSecure_MldsaSignGenerate(XSecure_MldsaSignGenParams *MldsaParams)
 
 	/** - Feed the required inputs: msg, sk_in, sign_rnd, entropy */
 
-	/** - Transfer secret key to hardware registers */
+	/** - Transfer secret key to hardware registers using DMA as the data to be copied is > 1KB */
 	XSecure_Printf(XSECURE_DEBUG_GENERAL, "MLDSA signature generation - Writing SK\r\n");
-	Xil_MemCpy64((u64)(UINTPTR)(XSECURE_MLDSA_BASEADDR + XSECURE_MLDSA_SK_IN_0_OFFSET),
+	Status = XPlmi_MemCpy64((u64)(UINTPTR)(XSECURE_MLDSA_BASEADDR + XSECURE_MLDSA_SK_IN_0_OFFSET),
 			 MldsaParams->SecretKeyAddr, XSECURE_MLDSA_SK_LEN);
+	if (Status != XST_SUCCESS) {
+		XSECURE_STATUS_CHK_GLITCH_DETECT(Status);
+		goto END;
+	}
 
 	/** - Transfer signing randomness to hardware registers (256 bits = 32 bytes) */
 	XSecure_Printf(XSECURE_DEBUG_GENERAL, "MLDSA signature generation - Writing sign_rnd\r\n");
-	Xil_MemCpy((void *)(UINTPTR)(XSECURE_MLDSA_BASEADDR + XSECURE_MLDSA_SIGN_RND_0_OFFSET),
-			 SignRnd, XSECURE_MLDSA_SIGN_RND_LEN);
+	Status = Xil_SMemCpy((void *)(UINTPTR)(XSECURE_MLDSA_BASEADDR + XSECURE_MLDSA_SIGN_RND_0_OFFSET),
+			XSECURE_MLDSA_SIGN_RND_LEN, SignRnd, XSECURE_MLDSA_SIGN_RND_LEN,
+			XSECURE_MLDSA_SIGN_RND_LEN);
+	if (Status != XST_SUCCESS) {
+		XSECURE_STATUS_CHK_GLITCH_DETECT(Status);
+		goto END;
+	}
 
 	/** - Transfer entropy to hardware registers (512 bits = 64 bytes) */
 	XSecure_Printf(XSECURE_DEBUG_GENERAL, "MLDSA signature generation - Writing entropy\r\n");
-	Xil_MemCpy((void *)(UINTPTR)(XSECURE_MLDSA_BASEADDR + XSECURE_MLDSA_ENTROPY_0_OFFSET),
-			 Entropy, XSECURE_MLDSA_ENTROPY_LEN);
+	Status = Xil_SMemCpy((void *)(UINTPTR)(XSECURE_MLDSA_BASEADDR + XSECURE_MLDSA_ENTROPY_0_OFFSET),
+			XSECURE_MLDSA_ENTROPY_LEN, Entropy, XSECURE_MLDSA_ENTROPY_LEN,
+			XSECURE_MLDSA_ENTROPY_LEN);
+	if (Status != XST_SUCCESS) {
+		XSECURE_STATUS_CHK_GLITCH_DETECT(Status);
+		goto END;
+	}
 
 	/** - Trigger the core for performing Signing (STATUS flag will be changed to 2'b00) */
 	/** - Configure ML-DSA for signature generation with streaming message mode */
@@ -402,11 +423,15 @@ int XSecure_MldsaSignGenerate(XSecure_MldsaSignGenParams *MldsaParams)
 	/** - Read the generated signature from hardware registers */
 	XSecure_Printf(XSECURE_DEBUG_GENERAL, "MLDSA signature generation - Reading signature\r\n");
 
-	/** - Transfer word-aligned portion (4624 bytes = 1156 words) */
+	/** - Transfer word-aligned portion (4624 bytes = 1156 words) using DMA as the data to be copied is > 1KB */
 	AlignedLen = XSECURE_MLDSA_SIGN_LEN & ~(XSECURE_WORD_SIZE - XSECURE_VALUE_ONE);
-	Xil_MemCpy64(MldsaParams->SignatureAddr,
+	Status = XPlmi_MemCpy64(MldsaParams->SignatureAddr,
 			 (u64)(UINTPTR)(XSECURE_MLDSA_BASEADDR + XSECURE_MLDSA_SIGN_0_OFFSET),
 			 AlignedLen);
+	if (Status != XST_SUCCESS) {
+		XSECURE_STATUS_CHK_GLITCH_DETECT(Status);
+		goto END;
+	}
 
 	/** - Handle last 3 bytes using intermediate word buffer */
 	LastWord = XSecure_In32(XSECURE_MLDSA_BASEADDR + XSECURE_MLDSA_SIGN_0_OFFSET +

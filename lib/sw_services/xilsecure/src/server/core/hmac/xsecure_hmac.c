@@ -279,7 +279,7 @@ static int XSecure_PreProcessKey(XSecure_Hmac *InstancePtr,
 		 * if Key provided is less than SHA 3 block length
 		 * Append Zeros to the key provided
 		 */
-		XSecure_MemCpy64((u64)(UINTPTR)K0, KeyAddr, KeyLen);
+		Xil_MemCpyFrom64To32Addr((u32)(UINTPTR)K0, KeyAddr, KeyLen);
 
 		Status = Xil_SMemSet((void *)&K0[KeyLen], KeyOutLen - KeyLen, 0U,
 							  KeyOutLen - KeyLen);
@@ -303,7 +303,7 @@ static int XSecure_PreProcessKey(XSecure_Hmac *InstancePtr,
 	}
 	else {
 		/** - if Key provided is of SHA 3 block length */
-		XSecure_MemCpy64((u64)(UINTPTR)K0, KeyAddr, KeyOutLen);
+		Xil_MemCpyFrom64To32Addr((u32)(UINTPTR)K0, KeyAddr, KeyOutLen);
 		Status = XST_SUCCESS;
 	}
 

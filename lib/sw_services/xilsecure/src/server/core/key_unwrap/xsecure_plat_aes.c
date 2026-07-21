@@ -239,7 +239,8 @@ int XSecure_AesKeyUnwrap(XSecure_Aes *InstancePtr, u8 *EphAesKey, XSecure_AesKey
 	}
 
 	/** - Copy initial value */
-	Status = XPlmi_MemCpy64((u64)(UINTPTR)InitValue, (u64)(UINTPTR)AesWrapKey, XSECURE_AES_64BIT_BLOCK_SIZE);
+	Status = Xil_SMemCpy(InitValue, XSECURE_AES_64BIT_BLOCK_SIZE, AesWrapKey,
+		XSECURE_AES_64BIT_BLOCK_SIZE, XSECURE_AES_64BIT_BLOCK_SIZE);
 	if (Status != XST_SUCCESS) {
 		XSECURE_STATUS_CHK_GLITCH_DETECT(Status);
 		goto END;
@@ -253,12 +254,15 @@ int XSecure_AesKeyUnwrap(XSecure_Aes *InstancePtr, u8 *EphAesKey, XSecure_AesKey
 			for (Temp = 0U; Temp < 8U; Temp++) {
 				InitValue[Temp] = (u8)(InitValue[Temp] ^ (RoundVal >> (8U * (7U - Temp)) & 0xFFU));
 			}
-			Status = XPlmi_MemCpy64((u64)(UINTPTR)DecInput, (u64)(UINTPTR)InitValue, XSECURE_AES_64BIT_BLOCK_SIZE);
+			Status = Xil_SMemCpy(DecInput, XSECURE_AES_64BIT_BLOCK_SIZE * 2U,
+				InitValue, XSECURE_AES_64BIT_BLOCK_SIZE, XSECURE_AES_64BIT_BLOCK_SIZE);
 			if (Status != XST_SUCCESS) {
 				XSECURE_STATUS_CHK_GLITCH_DETECT(Status);
 				goto END;
 			}
-			Status = XPlmi_MemCpy64((u64)(UINTPTR)(DecInput + XSECURE_AES_64BIT_BLOCK_SIZE), (u64)(UINTPTR)(AesWrapKey + (AesBlkRoundNum * 8U)), XSECURE_AES_64BIT_BLOCK_SIZE);
+			Status = Xil_SMemCpy((DecInput + XSECURE_AES_64BIT_BLOCK_SIZE),
+				XSECURE_AES_64BIT_BLOCK_SIZE, (AesWrapKey + (AesBlkRoundNum * 8U)),
+				XSECURE_AES_64BIT_BLOCK_SIZE, XSECURE_AES_64BIT_BLOCK_SIZE);
 			if (Status != XST_SUCCESS) {
 				XSECURE_STATUS_CHK_GLITCH_DETECT(Status);
 				goto END;
@@ -277,13 +281,16 @@ int XSecure_AesKeyUnwrap(XSecure_Aes *InstancePtr, u8 *EphAesKey, XSecure_AesKey
 				goto END;
 			}
 
-			Status = XPlmi_MemCpy64((u64)(UINTPTR)InitValue, (u64)(UINTPTR)DecOut, XSECURE_AES_64BIT_BLOCK_SIZE);
+			Status = Xil_SMemCpy(InitValue, XSECURE_AES_64BIT_BLOCK_SIZE, DecOut,
+				XSECURE_AES_64BIT_BLOCK_SIZE * 2U, XSECURE_AES_64BIT_BLOCK_SIZE);
 			if (Status != XST_SUCCESS) {
 				XSECURE_STATUS_CHK_GLITCH_DETECT(Status);
 				goto END;
 			}
 
-			Status = XPlmi_MemCpy64((u64)(UINTPTR)(AesWrapKey + (AesBlkRoundNum * 8U)), (u64)(UINTPTR)(DecOut + XSECURE_AES_64BIT_BLOCK_SIZE), XSECURE_AES_64BIT_BLOCK_SIZE);
+			Status = Xil_SMemCpy((AesWrapKey + (AesBlkRoundNum * 8U)),
+				XSECURE_AES_64BIT_BLOCK_SIZE, (DecOut + XSECURE_AES_64BIT_BLOCK_SIZE),
+				XSECURE_AES_64BIT_BLOCK_SIZE, XSECURE_AES_64BIT_BLOCK_SIZE);
 			if (Status != XST_SUCCESS) {
 				XSECURE_STATUS_CHK_GLITCH_DETECT(Status);
 				goto END;
@@ -315,9 +322,8 @@ int XSecure_AesKeyUnwrap(XSecure_Aes *InstancePtr, u8 *EphAesKey, XSecure_AesKey
 	}
 
 	/** - Copy key to destination */
-	Status = XPlmi_MemCpy64(OutDataAddr, (u64)(UINTPTR)(AesWrapKey + XSECURE_AES_64BIT_BLOCK_SIZE), XSECURE_AES_64BIT_BLOCK_SIZE *
+	Xil_MemCpyFrom32To64Addr(OutDataAddr, (u32)(UINTPTR)(AesWrapKey + XSECURE_AES_64BIT_BLOCK_SIZE), XSECURE_AES_64BIT_BLOCK_SIZE *
 								MaxRounds);
-
 END:
 	if (InstancePtr != NULL) {
 		XSecure_WriteReg(InstancePtr->BaseAddress,
