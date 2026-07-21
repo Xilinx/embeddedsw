@@ -23,6 +23,7 @@
 *       am   02/17/2023 Fixed HIS_COMF violations
 * 2.3   ng   11/22/2023 Fixed doxygen grouping
 * 2.6   obs  08/26/2025 Added support for Verifying Address Range
+* 2.7   hae  04/28/2026 Fixed aliasing issue
 *
 * </pre>
 *
@@ -50,7 +51,6 @@
 /************************** Function Prototypes *****************************/
 static int XPuf_PufRegistration(u32 SubsystemId, u32 AddrLow, u32 AddrHigh);
 static int XPuf_PufRegeneration(u32 SubsystemId, u32 AddrLow, u32 AddrHigh);
-static INLINE int XPuf_MemCopy(u64 SourceAddr, u64 DestAddr, u32 Len);
 
 /*************************** Function Definitions *****************************/
 
@@ -132,11 +132,8 @@ static int XPuf_PufRegistration(u32 SubsystemId, u32 AddrLow, u32 AddrHigh) {
 	/**
 	 * - Copy user configured puf structure to local PufDataAddr structure.
 	 */
-	Status = XPuf_MemCopy(Addr, (u64)(UINTPTR)&PufDataAddr,
+	Xil_MemCpyFrom64To32Addr((UINTPTR)&PufDataAddr, Addr,
 			sizeof(PufDataAddr));
-	if  (Status != XST_SUCCESS) {
-		goto END;
-	}
 
 	/**
 	 * - Validate internal address fields in the copied structure.
@@ -165,21 +162,15 @@ static int XPuf_PufRegistration(u32 SubsystemId, u32 AddrLow, u32 AddrHigh) {
 	/**
 	 * - Copy syndrome data from PufData structure to PufDataAddr structure.
 	 */
-	Status = XPuf_MemCopy((u64)(UINTPTR)&PufData.SyndromeData,
-		PufDataAddr.SyndromeDataAddr,
+	Xil_MemCpyFrom32To64Addr(PufDataAddr.SyndromeDataAddr,
+		(UINTPTR)&PufData.SyndromeData,
 		XPUF_MAX_SYNDROME_DATA_LEN_IN_BYTES);
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
 
 	/**
 	 * - Copy Puf Id from PufData structure to PufDataAddr structure.
 	 */
-	Status = XPuf_MemCopy((u64)(UINTPTR)&PufData.PufID,
-		PufDataAddr.PufIDAddr, XPUF_ID_LEN_IN_BYTES);
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
+	Xil_MemCpyFrom32To64Addr(PufDataAddr.PufIDAddr,
+		(UINTPTR)&PufData.PufID, XPUF_ID_LEN_IN_BYTES);
 
 	/**
 	 * - Read Chash and Aux.
@@ -195,8 +186,8 @@ static int XPuf_PufRegistration(u32 SubsystemId, u32 AddrLow, u32 AddrHigh) {
 	/**
 	 * - Copy eFuse syndrome data from PufData structure to PufDataAddr structure.
 	 */
-	Status = XPuf_MemCopy((u64)(UINTPTR)&PufData.EfuseSynData,
-		PufDataAddr.EfuseSynDataAddr,
+	Xil_MemCpyFrom32To64Addr(PufDataAddr.EfuseSynDataAddr,
+		(UINTPTR)&PufData.EfuseSynData,
 		XPUF_EFUSE_TRIM_SYN_DATA_IN_BYTES);
 
 END:
@@ -229,10 +220,7 @@ static int XPuf_PufRegeneration(u32 SubsystemId, u32 AddrLow, u32 AddrHigh) {
 	/**
 	 * - Copy user configured puf structure to local PufDataAddr structure.
 	 */
-	Status = XPuf_MemCopy(Addr, (u64)(UINTPTR)&PufDataAddr, sizeof(PufDataAddr));
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
+	Xil_MemCpyFrom64To32Addr((UINTPTR)&PufDataAddr, Addr, sizeof(PufDataAddr));
 
 	/**
 	 * - Validate internal address fields in the copied structure
@@ -263,11 +251,8 @@ static int XPuf_PufRegeneration(u32 SubsystemId, u32 AddrLow, u32 AddrHigh) {
 	 */
 	if (PufData.ReadOption == XPUF_READ_FROM_RAM) {
 		if ((PufDataAddr.SyndromeAddr >> 32) != 0U) {
-			Status = XPuf_MemCopy((u64)PufDataAddr.SyndromeAddr,
-				(u64)XPUF_SYNDROME_ADDRESS, XPUF_MAX_SYNDROME_DATA_LEN_IN_BYTES);
-			if (Status != XST_SUCCESS) {
-				goto END;
-			}
+			Xil_MemCpyFrom64To32Addr((UINTPTR)XPUF_SYNDROME_ADDRESS,
+				PufDataAddr.SyndromeAddr, XPUF_MAX_SYNDROME_DATA_LEN_IN_BYTES);
 			PufData.SyndromeAddr = XPUF_SYNDROME_ADDRESS;
 		}
 		else{
@@ -286,35 +271,10 @@ static int XPuf_PufRegeneration(u32 SubsystemId, u32 AddrLow, u32 AddrHigh) {
 	/**
 	 * - Copy Puf Id from PufData structure to PufDataAddr structure.
 	 */
-	Status = XPuf_MemCopy((u64)(UINTPTR)&PufData.PufID,
-		PufDataAddr.PufIDAddr, XPUF_ID_LEN_IN_BYTES);
+	Xil_MemCpyFrom32To64Addr(PufDataAddr.PufIDAddr,
+		(UINTPTR)&PufData.PufID, XPUF_ID_LEN_IN_BYTES);
 
 END:
-	return Status;
-}
-
-/*****************************************************************************/
-/**
- * @brief	This function copies word aligned or non word aligned data
- * 		from source address to destination address.
- *
- * @param 	SourceAddr 	From where the buffer data is read
- *
- * @param 	DestAddr 	To which the buffer data is copied
- *
- * @param 	Len 		Length of data to be copied in bytes
- *
- * @return
- * 		- XST_SUCCESS if the copy is successful
- * 		- XST_FAILURE if there is a failure
- *
- *****************************************************************************/
-static INLINE int XPuf_MemCopy(u64 SourceAddr, u64 DestAddr, u32 Len)
-{
-	int Status = XST_FAILURE;
-
-	Status = XPlmi_MemCpy64(DestAddr, SourceAddr, Len);
-
 	return Status;
 }
 #endif

@@ -17,6 +17,7 @@
 * Ver   Who  Date        Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.00  sd  04/13/2026 Initial release
+* 2.7   hae 04/28/2026 Fixed aliasing issue
 *
 * </pre>
 *
@@ -43,7 +44,6 @@
 /************************** Function Prototypes *****************************/
 static int XPuf_PufRegistration(u32 SubsystemId, u32 AddrLow, u32 AddrHigh);
 static int XPuf_PufRegeneration(u32 SubsystemId, u32 AddrLow, u32 AddrHigh);
-static INLINE int XPuf_MemCopy(u64 SourceAddr, u64 DestAddr, u32 Len);
 
 /*************************** Function Definitions *****************************/
 
@@ -123,11 +123,8 @@ static int XPuf_PufRegistration(u32 SubsystemId, u32 AddrLow, u32 AddrHigh) {
 	/**
 	 * Copy user configured puf structure to local PufDataAddr structure.
 	 */
-	Status = XPuf_MemCopy(Addr, (u64)(UINTPTR)&PufDataAddr,
+	Xil_MemCpyFrom64To32Addr((UINTPTR)&PufDataAddr, Addr,
 			sizeof(PufDataAddr));
-	if  (Status != XST_SUCCESS) {
-		goto END;
-	}
 
 	/**
 	 * Validate internal address fields in the copied structure
@@ -156,21 +153,15 @@ static int XPuf_PufRegistration(u32 SubsystemId, u32 AddrLow, u32 AddrHigh) {
 	 * Copy syndrome data from PufData structure to PufDataAddr structure.
 	 * For VERSAL_2VP_P, syndrome length is XPUF_SYN_LEN_IN_BYTES.
 	 */
-	Status = XPuf_MemCopy((u64)(UINTPTR)&PufData.SyndromeData,
-		PufDataAddr.SyndromeDataAddr,
+	Xil_MemCpyFrom32To64Addr(PufDataAddr.SyndromeDataAddr,
+		(UINTPTR)&PufData.SyndromeData,
 		XPUF_SYN_LEN_IN_BYTES);
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
 
 	/**
 	 * Copy Puf Id from PufData structure to PufDataAddr structure.
 	 */
-	Status = XPuf_MemCopy((u64)(UINTPTR)&PufData.PufID,
-		PufDataAddr.PufIDAddr, XPUF_ID_LEN_IN_BYTES);
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
+	Xil_MemCpyFrom32To64Addr(PufDataAddr.PufIDAddr,
+		(UINTPTR)&PufData.PufID, XPUF_ID_LEN_IN_BYTES);
 
 	/**
 	 * Write CHash.
@@ -207,10 +198,7 @@ static int XPuf_PufRegeneration(u32 SubsystemId, u32 AddrLow, u32 AddrHigh) {
 	/**
 	 * Copy user configured puf structure to local PufDataAddr structure.
 	 */
-	Status = XPuf_MemCopy(Addr, (u64)(UINTPTR)&PufDataAddr, sizeof(PufDataAddr));
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
+	Xil_MemCpyFrom64To32Addr((UINTPTR)&PufDataAddr, Addr, sizeof(PufDataAddr));
 
 	/**
 	 * Validate internal address fields in the copied structure
@@ -238,12 +226,9 @@ static int XPuf_PufRegeneration(u32 SubsystemId, u32 AddrLow, u32 AddrHigh) {
 	 */
 	if (PufData.ReadOption == XPUF_READ_FROM_RAM) {
 		if ((PufDataAddr.SyndromeAddr >> 32) != 0U) {
-			Status = XPuf_MemCopy((u64)PufDataAddr.SyndromeAddr,
-				(u64)XPUF_SYNDROME_ADDRESS,
+			Xil_MemCpyFrom64To32Addr((UINTPTR)XPUF_SYNDROME_ADDRESS,
+				PufDataAddr.SyndromeAddr,
 				XPUF_SYN_LEN_IN_BYTES);
-			if (Status != XST_SUCCESS) {
-				goto END;
-			}
 			PufData.SyndromeAddr = XPUF_SYNDROME_ADDRESS;
 		}
 		else{
@@ -262,35 +247,10 @@ static int XPuf_PufRegeneration(u32 SubsystemId, u32 AddrLow, u32 AddrHigh) {
 	/**
 	 * Copy Puf Id from PufData structure to PufDataAddr structure.
 	 */
-	Status = XPuf_MemCopy((u64)(UINTPTR)&PufData.PufID,
-		PufDataAddr.PufIDAddr, XPUF_ID_LEN_IN_BYTES);
+	Xil_MemCpyFrom32To64Addr(PufDataAddr.PufIDAddr,
+		(UINTPTR)&PufData.PufID, XPUF_ID_LEN_IN_BYTES);
 
 END:
-	return Status;
-}
-
-/*****************************************************************************/
-/**
- * @brief	This function copies word aligned or non word aligned data
- * 		from source address to destination address.
- *
- * @param 	SourceAddr 	From where the buffer data is read
- *
- * @param 	DestAddr 	To which the buffer data is copied
- *
- * @param 	Len 		Length of data to be copied in bytes
- *
- * @return
- * 		- XST_SUCCESS - If the copy is successful
- * 		- XST_FAILURE - If there is a failure
- *
- *****************************************************************************/
-static INLINE int XPuf_MemCopy(u64 SourceAddr, u64 DestAddr, u32 Len)
-{
-	int Status = XST_FAILURE;
-
-	Status = XPlmi_MemCpy64(DestAddr, SourceAddr, Len);
-
 	return Status;
 }
 #endif
