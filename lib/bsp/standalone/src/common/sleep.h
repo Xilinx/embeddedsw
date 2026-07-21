@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2014 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -33,6 +33,7 @@
 *		      ULONG to fix misra_c_2012_rule_4_6 violation.
 * 9.0   ml   03/03/23 Add description to fix doxygen warnings.
 * 9.1   mus  10/24/23 Add support for RISC-V.
+* 9.2   bl   07/21/26 Add missing prototype for msleep API.
 * </pre>
 *
 ******************************************************************************/
@@ -91,6 +92,7 @@ extern "C" {
 
 /************************** Function Prototypes ******************************/
 void usleep(ULONG useconds);
+void msleep(unsigned long mseconds);
 void sleep(u32 seconds);
 void usleep_R5(ULONG useconds);
 void sleep_R5(u32 seconds);
