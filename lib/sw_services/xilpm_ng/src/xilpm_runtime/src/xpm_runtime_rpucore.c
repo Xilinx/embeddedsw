@@ -18,11 +18,11 @@
  */
 static XStatus SetBootAddr(const struct XPm_RpuCore *RpuCore, const u32 BootAddr)
 {
+	PmOut32(RpuCore->RpuBaseAddr + XPM_CORE_VECTABLE_OFFSET, BootAddr);
 	if (0U == BootAddr) {
 		PmRmw32(RpuCore->RpuBaseAddr + XPM_CORE_CFG0_OFFSET, XPM_RPU_TCMBOOT_MASK,
 			XPM_RPU_TCMBOOT_MASK);
 	} else {
-		PmOut32(RpuCore->RpuBaseAddr + XPM_CORE_VECTABLE_OFFSET, BootAddr);
 		PmRmw32(RpuCore->RpuBaseAddr + XPM_CORE_CFG0_OFFSET, XPM_RPU_TCMBOOT_MASK, 0U);
 	}
 
