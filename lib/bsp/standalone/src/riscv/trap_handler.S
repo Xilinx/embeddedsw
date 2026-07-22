@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2023 - 2025 Advanced Micro Devices, Inc. All rights reserved.
+* Copyright (c) 2023 - 2026 Advanced Micro Devices, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 /******************************************************************************
@@ -612,6 +612,7 @@ transfer_size_table:
 #else
 	.byte 2						/* 11: C.FLW, C.FSW, C.FLWSP, C.FSWPSP */
 #endif
+	.align DATAALIGN
 load_op_table:
 	INTPTR_DATAITEM load_00				/* OP0 compressed instruction */
 	INTPTR_DATAITEM load_01			 	/* OP1 compressed instruction */
