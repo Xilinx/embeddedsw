@@ -777,4 +777,56 @@ s32 XAsu_KmImportKeyVault(XAsu_ClientParams *ClientParamPtr,
 END:
 	return Status;
 }
+
+/*************************************************************************************************/
+/**
+ * @brief	This function sends a command to ASUFW to set the epoch time.
+ *
+ * @param	ClientParamPtr	Pointer to the XAsu_ClientParams structure which holds the
+ *				client input parameters.
+ * @param	CurrentEpochTime	Current epoch time.
+ *
+ * @return
+ *		- XST_SUCCESS, if IPI request to ASU is sent successfully.
+ *		- XST_FAILURE, if sending an IPI request to ASU fails.
+ *		- XASU_INVALID_ARGUMENT, if any argument is invalid.
+ *		- XASU_INVALID_UNIQUE_ID, if unique ID generation fails.
+ *
+ *************************************************************************************************/
+s32 XAsu_KmSetEpochTime(XAsu_ClientParams *ClientParamPtr, u32 CurrentEpochTime)
+{
+	s32 Status = XST_FAILURE;
+	u32 Header;
+	u8 UniqueId;
+
+	/** Validations of inputs. */
+	Status = XAsu_ValidateClientParameters(ClientParamPtr);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	if (CurrentEpochTime == 0U) {
+		Status = XASU_INVALID_ARGUMENT;
+		goto END;
+	}
+
+	/** Generate a unique ID and register the callback function. */
+	UniqueId = XAsu_RegCallBackNGetUniqueId(ClientParamPtr, NULL, 0U, XASU_TRUE);
+	if (UniqueId >= XASU_UNIQUE_ID_MAX) {
+		Status = XASU_INVALID_UNIQUE_ID;
+		goto END;
+	}
+
+	/** Create command header. */
+	Header = XAsu_CreateHeader(XASU_KM_SET_EPOCH_TIME_CMD_ID, UniqueId,
+				XASU_MODULE_KEYMANAGER_ID, (u8)(sizeof(CurrentEpochTime) / XASU_WORD_LEN_IN_BYTES),
+				ClientParamPtr->SecureFlag);
+
+	/** Update request buffer and send an IPI request to ASU. */
+	Status = XAsu_SendCmdToAsu(ClientParamPtr, &CurrentEpochTime,
+					(u32)(sizeof(CurrentEpochTime)), Header);
+
+END:
+	return Status;
+}
 /** @} */

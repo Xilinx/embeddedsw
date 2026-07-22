@@ -161,7 +161,7 @@ static s32 XKeyManager_GenerateAndWriteAesKey(XAsufw_Dma *DmaPtr, XAes *AesInsta
 static XKeyManager_VaultRegistry VaultManager; /**< Vault info which contains info for each vault of a
 					subsystem and also total and remaining vault size */
 static u8 IsKeyVaultDirty;	/**< Flag indicating if the key vault is dirty */
-
+static u32 CurrentEpochTime = 0U;	/**< Current epoch time */
 /**< Lookup table for key object sizes based on key type */
 static const u32 XKeyManager_KeyObjectSizeLookup[XKEYMANAGER_MAX_SUB_VAULTS] = {
 	[XASU_AES_SUBVAULT_ID] = sizeof(XKeyManager_AesKeyObject),
@@ -2481,7 +2481,8 @@ static s32 XKeyManager_UpdateVaultInfo(u32 SubSystemId, u8 *VaultIdPtr)
  * @return
  * 	- XASUFW_SUCCESS, if key is valid and accessible for the requested use case.
  * 	- XASUFW_KEYMANAGER_ACCESS_DENIED, if subsystem lacks access rights.
- * 	- XASUFW_KEYMANAGER_KEY_EXPIRED, if key usage count is exhausted.
+ * 	- XASUFW_KEYMANAGER_KEY_EXPIRED, if key usage count is exhausted or the current epoch time has
+ * 		reached or passed the key's epoch time.
  * 	- XASUFW_KEYMANAGER_KEY_USE_CASE_ERROR, if key use case is not allowed.
  *
  *************************************************************************************************/
@@ -2529,9 +2530,17 @@ static s32 XKeyManager_CheckKeyValidity(u32 SubSystemId, u8 *SubVaultPtr, u8 Key
 		goto END;
 	}
 
-	/*TODO: Update checking with epoch time.*/
-	/** Decrement usage count if applicable. */
+	/** If the key is being used, enforce epoch-time expiry and usage-count expiry. */
 	if (IsKeyUsed != FALSE) {
+		/** Check if the key is expired based on the epoch time. */
+		if (MetaDataPtr->EpochTime != 0U) {
+			if (MetaDataPtr->EpochTime <= CurrentEpochTime) {
+				Status = XASUFW_KEYMANAGER_KEY_EXPIRED;
+				goto END;
+			}
+		}
+
+		/** Decrement usage count if applicable. */
 		if (MetaDataPtr->UsageCount != XASU_KM_USAGE_COUNT_NON_DEPLETING_VALUE) {
 			if (MetaDataPtr->UsageCount == 0U) {
 				Status = XASUFW_KEYMANAGER_KEY_EXPIRED;
@@ -3412,5 +3421,41 @@ END:
 	return Status;
 }
 
+/*************************************************************************************************/
+/**
+ * @brief	This function sets the current epoch time. An attempt to set the epoch time to
+ *		a value less than the current epoch time will be rejected.
+ *
+ * @param	NewEpochTime	New epoch time.
+ *
+ * @return
+ *	- XASUFW_SUCCESS, if epoch time is set successfully.
+ *	- XASUFW_KEYMANAGER_INVALID_PARAM, if invalid parameter is provided.
+ *
+ * @note	This API is provided only for testing purposes. ASUFW does not provide actual epoch
+ *		time functionality; the epoch time is supplied by the client and stored as-is.
+ *
+ *************************************************************************************************/
+s32 XKeyManager_SetEpochTime(u32 NewEpochTime)
+{
+	s32 Status = XASUFW_FAILURE;
+
+	/**
+	 * Validate that the new epoch time is strictly greater than the current epoch time.
+	 * This also rejects a new epoch time of zero (since the current epoch time starts at zero
+	 * and only ever increases).
+	 */
+	if (NewEpochTime <= CurrentEpochTime) {
+		Status = XASUFW_KEYMANAGER_INVALID_PARAM;
+		goto END;
+	}
+
+	/** Set the current epoch time. */
+	CurrentEpochTime = NewEpochTime;
+	Status = XASUFW_SUCCESS;
+
+END:
+	return Status;
+}
 #endif  /* XASU_KEYMANAGER_ENABLE */
 /** @} */

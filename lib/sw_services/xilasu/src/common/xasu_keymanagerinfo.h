@@ -56,7 +56,8 @@ extern "C" {
 #define XASU_KM_STORE_KEY_CMD_ID		(8U) /**< Command ID for storing key in vault */
 #define XASU_KM_EXPORT_KEYVAULT_CMD_ID		(9U) /**< Command ID for exporting key vault */
 #define XASU_KM_IMPORT_KEYVAULT_CMD_ID		(10U) /**< Command ID for importing key vault */
-#define XASU_KM_MAX_CMDS			(11U) /**< Maximum number of commands
+#define XASU_KM_SET_EPOCH_TIME_CMD_ID		(11U) /**< Command ID for setting epoch time */
+#define XASU_KM_MAX_CMDS			(12U) /**< Maximum number of commands
 							supported by KeyManager module */
 
 #define XASU_KM_OUTPUT_ID_SIZE_IN_BYTES		(4U) /**< Key vault output id size */

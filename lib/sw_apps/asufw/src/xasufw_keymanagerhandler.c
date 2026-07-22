@@ -64,6 +64,7 @@ static s32 XAsufw_CreateAsuKeyVault(void);
 static s32 XAsufw_KeyManagerStoreKey(const XAsu_ReqBuf *ReqBuf, u32 ReqId);
 static s32 XAsufw_KeyManagerExportVault(const XAsu_ReqBuf *ReqBuf, u32 ReqId);
 static s32 XAsufw_KeyManagerImportVault(const XAsu_ReqBuf *ReqBuf, u32 ReqId);
+static s32 XAsufw_KeyManagerSetEpochTime(const XAsu_ReqBuf *ReqBuf, u32 ReqId);
 
 /************************************ Variable Definitions ***************************************/
 static XAsufw_Module XAsufw_KeyManagerModule; /**< ASUFW KeyManager Module ID and commands array */
@@ -95,6 +96,7 @@ s32 XAsufw_KeyManagerInit(void)
 		[XASU_KM_STORE_KEY_CMD_ID] = XASUFW_MODULE_COMMAND(XAsufw_KeyManagerStoreKey),
 		[XASU_KM_EXPORT_KEYVAULT_CMD_ID] = XASUFW_MODULE_COMMAND(XAsufw_KeyManagerExportVault),
 		[XASU_KM_IMPORT_KEYVAULT_CMD_ID] = XASUFW_MODULE_COMMAND(XAsufw_KeyManagerImportVault),
+		[XASU_KM_SET_EPOCH_TIME_CMD_ID] = XASUFW_MODULE_COMMAND(XAsufw_KeyManagerSetEpochTime),
 	};
 
 	/** The XAsufw_KeyManagerResourcesBuf contains the required resources for each supported command. */
@@ -121,6 +123,7 @@ s32 XAsufw_KeyManagerInit(void)
 		XASUFW_TRNG_RANDOM_BYTES_MASK | XASUFW_KDF_RESOURCE_MASK |XASUFW_AES_RESOURCE_MASK,
 		[XASU_KM_IMPORT_KEYVAULT_CMD_ID] = XASUFW_KEYMANAGER_RESOURCE_MASK |
 		XASUFW_DMA_RESOURCE_MASK | XASUFW_KDF_RESOURCE_MASK |XASUFW_AES_RESOURCE_MASK,
+		[XASU_KM_SET_EPOCH_TIME_CMD_ID] = 0,
 	};
 
 	/** The XAsufw_KeyManagerAccessPermBuf contains the IPI access permissions for each supported command. */
@@ -136,6 +139,7 @@ s32 XAsufw_KeyManagerInit(void)
 		[XASU_KM_STORE_KEY_CMD_ID] = XASUFW_ALL_IPI_FULL_ACCESS(XASU_KM_STORE_KEY_CMD_ID),
 		[XASU_KM_EXPORT_KEYVAULT_CMD_ID] = XASUFW_ALL_IPI_FULL_ACCESS(XASU_KM_EXPORT_KEYVAULT_CMD_ID),
 		[XASU_KM_IMPORT_KEYVAULT_CMD_ID] = XASUFW_ALL_IPI_FULL_ACCESS(XASU_KM_IMPORT_KEYVAULT_CMD_ID),
+		[XASU_KM_SET_EPOCH_TIME_CMD_ID] = XASUFW_ALL_IPI_FULL_ACCESS(XASU_KM_SET_EPOCH_TIME_CMD_ID),
 	};
 
 	XAsufw_KeyManagerModule.Id = XASU_MODULE_KEYMANAGER_ID;
@@ -192,6 +196,12 @@ static s32 XAsufw_KeyManagerResourceHandler(const XAsu_ReqBuf *ReqBuf, u32 ReqId
 {
 	s32 Status = XASUFW_FAILURE;
 	u32 CmdId = ReqBuf->Header & XASU_COMMAND_ID_MASK;
+
+	/** The set epoch time command does not require any resources, so skip resource allocation. */
+	if (CmdId == XASU_KM_SET_EPOCH_TIME_CMD_ID) {
+		Status = XASUFW_SUCCESS;
+		goto END;
+	}
 
 	if ((CmdId == XASU_KM_STORE_KEY_CMD_ID) || (CmdId == XASU_KM_EXPORT_KEYVAULT_CMD_ID) ||
 	    (CmdId == XASU_KM_IMPORT_KEYVAULT_CMD_ID)) {
@@ -745,6 +755,36 @@ DONE:
 u32 XKeyManager_IsAsuVaultCreated(void)
 {
 	return AsuVaultCreatedFlag;
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	This function is a handler for setting the epoch time operation command.
+ *
+ * @param	ReqBuf	Pointer to the request buffer.
+ * @param	ReqId	Request Unique ID.
+ *
+ * @return
+ *	- XASUFW_SUCCESS, if epoch time setting operation is successful.
+ *	- XASUFW_KEYMANAGER_INVALID_PARAM, if invalid parameter is provided.
+ *
+ *************************************************************************************************/
+static s32 XAsufw_KeyManagerSetEpochTime(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
+{
+	s32 Status = XASUFW_FAILURE;
+	u32 CurrentEpochTime = *((u32 *)ReqBuf->Arg);
+
+	/** This command does not use the request ID as no resources are allocated or released. */
+	(void)ReqId;
+
+	/** Verify command length. */
+	XASUFW_VERIFY_CMD_LEN(END, Status, ReqBuf, CurrentEpochTime);
+
+	/** Set the epoch time. */
+	Status = XKeyManager_SetEpochTime(CurrentEpochTime);
+
+END:
+	return Status;
 }
 #endif  /* XASU_KEYMANAGER_ENABLE */
 /** @} */
