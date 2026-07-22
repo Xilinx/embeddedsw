@@ -93,6 +93,8 @@ static const u8 ExpHash[ASU_SHA2_HASH_LEN_IN_BYTES] = {
 };
 
 static u8 Notify = 0; /**< To notify the call back from client library */
+static volatile u32 ErrorStatus = XST_FAILURE; /**< Status variable to store the error returned
+						from server. */
 
 /*************************************************************************************************/
 /**
@@ -188,6 +190,7 @@ static s32 Asu_Sha2Example(void)
 		goto END;
 	}
 	while(!Notify);
+	Status = (s32)ErrorStatus;
 
 END:
 	return Status;
@@ -239,7 +242,9 @@ static void Asu_Sha2PrintHash(const u8 *Hash)
 		Asu_Sha2PrintHash(ExpHash);
 		XilAsu_Printf("SHA Example Failed at Hash Comparison \r\n");
 	}
+
 END:
+	ErrorStatus = Status;
 	/* Update the variable to notify the callback */
 	Notify = 1U;
 
