@@ -271,19 +271,11 @@ static const XLms_OtsParam XLms_OtsParamLookup[XLMS_OTS_TYPE_MAX_SUPPORTED] = {
  * @brief	This function extracts the digits from the array for bytes
  *
  * @note
- *		S (represented in bits) = 0x1234
- *	[0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 1, 1, 0, 1, 0, 0]
- *				 ^
- *				  |
- *			coef(S, 7, 1)
- *
- *	[1,			2,			3,			4]
- *				 ^
- *				 |
- * 			coef(S, 0, 4)
- *
- * If i is larger than the number of w-bit values in S, then coef(S, i, w) is undefined,
- * this can't be checked here
+ * For S = 0x1234 (bits: [0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 1, 1, 0, 1, 0, 0]):
+ *   - coef(S, 7, 1) extracts the 1-bit digit at index 7: bit value = 1
+ *   - coef(S, 0, 4) extracts 4-bit digits: [1, 2, 3, 4] in order
+ * If i exceeds the number of w-bit values in S, coef(S, i, w) is undefined.
+ * This condition cannot be checked here; the caller must ensure valid parameters.
  *
  * @param	Arr	Byte array from where the digit needs to be picked
  * @param	ArrayIndex	When array is divided into array of digits,

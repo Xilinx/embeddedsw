@@ -54,8 +54,7 @@ extern "C" {
  * If modified here, update corresponding XPLMI_UPDATE_STATE_* defines in
  * lib/sw_services/xilplmi/src/versal_2ve_2vm/xplmi_asu_update.h
  */
-#define XASUFW_UPDATE_STATE_INIT		(0x0U)	/**< Update state: Init. */
-#define XASUFW_UPDATE_STATE_SHUTDOWN_START	(0x1U)	/**< Update state: Shutdown start. */
+#define XASUFW_UPDATE_STATE_INIT		(0x0U)	/**< Update state: Init - update process started. */
 #define XASUFW_UPDATE_STATE_SHUTDOWN_DONE	(0x2U)	/**< Update state: Shutdown done. */
 #define XASUFW_UPDATE_STATE_LOAD_ELF_DONE	(0x3U)	/**< Update state: Load ELF done. */
 #define XASUFW_UPDATE_STATE_FINISHED		(0x4U)	/**< Update state: Finished. */

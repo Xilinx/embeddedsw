@@ -111,13 +111,6 @@ extern "C" {
 						/**< Length of D internal field */
 #define	XLMS_D_FIELD_SIZE			(2U)	/**< Length of D field */
 
-/** Used for internal nodes processing */
-#define XLMS_PUB_KEY_TMP_BUFFER_INTR_TOTAL_SIZE	(XLMS_I_FIELD_SIZE + \
-							XLMS_MERKLE_TREE_NODE_NUMBER_SIZE + \
-							XLMS_D_INTR_FIELD_SIZE + \
-							XLMS_M_BYTE_FIELD_SIZE + \
-							XLMS_M_BYTE_FIELD_SIZE)
-
 /* Offsets */
 
 /* LMS public key related offsets */
@@ -208,36 +201,33 @@ typedef struct {
  *
  * Size = 4 + 4 + 16 + H Len (32) = 56 Bytes
  */
-typedef union {
-	u8 Buff[XLMS_PUB_KEY_TOTAL_SIZE]; /**< Raw buffer for LMS public key. */
-	struct {
-		/**
-		 * @brief LmsType XLms_Type
-		 * Size - 4 bytes, 0 to 3 in public key
-		 */
-		XLms_Type LmsType;
-		/**
-		 * @brief OtsType XLms_OtsType
-		 * Size - 4 bytes, 4 to 7 bytes in public key
-		 */
-		XLms_OtsType OtsType;
-		/**
-		 * @brief PubKeyTreeId - Merkle Tree's unique identifier (uniformly random 16-byte string)
-		 * Size - 16 bytes, 8 to 23 bytes in public key
-		 */
-		u8 PubKeyTreeId[XLMS_I_FIELD_SIZE];
-		/**
-		 * @brief T[1] - H(I||u32str(r)||u16str(D_INTR)||T[2*r]||T[2*r+1])
-		 *
-		 * 'H' is a hash function, supports only SHA2-256 and SHAKE-256
-		 * both are of 32Byte output len
-		 *
-		 * 'r' is the node number, same as 'q', goes from 0 on left most
-		 * leaf to right most (2^h -1), in a single tree
-		 * D_INTR is a constant XLMS_D_INTR
-		 */
-		u8 T[XLMS_PUB_KEY_T_FIELD_SIZE];
-	}__attribute__((__packed__)) Fields;	/**< Fields of the public key structure */
+typedef struct __attribute__((__packed__)) {
+	/**
+	 * @brief LmsType XLms_Type
+	 * Size - 4 bytes, 0 to 3 in public key
+	 */
+	XLms_Type LmsType;
+	/**
+	 * @brief OtsType XLms_OtsType
+	 * Size - 4 bytes, 4 to 7 bytes in public key
+	 */
+	XLms_OtsType OtsType;
+	/**
+	 * @brief PubKeyTreeId - Merkle Tree's unique identifier (uniformly random 16-byte string)
+	 * Size - 16 bytes, 8 to 23 bytes in public key
+	 */
+	u8 PubKeyTreeId[XLMS_I_FIELD_SIZE];
+	/**
+	 * @brief T[1] - H(I||u32str(r)||u16str(D_INTR)||T[2*r]||T[2*r+1])
+	 *
+	 * 'H' is a hash function, supports only SHA2-256 and SHAKE-256
+	 * both are of 32Byte output len
+	 *
+	 * 'r' is the node number, same as 'q', goes from 0 on left most
+	 * leaf to right most (2^h -1), in a single tree
+	 * D_INTR is a constant XLMS_D_INTR
+	 */
+	u8 T[XLMS_PUB_KEY_T_FIELD_SIZE];
 } XLms_PublicKey;
 
 /**
@@ -246,31 +236,28 @@ typedef union {
  *
  * Size = 16(I) + 4(node_number/2) + 2(D_INTR) + (32 * 2)
  */
-typedef union {
-	u8 Buff[XLMS_PUB_KEY_TMP_BUFFER_INTR_TOTAL_SIZE]; /**< Raw buffer for intermediate public key data. */
-	struct {
-		/**
-		 * MerkleTreeId - Merkle Tree's unique identifier (uniformly random 16-byte string)
-		 * Size - 16 bytes, 0 to 15 bytes
-		 */
-		u8 MerkleTreeId[XLMS_I_FIELD_SIZE];
-		/**
-		 * (node number/2), used to get unique hash o/p for same data for every node
-		 * Size - 4 bytes, 16 to 20 bytes
-		 */
-		u32 half_node_number;
-		/**
-		 * D - XLMS_D_INTR or XLMS_D_PLEAF
-		 * Size - 2 bytes, 21st & 22nd byte
-		 */
-		u8 D[XLMS_D_FIELD_SIZE];
-		/**
-		 * Tmp - Used to store previous hash output and adjacent
-		 * node value in right order to send to SHA engine
-		 * Size - 32 * 2 = 64 bytes, 23 to 85 bytes
-		 */
-		u8 Tmp[XLMS_M_BYTE_FIELD_SIZE + XLMS_M_BYTE_FIELD_SIZE];
-	}__attribute__((__packed__)) Fields;	/**< Fields of chain temporary buffer structure */
+typedef struct __attribute__((__packed__)) {
+	/**
+	 * MerkleTreeId - Merkle Tree's unique identifier (uniformly random 16-byte string)
+	 * Size - 16 bytes, 0 to 15 bytes
+	 */
+	u8 MerkleTreeId[XLMS_I_FIELD_SIZE];
+	/**
+	 * (node number/2), used to get unique hash o/p for same data for every node
+	 * Size - 4 bytes, 16 to 20 bytes
+	 */
+	u32 half_node_number;
+	/**
+	 * D - XLMS_D_INTR or XLMS_D_PLEAF
+	 * Size - 2 bytes, 21st & 22nd byte
+	 */
+	u8 D[XLMS_D_FIELD_SIZE];
+	/**
+	 * Tmp - Used to store previous hash output and adjacent
+	 * node value in right order to send to SHA engine
+	 * Size - 32 * 2 = 64 bytes, 23 to 85 bytes
+	 */
+	u8 Tmp[XLMS_M_BYTE_FIELD_SIZE + XLMS_M_BYTE_FIELD_SIZE];
 } XLms_PubKeyTmp;
 
 /*************************** Macros (Inline Functions) Definitions *******************************/

@@ -101,15 +101,6 @@ extern "C" {
 /** Max OTS signature length (for W1 variant: 4 + 32 * 266 = 8516) */
 #define XLMS_OTS_MAX_SIGN_LEN		(8516U)
 
-/** Digest of data to be authenticated concatenated with checksum value */
-#define XLMS_DIGEST_CHECKSUM_SIZE		(XLMS_DIGEST_SIZE + \
-						XLMS_CHECKSUM_FIELD_SIZE)
-
-/** Prefix fields length, before sending actual data to sha engine for digest */
-#define XLMS_MESSAGE_TO_DIGEST_PREFIX_SIZE	(XLMS_I_FIELD_SIZE + \
-							XLMS_Q_FIELD_SIZE + \
-							XLMS_D_MESG_FIELD_SIZE + \
-							XLMS_C_FIELD_SIZE)
 
 /** OTS public key sizes */
 #define XLMS_OTS_PUB_KEY_FIXED_FIELD_SIZE		(XLMS_OTS_TYPE_SIZE + \
@@ -132,16 +123,6 @@ extern "C" {
 						/**< Size of individual hash chain placed
 						in sequence in signature */
 
-/** Total size of buffer */
-/* 1 reserved byte added at start of buffer, to manage word
- * aligned sha finish copies to buffer
- */
-#define	XLMS_OTS_SIGN_VERIF_TMP_BUFF_TOTAL_SIZE		(XLMS_I_FIELD_SIZE + \
-							XLMS_Q_FIELD_SIZE + \
-							XLMS_OTS_SIGN_VERIF_TMP_BUFF_i_SIZE + \
-							XLMS_OTS_SIGN_VERIF_TMP_BUFF_j_SIZE + \
-							XLMS_OTS_SIGN_VERIF_TMP_BUFF_Y_SIZE)
-
 
 /* Sizes related to fields in tmp buffer used for collecting
  * concatenated result of hash chain for each
@@ -150,12 +131,6 @@ extern "C" {
 /** Max possible size as supported, XLMS_OTS_W1 has the largest 'p' */
 #define XLMS_OTS_SIGN_VERIF_CHAIN_TMP_BUFF_z_SIZE		((u32)XLMS_OTS_W1_P *\
 								 XLMS_N_FIELD_SIZE)
-
-/** Total MAX Size of buffer used in OTS verification */
-#define XLMS_OTS_SIGN_VERIF_CHAIN_TMP_BUFF_TOTAL_SIZE	(XLMS_I_FIELD_SIZE + \
-							XLMS_Q_FIELD_SIZE + \
-							XLMS_D_PBLC_FIELD_SIZE + \
-							XLMS_OTS_SIGN_VERIF_CHAIN_TMP_BUFF_z_SIZE)
 
 /* ************************ offsets ***************************************** */
 
@@ -166,62 +141,6 @@ extern "C" {
 /** Offset of 'C' field in OTS Signature buffer */
 #define XLMS_OTS_SIGN_C_FIELD_OFFSET			(XLMS_OTS_SIGN_TYPE_FIELD_OFFSET + \
 							XLMS_OTS_TYPE_SIZE)
-
-/* Offsets of fields in tmp buffer used for storing intermediate
- * values during hash chains for each
- *'n' bytes from LMS OTS signature verification
- */
-
-/** Offset of 'I' field in temporary buffer, where inner loops
- * result are stored, for reprocessing during OTS operations
- */
-#define XLMS_OTS_SIGN_VERIF_TMP_BUFF_I_OFFSET		(1U)
-							/** Offset of 'q' field in temporary buffer,
-							 * where inner loops result are stored,
-							 * for reprocessing during OTS operations
-							 */
-#define XLMS_OTS_SIGN_VERIF_TMP_BUFF_Q_OFFSET		(XLMS_OTS_SIGN_VERIF_TMP_BUFF_I_OFFSET + \
-								XLMS_I_FIELD_SIZE)
-							/** Offset of 'i' field in temporary buffer,
-							 * where inner loops result are stored,
-							 * for reprocessing during OTS operations */
-#define XLMS_OTS_SIGN_VERIF_TMP_BUFF_I_CALC_OFFSET	(XLMS_OTS_SIGN_VERIF_TMP_BUFF_Q_OFFSET + \
-								XLMS_Q_FIELD_SIZE)
-							/** Offset of 'j' field in temporary buffer,
-							 * where inner loops result are stored,
-							 * for reprocessing during OTS operations */
-#define XLMS_OTS_SIGN_VERIF_TMP_BUFF_j_OFFSET		(XLMS_OTS_SIGN_VERIF_TMP_BUFF_I_CALC_OFFSET + \
-								XLMS_OTS_SIGN_VERIF_TMP_BUFF_i_SIZE)
-							/** Offset of 'Y' field in temporary buffer,
-							 * where inner loops result are stored,
-							 * for reprocessing during OTS operations */
-#define XLMS_OTS_SIGN_VERIF_TMP_BUFF_Y_OFFSET		(XLMS_OTS_SIGN_VERIF_TMP_BUFF_j_OFFSET + \
-							XLMS_OTS_SIGN_VERIF_TMP_BUFF_j_SIZE)
-
-
-/* Offsets of fields in tmp buffer used for collecting concatenated result of hash chain for each
-   digit processed in signature during verification */
-
-/** Offset of 'I' field in temporary buffer, where inner loops
- * result is concatenated during OTS operations
- */
-#define XLMS_OTS_SIGN_VERIF_CHAIN_TMP_BUFF_I_OFFSET	(0U)
-
-/** Offset of 'q' field in temporary buffer, where inner loops
- * result is concatenated during OTS operations
- */
-#define XLMS_OTS_SIGN_VERIF_CHAIN_TMP_BUFF_Q_OFFSET	(XLMS_OTS_SIGN_VERIF_CHAIN_TMP_BUFF_I_OFFSET + \
-								XLMS_I_FIELD_SIZE)
-/** Offset of D_PBLC field in temporary buffer, where inner loops
- * result is concatenated during OTS operations
- */
-#define XLMS_OTS_SIGN_VERIF_CHAIN_TMP_BUFF_D_PBLC_OFFSET	(XLMS_OTS_SIGN_VERIF_CHAIN_TMP_BUFF_Q_OFFSET + \
-								XLMS_Q_FIELD_SIZE)
-/** Offset of 'z' field in temporary buffer, where inner loops
- * result is concatenated during OTS operations
- */
-#define XLMS_OTS_SIGN_VERIF_CHAIN_TMP_BUFF_Z_OFFSET	(XLMS_OTS_SIGN_VERIF_CHAIN_TMP_BUFF_D_PBLC_OFFSET + \
-								XLMS_D_PBLC_FIELD_SIZE)
 
 /************************************** Type Definitions *****************************************/
 /**
@@ -350,33 +269,30 @@ typedef struct {
  *
  * Size = 4 + 16 + 4 + H Len (32) = 56 Bytes
  */
-typedef union {
-	u8 Buff[XLMS_OTS_PUB_KEY_TOTAL_SIZE]; /**< Raw buffer for OTS public key. */
-	struct {
-		/**
-		 * @brief Type XLms_OtsType
-		 * Size - 4 bytes, 0 to 3 bytes in public key
-		 */
-		XLms_OtsType Type;
-		/**
-		 * @brief OtsTreeId - Merkle Tree's unique identifier (uniformly random 16-byte string)
-		 * Size - 16 bytes, 4 to 19 bytes in public key
-		 */
-		u8 OtsTreeId[XLMS_I_FIELD_SIZE];
-		/**
-		 * @brief q - The leaf number q, goes from 0 on left most leaf to right most (2^h -1), in a single tree
-		 * Size - 4 bytes, 20 to 23 bytes in public key
-		 */
-		u32 q;
-		/**
-		 * @brief K - H(I || u32str(q) || u16str(D_PBLC) || y[0] || ... || y[p-1])
-		 * H is a hash function, supports only SHA2-256 and SHAKE-256 both are of 32Byte output len
-		 * I & q remain same as described above
-		 * D_PBLC is a constant XLMS_D_PBLC
-		 * y[0] to y[p-1] is calculated from private key
-		 */
-		u8 K[XLMS_OTS_PUB_KEY_K_FIELD_SIZE];
-	}__attribute__((__packed__)) Fields;	/**< Fields of LMS OTS public key structure */
+typedef struct __attribute__((__packed__)) {
+	/**
+	 * @brief Type XLms_OtsType
+	 * Size - 4 bytes, 0 to 3 bytes in public key
+	 */
+	XLms_OtsType Type;
+	/**
+	 * @brief OtsTreeId - Merkle Tree's unique identifier (uniformly random 16-byte string)
+	 * Size - 16 bytes, 4 to 19 bytes in public key
+	 */
+	u8 OtsTreeId[XLMS_I_FIELD_SIZE];
+	/**
+	 * @brief q - The leaf number q, goes from 0 on left most leaf to right most (2^h -1), in a single tree
+	 * Size - 4 bytes, 20 to 23 bytes in public key
+	 */
+	u32 q;
+	/**
+	 * @brief K - H(I || u32str(q) || u16str(D_PBLC) || y[0] || ... || y[p-1])
+	 * H is a hash function, supports only SHA2-256 and SHAKE-256 both are of 32Byte output len
+	 * I & q remain same as described above
+	 * D_PBLC is a constant XLMS_D_PBLC
+	 * y[0] to y[p-1] is calculated from private key
+	 */
+	u8 K[XLMS_OTS_PUB_KEY_K_FIELD_SIZE];
 } XLms_OtsPublicKey;
 
 /* ********************************************************************************************** */
@@ -390,40 +306,38 @@ typedef union {
  *
  * Size = 1 + 16 + 4 + 2 + 1 + H Len (32) = 56 Bytes
  */
-typedef union {
-	u8 Buff[1U + XLMS_OTS_SIGN_VERIF_TMP_BUFF_TOTAL_SIZE]; /**< Raw buffer for OTS signature verification. */
-	struct {
-		/**
-		 * 1 reserved byte added at start of buffer, to manage word aligned sha finish copies to buffer
-		 */
-		u8 Reserved;
-		/**
-		 * TreeId - Merkle Tree's unique identifier (uniformly random 16-byte string)
-		 * Size - 16 bytes, 1 to 16 bytes
-		 */
-		u8 TreeId[XLMS_I_FIELD_SIZE];
-		/**
-		 * LeafIndex - The leaf number q, goes from 0 on left most leaf to right most (2^h -1), in a single tree
-		 * Size - 4 bytes, 17 to 20 bytes
-		 */
-		u32 LeafIndex;
-		/**
-		 * DigitPosition - Digit position in (Digest || Checksum), 0 to (p-1) digits.
-		 * Size - 2 Bytes, 21 to 22 bytes
-		 */
-		u16 DigitPosition;
-		/**
-		 * j - Index for inner loop during signature verification, starts at digit value in (Digest || Checksum) ends at (2^w - 1).
-		 * Size - 1 Byte, 23nd byte
-		 */
-		u8 j;
-		/**
-		 * y[] - 'n' bytes picked from LMS OTS signatures. y[0] to y[p-1], each 'n' sized bytes will be
-		 * copied here and passed into HASH engine along with other fields.
-		 * Size - 32 Bytes, 24 to 55 bytes
-		 */
-		u8 y[XLMS_OTS_SIGN_VERIF_TMP_BUFF_Y_SIZE];
-	}__attribute__((__packed__)) Fields;	/**< Fields of LMS OTS hash per digit structure */
+typedef struct __attribute__((__packed__)) {
+	/**
+	 * 1 reserved byte added at start of buffer, to manage word aligned sha finish copies to buffer
+	 */
+	u8 Reserved;
+	/**
+	 * TreeId - Merkle Tree's unique identifier (uniformly random 16-byte string)
+	 * Size - 16 bytes, 1 to 16 bytes
+	 */
+	u8 TreeId[XLMS_I_FIELD_SIZE];
+	/**
+	 * LeafIndex - The leaf number q, goes from 0 on left most leaf to right most (2^h -1), in a single tree
+	 * Size - 4 bytes, 17 to 20 bytes
+	 */
+	u32 LeafIndex;
+	/**
+	 * DigitPosition - Digit position in (Digest || Checksum), 0 to (p-1) digits.
+	 * Size - 2 Bytes, 21 to 22 bytes
+	 */
+	u16 DigitPosition;
+	/**
+	 * j - Index for inner loop during signature verification, starts at digit value in (Digest || Checksum)
+	 * ends at (2^w - 1).
+	 * Size - 1 Byte, 23rd byte
+	 */
+	u8 j;
+	/**
+	 * y[] - 'n' bytes picked from LMS OTS signatures. y[0] to y[p-1], each 'n' sized bytes will be
+	 * copied here and passed into HASH engine along with other fields.
+	 * Size - 32 Bytes, 24 to 55 bytes
+	 */
+	u8 y[XLMS_OTS_SIGN_VERIF_TMP_BUFF_Y_SIZE];
 } XLms_OtsHashPerDigit;
 
 /**
@@ -433,30 +347,27 @@ typedef union {
  *
  * Size = 16(I) + 4(q) + 2(D_PBLC) + (p * H Len (32))
  */
-typedef union {
-	u8 Buff[XLMS_OTS_SIGN_VERIF_CHAIN_TMP_BUFF_TOTAL_SIZE]; /**< Raw buffer for OTS sign-to-public-key hash. */
-	struct {
-		/**
-		 * ChainTreeId - Merkle Tree's unique identifier (uniformly random 16-byte string)
-		 * Size - 16 bytes, 0 to 15 bytes
-		 */
-		u8 ChainTreeId[XLMS_I_FIELD_SIZE];
-		/**
-		 * q - The leaf number q, goes from 0 on left most leaf to right most (2^h -1), in a single tree
-		 * Size - 4 bytes, 16 to 19 bytes
-		 */
-		u32 q;
-		/**
-		 * D_PBLC - XLMS_D_PBLC
-		 * Size - 2 Bytes, 20 to 21 bytes
-		 */
-		u8 D_PBLC[2U];
-		/**
-		 * z - Each z is a XLMS_N_FIELD_SIZE byte length, and ranges from 0 to p-1
-		 * Size - (32 Bytes * p)
-		 */
-		u8 z[XLMS_OTS_SIGN_VERIF_CHAIN_TMP_BUFF_z_SIZE];
-	}__attribute__((__packed__)) Fields;	/**< Fields of LMS OTS Sign to Public Key Hash */
+typedef struct __attribute__((__packed__)) {
+	/**
+	 * ChainTreeId - Merkle Tree's unique identifier (uniformly random 16-byte string)
+	 * Size - 16 bytes, 0 to 15 bytes
+	 */
+	u8 ChainTreeId[XLMS_I_FIELD_SIZE];
+	/**
+	 * q - The leaf number q, goes from 0 on left most leaf to right most (2^h -1), in a single tree
+	 * Size - 4 bytes, 16 to 19 bytes
+	 */
+	u32 q;
+	/**
+	 * D_PBLC - XLMS_D_PBLC
+	 * Size - 2 Bytes, 20 to 21 bytes
+	 */
+	u8 D_PBLC[XLMS_D_PBLC_FIELD_SIZE];
+	/**
+	 * z - Each z is a XLMS_N_FIELD_SIZE byte length, and ranges from 0 to p-1
+	 * Size - (32 Bytes * p)
+	 */
+	u8 z[XLMS_OTS_SIGN_VERIF_CHAIN_TMP_BUFF_z_SIZE];
 } XLms_OtsSignToPubKeyHash;
 
 /**
@@ -489,30 +400,27 @@ typedef struct {
  *
  * Size = I (16) + q (4) + D_MESG (2) + C (32) = 54 Bytes
  */
-typedef union {
-	u8 Buff[XLMS_MESSAGE_TO_DIGEST_PREFIX_SIZE]; /**< Raw buffer for digest prefix fields. */
-	struct {
-		/**
-		 * DigestTreeId - Merkle Tree's unique identifier (uniformly random 16-byte string)
-		 * Size - 16 bytes, 0 to 15 bytes
-		 */
-		u8 DigestTreeId[XLMS_I_FIELD_SIZE];
-		/**
-		 * q - The leaf number q, goes from 0 on left most leaf to right most (2^h -1), in a single tree
-		 * Size - 4 bytes, 16 to 19 bytes
-		 */
-		u32 q;
-		/**
-		 * D_MESG - XLMS_D_MESG
-		 * Size - 2 Bytes, 20 to 21 bytes
-		 */
-		u8 D_MESG[XLMS_D_MESG_FIELD_SIZE];
-		/**
-		 * C - Randomizer per data
-		 * Size - 32 Byte, 22 to 53 bytes
-		 */
-		u8 C[XLMS_C_FIELD_SIZE];
-	}__attribute__((__packed__)) Fields;	/**< Fields of LMS data digest fixed */
+typedef struct __attribute__((__packed__)) {
+	/**
+	 * DigestTreeId - Merkle Tree's unique identifier (uniformly random 16-byte string)
+	 * Size - 16 bytes, 0 to 15 bytes
+	 */
+	u8 DigestTreeId[XLMS_I_FIELD_SIZE];
+	/**
+	 * q - The leaf number q, goes from 0 on left most leaf to right most (2^h -1), in a single tree
+	 * Size - 4 bytes, 16 to 19 bytes
+	 */
+	u32 q;
+	/**
+	 * D_MESG - XLMS_D_MESG
+	 * Size - 2 Bytes, 20 to 21 bytes
+	 */
+	u8 D_MESG[XLMS_D_MESG_FIELD_SIZE];
+	/**
+	 * C - Randomizer per data
+	 * Size - 32 Byte, 22 to 53 bytes
+	 */
+	u8 C[XLMS_C_FIELD_SIZE];
 } XLms_DataDigestFixedFields;
 
 /**
@@ -520,20 +428,17 @@ typedef union {
  *
  * Size = Digest (32) + Check sum (2) = 34 Bytes
  */
-typedef union {
-	u8 Buff[XLMS_DIGEST_CHECKSUM_SIZE]; /**< Raw buffer for digest and checksum. */
-	struct {
-		/**
-		 * Digest - Digest of data to be authenticated
-		 * Size - 32 bytes, 0 to 31 bytes
-		 */
-		u8 Digest[XLMS_DIGEST_SIZE];
-		/**
-		 * Checksum - Checksum on Digest
-		 * Size - 2 bytes, 32nd & 33rd byte
-		 */
-		u8 Checksum[XLMS_CHECKSUM_FIELD_SIZE];
-	}__attribute__((__packed__)) Fields;	/**< Fields of the digest structure */
+typedef struct __attribute__((__packed__)) {
+	/**
+	 * Digest - Digest of data to be authenticated
+	 * Size - 32 bytes, 0 to 31 bytes
+	 */
+	u8 Digest[XLMS_DIGEST_SIZE];
+	/**
+	 * Checksum - Checksum on Digest
+	 * Size - 2 bytes, 32nd & 33rd byte
+	 */
+	u8 Checksum[XLMS_CHECKSUM_FIELD_SIZE];
 } XLms_DataDigest;
 
 /*************************** Macros (Inline Functions) Definitions *******************************/

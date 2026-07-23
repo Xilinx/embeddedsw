@@ -97,13 +97,20 @@
  *
  * The B0 flag structure:
  *
- * Table 1: Formatting of the Flags Octet in B0
- * | Bit Number |  7  |   6   | 5 | 4 | 3 | 2 | 1 | 0 |
- * |------------|-----|-------|-----------|-----------|
- * | Contents   |  0  | Adata |  (t-2)/2  |    q-1    |
+ * B0 Flags Octet Format:
  *
+ * | Bit Number | 7        | 6     | 5-3     | 2-0    |
+ * |------------|----------|-------|---------|--------|
+ * | Contents   | 0        | Adata | (t-2)/2 | q-1    |
  *
- * @param	AadLen		Length of the Additional Authenticated Data(AAD)
+ * where:
+ *   - t = authentication tag length in octets (even, range [4, 16])
+ *   - q = 15 - nonce_length (message length field size, range [2, 8])
+ *
+ * Note: For AES-CCM compliance with NIST SP 800-38C §C.2.1, nonce_length must be
+ * in the range [7, 13] bytes.
+ *
+ * @param	AadLen		Length of the Additional Authenticated Data (AAD)
  * @param	TagLen		Length of the authentication tag
  * @param	NonceLen	Length of the nonce
  *
@@ -561,7 +568,7 @@ s32 XAes_WriteKey(XAes *InstancePtr, XAsufw_Dma *DmaPtr, XAsu_AesKeyObject *KeyO
 	XAes_LoadKey(InstancePtr, KeyObjectPtr->KeySrc, KeyObjectPtr->KeySize);
 
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-	/** Verify the key source and size by reading them back from the AES key vault registers. */
+	/** Validate key source and size against AES key vault register read-back for FI resistance. */
 	Status = XAes_ValidateKeyConfig(InstancePtr, KeyObjectPtr->KeySrc, KeyObjectPtr->KeySize);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XASUFW_AES_KEY_CONFIG_READBACK_ERROR;
@@ -713,7 +720,11 @@ s32 XAes_Init(XAes *InstancePtr, XAsufw_Dma *DmaPtr, u64 IvAddr, u32 IvLen,
 
 END:
 	if (Status != XASUFW_SUCCESS) {
-		/** Set AES under reset and clear the expanded key upon any failure. */
+		/**
+		 * Side Effects / Error Handling:
+		 *   - Set AES under reset upon any failure.
+		 *   - Clear the expanded keys (XASU_AES_EXPANDED_KEYS) upon any failure.
+		 */
 		Status = XAsufw_UpdateErrorStatus(Status, XAes_ResetAndClearKey(InstancePtr, XASU_AES_EXPANDED_KEYS));
 	}
 
@@ -793,7 +804,7 @@ s32 XAes_Update(XAes *InstancePtr, XAsufw_Dma *DmaPtr, u64 InDataAddr, u64 OutDa
 	}
 
 	/**
-	 * For the ECB, CBC, and CFB modes, the plaintext must be a sequence of one or more
+	 * For the ECB and CBC modes, the plaintext must be a sequence of one or more
 	 * complete data blocks.
 	 */
 	if ((XASU_AES_MODE_REQUIRES_ALIGNMENT(InstancePtr->EngineMode)) &&
@@ -864,7 +875,11 @@ END:
 	 * XASUFW_CMD_IN_PROGRESS.
 	 */
 	if ((Status != XASUFW_SUCCESS) && (Status != XASUFW_CMD_IN_PROGRESS)) {
-		/** Set AES under reset and clear the expanded key upon any failure. */
+		/**
+		 * Side Effects / Error Handling:
+		 *   - Set AES under reset upon any failure.
+		 *   - Clear the expanded keys (XASU_AES_EXPANDED_KEYS) upon any failure.
+		 */
 		Status = XAsufw_UpdateErrorStatus(Status, XAes_ResetAndClearKey(InstancePtr, XASU_AES_EXPANDED_KEYS));
 	}
 
@@ -1184,12 +1199,12 @@ RET:
  *
  * @param	InstancePtr	Pointer to the XAes instance.
  * @param	DmaPtr		Pointer to the AsuDma instance.
- * @param	DecKeySel	Select the source for the key to be decrypted
- * 		 - EFUSE_Key_0 - 0xEF856601
- * 		 - EFUSE_Key_1 - 0xEF856602
- * @param	DecKeySize	Size of the key to be decrypted.
- * 		 - 0x0 - 128 bit key
- * 		 - 0x2 - 256 bit key
+ * @param	DecKeySel	Select the source for the key to be decrypted:
+ *				- EFUSE_Key_0 - 0xEF856601
+ *				- EFUSE_Key_1 - 0xEF856602
+ * @param	DecKeySize	Size of the key to be decrypted:
+ *				- 0x0 - 128 bit key
+ *				- 0x2 - 256 bit key
  * @param	IvAddr		Address of the buffer holding IV.
  * @param	IvLen		Length of the IV in bytes.
  *
@@ -1622,7 +1637,7 @@ s32 XAes_SaveContext(XAes *InstancePtr)
 		CtxPtr->IsContextSaved = XASU_TRUE;
 		Status = XASUFW_SUCCESS;
 	} else {
-		/** - Mismatch detected – assignment was skipped or corrupted. */
+		/** - Mismatch detected - assignment was skipped or corrupted. */
 		Status = XASUFW_AES_ERR_CTX_SAVED_GLITCH;
 	}
 
@@ -1694,7 +1709,7 @@ s32 XAes_RestoreContext(XAes *InstancePtr)
 	XAsufw_WriteReg(InstancePtr->AesBaseAddress + XAES_MODE_CONFIG_OFFSET,
 		CtxPtr->ModeConfig);
 
-	/** Verify the key source and size by reading them back from the AES key vault registers. */
+	/** Validate key source and size against AES key vault register read-back for FI resistance. */
 	Status = XAes_ValidateKeyConfig(InstancePtr, CtxPtr->KeyObject.KeySrc,
 		CtxPtr->KeyObject.KeySize);
 	if (Status != XASUFW_SUCCESS) {
@@ -1750,7 +1765,10 @@ END:
 	}
 
 	if ((Status != XASUFW_SUCCESS) && (InstancePtr != NULL)) {
-		/** Set AES under reset and clear the expanded key upon any failure. */
+		/**
+		 * Side Effects / Error Handling:
+		 *   - Set AES under reset upon any failure.
+		 */
 		Status = XAsufw_UpdateErrorStatus(Status, XAes_ResetAndClearKey(InstancePtr, XASU_AES_EXPANDED_KEYS));
 	}
 
@@ -2545,14 +2563,13 @@ u8 XAes_GetEngineMode(const XAes *InstancePtr)
 
 /*************************************************************************************************/
 /**
- * @brief	This function retrieves the current internal AES state and validates it.
+ * @brief	This function checks whether the AES instance is in a valid data update state.
  *
  * @param	InstancePtr	Pointer to the XAes instance.
  *
  * @return
- *		- XASU_TRUE, if the Aes state is update in progress or completed state.
- * 		- XASU_FALSE, if the AES state is not in update state.
- *		- XASUFW_AES_INVALID_INTERNAL_STATE, upon NULL instance pointer.
+ *		- XASU_TRUE, if the AES state is XAES_DATA_UPDATE_IN_PROGRESS or XAES_UPDATE_COMPLETED.
+ *		- XASU_FALSE, if the AES state is neither of the above, or if InstancePtr is NULL.
  *
  *************************************************************************************************/
 u8 XAes_GetAndValidateInternalState(const XAes *InstancePtr)

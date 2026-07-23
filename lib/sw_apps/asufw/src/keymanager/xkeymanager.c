@@ -3200,7 +3200,7 @@ s32 XKeyManager_ImportKeyVault(XAsufw_Dma *DmaPtr, XAes *AesInstancePtr, u64 Imp
 		 * Validate revoke ID to detect importing older vault versions that should have been
 		 * revoked. The revoke ID in the vault header is incremented whenever key vault is
 		 * exported after updation. User is expected to revoke earlier version of key vault by
-		 * programmatically burning efuse revoke bits before importing newer version of
+		 * programmatically burning OFFCHIP_REVOKE eFuse bits before importing newer version of
 		 * key vault. If the revoke ID in the imported vault is less than the current
 		 * revoke ID, it indicates that this vault version has been revoked and should not
 		 * be imported.

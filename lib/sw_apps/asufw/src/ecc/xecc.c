@@ -754,7 +754,7 @@ END:
  * 				double of CurveLen as it contains both Qx, Qy components.
  *
  * @return
- *	-	XASUFW_SUCCESS, if signature provided is valid.
+ *	-	XASUFW_SUCCESS, if PWCT passes for the key pair.
  *	-	XASUFW_RSA_ECC_INVALID_PARAM, if any of the input parameter is invalid.
  *	-	XASUFW_RSA_ECC_PWCT_SIGN_GEN_FAIL, if sign generation fails.
  *	-	XASUFW_RSA_ECC_PWCT_SIGN_VER_FAIL, if sign verification fails.

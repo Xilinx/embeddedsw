@@ -310,7 +310,7 @@ s32 XLms_SignatureVerification(XSha *ShaInstPtr, XAsufw_Dma *DmaPtr,
 		 * 'I' is included in every hash computation during tree traversal.
 		 */
 		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-		Status = Xil_SMemCpy((void*)LmsPubKeyTmpBuff.Fields.MerkleTreeId, XLMS_I_FIELD_SIZE,
+		Status = Xil_SMemCpy((void*)&LmsPubKeyTmpBuff.MerkleTreeId[0U], XLMS_I_FIELD_SIZE,
 			(void*)&LmsLocalPubKeyBuff[XLMS_PUB_KEY_I_OFFSET], XLMS_I_FIELD_SIZE,
 			XLMS_I_FIELD_SIZE);
 		if (Status != XASUFW_SUCCESS) {
@@ -329,13 +329,13 @@ s32 XLms_SignatureVerification(XSha *ShaInstPtr, XAsufw_Dma *DmaPtr,
 		 * Step 7: Prepare buffer for leaf node hash computation.
 		 * Leaf hash = H(I || node_num || D_LEAF || OTS_PubKey_candidate)
 		 */
-		LmsPubKeyTmpBuff.Fields.half_node_number = Xil_Htonl(CurrentNodeNum);
-		LmsPubKeyTmpBuff.Fields.D[XASUFW_BUFFER_INDEX_ZERO] = XLMS_D_LEAF[XASUFW_BUFFER_INDEX_ZERO];
-		LmsPubKeyTmpBuff.Fields.D[XASUFW_BUFFER_INDEX_ONE] = XLMS_D_LEAF[XASUFW_BUFFER_INDEX_ONE];
+		LmsPubKeyTmpBuff.half_node_number = Xil_Htonl(CurrentNodeNum);
+		LmsPubKeyTmpBuff.D[XASUFW_BUFFER_INDEX_ZERO] = XLMS_D_LEAF[XASUFW_BUFFER_INDEX_ZERO];
+		LmsPubKeyTmpBuff.D[XASUFW_BUFFER_INDEX_ONE] = XLMS_D_LEAF[XASUFW_BUFFER_INDEX_ONE];
 
 		/** Copy computed OTS public key candidate (Kc) to hash input buffer */
 		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-		Status = Xil_SMemCpy((void*)&LmsPubKeyTmpBuff.Fields.Tmp[0U], XLMS_OTS_PUB_KEY_K_FIELD_SIZE,
+		Status = Xil_SMemCpy((void*)&LmsPubKeyTmpBuff.Tmp[0U], XLMS_OTS_PUB_KEY_K_FIELD_SIZE,
 			(void*)&ExpectedPublicKey[0U], Ctx.LmsOtsSignParam->HashOutputBytes,
 			Ctx.LmsOtsSignParam->HashOutputBytes);
 		if (Status != XASUFW_SUCCESS) {
@@ -347,7 +347,7 @@ s32 XLms_SignatureVerification(XSha *ShaInstPtr, XAsufw_Dma *DmaPtr,
 		 * Step 8: Compute leaf node hash.
 		 * Result is stored in LmsTmpBuff and will be combined with auth path siblings.
 		 */
-		ShaParamsInput.DataAddr = (u64)(UINTPTR)&LmsPubKeyTmpBuff.Buff[0U];
+		ShaParamsInput.DataAddr = (u64)(UINTPTR)&LmsPubKeyTmpBuff;
 		ShaParamsInput.HashAddr = (u64)(UINTPTR)LmsTmpBuff;
 		ShaParamsInput.DataSize = (XLMS_I_FIELD_SIZE + XLMS_MERKLE_TREE_NODE_NUMBER_SIZE +
 						XLMS_D_LEAF_FIELD_SIZE + Ctx.LmsOtsSignParam->HashOutputBytes);
@@ -553,14 +553,13 @@ s32 XLms_HssInit(XSha *ShaInstPtr, XAsufw_Dma *DmaPtr,
 		}
 
 		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-		Status = Xil_SecureZeroize((u8 *)(UINTPTR)&AuthenticatedKey.Buff[0U], sizeof(XLms_PublicKey));
+		Status = Xil_SecureZeroize((u8 *)(UINTPTR)&AuthenticatedKey, sizeof(XLms_PublicKey));
 		if (Status != XASUFW_SUCCESS) {
 			Status = XASUFW_ZEROIZE_MEMSET_FAIL;
 			goto END;
 		}
 
 		/* Signature processing - sequence. */
-
 
 		/**
 		 * DMA copy signature to local buffer since 64-bit addresses may not be directly accessible.
@@ -680,7 +679,7 @@ s32 XLms_HssInit(XSha *ShaInstPtr, XAsufw_Dma *DmaPtr,
 			goto END;
 		}
 
-		/** Fetch the type of public key, if not a valid/supported Type return error */
+		/** Fetch the OTS type of public key, if not a valid/supported type return error. */
 		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 		Status = XLms_OtsLookupParamSet(PublicKeyLmsOtsType, &PubKeyLmsOtsParam);
 		if (Status != XASUFW_SUCCESS) {
@@ -764,8 +763,8 @@ s32 XLms_HssInit(XSha *ShaInstPtr, XAsufw_Dma *DmaPtr,
 		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 		/** Copy all bytes of pub[Nspk] (LMS public key) for use in final message verification */
 		for (Index = 0U; Index < CurrentPubKeyActualSize; Index++) {
-			AuthenticatedKey.Buff[Index] = TmpPublicKeyPtr[Index];
-			if (TmpPublicKeyPtr[Index] != AuthenticatedKey.Buff[Index]) {
+			((volatile u8*)(UINTPTR)&AuthenticatedKey)[Index] = TmpPublicKeyPtr[Index];
+			if (TmpPublicKeyPtr[Index] != ((volatile u8*)(UINTPTR)&AuthenticatedKey)[Index]) {
 				Status = XASUFW_LMS_PUB_OP_FAILED_ERROR;
 				goto END;
 			}
@@ -783,23 +782,23 @@ s32 XLms_HssInit(XSha *ShaInstPtr, XAsufw_Dma *DmaPtr,
 		 */
 		CurrentLmsQ = XAsufw_SwapBytes(&TmpSignaturePtr[XLMS_SIGNATURE_Q_FIELD_OFFSET],
 						XLMS_Q_FIELD_SIZE);
-		DigestPrefixFields.Fields.q = Xil_Htonl(CurrentLmsQ);
+		DigestPrefixFields.q = Xil_Htonl(CurrentLmsQ);
 
 		/**
 		 * RFC 8554 Section 4.6 Step 2: Extract 'I' (16-byte tree identifier) from authenticated
 		 * public key for use in message digest computation: Q = H(I || q || D_MESG || C || message).
 		 */
-		Status = Xil_SMemCpy((void*)DigestPrefixFields.Fields.DigestTreeId, XLMS_I_FIELD_SIZE,
-			(const void*)AuthenticatedKey.Fields.PubKeyTreeId, XLMS_I_FIELD_SIZE, XLMS_I_FIELD_SIZE);
+		Status = Xil_SMemCpy((void*)&DigestPrefixFields.DigestTreeId[0U], XLMS_I_FIELD_SIZE,
+			(const void*)&AuthenticatedKey.PubKeyTreeId[0U], XLMS_I_FIELD_SIZE, XLMS_I_FIELD_SIZE);
 		if (Status != XASUFW_SUCCESS) {
 			Status = XASUFW_MEM_COPY_FAIL;
 			goto END;
 		}
 
 		/** Extract LMS type and LMS-OTS type from pub[Nspk] for final signature verification step */
-		PublicKeyLmsType = (XLms_Type)XAsufw_SwapBytes((const u8*)&AuthenticatedKey.Buff[XLMS_PUB_KEY_TYPE_OFFSET],
+		PublicKeyLmsType = (XLms_Type)XAsufw_SwapBytes((const u8*)&AuthenticatedKey.LmsType,
 								XLMS_TYPE_SIZE);
-		PublicKeyLmsOtsType = (XLms_OtsType)XAsufw_SwapBytes((const u8*)&AuthenticatedKey.Buff[XLMS_PUB_KEY_OTS_TYPE_OFFSET],
+		PublicKeyLmsOtsType = (XLms_OtsType)XAsufw_SwapBytes((const u8*)&AuthenticatedKey.OtsType,
 								XLMS_OTS_TYPE_SIZE);
 
 		/** Lookup LMS parameters (tree height h, hash output m) for final verification stage */
@@ -823,7 +822,7 @@ s32 XLms_HssInit(XSha *ShaInstPtr, XAsufw_Dma *DmaPtr,
 		 * C provides randomization for the message digest to prevent chosen-message attacks.
 		 */
 		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-		Status = Xil_SMemCpy((void*)DigestPrefixFields.Fields.C, XLMS_C_FIELD_SIZE,
+		Status = Xil_SMemCpy((void*)&DigestPrefixFields.C[0U], XLMS_C_FIELD_SIZE,
 			(const void*)&TmpSignaturePtr[XLMS_SIGNATURE_OTS_FIELD_OFFSET + XLMS_OTS_SIGN_C_FIELD_OFFSET],
 			PubKeyLmsOtsParam->HashOutputBytes, PubKeyLmsOtsParam->HashOutputBytes);
 		if (Status != XASUFW_SUCCESS) {
@@ -887,8 +886,8 @@ s32 XLms_HashMessage(XSha *ShaInstPtr, XAsufw_Dma *DmaPtr, u64 DataAddr, u32 Dat
 		 * RFC 8554 Section 4.4: Set domain separator D_MESG (0x8181) to distinguish message
 		 * hashing from other hash computations.
 		 */
-		DigestPrefixFields.Fields.D_MESG[XASUFW_BUFFER_INDEX_ZERO] = XLMS_D_MESG[XASUFW_BUFFER_INDEX_ZERO];
-		DigestPrefixFields.Fields.D_MESG[XASUFW_BUFFER_INDEX_ONE] = XLMS_D_MESG[XASUFW_BUFFER_INDEX_ONE];
+		DigestPrefixFields.D_MESG[XASUFW_BUFFER_INDEX_ZERO] = XLMS_D_MESG[XASUFW_BUFFER_INDEX_ZERO];
+		DigestPrefixFields.D_MESG[XASUFW_BUFFER_INDEX_ONE] = XLMS_D_MESG[XASUFW_BUFFER_INDEX_ONE];
 
 		/* Initialize SHA engine for streaming hash computation of: H(I || q || D_MESG || C || message) */
 		Status = XSha_Start(ShaInstPtr, Mode);
@@ -903,7 +902,7 @@ s32 XLms_HashMessage(XSha *ShaInstPtr, XAsufw_Dma *DmaPtr, u64 DataAddr, u32 Dat
 		 */
 		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 		if (0U == DataLen) {
-			Status = XSha_Update(ShaInstPtr, DmaPtr, (u64)(UINTPTR)DigestPrefixFields.Buff,
+			Status = XSha_Update(ShaInstPtr, DmaPtr, (u64)(UINTPTR)&DigestPrefixFields,
 				(XLMS_I_FIELD_SIZE + XLMS_Q_FIELD_SIZE + XLMS_D_MESG_FIELD_SIZE + HashOutputN_g),
 				(u32)XASU_TRUE);
 			if (Status != XASUFW_SUCCESS) {
@@ -916,7 +915,7 @@ s32 XLms_HashMessage(XSha *ShaInstPtr, XAsufw_Dma *DmaPtr, u64 DataAddr, u32 Dat
 			 * RFC 8554 Section 4.6 Step 2: Q = H(I || u32str(q) || u16str(D_MESG) || C || message)
 			 */
 			/* Feed prefix (I[16] || q[4] || D_MESG[2] || C[n]) into hash engine */
-			Status = XSha_Update(ShaInstPtr, DmaPtr, (u64)(UINTPTR)DigestPrefixFields.Buff,
+			Status = XSha_Update(ShaInstPtr, DmaPtr, (u64)(UINTPTR)&DigestPrefixFields,
 				(XLMS_I_FIELD_SIZE + XLMS_Q_FIELD_SIZE + XLMS_D_MESG_FIELD_SIZE + HashOutputN_g),
 				(u32)XASU_FALSE);
 			if (Status != XASUFW_SUCCESS) {
@@ -949,7 +948,7 @@ s32 XLms_HashMessage(XSha *ShaInstPtr, XAsufw_Dma *DmaPtr, u64 DataAddr, u32 Dat
 	if (Status != XASUFW_CMD_IN_PROGRESS) {
 		/* Finalize hash and store 32-byte digest Q in DigestChecksum buffer for OTS processing */
 		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-		Status = XSha_Finish(ShaInstPtr, DmaPtr, (u64)(UINTPTR)DigestChecksum.Buff, XLMS_DIGEST_SIZE,
+		Status = XSha_Finish(ShaInstPtr, DmaPtr, (u64)(UINTPTR)&DigestChecksum.Digest[0U], XLMS_DIGEST_SIZE,
 					XASU_FALSE);
 	}
 
@@ -1027,9 +1026,9 @@ s32 XLms_HssFinish(XSha *ShaInstPtr, XAsufw_Dma *DmaPtr, u64 SignatureAddr, u32 
 		 * This key represents the lowest level tree in the HSS hierarchy.
 		 */
 		PublicKeyLmsType = (XLms_Type)XAsufw_SwapBytes(
-			(const u8*)&AuthenticatedKey.Buff[XLMS_PUB_KEY_TYPE_OFFSET], XLMS_TYPE_SIZE);
+					(const u8*)&AuthenticatedKey.LmsType, XLMS_TYPE_SIZE);
 		PublicKeyLmsOtsType = (XLms_OtsType)XAsufw_SwapBytes(
-			(const u8*)&AuthenticatedKey.Buff[XLMS_PUB_KEY_OTS_TYPE_OFFSET],
+					(const u8*)&AuthenticatedKey.OtsType,
 			XLMS_OTS_TYPE_SIZE);
 
 		/* Lookup LMS parameters for the authenticated key's tree height and hash size */
@@ -1106,12 +1105,12 @@ s32 XLms_HssFinish(XSha *ShaInstPtr, XAsufw_Dma *DmaPtr, u64 SignatureAddr, u32 
 	 */
 	if (Status != XASUFW_CMD_IN_PROGRESS) {
 		if (ResumeState != XLMS_HSS_FINISH_STATE_SIGN_VERIFY) {
-			LmsSignVerifyParams.MsgAddr = (u64)(UINTPTR)DigestChecksum.Buff;
+			LmsSignVerifyParams.MsgAddr = (u64)(UINTPTR)&DigestChecksum.Digest[0U];
 			LmsSignVerifyParams.MsgLen = XLMS_DIGEST_SIZE;
 			LmsSignVerifyParams.PreHashedMsg = XASU_LMS_MSG_PREHASHED;
 			LmsSignVerifyParams.SignatureAddr = (u64)(UINTPTR)LmsLocalSignatureBuff;
 			LmsSignVerifyParams.SignatureLen = SignNpskLen_s;
-			LmsSignVerifyParams.LmsHssKeyObj.PubKeyAddr = (u64)(UINTPTR)AuthenticatedKey.Buff;
+			LmsSignVerifyParams.LmsHssKeyObj.PubKeyAddr = (u64)(UINTPTR)&AuthenticatedKey;
 			LmsSignVerifyParams.LmsHssKeyObj.PubKeyLen = (XLMS_PUB_KEY_FIXED_FIELD_SIZE + HashOutputN_g);
 			LmsSignVerifyParams.ShaType = HssCallerShaType_g;
 			LmsSignVerifyParams.ShaMode = HssCallerShaMode_g;
@@ -1294,6 +1293,7 @@ static s32 XLms_OtsSignatureProcess(XSha *ShaInstPtr, XAsufw_Dma *DmaPtr,
 	const XAsu_LmsHssSignVerifyParams *LmsSignVerifyParams, u8* OtsPubKeyCandidate)
 {
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
+	u8 *DigestChecksumBytes = (u8*)(UINTPTR)&DigestChecksum;
 	u32 Checksum = 0U;
 	u32 DigitVal = 0U;
 	u32 DigitIndex = 0U;
@@ -1365,7 +1365,7 @@ static s32 XLms_OtsSignatureProcess(XSha *ShaInstPtr, XAsufw_Dma *DmaPtr,
 		 */
 		if (XASU_FALSE == LmsSignVerifyParams->PreHashedMsg) {
 			/** Extracting C, Big Endian to Big Endian */
-			Status = Xil_SMemCpy((void*)DigestPrefixFields.Fields.C, XLMS_C_FIELD_SIZE,
+			Status = Xil_SMemCpy((void*)&DigestPrefixFields.C[0U], XLMS_C_FIELD_SIZE,
 				(void*)&LmsOtsSignatureBuff_g[XLMS_OTS_SIGN_C_FIELD_OFFSET],
 				n, n);
 			if (Status != XASUFW_SUCCESS) {
@@ -1391,9 +1391,9 @@ static s32 XLms_OtsSignatureProcess(XSha *ShaInstPtr, XAsufw_Dma *DmaPtr,
 			 * Copy pre-hashed digest from MsgAddr into DigestChecksum buffer.
 			 * Skip DMA if source is already DigestChecksum (internal HSS path).
 			 */
-			if (LmsSignVerifyParams->MsgAddr != (u64)(UINTPTR)DigestChecksum.Buff) {
+			if (LmsSignVerifyParams->MsgAddr != (u64)(UINTPTR)&DigestChecksum.Digest[0U]) {
 				Status = XAsufw_DmaXfr(DmaPtr, LmsSignVerifyParams->MsgAddr,
-						(u64)(UINTPTR)DigestChecksum.Buff, n, 0U);
+						(u64)(UINTPTR)&DigestChecksum.Digest[0U], n, 0U);
 				if (Status != XASUFW_SUCCESS) {
 					Status = XASUFW_DMA_COPY_FAIL;
 					goto END;
@@ -1419,7 +1419,7 @@ static s32 XLms_OtsSignatureProcess(XSha *ShaInstPtr, XAsufw_Dma *DmaPtr,
 		 * This ensures signature elements have enough "headroom" for verification.
 		 */
 		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-		Status = XLms_OtsComputeChecksum(DigestChecksum.Fields.Digest, n,
+		Status = XLms_OtsComputeChecksum(&DigestChecksum.Digest[0U], n,
 				(u32)LmsOtsSignParam_g->w, (u32)LmsOtsSignParam_g->ls, (u32* const)&Checksum);
 		if (Status != XASUFW_SUCCESS) {
 			Status = XAsufw_UpdateErrorStatus(Status, XASUFW_LMS_DIGEST_CHECKSUM_FAILED_ERROR);
@@ -1430,8 +1430,8 @@ static s32 XLms_OtsSignatureProcess(XSha *ShaInstPtr, XAsufw_Dma *DmaPtr,
 		 * Convert 16-bit checksum from (little-endian) to (big-endian) as required by RFC 8554 Section 3.1.
 		 * Checksum is appended after digest Q to form the coef extraction buffer.
 		 */
-		DigestChecksum.Buff[n + 1U] = (u8)(Checksum & XASUFW_TWO_BYTE_MASK);
-		DigestChecksum.Buff[n] = (u8)((Checksum >> XASUFW_ONE_BYTE_SHIFT_VALUE)
+		DigestChecksumBytes[n + 1U] = (u8)(Checksum & XASUFW_TWO_BYTE_MASK);
+		DigestChecksumBytes[n] = (u8)((Checksum >> XASUFW_ONE_BYTE_SHIFT_VALUE)
 									& XASUFW_TWO_BYTE_MASK);
 
 		/**
@@ -1463,15 +1463,15 @@ static s32 XLms_OtsSignatureProcess(XSha *ShaInstPtr, XAsufw_Dma *DmaPtr,
 
 		/* Copy 16-byte tree identifier 'I' */
 		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-		Status = Xil_SMemCpy((void*)&TmpHashPerDigitBuff.Fields.TreeId[0U], XLMS_I_FIELD_SIZE,
-			(void*)DigestPrefixFields.Fields.DigestTreeId, XLMS_I_FIELD_SIZE, XLMS_I_FIELD_SIZE);
+		Status = Xil_SMemCpy((void*)&TmpHashPerDigitBuff.TreeId[0U], XLMS_I_FIELD_SIZE,
+			(void*)&DigestPrefixFields.DigestTreeId[0U], XLMS_I_FIELD_SIZE, XLMS_I_FIELD_SIZE);
 		if (Status != XASUFW_SUCCESS) {
 			Status = XASUFW_MEM_COPY_FAIL;
 			goto END;
 		}
 
 		/* Copy 4-byte leaf index 'q' - convert from LE to BE */
-		TmpHashPerDigitBuff.Fields.LeafIndex = Xil_Htonl(CurrentLmsQ);
+		TmpHashPerDigitBuff.LeafIndex = Xil_Htonl(CurrentLmsQ);
 
 		/**
 		 * Pre-populate final OTS public key hash buffer for RFC 8554 Section 4.6 Step 4b.3:
@@ -1481,8 +1481,8 @@ static s32 XLms_OtsSignatureProcess(XSha *ShaInstPtr, XAsufw_Dma *DmaPtr,
 
 		/* Copy 16-byte tree identifier 'I' to final hash buffer */
 		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-		Status = Xil_SMemCpy((void*)&LmsOtsSignVerifBuff.Buff[XLMS_OTS_SIGN_VERIF_CHAIN_TMP_BUFF_I_OFFSET],
-			XLMS_I_FIELD_SIZE, (void*)DigestPrefixFields.Fields.DigestTreeId, XLMS_I_FIELD_SIZE,
+		Status = Xil_SMemCpy((void*)&LmsOtsSignVerifBuff.ChainTreeId[0U],
+			XLMS_I_FIELD_SIZE, (void*)&DigestPrefixFields.DigestTreeId[0U], XLMS_I_FIELD_SIZE,
 			XLMS_I_FIELD_SIZE);
 		if (Status != XASUFW_SUCCESS) {
 			Status = XASUFW_MEM_COPY_FAIL;
@@ -1490,19 +1490,20 @@ static s32 XLms_OtsSignatureProcess(XSha *ShaInstPtr, XAsufw_Dma *DmaPtr,
 		}
 
 		/* Copy 4-byte leaf index 'q' - convert from LE to BE */
-		LmsOtsSignVerifBuff.Fields.q = Xil_Htonl(CurrentLmsQ);
+		LmsOtsSignVerifBuff.q = Xil_Htonl(CurrentLmsQ);
 
 		/* Set D_PBLC domain separator (0x8080) indicating public key hash computation */
-		LmsOtsSignVerifBuff.Fields.D_PBLC[XASUFW_BUFFER_INDEX_ZERO] = XLMS_D_PBLC[XASUFW_BUFFER_INDEX_ZERO];
-		LmsOtsSignVerifBuff.Fields.D_PBLC[XASUFW_BUFFER_INDEX_ONE] = XLMS_D_PBLC[XASUFW_BUFFER_INDEX_ONE];
+		LmsOtsSignVerifBuff.D_PBLC[XASUFW_BUFFER_INDEX_ZERO] = XLMS_D_PBLC[XASUFW_BUFFER_INDEX_ZERO];
+		LmsOtsSignVerifBuff.D_PBLC[XASUFW_BUFFER_INDEX_ONE] = XLMS_D_PBLC[XASUFW_BUFFER_INDEX_ONE];
 
 		IntToOutLoopBuffIndex = 0U;
 		SignToOtsBuffIndex = (XLMS_OTS_TYPE_SIZE + n);
 
-		ShaParamsInput.DataAddr = (u64)(UINTPTR)&TmpHashPerDigitBuff.Buff[XLMS_OTS_SIGN_VERIF_TMP_BUFF_I_OFFSET];
-		ShaParamsInput.HashAddr = (u64)(UINTPTR)&TmpHashPerDigitBuff.Fields.y[0U];
-		ShaParamsInput.DataSize = ((XLMS_OTS_SIGN_VERIF_TMP_BUFF_Y_OFFSET - XLMS_OTS_SIGN_VERIF_TMP_BUFF_I_OFFSET) + n);
-		ShaParamsInput.HashBufSize = XLMS_OTS_SIGN_VERIF_TMP_BUFF_Y_SIZE;
+		ShaParamsInput.DataAddr = (u64)(UINTPTR)&TmpHashPerDigitBuff.TreeId[0U];
+		ShaParamsInput.HashAddr = (u64)(UINTPTR)&TmpHashPerDigitBuff.y[0U];
+		ShaParamsInput.DataSize = (XLMS_I_FIELD_SIZE + XLMS_Q_FIELD_SIZE + XLMS_OTS_SIGN_VERIF_TMP_BUFF_i_SIZE +
+			XLMS_OTS_SIGN_VERIF_TMP_BUFF_j_SIZE + n);
+		ShaParamsInput.HashBufSize = XLMS_N_FIELD_SIZE;
 		ShaParamsInput.ShaMode = (u8)LmsOtsSignParam_g->HashAlgId;
 
 		/**
@@ -1513,16 +1514,15 @@ static s32 XLms_OtsSignatureProcess(XSha *ShaInstPtr, XAsufw_Dma *DmaPtr,
 		for (DigitIndex = 0U ; DigitIndex < (u16)LmsOtsSignParam_g->p ; DigitIndex++) {
 
 			/* Extract w-bit digit 'a' at position i using coef() function per RFC 8554 Section 3.1.3 */
-			DigitVal = XLms_OtsCoeff(DigestChecksum.Buff, DigitIndex, (u32)LmsOtsSignParam_g->w);
+			DigitVal = XLms_OtsCoeff((u8*)&DigestChecksum, DigitIndex, (u32)LmsOtsSignParam_g->w);
 
 			/* Set digit position 'i' */
-			TmpHashPerDigitBuff.Fields.DigitPosition = (u16)(DigitIndex);
-			TmpHashPerDigitBuff.Fields.DigitPosition = Xil_Htons(TmpHashPerDigitBuff.Fields.DigitPosition);
+			TmpHashPerDigitBuff.DigitPosition = Xil_Htons((u16)DigitIndex);
 
 			/* Copy signature element y[i] (n bytes) as initial chain value; j is set per iteration */
 			ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-			Status = Xil_SMemCpy((void*)&TmpHashPerDigitBuff.Fields.y[0U],
-				XLMS_OTS_SIGN_VERIF_TMP_BUFF_Y_SIZE,
+			Status = Xil_SMemCpy((void*)&TmpHashPerDigitBuff.y[0U],
+				XLMS_N_FIELD_SIZE,
 				(void*)&LmsOtsSignatureBuff_g[SignToOtsBuffIndex],
 				n,
 				n);
@@ -1540,7 +1540,7 @@ static s32 XLms_OtsSignatureProcess(XSha *ShaInstPtr, XAsufw_Dma *DmaPtr,
 			 */
 			for (ChainIter = DigitVal; ChainIter < (LmsOtsSignParam_g->NoOfInvSign); ChainIter++) {
 				/* Copy iteration index 'j' to hash input buffer */
-				TmpHashPerDigitBuff.Fields.j = (u8)(ChainIter);
+				TmpHashPerDigitBuff.j = (u8)(ChainIter);
 
 				/** Compute H(I || u32str(q) || u16str(i) || u8str(j) || tmp) */
 				ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
@@ -1556,9 +1556,9 @@ static s32 XLms_OtsSignatureProcess(XSha *ShaInstPtr, XAsufw_Dma *DmaPtr,
 			 * public key.
 			 */
 			ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-			Status = Xil_SMemCpy((void*)&LmsOtsSignVerifBuff.Fields.z[IntToOutLoopBuffIndex],
-				XLMS_OTS_SIGN_VERIF_TMP_BUFF_Y_SIZE,
-				(void*)&TmpHashPerDigitBuff.Buff[XLMS_OTS_SIGN_VERIF_TMP_BUFF_Y_OFFSET],
+			Status = Xil_SMemCpy((void*)&LmsOtsSignVerifBuff.z[IntToOutLoopBuffIndex],
+				XLMS_N_FIELD_SIZE,
+				(void*)&TmpHashPerDigitBuff.y[0U],
 				n,
 				n);
 			if (Status != XASUFW_SUCCESS) {
@@ -1580,9 +1580,9 @@ static s32 XLms_OtsSignatureProcess(XSha *ShaInstPtr, XAsufw_Dma *DmaPtr,
 	 */
 	if (Status != XASUFW_CMD_IN_PROGRESS) {
 		/* Set up parameters and call XSha_Digest (it has internal state to complete on resume) */
-		ShaParamsInput.DataAddr = (u64)(UINTPTR)LmsOtsSignVerifBuff.Buff;
+		ShaParamsInput.DataAddr = (u64)(UINTPTR)&LmsOtsSignVerifBuff;
 		ShaParamsInput.HashAddr = (u64)(UINTPTR)OtsPubKeyCandidate;
-		ShaParamsInput.DataSize = (XLMS_OTS_SIGN_VERIF_CHAIN_TMP_BUFF_Z_OFFSET + ((u32)LmsOtsSignParam_g->p * n));
+		ShaParamsInput.DataSize = (XLMS_I_FIELD_SIZE + XLMS_Q_FIELD_SIZE + XLMS_D_PBLC_FIELD_SIZE + ((u32)LmsOtsSignParam_g->p * n));
 		ShaParamsInput.HashBufSize = XLMS_N_FIELD_SIZE;
 		ShaParamsInput.ShaMode = (u8)LmsOtsSignParam_g->HashAlgId;
 
@@ -1650,86 +1650,85 @@ static s32 XLms_ValidateInputs(XAsufw_Dma *DmaPtr,
 			goto END;
 		}
 
+	/**
+	 * Skip public key DMA if source is already the local buffer (PreHashedMsg case from HssFinish).
+	 * Otherwise, copy public key provided by user to local buffer since 64-bit address space
+	 * is not accessible to ASU processor.
+	 */
+		if (LmsSignVerifyParams->LmsHssKeyObj.PubKeyAddr != (u64)(UINTPTR)&AuthenticatedKey) {
+		Status = XAsufw_DmaXfr(DmaPtr, LmsSignVerifyParams->LmsHssKeyObj.PubKeyAddr,
+			(u64)(UINTPTR)LmsLocalPubKeyBuff, LmsSignVerifyParams->LmsHssKeyObj.PubKeyLen, 0U);
+		if (Status != XASUFW_SUCCESS) {
+			Status = XASUFW_DMA_COPY_FAIL;
+			goto END;
+		}
+	} else {
 		/**
-		 * Skip public key DMA if source is already the local buffer (PreHashedMsg case from HssFinish).
-		 * Otherwise, copy public key provided by user to local buffer since 64-bit address space
-		 * is not accessible to ASU processor.
+		 * Source is AuthenticatedKey, copy to LmsLocalPubKeyBuff.
+		 * This is a local-to-local copy, use memcpy for efficiency.
 		 */
-		if (LmsSignVerifyParams->LmsHssKeyObj.PubKeyAddr != (u64)(UINTPTR)AuthenticatedKey.Buff) {
-			Status = XAsufw_DmaXfr(DmaPtr, LmsSignVerifyParams->LmsHssKeyObj.PubKeyAddr,
-				(u64)(UINTPTR)LmsLocalPubKeyBuff, LmsSignVerifyParams->LmsHssKeyObj.PubKeyLen, 0U);
+			Status = Xil_SMemCpy((void*)LmsLocalPubKeyBuff, XLMS_PUB_KEY_TOTAL_SIZE,
+					(const void *)(UINTPTR)&AuthenticatedKey,
+				LmsSignVerifyParams->LmsHssKeyObj.PubKeyLen,
+				LmsSignVerifyParams->LmsHssKeyObj.PubKeyLen);
+		if (Status != XASUFW_SUCCESS) {
+			Status = XASUFW_MEM_COPY_FAIL;
+			goto END;
+		}
+	}
+
+	/**
+	 * RFC 8554 Section 5.4: LMS public key format is u32str(type) || u32str(otstype) || I || T[1].
+	 * Extract type (4 bytes) to determine tree parameters.
+	 */
+	CtxPtr->PubKeyLmsType = (XLms_Type)XAsufw_SwapBytes(
+			(const u8*)&LmsLocalPubKeyBuff[XLMS_PUB_KEY_TYPE_OFFSET], XLMS_TYPE_SIZE);
+
+	/** Extract OTS type (4 bytes) which defines Winternitz parameter w and chain configuration */
+	CtxPtr->PubKeyLmsOtsType = (XLms_OtsType)XAsufw_SwapBytes(
+			(const u8*)&LmsLocalPubKeyBuff[XLMS_PUB_KEY_OTS_TYPE_OFFSET], XLMS_OTS_TYPE_SIZE);
+
+	/** Lookup LMS parameters (tree height, hash output size, etc.) based on type */
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	Status = XLms_LookupParamSet(CtxPtr->PubKeyLmsType, &CtxPtr->LmsPubKeyParam);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_LMS_PUB_KEY_UNSUPPORTED_TYPE_1_ERROR;
+		goto END;
+	}
+
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	/** Verify public key length matches: fixed fields + hash output size (m bytes) */
+	if ((XLMS_PUB_KEY_FIXED_FIELD_SIZE + CtxPtr->LmsPubKeyParam->HashOutputBytes) !=
+		LmsSignVerifyParams->LmsHssKeyObj.PubKeyLen) {
+		Status = XASUFW_LMS_SIGN_EXPECTED_PUB_KEY_LEN_2_ERROR;
+		goto END;
+	}
+
+	/**
+	 * Skip signature DMA if source is already the local buffer (PreHashedMsg case from HssFinish).
+	 * Otherwise, DMA copy signature to local buffer.
+	 * For large signatures from external memory (> XASUFW_DMA_BLOCKING_SIZE), use non-blocking DMA.
+	 */
+	if (LmsSignVerifyParams->SignatureAddr != (u64)(UINTPTR)LmsLocalSignatureBuff) {
+		if (LmsSignVerifyParams->SignatureLen > XASUFW_DMA_BLOCKING_SIZE) {
+			Status = XAsufw_StartDmaXfr(DmaPtr, LmsSignVerifyParams->SignatureAddr,
+				(u64)(UINTPTR)LmsLocalSignatureBuff, LmsSignVerifyParams->SignatureLen, 0U);
 			if (Status != XASUFW_SUCCESS) {
 				Status = XASUFW_DMA_COPY_FAIL;
 				goto END;
 			}
+			ValidateInputsDmaState = XLMS_DMA_STATE_PENDING;
+			Status = XASUFW_CMD_IN_PROGRESS;
 		} else {
-			/**
-			 * Source is AuthenticatedKey.Buff, copy to LmsLocalPubKeyBuff.
-			 * This is a local-to-local copy, use memcpy for efficiency.
-			 */
-			Status = Xil_SMemCpy((void*)LmsLocalPubKeyBuff, XLMS_PUB_KEY_TOTAL_SIZE,
-					(const void *)(UINTPTR)&AuthenticatedKey.Buff,
-					LmsSignVerifyParams->LmsHssKeyObj.PubKeyLen,
-					LmsSignVerifyParams->LmsHssKeyObj.PubKeyLen);
+			Status = XAsufw_DmaXfr(DmaPtr, LmsSignVerifyParams->SignatureAddr,
+				(u64)(UINTPTR)LmsLocalSignatureBuff, LmsSignVerifyParams->SignatureLen, 0U);
 			if (Status != XASUFW_SUCCESS) {
-				Status = XASUFW_MEM_COPY_FAIL;
+				Status = XASUFW_DMA_COPY_FAIL;
 				goto END;
 			}
 		}
-
-		/**
-		 * RFC 8554 Section 5.4: LMS public key format is u32str(type) || u32str(otstype) || I || T[1].
-		 * Extract type (4 bytes) to determine tree parameters.
-		 */
-		CtxPtr->PubKeyLmsType = (XLms_Type)XAsufw_SwapBytes(
-				(const u8*)&LmsLocalPubKeyBuff[XLMS_PUB_KEY_TYPE_OFFSET], XLMS_TYPE_SIZE);
-
-		/** Extract OTS type (4 bytes) which defines Winternitz parameter w and chain configuration */
-		CtxPtr->PubKeyLmsOtsType = (XLms_OtsType)XAsufw_SwapBytes(
-				(const u8*)&LmsLocalPubKeyBuff[XLMS_PUB_KEY_OTS_TYPE_OFFSET], XLMS_OTS_TYPE_SIZE);
-
-		/** Lookup LMS parameters (tree height, hash output size, etc.) based on type */
-		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-		Status = XLms_LookupParamSet(CtxPtr->PubKeyLmsType, &CtxPtr->LmsPubKeyParam);
-		if (Status != XASUFW_SUCCESS) {
-			Status = XASUFW_LMS_PUB_KEY_UNSUPPORTED_TYPE_1_ERROR;
-			goto END;
-		}
-
-		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-		/** Verify public key length matches: fixed fields + hash output size (m bytes) */
-		if ((XLMS_PUB_KEY_FIXED_FIELD_SIZE + CtxPtr->LmsPubKeyParam->HashOutputBytes) !=
-			LmsSignVerifyParams->LmsHssKeyObj.PubKeyLen) {
-			Status = XASUFW_LMS_SIGN_EXPECTED_PUB_KEY_LEN_2_ERROR;
-			goto END;
-		}
-
-
-		/**
-		 * Skip signature DMA if source is already the local buffer (PreHashedMsg case from HssFinish).
-		 * Otherwise, DMA copy signature to local buffer.
-		 * For large signatures from external memory (> XASUFW_DMA_BLOCKING_SIZE), use non-blocking DMA.
-		 */
-		if (LmsSignVerifyParams->SignatureAddr != (u64)(UINTPTR)LmsLocalSignatureBuff) {
-			if (LmsSignVerifyParams->SignatureLen > XASUFW_DMA_BLOCKING_SIZE) {
-				Status = XAsufw_StartDmaXfr(DmaPtr, LmsSignVerifyParams->SignatureAddr,
-					(u64)(UINTPTR)LmsLocalSignatureBuff, LmsSignVerifyParams->SignatureLen, 0U);
-				if (Status != XASUFW_SUCCESS) {
-					Status = XASUFW_DMA_COPY_FAIL;
-					goto END;
-				}
-				ValidateInputsDmaState = XLMS_DMA_STATE_PENDING;
-				Status = XASUFW_CMD_IN_PROGRESS;
-			} else {
-				Status = XAsufw_DmaXfr(DmaPtr, LmsSignVerifyParams->SignatureAddr,
-					(u64)(UINTPTR)LmsLocalSignatureBuff, LmsSignVerifyParams->SignatureLen, 0U);
-				if (Status != XASUFW_SUCCESS) {
-					Status = XASUFW_DMA_COPY_FAIL;
-					goto END;
-				}
-			}
-		}
-		/* When SignatureAddr == LmsLocalSignatureBuff, signature is already in place (from HssFinish) */
+	}
+	/* When SignatureAddr == LmsLocalSignatureBuff, signature is already in place (from HssFinish) */
 		break;
 
 	default:
@@ -1748,11 +1747,11 @@ static s32 XLms_ValidateInputs(XAsufw_Dma *DmaPtr,
 			CurrentLmsQ = XAsufw_SwapBytes(
 					&LmsLocalSignatureBuff[XLMS_SIGNATURE_Q_FIELD_OFFSET], XLMS_Q_FIELD_SIZE);
 			/* Convert q back to BE for digest calculation */
-			DigestPrefixFields.Fields.q = Xil_Htonl(CurrentLmsQ);
+			DigestPrefixFields.q = Xil_Htonl(CurrentLmsQ);
 
-			/** Copy I from public key to digest prefix buffer */
+				/** Copy I from public key to digest prefix buffer */
 			ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-			Status = Xil_SMemCpy((void*)DigestPrefixFields.Fields.DigestTreeId, XLMS_I_FIELD_SIZE,
+			Status = Xil_SMemCpy((void*)&DigestPrefixFields.DigestTreeId[0U], XLMS_I_FIELD_SIZE,
 					(void*)&LmsLocalPubKeyBuff[XLMS_PUB_KEY_I_OFFSET], XLMS_I_FIELD_SIZE,
 					XLMS_I_FIELD_SIZE);
 			if (Status != XASUFW_SUCCESS) {
@@ -1769,7 +1768,7 @@ static s32 XLms_ValidateInputs(XAsufw_Dma *DmaPtr,
 				&LmsLocalSignatureBuff[XLMS_SIGNATURE_OTS_FIELD_OFFSET + XLMS_OTS_SIGN_TYPE_FIELD_OFFSET],
 				XLMS_OTS_TYPE_SIZE);
 
-		/** RFC 8554 Section 5.4.2 Step 1: Signature OTS type must match public key's expected OTS type */
+			/** RFC 8554 Section 5.4.2 Step 1: Signature OTS type must match public key's expected OTS type */
 		if (CtxPtr->PubKeyLmsOtsType != SignLmsOtsType) {
 			Status = XASUFW_LMS_OTS_PUB_KEY_LMS_OTS_SIGN_TYPE_MISMATCH_ERROR;
 			goto END;
@@ -1878,10 +1877,10 @@ static s32 XLms_ComputeMerkleRoot(XSha *ShaInstPtr, XAsufw_Dma *DmaPtr,
 	 * RFC 8554 Section 5.4.2 Step 6b: Set domain separator D_INTR (0x8383) to distinguish
 	 * internal node hashing from leaf and public key hashing operations.
 	 */
-	LmsPubKeyTmpBuff.Fields.D[XASUFW_BUFFER_INDEX_ZERO] = XLMS_D_INTR[XASUFW_BUFFER_INDEX_ZERO];
-	LmsPubKeyTmpBuff.Fields.D[XASUFW_BUFFER_INDEX_ONE] = XLMS_D_INTR[XASUFW_BUFFER_INDEX_ONE];
+	LmsPubKeyTmpBuff.D[XASUFW_BUFFER_INDEX_ZERO] = XLMS_D_INTR[XASUFW_BUFFER_INDEX_ZERO];
+	LmsPubKeyTmpBuff.D[XASUFW_BUFFER_INDEX_ONE] = XLMS_D_INTR[XASUFW_BUFFER_INDEX_ONE];
 
-	ShaParamsInput.DataAddr = (u64)(UINTPTR)LmsPubKeyTmpBuff.Buff;
+	ShaParamsInput.DataAddr = (u64)(UINTPTR)&LmsPubKeyTmpBuff;
 	ShaParamsInput.DataSize = (XLMS_I_FIELD_SIZE + XLMS_MERKLE_TREE_NODE_NUMBER_SIZE +
 					XLMS_D_INTR_FIELD_SIZE + (2U * m));
 
@@ -1895,14 +1894,14 @@ static s32 XLms_ComputeMerkleRoot(XSha *ShaInstPtr, XAsufw_Dma *DmaPtr,
 	while (CurrentNodeNum > XLMS_ROOT_NODE_NUM) {
 		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 		/* RFC 8554 Section 5.3.3: Compute parent node as u32str(node_num/2) */
-		LmsPubKeyTmpBuff.Fields.half_node_number = Xil_Htonl((CurrentNodeNum) / XASUFW_EVEN_MODULUS);
+		LmsPubKeyTmpBuff.half_node_number = Xil_Htonl(CurrentNodeNum / XASUFW_EVEN_MODULUS);
 
 		if (XASUFW_IS_ODD(CurrentNodeNum)) {
 			/**
 			 * Odd node: current node is right child (index 2r+1), sibling (path[i]) is left child (index 2r).
 			 * RFC 8554 Section 5.4.2 Step 6b: H(I || u32str(node_num/2) || D_INTR || path[i] || tmp)
 			 */
-			Status = Xil_SMemCpy((void*)LmsPubKeyTmpBuff.Fields.Tmp,
+			Status = Xil_SMemCpy((void*)&LmsPubKeyTmpBuff.Tmp[0U],
 				XLMS_M_BYTE_FIELD_SIZE, (const void*)&Path[PathIndex], m,
 				m);
 			if (Status != XASUFW_SUCCESS) {
@@ -1911,7 +1910,7 @@ static s32 XLms_ComputeMerkleRoot(XSha *ShaInstPtr, XAsufw_Dma *DmaPtr,
 			}
 			ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 			Status = Xil_SMemCpy(
-				(void*)&LmsPubKeyTmpBuff.Fields.Tmp[m],
+				(void*)&LmsPubKeyTmpBuff.Tmp[m],
 				XLMS_M_BYTE_FIELD_SIZE, (void*)LmsTmpBuff, m,
 				m);
 			if (Status != XASUFW_SUCCESS) {
@@ -1924,7 +1923,7 @@ static s32 XLms_ComputeMerkleRoot(XSha *ShaInstPtr, XAsufw_Dma *DmaPtr,
 			 * Even node: current node is left child (index 2r), sibling (path[i]) is right child (index 2r+1).
 			 * RFC 8554 Section 5.4.2 Step 6b: H(I || u32str(node_num/2) || D_INTR || tmp || path[i])
 			 */
-			Status = Xil_SMemCpy((void*)LmsPubKeyTmpBuff.Fields.Tmp,
+			Status = Xil_SMemCpy((void*)&LmsPubKeyTmpBuff.Tmp[0U],
 				XLMS_M_BYTE_FIELD_SIZE, (void*)LmsTmpBuff, m,
 				m);
 			if (Status != XASUFW_SUCCESS) {
@@ -1933,7 +1932,7 @@ static s32 XLms_ComputeMerkleRoot(XSha *ShaInstPtr, XAsufw_Dma *DmaPtr,
 			}
 			ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 			Status = Xil_SMemCpy(
-				(void*)&LmsPubKeyTmpBuff.Fields.Tmp[m],
+				(void*)&LmsPubKeyTmpBuff.Tmp[m],
 				XLMS_M_BYTE_FIELD_SIZE, (const void*)&Path[PathIndex], m,
 				m);
 			if (Status != XASUFW_SUCCESS) {

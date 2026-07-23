@@ -295,7 +295,7 @@ s32 XAsufw_ChannelConfigInit(void)
 
 	/** Validate IPI channel information present at ASU RTCA. */
 	for (ChannelIndex = 0U; ChannelIndex < CommChannelInfo->NumOfIpiChannels; ++ChannelIndex) {
-		/** Skip IPI channel configuration if the received IPI channel information is incorrect. */
+		/** If received IPI channel information is invalid, stop channel configuration and break. */
 		/**
 		 * P0 queue priority value must be strictly less than P1 queue priority value
 		 * (lower value = higher priority).
