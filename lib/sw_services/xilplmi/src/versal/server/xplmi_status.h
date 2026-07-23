@@ -145,6 +145,8 @@
 *       obs  04/03/2026 Reserved the unused error codes
 * 2.5   aa   07/02/2026 Added XLOADER_ERR_OSPI_TIMEOUT error code for OSPI 4B
 *                       address mode polling timeout handling
+*       obs  07/14/2026 Updated XLOADER_ERR_IMGHDR_TBL description for meta
+*                       header image/partition count check
 *
 * </pre>
 *
@@ -420,7 +422,11 @@ typedef enum {
 	XLOADER_ERR_IMGHDR_TBL = 0x302,	/**< 0x302 - Multiple conditions can
 					  give this error.
 					  - If PLM is unable to read
-					  image header table */
+					  image header table
+					  - If the number of images or
+					  partitions in the meta header
+					  exceeds XIH_MAX_IMGS or
+					  XIH_MAX_PRTNS */
 	XLOADER_ERR_IMGHDR,		/**< 0x303 - Error if image header
 					  checksum fails */
 	XLOADER_ERR_PRTNHDR,		/**< 0x304 - Error if partition header

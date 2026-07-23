@@ -175,6 +175,7 @@
 *       sd   04/13/2026 Added PUF support for VERSAL_2VP_P
 *       sri  04/24/2026 Changed LMS KAT and SignVerify APIs from static to global scope to support authenticated JTAG functionality
 *       ng   07/13/2026 Reduced debug print levels on error paths
+* 2.5   obs  07/14/2026 Bounded meta header image/partition count in XLoader_ReadAndVerifySecureHdrs
 *
 * </pre>
 *
@@ -835,6 +836,7 @@ END:
 * 			- XST_SUCCESS on success.
 * 			- XLOADER_ERR_HDR_GET_DMA if acquiring DMA fails.
 * 			- XLOADER_ERR_HDR_AES_OP_FAIL if AES initialization fails.
+* 			- XLOADER_ERR_IMGHDR_TBL on out-of-range image/partition count.
 * 			- XLOADER_ERR_METAHDR_LEN_OVERFLOW on meta header length overflow.
 * 			- XLOADER_ERR_HDR_COPY_FAIL on IH/PH header copy fail.
 * 			- XLOADER_ERR_SEC_IH_READ_FAIL on image header read fail.
@@ -871,6 +873,13 @@ int XLoader_ReadAndVerifySecureHdrs(XLoader_SecureParams *SecurePtr,
 	SecurePtr->PmcDmaInstPtr = XPlmi_GetDmaInstance(PMCDMA_0_DEVICE);
 	if (SecurePtr->PmcDmaInstPtr == NULL) {
 		Status = XPlmi_UpdateStatus(XLOADER_ERR_HDR_GET_DMA, XIL_SIGNED_ZERO);
+		goto ERR_END;
+	}
+
+	/* Reject out-of-range image/partition count in the image header table */
+	if ((MetaHdr->ImgHdrTbl.NoOfImgs > XIH_MAX_IMGS) ||
+		(MetaHdr->ImgHdrTbl.NoOfPrtns > XIH_MAX_PRTNS)) {
+		Status = XPlmi_UpdateStatus(XLOADER_ERR_IMGHDR_TBL, XIL_SIGNED_ZERO);
 		goto ERR_END;
 	}
 
