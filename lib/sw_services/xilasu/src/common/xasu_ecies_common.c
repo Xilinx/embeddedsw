@@ -119,8 +119,8 @@ END:
  * @param	CurveLen	Curve length provided.
  *
  * @return
- * 		- XST_SUCCESS, if curve type is valid.
- * 		- XST_FAILURE, if curve length is invalid.
+ * 		- XST_SUCCESS, if provided curve type and curve length are valid.
+ * 		- XST_FAILURE, if provided curve type or curve length are invalid
  *
  *************************************************************************************************/
 s32 XAsu_EccValidateCurveInfo(u32 CurveType, u32 CurveLen)

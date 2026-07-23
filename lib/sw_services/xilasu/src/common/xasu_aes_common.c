@@ -1,5 +1,5 @@
 /**************************************************************************************************
-* Copyright (c) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2024 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 
@@ -70,6 +70,7 @@ s32 XAsu_AesValidateIvParams(u8 EngineMode, u64 IvAddr, u32 IvLen)
 	 * | AES-ECB, AES-CMAC |     N/A        |      N/A             |
 	 * | AES-GCM           |   Non-zero     |  Any non-zero Length |
 	 * | AES-CCM           |   Non-zero     |  7 to 13 bytes       |
+	 * | AES-CFB           |   Non-zero     |  16 bytes            |
 	 * | Remaining modes   |   Non-zero     |  12 or 16 Bytes      |
 	 */
 	switch (EngineMode) {
@@ -89,11 +90,15 @@ s32 XAsu_AesValidateIvParams(u8 EngineMode, u64 IvAddr, u32 IvLen)
 			}
 			break;
 		case XASU_AES_CBC_MODE:
-		case XASU_AES_CFB_MODE:
 		case XASU_AES_OFB_MODE:
 		case XASU_AES_CTR_MODE:
 			if ((IvAddr != 0U) && ((IvLen == XASU_AES_IV_SIZE_96BIT_IN_BYTES) ||
 					       (IvLen == XASU_AES_IV_SIZE_128BIT_IN_BYTES))) {
+				Status = XST_SUCCESS;
+			}
+			break;
+		case XASU_AES_CFB_MODE:
+			if ((IvAddr != 0U) && (IvLen == XASU_AES_IV_SIZE_128BIT_IN_BYTES)) {
 				Status = XST_SUCCESS;
 			}
 			break;

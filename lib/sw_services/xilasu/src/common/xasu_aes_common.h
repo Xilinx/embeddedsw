@@ -50,8 +50,7 @@ extern "C" {
 /** Modes that always require block-aligned data */
 #define XASU_AES_MODE_REQUIRES_ALIGNMENT(Mode) \
 	(((Mode) == XASU_AES_ECB_MODE) || \
-	((Mode) == XASU_AES_CBC_MODE) || \
-	((Mode) == XASU_AES_CFB_MODE))
+	((Mode) == XASU_AES_CBC_MODE))
 
 /** Modes which mandates non-zero plaintext data */
 #define XASU_AES_MODE_REQUIRES_DATA(Mode) \

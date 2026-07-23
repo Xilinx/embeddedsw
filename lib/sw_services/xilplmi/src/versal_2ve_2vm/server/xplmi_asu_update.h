@@ -41,8 +41,7 @@ extern "C" {
  * If modified here, update corresponding XASUFW_UPDATE_STATE_* defines in
  * lib/sw_apps/asufw/src/xasufw_update.h
  */
-#define XPLMI_UPDATE_STATE_INIT			(0x0U)	/**< Update state: Init. */
-#define XPLMI_UPDATE_STATE_SHUTDOWN_START	(0x1U)	/**< Update state: Shutdown start. */
+#define XPLMI_UPDATE_STATE_INIT			(0x0U)	/**< Update state: Init - update process started. */
 #define XPLMI_UPDATE_STATE_SHUTDOWN_DONE	(0x2U)	/**< Update state: Shutdown done. */
 #define XPLMI_UPDATE_STATE_LOAD_ELF_DONE	(0x3U)	/**< Update state: Load ELF done. */
 #define XPLMI_UPDATE_STATE_FINISHED		(0x4U)	/**< Update state: Finished. */
