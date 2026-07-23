@@ -45,6 +45,7 @@
 * 1.08  ng   11/11/2022 Updated doxygen comments
 * 2.00  ng   12/27/2023 Reduced log level for less frequent prints
 *       ng   01/28/2024 optimized u8 variables
+* 2.50  obs  07/14/2026 Rejected out-of-range priority in XPlmi_TaskCreate
 *
 * </pre>
 *
@@ -93,6 +94,11 @@ XPlmi_TaskNode* XPlmi_TaskCreate(TaskPriority_t Priority,
 	XPlmi_TaskNode *Task = NULL;
 
 	if(Handler == NULL) {
+		goto END;
+	}
+
+	/* Reject out-of-range priority to avoid OOB TaskQueue[] indexing */
+	if (Priority >= XPLMI_TASK_PRIORITIES) {
 		goto END;
 	}
 
