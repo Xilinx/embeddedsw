@@ -22,6 +22,7 @@
 * 1.02  bm   10/14/2020 Code clean up
 * 1.03  td   07/08/2021 Fix doxygen warnings
 * 2.0   ng   11/11/2023 Implemented user modules
+* 2.5   obs  07/14/2026 Added NULL check in XPlmi_ModuleRegister
 *
 * </pre>
 *
@@ -59,7 +60,17 @@ XPlmi_Module * Modules[XPLMI_ALL_MODULES_MAX];
  *****************************************************************************/
 void XPlmi_ModuleRegister(XPlmi_Module *Module)
 {
-	u32 ModuleId = Module->Id;
+	u32 ModuleId;
+
+	/* Validate input before dereferencing to avoid a NULL-pointer access.
+	 * The assert aids debug builds; the explicit check guards production
+	 * builds where Xil_AssertVoid is compiled out.
+	 */
+	Xil_AssertVoid(Module != NULL);
+	if (Module == NULL) {
+		return;
+	}
+	ModuleId = Module->Id;
 
 #if ( XPAR_MAX_USER_MODULES > 0U )
 	/* Update the Module ID if it's user module. */
