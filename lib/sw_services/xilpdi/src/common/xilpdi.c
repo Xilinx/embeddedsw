@@ -66,6 +66,8 @@
 *       pre  09/16/2025 Updated comments for rtf doc
 * 1.14  pre  07/14/2026 Return type of XilPdi_IsPrtnHashPresent function is changed to
 *                       const pointer to prevent caller from modifying digest table in PMC RAM.
+* 1.15  sd   07/23/2026 Fixed infinite loop in XilPdi_SearchOptionalData on
+*                       zero length optional data header.
 *
 * </pre>
 *
@@ -566,6 +568,7 @@ END:
 u64 XilPdi_SearchOptionalData(u64 StartAddress, u64 EndAddress, u32 DataId)
 {
 	u64 Offset = StartAddress;
+	u64 OptDataIncr;
 
 	/**
 	 * - Search for the data ID given and return optional data address if data ID
@@ -574,8 +577,18 @@ u64 XilPdi_SearchOptionalData(u64 StartAddress, u64 EndAddress, u32 DataId)
 	while (Offset < EndAddress) {
 		if ((Xil_In64((UINTPTR)Offset) & XIH_OPT_DATA_HDR_ID_MASK) !=
 				DataId) {
-			Offset += ((Xil_In64((UINTPTR)Offset) & XIH_OPT_DATA_HDR_LEN_MASK) >>
+			OptDataIncr = ((Xil_In64((UINTPTR)Offset) & XIH_OPT_DATA_HDR_LEN_MASK) >>
 				XIH_OPT_DATA_LEN_SHIFT) << XILPDI_WORD_LEN_SHIFT;
+			/**
+			 * - A corrupt header with a zero length would leave the offset
+			 * unchanged and spin forever. Terminate the search treating the
+			 * data ID as not found by returning the end address.
+			 */
+			if (OptDataIncr == 0U) {
+				Offset = EndAddress;
+				break;
+			}
+			Offset += OptDataIncr;
 		}
 		else {
 			break;
