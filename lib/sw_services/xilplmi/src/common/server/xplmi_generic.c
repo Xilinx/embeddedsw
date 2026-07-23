@@ -128,8 +128,9 @@
 *		abh  08/15/2025 Fixed GCC warnings
 *       obs  08/26/2025 Added support for address range checks
 *       vm   03/16/2026 Added support for ASUFW update command
-* 2.4   gnr  04/27/2006 Updated XPLMI_SSIT_SYNC_MASTER_CMD_ID and XPLMI_SSIT_SYNC_SLAVES_CMD_ID
+* 2.4   gnr  04/27/2026 Updated XPLMI_SSIT_SYNC_MASTER_CMD_ID and XPLMI_SSIT_SYNC_SLAVES_CMD_ID
 *                       command order per CDO document
+* 2.5   obs  07/14/2026 Fixed out-of-bounds access in XPlmi_MoveBuffer
 * </pre>
 *
 *
@@ -1653,8 +1654,8 @@ int XPlmi_MoveBuffer(u32 BufferIndex, XPlmi_BufferList *BufferList)
 		goto END;
 	}
 
-	/** - Update BufferList with moved data */
-	while(Index <= BufferList->BufferCount) {
+	/** - Update BufferList with moved data. '<' keeps the shift within bounds. */
+	while(Index < BufferList->BufferCount) {
 		BufferList->Data[Index].Id = BufferList->Data[Index + 1U].Id;
 		BufferList->Data[Index].Addr =
 					BufferList->Data[Index + 1U].Addr - DeletedBufferLen;
