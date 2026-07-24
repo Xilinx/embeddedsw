@@ -1001,6 +1001,12 @@ extern "C" {
 #define PM_DEV_ADC_5				(0x18658146U)
 #define PM_DEV_ADC_6				(0x18658147U)
 #define PM_DEV_ADC_7				(0x18658148U)
+#define PM_DEV_UCIE_AP_MAIN_0			(0x18664149U)
+#define PM_DEV_UCIE_AP_MAIN_1			(0x1866414AU)
+#define PM_DEV_UCIE_AP_SHIM_0			(0x1866414BU)
+#define PM_DEV_UCIE_AP_SHIM_1			(0x1866414CU)
+#define PM_DEV_UCIE_SP_MAIN_0			(0x1866814DU)
+#define PM_DEV_UCIE_SP_MAIN_1			(0x1866814EU)
 /** @endcond */
 #define PM_DEV_ACPU_0_0				(0x1810C0AFU)
 #define PM_DEV_ACPU_0_1				(0x1810C0B0U)
