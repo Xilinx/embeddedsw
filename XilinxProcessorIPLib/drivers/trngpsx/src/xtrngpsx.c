@@ -30,6 +30,9 @@
 * 1.5   ank  09/26/25 Fixed MISRA-C Violations
 * 1.6   hae  01/06/26 Fixed doxygen warnings
 *       tvp  04/06/26 Allow continuous random number generation in PRNG mode
+* 1.7   mkr  07/22/26 Added DRNG SeedLife check and perform HRNG auto-reseed
+*                     before collecting random data in XTrngpsx_Generate to
+*                     ensure prediction-resistant output and correct end state
 *
 * </pre>
 *
@@ -673,7 +676,24 @@ int XTrngpsx_Generate(XTrngpsx_Instance *InstancePtr, u8 *RandBuf, u32 RandBufSi
 
 	if ((InstancePtr->UserCfg.Mode == XTRNGPSX_DRNG_MODE) ||
 		(InstancePtr->UserCfg.Mode == XTRNGPSX_HRNG_MODE)) {
-		if (InstancePtr->UserCfg.Mode == XTRNGPSX_DRNG_MODE) {
+		if (InstancePtr->UserCfg.Mode == XTRNGPSX_HRNG_MODE) {
+			/**
+			 * - HRNG automatic reseed must be performed BEFORE collecting random
+			 *   data so that prediction-resistant generates use a fresh seed
+			 *   (NIST SP 800-90A) and the call ends in GENERATE_STATE.
+			 */
+			if ((InstancePtr->Stats.ElapsedSeedLife >= InstancePtr->UserCfg.SeedLife) ||
+				(PredResistance == TRUE)) {
+				XTRNGPSX_TEMPORAL_CHECK(END, Status, XTrngpsx_Reseed, InstancePtr,
+					NULL, InstancePtr->UserCfg.DFLength);
+			}
+		}
+		else {
+			if ((PredResistance == FALSE) &&
+				(InstancePtr->Stats.ElapsedSeedLife >= InstancePtr->UserCfg.SeedLife)) {
+				Status = XTRNGPSX_RESEED_REQUIRED_ERROR;
+				goto END;
+			}
 			if ((PredResistance == TRUE) &&
 				(InstancePtr->Stats.ElapsedSeedLife > 0U)) {
 				Status = XTRNGPSX_RESEED_REQUIRED_ERROR;
@@ -708,21 +728,11 @@ int XTrngpsx_Generate(XTrngpsx_Instance *InstancePtr, u8 *RandBuf, u32 RandBufSi
 	XTRNGPSX_TEMPORAL_CHECK(END, Status, XTrngpsx_CollectRandData, InstancePtr, RandBuf,
 			RandBufSize);
 
-	/** - State machine update: transition to generate state indicating successful operation */
-	InstancePtr->State = XTRNGPSX_GENERATE_STATE;
-
-	/** - Update seed life and handle HRNG automatic reseed logic */
+	/** - Update elapsed seed life for the completed generate operation */
 	InstancePtr->Stats.ElapsedSeedLife++;
-	/** - HRNG automatic reseed logic: maintain fresh entropy based on configured seed life */
-	if (InstancePtr->UserCfg.Mode == XTRNGPSX_HRNG_MODE) {
-		/** - Auto reseed in HRNG mode */
-		if ((InstancePtr->Stats.ElapsedSeedLife >= InstancePtr->UserCfg.SeedLife) ||
-			(PredResistance == TRUE)) {
-			/** - Automatic reseed with internal entropy: maintain cryptographic strength */
-			XTRNGPSX_TEMPORAL_CHECK(END, Status, XTrngpsx_Reseed, InstancePtr,
-				NULL, InstancePtr->UserCfg.DFLength);
-		}
-	}
+
+	/** - State machine update: transition to generate state last, indicating successful operation */
+	InstancePtr->State = XTRNGPSX_GENERATE_STATE;
 
 END:
 	/** - Update error state on failure (preserve catastrophic state) */
