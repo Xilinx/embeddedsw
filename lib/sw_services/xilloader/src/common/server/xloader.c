@@ -1917,11 +1917,6 @@ int XLoader_RestartImage(u32 ImageId, u32 *FuncID)
 		XPlmi_Printf(DEBUG_GENERAL, "Falling back to Image Store\n\r");
 	}
 
-	if (PdiList->Count == 0U) {
-		Status = XPlmi_UpdateStatus(XLOADER_ERR_IMG_ID_NOT_FOUND, XLOADER_ERR_PDI_LIST_EMPTY);
-		goto END;
-	}
-
 	/**
 	 * - Scan through PdiList for the given ImageId and restart image from
 	 * that respective PDI if ImageId is found
