@@ -321,7 +321,7 @@ done:
 }
 #else
 static XStatus XPm_GenericRequest_Ipi(u32 ApiId, u32 NumArgs,
-				      u32 *Response, u32 *Args)
+				      u32 *Response, const u32 *Args)
 {
 	XStatus Status = (s32)XST_FAILURE;
 	u32 Payload[PAYLOAD_ARG_CNT];
