@@ -34,6 +34,7 @@
 *       pre  05/05/2025 Clearing SSS configuration before handing off to ROM to trigger
 *                       secure lockdown
 * 2.4   abh  12/24/2025 Fixed MISRA-C Violations
+* 2.5   gnr  24/07/2026 Updated XPlmi_PmcApbErrorHandler to clear PMC Analog Slave error interrupt
 *
 * </pre>
 *
@@ -67,6 +68,10 @@
 #define PMC_ANALOG_GD_STATUS 		(PMC_ANALOG_GD0_RST_STATUS_REG_MASK | \
 					 PMC_ANALOG_GD1_RST_STATUS_REG_MASK)
 					/**< Glitch detector status mask */
+#define PMC_ANALOG_ISR_REG		(0xF1160040U)
+					/**< PMC_ANALOG ISR register address */
+#define PMC_ANALOG_SLV_ERR_STATUS_REG_MASK	(0x1U)
+					/**< PMC_ANALOG Slave error status mask */
 #define CRP_CFU_REF_CTRL				(0xF1260108U)
 					/**< CRP CFU_REF_CTRL register address */
 #define CRP_CFU_REF_CTRL_DIVISOR_MASK	(0x3FF00U)
@@ -333,6 +338,18 @@ static void XPlmi_PmcApbErrorHandler(const u32 ErrorNodeId,
 	} else {
 		XPlmi_Printf(DEBUG_GENERAL, "Received PMC_APB interrupt is other than "
 				"tamper interrupt. PMC_GLOBAL_ISR: 0x%x\r\n", IsrVal);
+		/**
+		 * Check if interrupt is due to PMC Analog Slave error. If yes, clear the interrupt
+		 * to avoid repeated interrupts.
+		 */
+		IsrVal = Xil_In32(PMC_ANALOG_ISR_REG);
+		IsrValTmp = Xil_In32(PMC_ANALOG_ISR_REG);
+		if (((IsrVal & PMC_ANALOG_SLV_ERR_STATUS_REG_MASK) ==
+				PMC_ANALOG_SLV_ERR_STATUS_REG_MASK) ||
+			((IsrValTmp & PMC_ANALOG_SLV_ERR_STATUS_REG_MASK) ==
+					PMC_ANALOG_SLV_ERR_STATUS_REG_MASK)) {
+			Xil_Out32(PMC_ANALOG_ISR_REG, PMC_ANALOG_SLV_ERR_STATUS_REG_MASK);
+		}
 	}
 
 	/**
