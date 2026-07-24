@@ -110,10 +110,12 @@ struct XPm_Proc *PrimaryProc = &Proc_APU0_0;
 #define MPIDR_AFF0_SHIFT		(0U)
 #define MPIDR_AFF1_SHIFT		(8U)
 #define RPU_GLBL_CNTL_SLSPLIT_MASK	(0x1U)
-/*This is negative offset from PwrCtrl properties which is
-LPX_SLCR_RPU_PCIL_*_PWRDWN*/
+/* The LPX_SLCR_RPU_PCIL_*_PWRDWN registers are located below the
+ * PwrCtrl register. CORE_IDS_OFFSET is a positive magnitude
+ * subtracted from PwrCtrl.
+ */
 #define LPX_SLCR_RPU_PCIL_CORE_IEN_OFFSET		(-0xB8U)
-#define LPX_SLCR_RPU_PCIL_CORE_IDS_OFFSET		(-0xB4U)
+#define LPX_SLCR_RPU_PCIL_CORE_IDS_OFFSET		(0xB4U)
 
 #define DEFINE_RPU_PROC(cluster_name, core_num) \
 	static struct XPm_Proc Proc_RPU_ ## cluster_name ## _ ## core_num = { \
@@ -354,7 +356,7 @@ void XPm_ClientAbortSuspend(void)
 	PwrDwnReg = XPm_Read(PrimaryProc->PwrCtrl);
 	PwrDwnReg &= ~PrimaryProc->PwrDwnMask;
 	XPm_Write(PrimaryProc->PwrCtrl, PwrDwnReg);
-	XPm_RMW32(PrimaryProc->PwrCtrl + LPX_SLCR_RPU_PCIL_CORE_IDS_OFFSET, PrimaryProc->PwrDwnMask, PrimaryProc->PwrDwnMask);
+	XPm_RMW32(PrimaryProc->PwrCtrl - LPX_SLCR_RPU_PCIL_CORE_IDS_OFFSET, PrimaryProc->PwrDwnMask, PrimaryProc->PwrDwnMask);
 #else
 	u64 Val;
 	Val = mfcp(S3_0_C15_C2_7);
