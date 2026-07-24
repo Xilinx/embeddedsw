@@ -1693,6 +1693,16 @@ static XStatus PlHcScanClear(const XPm_PlDomain *Pld, u16 *DbgErr, u32 PollTimeO
 		goto done;
 	}
 
+	/*
+	 * If the PL scan clear skip bit is set, still perform the trigger above
+	 * but skip the scan clear DONE poll and PASS check.
+	 */
+	if (!(PM_HOUSECLEAN_CHECK(PLD, SCAN))) {
+		XPlmi_Printf(DEBUG_INFO, "INFO: %s : Skipping Hard Block Scan Clear / MBIST DONE/PASS check\r\n", __func__);
+		Status = XST_SUCCESS;
+		goto done;
+	}
+
 	/* Poll for status */
 	XPlmi_Printf(DEBUG_INFO, "INFO: %s : Wait for Hard Block Scan Clear / MBIST complete...", __func__);
 	Status = XPm_PollForMask(Pld->CfuApbBaseAddr + CFU_APB_CFU_STATUS_OFFSET,
