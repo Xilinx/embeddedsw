@@ -169,13 +169,13 @@ XStatus XPm_SetPrimaryProc(void)
 {
 	u32 ProcId;
 	XStatus Status = (s32)XST_FAILURE;
-	u64 CpuId;
+	u64 CoreAffinity;
 	u64 ClusterId;
 
 #if defined (__aarch64__)
-	CpuId = (mfcp(MPIDR_EL1) >> MPIDR_AFF1_SHIFT) & MPIDR_AFFLVL_MASK;
+	CoreAffinity = (mfcp(MPIDR_EL1) >> MPIDR_AFF1_SHIFT) & MPIDR_AFFLVL_MASK;
 	ClusterId = (mfcp(MPIDR_EL1) >> MPIDR_AFF2_SHIFT) & MPIDR_AFFLVL_MASK;
-	ProcId = (((u32)ClusterId * PM_APU_CORE_COUNT_PER_CLUSTER) + (u32)CpuId);
+	ProcId = (((u32)ClusterId * PM_APU_CORE_COUNT_PER_CLUSTER) + (u32)CoreAffinity);
 #elif defined (__arm__)
 
 #define DEFINE_RPU_NAMES(cluster_name) \
@@ -203,9 +203,9 @@ XStatus XPm_SetPrimaryProc(void)
 	DEFINE_RPU_NAMES(D)
 	DEFINE_RPU_NAMES(E)
 
-	CpuId = (mfcp(XREG_CP15_MULTI_PROC_AFFINITY) >> MPIDR_AFF0_SHIFT) & MPIDR_AFFLVL_MASK;
+	CoreAffinity = (mfcp(XREG_CP15_MULTI_PROC_AFFINITY) >> MPIDR_AFF0_SHIFT) & MPIDR_AFFLVL_MASK;
 	ClusterId = (mfcp(XREG_CP15_MULTI_PROC_AFFINITY) >> MPIDR_AFF1_SHIFT) & MPIDR_AFFLVL_MASK;
-	ProcId = (((u32)ClusterId * PM_RPU_CORE_COUNT_PER_CLUSTER) + (u32)CpuId);
+	ProcId = (((u32)ClusterId * PM_RPU_CORE_COUNT_PER_CLUSTER) + (u32)CoreAffinity);
 	switch (ClusterId) {
 		case 0:
 			RPU_NAME_DECISION_CASE(A)
