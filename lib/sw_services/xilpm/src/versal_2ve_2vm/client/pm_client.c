@@ -121,13 +121,11 @@ LPX_SLCR_RPU_PCIL_*_PWRDWN*/
 		.PwrCtrl = PSX_RPU_CLUSTER_## cluster_name ## core_num ##_CORE_## core_num ##_PWRDWN, \
 		.PwrDwnMask = RPU_PWRDWN_EN_MASK, \
 		.Ipi = NULL, \
-	}; \
-	static char RPU_## cluster_name ## _ ## core_num[] = "RPU_"#cluster_name"_"#core_num;
+	};
 
 #define DEFINE_RPU_CLUSTER(cluster_name) \
 	DEFINE_RPU_PROC(cluster_name, 0) \
-	DEFINE_RPU_PROC(cluster_name, 1) \
-	static char RPU_LS_ ## cluster_name[] = "RPU_"#cluster_name;
+	DEFINE_RPU_PROC(cluster_name, 1)
 
 DEFINE_RPU_CLUSTER(A)
 DEFINE_RPU_CLUSTER(B)
@@ -179,6 +177,12 @@ XStatus XPm_SetPrimaryProc(void)
 	ClusterId = (mfcp(MPIDR_EL1) >> MPIDR_AFF2_SHIFT) & MPIDR_AFFLVL_MASK;
 	ProcId = (((u32)ClusterId * PM_APU_CORE_COUNT_PER_CLUSTER) + (u32)CpuId);
 #elif defined (__arm__)
+
+#define DEFINE_RPU_NAMES(cluster_name) \
+	static char RPU_##cluster_name##_0[] = "RPU_"#cluster_name"_0"; \
+	static char RPU_##cluster_name##_1[] = "RPU_"#cluster_name"_1"; \
+	static char RPU_LS_##cluster_name[] = "RPU_"#cluster_name;
+
 #define RPU_NAME_DECISION_CASE(cluster_name) \
 	if (0U == (XPm_Read(PSX_RPU_CLUSTER_##cluster_name##_BASEADDR + CLUSTER_CFG_OFFSET) & RPU_GLBL_CNTL_SLSPLIT_MASK)) { \
 		ProcId = 0U; \
@@ -192,6 +196,13 @@ XStatus XPm_SetPrimaryProc(void)
 		} \
 	}
 	const char *TempProcName = NULL;
+
+	DEFINE_RPU_NAMES(A)
+	DEFINE_RPU_NAMES(B)
+	DEFINE_RPU_NAMES(C)
+	DEFINE_RPU_NAMES(D)
+	DEFINE_RPU_NAMES(E)
+
 	CpuId = (mfcp(XREG_CP15_MULTI_PROC_AFFINITY) >> MPIDR_AFF0_SHIFT) & MPIDR_AFFLVL_MASK;
 	ClusterId = (mfcp(XREG_CP15_MULTI_PROC_AFFINITY) >> MPIDR_AFF1_SHIFT) & MPIDR_AFFLVL_MASK;
 	ProcId = (((u32)ClusterId * PM_RPU_CORE_COUNT_PER_CLUSTER) + (u32)CpuId);
