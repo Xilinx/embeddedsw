@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2025-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -191,7 +191,7 @@ XStatus XPm_SetPrimaryProc(void)
 			TempProcName = RPU_##cluster_name##_1; \
 		} \
 	}
-	char *TempProcName;
+	const char *TempProcName = NULL;
 	CpuId = (mfcp(XREG_CP15_MULTI_PROC_AFFINITY) >> MPIDR_AFF0_SHIFT) & MPIDR_AFFLVL_MASK;
 	ClusterId = (mfcp(XREG_CP15_MULTI_PROC_AFFINITY) >> MPIDR_AFF1_SHIFT) & MPIDR_AFFLVL_MASK;
 	ProcId = (((u32)ClusterId * PM_RPU_CORE_COUNT_PER_CLUSTER) + (u32)CpuId);
@@ -213,7 +213,13 @@ XStatus XPm_SetPrimaryProc(void)
 			break;
 		default:
 			/* Required for MISRA */
+			break;
 	}
+
+	if (NULL == TempProcName) {
+		goto done;
+	}
+
 	Status = Xil_SMemCpy(ProcName, sizeof(ProcName), TempProcName, sizeof(ProcName), sizeof(ProcName));
 	if (XST_SUCCESS != Status) {
 		goto done;
