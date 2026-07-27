@@ -1,5 +1,5 @@
 /**************************************************************************************************
-* Copyright (C) 2024 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2024 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 
@@ -28,6 +28,7 @@
  * ----- ---- -------- ----------------------------------------------------------------------------
  * 1.00  dd   02/13/24 Initial release
  * 1.01	 abh  07/21/25 Fixed GCC warnings
+ * 1.02  abh  07/24/26 Fixed Typo
  *
  * </pre>
  *
@@ -104,10 +105,10 @@ int main(void)
 
 END:
 	if (Status == XST_SUCCESS) {
-		xil_printf("\r\nSuccessfully ran  Get imgae info list client example....");
+		xil_printf("\r\nSuccessfully ran  Get image info list client example....");
 	}
 	else {
-		xil_printf("\r\nGet imgae info list failed with error code = %08x", Status);
+		xil_printf("\r\nGet image info list failed with error code = %08x", Status);
 	}
 
 	return Status;
