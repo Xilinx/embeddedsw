@@ -505,25 +505,6 @@ done:
 	return Status;
 }
 
-static XStatus XPm_SetBootHealth(const u32 Value)
-{
-	XStatus Status = XST_FAILURE;
-	const XPm_Pmc *Pmc;
-
-	Pmc = (XPm_Pmc *)XPmDevice_GetById(PM_DEV_PMC_PROC);
-	if (NULL == Pmc) {
-		goto done;
-	}
-
-	PmRmw32(Pmc->PmcGlobalBaseAddr + PMC_GLOBAL_GGS4_OFFSET,
-		XPM_BOOT_HEALTH_STATUS_MASK, Value);
-
-	Status = XST_SUCCESS;
-
-done:
-	return Status;
-}
-
 /**
  * Decode the latest CRP_RESET_REASON bits and write the matching
  * XPM_RESET_REASON_* enum value into *Response.
@@ -694,9 +675,6 @@ XStatus XPm_Ioctl(const u32 SubsystemId, const u32 DeviceId, const pm_ioctl_id I
 		Status = XPm_TapDelayOper(IoctlId, SubsystemId, DeviceId,
 					  Arg1, Arg2);
 		break;
-	case IOCTL_SET_BOOT_HEALTH_STATUS:
-		Status = XPm_SetBootHealth(Arg1);
-		break;
 	case IOCTL_OSPI_MUX_SELECT:
 		Status = XPm_OspiMuxSelect(SubsystemId, DeviceId, Arg1, Response);
 		break;
@@ -729,6 +707,7 @@ XStatus XPm_Ioctl(const u32 SubsystemId, const u32 DeviceId, const pm_ioctl_id I
 					(u32)PM_CAP_CONTEXT, 0U);
 		break;
 	case IOCTL_ULPI_RESET:
+	case IOCTL_SET_BOOT_HEALTH_STATUS:
 	case IOCTL_AFI:
 	case IOCTL_REGISTER_SGI:
 	case IOCTL_SET_FEATURE_CONFIG:

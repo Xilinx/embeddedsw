@@ -556,16 +556,6 @@ enum XPmNotifyEvent {
 /** @} */
 
 /**
- * @name Boot health status mask
- * @{
- */
-/**
- * Boot health status mask
- */
-#define XPM_BOOT_HEALTH_STATUS_MASK	(0x1U)
-/** @} */
-
-/**
  * @name Tap delay signal type
  * @{
  */
