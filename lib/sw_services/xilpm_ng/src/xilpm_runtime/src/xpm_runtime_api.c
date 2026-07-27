@@ -59,12 +59,6 @@
 	#define XILPM_RUNTIME_BANNER_STRING "XilPm_Runtime: UNKNOWN"
 #endif
 
-/* Temperature tolerance for redundant read, in raw units.
- * 1 LSB = 1/128 C (~0.0078125 C).
- * Start conservative: TEMP_TOL_LSB=64 (~0.5 C). Tune after validation.
- */
-#define TEMP_TOL_LSB  (64U)
-
 static XStatus XPm_DoAddSubsystem(XPlmi_Cmd* Cmd);
 static XStatus XPm_DoAddRequirement(XPlmi_Cmd* Cmd);
 static XStatus XPm_DoSetRequirement(XPlmi_Cmd* Cmd);
@@ -78,15 +72,9 @@ static XStatus XPm_GetDeviceStatus(const u32 SubsystemId,
 	XPm_DeviceStatus *const DeviceStatus);
 static XStatus XPm_DoFeatureCheck(XPlmi_Cmd* Cmd);
 static XStatus XPm_DoRegisterNotifier(XPlmi_Cmd* Cmd);
-static XStatus XPm_DoGetOpCharacteristic(XPlmi_Cmd* Cmd);
 static XStatus XPm_DoSelfSuspend(XPlmi_Cmd* Cmd);
 static XStatus XPm_DoForcePowerdown(XPlmi_Cmd* Cmd);
 
-static XStatus XPm_GetLatency(const u32 DeviceId, u32 *Latency);
-/** @brief Read the current SoC-wide temperature via SysMon. */
-static XStatus XPm_GetSocTemperature(u32 *Result);
-
-static XStatus XPm_GetOpCharacteristic(u32 const DeviceId, u32 const Type, u32 *Result);
 static XStatus XPm_RegisterNotifier(const u32 SubsystemId, const u32 NodeId,
 			 const u32 Event, const u32 Wake, const u32 Enable,
 			 const u32 IpiMask);
@@ -378,7 +366,6 @@ XStatus XPm_RuntimeInit(void)
 	XPlmi_ModuleCmd* XPlmi_PmCmds =  XPm_GetPmCmds();
 	XPlmi_PmCmds[PM_GET_API_VERSION].Handler = (XPlmi_CmdHandler)XPm_DoGetApiVersion;
 	XPlmi_PmCmds[PM_GET_NODE_STATUS].Handler = (XPlmi_CmdHandler)XPm_DoGetNodeStatus;
-	XPlmi_PmCmds[PM_GET_OP_CHARACTERISTIC].Handler = (XPlmi_CmdHandler)XPm_DoGetOpCharacteristic;
 	XPlmi_PmCmds[PM_REGISTER_NOTIFIER].Handler = (XPlmi_CmdHandler)XPm_DoRegisterNotifier;
 	XPlmi_PmCmds[PM_SELF_SUSPEND].Handler = (XPlmi_CmdHandler)XPm_DoSelfSuspend;
 	XPlmi_PmCmds[PM_FORCE_POWERDOWN].Handler = (XPlmi_CmdHandler)XPm_DoForcePowerdown;
@@ -503,97 +490,6 @@ END:
 	return Status;
 }
 
-static XStatus XPm_DoGetOpCharacteristic(XPlmi_Cmd* Cmd)
-{
-	XStatus Status = XST_FAILURE;
-	u32 DeviceId = Cmd->Payload[0];
-	u32 Type = Cmd->Payload[1];
-	u32 *Result = &Cmd->Response[1];
-	Status = XPm_GetOpCharacteristic(DeviceId, Type, Result);
-	Cmd->Response[0] = (u32)Status;
-	return Status;
-
-}
-
-
-static XStatus XPm_GetOpCharacteristic(u32 const DeviceId, u32 const Type, u32 *Result)
-{
-	XStatus Status = XST_FAILURE;
-
-	switch(Type) {
-	case (u32)PM_OPCHAR_TYPE_TEMP:
-		/*
-		 * Temperature is reported for the whole SoC; the per-device
-		 * DeviceId is intentionally not used here. The EEMI signature
-		 * keeps DeviceId for ABI compatibility with callers issuing
-		 * PM_GET_OP_CHARACTERISTIC for any node.
-		 */
-		(void)DeviceId;
-		Status = XPm_GetSocTemperature(Result);
-		break;
-	case (u32)PM_OPCHAR_TYPE_LATENCY:
-		Status = XPm_GetLatency(DeviceId, Result);
-		break;
-	case (u32)PM_OPCHAR_TYPE_POWER:
-		Status = XST_NO_FEATURE;
-		break;
-	default:
-		Status = XST_INVALID_PARAM;
-		break;
-	}
-
-	return Status;
-}
-
-static inline u32 AbsDiffU32(u32 X, u32 Y)
-{
-	return (X > Y) ? (X - Y) : (Y - X);
-}
-
-/**
- * @brief  Read the current SoC-wide temperature via SysMon.
- *
- * Per-node temperature reporting is not supported on this platform, so
- * this helper deliberately does not take a DeviceId. The EEMI dispatcher
- * reports the SoC temperature for any DeviceId the caller passes.
- *
- * @param  Result   Pointer to receive the raw temperature value.
- *
- * @return XST_SUCCESS on success, XST_DEVICE_NOT_FOUND if the SysMon
- *         instance is not available, XST_GLITCH_ERROR if two consecutive
- *         reads disagree by more than TEMP_TOL_LSB, or XST_FAILURE.
- */
-static XStatus XPm_GetSocTemperature(u32 *Result)
-{
-	volatile XStatus Status = XST_FAILURE;
-	XPlmi_SysMonPsv *SysMonInstPtr;
-	u32 RawTemp1, RawTemp2, StableTemp;
-
-	SysMonInstPtr = XPlmi_GetSysmonInst();
-	if ((NULL == SysMonInstPtr) ||
-	    (0U == SysMonInstPtr->Config.BaseAddress) ||
-	    (XIL_COMPONENT_IS_READY != SysMonInstPtr->IsReady)) {
-		Status = XST_DEVICE_NOT_FOUND;
-		goto done;
-	}
-
-	/* Production silicon: use direct register read for current temperature */
-	RawTemp1 = XPlmi_SysMon_ReadDeviceTemp(SysMonInstPtr);
-	RawTemp2 = XPlmi_SysMon_ReadDeviceTemp(SysMonInstPtr);
-
-	if (AbsDiffU32(RawTemp1, RawTemp2) >= TEMP_TOL_LSB) {
-		Status = XST_GLITCH_ERROR;
-		goto done;
-	}
-
-	StableTemp = RawTemp2;
-	*Result = StableTemp;
-	Status = XST_SUCCESS;
-
-done:
-	return Status;
-}
-
 XStatus XPmPower_GetWakeupLatency(const u32 DeviceId, u32 *Latency)
 {
 	XStatus Status = XST_SUCCESS;
@@ -627,36 +523,6 @@ XStatus XPmPower_GetWakeupLatency(const u32 DeviceId, u32 *Latency)
 done:
 	return Status;
 }
-static XStatus XPm_GetLatency(const u32 DeviceId, u32 *Latency)
-{
-	XStatus Status = XST_SUCCESS;
-
-	switch (NODECLASS(DeviceId)) {
-	case (u32)XPM_NODECLASS_DEVICE:
-		if ((u32)XPM_NODESUBCL_DEV_CORE == NODESUBCLASS(DeviceId)) {
-			Status = XPmCore_GetWakeupLatency(DeviceId, Latency);
-		} else {
-			Status = XPmDevice_GetWakeupLatency(DeviceId, Latency);
-		}
-		break;
-	case (u32)XPM_NODECLASS_POWER:
-		Status = XPmPower_GetWakeupLatency(DeviceId, Latency);
-		break;
-	case (u32)XPM_NODECLASS_CLOCK:
-		if ((u32)XPM_NODESUBCL_CLOCK_PLL == NODESUBCLASS(DeviceId)) {
-			Status = XPmClockPll_GetWakeupLatency(DeviceId, Latency);
-		} else {
-			Status = XST_INVALID_PARAM;
-		}
-		break;
-	default:
-		Status = XST_INVALID_PARAM;
-		break;
-	}
-
-	return Status;
-}
-
 static XStatus XPm_DoRegisterNotifier(XPlmi_Cmd* Cmd)
 {
 	XStatus Status = XST_FAILURE;

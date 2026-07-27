@@ -10,10 +10,6 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
-#define PM_GET_OP_CHAR_FEATURE_BITMASK ( \
-		(1U << (u32)PM_OPCHAR_TYPE_TEMP) | \
-		(1U << (u32)PM_OPCHAR_TYPE_LATENCY))
-
 #define PM_QUERY_FEATURE_BITMASK ( \
 	(1ULL << (u64)XPM_QID_CLOCK_GET_NAME) | \
 	(1ULL << (u64)XPM_QID_CLOCK_GET_TOPOLOGY) | \

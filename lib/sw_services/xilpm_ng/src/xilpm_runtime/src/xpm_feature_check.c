@@ -112,11 +112,6 @@ XStatus XPm_FeatureCheck(const u32 ApiId, u32 *const Version)
 		*Version = XST_API_RELEASE_NODE_VERSION;
 		Status = XST_SUCCESS;
 		break;
-	case PM_API(PM_GET_OP_CHARACTERISTIC):
-		Version[0] = XST_API_GET_OP_CHAR_VERSION;
-		Version[1] = (u32)(PM_GET_OP_CHAR_FEATURE_BITMASK);
-		Status = XST_SUCCESS;
-		break;
 	case PM_API(PM_QUERY_DATA):
 		Version[0] = XST_API_QUERY_DATA_VERSION;
 		Version[1] = (u32)(PM_QUERY_FEATURE_BITMASK);
