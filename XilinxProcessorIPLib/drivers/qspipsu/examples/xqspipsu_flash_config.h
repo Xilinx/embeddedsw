@@ -35,6 +35,7 @@
 * 1.19  sb  11/10/23 Add support for ISSI flash is25lp02g
 * 1.20  sb  05/20/24 Add support for ISSI flash is25lp01gg
 * 1.20  sb  09/13/24 Updated examples to configure correct baud rate value
+*       zm  07/15/26 Add support for Macronix flash mx25u25635f.
 *
 *</pre>
 *
@@ -74,6 +75,7 @@ extern "C" {
 #define	SEC_ERASE_CMD		0xD8
 #define READ_ID			0x9F
 #define READ_CONFIG_CMD		0x35
+#define READ_CONFIG_REG_CMD	0x15	/**< Macronix Read Configuration Register (RDCR) */
 #define WRITE_CONFIG_CMD	0x01
 #define ENTER_4B_ADDR_MODE	0xB7
 #define EXIT_4B_ADDR_MODE	0xE9
@@ -436,6 +438,11 @@ FlashInfo Flash_Config_Table[] = {
 		0x80000, 0x8000000, 2
 	},
 	/* Macronix */
+	/*mx25u25635f*/
+	{
+		0xc22539, SECTOR_SIZE_64K, NUM_OF_SECTORS512, BYTES256_PER_PAGE,
+		0x20000, 0x2000000, 1
+	},
 	/*mx66l1g45g*/
 	{
 		0xc2201b, SECTOR_SIZE_64K, NUM_OF_SECTORS2048, BYTES256_PER_PAGE,

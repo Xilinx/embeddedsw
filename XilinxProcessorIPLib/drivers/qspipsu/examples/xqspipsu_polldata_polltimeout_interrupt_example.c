@@ -74,6 +74,7 @@
 * 1.21  sb  01/02/25 Fixed gcc and g++ warnings.
 * 1.21  bkv 04/04/25 Fixed g++ warnings.
 * 1.23  vlt 12/16/25 Update Doxygen comments to include SDT flow details.
+*       zm  07/15/26 Enable Quad mode for Macronix flash.
 *
 *</pre>
 *
@@ -1852,6 +1853,7 @@ int FlashEnableQuadMode(XQspiPsu *QspiPsuPtr)
 	u8 WriteEnableCmd;
 	u8 ReadStatusCmd;
 	u8 FlashStatus[2];
+	u8 FlashConfig[2];
 	u8 StatusRegVal;
 	u8 WriteBuffer[3] = {0};
 	u32 DelayCount;
@@ -1993,6 +1995,194 @@ int FlashEnableQuadMode(XQspiPsu *QspiPsuPtr)
 			Status = XQspiPsu_PolledTransfer(QspiPsuPtr,
 							 FlashMsg, 2);
 			if (Status != XST_SUCCESS) {
+				return XST_FAILURE;
+			}
+			break;
+		case MACRONIX_ID_BYTE0:
+			GetRealAddr(QspiPsuPtr, TEST_ADDRESS);
+			/*
+			 * Read Status Register to a buffer
+			 */
+			ReadStatusCmd = READ_STATUS_CMD;
+			FlashMsg[0].TxBfrPtr = &ReadStatusCmd;
+			FlashMsg[0].RxBfrPtr = NULL;
+			FlashMsg[0].ByteCount = 1;
+			FlashMsg[0].BusWidth = XQSPIPSU_SELECT_MODE_SPI;
+			FlashMsg[0].Flags = XQSPIPSU_MSG_FLAG_TX;
+			FlashMsg[1].TxBfrPtr = NULL;
+			FlashMsg[1].RxBfrPtr = FlashStatus;
+			FlashMsg[1].ByteCount = 2;
+			FlashMsg[1].BusWidth = XQSPIPSU_SELECT_MODE_SPI;
+			FlashMsg[1].Flags = XQSPIPSU_MSG_FLAG_RX;
+			if (QspiPsuPtr->Config.ConnectionMode ==
+			    XQSPIPSU_CONNECTION_MODE_PARALLEL) {
+				FlashMsg[1].Flags |= XQSPIPSU_MSG_FLAG_STRIPE;
+			}
+			TransferDone = FALSE;
+			Status = XQspiPsu_InterruptTransfer(QspiPsuPtr, FlashMsg, 2);
+			if (Status != XST_SUCCESS) {
+				return XST_FAILURE;
+			}
+			if (Xil_WaitForEventSet(MAX_DELAY_CNT, 1, (u32 *)&TransferDone) != XST_SUCCESS) {
+				return XST_FAILURE;
+			}
+			if (QspiPsuPtr->Config.ConnectionMode ==
+			    XQSPIPSU_CONNECTION_MODE_PARALLEL) {
+				if (FSRFlag) {
+					FlashStatus[1] &= FlashStatus[0];
+				} else {
+					FlashStatus[1] |= FlashStatus[0];
+				}
+			}
+			/*
+			 * Read Configuration Register. Macronix WRSR programs both
+			 * the status and configuration registers, so the current
+			 * configuration register value is read back and re-written
+			 * unchanged.
+			 */
+			ReadStatusCmd = READ_CONFIG_REG_CMD;
+			FlashMsg[0].TxBfrPtr = &ReadStatusCmd;
+			FlashMsg[0].RxBfrPtr = NULL;
+			FlashMsg[0].ByteCount = 1;
+			FlashMsg[0].BusWidth = XQSPIPSU_SELECT_MODE_SPI;
+			FlashMsg[0].Flags = XQSPIPSU_MSG_FLAG_TX;
+			FlashMsg[1].TxBfrPtr = NULL;
+			FlashMsg[1].RxBfrPtr = FlashConfig;
+			FlashMsg[1].ByteCount = 2;
+			FlashMsg[1].BusWidth = XQSPIPSU_SELECT_MODE_SPI;
+			FlashMsg[1].Flags = XQSPIPSU_MSG_FLAG_RX;
+			if (QspiPsuPtr->Config.ConnectionMode ==
+			    XQSPIPSU_CONNECTION_MODE_PARALLEL) {
+				FlashMsg[1].Flags |= XQSPIPSU_MSG_FLAG_STRIPE;
+			}
+			TransferDone = FALSE;
+			Status = XQspiPsu_InterruptTransfer(QspiPsuPtr, FlashMsg, 2);
+			if (Status != XST_SUCCESS) {
+				return XST_FAILURE;
+			}
+			if (Xil_WaitForEventSet(MAX_DELAY_CNT, 1, (u32 *)&TransferDone) != XST_SUCCESS) {
+				return XST_FAILURE;
+			}
+			if (QspiPsuPtr->Config.ConnectionMode ==
+			    XQSPIPSU_CONNECTION_MODE_PARALLEL) {
+				if (FSRFlag) {
+					FlashConfig[1] &= FlashConfig[0];
+				} else {
+					FlashConfig[1] |= FlashConfig[0];
+				}
+			}
+			/*
+			 * Set Quad Enable Bit in the Status Register value.
+			 */
+			StatusRegVal = FlashStatus[1];
+			StatusRegVal |= 0x1 << QUAD_MODE_ENABLE_BIT;
+			/*
+			 * Write enable
+			 */
+			WriteEnableCmd = WRITE_ENABLE_CMD;
+			FlashMsg[0].TxBfrPtr = &WriteEnableCmd;
+			FlashMsg[0].RxBfrPtr = NULL;
+			FlashMsg[0].ByteCount = 1;
+			FlashMsg[0].BusWidth = XQSPIPSU_SELECT_MODE_SPI;
+			FlashMsg[0].Flags = XQSPIPSU_MSG_FLAG_TX;
+			TransferDone = FALSE;
+			Status = XQspiPsu_InterruptTransfer(QspiPsuPtr, FlashMsg, 1);
+			if (Status != XST_SUCCESS) {
+				return XST_FAILURE;
+			}
+			if (Xil_WaitForEventSet(MAX_DELAY_CNT, 1, (u32 *)&TransferDone) != XST_SUCCESS) {
+				return XST_FAILURE;
+			}
+			/*
+			 * Write the Status Register followed by the Configuration
+			 * Register. Macronix WRSR (0x01) takes two data bytes: the
+			 * first updates the Status Register (with QE set) and the
+			 * second re-writes the Configuration Register.
+			 */
+			WriteBuffer[COMMAND_OFFSET] = WRITE_STATUS_CMD;
+			WriteBuffer[1] = StatusRegVal;
+			WriteBuffer[2] = FlashConfig[1];
+			FlashMsg[0].TxBfrPtr = WriteBuffer;
+			FlashMsg[0].RxBfrPtr = NULL;
+			FlashMsg[0].ByteCount = 1;
+			FlashMsg[0].BusWidth = XQSPIPSU_SELECT_MODE_SPI;
+			FlashMsg[0].Flags = XQSPIPSU_MSG_FLAG_TX;
+			FlashMsg[1].TxBfrPtr = &WriteBuffer[1];
+			FlashMsg[1].RxBfrPtr = NULL;
+			FlashMsg[1].ByteCount = 2;
+			FlashMsg[1].BusWidth = XQSPIPSU_SELECT_MODE_SPI;
+			FlashMsg[1].Flags = XQSPIPSU_MSG_FLAG_TX;
+			TransferDone = FALSE;
+			Status = XQspiPsu_InterruptTransfer(QspiPsuPtr, FlashMsg, 2);
+			if (Status != XST_SUCCESS) {
+				return XST_FAILURE;
+			}
+			if (Xil_WaitForEventSet(MAX_DELAY_CNT, 1, (u32 *)&TransferDone) != XST_SUCCESS) {
+				return XST_FAILURE;
+			}
+			/*
+			 * Wait for the write status register cycle to finish.
+			 */
+			DelayCount = 0;
+			while (1) {
+				if (DelayCount == MAX_DELAY_CNT) {
+					Status = XST_FAILURE;
+					goto ERROR_PATH;
+				} else {
+					ReadStatusCmd = READ_STATUS_CMD;
+					FlashMsg[0].TxBfrPtr = &ReadStatusCmd;
+					FlashMsg[0].RxBfrPtr = NULL;
+					FlashMsg[0].ByteCount = 1;
+					FlashMsg[0].BusWidth = XQSPIPSU_SELECT_MODE_SPI;
+					FlashMsg[0].Flags = XQSPIPSU_MSG_FLAG_TX;
+					FlashMsg[1].TxBfrPtr = NULL;
+					FlashMsg[1].RxBfrPtr = FlashStatus;
+					FlashMsg[1].ByteCount = 2;
+					FlashMsg[1].BusWidth = XQSPIPSU_SELECT_MODE_SPI;
+					FlashMsg[1].Flags = XQSPIPSU_MSG_FLAG_RX;
+					if (QspiPsuPtr->Config.ConnectionMode ==
+					    XQSPIPSU_CONNECTION_MODE_PARALLEL) {
+						FlashMsg[1].Flags |= XQSPIPSU_MSG_FLAG_STRIPE;
+					}
+					TransferDone = FALSE;
+					Status = XQspiPsu_InterruptTransfer(QspiPsuPtr, FlashMsg, 2);
+					if (Status != XST_SUCCESS) {
+						return XST_FAILURE;
+					}
+					if (Xil_WaitForEventSet(MAX_DELAY_CNT, 1, (u32 *)&TransferDone) != XST_SUCCESS) {
+						return XST_FAILURE;
+					}
+					if (QspiPsuPtr->Config.ConnectionMode ==
+					    XQSPIPSU_CONNECTION_MODE_PARALLEL) {
+						if (FSRFlag) {
+							FlashStatus[1] &= FlashStatus[0];
+						} else {
+							FlashStatus[1] |= FlashStatus[0];
+						}
+					}
+					if ((FlashStatus[1] & 0x01) == 0x00) {
+						break;
+					}
+					/* Wait for 1 usec */
+					usleep(1);
+					DelayCount++;
+				}
+			}
+			/*
+			 * Write Disable
+			 */
+			WriteEnableCmd = WRITE_DISABLE_CMD;
+			FlashMsg[0].TxBfrPtr = &WriteEnableCmd;
+			FlashMsg[0].RxBfrPtr = NULL;
+			FlashMsg[0].ByteCount = 1;
+			FlashMsg[0].BusWidth = XQSPIPSU_SELECT_MODE_SPI;
+			FlashMsg[0].Flags = XQSPIPSU_MSG_FLAG_TX;
+			TransferDone = FALSE;
+			Status = XQspiPsu_InterruptTransfer(QspiPsuPtr, FlashMsg, 1);
+			if (Status != XST_SUCCESS) {
+				return XST_FAILURE;
+			}
+			if (Xil_WaitForEventSet(MAX_DELAY_CNT, 1, (u32 *)&TransferDone) != XST_SUCCESS) {
 				return XST_FAILURE;
 			}
 			break;
