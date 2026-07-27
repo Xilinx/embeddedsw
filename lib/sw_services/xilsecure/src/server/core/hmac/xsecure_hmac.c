@@ -196,7 +196,7 @@ int XSecure_HmacFinal(XSecure_Hmac *InstancePtr, XSecure_HmacRes *Hmac)
 
 	if ((InstancePtr == NULL) || (InstancePtr->Sha3InstPtr == NULL) ||
 			(Hmac == NULL)) {
-		Status = (int)XSECURE_HMAC_INVALID_PARAM;
+		RetStatus = (int)XSECURE_HMAC_INVALID_PARAM;
 		goto RET;
 	}
 
