@@ -148,7 +148,7 @@ u32 XCsi2TxSs_CfgInitialize(XCsi2TxSs *InstancePtr, XCsi2TxSs_Config *CfgPtr,
 static void Csi2TxSs_GetIncludedSubCores(XCsi2TxSs *Csi2TxSsPtr)
 {
 	u32 Index = 0;
-	Index = XCsi2TxSs_GetDrvIndex(Csi2TxSsPtr, Csi2TxSsPtr->Config.BaseAddr);
+	Index = XCsi2TxSs_GetDrvIndex(Csi2TxSsPtr->Config.BaseAddr);
 
 	Csi2TxSsPtr->CsiPtr = ((Csi2TxSsPtr->Config.CsiInfo.IsPresent) ?
 	(&Csi2TxSsSubCores[Index].CsiInst) : NULL);

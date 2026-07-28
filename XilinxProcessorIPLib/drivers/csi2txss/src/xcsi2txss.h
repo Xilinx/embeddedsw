@@ -249,7 +249,7 @@ typedef struct {
 
 /* Initialization function in xcsi2txss_sinit.c */
 XCsi2TxSs_Config* XCsi2TxSs_LookupConfig(UINTPTR BaseAddress);
-u32 XCsi2TxSs_GetDrvIndex(XCsi2TxSs *InstancePtr, UINTPTR BaseAddress);
+u32 XCsi2TxSs_GetDrvIndex(UINTPTR BaseAddress);
 
 /* Initialization and control functions xcsi2txss.c */
 u32 XCsi2TxSs_CfgInitialize(XCsi2TxSs *InstancePtr, XCsi2TxSs_Config *CfgPtr,

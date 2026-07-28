@@ -5,7 +5,7 @@
 title: Bindings for csi2txss Sub System Driver
 
 maintainers:
-  - Kunal Rane <kvrane@amd.com>
+  - Asif Ikbal <asif.ikbal@amd.com>
 
 type: driver
 

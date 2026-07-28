@@ -78,20 +78,16 @@ XCsi2TxSs_Config* XCsi2TxSs_LookupConfig(UINTPTR BaseAddress)
 /**
 * This function returns the Index number of config table using BaseAddress.
 *
-* @param  A pointer to the instance structure
-*
-* @param  Base address of the instance
+* @param  BaseAddress is the base address of the instance
 *
 * @return Index number of the config table
 *
 *
 *******************************************************************************/
 
-u32 XCsi2TxSs_GetDrvIndex(XCsi2TxSs *InstancePtr, UINTPTR BaseAddress)
+u32 XCsi2TxSs_GetDrvIndex(UINTPTR BaseAddress)
 {
  u32 Index = 0;
-
- (void)InstancePtr;
 
  for (Index = 0U; XCsi2TxSs_ConfigTable[Index].Name != NULL; Index++) {
    if ((XCsi2TxSs_ConfigTable[Index].BaseAddr == BaseAddress)) {
