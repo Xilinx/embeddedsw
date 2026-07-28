@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2024-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -341,7 +341,7 @@ static void XDsi2RxSs_GetIncludedSubCores(XDsi2RxSs *Dsi2RxSsPtr)
 	/* Verify argument */
 	Xil_AssertVoid(Dsi2RxSsPtr != NULL);
 	u32 Index = 0;
-	Index = XDsi2RxSs_GetDrvIndex(Dsi2RxSsPtr, Dsi2RxSsPtr->Config.BaseAddr);
+	Index = XDsi2RxSs_GetDrvIndex(Dsi2RxSsPtr->Config.BaseAddr);
 
 	Dsi2RxSsPtr->Dsi2RxPtr = ((Dsi2RxSsPtr->Config.Dsi2RxInfo.IsPresent) ?
 				(&Dsi2SsSubCores[Index].Dsi2RxInst) : NULL);
