@@ -281,7 +281,7 @@ typedef enum {
 *
 */
 typedef struct {
-    char *Name;
+    char *Name; /**< Unique name of the device */
 	UINTPTR BaseAddr; /**< Base address of mipi_tx_phy */
 	u32 IsDphy; /**< CPHY or DPHY Mode */
 	u32 IsRegisterPresent; /**< Is register access allowed */
