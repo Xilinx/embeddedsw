@@ -53,6 +53,8 @@
 *                       it available in XHdcp1x_TxGetTopology().
 *                       Updating the XHdcp1x_TxReset() to clear the
 *                       Authentication Request flag.
+* 4.3   amd    07/27/26 Bound TX KSV list handling to XHDCP1X_RPTR_MAX_DEVS_COUNT
+*                       to prevent buffer overflow in XHdcp1x_TxValidateKsvList.
 * </pre>
 *
 *****************************************************************************/
@@ -1795,9 +1797,17 @@ static void XHdcp1x_TxPollForWaitForReady(XHdcp1x *InstancePtr,
 		/* Check that neither cascade or device numbers exceeded */
 		if ((!XHdcp1x_TxGetTopologyMaxCascadeExceeded(InstancePtr)) &&
 		    (!XHdcp1x_TxGetTopologyMaxDevsExceeded(InstancePtr))) {
+			u16 DeviceCount = (RepeaterInfo & 0x007Fu);
 
 			/* Check for at least one attached device */
-			if ((RepeaterInfo & 0x007Fu) != 0) {
+			if (DeviceCount != 0) {
+				if (DeviceCount > XHDCP1X_RPTR_MAX_DEVS_COUNT) {
+					XHdcp1x_TxDebugLog(InstancePtr,
+						"Repeater maximum devices exceeded");
+					*NextStatePtr =
+						XHDCP1X_STATE_UNAUTHENTICATED;
+				}
+				else {
 				/* Update InstancePtr */
 				InstancePtr->Tx.StateHelper = RepeaterInfo;
 
@@ -1810,6 +1820,7 @@ static void XHdcp1x_TxPollForWaitForReady(XHdcp1x *InstancePtr,
 				/* Log */
 				XHdcp1x_TxDebugLog(InstancePtr,
 					"devices attached: ksv list ready");
+				}
 			}
 			/* Otherwise */
 			else {
@@ -1945,6 +1956,13 @@ static int XHdcp1x_TxValidateKsvList(XHdcp1x *InstancePtr, u16 RepeaterInfo)
 	/* Initialize Sha1Context */
 	SHA1Reset(&Sha1Context);
 
+	/* Reject topologies that exceed the local KSV list capacity */
+	if ((RepeaterInfo & 0x7Fu) > XHDCP1X_RPTR_MAX_DEVS_COUNT) {
+		XHdcp1x_TxDebugLog(InstancePtr,
+			"Repeater maximum devices exceeded");
+		return FALSE;
+	}
+
 	/* Assume success */
 	IsValid = TRUE;
 
@@ -1984,6 +2002,12 @@ static int XHdcp1x_TxValidateKsvList(XHdcp1x *InstancePtr, u16 RepeaterInfo)
 					XHdcp1x_TxDebugLog(InstancePtr ,
 						"Error: Null KSV read "
 						"from downstream KSV List");
+				}
+				if (KsvCount >= XHDCP1X_RPTR_MAX_DEVS_COUNT) {
+					XHdcp1x_TxDebugLog(InstancePtr,
+						"KSV list exceeds maximum size");
+					IsValid = FALSE;
+					break;
 				}
 				InstancePtr->RepeaterValues.KsvList[KsvCount++] =
 					(Value & 0xFFFFFFFFFFul);
@@ -2171,6 +2195,11 @@ static int XHdcp1x_TxValidateKsvList(XHdcp1x *InstancePtr, u16 RepeaterInfo)
 				continue;
 			}
 
+			if (KsvCount >= XHDCP1X_RPTR_MAX_DEVS_COUNT) {
+				XHdcp1x_TxDebugLog(InstancePtr,
+					"KSV list exceeds maximum size");
+				return FALSE;
+			}
 
 			InstancePtr->RepeaterValues.KsvList[KsvCount++] =
 				(Value & 0xFFFFFFFFFFul);
@@ -2200,6 +2229,12 @@ static int XHdcp1x_TxValidateKsvList(XHdcp1x *InstancePtr, u16 RepeaterInfo)
 			/* Check for invalid */
 			if (!XHdcp1x_TxIsKsvValid(RemoteKsv)) {
 				XHdcp1x_TxDebugLog(InstancePtr, "Bksv invalid");
+				return FALSE;
+			}
+
+			if (KsvCount >= XHDCP1X_RPTR_MAX_DEVS_COUNT) {
+				XHdcp1x_TxDebugLog(InstancePtr,
+					"KSV list exceeds maximum size");
 				return FALSE;
 			}
 
@@ -2524,6 +2559,11 @@ static int XHdcp1x_TxSetRepeaterInfo(XHdcp1x *InstancePtr)
 
 		/* Copy the device count read from
 		 * the downstream HDCP device */
+		if ((Buf & 0x007Fu) > XHDCP1X_RPTR_MAX_DEVS_COUNT) {
+			XHdcp1x_TxDebugLog(InstancePtr,
+				"Repeater maximum devices exceeded");
+			return XST_FAILURE;
+		}
 		InstancePtr->RepeaterValues.DeviceCount = (Buf & 0x007F);
 		/* Increment the device count by 1 to account for
 		 * the HDCP Repeater system itself */
@@ -2539,6 +2579,11 @@ static int XHdcp1x_TxSetRepeaterInfo(XHdcp1x *InstancePtr)
 
 		/* Copy the device count read from
 		 * the downstream HDCP device */
+		if ((RepeaterInfo & 0x007Fu) > XHDCP1X_RPTR_MAX_DEVS_COUNT) {
+			XHdcp1x_TxDebugLog(InstancePtr,
+				"Repeater maximum devices exceeded");
+			return XST_FAILURE;
+		}
 		InstancePtr->RepeaterValues.DeviceCount = (RepeaterInfo & 0x007F);
 
 		/* Increment the device count by 1 to account for
