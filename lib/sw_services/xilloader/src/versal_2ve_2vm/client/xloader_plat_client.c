@@ -20,6 +20,7 @@
  * 2.40  gnr  03/18/26 Updated the Payload assignments with XLOADER_PACK_PAYLOAD macros
  * 2.40  sri  03/26/26 Added client API to validate authenticated PDI
  * 2.4   sms  04/16/26 Updated the Payload and Response buffer length parameters in the function
+ *       sri  07/21/26 Added RevokeID verification by reading eFuse cache directly
  *
  * </pre>
  *
@@ -40,6 +41,7 @@
 #include "xsecure_katclient.h"
 #include "xil_sutil.h"
 #include "xloader_defs.h"
+#include "xil_io.h"
 
 /************************** Constant Definitions *****************************/
 #define XLOADER_SMAP_WD_PATTERN_SIZE         (0x00000010U) /**< Size of SMAP width pattern */
@@ -54,6 +56,7 @@
 /* Image and Partition sizes */
 #define XLOADER_IHT_SIZE                     (0x80U) /**< Size of Image Header Table in bytes*/
 #define XLOADER_IH_MAX_PRTNS                 (32U) /**< Maximum number of partitions in the IHT */
+#define XLOADER_IH_MAX_IMGS                  (32U) /**< Maximum number of images in the IHT */
 #define XLOADER_IH_SIZE                      (0x40U) /**< Size of Image Header in bytes*/
 #define XLOADER_PHT_SIZE                     (0x80U) /**< Size of Partition Header Table in bytes*/
 #define XLOADER_SECURE_CHUNK_SIZE            (0x8000U) /**< 32K */
@@ -67,6 +70,24 @@
 
 /* Hash Block 1 Partition Indices */
 #define XLOADER_HB1_INDEX_0_MH               (0U) /**< 0th for Meta Header */
+
+/* Revocation ID verification (matches XLoader_VerifyRevokeId on server) */
+#define XLOADER_REVOCATION_ID_MAX            (0xFFU) /**< Maximum value of RevokeID */
+#define XLOADER_REVOCATION_ROW_SHIFT         (5U) /**< Shift to get row index from RevokeID */
+#define XLOADER_REVOCATION_BIT_MASK          (0x1FU) /**< Bit index mask within a revocation row */
+#define XLOADER_EFUSE_REVOCATION_ID_0_ADDR   (0xF12500B0U)
+	/**< eFuse cache Revocation ID 0 register address (same as server XLOADER_EFUSE_REVOCATION_ID_0_OFFSET) */
+
+/* PMC RTCFG secure-state for partition RevokeID check policy (auth-only validate PDI) */
+#define XLOADER_RTCFG_BASEADDR                (0xF2014000U) /**< PMC PLM RTCFG register base address */
+#define XLOADER_RTCFG_SECURESTATE_AHWROT_ADDR (XLOADER_RTCFG_BASEADDR + 0x14CU) /**< A-HWRoT secure-state register address */
+#define XLOADER_RTCFG_SECURESTATE_AHWROT      (0xA5A5A5A5U) /**< A-HWRoT secure-state register value */
+#define XLOADER_RTCFG_SECURESTATE_EMUL_AHWROT (0x5A5A5A5AU) /**< Emulated A-HWRoT secure-state register value */
+#define XLOADER_RTCFG_SECURESTATE_NONSECURE   (0xD2D2D2D2U) /**< Non-secure state register value */
+
+#define XLOADER_REVOKEID_OUTOFRANGE_ERR       (0x10U) /**< RevokeID is out of range */
+#define XLOADER_REVOKEID_REVOKED_ERR          (0x11U) /**< RevokeID is revoked in eFuse */
+
 /**************************** Type Definitions *******************************/
 /**
  * Structure to store the Boot Header PMC FW fields
@@ -142,6 +163,24 @@ typedef struct {
 } XilLoader_ImgHdrTbl __attribute__ ((aligned(16U)));
 
 /**
+ * Structure to store the image header details.
+ */
+typedef struct {
+	u32 FirstPrtnHdr;      /**< First partition header in the image */
+	u32 NoOfPrtns;         /**< Number of partitions in the image */
+	u32 EncRevokeID;       /**< Revocation ID of image header */
+	u32 ImgAttr;           /**< Image attributes */
+	u8 ImgName[16U];       /**< Image name */
+	u32 ImgID;             /**< Image ID */
+	u32 UID;               /**< Unique ID */
+	u32 PUID;              /**< Parent UID */
+	u32 FuncID;            /**< Function ID */
+	u64 Reserved;          /**< Reserved */
+	u32 PcrInfo;           /**< PCR information (unused on Versal 2VE/2VM) */
+	u32 Checksum;          /**< Image header checksum */
+} XilLoader_ImgHdr __attribute__ ((aligned(16U)));
+
+/**
  * Structure to store the partition header details.
  * It contains all the information of partition header in order.
  */
@@ -211,6 +250,11 @@ static int XLoader_ValidateMhAndPrtnAuth(XLoader_ClientInstance *InstancePtr, co
 static int XLoader_VerifyPrtnAuth(u64 PdiAddr, const XilLoader_PrtnHdr *PrtnHdr, u64 PrtnIdx,
 	const u32 PdiType);
 static int XLoader_VerifyAuthHashBlock(XLoader_ClientInstance *InstancePtr, u64 HBSignParamsAddr, u64 HBInstanceAddr);
+static int XLoader_ReadRtcfgSecureState(u32 *AuthRegPtr);
+static int XLoader_IsRtcfgSecureStateConsistent(u32 AuthReg);
+static int XLoader_VerifyRevokeId(u32 RevokeId);
+static int XLoader_ValidateRevokeIds(u64 MhAddr,
+	const XilLoader_ImgHdrTbl *IhtPtr, const XilLoader_PrtnHdr *PrtnHdr, u32 PrtnStartIdx);
 
 /************************** Variable Definitions *****************************/
 /**
@@ -731,6 +775,13 @@ static int XLoader_ValidateMhAndPrtnAuth(XLoader_ClientInstance *InstancePtr, co
 	u32 TotalLengthOfPrtnHdr;
 	u32 Idx;
 
+	/* Validate number of images in the Image Header Table */
+	if (IhtPtr->NoOfImgs > XLOADER_IH_MAX_IMGS) {
+		XLoader_Client_Printf(XLOADER_DEBUG_GENERAL,
+			"Invalid number of images in IHT: %u\r\n", IhtPtr->NoOfImgs);
+		goto END;
+	}
+
 	/* Validate number of partitions in the Image Header Table */
 	if (IhtPtr->NoOfPrtns > XLOADER_IH_MAX_PRTNS) {
 		XLoader_Client_Printf(XLOADER_DEBUG_GENERAL, "Invalid number of partitions in IHT: %u\r\n", IhtPtr->NoOfPrtns);
@@ -817,6 +868,12 @@ static int XLoader_ValidateMhAndPrtnAuth(XLoader_ClientInstance *InstancePtr, co
 			TotalLengthOfPrtnHdr, TotalLengthOfPrtnHdr);
 	if (Status != XST_SUCCESS) {
 		XLoader_Client_Printf(XLOADER_DEBUG_GENERAL, "Copying partition headers failed, Status = 0x%x\r\n", Status);
+		goto END;
+	}
+
+	/* Read eFuse revocation rows and verify image/partition RevokeID fields */
+	Status = XLoader_ValidateRevokeIds(MhAddr, IhtPtr, PrtnHdr, PrtnStartIdx);
+	if (Status != XST_SUCCESS) {
 		goto END;
 	}
 
@@ -941,6 +998,236 @@ int XLoader_ValidatePdiAuth(XLoader_ClientInstance *InstancePtr, const u64 PdiAd
 END:
 	return Status;
 }
+/*****************************************************************************/
+/**
+ * @brief	This function reads PLM RTCFG A-HWRoT secure-state register.
+ *
+ * @param	AuthRegPtr	Pointer to store A-HWRoT secure-state register value
+ *
+ * @return
+ *		 - XST_SUCCESS on success
+ *		 - XST_GLITCH_ERROR if redundant reads mismatch
+ *
+ ******************************************************************************/
+static int XLoader_ReadRtcfgSecureState(u32 *AuthRegPtr)
+{
+	volatile int Status = XST_FAILURE;
+	volatile u32 ReadAuthReg = 0U;
+	volatile u32 ReadAuthRegTmp = 0U;
+
+	if (AuthRegPtr == NULL) {
+		Status = XST_INVALID_PARAM;
+		goto END;
+	}
+
+	Xil_DCacheInvalidateRange((INTPTR)XLOADER_RTCFG_SECURESTATE_AHWROT_ADDR, sizeof(u32));
+
+	ReadAuthReg = Xil_In32(XLOADER_RTCFG_SECURESTATE_AHWROT_ADDR);
+	ReadAuthRegTmp = Xil_In32(XLOADER_RTCFG_SECURESTATE_AHWROT_ADDR);
+
+	if (ReadAuthReg != ReadAuthRegTmp) {
+		XLoader_Client_Printf(XLOADER_DEBUG_GENERAL,
+			"RTCFG secure-state glitch detected, AHWROT = 0x%08x/0x%08x\r\n",
+			ReadAuthReg, ReadAuthRegTmp);
+		Status = XST_GLITCH_ERROR;
+		goto END;
+	}
+
+	*AuthRegPtr = ReadAuthReg;
+
+	XLoader_Client_Printf(XLOADER_DEBUG_GENERAL,
+		"RTCFG secure-state: AHWROT = 0x%08x\r\n", ReadAuthReg);
+
+	Status = XST_SUCCESS;
+
+END:
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function checks PLM RTCFG A-HWRoT secure-state register value.
+ *
+ * @param	AuthReg	A-HWRoT secure-state register value
+ *
+ * @return
+ *		 - XST_SUCCESS if value is a valid PLM secure-state marker
+ *		 - XST_GLITCH_ERROR otherwise
+ *
+ ******************************************************************************/
+static int XLoader_IsRtcfgSecureStateConsistent(u32 AuthReg)
+{
+	volatile int Status = XST_FAILURE;
+
+	if ((AuthReg != XLOADER_RTCFG_SECURESTATE_AHWROT) &&
+		(AuthReg != XLOADER_RTCFG_SECURESTATE_EMUL_AHWROT) &&
+		(AuthReg != XLOADER_RTCFG_SECURESTATE_NONSECURE)) {
+		Status = XST_GLITCH_ERROR;
+		goto END;
+	}
+
+	Status = XST_SUCCESS;
+
+END:
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function verifies RevokeID by reading the eFuse revocation
+ *		cache registers directly (same approach as XLoader_VerifyRevokeId on
+ *		the server), avoiding a XilNvm library dependency.
+ *
+ * @param	RevokeId	RevokeID field to verify
+ *
+ * @return
+ *		 - XST_SUCCESS if revocation ID is valid
+ *		 - XLOADER_REVOKEID_OUTOFRANGE_ERR if out of range
+ *		 - XLOADER_REVOKEID_REVOKED_ERR if revoked
+ *
+ ******************************************************************************/
+static int XLoader_VerifyRevokeId(u32 RevokeId)
+{
+	volatile int Status = XST_FAILURE;
+	u32 Row;
+	u32 Bit;
+	u32 RowVal;
+	volatile u32 Value;
+	volatile u32 ValueTmp;
+
+	if (RevokeId > XLOADER_REVOCATION_ID_MAX) {
+		XLoader_Client_Printf(XLOADER_DEBUG_GENERAL,
+			"RevokeID 0x%x is out of range (max 0x%x)\r\n",
+			RevokeId, XLOADER_REVOCATION_ID_MAX);
+		Status = XLOADER_REVOKEID_OUTOFRANGE_ERR;
+		goto END;
+	}
+
+	/*
+	 * Read the relevant eFuse revocation ID cache word directly.
+	 */
+	Row = RevokeId >> XLOADER_REVOCATION_ROW_SHIFT;
+	Bit = RevokeId & XLOADER_REVOCATION_BIT_MASK;
+	RowVal = Xil_In32(XLOADER_EFUSE_REVOCATION_ID_0_ADDR +
+			(Row << XLOADER_WORD_LEN_SHIFT));
+	Value = RowVal & ((u32)1U << Bit);
+	ValueTmp = Xil_In32(XLOADER_EFUSE_REVOCATION_ID_0_ADDR +
+			(Row << XLOADER_WORD_LEN_SHIFT)) & ((u32)1U << Bit);
+	if ((Value != 0U) || (ValueTmp != 0U)) {
+		XLoader_Client_Printf(XLOADER_DEBUG_GENERAL,
+			"RevokeID 0x%x is revoked (row %u, bit %u, row value 0x%08x)\r\n",
+			RevokeId, Row, Bit, RowVal);
+		Status = XLOADER_REVOKEID_REVOKED_ERR;
+		goto END;
+	}
+
+	Status = XST_SUCCESS;
+
+END:
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function validates image and partition RevokeID fields.
+ *
+ * @param	MhAddr		Meta header base address
+ * @param	IhtPtr		Pointer to image header table
+ * @param	PrtnHdr		Pointer to partition header array
+ * @param	PrtnStartIdx	First partition index to validate
+ *
+ * @return
+ *		 - XST_SUCCESS on success
+ *		 - Error code on failure
+ *
+ ******************************************************************************/
+static int XLoader_ValidateRevokeIds(u64 MhAddr,
+	const XilLoader_ImgHdrTbl *IhtPtr, const XilLoader_PrtnHdr *PrtnHdr, u32 PrtnStartIdx)
+{
+	volatile int Status = XST_FAILURE;
+	u32 AuthReg = 0U;
+	u64 ImgHdrBase;
+	u32 Idx;
+
+	if ((IhtPtr == NULL) || (PrtnHdr == NULL)) {
+		Status = XST_INVALID_PARAM;
+		goto END;
+	}
+
+	XLoader_Client_Printf(XLOADER_DEBUG_GENERAL,
+		"Starting RevokeID validation: NoOfImgs = %u, NoOfPrtns = %u, PrtnStartIdx = %u\r\n",
+		IhtPtr->NoOfImgs, IhtPtr->NoOfPrtns, PrtnStartIdx);
+
+	Status = XLoader_ReadRtcfgSecureState(&AuthReg);
+	if (Status != XST_SUCCESS) {
+		XLoader_Client_Printf(XLOADER_DEBUG_GENERAL,
+			"Read RTCFG secure-state failed, Status = 0x%x\r\n", Status);
+		goto END;
+	}
+
+	ImgHdrBase = MhAddr + XLOADER_IHT_SIZE +
+		((u64)IhtPtr->OptionalDataLen * XLOADER_WORD_LEN);
+
+	/*
+	 * Image-header RevokeID is always verified.
+	 * Partition RevokeID is verified only when A-HWRoT is active.
+	 */
+	for (Idx = 0U; Idx < IhtPtr->NoOfImgs; ++Idx) {
+		const XilLoader_ImgHdr *ImgHdrPtr =
+			(const XilLoader_ImgHdr *)(UINTPTR)(ImgHdrBase +
+			((u64)Idx * XLOADER_IH_SIZE));
+
+		XLoader_Client_Printf(XLOADER_DEBUG_GENERAL,
+			"Verifying Image %u RevokeID = 0x%x\r\n", Idx,
+			ImgHdrPtr->EncRevokeID);
+		Status = XLoader_VerifyRevokeId(ImgHdrPtr->EncRevokeID);
+		if (Status != XST_SUCCESS) {
+			XLoader_Client_Printf(XLOADER_DEBUG_GENERAL,
+				"RevokeID check failed for Image %u, Status = 0x%x\r\n",
+				Idx, Status);
+			goto END;
+		}
+		XLoader_Client_Printf(XLOADER_DEBUG_GENERAL,
+			"RevokeID check passed for Image %u\r\n", Idx);
+	}
+
+	for (Idx = PrtnStartIdx; Idx < IhtPtr->NoOfPrtns; ++Idx) {
+		if (AuthReg == XLOADER_RTCFG_SECURESTATE_AHWROT) {
+			XLoader_Client_Printf(XLOADER_DEBUG_GENERAL,
+				"Verifying Partition %u RevokeID = 0x%x\r\n",
+				Idx, PrtnHdr[Idx].EncRevokeID);
+			Status = XLoader_VerifyRevokeId(PrtnHdr[Idx].EncRevokeID);
+			if (Status != XST_SUCCESS) {
+				XLoader_Client_Printf(XLOADER_DEBUG_GENERAL,
+					"RevokeID check failed for Partition %u, Status = 0x%x\r\n",
+					Idx, Status);
+				goto END;
+			}
+			XLoader_Client_Printf(XLOADER_DEBUG_GENERAL,
+				"RevokeID check passed for Partition %u\r\n", Idx);
+		}
+		else {
+			XLoader_Client_Printf(XLOADER_DEBUG_GENERAL,
+				"Skipping Partition %u RevokeID check (A-HWRoT not active)\r\n", Idx);
+			Status = XLoader_IsRtcfgSecureStateConsistent(AuthReg);
+			if (Status != XST_SUCCESS) {
+				XLoader_Client_Printf(XLOADER_DEBUG_GENERAL,
+					"RTCFG secure-state check failed for Partition %u\r\n", Idx);
+				goto END;
+			}
+			XLoader_Client_Printf(XLOADER_DEBUG_GENERAL,
+				"RTCFG secure-state check passed for Partition %u\r\n", Idx);
+		}
+	}
+
+	Status = XST_SUCCESS;
+	XLoader_Client_Printf(XLOADER_DEBUG_GENERAL,
+		"RevokeID validation completed successfully\r\n");
+
+END:
+	return Status;
+}
+
 /*****************************************************************************/
 /**
  * @brief	This function fills payload and sends IPI request for verifying
