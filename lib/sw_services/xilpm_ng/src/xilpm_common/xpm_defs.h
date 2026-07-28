@@ -663,7 +663,11 @@ enum XPmNotifyEvent {
  * and REQ_ACCESS_SECURE_NONSECURE policies.
  */
 #define XST_API_REQUEST_NODE_VERSION		(2U)
-#define XST_API_RELEASE_NODE_VERSION		(2U)
+/**
+ * @brief Version 3 supports bulk release of peripheral devices
+ * (PM_DEV_ALL_PERIPH)
+ */
+#define XST_API_RELEASE_NODE_VERSION		(3U)
 /*
  * Version 2 supports the bitmask functionality of GET_OP_CHAR IDs
  * where the user can check whether the ID is supported or not in

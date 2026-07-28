@@ -857,6 +857,99 @@ done:
 	return Status;
 }
 
+/****************************************************************************/
+/**
+ * @brief  Release all devices requested by a subsystem that match the class,
+ * subclass, and type encoded in DeviceId. Used during a kexec-based kernel
+ * reload (Linux sends the PM_DEV_ALL_PERIPH node with index
+ * XPM_NODEIDX_DEV_ALL) to bulk-release stale device ownership.
+ *
+ * @param SubsystemId	Subsystem making the request.
+ * @param DeviceId	Node whose class/subclass/type selects the devices.
+ * @param CmdType	Command type (secure/non-secure).
+ *
+ * @return XST_SUCCESS if successful else XST_FAILURE or an error code
+ * or a reason code
+ *
+ * @note   If DeviceId uses the XPM_NODEIDX_DEV_ALL node index, all devices
+ * matching the class, subclass, and type will be released. This
+ * general-purpose behavior can release critical devices (e.g., processors)
+ * by mistake, so use it with care and only when the usage is intended.
+ *
+ ****************************************************************************/
+static XStatus XPm_ReleaseAllDevices(const u32 SubsystemId, const u32 DeviceId,
+				     const u32 CmdType)
+{
+	volatile XStatus Status = XST_FAILURE;
+	const XPm_Subsystem* Subsystem = NULL;
+	u32 TargetClass = NODECLASS(DeviceId);
+	u32 TargetSubclass = NODESUBCLASS(DeviceId);
+	u32 TargetType = NODETYPE(DeviceId);
+	u32 ReqmDeviceId;
+	u32 Usage = 0U;
+
+	/* Ensure the subsystem is valid: in-range and not the PMC subsystem */
+	if ((MAX_NUM_SUBSYSTEMS <= NODEINDEX(SubsystemId)) ||
+	    (PM_SUBSYS_PMC == SubsystemId)) {
+		Status = XPM_INVALID_SUBSYSID;
+		goto done;
+	}
+
+	/* Retrieve target subsystem */
+	Subsystem = XPmSubsystem_GetById(SubsystemId);
+	if (NULL == Subsystem) {
+		Status = XPM_INVALID_SUBSYSID;
+		goto done;
+	}
+
+	/* Release devices matching the specified class, subclass, and type */
+	LIST_FOREACH(Subsystem->Requirements, ReqmNode) {
+		const XPm_Requirement *Reqm = NULL;
+
+		if (NULL == ReqmNode->Data) {
+			PmErr("Invalid requirement node\n\r");
+			Status = XST_FAILURE;
+			goto done;
+		}
+		Reqm = ReqmNode->Data;
+		ReqmDeviceId = Reqm->Device->Node.Id;
+
+		/*
+		 * Only release allocated devices that match class, subclass,
+		 * and type
+		 */
+		if ((1U != Reqm->Allocated) ||
+		    (TargetClass != NODECLASS(ReqmDeviceId)) ||
+		    (TargetSubclass != NODESUBCLASS(ReqmDeviceId)) ||
+		    (TargetType != NODETYPE(ReqmDeviceId))) {
+			continue;
+		}
+
+		Status = XPmDevice_Release(SubsystemId, ReqmDeviceId, CmdType);
+		if (XST_SUCCESS != Status) {
+			PmErr("Failed to release device 0x%x: 0x%x\n\r",
+			      ReqmDeviceId, Status);
+			Status = XPM_ERR_DEVICE_RELEASE;
+			goto done;
+		}
+
+		Usage = XPmDevice_GetUsageStatus(Subsystem, Reqm->Device);
+		if (0U == Usage) {
+			XPmNotifier_Event(Reqm->Device->Node.Id,
+					  (u32)EVENT_ZERO_USERS);
+		}
+	}
+
+	Status = XST_SUCCESS;
+
+done:
+	if (XST_SUCCESS != Status) {
+		PmErr("0x%x\n\r", Status);
+	}
+
+	return Status;
+}
+
 static XStatus XPm_DoReleaseDevice(XPlmi_Cmd* Cmd)
 {
 	XStatus Status = XST_FAILURE;
@@ -871,6 +964,16 @@ static XStatus XPm_DoReleaseDevice(XPlmi_Cmd* Cmd)
 	Status = XPm_ResolveIndexedNodeId(IndexedDeviceId, &DeviceId);
 	if (XST_SUCCESS != Status) {
 		Cmd->Response[0] = (u32)Status;
+		goto done;
+	}
+
+	/*
+	 * Bulk-release path: Linux sends the PM_DEV_ALL_PERIPH node (device
+	 * index XPM_NODEIDX_DEV_ALL) during kexec to release all peripheral
+	 * devices owned by the subsystem at once.
+	 */
+	if ((u32)XPM_NODEIDX_DEV_ALL == NODEINDEX(DeviceId)) {
+		Status = XPm_ReleaseAllDevices(SubsystemId, DeviceId, CmdType);
 		goto done;
 	}
 
