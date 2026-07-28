@@ -648,7 +648,11 @@ enum XPmNotifyEvent {
  */
 #define XST_API_BASE_VERSION			(1U)
 #define XST_API_QUERY_DATA_VERSION		(2U)
-#define XST_API_REG_NOTIFIER_VERSION		(2U)
+/**
+ * @brief Version 3 supports unregistering all notifiers at once
+ * (PM_ALL_NOTIFIER)
+ */
+#define XST_API_REG_NOTIFIER_VERSION		(3U)
 #define XST_API_PM_IOCTL_VERSION		(2U)
 #define XST_API_PM_FEATURE_CHECK_VERSION	(2U)
 /* Version 3 supports the CPU idling feature during force power down */
@@ -659,7 +663,11 @@ enum XPmNotifyEvent {
  * and REQ_ACCESS_SECURE_NONSECURE policies.
  */
 #define XST_API_REQUEST_NODE_VERSION		(2U)
-#define XST_API_RELEASE_NODE_VERSION		(2U)
+/**
+ * @brief Version 3 supports bulk release of peripheral devices
+ * (PM_DEV_ALL_PERIPH)
+ */
+#define XST_API_RELEASE_NODE_VERSION		(3U)
 /*
  * Version 2 supports the bitmask functionality of GET_OP_CHAR IDs
  * where the user can check whether the ID is supported or not in
