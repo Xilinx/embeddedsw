@@ -1,4 +1,4 @@
-# Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
+# Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 # SPDX-License-Identifier: MIT
 %YAML 1.2
 ---
@@ -41,6 +41,10 @@ properties:
     description: Sub-core instance presence.
   dphy-connected:
     description: Sub-core instance configuration.
+  txphy-present:
+    description: Sub-core instance presence.
+  txphy-connected:
+    description: Sub-core instance configuration.
   interrupts:
     description: Interrupt number
   interrupt-parent:
@@ -61,6 +65,8 @@ required:
   - csi2tx-connected: phandle
   - dphy-present
   - dphy-connected: phandle
+  - txphy-present
+  - txphy-connected: phandle
   - interrupts
   - interrupt-parent
 

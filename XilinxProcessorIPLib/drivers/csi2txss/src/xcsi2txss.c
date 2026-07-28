@@ -34,6 +34,9 @@
 #if (XPAR_XDPHY_NUM_INSTANCES > 0)
 #include "xdphy.h"
 #endif
+#if (XPAR_XMIPI_TX_PHY_NUM_INSTANCES > 0)
+#include "xmipi_tx_phy.h"
+#endif
 #include "xcsi2txss.h"
 
 /************************** Constant Definitions *****************************/
@@ -48,6 +51,9 @@ typedef struct {
 	XCsi2Tx CsiInst;
 #if (XPAR_XDPHY_NUM_INSTANCES > 0)
 	XDphy DphyInst;
+#endif
+#if (XPAR_XMIPI_TX_PHY_NUM_INSTANCES > 0)
+	XMipi_Tx_Phy MipiTxPhyInst;	/**< MIPI TX PHY instance */
 #endif
 } XCsi2TxSs_SubCores;
 
@@ -64,6 +70,9 @@ static void Csi2TxSs_GetIncludedSubCores(XCsi2TxSs *Csi2TxSsPtr);
 static u32 Csi2TxSs_SubCoreInitCsi(XCsi2TxSs *Csi2TxSsPtr);
 #if (XPAR_XDPHY_NUM_INSTANCES > 0)
 static u32 Csi2TxSs_SubCoreInitDphy(XCsi2TxSs *Csi2TxSsPtr);
+#endif
+#if (XPAR_XMIPI_TX_PHY_NUM_INSTANCES > 0)
+static u32 Csi2TxSs_SubCoreInitMipiTxPhy(XCsi2TxSs *Csi2TxSsPtr);
 #endif
 
 /************************** Variable Definitions *****************************/
@@ -126,6 +135,13 @@ u32 XCsi2TxSs_CfgInitialize(XCsi2TxSs *InstancePtr, XCsi2TxSs_Config *CfgPtr,
 			return XST_FAILURE;
 		}
 	}
+#elif (XPAR_XMIPI_TX_PHY_NUM_INSTANCES > 0)
+	if (InstancePtr->Config.IsDphyRegIntfcPresent && InstancePtr->MipiTxPhyPtr) {
+		Status = Csi2TxSs_SubCoreInitMipiTxPhy(InstancePtr);
+		if (Status != XST_SUCCESS) {
+			return XST_FAILURE;
+		}
+	}
 #endif
 	InstancePtr->IsReady = XIL_COMPONENT_IS_READY;
 	return XST_SUCCESS;
@@ -156,6 +172,10 @@ static void Csi2TxSs_GetIncludedSubCores(XCsi2TxSs *Csi2TxSsPtr)
 #if (XPAR_XDPHY_NUM_INSTANCES > 0)
 	Csi2TxSsPtr->DphyPtr = ((Csi2TxSsPtr->Config.DphyInfo.IsPresent) ?
 		(&Csi2TxSsSubCores[Index].DphyInst) : NULL);
+#endif
+#if (XPAR_XMIPI_TX_PHY_NUM_INSTANCES > 0)
+	Csi2TxSsPtr->MipiTxPhyPtr = ((Csi2TxSsPtr->Config.MipiTxPhyInfo.IsPresent) ?
+		(&Csi2TxSsSubCores[Index].MipiTxPhyInst) : NULL);
 #endif
 }
 
@@ -243,6 +263,11 @@ u32 XCsi2TxSs_Activate(XCsi2TxSs *InstancePtr, u8 Flag)
 #if (XPAR_XDPHY_NUM_INSTANCES > 0)
 	if (InstancePtr->Config.IsDphyRegIntfcPresent && InstancePtr->DphyPtr) {
 		XDphy_Activate(InstancePtr->DphyPtr, Flag);
+	}
+#endif
+#if (XPAR_XMIPI_TX_PHY_NUM_INSTANCES > 0)
+	if (InstancePtr->Config.IsDphyRegIntfcPresent && InstancePtr->MipiTxPhyPtr) {
+		XMipi_Tx_Phy_Activate(InstancePtr->MipiTxPhyPtr, Flag);
 	}
 #endif
 	return Status;
@@ -416,6 +441,51 @@ static u32 Csi2TxSs_SubCoreInitDphy(XCsi2TxSs *CsiSsPtr)
 	Status = XDphy_CfgInitialize(CsiSsPtr->DphyPtr, ConfigPtr, AbsAddr);
 	if (Status != XST_SUCCESS) {
 		xdbg_printf(XDBG_DEBUG_ERROR, "CSISS2TX ERR:: Dphy core"
+			"Initialization failed\n\r");
+		return XST_FAILURE;
+	}
+
+	return XST_SUCCESS;
+}
+#endif
+
+#if (XPAR_XMIPI_TX_PHY_NUM_INSTANCES > 0)
+/*****************************************************************************/
+/**
+* This function initializes the included sub-core to it's static configuration
+*
+* @param	CsiSsPtr is a pointer to the Subsystem instance to be worked.
+*
+* @return
+*		- XST_SUCCESS If MIPI TX PHY sub core is initialised successfully
+*		- XST_FAILURE If MIPI TX PHY sub core initialization failed
+*
+* @note		None
+*
+******************************************************************************/
+static u32 Csi2TxSs_SubCoreInitMipiTxPhy(XCsi2TxSs *CsiSsPtr)
+{
+	u32 Status;
+	UINTPTR AbsAddr;
+	XMipi_Tx_Phy_Config *ConfigPtr;
+
+	/* Get core configuration */
+	xdbg_printf(XDBG_DEBUG_GENERAL, "->Initializing MIPI TX PHY ...\n\r");
+
+	ConfigPtr = XMipi_Tx_Phy_LookupConfig(CsiSsPtr->Config.MipiTxPhyInfo.AddrOffset);
+	if (!ConfigPtr) {
+		xdbg_printf(XDBG_DEBUG_ERROR,
+			"CSISS2TX ERR:: MIPI TX PHY not found\n\r");
+		return XST_FAILURE;
+	}
+
+	/* Compute absolute base address */
+	AbsAddr = ConfigPtr->BaseAddr;
+
+	/* Initialize core */
+	Status = XMipi_Tx_Phy_CfgInitialize(CsiSsPtr->MipiTxPhyPtr, ConfigPtr, AbsAddr);
+	if (Status != XST_SUCCESS) {
+		xdbg_printf(XDBG_DEBUG_ERROR, "CSISS2TX ERR:: Mipi Tx Phy core "
 			"Initialization failed\n\r");
 		return XST_FAILURE;
 	}

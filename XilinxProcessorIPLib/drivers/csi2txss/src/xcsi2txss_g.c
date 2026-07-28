@@ -17,6 +17,8 @@ XCsi2TxSs_Config XCsi2TxSs_ConfigTable[] __attribute__ ((section (".drvcfg_sec")
 		0x0, /* csi2-tx-connected */
 		0x0, /* mipi-dphy-present */
 		0x0, /* mipi-dphy-connected */
+		0x0, /* txphy-present */
+		0x0, /* txphy-connected */
 		0xffff, /* interrupts */
 		0xffff /* interrupt-parent */
 	},

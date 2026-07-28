@@ -125,6 +125,9 @@ extern "C" {
 #if (XPAR_XDPHY_NUM_INSTANCES > 0)
 #include "xdphy.h"
 #endif
+#if (XPAR_XMIPI_TX_PHY_NUM_INSTANCES > 0)
+#include "xmipi_tx_phy.h"
+#endif
 #include "xdebug.h"
 #include "xcsi2txss_hw.h"
 
@@ -223,6 +226,7 @@ typedef struct {
 	u32 FEGenEnabled;	/**< Frame End Generation enabled flag */
 	SubCoreCsi2Tx CsiInfo;	/**< CSI sub-core configuration */
 	SubCoreCsi2Tx DphyInfo;	/**< DPHY sub-core configuration */
+	SubCoreCsi2Tx MipiTxPhyInfo;	/**< MIPI TX PHY sub-core configuration */
 	u16 IntrId;		/* Interrupt ID */
 	UINTPTR IntrParent; 	/* Bit[0] Interrupt Parent */
 } XCsi2TxSs_Config;
@@ -241,6 +245,9 @@ typedef struct {
 	XCsi2Tx_SPktData SpktData;		/**< Short packet */
 #if (XPAR_XDPHY_NUM_INSTANCES > 0)
 	XDphy *DphyPtr;		/**< handle to sub-core driver instance */
+#endif
+#if (XPAR_XMIPI_TX_PHY_NUM_INSTANCES > 0)
+	XMipi_Tx_Phy *MipiTxPhyPtr;	/**< Handle to MIPI TX PHY sub-core driver instance */
 #endif
 
 } XCsi2TxSs;
