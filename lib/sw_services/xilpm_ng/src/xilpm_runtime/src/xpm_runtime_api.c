@@ -1811,6 +1811,22 @@ static XStatus XPm_RegisterNotifier(const u32 SubsystemId, const u32 NodeId,
 		goto done;
 	}
 
+	/*
+	 * Unregister all notifiers of the subsystem at once. Used during a
+	 * kexec-based kernel reload to clear stale notifier registrations.
+	 * NodeId == PM_ALL_NOTIFIER is only valid with Enable == 0.
+	 */
+	if (PM_ALL_NOTIFIER == NodeId) {
+		if (0U != Enable) {
+			Status = XST_INVALID_PARAM;
+			__errl__ = __LINE__;
+			goto done;
+		}
+		Status = XPmNotifier_UnregisterAll(Subsystem);
+		__errl__ = __LINE__;
+		goto done;
+	}
+
 	/* Only Event, Device and Power Nodes are supported */
 	if (((u32)XPM_NODECLASS_EVENT != NODECLASS(NodeId)) &&
 	    ((u32)XPM_NODECLASS_DEVICE != NODECLASS(NodeId)) &&
