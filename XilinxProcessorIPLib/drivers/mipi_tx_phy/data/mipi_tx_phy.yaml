@@ -5,7 +5,7 @@
 title: Bindings for Mipi_Tx_Phy Driver
 
 maintainers:
-  - Prasad Gutti <prasadg@amd.com>
+  - Asif Ikbal <asif.ikbal@amd.com>
 
 type: driver
 
@@ -18,7 +18,7 @@ properties:
   reg:
     description: Physical base address and size of the controller register map
   xlnx,phy-mode:
-    description: MIPI CPHY Mode
+    description: "MIPI CPHY Mode, 1: DPHY, 0: CPHY"
   xlnx,reg-on:
     description: MIPI Reg enablement
   xlnx,phy-lanes:
@@ -34,7 +34,7 @@ properties:
   xlnx,lpx-time:
     description: LPX period
   xlnx,stable-clk-period:
-    description: Stable clock perior
+    description: Stable clock period
 
 required:
     - compatible

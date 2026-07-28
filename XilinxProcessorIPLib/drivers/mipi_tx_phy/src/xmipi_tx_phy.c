@@ -336,7 +336,6 @@ u32 XMipi_Tx_Phy_GetInfo(XMipi_Tx_Phy *InstancePtr, u8 Handle)
 {
 	u32 RegVal = 0;
 	UINTPTR RegAddr;
-	u32 MaxLanesPresent;
 
 	/* Verify arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -344,7 +343,6 @@ u32 XMipi_Tx_Phy_GetInfo(XMipi_Tx_Phy *InstancePtr, u8 Handle)
 	Xil_AssertNonvoid(InstancePtr->Config.IsRegisterPresent != 0);
 
 	RegAddr = (InstancePtr)->Config.BaseAddr;
-	MaxLanesPresent = InstancePtr->Config.MaxLanesPresent;
 
 	/* Based on Handle, return value from the corresponding registers */
 	switch (Handle) {
