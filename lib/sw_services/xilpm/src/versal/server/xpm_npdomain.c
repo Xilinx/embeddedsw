@@ -302,7 +302,7 @@ static XStatus NpdInitFinish(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 		 * to enable CPM6 SSC bypass before running NPD secure efuse
 		 * transfer.
 		 */
-		#if defined(XC2VP3602)
+		#if defined(XC2VP3202) || defined(XC2VP3602)
 		/* Remove LPD_CPM6_DFX isolation */
 		Status = XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_LPD_CPM6_DFX, FALSE_IMMEDIATE);
 		if (XST_SUCCESS != Status) {
