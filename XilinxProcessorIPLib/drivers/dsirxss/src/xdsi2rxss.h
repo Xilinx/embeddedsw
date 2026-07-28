@@ -129,7 +129,7 @@ extern "C" {
 typedef struct {
 	u32 IsPresent;  /**< Flag to indicate if sub-core is present
 			in the design */
-	UINTPTR AddrOffset; /* Address offset of the IP */
+	UINTPTR AddrOffset; /**< Address offset of the IP */
 
 } Dsi2RxSsSubCores;
 
@@ -155,7 +155,7 @@ typedef enum {
  * that defines the MAX supported sub-cores within subsystem
  */
 typedef struct {
-	char *Name;		/* Name of the Device */
+	char *Name;		/**< Name of the Device */
 	UINTPTR BaseAddr;	/**< BaseAddress is the physical
 			  *  base address of the subsystem
 			  *  address range */
@@ -168,8 +168,8 @@ typedef struct {
 				 *  interface presence */
 	Dsi2RxSsSubCores DphyInfo;	/**< Sub-core instance configuration */
 	Dsi2RxSsSubCores Dsi2RxInfo;	/**< Sub-core instance configuration */
-	u16 IntrId;		/* Interrupt ID */
-	UINTPTR IntrParent; 	/* Bit[0] Interrupt Parent */
+	u16 IntrId;		/**< Interrupt ID */
+	UINTPTR IntrParent; 	/**< Bit[0] Interrupt Parent */
 } XDsi2RxSs_Config;
 
 /**

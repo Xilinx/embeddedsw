@@ -43,7 +43,7 @@
  * This typedef declares the driver instances of all the cores in the subsystem
  */
 typedef struct {
-	XDsi2Rx Dsi2RxInst;
+	XDsi2Rx Dsi2RxInst;	/**< DSI2 RX controller sub-core instance */
 #if (XPAR_XDPHY_NUM_INSTANCES > 0)
 	XDphy DphyInst;
 #endif
@@ -202,8 +202,6 @@ int XDsi2RxSs_Activate(XDsi2RxSs *InstancePtr, XDsi2RxSs_SubCore core, u8 Flag)
 *
 * @param	InstancePtr is a pointer to the Subsystem instance to be worked on.
 *
-* @return	None
-*
 * @note		None.
 *
 ******************************************************************************/
@@ -226,8 +224,6 @@ void XDsi2RxSs_Reset(XDsi2RxSs *InstancePtr)
 * This function reports list of cores included in DSI RX Subsystem
 *
 * @param	InstancePtr is a pointer to the DSI RX Subsystem instance.
-*
-* @return	None
 *
 * @note		None.
 *
@@ -264,8 +260,6 @@ void XDsi2RxSs_ReportCoreInfo(XDsi2RxSs *InstancePtr)
 * This function will get the information from the GUI settings
 *
 * @param	InstancePtr is the XDsi instance to operate on
-*
-* @return 	None
 *
 * @note		None.
 *
@@ -330,8 +324,6 @@ u32 XDsi2RxSs_GetPixelFormat(XDsi2RxSs *InstancePtr)
 * handle
 *
 * @param	Dsi2RxSsPtr is a pointer to the Subsystem instance
-*
-* @return	None
 *
 * @note		None
 *
