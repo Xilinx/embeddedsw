@@ -48,7 +48,7 @@
  * This typedef declares the driver instances of all the cores in the subsystem
  */
 typedef struct {
-	XCsi2Tx CsiInst;
+	XCsi2Tx CsiInst;	/**< CSI2 TX controller sub-core instance */
 #if (XPAR_XDPHY_NUM_INSTANCES > 0)
 	XDphy DphyInst;
 #endif
@@ -154,9 +154,7 @@ u32 XCsi2TxSs_CfgInitialize(XCsi2TxSs *InstancePtr, XCsi2TxSs_Config *CfgPtr,
 * the sub-core driver instance is binded with the subsystem sub-core driver
 * handle
 *
-* @param	CsiSsPtr is a pointer to the Subsystem instance to be worked.
-*
-* @return	None
+* @param	Csi2TxSsPtr is a pointer to the Subsystem instance to be worked.
 *
 * @note		None
 *
@@ -311,8 +309,6 @@ u32 XCsi2TxSs_Reset(XCsi2TxSs *InstancePtr)
 * @param	InstancePtr is a pointer to the Subsystem instance to be
 * 		worked on.
 *
-* @return	None
-*
 * @note		None
 *
 ******************************************************************************/
@@ -350,8 +346,6 @@ void XCsi2TxSs_ReportCoreInfo(XCsi2TxSs *InstancePtr)
 *
 * @param	InstancePtr is a pointer to the Subsystem instance to be
 *		worked on.
-*
-* @return	None
 *
 * @note		None
 *
@@ -506,8 +500,6 @@ static u32 Csi2TxSs_SubCoreInitMipiTxPhy(XCsi2TxSs *CsiSsPtr)
 * 		0 : DISABLE
 * 		1 : ENABLE
 *
-* @return	None
-*
 * @note		None
 *
 ****************************************************************************/
@@ -525,8 +517,6 @@ void XCsi2TxSs_LineGen(XCsi2TxSs *InstancePtr, u32 Value) {
 *
 * @param	Value
 * 		GSP 32 bit Entry
-*
-* @return	None
 *
 * @note		None
 *
@@ -608,8 +598,6 @@ u32 XCsi2TxSs_IsUlps(XCsi2TxSs *InstancePtr)
 *		- 1 - ulps mode enter
 *		- 0 - ulps mode exit
 *
-* @return	None
-*
 * @note		None
 *
 ****************************************************************************/
@@ -631,8 +619,6 @@ void XCsi2TxSs_SetUlps(XCsi2TxSs *InstancePtr, u32 Value)
 *		worked on.
 *
 * @param	Mode for Continuous Mode (0) or Non-continuous Mode (1)
-*
-* @return	None
 *
 * @note		None
 *

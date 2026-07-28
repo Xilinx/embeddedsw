@@ -139,9 +139,9 @@ extern "C" {
  * NCCM - non-continuous clock mode.
  * @{
  */
-#define XCSI2TXSS_CCM	0
-#define XCSI2TXSS_NCCM	1
-/*@}*/
+#define XCSI2TXSS_CCM	0	/**< Continuous clock mode */
+#define XCSI2TXSS_NCCM	1	/**< Non-continuous clock mode */
+/** @} */
 
 /** @name Interrupt Types for setting Callbacks
  *
@@ -151,19 +151,19 @@ extern "C" {
  * are promoted to the subsystem level so that the application can use them.
  * @{
  */
-#define XCSI2TXSS_HANDLER_WRG_LANE		XCSI2TX_HANDLER_WRG_LANE
-#define XCSI2TXSS_HANDLER_GSPFIFO_FULL		XCSI2TX_HANDLER_GSPFIFO_FULL
-#define XCSI2TXSS_HANDLER_ULPS			XCSI2TX_HANDLER_ULPS
-#define XCSI2TXSS_HANDLER_LINEBUF_FULL		XCSI2TX_HANDLER_LINEBUF_FULL
-#define XCSI2TXSS_HANDLER_WRG_DATATYPE		XCSI2TX_HANDLER_WRG_DATATYPE
-#define XCSI2TXSS_HANDLER_UNDERRUN_PIXEL	XCSI2TX_HANDLER_UNDERRUN_PIXEL
-#define XCSI2TXSS_HANDLER_LCERRVC0		XCSI2TX_HANDLER_LCERRVC0
-#define XCSI2TXSS_HANDLER_LCERRVC1		XCSI2TX_HANDLER_LCERRVC1
-#define XCSI2TXSS_HANDLER_LCERRVC2		XCSI2TX_HANDLER_LCERRVC2
-#define XCSI2TXSS_HANDLER_LCERRVC3		XCSI2TX_HANDLER_LCERRVC3
-/*@}*/
+#define XCSI2TXSS_HANDLER_WRG_LANE		XCSI2TX_HANDLER_WRG_LANE	/**< Wrong lane count interrupt handler */
+#define XCSI2TXSS_HANDLER_GSPFIFO_FULL		XCSI2TX_HANDLER_GSPFIFO_FULL	/**< Generic short packet FIFO full interrupt handler */
+#define XCSI2TXSS_HANDLER_ULPS			XCSI2TX_HANDLER_ULPS	/**< ULPS interrupt handler */
+#define XCSI2TXSS_HANDLER_LINEBUF_FULL		XCSI2TX_HANDLER_LINEBUF_FULL	/**< Line buffer full interrupt handler */
+#define XCSI2TXSS_HANDLER_WRG_DATATYPE		XCSI2TX_HANDLER_WRG_DATATYPE	/**< Wrong data type interrupt handler */
+#define XCSI2TXSS_HANDLER_UNDERRUN_PIXEL	XCSI2TX_HANDLER_UNDERRUN_PIXEL	/**< Pixel underrun interrupt handler */
+#define XCSI2TXSS_HANDLER_LCERRVC0		XCSI2TX_HANDLER_LCERRVC0	/**< Line count error VC0 interrupt handler */
+#define XCSI2TXSS_HANDLER_LCERRVC1		XCSI2TX_HANDLER_LCERRVC1	/**< Line count error VC1 interrupt handler */
+#define XCSI2TXSS_HANDLER_LCERRVC2		XCSI2TX_HANDLER_LCERRVC2	/**< Line count error VC2 interrupt handler */
+#define XCSI2TXSS_HANDLER_LCERRVC3		XCSI2TX_HANDLER_LCERRVC3	/**< Line count error VC3 interrupt handler */
+/** @} */
 
-#define XCSI2TXSS_MAX_VC			XCSI2TX_MAX_VC
+#define XCSI2TXSS_MAX_VC			XCSI2TX_MAX_VC	/**< Maximum number of virtual channels */
 
 /**
  * This typedef defines the different errors codes for Line Count
@@ -198,7 +198,7 @@ typedef void (*XCsi2TxSs_Callback)(void *CallbackRef, u32 Mask);
 typedef struct {
 	u32 IsPresent;	/**< Flag to indicate if sub-core is present in
 			  *  design */
-	UINTPTR AddrOffset;
+	UINTPTR AddrOffset;	/**< Address offset of the sub-core */
 } SubCoreCsi2Tx;
 
 /**
@@ -207,14 +207,14 @@ typedef struct {
  * that defines the MAX supported sub-cores within subsystem
  */
 typedef struct {
-	char *Name;
+	char *Name;	/**< Name of the device */
 	UINTPTR BaseAddr; /**< BaseAddress is the physical base address of the
 			  *  subsystem address range */
 	UINTPTR HighAddr; /**< HighAddress is the physical MAX address of the
 			  *  subsystem address range */
 	u32 LanesPresent;	/**< Active Lanes programming optimization
 				  *  enabled */
-	u32 DataType;	/*< RAW8,RAW10,RAW12,RAW14,RGB888,RGB565,YUV422 8-bit */
+	u32 DataType;	/**< RAW8,RAW10,RAW12,RAW14,RGB888,RGB565,YUV422 8-bit */
 	u32 PixelFormat;	/**< 1 - Single pixel per beat
 				2 - Dual pixels per beat
 				4 - Quad pixels per beat */
@@ -227,8 +227,8 @@ typedef struct {
 	SubCoreCsi2Tx CsiInfo;	/**< CSI sub-core configuration */
 	SubCoreCsi2Tx DphyInfo;	/**< DPHY sub-core configuration */
 	SubCoreCsi2Tx MipiTxPhyInfo;	/**< MIPI TX PHY sub-core configuration */
-	u16 IntrId;		/* Interrupt ID */
-	UINTPTR IntrParent; 	/* Bit[0] Interrupt Parent */
+	u16 IntrId;		/**< Interrupt ID */
+	UINTPTR IntrParent; 	/**< Bit[0] Interrupt Parent */
 } XCsi2TxSs_Config;
 
 /**
@@ -241,7 +241,7 @@ typedef struct {
 	XCsi2TxSs_Config Config;	/**< Hardware configuration */
 	u32 IsReady;		/**< Device and the driver instance are
 				  *  initialized */
-	XCsi2Tx  *CsiPtr;		/* handle to sub-core driver instance */
+	XCsi2Tx  *CsiPtr;		/**< handle to sub-core driver instance */
 	XCsi2Tx_SPktData SpktData;		/**< Short packet */
 #if (XPAR_XDPHY_NUM_INSTANCES > 0)
 	XDphy *DphyPtr;		/**< handle to sub-core driver instance */
