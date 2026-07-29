@@ -96,6 +96,7 @@ extern "C" {
                                           Xil_ValidateHexStr function */
 
 #define XIL_SIGNED_ZERO     (0)     /**< Signed zero value */
+#define XIL_UNSIGNED_ZERO   (0U)    /**< Unsigned zero value */
 
 /****************** Macros (Inline Functions) Definitions *********************/
 

@@ -42,16 +42,6 @@ extern "C" {
 
 /*************************** Constant Definitions *****************************/
 /**
- * AES Key size
- * @{
- */
-#define XNVM_BBRAM_AES_KEY_SIZE          XNVM_256_BITS_AES_KEY_LEN_IN_BYTES
-			/**< AES Key size in bytes */
-#define XNVM_BBRAM_AES_KEY_SIZE_IN_WORDS (XNVM_BBRAM_AES_KEY_SIZE / sizeof(u32))
-			/**< AES Key size in words */
-/** @} */
-
-/**
  * BBRAM error codes
  * @{
  */

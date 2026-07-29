@@ -36,6 +36,8 @@
 * 3.5   pre  11/21/2024 Removed zeroization before writing key
 * 3.5   hj   26/03/2025 Return explicit error code on General Purpose BBRAM8 write request in SB
 *       har  04/10/2025 Modified to read user data from XNVM_BBRAM_8_MEM_REG for versal_2ve_2vm
+* 3.8   mkr  07/20/2026 Removed XNVM_CL_MAX_COUNT_VAL definition and added in common to make it
+                        available for both client and server.
 *
 * </pre>
 *
@@ -64,8 +66,6 @@
 			/**< Shift for enabling Configuration Limiter feature */
 #define XNVM_CL_MODE_SHIFT			(28U)
 			/**< Shift for Counter mode in Configuration Limiter */
-#define XNVM_CL_MAX_COUNT_VAL			(0x0FFFFFFFU)
-/**< Max value of counter for total/failed configurations in configuration limiter*/
 #define XNVM_RTCFG_SECURESTATE_AHWROT_ADDR	(0xF201414CU)
 /**< Address of register in Run time configuration area where the state of A-HWRoT is stored */
 #define XNVM_RTCFG_SECURESTATE_SHWROT_ADDR	(0xF2014150U)

@@ -34,6 +34,7 @@
 /***************************** Include Files *********************************/
 #include "xnvm_bbramclient.h"
 #include "xnvm_generic.h"
+#include "xil_util.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -71,7 +72,8 @@ int XNvm_BbramWriteAesKey(const XNvm_ClientInstance *InstancePtr, const u64 KeyA
 	 * - Performs input parameters validation.
 	 * Return XST_INVALID_PARAM if input parameters are invalid.
 	 */
-	if (InstancePtr == NULL) {
+	if ((InstancePtr == NULL) || (KeyAddr == XIL_UNSIGNED_ZERO) ||
+			(KeyLen != XNVM_BBRAM_AES_KEY_SIZE)) {
 		Status = XST_INVALID_PARAM;
 		goto END;
 	}
@@ -266,6 +268,7 @@ END:
  * @return
  * 		- XST_SUCCESS  If the provisioning is successful
  * 		- XST_FAILURE  If there is a failure
+ * 		- XST_INVALID_PARAM  If there is an input validation failure
  *
  ******************************************************************************/
 int XNvm_BbramWriteConfigLimiterParams(const XNvm_ClientInstance *InstancePtr, const u32 ClEnFlag,
@@ -279,6 +282,23 @@ int XNvm_BbramWriteConfigLimiterParams(const XNvm_ClientInstance *InstancePtr, c
 	 */
 	if (InstancePtr == NULL) {
 		Status = XST_INVALID_PARAM;
+		goto END;
+	}
+
+	if ((ClEnFlag != XNVM_BBRAM_CONFIG_LIMITER_DISABLED) &&
+		(ClEnFlag != XNVM_BBRAM_CONFIG_LIMITER_ENABLED)) {
+		Status = (s32)XST_INVALID_PARAM;
+		goto END;
+	}
+
+	if ((ClMode != XNVM_BBRAM_CONFIG_LIMITER_FAIL_CONFIGS_COUNT) &&
+		(ClMode != XNVM_BBRAM_CONFIG_LIMITER_TOTAL_CONFIGS_COUNT)) {
+		Status = (s32)XST_INVALID_PARAM;
+		goto END;
+	}
+
+	if (MaxNumOfConfigs > XNVM_CL_MAX_COUNT_VAL) {
+		Status = (s32)XST_INVALID_PARAM;
 		goto END;
 	}
 

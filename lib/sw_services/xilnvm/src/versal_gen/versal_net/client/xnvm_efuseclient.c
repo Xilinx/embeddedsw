@@ -138,7 +138,7 @@ int XNvm_EfuseWrite(XNvm_ClientInstance *InstancePtr, const u64 DataAddr)
 	 * - Validate input parameters.
 	 * Return XST_INVALID_PARAM, If input parameters are invalid.
 	 */
-	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL) || (DataAddr == 0U)) {
+	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL) || (DataAddr == XIL_UNSIGNED_ZERO)) {
 		Status = XST_INVALID_PARAM;
 		goto END;
 	}
@@ -305,7 +305,7 @@ int XNvm_EfuseWriteIVs(XNvm_ClientInstance *InstancePtr, const u64 IvAddr, const
 	 *  - Validate input parameters.
 	 *  Return XST_INVALID_PARAM, if input parameters are invalid.
 	 */
-	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL) || (IvAddr == 0U)) {
+	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL) || (IvAddr == XIL_UNSIGNED_ZERO)) {
 		Status = XST_INVALID_PARAM;
 		goto END;
 	}
@@ -438,7 +438,7 @@ int XNvm_EfuseWriteDiceUds(XNvm_ClientInstance *InstancePtr, const u64 UdsAddr, 
 	/**
 	 *  - Perform input parameter validation on InstancePtr. Return XST_INVALID_PARAM If input parameters are invalid
 	 */
-	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL) || (UdsAddr == 0U)) {
+	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL) || (UdsAddr == XIL_UNSIGNED_ZERO)) {
 		Status = XST_INVALID_PARAM;
 		goto END;
 	}
@@ -511,7 +511,7 @@ int XNvm_WriteDmePrivateKey(XNvm_ClientInstance *InstancePtr, u32 DmeKeyType, co
 	/**
 	 *  - Perform input parameter validation on InstancePtr. Return XST_INVALID_PARAM If input parameters are invalid
 	 */
-	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL) || (DmeKeyAddr == 0U)) {
+	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL) || (DmeKeyAddr == XIL_UNSIGNED_ZERO)) {
 		Status = XST_INVALID_PARAM;
 		goto END;
 	}
@@ -1427,6 +1427,11 @@ int XNvm_EfuseWriteRevocationId(XNvm_ClientInstance *InstancePtr, const u32 Revo
 		goto END;
 	}
 
+	if (RevokeIdNum > (XNVM_MAX_REVOKE_ID_FUSES - 1U)) {
+		Status = (s32)XST_INVALID_PARAM;
+		goto END;
+	}
+
 	RevokeIdCdo->CdoHdr = Header(0U, (u32)XNVM_API_ID_EFUSE_WRITE_REVOCATION_ID);
 	RevokeIdCdo->Pload.EnvDisFlag = EnvDisFlag;
 	RevokeIdCdo->Pload.RevokeIdNum = RevokeIdNum;
@@ -1483,6 +1488,11 @@ int XNvm_EfuseWriteOffChipRevocationId(XNvm_ClientInstance *InstancePtr, const u
 	 */
 	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
 		Status = XST_INVALID_PARAM;
+		goto END;
+	}
+
+	if (OffChipRevokeIdNum > (XNVM_MAX_REVOKE_ID_FUSES - 1U)) {
+		Status = (s32)XST_INVALID_PARAM;
 		goto END;
 	}
 
@@ -1590,7 +1600,7 @@ int XNvm_EfuseReadPufAsUserFuses(XNvm_ClientInstance *InstancePtr, const u64 Puf
 	 * - Validate input parameters.
 	 * Return XST_INVALID_PARAM, if input parameters are invalid.
 	 */
-	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL) || (PufUserFuseAddr == 0U)) {
+	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL) || (PufUserFuseAddr == XIL_UNSIGNED_ZERO)) {
 		Status = XST_INVALID_PARAM;
 		goto END;
 	}
@@ -1651,7 +1661,7 @@ int XNvm_EfuseWritePuf(XNvm_ClientInstance *InstancePtr, const u64 PufHdAddr)
 	 * - Validate input parameters.
 	 * Return XST_INVALID_PARAM, if input parameters are invalid.
 	 */
-	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL) || (PufHdAddr == 0U)) {
+	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL) || (PufHdAddr == XIL_UNSIGNED_ZERO)) {
 		Status = XST_INVALID_PARAM;
 		goto END;
 	}
@@ -1723,7 +1733,7 @@ int XNvm_EfuseReadPuf(XNvm_ClientInstance *InstancePtr, u64 PufHdAddr)
 	 * - Validate input parameters.
 	 * Return XST_INVALID_PARAM, if input parameters are invalid.
 	 */
-	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL) || (PufHdAddr == 0U)) {
+	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL) || (PufHdAddr == XIL_UNSIGNED_ZERO)) {
 		Status = XST_INVALID_PARAM;
 		goto END;
 	}
@@ -1856,7 +1866,7 @@ int XNvm_EfuseReadIv(XNvm_ClientInstance *InstancePtr, const u64 IvAddr,
 	 * - Validate input parameters.
 	 * Return XST_INVALID_PARAM, if input parameters are invalid.
 	 */
-	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
+	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL) || (IvAddr == XIL_UNSIGNED_ZERO)) {
 		Status = XST_INVALID_PARAM;
 		goto END;
 	}
@@ -1929,7 +1939,7 @@ int XNvm_EfuseReadRevocationId(XNvm_ClientInstance *InstancePtr, const u64 Revok
 	 *  - Validate input parameters.
 	 *  Return XST_INVALID_PARAM, if input parameters are invalid.
 	 */
-	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
+	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL) || (RevokeIdAddr == XIL_UNSIGNED_ZERO)) {
 		Status = XST_INVALID_PARAM;
 		goto END;
 	}
@@ -1985,7 +1995,7 @@ int XNvm_EfuseReadUserFuses(XNvm_ClientInstance *InstancePtr, u64 UserFuseAddr)
 	 *  - Validate input parameters.
 	 *  Return XST_INVALID_PARAM, if input parameters are invalid.
 	 */
-	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL) || (UserFuseAddr == 0U)) {
+	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL) || (UserFuseAddr == XIL_UNSIGNED_ZERO)) {
 		Status = XST_INVALID_PARAM;
 		goto END;
 	}
@@ -2046,7 +2056,7 @@ int XNvm_EfuseReadMiscCtrlBits(XNvm_ClientInstance *InstancePtr, const u64 MiscC
 	 * - Validate input parameters.
 	 * Return XST_INVALID_PARAM, If input parameters are invalid.
 	 */
-	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL) || (MiscCtrlBits == 0U)) {
+	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL) || (MiscCtrlBits == XIL_UNSIGNED_ZERO)) {
 		Status = XST_INVALID_PARAM;
 		goto END;
 	}
@@ -2147,7 +2157,7 @@ int XNvm_EfuseReadSecCtrlBits(XNvm_ClientInstance *InstancePtr, const u64 SecCtr
 	 *  - Validate input parameters.
 	 *  Return XST_INVALID_PARAM, if input parameters are invalid.
 	 */
-	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL) || (SecCtrlBits == 0U)) {
+	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL) || (SecCtrlBits == XIL_UNSIGNED_ZERO)) {
 		Status = XST_INVALID_PARAM;
 		goto END;
 	}
@@ -2283,7 +2293,7 @@ int XNvm_EfuseReadSecMisc1Bits(XNvm_ClientInstance *InstancePtr, const u64 SecMi
 	 *  - Perform input parameter validation on InstancePtr.
 	 *  Return XST_INVALID_PARAM, if input parameters are invalid.
 	 */
-	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL) || (SecMisc1Bits == 0U)) {
+	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL) || (SecMisc1Bits == XIL_UNSIGNED_ZERO)) {
 		Status = XST_INVALID_PARAM;
 		goto END;
 	}
@@ -2364,7 +2374,7 @@ int XNvm_EfuseReadBootEnvCtrlBits(XNvm_ClientInstance *InstancePtr, const u64 Bo
 	 *  - Validate input parameters.
 	 *  Return XST_INVALID_PARAM, If input parameters are invalid.
 	 */
-	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL) || (BootEnvCtrlBits == 0U)) {
+	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL) || (BootEnvCtrlBits == XIL_UNSIGNED_ZERO)) {
 		Status = XST_INVALID_PARAM;
 		goto END;
 	}
@@ -2453,7 +2463,7 @@ int XNvm_EfuseReadRomRsvdBits(XNvm_ClientInstance *InstancePtr, const u64 RomRsv
 	 *  - Perform input parameter validation on InstancePtr.
 	 *  Return XST_INVALID_PARAM If input parameters are invalid.
 	 */
-	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL) || (RomRsvdBits == 0U)) {
+	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL) || (RomRsvdBits == XIL_UNSIGNED_ZERO)) {
 		Status = XST_INVALID_PARAM;
 		goto END;
 	}
@@ -2534,7 +2544,7 @@ int XNvm_EfuseReadFipsInfoBits(XNvm_ClientInstance *InstancePtr, const u64 FipsI
 	 *  - Perform input parameter validation on InstancePtr.
 	 *  Return XST_INVALID_PARAM If input parameters are invalid.
 	 */
-	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL) || (FipsInfoBits == 0U)) {
+	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL) || (FipsInfoBits == XIL_UNSIGNED_ZERO)) {
 		Status = XST_INVALID_PARAM;
 		goto END;
 	}
@@ -2622,7 +2632,7 @@ int XNvm_EfuseReadPufSecCtrlBits(XNvm_ClientInstance *InstancePtr, const u64 Puf
 	 *  - Validate input parameters.
 	 *  Return XST_INVALID_PARAM, if input parameters are invalid.
 	 */
-	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL) || (PufSecCtrlBits == 0U)) {
+	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL) || (PufSecCtrlBits == XIL_UNSIGNED_ZERO)) {
 		Status = XST_INVALID_PARAM;
 		goto END;
 	}
@@ -2724,7 +2734,7 @@ int XNvm_EfuseReadOffchipRevokeId(XNvm_ClientInstance *InstancePtr, const u64 Of
 	 *  - Validate input parameters.
 	 *  Return XST_INVALID_PARAM, if input parameters are invalid.
 	 */
-	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
+	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL) || (OffChipIdAddr == XIL_UNSIGNED_ZERO)) {
 		Status = XST_INVALID_PARAM;
 		goto END;
 	}
@@ -2780,7 +2790,7 @@ int XNvm_EfuseReadPpkHash(XNvm_ClientInstance *InstancePtr, const u64 PpkHashAdd
 	 *  - Validate input parameters.
 	 *  Return XST_INVALID_PARAM, if input parameters are invalid.
 	 */
-	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
+	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL) || (PpkHashAddr == XIL_UNSIGNED_ZERO)) {
 		Status = XST_INVALID_PARAM;
 		goto END;
 	}
@@ -2847,7 +2857,7 @@ int XNvm_EfuseReadDecOnly(XNvm_ClientInstance *InstancePtr, const u64 DecOnlyAdd
 	 *  - Validate input parameters.
 	 *  Return XST_INVALID_PARAM, if input parameters are invalid.
 	 */
-	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
+	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL) || (DecOnlyAddr == XIL_UNSIGNED_ZERO)) {
 		Status = XST_INVALID_PARAM;
 		goto END;
 	}
@@ -2895,7 +2905,7 @@ int XNvm_EfuseReadBootModeDis(XNvm_ClientInstance *InstancePtr, const u64 BootMo
 	 *  - Validate input parameters.
 	 *  Return XST_INVALID_PARAM, if input parameters are invalid.
 	 */
-	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
+	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL) || (BootModeDisAddr == XIL_UNSIGNED_ZERO)) {
 		Status = XST_INVALID_PARAM;
 		goto END;
 	}
@@ -2944,7 +2954,7 @@ int XNvm_EfuseReadDmeRevokeId(XNvm_ClientInstance *InstancePtr, const u64 DmeRev
 	 *  - Validate input parameters.
 	 *  Return XST_INVALID_PARAM, if input parameters are invalid.
 	 */
-	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL) || (DmeRevokeIdAddr == 0U)) {
+	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL) || (DmeRevokeIdAddr == XIL_UNSIGNED_ZERO)) {
 		Status = XST_INVALID_PARAM;
 		goto END;
 	}
@@ -3004,7 +3014,7 @@ int XNvm_EfuseReadDna(XNvm_ClientInstance *InstancePtr, const u64 DnaAddr)
 	 * - Validate input parameters.
 	 * Return XST_INVALID_PARAM, if input parameters are invalid.
 	 */
-	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
+	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL) || (DnaAddr == XIL_UNSIGNED_ZERO)) {
 		Status = XST_INVALID_PARAM;
 		goto END;
 	}

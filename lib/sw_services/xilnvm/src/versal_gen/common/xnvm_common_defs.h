@@ -22,6 +22,8 @@
 * 3.3	vss  02/23/24 Added IPI support for eFuse read and write
 *       ng   11/22/2023 Fixed doxygen grouping
 * 3.8   rpu  07/06/26 Clean up PPK hash length macros
+*       mkr  07/20/26 Moved XNVM_CL_MAX_COUNT_VAL definition from xnvm_bbram.c to xnvm_common_defs.h
+                      to make it available for both client and server.
 *
 * </pre>
 *
@@ -41,6 +43,7 @@ extern "C" {
 
 /***************************** Include Files *********************************/
 #include "xil_types.h"
+#include "xnvm_utils.h"
 
 #ifdef SDT
 #include "xilnvm_bsp_config.h"
@@ -74,6 +77,19 @@ extern "C" {
 #define XNVM_EFUSE_MAX_BITS_IN_ROW			(32U)	/**< Maximum bits in a row */
 #define XNVM_MAX_REVOKE_ID_FUSES		(XNVM_NUM_OF_REVOKE_ID_FUSES	\
 						* XNVM_EFUSE_MAX_BITS_IN_ROW)	/**< Maximum revocation ID eFuses */
+#ifdef VERSAL_2VE_2VM
+#define XNVM_CL_MAX_COUNT_VAL			(0x0FFFFFFFU)
+/**< Max value of counter for total/failed configurations in configuration limiter*/
+#endif
+/**
+ * BBRAM AES Key size
+ * @{
+*/
+#define XNVM_BBRAM_AES_KEY_SIZE          XNVM_256_BITS_AES_KEY_LEN_IN_BYTES
+/**< AES Key size in bytes */
+#define XNVM_BBRAM_AES_KEY_SIZE_IN_WORDS (XNVM_BBRAM_AES_KEY_SIZE / sizeof(u32))
+ /**< AES Key size in words */
+/** @} */
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
