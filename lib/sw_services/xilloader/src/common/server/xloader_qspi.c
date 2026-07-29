@@ -46,6 +46,7 @@
 *		prt	 04/02/2025 Added support for Infineon QSPI flash parts
 *       ias  03/26/2026 Handle XPM_PMC_BOOT_DEV_RETAINED in QSPI release
 * 2.4   aa   04/14/2026 Added support for Infineon QSPI flash parts
+* 2.5   aa   07/29/2026 Added support for Macronix 256M flash parts
 *
 * </pre>
 *
@@ -187,7 +188,8 @@ static int FlashReadID(XQspiPsu *QspiPsuPtr)
 		QspiFlashSize = XLOADER_FLASH_SIZE_128M;
 		XLoader_Printf(DEBUG_INFO, "128M Bits\r\n");
 	}
-	else if (ReadBuffer[2U] == XLOADER_FLASH_SIZE_ID_256M) {
+	else if ((ReadBuffer[2U] == XLOADER_FLASH_SIZE_ID_256M)
+		|| (ReadBuffer[2U] == XLOADER_MACRONIX_FLASH_1_8_V_SIZE_ID_256M)) {
 		QspiFlashSize = XLOADER_FLASH_SIZE_256M;
 		XLoader_Printf(DEBUG_INFO, "256M Bits\r\n");
 	}

@@ -34,6 +34,7 @@
 *       ng   08/09/2023 Removed redundant windbond flash size macro
 *		prt	 04/02/2025 Added support for Infineon QSPI flash parts
 * 2.4   aa   04/14/2026 Added support for Infineon QSPI flash parts
+* 2.5   aa   07/29/2026 Added support for Macronix 256M flash parts
 *
 * </pre>
 *
@@ -125,6 +126,7 @@ extern "C" {
 #define XLOADER_MACRONIX_FLASH_SIZE_ID_1G		(0x1BU)
 #define XLOADER_MACRONIX_FLASH_SIZE_ID_2G		(0x1CU)
 #define XLOADER_MACRONIX_FLASH_1_8_V_SIZE_ID_128M       (0x38U)
+#define XLOADER_MACRONIX_FLASH_1_8_V_SIZE_ID_256M       (0x39U)
 #define XLOADER_MACRONIX_FLASH_1_8_V_SIZE_ID_512M       (0x3AU)
 #define XLOADER_MACRONIX_FLASH_1_8_V_SIZE_ID_1G         (0x3BU)
 #define XLOADER_MACRONIX_FLASH_1_8_V_SIZE_ID_2G		(0x3CU)
