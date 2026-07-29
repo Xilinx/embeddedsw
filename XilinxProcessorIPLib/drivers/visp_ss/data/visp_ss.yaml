@@ -103,9 +103,12 @@ examples:
             - lilo.h
             - image.h
             - test.cmake
-            - libvisp.a
+            - libvisp_a78.a
+            - libvisp_r52.a
             - vvbench
-            - lscript.ld
+            - lscript_a78.ld
+            - lscript_r52.ld
             - reference_jsons
             - hdmi_display
+            - mpu_config.h
 ...

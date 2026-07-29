@@ -10,7 +10,6 @@
 typedef void *CamCommonHandle_t;
 
 /* Result codes */
-typedef int32_t RESULT;
 #define RET_SUCCESS 0
 #define RET_FAILURE -1
 

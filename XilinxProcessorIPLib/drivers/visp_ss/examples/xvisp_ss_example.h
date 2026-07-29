@@ -6,7 +6,10 @@
 #include "cam_device_api.h"
 #include "cam_device_buffer_api.h"
 #include "cam_device_common.h"
-
+#if ARMR52
+#include "trace.h"
+#include <xil_types.h>
+#endif
 /* Aligned buffer structure - use memory_manager.h definition if available */
 #ifndef MEMORY_MANAGER_H
 struct aligned_buf {

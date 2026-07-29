@@ -31,9 +31,11 @@
 #include <stdio.h>
 /* memory_manager functions provided by libvisp.a */
 extern int mm_init(void);
+#if ARMR52
 /* Returns 1 when ISP buffers are in high memory (DDR_LOW_1 / ATM), else 0.
  * Auto-derived from the BUFFER_POOL_REGION switch in lscript.ld. */
 extern int mm_is_high_mem(void);
+#endif
 #include <signal.h>
 #include <stdlib.h>
 #include <builtins.h>
@@ -281,7 +283,9 @@ int main_vvbench(XVisp_Ss *InstancePtr)
 	LOGI("IOMODE %s\n", InstancePtr->Config.IoMode);
 #ifndef JSON_CHANGE
 	if (strcmp(InstancePtr->Config.IoMode, "mimo") == 0) {
+		#ifndef ARMR52
 		ATM_ENABLE = mm_is_high_mem();
+		#endif
 		if (custom_json == 1)
 			vvctx.caseJsonFile = "MIMO_L1_JSON.json";
 		else
@@ -294,7 +298,9 @@ int main_vvbench(XVisp_Ss *InstancePtr)
 			exit(1);
 		}
 	} else if (strcmp(InstancePtr->Config.IoMode, "limo") == 0) {
+		#ifndef ARMR52
 		ATM_ENABLE = mm_is_high_mem();
+		#endif
 		if (custom_json == 1)
 			vvctx.caseJsonFile = "LIMO_L1_JSON.json";
 		else

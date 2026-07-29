@@ -45,6 +45,11 @@
 #include <isi_iss.h>
 #include "hal_i2c.h"
 #include "xvisp_ss.h"
+#if ARMR52
+#include "trace.h"
+#include "cpu_info.h"
+#define MM_GET_HIGH_MEM_PREFIX 0x8
+#endif
 extern int tuning_json;
 
 /* Forward declarations for types from libvisp.a */
@@ -144,7 +149,13 @@ extern int custom_json;
 #include "cam_device_app.h"
 #include "vvbench_gwdr_api.h"
 #include "sensor_cmd.h"
-
+#if ARMR52
+CREATE_TRACER(VSI_DEVICE_API_INFO, "VSI_DEVICE_API_INFO: ", INFO, 1);
+CREATE_TRACER(VSI_DEVICE_API_ALWAYS, "VSI_DEVICE_API_ALWAYS: ", ALWAYS, 1);
+CREATE_TRACER(VSI_DEVICE_API_WARN, "VSI_DEVICE_API_WARNING: ", WARNING, 1);
+CREATE_TRACER(VSI_DEVICE_API_ERR, "VSI_DEVICE_API_ERROR: ", ERROR, 1);
+CREATE_OFFLINE_TRACE(VSI_DEVICE_API);
+#endif
 VvbenchInstance_t *pBenchInstance = NULL;
 VvbenchVvdev_t *caseContext = NULL;
 int instanceNumber = 0;
@@ -346,12 +357,13 @@ int VsiVvdeviceExecuteCaseline
 			continue;
 		}
 #endif
+#ifndef ARMR52
 		/* Always inform the RPU of the current addressing mode. SetATM() sends
 		 * the high-mem prefix (0x0 in 32-bit / low mode, 0x8 for DDR_LOW_1,
 		 * 0x500 for DDR_CH_1) and the is_64bit flag, both auto-derived from
 		 * where the linker placed the ISP buffer pools (BUFFER_POOL_REGION). */
 		result = SetATM((uint32_t)mm_get_high_mem_prefix(), (uint32_t)mm_is_high_mem());
-
+#endif
 		LOGI("%s   %d: after VsiVvdeviceInstanceInit ", __func__, __LINE__);
 
 		result = SendFirmwareCompability();
@@ -1133,14 +1145,22 @@ int VsiVvdeviceExecuteCaseline
 	// Initialize timer-based approach for every second reporting
 	dequeue_call_count = 0;
 	uint64_t displayInstance = 0;
+	uint32_t freq;
+	uint64_t elapsed_ticks;
 	// Debug: Check the loop condition flags
+#if ARMR52
+	TimeStamp ts = { .sec = 0 , .secFrac = 0};
+	TRACE(VSI_DEVICE_API_ALWAYS,"*******Streaming Started******\n");
+	getTimeStamp(&ts);
+	start=ts.sec;
+
+#else
 	xil_printf("Starting main loop: sensor_stream_flag=%d, memory_out_flag=%d\n", sensor_stream_flag,
 		   memory_out_flag);
 
-	uint32_t freq;
 	asm volatile("mrs %0, cntfrq_el0" : "=r"(freq));
 	start = GetTime();
-
+#endif
 	while (sensor_stream_flag >= 0 && memory_out_flag >= 0) {
 #ifdef XPAR_XV_MIX_NUM_INSTANCES
 		/* Poll HDMI TX state machine for event-driven stream start */
@@ -1148,8 +1168,20 @@ int VsiVvdeviceExecuteCaseline
 #endif
 		MediaBuffer_t *pBuf;
 		// Timer-based approach for every second reporting
+#if ARMR52
+		getTimeStamp(&ts);
+		now=ts.sec;
+		elapsed_ticks = now - start;
+
+		if (elapsed_ticks>=1) {
+			TRACE(VSI_DEVICE_API_ALWAYS,"================================FPS=%dfps\n",dequeue_call_count);
+			// Reset counters for next second
+			getTimeStamp(&ts);
+			start=ts.sec;
+
+#else
 		now = GetTime();
-		u64 elapsed_ticks = now - start;
+		elapsed_ticks = now - start;
 		double elapsed_seconds = (double)elapsed_ticks / freq;
 
 		if (elapsed_seconds >= 1.0) {
@@ -1157,6 +1189,7 @@ int VsiVvdeviceExecuteCaseline
 			xil_printf("================================\n");
 			// Reset counters for next second
 			start = GetTime();
+#endif
 			dequeue_call_count = 0;
 			displayInstance++;
 		}
@@ -1326,17 +1359,25 @@ int VsiVvdeviceExecuteCaseline
 			for (int idx = 0; idx < totalInstance; idx++) {
 				if(caseCtx->instanceCfgCtx[idx].instancePath[CAMDEV_BUFCHAIN_MP].pathEnable
 				   && tempBuf[idx][CAMDEV_BUFCHAIN_MP] != NULL) {
+					#if ARMR52
+					u64 dumpAddr = (u64)tempBuf[idx][CAMDEV_BUFCHAIN_MP]->baseAddress | ((u64)MM_GET_HIGH_MEM_PREFIX << 32);
+					#else
 					u64 dumpAddr = (u64)tempBuf[idx][CAMDEV_BUFCHAIN_MP]->baseAddress | (mm_get_high_mem_prefix() << 32);
+					#endif
 					LOGI(" |  mrd -bin -file dump_ISP%d_MP.rgb 0x%llx 0x%x\r\n\n",
-					     caseCtx->instanceCfgCtx[idx].hpId, dumpAddr,
-					     tempBuf[idx][CAMDEV_BUFCHAIN_MP]->baseSize / 4);
+					    caseCtx->instanceCfgCtx[idx].hpId, dumpAddr,
+					    tempBuf[idx][CAMDEV_BUFCHAIN_MP]->baseSize / 4);
 				}
 				if(caseCtx->instanceCfgCtx[idx].instancePath[CAMDEV_BUFCHAIN_SP1].pathEnable
 				   && tempBuf[idx][CAMDEV_BUFCHAIN_SP1] != NULL) {
+					#if ARMR52
+					u64 dumpAddr = (u64)tempBuf[idx][CAMDEV_BUFCHAIN_SP1]->baseAddress | ((u64)MM_GET_HIGH_MEM_PREFIX << 32);
+					#else
 					u64 dumpAddr = (u64)tempBuf[idx][CAMDEV_BUFCHAIN_SP1]->baseAddress | (mm_get_high_mem_prefix() << 32);
+					#endif
 					LOGI(" |  mrd -bin -file dump_ISP%d_SP.rgb 0x%llx 0x%x\r\n\n",
-					     caseCtx->instanceCfgCtx[idx].hpId, dumpAddr,
-					     tempBuf[idx][CAMDEV_BUFCHAIN_SP1]->baseSize / 4);
+					    caseCtx->instanceCfgCtx[idx].hpId, dumpAddr,
+					    tempBuf[idx][CAMDEV_BUFCHAIN_SP1]->baseSize / 4);
 				}
 			}
 			LOGI("------------------------------------------------------------\r\n");
@@ -2351,7 +2392,6 @@ int VsiVvdeviceInstanceInit
 		// return result;
 		// }
 	}
-	sleep(3);
 	LOGI("%s exit \n", __func__);
 
 	return result;
@@ -3178,7 +3218,11 @@ void VsiVvdeviceShowBuffer
 		/* Reconstruct full 64-bit CPU address from 32-bit ATM address */
 		uint64_t showFullAddr;
 		if (ATM_ENABLE) {
+			#if ARMR52
+			showFullAddr = (uint64_t)pNowBuffer->baseAddress | ((uint64_t)MM_GET_HIGH_MEM_PREFIX << 32);
+			#else
 			showFullAddr = (uint64_t)pNowBuffer->baseAddress | (mm_get_high_mem_prefix() << 32);
+			#endif
 		} else {
 			showFullAddr = (uint64_t)pNowBuffer->pIplAddress;
 		}
@@ -3528,7 +3572,11 @@ int VsiVvdeviceGetInputPicture
 			 * pIplAddress is uint32_t and cannot hold 64-bit addr, so reconstruct here. */
 			uint64_t fullAddr;
 			if (ATM_ENABLE) {
+				#if ARMR52
+				fullAddr = (uint64_t)pBuff->baseAddress | ((uint64_t)MM_GET_HIGH_MEM_PREFIX << 32);
+				#else
 				fullAddr = (uint64_t)pBuff->baseAddress | (mm_get_high_mem_prefix() << 32);
+				#endif
 			} else {
 				fullAddr = (uint64_t)pBuff->pIplAddress;
 			}

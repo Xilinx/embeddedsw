@@ -38,6 +38,9 @@ extern xvisp_ss_Config xvisp_ss_ConfigTable[];
 #include "ext_auto.h"
 #include "ext_manual.h"
 #include "finetune.h"
+#if ARMR52
+#include "mpu_config.h"
+#endif
 
 #define LOGTAG "MAIN"
 
@@ -55,6 +58,10 @@ int image_len = image_raw_len;
  * FMC selection: 0 = old FMC, 1 = new FMC
  */
 int fmc_selection = 0;
+
+#if ARMR52
+CREATE_TRACER(EXAMPLE_ALWAYS, "EXAMPLE_ALWAYS: ", ALWAYS, 1);
+#endif
 
 #ifdef XPAR_XV_FRMBUF_WR_NUM_INSTANCES
 int init_lilo = 1;
@@ -125,6 +132,27 @@ XVisp_Ss VispSsInst[VISP_INST];
 /* Global interrupt controller instance - manages all system interrupts */
 XScuGic Intc;
 
+#if ARMR52
+void reset_pmu_counter(void)
+{
+   uint32_t value;
+
+   // Enable user mode access to PMU
+   value = 1;
+    __asm__ __volatile__("mcr p15, 0, %0, c9, c14, 0" :: "r" (value));
+
+   // Reset and enable all counters of PMCR with DIV1 (not DIV64)
+   value = 0x00000047;  // Reset all counters and enable PMU, DIV1, LC
+   __asm__ __volatile__("mcr p15, 0, %0, c9, c12, 0" :: "r" (value));
+
+   // Enable cycle counter specifically
+   value = 0x80000000;  // Enable cycle counter
+   __asm__ __volatile__("mcr p15, 0, %0, c9, c12, 1" :: "r" (value));
+
+}
+
+#endif
+
 /* MIPI CSI2 RX Subsystem instances and AXI Interrupt Controller for MIPI */
 #ifdef XPAR_XMIPICSISS_NUM_INSTANCES
 #define NUM_MIPI_CSI XPAR_XMIPICSISS_NUM_INSTANCES
@@ -158,7 +186,10 @@ int main()
 
 	RESULT ret = RET_SUCCESS;
 
-
+#if ARMR52
+	reset_pmu_counter();
+	TRACE(EXAMPLE_ALWAYS, "==========STARTED %s==========\n", __func__);
+#endif
 	/* Initialize the memory manager early - required for all buffer allocations */
 	if (mm_init() != 0) {
 		xil_printf("ERROR: Memory manager initialization failed.\r\n");
@@ -390,7 +421,12 @@ int SetupInterruptSystem(void)
 		IntcCfgPtr = XScuGic_LookupConfig(XPAR_SCUGIC_0_DEVICE_ID);
 #else
 		/* Lookup configuration by base address (SDT method) */
+#ifndef ARMR52
 		IntcCfgPtr = XScuGic_LookupConfig(XPAR_GIC_BASEADDR);
+#else
+		IntcCfgPtr = XScuGic_LookupConfig(XPAR_SCUGIC_SINGLE_DEVICE_ID);
+#endif
+
 #endif
 		if (IntcCfgPtr == NULL) {
 			xil_printf("ERR:: Interrupt Controller not found");

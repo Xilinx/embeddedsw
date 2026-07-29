@@ -75,5 +75,51 @@ if(EXISTS ${IMAGE_RAW_FILE})
     list(APPEND GENERATED_JSON_HEADERS ${IMAGE_HEADER_FILE})
 endif()
 
+
+message(STATUS "Processor: ${CMAKE_SYSTEM_PROCESSOR}")
+
+if(CMAKE_SYSTEM_PROCESSOR MATCHES "cortexa78")
+	if(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/libvisp_a78.a")
+		file(RENAME
+			${CMAKE_CURRENT_SOURCE_DIR}/libvisp_a78.a
+			${CMAKE_CURRENT_SOURCE_DIR}/libvisp.a)
+	endif()
+	if(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/lscript_a78.ld")
+		file(RENAME
+			${CMAKE_CURRENT_SOURCE_DIR}/lscript_a78.ld
+			${CMAKE_CURRENT_SOURCE_DIR}/lscript.ld)
+	endif()
+	if(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/lscript_r52.ld")
+		file(REMOVE
+		    ${CMAKE_CURRENT_SOURCE_DIR}/lscript_r52.ld)
+	endif()
+	if(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/libvisp_r52.a")
+		file(REMOVE
+		    ${CMAKE_CURRENT_SOURCE_DIR}/libvisp_r52.a)
+	endif()
+elseif(CMAKE_SYSTEM_PROCESSOR MATCHES "cortexr52")
+	set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fno-short-enums")
+	if(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/libvisp_r52.a")
+                file(RENAME
+                        ${CMAKE_CURRENT_SOURCE_DIR}/libvisp_r52.a
+                        ${CMAKE_CURRENT_SOURCE_DIR}/libvisp.a)
+        endif()
+        if(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/lscript_r52.ld")
+                file(RENAME
+                        ${CMAKE_CURRENT_SOURCE_DIR}/lscript_r52.ld
+                        ${CMAKE_CURRENT_SOURCE_DIR}/lscript.ld)
+        endif()
+        if(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/lscript_a78.ld")
+                file(REMOVE
+                    ${CMAKE_CURRENT_SOURCE_DIR}/lscript_a78.ld)
+        endif()
+        if(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/libvisp_a78.a")
+                file(REMOVE
+                    ${CMAKE_CURRENT_SOURCE_DIR}/libvisp_a78.a)
+        endif()
+
+endif()
+
+
 # Create a custom target for all generated headers
 add_custom_target(generate_json_headers ALL DEPENDS ${GENERATED_JSON_HEADERS})
