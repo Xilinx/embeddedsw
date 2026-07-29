@@ -76,6 +76,9 @@
  *       mb    01/06/2026 Added support to verify CRC of AES USER keys after programming.
  *       nik   01/30/2026 Corrected PUF user fuse readback print statement to display correct programmed values for all rows.
  * 3.8   rpu   07/06/2026 Clean up PPK hash length macros.
+ *       mkr   07/20/2026 Removed duplicate XNvm_ValidateAesKey definition
+ *                        as it is available in xnvm_utils.c
+ *
  * </pre>
  *
  ******************************************************************************/
@@ -193,7 +196,6 @@ static int XilNvm_ValidateHash(const char *Hash, u32 Len);
 static void XilNvm_FormatData(const u8 *OrgDataPtr, u8* SwapPtr, u32 Len);
 static int XilNvm_PrepareRevokeIdsForWrite(const char *RevokeIdStr,
 	u32 *Dst, u32 Len);
-static int XNvm_ValidateAesKey(const char *Key);
 static int XNvm_InputSlrIndex(XNvm_ClientInstance *InstancePtr, u32 SlrIndex);
 #ifdef XNVM_ACCESS_PUF_USER_DATA
 static int XilNvm_EfuseWritePufFuses(void);
@@ -2429,37 +2431,6 @@ static void XilNvm_FormatData(const u8 *OrgDataPtr, u8* SwapPtr, u32 Len)
 	}
 }
 
-/******************************************************************************/
-/**
- * @brief	Validate the input string contains valid AES key.
- *
- * @param   	Key - Pointer to AES key.
- *
- * @return	- XST_SUCCESS - On valid input AES key string.
- *		- XST_INVALID_PARAM - On invalid length of the input string.
- *		- XST_FAILURE	- On non hexadecimal character in string
- *
- *******************************************************************************/
-static int XNvm_ValidateAesKey(const char *Key)
-{
-	int Status = XST_INVALID_PARAM;
-	u32 Len;
-
-	if(NULL == Key) {
-		goto END;
-	}
-
-	Len = Xil_Strnlen(Key, XNVM_MAX_AES_KEY_LEN_IN_CHARS + 1U);
-
-	if ((Len != XNVM_256_BITS_AES_KEY_LEN_IN_CHARS) &&
-		(Len != XNVM_128_BITS_AES_KEY_LEN_IN_CHARS)) {
-		goto END;
-	}
-
-	Status = (int)Xil_ValidateHexStr(Key);
-END:
-	return Status;
-}
 /******************************************************************************/
 /**
  * @brief	Adds the SLR Index.

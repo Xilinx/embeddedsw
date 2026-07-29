@@ -23,6 +23,8 @@
 * Ver   Who     Date     Changes
 * ----- ------  -------- --------------------------------------------------------------------------
 *   	pre     09/11/24 First release
+* 3.8   mkr     07/20/26 Removed duplicate XNvm_ValidateAesKey definition
+*                        as it is available in xnvm_utils.c
 *
 * </pre>
 *
@@ -173,7 +175,6 @@ static u8 SharedMem[XNVM_SHARED_MEM_SIZE] __attribute__((aligned(64U)))
 
 /************************** Function Prototypes **************************************************/
 static int BbramWriteAesKey(XNvm_ClientInstance *InstancePtr, u32 SlrIndex);
-static int XNvm_ValidateAesKey(const char *Key);
 static int BbramWriteUsrData(XNvm_ClientInstance *InstancePtr, u32 SlrIndex);
 static int BbramReadUsrData(XNvm_ClientInstance *InstancePtr);
 static int BbramLockUsrData(XNvm_ClientInstance *InstancePtr);
@@ -380,37 +381,6 @@ static int BbramLockUsrData(XNvm_ClientInstance *InstancePtr)
 	return Status;
 }
 
-/*************************************************************************************************/
-/**
- * @brief	Validate the input string contains valid AES key.
- *
- * @param   	Key - Pointer to AES key.
- *
- *@return	- XST_SUCCESS - On valid input AES key string.
- *		- XST_INVALID_PARAM - On invalid length of the input string.
- *		- XST_FAILURE	- On non hexadecimal character in string
- *
-**************************************************************************************************/
-static int XNvm_ValidateAesKey(const char *Key)
-{
-	int Status = XST_INVALID_PARAM;
-	u32 Len;
-
-	if(NULL == Key) {
-		goto END;
-	}
-
-	Len = Xil_Strnlen(Key, XNVM_MAX_AES_KEY_LEN_IN_CHARS + 1U);
-
-	if ((Len != XNVM_256_BITS_AES_KEY_LEN_IN_CHARS) &&
-		(Len != XNVM_128_BITS_AES_KEY_LEN_IN_CHARS)) {
-		goto END;
-	}
-
-	Status = (int)Xil_ValidateHexStr(Key);
-END:
-	return Status;
-}
 /*************************************************************************************************/
 /**
  * @brief	Adds the SLR Index.
