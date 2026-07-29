@@ -157,15 +157,21 @@ static int XPuf_FeaturesCmd(u32 ApiId)
 static int XPuf_ProcessCmd(XPlmi_Cmd *Cmd)
 {
 	int Status = XST_INVALID_PARAM;
-	const u32 *Pload = Cmd->Payload;
+	const u32 *Pload = NULL;
+
+	if (Cmd == NULL) {
+		goto END;
+	}
+
+	Pload = Cmd->Payload;
 
 	if (Pload == NULL) {
 		goto END;
 	}
 
 	/**
-	 * Check for requested puf Apid, process the valid ApiId
-	 * else, return XST_INVALID_PARAM as error code.
+	 * - Check for requested puf Apid, process the valid ApiId
+	 *   else, return XST_INVALID_PARAM as error code.
 	 */
 	switch (Cmd->CmdId & XPUF_API_ID_MASK) {
 		case XPUF_API(XPUF_API_FEATURES):
@@ -197,7 +203,7 @@ void XPuf_CmdsInit(void)
 	u32 Idx;
 
 	/**
-	 * Register command handlers of XilPUF with XilPlmi.
+	 * - Register command handlers of XilPUF with XilPlmi.
 	 */
 	for (Idx = 0U; Idx < XPlmi_Puf.CmdCnt; Idx++) {
 		XPuf_Cmds[Idx].Handler = XPuf_ProcessCmd;
