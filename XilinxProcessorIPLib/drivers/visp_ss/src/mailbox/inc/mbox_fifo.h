@@ -55,6 +55,9 @@ typedef struct payload_template {
  */
 typedef struct FifoControl {
 	uint64_t *buffer; //
+	#if ARMR52
+	uint32_t  phys_addr_dummy_res;  // Adjust the 32bit rpu and 64bit apu common sharing structures to avoid corruption
+	#endif
 	uint32_t virt_addr_dummy_res[2]; //This is to reserve virt address used by APU Linux
 	uint32_t item_size;
 	uint32_t item_total;

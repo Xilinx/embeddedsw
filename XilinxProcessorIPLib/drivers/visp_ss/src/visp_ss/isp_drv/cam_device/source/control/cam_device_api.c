@@ -66,6 +66,9 @@ RESULT SendFirmwareCompability()
 		return RET_OUTOFRANGE;
 	ret = Send_Command(APU_2_RPU_MB_LINUX_COMPAT, &packet,
 			   packet.payload_size + payload_extra_size, dest_cpu_id, src_cpu_id);
+
+	packet.resp_field.error_subcode_t = apu_wait_for_ACK(packet.cookie,
+			packet.payload_data);
 	if (0 != ret)
 		return ret;
 

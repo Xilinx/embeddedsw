@@ -112,7 +112,6 @@ int mailbox_wrapper()
 				LOGE("RPU %d failed to come online\r\n", MBOX_CORE_RPU0);
 				return XST_FAILURE;
 			}
-			sleep(3);
 		}
 	}
 
@@ -129,7 +128,6 @@ int mailbox_wrapper()
 				LOGE("RPU %d failed to come online\r\n", MBOX_CORE_RPU1);
 				return XST_FAILURE;
 			}
-			sleep(3);
 		}
 	}
 	LOGI("\n\n\n\n Both RPU ready!!! \r\n");

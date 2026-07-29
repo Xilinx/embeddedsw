@@ -2,7 +2,7 @@
  *
  * The MIT License (MIT)
  *
- * Copyright (C) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+ * Copyright (C) 2024 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
  * Copyright (c) 2014-2022 Vivante Corporation
  *
  * Permission is hereby granted, free of charge, to any person obtaining a
@@ -84,13 +84,15 @@ extern "C"
 #undef ERROR
 #endif
 
-enum {
-	TRACE_OFF = 0x00,
-	INFO = 0x01,
-	WARNING = 0x02,
-	ERROR = 0x04,
-	DEBUG	= 0x08,
-	MAX_LEVEL = (0x01U | 0x02U | 0x04U | 0x08U)
+enum
+{
+    TRACE_OFF   = 0x00,
+    INFO        = 0x01,
+    WARNING     = 0x02,
+    DEBUG	= 0x04,
+    ERROR       = 0x08,
+    ALWAYS      = 0x10,
+    MAX_LEVEL   = (0x01U | 0x02U | 0x04U | 0x08U | 0x10U)
 };
 
 enum {
@@ -150,6 +152,18 @@ typedef struct tracer_s {
 	struct tracer_s *next;
 	uint64_t module;
 } Tracer;
+
+/**************************** Type Definitions *******************************/
+/**
+ * @brief Timestamp structure for time tracking
+ *
+ * Holds time split into whole seconds and fractional microseconds.
+ */
+ typedef struct {
+	u64 sec;      /* Whole seconds component */
+	u64 secFrac;  /* Fractional microseconds (0-999999) */
+} TimeStamp;
+__attribute__((weak)) void getTimeStamp(TimeStamp* ts);
 
 #ifndef NDEBUG
 int getTraceLevel(void);

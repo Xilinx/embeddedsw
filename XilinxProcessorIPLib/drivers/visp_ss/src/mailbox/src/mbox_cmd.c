@@ -35,7 +35,11 @@
 #define  XPAR_PS_0_PSPMC_0_PSV_IPI_1_BIT_MASK  0x00001000U
 #define  XPAR_PS_0_PSPMC_0_PSV_IPI_2_BIT_MASK  0x00000010U
 #define IPI5_IPI_NOBUF3_BITMASK 0x00001000U
+#if ARMR52
+#define IPI1_BASEADDR 0xeb340000
+#else
 #define IPI5_BASEADDR 0xeb380000
+#endif
 #ifdef SDT
 	#include "xinterrupt_wrap.h"
 #endif
@@ -157,7 +161,11 @@ int ipi_init(int src_ipi_id, XIpiPsu *IpiInst)
 
 	switch (src_ipi_id) {
 		case MBOX_CORE_APU:
+		#if ARMR52
+			baseaddr = IPI1_BASEADDR; //IPI-1
+		#else
 			baseaddr = IPI5_BASEADDR; //IPI-5
+		#endif
 			break;
 		default:
 			xil_printf("Not a Valid IPI core \n");

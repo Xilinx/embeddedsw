@@ -36,7 +36,13 @@
 #ifndef NDEBUG
 
 #define MAX_TRACE_MODULE 0xFFFFFFFFFFFFFFFF
+#if ARMR52
+#define TIME_STAMP_ENABLE 1
+#define XTRACE_MEGA (1000000ULL)
+static int glb_level =TRACE_OFF;
+#else
 static int glb_level = 0x6;
+#endif
 static uint64_t glb_module = 0xFFFFFFFFFFFFFFFF;
 
 static Tracer	*tracerListHead = NULL;
@@ -51,6 +57,7 @@ static Tracer	*tracerListHead = NULL;
 #endif
 
 
+#ifdef ISP_NO_USE_FUNCTION
 int getTraceLevel(void)
 {
 	return glb_level;
@@ -99,6 +106,9 @@ void flushTracer(const Tracer *t)
 		(void) fflush(t->fp);
 }
 
+
+#endif
+
 static void addToList(Tracer* tracer)
 {
 	if (tracerListHead)
@@ -107,6 +117,85 @@ static void addToList(Tracer* tracer)
 	tracerListHead = tracer;
 }
 
+
+#if ARMR52
+__attribute__((weak)) Tracer *getTracerList(void)
+{
+	return tracerListHead;
+}
+
+__attribute__((weak)) void setTraceModule(Tracer *t, int new_module)
+{
+    if (new_module < TRACE_MODULE_MAX)
+    {
+        t->module = (uint64_t)1 << new_module;
+    }
+}
+
+// /**
+//  * @brief Get 64-bit cycle count (ARM Cortex-R52)
+//  *
+//  * @return Raw cycle count of PMCCNTR
+//  */
+__attribute__((weak)) u64 GetRawCycleCount(void) {
+	volatile u64 cval;
+
+	__asm__ __volatile__("mrrc p15, 0, %Q0, %R0, c9" : "=r" (cval) :: "memory");
+	return cval;
+}
+
+/**
+ * @brief Get current time in micro seconds.
+ *
+ * @return time in micro seconds.
+ */
+__attribute__((weak)) u64 getCurrentTime() {
+    return (GetRawCycleCount() / 875U); // Approximate CPU freq is 875 MHz
+}
+
+__attribute__((weak)) void getTimeStamp(TimeStamp* ts)
+{
+   volatile uint64_t timeUs = getCurrentTime();
+    ts->secFrac = timeUs % XTRACE_MEGA;
+    ts->sec = timeUs / XTRACE_MEGA;
+}
+
+
+__attribute__((weak)) void trace( Tracer* tracer, const CHAR* sFormat,  ...)
+{
+#if(TIME_STAMP_ENABLE)
+    TimeStamp ts = { .sec = 0 , .secFrac = 0};
+#endif
+
+
+    va_list args;
+    if (!tracer->linked)
+    {
+        addToList(tracer);
+    }
+
+    if (tracer->enabled && ((tracer->level & glb_level) || (tracer->level == ALWAYS)))
+    {
+            // Backend not initialized - fallback to original xil_vprintf
+#if(TIME_STAMP_ENABLE)
+            getTimeStamp(&ts);
+            xil_printf("{ R0 - %llu.%06llu } ", (ts.sec), (ts.secFrac));
+#else
+            xil_printf("{ R0 } ");
+#endif
+            va_start(args, sFormat);
+         //   if (useFloat) {
+           //     vprintf(sFormat, args);  // Use vprintf for floats
+            //} else {
+                xil_vprintf(sFormat, args);  // Use xil_vprintf for non-floats
+            //}
+            va_end(args);
+            return;
+
+    }
+
+}
+#else
 Tracer *getTracerList(void)
 {
 	return tracerListHead;
@@ -125,57 +214,6 @@ void trace(Tracer* tracer, const CHAR* sFormat, ...)
 		va_end(args);
 	}
 #endif
-}
-#if 0
-void trace(Tracer* tracer, const CHAR* sFormat, ...)
-{
-	char buffer[BUFFSIZE];
-	int length;
-	va_list args;
-	float32_t timeStamp;
-
-	char *TRACE_LOG_LEVEL = getenv("TRACE_LOG_LEVEL");
-	if (TRACE_LOG_LEVEL != NULL) {
-		int log_level = atoi(TRACE_LOG_LEVEL);
-		if (log_level >= 0 && log_level <= MAX_LEVEL)
-			glb_level = log_level;
-	}
-
-	char *TRACE_LOG_MODULE = getenv("TRACE_LOG_MODULE");
-	if (TRACE_LOG_MODULE != NULL) {
-		uint64_t log_module = atol(TRACE_LOG_MODULE);
-		if (log_module >= 0 && log_module <= MAX_TRACE_MODULE)
-			glb_module = log_module;
-	}
-
-	DCT_ASSERT(tracer);
-
-	if (!tracer->linked)
-		addToList(tracer);
-
-	if ((tracer->level & glb_level) && (tracer->enabled != 0) &&
-	    ((tracer->module & glb_module) || (((tracer->module & glb_module) == 0x0) &&
-					       (tracer->level >= WARNING)))) {
-		va_start(args, sFormat);
-		length = vsnprintf(buffer, BUFFSIZE, sFormat, args);
-		if (!((length > 0) && (length < BUFFSIZE))) {
-			/* message was truncated */
-			fprintf(stderr, "Warning: Trace output truncated !");
-		}
-		va_end(args);
-
-		if (tracer->fp == 0)
-			tracer->fp = stdout;
-
-#ifdef SW_TEST
-		(void)timeStamp;
-		fprintf(tracer->fp, "%s%s", tracer->prefix, buffer);
-#else
-		osTimeStampNs(&timeStamp);
-		fprintf(tracer->fp, "[%.6lf]%s%s", timeStamp, tracer->prefix, buffer);
-#endif
-		(void) fflush(tracer->fp);
-	}
 }
 #endif
 #endif	/* NDEBUG */

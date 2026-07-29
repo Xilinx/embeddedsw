@@ -118,7 +118,7 @@ RESULT VsiCamDeviceSensorGetListInfo
 
 RESULT VsiCamDeviceSensorGetConnectPortInfo
 (
-	uint32_t sensorDrvId,
+	SensorDrvId_t sensorDrvId,
 	CamDeviceSensorConnectPortInfo_t *pPortInfo
 )
 {
