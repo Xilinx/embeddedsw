@@ -468,6 +468,10 @@ void XI3c_MasterInterruptHandler(XI3c *InstancePtr)
 	 * Hot Join
 	 */
 	if (IntrStatusReg & XI3C_INTR_HJ_MASK) {
+		/* Drain stale FIFO data and resume controller before DAA */
+		XI3c_ResetFifos(InstancePtr);
+		XI3c_Resume(InstancePtr);
+
 		if(InstancePtr->CurDeviceCount <= XI3C_MAXDAACOUNT) {
 			DynaAddr[0] = XI3C_DynaAddrList[InstancePtr->CurDeviceCount];
 			XI3c_DynaAddrAssign(InstancePtr, DynaAddr, 1);
