@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2009 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -515,7 +515,7 @@ static uint8_t flash_get_srec_line (uint8_t *buf)
 
 /* Save some code and data space on PowerPC
    by defining a minimal exit */
-void exit (int ret):
+void exit (int ret)
 {
 	_exit (ret);
 }
