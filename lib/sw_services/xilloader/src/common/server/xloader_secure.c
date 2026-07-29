@@ -140,6 +140,7 @@
 *       pre  03/12/26 Disabled partition hash table update for VERSAL_2VE_2VM devices
 *                     as the partition hash is not stored in the table for these devices.
 *       ng   07/13/26 Reduced debug print levels on error paths
+* 2.5   tvp  07/29/26 Defeature Symmetric HWRoT boot mode for new devices
 *
 * </pre>
 *
@@ -1133,6 +1134,7 @@ int XLoader_SetSecureState(void)
 		goto END;
 	}
 
+#if !(defined(VERSAL_2VE_2VM) && defined(VERSAL_2VP_P))
 	/** - Check secure state for encryption. */
 	ReadReg = XPlmi_In32(XLOADER_EFUSE_SEC_MISC0_OFFSET) &
 		XLOADER_EFUSE_SEC_DEC_MASK;
@@ -1148,7 +1150,9 @@ int XLoader_SetSecureState(void)
 		XPlmi_Printf(DEBUG_PRINT_ALWAYS, "State of Boot(Encryption):"
 			" Symmetric HWRoT\r\n");
 	}
-	else {
+	else
+#endif
+	{
 		XSECURE_TEMPORAL_IMPL(PlmEncStatus, PlmEncStatusTmp,
 		XilPdi_GetPlmKeySrc);
 		if ((PlmEncStatus != 0x0U) || (PlmEncStatusTmp != 0x0U)) {
