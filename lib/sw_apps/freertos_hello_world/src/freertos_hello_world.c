@@ -71,7 +71,7 @@ int main( void )
 					&xTxTask );
 
 	xTaskCreate( prvRxTask,
-				 ( const char * ) "GB",
+				 ( const char * ) "Rx",
 				 configMINIMAL_STACK_SIZE,
 				 NULL,
 				 tskIDLE_PRIORITY + 1,
