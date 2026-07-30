@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2024 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -103,9 +103,9 @@ static char *UFS_File;
 
 #ifdef __ICCARM__
 #pragma data_alignment = 32
-u8 DestinationAddress[10*1024];
+u8 DestinationAddress[50*1024];
 #pragma data_alignment = 32
-u8 SourceAddress[10*1024];
+u8 SourceAddress[50*1024];
 #else
 u8 DestinationAddress[50*1024] __attribute__ ((aligned(32)));
 u8 SourceAddress[50*1024] __attribute__ ((aligned(32)));
