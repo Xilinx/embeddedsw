@@ -28,6 +28,8 @@
 * 1.2   kpt  01/09/24 Added error code XTRNGPSX_INVALID_BLOCKING_MODE
 * 1.5   ank  09/26/25 Fixed MISRA-C Violations
 * 1.6   hae  01/06/26 Fixed doxygen warnings
+* 1.7   tus  07/30/26 Moved XTRNGPSX_INVALID_PARAM to a non-zero value as it
+*                     collided with XST_SUCCESS
 *
 * </pre>
 *
@@ -127,8 +129,7 @@ typedef struct {
 } XTrngpsx_Instance;
 
 typedef enum {
-	XTRNGPSX_INVALID_PARAM = 0x0,	/**< 0x0 - Invalid argument */
-	XTRNGPSX_INVALID_MODE,			/**< 0x1 - Error when TRNG operation mode is
+	XTRNGPSX_INVALID_MODE = 0x1,	/**< 0x1 - Error when TRNG operation mode is
 										invalid */
 	XTRNGPSX_INVALID_DF_LENGTH,		/**< 0x2 - Error when DF length is invalid */
 	XTRNGPSX_INVALID_SEED_LIFE,		/**< 0x3 - Error when seed life is invalid */
@@ -160,6 +161,7 @@ typedef enum {
 												to the register */
 	XTRNGPSX_INVALID_BLOCKING_MODE,			 /**< 0x14 - Error occurred when invalid blocking mode
 												is selected */
+	XTRNGPSX_INVALID_PARAM,				 /**< 0x15 - Invalid argument */
 } XTrngpsx_ErrorCodes;
 
 /************************************ Variable Definitions ***************************************/
