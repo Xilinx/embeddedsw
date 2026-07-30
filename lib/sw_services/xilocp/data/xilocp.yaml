@@ -20,7 +20,7 @@ supported_processors:
       if platform in ["VersalNet"]:
         supported_processors = ["microblaze", "psx_cortexa78", "psx_cortexr52", "psx_pmc"]
       elif platform in ["Versal_2VE_2VM"]:
-        supported_processors = ["microblaze", "cortexa78", "cortexr52", "pmc"]
+        supported_processors = ["microblaze", "microblaze_riscv", "cortexa78", "cortexr52", "pmc"]
       elif platform in ["Versal"]:
         if "Versal_2VP" in variant:
           supported_processors = ["microblaze", "psv_cortexa72", "psv_cortexr5", "psv_pmc"]
@@ -40,7 +40,7 @@ examples:
     examples = []
 
     versalnet_procs = ["microblaze", "psx_cortexa78", "psx_cortexr52"]
-    versal_2ve_2vm_procs = ["microblaze", "cortexa78", "cortexr52"]
+    versal_2ve_2vm_procs = ["microblaze", "microblaze_riscv", "cortexa78", "cortexr52"]
 
     if platform in ["VersalNet"] and proc in versalnet_procs:
       examples += ["xilocp_client_devicekey_example.c", "xilocp_client_dme_example.c"]

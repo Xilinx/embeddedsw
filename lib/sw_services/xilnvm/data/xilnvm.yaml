@@ -25,7 +25,7 @@ supported_processors:
         supported_processors = ["microblaze", "psx_cortexa78", "psx_cortexr52", "psx_pmc", "psxl_cortexa78",
                                 "psxl_pmc", "psxl_cortexr52"]
       elif platform in ["Versal_2VE_2VM"]:
-        supported_processors = ["microblaze", "cortexa78", "cortexr52", "pmc"]
+        supported_processors = ["microblaze", "microblaze_riscv", "cortexa78", "cortexr52", "pmc"]
       elif "spartanuplus" in variant:
         supported_processors = ["microblaze", "microblaze_riscv"]
       else:
@@ -60,8 +60,8 @@ examples:
 
     versal_procs = ["microblaze", "psv_cortexa72", "psv_cortexr5"]
     versalnet_procs = ["microblaze", "psx_cortexa78", "psx_cortexr52", "psxl_cortexa78", "psxl_cortexr52"]
-    versal_2ve_2vm_procs = ["microblaze", "cortexa78", "cortexr52"]
-    versal_all_family_procs = ["microblaze", "psv_cortexa72", "psv_cortexr5", "psx_cortexa78", "psx_cortexr52",
+    versal_2ve_2vm_procs = ["microblaze", "microblaze_riscv", "cortexa78", "cortexr52"]
+    versal_all_family_procs = ["microblaze", "microblaze_riscv", "psv_cortexa72", "psv_cortexr5", "psx_cortexa78", "psx_cortexr52",
                                "psxl_cortexa78", "psxl_cortexr52", "cortexa78", "cortexr52"]
     spartanuplus_procs = ["microblaze", "microblaze_riscv"]
 
