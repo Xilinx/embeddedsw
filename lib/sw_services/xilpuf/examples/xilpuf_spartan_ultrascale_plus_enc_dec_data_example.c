@@ -48,7 +48,7 @@
  *       rpu  02/17/26 Added spacing around __attribute__
  *       bha  02/25/26 Removed ICCARM related code
  *       mb   05/25/26 Remove hard code shared_mem section address
- *
+ * 2.8   rpu  06/25/26 Updated print statement to print GVF along with shutter value
  * </pre>
  * @note
  *
@@ -262,7 +262,8 @@ static int XPuf_GenerateKey(void)
 	PufData.GlobalVarFilter = XPUF_GLBL_VAR_FLTR_OPTION;
 	PufData.RoSwapVal = PUF_RO_SWAP;
 
-	xil_printf("PUF ShutterValue : %02x \r\n", PufData.ShutterValue);
+	xil_printf("PUF ShutterValue (For use in BIF files) : %02x \r\n",
+		   PufData.ShutterValue | XPUF_GVF_MASK);
 
 	if (XPUF_KEY_GENERATE_OPTION == XPUF_REGISTRATION){
 		/**

@@ -22,7 +22,7 @@
 *       mb   09/26/2025 Update GlobalVarFilter type to u32
 * 2.7   bha  01/22/2026 Added ID - Only regeneration support
 *       mb   04/23/2026 Remove unused macros
-*
+*       rpu  06/25/2026 Added XPUF_GVF_MASK macro
 * </pre>
 *
 *******************************************************************************/
@@ -76,6 +76,8 @@ extern "C" {
 #define XPUF_ERROR_PUF_OVERFLOW				(0xA) /**< Error due to PUF overflow */
 
 #define XPUF_SHUTTER_VALUE				(0x01000080U) /**< Shutter value */
+
+#define XPUF_GVF_MASK					(0x80000000U) /**< GVF mask */
 
 #define XPUF_AUX_SHIFT_VALUE 				(4U) /**< No of bits aux has to shift*/
 
