@@ -18,6 +18,7 @@
 * 5.7   tvp  02/19/26 Initial release
 *       tvp  03/09/26 Added XSecure_MldsaSignGenerate() for signature generation
 *       tvp  03/09/26 Update last word transfer logic during signature verification
+*       vns  07/29/26 Replaced XPlmi_MemCpy64 with CPU register access for PK/SK/signature
 *
 * </pre>
 *
@@ -33,7 +34,6 @@
 #include "xsecure_defs.h"
 #include "xsecure_utils.h"
 #include "xsecure_plat.h"
-#include "xplmi_dma.h"
 
 /************************************ Constant Definitions ****************************************/
 
@@ -184,25 +184,19 @@ int XSecure_MldsaSignVerify(const XSecure_MldsaSignVerifyParams *MldsaParams)
 				 MldsaParams->ContextAddr, MldsaParams->ContextLen);
 	}
 
-	/** - Transfer public key to hardware registers using DMA as the data to be copied is > 1KB */
+	/** - Transfer public key to hardware registers */
 	XSecure_Printf(XSECURE_DEBUG_GENERAL, "MLDSA signature verification - Writing PK\r\n");
-	Status = XPlmi_MemCpy64((u64)(UINTPTR)(XSECURE_MLDSA_BASEADDR + XSECURE_MLDSA_PK_0_OFFSET),
-			 MldsaParams->PubKeyAddr, XSECURE_MLDSA_PK_LEN);
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
+	Xil_MemCpyFrom64To32Addr((u32)(XSECURE_MLDSA_BASEADDR + XSECURE_MLDSA_PK_0_OFFSET),
+				 MldsaParams->PubKeyAddr, XSECURE_MLDSA_PK_LEN);
 
 	/** - Transfer signature to hardware registers */
 	XSecure_Printf(XSECURE_DEBUG_GENERAL, "MLDSA signature verification - "
 					      "Writing Signature\r\n");
 
-	/** - Transfer word-aligned portion (4624 bytes = 1156 words) using DMA as the data to be copied is > 1KB */
+	/** - Transfer word-aligned portion (4624 bytes = 1156 words) */
 	AlignedLen = XSECURE_MLDSA_SIGN_LEN & ~(XSECURE_WORD_SIZE - XSECURE_VALUE_ONE);
-	Status = XPlmi_MemCpy64((u64)(UINTPTR)(XSECURE_MLDSA_BASEADDR + XSECURE_MLDSA_SIGN_0_OFFSET),
-			 MldsaParams->SignAddr, AlignedLen);
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
+	Xil_MemCpyFrom64To32Addr((u32)(XSECURE_MLDSA_BASEADDR + XSECURE_MLDSA_SIGN_0_OFFSET),
+				 MldsaParams->SignAddr, AlignedLen);
 
 	/** - Handle last 3 bytes using intermediate word buffer */
 	LastWord = (u32)XSecure_InByte64(MldsaParams->SignAddr + AlignedLen);
@@ -358,14 +352,10 @@ int XSecure_MldsaSignGenerate(XSecure_MldsaSignGenParams *MldsaParams)
 
 	/** - Feed the required inputs: msg, sk_in, sign_rnd, entropy */
 
-	/** - Transfer secret key to hardware registers using DMA as the data to be copied is > 1KB */
+	/** - Transfer secret key to hardware registers */
 	XSecure_Printf(XSECURE_DEBUG_GENERAL, "MLDSA signature generation - Writing SK\r\n");
-	Status = XPlmi_MemCpy64((u64)(UINTPTR)(XSECURE_MLDSA_BASEADDR + XSECURE_MLDSA_SK_IN_0_OFFSET),
-			 MldsaParams->SecretKeyAddr, XSECURE_MLDSA_SK_LEN);
-	if (Status != XST_SUCCESS) {
-		XSECURE_STATUS_CHK_GLITCH_DETECT(Status);
-		goto END;
-	}
+	Xil_MemCpyFrom64To32Addr((u32)(XSECURE_MLDSA_BASEADDR + XSECURE_MLDSA_SK_IN_0_OFFSET),
+				 MldsaParams->SecretKeyAddr, XSECURE_MLDSA_SK_LEN);
 
 	/** - Transfer signing randomness to hardware registers (256 bits = 32 bytes) */
 	XSecure_Printf(XSECURE_DEBUG_GENERAL, "MLDSA signature generation - Writing sign_rnd\r\n");
@@ -423,15 +413,11 @@ int XSecure_MldsaSignGenerate(XSecure_MldsaSignGenParams *MldsaParams)
 	/** - Read the generated signature from hardware registers */
 	XSecure_Printf(XSECURE_DEBUG_GENERAL, "MLDSA signature generation - Reading signature\r\n");
 
-	/** - Transfer word-aligned portion (4624 bytes = 1156 words) using DMA as the data to be copied is > 1KB */
+	/** - Transfer word-aligned portion (4624 bytes = 1156 words) */
 	AlignedLen = XSECURE_MLDSA_SIGN_LEN & ~(XSECURE_WORD_SIZE - XSECURE_VALUE_ONE);
-	Status = XPlmi_MemCpy64(MldsaParams->SignatureAddr,
-			 (u64)(UINTPTR)(XSECURE_MLDSA_BASEADDR + XSECURE_MLDSA_SIGN_0_OFFSET),
-			 AlignedLen);
-	if (Status != XST_SUCCESS) {
-		XSECURE_STATUS_CHK_GLITCH_DETECT(Status);
-		goto END;
-	}
+	Xil_MemCpyFrom32To64Addr(MldsaParams->SignatureAddr,
+				 (u32)(XSECURE_MLDSA_BASEADDR + XSECURE_MLDSA_SIGN_0_OFFSET),
+				 AlignedLen);
 
 	/** - Handle last 3 bytes using intermediate word buffer */
 	LastWord = XSecure_In32(XSECURE_MLDSA_BASEADDR + XSECURE_MLDSA_SIGN_0_OFFSET +
