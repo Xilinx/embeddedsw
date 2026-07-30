@@ -71,6 +71,9 @@ extern "C" {
 
 #define XKEYMANAGER_ASU_VAULT_ID	(0U)	/**< Vault index for ASU internal vault */
 
+#define XKEYMANAGER_ASU_RSA_KEY_VAULT_CAPACITY	(2U)	/**< Number of RSA key pairs that can be
+								 stored in ASU vault */
+
 /************************************** Type Definitions *****************************************/
 /** This enum contains RSA operation types for private key retrieval. */
 typedef enum {

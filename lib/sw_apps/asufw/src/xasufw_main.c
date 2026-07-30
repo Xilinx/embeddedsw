@@ -79,7 +79,6 @@
 #include "xasufw_lmshandler.h"
 #include "xocp.h"
 #include "xil_error_node.h"
-#include "xrsa.h"
 #include "xasufw_update.h"
 
 /************************************ Constant Definitions ***************************************/
@@ -200,7 +199,7 @@ int main(void)
 	 */
 #ifdef XASU_KEYMANAGER_ENABLE
 	if (XKeyManager_IsAsuVaultCreated() == XASU_STATUS_PASS) {
-		Status = XRsa_AddKeyPairGenToScheduler();
+		Status = XAsufw_CreateRsaKeyPairGenTask();
 		if (XASUFW_SUCCESS != Status) {
 			XAsufw_Printf(DEBUG_GENERAL, "RSA key pair gen scheduler init failed. Error: 0x%x\r\n",
 				      Status);

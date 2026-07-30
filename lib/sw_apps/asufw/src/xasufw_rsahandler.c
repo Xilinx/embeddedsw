@@ -42,8 +42,14 @@
 #include "xkeymanager.h"
 #include "xrsa.h"
 #include "xasu_sharedmem.h"
+#include "xtask.h"
+#include "xil_util.h"
 
 /************************************ Constant Definitions ***************************************/
+#ifdef XASU_KEYMANAGER_ENABLE
+#define XRSA_KEY_GEN_POLL_INTERVAL	(500U)	/**< Key pair generation scheduler task poll interval in ms */
+#define XRSA_KEY_GEN_TASK_PRIORITY	(XTASK_PRIORITIES - 1U)	/**< Key generation scheduler task priority (lowest) */
+#endif /* XASU_KEYMANAGER_ENABLE */
 
 /************************************** Type Definitions *****************************************/
 
@@ -898,4 +904,114 @@ static s32 XAsufw_RsaPssSignGenAndVerifKat(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	return Status;
 }
 #endif /* XASU_RSA_PADDING_ENABLE */
+
+#ifdef XASU_KEYMANAGER_ENABLE
+/*************************************************************************************************/
+/**
+ * @brief	Periodic task handler for scheduler-based RSA key pair generation. This wrapper
+ *		handles resource availability checking, allocation, and release. The actual key
+ *		generation logic is delegated to the RSA driver via XRsa_GenerateKeyPair().
+ *
+ * @param	Arg	Unused argument (required by task handler signature).
+ *
+ * @return
+ *		- XASUFW_SUCCESS, on successful key generation or when vault is full.
+ *		- XASUFW_CMD_IN_PROGRESS, if resources are busy or an intermediate
+ *		  key generation step is still in progress.
+ *		- Error code, on failure during key generation.
+ *
+ *************************************************************************************************/
+static s32 XAsufw_RsaKeyGenTask(void *Arg)
+{
+	s32 Status = XASUFW_FAILURE;
+	static u8 KeyGenOutBuf[XRSA_MAX_KEY_OBJ_SIZE_IN_BYTES];
+	XAsufw_ResourcesRequired ReqResources = XASUFW_RSA_RESOURCE_MASK |
+		XASUFW_TRNG_RESOURCE_MASK |
+		XASUFW_TRNG_RANDOM_BYTES_MASK;
+
+	(void)Arg;
+
+	/** Check if ASU vault already has enough RSA keys. */
+	if ((XKeyManager_GetAsuRsaActiveKeyCount(XASU_RSA_PVT_SUBVAULT_ID) >=
+		XKEYMANAGER_ASU_RSA_KEY_VAULT_CAPACITY) && (XKeyManager_GetAsuRsaActiveKeyCount(XASU_RSA_PUB_SUBVAULT_ID) >=
+		XKEYMANAGER_ASU_RSA_KEY_VAULT_CAPACITY)) {
+		Status = XASUFW_SUCCESS;
+		goto END;
+	}
+
+	/**
+	 * Check if required resources (RSA, TRNG) are available before using them.
+	 * If any resource is busy, skip this cycle and retry on the next scheduler call.
+	 */
+	Status = XAsufw_CheckResourceAvailability(ReqResources, XASUFW_REQUEST_ID_RSA_KEYGEN, NULL);
+	if (Status != XASUFW_SUCCESS) {
+		/** Resources are busy, yield to higher-priority operations. */
+		Status = XASUFW_CMD_IN_PROGRESS;
+		goto END;
+	}
+
+	XAsufw_AllocateResource(XASUFW_RSA, XASUFW_RSA, XASUFW_REQUEST_ID_RSA_KEYGEN);
+	XAsufw_AllocateResource(XASUFW_TRNG, XASUFW_RSA, XASUFW_REQUEST_ID_RSA_KEYGEN);
+
+	/** Call the RSA driver to perform one step of key pair generation. */
+	Status = XRsa_GenerateKeyPair(KeyGenOutBuf, XRSA_MAX_KEY_OBJ_SIZE_IN_BYTES);
+
+	/**
+	 * Store the generated key pair in the ASU vault only when key generation
+	 * has completed successfully (i.e., not a failure and not an intermediate step).
+	 */
+	if (Status == XASUFW_SUCCESS) {
+		Status = XKeyManager_StoreRsaKeyPairInAsuVault(KeyGenOutBuf,
+					XRSA_KEY_GEN_DEFAULT_SIZE, 0U);
+	}
+
+	/**
+	 * Securely zeroize the output buffer when key generation completes or fails.
+	 * Skip zeroization when an intermediate step is in progress, as the buffer
+	 * holds partial key data needed for the next invocation.
+	 */
+	if (Status != XASUFW_CMD_IN_PROGRESS) {
+		Status = XAsufw_UpdateBufStatus(Status, Xil_SecureZeroize(KeyGenOutBuf,
+							XRSA_MAX_KEY_OBJ_SIZE_IN_BYTES));
+	}
+
+	/** Release allocated resources. */
+	if (XAsufw_ReleaseResource(XASUFW_RSA, XASUFW_REQUEST_ID_RSA_KEYGEN) != XASUFW_SUCCESS) {
+		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_RESOURCE_RELEASE_NOT_ALLOWED);
+	}
+
+END:
+	return Status;
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	Creates a periodic task for RSA key pair generation and adds it to the ASUFW
+ *		task scheduler. The task runs at lowest priority and checks the ASU vault
+ *		periodically, generating keys incrementally when fewer than the configured
+ *		vault capacity keys are available.
+ *
+ * @return
+ *		- XASUFW_SUCCESS, on success.
+ *		- XASUFW_RSA_KEY_GEN_ADD_TASK_ERROR, if task creation fails.
+ *
+ *************************************************************************************************/
+s32 XAsufw_CreateRsaKeyPairGenTask(void)
+{
+	s32 Status = XASUFW_FAILURE;
+
+	/** Task node for periodic RSA key pair generation task */
+	XTask_TaskNode *RsaKeyGenTask = NULL;
+	/** Create a periodic task for RSA key pair generation. */
+	RsaKeyGenTask = XTask_Create(XRSA_KEY_GEN_TASK_PRIORITY,
+				     XAsufw_RsaKeyGenTask, NULL,
+				     XRSA_KEY_GEN_POLL_INTERVAL);
+	if (RsaKeyGenTask == NULL) {
+		Status = XASUFW_RSA_KEY_GEN_ADD_TASK_ERROR;
+	} else {
+		Status = XASUFW_SUCCESS;
+	}
+	return Status;
+}
+#endif /* XASU_KEYMANAGER_ENABLE */
 /** @} */

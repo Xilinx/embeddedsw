@@ -50,6 +50,8 @@ extern "C" {
 
 /************************************ Constant Definitions ***************************************/
 #define XASUFW_REQUEST_ID_PLI			0xFFFFFFFFU		/**< Request ID of PLI */
+#define XASUFW_REQUEST_ID_RSA_KEYGEN		0xFFFFFFFEU		/**< Request ID for RSA key-gen background task
+										  (exclusive access to RSA/TRNG) */
 
 #define XASUFW_DMA_RESOURCE_MASK        0x1U /**< DMA resource mask */
 #define XASUFW_AES_RESOURCE_MASK        0x2U /**< AES resource mask */

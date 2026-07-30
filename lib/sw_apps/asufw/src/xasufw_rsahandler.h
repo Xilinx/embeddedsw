@@ -1,5 +1,5 @@
 /**************************************************************************************************
-* Copyright (C) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2024 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 
@@ -34,6 +34,9 @@ extern "C" {
 
 /*************************************** Include Files *******************************************/
 #include "xil_types.h"
+#ifdef SDT
+#include "xasu_bsp_config.h"
+#endif
 
 /************************************ Constant Definitions ***************************************/
 
@@ -44,6 +47,11 @@ extern "C" {
 /************************************ Function Prototypes ****************************************/
 /* RSA Command Structure Initialization function */
 s32 XAsufw_RsaInit(void);
+
+#ifdef XASU_KEYMANAGER_ENABLE
+/* Add RSA key pair generation task to the scheduler */
+s32 XAsufw_CreateRsaKeyPairGenTask(void);
+#endif /* XASU_KEYMANAGER_ENABLE */
 
 /************************************ Variable Definitions ***************************************/
 

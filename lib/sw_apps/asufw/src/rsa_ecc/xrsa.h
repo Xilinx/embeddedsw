@@ -63,10 +63,13 @@ extern "C" {
 
 #if defined(XASU_RSA_3072_KEYGEN_ENABLE)
 #define XRSA_KEY_GEN_DEFAULT_SIZE	XRSA_3072_KEY_SIZE /**< Default RSA key size for background generation */
+#define XRSA_KEY_GEN_DEFAULT_QUANT_SIZE	XRSA_3072_QUANT_SIZE /**< Default RSA key quant size for background generation */
 #elif defined(XASU_RSA_2048_KEYGEN_ENABLE)
 #define XRSA_KEY_GEN_DEFAULT_SIZE	XRSA_2048_KEY_SIZE /**< Default RSA key size for background generation */
+#define XRSA_KEY_GEN_DEFAULT_QUANT_SIZE	XRSA_2048_QUANT_SIZE /**< Default RSA key quant size for background generation */
 #else
 #define XRSA_KEY_GEN_DEFAULT_SIZE	XRSA_4096_KEY_SIZE /**< Default RSA key size for background generation */
+#define XRSA_KEY_GEN_DEFAULT_QUANT_SIZE	XRSA_4096_QUANT_SIZE /**< Default RSA key quant size for background generation */
 #endif
 
 /************************************** Type Definitions *****************************************/
@@ -87,8 +90,13 @@ s32 XRsa_PubExp(XAsufw_Dma *DmaPtr, const XAsu_RsaParams *RsaParamsPtr, u64 KeyP
 		u32 *OutDataLenPtr);
 u8 *XRsa_GetDataBlockAddr(void);
 
-/* Scheduler-based RSA key pair generation APIs */
-s32 XRsa_AddKeyPairGenToScheduler(void);
+/**
+ * RSA key pair generation API.
+ * @note OutBuf must point to a persistent (static or global) buffer whose address
+ *       remains valid across all invocations until XASUFW_SUCCESS or an error is returned.
+ *       Do not pass a stack-local or temporary buffer.
+ */
+s32 XRsa_GenerateKeyPair(u8 *OutBuf, u32 OutBufSize);
 
 /************************************ Variable Definitions ***************************************/
 

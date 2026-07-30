@@ -44,8 +44,6 @@
 /************************************ Constant Definitions ***************************************/
 #define XASUFW_KEYMANAGER_KEY_TYPE_OFFSET (3U) /**< Offset to get key type from CmdId */
 
-#define XASUFW_KEYMANAGER_ASU_KEYVAULT_RSA_KEY_CAPACITY	(2U) /**< RSA key capacity for ASU subsystem */
-
 #define XASUFW_KEYMANAGER_ASU_KEYVAULT_AES_KEY_CAPACITY	(1U) /**< AES key capacity for ASU subsystem */
 
 /************************************** Type Definitions *****************************************/
@@ -571,8 +569,8 @@ static s32 XAsufw_CreateAsuKeyVault(void)
 	XAsu_KeyManagerSubVaultParams SubVaultParams = {0};
 	u32 VaultId = 0U;
 
-	SubVaultParams.RSAPubKeyVaultCapacity = XASUFW_KEYMANAGER_ASU_KEYVAULT_RSA_KEY_CAPACITY;
-	SubVaultParams.RSAPvtKeyVaultCapacity = XASUFW_KEYMANAGER_ASU_KEYVAULT_RSA_KEY_CAPACITY;
+	SubVaultParams.RSAPubKeyVaultCapacity = XKEYMANAGER_ASU_RSA_KEY_VAULT_CAPACITY;
+	SubVaultParams.RSAPvtKeyVaultCapacity = XKEYMANAGER_ASU_RSA_KEY_VAULT_CAPACITY;
 	SubVaultParams.AESKeyVaultCapacity = XASUFW_KEYMANAGER_ASU_KEYVAULT_AES_KEY_CAPACITY;
 	SubVaultParams.AccessRights = 0U;
 	SubVaultParams.Restrictions = XASU_KEYMANAGER_NON_EXPORTABLE_VAULT;
