@@ -27,6 +27,8 @@
  * 1.3   kpt  01/31/23 Fixed RGRG sequence
  * 1.4   ng   06/30/23 Added support for system device-tree flow
  * 1.8   bha  01/07/26 Fixed Doxygen warnings
+ * 1.9   tus  07/09/26 Fixed DRNG SeedLife off-by-one and reseed-required error
+ *                     state handling in XTrngpsv_Generate
  *
  * </pre>
  *
@@ -530,21 +532,25 @@ s32 XTrngpsv_Generate(XTrngpsv *InstancePtr, u8 *RandBufPtr, u32 RandBufSize, u8
 	}
 	else if (InstancePtr->UsrCfg.Mode == XTRNGPSV_DRNG) {
 
-		/** - Error if SeedLife elapsed */
-		if (InstancePtr->TrngStats.ElapsedSeedLife > InstancePtr->UsrCfg.SeedLife) {
+		/**
+		 * - Reseed required if SeedLife elapsed. This is a recoverable
+		 *   condition: return the indication without moving the instance to
+		 *   the ERROR state so that the caller can Reseed and resume Generate.
+		 */
+		if (InstancePtr->TrngStats.ElapsedSeedLife >= InstancePtr->UsrCfg.SeedLife) {
 			Status = (s32)XTRNGPSV_ERROR_RESEEDING_REQUIRED;
-			goto SET_ERR;
+			goto END;
 		}
 
 		/**
-		 * - If prediction resistance enabled but seed is not new,
-		 *   its an error
+		 * - If prediction resistance enabled but seed is not new, reseed is
+		 *   required. This is also recoverable, so keep the instance HEALTHY.
 		 */
 		if ((InstancePtr->UsrCfg.PredResistanceEn == XTRNGPSV_TRUE)
 				&& (PredResistanceEn == XTRNGPSV_TRUE)
 				&& (InstancePtr->TrngStats.ElapsedSeedLife > 0U)) {
 			Status = (s32)XTRNGPSV_ERROR_RESEED_REQD_PREDRES;
-			goto SET_ERR;
+			goto END;
 		}
 
 		Status = Xil_SecureOut32(InstancePtr->Config.BaseAddress + TRNG_CTRL, PRNGMODE_GEN |
