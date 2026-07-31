@@ -54,6 +54,8 @@ static XSecure_ShaState Sha3State = XSECURE_SHA_UNINITIALIZED;
 /***************** Macros (Inline Functions) Definitions *********************/
 #define XSECURE_SHA_FIRST_PACKET_SHIFT		(30U)	/**< SHA - First packet shift */
 #define XSECURE_SHA_UPDATE_CONTINUE_SHIFT	(31U)	/**< SHA - Update continue shift */
+#define XSECURE_SHA_MAX_DATA_SIZE	(((u32)1U << XSECURE_SHA_FIRST_PACKET_SHIFT) - 1U)
+							/**< SHA - Max data size per request */
 
 /************************** Function Prototypes ******************************/
 
@@ -84,7 +86,12 @@ int XSecure_Sha3Initialize(void)
  * @param	InstancePtr	Pointer to the client instance
  * @param	InDataAddr	Address of the output buffer to store the
  * 				output hash
- * @param	Size		Size of the data to be updated to SHA3 engine
+ * @param	Size		Size of the data to be updated to SHA3 engine.
+ *				Must not exceed XSECURE_SHA_MAX_DATA_SIZE as Size
+ *				shares a payload word with the FIRST_PACKET
+ *				(bit 30) and UPDATE_CONTINUE (bit 31) control
+ *				flags; a larger value would alias those flags
+ *				and reset the SHA engine mid-stream.
  *
  * @return
  *		 - XST_SUCCESS  If the update is successful
@@ -102,6 +109,12 @@ int XSecure_Sha3Update(XSecure_ClientInstance *InstancePtr, const u64 InDataAddr
 	 *   are invalid
 	 */
 	if (InstancePtr == NULL) {
+		goto END;
+	}
+
+	/** - Validate Size. Return XST_FAILURE if it overlaps the payload control flags */
+	if (Size > XSECURE_SHA_MAX_DATA_SIZE) {
+		XSecure_Printf(XSECURE_DEBUG_GENERAL, "Invalid SHA3 Size \r\n");
 		goto END;
 	}
 
@@ -209,7 +222,12 @@ END:
  * 				data is stored
  * @param	OutDataAddr	Address of the output buffer to store the
  * 				output hash
- * @param	Size		Size of the data to be updated to SHA3 engine
+ * @param	Size		Size of the data to be updated to SHA3 engine.
+ *				Must not exceed XSECURE_SHA_MAX_DATA_SIZE as Size
+ *				shares a payload word with the FIRST_PACKET
+ *				(bit 30) and UPDATE_CONTINUE (bit 31) control
+ *				flags; a larger value would alias those flags
+ *				and reset the SHA engine mid-stream.
  *
  * @return
  *		 - XST_SUCCESS  If the sha3 hash calculation is successful
@@ -227,6 +245,12 @@ int XSecure_Sha3Digest(XSecure_ClientInstance *InstancePtr, const u64 InDataAddr
 	 *   are invalid
 	 */
 	if (InstancePtr == NULL) {
+		goto END;
+	}
+
+	/** - Validate Size. Return XST_FAILURE if it overlaps the payload control flags */
+	if (Size > XSECURE_SHA_MAX_DATA_SIZE) {
+		XSecure_Printf(XSECURE_DEBUG_GENERAL, "Invalid SHA3 Size \r\n");
 		goto END;
 	}
 
