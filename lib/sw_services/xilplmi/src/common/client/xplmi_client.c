@@ -166,7 +166,7 @@ int XPlmi_TamperTrigger (XPlmi_ClientInstance *InstancePtr, u32 TamperResponse)
  * 		for all sub commands Arg holds Address, whereas
  *		uart sub command Arg holds Arg1, Arg2 in upper and
  *		lower 32bit respectively
- * @param	Len Length of the buffer
+ * @param	Len Length of the buffer in bytes
  *
  * @return
  *			 - XST_SUCCESS on success.
