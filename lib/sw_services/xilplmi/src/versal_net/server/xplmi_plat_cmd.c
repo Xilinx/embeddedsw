@@ -36,6 +36,7 @@
 *       jb   03/19/2024 Updated XPLMI_MAX_ADDR_BUFFERS count from 1 to 3
 *       am   04/04/2024 Fixed doxygen warnings
 * 2.4   abh  10/10/2025 Fixed MISRA-C violations
+* 2.5   ng   07/31/2026 Fixed run_proc error handling during SLD
 *
 * </pre>
 *
@@ -56,6 +57,7 @@
 #include "xil_util.h"
 #include "xplmi_cdo.h"
 #include "xplmi_update.h"
+#include "xplmi_tamper.h"
 
 /************************** Constant Definitions *****************************/
 /* PSM sequence related constants definitions */
@@ -451,6 +453,24 @@ int XPlmi_RunProc(XPlmi_Cmd *Cmd)
 
 	/* Execute Proc with the given Proc ID */
 	Status = XPlmi_ExecuteProc(Cmd->Payload[INDEX_ZERO]);
+	if ((Status == (int)XPLMI_ERR_PROCID_NOT_VALID) &&
+	    (XPlmi_SldState() == XPLMI_SLD_IN_PROGRESS)) {
+		/*
+		 * The RUN_PROC *command* occupies a fixed number of CDO words and has already
+		 * been fully parsed; here only the *proc execution* failed, with
+		 * XPLMI_ERR_PROCID_NOT_VALID, because the targeted proc is not configured on
+		 * this device - an expected condition during Secure Lockdown (SLD). On the
+		 * command-failure path XPlmi_CdoCmdExecute() does 'goto END' before
+		 * 'CdoPtr->ProcessedCdoLen += *Size', so this command's words are NOT counted;
+		 * meanwhile the SLD loop (XPlmi_ProcessCdo) swallows the error and still
+		 * advances the CDO buffer, desynchronising ProcessedCdoLen from the buffer
+		 * position by exactly this command's size. The next matching END then trips
+		 * XPlmi_End's 'EndLength != ProcessedCdoLen' check and returns a spurious
+		 * XST_FAILURE (surfaced as PLM Error Status 0x211C0001).
+		 */
+		XPlmi_Printf(DEBUG_GENERAL, "ProcId 0x%x not configured\n\r", Cmd->Payload[INDEX_ZERO]);
+		Status = XST_SUCCESS;
+	}
 
 	return Status;
 }
