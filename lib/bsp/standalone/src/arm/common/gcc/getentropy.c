@@ -1,10 +1,10 @@
 /******************************************************************************
-* Copyright (c) 2022 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
 
-#include <stdio.h>
+#include <errno.h>
 #include "xil_types.h"
 
 #ifdef __cplusplus
@@ -22,5 +22,6 @@ __attribute__((weak)) sint32 getentropy(void *buffer, sint32 length)
   (void)buffer;
   (void)length;
 
-  return 0;
+  errno = ENOSYS;
+  return -1;
 }
