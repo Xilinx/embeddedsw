@@ -1,6 +1,6 @@
 /*******************************************************************************
 * Copyright (C) 2015 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright 2024-2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2024-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -161,7 +161,6 @@ u32 XHdmiphy1_DirReconfig(XHdmiphy1 *InstancePtr, u8 QuadId,
 }
 
 
-#if ((XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYE5)&&(XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYP))
 /*****************************************************************************/
 /**
 * This function writes the current software configuration for the reference
@@ -316,7 +315,6 @@ void XHdmiphy1_CfgSysClkOutSel(XHdmiphy1 *InstancePtr, u8 QuadId,
 		ChPtr->OutRefClkSel[Dir] = SysClkOutSel;
 	}
 }
-#endif
 
 /*****************************************************************************/
 /**
@@ -381,58 +379,58 @@ u32 XHdmiphy1_IsPllLocked(XHdmiphy1 *InstancePtr, u8 QuadId,
 {
 	u32 RegVal;
 	u32 MaskVal;
-#if ((XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYE5)&&(XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYP))
 	XHdmiphy1_PllType TxPllType;
 	XHdmiphy1_PllType RxPllType;
-#endif
 
 	/* Suppress Warning Messages */
 	QuadId = QuadId;
 
-	if (ChId == XHDMIPHY1_CHANNEL_ID_CMN0) {
-#if ((XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYE5)&&(XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYP))
-		MaskVal = XHDMIPHY1_PLL_LOCK_STATUS_QPLL0_MASK;
-#else
-		MaskVal = XHDMIPHY1_PLL_LOCK_STATUS_LCPLL_MASK;
-#endif
-	}
-	else if (ChId == XHDMIPHY1_CHANNEL_ID_CMN1) {
-#if ((XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYE5)&&(XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYP))
-		MaskVal = XHDMIPHY1_PLL_LOCK_STATUS_QPLL1_MASK;
-#else
-		MaskVal = XHDMIPHY1_PLL_LOCK_STATUS_RPLL_MASK;
-	}
-	else {
-		/* This will result to XST_FAILURE */
-		MaskVal = XHDMIPHY1_PLL_LOCK_STATUS_CPLL_ALL_MASK;
-#endif
-	}
-#if ((XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYE5)&&(XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYP))
-	else if (ChId == XHDMIPHY1_CHANNEL_ID_CMNA) {
-		MaskVal = XHDMIPHY1_PLL_LOCK_STATUS_QPLL0_MASK |
-			  XHDMIPHY1_PLL_LOCK_STATUS_QPLL1_MASK;
-	}
-	else if (ChId == XHDMIPHY1_CHANNEL_ID_CHA) {
-		TxPllType = XHdmiphy1_GetPllType(InstancePtr, 0,
-				XHDMIPHY1_DIR_TX, XHDMIPHY1_CHANNEL_ID_CH1);
-		RxPllType = XHdmiphy1_GetPllType(InstancePtr, 0,
-				XHDMIPHY1_DIR_RX, XHDMIPHY1_CHANNEL_ID_CH1);
-		if (RxPllType == XHDMIPHY1_PLL_TYPE_CPLL &&
-			XHdmiphy1_IsHDMI(InstancePtr, XHDMIPHY1_DIR_RX)) {
-			MaskVal = XHDMIPHY1_PLL_LOCK_STATUS_CPLL_HDMI_MASK;
+	if ((InstancePtr->Config.XcvrType == XHDMIPHY1_GT_TYPE_GTYE5) ||
+	    (InstancePtr->Config.XcvrType == XHDMIPHY1_GT_TYPE_GTYP)) {
+		if (ChId == XHDMIPHY1_CHANNEL_ID_CMN0) {
+			MaskVal = XHDMIPHY1_PLL_LOCK_STATUS_LCPLL_MASK;
 		}
-		else if (TxPllType == XHDMIPHY1_PLL_TYPE_CPLL &&
-			XHdmiphy1_IsHDMI(InstancePtr, XHDMIPHY1_DIR_TX)) {
-			MaskVal = XHDMIPHY1_PLL_LOCK_STATUS_CPLL_HDMI_MASK;
+		else if (ChId == XHDMIPHY1_CHANNEL_ID_CMN1) {
+			MaskVal = XHDMIPHY1_PLL_LOCK_STATUS_RPLL_MASK;
 		}
 		else {
+			/* This will result to XST_FAILURE */
 			MaskVal = XHDMIPHY1_PLL_LOCK_STATUS_CPLL_ALL_MASK;
 		}
 	}
 	else {
-		MaskVal = XHDMIPHY1_PLL_LOCK_STATUS_CPLL_MASK(ChId);
+		if (ChId == XHDMIPHY1_CHANNEL_ID_CMN0) {
+			MaskVal = XHDMIPHY1_PLL_LOCK_STATUS_QPLL0_MASK;
+		}
+		else if (ChId == XHDMIPHY1_CHANNEL_ID_CMN1) {
+			MaskVal = XHDMIPHY1_PLL_LOCK_STATUS_QPLL1_MASK;
+		}
+		else if (ChId == XHDMIPHY1_CHANNEL_ID_CMNA) {
+			MaskVal = XHDMIPHY1_PLL_LOCK_STATUS_QPLL0_MASK |
+				  XHDMIPHY1_PLL_LOCK_STATUS_QPLL1_MASK;
+		}
+		else if (ChId == XHDMIPHY1_CHANNEL_ID_CHA) {
+			TxPllType = XHdmiphy1_GetPllType(InstancePtr, 0,
+					XHDMIPHY1_DIR_TX, XHDMIPHY1_CHANNEL_ID_CH1);
+			RxPllType = XHdmiphy1_GetPllType(InstancePtr, 0,
+					XHDMIPHY1_DIR_RX, XHDMIPHY1_CHANNEL_ID_CH1);
+			if (RxPllType == XHDMIPHY1_PLL_TYPE_CPLL &&
+				XHdmiphy1_IsHDMI(InstancePtr, XHDMIPHY1_DIR_RX)) {
+				MaskVal = XHDMIPHY1_PLL_LOCK_STATUS_CPLL_HDMI_MASK;
+			}
+			else if (TxPllType == XHDMIPHY1_PLL_TYPE_CPLL &&
+				XHdmiphy1_IsHDMI(InstancePtr, XHDMIPHY1_DIR_TX)) {
+				MaskVal = XHDMIPHY1_PLL_LOCK_STATUS_CPLL_HDMI_MASK;
+			}
+			else {
+				MaskVal = XHDMIPHY1_PLL_LOCK_STATUS_CPLL_ALL_MASK;
+			}
+		}
+		else {
+			MaskVal = XHDMIPHY1_PLL_LOCK_STATUS_CPLL_MASK(ChId);
+		}
 	}
-#endif
+
 	RegVal = XHdmiphy1_ReadReg(InstancePtr->Config.BaseAddr,
 			XHDMIPHY1_PLL_LOCK_STATUS_REG);
 
@@ -444,7 +442,6 @@ u32 XHdmiphy1_IsPllLocked(XHdmiphy1 *InstancePtr, u8 QuadId,
 }
 
 
-#if ((XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYE5)&&(XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYP))
 /*****************************************************************************/
 /**
 * Obtain the current reference clock frequency for the quad based on the
@@ -624,7 +621,7 @@ u32 XHdmiphy1_GtUserRdyEnable(XHdmiphy1 *InstancePtr, u8 QuadId,
 
 	return XST_SUCCESS;
 }
-#else
+
 /*****************************************************************************/
 /**
 * This function will set the TXRATE or RXRATE port to select the GT Wizard
@@ -939,7 +936,6 @@ u8 XHdmiphy1_CheckLineRateCfg(XHdmiphy1 *InstancePtr, u8 QuadId,
 		return TRUE;
 	}
 }
-#endif
 
 /*****************************************************************************/
 /**
@@ -1114,7 +1110,6 @@ void XHdmiphy1_MmcmSetClkinsel(XHdmiphy1 *InstancePtr, u8 QuadId,
 
 }
 
-#if ((XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYE5)&&(XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYP))
 /*****************************************************************************/
 /**
 * This function obtains the divider value of the BUFG_GT peripheral.
@@ -1659,7 +1654,6 @@ u8 XHdmiphy1_GetRefClkSourcesCount(XHdmiphy1 *InstancePtr)
 
 	return RefClkNum;
 }
-#endif
 
 #ifdef __cplusplus
 /*****************************************************************************/

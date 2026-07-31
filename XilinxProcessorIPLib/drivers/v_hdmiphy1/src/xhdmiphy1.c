@@ -72,10 +72,6 @@ void XHdmiphy1_CfgInitialize(XHdmiphy1 *InstancePtr,
 		XHdmiphy1_Config *ConfigPtr,
 		UINTPTR EffectiveAddr)
 {
-#if ((XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYE5)&&(XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYP))
-	u8 Sel;
-#endif
-
 	/* Verify arguments. */
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(ConfigPtr != NULL);
@@ -87,65 +83,64 @@ void XHdmiphy1_CfgInitialize(XHdmiphy1 *InstancePtr,
 	InstancePtr->Config = *ConfigPtr;
 	InstancePtr->Config.BaseAddr = EffectiveAddr;
 
-#if (XPAR_HDMIPHY1_0_TRANSCEIVER == XHDMIPHY1_GTHE4) || (XPAR_HDMIPHY1_0_TRANSCEIVER == XHDMIPHY1_GTYE4)
 	if (InstancePtr->Config.XcvrType == XHDMIPHY1_GT_TYPE_GTHE4) {
 		InstancePtr->GtAdaptor = &XHdmiphy1_Gthe4Config;
 	} else if (InstancePtr->Config.XcvrType == XHDMIPHY1_GT_TYPE_GTYE4) {
 		InstancePtr->GtAdaptor = &XHdmiphy1_Gtye4Config;
-	}
-#elif (XPAR_HDMIPHY1_0_TRANSCEIVER == XHDMIPHY1_GTYE5)
-	InstancePtr->GtAdaptor = &Gtye5Config;
-#elif (XPAR_HDMIPHY1_0_TRANSCEIVER == XHDMIPHY1_GTYP)
-	InstancePtr->GtAdaptor = &GtypConfig;
-#endif
-
-#if ((XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYE5)&&(XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYP))
-	const XHdmiphy1_SysClkDataSelType SysClkCfg[7][2] = {
-		{(XHdmiphy1_SysClkDataSelType)0,
-            XHDMIPHY1_SYSCLKSELDATA_TYPE_CPLL_OUTCLK},
-		{(XHdmiphy1_SysClkDataSelType)1,
-            XHDMIPHY1_SYSCLKSELDATA_TYPE_QPLL0_OUTCLK},
-		{(XHdmiphy1_SysClkDataSelType)2,
-            XHDMIPHY1_SYSCLKSELDATA_TYPE_QPLL1_OUTCLK},
-		{(XHdmiphy1_SysClkDataSelType)3,
-            XHDMIPHY1_SYSCLKSELDATA_TYPE_QPLL_OUTCLK},
-		{(XHdmiphy1_SysClkDataSelType)4,
-            XHDMIPHY1_SYSCLKSELDATA_TYPE_PLL0_OUTCLK},
-		{(XHdmiphy1_SysClkDataSelType)5,
-            XHDMIPHY1_SYSCLKSELDATA_TYPE_PLL1_OUTCLK},
-		{(XHdmiphy1_SysClkDataSelType)6,
-            XHDMIPHY1_SYSCLKSELDATA_TYPE_QPLL0_OUTCLK},
-	};
-	for (Sel = 0; Sel < 7; Sel++) {
-		if (InstancePtr->Config.TxSysPllClkSel == SysClkCfg[Sel][0]) {
-			InstancePtr->Config.TxSysPllClkSel = SysClkCfg[Sel][1];
-		}
-		if (InstancePtr->Config.RxSysPllClkSel == SysClkCfg[Sel][0]) {
-			InstancePtr->Config.RxSysPllClkSel = SysClkCfg[Sel][1];
-		}
+	} else if (InstancePtr->Config.XcvrType == XHDMIPHY1_GT_TYPE_GTYE5) {
+		InstancePtr->GtAdaptor = &Gtye5Config;
+	} else if (InstancePtr->Config.XcvrType == XHDMIPHY1_GT_TYPE_GTYP) {
+		InstancePtr->GtAdaptor = &GtypConfig;
 	}
 
-	InstancePtr->Config.TxRefClkSel = (XHdmiphy1_PllRefClkSelType)
-			(InstancePtr->Config.TxRefClkSel +
-					XHDMIPHY1_PLL_REFCLKSEL_TYPE_GTREFCLK0);
-	InstancePtr->Config.RxRefClkSel = (XHdmiphy1_PllRefClkSelType)
-			(InstancePtr->Config.RxRefClkSel +
-					XHDMIPHY1_PLL_REFCLKSEL_TYPE_GTREFCLK0);
-	InstancePtr->Config.TxFrlRefClkSel = (XHdmiphy1_PllRefClkSelType)
-			(InstancePtr->Config.TxFrlRefClkSel +
-					XHDMIPHY1_PLL_REFCLKSEL_TYPE_GTREFCLK0);
-	InstancePtr->Config.RxFrlRefClkSel = (XHdmiphy1_PllRefClkSelType)
-			(InstancePtr->Config.RxFrlRefClkSel +
-					XHDMIPHY1_PLL_REFCLKSEL_TYPE_GTREFCLK0);
-	InstancePtr->Config.DruRefClkSel = (XHdmiphy1_PllRefClkSelType)
-			(InstancePtr->Config.DruRefClkSel +
-					XHDMIPHY1_PLL_REFCLKSEL_TYPE_GTREFCLK0);
-#endif
+	if ((InstancePtr->Config.XcvrType != XHDMIPHY1_GT_TYPE_GTYE5) &&
+	    (InstancePtr->Config.XcvrType != XHDMIPHY1_GT_TYPE_GTYP)) {
+		u8 Sel;
+		const XHdmiphy1_SysClkDataSelType SysClkCfg[7][2] = {
+			{(XHdmiphy1_SysClkDataSelType)0,
+				XHDMIPHY1_SYSCLKSELDATA_TYPE_CPLL_OUTCLK},
+			{(XHdmiphy1_SysClkDataSelType)1,
+				XHDMIPHY1_SYSCLKSELDATA_TYPE_QPLL0_OUTCLK},
+			{(XHdmiphy1_SysClkDataSelType)2,
+				XHDMIPHY1_SYSCLKSELDATA_TYPE_QPLL1_OUTCLK},
+			{(XHdmiphy1_SysClkDataSelType)3,
+				XHDMIPHY1_SYSCLKSELDATA_TYPE_QPLL_OUTCLK},
+			{(XHdmiphy1_SysClkDataSelType)4,
+				XHDMIPHY1_SYSCLKSELDATA_TYPE_PLL0_OUTCLK},
+			{(XHdmiphy1_SysClkDataSelType)5,
+				XHDMIPHY1_SYSCLKSELDATA_TYPE_PLL1_OUTCLK},
+			{(XHdmiphy1_SysClkDataSelType)6,
+				XHDMIPHY1_SYSCLKSELDATA_TYPE_QPLL0_OUTCLK},
+		};
+		for (Sel = 0; Sel < 7; Sel++) {
+			if (InstancePtr->Config.TxSysPllClkSel == SysClkCfg[Sel][0]) {
+				InstancePtr->Config.TxSysPllClkSel = SysClkCfg[Sel][1];
+			}
+			if (InstancePtr->Config.RxSysPllClkSel == SysClkCfg[Sel][0]) {
+				InstancePtr->Config.RxSysPllClkSel = SysClkCfg[Sel][1];
+			}
+		}
+
+		InstancePtr->Config.TxRefClkSel = (XHdmiphy1_PllRefClkSelType)
+				(InstancePtr->Config.TxRefClkSel +
+						XHDMIPHY1_PLL_REFCLKSEL_TYPE_GTREFCLK0);
+		InstancePtr->Config.RxRefClkSel = (XHdmiphy1_PllRefClkSelType)
+				(InstancePtr->Config.RxRefClkSel +
+						XHDMIPHY1_PLL_REFCLKSEL_TYPE_GTREFCLK0);
+		InstancePtr->Config.TxFrlRefClkSel = (XHdmiphy1_PllRefClkSelType)
+				(InstancePtr->Config.TxFrlRefClkSel +
+						XHDMIPHY1_PLL_REFCLKSEL_TYPE_GTREFCLK0);
+		InstancePtr->Config.RxFrlRefClkSel = (XHdmiphy1_PllRefClkSelType)
+				(InstancePtr->Config.RxFrlRefClkSel +
+						XHDMIPHY1_PLL_REFCLKSEL_TYPE_GTREFCLK0);
+		InstancePtr->Config.DruRefClkSel = (XHdmiphy1_PllRefClkSelType)
+				(InstancePtr->Config.DruRefClkSel +
+						XHDMIPHY1_PLL_REFCLKSEL_TYPE_GTREFCLK0);
+	}
 
 	InstancePtr->IsReady = XIL_COMPONENT_IS_READY;
 }
 
-#if ((XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYE5)&&(XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYP))
 /*****************************************************************************/
 /**
 * This function will initialize the PLL selection for a given channel.
@@ -196,7 +191,6 @@ u32 XHdmiphy1_PllInitialize(XHdmiphy1 *InstancePtr, u8 QuadId,
 
 	return XST_SUCCESS;
 }
-#endif
 
 /******************************************************************************/
 /*
@@ -334,49 +328,48 @@ XHdmiphy1_PllType XHdmiphy1_GetPllType(XHdmiphy1 *InstancePtr, u8 QuadId,
 		XHdmiphy1_DirectionType Dir, XHdmiphy1_ChannelId ChId)
 {
 	XHdmiphy1_PllType PllType;
-#if ((XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYE5)&&(XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYP))
-	XHdmiphy1_SysClkDataSelType SysClkDataSel;
-	XHdmiphy1_SysClkOutSelType SysClkOutSel;
 
-	SysClkDataSel = XHdmiphy1_GetSysClkDataSel(InstancePtr, QuadId, Dir, ChId);
-	SysClkOutSel = XHdmiphy1_GetSysClkOutSel(InstancePtr, QuadId, Dir, ChId);
+	if ((InstancePtr->Config.XcvrType != XHDMIPHY1_GT_TYPE_GTYE5) &&
+	    (InstancePtr->Config.XcvrType != XHDMIPHY1_GT_TYPE_GTYP)) {
+		XHdmiphy1_SysClkDataSelType SysClkDataSel;
+		XHdmiphy1_SysClkOutSelType SysClkOutSel;
 
-	/* The sysclk data and output reference clocks should match. */
+		SysClkDataSel = XHdmiphy1_GetSysClkDataSel(InstancePtr, QuadId, Dir, ChId);
+		SysClkOutSel = XHdmiphy1_GetSysClkOutSel(InstancePtr, QuadId, Dir, ChId);
 
-	if ((SysClkDataSel == XHDMIPHY1_SYSCLKSELDATA_TYPE_CPLL_OUTCLK) &&
-	(SysClkOutSel == XHDMIPHY1_SYSCLKSELOUT_TYPE_CPLL_REFCLK)) {
-		PllType = XHDMIPHY1_PLL_TYPE_CPLL;
-	}
-	else if ((SysClkDataSel == XHDMIPHY1_SYSCLKSELDATA_TYPE_QPLL_OUTCLK) &&
-	(SysClkOutSel == XHDMIPHY1_SYSCLKSELOUT_TYPE_QPLL_REFCLK)) {
-		PllType = XHDMIPHY1_PLL_TYPE_QPLL;
-	}
-	else if ((SysClkDataSel == XHDMIPHY1_SYSCLKSELDATA_TYPE_QPLL0_OUTCLK) &&
-	(SysClkOutSel == XHDMIPHY1_SYSCLKSELOUT_TYPE_QPLL0_REFCLK)) {
-		PllType = XHDMIPHY1_PLL_TYPE_QPLL0;
-	}
-	else if ((SysClkDataSel == XHDMIPHY1_SYSCLKSELDATA_TYPE_QPLL1_OUTCLK) &&
-	(SysClkOutSel == XHDMIPHY1_SYSCLKSELOUT_TYPE_QPLL1_REFCLK)) {
-		PllType = XHDMIPHY1_PLL_TYPE_QPLL1;
+		/* The sysclk data and output reference clocks should match. */
+
+		if ((SysClkDataSel == XHDMIPHY1_SYSCLKSELDATA_TYPE_CPLL_OUTCLK) &&
+		(SysClkOutSel == XHDMIPHY1_SYSCLKSELOUT_TYPE_CPLL_REFCLK)) {
+			PllType = XHDMIPHY1_PLL_TYPE_CPLL;
+		}
+		else if ((SysClkDataSel == XHDMIPHY1_SYSCLKSELDATA_TYPE_QPLL_OUTCLK) &&
+		(SysClkOutSel == XHDMIPHY1_SYSCLKSELOUT_TYPE_QPLL_REFCLK)) {
+			PllType = XHDMIPHY1_PLL_TYPE_QPLL;
+		}
+		else if ((SysClkDataSel == XHDMIPHY1_SYSCLKSELDATA_TYPE_QPLL0_OUTCLK) &&
+		(SysClkOutSel == XHDMIPHY1_SYSCLKSELOUT_TYPE_QPLL0_REFCLK)) {
+			PllType = XHDMIPHY1_PLL_TYPE_QPLL0;
+		}
+		else if ((SysClkDataSel == XHDMIPHY1_SYSCLKSELDATA_TYPE_QPLL1_OUTCLK) &&
+		(SysClkOutSel == XHDMIPHY1_SYSCLKSELOUT_TYPE_QPLL1_REFCLK)) {
+			PllType = XHDMIPHY1_PLL_TYPE_QPLL1;
+		}
+		else {
+			PllType = XHDMIPHY1_PLL_TYPE_UNKNOWN;
+		}
 	}
 	else {
-		PllType = XHDMIPHY1_PLL_TYPE_UNKNOWN;
+		if (Dir == XHDMIPHY1_DIR_TX) {
+			PllType = (XHdmiphy1_PllType) InstancePtr->Config.TxSysPllClkSel-2;
+		}
+		else if (Dir == XHDMIPHY1_DIR_RX) {
+			PllType = (XHdmiphy1_PllType) InstancePtr->Config.RxSysPllClkSel-2;
+		}
+		else {
+			PllType = XHDMIPHY1_PLL_TYPE_UNKNOWN;
+		}
 	}
-#else
-	/* Suppress Warning Messages */
-	QuadId = QuadId;
-	ChId = ChId;
-
-	if (Dir == XHDMIPHY1_DIR_TX) {
-		PllType = (XHdmiphy1_PllType) InstancePtr->Config.TxSysPllClkSel-2;
-	}
-	else if (Dir == XHDMIPHY1_DIR_RX) {
-		PllType = (XHdmiphy1_PllType) InstancePtr->Config.RxSysPllClkSel-2;
-	}
-	else {
-		PllType = XHDMIPHY1_PLL_TYPE_UNKNOWN;
-	}
-#endif
 
 	return PllType;
 }
@@ -915,7 +908,7 @@ u16 XHdmiphy1_DrpRd(XHdmiphy1 *InstancePtr, u8 QuadId,
         XHdmiphy1_ChannelId ChId, u16 Addr, u16 *RetVal)
 {
 	u32 Status;
-	u16 Val = 0;
+	u16 Val;
 
 	Status = XHdmiphy1_DrpAccess(InstancePtr, QuadId, ChId,
 			XHDMIPHY1_DIR_RX, /* Read. */
@@ -988,10 +981,10 @@ void XHdmiphy1_MmcmStart(XHdmiphy1 *InstancePtr, u8 QuadId,
         XHdmiphy1_DirectionType Dir)
 {
 	XHdmiphy1_Mmcm *MmcmPtr;
-#if !((XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYE5)&&(XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYP))
 	u64 clokoutdiv1_dpll_lo;
 	u64 clokoutdiv1_dpll_high;
-#endif
+	u8 IsGtye5OrGtyp = (InstancePtr->Config.XcvrType == XHDMIPHY1_GT_TYPE_GTYE5) ||
+	                    (InstancePtr->Config.XcvrType == XHDMIPHY1_GT_TYPE_GTYP);
 
 	if (Dir == XHDMIPHY1_DIR_RX) {
 		MmcmPtr= &InstancePtr->Quads[QuadId].RxMmcm;
@@ -1000,7 +993,6 @@ void XHdmiphy1_MmcmStart(XHdmiphy1 *InstancePtr, u8 QuadId,
 		MmcmPtr= &InstancePtr->Quads[QuadId].TxMmcm;
 	}
 
-#if !((XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYE5)&&(XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYP))
 	if (Dir == XHDMIPHY1_DIR_RX) {
 					if (InstancePtr->Config.RxClkPrimitive == 1 ){
 						clokoutdiv1_dpll_lo = 1;
@@ -1022,62 +1014,52 @@ void XHdmiphy1_MmcmStart(XHdmiphy1 *InstancePtr, u8 QuadId,
 						clokoutdiv1_dpll_high = 512;
 					}
 				}
-#endif
 
 	/* Check values if valid */
-#if ((XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYE5)&&(XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYP))
-	if (!((MmcmPtr->ClkOut0Div > 0) && (MmcmPtr->ClkOut0Div <= 128) &&
-		  (MmcmPtr->ClkOut1Div > 0) && (MmcmPtr->ClkOut1Div <= 128) &&
-		  (MmcmPtr->ClkOut2Div > 0) && (MmcmPtr->ClkOut2Div <= 128))) {
-#else
-#if (XPAR_HDMIPHY_SS_0_HDMI_GT_CONTROLLER_TX_CLK_PRIMITIVE == 1 || \
-		XPAR_HDMIPHY_SS_0_HDMI_GT_CONTROLLER_RX_CLK_PRIMITIVE == 1)
-			if (!((MmcmPtr->ClkOut0Div > clokoutdiv1_dpll_lo) && (MmcmPtr->ClkOut0Div <= clokoutdiv1_dpll_high) &&
-		  (MmcmPtr->ClkOut1Div > clokoutdiv1_dpll_lo) && (MmcmPtr->ClkOut1Div <= clokoutdiv1_dpll_high) &&
-		  (MmcmPtr->ClkOut2Div > clokoutdiv1_dpll_lo) && (MmcmPtr->ClkOut2Div <= clokoutdiv1_dpll_high))) {
-#else
-	if (!((MmcmPtr->ClkOut0Div > clokoutdiv1_dpll_lo) && (MmcmPtr->ClkOut0Div <= clokoutdiv1_dpll_high) &&
-		  (MmcmPtr->ClkOut1Div > clokoutdiv1_dpll_lo) && (MmcmPtr->ClkOut1Div <= clokoutdiv1_dpll_high) &&
-		  (MmcmPtr->ClkOut2Div > clokoutdiv1_dpll_lo) && (MmcmPtr->ClkOut2Div <= clokoutdiv1_dpll_high))) {
-#endif
-#endif
-		return;
+	if (!IsGtye5OrGtyp) {
+		if (!((MmcmPtr->ClkOut0Div > 0) && (MmcmPtr->ClkOut0Div <= 128) &&
+			  (MmcmPtr->ClkOut1Div > 0) && (MmcmPtr->ClkOut1Div <= 128) &&
+			  (MmcmPtr->ClkOut2Div > 0) && (MmcmPtr->ClkOut2Div <= 128))) {
+			return;
+		}
+	}
+	else {
+		if (!((MmcmPtr->ClkOut0Div > clokoutdiv1_dpll_lo) && (MmcmPtr->ClkOut0Div <= clokoutdiv1_dpll_high) &&
+			  (MmcmPtr->ClkOut1Div > clokoutdiv1_dpll_lo) && (MmcmPtr->ClkOut1Div <= clokoutdiv1_dpll_high) &&
+			  (MmcmPtr->ClkOut2Div > clokoutdiv1_dpll_lo) && (MmcmPtr->ClkOut2Div <= clokoutdiv1_dpll_high))) {
+			return;
+		}
 	}
 
 	/* Assert MMCM reset. */
 	XHdmiphy1_MmcmReset(InstancePtr, QuadId, Dir, TRUE);
 
-#if (XPAR_HDMIPHY_SS_0_HDMI_GT_CONTROLLER_TX_CLK_PRIMITIVE == 0 && \
-		XPAR_HDMIPHY_SS_0_HDMI_GT_CONTROLLER_RX_CLK_PRIMITIVE == 0)
-
-	XHdmiphy1_MmcmWriteParameters(InstancePtr, QuadId, Dir);
-
-#elif (XPAR_HDMIPHY_SS_0_HDMI_GT_CONTROLLER_TX_CLK_PRIMITIVE == 1 && \
-		XPAR_HDMIPHY_SS_0_HDMI_GT_CONTROLLER_RX_CLK_PRIMITIVE == 1)
-	XHdmiphy1_DpllWriteParameters(InstancePtr, QuadId, Dir);
-
-#else
-	if (Dir == XHDMIPHY1_DIR_TX){
-		if (InstancePtr->Config.TxClkPrimitive == 0){
-			XHdmiphy1_MmcmWriteParameters(InstancePtr, QuadId, Dir);
-		}
-		else{
-			XHdmiphy1_DpllWriteParameters(InstancePtr, QuadId, Dir);
-		}
-
+	if (!IsGtye5OrGtyp) {
+		/* GTHE4/GTYE4 silicon only ever offers the MMCM clock primitive. */
+		XHdmiphy1_Mmcme4WriteParameters(InstancePtr, QuadId, Dir);
 	}
+	else {
+		if (Dir == XHDMIPHY1_DIR_TX){
+			if (InstancePtr->Config.TxClkPrimitive == 0){
+				XHdmiphy1_Mmcme5WriteParameters(InstancePtr, QuadId, Dir);
+			}
+			else{
+				XHdmiphy1_DpllWriteParameters(InstancePtr, QuadId, Dir);
+			}
 
-
-	if (Dir == XHDMIPHY1_DIR_RX){
-		if (InstancePtr->Config.RxClkPrimitive == 0){
-			XHdmiphy1_MmcmWriteParameters(InstancePtr, QuadId, Dir);
 		}
-		else{
-			XHdmiphy1_DpllWriteParameters(InstancePtr, QuadId, Dir);
-		}
 
+
+		if (Dir == XHDMIPHY1_DIR_RX){
+			if (InstancePtr->Config.RxClkPrimitive == 0){
+				XHdmiphy1_Mmcme5WriteParameters(InstancePtr, QuadId, Dir);
+			}
+			else{
+				XHdmiphy1_DpllWriteParameters(InstancePtr, QuadId, Dir);
+			}
+
+		}
 	}
-#endif
 
 
 
@@ -1111,41 +1093,46 @@ void XHdmiphy1_MmcmStart(XHdmiphy1 *InstancePtr, u8 QuadId,
 void XHdmiphy1_IBufDsEnable(XHdmiphy1 *InstancePtr, u8 QuadId,
         XHdmiphy1_DirectionType Dir, u8 Enable)
 {
-#if ((XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYE5)&&(XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYP))
 	XHdmiphy1_PllRefClkSelType *TypePtr, *DruTypePtr, DruTypeDummy;
-	DruTypeDummy = XHDMIPHY1_PLL_REFCLKSEL_TYPE_GTGREFCLK;
-	DruTypePtr = &DruTypeDummy;
-#endif
 	u32 RegAddr = XHDMIPHY1_IBUFDS_GTXX_CTRL_REG;
 	u32 RegVal;
 	u32 MaskVal = 0;
+	u8 IsGtye5OrGtyp = (InstancePtr->Config.XcvrType == XHDMIPHY1_GT_TYPE_GTYE5) ||
+	                    (InstancePtr->Config.XcvrType == XHDMIPHY1_GT_TYPE_GTYP);
+	u8 UseGtRefClkMask = FALSE;
 
 	/* Suppress Warning Messages */
 	QuadId = QuadId;
 
-#if ((XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYE5)&&(XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYP))
-	if (Dir == XHDMIPHY1_DIR_TX) {
-		TypePtr = &InstancePtr->Config.TxRefClkSel;
-	}
-	else {
-		TypePtr = &InstancePtr->Config.RxRefClkSel;
-		if (InstancePtr->Config.DruIsPresent) {
-			DruTypePtr = &InstancePtr->Config.DruRefClkSel;
+	DruTypeDummy = XHDMIPHY1_PLL_REFCLKSEL_TYPE_GTGREFCLK;
+	DruTypePtr = &DruTypeDummy;
+
+	if (!IsGtye5OrGtyp) {
+		if (Dir == XHDMIPHY1_DIR_TX) {
+			TypePtr = &InstancePtr->Config.TxRefClkSel;
+		}
+		else {
+			TypePtr = &InstancePtr->Config.RxRefClkSel;
+			if (InstancePtr->Config.DruIsPresent) {
+				DruTypePtr = &InstancePtr->Config.DruRefClkSel;
+			}
+		}
+
+		if ((*TypePtr == XHDMIPHY1_PLL_REFCLKSEL_TYPE_GTREFCLK0) ||
+				((InstancePtr->Config.DruIsPresent) &&
+				(*DruTypePtr == XHDMIPHY1_PLL_REFCLKSEL_TYPE_GTREFCLK0))) {
+			MaskVal = XHDMIPHY1_IBUFDS_GTXX_CTRL_GTREFCLK0_CEB_MASK;
+			UseGtRefClkMask = TRUE;
+		}
+		else if ((*TypePtr == XHDMIPHY1_PLL_REFCLKSEL_TYPE_GTREFCLK1) ||
+				((InstancePtr->Config.DruIsPresent) &&
+				(*DruTypePtr == XHDMIPHY1_PLL_REFCLKSEL_TYPE_GTREFCLK1))) {
+			MaskVal = XHDMIPHY1_IBUFDS_GTXX_CTRL_GTREFCLK1_CEB_MASK;
+			UseGtRefClkMask = TRUE;
 		}
 	}
 
-	if ((*TypePtr == XHDMIPHY1_PLL_REFCLKSEL_TYPE_GTREFCLK0) ||
-			((InstancePtr->Config.DruIsPresent) &&
-			(*DruTypePtr == XHDMIPHY1_PLL_REFCLKSEL_TYPE_GTREFCLK0))) {
-		MaskVal = XHDMIPHY1_IBUFDS_GTXX_CTRL_GTREFCLK0_CEB_MASK;
-	}
-	else if ((*TypePtr == XHDMIPHY1_PLL_REFCLKSEL_TYPE_GTREFCLK1) ||
-			((InstancePtr->Config.DruIsPresent) &&
-			(*DruTypePtr == XHDMIPHY1_PLL_REFCLKSEL_TYPE_GTREFCLK1))) {
-		MaskVal = XHDMIPHY1_IBUFDS_GTXX_CTRL_GTREFCLK1_CEB_MASK;
-	}
-	else {
-#endif
+	if (!UseGtRefClkMask) {
 		if (Dir == XHDMIPHY1_DIR_TX) {
 			RegAddr = XHDMIPHY1_MISC_TXUSRCLK_REG;
 		}
@@ -1153,27 +1140,26 @@ void XHdmiphy1_IBufDsEnable(XHdmiphy1 *InstancePtr, u8 QuadId,
 			RegAddr = XHDMIPHY1_MISC_RXUSRCLK_REG;
 		}
 		MaskVal = XHDMIPHY1_MISC_XXUSRCLK_REFCLK_CEB_MASK;
-#if ((XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYE5)&&(XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYP))
 	}
-#endif
 
 	RegVal = XHdmiphy1_ReadReg(InstancePtr->Config.BaseAddr, RegAddr);
 
-#if ((XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYE5)&&(XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYP))
-	if (Enable) {
-		RegVal &= ~MaskVal;
+	if (!IsGtye5OrGtyp) {
+		if (Enable) {
+			RegVal &= ~MaskVal;
+		}
+		else {
+			RegVal |= MaskVal;
+		}
 	}
 	else {
-		RegVal |= MaskVal;
+		if (Enable) {
+			RegVal |= MaskVal;
+		}
+		else {
+			RegVal &= ~MaskVal;
+		}
 	}
-#else
-	if (Enable) {
-		RegVal |= MaskVal;
-	}
-	else {
-		RegVal &= ~MaskVal;
-	}
-#endif
 	XHdmiphy1_WriteReg(InstancePtr->Config.BaseAddr, RegAddr, RegVal);
 }
 
@@ -1383,11 +1369,9 @@ void XHdmiphy1_SetLogCallback(XHdmiphy1 *InstancePtr,
 void XHdmiphy1_RegisterDebug(XHdmiphy1 *InstancePtr)
 {
 	u32 RegOffset;
-#if ((XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYE5)&&(XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYP))
-	u16 DrpAddr, MaxDrpAddr;
+	u16 DrpAddr, MaxDrpAddr = 0;
 	u16 DrpVal, ChId;
 	u8  MaxChannels;
-#endif
 
 	xil_printf("\r\nHDMIPHY Registers\r\n");
 	xil_printf("-----------------\r\n");
@@ -1399,47 +1383,47 @@ void XHdmiphy1_RegisterDebug(XHdmiphy1 *InstancePtr)
 		RegOffset += 4;
 	}
 
-#if ((XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYE5)&&(XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYP))
-#if (XPAR_HDMIPHY1_0_TRANSCEIVER == XHDMIPHY1_GTHE4) || (XPAR_HDMIPHY1_0_TRANSCEIVER == XHDMIPHY1_GTYE4)
-	MaxDrpAddr = 0x00B0;
-#endif
+	if ((InstancePtr->Config.XcvrType != XHDMIPHY1_GT_TYPE_GTYE5) &&
+	    (InstancePtr->Config.XcvrType != XHDMIPHY1_GT_TYPE_GTYP)) {
+		if ((InstancePtr->Config.XcvrType == XHDMIPHY1_GT_TYPE_GTHE4) ||
+		    (InstancePtr->Config.XcvrType == XHDMIPHY1_GT_TYPE_GTYE4)) {
+			MaxDrpAddr = 0x00B0;
+		}
 
-	xil_printf("\r\nHDMIPHY GT COMMON DRP Registers\r\n");
-	xil_printf("----------------------------\r\n");
-	if (InstancePtr->HdmiIsQpllPresent == TRUE) {
-		xil_printf("Offset   |  Value\r\n");
+		xil_printf("\r\nHDMIPHY GT COMMON DRP Registers\r\n");
 		xil_printf("----------------------------\r\n");
-		for (DrpAddr = 0x0000; DrpAddr <= MaxDrpAddr; DrpAddr++) {
-			XHdmiphy1_DrpRd(InstancePtr, 0, XHDMIPHY1_CHANNEL_ID_CMN0,
-					DrpAddr, &DrpVal);
-			xil_printf("0x%04x      0x%04x\r\n",DrpAddr, DrpVal);
+		if (InstancePtr->HdmiIsQpllPresent == TRUE) {
+			xil_printf("Offset   |  Value\r\n");
+			xil_printf("----------------------------\r\n");
+			for (DrpAddr = 0x0000; DrpAddr <= MaxDrpAddr; DrpAddr++) {
+				XHdmiphy1_DrpRd(InstancePtr, 0, XHDMIPHY1_CHANNEL_ID_CMN0,
+						DrpAddr, &DrpVal);
+				xil_printf("0x%04x      0x%04x\r\n",DrpAddr, DrpVal);
+			}
+		} else {
+			xil_printf("No QPLL in this HDMIPHY Instance\r\n");
 		}
-	} else {
-		xil_printf("No QPLL in this HDMIPHY Instance\r\n");
-	}
 
-#if (XPAR_HDMIPHY1_0_TRANSCEIVER == XHDMIPHY1_GTHE4) || (XPAR_HDMIPHY1_0_TRANSCEIVER == XHDMIPHY1_GTYE4)
-	if (InstancePtr->Config.XcvrType == XHDMIPHY1_GT_TYPE_GTHE4) {
-		MaxDrpAddr = 0x0125;
-	} else if (InstancePtr->Config.XcvrType == XHDMIPHY1_GT_TYPE_GTYE4) {
-		MaxDrpAddr = 0x0135;
-	}
-#endif
-	/* Get Max number of channels in HDMIPHY */
-	MaxChannels = (InstancePtr->Config.RxChannels >
-					InstancePtr->Config.TxChannels) ?
-					InstancePtr->Config.RxChannels :
-					InstancePtr->Config.TxChannels;
+		if (InstancePtr->Config.XcvrType == XHDMIPHY1_GT_TYPE_GTHE4) {
+			MaxDrpAddr = 0x0125;
+		} else if (InstancePtr->Config.XcvrType == XHDMIPHY1_GT_TYPE_GTYE4) {
+			MaxDrpAddr = 0x0135;
+		}
+		/* Get Max number of channels in HDMIPHY */
+		MaxChannels = (InstancePtr->Config.RxChannels >
+						InstancePtr->Config.TxChannels) ?
+						InstancePtr->Config.RxChannels :
+						InstancePtr->Config.TxChannels;
 
-	for (ChId = 1; ChId <= MaxChannels; ChId++) {
-	xil_printf("\r\nHDMIPHY GT CHANNEL %d DRP Registers\r\n", ChId);
-	xil_printf("-------------------------------\r\n");
-	xil_printf("Offset   |  Value\r\n");
-	xil_printf("-------------------------------\r\n");
-		for (DrpAddr = 0x0000; DrpAddr <= MaxDrpAddr; DrpAddr++) {
-			XHdmiphy1_DrpRd(InstancePtr, 0, ChId, DrpAddr, &DrpVal);
-			xil_printf("0x%04x      0x%04x\r\n",DrpAddr, DrpVal);
+		for (ChId = 1; ChId <= MaxChannels; ChId++) {
+			xil_printf("\r\nHDMIPHY GT CHANNEL %d DRP Registers\r\n", ChId);
+			xil_printf("-------------------------------\r\n");
+			xil_printf("Offset   |  Value\r\n");
+			xil_printf("-------------------------------\r\n");
+			for (DrpAddr = 0x0000; DrpAddr <= MaxDrpAddr; DrpAddr++) {
+				XHdmiphy1_DrpRd(InstancePtr, 0, ChId, DrpAddr, &DrpVal);
+				xil_printf("0x%04x      0x%04x\r\n",DrpAddr, DrpVal);
+			}
 		}
 	}
-#endif
 }

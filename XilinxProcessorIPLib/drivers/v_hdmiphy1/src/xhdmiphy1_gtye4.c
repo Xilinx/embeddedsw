@@ -1,5 +1,6 @@
 /*******************************************************************************
 * Copyright (C) 2015 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -33,7 +34,6 @@
 
 #include "xparameters.h"
 #include "xhdmiphy1_gt.h"
-#if (XPAR_HDMIPHY1_0_TRANSCEIVER == XHDMIPHY1_GTYE4) || (XPAR_HDMIPHY1_0_TRANSCEIVER == XHDMIPHY1_GTHE4)
 #include "xstatus.h"
 
 /**************************** Function Prototypes *****************************/
@@ -1789,4 +1789,3 @@ u32 XHdmiphy1_Gtye4CfgCpllCalPeriodandTol(XHdmiphy1 *InstancePtr, u8 QuadId,
 
     return XST_SUCCESS;
 }
-#endif

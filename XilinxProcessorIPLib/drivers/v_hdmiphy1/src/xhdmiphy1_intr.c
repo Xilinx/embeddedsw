@@ -1,6 +1,6 @@
 /*******************************************************************************
 * Copyright (C) 2019 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2024 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -105,17 +105,14 @@ void XHdmiphy1_SetIntrHandler(XHdmiphy1 *InstancePtr,
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid((HandlerType == XHDMIPHY1_INTR_HANDLER_TYPE_TXRESET_DONE) ||
 		(HandlerType == XHDMIPHY1_INTR_HANDLER_TYPE_RXRESET_DONE) ||
-#if ((XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYE5)&&(XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYP))
 		(HandlerType == XHDMIPHY1_INTR_HANDLER_TYPE_CPLL_LOCK) ||
 		(HandlerType == XHDMIPHY1_INTR_HANDLER_TYPE_QPLL_LOCK) ||
 		(HandlerType == XHDMIPHY1_INTR_HANDLER_TYPE_TXALIGN_DONE) ||
 		(HandlerType == XHDMIPHY1_INTR_HANDLER_TYPE_QPLL1_LOCK) ||
-#else
 		(HandlerType == XHDMIPHY1_INTR_HANDLER_TYPE_LCPLL_LOCK) ||
 		(HandlerType == XHDMIPHY1_INTR_HANDLER_TYPE_RPLL_LOCK) ||
 		(HandlerType == XHDMIPHY1_INTR_HANDLER_TYPE_TX_GPO_RISING_EDGE) ||
 		(HandlerType == XHDMIPHY1_INTR_HANDLER_TYPE_RX_GPO_RISING_EDGE) ||
-#endif
 		(HandlerType ==
 			XHDMIPHY1_INTR_HANDLER_TYPE_TX_CLKDET_FREQ_CHANGE) ||
 		(HandlerType ==
@@ -136,24 +133,34 @@ void XHdmiphy1_SetIntrHandler(XHdmiphy1 *InstancePtr,
 		InstancePtr->IntrRxResetDoneHandler = CallbackFunc;
 		InstancePtr->IntrRxResetDoneCallbackRef = CallbackRef;
 		break;
-#if ((XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYE5)&&(XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYP))
 	case XHDMIPHY1_INTR_HANDLER_TYPE_CPLL_LOCK:
 		InstancePtr->IntrCpllLockHandler = CallbackFunc;
 		InstancePtr->IntrCpllLockCallbackRef = CallbackRef;
 		break;
 	case XHDMIPHY1_INTR_HANDLER_TYPE_QPLL_LOCK:
-		InstancePtr->IntrQpllLockHandler = CallbackFunc;
-		InstancePtr->IntrQpllLockCallbackRef = CallbackRef;
+		if ((InstancePtr->Config.XcvrType != XHDMIPHY1_GT_TYPE_GTYE5) &&
+		    (InstancePtr->Config.XcvrType != XHDMIPHY1_GT_TYPE_GTYP)) {
+			InstancePtr->IntrQpllLockHandler = CallbackFunc;
+			InstancePtr->IntrQpllLockCallbackRef = CallbackRef;
+		} else {
+			InstancePtr->IntrLcpllLockHandler = CallbackFunc;
+			InstancePtr->IntrLcpllLockCallbackRef = CallbackRef;
+		}
 		break;
 	case XHDMIPHY1_INTR_HANDLER_TYPE_TXALIGN_DONE:
 		InstancePtr->IntrTxAlignDoneHandler = CallbackFunc;
 		InstancePtr->IntrTxAlignDoneCallbackRef = CallbackRef;
 		break;
 	case XHDMIPHY1_INTR_HANDLER_TYPE_QPLL1_LOCK:
-		InstancePtr->IntrQpll1LockHandler = CallbackFunc;
-		InstancePtr->IntrQpll1LockCallbackRef = CallbackRef;
+		if ((InstancePtr->Config.XcvrType != XHDMIPHY1_GT_TYPE_GTYE5) &&
+		    (InstancePtr->Config.XcvrType != XHDMIPHY1_GT_TYPE_GTYP)) {
+			InstancePtr->IntrQpll1LockHandler = CallbackFunc;
+			InstancePtr->IntrQpll1LockCallbackRef = CallbackRef;
+		} else {
+			InstancePtr->IntrRpllLockHandler = CallbackFunc;
+			InstancePtr->IntrRpllLockCallbackRef = CallbackRef;
+		}
 		break;
-#else
 	case XHDMIPHY1_INTR_HANDLER_TYPE_TX_GPO_RISING_EDGE:
 		InstancePtr->IntrTxGpoRisingEdgeHandler = CallbackFunc;
 		InstancePtr->IntrTxGpoRisingEdgeCallbackRef = CallbackRef;
@@ -162,15 +169,6 @@ void XHdmiphy1_SetIntrHandler(XHdmiphy1 *InstancePtr,
 		InstancePtr->IntrRxGpoRisingEdgeHandler = CallbackFunc;
 		InstancePtr->IntrRxGpoRisingEdgeCallbackRef = CallbackRef;
 		break;
-	case XHDMIPHY1_INTR_HANDLER_TYPE_LCPLL_LOCK:
-		InstancePtr->IntrLcpllLockHandler = CallbackFunc;
-		InstancePtr->IntrLcpllLockCallbackRef = CallbackRef;
-		break;
-	case XHDMIPHY1_INTR_HANDLER_TYPE_RPLL_LOCK:
-		InstancePtr->IntrRpllLockHandler = CallbackFunc;
-		InstancePtr->IntrRpllLockCallbackRef = CallbackRef;
-		break;
-#endif
 	case XHDMIPHY1_INTR_HANDLER_TYPE_TX_CLKDET_FREQ_CHANGE:
 		InstancePtr->IntrTxClkDetFreqChangeHandler =
 							CallbackFunc;
@@ -229,49 +227,47 @@ void XHdmiphy1_InterruptHandler(XHdmiphy1 *InstancePtr)
 	IntrStatus = XHdmiphy1_ReadReg(InstancePtr->Config.BaseAddr,
 			XHDMIPHY1_INTR_STS_REG);
 
-#if ((XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYE5)&&(XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYP))
-	if (IntrStatus & XHDMIPHY1_INTR_CPLL_LOCK_MASK) {
-		InstancePtr->IntrCpllLockHandler(
-				InstancePtr->IntrCpllLockCallbackRef);
+	if ((InstancePtr->Config.XcvrType != XHDMIPHY1_GT_TYPE_GTYE5) &&
+	    (InstancePtr->Config.XcvrType != XHDMIPHY1_GT_TYPE_GTYP)) {
+		if (IntrStatus & XHDMIPHY1_INTR_CPLL_LOCK_MASK) {
+			InstancePtr->IntrCpllLockHandler(
+					InstancePtr->IntrCpllLockCallbackRef);
+		}
+		if (IntrStatus & XHDMIPHY1_INTR_QPLL_LOCK_MASK) {
+			InstancePtr->IntrQpllLockHandler(
+					InstancePtr->IntrQpllLockCallbackRef);
+		}
+		if (IntrStatus & XHDMIPHY1_INTR_QPLL1_LOCK_MASK) {
+			InstancePtr->IntrQpll1LockHandler(
+					InstancePtr->IntrQpll1LockCallbackRef);
+		}
+		if (IntrStatus & XHDMIPHY1_INTR_TXALIGNDONE_MASK) {
+			InstancePtr->IntrTxAlignDoneHandler(
+					InstancePtr->IntrTxAlignDoneCallbackRef);
+		}
 	}
-	if (IntrStatus & XHDMIPHY1_INTR_QPLL_LOCK_MASK) {
-		InstancePtr->IntrQpllLockHandler(
-				InstancePtr->IntrQpllLockCallbackRef);
-	}
-	if (IntrStatus & XHDMIPHY1_INTR_QPLL1_LOCK_MASK) {
-		InstancePtr->IntrQpll1LockHandler(
-				InstancePtr->IntrQpll1LockCallbackRef);
+	else {
+		if (IntrStatus & XHDMIPHY1_INTR_TXGPO_RE_MASK) {
+			InstancePtr->IntrTxGpoRisingEdgeHandler(
+					InstancePtr->IntrTxGpoRisingEdgeCallbackRef);
+		}
+		if (IntrStatus & XHDMIPHY1_INTR_RXGPO_RE_MASK) {
+			InstancePtr->IntrRxGpoRisingEdgeHandler(
+					InstancePtr->IntrRxGpoRisingEdgeCallbackRef);
+		}
+		if (IntrStatus & XHDMIPHY1_INTR_LCPLL_LOCK_MASK) {
+			InstancePtr->IntrLcpllLockHandler(
+					InstancePtr->IntrLcpllLockCallbackRef);
+		}
+		if (IntrStatus & XHDMIPHY1_INTR_RPLL_LOCK_MASK) {
+			InstancePtr->IntrRpllLockHandler(
+					InstancePtr->IntrRpllLockCallbackRef);
+		}
 	}
 	if (IntrStatus & XHDMIPHY1_INTR_TXRESETDONE_MASK) {
 		InstancePtr->IntrTxResetDoneHandler(
 				InstancePtr->IntrTxResetDoneCallbackRef);
 	}
-	if (IntrStatus & XHDMIPHY1_INTR_TXALIGNDONE_MASK) {
-		InstancePtr->IntrTxAlignDoneHandler(
-				InstancePtr->IntrTxAlignDoneCallbackRef);
-	}
-#else
-	if (IntrStatus & XHDMIPHY1_INTR_TXGPO_RE_MASK) {
-		InstancePtr->IntrTxGpoRisingEdgeHandler(
-				InstancePtr->IntrTxGpoRisingEdgeCallbackRef);
-	}
-	if (IntrStatus & XHDMIPHY1_INTR_RXGPO_RE_MASK) {
-		InstancePtr->IntrRxGpoRisingEdgeHandler(
-				InstancePtr->IntrRxGpoRisingEdgeCallbackRef);
-	}
-	if (IntrStatus & XHDMIPHY1_INTR_LCPLL_LOCK_MASK) {
-		InstancePtr->IntrLcpllLockHandler(
-				InstancePtr->IntrLcpllLockCallbackRef);
-	}
-	if (IntrStatus & XHDMIPHY1_INTR_RPLL_LOCK_MASK) {
-		InstancePtr->IntrRpllLockHandler(
-				InstancePtr->IntrRpllLockCallbackRef);
-	}
-	if (IntrStatus & XHDMIPHY1_INTR_TXRESETDONE_MASK) {
-		InstancePtr->IntrTxResetDoneHandler(
-				InstancePtr->IntrTxResetDoneCallbackRef);
-	}
-#endif
 	if (IntrStatus & XHDMIPHY1_INTR_RXRESETDONE_MASK) {
 		InstancePtr->IntrRxResetDoneHandler(
 				InstancePtr->IntrRxResetDoneCallbackRef);

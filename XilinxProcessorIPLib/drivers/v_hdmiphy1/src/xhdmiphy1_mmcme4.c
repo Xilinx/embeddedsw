@@ -1,6 +1,6 @@
 /*******************************************************************************
 * Copyright (C) 2015 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -35,8 +35,6 @@
 #include "xstatus.h"
 #include "xhdmiphy1.h"
 #include "xhdmiphy1_i.h"
-#if (XPAR_HDMIPHY1_0_TRANSCEIVER == XHDMIPHY1_GTHE4 || \
-     XPAR_HDMIPHY1_0_TRANSCEIVER == XHDMIPHY1_GTYE4)
 
 #define XHDMIPHY1_MMCM_CLKOUT0_REG1 0x08
 #define XHDMIPHY1_MMCM_CLKOUT0_REG2 0x09
@@ -462,7 +460,7 @@ u16 XHdmiphy1_Mmcme4LockReg3Encoding(u8 Mult)
 * @note		None.
 *
 ******************************************************************************/
-u32 XHdmiphy1_MmcmWriteParameters(XHdmiphy1 *InstancePtr, u8 QuadId,
+u32 XHdmiphy1_Mmcme4WriteParameters(XHdmiphy1 *InstancePtr, u8 QuadId,
 							XHdmiphy1_DirectionType Dir)
 {
 	u8 ChId;
@@ -553,5 +551,3 @@ u32 XHdmiphy1_MmcmWriteParameters(XHdmiphy1 *InstancePtr, u8 QuadId,
 
 	return XST_SUCCESS;
 }
-
-#endif

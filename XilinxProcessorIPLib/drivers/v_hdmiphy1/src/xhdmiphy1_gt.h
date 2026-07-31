@@ -1,6 +1,6 @@
 /*******************************************************************************
 * Copyright (C) 2015 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright 2024-2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2024-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -164,14 +164,10 @@ u32 XHdmiphy1_TxChReconfig(XHdmiphy1 *InstancePtr, u8 QuadId,
 
 /*************************** Variable Declarations ****************************/
 
-#if (XPAR_HDMIPHY1_0_TRANSCEIVER == XHDMIPHY1_GTHE4) || (XPAR_HDMIPHY1_0_TRANSCEIVER == XHDMIPHY1_GTYE4)
 extern const XHdmiphy1_GtConfig XHdmiphy1_Gthe4Config;
 extern const XHdmiphy1_GtConfig XHdmiphy1_Gtye4Config;
-#elif (XPAR_HDMIPHY1_0_TRANSCEIVER == XHDMIPHY1_GTYE5)
 extern const XHdmiphy1_GtConfig Gtye5Config;
-#elif (XPAR_HDMIPHY1_0_TRANSCEIVER == XHDMIPHY1_GTYP)
 extern const XHdmiphy1_GtConfig GtypConfig;
-#endif
 
 #ifdef __cplusplus
 }

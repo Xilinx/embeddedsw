@@ -117,7 +117,6 @@ typedef enum {
         XHDMIPHY1_INTR_TXRESETDONE_MASK,
     XHDMIPHY1_INTR_HANDLER_TYPE_RXRESET_DONE =
         XHDMIPHY1_INTR_RXRESETDONE_MASK,
-#if ((XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYE5)&&(XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYP))
     XHDMIPHY1_INTR_HANDLER_TYPE_CPLL_LOCK =
         XHDMIPHY1_INTR_CPLL_LOCK_MASK,
     XHDMIPHY1_INTR_HANDLER_TYPE_QPLL_LOCK =
@@ -128,12 +127,10 @@ typedef enum {
         XHDMIPHY1_INTR_TXALIGNDONE_MASK,
     XHDMIPHY1_INTR_HANDLER_TYPE_QPLL1_LOCK =
         XHDMIPHY1_INTR_QPLL1_LOCK_MASK,
-#else
     XHDMIPHY1_INTR_HANDLER_TYPE_LCPLL_LOCK =
         XHDMIPHY1_INTR_LCPLL_LOCK_MASK,
     XHDMIPHY1_INTR_HANDLER_TYPE_RPLL_LOCK =
         XHDMIPHY1_INTR_RPLL_LOCK_MASK,
-#endif
     XHDMIPHY1_INTR_HANDLER_TYPE_TX_CLKDET_FREQ_CHANGE =
         XHDMIPHY1_INTR_TXCLKDETFREQCHANGE_MASK,
     XHDMIPHY1_INTR_HANDLER_TYPE_RX_CLKDET_FREQ_CHANGE =
@@ -142,12 +139,10 @@ typedef enum {
         XHDMIPHY1_INTR_TXMMCMUSRCLK_LOCK_MASK,
     XHDMIPHY1_INTR_HANDLER_TYPE_RX_MMCM_LOCK_CHANGE =
         XHDMIPHY1_INTR_RXMMCMUSRCLK_LOCK_MASK,
-#if ((XPAR_HDMIPHY1_0_TRANSCEIVER == XHDMIPHY1_GTYE5)||(XPAR_HDMIPHY1_0_TRANSCEIVER == XHDMIPHY1_GTYP))
     XHDMIPHY1_INTR_HANDLER_TYPE_TX_GPO_RISING_EDGE =
 	XHDMIPHY1_INTR_TXGPO_RE_MASK,
 	XHDMIPHY1_INTR_HANDLER_TYPE_RX_GPO_RISING_EDGE =
 	XHDMIPHY1_INTR_RXGPO_RE_MASK,
-#endif
     XHDMIPHY1_INTR_HANDLER_TYPE_TX_TMR_TIMEOUT =
         XHDMIPHY1_INTR_TXTMRTIMEOUT_MASK,
     XHDMIPHY1_INTR_HANDLER_TYPE_RX_TMR_TIMEOUT =
@@ -742,7 +737,6 @@ typedef struct {
     u8 versal_2ve_2vm;                  /**< only for for VEK385 */
     XHdmiphy1_Hdmi21Cfg TxHdmi21Cfg; /**< TX HDMI Config */
     XHdmiphy1_Hdmi21Cfg RxHdmi21Cfg; /**< TX HDMI Config */
-#if ((XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYE5)&&(XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYP))
     XHdmiphy1_IntrHandler IntrCpllLockHandler; /**< Callback function for CPLL
                             lock interrupts. */
     void *IntrCpllLockCallbackRef;      /**< A pointer to the user data
@@ -765,7 +759,6 @@ typedef struct {
                             passed to the TX align
                             done lock callback
                             function. */
-#else
     XHdmiphy1_IntrHandler IntrLcpllLockHandler; /**< Callback function for
                             LCPLL lock interrupts. */
     void *IntrLcpllLockCallbackRef;      /**< A pointer to the user data
@@ -784,7 +777,6 @@ typedef struct {
     void *IntrRxGpoRisingEdgeCallbackRef;      /**< A pointer to the user data
                             passed to the RX GPO [7:4] Rising Edge
                             callback function. */
-#endif
     XHdmiphy1_IntrHandler IntrTxResetDoneHandler; /**< Callback function for TX
                             reset done lock
                             interrupts. */
@@ -876,13 +868,11 @@ typedef struct {
 void XHdmiphy1_CfgInitialize(XHdmiphy1 *InstancePtr,
 		XHdmiphy1_Config *ConfigPtr,
         UINTPTR EffectiveAddr);
-#if ((XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYE5)&&(XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYP))
 u32 XHdmiphy1_PllInitialize(XHdmiphy1 *InstancePtr, u8 QuadId,
         XHdmiphy1_ChannelId ChId,
         XHdmiphy1_PllRefClkSelType QpllRefClkSel,
         XHdmiphy1_PllRefClkSelType CpllxRefClkSel,
         XHdmiphy1_PllType TxPllSelect, XHdmiphy1_PllType RxPllSelect);
-#endif
 u32 XHdmiphy1_GetVersion(XHdmiphy1 *InstancePtr);
 void XHdmiphy1_WaitUs(XHdmiphy1 *InstancePtr, u32 MicroSeconds);
 void XHdmiphy1_SetUserTimerHandler(XHdmiphy1 *InstancePtr,
@@ -984,11 +974,9 @@ u32 XHdmiphy1_HdmiCfgCalcMmcmParam(XHdmiphy1 *InstancePtr, u8 QuadId,
         XHdmiphy1_ChannelId ChId, XHdmiphy1_DirectionType Dir,
         XVidC_PixelsPerClock Ppc, XVidC_ColorDepth Bpc);
 
-#if ((XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYE5)&&(XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYP))
 void XHdmiphy1_HdmiUpdateClockSelection(XHdmiphy1 *InstancePtr, u8 QuadId,
         XHdmiphy1_SysClkDataSelType TxSysPllClkSel,
         XHdmiphy1_SysClkDataSelType RxSysPllClkSel);
-#endif
 void XHdmiphy1_ClkDetFreqReset(XHdmiphy1 *InstancePtr, u8 QuadId,
         XHdmiphy1_DirectionType Dir);
 u32 XHdmiphy1_ClkDetGetRefClkFreqHz(XHdmiphy1 *InstancePtr,
@@ -1062,7 +1050,6 @@ void XHdmiphy1_RegisterDebug(XHdmiphy1 *InstancePtr);
  */
 #define XHDMIPHY1_ISRXMMCM(Id)   ((Id) == XHDMIPHY1_CHANNEL_ID_RXMMCM)
 
-#if ((XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYE5)&&(XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYP))
 /**
  * @brief Check if TX is using QPLL.
  *
@@ -1127,7 +1114,6 @@ void XHdmiphy1_RegisterDebug(XHdmiphy1 *InstancePtr);
 #define XHdmiphy1_IsRxUsingCpll(InstancePtr, QuadId, ChId) \
         (XHDMIPHY1_PLL_TYPE_CPLL == \
         XHdmiphy1_GetPllType(InstancePtr, QuadId, XHDMIPHY1_DIR_RX, ChId))
-#else
 /**
  * @brief Check if TX is using LCPLL (for GTYE5/GTYP transceivers).
  *
@@ -1184,7 +1170,6 @@ void XHdmiphy1_RegisterDebug(XHdmiphy1 *InstancePtr);
 #define XHdmiphy1_IsRxUsingRpll(InstancePtr, QuadId, ChId) \
         (XHDMIPHY1_PLL_TYPE_RPLL == \
         XHdmiphy1_GetPllType(InstancePtr, QuadId, XHDMIPHY1_DIR_RX, ChId))
-#endif
 
 #ifdef __cplusplus
 }

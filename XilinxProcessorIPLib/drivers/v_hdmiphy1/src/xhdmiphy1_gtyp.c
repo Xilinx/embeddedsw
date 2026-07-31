@@ -32,7 +32,6 @@
 
 #include "xparameters.h"
 #include "xhdmiphy1_gt.h"
-#if (XPAR_HDMIPHY1_0_TRANSCEIVER == XHDMIPHY1_GTYP)
 #include "xstatus.h"
 
 /**************************** Function Prototypes *****************************/
@@ -41,6 +40,10 @@ u32 XHdmiphy1_GtypRxChReconfig(XHdmiphy1 *InstancePtr, u8 QuadId,
         XHdmiphy1_ChannelId ChId);
 u32 XHdmiphy1_GtypTxChReconfig(XHdmiphy1 *InstancePtr, u8 QuadId,
         XHdmiphy1_ChannelId ChId);
+static u32 XHdmiphy1_HdmiLcpllParam(XHdmiphy1 *InstancePtr, u8 QuadId,
+        XHdmiphy1_ChannelId ChId, XHdmiphy1_DirectionType Dir);
+static u32 XHdmiphy1_HdmiRpllParam(XHdmiphy1 *InstancePtr, u8 QuadId,
+        XHdmiphy1_ChannelId ChId, XHdmiphy1_DirectionType Dir);
 
 /************************** Constant Definitions ******************************/
 /* PLL operating ranges. */
@@ -89,7 +92,7 @@ const XHdmiphy1_GtConfig GtypConfig = {
 * @note		None.
 *
 ******************************************************************************/
-u32 XHdmiphy1_HdmiLcpllParam(XHdmiphy1 *InstancePtr, u8 QuadId,
+static u32 XHdmiphy1_HdmiLcpllParam(XHdmiphy1 *InstancePtr, u8 QuadId,
         XHdmiphy1_ChannelId ChId, XHdmiphy1_DirectionType Dir)
 {
 	u32 Status = XST_SUCCESS;
@@ -297,7 +300,7 @@ u32 XHdmiphy1_HdmiLcpllParam(XHdmiphy1 *InstancePtr, u8 QuadId,
 * @note		None.
 *
 ******************************************************************************/
-u32 XHdmiphy1_HdmiRpllParam(XHdmiphy1 *InstancePtr, u8 QuadId,
+static u32 XHdmiphy1_HdmiRpllParam(XHdmiphy1 *InstancePtr, u8 QuadId,
         XHdmiphy1_ChannelId ChId, XHdmiphy1_DirectionType Dir)
 {
 	u32 Status = XST_SUCCESS;
@@ -504,7 +507,7 @@ u32 XHdmiphy1_HdmiRpllParam(XHdmiphy1 *InstancePtr, u8 QuadId,
 * @note		None.
 *
 ******************************************************************************/
-u32 XHdmiphy1_HdmiTxPllParam(XHdmiphy1 *InstancePtr, u8 QuadId,
+u32 XHdmiphy1_GtypHdmiTxPllParam(XHdmiphy1 *InstancePtr, u8 QuadId,
         XHdmiphy1_ChannelId ChId)
 {
 	u32 Status;
@@ -545,7 +548,7 @@ u32 XHdmiphy1_HdmiTxPllParam(XHdmiphy1 *InstancePtr, u8 QuadId,
 * @note		None.
 *
 ******************************************************************************/
-u32 XHdmiphy1_HdmiRxPllParam(XHdmiphy1 *InstancePtr, u8 QuadId,
+u32 XHdmiphy1_GtypHdmiRxPllParam(XHdmiphy1 *InstancePtr, u8 QuadId,
         XHdmiphy1_ChannelId ChId)
 {
     u32 Status;
@@ -650,5 +653,3 @@ u32 XHdmiphy1_GtypTxChReconfig(XHdmiphy1 *InstancePtr, u8 QuadId,
 
     return XST_SUCCESS;
 }
-
-#endif
