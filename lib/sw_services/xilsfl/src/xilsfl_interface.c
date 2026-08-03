@@ -23,6 +23,7 @@
  * 1.3   vlt 01/27/26 Fixed codespell issues
  *       zm  07/17/26 Use FCTIndex (not [0]) for the status register protocol.
  *       zm  07/17/26 Set 4-byte address and dummy for Macronix OPI status read.
+ *       zm  08/03/26 Add support for MX25U6432F Macronix flash.
  *
  * </pre>
  *
@@ -49,7 +50,8 @@
  * @param	SflInstancePtr is a pointer to the interface driver component to use.
  * @param	RxBfrPtr is the pointer to store the read value from flash.
  * @param	TxBfrPtr is the pointer to value to be written into flash.
- * @param	CmdBufferPtr is the pointer that holds command, address and dummy.
+ * @param	CmdBufferPtr is the pointer that holds command, address, dummy and
+ *		byte count.
  * @param	Addrvalid defines the specific read/write requires address or not.
  *
  * @return	XST_SUCCESS if successful, else error code.
@@ -66,7 +68,7 @@ u32 XSfl_FlashRegisterReadWrite(XSfl_Interface *SflInstancePtr, u8 *RxBfrPtr,u8 
 	SflMsg.Opcode = (u8)CmdBufferPtr[XSFL_COMMAND_OFFSET];
 	SflMsg.TxBfrPtr = TxBfrPtr;
 	SflMsg.RxBfrPtr = RxBfrPtr;
-	SflMsg.ByteCount = 1;
+	SflMsg.ByteCount = CmdBufferPtr[XSFL_BYTE_COUNT_OFFSET];
 	SflMsg.Addrvalid = Addrvalid;
 	SflMsg.DualByteOpCode = 0;
 	SflMsg.Proto = (u8)Flash_Config_Table[FCTIndex].Proto;
@@ -179,13 +181,14 @@ u32 XSfl_WaitforStatusDone(XSfl_Interface *SflInstancePtr){
 		if (SflInstancePtr->CntrlInfo.SdrDdrMode == XSFL_EDGE_MODE_DDR_PHY) {
 			SflMsg.Proto = (u8)(Flash_Config_Table[FCTIndex].Proto >> 8);
 			SflMsg.ByteCount = 2;
-			if (SflInstancePtr->SflFlashInfo.FlashMake == XSFL_MACRONIX_OCTAL_ID_BYTE0) {
+			if ((SflInstancePtr->SflFlashInfo.FlashMake == XSFL_MACRONIX_ID_BYTE0) &&
+					(Flash_Config_Table[FCTIndex].FlashType == XSFL_OSPI_FLASH)) {
 				/*
 				 * Macronix OPI status read needs a 4-byte address and a
 				 * fixed 4 dummy cycles, independent of the array read dummy
 				 * setting, so it is the same for all Macronix OPI parts and
-				 * keyed on the flash make. Other OPI parts use no address
-				 * and 8 dummy cycles.
+				 * keyed on the flash make and type. Other OPI parts use no
+				 * address and 8 dummy cycles.
 				 */
 				SflMsg.Addrvalid = 1;
 				SflMsg.Addrsize = 4;

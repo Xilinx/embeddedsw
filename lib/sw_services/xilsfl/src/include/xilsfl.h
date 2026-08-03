@@ -27,6 +27,7 @@
  * 1.3   zm  03/09/26  Add support for W25Q128JW Winbond flash.
  *       zm  07/17/26  Add support for Macronix OSPI flashes mx66um2g45g and mx66uw2g345gxrix0.
  *       zm  08/03/26  Add support for GD25LR512MF GigaDevice flash.
+ *       zm  08/03/26  Add support for MX25U6432F Macronix flash.
  *
  * </pre>
  *
@@ -122,6 +123,13 @@
  */
 #define XSFL_MX_SEC_ERASE_CMD_4B        0x21
 
+/* Commands for Macronix Quad SPI Flash */
+/**
+ * @def XSFL_MX_READ_CONFIG_REG
+ * @brief Macronix Read Configuration Register (RDCR) command.
+ */
+#define XSFL_MX_READ_CONFIG_REG         0x15
+
 /* Commands for Winbond Flash */
 /**
  * @def XSFL_WB_READ_STATUS_REG2_CMD
@@ -164,18 +172,28 @@
 #define XSFL_FLASH_DEVICE_SIZE_1G          0x8000000
 #define XSFL_FLASH_DEVICE_SIZE_2G          0x10000000
 
+/**
+ * @def XSFL_MICRON_OCTAL_ID_BYTE0
+ * @brief The first byte of the Micron octal flash ID.
+ */
 #define XSFL_MICRON_OCTAL_ID_BYTE0          0x2c
 /**
- * @def XSFL_MACRONIX_OCTAL_ID_BYTE0
+ * @def XSFL_MACRONIX_ID_BYTE0
  * @brief The first byte of the Macronix ID.
  */
-#define XSFL_MACRONIX_OCTAL_ID_BYTE0        0xc2
+#define XSFL_MACRONIX_ID_BYTE0              0xc2
 
 /**
  * @def XSFL_GIGADEVICE_ID_BYTE0
  * @brief The first byte of the GigaDevice ID.
  */
 #define XSFL_GIGADEVICE_ID_BYTE0            0xc8
+
+/**
+ * @def XSFL_FLASH_DEVICE_SIZE_64M
+ * @brief Flash device size of 64 MB (512 Mb).
+ */
+#define XSFL_FLASH_DEVICE_SIZE_64M         0x800000
 
 /* Macronix Configuration Register 2 (CR2) mode address and values */
 /**
@@ -305,6 +323,14 @@
  * Setting this bit enables Quad SPI transfers.
  */
 #define XSFL_WB_QUAD_ENABLE_BIT 0x02U
+
+/* Macronix */
+/**
+ * @def XSFL_MX_QUAD_ENABLE_BIT
+ * @brief Macronix QE bit: Status Register bit[6] (SR[6]).
+ * Setting this bit enables Quad SPI transfers.
+ */
+#define XSFL_MX_QUAD_ENABLE_BIT 0x40U
 
 /**************************** Type Definitions *******************************/
 

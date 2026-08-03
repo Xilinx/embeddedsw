@@ -20,6 +20,7 @@
  * 1.0   sb  8/20/24  Initial release
  * 1.0   sb  9/25/24  Add XSfl_FlashNonBlockingReadProcess API.
  * 1.3   zm  03/09/26 Add support for W25Q128JW Winbond flash.
+ *       zm  08/03/26 Add support for MX25U6432F Macronix flash.
  *
  * </pre>
  *
@@ -37,6 +38,11 @@
 #define XSFL_ADDRESS_OFFSET	        1 /* MSB byte of address to read or write */
 #define XSFL_ADDRESS_SIZE_OFFSET	2 /* Address size Offset index */
 #define XSFL_DUMMY_OFFSET            3 /* Dummy cycles */
+/**
+ * @def XSFL_BYTE_COUNT_OFFSET
+ * @brief CmdBuffer index for register read/write byte count.
+ */
+#define XSFL_BYTE_COUNT_OFFSET       4 /* Number of bytes to read or write */
 
 /**************************** Type Definitions *******************************/
 

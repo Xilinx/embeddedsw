@@ -27,6 +27,7 @@
  * 1.3   zm  03/09/26  Add support for W25Q128JW Winbond flash.
  *       zm  07/17/26  Add support for Macronix OSPI flashes mx66um2g45g and mx66uw2g345gxrix0.
  *       zm  08/03/26  Add support for GD25LR512MF GigaDevice flash.
+ *       zm  08/03/26  Add support for MX25U6432F Macronix flash.
  *
  * </pre>
  *
@@ -36,7 +37,11 @@
 #include "xilsfl_control.h"
 
 /************************** Constant Definitions *****************************/
-#define XSFL_BUFFER_ARRAY_LEN 4
+/**
+ * @def XSFL_BUFFER_ARRAY_LEN
+ * @brief Number of u32 elements in the register command buffer.
+ */
+#define XSFL_BUFFER_ARRAY_LEN 5
 
 /**************************** Type Definitions *******************************/
 
@@ -158,7 +163,7 @@ u32 XSfl_FlashEnterExit4BAddMode(XSfl_Interface *SflInstancePtr, int Enable, u8 
 	}
 
 	switch (FlashMake) {
-		case XSFL_MACRONIX_OCTAL_ID_BYTE0:
+		case XSFL_MACRONIX_ID_BYTE0:
 		case XSFL_MICRON_OCTAL_ID_BYTE0:
 		case XSFL_GIGADEVICE_ID_BYTE0:
 			Status = XSfl_FlashCmdTransfer(SflInstancePtr, XSFL_WRITE_DISABLE_CMD);
@@ -197,7 +202,7 @@ u32 XSfl_FlashEnterExit4BAddMode(XSfl_Interface *SflInstancePtr, int Enable, u8 
 		}
 
 		switch (FlashMake) {
-			case XSFL_MACRONIX_OCTAL_ID_BYTE0:
+			case XSFL_MACRONIX_ID_BYTE0:
 			case XSFL_MICRON_OCTAL_ID_BYTE0:
 			case XSFL_GIGADEVICE_ID_BYTE0:
 				Status = XSfl_FlashCmdTransfer(SflInstancePtr, XSFL_WRITE_DISABLE_CMD);
@@ -698,7 +703,7 @@ u32 XSfl_FlashSetSDRDDRMode(XSfl_Interface *SflInstancePtr, int Mode){
 	u32 FlashMake = SflInstancePtr->SflFlashInfo.FlashMake;
 
 	if (FlashType == XSFL_OSPI_FLASH) {
-		if (FlashMake == XSFL_MACRONIX_OCTAL_ID_BYTE0) {
+		if (FlashMake == XSFL_MACRONIX_ID_BYTE0) {
 			/*
 			 * Macronix Octal (OPI) parts enter DTR-OPI mode by writing
 			 * Configuration Register 2 (WRCR2) at address 0x0 with 0x02.
@@ -740,11 +745,12 @@ u32 XSfl_FlashSetSDRDDRMode(XSfl_Interface *SflInstancePtr, int Mode){
 			return XST_FAILURE;
 		}
 
-		/*  Fill Buffer with opcode, address and dummy */
+		/*  Fill Buffer with opcode, address, dummy and byte count */
 		CmdBuffer[XSFL_COMMAND_OFFSET] = Write_Reg_Opcode;
 		CmdBuffer[XSFL_ADDRESS_OFFSET] = Address;
 		CmdBuffer[XSFL_ADDRESS_SIZE_OFFSET] = AddrSize;
 		CmdBuffer[XSFL_DUMMY_OFFSET] = 0;
+		CmdBuffer[XSFL_BYTE_COUNT_OFFSET] = 1;
 
 		Addrvalid = 1;
 		/* Write Configuration register */
@@ -796,11 +802,12 @@ u32 XSfl_FlashSetSDRDDRMode(XSfl_Interface *SflInstancePtr, int Mode){
 			return XST_FAILURE;
 		}
 
-		/*  Fill Buffer with opcode, address and dummy */
+		/*  Fill Buffer with opcode, address, dummy and byte count */
 		CmdBuffer[XSFL_COMMAND_OFFSET] = Write_Reg_Opcode;
 		CmdBuffer[XSFL_ADDRESS_OFFSET] = Address;
 		CmdBuffer[XSFL_ADDRESS_SIZE_OFFSET] = AddrSize;
 		CmdBuffer[XSFL_DUMMY_OFFSET] = 0;
+		CmdBuffer[XSFL_BYTE_COUNT_OFFSET] = 1;
 
 		Addrvalid = 1;
 		/* Write Configuration register */
@@ -839,12 +846,15 @@ u32 XSfl_FlashEnableQuadMode(XSfl_Interface *SflInstancePtr, u8 ChipSelNum) {
 #pragma data_alignment = 4
 	u8  StatusReg = 0U;
 #pragma data_alignment = 4
-	u8  WriteReg  = 0U;
+	u8  ConfigReg = 0U;
+#pragma data_alignment = 4
+	u8  WriteReg[2] = {0U, 0U};
 #pragma data_alignment = 4
 	u32 CmdBuffer[XSFL_BUFFER_ARRAY_LEN];
 #else
 	u8  StatusReg __attribute__((aligned(4))) = 0U;
-	u8  WriteReg  __attribute__((aligned(4))) = 0U;
+	u8  ConfigReg __attribute__((aligned(4))) = 0U;
+	u8  WriteReg[2] __attribute__ ((aligned(4))) = {0U, 0U};
 	u32 CmdBuffer[XSFL_BUFFER_ARRAY_LEN] __attribute__ ((aligned(4)));
 #endif
 
@@ -863,6 +873,7 @@ u32 XSfl_FlashEnableQuadMode(XSfl_Interface *SflInstancePtr, u8 ChipSelNum) {
 			CmdBuffer[XSFL_ADDRESS_OFFSET]      = 0;
 			CmdBuffer[XSFL_ADDRESS_SIZE_OFFSET] = 0;
 			CmdBuffer[XSFL_DUMMY_OFFSET]        = 0;
+			CmdBuffer[XSFL_BYTE_COUNT_OFFSET]   = 1;
 
 			Status = XSfl_FlashRegisterReadWrite(SflInstancePtr, &StatusReg, NULL, CmdBuffer, 0);
 			if (Status != XST_SUCCESS) {
@@ -878,14 +889,15 @@ u32 XSfl_FlashEnableQuadMode(XSfl_Interface *SflInstancePtr, u8 ChipSelNum) {
 				return XST_FAILURE;
 			}
 
-			WriteReg = StatusReg | XSFL_WB_QUAD_ENABLE_BIT;
+			WriteReg[0] = StatusReg | XSFL_WB_QUAD_ENABLE_BIT;
 
 			CmdBuffer[XSFL_COMMAND_OFFSET]      = XSFL_WB_WRITE_STATUS_REG2_CMD;
 			CmdBuffer[XSFL_ADDRESS_OFFSET]      = 0;
 			CmdBuffer[XSFL_ADDRESS_SIZE_OFFSET] = 0;
 			CmdBuffer[XSFL_DUMMY_OFFSET]        = 0;
+			CmdBuffer[XSFL_BYTE_COUNT_OFFSET]   = 1;
 
-			Status = XSfl_FlashRegisterReadWrite(SflInstancePtr, NULL, &WriteReg, CmdBuffer, 0);
+			Status = XSfl_FlashRegisterReadWrite(SflInstancePtr, NULL, WriteReg, CmdBuffer, 0);
 			if (Status != XST_SUCCESS) {
 				(void)XSfl_FlashCmdTransfer(SflInstancePtr, XSFL_WRITE_DISABLE_CMD);
 				return XST_FAILURE;
@@ -902,6 +914,7 @@ u32 XSfl_FlashEnableQuadMode(XSfl_Interface *SflInstancePtr, u8 ChipSelNum) {
 			CmdBuffer[XSFL_ADDRESS_OFFSET]      = 0;
 			CmdBuffer[XSFL_ADDRESS_SIZE_OFFSET] = 0;
 			CmdBuffer[XSFL_DUMMY_OFFSET]        = 0;
+			CmdBuffer[XSFL_BYTE_COUNT_OFFSET]   = 1;
 
 			Status = XSfl_FlashRegisterReadWrite(SflInstancePtr, &StatusReg, NULL, CmdBuffer, 0);
 			if (Status != XST_SUCCESS) {
@@ -909,6 +922,91 @@ u32 XSfl_FlashEnableQuadMode(XSfl_Interface *SflInstancePtr, u8 ChipSelNum) {
 			}
 
 			if ((StatusReg & XSFL_WB_QUAD_ENABLE_BIT) == 0) {
+#ifdef XSFL_DEBUG
+				xil_printf("Quad Enable bit is not set in status register\r\n");
+#endif
+				return XST_FAILURE;
+			}
+
+			break;
+
+		case XSFL_MACRONIX_ID_BYTE0:
+
+			Status = SflInstancePtr->CntrlInfo.SelectFlash(ChipSelNum);
+			if (Status != XST_SUCCESS) {
+				return XST_FAILURE;
+			}
+
+			CmdBuffer[XSFL_COMMAND_OFFSET]      = XSFL_READ_STATUS_CMD;
+			CmdBuffer[XSFL_ADDRESS_OFFSET]      = 0;
+			CmdBuffer[XSFL_ADDRESS_SIZE_OFFSET] = 0;
+			CmdBuffer[XSFL_DUMMY_OFFSET]        = 0;
+			CmdBuffer[XSFL_BYTE_COUNT_OFFSET]   = 1;
+
+			Status = XSfl_FlashRegisterReadWrite(SflInstancePtr, &StatusReg, NULL, CmdBuffer, 0);
+			if (Status != XST_SUCCESS) {
+				return XST_FAILURE;
+			}
+
+			if ((StatusReg & XSFL_MX_QUAD_ENABLE_BIT) != 0) {
+				return XST_SUCCESS;
+			}
+
+			CmdBuffer[XSFL_COMMAND_OFFSET]      = XSFL_MX_READ_CONFIG_REG;
+			CmdBuffer[XSFL_ADDRESS_OFFSET]      = 0;
+			CmdBuffer[XSFL_ADDRESS_SIZE_OFFSET] = 0;
+			CmdBuffer[XSFL_DUMMY_OFFSET]        = 0;
+			CmdBuffer[XSFL_BYTE_COUNT_OFFSET]   = 1;
+
+			Status = XSfl_FlashRegisterReadWrite(SflInstancePtr, &ConfigReg, NULL, CmdBuffer, 0);
+			if (Status != XST_SUCCESS) {
+				return XST_FAILURE;
+			}
+
+			Status = XSfl_FlashCmdTransfer(SflInstancePtr, XSFL_WRITE_ENABLE_CMD);
+			if (Status != XST_SUCCESS) {
+				return XST_FAILURE;
+			}
+
+			WriteReg[0] = StatusReg | XSFL_MX_QUAD_ENABLE_BIT;
+			WriteReg[1] = ConfigReg;
+
+			CmdBuffer[XSFL_COMMAND_OFFSET]      = XSFL_WRITE_STATUS_CMD;
+			CmdBuffer[XSFL_ADDRESS_OFFSET]      = 0;
+			CmdBuffer[XSFL_ADDRESS_SIZE_OFFSET] = 0;
+			CmdBuffer[XSFL_DUMMY_OFFSET]        = 0;
+			CmdBuffer[XSFL_BYTE_COUNT_OFFSET]   = 2;
+
+			Status = XSfl_FlashRegisterReadWrite(SflInstancePtr, NULL, WriteReg, CmdBuffer, 0);
+			if (Status != XST_SUCCESS) {
+				(void)XSfl_FlashCmdTransfer(SflInstancePtr, XSFL_WRITE_DISABLE_CMD);
+				return XST_FAILURE;
+			}
+
+			Status = XSfl_WaitforStatusDone(SflInstancePtr);
+			if (Status != XST_SUCCESS) {
+				(void)XSfl_FlashCmdTransfer(SflInstancePtr, XSFL_WRITE_DISABLE_CMD);
+				return XST_FAILURE;
+			}
+
+			Status = XSfl_FlashCmdTransfer(SflInstancePtr, XSFL_WRITE_DISABLE_CMD);
+			if (Status != XST_SUCCESS) {
+				return XST_FAILURE;
+			}
+
+			/* Read back the status register to verify Quad mode is enabled */
+			CmdBuffer[XSFL_COMMAND_OFFSET]      = XSFL_READ_STATUS_CMD;
+			CmdBuffer[XSFL_ADDRESS_OFFSET]      = 0;
+			CmdBuffer[XSFL_ADDRESS_SIZE_OFFSET] = 0;
+			CmdBuffer[XSFL_DUMMY_OFFSET]        = 0;
+			CmdBuffer[XSFL_BYTE_COUNT_OFFSET]   = 1;
+
+			Status = XSfl_FlashRegisterReadWrite(SflInstancePtr, &StatusReg, NULL, CmdBuffer, 0);
+			if (Status != XST_SUCCESS) {
+				return XST_FAILURE;
+			}
+
+			if ((StatusReg & XSFL_MX_QUAD_ENABLE_BIT) == 0) {
 #ifdef XSFL_DEBUG
 				xil_printf("Quad Enable bit is not set in status register\r\n");
 #endif

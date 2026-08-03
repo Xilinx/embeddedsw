@@ -25,6 +25,7 @@
  * 1.3   zm  03/09/26  Add support for W25Q128JW Winbond flash.
  *       zm  07/17/26  Add support for Macronix OSPI flashes mx66um2g45g and mx66uw2g345gxrix0.
  *       zm  08/03/26  Add support for GD25LR512MF GigaDevice flash.
+ *       zm  08/03/26  Add support for MX25U6432F Macronix flash.
  *
  * </pre>
  *
@@ -224,6 +225,22 @@ const XFlashInfo Flash_Config_Table[] = {
 		0x40000, XSFL_FLASH_DEVICE_SIZE_512M, 0xFFFF0000, (XSFL_DUAL_READ_CMD << 24) |
 		(XSFL_QUAD_READ_CMD << 16) | XSFL_READ_CMD,
 		(XSFL_NO_CMD << 24) | (XSFL_QUAD_WRITE_CMD << 16) | XSFL_WRITE_CMD, XSFL_SEC_ERASE_CMD_4B,
+		(XSFL_FLASH_PROTO_1_1_2 << 24) | (XSFL_FLASH_PROTO_1_1_4 << 16) | XSFL_FLASH_PROTO_1_1_1,
+		XSFL_FLASH_FREQUENCY_133_MHZ, (XSFL_FLASH_DUMMY_CYCLES_8 << 16) | XSFL_FLASH_DUMMY_CYCLES_8,
+		XSFL_READ_STATUS_CMD, 1, 0, XSFL_DUAL_BYTE_OP_DISABLE, XSFL_QSPI_FLASH
+	},
+	/* Macronix */
+	/* MX25U6432F */
+	/*
+	 * No dual Page Program, and the only quad Page Program is 4PP (38h),
+	 * which is 1-4-4 and cannot be expressed here, so both the dual and
+	 * quad write slots of WriteCmd are empty.
+	 */
+	{
+		0xc22537, XSFL_FLASH_SECTOR_SIZE_64KB, 0x80, XSFL_FLASH_PAGE_SIZE_256,
+		0x8000, XSFL_FLASH_DEVICE_SIZE_64M, 0xFFFF0000, (XSFL_DUAL_READ_CMD << 24) |
+		(XSFL_QUAD_READ_CMD << 16) | XSFL_READ_CMD,
+		(XSFL_NO_CMD << 24) | (XSFL_NO_CMD << 16) | XSFL_WRITE_CMD, XSFL_QUAD_SEC_ERASE_CMD,
 		(XSFL_FLASH_PROTO_1_1_2 << 24) | (XSFL_FLASH_PROTO_1_1_4 << 16) | XSFL_FLASH_PROTO_1_1_1,
 		XSFL_FLASH_FREQUENCY_133_MHZ, (XSFL_FLASH_DUMMY_CYCLES_8 << 16) | XSFL_FLASH_DUMMY_CYCLES_8,
 		XSFL_READ_STATUS_CMD, 1, 0, XSFL_DUAL_BYTE_OP_DISABLE, XSFL_QSPI_FLASH
