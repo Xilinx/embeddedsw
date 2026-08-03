@@ -26,6 +26,7 @@
  * 1.1   sb  02/11/25  Add support for x2/x4 operation.
  * 1.3   zm  03/09/26  Add support for W25Q128JW Winbond flash.
  *       zm  07/17/26  Add support for Macronix OSPI flashes mx66um2g45g and mx66uw2g345gxrix0.
+ *       zm  08/03/26  Add support for GD25LR512MF GigaDevice flash.
  *
  * </pre>
  *
@@ -169,6 +170,12 @@
  * @brief The first byte of the Macronix ID.
  */
 #define XSFL_MACRONIX_OCTAL_ID_BYTE0        0xc2
+
+/**
+ * @def XSFL_GIGADEVICE_ID_BYTE0
+ * @brief The first byte of the GigaDevice ID.
+ */
+#define XSFL_GIGADEVICE_ID_BYTE0            0xc8
 
 /* Macronix Configuration Register 2 (CR2) mode address and values */
 /**

@@ -26,6 +26,7 @@
  * 1.2   sb  06/27/25  Copy the flash ID to driver instance irrespective of type of flash.
  * 1.3   zm  03/09/26  Add support for W25Q128JW Winbond flash.
  *       zm  07/17/26  Add support for Macronix OSPI flashes mx66um2g45g and mx66uw2g345gxrix0.
+ *       zm  08/03/26  Add support for GD25LR512MF GigaDevice flash.
  *
  * </pre>
  *
@@ -159,6 +160,7 @@ u32 XSfl_FlashEnterExit4BAddMode(XSfl_Interface *SflInstancePtr, int Enable, u8 
 	switch (FlashMake) {
 		case XSFL_MACRONIX_OCTAL_ID_BYTE0:
 		case XSFL_MICRON_OCTAL_ID_BYTE0:
+		case XSFL_GIGADEVICE_ID_BYTE0:
 			Status = XSfl_FlashCmdTransfer(SflInstancePtr, XSFL_WRITE_DISABLE_CMD);
 			if (Status != XST_SUCCESS) {
 				Status = XST_FAILURE;
@@ -197,6 +199,7 @@ u32 XSfl_FlashEnterExit4BAddMode(XSfl_Interface *SflInstancePtr, int Enable, u8 
 		switch (FlashMake) {
 			case XSFL_MACRONIX_OCTAL_ID_BYTE0:
 			case XSFL_MICRON_OCTAL_ID_BYTE0:
+			case XSFL_GIGADEVICE_ID_BYTE0:
 				Status = XSfl_FlashCmdTransfer(SflInstancePtr, XSFL_WRITE_DISABLE_CMD);
 				if (Status != XST_SUCCESS) {
 					Status = XST_FAILURE;

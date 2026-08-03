@@ -24,6 +24,7 @@
  * 1.3   zm  29/01/26  Add support for remaining micron OSPI and QSPI flashes.
  * 1.3   zm  03/09/26  Add support for W25Q128JW Winbond flash.
  *       zm  07/17/26  Add support for Macronix OSPI flashes mx66um2g45g and mx66uw2g345gxrix0.
+ *       zm  08/03/26  Add support for GD25LR512MF GigaDevice flash.
  *
  * </pre>
  *
@@ -210,6 +211,20 @@ const XFlashInfo Flash_Config_Table[] = {
 		(XSFL_QUAD_READ_CMD << 16) | XSFL_READ_CMD,
 		(XSFL_NO_CMD << 24) | (XSFL_QUAD_WRITE_CMD << 16) | XSFL_WRITE_CMD, XSFL_QUAD_SEC_ERASE_CMD,
 		(XSFL_FLASH_PROTO_1_1_2 << 24)  | (XSFL_FLASH_PROTO_1_1_4 << 16) | XSFL_FLASH_PROTO_1_1_1,
+		XSFL_FLASH_FREQUENCY_133_MHZ, (XSFL_FLASH_DUMMY_CYCLES_8 << 16) | XSFL_FLASH_DUMMY_CYCLES_8,
+		XSFL_READ_STATUS_CMD, 1, 0, XSFL_DUAL_BYTE_OP_DISABLE, XSFL_QSPI_FLASH
+	},
+	/* GigaDevice */
+	/* GD25LR512MF */
+	/*
+	 * No dual Page Program, so the dual write slot of WriteCmd is empty.
+	 */
+	{
+		0xc8601a, XSFL_FLASH_SECTOR_SIZE_64KB, 0x400, XSFL_FLASH_PAGE_SIZE_256,
+		0x40000, XSFL_FLASH_DEVICE_SIZE_512M, 0xFFFF0000, (XSFL_DUAL_READ_CMD << 24) |
+		(XSFL_QUAD_READ_CMD << 16) | XSFL_READ_CMD,
+		(XSFL_NO_CMD << 24) | (XSFL_QUAD_WRITE_CMD << 16) | XSFL_WRITE_CMD, XSFL_SEC_ERASE_CMD_4B,
+		(XSFL_FLASH_PROTO_1_1_2 << 24) | (XSFL_FLASH_PROTO_1_1_4 << 16) | XSFL_FLASH_PROTO_1_1_1,
 		XSFL_FLASH_FREQUENCY_133_MHZ, (XSFL_FLASH_DUMMY_CYCLES_8 << 16) | XSFL_FLASH_DUMMY_CYCLES_8,
 		XSFL_READ_STATUS_CMD, 1, 0, XSFL_DUAL_BYTE_OP_DISABLE, XSFL_QSPI_FLASH
 	}
