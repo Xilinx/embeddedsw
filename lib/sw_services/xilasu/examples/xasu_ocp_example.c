@@ -211,7 +211,7 @@ static int XOcp_GetX509DevIK(void)
 	/* Generate DevIk certificate. */
 	Status = XAsu_OcpGetDevIkX509Certificate(&ClientParam, &OcpDevIkCertClientParam);
 	if (Status != XST_SUCCESS) {
-		XilAsu_Printf("\r\n Decrypt operation Status = %08x", Status);
+		XilAsu_Printf("\r\n DevIk certificate generation Status = %08x", Status);
 		goto END;
 	}
 
@@ -273,7 +273,7 @@ static int XOcp_GetX509DevAK(void)
 	/* Generate DevAk certificate. */
 	Status = XAsu_OcpGetDevAkX509Certificate(&ClientParam, &OcpDevAkCertClientParam);
 	if (Status != XST_SUCCESS) {
-		XilAsu_Printf("\r\n Decrypt operation Status = %08x", Status);
+		XilAsu_Printf("\r\n DevAk certificate generation Status = %08x", Status);
 		goto END;
 	}
 
@@ -335,7 +335,7 @@ static int XOcp_GetX509DevIkCsr(void)
 	/* Generate DevIk CSR(Certificate Signing Request). */
 	Status = XAsu_OcpGetDevIkCsr(&ClientParam, &OcpDevIkCsrClientParam);
 	if (Status != XST_SUCCESS) {
-		XilAsu_Printf("\r\n Decrypt operation Status = %08x", Status);
+		XilAsu_Printf("\r\n DevIk CSR generation Status = %08x", Status);
 		goto END;
 	}
 
