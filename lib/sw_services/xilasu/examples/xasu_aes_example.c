@@ -292,7 +292,7 @@ static void XAsu_AesGcmExample(void)
 	Status = Xil_SMemCmp_CT(XAsu_AesGcmExpTag, XASU_AES_TAG_LEN_IN_BYTES, XAsu_AesTag,
 				XASU_AES_TAG_LEN_IN_BYTES, XASU_AES_TAG_LEN_IN_BYTES);
 	if (Status != XST_SUCCESS) {
-		XilAsu_Printf("ASU AES-GCM Example Failed at Encrypted data Comparison \r\n");
+		XilAsu_Printf("ASU AES-GCM Example Failed at GCM Tag Comparison \r\n");
 		goto END;
 	}
 
@@ -475,7 +475,7 @@ static void XAsu_AesCtrExample(void)
 		goto END;
 	}
 
-	XilAsu_Printf("Decrypted data: \n\r");
+	XilAsu_Printf("AES-CTR Decrypted data: \n\r");
 	XAsu_AesPrintData((const u8 *)XAsu_AesDecData, XASU_AES_PAYLOAD_DATA_LEN_IN_BYTES);
 
 	/* Comparison of decrypted Data with expected input data */
