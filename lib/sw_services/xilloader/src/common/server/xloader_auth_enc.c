@@ -176,6 +176,8 @@
 *       sri  04/24/2026 Changed LMS KAT and SignVerify APIs from static to global scope to support authenticated JTAG functionality
 *       ng   07/13/2026 Reduced debug print levels on error paths
 * 2.5   obs  07/14/2026 Bounded meta header image/partition count in XLoader_ReadAndVerifySecureHdrs
+*       tvp  07/28/2026 Add XLoader_GetAuthAlgoStr to log authentication
+*                       algorithm during PDI authentication
 *
 * </pre>
 *
@@ -1051,6 +1053,61 @@ ERR_END:
 END:
 	return Status;
 }
+
+#if defined(VERSAL_NET) || defined(VERSAL_2VP) || defined(VERSAL_2VP_P)
+/*****************************************************************************/
+/**
+* @brief	This function returns a string for the public key authentication
+*		algorithm indicated by the provided public strength value read
+*		from the authentication certificate.
+*
+* @param	AuthType is the public strength value obtained from the
+*		authentication certificate/key header.
+*
+* @return	Pointer to a constant string describing the authentication
+*		algorithm. Returns "Unknown" if the value is not recognized.
+*
+* @note		This logging is not enabled for VERSAL due to PLM size constraints.
+*
+******************************************************************************/
+static const char* XLoader_GetAuthAlgoStr(u32 AuthType)
+{
+	const char *AlgoStr = "Unknown";
+
+	switch (AuthType) {
+		case XLOADER_PUB_STRENGTH_RSA_4096:
+			AlgoStr = "RSA-4096";
+			break;
+		case XLOADER_PUB_STRENGTH_ECDSA_P384:
+			AlgoStr = "ECDSA P-384";
+			break;
+		case XLOADER_PUB_STRENGTH_ECDSA_P521:
+			AlgoStr = "ECDSA P-521";
+			break;
+#if defined(VERSAL_2VE_2VM) || defined(VERSAL_2VP_P)
+		case XLOADER_PUB_STRENGTH_LMS_HSS:
+			AlgoStr = "LMS-HSS";
+			break;
+		case XLOADER_PUB_STRENGTH_LMS:
+			AlgoStr = "LMS";
+			break;
+#endif
+#if defined(VERSAL_2VP_P)
+		case XLOADER_PUB_STRENGTH_MLDSA:
+			AlgoStr = "ML-DSA";
+			break;
+		case XLOADER_PUB_STRENGTH_SLHDSA:
+			AlgoStr = "SLH-DSA";
+			break;
+#endif
+		default:
+			AlgoStr = "Unknown";
+			break;
+	}
+
+	return AlgoStr;
+}
+#endif
 
 /*****************************************************************************/
 /**
@@ -3168,6 +3225,9 @@ static int XLoader_AuthenticateKeys(XLoader_SecureParams *SecurePtr, XLoader_HBS
 	u32 ReadAuthReg = 0x0U;
 	u32 AuthType = XLoader_GetAuthPubAlgo(&SecurePtr->AcPtr->AuthHdr);
 
+	XPlmi_Printf(DEBUG_GENERAL, "Authentication Algorithm: %s\r\n",
+		XLoader_GetAuthAlgoStr(AuthType));
+
 	if ((AuthType != XLOADER_PUB_STRENGTH_LMS) &&
 		(AuthType != XLOADER_PUB_STRENGTH_LMS_HSS)) {
 		Status = XLoader_AuthKat(SecurePtr);
@@ -4144,6 +4204,15 @@ static int XLoader_AuthenticateHashBlock(XLoader_SecureParams *SecurePtr,
 			Status = XPlmi_UpdateStatus(XLOADER_ERR_INVALID_HYBRID_KEYPAIR, Status);
 			goto END;
 		}
+		XPlmi_Printf(DEBUG_GENERAL,
+			"Authentication Algorithm: Hybrid (%s - %s)\r\n",
+			XLoader_GetAuthAlgoStr(AuthType),
+			XLoader_GetAuthAlgoStr(
+				SecurePtr->AcPtr->PPK.Header[XLOADER_KEY_HDR_HYBRID_IDX]));
+	}
+	else {
+		XPlmi_Printf(DEBUG_GENERAL, "Authentication Algorithm: %s\r\n",
+			XLoader_GetAuthAlgoStr(AuthType));
 	}
 
 	Status = XLoader_GetKeySizeSignPadding(AuthType, HBSignParams,
@@ -5134,6 +5203,12 @@ int XLoader_DataAuth(XLoader_SecureParams *SecurePtr, u8 *Hash,
 	volatile u32 IsEfuseAuthTmp = (u32)TRUE;
 	u32 SecureStateAHWRoT = XLoader_GetAHWRoT(NULL);
 	u32 ReadAuthReg = 0x0U;
+
+#if defined(VERSAL_NET) || defined(VERSAL_2VP)
+	XPlmi_Printf(DEBUG_GENERAL, "Authentication Algorithm: %s\r\n",
+		XLoader_GetAuthAlgoStr(
+			XLoader_GetAuthPubAlgo(&SecurePtr->AcPtr->AuthHdr)));
+#endif
 
 	Status = XLoader_AuthKat(SecurePtr);
 	if (Status != XST_SUCCESS) {
