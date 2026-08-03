@@ -98,6 +98,7 @@
 *       sk   04/10/2026 Added implementation for set image info command
 *       vm   03/30/2026 Moved Mask for PDI Src in Extract Metaheader command
 *       ng   07/09/2026 Added handler for Set DDR address for restart image command
+* 2.5   tvp  08/03/2026 Enabled IPI access permissions of XLoader_ConfigureJtagState command for versal_2vp_p
 *
 * </pre>
 *
@@ -1418,11 +1419,14 @@ static XPlmi_AccessPerm_t XLoader_AccessPermBuff[XPLMI_ARRAY_SIZE(XLoader_Cmds)]
 	XPLMI_ALL_IPI_FULL_ACCESS(XLOADER_CMD_ID_GET_ATF_HANDOFF_PARAMS),
 	XPLMI_ALL_IPI_NO_ACCESS(XLOADER_CMD_ID_CFRAME_DATA_CLEAR_CHECK),
 	XPLMI_ALL_IPI_NO_ACCESS(XLOADER_CMD_ID_WRITE_IMAGESTORE_PDI),
-#if (!defined(PLM_SECURE_EXCLUDE)) && (defined(VERSAL_NET) || defined(VERSAL_2VE_2VM))
+#if (!defined(PLM_SECURE_EXCLUDE)) && (defined(VERSAL_NET) || defined(VERSAL_2VE_2VM) || defined(VERSAL_2VP_P))
 	XPLMI_ALL_IPI_FULL_ACCESS(XLOADER_CMD_ID_CONFIG_JTAG_STATE),
-	XPLMI_ALL_IPI_FULL_ACCESS(XLOADER_CMD_ID_READ_DDR_CRYPTO_COUNTERS),
 #else
 	XPLMI_ALL_IPI_NO_ACCESS(XLOADER_CMD_ID_CONFIG_JTAG_STATE),
+#endif
+#if (!defined(PLM_SECURE_EXCLUDE)) && (defined(VERSAL_NET) || defined(VERSAL_2VE_2VM))
+	XPLMI_ALL_IPI_FULL_ACCESS(XLOADER_CMD_ID_READ_DDR_CRYPTO_COUNTERS),
+#else
 	XPLMI_ALL_IPI_NO_ACCESS(XLOADER_CMD_ID_READ_DDR_CRYPTO_COUNTERS),
 #endif
 	XPLMI_ALL_IPI_NO_ACCESS(XLOADER_CMD_ID_I2C_HANDSHAKE),

@@ -18,6 +18,7 @@
 *       pre 05/25/26 Added function to calculate I2C device ID for I2C handshake feature
 *       pre 07/14/26 Added XLOADER_GET_I2C_DEVICE_ID macro for I2C handshake feature and removed
 *                    XLoader_GetI2CDeviceID function declaration
+* 2.5   tvp 08/03/26 Added function declaration and error codes for JTAG Config Request
 *
 * </pre>
 *
@@ -92,8 +93,6 @@ extern "C" {
 #define XLOADER_MEASURE_START		(0U) /**< Data measure start */
 #define XLOADER_MEASURE_UPDATE		(1U) /**< Data measure update */
 #define XLOADER_MEASURE_FINISH		(2U) /**< Data measure finish */
-
-#define XLoader_ConfigureJtagState	(NULL) /**< Configure JTAG State */
 
 #if defined(XLOADER_PMC_IIC) && defined(PLM_I2C_MB_HANDSHAKE)
 /* I2C Master Device IDs */
@@ -260,6 +259,9 @@ enum {
 	XLOADER_ERR_INVALID_ADDR_RANGE = 0x32,
 
 	/* Platform specific Minor Error Codes start from 0x100 */
+	/** 0x100 - Invalid JTAG/DAP config request */
+	XLOADER_ERR_INVALID_JTAG_OPERATION = 0x100,
+
 	/** 0x104 - Error in parsing I2C master while reading device ID */
 	XLOADER_ERR_I2C_MASTER_DEVID_READ = 0x104,
 
@@ -475,6 +477,7 @@ int XLoader_MeasureNLoad(XilPdi* PdiPtr);
 int XLoader_DataMeasurement(XLoader_ImageMeasureInfo *ImageInfo);
 void XLoader_ShaInstance1Reset(void);
 int XLoader_PlatInit(void);
+int XLoader_ConfigureJtagState(XPlmi_Cmd *Cmd);
 
 #if defined(PLM_OCP)
 XSecure_Sha384Hash* XLoader_GetPtrnHashTable(void);

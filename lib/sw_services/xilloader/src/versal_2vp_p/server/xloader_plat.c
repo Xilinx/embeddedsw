@@ -23,6 +23,7 @@
 *       tvp 03/18/26 Initialize TRNG instance irrespective of OCP is enabled or not
 *       pre 05/25/26 Added function to calculate I2C device ID for I2C handshake feature
 *       pre 07/14/26 Removed XLoader_GetI2CDeviceID function definition
+* 2.5   tvp 08/03/26 Added Jtag DAP config support for Non-Secure debug
 *
 * </pre>
 *
@@ -62,6 +63,17 @@
 #define XLOADER_TRNG_DEVICE_ID		(0U)    /**< TRNG Device Id */
 
 #define PLM_VP1802_POR_SETTLE_TIME	(25000U) /**< Flag indicates POR settle time for VP1802 */
+
+#ifndef PLM_SECURE_EXCLUDE
+#define XLOADER_CMD_CONFIG_JTAG_STATE_FLAG_INDEX	(0U)	/**< Index in the Payload of
+								  ConfigureJtagState command where
+								  JTAG state flag is present */
+#define XLOADER_CMD_CONFIG_JTAG_STATE_FLAG_MASK		(0x03U) /**< Mask for JTAG state flag */
+#define XLOADER_CONFIG_JTAG_STATE_FLAG_ENABLE		(0x03U) /**< Value of JTAG state flag if
+								  enabled */
+#define XLOADER_CONFIG_JTAG_STATE_FLAG_DISABLE		(0x00U) /**< Value of JTAG state flag if
+								  disabled */
+#endif
 
 #ifdef PLM_OCP
 #define XLOADER_PCR_MEASUREMENT_INDEX_MASK		(0xFFFF0000U) /**< Mask for PCR Measurement
@@ -1645,6 +1657,46 @@ int XLoader_PlatInit(void)
 
 	Status = XLoader_InitTrngInstance();
 
+	return Status;
+}
+
+/**************************************************************************************************/
+/**
+ * @brief	This function enables or disables Jtag access. Command payload parameters are:
+ *		- Flag (enable/disable)
+ *
+ * @param	Cmd is pointer to the command structure.
+ *
+ * @return
+ * 		- XST_SUCCESS on success.
+ * 		- Error code on failure.
+ *
+ **************************************************************************************************/
+int XLoader_ConfigureJtagState(XPlmi_Cmd *Cmd)
+{
+	volatile int Status = XST_FAILURE;
+#ifndef PLM_SECURE_EXCLUDE
+	u32 Flag = (u32)(Cmd->Payload[XLOADER_CMD_CONFIG_JTAG_STATE_FLAG_INDEX]
+			& XLOADER_CMD_CONFIG_JTAG_STATE_FLAG_MASK);
+
+	if (((Flag != XLOADER_CONFIG_JTAG_STATE_FLAG_ENABLE) &&
+			(Flag != XLOADER_CONFIG_JTAG_STATE_FLAG_DISABLE))) {
+		/** Invalid JTAG Operation request */
+		Status = XLOADER_ERR_INVALID_JTAG_OPERATION;
+		goto END;
+	}
+
+	if (Flag == XLOADER_CONFIG_JTAG_STATE_FLAG_ENABLE) {
+		Status = XLoader_EnableJtag(XLOADER_CONFIG_DAP_STATE_NONSECURE_DBG);
+	} else {
+		Status = XLoader_DisableJtag();
+	}
+
+END:
+#else
+	Status = XLOADER_ERR_INVALID_JTAG_OPERATION;
+	(void)Cmd;
+#endif
 	return Status;
 }
 
