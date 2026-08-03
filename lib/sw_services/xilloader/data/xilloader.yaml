@@ -95,4 +95,9 @@ examples:
       examples += [
         "xilloader_configure_jtag_status_client_example.c"
       ]
+
+    if "Versal_2VP" in variant and proc in versal_procs:
+      examples += [
+        "xilloader_configure_jtag_status_client_example.c"
+      ]
 ...
