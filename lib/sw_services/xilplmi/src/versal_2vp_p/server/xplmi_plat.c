@@ -20,6 +20,7 @@
 *        sd  03/03/26 Replaced XPlmi_GetRawVoltage inline function with macro
 * 2.4    tvp 03/06/26 Add SSS config masks for SHA2 engine
 * 2.5    sd  03/13/26 Added changes to enable hardware interrupts
+* 3.0    sd  08/03/26 Clear SSS Cfg Error set during ROM PCR Extension
 *
 * </pre>
 *
@@ -788,6 +789,26 @@ void XPlmi_GetBootKatStatus(volatile u32 *PlmKatStatus)
 		*PlmKatStatus = XPlmi_GetKatStatus();
 	} else {
 		*PlmKatStatus = XPLMI_KAT_MASK;
+	}
+}
+
+/**************************************************************************************************/
+/**
+ * @brief	This function clears SSS Cfg error set during ROM PCR Extension.
+ *
+ **************************************************************************************************/
+void XPlmi_ClearSSSCfgErr(void)
+{
+	static u32 SSSCfgErrCleared = (u32)FALSE;
+	u32 PmcIsr;
+
+	if ((SSSCfgErrCleared != (u32)TRUE) && (XPlmi_IsPlmUpdateDone() != (u8)TRUE)) {
+		PmcIsr = XPlmi_In32(PMC_GLOBAL_ISR);
+		if ((PmcIsr & PMC_GLOBAL_SSS_CFG_ERR_MASK) ==
+				PMC_GLOBAL_SSS_CFG_ERR_MASK) {
+			XPlmi_Out32(PMC_GLOBAL_ISR, PMC_GLOBAL_SSS_CFG_ERR_MASK);
+			SSSCfgErrCleared = (u32)TRUE;
+		}
 	}
 }
 

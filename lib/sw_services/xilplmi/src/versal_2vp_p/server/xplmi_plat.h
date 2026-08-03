@@ -20,6 +20,7 @@
 * 2.4   sk  01/18/26 Added macros for LPD Domain Init Status
 *       tvp 03/06/26 Add macro for SSS config mask for SHA2 source
 *       sd  03/13/26 Added macros for hardware interrupt registers
+* 3.0   sd  08/03/26 Clear SSS Cfg Error set during ROM PCR Extension
 * </pre>
 *
 ***************************************************************************************************/
@@ -670,17 +671,6 @@ static inline void XPlmi_IpiIntrHandler(void *CallbackRef)
 /**
  * @brief	This function is not applicable for versal_2vp.
  *
- *****************************************************************************/
-static inline void XPlmi_ClearSSSCfgErr(void)
-{
-	/* Not Applicable for Versal_2vp */
-	return;
-}
-
-/**************************************************************************************************/
-/**
- * @brief	This function is not applicable for versal_2vp.
- *
  * @return
  * 		- XST_SUCCESS always.
  *
@@ -970,6 +960,7 @@ void XPlmi_ClearIpiIntr(void);
 void XPlmi_DisableCFrameIso(void);
 u32 *XPlmi_GetUartBaseAddr(void);
 void XPlmi_GetBootKatStatus(volatile u32 *PlmKatStatus);
+void XPlmi_ClearSSSCfgErr(void);
 void XPlmi_SetXRamAvailable(void);
 void XPlmi_SssMask(u32 DmaSrc);
 XIOModule *XPlmi_GetIOModuleInst(void);

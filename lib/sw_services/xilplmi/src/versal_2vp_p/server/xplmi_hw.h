@@ -21,6 +21,7 @@
 *       sk  01/23/26 Added define for Domain Init Status Register
 *       sd  03/13/26 Added macros for hardware interrupt registers
 *       pre 05/30/26 Added PS I2C instances check for I2C handshake feature
+* 3.0   sd  08/03/26 Added SSS_CFG_ERR mask
 * </pre>
 *
 
@@ -388,6 +389,11 @@ extern "C" {
  * Register: PMC_GLOBAL_ISR
  */
 #define PMC_GLOBAL_ISR					(PMC_GLOBAL_BASEADDR + 0X00000010U)
+
+/*
+ * SSS_CFG_ERR mask value
+ */
+#define PMC_GLOBAL_SSS_CFG_ERR_MASK			(0x00000002U)
 
 /*
  * TAMPER_INT mask value
