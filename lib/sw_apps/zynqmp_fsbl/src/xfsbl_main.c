@@ -621,9 +621,13 @@ static void XFsbl_MarkUsedRPUCores(XFsblPs *FsblInstPtr, u32 PartitionNum)
 	 */
 	switch (DestCpu) {
 	case XIH_PH_ATTRB_DEST_CPU_R5_0:
-	case XIH_PH_ATTRB_DEST_CPU_R5_L:
 		Xil_Out32(XFSBL_R5_USAGE_STATUS_REG, RegValue |
 			  XFSBL_R5_0_STATUS_MASK);
+		break;
+	case XIH_PH_ATTRB_DEST_CPU_R5_L:
+		/* Lockstep runs on both cores */
+		Xil_Out32(XFSBL_R5_USAGE_STATUS_REG, RegValue |
+			  XFSBL_R5_0_STATUS_MASK | XFSBL_R5_1_STATUS_MASK);
 		break;
 	case XIH_PH_ATTRB_DEST_CPU_R5_1:
 		Xil_Out32(XFSBL_R5_USAGE_STATUS_REG, RegValue |
