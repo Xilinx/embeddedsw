@@ -33,6 +33,7 @@
 *       pre  09/09/2025 Added status reset before reusing
 *       pre  03/23/2026 Added PLM hash extension to TPM after PLM update
 * 2.0   sd   07/01/2026 Updated logic to handle zero-length optional-data
+*       vm   07/14/2026 Start ASUFW keep-alive monitor after in-place PLM update
 *
 * </pre>
 *
@@ -62,6 +63,8 @@
 #ifdef PLM_TPM
 #include "xtpm.h"
 #endif
+#include "xplmi_asufw_keepalive.h"
+#include "xplmi_asu_update.h"
 
 /************************** Constant Definitions *****************************/
 #define XPLMI_PSM_COUNTER_VER 		(1U) /**< PSM counter version */
@@ -332,6 +335,11 @@ int XPlm_PostPlmUpdate(void)
 	XPlmi_SetBootPdiDone();
 
 	XPlmi_Printf(DEBUG_GENERAL, "In-Place PLM Update Done\n\r");
+
+	/** Restart keep-alive monitor after in-place PLM update if ASUFW is present. */
+	if ((u8)TRUE == XPlmi_AsuFwIsPresent()) {
+		XPlmi_StartAsufwKeepAliveMonitor();
+	}
 	XPlmi_Out32(XPLMI_RTCFG_INPLACE_UPDATE_IPI_RESP_BUFF, XPLMI_INVALID_RESP_BUFF_ADDR);
 	XPlmi_Out32(XPLMI_RTCFG_INPLACE_UPDATE_IPI_MASK, XPLMI_INVALID_IPI_MASK);
 
