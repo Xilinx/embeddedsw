@@ -75,6 +75,7 @@
 *                       address mode polling timeout handling
 *       obs  07/14/2026 Updated XLOADER_ERR_IMGHDR_TBL description for meta
 *                       header image/partition count check
+*       vm   07/14/2026 Added ASUFW keep-alive error codes.
 *
 * </pre>
 *
@@ -353,6 +354,8 @@ typedef enum {
 						In-Place PLM Update */
 	XPLM_ERR_UPDATE_INVALID_IDENT_STRING,	/**< 0x2A7 - Error when invalid identification string is seen in
 						  the PDI used for In-Place PLM Update */
+	XPLM_ERR_ASUFW_NOT_ALIVE,		/**< 0x2A8 - ASUFW is not alive */
+	XPLM_ERR_ASUFW_KEEP_ALIVE_TASK_CREATE,	/**< 0x2A9 - Failed to start ASUFW keep-alive check */
 
 	/** Status codes used in XLOADER */
 	/* Xilloader error codes common for all platforms are from 0x300 to 0x39F */

@@ -23,6 +23,7 @@
 *       rmv  08/26/25 Use callback functions instead of xilocp library functions
 *       rmv  09/11/25 Fix GCC warning when PLM_OCP_ASUFW_KEY_MGMT is disabled
 * 2.4	abh  11/30/25 Fixed MISRA-C violations
+*       vm   07/14/26 Add ASUFW keep-alive task init during module init
 *
 * </pre>
 *
@@ -38,6 +39,8 @@
 #include "xplmi.h"
 #include "xplmi_debug.h"
 #include "xplmi_asu_cmd.h"
+#include "xplmi_asufw_keepalive.h"
+#include "xplmi_status.h"
 
 /************************** Constant Definitions *****************************/
 /* ASU key transfer command Ids */
@@ -330,9 +333,9 @@ static XPlmi_Module XPlmi_AsuModule =
 
 /*****************************************************************************/
 /**
- * @brief	This function registers the ASU commands to the PLMI and
- * 		initialize the PUF and Key transfer function pointers during
- * 		module initialization.
+ * @brief	This function registers the ASU commands to the PLMI,
+ * 		initializes the PUF and Key transfer function pointers, and
+ * 		creates the ASUFW keep-alive task during module initialization.
  *
  * @param	GeneratePufKEK - Pointer to the PUF on demand regeneration function.
  * @param	InitiateKeyXfer - Pointer to the secure key transfer function.
@@ -347,6 +350,8 @@ void XPlmi_AsuModuleInit(int (* const GeneratePufKEK)(u8* PufRegenStatusFlag),
 	int (* const GetSubsysDigest)(u32 SubsystemId, u32 SubsysHashAddrPtr),
 	void (* const GetOcpEventMask)(u32 *EventMask))
 {
+	int Status = XST_FAILURE;
+
 	XPlmi_ModuleRegister(&XPlmi_AsuModule);
 
 	/** Initialize the PUF and Key transfer function pointers */
@@ -355,6 +360,13 @@ void XPlmi_AsuModuleInit(int (* const GeneratePufKEK)(u8* PufRegenStatusFlag),
 	AsuGetAsuCdiSeed = GetAsuCdiSeed;
 	AsuGetSubsysDigest = GetSubsysDigest;
 	AsuGetOcpEventMask = GetOcpEventMask;
+
+	/** Create ASUFW keep-alive task during module initialization */
+	Status = XPlmi_AsufwKeepAliveInit();
+	if (XST_SUCCESS != Status) {
+		XPlmi_Printf(DEBUG_PRINT_ALWAYS,
+			"ASUFW keep-alive task creation failed. Error: 0x%x\r\n", (u32)Status);
+	}
 }
 /**
  * @}
