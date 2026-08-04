@@ -39,6 +39,7 @@
  *       am   04/04/25 Added PMC key transfer support
  *       rmv  08/11/25 Initialize PLM event module
  *       rmv  08/11/25 Initialize OCP module
+ *       vm   07/14/26 Initialize keep-alive counter support.
  *
  * </pre>
  *
@@ -81,6 +82,7 @@
 #include "xil_error_node.h"
 #include "xoverlay.h"
 #include "xasufw_update.h"
+#include "xasufw_keepalive.h"
 
 /************************************ Constant Definitions ***************************************/
 
@@ -212,6 +214,15 @@ int main(void)
 	if (XAsufw_GetUpdateState() == XASUFW_UPDATE_STATE_LOAD_ELF_DONE) {
 		XAsufw_PostUpdateTriggerPendingRequests();
 		XAsufw_SetUpdateState(XASUFW_UPDATE_STATE_FINISHED);
+	}
+
+	/**
+	 * Initialize ASUFW keep-alive counter support. In case of failure,
+	 * continue booting and supporting other requests.
+	 */
+	Status = XAsufw_KeepAliveInit();
+	if (XASUFW_SUCCESS != Status) {
+		XAsufw_Printf(DEBUG_GENERAL, "ASUFW keep-alive init failed. Error: 0x%x\r\n", Status);
 	}
 
 	/**

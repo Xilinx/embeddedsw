@@ -88,6 +88,8 @@ collect (PROJECT_LIB_HEADERS xasufw_update.h)
 collect (PROJECT_LIB_HEADERS xasufw_update_ds.h)
 collect (PROJECT_LIB_SOURCES xasufw_keytransfer.c)
 collect (PROJECT_LIB_HEADERS xasufw_keytransfer.h)
+collect (PROJECT_LIB_SOURCES xasufw_keepalive.c)
+collect (PROJECT_LIB_HEADERS xasufw_keepalive.h)
 
 collect(PROJECT_LIB_DEPS xilstandalone)
 collect(PROJECT_LIB_DEPS xil)
