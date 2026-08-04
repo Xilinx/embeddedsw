@@ -79,6 +79,7 @@
 *       vns  04/04/2026 Lock DAP during PLM update via XLoader_DisableJtagIfOpenedByAuthJtag
 *       pre  05/25/2026 Added function to calculate I2C device ID for I2C handshake feature
 *       pre  07/14/2026 Removed XLoader_GetI2CDeviceID function definition
+*       vm   07/14/2026 Start ASUFW keep-alive monitor on ASU handoff
 *
 * </pre>
 *
@@ -99,6 +100,7 @@
 #include "xloader_plat.h"
 #include "xplmi_update.h"
 #include "xplmi_asu_update.h"
+#include "xplmi_asufw_keepalive.h"
 #include "xplmi.h"
 #include "xilpdi.h"
 #include "xplmi_gic_interrupts.h"
@@ -414,6 +416,10 @@ int XLoader_StartImage(XilPdi *PdiPtr)
 			if (Status != XST_SUCCESS) {
 				Status = XPlmi_UpdateStatus((XPlmiStatus_t)ErrorCode, Status);
 				goto END;
+			}
+			/** Start ASUFW keep-alive monitor after ASU boot handoff. */
+			if (CpuId == XIH_PH_ATTRB_DSTN_CPU_ASU) {
+				XPlmi_StartAsufwKeepAliveMonitor();
 			}
 		}
 		else {
