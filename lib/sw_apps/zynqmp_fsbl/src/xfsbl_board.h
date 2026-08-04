@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2015 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -23,6 +24,8 @@
 * 4.0   bsv  11/12/19 Added support for ZCU216 board
 *       bsv  02/05/20 Added support for ZCU208 board
 * 5.0   bsv  01/05/22 Added support for ZCU670 board
+* 6.0   sd   07/15/26 Added XFSBL_BOARD_IIC0_CONFIG and
+*                     XFSBL_BOARD_IIC1_CONFIG guards for board IIC config
 *
 * </pre>
 *
@@ -39,10 +42,34 @@ extern "C" {
 
 /***************************** Include Files *********************************/
 #include "xfsbl_hw.h"
-#if defined(XPS_BOARD_ZCU102) || defined(XPS_BOARD_ZCU106)		\
+
+/*
+ * Board specific configuration (GT/PCIe/FMC/VADJ) uses the PS I2C (XIicPs)
+ * driver. Enable it only when a supported ZCU board is selected AND the design
+ * actually contains an IIC instance, so FSBL builds cleanly on designs without
+ * IIC.
+ */
+#if (defined(XPS_BOARD_ZCU102) || defined(XPS_BOARD_ZCU106)		\
 		|| defined(XPS_BOARD_ZCU104) || defined(XPS_BOARD_ZCU111) \
 		|| defined(XPS_BOARD_ZCU216) || defined(XPS_BOARD_ZCU208) \
-		|| defined(XPS_BOARD_ZCU670)
+		|| defined(XPS_BOARD_ZCU670))					\
+		&& defined(XPAR_XIICPS_0_BASEADDR)
+#define XFSBL_BOARD_IIC0_CONFIG
+#endif
+
+/*
+ * ZCU216, ZCU208 and ZCU670 additionally use a second PS I2C instance (IIC1)
+ * for FMC/VADJ configuration. Enable that code only when the design actually
+ * contains the second IIC instance, so FSBL builds cleanly on those designs
+ * without IIC1.
+ */
+#if (defined(XPS_BOARD_ZCU216) || defined(XPS_BOARD_ZCU208)		\
+		|| defined(XPS_BOARD_ZCU670))					\
+		&& defined(XPAR_XIICPS_1_BASEADDR)
+#define XFSBL_BOARD_IIC1_CONFIG
+#endif
+
+#ifdef XFSBL_BOARD_IIC0_CONFIG
 #include "xiicps.h"
 /************************** Constant Definitions *****************************/
 #define GPIO_MIO31_MASK	0x00000020U
