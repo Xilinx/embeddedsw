@@ -71,6 +71,7 @@ extern "C" {
 #define XASUFW_OCP_RESOURCE_MASK        0x8000U /**< OCP resource mask */
 #define XASUFW_KEYMANAGER_RESOURCE_MASK	0x10000U /**< KeyVault resource mask */
 #define XASUFW_LMS_RESOURCE_MASK	0x20000U /**< LMS resource mask */
+#define XASUFW_OVERLAY_RESOURCE_MASK	0x40000U /**< Shared overlay window resource mask */
 
 /************************************** Type Definitions *****************************************/
 /**
@@ -95,7 +96,8 @@ typedef enum {
 	XASUFW_OCP,	/**< 15: OCP */
 	XASUFW_KEYMANAGER, /**< 16: KeyManager */
 	XASUFW_LMS,	/**< 17: LMS */
-	XASUFW_INVALID,	/**< 18: Invalid */
+	XASUFW_OVERLAY,	/**< 18: Shared overlay window */
+	XASUFW_INVALID,	/**< 19: Invalid */
 } XAsufw_Resource;
 
 /*************************** Macros (Inline Functions) Definitions *******************************/

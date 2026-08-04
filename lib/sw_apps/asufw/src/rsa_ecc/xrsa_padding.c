@@ -34,6 +34,7 @@
 #include "xtrng.h"
 #include "xasu_rsa_common.h"
 #include "xasufw_perf.h"
+#include "xasufw_memory.h"
 
 #ifdef XASU_RSA_PADDING_ENABLE
 /************************************ Constant Definitions ***************************************/
@@ -139,8 +140,8 @@ s32 XRsa_OaepEncode(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr,
 
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
 	CREATE_VOLATILE(ClearStatus, XASUFW_FAILURE);
-	u8 *DataBlockStart = XRsa_GetDataBlockAddr();
-	u8 *DataBlock = XRsa_GetDataBlockAddr() + XRSA_MAX_KEY_SIZE_IN_BYTES + sizeof(XAsu_RsaPubKeyComp);
+	u8 *DataBlockStart = (u8 *)(UINTPTR)XASUFW_CRYPTO_ALGO_DATA_BLOCK;
+	u8 *DataBlock = &DataBlockStart[XRSA_MAX_KEY_SIZE_IN_BYTES + sizeof(XAsu_RsaPubKeyComp)];
 	u32 HashLen = 0U;
 
 	/** Validating input parameters and calculating digest. */
@@ -283,8 +284,8 @@ s32 XRsa_PssSignGenerate(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr,
 	u32 HashLen = 0U;
 	u32 DataBlockLen = 0U;
 	u32 Index = 0U;
-	u8 *DataBlockStart = XRsa_GetDataBlockAddr();
-	u8 *DataBlock = XRsa_GetDataBlockAddr() + XRSA_MAX_KEY_SIZE_IN_BYTES + sizeof(XAsu_RsaPvtKeyComp);
+	u8 *DataBlockStart = (u8 *)(UINTPTR)XASUFW_CRYPTO_ALGO_DATA_BLOCK;
+	u8 *DataBlock = &DataBlockStart[XRSA_MAX_KEY_SIZE_IN_BYTES + sizeof(XAsu_RsaPvtKeyComp)];
 	u8 *MPrime = DataBlock + XRSA_MAX_DB_LEN;
 	u8 *HashBuffer = MPrime + XRSA_PSS_MAX_MSG_LEN;
 	u8 OutputData[XRSA_MAX_KEY_SIZE_IN_BYTES];
@@ -599,8 +600,8 @@ s32 XRsa_PssSignVerify(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr,
 	u32 KeySize = 0U;
 	u32 HashLen = 0U;
 	u32 DataBlockLen = 0U;
-	u8 *DataBlockStart = XRsa_GetDataBlockAddr();
-	u8 *DataBlock = XRsa_GetDataBlockAddr() + XRSA_MAX_KEY_SIZE_IN_BYTES + sizeof(XAsu_RsaPubKeyComp);
+	u8 *DataBlockStart = (u8 *)(UINTPTR)XASUFW_CRYPTO_ALGO_DATA_BLOCK;
+	u8 *DataBlock = &DataBlockStart[XRSA_MAX_KEY_SIZE_IN_BYTES + sizeof(XAsu_RsaPubKeyComp)];
 	u8 *MaskedDataBlock = DataBlock + XRSA_MAX_DB_LEN;
 	u8 *MsgBlock = MaskedDataBlock + XRSA_MAX_DB_LEN;
 	u8 *HashBuffer = MsgBlock + XRSA_PSS_MAX_MSG_LEN;
@@ -1345,7 +1346,8 @@ static s32 XRsa_OaepProcessDecryptedData(XAsufw_Dma *DmaPtr, XSha *ShaInstancePt
 	u32 PadLen = 0U;
 	u32 KeySize = PaddingParamsPtr->XAsu_RsaOpComp.KeySize;
 	u32 Len = PaddingParamsPtr->XAsu_RsaOpComp.Len;
-	u8 *DataBlock = XRsa_GetDataBlockAddr() + XRSA_MAX_KEY_SIZE_IN_BYTES + sizeof(XAsu_RsaPvtKeyComp);
+	u8 *DataBlockStart = (u8 *)(UINTPTR)XASUFW_CRYPTO_ALGO_DATA_BLOCK;
+	u8 *DataBlock = &DataBlockStart[XRSA_MAX_KEY_SIZE_IN_BYTES + sizeof(XAsu_RsaPvtKeyComp)];
 	u8 *SeedBuffer = DataBlock + XRSA_MAX_DB_LEN;
 	u8 *DataBlockMask = NULL;
 	XAsufw_MgfInput MgfInput;
@@ -1500,7 +1502,7 @@ static s32 XRsa_OaepDecrypt(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr, const u8 *
 	XFih_Var XFihBufClearStatus = XFih_VolatileAssignXfihVar(XFIH_FAILURE);
 	u32 KeySize = 0U;
 	u32 Len = 0U;
-	u8 *DataBlockStart = XRsa_GetDataBlockAddr();
+	u8 *DataBlockStart = (u8 *)(UINTPTR)XASUFW_CRYPTO_ALGO_DATA_BLOCK;
 	u8 DecryptOutputData[XRSA_MAX_KEY_SIZE_IN_BYTES];
 	XAsu_RsaParams PvtExpParams;
 	u32 RsaOutDataLen = 0U;

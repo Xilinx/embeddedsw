@@ -515,7 +515,7 @@
 #define XASU_KEYWRAP_ENABLE
 #define XASU_RSA_PADDING_ENABLE
 #define XASU_OCP_ENABLE
-//#define XASU_LMS_ENABLE /**< Macro to enable/disable support of LMS algorithm */
+#define XASU_LMS_ENABLE /**< Macro to enable/disable support of LMS algorithm */
 //#define XASU_PERF_MEASUREMENT_ENABLE /**< Macro to enable/disable performance measurement */
 #define XASU_KEYMANAGER_ENABLE /**< Macro to enable/disable support of KeyManager */
 

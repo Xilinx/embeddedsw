@@ -57,6 +57,9 @@
 #include "xkdf.h"
 #include "xhkdf.h"
 #include "xecies.h"
+#include "xecc.h"
+#include "xrsa_ecc.h"
+#include "xrsa_padding.h"
 #include "xaes_hw.h"
 #include "xkeywrap.h"
 #include "xtrng.h"
@@ -65,6 +68,8 @@
 #include "xlms_core.h"
 #include "xasu_lmsinfo.h"
 #include "xasu_shainfo.h"
+#include "xoverlay.h"
+#include "xasufw_memory.h"
 
 /************************************ Constant Definitions ***************************************/
 
@@ -697,22 +702,52 @@ void XAsufw_RunCryptoKats(void)
 
 	XAsufw_RunTrngKats(XAsufw_TrngPtr);
 
+	/** Activate the RSA-ECC overlay once for the RSA KAT. */
+	Status = XOverlay_Activate(XOVERLAY_ALGO_RSA_ECC, AsuDmaPtr);
+	if (Status != XASUFW_SUCCESS) {
+		/**
+		 * On overlay activation failure, mark RSA, ECC and KEYWRAP module KATs as failed in
+		 * RTCA area and disable the RSA, ECC and KEYWRAP resources.
+		 */
+		XASUFW_MARK_KAT_FAILED(XASU_MODULE_RSA_ID);
+		XAsufw_DisableResource(XASUFW_RSA);
+		XASUFW_MARK_KAT_FAILED(XASU_MODULE_ECC_ID);
+		XAsufw_DisableResource(XASUFW_ECC);
+		XASUFW_MARK_KAT_FAILED(XASU_MODULE_KEYWRAP_ID);
+		XAsufw_DisableResource(XASUFW_KEYWRAP);
+		XAsufw_DisableResource(XASUFW_OCP);
+		XAsufw_DisableResource(XASUFW_ECIES);
+	}
+	else {
 #ifdef XASU_RSA_PADDING_ENABLE
-	XAsufw_RunRsaKats(AsuDmaPtr);
+		XAsufw_RunRsaKats(AsuDmaPtr);
 #endif /* XASU_RSA_PADDING_ENABLE */
 
-	XAsufw_RunKeywrapKats();
+		XAsufw_RunKeywrapKats();
+
+		XAsufw_RunEccKats(AsuDmaPtr);
+	}
 
 #ifdef XASU_LMS_ENABLE
-	/** Run HSS KAT with SHAKE-256. */
-	Status = XAsufw_HssOperationKat(AsuDmaPtr);
-	if (Status == XASUFW_SUCCESS) {
-		/** On HSS KAT success, mark LMS module KAT as passed in RTCA area. */
-		XASUFW_SET_KAT_PASSED(XASU_MODULE_LMS_ID);
+	/** Activate LMS overlay before running HSS KAT with SHAKE-256. */
+	Status = XOverlay_Activate(XOVERLAY_ALGO_LMS, AsuDmaPtr);
+	if (Status != XASUFW_SUCCESS) {
+		/**
+		 * On overlay activation failure, mark LMS module KAT as failed in RTCA area and
+		 * disable the LMS resource.
+		 */
+		XASUFW_MARK_KAT_FAILED(XASU_MODULE_LMS_ID);
+		XAsufw_DisableResource(XASUFW_LMS);
+	}
+	else {
+		/** Run HSS KAT with SHAKE-256. */
+		Status = XAsufw_HssOperationKat(AsuDmaPtr);
+		if (Status == XASUFW_SUCCESS) {
+			/** On HSS KAT success, mark LMS module KAT as passed in RTCA area. */
+			XASUFW_SET_KAT_PASSED(XASU_MODULE_LMS_ID);
+		}
 	}
 #endif /* XASU_LMS_ENABLE */
-
-	XAsufw_RunEccKats(AsuDmaPtr);
 
 	XAsufw_RMW(XASU_RTCA_EXEC_STATUS_ADDR, XASU_RTCA_KAT_EXEC_STATUS_MASK,
 			XASU_RTCA_KAT_EXEC_STATUS_VALUE);
@@ -2131,7 +2166,7 @@ static s32 XAsufw_PrepareAndRunDpaCmOp(XAes *InstancePtr, XAsufw_Dma *AsuDmaPtr,
 	u32 Output[XASUFW_AES_CM_LEN_IN_WORDS];
 	u32 Tag[XASUFW_AES_CM_LEN_IN_WORDS];
 	u32 Index;
-	u32 InputDataAddr = (u32)(UINTPTR)XRsa_GetDataBlockAddr();
+	u32 InputDataAddr = (u32)(UINTPTR)XASUFW_CRYPTO_ALGO_DATA_BLOCK;
 
 	/** Choose input data and tag based on operation type. */
 	const u32 *InputDataPtr = (OperationType == XASU_AES_ENCRYPT_OPERATION) ? AesCmPt : AesCmExpCt;

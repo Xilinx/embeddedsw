@@ -47,9 +47,12 @@
 #include "xasu_def.h"
 #include "x509_asufw.h"
 #include "xasufw_perf.h"
+#include "xasufw_memory.h"
 
 #ifdef XASU_OCP_ENABLE
 /********************************** Constant Definitions *****************************************/
+_Static_assert(sizeof(XOcp_CdoData) <= XASUFW_OCP_CDO_DATA_SIZE,
+	       "OCP CDO data block size exceeds the OCP CDO data block size limit");
 
 /************************************ Macro Definitions ******************************************/
 #define XOCP_DICE_CDI_SIZE_IN_BYTES	(48U)		/**< CDI size in bytes */
@@ -383,7 +386,7 @@ static s32 XOcp_GenerateDevAk(u32 SubsysIdx, XAsufw_Dma *DmaPtr)
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
 	XOcp_PrivateKeyGen PvtKeyInfo;
 	u8 SwCdi[XOCP_DICE_CDI_SIZE_IN_BYTES];
-	const XOcp_CdoData *CdoData = (XOcp_CdoData *)XOCP_CDO_DATA_ADDR;
+	const XOcp_CdoData *CdoData = (XOcp_CdoData *)XASUFW_OCP_CDO_DATA_ADDR;
 	const u8 *PersStr = NULL;
 
 	/** Validate number of subsystems provided in CDO. */
@@ -553,7 +556,7 @@ END:
 static s32 XOcp_GetSubsytemIndex(u32 SubsystemId, u32 *SubsystemIdx)
 {
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
-	const XOcp_CdoData *CdoData = (XOcp_CdoData *)XOCP_CDO_DATA_ADDR;
+	const XOcp_CdoData *CdoData = (XOcp_CdoData *)XASUFW_OCP_CDO_DATA_ADDR;
 	u32 Idx;
 
 	/** Validate number of subsystems provided in CDO. */
@@ -609,7 +612,7 @@ s32 XOcp_GetX509Cert(u32 SubsystemId, const XAsu_OcpCertParams *OcpCertParam, vo
 
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
 	X509_Config CertCfg;
-	XOcp_CdoData *CdoData = (XOcp_CdoData *)XOCP_CDO_DATA_ADDR;
+	XOcp_CdoData *CdoData = (XOcp_CdoData *)XASUFW_OCP_CDO_DATA_ADDR;
 	const X509_PlatData *PlatDataPtr = (X509_PlatData *)PlatData;
 	XOcp_CertData CertData;
 	u32 SubsysIdx = 0U;

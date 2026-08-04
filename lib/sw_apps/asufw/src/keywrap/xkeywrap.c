@@ -37,6 +37,7 @@
 #include "xasu_aesinfo.h"
 #include "xtrng.h"
 #include "xasufw_perf.h"
+#include "xasufw_memory.h"
 
 #ifdef XASU_KEYWRAP_ENABLE
 /************************************ Constant Definitions ***************************************/
@@ -392,7 +393,7 @@ static s32 XKeywrap_WrapOp(const XAsu_KeyWrapParams *KeyWrapParamsPtr, XAes *Aes
 	u64 AesOutValue = 0U;
 	u32 PadLen = 0U;
 	u32 MaxRounds = 0U;
-	u8 *InData = XRsa_GetDataBlockAddr();
+	u8 *InData = (u8 *)(UINTPTR)XASUFW_CRYPTO_ALGO_DATA_BLOCK;
 	u8 *AesInData = InData + XASUFW_KEYWRAP_MAX_OUTPUT_SIZE_IN_BYTES;
 	u8 *AesOutData = AesInData + XASU_AES_BLOCK_SIZE_IN_BYTES;
 	u32 RoundNum = 0U;
@@ -609,7 +610,7 @@ s32 XKeyWrap_UnwrapOp(const XAsu_KeyWrapParams *KeyUnwrapParamsPtr, XAes *AesIns
 	const u8 InitValue[XASUFW_WORD_LEN_IN_BYTES] = {0xA6U,0x59U,0x59U,0xA6U};
 	u64 AesInValue = 0U;
 	u32 MaxRounds = 0U;
-	u8 *InData = XRsa_GetDataBlockAddr();
+	u8 *InData = (u8 *)(UINTPTR)XASUFW_CRYPTO_ALGO_DATA_BLOCK;
 	u8 *AesInData = InData + XASUFW_KEYWRAP_MAX_OUTPUT_SIZE_IN_BYTES;
 	u8 *AesOutData = AesInData + XASU_AES_BLOCK_SIZE_IN_BYTES;
 	u8 *OutData = AesOutData + XASU_AES_BLOCK_SIZE_IN_BYTES;

@@ -352,6 +352,9 @@ s32 XAsufw_CheckResourceAvailability(XAsufw_ResourcesRequired Resources, u32 Req
 			case XASUFW_LMS_RESOURCE_MASK:
 				Resource = XASUFW_LMS;
 				break;
+			case XASUFW_OVERLAY_RESOURCE_MASK:
+				Resource = XASUFW_OVERLAY;
+				break;
 			default:
 				Status = XASUFW_RESOURCE_INVALID;
 				break;

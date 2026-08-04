@@ -41,9 +41,11 @@
 #include "xrsa_padding.h"
 #include "xkeymanager.h"
 #include "xrsa.h"
+#include "xoverlay.h"
 #include "xasu_sharedmem.h"
 #include "xtask.h"
 #include "xil_util.h"
+#include "xasufw_memory.h"
 
 /************************************ Constant Definitions ***************************************/
 #ifdef XASU_KEYMANAGER_ENABLE
@@ -117,31 +119,40 @@ s32 XAsufw_RsaInit(void)
 
 	/** The XAsufw_RsaResourcesBuf contains the required resources for each supported command. */
 	static XAsufw_ResourcesRequired XAsufw_RsaResourcesBuf[XASU_RSA_MAX_CMDS] = {
-		[XASU_RSA_PUB_ENC_CMD_ID] = XASUFW_DMA_RESOURCE_MASK | XASUFW_RSA_RESOURCE_MASK,
+		[XASU_RSA_PUB_ENC_CMD_ID] = XASUFW_DMA_RESOURCE_MASK | XASUFW_RSA_RESOURCE_MASK |
+		XASUFW_OVERLAY_RESOURCE_MASK,
 		[XASU_RSA_PVT_DEC_CMD_ID] = XASUFW_DMA_RESOURCE_MASK | XASUFW_RSA_RESOURCE_MASK |
-		XASUFW_TRNG_RESOURCE_MASK | XASUFW_TRNG_RANDOM_BYTES_MASK,
+		XASUFW_TRNG_RESOURCE_MASK | XASUFW_TRNG_RANDOM_BYTES_MASK | XASUFW_OVERLAY_RESOURCE_MASK,
 		[XASU_RSA_PVT_CRT_DEC_CMD_ID] = XASUFW_DMA_RESOURCE_MASK | XASUFW_RSA_RESOURCE_MASK
-		| XASUFW_TRNG_RESOURCE_MASK | XASUFW_TRNG_RANDOM_BYTES_MASK,
+		| XASUFW_TRNG_RESOURCE_MASK | XASUFW_TRNG_RANDOM_BYTES_MASK | XASUFW_OVERLAY_RESOURCE_MASK,
 		[XASU_RSA_OAEP_ENC_SHA2_CMD_ID]  = XASUFW_DMA_RESOURCE_MASK | XASUFW_RSA_RESOURCE_MASK
-		| XASUFW_SHA2_RESOURCE_MASK | XASUFW_TRNG_RESOURCE_MASK | XASUFW_TRNG_RANDOM_BYTES_MASK,
+		| XASUFW_SHA2_RESOURCE_MASK | XASUFW_TRNG_RESOURCE_MASK | XASUFW_TRNG_RANDOM_BYTES_MASK
+		| XASUFW_OVERLAY_RESOURCE_MASK,
 		[XASU_RSA_OAEP_DEC_SHA2_CMD_ID]  = XASUFW_DMA_RESOURCE_MASK | XASUFW_RSA_RESOURCE_MASK
-		| XASUFW_SHA2_RESOURCE_MASK | XASUFW_TRNG_RESOURCE_MASK | XASUFW_TRNG_RANDOM_BYTES_MASK,
+		| XASUFW_SHA2_RESOURCE_MASK | XASUFW_TRNG_RESOURCE_MASK | XASUFW_TRNG_RANDOM_BYTES_MASK
+		| XASUFW_OVERLAY_RESOURCE_MASK,
 		[XASU_RSA_OAEP_ENC_SHA3_CMD_ID]  = XASUFW_DMA_RESOURCE_MASK | XASUFW_RSA_RESOURCE_MASK
-		| XASUFW_SHA3_RESOURCE_MASK | XASUFW_TRNG_RESOURCE_MASK | XASUFW_TRNG_RANDOM_BYTES_MASK,
+		| XASUFW_SHA3_RESOURCE_MASK | XASUFW_TRNG_RESOURCE_MASK | XASUFW_TRNG_RANDOM_BYTES_MASK
+		| XASUFW_OVERLAY_RESOURCE_MASK,
 		[XASU_RSA_OAEP_DEC_SHA3_CMD_ID]  = XASUFW_DMA_RESOURCE_MASK | XASUFW_RSA_RESOURCE_MASK
-		| XASUFW_SHA3_RESOURCE_MASK | XASUFW_TRNG_RESOURCE_MASK | XASUFW_TRNG_RANDOM_BYTES_MASK,
+		| XASUFW_SHA3_RESOURCE_MASK | XASUFW_TRNG_RESOURCE_MASK | XASUFW_TRNG_RANDOM_BYTES_MASK
+		| XASUFW_OVERLAY_RESOURCE_MASK,
 		[XASU_RSA_PSS_SIGN_GEN_SHA2_CMD_ID]  = XASUFW_DMA_RESOURCE_MASK | XASUFW_RSA_RESOURCE_MASK
-		| XASUFW_SHA2_RESOURCE_MASK | XASUFW_TRNG_RESOURCE_MASK | XASUFW_TRNG_RANDOM_BYTES_MASK,
+		| XASUFW_SHA2_RESOURCE_MASK | XASUFW_TRNG_RESOURCE_MASK | XASUFW_TRNG_RANDOM_BYTES_MASK
+		| XASUFW_OVERLAY_RESOURCE_MASK,
 		[XASU_RSA_PSS_SIGN_VER_SHA2_CMD_ID]  = XASUFW_DMA_RESOURCE_MASK | XASUFW_RSA_RESOURCE_MASK
-		| XASUFW_SHA2_RESOURCE_MASK,
+		| XASUFW_SHA2_RESOURCE_MASK | XASUFW_OVERLAY_RESOURCE_MASK,
 		[XASU_RSA_PSS_SIGN_GEN_SHA3_CMD_ID]  = XASUFW_DMA_RESOURCE_MASK | XASUFW_RSA_RESOURCE_MASK
-		| XASUFW_SHA3_RESOURCE_MASK | XASUFW_TRNG_RESOURCE_MASK | XASUFW_TRNG_RANDOM_BYTES_MASK,
+		| XASUFW_SHA3_RESOURCE_MASK | XASUFW_TRNG_RESOURCE_MASK | XASUFW_TRNG_RANDOM_BYTES_MASK
+		| XASUFW_OVERLAY_RESOURCE_MASK,
 		[XASU_RSA_PSS_SIGN_VER_SHA3_CMD_ID]  = XASUFW_DMA_RESOURCE_MASK | XASUFW_RSA_RESOURCE_MASK
-		| XASUFW_SHA3_RESOURCE_MASK,
+		| XASUFW_SHA3_RESOURCE_MASK | XASUFW_OVERLAY_RESOURCE_MASK,
 		[XASU_RSA_OAEP_ENC_DEC_KAT_CMD_ID] = XASUFW_DMA_RESOURCE_MASK | XASUFW_RSA_RESOURCE_MASK
-		| XASUFW_SHA2_RESOURCE_MASK | XASUFW_TRNG_RESOURCE_MASK | XASUFW_TRNG_RANDOM_BYTES_MASK,
+		| XASUFW_SHA2_RESOURCE_MASK | XASUFW_TRNG_RESOURCE_MASK | XASUFW_TRNG_RANDOM_BYTES_MASK
+		| XASUFW_OVERLAY_RESOURCE_MASK,
 		[XASU_RSA_PSS_SIGN_GEN_VER_KAT_CMD_ID] = XASUFW_DMA_RESOURCE_MASK | XASUFW_RSA_RESOURCE_MASK
-		| XASUFW_SHA2_RESOURCE_MASK | XASUFW_TRNG_RESOURCE_MASK | XASUFW_TRNG_RANDOM_BYTES_MASK,
+		| XASUFW_SHA2_RESOURCE_MASK | XASUFW_TRNG_RESOURCE_MASK | XASUFW_TRNG_RANDOM_BYTES_MASK
+		| XASUFW_OVERLAY_RESOURCE_MASK,
 	};
 
 	/** The XAsufw_RsaAccessPermBuf contains the IPI access permissions for each supported command. */
@@ -189,6 +200,8 @@ s32 XAsufw_RsaInit(void)
  * @return
  * 	- XASUFW_SUCCESS, if resource allocation is successful.
  * 	- XASUFW_DMA_RESOURCE_ALLOCATION_FAILED, if DMA resource allocation fails.
+ * 	- XASUFW_OVERLAY_ACTIVATE_FAIL, if overlay activation fails.
+ * 	- XASUFW_RESOURCE_RELEASE_NOT_ALLOWED, if releasing the resource fails.
  *
  *************************************************************************************************/
 static s32 XAsufw_RsaResourceHandler(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
@@ -206,6 +219,9 @@ static s32 XAsufw_RsaResourceHandler(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	}
 	/** Allocate RSA resource. */
 	XAsufw_AllocateResource(XASUFW_RSA, XASUFW_RSA, ReqId);
+
+	/** Allocate overlay resource. */
+	XAsufw_AllocateResource(XASUFW_OVERLAY, XASUFW_RSA, ReqId);
 
 	/** Allocate SHA2/SHA3 resource for commands which are dependent on SHA2/SHA3 HW. */
 	ReqResources = XAsufw_RsaModule.ResourcesRequired[CmdId];
@@ -226,7 +242,15 @@ static s32 XAsufw_RsaResourceHandler(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 			XAsufw_AllocateResource(XASUFW_TRNG, XASUFW_RSA, ReqId);
 	}
 
-	Status = XASUFW_SUCCESS;
+	/** Activate RSA-ECC overlay. */
+	Status = XOverlay_Activate(XOVERLAY_ALGO_RSA_ECC, XAsufw_RsaModule.AsuDmaPtr);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_OVERLAY_ACTIVATE_FAIL);
+		if (XAsufw_ReleaseResource(XASUFW_RSA, ReqId) != XASUFW_SUCCESS) {
+			Status = XAsufw_UpdateErrorStatus(Status,
+							  XASUFW_RESOURCE_RELEASE_NOT_ALLOWED);
+		}
+	}
 
 END:
 	return Status;
@@ -276,7 +300,7 @@ static s32 XAsufw_RsaPubEnc(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 		 * If KeyId is provided, calculate address in RSA reserved memory where key
 		 * shall be stored and copy the key object from key vault to this address.
 		 */
-		KeyParamAddr = (u64)(UINTPTR)(XRsa_GetDataBlockAddr() + XRSA_MAX_KEY_SIZE_IN_BYTES);
+		KeyParamAddr = (u64)(UINTPTR)(XASUFW_CRYPTO_ALGO_DATA_BLOCK + XRSA_MAX_KEY_SIZE_IN_BYTES);
 
 		Status = XKeyManager_UpdateKeyObjFromVault(XAsufw_RsaModule.AsuDmaPtr, Cmd->KeyId,
 				KeyParamAddr, SubsystemId, XASU_KEYMANAGER_RSA_PUB_ENCRYPT_USE_CASE,
@@ -356,7 +380,7 @@ static s32 XAsufw_RsaPvtDec(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 		 * If KeyId is provided, calculate address in RSA reserved memory where key
 		 * shall be stored and copy the key object from key vault to this address.
 		 */
-		KeyParamAddr = (u64)(UINTPTR)(XRsa_GetDataBlockAddr() + XRSA_MAX_KEY_SIZE_IN_BYTES);
+		KeyParamAddr = (u64)(UINTPTR)(XASUFW_CRYPTO_ALGO_DATA_BLOCK + XRSA_MAX_KEY_SIZE_IN_BYTES);
 		Status = XKeyManager_UpdateKeyObjFromVault(XAsufw_RsaModule.AsuDmaPtr, Cmd->KeyId,
 				KeyParamAddr, SubsystemId, XASU_KEYMANAGER_RSA_PVT_DECRYPT_USE_CASE,
 				XKEYMANAGER_RSA_OP_NONCRT);
@@ -435,7 +459,7 @@ static s32 XAsufw_RsaPvtCrtDec(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 		 * If KeyId is provided, calculate address in RSA reserved memory where key
 		 * shall be stored and copy the key object from key vault to this address.
 		 */
-		KeyParamAddr = (u64)(UINTPTR)(XRsa_GetDataBlockAddr() + XRSA_MAX_KEY_SIZE_IN_BYTES);
+		KeyParamAddr = (u64)(UINTPTR)(XASUFW_CRYPTO_ALGO_DATA_BLOCK + XRSA_MAX_KEY_SIZE_IN_BYTES);
 		Status = XKeyManager_UpdateKeyObjFromVault(XAsufw_RsaModule.AsuDmaPtr, Cmd->KeyId,
 				KeyParamAddr, SubsystemId, XASU_KEYMANAGER_RSA_PVT_DECRYPT_USE_CASE,
 				XKEYMANAGER_RSA_OP_CRT);
@@ -517,7 +541,7 @@ static s32 XAsufw_RsaOaepEnc(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 		 * If KeyId is provided, calculate address in RSA reserved memory where key
 		 * shall be stored and copy the key object from key vault to this address.
 		 */
-		KeyParamAddr = (u64)(UINTPTR)(XRsa_GetDataBlockAddr() + XRSA_MAX_KEY_SIZE_IN_BYTES);
+		KeyParamAddr = (u64)(UINTPTR)(XASUFW_CRYPTO_ALGO_DATA_BLOCK + XRSA_MAX_KEY_SIZE_IN_BYTES);
 
 		Status = XKeyManager_UpdateKeyObjFromVault(XAsufw_RsaModule.AsuDmaPtr,
 				Cmd->XAsu_RsaOpComp.KeyId, KeyParamAddr, SubsystemId,
@@ -610,7 +634,7 @@ static s32 XAsufw_RsaOaepDec(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 		 * If KeyId is provided, calculate address in RSA reserved memory where key
 		 * shall be stored and copy the key object from key vault to this address.
 		 */
-		KeyParamAddr = (u64)(UINTPTR)(XRsa_GetDataBlockAddr() + XRSA_MAX_KEY_SIZE_IN_BYTES);
+		KeyParamAddr = (u64)(UINTPTR)(XASUFW_CRYPTO_ALGO_DATA_BLOCK + XRSA_MAX_KEY_SIZE_IN_BYTES);
 
 		Status = XKeyManager_UpdateKeyObjFromVault(XAsufw_RsaModule.AsuDmaPtr,
 				Cmd->XAsu_RsaOpComp.KeyId, KeyParamAddr, SubsystemId,
@@ -703,7 +727,7 @@ static s32 XAsufw_RsaPssSignGen(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 		 * If KeyId is provided, calculate address in RSA reserved memory where key
 		 * shall be stored and copy the key object from key vault to this address.
 		 */
-		KeyParamAddr = (u64)(UINTPTR)(XRsa_GetDataBlockAddr() + XRSA_MAX_KEY_SIZE_IN_BYTES);
+		KeyParamAddr = (u64)(UINTPTR)(XASUFW_CRYPTO_ALGO_DATA_BLOCK + XRSA_MAX_KEY_SIZE_IN_BYTES);
 
 		Status = XKeyManager_UpdateKeyObjFromVault(XAsufw_RsaModule.AsuDmaPtr,
 							   Cmd->XAsu_RsaOpComp.KeyId, KeyParamAddr,
@@ -798,7 +822,7 @@ static s32 XAsufw_RsaPssSignVer(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 		 * If KeyId is provided, calculate address in RSA reserved memory where key
 		 * shall be stored and copy the key object from key vault to this address.
 		 */
-		KeyParamAddr = (u64)(UINTPTR)(XRsa_GetDataBlockAddr() + XRSA_MAX_KEY_SIZE_IN_BYTES);
+		KeyParamAddr = (u64)(UINTPTR)(XASUFW_CRYPTO_ALGO_DATA_BLOCK + XRSA_MAX_KEY_SIZE_IN_BYTES);
 
 		Status = XKeyManager_UpdateKeyObjFromVault(XAsufw_RsaModule.AsuDmaPtr,
 							   Cmd->XAsu_RsaOpComp.KeyId, KeyParamAddr,
@@ -892,7 +916,7 @@ static s32 XAsufw_RsaPssSignGenAndVerifKat(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	s32 Status = XASUFW_FAILURE;
 	(void)ReqBuf;
 
-	/** Perform RSA-OAEP KAT on 2048 bit key size. */
+	/** Perform RSA-PSS KAT on 2048 bit key size. */
 	Status = XAsufw_RsaPssSignGenAndVerifOpKat(XAsufw_RsaModule.AsuDmaPtr);
 
 	/** Release resources. */
@@ -918,6 +942,8 @@ static s32 XAsufw_RsaPssSignGenAndVerifKat(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
  *		- XASUFW_SUCCESS, on successful key generation or when vault is full.
  *		- XASUFW_CMD_IN_PROGRESS, if resources are busy or an intermediate
  *		  key generation step is still in progress.
+ *		- XASUFW_DMA_RESOURCE_ALLOCATION_FAILED, if DMA allocation fails.
+ *		- XASUFW_OVERLAY_ACTIVATE_FAIL, if RSA-ECC overlay activation fails.
  *		- Error code, on failure during key generation.
  *
  *************************************************************************************************/
@@ -925,9 +951,12 @@ static s32 XAsufw_RsaKeyGenTask(void *Arg)
 {
 	s32 Status = XASUFW_FAILURE;
 	static u8 KeyGenOutBuf[XRSA_MAX_KEY_OBJ_SIZE_IN_BYTES];
+	XAsufw_Dma *AsuDmaPtr = NULL;
 	XAsufw_ResourcesRequired ReqResources = XASUFW_RSA_RESOURCE_MASK |
 		XASUFW_TRNG_RESOURCE_MASK |
-		XASUFW_TRNG_RANDOM_BYTES_MASK;
+		XASUFW_TRNG_RANDOM_BYTES_MASK |
+		XASUFW_OVERLAY_RESOURCE_MASK |
+		XASUFW_DMA_RESOURCE_MASK;
 
 	(void)Arg;
 
@@ -940,7 +969,7 @@ static s32 XAsufw_RsaKeyGenTask(void *Arg)
 	}
 
 	/**
-	 * Check if required resources (RSA, TRNG) are available before using them.
+	 * Check if required resources (RSA, TRNG, overlay, DMA) are available before using them.
 	 * If any resource is busy, skip this cycle and retry on the next scheduler call.
 	 */
 	Status = XAsufw_CheckResourceAvailability(ReqResources, XASUFW_REQUEST_ID_RSA_KEYGEN, NULL);
@@ -950,8 +979,23 @@ static s32 XAsufw_RsaKeyGenTask(void *Arg)
 		goto END;
 	}
 
+	/** Allocate a DMA, required for overlay activation. */
+	AsuDmaPtr = XAsufw_AllocateDmaResource(XASUFW_RSA, XASUFW_REQUEST_ID_RSA_KEYGEN);
+	if (AsuDmaPtr == NULL) {
+		Status = XASUFW_DMA_RESOURCE_ALLOCATION_FAILED;
+		goto END;
+	}
+
 	XAsufw_AllocateResource(XASUFW_RSA, XASUFW_RSA, XASUFW_REQUEST_ID_RSA_KEYGEN);
 	XAsufw_AllocateResource(XASUFW_TRNG, XASUFW_RSA, XASUFW_REQUEST_ID_RSA_KEYGEN);
+	XAsufw_AllocateResource(XASUFW_OVERLAY, XASUFW_RSA, XASUFW_REQUEST_ID_RSA_KEYGEN);
+
+	/** Activate the overlay. */
+	Status = XOverlay_Activate(XOVERLAY_ALGO_RSA_ECC, AsuDmaPtr);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_OVERLAY_ACTIVATE_FAIL);
+		goto RELEASE_RESOURCE;
+	}
 
 	/** Call the RSA driver to perform one step of key pair generation. */
 	Status = XRsa_GenerateKeyPair(KeyGenOutBuf, XRSA_MAX_KEY_OBJ_SIZE_IN_BYTES);
@@ -975,6 +1019,7 @@ static s32 XAsufw_RsaKeyGenTask(void *Arg)
 							XRSA_MAX_KEY_OBJ_SIZE_IN_BYTES));
 	}
 
+RELEASE_RESOURCE:
 	/** Release allocated resources. */
 	if (XAsufw_ReleaseResource(XASUFW_RSA, XASUFW_REQUEST_ID_RSA_KEYGEN) != XASUFW_SUCCESS) {
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_RESOURCE_RELEASE_NOT_ALLOWED);

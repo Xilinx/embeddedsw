@@ -42,8 +42,13 @@
 #include "xasu_generic.h"
 #include "xasu_def.h"
 #include "xasufw_perf.h"
+#include "xasufw_memory.h"
 
 /************************************ Constant Definitions ***************************************/
+/* Ensure the RSA parameters fit within the crypto algorithm data block. */
+_Static_assert(XRSA_MAX_PARAM_SIZE_IN_BYTES <= XASUFW_CRYPTO_ALGO_DATA_BLOCK_SIZE,
+	       "RSA parameter block exceeds the crypto algorithm data block size");
+
 /* Definitions for peripheral RSA */
 #define XASU_RSA_BASEADDR		(0xEBF50000U)	/**< RSA base address */
 #define XRSA_RESET_REG_OFFSET		(0x40U)		/**< RSA reset register offset */
@@ -128,7 +133,7 @@ s32 XRsa_CrtOp(XAsufw_Dma *DmaPtr, const XAsu_RsaParams *RsaParamsPtr, u64 KeyPa
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
 	CREATE_VOLATILE(SStatus, XASUFW_FAILURE);
 	XFih_Var XFihVar = XFih_VolatileAssignXfihVar(XFIH_FAILURE);
-	u8 *InData = XRsa_GetDataBlockAddr();
+	u8 *InData = (u8 *)(UINTPTR)XASUFW_CRYPTO_ALGO_DATA_BLOCK;
 	XAsu_RsaCrtKeyComp *KeyPtr = (XAsu_RsaCrtKeyComp *)(InData + XRSA_MAX_KEY_SIZE_IN_BYTES);
 	u8 *PubExpoArr = (u8 *)KeyPtr + sizeof(XAsu_RsaCrtKeyComp);
 	u8 *OutData = PubExpoArr + XRSA_MAX_KEY_SIZE_IN_BYTES;
@@ -367,7 +372,7 @@ s32 XRsa_PvtExp(XAsufw_Dma *DmaPtr, const XAsu_RsaParams *RsaParamsPtr, u64 KeyP
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
 	CREATE_VOLATILE(SStatus, XASUFW_FAILURE);
 	XFih_Var XFihVar = XFih_VolatileAssignXfihVar(XFIH_FAILURE);
-	u8 *InData = XRsa_GetDataBlockAddr();
+	u8 *InData = (u8 *)(UINTPTR)XASUFW_CRYPTO_ALGO_DATA_BLOCK;
 	XAsu_RsaPvtKeyComp *KeyPtr = (XAsu_RsaPvtKeyComp *)(InData + XRSA_MAX_KEY_SIZE_IN_BYTES);
 	u8 *RRN = (u8 *)KeyPtr + sizeof(XAsu_RsaPvtKeyComp);
 	u8 *RN = RRN + XRSA_MAX_KEY_SIZE_IN_BYTES;
@@ -672,7 +677,7 @@ s32 XRsa_PubExp(XAsufw_Dma *DmaPtr, const XAsu_RsaParams *RsaParamsPtr, u64 KeyP
 
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
 	CREATE_VOLATILE(SStatus, XASUFW_FAILURE);
-	u8 *InData = XRsa_GetDataBlockAddr();
+	u8 *InData = (u8 *)(UINTPTR)XASUFW_CRYPTO_ALGO_DATA_BLOCK;
 	XAsu_RsaPubKeyComp *KeyPtr = (XAsu_RsaPubKeyComp *)(InData + XRSA_MAX_KEY_SIZE_IN_BYTES);
 	u8 *RRN = (u8 *)KeyPtr + sizeof(XAsu_RsaPubKeyComp);
 	u8 *PubExpoArr = RRN + XRSA_MAX_KEY_SIZE_IN_BYTES;
@@ -855,22 +860,6 @@ END:
 	XAsufw_CryptoCoreSetReset(XASU_RSA_BASEADDR, XRSA_RESET_REG_OFFSET);
 
 	return Status;
-}
-
-/*************************************************************************************************/
-/**
- * @brief	This function is used to get RSA data block address.
- *
- * @return
- *		- Address of the data block.
- *
- *************************************************************************************************/
-u8 *XRsa_GetDataBlockAddr(void)
-{
-	/* RSA data block memory allocated in ASU RAM. */
-	static u8  Rsa_Data[XRSA_MAX_PARAM_SIZE_IN_BYTES] __attribute__ ((section (".rsa_data_block")));
-
-	return Rsa_Data;
 }
 
 /*************************************************************************************************/
@@ -1058,14 +1047,15 @@ END:
 s32 XRsa_GenerateKeyPair(u8 *OutBuf, u32 OutBufSize)
 {
 	/** Public exponent buffer for key generation (must be full-key-size). */
-	static u32 RsaKeyGenPubExpBuf[XRSA_MAX_KEY_SIZE_IN_BYTES / XASUFW_WORD_LEN_IN_BYTES];
+	static XASUFW_OVERLAY_PERSISTENT_DATA u32
+		RsaKeyGenPubExpBuf[XRSA_MAX_KEY_SIZE_IN_BYTES / XASUFW_WORD_LEN_IN_BYTES];
 
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
 	CREATE_VOLATILE(SStatus, XASUFW_FAILURE);
 	XFih_Var XFihVar = XFih_VolatileAssignXfihVar(XFIH_FAILURE);
-	static XRsa_KeyGenState KeyGenState = XRSA_KEY_GEN_INIT_STATE;
-	static XRsa_KeyPtr KeyPairState;
-	static u8 *KeyGenBufAddr = NULL;
+	static XASUFW_OVERLAY_PERSISTENT_DATA XRsa_KeyGenState KeyGenState = XRSA_KEY_GEN_INIT_STATE;
+	static XASUFW_OVERLAY_PERSISTENT_DATA XRsa_KeyPtr KeyPairState;
+	static XASUFW_OVERLAY_PERSISTENT_DATA u8 *KeyGenBufAddr = NULL;
 	u8 *ModulusPtr = OutBuf;
 	u8 *PvtExpPtr = ModulusPtr + XRSA_MAX_KEY_SIZE_IN_BYTES;
 	u8 *PrimePPtr = PvtExpPtr + XRSA_MAX_KEY_SIZE_IN_BYTES;
@@ -1089,7 +1079,6 @@ s32 XRsa_GenerateKeyPair(u8 *OutBuf, u32 OutBufSize)
 	 */
 	if ((KeyGenState != XRSA_KEY_GEN_INIT_STATE) && (OutBuf != KeyGenBufAddr)) {
 		KeyGenState = XRSA_KEY_GEN_INIT_STATE;
-		KeyGenBufAddr = NULL;
 		Status = XASUFW_RSA_INVALID_PARAM;
 		goto END;
 	}
@@ -1185,7 +1174,7 @@ s32 XRsa_GenerateKeyPair(u8 *OutBuf, u32 OutBufSize)
 		 * then comparing the result with the original message.
 		 * Keys are still in LE format from the library at this point.
 		 */
-		PwctMsg = XRsa_GetDataBlockAddr();
+		PwctMsg = (u8 *)(UINTPTR)XASUFW_CRYPTO_ALGO_DATA_BLOCK;
 		PwctEnc = PwctMsg + XRSA_MAX_KEY_SIZE_IN_BYTES;
 		PwctDec = PwctEnc + XRSA_MAX_KEY_SIZE_IN_BYTES;
 
@@ -1284,7 +1273,6 @@ s32 XRsa_GenerateKeyPair(u8 *OutBuf, u32 OutBufSize)
 
 		/** Reset state for next key generation. */
 		KeyGenState = XRSA_KEY_GEN_INIT_STATE;
-		KeyGenBufAddr = NULL;
 
 		/**
 		 * Measure and print the performance time for the RSA key pair generation
@@ -1295,7 +1283,7 @@ s32 XRsa_GenerateKeyPair(u8 *OutBuf, u32 OutBufSize)
 
 END:
 	/**
-	 * Securely zeroize key generation buffer unless in STEP_STATE,
+	 * Securely zeroize key generation buffer and clear KeyPairState unless in STEP_STATE,
 	 * where intermediate key data must persist for the next invocation.
 	 */
 	if (KeyGenState != XRSA_KEY_GEN_STEP_STATE) {
@@ -1304,6 +1292,10 @@ END:
 						XRSA_MAX_PARAM_SIZE_IN_BYTES);
 			Status = XAsufw_UpdateBufStatus(Status, SStatus);
 		}
+		SStatus = Xil_SMemSet(&KeyPairState, sizeof(KeyPairState), 0U,
+				      sizeof(KeyPairState));
+		Status = XAsufw_UpdateBufStatus(Status, SStatus);
+		KeyGenBufAddr = NULL;
 	}
 
 	return Status;

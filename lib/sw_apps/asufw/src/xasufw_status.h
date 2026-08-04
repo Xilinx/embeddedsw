@@ -122,7 +122,7 @@ enum {
 	/* Termination code errors 0x21U to 0x2CU are reserved for errors returning from core */
 	XASUFW_ECC_INVALID_PARAM = 0x2DU, /**< 0x2DU - Invalid parameters to ECC APIs*/
 	XASUFW_ECC_INIT_NOT_DONE, /**< 0x2EU - ECC is not initialized */
-	XASUFW_ECC_INIT_FAILED, /**< 0x2FU - ECC initialization failed */
+	XASUFW_ERR_RESERVED_2F, /**< 0x2FU - Reserved */
 	XASUFW_ECC_GEN_PUB_KEY_OPERATION_FAIL, /**< 0x30U - When ECC Generate public key operation
 						fails */
 	XASUFW_ECC_VALIDATE_PUB_KEY_OPERATION_FAIL, /**< 0x31U - When ECC validate public key
@@ -754,6 +754,11 @@ enum {
 						are invalid */
 	XASUFW_AES_GET_CONTEXT_FAIL, /**< 0x21EU - Error when AES get context operation fails. */
 	XASUFW_ERR_KEYWRAP_NOT_ENABLED, /**< 0x21FU - Error when keywrap feature is not enabled. */
+	XASUFW_OVERLAY_ALGO_NOT_FOUND, /**< 0x220U - Overlay algorithm not found in catalog */
+	XASUFW_OVERLAY_HEADER_INVALID, /**< 0x221U - Overlay image header validation failed */
+	XASUFW_OVERLAY_ACTIVATE_FAIL, /**< 0x222U - Overlay activation failed */
+	XASUFW_OVERLAY_SWITCH_FAIL, /**< 0x223U - Overlay switch failed */
+	XASUFW_OVERLAY_ON_LOAD_FAIL, /**< 0x224U - Overlay on-load hook failed */
 
 	/* Additional status success codes */
 	XASUFW_OCP_CERT_GENERATION_SUCCESS = 0x3F7U, /**< 0x3F7U - OCP certificate generation

@@ -131,6 +131,7 @@ add_subdirectory(x509)
 add_subdirectory(ocp)
 add_subdirectory(keymanager)
 add_subdirectory(lms)
+add_subdirectory(overlay)
 
 if (CMAKE_EXPORT_COMPILE_COMMANDS AND
     (NOT ${YOCTO}))
@@ -148,6 +149,33 @@ string(APPEND CMAKE_C_FLAGS ${ASUFW_COMPILE_OPTIONS})
 string(APPEND CMAKE_CXX_FLAGS ${ASUFW_COMPILE_OPTIONS})
 string(APPEND CMAKE_C_LINK_FLAGS ${ASUFW_LINK_OPTIONS})
 string(APPEND CMAKE_CXX_LINK_FLAGS ${ASUFW_LINK_OPTIONS})
+
+# These driver translation units are relocated into the DDR-backed overlay
+# sections by the OVERLAY blocks in lscript.ld.
+# Compile them with:
+#   -fno-lto : keep each a distinct object with real, linker-selectable
+#              machine-code sections. LTO would merge them into the combined
+#              image and defeat the per-object section placement.
+#   -msmall-data-limit=0 : disable the small-data area for these objects. Their
+#              .text sits in the IRAM overlay window while their data
+#              (.rodata/.data/.bss) sits in the far data RAM overlay window.
+#              gp-relative small-data addressing assumes data sits within +/-2KB
+#              of __global_pointer$, which is not true across the overlay
+#              windows, so it must be disabled to force absolute/PC-relative
+#              data references.
+set(ASUFW_OVERLAY_SOURCES
+	${CMAKE_CURRENT_SOURCE_DIR}/ecc/xecc.c
+	${CMAKE_CURRENT_SOURCE_DIR}/rsa_ecc/xrsa.c
+	${CMAKE_CURRENT_SOURCE_DIR}/rsa_ecc/xrsa_ecc.c
+	${CMAKE_CURRENT_SOURCE_DIR}/rsa_ecc/xrsa_eccinfo.c
+	${CMAKE_CURRENT_SOURCE_DIR}/rsa_ecc/xrsa_padding.c
+	${CMAKE_CURRENT_SOURCE_DIR}/lms/xlms.c
+	${CMAKE_CURRENT_SOURCE_DIR}/lms/xlms_core.c
+	${CMAKE_CURRENT_SOURCE_DIR}/lms/xlms_ots.c
+	${CMAKE_CURRENT_SOURCE_DIR}/ecies/xecies.c
+	${CMAKE_CURRENT_SOURCE_DIR}/overlay/xoverlay_sections.c)
+set_source_files_properties(${ASUFW_OVERLAY_SOURCES} PROPERTIES COMPILE_OPTIONS "-fno-lto;-msmall-data-limit=0")
+
 add_dependency_on_bsp(_sources)
 add_executable(${APP_NAME}.elf ${_sources})
 string (REPLACE ";" ",-l" _deps "${_deps}")

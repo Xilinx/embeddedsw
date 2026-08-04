@@ -37,6 +37,8 @@
 #include "xasufw_aeshandler.h"
 #include "xasu_sharedmem.h"
 #include "xil_sutil.h"
+#include "xoverlay.h"
+#include "xasufw_memory.h"
 
 #ifdef XASU_KEYWRAP_ENABLE
 /************************************ Function Prototypes ****************************************/
@@ -83,19 +85,19 @@ s32 XAsufw_KeyWrapInit(void)
 	static XAsufw_ResourcesRequired XAsufw_KeyWrapResourcesBuf[XASU_KEYWRAP_MAX_CMDS] = {
 		[XASU_KEYWRAP_KEY_WRAP_SHA2_CMD_ID] = XASUFW_DMA_RESOURCE_MASK | XASUFW_KEYWRAP_RESOURCE_MASK
 		| XASUFW_SHA2_RESOURCE_MASK | XASUFW_AES_RESOURCE_MASK | XASUFW_TRNG_RESOURCE_MASK
-		| XASUFW_TRNG_RANDOM_BYTES_MASK | XASUFW_RSA_RESOURCE_MASK,
+		| XASUFW_TRNG_RANDOM_BYTES_MASK | XASUFW_RSA_RESOURCE_MASK | XASUFW_OVERLAY_RESOURCE_MASK,
 		[XASU_KEYWRAP_KEY_WRAP_SHA3_CMD_ID] = XASUFW_DMA_RESOURCE_MASK | XASUFW_KEYWRAP_RESOURCE_MASK
 		| XASUFW_SHA3_RESOURCE_MASK | XASUFW_AES_RESOURCE_MASK | XASUFW_TRNG_RESOURCE_MASK
-		| XASUFW_TRNG_RANDOM_BYTES_MASK | XASUFW_RSA_RESOURCE_MASK,
+		| XASUFW_TRNG_RANDOM_BYTES_MASK | XASUFW_RSA_RESOURCE_MASK | XASUFW_OVERLAY_RESOURCE_MASK,
 		[XASU_KEYWRAP_KEY_UNWRAP_SHA2_CMD_ID] = XASUFW_DMA_RESOURCE_MASK | XASUFW_KEYWRAP_RESOURCE_MASK
 		| XASUFW_SHA2_RESOURCE_MASK | XASUFW_AES_RESOURCE_MASK | XASUFW_TRNG_RESOURCE_MASK
-		| XASUFW_TRNG_RANDOM_BYTES_MASK | XASUFW_RSA_RESOURCE_MASK,
+		| XASUFW_TRNG_RANDOM_BYTES_MASK | XASUFW_RSA_RESOURCE_MASK | XASUFW_OVERLAY_RESOURCE_MASK,
 		[XASU_KEYWRAP_KEY_UNWRAP_SHA3_CMD_ID] = XASUFW_DMA_RESOURCE_MASK | XASUFW_KEYWRAP_RESOURCE_MASK
 		| XASUFW_SHA3_RESOURCE_MASK | XASUFW_AES_RESOURCE_MASK | XASUFW_TRNG_RESOURCE_MASK
-		| XASUFW_TRNG_RANDOM_BYTES_MASK | XASUFW_RSA_RESOURCE_MASK,
+		| XASUFW_TRNG_RANDOM_BYTES_MASK | XASUFW_RSA_RESOURCE_MASK | XASUFW_OVERLAY_RESOURCE_MASK,
 		[XASU_KEYWRAP_KAT_CMD_ID] = XASUFW_DMA_RESOURCE_MASK | XASUFW_KEYWRAP_RESOURCE_MASK
 		| XASUFW_SHA2_RESOURCE_MASK | XASUFW_AES_RESOURCE_MASK | XASUFW_TRNG_RESOURCE_MASK
-		| XASUFW_TRNG_RANDOM_BYTES_MASK | XASUFW_RSA_RESOURCE_MASK,
+		| XASUFW_TRNG_RANDOM_BYTES_MASK | XASUFW_RSA_RESOURCE_MASK | XASUFW_OVERLAY_RESOURCE_MASK,
 	};
 
 	/** The XAsufw_KeyWrapAccessPermBuf contains the IPI access permissions for each supported command. */
@@ -136,6 +138,8 @@ s32 XAsufw_KeyWrapInit(void)
  * @return
  * 	- XASUFW_SUCCESS, if resource allocation is successful.
  * 	- XASUFW_DMA_RESOURCE_ALLOCATION_FAILED, if DMA resource allocation fails.
+ * 	- XASUFW_OVERLAY_ACTIVATE_FAIL, if overlay activation fails.
+ * 	- XASUFW_RESOURCE_RELEASE_NOT_ALLOWED, if releasing the resource fails.
  *
  *************************************************************************************************/
 static s32 XAsufw_KeyWrapResourceHandler(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
@@ -166,6 +170,9 @@ static s32 XAsufw_KeyWrapResourceHandler(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	/** Allocate Key wrap resource. */
 	XAsufw_AllocateResource(XASUFW_KEYWRAP, XASUFW_KEYWRAP, ReqId);
 
+	/** Allocate overlay resource. */
+	XAsufw_AllocateResource(XASUFW_OVERLAY, XASUFW_KEYWRAP, ReqId);
+
 	/** Allocate TRNG resource. */
 	XAsufw_AllocateResource(XASUFW_TRNG, XASUFW_KEYWRAP, ReqId);
 
@@ -181,7 +188,15 @@ static s32 XAsufw_KeyWrapResourceHandler(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 		/* Do nothing */
 	}
 
-	Status = XASUFW_SUCCESS;
+	/** Activate RSA-ECC overlay. */
+	Status = XOverlay_Activate(XOVERLAY_ALGO_RSA_ECC, XAsufw_KeyWrapModule.AsuDmaPtr);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_OVERLAY_ACTIVATE_FAIL);
+		if (XAsufw_ReleaseResource(XASUFW_KEYWRAP, ReqId) != XASUFW_SUCCESS) {
+			Status = XAsufw_UpdateErrorStatus(Status,
+							  XASUFW_RESOURCE_RELEASE_NOT_ALLOWED);
+		}
+	}
 
 END:
 	return Status;
@@ -233,7 +248,7 @@ static s32 XAsufw_KeyWrap(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 
 	/** Resolve RSA public key from vault if key ID is provided. */
 	if (KeyWrapParams.RsaKeyId != 0U) {
-		KeyWrapParams.KeyCompAddr = (u64)(UINTPTR)(XRsa_GetDataBlockAddr() +
+		KeyWrapParams.KeyCompAddr = (u64)(UINTPTR)(XASUFW_CRYPTO_ALGO_DATA_BLOCK +
 						XRSA_MAX_KEY_SIZE_IN_BYTES);
 
 		Status = XKeyManager_UpdateKeyObjFromVault(XAsufw_KeyWrapModule.AsuDmaPtr,
@@ -336,7 +351,7 @@ static s32 XAsufw_KeyUnwrap(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 
 	/** Resolve RSA private key from vault if key ID is provided. */
 	if (KeyWrapParams.RsaKeyId != 0U) {
-		KeyWrapParams.KeyCompAddr = (u64)(UINTPTR)(XRsa_GetDataBlockAddr() +
+		KeyWrapParams.KeyCompAddr = (u64)(UINTPTR)(XASUFW_CRYPTO_ALGO_DATA_BLOCK +
 						XRSA_MAX_KEY_SIZE_IN_BYTES);
 
 		Status = XKeyManager_UpdateKeyObjFromVault(XAsufw_KeyWrapModule.AsuDmaPtr,

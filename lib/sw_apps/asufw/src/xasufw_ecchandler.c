@@ -40,6 +40,7 @@
 #include "xasufw_kat.h"
 #include "xrsa_ecc.h"
 #include "xecc.h"
+#include "xoverlay.h"
 #include "xasu_eccinfo.h"
 #include "xasufw_trnghandler.h"
 #include "xfih.h"
@@ -74,13 +75,11 @@ static XAsufw_Module XAsufw_EccModule; /**< ASUFW ECC Module ID and commands arr
  * @return
  * 	- XASUFW_SUCCESS, if ECC module initialization is successful.
  * 	- XASUFW_ECC_MODULE_REGISTRATION_FAILED, if ECC module registration fails.
- * 	- XASUFW_ECC_INIT_FAILED, if ECC init fails.
  *
  *************************************************************************************************/
 s32 XAsufw_EccInit(void)
 {
 	s32 Status = XASUFW_FAILURE;
-	XEcc *XAsufw_Ecc = XEcc_GetInstance(XASU_XECC_0_DEVICE_ID);
 
 	/** The XAsufw_EccCmds array contains the list of commands supported by ECC module. */
 	static const XAsufw_ModuleCmd XAsufw_EccCmds[XASU_ECC_MAX_CMDS] = {
@@ -106,20 +105,25 @@ s32 XAsufw_EccInit(void)
 	 */
 	static XAsufw_ResourcesRequired XAsufw_EccResourcesBuf[XASU_ECC_MAX_CMDS] = {
 		[XASU_ECC_GEN_SIGNATURE_CMD_ID] = XASUFW_DMA_RESOURCE_MASK | XASUFW_ECC_RESOURCE_MASK |
-		XASUFW_TRNG_RESOURCE_MASK | XASUFW_TRNG_RANDOM_BYTES_MASK | XASUFW_RSA_SHA_RESOURCE_MASK,
+		XASUFW_TRNG_RESOURCE_MASK | XASUFW_TRNG_RANDOM_BYTES_MASK | XASUFW_RSA_SHA_RESOURCE_MASK |
+		XASUFW_OVERLAY_RESOURCE_MASK,
 		[XASU_ECC_VERIFY_SIGNATURE_CMD_ID] = XASUFW_DMA_RESOURCE_MASK | XASUFW_ECC_RESOURCE_MASK |
-		XASUFW_TRNG_RESOURCE_MASK | XASUFW_TRNG_RANDOM_BYTES_MASK | XASUFW_RSA_SHA_RESOURCE_MASK,
+		XASUFW_TRNG_RESOURCE_MASK | XASUFW_TRNG_RANDOM_BYTES_MASK | XASUFW_RSA_SHA_RESOURCE_MASK |
+		XASUFW_OVERLAY_RESOURCE_MASK,
 		[XASU_ECC_KAT_CMD_ID] = XASUFW_DMA_RESOURCE_MASK | XASUFW_ECC_RESOURCE_MASK |
-		XASUFW_RSA_RESOURCE_MASK | XASUFW_TRNG_RESOURCE_MASK | XASUFW_TRNG_RANDOM_BYTES_MASK,
+		XASUFW_RSA_RESOURCE_MASK | XASUFW_TRNG_RESOURCE_MASK | XASUFW_TRNG_RANDOM_BYTES_MASK |
+		XASUFW_OVERLAY_RESOURCE_MASK,
 		[XASU_ECDH_SHARED_SECRET_CMD_ID] = XASUFW_DMA_RESOURCE_MASK | XASUFW_RSA_RESOURCE_MASK |
-		XASUFW_TRNG_RESOURCE_MASK | XASUFW_TRNG_RANDOM_BYTES_MASK,
+		XASUFW_TRNG_RESOURCE_MASK | XASUFW_TRNG_RANDOM_BYTES_MASK | XASUFW_OVERLAY_RESOURCE_MASK,
 		[XASU_ECDH_KAT_CMD_ID] = XASUFW_DMA_RESOURCE_MASK | XASUFW_RSA_RESOURCE_MASK |
-		XASUFW_TRNG_RESOURCE_MASK | XASUFW_TRNG_RANDOM_BYTES_MASK,
+		XASUFW_TRNG_RESOURCE_MASK | XASUFW_TRNG_RANDOM_BYTES_MASK | XASUFW_OVERLAY_RESOURCE_MASK,
 		[XASU_ECC_GEN_PUBKEY_CMD_ID] = XASUFW_DMA_RESOURCE_MASK | XASUFW_ECC_RESOURCE_MASK |
-		XASUFW_TRNG_RESOURCE_MASK | XASUFW_TRNG_RANDOM_BYTES_MASK | XASUFW_RSA_SHA_RESOURCE_MASK,
+		XASUFW_TRNG_RESOURCE_MASK | XASUFW_TRNG_RANDOM_BYTES_MASK | XASUFW_RSA_SHA_RESOURCE_MASK |
+		XASUFW_OVERLAY_RESOURCE_MASK,
 #ifdef XASU_ENABLE_CAVP_SUPPORT
 		[XASU_ECC_VAL_PUBKEY_CMD_ID] = XASUFW_DMA_RESOURCE_MASK | XASUFW_ECC_RESOURCE_MASK |
-		XASUFW_TRNG_RESOURCE_MASK | XASUFW_TRNG_RANDOM_BYTES_MASK | XASUFW_RSA_SHA_RESOURCE_MASK,
+		XASUFW_TRNG_RESOURCE_MASK | XASUFW_TRNG_RANDOM_BYTES_MASK | XASUFW_RSA_SHA_RESOURCE_MASK |
+		XASUFW_OVERLAY_RESOURCE_MASK,
 #endif /* XASU_ENABLE_CAVP_SUPPORT */
 	};
 
@@ -153,12 +157,6 @@ s32 XAsufw_EccInit(void)
 		goto END;
 	}
 
-	/** Initialize the ECC crypto engine. */
-	Status = XEcc_Initialize(XAsufw_Ecc);
-	if (Status != XASUFW_SUCCESS) {
-		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_ECC_INIT_FAILED);
-	}
-
 END:
 	return Status;
 }
@@ -173,6 +171,8 @@ END:
  * @return
  * 	- XASUFW_SUCCESS, if resource allocation is successful.
  * 	- XASUFW_DMA_RESOURCE_ALLOCATION_FAILED, if DMA resource allocation fails.
+ * 	- XASUFW_OVERLAY_ACTIVATE_FAIL, if overlay activation fails.
+ * 	- XASUFW_RESOURCE_RELEASE_NOT_ALLOWED, if releasing the resource fails.
  * 	- XASUFW_RESOURCE_INVALID, if an invalid resource is requested.
  *
  *************************************************************************************************/
@@ -195,11 +195,20 @@ static s32 XAsufw_EccResourceHandler(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	}
 	XAsufw_AllocateResource(ResourceId, ResourceId, ReqId);
 	XAsufw_AllocateResource(XASUFW_TRNG, ResourceId, ReqId);
+	XAsufw_AllocateResource(XASUFW_OVERLAY, ResourceId, ReqId);
 	if (CmdId == XASU_ECC_KAT_CMD_ID) {
 		XAsufw_AllocateResource(XASUFW_RSA, ResourceId, ReqId);
 	}
 
-	Status = XASUFW_SUCCESS;
+	/** Activate RSA-ECC overlay. */
+	Status = XOverlay_Activate(XOVERLAY_ALGO_RSA_ECC, XAsufw_EccModule.AsuDmaPtr);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_OVERLAY_ACTIVATE_FAIL);
+		if (XAsufw_ReleaseResource(ResourceId, ReqId) != XASUFW_SUCCESS) {
+			Status = XAsufw_UpdateErrorStatus(Status,
+							  XASUFW_RESOURCE_RELEASE_NOT_ALLOWED);
+		}
+	}
 
 END:
 	return Status;

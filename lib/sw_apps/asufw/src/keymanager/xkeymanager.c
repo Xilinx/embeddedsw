@@ -907,7 +907,7 @@ s32 XKeyManager_GenerateRsaKeyPair(XAsufw_Dma *DmaPtr, const XAsu_KeyManagerPara
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
 	XFih_Var XFihRsaKey = XFih_VolatileAssignXfihVar(XFIH_FAILURE);
 	s32 ClearStatus = XASUFW_FAILURE;
-	u8 *ModulusArr = XRsa_GetDataBlockAddr();
+	u8 *ModulusArr = (u8 *)(UINTPTR)XASUFW_CRYPTO_ALGO_DATA_BLOCK;
 
 	/** Validate the input parameters. */
 	if ((ParamsPtr == NULL) || (DmaPtr == NULL)) {

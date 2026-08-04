@@ -29,6 +29,7 @@
 /*************************************** Include Files *******************************************/
 #include "xasufw_ecieshandler.h"
 #include "xecies.h"
+#include "xoverlay.h"
 #include "xsha_hw.h"
 #include "xasufw_status.h"
 #include "xasufw_util.h"
@@ -80,19 +81,21 @@ s32 XAsufw_EciesInit(void)
 	static XAsufw_ResourcesRequired XAsufw_EciesResourcesBuf[XASU_ECIES_MAX_CMDS] = {
 		[XASU_ECIES_ENCRYPT_SHA2_CMD_ID] = XASUFW_DMA_RESOURCE_MASK |
 		XASUFW_ECIES_RESOURCE_MASK | XASUFW_SHA2_RESOURCE_MASK | XASUFW_RSA_RESOURCE_MASK |
-		XASUFW_AES_RESOURCE_MASK | XASUFW_TRNG_RESOURCE_MASK | XASUFW_HMAC_RESOURCE_MASK,
+		XASUFW_AES_RESOURCE_MASK | XASUFW_TRNG_RESOURCE_MASK | XASUFW_HMAC_RESOURCE_MASK |
+		XASUFW_OVERLAY_RESOURCE_MASK,
 		[XASU_ECIES_ENCRYPT_SHA3_CMD_ID] = XASUFW_DMA_RESOURCE_MASK |
 		XASUFW_ECIES_RESOURCE_MASK | XASUFW_SHA3_RESOURCE_MASK | XASUFW_RSA_RESOURCE_MASK |
-		XASUFW_AES_RESOURCE_MASK | XASUFW_TRNG_RESOURCE_MASK | XASUFW_HMAC_RESOURCE_MASK,
+		XASUFW_AES_RESOURCE_MASK | XASUFW_TRNG_RESOURCE_MASK | XASUFW_HMAC_RESOURCE_MASK |
+		XASUFW_OVERLAY_RESOURCE_MASK,
 		[XASU_ECIES_DECRYPT_SHA2_CMD_ID] = XASUFW_DMA_RESOURCE_MASK |
 		XASUFW_ECIES_RESOURCE_MASK | XASUFW_SHA2_RESOURCE_MASK | XASUFW_RSA_RESOURCE_MASK |
-		XASUFW_AES_RESOURCE_MASK | XASUFW_HMAC_RESOURCE_MASK,
+		XASUFW_AES_RESOURCE_MASK | XASUFW_HMAC_RESOURCE_MASK | XASUFW_OVERLAY_RESOURCE_MASK,
 		[XASU_ECIES_DECRYPT_SHA3_CMD_ID] = XASUFW_DMA_RESOURCE_MASK |
 		XASUFW_ECIES_RESOURCE_MASK | XASUFW_SHA3_RESOURCE_MASK | XASUFW_RSA_RESOURCE_MASK |
-		XASUFW_AES_RESOURCE_MASK | XASUFW_HMAC_RESOURCE_MASK,
+		XASUFW_AES_RESOURCE_MASK | XASUFW_HMAC_RESOURCE_MASK | XASUFW_OVERLAY_RESOURCE_MASK,
 		[XASU_ECIES_KAT_CMD_ID] = XASUFW_DMA_RESOURCE_MASK | XASUFW_ECIES_RESOURCE_MASK |
 		XASUFW_SHA2_RESOURCE_MASK | XASUFW_RSA_RESOURCE_MASK | XASUFW_AES_RESOURCE_MASK |
-		XASUFW_HMAC_RESOURCE_MASK,
+		XASUFW_HMAC_RESOURCE_MASK | XASUFW_OVERLAY_RESOURCE_MASK,
 	};
 
 	/** The XAsufw_EciesAccessPermBuf contains the IPI access permissions for each supported command. */
@@ -133,6 +136,8 @@ s32 XAsufw_EciesInit(void)
  * @return
  * 	- XASUFW_SUCCESS, if resource allocation is successful.
  * 	- XASUFW_DMA_RESOURCE_ALLOCATION_FAILED, if DMA resource allocation fails.
+ * 	- XASUFW_OVERLAY_ACTIVATE_FAIL, if overlay activation fails.
+ * 	- XASUFW_RESOURCE_RELEASE_NOT_ALLOWED, if releasing the resource fails.
  *
  *************************************************************************************************/
 static s32 XAsufw_EciesResourceHandler(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
@@ -169,12 +174,21 @@ static s32 XAsufw_EciesResourceHandler(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 
 	XAsufw_AllocateResource(XASUFW_ECIES, XASUFW_ECIES, ReqId);
 	XAsufw_AllocateResource(XASUFW_RSA, XASUFW_ECIES, ReqId);
+	XAsufw_AllocateResource(XASUFW_OVERLAY, XASUFW_ECIES, ReqId);
 	XAsufw_AllocateResource(XASUFW_TRNG, XASUFW_ECIES, ReqId);
 	XAsufw_AllocateResource(XASUFW_HMAC, XASUFW_ECIES, ReqId);
 	XAsufw_AllocateResource(ResourceId, XASUFW_ECIES, ReqId);
 	XAsufw_AllocateResource(XASUFW_AES, XASUFW_ECIES, ReqId);
 
-	Status = XASUFW_SUCCESS;
+	/** Activate RSA-ECC overlay. */
+	Status = XOverlay_Activate(XOVERLAY_ALGO_RSA_ECC, XAsufw_EciesModule.AsuDmaPtr);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_OVERLAY_ACTIVATE_FAIL);
+		if (XAsufw_ReleaseResource(XASUFW_ECIES, ReqId) != XASUFW_SUCCESS) {
+			Status = XAsufw_UpdateErrorStatus(Status,
+							  XASUFW_RESOURCE_RELEASE_NOT_ALLOWED);
+		}
+	}
 
 END:
 	return Status;

@@ -35,6 +35,7 @@
 #include "xasufw_util.h"
 #include "xasufw_update.h"
 #include "xocp.h"
+#include "xoverlay.h"
 #include "xsha_hw.h"
 
 /************************************ Constant Definitions ***************************************/
@@ -91,7 +92,8 @@ s32 XAsufw_PlmInit(void)
 #ifdef XASU_OCP_ENABLE
 			[XASU_OCP_GEN_DEV_KEYS_CMD_ID] = XASUFW_DMA_RESOURCE_MASK |
 				XASUFW_TRNG_RESOURCE_MASK | XASUFW_SHA3_RESOURCE_MASK |
-				XASUFW_HMAC_RESOURCE_MASK | XASUFW_RSA_RESOURCE_MASK,
+				XASUFW_HMAC_RESOURCE_MASK | XASUFW_RSA_RESOURCE_MASK |
+				XASUFW_OVERLAY_RESOURCE_MASK,
 #else
 			[XASU_OCP_GEN_DEV_KEYS_CMD_ID] = 0U,
 #endif
@@ -207,6 +209,8 @@ END:
  *	- XASUFW_SUCCESS, if resource is allocated successfully.
  *	- XASUFW_FAILURE, in case of failure.
  *	- XASUFW_DMA_RESOURCE_ALLOCATION_FAILED, if DMA resource allocation is failed.
+ *	- XASUFW_OVERLAY_ACTIVATE_FAIL, if overlay activation fails.
+ *	- XASUFW_RESOURCE_RELEASE_NOT_ALLOWED, if releasing the resource fails.
  *
  *************************************************************************************************/
 static s32 XAsufw_PlmEvtResourceHandler(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
@@ -221,7 +225,12 @@ static s32 XAsufw_PlmEvtResourceHandler(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 		Status = XASUFW_DMA_RESOURCE_ALLOCATION_FAILED;
 		goto END;
 	}
+#endif
 
+	/** Allocate PLM resource. */
+	XAsufw_AllocateResource(XASUFW_PLM, XASUFW_PLM, ReqId);
+
+#ifdef XASU_OCP_ENABLE
 	/** Allocate SHA3 resource which are dependent on SHA3 HW. */
 	XAsufw_AllocateResource(XASUFW_SHA3, XASUFW_PLM, ReqId);
 	XAsufw_PlmEvtModule.ShaPtr = XSha_GetInstance(XASU_XSHA_1_DEVICE_ID);
@@ -234,9 +243,22 @@ static s32 XAsufw_PlmEvtResourceHandler(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 
 	/** Allocate RSA resource. */
 	XAsufw_AllocateResource(XASUFW_RSA, XASUFW_PLM, ReqId);
+
+	/** Allocate overlay resource. */
+	XAsufw_AllocateResource(XASUFW_OVERLAY, XASUFW_PLM, ReqId);
+
+	/** Activate RSA-ECC overlay. */
+	Status = XOverlay_Activate(XOVERLAY_ALGO_RSA_ECC, XAsufw_PlmEvtModule.AsuDmaPtr);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_OVERLAY_ACTIVATE_FAIL);
+		if (XAsufw_ReleaseResource(XASUFW_PLM, ReqId) != XASUFW_SUCCESS) {
+			Status = XAsufw_UpdateErrorStatus(Status,
+							  XASUFW_RESOURCE_RELEASE_NOT_ALLOWED);
+		}
+		goto END;
+	}
+
 #endif
-	/** Allocate PLM resource. */
-	XAsufw_AllocateResource(XASUFW_PLM, XASUFW_PLM, ReqId);
 
 	Status = XASUFW_SUCCESS;
 

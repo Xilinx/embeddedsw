@@ -88,7 +88,6 @@ s32 XRsa_PvtExp(XAsufw_Dma *DmaPtr, const XAsu_RsaParams *RsaParamsPtr, u64 KeyP
 /* RSA Public Operation function */
 s32 XRsa_PubExp(XAsufw_Dma *DmaPtr, const XAsu_RsaParams *RsaParamsPtr, u64 KeyParamAddr,
 		u32 *OutDataLenPtr);
-u8 *XRsa_GetDataBlockAddr(void);
 
 /**
  * RSA key pair generation API.

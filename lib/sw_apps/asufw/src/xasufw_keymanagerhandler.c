@@ -36,6 +36,7 @@
 #include "xasu_def.h"
 #include "xasufw_status.h"
 #include "xasufw_util.h"
+#include "xoverlay.h"
 #include "xasufw_aeshandler.h"
 #include "xasufw_memory.h"
 #include "xasu_sharedmem.h"
@@ -110,10 +111,10 @@ s32 XAsufw_KeyManagerInit(void)
 		XASUFW_DMA_RESOURCE_MASK | XASUFW_TRNG_RESOURCE_MASK | XASUFW_TRNG_RANDOM_BYTES_MASK,
 		[XASU_KM_GEN_RSA_KEY_PAIR_CMD_ID] = XASUFW_KEYMANAGER_RESOURCE_MASK |
 		XASUFW_DMA_RESOURCE_MASK | XASUFW_RSA_RESOURCE_MASK | XASUFW_TRNG_RESOURCE_MASK |
-		XASUFW_TRNG_RANDOM_BYTES_MASK,
+		XASUFW_TRNG_RANDOM_BYTES_MASK | XASUFW_OVERLAY_RESOURCE_MASK,
 		[XASU_KM_GEN_ECC_KEY_PAIR_CMD_ID] = XASUFW_KEYMANAGER_RESOURCE_MASK |
 		XASUFW_DMA_RESOURCE_MASK | XASUFW_RSA_RESOURCE_MASK | XASUFW_TRNG_RESOURCE_MASK |
-		XASUFW_TRNG_RANDOM_BYTES_MASK,
+		XASUFW_TRNG_RANDOM_BYTES_MASK | XASUFW_OVERLAY_RESOURCE_MASK,
 		[XASU_KM_STORE_KEY_CMD_ID] = XASUFW_KEYMANAGER_RESOURCE_MASK |
 		XASUFW_DMA_RESOURCE_MASK | XASUFW_AES_RESOURCE_MASK,
 		[XASU_KM_EXPORT_KEYVAULT_CMD_ID] = XASUFW_KEYMANAGER_RESOURCE_MASK |
@@ -188,6 +189,8 @@ END:
  * @return
  * 	- XASUFW_SUCCESS, if resource allocation is successful.
  * 	- XASUFW_DMA_RESOURCE_ALLOCATION_FAILED, if DMA resource allocation fails.
+ * 	- XASUFW_OVERLAY_ACTIVATE_FAIL, if overlay activation fails.
+ * 	- XASUFW_RESOURCE_RELEASE_NOT_ALLOWED, if releasing the resource fails.
  *
  *************************************************************************************************/
 static s32 XAsufw_KeyManagerResourceHandler(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
@@ -240,6 +243,19 @@ static s32 XAsufw_KeyManagerResourceHandler(const XAsu_ReqBuf *ReqBuf, u32 ReqId
 	if ((CmdId == XASU_KM_GEN_RSA_KEY_PAIR_CMD_ID) || (CmdId == XASU_KM_GEN_ECC_KEY_PAIR_CMD_ID)) {
 		/** Allocate RSA resource. */
 		XAsufw_AllocateResource(XASUFW_RSA, XASUFW_KEYMANAGER, ReqId);
+
+		/** Allocate shared overlay window resource for RSA and ECC key pair generation. */
+		XAsufw_AllocateResource(XASUFW_OVERLAY, XASUFW_KEYMANAGER, ReqId);
+
+		/** Activate RSA-ECC overlay. */
+		Status = XOverlay_Activate(XOVERLAY_ALGO_RSA_ECC, XAsufw_KeyManagerModule.AsuDmaPtr);
+		if (Status != XASUFW_SUCCESS) {
+			Status = XAsufw_UpdateErrorStatus(Status, XASUFW_OVERLAY_ACTIVATE_FAIL);
+			if (XAsufw_ReleaseResource(XASUFW_KEYMANAGER, ReqId) != XASUFW_SUCCESS) {
+				Status = XAsufw_UpdateErrorStatus(Status, XASUFW_RESOURCE_RELEASE_NOT_ALLOWED);
+			}
+			goto END;
+		}
 	}
 
 	if ((CmdId == XASU_KM_STORE_KEY_CMD_ID) || (CmdId == XASU_KM_EXPORT_KEYVAULT_CMD_ID) ||

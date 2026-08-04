@@ -44,9 +44,6 @@ extern "C" {
 /************************************ Constant Definitions ***************************************/
 
 /*************************** Macros (Inline Functions) Definitions *******************************/
-/** Starting from this memory address, 8K of memory is reserved for OCP CDO in the linker script. */
-#define XOCP_CDO_DATA_ADDR		(0xEBE5BC00U)	/**< User data address */
-
 #define XOCP_MAX_USER_OCP_SUBSYS	(6U)	/**< Maximum number of user OCP subsystems */
 #define XOCP_USER_SUBSYS_START_INDEX	(1U)	/**< Start index for OCP subsystem */
 

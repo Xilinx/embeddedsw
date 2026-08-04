@@ -29,6 +29,7 @@
 #include "xasufw_lmshandler.h"
 #include "xlms_core.h"
 #include "xlms.h"
+#include "xoverlay.h"
 #include "xsha.h"
 #include "xsha_hw.h"
 #include "xasufw_status.h"
@@ -89,15 +90,15 @@ s32 XAsufw_LmsInit(void)
 	/** The XAsufw_LmsResourcesBuf contains the required resources for each supported command. */
 	static XAsufw_ResourcesRequired XAsufw_LmsResourcesBuf[XASU_LMS_MAX_CMDS] = {
 		[XASU_LMS_SIGN_VERIFY_SHA2_CMD_ID] = XASUFW_DMA_RESOURCE_MASK |
-		XASUFW_LMS_RESOURCE_MASK | XASUFW_SHA2_RESOURCE_MASK,
+		XASUFW_LMS_RESOURCE_MASK | XASUFW_SHA2_RESOURCE_MASK | XASUFW_OVERLAY_RESOURCE_MASK,
 		[XASU_LMS_SIGN_VERIFY_SHA3_CMD_ID] = XASUFW_DMA_RESOURCE_MASK |
-		XASUFW_LMS_RESOURCE_MASK | XASUFW_SHA3_RESOURCE_MASK,
+		XASUFW_LMS_RESOURCE_MASK | XASUFW_SHA3_RESOURCE_MASK | XASUFW_OVERLAY_RESOURCE_MASK,
 		[XASU_HSS_SIGN_VERIFY_SHA2_CMD_ID] = XASUFW_DMA_RESOURCE_MASK |
-		XASUFW_LMS_RESOURCE_MASK | XASUFW_SHA2_RESOURCE_MASK,
+		XASUFW_LMS_RESOURCE_MASK | XASUFW_SHA2_RESOURCE_MASK | XASUFW_OVERLAY_RESOURCE_MASK,
 		[XASU_HSS_SIGN_VERIFY_SHA3_CMD_ID] = XASUFW_DMA_RESOURCE_MASK |
-		XASUFW_LMS_RESOURCE_MASK | XASUFW_SHA3_RESOURCE_MASK,
+		XASUFW_LMS_RESOURCE_MASK | XASUFW_SHA3_RESOURCE_MASK | XASUFW_OVERLAY_RESOURCE_MASK,
 		[XASU_HSS_KAT_CMD_ID] = XASUFW_DMA_RESOURCE_MASK |
-		XASUFW_LMS_RESOURCE_MASK | XASUFW_SHA3_RESOURCE_MASK,
+		XASUFW_LMS_RESOURCE_MASK | XASUFW_SHA3_RESOURCE_MASK | XASUFW_OVERLAY_RESOURCE_MASK,
 	};
 
 	/** The XAsufw_LmsAccessPermBuf contains the IPI access permissions for each supported command. */
@@ -138,6 +139,8 @@ s32 XAsufw_LmsInit(void)
  * @return
  * 	- XASUFW_SUCCESS, if resource allocation is successful.
  * 	- XASUFW_DMA_RESOURCE_ALLOCATION_FAILED, if DMA resource allocation fails.
+ * 	- XASUFW_OVERLAY_ACTIVATE_FAIL, if overlay activation fails.
+ * 	- XASUFW_RESOURCE_RELEASE_NOT_ALLOWED, if releasing the resource fails.
  *
  *************************************************************************************************/
 static s32 XAsufw_LmsResourceHandler(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
@@ -156,6 +159,9 @@ static s32 XAsufw_LmsResourceHandler(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	/** Allocate LMS resource. */
 	XAsufw_AllocateResource(XASUFW_LMS, XASUFW_LMS, ReqId);
 
+	/** Allocate overlay resource. */
+	XAsufw_AllocateResource(XASUFW_OVERLAY, XASUFW_LMS, ReqId);
+
 	/** Allocate SHA2/SHA3 resource for commands which are dependent on SHA2/SHA3 HW. */
 	if ((ReqResources & XASUFW_SHA2_RESOURCE_MASK) == XASUFW_SHA2_RESOURCE_MASK) {
 		XAsufw_AllocateResource(XASUFW_SHA2, XASUFW_LMS, ReqId);
@@ -167,7 +173,15 @@ static s32 XAsufw_LmsResourceHandler(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 		/* Do nothing */
 	}
 
-	Status = XASUFW_SUCCESS;
+	/** Activate LMS overlay. */
+	Status = XOverlay_Activate(XOVERLAY_ALGO_LMS, XAsufw_LmsModule.AsuDmaPtr);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_OVERLAY_ACTIVATE_FAIL);
+		if (XAsufw_ReleaseResource(XASUFW_LMS, ReqId) != XASUFW_SUCCESS) {
+			Status = XAsufw_UpdateErrorStatus(Status,
+							  XASUFW_RESOURCE_RELEASE_NOT_ALLOWED);
+		}
+	}
 
 END:
 	return Status;

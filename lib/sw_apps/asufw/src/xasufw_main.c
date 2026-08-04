@@ -79,6 +79,7 @@
 #include "xasufw_lmshandler.h"
 #include "xocp.h"
 #include "xil_error_node.h"
+#include "xoverlay.h"
 #include "xasufw_update.h"
 
 /************************************ Constant Definitions ***************************************/
@@ -461,6 +462,7 @@ static void XAsufw_SetAsufwPresentBit(void)
  *	- XASUFW_SUCCESS, if device keys are generated successfully.
  *	- XASUFW_FAILURE, in case of failure.
  *	- XASUFW_OCP_GET_EVENT_MASK_FAILED, if getting OCP event is failed.
+ *	- XASUFW_OVERLAY_ACTIVATE_FAIL, if overlay activation fails.
  *
  *************************************************************************************************/
 static s32 XAsufw_RunOcpKeyGeneration(void)
@@ -473,6 +475,14 @@ static s32 XAsufw_RunOcpKeyGeneration(void)
 	Status = XOcp_GetOcpEventMaskFromPlm(&EventMask);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XASUFW_OCP_GET_EVENT_MASK_FAILED;
+		goto END;
+	}
+
+	/** Activate RSA-ECC overlay. */
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	Status = XOverlay_Activate(XOVERLAY_ALGO_RSA_ECC, XOcpAsuDmaPtr);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_OVERLAY_ACTIVATE_FAIL);
 		goto END;
 	}
 
