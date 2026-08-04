@@ -42,9 +42,11 @@
 * 		2. In this example ".data" section elements that are passed by reference to the server-side should
 * 		   be stored in the above shared memory section. To make it happen in below example,
 *		   replace ".data" in attribute section with ".sharedmemory". For example,
-* 		   static const char Sha3Hash[SHA3_HASH_LEN_IN_BYTES] __attribute__ ((section (".data.Sha3Hash")));
+* 		   static char Sha3Hash[SHA3_384_HASH_LEN_IN_BYTES] __attribute__ ((section (".data.Sha3Hash")));
+* 		   static char Sha2Hash[SHA2_256_HASH_LEN_IN_BYTES] __attribute__ ((section (".data.Sha2Hash")));
 * 					should be changed to
-* 		   static const char Sha3Hash[SHA3_HASH_LEN_IN_BYTES] __attribute__ ((section (".sharedmemory.Sha3Hash")));
+* 		   static char Sha3Hash[SHA3_384_HASH_LEN_IN_BYTES] __attribute__ ((section (".sharedmemory.Sha3Hash")));
+* 		   static char Sha2Hash[SHA2_256_HASH_LEN_IN_BYTES] __attribute__ ((section (".sharedmemory.Sha2Hash")));
 *
 * By default the cache is enabled for this example
 *
@@ -54,6 +56,8 @@
 * ----- ------ -------- -------------------------------------------------
 * 5.4	kal   08/22/24 First Release
 * 5.7	sri   04/17/26 Added DCache invalidate for before sending IPI request
+*	rpu   08/04/26 Remove const from Sha3Hash and Sha2Hash output buffers and update shared
+*		       memory comments
 *
 * </pre>
 ******************************************************************************/
@@ -84,8 +88,8 @@ static void SecureSha2PrintHash(const u8 *Hash);
 
 static const char Data[SHA_INPUT_DATA_LEN + 1U] __attribute__ ((section (".data.Data"))) = "XILINX";
 static XSecure_ShaOpParams ShaParams __attribute__ ((section (".data.ShaParams")));
-static const char Sha3Hash[SHA3_384_HASH_LEN_IN_BYTES] __attribute__ ((section (".data.Sha3Hash")));
-static const char Sha2Hash[SHA2_256_HASH_LEN_IN_BYTES] __attribute__ ((section (".data.Sha2Hash")));
+static char Sha3Hash[SHA3_384_HASH_LEN_IN_BYTES] __attribute__ ((section (".data.Sha3Hash")));
+static char Sha2Hash[SHA2_256_HASH_LEN_IN_BYTES] __attribute__ ((section (".data.Sha2Hash")));
 static const u8 ExpSha3Hash[SHA3_384_HASH_LEN_IN_BYTES] = {
 	0x70, 0x69, 0x77, 0x35, 0x0b, 0x93,
 	0x92, 0xa0, 0x48, 0x2c, 0xd8, 0x23,

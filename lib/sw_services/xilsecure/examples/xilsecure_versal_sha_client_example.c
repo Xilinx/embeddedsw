@@ -43,9 +43,9 @@
 * 		2. In this example ".data" section elements that are passed by reference to the server-side should
 * 		   be stored in the above shared memory section. To make it happen in below example,
 *		   replace ".data" in attribute section with ".sharedmemory". For example,
-* 		   static const char Sha3Hash[SHA3_HASH_LEN_IN_BYTES] __attribute__ ((section (".data.Sha3Hash")));
+* 		   static char Sha3Hash[SHA3_HASH_LEN_IN_BYTES] __attribute__ ((section (".data.Sha3Hash")));
 * 					should be changed to
-* 		   static const char Sha3Hash[SHA3_HASH_LEN_IN_BYTES] __attribute__ ((section (".sharedmemory.Sha3Hash")));
+* 		   static char Sha3Hash[SHA3_HASH_LEN_IN_BYTES] __attribute__ ((section (".sharedmemory.Sha3Hash")));
 *
 * By default the cache is enabled for this example
 *
@@ -63,6 +63,7 @@
 *       pre  08/29/24 Added SSIT support
 * 5.6   vss  09/06/25 Updated file name in comments
 * 5.7   mb   01/28/26 Fixed input buffer data truncation on 64-bit address
+*       rpu  08/03/26 Remove const from Sha3Hash output buffer
 *
 * </pre>
 ******************************************************************************/
@@ -92,7 +93,7 @@ static void SecureSha3PrintHash(const u8 *Hash);
 
 static const char Data[SHA3_INPUT_DATA_LEN + 1U] __attribute__ ((section (".data.Data"))) = "XILINX";
 
-static const char Sha3Hash[SHA3_HASH_LEN_IN_BYTES] __attribute__ ((section (".data.Sha3Hash")));
+static char Sha3Hash[SHA3_HASH_LEN_IN_BYTES] __attribute__ ((section (".data.Sha3Hash")));
 
 static const u8 ExpHash[SHA3_HASH_LEN_IN_BYTES] = {
 	0x70, 0x69, 0x77, 0x35, 0x0b, 0x93,

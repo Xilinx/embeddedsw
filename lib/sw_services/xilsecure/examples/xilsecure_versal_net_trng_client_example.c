@@ -43,9 +43,9 @@
 * 		2. In this example ".data" section elements that are passed by reference to the server-side should
 * 		   be stored in the above shared memory section. To make it happen in below example,
 *		   replace ".data" in attribute section with ".sharedmemory". For example,
-* 		   static const char RandBuf[XSECURE_TRNG_SEC_STRENGTH_IN_BYTES] __attribute__ ((section (".data.RandBuf")));
+* 		   static u8 RandBuf[XSECURE_TRNG_SEC_STRENGTH_IN_BYTES] __attribute__ ((section (".data.RandBuf")));
 * 					should be changed to
-* 		   static const char RandBuf[XSECURE_TRNG_SEC_STRENGTH_IN_BYTES] __attribute__ ((section (".sharedmemory.RandBuf")));
+* 		   static u8 RandBuf[XSECURE_TRNG_SEC_STRENGTH_IN_BYTES] __attribute__ ((section (".sharedmemory.RandBuf")));
 *
 * By default the cache is enabled for this example
 *
@@ -59,6 +59,7 @@
 *                       XSecure_TrngGenerareRandNum function call
 *       yog    09/05/23 Added Xil_DCacheInvalidateRange before
 *                       XSecure_TrngPrintRandomNum function call
+*       rpu    08/03/26 Remove const from RandBuf output buffer
 *
 * </pre>
 ******************************************************************************/
@@ -81,7 +82,7 @@ static void XSecure_TrngPrintRandomNum(const u8 *Randnum);
 
 /************************** Variable Definitions *****************************/
 
-static const u8 RandBuf[XSECURE_TRNG_SEC_STRENGTH_IN_BYTES] __attribute__((aligned(64U))) __attribute__((section(".data.RandBuf")));
+static u8 RandBuf[XSECURE_TRNG_SEC_STRENGTH_IN_BYTES] __attribute__((aligned(64U))) __attribute__((section(".data.RandBuf")));
 
 /*****************************************************************************/
 /**
