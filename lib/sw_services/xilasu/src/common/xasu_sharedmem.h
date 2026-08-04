@@ -25,6 +25,7 @@
  *       ma   02/19/25 Updated handling of same priority queue requests in round robin scheduling
  *       ma   02/26/25 Corrected XASU_CHANNEL_RESERVED_MEM define value
  *       rmv  07/30/25 Updated XAsu_CommChannel structure
+ *       vm   07/14/26 Add keep-alive counter RTCA address.
  *
  * </pre>
  *
@@ -98,7 +99,11 @@ extern "C" {
 							size 1 byte */
 
 #define XASU_RTCA_KEYVAULT_CHNL_MAX_SIZE_BASE_ADDR	(XASU_RTCA_BASEADDR + 0x178U)
-						/**< Base address of maximum size of key vault */
+						/**< Key vault channel max size addresses
+						 * allocated from RTCA 0x178 to 0x198 */
+#define XASU_RTCA_KEEP_ALIVE_COUNTER_ADDR		(XASU_RTCA_BASEADDR + 0x19CU)
+						/**< ASUFW keep-alive counter at RTCA 0x19C
+						 * (next slot after 0x198) */
 
 #define XASU_RTCA_KAT_EXEC_STATUS_VALUE		(0x01U)
 						/**< KAT status execution complete value */
