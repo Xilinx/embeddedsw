@@ -58,11 +58,14 @@
 #if defined(__MICROBLAZE__)
   #define DDR_BASEADDR XPAR_MIG_0_BASEADDRESS
 #elif defined(__riscv)
+  #if defined (XPS_BOARD_SCU200)
   #define DDR_BASEADDR XPAR_LPDDRMC_0_BASEADDR
+  #else
+  #define DDR_BASEADDR XPAR_MIG_0_BASEADDRESS
+  #endif
 #else
   #define DDR_BASEADDR XPAR_DDR_MEM_BASEADDR
 #endif
-
 #if defined XPAR_PSU_ACPU_GIC_DEVICE_ID
 #define PS_ACPU_GIC_DEVICE_ID XPAR_PSU_ACPU_GIC_DEVICE_ID
 #elif defined XPAR_SCUGIC_0_DEVICE_ID
