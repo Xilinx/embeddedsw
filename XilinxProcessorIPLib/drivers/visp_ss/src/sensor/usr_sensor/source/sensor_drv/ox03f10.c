@@ -110,6 +110,9 @@ static RESULT Ox03f10_IsiReadRegIss(IsiSensorHandle_t handle, const uint16_t add
 	if (pOx03f10Ctx == NULL)
 		return RET_NULL_POINTER;
 
+	if (pOx03f10Ctx->sensorDevId >= MAX_SENSOR_COUNT)
+		return RET_OUTOFRANGE;
+
 	u8 slave_addr = (g_fmc_single.sensor_array[pOx03f10Ctx->sensorDevId]->sensor_alias_addr) >> 1;
 	result = g_fmc_single.accessiic_array[pOx03f10Ctx->sensorDevId]->readIIC(pOx03f10Ctx->i2cId,
 		 slave_addr, addr, 0x2, pValue, 1);
@@ -129,6 +132,9 @@ static RESULT Ox03f10_IsiWriteRegIss(IsiSensorHandle_t handle, const uint16_t ad
 	Ox03f10_Context_t *pOx03f10Ctx = (Ox03f10_Context_t *) handle;
 	if (pOx03f10Ctx == NULL)
 		return RET_NULL_POINTER;
+
+	if (pOx03f10Ctx->sensorDevId >= MAX_SENSOR_COUNT)
+		return RET_OUTOFRANGE;
 
 	u8 slave_addr = (g_fmc_single.sensor_array[pOx03f10Ctx->sensorDevId]->sensor_alias_addr) >> 1;
 	result = g_fmc_single.accessiic_array[pOx03f10Ctx->sensorDevId]->writeIIC(pOx03f10Ctx->i2cId,
@@ -241,6 +247,12 @@ static RESULT Ox03f10_IsiCreateIss(IsiSensorInstanceConfig_t *pConfig, IsiSensor
 	uint8_t busId = (uint8_t)pOx03f10Ctx->i2cId;
 	pipeId = pOx03f10Ctx->sensorDevId;
 
+	if (pipeId >= IN_PIPE_LAST) {
+		xil_printf("%s: sensor device ID %d is mot support!\n", __func__, pipeId);
+		osFree(pOx03f10Ctx);
+		return RET_UNSUPPORT_ID;
+	}
+
 	*pHandle = (IsiSensorHandle_t) pOx03f10Ctx;
 
 #if 0
@@ -251,10 +263,6 @@ static RESULT Ox03f10_IsiCreateIss(IsiSensorInstanceConfig_t *pConfig, IsiSensor
 	}
 #endif
 
-	if (pipeId >= IN_PIPE_LAST) {
-		xil_printf("%s: sensor device ID %d is mot support!\n", __func__, pipeId);
-		return RET_UNSUPPORT_ID;
-	}
 	desId = MAPPING_INPIPE_TO_DES_ID(pipeId);
 
 	xil_printf("\r\n desId %d pipeId:%d\r\n", desId, pipeId);
@@ -1180,8 +1188,11 @@ static RESULT Ox03f10_IsiGetExpandCurveIss(IsiSensorHandle_t handle,
 				     1572863, 2097151, 3145727, 4194303, 8388607, 12582911, 16777215, 16777215
 				    };
 	float slope[34] = {0};
-	for (int i = 0; i < 34; i++)
+	for (int i = 0; i < 33; i++) {
+		if (expandXValue[i + 1] == expandXValue[i])
+			continue;
 		slope[i] = (expandYValue[i + 1] - expandYValue[i]) / (expandXValue[i + 1] - expandXValue[i]);
+	}
 
 	for (int i = 1; i < 65; i++) {
 		for (int j = 1; j < 34; j++) {
