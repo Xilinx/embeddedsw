@@ -83,7 +83,8 @@ static int IDT_8T49N24x_OutputDividerFractional(void *IicPtr,
 							u8 I2CSlaveAddress, u32 Value, u8 Output);
 static int IDT_8T49N24x_Mode(void *IicPtr, u8 I2CSlaveAddress,
 							u8 Synthesizer);
-static int IDT_8T49N24x_GetIntDivTable(int FOut, int *DivTable, u8 Bypass);
+static int IDT_8T49N24x_GetIntDivTable(int FOut, int *DivTable,
+							int DivTableSize, u8 Bypass);
 static int IDT_8T49N24x_CalculateSettings(int FIn, int FOut,
 							IDT_8T49N24x_Settings* RegSettings);
 static int IDT_8T49N24x_Enable(void *IicPtr, u8 I2CSlaveAddress,
@@ -459,7 +460,8 @@ static int IDT_8T49N24x_CheckDeviceID(void *IicPtr, u8 I2CSlaveAddress)
 }
 
 /* Get valid Integer output divider values */
-static int IDT_8T49N24x_GetIntDivTable(int FOut, int *DivTable, u8 Bypass)
+static int IDT_8T49N24x_GetIntDivTable(int FOut, int *DivTable,
+							int DivTableSize, u8 Bypass)
 {
 	int NS1_Options[4] = {1,4,5,6};
 	int index;
@@ -525,6 +527,13 @@ static int IDT_8T49N24x_GetIntDivTable(int FOut, int *DivTable, u8 Bypass)
 
 			if ((VCOTemp <= IDT_8T49N24X_FVCO_MAX) &&
 			    (VCOTemp >= IDT_8T49N24X_FVCO_MIN)) {
+				/* Caller-supplied DivTable is a fixed-size
+				 * array; stop before writing past its end
+				 * instead of overrunning the caller's stack.
+				 */
+				if (Count >= DivTableSize) {
+					return Count;
+				}
 				*DivTablePtr = OutDivTemp;
 				Count++;
 				DivTablePtr++;
@@ -575,7 +584,8 @@ static int IDT_8T49N24x_CalculateSettings(int FIn, int FOut,
 	int LOS;
 
 	/* Get the valid integer dividers */
-	DivTableCount = IDT_8T49N24x_GetIntDivTable(FOut, DivTable, FALSE);
+	DivTableCount = IDT_8T49N24x_GetIntDivTable(FOut, DivTable,
+					(sizeof(DivTable)/sizeof(DivTable[0])), FALSE);
 
 	/* Find the highest divider */
 	for (int i = 0; i < DivTableCount; i++) {
@@ -799,12 +809,12 @@ int IDT_8T49N24x_SetClock(void *IicPtr, u8 I2CSlaveAddress, int FIn,
 {
 	int Result;
 
-	if ((FIn < IDT_8T49N24X_FIN_MIN) &&
+	if ((FIn < IDT_8T49N24X_FIN_MIN) ||
 	   (FIn > IDT_8T49N24X_FIN_MAX)) {
 		return XST_FAILURE;
 	}
 
-	if ((FOut < IDT_8T49N24X_FOUT_MIN) &&
+	if ((FOut < IDT_8T49N24X_FOUT_MIN) ||
 		(FOut > IDT_8T49N24X_FOUT_MAX)) {
 		return XST_FAILURE;
 	}
