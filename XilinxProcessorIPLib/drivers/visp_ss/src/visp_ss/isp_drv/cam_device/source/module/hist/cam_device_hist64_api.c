@@ -86,7 +86,8 @@ RESULT VsiCamDeviceHist64GetConfig
 	memcpy(p_data, &pCamDevCtx->instanceId, sizeof(uint32_t));
 	packet.payload_size += sizeof(uint32_t);
 	p_data += sizeof(uint32_t);
-	memcpy(p_data, pConfig, sizeof(CamDeviceHist64Config_t));
+	/* Reserve space for the RPU's reply; packet is already zeroed above,
+	 * so no caller-owned (possibly uninitialized) output data is sent. */
 	packet.payload_size += sizeof(CamDeviceHist64Config_t);
 
 	if (packet.payload_size > MAX_ITEM)
@@ -209,7 +210,8 @@ RESULT VsiCamDeviceHist64GetStatistic
 	memcpy(p_data, &pCamDevCtx->instanceId, sizeof(uint32_t));
 	packet.payload_size += sizeof(uint32_t);
 	p_data += sizeof(uint32_t);
-	memcpy(p_data, pHistBins, sizeof(CamDeviceHist64Bins_t));
+	/* Reserve space for the RPU's reply; packet is already zeroed above,
+	 * so no caller-owned (possibly uninitialized) output data is sent. */
 	packet.payload_size += sizeof(CamDeviceHist64Bins_t);
 
 	if (packet.payload_size > MAX_ITEM)
@@ -254,7 +256,8 @@ RESULT VsiCamDeviceHist64GetStatus
 	memcpy(p_data, &pCamDevCtx->instanceId, sizeof(uint32_t));
 	packet.payload_size += sizeof(uint32_t);
 	p_data += sizeof(uint32_t);
-	memcpy(p_data, pStatus, sizeof(CamDeviceHist64Status_t));
+	/* Reserve space for the RPU's reply; packet is already zeroed above,
+	 * so no caller-owned (possibly uninitialized) output data is sent. */
 	packet.payload_size += sizeof(CamDeviceHist64Status_t);
 
 	if (packet.payload_size > MAX_ITEM)
@@ -299,7 +302,8 @@ RESULT VsiCamDeviceHist64GetVersion
 	memcpy(p_data, &pCamDevCtx->instanceId, sizeof(uint32_t));
 	packet.payload_size += sizeof(uint32_t);
 	p_data += sizeof(uint32_t);
-	memcpy(p_data, pVersion, sizeof(uint32_t));
+	/* Reserve space for the RPU's reply; packet is already zeroed above,
+	 * so no caller-owned (possibly uninitialized) output data is sent. */
 	packet.payload_size += sizeof(uint32_t);
 
 	if (packet.payload_size > MAX_ITEM)
