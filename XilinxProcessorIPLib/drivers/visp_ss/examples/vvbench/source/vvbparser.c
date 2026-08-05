@@ -185,13 +185,18 @@ int VsiVvbenchGetPathInfoFromJson
 	}
 	int pathEnable = pJsonPathEnable->valueint;
 	char pathName[FILE_LEN];
-	strcpy(pathName, pJsonPathName->valuestring);
+	strncpy(pathName, pJsonPathName->valuestring, FILE_LEN - 1);
+	pathName[FILE_LEN - 1] = '\0';
 	int bufferNumber = pJsonBufferNumber->valueint;
 
 	if (0 == pathEnable) {
 		LOGW("PATH %s closed", pathName);
 	}
 	CamDeviceBufChainId_t bufPath = VsiVvbenchStrToBuffIo(pathName);
+	if (CAMDEV_BUFCHAIN_MAX <= bufPath) {
+		LOGE("path: %s, unrecognised pathName maps to an invalid buf chain id", pathName);
+		return -1;
+	}
 
 	LOGI("Parse Path Cfg of hardware pipeline: %d, pathId: %d(%s)", pInstanceCfgCtx->hpId, bufPath,
 	     pathName);
@@ -221,7 +226,8 @@ int VsiVvbenchGetPathInfoFromJson
 		cJSON *format = cJSON_GetObjectItem(pJsonInstancePathCfg, "format");
 		if (format) {
 			char formatName[FILE_LEN];
-			strcpy(formatName, format->valuestring);
+			strncpy(formatName, format->valuestring, FILE_LEN - 1);
+			formatName[FILE_LEN - 1] = '\0';
 			int bufferFormat = VsiVvbenchStrToInputFormat(formatName);
 			if (CAMDEV_INPUT_FMT_MAX <= bufferFormat) {
 				LOGW("case list VsiVvbenchStrToInputFormat invalid format error");
@@ -234,7 +240,8 @@ int VsiVvbenchGetPathInfoFromJson
 		cJSON *format = cJSON_GetObjectItem(pJsonInstancePathCfg, "format");
 		if (format) {
 			char formatName[FILE_LEN];
-			strcpy(formatName, format->valuestring);
+			strncpy(formatName, format->valuestring, FILE_LEN - 1);
+			formatName[FILE_LEN - 1] = '\0';
 			int bufferFormat = VsiVvbenchStrToBuffFormat(formatName);
 			if (CAMDEV_PIX_FMT_MAX <= bufferFormat) {
 				LOGW("case list VsiVvbenchStrToBuffFormat invalid format error");
@@ -371,7 +378,8 @@ int VsiVvbenchSwSimuSingleParseConfig
 			}
 			item = cJSON_GetObjectItem(swSimuCfg, "caseName");
 			if (item) {
-				strcpy(caseName, item->valuestring);
+				strncpy(caseName, item->valuestring, FILE_LEN - 1);
+				caseName[FILE_LEN - 1] = '\0';
 				LOGI("caseName: %s", caseName);
 			}
 		}
@@ -497,12 +505,14 @@ int VsiVvbenchParseConfig
 			}
 			item = cJSON_GetObjectItem(swSimuCfg, "swSimuCaselist");
 			if (item) {
-				strcpy(vvdevCtx->swSimuCfg.swSimuCaselist, item->valuestring);
+				strncpy(vvdevCtx->swSimuCfg.swSimuCaselist, item->valuestring, FILE_LEN - 1);
+				vvdevCtx->swSimuCfg.swSimuCaselist[FILE_LEN - 1] = '\0';
 				LOGI("cfgFile: %s", vvdevCtx->swSimuCfg.swSimuCaselist);
 			}
 			item = cJSON_GetObjectItem(swSimuCfg, "caseName");
 			if (item) {
-				strcpy(caseName, item->valuestring);
+				strncpy(caseName, item->valuestring, FILE_LEN - 1);
+				caseName[FILE_LEN - 1] = '\0';
 				LOGI("caseName: %s", caseName);
 			}
 		}
@@ -699,7 +709,10 @@ int VsiVvbenchExecuteList
 
 		for (int i = 0; i < cJSON_GetArraySize(caseLists); ++i) {
 			char caseName[FILE_LEN];
-			strcpy(caseName, cJSON_GetArrayItem(cJSON_GetObjectItem(listRoot, "caseLists"), i)->valuestring);
+			strncpy(caseName,
+				cJSON_GetArrayItem(cJSON_GetObjectItem(listRoot, "caseLists"), i)->valuestring,
+				FILE_LEN - 1);
+			caseName[FILE_LEN - 1] = '\0';
 			LOGI("case %d: %s", i, caseName);
 
 			int failedFlag = 0;
@@ -925,7 +938,7 @@ int VsiVvbenchParseCase
 				return -1;
 			}
 
-			if (MAX_CAM_NUM < instanceId) {
+			if (MAX_CAM_NUM <= instanceId) {
 				LOGE("instanceId error");
 				cJSON_Delete(root);
 				return -1;
@@ -970,7 +983,8 @@ int VsiVvbenchParseCase
 				result = -1;
 			}
 			char bufType[FILE_LEN];
-			strcpy(bufType, cJSON_GetObjectItem(instanceCfg, "bufferType")->valuestring);
+			strncpy(bufType, cJSON_GetObjectItem(instanceCfg, "bufferType")->valuestring, FILE_LEN - 1);
+			bufType[FILE_LEN - 1] = '\0';
 			CamDeviceBufMode_t bufMod = VsiVvbenchStrToBuffMode(bufType);
 			caseCtx->instanceCfgCtx[instanceId].buffMode = bufMod;
 			caseCtx->instanceCfgCtx[instanceId].buffMode = CAMDEV_BUFMODE_USERPTR;
@@ -1810,8 +1824,12 @@ int VsiVvbenchParseTpgInfo
 
 		cJSON *userMode = cJSON_GetObjectItem(tpgInfo, "userMode");
 		if (userMode == NULL || !cJSON_IsObject(userMode)) {
+			/* userMode, when present, is a borrowed pointer still linked into
+			 * the tpgInfo tree -- do not cJSON_Delete() it here, that would
+			 * free a live node out from under the tree and cause a
+			 * double-free when the caller later deletes the root.
+			 */
 			LOGW("userMode is not an object or not found!");
-			cJSON_Delete(userMode);
 		}
 		else {
 			cJSON *arrayH = cJSON_GetObjectItem(userMode, "H");
@@ -1820,6 +1838,20 @@ int VsiVvbenchParseTpgInfo
 			if (cJSON_IsArray(arrayH) && cJSON_IsArray(arrayH)) {
 				int arraySizeH = cJSON_GetArraySize(arrayH);
 				int arraySizeV = cJSON_GetArraySize(arrayV);
+				/* userMode.H/.V are fixed 5-field uint16_t structs; the raw
+				 * pointer-arithmetic writes below must never walk past them.
+				 */
+				int maxUserModeFields = sizeof(tpgCtrl->userMode.H) / sizeof(uint16_t);
+				if (arraySizeH > maxUserModeFields) {
+					LOGW("userMode.H array size %d exceeds %d, clamping", arraySizeH,
+					     maxUserModeFields);
+					arraySizeH = maxUserModeFields;
+				}
+				if (arraySizeV > maxUserModeFields) {
+					LOGW("userMode.V array size %d exceeds %d, clamping", arraySizeV,
+					     maxUserModeFields);
+					arraySizeV = maxUserModeFields;
+				}
 
 				for (int i = 0; i < arraySizeH; i++) {
 					cJSON *valueH = cJSON_GetArrayItem(arrayH, i);
@@ -1889,6 +1921,10 @@ int VsiVvbenchParsePathSwitchInfo
 	cJSON *pathId = cJSON_GetObjectItem(pathSwitch, "pathId");
 	if (cJSON_IsArray(pathId)) {
 		pathSwitchCfg->pathIdLength = cJSON_GetArraySize(pathId);
+		if (pathSwitchCfg->pathIdLength > SWITCH_TIMES) {
+			LOGW("pathId array size %u exceeds SWITCH_TIMES, clamping", pathSwitchCfg->pathIdLength);
+			pathSwitchCfg->pathIdLength = SWITCH_TIMES;
+		}
 
 		for (int i = 0; i < pathSwitchCfg->pathIdLength; i++) {
 			cJSON *pathValue = cJSON_GetArrayItem(pathId, i);
@@ -1910,13 +1946,19 @@ int VsiVvbenchParsePathSwitchInfo
 	cJSON *cropWindowHeight = cJSON_GetObjectItem(pathSwitch, "cropWindowHeight");
 	if ((cropWindowHOffset == NULL) || (cropWindowVOffset == NULL) ||
 	    (cropWindowWidth == NULL) || (cropWindowHeight == NULL)) {
-		cJSON_Delete(cropWindowHOffset);
-		cJSON_Delete(cropWindowVOffset);
-		cJSON_Delete(cropWindowWidth);
-		cJSON_Delete(cropWindowHeight);
+		/* These are borrowed pointers still linked into the "pathSwitch" tree
+		 * (owned by the caller's root document) -- do not cJSON_Delete() them
+		 * here, that would free live siblings out from under the tree and
+		 * cause a double-free when the caller later deletes the root.
+		 */
+		LOGW("pathSwitch cropWindow config incomplete, skip crop window parsing");
 	}
 	else {
 		pathSwitchCfg->cropWindowLength = cJSON_GetArraySize(cropWindowHOffset);
+		if (pathSwitchCfg->cropWindowLength > SWITCH_TIMES) {
+			LOGW("cropWindow array size %u exceeds SWITCH_TIMES, clamping", pathSwitchCfg->cropWindowLength);
+			pathSwitchCfg->cropWindowLength = SWITCH_TIMES;
+		}
 
 		for (int i = 0; i < pathSwitchCfg->cropWindowLength; i++) {
 			cJSON *cropWindowHOffsetValue = cJSON_GetArrayItem(cropWindowHOffset, i);
@@ -2178,7 +2220,8 @@ int VsiVvbenchParseSensorInfo
 
 	cJSON *sensorName = cJSON_GetObjectItem(sensorInfo, "sensorName");
 	if (NULL != sensorName) {
-		strcpy(sensorCfg->sensorName, sensorName->valuestring);
+		strncpy(sensorCfg->sensorName, sensorName->valuestring, FILE_LEN - 1);
+		sensorCfg->sensorName[FILE_LEN - 1] = '\0';
 		// char* ts_name = "virtual_ox03f10";
 		// int i = 0;
 		// for(i = 0; ts_name[i] != '\0'; ++i){
@@ -2195,19 +2238,22 @@ int VsiVvbenchParseSensorInfo
 	}
 	cJSON *calibrationName = cJSON_GetObjectItem(sensorInfo, "calibrationName");
 	if (NULL != calibrationName) {
-		strcpy(sensorCfg->calibrationName, calibrationName->valuestring);
+		strncpy(sensorCfg->calibrationName, calibrationName->valuestring, FILE_LEN - 1);
+		sensorCfg->calibrationName[FILE_LEN - 1] = '\0';
 		LOGI("calibrationName: %s", sensorCfg->calibrationName);
 	}
 
 	cJSON *simulatorName = cJSON_GetObjectItem(sensorInfo, "simulatorName");
 	if (NULL != simulatorName) {
-		strcpy(sensorCfg->simulatorName, simulatorName->valuestring);
+		strncpy(sensorCfg->simulatorName, simulatorName->valuestring, FILE_LEN - 1);
+		sensorCfg->simulatorName[FILE_LEN - 1] = '\0';
 		LOGI("simulatorName: %s", sensorCfg->simulatorName);
 	}
 
 	cJSON *autoSimulatorName = cJSON_GetObjectItem(sensorInfo, "autoSimulatorName");
 	if (NULL != autoSimulatorName) {
-		strcpy(sensorCfg->autoSimulatorName, autoSimulatorName->valuestring);
+		strncpy(sensorCfg->autoSimulatorName, autoSimulatorName->valuestring, FILE_LEN - 1);
+		sensorCfg->autoSimulatorName[FILE_LEN - 1] = '\0';
 		LOGI("autoSimulatorName: %s", sensorCfg->autoSimulatorName);
 	}
 
@@ -2221,7 +2267,8 @@ int VsiVvbenchParseSensorInfo
 
 	cJSON *illumType = cJSON_GetObjectItem(sensorInfo, "illumType");
 	if (NULL != illumType) {
-		strcpy(sensorCfg->illumType, illumType->valuestring);
+		strncpy(sensorCfg->illumType, illumType->valuestring, FILE_LEN - 1);
+		sensorCfg->illumType[FILE_LEN - 1] = '\0';
 		LOGI("illumType: %s", sensorCfg->illumType);
 	}
 
@@ -2413,13 +2460,15 @@ int VsiVvbenchParsePicInfo
 
 	cJSON *PicName = cJSON_GetObjectItem(inputInfo, "PicName");
 	if (NULL != PicName) {
-		strcpy(pictureCfg->pictureName, PicName->valuestring);
+		strncpy(pictureCfg->pictureName, PicName->valuestring, FILE_LEN - 1);
+		pictureCfg->pictureName[FILE_LEN - 1] = '\0';
 		LOGI("pictureName: %s", pictureCfg->pictureName);
 	}
 
 	cJSON *fileName = cJSON_GetObjectItem(inputInfo, "fileName");
 	if (NULL != fileName) {
-		strcpy(pictureCfg->fileName, fileName->valuestring);
+		strncpy(pictureCfg->fileName, fileName->valuestring, FILE_LEN - 1);
+		pictureCfg->fileName[FILE_LEN - 1] = '\0';
 		LOGI("fileName: %s", pictureCfg->fileName);
 	}
 
@@ -2454,7 +2503,8 @@ int VsiVvbenchParsePicInfo
 	}
 	cJSON *calibXml = cJSON_GetObjectItem(inputInfo, "calibrationName");
 	if (NULL != calibXml) {
-		strcpy(pictureCfg->calibXml, calibXml->valuestring);
+		strncpy(pictureCfg->calibXml, calibXml->valuestring, FILE_LEN - 1);
+		pictureCfg->calibXml[FILE_LEN - 1] = '\0';
 		LOGD("%s: calibXml %s", __func__, pictureCfg->calibXml);
 	}
 
@@ -2906,7 +2956,16 @@ int VsiVvbenchParseSwSimuInfo
 				osFputs("\n", swSimuList);
 			}
 			else {
-				snprintf(szBuffer, FILE_LEN, pDbConfig->input.path[pathId], index);
+				/* Substitute only the first "%d" placeholder ourselves instead
+				 * of passing the JSON-supplied template straight to snprintf()
+				 * as the format string; any other '%' sequence in the
+				 * template is then copied through as literal text rather than
+				 * interpreted as a conversion specifier.
+				 */
+				const char *pathTemplate = pDbConfig->input.path[pathId];
+				const char *pctD = strstr(pathTemplate, "%d");
+				snprintf(szBuffer, FILE_LEN, "%.*s%d%s",
+					 (int)(pctD - pathTemplate), pathTemplate, index, pctD + 2);
 				osFputs(szBuffer, swSimuList);
 				osFputs("\n", swSimuList);
 			}
@@ -3527,7 +3586,8 @@ int VsiVvbenchParseDewarpInfo
 		cJSON *dewarpMode = cJSON_GetObjectItem(map, "dewarpMode");
 		if (dewarpMode) {
 			char dewarpModeName[FILE_LEN];
-			strcpy(dewarpModeName, dewarpMode->valuestring);
+			strncpy(dewarpModeName, dewarpMode->valuestring, FILE_LEN - 1);
+			dewarpModeName[FILE_LEN - 1] = '\0';
 
 			if (0 == strcmp(dewarpModeName, "LENS_CORRECTION")) {
 				LOGI("dewarp mode %s equal to %s", dewarpModeName, "LENS_CORRECTION");
@@ -3578,7 +3638,8 @@ int VsiVvbenchParseDewarpInfo
 		cJSON *mapSelect = cJSON_GetObjectItem(map, "mapSelect");
 		if (mapSelect) {
 			char mapSelectName[FILE_LEN];
-			strcpy(mapSelectName, mapSelect->valuestring);
+			strncpy(mapSelectName, mapSelect->valuestring, FILE_LEN - 1);
+			mapSelectName[FILE_LEN - 1] = '\0';
 
 			if (0 == strcmp(mapSelectName, "16x16")) {
 				LOGI("dewarp map select %s equal to %s", mapSelectName, "16x16");
