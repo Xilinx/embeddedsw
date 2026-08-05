@@ -292,8 +292,6 @@ static RESULT Ox05b1s_IsiCreateIss(IsiSensorInstanceConfig_t *pConfig, IsiSensor
 	pOx05b1sCtx->sensorDevId = 12;
 	pipeId = pOx05b1sCtx->sensorDevId;
 
-	*pHandle = (IsiSensorHandle_t) pOx05b1sCtx;
-
 	// result = init_MUX();
 	// if (result != XST_SUCCESS) {
 	// xil_printf("\n\rIIC Init Failed \n\r");
@@ -302,8 +300,13 @@ static RESULT Ox05b1s_IsiCreateIss(IsiSensorInstanceConfig_t *pConfig, IsiSensor
 
 	if (pipeId != IN_PIPE_12) {
 		xil_printf("%s: sensor device ID %d is mot support!\n", __func__, pipeId);
+		MEMSET(pOx05b1sCtx, 0, sizeof(Ox05b1s_Context_t));
+		osFree(pOx05b1sCtx);
 		return RET_UNSUPPORT_ID;
 	}
+
+	*pHandle = (IsiSensorHandle_t) pOx05b1sCtx;
+
 	desId = MAPPING_INPIPE_TO_DES_ID(pipeId);
 
 	init_iic_access(pOx05b1sCtx->i2cId, pipeId);
