@@ -306,6 +306,11 @@ size_t osFread(void* ptr, size_t size, size_t count, osFile* pVsiFile)
 	unsigned int bytesRead;
 	void *tempBuffer;
 	tempBuffer = osMalloc(size * count);
+	if (tempBuffer == NULL) {
+		printf("%s: tempBuffer allocate memory is failed\n", __func__);
+		return -1;
+	}
+
 	FRESULT res = f_read(&(pVsiFile->file), tempBuffer, size * count, &bytesRead);
 	memcpy(ptr, tempBuffer, size * count);
 	osFree(tempBuffer);
