@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -27,6 +27,7 @@
 * 4.7   kpt    12/01/21 Replaced library specific,standard utility functions
 *                       with xilinx maintained functions
 * 5.4   vss    01/08/25 Updated comments related to deprecated server mode of versalnet
+* 5.8   rap    07/30/26 Fixed spelling error
 *
 * </pre>
 ******************************************************************************/
@@ -348,7 +349,7 @@ static int SecureRsaExample(void)
 	Status = XSecure_RsaInitialize(&Secure_Rsa, Modulus, NULL,
 			(u8 *)&PublicExp);
 	if (Status != XST_SUCCESS) {
-		xil_printf("Failed at RSA iniatialization\r\n");
+		xil_printf("Failed at RSA initialization\r\n");
 		Status = XST_FAILURE;
 		goto END;
 	}
