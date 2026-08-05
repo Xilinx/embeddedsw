@@ -12,6 +12,24 @@ file(READ "${CMAKE_INCLUDE_PATH}/xparameters.h" XPARAM_CONTENT)
 string(REGEX MATCH "#define XPAR_VISP_SS_00_IO_MODE \"([^\"]+)\"" _match "${XPARAM_CONTENT}")
 string(REGEX REPLACE "#define XPAR_VISP_SS_00_IO_MODE \"([^\"]+)\"" "\\1" IO_MODE "${_match}")
 message(STATUS "Detected IO_MODE: ${IO_MODE}")
+
+# DisplayPort live-output support needs both the frame-buffer reader (the live
+# source) and the DP/DC/Clock-Wizard IPs. Detect the frmbuf_rd and clk_wiz
+# driver instances so the same source tree also builds on ISP-only / HDMI
+# designs that lack them. When either is absent, the dp_display module is
+# neither included nor compiled and DP_DISPLAY_AVAILABLE is left undefined.
+string(FIND "${XPARAM_CONTENT}" "XPAR_XV_FRMBUF_RD_NUM_INSTANCES" _dp_fbrd_pos)
+string(FIND "${XPARAM_CONTENT}" "XPAR_XCLK_WIZ_NUM_INSTANCES" _dp_clkwiz_pos)
+if(NOT _dp_fbrd_pos EQUAL -1 AND NOT _dp_clkwiz_pos EQUAL -1)
+    set(DP_DISPLAY_AVAILABLE TRUE)
+    message(STATUS "DP display: frmbuf_rd + DP/DC/clk_wiz present -> enabling dp_display")
+    include_directories(${CMAKE_SOURCE_DIR}/dp_display)
+    add_definitions(-DDP_DISPLAY_AVAILABLE=1)
+else()
+    set(DP_DISPLAY_AVAILABLE FALSE)
+    message(STATUS "DP display: frmbuf_rd or clk_wiz/DP IPs missing -> skipping dp_display")
+endif()
+
 link_libraries("visp")
 add_compile_options(-w)
 

@@ -110,5 +110,6 @@ examples:
             - lscript_r52.ld
             - reference_jsons
             - hdmi_display
+            - dp_display
             - mpu_config.h
 ...

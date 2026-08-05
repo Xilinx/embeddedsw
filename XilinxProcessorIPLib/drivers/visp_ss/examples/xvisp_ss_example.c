@@ -38,6 +38,11 @@ extern xvisp_ss_Config xvisp_ss_ConfigTable[];
 #include "ext_auto.h"
 #include "ext_manual.h"
 #include "finetune.h"
+#ifdef DP_DISPLAY_AVAILABLE
+#include "dp_display_bridge.h"
+/* Enable DisplayPort live output: ISP -> frmbuf_wr -> DDR -> frmbuf_rd -> DC -> DP */
+#define DP_DISPLAY_ENABLE 1
+#endif
 #if ARMR52
 #include "mpu_config.h"
 #endif
@@ -107,11 +112,33 @@ XIntc InterruptController;                                   /* AXI Interrupt Co
 
 /* Frame buffer arrays using aligned_buf structure defined in header */
 struct aligned_buf Frame_Array_p[NUM_FBWR][Buffer_Count];
+
+/*
+ * Frame-buffer-writer base address and its AXI interrupt-controller base,
+ * resolved in a design-/IP-name-independent way. Prefer the canonical
+ * driver-based name (XPAR_XV_FRMBUF_WR_0_*) so a block-design rename (e.g. an
+ * added "DP_SS_" prefix) does not break the build; fall back to known instance
+ * names for older/other designs.
+ */
+#if defined(XPAR_XV_FRMBUF_WR_0_BASEADDR)
+#define FBWR_WR_BASEADDR      XPAR_XV_FRMBUF_WR_0_BASEADDR
+#elif defined(XPAR_DP_SS_FRMBUF_WR_SS_V_FRMBUF_WR_0_BASEADDR)
+#define FBWR_WR_BASEADDR      XPAR_DP_SS_FRMBUF_WR_SS_V_FRMBUF_WR_0_BASEADDR
+#elif defined(XPAR_FRMBUF_WR_SS_V_FRMBUF_WR_0_BASEADDR)
+#define FBWR_WR_BASEADDR      XPAR_FRMBUF_WR_SS_V_FRMBUF_WR_0_BASEADDR
+#endif
+
+#if defined(XPAR_DP_SS_FRMBUF_WR_SS_AXI_INTC_FRMBUF_BASEADDR)
+#define FBWR_INTC_BASEADDR    XPAR_DP_SS_FRMBUF_WR_SS_AXI_INTC_FRMBUF_BASEADDR
+#elif defined(XPAR_FRMBUF_WR_SS_AXI_INTC_FRMBUF_BASEADDR)
+#define FBWR_INTC_BASEADDR    XPAR_FRMBUF_WR_SS_AXI_INTC_FRMBUF_BASEADDR
+#endif
 #endif
 
 #ifdef XPAR_XMIPICSISS_NUM_INSTANCES
 #include "xcsiss.h"            /* MIPI CSI2 RX Subsystem driver */
 #include "xintc.h"             /* AXI Interrupt Controller driver */
+
 #ifdef SDT
 extern XCsiSs_Config XCsiSs_ConfigTable[];
 #endif
@@ -614,7 +641,7 @@ void setup_frmbuf_wr()
 {
 	int Status;
 #ifdef SDT
-	UINTPTR Baseaddress = XPAR_FRMBUF_WR_SS_V_FRMBUF_WR_0_BASEADDR;
+	UINTPTR Baseaddress = FBWR_WR_BASEADDR;
 #endif
 
 	/* Initialize Frame Buffer Write instances */
@@ -624,7 +651,7 @@ void setup_frmbuf_wr()
 
 #ifndef SDT
 		/* Traditional initialization using base address offset */
-		Status = XVFrmbufWr_Initialize(&frmbufwr[i], XPAR_FRMBUF_WR_SS_V_FRMBUF_WR_0_BASEADDR + i);
+		Status = XVFrmbufWr_Initialize(&frmbufwr[i], FBWR_WR_BASEADDR + i);
 #else
 		/* SDT-based initialization using incremental base addresses */
 		Status = XVFrmbufWr_Initialize(&frmbufwr[i], Baseaddress);
@@ -638,7 +665,7 @@ void setup_frmbuf_wr()
 	}
 
 	/* Setup AXI Interrupt Controller for frame buffer writer interrupts */
-	setup_axi_with_device(XPAR_FRMBUF_WR_SS_AXI_INTC_FRMBUF_BASEADDR);
+	setup_axi_with_device(FBWR_INTC_BASEADDR);
 
 	/* Callback function pointer table for all frame buffer writers */
 	void (*fbwr_callbacks[12])(void *) = {
@@ -739,6 +766,12 @@ void FrmbufwrDoneCallback_0(void *CallbackRef)
 	/* Update VMix layer with latest completed frame */
 	VmixHdmiBridge_UpdateFbwrLayer(fbwr_id, XvFrmBufRd_Buffer_Baseaddr,
 				       XvFrmBufRd_Buffer_Baseaddr + chroma_offset[fbwr_id]);
+#endif
+
+#ifdef DP_DISPLAY_ENABLE
+	/* Push the just-completed frame to the DisplayPort live datapath. */
+	DpDisplayBridge_UpdateFrame(XvFrmBufRd_Buffer_Baseaddr,
+				   XvFrmBufRd_Buffer_Baseaddr + chroma_offset[fbwr_id]);
 #endif
 
 	/* Increment frame counter for statistics tracking */
@@ -1133,6 +1166,22 @@ int init_fbwr(u8 hpId, CamDeviceBufChainId_t bufIo, CamDevicePipeOutFmt_t outFor
 		return -1;
 	}
 
+#ifdef DP_DISPLAY_ENABLE
+	/*
+	 * Bring up the DisplayPort live output once, using the exact format and
+	 * stride the frmbuf_wr produces so frmbuf_rd can consume the same DDR
+	 * frames (ISP -> frmbuf_wr -> DDR -> frmbuf_rd -> VTC -> DC -> DP).
+	 */
+	if (fbwr_id == 0 && !DpDisplayBridge_IsReady()) {
+		int dpst = DpDisplayBridge_Init(StreamOut.Timing.HActive,
+						StreamOut.Timing.VActive,
+						FBWR_Cfmt[fbwr_id], stride,
+						chroma_offset[fbwr_id]);
+		if (dpst != XST_SUCCESS)
+			xil_printf("WARNING: DP live bridge init failed (%d)\r\n", dpst);
+	}
+#endif
+
 	usleep(20000);  /* Allow configuration to settle */
 
 	/* Enable auto-restart for continuous operation */
@@ -1274,7 +1323,7 @@ int setup_mipi_csi_interrupts(void)
 	}
 
 	/* Step 2: Initialize AXI Interrupt Controller for MIPI */
-	Status = XIntc_Initialize(&MipiIntcController, XPAR_AXI_INTC_0_BASEADDR);
+	Status = XIntc_Initialize(&MipiIntcController, XPAR_XINTC_0_BASEADDR);
 	if (Status != XST_SUCCESS) {
 		xil_printf("ERROR: MIPI AXI IntC init failed\r\n");
 		return XST_FAILURE;
