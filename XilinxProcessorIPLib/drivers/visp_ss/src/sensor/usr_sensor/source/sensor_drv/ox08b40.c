@@ -236,12 +236,15 @@ static RESULT Ox08b40_IsiCreateIss(IsiSensorInstanceConfig_t *pConfig, IsiSensor
 	uint8_t busId = (uint8_t)pOx08b40Ctx->i2cId;
 	pipeId = pOx08b40Ctx->sensorDevId;
 
-	*pHandle = (IsiSensorHandle_t) pOx08b40Ctx;
-
 	if (pipeId >= IN_PIPE_LAST) {
 		xil_printf("%s: sensor device ID %d is mot support!\n", __func__, pipeId);
+		MEMSET(pOx08b40Ctx, 0, sizeof(Ox08b40_Context_t));
+		osFree(pOx08b40Ctx);
 		return RET_UNSUPPORT_ID;
 	}
+
+	*pHandle = (IsiSensorHandle_t) pOx08b40Ctx;
+
 	desId = MAPPING_INPIPE_TO_DES_ID(pipeId);
 
 	init_iic_access(pOx08b40Ctx->i2cId, pipeId);
