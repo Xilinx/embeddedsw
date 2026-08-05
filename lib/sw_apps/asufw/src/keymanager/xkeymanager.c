@@ -2308,6 +2308,58 @@ s32 XKeyManager_StoreRsaKeyPairInAsuVault(const u8 *KeyData, u32 KeyLen, u8 Vaul
 END:
 	return Status;
 }
+
+/*************************************************************************************************/
+/**
+ * @brief	Store a single key in the requested sub-vault of an ASU key vault.
+ *
+ * @param	ParamsPtr	Pointer to key manager parameters containing the key metadata and
+ *				the key data address.
+ * @param	KeyIdPtr	Pointer that is updated with the composite key ID of the stored key.
+ *
+ * @return
+ *	- XASUFW_SUCCESS, if the key is stored successfully.
+ *	- XASUFW_KEYMANAGER_INVALID_PARAM, if an input parameter is invalid.
+ *	- XASUFW_KEYMANAGER_VAULT_NOT_FOUND, if the vault is not initialized.
+ *
+ *************************************************************************************************/
+s32 XKeyManager_StoreKeyInAsuVault(const XAsu_KeyManagerParams *ParamsPtr, u32 *KeyIdPtr)
+{
+	CREATE_VOLATILE(Status, XASUFW_FAILURE);
+	XAsu_KeyManagerSubVaultType KeyType;
+	const u8 *KeyData;
+
+	/** Validate input parameters. */
+	if ((ParamsPtr == NULL) || (KeyIdPtr == NULL) ||
+	    (ParamsPtr->KeyMetadata.VaultId != XKEYMANAGER_ASU_VAULT_ID)) {
+		Status = XASUFW_KEYMANAGER_INVALID_PARAM;
+		goto END;
+	}
+
+	/** Mask out the wrapped-key bit to obtain the target sub-vault identifier. */
+	KeyType = (XAsu_KeyManagerSubVaultType)(ParamsPtr->KeyMetadata.KeyType &
+						~XASU_KM_KEYTYPE_WRAPPED_BIT_MASK);
+	KeyData = (const u8 *)(UINTPTR)ParamsPtr->KeyObjectAddr;
+
+	/** Validate key data and key type. */
+	if ((KeyData == NULL) || (KeyType >= XKEYMANAGER_MAX_SUB_VAULTS)) {
+		Status = XASUFW_KEYMANAGER_INVALID_PARAM;
+		goto END;
+	}
+
+	/** Validate the vault is initialized. */
+	if (VaultManager.VaultInfo[ParamsPtr->KeyMetadata.VaultId].VaultBasePtr == NULL) {
+		Status = XASUFW_KEYMANAGER_VAULT_NOT_FOUND;
+		goto END;
+	}
+
+	/** Store the key in the requested sub-vault. */
+	Status = XKeyManager_UpdateKeyVault(NULL, KeyType, ParamsPtr, KeyData, KeyIdPtr);
+
+END:
+	return Status;
+}
+
 /*************************************************************************************************/
 /**
  * @brief	Update vault for the provided key identifier.

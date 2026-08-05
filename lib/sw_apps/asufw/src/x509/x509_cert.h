@@ -191,7 +191,8 @@ typedef s32 (*X509_GenerateDigest_t)(const u8 *Buf, u32 DataLen, const u8 *Hash,
 				     u32 *HashLen, const void *PlatformData);
 /** Function pointer type for generating a signature from a hash. */
 typedef	s32 (*X509_GenerateSignature_t)(const u8 *Hash, u32 HashLen, const u8 *Sign, u32 SignLen,
-					u32 *SignActualLen, u8 *PvtKey, const void *PlatformData);
+					u32 *SignActualLen, const u8 *PvtKey,
+					const void *PlatformData);
 /**
  * This structure holds the information about user configs.
  */
@@ -227,7 +228,7 @@ typedef struct {
 	X509_PublicKeyType PubKeyType;	/**< Public Key type */
 	X509_EccCurveType EccCurveType;	/**< ECC curve type */
 	u32 SubjectPubKeyLen;		/**< Issuer Public Key Length */
-	u8 *SubjectPublicKey;		/**< Subject Public Key */
+	const u8 *SubjectPublicKey;	/**< Subject Public Key */
 } X509_SubjectPublicKeyInfo;
 
 /**
@@ -239,8 +240,8 @@ typedef struct {
 	u32 IsCsr;				/**< Flag to check if Certificate Signing Request */
 	u32 IsSelfSigned;			/**< Flag to check if self-signed certificate */
 	u32 IssuerPubKeyLen;			/**< Issuer public Key length */
-	u8 *IssuerPublicKey;			/**< Issuer public Key */
-	u8 *IssuerPrvtKey;			/**< Issuer private Key */
+	const u8 *IssuerPublicKey;		/**< Issuer public Key */
+	const u8 *IssuerPrvtKey;		/**< Issuer private Key */
 	void *PlatformData;			/**< Platform specific parameters required for
 						platform specific digest calculation and signature
 						generation APIs */

@@ -48,6 +48,7 @@
 #include "x509_asufw.h"
 #include "xasufw_perf.h"
 #include "xasufw_memory.h"
+#include "xkeymanager.h"
 
 #ifdef XASU_OCP_ENABLE
 /********************************** Constant Definitions *****************************************/
@@ -80,6 +81,10 @@ static s32 XOcp_GenerateDevIk(XAsufw_Dma *DmaPtr);
 static s32 XOcp_GetSubsystemHashAddr(u32 SubsystemId, u32 *SwHashAddr);
 static s32 XOcp_GenerateDevAk(u32 SubsysIdx, XAsufw_Dma *DmaPtr);
 static s32 XOcp_GetSubsytemIndex(u32 SubsystemId, u32 *SubsystemIdx);
+static s32 XOcp_StoreDeviceKeyPairInVault(XOcp_DeviceKeys *DevKey, const u8 *PvtKey,
+					  const u8 *PubKey);
+static s32 XOcp_GetDeviceKeyPvtKeyPtr(const XOcp_DeviceKeys *DevKey, const u8 **PvtKeyPtr);
+static s32 XOcp_GetDeviceKeyPubKeyPtr(const XOcp_DeviceKeys *DevKey, const u8 **PubKeyPtr);
 
 /*************************************************************************************************/
 /**
@@ -213,6 +218,8 @@ END:
  *	- XASUFW_OCP_INVALID_PARAM, if parameter is invalid.
  *	- XASUFW_OCP_INVALID_SUBSYSTEM_INDEX, if subsystem index in invalid.
  *	- XASUFW_OCP_DEVAK_NOT_READY, if DevAk key is not generated.
+ *	- XASUFW_KEYMANAGER_GET_KEYOBJ_FAILED, if DevAk private key cannot be fetched from the
+ *	  ASU key vault.
  *
  *************************************************************************************************/
 s32 XOcp_AttestWithDevAk(XAsufw_Dma *DmaPtr, const XAsu_OcpDevAkAttest *OcpAttestParam,
@@ -227,6 +234,7 @@ s32 XOcp_AttestWithDevAk(XAsufw_Dma *DmaPtr, const XAsu_OcpDevAkAttest *OcpAttes
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
 	XEcc *EccInstance = XEcc_GetInstance(XASU_XECC_0_DEVICE_ID);
 	u32 SubsysIdx = 0U;
+	const u8 *DevAkPvtKey = NULL;
 
 	/** Validate input parameter. */
 	if ((DmaPtr == NULL) || (OcpAttestParam == NULL) || (SubsystemId == 0U)) {
@@ -251,8 +259,15 @@ s32 XOcp_AttestWithDevAk(XAsufw_Dma *DmaPtr, const XAsu_OcpDevAkAttest *OcpAttes
 
 	/** Check whether DevAk key is ready or not. */
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-	if (DevAkData[SubsysIdx].IsDevAkKeyReady != (u8)XASU_TRUE) {
+	if (DevAkData[SubsysIdx].IsKeyReady != (u8)XASU_TRUE) {
 		Status = XASUFW_OCP_DEVAK_NOT_READY;
+		goto END;
+	}
+
+	/** Fetch the DevAk private key from the ASU key vault. */
+	Status = XOcp_GetDeviceKeyPvtKeyPtr(&DevAkData[SubsysIdx], &DevAkPvtKey);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_KEYMANAGER_GET_KEYOBJ_FAILED;
 		goto END;
 	}
 
@@ -260,7 +275,7 @@ s32 XOcp_AttestWithDevAk(XAsufw_Dma *DmaPtr, const XAsu_OcpDevAkAttest *OcpAttes
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	Status = XEcc_GenerateSignature(EccInstance, DmaPtr, XASU_ECC_NIST_P384,
 					XASU_ECC_P384_PVT_KEY_SIZE_IN_BYTES,
-					(u64)(UINTPTR)DevAkData[SubsysIdx].EccPvtKey,
+					(u64)(UINTPTR)DevAkPvtKey,
 					NULL, OcpAttestParam->DataAddr,
 					OcpAttestParam->DataLen, OcpAttestParam->SignatureAddr);
 
@@ -300,6 +315,8 @@ XOcp_DeviceKeys* XOcp_GetDevIk(void)
  *	- XASUFW_MEM_COPY_FAIL, if memory copy is failed.
  *	- XASUFW_OCP_GEN_DEVIK_PVT_KEY_FAIL, if DevIk private key generation is failed.
  *	- XASUFW_OCP_GEN_DEVIK_PUB_KEY_FAIL, if DevIk public key generation is failed.
+ *	- XASUFW_OCP_DEVIK_STORE_IN_VAULT_FAIL, if storing the DevIk key pair in the ASU key vault
+ *	  fails.
  *	- Error code received from called functions in case of other failure from the called
  *	  function.
  *
@@ -307,9 +324,13 @@ XOcp_DeviceKeys* XOcp_GetDevIk(void)
 static s32 XOcp_GenerateDevIk(XAsufw_Dma *DmaPtr)
 {
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
+	CREATE_VOLATILE(ClearStatus, XASUFW_FAILURE);
+	XFih_Var XFihClr = XFih_VolatileAssignXfihVar(XFIH_FAILURE);
 	XOcp_PrivateKeyGen PvtKeyInfo;
 	u32 AsuCdiAddr = 0U;
 	u8 PersonalString[XOCP_PERSONAL_STRING_LEN] = {0U};
+	u8 PvtKey[XASU_ECC_P384_PVT_KEY_SIZE_IN_BYTES] = {0U};
+	u8 PubKey[XASU_ECC_P384_PUB_KEY_SIZE_IN_BYTES] = {0U};
 
 	/** Get ASU CDI seed. */
 	Status = XOcp_GetAsuCdiAddr(&AsuCdiAddr);
@@ -327,35 +348,52 @@ static s32 XOcp_GenerateDevIk(XAsufw_Dma *DmaPtr)
 		goto END;
 	}
 
-	/** Initially set IsDevIkKeyReady to false. */
-	DevIkData.IsDevIkKeyReady = (u8)XASU_FALSE;
+	/** Initially set IsKeyReady to false. */
+	DevIkData.IsKeyReady = (u8)XASU_FALSE;
 
 	/** Generate DevIk private key. */
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	PvtKeyInfo.CdiAddr = AsuCdiAddr;
 	PvtKeyInfo.CdiLength = XOCP_DICE_CDI_SIZE_IN_BYTES;
 	PvtKeyInfo.PerStringAddr = (u32)(UINTPTR)PersonalString;
-	PvtKeyInfo.PvtKeyAddr = (u32)(UINTPTR)DevIkData.EccPvtKey;
+	PvtKeyInfo.PvtKeyAddr = (u32)(UINTPTR)PvtKey;
 	Status = XOcp_GenerateDevIkAkPvtKey(&PvtKeyInfo);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_OCP_GEN_DEVIK_PVT_KEY_FAIL);
-		goto END;
+		goto END_CLR;
 	}
 
 	/** Generate DevIk public key. */
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	Status = XRsa_EccGeneratePubKey(DmaPtr, XASU_ECC_NIST_P384,
 					XASU_ECC_P384_PVT_KEY_SIZE_IN_BYTES,
-					(u64)(UINTPTR)DevIkData.EccPvtKey,
-					(u64)(UINTPTR)DevIkData.EccX);
+					(u64)(UINTPTR)PvtKey,
+					(u64)(UINTPTR)PubKey);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_OCP_GEN_DEVIK_PUB_KEY_FAIL);
-		goto END;
+		goto END_CLR;
 	}
-	DevIkData.PublicKeyLen = XAsu_DoubleCurveLength(XASU_ECC_P384_PVT_KEY_SIZE_IN_BYTES);
 
-	/** Set IsDevIkKeyReady to true. */
-	DevIkData.IsDevIkKeyReady = (u8)XASU_TRUE;
+	/** Store the DevIk key pair in the ASU key vault. */
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	Status = XOcp_StoreDeviceKeyPairInVault(&DevIkData, PvtKey, PubKey);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_OCP_DEVIK_STORE_IN_VAULT_FAIL);
+		goto END_CLR;
+	}
+
+	/** Set IsKeyReady to true. */
+	DevIkData.IsKeyReady = (u8)XASU_TRUE;
+
+END_CLR:
+	/** Zeroize the transient private and public key buffers once the pair is stored. */
+	XFIH_CALL(Xil_SecureZeroize, XFihClr, ClearStatus, PvtKey,
+		  XASU_ECC_P384_PVT_KEY_SIZE_IN_BYTES);
+	Status = XAsufw_UpdateBufStatus(Status, ClearStatus);
+
+	XFIH_CALL(Xil_SecureZeroize, XFihClr, ClearStatus, PubKey,
+		  XASU_ECC_P384_PUB_KEY_SIZE_IN_BYTES);
+	Status = XAsufw_UpdateBufStatus(Status, ClearStatus);
 
 END:
 	return Status;
@@ -377,6 +415,8 @@ END:
  *	- XASUFW_OCP_GEN_DEVAK_PVT_KEY_FAIL, if DevAk private key generation is failed.
  *	- XASUFW_OCP_GEN_DEVAK_PUB_KEY_FAIL, if DevAk public key generation is failed.
  *	- XASUFW_OCP_GEN_SUBSYSTEM_CDI_FAIL, if subsystem CDI generation is failed.
+ *	- XASUFW_OCP_DEVAK_STORE_IN_VAULT_FAIL, if storing the DevAk key pair in the ASU key vault
+ *	  fails.
  *	- Error code received from called functions in case of other failure from the called
  *	  function.
  *
@@ -384,10 +424,14 @@ END:
 static s32 XOcp_GenerateDevAk(u32 SubsysIdx, XAsufw_Dma *DmaPtr)
 {
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
+	CREATE_VOLATILE(ClearStatus, XASUFW_FAILURE);
+	XFih_Var XFihClr = XFih_VolatileAssignXfihVar(XFIH_FAILURE);
 	XOcp_PrivateKeyGen PvtKeyInfo;
-	u8 SwCdi[XOCP_DICE_CDI_SIZE_IN_BYTES];
+	u8 SwCdi[XOCP_DICE_CDI_SIZE_IN_BYTES] = {0U};
 	const XOcp_CdoData *CdoData = (XOcp_CdoData *)XASUFW_OCP_CDO_DATA_ADDR;
 	const u8 *PersStr = NULL;
+	u8 PvtKey[XASU_ECC_P384_PVT_KEY_SIZE_IN_BYTES] = {0U};
+	u8 PubKey[XASU_ECC_P384_PUB_KEY_SIZE_IN_BYTES] = {0U};
 
 	/** Validate number of subsystems provided in CDO. */
 	if (CdoData->NumSubsys > XOCP_MAX_USER_OCP_SUBSYS) {
@@ -404,8 +448,8 @@ static s32 XOcp_GenerateDevAk(u32 SubsysIdx, XAsufw_Dma *DmaPtr)
 		goto END;
 	}
 
-	/** Initially set IsDevAkKeyReady to false. */
-	DevAkData[SubsysIdx].IsDevAkKeyReady = (u8)XASU_FALSE;
+	/** Initially set IsKeyReady to false. */
+	DevAkData[SubsysIdx].IsKeyReady = (u8)XASU_FALSE;
 
 	/** Generate subsystem CDI. */
 	Status = XOcp_GenerateSwCdi(CdoData->SubsysData[SubsysIdx].SubSystemID, DmaPtr, SwCdi,
@@ -425,28 +469,48 @@ static s32 XOcp_GenerateDevAk(u32 SubsysIdx, XAsufw_Dma *DmaPtr)
 	PvtKeyInfo.CdiAddr = (u32)(UINTPTR)SwCdi;
 	PvtKeyInfo.CdiLength = XOCP_DICE_CDI_SIZE_IN_BYTES;
 	PvtKeyInfo.PerStringAddr = (u32)(UINTPTR)PersStr;
-	PvtKeyInfo.PvtKeyAddr = (u32)(UINTPTR)DevAkData[SubsysIdx].EccPvtKey;
+	PvtKeyInfo.PvtKeyAddr = (u32)(UINTPTR)PvtKey;
 	Status = XOcp_GenerateDevIkAkPvtKey(&PvtKeyInfo);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_OCP_GEN_DEVAK_PVT_KEY_FAIL);
-		goto END;
+		goto END_CLR;
 	}
 
 	/** Generate DevAk public key. */
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	Status = XRsa_EccGeneratePubKey(DmaPtr, XASU_ECC_NIST_P384,
 					XASU_ECC_P384_PVT_KEY_SIZE_IN_BYTES,
-					(u64)(UINTPTR)DevAkData[SubsysIdx].EccPvtKey,
-					(u64)(UINTPTR)DevAkData[SubsysIdx].EccX);
+					(u64)(UINTPTR)PvtKey,
+					(u64)(UINTPTR)PubKey);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_OCP_GEN_DEVAK_PUB_KEY_FAIL);
-		goto END;
+		goto END_CLR;
 	}
-	DevAkData[SubsysIdx].PublicKeyLen = XAsu_DoubleCurveLength(XASU_ECC_P384_PVT_KEY_SIZE_IN_BYTES);
 
+	/** Store the DevAk key pair in the ASU key vault. */
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	Status = XOcp_StoreDeviceKeyPairInVault(&DevAkData[SubsysIdx], PvtKey, PubKey);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_OCP_DEVAK_STORE_IN_VAULT_FAIL);
+		goto END_CLR;
+	}
 
-	/** Set IsDevAkKeyReady to true. */
-	DevAkData[SubsysIdx].IsDevAkKeyReady = (u8)XASU_TRUE;
+	/** Set IsKeyReady to true. */
+	DevAkData[SubsysIdx].IsKeyReady = (u8)XASU_TRUE;
+
+END_CLR:
+	/** Zeroize the transient private key, public key and subsystem CDI buffers. */
+	XFIH_CALL(Xil_SecureZeroize, XFihClr, ClearStatus, PvtKey,
+		  XASU_ECC_P384_PVT_KEY_SIZE_IN_BYTES);
+	Status = XAsufw_UpdateBufStatus(Status, ClearStatus);
+
+	XFIH_CALL(Xil_SecureZeroize, XFihClr, ClearStatus, PubKey,
+		  XASU_ECC_P384_PUB_KEY_SIZE_IN_BYTES);
+	Status = XAsufw_UpdateBufStatus(Status, ClearStatus);
+
+	XFIH_CALL(Xil_SecureZeroize, XFihClr, ClearStatus, SwCdi,
+		  XOCP_DICE_CDI_SIZE_IN_BYTES);
+	Status = XAsufw_UpdateBufStatus(Status, ClearStatus);
 
 END:
 	return Status;
@@ -580,6 +644,199 @@ END:
 
 /*************************************************************************************************/
 /**
+ * @brief	This function stores a device key pair (private and public keys) in the ASU key
+ *		vault and records the resulting key identifiers in the device key structure. Any
+ *		previously stored key pair for the same device key is removed first so that key
+ *		regeneration does not exhaust the sub-vault or leave stale keys behind.
+ *
+ * @param	DevKey		Pointer to the device key structure holding the key identifiers.
+ * @param	PvtKey		Pointer to the ECC private key buffer to be stored.
+ * @param	PubKey		Pointer to the ECC public key buffer (X and Y coordinates) to be
+ *				stored.
+ *
+ * @return
+ *	- XASUFW_SUCCESS, if the key pair is stored successfully.
+ *	- XASUFW_FAILURE, in case of failure.
+ *	- XASUFW_KEYMANAGER_UPDATE_PVT_KEY_FAIL, if private key storage fails.
+ *
+ *************************************************************************************************/
+static s32 XOcp_StoreDeviceKeyPairInVault(XOcp_DeviceKeys *DevKey, const u8 *PvtKey,
+					  const u8 *PubKey)
+{
+	CREATE_VOLATILE(Status, XASUFW_FAILURE);
+	CREATE_VOLATILE(DeleteStatus, XASUFW_FAILURE);
+	XAsu_KeyManagerParams KmParams = {0U};
+
+	/**
+	 * Delete any previously stored key pair before storing the new one. In case key deletion
+	 * fails, print the error message and continue storing the new key pair in the vault.
+	 */
+	if (DevKey->PvtKeyId != 0U) {
+		DeleteStatus = XKeyManager_DeleteKey(DevKey->PvtKeyId,
+						     XKEYMANAGER_ASU_SUBSYSTEM_ID);
+		if (DeleteStatus != XASUFW_SUCCESS) {
+			XAsufw_Printf(DEBUG_GENERAL,
+				"Deleting private key from vault failed: 0x%x\n", DeleteStatus);
+		}
+
+		/** Reset the private key ID so OCP does not use the stale private key. */
+		DevKey->PvtKeyId = 0U;
+	}
+
+	if (DevKey->PubKeyId != 0U) {
+		ASSIGN_VOLATILE(DeleteStatus, XASUFW_FAILURE);
+		DeleteStatus = XKeyManager_DeleteKey(DevKey->PubKeyId,
+						     XKEYMANAGER_ASU_SUBSYSTEM_ID);
+		if (DeleteStatus != XASUFW_SUCCESS) {
+			XAsufw_Printf(DEBUG_GENERAL,
+				"Deleting public key from vault failed: 0x%x\n", DeleteStatus);
+		}
+
+		/** Reset the public key ID so OCP does not use the stale public key. */
+		DevKey->PubKeyId = 0U;
+	}
+
+	/** Set up the device key metadata for ASU key vault storage. */
+	KmParams.KeyMetadata.Length = XASU_ECC_P384_PVT_KEY_SIZE_IN_BYTES;
+	KmParams.KeyMetadata.EpochTime = 0U;
+	KmParams.KeyMetadata.UsageCount = XASU_KM_USAGE_COUNT_NON_DEPLETING_VALUE;
+	KmParams.KeyMetadata.VaultId = XKEYMANAGER_ASU_VAULT_ID;
+	KmParams.KeyMetadata.KeyUseCase = XASU_KEYMANAGER_ECC_PVT_SIGN_GEN_USE_CASE;
+
+	/** Store the private key in the ECC private sub-vault. */
+	KmParams.KeyMetadata.KeyType = (u8)XASU_ECC_PVT_SUBVAULT_ID;
+	KmParams.KeyObjectAddr = (u64)(UINTPTR)PvtKey;
+	Status = XKeyManager_StoreKeyInAsuVault(&KmParams, &DevKey->PvtKeyId);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_KEYMANAGER_UPDATE_PVT_KEY_FAIL);
+		goto END;
+	}
+
+	/** Store the public key in the ECC public sub-vault. */
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	KmParams.KeyMetadata.KeyUseCase = XASU_KEYMANAGER_ECC_PUB_SIGN_VER_USE_CASE;
+	KmParams.KeyMetadata.KeyType = (u8)XASU_ECC_PUB_SUBVAULT_ID;
+	KmParams.KeyObjectAddr = (u64)(UINTPTR)PubKey;
+	Status = XKeyManager_StoreKeyInAsuVault(&KmParams, &DevKey->PubKeyId);
+	if (Status != XASUFW_SUCCESS) {
+		/* Clean up the already stored private key if public key storage fails. */
+		ASSIGN_VOLATILE(DeleteStatus, XASUFW_FAILURE);
+		DeleteStatus = XKeyManager_DeleteKey(DevKey->PvtKeyId,
+						     XKEYMANAGER_ASU_SUBSYSTEM_ID);
+		if (DeleteStatus != XASUFW_SUCCESS) {
+			XAsufw_Printf(DEBUG_GENERAL,
+				"Deleting new stored private key failed: 0x%x\n", DeleteStatus);
+		}
+
+		/** Reset the private key ID so OCP does not use the stale private key. */
+		DevKey->PvtKeyId = 0U;
+	}
+
+END:
+	return Status;
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	This function fetches a device private key from the ASU key vault.
+ *
+ * @param	DevKey		Pointer to the device key structure holding the private key
+ *				identifier.
+ * @param	PvtKeyPtr	Pointer that is updated with the address of the private key material
+ *				within the vault.
+ *
+ * @return
+ *	- XASUFW_SUCCESS, if the private key is fetched successfully.
+ *	- XASUFW_FAILURE, in case of failure.
+ *
+ *************************************************************************************************/
+static s32 XOcp_GetDeviceKeyPvtKeyPtr(const XOcp_DeviceKeys *DevKey, const u8 **PvtKeyPtr)
+{
+	CREATE_VOLATILE(Status, XASUFW_FAILURE);
+	const XKeyManager_EccPvtKeyObject *PvtKeyObj = NULL;
+
+	/** Fetch the private key object from the ASU vault for a signature-generation use case. */
+	PvtKeyObj = (const XKeyManager_EccPvtKeyObject *)XKeyManager_GetKeyObjectPtr(
+			DevKey->PvtKeyId, XKEYMANAGER_ASU_SUBSYSTEM_ID,
+			XASU_KEYMANAGER_ECC_PVT_SIGN_GEN_USE_CASE, (u8)TRUE);
+	if (PvtKeyObj != NULL) {
+		*PvtKeyPtr = PvtKeyObj->PrivateKey;
+		Status = XASUFW_SUCCESS;
+	}
+
+	return Status;
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	This function fetches a device public key from the ASU key vault.
+ *
+ * @param	DevKey		Pointer to the device key structure holding the public key
+ *				identifier.
+ * @param	PubKeyPtr	Pointer that is updated with the address of the public key material
+ *				(X and Y coordinates) within the vault.
+ *
+ * @return
+ *	- XASUFW_SUCCESS, if the public key is fetched successfully.
+ *	- XASUFW_FAILURE, in case of failure.
+ *
+ *************************************************************************************************/
+static s32 XOcp_GetDeviceKeyPubKeyPtr(const XOcp_DeviceKeys *DevKey, const u8 **PubKeyPtr)
+{
+	CREATE_VOLATILE(Status, XASUFW_FAILURE);
+	const XKeyManager_EccPubKeyObject *PubKeyObj = NULL;
+
+	/** Fetch the public key object from the ASU vault for a signature-verification use case. */
+	PubKeyObj = (const XKeyManager_EccPubKeyObject *)XKeyManager_GetKeyObjectPtr(
+			DevKey->PubKeyId, XKEYMANAGER_ASU_SUBSYSTEM_ID,
+			XASU_KEYMANAGER_ECC_PUB_SIGN_VER_USE_CASE, (u8)TRUE);
+	if (PubKeyObj != NULL) {
+		*PubKeyPtr = PubKeyObj->PublicKey;
+		Status = XASUFW_SUCCESS;
+	}
+
+	return Status;
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	This function fetches the DevIk public key from the ASU key vault.
+ *
+ * @param	PubKeyPtr	Pointer that is updated with the address of the DevIk public key
+ *				material (X and Y coordinates) within the vault.
+ *
+ * @return
+ *	- XASUFW_SUCCESS, if the DevIk public key is fetched successfully.
+ *	- XASUFW_FAILURE, in case of failure.
+ *	- XASUFW_OCP_KEY_MGMT_NOT_READY, if the DevIk key pair is not generated.
+ *	- XASUFW_OCP_INVALID_PARAM, if input parameter is invalid.
+ *
+ *************************************************************************************************/
+s32 XOcp_GetDevIkPublicKey(const u8 **PubKeyPtr)
+{
+	CREATE_VOLATILE(Status, XASUFW_FAILURE);
+
+	/** Validate input parameter. */
+	if (PubKeyPtr == NULL) {
+		Status = XASUFW_OCP_INVALID_PARAM;
+		goto END;
+	}
+
+	/** Ensure the DevIk key pair has been generated. */
+	if (DevIkData.IsKeyReady != (u8)XASU_TRUE) {
+		Status = XASUFW_OCP_KEY_MGMT_NOT_READY;
+		goto END;
+	}
+
+	/** Fetch the DevIk public key from the ASU vault. */
+	Status = XOcp_GetDeviceKeyPubKeyPtr(&DevIkData, PubKeyPtr);
+
+END:
+	return Status;
+}
+
+/*************************************************************************************************/
+/**
  * @brief	This function generates the X.509 certificate and DevIK CSR for device keys.
  *
  * @param	SubsystemId		Subsystem ID for which certificate is to be generated.
@@ -599,6 +856,7 @@ END:
  *	- XASUFW_OCP_X509_CERT_GEN_FAIL, if certificate generation is failed.
  *	- XASUFW_OCP_INVALID_BUF_SIZE, if buffer size is not sufficient.
  *	- XASUFW_DMA_COPY_FAIL, if DMA transfer is failed.
+ *	- XASUFW_KEYMANAGER_GET_KEYOBJ_FAILED, if device key cannot be fetched from the vault.
  *
  *************************************************************************************************/
 s32 XOcp_GetX509Cert(u32 SubsystemId, const XAsu_OcpCertParams *OcpCertParam, void *PlatData,
@@ -617,6 +875,9 @@ s32 XOcp_GetX509Cert(u32 SubsystemId, const XAsu_OcpCertParams *OcpCertParam, vo
 	XOcp_CertData CertData;
 	u32 SubsysIdx = 0U;
 	u32 CertSize = 0U;
+	const u8 *IssuerPvtKey = NULL;
+	const u8 *IssuerPubKey = NULL;
+	const u8 *SubjectPubKey = NULL;
 	u8 CertBuf[X509_CERTIFICATE_MAX_SIZE_IN_BYTES];
 
 	/** Validate OCP certificate parameters. */
@@ -627,6 +888,7 @@ s32 XOcp_GetX509Cert(u32 SubsystemId, const XAsu_OcpCertParams *OcpCertParam, vo
 	}
 
 	/** Validate platform data and CSR flag parameter. */
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	if ((PlatData == NULL) || ((IsCsr != XASU_FALSE) && (IsCsr != XASU_TRUE))) {
 		Status = XASUFW_OCP_INVALID_PARAM;
 		goto END;
@@ -644,8 +906,23 @@ s32 XOcp_GetX509Cert(u32 SubsystemId, const XAsu_OcpCertParams *OcpCertParam, vo
 	}
 
 	/** Check if DevIk is ready or not. */
-	if (DevIkData.IsDevIkKeyReady != (u32)XASU_TRUE) {
+	if (DevIkData.IsKeyReady != (u32)XASU_TRUE) {
 		Status = XASUFW_OCP_KEY_MGMT_NOT_READY;
+		goto END;
+	}
+
+	/** Fetch the DevIk private key from the ASU key vault. */
+	Status = XOcp_GetDeviceKeyPvtKeyPtr(&DevIkData, &IssuerPvtKey);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_KEYMANAGER_GET_KEYOBJ_FAILED;
+		goto END;
+	}
+
+	/** Fetch the DevIk public key from the ASU key vault. */
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	Status = XOcp_GetDeviceKeyPubKeyPtr(&DevIkData, &IssuerPubKey);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_KEYMANAGER_GET_KEYOBJ_FAILED;
 		goto END;
 	}
 
@@ -653,9 +930,9 @@ s32 XOcp_GetX509Cert(u32 SubsystemId, const XAsu_OcpCertParams *OcpCertParam, vo
 	CertCfg.PubKeyInfo.PubKeyType = X509_PUB_KEY_ECC;
 	CertCfg.PubKeyInfo.EccCurveType = X509_ECC_CURVE_TYPE_384;
 	CertCfg.IsCsr = IsCsr;
-	CertCfg.IssuerPubKeyLen = DevIkData.PublicKeyLen;
-	CertCfg.IssuerPublicKey = (u8 *)DevIkData.EccX;
-	CertCfg.IssuerPrvtKey = (u8 *)DevIkData.EccPvtKey;
+	CertCfg.IssuerPubKeyLen = XAsu_DoubleCurveLength(XASU_ECC_P384_PVT_KEY_SIZE_IN_BYTES);
+	CertCfg.IssuerPublicKey = IssuerPubKey;
+	CertCfg.IssuerPrvtKey = IssuerPvtKey;
 	CertCfg.PlatformData = PlatData;
 
 	if (CertData.DevKeyType == (u32)XOCP_DEVIK) {
@@ -666,8 +943,9 @@ s32 XOcp_GetX509Cert(u32 SubsystemId, const XAsu_OcpCertParams *OcpCertParam, vo
 		CertCfg.UserCfg = &CdoData->AsuSubsysData.UserCfg;
 
 		/** Set subject public key for DevIk certificate. */
-		CertCfg.PubKeyInfo.SubjectPubKeyLen = DevIkData.PublicKeyLen;
-		CertCfg.PubKeyInfo.SubjectPublicKey = (u8 *)DevIkData.EccX;
+		CertCfg.PubKeyInfo.SubjectPubKeyLen =
+			XAsu_DoubleCurveLength(XASU_ECC_P384_PVT_KEY_SIZE_IN_BYTES);
+		CertCfg.PubKeyInfo.SubjectPublicKey = IssuerPubKey;
 		CertCfg.IsSelfSigned = (u8)XASU_TRUE;
 	} else {
 		/** Get subsystem index using subsystem ID. */
@@ -679,8 +957,16 @@ s32 XOcp_GetX509Cert(u32 SubsystemId, const XAsu_OcpCertParams *OcpCertParam, vo
 		}
 
 		/** Check if DevAk is ready or not. */
-		if (DevAkData[SubsysIdx].IsDevAkKeyReady != (u8)XASU_TRUE) {
+		if (DevAkData[SubsysIdx].IsKeyReady != (u8)XASU_TRUE) {
 			Status = XASUFW_OCP_DEVAK_NOT_READY;
+			goto END;
+		}
+
+		/** Fetch the DevAk public key from the ASU key vault to use as the subject key. */
+		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+		Status = XOcp_GetDeviceKeyPubKeyPtr(&DevAkData[SubsysIdx], &SubjectPubKey);
+		if (Status != XASUFW_SUCCESS) {
+			Status = XASUFW_KEYMANAGER_GET_KEYOBJ_FAILED;
 			goto END;
 		}
 
@@ -708,8 +994,9 @@ s32 XOcp_GetX509Cert(u32 SubsystemId, const XAsu_OcpCertParams *OcpCertParam, vo
 		CertCfg.UserCfg->IssuerLen = CdoData->AsuSubsysData.UserCfg.IssuerLen;
 
 		/** Set subject public key for DevAk certificate. */
-		CertCfg.PubKeyInfo.SubjectPubKeyLen = DevAkData[SubsysIdx].PublicKeyLen;
-		CertCfg.PubKeyInfo.SubjectPublicKey = (u8 *)DevAkData[SubsysIdx].EccX;
+		CertCfg.PubKeyInfo.SubjectPubKeyLen =
+			XAsu_DoubleCurveLength(XASU_ECC_P384_PVT_KEY_SIZE_IN_BYTES);
+		CertCfg.PubKeyInfo.SubjectPublicKey = SubjectPubKey;
 		CertCfg.IsSelfSigned = (u8)XASU_FALSE;
 	}
 

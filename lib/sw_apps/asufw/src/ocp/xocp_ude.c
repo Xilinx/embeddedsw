@@ -533,6 +533,8 @@ END:
  *	- XASUFW_SUCCESS, if UDE response data population and signing is successful.
  *	- XASUFW_FAILURE, in case of failure.
  *	- XASUFW_OCP_DEVICE_ID_CALC_FAIL, if device ID calculation fails.
+ *	- XASUFW_KEYMANAGER_GET_KEYOBJ_FAILED, if DevIk public key cannot be fetched from the
+ *	  ASU key vault.
  *	- XASUFW_OCP_NONCE_UPDATE_FAIL, if nonce update fails.
  *	- XASUFW_OCP_MEASUREMENT_UPDATE_FAIL, if measurement update fails.
  *	- XASUFW_OCP_SHA_DIGEST_FAIL, if SHA digest generation fails.
@@ -549,18 +551,26 @@ static s32 XOcp_BuildUdeResponseData(XAsufw_Dma *DmaPtr, const u8 *UdeDecPvtKey,
 	XSha *ShaInstancePtr = XSha_GetInstance(XASU_XSHA_0_DEVICE_ID);
 	XAsu_ShaOperationCmd ShaCmd;
 	const XOcp_DeviceKeys *DevIkDataPtr = NULL;
+	const u8 *DevIkPubKey = NULL;
 	u8 HashBuf[XASU_SHA_384_HASH_LEN] = {0U};
 
 	/** Get the DevIk structure pointer. */
 	DevIkDataPtr = XOcp_GetDevIk();
 
 	/** Device ID update. */
-	if (DevIkDataPtr->IsDevIkKeyReady == XASU_TRUE) {
+	if (DevIkDataPtr->IsKeyReady == XASU_TRUE) {
 		/**
 		 * - If DevIk public key is generated, DeviceId is SHA2-384(DevIk_public_key).
 		 */
+		Status = XOcp_GetDevIkPublicKey(&DevIkPubKey);
+		if (Status != XASUFW_SUCCESS) {
+			Status = XAsufw_UpdateErrorStatus(Status,
+							  XASUFW_KEYMANAGER_GET_KEYOBJ_FAILED);
+			goto END;
+		}
+
 		ShaCmd.ShaMode = XASU_SHA_MODE_384;
-		ShaCmd.DataAddr = (u64)(UINTPTR)(DevIkDataPtr->EccX);
+		ShaCmd.DataAddr = (u64)(UINTPTR)DevIkPubKey;
 		ShaCmd.DataSize = XASUFW_DOUBLE_VALUE(XASU_ECC_P384_PVT_KEY_SIZE_IN_BYTES);
 		ShaCmd.HashAddr = (u64)(UINTPTR)OcpUdeResp->Ude.DeviceId;
 		ShaCmd.HashBufSize = XASU_SHA_384_HASH_LEN;

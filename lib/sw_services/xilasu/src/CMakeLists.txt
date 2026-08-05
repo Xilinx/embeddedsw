@@ -48,6 +48,10 @@ if("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "microblaze_riscv")
     set(XILASU_hmac_support TRUE CACHE BOOL "HMAC is enabled as OCP depends on HMAC" FORCE)
   endif()
 
+  if((XILASU_ocp_support) AND NOT ((XILASU_keymanager_support)))
+    set(XILASU_keymanager_support TRUE CACHE BOOL "Key Manager is enabled as OCP depends on Key Manager" FORCE)
+  endif()
+
   if((XILASU_ecies_support) AND NOT ((XILASU_hmac_support)))
     set(XILASU_hmac_support TRUE CACHE BOOL "HMAC is enabled as ECIES depends on HMAC " FORCE)
   endif()

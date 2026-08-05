@@ -56,7 +56,7 @@
 
 /************************************ Function Prototypes ****************************************/
 static s32 X509_GenerateSignEcc(const u8 *Hash, u32 HashLen, const u8 *Sign, u32 SignLen,
-				u32 *SignActualLen, u8 *PvtKey, const void *PlatformData);
+				u32 *SignActualLen, const u8 *PvtKey, const void *PlatformData);
 static s32 X509_ShaDigest(const u8 *Buf, u32 DataLen, const u8 *Hash, u32 HashBufLen,
 			  u32 *HashLen, const void *PlatformData);
 
@@ -109,7 +109,7 @@ s32 X509_CfgInitialize(void)
  *
  *************************************************************************************************/
 static s32 X509_GenerateSignEcc(const u8 *Hash, u32 HashLen, const u8 *Sign, u32 SignLen,
-				u32 *SignActualLen, u8 *PvtKey, const void *PlatformData)
+				u32 *SignActualLen, const u8 *PvtKey, const void *PlatformData)
 {
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
 	XEcc *EccInstance = XEcc_GetInstance(XASU_XECC_0_DEVICE_ID);

@@ -56,12 +56,9 @@ extern "C" {
  * This structure is used to store generated device keys.
  */
 typedef struct {
-	u8 EccPvtKey[XASU_ECC_P384_PVT_KEY_SIZE_IN_BYTES];	/**< ECC private key */
-	u32 PublicKeyLen;				/**< Public key length */
-	u8 EccX[XASU_ECC_P384_PVT_KEY_SIZE_IN_BYTES];		/**< ECC public key x coordinate */
-	u8 EccY[XASU_ECC_P384_PVT_KEY_SIZE_IN_BYTES];		/**< ECC public key y coordinate */
-	u8 IsDevIkKeyReady;				/**< Indicates if DevIk is ready or not */
-	u8 IsDevAkKeyReady;				/**< Indicates if DevAk is ready or not */
+	u32 PvtKeyId;			/**< Key ID of the private key in the ASU key vault */
+	u32 PubKeyId;			/**< Key ID of the public key in the ASU key vault */
+	u8 IsKeyReady;			/**< Indicates if the device key is ready or not */
 } XOcp_DeviceKeys;
 
 /**
@@ -110,6 +107,7 @@ s32 XOcp_GetX509Cert(u32 SubsystemId, const XAsu_OcpCertParams *OcpCertParam, vo
 s32 XOcp_AttestWithDevAk(XAsufw_Dma *DmaPtr, const XAsu_OcpDevAkAttest *OcpAttestParam,
 			 u32 SubsystemId);
 XOcp_DeviceKeys* XOcp_GetDevIk(void);
+s32 XOcp_GetDevIkPublicKey(const u8 **PubKeyPtr);
 s32 XOcp_GetOcpEventMaskFromPlm(u32 *EventMask);
 s32 XOcp_GetHuk(u8 *HukBuf);
 

@@ -759,6 +759,10 @@ enum {
 	XASUFW_OVERLAY_ACTIVATE_FAIL, /**< 0x222U - Overlay activation failed */
 	XASUFW_OVERLAY_SWITCH_FAIL, /**< 0x223U - Overlay switch failed */
 	XASUFW_OVERLAY_ON_LOAD_FAIL, /**< 0x224U - Overlay on-load hook failed */
+	XASUFW_OCP_DEVIK_STORE_IN_VAULT_FAIL, /**< 0x225U - Error when storing DevIk key pair in
+						the ASU key vault fails */
+	XASUFW_OCP_DEVAK_STORE_IN_VAULT_FAIL, /**< 0x226U - Error when storing DevAk key pair in
+						the ASU key vault fails */
 
 	/* Additional status success codes */
 	XASUFW_OCP_CERT_GENERATION_SUCCESS = 0x3F7U, /**< 0x3F7U - OCP certificate generation

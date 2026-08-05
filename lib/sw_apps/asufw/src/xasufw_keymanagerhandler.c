@@ -40,12 +40,22 @@
 #include "xasufw_aeshandler.h"
 #include "xasufw_memory.h"
 #include "xasu_sharedmem.h"
+#include "xocp.h"
 
 #ifdef XASU_KEYMANAGER_ENABLE
 /************************************ Constant Definitions ***************************************/
 #define XASUFW_KEYMANAGER_KEY_TYPE_OFFSET (3U) /**< Offset to get key type from CmdId */
 
 #define XASUFW_KEYMANAGER_ASU_KEYVAULT_AES_KEY_CAPACITY	(1U) /**< AES key capacity for ASU subsystem */
+
+#ifdef XASU_OCP_ENABLE
+#define XASUFW_KEYMANAGER_ASU_KEYVAULT_ECC_KEY_CAPACITY	(XOCP_MAX_USER_OCP_SUBSYS + 1U)
+								/**< ECC key pairs capacity for ASU
+								subsystem. All ECC key pairs are
+								used for OCP functionality. */
+#else
+#define XASUFW_KEYMANAGER_ASU_KEYVAULT_ECC_KEY_CAPACITY	(0U)
+#endif
 
 /************************************** Type Definitions *****************************************/
 
@@ -588,6 +598,8 @@ static s32 XAsufw_CreateAsuKeyVault(void)
 	SubVaultParams.RSAPubKeyVaultCapacity = XKEYMANAGER_ASU_RSA_KEY_VAULT_CAPACITY;
 	SubVaultParams.RSAPvtKeyVaultCapacity = XKEYMANAGER_ASU_RSA_KEY_VAULT_CAPACITY;
 	SubVaultParams.AESKeyVaultCapacity = XASUFW_KEYMANAGER_ASU_KEYVAULT_AES_KEY_CAPACITY;
+	SubVaultParams.ECCPvtKeyVaultCapacity = XASUFW_KEYMANAGER_ASU_KEYVAULT_ECC_KEY_CAPACITY;
+	SubVaultParams.ECCPubKeyVaultCapacity = XASUFW_KEYMANAGER_ASU_KEYVAULT_ECC_KEY_CAPACITY;
 	SubVaultParams.AccessRights = 0U;
 	SubVaultParams.Restrictions = XASU_KEYMANAGER_NON_EXPORTABLE_VAULT;
 
