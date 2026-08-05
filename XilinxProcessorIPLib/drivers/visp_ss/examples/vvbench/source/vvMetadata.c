@@ -242,12 +242,17 @@ static RESULT AR0820_FirstPaser
 (
 	MetadataBufInfo_t *pMetaBuffer,
 	MetadataMatchList_t *pResultList,
+	uint32_t maxRegNum,
 	uint32_t *pRegNum
 )
 {
 
 	if (pMetaBuffer == NULL || pResultList == NULL) {
 		return RET_NULL_POINTER;
+	}
+
+	if (maxRegNum == 0) {
+		return RET_INVALID_PARM;
 	}
 
 	uint32_t nReg = 0, index = 0;
@@ -264,17 +269,28 @@ static RESULT AR0820_FirstPaser
 		      validBytes);
 	}
 
-	while (pBuffer[index] != START_TAG && index < bufSize) { // find the START TAG
+	while (index < bufSize && pBuffer[index] != START_TAG) { // find the START TAG
 		index ++;
 	}
 
 	index += 1; //Skip 'START_TAG'
 
-	do {
+	// index+2 must stay < bufSize: AR0820_GetDecode() reads pBuffer[index] and
+	// pBuffer[index + 2], so both bytes need to be in range before it is called.
+	while (index + 2 < bufSize) {
 		// MLOGI("%s: index %d pBuffer: 0x%x  \n", __func__,index, pBuffer[index]);
 
-		while (pBuffer[index] == LINE_EOF && index < bufSize) { //skip 'LINE_EOF'
+		while (index < bufSize && pBuffer[index] == LINE_EOF) { //skip 'LINE_EOF'
 			index ++;
+		}
+
+		if (index + 2 >= bufSize) { // not enough bytes left for a full tag+value read
+			break;
+		}
+
+		if (nReg >= maxRegNum) { // pResultList is full; stop before writing past it
+			MLOGW("%s: result list capacity %d reached, stopping parse \n", __func__, maxRegNum);
+			break;
 		}
 
 		decode = AR0820_GetDecode(pBuffer + index);
@@ -308,7 +324,7 @@ static RESULT AR0820_FirstPaser
 				break;
 		}
 		index += PARSER_BYTES_OFFSET;
-	} while (index < bufSize);
+	}
 
 	*pRegNum = nReg;
 	return RET_SUCCESS;
@@ -801,7 +817,7 @@ RESULT VsiVvdeviceParserMetadataNew
 
 	matchNum = MAX_INDEX;
 	if (frameNum == 0) {
-		ret = AR0820_FirstPaser(pMetaBuf, resultList, &regNum);
+		ret = AR0820_FirstPaser(pMetaBuf, resultList, sizeof(resultList) / sizeof(resultList[0]), &regNum);
 		ret |= AR0820_GetParserReg(resultList, regNum, matchList, matchNum);
 	}
 	else {
