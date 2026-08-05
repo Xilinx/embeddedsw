@@ -148,6 +148,8 @@ void init_iic_access(u8 i2cBusId, int in_pipe)
 {
 	xil_printf("enter init_iic_access \r\n");
 	accessiic_handle[in_pipe] = (struct accessIIC *)osMalloc(sizeof(struct accessIIC));
+	if (accessiic_handle[in_pipe] == NULL)
+		DCT_ASSERT(0);
 	g_fmc_single.accessiic_array[in_pipe] = accessiic_handle[in_pipe];
 
 	g_fmc_single.accessiic_array[in_pipe]->i2cBusId = i2cBusId;
@@ -170,6 +172,8 @@ void init_sensor(int in_pipe, int des_index)
 		xil_printf("3MP Sensor Selected \r\n");
 
 		sensor_handle[in_pipe] = (struct sensor_driver *)osMalloc(sizeof(struct sensor_driver));
+		if (sensor_handle[in_pipe] == NULL)
+			DCT_ASSERT(0);
 		//	memcpy(sensor_handle[in_pipe],&ox3f10_driver,sizeof(struct sensor_driver));  //wait for driver
 
 		g_fmc_single.sensor_array[in_pipe] = sensor_handle[in_pipe];
@@ -179,6 +183,8 @@ void init_sensor(int in_pipe, int des_index)
 		xil_printf("5MP Sensor Selected \r\n");
 
 		sensor_handle[in_pipe] = (struct sensor_driver *)osMalloc(sizeof(struct sensor_driver));
+		if (sensor_handle[in_pipe] == NULL)
+			DCT_ASSERT(0);
 		//	memcpy(sensor_handle[in_pipe],&ox3f10_driver,sizeof(struct sensor_driver));  //wait for driver
 
 		g_fmc_single.sensor_array[in_pipe] = sensor_handle[in_pipe];
@@ -188,6 +194,8 @@ void init_sensor(int in_pipe, int des_index)
 		xil_printf("8MP Sensor Selected \r\n");
 
 		sensor_handle[in_pipe] = (struct sensor_driver *)osMalloc(sizeof(struct sensor_driver));
+		if (sensor_handle[in_pipe] == NULL)
+			DCT_ASSERT(0);
 		// memcpy(sensor_handle[in_pipe],&ox08b40_driver,sizeof(struct sensor_driver));  //wait for driver
 
 		g_fmc_single.sensor_array[in_pipe] = sensor_handle[in_pipe];
