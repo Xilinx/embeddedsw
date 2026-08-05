@@ -77,6 +77,7 @@
 *       mb   04/13/2024 Added support for P-224 Curve
 *       mb   07/05/2024 Ported all curves test API's into single generic API.
 *       pre  08/29/24 Added SSIT support
+* 5.8   rap  08/05/2026 Fixed linker section for P-192
 *
 * </pre>
 *
@@ -273,7 +274,7 @@ static const u8 K_P256[] __attribute__ ((section (".data.K_P256"))) = {
 #endif
 #else
 #ifdef TEST_NIST_P192
-static const u8 Hash_P192[] __attribute__ ((section (".data.Hash_P384"))) = {
+static const u8 Hash_P192[] __attribute__ ((section (".data.Hash_P192"))) = {
 		0x1BU, 0x37U, 0x6FU, 0x0BU, 0x73U, 0x5CU, 0x61U, 0x5CU,
 		0xEEU, 0xEBU, 0x31U, 0xBAU, 0xEEU, 0x65U, 0x4BU, 0x0AU,
 		0x37U, 0x48U, 0x25U, 0xDBU,
@@ -285,7 +286,7 @@ static const u8 D_P192[] __attribute__ ((section (".data.D_P192"))) = {
 		0x64U, 0xD2U, 0x50U, 0x99U, 0x23U, 0xA7U, 0x46U, 0x5BU,
 };
 
-static const u8 K_P192[] __attribute__ ((section (".data.K_P384"))) = {
+static const u8 K_P192[] __attribute__ ((section (".data.K_P192"))) = {
 		0xD0U, 0x6CU, 0xB0U, 0xA0U, 0xEFU, 0x2FU, 0x70U, 0x8BU,
 		0x07U, 0x44U, 0xF0U, 0x8AU, 0xA0U, 0x6BU, 0x6DU, 0xEEU,
 		0xDEU, 0xA9U, 0xC0U, 0xF8U, 0x0AU, 0x69U, 0xD8U, 0x47U,
