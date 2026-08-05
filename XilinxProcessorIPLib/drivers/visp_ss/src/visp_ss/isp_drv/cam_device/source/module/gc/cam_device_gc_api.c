@@ -75,7 +75,8 @@ RESULT VsiCamDeviceGcGetConfig
 	memcpy(p_data, &pCamDevCtx->instanceId, sizeof(uint32_t));
 	p_data += sizeof(uint32_t);
 	packet.payload_size += sizeof(uint32_t);
-	memcpy(p_data, pGcCfg, sizeof(CamDeviceGcConfig_t));
+	/* Reserve space for the RPU's reply; packet is already zeroed above,
+	 * so no caller-owned (possibly uninitialized) output data is sent. */
 	packet.payload_size += sizeof(CamDeviceGcConfig_t);
 
 	if (packet.payload_size > MAX_ITEM)
@@ -188,7 +189,8 @@ RESULT VsiCamDeviceGcGetStatus
 	memcpy(p_data, &pCamDevCtx->instanceId, sizeof(uint32_t));
 	p_data += sizeof(uint32_t);
 	packet.payload_size += sizeof(uint32_t);
-	memcpy(p_data, pGcStatus, sizeof(CamDeviceGcStatus_t));
+	/* Reserve space for the RPU's reply; packet is already zeroed above,
+	 * so no caller-owned (possibly uninitialized) output data is sent. */
 	packet.payload_size += sizeof(CamDeviceGcStatus_t);
 
 	if (packet.payload_size > MAX_ITEM)
@@ -269,7 +271,8 @@ RESULT VsiCamDeviceGcGetVersion
 	memcpy(p_data, &pCamDevCtx->instanceId, sizeof(uint32_t));
 	p_data += sizeof(uint32_t);
 	packet.payload_size += sizeof(uint32_t);
-	memcpy(p_data, pVersion, sizeof(uint32_t));
+	/* Reserve space for the RPU's reply; packet is already zeroed above,
+	 * so no caller-owned (possibly uninitialized) output data is sent. */
 	packet.payload_size += sizeof(uint32_t);
 
 	if (packet.payload_size > MAX_ITEM)
