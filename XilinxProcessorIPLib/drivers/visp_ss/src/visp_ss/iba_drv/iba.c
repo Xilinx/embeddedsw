@@ -382,11 +382,18 @@ RESULT IBA_init_send_command
 		}
 		port_no = caseCtx->portId - 1;
 
-		if (port_no > 3 && caseCtx->hpId == ISP0) {
-			LOGE("ERROR: port_no = %d is invalid. Valid range-> [0,1,2,3] \n", port_no);
-			return -1;
-		} else if (port_no > 1 && caseCtx->hpId == ISP1) {
-			LOGE("ERROR: port_no = %d is invalid. Valid range-> [0,1] \n", port_no);
+		if (caseCtx->hpId == ISP0 || caseCtx->hpId == ISP2 || caseCtx->hpId == ISP4) {
+			if (port_no > 3) {
+				LOGE("ERROR: port_no = %d is invalid. Valid range-> [0,1,2,3] \n", port_no);
+				return -1;
+			}
+		} else if (caseCtx->hpId == ISP1 || caseCtx->hpId == ISP3 || caseCtx->hpId == ISP5) {
+			if (port_no > 1) {
+				LOGE("ERROR: port_no = %d is invalid. Valid range-> [0,1] \n", port_no);
+				return -1;
+			}
+		} else {
+			LOGE("ERROR: hpId = %d is invalid. Valid range-> [ISP0,ISP1,ISP2,ISP3,ISP4,ISP5] \n", caseCtx->hpId);
 			return -1;
 		}
 
