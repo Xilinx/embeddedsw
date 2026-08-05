@@ -913,7 +913,14 @@ int ONSEMI_NB7NQ621M_Init(void *IicPtr, u8 I2CSlaveAddress,
 
 	i = DeviceType;
 
-	while (DeviceType == OnsemiRegisterFields[i].DeviceType) {
+	/* Bound the index against the table size before dereferencing it:
+	 * an unrecognized Revision/IsTx combination leaves DeviceType at its
+	 * 0xFFFF sentinel, and even a valid final group must not read past
+	 * the last entry when checking the terminating condition.
+	 */
+	while ((i < (sizeof(OnsemiRegisterFields) /
+			sizeof(Onsemi_RegisterField))) &&
+			(DeviceType == OnsemiRegisterFields[i].DeviceType)) {
 		Result = ONSEMI_NB7NQ621M_SetRegister(IicPtr,
 				I2CSlaveAddress,
 				OnsemiRegisterFields[i].Address,
@@ -1186,7 +1193,15 @@ int ONSEMI_NB7NQ621M_LineRateReconfig(void *IicPtr, u8 I2CSlaveAddress,
 
 	i = DeviceType;
 
-	while (DeviceType == OnsemiRegisterFields[i].DeviceType) {
+	/* Bound the index against the table size before dereferencing it:
+	 * an unrecognized Revision/IsFRL/LineRate combination leaves
+	 * DeviceType at its 0xFFFF sentinel, and even a valid final group
+	 * must not read past the last entry when checking the terminating
+	 * condition.
+	 */
+	while ((i < (sizeof(OnsemiRegisterFields) /
+			sizeof(Onsemi_RegisterField))) &&
+			(DeviceType == OnsemiRegisterFields[i].DeviceType)) {
 		Result = ONSEMI_NB7NQ621M_SetRegister(IicPtr,
 				I2CSlaveAddress,
 				OnsemiRegisterFields[i].Address,
