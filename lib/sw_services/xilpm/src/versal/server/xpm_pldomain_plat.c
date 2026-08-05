@@ -1712,6 +1712,16 @@ static XStatus PlHcScanClear(const XPm_PlDomain *Pld, u16 *DbgErr, u32 PollTimeO
 		XPlmi_Printf(DEBUG_INFO, "Done\r\n");
 	}
 
+#if defined(XCVR1602) || defined(XCVR1652)
+	/*
+	 * EDT-1096605: SDFEC_LD columns can report false
+	 * pass/fail on scan_mem_clear due to hold timing violations.
+	 * Run scan_mem_clear but ignore PASS result.
+	 */
+	XPlmi_Printf(DEBUG_INFO,
+		"INFO: %s: Ignoring HB scan_mem_clear PASS (SDFEC column)\r\n",
+		__func__);
+#else
 	/* Check if Scan Clear Passed */
 	if ((XPm_In32(Pld->CfuApbBaseAddr + CFU_APB_CFU_STATUS_OFFSET) &
 			(u32)CFU_APB_CFU_STATUS_SCAN_CLEAR_PASS_MASK) !=
@@ -1725,6 +1735,7 @@ static XStatus PlHcScanClear(const XPm_PlDomain *Pld, u16 *DbgErr, u32 PollTimeO
 			goto done;
 		}
 	}
+#endif
 
 #ifdef PLM_PRINT_PERF_PL
 	XPlmi_Printf(DEBUG_GENERAL, "PL House Clean completed\n\r");
