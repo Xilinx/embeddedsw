@@ -774,8 +774,8 @@ u32 XMmiDp_InitDpCore(XMmiDp *InstancePtr)
 /**
 *
 * This function initializes the DisplayPort subsystem. It configures the
-* DP core, polls for HPD, power cycles the sink, runs link training, and
-* sets up the video and audio streams.
+* DP core and prepares for asynchronous HPD-driven link training and
+* video setup.
 *
 * @param        RunCfgPtr is a pointer to the application configuration structure.
 *

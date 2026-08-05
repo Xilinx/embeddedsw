@@ -32,6 +32,7 @@
 #if defined (XPAR_XVTC_NUM_INSTANCES)
 #include "mmi_dc_live_test.h"
 #include "mmi_dc_mixed_test.h"
+#include "mmi_dc_bypass_test.h"
 #endif
 #include "mmi_dp_init.h"
 
@@ -267,12 +268,12 @@ static void XDpDc_ApplyUserConfig(InitRunConfig *userConfig, RunConfig *runConfi
     runConfig->VideoMode = XVidC_GetVideoModeId(
         userConfig->width, userConfig->height,
         userConfig->frame_rate, FALSE);
-    if (runConfig->VideoMode == XVIDC_VM_NUM_SUPPORTED) {
+    if (runConfig->VideoMode == XVIDC_VM_NOT_SUPPORTED) {
         xil_printf("WARNING: No standard mode for %dx%d@%dHz, "
-                   "defaulting to 640x480@60\r\n",
+                   "defaulting to 1920x1080@60\r\n",
                    userConfig->width, userConfig->height,
                    userConfig->frame_rate);
-        runConfig->VideoMode = XVIDC_VM_640x480_60_P;
+        runConfig->VideoMode = XVIDC_VM_1920x1080_60_P;
     }
     runConfig->PixelClkHz = XVidC_GetPixelClockHzByVmId(runConfig->VideoMode);
     xil_printf("VideoMode:              %s\r\n",
@@ -417,7 +418,7 @@ static void XDpDc_ApplyUserConfig(InitRunConfig *userConfig, RunConfig *runConfi
 int main(void)
 {
     InitRunConfig userConfig;
-    u32 Status;
+    u32 Status = XST_FAILURE;
 
     /* Disable caches */
     Xil_DCacheDisable();
@@ -442,8 +443,13 @@ restart:
     /* Apply user configuration to platform RunConfig */
     XDpDc_ApplyUserConfig(&userConfig, &RunCfg);
 
+    XDpDc_Warn8kRgbIfNeeded(&userConfig);
+
     /* Bandwidth check when link params are explicitly set (non-auto) */
-    if (userConfig.lane_count && userConfig.link_rate) {
+    if (userConfig.lane_count && userConfig.link_rate &&
+        !(RunCfg.operatingmode == XDCSUB_OPMODE_BYPASS &&
+          RunCfg.Width == APP_BYPASS_8K_WIDTH &&
+          RunCfg.Height == APP_BYPASS_8K_HEIGHT)) {
         const XDc_VideoAttribute *OutVidAttr;
         u32 bpp;
         u64 pixel_bw_kbps, link_bw_kbps;
@@ -517,6 +523,12 @@ restart:
         }
     }
 
+#if defined (XPAR_XVTC_NUM_INSTANCES)
+    if (RunCfg.operatingmode == XDCSUB_OPMODE_BYPASS) {
+        Status = XDpDc_MmiDcBypassTest(&RunCfg);
+    }
+#endif
+
     if (Status != XST_SUCCESS) {
         xil_printf(
             "\r\n**************************************************\r\n");
@@ -539,6 +551,10 @@ restart:
             xil_printf("MMI_DC_MIXED_TEST\r\n");
 #endif
     }
+#if defined (XPAR_XVTC_NUM_INSTANCES)
+    if (RunCfg.operatingmode == XDCSUB_OPMODE_BYPASS)
+        xil_printf("MMI_DC_BYPASS_SST_TEST\r\n");
+#endif
 
     xil_printf("\r\n");
     xil_printf("==================================================\r\n");

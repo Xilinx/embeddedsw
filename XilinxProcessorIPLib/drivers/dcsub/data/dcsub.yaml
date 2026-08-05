@@ -274,6 +274,8 @@ examples:
         - dpdc/mmi_dc_nonlive_test.h
         - dpdc/mmi_dc_mixed_test.c
         - dpdc/mmi_dc_mixed_test.h
+        - dpdc/mmi_dc_bypass_test.c
+        - dpdc/mmi_dc_bypass_test.h
         - dpdc/mmi_dc_partial_plane.c
         - dpdc/mmi_dc_partial_plane.h
         - dpdc/mmi_dc_sdp.c
