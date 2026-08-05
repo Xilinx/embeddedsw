@@ -22,7 +22,7 @@ void CamDeviceIspcoreInit()
 	static bool_t init = BOOL_FALSE;
 
 	if (init == BOOL_FALSE) {
-		for (uint32_t hwId = 0; hwId < CAMDEV_HARDWARE_ID_MAX; hwId++) {
+		for (uint32_t hwId = 0; hwId <= CAMDEV_HARDWARE_ID_MAX; hwId++) {
 			for (uint32_t vtId = 0; vtId < CAMDEV_VIRTUAL_ID_MAX; vtId++)
 				gCamDevIspcore.hCamDevSet[hwId][vtId] = NULL;
 		}
