@@ -83,6 +83,15 @@ int32_t fifo_write(MboxPostMsg *msg, MboxFifoCtrl *mbox_fifo)
 
 	current_write_index = fifo->write_offset;
 	current_read_index = fifo->read_offset;
+
+	/* fifo->item_total/write_offset live in shared memory and are
+	 * writable by the peer core; validate them before using them as a
+	 * modulus or to index the local (fixed-size) buffer_addresses[]
+	 * table, so a corrupted peer cannot drive an out-of-bounds access. */
+	if (fifo->item_total == 0 || fifo->item_total > MAX_MSGS_PER_BOX ||
+	    current_write_index >= MAX_MSGS_PER_BOX)
+		return VPI_ERR_INVALID;
+
 	next_write_index = (current_write_index + 1) % fifo->item_total;
 
 	/* Check if FIFO is full (circular buffer: full when next write == read) */
@@ -122,11 +131,27 @@ int32_t fifo_read(MboxPostMsg *msg, MboxFifoCtrl *mbox_fifo)
 	current_write_index = fifo->write_offset;
 	current_read_index = fifo->read_offset;
 
+	/* fifo->item_total/read_offset live in shared memory and are
+	 * writable by the peer core; validate them before using them as a
+	 * modulus or to index the local (fixed-size) buffer_addresses[]
+	 * table, so a corrupted peer cannot drive an out-of-bounds access. */
+	if (fifo->item_total == 0 || fifo->item_total > MAX_MSGS_PER_BOX ||
+	    current_read_index >= MAX_MSGS_PER_BOX)
+		return VPI_ERR_INVALID;
+
 	/* Check if FIFO is empty (circular buffer: empty when write == read) */
 	if (current_write_index == current_read_index)
 		return VPI_ERR_EMPTY;
 
 	read_pos = mbox_fifo->buffer_addresses[current_read_index];
+
+	/* The message at read_pos lives in shared memory; its payload_size
+	 * field is peer-controlled, so bound it against MAX_ITEM before
+	 * deriving a copy length from it. Otherwise a corrupted peer can
+	 * drive an out-of-bounds write into msg via the memcpy below. */
+	if (((MboxPostMsg *)read_pos)->payload.payload_size > MAX_ITEM)
+		return VPI_ERR_INVALID;
+
 	actual_size = get_mbox_message_size((MboxPostMsg *)read_pos);
 	memcpy(msg, read_pos, actual_size);
 
