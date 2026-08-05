@@ -306,7 +306,22 @@ RESULT ConvertRawToRGBA
 			}
 	}
 
-	uint8_t *pRGBA = mm_malloc(4 * pBuffer->width * pBuffer->height);
+	if (pBuffer->width <= 0 || pBuffer->height <= 0) {
+		LOGE("%s invalid width/height: %d x %d\n", __func__, pBuffer->width, pBuffer->height);
+		return RET_OUTOFRANGE;
+	}
+	/* compute in 64-bit first so the multiply can't wrap before we can check it */
+	uint64_t rgbaSize64 = 4ULL * (uint32_t)pBuffer->width * (uint32_t)pBuffer->height;
+	if (rgbaSize64 > UINT32_MAX) {
+		LOGE("%s RGBA buffer size overflow for %d x %d\n", __func__, pBuffer->width, pBuffer->height);
+		return RET_OUTOFRANGE;
+	}
+	uint32_t rgbaSize = (uint32_t)rgbaSize64;
+	uint8_t *pRGBA = mm_malloc(rgbaSize);
+	if (NULL == pRGBA) {
+		LOGE("%s mm_malloc failed for size %u\n", __func__, rgbaSize);
+		return RET_OUTOFMEM;
+	}
 	uint8_t *pRGBATmp = pRGBA;
 	uint32_t x, y;
 	int posY = 0;
@@ -321,7 +336,7 @@ RESULT ConvertRawToRGBA
 	}
 	mm_free(pLocBuf);
 	pBuffer->bufferInstance = pRGBA;
-	pBuffer->buff_size = 4 * pBuffer->width * pBuffer->height;
+	pBuffer->buff_size = rgbaSize;
 	LOGD("%s out", __func__);
 	return result;
 }
