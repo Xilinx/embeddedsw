@@ -29,6 +29,7 @@
   * 2.6   rpu   07/15/25 Fixed GCC warnings
   * 2.7   bha   01/06/26 Fixed Doxygen warnings
   * 2.8   tvp   04/03/26 Use generic API to increment IV
+  *       sri   08/05/26 Fixed issue in programming encrypted DME private key 3 into eFuses
   * </pre>
   *@note
   *
@@ -713,7 +714,7 @@ static int XPuf_PrgmUdsAndDmeEfuses(XNvm_ClientInstance *NvmClientInstance)
 	}
 
 	if (XPUF_PRGM_ENC_DME_PRIV_KEY_3 == TRUE) {
-		Status = XNvm_WriteDmePrivateKey(NvmClientInstance, 3U, (u64)(UINTPTR)EncryptedData->EncDmeKey0, XPUF_ENV_MONITOR_DISABLE);
+		Status = XNvm_WriteDmePrivateKey(NvmClientInstance, 3U, (u64)(UINTPTR)EncryptedData->EncDmeKey3, XPUF_ENV_MONITOR_DISABLE);
 		if (Status != XST_SUCCESS) {
 			xil_printf("Failed to program encrypted DME private key 3 into eFuses \r\n");
 			goto END;
