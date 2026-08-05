@@ -83,7 +83,8 @@ RESULT VsiCamDeviceGtmGetConfig
 	memcpy(p_data, &pCamDevCtx->instanceId, sizeof(uint32_t));
 	p_data += sizeof(uint32_t);
 	packet.payload_size += sizeof(uint32_t);
-	memcpy(p_data, pConfig, sizeof(CamDeviceGtmConfig_t));
+	/* Reserve space for the RPU's reply; packet is already zeroed above,
+	 * so no caller-owned (possibly uninitialized) output data is sent. */
 	packet.payload_size += sizeof(CamDeviceGtmConfig_t);
 
 	if (packet.payload_size > MAX_ITEM)
@@ -273,7 +274,8 @@ RESULT VsiCamDeviceGtmBlackWhiteCorrectionEnGetConfig
 	memcpy(p_data, &pCamDevCtx->instanceId, sizeof(uint32_t));
 	p_data += sizeof(uint32_t);
 	packet.payload_size += sizeof(uint32_t);
-	memcpy(p_data, pBwCorEnable, sizeof(bool_t));
+	/* Reserve space for the RPU's reply; packet is already zeroed above,
+	 * so no caller-owned (possibly uninitialized) output data is sent. */
 	packet.payload_size += sizeof(bool_t);
 
 	if (packet.payload_size > MAX_ITEM)
@@ -315,7 +317,8 @@ RESULT VsiCamDeviceGtmGetStatus
 	memcpy(p_data, &pCamDevCtx->instanceId, sizeof(uint32_t));
 	p_data += sizeof(uint32_t);
 	packet.payload_size += sizeof(uint32_t);
-	memcpy(p_data, pStatus, sizeof(CamDeviceGtmStatus_t));
+	/* Reserve space for the RPU's reply; packet is already zeroed above,
+	 * so no caller-owned (possibly uninitialized) output data is sent. */
 	packet.payload_size += sizeof(CamDeviceGtmStatus_t);
 
 	if (packet.payload_size > MAX_ITEM)
@@ -357,7 +360,8 @@ RESULT VsiCamDeviceGtmGetVersion
 	memcpy(p_data, &pCamDevCtx->instanceId, sizeof(uint32_t));
 	p_data += sizeof(uint32_t);
 	packet.payload_size += sizeof(uint32_t);
-	memcpy(p_data, pVersion, sizeof(uint32_t));
+	/* Reserve space for the RPU's reply; packet is already zeroed above,
+	 * so no caller-owned (possibly uninitialized) output data is sent. */
 	packet.payload_size += sizeof(uint32_t);
 
 	if (packet.payload_size > MAX_ITEM)
