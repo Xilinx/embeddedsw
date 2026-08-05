@@ -64,6 +64,9 @@ extern "C" {
 /** Number of supported display resolutions */
 #define VMIX_BRIDGE_NUM_RESOLUTIONS  18
 
+/** Number of preset display start-coordinate entries for multi-view layout */
+#define VMIX_BRIDGE_NUM_START_COORDS 5
+
 /** VMix auto-start mode (no interrupt, free-running) */
 #define VMIX_AUTOSTART
 

@@ -100,7 +100,7 @@ static XVidC_VideoWindow MixLayerConfig[VMIX_BRIDGE_MAX_LAYERS - 1] = {
 };
 
 /** Display start coordinate presets for multi-view layout */
-static VmixHdmiBridge_Coordinate start_coords[5] = {
+static VmixHdmiBridge_Coordinate start_coords[VMIX_BRIDGE_NUM_START_COORDS] = {
 	{    0,    0 },
 	{    0, 1080 },
 	{ 1920,    0 },
@@ -574,6 +574,17 @@ int VmixHdmiBridge_MapLayer(CamDevicePipeOutFmt_t outFormat, u8 InstanceID,
 	u16 AXIMMDataWidth = 128;
 	u16 MMWidthBytes = AXIMMDataWidth / 8;
 
+	/* InstancetoLayerMap[][] is sized [VMIX_BRIDGE_MAX_INSTANCES]
+	 * [VMIX_BRIDGE_MAX_OUTPUT_PATHS]; CamDeviceBufChainId_t has more
+	 * values than VMIX_BRIDGE_MAX_OUTPUT_PATHS (e.g. HDR_RAW, METADATA,
+	 * RDMA), so reject anything that would index past the table. */
+	if ((InstanceID >= VMIX_BRIDGE_MAX_INSTANCES) ||
+	    (bufIo >= VMIX_BRIDGE_MAX_OUTPUT_PATHS)) {
+		xil_printf("[VMIX-BRIDGE] ERROR: InstanceID=%d or bufIo=%d out of range\r\n",
+			   InstanceID, bufIo);
+		return -1;
+	}
+
 #ifdef XPAR_XV_FRMBUF_WR_NUM_INSTANCES
 	/* For FBWR (LO) path, compute fbwr_id */
 	if (outputType == 1) {
@@ -646,7 +657,14 @@ int VmixHdmiBridge_MapLayer(CamDevicePipeOutFmt_t outFormat, u8 InstanceID,
 			MixLayerConfig[layer_id - 1].Height = outFormat.outHeight;
 			MixLayerConfig[layer_id - 1].StartX = start_coords[coordinate_counter].StartX;
 			MixLayerConfig[layer_id - 1].StartY = start_coords[coordinate_counter].StartY;
-			coordinate_counter++;
+			/* coordinate_counter only tracks presets up to the last
+			 * start_coords[] entry; once saturated, keep reusing the
+			 * last preset instead of indexing past the array. */
+			int coord_incremented = 0;
+			if (coordinate_counter < (VMIX_BRIDGE_NUM_START_COORDS - 1)) {
+				coordinate_counter++;
+				coord_incremented = 1;
+			}
 
 			if (outputType == 0) {
 				/* MO path: assign layer to ISP instance */
@@ -703,7 +721,9 @@ int VmixHdmiBridge_MapLayer(CamDevicePipeOutFmt_t outFormat, u8 InstanceID,
 						      Layer_Handle[layer_id].Stride);
 			if (Status != XST_SUCCESS) {
 				xil_printf("[VMIX-BRIDGE] ERROR: Set layer window failed (%d)\r\n", Status);
-				coordinate_counter--;
+				if (coord_incremented) {
+					coordinate_counter--;
+				}
 				if (outputType == 0) {
 					InstancetoLayerMap[InstanceID][bufIo] = -1;
 				} else {
@@ -763,6 +783,14 @@ int VmixHdmiBridge_UpdateBufferAddr(u64 baseAddress,
 	int Status;
 	XVidC_ColorFormat Cfmt;
 	XV_Mix_l2 *MixerPtr = &mix;
+
+	/* InstancetoLayerMap[][] is sized [VMIX_BRIDGE_MAX_INSTANCES]
+	 * [VMIX_BRIDGE_MAX_OUTPUT_PATHS]; reject IDs the table can't
+	 * represent instead of indexing past it below. */
+	if ((InstanceID >= VMIX_BRIDGE_MAX_INSTANCES) ||
+	    (bufferIO >= VMIX_BRIDGE_MAX_OUTPUT_PATHS)) {
+		return -1;
+	}
 
 	/* Check layer assignment; if not assigned, return */
 	if (InstancetoLayerMap[InstanceID][bufferIO] <= 0) {
