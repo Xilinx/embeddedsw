@@ -66,6 +66,9 @@ void EdidScdcCheck(XV_HdmiTxSs1          *HdmiTxSs1Ptr,
 		xil_printf ("XVHdmiTxss1_ParseEDID failed \n\r");
 	}
 
+        /*Do not act on EdidCtrlParam when the read/parse failed,
+        it may be partially populated or stale*/
+        if (Status == XST_SUCCESS) {
         /*Check whether the Sink able to support HDMI 2.0 by checking the
         maximum supported video bandwidth*/
         if (CheckHdmiParam->EdidCtrlParam.MaxTmdsMhz >= 340) {
@@ -133,6 +136,7 @@ void EdidScdcCheck(XV_HdmiTxSs1          *HdmiTxSs1Ptr,
             CheckHdmiParam->IsReReadSinkEdid = (FALSE);
             CheckHdmiParam->IsReReadSCDC = (FALSE);
         }
+        }
         CheckHdmiParam->EdidCableConnectRead =(FALSE);
     } else {
         /*If retry Re Read EDID or Re Access SCDC is enabled*/
@@ -144,6 +148,9 @@ void EdidScdcCheck(XV_HdmiTxSs1          *HdmiTxSs1Ptr,
 			xil_printf ("XVHdmiTxss1_ParseEDID failed \n\r");
 		}
 
+            /*Do not act on EdidCtrlParam when the read/parse failed,
+            it may be partially populated or stale*/
+            if (Status == XST_SUCCESS) {
             if(CheckHdmiParam->EdidCtrlParam.IsSCDCPresent == XVIDC_SUPPORTED) {
                 if (CheckHdmiParam->EdidCtrlParam.IsSCDCReadRequestReady ==
                         XVIDC_SUPPORTED) {
@@ -153,6 +160,7 @@ void EdidScdcCheck(XV_HdmiTxSs1          *HdmiTxSs1Ptr,
                         CheckHdmiParam->IsReReadSCDC = (TRUE);
                     }
                 }
+            }
             }
         }
 
