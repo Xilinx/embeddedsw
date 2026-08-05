@@ -712,7 +712,12 @@ int TI_TMDS1204_Init(void *IicPtr, u8 I2CSlaveAddress,
 
 	i = DeviceType;
 
-	while (DeviceType == TiRegisterFields[i].DeviceType) {
+	/* DeviceType stays at the 0xFFFF sentinel when Revision does not
+	 * resolve to a known table entry above; bound i against the table
+	 * size so an unresolved DeviceType can never be used to index
+	 * TiRegisterFields[] out of bounds. */
+	while ((i < (sizeof(TiRegisterFields) / sizeof(Ti_RegisterField))) &&
+			(DeviceType == TiRegisterFields[i].DeviceType)) {
 		Result = TI_TMDS1204_SetRegister(IicPtr,
 				I2CSlaveAddress,
 				TiRegisterFields[i].Address,
@@ -898,7 +903,13 @@ int TI_TMDS1204_LineRateReconfig(void *IicPtr, u8 I2CSlaveAddress,
 
 	i = DeviceType;
 
-	while (DeviceType == TiRegisterFields[i].DeviceType) {
+	/* The final table group has no following sentinel entry, so once i
+	 * walks past its last row the DeviceType comparison alone would
+	 * dereference one element past TiRegisterFields[]; likewise
+	 * DeviceType is left at 0xFFFF whenever Revision/LineRate does not
+	 * resolve above. Bound i against the table size to guard both. */
+	while ((i < (sizeof(TiRegisterFields) / sizeof(Ti_RegisterField))) &&
+			(DeviceType == TiRegisterFields[i].DeviceType)) {
 		Result = TI_TMDS1204_SetRegister(IicPtr,
 				I2CSlaveAddress,
 				TiRegisterFields[i].Address,
