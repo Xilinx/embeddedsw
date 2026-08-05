@@ -43,6 +43,11 @@ extern "C" {
 #define APP_DEFAULT_WIDTH       1920
 #define APP_DEFAULT_HEIGHT      1080
 #define APP_DEFAULT_FPS         60
+#define APP_BYPASS_8K_WIDTH     7680
+#define APP_BYPASS_8K_HEIGHT    4320
+#define APP_BYPASS_8K_FPS       30
+#define APP_FUNCTIONAL_MAX_WIDTH  3840
+#define APP_FUNCTIONAL_MAX_HEIGHT 2160
 #define APP_DEFAULT_NL_PIXFMT   RGBA8888
 #define APP_DEFAULT_LIVE_PIXFMT RGB_8BPC
 #define APP_DEFAULT_DC_OUT_FMT  RGB_8BPC
@@ -109,7 +114,9 @@ typedef struct {
 
         u8 PPC;				/**< Pixels per clock */
 
-        XDc_VideoFormat Stream1Format;	/**< Stream 1 video format */
+        XDc_VideoFormat Stream1Format;	/**< Stream 1 video format; in bypass
+					  *  SST mode this describes AVPG
+					  *  stream 0 (DP MSA stream 1) */
         XDc_VideoFormat Stream2Format;	/**< Stream 2 video format */
         XDc_VideoFormat OutStreamFormat;	/**< Output stream format */
         XDc_CursorBlend CursorEnable;	/**< Cursor enable */
