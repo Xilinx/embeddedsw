@@ -103,6 +103,11 @@ int VsiVvdeviceOutPutPathCreate
 	int bufferNumber = (caseCtx->instanceCfgCtx[instanceId].instancePath[bufIo].bufferNumber >
 			    MAX_BUFFER_QUEUES) ? MAX_BUFFER_QUEUES :
 			   caseCtx->instanceCfgCtx[instanceId].instancePath[bufIo].bufferNumber;
+	if (CAMDEV_BUFMODE_USERPTR == buffMode && bufferNumber > MAX_BUFFRS_PER_BUFIO) {
+		LOGE("%s: bufferNumber %d for bufio %d exceeds MAX_BUFFRS_PER_BUFIO %d in USERPTR mode\n",
+		     __func__, bufferNumber, bufIo, MAX_BUFFRS_PER_BUFIO);
+		return -1;
+	}
 	CamDeviceBufChainConfig_t bufferChain;
 	MEMSET(&bufferChain, 0, sizeof(CamDeviceBufChainConfig_t));
 
@@ -673,6 +678,11 @@ int VsiVvdeviceInputPathCreate
 	int bufferNumber = (caseCtx->instanceCfgCtx[instanceId].instancePath[bufIo].bufferNumber >
 			    MAX_BUFFER_QUEUES) ?
 			   MAX_BUFFER_QUEUES : caseCtx->instanceCfgCtx[instanceId].instancePath[bufIo].bufferNumber;
+	if (CAMDEV_BUFMODE_USERPTR == buffMode && bufferNumber > MAX_BUFFRS_PER_BUFIO) {
+		LOGE("%s: bufferNumber %d for bufio %d exceeds MAX_BUFFRS_PER_BUFIO %d in USERPTR mode\n",
+		     __func__, bufferNumber, bufIo, MAX_BUFFRS_PER_BUFIO);
+		return -1;
+	}
 
 	CamDeviceBufChainConfig_t bufferChain;
 	MEMSET(&bufferChain, 0, sizeof(CamDeviceBufChainConfig_t));
@@ -810,7 +820,6 @@ int VsiVvdeviceInputPathCreate
 
 				if (tmp_mp_alloc_arry[instanceId][bufIo][bufIdx].malloc_ret_addr == NULL) {
 					LOGE("%s-%d: APU Malloc failed with bufio %d !\n ", __func__, __LINE__, bufIo);
-					memset(tmp_mp_alloc_arry[instanceId][bufIo][bufIdx].malloc_ret_addr, 0, 5);
 					mm_free(tmp_mp_alloc_arry[instanceId][bufIo][bufIdx].malloc_ret_addr);
 				}
 
