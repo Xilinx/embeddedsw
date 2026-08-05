@@ -84,7 +84,11 @@ RESULT VsiCamDeviceDgGetConfig
 	memcpy(p_data, &pCamDevCtx->instanceId, sizeof(uint32_t));
 	p_data += sizeof(uint32_t);
 	packet.payload_size += sizeof(uint32_t);
-	memcpy(p_data, pDgCfg, sizeof(CamDeviceDgConfig_t));
+	/* pDgCfg is an output-only buffer; do not serialize its (possibly
+	 * uninitialized) contents into the outbound request. The RPU only
+	 * consumes the instanceId above and fills payload_data with the
+	 * config on response.
+	 */
 	packet.payload_size += sizeof(CamDeviceDgConfig_t);
 
 	if (packet.payload_size > MAX_ITEM)
@@ -203,7 +207,11 @@ RESULT VsiCamDeviceDgGetStatus
 	memcpy(p_data, &pCamDevCtx->instanceId, sizeof(uint32_t));
 	p_data += sizeof(uint32_t);
 	packet.payload_size += sizeof(uint32_t);
-	memcpy(p_data, pDgStatus, sizeof(CamDeviceDgStatus_t));
+	/* pDgStatus is an output-only buffer; do not serialize its (possibly
+	 * uninitialized) contents into the outbound request. The RPU only
+	 * consumes the instanceId above and fills payload_data with the
+	 * status on response.
+	 */
 	packet.payload_size += sizeof(CamDeviceDgStatus_t);
 
 	if (packet.payload_size > MAX_ITEM)
@@ -284,7 +292,11 @@ RESULT VsiCamDeviceDgGetVersion
 	memcpy(p_data, &pCamDevCtx->instanceId, sizeof(uint32_t));
 	p_data += sizeof(uint32_t);
 	packet.payload_size += sizeof(uint32_t);
-	memcpy(p_data, pVersion, sizeof(uint32_t));
+	/* pVersion is an output-only buffer; do not serialize its (possibly
+	 * uninitialized) contents into the outbound request. The RPU only
+	 * consumes the instanceId above and fills payload_data with the
+	 * version on response.
+	 */
 	packet.payload_size += sizeof(uint32_t);
 
 	if (packet.payload_size > MAX_ITEM)
