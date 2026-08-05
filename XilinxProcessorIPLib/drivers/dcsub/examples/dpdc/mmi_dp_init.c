@@ -15,6 +15,7 @@
 #include <xil_exception.h>
 #include <xil_cache.h>
 #include <xil_printf.h>
+#include <xil_assert.h>
 #include <sleep.h>
 
 #include "mmi_dpdc_platform.h"
@@ -52,8 +53,139 @@
 
 /* Default video stream parameters */
 #define XMMIDP_DEFAULT_BPC		8
-#define XMMIDP_PIX_MODE_SINGLE		0x0
 #define XMMIDP_VID_STREAM_ENABLE	0x1
+
+/*****************************************************************************/
+/**
+ * Map pixels-per-clock (from xparameters.h) to DP PixModeSel register value.
+ *
+ * @param	PPC is 1, 2, or 4 pixels per clock.
+ *
+ * @return	XMMIDP_SINGLE/DUAL/QUAD_PIX_MODE.
+ *
+ *****************************************************************************/
+static u8 XDpDc_PpcToPixModeSel(u8 Ppc)
+{
+	Xil_AssertNonvoid((Ppc == 1U) || (Ppc == 2U) || (Ppc == 4U));
+
+	switch (Ppc) {
+	case 4:
+		return XMMIDP_QUAD_PIX_MODE;
+	case 2:
+		return XMMIDP_DUAL_PIX_MODE;
+	default:
+		return XMMIDP_SINGLE_PIX_MODE;
+	}
+}
+
+/*****************************************************************************/
+/**
+ * Select the video format that DP MSA should describe on the wire.
+ *
+ * Bypass routes AVPG stream 0 directly to DP, so use Stream1Format.
+ * Functional modes use the DC output format configured from the menu.
+ *
+ * @param	RunCfgPtr is a pointer to the application configuration structure.
+ *
+ * @return	XDc_VideoFormat for DP stream setup.
+ *
+ *****************************************************************************/
+static XDc_VideoFormat XDpDc_GetDpVideoFormat(const RunConfig *RunCfgPtr)
+{
+	if (RunCfgPtr->operatingmode == XDCSUB_OPMODE_BYPASS)
+		return RunCfgPtr->Stream1Format;
+
+	return RunCfgPtr->OutStreamFormat;
+}
+
+/*****************************************************************************/
+/**
+ * Map XDc_VideoFormat to MSA bits-per-color.
+ *
+ * @param	Fmt is the DC/AVPG video format.
+ *
+ * @return	BPC value for XMmiDp_SetMsaBpc().
+ *
+ *****************************************************************************/
+static u8 XDpDc_VideoFormatToBpc(XDc_VideoFormat Fmt)
+{
+	switch (Fmt) {
+	case RGB_6BPC:
+	case YCbCr444_6BPC:
+		return 6;
+	case RGB_10BPC:
+	case YCbCr444_10BPC:
+	case YCbCr422_10BPC:
+		return 10;
+	case RGB_12BPC:
+	case YCbCr444_12BPC:
+	case YCbCr422_12BPC:
+		return 12;
+	default:
+		return 8;
+	}
+}
+
+/*****************************************************************************/
+/**
+ * Map XDc_VideoFormat to DP video input mapping.
+ *
+ * @param	Fmt is the DC/AVPG video format.
+ *
+ * @return	XMmiDp_VidMap value for XMmiDp_SetVideoMapping().
+ *
+ *****************************************************************************/
+static XMmiDp_VidMap XDpDc_VideoFormatToVidMap(XDc_VideoFormat Fmt)
+{
+	switch (Fmt) {
+	case RGB_6BPC:
+		return XMMIDP_RGB_6BPC;
+	case RGB_10BPC:
+		return XMMIDP_RGB_10BPC;
+	case RGB_12BPC:
+		return XMMIDP_RGB_12BPC;
+	case YCbCr444_8BPC:
+		return XMMIDP_YCbCr444_8BPC;
+	case YCbCr444_10BPC:
+		return XMMIDP_YCbCr444_10BPC;
+	case YCbCr444_12BPC:
+		return XMMIDP_YCbCr444_12BPC;
+	case YCbCr422_8BPC:
+		return XMMIDP_YCbCr422_8BPC;
+	case YCbCr422_10BPC:
+		return XMMIDP_YCbCr422_10BPC;
+	case YCbCr422_12BPC:
+		return XMMIDP_YCbCr422_12BPC;
+	default:
+		return XMMIDP_RGB_8BPC;
+	}
+}
+
+/*****************************************************************************/
+/**
+ * Map XDc_VideoFormat to XVidC color space for MSA misc/timing computation.
+ *
+ * @param	Fmt is the DC/AVPG video format.
+ *
+ * @return	XVidC_ColorFormat for XMmiDp_SetVidControllerUseStdVidMode().
+ *
+ *****************************************************************************/
+static XVidC_ColorFormat XDpDc_VideoFormatToColorFormat(XDc_VideoFormat Fmt)
+{
+	switch (Fmt) {
+	case YCbCr422_8BPC:
+	case YCbCr422_10BPC:
+	case YCbCr422_12BPC:
+		return XVIDC_CSF_YCRCB_422;
+	case YCbCr444_6BPC:
+	case YCbCr444_8BPC:
+	case YCbCr444_10BPC:
+	case YCbCr444_12BPC:
+		return XVIDC_CSF_YCRCB_444;
+	default:
+		return XVIDC_CSF_RGB;
+	}
+}
 
 /* Default audio stream parameters */
 #define XMMIDP_AUD_CH_PER_DATA_INPUT	2U
@@ -298,7 +430,7 @@ static void XDpDc_PrintVideoStreamConfig(XMmiDp *InstancePtr, u8 Stream)
 /**
  * This function sets up the video stream by clearing the video controller,
  * configuring MSA bits per color, pixel mode, video mapping, and applying
- * the standard 640x480 video mode timing.
+ * the selected standard video mode timing from RunConfig.
  *
  * @param	RunCfgPtr is a pointer to the application configuration structure.
  *
@@ -309,22 +441,31 @@ static void XDpDc_PrintVideoStreamConfig(XMmiDp *InstancePtr, u8 Stream)
 *******************************************************************************/
 void XMmiDp_SetupVideoStream(RunConfig *RunCfgPtr)
 {
-
 	XMmiDp *InstancePtr = RunCfgPtr->DpPsuPtr;
+	XDc_VideoFormat DpFormat;
+	u8 Bpc;
+	XMmiDp_VidMap VidMap;
+	XVidC_ColorFormat ColorFormat;
+
+	DpFormat = XDpDc_GetDpVideoFormat(RunCfgPtr);
+	Bpc = XDpDc_VideoFormatToBpc(DpFormat);
+	VidMap = XDpDc_VideoFormatToVidMap(DpFormat);
+	ColorFormat = XDpDc_VideoFormatToColorFormat(DpFormat);
 
 	/* Disable video stream before reconfiguring */
 	XMmiDp_DisableVideoStream(InstancePtr, XMMIDP_STREAM_ID1);
 
 	XMmiDp_ClearVideoController(InstancePtr);
 
-	XMmiDp_SetMsaBpc(InstancePtr, XMMIDP_STREAM_ID1, XMMIDP_DEFAULT_BPC);
-	XMmiDp_SetPixModeSel(InstancePtr, XMMIDP_STREAM_ID1, XMMIDP_PIX_MODE_SINGLE);
-	XMmiDp_SetVideoMapping(InstancePtr, XMMIDP_STREAM_ID1, XMMIDP_RGB_8BPC);
+	XMmiDp_SetMsaBpc(InstancePtr, XMMIDP_STREAM_ID1, Bpc);
+	XMmiDp_SetPixModeSel(InstancePtr, XMMIDP_STREAM_ID1,
+			     XDpDc_PpcToPixModeSel(RunCfgPtr->PPC));
+	XMmiDp_SetVideoMapping(InstancePtr, XMMIDP_STREAM_ID1, VidMap);
 
 	XMmiDp_SetVidControllerUseStdVidMode(InstancePtr,
 					     RunCfgPtr->VideoMode,
 					     XMMIDP_STREAM_ID1,
-					     XVIDC_CSF_RGB);
+					     ColorFormat);
 
 	XDpDc_PrintVideoStreamConfig(InstancePtr, XMMIDP_STREAM_ID1);
 
