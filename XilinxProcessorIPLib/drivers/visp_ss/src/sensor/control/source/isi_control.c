@@ -136,6 +136,12 @@ RESULT ControlIsiSensorDrvHandleUnRegisterIss
 
 	IsiSensorHandle_t sensorHandle = gSInst.hIsiSensor[instanceId];
 	ret = IsiSensorDrvHandleUnRegisterIss(sensorHandle);
+	/* IsiSensorDrvHandleUnRegisterIss() frees the sensor context and its
+	 * IsiSensor_t vtable unconditionally, so the stored handle is stale
+	 * regardless of ret; clear the slot to prevent a later handler from
+	 * reloading and dereferencing the freed handle.
+	 */
+	IsiSensorHandleInit(instanceId);
 	if (ret != RET_SUCCESS) {
 		xil_printf("APU %s FAIL, the result is %d.\n", __func__, ret);
 		return ret;
