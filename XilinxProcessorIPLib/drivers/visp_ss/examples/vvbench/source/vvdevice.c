@@ -1194,7 +1194,11 @@ int VsiVvdeviceExecuteCaseline
 			}
 		}
 	}
-	MediaBuffer_t *tempBuf[6][CAMDEV_BUFCHAIN_SP2] = {NULL};
+	/* Sized to the loop bounds actually used below: MAX_CAM_NUM instances
+	 * (matches the totalInstance check at function entry) x MP..RAW path
+	 * indices (CAMDEV_BUFCHAIN_RAW + 1), instead of the previous [6][SP2]
+	 * which both dimensions could be indexed past. */
+	MediaBuffer_t *tempBuf[MAX_CAM_NUM][CAMDEV_BUFCHAIN_RAW + 1] = {NULL};
 #if 1
 	/*Sensor display, need change displayInstance to show difference instance*/
 
@@ -2039,7 +2043,21 @@ int VsiVvdeviceLoadImageJsonToDatabase
 				osFputs("\n", swSimuList);
 			}
 			else {
-				snprintf(szBuffer, FILE_LEN, pDbConfig->input.path[pathId], index);
+				/* pDbConfig->input.path[pathId] comes from the config JSON and
+				 * must never be used as a printf format string. Substitute the
+				 * first "%d" ourselves: copy the literal prefix, format the
+				 * index in its place, then emit the remainder via "%s" so any
+				 * extra conversion specifiers in the template are treated as
+				 * plain data, not interpreted. */
+				const char *pathTemplate = pDbConfig->input.path[pathId];
+				const char *pctD = strstr(pathTemplate, "%d");
+				size_t prefixLen = (size_t)(pctD - pathTemplate);
+
+				if (prefixLen >= FILE_LEN) {
+					prefixLen = FILE_LEN - 1;
+				}
+				memcpy(szBuffer, pathTemplate, prefixLen);
+				snprintf(szBuffer + prefixLen, FILE_LEN - prefixLen, "%d%s", index, pctD + 2);
 				osFputs(szBuffer, swSimuList);
 				osFputs("\n", swSimuList);
 			}
@@ -3467,6 +3485,11 @@ int VsiVvdeviceGetInputPicture
 #endif
 	/*****************************json change ********************/
 	const EmbeddedJson* json = find_image_data(pVvInstance->mPicCase[instanceId].pictureName);
+	if (json->size >= sizeof(imageFile)) {
+		LOGE("[vvbench]--%s:picture list entry size(0x%x) is larger than imageFile buffer(0x%x)", __func__,
+		     json->size, (unsigned int)sizeof(imageFile));
+		return RET_OUTOFRANGE;
+	}
 	memcpy(imageFile, json->data, json->size);
 	//memcpy(imageFile,&picture_raw_output_format_case_txt[0],picture_raw_output_format_case_txt_len);
 	imageFile[json->size] = '\0';
@@ -3552,6 +3575,12 @@ int VsiVvdeviceGetInputPicture
 			}
 			else {
 				RawpicLen = json->size - offset;
+			}
+			if (bufferSize < RawpicLen) {
+				LOGE("[vvbench]--%s:raw picture file size(0x%x) is larger than buffersize(0x%x)", __func__,
+				     RawpicLen, bufferSize);
+				result = RET_OUTOFRANGE;
+				break;
 			}
 			memset(pRawbuff, 0, RawpicLen);
 			memcpy(pRawbuff, &json->data[offset], RawpicLen);
