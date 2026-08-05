@@ -160,6 +160,14 @@ RESULT VsiCamDeviceCreateBufPool
 	packet.payload_size += sizeof(uint32_t);
 	p_data += sizeof(uint32_t);
 
+	// bufNum is caller-supplied and copies both address lists below; bound it
+	// against the remaining payload_data space before the memcpy calls so an
+	// oversized value can't overrun the fixed-size stack buffer (and can't be
+	// hidden by a wrapped bufNum * sizeof(uint32_t) multiplication either).
+	if (hBufferPoolCfg->bufNum >
+	    (MAX_ITEM - packet.payload_size - sizeof(bool_t)) / (2U * sizeof(uint32_t)))
+		return RET_OUTOFRANGE;
+
 	// 6 physical address
 	memcpy(p_data, hBufferPoolCfg->pBaseAddrList, hBufferPoolCfg->bufNum * sizeof(uint32_t));
 	packet.payload_size += hBufferPoolCfg->bufNum * sizeof(uint32_t);
