@@ -475,11 +475,15 @@ void XCsi_GetVCInfo(XCsi *InstancePtr, u8 Vc, XCsi_VCInfo *VCInfo)
 	Xil_AssertVoid(VCInfo != NULL);
 	Xil_AssertVoid(Vc < XCSI_MAX_VC);
 
-	/* Read the Information Registers for each Virtual Channel */
-	if (Vc & 0x1)
-		Offset = ((Vc * 0x10) + XCSI_VC1INF1R_OFFSET);
-	else
-		Offset = ((Vc * 0x10) + XCSI_VC0INF1R_OFFSET);
+	/*
+	 * Read the Information Registers for each Virtual Channel.
+	 * The per-VC image information registers are placed at a fixed
+	 * stride (VC1INF1R - VC0INF1R = 8 bytes) apart. Compute the offset
+	 * linearly from VC0 so the correct register is addressed for every
+	 * virtual channel and no access is issued past the CSI register block.
+	 */
+	Offset = XCSI_VC0INF1R_OFFSET +
+		 ((u32)Vc * (XCSI_VC1INF1R_OFFSET - XCSI_VC0INF1R_OFFSET));
 
 	/* Read from Info Reg 1 and Info Reg 2 of particular VC */
 	Value1 = XCsi_ReadReg(InstancePtr->Config.BaseAddr, Offset);
