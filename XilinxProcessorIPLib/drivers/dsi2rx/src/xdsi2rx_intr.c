@@ -63,8 +63,7 @@ void XDsi2Rx_InterruptEnable(XDsi2Rx *InstancePtr, u32 Mask)
 	/* Verify argument */
 	Xil_AssertVoid(InstancePtr != NULL);
 	/* Checking for invalid mask bits being set */
-	/* Not sure which mask to use here. Using random mask */
-	Xil_AssertVoid((Mask & (~(XDSI2RX_IER_CRC_ERR_MASK))) == 0);
+	Xil_AssertVoid((Mask & (~(XDSI2RX_IER_ALLINTR_MASK))) == 0);
 
 	Mask |= XDsi2Rx_GetIntrEnableStatus(InstancePtr);
 
@@ -89,7 +88,7 @@ void XDsi2Rx_InterruptDisable(XDsi2Rx *InstancePtr, u32 Mask)
 	/* Verify argument */
 	Xil_AssertVoid(InstancePtr != NULL);
 	/* Checking for invalid mask bits being set */
-	Xil_AssertVoid((Mask & (~(XDSI2RX_IER_CRC_ERR_MASK))) == 0);
+	Xil_AssertVoid((Mask & (~(XDSI2RX_IER_ALLINTR_MASK))) == 0);
 
 	XDsi2Rx_IntrDisable(InstancePtr,
 		(Mask & (XDsi2Rx_GetIntrEnableStatus(InstancePtr))));
