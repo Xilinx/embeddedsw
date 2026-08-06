@@ -58,7 +58,7 @@ XDsi2Ss_SubCores Dsi2SsSubCores[XPAR_XDSIRXSS_NUM_INSTANCES];
 
 /************************** Function Prototypes ******************************/
 
-static void XDsi2RxSs_GetIncludedSubCores(XDsi2RxSs *Dsi2RxSsPtr);
+static s32 XDsi2RxSs_GetIncludedSubCores(XDsi2RxSs *Dsi2RxSsPtr);
 static s32 XDsi2RxSs_SubCoreInitDsi(XDsi2RxSs *Dsi2RxSsPtr);
 #if (XPAR_XDPHY_NUM_INSTANCES > 0)
 static s32 XDsi2RxSs_SubCoreInitDphy(XDsi2RxSs *Dsi2RxSsPtr);
@@ -107,7 +107,9 @@ s32 XDsi2RxSs_CfgInitialize(XDsi2RxSs *InstancePtr, XDsi2RxSs_Config *CfgPtr,
 	/* Determine sub-cores included in the
 	 * provided instance of subsystem
 	 */
-	XDsi2RxSs_GetIncludedSubCores(InstancePtr);
+	if (XDsi2RxSs_GetIncludedSubCores(InstancePtr) != XST_SUCCESS) {
+		return XST_FAILURE;
+	}
 
 	if (InstancePtr->Dsi2RxPtr) {
 		Status = XDsi2RxSs_SubCoreInitDsi(InstancePtr);
@@ -325,15 +327,36 @@ u32 XDsi2RxSs_GetPixelFormat(XDsi2RxSs *InstancePtr)
 *
 * @param	Dsi2RxSsPtr is a pointer to the Subsystem instance
 *
+* @return
+*		- XST_SUCCESS if the sub-cores were resolved successfully
+*		- XST_FAILURE if the base address was not found in the config
+*		  table (out-of-range index)
+*
 * @note		None
 *
 ******************************************************************************/
-static void XDsi2RxSs_GetIncludedSubCores(XDsi2RxSs *Dsi2RxSsPtr)
+static s32 XDsi2RxSs_GetIncludedSubCores(XDsi2RxSs *Dsi2RxSsPtr)
 {
+	u32 Index;
+
 	/* Verify argument */
-	Xil_AssertVoid(Dsi2RxSsPtr != NULL);
-	u32 Index = 0;
+	Xil_AssertNonvoid(Dsi2RxSsPtr != NULL);
+
 	Index = XDsi2RxSs_GetDrvIndex(Dsi2RxSsPtr->Config.BaseAddr);
+	/*
+	 * XDsi2RxSs_GetDrvIndex() returns the sentinel (past-the-end) index
+	 * when the base address is not present in the config table, e.g. when
+	 * a translated/virtual EffectiveAddr is passed to CfgInitialize().
+	 * Reject such an out-of-range index instead of using it to index
+	 * Dsi2SsSubCores[], which would be an out-of-bounds access.
+	 */
+	if (Index >= XPAR_XDSIRXSS_NUM_INSTANCES) {
+		Dsi2RxSsPtr->Dsi2RxPtr = NULL;
+#if (XPAR_XDPHY_NUM_INSTANCES > 0)
+		Dsi2RxSsPtr->DphyPtr = NULL;
+#endif
+		return XST_FAILURE;
+	}
 
 	Dsi2RxSsPtr->Dsi2RxPtr = ((Dsi2RxSsPtr->Config.Dsi2RxInfo.IsPresent) ?
 				(&Dsi2SsSubCores[Index].Dsi2RxInst) : NULL);
@@ -341,6 +364,8 @@ static void XDsi2RxSs_GetIncludedSubCores(XDsi2RxSs *Dsi2RxSsPtr)
 	Dsi2RxSsPtr->DphyPtr = ((Dsi2RxSsPtr->Config.DphyInfo.IsPresent) ?
 				(&Dsi2SsSubCores[Index].DphyInst) : NULL);
 #endif
+
+	return XST_SUCCESS;
 }
 
 /*****************************************************************************/
