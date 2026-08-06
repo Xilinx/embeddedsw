@@ -579,6 +579,20 @@ void XDsi2Rx_GetConfigParams(XDsi2Rx *InstancePtr,
 s32 XDsi2Rx_SetCallback(XDsi2Rx *InstancePtr, u32 HandleType,
 			void *CallbackFunc, void *CallbackRef);
 
+/* Interrupt functions in xdsi2rx_intr.c */
+/** @brief Enable the interrupts in Mask. */
+void XDsi2Rx_InterruptEnable(XDsi2Rx *InstancePtr, u32 Mask);
+/** @brief Disable the interrupts in Mask. */
+void XDsi2Rx_InterruptDisable(XDsi2Rx *InstancePtr, u32 Mask);
+/** @brief Get the interrupts enabled in the core. */
+u32 XDsi2Rx_InterruptGetEnabled(XDsi2Rx *InstancePtr);
+/** @brief Get the active interrupt status. */
+u32 XDsi2Rx_InterruptGetStatus(XDsi2Rx *InstancePtr);
+/** @brief Clear the interrupts in Mask. */
+void XDsi2Rx_InterruptClear(XDsi2Rx *InstancePtr, u32 Mask);
+/** @brief Dispatch a core interrupt to the registered callbacks. */
+void XDsi2Rx_IntrHandler(void *InstancePtr);
+
 #ifdef __cplusplus
 }
 #endif

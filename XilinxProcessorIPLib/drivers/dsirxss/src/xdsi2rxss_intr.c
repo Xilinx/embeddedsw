@@ -45,8 +45,6 @@
 
 /************************** Function Prototypes ******************************/
 
-void XDsi2Rx_IntrHandler(void *InstancePtr);
-void XDsi2Rx_InterruptEnable(void *InstancePtr, u32 Mask);
 
 /************************** Variable Definitions *****************************/
 
