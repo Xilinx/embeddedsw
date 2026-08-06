@@ -63,8 +63,6 @@ static s32 XDsi2RxSs_SubCoreInitDsi(XDsi2RxSs *Dsi2RxSsPtr);
 #if (XPAR_XDPHY_NUM_INSTANCES > 0)
 static s32 XDsi2RxSs_SubCoreInitDphy(XDsi2RxSs *Dsi2RxSsPtr);
 #endif
-static s32 ComputeSubCoreAbsAddr(UINTPTR SsBaseAddr, UINTPTR SsHighAddr,
-					u32 Offset, UINTPTR *BaseAddr);
 
 /************************** Function Definitions ******************************/
 
@@ -400,16 +398,7 @@ static s32 XDsi2RxSs_SubCoreInitDsi(XDsi2RxSs *Dsi2RxSsPtr)
 	}
 
 	/* Compute absolute base address */
-	AbsAddr = 0;
-	Status = ComputeSubCoreAbsAddr(Dsi2RxSsPtr->Config.BaseAddr,
-					Dsi2RxSsPtr->Config.HighAddr,
-					Dsi2RxSsPtr->Config.Dsi2RxInfo.AddrOffset,
-					&AbsAddr);
-	if (Status != XST_SUCCESS) {
-		xdbg_printf(XDBG_DEBUG_ERROR, "DSI2RXSS ERR:: DSI2 RX core base"
-			"address (0x%x) invalid \n\r", AbsAddr);
-		return XST_FAILURE;
-	}
+	AbsAddr = ConfigPtr->BaseAddr;
 
 	/* Initialize core */
 	Status = XDsi2Rx_CfgInitialize(Dsi2RxSsPtr->Dsi2RxPtr, ConfigPtr, AbsAddr);
@@ -458,16 +447,7 @@ static s32 XDsi2RxSs_SubCoreInitDphy(XDsi2RxSs *Dsi2RxSsPtr)
 	}
 
 	/* Compute absolute base address */
-	AbsAddr = 0;
-	Status = ComputeSubCoreAbsAddr(Dsi2RxSsPtr->Config.BaseAddr,
-					Dsi2RxSsPtr->Config.HighAddr,
-					Dsi2RxSsPtr->Config.DphyInfo.AddrOffset,
-					&AbsAddr);
-	if (Status != XST_SUCCESS) {
-		xdbg_printf(XDBG_DEBUG_ERROR, "DSIRXSS ERR:: DPHY core base address "
-				"(0x%x) invalid \n\r", AbsAddr);
-		return XST_FAILURE;
-	}
+	AbsAddr = ConfigPtr->BaseAddr;
 
 	/* Initialize core */
 	Status = XDphy_CfgInitialize(Dsi2RxSsPtr->DphyPtr, ConfigPtr, AbsAddr);
@@ -481,49 +461,4 @@ static s32 XDsi2RxSs_SubCoreInitDphy(XDsi2RxSs *Dsi2RxSsPtr)
 }
 #endif
 
-/*****************************************************************************/
-/**
-* This function computes the subcore absolute address on axi-lite interface
-* Subsystem is mapped at an absolute address and all included sub-cores are
-* at pre-defined offset from the subsystem base address. To access the subcore
-* register map from host CPU an absolute address is required.
-* The subsystem is aligned to 128K address and has address range of max 192K
-* By default, DSI is at offset 0x0_0000 and DPHY is at offset 0x1_0000.
-* In case DPHY register interface is also absent then the address
-* range shrinks to 64K with only the DSI subcore at offset 0x0_0000.
-*
-* @param	SsBaseAddr is the base address of the the Subsystem instance
-* @param	SsHighAddr is the max address of the Subsystem instance
-* @param	Offset is the offset of the specified core
-* @param	BaseAddr is the computed absolute base address of the subcore
-*
-* @return
-*		- XST_SUCCESS if base address computation is successful
-*		  and within subsystem address range
-*		- XST_FAILURE on address out of range
-*
-* @note		None
-*
-******************************************************************************/
-static s32 ComputeSubCoreAbsAddr(UINTPTR SsBaseAddr,
-				UINTPTR SsHighAddr,
-				u32 Offset,
-				UINTPTR *BaseAddr)
-{
-	s32 Status;
-	UINTPTR AbsAddr;
-
-	AbsAddr = SsBaseAddr + Offset;
-
-	if ((AbsAddr >= SsBaseAddr) && (AbsAddr < SsHighAddr)) {
-		*BaseAddr = AbsAddr;
-		Status = XST_SUCCESS;
-	}
-	else {
-		*BaseAddr = 0;
-		Status = XST_FAILURE;
-	}
-
-	return Status;
-}
 /** @} */
