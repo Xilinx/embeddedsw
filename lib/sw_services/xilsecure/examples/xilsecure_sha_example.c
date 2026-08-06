@@ -25,6 +25,7 @@
 *       har    10/12/20 Addressed security review comments
 *       kal    03/23/21 Removed versal support in this example and created
 *       		a separate example for the same
+* 5.8   rpu    08/03/26 Use Xil_SMemCmp_CT for hash comparison
 *
 * </pre>
 ******************************************************************************/
@@ -85,7 +86,7 @@ static u8 ExpHash[SHA3_HASH_LEN_IN_BYTES] =
 ******************************************************************************/
 int main(void)
 {
-	int Status;
+	int Status = XST_FAILURE;
 
 	Status = SecureSha3Example();
 	if(Status == XST_SUCCESS) {
@@ -146,9 +147,17 @@ static u32 SecureSha3Example()
 	/*
 	 * Initialize the SHA-3 driver so that it's ready to use
 	 */
-	XSecure_Sha3Initialize(&Secure_Sha3, &CsuDma);
+	Status = XSecure_Sha3Initialize(&Secure_Sha3, &CsuDma);
+	if (Status != XST_SUCCESS) {
+		xil_printf("Initialization of SHA-3 failed, Status = 0x%x \r\n", Status);
+		goto END;
+	}
 
-	XSecure_Sha3Digest(&Secure_Sha3, (u8*)Data, Size, Out);
+	Status = XSecure_Sha3Digest(&Secure_Sha3, (u8 *)Data, Size, Out);
+	if (Status != XST_SUCCESS) {
+		xil_printf("Calculation of SHA-3 digest failed, Status = 0x%x \r\n", Status);
+		goto END;
+	}
 
 	xil_printf(" Calculated Hash \r\n ");
 	SecureSha3PrintHash(Out);
@@ -171,19 +180,14 @@ END:
 ****************************************************************************/
 static u32 SecureSha3CompareHash(u8 *Hash, u8 *ExpectedHash)
 {
-	u32 Index;
 	u32 Status = XST_FAILURE;
 
-	for (Index = 0U; Index < SHA3_HASH_LEN_IN_BYTES; Index++) {
-		if (Hash[Index] != ExpectedHash[Index]) {
-			xil_printf("Expected Hash \r\n");
-			SecureSha3PrintHash(ExpectedHash);
-			xil_printf("SHA Example Failed at Hash Comparison \r\n");
-			break;
-		}
-	}
-	if (Index == SHA3_HASH_LEN_IN_BYTES) {
-		Status = XST_SUCCESS;
+	Status = (u32)Xil_SMemCmp_CT(ExpectedHash, SHA3_HASH_LEN_IN_BYTES, Hash,
+			SHA3_HASH_LEN_IN_BYTES, SHA3_HASH_LEN_IN_BYTES);
+	if (Status != XST_SUCCESS) {
+		xil_printf("Expected Hash \r\n");
+		SecureSha3PrintHash(ExpectedHash);
+		xil_printf("SHA Example Failed at Hash Comparison \r\n");
 	}
 
 	return Status;
