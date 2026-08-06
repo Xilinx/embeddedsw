@@ -38,6 +38,7 @@
 *       cog    07/03/20 The metal_phys parameter is baremetal only.
 * 12.1  cog    07/14/23 Modified for SDT flow
 * 13.1  dc     03/08/26 Correct compiler warnings
+* 13.2  akm    08/06/26 Fix missing field initializer warnings.
 *
 * </pre>
 *
@@ -100,10 +101,10 @@ static struct metal_device CustomDev = {
 			.page_shift = (unsigned)(-1),
 			.page_mask = (unsigned)(-1),
 			.mem_flags = 0x0,
-			.ops = {NULL},
+			.ops = {},
 		}
 	},
-	.node = {NULL},
+	.node = {},
 	.irq_num = 0,
 	.irq_info = NULL,
 };

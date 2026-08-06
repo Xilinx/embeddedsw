@@ -28,6 +28,7 @@
 *       cog    07/03/20 Formatting and text changes.
 * 11.0  cog    07/12/21 Simplified clock distribution user interface.
 * 13.1  dc     03/08/26 Correct compiler warnings
+* 13.2  akm    08/06/26 Fix missing field initializer warnings.
 *
 * </pre>
 *
@@ -88,10 +89,10 @@ static struct metal_device CustomDev = {
 			.page_shift = (unsigned)(-1),
 			.page_mask = (unsigned)(-1),
 			.mem_flags = 0x0,
-			.ops = {NULL},
+			.ops = {},
 		}
 	},
-	.node = {NULL},
+	.node = {},
 	.irq_num = 0,
 	.irq_info = NULL,
 };

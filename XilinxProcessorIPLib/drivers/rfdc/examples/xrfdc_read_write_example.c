@@ -66,6 +66,7 @@
 *       cog    07/25/23 Remove dead code
 * 13.1  dc     03/08/26 Correct compiler warnings
 *       dc     04/15/26 Add base address definition to SDT flow
+* 13.2  akm    08/06/26 Fix missing field initializer warnings.
 * </pre>
 *
 *****************************************************************************/
@@ -143,10 +144,10 @@ static struct metal_device CustomDev = {
 			.page_shift = (unsigned)(-1),
 			.page_mask = (unsigned)(-1),
 			.mem_flags = 0x0,
-			.ops = {NULL},
+			.ops = {},
 		}
 	},
-	.node = {NULL},
+	.node = {},
 	.irq_num = 0,
 	.irq_info = NULL,
 };

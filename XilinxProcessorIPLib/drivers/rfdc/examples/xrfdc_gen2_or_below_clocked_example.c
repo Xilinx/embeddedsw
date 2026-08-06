@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2017 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -29,6 +30,7 @@
 *       cog    07/03/20 The metal_phys parameter is baremetal only.
 *       cog    07/03/20 The change clock to fit with new reference design.
 *       cog    07/03/20 Formatting and text changes.
+* 13.2  akm    08/06/26 Fix missing field initializer warnings.
 *
 * </pre>
 *
@@ -101,10 +103,10 @@ static struct metal_device CustomDev = {
 			.page_shift = (unsigned)(-1),
 			.page_mask = (unsigned)(-1),
 			.mem_flags = 0x0,
-			.ops = {NULL},
+			.ops = {},
 		}
 	},
-	.node = {NULL},
+	.node = {},
 	.irq_num = 0,
 	.irq_info = NULL,
 };

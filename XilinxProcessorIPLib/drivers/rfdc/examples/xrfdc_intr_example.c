@@ -11,7 +11,7 @@
 *
 * For the RFSoC Data Converter, the interrupts are mostly used for error
 * reporting.
-* The interrupts do not do any data processing. Since they dont do any data
+* The interrupts do not do any data processing. Since they don't do any data
 * processing, interrupts are invoked in rare conditions.
 * The example here attempts to demonstrate users how an error interrupt can be
 * generated. Also once generated how does the processing happen.
@@ -54,6 +54,7 @@
 * 7.1   cog    01/24/20 Updated example for Gen3 and libmetal 2.0.
 * 8.0   cog    04/09/20 Fixed baremetal compilation bug.
 * 13.1  dc     02/18/26 Correct spelling errors
+* 13.2  akm    08/06/26 Fix missing field initializer warnings.
 *
 * </pre>
 *
@@ -155,10 +156,10 @@ static struct metal_device metal_dev_rfdc = {
 			.page_shift = (unsigned)(-1),
 			.page_mask = (unsigned)(-1),
 			.mem_flags = 0x0,
-			.ops = {NULL},
+			.ops = {},
 		}
 	},
-	.node = {NULL},
+	.node = {},
 	.irq_num = 1,
 	.irq_info = (void *)RFDC_IRQ_VECT_ID,
 };
@@ -176,10 +177,10 @@ static struct metal_device metal_dev_stim = {
 			.page_shift = (unsigned)(-1),
 			.page_mask = (unsigned)(-1),
 			.mem_flags = 0x0,
-			.ops = {NULL},
+			.ops = {},
 		}
 	},
-	.node = {NULL},
+	.node = {},
 	.irq_num = 0,
 	.irq_info = NULL,
 };
@@ -197,10 +198,10 @@ static struct metal_device metal_dev_cap = {
 			.page_shift = (unsigned)(-1),
 			.page_mask = (unsigned)(-1),
 			.mem_flags = 0x0,
-			.ops = {NULL},
+			.ops = {},
 		}
 	},
-	.node = {NULL},
+	.node = {},
 	.irq_num = 0,
 	.irq_info = NULL,
 };
