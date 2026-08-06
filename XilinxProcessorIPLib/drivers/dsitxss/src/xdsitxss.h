@@ -255,7 +255,7 @@ typedef struct {
 
 /************************** Function Prototypes ******************************/
 XDsiTxSs_Config* XDsiTxSs_LookupConfig(UINTPTR BaseAddress);
-u32 XDsiTxSs_GetDrvIndex(XDsiTxSs *InstancePtr, UINTPTR BaseAddress);
+u32 XDsiTxSs_GetDrvIndex(UINTPTR BaseAddress);
 
 s32 XDsiTxSs_CfgInitialize(XDsiTxSs *InstancePtr, XDsiTxSs_Config *CfgPtr,
 							UINTPTR EffectiveAddr);

@@ -542,7 +542,7 @@ static s32 XDsiTxSs_GetIncludedSubCores(XDsiTxSs *DsiTxSsPtr)
 	/* Verify argument */
 	Xil_AssertNonvoid(DsiTxSsPtr != NULL);
 
-	Index = XDsiTxSs_GetDrvIndex(DsiTxSsPtr, DsiTxSsPtr->Config.BaseAddr);
+	Index = XDsiTxSs_GetDrvIndex(DsiTxSsPtr->Config.BaseAddr);
 	/*
 	 * XDsiTxSs_GetDrvIndex() returns the sentinel (past-the-end) index
 	 * when the base address is not present in the config table, e.g. when
