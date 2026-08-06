@@ -62,6 +62,12 @@ extern "C" {
 #define XDSI2RX_HANDLER_GSP_FIFO_NE			16
 #define XDSI2RX_HANDLER_GSP_FIFO_FULL			17
 #define XDSI2RX_HANDLER_FRAME_STARTED			18
+#define XDSI2RX_HANDLER_INCORRECT_LANE_CONFIG		19	/**< Incorrect
+							lane configuration
+							handler */
+#define XDSI2RX_HANDLER_WC_CORRUPTION			20	/**< Word count
+							corruption
+							handler */
 
 typedef enum {
 	XDSI2RX_DISABLE, /* DSI Tx controller Disable */
@@ -164,6 +170,18 @@ typedef struct {
 	void *GSPFifoFullRef;
 	XDsi2Rx_Callback FrmStartDetCallback; /* FRAME Start Detect*/
 	void *FrmStartDetRef;
+	XDsi2Rx_Callback IncorrectLaneConfigCallback;	/**< Callback for
+							Incorrect lane
+							configuration */
+	void *IncorrectLaneConfigRef;			/**< To be passed to the
+							Incorrect lane
+							configuration call
+							back */
+	XDsi2Rx_Callback WCCorruptionCallback;		/**< Callback for Word
+							count corruption */
+	void *WCCorruptionRef;				/**< To be passed to the
+							Word count corruption
+							call back */
 
 u32 IsReady; /**< Driver is ready */
 } XDsi2Rx;

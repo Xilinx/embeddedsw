@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2024-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -103,6 +103,8 @@ u32 XDsi2Rx_CfgInitialize(XDsi2Rx *InstancePtr, XDsi2Rx_Config *CfgPtr,
 	InstancePtr->GSPFifoNECallback   = StubErrCallback;
 	InstancePtr->GSPFifoFullCallback   = StubErrCallback;
 	InstancePtr->FrmStartDetCallback   = StubErrCallback;
+	InstancePtr->IncorrectLaneConfigCallback   = StubErrCallback;
+	InstancePtr->WCCorruptionCallback   = StubErrCallback;
 
 	InstancePtr->IsReady = XIL_COMPONENT_IS_READY;
 

@@ -198,6 +198,8 @@ void XDsi2Rx_InterruptClear(XDsi2Rx *InstancePtr, u32 Mask)
 * XDSI2RX_HANDLER_GSP_FIFO_NE		generic short packet fifo not empty
 * XDSI2RX_HANDLER_GSP_FIFO_FULL		generic short packet fifo full
 * XDSI2RX_HANDLER_FRAME_STARTED		frame started
+* XDSI2RX_HANDLER_INCORRECT_LANE_CONFIG	incorrect lane configuration
+* XDSI2RX_HANDLER_WC_CORRUPTION		word count corruption
 *
 * </pre>
 *
@@ -313,6 +315,16 @@ s32 XDsi2Rx_SetCallback(XDsi2Rx *InstancePtr, u32 HandleType,
 	case XDSI2RX_HANDLER_FRAME_STARTED:
 		InstancePtr->FrmStartDetCallback = CallbackFunc;
 		InstancePtr->FrmStartDetRef = CallbackRef;
+		break;
+
+	case XDSI2RX_HANDLER_INCORRECT_LANE_CONFIG:
+		InstancePtr->IncorrectLaneConfigCallback = CallbackFunc;
+		InstancePtr->IncorrectLaneConfigRef = CallbackRef;
+		break;
+
+	case XDSI2RX_HANDLER_WC_CORRUPTION:
+		InstancePtr->WCCorruptionCallback = CallbackFunc;
+		InstancePtr->WCCorruptionRef = CallbackRef;
 		break;
 
 	default:
@@ -486,6 +498,22 @@ void XDsi2Rx_IntrHandler(void *InstancePtr)
 		/* If Generic Short packet fifo full then call corresponding callback function */
 		XDsi2RxPtr->GSPFifoFullCallback
 			(XDsi2RxPtr->GSPFifoFullRef, Mask);
+	}
+
+	Mask = ActiveIntr & XDSI2RX_IER_INCORRECT_LANE_CONFIG_MASK;
+	if (Mask) {
+		/* If incorrect lane configuration then call corresponding
+		 * callback function */
+		XDsi2RxPtr->IncorrectLaneConfigCallback
+			(XDsi2RxPtr->IncorrectLaneConfigRef, Mask);
+	}
+
+	Mask = ActiveIntr & XDSI2RX_IER_WC_CORRUPTION_MASK;
+	if (Mask) {
+		/* If word count corruption then call corresponding
+		 * callback function */
+		XDsi2RxPtr->WCCorruptionCallback
+			(XDsi2RxPtr->WCCorruptionRef, Mask);
 	}
 
 	Mask = ActiveIntr & XDSI2RX_IER_FRAME_START_MASK;
