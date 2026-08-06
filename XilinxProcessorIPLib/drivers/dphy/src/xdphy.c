@@ -492,8 +492,61 @@ void XDphy_Reset(XDphy *InstancePtr)
 
 /****************************************************************************/
 /**
+* This function returns the status register offset for the requested data
+* lane. The data lane 0-3 status registers are contiguous, but the data
+* lane 4-7 status registers reside at a separate, non-contiguous block of
+* offsets. A plain linear stride from lane 0 therefore addresses the wrong
+* register (or an offset outside the DPHY register space) for lanes 4-7;
+* this helper maps each lane to its correct register offset.
+*
+* @param	DataLane is the data lane (0 through 7) whose status register
+*		offset is required.
+*
+* @return	Offset of the Data Lane status register for the requested lane.
+*
+* @note		None.
+*****************************************************************************/
+static u32 XDphy_GetDLStatusRegOffset(u8 DataLane)
+{
+	u32 Offset;
+
+	switch (DataLane) {
+	case 0:
+		Offset = XDPHY_DL0STATUS_REG_OFFSET;
+		break;
+	case 1:
+		Offset = XDPHY_DL1STATUS_REG_OFFSET;
+		break;
+	case 2:
+		Offset = XDPHY_DL2STATUS_REG_OFFSET;
+		break;
+	case 3:
+		Offset = XDPHY_DL3STATUS_REG_OFFSET;
+		break;
+	case 4:
+		Offset = XDPHY_DL4STATUS_REG_OFFSET;
+		break;
+	case 5:
+		Offset = XDPHY_DL5STATUS_REG_OFFSET;
+		break;
+	case 6:
+		Offset = XDPHY_DL6STATUS_REG_OFFSET;
+		break;
+	case 7:
+		Offset = XDPHY_DL7STATUS_REG_OFFSET;
+		break;
+	default:
+		Offset = XDPHY_DL0STATUS_REG_OFFSET;
+		break;
+	}
+
+	return Offset;
+}
+
+/****************************************************************************/
+/**
 * This is used to clear the Abort Error (Escape or High Speed) bits
-* in the Data Lane 0 through 3
+* in the Data Lane 0 through 7
 *
 * @param 	InstancePtr is the XDphy instance to operate on.
 * @param 	DataLane represents which Data Lane to act upon
@@ -516,7 +569,7 @@ void XDphy_ClearDataLane(XDphy *InstancePtr, u8 DataLane, u32 Mask)
 			XDPHY_DLXSTATUS_REG_HSABRT_MASK);
 
 	XDphy_WriteReg(InstancePtr->Config.BaseAddr,
-			XDPHY_DL0STATUS_REG_OFFSET + (DataLane * 4), Mask);
+			XDphy_GetDLStatusRegOffset(DataLane), Mask);
 }
 
 /****************************************************************************/
@@ -584,7 +637,7 @@ u32 XDphy_GetDataLaneStatus(XDphy *InstancePtr, u8 DataLane)
 	Xil_AssertNonvoid(DataLane < InstancePtr->Config.MaxLanesPresent);
 
 	return (XDphy_ReadReg(InstancePtr->Config.BaseAddr,
-				(XDPHY_DL0STATUS_REG_OFFSET + (4 * DataLane))));
+				XDphy_GetDLStatusRegOffset(DataLane)));
 }
 
 /****************************************************************************/
@@ -610,7 +663,7 @@ u8 XDphy_GetDLCalibStatus(XDphy *InstancePtr, u8 DataLane)
 	Xil_AssertNonvoid(DataLane < InstancePtr->Config.MaxLanesPresent);
 
 	Data = XDphy_ReadReg(InstancePtr->Config.BaseAddr,
-				(XDPHY_DL0STATUS_REG_OFFSET + (DL_LANE_OFFSET * DataLane)));
+				XDphy_GetDLStatusRegOffset(DataLane));
 
 	if (Data & XDPHY_DLXSTATUS_REG_CALIB_COMPLETE_MASK) {
 		if (Data & XDPHY_DLXSTATUS_REG_CALIB_STATUS_MASK)
@@ -674,7 +727,7 @@ u16 XDphy_GetPacketCount(XDphy *InstancePtr, u8 DataLane)
 	Xil_AssertNonvoid(DataLane < InstancePtr->Config.MaxLanesPresent);
 
 	Value = (XDphy_ReadReg(InstancePtr->Config.BaseAddr,
-				(XDPHY_DL0STATUS_REG_OFFSET + (4 * DataLane))));
+				XDphy_GetDLStatusRegOffset(DataLane)));
 	Value = Value & XDPHY_DLXSTATUS_REG_PACKETCOUNT_MASK;
 	Value >>= XDPHY_DLXSTATUS_REG_PACKCOUNT_OFFSET;
 

@@ -65,26 +65,25 @@ extern "C" {
 						      *  Status Register */
 #define XDPHY_DL3STATUS_REG_OFFSET 	0x00000028  /**< Data lane 3 PHY error
 						      *  Status Register */
+#define XDPHY_DL4STATUS_REG_OFFSET 	0x00000064  /**< Data lane 4 PHY error
+						      *  Status Register */
+#define XDPHY_DL5STATUS_REG_OFFSET 	0x00000068  /**< Data lane 5 PHY error
+						      *  Status Register */
+#define XDPHY_DL6STATUS_REG_OFFSET 	0x0000006C  /**< Data lane 6 PHY error
+						      *  Status Register */
+#define XDPHY_DL7STATUS_REG_OFFSET 	0x00000070  /**< Data lane 7 PHY error
+						      *  Status Register */
+
 #define XDPHY_HSSETTLE_REG_OFFSET	0x00000030  /**< HS Settle Register L0*/
 #define XDPHY_IDELAY58_REG_OFFSET 	0x00000034  /**< IDelay Tap per lane for
 						      *  Rx 4-7 Register*/
 #define XDPHY_HSSETTLE1_REG_OFFSET	0x00000048  /**< HS Settle Register L1*/
 #define XDPHY_HSSETTLE2_REG_OFFSET	0x0000004C  /**< HS Settle Register L2*/
 #define XDPHY_HSSETTLE3_REG_OFFSET	0x00000050  /**< HS Settle Register L3*/
-
 #define XDPHY_HSSETTLE4_REG_OFFSET	0x00000054  /**< HS Settle Register L4*/
 #define XDPHY_HSSETTLE5_REG_OFFSET	0x00000058  /**< HS Settle Register L5*/
 #define XDPHY_HSSETTLE6_REG_OFFSET	0x0000005C  /**< HS Settle Register L6*/
 #define XDPHY_HSSETTLE7_REG_OFFSET	0x00000060  /**< HS Settle Register L7*/
-
-#define XDPHY_DL4STATUS_REG_OFFSET 	0x00000064  /**< Data lane 0 PHY error
-						      *  Status Register */
-#define XDPHY_DL5STATUS_REG_OFFSET 	0x00000068  /**< Data lane 1 PHY error
-						      *  Status Register */
-#define XDPHY_DL6STATUS_REG_OFFSET 	0x0000006C  /**< Data lane 2 PHY error
-						      *  Status Register */
-#define XDPHY_DL7STATUS_REG_OFFSET 	0x00000070  /**< Data lane 3 PHY error
-						      *  Status Register */
 /*@}*/
 
 /** @name Bitmasks and offsets of XDPHY_CTRL_REG_OFFSET register
@@ -241,8 +240,6 @@ extern "C" {
 #define XDPHY_HSSETTLE_REG_TIMEOUT_MASK	0x1FF	/**< HS_SETTLE value */
 #define XDPHY_HSSETTLE_REG_TIMEOUT_OFFSET 0 /**< Bit offset for HS_SETTLE */
 /*@}*/
-
-#define DL_LANE_OFFSET	4	/**< Offset value for data lane registers */
 
 /**************************** Type Definitions *******************************/
 
