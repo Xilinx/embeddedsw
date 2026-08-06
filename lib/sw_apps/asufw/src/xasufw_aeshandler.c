@@ -267,7 +267,8 @@ static s32 XAsufw_AesOperation(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 			Status = XKeyManager_UpdateKeyObjFromVault(XAsufw_AesModule.AsuDmaPtr,
 							IvObject.IvId, (u64)(UINTPTR)&IvObject,
 							SubsystemId, KeyUsecase,
-							XKEYMANAGER_RSA_OP_NONE);
+							XKEYMANAGER_RSA_OP_NONE,
+							XASU_IV_SUBVAULT_ID);
 			if (Status != XASUFW_SUCCESS) {
 				Status = XASUFW_KEYMANAGER_GET_KEYOBJ_FAILED;
 				goto END;
@@ -292,7 +293,8 @@ static s32 XAsufw_AesOperation(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 			Status = XKeyManager_UpdateKeyObjFromVault(XAsufw_AesModule.AsuDmaPtr,
 							KeyObject.KeyId, (u64)(UINTPTR)&KeyObject,
 							SubsystemId, KeyUsecase,
-							XKEYMANAGER_RSA_OP_NONE);
+							XKEYMANAGER_RSA_OP_NONE,
+							XASU_AES_SUBVAULT_ID);
 			if (Status != XASUFW_SUCCESS) {
 				Status = XASUFW_KEYMANAGER_GET_KEYOBJ_FAILED;
 				goto END;

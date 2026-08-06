@@ -255,7 +255,8 @@ static s32 XAsufw_KeyWrap(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 						KeyWrapParams.RsaKeyId,
 						KeyWrapParams.KeyCompAddr, SubsystemId,
 						XASU_KEYMANAGER_RSA_PUB_KEY_TRANSPORT_USE_CASE,
-						XKEYMANAGER_RSA_OP_NONE);
+						XKEYMANAGER_RSA_OP_NONE,
+						XASU_RSA_PUB_SUBVAULT_ID);
 		if (Status != XASUFW_SUCCESS) {
 			Status = XASUFW_KEYMANAGER_GET_KEYOBJ_FAILED;
 			goto END;
@@ -271,7 +272,8 @@ static s32 XAsufw_KeyWrap(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 						AesKeyObj.KeyId, (u64)(UINTPTR)&AesKeyObj,
 						SubsystemId,
 						XASU_KEYMANAGER_AES_KEY_WRAP_USE_CASE,
-						XKEYMANAGER_RSA_OP_NONE);
+						XKEYMANAGER_RSA_OP_NONE,
+						XASU_AES_SUBVAULT_ID);
 		if (Status != XASUFW_SUCCESS) {
 			Status = XASUFW_KEYMANAGER_GET_KEYOBJ_FAILED;
 			goto END;
@@ -358,7 +360,8 @@ static s32 XAsufw_KeyUnwrap(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 						KeyWrapParams.RsaKeyId,
 						KeyWrapParams.KeyCompAddr, SubsystemId,
 						XASU_KEYMANAGER_RSA_PVT_KEY_TRANSPORT_USE_CASE,
-						XKEYMANAGER_RSA_OP_NONCRT);
+						XKEYMANAGER_RSA_OP_NONCRT,
+						XASU_RSA_PVT_SUBVAULT_ID);
 		if (Status != XASUFW_SUCCESS) {
 			Status = XASUFW_KEYMANAGER_GET_KEYOBJ_FAILED;
 			goto END;

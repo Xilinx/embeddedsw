@@ -1135,19 +1135,27 @@ END:
  * @param	SubSystemId		Subsystem ID of the requested subsystem.
  * @param	KeyUsecase		Requested use case for the key.
  * @param	RsaOpType		RSA operation type (NONE, RSA_NONCRT, RSA_CRT).
+ * @param	ExpectedKeyType		Sub-vault type expected by the requesting crypto module.
+ *					Used to reject a KeyId whose sub-vault type belongs to a
+ *					different module.
  *
  * @return
  *	- XASUFW_SUCCESS, if key object update is successful.
  *	- XASUFW_KEYMANAGER_INVALID_PARAM, if input parameters are invalid.
  *	- XASUFW_KEYMANAGER_INVALID_KEY_TYPE, if key type is not supported.
+ *	- XASUFW_KEYMANAGER_KEY_TYPE_MISMATCH, if the key type mismatch is detected between the
+ *	  expected key type and the actual key type.
  *	- XASUFW_KEYMANAGER_GET_KEYOBJ_PTR_FAILED, if get key object pointer failed.
  *
  *************************************************************************************************/
 s32 XKeyManager_UpdateKeyObjFromVault(XAsufw_Dma *DmaPtr, u32 KeyId, u64 KeyObjectAddr,
 				      u32 SubSystemId, u8 KeyUsecase,
-				      XKeyManager_RsaOpType RsaOpType)
+				      XKeyManager_RsaOpType RsaOpType,
+				      XAsu_KeyManagerSubVaultType ExpectedKeyType)
 {
-	s32 Status = XASUFW_FAILURE;
+	CREATE_VOLATILE(Status, XASUFW_FAILURE);
+	XFih_Var ExpectedKeyTypeFih = XFIH_FAILURE;
+	XFih_Var ActualKeyTypeFih = XFIH_FAILURE;
 	u8 KeyType;
 	u32 ActualKeyId = KeyId;
 	const u8 *X509KeyObjectPtr = NULL;
@@ -1178,6 +1186,18 @@ s32 XKeyManager_UpdateKeyObjFromVault(XAsufw_Dma *DmaPtr, u32 KeyId, u64 KeyObje
 
 		/** Override KeyType with the raw key type. */
 		KeyType = XKEYMANAGER_EXTRACT_KEYTYPE(ActualKeyId);
+	}
+
+	/**
+	 * Reject the KeyId if its resolved sub-vault type does not match the requesting module's
+	 * expected type. FIH-hardened so a single glitch cannot bypass the check.
+	 */
+	ExpectedKeyTypeFih = XFih_VolatileAssignU32((u32)ExpectedKeyType);
+	ActualKeyTypeFih = XFih_VolatileAssignU32((u32)KeyType);
+
+	XFIH_IF_FAILIN_NEQ(ExpectedKeyTypeFih, ActualKeyTypeFih) {
+		Status = XASUFW_KEYMANAGER_KEY_TYPE_MISMATCH;
+		XFIH_GOTO(END);
 	}
 
 	/** Call appropriate update function based on key type. */

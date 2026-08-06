@@ -242,7 +242,8 @@ static s32 XAsufw_KdfGenerate(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 				KdfParams.KeyObject.KeyId, (u64)(UINTPTR)&KdfParams.KeyObject,
 				SubsystemId,
 				XASU_KEYMANAGER_KDF_HMAC_KDF_USE_CASE,
-				XKEYMANAGER_RSA_OP_NONE);
+				XKEYMANAGER_RSA_OP_NONE,
+				XASU_KDF_HMAC_SUBVAULT_ID);
 		if (Status != XASUFW_SUCCESS) {
 			Status = XASUFW_KEYMANAGER_GET_KEYOBJ_FAILED;
 			goto END;

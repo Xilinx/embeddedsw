@@ -214,7 +214,8 @@ s32 XKeyManager_StoreKeyInVault(XAsufw_Dma *DmaPtr,  XAes *AesInstancePtr, const
 				u32 *KeyIdPtr, u32 SubSystemId);
 s32 XKeyManager_UpdateKeyObjFromVault(XAsufw_Dma *DmaPtr, u32 KeyId, u64 KeyObjectAddr,
 				      u32 SubSystemId, u8 KeyUsecase,
-				      XKeyManager_RsaOpType RsaOpType);
+				      XKeyManager_RsaOpType RsaOpType,
+				      XAsu_KeyManagerSubVaultType ExpectedKeyType);
 s32 XKeyManager_ExportKeyVault(XAsufw_Dma *DmaPtr, XAes *AesInstancePtr, u64 ExportAddr,
 			       u32 ExportBufSize, u32 ActualVaultSizeAddr);
 s32 XKeyManager_ImportKeyVault(XAsufw_Dma *DmaPtr, XAes *AesInstancePtr, u64 ImportAddr,

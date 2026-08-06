@@ -763,6 +763,8 @@ enum {
 						the ASU key vault fails */
 	XASUFW_OCP_DEVAK_STORE_IN_VAULT_FAIL, /**< 0x226U - Error when storing DevAk key pair in
 						the ASU key vault fails */
+	XASUFW_KEYMANAGER_KEY_TYPE_MISMATCH, /**< 0x227U - Error when the key type mismatch is
+						detected between the requested key type and the actual key type */
 
 	/* Additional status success codes */
 	XASUFW_OCP_CERT_GENERATION_SUCCESS = 0x3F7U, /**< 0x3F7U - OCP certificate generation

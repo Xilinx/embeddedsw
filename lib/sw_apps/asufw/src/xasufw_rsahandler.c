@@ -304,7 +304,7 @@ static s32 XAsufw_RsaPubEnc(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 
 		Status = XKeyManager_UpdateKeyObjFromVault(XAsufw_RsaModule.AsuDmaPtr, Cmd->KeyId,
 				KeyParamAddr, SubsystemId, XASU_KEYMANAGER_RSA_PUB_ENCRYPT_USE_CASE,
-				XKEYMANAGER_RSA_OP_NONE);
+				XKEYMANAGER_RSA_OP_NONE, XASU_RSA_PUB_SUBVAULT_ID);
 		if (Status != XASUFW_SUCCESS) {
 			Status = XAsufw_UpdateErrorStatus(Status, XASUFW_KEYMANAGER_GET_KEYOBJ_FAILED);
 			goto END;
@@ -383,7 +383,7 @@ static s32 XAsufw_RsaPvtDec(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 		KeyParamAddr = (u64)(UINTPTR)(XASUFW_CRYPTO_ALGO_DATA_BLOCK + XRSA_MAX_KEY_SIZE_IN_BYTES);
 		Status = XKeyManager_UpdateKeyObjFromVault(XAsufw_RsaModule.AsuDmaPtr, Cmd->KeyId,
 				KeyParamAddr, SubsystemId, XASU_KEYMANAGER_RSA_PVT_DECRYPT_USE_CASE,
-				XKEYMANAGER_RSA_OP_NONCRT);
+				XKEYMANAGER_RSA_OP_NONCRT, XASU_RSA_PVT_SUBVAULT_ID);
 		if (Status != XASUFW_SUCCESS) {
 			Status = XAsufw_UpdateErrorStatus(Status, XASUFW_KEYMANAGER_GET_KEYOBJ_FAILED);
 			goto END;
@@ -462,7 +462,7 @@ static s32 XAsufw_RsaPvtCrtDec(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 		KeyParamAddr = (u64)(UINTPTR)(XASUFW_CRYPTO_ALGO_DATA_BLOCK + XRSA_MAX_KEY_SIZE_IN_BYTES);
 		Status = XKeyManager_UpdateKeyObjFromVault(XAsufw_RsaModule.AsuDmaPtr, Cmd->KeyId,
 				KeyParamAddr, SubsystemId, XASU_KEYMANAGER_RSA_PVT_DECRYPT_USE_CASE,
-				XKEYMANAGER_RSA_OP_CRT);
+				XKEYMANAGER_RSA_OP_CRT, XASU_RSA_PVT_SUBVAULT_ID);
 		if (Status != XASUFW_SUCCESS) {
 			Status = XAsufw_UpdateErrorStatus(Status, XASUFW_KEYMANAGER_GET_KEYOBJ_FAILED);
 			goto END;
@@ -545,7 +545,8 @@ static s32 XAsufw_RsaOaepEnc(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 
 		Status = XKeyManager_UpdateKeyObjFromVault(XAsufw_RsaModule.AsuDmaPtr,
 				Cmd->XAsu_RsaOpComp.KeyId, KeyParamAddr, SubsystemId,
-				XASU_KEYMANAGER_RSA_PUB_ENCRYPT_USE_CASE, XKEYMANAGER_RSA_OP_NONE);
+				XASU_KEYMANAGER_RSA_PUB_ENCRYPT_USE_CASE, XKEYMANAGER_RSA_OP_NONE,
+				XASU_RSA_PUB_SUBVAULT_ID);
 		if (Status != XASUFW_SUCCESS) {
 			Status = XAsufw_UpdateErrorStatus(Status, XASUFW_KEYMANAGER_GET_KEYOBJ_FAILED);
 			goto END;
@@ -638,7 +639,8 @@ static s32 XAsufw_RsaOaepDec(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 
 		Status = XKeyManager_UpdateKeyObjFromVault(XAsufw_RsaModule.AsuDmaPtr,
 				Cmd->XAsu_RsaOpComp.KeyId, KeyParamAddr, SubsystemId,
-				XASU_KEYMANAGER_RSA_PVT_DECRYPT_USE_CASE, XKEYMANAGER_RSA_OP_NONCRT);
+				XASU_KEYMANAGER_RSA_PVT_DECRYPT_USE_CASE, XKEYMANAGER_RSA_OP_NONCRT,
+				XASU_RSA_PVT_SUBVAULT_ID);
 		if (Status != XASUFW_SUCCESS) {
 			Status = XAsufw_UpdateErrorStatus(Status, XASUFW_KEYMANAGER_GET_KEYOBJ_FAILED);
 			goto END;
@@ -733,7 +735,8 @@ static s32 XAsufw_RsaPssSignGen(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 							   Cmd->XAsu_RsaOpComp.KeyId, KeyParamAddr,
 							   SubsystemId,
 							   XASU_KEYMANAGER_RSA_PVT_SIGN_GEN_USE_CASE,
-							   XKEYMANAGER_RSA_OP_NONCRT);
+							   XKEYMANAGER_RSA_OP_NONCRT,
+							   XASU_RSA_PVT_SUBVAULT_ID);
 		if (Status != XASUFW_SUCCESS) {
 			Status = XAsufw_UpdateErrorStatus(Status, XASUFW_KEYMANAGER_GET_KEYOBJ_FAILED);
 			goto END;
@@ -828,7 +831,8 @@ static s32 XAsufw_RsaPssSignVer(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 							   Cmd->XAsu_RsaOpComp.KeyId, KeyParamAddr,
 							   SubsystemId,
 							   XASU_KEYMANAGER_RSA_PUB_SIGN_VER_USE_CASE,
-							   XKEYMANAGER_RSA_OP_NONE);
+							   XKEYMANAGER_RSA_OP_NONE,
+							   XASU_RSA_PUB_SUBVAULT_ID);
 		if (Status != XASUFW_SUCCESS) {
 			Status = XAsufw_UpdateErrorStatus(Status, XASUFW_KEYMANAGER_GET_KEYOBJ_FAILED);
 			goto END;
