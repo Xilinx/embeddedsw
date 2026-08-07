@@ -651,13 +651,6 @@ u32 XDpRxSs_CfgInitialize(XDpRxSs *InstancePtr, XDpRxSs_Config *CfgPtr,
 
 	XDpRxSs_SetLaneCount(InstancePtr, XDPRXSS_LANE_COUNT_SET_4);
 
-	/*
-	 * Initialize DisplayPort RX core.
-	 */
-	Status = XDpRxSs_Start(InstancePtr);
-	if (Status != XST_SUCCESS)
-		return XST_FAILURE;
-
 	return XST_SUCCESS;
 }
 
