@@ -53,6 +53,8 @@
 * 6.4  rg  09/26/20 Added support for YUV420 color format
 * 6.5 pam  03/18/26 XDpTxSs_SendAudioInfoFrame API is updated to handle Audio control
 * 		    registers
+* 6.5 dk   07/21/26 Added XDpTxSs_AuxRead and XDpTxSs_AuxWrite APIs to perform
+* 		    AUX channel transactions at subsystem level.
 * </pre>
 *
 ******************************************************************************/
@@ -1051,6 +1053,82 @@ u32 XDpTxSs_GetLinkRate(XDpTxSs *InstancePtr)
 	Xil_AssertNonvoid(InstancePtr != NULL);
 
 	return XDp_TxGetLinkRate(InstancePtr->DpPtr);
+}
+
+/*****************************************************************************/
+/**
+*
+* This function issues a read request over the AUX channel to read from the
+* connected RX device's DisplayPort Configuration Data (DPCD) address space.
+* It is a subsystem-level wrapper that allows AUX transactions to be performed
+* without directly accessing the underlying DisplayPort core instance.
+*
+* @param	InstancePtr is a pointer to the XDpTxSs instance.
+* @param	DpcdAddress is the starting DPCD address to read from the RX
+*		device.
+* @param	BytesToRead is the number of bytes to read.
+* @param	ReadData is a pointer to the buffer that will be filled with the
+*		read data.
+*
+* @return
+*		- XST_SUCCESS if the AUX read request was successfully
+*		  acknowledged.
+*		- XST_DEVICE_NOT_FOUND if no RX device is connected.
+*		- XST_ERROR_COUNT_MAX if the AUX request timed out.
+*		- XST_FAILURE otherwise.
+*
+* @note		The read is split into multiple AUX transactions of at most
+*		16 bytes each by the underlying DisplayPort core.
+*
+******************************************************************************/
+u32 XDpTxSs_AuxRead(XDpTxSs *InstancePtr, u32 DpcdAddress, u32 BytesToRead,
+		    void *ReadData)
+{
+	/* Verify arguments. */
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(InstancePtr->DpPtr != NULL);
+	Xil_AssertNonvoid(ReadData != NULL);
+
+	return XDp_TxAuxRead(InstancePtr->DpPtr, DpcdAddress, BytesToRead,
+			     ReadData);
+}
+
+/*****************************************************************************/
+/**
+*
+* This function issues a write request over the AUX channel to write to the
+* connected RX device's DisplayPort Configuration Data (DPCD) address space.
+* It is a subsystem-level wrapper that allows AUX transactions to be performed
+* without directly accessing the underlying DisplayPort core instance.
+*
+* @param	InstancePtr is a pointer to the XDpTxSs instance.
+* @param	DpcdAddress is the starting DPCD address to write to the RX
+*		device.
+* @param	BytesToWrite is the number of bytes to write.
+* @param	WriteData is a pointer to the buffer holding the data to be
+*		written.
+*
+* @return
+*		- XST_SUCCESS if the AUX write request was successfully
+*		  acknowledged.
+*		- XST_DEVICE_NOT_FOUND if no RX device is connected.
+*		- XST_ERROR_COUNT_MAX if the AUX request timed out.
+*		- XST_FAILURE otherwise.
+*
+* @note		The write is split into multiple AUX transactions of at most
+*		16 bytes each by the underlying DisplayPort core.
+*
+******************************************************************************/
+u32 XDpTxSs_AuxWrite(XDpTxSs *InstancePtr, u32 DpcdAddress, u32 BytesToWrite,
+		     void *WriteData)
+{
+	/* Verify arguments. */
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(InstancePtr->DpPtr != NULL);
+	Xil_AssertNonvoid(WriteData != NULL);
+
+	return XDp_TxAuxWrite(InstancePtr->DpPtr, DpcdAddress, BytesToWrite,
+			      WriteData);
 }
 
 static u8 DpTxSs_EncodeLinkBandwidth(XDpTxSs *InstancePtr, u8 LinkRate)

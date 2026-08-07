@@ -103,6 +103,8 @@
 *                   done interrupt.
 * 6.4  rg  09/26/20 Added support for YUV420 color format.
 * 6.5  pam 03/18/26 Added Function prototype for XDpTxSs_SendAudioInfoFrame API
+* 6.5  dk  07/21/26 Added XDpTxSs_AuxRead and XDpTxSs_AuxWrite APIs to perform
+*                   AUX channel transactions at subsystem level.
 * </pre>
 *
 ******************************************************************************/
@@ -455,6 +457,10 @@ u32 XDpTxSs_SetBpc(XDpTxSs *InstancePtr, u8 Bpc);
 u32 XDpTxSs_SetVidMode(XDpTxSs *InstancePtr, XVidC_VideoMode VidMode);
 u32 XDpTxSs_SetLinkRate(XDpTxSs *InstancePtr, u8 LinkRate);
 u32 XDpTxSs_GetLinkRate(XDpTxSs *InstancePtr);
+u32 XDpTxSs_AuxRead(XDpTxSs *InstancePtr, u32 DpcdAddress, u32 BytesToRead,
+		    void *ReadData);
+u32 XDpTxSs_AuxWrite(XDpTxSs *InstancePtr, u32 DpcdAddress, u32 BytesToWrite,
+		     void *WriteData);
 u32 XDpTxSs_SetLaneCount(XDpTxSs *InstancePtr, u8 LaneCount);
 u32 XDpTxSs_SetTransportMode(XDpTxSs *InstancePtr, u8 Mode);
 u32 XDpTxSs_IsConnected(XDpTxSs *InstancePtr);
