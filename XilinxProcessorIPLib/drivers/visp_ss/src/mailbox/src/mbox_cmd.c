@@ -22,6 +22,8 @@
 #include "oslayer.h"
 #include "mbox_api.h"
 #include "mbox_error_code.h"
+#include "mbox_seq.h"
+#include "mbox_checksum.h"
 #include "sensor_cmd.h"
 #include <xil_mmu.h>
 #include <xipipsu.h>
@@ -280,7 +282,13 @@ int32_t write_mboxcmd(uint32_t cmdId, void *struct_msg, uint32_t size, MboxCoreI
 		memcpy(&wmsg->payload, struct_msg, wmsg->size);
 	}
 	wmsg->media_server_flags = 0;
-	memset(wmsg->reserved, 0, sizeof(wmsg->reserved));
+	wmsg->timestamp_low = 0;
+	wmsg->timestamp_high = 0;
+
+#if defined(ENABLE_MBOX_INTEGRITY)
+	mbox_seq_assign_outbound(receiver_id, &wmsg->payload);
+	wmsg->checksum = mbox_checksum_calculate(wmsg);
+#endif
 
 	if (MBOX_CORE_APU == core_id)
 		ret = vpi_mbox_post(apu_fifo_ctrl, wmsg, receiver_id, apu_postmsg);
@@ -387,6 +395,23 @@ void apu_mailbox_read(uint32_t IpiSrcMask)
 				continue;
 			}
 
+#if defined(ENABLE_MBOX_INTEGRITY)
+			if (rmsg_apu->checksum != mbox_checksum_calculate(rmsg_apu)) {
+				LOGE("Mbox checksum mismatch: msg_id=%u size=%u\r\n",
+				     rmsg_apu->msg_id, rmsg_apu->size);
+				continue;
+			}
+
+			/* INIT_FIRMWARE always restarts both sides' counters at 0. */
+			if (rmsg_apu->msg_id == MB_CMD_RES_SUCCESS &&
+			    rmsg_apu->payload.resp_field.processed_cmdid ==
+				    APU_2_RPU_MB_CMB_INIT_FIRMWARE)
+				mbox_seq_mark_resync(src_cpu_id);
+
+			if (mbox_seq_validate_inbound(src_cpu_id, rmsg_apu) != VPI_SUCCESS)
+				continue;
+#endif
+
 			//need make sure APU initiative call function to RPU after last function had receive response
 			//to make it is compatitable for apu_wait_for_mb_data and apu_wait_for_ACK function
 			if ((rmsg_apu->msg_id == MB_CMD_RES_SUCCESS) || (rmsg_apu->msg_id == MB_CMD_GET_SUCCESS)) {
@@ -452,6 +477,10 @@ int32_t mailbox_init(uint32_t cpu)
 
 	/* Initialize wmsg fields */
 	memset(wmsg, 0, sizeof(MboxPostMsg));
+
+#if defined(ENABLE_MBOX_INTEGRITY)
+	mbox_seq_init_all();
+#endif
 
 #define MBOX_SECTION_SIZE 0x200000
 #define BLOCK_SIZE_2MB 0x200000U

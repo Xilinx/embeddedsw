@@ -43,9 +43,9 @@ typedef struct response_field {
  */
 typedef struct payload_template {
 	Payload_type type;
-	uint32_t cookie;
+	uint32_t cookie;        /* app correlation token - integrity layer must never touch this */
 	uint32_t payload_size;
-	uint32_t reserved[1]; /* padding for 8-byte alignment - matches NEW_RPU */
+	uint32_t seq_counter;   /* was: reserved[1] - mailbox integrity sequence number */
 	response_field_t resp_field;
 	uint8_t payload_data[MAX_ITEM];
 } Payload_packet;
@@ -82,7 +82,9 @@ typedef struct FifoInitData {
  */
 typedef struct MboxPostMsg {
 	uint32_t media_server_flags;
-	uint32_t reserved[3]; /* padding for 8-byte alignment */
+	uint32_t checksum;       /* was: reserved[0] - CRC-16 of header+seq_counter+used payload */
+	uint32_t timestamp_low;  /* was: reserved[1] - reserved for future use */
+	uint32_t timestamp_high; /* was: reserved[2] - reserved for future use */
 	uint32_t msg_id;
 	uint32_t size;
 	Payload_packet payload;

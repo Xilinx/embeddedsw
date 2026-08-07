@@ -1,4 +1,4 @@
-// Copyright (C) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+// Copyright (C) 2024 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 /*copyright (C) 2020 VeriSilicon Holdings Co., Ltd.
  *
  * @file vpi_error_code.h
@@ -28,6 +28,8 @@ typedef enum VpiError {
 	VPI_ERR_NOT_READY, /**< System or data is not ready */
 	VPI_ERR_LACK, /**< Not enough data */
 	VPI_ERR_IOCTL,
+	VPI_ERR_CHECKSUM, /**< Mailbox checksum mismatch */
+	VPI_ERR_SEQ_MISMATCH, /**< Mailbox sequence counter mismatch */
 	DUMMY_VPI_ERR = 0xDEADFEED,
 } VpiError;
 
