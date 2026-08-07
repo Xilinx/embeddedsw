@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2013 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2024 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -161,6 +161,7 @@
 *               08/30/19 Corrected length in bits parameter while converting
 *                        PPK hash string(zynq efuse ps)
 * 7.6   vns     04/04/24 Updated efuse PL secure bits of ultrascale devices
+* 8.0   rap     07/30/26 Fixed spelling error
 *
 ****************************************************************************/
 /***************************** Include Files *********************************/
@@ -779,7 +780,7 @@ u32 XilSKey_EfusePl_ReadnCheck(XilSKey_EPl *PlInstancePtr)
 		if(PlStatus & (1U <<
 			XSK_EFUSEPL_STATUS_ENABLE_OBFUSCATED_EFUSE_KEY)) {
 			xil_printf("EfusePL status bits :"
-			" Enabled obfucation feature for eFUSE AES key\n\r");
+			" Enabled obfuscation feature for eFUSE AES key\n\r");
 		}
 		else {
 			xil_printf("EfusePL status bits :"
