@@ -2103,11 +2103,6 @@ static XStatus PwrDomainInitNode(u32 NodeId, u32 Function, const u32 *Args, u32 
 		PmWarn("IPI is not enabled in design\r\n");
 #endif /* XPLMI_IPI_DEVICE_ID */
 
-		/* Register GPIO interrupt handlers for all configured RTCA registers */
-		Status = XPm_GpioProcHandlerInit();
-		if (XST_SUCCESS != Status) {
-			PmErr("Failed to initialize GPIO handlers, Status: 0x%x\r\n", Status);
-		}
 	}
 done:
 	if (XST_SUCCESS != Status) {
@@ -2782,8 +2777,12 @@ XStatus __attribute__((weak, noinline)) XPm_HookAfterBootPdi(void)
 			goto done;
 		}
 	}
-
-	Status = XST_SUCCESS;
+	/* Register GPIO interrupt handlers for all configured RTCA registers */
+	Status = XPm_GpioProcHandlerInit();
+	if (XST_SUCCESS != Status) {
+		PmErr("Failed to initialize GPIO handlers, Status: 0x%x\r\n",
+			   Status);
+	}
 
 done:
 	return Status;

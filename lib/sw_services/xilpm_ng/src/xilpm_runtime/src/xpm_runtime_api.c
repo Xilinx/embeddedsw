@@ -3983,7 +3983,12 @@ XStatus XPm_HookAfterBootPdi(void)
 		}
 	}
 
-	Status = XST_SUCCESS;
+	/* Register GPIO interrupt handlers for all configured RTCA registers */
+	Status = XPm_GpioProcHandlerInit();
+	if (XST_SUCCESS != Status) {
+		PmErr("Failed to initialize GPIO handlers, Status: 0x%x\r\n",
+			   Status);
+	}
 
 done:
 	return Status;
