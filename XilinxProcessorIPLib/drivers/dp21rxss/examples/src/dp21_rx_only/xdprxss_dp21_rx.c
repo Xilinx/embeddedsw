@@ -608,6 +608,13 @@ u32 DpRxSs_Main(u32 BaseAddress)
 	UserConfigData.CrcEnable = VidFrameCRC.TEST_CRC_SUPPORTED;
 	UserConfigData.ChannelCoding = XDPRXSS_8B10B_CHANNEL_CODING;
 
+	/* Start the DisplayPort RX Subsystem (initializes the DP RX core). */
+	Status = XDpRxSs_Start(&DpRxSsInst);
+	if (Status != XST_SUCCESS) {
+		xil_printf("ERR:DPRX SS start failed\n\r");
+		return XST_FAILURE;
+	}
+
 	XDpRxSs_Setup(&DpRxSsInst, &UserConfigData);
 
 	/*
