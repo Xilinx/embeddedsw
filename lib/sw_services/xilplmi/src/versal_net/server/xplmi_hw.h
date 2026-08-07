@@ -54,6 +54,7 @@
 * 2.40  obs  12/31/2025 Fixed GCC warnings
 *       sk   01/18/2026 Added define for Domain Init Status Register
 *    	abh  10/10/2025 Fixed MISRA-C violations
+*       pre  08/05/2026 Added PS I2C instances check for I2C handshake feature
 *
 * </pre>
 *
@@ -956,7 +957,19 @@ static inline void XPlmi_OutByte64(u64 Addr, u8 Data)
        (defined(XPAR_XIICPS_1_BASEADDR) &&\
                                (XPAR_XIICPS_1_BASEADDR == 0xF1000000U)) ||\
        (defined(XPAR_XIICPS_2_BASEADDR) &&\
-                        (XPAR_XIICPS_2_BASEADDR == 0xF1000000U)))
+                        (XPAR_XIICPS_2_BASEADDR == 0xF1000000U)) ||\
+	   (defined(XPAR_XIICPS_0_BASEADDR) &&\
+                (XPAR_XIICPS_0_BASEADDR == 0xF1940000U)) ||\
+       (defined(XPAR_XIICPS_1_BASEADDR) &&\
+                (XPAR_XIICPS_1_BASEADDR == 0xF1940000U)) ||\
+       (defined(XPAR_XIICPS_2_BASEADDR) &&\
+                (XPAR_XIICPS_2_BASEADDR == 0xF1940000U)) ||\
+	   (defined(XPAR_XIICPS_0_BASEADDR) &&\
+                (XPAR_XIICPS_0_BASEADDR == 0xF1950000U)) ||\
+       (defined(XPAR_XIICPS_1_BASEADDR) &&\
+                (XPAR_XIICPS_1_BASEADDR == 0xF1950000U)) ||\
+       (defined(XPAR_XIICPS_2_BASEADDR) &&\
+                (XPAR_XIICPS_2_BASEADDR == 0xF1950000U)))
 #define XLOADER_PMC_IIC
 
 #endif

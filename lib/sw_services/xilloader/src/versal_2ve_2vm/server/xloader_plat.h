@@ -61,6 +61,7 @@
 * 2.5   pre  06/29/2026 Removed XLoader_GetBootHeaderIvAddr function declaration
 *       pre  07/14/2026 Added XLOADER_GET_I2C_DEVICE_ID macro for I2C handshake feature and removed
 *                       XLoader_GetI2CDeviceID function declaration
+*       pre  08/05/2026 Removed unused error code
 *
 * </pre>
 *
@@ -336,9 +337,6 @@ enum {
 
 	/** 0x103 - Error during memset on UFS Bootfile */
 	XLOADER_ERR_MEMSET_UFS_BOOT_FILE,
-
-	/** 0x104 - Error in parsing I2C master while reading device ID */
-	XLOADER_ERR_I2C_MASTER_DEVID_READ,
 
 };
 

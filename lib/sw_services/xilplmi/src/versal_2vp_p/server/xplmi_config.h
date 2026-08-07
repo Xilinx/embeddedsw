@@ -24,6 +24,7 @@
 * 2.3   sd  10/13/25 Initial release
 * 2.4   rmv 01/30/26 Refactor OCP library
 * 2.5   sd  03/03/26 Added PLM_ENABLE_ADDR_RANGE_VALIDATION macro and enable by default
+*       pre 08/05/26 Enabling PLM_I2C_MB_HANDSHAKE macro based on DDR5 IP
 *
 * </pre>
 *
@@ -216,8 +217,10 @@ extern "C" {
 /* Enable the below define to enable CFI selective read */
 //#define PLM_ENABLE_CFI_SELECTIVE_READ
 
-/* Enable the below define to enable PMC I2C Handshake Feature*/
-//#define PLM_I2C_MB_HANDSHAKE
+/* Enable the below define to enable PMC I2C Handshake Feature  based on DDR5 IP */
+#ifdef NOC_MC_DDR5
+#define PLM_I2C_MB_HANDSHAKE
+#endif
 
 /**
  * Enable the below define to enable address range validation in PLM.

@@ -52,6 +52,7 @@
 *       pre  08/23/2025 Added prototype for XLoader_MeasureRomAndPlm function
 *  2.01 kd   09/02/2025 Added XLOADER_ERR_PSM_FW_NOT_FOUND error code
 *  2.04 rmv  01/30/2026 Renamed OCP keymanagment macro
+*       pre  08/05/2026 Added XLOADER_GET_I2C_DEVICE_ID macro for I2C handshake feature
 *
 * </pre>
 *
@@ -118,6 +119,16 @@ extern "C" {
 #define XLOADER_MEASURE_START		(0U) /**< Data measure start */
 #define XLOADER_MEASURE_UPDATE		(1U) /**< Data measure update */
 #define XLOADER_MEASURE_FINISH		(2U) /**< Data measure finish */
+
+#if defined(XLOADER_PMC_IIC) && defined(PLM_I2C_MB_HANDSHAKE)
+/* I2C Master Device IDs */
+#define XLOADER_DEV_ID_PMC          PM_DEV_I2C_PMC /**< I2C Master Device ID for PMC */
+#define XLOADER_DEV_ID_PS_I2C_I3C0  PM_DEV_I2C_0 /**< I2C Master Device ID for PS_I2C_I3C0 */
+#define XLOADER_DEV_ID_PS_I2C_I3C1  PM_DEV_I2C_1 /**< I2C Master Device ID for PS_I2C_I3C1 */
+#define XLOADER_GET_I2C_DEVICE_ID_HELPER(x)  XLOADER_DEV_ID_##x /**< Token-paste helper */
+#define XLOADER_GET_I2C_DEVICE_ID(x)         XLOADER_GET_I2C_DEVICE_ID_HELPER(x)
+                                  /**< Macro to get I2C Master Device ID based on input token */
+#endif
 
 /* Minor Error Codes */
 enum {

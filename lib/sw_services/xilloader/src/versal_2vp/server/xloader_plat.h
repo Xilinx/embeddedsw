@@ -25,6 +25,7 @@
 *       pre  07/14/26 Added XLOADER_GET_I2C_DEVICE_ID macro for I2C handshake feature and removed
 *                     XLoader_GetI2CDeviceID function declaration
 * 2.5   tvp  08/03/26 Added function declaration and error codes for JTAG Config Request
+*       pre  08/05/26 Removed unused error code
 *
 * </pre>
 *
@@ -261,10 +262,6 @@ enum {
 	/* Platform specific Minor Error Codes start from 0x100 */
 	/** 0x100 - Invalid JTAG/DAP config request */
 	XLOADER_ERR_INVALID_JTAG_OPERATION = 0x100,
-
-	/** 0x104 - Error in parsing I2C master while reading device ID */
-	XLOADER_ERR_I2C_MASTER_DEVID_READ = 0x104,
-
 };
 
 enum {

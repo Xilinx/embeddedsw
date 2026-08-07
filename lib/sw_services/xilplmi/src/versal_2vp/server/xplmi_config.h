@@ -25,6 +25,7 @@
 *       tvp  07/07/2025 Added configurable option for OCP and OCP key management
 *       tvp  09/20/2025 Keep PLM_OCP_EXCLUDE commented, as it will be controlled from xilplmi cmake
 * 2.4   rmv  01/30/2026 Refactor OCP library
+*       pre  08/05/2026 Enabling PLM_I2C_MB_HANDSHAKE macro based on DDR5 IP
 *
 * </pre>
 *
@@ -218,9 +219,10 @@ extern "C" {
 /* Enable the below define to enable CFI selective read */
 //#define PLM_ENABLE_CFI_SELECTIVE_READ
 
-/* Enable the below define to enable PMC I2C Handshake Feature*/
-//#define PLM_I2C_MB_HANDSHAKE
-
+/* Enable the below define to enable PMC I2C Handshake Feature based on DDR5 IP */
+#ifdef NOC_MC_DDR5
+#define PLM_I2C_MB_HANDSHAKE
+#endif
 /************************************* Function Prototypes ****************************************/
 
 /************************************ Variable Definitions ****************************************/

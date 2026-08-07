@@ -27,6 +27,7 @@
  * 2.1   sk   05/05/2026 Reset the i2c instance state after release request
  *       pre  05/25/2026 For VersalGen2, updated I2C handshake with user defined I2C controller
  *       pre  07/14/2026 Made changes to get I2C device ID based on changed params in SDT
+ *       pre  08/05/2026 Enabled I2C Handshake feature for all platforms
  * </pre>
  *
  *
@@ -121,8 +122,7 @@ int XLoader_MbPmcI2cHandshake(XPlmi_Cmd *Cmd)
 	IicInstance = XPmRail_GetIicInstance();
 
 	if (IicInstance->IsReady != (u32) XIL_COMPONENT_IS_READY) {
-#if (defined(DDRMC5_I2C_MASTER) && (defined(VERSAL_2VE_2VM) || defined(VERSAL_2VP_P) \
-     || defined(VERSAL_2VP)))
+#ifdef DDRMC5_I2C_MASTER
 		Status = I2CInitialize(IicInstance, XLOADER_GET_I2C_DEVICE_ID(DDRMC5_I2C_MASTER));
 #else
 		Status = I2CInitialize(IicInstance, PM_DEV_I2C_PMC);
@@ -167,7 +167,7 @@ int XLoader_MbPmcI2cHandshake(XPlmi_Cmd *Cmd)
 			/* Update handshake done bit (0x0) in control register */
 			XPlmi_UtilRMW(CtrlRegAddr, XPLMI_HANDSHAKE_BIT_CLEAR_MASK,
 				      XPLMI_HANDSHAKE_BIT_CLEAR);
-			XPlmi_Printf(DEBUG_INFO, "Handshake done!!\n\r");
+			XPlmi_Printf(DEBUG_GENERAL, "Handshake done!!\n\r");
 		}
 
 		if ((CtrlReg & XPLMI_REQ_BIT_MASK) == XPLMI_REQ_BIT_MASK) {
@@ -217,7 +217,7 @@ END:
 		IicInstance->IsReady = 0U;
 	}
 #else
-#if (defined(DDRMC5_I2C_MASTER) && (defined(VERSAL_2VP_P) || defined(VERSAL_2VP)))
+#ifdef DDRMC5_I2C_MASTER
 	SStatus = XPm_ReleaseDevice(PM_SUBSYS_PMC, XLOADER_GET_I2C_DEVICE_ID(DDRMC5_I2C_MASTER),
 	                            XPLMI_CMD_SECURE);
 #else

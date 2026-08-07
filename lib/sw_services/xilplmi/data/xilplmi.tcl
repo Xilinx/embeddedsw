@@ -40,6 +40,8 @@
 #       aa   02/04/2026 Added configurable option for Macronix OSPI DDR support
 #       vm   03/30/2026 Added logic for overriding plm_dbg_lvl to 0
 #                       for PLM_GET_OPT_DATA_EN enabled
+#       pre  08/07/2026 Reduced print level to level0 when DDR IP and I2C instances
+#                       are present in design.
 #
 ##############################################################################
 
@@ -298,6 +300,8 @@ proc xgen_opts_file {libhandle} {
 	set sem_cfrscan_en [getCIPSProperty CONFIG.SEM_MEM_SCAN]
 	set sem_npiscan_en [getCIPSProperty CONFIG.SEM_NPI_SCAN]
 	set opt_data_en [common::get_property CONFIG.plm_get_opt_data_en $libhandle]
+	set ddr5 [expr {[hsi::get_cells -hier -filter {IP_NAME==noc_mc_ddr5}] ne ""}]
+	set iic [expr {[hsi::get_cells -hier -filter {IP_NAME==psv_i2c}] ne ""}]
 
 	set macronix_ospi_ddr_en [common::get_property CONFIG.plm_macronix_ospi_ddr_en $libhandle]
 	if {($macronix_ospi_ddr_en == true) || ($proc_type != "psv_pmc")} {
@@ -308,7 +312,8 @@ proc xgen_opts_file {libhandle} {
 	puts $file_handle "\n/* Debug level option */"
 	if {((($sem_cfrscan_en > 0) || ($sem_npiscan_en > 0)) && ($sem_print_flag == true)) || \
 	    ($proc_type == "psv_pmc" && $opt_data_en == true) || \
-	    ($proc_type == "psv_pmc" && $macronix_ospi_ddr_en == true)} {
+	    ($proc_type == "psv_pmc" && $macronix_ospi_ddr_en == true) ||\
+	    (($proc_type == "psv_pmc") && ($ddr5 == 1) && ($iic == 1))} {
 		puts "Level_0 is selected"
 		puts $file_handle "#define PLM_PRINT"
 	} elseif {$value == "level0"} {

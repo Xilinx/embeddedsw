@@ -47,6 +47,7 @@
 *                       measurement for image with authenticated/
 *                       non-authenticated/checksum enabled partitions
 * 2.4   rmv  01/30/2026 Renamed OCP keymanagment macro
+*       pre  08/05/2026 Added macro to calculate I2C device ID for I2C handshake feature
 *
 * </pre>
 *
@@ -120,6 +121,15 @@ extern "C" {
 
 #define XLoader_ConfigureJtagState	(NULL) /**< Configure JTAG State */
 
+#if defined(XLOADER_PMC_IIC) && defined(PLM_I2C_MB_HANDSHAKE)
+/* I2C Master Device IDs */
+#define XLOADER_DEV_ID_PMC      PM_DEV_I2C_PMC /**< I2C Master Device ID for PMC */
+#define XLOADER_DEV_ID_PS_I2C0  PM_DEV_I2C_0 /**< I2C Master Device ID for PS_I2C0 */
+#define XLOADER_DEV_ID_PS_I2C1  PM_DEV_I2C_1 /**< I2C Master Device ID for PS_I2C1 */
+#define XLOADER_GET_I2C_DEVICE_ID_HELPER(x)  XLOADER_DEV_ID_##x /**< Token-paste helper */
+#define XLOADER_GET_I2C_DEVICE_ID(x)         XLOADER_GET_I2C_DEVICE_ID_HELPER(x)
+                            /**< Macro to get I2C Master Device ID based on input token */
+#endif
 /* Minor Error Codes */
 enum {
 	/* Do not move this error, as it is used to represent XST_FAILURE */
