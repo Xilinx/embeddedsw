@@ -91,9 +91,10 @@ typedef struct {
 				     0x00: Algorithm is not NIST compliant or NIST compliance is not
 					    applicable */
 	u8 KatStatus;	/**< KAT status bit, 0x01 - KAT not run, 0xE2 - KAT fail and 0x1E - KAT pass */
-	u8 Reserved2;	/**< Reserved */
-	u8 Reserved3;	/**< Reserved */
-	u32 Reserved4;	/**< Reserved */
+	u16 FeatureCaps;	/**< Feature capabilities bitmask. Each bit indicates
+				     an enabled feature for this module. Clients read
+				     this to determine available capabilities */
+	u32 Reserved;	/**< Reserved */
 } XAsu_CryptoAlgInfo;
 
 /************************************ Function Prototypes ****************************************/

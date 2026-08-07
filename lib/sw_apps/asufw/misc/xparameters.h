@@ -519,6 +519,14 @@
 //#define XASU_PERF_MEASUREMENT_ENABLE /**< Macro to enable/disable performance measurement */
 #define XASU_KEYMANAGER_ENABLE /**< Macro to enable/disable support of KeyManager */
 
+/* RSA key generation size (only one size can be enabled at a time) */
+//#define XASU_RSA_2048_KEYGEN_ENABLE /**< Macro to enable 2048-bit RSA key generation */
+//#define XASU_RSA_3072_KEYGEN_ENABLE /**< Macro to enable 3072-bit RSA key generation */
+#define XASU_RSA_4096_KEYGEN_ENABLE /**< Macro to enable 4096-bit RSA key generation */
+
+/* TRNG DRBG mode */
+//#define XASU_TRNG_ENABLE_DRBG_MODE /**< Macro to enable DRBG mode for TRNG */
+
 /* Macros to enable / disable support of NIST and Brainpool curves */
 /**< Macro to enable/disable support of NIST P-192 curve */
 //#define XASU_ECC_SUPPORT_NIST_P192
