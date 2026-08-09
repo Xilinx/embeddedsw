@@ -96,9 +96,9 @@ struct XPm_Reqm {
 XStatus XPmRequirement_Add(XPm_Subsystem *Subsystem, XPm_Device *Device,
 			   u32 Flags, u32 PreallocCaps, u32 PreallocQoS);
 void XPm_RequiremntUpdate(XPm_Requirement *Reqm);
-XStatus XPmRequirement_Release(XPm_Requirement *Reqm, XPm_ReleaseScope Scope);
+XStatus XPmRequirement_Release(const XPm_Requirement *Reqm, XPm_ReleaseScope Scope);
 void XPmRequirement_Clear(XPm_Requirement* Reqm);
-XStatus XPmRequirement_ReleaseFromAllSubsystem(XPm_Device* Device);
+XStatus XPmRequirement_ReleaseFromAllSubsystem(const XPm_Device* Device);
 
 XPm_Requirement* FindReqm(const XPm_Device *Device, const XPm_Subsystem *Subsystem);
 #ifdef __cplusplus

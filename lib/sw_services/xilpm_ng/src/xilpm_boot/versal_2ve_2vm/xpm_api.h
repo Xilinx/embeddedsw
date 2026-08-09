@@ -39,7 +39,7 @@ extern int (*PmRestartCb)(u32 ImageId, u32 *FuncId);
 /* Macros for IPI responses (return values and callbacks) */
 #define IPI_RESPONSE1(Mask, Arg0)						\
 {										\
-	u32 Response[XPLMI_CMD_RESP_SIZE] = {Arg0};				\
+	const u32 Response[XPLMI_CMD_RESP_SIZE] = {Arg0};			\
 	if (XST_SUCCESS != XPlmi_IpiWrite(Mask, Response, XPLMI_CMD_RESP_SIZE,	\
 					  XIPIPSU_BUF_TYPE_RESP)) {		\
 		PmWarn("Error in IPI write response\r\n");			\
@@ -48,7 +48,7 @@ extern int (*PmRestartCb)(u32 ImageId, u32 *FuncId);
 
 #define IPI_MESSAGE4(Mask, Arg0, Arg1, Arg2, Arg3)				\
 {										\
-	u32 Response[XPLMI_CMD_RESP_SIZE] = {Arg0, Arg1, Arg2, Arg3};		\
+	const u32 Response[XPLMI_CMD_RESP_SIZE] = {Arg0, Arg1, Arg2, Arg3};	\
 	if (XST_SUCCESS != XPlmi_IpiWrite(Mask, Response, XPLMI_CMD_RESP_SIZE,	\
 					  XIPIPSU_BUF_TYPE_MSG)) {		\
 		PmWarn("Error in IPI write response\r\n");			\

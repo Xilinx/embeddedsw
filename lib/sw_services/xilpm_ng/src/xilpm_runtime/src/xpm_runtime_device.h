@@ -31,7 +31,7 @@ XStatus XPmDevice_SetRequirement(const u32 SubsystemId, const u32 DeviceId,
 				 const u32 Capabilities, const u32 QoS);
 u32 XPmDevice_GetUsageStatus(const XPm_Subsystem *Subsystem, const XPm_Device *Device);
 XStatus XPmDevice_UpdateStatus(XPm_Device *Device);
-XStatus XPmDevice_GetStatus(XPm_Subsystem *Subsystem,
+XStatus XPmDevice_GetStatus(const XPm_Subsystem *Subsystem,
 			u32 DeviceId,
 			XPm_DeviceStatus *const DeviceStatus);
 XPmRuntime_DeviceOps* XPmDevice_SetDevOps_ById(u32 DeviceId);

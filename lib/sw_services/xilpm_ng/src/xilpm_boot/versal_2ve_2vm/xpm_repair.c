@@ -21,7 +21,7 @@
  * Return:
  *	 none
  */
-u32 XPmBisr_CopyStandard(u32 * BisrDataAddr, u32 TagSize, u64 BisrDataDestAddr)
+u32 XPmBisr_CopyStandard(const u32 * BisrDataAddr, u32 TagSize, u64 BisrDataDestAddr)
 {
 	const u32 *BisrDataCursor = BisrDataAddr;
 	u64 BisrDestCursor = BisrDataDestAddr;

@@ -22,7 +22,7 @@
  * @note	None
  *
  ****************************************************************************/
-XStatus XPm_IpiSend(u32 IpiMask, u32 *Payload)
+XStatus XPm_IpiSend(u32 IpiMask, const u32 *Payload)
 {
 	XStatus Status = XST_FAILURE;
 
@@ -135,7 +135,7 @@ XStatus XPm_IpiPollForAck(u32 IpiMask, u32 TimeOutCount)
 	return XPlmi_IpiPollForAck(IpiMask, TimeOutCount);
 }
 #else
-XStatus XPm_IpiSend(u32 IpiMask, u32 *Payload)
+XStatus XPm_IpiSend(u32 IpiMask, const u32 *Payload)
 {
 	(void)IpiMask;
 	(void)Payload;

@@ -119,7 +119,7 @@ void XPmRequirement_Clear(XPm_Requirement* Reqm)
 	}
 }
 
-XStatus XPmRequirement_ReleaseFromAllSubsystem(XPm_Device* Device)
+XStatus XPmRequirement_ReleaseFromAllSubsystem(const XPm_Device* Device)
 {
 	XStatus Status = XST_FAILURE;
 	if (NULL == Device) {
@@ -143,7 +143,7 @@ done:
 }
 
 
-XStatus XPmRequirement_Release(XPm_Requirement *Reqm, XPm_ReleaseScope Scope)
+XStatus XPmRequirement_Release(const XPm_Requirement *Reqm, XPm_ReleaseScope Scope)
 {
 	XStatus Status = XST_FAILURE;
 	if (NULL == Reqm) {

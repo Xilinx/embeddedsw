@@ -72,7 +72,7 @@ struct XPm_ClkTopologyNode {
 };
 
 typedef struct {
-	struct XPm_ClkTopologyNode(*Nodes)[];
+	struct XPm_ClkTopologyNode *Nodes;
 	uint8_t Id;
 	uint8_t NumNodes;
 	u16 MuxSources[MAX_MUX_PARENTS]; /**< Clock index of mux sources */

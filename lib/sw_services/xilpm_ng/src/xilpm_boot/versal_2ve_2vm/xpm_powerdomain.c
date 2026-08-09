@@ -299,7 +299,7 @@ XStatus XPm_PowerDwnFPD(const XPm_Node *Node)
 	return Status;
 }
 
-XStatus XPm_PowerUpPLD(XPm_Node *Node)
+XStatus XPm_PowerUpPLD(const XPm_Node *Node)
 {
 	XStatus Status = XST_FAILURE;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
@@ -499,7 +499,7 @@ maybe_unused static XStatus XPm_PowerDwnCPM5N(const XPm_Node *Node)
 	return Status;
 }
 
-XStatus XPm_PowerUpNoC(XPm_Node *Node)
+XStatus XPm_PowerUpNoC(const XPm_Node *Node)
 {
 	XStatus Status = XST_FAILURE;
 

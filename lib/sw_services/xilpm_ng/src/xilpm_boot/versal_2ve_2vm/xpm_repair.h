@@ -347,7 +347,7 @@ enum {
 
 /************************** Function Prototypes ******************************/
 XStatus XPmBisr_Repair(u32 TagId);
-u32 XPmBisr_CopyStandard(u32 * BisrDataAddr, u32 TagSize, u64 BisrDataDestAddr);
+u32 XPmBisr_CopyStandard(const u32 * BisrDataAddr, u32 TagSize, u64 BisrDataDestAddr);
 XStatus XPmcFw_UtilPollForMask(u32 RegAddr, u32 Mask, u32 TimeOutCount);
 u32 XPmBisr_RepairHardBlock(u32 EfuseTagAddr, u32 TagSize);
 u32 XPmBisr_RepairBram(u32 EfuseTagAddr, u32 TagSize);

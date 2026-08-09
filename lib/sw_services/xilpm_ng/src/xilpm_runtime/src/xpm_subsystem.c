@@ -65,7 +65,7 @@ static XPm_SubsystemOps* XPmSubsystem_GetOps(const XPm_Subsystem *Subsystem)
 XPm_Subsystem *XPmSubsystem_GetById(u32 SubsystemId)
 {
 	XPm_Subsystem *Subsystem = NULL;
-	XPm_SubsystemList* PmSubsystems = &SubsysMgr.Subsystems;
+	const XPm_SubsystemList* PmSubsystems = &SubsysMgr.Subsystems;
 
 	if ((INVALID_SUBSYSID != SubsystemId) &&
 	    (MAX_NUM_SUBSYSTEMS > NODEINDEX(SubsystemId))) {
@@ -142,7 +142,7 @@ done:
 XPm_Subsystem *XPmSubsystem_GetByIndex(u32 SubSysIdx)
 {
 	XPm_Subsystem *Subsystem = NULL;
-	XPm_SubsystemList* PmSubsystems = &SubsysMgr.Subsystems;
+	const XPm_SubsystemList* PmSubsystems = &SubsysMgr.Subsystems;
 	/*
 	 * We assume that Subsystem class, subclass and type have been
 	 * validated before, so just validate index against bounds here
@@ -174,7 +174,7 @@ u32 XPmSubsystem_GetSubSysIdByIpiMask(u32 IpiMask)
 {
 	u32 SubsystemId = INVALID_SUBSYSID;
 	const XPm_Subsystem *Subsystem;
-	XPm_SubsystemList* PmSubsystems = &SubsysMgr.Subsystems;
+	const XPm_SubsystemList* PmSubsystems = &SubsysMgr.Subsystems;
 	/*
 	 * Subsystem with least one IPI channel
 	 * will have non-zero IPI mask.

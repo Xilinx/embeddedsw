@@ -1525,7 +1525,7 @@ static XStatus RegisterNEnablePwrIntr(void)
 {
 	XStatus Status = XST_FAILURE;
 
-	Status = XPlmi_RegisterHandler(XPLMI_IOMODULE_PMC_PWR_MB, (GicIntHandler_t)(void *)&XPm_PwrIntrHandler,
+	Status = XPlmi_RegisterHandler(XPLMI_IOMODULE_PMC_PWR_MB, (GicIntHandler_t)&XPm_PwrIntrHandler,
 				       (void *)XPLMI_IOMODULE_PMC_PWR_MB);
 	if (Status != XST_SUCCESS) {
 		goto END;

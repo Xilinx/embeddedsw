@@ -1529,7 +1529,7 @@ u32 XPmDevice_GetUsageStatus(const XPm_Subsystem *Subsystem, const XPm_Device *D
 	return UsageStatus;
 }
 
-XStatus XPmDevice_GetStatus(XPm_Subsystem *Subsystem,
+XStatus XPmDevice_GetStatus(const XPm_Subsystem *Subsystem,
 			    u32 DeviceId,
 			    XPm_DeviceStatus *const DeviceStatus)
 {
@@ -1544,7 +1544,8 @@ XStatus XPmDevice_GetStatus(XPm_Subsystem *Subsystem,
 		goto done;
 	}
 
-	if ((0U == XPmDevice_IsRequestable(DeviceId)) || (NULL == FindReqm(Device, Subsystem))) {
+	Reqm = FindReqm(Device, Subsystem);
+	if ((0U == XPmDevice_IsRequestable(DeviceId)) || (NULL == Reqm)) {
 		Status = XPM_PM_NO_ACCESS;
 		goto done;
 	}

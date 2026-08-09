@@ -23,7 +23,7 @@ extern "C" {
 
 #define PM_IPI_TIMEOUT			(~0U)
 
-XStatus XPm_IpiSend(u32 IpiMask, u32 *Payload);
+XStatus XPm_IpiSend(u32 IpiMask, const u32 *Payload);
 XStatus XPm_IpiPollForAck(u32 IpiMask, u32 TimeOutCount);
 
 #ifdef __cplusplus

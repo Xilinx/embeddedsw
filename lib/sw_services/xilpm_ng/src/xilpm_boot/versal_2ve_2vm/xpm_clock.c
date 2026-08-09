@@ -51,7 +51,7 @@
 /* Macro to set a topology in the array */
 #define SET_TOPOLOGY(topo_type, nodes_ptr, num) \
 	ClkTopologies[(topo_type) - TOPOLOGY_GENERIC_MUX_DIV].Nodes = \
-		(struct XPm_ClkTopologyNode(*)[])(nodes_ptr); \
+		(nodes_ptr); \
 	ClkTopologies[(topo_type) - TOPOLOGY_GENERIC_MUX_DIV].NumNodes = (num);
 
 /* Macro for 2-node topologies */
@@ -272,7 +272,7 @@ XStatus XPmClock_AddSubNode(u32 Id, u32 Type, u32 ControlReg, u8 Param1, u8 Para
 		Status = XST_INVALID_PARAM;
 		goto done;
 	}
-	SubNodes = *OutClkPtr->Topology.Nodes;
+	SubNodes = OutClkPtr->Topology.Nodes;
 	for (i=0; i<OutClkPtr->Topology.NumNodes; i++) {
 		if (SubNodes[i].Type == 0U) {
 			SubNodes[i].Type = (u8)Type;
@@ -476,7 +476,7 @@ static struct XPm_ClkTopologyNode* XPmClock_GetTopologyNode(const XPm_OutClockNo
 		goto done;
 	}
 
-	SubNodes = *Clk->Topology.Nodes;
+	SubNodes = Clk->Topology.Nodes;
 	NumNodes = Clk->Topology.NumNodes;
 
 	for (i = 0; i < NumNodes; i++) {

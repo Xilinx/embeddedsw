@@ -286,7 +286,7 @@ static XStatus XPmCore_ProcessPendingForcePwrDwn(XPm_Subsystem *Subsystem, const
 }
 
 
-XStatus XPmCore_ReleaseFromSubsys(XPm_Core *Core)
+XStatus XPmCore_ReleaseFromSubsys(const XPm_Core *Core)
 {
 	XStatus Status = XST_FAILURE;
 	u32 SubsystemId = XPmDevice_GetSubsystemIdOfCore(&Core->Device);

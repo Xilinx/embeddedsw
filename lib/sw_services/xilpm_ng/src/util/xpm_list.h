@@ -50,7 +50,7 @@ do { \
 	if ((List) == NULL) { \
 		PmErr("List is NULL\n"); \
 	} else \
-		for (typeof((List)->Root) var = (List)->Root; var != NULL; var = var->Next)
+		for (const typeof(*(List)->Root) *var = (List)->Root; var != NULL; var = var->Next)
 
 #define LIST_FIRST_DATA(List) \
 	(((List)->Root != NULL) ? (List)->Root->Data : NULL)

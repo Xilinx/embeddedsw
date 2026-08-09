@@ -673,7 +673,7 @@ done:
  * @return XST_SUCCESS once *Index is set; error code on failure.
  */
 static XStatus XPmRail_ComputeAdjustVIDIndexRaw(const XPmRail_VIDAdj *VIDAdj,
-						s32 *Index)
+						volatile s32 *Index)
 {
 	XStatus Status = XST_FAILURE;
 	const XPm_Device *EfuseCache;
@@ -761,8 +761,8 @@ static XStatus XPmRail_ComputeAdjustVIDIndex(const XPmRail_VIDAdj *VIDAdj,
 	volatile s32 LocalIndex1 = -1;
 	volatile s32 LocalIndex2 = -1;
 
-	Status1 = XPmRail_ComputeAdjustVIDIndexRaw(VIDAdj, (s32 *)&LocalIndex1);
-	Status2 = XPmRail_ComputeAdjustVIDIndexRaw(VIDAdj, (s32 *)&LocalIndex2);
+	Status1 = XPmRail_ComputeAdjustVIDIndexRaw(VIDAdj, &LocalIndex1);
+	Status2 = XPmRail_ComputeAdjustVIDIndexRaw(VIDAdj, &LocalIndex2);
 
 	if ((XST_SUCCESS != Status1) || (XST_SUCCESS != Status2) ||
 	    (LocalIndex1 != LocalIndex2)) {

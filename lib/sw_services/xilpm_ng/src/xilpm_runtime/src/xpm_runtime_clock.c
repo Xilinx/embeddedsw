@@ -84,7 +84,7 @@ static struct XPm_ClkTopologyNode* XPmClock_GetTopologyNode(const XPm_OutClockNo
 		goto done;
 	}
 
-	SubNodes = *Clk->Topology.Nodes;
+	SubNodes = Clk->Topology.Nodes;
 	NumNodes = Clk->Topology.NumNodes;
 
 	for (i = 0; i < NumNodes; i++) {
@@ -352,7 +352,7 @@ XStatus XPmClock_QueryTopology(u32 ClockId, u32 Index, u32 *Resp)
 	}
 
 	if (ISOUTCLK(ClockId)) {
-		PtrNodes = *Clk->Topology.Nodes;
+		PtrNodes = Clk->Topology.Nodes;
 
 		/* Skip parent till index */
 		if (Index >= Clk->Topology.NumNodes) {

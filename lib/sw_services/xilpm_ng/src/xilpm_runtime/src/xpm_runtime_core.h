@@ -27,7 +27,7 @@ struct XPmRuntime_Core {
 
 XStatus XPmCore_GetCoreIdleSupport(const XPm_Core* Core, u8 *IsCoreIdleSupported);
 XStatus XPmCore_SetCoreIdleSupport(XPm_Core* Core, const u32 Value);
-XStatus XPmCore_ReleaseFromSubsys(XPm_Core *Core);
+XStatus XPmCore_ReleaseFromSubsys(const XPm_Core *Core);
 XStatus ResetAPUGic(const u32 DeviceId);
 #ifdef __cplusplus
 }
