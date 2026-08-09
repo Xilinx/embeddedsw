@@ -488,7 +488,7 @@ done:
  *			XST_FAILURE or error code in case of failure
  *
  *****************************************************************************/
-static XStatus XPm_DispatchWakeHandler(void *DeviceIdx)
+static int XPm_DispatchWakeHandler(void *DeviceIdx)
 {
 	XStatus Status;
 

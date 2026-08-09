@@ -454,9 +454,9 @@ done:
  * temperature and current voltage level.  The argument passed points to power
  * rail that needs to be adjusted.
  */
-static s32 XPmRail_CyclicTempVoltAdj(void *Arg)
+static int XPmRail_CyclicTempVoltAdj(void *Arg)
 {
-	s32 Status = XST_FAILURE;
+	int Status = XST_FAILURE;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 	XPm_Rail *Rail = (XPm_Rail *)Arg;
 	u32 UpperTempThresh, LowerTempThresh;

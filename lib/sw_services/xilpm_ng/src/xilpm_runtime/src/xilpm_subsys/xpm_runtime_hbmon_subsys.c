@@ -50,7 +50,7 @@ static const u32 HbMon_SchedFreq = HBMON_SCHED_PERIOD;
 static const u32 HbMon_SchedId = PM_DEV_HB_MON_0;
 
 /* Function prototypes for scheduler and timers*/
-static s32 HbMon_Scheduler(void *data);
+static int HbMon_Scheduler(void *data);
 
 static XStatus HbMon_StartTimer(u32 HbMonIdx, u32 TimeoutVal)
 {
@@ -107,7 +107,7 @@ static void HbMon_StopTimer(u32 HbMonIdx)
  * Handler for the scheduled task.
  * This will be called periodically every 'HbMon_SchedFreq' ms
  */
-static s32 HbMon_Scheduler(void *data)
+static int HbMon_Scheduler(void *data)
 {
 	(void)data;
 	XStatus Status = XST_FAILURE;
@@ -215,7 +215,7 @@ static s32 HbMon_Scheduler(void *data)
 
 	Status = XST_SUCCESS;
 done:
-	return (s32)Status;
+	return (int)Status;
 }
 
 

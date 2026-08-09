@@ -67,7 +67,7 @@ static XPmNotifier PmNotifiers[XPM_NOTIFIERS_COUNT] XPM_INIT_DATA(PmNotifiers);
 
 static volatile u32 SchedulerTask XPM_INIT_DATA(SchedulerTask) = (u32)NOT_PRESENT;
 
-static s32 XPmNotifier_SchedulerTask(void *Arg);
+static int XPmNotifier_SchedulerTask(void *Arg);
 
 /****************************************************************************/
 /**
@@ -378,10 +378,10 @@ done:
 	return;
 }
 
-static s32 XPmNotifier_SchedulerTask(void *Arg)
+static int XPmNotifier_SchedulerTask(void *Arg)
 {
 	(void)Arg;
-	s32 Status = XST_FAILURE;
+	int Status = XST_FAILURE;
 	u32 Index = 0U;
 	XPm_Subsystem *SubSystem = NULL;
 	u32 MaxSubIdx = XPmSubsystem_GetMaxSubsysIdx();

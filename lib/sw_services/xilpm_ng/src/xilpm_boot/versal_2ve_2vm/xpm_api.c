@@ -78,7 +78,7 @@ static XStatus XPm_AddNodeRegnode(const u32 *Args, u32 NumArgs);
 static XStatus XPm_AddNode(XPlmi_Cmd *Cmd);
 maybe_unused static XStatus XPm_PmcWakeAllCores(void);
 static XStatus XPm_InitNode(u32 NodeId, u32 Function, const u32 *Args, u32 NumArgs);
-static XStatus XPm_GpioProcHandler(void *Data);
+static int XPm_GpioProcHandler(void *Data);
 
 /*********************************************************************/
 
@@ -2392,7 +2392,7 @@ done:
  * @return XST_SUCCESS always (errors are logged but do not propagate).
  *
  *****************************************************************************/
-static XStatus XPm_GpioProcHandler(void *Data)
+static int XPm_GpioProcHandler(void *Data)
 {
 	u32 Idx;
 	u32 IntStatOff, DataRoOff, IntEnOff, IntAnyOff, GpioBaseAddr;
