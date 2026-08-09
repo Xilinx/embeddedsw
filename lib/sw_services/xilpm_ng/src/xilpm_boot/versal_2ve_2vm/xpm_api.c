@@ -2246,6 +2246,7 @@ static XStatus XPm_AddNodeIsolation(const u32 *Args, u32 NumArgs)
 		NumDependencies = CDO_ISO_DEP_COUNT(Args[Index]);
 		Index++;
 
+		u8 BadFormat = 0U;
 		switch (Format){
 		case SINGLE_WORD_ACTIVE_LOW:
 		case SINGLE_WORD_ACTIVE_HIGH:
@@ -2307,6 +2308,10 @@ static XStatus XPm_AddNodeIsolation(const u32 *Args, u32 NumArgs)
 			break;
 		default:
 			Status = (XStatus)(XPM_INT_ERR_ISO_INVALID_FORMAT);
+			BadFormat = 1U;
+			break;
+		}
+		if (1U == BadFormat) {
 			goto done;
 		}
 	}

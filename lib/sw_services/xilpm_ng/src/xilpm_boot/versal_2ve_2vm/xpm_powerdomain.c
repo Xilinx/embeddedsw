@@ -773,6 +773,7 @@ XStatus XPmPowerDomain_InitDomain(XPm_PowerDomain *PwrDomain, u32 Function,
 		break;
 	}
 	case (u32)FUNC_INIT_FINISH:
+	{
 #ifdef PLM_ENABLE_STL
 		(void)XStl_PlmStartupPreCdoTask(PwrDomain->Power.Node.Id);
 #endif
@@ -800,7 +801,9 @@ XStatus XPmPowerDomain_InitDomain(XPm_PowerDomain *PwrDomain, u32 Function,
 		}
 		Status = XST_SUCCESS;
 		break;
+	}
 	case (u32)FUNC_AMS_TRIM:
+	{
 		XPm_DomainAmsTrimOp AmsTrimOp = XPmPowerDomain_GetAmsTrimOp(DomainId);
 		if (NULL != AmsTrimOp) {
 			Status = AmsTrimOp(PwrDomain, Args, NumArgs);
@@ -811,6 +814,7 @@ XStatus XPmPowerDomain_InitDomain(XPm_PowerDomain *PwrDomain, u32 Function,
 			Status = XST_SUCCESS;
 		}
 		break;
+	}
 	default:
 		DbgErr = XPM_INT_ERR_INVALID_FUNC;
 		Status = XST_INVALID_PARAM;

@@ -272,26 +272,30 @@ done:
 
 XPm_Requirement* FindReqm(const XPm_Device *Device,const XPm_Subsystem *Subsystem)
 {
+	XPm_Requirement *Reqm = NULL;
+	XPmRuntime_DeviceOps* DevOps;
 	if ((Device == NULL) || (Subsystem == NULL)) {
-		return NULL;
+		goto done;
 	}
-	XPmRuntime_DeviceOps* DevOps = XPm_GetDevOps_ById(Device->Node.Id);
+	DevOps = XPm_GetDevOps_ById(Device->Node.Id);
 	if (NULL == DevOps) {
 		if (!(IS_DEV_AIE(Device->Node.Id))) {
 			PmErr("DeviceOps is NULL\r\n");
 		}
-		return NULL;
+		goto done;
 	}
 	LIST_FOREACH(DevOps->Requirements, ReqmNode){
 		XPm_Requirement *cReqm = ReqmNode->Data;
 		if (NULL == cReqm) {
 			PmErr("Not expecting null here \n\r");
-			return NULL;
+			goto done;
 		}
 		if (cReqm->Subsystem == Subsystem) {
-			return cReqm;
+			Reqm = cReqm;
+			goto done;
 		}
 	}
 
-	return NULL; // No matching requirement found
+done:
+	return Reqm; // No matching requirement found
 }

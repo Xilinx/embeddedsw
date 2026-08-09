@@ -24,13 +24,15 @@ static XPm_NodeAccess *PmNodeAccessTable[XPM_NODE_ACCESS_TABLE_SIZE] XPM_INIT_DA
 static XPm_NodeAccess* XPmAccess_FindEntry(u32 NodeId)
 {
 	XPm_NodeAccess *Entry = PmNodeAccessTable[0];
+	XPm_NodeAccess *Result = NULL;
 	while (NULL != Entry) {
 		if (Entry->Id == NodeId) {
-			return Entry;
+			Result = Entry;
+			break;
 		}
 		Entry = Entry->NextNode;
 	}
-	return NULL;
+	return Result;
 }
 
 static XStatus XPmAccess_LookupEntry(u32 NodeId, u32 Offset,

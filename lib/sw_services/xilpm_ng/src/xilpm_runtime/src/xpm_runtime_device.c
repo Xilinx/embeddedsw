@@ -190,7 +190,7 @@ u8 XPmDevice_IsRequestable(u32 NodeId)
 
 	if (0U != XPmDevice_IsExcluded(NodeId)) {
 		/* Excluded device is not requestable */
-		return Requestable;
+		goto done;
 	}
 
 	/*
@@ -212,6 +212,7 @@ u8 XPmDevice_IsRequestable(u32 NodeId)
 		break;
 	}
 
+done:
 	return Requestable;
 }
 
@@ -271,14 +272,16 @@ done:
  * @return Pointer to the device operations structure, or NULL if not found
  */
 XPmRuntime_DeviceOps *XPm_GetDevOps_ById(u32 DeviceId) {
+	XPmRuntime_DeviceOps *Result = NULL;
 	LIST_FOREACH(DevOpsList, DevOpsNode){
 		if ((NULL != DevOpsNode->Data) &&
 		    (NULL != DevOpsNode->Data->Device) &&
 		    (DevOpsNode->Data->Device->Node.Id == DeviceId)) {
-			return DevOpsNode->Data;
+			Result = DevOpsNode->Data;
+			break;
 		}
 	}
-	return NULL;
+	return Result;
 }
 
 /**
@@ -1257,9 +1260,11 @@ static XStatus HandleDeviceEvent(XPm_Device* Device, const u32 Event)
 			if (EventTransitions[i].Action(Device) == XST_SUCCESS) {
 				// Update the current state of the device
 				Device->Node.State = NextState;
-				return XST_SUCCESS;
-		} else {
-			return XST_FAILURE;
+				Status = XST_SUCCESS;
+				goto done;
+			} else {
+				Status = XST_FAILURE;
+				goto done;
 			}
 		}
 	}
@@ -1507,16 +1512,16 @@ u32 XPmDevice_GetUsageStatus(const XPm_Subsystem *Subsystem, const XPm_Device *D
 	XPmRuntime_DeviceOps* DevOps = XPm_GetDevOps_ById(Device->Node.Id);
 	if (NULL == DevOps) {
 		PmErr("Device Id = 0x%x is not initialized properly\r\n", Device->Node.Id);
-		return UsageStatus;
-	}
-	LIST_FOREACH(DevOps->Requirements, ReqmNode) {
-		const XPm_Requirement *Reqm = ReqmNode->Data;
-		if (1U == Reqm->Allocated){
-			/* This subsystem is currently using this device */
-			if (Subsystem == Reqm->Subsystem) {
-				UsageStatus |= (u32)PM_USAGE_CURRENT_SUBSYSTEM;
-			} else {
-				UsageStatus |= (u32)PM_USAGE_OTHER_SUBSYSTEM;
+	} else {
+		LIST_FOREACH(DevOps->Requirements, ReqmNode) {
+			const XPm_Requirement *Reqm = ReqmNode->Data;
+			if (1U == Reqm->Allocated){
+				/* This subsystem is currently using this device */
+				if (Subsystem == Reqm->Subsystem) {
+					UsageStatus |= (u32)PM_USAGE_CURRENT_SUBSYSTEM;
+				} else {
+					UsageStatus |= (u32)PM_USAGE_OTHER_SUBSYSTEM;
+				}
 			}
 		}
 	}

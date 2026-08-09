@@ -67,15 +67,13 @@ XPm_Subsystem *XPmSubsystem_GetById(u32 SubsystemId)
 	XPm_Subsystem *Subsystem = NULL;
 	XPm_SubsystemList* PmSubsystems = &SubsysMgr.Subsystems;
 
-	if ((INVALID_SUBSYSID == SubsystemId) ||
-	    (MAX_NUM_SUBSYSTEMS <= NODEINDEX(SubsystemId))) {
-		return NULL;
-	}
-
-	LIST_FOREACH(PmSubsystems, SsNode) {
-		if (SsNode->Data->Id == SubsystemId) {
-			Subsystem = SsNode->Data;
-			break;
+	if ((INVALID_SUBSYSID != SubsystemId) &&
+	    (MAX_NUM_SUBSYSTEMS > NODEINDEX(SubsystemId))) {
+		LIST_FOREACH(PmSubsystems, SsNode) {
+			if (SsNode->Data->Id == SubsystemId) {
+				Subsystem = SsNode->Data;
+				break;
+			}
 		}
 	}
 

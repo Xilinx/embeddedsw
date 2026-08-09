@@ -110,6 +110,7 @@ static XPm_MemRegnDevice *XPm_FindMemRegnByAddress(u64 Address)
 {
 	XPm_MemRegnDevice *MemRegnDevice;
 	const XPm_Device *Device;
+	XPm_MemRegnDevice *Result = NULL;
 
 	/*
 	 * Memory region devices are stored in PmMemRegnDevices array,
@@ -122,10 +123,11 @@ static XPm_MemRegnDevice *XPm_FindMemRegnByAddress(u64 Address)
 		}
 		MemRegnDevice = (XPm_MemRegnDevice *)Device;
 		if (MemRegnDevice->AddrRegion.Address == Address) {
-			return MemRegnDevice;
+			Result = MemRegnDevice;
+			break;
 		}
 	}
-	return NULL;
+	return Result;
 }
 
 /****************************************************************************/

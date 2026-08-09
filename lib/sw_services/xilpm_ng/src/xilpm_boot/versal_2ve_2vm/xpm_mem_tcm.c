@@ -145,10 +145,9 @@ XStatus XPm_GetRpuByTcmId(u32 TcmId, u32 *RpuId)
 	default:
 		PmErr("Invalid TCM ID: 0x%x\n", TcmId);
 		Status = XST_INVALID_PARAM;
-		goto done;
+		break;
 	}
 	if (XST_SUCCESS != Status) {
-		PmErr("Failed to get RPU ID for TCM ID: 0x%x\n", TcmId);
 		goto done;
 	}
 done:

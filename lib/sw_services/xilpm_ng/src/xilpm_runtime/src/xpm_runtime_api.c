@@ -278,6 +278,7 @@ static XStatus XPm_GetNodeName(u32 NodeId, u32 *Resp)
 
 	NodeClass = NODECLASS(NodeId);
 
+	u8 BadClass = 0U;
 	switch (NodeClass) {
 	case (u32)XPM_NODECLASS_CLOCK:
 		Status = XPm_ResolveIndexedNodeId(NodeId, &ClockId);
@@ -306,6 +307,11 @@ static XStatus XPm_GetNodeName(u32 NodeId, u32 *Resp)
 
 	default:
 		Status = XST_INVALID_PARAM;
+		BadClass = 1U;
+		break;
+	}
+
+	if (1U == BadClass) {
 		goto done;
 	}
 
@@ -951,12 +957,13 @@ static u32 XPm_GetBootDevSkipMask(u32 DeviceId)
 static u32 XPm_ShouldSkipBootDevRelease(u32 DeviceId)
 {
 	u32 SkipMask = XPm_GetBootDevSkipMask(DeviceId);
+	u32 Result = 0U;
 
-	if (0U == SkipMask) {
-		return 0U;
+	if (0U != SkipMask) {
+		Result = (XPm_In32(XPLMI_RTCFG_SKIP_BOOT_DEV_RELEASE) & SkipMask);
 	}
 
-	return (XPm_In32(XPLMI_RTCFG_SKIP_BOOT_DEV_RELEASE) & SkipMask);
+	return Result;
 }
 
 /**

@@ -235,26 +235,28 @@ maybe_unused static void XPm_GetCoreId(u32 *Rpu0, u32 *Rpu1, const u32 DeviceId)
 
 void XPmRpuCore_SetTcmBoot(const u32 DeviceId, const u8 TcmBootFlag){
 	const XPm_RpuCore *RpuCore = (XPm_RpuCore *)XPmDevice_GetById(DeviceId);
+	XStatus Status = XST_FAILURE;
 	if (NULL == RpuCore) {
 		PmErr("Unable to get RPU Core for Id: 0x%x\n\r", DeviceId);
-		return;
+		goto done;
 	}
-	XStatus Status = XST_FAILURE;
 	if(1U == TcmBootFlag){
 		/* This TCM boot flag indicate that we are using TCM for this specific core*/
 		/* So we go ahead Halt the core and release reset to make sure TCM is accessible*/
 		Status = XPmRpuCore_ResetAndHalt(DeviceId);
 		if (XST_SUCCESS != Status) {
-			return;
+			goto done;
 		}
 		Status = XPmRpuCore_ReleaseReset(DeviceId);
 		if (XST_SUCCESS != Status) {
-			return;
+			goto done;
 		}
 		PmRmw32(RpuCore->RpuBaseAddr + XPM_CORE_CFG0_OFFSET, XPM_RPU_TCMBOOT_MASK, XPM_RPU_TCMBOOT_MASK);
 	} else {
 		PmRmw32(RpuCore->RpuBaseAddr + XPM_CORE_CFG0_OFFSET, XPM_RPU_TCMBOOT_MASK, ~XPM_RPU_TCMBOOT_MASK);
 	}
+done:
+	return;
 }
 
 static XStatus XPm_PlatRpucoreHalt(u32 CoreId) {
