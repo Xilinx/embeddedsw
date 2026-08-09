@@ -616,7 +616,7 @@ XStatus XPmClock_SetDivider(const XPm_OutClockNode *Clk, u32 Divider)
 	Width = Ptr->Param2.Width;
 	Shift = Ptr->Param1.Shift;
 
-	if ((Divider == 0) && !(Ptr->Typeflags & CLK_DIVIDER_ALLOW_ZERO)) {
+	if ((Divider == 0U) && !(Ptr->Typeflags & CLK_DIVIDER_ALLOW_ZERO)) {
 		Status = XST_INVALID_PARAM;
 		goto done;
 	}
@@ -907,7 +907,7 @@ done:
 XStatus XPmClock_GetRate(u32 ClockId, u32 *Rate)
 {
 	XStatus Status = XST_FAILURE;
-	XPm_ClockNode *Clk = XPmClock_GetById(ClockId);
+	const XPm_ClockNode *Clk = XPmClock_GetById(ClockId);
 	if (NULL == Clk) {
 		goto done;
 	}
@@ -1277,7 +1277,7 @@ XStatus XPmClock_DescribeRate(u32 ClockId, u32 RateIdx, u32 *Response)
 		Response[1] = 27000000U;  /* 27 MHz */
 	} else {
 		Response[0] = 1U;  /* Single rate */
-		XPmClock_GetRate(ClockId, &Response[1]);
+		(void)XPmClock_GetRate(ClockId, &Response[1]);
 	}
 	Status = XST_SUCCESS;
 

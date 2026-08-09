@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2024 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -40,7 +40,7 @@ XStatus XPmCore_WakeUp(XPm_Core *Core, u32 SetAddress, u64 Address)
 		Status = XPM_ERR_WAKEUP;
 		goto done;
 	}
-	XPmDevice_BringUp((XPm_Device*)Core);
+	(void)XPmDevice_BringUp((XPm_Device*)Core);
 	DisableWake(Core);
 
 	/* Set reset address */

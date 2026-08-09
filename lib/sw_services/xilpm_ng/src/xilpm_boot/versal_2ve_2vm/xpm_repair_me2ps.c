@@ -20,7 +20,7 @@ XStatus XPmRepair_Aie2p_s(u32 * EfuseTagAddr, u32 * TagDataAddr)
 	u64 BaseAddr =(u64)(VIVADO_ME_BASEADDR + ((u64)TagOptional << ME_BISR_EFUSE_OFFSET_SHIFT));    // aie2ps_pl_module_x_0 base address
 	u64 BisrDataDestAddr = BaseAddr +(u64)(AIE2PS_PL_MODULE_0_0_BISR_CACHE_DATA0 - AIE2PS_PL_MODULE_0_0_BASEADDR);     // ME_PL_MODULE_X_0_BISR_cache_data0
 	if(TagSize > 8U){ /*Sanity check in case user enters incorrect data size*/
-		Status = ERRSTS_REPAIR_BAD_TAG_SIZE;
+		Status = (XStatus)(ERRSTS_REPAIR_BAD_TAG_SIZE);
 		goto done;
 	}
 	/* Copy repair data */
@@ -32,10 +32,10 @@ XStatus XPmRepair_Aie2p_s(u32 * EfuseTagAddr, u32 * TagDataAddr)
 	u64 RegAddr = BaseAddr + (AIE2PS_PL_MODULE_0_0_BISR_CACHE_STATUS - AIE2PS_PL_MODULE_0_0_BASEADDR);
 	Status = XPm_PollForMask64(RegAddr, AIE2PS_PL_MODULE_0_0_BISR_CACHE_STATUS_DONE_MASK, XPM_POLL_TIMEOUT);
 	if (XST_SUCCESS != Status) {
-		Status = ERRSTS_REPAIR_TIMEOUT;
+		Status = (XStatus)(ERRSTS_REPAIR_TIMEOUT);
 	} else {
 		if ((lwea(RegAddr) & AIE2PS_PL_MODULE_0_0_BISR_CACHE_STATUS_PASS_MASK) == 0U) {
-			Status = ERRSTS_REPAIR_FUNCTION_FAILED;
+			Status = (XStatus)(ERRSTS_REPAIR_FUNCTION_FAILED);
 		}
 	}
 done:

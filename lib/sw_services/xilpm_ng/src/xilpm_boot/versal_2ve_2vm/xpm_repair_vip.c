@@ -20,7 +20,7 @@ XStatus XPmRepair_Vip(u32 * EfuseTagAddr, u32 * TagDataAddr)
     u64 BisrDataDestAddr = (u64)BaseAddr + (u64)RegOffset;
 
     if(TagSize > 8U){ /*Sanity check in case user enters incorrect data size*/
-        Status = ERRSTS_REPAIR_BAD_TAG_SIZE;
+        Status = (XStatus)(ERRSTS_REPAIR_BAD_TAG_SIZE);
         goto done;
     }
 
@@ -39,17 +39,17 @@ XStatus XPmRepair_Vip(u32 * EfuseTagAddr, u32 * TagDataAddr)
     /* Wait for BISR to finish */
     Status = XPm_PollForMask(BaseAddr + NPI_PCSR_STATUS_OFFSET, VIP_NPI_0_VIP_NPI_PCSR_STATUS_BISR_DONE_MASK, XPM_POLL_TIMEOUT);
     if (XST_SUCCESS != Status) {
-        Status = ERRSTS_REPAIR_TIMEOUT;
+        Status = (XStatus)(ERRSTS_REPAIR_TIMEOUT);
         goto done;
     }
 
     /* Check for BISR pass */
     u32 RegValue = XPm_In32(BaseAddr + NPI_PCSR_STATUS_OFFSET);
     if ((RegValue & VIP_NPI_0_VIP_NPI_PCSR_STATUS_BISR_PASS_MASK) != VIP_NPI_0_VIP_NPI_PCSR_STATUS_BISR_PASS_MASK) {
-        Status = ERRSTS_REPAIR_FUNCTION_FAILED;
+        Status = (XStatus)(ERRSTS_REPAIR_FUNCTION_FAILED);
     }
 done:
     /* Lock PCSR */
-    XPm_LockPcsr(BaseAddr);
+    (void)XPm_LockPcsr(BaseAddr);
     return Status;
 }

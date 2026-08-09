@@ -18,7 +18,7 @@ XStatus XPmRepair_Eio(u32 * EfuseTagAddr, u32 * TagDataAddr)
     u64 BisrDataDestAddr = (u64)EIO_SLCR_BISR_CACHE_DATA_0;
 
     if(TagSize > 4U){/*Sanity check in case user enters incorrect data size*/
-        Status = ERRSTS_REPAIR_BAD_TAG_SIZE;
+        Status = (XStatus)(ERRSTS_REPAIR_BAD_TAG_SIZE);
         goto done;
     }
     /* Disable writing protection */
@@ -37,7 +37,7 @@ XStatus XPmRepair_Eio(u32 * EfuseTagAddr, u32 * TagDataAddr)
     /* Wait for BISR to finish */
     Status = XPm_PollForMask(EIO_SLCR_BISR_CACHE_STATUS, EIO_SLCR_BISR_CACHE_STATUS_DONE_MASK, XPM_POLL_TIMEOUT);
     if (XST_SUCCESS != Status) {
-        Status = ERRSTS_REPAIR_TIMEOUT;
+        Status = (XStatus)(ERRSTS_REPAIR_TIMEOUT);
         goto done;
     }
 
@@ -45,7 +45,7 @@ XStatus XPmRepair_Eio(u32 * EfuseTagAddr, u32 * TagDataAddr)
     PassMask = EIO_SLCR_BISR_CACHE_STATUS_PASS_MASK;
     RegValue = XPm_In32(EIO_SLCR_BISR_CACHE_STATUS);
     if ((RegValue & PassMask) != PassMask) {
-        Status = ERRSTS_REPAIR_FUNCTION_FAILED;
+        Status = (XStatus)(ERRSTS_REPAIR_FUNCTION_FAILED);
     }
 
 done:

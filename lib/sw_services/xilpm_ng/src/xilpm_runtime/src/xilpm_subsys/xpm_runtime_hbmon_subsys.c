@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C)  2025 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C)  2025 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -113,7 +113,7 @@ static int HbMon_Scheduler(void *data)
 	XStatus Status = XST_FAILURE;
 	const XPm_Device *Device, *Ipi;
 	XPm_Subsystem *Subsystem;
-	XPmRuntime_DeviceOps *DevOps = NULL;
+	const XPmRuntime_DeviceOps *DevOps = NULL;
 	u32 ActiveMonitors = 0U;
 	u32 IsAllocated = 0U;
 	u32 Idx, Timeout, NodeId, IpiIsrVal;
@@ -223,7 +223,7 @@ static XStatus ActionStart(XPm_Device* const Device)
 {
 	XStatus Status = XST_FAILURE;
 	u32 HbMon_Id = NODEINDEX(Device->Node.Id);
-	XPmRuntime_DeviceOps *DevOps = XPm_GetDevOps_ById(Device->Node.Id);
+	const XPmRuntime_DeviceOps *DevOps = XPm_GetDevOps_ById(Device->Node.Id);
 
 	PmWarn("%s: HB Mon[%lu]\r\n", __func__, HbMon_Id);
 
@@ -232,7 +232,7 @@ static XStatus ActionStart(XPm_Device* const Device)
 		goto done;
 	}
 
-	if (DevOps->PendingReqm->IsPending != 1) {
+	if (DevOps->PendingReqm->IsPending != 1U) {
 		PmErr("PendingReqm is not pending - HB Mon\r\n");
 		goto done;
 	}
@@ -309,13 +309,13 @@ static const XPmFsm_Tran XPmHbMonDevEventTransitions[] = {
 	.FromState = (u32)XPM_DEVSTATE_UNUSED,
 	.ToState = (u32)XPM_DEVSTATE_RUNNING,
 	.Latency = XPM_DEF_LATENCY,
-	.Action = ActionStart,
+	.Action = &ActionStart,
 	}, {
 	.Event = (u32)XPM_DEVEVENT_SHUTDOWN,
 	.FromState = (u32)XPM_DEVSTATE_RUNNING,
 	.ToState = (u32)XPM_DEVSTATE_UNUSED,
 	.Latency = XPM_DEF_LATENCY,
-	.Action = ActionStop,
+	.Action = &ActionStop,
 	},
 };
 

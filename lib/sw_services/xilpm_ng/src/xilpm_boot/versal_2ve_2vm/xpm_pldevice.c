@@ -564,7 +564,6 @@ XStatus XPmPlDevice_MemCtrlrMap(XPm_PlDevice *PlDevice, const u32 *Args, u32 Num
 	 * This is because DDR modeling information for a given PLD can be present in
 	 * its own RM (partial) or a default RM present in one its parent RM or static image.
 	 */
-	// if ((u8)XPM_DEVSTATE_INITIALIZING != PlDevice->Device.Node.State) {
 	// 	XPm_PlDevice *Parent = PlDevice->Parent;
 	// 	while (NULL != Parent) {
 	// 		if ((u8)XPM_DEVSTATE_INITIALIZING == Parent->Device.Node.State) {
@@ -594,7 +593,7 @@ XStatus XPmPlDevice_MemCtrlrMap(XPm_PlDevice *PlDevice, const u32 *Args, u32 Num
 	 *   nodes and add a block similar to the one below.
 	 */
 #ifdef XPM_NODEIDX_DEV_DDRMC_MAX_INT_1
-		if (XPM_NODEIDX_DEV_DDRMC_MAX_INT_1 + 1 == i) {
+		if (((u32)XPM_NODEIDX_DEV_DDRMC_MAX_INT_1 + 1U) == i) {
 			i = XPM_NODEIDX_DEV_DDRMC_MIN_INT_2;
 		}
 #endif

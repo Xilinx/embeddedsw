@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2024-2025 Advanced Micro Devices, Inc. All rights reserved.
+* Copyright (C) 2024-2026 Advanced Micro Devices, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -167,7 +167,6 @@ XStatus XPmCore_GetWakeupLatency(const u32 DeviceId, u32 *Latency)
 		goto done;
 	}
 	/** TODO: Add core power UP lattency  */
-	//*Latency += Core->PwrUpLatency;
 
 	/** TODO: Add core powerdown latency here  */
 	// if ((u32)XPM_DEVSTATE_SUSPENDING == Core->Device.Node.State) {
@@ -364,7 +363,7 @@ done:
 
 XStatus XPmCore_SetClock(u32 CoreId, u32 Enable) {
 	XStatus Status = XST_FAILURE;
-	XPm_Device *DevCore= XPmDevice_GetById(CoreId);
+	const XPm_Device *DevCore= XPmDevice_GetById(CoreId);
 	if (NULL == DevCore) {
 		PmErr("CoreId 0x%x not found\n", CoreId);
 		goto done;

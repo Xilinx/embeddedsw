@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2024 Advanced Micro Devices, Inc.  All rights reserve.
+* Copyright (c) 2024 - 2026 Advanced Micro Devices, Inc.  All rights reserve.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -13,14 +13,14 @@
 
 static XPm_Iso* XPmDomainIso_List[XPM_NODEIDX_ISO_MAX] XPM_INIT_DATA(XPmDomainIso_List) = { NULL };
 
-#define IS_PSM_ISO(ISO_NODE) ((((ISO_NODE)->Format) == (u32)PSM_SINGLE_WORD_ACTIVE_LOW) || \
-			      (((ISO_NODE)->Format) == (u32)PSM_SINGLE_WORD_ACTIVE_HIGH)) ? 1U : 0U
-#define GET_POLARITY(ISO_NODE) ((((ISO_NODE)->Format) == (u32)SINGLE_WORD_ACTIVE_HIGH) || \
-				(((ISO_NODE)->Format) == (u32)PSM_SINGLE_WORD_ACTIVE_HIGH)) ? ACTIVE_HIGH : ACTIVE_LOW
-#define ISO_ON(ISO_NODE) (GET_POLARITY(ISO_NODE) == ACTIVE_HIGH) ? (ISO_NODE)->Mask : 0U
+#define IS_PSM_ISO(ISO_NODE) (((((ISO_NODE)->Format) == (u32)PSM_SINGLE_WORD_ACTIVE_LOW) || \
+			      (((ISO_NODE)->Format) == (u32)PSM_SINGLE_WORD_ACTIVE_HIGH)) ? 1U : 0U)
+#define GET_POLARITY(ISO_NODE) (((((ISO_NODE)->Format) == (u32)SINGLE_WORD_ACTIVE_HIGH) || \
+				(((ISO_NODE)->Format) == (u32)PSM_SINGLE_WORD_ACTIVE_HIGH)) ? ACTIVE_HIGH : ACTIVE_LOW)
+#define ISO_ON(ISO_NODE) (((GET_POLARITY(ISO_NODE) == ACTIVE_HIGH)) ? (ISO_NODE)->Mask : 0U)
 #define ISO_OFF(ISO_NODE) ~(ISO_ON(ISO_NODE))
 
-static void XPmDomainIso_AfifmControl(XPm_Iso *IsoNode, u32 Value)
+static void XPmDomainIso_AfifmControl(const XPm_Iso *IsoNode, u32 Value)
 {
 	/* Write RD_CTRL port */
 	XPm_RMW32(IsoNode->Node.BaseAddress, IsoNode->Mask, Value);
@@ -45,7 +45,7 @@ static XStatus XPmDomainIso_SetValue(XPm_Iso* IsoNode, u32 Value){
 	return Status;
 }
 
-static XStatus XPmDomainIso_CheckDependencies(XPm_Iso* IsoNode)
+static XStatus XPmDomainIso_CheckDependencies(const XPm_Iso* IsoNode)
 {
 	XStatus Status = XST_FAILURE;
 	u32 i=0, NodeId;
@@ -166,13 +166,13 @@ XStatus XPmDomainIso_Control(u32 IsoIdx, u32 Enable)
 	/* Isolation node's states resolving to handle deferred isolation removal*/
 	if ((TRUE_VALUE == Enable) || (TRUE_PENDING_REMOVE == Enable)) {
 		/* To turn on isolation */
-		XPmDomainIso_SetValue(IsoNode, Output);
+		(void)XPmDomainIso_SetValue(IsoNode, Output);
 		/* Mark node state appropriately, for later remove isolation in the case of TRUE_PENDING_REMOVE */
 		IsoNode->Node.State = (TRUE_VALUE == Enable) ?
 			(u8)PM_ISOLATION_ON : (u8)PM_ISOLATION_REMOVE_PENDING;
 	} else if(FALSE_IMMEDIATE == Enable) {
 		/* Immediately remove isolation*/
-		XPmDomainIso_SetValue(IsoNode, Output);
+		(void)XPmDomainIso_SetValue(IsoNode, Output);
 		IsoNode->Node.State = (u8)PM_ISOLATION_OFF;
 	} else { /* Deferred isolation removal*/
 		/* Check dependencies */
@@ -183,7 +183,7 @@ XStatus XPmDomainIso_Control(u32 IsoIdx, u32 Enable)
 			/*No output here. Keep isolation registers same state.*/
 		} else {
 			/* if all dependencies are ready, go ahead and remove isolation */
-			XPmDomainIso_SetValue(IsoNode, Output);
+			(void)XPmDomainIso_SetValue(IsoNode, Output);
 			IsoNode->Node.State = (u8)PM_ISOLATION_OFF;
 		}
 	}
@@ -220,7 +220,7 @@ XStatus XPmDomainIso_ProcessPending()
 		IsoNode = XPmDomainIso_List[i];
 		if (NULL != IsoNode){
 			if (IsoNode->Node.State == (u8)PM_ISOLATION_REMOVE_PENDING) {
-				Status = XPmDomainIso_Control(i, FALSE_VALUE);
+				Status = (XStatus)(XPmDomainIso_Control(i, FALSE_VALUE));
 				if ((XST_SUCCESS != Status) && (XST_DEVICE_NOT_FOUND != Status)){
 					/* if device is not found, we still scan through the list of iso node*/
 					goto done;

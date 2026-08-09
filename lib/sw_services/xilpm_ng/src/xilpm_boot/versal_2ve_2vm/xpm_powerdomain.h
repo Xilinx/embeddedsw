@@ -7,7 +7,6 @@
 #define XPM_POWERDOMAIN_H_
 
 #include "xpm_power.h"
-// #include "xpm_device.h"
 #include "xpm_rail.h"
 
 #if defined(XILPM_NG_DOMAIN_CONTROL_GPIO)

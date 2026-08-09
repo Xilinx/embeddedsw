@@ -1722,7 +1722,6 @@ static XStatus XPmPower_TcmPwrDown(const struct XPmTcmPwrCtrl_t *Args)
 
 	/* reset bit in local reg*/
 	/* TODO: check if required */
-	//XPm_RMW32(PMXC_GLOBAL_PMC_AUX_PWR_STATE_1, Tcm->PwrStateMask, ~Tcm->PwrStateMask);
 
 	/* Check that TCM power down status has taken affect */
 	Status = XPm_PollForZero(PSXC_LPX_SLCR_RPU_TCM_PWR_STATUS, Tcm->PwrStatusMask, TCM_PWR_STATE_ACK_TIMEOUT);

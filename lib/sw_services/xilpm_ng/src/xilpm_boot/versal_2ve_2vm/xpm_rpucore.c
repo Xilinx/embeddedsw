@@ -255,7 +255,7 @@ void XPmRpuCore_SetTcmBoot(const u32 DeviceId, const u8 TcmBootFlag){
 static XStatus XPm_PlatRpucoreHalt(u32 CoreId) {
 	XStatus Status = XST_FAILURE;
 	/* Type check */
-	if (XPM_NODETYPE_DEV_CORE_RPU != NODETYPE(CoreId)) {
+	if ((u32)XPM_NODETYPE_DEV_CORE_RPU != NODETYPE(CoreId)) {
 		Status = XST_INVALID_PARAM;
 		PmErr("Expecting RPUCore but get 0x%x\r\n", CoreId);
 		goto done;
@@ -302,9 +302,9 @@ static XStatus SetResetState(const XPm_RpuCore *Core, u32 Value)
 		PmErr("RPU Core Node is NULL\r\n");
 		goto done;
 	}
-	XPm_ResetHandle *CurHandle = Device->RstHandles;
+	const XPm_ResetHandle *CurHandle = Device->RstHandles;
 	while(NULL != CurHandle) {
-		XPm_ResetNode *Reset = CurHandle->Reset;
+		const XPm_ResetNode *Reset = CurHandle->Reset;
 		if (NULL == Reset) {
 			PmErr("RPU Core Reset node is NULL\r\n");
 			goto done;
@@ -349,7 +349,7 @@ XStatus XPmRpuCore_ResetAndHalt(u32 CoreId)
 		PmErr("Unable to get RPU Core for Id: 0x%x\n\r", CoreId);
 		goto done;
 	}
-	if (XPM_NODETYPE_DEV_CORE_RPU != NODETYPE(CoreId)) {
+	if ((u32)XPM_NODETYPE_DEV_CORE_RPU != NODETYPE(CoreId)) {
 		Status = XST_INVALID_PARAM;
 		PmErr("Expecting RPUCore but get 0x%x\r\n", CoreId);
 		goto done;
@@ -394,7 +394,7 @@ XStatus XPmRpuCore_ReleaseReset(u32 CoreId)
 	}
 
 	/* Check NODETYPE to make sure it is RPU*/
-	if (XPM_NODETYPE_DEV_CORE_RPU != NODETYPE(CoreId)) {
+	if ((u32)XPM_NODETYPE_DEV_CORE_RPU != NODETYPE(CoreId)) {
 		Status = XST_INVALID_PARAM;
 		PmErr("Expecting RPUCore but get 0x%x\r\n", CoreId);
 		goto done;

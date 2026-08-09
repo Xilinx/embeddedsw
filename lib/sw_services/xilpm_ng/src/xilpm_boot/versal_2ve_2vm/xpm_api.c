@@ -294,7 +294,7 @@ static XStatus XPm_SetClockRate(XPlmi_Cmd* Cmd)
 {
 	XPM_EXPORT_CMD(PM_CLOCK_SETRATE, XPLMI_CMD_ARG_CNT_TWO, XPLMI_CMD_ARG_CNT_TWO);
 	XStatus Status = XST_FAILURE;
-	if (2 > Cmd->Len) {
+	if (2U > Cmd->Len) {
 		Status = XST_INVALID_PARAM;
 		goto done;
 	}
@@ -414,18 +414,18 @@ XStatus XPm_Init(void (*const RequestCb)(const u32 SubsystemId, const XPmApiCbId
 	PmInfo("Initializing XilPM Boot Library\n\r");
 
 	/* Initializing XPLmi_PmCmds array*/
-	XPlmi_PmCmds[PM_ADD_NODE].Handler = (XPlmi_CmdHandler)XPm_AddNode;
-	XPlmi_PmCmds[PM_ADD_REQUIREMENT].Handler = (XPlmi_CmdHandler)XPm_AddRequirement;
-	XPlmi_PmCmds[PM_ADD_SUBSYSTEM].Handler = (XPlmi_CmdHandler)XPm_AddSubsystem;
-	XPlmi_PmCmds[PM_ADD_NODE_PARENT].Handler = (XPlmi_CmdHandler)XPm_AddNodeParent;
-	XPlmi_PmCmds[PM_ADD_NODE_NAME].Handler = (XPlmi_CmdHandler)XPm_AddNodeName;
-	XPlmi_PmCmds[PM_CLOCK_SETRATE].Handler = (XPlmi_CmdHandler)XPm_SetClockRate;
-	XPlmi_PmCmds[PM_INIT_NODE].Handler = (XPlmi_CmdHandler)XPm_DoInitNode;
-	XPlmi_PmCmds[PM_ISO_CONTROL].Handler = (XPlmi_CmdHandler)XPm_IsoControl;
-	XPlmi_PmCmds[PM_BISR].Handler = (XPlmi_CmdHandler)XPm_DoBisr;
-	XPlmi_PmCmds[PM_APPLY_TRIM].Handler = (XPlmi_CmdHandler)XPm_DoApplyTrim;
-	XPlmi_PmCmds[PM_HNICX_NPI_DATA_XFER].Handler = (XPlmi_CmdHandler)XPm_DoWarningCommand;
-	XPlmi_PmCmds[PM_SET_NODE_ACCESS].Handler = (XPlmi_CmdHandler)XPm_DoIgnoreCommand;
+	XPlmi_PmCmds[PM_ADD_NODE].Handler = (XPlmi_CmdHandler)&XPm_AddNode;
+	XPlmi_PmCmds[PM_ADD_REQUIREMENT].Handler = (XPlmi_CmdHandler)&XPm_AddRequirement;
+	XPlmi_PmCmds[PM_ADD_SUBSYSTEM].Handler = (XPlmi_CmdHandler)&XPm_AddSubsystem;
+	XPlmi_PmCmds[PM_ADD_NODE_PARENT].Handler = (XPlmi_CmdHandler)&XPm_AddNodeParent;
+	XPlmi_PmCmds[PM_ADD_NODE_NAME].Handler = (XPlmi_CmdHandler)&XPm_AddNodeName;
+	XPlmi_PmCmds[PM_CLOCK_SETRATE].Handler = (XPlmi_CmdHandler)&XPm_SetClockRate;
+	XPlmi_PmCmds[PM_INIT_NODE].Handler = (XPlmi_CmdHandler)&XPm_DoInitNode;
+	XPlmi_PmCmds[PM_ISO_CONTROL].Handler = (XPlmi_CmdHandler)&XPm_IsoControl;
+	XPlmi_PmCmds[PM_BISR].Handler = (XPlmi_CmdHandler)&XPm_DoBisr;
+	XPlmi_PmCmds[PM_APPLY_TRIM].Handler = (XPlmi_CmdHandler)&XPm_DoApplyTrim;
+	XPlmi_PmCmds[PM_HNICX_NPI_DATA_XFER].Handler = (XPlmi_CmdHandler)&XPm_DoWarningCommand;
+	XPlmi_PmCmds[PM_SET_NODE_ACCESS].Handler = (XPlmi_CmdHandler)&XPm_DoIgnoreCommand;
 	/* Init runtime submodule */
 	Status = XPm_RuntimeInit();
 	if (XST_SUCCESS != Status) {
@@ -550,9 +550,8 @@ XStatus XPm_DoApplyTrim(XPlmi_Cmd* Cmd)
 XStatus XPm_IsoControl(XPlmi_Cmd *Cmd)
 	//u32 NodeId, u32 Enable)
 {
-	//XPM_EXPORT_CMD(PM_ISO_CONTROL, XPLMI_CMD_ARG_CNT_TWO, XPLMI_CMD_ARG_CNT_TWO);
 	XStatus Status = XST_FAILURE;
-	if (2 > Cmd->Len) {
+	if (2U > Cmd->Len) {
 		Status = XST_INVALID_PARAM;
 		goto done;
 	}
@@ -591,7 +590,6 @@ done:
  ****************************************************************************/
 static XStatus XPm_AddNodeParent(XPlmi_Cmd *Cmd)
 {
-	//XPM_EXPORT_CMD(PM_ADD_NODE_PARENT, XPLMI_CMD_ARG_CNT_TWO, XPLMI_UNLIMITED_ARG_CNT);
 	XStatus Status = XST_FAILURE;
 	const u32* Args = Cmd->Payload;
 	u32 NumArgs = Cmd->Len;
@@ -1944,12 +1942,12 @@ XStatus XPm_PmcWakeAllCores(void) {
 			continue;
 		}
 		/** Only wake up when  NODE type of CoreID is XPM_NODETYPE_DEV_CORE_APU or XPM_NODETYPE_DEV_CORE_RPU */
-		if ((XPM_NODETYPE_DEV_CORE_APU != NODETYPE(Core->Device.Node.Id)) &&
-		    (XPM_NODETYPE_DEV_CORE_RPU != NODETYPE(Core->Device.Node.Id))) {
+		if (((u32)XPM_NODETYPE_DEV_CORE_APU != NODETYPE(Core->Device.Node.Id)) &&
+		    ((u32)XPM_NODETYPE_DEV_CORE_RPU != NODETYPE(Core->Device.Node.Id))) {
 			continue;
 		}
 		xil_printf("CoreId: 0x%x\n\r", Core->Device.Node.Id);
-		if (XPM_DEVSTATE_RUNNING != Core->Device.Node.State) {
+		if ((u32)XPM_DEVSTATE_RUNNING != Core->Device.Node.State) {
 			xil_printf("..Waking up the core above\n\r");
 			Status = XPm_PmcWakeUpCore(Core->Device.Node.Id, 0, 0);
 			if (XST_SUCCESS != Status) {
@@ -2093,7 +2091,7 @@ static XStatus PwrDomainInitNode(u32 NodeId, u32 Function, const u32 *Args, u32 
 
 #ifdef XPLMI_IPI_DEVICE_ID
 
-	Status = XPlmi_IpiInit(XPmSubsystem_GetSubSysIdByIpiMask, NULL);
+	Status = XPlmi_IpiInit(&XPmSubsystem_GetSubSysIdByIpiMask, NULL);
 		if (XST_SUCCESS != Status) {
 			PmErr("Error %u in IPI initialization\r\n", Status);
 		}
@@ -2243,36 +2241,36 @@ static XStatus XPm_AddNodeIsolation(const u32 *Args, u32 NumArgs)
 		case SINGLE_WORD_ACTIVE_HIGH:
 		case PSM_SINGLE_WORD_ACTIVE_LOW:
 		case PSM_SINGLE_WORD_ACTIVE_HIGH:
-			IsoFormat = Format;
+			IsoFormat = (u32)Format;
 			/* Extract BaseAddress and Mask*/
 			BaseAddr = Args[Index++];
 			Mask = Args[Index++];
 			break;
 		case PM_ISO_FORMAT_AFI_FM:
-			IsoFormat = Format;
+			IsoFormat = (u32)Format;
 			BaseAddr = Args[Index++];
 			Mask = AFI_FM_PORT_EN_MASK;
 			break;
 		case PM_ISO_FORMAT_AFI_FS:
-			IsoFormat = Format;
+			IsoFormat = (u32)Format;
 			/* Extract BaseAddress */
 			BaseAddr = Args[Index++];
 			Mask = AFI_FS_PORT_EN_MASK;
 			break;
 		case PM_ISO_FORMAT_CHI_FPD:
-			IsoFormat = Format;
+			IsoFormat = (u32)Format;
 			/* Extract BaseAddress */
 			BaseAddr = Args[Index++];
 			Mask = CHI_FPD_PORT_EN_MASK;
 			break;
 		case PM_ISO_FORMAT_ACP_APU:
-			IsoFormat = Format;
+			IsoFormat = (u32)Format;
 			/* Extract BaseAddress */
 			BaseAddr = Args[Index++];
 			Mask = ACP_APU_GET_MASK(NodeId);
 			break;
 		case PM_ISO_FORMAT_PS_DTI:
-			IsoFormat = Format;
+			IsoFormat = (u32)Format;
 			/* Extract BaseAddress */
 			BaseAddr = Args[Index++];
 			Mask = PS_DTI_GET_MASK(NodeId);
@@ -2281,7 +2279,7 @@ static XStatus XPm_AddNodeIsolation(const u32 *Args, u32 NumArgs)
 			/* Format power domain dependencies*/
 			/* To save space in PMC RAM we statically allocate Dependencies list*/
 			if (NumDependencies > PM_ISO_MAX_NUM_DEPENDENCIES){
-				Status = XPM_INT_ERR_ISO_MAX_DEPENDENCIES;
+				Status = (XStatus)(XPM_INT_ERR_ISO_MAX_DEPENDENCIES);
 				goto done;
 			}else {
 				for (u32 i = 0U ; i < NumDependencies; i++){
@@ -2290,7 +2288,7 @@ static XStatus XPm_AddNodeIsolation(const u32 *Args, u32 NumArgs)
 			}
 			break;
 		default:
-			Status = XPM_INT_ERR_ISO_INVALID_FORMAT;
+			Status = (XStatus)(XPM_INT_ERR_ISO_INVALID_FORMAT);
 			goto done;
 		}
 	}
@@ -2378,7 +2376,7 @@ int XPm_GpioProcHandler(void *Data)
 	u32 IntStat, DataRo;
 	u32 MioNum, BitPos, BitMask, DevId;
 	u8 IsProcExecuted = FALSE;
-	XPm_GpioProcCfg *Cfg = NULL;
+	const XPm_GpioProcCfg *Cfg = NULL;
 	XStatus Status;
 
 	(void)Data;
@@ -2386,7 +2384,7 @@ int XPm_GpioProcHandler(void *Data)
 	for (Idx = 0U; Idx < GpioProcCfgCount; Idx++) {
 		Cfg = &GpioProcCfg[Idx];
 
-		if (NODETYPE(Cfg->PinId) == XPM_NODETYPE_LPD_MIO) {
+		if (NODETYPE(Cfg->PinId) == (u32)XPM_NODETYPE_LPD_MIO) {
 			DevId = PM_DEV_GPIO;
 			/*
 			 * PinId was built as PM_STMIC_LMIO_BASE + MioIdx during
@@ -2397,7 +2395,7 @@ int XPm_GpioProcHandler(void *Data)
 			 *      LMIO_5 → NODEINDEX 6 − 1 = MioNum 5
 			 */
 			MioNum  = (NODEINDEX(Cfg->PinId) - NODEINDEX(PM_STMIC_LMIO_0));
-		} else if (NODETYPE(Cfg->PinId) == XPM_NODETYPE_PMC_MIO) {
+		} else if (NODETYPE(Cfg->PinId) == (u32)XPM_NODETYPE_PMC_MIO) {
 			DevId = PM_DEV_GPIO_PMC;
 			/*
 			 * PinId was built as PM_STMIC_PMIO_BASE + MioIdx during
@@ -2529,7 +2527,7 @@ static int XPm_GpioRegisterPin (u32 CfgHalf)
 	ProcId   = (CfgHalf & GPIO_CFG_PROCID_MASK) >> GPIO_CFG_PROCID_SHIFT;
 
 	/* MioIdx is 1-based in the RTCA config (0 is invalid) */
-	if ((MioIdx == 0U) || (MioIdx > XPM_NODEIDX_STMIC_MAX)) {
+	if ((MioIdx == 0U) || (MioIdx > (u32)XPM_NODEIDX_STMIC_MAX)) {
 		PmErr("Invalid MIO index %u\r\n", MioIdx);
 		Status = XST_INVALID_PARAM;
 		goto done;

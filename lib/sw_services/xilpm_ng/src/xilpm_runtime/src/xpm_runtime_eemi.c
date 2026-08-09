@@ -157,7 +157,7 @@ XStatus XPmSubsystemOp_Activate(XPm_Subsystem *Subsystem)
 		}
 		Reqm = ReqmNode->Data;
 
-		if ((Reqm->Allocated != 1) && (1U == PREALLOC((u32)Reqm->Flags))) {
+		if ((Reqm->Allocated != 1U) && (1U == PREALLOC((u32)Reqm->Flags))) {
 			if (Reqm->Device == NULL) {
 				PmErr("Reqm->Device is NULL\r\n");
 				Status = XST_FAILURE;

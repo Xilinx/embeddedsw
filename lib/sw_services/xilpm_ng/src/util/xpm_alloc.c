@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2024 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -123,6 +123,7 @@ void __attribute__((weak, noinline)) XPm_DumpMemUsage(void)
 }
 
 static u8 BoardPoolMemBuffer[MAX_BOARD_POOL_SIZE] XPM_PLACE_IN(".BoardPoolMemBuffer");	/** Board Pool Memory Buffer */
+/* coverity[misra_c_2025_rule_8_9_violation] IPU save/restore persistent state; must retain file scope for the persistence/update mechanism. Excluded from static analysis per design. */
 static XPm_AllocablePool_t BoardPoolMem XPM_INIT_DATA(BoardPoolMem)=  {
 	.Size = MAX_BOARD_POOL_SIZE,
 	.Pool = BoardPoolMemBuffer,

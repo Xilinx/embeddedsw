@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2024 -2025 Advanced Micro Devices, Inc. All rights reserved.
+* Copyright (c) 2024 -2026 Advanced Micro Devices, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -40,7 +40,6 @@ XStatus XPmReset_AddPermForGlobalResets(const XPm_Subsystem *Subsystem);
  XStatus XPmReset_AddPermission(XPm_ResetNode *Rst,
 			       const XPm_Subsystem *Subsystem,
 			       const u32 Operations);
-// void XPmReset_MakeCpmPorResetCustom(void);
 
 #ifdef __cplusplus
 }

@@ -31,11 +31,16 @@ static XPm_Device *PmVirtualDevices[(u32)XPM_NODEIDX_DEV_VIRT_MAX] XPM_INIT_DATA
 static XPm_Device *PmHbMonDevices[(u32)XPM_NODEIDX_DEV_HB_MON_MAX] XPM_INIT_DATA(PmHbMonDevices) = { NULL };
 static XPm_Device *PmMemRegnDevices[(u32)XPM_NODEIDX_DEV_MEM_REGN_MAX] XPM_INIT_DATA(PmMemRegnDevices) = { NULL };
 static u32 PmSysmonAddresses[(u32)XPM_NODEIDX_MONITOR_MAX] XPM_INIT_DATA(PmSysmonAddresses) = { 0U };
+/* coverity[misra_c_2025_rule_8_9_violation] IPU save/restore persistent state; must retain file scope for the persistence/update mechanism. Excluded from static analysis per design. */
 static u32 PmNumPlDevices XPM_INIT_DATA(PmNumPlDevices) = 0U;
+/* coverity[misra_c_2025_rule_8_9_violation] IPU save/restore persistent state; must retain file scope for the persistence/update mechanism. Excluded from static analysis per design. */
 static u32 PmNumVirtualDevices XPM_INIT_DATA(PmNumVirtualDevices) = 0U;
+/* coverity[misra_c_2025_rule_8_9_violation] IPU save/restore persistent state; must retain file scope for the persistence/update mechanism. Excluded from static analysis per design. */
 static u32 PmNumHbMonDevices XPM_INIT_DATA(PmNumHbMonDevices) = 0U;
 static u32 PmNumMemRegnDevices XPM_INIT_DATA(PmNumMemRegnDevices) = 0U;
+/* coverity[misra_c_2025_rule_8_9_violation] IPU save/restore persistent state; must retain file scope for the persistence/update mechanism. Excluded from static analysis per design. */
 static u32 PmNumDevices XPM_INIT_DATA(PmNumDevices) = 0U;
+/* coverity[misra_c_2025_rule_8_9_violation] IPU save/restore persistent state; must retain file scope for the persistence/update mechanism. Excluded from static analysis per design. */
 static u32 PmNumAieDevices XPM_INIT_DATA(PmNumAieDevices) = 0U;
 
 u32 XPmDevice_GetMemRegnCount(void) {

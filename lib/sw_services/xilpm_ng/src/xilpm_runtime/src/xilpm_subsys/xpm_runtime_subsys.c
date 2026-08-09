@@ -1,5 +1,5 @@
 /******************************************************************************
- * Copyright (c) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+ * Copyright (c) 2024 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
  * SPDX-License-Identifier: MIT
  *****************************************************************************/
 
@@ -117,7 +117,7 @@ XStatus XPmSubsystemOp_StartRecoveryTimer(XPm_Subsystem *Subsystem, u32 CmdType)
 
 /* XPmSubsystemOp_IsAccessAllowed is now a common function in xpm_subsystem.c */
 
-static XStatus XPm_AddSubsysPermissions(XPm_Subsystem *Host, u32 TargetId, u32 Operations)
+static XStatus XPm_AddSubsysPermissions(const XPm_Subsystem *Host, u32 TargetId, u32 Operations)
 {
 	XStatus Status = XST_FAILURE;
 	XPm_Subsystem *Target = XPmSubsystem_GetById(TargetId);
@@ -185,7 +185,7 @@ done:
 	return Status;
 }
 
-static XStatus XPmSubsystem_ForceDownCleanup(XPm_Subsystem *Subsystem)
+static XStatus XPmSubsystem_ForceDownCleanup(const XPm_Subsystem *Subsystem)
 {
 	XStatus Status = XST_FAILURE;
 
@@ -264,7 +264,7 @@ done:
 }
 
 /* Helper functions for AddRequirement */
-static XStatus XPm_AddDevRequirement(XPm_Subsystem *Subsystem, u32 *Payload, u32 PayloadLen)
+static XStatus XPm_AddDevRequirement(XPm_Subsystem *Subsystem, const u32 *Payload, u32 PayloadLen)
 {
 	XStatus Status = XST_FAILURE;
 	u32 SubsysId = 0U, DeviceId = 0U, Flags = 0U;
@@ -302,7 +302,7 @@ done:
 	return Status;
 }
 
-static XStatus XPm_AddRstRequirement(XPm_Subsystem *Subsystem, u32 *Payload, u32 PayloadLen)
+static XStatus XPm_AddRstRequirement(const XPm_Subsystem *Subsystem, const u32 *Payload, u32 PayloadLen)
 {
 	XStatus Status = XST_FAILURE;
 	u32 SubsysId = 0U, ResetId = 0U, Flags = 0U;
@@ -336,7 +336,7 @@ done:
 	return Status;
 }
 
-static XStatus XPm_AddSubsysRequirement(XPm_Subsystem *Subsystem, u32 *Payload, u32 PayloadLen)
+static XStatus XPm_AddSubsysRequirement(XPm_Subsystem *Subsystem, const u32 *Payload, u32 PayloadLen)
 {
 	XStatus Status = XST_FAILURE;
 	u32 SubsysId = 0U, TargetSubsysId = 0U, Operations = 0U;

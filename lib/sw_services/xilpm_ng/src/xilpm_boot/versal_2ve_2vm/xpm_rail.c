@@ -318,7 +318,7 @@ done:
 
 #else
 
-static XStatus XPmRail_GPIOControl(XPm_Rail *Rail, u8 Mode)
+static XStatus XPmRail_GPIOControl(const XPm_Rail *Rail, u8 Mode)
 {
 	(void)Rail;
 	(void)Mode;
@@ -722,7 +722,7 @@ static XStatus XPmRail_ComputeAdjustVIDIndexRaw(const XPmRail_VIDAdj *VIDAdj,
 	 * is found that has a value less than or equal to MP_MAP value.
 	 */
 	for (LocalIndex = (MAX_MODES - 1); LocalIndex >= 0; LocalIndex--) {
-		if ((0 == VIDAdj->Performance[LocalIndex]) ||
+		if ((0U == VIDAdj->Performance[LocalIndex]) ||
 		    (MP_MAP < VIDAdj->Performance[LocalIndex])) {
 			continue;
 		}
@@ -920,7 +920,7 @@ static XStatus XPmRail_InitTempVoltAdj(const u32 *Args, u32 NumArgs)
 	}
 
 	Rail->TempVoltAdj = &VCCINT_PL_TempVoltAdj;
-	Status = XPlmi_SchedulerAddTask(0x0U, XPmRail_CyclicTempVoltAdj, NULL,
+	Status = XPlmi_SchedulerAddTask(0x0U, &XPmRail_CyclicTempVoltAdj, NULL,
 					100U, XPLM_TASK_PRIORITY_0, Rail,
 					XPLMI_PERIODIC_TASK);
 

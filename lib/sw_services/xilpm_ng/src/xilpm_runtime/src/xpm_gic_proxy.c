@@ -306,7 +306,7 @@ static XPm_GicProxyGroup XPm_GicProxyGroups[8] XPM_INIT_DATA(XPm_GicProxyGroups)
 XPm_GicProxy_t XPm_GicProxy = {
 	.Groups = XPm_GicProxyGroups,
 	.GroupsCnt = ARRAY_SIZE(XPm_GicProxyGroups),
-	.Clear = XPmGicProxy_Clear,
-	.Enable = XPmGicProxy_Enable,
+	.Clear = &XPmGicProxy_Clear,
+	.Enable = &XPmGicProxy_Enable,
 	.Flags = 0U,
 };

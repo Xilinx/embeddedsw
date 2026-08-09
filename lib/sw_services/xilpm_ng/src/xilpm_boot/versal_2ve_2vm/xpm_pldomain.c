@@ -180,7 +180,6 @@ XStatus PldInitStart(XPm_PowerDomain *PwrDomain, const u32 *Args,
 	}
 
 	// /* Perform VID adjustment */
-	// Status = XPmRail_AdjustVID((XPm_Rail *)VccintRail);
 	// if (XST_SUCCESS != Status) {
 	// 	DbgErr = XPM_INT_ERR_VID_ADJUST;
 	// 	goto done;
@@ -311,7 +310,7 @@ XStatus XPm_PldApplyTrim(u32 TrimType)
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 	u32 Platform;
 	/* TODO: This cframe init should be called at init start node */
-	PldCframeInit();
+	(void)PldCframeInit();
 	/* Read the corresponding efuse registers for TRIM values */
 	switch (TrimType){
 	/* Read VGG trim efuse registers */

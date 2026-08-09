@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2024 -2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2024 -2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -102,7 +102,7 @@ XStatus XPmPinFunc_GetFuncGroups(u32 FuncId, u32 Index, u16 *Groups)
 	const XPm_PinFunc *PinFunc = NULL;
 	u32 Size = MAX_GROUPS_PER_RES * sizeof(u16);
 
-	Status = Xil_SMemSet(Groups, Size, (s32)END_OF_GRP, Size);
+	Status = (XStatus)(Xil_SMemSet(Groups, Size, (s32)END_OF_GRP, Size));
 	if (XST_SUCCESS != Status) {
 		goto done;
 	}

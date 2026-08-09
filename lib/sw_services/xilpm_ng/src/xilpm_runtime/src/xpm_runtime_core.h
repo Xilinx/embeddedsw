@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2024 Advanced Micro Devices, Inc. All rights reserved.
+* Copyright (c) 2024 - 2026 Advanced Micro Devices, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -20,7 +20,6 @@ struct XPmRuntime_Core {
 	u8 IsCoreIdleSupported; /**< Flag for core idle is supported */
 	struct XPm_FrcPwrDwnReq FrcPwrDwnReq;
 	/** TODO: enable these  members when they're actually usedd */
-	// u32 ImageId; /**< ImageId: Image ID */
 	// u8 Ipi; /**< IPI channel */
 	// u16 PwrUpLatency;
 	// u16 PwrDwnLatency;

@@ -260,7 +260,7 @@ XStatus XPmRequirement_IsExclusive(const XPm_Requirement *Reqm)
 		goto done;
 	}
 	LIST_FOREACH(DevOps->Requirements, ReqmNode){
-		if (1 == ReqmNode->Data->Allocated) {
+		if (1U == ReqmNode->Data->Allocated) {
 			goto done;
 		}
 	}

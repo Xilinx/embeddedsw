@@ -65,32 +65,32 @@ static XStatus Aie2ps_StartNumCol(u32 *StartCol, u32 *EndCol, const void *Buffer
 static XStatus Aie2ps_CtrlPktTlastErr(u32 StartCol, u32 EndCol, const void *Buffer);
 
 static const struct XPmAieOpsHandlers AieOpsHandlers[] = {
-	{AIE_OPS_COL_RST,		Aie2ps_ColRst},
-	{AIE_OPS_SHIM_RST,		Aie2ps_ShimRst},
-	{AIE_OPS_UC_ZEROIZATION,	Aie2ps_UcZeroization},
-	{AIE_OPS_ENB_COL_CLK_BUFF,	Aie2ps_EnbColClkBuff},
+	{AIE_OPS_COL_RST,		&Aie2ps_ColRst},
+	{AIE_OPS_SHIM_RST,		&Aie2ps_ShimRst},
+	{AIE_OPS_UC_ZEROIZATION,	&Aie2ps_UcZeroization},
+	{AIE_OPS_ENB_COL_CLK_BUFF,	&Aie2ps_EnbColClkBuff},
 	/* AIE_OPS_HANDSHAKE is dispatched directly in Aie2ps_Operation()
 	 * because it needs SubsystemId for caller-DDR range validation
 	 * which is not part of the generic AieOpsHandlers signature. */
-	{AIE_OPS_CLR_HW_ERR_STS,	Aie2ps_IntcHwSts},
-	{AIE_OPS_ALL_MEM_ZEROIZATION,	Aie2ps_Zeroization},
-	{AIE_OPS_AXIMM_ISOLATION,	Aie2ps_EnbAxiMmIsolation},
-	{AIE_OPS_NMU_CONFIG,		Aie2ps_NmuConfig},
-	{AIE_OPS_DIS_MEM_PRIV,		Aie2ps_DisMemPriv},
-	{AIE_OPS_DIS_MEM_INTERLEAVE,	Aie2ps_DisMemInterleave},
-	{AIE_OPS_ENB_UC_DMA_PAUSE,	Aie2ps_EnbUcDmaPause},
-	{AIE_OPS_ENB_NOC_DMA_PAUSE,	Aie2ps_EnbNocDmaPause},
-	{AIE_OPS_SET_ECC_SCRUB_PERIOD,	Aie2ps_SetEccScrub},
-	{AIE_OPS_DIS_COL_CLK_BUFF,	Aie2ps_DisColClkBuff},
-	{AIE_OPS_HW_ERR_INT,		Aie2ps_HwErrInt},
-	{AIE_OPS_HW_ERR_MASK,		Aie2ps_HwErrMask},
-	{AIE_OPS_ENB_MEM_PRIV,		Aie2ps_EnbMemPriv},
-	{AIE_OPS_ENB_AXI_MM_ERR_EVENT,	Aie2ps_EnbAxiMmErrEvent},
-	{AIE_OPS_SET_L2_CTRL_NPI_INTR,	Aie2ps_SetL2CtrlNpiIntr},
-	{AIE_OPS_PROG_MEM_ZEROIZATION,	Aie2ps_Zeroization},
-	{AIE_OPS_DATA_MEM_ZEROIZATION,	Aie2ps_Zeroization},
-	{AIE_OPS_MEM_TILE_ZEROIZATION,	Aie2ps_Zeroization},
-	{AIE_OPS_CTRL_PKT_TLAST_ERR,	Aie2ps_CtrlPktTlastErr},
+	{AIE_OPS_CLR_HW_ERR_STS,	&Aie2ps_IntcHwSts},
+	{AIE_OPS_ALL_MEM_ZEROIZATION,	&Aie2ps_Zeroization},
+	{AIE_OPS_AXIMM_ISOLATION,	&Aie2ps_EnbAxiMmIsolation},
+	{AIE_OPS_NMU_CONFIG,		&Aie2ps_NmuConfig},
+	{AIE_OPS_DIS_MEM_PRIV,		&Aie2ps_DisMemPriv},
+	{AIE_OPS_DIS_MEM_INTERLEAVE,	&Aie2ps_DisMemInterleave},
+	{AIE_OPS_ENB_UC_DMA_PAUSE,	&Aie2ps_EnbUcDmaPause},
+	{AIE_OPS_ENB_NOC_DMA_PAUSE,	&Aie2ps_EnbNocDmaPause},
+	{AIE_OPS_SET_ECC_SCRUB_PERIOD,	&Aie2ps_SetEccScrub},
+	{AIE_OPS_DIS_COL_CLK_BUFF,	&Aie2ps_DisColClkBuff},
+	{AIE_OPS_HW_ERR_INT,		&Aie2ps_HwErrInt},
+	{AIE_OPS_HW_ERR_MASK,		&Aie2ps_HwErrMask},
+	{AIE_OPS_ENB_MEM_PRIV,		&Aie2ps_EnbMemPriv},
+	{AIE_OPS_ENB_AXI_MM_ERR_EVENT,	&Aie2ps_EnbAxiMmErrEvent},
+	{AIE_OPS_SET_L2_CTRL_NPI_INTR,	&Aie2ps_SetL2CtrlNpiIntr},
+	{AIE_OPS_PROG_MEM_ZEROIZATION,	&Aie2ps_Zeroization},
+	{AIE_OPS_DATA_MEM_ZEROIZATION,	&Aie2ps_Zeroization},
+	{AIE_OPS_MEM_TILE_ZEROIZATION,	&Aie2ps_Zeroization},
+	{AIE_OPS_CTRL_PKT_TLAST_ERR,	&Aie2ps_CtrlPktTlastErr},
 };
 
 /***************************************************************************/
@@ -255,7 +255,7 @@ done:
 		  ME_PROT_REG_CTRL_PROTECTED_REG_EN_MASK, 0U);
 
 	/* Lock Pcsr */
-	XPm_LockPcsr(AieDomain->AieNpiAddress);
+	(void)XPm_LockPcsr(AieDomain->AieNpiAddress);
 
 	XPm_PrintDbgErr(Status, DbgErr);
 	return Status;
@@ -419,7 +419,7 @@ static XStatus Aie2ps_ShimRst(const u32 StartCol, const u32 EndCol, const void* 
 		  ME_PROT_REG_CTRL_PROTECTED_REG_EN_MASK, 0U);
 
 	/* Lock Pcsr */
-	XPm_LockPcsr(NodeAddress);
+	(void)XPm_LockPcsr(NodeAddress);
 
 	XPm_PrintDbgErr(Status, DbgErr);
 	return Status;
@@ -943,7 +943,7 @@ static XStatus Aie2ps_DisMemInterleave(u32 StartCol, u32 EndCol, const void *Buf
 		  ME_PROT_REG_CTRL_PROTECTED_REG_EN_MASK, 0U);
 
 	/* Lock Pcsr */
-	XPm_LockPcsr(AieDomain->AieNpiAddress );
+	(void)XPm_LockPcsr(AieDomain->AieNpiAddress );
 
 	return XST_SUCCESS;
 }
@@ -1063,7 +1063,7 @@ static XStatus Aie2ps_CtrlPktTlastErr(u32 StartCol, u32 EndCol, const void *Buff
 		  ME_PROT_REG_CTRL_PROTECTED_REG_EN_MASK, 0U);
 
 	/* Lock Pcsr */
-	XPm_LockPcsr(AieDomain->AieNpiAddress );
+	(void)XPm_LockPcsr(AieDomain->AieNpiAddress );
 
 	return XST_SUCCESS;
 }
@@ -1089,7 +1089,7 @@ static XStatus Aie2ps_Operation(u32 SubsystemId, u32 Size, u32 HighAddr, u32 Low
 	u32 StartCol = 0U;
 	u32 EndCol = 0U;
 	char *Buf = (char *)Buffer;
-	char *End = Buf + Size;
+	const char *End = Buf + Size;
 	struct XPm_AieTypeLen *OpTypeLen;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 	const XPm_AieDomain *AieDomain = (XPm_AieDomain*)XPmPower_GetById(PM_POWER_ME2);
@@ -1125,7 +1125,7 @@ static XStatus Aie2ps_Operation(u32 SubsystemId, u32 Size, u32 HighAddr, u32 Low
 
 	OpTypeLen = (struct XPm_AieTypeLen *)Buf;
 	/* Buffer must start with AIE_OPS_START_NUM_COL operation */
-	if (AIE_OPS_START_NUM_COL != OpTypeLen->Type) {
+	if ((u32)AIE_OPS_START_NUM_COL != OpTypeLen->Type) {
 		DbgErr = XPM_INT_ERR_INVALID_PARAM;
 		goto done;
 	}
@@ -1134,14 +1134,14 @@ static XStatus Aie2ps_Operation(u32 SubsystemId, u32 Size, u32 HighAddr, u32 Low
 		/* Initialize for each Aie operation */
 		Status = XST_FAILURE;
 
-		if (AIE_OPS_START_NUM_COL == OpTypeLen->Type) {
+		if ((u32)AIE_OPS_START_NUM_COL == OpTypeLen->Type) {
 			Status = Aie2ps_StartNumCol(&StartCol, &EndCol, Buf);
 			if (XST_SUCCESS != Status) {
 				goto done;
 			}
 
 			Buf += OpTypeLen->Len;
-		} else if (AIE_OPS_HANDSHAKE == OpTypeLen->Type) {
+		} else if ((u32)AIE_OPS_HANDSHAKE == OpTypeLen->Type) {
 			/* HandShake is dispatched directly because it needs
 			 * SubsystemId for caller-DDR range validation. */
 			Status = Aie2ps_HandShake(SubsystemId, StartCol, EndCol, Buf);
@@ -1271,7 +1271,7 @@ done:
 	 * failure does not leave the AIE NPI region writable.
 	 */
 	if (1U == NpiUnlocked) {
-		XPm_LockPcsr(AieDomain->AieNpiAddress);
+		(void)XPm_LockPcsr(AieDomain->AieNpiAddress);
 	}
 	return Status;
 }

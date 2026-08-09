@@ -53,7 +53,7 @@ void XPm_Printf(u32 DebugType, const char *Fnstr, const char8 *Ctrl1, ...);
 
 #define PmPrintCommon(DbgLevel, ...)					\
 	do {								\
-		if ((((DbgLevel) & (XPmLogLevel)) & 0xF0) != (u8)FALSE) {\
+		if ((((DbgLevel) & (XPmLogLevel)) & 0xF0U) != (u8)FALSE) {\
 			XPm_Printf((DbgLevel | XPLMI_DEBUG_PRINT_TIMESTAMP_MASK), __func__,  __VA_ARGS__);\
 		}\
 	} while (XPM_FALSE_COND)

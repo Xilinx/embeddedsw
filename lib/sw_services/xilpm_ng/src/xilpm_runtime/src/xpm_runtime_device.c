@@ -455,7 +455,7 @@ static XStatus SetDevCohVirtAttr(XPm_Requirement *Reqm, u32 ReqCaps,
 	u8 CurrCaps = 0U;
 	u32 BaseAddr, Offset, Mask;
 	XPm_Power *FpdPower = NULL;
-	XPm_Requirement *DevReqm = NULL;
+	const XPm_Requirement *DevReqm = NULL;
 	const XPm_DeviceAttr *DevAttr = Reqm->Device->DevAttr;
 
 	/* Skip if device does not have any attributes */
@@ -623,7 +623,7 @@ XStatus XPmDevice_Request(const u32 SubsystemId, const u32 DeviceId,
 	 * after hotplug
 	 */
 	if ((Subsystem == NULL) ||
-	    ((Subsystem->State != (u8)ONLINE) && (Subsystem->State != SUSPENDING))) {
+	    ((Subsystem->State != (u8)ONLINE) && (Subsystem->State != (u32)SUSPENDING))) {
 		Status = XPM_INVALID_SUBSYSID;
 		goto done;
 	}
@@ -743,7 +743,7 @@ XStatus XPmDevice_Reset(const XPm_Device *Device, const XPm_ResetActions Action)
 				DeviceHandle = DeviceHandle->NextDevice;
 			}
 			if (NULL == DeviceHandle) {
-				Status = XPmReset_AssertbyId(Reset->Node.Id, Action);
+				Status = (XStatus)(XPmReset_AssertbyId(Reset->Node.Id, Action));
 				if (XST_SUCCESS != Status) {
 					PmErr("Failed to assert reset 0x%x\r\n", Reset->Node.Id);
 					goto done;
@@ -766,7 +766,7 @@ XStatus XPmDevice_Reset(const XPm_Device *Device, const XPm_ResetActions Action)
 		/* Release reset for all devices in the reset handle */
 		while (NULL != RstHandle) {
 			/* Release reset for all devices in the reset handle */
-			Status = XPmReset_AssertbyId(RstHandle->Reset->Node.Id, Action);
+			Status = (XStatus)(XPmReset_AssertbyId(RstHandle->Reset->Node.Id, Action));
 			if (XST_SUCCESS != Status) {
 				goto done;
 			}
@@ -812,7 +812,6 @@ static XStatus DevRequest(XPm_Device *Device, XPm_Subsystem *Subsystem,
 	}
 
 	/* TODO:: Enable this handling separately for eemi and subsys */
-	// Status = CheckSecurityAccess(Reqm, Capabilities, CmdType);
 	// if (XST_SUCCESS != Status) {
 	// 	goto done;
 	// }
@@ -832,8 +831,8 @@ static XStatus DevRequest(XPm_Device *Device, XPm_Subsystem *Subsystem,
 		}
 		//Check if it already requested by other subsystem. If yes, return
 		LIST_FOREACH(DevOps->Requirements, ReqmNode){
-			XPm_Requirement *NextReqm = ReqmNode->Data;
-			if (1 == NextReqm->Allocated) {
+			const XPm_Requirement *NextReqm = ReqmNode->Data;
+			if (1U == NextReqm->Allocated) {
 				Status = XPM_PM_NODE_USED;
 				goto done;
 			}
@@ -849,7 +848,6 @@ static XStatus DevRequest(XPm_Device *Device, XPm_Subsystem *Subsystem,
 	}
 
 	/* TODO:: Enable this handling separately for eemi and subsys */
-	// Status = HandleDeviceAttr(Reqm, Capabilities, PrevState, 1U);
 	// if (XST_SUCCESS != Status) {
 	// 	goto done;
 	// }
@@ -890,7 +888,6 @@ static XStatus DevRelease(XPm_Device *Device,  XPm_Subsystem *Subsystem, u32 Cmd
 	PmInfo("Device State: 0x%x, Reqm->Allocated: 0x%x\r\n", Device->Node.State, Reqm->Allocated);
 
 	/* TODO:: Enable this handling separately for eemi and subsys */
-	// Status = CheckSecurityAccess(Reqm, 0U, CmdType);
 	// if (XST_SUCCESS != Status) {
 	// 	goto done;
 	// }
@@ -907,7 +904,6 @@ static XStatus DevRelease(XPm_Device *Device,  XPm_Subsystem *Subsystem, u32 Cmd
 	XPmRequirement_Clear(Reqm);
 
 	/* TODO:: Enable this handling separately for eemi and subsys */
-	// Status = HandleDeviceAttr(Reqm, 0U, PrevState, 0U);
 	// if (XST_SUCCESS != Status) {
 	// 	goto done;
 	// }
@@ -938,7 +934,7 @@ static XStatus SetDevRequirement(XPm_Device *Device, const XPm_Subsystem *Subsys
 	 * after releasing them; therefore, we have do this hack:
 	 * Only make transition to RUNNING state for UART0 and UART1, any other state transition will be ignored
 	 */
-	if (((PM_DEV_UART_0 == Device->Node.Id) || (PM_DEV_UART_1 == Device->Node.Id)) && (1 != Capabilities)) {
+	if (((PM_DEV_UART_0 == Device->Node.Id) || (PM_DEV_UART_1 == Device->Node.Id)) && (1U != Capabilities)) {
 		PmInfo("Ignoring request for UART device: 0x%x\r\n", Device->Node.Id);
 		Status = XST_SUCCESS;
 		goto done;
@@ -982,7 +978,6 @@ static XStatus SetDevRequirement(XPm_Device *Device, const XPm_Subsystem *Subsys
 			(Capabilities & BITMASK(REQ_INFO_CAPS_BIT_FIELD_SIZE));
 		DevOps->PendingReqm->Curr.QoS = QoS;
 	}
-	//Status = XST_SUCCESS;
 	Status = XPmDevice_UpdateStatus(Device);
 
 	if (XST_SUCCESS != Status) {
@@ -1073,7 +1068,7 @@ static XStatus GetStateWithCaps(const XPm_Device* const Device, const u32 Caps,
 		goto done;
 	}
 	XPm_Fsm *Fsm = NULL;
-	Status = XPmFsm_GetFsmByType(DevOps->FsmType, &Fsm);
+	Status = (XStatus)(XPmFsm_GetFsmByType(DevOps->FsmType, &Fsm));
 	if (XST_SUCCESS != Status) {
 		PmErr("Failed to get FSM for device 0x%x\r\n", Device->Node.Id);
 		goto done;
@@ -1115,7 +1110,7 @@ static u32 GetMinRequestedLatency(const XPm_Device *const Device)
 		goto done;
 	}
 	LIST_FOREACH(DevOps->Requirements, ReqmNode) {
-		XPm_Requirement *NextReqm = ReqmNode->Data;
+		const XPm_Requirement *NextReqm = ReqmNode->Data;
 		if ((1U == NextReqm->SetLatReq) &&
 		    (MinLatency > NextReqm->Next.Latency)) {
 			MinLatency = NextReqm->Next.Latency;
@@ -1145,7 +1140,7 @@ static u32 GetLatencyFromState(const XPm_Device *const Device, const u32 State)
 		goto done;
 	}
 	XPm_Fsm *Fsm = NULL;
-	Status = XPmFsm_GetFsmByType(DevOps->FsmType, &Fsm);
+	Status = (XStatus)(XPmFsm_GetFsmByType(DevOps->FsmType, &Fsm));
 	if (XST_SUCCESS != Status) {
 		PmErr("Failed to get FSM for device 0x%x\r\n", Device->Node.Id);
 		goto done;
@@ -1192,7 +1187,7 @@ static XStatus ConstrainStateByLatency(const XPm_Device *const Device,
 		goto done;
 	}
 	XPm_Fsm *Fsm = NULL;
-	Status = XPmFsm_GetFsmByType(DevOps->FsmType, &Fsm);
+	Status = (XStatus)(XPmFsm_GetFsmByType(DevOps->FsmType, &Fsm));
 	if (XST_SUCCESS != Status) {
 		PmErr("Failed to get FSM for device 0x%x\r\n", Device->Node.Id);
 		goto done;
@@ -1239,7 +1234,7 @@ done:
 static XStatus HandleDeviceEvent(XPm_Device* Device, const u32 Event)
 {
 	XStatus Status = XST_FAILURE;
-	XPmRuntime_DeviceOps *DevOps = XPm_GetDevOps_ById(Device->Node.Id);
+	const XPmRuntime_DeviceOps *DevOps = XPm_GetDevOps_ById(Device->Node.Id);
 	if (NULL == DevOps) {
 		PmErr("Runtime Device Ops is not initialized. Device ID = 0x%x\n", Device->Node.Id);
 		Status = XST_FAILURE;
@@ -1305,7 +1300,7 @@ XStatus XPmDevice_ChangeState(XPm_Device *Device, const u32 NextState)
 		Device->Node.State, NextState);
 
 	XPm_Fsm* Fsm = NULL;
-	Status = XPmFsm_GetFsmByType(DevOps->FsmType, &Fsm);
+	Status = (XStatus)(XPmFsm_GetFsmByType(DevOps->FsmType, &Fsm));
 	if (XST_SUCCESS != Status) {
 		PmErr("Failed to get FSM for device 0x%x\r\n", Device->Node.Id);
 		goto done;
@@ -1338,7 +1333,6 @@ XStatus XPmDevice_ChangeState(XPm_Device *Device, const u32 NextState)
 		Device->Node.State = (u8)NextState;
 		/** TODO: Add Notification on this state transition*/
 		// /* Send notification about device state change */
-		// XPmNotifier_Event(Device->Node.Id, (u32)EVENT_STATE_CHANGE);
 	}
 
 done:
@@ -1490,7 +1484,7 @@ XStatus XPmDevice_GetPermissions(const XPm_Device *Device, u32 *PermissionMask)
 		goto done;
 	}
 	LIST_FOREACH(DevOps->Requirements, ReqmNode) {
-		XPm_Requirement *Reqm = ReqmNode->Data;
+		const XPm_Requirement *Reqm = ReqmNode->Data;
 		if (1U == Reqm->Allocated) {
 			*PermissionMask |= ((u32)1U << NODEINDEX(Reqm->Subsystem->Id));
 		}
@@ -1524,7 +1518,7 @@ u32 XPmDevice_GetUsageStatus(const XPm_Subsystem *Subsystem, const XPm_Device *D
 		return UsageStatus;
 	}
 	LIST_FOREACH(DevOps->Requirements, ReqmNode) {
-		XPm_Requirement *Reqm = ReqmNode->Data;
+		const XPm_Requirement *Reqm = ReqmNode->Data;
 		if (1U == Reqm->Allocated){
 			/* This subsystem is currently using this device */
 			if (Subsystem == Reqm->Subsystem) {
@@ -1626,7 +1620,7 @@ XStatus XPm_CheckCapabilities(const XPm_Device *Device, u32 Caps)
 		goto done;
 	}
 	XPm_Fsm *Fsm = NULL;
-	Status = XPmFsm_GetFsmByType(DevOps->FsmType, &Fsm);
+	Status = (XStatus)(XPmFsm_GetFsmByType(DevOps->FsmType, &Fsm));
 	if (XST_SUCCESS != Status) {
 		PmErr("Failed to get FSM for device 0x%x\r\n", Device->Node.Id);
 		goto done;
@@ -1744,7 +1738,7 @@ done:
  ****************************************************************************/
 u32 XPmDevice_GetSubsystemIdOfCore(const XPm_Device *Device)
 {
-	const XPm_Requirement *Reqm;
+	const XPm_Requirement *Reqm = NULL;
 	const XPm_Subsystem *Subsystem = NULL;
 	u32 Idx, SubSystemId;
 	u32 SubsysIdx = XPmSubsystem_GetMaxSubsysIdx();

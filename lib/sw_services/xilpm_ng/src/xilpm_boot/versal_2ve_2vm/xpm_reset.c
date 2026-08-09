@@ -18,6 +18,7 @@
 
 static XPm_ResetNode *RstNodeList[(u32)XPM_NODEIDX_RST_MAX] XPM_INIT_DATA(RstNodeList) = { NULL };
 static const u32 MaxRstNodes = (u32)XPM_NODEIDX_RST_MAX;
+/* coverity[misra_c_2025_rule_8_9_violation] IPU save/restore persistent state; must retain file scope for the persistence/update mechanism. Excluded from static analysis per design. */
 static u32 PmNumResets XPM_INIT_DATA(PmNumResets) = 0U;
 
 static XStatus SetResetNode(u32 Id, XPm_ResetNode *Rst)

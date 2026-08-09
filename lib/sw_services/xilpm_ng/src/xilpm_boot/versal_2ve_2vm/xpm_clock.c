@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2024 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -60,7 +60,7 @@
 	node1_init(AllocatedNodes, 0); \
 	node2_init(AllocatedNodes, 1); \
 	SET_TOPOLOGY(topo_type, AllocatedNodes, 2U); \
-} while(0)
+} while (0U != 0U)
 
 /* Macro for 3-node topologies */
 #define INIT_TOPOLOGY_3(topo_type, node1_init, node2_init, node3_init) do { \
@@ -69,7 +69,7 @@
 	node2_init(AllocatedNodes, 1); \
 	node3_init(AllocatedNodes, 2); \
 	SET_TOPOLOGY(topo_type, AllocatedNodes, 3U); \
-} while(0)
+} while (0U != 0U)
 
 /* Wrapper macros for GATE nodes with specific IDs */
 #define INIT_GATE1_NODE(node, idx) INIT_GATE_NODE(node, idx, 1)

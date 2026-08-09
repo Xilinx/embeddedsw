@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2024 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -20,6 +20,5 @@ void XPmNode_Init(XPm_Node *Node, u32 Id, u8 State, u32 BaseAddress)
 	Node->Flags = 0;
 	Node->LatencyMarg = XPM_MAX_LATENCY;
 #ifdef VERSAL_NET
-	//XPmUpdate_AllNodes_Add(Node);
 #endif
 }

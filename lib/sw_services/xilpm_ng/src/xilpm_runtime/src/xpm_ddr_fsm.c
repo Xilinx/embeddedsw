@@ -85,7 +85,7 @@ static XStatus ActionDDRExitSelfRefresh(XPm_Device* const Device)
 		Status = XPm_PollForMask(Reg, DDRMC5E_UB_UB2PMC_ACK_SR_EXIT_MASK, XPM_POLL_TIMEOUT);
 		if (XST_SUCCESS != Status) {
 			/* Lock PCSR */
-			XPm_LockPcsr(BaseAddress);
+			(void)XPm_LockPcsr(BaseAddress);
 			goto done;
 		}
 		/* Clear ACK */
@@ -96,14 +96,14 @@ static XStatus ActionDDRExitSelfRefresh(XPm_Device* const Device)
 		Status = XPm_PollForMask(Reg, DDRMC5E_UB_UB2PMC_DONE_SR_EXIT_MASK, XPM_POLL_TIMEOUT);
 		if (XST_SUCCESS != Status) {
 			/* Lock PCSR */
-			XPm_LockPcsr(BaseAddress);
+			(void)XPm_LockPcsr(BaseAddress);
 			goto done;
 		}
 		/* Clear DONE */
 		XPm_RMW32(Reg, DDRMC5E_UB_UB2PMC_DONE_SR_EXIT_MASK, ~DDRMC5E_UB_UB2PMC_DONE_SR_EXIT_MASK);
 
 		/* Lock PCSR */
-		XPm_LockPcsr(BaseAddress);
+		(void)XPm_LockPcsr(BaseAddress);
 	}
 done:
 	XPm_PrintDbgErr(Status, DbgErr);
@@ -156,7 +156,7 @@ static XStatus ActionDDREnterSelfRefresh(XPm_Device* const Device)
 		Status = XPm_PollForMask(Reg, DDRMC5E_UB_UB2PMC_ACK_SR_ENTRY_MASK, XPM_POLL_TIMEOUT);
 		if (XST_SUCCESS != Status) {
 			/* Lock PCSR */
-			XPm_LockPcsr(BaseAddress);
+			(void)XPm_LockPcsr(BaseAddress);
 			goto done;
 		}
 		/* Clear ACK */
@@ -167,14 +167,14 @@ static XStatus ActionDDREnterSelfRefresh(XPm_Device* const Device)
 		Status = XPm_PollForMask(Reg, DDRMC5E_UB_UB2PMC_DONE_SR_ENTRY_MASK, XPM_POLL_TIMEOUT);
 		if (XST_SUCCESS != Status) {
 			/* Lock PCSR */
-			XPm_LockPcsr(BaseAddress);
+			(void)XPm_LockPcsr(BaseAddress);
 			goto done;
 		}
 		/* Clear DONE */
 		XPm_RMW32(Reg, DDRMC5E_UB_UB2PMC_DONE_SR_ENTRY_MASK, ~DDRMC5E_UB_UB2PMC_DONE_SR_ENTRY_MASK);
 
 		/* Lock PCSR */
-		XPm_LockPcsr(BaseAddress);
+		(void)XPm_LockPcsr(BaseAddress);
 	}
 
 done:
@@ -232,31 +232,31 @@ static const XPmFsm_Tran XPmDDRDevTransitions[] = {
 		.FromState = (u8)XPM_DEVSTATE_UNUSED,
 		.ToState = (u8)XPM_DEVSTATE_RUNNING,
 		.Latency = XPM_DEF_LATENCY,
-		.Action = ActionDDRBringUp,
+		.Action = &ActionDDRBringUp,
 	}, {
 		.Event = (u32)XPM_DEVEVENT_BRINGUP_ALL,
 		.FromState = (u8)XPM_DEVSTATE_RUNTIME_SUSPEND,
 		.ToState = (u8)XPM_DEVSTATE_RUNNING,
 		.Latency = XPM_DEF_LATENCY,
-		.Action = ActionDDRExitSelfRefresh,
+		.Action = &ActionDDRExitSelfRefresh,
 	}, {
 		.Event = (u32)XPM_DEVEVENT_RUNTIME_SUSPEND,
 		.FromState = (u8)XPM_DEVSTATE_RUNNING,
 		.ToState = (u8)XPM_DEVSTATE_RUNTIME_SUSPEND,
 		.Latency = XPM_DEF_LATENCY,
-		.Action = ActionDDREnterSelfRefresh,
+		.Action = &ActionDDREnterSelfRefresh,
 	}, {
 		.Event = (u32)XPM_DEVEVENT_SHUTDOWN,
 		.FromState = (u8)XPM_DEVSTATE_RUNNING,
 		.ToState = (u8)XPM_DEVSTATE_UNUSED,
 		.Latency = XPM_DEF_LATENCY,
-		.Action = ActionDDRShutdown,
+		.Action = &ActionDDRShutdown,
 	}, {
 		.Event = (u32)XPM_DEVEVENT_SHUTDOWN,
 		.FromState = (u8)XPM_DEVSTATE_RUNTIME_SUSPEND,
 		.ToState = (u8)XPM_DEVSTATE_UNUSED,
 		.Latency = XPM_DEF_LATENCY,
-		.Action = ActionDDRShutdown,
+		.Action = &ActionDDRShutdown,
 	},
 };
 

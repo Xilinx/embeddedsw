@@ -418,7 +418,6 @@ XStatus XPmReset_SystemReset(void)
 
 	/* TODO: Confirm if idling is required here or not */
 
-	// Status = XPmReset_PlatSystemReset();
 	// if (XST_SUCCESS != Status) {
 	// 	PmWarn("Error %d in XPmReset_PlatSystemReset()\r\n", Status);
 	// }

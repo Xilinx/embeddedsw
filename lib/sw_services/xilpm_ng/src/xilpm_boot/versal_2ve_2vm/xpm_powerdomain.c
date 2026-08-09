@@ -58,16 +58,16 @@ static XPm_DomainInitStartOp XPmPowerDomain_GetInitStartOp(u32 DomainId)
 {
 	switch (DomainId) {
 	case PM_POWER_LPD:
-		return LpdInitStart;
+		return &LpdInitStart;
 	case PM_POWER_FPD:
-		return FpdInitStart;
+		return &FpdInitStart;
 	case PM_POWER_PLD:
-		return PldInitStart;
+		return &PldInitStart;
 	case PM_POWER_NOC:
-		return NpdInitStart;
+		return &NpdInitStart;
 	case PM_POWER_ME:
 	case PM_POWER_ME2:
-		return Aie2InitStart;
+		return &Aie2InitStart;
 	default:
 		return NULL;
 	}
@@ -77,16 +77,16 @@ static XPm_DomainInitFinishOp XPmPowerDomain_GetInitFinishOp(u32 DomainId)
 {
 	switch (DomainId) {
 	case PM_POWER_LPD:
-		return LpdInitFinish;
+		return &LpdInitFinish;
 	case PM_POWER_FPD:
-		return FpdInitFinish;
+		return &FpdInitFinish;
 	case PM_POWER_PLD:
-		return PldInitFinish;
+		return &PldInitFinish;
 	case PM_POWER_NOC:
-		return NpdInitFinish;
+		return &NpdInitFinish;
 	case PM_POWER_ME:
 	case PM_POWER_ME2:
-		return Aie2InitFinish;
+		return &Aie2InitFinish;
 	default:
 		return NULL;
 	}
@@ -96,11 +96,11 @@ static XPm_DomainAmsTrimOp XPmPowerDomain_GetAmsTrimOp(u32 DomainId)
 {
 	switch (DomainId) {
 	case PM_POWER_LPD:
-		return LpdAmsTrim;
+		return &LpdAmsTrim;
 	case PM_POWER_FPD:
-		return FpdAmsTrim;
+		return &FpdAmsTrim;
 	case PM_POWER_NOC:
-		return NpdAmsTrim;
+		return &NpdAmsTrim;
 	case PM_POWER_PLD:
 	case PM_POWER_ME:
 	case PM_POWER_ME2:
@@ -296,7 +296,7 @@ XStatus XPm_PowerUpPLD(XPm_Node *Node)
 		goto done;
 	}
 
-	Status = XPmPower_UpdateDomainPower(&PldDomain->Domain, XPM_POWER_STATE_ON);
+	Status = (XStatus)(XPmPower_UpdateDomainPower(&PldDomain->Domain, XPM_POWER_STATE_ON));
 
 	if (XST_SUCCESS != Status) {
 		DbgErr = XPM_INT_ERR_PLD_RAIL_CONTROL;
@@ -358,61 +358,61 @@ XStatus XPm_PowerDwnPLD(const XPm_Node *Node)
 	PmOut32(Pmc->PmcAnalogBaseAddr + PMC_ANLG_CFG_POR_CNT_SKIP_OFFSET, 0U);
 
 	/* Isolate: SOC-PL */
-	Status = XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_PL_SOC, TRUE_VALUE);
+	Status = (XStatus)(XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_PL_SOC, TRUE_VALUE));
 	if (XST_SUCCESS != Status) {
 		DbgErr = XPM_INT_ERR_PL_SOC_ISO;
 		goto done;
 	}
 	/* Isolate: FPD-PL */
-	Status = XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_FPD_PL, TRUE_VALUE);
+	Status = (XStatus)(XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_FPD_PL, TRUE_VALUE));
 	if (XST_SUCCESS != Status) {
 		DbgErr = XPM_INT_ERR_FPD_PL_ISO;
 		goto done;
 	}
 	/* Isolate: FPD_TEST-PL */
-	Status = XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_FPD_PL_TEST, TRUE_VALUE);
+	Status = (XStatus)(XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_FPD_PL_TEST, TRUE_VALUE));
 	if (XST_SUCCESS != Status) {
 		DbgErr = XPM_INT_ERR_FPD_PL_TEST_ISO;
 		goto done;
 	}
 	/* Isolate: LPD-PL */
-	Status = XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_LPD_PL, TRUE_VALUE);
+	Status = (XStatus)(XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_LPD_PL, TRUE_VALUE));
 	if (XST_SUCCESS != Status) {
 		DbgErr = XPM_INT_ERR_LPD_PL_ISO;
 		goto done;
 	}
 	/* Isolate: LPD_TEST-PL */
-	Status = XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_LPD_PL_TEST, TRUE_VALUE);
+	Status = (XStatus)(XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_LPD_PL_TEST, TRUE_VALUE));
 	if (XST_SUCCESS != Status) {
 		DbgErr = XPM_INT_ERR_LPD_PL_TEST_ISO;
 		goto done;
 	}
 	/* Isolate: PMC-PL */
-	Status = XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_PMC_PL, TRUE_VALUE);
+	Status = (XStatus)(XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_PMC_PL, TRUE_VALUE));
 	if (XST_SUCCESS != Status) {
 		DbgErr = XPM_INT_ERR_PMC_PL_ISO;
 		goto done;
 	}
 	/* Isolate: PMC_TEST-PL */
-	Status = XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_PMC_PL_TEST, TRUE_VALUE);
+	Status = (XStatus)(XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_PMC_PL_TEST, TRUE_VALUE));
 	if (XST_SUCCESS != Status) {
 		DbgErr = XPM_INT_ERR_PMC_PL_TEST_ISO;
 		goto done;
 	}
 	/* Isolate: PMC_CFRAME-PL */
-	Status = XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_PMC_PL_CFRAME, TRUE_VALUE);
+	Status = (XStatus)(XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_PMC_PL_CFRAME, TRUE_VALUE));
 	if (XST_SUCCESS != Status) {
 		DbgErr = XPM_INT_ERR_PMC_PL_CFRAME_ISO;
 		goto done;
 	}
 	/* Isolate: VCCAUX-PL */
-	Status = XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_VCCAUX_VCCRAM, TRUE_VALUE);
+	Status = (XStatus)(XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_VCCAUX_VCCRAM, TRUE_VALUE));
 	if (XST_SUCCESS != Status) {
 		DbgErr = XPM_INT_ERR_VCCAUX_VCCRAM_ISO;
 		goto done;
 	}
 	/* Isolate: VCCSOC-PL */
-	Status = XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_VCCRAM_SOC, TRUE_VALUE);
+	Status = (XStatus)(XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_VCCRAM_SOC, TRUE_VALUE));
 	if (XST_SUCCESS != Status) {
 		DbgErr = XPM_INT_ERR_VCCRAM_SOC_ISO;
 		goto done;
@@ -433,7 +433,7 @@ XStatus XPm_PowerDwnPLD(const XPm_Node *Node)
 	}
 
 	/* Power down PLD power rail */
-	Status = XPmPower_UpdateDomainPower(&PldDomain->Domain, XPM_POWER_STATE_OFF);
+	Status = (XStatus)(XPmPower_UpdateDomainPower(&PldDomain->Domain, XPM_POWER_STATE_OFF));
 
 	if (XST_SUCCESS != Status) {
 		DbgErr = XPM_INT_ERR_PLD_RAIL_CONTROL;
@@ -532,7 +532,7 @@ static XStatus SysmonVoltageCheck(const XPm_Rail *Rail, u32 RailVoltage)
 	RailVoltageTableIndex = RAILIDX(NodeIndex);
 	if (RailVoltageTableIndex < ARRAY_SIZE(RailVoltageTable)) {
 		LowThreshVal = RailVoltageTable[RailVoltageTableIndex][0];
-	} else if (NODEINDEX(XPM_NODEIDX_POWER_VCCINT_ME) == NodeIndex) {
+	} else if (NODEINDEX((u32)XPM_NODEIDX_POWER_VCCINT_ME) == NodeIndex) {
 		LowThreshVal = VOLT_CODE_0_66V; /* 0.66V */
 	} else {
 		DbgErr = XPM_INT_ERR_DEVICE_NOT_SUPPORTED;
@@ -624,7 +624,7 @@ XStatus XPmPower_SysmonCheckPower(const XPm_Rail *Rail)
 	PmOut32(NewDataFlagReg, BIT32(Offset));
 
 	/* Lock Root SysMon registers */
-	XPm_LockPcsr(PMC_SYSMON_BASEADDR);
+	(void)XPm_LockPcsr(PMC_SYSMON_BASEADDR);
 
 done:
 	if (XST_SUCCESS != Status) {
@@ -723,7 +723,7 @@ XStatus XPmPowerDomain_InitDomain(XPm_PowerDomain *PwrDomain, u32 Function,
 	switch (Function) {
 	case (u32)FUNC_INIT_START:
 		PwrDomain->Power.Node.State = (u8)XPM_POWER_STATE_INITIALIZING;
-		Status = XPmPower_UpdateDomainPower(PwrDomain, XPM_POWER_STATE_ON);
+		Status = (XStatus)(XPmPower_UpdateDomainPower(PwrDomain, XPM_POWER_STATE_ON));
 
 		if (XST_SUCCESS != Status) {
 			DbgErr = XPM_INT_ERR_PWR_DOMAIN_RAIL_CONTROL;

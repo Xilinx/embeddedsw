@@ -23,24 +23,24 @@ XPm_SubsystemMgr SubsysMgr XPM_INIT_DATA(SubsysMgr) = {
 		 *   - Full implementations are in xpm_runtime_subsys.c (SUBSYS module enabled)
 		 */
 		[SUBSYS_OPS_GENERIC] = {
-			.Activate = XPmSubsystemOp_Activate,               /* Common from xpm_subsystem.c */
-			.GetStatus = XPmSubsystemOp_GetStatus,             /* Common from xpm_subsystem.c */
-			.Idle = XPmSubsystemOp_Idle,                       /* Common from xpm_subsystem.c */
-			.IsAccessAllowed = XPmSubsystemOp_IsAccessAllowed, /* Common from xpm_subsystem.c */
-			.SetState = XPmSubsystemOp_SetState,               /* Common from xpm_subsystem.c */
-			.Suspend = XPmSubsystemOp_Suspend,                 /* Common from xpm_subsystem.c */
-			.WakeUp = XPmSubsystemOp_WakeUp,                   /* Common from xpm_subsystem.c */
-			.AddRequirement = XPmSubsystemOp_AddRequirement,   /* Stub implementation */
-			.InitFinalize = XPmSubsystemOp_InitFinalize,       /* Stub implementation */
-			.NotifyHealthyBoot = XPmSubsystemOp_NotifyHealthyBoot, /* Stub implementation */
-			.ShutDown = XPmSubsystemOp_ShutDown,               /* Stub implementation */
-			.StartRecoveryTimer = XPmSubsystemOp_StartRecoveryTimer, /* Stub implementation */
+			.Activate = &XPmSubsystemOp_Activate,               /* Common from xpm_subsystem.c */
+			.GetStatus = &XPmSubsystemOp_GetStatus,             /* Common from xpm_subsystem.c */
+			.Idle = &XPmSubsystemOp_Idle,                       /* Common from xpm_subsystem.c */
+			.IsAccessAllowed = &XPmSubsystemOp_IsAccessAllowed, /* Common from xpm_subsystem.c */
+			.SetState = &XPmSubsystemOp_SetState,               /* Common from xpm_subsystem.c */
+			.Suspend = &XPmSubsystemOp_Suspend,                 /* Common from xpm_subsystem.c */
+			.WakeUp = &XPmSubsystemOp_WakeUp,                   /* Common from xpm_subsystem.c */
+			.AddRequirement = &XPmSubsystemOp_AddRequirement,   /* Stub implementation */
+			.InitFinalize = &XPmSubsystemOp_InitFinalize,       /* Stub implementation */
+			.NotifyHealthyBoot = &XPmSubsystemOp_NotifyHealthyBoot, /* Stub implementation */
+			.ShutDown = &XPmSubsystemOp_ShutDown,               /* Stub implementation */
+			.StartRecoveryTimer = &XPmSubsystemOp_StartRecoveryTimer, /* Stub implementation */
 		},
 	},
 };
 
 /* Get subsystem operations for a given subsystem */
-static XPm_SubsystemOps* XPmSubsystem_GetOps(XPm_Subsystem *Subsystem)
+static XPm_SubsystemOps* XPmSubsystem_GetOps(const XPm_Subsystem *Subsystem)
 {
 	/* Only support generic subsystems for now - SUBSYS_OPS_GENERIC */
 	return &SubsysMgr.SubsysOps[Subsystem->OpsType];
@@ -287,7 +287,7 @@ XStatus XPmSubsystem_ForcePwrDwn(u32 SubsystemId)
 		Status = XPM_INVALID_SUBSYSID;
 		goto done;
 	}
-	XPm_SubsystemOps *Ops = XPmSubsystem_GetOps(Subsystem);
+	const XPm_SubsystemOps *Ops = XPmSubsystem_GetOps(Subsystem);
 	Status = Ops->ShutDown(Subsystem);
 done:
 	return Status;
@@ -314,7 +314,7 @@ XStatus XPmSubsystem_Activate(XPm_Subsystem *Subsystem)
 		Status = XPM_INVALID_SUBSYSID;
 		goto done;
 	}
-	XPm_SubsystemOps *Ops = XPmSubsystem_GetOps(Subsystem);
+	const XPm_SubsystemOps *Ops = XPmSubsystem_GetOps(Subsystem);
 	Status = Ops->Activate(Subsystem);
 done:
 	return Status;
@@ -341,7 +341,7 @@ XStatus XPmSubsystem_SetState(XPm_Subsystem *Subsystem, u32 State)
 		Status = XPM_INVALID_SUBSYSID;
 		goto done;
 	}
-	XPm_SubsystemOps *Ops = XPmSubsystem_GetOps(Subsystem);
+	const XPm_SubsystemOps *Ops = XPmSubsystem_GetOps(Subsystem);
 	Status = Ops->SetState(Subsystem, State);
 done:
 	return Status;
@@ -368,7 +368,7 @@ XStatus XPmSubsystem_GetStatus(XPm_Subsystem *Subsystem, XPm_DeviceStatus *const
 		Status = XPM_INVALID_SUBSYSID;
 		goto done;
 	}
-	XPm_SubsystemOps *Ops = XPmSubsystem_GetOps(Subsystem);
+	const XPm_SubsystemOps *Ops = XPmSubsystem_GetOps(Subsystem);
 	Status = Ops->GetStatus(Subsystem, DeviceStatus);
 done:
 	return Status;
@@ -397,7 +397,7 @@ XStatus XPmSubsystem_AddRequirement(XPm_Subsystem *Subsystem, u32 *Payload, u32 
 		Status = XPM_INVALID_SUBSYSID;
 		goto done;
 	}
-	XPm_SubsystemOps *Ops = XPmSubsystem_GetOps(Subsystem);
+	const XPm_SubsystemOps *Ops = XPmSubsystem_GetOps(Subsystem);
 	Status = Ops->AddRequirement(Subsystem, Payload, PayloadLen);
 done:
 	return Status;
@@ -423,7 +423,7 @@ XStatus XPmSubsystem_WakeUp(XPm_Subsystem *Subsystem)
 		Status = XPM_INVALID_SUBSYSID;
 		goto done;
 	}
-	XPm_SubsystemOps *Ops = XPmSubsystem_GetOps(Subsystem);
+	const XPm_SubsystemOps *Ops = XPmSubsystem_GetOps(Subsystem);
 	Status = Ops->WakeUp(Subsystem);
 done:
 	return Status;
@@ -449,7 +449,7 @@ XStatus XPmSubsystem_Suspend(XPm_Subsystem *Subsystem)
 		Status = XPM_INVALID_SUBSYSID;
 		goto done;
 	}
-	XPm_SubsystemOps *Ops = XPmSubsystem_GetOps(Subsystem);
+	const XPm_SubsystemOps *Ops = XPmSubsystem_GetOps(Subsystem);
 	Status = Ops->Suspend(Subsystem);
 done:
 	return Status;
@@ -475,7 +475,7 @@ XStatus XPmSubsystem_Idle(XPm_Subsystem *Subsystem)
 		Status = XPM_INVALID_SUBSYSID;
 		goto done;
 	}
-	XPm_SubsystemOps *Ops = XPmSubsystem_GetOps(Subsystem);
+	const XPm_SubsystemOps *Ops = XPmSubsystem_GetOps(Subsystem);
 	Status = Ops->Idle(Subsystem);
 done:
 	return Status;
@@ -502,7 +502,7 @@ XStatus XPmSubsystem_InitFinalize(XPm_Subsystem *Subsystem)
 		Status = XPM_INVALID_SUBSYSID;
 		goto done;
 	}
-	XPm_SubsystemOps *Ops = XPmSubsystem_GetOps(Subsystem);
+	const XPm_SubsystemOps *Ops = XPmSubsystem_GetOps(Subsystem);
 	Status = Ops->InitFinalize(Subsystem);
 done:
 	return Status;
@@ -530,7 +530,7 @@ XStatus XPmSubsystem_IsAccessAllowed(XPm_Subsystem *Subsystem, u32 NodeId)
 		Status = XPM_INVALID_SUBSYSID;
 		goto done;
 	}
-	XPm_SubsystemOps *Ops = XPmSubsystem_GetOps(Subsystem);
+	const XPm_SubsystemOps *Ops = XPmSubsystem_GetOps(Subsystem);
 	Status = Ops->IsAccessAllowed(Subsystem, NodeId);
 done:
 	return Status;
@@ -557,7 +557,7 @@ XStatus XPmSubsystem_NotifyHealthyBoot(XPm_Subsystem *Subsystem)
 		Status = XPM_INVALID_SUBSYSID;
 		goto done;
 	}
-	XPm_SubsystemOps *Ops = XPmSubsystem_GetOps(Subsystem);
+	const XPm_SubsystemOps *Ops = XPmSubsystem_GetOps(Subsystem);
 	Status = Ops->NotifyHealthyBoot(Subsystem);
 done:
 	return Status;
@@ -585,7 +585,7 @@ XStatus XPmSubsystem_StartRecoveryTimer(XPm_Subsystem *Subsystem, u32 CmdType)
 		Status = XPM_INVALID_SUBSYSID;
 		goto done;
 	}
-	XPm_SubsystemOps *Ops = XPmSubsystem_GetOps(Subsystem);
+	const XPm_SubsystemOps *Ops = XPmSubsystem_GetOps(Subsystem);
 	Status = Ops->StartRecoveryTimer(Subsystem, CmdType);
 done:
 	return Status;

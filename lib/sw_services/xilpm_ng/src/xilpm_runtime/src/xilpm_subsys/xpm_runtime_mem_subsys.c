@@ -156,7 +156,7 @@ XStatus XPm_IsMemRegnAddressValid(u32 SubsystemId, u64 RegionAddr, u64 RegionSiz
 	XStatus Status = XPM_FAILURE;
 	const XPm_MemRegnDevice *MemRegnDevice = NULL;
 	const XPm_Subsystem *Subsystem = NULL;
-	XPm_Requirement *Reqm = NULL;
+	const XPm_Requirement *Reqm = NULL;
 
 	/* IsPLMem is a mandatory out-parameter; reject NULL before dereferencing */
 	if (NULL == IsPLMem) {
@@ -247,7 +247,7 @@ XStatus XPm_IsMemRegnAddressValid(u32 SubsystemId, u64 RegionAddr, u64 RegionSiz
 		 * - only access to same memory type is allowed during overlapping condition
 		 */
 		if (PL_MEM_REGN == Flags) {
-			if ((TRUE == IsOverlapMemRegion) && (MEM_TYPE_PL != OverlapMemType)) {
+			if ((TRUE == IsOverlapMemRegion) && ((u32)MEM_TYPE_PL != OverlapMemType)) {
 				PmErr("Mismatch Memory type access!\r\n");
 				Status = XPM_ERR_MEM_ACCESS_TYPE;
 				goto done;
@@ -255,7 +255,7 @@ XStatus XPm_IsMemRegnAddressValid(u32 SubsystemId, u64 RegionAddr, u64 RegionSiz
 			*IsPLMem = TRUE;
 			OverlapMemType = MEM_TYPE_PL;
 		} else {
-			if ((TRUE == IsOverlapMemRegion) && (MEM_TYPE_PL == OverlapMemType)) {
+			if ((TRUE == IsOverlapMemRegion) && ((u32)MEM_TYPE_PL == OverlapMemType)) {
 				PmErr("Mismatch Memory type access!\r\n");
 				Status = XPM_ERR_MEM_ACCESS_TYPE;
 				goto done;
@@ -332,5 +332,5 @@ done:
  ****************************************************************************/
 XStatus XPmSubsystem_CmnFlush(u32 SubsystemId)
 {
-	return SubsystemCmnFlush(SubsystemId, AddrRegnCmnFlushCb);
+	return SubsystemCmnFlush(SubsystemId, &AddrRegnCmnFlushCb);
 }

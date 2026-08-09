@@ -20,7 +20,7 @@ XStatus XPmRepair_ISP2(u32 * EfuseTagAddr, u32 * TagDataAddr)
     u32 RegOffset = (ISP2_NPI_0_BISR_CACHE_DATA_SSSS_0 - ISP2_NPI_0_BASEADDR);
     u64 BisrDataDestAddr = (u64)BaseAddr + (u64)RegOffset;
     if(TagSize > 8U){ /*Sanity check added in case user enters incorrect data size*/
-        Status = ERRSTS_REPAIR_BAD_TAG_SIZE;
+        Status = (XStatus)(ERRSTS_REPAIR_BAD_TAG_SIZE);
         goto done;
     }
     /* Unlock PCSR */
@@ -38,7 +38,7 @@ XStatus XPmRepair_ISP2(u32 * EfuseTagAddr, u32 * TagDataAddr)
     /* Wait for BISR to finish */
     Status = XPm_PollForMask(BaseAddr + NPI_PCSR_STATUS_OFFSET, ISP2_NPI_0_ISP2_NPI_PCSR_STATUS_BISR_DONE_MASK, XPM_POLL_TIMEOUT);
     if (XST_SUCCESS != Status) {
-        Status = ERRSTS_REPAIR_TIMEOUT;
+        Status = (XStatus)(ERRSTS_REPAIR_TIMEOUT);
         goto done;
     }
 
@@ -50,6 +50,6 @@ XStatus XPmRepair_ISP2(u32 * EfuseTagAddr, u32 * TagDataAddr)
 
 done:
     /* Lock PCSR */
-    XPm_LockPcsr(BaseAddr);
+    (void)XPm_LockPcsr(BaseAddr);
     return Status;
 }

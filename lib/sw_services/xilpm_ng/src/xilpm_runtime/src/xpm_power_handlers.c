@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2024 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -106,22 +106,22 @@ static const struct HandlerTable g_TopLevelInterruptTable[] = {
 	{
 		PMC_IRQ_PWR_MB_IRQ_PWR_UP_REQ_SHIFT,
 		PMC_IRQ_PWR_MB_IRQ_PWR_UP_REQ_MASK,
-		XPm_InterruptPwrUpHandler
+		&XPm_InterruptPwrUpHandler
 	},
 	{
 		PMC_IRQ_PWR_MB_IRQ_PWR_DWN_REQ_SHIFT,
 		PMC_IRQ_PWR_MB_IRQ_PWR_DWN_REQ_MASK,
-		XPm_InterruptPwrDwnHandler
+		&XPm_InterruptPwrDwnHandler
 	},
 	{
 		PMC_IRQ_PWR_MB_IRQ_WAKE_UP_REQ_SHIFT,
 		PMC_IRQ_PWR_MB_IRQ_WAKE_UP_REQ_MASK,
-		XPm_InterruptWakeupHandler
+		&XPm_InterruptWakeupHandler
 	},
 	{
 		PMC_IRQ_PWR_MB_IRQ_PWR_CTRL_REQ_SHIFT,
 		PMC_IRQ_PWR_MB_IRQ_PWR_CTRL_REQ_MASK,
-		XPm_InterruptPwrCtrlHandler
+		&XPm_InterruptPwrCtrlHandler
 	},
 };
 
@@ -443,7 +443,7 @@ XStatus XPm_DispatchPwrCtrlHandler(u32 PwrCtrlStatus, u32 PwrCtrlMask)
 				goto done;
 			}
 
-			if (XPM_DEVSTATE_PENDING_PWR_DWN == Core->Device.Node.State) {
+			if ((u32)XPM_DEVSTATE_PENDING_PWR_DWN == Core->Device.Node.State) {
 				Status = XPmCore_ReleaseFromSubsys(Core);
 				if (XST_SUCCESS != Status) {
 					PmErr("Failed to release core 0x%x from subsystem!\r\n", Core->Device.Node.Id);

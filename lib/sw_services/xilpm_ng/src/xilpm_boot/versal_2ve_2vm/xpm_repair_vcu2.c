@@ -22,7 +22,7 @@ XStatus XPmRepair_Vcu2(u32 * EfuseTagAddr, u32 * TagDataAddr)
 	u32 BaseAddr = NPI_FIXED_BASEADDR + (TagOptional << NPI_EFUSE_ENDPOINT_SHIFT);     // Module Base Address
 	u64 BisrDataDestAddr = (u64)BaseAddr + (u64)RegAddrOffset;
 	if (TagSize > 8U) { /*Sanity check in case user enters incorrect data size*/
-		Status = ERRSTS_REPAIR_BAD_TAG_SIZE;
+		Status = (XStatus)(ERRSTS_REPAIR_BAD_TAG_SIZE);
 		goto done;
 	}
 	/* Unlock PCSR */
@@ -38,19 +38,19 @@ XStatus XPmRepair_Vcu2(u32 * EfuseTagAddr, u32 * TagDataAddr)
 	/* Wait for BISR to finish */
 	Status = XPm_PollForMask(BaseAddr + NPI_PCSR_STATUS_OFFSET, VCU2_NPI_0_MMD_NPI_PCSR_STATUS_BISR_DONE_MASK, XPM_POLL_TIMEOUT);
 	if (XST_SUCCESS != Status) {
-		Status = ERRSTS_REPAIR_TIMEOUT;
+		Status = (XStatus)(ERRSTS_REPAIR_TIMEOUT);
 		goto done;
 	}
 
 	/* Check for BISR pass */
 	u32 RegValue = XPm_In32(BaseAddr + NPI_PCSR_STATUS_OFFSET);
 	if ((RegValue & (u32)VCU2_NPI_0_MMD_NPI_PCSR_STATUS_BISR_PASS_MASK) == 0U) {
-		Status = ERRSTS_REPAIR_FUNCTION_FAILED;
+		Status = (XStatus)(ERRSTS_REPAIR_FUNCTION_FAILED);
 	} else {
 		Status = XST_SUCCESS;
 	}
 done:
 	/* Lock PCSR */
-	XPm_LockPcsr(BaseAddr);
+	(void)XPm_LockPcsr(BaseAddr);
 	return Status;
 }

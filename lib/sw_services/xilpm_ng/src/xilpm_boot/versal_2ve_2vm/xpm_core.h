@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2024 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -51,7 +51,6 @@ XStatus XPmCore_SetClock(u32 CoreId, u32 Enable);
 XStatus XPmCore_RequestWakeup(XPm_Core *Core, u32 SetAddress, u64 Address);
 XStatus XPmCore_PowerDown(XPm_Core *Core);
 
-// static inline XStatus XPmCore_PlatClkReq(const XPm_ClockHandle *ClkHandles)
 // {
 // 	return XPmClock_Request(ClkHandles);
 // }

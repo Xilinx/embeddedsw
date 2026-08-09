@@ -17,7 +17,7 @@ XStatus XPmRepair_Mmi(u32 * EfuseTagAddr, u32 * TagDataAddr)
     u32 PassMask;
     u64 BisrDataDestAddr = (u64)MMI_SLCR_BISR_CACHE_DATA_0;
     if(TagSize > 32U){ /*Sanity check in case user enters incorrect data size*/
-        Status = ERRSTS_REPAIR_BAD_TAG_SIZE;
+        Status = (XStatus)(ERRSTS_REPAIR_BAD_TAG_SIZE);
         goto done;
     }
     /* Disable writing protection */
@@ -85,7 +85,7 @@ XStatus XPmRepair_Mmi_Gtyp(u32 * EfuseTagAddr, u32 * TagDataAddr)
     u32 PassMask;
     u64 BisrDataDestAddr = (u64)MMI_GTYP_CFG_BISR_CACHE_DATA_0;
     if(TagSize > 2U){ /*Sanity check in case user enters incorrect data size*/
-        Status = ERRSTS_REPAIR_BAD_TAG_SIZE;
+        Status = (XStatus)(ERRSTS_REPAIR_BAD_TAG_SIZE);
         goto done;
     }
     /* Disable writing protection */

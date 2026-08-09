@@ -1,5 +1,5 @@
 /******************************************************************************
- * Copyright (c) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+ * Copyright (c) 2024 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
  * SPDX-License-Identifier: MIT
  *****************************************************************************/
 #include "xpm_repair.h"
@@ -33,7 +33,7 @@ u32 XPmBisr_CopyStandard(u32 * BisrDataAddr, u32 TagSize, u64 BisrDataDestAddr)
 		}
 		TagData = *BisrDataAddr++;
 		swea(BisrDataDestAddr, TagData);
-		BisrDataDestAddr += 4;
+		BisrDataDestAddr += 4U;
 	}
 	return (u32)BisrDataAddr;
 }

@@ -54,7 +54,7 @@ XStatus XPmPmcDomain_Init(XPm_PmcDomain *PmcDomain, u32 Id, XPm_Power *Parent)
 	PmcDomain->Domain.Power.UseCount = 1;
 
 	HandlePowerEvent = PmcDomain->Domain.Power.HandleEvent;
-	PmcDomain->Domain.Power.HandleEvent = HandlePmcDomainEvent;
+	PmcDomain->Domain.Power.HandleEvent = &HandlePmcDomainEvent;
 
 	/* update PMC Power Domain - Turn ON */
 	Status = XPmPower_UpdateDomainPower(&PmcDomain->Domain, (u8)XPM_POWER_STATE_ON);

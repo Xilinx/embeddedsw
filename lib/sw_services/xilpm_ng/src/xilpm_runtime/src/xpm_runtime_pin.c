@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2024 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -173,7 +173,7 @@ done:
 	return Status;
 }
 
-static XStatus XPmPin_ConfigBiasStatus(XPm_PinNode *Pin, u32 BaseAddr,
+static XStatus XPmPin_ConfigBiasStatus(const XPm_PinNode *Pin, u32 BaseAddr,
 				       u32 BitMask, u32 Value)
 {
 	XStatus Status = XST_FAILURE;
@@ -209,7 +209,7 @@ done:
 	return Status;
 }
 
-static XStatus XPmPin_ConfigPullCtrl(XPm_PinNode *Pin, u32 BaseAddr, u32 BitMask,
+static XStatus XPmPin_ConfigPullCtrl(const XPm_PinNode *Pin, u32 BaseAddr, u32 BitMask,
 				     u32 Value)
 {
 	XStatus Status = XST_FAILURE;
@@ -284,7 +284,7 @@ done:
 	return Status;
 }
 
-static XStatus XPmPin_ConfigTriState(XPm_PinNode *Pin, u32 BitMask, u32 Value)
+static XStatus XPmPin_ConfigTriState(const XPm_PinNode *Pin, u32 BitMask, u32 Value)
 {
 	XStatus Status = XST_FAILURE;
 	u32 BaseAddr;
@@ -492,7 +492,7 @@ XStatus XPmPin_GetPinGroups(u32 PinId, u32 Index, u16 *Groups)
 		goto done;
 	}
 
-	Status = Xil_SMemSet(Groups, Size, (s32)END_OF_GRP, Size);
+	Status = (XStatus)(Xil_SMemSet(Groups, Size, (s32)END_OF_GRP, Size));
 	if (XST_SUCCESS != Status) {
 		goto done;
 	}

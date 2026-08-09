@@ -12,6 +12,7 @@
 #include "xpm_update.h"
 
 static XPm_Power *PmPowers[XPM_NODEIDX_POWER_MAX] XPM_INIT_DATA(PmPowers) = { NULL };
+/* coverity[misra_c_2025_rule_8_9_violation] IPU save/restore persistent state; must retain file scope for the persistence/update mechanism. Excluded from static analysis per design. */
 static u32 PmNumPowers XPM_INIT_DATA(PmNumPowers) = 0U;
 
 XPm_Power *XPmPower_GetById(u32 Id)
@@ -252,7 +253,6 @@ static XStatus XPmPower_PowerUpSelfState(XPm_Node *Node, u32 Event)
 		/* Todo: Read PSM status register */
 		if (TRUE /* Hack: Power node is up */) {
 			Node->State = (u8)XPM_POWER_STATE_ON;
-			//XPmNotifier_Event(Node->Id, (u32)EVENT_STATE_CHANGE);
 			Power->UseCount++;
 		} else {
 			/* Todo: Restart timer to poll PSM */
@@ -341,7 +341,6 @@ static XStatus XPmPower_PowerDwnSelfState(XPm_Node *Node, u32 Event)
 			} else {
 				Node->State = (u8)XPM_POWER_STATE_OFF;
 				ResetPowerDomainOpFlags(Power);
-				//XPmNotifier_Event(Node->Id, (u32)EVENT_STATE_CHANGE);
 			}
 		} else {
 			/* Todo: Restart timer to poll PSM */
@@ -377,7 +376,6 @@ static XStatus XPmPower_PowerDwnParentState(XPm_Node *Node, u32 Event)
 			Node->State = (u8)XPM_POWER_STATE_OFF;
 			Power->WfParentUseCnt = 0;
 			ResetPowerDomainOpFlags(Power);
-			//XPmNotifier_Event(Node->Id, (u32)EVENT_STATE_CHANGE);
 		} else {
 			/* Todo: Restart timer to poll parent state */
 		}
@@ -444,7 +442,7 @@ XStatus XPmPower_Init(XPm_Power *Power,
 	XPmNode_Init(&Power->Node, Id, (u8)XPM_POWER_STATE_OFF, BaseAddress);
 
 	Power->Parent = Parent;
-	Power->HandleEvent = PowerEvent;
+	Power->HandleEvent = &PowerEvent;
 	Power->UseCount = 0;
 	Power->WfParentUseCnt = 0;
 	Power->PwrDnLatency = 0;

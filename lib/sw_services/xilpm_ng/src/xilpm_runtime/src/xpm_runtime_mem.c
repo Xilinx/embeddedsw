@@ -326,7 +326,7 @@ XStatus XPm_IsMemAddressValid(u32 SubsystemId, u64 RegionAddr, u64 RegionSize) {
 			 * skip iteration to failure for memory type mismatch during overlapping condition
 			 * - only access to same memory type is allowed during overlapping condition
 			 */
-			if ((TRUE == IsOverlapMemRegion) && (MEM_TYPE_OCM_TCM != OverlapMemType)) {
+			if ((TRUE == IsOverlapMemRegion) && ((u32)MEM_TYPE_OCM_TCM != OverlapMemType)) {
 				PmErr("Mismatch Memory type access!\r\n");
 				Status = XPM_ERR_MEM_ACCESS_TYPE;
 				goto done;
@@ -388,7 +388,7 @@ XStatus XPm_IsMemAddressValid(u32 SubsystemId, u64 RegionAddr, u64 RegionSize) {
 				 * skip iteration to failure for memory type mismatch during overlapping condition
 				 * - only access to same memory type is allowed during overlapping condition
 				 */
-				if ((TRUE == IsOverlapMemRegion) && (MEM_TYPE_DDR != OverlapMemType)) {
+				if ((TRUE == IsOverlapMemRegion) && ((u32)MEM_TYPE_DDR != OverlapMemType)) {
 					PmErr("Mismatch Memory type access!\r\n");
 					Status = XPM_ERR_MEM_ACCESS_TYPE;
 					goto done;

@@ -19,7 +19,7 @@ XStatus XPmRepair_Lpd(u32 * EfuseTagAddr, u32 * TagDataAddr)
 	u32 TagIdWd = *EfuseTagAddr++;
 	u32 TagSize = (TagIdWd & PMC_EFUSE_BISR_SIZE_MASK) >> PMC_EFUSE_BISR_SIZE_SHIFT;
 	if (TagSize > 16U) { /*Sanity check to verify that data size does not exceed register count*/
-		Status = ERRSTS_REPAIR_BAD_TAG_SIZE;
+		Status = (XStatus)(ERRSTS_REPAIR_BAD_TAG_SIZE);
 		goto done;
 	}
 
@@ -48,7 +48,7 @@ XStatus XPmRepair_Lpd(u32 * EfuseTagAddr, u32 * TagDataAddr)
 
 	Status = XPm_PollForMask(LPD_SLCR_BISR_CACHE_STATUS, RegValue, XPM_POLL_TIMEOUT);
 	if (XST_SUCCESS != Status) {
-		Status = ERRSTS_REPAIR_TIMEOUT;
+		Status = (XStatus)(ERRSTS_REPAIR_TIMEOUT);
 		goto done;
 	}
 
@@ -67,7 +67,7 @@ XStatus XPmRepair_Lpd(u32 * EfuseTagAddr, u32 * TagDataAddr)
 			| LPD_SLCR_BISR_CACHE_STATUS_PASS_0_MASK);
 
 	if ((XPm_In32(LPD_SLCR_BISR_CACHE_STATUS) & RegValue) != RegValue) {
-		Status =  ERRSTS_REPAIR_FUNCTION_FAILED;
+		Status = (XStatus)(ERRSTS_REPAIR_FUNCTION_FAILED);
 	} else {
 		Status = XST_SUCCESS;
 	}
@@ -83,7 +83,7 @@ XStatus XPmRepair_Fpd(u32 * EfuseTagAddr, u32 * TagDataAddr)
 	u32 TagIdWd = *EfuseTagAddr++;
 	u32 TagSize = (TagIdWd & PMC_EFUSE_BISR_SIZE_MASK) >> PMC_EFUSE_BISR_SIZE_SHIFT;
 	if (TagSize > 70U) { /*Sanity check to verify that data size does not exceed register count*/
-		Status = ERRSTS_REPAIR_BAD_TAG_SIZE;
+		Status = (XStatus)(ERRSTS_REPAIR_BAD_TAG_SIZE);
 		goto done;
 	}
 	/* BISR register space is not continuous */
@@ -122,7 +122,7 @@ XStatus XPmRepair_Fpd(u32 * EfuseTagAddr, u32 * TagDataAddr)
 
 	Status = XPm_PollForMask(FPD_SLCR_BISR_CACHE_STATUS1, RegValue, XPM_POLL_TIMEOUT);
 	if (XST_SUCCESS != Status) {
-		Status = ERRSTS_REPAIR_TIMEOUT;
+		Status = (XStatus)(ERRSTS_REPAIR_TIMEOUT);
 		goto done;
 	}
 
@@ -139,7 +139,7 @@ XStatus XPmRepair_Fpd(u32 * EfuseTagAddr, u32 * TagDataAddr)
 		    | FPD_SLCR_BISR_CACHE_STATUS0_DONE_MASK);
 	Status = XPm_PollForMask(FPD_SLCR_BISR_CACHE_STATUS0, RegValue, XPM_POLL_TIMEOUT);
 	if (XST_SUCCESS != Status) {
-		Status = ERRSTS_REPAIR_TIMEOUT;
+		Status = (XStatus)(ERRSTS_REPAIR_TIMEOUT);
 		goto done;
 	}
 
@@ -151,7 +151,7 @@ XStatus XPmRepair_Fpd(u32 * EfuseTagAddr, u32 * TagDataAddr)
 			| FPD_SLCR_BISR_CACHE_STATUS1_PASS_17_MASK );
 	RegValue = XPm_In32(FPD_SLCR_BISR_CACHE_STATUS1);
 	if ((RegValue & BisrFullPassMask) != BisrFullPassMask) {
-		Status = ERRSTS_REPAIR_FUNCTION_FAILED;
+		Status = (XStatus)(ERRSTS_REPAIR_FUNCTION_FAILED);
 		goto done;
 	}
 
@@ -168,7 +168,7 @@ XStatus XPmRepair_Fpd(u32 * EfuseTagAddr, u32 * TagDataAddr)
 			| FPD_SLCR_BISR_CACHE_STATUS0_PASS_MASK    );
 	RegValue = XPm_In32(FPD_SLCR_BISR_CACHE_STATUS0);
 	if ((RegValue & BisrFullPassMask) != BisrFullPassMask) {
-		Status = ERRSTS_REPAIR_FUNCTION_FAILED;
+		Status = (XStatus)(ERRSTS_REPAIR_FUNCTION_FAILED);
 		goto done;
 	}
 

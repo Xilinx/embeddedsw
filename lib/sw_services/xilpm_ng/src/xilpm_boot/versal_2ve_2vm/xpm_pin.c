@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2024-2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2024-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -7,6 +7,7 @@
 #include "xpm_pin.h"
 #include "xpm_update.h"
 static XPm_PinNode *PmMioPins[XPM_NODEIDX_STMIC_MAX] XPM_INIT_DATA(PmMioPins) = { NULL };
+/* coverity[misra_c_2025_rule_8_9_violation] IPU save/restore persistent state; must retain file scope for the persistence/update mechanism. Excluded from static analysis per design. */
 static u32 PmNumPins XPM_INIT_DATA(PmNumPins) = 0U;
 
 /****************************************************************************/

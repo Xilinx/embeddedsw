@@ -27,7 +27,7 @@ XStatus XPmRepair_GtmGtyGtyp(u32 * EfuseTagAddr, u32 * TagDataAddr)
     u32 BaseAddr = NPI_FIXED_BASEADDR + (TagOptional << NPI_EFUSE_ENDPOINT_SHIFT);
     u64 BisrDataDestAddr =(u64)BaseAddr + (u64)GT_NPI_BISR_CACHE_DATA_OFFSET;
     if(TagSize > 2U){ /*Sanity check in case user enters incorrect data size*/  /*Dest reg assumed to be GTYP_NPI_SLAVE_0_BISR_CACHE_DATA_0*/
-        Status = ERRSTS_REPAIR_BAD_TAG_SIZE;
+        Status = (XStatus)(ERRSTS_REPAIR_BAD_TAG_SIZE);
         goto done;
     }
     /* Unlock PCSR */
@@ -42,12 +42,12 @@ XStatus XPmRepair_GtmGtyGtyp(u32 * EfuseTagAddr, u32 * TagDataAddr)
     /* Wait for Bisr to finish */
     Status = XPmcFw_UtilPollForMask(BaseAddr + NPI_PCSR_STATUS_OFFSET, GT_PCSR_STATUS_BISR_DONE_MASK, XPM_POLL_TIMEOUT);
     if (XST_SUCCESS != Status) {
-        Status = ERRSTS_REPAIR_TIMEOUT;
+        Status = (XStatus)(ERRSTS_REPAIR_TIMEOUT);
         goto done;
     }
     u32 RegValue = XPm_In32(BaseAddr + NPI_PCSR_STATUS_OFFSET);
     if ((RegValue & GT_PCSR_STATUS_BISR_PASS_MASK) == 0U) {
-        Status = ERRSTS_REPAIR_FUNCTION_FAILED;
+        Status = (XStatus)(ERRSTS_REPAIR_FUNCTION_FAILED);
         goto done;
     }
     Status = XST_SUCCESS;

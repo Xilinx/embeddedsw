@@ -131,7 +131,7 @@ XStatus XPmNotifier_Register(XPm_Subsystem* const Subsystem,
 	 */
 	if ((u32)XPM_NODECLASS_EVENT == NODECLASS(NodeId)) {
 		Status = XPlmi_EmSetAction(NodeId, Event, XPLMI_EM_ACTION_CUSTOM,
-					   XPmNotifier_Event, INVALID_SUBSYSID);
+					   &XPmNotifier_Event, INVALID_SUBSYSID);
 		if (XST_SUCCESS != Status) {
 			goto done;
 		}
@@ -159,7 +159,6 @@ XStatus XPmNotifier_Register(XPm_Subsystem* const Subsystem,
 		if ((u8)EVENT_CPU_IDLE_FORCE_PWRDWN == Event) {
 
 			/* TODO: This property should be handle by runtime */
-			//Core->IsCoreIdleSupported = 1U;
 			XPm_Core *Core = (XPm_Core *)XPmDevice_GetById(NodeId);
 			if (NULL == Core) {
 				Status = XST_INVALID_PARAM;
@@ -423,7 +422,7 @@ static int XPmNotifier_SchedulerTask(void *Arg)
 	 */
 	if ((u32)NOT_PRESENT == PendingEvent) {
 		Status = XPlmi_SchedulerRemoveTask(XPLMI_MODULE_XILPM_ID,
-						   XPmNotifier_SchedulerTask,
+						   &XPmNotifier_SchedulerTask,
 						   XILPM_NOTIFIER_INTERVAL,
 						   NULL);
 		if (Status != XST_SUCCESS) {
@@ -513,7 +512,7 @@ static XStatus XPmNotifier_AddPendingEvent(const u32 IpiMask, const u32 *Payload
 	}
 	if ((u32)NOT_PRESENT == SchedulerTask) {
 		Status = XPlmi_SchedulerAddTask(XPLMI_MODULE_XILPM_ID,
-						XPmNotifier_SchedulerTask, NULL,
+						&XPmNotifier_SchedulerTask, NULL,
 						XILPM_NOTIFIER_INTERVAL,
 						XPLM_TASK_PRIORITY_0,
 						NULL, XPLMI_PERIODIC_TASK);
@@ -607,7 +606,6 @@ XStatus XPmNotifier_Unregister(XPm_Subsystem* const Subsystem,
 			} else if ((u8)EVENT_CPU_IDLE_FORCE_PWRDWN == Event) {
 
 				/* TODO: This property should be handle by runtime */
-				//Core->IsCoreIdleSupported = 1U;
 				XPm_Core *Core = (XPm_Core *)XPmDevice_GetById(NodeId);
 				if (NULL == Core) {
 					Status = XST_INVALID_PARAM;
@@ -696,7 +694,7 @@ XStatus XPmNotifier_RestoreEmActions(void)
 		Status = XPlmi_EmSetAction(PmNotifiers[Idx].NodeId,
 					   PmNotifiers[Idx].EventMask,
 					   XPLMI_EM_ACTION_CUSTOM,
-					   XPmNotifier_Event,
+					   &XPmNotifier_Event,
 					   INVALID_SUBSYSID);
 		if (XST_SUCCESS != Status) {
 			PmWarn("EM restore failed: NodeId=0x%08x Mask=0x%08x Sts=%d\r\n",
