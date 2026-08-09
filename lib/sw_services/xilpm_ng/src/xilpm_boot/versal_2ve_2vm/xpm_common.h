@@ -491,20 +491,12 @@ void XPm_Out32(u32 RegAddress, u32 l_Val);
 u32 XPm_In32(u32 RegAddress);
 
 u32 XPm_GetPlatform(void);
-u32 XPm_GetPmcVersion(void);
-u32 XPm_GetSlrType(void);
-u32 XPm_GetIdCode(void);
-u32 XPm_GetPlatformVersion(void);
 
 
 /**
  * Read Modify Write a register
  */
 void XPm_RMW32(u32 RegAddress, u32 Mask, u32 Value);
-
-void XPm_Out64(u64 RegAddress, u32 Value);
-u32 XPm_In64(u64 RegAddress);
-void XPm_RMW64(u64 RegAddress, u32 Mask, u32 Value);
 
 /**
  * Wait for a period represented by TimeOut
@@ -542,7 +534,6 @@ maybe_unused static inline XStatus XPm_PollForZero(u32 RegAddress, u32 Mask,
 /**
  * Compute parity of a 32-bit word
  */
-u32 XPm_ComputeParity(u32 CalParity);
 
 #define PMC_VERSION_SILICON_ES1			(0x10U)
 #define PMC_VERSION_SILICON_PROD		(0x20U)

@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2024 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -75,11 +75,11 @@ HandlerTable(E, 1)
 
 /* Define the macro to generate APU power control declarations */
 #define X_APU_PWRCTRL_DECL(cluster, core) \
-extern XPmFwPwrCtrl_t Acpu##cluster##_Core##core##PwrCtrl;
+extern const XPmFwPwrCtrl_t Acpu##cluster##_Core##core##PwrCtrl;
 
 /* Define the macro to generate RPU power control declarations */
 #define X_RPU_PWRCTRL_DECL(cluster, core) \
-extern XPmFwPwrCtrl_t Rpu##cluster##_Core##core##PwrCtrl;
+extern const XPmFwPwrCtrl_t Rpu##cluster##_Core##core##PwrCtrl;
 
 /* Define the macro to create the APU power up/down handler table */
 #define CREATE_TABLE_APU_PWRUPDOWNHANDLER(NumClusters, NumCores) \
@@ -133,15 +133,6 @@ struct HandlerTable {
 
 /************************** Function Prototypes ******************************/
 int XPm_PwrIntrHandler(void *IntrNumber);
-XStatus XPm_DispatchApuPwrUpHandler(u32 PwrUpStatus, u32 PwrUpIntMask);
-XStatus XPm_DispatchRpuPwrUpHandler(u32 PwrUpStatus, u32 PwrUpIntMask);
-XStatus XPm_DispatchApuPwrDwnHandler(u32 PwrDwnStatus, u32 PwrDwnIntMask,
-                                     u32 PwrUpStatus, u32 PwrUpIntMask);
-XStatus XPm_DispatchRpuPwrDwnHandler(u32 PwrDwnStatus, u32 PwrDwnIntMask,
-                                     u32 PwrUpStatus, u32 PwrUpIntMask);
-XStatus XPm_DispatchApuWakeupHandler(u32 WakeupStatus, u32 WakeupIntMask);
-XStatus XPm_DispatchRpuWakeupHandler(u32 WakeupStatus, u32 WakeupIntMask);
-XStatus XPm_DispatchPwrCtrlHandler(u32 PwrRstStatus, u32 PwrRstMask);
 #ifdef __cplusplus
 }
 #endif

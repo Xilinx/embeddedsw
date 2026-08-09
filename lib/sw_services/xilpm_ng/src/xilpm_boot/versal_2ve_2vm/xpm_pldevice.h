@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2024 Advanced Micro Devices, Inc. All rights reserved.
+* Copyright (c) 2024 - 2026 Advanced Micro Devices, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -41,12 +41,8 @@ XStatus XPmPlDevice_Init(XPm_PlDevice *PlDevice,
 
 XStatus XPmPlDevice_GetParent(u32 NodeId, u32 *Resp);
 XStatus XPmPlDevice_IsValidPld(const XPm_PlDevice *PlDevice);
-XStatus XPmPlDevice_NocClkEnable(XPm_PlDevice *PlDevice, const u32 *Args, u32 NumArgs);
-XStatus XPmPlDevice_IfNocClkEnable(XPlmi_Cmd *Cmd, u32 BitArrayIdx, u16 State,
-		        u16 Mask, u32 Level);
 void XPmPlDevice_ReleaseAieDevice(XPm_PlDevice *PlDevice);
 void XPmPlDevice_GetAieParent(const XPm_Device* Device, const XPm_PlDevice **OutParent);
-void XPmPlDevice_SetSemCallback(void (*Handler)(u32 DeviceId));
 
 /* PLD Operations Functions */
 XStatus XPmPlDevice_InitStart(XPm_PlDevice *PlDevice, const u32 *Args, u32 NumArgs);

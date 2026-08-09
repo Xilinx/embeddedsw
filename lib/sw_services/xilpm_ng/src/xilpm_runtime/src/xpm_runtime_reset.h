@@ -26,8 +26,6 @@ struct XPmRuntime_Reset {
 };
 
 /************************** Function Prototypes ******************************/
-XStatus XPmReset_SetAllowedSubsystems(XPm_ResetNode *Reset, const u32 AllowSubsystems);
-XStatus XPmReset_GetAllowedSubsystems(const XPm_ResetNode *Reset, u32 *AllowSubsystems);
 XStatus XPmReset_AssertbyId(u32 ResetId, const u32 Action);
 XStatus XPmReset_GetStateById(u32 ResetId, u32 *OutState);
 XStatus XPmReset_CheckPermissions(const XPm_Subsystem *Subsystem, u32 ResetId);

@@ -42,8 +42,6 @@ typedef struct {
  * Global data declarations
  ********************************************************************/
 
-extern XPm_GicProxy_t XPm_GicProxy;
-
 XStatus XPmGicProxy_WakeEventSet(const XPm_Periph *Periph, u8 Enable);
 
 #ifdef __cplusplus

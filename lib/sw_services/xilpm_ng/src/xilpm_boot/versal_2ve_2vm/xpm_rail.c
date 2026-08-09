@@ -358,7 +358,7 @@ done:
 	return Status;
 }
 
-XStatus XPmRail_Control(XPm_Rail *Rail, u8 State, u8 Mode)
+static XStatus XPmRail_Control(XPm_Rail *Rail, u8 State, u8 Mode)
 {
 	XStatus Status = XST_FAILURE;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;

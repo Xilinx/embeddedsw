@@ -18,8 +18,6 @@ extern "C" {
  */
 #define PM_ALL_NOTIFIER				(0xFFFFFFFFU)
 
-extern void (* PmRequestCb)(const u32 SubsystemId, const XPmApiCbId_t EventId, u32 *Payload);
-
 XStatus XPmNotifier_Register(XPm_Subsystem* const Subsystem,
 			 const u32 NodeId,
 			 const u32 Event, const u32 Wake, const u32 IpiMask);
@@ -31,8 +29,6 @@ XStatus XPmNotifier_Unregister(XPm_Subsystem* const Subsystem,
 XStatus XPmNotifier_UnregisterAll(const XPm_Subsystem* const Subsystem);
 
 void XPmNotifier_Event(const u32 NodeId, const u32 Event);
-
-void XPmNotifier_NotifyTarget(u32 IpiMask, u32 *Payload);
 
 XStatus XPmNotifier_RestoreEmActions(void);
 

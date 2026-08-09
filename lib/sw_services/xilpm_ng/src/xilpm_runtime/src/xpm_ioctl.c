@@ -24,7 +24,6 @@
 #include "xpm_runtime_api.h"
 #include "xpm_update.h"
 #include "xpm_runtime_aie.h"
-extern u32 ResetReason;
 
 /* Macro to check if a device is an RPU core */
 #define IS_DEV_RPU(DeviceId) \

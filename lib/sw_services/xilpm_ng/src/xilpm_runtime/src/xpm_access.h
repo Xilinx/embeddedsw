@@ -91,7 +91,6 @@ XStatus XPmAccess_AddRegnodeRequirement(u32 SubsystemId, u32 RegnodeId);
 XStatus XPmAccess_UpdateTable(const u32 *Args, u32 NumArgs);
 
 /* Debug only function meant for printing regnodes and "Node Access Table" */
-void XPmAccess_PrintTable(void);
 
 /* IOCTL handlers */
 XStatus XPmAccess_ReadReg(u32 SubsystemId,

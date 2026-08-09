@@ -33,7 +33,7 @@ u32 XPm_In32(u32 RegAddress)
  * @note   None
  *
  ****************************************************************************/
-u32 XPm_In64(u64 RegAddress)
+static u32 XPm_In64(u64 RegAddress)
 {
 	return lwea(RegAddress);
 }
@@ -142,7 +142,7 @@ void XPm_Out32(u32 RegAddress, u32 l_Val)
  * @note   None
  *
  ****************************************************************************/
-void XPm_Out64(u64 RegAddress, u32 Value)
+static void XPm_Out64(u64 RegAddress, u32 Value)
 {
 	swea(RegAddress, Value);
 }
@@ -171,7 +171,7 @@ void XPm_RMW32(u32 RegAddress, u32 Mask, u32 Value)
  * @note   None
  *
  ****************************************************************************/
-void XPm_RMW64(u64 RegAddress, u32 Mask, u32 Value)
+maybe_unused static void XPm_RMW64(u64 RegAddress, u32 Mask, u32 Value)
 {
 	u32 l_Val;
 
@@ -189,7 +189,7 @@ void XPm_Wait(u32 TimeOutCount)
 	}
 }
 
-u32 XPm_ComputeParity(u32 CalParity)
+maybe_unused static u32 XPm_ComputeParity(u32 CalParity)
 {
 	u32 Value = CalParity;
 
@@ -215,7 +215,7 @@ u32 XPm_GetPlatform(void)
 	return DevPlatform;
 }
 
-u32 XPm_GetPlatformVersion(void)
+maybe_unused static u32 XPm_GetPlatformVersion(void)
 {
         static u32 DevPlatformVersion = NOT_INITIALIZED;
 
@@ -234,7 +234,7 @@ u32 XPm_GetPlatformVersion(void)
         return DevPlatformVersion;
 }
 
-u32 XPm_GetSlrType(void)
+maybe_unused static u32 XPm_GetSlrType(void)
 {
         static u32 DevSlrType = NOT_INITIALIZED;
 
@@ -247,7 +247,7 @@ u32 XPm_GetSlrType(void)
         return DevSlrType;
 }
 
-u32 XPm_GetIdCode(void)
+maybe_unused static u32 XPm_GetIdCode(void)
 {
         static u32 DevIdCode = NOT_INITIALIZED;
 
@@ -258,7 +258,7 @@ u32 XPm_GetIdCode(void)
         return DevIdCode;
 }
 
-u32 XPm_GetPmcVersion(void)
+maybe_unused static u32 XPm_GetPmcVersion(void)
 {
 	static u32 DevPmcVersion = NOT_INITIALIZED;
 

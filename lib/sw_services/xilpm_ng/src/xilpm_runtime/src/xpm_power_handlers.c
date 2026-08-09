@@ -7,10 +7,19 @@
 #include "xpm_power_core.h"
 #include "xpm_runtime_core.h"
 
-DECLARE_APU_PWRCTRL()
-DECLARE_RPU_PWRCTRL()
 CREATE_TABLE_APU_PWRUPDOWNHANDLER(4, 2)
 CREATE_TABLE_RPU_PWRUPDOWNHANDLER(5, 2)
+
+static XStatus XPm_DispatchApuPwrUpHandler(u32 PwrUpStatus, u32 PwrUpIntMask);
+static XStatus XPm_DispatchRpuPwrUpHandler(u32 PwrUpStatus, u32 PwrUpIntMask);
+static XStatus XPm_DispatchApuPwrDwnHandler(u32 PwrDwnStatus, u32 PwrDwnIntMask,
+                                            u32 PwrUpStatus, u32 PwrUpIntMask);
+static XStatus XPm_DispatchRpuPwrDwnHandler(u32 PwrDwnStatus, u32 PwrDwnIntMask,
+                                            u32 PwrUpStatus, u32 PwrUpIntMask);
+static XStatus XPm_DispatchApuWakeupHandler(u32 WakeupStatus, u32 WakeupIntMask);
+static XStatus XPm_DispatchRpuWakeupHandler(u32 WakeupStatus, u32 WakeupIntMask);
+static XStatus XPm_DispatchPwrCtrlHandler(u32 PwrCtrlStatus, u32 PwrCtrlMask);
+
 CREATE_TABLE_RPU_WAKEUP_HANDLER(5, 2)
 CREATE_TABLE_APU_WAKEUP_HANDLER(4, 2)
 CREATE_TABLE_APU_SLEEP_HANDLER(4, 2)
@@ -155,7 +164,7 @@ int XPm_PwrIntrHandler(void *IntrNumber)
  *
  * @return XST_SUCCESS on success, XST_FAILURE or error code during failure
  *****************************************************************************/
-XStatus XPm_DispatchApuPwrUpHandler(u32 PwrUpStatus, u32 PwrUpIntMask)
+static XStatus XPm_DispatchApuPwrUpHandler(u32 PwrUpStatus, u32 PwrUpIntMask)
 {
 	XStatus Status = XST_FAILURE;
 	u32 Index;
@@ -193,7 +202,7 @@ XStatus XPm_DispatchApuPwrUpHandler(u32 PwrUpStatus, u32 PwrUpIntMask)
  *
  * @return XST_SUCCESS on success, XST_FAILURE or error code during failure
  *****************************************************************************/
-XStatus XPm_DispatchRpuPwrUpHandler(u32 PwrUpStatus, u32 PwrUpIntMask)
+static XStatus XPm_DispatchRpuPwrUpHandler(u32 PwrUpStatus, u32 PwrUpIntMask)
 {
 	XStatus Status = XST_FAILURE;
 	u32 Index;
@@ -234,7 +243,7 @@ XStatus XPm_DispatchRpuPwrUpHandler(u32 PwrUpStatus, u32 PwrUpIntMask)
  *
  * @return XST_SUCCESS on success, XST_FAILURE or error code during failure
  *****************************************************************************/
-XStatus XPm_DispatchApuPwrDwnHandler(u32 PwrDwnStatus, u32 PwrDwnIntMask,
+static XStatus XPm_DispatchApuPwrDwnHandler(u32 PwrDwnStatus, u32 PwrDwnIntMask,
 				     u32 PwrUpStatus, u32 PwrUpIntMask)
 {
 	XStatus Status = XST_FAILURE;
@@ -282,7 +291,7 @@ XStatus XPm_DispatchApuPwrDwnHandler(u32 PwrDwnStatus, u32 PwrDwnIntMask,
  *
  * @return XST_SUCCESS on success, XST_FAILURE or error code during failure
  *****************************************************************************/
-XStatus XPm_DispatchRpuPwrDwnHandler(u32 PwrDwnStatus, u32 PwrDwnIntMask,
+static XStatus XPm_DispatchRpuPwrDwnHandler(u32 PwrDwnStatus, u32 PwrDwnIntMask,
 				     u32 PwrUpStatus, u32 PwrUpIntMask)
 {
 	XStatus Status = XST_FAILURE;
@@ -326,7 +335,7 @@ XStatus XPm_DispatchRpuPwrDwnHandler(u32 PwrDwnStatus, u32 PwrDwnIntMask,
  *
  * @return XST_SUCCESS on success, XST_FAILURE or error code during failure
  *****************************************************************************/
-XStatus XPm_DispatchApuWakeupHandler(u32 WakeupStatus, u32 WakeupIntMask)
+static XStatus XPm_DispatchApuWakeupHandler(u32 WakeupStatus, u32 WakeupIntMask)
 {
 	XStatus Status = XST_FAILURE;
 	u32 Index;
@@ -373,7 +382,7 @@ done:
  *
  * @return XST_SUCCESS on success, XST_FAILURE or error code during failure
  *****************************************************************************/
-XStatus XPm_DispatchRpuWakeupHandler(u32 WakeupStatus, u32 WakeupIntMask)
+static XStatus XPm_DispatchRpuWakeupHandler(u32 WakeupStatus, u32 WakeupIntMask)
 {
 	XStatus Status = XST_FAILURE;
 	u32 Index;
@@ -420,7 +429,7 @@ done:
  *
  * @return XST_SUCCESS on success, XST_FAILURE or error code during failure
  *****************************************************************************/
-XStatus XPm_DispatchPwrCtrlHandler(u32 PwrCtrlStatus, u32 PwrCtrlMask)
+static XStatus XPm_DispatchPwrCtrlHandler(u32 PwrCtrlStatus, u32 PwrCtrlMask)
 {
 	XStatus Status = XST_FAILURE;
 	u32 Index;

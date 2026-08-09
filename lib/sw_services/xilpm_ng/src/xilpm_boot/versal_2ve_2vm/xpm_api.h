@@ -30,6 +30,11 @@ extern "C" {
  */
 typedef int (*XPlmi_CmdHandler)(XPlmi_Cmd *Cmd);
 
+/* Global state with external linkage (MISRA Rule 8.4 visible declarations) */
+extern u32 ResetReason;
+extern void (*PmRequestCb)(const u32 SubsystemId, const XPmApiCbId_t EventId, u32 *Payload);
+extern int (*PmRestartCb)(u32 ImageId, u32 *FuncId);
+
 #ifdef XPLMI_IPI_DEVICE_ID
 /* Macros for IPI responses (return values and callbacks) */
 #define IPI_RESPONSE1(Mask, Arg0)						\
@@ -96,18 +101,15 @@ XStatus XPm_GetDeviceBaseAddr(u32 DeviceId, u32 *BaseAddr);
 XStatus XPm_PmcRequestDevice(u32 DeviceId);
 XStatus XPm_PmcReleaseDevice(u32 DeviceId);
 XStatus XPm_PmcActivateSubsystem(u32 SubsystemId);
-XStatus XPm_PmcWakeAllCores(void);
 XStatus XPm_PmcWakeUpCore(u32 CoreId , u32 SetAddress, u64 Address);
 XStatus XPm_PmcGetDeviceState(u32 DeviceId, u32 *const DeviceState);
 XStatus XPm_SystemShutdown(u32 SubsystemId, u32 Type, u32 SubType, u32 CmdType);
 XStatus XPm_AddSubsystem(XPlmi_Cmd* Cmd);
 XStatus XPm_AddRequirement(XPlmi_Cmd* Cmd);
-XStatus XPm_InitNode(u32 NodeId, u32 Function, const u32 *Args, u32 NumArgs);
 XStatus XPm_HookAfterPlmCdo(void);
 XStatus XPm_HnicxNpiDataXfer(u32 Address, u32 Value);
 u32 XPm_GetSubsystemId(u32 ImageId);
 XPlmi_ModuleCmd* XPm_GetPmCmds(void);
-XStatus XPm_AddNode(XPlmi_Cmd *Cmd);
 XStatus XPm_CosimAddAieDeviceNode(void);
 XStatus XPm_HookAfterBootPdi(void);
 
@@ -133,7 +135,7 @@ typedef struct {
 } XPm_GpioProcCfg;
 
 int XPm_GpioProcHandlerInit(void);
-int XPm_GpioProcHandler(void *Data);
+
 XStatus XPm_RuntimeInit(void);
 u32 XPmSubsystem_GetSubSysIdByIpiMask(u32 IpiMask);
 XStatus XPm_AddDDRMemRegnForDefaultSubsystem(const XPm_MemCtrlrDevice *MCDev);

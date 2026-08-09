@@ -119,7 +119,7 @@ void XPmClockPll_Suspend(XPm_PllClockNode *Pll)
 	Pll->ClkNode.Node.State = PM_PLL_STATE_SUSPENDED;
 }
 
-XStatus XPmClockPll_Resume(XPm_PllClockNode *Pll)
+static XStatus XPmClockPll_Resume(XPm_PllClockNode *Pll)
 {
 	XStatus Status = XST_FAILURE;
 

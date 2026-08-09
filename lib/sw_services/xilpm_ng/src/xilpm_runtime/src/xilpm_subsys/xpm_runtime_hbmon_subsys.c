@@ -325,7 +325,7 @@ static const XPmFsm_Tran XPmHbMonDevEventTransitions[] = {
 #define DEFINE_DEV_TRANS(T)	.Trans = (T), \
 				.TransCnt = ARRAY_SIZE(T)
 
-const XPm_Fsm XPmHbMonDeviceFsm = {
+static const XPm_Fsm XPmHbMonDeviceFsm = {
 	DEFINE_DEV_STATES(XPmHbMonDeviceStates),
 	DEFINE_DEV_TRANS(XPmHbMonDevEventTransitions),
 };

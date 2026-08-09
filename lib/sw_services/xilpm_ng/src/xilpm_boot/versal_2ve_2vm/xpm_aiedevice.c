@@ -57,7 +57,7 @@ done:
  *       operations as needed.
  *
  ****************************************************************************/
-XStatus XPmAieDevice_InitStart(XPm_AieDevice *AieDevice, const u32 *Args, u32 NumArgs)
+maybe_unused static XStatus XPmAieDevice_InitStart(const XPm_AieDevice *AieDevice, const u32 *Args, u32 NumArgs)
 {
 	(void)AieDevice;
 	(void)Args;
@@ -82,7 +82,7 @@ XStatus XPmAieDevice_InitStart(XPm_AieDevice *AieDevice, const u32 *Args, u32 Nu
  *       finish operations as needed.
  *
  ****************************************************************************/
-XStatus XPmAieDevice_InitFinish(const XPm_AieDevice *AieDevice, const u32 *Args, u32 NumArgs)
+maybe_unused static XStatus XPmAieDevice_InitFinish(const XPm_AieDevice *AieDevice, const u32 *Args, u32 NumArgs)
 {
 	(void)AieDevice;
 	(void)Args;

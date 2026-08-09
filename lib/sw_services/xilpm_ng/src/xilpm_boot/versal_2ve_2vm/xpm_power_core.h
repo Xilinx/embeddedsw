@@ -119,6 +119,42 @@ struct XPmFwGemPwrCtrl_t {
 	u32 PwrUpWaitTime; /**< mem_BANKx_PWRUP_WAIT_TIME */
 };
 
+/* Power-control objects with external linkage (MISRA Rule 8.4 visible declarations) */
+extern const XPmFwPwrCtrl_t Acpu0_Core0PwrCtrl;
+extern const XPmFwPwrCtrl_t Acpu0_Core1PwrCtrl;
+extern const XPmFwPwrCtrl_t Acpu0_Core2PwrCtrl;
+extern const XPmFwPwrCtrl_t Acpu0_Core3PwrCtrl;
+extern const XPmFwPwrCtrl_t Acpu1_Core0PwrCtrl;
+extern const XPmFwPwrCtrl_t Acpu1_Core1PwrCtrl;
+extern const XPmFwPwrCtrl_t Acpu2_Core0PwrCtrl;
+extern const XPmFwPwrCtrl_t Acpu2_Core1PwrCtrl;
+extern const XPmFwPwrCtrl_t Acpu3_Core0PwrCtrl;
+extern const XPmFwPwrCtrl_t Acpu3_Core1PwrCtrl;
+extern const XPmFwPwrCtrl_t RpuA_Core0PwrCtrl;
+extern const XPmFwPwrCtrl_t RpuA_Core1PwrCtrl;
+extern const XPmFwPwrCtrl_t RpuB_Core0PwrCtrl;
+extern const XPmFwPwrCtrl_t RpuB_Core1PwrCtrl;
+extern const XPmFwPwrCtrl_t RpuC_Core0PwrCtrl;
+extern const XPmFwPwrCtrl_t RpuC_Core1PwrCtrl;
+extern const XPmFwPwrCtrl_t RpuD_Core0PwrCtrl;
+extern const XPmFwPwrCtrl_t RpuD_Core1PwrCtrl;
+extern const XPmFwPwrCtrl_t RpuE_Core0PwrCtrl;
+extern const XPmFwPwrCtrl_t RpuE_Core1PwrCtrl;
+extern const XPmFwMemPwrCtrl_t Ocm_B0_I0_PwrCtrl;
+extern const XPmFwMemPwrCtrl_t Ocm_B0_I1_PwrCtrl;
+extern const XPmFwMemPwrCtrl_t Ocm_B0_I2_PwrCtrl;
+extern const XPmFwMemPwrCtrl_t Ocm_B0_I3_PwrCtrl;
+extern const XPmFwMemPwrCtrl_t Ocm_B1_I0_PwrCtrl;
+extern const XPmFwMemPwrCtrl_t Ocm_B1_I1_PwrCtrl;
+extern const XPmFwMemPwrCtrl_t Ocm_B1_I2_PwrCtrl;
+extern const XPmFwMemPwrCtrl_t Ocm_B1_I3_PwrCtrl;
+extern const XPmTcmPwrCtrl_t TcmA0PwrCtrl;
+extern const XPmTcmPwrCtrl_t TcmA1PwrCtrl;
+extern const XPmTcmPwrCtrl_t TcmB0PwrCtrl;
+extern const XPmTcmPwrCtrl_t TcmB1PwrCtrl;
+extern const XPmFwGemPwrCtrl_t Gem0PwrCtrl;
+extern const XPmFwGemPwrCtrl_t Gem1PwrCtrl;
+
 /* Power Handler Table Structure */
 struct PwrHandlerTable_t {
 	u32 PwrUpMask;
@@ -138,16 +174,11 @@ XStatus XPmPower_SendIslandPowerDwnReq(const XPm_Node *Node);
 XStatus XPmPower_SendIslandPowerUpReq(const XPm_Node *Node);
 XStatus XPmPower_PlatSendPowerUpReq(XPm_Node *Node);
 XStatus XPmPower_PlatSendPowerDownReq(const XPm_Node *Node);
-XStatus XPmPower_ACpuDirectPwrUp(const struct XPmFwPwrCtrl_t *Args, u64 ResumeAddr);
-XStatus XPmPower_ACpuDirectPwrDwn(const struct XPmFwPwrCtrl_t *Args);
-XStatus XPmPower_RpuDirectPwrUp(const struct XPmFwPwrCtrl_t *Args, u64 ResumeAddr);
 XStatus XPmPower_RpuDirectPwrDwn(const struct XPmFwPwrCtrl_t *Args);
-XStatus XPmPower_RpuPwrDwn(const struct XPmFwPwrCtrl_t *Args);
 XStatus XPmPower_RpuReqPwrUp(const struct XPmFwPwrCtrl_t *Args);
 XStatus XPmPower_RpuReqPwrDwn(const struct XPmFwPwrCtrl_t *Args);
 XStatus XPmPower_ACpuReqPwrUp(const struct XPmFwPwrCtrl_t *Args);
 XStatus XPmPower_ACpuReqPwrDwn(const struct XPmFwPwrCtrl_t *Args);
-void XPmCore_AfterDirectPwrUp(XPm_Core *Core);
 #ifdef __cplusplus
 }
 #endif

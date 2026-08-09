@@ -36,6 +36,8 @@
 		}							\
 	} while (0)
 
+static XPm_GicProxy_t XPm_GicProxy;
+
 /**
  * @brief  Compute a GIC Proxy group register address.
  *
@@ -303,7 +305,7 @@ static void XPmGicProxy_Clear(void)
  */
 static XPm_GicProxyGroup XPm_GicProxyGroups[8] XPM_INIT_DATA(XPm_GicProxyGroups);
 
-XPm_GicProxy_t XPm_GicProxy = {
+static XPm_GicProxy_t XPm_GicProxy = {
 	.Groups = XPm_GicProxyGroups,
 	.GroupsCnt = ARRAY_SIZE(XPm_GicProxyGroups),
 	.Clear = &XPmGicProxy_Clear,

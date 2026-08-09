@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2024 Advanced Micro Devices, Inc. All rights reserved.
+* Copyright (c) 2024 - 2026 Advanced Micro Devices, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -16,7 +16,6 @@ struct XPmRuntime_Periph {
         XPm_Periph * Device;
         u32 WakeProcId;
 };
-XStatus XPmRuntime_Periph_GetWakeProcId(XPm_Periph * Device, u32 *WakeProcId);
 XStatus XPmRuntime_Periph_SetWakeProcId(XPm_Periph * Device, u32 WakeProcId);
 #ifdef __cplusplus
 }

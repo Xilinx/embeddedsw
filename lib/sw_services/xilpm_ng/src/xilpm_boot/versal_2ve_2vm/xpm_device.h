@@ -97,9 +97,7 @@ XStatus XPmDevice_Init(XPm_Device *Device,
 		u32 BaseAddress,
 		XPm_Power *Power, XPm_ClockNode *Clock, XPm_ResetNode *Reset);
 
-XStatus XPmDevice_AddClock(XPm_Device *Device, XPm_ClockNode *Clock);
 
-XStatus XPmDevice_AddReset(XPm_Device *Device, XPm_ResetNode *Reset);
 
 XStatus XPmDevice_Reset(const XPm_Device *Device, const XPm_ResetActions Action);
 
@@ -117,13 +115,10 @@ XStatus XPmDevice_GetState(const u32 DeviceId, u32 *const DeviceState);
 XStatus XPmDevice_AddParent(u32 Id, const u32 *Parents, u32 NumParents);
 
 XStatus XPmDevice_BringUp(XPm_Device *Device);
-XStatus XPmVirtDev_DeviceInit(XPm_Device *Device, u32 Id, XPm_Power *Power);
 XPm_Device *XPmDevice_GetPlDeviceByIndex(const u32 DeviceIndex);
 XStatus XPm_SetSysmonNode(u32 Id, u32 BaseAddress);
 u32 XPm_GetSysmonByIndex(const u32 SysmonIndex);
-XStatus XPmDevice_SdResetWorkaround(const XPm_Device *Device);
 XPm_Device *XPmDevice_GetHbMonDeviceByIndex(const u32 DeviceIndex);
-XStatus XPmDevice_IsClockActive(const XPm_Device *Device);
 
 
 #ifdef __cplusplus

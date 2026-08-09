@@ -535,7 +535,7 @@ done:
  * @param  Payload    Payload with callback data
  *
  ****************************************************************************/
-void XPmNotifier_NotifyTarget(u32 IpiMask, u32 *Payload)
+static void XPmNotifier_NotifyTarget(u32 IpiMask, u32 *Payload)
 {
 	XStatus IpiAck;
 	u32 CbType = Payload[0];

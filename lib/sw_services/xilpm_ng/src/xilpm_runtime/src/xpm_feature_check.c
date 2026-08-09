@@ -34,7 +34,7 @@ XStatus XPm_FeatureCheck(const u32 ApiId, u32 *const Version)
 		Status = XPM_ERR_VERSION;
 		goto done;
 	}
-	XPlmi_Module* PmModule = XPlmi_GetModule(XPLMI_MODULE_XILPM_ID);
+	const XPlmi_Module* PmModule = XPlmi_GetModule(XPLMI_MODULE_XILPM_ID);
 	if (NULL == PmModule) {
 		PmErr("PmModule is NULL\n\r");
 		goto done;

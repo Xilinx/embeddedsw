@@ -41,9 +41,12 @@ static const u32 IpiMasks[][2] = {
 };
 static XStatus DevRequest(XPm_Device *Device, XPm_Subsystem *Subsystem,
 			  u32 Capabilities, u32 QoS, u32 CmdType);
-static XStatus DevRelease(XPm_Device *Device,  XPm_Subsystem *Subsystem, u32 CmdType);
+static XStatus DevRelease(XPm_Device *Device,  const XPm_Subsystem *Subsystem, u32 CmdType);
 static XStatus SetDevRequirement(XPm_Device *Device, const XPm_Subsystem *Subsystem,
 			      u32 Capabilities, const u32 QoS);
+
+static XStatus XPmDevice_ChangeState(XPm_Device *Device, const u32 NextState);
+static XPm_Requirement *XPmDevice_GetAieReqmDefault(XPm_Device *Device, XPm_Subsystem *Subsystem);
 
 /**
  * @brief  Check TrustZone security access for a device request
@@ -860,7 +863,7 @@ done:
 	return Status;
 }
 
-static XStatus DevRelease(XPm_Device *Device,  XPm_Subsystem *Subsystem, u32 CmdType)
+static XStatus DevRelease(XPm_Device *Device,  const XPm_Subsystem *Subsystem, u32 CmdType)
 {
 	XStatus Status = XPM_ERR_DEVICE_RELEASE;
 	XPm_Requirement *Reqm = NULL;
@@ -1288,7 +1291,7 @@ done:
  * @note	None
  *
  ****************************************************************************/
-XStatus XPmDevice_ChangeState(XPm_Device *Device, const u32 NextState)
+static XStatus XPmDevice_ChangeState(XPm_Device *Device, const u32 NextState)
 {
 	XStatus Status = XPM_ERR_SETSTATE;
 	XPmRuntime_DeviceOps* DevOps = XPm_GetDevOps_ById(Device->Node.Id);
@@ -1697,7 +1700,7 @@ done:
  * @return	Requirement node
  *
  ****************************************************************************/
-XPm_Requirement *XPmDevice_GetAieReqmDefault(XPm_Device *Device, XPm_Subsystem *Subsystem)
+static XPm_Requirement *XPmDevice_GetAieReqmDefault(XPm_Device *Device, XPm_Subsystem *Subsystem)
 {
 	XStatus Status = XST_FAILURE;
 	XPm_Requirement *Reqm = NULL;

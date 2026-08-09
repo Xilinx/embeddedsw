@@ -69,12 +69,17 @@ static XPlmi_ModuleCmd XPlmi_PmCmds[PM_API_MAX] XPM_INIT_DATA(XPlmi_PmCmds) = {N
 static XStatus XPm_DoIgnoreCommand(XPlmi_Cmd* Cmd);
 static XStatus XPm_DoBisr(XPlmi_Cmd* Cmd);
 static XStatus XPm_DoApplyTrim(XPlmi_Cmd* Cmd);
-static XStatus XPm_AddNodeParent(XPlmi_Cmd *Cmd);
+static XStatus XPm_AddNodeParent(const XPlmi_Cmd *Cmd);
 static XStatus XPm_AddNodeName(XPlmi_Cmd *Cmd);
 static XStatus XPm_IsoControl(XPlmi_Cmd *Cmd);
 static XStatus XPm_DoInitNode(XPlmi_Cmd *Cmd);
 static XStatus XPm_AddNodeIsolation(const u32 *Args, u32 NumArgs);
 static XStatus XPm_AddNodeRegnode(const u32 *Args, u32 NumArgs);
+static XStatus XPm_AddNode(XPlmi_Cmd *Cmd);
+maybe_unused static XStatus XPm_PmcWakeAllCores(void);
+static XStatus XPm_InitNode(u32 NodeId, u32 Function, const u32 *Args, u32 NumArgs);
+static int XPm_GpioProcHandler(void *Data);
+
 /*********************************************************************/
 
 /** Configuration for GPIO pins. */
@@ -588,7 +593,7 @@ done:
  * @note   None
  *
  ****************************************************************************/
-static XStatus XPm_AddNodeParent(XPlmi_Cmd *Cmd)
+static XStatus XPm_AddNodeParent(const XPlmi_Cmd *Cmd)
 {
 	XStatus Status = XST_FAILURE;
 	const u32* Args = Cmd->Payload;
@@ -1667,7 +1672,7 @@ done:
  * @note   None
  *
  ****************************************************************************/
-XStatus XPm_AddNode(XPlmi_Cmd *Cmd)
+static XStatus XPm_AddNode(XPlmi_Cmd *Cmd)
 {
 	XStatus Status = XST_FAILURE;
 	const u32* Args = Cmd->Payload;
@@ -1930,7 +1935,7 @@ done:
 /**
  * @brief PMC request wakeup of CPU core
 */
-XStatus XPm_PmcWakeAllCores(void) {
+maybe_unused static XStatus XPm_PmcWakeAllCores(void) {
 	XStatus Status = XST_FAILURE;
 	XPm_Core *Core;
 	xil_printf("%s %d\n\r", __func__, __LINE__);
@@ -2122,7 +2127,7 @@ done:
  * @note   none
  *
  ****************************************************************************/
-XStatus XPm_InitNode(u32 NodeId, u32 Function, const u32 *Args, u32 NumArgs)
+static XStatus XPm_InitNode(u32 NodeId, u32 Function, const u32 *Args, u32 NumArgs)
 {
 	XStatus Status = XST_FAILURE;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
@@ -2369,7 +2374,7 @@ done:
  * @return XST_SUCCESS always (errors are logged but do not propagate).
  *
  *****************************************************************************/
-int XPm_GpioProcHandler(void *Data)
+static int XPm_GpioProcHandler(void *Data)
 {
 	u32 Idx;
 	u32 IntStatOff, DataRoOff, IntEnOff, IntAnyOff, GpioBaseAddr;

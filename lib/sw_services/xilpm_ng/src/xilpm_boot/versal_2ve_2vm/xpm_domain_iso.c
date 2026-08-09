@@ -29,7 +29,7 @@ static void XPmDomainIso_AfifmControl(const XPm_Iso *IsoNode, u32 Value)
 	XPm_RMW32(IsoNode->Node.BaseAddress + AFI_FM_WR_CTRL_OFFSET, IsoNode->Mask, Value);
 }
 
-static XStatus XPmDomainIso_SetValue(XPm_Iso* IsoNode, u32 Value){
+static XStatus XPmDomainIso_SetValue(const XPm_Iso* IsoNode, u32 Value){
 	XStatus Status = XST_FAILURE;
 
 	if (0U != IS_PSM_ISO(IsoNode)) {
@@ -248,7 +248,7 @@ done:
  * @note	None
  *
  ****************************************************************************/
-XStatus XPmDomainIso_GetState(u32 IsoIdx, XPm_IsoStates *State)
+maybe_unused static XStatus XPmDomainIso_GetState(u32 IsoIdx, XPm_IsoStates *State)
 {
 	XStatus Status = XST_FAILURE;
 	u32 Mask, BaseAddress, Polarity, RegVal;

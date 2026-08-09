@@ -86,7 +86,7 @@ done:
 	return Status;
 }
 
-XStatus XPmCore_GetFrcPwrDwnReq(const XPm_Core* Core, struct XPm_FrcPwrDwnReq *Req)
+maybe_unused static XStatus XPmCore_GetFrcPwrDwnReq(const XPm_Core* Core, struct XPm_FrcPwrDwnReq *Req)
 {
 	XStatus Status = XST_SUCCESS;
 	const XPmRuntime_Core *RuntimeCore = NULL;
@@ -116,7 +116,7 @@ done:
 	return Status;
 }
 
-XStatus XPmCore_SetFrcPwrDwnReq(XPm_Core* Core, struct XPm_FrcPwrDwnReq Req)
+maybe_unused static XStatus XPmCore_SetFrcPwrDwnReq(XPm_Core* Core, struct XPm_FrcPwrDwnReq Req)
 {
 	XStatus Status = XST_SUCCESS;
 	XPmRuntime_Core *RuntimeCore = NULL;
@@ -186,7 +186,7 @@ done:
 	return Status;
 }
 
-XStatus XPmCore_ForcePwrDwn(u32 DeviceId)
+maybe_unused static XStatus XPmCore_ForcePwrDwn(u32 DeviceId)
 {
 	XStatus Status = XST_FAILURE;
 	XPm_Core *Core = (XPm_Core *)XPmDevice_GetById(DeviceId);
@@ -216,7 +216,7 @@ done:
 	return Status;
 }
 
-XStatus XPmCore_ProcessPendingForcePwrDwn(XPm_Subsystem *Subsystem, XPm_Core *Core)
+static XStatus XPmCore_ProcessPendingForcePwrDwn(XPm_Subsystem *Subsystem, XPm_Core *Core)
 {
 	XStatus Status = XST_FAILURE;
 	u32 SubsystemId = Subsystem->Id;

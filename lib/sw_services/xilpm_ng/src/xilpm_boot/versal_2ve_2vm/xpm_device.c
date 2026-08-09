@@ -176,7 +176,7 @@ done:
 	return Status;
 }
 
-XStatus XPmDevice_SdResetWorkaround(const XPm_Device *Device)
+maybe_unused static XStatus XPmDevice_SdResetWorkaround(const XPm_Device *Device)
 {
 	XStatus Status = XST_FAILURE;
 	/*
@@ -228,6 +228,9 @@ done:
 	XPm_PrintDbgErr(Status, DbgErr);
 	return Status;
 }
+
+static XStatus XPmDevice_AddClock(XPm_Device *Device, XPm_ClockNode *Clock);
+static XStatus XPmDevice_AddReset(XPm_Device *Device, XPm_ResetNode *Reset);
 
 XStatus XPmDevice_Init(XPm_Device *Device,
 		u32 Id,
@@ -306,7 +309,7 @@ done:
 	return Status;
 }
 
-XStatus XPmVirtDev_DeviceInit(XPm_Device *Device, u32 Id, XPm_Power *Power)
+maybe_unused static XStatus XPmVirtDev_DeviceInit(XPm_Device *Device, u32 Id, XPm_Power *Power)
 {
 	XStatus Status = XST_FAILURE;
 
@@ -319,7 +322,7 @@ done:
 	return Status;
 }
 
-XStatus XPmDevice_AddClock(XPm_Device *Device, XPm_ClockNode *Clock)
+static XStatus XPmDevice_AddClock(XPm_Device *Device, XPm_ClockNode *Clock)
 {
 	XStatus Status = XST_FAILURE;
 	XPm_ClockHandle *ClkHandle;
@@ -360,7 +363,7 @@ done:
 	return Status;
 }
 
-XStatus XPmDevice_AddReset(XPm_Device *Device, XPm_ResetNode *Reset)
+static XStatus XPmDevice_AddReset(XPm_Device *Device, XPm_ResetNode *Reset)
 {
 	XStatus Status = XST_FAILURE;
 	XPm_ResetHandle *RstHandle;
@@ -408,6 +411,7 @@ XStatus __attribute__((weak, noinline)) XPmDevice_Reset(const XPm_Device *Device
 	PmWarn("XPmDevice_Reset is not implemented in XilPmBoot\r\n");
 	return XST_SUCCESS;
 }
+
 
 
 /****************************************************************************/
@@ -774,7 +778,7 @@ done:
  *         XST_FAILURE if all clocks for given device are inactive
  *
  ****************************************************************************/
-XStatus XPmDevice_IsClockActive(const XPm_Device *Device)
+maybe_unused static XStatus XPmDevice_IsClockActive(const XPm_Device *Device)
 {
 	XStatus Status = XST_FAILURE;
 	const XPm_ClockHandle *ClkHandle = Device->ClkHandles;

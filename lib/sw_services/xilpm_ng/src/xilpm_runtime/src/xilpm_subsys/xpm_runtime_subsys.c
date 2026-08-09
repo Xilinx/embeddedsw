@@ -336,7 +336,7 @@ done:
 	return Status;
 }
 
-static XStatus XPm_AddSubsysRequirement(XPm_Subsystem *Subsystem, const u32 *Payload, u32 PayloadLen)
+static XStatus XPm_AddSubsysRequirement(const XPm_Subsystem *Subsystem, const u32 *Payload, u32 PayloadLen)
 {
 	XStatus Status = XST_FAILURE;
 	u32 SubsysId = 0U, TargetSubsysId = 0U, Operations = 0U;

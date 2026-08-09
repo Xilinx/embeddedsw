@@ -28,9 +28,6 @@ struct XPmRuntime_Core {
 
 XStatus XPmCore_GetCoreIdleSupport(const XPm_Core* Core, u8 *IsCoreIdleSupported);
 XStatus XPmCore_SetCoreIdleSupport(XPm_Core* Core, const u32 Value);
-XStatus XPmCore_GetFrcPwrDwnReq(const XPm_Core* Core, struct XPm_FrcPwrDwnReq *FrcPwrDwnReq);
-XStatus XPmCore_SetFrcPwrDwnReq(XPm_Core* Core, struct XPm_FrcPwrDwnReq FrcPwrDwnReq);
-XStatus XPmCore_ProcessPendingForcePwrDwn(XPm_Subsystem *Subsystem, XPm_Core *Core);
 XStatus XPmCore_ReleaseFromSubsys(XPm_Core *Core);
 XStatus ResetAPUGic(const u32 DeviceId);
 #ifdef __cplusplus

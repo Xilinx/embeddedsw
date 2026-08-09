@@ -207,7 +207,7 @@ done:
  *		wakes-up).
  *
  ****************************************************************************/
-XStatus XPmRequirement_UpdateScheduled(const XPm_Subsystem *Subsystem, u32 Swap)
+maybe_unused static XStatus XPmRequirement_UpdateScheduled(const XPm_Subsystem *Subsystem, u32 Swap)
 {
 	XStatus Status = XST_FAILURE;
 	XPm_ReqmInfo TempReq;
@@ -242,7 +242,7 @@ done:
 	return Status;
 }
 
-XStatus XPmRequirement_IsExclusive(const XPm_Requirement *Reqm)
+maybe_unused static XStatus XPmRequirement_IsExclusive(const XPm_Requirement *Reqm)
 {
 	XStatus Status = XST_FAILURE;
 

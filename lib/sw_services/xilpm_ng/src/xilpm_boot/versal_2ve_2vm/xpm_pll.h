@@ -143,7 +143,6 @@ XStatus XPmClockPll_AddParent(u32 Id, const u32 *Parents, u8 NumParents);
 XStatus XPmClockPll_Request(u32 PllId);
 XStatus XPmClockPll_Release(u32 PllId);
 void XPmClockPll_Suspend(XPm_PllClockNode *Pll);
-XStatus XPmClockPll_Resume(XPm_PllClockNode *Pll);
 XStatus XPmClockPll_Reset(XPm_PllClockNode *Pll, uint8_t Flags);
 
 #ifdef __cplusplus

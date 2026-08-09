@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2024 Advanced Micro Devices, Inc. All rights reserved.
+* Copyright (c) 2024 - 2026 Advanced Micro Devices, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -11,7 +11,6 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
-XStatus XPmPower_ForcePwrDwn(u32 NodeId);
 
 #ifdef __cplusplus
 }

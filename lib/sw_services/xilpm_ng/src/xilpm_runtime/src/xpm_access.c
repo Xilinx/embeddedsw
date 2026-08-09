@@ -582,7 +582,7 @@ done:
  * optimized during link time since there are no references to it
  *
  ****************************************************************************/
-void XPmAccess_PrintTable(void)
+maybe_unused static void XPmAccess_PrintTable(void)
 {
 	const XPm_NodeAccess *Table = PmNodeAccessTable[0];
 	const XPm_NodeAper *Aper = NULL;

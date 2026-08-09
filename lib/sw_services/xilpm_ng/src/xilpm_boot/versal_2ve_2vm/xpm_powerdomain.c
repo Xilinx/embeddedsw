@@ -448,7 +448,7 @@ done:
 	return Status;
 }
 
-XStatus XPm_PowerUpCPM5N(const XPm_Node *Node)
+maybe_unused static XStatus XPm_PowerUpCPM5N(const XPm_Node *Node)
 {
 	XStatus Status = XST_FAILURE;
 
@@ -459,7 +459,7 @@ XStatus XPm_PowerUpCPM5N(const XPm_Node *Node)
 	return Status;
 }
 
-XStatus XPm_PowerDwnCPM5N(const XPm_Node *Node)
+maybe_unused static XStatus XPm_PowerDwnCPM5N(const XPm_Node *Node)
 {
 	XStatus Status = XST_FAILURE;
 

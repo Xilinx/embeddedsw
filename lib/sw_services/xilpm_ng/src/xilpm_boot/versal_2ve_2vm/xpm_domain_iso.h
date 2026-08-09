@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2024 Advanced Micro Devices, Inc.  All rights reserve.
+* Copyright (c) 2024 - 2026 Advanced Micro Devices, Inc.  All rights reserve.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -75,7 +75,6 @@ XStatus XPmDomainIso_NodeInit(u32 NodeId, u32 BaseAddress, u32 Mask, u32 Format,
 			      const u32* Dependencies, u32 NumDependencies);
 XStatus XPmDomainIso_Control(u32 IsoIdx, u32 Enable);
 XStatus XPmDomainIso_ProcessPending(void);
-XStatus XPmDomainIso_GetState(u32 IsoIdx, XPm_IsoStates *State);
 
 maybe_unused static inline void XPmDomainIso_CpmPcieIsoRemoval(void)
 {

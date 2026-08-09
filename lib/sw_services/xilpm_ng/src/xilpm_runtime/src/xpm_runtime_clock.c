@@ -785,7 +785,7 @@ done:
  * @return Computed clock rate in Hz, or 0 on failure
  *
  ****************************************************************************/
-static u32 XPmClock_ComputeNodeRate(XPm_ClockNode *ClkNode, u32 ParentRate)
+static u32 XPmClock_ComputeNodeRate(const XPm_ClockNode *ClkNode, u32 ParentRate)
 {
 	XStatus Status = XST_FAILURE;
 	u32 Rate = 0U;

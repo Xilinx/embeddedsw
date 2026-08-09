@@ -44,6 +44,10 @@ static const u32 PermissionResets[] = {
 	PM_RST_ADMA,
 };
 
+static XStatus XPmReset_SetAllowedSubsystems(XPm_ResetNode *Reset, const u32 AllowSubsystems);
+static XStatus XPmReset_GetAllowedSubsystems(const XPm_ResetNode *Reset, u32 *AllowSubsystems);
+
+
 #define XILPM_ZDMA_CH_ISR_OFFSET	(0x408U)	/* Channel ISR offset */
 #define XILPM_ZDMA_CH_IDS_OFFSET	(0x414U)	/* Channel IDS offset */
 #define XPM_MAX_TIMEOUT			(0x1FFFFFFFU)	/* Timeout */
@@ -427,7 +431,7 @@ XStatus XPmReset_SystemReset(void)
 	return Status;
 }
 
-XStatus XPmReset_SetAllowedSubsystems(XPm_ResetNode *Reset, const u32 AllowSubsystems)
+static XStatus XPmReset_SetAllowedSubsystems(XPm_ResetNode *Reset, const u32 AllowSubsystems)
 {
 	XStatus Status = XST_FAILURE;
 	XPmRuntime_Reset *RuntimeReset = NULL;
@@ -470,7 +474,7 @@ done:
 	return Status;
 }
 
-XStatus XPmReset_GetAllowedSubsystems(const XPm_ResetNode *Reset, u32 *AllowSubsystems)
+static XStatus XPmReset_GetAllowedSubsystems(const XPm_ResetNode *Reset, u32 *AllowSubsystems)
 {
 	XStatus Status = XST_FAILURE;
 	const XPmRuntime_Reset *RuntimeReset = NULL;

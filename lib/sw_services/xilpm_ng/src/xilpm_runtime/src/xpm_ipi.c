@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2024 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -56,7 +56,7 @@ done:
  * @note   None
  *
  ****************************************************************************/
-XStatus XPm_IpiReadStatus(u32 IpiMask)
+maybe_unused static XStatus XPm_IpiReadStatus(u32 IpiMask)
 {
 	u32 Response[RESPONSE_ARG_CNT] = {0};
 	XStatus Status = XST_FAILURE;
@@ -93,7 +93,7 @@ done:
  * @note   None
  *
  ****************************************************************************/
-XStatus XPm_IpiRead(u32 IpiMask, u32 (*Response)[RESPONSE_ARG_CNT])
+maybe_unused static XStatus XPm_IpiRead(u32 IpiMask, u32 (*Response)[RESPONSE_ARG_CNT])
 {
 	XStatus Status = XST_FAILURE;
 
@@ -143,7 +143,7 @@ XStatus XPm_IpiSend(u32 IpiMask, u32 *Payload)
 	return XST_FAILURE;
 }
 
-XStatus XPm_IpiReadStatus(u32 IpiMask)
+maybe_unused static XStatus XPm_IpiReadStatus(u32 IpiMask)
 {
 	(void)IpiMask;
 

@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2024 - 2025 Advanced Micro Devices, Inc. All rights reserved.
+* Copyright (c) 2024 - 2026 Advanced Micro Devices, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -166,13 +166,10 @@ XPm_Fsm *XPmSubsystem_GetHbMonFsm(void);
 XStatus XPmSubsystem_Activate(XPm_Subsystem *Subsystem);
 XStatus XPmSubsystem_SetState(XPm_Subsystem *Subsystem, u32 State);
 XStatus XPmSubsystem_GetStatus(XPm_Subsystem *Subsystem, XPm_DeviceStatus *const DeviceStatus);
-XStatus XPmSubsystem_WakeUp(XPm_Subsystem *Subsystem);
-XStatus XPmSubsystem_Suspend(XPm_Subsystem *Subsystem);
 XStatus XPmSubsystem_Idle(XPm_Subsystem *Subsystem);
 XStatus XPmSubsystem_InitFinalize(XPm_Subsystem *Subsystem);
 XStatus XPmSubsystem_AddPermissions(XPm_Subsystem *Subsystem, u32 TargetId, u32 Operations);
 XStatus XPmSubsystem_AddRequirement(XPm_Subsystem *Subsystem, u32 *Payload, u32 PayloadLen);
-XStatus XPmSubsystem_IsAccessAllowed(XPm_Subsystem *Subsystem, u32 NodeId);
 XStatus XPmSubsystem_StartRecoveryTimer(XPm_Subsystem *Subsystem, u32 CmdType);
 XStatus XPmSubsystem_NotifyHealthyBoot(XPm_Subsystem *Subsystem);
 

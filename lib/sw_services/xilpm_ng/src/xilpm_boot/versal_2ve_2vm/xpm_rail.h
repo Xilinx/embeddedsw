@@ -139,7 +139,6 @@ typedef struct {
 } XPm_Rail;
 
 /************************** Function Prototypes ******************************/
-XStatus XPmRail_Control(XPm_Rail *Rail, u8 State, u8 Mode);
 XStatus XPmRail_Init(XPm_Rail *Rail, u32 RailId, const u32 *Args, u32 NumArgs);
 XStatus XPmRail_AdjustVID(XPm_Rail *Rail);
 #if defined (XPAR_XIICPS_0_DEVICE_ID) || defined (XPAR_XIICPS_1_DEVICE_ID) || \

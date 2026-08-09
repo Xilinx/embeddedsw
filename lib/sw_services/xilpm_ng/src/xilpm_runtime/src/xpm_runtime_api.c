@@ -71,6 +71,11 @@ static XStatus XPm_GetDeviceStatus(const u32 SubsystemId,
 	const u32 DeviceId,
 	XPm_DeviceStatus *const DeviceStatus);
 static XStatus XPm_DoFeatureCheck(XPlmi_Cmd* Cmd);
+static XStatus XPm_AbortSuspend(const u32 SubsystemId, const u32 Reason, const u32 DeviceId);
+static XStatus XPm_SetMaxLatency(const u32 SubsystemId, const u32 DeviceId, const u32 Latency);
+static XStatus XPm_GetChipID(u32* IDCode, u32 *Version);
+static XStatus XPm_Query(const u32 Qid, const u32 Arg1, const u32 Arg2, const u32 Arg3, u32 *const Output);
+
 static XStatus XPm_DoRegisterNotifier(XPlmi_Cmd* Cmd);
 static XStatus XPm_DoSelfSuspend(XPlmi_Cmd* Cmd);
 static XStatus XPm_DoForcePowerdown(XPlmi_Cmd* Cmd);
@@ -86,7 +91,7 @@ static XStatus XPm_DoAbortSuspend(XPlmi_Cmd* Cmd);
 static XStatus XPm_DoWakeUp(XPlmi_Cmd* Cmd);
 static XStatus XPmSubsystem_ShutdownSystemCleanup(u32 SubsystemId);
 static XStatus XPm_SubsystemPwrUp(u32 SubsystemId);
-static XStatus SetSubsystemState_ByCore(XPm_Core* Core, const u32 State);
+static XStatus SetSubsystemState_ByCore(const XPm_Core* Core, const u32 State);
 static XStatus XPm_DoSystemShutdown(XPlmi_Cmd* Cmd);
 static XStatus XPm_DoSetMaxLatency(XPlmi_Cmd* Cmd);
 static XStatus XPm_DoResetAssert(XPlmi_Cmd* Cmd);
@@ -125,7 +130,6 @@ static XStatus XPm_DoDescribeClockRate(XPlmi_Cmd* Cmd);
 #endif /* XILPM_NG_ENABLE_CLK_SCMI */
 
 /* Defined in xilpm-boot */
-extern int (*PmRestartCb)(u32 ImageId, u32 *FuncId);
 
 /**
  * @brief Get Node ID by Index and Class if subclass is INDEXED
@@ -311,6 +315,28 @@ done:
 	return Status;
 }
 
+static int XPm_RegisterWakeUpHandlers(void);
+static void XPm_ProcessAckReq(const u32 Ack, const u32 IpiMask, const int Status,
+			      const u32 NodeId, const u32 NodeState);
+static int XPm_RestartCbWrapper(const u32 SubsystemId);
+
+static XStatus XPm_SetClockState(const u32 SubsystemId, const u32 ClockId, const u32 Enable);
+static XStatus XPm_SetClockDivider(const u32 SubsystemId, const u32 ClockId, const u32 Divider);
+static XStatus XPm_GetClockDivider(const u32 ClockId, u32 *const Divider);
+static XStatus XPm_SetClockParent(const u32 SubsystemId, const u32 ClockId, const u32 ParentIdx);
+static XStatus XPm_GetClockParent(const u32 ClockId, u32 *const ParentIdx);
+static XStatus XPm_PinCtrlRequest(const u32 SubsystemId, const u32 PinId);
+static XStatus XPm_PinCtrlRelease(const u32 SubsystemId, const u32 PinId);
+static XStatus XPm_SetPinFunction(const u32 SubsystemId, const u32 PinId, const u32 FunctionId);
+static XStatus XPm_GetPinFunction(const u32 PinId, u32 *const FunctionId);
+static XStatus XPm_SetPinParameter(const u32 SubsystemId, const u32 PinId, const u32 ParamId, const u32 ParamVal);
+static XStatus XPm_GetPinParameter(const u32 PinId, const u32 ParamId, u32 *const ParamVal);
+
+static XStatus XPm_ForcePowerdown(u32 SubsystemId, const u32 NodeId, const u32 Ack,
+				    const u32 CmdType, const u32 IpiMask);
+static XStatus XPm_SetResetState(const u32 SubsystemId, const u32 ResetId,
+				    const u32 Action, const u32 CmdType);
+
 /****************************************************************************/
 /**
  * @brief  This function returns node count based on class
@@ -468,7 +494,7 @@ static int XPm_DispatchWakeHandler(void *DeviceIdx)
  * @brief Register wakeup handlers with XilPlmi
  * @return XST_SUCCESS on success and error code on failure
  ****************************************************************************/
-int XPm_RegisterWakeUpHandlers(void)
+static int XPm_RegisterWakeUpHandlers(void)
 {
 	int Status = XST_FAILURE;
 
@@ -2009,7 +2035,7 @@ static XStatus XPm_DoForcePowerdown(XPlmi_Cmd* Cmd)
  *         and PLM does not wait for their WFI interrupt.
  *
  ****************************************************************************/
-XStatus XPm_ForcePowerdown(u32 SubsystemId, const u32 NodeId, const u32 Ack,
+static XStatus XPm_ForcePowerdown(u32 SubsystemId, const u32 NodeId, const u32 Ack,
 			   const u32 CmdType, const u32 IpiMask)
 {
 //	//XPM_EXPORT_CMD(PM_FORCE_POWERDOWN, XPLMI_CMD_ARG_CNT_TWO, XPLMI_CMD_ARG_CNT_TWO);
@@ -2159,7 +2185,7 @@ done:
  * @note   None
  *
  ****************************************************************************/
-void XPm_ProcessAckReq(const u32 Ack, const u32 IpiMask, const int Status,
+static void XPm_ProcessAckReq(const u32 Ack, const u32 IpiMask, const int Status,
 		       const u32 NodeId, const u32 NodeState)
 {
 #ifdef XPLMI_IPI_DEVICE_ID
@@ -2209,7 +2235,7 @@ done:
  * @note        None
  *
  ****************************************************************************/
-XStatus XPm_AbortSuspend(const u32 SubsystemId, const u32 Reason,
+static XStatus XPm_AbortSuspend(const u32 SubsystemId, const u32 Reason,
 			 const u32 DeviceId)
 {
 	XStatus Status = XST_FAILURE;
@@ -2468,7 +2494,7 @@ done:
  * @note   None
  *
  ****************************************************************************/
-int XPm_RestartCbWrapper(const u32 SubsystemId)
+static int XPm_RestartCbWrapper(const u32 SubsystemId)
 {
 	int Status = XST_FAILURE;
 
@@ -2480,7 +2506,7 @@ int XPm_RestartCbWrapper(const u32 SubsystemId)
 }
 
 
-static XStatus SetSubsystemState_ByCore(XPm_Core* Core, const u32 State){
+static XStatus SetSubsystemState_ByCore(const XPm_Core* Core, const u32 State){
 	XStatus Status = XST_FAILURE;
 	if (NULL == Core) {
 		Status = XST_DEVICE_NOT_FOUND;
@@ -2671,7 +2697,7 @@ static XStatus XPm_DoSetMaxLatency(XPlmi_Cmd* Cmd)
  * a reason code
  *
  ****************************************************************************/
-XStatus XPm_SetMaxLatency(const u32 SubsystemId, const u32 DeviceId,
+static XStatus XPm_SetMaxLatency(const u32 SubsystemId, const u32 DeviceId,
 		      const u32 Latency)
 {
 	XStatus Status = XPM_ERR_SET_LATENCY;
@@ -2739,7 +2765,7 @@ done:
  * this request will be denied.
  *
  ****************************************************************************/
-XStatus XPm_SetResetState(const u32 SubsystemId, const u32 ResetId,
+static XStatus XPm_SetResetState(const u32 SubsystemId, const u32 ResetId,
 			  const u32 Action, const u32 CmdType)
 {
 	XStatus Status = XST_FAILURE;
@@ -2839,7 +2865,7 @@ done:
  * @note   None
  *
  ****************************************************************************/
-XStatus XPm_GetChipID(u32* IDCode, u32 *Version)
+static XStatus XPm_GetChipID(u32* IDCode, u32 *Version)
 {
 	/* Read the chip ID code */
 	PmIn32(PMC_TAP_IDCODE, *IDCode);
@@ -2893,7 +2919,7 @@ static XStatus XPm_DoPinCtrlRequest(XPlmi_Cmd *Cmd)
  * @note   None
  *
  ****************************************************************************/
-XStatus XPm_PinCtrlRequest(const u32 SubsystemId, const u32 PinId)
+static XStatus XPm_PinCtrlRequest(const u32 SubsystemId, const u32 PinId)
 {
 	XStatus Status = XST_FAILURE;
 
@@ -2915,7 +2941,7 @@ XStatus XPm_PinCtrlRequest(const u32 SubsystemId, const u32 PinId)
  * @note   None
  *
  ****************************************************************************/
-XStatus XPm_PinCtrlRelease(const u32 SubsystemId, const u32 PinId)
+static XStatus XPm_PinCtrlRelease(const u32 SubsystemId, const u32 PinId)
 {
 	XStatus Status = XST_FAILURE;
 
@@ -2950,7 +2976,7 @@ static XStatus XPm_DoPinCtrlRelease(XPlmi_Cmd *Cmd)
  * requested this pin.
  *
  ****************************************************************************/
-XStatus XPm_SetPinFunction(const u32 SubsystemId,
+static XStatus XPm_SetPinFunction(const u32 SubsystemId,
 	const u32 PinId, const u32 FunctionId)
 {
 	XStatus Status = XST_FAILURE;
@@ -2995,7 +3021,7 @@ static XStatus XPm_DoSetPinFunction(XPlmi_Cmd *Cmd)
  * @note   None
  *
  ****************************************************************************/
-XStatus XPm_GetPinFunction(const u32 PinId, u32 *const FunctionId)
+static XStatus XPm_GetPinFunction(const u32 PinId, u32 *const FunctionId)
 {
 	XStatus Status = XST_FAILURE;
 
@@ -3029,7 +3055,7 @@ static XStatus XPm_DoGetPinFunction(XPlmi_Cmd *Cmd)
  * requested this pin.
  *
  ****************************************************************************/
-XStatus XPm_SetPinParameter(const u32 SubsystemId, const u32 PinId,
+static XStatus XPm_SetPinParameter(const u32 SubsystemId, const u32 PinId,
 			const u32 ParamId,
 			const u32 ParamVal)
 {
@@ -3078,7 +3104,7 @@ static XStatus XPm_DoSetPinParameter(XPlmi_Cmd *Cmd)
  * @note   None
  *
  ****************************************************************************/
-XStatus XPm_GetPinParameter(const u32 PinId,
+static XStatus XPm_GetPinParameter(const u32 PinId,
 			const u32 ParamId,
 			u32 * const ParamVal)
 {
@@ -3383,7 +3409,7 @@ static XStatus XPm_DoGetPllParameter(XPlmi_Cmd *Cmd)
  * or a reason code
  *
  ****************************************************************************/
-XStatus XPm_Query(const u32 Qid, const u32 Arg1, const u32 Arg2,
+static XStatus XPm_Query(const u32 Qid, const u32 Arg1, const u32 Arg2,
 		  const u32 Arg3, u32 *const Output)
 {
 	XStatus Status = XST_FAILURE;
@@ -3486,7 +3512,7 @@ static XStatus XPm_DoQueryData(XPlmi_Cmd *Cmd)
  * this request will be denied.
  *
  ****************************************************************************/
-XStatus XPm_SetClockState(const u32 SubsystemId, const u32 ClockId, const u32 Enable)
+static XStatus XPm_SetClockState(const u32 SubsystemId, const u32 ClockId, const u32 Enable)
 {
 	//XPM_EXPORT_CMD(PM_CLOCK_DISABLE, XPLMI_CMD_ARG_CNT_ONE, XPLMI_CMD_ARG_CNT_ONE);
 	XStatus Status = XST_FAILURE;
@@ -3640,7 +3666,7 @@ static XStatus XPm_DoGetClockState(XPlmi_Cmd*Cmd)
  * this request will be denied.
  *
  ****************************************************************************/
-XStatus XPm_SetClockDivider(const u32 SubsystemId, const u32 ClockId, const u32 Divider)
+static XStatus XPm_SetClockDivider(const u32 SubsystemId, const u32 ClockId, const u32 Divider)
 {
 	volatile XStatus Status = XST_FAILURE;
 	const XPm_ClockNode *Clk = XPmClock_GetById(ClockId);
@@ -3699,7 +3725,7 @@ static XStatus XPm_DoSetClockDivider(XPlmi_Cmd *Cmd)
  * @note   None
  *
  ****************************************************************************/
-XStatus XPm_GetClockDivider(const u32 ClockId, u32 *const Divider)
+static XStatus XPm_GetClockDivider(const u32 ClockId, u32 *const Divider)
 {
 	XStatus Status = XST_FAILURE;
 	const XPm_ClockNode *Clk = NULL;
@@ -3753,7 +3779,7 @@ static XStatus XPm_DoGetClockDivider(XPlmi_Cmd* Cmd)
  * this request will be denied.
  *
  ****************************************************************************/
-XStatus XPm_SetClockParent(const u32 SubsystemId, const u32 ClockId, const u32 ParentIdx)
+static XStatus XPm_SetClockParent(const u32 SubsystemId, const u32 ClockId, const u32 ParentIdx)
 {
 	XStatus Status = XST_FAILURE;
 	XPm_ClockNode *Clk = XPmClock_GetById(ClockId);
@@ -3801,7 +3827,7 @@ static XStatus XPm_DoSetClockParent(XPlmi_Cmd *Cmd)
  * @note   None
  *
  ****************************************************************************/
-XStatus XPm_GetClockParent(const u32 ClockId, u32 *const ParentIdx)
+static XStatus XPm_GetClockParent(const u32 ClockId, u32 *const ParentIdx)
 {
 	XStatus Status = XST_FAILURE;
 	const XPm_ClockNode *Clk = NULL;

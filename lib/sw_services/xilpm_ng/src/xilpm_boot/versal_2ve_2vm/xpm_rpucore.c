@@ -17,6 +17,7 @@ static XStatus XPm_PlatRpucoreHalt(u32 CoreId);
 static XStatus XPm_PlatRpuSetOperMode(const struct XPm_RpuCore *RpuCore, const u32 Mode, u32 *Val);
 /** @brief Returns the current RPU cluster operating mode. */
 static u32 XPm_PlatRpuGetOperMode(const struct XPm_RpuCore *RpuCore);
+static void XPmRpuCore_AssignRegAddr(struct XPm_RpuCore *RpuCore, const u32 Id, const u32 *BaseAddress);
 XStatus XPmRpuCore_WakeUp(XPm_Core *Core, u32 SetAddress, u64 Address)
 {
 	XStatus Status = XST_FAILURE;
@@ -117,7 +118,7 @@ done:
 	return Status;
 }
 
-void XPmRpuCore_AssignRegAddr(struct XPm_RpuCore *RpuCore, const u32 Id, const u32 *BaseAddress)
+static void XPmRpuCore_AssignRegAddr(struct XPm_RpuCore *RpuCore, const u32 Id, const u32 *BaseAddress)
 {
 	RpuCore->RpuBaseAddr = BaseAddress[0U];
 	RpuCore->ClusterBaseAddr = BaseAddress[1U];
@@ -208,7 +209,7 @@ static u32 XPm_PlatRpuGetOperMode(const struct XPm_RpuCore *RpuCore)
 	return Val;
 }
 
-void XPm_GetCoreId(u32 *Rpu0, u32 *Rpu1, const u32 DeviceId)
+maybe_unused static void XPm_GetCoreId(u32 *Rpu0, u32 *Rpu1, const u32 DeviceId)
 {
 	if (PM_DEV_RPU_A_0 == DeviceId || PM_DEV_RPU_A_1 == DeviceId) {
 		*Rpu0 = PM_DEV_RPU_A_0;
@@ -261,7 +262,7 @@ static XStatus XPm_PlatRpucoreHalt(u32 CoreId) {
 		goto done;
 	}
 
-	XPm_Core *Core = (XPm_Core*) XPmDevice_GetById(CoreId);
+	const XPm_Core *Core = (XPm_Core*) XPmDevice_GetById(CoreId);
 	if (NULL == Core) {
 		PmErr("RPU Core Node is NULL\r\n");
 		goto done;
@@ -297,7 +298,7 @@ static XStatus SetResetState(const XPm_RpuCore *Core, u32 Value)
 {
 	XStatus Status = XST_FAILURE;
 	/* Safe to cast because Core is a device */
-	XPm_Device *Device = (XPm_Device *)Core;
+	const XPm_Device *Device = (XPm_Device *)Core;
 	if (NULL == Core) {
 		PmErr("RPU Core Node is NULL\r\n");
 		goto done;

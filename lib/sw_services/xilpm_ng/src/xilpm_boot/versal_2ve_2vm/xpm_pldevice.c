@@ -62,7 +62,7 @@ static inline void XPmPlDevice_TriggerSemHandler(u32 DeviceId)
  * @note None
  *
  ****************************************************************************/
-void XPmPlDevice_SetSemCallback(void (*Handler)(u32 DeviceId))
+maybe_unused static void XPmPlDevice_SetSemCallback(void (*Handler)(u32 DeviceId))
 {
 	if (NULL == SemCbHandler) {
 		SemCbHandler = Handler;
@@ -74,7 +74,7 @@ static inline void XPmPlDevice_TriggerSemHandler(u32 DeviceId)
 	(void)DeviceId;
 }
 
-void XPmPlDevice_SetSemCallback(void (*Handler)(u32 DeviceId))
+maybe_unused static void XPmPlDevice_SetSemCallback(void (*Handler)(u32 DeviceId))
 {
 	(void)Handler;
 }
@@ -782,7 +782,7 @@ done:
  * @note None
  *
  ****************************************************************************/
-XStatus XPmPlDevice_NocClkEnable(XPm_PlDevice *PlDevice, const u32 *Args, u32 NumArgs)
+maybe_unused static XStatus XPmPlDevice_NocClkEnable(XPm_PlDevice *PlDevice, const u32 *Args, u32 NumArgs)
 {
 	XStatus Status = XST_FAILURE;
 	const XPm_PlDevice *Device;
@@ -855,7 +855,7 @@ done:
  * @note None
  *
  ****************************************************************************/
-XStatus XPmPlDevice_IfNocClkEnable(XPlmi_Cmd *Cmd, u32 BitArrayIdx, u16 State,
+maybe_unused static XStatus XPmPlDevice_IfNocClkEnable(XPlmi_Cmd *Cmd, u32 BitArrayIdx, u16 State,
 		u16 Mask, u32 Level)
 {
 	XStatus Status = XST_FAILURE;

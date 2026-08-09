@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2024 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -63,7 +63,6 @@ XStatus XPmApuCore_Init(XPm_ApuCore *ApuCore,
 	u32 Ipi,
 	const u32 *BaseAddress,
 	XPm_Power *Power, XPm_ClockNode *Clock, XPm_ResetNode *Reset);
-XStatus XPmApuCore_AssignRegisterMask(struct XPm_ApuCore *ApuCore, const u32 Id);
 XStatus XPm_ApuSetOperMode(const u32 ClusterId, const u32 Mode);
 XStatus XPm_ApuGetOperMode(const u32 ClusterId, u32 *Mode);
 XStatus XPmApuCore_WakeUp(XPm_Core *Core, u32 SetAddress, u64 Address);

@@ -7,6 +7,8 @@
 #include "xpm_alloc.h"
 #include "xpm_update.h"
 
+static XStatus XPmSubsystem_IsAccessAllowed(XPm_Subsystem *Subsystem, u32 NodeId);
+
 /*
  * Subsystem Manager - Single unified object
  * Always defined here, regardless of build configuration
@@ -416,7 +418,7 @@ done:
  *         implementation via the SubsystemOps table.
  *
  ****************************************************************************/
-XStatus XPmSubsystem_WakeUp(XPm_Subsystem *Subsystem)
+maybe_unused static XStatus XPmSubsystem_WakeUp(XPm_Subsystem *Subsystem)
 {
 	XStatus Status = XST_FAILURE;
 	if (NULL == Subsystem) {
@@ -442,7 +444,7 @@ done:
  *         implementation via the SubsystemOps table.
  *
  ****************************************************************************/
-XStatus XPmSubsystem_Suspend(XPm_Subsystem *Subsystem)
+maybe_unused static XStatus XPmSubsystem_Suspend(XPm_Subsystem *Subsystem)
 {
 	XStatus Status = XST_FAILURE;
 	if (NULL == Subsystem) {
@@ -523,7 +525,7 @@ done:
  *         on node class (device, clock, reset, pin, etc.).
  *
  ****************************************************************************/
-XStatus XPmSubsystem_IsAccessAllowed(XPm_Subsystem *Subsystem, u32 NodeId)
+static XStatus XPmSubsystem_IsAccessAllowed(XPm_Subsystem *Subsystem, u32 NodeId)
 {
 	volatile XStatus Status = XST_FAILURE;
 	if (NULL == Subsystem) {

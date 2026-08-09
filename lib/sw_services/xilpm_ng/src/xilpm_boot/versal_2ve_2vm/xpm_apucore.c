@@ -13,6 +13,8 @@
 
 #define XPM_APU_MODE_MASK(ClusterId)		BIT(ClusterId)
 
+static XStatus XPmApuCore_AssignRegisterMask(XPm_ApuCore *ApuCore, const u32 Id);
+
 /**
  * XPmApuCore_IsValidCoreInLockstep() - Check if core is valid in lockstep mode
  * @param DeviceId Device ID of the APU core
@@ -124,7 +126,7 @@ done:
 	XPm_PrintDbgErr(Status, DbgErr);
 	return Status;
 }
-XStatus XPmApuCore_AssignRegisterMask(XPm_ApuCore *ApuCore, const u32 Id)
+static XStatus XPmApuCore_AssignRegisterMask(XPm_ApuCore *ApuCore, const u32 Id)
 {
 	XStatus Status = XST_FAILURE;
 
@@ -199,7 +201,7 @@ XStatus XPm_ApuGetOperMode(const u32 DeviceId, u32 *Mode)
 {
 	XStatus Status = XST_FAILURE;
 	u32 Val;
-	XPm_PsFpDomain *Fpd = (XPm_PsFpDomain *)XPmPower_GetById(PM_POWER_FPD);
+	const XPm_PsFpDomain *Fpd = (XPm_PsFpDomain *)XPmPower_GetById(PM_POWER_FPD);
 	u32 ClusterId = GET_APU_CLUSTER_ID(DeviceId);
 
 	if (NULL == Fpd) {
@@ -224,7 +226,7 @@ XStatus XPm_ApuSetOperMode(const u32 DeviceId, const u32 Mode)
 {
 	XStatus Status = XST_FAILURE;
 	u32 Val;
-	XPm_PsFpDomain *Fpd = (XPm_PsFpDomain *)XPmPower_GetById(PM_POWER_FPD);
+	const XPm_PsFpDomain *Fpd = (XPm_PsFpDomain *)XPmPower_GetById(PM_POWER_FPD);
 	u32 ClusterId = GET_APU_CLUSTER_ID(DeviceId);
 
 	if (NULL == Fpd) {

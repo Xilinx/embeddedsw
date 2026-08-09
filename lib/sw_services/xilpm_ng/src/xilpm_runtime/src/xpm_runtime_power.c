@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2024 Advanced Micro Devices, Inc. All rights reserved.
+* Copyright (c) 2024 - 2026 Advanced Micro Devices, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 #include "xpm_runtime_power.h"
@@ -7,7 +7,9 @@
 #include "xpm_requirement.h"
 #include "xpm_device.h"
 #include "xpm_runtime_device.h"
-XStatus XPmPower_ForcePwrDwn(u32 NodeId)
+maybe_unused static XStatus XPmPower_ForcePwrDwn(u32 NodeId);
+
+maybe_unused static XStatus XPmPower_ForcePwrDwn(u32 NodeId)
 {
 	XStatus Status = XST_FAILURE;
 	XPm_Power *Power = NULL;

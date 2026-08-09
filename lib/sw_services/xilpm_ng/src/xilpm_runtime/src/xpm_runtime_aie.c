@@ -1217,7 +1217,7 @@ XStatus XPmAie_Operations(u32 SubsystemId, u32 Size, u32 HighAddr, u32 LowAddr)
 XStatus XPmAieDevice_UpdateClockDiv(const u32 Divider)
 {
 	volatile XStatus Status = XST_FAILURE;
-	XPm_AieDomain *AieDomain = (XPm_AieDomain *)XPmPower_GetById(PM_POWER_ME2);
+	const XPm_AieDomain *AieDomain = (XPm_AieDomain *)XPmPower_GetById(PM_POWER_ME2);
 	u32 NpiUnlocked = 0U;
 	u32 Platform = XPm_GetPlatform();
 

@@ -219,7 +219,7 @@ done:
 	return Status;
 }
 
-XStatus XPmCore_HasResumeAddr(const XPm_Core *Core)
+maybe_unused static XStatus XPmCore_HasResumeAddr(const XPm_Core *Core)
 {
 	XStatus Status = XST_FAILURE;
 	u64 ResumeAddr;
@@ -244,7 +244,7 @@ XStatus XPmCore_SetCPUIdleFlag(const XPm_Core *Core, u32 CpuIdleFlag)
 	return XST_SUCCESS;
 }
 
-XStatus XPmCore_GetCPUIdleFlag(const XPm_Core *Core, u32 *CpuIdleFlag)
+maybe_unused static XStatus XPmCore_GetCPUIdleFlag(const XPm_Core *Core, u32 *CpuIdleFlag)
 {
 	(void)Core;
 	(void)CpuIdleFlag;

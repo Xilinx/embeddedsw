@@ -32,10 +32,6 @@ XStatus XPmAieDevice_Init(XPm_AieDevice *AieDevice, u32 NodeId,
 			  u32 BaseAddress, XPm_Power *Power,
 			  XPm_ClockNode *Clock, XPm_ResetNode *Reset);
 
-XStatus XPmAieDevice_InitStart(XPm_AieDevice *AieDevice, const u32 *Args, u32 NumArgs);
-
-XStatus XPmAieDevice_InitFinish(const XPm_AieDevice *AieDevice, const u32 *Args, u32 NumArgs);
-
 #ifdef __cplusplus
 }
 #endif
