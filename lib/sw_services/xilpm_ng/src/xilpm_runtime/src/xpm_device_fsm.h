@@ -1,5 +1,10 @@
-#ifndef __XPM_DEVICE_FSM_H__
-#define __XPM_DEVICE_FSM_H__
+/******************************************************************************
+ * Copyright (C) 2024 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
+ * SPDX-License-Identifier: MIT
+ *****************************************************************************/
+
+#ifndef XPM_DEVICE_FSM_H
+#define XPM_DEVICE_FSM_H
 #include "xstatus.h"
 #include "xpm_fsm.h"
 #ifdef __cplusplus
@@ -10,4 +15,4 @@ XStatus XPmDeviceFsm_Init(XPmRuntime_DeviceOps* const DevOps);
 #ifdef __cplusplus
 }
 #endif
-#endif /* __XPM_DEVICE_FSM_H__ */
+#endif /* XPM_DEVICE_FSM_H */

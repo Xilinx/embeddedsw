@@ -1,10 +1,10 @@
 /******************************************************************************
-* Copyright (C) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2024 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
-#ifndef __XPM_ALLOC_H__
-#define __XPM_ALLOC_H__
+#ifndef XPM_ALLOC_H
+#define XPM_ALLOC_H
 #include "xil_types.h"
 #include "xstatus.h"
 
@@ -28,4 +28,4 @@ void XPm_DumpMemUsage(void);
 #ifdef __cplusplus
 }
 #endif
-#endif /*__XPM_ALLOC_H__ */
+#endif /*XPM_ALLOC_H */

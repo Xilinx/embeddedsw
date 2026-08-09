@@ -1,9 +1,9 @@
 /******************************************************************************
-* Copyright (C) 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2025 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
-#ifndef __XPM_UPDATE_H__
-#define __XPM_UPDATE_H__
+#ifndef XPM_UPDATE_H
+#define XPM_UPDATE_H
 
 #define XPM_TOPOLOGY_DS_ID 0x1
 #define XPM_ALLOC_TOPO_MEM_DS_ID 0x2
@@ -22,4 +22,4 @@
 #define XPM_PLACE_IN(SECTION) __attribute__((section(SECTION)))
 #define XPM_INIT_DATA(SECTION) XPM_PLACE_IN(".RefTable." #SECTION)
 
-#endif /*__XPM_UPDATE_H__*/
+#endif /*XPM_UPDATE_H*/

@@ -14,10 +14,10 @@
 extern "C" {
 #endif
 
-#define FALSE_VALUE		(0U)
-#define TRUE_VALUE		(1U)
-#define FALSE_IMMEDIATE		(2U)	/* Remove isolation immediately */
-#define TRUE_PENDING_REMOVE	(3U)	/* Set isolation, but pending removal */
+#define XPM_ISO_DISABLE		(0U)
+#define XPM_ISO_ENABLE		(1U)
+#define XPM_ISO_DISABLE_IMMEDIATE		(2U)	/* Remove isolation immediately */
+#define XPM_ISO_ENABLE_PENDING	(3U)	/* Set isolation, but pending removal */
 
 #define PSM_API_DOMAIN_ISO_GETTER_HEADER	(0U)
 #define PSM_API_DOMAIN_ISO_SETTER_HEADER	(1U)

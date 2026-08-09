@@ -387,61 +387,61 @@ XStatus XPm_PowerDwnPLD(const XPm_Node *Node)
 	PmOut32(Pmc->PmcAnalogBaseAddr + PMC_ANLG_CFG_POR_CNT_SKIP_OFFSET, 0U);
 
 	/* Isolate: SOC-PL */
-	Status = (XStatus)(XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_PL_SOC, TRUE_VALUE));
+	Status = (XStatus)(XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_PL_SOC, XPM_ISO_ENABLE));
 	if (XST_SUCCESS != Status) {
 		DbgErr = XPM_INT_ERR_PL_SOC_ISO;
 		goto done;
 	}
 	/* Isolate: FPD-PL */
-	Status = (XStatus)(XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_FPD_PL, TRUE_VALUE));
+	Status = (XStatus)(XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_FPD_PL, XPM_ISO_ENABLE));
 	if (XST_SUCCESS != Status) {
 		DbgErr = XPM_INT_ERR_FPD_PL_ISO;
 		goto done;
 	}
 	/* Isolate: FPD_TEST-PL */
-	Status = (XStatus)(XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_FPD_PL_TEST, TRUE_VALUE));
+	Status = (XStatus)(XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_FPD_PL_TEST, XPM_ISO_ENABLE));
 	if (XST_SUCCESS != Status) {
 		DbgErr = XPM_INT_ERR_FPD_PL_TEST_ISO;
 		goto done;
 	}
 	/* Isolate: LPD-PL */
-	Status = (XStatus)(XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_LPD_PL, TRUE_VALUE));
+	Status = (XStatus)(XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_LPD_PL, XPM_ISO_ENABLE));
 	if (XST_SUCCESS != Status) {
 		DbgErr = XPM_INT_ERR_LPD_PL_ISO;
 		goto done;
 	}
 	/* Isolate: LPD_TEST-PL */
-	Status = (XStatus)(XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_LPD_PL_TEST, TRUE_VALUE));
+	Status = (XStatus)(XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_LPD_PL_TEST, XPM_ISO_ENABLE));
 	if (XST_SUCCESS != Status) {
 		DbgErr = XPM_INT_ERR_LPD_PL_TEST_ISO;
 		goto done;
 	}
 	/* Isolate: PMC-PL */
-	Status = (XStatus)(XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_PMC_PL, TRUE_VALUE));
+	Status = (XStatus)(XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_PMC_PL, XPM_ISO_ENABLE));
 	if (XST_SUCCESS != Status) {
 		DbgErr = XPM_INT_ERR_PMC_PL_ISO;
 		goto done;
 	}
 	/* Isolate: PMC_TEST-PL */
-	Status = (XStatus)(XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_PMC_PL_TEST, TRUE_VALUE));
+	Status = (XStatus)(XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_PMC_PL_TEST, XPM_ISO_ENABLE));
 	if (XST_SUCCESS != Status) {
 		DbgErr = XPM_INT_ERR_PMC_PL_TEST_ISO;
 		goto done;
 	}
 	/* Isolate: PMC_CFRAME-PL */
-	Status = (XStatus)(XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_PMC_PL_CFRAME, TRUE_VALUE));
+	Status = (XStatus)(XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_PMC_PL_CFRAME, XPM_ISO_ENABLE));
 	if (XST_SUCCESS != Status) {
 		DbgErr = XPM_INT_ERR_PMC_PL_CFRAME_ISO;
 		goto done;
 	}
 	/* Isolate: VCCAUX-PL */
-	Status = (XStatus)(XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_VCCAUX_VCCRAM, TRUE_VALUE));
+	Status = (XStatus)(XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_VCCAUX_VCCRAM, XPM_ISO_ENABLE));
 	if (XST_SUCCESS != Status) {
 		DbgErr = XPM_INT_ERR_VCCAUX_VCCRAM_ISO;
 		goto done;
 	}
 	/* Isolate: VCCSOC-PL */
-	Status = (XStatus)(XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_VCCRAM_SOC, TRUE_VALUE));
+	Status = (XStatus)(XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_VCCRAM_SOC, XPM_ISO_ENABLE));
 	if (XST_SUCCESS != Status) {
 		DbgErr = XPM_INT_ERR_VCCRAM_SOC_ISO;
 		goto done;

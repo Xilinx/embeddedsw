@@ -1,10 +1,10 @@
 /******************************************************************************
-* Copyright (c) 2024 Advanced Micro Devices, Inc. All rights reserved.
+* Copyright (c) 2024 - 2026 Advanced Micro Devices, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
-#ifndef __XPM_RUNTIME_ALLOC_H__
-#define __XPM_RUNTIME_ALLOC_H__
+#ifndef XPM_RUNTIME_ALLOC_H
+#define XPM_RUNTIME_ALLOC_H
 #include "xpm_alloc.h"
 #ifdef __cplusplus
 extern "C" {
@@ -17,4 +17,4 @@ void *XPm_AllocBytesDevOps(u32 SizeInBytes);
 #ifdef __cplusplus
 }
 #endif
-#endif /* __XPM_RUNTIME_ALLOC_H__ */
+#endif /* XPM_RUNTIME_ALLOC_H */

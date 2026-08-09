@@ -157,20 +157,20 @@ XStatus XPmDomainIso_Control(u32 IsoIdx, u32 Enable)
 		goto done;
 	}
 
-	if ((FALSE_IMMEDIATE == Enable) || (FALSE_VALUE == Enable)) {
+	if ((XPM_ISO_DISABLE_IMMEDIATE == Enable) || (XPM_ISO_DISABLE == Enable)) {
 		Output = ISO_OFF(XPmDomainIso_List[IsoIdx]);
 	} else {
 		Output = ISO_ON(XPmDomainIso_List[IsoIdx]);
 	}
 
 	/* Isolation node's states resolving to handle deferred isolation removal*/
-	if ((TRUE_VALUE == Enable) || (TRUE_PENDING_REMOVE == Enable)) {
+	if ((XPM_ISO_ENABLE == Enable) || (XPM_ISO_ENABLE_PENDING == Enable)) {
 		/* To turn on isolation */
 		(void)XPmDomainIso_SetValue(IsoNode, Output);
-		/* Mark node state appropriately, for later remove isolation in the case of TRUE_PENDING_REMOVE */
-		IsoNode->Node.State = (TRUE_VALUE == Enable) ?
+		/* Mark node state appropriately, for later remove isolation in the case of XPM_ISO_ENABLE_PENDING */
+		IsoNode->Node.State = (XPM_ISO_ENABLE == Enable) ?
 			(u8)PM_ISOLATION_ON : (u8)PM_ISOLATION_REMOVE_PENDING;
-	} else if(FALSE_IMMEDIATE == Enable) {
+	} else if(XPM_ISO_DISABLE_IMMEDIATE == Enable) {
 		/* Immediately remove isolation*/
 		(void)XPmDomainIso_SetValue(IsoNode, Output);
 		IsoNode->Node.State = (u8)PM_ISOLATION_OFF;
@@ -220,7 +220,7 @@ XStatus XPmDomainIso_ProcessPending()
 		IsoNode = XPmDomainIso_List[i];
 		if (NULL != IsoNode){
 			if (IsoNode->Node.State == (u8)PM_ISOLATION_REMOVE_PENDING) {
-				Status = (XStatus)(XPmDomainIso_Control(i, FALSE_VALUE));
+				Status = (XStatus)(XPmDomainIso_Control(i, XPM_ISO_DISABLE));
 				if ((XST_SUCCESS != Status) && (XST_DEVICE_NOT_FOUND != Status)){
 					/* if device is not found, we still scan through the list of iso node*/
 					goto done;

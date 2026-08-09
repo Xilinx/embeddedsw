@@ -3,8 +3,8 @@
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
-#ifndef __XPM_RUNTIME_CORE_H__
-#define __XPM_RUNTIME_CORE_H__
+#ifndef XPM_RUNTIME_CORE_H
+#define XPM_RUNTIME_CORE_H
 #include "xstatus.h"
 #include "xil_types.h"
 #include "xpm_subsystem.h"
@@ -32,4 +32,4 @@ XStatus ResetAPUGic(const u32 DeviceId);
 #ifdef __cplusplus
 }
 #endif
-#endif /* __XPM_RUNTIME_CORE_H__ */
+#endif /* XPM_RUNTIME_CORE_H */

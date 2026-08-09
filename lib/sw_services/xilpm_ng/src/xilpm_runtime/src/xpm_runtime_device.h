@@ -20,7 +20,7 @@ typedef struct XPmRuntime_DeviceOps XPmRuntime_DeviceOps;
 /* Device Operations */
 struct XPmRuntime_DeviceOps
 {
-	u8 FsmType; /**< Type of the FSM of the device */
+	XPm_FsmType FsmType; /**< Type of the FSM of the device */
 	XPm_Device *Device;	/**< Handle to the device */
 	XPm_Requirement *PendingReqm; /**< Requirement being updated */
 	XPm_RequirementList* Requirements; /**< All requirements of the device */

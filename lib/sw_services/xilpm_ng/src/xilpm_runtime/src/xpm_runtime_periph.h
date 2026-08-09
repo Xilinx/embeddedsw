@@ -3,8 +3,8 @@
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
-#ifndef __XILPM_RUNTIME_PERIPH_H__
-#define __XILPM_RUNTIME_PERIPH_H__
+#ifndef XPM_RUNTIME_PERIPH_H
+#define XPM_RUNTIME_PERIPH_H
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -20,4 +20,4 @@ XStatus XPmRuntime_Periph_SetWakeProcId(XPm_Periph * Device, u32 WakeProcId);
 #ifdef __cplusplus
 }
 #endif
-#endif /* __XILPM_RUNTIME_PERIPH_H__ */
+#endif /* XPM_RUNTIME_PERIPH_H */

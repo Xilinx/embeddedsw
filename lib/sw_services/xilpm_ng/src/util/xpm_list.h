@@ -3,8 +3,8 @@
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
-#ifndef __XPM_LIST_H__
-#define __XPM_LIST_H__
+#ifndef XPM_LIST_H
+#define XPM_LIST_H
 
 #include "xpm_runtime_alloc.h"
 
@@ -72,4 +72,4 @@ do { \
 }
 #endif
 
-#endif /*__XPM_LIST_H__ */
+#endif /*XPM_LIST_H */

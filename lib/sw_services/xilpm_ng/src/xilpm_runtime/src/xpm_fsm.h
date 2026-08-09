@@ -3,8 +3,8 @@
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
-#ifndef __XPM_FSM_H__
-#define __XPM_FSM_H__
+#ifndef XPM_FSM_H
+#define XPM_FSM_H
 #include "xil_types.h"
 #include "xstatus.h"
 #include "xpm_device.h"
@@ -48,4 +48,4 @@ XStatus XPmFsm_GetFsmByType(XPm_FsmType FsmType, XPm_Fsm** Fsm);
 #ifdef __cplusplus
 }
 #endif
-#endif /* __XPM_FSM_H__ */
+#endif /* XPM_FSM_H */

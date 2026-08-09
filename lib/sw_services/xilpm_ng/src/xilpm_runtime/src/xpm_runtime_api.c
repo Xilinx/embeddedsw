@@ -3179,7 +3179,14 @@ static XStatus XPm_DoDevIoctl(XPlmi_Cmd *Cmd)
 	u32 SubsystemId = Cmd->SubsystemId;
 	u32 IndexedDeviceId = Cmd->Payload[0];
 	u32 DeviceId;
-	pm_ioctl_id IoctlId = Cmd->Payload[1];
+	/*
+	 * IoctlId is a wire-format command field (u32) decoded into the
+	 * pm_ioctl_id enum. The explicit cast matches the other wire->enum
+	 * decodes in xilpm_ng (XPm_PgoodSource, XPm_IsoCdoArgsFormat,
+	 * XPm_NodeAccessTypes); the id is validated by XPm_Ioctl's switch.
+	 * MISRA C:2025 Rule 10.5 (Advisory) deviation applies.
+	 */
+	pm_ioctl_id IoctlId = (pm_ioctl_id)Cmd->Payload[1];
 	u32 Arg1 = Cmd->Payload[2];
 	u32 Arg2 = Cmd->Payload[3];
 	u32 Arg3 = Cmd->Payload[4];

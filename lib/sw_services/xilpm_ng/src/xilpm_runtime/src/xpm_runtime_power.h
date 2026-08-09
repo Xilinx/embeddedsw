@@ -3,8 +3,8 @@
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
-#ifndef __XPM_RUNTIME_POWER_H__
-#define __XPM_RUNTIME_POWER_H__
+#ifndef XPM_RUNTIME_POWER_H
+#define XPM_RUNTIME_POWER_H
 #include "xil_types.h"
 #include "xstatus.h"
 #include "xpm_power.h"
@@ -15,4 +15,4 @@ extern "C" {
 #ifdef __cplusplus
 }
 #endif
-#endif /* __XPM_RUNTIME_POWER_H__ */
+#endif /* XPM_RUNTIME_POWER_H */

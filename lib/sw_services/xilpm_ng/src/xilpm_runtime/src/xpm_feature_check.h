@@ -3,8 +3,8 @@
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
-#ifndef __XPM_FEATURE_CHECK_H__
-#define __XPM_FEATURE_CHECK_H__
+#ifndef XPM_FEATURE_CHECK_H
+#define XPM_FEATURE_CHECK_H
 #include "xil_types.h"
 #include "xstatus.h"
 #ifdef __cplusplus
@@ -54,4 +54,4 @@ XStatus XPm_FeatureCheck(u32 ApiId, u32 *Version);
 #ifdef __cplusplus
 }
 #endif
-#endif /* __XPM_FEATURE_CHECK_H__ */
+#endif /* XPM_FEATURE_CHECK_H */

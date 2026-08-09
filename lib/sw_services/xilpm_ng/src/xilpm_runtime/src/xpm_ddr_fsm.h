@@ -3,8 +3,8 @@
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
-#ifndef __XPM_DDR_FSM_H__
-#define __XPM_DDR_FSM_H__
+#ifndef XPM_DDR_FSM_H
+#define XPM_DDR_FSM_H
 
 #include "xstatus.h"
 #include "xpm_fsm.h"
@@ -19,4 +19,4 @@ extern const XPm_Fsm XPmDDRDeviceFsm;
 }
 #endif
 
-#endif /* __XPM_DDR_FSM_H__ */
+#endif /* XPM_DDR_FSM_H */
