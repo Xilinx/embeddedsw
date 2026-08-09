@@ -50,7 +50,6 @@ XStatus XPmCore_RequestWakeup(XPm_Core *Core, u32 SetAddress, u64 Address);
 XStatus XPmCore_PowerDown(XPm_Core *Core);
 
 // {
-// 	return XPmClock_Request(ClkHandles);
 // }
 #ifdef __cplusplus
 }

@@ -179,11 +179,6 @@ XStatus PldInitStart(XPm_PowerDomain *PwrDomain, const u32 *Args,
 		PmOut32(Pmc->PmcAnalogBaseAddr + PMC_ANLG_CFG_POR_CNT_SKIP_OFFSET, 1U);
 	}
 
-	// /* Perform VID adjustment */
-	// if (XST_SUCCESS != Status) {
-	// 	DbgErr = XPM_INT_ERR_VID_ADJUST;
-	// 	goto done;
-	// }
 
 	Status = ReduceCfuClkFreq();
 

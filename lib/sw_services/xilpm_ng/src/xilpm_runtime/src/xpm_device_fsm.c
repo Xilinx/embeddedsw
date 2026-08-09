@@ -17,6 +17,7 @@
 static XStatus SetClocks(const XPm_Device *Device, u32 Enable)
 {
 	XStatus Status = XST_FAILURE;
+	const XPm_Device *EffectiveDevice = Device;
 	u32 NodeId;
 
 	/*
@@ -39,14 +40,14 @@ static XStatus SetClocks(const XPm_Device *Device, u32 Enable)
 			PmErr("Failed to get RPU ID for TCM ID 0x%x\n", Device->Node.Id);
 			goto done;
 		}
-		Device = (XPm_Device*)XPmDevice_GetById(RpuId);
-		if (NULL == Device) {
+		EffectiveDevice = XPmDevice_GetById(RpuId);
+		if (NULL == EffectiveDevice) {
 			PmErr("Not found RPU ID = 0x%x\n", RpuId);
 			Status = XST_FAILURE;
 			goto done;
 		}
 	}
-	const XPm_ClockHandle *ClkHandle = Device->ClkHandles;
+	const XPm_ClockHandle *ClkHandle = EffectiveDevice->ClkHandles;
 	/* Enable all the clock gates, skip over others */
 	if (1U == Enable) {
 		Status = XPmClock_Request(ClkHandle);
@@ -176,9 +177,6 @@ static XStatus ActionShutdown(XPm_Device* const Device) {
 		Device->Node.Flags &= (u8)(~NODE_IDLE_DONE);
 		if (Device->WfPwrUseCnt == Device->Power->UseCount) {
 			// TODO: Needs to be implemented correctly
-			// 	Device->PendingReqm->Allocated = 0;
-			// 	Device->WfDealloc = 0;
-			// }
 		}
 	}
 

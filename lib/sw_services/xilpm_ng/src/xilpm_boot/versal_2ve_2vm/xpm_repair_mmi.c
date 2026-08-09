@@ -11,7 +11,8 @@
 XStatus XPmRepair_Mmi(u32 * EfuseTagAddr, u32 * TagDataAddr)
 {
     XStatus Status = XST_FAILURE;
-    u32 TagIdWd = *EfuseTagAddr++;
+    u32 *EfuseTagCursor = EfuseTagAddr;
+    u32 TagIdWd = *EfuseTagCursor++;
     u32 TagSize = (TagIdWd & PMC_EFUSE_BISR_SIZE_MASK)>>PMC_EFUSE_BISR_SIZE_SHIFT;
     u32 RegValue;
     u32 PassMask;
@@ -24,7 +25,7 @@ XStatus XPmRepair_Mmi(u32 * EfuseTagAddr, u32 * TagDataAddr)
     Xil_Out32(MMI_SLCR_WPROTP, 0U);
 
     /* Copy repair data */
-    *TagDataAddr = XPmBisr_CopyStandard(EfuseTagAddr, TagSize, BisrDataDestAddr);
+    *TagDataAddr = XPmBisr_CopyStandard(EfuseTagCursor, TagSize, BisrDataDestAddr);
 
     /* Pulse test clr */
     XPm_RMW32(MMI_SLCR_BISR_CACHE_CTRL, MMI_SLCR_BISR_CACHE_CTRL_CLR_MASK, MMI_SLCR_BISR_CACHE_CTRL_CLR_MASK);
@@ -79,7 +80,8 @@ done:
 XStatus XPmRepair_Mmi_Gtyp(u32 * EfuseTagAddr, u32 * TagDataAddr)
 {
     XStatus Status = XST_FAILURE;
-    u32 TagIdWd = *EfuseTagAddr++;
+    u32 *EfuseTagCursor = EfuseTagAddr;
+    u32 TagIdWd = *EfuseTagCursor++;
     u32 TagSize = (TagIdWd & PMC_EFUSE_BISR_SIZE_MASK)>>PMC_EFUSE_BISR_SIZE_SHIFT;
     u32 RegValue;
     u32 PassMask;
@@ -97,7 +99,7 @@ XStatus XPmRepair_Mmi_Gtyp(u32 * EfuseTagAddr, u32 * TagDataAddr)
     XPm_Out32(MMI_GTYP_CFG_REG_PCSR_CONTROL, 0U);
 
     /* Copy repair data */
-    *TagDataAddr = XPmBisr_CopyStandard(EfuseTagAddr, TagSize, BisrDataDestAddr);
+    *TagDataAddr = XPmBisr_CopyStandard(EfuseTagCursor, TagSize, BisrDataDestAddr);
 
     /* Trigger BISR */
     XPm_Out32(MMI_GTYP_CFG_REG_PCSR_MASK, MMI_GTYP_CFG_REG_PCSR_MASK_BISR_TRIGGER_MASK);

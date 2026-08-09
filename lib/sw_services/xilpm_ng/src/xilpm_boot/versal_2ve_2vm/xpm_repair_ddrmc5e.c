@@ -14,7 +14,8 @@
 XStatus XPmRepair_Ddrmc5_Main(u32 * EfuseTagAddr, u32 * TagDataAddr)
 {
     XStatus Status = XST_FAILURE;
-    u32 TagIdWd = *EfuseTagAddr++;
+    u32 *EfuseTagCursor = EfuseTagAddr;
+    u32 TagIdWd = *EfuseTagCursor++;
     u32 TagSize = (TagIdWd & PMC_EFUSE_BISR_SIZE_MASK) >> PMC_EFUSE_BISR_SIZE_SHIFT;
     u32 TagOptional = (TagIdWd & PMC_EFUSE_BISR_OPTIONAL_MASK) >> PMC_EFUSE_BISR_OPTIONAL_SHIFT;
 
@@ -28,7 +29,7 @@ XStatus XPmRepair_Ddrmc5_Main(u32 * EfuseTagAddr, u32 * TagDataAddr)
     XPm_UnlockPcsr(BaseAddr);
 
     /* Copy repair data */
-    *TagDataAddr = XPmBisr_CopyStandard(EfuseTagAddr, TagSize, BisrDataDestAddr);
+    *TagDataAddr = XPmBisr_CopyStandard(EfuseTagCursor, TagSize, BisrDataDestAddr);
 
     /* Enable BISR clock */
     XPm_RMW32((BaseAddr + (DDRMC5E_UB_0_CLK_GATE - DDRMC5E_UB_0_BASEADDR)),
@@ -66,7 +67,8 @@ done:
 XStatus XPmRepair_Ddrmc5_Crypto(u32 * EfuseTagAddr, u32 * TagDataAddr)
 {
     XStatus Status = XST_FAILURE;
-    u32 TagIdWd = *EfuseTagAddr++;
+    u32 *EfuseTagCursor = EfuseTagAddr;
+    u32 TagIdWd = *EfuseTagCursor++;
     u32 TagSize = (TagIdWd & PMC_EFUSE_BISR_SIZE_MASK) >> PMC_EFUSE_BISR_SIZE_SHIFT;
     u32 TagOptional = (TagIdWd & PMC_EFUSE_BISR_OPTIONAL_MASK) >> PMC_EFUSE_BISR_OPTIONAL_SHIFT;
 
@@ -79,7 +81,7 @@ XStatus XPmRepair_Ddrmc5_Crypto(u32 * EfuseTagAddr, u32 * TagDataAddr)
     }
     XPm_UnlockPcsr(BaseAddr);
     /* Copy repair data */
-    *TagDataAddr = XPmBisr_CopyStandard(EfuseTagAddr, TagSize, BisrDataDestAddr);
+    *TagDataAddr = XPmBisr_CopyStandard(EfuseTagCursor, TagSize, BisrDataDestAddr);
 
 
     /* Enable BISR clock */

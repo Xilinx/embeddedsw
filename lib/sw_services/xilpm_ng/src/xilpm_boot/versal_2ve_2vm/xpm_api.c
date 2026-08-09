@@ -2056,7 +2056,7 @@ static XStatus PwrDomainInitNode(u32 NodeId, u32 Function, const u32 *Args, u32 
 	if (((u32)XPM_NODEIDX_POWER_LPD == NODEINDEX(NodeId)) &&
 	    ((u32)FUNC_INIT_FINISH == Function)
 	    /* TODO: Comment out below condition once INIT_START call added for LPD */
-	    /* && (XST_SUCCESS == Status) */) {
+	    ) {
 		/*
 		 * Mark domain init status bit in DomainInitStatusReg
 		 */
@@ -2239,7 +2239,8 @@ static XStatus XPm_AddNodeIsolation(const u32 *Args, u32 NumArgs)
 	while(Index < NumArgs) {
 		/* Extract format and number of dependencies*/
 		Format = (XPm_IsoCdoArgsFormat)CDO_ISO_ARG_FORMAT(Args[Index]);
-		NumDependencies = CDO_ISO_DEP_COUNT(Args[Index++]);
+		NumDependencies = CDO_ISO_DEP_COUNT(Args[Index]);
+		Index++;
 
 		switch (Format){
 		case SINGLE_WORD_ACTIVE_LOW:
@@ -2248,36 +2249,43 @@ static XStatus XPm_AddNodeIsolation(const u32 *Args, u32 NumArgs)
 		case PSM_SINGLE_WORD_ACTIVE_HIGH:
 			IsoFormat = (u32)Format;
 			/* Extract BaseAddress and Mask*/
-			BaseAddr = Args[Index++];
-			Mask = Args[Index++];
+			BaseAddr = Args[Index];
+			Index++;
+			Mask = Args[Index];
+			Index++;
 			break;
 		case PM_ISO_FORMAT_AFI_FM:
 			IsoFormat = (u32)Format;
-			BaseAddr = Args[Index++];
+			BaseAddr = Args[Index];
+			Index++;
 			Mask = AFI_FM_PORT_EN_MASK;
 			break;
 		case PM_ISO_FORMAT_AFI_FS:
 			IsoFormat = (u32)Format;
 			/* Extract BaseAddress */
-			BaseAddr = Args[Index++];
+			BaseAddr = Args[Index];
+			Index++;
 			Mask = AFI_FS_PORT_EN_MASK;
 			break;
 		case PM_ISO_FORMAT_CHI_FPD:
 			IsoFormat = (u32)Format;
 			/* Extract BaseAddress */
-			BaseAddr = Args[Index++];
+			BaseAddr = Args[Index];
+			Index++;
 			Mask = CHI_FPD_PORT_EN_MASK;
 			break;
 		case PM_ISO_FORMAT_ACP_APU:
 			IsoFormat = (u32)Format;
 			/* Extract BaseAddress */
-			BaseAddr = Args[Index++];
+			BaseAddr = Args[Index];
+			Index++;
 			Mask = ACP_APU_GET_MASK(NodeId);
 			break;
 		case PM_ISO_FORMAT_PS_DTI:
 			IsoFormat = (u32)Format;
 			/* Extract BaseAddress */
-			BaseAddr = Args[Index++];
+			BaseAddr = Args[Index];
+			Index++;
 			Mask = PS_DTI_GET_MASK(NodeId);
 			break;
 		case POWER_DOMAIN_DEPENDENCY:
@@ -2288,7 +2296,8 @@ static XStatus XPm_AddNodeIsolation(const u32 *Args, u32 NumArgs)
 				goto done;
 			}else {
 				for (u32 i = 0U ; i < NumDependencies; i++){
-					Dependencies[i] = Args[Index++];
+					Dependencies[i] = Args[Index];
+					Index++;
 				}
 			}
 			break;

@@ -214,6 +214,7 @@ static void XPmClock_ReleaseInt(XPm_ClockNode *Clk)
 XStatus XPmClock_Release(const XPm_ClockHandle *ClkHandle)
 {
 	XStatus Status = XST_FAILURE;
+	const XPm_ClockHandle *CurClkHandle = ClkHandle;
 	XPm_ClockNode *Clk;
 	u32 ClkId;
 
@@ -222,8 +223,8 @@ XStatus XPmClock_Release(const XPm_ClockHandle *ClkHandle)
 		goto done;
 	}
 
-	while (NULL != ClkHandle) {
-		Clk = ClkHandle->Clock;
+	while (NULL != CurClkHandle) {
+		Clk = CurClkHandle->Clock;
 		ClkId = Clk->Node.Id;
 		if (ISOUTCLK(ClkId)) {
 			XPmClock_ReleaseInt(Clk);
@@ -235,7 +236,7 @@ XStatus XPmClock_Release(const XPm_ClockHandle *ClkHandle)
 		} else {
 			/* Required due to MISRA */
 		}
-		ClkHandle = ClkHandle->NextClock;
+		CurClkHandle = CurClkHandle->NextClock;
 	}
 
 	Status = XST_SUCCESS;
@@ -745,6 +746,7 @@ done:
 XStatus XPmClock_Request(const XPm_ClockHandle *ClkHandle)
 {
 	XStatus Status = XST_FAILURE;
+	const XPm_ClockHandle *CurClkHandle = ClkHandle;
 	XPm_ClockNode *Clk;
 	u32 ClkId;
 
@@ -753,8 +755,8 @@ XStatus XPmClock_Request(const XPm_ClockHandle *ClkHandle)
 		goto done;
 	}
 
-	while (NULL != ClkHandle) {
-		Clk = ClkHandle->Clock;
+	while (NULL != CurClkHandle) {
+		Clk = CurClkHandle->Clock;
 		ClkId = Clk->Node.Id;
 		if (ISOUTCLK(ClkId)) {
 			XPmClock_RequestInt(Clk);
@@ -767,7 +769,7 @@ XStatus XPmClock_Request(const XPm_ClockHandle *ClkHandle)
 			/* Required due to MISRA */
 			PmDbg("Invalid clock type of clock 0x%x\r\n", ClkId);
 		}
-		ClkHandle = ClkHandle->NextClock;
+		CurClkHandle = CurClkHandle->NextClock;
 	}
 
 	Status = XST_SUCCESS;
@@ -820,13 +822,13 @@ static u32 XPmClock_ComputeNodeRate(const XPm_ClockNode *ClkNode, u32 ParentRate
 		}
 
 		if (Div == 0U) {
-			if (DivNode->Typeflags & CLK_DIVIDER_ALLOW_ZERO) {
+			if (0U != (DivNode->Typeflags & CLK_DIVIDER_ALLOW_ZERO)) {
 				Rate = ParentRate;
 			}
 			goto done;
 		}
 
-		if (DivNode->Typeflags & CLK_DIVIDER_POWER_OF_TWO) {
+		if (0U != (DivNode->Typeflags & CLK_DIVIDER_POWER_OF_TWO)) {
 			Rate = ParentRate >> Div;
 		} else {
 			Rate = ParentRate / Div;
@@ -1156,12 +1158,12 @@ static XStatus XPmClockOut_SetRate(XPm_ClockNode *Clk, const u32 ClkRate, u32 Fl
 	Div = ParentRate / ClkRate;
 
 	/* Apply rounding based on divider type flags */
-	if (DivNode->Typeflags & CLK_DIVIDER_ROUND_CLOSEST) {
+	if (0U != (DivNode->Typeflags & CLK_DIVIDER_ROUND_CLOSEST)) {
 		u32 Remainder = ParentRate % ClkRate;
 		if ((Remainder << 1U) >= ClkRate) {
 			Div += 1U;
 		}
-	} else if (ParentRate % ClkRate != 0U) {
+	} else if ((ParentRate % ClkRate) != 0U) {
 		Div += 1U;
 	}
 

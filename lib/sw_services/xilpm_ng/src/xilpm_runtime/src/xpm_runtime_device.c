@@ -119,17 +119,18 @@ maybe_unused static XStatus CheckSecurityAccess(const XPm_Requirement *Reqm, u32
  * @note   This is a static inline function
  */
 static XStatus IsDevAllocatedToSubsys(const XPm_Subsystem *Subsystem, const XPm_Device *Device, const XPm_Requirement *Reqm) {
+	const XPm_Requirement *ReqmPtr = Reqm;
 
 	volatile XStatus Status = XPM_FAILURE;
 	volatile const XPm_Subsystem *SubsysCheck = Subsystem;
 	volatile const XPm_Subsystem *SubsysCheckTmp = Subsystem;
 	if ((NULL != SubsysCheck) && (NULL != SubsysCheckTmp)) {
-		Reqm = FindReqm(Device, Subsystem);
-		volatile const XPm_Requirement *ReqmCheck = Reqm;
-		volatile const XPm_Requirement *ReqmCheckTmp = Reqm;
+		ReqmPtr = FindReqm(Device, Subsystem);
+		volatile const XPm_Requirement *ReqmCheck = ReqmPtr;
+		volatile const XPm_Requirement *ReqmCheckTmp = ReqmPtr;
 		if ((NULL != ReqmCheck) && (NULL != ReqmCheckTmp)) {
-			volatile u8 AllocCheck = Reqm->Allocated;
-			volatile u8 AllocCheckTmp = Reqm->Allocated;
+			volatile u8 AllocCheck = ReqmPtr->Allocated;
+			volatile u8 AllocCheckTmp = ReqmPtr->Allocated;
 			if ((1U == AllocCheck) && (1U == AllocCheckTmp)) {
 				Status = XPM_SUCCESS;
 			}
@@ -187,7 +188,7 @@ u8 XPmDevice_IsRequestable(u32 NodeId)
 {
 	u8 Requestable = 0U;
 
-	if (XPmDevice_IsExcluded(NodeId)) {
+	if (0U != XPmDevice_IsExcluded(NodeId)) {
 		/* Excluded device is not requestable */
 		return Requestable;
 	}
@@ -815,9 +816,6 @@ static XStatus DevRequest(XPm_Device *Device, XPm_Subsystem *Subsystem,
 	}
 
 	/* TODO:: Enable this handling separately for eemi and subsys */
-	// if (XST_SUCCESS != Status) {
-	// 	goto done;
-	// }
 
 	if (1U == Reqm->Allocated) {
 		Status = XST_SUCCESS;
@@ -851,9 +849,6 @@ static XStatus DevRequest(XPm_Device *Device, XPm_Subsystem *Subsystem,
 	}
 
 	/* TODO:: Enable this handling separately for eemi and subsys */
-	// if (XST_SUCCESS != Status) {
-	// 	goto done;
-	// }
 
 done:
 	if (XST_SUCCESS != Status) {
@@ -891,9 +886,6 @@ static XStatus DevRelease(XPm_Device *Device,  const XPm_Subsystem *Subsystem, u
 	PmInfo("Device State: 0x%x, Reqm->Allocated: 0x%x\r\n", Device->Node.State, Reqm->Allocated);
 
 	/* TODO:: Enable this handling separately for eemi and subsys */
-	// if (XST_SUCCESS != Status) {
-	// 	goto done;
-	// }
 
 	if (0U == Reqm->Allocated) {
 		Status = XST_SUCCESS;
@@ -907,9 +899,6 @@ static XStatus DevRelease(XPm_Device *Device,  const XPm_Subsystem *Subsystem, u
 	XPmRequirement_Clear(Reqm);
 
 	/* TODO:: Enable this handling separately for eemi and subsys */
-	// if (XST_SUCCESS != Status) {
-	// 	goto done;
-	// }
 
 done:
 	if (XST_SUCCESS != Status) {
@@ -1257,7 +1246,7 @@ static XStatus HandleDeviceEvent(XPm_Device* Device, const u32 Event)
 
 	// Find the transition for the current state and event
 	for (u8 i = 0; i < TransCnt; i++) {
-		if (EventTransitions[i].Event == Event && EventTransitions[i].FromState == Device->Node.State) {
+		if ((EventTransitions[i].Event == Event) && (EventTransitions[i].FromState == Device->Node.State)) {
 			u8 NextState = EventTransitions[i].ToState;
 			// Perform the necessary actions to transition to the next state
 			if (EventTransitions[i].Action == NULL) {
@@ -1458,7 +1447,7 @@ XStatus XPmDevice_CheckPermissions(const XPm_Subsystem *Subsystem, u32 DeviceId)
 	/* Redundant call on simple inline check to detect glitches */
 	XSECURE_REDUNDANT_CALL(Status, StatusTmp, XPmRequirement_IsAllocated, Reqm);
 
-	if (XST_SUCCESS != Status || XST_SUCCESS != StatusTmp) {
+	if ((XST_SUCCESS != Status) || (XST_SUCCESS != StatusTmp)) {
 		Status = XPM_PM_NO_ACCESS;
 		goto done;
 	}

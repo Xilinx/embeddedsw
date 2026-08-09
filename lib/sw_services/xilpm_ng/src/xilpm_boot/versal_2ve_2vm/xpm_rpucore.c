@@ -211,19 +211,19 @@ static u32 XPm_PlatRpuGetOperMode(const struct XPm_RpuCore *RpuCore)
 
 maybe_unused static void XPm_GetCoreId(u32 *Rpu0, u32 *Rpu1, const u32 DeviceId)
 {
-	if (PM_DEV_RPU_A_0 == DeviceId || PM_DEV_RPU_A_1 == DeviceId) {
+	if ((PM_DEV_RPU_A_0 == DeviceId) || (PM_DEV_RPU_A_1 == DeviceId)) {
 		*Rpu0 = PM_DEV_RPU_A_0;
 		*Rpu1 = PM_DEV_RPU_A_1;
-	} else if (PM_DEV_RPU_B_0 == DeviceId || PM_DEV_RPU_B_1 == DeviceId) {
+	} else if ((PM_DEV_RPU_B_0 == DeviceId) || (PM_DEV_RPU_B_1 == DeviceId)) {
 		*Rpu0 = PM_DEV_RPU_B_0;
 		*Rpu1 = PM_DEV_RPU_B_1;
-	} else if (PM_DEV_RPU_C_0 == DeviceId || PM_DEV_RPU_C_1 == DeviceId) {
+	} else if ((PM_DEV_RPU_C_0 == DeviceId) || (PM_DEV_RPU_C_1 == DeviceId)) {
 		*Rpu0 = PM_DEV_RPU_C_0;
 		*Rpu1 = PM_DEV_RPU_C_1;
-	} else if (PM_DEV_RPU_D_0 == DeviceId || PM_DEV_RPU_D_1 == DeviceId) {
+	} else if ((PM_DEV_RPU_D_0 == DeviceId) || (PM_DEV_RPU_D_1 == DeviceId)) {
 		*Rpu0 = PM_DEV_RPU_D_0;
 		*Rpu1 = PM_DEV_RPU_D_1;
-	} else if (PM_DEV_RPU_E_0 == DeviceId || PM_DEV_RPU_E_1 == DeviceId) {
+	} else if ((PM_DEV_RPU_E_0 == DeviceId) || (PM_DEV_RPU_E_1 == DeviceId)) {
 		*Rpu0 = PM_DEV_RPU_E_0;
 		*Rpu1 = PM_DEV_RPU_E_1;
 	}

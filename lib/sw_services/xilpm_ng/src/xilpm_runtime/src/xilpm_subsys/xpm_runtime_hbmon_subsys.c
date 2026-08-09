@@ -129,7 +129,7 @@ static int HbMon_Scheduler(void *data)
 		if (HbMon_TimeoutList[Idx] <= HbMon_SchedFreq) {
 			Device = XPmDevice_GetHbMonDeviceByIndex(Idx);
 			DevOps = XPm_GetDevOps_ById(Device->Node.Id);
-			if (NULL == DevOps || NULL == DevOps->PendingReqm) {
+			if ((NULL == DevOps) || (NULL == DevOps->PendingReqm)) {
 				PmErr("DeviceOps/PendingReqm is NULL - active HB Mon %d\r\n", Idx);
 				Status = XST_FAILURE;
 				goto done;

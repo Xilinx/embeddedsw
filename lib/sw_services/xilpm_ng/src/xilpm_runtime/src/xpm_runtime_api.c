@@ -3514,7 +3514,6 @@ static XStatus XPm_DoQueryData(XPlmi_Cmd *Cmd)
  ****************************************************************************/
 static XStatus XPm_SetClockState(const u32 SubsystemId, const u32 ClockId, const u32 Enable)
 {
-	//XPM_EXPORT_CMD(PM_CLOCK_DISABLE, XPLMI_CMD_ARG_CNT_ONE, XPLMI_CMD_ARG_CNT_ONE);
 	XStatus Status = XST_FAILURE;
 	XPm_ClockNode *Clk = XPmClock_GetById(ClockId);
 	u32 CurrState = 0U;

@@ -12,7 +12,8 @@
 XStatus XPmRepair_ISP2(u32 * EfuseTagAddr, u32 * TagDataAddr)
 {
     XStatus Status = XST_FAILURE;
-    u32 TagIdWd = *EfuseTagAddr++;
+	u32 *EfuseTagCursor = EfuseTagAddr;
+    u32 TagIdWd = *EfuseTagCursor++;
     u32 TagSize = (TagIdWd & PMC_EFUSE_BISR_SIZE_MASK)>>PMC_EFUSE_BISR_SIZE_SHIFT;
     u32 TagOptional = (TagIdWd & PMC_EFUSE_BISR_OPTIONAL_MASK)>>PMC_EFUSE_BISR_OPTIONAL_SHIFT;
 
@@ -27,7 +28,7 @@ XStatus XPmRepair_ISP2(u32 * EfuseTagAddr, u32 * TagDataAddr)
     XPm_UnlockPcsr(BaseAddr);
 
     /* Copy repair data */
-    *TagDataAddr = XPmBisr_CopyStandard(EfuseTagAddr, TagSize, BisrDataDestAddr);
+    *TagDataAddr = XPmBisr_CopyStandard(EfuseTagCursor, TagSize, BisrDataDestAddr);
 
     /* Trigger BISR */
     XPm_Out32(BaseAddr + NPI_PCSR_MASK_OFFSET,

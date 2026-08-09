@@ -13,7 +13,8 @@
 XStatus XPmRepair_Aie2p_s(u32 * EfuseTagAddr, u32 * TagDataAddr)
 {
 	XStatus Status = XST_FAILURE;
-	u32 TagIdWd = *EfuseTagAddr++;
+	u32 *EfuseTagCursor = EfuseTagAddr;
+	u32 TagIdWd = *EfuseTagCursor++;
 	u32 TagSize = (TagIdWd & PMC_EFUSE_BISR_SIZE_MASK) >> PMC_EFUSE_BISR_SIZE_SHIFT;
 	u32 TagOptional = (TagIdWd & PMC_EFUSE_BISR_OPTIONAL_MASK) >> PMC_EFUSE_BISR_OPTIONAL_SHIFT;
 
@@ -24,7 +25,7 @@ XStatus XPmRepair_Aie2p_s(u32 * EfuseTagAddr, u32 * TagDataAddr)
 		goto done;
 	}
 	/* Copy repair data */
-	*TagDataAddr = XPmBisr_CopyStandard(EfuseTagAddr, TagSize, BisrDataDestAddr);
+	*TagDataAddr = XPmBisr_CopyStandard(EfuseTagCursor, TagSize, BisrDataDestAddr);
 
 	/* Trigger Bisr Repair */
 	swea((BaseAddr +(u64)(AIE2PS_PL_MODULE_0_0_BISR_CACHE_CTRL - AIE2PS_PL_MODULE_0_0_BASEADDR)), AIE2PS_PL_MODULE_0_0_BISR_CACHE_CTRL_TRIGGER_MASK);

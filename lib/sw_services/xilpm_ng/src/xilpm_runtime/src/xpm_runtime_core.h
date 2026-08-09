@@ -20,7 +20,6 @@ struct XPmRuntime_Core {
 	u8 IsCoreIdleSupported; /**< Flag for core idle is supported */
 	struct XPm_FrcPwrDwnReq FrcPwrDwnReq;
 	/** TODO: enable these  members when they're actually usedd */
-	// u8 Ipi; /**< IPI channel */
 	// u16 PwrUpLatency;
 	// u16 PwrDwnLatency;
 	// u8 DebugMode; /**< DebugMode: Debugger is connected */

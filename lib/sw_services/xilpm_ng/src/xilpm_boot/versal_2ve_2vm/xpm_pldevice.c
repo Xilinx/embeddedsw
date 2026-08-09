@@ -564,25 +564,9 @@ XStatus XPmPlDevice_MemCtrlrMap(XPm_PlDevice *PlDevice, const u32 *Args, u32 Num
 	 * This is because DDR modeling information for a given PLD can be present in
 	 * its own RM (partial) or a default RM present in one its parent RM or static image.
 	 */
-	// 	XPm_PlDevice *Parent = PlDevice->Parent;
-	// 	while (NULL != Parent) {
-	// 		if ((u8)XPM_DEVSTATE_INITIALIZING == Parent->Device.Node.State) {
-	// 			Status = XST_SUCCESS;
-	// 			break;
-	// 		}
-	// 		Parent = Parent->Parent;
-	// 	}
 	// 	/*
 	// 	 * We can end up here in either of the two failure cases:
 	// 	 *  1. No parent in the hierarchy is initializing
-	// 	 *  2. PLD0 which is the root node is not initializing
-	// 	 */
-	// 	if (NULL == Parent) {
-	// 		Status = XPM_ERR_DEVICE_STATUS;
-	// 		DbgErr = XPM_INT_ERR_INVALID_STATE;
-	// 		goto done;
-	// 	}
-	// }
 
 	/* Lookup DDRMC device based on provided address in args */
 	for (u32 i = (u32)XPM_NODEIDX_DEV_DDRMC_MIN; i <= (u32)XPM_NODEIDX_DEV_DDRMC_MAX; i++) {

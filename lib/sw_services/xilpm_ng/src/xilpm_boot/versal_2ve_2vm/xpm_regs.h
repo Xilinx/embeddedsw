@@ -1419,17 +1419,11 @@ extern "C" {
 /*
  *R52 PCIL offsets
  */
-//#define LPX_SLCR_RPU_PCIL_A1_ISR_OFFSET	(0x10100U)
-//#define LPX_SLCR_RPU_PCIL_B0_ISR_OFFSET	(0x11000U)
-//#define LPX_SLCR_RPU_PCIL_B1_ISR_OFFSET	(0x11100U)
 
 /*Note: offset is from PCIL_ISR*/
-//#define LPX_SLCR_RPU_PCIL_X_IEN_OFFSET	(0x8U)
 #define LPX_SLCR_RPU_PCIL_X_IDS_OFFSET				(0xCU)
 /*PR=PREQ of PChannel*/
 /*PS=PSTATE of PChannel*/
-//#define LPX_SLCR_RPU_PCIL_X_PS_OFFSET	(0x84U)
-//#define LPX_SLCR_RPU_PCIL_X_PWRDWN_OFFSET	(0xC0U)
 
 /*
  * PPU RAM Memory

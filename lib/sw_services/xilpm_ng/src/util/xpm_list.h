@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2024 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -53,7 +53,7 @@ do { \
 		for (typeof((List)->Root) var = (List)->Root; var != NULL; var = var->Next)
 
 #define LIST_FIRST_DATA(List) \
-	((List)->Root != NULL ? (List)->Root->Data : NULL)
+	(((List)->Root != NULL) ? (List)->Root->Data : NULL)
 
 #define LIST_LAST_DATA(List) \
 ({ \

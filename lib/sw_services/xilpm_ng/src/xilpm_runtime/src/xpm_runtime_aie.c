@@ -557,10 +557,10 @@ static XStatus Aie2ps_EnbAxiMmIsolation(u32 StartCol, u32 EndCol, const void *Bu
 	}
 
 	/* Set EAST/WEST isolation depending on value passed from driver */
-	if (TILE_CTRL_AXI_MM_ISOLATE_FROM_EAST_MASK & Value) {
+	if (0U != (TILE_CTRL_AXI_MM_ISOLATE_FROM_EAST_MASK & Value)) {
 		Mask |= TILE_CTRL_AXI_MM_ISOLATE_FROM_EAST_MASK;
 	}
-	if (TILE_CTRL_AXI_MM_ISOLATE_FROM_WEST_MASK & Value) {
+	if (0U != (TILE_CTRL_AXI_MM_ISOLATE_FROM_WEST_MASK & Value)) {
 		Mask |= TILE_CTRL_AXI_MM_ISOLATE_FROM_WEST_MASK;
 	}
 
@@ -972,7 +972,7 @@ static XStatus Aie2ps_HandShake(u32 SubsystemId, u32 StartCol, u32 EndCol, const
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 
 
-	DdrAddr = LowAddr | (u64)HighAddr << 32U;
+	DdrAddr = LowAddr | ((u64)HighAddr << 32U);
 	Len = (Len - sizeof(struct XPm_AieOpHandShake));
 
 	/* Len + Offset should not exceed 16KB */
@@ -1082,7 +1082,7 @@ static XStatus Aie2ps_CtrlPktTlastErr(u32 StartCol, u32 EndCol, const void *Buff
 static XStatus Aie2ps_Operation(u32 SubsystemId, u32 Size, u32 HighAddr, u32 LowAddr)
 {
 	XStatus Status = XST_FAILURE;
-	u64 DdrAddr =  LowAddr | (u64)HighAddr << 32U;
+	u64 DdrAddr =  LowAddr | ((u64)HighAddr << 32U);
 	u8 Buffer[AIE_OPS_MAX_BUF_SIZE];
 	u32 DestAddr = (u32)&Buffer;
 	u32 Index = 0U;
@@ -1153,7 +1153,7 @@ static XStatus Aie2ps_Operation(u32 SubsystemId, u32 Size, u32 HighAddr, u32 Low
 			 * so only consider structure length for traversing buffer */
 			Buf += sizeof(struct XPm_AieOpHandShake);
 		} else {
-			for (Index = 0U; Index < sizeof(AieOpsHandlers)/sizeof(struct XPmAieOpsHandlers); Index++) {
+			for (Index = 0U; Index < (sizeof(AieOpsHandlers) / sizeof(struct XPmAieOpsHandlers)); Index++) {
 				if (AieOpsHandlers[Index].Ops == OpTypeLen->Type) {
 					if (NULL != AieOpsHandlers[Index].Handler) {
 						/* Perform AIE operation */

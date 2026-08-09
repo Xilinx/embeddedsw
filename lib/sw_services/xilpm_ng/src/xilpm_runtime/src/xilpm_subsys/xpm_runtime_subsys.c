@@ -554,7 +554,7 @@ XStatus XPm_IsWakeAllowed(u32 SubsystemId, u32 NodeId, u32 CmdType)
 		goto done;
 	}
 
-	if (SubsystemId == PM_SUBSYS_PMC || SubsystemId == PM_SUBSYS_DEFAULT) {
+	if ((SubsystemId == PM_SUBSYS_PMC) || (SubsystemId == PM_SUBSYS_DEFAULT)) {
 		/* PMC can wake up any Node */
 		Status = XST_SUCCESS;
 		goto done;

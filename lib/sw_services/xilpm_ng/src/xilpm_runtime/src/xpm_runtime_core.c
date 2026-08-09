@@ -60,7 +60,7 @@ XStatus XPmCore_GetCoreIdleSupport(const XPm_Core* Core, u8 *IsCoreIdleSupported
 	XStatus Status = XST_SUCCESS;
 	const XPmRuntime_Core *RuntimeCore = NULL;
 
-	if (NULL == Core || NULL == IsCoreIdleSupported) {
+	if ((NULL == Core) || (NULL == IsCoreIdleSupported)) {
 		Status = XST_INVALID_PARAM;
 		goto done;
 	}
@@ -91,7 +91,7 @@ maybe_unused static XStatus XPmCore_GetFrcPwrDwnReq(const XPm_Core* Core, struct
 	XStatus Status = XST_SUCCESS;
 	const XPmRuntime_Core *RuntimeCore = NULL;
 
-	if (NULL == Core || NULL == Req) {
+	if ((NULL == Core) || (NULL == Req)) {
 		Status = XST_INVALID_PARAM;
 		goto done;
 	}
@@ -169,10 +169,6 @@ XStatus XPmCore_GetWakeupLatency(const u32 DeviceId, u32 *Latency)
 	/** TODO: Add core power UP lattency  */
 
 	/** TODO: Add core powerdown latency here  */
-	// if ((u32)XPM_DEVSTATE_SUSPENDING == Core->Device.Node.State) {
-	// 	*Latency += Core->PwrDwnLatency;
-	// 	goto done;
-	// }
 
 	Power = Core->Device.Power;
 	if (NULL != Power) {
@@ -368,7 +364,7 @@ XStatus XPmCore_SetClock(u32 CoreId, u32 Enable) {
 		PmErr("CoreId 0x%x not found\n", CoreId);
 		goto done;
 	}
-	if (Enable) {
+	if (0U != Enable) {
 		Status = XPmClock_Request(DevCore->ClkHandles);
 	} else {
 		Status = XPmClock_Release(DevCore->ClkHandles);

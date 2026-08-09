@@ -272,7 +272,7 @@ done:
 
 XPm_Requirement* FindReqm(const XPm_Device *Device,const XPm_Subsystem *Subsystem)
 {
-	if (Device == NULL || Subsystem == NULL) {
+	if ((Device == NULL) || (Subsystem == NULL)) {
 		return NULL;
 	}
 	XPmRuntime_DeviceOps* DevOps = XPm_GetDevOps_ById(Device->Node.Id);

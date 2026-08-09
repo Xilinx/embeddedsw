@@ -366,7 +366,7 @@ done:
 XStatus XPmSubsystem_GetStatus(XPm_Subsystem *Subsystem, XPm_DeviceStatus *const DeviceStatus)
 {
 	XStatus Status = XST_FAILURE;
-	if (NULL == Subsystem || NULL == DeviceStatus) {
+	if ((NULL == Subsystem) || (NULL == DeviceStatus)) {
 		Status = XPM_INVALID_SUBSYSID;
 		goto done;
 	}
@@ -395,7 +395,7 @@ done:
 XStatus XPmSubsystem_AddRequirement(XPm_Subsystem *Subsystem, u32 *Payload, u32 PayloadLen)
 {
 	XStatus Status = XST_FAILURE;
-	if (NULL == Subsystem || NULL == Payload || 0U == PayloadLen) {
+	if ((NULL == Subsystem) || (NULL == Payload) || (0U == PayloadLen)) {
 		Status = XPM_INVALID_SUBSYSID;
 		goto done;
 	}

@@ -11,7 +11,8 @@
 XStatus XPmRepair_Eio(u32 * EfuseTagAddr, u32 * TagDataAddr)
 {
     XStatus Status = XST_FAILURE;
-    u32 TagIdWd = *EfuseTagAddr++;
+	u32 *EfuseTagCursor = EfuseTagAddr;
+    u32 TagIdWd = *EfuseTagCursor++;
     u32 TagSize = (TagIdWd & PMC_EFUSE_BISR_SIZE_MASK)>>PMC_EFUSE_BISR_SIZE_SHIFT;
     u32 RegValue;
     u32 PassMask;
@@ -25,7 +26,7 @@ XStatus XPmRepair_Eio(u32 * EfuseTagAddr, u32 * TagDataAddr)
     Xil_Out32(EIO_SLCR_WPROT0, 0U);
 
     /* Copy repair data */
-    *TagDataAddr = XPmBisr_CopyStandard(EfuseTagAddr, TagSize, BisrDataDestAddr);
+    *TagDataAddr = XPmBisr_CopyStandard(EfuseTagCursor, TagSize, BisrDataDestAddr);
 
     /* Pulse test clr */
     XPm_RMW32(EIO_SLCR_BISR_CACHE_CTRL, EIO_SLCR_BISR_CACHE_CTRL_CLR_MASK, EIO_SLCR_BISR_CACHE_CTRL_CLR_MASK);

@@ -150,7 +150,7 @@ XStatus XPmSubsystemOp_Activate(XPm_Subsystem *Subsystem)
 	}
 	PmDbg("Configuring Subsystem: 0x%x, reqlist\r\n", Subsystem->Id, Subsystem->Requirements);
 	LIST_FOREACH(Subsystem->Requirements, ReqmNode) {
-		if (NULL == ReqmNode || NULL == ReqmNode->Data) {
+		if ((NULL == ReqmNode) || (NULL == ReqmNode->Data)) {
 			PmErr("ReqmNode is NULL\r\n");
 			Status = XST_FAILURE;
 			goto done;

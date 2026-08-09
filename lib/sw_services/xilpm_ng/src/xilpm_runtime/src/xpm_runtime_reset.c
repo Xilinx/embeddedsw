@@ -422,9 +422,6 @@ XStatus XPmReset_SystemReset(void)
 
 	/* TODO: Confirm if idling is required here or not */
 
-	// if (XST_SUCCESS != Status) {
-	// 	PmWarn("Error %d in XPmReset_PlatSystemReset()\r\n", Status);
-	// }
 
 	Status = XPmReset_AssertbyId(PM_RST_PMC, (u32)PM_RESET_ACTION_ASSERT);
 
@@ -478,7 +475,7 @@ static XStatus XPmReset_GetAllowedSubsystems(const XPm_ResetNode *Reset, u32 *Al
 {
 	XStatus Status = XST_FAILURE;
 	const XPmRuntime_Reset *RuntimeReset = NULL;
-	if (NULL == Reset || NULL == AllowSubsystems) {
+	if ((NULL == Reset) || (NULL == AllowSubsystems)) {
 		Status = XST_INVALID_PARAM;
 		goto done;
 	}

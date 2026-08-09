@@ -34,7 +34,7 @@
 			(Status) = XST_GLITCH_ERROR;			\
 			goto done;					\
 		}							\
-	} while (0)
+	} while (0U != 0U)
 
 static XPm_GicProxy_t XPm_GicProxy;
 

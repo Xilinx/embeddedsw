@@ -9,7 +9,7 @@ static XPmRuntime_PeriphList *PeriphList XPM_INIT_DATA(PeriphList) = NULL;
 maybe_unused static XStatus XPmRuntime_Periph_GetWakeProcId(const XPm_Periph * Device, u32 *WakeProcId)
 {
 	XStatus Status = XST_FAILURE;
-	if (NULL == Device || NULL == WakeProcId) {
+	if ((NULL == Device) || (NULL == WakeProcId)) {
 		Status =  XST_INVALID_PARAM;
 		goto done;
 	}

@@ -23,19 +23,22 @@
  */
 u32 XPmBisr_CopyStandard(u32 * BisrDataAddr, u32 TagSize, u64 BisrDataDestAddr)
 {
+	u32 *BisrDataCursor = BisrDataAddr;
+	u64 BisrDestCursor = BisrDataDestAddr;
 	u32 TagData;
 
 	/* Collect Repair data from EFUSE and write to endpoint base + word offset */
 	for (u32 TagRow = 0U; TagRow<TagSize; TagRow++)
 	{
-		if (((u32)BisrDataAddr == EFUSE_CACHE_TBITS1_BISR_RSVD) || ((u32)BisrDataAddr == EFUSE_CACHE_TBITS2_BISR_RSVD)) {
-			BisrDataAddr++;
+		if (((u32)BisrDataCursor == EFUSE_CACHE_TBITS1_BISR_RSVD) || ((u32)BisrDataCursor == EFUSE_CACHE_TBITS2_BISR_RSVD)) {
+			BisrDataCursor++;
 		}
-		TagData = *BisrDataAddr++;
-		swea(BisrDataDestAddr, TagData);
-		BisrDataDestAddr += 4U;
+		TagData = *BisrDataCursor;
+		BisrDataCursor++;
+		swea(BisrDestCursor, TagData);
+		BisrDestCursor += 4U;
 	}
-	return (u32)BisrDataAddr;
+	return (u32)BisrDataCursor;
 }
 
 XStatus XPmcFw_UtilPollForMask(u32 RegAddr, u32 Mask, u32 TimeOutCount)
