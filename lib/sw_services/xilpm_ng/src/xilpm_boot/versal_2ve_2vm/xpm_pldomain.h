@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2024 - 2025 Advanced Micro Devices, Inc. All rights reserved.
+* Copyright (c) 2024 - 2026 Advanced Micro Devices, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -16,11 +16,10 @@
 extern "C" {
 #endif
 
-extern u32 HcleanDone;
 /**
  * The PL power domain node class.
  */
-typedef struct XPm_PlDomain {
+typedef struct {
 	XPm_PowerDomain Domain; /**< Power domain node base class */
 	u32 CfuApbBaseAddr; /**< CFU APB base address */
 	u32 Cframe0RegBaseAddr; /**< CFRAME0 Register base address */

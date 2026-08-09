@@ -210,10 +210,10 @@ done:
  * @note	None
  *
  ****************************************************************************/
-XStatus XPmDomainIso_ProcessPending()
+XStatus XPmDomainIso_ProcessPending(void)
 {
 	XStatus Status = XST_FAILURE;
-	XPm_Iso* IsoNode;
+	const XPm_Iso* IsoNode;
 	u32 i;
 
 	for(i = 0; i < ARRAY_SIZE(XPmDomainIso_List); i++) {
@@ -252,7 +252,7 @@ maybe_unused static XStatus XPmDomainIso_GetState(u32 IsoIdx, XPm_IsoStates *Sta
 {
 	XStatus Status = XST_FAILURE;
 	u32 Mask, BaseAddress, Polarity, RegVal;
-	XPm_Iso* IsoNode;
+	const XPm_Iso* IsoNode;
 
 	if ((IsoIdx >= (u32)XPM_NODEIDX_ISO_MAX) || (NULL == State)) {
 		Status = XST_INVALID_PARAM;

@@ -109,7 +109,7 @@ done:
 static XPm_MemRegnDevice *XPm_FindMemRegnByAddress(u64 Address)
 {
 	XPm_MemRegnDevice *MemRegnDevice;
-	const XPm_Device *Device;
+	XPm_Device *Device;
 	XPm_MemRegnDevice *Result = NULL;
 
 	/*

@@ -9,17 +9,16 @@
 #include "xpm_regs.h"
 #include "xpm_alloc.h"
 
-static const struct XPm_PllTopology PllTopologies[] =
-{
-	{ TOPOLOGY_GENERIC_PLL, PLLPARAMS, RESET_SHIFT, BYPASS_SHIFT,
-	  GEN_LOCK_SHIFT, GEN_STABLE_SHIFT, GEN_REG3_OFFSET },
-	{ TOPOLOGY_NOC_PLL, PLLPARAMS, RESET_SHIFT, BYPASS_SHIFT,
-	  NPLL_LOCK_SHIFT, NPLL_STABLE_SHIFT, NPLL_REG3_OFFSET },
-};
-
 XStatus XPmClockPll_AddNode(u32 Id, u32 ControlReg, u8 TopologyType,
 			    const u16 *Offsets, u32 PowerDomainId, u8 ClkFlags)
 {
+	static const struct XPm_PllTopology PllTopologies[] =
+	{
+		{ TOPOLOGY_GENERIC_PLL, PLLPARAMS, RESET_SHIFT, BYPASS_SHIFT,
+		  GEN_LOCK_SHIFT, GEN_STABLE_SHIFT, GEN_REG3_OFFSET },
+		{ TOPOLOGY_NOC_PLL, PLLPARAMS, RESET_SHIFT, BYPASS_SHIFT,
+		  NPLL_LOCK_SHIFT, NPLL_STABLE_SHIFT, NPLL_REG3_OFFSET },
+	};
 	XStatus Status = XST_FAILURE;
 	XPm_PllClockNode *PllClkPtr;
 

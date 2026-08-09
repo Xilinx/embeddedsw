@@ -60,7 +60,7 @@ XStatus XPm_RpuBootAddrConfig(const u32 DeviceId, const u32 BootAddr)
 	}
 	XSECURE_REDUNDANT_CALL(Status, StatusTmp, SetBootAddr, RpuCore, BootAddr);
 	if ((XST_SUCCESS != Status) || (XST_SUCCESS != StatusTmp)) {
-		Status |= StatusTmp;
+		Status = (XStatus)((u32)Status | (u32)StatusTmp);
 		PmErr("Error while setting boot address\n");
 	}
 done:

@@ -44,32 +44,32 @@
 
 /* Helper macro to format clock rate response */
 #define CLK_DESCRIBE_RATE_FORMAT(num_rates, format_type) \
-	((num_rates) | ((format_type) << CLK_RATE_FORMAT_SHIFT))
+	((num_rates) | ((u32)(format_type) << CLK_RATE_FORMAT_SHIFT))
 
 /* Rate change allowed for only few clocks (for now) */
 #define IS_RATE_CHANGE_ALLOWED(ClkId) \
-	((ClkId == PM_CLK_GEM0_TX) || (ClkId == PM_CLK_GEM1_TX) || \
-	(ClkId == PM_CLK_MMIPLL) || (ClkId == PM_CLK_DC_REF) || \
-	(ClkId == PM_CLK_DC_PIXEL) || (ClkId == PM_CLK_MMI_AUX1_REF))
+	(((ClkId) == PM_CLK_GEM0_TX) || ((ClkId) == PM_CLK_GEM1_TX) || \
+	((ClkId) == PM_CLK_MMIPLL) || ((ClkId) == PM_CLK_DC_REF) || \
+	((ClkId) == PM_CLK_DC_PIXEL) || ((ClkId) == PM_CLK_MMI_AUX1_REF))
 #endif /* XILPM_NG_ENABLE_CLK_SCMI */
 
 /* Clock UseCount overflow protection macro (use info print to avoid flooding logs) */
 #define PmIncrementClk(NodeId, Name, UseCount) \
 	do { \
-		if (UseCount < 255) { \
-			UseCount++; \
+		if ((UseCount) < 255U) { \
+			(UseCount)++; \
 		} else { \
-			PmInfo("Usecount is already 255, Clk: 0x%x (%s)\r\n", NodeId, Name); \
+			PmInfo("Usecount is already 255, Clk: 0x%x (%s)\r\n", (NodeId), (Name)); \
 		} \
 	} while (0)
 
 /* Clock UseCount underflow protection macro (use warning to keep current behavior) */
 #define PmDecrementClk(NodeId, Name, UseCount) \
 	do { \
-		if (UseCount > 0) { \
-			UseCount--; \
+		if ((UseCount) > 0) { \
+			(UseCount)--; \
 		} else { \
-			PmWarn("Usecount is already 0, Clk: 0x%x (%s)\r\n", NodeId, Name); \
+			PmWarn("Usecount is already 0, Clk: 0x%x (%s)\r\n", (NodeId), (Name)); \
 		} \
 	} while (0)
 
@@ -164,7 +164,7 @@ XStatus XPmClock_SetGate(XPm_OutClockNode *Clk, u32 Enable)
 		goto done;
 	}
 
-	Val = (CLK_GATE_ACTIVE_LOW & Ptr->Typeflags) ? !Enable : Enable;
+	Val = ((CLK_GATE_ACTIVE_LOW & Ptr->Typeflags) != 0U) ? (Enable ^ 1U) : Enable;
 	XPm_RMW32(Ptr->Reg, BITNMASK(Ptr->Param1.Shift,Ptr->Param2.Width), Val << Ptr->Param1.Shift);
 
 	if (1U == Enable) {
@@ -489,7 +489,7 @@ XStatus XPmClock_QueryAttributes(u32 ClockIndex, u32 *Resp)
 	u32 ClockId = 0;
 	const XPm_ClockNode *Clk;
 
-	XPm_ClockNode** ClkNodeList = XPmClock_GetClkList();
+	XPm_ClockNode* const * ClkNodeList = XPmClock_GetClkList();
 	if (NULL == ClkNodeList) {
 		Status = XST_DEVICE_NOT_FOUND;
 		goto done;
@@ -617,7 +617,7 @@ XStatus XPmClock_SetDivider(const XPm_OutClockNode *Clk, u32 Divider)
 	Width = Ptr->Param2.Width;
 	Shift = Ptr->Param1.Shift;
 
-	if ((Divider == 0U) && !(Ptr->Typeflags & CLK_DIVIDER_ALLOW_ZERO)) {
+	if ((Divider == 0U) && ((Ptr->Typeflags & CLK_DIVIDER_ALLOW_ZERO) == 0U)) {
 		Status = XST_INVALID_PARAM;
 		goto done;
 	}
@@ -801,21 +801,21 @@ static u32 XPmClock_ComputeNodeRate(const XPm_ClockNode *ClkNode, u32 ParentRate
 	if (ISREFCLK(ClkNode->Node.Id)) {
 		Rate = ParentRate;
 	} else if (ISPLL(ClkNode->Node.Id)) {
-		Status = XPmClockPll_GetParam((XPm_PllClockNode *)ClkNode,
+		Status = XPmClockPll_GetParam((const XPm_PllClockNode *)ClkNode,
 					      (u32)PM_PLL_PARAM_ID_FBDIV, &Div);
 		if ((Status != XST_SUCCESS) || (Div == 0U)) {
 			goto done;
 		}
 		Rate = ParentRate * Div;
 	} else if (ISOUTCLK(ClkNode->Node.Id)) {
-		DivNode = XPmClock_GetTopologyNode((XPm_OutClockNode *)ClkNode,
+		DivNode = XPmClock_GetTopologyNode((const XPm_OutClockNode *)ClkNode,
 						   (u32)TYPE_DIV1);
 		if (NULL == DivNode) {
 			Rate = ParentRate;
 			goto done;
 		}
 
-		Status = XPmClock_GetClockData((XPm_OutClockNode *)ClkNode,
+		Status = XPmClock_GetClockData((const XPm_OutClockNode *)ClkNode,
 					       (u32)TYPE_DIV1, &Div);
 		if (XST_SUCCESS != Status) {
 			goto done;
@@ -1001,7 +1001,7 @@ static XStatus XPmClockOut_SetRateWithPll(XPm_ClockNode *Clk, const u32 ClkRate,
 {
 	XStatus Status = XST_FAILURE;
 	XPm_ClockNode *PllClk;
-	XPm_ClockNode *RefClk;
+	const XPm_ClockNode *RefClk;
 	u32 RefClkRate;
 	u32 BestDivIdx = 0U;
 	u32 BestFbdiv = 0U;
@@ -1199,7 +1199,7 @@ done:
  * @note   None
  *
  ****************************************************************************/
-XStatus XPmClock_ProgramRate(u32 ClockId, u32 ClkRate, u32 Flags)
+XStatus XPmClock_ProgramRate(u32 ClockId, u32 Rate, u32 Flags)
 {
 	XStatus Status = XST_FAILURE;
 
@@ -1215,7 +1215,7 @@ XStatus XPmClock_ProgramRate(u32 ClockId, u32 ClkRate, u32 Flags)
 	}
 
 	if (ISOUTCLK(ClockId)) {
-		Status = XPmClockOut_SetRate(Clk, ClkRate, Flags);
+		Status = XPmClockOut_SetRate(Clk, Rate, Flags);
 	}
 
 done:

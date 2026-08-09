@@ -76,7 +76,7 @@ typedef struct XPm_FrcPwrDwnReq {
 	u32 InitiatorIpiMask;
 } XPm_FrcPwrDwnReq;
 
-// /* Forward declaration */
+/* Forward declaration */
 typedef struct XPm_Subsystem XPm_Subsystem;
 typedef struct XPm_SubsystemMgr XPm_SubsystemMgr;
 typedef struct XPm_RequirementList XPm_RequirementList;

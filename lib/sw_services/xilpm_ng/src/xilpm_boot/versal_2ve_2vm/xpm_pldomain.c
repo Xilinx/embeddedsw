@@ -207,7 +207,6 @@ done:
 	return Status;
 }
 
-
 XStatus XPmPlDomain_RetriggerPlHouseClean(void)
 {
 	/**
@@ -252,7 +251,7 @@ done:
 static XStatus PldCframeInit(void)
 {
 	XStatus Status = XST_FAILURE;
-	XCframe_Config *Config;
+	const XCframe_Config *Config;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 
 	if (0U != CframeIns.IsReady) {

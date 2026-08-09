@@ -134,7 +134,7 @@ typedef struct {
 	u8 GicSrc;	/**< GIC source bit for re-enable */
 } XPm_GpioProcCfg;
 
-int XPm_GpioProcHandlerInit(void);
+XStatus XPm_GpioProcHandlerInit(void);
 
 XStatus XPm_RuntimeInit(void);
 u32 XPmSubsystem_GetSubSysIdByIpiMask(u32 IpiMask);

@@ -100,7 +100,7 @@ static inline AddrRangeStatus checkRangeOverlapExclusion(u64 RegionStart, u64 Re
  *         XPM_FAILURE otherwise
  */
 static inline XStatus checkExclusionList(u64 RegionStartAddr, u64 RegionEndAddr,
-							struct XPm_ExclusionRegion *XPm_ExcludedList, u32 ExcludedListSize) {
+							const struct XPm_ExclusionRegion *XPm_ExcludedList, u32 ExcludedListSize) {
 	XStatus Status = XPM_FAILURE;
 	u32 index = 0U;
 
@@ -166,7 +166,7 @@ static XStatus IsRangeOutsideExclusionList(u64 RegionAddr, u64 RegionSize) {
 	u64 RegionStartAddr = RegionAddr;
 	u64 RegionEndAddr = RegionAddr + (RegionSize - 1ULL);
 
-	enum ExclusionRegionList {
+	enum {
 		PMC_RAM = 0x0,
 		ASU_RAM = 0x1,
 		PPU_INSTR_CNTLR_MEM = 0x2,
@@ -308,7 +308,7 @@ XStatus XPm_IsMemAddressValid(u32 SubsystemId, u64 RegionAddr, u64 RegionSize) {
 		*/
 		if (IS_MEM_DEV_OCM(DeviceId) ||
 		    IS_MEM_DEV_TCM(DeviceId)) {
-			MemDevice = (XPm_MemDevice *)Device;
+			MemDevice = (const XPm_MemDevice *)Device;
 			if (NULL == MemDevice) {
 				continue;
 			}
@@ -354,7 +354,7 @@ XStatus XPm_IsMemAddressValid(u32 SubsystemId, u64 RegionAddr, u64 RegionSize) {
 			OverlapMemType = (u8)MEM_TYPE_OCM_TCM;
 		}
 		else if (IS_MEM_DEV_DDRMC(DeviceId)) {
-			MCDev = (XPm_MemCtrlrDevice *)Device;
+			MCDev = (const XPm_MemCtrlrDevice *)Device;
 			if (NULL == MCDev) {
 				continue;
 			}

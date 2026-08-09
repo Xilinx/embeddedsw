@@ -429,7 +429,7 @@ XStatus __attribute__((weak, noinline)) XPmDevice_Reset(const XPm_Device *Device
 XPm_Device *XPmDevice_GetById(const u32 DeviceId)
 {
 	XPm_Device *Device = NULL;
-	XPm_Device **DevicesHandle = NULL;
+	XPm_Device * const *DevicesHandle = NULL;
 
 	if ((u32)XPM_NODECLASS_DEVICE != NODECLASS(DeviceId)) {
 		goto done;
@@ -650,7 +650,7 @@ XStatus XPmDevice_GetState(const u32 DeviceId,
 	XStatus Status = XPM_ERR_DEVICE_STATUS;
 
 	*DeviceState = (u32)XPM_DEVSTATE_UNUSED;
-	XPm_Device* Device = XPmDevice_GetById(DeviceId);
+	const XPm_Device* Device = XPmDevice_GetById(DeviceId);
 	if (NULL == Device) {
 		Status = XPM_PM_INVALID_NODE;
 		goto done;

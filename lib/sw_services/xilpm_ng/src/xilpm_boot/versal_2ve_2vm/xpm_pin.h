@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2024 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -34,10 +34,10 @@ extern "C" {
 #define TRI_STATE			(0x200U)
 
 /* Pin states */
-typedef enum {
+enum {
 	XPM_PINSTATE_UNUSED,
 	XPM_PINSTATE_ASSIGNED,
-} XPm_PinState;
+};
 
 typedef struct XPm_PinNode XPm_PinNode;
 typedef struct XPmRuntime_PinOps XPmRuntime_PinOps;

@@ -33,7 +33,7 @@ extern "C" {
 typedef struct XPm_DeviceNode XPm_Device;
 
 /* Device states */
-typedef enum {
+enum {
 	XPM_DEVSTATE_UNUSED,
 	XPM_DEVSTATE_RUNNING,
 	XPM_DEVSTATE_PWR_ON,	/* Power up the island/domain */
@@ -47,16 +47,16 @@ typedef enum {
 	XPM_DEVSTATE_INITIALIZING,
 	XPM_DEVSTATE_PENDING_PWR_DWN,
 	XPM_DEVSTATE_HALT,
-} XPm_DeviceState;
+};
 
 /* Device events */
-typedef enum {
+enum {
 	XPM_DEVEVENT_BRINGUP_ALL,
 	XPM_DEVEVENT_BRINGUP_CLKRST,
 	XPM_DEVEVENT_SHUTDOWN,
 	XPM_DEVEVENT_TIMER,
 	XPM_DEVEVENT_RUNTIME_SUSPEND,
-} XPm_DeviceEvent;
+};
 
 typedef struct XPm_DeviceAttr XPm_DeviceAttr;
 typedef struct XPmRuntime_DeviceOps XPmRuntime_DeviceOps;
@@ -109,7 +109,6 @@ XPm_Device *XPmDevice_GetMemRegnByIndex(const u32 MemRegnIndex);
 XStatus XPmDevice_Release(const u32 SubsystemId, const u32 DeviceId,
 			  const u32 CmdType);
 
-
 XStatus XPmDevice_GetState(const u32 DeviceId, u32 *const DeviceState);
 
 XStatus XPmDevice_AddParent(u32 Id, const u32 *Parents, u32 NumParents);
@@ -119,7 +118,6 @@ XPm_Device *XPmDevice_GetPlDeviceByIndex(const u32 DeviceIndex);
 XStatus XPm_SetSysmonNode(u32 Id, u32 BaseAddress);
 u32 XPm_GetSysmonByIndex(const u32 SysmonIndex);
 XPm_Device *XPmDevice_GetHbMonDeviceByIndex(const u32 DeviceIndex);
-
 
 #ifdef __cplusplus
 }

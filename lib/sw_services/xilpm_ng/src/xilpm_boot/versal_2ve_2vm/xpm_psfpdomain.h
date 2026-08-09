@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2024 - 2025 Advanced Micro Devices, Inc. All rights reserved.
+* Copyright (c) 2024 - 2026 Advanced Micro Devices, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -16,7 +16,7 @@ extern "C" {
 /**
  * The PS Full power domain node class.
  */
-typedef struct XPm_PsFpDomain {
+typedef struct {
 	XPm_PowerDomain Domain; /**< Power domain node base class */
 	u32 FpdSlcrBaseAddr; /**< FPD SLCR base address */
 	u32 FpdSlcrSecureBaseAddr; /**< FPD SLCR SECURE base address */

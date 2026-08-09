@@ -64,7 +64,7 @@ struct XPm_AieDomain {
 /**
  * AIE base device node
  */
-typedef struct XPm_AieNode {
+typedef struct {
 	XPm_Device Device;		/**< Device: Base class */
 } XPm_AieNode;
 

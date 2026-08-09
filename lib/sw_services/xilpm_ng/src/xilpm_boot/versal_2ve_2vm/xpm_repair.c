@@ -23,7 +23,7 @@
  */
 u32 XPmBisr_CopyStandard(u32 * BisrDataAddr, u32 TagSize, u64 BisrDataDestAddr)
 {
-	u32 *BisrDataCursor = BisrDataAddr;
+	const u32 *BisrDataCursor = BisrDataAddr;
 	u64 BisrDestCursor = BisrDataDestAddr;
 	u32 TagData;
 

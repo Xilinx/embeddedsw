@@ -25,7 +25,7 @@
  * For HBMon[4:7], map to SW error events bit 10-13
  */
 #define HB_MON_SW_ERR_MASK(Idx) \
-	(((Idx) < XPM_NODEIDX_DEV_HB_MON_4) ? \
+	(((Idx) < (u32)XPM_NODEIDX_DEV_HB_MON_4) ? \
 	 ((u32)1U << (Idx)) : ((u32)1U << ((Idx) + 6U)))
 
 /*
@@ -50,7 +50,7 @@ static const u32 HbMon_SchedFreq = HBMON_SCHED_PERIOD;
 static const u32 HbMon_SchedId = PM_DEV_HB_MON_0;
 
 /* Function prototypes for scheduler and timers*/
-static int HbMon_Scheduler(void *data);
+static s32 HbMon_Scheduler(void *data);
 
 static XStatus HbMon_StartTimer(u32 HbMonIdx, u32 TimeoutVal)
 {
@@ -107,7 +107,7 @@ static void HbMon_StopTimer(u32 HbMonIdx)
  * Handler for the scheduled task.
  * This will be called periodically every 'HbMon_SchedFreq' ms
  */
-static int HbMon_Scheduler(void *data)
+static s32 HbMon_Scheduler(void *data)
 {
 	(void)data;
 	XStatus Status = XST_FAILURE;
@@ -215,7 +215,7 @@ static int HbMon_Scheduler(void *data)
 
 	Status = XST_SUCCESS;
 done:
-	return (int)Status;
+	return (s32)Status;
 }
 
 
@@ -325,13 +325,12 @@ static const XPmFsm_Tran XPmHbMonDevEventTransitions[] = {
 #define DEFINE_DEV_TRANS(T)	.Trans = (T), \
 				.TransCnt = ARRAY_SIZE(T)
 
-static const XPm_Fsm XPmHbMonDeviceFsm = {
-	DEFINE_DEV_STATES(XPmHbMonDeviceStates),
-	DEFINE_DEV_TRANS(XPmHbMonDevEventTransitions),
-};
-
 XPm_Fsm *XPmSubsystem_GetHbMonFsm(void)
 {
+	static const XPm_Fsm XPmHbMonDeviceFsm = {
+		DEFINE_DEV_STATES(XPmHbMonDeviceStates),
+		DEFINE_DEV_TRANS(XPmHbMonDevEventTransitions),
+	};
 	PmWarn("Getting Healthy Boot Monitor FSM\r\n");
 	return (XPm_Fsm *)&XPmHbMonDeviceFsm;
 }

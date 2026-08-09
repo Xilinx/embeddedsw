@@ -34,7 +34,7 @@ extern "C" {
 #define PS_DTI_GET_MASK(NodeID)		(u32)(PS_DTI0_PORT_EN_MASK << \
 					      (NODEINDEX(NodeID) - (u32)XPM_NODEIDX_ISO_PL_PS_DTI0))
 
-typedef struct XPm_Iso {
+typedef struct {
 	XPm_Node Node; 	/**< Node: Node base class */
 	u32 Mask;
 	u32 Format;

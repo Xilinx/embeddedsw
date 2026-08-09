@@ -286,7 +286,7 @@ extern "C" {
 /** bit mask of each APU within a cluster on AUX_PWR_STATE reg */
 #define PMXC_GLOBAL_PMC_AUX_PWR_STATE_0_APU_BITMASK		((u32)3U)
 #define PMXC_GLOBAL_CORE_PWR_STATE_MASK(ClusterId)		(PMXC_GLOBAL_PMC_AUX_PWR_STATE_0_APU_BITMASK << \
-								 ((ClusterId * 4U) + \
+								 (((ClusterId) * 4U) + \
 								 PMXC_GLOBAL_PMC_AUX_PWR_STATE_0_APUCLUSTERx_OFFSET))
 
 
@@ -1559,10 +1559,10 @@ extern "C" {
 /**
  * @brief GPIO controller type encoded in the RTCA configuration register.
  */
-typedef enum {
+enum {
 	LPD_GPIO_CONTROLLER = 0U,	/**< LPD GPIO Controller */
 	PMC_GPIO_CONTROLLER = 1U,	/**< PMC GPIO Controller */
-} XPm_GpioControllerType;
+};
 
 /**
  * @brief Number of MIO pins per GPIO bank.

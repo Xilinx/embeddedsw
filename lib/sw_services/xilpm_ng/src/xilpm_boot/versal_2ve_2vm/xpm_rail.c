@@ -331,9 +331,9 @@ static XStatus XPmRail_GPIOControl(const XPm_Rail *Rail, u8 Mode)
 static XStatus WaitForPowerRailUp(u32 VoltageRailMask)
 {
 	XStatus Status = XST_FAILURE;
-	XPm_Pmc *Pmc;
+	const XPm_Pmc *Pmc;
 
-	Pmc = (XPm_Pmc *)XPmDevice_GetById(PM_DEV_PMC_PROC);
+	Pmc = (const XPm_Pmc *)XPmDevice_GetById(PM_DEV_PMC_PROC);
 	if (NULL == Pmc) {
 		goto done;
 	}
@@ -454,16 +454,16 @@ done:
  * temperature and current voltage level.  The argument passed points to power
  * rail that needs to be adjusted.
  */
-static int XPmRail_CyclicTempVoltAdj(void *Arg)
+static s32 XPmRail_CyclicTempVoltAdj(void *Arg)
 {
-	int Status = XST_FAILURE;
+	s32 Status = XST_FAILURE;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 	XPm_Rail *Rail = (XPm_Rail *)Arg;
 	u32 UpperTempThresh, LowerTempThresh;
 	u8 UpperVoltMode, LowerVoltMode;
 	u32 CurrentTemp;
 	u8 *CurrentVoltMode;
-	XPlmi_SysMonPsv *SysMonInstPtr = XPlmi_GetSysmonInst();
+	const XPlmi_SysMonPsv *SysMonInstPtr = XPlmi_GetSysmonInst();
 
 	UpperTempThresh = Rail->TempVoltAdj->UpperTempThresh;
 	LowerTempThresh = Rail->TempVoltAdj->LowerTempThresh;
@@ -673,13 +673,13 @@ done:
  * @return XST_SUCCESS once *Index is set; error code on failure.
  */
 static XStatus XPmRail_ComputeAdjustVIDIndexRaw(const XPmRail_VIDAdj *VIDAdj,
-						int *Index)
+						s32 *Index)
 {
 	XStatus Status = XST_FAILURE;
 	const XPm_Device *EfuseCache;
 	u32 VID, MP_MAP;
 	u8 ValidOverride = 0;
-	int LocalIndex;
+	s32 LocalIndex;
 
 	*Index = -1;
 
@@ -753,16 +753,16 @@ done:
  *         XST_GLITCH_ERROR on any disagreement (status or value).
  */
 static XStatus XPmRail_ComputeAdjustVIDIndex(const XPmRail_VIDAdj *VIDAdj,
-					     int *Index)
+					     s32 *Index)
 {
 	volatile XStatus Status = XST_FAILURE;
 	volatile XStatus Status1 = XST_FAILURE;
 	volatile XStatus Status2 = XST_FAILURE;
-	volatile int LocalIndex1 = -1;
-	volatile int LocalIndex2 = -1;
+	volatile s32 LocalIndex1 = -1;
+	volatile s32 LocalIndex2 = -1;
 
-	Status1 = XPmRail_ComputeAdjustVIDIndexRaw(VIDAdj, (int *)&LocalIndex1);
-	Status2 = XPmRail_ComputeAdjustVIDIndexRaw(VIDAdj, (int *)&LocalIndex2);
+	Status1 = XPmRail_ComputeAdjustVIDIndexRaw(VIDAdj, (s32 *)&LocalIndex1);
+	Status2 = XPmRail_ComputeAdjustVIDIndexRaw(VIDAdj, (s32 *)&LocalIndex2);
 
 	if ((XST_SUCCESS != Status1) || (XST_SUCCESS != Status2) ||
 	    (LocalIndex1 != LocalIndex2)) {
@@ -800,7 +800,7 @@ XStatus XPmRail_AdjustVID(XPm_Rail *Rail)
 	volatile XStatus StatusTmp = XST_FAILURE;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 	XPmRail_VIDAdj *VIDAdj;
-	int Index = -1;
+	s32 Index = -1;
 
 	if (NULL == Rail->VIDAdj) {
 		Status = XST_SUCCESS;

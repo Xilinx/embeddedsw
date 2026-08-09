@@ -70,7 +70,7 @@ static XStatus XPm_DoIgnoreCommand(XPlmi_Cmd* Cmd);
 static XStatus XPm_DoBisr(XPlmi_Cmd* Cmd);
 static XStatus XPm_DoApplyTrim(XPlmi_Cmd* Cmd);
 static XStatus XPm_AddNodeParent(const XPlmi_Cmd *Cmd);
-static XStatus XPm_AddNodeName(XPlmi_Cmd *Cmd);
+static XStatus XPm_AddNodeName(const XPlmi_Cmd *Cmd);
 static XStatus XPm_IsoControl(XPlmi_Cmd *Cmd);
 static XStatus XPm_DoInitNode(XPlmi_Cmd *Cmd);
 static XStatus XPm_AddNodeIsolation(const u32 *Args, u32 NumArgs);
@@ -78,7 +78,7 @@ static XStatus XPm_AddNodeRegnode(const u32 *Args, u32 NumArgs);
 static XStatus XPm_AddNode(XPlmi_Cmd *Cmd);
 maybe_unused static XStatus XPm_PmcWakeAllCores(void);
 static XStatus XPm_InitNode(u32 NodeId, u32 Function, const u32 *Args, u32 NumArgs);
-static int XPm_GpioProcHandler(void *Data);
+static XStatus XPm_GpioProcHandler(void *Data);
 
 /*********************************************************************/
 
@@ -402,7 +402,7 @@ XStatus XPm_Init(void (*const RequestCb)(const u32 SubsystemId, const XPmApiCbId
 
 	/* Zeroized xpm_bss_data session during none In-place update*/
 	if (0U == XPlmi_IsPlmUpdateDone()) {
-		u32 __xpm_bss_len = (u32)(__xpm_bss_end - __xpm_bss_start);
+		u32 __xpm_bss_len = (u32)((UINTPTR)__xpm_bss_end - (UINTPTR)__xpm_bss_start);
 		Status = Xil_SMemSet(__xpm_bss_start, __xpm_bss_len , 0U, __xpm_bss_len);
 		if (XST_SUCCESS != Status) {
 			PmErr("Failed to zeroize xpm_bss_data session\r\n");
@@ -510,7 +510,7 @@ done:
  * @param Cmd Pointer to the XPlmi_Cmd structure containing the command payload
  * @return XStatus Status of the BISR operation
  */
-XStatus XPm_DoBisr(XPlmi_Cmd* Cmd)
+static XStatus XPm_DoBisr(XPlmi_Cmd* Cmd)
 {
 	XStatus Status = XST_FAILURE;
 	u32 TagId = Cmd->Payload[0];
@@ -529,7 +529,7 @@ XStatus XPm_DoBisr(XPlmi_Cmd* Cmd)
  * @param Cmd Pointer to the XPlmi_Cmd structure containing the command payload.
  * @return Status of the trim operation. Returns XST_SUCCESS on success, or an error code on failure.
  */
-XStatus XPm_DoApplyTrim(XPlmi_Cmd* Cmd)
+static XStatus XPm_DoApplyTrim(XPlmi_Cmd* Cmd)
 {
 	XStatus Status = XST_FAILURE;
 	u32 TrimType = Cmd->Payload[0];
@@ -552,7 +552,7 @@ XStatus XPm_DoApplyTrim(XPlmi_Cmd* Cmd)
  * @note   none
  *
  ****************************************************************************/
-XStatus XPm_IsoControl(XPlmi_Cmd *Cmd)
+static XStatus XPm_IsoControl(XPlmi_Cmd *Cmd)
 	//u32 NodeId, u32 Enable)
 {
 	XStatus Status = XST_FAILURE;
@@ -1299,7 +1299,7 @@ static XStatus XPm_AddNodeClock(const u32 *Args, u32 NumArgs)
 		ClkFlags = (u8)((Args[2] >> 24U) & 0xFFU);
 		PowerDomainId = Args[3];
 		if (ISPLL(ClockId)) {
-			const u16 *Offsets = (u16 *)&Args[4];
+			const u16 *Offsets = (const u16 *)&Args[4];
 			Status = XPmClockPll_AddNode(ClockId, ControlReg,
 						     TopologyType, Offsets,
 						     PowerDomainId, ClkFlags);
@@ -1331,7 +1331,7 @@ done:
  * @note   None
  *
  ****************************************************************************/
-XStatus XPm_AddNodeName(XPlmi_Cmd *Cmd)
+static XStatus XPm_AddNodeName(const XPlmi_Cmd *Cmd)
 {
 	XStatus Status = XST_FAILURE;
 	const u32* Args = Cmd->Payload;
@@ -1763,22 +1763,22 @@ XStatus XPm_GetDeviceBaseAddr(u32 DeviceId, u32 *BaseAddr)
 		/* Get base address using CORE device subclass */
 		if ((u32)XPM_NODETYPE_DEV_CORE_APU == Type) {
 			/* Using APU core */
-			ApuCore = (XPm_ApuCore *)Device;
+			ApuCore = (const XPm_ApuCore *)Device;
 			*BaseAddr = ApuCore->FpdApuBaseAddr;
 		} else if ((u32)XPM_NODETYPE_DEV_CORE_RPU == Type) {
 			/* Using RPU core */
-			RpuCore = (XPm_RpuCore *)Device;
+			RpuCore = (const XPm_RpuCore *)Device;
 			*BaseAddr = RpuCore->RpuBaseAddr;
 		} else if ((u32)XPM_NODETYPE_DEV_CORE_PMC == Type) {
 			/* using PMC core */
-			PmcCore = (XPm_Pmc *)Device;
+			PmcCore = (const XPm_Pmc *)Device;
 			*BaseAddr = PmcCore->PmcGlobalBaseAddr;
 		} else {
 			/* Required by MISRA */
 		}
 	} else if (((u32)XPM_NODESUBCL_DEV_MEM == SubClass) && IS_MEM_DEV_TYPE(Type)) {
 		/* Get base address using MEM device subclass */
-		MemDev = (XPm_MemDevice *)Device;
+		MemDev = (const XPm_MemDevice *)Device;
 		*BaseAddr = MemDev->StartAddress;
 	} else {
 		/* Get base address using node class*/
@@ -1886,7 +1886,7 @@ u32 XPm_GetSubsystemId(u32 ImageId)
  * @note   None
  *
  ****************************************************************************/
-XStatus XPm_PmcGetDeviceState(const u32 DeviceId, u32 *const DeviceState)
+XStatus XPm_PmcGetDeviceState(u32 DeviceId, u32 *const DeviceState)
 {
 	XStatus Status = XPM_ERR_DEVICE_STATUS;
 
@@ -1941,11 +1941,11 @@ done:
 */
 maybe_unused static XStatus XPm_PmcWakeAllCores(void) {
 	XStatus Status = XST_FAILURE;
-	XPm_Core *Core;
+	const XPm_Core *Core;
 	xil_printf("%s %d\n\r", __func__, __LINE__);
 	for (u32 Idx = (u32)XPM_NODEIDX_DEV_MIN + 1U;
 	     Idx < (u32)XPM_NODEIDX_DEV_MAX; Idx++) {
-		Core = (XPm_Core *)XPmDevice_GetByIndex(Idx);
+		Core = (const XPm_Core *)XPmDevice_GetByIndex(Idx);
 		if (NULL == Core) {
 			xil_printf(".");
 			continue;
@@ -1972,7 +1972,7 @@ done:
 /**
  * @brief PMC request wakeup of CPU core
 */
-XStatus XPm_PmcWakeUpCore(const u32 CoreId , const u32 SetAddress, const u64 Address) {
+XStatus XPm_PmcWakeUpCore(u32 CoreId , u32 SetAddress, u64 Address) {
 		XStatus Status = XST_FAILURE;
 	XPm_Core *Core = (XPm_Core*)XPmDevice_GetById(CoreId);
 	if (NULL == Core) {
@@ -2155,7 +2155,7 @@ static XStatus XPm_InitNode(u32 NodeId, u32 Function, const u32 *Args, u32 NumAr
 
 static XStatus XPm_DoInitNode(XPlmi_Cmd *Cmd)
 {
-	int Status = XST_FAILURE;
+	XStatus Status = XST_FAILURE;
 	const u32 *Args = Cmd->Payload;
 	u32 NumArgs = Cmd->Len;
 	Status = XPm_InitNode(Args[0U], Args[1U], &Args[2U], NumArgs - 2U);
@@ -2392,7 +2392,7 @@ done:
  * @return XST_SUCCESS always (errors are logged but do not propagate).
  *
  *****************************************************************************/
-static int XPm_GpioProcHandler(void *Data)
+static XStatus XPm_GpioProcHandler(void *Data)
 {
 	u32 Idx;
 	u32 IntStatOff, DataRoOff, IntEnOff, IntAnyOff, GpioBaseAddr;
@@ -2500,7 +2500,7 @@ static int XPm_GpioProcHandler(void *Data)
 	 * This can happen if the interrupt fired but DATA_RO showed no
 	 * rising edge, or no registered pin matched the pending INT_STAT.
 	 */
-	if (!IsProcExecuted) {
+	if (0U == IsProcExecuted) {
 		PmErr("GPIO Interrupt is triggered but no proc executed\r\n");
 		Status = XST_FAILURE;
 	}
@@ -2524,9 +2524,9 @@ done:
  * @return XST_SUCCESS on success, error code otherwise.
  *
  *****************************************************************************/
-static int XPm_GpioRegisterPin (u32 CfgHalf)
+static XStatus XPm_GpioRegisterPin (u32 CfgHalf)
 {
-	int Status = XST_FAILURE;
+	XStatus Status = XST_FAILURE;
 	u8 SlrId, GicId, GicSrc, Bank;
 	u32 PinId;
 	u32 GpioController, MioIdx;
@@ -2691,9 +2691,9 @@ done:
  *         Error code from XPm_GpioRegisterPin on first failure.
  *
  *****************************************************************************/
-int XPm_GpioProcHandlerInit(void)
+XStatus XPm_GpioProcHandlerInit(void)
 {
-	int Status = XST_FAILURE;
+	XStatus Status = XST_FAILURE;
 	u32 CfgVal, HalfCfg, RegIdx, HalfIdx;
 
 	static const u32 GpioProcCfgRegs[] = {

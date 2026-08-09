@@ -36,7 +36,7 @@ struct XPm_Core {
 	u8 isCoreUp;
 };
 
-// /************************** Function Prototypes ******************************/
+/************************** Function Prototypes ******************************/
 XStatus XPmCore_Init(XPm_Core *Core, u32 Id, XPm_Power *Power,
 		     XPm_ClockNode *Clock, XPm_ResetNode *Reset, u8 IpiCh);
 XStatus XPmCore_WakeUp(XPm_Core *Core, u32 SetAddress, u64 Address);

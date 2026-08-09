@@ -310,7 +310,7 @@ extern "C" {
 #define CFRM_HB_EXP_REPAIR_QTILE_SHIFT			(0U)
 
 
-typedef enum {
+enum {
 	PMC_EFUSE_BISR_STATUS_PASSED = 0,	// The BISR for TAGID has run and passed
 	PMC_EFUSE_BISR_STATUS_NOREPAIR = 1,	// There is no BISR Repair data for TAGID
 	PMC_EFUSE_BISR_STATUS_NOT_RUN = 5,	// eFuse Sorted, The TAG hasn't run the Bisr Repair
@@ -321,7 +321,7 @@ typedef enum {
 	ERRSTS_REPAIR_UNSUPPORT_TAGID = 0x97,	// ERRSTS_PMC2ATE_REPAIR_UNSUPPORT_TAGID, Valid TagID, but not support by GOQ FW
 	ERRSTS_REPAIR_BAD_TAG_SIZE = 0x98,	// ERRSTS_PMC2ATE_REPAIR_BAD_TAG_SIZE, BISR_SIZE error. for HardBlock repair, the tag size is unexpected (must be 1)
 	ERRSTS_REPAIR_TAGID_OUTOFRANGE = 0x99,	// ERRSTS_PMC2ATE_REPAIR_TAGID_OUTOFRANGE. can't be written into st_BisrTagsTable.status
-} bisr_Repair_Status;
+};
 
 /*
  * BISR efuse tag IDs are hardware tag values compared against a u32 TagId.

@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2024 - 2025 Advanced Micro Devices, Inc. All rights reserved.
+* Copyright (c) 2024 - 2026 Advanced Micro Devices, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -17,7 +17,7 @@ extern "C" {
 /**
  * The NOC power domain node class.
  */
-typedef struct XPm_NpDomain {
+typedef struct {
 	XPm_PowerDomain Domain; /**< Power domain node base class */
 } XPm_NpDomain;
 

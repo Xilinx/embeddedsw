@@ -110,32 +110,31 @@ static void XPm_InterruptPwrCtrlHandler(void)
 	}
 }
 
-/* Structure for Top level interrupt table */
-static const struct HandlerTable g_TopLevelInterruptTable[] = {
-	{
-		PMC_IRQ_PWR_MB_IRQ_PWR_UP_REQ_SHIFT,
-		PMC_IRQ_PWR_MB_IRQ_PWR_UP_REQ_MASK,
-		&XPm_InterruptPwrUpHandler
-	},
-	{
-		PMC_IRQ_PWR_MB_IRQ_PWR_DWN_REQ_SHIFT,
-		PMC_IRQ_PWR_MB_IRQ_PWR_DWN_REQ_MASK,
-		&XPm_InterruptPwrDwnHandler
-	},
-	{
-		PMC_IRQ_PWR_MB_IRQ_WAKE_UP_REQ_SHIFT,
-		PMC_IRQ_PWR_MB_IRQ_WAKE_UP_REQ_MASK,
-		&XPm_InterruptWakeupHandler
-	},
-	{
-		PMC_IRQ_PWR_MB_IRQ_PWR_CTRL_REQ_SHIFT,
-		PMC_IRQ_PWR_MB_IRQ_PWR_CTRL_REQ_MASK,
-		&XPm_InterruptPwrCtrlHandler
-	},
-};
-
 int XPm_PwrIntrHandler(void *IntrNumber)
 {
+	/* Structure for Top level interrupt table */
+	static const struct HandlerTable g_TopLevelInterruptTable[] = {
+		{
+			PMC_IRQ_PWR_MB_IRQ_PWR_UP_REQ_SHIFT,
+			PMC_IRQ_PWR_MB_IRQ_PWR_UP_REQ_MASK,
+			&XPm_InterruptPwrUpHandler
+		},
+		{
+			PMC_IRQ_PWR_MB_IRQ_PWR_DWN_REQ_SHIFT,
+			PMC_IRQ_PWR_MB_IRQ_PWR_DWN_REQ_MASK,
+			&XPm_InterruptPwrDwnHandler
+		},
+		{
+			PMC_IRQ_PWR_MB_IRQ_WAKE_UP_REQ_SHIFT,
+			PMC_IRQ_PWR_MB_IRQ_WAKE_UP_REQ_MASK,
+			&XPm_InterruptWakeupHandler
+		},
+		{
+			PMC_IRQ_PWR_MB_IRQ_PWR_CTRL_REQ_SHIFT,
+			PMC_IRQ_PWR_MB_IRQ_PWR_CTRL_REQ_MASK,
+			&XPm_InterruptPwrCtrlHandler
+		},
+	};
 	u32 IrqReg = XPm_In32(PSXC_LPX_SLCR_PMC_IRQ_PWR_MB_IRQ);
 	u32 Index;
 	PmDbg("Interrupt number = 0x%x\r\n", (u32)IntrNumber);

@@ -36,7 +36,7 @@ static XStatus XPmRequirement_Init(XPm_Requirement *Reqm, XPm_Subsystem *Subsyst
 	LIST_PREPEND(Subsystem->Requirements, Reqm);
 
 	/* Prepend Reqm to RuntimeOps->Requirements */
-	XPmRuntime_DeviceOps* DevOps = XPm_GetDevOps_ById(Device->Node.Id);
+	const XPmRuntime_DeviceOps* DevOps = XPm_GetDevOps_ById(Device->Node.Id);
 	if (NULL == DevOps) {
 		PmErr("DeviceOps is NULL\r\n");
 		Status = XST_FAILURE;
@@ -126,7 +126,7 @@ XStatus XPmRequirement_ReleaseFromAllSubsystem(XPm_Device* Device)
 		Status = XST_INVALID_PARAM;
 		goto done;
 	}
-	XPmRuntime_DeviceOps* DevOps = XPm_GetDevOps_ById(Device->Node.Id);
+	const XPmRuntime_DeviceOps* DevOps = XPm_GetDevOps_ById(Device->Node.Id);
 	LIST_FOREACH(DevOps->Requirements, ReqmNode){
 		if (1U != ReqmNode->Data->Allocated) {
 			continue;
@@ -170,7 +170,7 @@ XStatus XPmRequirement_Release(XPm_Requirement *Reqm, XPm_ReleaseScope Scope)
 	 * Release all device from given subsystem from the requirement
 	 */
 	LIST_FOREACH(Reqm->Subsystem->Requirements, ReqmNode) {
-		XPm_Requirement* cReqm = ReqmNode->Data;
+		const XPm_Requirement* cReqm = ReqmNode->Data;
 		if ((((RELEASE_ALL == Scope) && (1U == cReqm->Allocated)) ||
 			 ((RELEASE_UNREQUESTED == Scope) && (0U == cReqm->Allocated))) &&
 			 ((u32)XPM_NODETYPE_DEV_DDR != NODETYPE(cReqm->Device->Node.Id))) {
@@ -253,7 +253,7 @@ maybe_unused static XStatus XPmRequirement_IsExclusive(const XPm_Requirement *Re
 	if (1U != Reqm->Allocated) {
 		goto done;
 	}
-	XPmRuntime_DeviceOps* DevOps = XPm_GetDevOps_ById(Reqm->Device->Node.Id);
+	const XPmRuntime_DeviceOps* DevOps = XPm_GetDevOps_ById(Reqm->Device->Node.Id);
 	if (NULL == DevOps) {
 		PmErr("DeviceOps is NULL\r\n");
 		Status = XST_FAILURE;
@@ -273,7 +273,7 @@ done:
 XPm_Requirement* FindReqm(const XPm_Device *Device,const XPm_Subsystem *Subsystem)
 {
 	XPm_Requirement *Reqm = NULL;
-	XPmRuntime_DeviceOps* DevOps;
+	const XPmRuntime_DeviceOps* DevOps;
 	if ((Device == NULL) || (Subsystem == NULL)) {
 		goto done;
 	}

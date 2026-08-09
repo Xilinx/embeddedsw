@@ -36,7 +36,7 @@ XStatus Aie2InitStart(XPm_PowerDomain *PwrDomain, const u32 *Args,
 		goto done;
 	}
 
-	if ((u32)XPM_PGOOD_SYSMON == Aie2PsRail->Source) {
+	if ((u32)XPM_PGOOD_SYSMON == (u32)Aie2PsRail->Source) {
 		Status = XPmPower_SysmonCheckPower(Aie2PsRail);
 		if (XST_SUCCESS != Status) {
 			DbgErr = XPM_INT_ERR_POWER_SUPPLY;

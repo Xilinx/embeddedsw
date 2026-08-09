@@ -8,8 +8,6 @@
 #include "xpm_subsystem.h"
 #include "xpm_runtime_pin.h"
 
-static u16 PmNumPins;
-
 /****************************************************************************/
 /**
  * @brief  This function returns total number of pins added.
@@ -21,6 +19,7 @@ static u16 PmNumPins;
  ****************************************************************************/
 XStatus XPmPin_GetNumPins(u32 *NumPins)
 {
+	static u16 PmNumPins;
 	volatile XStatus Status = XST_FAILURE;
 
 	if (NULL == NumPins) {
@@ -324,7 +323,7 @@ done:
 XStatus XPmPin_SetPinConfig(u32 PinId, u32 Param, u32 ParamValue)
 {
 	XStatus Status = XST_FAILURE;
-	XPm_PinNode *Pin;
+	const XPm_PinNode *Pin;
 	u32 BitMask, BaseAddr;
 	u32 Value = ParamValue;
 
@@ -571,7 +570,7 @@ done:
 XStatus XPmPin_Request(const u32 SubsystemId, const u32 PinId)
 {
 	XStatus Status = XST_FAILURE;
-	XPm_PinNode *Pin;
+	const XPm_PinNode *Pin;
 
 	Pin = XPmPin_GetById(PinId);
 	if (NULL == Pin) {
@@ -615,7 +614,7 @@ done:
 XStatus XPmPin_Release(const u32 SubsystemId, const u32 PinId)
 {
 	XStatus Status = XST_FAILURE;
-	XPm_PinNode *Pin;
+	const XPm_PinNode *Pin;
 
 	Pin = XPmPin_GetById(PinId);
 	if (NULL == Pin) {

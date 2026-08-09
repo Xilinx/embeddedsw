@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2024 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -34,7 +34,7 @@ struct XPm_PinFunc {
 	u16 PmioRegMask; /**< Register mask value to select this function */
 	u16 *Groups; /**< Array of group identifier */
 };
-enum PmPinGrpIds {
+enum {
 	PIN_GRP_SD0_0 = 0,
 	PIN_GRP_SD0_1 = 1,
 	PIN_GRP_SD1_0 = 2,

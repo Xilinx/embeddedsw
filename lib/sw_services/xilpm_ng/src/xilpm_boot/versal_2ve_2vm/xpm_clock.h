@@ -71,7 +71,7 @@ struct XPm_ClkTopologyNode {
 	uint8_t Type;
 };
 
-typedef struct XPm_ClkTopology {
+typedef struct {
 	struct XPm_ClkTopologyNode(*Nodes)[];
 	uint8_t Id;
 	uint8_t NumNodes;
@@ -106,14 +106,14 @@ struct XPm_ClockHandle {
 	XPm_ClockHandle *NextDevice; /**< Next handle of same clock */
 };
 
-typedef struct XPm_OutClockNode {
+typedef struct {
 	XPm_ClockNode ClkNode;
 	XPm_ClkTopology Topology;
 }XPm_OutClockNode;
 
 /* Common topology definitions */
 
-enum XPm_ClockSubnodeType {
+enum {
 	TYPE_INVALID,
 	TYPE_MUX,
 	TYPE_PLL,

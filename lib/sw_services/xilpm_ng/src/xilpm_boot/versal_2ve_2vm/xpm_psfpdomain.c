@@ -21,7 +21,7 @@ XStatus FpdInitStart(XPm_PowerDomain *PwrDomain, const u32 *Args,
 	(void)Args;
 	(void)NumOfArgs;
 
-	const XPm_Rail *VccintPsfpRail = (XPm_Rail *)XPmPower_GetById(PM_POWER_VCCINT_PSFP);
+	XPm_Rail *VccintPsfpRail = (XPm_Rail *)XPmPower_GetById(PM_POWER_VCCINT_PSFP);
 
 	/* Check vccint_fpd first to make sure power is on */
 	Status = XPmPower_CheckPower(VccintPsfpRail,
@@ -33,7 +33,7 @@ XStatus FpdInitStart(XPm_PowerDomain *PwrDomain, const u32 *Args,
 
 	/* Perform VID adjustment with redundancy to mitigate fault injection */
 	XSECURE_REDUNDANT_CALL(Status, StatusTmp, XPmRail_AdjustVID,
-			       (XPm_Rail *)VccintPsfpRail);
+			       VccintPsfpRail);
 	if ((XST_SUCCESS != Status) || (XST_SUCCESS != StatusTmp)) {
 		Status = XST_FAILURE;
 		DbgErr = XPM_INT_ERR_VID_ADJUST;

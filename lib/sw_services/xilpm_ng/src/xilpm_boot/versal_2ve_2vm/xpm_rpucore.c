@@ -274,7 +274,7 @@ static XStatus XPm_PlatRpucoreHalt(u32 CoreId) {
 		goto done;
 	}
 	/* Safely cast to RpuCore since Type check passed */
-	const XPm_RpuCore *RpuCore = (XPm_RpuCore *)Core;
+	const XPm_RpuCore *RpuCore = (const XPm_RpuCore *)Core;
 
 	if((u32)XPM_DEVSTATE_SUSPENDING == Core->Device.Node.State){
 		/* Put RPU in  halt state */
@@ -304,7 +304,7 @@ static XStatus SetResetState(const XPm_RpuCore *Core, u32 Value)
 {
 	XStatus Status = XST_FAILURE;
 	/* Safe to cast because Core is a device */
-	const XPm_Device *Device = (XPm_Device *)Core;
+	const XPm_Device *Device = (const XPm_Device *)Core;
 	if (NULL == Core) {
 		PmErr("RPU Core Node is NULL\r\n");
 		goto done;

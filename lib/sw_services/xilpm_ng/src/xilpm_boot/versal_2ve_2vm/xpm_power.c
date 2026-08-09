@@ -181,7 +181,6 @@ static XStatus XPmPower_PowerOffState(XPm_Node *Node, u32 Event, u16 *DbgErr)
 	XPm_Power *Power = (XPm_Power *)Node;
 
 	if ((u32)XPM_POWER_EVENT_PWR_UP == Event) {
-		Status = XST_SUCCESS;
 		if (NULL != Power->Parent) {
 			Node->State = (u8)XPM_POWER_STATE_PWR_UP_PARENT;
 			Power->WfParentUseCnt = Power->Parent->UseCount + 1U;

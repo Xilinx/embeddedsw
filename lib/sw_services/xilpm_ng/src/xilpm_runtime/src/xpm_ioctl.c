@@ -27,15 +27,15 @@
 
 /* Macro to check if a device is an RPU core */
 #define IS_DEV_RPU(DeviceId) \
-	((NODECLASS(DeviceId) == XPM_NODECLASS_DEVICE) && \
-	(NODESUBCLASS(DeviceId) == XPM_NODESUBCL_DEV_CORE) && \
-	(NODETYPE(DeviceId) == XPM_NODETYPE_DEV_CORE_RPU))
+	((NODECLASS(DeviceId) == (u32)XPM_NODECLASS_DEVICE) && \
+	(NODESUBCLASS(DeviceId) == (u32)XPM_NODESUBCL_DEV_CORE) && \
+	(NODETYPE(DeviceId) == (u32)XPM_NODETYPE_DEV_CORE_RPU))
 
 /* Macro to check if a device is an APU core */
 #define IS_DEV_APU(DeviceId) \
-	((NODECLASS(DeviceId) == XPM_NODECLASS_DEVICE) && \
-	(NODESUBCLASS(DeviceId) == XPM_NODESUBCL_DEV_CORE) && \
-	(NODETYPE(DeviceId) == XPM_NODETYPE_DEV_CORE_APU))
+	((NODECLASS(DeviceId) == (u32)XPM_NODECLASS_DEVICE) && \
+	(NODESUBCLASS(DeviceId) == (u32)XPM_NODESUBCL_DEV_CORE) && \
+	(NODETYPE(DeviceId) == (u32)XPM_NODETYPE_DEV_CORE_APU))
 
 /*****************************************************************************/
 /**
@@ -590,7 +590,7 @@ XStatus XPm_Ioctl(const u32 SubsystemId, const u32 DeviceId, const pm_ioctl_id I
 {
 	volatile XStatus Status = XPM_ERR_IOCTL;
 	volatile pm_ioctl_id IoctlIdTmp = IoctlId;
-	XPm_Requirement *Reqm;
+	const XPm_Requirement *Reqm;
 
 	Status = XPm_ValidateDeviceId(IoctlId, DeviceId);
 	if (XST_SUCCESS != Status) {

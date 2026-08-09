@@ -212,7 +212,7 @@ done:
 	return Status;
 }
 
-static XStatus XPmCore_ProcessPendingForcePwrDwn(XPm_Subsystem *Subsystem, XPm_Core *Core)
+static XStatus XPmCore_ProcessPendingForcePwrDwn(XPm_Subsystem *Subsystem, const XPm_Core *Core)
 {
 	XStatus Status = XST_FAILURE;
 	u32 SubsystemId = Subsystem->Id;
@@ -223,7 +223,7 @@ static XStatus XPmCore_ProcessPendingForcePwrDwn(XPm_Subsystem *Subsystem, XPm_C
 
 	/* Clear power down status, this will make boot status as initial boot */
 	if ((u32)XPM_NODETYPE_DEV_CORE_APU == NODETYPE(DeviceId)) {
-		const XPm_ApuCore *ApuCore = (XPm_ApuCore *)Core;
+		const XPm_ApuCore *ApuCore = (const XPm_ApuCore *)Core;
 		XPm_RMW32(ApuCore->PcilPwrDwnReg, ApuCore->Core.PwrDwnMask, ~ApuCore->Core.PwrDwnMask);
 	}
 

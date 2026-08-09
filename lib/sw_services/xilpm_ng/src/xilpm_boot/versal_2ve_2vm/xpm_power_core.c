@@ -1107,7 +1107,7 @@ static XStatus XPmPower_ACpuDirectPwrDwn(const struct XPmFwPwrCtrl_t *Args)
 		goto done;
 	}
 
-	u32 PwrState = XPm_In32(PMXC_GLOBAL_PMC_AUX_PWR_STATE_0) & PMXC_GLOBAL_CORE_PWR_STATE_MASK(Args->ClusterId);
+	u32 PwrState = XPm_In32(PMXC_GLOBAL_PMC_AUX_PWR_STATE_0) & PMXC_GLOBAL_CORE_PWR_STATE_MASK((u32)Args->ClusterId);
 	/* Power down cluster if all cores in cluster are powered off */
 	if (0 == __builtin_popcount(PwrState)) {
 		XPm_Out32(Args->ClusterPcilAddr + APU_PCIL_CLUSTER_PSTATE_OFFSET, 0U);
@@ -1958,7 +1958,6 @@ XStatus XPm_DirectPwrDwn(const u32 DeviceId)
 			Status = XPmPower_RpuDirectPwrDwn(&RpuE_Core1PwrCtrl);
 			break;
 		default:
-			Status = XST_INVALID_PARAM;
 			break;
 	}
 

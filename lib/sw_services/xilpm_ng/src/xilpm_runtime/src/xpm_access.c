@@ -14,7 +14,7 @@
 #include "xpm_update.h"
 
 /* Match found in the "Node Access Table" */
-typedef struct XPm_NodeAccessMatch {
+typedef struct {
 	XPm_NodeAccess *Entry;
 	XPm_NodeAper *Aper;
 } XPm_NodeAccessMatch;
@@ -208,7 +208,7 @@ static XStatus XPmAccess_SecHandler(u32 SubsystemId, pm_ioctl_id Op, u32 CmdType
 	StatusTmp = XPM_PM_NO_ACCESS;
 	Status = (CmdType == XPLMI_CMD_SECURE) ? XST_SUCCESS : XPM_PM_NO_ACCESS;
 	StatusTmp = (CmdType == XPLMI_CMD_SECURE) ? XST_SUCCESS : XPM_PM_NO_ACCESS;
-	Status |= StatusTmp;
+	Status = (XStatus)((u32)Status | (u32)StatusTmp);
 
 done:
 	return Status;
@@ -246,7 +246,7 @@ static XStatus XPmAccess_SecSubsysHandler(u32 SubsystemId, pm_ioctl_id Op,
 	StatusTmp = XPM_PM_NO_ACCESS;
 	Status = (CmdType == XPLMI_CMD_SECURE) ? XST_SUCCESS : XPM_PM_NO_ACCESS;
 	StatusTmp = (CmdType == XPLMI_CMD_SECURE) ? XST_SUCCESS : XPM_PM_NO_ACCESS;
-	Status |= StatusTmp;
+	Status = (XStatus)((u32)Status | (u32)StatusTmp);
 
 done:
 	return Status;
@@ -260,7 +260,7 @@ static XStatus XPmAccess_EnforcePolicy(u32 SubsystemId, pm_ioctl_id IoctlId,
 	XPm_NodeAccessTypes AccessType = (XPm_NodeAccessTypes) Match->Aper->Access;
 
 	/* Handlers for access policy checking */
-	static const struct XPm_NodeAccessHandler {
+	static const struct {
 		XStatus (*Handler)(u32 SubsystemId, pm_ioctl_id Op, u32 CmdType,
 				   XPm_NodeAccessTypes AccessType,
 				   const XPm_NodeAccessMatch *const Match);
@@ -314,7 +314,7 @@ static XStatus XPmAccess_IsAllowed(u32 SubsystemId, u32 DeviceId,
 	 *  - Offset must be aligned on a word boundary
 	 */
 	if ((0U != (Offset & ~NODE_APER_OFFSET_MASK)) ||
-	    (0U != (Offset & (sizeof(int) - 1U)))) {
+	    (0U != (Offset & (sizeof(u32) - 1U)))) {
 		Status = XST_INVALID_PARAM;
 		goto done;
 	}

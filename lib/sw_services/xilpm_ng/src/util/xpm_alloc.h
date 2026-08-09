@@ -12,7 +12,7 @@
 extern "C" {
 #endif
 
-typedef struct XPm_AllocablePool_s {
+typedef struct {
 	u32 Size; /** Maximum size of the pool */
 	void* Pool; /** The address of memory of the pool of memory */
 	void* FreeMem; /** The address of next free memory in the pool */

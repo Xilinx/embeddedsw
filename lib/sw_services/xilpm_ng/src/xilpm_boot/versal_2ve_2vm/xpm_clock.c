@@ -40,9 +40,9 @@
 
 /* Macro to allocate and check for a topology */
 #define ALLOC_TOPOLOGY_NODES(num_nodes, alloc_var) \
-	alloc_var = (struct XPm_ClkTopologyNode *)XPm_AllocBytes( \
+	(alloc_var) = (struct XPm_ClkTopologyNode *)XPm_AllocBytes( \
 		(num_nodes) * sizeof(struct XPm_ClkTopologyNode)); \
-	if (NULL == alloc_var) { \
+	if (NULL == (alloc_var)) { \
 		DbgErr = XPM_INT_ERR_BUFFER_TOO_SMALL; \
 		Status = XST_BUFFER_TOO_SMALL; \
 		goto done; \
@@ -59,7 +59,7 @@
 	ALLOC_TOPOLOGY_NODES(2U, AllocatedNodes); \
 	node1_init(AllocatedNodes, 0); \
 	node2_init(AllocatedNodes, 1); \
-	SET_TOPOLOGY(topo_type, AllocatedNodes, 2U); \
+	SET_TOPOLOGY((topo_type), AllocatedNodes, 2U); \
 } while (0U != 0U)
 
 /* Macro for 3-node topologies */
@@ -68,7 +68,7 @@
 	node1_init(AllocatedNodes, 0); \
 	node2_init(AllocatedNodes, 1); \
 	node3_init(AllocatedNodes, 2); \
-	SET_TOPOLOGY(topo_type, AllocatedNodes, 3U); \
+	SET_TOPOLOGY((topo_type), AllocatedNodes, 3U); \
 } while (0U != 0U)
 
 /* Wrapper macros for GATE nodes with specific IDs */

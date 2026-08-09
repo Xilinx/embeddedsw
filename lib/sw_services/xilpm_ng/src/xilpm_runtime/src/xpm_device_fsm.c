@@ -59,7 +59,7 @@ done:
 	return Status;
 }
 
-static XStatus ActionBringUpAll(XPm_Device* Device)
+static XStatus ActionBringUpAll(XPm_Device* const Device)
 {
 	XStatus Status = XST_FAILURE;
 

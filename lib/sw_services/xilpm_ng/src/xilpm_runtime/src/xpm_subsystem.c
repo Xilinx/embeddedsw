@@ -13,7 +13,7 @@ static XStatus XPmSubsystem_IsAccessAllowed(XPm_Subsystem *Subsystem, u32 NodeId
  * Subsystem Manager - Single unified object
  * Always defined here, regardless of build configuration
  */
-XPm_SubsystemMgr SubsysMgr XPM_INIT_DATA(SubsysMgr) = {
+static XPm_SubsystemMgr SubsysMgr XPM_INIT_DATA(SubsysMgr) = {
 	.Subsystems = { .Root = NULL },
 	.NumSubsystems = 0U,
 	.MaxSubsystemIdx = 0U,
@@ -173,7 +173,7 @@ XPm_Subsystem *XPmSubsystem_GetByIndex(u32 SubSysIdx)
 u32 XPmSubsystem_GetSubSysIdByIpiMask(u32 IpiMask)
 {
 	u32 SubsystemId = INVALID_SUBSYSID;
-	XPm_Subsystem *Subsystem;
+	const XPm_Subsystem *Subsystem;
 	XPm_SubsystemList* PmSubsystems = &SubsysMgr.Subsystems;
 	/*
 	 * Subsystem with least one IPI channel

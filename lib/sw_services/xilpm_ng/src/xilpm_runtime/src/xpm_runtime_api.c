@@ -40,7 +40,7 @@
 #define XPm_RegisterWakeUpHandler(GicId, SrcId, NodeId)	\
 	{ \
 		Status = XPlmi_GicRegisterHandler(GicId, SrcId, \
-				XPm_DispatchWakeHandler, (void *)(NodeId)); \
+				&XPm_DispatchWakeHandler, (void *)(NodeId)); \
 		if (Status != XST_SUCCESS) {\
 			goto END;\
 		}\
@@ -250,8 +250,9 @@ static void XPm_FormatNodeName(char *Buf, u32 BufSize, const char *Prefix, u32 I
 	Pos = i + NumDigits;
 	Buf[Pos] = '\0';
 	do {
+		u32 Ascii = (u32)'0' + (Val % 10U);
 		Pos--;
-		Buf[Pos] = (char)('0' + (Val % 10U));
+		Buf[Pos] = (char)Ascii;
 		Val /= 10U;
 	} while (Pos > i);
 }
@@ -321,10 +322,10 @@ done:
 	return Status;
 }
 
-static int XPm_RegisterWakeUpHandlers(void);
-static void XPm_ProcessAckReq(const u32 Ack, const u32 IpiMask, const int Status,
+static XStatus XPm_RegisterWakeUpHandlers(void);
+static void XPm_ProcessAckReq(const u32 Ack, const u32 IpiMask, const XStatus Status,
 			      const u32 NodeId, const u32 NodeState);
-static int XPm_RestartCbWrapper(const u32 SubsystemId);
+static XStatus XPm_RestartCbWrapper(const u32 SubsystemId);
 
 static XStatus XPm_SetClockState(const u32 SubsystemId, const u32 ClockId, const u32 Enable);
 static XStatus XPm_SetClockDivider(const u32 SubsystemId, const u32 ClockId, const u32 Divider);
@@ -487,7 +488,7 @@ done:
  *			XST_FAILURE or error code in case of failure
  *
  *****************************************************************************/
-static int XPm_DispatchWakeHandler(void *DeviceIdx)
+static XStatus XPm_DispatchWakeHandler(void *DeviceIdx)
 {
 	XStatus Status;
 
@@ -500,9 +501,9 @@ static int XPm_DispatchWakeHandler(void *DeviceIdx)
  * @brief Register wakeup handlers with XilPlmi
  * @return XST_SUCCESS on success and error code on failure
  ****************************************************************************/
-static int XPm_RegisterWakeUpHandlers(void)
+static XStatus XPm_RegisterWakeUpHandlers(void)
 {
-	int Status = XST_FAILURE;
+	XStatus Status = XST_FAILURE;
 
 	/**
 	 * Register the events for PM
@@ -1522,7 +1523,7 @@ done:
  *****************************************************************************/
 static XStatus RegisterNEnablePwrIntr(void)
 {
-	int Status = XST_FAILURE;
+	XStatus Status = XST_FAILURE;
 
 	Status = XPlmi_RegisterHandler(XPLMI_IOMODULE_PMC_PWR_MB, (GicIntHandler_t)(void *)&XPm_PwrIntrHandler,
 				       (void *)XPLMI_IOMODULE_PMC_PWR_MB);
@@ -1632,7 +1633,7 @@ XStatus XPm_HookAfterPlmCdo(void)
 		goto done;
 	}
 
-	if (XPlmi_IsPlmUpdateDone() == TRUE) {
+	if (0U != XPlmi_IsPlmUpdateDone()) {
 		/* Skip during PLM update */
 		Status = XST_SUCCESS;
 		goto done;
@@ -1699,7 +1700,7 @@ done:
 /**
  * @brief PMC activate subsystem by subsystem ID
 */
-XStatus XPm_PmcActivateSubsystem(const u32 SubsystemId)	{
+XStatus XPm_PmcActivateSubsystem(u32 SubsystemId)	{
 	return XPm_ActivateSubsystem(PM_SUBSYS_PMC, SubsystemId);
 }
 
@@ -1874,7 +1875,7 @@ done:
 	}
 	return Status;
 }
-XStatus XPm_DoSelfSuspend(XPlmi_Cmd* Cmd)
+static XStatus XPm_DoSelfSuspend(XPlmi_Cmd* Cmd)
 {
 	XStatus Status = XST_FAILURE;
 	u32 SubsystemId = Cmd->SubsystemId;
@@ -1998,8 +1999,6 @@ XStatus XPm_SelfSuspend(const u32 SubsystemId, const u32 DeviceId,
 	} else {
 		Core->Device.Node.State = (u8)XPM_DEVSTATE_SUSPENDING;
 	}
-
-	XPm_ClearScanClear();
 
 done:
 	if (XST_SUCCESS != Status) {
@@ -2192,7 +2191,7 @@ done:
  * @note   None
  *
  ****************************************************************************/
-static void XPm_ProcessAckReq(const u32 Ack, const u32 IpiMask, const int Status,
+static void XPm_ProcessAckReq(const u32 Ack, const u32 IpiMask, const XStatus Status,
 		       const u32 NodeId, const u32 NodeState)
 {
 #ifdef XPLMI_IPI_DEVICE_ID
@@ -2501,9 +2500,9 @@ done:
  * @note   None
  *
  ****************************************************************************/
-static int XPm_RestartCbWrapper(const u32 SubsystemId)
+static XStatus XPm_RestartCbWrapper(const u32 SubsystemId)
 {
-	int Status = XST_FAILURE;
+	XStatus Status = XST_FAILURE;
 
 	if (NULL != PmRestartCb) {
 		Status = PmRestartCb(SubsystemId, NULL);
@@ -2519,7 +2518,7 @@ static XStatus SetSubsystemState_ByCore(const XPm_Core* Core, const u32 State){
 		Status = XST_DEVICE_NOT_FOUND;
 		goto done;
 	}
-	u32 CoreSubsystemId = XPmDevice_GetSubsystemIdOfCore((XPm_Device *)Core);
+	u32 CoreSubsystemId = XPmDevice_GetSubsystemIdOfCore((const XPm_Device *)Core);
 	if (INVALID_SUBSYSID == CoreSubsystemId) {
 		PmErr("Invalid Subsystem Id for core %d\n\r", Core->Device.Node.Id);
 		Status = XPM_ERR_SUBSYS_NOTFOUND;
@@ -2778,7 +2777,7 @@ static XStatus XPm_SetResetState(const u32 SubsystemId, const u32 ResetId,
 	XStatus Status = XST_FAILURE;
 	u32 SubClass = NODESUBCLASS(ResetId);
 	u32 SubType = NODETYPE(ResetId);
-	XPm_ResetNode* Reset;
+	const XPm_ResetNode* Reset;
 
 	Reset = XPmReset_GetById(ResetId);
 	if (NULL == Reset) {
@@ -3625,7 +3624,7 @@ static XStatus XPm_DoClockDisable(XPlmi_Cmd *Cmd)
  * @note   None
  *
  ****************************************************************************/
-XStatus XPm_GetClockState(const u32 ClockId, u32 *const State)
+XStatus XPm_GetClockState(const u32 ClockId, u32 *const Enable)
 {
 	XStatus Status = XST_FAILURE;
 	XPm_ClockNode *Clk;
@@ -3638,13 +3637,13 @@ XStatus XPm_GetClockState(const u32 ClockId, u32 *const State)
 
 	if (ISOUTCLK(ClockId)) {
 		Status = XPmClock_GetClockData((XPm_OutClockNode *)Clk,
-						(u32)TYPE_GATE, State);
+						(u32)TYPE_GATE, Enable);
 	} else if (ISPLL(ClockId)) {
-		Status = XPmClockPll_GetMode((XPm_PllClockNode *)Clk, State);
-		if (*State == (u32)PM_PLL_MODE_RESET) {
-			*State = 0;
+		Status = XPmClockPll_GetMode((XPm_PllClockNode *)Clk, Enable);
+		if (*Enable == (u32)PM_PLL_MODE_RESET) {
+			*Enable = 0;
 		} else {
-			*State = 1;
+			*Enable = 1;
 		}
 	} else {
 		Status = XST_INVALID_PARAM;
@@ -3682,7 +3681,7 @@ static XStatus XPm_DoGetClockState(XPlmi_Cmd*Cmd)
 static XStatus XPm_SetClockDivider(const u32 SubsystemId, const u32 ClockId, const u32 Divider)
 {
 	volatile XStatus Status = XST_FAILURE;
-	const XPm_ClockNode *Clk = XPmClock_GetById(ClockId);
+	XPm_ClockNode *Clk = XPmClock_GetById(ClockId);
 
 	if (NULL == Clk) {
 		Status = XPM_INVALID_CLKID;
@@ -3750,10 +3749,10 @@ static XStatus XPm_GetClockDivider(const u32 ClockId, u32 *const Divider)
 	}
 
 	if (ISOUTCLK(ClockId)) {
-		Status = XPmClock_GetClockData((XPm_OutClockNode *)Clk,
+		Status = XPmClock_GetClockData((const XPm_OutClockNode *)Clk,
 						(u32)TYPE_DIV1, Divider);
 	} else if (ISPLL(ClockId)) {
-		Status = XPmClockPll_GetParam((XPm_PllClockNode *)Clk,
+		Status = XPmClockPll_GetParam((const XPm_PllClockNode *)Clk,
 					      (u32)PM_PLL_PARAM_ID_FBDIV, Divider);
 	} else {
 		Status = XPM_INVALID_CLKID;
@@ -3857,7 +3856,7 @@ static XStatus XPm_GetClockParent(const u32 ClockId, u32 *const ParentIdx)
 		goto done;
 	}
 
-	Status = XPmClock_GetClockData((XPm_OutClockNode *)Clk, (u32)TYPE_MUX, ParentIdx);
+	Status = XPmClock_GetClockData((const XPm_OutClockNode *)Clk, (u32)TYPE_MUX, ParentIdx);
 
 done:
 	if (XST_SUCCESS != Status) {
@@ -3963,7 +3962,7 @@ XStatus XPm_HookAfterBootPdi(void)
 		}
 	}
 
-	if (XPlmi_IsPlmUpdateDone() == TRUE){
+	if (0U != XPlmi_IsPlmUpdateDone()){
 		/* Skip during PLM update */
 		Status = XST_SUCCESS;
 		goto done;

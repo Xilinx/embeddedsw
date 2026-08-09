@@ -47,7 +47,7 @@ extern "C" {
 #define ACPU_PACCEPT_TIMEOUT		(1000U)
 #define RPU_PACTIVE_TIMEOUT		(10000000U)
 
-typedef enum {
+enum {
 	XPM_POWER_STATE_OFF = 0,		/* 0 - Completely powered off */
 	XPM_POWER_STATE_INITIALIZING,		/* 1 - Power sequencing in progress */
 	XPM_POWER_STATE_ON,			/* 2 - Fully powered and operational */
@@ -56,9 +56,9 @@ typedef enum {
 	XPM_POWER_STATE_PWR_DOWN_PARENT,	/* 5 - Parent powering down */
 	XPM_POWER_STATE_PWR_UP_SELF,		/* 6 - Self power-up in progress */
 	XPM_POWER_STATE_PWR_DOWN_SELF,		/* 7 - Self power-down in progress */
-} XPm_PowerState;
+};
 
-typedef enum {
+enum {
 	XPM_POWER_EVENT_PWR_UP,			/* 0 - Request to power up */
 	XPM_POWER_EVENT_PARENT_UP_DONE,		/* 1 - Parent power-up completed */
 	XPM_POWER_EVENT_SELF_UP_DONE,		/* 2 - Self power-up completed */
@@ -66,7 +66,7 @@ typedef enum {
 	XPM_POWER_EVENT_SELF_DOWN_DONE,		/* 4 - Self power-down completed */
 	XPM_POWER_EVENT_PARENT_DOWN_DONE,	/* 5 - Parent power-down completed */
 	XPM_POWER_EVENT_TIMER,			/* 6 - Timer event (polling) */
-} XPm_PowerEvent;
+};
 
 typedef struct {
 	u8 CmdLen; /** Total no of commands to configure this regulator */

@@ -26,8 +26,8 @@
 #define XPM_GIC_PROXY_REDUNDANT_ADDR(Status, StatusTmp, RegAddress,	\
 				     RegAddressTmp, Function, ...)	\
 	do {								\
-		(Status) = Function(__VA_ARGS__, &(RegAddress));	\
-		(StatusTmp) = Function(__VA_ARGS__, &(RegAddressTmp));	\
+		(Status) = (Function)(__VA_ARGS__, &(RegAddress));	\
+		(StatusTmp) = (Function)(__VA_ARGS__, &(RegAddressTmp));	\
 		if ((XST_SUCCESS != (Status)) ||			\
 		    (XST_SUCCESS != (StatusTmp)) ||			\
 		    ((RegAddress) != (RegAddressTmp))) {		\

@@ -47,12 +47,12 @@ extern "C" {
 					 ((u32)XPM_NODESUBCL_DEV_MEM_CTRLR == NODESUBCLASS(ID)) && \
 					 ((u32)XPM_NODETYPE_DEV_DDR == NODETYPE(ID)))
 
-typedef enum {
+enum {
 	MEM_TYPE_NONE 	 = 0x0U,
 	MEM_TYPE_OCM_TCM = 0x1U,
 	MEM_TYPE_DDR 	 = 0x2U,
 	MEM_TYPE_PL 	 = 0x3U
-} MemType;
+};
 
 /**
  * @enum AddrRangeStatus

@@ -29,16 +29,6 @@
 /** Strong 32-bit constant for denied policy entries */
 #define XPM_SEC_DENIED			(0xA5A5A5A5U)
 static XPmRuntime_DeviceOpsList* DevOpsList XPM_INIT_DATA(DevOpsList) = NULL;
-static const u32 IpiMasks[][2] = {
-	{ PM_DEV_IPI_ASU, ASU_IPI_MASK },
-	{ PM_DEV_IPI_0, IPI_0_MASK },
-	{ PM_DEV_IPI_1, IPI_1_MASK },
-	{ PM_DEV_IPI_2, IPI_2_MASK },
-	{ PM_DEV_IPI_3, IPI_3_MASK },
-	{ PM_DEV_IPI_4, IPI_4_MASK },
-	{ PM_DEV_IPI_5, IPI_5_MASK },
-	{ PM_DEV_IPI_6, IPI_6_MASK },
-};
 static XStatus DevRequest(XPm_Device *Device, XPm_Subsystem *Subsystem,
 			  u32 Capabilities, u32 QoS, u32 CmdType);
 static XStatus DevRelease(XPm_Device *Device,  const XPm_Subsystem *Subsystem, u32 CmdType);
@@ -507,7 +497,7 @@ static XStatus SetDevCohVirtAttr(XPm_Requirement *Reqm, u32 ReqCaps,
 	if (NULL == FpdPower) {
 		goto done;
 	}
-	XPmRuntime_DeviceOps* DevOps = XPm_GetDevOps_ById(Reqm->Device->Node.Id);
+	const XPmRuntime_DeviceOps* DevOps = XPm_GetDevOps_ById(Reqm->Device->Node.Id);
 	if (NULL == DevOps) {
 		PmErr("DeviceOps is NULL\r\n");
 		goto done;
@@ -588,13 +578,13 @@ static u32 GetMaxCapabilities(const XPm_Device* const Device)
 		MaxCaps |= (u32)PM_CAP_ACCESS;
 	}
 
-	XPmRuntime_DeviceOps* DevOps = XPm_GetDevOps_ById(Device->Node.Id);
+	const XPmRuntime_DeviceOps* DevOps = XPm_GetDevOps_ById(Device->Node.Id);
 	if (NULL == DevOps) {
 		PmErr("DeviceOps is NULL\r\n");
 		goto done;
 	}
 	LIST_FOREACH(DevOps->Requirements, ReqmNode){
-		XPm_Requirement* Reqm = ReqmNode->Data;
+		const XPm_Requirement* Reqm = ReqmNode->Data;
 		MaxCaps |= Reqm->Curr.Capabilities;
 	}
 done:
@@ -604,6 +594,16 @@ done:
 XStatus XPmDevice_Request(const u32 SubsystemId, const u32 DeviceId,
 			  const u32 Capabilities, const u32 QoS, const u32 CmdType)
 {
+	static const u32 IpiMasks[][2] = {
+		{ PM_DEV_IPI_ASU, ASU_IPI_MASK },
+		{ PM_DEV_IPI_0, IPI_0_MASK },
+		{ PM_DEV_IPI_1, IPI_1_MASK },
+		{ PM_DEV_IPI_2, IPI_2_MASK },
+		{ PM_DEV_IPI_3, IPI_3_MASK },
+		{ PM_DEV_IPI_4, IPI_4_MASK },
+		{ PM_DEV_IPI_5, IPI_5_MASK },
+		{ PM_DEV_IPI_6, IPI_6_MASK },
+	};
 	XStatus Status = XPM_ERR_DEVICE_REQ;
 	XPm_Device *Device;
 	XPm_Subsystem *Subsystem;
@@ -658,11 +658,11 @@ done:
 }
 
 
-XStatus XPmDevice_Release(u32 SubsystemId, u32 DeviceId, u32 CmdType)
+XStatus XPmDevice_Release(const u32 SubsystemId, const u32 DeviceId, const u32 CmdType)
 {
 	XStatus Status = XPM_ERR_DEVICE_RELEASE;
 	XPm_Device *Device;
-	XPm_Subsystem *Subsystem;
+	const XPm_Subsystem *Subsystem;
 
 	/* TODO: Check if subsystem has permission */
 
@@ -698,7 +698,7 @@ XStatus XPmDevice_Reset(const XPm_Device *Device, const XPm_ResetActions Action)
 	XStatus Status = XST_FAILURE;
 	const XPm_ResetHandle *RstHandle;
 	const XPm_ResetHandle *DeviceHandle;
-	XPm_ResetNode *Reset;
+	const XPm_ResetNode *Reset;
 
 	if (NULL == Device) {
 		Status = XPM_ERR_DEVICE;
@@ -828,7 +828,7 @@ static XStatus DevRequest(XPm_Device *Device, XPm_Subsystem *Subsystem,
 	/* Check whether this device is shareable */
 	UsagePolicy = USAGE_POLICY(Reqm->Flags);
 	if ((UsagePolicy == (u16)REQ_TIME_SHARED) || (UsagePolicy == (u16)REQ_NONSHARED)) {
-		XPmRuntime_DeviceOps* DevOps = XPm_GetDevOps_ById(Device->Node.Id);
+		const XPmRuntime_DeviceOps* DevOps = XPm_GetDevOps_ById(Device->Node.Id);
 		if (NULL == DevOps) {
 			PmErr("DeviceOps is NULL\r\n");
 			goto done;
@@ -1057,7 +1057,7 @@ static XStatus GetStateWithCaps(const XPm_Device* const Device, const u32 Caps,
 {
 	u32 Idx;
 	XStatus Status = XPM_PM_CONFLICT;
-	XPmRuntime_DeviceOps* DevOps = XPm_GetDevOps_ById(Device->Node.Id);
+	const XPmRuntime_DeviceOps* DevOps = XPm_GetDevOps_ById(Device->Node.Id);
 	if (NULL == DevOps) {
 		PmErr("DeviceOps is NULL\r\n");
 		goto done;
@@ -1099,7 +1099,7 @@ done:
 static u32 GetMinRequestedLatency(const XPm_Device *const Device)
 {
 	u32 MinLatency = XPM_MAX_LATENCY;
-	XPmRuntime_DeviceOps* DevOps = XPm_GetDevOps_ById(Device->Node.Id);
+	const XPmRuntime_DeviceOps* DevOps = XPm_GetDevOps_ById(Device->Node.Id);
 	if (NULL == DevOps) {
 		PmErr("DeviceOps is NULL\r\n");
 		goto done;
@@ -1129,7 +1129,7 @@ static u32 GetLatencyFromState(const XPm_Device *const Device, const u32 State)
 	u32 Idx;
 	u32 Latency = 0U;
 	XStatus Status = XST_FAILURE;
-	XPmRuntime_DeviceOps* DevOps = XPm_GetDevOps_ById(Device->Node.Id);
+	const XPmRuntime_DeviceOps* DevOps = XPm_GetDevOps_ById(Device->Node.Id);
 	if (NULL == DevOps) {
 		PmErr("DeviceOps is NULL\r\n");
 		goto done;
@@ -1176,7 +1176,7 @@ static XStatus ConstrainStateByLatency(const XPm_Device *const Device,
 	u32 WkupLat;
 	u32 Idx = 0;
 
-	XPmRuntime_DeviceOps* DevOps = XPm_GetDevOps_ById(Device->Node.Id);
+	const XPmRuntime_DeviceOps* DevOps = XPm_GetDevOps_ById(Device->Node.Id);
 	if (NULL == DevOps) {
 		PmErr("DeviceOps is NULL\r\n");
 		goto done;
@@ -1288,7 +1288,7 @@ done:
 static XStatus XPmDevice_ChangeState(XPm_Device *Device, const u32 NextState)
 {
 	XStatus Status = XPM_ERR_SETSTATE;
-	XPmRuntime_DeviceOps* DevOps = XPm_GetDevOps_ById(Device->Node.Id);
+	const XPmRuntime_DeviceOps* DevOps = XPm_GetDevOps_ById(Device->Node.Id);
 	if (NULL == DevOps) {
 		PmErr("DeviceOps is NULL\r\n");
 		goto done;
@@ -1329,7 +1329,7 @@ static XStatus XPmDevice_ChangeState(XPm_Device *Device, const u32 NextState)
 	if ((OldState != NextState) && (XST_SUCCESS == Status)) {
 		Device->Node.State = (u8)NextState;
 		/** TODO: Add Notification on this state transition*/
-		// /* Send notification about device state change */
+		// Send notification about device state change
 	}
 
 done:
@@ -1475,7 +1475,7 @@ XStatus XPmDevice_GetPermissions(const XPm_Device *Device, u32 *PermissionMask)
 	}
 	*PermissionMask = 0U;
 
-	XPmRuntime_DeviceOps* DevOps = XPm_GetDevOps_ById(Device->Node.Id);
+	const XPmRuntime_DeviceOps* DevOps = XPm_GetDevOps_ById(Device->Node.Id);
 	if (NULL == DevOps) {
 		PmErr("DeviceOps is NULL\r\n");
 		goto done;
@@ -1509,7 +1509,7 @@ done:
 u32 XPmDevice_GetUsageStatus(const XPm_Subsystem *Subsystem, const XPm_Device *Device)
 {
 	u32 UsageStatus = 0;
-	XPmRuntime_DeviceOps* DevOps = XPm_GetDevOps_ById(Device->Node.Id);
+	const XPmRuntime_DeviceOps* DevOps = XPm_GetDevOps_ById(Device->Node.Id);
 	if (NULL == DevOps) {
 		PmErr("Device Id = 0x%x is not initialized properly\r\n", Device->Node.Id);
 	} else {
@@ -1544,7 +1544,7 @@ XStatus XPmDevice_GetStatus(XPm_Subsystem *Subsystem,
 		goto done;
 	}
 
-	if ((!XPmDevice_IsRequestable(DeviceId)) || (NULL == FindReqm(Device, Subsystem))) {
+	if ((0U == XPmDevice_IsRequestable(DeviceId)) || (NULL == FindReqm(Device, Subsystem))) {
 		Status = XPM_PM_NO_ACCESS;
 		goto done;
 	}
@@ -1570,7 +1570,7 @@ XStatus XPmDevice_GetStatus(XPm_Subsystem *Subsystem,
 			}
 			RstHandle = RstHandle->NextReset;
 		}
-		if((((XPm_In32(((XPm_RpuCore *)Device)->ResumeCfg) & XPM_RPU_CPUHALT_MASK) == XPM_RPU_CPUHALT_MASK)) &&
+		if((((XPm_In32(((const XPm_RpuCore *)Device)->ResumeCfg) & XPM_RPU_CPUHALT_MASK) == XPM_RPU_CPUHALT_MASK)) &&
 			(0x1U == ClkStatus) && (0U == RstStatus)){
 				DeviceStatus->Status = (u32)XPM_DEVSTATE_HALT;
 		}
@@ -1611,7 +1611,7 @@ XStatus XPm_CheckCapabilities(const XPm_Device *Device, u32 Caps)
 {
 	u32 Idx;
 	XStatus Status = XST_FAILURE;
-	XPmRuntime_DeviceOps* DevOps = XPm_GetDevOps_ById(Device->Node.Id);
+	const XPmRuntime_DeviceOps* DevOps = XPm_GetDevOps_ById(Device->Node.Id);
 	if (NULL == DevOps) {
 		PmErr("DeviceOps is NULL\r\n");
 		goto done;

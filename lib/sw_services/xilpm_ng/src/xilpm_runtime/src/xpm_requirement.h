@@ -28,7 +28,7 @@ typedef enum {
 /**
  * Device usage policies.
  */
-enum XPm_ReqUsageFlags {
+enum {
 	REQ_NO_RESTRICTION,	/**< device accessible from all subsystems */
 	REQ_SHARED,		/**< device simultaneously shared between two or more subsystems */
 	REQ_NONSHARED,		/**< device exclusively reserved by one subsystem, always */
@@ -38,7 +38,7 @@ enum XPm_ReqUsageFlags {
 /**
  * Device/Memory region security status requirement per TrustZone.
  */
-enum XPm_ReqSecurityFlags {
+enum {
 	REQ_ACCESS_SECURE,	/**< Device/Memory region only allows access from secure masters */
 	REQ_ACCESS_SECURE_NONSECURE, /**< Device/Memory region allow both secure or non-secure masters */
 };

@@ -39,7 +39,7 @@ static inline XStatus XPm_CheckSizeLE(u32 a, u32 b)
 void *XPm_AllocPool(u32 SizeInBytes, XPm_AllocablePool_t* PoolMem)
 {
 	void *Bytes = NULL;
-	int BytesLeft = (u8*)PoolMem->Pool + PoolMem->Size - (u8*)PoolMem->FreeMem;
+	s32 BytesLeft = (u8*)PoolMem->Pool + PoolMem->Size - (u8*)PoolMem->FreeMem;
 	u32 Size = SizeInBytes;
 	volatile XStatus Status = XST_FAILURE;
 

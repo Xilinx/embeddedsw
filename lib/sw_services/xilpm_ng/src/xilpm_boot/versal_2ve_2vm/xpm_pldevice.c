@@ -564,9 +564,6 @@ XStatus XPmPlDevice_MemCtrlrMap(XPm_PlDevice *PlDevice, const u32 *Args, u32 Num
 	 * This is because DDR modeling information for a given PLD can be present in
 	 * its own RM (partial) or a default RM present in one its parent RM or static image.
 	 */
-	// 	/*
-	// 	 * We can end up here in either of the two failure cases:
-	// 	 *  1. No parent in the hierarchy is initializing
 
 	/* Lookup DDRMC device based on provided address in args */
 	for (u32 i = (u32)XPM_NODEIDX_DEV_DDRMC_MIN; i <= (u32)XPM_NODEIDX_DEV_DDRMC_MAX; i++) {
@@ -734,7 +731,7 @@ XStatus XPmPlDevice_GetParent(u32 NodeId, u32 *Resp)
 		goto done;
 	} else if ((u32)XPM_NODESUBCL_DEV_PL == NODESUBCLASS(NodeId)) {
 		/* For PLD0 Node parent returned value will be 0U */
-		Parent = ((XPm_PlDevice *)Device)->Parent;
+		Parent = ((const XPm_PlDevice *)Device)->Parent;
 	} else {
 		DbgErr = XPM_INT_ERR_INVALID_SUBCLASS;
 		goto done;

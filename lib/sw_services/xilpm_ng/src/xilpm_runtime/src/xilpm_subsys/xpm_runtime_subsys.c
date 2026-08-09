@@ -517,7 +517,7 @@ XStatus XPmSubsystem_IsOperationAllowed(const u32 HostId, const u32 TargetId,
 	/* Have Target check if Host can enact the operation */
 	XSECURE_REDUNDANT_CALL(Status, StatusTmp, CheckTargetToHostPerm, CmdType, HostId, PermissionMask);
 	if ((XST_SUCCESS != Status) || (XST_SUCCESS != StatusTmp)) {
-		Status |= StatusTmp;
+		Status = (XStatus)((u32)Status | (u32)StatusTmp);
 		DbgErr = XPM_INT_ERR_SUBSYS_ACCESS;
 	}
 

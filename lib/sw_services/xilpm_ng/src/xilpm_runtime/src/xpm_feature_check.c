@@ -26,7 +26,7 @@
  * use only, so no need to consider for versioning.
  *
  ****************************************************************************/
-XStatus XPm_FeatureCheck(const u32 ApiId, u32 *const Version)
+XStatus XPm_FeatureCheck(u32 ApiId, u32 *Version)
 {
 	XStatus Status = XST_FAILURE;
 

@@ -165,7 +165,7 @@ void DisableWake(const struct XPm_Core *Core)
 	if ((u32)XPM_NODETYPE_DEV_CORE_APU == NODETYPE(Core->Device.Node.Id)) {
 		DISABLE_WAKE0(Core->WakeUpMask);
 	} else if ((u32)XPM_NODETYPE_DEV_CORE_RPU == NODETYPE(Core->Device.Node.Id)) {
-		const XPm_RpuCore *RpuCore = (XPm_RpuCore *)Core;
+		const XPm_RpuCore *RpuCore = (const XPm_RpuCore *)Core;
 
 		DISABLE_WAKE1(Core->WakeUpMask);
 
@@ -211,7 +211,7 @@ XStatus XPmCore_StoreResumeAddr(XPm_Core *Core, u64 Address)
 
 	XSECURE_REDUNDANT_CALL(Status, StatusTmp, SetResumeAddr, Core, Address);
 	if ((XST_SUCCESS != Status) || (XST_SUCCESS != StatusTmp)) {
-		Status |= StatusTmp;
+		Status = (XStatus)((u32)Status | (u32)StatusTmp);
 		goto done;
 	}
 done:
@@ -244,7 +244,7 @@ XStatus XPmCore_SetCPUIdleFlag(const XPm_Core *Core, u32 CpuIdleFlag)
 	return XST_SUCCESS;
 }
 
-maybe_unused static XStatus XPmCore_GetCPUIdleFlag(const XPm_Core *Core, u32 *CpuIdleFlag)
+maybe_unused static XStatus XPmCore_GetCPUIdleFlag(const XPm_Core *Core, const u32 *CpuIdleFlag)
 {
 	(void)Core;
 	(void)CpuIdleFlag;

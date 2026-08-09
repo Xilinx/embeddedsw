@@ -22,7 +22,7 @@ struct XPmRuntime_Core {
 	/** TODO: enable these  members when they're actually usedd */
 	// u16 PwrUpLatency;
 	// u16 PwrDwnLatency;
-	// u8 DebugMode; /**< DebugMode: Debugger is connected */
+	// u8 DebugMode; DebugMode: Debugger is connected
 };
 
 XStatus XPmCore_GetCoreIdleSupport(const XPm_Core* Core, u8 *IsCoreIdleSupported);

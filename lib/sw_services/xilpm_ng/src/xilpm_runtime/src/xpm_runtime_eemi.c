@@ -129,7 +129,7 @@ __attribute__((weak, noinline))
 XStatus XPmSubsystemOp_Activate(XPm_Subsystem *Subsystem)
 {
 	XStatus Status = XST_FAILURE;
-	XPm_Requirement *Reqm;
+	const XPm_Requirement *Reqm;
 	u32 DeviceId;
 
 	if (NULL == Subsystem) {
@@ -334,7 +334,7 @@ XStatus XPm_IsForcePowerDownAllowed(u32 SubsystemId, u32 NodeId, u32 CmdType)
  *
  ****************************************************************************/
 __attribute__((weak, noinline))
-XStatus XPmSubsystem_CmnFlush(const u32 SubsystemId)
+XStatus XPmSubsystem_CmnFlush(u32 SubsystemId)
 {
 	(void)SubsystemId;
 	return XST_SUCCESS;

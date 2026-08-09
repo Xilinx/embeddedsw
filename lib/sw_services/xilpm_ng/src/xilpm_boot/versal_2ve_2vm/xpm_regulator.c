@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2024 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (c) 2024 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -71,7 +71,7 @@ XStatus XPmRegulator_Init(XPm_Regulator *Regulator, u32 Id, const u32 *Args, u32
 		Regulator->Config.CmdLen = (u8)((Args[1] >> 8) & 0xFFU);
 		for (u32 i = 3; i < NumArgs; i++) {
 			Status = Xil_SMemCpy((void *)&Regulator->Config.CmdArr[(i - 3U) * 4U],
-					     CopySize, (void *)&Args[i], CopySize, CopySize);
+					     CopySize, (const void *)&Args[i], CopySize, CopySize);
 			if (XST_SUCCESS != Status) {
 				goto done;
 			}

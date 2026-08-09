@@ -42,7 +42,7 @@ static inline void AieRMW64(u64 addr, u32 Mask, u32 Value)
 }
 
 static XStatus Aie2ps_ColRst(u32 StartCol, u32 EndCol, const void *Buffer);
-static XStatus Aie2ps_ShimRst(const u32 StartCol, const u32 EndCol, const void* Buffer);
+static XStatus Aie2ps_ShimRst(u32 StartCol, u32 EndCol, const void* Buffer);
 static XStatus Aie2ps_EnbColClkBuff(u32 StartCol, u32 EndCol, const void *Buffer);
 static XStatus Aie2ps_UcZeroization(u32 StartCol, u32 EndCol, const void *Buffer);
 static XStatus Aie2ps_HandShake(u32 SubsystemId, u32 StartCol, u32 EndCol, const void *Buffer);
@@ -115,8 +115,8 @@ static XStatus Aie2ps_StartNumCol(u32 *StartCol, u32 *EndCol, const void *Buffer
 
 	Array = &AieDomain->Array;
 
-	*StartCol = ((struct XPm_AieOpStartNumCol *)Buffer)->StartCol;
-	*EndCol = ((struct XPm_AieOpStartNumCol *)Buffer)->NumCol + *StartCol - 1U;
+	*StartCol = ((const struct XPm_AieOpStartNumCol *)Buffer)->StartCol;
+	*EndCol = ((const struct XPm_AieOpStartNumCol *)Buffer)->NumCol + *StartCol - 1U;
 
 	/* Check that column and operations are in range */
 	if ((*EndCol > ((u32)Array->NumCols + (u32)Array->StartCol - 1U)) ||
@@ -156,7 +156,7 @@ static XStatus Aie2ps_Zeroization(u32 StartCol, u32 EndCol, const void *Buffer)
 	u32 AieZeroizationTime = 0U;
 	u64 BaseAddress;
 	u32 Col, Row, Mrow;
-	u32 Ops = ((struct XPm_AieTypeLen *)Buffer)->Type;
+	u32 Ops = ((const struct XPm_AieTypeLen *)Buffer)->Type;
 
 	/* Unlock PCSR */
 	XPm_UnlockPcsr(AieDomain->AieNpiAddress);
@@ -166,7 +166,7 @@ static XStatus Aie2ps_Zeroization(u32 StartCol, u32 EndCol, const void *Buffer)
 		  ME_PROT_REG_CTRL_PROTECTED_REG_EN_MASK, 1U);
 
 	/* Enable zeroization for program memory of core module. */
-	if (0U != ((AIE_OPS_ALL_MEM_ZEROIZATION | AIE_OPS_PROG_MEM_ZEROIZATION)	& Ops)) {
+	if (0U != (((u32)AIE_OPS_ALL_MEM_ZEROIZATION | (u32)AIE_OPS_PROG_MEM_ZEROIZATION)	& Ops)) {
 		for (Col = StartCol; Col <= EndCol; Col++) {
 			for (Row = StartTileRow; Row <= RowEnd; Row++) {
 				BaseAddress = AIE2PS_TILE_BADDR(NocAddress, Col, Row);
@@ -181,7 +181,7 @@ static XStatus Aie2ps_Zeroization(u32 StartCol, u32 EndCol, const void *Buffer)
 	}
 
 	/* Enable zeroization for data memory of core module. */
-	if (0U != ((AIE_OPS_ALL_MEM_ZEROIZATION | AIE_OPS_DATA_MEM_ZEROIZATION)	& Ops)) {
+	if (0U != (((u32)AIE_OPS_ALL_MEM_ZEROIZATION | (u32)AIE_OPS_DATA_MEM_ZEROIZATION)	& Ops)) {
 		for (Col = StartCol; Col <= EndCol; Col++) {
 			for (Row = StartTileRow; Row <= RowEnd; Row++) {
 				BaseAddress = AIE2PS_TILE_BADDR(NocAddress, Col, Row);
@@ -196,7 +196,7 @@ static XStatus Aie2ps_Zeroization(u32 StartCol, u32 EndCol, const void *Buffer)
 	}
 
 	/* Enable memory zeroization for mem tiles; stop before tile row begins */
-	if (0U != ((AIE_OPS_ALL_MEM_ZEROIZATION | AIE_OPS_MEM_TILE_ZEROIZATION)	& Ops)) {
+	if (0U != (((u32)AIE_OPS_ALL_MEM_ZEROIZATION | (u32)AIE_OPS_MEM_TILE_ZEROIZATION)	& Ops)) {
 		for (Col = StartCol; Col <= EndCol; Col++) {
 			for (Row = RowStart; Row < StartTileRow; Row++) {
 				BaseAddress = AIE2PS_TILE_BADDR(NocAddress, Col, Row);
@@ -279,7 +279,7 @@ static XStatus Aie2ps_UcZeroization(u32 StartCol, u32 EndCol, const void *Buffer
 	u64 BaseAddress;
 	u32 Col;
 	u32 AieZeroizationTime = 0U;
-	u32 Value = ((struct XPm_AieOpUcZeroisation *)Buffer)->Flag;
+	u32 Value = ((const struct XPm_AieOpUcZeroisation *)Buffer)->Flag;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 	XStatus UcZeroStatus = XST_FAILURE;
 
@@ -357,11 +357,11 @@ static XStatus Aie2ps_ColRst(u32 StartCol, u32 EndCol, const void *Buffer)
  *
  * @param  StartCol     Column start index
  * @param  EndCol       Column end index
- * @param  Buf          Ops buffer (unused)
+ * @param  Buffer       Ops buffer (unused)
  *
  * @return XST_SUCCESS if successful else error code.
  ***************************************************************************/
-static XStatus Aie2ps_ShimRst(const u32 StartCol, const u32 EndCol, const void* Buf)
+static XStatus Aie2ps_ShimRst(u32 StartCol, u32 EndCol, const void* Buffer)
 {
 	XStatus Status = XST_FAILURE;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
@@ -370,7 +370,7 @@ static XStatus Aie2ps_ShimRst(const u32 StartCol, const u32 EndCol, const void* 
 	u32 ColData;
 
 	/* Unused arguments */
-	(void)Buf;
+	(void)Buffer;
 
 	/* Unlock PCSR */
 	XPm_UnlockPcsr(NodeAddress);
@@ -537,7 +537,7 @@ static XStatus Aie2ps_EnbAxiMmIsolation(u32 StartCol, u32 EndCol, const void *Bu
 	const u64 NocAddress = AieDomain->Array.NocAddress;
 	u64 BaseAddress;
 	u32 Col, Mask = 0U;
-	u32 Value = ((struct XPm_AieOpAximmIso *)Buffer)->Traffic;
+	u32 Value = ((const struct XPm_AieOpAximmIso *)Buffer)->Traffic;
 
 	/*
 	 * If the value passed from the driver is not one of the following
@@ -594,7 +594,7 @@ static XStatus Aie2ps_SetL2CtrlNpiIntr(u32 StartCol, u32 EndCol, const void *Buf
 	const u64 NocAddress = AieDomain->Array.NocAddress;
 	u64 BaseAddress;
 	u32 Col;
-	u32 Value = ((struct XPm_AieOpL2CtrlIrq *)Buffer)->Irq;
+	u32 Value = ((const struct XPm_AieOpL2CtrlIrq *)Buffer)->Irq;
 
 	/* Unused arguments */
 
@@ -626,8 +626,8 @@ static XStatus Aie2ps_NmuConfig(u32 StartCol, u32 EndCol, const void *Buffer)
 	const u64 NocAddress = AieDomain->Array.NocAddress;
 	u64 BaseAddress;
 	u32 Col;
-	u32 ColRoute0 = ((struct XPm_AieOpNmuSwitch *)Buffer)->C0Route;
-	u32 ColRoute1 = ((struct XPm_AieOpNmuSwitch *)Buffer)->C1Route;
+	u32 ColRoute0 = ((const struct XPm_AieOpNmuSwitch *)Buffer)->C0Route;
+	u32 ColRoute1 = ((const struct XPm_AieOpNmuSwitch *)Buffer)->C1Route;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 
 	for (Col = StartCol; Col <= EndCol; Col++) {
@@ -671,7 +671,7 @@ static XStatus Aie2ps_HwErrInt(u32 StartCol, u32 EndCol, const void *Buffer)
 	const u64 NocAddress = AieDomain->Array.NocAddress;
 	u64 BaseAddress;
 	u32 Col;
-	u32 Value = ((struct XPm_AieOpHwErrSts *)Buffer)->Val;
+	u32 Value = ((const struct XPm_AieOpHwErrSts *)Buffer)->Val;
 
 	for (Col = StartCol; Col <= EndCol; Col++) {
 		/* BaseAddress for AIE2 column */
@@ -700,7 +700,7 @@ static XStatus Aie2ps_HwErrMask(u32 StartCol, u32 EndCol, const void *Buffer)
 	const u64 NocAddress = AieDomain->Array.NocAddress;
 	u64 BaseAddress;
 	u32 Col;
-	u32 Value = ((struct XPm_AieOpHwErrSts *)Buffer)->Val;
+	u32 Value = ((const struct XPm_AieOpHwErrSts *)Buffer)->Val;
 
 	/* Unused arguments */
 
@@ -731,7 +731,7 @@ static XStatus Aie2ps_SetEccScrub(u32 StartCol, u32 EndCol, const void *Buffer)
 	const u64 NocAddress = AieDomain->Array.NocAddress;
 	u64 BaseAddress;
 	u32 Col;
-	u32 Value = ((struct XPm_AieOpEccScrubPeriod *)Buffer)->ScrubPeriod;
+	u32 Value = ((const struct XPm_AieOpEccScrubPeriod *)Buffer)->ScrubPeriod;
 
 	for (Col = StartCol; Col <= EndCol; Col++) {
 		/* BaseAddress for AIE2 column */
@@ -886,7 +886,7 @@ static XStatus Aie2ps_IntcHwSts(u32 StartCol, u32 EndCol, const void *Buffer)
 	const u64 NocAddress = AieDomain->Array.NocAddress;
 	u64 BaseAddress;
 	u32 Col;
-	u32 Value = ((struct XPm_AieOpHwErrSts *)Buffer)->Val;
+	u32 Value = ((const struct XPm_AieOpHwErrSts *)Buffer)->Val;
 
 	for (Col = StartCol; Col <= EndCol; Col++) {
 		/* BaseAddress for AIE2 column */
@@ -964,10 +964,10 @@ static XStatus Aie2ps_HandShake(u32 SubsystemId, u32 StartCol, u32 EndCol, const
 	const XPm_AieDomain *AieDomain = (XPm_AieDomain*)XPmPower_GetById(PM_POWER_ME2);
 	const u64 NocAddress = AieDomain->Array.NocAddress;
 	u64 DestAddr, BaseAddress, DdrAddr;
-	u32 Len = ((struct XPm_AieOpHandShake *)Buffer)->Len;
-	u32 HighAddr = ((struct XPm_AieOpHandShake *)Buffer)->HighAddr;
-	u32 LowAddr = ((struct XPm_AieOpHandShake *)Buffer)->LowAddr;
-	u32 Offset = ((struct XPm_AieOpHandShake *)Buffer)->Offset;
+	u32 Len = ((const struct XPm_AieOpHandShake *)Buffer)->Len;
+	u32 HighAddr = ((const struct XPm_AieOpHandShake *)Buffer)->HighAddr;
+	u32 LowAddr = ((const struct XPm_AieOpHandShake *)Buffer)->LowAddr;
+	u32 Offset = ((const struct XPm_AieOpHandShake *)Buffer)->Offset;
 	u32 Col;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 
@@ -1016,7 +1016,7 @@ static XStatus Aie2ps_CtrlPktTlastErr(u32 StartCol, u32 EndCol, const void *Buff
 {
 	const XPm_AieDomain *AieDomain = (XPm_AieDomain*)XPmPower_GetById(PM_POWER_ME2);
 	const u64 NocAddress = AieDomain->Array.NocAddress;
-	u32 Value = ((u32)(((struct XPm_AieCtrlPktTlastErr *)Buffer)->State)) << AIE2PS_CTRL_PKT_TLAST_ERR_EN_SHIFT;
+	u32 Value = ((u32)(((const struct XPm_AieCtrlPktTlastErr *)Buffer)->State)) << AIE2PS_CTRL_PKT_TLAST_ERR_EN_SHIFT;
 	u32 RowStart = AieDomain->Array.StartRow;
 	u32 RowEnd = RowStart + AieDomain->Array.NumRowsAdjusted - 1U;
 	u32 StartTileRow = RowStart + AieDomain->Array.NumMemRows;
@@ -1090,7 +1090,7 @@ static XStatus Aie2ps_Operation(u32 SubsystemId, u32 Size, u32 HighAddr, u32 Low
 	u32 EndCol = 0U;
 	char *Buf = (char *)Buffer;
 	const char *End = Buf + Size;
-	struct XPm_AieTypeLen *OpTypeLen;
+	const struct XPm_AieTypeLen *OpTypeLen;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 	const XPm_AieDomain *AieDomain = (XPm_AieDomain*)XPmPower_GetById(PM_POWER_ME2);
 
@@ -1123,7 +1123,7 @@ static XStatus Aie2ps_Operation(u32 SubsystemId, u32 Size, u32 HighAddr, u32 Low
                 goto done;
         }
 
-	OpTypeLen = (struct XPm_AieTypeLen *)Buf;
+	OpTypeLen = (const struct XPm_AieTypeLen *)Buf;
 	/* Buffer must start with AIE_OPS_START_NUM_COL operation */
 	if ((u32)AIE_OPS_START_NUM_COL != OpTypeLen->Type) {
 		DbgErr = XPM_INT_ERR_INVALID_PARAM;
@@ -1154,7 +1154,7 @@ static XStatus Aie2ps_Operation(u32 SubsystemId, u32 Size, u32 HighAddr, u32 Low
 			Buf += sizeof(struct XPm_AieOpHandShake);
 		} else {
 			for (Index = 0U; Index < (sizeof(AieOpsHandlers) / sizeof(struct XPmAieOpsHandlers)); Index++) {
-				if (AieOpsHandlers[Index].Ops == OpTypeLen->Type) {
+				if ((u32)AieOpsHandlers[Index].Ops == OpTypeLen->Type) {
 					if (NULL != AieOpsHandlers[Index].Handler) {
 						/* Perform AIE operation */
 						Status = AieOpsHandlers[Index].Handler(StartCol,
@@ -1170,7 +1170,7 @@ static XStatus Aie2ps_Operation(u32 SubsystemId, u32 Size, u32 HighAddr, u32 Low
 			Buf += OpTypeLen->Len;
 		}
 
-		OpTypeLen = (struct XPm_AieTypeLen *)Buf;
+		OpTypeLen = (const struct XPm_AieTypeLen *)Buf;
 	}
 
         Status = XST_SUCCESS;
