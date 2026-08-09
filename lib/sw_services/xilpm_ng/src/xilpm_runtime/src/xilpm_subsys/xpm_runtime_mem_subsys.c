@@ -308,7 +308,10 @@ XStatus XPm_IsMemRegnAddressValid(u32 SubsystemId, u64 RegionAddr, u64 RegionSiz
 		 * - Check whether PL Startup has been asserted in hardware
 		 */
 		const XPm_Power *Power = XPmPower_GetById(PM_POWER_PLD);
-		if ((NULL != Power) && ((u8)XPM_POWER_STATE_ON == Power->Node.State) && IS_PL_STARTUP_ASSERTED) {
+		/* Read the CFU end-of-startup status (idempotent, PMC-domain register) into a
+		 * local so the MMIO read is not a side-effecting operand of && (MISRA R13.5). */
+		const u32 PlStartupAsserted = (IS_PL_STARTUP_ASSERTED) ? 1U : 0U;
+		if ((NULL != Power) && ((u8)XPM_POWER_STATE_ON == Power->Node.State) && (1U == PlStartupAsserted)) {
 			Status = XPM_SUCCESS;
 		}
 		else {
