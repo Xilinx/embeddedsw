@@ -325,7 +325,7 @@ XStatus XPm_PowerUpPLD(XPm_Node *Node)
 		goto done;
 	}
 
-	Status = (XStatus)(XPmPower_UpdateDomainPower(&PldDomain->Domain, XPM_POWER_STATE_ON));
+	Status = (XStatus)(XPmPower_UpdateDomainPower(&PldDomain->Domain, (u32)XPM_POWER_STATE_ON));
 
 	if (XST_SUCCESS != Status) {
 		DbgErr = XPM_INT_ERR_PLD_RAIL_CONTROL;
@@ -462,7 +462,7 @@ XStatus XPm_PowerDwnPLD(const XPm_Node *Node)
 	}
 
 	/* Power down PLD power rail */
-	Status = (XStatus)(XPmPower_UpdateDomainPower(&PldDomain->Domain, XPM_POWER_STATE_OFF));
+	Status = (XStatus)(XPmPower_UpdateDomainPower(&PldDomain->Domain, (u32)XPM_POWER_STATE_OFF));
 
 	if (XST_SUCCESS != Status) {
 		DbgErr = XPM_INT_ERR_PLD_RAIL_CONTROL;
@@ -751,8 +751,9 @@ XStatus XPmPowerDomain_InitDomain(XPm_PowerDomain *PwrDomain, u32 Function,
 
 	switch (Function) {
 	case (u32)FUNC_INIT_START:
+	{
 		PwrDomain->Power.Node.State = (u8)XPM_POWER_STATE_INITIALIZING;
-		Status = (XStatus)(XPmPower_UpdateDomainPower(PwrDomain, XPM_POWER_STATE_ON));
+		Status = (XStatus)(XPmPower_UpdateDomainPower(PwrDomain, (u32)XPM_POWER_STATE_ON));
 
 		if (XST_SUCCESS != Status) {
 			DbgErr = XPM_INT_ERR_PWR_DOMAIN_RAIL_CONTROL;
@@ -770,6 +771,7 @@ XStatus XPmPowerDomain_InitDomain(XPm_PowerDomain *PwrDomain, u32 Function,
 
 		Status = XST_SUCCESS;
 		break;
+	}
 	case (u32)FUNC_INIT_FINISH:
 #ifdef PLM_ENABLE_STL
 		(void)XStl_PlmStartupPreCdoTask(PwrDomain->Power.Node.Id);

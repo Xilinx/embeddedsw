@@ -306,14 +306,14 @@ static const XPmFsm_StateCap XPmHbMonDeviceStates[] = {
 static const XPmFsm_Tran XPmHbMonDevEventTransitions[] = {
 	{
 	.Event = (u32)XPM_DEVEVENT_BRINGUP_ALL,
-	.FromState = (u32)XPM_DEVSTATE_UNUSED,
-	.ToState = (u32)XPM_DEVSTATE_RUNNING,
+	.FromState = (u8)XPM_DEVSTATE_UNUSED,
+	.ToState = (u8)XPM_DEVSTATE_RUNNING,
 	.Latency = XPM_DEF_LATENCY,
 	.Action = &ActionStart,
 	}, {
 	.Event = (u32)XPM_DEVEVENT_SHUTDOWN,
-	.FromState = (u32)XPM_DEVSTATE_RUNNING,
-	.ToState = (u32)XPM_DEVSTATE_UNUSED,
+	.FromState = (u8)XPM_DEVSTATE_RUNNING,
+	.ToState = (u8)XPM_DEVSTATE_UNUSED,
 	.Latency = XPM_DEF_LATENCY,
 	.Action = &ActionStop,
 	},

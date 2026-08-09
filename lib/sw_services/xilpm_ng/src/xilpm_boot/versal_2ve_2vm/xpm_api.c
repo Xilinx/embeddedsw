@@ -753,11 +753,13 @@ static XStatus AddProcDevice(const u32 *Args, u32 PowerId)
 		break;
 
 	case (u32)XPM_NODETYPE_DEV_CORE_ASU:
+	{
 		XPm_AsuCore *AsuCore = (XPm_AsuCore *)XPm_AllocBytes(sizeof(XPm_AsuCore));
 		Status = XPmAsuCore_Init(AsuCore, DeviceId, Ipi, BaseAddr, Power, NULL, NULL);
 		/* @TODO Just allocate memory for ASU node for now and return SUCCESS */
 		Status = XST_SUCCESS;
 		break;
+	}
 	default:
 		Status = XST_INVALID_PARAM;
 		break;
@@ -1530,6 +1532,7 @@ static XStatus XPm_AddNodePower(const u32 *Args, u32 NumArgs)
 			break;
 		}
 	case (u32)XPM_NODETYPE_POWER_DOMAIN_ME:
+	{
 		XPm_AieDomain * AieDomain = (XPm_AieDomain *)XPm_AllocBytes(sizeof(XPm_AieDomain));
 		if (NULL == AieDomain) {
 			Status = XST_BUFFER_TOO_SMALL;
@@ -1538,6 +1541,7 @@ static XStatus XPm_AddNodePower(const u32 *Args, u32 NumArgs)
 		Status = XPmAieDomain_Init(AieDomain, PowerId, BitMask, PowerParent,
 				&Args[3U], (NumArgs - 3U));
 		break;
+	}
 #if defined(XILPM_NG_DOMAIN_CONTROL_GPIO)
 	case (u32)XPM_NODETYPE_POWER_DOMAIN_CTRL:
 		XPm_DomainCtrl *DomainCtrl = (XPm_DomainCtrl *)XPm_AllocBytesBoard(sizeof(XPm_DomainCtrl));
@@ -2389,7 +2393,7 @@ static int XPm_GpioProcHandler(void *Data)
 	u32 IntStatOff, DataRoOff, IntEnOff, IntAnyOff, GpioBaseAddr;
 	u32 IntStat, DataRo;
 	u32 MioNum, BitPos, BitMask, DevId;
-	u8 IsProcExecuted = FALSE;
+	u8 IsProcExecuted = 0U;
 	const XPm_GpioProcCfg *Cfg = NULL;
 	XStatus Status;
 
@@ -2471,7 +2475,7 @@ static int XPm_GpioProcHandler(void *Data)
 				if (XST_SUCCESS != Status) {
 					PmErr("proc 0x%x failed\r\n", Cfg->ProcId);
 				}
-				IsProcExecuted = TRUE;
+				IsProcExecuted = 1U;
 			}
 			/* Write-to-clear this pin's interrupt */
 			XPm_Out32(GpioBaseAddr + IntStatOff, BitMask);
@@ -2534,11 +2538,11 @@ static int XPm_GpioRegisterPin (u32 CfgHalf)
 		goto done;
 	}
 
-	SlrId    = CfgHalf & GPIO_CFG_SLRID_MASK;
+	SlrId    = (u8)(CfgHalf & GPIO_CFG_SLRID_MASK);
 	GpioController = (CfgHalf & GPIO_CFG_TYPE_MASK) >> GPIO_CFG_TYPE_SHIFT;
-	Bank     = (CfgHalf & GPIO_CFG_BANK_MASK) >> GPIO_CFG_BANK_SHIFT;
+	Bank     = (u8)((CfgHalf & GPIO_CFG_BANK_MASK) >> GPIO_CFG_BANK_SHIFT);
 	MioIdx   = (CfgHalf & GPIO_CFG_MIO_MASK) >> GPIO_CFG_MIO_SHIFT;
-	ProcId   = (CfgHalf & GPIO_CFG_PROCID_MASK) >> GPIO_CFG_PROCID_SHIFT;
+	ProcId   = (u16)((CfgHalf & GPIO_CFG_PROCID_MASK) >> GPIO_CFG_PROCID_SHIFT);
 
 	/* MioIdx is 1-based in the RTCA config (0 is invalid) */
 	if ((MioIdx == 0U) || (MioIdx > (u32)XPM_NODEIDX_STMIC_MAX)) {
@@ -2560,13 +2564,13 @@ static int XPm_GpioRegisterPin (u32 CfgHalf)
 	 */
 	if (GpioController == (u32)LPD_GPIO_CONTROLLER) {
 		PinId        = PM_STMIC_LMIO_BASE + MioIdx;
-		GicId        = (u32)XPLMI_PMC_GIC_IRQ_GICP0;
-		GicSrc       = (u32)XPLMI_GICP0_SRC20;
+		GicId        = (u8)XPLMI_PMC_GIC_IRQ_GICP0;
+		GicSrc       = (u8)XPLMI_GICP0_SRC20;
 		DevId = PM_DEV_GPIO;
 	} else if (GpioController == (u32)PMC_GPIO_CONTROLLER) {
 		PinId        = PM_STMIC_PMIO_BASE + MioIdx;
-		GicId        = (u32)XPLMI_PMC_GIC_IRQ_GICP6;
-		GicSrc       = (u32)XPLMI_GICP6_SRC10;
+		GicId        = (u8)XPLMI_PMC_GIC_IRQ_GICP6;
+		GicSrc       = (u8)XPLMI_GICP6_SRC10;
 		DevId = PM_DEV_GPIO_PMC;
 	} else {
 		PmErr("Invalid GPIO Controller 0x%x\r\n", GpioController);

@@ -266,7 +266,7 @@ maybe_unused static XStatus XPmDomainIso_GetState(u32 IsoIdx, XPm_IsoStates *Sta
 
 	Mask = IsoNode->Mask;
 	BaseAddress = IsoNode->Node.BaseAddress;
-	Polarity = GET_POLARITY(IsoNode);
+	Polarity = (u32)GET_POLARITY(IsoNode);
 
 	if (0U != IS_PSM_ISO(IsoNode)) {
 		PmErr("Not expecting a PSM iso node!\r\n");

@@ -2012,7 +2012,7 @@ static XStatus XPm_DoForcePowerdown(XPlmi_Cmd* Cmd)
 	 *  Skip providing ack for the force power down command as it is
 	 *  handled from the xilpm module itself.
 	 */
-	Cmd->AckInPLM = FALSE;
+	Cmd->AckInPLM = 0U;
 	Status = XPm_ForcePowerdown(SubsystemId, NodeId, Ack, CmdType, IpiMask);
 	Cmd->Response[0] = (u32)Status;
 	return Status;

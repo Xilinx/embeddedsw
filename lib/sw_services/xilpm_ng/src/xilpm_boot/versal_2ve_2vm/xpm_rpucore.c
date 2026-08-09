@@ -173,6 +173,8 @@ static void XPmRpuCore_AssignRegAddr(struct XPm_RpuCore *RpuCore, const u32 Id, 
 		RpuCore->Core.SleepMask = PSXC_LPX_SLCR_RPU_E1_POWER_DWN_MASK;
 		RpuCore->Core.WakeUpMask = PSXC_LPX_SLCR_WAKEUP1_IRQ_RPUE_CORE1_MASK;
 		RpuCore->PcilIsr = PsLpd->LpdSlcrBaseAddr + PSXC_LPX_SLCR_RPU_PCIL_E1_ISR_OFFSET;
+	} else {
+		/* No action required for invalid RPU device ID */
 	}
 }
 
@@ -226,6 +228,8 @@ maybe_unused static void XPm_GetCoreId(u32 *Rpu0, u32 *Rpu1, const u32 DeviceId)
 	} else if ((PM_DEV_RPU_E_0 == DeviceId) || (PM_DEV_RPU_E_1 == DeviceId)) {
 		*Rpu0 = PM_DEV_RPU_E_0;
 		*Rpu1 = PM_DEV_RPU_E_1;
+	} else {
+		/* No action required for invalid RPU device ID */
 	}
 }
 

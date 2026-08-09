@@ -323,24 +323,27 @@ typedef enum {
 	ERRSTS_REPAIR_TAGID_OUTOFRANGE = 0x99,	// ERRSTS_PMC2ATE_REPAIR_TAGID_OUTOFRANGE. can't be written into st_BisrTagsTable.status
 } bisr_Repair_Status;
 
-enum BISR_TAG_IDs {
-	MRMAC_TAG_ID = 0x0F,		//  XPmBisr_RepairHardBlock
-	BRAM_TAG_ID = 0x11,		//  XPmBisr_RepairBram
-	URAM_TAG_ID = 0x12,		//  XPmBisr_RepairUram
-	GT_TAG_ID = 0x18,		//  XPmRepair_GtmGtyGtyp
-	DDRMC5_CRYPTO_TAG_ID = 0x1C,	//  XPmRepair_Ddrmc5_Crypto
-	MMI_TAG_ID = 0x25,		//  XPmRepair_Mmi
-	DDRMC5_MAIN_TAG_ID = 0x26,	//  XPmRepair_Ddrmc5_Main
-	ISP2_TAG_ID = 0x27,		//  XPmRepair_ISP2
-	VCU2_TAG_ID = 0x2A,		//  XPmRepair_Vcu2
-	FPXC_TAG_ID = 0x2B,		//  XPmRepair_Fpd
-	LPXC_TAG_ID = 0x2C,		//  XPmRepair_Lpd
-	AIE2PS_TAG_ID = 0x2D,		//  XPmRepair_Aie2p_s
-	MMI_GTYP_TAG_ID = 0x2E,		//  XPmRepair_Mmi_Gtyp
-	VIP_TAG_ID = 0x33,		//  XPmRepair_Vip
-	EIO_TAG_ID = 0x34,		//  XPmRepair_Eio
-	MAX_BISR_TAG_NUM = 0x35
-};
+/*
+ * BISR efuse tag IDs are hardware tag values compared against a u32 TagId.
+ * Defined as unsigned macros (not an enum) so their essential type matches
+ * the u32 switch controlling expression (MISRA C:2025 Rule 10.3).
+ */
+#define MRMAC_TAG_ID		0x0FU	/*  XPmBisr_RepairHardBlock */
+#define BRAM_TAG_ID		0x11U	/*  XPmBisr_RepairBram */
+#define URAM_TAG_ID		0x12U	/*  XPmBisr_RepairUram */
+#define GT_TAG_ID		0x18U	/*  XPmRepair_GtmGtyGtyp */
+#define DDRMC5_CRYPTO_TAG_ID	0x1CU	/*  XPmRepair_Ddrmc5_Crypto */
+#define MMI_TAG_ID		0x25U	/*  XPmRepair_Mmi */
+#define DDRMC5_MAIN_TAG_ID	0x26U	/*  XPmRepair_Ddrmc5_Main */
+#define ISP2_TAG_ID		0x27U	/*  XPmRepair_ISP2 */
+#define VCU2_TAG_ID		0x2AU	/*  XPmRepair_Vcu2 */
+#define FPXC_TAG_ID		0x2BU	/*  XPmRepair_Fpd */
+#define LPXC_TAG_ID		0x2CU	/*  XPmRepair_Lpd */
+#define AIE2PS_TAG_ID		0x2DU	/*  XPmRepair_Aie2p_s */
+#define MMI_GTYP_TAG_ID		0x2EU	/*  XPmRepair_Mmi_Gtyp */
+#define VIP_TAG_ID		0x33U	/*  XPmRepair_Vip */
+#define EIO_TAG_ID		0x34U	/*  XPmRepair_Eio */
+#define MAX_BISR_TAG_NUM	0x35U
 
 /************************** Function Prototypes ******************************/
 XStatus XPmBisr_Repair(u32 TagId);

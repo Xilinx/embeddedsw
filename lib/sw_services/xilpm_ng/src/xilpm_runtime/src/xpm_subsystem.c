@@ -242,7 +242,7 @@ XStatus XPmSubsystem_Add(u32 SubsystemId)
 	}
 
 	/* Initialize subsystem */
-	Subsystem->OpsType = SUBSYS_OPS_GENERIC;
+	Subsystem->OpsType = (u8)SUBSYS_OPS_GENERIC;
 	Subsystem->Id = SubsystemId;
 	Subsystem->IpiMask = 0U;
 	Subsystem->State = (u16)ONLINE;

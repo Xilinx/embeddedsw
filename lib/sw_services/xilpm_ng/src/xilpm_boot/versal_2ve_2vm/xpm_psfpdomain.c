@@ -82,7 +82,7 @@ XStatus FpdAmsTrim(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 	(void)NumOfArgs;
 
 	/* Copy FPD sysmon data */
-	for(i = XPM_NODEIDX_MONITOR_SYSMON_FPD_0; i<= (u32)XPM_NODEIDX_MONITOR_SYSMON_FPD_3; i++){
+	for(i = (u32)XPM_NODEIDX_MONITOR_SYSMON_FPD_0; i<= (u32)XPM_NODEIDX_MONITOR_SYSMON_FPD_3; i++){
 		SysmonAddr = XPm_GetSysmonByIndex(i);
 		if (0U == SysmonAddr) {
 			DbgErr = XPM_INT_ERR_INVALID_DEVICE;

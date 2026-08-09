@@ -26,7 +26,7 @@ XStatus XPmClockPll_QueryMuxSources(u32 Id, u32 Index, u32 *Resp);
 XStatus XPmClockPll_GetWakeupLatency(const u32 Id, u32 *Latency);
 
 /* PLL fractional mode constants */
-#define FRAC_DIV                (1U << 16)   /**< Fractional divisor (2^16) */
+#define FRAC_DIV                (0x10000U)   /**< Fractional divisor (2^16) */
 #define PLL_FBDIV_MIN           25U          /**< Minimum feedback divider value */
 #define PLL_FBDIV_MAX           125U         /**< Maximum feedback divider value */
 #define PLL_VCO_MIN             1500000000U  /**< Minimum VCO frequency (1.5 GHz) */

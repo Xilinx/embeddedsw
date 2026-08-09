@@ -994,7 +994,7 @@ static XStatus XPmPower_ACpuDirectPwrUp(const struct XPmFwPwrCtrl_t *Args, u64 R
 	/* TODO: HighAddress only uses bits 15:0, check if this needs to be masked as well */
 	HighAddress = (u32)(ResumeAddr >> 32ULL);
 	XPm_Out32(Args->ResetCfgAddr, LowAddress);
-	XPm_Out32(Args->ResetCfgAddr + 0x4, HighAddress);
+	XPm_Out32(Args->ResetCfgAddr + 0x4U, HighAddress);
 
 	Status = XPmPower_ACpuPwrUp(Args);
 	if (XST_SUCCESS != Status) {

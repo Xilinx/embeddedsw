@@ -238,6 +238,8 @@ XStatus XPm_ApuSetOperMode(const u32 DeviceId, const u32 Mode)
 		Val &= ~(Mode << ClusterId);
 	} else if (Mode == XPM_APU_MODE_LOCKSTEP) {
 		Val |= (Mode << ClusterId);
+	} else {
+		/* No action required for unsupported APU mode */
 	}
 	PmOut32(Fpd->FpdSlcrBaseAddr + FPX_SLCR_APU_CTRL_OFFSET, Val);
 

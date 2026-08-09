@@ -747,7 +747,7 @@ XStatus XPmDevice_Reset(const XPm_Device *Device, const XPm_ResetActions Action)
 				DeviceHandle = DeviceHandle->NextDevice;
 			}
 			if (NULL == DeviceHandle) {
-				Status = (XStatus)(XPmReset_AssertbyId(Reset->Node.Id, Action));
+				Status = (XStatus)(XPmReset_AssertbyId(Reset->Node.Id, (u32)Action));
 				if (XST_SUCCESS != Status) {
 					PmErr("Failed to assert reset 0x%x\r\n", Reset->Node.Id);
 					goto done;
@@ -770,7 +770,7 @@ XStatus XPmDevice_Reset(const XPm_Device *Device, const XPm_ResetActions Action)
 		/* Release reset for all devices in the reset handle */
 		while (NULL != RstHandle) {
 			/* Release reset for all devices in the reset handle */
-			Status = (XStatus)(XPmReset_AssertbyId(RstHandle->Reset->Node.Id, Action));
+			Status = (XStatus)(XPmReset_AssertbyId(RstHandle->Reset->Node.Id, (u32)Action));
 			if (XST_SUCCESS != Status) {
 				goto done;
 			}

@@ -188,6 +188,9 @@ static XStatus XPm_DispatchApuPwrUpHandler(u32 PwrUpStatus, u32 PwrUpIntMask)
 			XPm_Out32(PSXC_LPX_SLCR_REQ_PWRUP0_INT_DIS, ApuPwrUpDwnHandlerTable[Index].PwrUpMask);
 			Status = XST_SUCCESS;
 		}
+		else {
+			/* No action required for this table entry */
+		}
 	}
 
 	return Status;
@@ -225,6 +228,9 @@ static XStatus XPm_DispatchRpuPwrUpHandler(u32 PwrUpStatus, u32 PwrUpIntMask)
 			XPm_Out32(PSXC_LPX_SLCR_REQ_PWRUP1_STATUS, RpuPwrUpDwnHandlerTable[Index].PwrUpMask);
 			XPm_Out32(PSXC_LPX_SLCR_REQ_PWRUP1_INT_DIS, RpuPwrUpDwnHandlerTable[Index].PwrUpMask);
 			Status = XST_SUCCESS;
+		}
+		else {
+			/* No action required for this table entry */
 		}
 	}
 
@@ -273,6 +279,9 @@ static XStatus XPm_DispatchApuPwrDwnHandler(u32 PwrDwnStatus, u32 PwrDwnIntMask,
 			XPm_Out32(PSXC_LPX_SLCR_REQ_PWRDWN0_INT_DIS, ApuPwrUpDwnHandlerTable[Index].PwrDwnMask);
 			Status = XST_SUCCESS;
 		}
+		else {
+			/* No action required for this table entry */
+		}
 	}
 
 	return Status;
@@ -320,6 +329,9 @@ static XStatus XPm_DispatchRpuPwrDwnHandler(u32 PwrDwnStatus, u32 PwrDwnIntMask,
 			XPm_Out32(PSXC_LPX_SLCR_REQ_PWRDWN1_STATUS, RpuPwrUpDwnHandlerTable[Index].PwrDwnMask);
 			XPm_Out32(PSXC_LPX_SLCR_REQ_PWRDWN1_INT_DIS, RpuPwrUpDwnHandlerTable[Index].PwrDwnMask);
 			Status = XST_SUCCESS;
+		}
+		else {
+			/* No action required for this table entry */
 		}
 	}
 

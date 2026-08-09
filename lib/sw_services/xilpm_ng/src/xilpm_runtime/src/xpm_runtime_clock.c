@@ -954,6 +954,8 @@ static u32 XPmClockPll_EvaluateDivider(u32 TargetRate, u32 Divider, u32 RefClkRa
 		CalcFbdiv = PLL_FBDIV_MIN;
 	} else if (CalcFbdiv > PLL_FBDIV_MAX) {
 		CalcFbdiv = PLL_FBDIV_MAX;
+	} else {
+		/* FBDIV is already within valid range */
 	}
 
 	/* Calculate actual PLL rate using u64 to prevent overflow */
@@ -1165,6 +1167,8 @@ static XStatus XPmClockOut_SetRate(XPm_ClockNode *Clk, const u32 ClkRate, u32 Fl
 		}
 	} else if ((ParentRate % ClkRate) != 0U) {
 		Div += 1U;
+	} else {
+		/* Divider remains unchanged */
 	}
 
 	if (Div == 0U) {

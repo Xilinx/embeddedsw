@@ -163,7 +163,7 @@ XStatus XPm_IsMemRegnAddressValid(u32 SubsystemId, u64 RegionAddr, u64 RegionSiz
 		Status = XST_INVALID_PARAM;
 		goto done;
 	}
-	*IsPLMem = FALSE;
+	*IsPLMem = 0U;
 
 	if (RegionSize < 1U) {
 		Status = XST_INVALID_PARAM;
@@ -182,11 +182,11 @@ XStatus XPm_IsMemRegnAddressValid(u32 SubsystemId, u64 RegionAddr, u64 RegionSiz
 	/* store the provided region size in a local variable */
 	u64 CurrentRegionSize = RegionSize;
 	/* indicates whether there's an overlapping of region or not */
-	u8 IsOverlapMemRegion = FALSE;
+	u8 IsOverlapMemRegion = 0U;
 	/* indicates the type of memory overlap */
-	u8 OverlapMemType = MEM_TYPE_NONE;
+	u8 OverlapMemType = (u8)MEM_TYPE_NONE;
 	/* boolean condition to skip subsystem level checks */
-	u8 SkipSubsysCheck = FALSE;
+	u8 SkipSubsysCheck = 0U;
 
 	/* check only non-PLM internal subsystems */
 	if ((PM_SUBSYS_PMC != SubsystemId) && (PM_SUBSYS_ASU != SubsystemId)) {
@@ -197,7 +197,7 @@ XStatus XPm_IsMemRegnAddressValid(u32 SubsystemId, u64 RegionAddr, u64 RegionSiz
 		}
 	}
 	else {
-		SkipSubsysCheck = TRUE;
+		SkipSubsysCheck = 1U;
 	}
 
 	/**
@@ -247,23 +247,23 @@ XStatus XPm_IsMemRegnAddressValid(u32 SubsystemId, u64 RegionAddr, u64 RegionSiz
 		 * - only access to same memory type is allowed during overlapping condition
 		 */
 		if (PL_MEM_REGN == Flags) {
-			if ((TRUE == IsOverlapMemRegion) && ((u32)MEM_TYPE_PL != OverlapMemType)) {
+			if ((1U == IsOverlapMemRegion) && ((u32)MEM_TYPE_PL != OverlapMemType)) {
 				PmErr("Mismatch Memory type access!\r\n");
 				Status = XPM_ERR_MEM_ACCESS_TYPE;
 				goto done;
 			}
-			*IsPLMem = TRUE;
-			OverlapMemType = MEM_TYPE_PL;
+			*IsPLMem = 1U;
+			OverlapMemType = (u8)MEM_TYPE_PL;
 		} else {
-			if ((TRUE == IsOverlapMemRegion) && ((u32)MEM_TYPE_PL == OverlapMemType)) {
+			if ((1U == IsOverlapMemRegion) && ((u32)MEM_TYPE_PL == OverlapMemType)) {
 				PmErr("Mismatch Memory type access!\r\n");
 				Status = XPM_ERR_MEM_ACCESS_TYPE;
 				goto done;
 			}
-			OverlapMemType = MEM_TYPE_OCM_TCM;
+			OverlapMemType = (u8)MEM_TYPE_OCM_TCM;
 		}
 
-		if (FALSE == SkipSubsysCheck) {
+		if (0U == SkipSubsysCheck) {
 			Reqm = FindReqm((const XPm_Device *)MemRegnDevice, Subsystem);
 			if (NULL == Reqm) {
 				/* Device not allocated to the subsystem */
@@ -283,7 +283,7 @@ XStatus XPm_IsMemRegnAddressValid(u32 SubsystemId, u64 RegionAddr, u64 RegionSiz
 			break;
 		}
 		/* for overlapping condition, we continue the iteration */
-		IsOverlapMemRegion = TRUE;
+		IsOverlapMemRegion = 1U;
 
 		/* Iterate to next Mem-Regn Device */
 		index++;
@@ -294,12 +294,12 @@ XStatus XPm_IsMemRegnAddressValid(u32 SubsystemId, u64 RegionAddr, u64 RegionSiz
 	 * consume the range (no ADDR_IN_RANGE break), it's a failure.
 	 * goto done to skip the PL power check (which would override Status).
 	 */
-	if ((TRUE == IsOverlapMemRegion) && (XPM_SUCCESS != Status)) {
+	if ((1U == IsOverlapMemRegion) && (XPM_SUCCESS != Status)) {
 		Status = XPM_FAILURE;
 		goto done;
 	}
 
-	if (TRUE == *IsPLMem) {
+	if (1U == *IsPLMem) {
 		/* Address Range provided falls in PL Region */
 		/**
 		 * - Check whether PL Power Domain is up ( because no parent node for PL )

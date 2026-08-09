@@ -492,7 +492,7 @@ XStatus XPmPin_GetPinGroups(u32 PinId, u32 Index, u16 *Groups)
 		goto done;
 	}
 
-	Status = (XStatus)(Xil_SMemSet(Groups, Size, (s32)END_OF_GRP, Size));
+	Status = (XStatus)(Xil_SMemSet(Groups, Size, (u8)END_OF_GRP, Size));
 	if (XST_SUCCESS != Status) {
 		goto done;
 	}

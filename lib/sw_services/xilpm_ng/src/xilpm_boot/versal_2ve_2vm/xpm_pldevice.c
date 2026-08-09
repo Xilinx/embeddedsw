@@ -578,7 +578,7 @@ XStatus XPmPlDevice_MemCtrlrMap(XPm_PlDevice *PlDevice, const u32 *Args, u32 Num
 	 */
 #ifdef XPM_NODEIDX_DEV_DDRMC_MAX_INT_1
 		if (((u32)XPM_NODEIDX_DEV_DDRMC_MAX_INT_1 + 1U) == i) {
-			i = XPM_NODEIDX_DEV_DDRMC_MIN_INT_2;
+			i = (u32)XPM_NODEIDX_DEV_DDRMC_MIN_INT_2;
 		}
 #endif
 		MCDev = (XPm_MemCtrlrDevice *)XPmDevice_GetById(DDRMC_DEVID(i));

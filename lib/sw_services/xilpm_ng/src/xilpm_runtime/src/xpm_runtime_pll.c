@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2024 Advanced Micro Devices, Inc. All rights reserved.
+* Copyright (c) 2024 - 2026 Advanced Micro Devices, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -96,6 +96,9 @@ XStatus XPmClockPll_SetParam(XPm_PllClockNode *Pll, u32 Param, u32 Value)
 	}
 
 	Status = XPmClockPll_Reset(Pll, PLL_RESET_ASSERT);
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
 
 	/* Allow config change only if PLL is in reset mode */
 	if (Pll->ClkNode.Node.State != PM_PLL_STATE_RESET) {

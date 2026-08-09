@@ -235,9 +235,9 @@ XStatus XPm_IsMemAddressValid(u32 SubsystemId, u64 RegionAddr, u64 RegionSize) {
 	/* store the provided region size in a local variable */
 	u64 CurrentRegionSize = RegionSize;
 	/* indicates whether there's an overlapping of region or not */
-	u8 IsOverlapMemRegion = FALSE;
+	u8 IsOverlapMemRegion = 0U;
 	/* indicates the type of memory overlap */
-	u8 OverlapMemType = MEM_TYPE_NONE;
+	u8 OverlapMemType = (u8)MEM_TYPE_NONE;
 	u32 DeviceId;
 
 	if (RegionSize < 1U) {
@@ -275,7 +275,7 @@ XStatus XPm_IsMemAddressValid(u32 SubsystemId, u64 RegionAddr, u64 RegionSize) {
 	 * XPm_IsMemRegnAddressValid() for runtime-subsys, check whether given address range falls in mem-regn
 	 * 	- For runtime, IsPLMem flag is used to also check PL Power Domain ( IsPLMem flag is don't care for boot & eemi )
 	 */
-	u8 IsPLMem = FALSE;
+	u8 IsPLMem = 0U;
 	Status = XPm_IsMemRegnAddressValid(SubsystemId, RegionAddr, RegionSize, &IsPLMem);
 	if (XPM_SUCCESS != Status) {
 		goto done;
@@ -326,7 +326,7 @@ XStatus XPm_IsMemAddressValid(u32 SubsystemId, u64 RegionAddr, u64 RegionSize) {
 			 * skip iteration to failure for memory type mismatch during overlapping condition
 			 * - only access to same memory type is allowed during overlapping condition
 			 */
-			if ((TRUE == IsOverlapMemRegion) && ((u32)MEM_TYPE_OCM_TCM != OverlapMemType)) {
+			if ((1U == IsOverlapMemRegion) && ((u32)MEM_TYPE_OCM_TCM != OverlapMemType)) {
 				PmErr("Mismatch Memory type access!\r\n");
 				Status = XPM_ERR_MEM_ACCESS_TYPE;
 				goto done;
@@ -350,8 +350,8 @@ XStatus XPm_IsMemAddressValid(u32 SubsystemId, u64 RegionAddr, u64 RegionSize) {
 				goto done;
 			}
 			/* for overlapping condition, we continue the iteration */
-			IsOverlapMemRegion = TRUE;
-			OverlapMemType = MEM_TYPE_OCM_TCM;
+			IsOverlapMemRegion = 1U;
+			OverlapMemType = (u8)MEM_TYPE_OCM_TCM;
 		}
 		else if (IS_MEM_DEV_DDRMC(DeviceId)) {
 			MCDev = (XPm_MemCtrlrDevice *)Device;
@@ -388,7 +388,7 @@ XStatus XPm_IsMemAddressValid(u32 SubsystemId, u64 RegionAddr, u64 RegionSize) {
 				 * skip iteration to failure for memory type mismatch during overlapping condition
 				 * - only access to same memory type is allowed during overlapping condition
 				 */
-				if ((TRUE == IsOverlapMemRegion) && ((u32)MEM_TYPE_DDR != OverlapMemType)) {
+				if ((1U == IsOverlapMemRegion) && ((u32)MEM_TYPE_DDR != OverlapMemType)) {
 					PmErr("Mismatch Memory type access!\r\n");
 					Status = XPM_ERR_MEM_ACCESS_TYPE;
 					goto done;
@@ -420,8 +420,8 @@ XStatus XPm_IsMemAddressValid(u32 SubsystemId, u64 RegionAddr, u64 RegionSize) {
 				}
 
 				/* for overlapping, continue to next region within same controller */
-				IsOverlapMemRegion = TRUE;
-				OverlapMemType = MEM_TYPE_DDR;
+				IsOverlapMemRegion = 1U;
+				OverlapMemType = (u8)MEM_TYPE_DDR;
 			}
 
 			/**
@@ -438,7 +438,7 @@ XStatus XPm_IsMemAddressValid(u32 SubsystemId, u64 RegionAddr, u64 RegionSize) {
 				CurrentRegionAddr = savedIntlvAddr;
 				CurrentRegionSize = savedIntlvSize;
 				/* reset memory overlap flag */
-				IsOverlapMemRegion = FALSE;
+				IsOverlapMemRegion = 0U;
 			}
 		}
 		else {
@@ -451,7 +451,7 @@ XStatus XPm_IsMemAddressValid(u32 SubsystemId, u64 RegionAddr, u64 RegionSize) {
 	 * We haven't exhausted all the memory chunks of provided Region
 	 * in entire iteration, hence it's a failure!
 	 */
-	if (TRUE == IsOverlapMemRegion) {
+	if (1U == IsOverlapMemRegion) {
 		Status = XPM_FAILURE;
 	}
 

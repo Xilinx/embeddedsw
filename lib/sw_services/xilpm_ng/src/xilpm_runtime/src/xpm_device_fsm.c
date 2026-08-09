@@ -128,17 +128,17 @@ static XStatus ActionShutdown(XPm_Device* const Device) {
 		goto done;
 	}
 
-	switch (Device->Node.Id) {
-	/* Do not shutdown any IPI devices */
-	case PM_DEV_IPI_0 ... PM_DEV_IPI_6:
-	case PM_DEV_IPI_NOBUF_1 ... PM_DEV_IPI_NOBUF_6:
+	/*
+	 * Do not shutdown any IPI devices. (Was a switch with a single
+	 * IPI-range clause + default; rewritten as if for MISRA 16.1/16.6.)
+	 */
+	if (((Device->Node.Id >= PM_DEV_IPI_0) && (Device->Node.Id <= PM_DEV_IPI_6)) ||
+	    ((Device->Node.Id >= PM_DEV_IPI_NOBUF_1) && (Device->Node.Id <= PM_DEV_IPI_NOBUF_6))) {
 		PmInfo("Skipping shutdown for IPI device 0x%x\n", Device->Node.Id);
 		Status = XST_SUCCESS;
 		goto done;
-	default:
-		/* No action required for other device IDs */
-		break;
 	}
+	/* No action required for other device IDs */
 
 	PmDbg("Periph reset/clock dev 0x%x\r\n", Device->Node.Id);
 	/* FIXME: Following reset and clock handling to be tweaked to handle device sharing between subsystems */
@@ -225,39 +225,39 @@ static const XPmFsm_StateCap XPmGenericDeviceStates[] = {
 static const XPmFsm_Tran XPmGenericDevEventTransitions[] = {
 	{
 	.Event = (u32)XPM_DEVEVENT_BRINGUP_ALL,
-	.FromState = (u32)XPM_DEVSTATE_UNUSED,
-	.ToState = (u32)XPM_DEVSTATE_RUNNING,
+	.FromState = (u8)XPM_DEVSTATE_UNUSED,
+	.ToState = (u8)XPM_DEVSTATE_RUNNING,
 	.Latency = XPM_DEF_LATENCY,
 	.Action = &ActionBringUpAll,
 	}, {
 	.Event = (u32)XPM_DEVEVENT_SHUTDOWN,
-	.FromState = (u32)XPM_DEVSTATE_RUNNING,
-	.ToState = (u32)XPM_DEVSTATE_UNUSED,
+	.FromState = (u8)XPM_DEVSTATE_RUNNING,
+	.ToState = (u8)XPM_DEVSTATE_UNUSED,
 	.Latency = XPM_DEF_LATENCY,
 	.Action = &ActionShutdown,
 	}, {
 	.Event = (u32)XPM_DEVEVENT_SHUTDOWN,
-	.FromState = (u32)XPM_DEVSTATE_PENDING_PWR_DWN,
-	.ToState = (u32)XPM_DEVSTATE_UNUSED,
+	.FromState = (u8)XPM_DEVSTATE_PENDING_PWR_DWN,
+	.ToState = (u8)XPM_DEVSTATE_UNUSED,
 	.Latency = XPM_DEF_LATENCY,
 	.Action = &ActionShutdown,
 	}, {
 	.Event = (u32)XPM_DEVEVENT_RUNTIME_SUSPEND,
-	.FromState = (u32)XPM_DEVSTATE_RUNNING,
-	.ToState = (u32)XPM_DEVSTATE_RUNTIME_SUSPEND,
+	.FromState = (u8)XPM_DEVSTATE_RUNNING,
+	.ToState = (u8)XPM_DEVSTATE_RUNTIME_SUSPEND,
 	.Latency = XPM_DEF_LATENCY,
 	.Action = &ActionRuntimeSuspend,
 	}, {
 	.Event = (u32)XPM_DEVEVENT_BRINGUP_ALL,
-	.FromState = (u32)XPM_DEVSTATE_RUNTIME_SUSPEND,
-	.ToState = (u32)XPM_DEVSTATE_RUNNING,
+	.FromState = (u8)XPM_DEVSTATE_RUNTIME_SUSPEND,
+	.ToState = (u8)XPM_DEVSTATE_RUNNING,
 	.Latency = XPM_DEF_LATENCY,
 	.Action = &ActionResume,
 	},
 	{
 	.Event = (u32)XPM_DEVEVENT_SHUTDOWN,
-	.FromState = (u32)XPM_DEVSTATE_RUNTIME_SUSPEND,
-	.ToState = (u32)XPM_DEVSTATE_UNUSED,
+	.FromState = (u8)XPM_DEVSTATE_RUNTIME_SUSPEND,
+	.ToState = (u8)XPM_DEVSTATE_UNUSED,
 	.Latency = XPM_DEF_LATENCY,
 	.Action = &ActionShutdown,
 	},
@@ -291,11 +291,11 @@ XStatus XPmDeviceFsm_Init(XPmRuntime_DeviceOps* const DevOps) {
 		Status = XST_FAILURE;
 		goto done;
 	}
-	DevOps->FsmType = XPM_FSM_TYPE_GENERIC_DEVICE;
+	DevOps->FsmType = (u8)XPM_FSM_TYPE_GENERIC_DEVICE;
 
 	/* Override FSM type for specific devices */
 	if ((u32)XPM_NODETYPE_DEV_HB_MON == NODETYPE(DevOps->Device->Node.Id)) {
-		DevOps->FsmType = XPM_FSM_TYPE_HB_MON;
+		DevOps->FsmType = (u8)XPM_FSM_TYPE_HB_MON;
 	} else if ((u32)XPM_NODETYPE_DEV_DDR == NODETYPE(DevOps->Device->Node.Id)) {
 		DevOps->FsmType = (u8)XPM_FSM_TYPE_DDR;
 	} else {

@@ -721,7 +721,7 @@ static XStatus XPmRail_ComputeAdjustVIDIndexRaw(const XPmRail_VIDAdj *VIDAdj,
 	 * Start from end of the performance array and walk back until an entry
 	 * is found that has a value less than or equal to MP_MAP value.
 	 */
-	for (LocalIndex = (MAX_MODES - 1); LocalIndex >= 0; LocalIndex--) {
+	for (LocalIndex = (s32)MAX_MODES - 1; LocalIndex >= 0; LocalIndex--) {
 		if ((0U == VIDAdj->Performance[LocalIndex]) ||
 		    (MP_MAP < VIDAdj->Performance[LocalIndex])) {
 			continue;

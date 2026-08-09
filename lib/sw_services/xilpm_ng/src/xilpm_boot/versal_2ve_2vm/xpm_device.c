@@ -649,7 +649,7 @@ XStatus XPmDevice_GetState(const u32 DeviceId,
 {
 	XStatus Status = XPM_ERR_DEVICE_STATUS;
 
-	*DeviceState = XPM_DEVSTATE_UNUSED;
+	*DeviceState = (u32)XPM_DEVSTATE_UNUSED;
 	XPm_Device* Device = XPmDevice_GetById(DeviceId);
 	if (NULL == Device) {
 		Status = XPM_PM_INVALID_NODE;
