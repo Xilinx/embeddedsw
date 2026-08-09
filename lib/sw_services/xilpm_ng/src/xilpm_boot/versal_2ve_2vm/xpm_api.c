@@ -401,7 +401,7 @@ XStatus XPm_Init(void (*const RequestCb)(const u32 SubsystemId, const XPmApiCbId
 	volatile XStatus Status = XST_FAILURE;
 
 	/* Zeroized xpm_bss_data session during none In-place update*/
-	if (XPlmi_IsPlmUpdateDone() != (u8)TRUE) {
+	if (0U == XPlmi_IsPlmUpdateDone()) {
 		u32 __xpm_bss_len = (u32)(__xpm_bss_end - __xpm_bss_start);
 		Status = Xil_SMemSet(__xpm_bss_start, __xpm_bss_len , 0U, __xpm_bss_len);
 		if (XST_SUCCESS != Status) {
@@ -610,7 +610,7 @@ static XStatus XPm_AddNodeParent(const XPlmi_Cmd *Cmd)
 	NumParents = NumArgs-1U;
 	Parents = &Args[1];
 
-	if (XPlmi_IsPlmUpdateDone() == (u8)TRUE) {
+	if (0U != XPlmi_IsPlmUpdateDone()) {
 		/* Skip during PLM update */
 		Status = XST_SUCCESS;
 		goto done;
@@ -1339,7 +1339,7 @@ XStatus XPm_AddNodeName(XPlmi_Cmd *Cmd)
 	u32 i = 0U, j = 0U;
 	const u32 CopySize = 4U;
 
-	if (XPlmi_IsPlmUpdateDone() == (u8)TRUE) {
+	if (0U != XPlmi_IsPlmUpdateDone()) {
 		Status = XST_SUCCESS;
 		goto done;
 	}
@@ -1679,7 +1679,7 @@ static XStatus XPm_AddNode(XPlmi_Cmd *Cmd)
 	u32 NumArgs = Cmd->Len;
 	u32 Id = Args[0];
 
-	if (XPlmi_IsPlmUpdateDone() == (u8)TRUE) {
+	if (0U != XPlmi_IsPlmUpdateDone()) {
 		/* Skip during PLM update */
 		Status = XST_SUCCESS;
 		goto done;
@@ -2434,7 +2434,7 @@ static int XPm_GpioProcHandler(void *Data)
 		/* Bit position within the bank: each bank covers GPIO_PINS_PER_BANK pins */
 		BitPos  = MioNum % GPIO_PINS_PER_BANK;
 		/* Single-bit mask for this pin's position in the bank registers */
-		BitMask = (1U << BitPos);
+		BitMask = BIT32(BitPos);
 
 		/* Select bank register offsets */
 		if (Cfg->Bank == GPIO_BANK_0) {
@@ -2524,7 +2524,7 @@ static int XPm_GpioRegisterPin (u32 CfgHalf)
 	u16 ProcId;
 	u32 GpioBaseAddr, IntEnOff, IntAnyOff, BitMask;
 	u32 Idx, DevId, MioNum;
-	u8 GicRegistered = (u8)FALSE;
+	u8 GicRegistered = 0U;
 	XPm_GpioProcCfg *Cfg = NULL;
 
 	if (GpioProcCfgCount >= MAX_GPIO_PROCS) {
@@ -2590,7 +2590,7 @@ static int XPm_GpioRegisterPin (u32 CfgHalf)
 
 	/* Convert 1-based RTCA MioIdx to 0-based MIO pin number for bit math */
 	MioNum  = (MioIdx - GPIO_CFG_MIO_IDX_BASE);
-	BitMask = (1U << (MioNum % GPIO_PINS_PER_BANK));
+	BitMask = BIT32((MioNum % GPIO_PINS_PER_BANK));
 
 	/* Select bank register offsets */
 	if (Bank == GPIO_BANK_0) {
@@ -2626,13 +2626,13 @@ static int XPm_GpioRegisterPin (u32 CfgHalf)
 	for (Idx = 0U; Idx < GpioProcCfgCount; Idx++) {
 		if ((GpioProcCfg[Idx].GicId == GicId) &&
 		    (GpioProcCfg[Idx].GicSrc == GicSrc)) {
-			GicRegistered = (u8)TRUE;
+			GicRegistered = 1U;
 			break;
 		}
 	}
 
 	/* Register the GIC handler if it is not already registered */
-	if (GicRegistered == (u8)FALSE) {
+	if (GicRegistered == 0U) {
 		Status = XPlmi_GicRegisterHandler(GicId, GicSrc,
 						  &XPm_GpioProcHandler, NULL);
 		if (Status != XST_SUCCESS) {

@@ -11,7 +11,7 @@
 #include "xpm_device_fsm.h"
 #include "xpm_subsystem.h"
 
-static const XPm_Fsm* XPmFsmTable[] = {
+static const XPm_Fsm* XPmFsmTable[XPM_FSM_TYPE_MAX] = {
 	[XPM_FSM_TYPE_GENERIC_DEVICE] = &XPmGenericDeviceFsm,
 	/* Will be retrieved at runtime */
 	[XPM_FSM_TYPE_HB_MON] = NULL,

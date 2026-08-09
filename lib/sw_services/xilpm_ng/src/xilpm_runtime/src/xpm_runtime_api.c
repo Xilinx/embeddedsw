@@ -1290,7 +1290,7 @@ XStatus XPm_AddSubsystem(XPlmi_Cmd* Cmd)
 	XStatus Status = XST_FAILURE;
 	u32 SubsystemId = Cmd->Payload[0];
 
-	if (XPlmi_IsPlmUpdateDone() == (u8)TRUE) {
+	if (0U != XPlmi_IsPlmUpdateDone()) {
 		/* Skip during PLM update */
 		Status = XST_SUCCESS;
 		goto done;
@@ -1334,7 +1334,7 @@ XStatus XPm_AddRequirement(XPlmi_Cmd* Cmd)
 	u32 PayloadLen = Cmd->PayloadLen;
 	XPm_Subsystem *Subsystem;
 
-	if (XPlmi_IsPlmUpdateDone() == (u8)TRUE) {
+	if (0U != XPlmi_IsPlmUpdateDone()) {
 		/* Skip during PLM update */
 		Status = XST_SUCCESS;
 		goto done;

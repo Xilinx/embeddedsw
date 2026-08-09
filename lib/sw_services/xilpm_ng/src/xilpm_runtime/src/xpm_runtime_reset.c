@@ -327,7 +327,6 @@ done:
 	return Status;
 }
 
-
 XStatus XPmReset_AddPermForGlobalResets(const XPm_Subsystem *Subsystem)
 {
 	XStatus Status = XST_FAILURE;
@@ -421,7 +420,6 @@ XStatus XPmReset_SystemReset(void)
 	XStatus Status = XST_FAILURE;
 
 	/* TODO: Confirm if idling is required here or not */
-
 
 	Status = XPmReset_AssertbyId(PM_RST_PMC, (u32)PM_RESET_ACTION_ASSERT);
 

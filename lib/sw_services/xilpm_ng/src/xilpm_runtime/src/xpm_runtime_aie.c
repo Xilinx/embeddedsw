@@ -1016,7 +1016,7 @@ static XStatus Aie2ps_CtrlPktTlastErr(u32 StartCol, u32 EndCol, const void *Buff
 {
 	const XPm_AieDomain *AieDomain = (XPm_AieDomain*)XPmPower_GetById(PM_POWER_ME2);
 	const u64 NocAddress = AieDomain->Array.NocAddress;
-	u32 Value = (((struct XPm_AieCtrlPktTlastErr *)Buffer)->State) << AIE2PS_CTRL_PKT_TLAST_ERR_EN_SHIFT;
+	u32 Value = ((u32)(((struct XPm_AieCtrlPktTlastErr *)Buffer)->State)) << AIE2PS_CTRL_PKT_TLAST_ERR_EN_SHIFT;
 	u32 RowStart = AieDomain->Array.StartRow;
 	u32 RowEnd = RowStart + AieDomain->Array.NumRowsAdjusted - 1U;
 	u32 StartTileRow = RowStart + AieDomain->Array.NumMemRows;

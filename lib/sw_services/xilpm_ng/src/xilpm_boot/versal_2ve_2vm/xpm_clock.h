@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2024 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -42,7 +42,7 @@ extern "C" {
 #define CLOCK_PARENT_INVALID		0U
 
 /* Clock Flags */
-#define CLK_FLAG_READ_ONLY		(1U << 0U)
+#define CLK_FLAG_READ_ONLY		BIT32(0U)
 
 #define ISCPMCLK(idx)	(((idx) == (u32)XPM_NODEIDX_CLK_CPLL) ||			\
 			((idx) == (u32)XPM_NODEIDX_CLK_CPM5N_PRESRC) ||		\

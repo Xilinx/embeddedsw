@@ -56,58 +56,87 @@ typedef XStatus (*XPm_DomainAmsTrimOp)(const XPm_PowerDomain *PwrDomain, const u
 /* Dispatch functions */
 static XPm_DomainInitStartOp XPmPowerDomain_GetInitStartOp(u32 DomainId)
 {
+	XPm_DomainInitStartOp InitStartOp = NULL;
+
 	switch (DomainId) {
 	case PM_POWER_LPD:
-		return &LpdInitStart;
+		InitStartOp = &LpdInitStart;
+		break;
 	case PM_POWER_FPD:
-		return &FpdInitStart;
+		InitStartOp = &FpdInitStart;
+		break;
 	case PM_POWER_PLD:
-		return &PldInitStart;
+		InitStartOp = &PldInitStart;
+		break;
 	case PM_POWER_NOC:
-		return &NpdInitStart;
+		InitStartOp = &NpdInitStart;
+		break;
 	case PM_POWER_ME:
 	case PM_POWER_ME2:
-		return &Aie2InitStart;
+		InitStartOp = &Aie2InitStart;
+		break;
 	default:
-		return NULL;
+		/* No operation for unsupported domains */
+		break;
 	}
+
+	return InitStartOp;
 }
 
 static XPm_DomainInitFinishOp XPmPowerDomain_GetInitFinishOp(u32 DomainId)
 {
+	XPm_DomainInitFinishOp InitFinishOp = NULL;
+
 	switch (DomainId) {
 	case PM_POWER_LPD:
-		return &LpdInitFinish;
+		InitFinishOp = &LpdInitFinish;
+		break;
 	case PM_POWER_FPD:
-		return &FpdInitFinish;
+		InitFinishOp = &FpdInitFinish;
+		break;
 	case PM_POWER_PLD:
-		return &PldInitFinish;
+		InitFinishOp = &PldInitFinish;
+		break;
 	case PM_POWER_NOC:
-		return &NpdInitFinish;
+		InitFinishOp = &NpdInitFinish;
+		break;
 	case PM_POWER_ME:
 	case PM_POWER_ME2:
-		return &Aie2InitFinish;
+		InitFinishOp = &Aie2InitFinish;
+		break;
 	default:
-		return NULL;
+		/* No operation for unsupported domains */
+		break;
 	}
+
+	return InitFinishOp;
 }
 
 static XPm_DomainAmsTrimOp XPmPowerDomain_GetAmsTrimOp(u32 DomainId)
 {
+	XPm_DomainAmsTrimOp AmsTrimOp = NULL;
+
 	switch (DomainId) {
 	case PM_POWER_LPD:
-		return &LpdAmsTrim;
+		AmsTrimOp = &LpdAmsTrim;
+		break;
 	case PM_POWER_FPD:
-		return &FpdAmsTrim;
+		AmsTrimOp = &FpdAmsTrim;
+		break;
 	case PM_POWER_NOC:
-		return &NpdAmsTrim;
+		AmsTrimOp = &NpdAmsTrim;
+		break;
 	case PM_POWER_PLD:
 	case PM_POWER_ME:
 	case PM_POWER_ME2:
-		return NULL; /* These domains don't have AMS trim operations */
+		/* These domains don't have AMS trim operations */
+		break;
 	default:
-		return NULL;
+		/* No operation for unsupported domains */
+		break;
 	}
+
+	return AmsTrimOp;
 }
 
 /**

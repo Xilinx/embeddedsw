@@ -1031,7 +1031,7 @@ static XStatus XPmClockOut_SetRateWithPll(XPm_ClockNode *Clk, const u32 ClkRate,
 
 	/* PLL_OUT valid divider values: 1, 2, 4, 8 */
 	for (i = 0U; i < PLL_NUM_DIVIDERS; i++) {
-		Error = XPmClockPll_EvaluateDivider(ClkRate, 1U << i, RefClkRate,
+		Error = XPmClockPll_EvaluateDivider(ClkRate, 1UL << i, RefClkRate,
 		                                     &Fbdiv, &FracData, &ActualRate);
 
 		if (Error < BestError) {
@@ -1093,7 +1093,7 @@ static XStatus XPmClockOut_SetRateWithPll(XPm_ClockNode *Clk, const u32 ClkRate,
 	}
 
 	PllClk->ClkRate = (u32)PllRate;
-	Clk->ClkRate = (u32)(PllRate / (1U << BestDivIdx));
+	Clk->ClkRate = (u32)(PllRate / (1ULL << BestDivIdx));
 
 	Status = XST_SUCCESS;
 

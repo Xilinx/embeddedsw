@@ -11,7 +11,7 @@
 #include "xpm_psfpdomain.h"
 #include "xpm_defs.h"
 
-#define XPM_APU_MODE_MASK(ClusterId)		BIT(ClusterId)
+#define XPM_APU_MODE_MASK(ClusterId)		BIT32(ClusterId)
 
 static XStatus XPmApuCore_AssignRegisterMask(XPm_ApuCore *ApuCore, const u32 Id);
 

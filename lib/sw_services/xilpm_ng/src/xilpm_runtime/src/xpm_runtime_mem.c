@@ -174,7 +174,7 @@ static XStatus IsRangeOutsideExclusionList(u64 RegionAddr, u64 RegionSize) {
 		RTCA_IMAGE_STORE_REGN = 0x4
 	};
 
-	struct XPm_ExclusionRegion XPm_ExcludedList[] = {
+	struct XPm_ExclusionRegion XPm_ExcludedList[(u32)RTCA_IMAGE_STORE_REGN + 1U] = {
 		[PMC_RAM] = {XPLMI_PMCRAM_BASEADDR, (XPLMI_PMCRAM_BASEADDR + XPLMI_TOTAL_CHUNK_SIZE - 1ULL)},
 		[ASU_RAM] = {XPLMI_ASU_RAM_BASE_ADDR, XPLMI_ASU_RAM_HIGH_ADDR},
 		[PPU_INSTR_CNTLR_MEM] = {PPU_RAM_INSTR_CNTLR_BASEADDR, PPU_RAM_INSTR_CNTLR_HIGHADDR},

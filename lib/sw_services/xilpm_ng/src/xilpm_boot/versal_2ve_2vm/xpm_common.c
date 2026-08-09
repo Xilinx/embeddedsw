@@ -278,7 +278,7 @@ void XPm_Printf(u32 DebugType, const char *Fnstr, const char8 *Ctrl1, ...)
 	u32 Idx = DBG_STR_IDX(DebugType);
 
 	va_start(Args, Ctrl1);
-	if ((((DebugType) & (DebugLog->LogLevel)) != (u8)FALSE) &&
+	if ((((DebugType) & (DebugLog->LogLevel)) != 0U) &&
 		(Idx < (u32)ARRAY_SIZE(PrefixStr))) {
 		if ((DebugType & XPLMI_DEBUG_PRINT_TIMESTAMP_MASK) != 0U) {
 			XPlmi_PrintPlmTimeStamp();
