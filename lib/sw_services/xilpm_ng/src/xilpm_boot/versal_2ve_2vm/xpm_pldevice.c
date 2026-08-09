@@ -74,6 +74,17 @@ static inline void XPmPlDevice_TriggerSemHandler(u32 DeviceId)
 	(void)DeviceId;
 }
 
+/****************************************************************************/
+/**
+ * @brief  Set XilSEM callback handler to clear the PLD node descriptors
+ *
+ * @param  Handler: Pointer to XilSEM callback handler
+ *
+ * @return None
+ *
+ * @note None
+ *
+ ****************************************************************************/
 maybe_unused static void XPmPlDevice_SetSemCallback(void (*Handler)(u32 DeviceId) __attribute__((unused)))
 {
 }

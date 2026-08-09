@@ -189,6 +189,17 @@ void XPm_Wait(u32 TimeOutCount)
 	}
 }
 
+/****************************************************************************/
+/**
+ * @brief  This function computes the even parity of a 32 bit value.
+ *
+ * @param  CalParity	32 bit value whose parity is to be computed
+ *
+ * @return The parity bit (0 or 1) of the input value
+ *
+ * @note   None
+ *
+ ****************************************************************************/
 maybe_unused static u32 XPm_ComputeParity(u32 CalParity)
 {
 	u32 Value = CalParity;
@@ -215,6 +226,15 @@ u32 XPm_GetPlatform(void)
 	return DevPlatform;
 }
 
+/****************************************************************************/
+/**
+ * @brief  This function returns the platform version of the device.
+ *
+ * @return The platform version read from the hardware
+ *
+ * @note   The value is read once and cached for subsequent calls.
+ *
+ ****************************************************************************/
 maybe_unused static u32 XPm_GetPlatformVersion(void)
 {
         static u32 DevPlatformVersion = NOT_INITIALIZED;
@@ -234,6 +254,15 @@ maybe_unused static u32 XPm_GetPlatformVersion(void)
         return DevPlatformVersion;
 }
 
+/****************************************************************************/
+/**
+ * @brief  This function returns the SLR type of the device.
+ *
+ * @return The SLR type read from the hardware
+ *
+ * @note   The value is read once and cached for subsequent calls.
+ *
+ ****************************************************************************/
 maybe_unused static u32 XPm_GetSlrType(void)
 {
         static u32 DevSlrType = NOT_INITIALIZED;
@@ -247,6 +276,15 @@ maybe_unused static u32 XPm_GetSlrType(void)
         return DevSlrType;
 }
 
+/****************************************************************************/
+/**
+ * @brief  This function returns the IDCODE of the device.
+ *
+ * @return The IDCODE read from the hardware
+ *
+ * @note   The value is read once and cached for subsequent calls.
+ *
+ ****************************************************************************/
 maybe_unused static u32 XPm_GetIdCode(void)
 {
         static u32 DevIdCode = NOT_INITIALIZED;
@@ -258,6 +296,15 @@ maybe_unused static u32 XPm_GetIdCode(void)
         return DevIdCode;
 }
 
+/****************************************************************************/
+/**
+ * @brief  This function returns the PMC version of the device.
+ *
+ * @return The PMC version read from the hardware
+ *
+ * @note   The value is read once and cached for subsequent calls.
+ *
+ ****************************************************************************/
 maybe_unused static u32 XPm_GetPmcVersion(void)
 {
 	static u32 DevPmcVersion = NOT_INITIALIZED;

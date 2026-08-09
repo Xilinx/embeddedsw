@@ -45,6 +45,19 @@ XStatus XPmAsuCore_PwrDwn(XPm_Core *Core)
 	return XST_SUCCESS;
 }
 
+/**
+ * @brief  Initializes an ASU core instance.
+ *
+ * @param  AsuCore	Pointer to the ASU core instance to initialize
+ * @param  Id		Device node ID of the ASU core
+ * @param  Ipi		IPI channel mask associated with the core
+ * @param  BaseAddress	Array of base addresses for the ASU core
+ * @param  Power	Pointer to the power node for the core
+ * @param  Clock	Pointer to the clock node for the core
+ * @param  Reset	Pointer to the reset node for the core
+ *
+ * @return XST_SUCCESS on success, error code otherwise
+ */
 XStatus XPmAsuCore_Init(XPm_AsuCore *AsuCore, u32 Id, u32 Ipi, const u32 *BaseAddress,
 			XPm_Power *Power, XPm_ClockNode *Clock,
 			XPm_ResetNode *Reset)

@@ -16,6 +16,17 @@ struct XPmRuntime_Periph {
         XPm_Periph * Device;
         u32 WakeProcId;
 };
+/****************************************************************************/
+/**
+ * @brief  Set the wake processor ID associated with a peripheral device
+ *
+ * @param  Device: Peripheral device to associate the wake processor with
+ * @param  WakeProcId: Wake processor ID to store for the peripheral
+ *
+ * @return XST_SUCCESS on success, XST_INVALID_PARAM for a NULL device,
+ *         XST_BUFFER_TOO_SMALL if allocation fails
+ *
+ ****************************************************************************/
 XStatus XPmRuntime_Periph_SetWakeProcId(XPm_Periph * Device, u32 WakeProcId);
 #ifdef __cplusplus
 }

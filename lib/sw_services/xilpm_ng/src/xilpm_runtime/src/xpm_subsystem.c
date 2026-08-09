@@ -9,7 +9,7 @@
 
 static XStatus XPmSubsystem_IsAccessAllowed(XPm_Subsystem *Subsystem, u32 NodeId);
 
-/*
+/**
  * Subsystem Manager - Single unified object
  * Always defined here, regardless of build configuration
  */

@@ -77,6 +77,18 @@ static XStatus XPm_GetChipID(u32* IDCode, u32 *Version);
 static XStatus XPm_Query(const u32 Qid, const u32 Arg1, const u32 Arg2, const u32 Arg3, u32 *const Output);
 
 static XStatus XPm_DoRegisterNotifier(XPlmi_Cmd* Cmd);
+/****************************************************************************/
+/**
+ * @brief  Command handler that unpacks the self-suspend payload and calls
+ *         XPm_SelfSuspend.
+ *
+ * @param Cmd		Pointer to the received command containing the payload
+ *
+ * @return XST_SUCCESS on success, error code otherwise
+ *
+ * @note   None
+ *
+ ****************************************************************************/
 static XStatus XPm_DoSelfSuspend(XPlmi_Cmd* Cmd);
 static XStatus XPm_DoForcePowerdown(XPlmi_Cmd* Cmd);
 
@@ -3172,6 +3184,18 @@ XStatus XPm_DevIoctl(const u32 SubsystemId, const u32 DeviceId,
 
 	return Status;
 }
+/****************************************************************************/
+/**
+ * @brief  Command handler for the PM_IOCTL command. Decodes the IOCTL
+ *         parameters from the command payload, resolves the indexed device
+ *         ID and forwards the request to XPm_DevIoctl.
+ *
+ * @param  Cmd	Pointer to the PLM command structure carrying the payload
+ *		and response buffer
+ *
+ * @return XST_SUCCESS on success, error code otherwise
+ *
+ ****************************************************************************/
 static XStatus XPm_DoDevIoctl(XPlmi_Cmd *Cmd)
 {
 	XStatus Status = XST_FAILURE;
@@ -3616,7 +3640,7 @@ static XStatus XPm_DoClockDisable(XPlmi_Cmd *Cmd)
  * @brief  This function reads the clock state.
  *
  * @param ClockId	ID of the clock node
- * @param State		Pointer to the clock state
+ * @param Enable		Pointer to the clock state
  *
  * @return XST_SUCCESS if successful else XST_FAILURE or an error code
  * or a reason code
@@ -3654,6 +3678,18 @@ done:
 	return Status;
 }
 
+/****************************************************************************/
+/**
+ * @brief  Command handler for the PM_CLOCK_GETSTATE command. Reads the clock
+ *         ID from the command payload and returns the clock state in the
+ *         command response buffer.
+ *
+ * @param  Cmd	Pointer to the PLM command structure carrying the payload
+ *		and response buffer
+ *
+ * @return XST_SUCCESS on success, error code otherwise
+ *
+ ****************************************************************************/
 static XStatus XPm_DoGetClockState(XPlmi_Cmd*Cmd)
 {
 	XStatus Status = XST_FAILURE;
@@ -3713,6 +3749,18 @@ done:
 	return Status;
 }
 
+/****************************************************************************/
+/**
+ * @brief  Command handler for the PM_CLOCK_SETDIVIDER command. Reads the
+ *         clock ID and divider value from the command payload and sets the
+ *         clock divider.
+ *
+ * @param  Cmd	Pointer to the PLM command structure carrying the payload
+ *		and response buffer
+ *
+ * @return XST_SUCCESS on success, error code otherwise
+ *
+ ****************************************************************************/
 static XStatus XPm_DoSetClockDivider(XPlmi_Cmd *Cmd)
 {
 	volatile XStatus Status = XST_FAILURE;
@@ -3815,6 +3863,18 @@ done:
 	return Status;
 }
 
+/****************************************************************************/
+/**
+ * @brief  Command handler for the PM_CLOCK_SETPARENT command. Reads the
+ *         clock ID and parent index from the command payload and sets the
+ *         clock parent.
+ *
+ * @param  Cmd	Pointer to the PLM command structure carrying the payload
+ *		and response buffer
+ *
+ * @return XST_SUCCESS on success, error code otherwise
+ *
+ ****************************************************************************/
 static XStatus XPm_DoSetClockParent(XPlmi_Cmd *Cmd)
 {
 	XStatus Status = XST_FAILURE;

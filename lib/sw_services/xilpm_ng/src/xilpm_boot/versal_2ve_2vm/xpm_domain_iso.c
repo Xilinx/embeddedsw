@@ -13,13 +13,52 @@
 
 static XPm_Iso* XPmDomainIso_List[XPM_NODEIDX_ISO_MAX] XPM_INIT_DATA(XPmDomainIso_List) = { NULL };
 
+/****************************************************************************/
+/**
+ * @brief  Check whether an isolation node is a PSM single-word type.
+ *
+ * @param  ISO_NODE: Pointer to the isolation node
+ *
+ * @return 1U if the node format is PSM single-word (active low or high),
+ *         0U otherwise
+ *
+ ****************************************************************************/
 #define IS_PSM_ISO(ISO_NODE) (((((ISO_NODE)->Format) == (u32)PSM_SINGLE_WORD_ACTIVE_LOW) || \
 			      (((ISO_NODE)->Format) == (u32)PSM_SINGLE_WORD_ACTIVE_HIGH)) ? 1U : 0U)
+/****************************************************************************/
+/**
+ * @brief  Determine the active polarity of an isolation node from its format.
+ *
+ * @param  ISO_NODE: Pointer to the isolation node
+ *
+ * @return ACTIVE_HIGH if the node format is single-word active high or PSM
+ *         single-word active high, ACTIVE_LOW otherwise
+ *
+ ****************************************************************************/
 #define GET_POLARITY(ISO_NODE) (((((ISO_NODE)->Format) == (u32)SINGLE_WORD_ACTIVE_HIGH) || \
 				(((ISO_NODE)->Format) == (u32)PSM_SINGLE_WORD_ACTIVE_HIGH)) ? ACTIVE_HIGH : ACTIVE_LOW)
+/****************************************************************************/
+/**
+ * @brief  Get the mask value that enables (turns on) an isolation node.
+ *
+ * @param  ISO_NODE: Pointer to the isolation node
+ *
+ * @return The node's Mask when its polarity is ACTIVE_HIGH, 0U otherwise
+ *
+ ****************************************************************************/
 #define ISO_ON(ISO_NODE) (((GET_POLARITY(ISO_NODE) == ACTIVE_HIGH)) ? (ISO_NODE)->Mask : 0U)
 #define ISO_OFF(ISO_NODE) ~(ISO_ON(ISO_NODE))
 
+/****************************************************************************/
+/**
+ * @brief	Write the isolation value to the AFI FM read and write control ports
+ *
+ * @param IsoNode	Pointer to the isolation node
+ * @param Value		Value to write to the RD_CTRL and WR_CTRL ports
+ *
+ * @note	None
+ *
+ ****************************************************************************/
 static void XPmDomainIso_AfifmControl(const XPm_Iso *IsoNode, u32 Value)
 {
 	/* Write RD_CTRL port */
@@ -29,6 +68,16 @@ static void XPmDomainIso_AfifmControl(const XPm_Iso *IsoNode, u32 Value)
 	XPm_RMW32(IsoNode->Node.BaseAddress + AFI_FM_WR_CTRL_OFFSET, IsoNode->Mask, Value);
 }
 
+/****************************************************************************/
+/**
+ * @brief	Write the given value to the isolation node control register
+ *
+ * @param IsoNode	Pointer to the isolation node
+ * @param Value		Value to write to the isolation control register
+ *
+ * @return	XST_SUCCESS or error code
+ *
+ ****************************************************************************/
 static XStatus XPmDomainIso_SetValue(const XPm_Iso* IsoNode, u32 Value){
 	XStatus Status = XST_FAILURE;
 
@@ -45,6 +94,16 @@ static XStatus XPmDomainIso_SetValue(const XPm_Iso* IsoNode, u32 Value){
 	return Status;
 }
 
+/****************************************************************************/
+/**
+ * @brief	Check whether all power domain and device dependencies of the
+ *		isolation node are ready for isolation removal
+ *
+ * @param IsoNode	Pointer to the isolation node
+ *
+ * @return	XST_SUCCESS if all dependencies are satisfied, XST_FAILURE otherwise
+ *
+ ****************************************************************************/
 static XStatus XPmDomainIso_CheckDependencies(const XPm_Iso* IsoNode)
 {
 	XStatus Status = XST_FAILURE;

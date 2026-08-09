@@ -59,6 +59,17 @@ done:
 	return Status;
 }
 
+/*****************************************************************************/
+/**
+ * @brief	Bring up the device by powering it on, enabling its clocks and
+ *		releasing its reset (except for core devices, whose reset is
+ *		handled as part of request wakeup).
+ *
+ * @param	Device	Pointer to the device to bring up.
+ *
+ * @return	XST_SUCCESS if successful, error code otherwise.
+ *
+ *****************************************************************************/
 static XStatus ActionBringUpAll(XPm_Device* const Device)
 {
 	XStatus Status = XST_FAILURE;

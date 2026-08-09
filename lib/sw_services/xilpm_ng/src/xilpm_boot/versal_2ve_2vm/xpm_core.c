@@ -219,6 +219,15 @@ done:
 	return Status;
 }
 
+/****************************************************************************/
+/**
+ * @brief  Check whether a valid resume address is stored for the core
+ *
+ * @param  Core: Pointer to the core node
+ *
+ * @return XST_SUCCESS if a valid resume address is stored, XST_FAILURE otherwise
+ *
+ ****************************************************************************/
 maybe_unused static XStatus XPmCore_HasResumeAddr(const XPm_Core *Core)
 {
 	XStatus Status = XST_FAILURE;
@@ -244,6 +253,16 @@ XStatus XPmCore_SetCPUIdleFlag(const XPm_Core *Core, u32 CpuIdleFlag)
 	return XST_SUCCESS;
 }
 
+/****************************************************************************/
+/**
+ * @brief  Get the CPU idle flag for the given core
+ *
+ * @param  Core: Pointer to the core node
+ * @param  CpuIdleFlag: Pointer to store the CPU idle flag
+ *
+ * @return XST_SUCCESS on success, error code otherwise
+ *
+ ****************************************************************************/
 maybe_unused static XStatus XPmCore_GetCPUIdleFlag(const XPm_Core *Core, const u32 *CpuIdleFlag)
 {
 	(void)Core;

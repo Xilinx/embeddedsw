@@ -26,10 +26,29 @@ struct XPmRuntime_Reset {
 };
 
 /************************** Function Prototypes ******************************/
+/****************************************************************************/
+/**
+ * @brief  Perform a reset action on the reset node identified by ResetId.
+ *
+ * @param  ResetId	Node ID of the reset to operate on
+ * @param  Action	Reset action to apply (assert, de-assert or pulse)
+ *
+ * @return XST_SUCCESS on success, error code otherwise
+ *
+ ****************************************************************************/
 XStatus XPmReset_AssertbyId(u32 ResetId, const u32 Action);
 XStatus XPmReset_GetStateById(u32 ResetId, u32 *OutState);
 XStatus XPmReset_CheckPermissions(const XPm_Subsystem *Subsystem, u32 ResetId);
 XStatus XPmReset_SystemReset(void);
+/****************************************************************************/
+/**
+ * @brief  Checks whether the given reset may be operated on.
+ *
+ * @param  ResetId: Reset node ID to check
+ *
+ * @return XST_SUCCESS if permitted, error code otherwise
+ *
+ ****************************************************************************/
 XStatus XPmReset_IsPermissionReset(const u32 ResetId);
 XStatus XPmReset_AddPermForGlobalResets(const XPm_Subsystem *Subsystem);
  XStatus XPmReset_IsOperationAllowed(const u32 SubsystemId,

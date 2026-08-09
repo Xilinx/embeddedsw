@@ -41,6 +41,15 @@ XStatus XPmPlDevice_Init(XPm_PlDevice *PlDevice,
 
 XStatus XPmPlDevice_GetParent(u32 NodeId, u32 *Resp);
 XStatus XPmPlDevice_IsValidPld(const XPm_PlDevice *PlDevice);
+/****************************************************************************/
+/**
+ * @brief      Releases the AIE device linked to the given PL device.
+ *
+ * @param PlDevice Pointer to the PL device whose AIE device is released
+ *
+ * @note       None
+ *
+ ****************************************************************************/
 void XPmPlDevice_ReleaseAieDevice(XPm_PlDevice *PlDevice);
 void XPmPlDevice_GetAieParent(const XPm_Device* Device, const XPm_PlDevice **OutParent);
 

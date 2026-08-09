@@ -176,6 +176,15 @@ done:
 	return Status;
 }
 
+/****************************************************************************/
+/**
+ * @brief	Apply the SD/eMMC DLL reset workaround for the given device
+ *
+ * @param Device	Pointer to the device node
+ *
+ * @return	XST_SUCCESS or error code
+ *
+ ****************************************************************************/
 maybe_unused static XStatus XPmDevice_SdResetWorkaround(const XPm_Device *Device)
 {
 	XStatus Status = XST_FAILURE;
@@ -229,7 +238,27 @@ done:
 	return Status;
 }
 
+/****************************************************************************/
+/**
+ * @brief	Add a clock handle to the given device
+ *
+ * @param Device	Pointer to the device node
+ * @param Clock		Pointer to the clock node to attach to the device
+ *
+ * @return	XST_SUCCESS or error code
+ *
+ ****************************************************************************/
 static XStatus XPmDevice_AddClock(XPm_Device *Device, XPm_ClockNode *Clock);
+/****************************************************************************/
+/**
+ * @brief	Add a reset handle to the given device
+ *
+ * @param Device	Pointer to the device node
+ * @param Reset		Pointer to the reset node to attach to the device
+ *
+ * @return	XST_SUCCESS or error code
+ *
+ ****************************************************************************/
 static XStatus XPmDevice_AddReset(XPm_Device *Device, XPm_ResetNode *Reset);
 
 XStatus XPmDevice_Init(XPm_Device *Device,
@@ -309,6 +338,17 @@ done:
 	return Status;
 }
 
+/****************************************************************************/
+/**
+ * @brief	Initialize a virtual device node
+ *
+ * @param Device	Pointer to the device node to initialize
+ * @param Id		Device Node ID
+ * @param Power		Pointer to the power node for the device
+ *
+ * @return	XST_SUCCESS or error code
+ *
+ ****************************************************************************/
 maybe_unused static XStatus XPmVirtDev_DeviceInit(XPm_Device *Device, u32 Id, XPm_Power *Power)
 {
 	XStatus Status = XST_FAILURE;
@@ -767,7 +807,6 @@ XStatus XPmDevice_AddParent(u32 Id, const u32 *Parents, u32 NumParents)
 done:
 	return Status;
 }
-
 
 /****************************************************************************/
 /**

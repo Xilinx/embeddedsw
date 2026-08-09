@@ -106,6 +106,11 @@ XStatus XPm_PmcGetDeviceState(u32 DeviceId, u32 *const DeviceState);
 XStatus XPm_SystemShutdown(u32 SubsystemId, u32 Type, u32 SubType, u32 CmdType);
 XStatus XPm_AddSubsystem(XPlmi_Cmd* Cmd);
 XStatus XPm_AddRequirement(XPlmi_Cmd* Cmd);
+/**
+ * @brief Hook executed after the PLM CDO has been processed.
+ *
+ * @return XST_SUCCESS on success, error code otherwise
+ */
 XStatus XPm_HookAfterPlmCdo(void);
 XStatus XPm_HnicxNpiDataXfer(u32 Address, u32 Value);
 u32 XPm_GetSubsystemId(u32 ImageId);

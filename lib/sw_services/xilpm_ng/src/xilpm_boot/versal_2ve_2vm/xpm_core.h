@@ -44,7 +44,27 @@ XStatus XPmCore_AfterDirectPwrDwn(XPm_Core *Core);
 XStatus XPmCore_PwrDwn(XPm_Core *Core);
 void DisableWake(const struct XPm_Core *Core);
 XStatus XPmCore_StoreResumeAddr(XPm_Core *Core, u64 Address);
+/****************************************************************************/
+/**
+ * @brief  Set the CPU idle flag for the given core
+ *
+ * @param  Core: Pointer to the core node
+ * @param  CpuIdleFlag: CPU idle flag value to set
+ *
+ * @return XST_SUCCESS on success, error code otherwise
+ *
+ ****************************************************************************/
 XStatus XPmCore_SetCPUIdleFlag(const XPm_Core *Core, u32 CpuIdleFlag);
+/****************************************************************************/
+/**
+ * @brief  Enable or disable the clock for the given core
+ *
+ * @param  CoreId: Node ID of the core
+ * @param  Enable: Non-zero to enable the clock, zero to disable it
+ *
+ * @return XST_SUCCESS on success, error code otherwise
+ *
+ ****************************************************************************/
 XStatus XPmCore_SetClock(u32 CoreId, u32 Enable);
 XStatus XPmCore_RequestWakeup(XPm_Core *Core, u32 SetAddress, u64 Address);
 XStatus XPmCore_PowerDown(XPm_Core *Core);

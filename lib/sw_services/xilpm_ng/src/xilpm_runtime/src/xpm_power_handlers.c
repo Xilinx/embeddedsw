@@ -110,6 +110,16 @@ static void XPm_InterruptPwrCtrlHandler(void)
 	}
 }
 
+/*****************************************************************************/
+/**
+ * @brief Top level power interrupt handler that dispatches power up, power
+ *        down, wakeup and power control requests to their handlers and ACKs
+ *        the serviced interrupts.
+ *
+ * @param IntrNumber	Interrupt number that triggered the handler
+ *
+ * @return XST_SUCCESS on success, XST_FAILURE or error code during failure
+ *****************************************************************************/
 int XPm_PwrIntrHandler(void *IntrNumber)
 {
 	/* Structure for Top level interrupt table */

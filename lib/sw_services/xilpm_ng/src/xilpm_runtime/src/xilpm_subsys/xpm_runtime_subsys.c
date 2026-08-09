@@ -117,6 +117,17 @@ XStatus XPmSubsystemOp_StartRecoveryTimer(XPm_Subsystem *Subsystem, u32 CmdType)
 
 /* XPmSubsystemOp_IsAccessAllowed is now a common function in xpm_subsystem.c */
 
+/****************************************************************************/
+/**
+ * @brief  Grant the Host subsystem the requested permissions over the Target
+ *
+ * @param Host          Pointer to the host subsystem requesting permissions
+ * @param TargetId      Subsystem ID of the target subsystem
+ * @param Operations    Bitmask of operations to permit (wakeup/powerdown)
+ *
+ * @return XST_SUCCESS on success, error code on failure
+ *
+ ****************************************************************************/
 static XStatus XPm_AddSubsysPermissions(const XPm_Subsystem *Host, u32 TargetId, u32 Operations)
 {
 	XStatus Status = XST_FAILURE;
@@ -185,6 +196,15 @@ done:
 	return Status;
 }
 
+/****************************************************************************/
+/**
+ * @brief  Release all requirements and unregister all notifiers of a subsystem
+ *
+ * @param Subsystem     Pointer to subsystem object
+ *
+ * @return XST_SUCCESS on success, error code on failure
+ *
+ ****************************************************************************/
 static XStatus XPmSubsystem_ForceDownCleanup(const XPm_Subsystem *Subsystem)
 {
 	XStatus Status = XST_FAILURE;
@@ -302,6 +322,17 @@ done:
 	return Status;
 }
 
+/****************************************************************************/
+/**
+ * @brief  Add a reset requirement to the subsystem from the given payload
+ *
+ * @param Subsystem     Pointer to subsystem object
+ * @param Payload       Payload containing reset ID and flags
+ * @param PayloadLen    Length of payload array
+ *
+ * @return XST_SUCCESS on success, error code on failure
+ *
+ ****************************************************************************/
 static XStatus XPm_AddRstRequirement(const XPm_Subsystem *Subsystem, const u32 *Payload, u32 PayloadLen)
 {
 	XStatus Status = XST_FAILURE;
@@ -336,6 +367,17 @@ done:
 	return Status;
 }
 
+/****************************************************************************/
+/**
+ * @brief  Add a subsystem-to-subsystem permission requirement from the payload
+ *
+ * @param Subsystem     Pointer to subsystem object
+ * @param Payload       Payload containing target subsystem ID and operations
+ * @param PayloadLen    Length of payload array
+ *
+ * @return XST_SUCCESS on success, error code on failure
+ *
+ ****************************************************************************/
 static XStatus XPm_AddSubsysRequirement(const XPm_Subsystem *Subsystem, const u32 *Payload, u32 PayloadLen)
 {
 	XStatus Status = XST_FAILURE;

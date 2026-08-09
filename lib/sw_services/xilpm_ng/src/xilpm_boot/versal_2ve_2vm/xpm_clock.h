@@ -42,7 +42,7 @@ extern "C" {
 #define CLOCK_PARENT_INVALID		0U
 
 /* Clock Flags */
-#define CLK_FLAG_READ_ONLY		BIT32(0U)
+#define CLK_FLAG_READ_ONLY		BIT32(0U)	/**< Clock flag marking the clock as read-only */
 
 #define ISCPMCLK(idx)	(((idx) == (u32)XPM_NODEIDX_CLK_CPLL) ||			\
 			((idx) == (u32)XPM_NODEIDX_CLK_CPM5N_PRESRC) ||		\
@@ -72,7 +72,7 @@ struct XPm_ClkTopologyNode {
 };
 
 typedef struct {
-	struct XPm_ClkTopologyNode *Nodes;
+	struct XPm_ClkTopologyNode *Nodes;	/**< Pointer to the array of topology nodes */
 	uint8_t Id;
 	uint8_t NumNodes;
 	u16 MuxSources[MAX_MUX_PARENTS]; /**< Clock index of mux sources */

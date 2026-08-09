@@ -174,7 +174,29 @@ XStatus XPmPower_SendIslandPowerDwnReq(const XPm_Node *Node);
 XStatus XPmPower_SendIslandPowerUpReq(const XPm_Node *Node);
 XStatus XPmPower_PlatSendPowerUpReq(XPm_Node *Node);
 XStatus XPmPower_PlatSendPowerDownReq(const XPm_Node *Node);
+/****************************************************************************/
+/**
+ * @brief      Directly powers down an RPU core.
+ *
+ * @param Args Core specific power control arguments
+ *
+ * @return     XST_SUCCESS if successful else XST_FAILURE or error code
+ *
+ * @note       None
+ *
+ ****************************************************************************/
 XStatus XPmPower_RpuDirectPwrDwn(const struct XPmFwPwrCtrl_t *Args);
+/****************************************************************************/
+/**
+ * @brief      Handles an RPU core power up request.
+ *
+ * @param Args Core specific power control arguments
+ *
+ * @return     XST_SUCCESS if successful else XST_FAILURE or error code
+ *
+ * @note       None
+ *
+ ****************************************************************************/
 XStatus XPmPower_RpuReqPwrUp(const struct XPmFwPwrCtrl_t *Args);
 XStatus XPmPower_RpuReqPwrDwn(const struct XPmFwPwrCtrl_t *Args);
 XStatus XPmPower_ACpuReqPwrUp(const struct XPmFwPwrCtrl_t *Args);

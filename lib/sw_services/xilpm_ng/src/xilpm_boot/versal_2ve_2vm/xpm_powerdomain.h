@@ -43,8 +43,26 @@ XStatus XPm_PowerUpLPD(const XPm_Node *Node);
 XStatus XPm_PowerDwnLPD(void);
 XStatus XPm_PowerUpFPD(const XPm_Node *Node);
 XStatus XPm_PowerDwnFPD(const XPm_Node *Node);
+/****************************************************************************/
+/**
+ * @brief  Perform the hardware power up sequence for the PL power domain.
+ *
+ * @param  Node: Pointer to the PL domain node
+ *
+ * @return XST_SUCCESS if successful else XST_FAILURE or error code
+ *
+ ****************************************************************************/
 XStatus XPm_PowerUpPLD(const XPm_Node *Node);
 XStatus XPm_PowerDwnPLD(const XPm_Node *Node);
+/****************************************************************************/
+/**
+ * @brief  Perform the power up sequence for the NoC power domain.
+ *
+ * @param  Node: Pointer to the NoC domain node
+ *
+ * @return XST_SUCCESS if successful else XST_FAILURE or error code
+ *
+ ****************************************************************************/
 XStatus XPm_PowerUpNoC(const XPm_Node *Node);
 XStatus XPm_PowerDwnNoC(void);
 XStatus XPmPower_UpdateDomainPower(const XPm_PowerDomain *PwrDomain, u32 State);

@@ -31,6 +31,16 @@ XStatus XPmDevice_SetRequirement(const u32 SubsystemId, const u32 DeviceId,
 				 const u32 Capabilities, const u32 QoS);
 u32 XPmDevice_GetUsageStatus(const XPm_Subsystem *Subsystem, const XPm_Device *Device);
 XStatus XPmDevice_UpdateStatus(XPm_Device *Device);
+/****************************************************************************/
+/**
+ * @brief  Gets the status of the given device for the requesting subsystem.
+ * @param  Subsystem      Subsystem querying the device status
+ * @param  DeviceId       ID of the device to query
+ * @param  DeviceStatus   Pointer that is updated with the device status
+ *
+ * @return XST_SUCCESS on success, error code otherwise
+ *
+ ****************************************************************************/
 XStatus XPmDevice_GetStatus(const XPm_Subsystem *Subsystem,
 			u32 DeviceId,
 			XPm_DeviceStatus *const DeviceStatus);

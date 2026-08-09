@@ -11,8 +11,26 @@
 #include "xpm_psfpdomain.h"
 #include "xpm_defs.h"
 
+/****************************************************************************/
+/**
+ * @brief  Build the APU cluster mode bit mask for a given cluster.
+ *
+ * @param  ClusterId: APU cluster identifier used as the bit position
+ *
+ * @return 32-bit mask with the bit for the given cluster set
+ *
+ ****************************************************************************/
 #define XPM_APU_MODE_MASK(ClusterId)		BIT32(ClusterId)
 
+/**
+ * @brief  Assigns the sleep, wakeup and power down register masks for the
+ *         given APU core based on its node index.
+ *
+ * @param  ApuCore	Pointer to the APU core instance
+ * @param  Id		Device node ID of the APU core
+ *
+ * @return XST_SUCCESS if the masks were assigned, XST_FAILURE otherwise
+ */
 static XStatus XPmApuCore_AssignRegisterMask(XPm_ApuCore *ApuCore, const u32 Id);
 
 /**

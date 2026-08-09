@@ -143,6 +143,18 @@ XStatus XPm_IpiSend(u32 IpiMask, const u32 *Payload)
 	return XST_FAILURE;
 }
 
+/****************************************************************************/
+/**
+ * @brief	Reads IPI Response after target module has handled interrupt.
+ *		Stub used when no IPI device is configured; always fails.
+ *
+ * @param	IpiMask		IPI interrupt mask of target
+ *
+ * @return	XST_FAILURE
+ *
+ * @note   None
+ *
+ ****************************************************************************/
 maybe_unused static XStatus XPm_IpiReadStatus(u32 IpiMask)
 {
 	(void)IpiMask;

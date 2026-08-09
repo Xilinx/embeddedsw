@@ -7,6 +7,16 @@
 #include "xpm_requirement.h"
 #include "xpm_device.h"
 #include "xpm_runtime_device.h"
+/****************************************************************************/
+/**
+ * @brief  Force power down of a power domain node and its children
+ *
+ * @param  NodeId: Node ID of the power domain to be forced down
+ *
+ * @return XST_SUCCESS on success, XPM_PM_INVALID_NODE for an invalid or
+ *         PMC power domain node, or an error code otherwise
+ *
+ ****************************************************************************/
 maybe_unused static XStatus XPmPower_ForcePwrDwn(u32 NodeId);
 
 maybe_unused static XStatus XPmPower_ForcePwrDwn(u32 NodeId)

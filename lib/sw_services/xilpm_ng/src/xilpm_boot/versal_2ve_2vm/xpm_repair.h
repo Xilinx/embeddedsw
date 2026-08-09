@@ -328,25 +328,37 @@ enum {
  * Defined as unsigned macros (not an enum) so their essential type matches
  * the u32 switch controlling expression (MISRA C:2025 Rule 10.3).
  */
-#define MRMAC_TAG_ID		0x0FU	/*  XPmBisr_RepairHardBlock */
-#define BRAM_TAG_ID		0x11U	/*  XPmBisr_RepairBram */
-#define URAM_TAG_ID		0x12U	/*  XPmBisr_RepairUram */
-#define GT_TAG_ID		0x18U	/*  XPmRepair_GtmGtyGtyp */
-#define DDRMC5_CRYPTO_TAG_ID	0x1CU	/*  XPmRepair_Ddrmc5_Crypto */
-#define MMI_TAG_ID		0x25U	/*  XPmRepair_Mmi */
-#define DDRMC5_MAIN_TAG_ID	0x26U	/*  XPmRepair_Ddrmc5_Main */
-#define ISP2_TAG_ID		0x27U	/*  XPmRepair_ISP2 */
-#define VCU2_TAG_ID		0x2AU	/*  XPmRepair_Vcu2 */
-#define FPXC_TAG_ID		0x2BU	/*  XPmRepair_Fpd */
-#define LPXC_TAG_ID		0x2CU	/*  XPmRepair_Lpd */
-#define AIE2PS_TAG_ID		0x2DU	/*  XPmRepair_Aie2p_s */
-#define MMI_GTYP_TAG_ID		0x2EU	/*  XPmRepair_Mmi_Gtyp */
-#define VIP_TAG_ID		0x33U	/*  XPmRepair_Vip */
-#define EIO_TAG_ID		0x34U	/*  XPmRepair_Eio */
-#define MAX_BISR_TAG_NUM	0x35U
+#define MRMAC_TAG_ID		0x0FU	/**< BISR tag ID for MRMAC hard block, repaired by XPmBisr_RepairHardBlock */
+#define BRAM_TAG_ID		0x11U	/**< BISR tag ID for BRAM, repaired by XPmBisr_RepairBram */
+#define URAM_TAG_ID		0x12U	/**< BISR tag ID for URAM, repaired by XPmBisr_RepairUram */
+#define GT_TAG_ID		0x18U	/**< BISR tag ID for GT (GTM/GTY/GTYP), repaired by XPmRepair_GtmGtyGtyp */
+#define DDRMC5_CRYPTO_TAG_ID	0x1CU	/**< BISR tag ID for DDRMC5 crypto block, repaired by XPmRepair_Ddrmc5_Crypto */
+#define MMI_TAG_ID		0x25U	/**< BISR tag ID for MMI, repaired by XPmRepair_Mmi */
+#define DDRMC5_MAIN_TAG_ID	0x26U	/**< BISR tag ID for DDRMC5 main block, repaired by XPmRepair_Ddrmc5_Main */
+#define ISP2_TAG_ID		0x27U	/**< BISR tag ID for ISP2, repaired by XPmRepair_ISP2 */
+#define VCU2_TAG_ID		0x2AU	/**< BISR tag ID for VCU2, repaired by XPmRepair_Vcu2 */
+#define FPXC_TAG_ID		0x2BU	/**< BISR tag ID for FPD complex, repaired by XPmRepair_Fpd */
+#define LPXC_TAG_ID		0x2CU	/**< BISR tag ID for LPD complex, repaired by XPmRepair_Lpd */
+#define AIE2PS_TAG_ID		0x2DU	/**< BISR tag ID for AIE2PS, repaired by XPmRepair_Aie2p_s */
+#define MMI_GTYP_TAG_ID		0x2EU	/**< BISR tag ID for MMI GTYP, repaired by XPmRepair_Mmi_Gtyp */
+#define VIP_TAG_ID		0x33U	/**< BISR tag ID for VIP, repaired by XPmRepair_Vip */
+#define EIO_TAG_ID		0x34U	/**< BISR tag ID for EIO, repaired by XPmRepair_Eio */
+#define MAX_BISR_TAG_NUM	0x35U	/**< Upper bound of BISR tag ID values */
 
 /************************** Function Prototypes ******************************/
 XStatus XPmBisr_Repair(u32 TagId);
+/****************************************************************************/
+/**
+ * @brief  Copies efuse data to BisrDataDestAddr for repair.
+ *
+ * @param  BisrDataAddr: Address after TagID words. The first BIST data.
+ *         NOTE: It Need to Increase 1 Word before copying in OLD CODE
+ * @param  TagSize: Number of words to be copied
+ * @param  BisrDataDestAddr: 64 bits Destination address to be copied
+ *
+ * @return Address of the BISR data cursor after the copied words
+ *
+ ****************************************************************************/
 u32 XPmBisr_CopyStandard(const u32 * BisrDataAddr, u32 TagSize, u64 BisrDataDestAddr);
 XStatus XPmcFw_UtilPollForMask(u32 RegAddr, u32 Mask, u32 TimeOutCount);
 u32 XPmBisr_RepairHardBlock(u32 EfuseTagAddr, u32 TagSize);

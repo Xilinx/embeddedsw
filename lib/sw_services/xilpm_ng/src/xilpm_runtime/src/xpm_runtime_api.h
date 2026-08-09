@@ -27,7 +27,14 @@ XStatus XPm_SelfSuspend(const u32 SubsystemId, const u32 DeviceId,
 			const u32 Latency, const u8 State,
 			u32 AddrLow, u32 AddrHigh);
 
-
+/**
+ * @brief  Idle every core device the subsystem has requested.
+ *
+ * @param  Subsystem	Subsystem whose requirement list is walked; only
+ *			allocated core-subclass devices are idled
+ *
+ * @return XST_SUCCESS on success, error code otherwise
+ */
 XStatus XPm_SubsystemIdleCores(const XPm_Subsystem *Subsystem);
 
 XStatus XPm_RequestWakeUp(u32 SubsystemId, const u32 DeviceId,
@@ -35,6 +42,16 @@ XStatus XPm_RequestWakeUp(u32 SubsystemId, const u32 DeviceId,
 			  const u32 Ack,
 			  const u32 CmdType);
 
+/****************************************************************************/
+/**
+ * @brief  Gets the current state of the given reset node.
+ *
+ * @param ResetId	ID of the reset node
+ * @param State		Pointer that is updated with the current reset state
+ *
+ * @return XST_SUCCESS on success, error code otherwise
+ *
+ ****************************************************************************/
 XStatus XPm_GetResetState(const u32 ResetId, u32 *const State);
 XStatus XPm_InitFinalize(const u32 SubsystemId);
 XStatus XPm_DevIoctl(const u32 SubsystemId, const u32 DeviceId,

@@ -17,6 +17,16 @@ static XStatus XPm_PlatRpucoreHalt(u32 CoreId);
 static XStatus XPm_PlatRpuSetOperMode(const struct XPm_RpuCore *RpuCore, const u32 Mode, u32 *Val);
 /** @brief Returns the current RPU cluster operating mode. */
 static u32 XPm_PlatRpuGetOperMode(const struct XPm_RpuCore *RpuCore);
+/****************************************************************************/
+/**
+ * @brief  Assign the register addresses and core masks for an RPU core based
+ *         on its device ID
+ *
+ * @param  RpuCore       Pointer to the RPU core object to populate
+ * @param  Id            Device ID of the RPU core
+ * @param  BaseAddress   Array holding the RPU and cluster base addresses
+ *
+ ****************************************************************************/
 static void XPmRpuCore_AssignRegAddr(struct XPm_RpuCore *RpuCore, const u32 Id, const u32 *BaseAddress);
 XStatus XPmRpuCore_WakeUp(XPm_Core *Core, u32 SetAddress, u64 Address)
 {
@@ -211,6 +221,16 @@ static u32 XPm_PlatRpuGetOperMode(const struct XPm_RpuCore *RpuCore)
 	return Val;
 }
 
+/****************************************************************************/
+/**
+ * @brief  Return the pair of RPU core device IDs (core 0 and core 1) that
+ *         belong to the same RPU cluster as the given device ID
+ *
+ * @param  Rpu0        Output pointer set to the cluster's core 0 device ID
+ * @param  Rpu1        Output pointer set to the cluster's core 1 device ID
+ * @param  DeviceId    Device ID of an RPU core in the cluster
+ *
+ ****************************************************************************/
 maybe_unused static void XPm_GetCoreId(u32 *Rpu0, u32 *Rpu1, const u32 DeviceId)
 {
 	if ((PM_DEV_RPU_A_0 == DeviceId) || (PM_DEV_RPU_A_1 == DeviceId)) {

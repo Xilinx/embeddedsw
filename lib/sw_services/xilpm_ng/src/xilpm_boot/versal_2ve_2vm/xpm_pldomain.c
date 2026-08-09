@@ -207,6 +207,12 @@ done:
 	return Status;
 }
 
+/**
+ * @brief  Re-trigger PL house cleaning.
+ *
+ * @return XST_FAILURE always; the service is not supported by the
+ *         minimum-boot-time xilpm configuration
+ */
 XStatus XPmPlDomain_RetriggerPlHouseClean(void)
 {
 	/**

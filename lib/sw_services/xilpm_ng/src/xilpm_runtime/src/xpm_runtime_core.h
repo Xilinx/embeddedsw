@@ -27,7 +27,27 @@ struct XPmRuntime_Core {
 
 XStatus XPmCore_GetCoreIdleSupport(const XPm_Core* Core, u8 *IsCoreIdleSupported);
 XStatus XPmCore_SetCoreIdleSupport(XPm_Core* Core, const u32 Value);
+/****************************************************************************/
+/**
+ * @brief  Releases the given core from its subsystem and processes any pending
+ *         forced power down for that subsystem.
+ *
+ * @param Core		Pointer to the core to release
+ *
+ * @return XST_SUCCESS on success, error code otherwise
+ *
+ ****************************************************************************/
 XStatus XPmCore_ReleaseFromSubsys(const XPm_Core *Core);
+/****************************************************************************/
+/**
+ * @brief  Pulses the APU GIC reset when all APU cores are powered off and the
+ *         FPD power domain is on.
+ *
+ * @param DeviceId	Device ID of the APU core being processed
+ *
+ * @return XST_SUCCESS on success, error code otherwise
+ *
+ ****************************************************************************/
 XStatus ResetAPUGic(const u32 DeviceId);
 #ifdef __cplusplus
 }

@@ -67,6 +67,16 @@ static XPmNotifier PmNotifiers[XPM_NOTIFIERS_COUNT] XPM_INIT_DATA(PmNotifiers);
 
 static volatile u32 SchedulerTask XPM_INIT_DATA(SchedulerTask) = (u32)NOT_PRESENT;
 
+/****************************************************************************/
+/**
+ * @brief  Scheduler task that walks all subsystems and sends any pending
+ *         suspend callbacks and notify events for each of them.
+ *
+ * @param  Arg  Unused scheduler argument
+ *
+ * @return XST_SUCCESS if successful, error code otherwise
+ *
+ ****************************************************************************/
 static int XPmNotifier_SchedulerTask(void *Arg);
 
 /****************************************************************************/

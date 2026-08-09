@@ -327,6 +327,14 @@ done:
 	return Status;
 }
 
+/**
+ * @brief  Grant the subsystem secure and non-secure permission for every
+ *         reset in the global permission-reset list.
+ *
+ * @param  Subsystem	Subsystem to be given the reset permissions
+ *
+ * @return XST_SUCCESS on success, error code otherwise
+ */
 XStatus XPmReset_AddPermForGlobalResets(const XPm_Subsystem *Subsystem)
 {
 	XStatus Status = XST_FAILURE;

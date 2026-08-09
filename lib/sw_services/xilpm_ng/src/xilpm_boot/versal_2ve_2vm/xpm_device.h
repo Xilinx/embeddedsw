@@ -109,6 +109,15 @@ XPm_Device *XPmDevice_GetMemRegnByIndex(const u32 MemRegnIndex);
 XStatus XPmDevice_Release(const u32 SubsystemId, const u32 DeviceId,
 			  const u32 CmdType);
 
+/**
+ * @brief  Return the current power state of a device node.
+ *
+ * @param  DeviceId	Node ID of the device to query
+ * @param  DeviceState	Filled with the device node state; set to
+ *			XPM_DEVSTATE_UNUSED when the device is not found
+ *
+ * @return XST_SUCCESS on success, error code otherwise
+ */
 XStatus XPmDevice_GetState(const u32 DeviceId, u32 *const DeviceState);
 
 XStatus XPmDevice_AddParent(u32 Id, const u32 *Parents, u32 NumParents);

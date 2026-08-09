@@ -119,6 +119,16 @@ void XPmRequirement_Clear(XPm_Requirement* Reqm)
 	}
 }
 
+/****************************************************************************/
+/**
+ * @brief	Releases the given device from every subsystem that currently
+ *		has it allocated.
+ *
+ * @param	Device	Device whose allocations are to be released
+ *
+ * @return	XST_SUCCESS if successful else XST_FAILURE or an error code
+ *
+ ****************************************************************************/
 XStatus XPmRequirement_ReleaseFromAllSubsystem(const XPm_Device* Device)
 {
 	XStatus Status = XST_FAILURE;
@@ -242,6 +252,16 @@ done:
 	return Status;
 }
 
+/****************************************************************************/
+/**
+ * @brief	Checks whether the given requirement is the exclusive allocation
+ *		of its device, i.e. no other subsystem has the device allocated.
+ *
+ * @param	Reqm	Requirement to check
+ *
+ * @return	XST_SUCCESS if the requirement is exclusive else XST_FAILURE
+ *
+ ****************************************************************************/
 maybe_unused static XStatus XPmRequirement_IsExclusive(const XPm_Requirement *Reqm)
 {
 	XStatus Status = XST_FAILURE;

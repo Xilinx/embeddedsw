@@ -6,6 +6,17 @@
 #include "xpm_runtime_periph.h"
 #include "xpm_update.h"
 static XPmRuntime_PeriphList *PeriphList XPM_INIT_DATA(PeriphList) = NULL;
+/****************************************************************************/
+/**
+ * @brief  Get the wake processor ID associated with a peripheral device
+ *
+ * @param  Device: Peripheral device to look up in the peripheral list
+ * @param  WakeProcId: Pointer that receives the wake processor ID
+ *
+ * @return XST_SUCCESS if found, XST_INVALID_PARAM for NULL arguments,
+ *         XST_DEVICE_NOT_FOUND if the peripheral list is empty
+ *
+ ****************************************************************************/
 maybe_unused static XStatus XPmRuntime_Periph_GetWakeProcId(const XPm_Periph * Device, u32 *WakeProcId)
 {
 	XStatus Status = XST_FAILURE;

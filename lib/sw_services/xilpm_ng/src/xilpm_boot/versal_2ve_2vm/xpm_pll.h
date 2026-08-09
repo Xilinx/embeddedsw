@@ -143,6 +143,18 @@ XStatus XPmClockPll_AddParent(u32 Id, const u32 *Parents, u8 NumParents);
 XStatus XPmClockPll_Request(u32 PllId);
 XStatus XPmClockPll_Release(u32 PllId);
 void XPmClockPll_Suspend(XPm_PllClockNode *Pll);
+/****************************************************************************/
+/**
+ * @brief      Asserts or releases the reset of a PLL clock node.
+ *
+ * @param Pll   Pointer to the PLL clock node
+ * @param Flags Reset action flags (assert and/or release)
+ *
+ * @return     XST_SUCCESS if successful else XST_FAILURE or error code
+ *
+ * @note       None
+ *
+ ****************************************************************************/
 XStatus XPmClockPll_Reset(XPm_PllClockNode *Pll, uint8_t Flags);
 
 #ifdef __cplusplus

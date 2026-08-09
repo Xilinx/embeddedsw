@@ -129,6 +129,14 @@ static XStatus IsDevAllocatedToSubsys(const XPm_Subsystem *Subsystem, const XPm_
 	return Status;
 }
 
+/****************************************************************************/
+/**
+ * @brief  Checks whether the given requirement is currently allocated.
+ * @param  Reqm   Requirement to check
+ *
+ * @return XPM_SUCCESS if the requirement is allocated, XPM_FAILURE otherwise
+ *
+ ****************************************************************************/
 static inline XStatus XPmRequirement_IsAllocated(const XPm_Requirement *Reqm)
 {
 	volatile XStatus Status = XPM_FAILURE;
@@ -591,6 +599,21 @@ done:
 	return MaxCaps;
 }
 
+/****************************************************************************/
+/**
+ * @brief  Request a device on behalf of a subsystem, granting it the
+ *         requested capabilities and quality of service. On success, updates
+ *         the subsystem IPI mask when an IPI channel device is requested.
+ *
+ * @param  SubsystemId	Node ID of the requesting subsystem
+ * @param  DeviceId	Node ID of the device being requested
+ * @param  Capabilities	Requested device capabilities
+ * @param  QoS		Requested quality of service
+ * @param  CmdType	Type of the command (secure or non-secure)
+ *
+ * @return XST_SUCCESS on success, error code otherwise
+ *
+ ****************************************************************************/
 XStatus XPmDevice_Request(const u32 SubsystemId, const u32 DeviceId,
 			  const u32 Capabilities, const u32 QoS, const u32 CmdType)
 {
@@ -1529,6 +1552,16 @@ u32 XPmDevice_GetUsageStatus(const XPm_Subsystem *Subsystem, const XPm_Device *D
 	return UsageStatus;
 }
 
+/****************************************************************************/
+/**
+ * @brief  Gets the status of the given device for the requesting subsystem.
+ * @param  Subsystem      Subsystem querying the device status
+ * @param  DeviceId       ID of the device to query
+ * @param  DeviceStatus   Pointer that is updated with the device status
+ *
+ * @return XST_SUCCESS on success, error code otherwise
+ *
+ ****************************************************************************/
 XStatus XPmDevice_GetStatus(const XPm_Subsystem *Subsystem,
 			    u32 DeviceId,
 			    XPm_DeviceStatus *const DeviceStatus)

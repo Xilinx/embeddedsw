@@ -248,6 +248,21 @@ static XStatus XPmRail_PMBusControl(XPm_Rail *Rail, u8 Mode)
 
 #if defined (XPAR_XGPIOPS_0_DEVICE_ID) || defined (XPAR_XGPIOPS_1_DEVICE_ID)
 
+/****************************************************************************/
+/**
+ * @brief  Transition a power rail to the requested mode using its GPIO
+ *         control meta-data.
+ *
+ *         Looks up the GPIO offset/mask/value for the requested mode,
+ *         requests the GPIO controller for the PMC subsystem on first use,
+ *         and applies the value with a read-modify-write.
+ *
+ * @param  Rail: Pointer to the power rail to control
+ * @param  Mode: Mode number to transition the rail to
+ *
+ * @return XST_SUCCESS on success, error code otherwise
+ *
+ ****************************************************************************/
 static XStatus XPmRail_GPIOControl(const XPm_Rail *Rail, u8 Mode)
 {
 	XStatus Status = XST_FAILURE;
@@ -318,6 +333,17 @@ done:
 
 #else
 
+/****************************************************************************/
+/**
+ * @brief  Controls a power rail through its GPIO, for the build where the
+ *         GPIO driver is not available.
+ *
+ * @param  Rail: Rail whose GPIO is to be driven
+ * @param  Mode: Requested rail mode
+ *
+ * @return XST_SUCCESS on success, error code otherwise
+ *
+ ****************************************************************************/
 static XStatus XPmRail_GPIOControl(const XPm_Rail *Rail, u8 Mode)
 {
 	(void)Rail;
@@ -358,6 +384,22 @@ done:
 	return Status;
 }
 
+/****************************************************************************/
+/**
+ * @brief  Turn a power rail on/off or switch it to a given mode.
+ *
+ *         Validates the mode and requested state, applies the rail's mode
+ *         transition through its PMBus or GPIO control type, waits for the
+ *         supply to come up for known rails when powering on, and records
+ *         the new power state.
+ *
+ * @param  Rail: Pointer to the power rail to control
+ * @param  State: Target power state (XPM_POWER_STATE_ON or _OFF)
+ * @param  Mode: Mode number to transition the rail to
+ *
+ * @return XST_SUCCESS on success, error code otherwise
+ *
+ ****************************************************************************/
 static XStatus XPmRail_Control(XPm_Rail *Rail, u8 State, u8 Mode)
 {
 	XStatus Status = XST_FAILURE;
@@ -448,12 +490,18 @@ done:
 	return Status;
 }
 
-/*
- * This routine is invoked periodically by the task scheduler and its
- * task is to determine if a voltage adjustment is needed, based on current
- * temperature and current voltage level.  The argument passed points to power
- * rail that needs to be adjusted.
- */
+/****************************************************************************/
+/**
+ * @brief  This routine is invoked periodically by the task scheduler and its
+ *         task is to determine if a voltage adjustment is needed, based on
+ *         current temperature and current voltage level.  The argument passed
+ *         points to power rail that needs to be adjusted.
+ *
+ * @param  Arg: Pointer to the power rail (XPm_Rail) to be adjusted
+ *
+ * @return XST_SUCCESS on success, error code otherwise
+ *
+ ****************************************************************************/
 static int XPmRail_CyclicTempVoltAdj(void *Arg)
 {
 	int Status = XST_FAILURE;

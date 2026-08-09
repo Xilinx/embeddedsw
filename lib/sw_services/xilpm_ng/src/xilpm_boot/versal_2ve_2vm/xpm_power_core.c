@@ -980,6 +980,19 @@ done:
 	return Status;
 }
 
+/****************************************************************************/
+/**
+ * @brief      Directly powers up an APU core and starts it at the given
+ *             resume address.
+ *
+ * @param Args       Core specific power control arguments
+ * @param ResumeAddr Address from which the core resumes execution
+ *
+ * @return     XST_SUCCESS if successful else XST_FAILURE or error code
+ *
+ * @note       None
+ *
+ ****************************************************************************/
 static XStatus XPmPower_ACpuDirectPwrUp(const struct XPmFwPwrCtrl_t *Args, u64 ResumeAddr)
 {
 	XStatus Status = XST_FAILURE;
@@ -1068,6 +1081,18 @@ done:
 	return Status;
 }
 
+/****************************************************************************/
+/**
+ * @brief      Directly powers down an APU core, clearing isolation and
+ *             power island triggers for the core.
+ *
+ * @param Args Core specific power control arguments
+ *
+ * @return     XST_SUCCESS if successful else XST_FAILURE or error code
+ *
+ * @note       None
+ *
+ ****************************************************************************/
 static XStatus XPmPower_ACpuDirectPwrDwn(const struct XPmFwPwrCtrl_t *Args)
 {
 	XStatus Status = XST_FAILURE;
@@ -1185,6 +1210,19 @@ done:
 	return Status;
 }
 
+/****************************************************************************/
+/**
+ * @brief      Directly powers up an RPU core and starts it at the given
+ *             resume address.
+ *
+ * @param Args       Core specific power control arguments
+ * @param ResumeAddr Address from which the core resumes execution
+ *
+ * @return     XST_SUCCESS if successful else XST_FAILURE or error code
+ *
+ * @note       None
+ *
+ ****************************************************************************/
 static XStatus XPmPower_RpuDirectPwrUp(const struct XPmFwPwrCtrl_t *Args, u64 ResumeAddr)
 {
 	XStatus Status = XST_FAILURE;
@@ -1253,6 +1291,18 @@ done:
 	return Status;
 }
 
+/****************************************************************************/
+/**
+ * @brief      Powers down an RPU core by asserting reset, enabling the power
+ *             island sequence and power gating the core caches.
+ *
+ * @param Args Core specific power control arguments
+ *
+ * @return     XST_SUCCESS if successful else XST_FAILURE or error code
+ *
+ * @note       None
+ *
+ ****************************************************************************/
 static XStatus XPmPower_RpuPwrDwn(const struct XPmFwPwrCtrl_t *Args)
 {
 	XStatus Status = XST_FAILURE;
@@ -1796,6 +1846,15 @@ done:
 	return Status;
 }
 
+/****************************************************************************/
+/**
+ * @brief      Updates core state to running after a direct power up.
+ *
+ * @param Core Pointer to the core that was powered up
+ *
+ * @note       None
+ *
+ ****************************************************************************/
 static void XPmCore_AfterDirectPwrUp(XPm_Core *Core)
 {
 	Core->Device.Node.State = (u8)XPM_DEVSTATE_RUNNING;

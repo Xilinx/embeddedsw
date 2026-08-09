@@ -83,6 +83,16 @@ static XPm_DomainInitStartOp XPmPowerDomain_GetInitStartOp(u32 DomainId)
 	return InitStartOp;
 }
 
+/****************************************************************************/
+/**
+ * @brief  Return the init-finish operation handler for the given power domain.
+ *
+ * @param  DomainId: Power domain node ID to look up
+ *
+ * @return Pointer to the matching init-finish operation, or NULL if the
+ *         domain is not supported
+ *
+ ****************************************************************************/
 static XPm_DomainInitFinishOp XPmPowerDomain_GetInitFinishOp(u32 DomainId)
 {
 	XPm_DomainInitFinishOp InitFinishOp = NULL;
@@ -112,6 +122,16 @@ static XPm_DomainInitFinishOp XPmPowerDomain_GetInitFinishOp(u32 DomainId)
 	return InitFinishOp;
 }
 
+/****************************************************************************/
+/**
+ * @brief  Return the AMS trim operation handler for a given power domain.
+ *
+ * @param  DomainId: Node Id of the power domain
+ *
+ * @return Pointer to the domain's AMS trim operation, or NULL if the domain
+ *         has no AMS trim operation
+ *
+ ****************************************************************************/
 static XPm_DomainAmsTrimOp XPmPowerDomain_GetAmsTrimOp(u32 DomainId)
 {
 	XPm_DomainAmsTrimOp AmsTrimOp = NULL;
@@ -299,6 +319,15 @@ XStatus XPm_PowerDwnFPD(const XPm_Node *Node)
 	return Status;
 }
 
+/****************************************************************************/
+/**
+ * @brief  Perform the hardware power up sequence for the PL power domain.
+ *
+ * @param  Node: Pointer to the PL domain node
+ *
+ * @return XST_SUCCESS if successful else XST_FAILURE or error code
+ *
+ ****************************************************************************/
 XStatus XPm_PowerUpPLD(const XPm_Node *Node)
 {
 	XStatus Status = XST_FAILURE;
@@ -499,6 +528,15 @@ maybe_unused static XStatus XPm_PowerDwnCPM5N(const XPm_Node *Node)
 	return Status;
 }
 
+/****************************************************************************/
+/**
+ * @brief  Perform the power up sequence for the NoC power domain.
+ *
+ * @param  Node: Pointer to the NoC domain node
+ *
+ * @return XST_SUCCESS if successful else XST_FAILURE or error code
+ *
+ ****************************************************************************/
 XStatus XPm_PowerUpNoC(const XPm_Node *Node)
 {
 	XStatus Status = XST_FAILURE;

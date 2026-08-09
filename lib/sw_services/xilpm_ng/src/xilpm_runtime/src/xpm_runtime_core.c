@@ -86,6 +86,16 @@ done:
 	return Status;
 }
 
+/****************************************************************************/
+/**
+ * @brief  Retrieves the stored forced power down request for the given core.
+ *
+ * @param Core		Pointer to the core to look up
+ * @param Req		Pointer that is updated with the forced power down request
+ *
+ * @return XST_SUCCESS on success, error code otherwise
+ *
+ ****************************************************************************/
 maybe_unused static XStatus XPmCore_GetFrcPwrDwnReq(const XPm_Core* Core, struct XPm_FrcPwrDwnReq *Req)
 {
 	XStatus Status = XST_SUCCESS;
@@ -116,6 +126,17 @@ done:
 	return Status;
 }
 
+/****************************************************************************/
+/**
+ * @brief  Stores the forced power down request for the given core, allocating
+ *         a runtime core entry if one does not already exist.
+ *
+ * @param Core		Pointer to the core to update
+ * @param Req		Forced power down request to store
+ *
+ * @return XST_SUCCESS on success, error code otherwise
+ *
+ ****************************************************************************/
 maybe_unused static XStatus XPmCore_SetFrcPwrDwnReq(XPm_Core* Core, struct XPm_FrcPwrDwnReq Req)
 {
 	XStatus Status = XST_SUCCESS;
@@ -212,6 +233,17 @@ done:
 	return Status;
 }
 
+/****************************************************************************/
+/**
+ * @brief  Processes a pending forced power down for the subsystem, and triggers
+ *         a subsystem power off or restart once all of its cores are off.
+ *
+ * @param Subsystem	Pointer to the subsystem being processed
+ * @param Core		Pointer to the core that triggered the processing
+ *
+ * @return XST_SUCCESS on success, error code otherwise
+ *
+ ****************************************************************************/
 static XStatus XPmCore_ProcessPendingForcePwrDwn(XPm_Subsystem *Subsystem, const XPm_Core *Core)
 {
 	XStatus Status = XST_FAILURE;
@@ -286,6 +318,16 @@ static XStatus XPmCore_ProcessPendingForcePwrDwn(XPm_Subsystem *Subsystem, const
 }
 
 
+/****************************************************************************/
+/**
+ * @brief  Releases the given core from its subsystem and processes any pending
+ *         forced power down for that subsystem.
+ *
+ * @param Core		Pointer to the core to release
+ *
+ * @return XST_SUCCESS on success, error code otherwise
+ *
+ ****************************************************************************/
 XStatus XPmCore_ReleaseFromSubsys(const XPm_Core *Core)
 {
 	XStatus Status = XST_FAILURE;

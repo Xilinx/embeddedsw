@@ -17,7 +17,7 @@
 #define PL_MEM_REGN_FLAGS(SZ_64BIT)	((u32)(((SZ_64BIT) & PL_MEM_REGN_FLAGS_MASK_64) >> PL_MEM_REGN_FLAGS_SHIFT_64))
 #define IS_PL_MEM_REGN(SZ_64BIT)	((u32)PL_MEM_REGN == PL_MEM_REGN_FLAGS((u64)(SZ_64BIT)))
 
-/* check whether PL EOS startup bit is asserted */
+/** check whether PL EOS startup bit is asserted */
 #define IS_PL_STARTUP_ASSERTED 		(0U != (XPlmi_In32(CFU_APB_CFU_FGCR) & CFU_APB_CFU_FGCR_EOS_MASK))
 
 /********************* Static Function Definitions *********************/

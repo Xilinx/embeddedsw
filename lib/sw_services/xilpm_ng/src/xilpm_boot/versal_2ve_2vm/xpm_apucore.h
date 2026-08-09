@@ -63,6 +63,14 @@ XStatus XPmApuCore_Init(XPm_ApuCore *ApuCore,
 	u32 Ipi,
 	const u32 *BaseAddress,
 	XPm_Power *Power, XPm_ClockNode *Clock, XPm_ResetNode *Reset);
+/**
+ * @brief Sets the operation mode (split or lockstep) for an APU cluster.
+ *
+ * @param ClusterId Identifier of the APU cluster
+ * @param Mode Operation mode to set for the cluster
+ *
+ * @return XST_SUCCESS on success, error code otherwise
+ */
 XStatus XPm_ApuSetOperMode(const u32 ClusterId, const u32 Mode);
 XStatus XPm_ApuGetOperMode(const u32 ClusterId, u32 *Mode);
 XStatus XPmApuCore_WakeUp(XPm_Core *Core, u32 SetAddress, u64 Address);

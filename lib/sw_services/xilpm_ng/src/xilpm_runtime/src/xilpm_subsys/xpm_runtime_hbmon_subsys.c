@@ -103,10 +103,16 @@ static void HbMon_StopTimer(u32 HbMonIdx)
 	HbMon_TimeoutList[HbMonIdx] = 0U;
 }
 
-/*
- * Handler for the scheduled task.
- * This will be called periodically every 'HbMon_SchedFreq' ms
- */
+/****************************************************************************/
+/**
+ * @brief  Handler for the scheduled task.
+ *         This will be called periodically every 'HbMon_SchedFreq' ms.
+ *
+ * @param  data	Unused callback argument
+ *
+ * @return XST_SUCCESS on success, error code otherwise
+ *
+ ****************************************************************************/
 static int HbMon_Scheduler(void *data)
 {
 	(void)data;
@@ -319,12 +325,33 @@ static const XPmFsm_Tran XPmHbMonDevEventTransitions[] = {
 	},
 };
 
+/****************************************************************************/
+/**
+ * @brief  Sets the state table and its entry count in an FSM initialiser.
+ *
+ * @param  S: State table to install
+ *
+ ****************************************************************************/
 #define DEFINE_DEV_STATES(S)	.States = (S), \
 				.StatesCnt = ARRAY_SIZE(S)
 
+/****************************************************************************/
+/**
+ * @brief  Sets the transition table and its entry count in an FSM initialiser.
+ *
+ * @param  T: Transition table to install
+ *
+ ****************************************************************************/
 #define DEFINE_DEV_TRANS(T)	.Trans = (T), \
 				.TransCnt = ARRAY_SIZE(T)
 
+/****************************************************************************/
+/**
+ * @brief  Return the FSM describing the Healthy Boot Monitor device states
+ *
+ * @return Pointer to the Healthy Boot Monitor FSM
+ *
+ ****************************************************************************/
 XPm_Fsm *XPmSubsystem_GetHbMonFsm(void)
 {
 	static const XPm_Fsm XPmHbMonDeviceFsm = {

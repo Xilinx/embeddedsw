@@ -9,6 +9,22 @@
 #include "xpm_regs.h"
 #include "xpm_alloc.h"
 
+/****************************************************************************/
+/**
+ * @brief      Allocates and registers a PLL clock node in the clock database.
+ *
+ * @param Id            Node Id of the PLL clock to add
+ * @param ControlReg    Base address of the PLL control register
+ * @param TopologyType  PLL topology type (generic or NoC PLL)
+ * @param Offsets       Register offsets for status, config and fractional config
+ * @param PowerDomainId Node Id of the power domain the PLL belongs to
+ * @param ClkFlags      Clock flags for the PLL node
+ *
+ * @return     XST_SUCCESS if successful else XST_FAILURE or error code
+ *
+ * @note       None
+ *
+ ****************************************************************************/
 XStatus XPmClockPll_AddNode(u32 Id, u32 ControlReg, u8 TopologyType,
 			    const u16 *Offsets, u32 PowerDomainId, u8 ClkFlags)
 {

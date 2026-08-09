@@ -1421,7 +1421,7 @@ extern "C" {
  */
 
 /*Note: offset is from PCIL_ISR*/
-#define LPX_SLCR_RPU_PCIL_X_IDS_OFFSET				(0xCU)
+#define LPX_SLCR_RPU_PCIL_X_IDS_OFFSET				(0xCU)	/**< RPU PCIL IDS register offset from PCIL_ISR */
 /*PR=PREQ of PChannel*/
 /*PS=PSTATE of PChannel*/
 

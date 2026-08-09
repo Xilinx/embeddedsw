@@ -23,7 +23,28 @@ extern "C" {
 
 #define PM_IPI_TIMEOUT			(~0U)
 
+/****************************************************************************/
+/**
+ * @brief	Sends IPI request to the target module.
+ *
+ * @param	IpiMask		IPI interrupt mask of target
+ * @param	Payload		API id and call arguments to be written in IPI
+ *				buffer
+ *
+ * @return	XST_SUCCESS if successful else XST_FAILURE or an error code
+ *
+ ****************************************************************************/
 XStatus XPm_IpiSend(u32 IpiMask, const u32 *Payload);
+/****************************************************************************/
+/**
+ * @brief	Waits for the target module to acknowledge the IPI.
+ *
+ * @param	IpiMask		IPI interrupt mask of target
+ * @param	TimeOutCount	Number of cycles to wait for response.
+ *
+ * @return	XST_SUCCESS if successful else XST_FAILURE or an error code
+ *
+ ****************************************************************************/
 XStatus XPm_IpiPollForAck(u32 IpiMask, u32 TimeOutCount);
 
 #ifdef __cplusplus
