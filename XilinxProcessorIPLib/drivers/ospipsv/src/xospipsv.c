@@ -51,6 +51,7 @@
 * 1.13  sb  06/26/25 Set the required configurations for SpartanUp in
 *                    SDR-PHY & DDR-PHY mode.
 * 1.13  sb  10/28/25 Added cache invalidate when EL1_NONSECURE is not defined.
+* 1.15  zm  08/07/26 Reject interrupt transfers the STIG path cannot issue.
 *
 * </pre>
 *
@@ -609,6 +610,7 @@ ERROR_PATH:
 *
 * @return
 *		- XST_SUCCESS if successful.
+*		- XST_FAILURE if the message cannot be issued in interrupt mode.
 *		- XST_DEVICE_BUSY if a transfer is already in progress.
 *
 ******************************************************************************/
@@ -634,6 +636,18 @@ u32 XOspiPsv_IntrTransfer(XOspiPsv *InstancePtr, XOspiPsv_Msg *Msg)
 
 	if ((Msg->Flags != XOSPIPSV_MSG_FLAG_RX) &&
 			(Msg->Flags != XOSPIPSV_MSG_FLAG_TX)) {
+		Status = XST_FAILURE;
+		goto ERROR_PATH;
+	}
+
+	/*
+	 * XOspiPsv_IntrSendData() issues every send through STIG, and
+	 * XOspiPsv_FifoWrite() stages the data in a four-byte stack word, so a
+	 * larger count overruns it.
+	 */
+	if ((Msg->Flags == XOSPIPSV_MSG_FLAG_TX) &&
+			((Msg->ByteCount > XOSPIPSV_STIG_MAX_DATA_BYTES) ||
+			 (XOspiPsv_CheckStigWriteMsg(Msg) != (u32)XST_SUCCESS))) {
 		Status = XST_FAILURE;
 		goto ERROR_PATH;
 	}

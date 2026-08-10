@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -28,6 +28,7 @@
 * 1.8   akm  01/03/23 Use Xil_WaitForEvent() API for register bit polling.
 * 1.9   sb   26/04/23 Updated address calculation logic in DAC read and write API's
 * 1.13  sb   10/28/25 Added cache invalidate when EL1_NONSECURE is not defined.
+* 1.15  zm   08/07/26 Added XOspiPsv_CheckStigWriteMsg() for the STIG write path.
 *
 * </pre>
 *
@@ -107,6 +108,34 @@ u32 XOspiPsv_Stig_Read(XOspiPsv *InstancePtr, XOspiPsv_Msg *Msg)
 	XOspiPsv_FifoRead(InstancePtr, Msg);
 
 ERROR_PATH:
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+* @brief
+* Checks whether a write message can be issued on the STIG path.
+*
+* STIG uses one transfer width for the command, address and data phases, so a
+* message using all three phases must use a protocol whose widths all match.
+*
+* @param	Msg Pointer to the structure containing transfer data.
+*
+* @return
+*		- XST_SUCCESS if the message can be issued on STIG.
+*		- XST_FAILURE if it cannot.
+*
+******************************************************************************/
+u32 XOspiPsv_CheckStigWriteMsg(const XOspiPsv_Msg *Msg)
+{
+	u32 Status = (u32)XST_SUCCESS;
+
+	if ((Msg->Addrvalid != 0U) && (Msg->ByteCount != 0U) &&
+			(Msg->Proto != XOSPIPSV_WRITE_1_1_1) &&
+			(Msg->Proto != XOSPIPSV_WRITE_8_8_8)) {
+		Status = (u32)XST_FAILURE;
+	}
+
 	return Status;
 }
 

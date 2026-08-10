@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -25,6 +25,7 @@
 * 1.8   akm  01/03/23 Use Xil_WaitForEvent() API for register bit polling.
 * 1.9   sb   26/04/23 Updated address calculation logic in DAC read and write API's
 * 1.11  ng  08/20/24 Add spartanup device support
+* 1.15  zm  08/07/26 Added XOspiPsv_CheckStigWriteMsg prototype and STIG_MAX_DATA_BYTES macro.
 *
 * </pre>
 *
@@ -156,10 +157,15 @@ static inline void XOspiPsv_ConfigureMux_Dma(const XOspiPsv *InstancePtr)
 	XOspiPsv_Enable(InstancePtr);
 }
 
+/************************** Constant Definitions *****************************/
+
+#define XOSPIPSV_STIG_MAX_DATA_BYTES	8U	/**< STIG data register size in bytes */
+
 /************************** Function Prototypes ******************************/
 
 u32 XOspiPsv_Stig_Read(XOspiPsv *InstancePtr, XOspiPsv_Msg *Msg);
 u32 XOspiPsv_Stig_Write(XOspiPsv *InstancePtr, XOspiPsv_Msg *Msg);
+u32 XOspiPsv_CheckStigWriteMsg(const XOspiPsv_Msg *Msg);
 u32 XOspiPsv_Dac_Read(XOspiPsv *InstancePtr, XOspiPsv_Msg *Msg);
 u32 XOspiPsv_Dac_Write(XOspiPsv *InstancePtr, const XOspiPsv_Msg *Msg);
 u32 XOspiPsv_Dma_Read(XOspiPsv *InstancePtr, XOspiPsv_Msg *Msg);
