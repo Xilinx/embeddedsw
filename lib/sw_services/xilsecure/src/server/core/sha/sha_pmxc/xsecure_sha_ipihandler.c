@@ -24,6 +24,8 @@
 * 5.6   mb   09/09/25 Return error code on SHA IPI event handling failure
 *       obs  09/23/25 Added support for Verifying Address Range
 * 5.7   sri  03/27/26 Added check to validate the operation flags for SHA IPI handler
+* 5.8   tvp  07/17/26 Route SHAKE256 finish to XSecure_ExtendedShaFinish for
+*                     variable-length XOF digest using HashBufSize as output size
 *
 * </pre>
 *
@@ -188,7 +190,23 @@ static int XSecure_ShaOperation(u32 SubsystemId, XSecure_Sha *XSecureShaInstPtr,
 	}
 
 	if ((ShaParams.OperationFlags & XSECURE_SHA_FINISH) == XSECURE_SHA_FINISH) {
-		Status = XSecure_ShaFinish(XSecureShaInstPtr, ShaParams.HashAddr, ShaParams.HashBufSize);
+#ifdef XSECURE_SHA3_XOF_FEATURE_SUPPORTED
+		/**
+		 * SHAKE256 is an eXtendable-Output Function, so route it to the
+		 * extended finish and use HashBufSize as the requested output
+		 * length. All other (fixed-length) modes use the standard finish,
+		 * preserving the pre-XOF behavior and IPI struct layout.
+		 */
+		if (ShaParams.ShaMode == (u8)XSECURE_SHAKE_256) {
+			Status = XSecure_ExtendedShaFinish(XSecureShaInstPtr, ShaParams.HashAddr,
+					ShaParams.HashBufSize, ShaParams.HashBufSize);
+		}
+		else
+#endif
+		{
+			Status = XSecure_ShaFinish(XSecureShaInstPtr, ShaParams.HashAddr,
+					ShaParams.HashBufSize);
+		}
 	}
 
 END:
