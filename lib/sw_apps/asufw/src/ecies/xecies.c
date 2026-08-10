@@ -384,8 +384,8 @@ static s32 XEcies_AesCompute(XAes *AesInstancePtr, XAsufw_Dma *DmaPtr,
 	AesParams.EngineMode = (u8)XASU_AES_GCM_MODE;
 	AesParams.OperationType = OperationType;
 	AesParams.KeyObjectAddr = (u64)(UINTPTR)&KeyObject;
-	AesParams.IvAddr = EciesParams->IvAddr;
-	AesParams.IvLen = (u32)EciesParams->IvLength;
+	AesParams.IvObj.IvAddr = EciesParams->IvAddr;
+	AesParams.IvObj.IvLen = (u32)EciesParams->IvLength;
 	AesParams.InputDataAddr = EciesParams->InDataAddr;
 	AesParams.OutputDataAddr = EciesParams->OutDataAddr;
 	AesParams.DataLen = EciesParams->DataLength;

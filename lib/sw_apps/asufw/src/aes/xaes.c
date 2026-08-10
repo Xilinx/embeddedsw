@@ -1521,7 +1521,7 @@ s32 XAes_Compute(XAes *InstancePtr, XAsufw_Dma *AsuDmaPtr, XAsu_AesParams *AesPa
 	}
 
 	/** Initialize AES engine and load provided key and IV to AES engine. */
-	Status = XAes_Init(InstancePtr, AsuDmaPtr, AesParams->IvAddr, AesParams->IvLen,
+	Status = XAes_Init(InstancePtr, AsuDmaPtr, AesParams->IvObj.IvAddr, AesParams->IvObj.IvLen,
 			AesParams->EngineMode, AesParams->OperationType);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_AES_INIT_FAILED);

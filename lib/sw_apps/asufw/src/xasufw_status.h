@@ -765,6 +765,8 @@ enum {
 						the ASU key vault fails */
 	XASUFW_KEYMANAGER_KEY_TYPE_MISMATCH, /**< 0x227U - Error when the key type mismatch is
 						detected between the requested key type and the actual key type */
+	XASUFW_KEYMANAGER_VAULT_SIZE_OVERFLOW, /**< 0x228U - Error when the requested key vault size
+						computation overflows a 32-bit value. */
 
 	/* Additional status success codes */
 	XASUFW_OCP_CERT_GENERATION_SUCCESS = 0x3F7U, /**< 0x3F7U - OCP certificate generation

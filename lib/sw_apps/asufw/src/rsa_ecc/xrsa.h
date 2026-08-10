@@ -43,9 +43,15 @@ extern "C" {
 /************************************ Constant Definitions ***************************************/
 #define XRSA_TOTAL_PARAMS		(9U)		/**< RSA total no of parameters */
 
+#define XRSA_PUBEXP_SIZE_IN_BYTES	(4U)		/**< RSA public exponent size in bytes */
+
 #define XRSA_MAX_KEY_SIZE_IN_BYTES	(512U)		/**< RSA max key size in bytes */
 #define XRSA_MAX_PARAM_SIZE_IN_BYTES	(XRSA_TOTAL_PARAMS * XRSA_MAX_KEY_SIZE_IN_BYTES) /**< Size
 							of memory allocated for RSA parameters */
+
+#define XRSA_MAX_KEY_WITH_PUBEXP_SIZE_IN_BYTES	(XRSA_MAX_KEY_SIZE_IN_BYTES + \
+	 XRSA_PUBEXP_SIZE_IN_BYTES) /**< Size of memory allocated for RSA key and public exponent */
+
 #define XRSA_NO_PRIME_NO_TOT_PRSNT	(0U)		/**< Indicates no prime num or totient
 								is present as parameter for private decryption operation */
 #define XRSA_TOTIENT_IS_PRSNT		(1U)		/**< Indicates totient is present as
@@ -53,7 +59,7 @@ extern "C" {
 #define XRSA_PRIME_NUM_IS_PRSNT		(2U)		/**< Indicates prime num is present as
 								parameter for private decryption operation */
 
-#define XRSA_MAX_KEY_OBJ_SIZE_IN_BYTES	(2304U) /**< Max private key size in bytes */
+#define XRSA_MAX_KEY_OBJ_SIZE_IN_BYTES	(2308U) /**< Max private key size in bytes */
 
 #define XRSA_2048_QUANT_SIZE  	(5U)          /**< RSA maximum quant size for 2048 bit key */
 #define XRSA_3072_QUANT_SIZE  	(2U)          /**< RSA maximum quant size for 3072 bit key */

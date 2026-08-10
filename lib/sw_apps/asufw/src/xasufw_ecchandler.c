@@ -226,6 +226,7 @@ END:
  * 	- XASUFW_ECC_EPHEMERAL_KEY_GEN_FAIL, if TRNG fails to generate random number.
  * 	- XASUFW_ECC_GEN_SIGN_OPERATION_FAIL, if generate signature operation fails.
  * 	- XASUFW_RESOURCE_RELEASE_NOT_ALLOWED, upon illegal resource release.
+ * 	- XASUFW_INVALID_SUBSYSTEM_ID, if invalid subsystem ID is provided.
  *
  *************************************************************************************************/
 static s32 XAsufw_EccGenSign(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
@@ -244,8 +245,8 @@ static s32 XAsufw_EccGenSign(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	/** Copy key object from request */
 	EccKeyObj = EccParamsPtr->Key;
 
-	if ((EccParamsPtr->CurveType == XASU_ECC_NIST_P256) ||
-		(EccParamsPtr->CurveType == XASU_ECC_NIST_P384)) {
+	if ((EccKeyObj.CurveType == XASU_ECC_NIST_P256) ||
+		(EccKeyObj.CurveType == XASU_ECC_NIST_P384)) {
 		ResourceId = XASUFW_ECC;
 	} else {
 		ResourceId = XASUFW_RSA;
@@ -280,11 +281,11 @@ static s32 XAsufw_EccGenSign(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	 */
 	if (ResourceId == XASUFW_ECC) {
 		Status = XEcc_GenerateSignature(EccInstancePtr, XAsufw_EccModule.AsuDmaPtr,
-				EccParamsPtr->CurveType, EccKeyObj.KeyLen, EccKeyObj.KeyAddr,
+				EccKeyObj.CurveType, EccKeyObj.KeyLen, EccKeyObj.KeyAddr,
 				NULL, EccParamsPtr->DigestAddr,	EccParamsPtr->DigestLen,
 				EccParamsPtr->SignAddr);
 	} else {
-		Status = XRsa_EccGenerateSignature(XAsufw_EccModule.AsuDmaPtr, EccParamsPtr->CurveType,
+		Status = XRsa_EccGenerateSignature(XAsufw_EccModule.AsuDmaPtr, EccKeyObj.CurveType,
 			EccKeyObj.KeyLen, EccKeyObj.KeyAddr, NULL, EccParamsPtr->DigestAddr,
 			EccParamsPtr->DigestLen, EccParamsPtr->SignAddr);
 	}
@@ -313,6 +314,7 @@ END:
  * 	- XASUFW_SUCCESS, if sign verification operation is successful.
  * 	- XASUFW_ECC_VERIFY_SIGN_OPERATION_FAIL, if verify signature operation fails.
  * 	- XASUFW_RESOURCE_RELEASE_NOT_ALLOWED, upon illegal resource release.
+ * 	- XASUFW_INVALID_SUBSYSTEM_ID, if invalid subsystem ID is provided.
  *
  *************************************************************************************************/
 static s32 XAsufw_EccVerifySign(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
@@ -331,8 +333,8 @@ static s32 XAsufw_EccVerifySign(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	/** Copy key object from request */
 	EccKeyObj = EccParamsPtr->Key;
 
-	if ((EccParamsPtr->CurveType == XASU_ECC_NIST_P256) ||
-		(EccParamsPtr->CurveType == XASU_ECC_NIST_P384)) {
+	if ((EccKeyObj.CurveType == XASU_ECC_NIST_P256) ||
+		(EccKeyObj.CurveType == XASU_ECC_NIST_P384)) {
 		ResourceId = XASUFW_ECC;
 	} else {
 		ResourceId = XASUFW_RSA;
@@ -367,11 +369,11 @@ static s32 XAsufw_EccVerifySign(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	 */
 	if (ResourceId == XASUFW_ECC) {
 		Status = XEcc_VerifySignature(EccInstancePtr, XAsufw_EccModule.AsuDmaPtr,
-				EccParamsPtr->CurveType, EccKeyObj.KeyLen, EccKeyObj.KeyAddr,
+				EccKeyObj.CurveType, EccKeyObj.KeyLen, EccKeyObj.KeyAddr,
 				EccParamsPtr->DigestAddr, EccParamsPtr->DigestLen,
 				EccParamsPtr->SignAddr);
 	} else {
-		Status = XRsa_EccVerifySignature(XAsufw_EccModule.AsuDmaPtr, EccParamsPtr->CurveType,
+		Status = XRsa_EccVerifySignature(XAsufw_EccModule.AsuDmaPtr, EccKeyObj.CurveType,
 				EccKeyObj.KeyLen, EccKeyObj.KeyAddr, EccParamsPtr->DigestAddr,
 				EccParamsPtr->DigestLen, EccParamsPtr->SignAddr);
 	}
@@ -401,6 +403,7 @@ END:
  * 	- XASUFW_SUCCESS, if public key generation operation is successful.
  * 	- XASUFW_ECC_GEN_PUB_KEY_OPERATION_FAIL, if generate public key operation fails.
  * 	- XASUFW_RESOURCE_RELEASE_NOT_ALLOWED, upon illegal resource release.
+ * 	- XASUFW_INVALID_SUBSYSTEM_ID, if invalid subsystem ID is provided.
  *
  *************************************************************************************************/
 static s32 XAsufw_EccGenPubKey(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
@@ -419,8 +422,8 @@ static s32 XAsufw_EccGenPubKey(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	/** Copy key object from request */
 	EccPvtKeyObj = EccParamsPtr->PvtKey;
 
-	if ((EccParamsPtr->CurveType == XASU_ECC_NIST_P256) ||
-		(EccParamsPtr->CurveType == XASU_ECC_NIST_P384)) {
+	if ((EccPvtKeyObj.CurveType == XASU_ECC_NIST_P256) ||
+		(EccPvtKeyObj.CurveType == XASU_ECC_NIST_P384)) {
 		ResourceId = XASUFW_ECC;
 	} else {
 		ResourceId = XASUFW_RSA;
@@ -454,10 +457,10 @@ static s32 XAsufw_EccGenPubKey(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	 */
 	if (ResourceId == XASUFW_ECC) {
 		Status = XEcc_GeneratePublicKey(EccInstancePtr, XAsufw_EccModule.AsuDmaPtr,
-				EccParamsPtr->CurveType, EccPvtKeyObj.KeyLen,
+				EccPvtKeyObj.CurveType, EccPvtKeyObj.KeyLen,
 				EccPvtKeyObj.KeyAddr, EccParamsPtr->PubKeyAddr);
 	} else {
-		Status = XRsa_EccGeneratePubKey(XAsufw_EccModule.AsuDmaPtr, EccParamsPtr->CurveType,
+		Status = XRsa_EccGeneratePubKey(XAsufw_EccModule.AsuDmaPtr, EccPvtKeyObj.CurveType,
 			EccPvtKeyObj.KeyLen, EccPvtKeyObj.KeyAddr, EccParamsPtr->PubKeyAddr);
 	}
 
@@ -496,8 +499,8 @@ static s32 XAsufw_EccValidatePubKey(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	const XAsu_EccKeyParams *EccParamsPtr = (const XAsu_EccKeyParams *)ReqBuf->Arg;
 	XAsufw_Resource ResourceId = XASUFW_INVALID;
 
-	if ((EccParamsPtr->CurveType == XASU_ECC_NIST_P256) ||
-		(EccParamsPtr->CurveType == XASU_ECC_NIST_P384)) {
+	if ((EccParamsPtr->PvtKey.CurveType == XASU_ECC_NIST_P256) ||
+		(EccParamsPtr->PvtKey.CurveType == XASU_ECC_NIST_P384)) {
 		ResourceId = XASUFW_ECC;
 	} else {
 		ResourceId = XASUFW_RSA;
@@ -512,9 +515,9 @@ static s32 XAsufw_EccValidatePubKey(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	 */
 	if (ResourceId == XASUFW_ECC) {
 		Status = XEcc_ValidatePublicKey(EccInstancePtr, XAsufw_EccModule.AsuDmaPtr,
-				EccParamsPtr->CurveType, EccParamsPtr->PvtKey.KeyLen, EccParamsPtr->PubKeyAddr);
+				EccParamsPtr->PvtKey.CurveType, EccParamsPtr->PvtKey.KeyLen, EccParamsPtr->PubKeyAddr);
 	} else {
-		Status = XRsa_EccValidatePubKey(XAsufw_EccModule.AsuDmaPtr, EccParamsPtr->CurveType,
+		Status = XRsa_EccValidatePubKey(XAsufw_EccModule.AsuDmaPtr, EccParamsPtr->PvtKey.CurveType,
 			EccParamsPtr->PvtKey.KeyLen, EccParamsPtr->PubKeyAddr);
 	}
 
@@ -540,6 +543,8 @@ END:
  *	- XASUFW_SUCCESS, if command execution is successful.
  *	- XASUFW_ECDH_GEN_SECRET_OPERATION_FAIL, if shared secret generation fails.
  *	- XASUFW_RESOURCE_RELEASE_NOT_ALLOWED, if illegal resource release is requested.
+ *	- XASUFW_INVALID_SUBSYSTEM_ID, if invalid subsystem ID is provided.
+ *	- XASUFW_INVALID_PARAM, if any argument is invalid.
  *
  *************************************************************************************************/
 static s32 XAsufw_EcdhGenSharedSecret(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
@@ -553,6 +558,12 @@ static s32 XAsufw_EcdhGenSharedSecret(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 
 	/** Verify command length. */
 	XASUFW_VERIFY_CMD_LEN(END, Status, ReqBuf, XAsu_EcdhParams);
+
+	/** Validate whether the curve type of the private key matches the public key's curve type. */
+	if (EcdhParamsPtr->PvtKey.CurveType != EcdhParamsPtr->PubKey.CurveType) {
+		Status = XASUFW_INVALID_PARAM;
+		goto END;
+	}
 
 	/** Copy key object from request */
 	PvtKeyObj = EcdhParamsPtr->PvtKey;
@@ -592,7 +603,7 @@ static s32 XAsufw_EcdhGenSharedSecret(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 #endif /* XASU_KEYMANAGER_ENABLE */
 
 	/** Generate shared secret using public key and private key based on curve type. */
-	Status = XRsa_EcdhGenSharedSecret(XAsufw_EccModule.AsuDmaPtr, EcdhParamsPtr->CurveType,
+	Status = XRsa_EcdhGenSharedSecret(XAsufw_EccModule.AsuDmaPtr, PvtKeyObj.CurveType,
 					PvtKeyObj.KeyLen, PvtKeyObj.KeyAddr,
 					PubKeyObj.KeyAddr, EcdhParamsPtr->SharedSecretAddr,
 					EcdhParamsPtr->SharedSecretObjIdAddr);
@@ -706,9 +717,9 @@ XAsufw_Resource XAsufw_GetEccMaskResourceId(const XAsu_ReqBuf *ReqBuf)
 
 	/** Get CurveType based on command ID. */
 	if ((CmdId == XASU_ECC_GEN_PUBKEY_CMD_ID) || (CmdId == XASU_ECC_VAL_PUBKEY_CMD_ID)) {
-		CurveType = ((const XAsu_EccKeyParams *)ReqBuf->Arg)->CurveType;
+		CurveType = ((const XAsu_EccKeyParams *)ReqBuf->Arg)->PvtKey.CurveType;
 	} else {
-		CurveType = ((const XAsu_EccParams *)ReqBuf->Arg)->CurveType;
+		CurveType = ((const XAsu_EccParams *)ReqBuf->Arg)->Key.CurveType;
 	}
 
 	if (ModuleId == XASU_MODULE_ECC_ID) {
@@ -755,9 +766,9 @@ XAsufw_Resource XAsufw_GetRsaShaMaskResourceId(const XAsu_ReqBuf *ReqBuf)
 
 	/** Get CurveType based on command ID. */
 	if ((CmdId == XASU_ECC_GEN_PUBKEY_CMD_ID) || (CmdId == XASU_ECC_VAL_PUBKEY_CMD_ID)) {
-		CurveType = ((const XAsu_EccKeyParams *)ReqBuf->Arg)->CurveType;
+		CurveType = ((const XAsu_EccKeyParams *)ReqBuf->Arg)->PvtKey.CurveType;
 	} else {
-		CurveType = ((const XAsu_EccParams *)ReqBuf->Arg)->CurveType;
+		CurveType = ((const XAsu_EccParams *)ReqBuf->Arg)->Key.CurveType;
 	}
 
 	if ((CurveType == XASU_ECC_NIST_ED25519) ||

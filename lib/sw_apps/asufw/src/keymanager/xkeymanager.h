@@ -138,8 +138,8 @@ typedef struct {
 /** This structure contains RSA public key object information. */
 typedef struct {
 	XAsu_KeyManagerKeyMetadata Metadata;	/**< Key metadata. */
-	u8 Modulus[XRSA_4096_KEY_SIZE];	/**< Modulus buffer. */
 	u32 PubExp;			/**< Public exponent value. */
+	u8 Modulus[XRSA_4096_KEY_SIZE];	/**< Modulus buffer. */
 } XKeyManager_RsaPubKeyObject;
 
 /** This structure contains ECC private key object information. */

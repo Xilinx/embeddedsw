@@ -75,6 +75,8 @@
 #define XKEYMANAGER_RSA_PUB_KEY_MODULUS_OFFSET	((u32)offsetof(XAsu_RsaPubKeyComp, Modulus))
 		/**< Offset to update RSA public key modulus in RSA key pair generation,
 		 *   derived from the XAsu_RsaPubKeyComp. */
+#define XKEYMANAGER_RSA_PUB_KEY_PUBEXP_OFFSET	((u32)offsetof(XAsu_RsaPubKeyComp, PubExp))
+		/**< Offset of the RSA public exponent within XAsu_RsaPubKeyComp. */
 #define XKEYMANAGER_IS_BIT_SET(Value, Index) (((Value) & ((u16)1U << (Index))) != 0U) /**< Check if a bit is set */
 
 #define XKEYMANAGER_EXTRACT_KEYTYPE(KeyId) (((KeyId) & XKEYMANAGER_KEY_TYPE_MASK_VAL) >> \
@@ -85,9 +87,6 @@
 									ID from composite KeyId */
 #define XKEYMANAGER_EXTRACT_KEYINDEX(KeyId) ((KeyId) & XKEYMANAGER_KEY_INDEX_MASK_VAL)	/**< Extract
 								key index from composite KeyId */
-#define XKEYMANAGER_RSA_PUB_EXP_VALUE	(0x1000100U) /**< RSA public exponent value 65537
-								in little-endian format. */
-
 #define XKEYMANAGER_ASYM_KEY_TYPE_COUNT	(2U)	/**< Number of asymmetric key types (private and public) */
 
 #define XKEYMANAGER_ASU_DDR_SIZE_INDEX	(8U)	/**< Index for ASU DDR size in RTCA registers */
@@ -358,6 +357,7 @@ END:
  * 	- XASUFW_KEYMANAGER_NO_SPACE, if no vault space is available.
  * 	- XASUFW_KEYMANAGER_UPDATE_INFO_FAIL, if vault information update fails.
  * 	- XASUFW_ZEROIZE_MEMSET_FAIL, if memory zeroization fails.
+ * 	- XASUFW_KEYMANAGER_VAULT_SIZE_OVERFLOW, if the computed vault size exceeds 32-bit range.
  *
  *************************************************************************************************/
 s32 XKeyManager_CreateKeyVault(const XAsu_KeyManagerSubVaultParams *ParamsPtr, u32 SubsystemId,
@@ -374,7 +374,7 @@ s32 XKeyManager_CreateKeyVault(const XAsu_KeyManagerSubVaultParams *ParamsPtr, u
 	XKeyManager* KeyVaultPtr;
 	const u16 *SubVaultCapacityPtr = NULL;
 	u32 Index = 0U;
-	u32 TotalSubVaultSize = 0U;
+	u64 TotalSubVaultSize = 0U;
 	u32 ReqVaultSize = 0U;
 	u32 KeyObjectSize = 0U;
 	u8 VaultId = 0U;
@@ -409,18 +409,16 @@ s32 XKeyManager_CreateKeyVault(const XAsu_KeyManagerSubVaultParams *ParamsPtr, u
 	}
 	SubVaultCapacityPtr = &ParamsPtr->AESKeyVaultCapacity;
 
-	/*TODO: Update sizes of other key objects.*/
-
 	/** Calculate total size needed for all sub-vaults based on their capacities. */
-	TotalSubVaultSize = (ParamsPtr->AESKeyVaultCapacity * sizeof(XKeyManager_AesKeyObject)) +
-			    (ParamsPtr->IVVaultCapacity * sizeof(XKeyManager_IvObject)) +
-			    (ParamsPtr->KDFHmacKeyVaultCapacity * sizeof(XKeyManager_KdfHmacKeyObject)) +
-			    (ParamsPtr->RSAPvtKeyVaultCapacity * sizeof(XKeyManager_RsaPvtKeyObject)) +
-			    (ParamsPtr->RSAPubKeyVaultCapacity * sizeof(XKeyManager_RsaPubKeyObject)) +
-			    (ParamsPtr->ECCPvtKeyVaultCapacity * sizeof(XKeyManager_EccPvtKeyObject)) +
-			    (ParamsPtr->ECCPubKeyVaultCapacity * sizeof(XKeyManager_EccPubKeyObject)) +
-			    (ParamsPtr->LMSKeyVaultCapacity * sizeof(XKeyManager_LmsPubKeyObject)) +
-			    (ParamsPtr->X509KeyVaultCapacity * sizeof(XKeyManager_X509KeyObject));
+	TotalSubVaultSize = ((u64)ParamsPtr->AESKeyVaultCapacity * sizeof(XKeyManager_AesKeyObject)) +
+			    ((u64)ParamsPtr->IVVaultCapacity * sizeof(XKeyManager_IvObject)) +
+			    ((u64)ParamsPtr->KDFHmacKeyVaultCapacity * sizeof(XKeyManager_KdfHmacKeyObject)) +
+			    ((u64)ParamsPtr->RSAPvtKeyVaultCapacity * sizeof(XKeyManager_RsaPvtKeyObject)) +
+			    ((u64)ParamsPtr->RSAPubKeyVaultCapacity * sizeof(XKeyManager_RsaPubKeyObject)) +
+			    ((u64)ParamsPtr->ECCPvtKeyVaultCapacity * sizeof(XKeyManager_EccPvtKeyObject)) +
+			    ((u64)ParamsPtr->ECCPubKeyVaultCapacity * sizeof(XKeyManager_EccPubKeyObject)) +
+			    ((u64)ParamsPtr->LMSKeyVaultCapacity * sizeof(XKeyManager_LmsPubKeyObject)) +
+			    ((u64)ParamsPtr->X509KeyVaultCapacity * sizeof(XKeyManager_X509KeyObject));
 
 	/* Ensure at least one sub-vault has non-zero capacity. */
 	if (TotalSubVaultSize == 0U) {
@@ -429,18 +427,29 @@ s32 XKeyManager_CreateKeyVault(const XAsu_KeyManagerSubVaultParams *ParamsPtr, u
 	}
 
 	/** Calculate total vault size including headers. */
-	ReqVaultSize = TotalSubVaultSize + XKEYMANAGER_HEADER_SIZE +
-		(XKEYMANAGER_MAX_SUB_VAULTS * XKEYMANAGER_SUB_VAULT_HEADER_SIZE);
+	TotalSubVaultSize += (u64)XKEYMANAGER_HEADER_SIZE +
+		((u64)XKEYMANAGER_MAX_SUB_VAULTS * XKEYMANAGER_SUB_VAULT_HEADER_SIZE);
 
 	/**
 	 * During the Keyvault export, keyvault is encrypted using AES. In certain cases, AES need
 	 * data block in multiple of 16 bytes. Add required padding to ensure that, vault size is
 	 * in multiple of 16 bytes if it is not already a multiple of 16 bytes.
 	 */
-	if ((ReqVaultSize % XKEYMANAGER_AES_BLOCK_SIZE) != 0U) {
-		ReqVaultSize += (XKEYMANAGER_AES_BLOCK_SIZE -
-					(ReqVaultSize % XKEYMANAGER_AES_BLOCK_SIZE));
+	if ((TotalSubVaultSize % XKEYMANAGER_AES_BLOCK_SIZE) != 0U) {
+		TotalSubVaultSize += (XKEYMANAGER_AES_BLOCK_SIZE -
+					(TotalSubVaultSize % XKEYMANAGER_AES_BLOCK_SIZE));
 	}
+
+	/**
+	 * The vault size is tracked as a 32-bit value. Reject the request if the computed size
+	 * exceeds the 32-bit range, so an overflow can be clearly distinguished from other errors.
+	 */
+	if (TotalSubVaultSize > (u64)XASUFW_MAX_32BIT_ADDRESS) {
+		Status = XASUFW_KEYMANAGER_VAULT_SIZE_OVERFLOW;
+		goto END;
+	}
+
+	ReqVaultSize = (u32)TotalSubVaultSize;
 
 	if (IpiMask != 0U) {
 		for (Index = 0U; Index < XASU_MAX_CHANNELS_SUPPORTED; Index++) {
@@ -1450,8 +1459,7 @@ static s32 XKeyManager_UpdateRsaPubKeyObjectFromVault(XAsufw_Dma *DmaPtr, u64 Ke
 
 	/** Copy the key object XAsu_RsaPubKeyComp from key vault to the provided address using DMA. */
 	KeyObject->Keysize = KeyVaultKeyObjectPtr->Metadata.Length;
-
-	KeyObject->PubExp = XKEYMANAGER_RSA_PUB_EXP_VALUE;
+	KeyObject->PubExp = KeyVaultKeyObjectPtr->PubExp;
 
 	Status = XAsufw_DmaXfr(DmaPtr, (u64)(UINTPTR)KeyVaultKeyObjectPtr->Modulus,
 			       (u64)(UINTPTR)KeyObject->Modulus, KeyObject->Keysize, 0U);
@@ -1504,7 +1512,7 @@ static s32 XKeyManager_UpdateRsaPvtKeyObjectFromVault(XAsufw_Dma *DmaPtr, u64 Ke
 	}
 
 	/** Copy the key object XAsu_RsaPvtKeyComp from key vault to the provided address using DMA. */
-	KeyObject->PubKeyComp.PubExp = XKEYMANAGER_RSA_PUB_EXP_VALUE;
+	KeyObject->PubKeyComp.PubExp = KeyVaultKeyObjectPtr->RsaPvtKeyPair.PubExp;
 	KeyObject->PubKeyComp.Keysize = KeyVaultKeyObjectPtr->Metadata.Length;
 
 	Status = XAsufw_DmaXfr(DmaPtr, (u64)(UINTPTR)KeyVaultKeyObjectPtr->RsaPvtKeyPair.Modulus,
@@ -1588,7 +1596,7 @@ static s32 XKeyManager_UpdateRsaCrtPvtKeyObjectFromVault(XAsufw_Dma *DmaPtr, u64
 	}
 
 	/** Copy the key object XAsu_RsaCrtKeyComp from key vault to the provided address using DMA. */
-	KeyObject->PubKeyComp.PubExp = XKEYMANAGER_RSA_PUB_EXP_VALUE;
+	KeyObject->PubKeyComp.PubExp = KeyVaultKeyObjectPtr->RsaPvtKeyPair.PubExp;
 	KeyObject->PubKeyComp.Keysize = KeyVaultKeyObjectPtr->Metadata.Length;
 
 	Status = XAsufw_DmaXfr(DmaPtr, (u64)(UINTPTR)KeyVaultKeyObjectPtr->RsaPvtKeyPair.Modulus,
@@ -1680,6 +1688,11 @@ static s32 XKeyManager_UpdateEccPubKeyObjectFromVault(XAsu_EccKeyObject *KeyObje
 		goto END;
 	}
 
+	if (KeyVaultKeyObjectPtr->Metadata.KeyAttributes != KeyObjectPtr->CurveType) {
+		Status = XASUFW_KEYMANAGER_INVALID_PARAM;
+		goto END;
+	}
+
 	KeyObjectPtr->KeyAddr = (u64)(UINTPTR)KeyVaultKeyObjectPtr->PublicKey;
 	KeyObjectPtr->KeyLen = KeyVaultKeyObjectPtr->Metadata.Length;
 
@@ -1720,6 +1733,11 @@ static s32 XKeyManager_UpdateEccPvtKeyObjectFromVault(XAsu_EccKeyObject *KeyObje
 	KeyVaultKeyObjectPtr = (XKeyManager_EccPvtKeyObject *)XKeyManager_GetKeyObjectPtr(KeyId, SubSystemId, KeyUsecase, TRUE);
 	if (KeyVaultKeyObjectPtr == NULL) {
 		Status = XASUFW_KEYMANAGER_GET_KEYOBJ_PTR_FAILED;
+		goto END;
+	}
+
+	if (KeyVaultKeyObjectPtr->Metadata.KeyAttributes != KeyObjectPtr->CurveType) {
+		Status = XASUFW_KEYMANAGER_INVALID_PARAM;
 		goto END;
 	}
 
@@ -1799,6 +1817,7 @@ static s32 XKeyManager_GetFreeKeySlot(const XKeyManager* KeyVaultPtr, void* SubV
  *	- XASUFW_AES_WRITE_KEY_FAILED, if writing AES key for unwrapping fails.
  *	- XASUFW_KEYMANAGER_GET_KEYOBJ_FAILED, if resolving key object for unwrapping fails.
  *	- XASUFW_KEYWRAP_AES_UNWRAPPED_KEY_ERROR, if unwrapping input key fails.
+ *	- XASUFW_KEYMANAGER_INVALID_BUF_SIZE, if unwrapped key size exceeds maximum buffer size.
  *
  *************************************************************************************************/
 s32 XKeyManager_StoreKeyInVault(XAsufw_Dma *DmaPtr, XAes *AesInstancePtr, const XAsu_KeyManagerParams *KeyParams,
@@ -1819,6 +1838,7 @@ s32 XKeyManager_StoreKeyInVault(XAsufw_Dma *DmaPtr, XAes *AesInstancePtr, const 
 	XAsu_AesKeyObject AesKeyObj;
 	XAsu_KeyWrapParams KeyUnwrapParams;
 	u64 LocalBuffAddr = 0U;
+	u8 *RsaPubKeyData = NULL;
 	u8 KeyType;
 	u32 OutDataLen = 0U;
 	u32 KeyWrapUnwrapOutputLen = 0U;
@@ -1847,13 +1867,9 @@ s32 XKeyManager_StoreKeyInVault(XAsufw_Dma *DmaPtr, XAes *AesInstancePtr, const 
 	}
 
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-	/**
-	 * KeyType may have the wrapped-key bit set by the caller. Mask it out before
-	 * comparing against the sub-vault identifier to validate key attributes.
-	 */
-	if (((KeyParams->KeyMetadata.KeyType & ~XASU_KM_KEYTYPE_WRAPPED_BIT_MASK) ==
-			(u8)XASU_RSA_PVT_SUBVAULT_ID) &&
-	    (KeyParams->KeyMetadata.KeyAttributes > XASU_KM_RSA_PVT_ATTR_MAX)) {
+	/** Validate key attributes against the key type. */
+	if (XAsu_KmValidateKeyAttributes(KeyParams->KeyMetadata.KeyType,
+			KeyParams->KeyMetadata.KeyAttributes) != XST_SUCCESS) {
 		Status = XASUFW_KEYMANAGER_INVALID_PARAM;
 		goto END;
 	}
@@ -1870,6 +1886,16 @@ s32 XKeyManager_StoreKeyInVault(XAsufw_Dma *DmaPtr, XAes *AesInstancePtr, const 
 	/* Check if wrapped key. */
 	if ((KeyParams->KeyMetadata.KeyType & XASU_KM_KEYTYPE_WRAPPED_BIT_MASK) == XASU_KM_KEYTYPE_WRAPPED_BIT_MASK) {
 #ifdef XASU_KEYWRAP_ENABLE
+		/**
+		 * Verify the key is not a wrapped RSA public key, as unwrap yields only the modulus,
+		 * which cannot be repacked into the (PubExp || Modulus) vault layout.
+		 */
+		if ((KeyParams->KeyMetadata.KeyType & ~XASU_KM_KEYTYPE_WRAPPED_BIT_MASK) ==
+				(u8)XASU_RSA_PUB_SUBVAULT_ID) {
+			Status = XASUFW_KEYMANAGER_INVALID_PARAM;
+			goto END;
+		}
+
 		if ((KeyParams->WrappedInputLen == 0U) ||
 		    ((KeyParams->AesKeyObj.KeySize != XASU_AES_KEY_SIZE_128_BITS) &&
 		     (KeyParams->AesKeyObj.KeySize != XASU_AES_KEY_SIZE_256_BITS)) ||
@@ -1955,9 +1981,42 @@ s32 XKeyManager_StoreKeyInVault(XAsufw_Dma *DmaPtr, XAes *AesInstancePtr, const 
 		}
 	}
 
-	/* If the key type is unwrapped RSA public key, adjust the buffer address to point to the modulus. */
+	/**
+	 * An unwrapped RSA public key arrives as XAsu_RsaPubKeyComp (Keysize || Modulus || PubExp),
+	 * but the vault object expects PubExp || Modulus. Repack into a scratch buffer in that order.
+	 */
 	if (KeyParams->KeyMetadata.KeyType == (u8)XASU_RSA_PUB_SUBVAULT_ID) {
-		LocalBuffAddr = LocalBuffAddr + XKEYMANAGER_RSA_PUB_KEY_MODULUS_OFFSET;
+
+		/** Verify the modulus length fits the scratch buffer to prevent out-of-bounds write. */
+		if (KeyParams->KeyMetadata.Length > XRSA_MAX_KEY_SIZE_IN_BYTES) {
+			Status = XASUFW_KEYMANAGER_INVALID_BUF_SIZE;
+			goto END_KEY_CLR;
+		}
+
+		RsaPubKeyData = (u8 *)(UINTPTR)XASUFW_CRYPTO_ALGO_DATA_BLOCK;
+
+		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+		/** Pack the public exponent at the start of the scratch buffer. */
+		Status = XAsufw_DmaXfr(DmaPtr,
+						LocalBuffAddr + XKEYMANAGER_RSA_PUB_KEY_PUBEXP_OFFSET,
+						(u64)(UINTPTR)RsaPubKeyData, XRSA_PUBEXP_SIZE_IN_BYTES, 0U);
+		if (Status != XASUFW_SUCCESS) {
+			Status = XASUFW_DMA_COPY_FAIL;
+			goto END_KEY_CLR;
+		}
+
+		/** Append the modulus after the public exponent in the scratch buffer. */
+		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+		Status = XAsufw_DmaXfr(DmaPtr,
+					LocalBuffAddr + XKEYMANAGER_RSA_PUB_KEY_MODULUS_OFFSET,
+					(u64)(UINTPTR)&RsaPubKeyData[XRSA_PUBEXP_SIZE_IN_BYTES],
+					KeyParams->KeyMetadata.Length, 0U);
+		if (Status != XASUFW_SUCCESS) {
+			Status = XASUFW_DMA_COPY_FAIL;
+			goto END_KEY_CLR;
+		}
+
+		LocalBuffAddr = (u64)(UINTPTR)RsaPubKeyData;
 	}
 
 	/** Update the key vault with the provided key data. */
@@ -2140,7 +2199,18 @@ s32 XKeyManager_FetchRsaKeyPairFromAsuVault(XAsufw_Dma *DmaPtr, u8 *DestBuf, u8 
 		KeyLen = PvtKeyMetaPtr->Length;
 		DestAddr = KeyAddr;
 
+		/** Copy PubExp via DMA. */
+		Status = XAsufw_DmaXfr(DmaPtr,
+				       (u64)(UINTPTR)&SrcKeyPtr->PubExp,
+				       DestAddr, XRSA_PUBEXP_SIZE_IN_BYTES, 0U);
+		if (Status != XASUFW_SUCCESS) {
+			Status = XASUFW_DMA_COPY_FAIL;
+			goto END;
+		}
+		DestAddr += XRSA_PUBEXP_SIZE_IN_BYTES;
+
 		/** Copy Modulus via DMA. */
+		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 		Status = XAsufw_DmaXfr(DmaPtr,
 				       (u64)(UINTPTR)SrcKeyPtr->Modulus,
 				       DestAddr, KeyLen, 0U);
@@ -2440,7 +2510,8 @@ static s32 XKeyManager_UpdateKeyVault(XAsufw_Dma *DmaPtr, XAsu_KeyManagerSubVaul
 		MaxKeySize = XRSA_MAX_KEY_OBJ_SIZE_IN_BYTES;
 		KeyCopyLength = XRSA_MAX_KEY_OBJ_SIZE_IN_BYTES;
 	} else if (KeyType == XASU_RSA_PUB_SUBVAULT_ID) {
-		MaxKeySize = XRSA_4096_KEY_SIZE;
+		MaxKeySize = XRSA_MAX_KEY_WITH_PUBEXP_SIZE_IN_BYTES;
+		KeyCopyLength += XRSA_PUBEXP_SIZE_IN_BYTES;
 	} else if (KeyType == XASU_ECC_PVT_SUBVAULT_ID) {
 		MaxKeySize = XASU_ECC_P521_PVT_KEY_SIZE_IN_BYTES;
 	} else if (KeyType == XASU_ECC_PUB_SUBVAULT_ID) {
@@ -2470,7 +2541,7 @@ static s32 XKeyManager_UpdateKeyVault(XAsufw_Dma *DmaPtr, XAsu_KeyManagerSubVaul
 	/** Calculate pointer to key content area. */
 	KeyContentPtr = (u8 *)KeyMetadataPtr + sizeof(XAsu_KeyManagerKeyMetadata);
 
-	/** Copy key data to vault using. */
+	/** Copy key data to vault using DMA. */
 	if (DmaPtr != NULL) {
 		Status = XAsufw_DmaXfr(DmaPtr, (u64)(UINTPTR)KeyData, (u64)(UINTPTR)KeyContentPtr,
 				       KeyCopyLength, 0U);
@@ -2648,6 +2719,7 @@ END:
  *	- XASUFW_SUCCESS, if raw public key is stored successfully.
  *	- XASUFW_FAILURE, in case of failure.
  *	- XASUFW_KEYMANAGER_INVALID_KEY_TYPE, if certificate contains unsupported public key type.
+ *	- XASUFW_MEM_COPY_FAIL, if memory copy operation fails.
  *
  *************************************************************************************************/
 static s32 XKeyManager_StoreX509RawPublicKey(XAsufw_Dma *DmaPtr,
@@ -2657,10 +2729,8 @@ static s32 XKeyManager_StoreX509RawPublicKey(XAsufw_Dma *DmaPtr,
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
 	XAsu_KeyManagerParams RawKeyParams;
 	XAsu_KeyManagerSubVaultType RawKeySubVaultType;
-	XKeyManager_RsaPubKeyObject *RsaPubKeyObjectPtr;
 	u32 KeyLen;
-	const u8 *KeyData;
-	u32 PubExp = 0U;
+	u8 *KeyData;
 	u8 KeyUseCase = 0U;
 
 	/** Determine sub-vault type and key data based on public key type in certificate. */
@@ -2698,7 +2768,14 @@ static s32 XKeyManager_StoreX509RawPublicKey(XAsufw_Dma *DmaPtr,
 	} else if (CertInfo->PublicKeyType == X509_PUB_KEY_RSA) {
 		RawKeySubVaultType = XASU_RSA_PUB_SUBVAULT_ID;
 		KeyLen = CertInfo->PublicKey.RsaPublicKey.ModulusLen;
-		KeyData = CertInfo->PublicKey.RsaPublicKey.Modulus;
+
+		/**
+		 * The RSA public key vault object stores the public exponent immediately followed
+		 * by the modulus (PubExp || Modulus), and XKeyManager_UpdateKeyVault() copies
+		 * (Length + XRSA_PUBEXP_SIZE_IN_BYTES) bytes for RSA public keys. Pack the
+		 * certificate's exponent and modulus into a scratch buffer in that layout.
+		 */
+		KeyData = (u8 *)(UINTPTR)XASUFW_CRYPTO_ALGO_DATA_BLOCK;
 
 		/**
 		 * Map X.509 key usage to RSA public key usage:
@@ -2721,8 +2798,8 @@ static s32 XKeyManager_StoreX509RawPublicKey(XAsufw_Dma *DmaPtr,
 		}
 
 		if (CertInfo->PublicKey.RsaPublicKey.ExponentLen == XASUFW_WORD_LEN_IN_BYTES) {
-			/** Extract public exponent from certificate. */
-			Status = Xil_SMemCpy(&PubExp, XASUFW_WORD_LEN_IN_BYTES,
+			/** Pack the public exponent at the start of the scratch buffer. */
+			Status = Xil_SMemCpy(KeyData, XRSA_PUBEXP_SIZE_IN_BYTES,
 					CertInfo->PublicKey.RsaPublicKey.Exponent,
 					CertInfo->PublicKey.RsaPublicKey.ExponentLen,
 					CertInfo->PublicKey.RsaPublicKey.ExponentLen);
@@ -2733,6 +2810,17 @@ static s32 XKeyManager_StoreX509RawPublicKey(XAsufw_Dma *DmaPtr,
 		} else {
 			/** Unsupported public exponent size. */
 			Status = XASUFW_KEYMANAGER_INVALID_EXPONENT_SIZE;
+			goto END;
+		}
+
+		/** Append the modulus after the public exponent in the scratch buffer. */
+		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+		Status = Xil_SMemCpy(&KeyData[XRSA_PUBEXP_SIZE_IN_BYTES], XRSA_4096_KEY_SIZE,
+				CertInfo->PublicKey.RsaPublicKey.Modulus,
+				CertInfo->PublicKey.RsaPublicKey.ModulusLen,
+				CertInfo->PublicKey.RsaPublicKey.ModulusLen);
+		if (Status != XASUFW_SUCCESS) {
+			Status = XASUFW_MEM_COPY_FAIL;
 			goto END;
 		}
 	} else {
@@ -2757,18 +2845,6 @@ static s32 XKeyManager_StoreX509RawPublicKey(XAsufw_Dma *DmaPtr,
 					    KeyData, RawKeyIdPtr);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_KEYMANAGER_UPDATE_KEY_VAULT_FAIL);
-		goto END;
-	}
-
-	/** For RSA keys, additionally store the public exponent (no usage decrement). */
-	if (CertInfo->PublicKeyType == X509_PUB_KEY_RSA) {
-		RsaPubKeyObjectPtr = (XKeyManager_RsaPubKeyObject *) XKeyManager_GetKeyObjectPtr(*RawKeyIdPtr,
-			VaultManager.VaultInfo[KeyParams->KeyMetadata.VaultId].SubSystemId, KeyUseCase, FALSE);
-		if (RsaPubKeyObjectPtr == NULL) {
-			Status = XASUFW_KEYMANAGER_GET_KEYOBJ_PTR_FAILED;
-			goto END;
-		}
-		RsaPubKeyObjectPtr->PubExp = PubExp;
 	}
 
 END:
@@ -2876,8 +2952,8 @@ s32 XKeyManager_ExportKeyVault(XAsufw_Dma *DmaPtr, XAes *AesInstancePtr, u64 Exp
 		AesParams.EngineMode = (u8)XASU_AES_GCM_MODE;
 		AesParams.OperationType = XASU_AES_ENCRYPT_OPERATION;
 		AesParams.KeyObjectAddr = (u64)(UINTPTR)&KeyObject;
-		AesParams.IvAddr = (u64)(UINTPTR)KeyIv;
-		AesParams.IvLen = XKEYMANAGER_AES_IV_LEN_IN_BYTES;
+		AesParams.IvObj.IvAddr = (u64)(UINTPTR)KeyIv;
+		AesParams.IvObj.IvLen = XKEYMANAGER_AES_IV_LEN_IN_BYTES;
 		AesParams.AadAddr = (u64)(UINTPTR)KeyIv;
 		AesParams.AadLen = XKEYMANAGER_AES_IV_LEN_IN_BYTES;
 		AesParams.TagAddr = (u64)(UINTPTR)TagBuf;
@@ -2885,8 +2961,8 @@ s32 XKeyManager_ExportKeyVault(XAsufw_Dma *DmaPtr, XAes *AesInstancePtr, u64 Exp
 
 		/** Initialize the AES engine for the given AES operation. */
 		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-		Status = XAes_Init(AesInstancePtr, DmaPtr, (u64)(UINTPTR)KeyIv,
-				   XKEYMANAGER_AES_IV_LEN_IN_BYTES, AesParams.EngineMode,
+		Status = XAes_Init(AesInstancePtr, DmaPtr, AesParams.IvObj.IvAddr,
+				   AesParams.IvObj.IvLen, AesParams.EngineMode,
 				   AesParams.OperationType);
 		if (Status != XASUFW_SUCCESS) {
 			Status = XAsufw_UpdateErrorStatus(Status, XASUFW_AES_INIT_FAILED);
@@ -3178,8 +3254,8 @@ s32 XKeyManager_ImportKeyVault(XAsufw_Dma *DmaPtr, XAes *AesInstancePtr, u64 Imp
 		AesParams.EngineMode = (u8)XASU_AES_GCM_MODE;
 		AesParams.OperationType = XASU_AES_DECRYPT_OPERATION;
 		AesParams.KeyObjectAddr = (u64)(UINTPTR)&KeyObject;
-		AesParams.IvAddr = (u64)(UINTPTR)KeyIv;
-		AesParams.IvLen = XKEYMANAGER_AES_IV_LEN_IN_BYTES;
+		AesParams.IvObj.IvAddr = (u64)(UINTPTR)KeyIv;
+		AesParams.IvObj.IvLen = XKEYMANAGER_AES_IV_LEN_IN_BYTES;
 		AesParams.AadAddr = (u64)(UINTPTR)KeyIv;
 		AesParams.AadLen = XKEYMANAGER_AES_IV_LEN_IN_BYTES;
 		AesParams.TagAddr = (u64)(UINTPTR)TagBuf;
@@ -3187,8 +3263,8 @@ s32 XKeyManager_ImportKeyVault(XAsufw_Dma *DmaPtr, XAes *AesInstancePtr, u64 Imp
 
 		/** Initialize the AES engine for decryption. */
 		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-		Status = XAes_Init(AesInstancePtr, DmaPtr, (u64)(UINTPTR)KeyIv,
-				   XKEYMANAGER_AES_IV_LEN_IN_BYTES, AesParams.EngineMode,
+		Status = XAes_Init(AesInstancePtr, DmaPtr, AesParams.IvObj.IvAddr,
+				   AesParams.IvObj.IvLen, AesParams.EngineMode,
 				   AesParams.OperationType);
 		if (Status != XASUFW_SUCCESS) {
 			Status = XAsufw_UpdateErrorStatus(Status, XASUFW_AES_INIT_FAILED);

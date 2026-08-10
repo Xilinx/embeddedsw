@@ -60,7 +60,6 @@ _Static_assert(XRSA_MAX_PARAM_SIZE_IN_BYTES <= XASUFW_CRYPTO_ALGO_DATA_BLOCK_SIZ
 #define XRSA_RAND_GEN_ERROR		(2)		/**< RSA third-party random number
 								generation error */
 #define XRSA_MAX_PRIME_SIZE_IN_BYTES	(256U)		/**< RSA max prime size in bytes */
-#define XRSA_PUBEXP_SIZE_IN_BYTES	(4U)		/**< RSA public exponent size in bytes */
 
 #define XRSA_HALF_LEN(x)		((x) >> 1U)	/**< Calculate half value */
 #define XRSA_BYTE_TO_BIT(x)		(((u32)(x) << 3U)) /**< Byte to bit conversion */
@@ -1056,7 +1055,8 @@ s32 XRsa_GenerateKeyPair(u8 *OutBuf, u32 OutBufSize)
 	static XASUFW_OVERLAY_PERSISTENT_DATA XRsa_KeyGenState KeyGenState = XRSA_KEY_GEN_INIT_STATE;
 	static XASUFW_OVERLAY_PERSISTENT_DATA XRsa_KeyPtr KeyPairState;
 	static XASUFW_OVERLAY_PERSISTENT_DATA u8 *KeyGenBufAddr = NULL;
-	u8 *ModulusPtr = OutBuf;
+	u8 *PubExpPtr = OutBuf;
+	u8 *ModulusPtr = PubExpPtr + XRSA_PUBEXP_SIZE_IN_BYTES;
 	u8 *PvtExpPtr = ModulusPtr + XRSA_MAX_KEY_SIZE_IN_BYTES;
 	u8 *PrimePPtr = PvtExpPtr + XRSA_MAX_KEY_SIZE_IN_BYTES;
 	u8 *PrimeQPtr = PrimePPtr + XRSA_MAX_HALF_KEY_SIZE_IN_BYTES;
@@ -1100,13 +1100,20 @@ s32 XRsa_GenerateKeyPair(u8 *OutBuf, u32 OutBufSize)
 
 		/** Zero-fill the public exponent buffer and set E=65537 at word[0] (LE). */
 		Status = Xil_SMemSet(RsaKeyGenPubExpBuf, sizeof(RsaKeyGenPubExpBuf), 0U,
-				     sizeof(RsaKeyGenPubExpBuf));
+					sizeof(RsaKeyGenPubExpBuf));
 		if (Status != XASUFW_SUCCESS) {
 			KeyGenState = XRSA_KEY_GEN_INIT_STATE;
 			goto END;
 		}
 
 		RsaKeyGenPubExpBuf[0U] = XRSA_PUB_EXP_VALUE;
+		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+		Status = Xil_SMemCpy(PubExpPtr, XRSA_PUBEXP_SIZE_IN_BYTES, RsaKeyGenPubExpBuf,
+							XRSA_PUBEXP_SIZE_IN_BYTES, XRSA_PUBEXP_SIZE_IN_BYTES);
+		if (Status != XASUFW_SUCCESS) {
+			Status = XASUFW_MEM_COPY_FAIL;
+			goto END;
+		}
 
 		KeyPairState.M = ModulusPtr;
 		KeyPairState.D = PvtExpPtr;
@@ -1266,6 +1273,13 @@ s32 XRsa_GenerateKeyPair(u8 *OutBuf, u32 OutBufSize)
 
 		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 		Status = XAsufw_ChangeEndianness(QInvPtr, XRSA_HALF_LEN(XRSA_KEY_GEN_DEFAULT_SIZE));
+		if (Status != XASUFW_SUCCESS) {
+			KeyGenState = XRSA_KEY_GEN_INIT_STATE;
+			goto END;
+		}
+
+		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+		Status = XAsufw_ChangeEndianness(PubExpPtr, XRSA_PUBEXP_SIZE_IN_BYTES);
 		if (Status != XASUFW_SUCCESS) {
 			KeyGenState = XRSA_KEY_GEN_INIT_STATE;
 			goto END;

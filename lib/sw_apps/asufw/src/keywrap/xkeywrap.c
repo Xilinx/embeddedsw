@@ -473,8 +473,8 @@ static s32 XKeywrap_WrapOp(const XAsu_KeyWrapParams *KeyWrapParamsPtr, XAes *Aes
 	AesParams.OperationType = XASU_AES_ENCRYPT_OPERATION;
 
 	AesParams.KeyObjectAddr = 0U;
-	AesParams.IvAddr = 0U;
-	AesParams.IvLen = 0U;
+	AesParams.IvObj.IvAddr = 0U;
+	AesParams.IvObj.IvLen = 0U;
 	AesParams.InputDataAddr = (u64)(UINTPTR)AesInData;
 	AesParams.OutputDataAddr = (u64)(UINTPTR)AesOutData;
 	AesParams.DataLen = XASU_AES_BLOCK_SIZE_IN_BYTES;
@@ -662,8 +662,8 @@ s32 XKeyWrap_UnwrapOp(const XAsu_KeyWrapParams *KeyUnwrapParamsPtr, XAes *AesIns
 	AesParams.OperationType = XASU_AES_DECRYPT_OPERATION;
 
 	AesParams.KeyObjectAddr = 0U;
-	AesParams.IvAddr = 0U;
-	AesParams.IvLen = 0U;
+	AesParams.IvObj.IvAddr = 0U;
+	AesParams.IvObj.IvLen = 0U;
 	AesParams.InputDataAddr = (u64)(UINTPTR)AesInData;
 	AesParams.OutputDataAddr = (u64)(UINTPTR)AesOutData;
 	AesParams.DataLen = XASU_AES_BLOCK_SIZE_IN_BYTES;

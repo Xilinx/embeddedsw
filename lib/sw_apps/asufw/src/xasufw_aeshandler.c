@@ -258,12 +258,12 @@ static s32 XAsufw_AesOperation(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	if (((AesParamsPtr->OperationFlags & XASU_INIT) == XASU_INIT) &&
 	      (AesParamsPtr->EngineMode != XASU_AES_CMAC_MODE) &&
 	      (AesParamsPtr->EngineMode != XASU_AES_ECB_MODE)) {
-		LocalIvAddr = AesParamsPtr->IvAddr;
-		LocalIvLen = AesParamsPtr->IvLen;
+		LocalIvAddr = AesParamsPtr->IvObj.IvAddr;
+		LocalIvLen = AesParamsPtr->IvObj.IvLen;
 
 #ifdef XASU_KEYMANAGER_ENABLE
-		if (AesParamsPtr->IvId != 0U) {
-			IvObject.IvId = AesParamsPtr->IvId;
+		if (AesParamsPtr->IvObj.IvId != 0U) {
+			IvObject.IvId = AesParamsPtr->IvObj.IvId;
 			Status = XKeyManager_UpdateKeyObjFromVault(XAsufw_AesModule.AsuDmaPtr,
 							IvObject.IvId, (u64)(UINTPTR)&IvObject,
 							SubsystemId, KeyUsecase,

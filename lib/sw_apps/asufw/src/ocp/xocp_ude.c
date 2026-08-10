@@ -429,8 +429,8 @@ static s32 XOcp_AesCompute(XAsufw_Dma *DmaPtr, u64 IvAddr, u64 InAddr, u64 OutAd
 	AesParams.EngineMode = (u8)XASU_AES_GCM_MODE;
 	AesParams.OperationType = XASU_AES_ENCRYPT_OPERATION;
 	AesParams.KeyObjectAddr = (u64)(UINTPTR)&KeyObject;
-	AesParams.IvAddr = (u64)(UINTPTR)IvAddr;
-	AesParams.IvLen = XASU_OCP_UDE_IV_SIZE_IN_BYTES;
+	AesParams.IvObj.IvAddr = (u64)(UINTPTR)IvAddr;
+	AesParams.IvObj.IvLen = XASU_OCP_UDE_IV_SIZE_IN_BYTES;
 	AesParams.InputDataAddr = (u64)(UINTPTR)InAddr;
 	AesParams.OutputDataAddr = (u64)(UINTPTR)OutAddr;
 	AesParams.DataLen = XASU_OCP_UDE_KEY_SIZE_IN_BYTES;
