@@ -42,6 +42,12 @@ static const u32 PermissionResets[] = {
 	PM_RST_PL2,
 	PM_RST_PL3,
 	PM_RST_ADMA,
+	PM_RST_PCIE_CORE0,
+	PM_RST_PCIE_CORE1,
+	PM_RST_PCIE_0,
+	PM_RST_PCIE_1,
+	PM_RST_PCIE_2,
+	PM_RST_PCIE_3,
 };
 
 static XStatus XPmReset_SetAllowedSubsystems(XPm_ResetNode *Reset, const u32 AllowSubsystems);
