@@ -36,3 +36,9 @@ examples:
                         - VersalNet
                         - SpartanUP
                         - spartanuplus
+        xilsfl_ospi_sector_lock_example.c:
+                - supported_platforms:
+                        - Versal
+                        - VersalNet
+                        - SpartanUP
+                        - spartanuplus

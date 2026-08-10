@@ -23,6 +23,7 @@
  *                    add support for unaligned byte read
  * 1.1   sb  02/11/25  Add support for x2/x4 operation.
  * 1.3   zm  03/09/26  Add support for W25Q128JW Winbond flash.
+ * 1.3   sb  07/20/26  Add support for Advanced Sector Protection (ASP).
  *
  * </pre>
  *
@@ -31,6 +32,14 @@
 /***************************** Include Files *********************************/
 #include "xilsfl.h"
 #include "xilsfl_control.h"
+
+#if CONFIG_ADVANCED_SECTOR_PROTECTION
+#include <string.h>
+
+extern const XSfl_AspVendorOps XSfl_AspMicronOctalAspOpsTable;
+
+static const XSfl_AspVendorOps XSfl_AspVendorStubAspOpsTable;
+#endif
 
 /************************** Constant Definitions *****************************/
 
@@ -238,6 +247,10 @@ set_mode_done:
 	SflInstance.Instance[Idx].SflFlashInfo.SectSize = Flash_Config_Table[FCTIndex].SectSize;
 	SflInstance.Instance[Idx].SflFlashInfo.PageSize = Flash_Config_Table[FCTIndex].PageSize;
 
+#if CONFIG_ADVANCED_SECTOR_PROTECTION
+	XSfl_FlashAspAssignVendorOps(&SflInstance.Instance[Idx]);
+#endif
+
 	*SflHandler = Idx;
 	/* Increment the Sfl Index to point next available instance */
 	SflInstance.Index++;
@@ -294,7 +307,7 @@ u32 XSfl_FlashReadStart(u8 SflHandler, u32 Address, u32 ByteCount,
  * This function used to check read completion status of serial Flash
  * connected to the Specific interface.
  *
- * @param	SflHandler is a pointer to the Sfl interface driver component to use.
+ * @param	SflHandler is the index to the Sfl interface driver instance.
  *
  * @return	XST_SUCCESS if successful, else error code.
  *
@@ -437,7 +450,7 @@ u32 XSfl_FlashWrite(u8 SflHandler, u32 Address, u32 ByteCount,
  * This function erases the serial nor flash connected to the
  * specific interface.
  *
- * @param	SflHandler is a pointer to the Sfl interface component to use.
+ * @param	SflHandler is the index to the Sfl interface driver instance.
  * @param	Address is the sector offset address of the flash at which data to be erased.
  * @param	ByteCount contains the total size to be erased.
  *
@@ -488,7 +501,7 @@ u32 XSfl_FlashErase(u8 SflHandler, u32 Address, u32 ByteCount)
  * This function used to get details serial Flash
  * connected to the Specific interface.
  *
- * @param	SflHandler is a pointer to the Sfl interface driver component to use.
+ * @param	SflHandler is the index to the Sfl interface driver instance.
  * @param	Option is to get specific details of the flash.
  * @param	DataPtr is the pointer to the flash info to be copied.
  *
@@ -526,4 +539,302 @@ u32 XSfl_FlashGetInfo(u8 SflHandler, u8 Option, u32 *DataPtr){
 
 	return Status;
 }
+
+#if CONFIG_ADVANCED_SECTOR_PROTECTION
+/*****************************************************************************/
+/**
+ *
+ * This function assigns the XSfl_Interface ASP vendor ops table pointer based on
+ * JEDEC maker ID and configured flash type in the Flash Configuration Table.
+ *
+ * @param	IfPtr is the pointer to the initialized SFL interface whose AspOps fill in.
+ *
+ * @return	None.
+ *
+ ******************************************************************************/
+void XSfl_FlashAspAssignVendorOps(XSfl_Interface *IfPtr)
+{
+	u32 FlashType;
+
+	if (IfPtr == NULL) {
+		return;
+	}
+
+	FlashType = Flash_Config_Table[IfPtr->SflFlashInfo.FlashIndex].FlashType;
+
+	/* Extend with additional vendors / JEDEC + flash-type checks here */
+	if (((IfPtr->SflFlashInfo.FlashMake == XSFL_MICRON_OCTAL_ID_BYTE0) &&
+	     (FlashType == XSFL_OSPI_FLASH)) ||
+	    ((IfPtr->SflFlashInfo.FlashMake == XSFL_MICRON_QUAD_ID_BYTE0) &&
+	     (FlashType == XSFL_QSPI_FLASH))) {
+		IfPtr->SflFlashInfo.AspOps = &XSfl_AspMicronOctalAspOpsTable;
+		return;
+	}
+
+	IfPtr->SflFlashInfo.AspOps = &XSfl_AspVendorStubAspOpsTable;
+}
+
+/*****************************************************************************/
+/**
+ *
+ * This function performs the ASP set-password sequence: it verifies password
+ * protection is not already active in the SPR, programs the supplied password,
+ * reads it back to verify, and commits the SPR to enable password protection.
+ *
+ * @param	SflHandler is the index to the Sfl interface driver instance.
+ * @param	Params carries the password bytes and length.
+ *
+ * @return	XSFL_ASP_RESULT_OK if successful, else an XSfl_AspResult error code.
+ *
+ ******************************************************************************/
+u32 XSfl_AspSetPassword(u8 SflHandler, const XSfl_AspParams *Params)
+{
+	u32 Status;
+	u16 SprBefore;
+	u16 SprWithPswdEnabled;
+	u8 Readback[XSFL_ASP_PASSWORD_MAX_BYTES];
+
+	Xil_AssertNonvoid(SflHandler < XSFL_NUM_INSTANCES);
+	if ((Params == NULL) || (Params->Password == NULL) ||
+	    (Params->PasswordLen == 0U) ||
+	    (Params->PasswordLen > XSFL_ASP_PASSWORD_MAX_BYTES)) {
+		return XSFL_ASP_RESULT_INVALID_PASSWORD;
+	}
+
+	Status = XSfl_FlashSectorProtectionRead(SflHandler, &SprBefore);
+	if (Status != XST_SUCCESS) {
+		return XSFL_ASP_RESULT_OP_FAILED;
+	}
+
+	if ((SprBefore & XSFL_ASP_PASSWORD_PROT_MODE_MASK) == 0U) {
+		/* Password protection already active; refuse to reprogram. */
+		return XSFL_ASP_RESULT_PASSWORD_LOCKED;
+	}
+
+	Status = XSfl_FlashPasswordProgram(SflHandler, Params->Password);
+	if (Status != XST_SUCCESS) {
+		return XSFL_ASP_RESULT_OP_FAILED;
+	}
+
+	memset(Readback, 0, sizeof(Readback));
+	Status = XSfl_FlashPasswordRead(SflHandler, Readback);
+	if (Status != XST_SUCCESS) {
+		memset(Readback, 0, sizeof(Readback));
+		return XSFL_ASP_RESULT_OP_FAILED;
+	}
+
+	if (memcmp(Readback, Params->Password, Params->PasswordLen) != 0) {
+		memset(Readback, 0, sizeof(Readback));
+		return XSFL_ASP_RESULT_PASSWORD_MISMATCH;
+	}
+	memset(Readback, 0, sizeof(Readback));
+
+	SprWithPswdEnabled =
+	    SprBefore & (u16)~(u16)XSFL_ASP_PASSWORD_PROT_MODE_MASK;
+
+	Status = XSfl_FlashSectorProtectionWrite(SflHandler, SprWithPswdEnabled);
+	if (Status != XST_SUCCESS) {
+		return XSFL_ASP_RESULT_OP_FAILED;
+	}
+
+	return XSFL_ASP_RESULT_OK;
+}
+
+/*****************************************************************************/
+/**
+ *
+ * This function locks a range of sectors using ASP nonvolatile lock commands.
+ * If password protection is enabled it unlocks first, sets the NV lock bit for
+ * each not-already-locked sector in the range, and enables the global freeze
+ * bit when protection is active.
+ *
+ * @param	SflHandler is the index to the Sfl interface driver instance.
+ * @param	Params carries the sector range and optional password.
+ *
+ * @return	XSFL_ASP_RESULT_OK if successful, else an XSfl_AspResult error code.
+ *
+ ******************************************************************************/
+u32 XSfl_AspLockSectors(u8 SflHandler, const XSfl_AspParams *Params)
+{
+	u32 Status;
+	u16 SprValue;
+	u32 SectorSize;
+	u32 SectorIdx;
+	u8 Protected;
+
+	Xil_AssertNonvoid(SflHandler < XSFL_NUM_INSTANCES);
+	if (Params == NULL) {
+		return XSFL_ASP_RESULT_OP_FAILED;
+	}
+
+	Status = XSfl_AspValidateSectorRange(SflHandler, Params->StartSector,
+			Params->EndSector);
+	if (Status != XSFL_ASP_RESULT_OK) {
+		return Status;
+	}
+
+	if (XSfl_FlashGetInfo(SflHandler, XSFL_SECT_SIZE, &SectorSize) !=
+	    XST_SUCCESS) {
+		return XSFL_ASP_RESULT_OP_FAILED;
+	}
+
+	if (XSfl_FlashSectorProtectionRead(SflHandler, &SprValue) !=
+	    XST_SUCCESS) {
+		return XSFL_ASP_RESULT_OP_FAILED;
+	}
+	Protected = ((SprValue & XSFL_ASP_PASSWORD_PROT_MODE_MASK) == 0U) ?
+			1U : 0U;
+
+	if (Protected != 0U) {
+		if ((Params->Password == NULL) || (Params->PasswordLen == 0U)) {
+			return XSFL_ASP_RESULT_INVALID_PASSWORD;
+		}
+
+		if (XSfl_FlashPasswordUnlock(SflHandler, Params->Password) !=
+		    XST_SUCCESS) {
+			return XSFL_ASP_RESULT_PASSWORD_MISMATCH;
+		}
+	}
+
+	for (SectorIdx = Params->StartSector; SectorIdx <= Params->EndSector;
+	     SectorIdx++) {
+		u32 SectorAddr = SectorIdx * SectorSize;
+		u8 NvLocked;
+
+		if (XSfl_FlashNVLockRead(SflHandler, SectorAddr, &NvLocked) !=
+		    XST_SUCCESS) {
+			return XSFL_ASP_RESULT_OP_FAILED;
+		}
+		if (NvLocked != 0U) {
+			continue;
+		}
+
+		if (XSfl_FlashNVSectorLock(SflHandler, SectorAddr) !=
+		    XST_SUCCESS) {
+			return XSFL_ASP_RESULT_OP_FAILED;
+		}
+	}
+
+	if (Protected != 0U) {
+		if (XSfl_FlashAspWriteGlobalFreeze(SflHandler) != XST_SUCCESS) {
+			return XSFL_ASP_RESULT_OP_FAILED;
+		}
+	}
+
+	return XSFL_ASP_RESULT_OK;
+}
+
+/*****************************************************************************/
+/**
+ *
+ * This function erases all ASP nonvolatile lock bits (bulk erase across every
+ * sector on all dies). If password protection is enabled it unlocks first and
+ * enables the global freeze bit afterwards.
+ *
+ * @param	SflHandler is the index to the Sfl interface driver instance.
+ * @param	Params carries the optional password.
+ *
+ * @return	XSFL_ASP_RESULT_OK if successful, else an XSfl_AspResult error code.
+ *
+ ******************************************************************************/
+u32 XSfl_AspUnlockSectors(u8 SflHandler, const XSfl_AspParams *Params)
+{
+	u16 SprValue;
+	u8 Protected;
+
+	if (XSfl_FlashSectorProtectionRead(SflHandler, &SprValue) !=
+	    XST_SUCCESS) {
+		return XSFL_ASP_RESULT_OP_FAILED;
+	}
+	Protected = ((SprValue & XSFL_ASP_PASSWORD_PROT_MODE_MASK) == 0U) ?
+			1U : 0U;
+
+	if (Protected != 0U) {
+		if ((Params == NULL) || (Params->Password == NULL) ||
+		    (Params->PasswordLen == 0U)) {
+			return XSFL_ASP_RESULT_INVALID_PASSWORD;
+		}
+
+		if (XSfl_FlashPasswordUnlock(SflHandler, Params->Password) !=
+		    XST_SUCCESS) {
+			return XSFL_ASP_RESULT_PASSWORD_MISMATCH;
+		}
+	}
+
+	if (XSfl_FlashEraseNVLockBits(SflHandler) != XST_SUCCESS) {
+		return XSFL_ASP_RESULT_OP_FAILED;
+	}
+
+	if (Protected != 0U) {
+		if (XSfl_FlashAspWriteGlobalFreeze(SflHandler) != XST_SUCCESS) {
+			return XSFL_ASP_RESULT_OP_FAILED;
+		}
+	}
+
+	return XSFL_ASP_RESULT_OK;
+}
+
+/*****************************************************************************/
+/**
+ *
+ * This function reads the nonvolatile lock state for a range of sectors and
+ * stores one flag per sector (1 locked, 0 unlocked) into the caller buffer.
+ *
+ * @param	SflHandler is the index to the Sfl interface driver instance.
+ * @param	Params carries the sector range and the output buffer/capacity.
+ *
+ * @return	XSFL_ASP_RESULT_OK if successful, else an XSfl_AspResult error code.
+ *
+ ******************************************************************************/
+u32 XSfl_AspReadSectorLock(u8 SflHandler, const XSfl_AspParams *Params)
+{
+	u32 Status;
+	u32 SectorSize;
+	u32 SectorIdx;
+	u32 OutIdx;
+	u32 RangeCount;
+
+	Xil_AssertNonvoid(SflHandler < XSFL_NUM_INSTANCES);
+	if (Params == NULL) {
+		return XSFL_ASP_RESULT_OP_FAILED;
+	}
+
+	Status = XSfl_AspValidateSectorRange(SflHandler, Params->StartSector,
+			Params->EndSector);
+	if (Status != XSFL_ASP_RESULT_OK) {
+		return Status;
+	}
+
+	if (Params->LockStatusOut == NULL) {
+		return XSFL_ASP_RESULT_OP_FAILED;
+	}
+
+	RangeCount = (Params->EndSector - Params->StartSector) + 1U;
+	if (RangeCount > Params->LockStatusCap) {
+		return XSFL_ASP_RESULT_INVALID_RANGE;
+	}
+
+	if (XSfl_FlashGetInfo(SflHandler, XSFL_SECT_SIZE, &SectorSize) !=
+	    XST_SUCCESS) {
+		return XSFL_ASP_RESULT_OP_FAILED;
+	}
+
+	OutIdx = 0U;
+	for (SectorIdx = Params->StartSector; SectorIdx <= Params->EndSector;
+	     SectorIdx++) {
+		u32 SectorAddr = SectorIdx * SectorSize;
+		u8 NvLocked;
+
+		if (XSfl_FlashNVLockRead(SflHandler, SectorAddr, &NvLocked) !=
+		    XST_SUCCESS) {
+			return XSFL_ASP_RESULT_OP_FAILED;
+		}
+		Params->LockStatusOut[OutIdx] = NvLocked;
+		OutIdx++;
+	}
+
+	return XSFL_ASP_RESULT_OK;
+}
+#endif /* CONFIG_ADVANCED_SECTOR_PROTECTION */
+
 /** @} */

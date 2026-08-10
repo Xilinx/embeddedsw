@@ -28,6 +28,7 @@
  *       zm  07/17/26  Add support for Macronix OSPI flashes mx66um2g45g and mx66uw2g345gxrix0.
  *       zm  08/03/26  Add support for GD25LR512MF GigaDevice flash.
  *       zm  08/03/26  Add support for MX25U6432F Macronix flash.
+ * 1.3   sb  07/20/26  Add support for Advanced Sector Protection (ASP).
  *
  * </pre>
  *
@@ -37,12 +38,16 @@
 
 /***************************** Include Files *********************************/
 #include "xparameters.h"	/* SDK generated parameters */
+#include "xilsfl_config.h"
 #ifdef XPAR_XOSPIPSV_NUM_INSTANCES
 #include "xospipsv.h"		/* OSPIPSV device driver */
 #endif
 #include "xil_printf.h"
 #include "xil_cache.h"
 #include "xstatus.h"
+#if CONFIG_ADVANCED_SECTOR_PROTECTION
+#include "xilsfl_asp.h"
+#endif
 
 /************************** Constant Definitions *****************************/
 
@@ -177,6 +182,7 @@
  * @brief The first byte of the Micron octal flash ID.
  */
 #define XSFL_MICRON_OCTAL_ID_BYTE0          0x2c
+#define XSFL_MICRON_QUAD_ID_BYTE0           0x20 /**< Micron QUAD flash. */
 /**
  * @def XSFL_MACRONIX_ID_BYTE0
  * @brief The first byte of the Macronix ID.
@@ -378,6 +384,9 @@ typedef struct {
 	u8 ConnectionMode; /**< Type of connection (single/stacked/parallel) */
 	u8 FlashMake;      /**< vendor info */
 	u8 AddrSize;       /**< Size of address in bytes */
+#if CONFIG_ADVANCED_SECTOR_PROTECTION
+	const XSfl_AspVendorOps *AspOps; /**< Advanced sector-protection / password ops */
+#endif
 } XSfl_FlashInfo;
 
 /**
@@ -450,5 +459,13 @@ u32 XSfl_FlashGetInfo(u8 SflHandler, u8 Option, u32 *DataPtr);
 u32 XSfl_FlashRead(u8 SflHandler, u32 Address, u32 ByteCount,
                 u8 *ReadBfrPtr, u64 RxAddr64bit);
 
+#if CONFIG_ADVANCED_SECTOR_PROTECTION
+void XSfl_FlashAspAssignVendorOps(XSfl_Interface *IfPtr);
+u32 XSfl_AspSetPassword(u8 SflHandler, const XSfl_AspParams *Params);
+u32 XSfl_AspLockSectors(u8 SflHandler, const XSfl_AspParams *Params);
+u32 XSfl_AspUnlockSectors(u8 SflHandler, const XSfl_AspParams *Params);
+u32 XSfl_AspReadSectorLock(u8 SflHandler, const XSfl_AspParams *Params);
+#endif
 /************************** Variable Definitions *****************************/
 #endif /* XILSFL_H */
+/** @} */

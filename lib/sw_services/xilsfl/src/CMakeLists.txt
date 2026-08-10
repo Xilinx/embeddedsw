@@ -1,9 +1,12 @@
-# Copyright (C) 2024-2025 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (C) 2024 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 cmake_minimum_required(VERSION 3.15)
 project(xilsfl)
 
 find_package(common)
+
+include("${CMAKE_CURRENT_SOURCE_DIR}/xilsfl_options.cmake" NO_POLICY_SCOPE)
+
 collector_create (PROJECT_LIB_SOURCES "${CMAKE_CURRENT_SOURCE_DIR}")
 collector_create (PROJECT_LIB_HEADERS "${CMAKE_CURRENT_SOURCE_DIR}")
 include_directories(${CMAKE_BINARY_DIR}/include)
@@ -15,13 +18,25 @@ collect (PROJECT_LIB_SOURCES xilsfl.c)
 collect (PROJECT_LIB_SOURCES xilsfl_control.c)
 collect (PROJECT_LIB_SOURCES xilsfl_ospi.c)
 collect (PROJECT_LIB_SOURCES xilsfl_flashconfig.c)
+collect (PROJECT_LIB_SOURCES xilsfl_asp.c)
+collect (PROJECT_LIB_SOURCES xilsfl_micron_asp.c)
 collector_list (_sources PROJECT_LIB_SOURCES)
 collector_list (_headers PROJECT_LIB_HEADERS)
 file(COPY ${_headers} DESTINATION ${CMAKE_BINARY_DIR}/include)
 if (NOT ${YOCTO})
 file(COPY ${CMAKE_BINARY_DIR}/include/xilsfl.h DESTINATION ${CMAKE_INCLUDE_PATH}/)
+file(COPY ${CMAKE_BINARY_DIR}/include/xilsfl_asp.h DESTINATION ${CMAKE_INCLUDE_PATH}/)
+file(COPY ${CMAKE_BINARY_DIR}/include/xilsfl_config.h DESTINATION ${CMAKE_INCLUDE_PATH}/)
 endif()
 add_library(xilsfl STATIC ${_sources})
+# PRIVATE always carries 0|1 for library sources; PUBLIC only when enabled so
+# #ifdef CONFIG_ADVANCED_SECTOR_PROTECTION in apps is false when ASP is off.
+target_compile_definitions(xilsfl PRIVATE
+	CONFIG_ADVANCED_SECTOR_PROTECTION=${CONFIG_ADVANCED_SECTOR_PROTECTION_NUM}
+)
+if(CONFIG_ADVANCED_SECTOR_PROTECTION_NUM EQUAL 1)
+target_compile_definitions(xilsfl PUBLIC CONFIG_ADVANCED_SECTOR_PROTECTION=1)
+endif()
 if(CMAKE_C_COMPILER_ID MATCHES "GNU|Clang")
 target_compile_options(xilsfl PRIVATE -iquote ${CMAKE_BINARY_DIR}/include)
 endif()
