@@ -1,6 +1,6 @@
 /*******************************************************************************
 * Copyright (C) 2017 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -31,11 +31,7 @@
 
 /**************************** Function Prototypes *****************************/
 
-#ifndef SDT
-u32 DpPsu_SelfTestExample(XDpPsu *InstancePtr, u16 DeviceId);
-#else
 u32 DpPsu_SelfTestExample(XDpPsu *InstancePtr, u32 BaseAddress);
-#endif
 
 /**************************** Function Definitions ****************************/
 
@@ -59,11 +55,7 @@ int main(void)
 	u32 Status;
     XDpPsu DpPsuInstance;
 
-#ifndef SDT
-	Status = DpPsu_SelfTestExample(&DpPsuInstance, DPPSU_DEVICE_ID);
-#else
 	Status = DpPsu_SelfTestExample(&DpPsuInstance, DPPSU_BASEADDR);
-#endif
 	if (Status != XST_SUCCESS) {
 		xil_printf("XDpPsu_SelfTest failed, check register values.\n");
 		return XST_FAILURE;
@@ -92,21 +84,13 @@ int main(void)
  * @note	None.
  *
 *******************************************************************************/
-#ifndef SDT
-u32 DpPsu_SelfTestExample(XDpPsu *InstancePtr, u16 DeviceId)
-#else
 u32 DpPsu_SelfTestExample(XDpPsu *InstancePtr, u32 BaseAddress)
-#endif
 {
 	u32 Status;
 	XDpPsu_Config *ConfigPtr;
 
 	/* Obtain the device configuration for the DisplayPort TX core. */
-#ifndef SDT
-	ConfigPtr = XDpPsu_LookupConfig(DeviceId);
-#else
 	ConfigPtr = XDpPsu_LookupConfig(BaseAddress);
-#endif
 	if (!ConfigPtr) {
 		return XST_FAILURE;
 	}

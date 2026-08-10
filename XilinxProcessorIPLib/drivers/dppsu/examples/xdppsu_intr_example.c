@@ -1,6 +1,6 @@
 /*******************************************************************************
 * Copyright (C) 2017 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -35,11 +35,7 @@
 /******************************* Include Files ********************************/
 
 #include "xdppsu_common_example.h"
-#ifndef SDT
-#include "xscugic.h"
-#else
 #include "xinterrupt_wrap.h"
-#endif
 
 /**************************** Constant Definitions ****************************/
 
@@ -55,15 +51,9 @@
 
 /**************************** Function Prototypes *****************************/
 
-#ifndef SDT
-u32 DpPsu_IntrExample(XDpPsu *InstancePtr, u16 DeviceId, INTC *IntcPtr,
-		u16 IntrId, u16 DpIntrId, XDpPsu_HpdEventHandler HpdEventHandler,
-		XDpPsu_HpdPulseHandler HpdPulseHandler);
-#else
 u32 DpPsu_IntrExample(XDpPsu *InstancePtr, UINTPTR BaseAddress, INTC *IntcPtr,
 		u16 IntrId, u16 DpIntrId, XDpPsu_HpdEventHandler HpdEventHandler,
 		XDpPsu_HpdPulseHandler HpdPulseHandler);
-#endif
 static u32 DpPsu_SetupInterruptHandler(XDpPsu *InstancePtr, INTC *IntcPtr,
 		u16 IntrId, u16 DpIntrId, XDpPsu_HpdEventHandler HpdEventHandler,
 		XDpPsu_HpdPulseHandler HpdPulseHandler);
@@ -99,15 +89,9 @@ int main(void)
 {
     XDpPsu DpPsuInstance;
 	/* Run the XDpPsu interrupt example. */
-#ifndef SDT
-	DpPsu_IntrExample(&DpPsuInstance, DPPSU_DEVICE_ID,
-				&IntcInstance, INTC_DEVICE_ID, DP_INTERRUPT_ID,
-				&DpPsu_HpdEventHandler, &DpPsu_HpdPulseHandler);
-#else
 	DpPsu_IntrExample(&DpPsuInstance, DPPSU_BASEADDR,
 				&IntcInstance, INTC_DEVICE_ID, DP_INTERRUPT_ID,
 				&DpPsu_HpdEventHandler, &DpPsu_HpdPulseHandler);
-#endif
 
 	return XST_FAILURE;
 }
@@ -140,15 +124,9 @@ int main(void)
  *		events.
  *
 *******************************************************************************/
-#ifndef SDT
-u32 DpPsu_IntrExample(XDpPsu *InstancePtr, u16 DeviceId, INTC *IntcPtr,
-		u16 IntrId, u16 DpIntrId, XDpPsu_HpdEventHandler HpdEventHandler,
-		XDpPsu_HpdPulseHandler HpdPulseHandler)
-#else
 u32 DpPsu_IntrExample(XDpPsu *InstancePtr, UINTPTR BaseAddress, INTC *IntcPtr,
 		u16 IntrId, u16 DpIntrId, XDpPsu_HpdEventHandler HpdEventHandler,
 		XDpPsu_HpdPulseHandler HpdPulseHandler)
-#endif
 {
 	u32 Status;
 
@@ -156,11 +134,7 @@ u32 DpPsu_IntrExample(XDpPsu *InstancePtr, UINTPTR BaseAddress, INTC *IntcPtr,
 	 * it is up to the user to implement this function. */
 	DpPsu_PlatformInit();
 	/******************/
-#ifndef SDT
-    Status = DpPsu_SetupExample(InstancePtr, DeviceId);
-#else
 	Status = DpPsu_SetupExample(InstancePtr, BaseAddress);
-#endif
 	if (Status != XST_SUCCESS) {
 		xil_printf("----------------------\n");
 
@@ -218,57 +192,11 @@ static u32 DpPsu_SetupInterruptHandler(XDpPsu *InstancePtr, INTC *IntcPtr,
 	/* Set the HPD interrupt handlers. */
 	XDpPsu_SetHpdEventHandler(InstancePtr, HpdEventHandler, InstancePtr);
 	XDpPsu_SetHpdPulseHandler(InstancePtr, HpdPulseHandler, InstancePtr);
-#ifndef SDT
-	/* Initialize interrupt controller driver. */
 
-	XScuGic_Config *IntcConfig;
-
-	IntcConfig = XScuGic_LookupConfig(IntrId);
-	Status = XScuGic_CfgInitialize(IntcPtr, IntcConfig,
-	IntcConfig->CpuBaseAddress);
-	if (Status != XST_SUCCESS) {
-		return XST_FAILURE;
-	}
-	XScuGic_SetPriorityTriggerType(IntcPtr, DpIntrId, 0x0, 0x3);
-
-
-	/* Connect the device driver handler that will be called when an
-	 * interrupt for the device occurs, the handler defined above performs
-	 * the specific interrupt processing for the device. */
-
-	Status = XScuGic_Connect(IntcPtr, DpIntrId,
-		(Xil_InterruptHandler)XDpPsu_HpdInterruptHandler, InstancePtr);
-
-	if (Status != XST_SUCCESS) {
-		return XST_FAILURE;
-	}
-
-	/* Start the interrupt controller. */
-
-	XScuGic_Enable(IntcPtr, DpIntrId);
-
-	/* Initialize the exception table. */
-	Xil_ExceptionInit();
-
-	/* Register the interrupt controller handler with the exception table. */
-	Xil_ExceptionRegisterHandler(XIL_EXCEPTION_ID_INT,
-				(Xil_ExceptionHandler)INTC_HANDLER, 0);
-
-	/* Enable exceptions. */
-	Xil_ExceptionEnableMask(XIL_EXCEPTION_IRQ);
-	Xil_ExceptionEnable();
-
-	/* Enable DP interrupts. */
-	XScuGic_Enable(IntcPtr,DpIntrId);
-	XDpPsu_WriteReg(InstancePtr->Config.BaseAddr, XDPPSU_INTR_EN, IntrMask);
-
-	return XST_SUCCESS;
-#else
 	Status = XSetupInterruptSystem(InstancePtr, &XDpPsu_HpdInterruptHandler, InstancePtr->Config.IntrId,
 	InstancePtr->Config.IntrParent, XINTERRUPT_DEFAULT_PRIORITY);
 
     return Status;
-#endif
 }
 
 /******************************************************************************/

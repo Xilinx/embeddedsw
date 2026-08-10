@@ -1148,18 +1148,10 @@ extern "C" {
  * @def XDPPSU_0_LANE_COUNT
  * @brief Number of lanes for DP.
  */
-#ifndef SDT
-#ifdef XPAR_PSU_DP_LANE_COUNT
-#define XDPPSU_0_LANE_COUNT			XPAR_PSU_DP_LANE_COUNT
-#else
-#define XDPPSU_0_LANE_COUNT			0
-#endif
-#else
 #ifdef XPAR_ZYNQMP_DPSUB_MAX_LANES
 #define XDPPSU_0_LANE_COUNT			XPAR_ZYNQMP_DPSUB_MAX_LANES
 #else
 #define XDPPSU_0_LANE_COUNT			0
-#endif
 #endif
 #define XDPPSU_0_LINK_RATE			20
 #define XDPPSU_0_MAX_BITS_PER_COLOR		12

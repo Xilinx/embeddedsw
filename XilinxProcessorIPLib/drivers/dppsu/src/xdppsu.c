@@ -1352,9 +1352,6 @@ void XDpPsu_CfgInitialize(XDpPsu *InstancePtr, XDpPsu_Config *ConfigPtr,
 	Xil_AssertVoid(ConfigPtr != NULL);
 	Xil_AssertVoid(EffectiveAddr != 0x0);
 
-#ifndef SDT
-	InstancePtr->Config.DeviceId = ConfigPtr->DeviceId;
-#endif
 	(void)memcpy((void *)&(InstancePtr->Config), (const void *)ConfigPtr,
 						sizeof(XDpPsu_Config));
 	InstancePtr->Config.BaseAddr = EffectiveAddr;

@@ -1,6 +1,6 @@
 /*******************************************************************************
 * Copyright (C) 2017 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -39,11 +39,7 @@
 
 /**************************** Function Prototypes *****************************/
 
-#ifndef SDT
-u32 DpPsu_PollExample(XDpPsu *InstancePtr, u16 DeviceId);
-#else
 u32 DpPsu_PollExample(XDpPsu *InstancePtr, u32 BaseAddress);
-#endif
 static void DpPsu_HpdPoll(XDpPsu *InstancePtr);
 
 /**************************** Function Definitions ****************************/
@@ -67,11 +63,7 @@ int main(void)
 {
     XDpPsu DpPsuInstance;
 	/* Run the XDpPsu polling example. */
-#ifndef SDT
-	DpPsu_PollExample(&DpPsuInstance, DPPSU_DEVICE_ID);
-#else
 	DpPsu_PollExample(&DpPsuInstance, DPPSU_BASEADDR);
-#endif
 
 	return XST_FAILURE;
 }
@@ -97,11 +89,7 @@ int main(void)
  *		order to illustrate polling taking place for HPD events.
  *
 *******************************************************************************/
-#ifndef SDT
-u32 DpPsu_PollExample(XDpPsu *InstancePtr, u16 DeviceId)
-#else
 u32 DpPsu_PollExample(XDpPsu *InstancePtr, u32 BaseAddress)
-#endif
 {
 	u32 Status;
 
@@ -109,11 +97,7 @@ u32 DpPsu_PollExample(XDpPsu *InstancePtr, u32 BaseAddress)
 	 * it is up to the user to implement this function. */
 	DpPsu_PlatformInit();
 	/******************/
-#ifndef SDT
-	Status = DpPsu_SetupExample(InstancePtr, DeviceId);
-#else
 	Status = DpPsu_SetupExample(InstancePtr, BaseAddress);
-#endif
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
