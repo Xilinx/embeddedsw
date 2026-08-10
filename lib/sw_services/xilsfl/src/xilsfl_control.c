@@ -37,11 +37,6 @@
 #include "xilsfl_control.h"
 
 /************************** Constant Definitions *****************************/
-/**
- * @def XSFL_BUFFER_ARRAY_LEN
- * @brief Number of u32 elements in the register command buffer.
- */
-#define XSFL_BUFFER_ARRAY_LEN 5
 
 /**************************** Type Definitions *******************************/
 

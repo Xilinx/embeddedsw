@@ -44,6 +44,9 @@
  */
 #define XSFL_BYTE_COUNT_OFFSET       4 /* Number of bytes to read or write */
 
+/** CmdBuffer array length: command/address/address-size/dummy/byte-count slots. */
+#define XSFL_BUFFER_ARRAY_LEN        5
+
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/

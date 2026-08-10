@@ -50,8 +50,9 @@
  * @param	SflInstancePtr is a pointer to the interface driver component to use.
  * @param	RxBfrPtr is the pointer to store the read value from flash.
  * @param	TxBfrPtr is the pointer to value to be written into flash.
- * @param	CmdBufferPtr is the pointer that holds command, address, dummy and
- *		byte count.
+ * @param	CmdBufferPtr holds command, address, address-size, dummy and byte
+ *		count at offsets XSFL_*_OFFSET. The byte count is the payload length;
+ *		in DDR-PHY it is rounded up to a minimum of 2.
  * @param	Addrvalid defines the specific read/write requires address or not.
  *
  * @return	XST_SUCCESS if successful, else error code.
@@ -77,9 +78,14 @@ u32 XSfl_FlashRegisterReadWrite(XSfl_Interface *SflInstancePtr, u8 *RxBfrPtr,u8 
 	SflMsg.Dummy = (u8)CmdBufferPtr[XSFL_DUMMY_OFFSET];
 
 	if(SflInstancePtr->CntrlInfo.SdrDdrMode == XSFL_EDGE_MODE_DDR_PHY){
-		SflMsg.Proto = (u8)Flash_Config_Table[FCTIndex].Proto >> 8;
+		SflMsg.Proto = (u8)(Flash_Config_Table[FCTIndex].Proto >> 8);
 		SflMsg.Addrsize = 4;
-		SflMsg.ByteCount = 2;
+		/* PHY/DDR transfers need an even, >=2 byte count; round only the
+		 * 1-byte register case. Leave zero-data (command/address-only)
+		 * transfers untouched; larger payloads pass through. */
+		if (SflMsg.ByteCount != 0U && SflMsg.ByteCount < 2U) {
+			SflMsg.ByteCount = 2U;
+		}
 	}
 
 	if (Flash_Config_Table[FCTIndex].ExtOpCodeType == XSFL_DUAL_BYTE_OP_INVERT){
