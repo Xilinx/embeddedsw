@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 /*****************************************************************************/
@@ -334,9 +334,6 @@ static void XDpDma_SetupAudioDescriptor(XDpDma_Descriptor *CurrDesc,
  * **************************************************************************/
 void XDpDma_CfgInitialize(XDpDma *InstancePtr, XDpDma_Config *CfgPtr)
 {
-#ifndef SDT
-	InstancePtr->Config.DeviceId = CfgPtr->DeviceId;
-#endif
 	InstancePtr->Config.BaseAddr = CfgPtr->BaseAddr;
 	(void)memcpy((void *)&(InstancePtr->Config), (const void *)CfgPtr,
 						sizeof(XDpDma_Config));
