@@ -150,7 +150,7 @@ static void XAsu_GenSign(void)
 	ClientParams.CallBackRefPtr = (void *)&ClientParams;
 
 	ErrorStatus = XST_FAILURE;
-	EccParams.CurveType = XASU_CURVE_TYPE;
+	EccParams.Key.CurveType = XASU_CURVE_TYPE;
 	EccParams.DigestAddr = (u64)(UINTPTR)Hash;
 	EccParams.Key.KeyAddr = (u64)(UINTPTR)PrivKey;
 	EccParams.Key.KeyId = 0U;
@@ -206,7 +206,7 @@ static void XAsu_VerifySign(void)
 	ClientParams.AdditionalStatus = XST_FAILURE;
 
 	ErrorStatus = XST_FAILURE;
-	EccParams.CurveType = XASU_CURVE_TYPE;
+	EccParams.Key.CurveType = XASU_CURVE_TYPE;
 	EccParams.DigestAddr = (u64)(UINTPTR)Hash;
 	EccParams.Key.KeyAddr = (u64)(UINTPTR)PubKey;
 	EccParams.Key.KeyId = 0U;
@@ -250,7 +250,7 @@ static void XAsu_GenPubKey(void)
 	ClientParams.CallBackRefPtr = (void *)&ClientParams;
 
 	ErrorStatus = XST_FAILURE;
-	EccKeyParams.CurveType = XASU_CURVE_TYPE;
+	EccKeyParams.PvtKey.CurveType = XASU_CURVE_TYPE;
 	EccKeyParams.PvtKey.KeyLen = XASU_CURVE_LENGTH;
 	EccKeyParams.PvtKey.KeyAddr = (u64)(UINTPTR)PrivKey;
 	EccKeyParams.PubKeyAddr = (u64)(UINTPTR)PubKeyOut;

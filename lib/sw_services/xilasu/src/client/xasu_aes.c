@@ -206,15 +206,15 @@ s32 XAsu_AesOperation(XAsu_ClientParams *ClientParamPtr, XAsu_AesParams *AesClie
 	      (AesClientParamPtr->EngineMode == XASU_AES_CCM_MODE))) {
 
 		/** Validate that exactly one of IvAddr or IvId is provided. */
-		Status = XAsu_KmValidateKeyAddrNdKeyId(AesClientParamPtr->IvAddr,
-						       AesClientParamPtr->IvId);
+		Status = XAsu_KmValidateKeyAddrNdKeyId(AesClientParamPtr->IvObj.IvAddr,
+						       AesClientParamPtr->IvObj.IvId);
 		if (Status != XST_SUCCESS) {
 			Status = XASU_INVALID_ARGUMENT;
 			goto END;
 		}
-		if (AesClientParamPtr->IvAddr != 0U) {
+		if (AesClientParamPtr->IvObj.IvAddr != 0U) {
 			Status = XAsu_AesValidateIvParams(AesClientParamPtr->EngineMode,
-				AesClientParamPtr->IvAddr, AesClientParamPtr->IvLen);
+				AesClientParamPtr->IvObj.IvAddr, AesClientParamPtr->IvObj.IvLen);
 			if (Status != XST_SUCCESS) {
 				goto END;
 			}
@@ -690,8 +690,8 @@ static s32 XAsu_AesRunClientKat(const XAsu_AesKatVectors *KatParams)
 	AesParams.OperationType = KatParams->OperationType;
 	AesParams.EngineMode = KatParams->EngineMode;
 	AesParams.KeyObjectAddr = (u64)(UINTPTR)&KeyObj;
-	AesParams.IvAddr = (u64)(UINTPTR)KatParams->Iv;
-	AesParams.IvLen = KatParams->IvLen;
+	AesParams.IvObj.IvAddr = (u64)(UINTPTR)KatParams->Iv;
+	AesParams.IvObj.IvLen = KatParams->IvLen;
 	AesParams.InputDataAddr = (u64)(UINTPTR)KatParams->InData;
 	AesParams.OutputDataAddr = (u64)(UINTPTR)OutData;
 	AesParams.DataLen = KatParams->DataLen;

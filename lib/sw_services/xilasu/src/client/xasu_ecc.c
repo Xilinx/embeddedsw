@@ -259,7 +259,8 @@ s32 XAsu_EccValidatePubKey(XAsu_ClientParams *ClientParamsPtr, XAsu_EccKeyParams
 		goto END;
 	}
 
-	Status = XAsu_EccValidateCurveInfo(EccKeyParamsPtr->CurveType, EccKeyParamsPtr->PvtKey.KeyLen);
+	Status = XAsu_EccValidateCurveInfo(EccKeyParamsPtr->PvtKey.CurveType,
+									EccKeyParamsPtr->PvtKey.KeyLen);
 	if (Status != XST_SUCCESS) {
 		Status = XASU_INVALID_CURVEINFO;
 		goto END;
@@ -466,15 +467,16 @@ static s32 XAsu_ValidateEccParameters(XAsu_EccParams *EccParamsPtr)
 	}
 
 	/** Validate curve information. */
-	if (XAsu_EccValidateCurveInfo(EccParamsPtr->CurveType, EccParamsPtr->Key.KeyLen)!= XST_SUCCESS) {
+	if (XAsu_EccValidateCurveInfo(EccParamsPtr->Key.CurveType,
+						EccParamsPtr->Key.KeyLen) != XST_SUCCESS) {
 		goto END;
 	}
 
 	/** Validate the digest length. */
-	if (((EccParamsPtr->CurveType != XASU_ECC_NIST_ED25519) &&
-	    (EccParamsPtr->CurveType != XASU_ECC_NIST_ED448) &&
-	    (EccParamsPtr->CurveType != XASU_ECC_NIST_ED25519_PH) &&
-	    (EccParamsPtr->CurveType != XASU_ECC_NIST_ED448_PH)) &&
+	if (((EccParamsPtr->Key.CurveType != XASU_ECC_NIST_ED25519) &&
+	    (EccParamsPtr->Key.CurveType != XASU_ECC_NIST_ED448) &&
+	    (EccParamsPtr->Key.CurveType != XASU_ECC_NIST_ED25519_PH) &&
+	    (EccParamsPtr->Key.CurveType != XASU_ECC_NIST_ED448_PH)) &&
 	    ((EccParamsPtr->DigestLen == 0U) ||
 	    (EccParamsPtr->DigestLen > XASU_SHA_512_HASH_LEN))) {
 		goto END;
@@ -516,7 +518,9 @@ static s32 XAsu_ValidateEccKeyParameters(const XAsu_EccKeyParams *EccKeyParamsPt
 		goto END;
 	}
 
-	if (XAsu_EccValidateCurveInfo(EccKeyParamsPtr->CurveType, EccKeyParamsPtr->PvtKey.KeyLen) != XST_SUCCESS) {
+	/** Validate curve information. */
+	if (XAsu_EccValidateCurveInfo(EccKeyParamsPtr->PvtKey.CurveType,
+								EccKeyParamsPtr->PvtKey.KeyLen) != XST_SUCCESS) {
 		goto END;
 	}
 
@@ -567,7 +571,13 @@ static s32 XAsu_ValidateEcdhParameters(const XAsu_EcdhParams *EcdhParamsPtr)
 		goto END;
 	}
 
-	if (XAsu_EccValidateCurveInfo(EcdhParamsPtr->CurveType, EcdhParamsPtr->PvtKey.KeyLen) != XST_SUCCESS) {
+	if (EcdhParamsPtr->PvtKey.CurveType != EcdhParamsPtr->PubKey.CurveType) {
+		goto END;
+	}
+
+	/** Validate curve information. */
+	if (XAsu_EccValidateCurveInfo(EcdhParamsPtr->PvtKey.CurveType,
+								EcdhParamsPtr->PvtKey.KeyLen) != XST_SUCCESS) {
 		goto END;
 	}
 

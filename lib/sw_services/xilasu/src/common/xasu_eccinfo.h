@@ -103,6 +103,8 @@ typedef struct {
 	u64 KeyAddr;     /**< Address of the key data (private or public) */
 	u32 KeyId;       /**< Key identifier from key management (used if KeyAddr == 0) */
 	u32 KeyLen;      /**< Length of the key in bytes (curve length) */
+	u32 CurveType;   /**< Type of curve */
+	u8 Reserved[4]; /**< Explicit padding to ensure consistent struct size across architectures */
 } XAsu_EccKeyObject;
 
 /** This structure contains ECC params info for signature operations. */
@@ -110,16 +112,14 @@ typedef struct {
 	XAsu_EccKeyObject Key;  /**< Key object (private or public) */
 	u64 DigestAddr;         /**< Address of digest */
 	u64 SignAddr;           /**< Address of signature */
-	u32 CurveType;          /**< Type of curve */
 	u32 DigestLen;          /**< Length of the digest provided */
+	u8 Reserved[4]; /**< Explicit padding to ensure consistent struct size across architectures */
 } XAsu_EccParams;
 
 /** This structure contains ECC params info for public key generation. */
 typedef struct {
 	XAsu_EccKeyObject PvtKey; /**< Private key object */
 	u64 PubKeyAddr;         /**< Address where public key will be written (size = 2 * PvtKey.KeyLen) */
-	u32 CurveType;          /**< Type of curve */
-	u8 Reserved[4]; /**< Explicit padding to ensure consistent struct size across architectures */
 } XAsu_EccKeyParams;
 
 /** This structure contains ECDH params info. */
@@ -128,8 +128,6 @@ typedef struct {
 	XAsu_EccKeyObject PubKey; /**< Peer's public key object */
 	u64 SharedSecretAddr;   /**< Address where shared secret will be written (size = PvtKey.KeyLen) */
 	u64 SharedSecretObjIdAddr; /**< Optional object ID for shared secret storage */
-	u32 CurveType;          /**< Type of curve */
-	u8 Reserved[4]; /**< Explicit padding to ensure consistent struct size across architectures */
 } XAsu_EcdhParams;
 
 /*************************** Macros (Inline Functions) Definitions *******************************/

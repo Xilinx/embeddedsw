@@ -136,7 +136,8 @@ int main(void)
 	ClientParams.AdditionalStatus = XST_FAILURE;
 
 	ErrorStatus = XST_FAILURE;
-	EcdhParams.CurveType = CurveType;
+	EcdhParams.PvtKey.CurveType = CurveType;
+	EcdhParams.PubKey.CurveType = CurveType;
 	EcdhParams.SharedSecretObjIdAddr = 0U;
 	EcdhParams.PvtKey.KeyLen = CurveLength;
 	EcdhParams.PubKey.KeyLen = CurveLength;
@@ -178,7 +179,8 @@ int main(void)
 	ClientParams.AdditionalStatus = XST_FAILURE;
 
 	ErrorStatus = XST_FAILURE;
-        EcdhParams.CurveType = CurveType;
+    EcdhParams.PvtKey.CurveType = CurveType;
+	EcdhParams.PubKey.CurveType = CurveType;
 	EcdhParams.SharedSecretObjIdAddr = 0U;
 	EcdhParams.PvtKey.KeyLen = CurveLength;
 	EcdhParams.PubKey.KeyLen = CurveLength;

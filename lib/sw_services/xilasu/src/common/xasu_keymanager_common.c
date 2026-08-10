@@ -114,6 +114,39 @@ END:
 
 /*************************************************************************************************/
 /**
+ * @brief	This function validates the key attributes field against the key type.
+ *
+ * @param	KeyType		Key type identifier. May include the wrapped-key bit
+ *				(XASU_KM_KEYTYPE_WRAPPED_BIT_MASK), which is masked out before
+ *				comparing against the sub-vault identifier.
+ * @param	KeyAttributes	Key attributes value from the key metadata.
+ *
+ * @return
+ *	- XST_SUCCESS, if the key attributes are valid for the given key type.
+ *	- XST_FAILURE, if the key attributes are invalid.
+ *
+ *************************************************************************************************/
+s32 XAsu_KmValidateKeyAttributes(u8 KeyType, u8 KeyAttributes)
+{
+	s32 Status = XST_FAILURE;
+
+	/**
+	 * For an RSA private key, the key attributes encode the private key format
+	 * (prime/totient presence) and must not exceed the maximum supported value.
+	 */
+	if (((KeyType & (u8)(~XASU_KM_KEYTYPE_WRAPPED_BIT_MASK)) == (u8)XASU_RSA_PVT_SUBVAULT_ID) &&
+	    (KeyAttributes > XASU_KM_RSA_PVT_ATTR_MAX)) {
+		goto END;
+	}
+
+	Status = XST_SUCCESS;
+
+END:
+	return Status;
+}
+
+/*************************************************************************************************/
+/**
  * @brief	This function validates key length parameters for a given key.
  *
  * @param	KeyLength	Length of the key material in bytes.

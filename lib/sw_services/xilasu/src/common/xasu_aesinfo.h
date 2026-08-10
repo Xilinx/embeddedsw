@@ -119,9 +119,9 @@ typedef struct {
 
 /** This structure contains AES IV object information. */
 typedef struct {
-	u64 IvAddr; /**< AES IV address */
-	u32 IvLen; /**< AES IV length */
-	u32 IvId; /**< AES IV ID */
+	u64 IvAddr; /**< AES Iv/Nonce address */
+	u32 IvLen; /**< AES Iv/Nonce length */
+	u32 IvId; /**< AES IV ID, if the IV is used from ASU key vault */
 } XAsu_AesIvObject;
 
 /**
@@ -133,11 +133,10 @@ typedef struct {
 	u64 OutputDataAddr; /**< AES output data address */
 	u64 AadAddr; /**< AES Aad address */
 	u64 KeyObjectAddr; /**< AES Key object address */
-	u64 IvAddr; /**< AES Iv/Nonce address */
 	u64 TagAddr; /**< AES Tag address */
+	XAsu_AesIvObject IvObj; /**< AES IV object */
 	u32 DataLen; /**< AES input and output data length */
 	u32 AadLen; /**< AES AAD length */
-	u32 IvLen; /**< AES Iv/Nonce length */
 	u32 TagLen; /**< AES tag length */
 	u8 EngineMode; /**< AES engine mode */
 	u8 OperationFlags; /**< AES operation flag is a combination of (XASU_INIT,
@@ -148,7 +147,6 @@ typedef struct {
 	u8 OperationType; /**< AES encrypt/decrypt operation type
 					* - XASU_AES_ENCRYPT_OPERATION: For encrypt operation
 					* - XASU_AES_DECRYPT_OPERATION: For decrypt operation */
-	u32 IvId; /**< AES IV ID, if the IV to be used from ASU key vault */
 } XAsu_AesParams;
 
 /************************************ Function Prototypes ****************************************/

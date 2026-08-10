@@ -564,13 +564,9 @@ s32 XAsu_KmStoreKey(XAsu_ClientParams *ClientParamPtr, XAsu_KeyManagerParams *Ke
 		goto END;
 	}
 
-	/**
-	 * KeyType may have the wrapped-key bit set by the caller. Mask it out before
-	 * comparing against the sub-vault identifier to validate key attributes.
-	 */
-	if (((KeyParams->KeyMetadata.KeyType & ~XASU_KM_KEYTYPE_WRAPPED_BIT_MASK) ==
-			(u8)XASU_RSA_PVT_SUBVAULT_ID) &&
-	    (KeyParams->KeyMetadata.KeyAttributes > XASU_KM_RSA_PVT_ATTR_MAX)) {
+	/** Validate key attributes against the key type. */
+	if (XAsu_KmValidateKeyAttributes(KeyParams->KeyMetadata.KeyType,
+			KeyParams->KeyMetadata.KeyAttributes) != XST_SUCCESS) {
 		Status = XASU_INVALID_ARGUMENT;
 		goto END;
 	}

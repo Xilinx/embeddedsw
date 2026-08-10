@@ -596,9 +596,9 @@ static s32 XAsu_SendCryptoRequestsSet1(void)
 	AesEncryptParams.IsLast = TRUE;
 	AesEncryptParams.OperationType = XASU_AES_ENCRYPT_OPERATION;
 	AesEncryptParams.KeyObjectAddr = (u64)(UINTPTR)&AesKeyObj;
-	AesEncryptParams.IvAddr = (u64)(UINTPTR)XAsu_AesIv;
-	AesEncryptParams.IvLen = XASU_AES_IV_LEN_IN_BYTES;
-	AesEncryptParams.IvId = 0U;
+	AesEncryptParams.IvObj.IvAddr = (u64)(UINTPTR)XAsu_AesIv;
+	AesEncryptParams.IvObj.IvLen = XASU_AES_IV_LEN_IN_BYTES;
+	AesEncryptParams.IvObj.IvId = 0U;
 	AesEncryptParams.InputDataAddr = (u64)(UINTPTR)XAsu_AesInputData;
 	AesEncryptParams.OutputDataAddr = (u64)(UINTPTR)XAsu_AesEncData;
 	AesEncryptParams.DataLen = XASU_AES_PAYLOAD_DATA_LEN_IN_BYTES;
@@ -625,7 +625,7 @@ static s32 XAsu_SendCryptoRequestsSet1(void)
 	EccSignGenClientParams.CallBackFuncPtr = (XAsuClient_ResponseHandler)((void *)XAsu_MultiCryptoCallBack);
 	EccSignGenClientParams.CallBackRefPtr = (void *)&XAsu_OpContexts[XASU_OP_ECC_SIGN_GEN];
 
-	EccSignGenParams.CurveType = XASU_ECC_NIST_P256;
+	EccSignGenParams.Key.CurveType = XASU_ECC_NIST_P256;
 	EccSignGenParams.DigestAddr = (u64)(UINTPTR)XAsu_EccHash;
 	EccSignGenParams.Key.KeyAddr = (u64)(UINTPTR)XAsu_EccPrivKey;
 	EccSignGenParams.SignAddr = (u64)(UINTPTR)XAsu_EccSign;
@@ -779,9 +779,9 @@ static s32 XAsu_SendCryptoRequestsSet2(void)
 		AesDecryptParams.IsLast = TRUE;
 		AesDecryptParams.OperationType = XASU_AES_DECRYPT_OPERATION;
 		AesDecryptParams.KeyObjectAddr = (u64)(UINTPTR)&AesKeyObj;
-		AesDecryptParams.IvAddr = (u64)(UINTPTR)XAsu_AesIv;
-		AesDecryptParams.IvLen = XASU_AES_IV_LEN_IN_BYTES;
-		AesDecryptParams.IvId = 0U;
+		AesDecryptParams.IvObj.IvAddr = (u64)(UINTPTR)XAsu_AesIv;
+		AesDecryptParams.IvObj.IvLen = XASU_AES_IV_LEN_IN_BYTES;
+		AesDecryptParams.IvObj.IvId = 0U;
 		AesDecryptParams.InputDataAddr = (u64)(UINTPTR)XAsu_AesEncData;
 		AesDecryptParams.OutputDataAddr = (u64)(UINTPTR)XAsu_AesDecData;
 		AesDecryptParams.DataLen = XASU_AES_PAYLOAD_DATA_LEN_IN_BYTES;

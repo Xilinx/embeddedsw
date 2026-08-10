@@ -193,6 +193,7 @@ typedef struct {
 
 /** This structure contains the RSA key pair object with modulus, exponents, and CRT parameters. */
 typedef struct {
+	u32 PubExp;			/**< Public exponent value. */
 	u32 Modulus[XRSA_MAX_KEY_SIZE_IN_WORDS]; /**< Modulus buffer. */
 	u32 PvtExp[XRSA_MAX_KEY_SIZE_IN_WORDS]; /**< Private exponent buffer. */
 	u32 Prime1[XRSA_MAX_PRIME_SIZE_IN_WORDS]; /**< Prime1 buffer. */
