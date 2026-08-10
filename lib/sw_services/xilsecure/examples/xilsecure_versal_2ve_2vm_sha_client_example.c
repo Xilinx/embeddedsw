@@ -58,6 +58,7 @@
 * 5.7	sri   04/17/26 Added DCache invalidate for before sending IPI request
 *	rpu   08/04/26 Remove const from Sha3Hash and Sha2Hash output buffers and update shared
 *		       memory comments
+* 5.8	tvp   08/10/26 Added SHAKE256 XOF variable-length hash example
 *
 * </pre>
 ******************************************************************************/
@@ -76,20 +77,25 @@
 
 #define SHA3_384_HASH_LEN_IN_BYTES	(48U)
 #define SHA2_256_HASH_LEN_IN_BYTES	(32U)
+/* Variable-length SHAKE256 XOF output requested in this example (in bytes) */
+#define SHAKE256_XOF_LEN_IN_BYTES	(200U)
 #define SHA_INPUT_DATA_LEN		(6U)
 
 /************************** Function Prototypes ******************************/
 
 static u32 SecureSha3Example(void);
 static u32 SecureSha2Example(void);
+static u32 SecureShake256XofExample(void);
 static void SecureSha3PrintHash(const u8 *Hash);
 static void SecureSha2PrintHash(const u8 *Hash);
+static void SecurePrintHash(const u8 *Hash, u32 Size);
 /************************** Variable Definitions *****************************/
 
 static const char Data[SHA_INPUT_DATA_LEN + 1U] __attribute__ ((section (".data.Data"))) = "XILINX";
 static XSecure_ShaOpParams ShaParams __attribute__ ((section (".data.ShaParams")));
 static char Sha3Hash[SHA3_384_HASH_LEN_IN_BYTES] __attribute__ ((section (".data.Sha3Hash")));
 static char Sha2Hash[SHA2_256_HASH_LEN_IN_BYTES] __attribute__ ((section (".data.Sha2Hash")));
+static char Shake256Hash[SHAKE256_XOF_LEN_IN_BYTES] __attribute__ ((section (".data.Shake256Hash")));
 static const u8 ExpSha3Hash[SHA3_384_HASH_LEN_IN_BYTES] = {
 	0x70, 0x69, 0x77, 0x35, 0x0b, 0x93,
 	0x92, 0xa0, 0x48, 0x2c, 0xd8, 0x23,
@@ -107,6 +113,34 @@ static const u8 ExpSha2Hash[SHA2_256_HASH_LEN_IN_BYTES] = {
 	0x72, 0x4C, 0xAF, 0x10, 0x29, 0x1A,
 	0x1F, 0xF5, 0x74, 0xCF, 0x6B, 0xC6,
 	0xDA, 0xBF
+};
+/* Expected SHAKE256 XOF digest of "XILINX" for SHAKE256_XOF_LEN_IN_BYTES bytes */
+static const u8 ExpShake256Hash[SHAKE256_XOF_LEN_IN_BYTES] = {
+	0xD2, 0xB0, 0x25, 0xA2, 0x08, 0xF4, 0xED, 0x3E,
+	0xDB, 0xB5, 0x38, 0xDB, 0xCD, 0x30, 0x0C, 0xE7,
+	0x09, 0x38, 0xF6, 0x87, 0x2B, 0x88, 0xBF, 0x22,
+	0xAB, 0x77, 0x2D, 0x11, 0xF1, 0xBD, 0xC9, 0xB0,
+	0x86, 0x93, 0x0D, 0xCA, 0xDB, 0xAA, 0x5C, 0x68,
+	0x40, 0x59, 0xD3, 0x08, 0xF4, 0x19, 0xA9, 0xA5,
+	0xFF, 0xBE, 0x60, 0x4C, 0x7F, 0xEC, 0xCF, 0x21,
+	0x47, 0x71, 0x6D, 0x9E, 0x3C, 0xC3, 0x52, 0xC3,
+	0xCA, 0x60, 0x8E, 0x32, 0x1D, 0x83, 0xFF, 0x01,
+	0x59, 0xD3, 0x08, 0x57, 0x07, 0x09, 0xD0, 0xF5,
+	0x43, 0xD4, 0x6A, 0xF9, 0x25, 0xCA, 0x58, 0x4E,
+	0x46, 0x4E, 0xC4, 0xC5, 0x89, 0xBF, 0x25, 0xC0,
+	0xBF, 0x7E, 0xEC, 0xCD, 0x9D, 0x11, 0x0F, 0x4C,
+	0x98, 0xDF, 0xC8, 0x75, 0xE9, 0x39, 0xB1, 0x59,
+	0x47, 0xE7, 0xAC, 0xD5, 0xAD, 0xE0, 0x90, 0xD3,
+	0x3B, 0xB0, 0x8C, 0x80, 0xE7, 0xFD, 0x72, 0x9D,
+	0xEA, 0x8A, 0xD6, 0xAA, 0xC7, 0x05, 0xCF, 0xA7,
+	0xF4, 0x7E, 0xBD, 0xBB, 0x73, 0x42, 0xFC, 0xB1,
+	0x79, 0x9E, 0x56, 0x43, 0x4C, 0x7A, 0x24, 0x10,
+	0x77, 0xAB, 0xAF, 0x9C, 0xF9, 0xA4, 0xC8, 0x58,
+	0x4E, 0x0F, 0x71, 0x58, 0x7E, 0x6E, 0xD2, 0x02,
+	0xC7, 0x41, 0x2A, 0xA2, 0x43, 0x19, 0x18, 0xDB,
+	0x72, 0x0D, 0xE5, 0x78, 0x72, 0x55, 0x85, 0x53,
+	0x9D, 0x15, 0x75, 0x20, 0xB7, 0xC0, 0x9A, 0xB6,
+	0x98, 0x42, 0x0B, 0xE2, 0xDF, 0x9D, 0x89, 0x0E
 };
 
 /* shared memory allocation */
@@ -149,6 +183,14 @@ int main(void)
         else {
                 xil_printf("SHA2 Example failed");
         }
+
+	Status = SecureShake256XofExample();
+	if (Status == XST_SUCCESS) {
+		xil_printf("Successfully ran SHAKE256 XOF example");
+	}
+	else {
+		xil_printf("SHAKE256 XOF Example failed");
+	}
 
 	return Status;
 }
@@ -367,5 +409,111 @@ static void SecureSha2PrintHash(const u8 *Hash)
 	}
 	xil_printf(" \r\n ");
  }
+
+/****************************************************************************/
+/**
+*
+* This function sends 'XILINX' to the SHA-3 module and requests a
+* variable-length SHAKE256 digest using the hardware eXtendable-Output
+* Function (XOF). The variable-length output is selected by setting
+* ShaParams.ReqHashSize to a non-zero value; the server then routes the
+* finish operation to XSecure_ExtendedShaFinish. This illustrates how to
+* obtain a SHAKE256 XOF hash over the IPI interface.
+*
+* @return
+*		- XST_SUCCESS - SHAKE256 XOF hash successfully generated for the
+*				given input data string.
+*		- XST_FAILURE - if the SHAKE256 XOF hash failed.
+*
+****************************************************************************/
+/** //! [SHAKE256 XOF example] */
+static u32 SecureShake256XofExample(void)
+{
+	u64 DstAddr = (UINTPTR)&Shake256Hash;
+	u32 Status = XST_FAILURE;
+	u32 Size = 0U;
+	XMailbox MailboxInstance;
+	XSecure_ClientInstance SecureClientInstance;
+
+	Status = XMailbox_Initialize(&MailboxInstance, 0U);
+	if (Status != XST_SUCCESS) {
+		xil_printf("Mailbox initialize failed:%08x \r\n", Status);
+		goto END;
+	}
+
+	Status = XSecure_ClientInit(&SecureClientInstance, &MailboxInstance);
+	if (Status != XST_SUCCESS) {
+		xil_printf("Client initialize failed:%08x \r\n", Status);
+		goto END;
+	}
+
+	/* Set shared memory */
+	Status = XMailbox_SetSharedMem(&MailboxInstance, (u64)(UINTPTR)&SharedMem[0U],
+			XSECURE_SHARED_MEM_SIZE);
+	if (Status != XST_SUCCESS) {
+		xil_printf("\r\n shared memory initialization failed");
+		goto END;
+	}
+
+	Size = Xil_Strnlen(Data, SHA_INPUT_DATA_LEN);
+	if (Size != SHA_INPUT_DATA_LEN) {
+		xil_printf("Provided data length is Invalid\n\r");
+		Status = XST_FAILURE;
+		goto END;
+	}
+
+	Xil_DCacheInvalidateRange((UINTPTR)DstAddr, SHAKE256_XOF_LEN_IN_BYTES);
+
+	ShaParams.DataAddr = (UINTPTR)&Data;
+	ShaParams.HashAddr = DstAddr;
+	ShaParams.DataSize = Size;
+	/* For SHAKE256, HashBufSize also selects the variable-length XOF output size */
+	ShaParams.HashBufSize = SHAKE256_XOF_LEN_IN_BYTES;
+	ShaParams.ShaMode = XSECURE_SHAKE_256;
+	ShaParams.IsLast = TRUE;
+	ShaParams.OperationFlags = (XSECURE_SHA_START | XSECURE_SHA_UPDATE | XSECURE_SHA_FINISH);
+
+	/* Flush cache for input and output buffers before sending IPI request to ensure data coherency */
+	XSecure_DCacheFlushRange(&ShaParams, sizeof(XSecure_ShaOpParams));
+
+	Status = XSecure_Sha3Operation(&SecureClientInstance, &ShaParams);
+	if(Status != XST_SUCCESS) {
+		xil_printf("Calculation of SHAKE256 XOF digest failed, Status = %x \n\r", Status);
+		goto END;
+	}
+	Xil_DCacheInvalidateRange((UINTPTR)DstAddr, SHAKE256_XOF_LEN_IN_BYTES);
+
+	xil_printf(" Calculated Hash \r\n ");
+	SecurePrintHash((const u8 *)(UINTPTR)&Shake256Hash, SHAKE256_XOF_LEN_IN_BYTES);
+
+	Status = Xil_SMemCmp_CT(ExpShake256Hash, SHAKE256_XOF_LEN_IN_BYTES, Shake256Hash,
+				SHAKE256_XOF_LEN_IN_BYTES, SHAKE256_XOF_LEN_IN_BYTES);
+	if (Status != XST_SUCCESS) {
+		xil_printf("Expected Hash \r\n");
+		SecurePrintHash(ExpShake256Hash, SHAKE256_XOF_LEN_IN_BYTES);
+		xil_printf("SHAKE256 XOF Example Failed at Hash Comparison \r\n");
+	}
+
+END:
+	return Status;
+}
+
+/****************************************************************************/
+/**
+* This function prints the given hash of the requested length on the console
+*
+* @param	Hash  Pointer to the hash buffer
+* @param	Size  Number of bytes to print
+*
+****************************************************************************/
+static void SecurePrintHash(const u8 *Hash, u32 Size)
+{
+	u32 Index;
+
+	for (Index = 0U; Index < Size; Index++) {
+		xil_printf(" %0x ", Hash[Index]);
+	}
+	xil_printf(" \r\n ");
+}
 /** //! [SHA3/2 example] */
 /** @} */
