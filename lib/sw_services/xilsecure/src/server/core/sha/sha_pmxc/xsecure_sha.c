@@ -29,6 +29,7 @@
 *       tvp  02/23/26 Add XSecure_ExtendedShaFinish to support variable-length
 *                     hash output
 *       tvp  04/15/26 Add SHA mode validation in XSecure_ExtendedShaFinish
+* 5.8   tvp  07/17/26 Add SHAKE256 XOF feature support
 *
 * </pre>
 *
@@ -44,6 +45,7 @@
 #include "xsecure_error.h"
 #include "xsecure_utils.h"
 #include "xsecure_sha_hw.h"
+#include "xil_sutil.h"
 
 /************************** Constant Definitions **************************************************/
 
@@ -264,7 +266,7 @@ int XSecure_ShaStart(XSecure_Sha* const InstancePtr, XSecure_ShaMode ShaMode)
 				XSECURE_SHA_AUTO_MODE_ENABLE);
 
 #ifdef XSECURE_SHA_CHAIN_MODE_EN
-	if (ShaPlatConfig->ShaMode == SHAKE256_SLH_DSA_CHAIN) {
+	if (ShaPlatConfig->HashAlgo == XSECURE_SHAKE_256_SLH_DSA_CHAIN) {
 		if (InstancePtr->DoChainConfig == (u32)TRUE) {
 			/** - Configure Chain start index and chain iteration count */
 			Xil_Out32((InstancePtr->BaseAddress + XSECURE_SHA3_CHAIN_OFFSET),
@@ -403,10 +405,11 @@ END:
 	return Status;
 }
 
+#ifdef XSECURE_SHA3_XOF_FEATURE_SUPPORTED
 /******************************************************************************/
 /**
-* @brief	This function calculates and reads the final hash of input data
-*		with support for variable-length hash output.
+* @brief	This function completes SHAKE256 and reads a caller-requested digest
+*		length using the hardware eXtendable-Output Function (XOF).
 *
 * @param	InstancePtr	Pointer to the SHA instance.
 * @param	HashAddr	Pointer to the buffer where the final hash will
@@ -415,8 +418,7 @@ END:
 *				Must be at least as large as ReqHashSize to
 *				avoid buffer overflow.
 * @param	ReqHashSize	Requested hash size in bytes to be read from the
-*				SHA digest. Must not exceed
-*				XSECURE_MAX_HASH_SIZE_IN_BYTES.
+*				SHA digest. Should not be zero.
 *
 * @return
 *		- XST_SUCCESS - Upon successful hash calculation and retrieval.
@@ -426,8 +428,6 @@ END:
 *		- XSECURE_SHA_STATE_MISMATCH_ERROR - When SHA engine is in initialized
 *						     state without any update.
 *		- XSECURE_SHA_NIST_PADDING_ERROR - When NIST padding operation fails.
-*		- XSECURE_SHA_MAX_HASH_SIZE_EXCEED_ERROR - When ReqHashSize exceeds
-*							   XSECURE_MAX_HASH_SIZE_IN_BYTES.
 *
 *******************************************************************************/
 int XSecure_ExtendedShaFinish(XSecure_Sha* const InstancePtr, u64 HashAddr,
@@ -438,18 +438,25 @@ int XSecure_ExtendedShaFinish(XSecure_Sha* const InstancePtr, u64 HashAddr,
 	u32 ShaDigestSizeInWords = 0U;
 	u32 RegVal;
 	const u8 *LastWordBytPtr;
-	u32 RemBytes;
-	u64 LastHashAddr;
-	XSecure_ShaPlatConfig *ShaPlatConfig = (XSecure_ShaPlatConfig *)InstancePtr->ShaPlatConfig;
+	volatile u32 RemBytes;
+	const XSecure_ShaPlatConfig *ShaPlatConfig;
+	volatile u32 NoOfXof;
+	u32 RemShaDigestSizeInWords;
+	/* Hash words to be read in one XoF iteration */
+	volatile u32 WordsToRead = 0U;
+	/* Index to iterate over Number of XoFs */
+	volatile u32 XofIndex;
+	/* Address to store SHA output */
+	u64 DestHashAddr = HashAddr;
 
 	/** - Validate the input arguments. */
-	if(InstancePtr == NULL) {
+	if (InstancePtr == NULL) {
 		Status = (int)XSECURE_SHA_INVALID_PARAM;
 		goto END;
 	}
 
-	/** - Validate Hash buffer size to avoid buffer overflow. */
-	if(HashBufSize < ReqHashSize) {
+	/** - Validate Hash buffer size and required Hash size to avoid buffer overflow. */
+	if ((HashBufSize < ReqHashSize) || (ReqHashSize == 0U)) {
 		Status = (int)XSECURE_SHA_INVALID_PARAM;
 		goto END;
 	}
@@ -461,19 +468,26 @@ int XSecure_ExtendedShaFinish(XSecure_Sha* const InstancePtr, u64 HashAddr,
 	}
 
 	/** - Validate SHA platform configs. */
-	if (ShaPlatConfig == NULL) {
+	if (InstancePtr->ShaPlatConfig == NULL) {
 		Status = (int)XSECURE_SHA_INVALID_PARAM;
 		goto END;
 	}
 
+	ShaPlatConfig = (const XSecure_ShaPlatConfig *)InstancePtr->ShaPlatConfig;
+
+	/**
+	 * XSecure_ExtendedShaFinish is applicable only for XSECURE_SHAKE_256 and
+	 * XSECURE_SHAKE_256_SLH_DSA_CHAIN(if XSECURE_SHA_CHAIN_MODE_EN is defined) Sha modes.
+	 * Return error for any other modes.
+	 */
 #ifdef XSECURE_SHA_CHAIN_MODE_EN
-	if ((ShaPlatConfig->ShaMode != SHAKE256) &&
-			(ShaPlatConfig->ShaMode != SHAKE256_SLH_DSA_CHAIN)) {
+	if ((ShaPlatConfig->HashAlgo != XSECURE_SHAKE_256) &&
+			(ShaPlatConfig->HashAlgo != XSECURE_SHAKE_256_SLH_DSA_CHAIN)) {
 		Status = (int)XSECURE_SHA_INVALID_PARAM;
 		goto END;
 	}
 #else
-	if (ShaPlatConfig->ShaMode != SHAKE256) {
+	if (ShaPlatConfig->HashAlgo != XSECURE_SHAKE_256) {
 		Status = (int)XSECURE_SHA_INVALID_PARAM;
 		goto END;
 	}
@@ -500,40 +514,62 @@ int XSecure_ExtendedShaFinish(XSecure_Sha* const InstancePtr, u64 HashAddr,
 
 	/** - Check the SHA2/3 DONE bit. */
 	Status = XSecure_ShaWaitForDone(InstancePtr);
-	if(Status != XST_SUCCESS) {
+	if (Status != XST_SUCCESS) {
 		Status = XST_FAILURE;
 		goto END_RST;
 	}
 
-	if (ReqHashSize <= XSECURE_MAX_HASH_SIZE_IN_BYTES) {
-		ShaDigestSizeInWords = ReqHashSize / XSECURE_WORD_SIZE;
-		RemBytes = ReqHashSize % XSECURE_WORD_SIZE;
+	ShaDigestSizeInWords = ReqHashSize / XSECURE_WORD_SIZE;
+	RemBytes = ReqHashSize % XSECURE_WORD_SIZE;
+	/** - Number of times SHA_NEXT_XOF needs to be asserted */
+	NoOfXof = (u32)XIL_SCEILDIV(u64, ReqHashSize, XSECURE_SHAKE256_XOF_BLOCK_SIZE);
+	/** - Remaining Hash size(in words) to be read from hardware */
+	RemShaDigestSizeInWords = ShaDigestSizeInWords;
 
-		/** - Read the Hash (word-aligned) and store in Hash Buffer. */
-		for (Index = 0U; Index < ShaDigestSizeInWords; Index++) {
-			RegVal = XSecure_ReadReg(InstancePtr->BaseAddress,
-					(u16)(XSECURE_SHA_DIGEST_OFFSET +
-					      (Index * XSECURE_WORD_SIZE)));
-			XSecure_OutWord64(HashAddr + (Index * XSECURE_WORD_SIZE),
-				      RegVal);
-		}
-
-		LastHashAddr = HashAddr +
-				(ShaDigestSizeInWords * XSECURE_WORD_SIZE);
-		/** - Handle last partial word if present */
-		if (RemBytes > 0U) {
-			RegVal = XSecure_ReadReg(InstancePtr->BaseAddress,
-					(u16)(XSECURE_SHA_DIGEST_OFFSET +
-					      (Index * XSECURE_WORD_SIZE)));
-			LastWordBytPtr = (u8 *)(UINTPTR)&RegVal;
-			for (Index = 0U; Index < RemBytes; Index++) {
-				XSecure_OutByte64(LastHashAddr + Index,
-						  *(LastWordBytPtr + Index));
+	/**
+	 * Collect the variable-length SHAKE256 digest from hardware XOF blocks.
+	 *
+	 * Each XOF assert exposes up to XSECURE_SHAKE256_XOF_BLOCK_SIZE bytes of Hash output.
+	 */
+	for (XofIndex = 0U; XofIndex < NoOfXof; XofIndex++) {
+		if (XofIndex > 0U) {
+			/** - Request the next SHAKE256 XOF output block from hardware. */
+			XSecure_WriteReg(InstancePtr->BaseAddress, XSECURE_SHA3_NEXT_XOF_OFFSET,
+					 XSECURE_VALUE_ONE);
+			/** Check the SHA2/3 DONE bit. */
+			Status = XSecure_ShaWaitForDone(InstancePtr);
+			if (Status != XST_SUCCESS) {
+				Status = XST_FAILURE;
+				goto END_RST;
 			}
 		}
-	} else {
-		Status = XSECURE_SHA_MAX_HASH_SIZE_EXCEED_ERROR;
-		goto END;
+		WordsToRead = (RemShaDigestSizeInWords < XSECURE_SHAKE256_XOF_BLOCK_SIZE_IN_WORDS)?
+			RemShaDigestSizeInWords : XSECURE_SHAKE256_XOF_BLOCK_SIZE_IN_WORDS;
+
+		Xil_MemCpyFrom32To64Addr(DestHashAddr, (u32)(InstancePtr->BaseAddress +
+					 XSECURE_SHA_DIGEST_OFFSET), (WordsToRead *
+					 XSECURE_WORD_SIZE));
+
+		DestHashAddr += (u64)(WordsToRead * XSECURE_WORD_SIZE);
+		RemShaDigestSizeInWords -= WordsToRead;
+	}
+
+	if (XofIndex != NoOfXof) {
+		Status = XST_FAILURE;
+		goto END_RST;
+	}
+
+	/** - Handle last partial word if present */
+	if (RemBytes > 0U) {
+		RegVal = XSecure_ReadReg(InstancePtr->BaseAddress, (u16)(XSECURE_SHA_DIGEST_OFFSET +
+					(WordsToRead * XSECURE_WORD_SIZE)));
+		LastWordBytPtr = (u8 *)(UINTPTR)&RegVal;
+		for (Index = 0U; Index < RemBytes; Index++) {
+			XSecure_OutByte64((DestHashAddr + Index), *(LastWordBytPtr + Index));
+		}
+		if (Index != RemBytes) {
+			Status = XST_FAILURE;
+		}
 	}
 
 END_RST:
@@ -544,6 +580,7 @@ END_RST:
 END:
 	return Status;
 }
+#endif
 
 /*****************************************************************************/
 /**

@@ -18,6 +18,7 @@
 *       tri  10/25/24 Added maximum supported hash size macro
 * 5.6   aa   07/21/25 Removed unused macros
 * 5.7   tvp  02/23/26 Move SHA mode and auto padding offset from common file
+* 5.8   tvp  07/17/26 Remove XSECURE_MAX_HASH_SIZE_IN_BYTES macro
 *
 * </pre>
 *
@@ -47,12 +48,6 @@ extern "C" {
 
 #define XSECURE_SHA_0_DEVICE_ID			(XSECURE_SHA3_DEVICE_ID)
 							/**< SHA 0 device id */
-#ifdef SPARTANUPLUSAES1
-#define	XSECURE_MAX_HASH_SIZE_IN_BYTES		(48U)	/**< Maximum hash size in bytes supported by the hardware */
-#else
-#define	XSECURE_MAX_HASH_SIZE_IN_BYTES		(32U)	/**< Maximum hash size in bytes supported by the hardware */
-#endif
-
 #define XSECURE_SHA2_MODE_OFFSET		(0xA0U) /**< SHA2 Mode Register offset */
 #define XSECURE_SHA3_MODE_OFFSET		(0xA0U) /**< SHA3 Mode Register offset */
 

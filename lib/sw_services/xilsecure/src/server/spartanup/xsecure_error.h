@@ -21,6 +21,7 @@
  * 5.7   tvp  02/19/2026 Added XSECURE_SHA_MAX_HASH_SIZE_EXCEED_ERROR
  *       mb   03/13/2026 Add support for ECC curves for SPARTANUPLUSAES1 device
  *       mb   04/17/2026 Add error code XSECURE_ERR_CRYPTO_ACCELERATOR_DISABLED
+ * 5.8   tvp  05/17/2026 Remove XSECURE_SHA_MAX_HASH_SIZE_EXCEED_ERROR
  *
  * </pre>
  *
@@ -71,8 +72,6 @@ enum {
 
 	XSECURE_SHA_NIST_PADDING_ERROR,		/**< 0x10 - Error during NIST padding
 						     operation */
-	XSECURE_SHA_MAX_HASH_SIZE_EXCEED_ERROR,	/**< 0x11 - Error when requested hash size exceeds
-						     maximum supported hash size */
 	XSECURE_RESERVED_SHA1 = 0x30,		/**< 0x30 - Reserved for SHA1 */
 
 	XSECURE_AES_GCM_TAG_MISMATCH = 0x40,	/**< 0x40 - user provided GCM tag does

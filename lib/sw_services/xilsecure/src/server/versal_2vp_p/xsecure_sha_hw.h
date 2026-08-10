@@ -18,6 +18,7 @@
 * 5.7   tvp  02/19/26 Initial release
 *       tvp  02/23/26 Move SHA mode and auto padding offset from common file
 *       tvp  02/23/26 Add SHAKE256 SLH-DSA Chaining algorithm support
+*       tvp  05/15/26 Add SHAKE256 XOF feature support
 *
 * </pre>
 *
@@ -36,6 +37,8 @@ extern "C" {
 /************************************** Constant Definitions **************************************/
 #define XSECURE_SHA_CHAIN_MODE_EN				/**< Enable SHA chain mode */
 
+#define XSECURE_SHA3_XOF_FEATURE_SUPPORTED		/**< Enable SHA3-SHAKE256 XOF support */
+
 #define XSECURE_SHA_NUM_OF_INSTANCES		(2U)	/**< Number of Sha instances*/
 
 #define XSECURE_SHA3_DEVICE_ID			(0U)	/**< SHA3 device id */
@@ -50,7 +53,12 @@ extern "C" {
 
 #define XSECURE_SHA_1_DEVICE_ID			(XSECURE_SHA2_DEVICE_ID)	/**< SHA 1 device id */
 
-#define XSECURE_MAX_HASH_SIZE_IN_BYTES		(168U)	/**< SHA3 maximum supported hash size */
+#define XSECURE_SHAKE256_XOF_BLOCK_SIZE		(136U)  /**< Maximum digest bytes readable from
+							  the SHA engine per XOF block */
+#define XSECURE_SHAKE256_XOF_BLOCK_SIZE_IN_WORDS  (XSECURE_SHAKE256_XOF_BLOCK_SIZE / \
+						   XSECURE_WORD_SIZE)	/**< SHAKE256 XOF hash
+									  output block size in
+									  words */
 
 /** @name Register Map
  *
@@ -68,6 +76,8 @@ extern "C" {
 #define XSECURE_SHA2_AUTO_PADDING_OFFSET	(0xA4U) /**< SHA2 Auto Padding Register */
 #define XSECURE_SHA3_CHAIN_STEPS_BIT_POS	(16U)	/**< SHA3 chaining steps bit position */
 #define XSECURE_SHA3_CHAIN_OFFSET		(0xC8U)	/**< SHA chain control register */
+#define XSECURE_SHA3_NEXT_XOF_OFFSET		(0xCU)	/**< SHA3 register to pull the next
+							  SHAKE256 XOF output block */
 /** @} */
 
 #ifdef __cplusplus

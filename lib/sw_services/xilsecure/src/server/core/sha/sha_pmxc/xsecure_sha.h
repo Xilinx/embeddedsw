@@ -29,6 +29,8 @@
 *                     configurations
 *       tvp  02/23/26 Add XSecure_ExtendedShaFinish to support variable-length
 *                     hash output
+* 5.8   tvp  07/17/26 Conditionally compile XSecure_ExtendedShaFinish based on
+*                     XOF feature support
 *
 * </pre>
 *
@@ -88,8 +90,10 @@ u32 DataSize, u64 HashAddr, u32 HashBufSize);
 int XSecure_ShaLastUpdate(XSecure_Sha *InstancePtr);
 int XSecure_ShaValidateModeAndCfgInstance(XSecure_Sha * const InstancePtr,
 	XSecure_ShaMode ShaMode);
+#ifdef XSECURE_SHA3_XOF_FEATURE_SUPPORTED
 int XSecure_ExtendedShaFinish(XSecure_Sha* const InstancePtr, u64 HashAddr, u32 HashBufSize,
 			      u32 ReqHashSize);
+#endif
 u32 XSecure_ShaGetBlockLen(XSecure_ShaMode HashAlgo);
 
 /** @} */
