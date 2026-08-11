@@ -34,6 +34,7 @@
  * 	 vss  11/22/23 Added header file required for SDT flow
  * 2.7   bha  01/06/26 Fixed Doxygen warnings
  *       bha  02/25/26 Removed ICCARM related code
+ * 2.8   rpu  08/03/26 Updated shared memory section
  * </pre>
  * @note
  *
@@ -116,9 +117,9 @@
  * 		2. In this example ".data" section elements that are passed by reference to the server-side should
  * 		   be stored in the above shared memory section. To make it happen in below example,
  *		   replace ".data" in attribute section with ".sharedmemory". For example,
- * 	static XPuf_DataAddr PufData __attribute__ ((aligned (64U)) __attribute__ ((section (".data.PufData")));
+ * 	static XPuf_DataAddr PufData __attribute__ ((aligned (64)) __attribute__ ((section (".data.PufData")));
  * 					should be changed to
- * 	static XPuf_DataAddr PufData __attribute__ ((aligned (64U)) __attribute__ ((section (".sharedmemory.PufData")));
+ * 	static XPuf_DataAddr PufData __attribute__ ((aligned (64)) __attribute__ ((section (".sharedmemory.PufData")));
  *
  * To keep things simple, by default the cache is disabled for this example
  *
@@ -185,8 +186,8 @@ static XPuf_DataAddr PufData __attribute__ ((aligned (64)))
 static XPuf_PufData PufArr __attribute__ ((section (".data.PufArr")));
 
 /* shared memory allocation */
-static u8 SharedMem[XPUF_IV_LEN_IN_BYTES + XSECURE_SHARED_MEM_SIZE] __attribute__((aligned(64U)))
-						__attribute__ ((section (".data.Data")));
+static u8 SharedMem[XPUF_IV_LEN_IN_BYTES + XSECURE_SHARED_MEM_SIZE] __attribute__((aligned(64)))
+						__attribute__ ((section (".data.SharedMem")));
 
 static u8 Data[XPUF_DATA_LEN_IN_BYTES]__attribute__ ((aligned (64)))
 				__attribute__ ((section (".data.Data")));
