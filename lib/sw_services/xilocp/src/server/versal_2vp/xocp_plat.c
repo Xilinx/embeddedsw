@@ -18,6 +18,7 @@
 * 1.6   tvp  05/16/25 Initial release
 *       tvp  09/13/25 Moved XOcp_ReadSecureConfig from xocp.c to platform file
 * 1.7   rmv  01/30/26 Refactor OCP library
+* 1.8   tvp  08/10/26 Remove Caher1 and RomRsvd from secure config
 *
 * </pre>
 *
@@ -100,8 +101,6 @@ void XOcp_ReadSecureConfig(XOcp_SecureConfig* EfuseConfig)
 	EfuseConfig->BootEnvCtrl = XPlmi_In32(XOCP_EFUSE_CACHE_BOOT_ENV_CTRL);
 	EfuseConfig->IpDisable1 = XPlmi_In32(XOCP_EFUSE_CACHE_IP_DISABLE_1);
 	EfuseConfig->SecMisc1 = XPlmi_In32(XOCP_EFUSE_CACHE_SECURITY_MISC_1);
-	EfuseConfig->Caher1 = XPlmi_In32(XOCP_EFUSE_CACHE_CAHER_1) &
-						XOCP_CAHER_1_MEASURED_MASK;
 	EfuseConfig->DecOnly = XPlmi_In32(XOCP_EFUSE_CACHE_SECURITY_MISC_0) &
 			XOCP_DEC_ONLY_MEASURED_MASK;
 	EfuseConfig->SecCtrl = XPlmi_In32(XOCP_EFUSE_CACHE_SECURITY_CONTROL) &
@@ -111,8 +110,6 @@ void XOcp_ReadSecureConfig(XOcp_SecureConfig* EfuseConfig)
 	EfuseConfig->AnlgTrim3 = XPlmi_In32(XOCP_EFUSE_CACHE_ANLG_TRIM_3);
 	EfuseConfig->IPDisable0 = XPlmi_In32(XOCP_EFUSE_CACHE_IP_DISABLE_0) &
 			XOCP_IP_DISABLE0_MEASURED_MASK;
-	EfuseConfig->RomRsvd = XPlmi_In32(XOCP_EFUSE_CACHE_ROM_RSVD) &
-			XOCP_ROM_RSVD_MEASURED_MASK;
 }
 /** @} */
 #endif /* PLM OCP */

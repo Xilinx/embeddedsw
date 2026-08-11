@@ -17,6 +17,7 @@
 * ----- ---- --------   -------------------------------------------------------
 * 1.6   tvp  05/16/25 Initial release
 * 1.7   rmv  01/30/26 Refactor OCP library
+* 1.8   tvp  08/10/26 Correct IP disable measured mask for versal_2vp
 *
 * </pre>
 *
@@ -113,7 +114,7 @@ extern "C" {
 #define XOCP_PMC_LOCAL_BOOT_MODE_DIS_FULLMASK		(0x0000FFFFU) /**< PMC local disable mask */
 #define XOCP_MISC_CTRL_MEASURED_MASK			(0xE018C100U) /**< MISC control mask */
 #define XOCP_DME_FIPS_MEASURED_MASK			(0xFF00000FU) /**< DME FIPS mask */
-#define XOCP_IP_DISABLE0_MEASURED_MASK			(0xF0000F04U) /**< IP disable mask */
+#define XOCP_IP_DISABLE0_MEASURED_MASK			(0x30000000U) /**< IP disable mask */
 #define XOCP_ROM_RSVD_MEASURED_MASK			(0x000007C0U) /**< ROM reserved mask */
 
 #define XOCP_PMC_PLM_HASH_ADDR				(0xF1110750U) /**< PLM hash address */
