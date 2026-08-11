@@ -24,6 +24,7 @@
 *       pre 05/25/26 Added function to calculate I2C device ID for I2C handshake feature
 *       pre 07/14/26 Removed XLoader_GetI2CDeviceID function definition
 * 2.5   tvp 08/03/26 Added Jtag DAP config support for Non-Secure debug
+*       sd  08/07/26 Used XPLMI_VERIFY_ADDR_RANGE macro for load address check
 *
 * </pre>
 *
@@ -1029,14 +1030,6 @@ int XLoader_ProcessElf(XilPdi* PdiPtr, const XilPdi_PrtnHdr * PrtnHdr,
 	u32 Mode = 0U;
 	u8 TcmComb;
 
-	/**
-	 * - Verify the load address.
-	 */
-	Status = XPlmi_VerifyAddrRange(PrtnParams->DeviceCopy.DestAddr, EndAddr);
-	if (Status != XST_SUCCESS) {
-		Status = XPlmi_UpdateStatus(XLOADER_ERR_INVALID_ELF_LOAD_ADDR, Status);
-		goto END;
-	}
 	PrtnParams->DstnCpu = XilPdi_GetDstnCpu(PrtnHdr);
 
 	/**
@@ -1114,6 +1107,11 @@ int XLoader_ProcessElf(XilPdi* PdiPtr, const XilPdi_PrtnHdr * PrtnHdr,
 	if (XST_SUCCESS != Status) {
 		goto END;
 	}
+
+	/**
+	 * - Verify the load address.
+	 */
+	XPLMI_VERIFY_ADDR_RANGE(PM_SUBSYS_PMC, PrtnParams->DeviceCopy.DestAddr, Len, Status, XLOADER_ERR_INVALID_ELF_LOAD_ADDR, END);
 
 	if ((PrtnParams->DstnCpu != XIH_PH_ATTRB_DSTN_CPU_A72_0) &&
 			(PrtnParams->DstnCpu != XIH_PH_ATTRB_DSTN_CPU_A72_1)) {

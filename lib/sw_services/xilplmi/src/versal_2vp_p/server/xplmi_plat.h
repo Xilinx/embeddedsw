@@ -21,6 +21,7 @@
 *       tvp 03/06/26 Add macro for SSS config mask for SHA2 source
 *       sd  03/13/26 Added macros for hardware interrupt registers
 * 3.0   sd  08/03/26 Clear SSS Cfg Error set during ROM PCR Extension
+*       sd  08/07/26 Added declaration for XPlmi_SaveLpdEAMInfo
 * </pre>
 *
 ***************************************************************************************************/
@@ -968,6 +969,7 @@ u8 XPlmi_IsKatRan(u32 PlmKatMask);
 u8 XPlmi_IsPlmUpdateDone(void);
 u8 XPlmi_IsPlmUpdateDoneTmp(void);
 u8 XPlmi_IsPlmUpdateInProgress(void);
+void XPlmi_SaveLpdEAMInfo(void);
 
 /************************************ Variable Definitions ****************************************/
 
