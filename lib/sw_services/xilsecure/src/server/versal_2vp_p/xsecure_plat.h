@@ -61,6 +61,15 @@ extern "C" {
 
 #define XSECURE_DISABLE_BYTE_SWAP	(0x0U)		/**< Disables data swap in AES */
 
+/**
+ * Indicates that this platform uses the common AES DMA byte-swap policy, used by
+ * the shared core/loader/KAT code.
+ * The platform layer interprets XSecure_Aes instance's DmaSwapEn (set via
+ * XSecure_ConfigureDmaByteSwap()) to select the appropriate endianness handling
+ * (PMC DMA channel EndianType and/or AES core DATA_SWAP) and avoid double swap.
+ */
+#define XSECURE_AES_DMA_BYTE_SWAP
+
 #if !defined(XSECURE_TRNG_USER_CFG_SEED_LIFE)
 #define XSECURE_TRNG_USER_CFG_SEED_LIFE	XTRNGPSX_USER_CFG_SEED_LIFE
 								/**< User configuration seed life*/

@@ -810,7 +810,7 @@ int XSecure_AesDecryptKat(XSecure_Aes *AesInstance)
 		Status = (int)XSECURE_AES_KAT_WRITE_KEY_FAILED_ERROR;
 		goto END_CLR;
 	}
-#if defined(VERSAL_2VE_2VM) || defined(VERSAL_2VP_P)
+#ifdef XSECURE_AES_DMA_BYTE_SWAP
 	XSecure_ConfigureDmaByteSwap(XSECURE_ENABLE_BYTE_SWAP);
 #endif
 	/** - Configure AES engine to decryption */
@@ -930,7 +930,7 @@ int XSecure_AesEncryptKat(XSecure_Aes *AesInstance)
 		Status = (int)XSECURE_AES_KAT_WRITE_KEY_FAILED_ERROR;
 		goto END_CLR;
 	}
-#if defined(VERSAL_2VE_2VM) || defined(VERSAL_2VP_P)
+#ifdef XSECURE_AES_DMA_BYTE_SWAP
 	XSecure_ConfigureDmaByteSwap(XSECURE_ENABLE_BYTE_SWAP);
 #endif
 	/** - Configure AES engine to encryption */

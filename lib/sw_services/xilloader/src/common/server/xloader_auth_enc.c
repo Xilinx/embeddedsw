@@ -1865,7 +1865,7 @@ static int XLoader_AesDecryption(XLoader_SecureParams *SecurePtr,
 			Status  = XLoader_UpdateMinorErr(XLOADER_SEC_DPA_CM_ERR, Status);
 			goto END;
 		}
-#if defined(VERSAL_2VE_2VM) || defined(VERSAL_2VP_P)
+#ifdef XSECURE_AES_DMA_BYTE_SWAP
 		XSecure_ConfigureDmaByteSwap(XSECURE_ENABLE_BYTE_SWAP);
 #endif
 		/* Decrypting SH */
@@ -2220,18 +2220,21 @@ static int XLoader_DecHdrs(XLoader_SecureParams *SecurePtr,
 		Status = XLoader_UpdateMinorErr(XLOADER_SEC_DPA_CM_ERR, Status);
 		goto ERR_END;
 	}
-#if defined(VERSAL_2VE_2VM) || defined(VERSAL_2VP_P)
+#ifdef XSECURE_AES_DMA_BYTE_SWAP
 	/**
 	 * - Endianness swap is not required for the first chunk as the IV will be transferred
 	 * using the DMA, and in all other cases, as the IV is part of chunk and decrypted and stored
 	 * in IV registers in different format, so, endianness swap is required.
-	 * It is forcing to implement enabling/disabling of endianness based on user input,
-	 * hence below condition is placed.
-	 * If DMA Byteswap is required, Enable DMA Swap.
-	 * If DMA Byteswap is not required, it will be in disable state.
+	 * For this loader decryption flow the DMA byte swap is always required,
+	 * hence XSecure_ConfigureDmaByteSwap() is called unconditionally with
+	 * XSECURE_ENABLE_BYTE_SWAP. This sets InstancePtr->DmaSwapEn, which the
+	 * platform DMA layer later interprets to apply the correct per-transfer
+	 * endianness handling.
 	 */
 	XSecure_ConfigureDmaByteSwap(XSECURE_ENABLE_BYTE_SWAP);
+#endif
 
+#if defined(VERSAL_2VE_2VM) || defined(VERSAL_2VP_P)
 	if ((SecurePtr->IsAuthenticated != (u8)TRUE) ||
 		(SecureTempParams->IsAuthenticated != (u8)TRUE)) {
 

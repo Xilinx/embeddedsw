@@ -731,7 +731,7 @@ static int XSecure_AesConfig(u32 OperationId, u32 KeySrc, u32 KeySize, u64 IvAdd
 		goto END;
 	}
 
-#if defined(VERSAL_2VE_2VM) || defined(VERSAL_2VP_P)
+#ifdef XSECURE_AES_DMA_BYTE_SWAP
 	XSecure_ConfigureDmaByteSwap(XSECURE_ENABLE_BYTE_SWAP);
 #endif
 

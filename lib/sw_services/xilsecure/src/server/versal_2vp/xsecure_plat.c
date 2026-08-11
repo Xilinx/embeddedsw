@@ -205,9 +205,17 @@ int XSecure_AesPlatPmcDmaCfgAndXfer(XPmcDma *PmcDmaPtr, const XSecure_AesDmaCfg 
 		Status = (int)XSECURE_AES_INVALID_PARAM;
 		goto END;
 	}
-	/** - Enable PMC DMA Src and Dst channels for byte swapping. */
+	/**
+	 * - Enable PMC DMA Src and Dst channel byte swapping only when
+	 *   InstancePtr->DmaSwapEn == XSECURE_DISABLE_BYTE_SWAP.
+	 *   Note the intentional inverted polarity: when DmaSwapEn is
+	 *   XSECURE_ENABLE_BYTE_SWAP the required endianness handling is done by the
+	 *   AES core DATA_SWAP register and this per-channel PMC DMA swap must be
+	 *   skipped to avoid a double swap. Callers must not assume that
+	 *   XSECURE_ENABLE_BYTE_SWAP triggers this path.
+	 */
 	if ((AesDmaCfg->SrcChannelCfg == TRUE) &&
-		(InstancePtr->DmaSwapEn == XSECURE_ENABLE_BYTE_SWAP)) {
+		(InstancePtr->DmaSwapEn == XSECURE_DISABLE_BYTE_SWAP)) {
 		XSecure_AesPmcDmaCfgEndianness(PmcDmaPtr, XPMCDMA_SRC_CHANNEL,
 				XSECURE_ENABLE_BYTE_SWAP);
 	}
@@ -217,7 +225,7 @@ int XSecure_AesPlatPmcDmaCfgAndXfer(XPmcDma *PmcDmaPtr, const XSecure_AesDmaCfg 
 	 *   as per the configuration
 	 */
 	if ((AesDmaCfg->DestChannelCfg == TRUE) &&
-			(InstancePtr->DmaSwapEn == XSECURE_ENABLE_BYTE_SWAP) &&
+			(InstancePtr->DmaSwapEn == XSECURE_DISABLE_BYTE_SWAP) &&
 			((u32)AesDmaCfg->DestDataAddr != XSECURE_AES_NO_CFG_DST_DMA)) {
 		XSecure_AesPmcDmaCfgEndianness(PmcDmaPtr, XPMCDMA_DST_CHANNEL,
 				XSECURE_ENABLE_BYTE_SWAP);

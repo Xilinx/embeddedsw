@@ -461,12 +461,16 @@ int XSecure_AesUpdateAad(XSecure_Aes *InstancePtr, u64 AadAddr, u32 AadSize)
 	AesDmaCfg.IsLastChunkSrc = (u8)InstancePtr->IsGmacEn;
 
 	/*
-	 * Enable destination channel swapping to read
-	 * GMAC tag in correct order from hardware.
+	 * Enable destination channel swapping to read the GMAC tag in the correct
+	 * order from hardware.
+	 * On platforms that define XSECURE_AES_DMA_BYTE_SWAP the destination-channel
+	 * byte swap is instead handled by the common AES DMA byte-swap path (driven
+	 * by InstancePtr->DmaSwapEn in the platform layer), so the explicit
+	 * endianness configuration below is skipped for those parts.
 	 */
 	if (InstancePtr->IsGmacEn == (u32)TRUE) {
 		InstancePtr->AesState = XSECURE_AES_UPDATE_DONE;
-#ifndef VERSAL_2VE_2VM
+#ifndef XSECURE_AES_DMA_BYTE_SWAP
 		XSecure_AesPmcDmaCfgEndianness(InstancePtr->PmcDmaPtr,
             XPMCDMA_DST_CHANNEL, XSECURE_ENABLE_BYTE_SWAP);
 #endif
@@ -484,7 +488,7 @@ int XSecure_AesUpdateAad(XSecure_Aes *InstancePtr, u64 AadAddr, u32 AadSize)
 
 	InstancePtr->IsGmacEn = (u32)FALSE;
 CLEAR:
-#ifndef VERSAL_2VE_2VM
+#ifndef XSECURE_AES_DMA_BYTE_SWAP
 	/** - Clear endianness */
 	XSecure_AesPmcDmaCfgEndianness(InstancePtr->PmcDmaPtr,
 		XPMCDMA_SRC_CHANNEL, XSECURE_DISABLE_BYTE_SWAP);
@@ -791,7 +795,7 @@ int XSecure_AesDecryptFinal(XSecure_Aes *InstancePtr, u64 GcmTagAddr)
 
 END_RST:
 	InstancePtr->IsGmacEn = (u32)FALSE;
-#ifndef VERSAL_2VE_2VM
+#ifndef XSECURE_AES_DMA_BYTE_SWAP
 	/** - Clear endianness */
 	XSecure_AesPmcDmaCfgEndianness(InstancePtr->PmcDmaPtr, XPMCDMA_SRC_CHANNEL,
 		XSECURE_DISABLE_BYTE_SWAP);
@@ -996,7 +1000,7 @@ int XSecure_AesEncryptFinal(XSecure_Aes *InstancePtr, u64 GcmTagAddr)
 
 	Status = XST_SUCCESS;
 	InstancePtr->AesState = XSECURE_AES_INITIALIZED;
-#ifndef VERSAL_2VE_2VM
+#ifndef XSECURE_AES_DMA_BYTE_SWAP
 	XSecure_AesPmcDmaCfgEndianness(InstancePtr->PmcDmaPtr,
 			XPMCDMA_DST_CHANNEL, XSECURE_DISABLE_BYTE_SWAP);
 #endif
@@ -1373,7 +1377,7 @@ int XSecure_AesDpaCmDecryptData(const XSecure_Aes *AesInstance,
 
 	XSecure_WriteReg(AesInstance->BaseAddress, XSECURE_AES_DATA_SWAP_OFFSET,
 		XSECURE_AES_DATA_SWAP_VAL_MASK);
-#ifndef VERSAL_2VE_2VM
+#ifndef XSECURE_AES_DMA_BYTE_SWAP
 	/** - Enable PMC DMA Src channel for byte swapping. */
 	XSecure_AesPmcDmaCfgEndianness(AesInstance->PmcDmaPtr,
 		XPMCDMA_SRC_CHANNEL, XSECURE_AES_DATA_SWAP_VAL_MASK);
@@ -1415,7 +1419,7 @@ END:
 	/** - Acknowledge the transfer has completed */
 	XPmcDma_IntrClear(AesInstance->PmcDmaPtr, XPMCDMA_SRC_CHANNEL,
 		XPMCDMA_IXR_DONE_MASK);
-#ifndef VERSAL_2VE_2VM
+#ifndef XSECURE_AES_DMA_BYTE_SWAP
 	XSecure_AesPmcDmaCfgEndianness(AesInstance->PmcDmaPtr,
 		XPMCDMA_SRC_CHANNEL, XSECURE_AES_DATA_SWAP_VAL_DISABLE);
 
@@ -1746,7 +1750,7 @@ static int XSecureAesUpdate(const XSecure_Aes *InstancePtr, u64 InDataAddr,
 		Status = XSecure_AesCopyGcmTag(InstancePtr, &AesDmaCfg);
 	}
 
-#ifndef VERSAL_2VE_2VM
+#ifndef XSECURE_AES_DMA_BYTE_SWAP
 	/** - Clear endianness */
 	XSecure_AesPmcDmaCfgEndianness(InstancePtr->PmcDmaPtr,
 				XPMCDMA_SRC_CHANNEL, XSECURE_DISABLE_BYTE_SWAP);
