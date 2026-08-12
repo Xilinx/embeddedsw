@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved
+* Copyright (C) 2024 - 2026 Advanced Micro Devices, Inc. All Rights Reserved
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -21,6 +21,7 @@
 * 1.00  gm  01/25/24 First release
 * 1.1   gm  10/07/24 Added macros for Version Register bit fields.
 * 1.2   gm  02/18/24 Added slave mode support
+* 1.4   vn  07/30/26 Fix Doxygen warnings
 *
 * </pre>
 *
@@ -43,7 +44,7 @@ extern "C" {
 
 /**
  * AXI_I3C0 Base Address
-#define XI3C_BASEADDR      0x80000000
+ * \#define XI3C_BASEADDR      0x80000000
  */
 
 #define XI3C_BASEADDR      0x0
@@ -85,7 +86,7 @@ extern "C" {
 #define XI3C_GETCAPS_REG0			0x88	/**< Target Device Format 1 Capabilities */
 #define XI3C_GETCAPS_REG1			0x8c	/**< Target Device Format 2 Capabilities */
 #define XI3C_CON_RD_BYTE_COUNT			0x90	/**< Read byte count register */
-/* @} */
+/** @} */
 
 
 /**
@@ -101,6 +102,8 @@ extern "C" {
 
 #define  XI3C_CORE_REVISION_NUM_SHIFT		8		/**< Revision number shift */
 
+/** @} */
+
 /**
  * @name Reset Register mask(s)
  * @{
@@ -113,6 +116,8 @@ extern "C" {
 #define  XI3C_RESP_FIFO_RESET_MASK	0x00000010	/**< BIT 4 - Response fifo reset */
 #define  XI3C_ALL_FIFOS_RESET_MASK	0x0000001E	/**< BIT 1 to 4 - All fifos reset */
 
+/** @} */
+
 /**
  * @name Control Register  (CR) mask(s)
  * @{
@@ -124,6 +129,8 @@ extern "C" {
 #define  XI3C_CR_IBI_MASK		0x00000008   /**< BIT 3 - IBI Enable */
 #define  XI3C_CR_HJ_MASK		0x00000010   /**< BIT 4 - Hot Join Enable */
 #define  XI3C_CR_ACCEPT_CTRL_ROLE_REQ	0x00000020   /**< BIT 5 - Generate ACK for secondary controller role request IBI */
+
+/** @} */
 
 /**
  * @name Status Register  (SR) mask(s)
@@ -150,6 +157,8 @@ extern "C" {
 #define  XI3C_SR_RD_FIFO_NOT_EMPTY_MASK		0x00008000	/**< BIT 15 - Read FIFO empty */
 #define  XI3C_SR_SLV_DYNC_ADDR_DONE_MASK	0x00080000	/**< BIT 19 - Dynamic address assigned to slave */
 
+/** @} */
+
 /**
  * @name Status Register  (SR) Shifts(s)
  * @{
@@ -162,6 +171,8 @@ extern "C" {
 #define  XI3C_SR_WR_FULL_SHIFT			5		/**< BIT 5 - Write Fifo Full */
 #define  XI3C_SR_RD_FULL_SHIFT			6		/**< BIT 6 - Read Fifo Full */
 #define  XI3C_SR_SLV_DYNC_ADDR_DONE_SHIFT	19		/**< BIT 19 - Dynamic address assigned to slave */
+
+/** @} */
 
 /**
  * @name response and other mask(s)
@@ -176,6 +187,8 @@ extern "C" {
 #define  XI3C_SLV_RESP_7E_FRAME_MASK	0x20000000
 #define  XI3C_MRL_MASK			0x0FFF0000
 #define  XI3C_GRP_ADDR_MASK		0x0000FF00
+
+/** @} */
 
 /**
  * @name response and other shift(s)
@@ -199,6 +212,8 @@ extern "C" {
 #define  XI3C_CAPS4_SHIFT			24
 #define  XI3C_CAPS3_SHIFT			16
 #define  XI3C_CAPS2_SHIFT			8
+
+/** @} */
 
 /**
  * @name bit masks
@@ -228,6 +243,9 @@ extern "C" {
 
 #define	XI3C_MSB_8BITS_MASK	0x0000FF00
 #define	XI3C_MSB_16BITS_MASK	0xFFFF0000
+
+/** @} */
+
 /**
  * @name interrupt Register  (INTR) mask(s)
  * @{
@@ -252,6 +270,8 @@ extern "C" {
 #define  XI3C_INTR_CMD_FIFO_NOT_EMPTY_MASK	0x00002000	/**< BIT 13 - CMD FIFO empty */
 #define  XI3C_INTR_WR_FIFO_NOT_EMPTY_MASK	0x00004000	/**< BIT 14 - Write FIFO empty */
 #define  XI3C_INTR_RD_FIFO_NOT_EMPTY_MASK	0x00008000	/**< BIT 15 - Read FIFO empty */
+
+/** @} */
 
 /****************************************************************************/
 /**
@@ -401,8 +421,8 @@ extern "C" {
 *
 * Enable Raising edge interrupts
 *
-* @param        Base address of the XI3c core instance.
-* @param        interrupt mask value.
+* @param        BaseAddress is the base address of the XI3c core instance.
+* @param        IntrMask is the interrupt mask value.
 *
 * @return       None.
 *
@@ -420,8 +440,8 @@ extern "C" {
 *
 * Enable Faling edge interrupts
 *
-* @param        Base address of the XI3c core instance.
-* @param        interrupt mask value.
+* @param        BaseAddress is the base address of the XI3c core instance.
+* @param        IntrMask is the interrupt mask value.
 *
 * @return       None.
 *
@@ -439,8 +459,8 @@ extern "C" {
 *
 * Disable raising edge interrupts
 *
-* @param        Base address of the XI3c core instance.
-* @param        interrupt mask value.
+* @param        BaseAddress is the base address of the XI3c core instance.
+* @param        IntrMask is the interrupt mask value.
 *
 * @return       None.
 *
@@ -458,8 +478,8 @@ extern "C" {
 *
 * Disable faling edge interrupts
 *
-* @param        Base address of the XI3c core instance.
-* @param        interrupt mask value.
+* @param        BaseAddress is the base address of the XI3c core instance.
+* @param        IntrMask is the interrupt mask value.
 *
 * @return       None.
 *
@@ -477,8 +497,7 @@ extern "C" {
 *
 * Disable all raising edge interrupts
 *
-* @param        Base address of the XI3c core instance.
-* @param        interrupt mask value.
+* @param        BaseAddress is the base address of the XI3c core instance.
 *
 * @return       None.
 *
@@ -496,8 +515,7 @@ extern "C" {
 *
 * Disable all faling edge interrupts
 *
-* @param        Base address of the XI3c core instance.
-* @param        interrupt mask value.
+* @param        BaseAddress is the base address of the XI3c core instance.
 *
 * @return       None.
 *
@@ -516,7 +534,7 @@ extern "C" {
 * Fill Slave send byte count value.
 *
 * @param        InstancePtr is a pointer to the XI3c core instance.
-* @param        Byte count value.
+* @param        ByteCount is the byte count value.
 *
 * @return       None.
 *
@@ -537,12 +555,11 @@ extern "C" {
 * Clear the group address of target.
 *
 * @param        InstancePtr is a pointer to the XI3c core instance.
-* @param        Byte count value.
 *
 * @return       None.
 *
 * @note         C-style signature:
-*               void XI3c_FillSlaveSendCount(XI3c *InstancePtr, u16 ByteCount)
+*               void XI3c_ClearGrpAddr(XI3c *InstancePtr)
 *
 ******************************************************************************/
 #define XI3c_ClearGrpAddr(InstancePtr) 		      \

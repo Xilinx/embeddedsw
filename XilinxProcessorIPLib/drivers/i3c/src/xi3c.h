@@ -6,7 +6,7 @@
 /*****************************************************************************/
 /**
 *
-* @file I3c.h
+* @file xi3c.h
 * @addtogroup Overview
 * @{
 * @details
@@ -67,6 +67,7 @@
 * 1.2   gm  02/18/24 Added slave mode support
 * 1.3   vlt 11/05/25 Add 64-bit Addressing support.
 *       vlt 01/30/26 Fixed code spell errors.
+* 1.4   vn  07/30/26 Fix Doxygen warnings
 * </pre>
 *
 ******************************************************************************/
@@ -141,12 +142,12 @@ extern "C" {
 /**
 * Checks whether the I3C bus is busy.
 *
-* @param        InstancePtr is a pointer to the XI3c instance.
+* @param        BaseAddress is the base address of the XI3c instance.
 *
 * @return       None.
 *
 * @note         C-style signature:
-*               s32 XI3c_BusIsBusy(XI3c *InstancePtr)
+*               s32 XI3c_BusIsBusy(UINTPTR BaseAddress)
 *
 ******************************************************************************/
 #define XI3c_BusIsBusy(BaseAddress)					     \
@@ -668,10 +669,10 @@ extern "C" {
 * Sets device capabilities format1.
 *
 * @param        InstancePtr is a pointer to the XI3c instance.
-* @param        Caps1 of target device.
-* @param        Caps2 of target device.
-* @param        Caps3 of target device.
-* @param        Caps4 of target device.
+* @param        Cap1 of target device.
+* @param        Cap2 of target device.
+* @param        Cap3 of target device.
+* @param        Cap4 of target device.
 *
 * @return       None.
 *
@@ -695,8 +696,8 @@ extern "C" {
 * Sets device capabilities format2.
 *
 * @param        InstancePtr is a pointer to the XI3c instance.
-* @param        Caps1 of target device.
-* @param        Caps2 of target device.
+* @param        Cap1 of target device.
+* @param        Cap2 of target device.
 *
 * @return       None.
 *
@@ -717,10 +718,6 @@ extern "C" {
 * respond to interrupt events in the system. This function is executed
 * in interrupt context, so amount of processing should be minimized.
 *
-* @param	CallBackRef is the callback reference passed in by the upper
-*		layer when setting the callback functions, and passed back to
-*		the upper layer when the callback is invoked. Its type is
-*		not important to the driver, so it is a void pointer.
 * @param	StatusEvent indicates one or more status events that occurred.
 */
 typedef void (*XI3c_IntrHandler) (u32 StatusEvent);
@@ -984,7 +981,7 @@ static inline void XI3c_EnableHotjoin(XI3c *InstancePtr)
 * to the controller RAM.
 *
 * @param	InstancePtr is a pointer to the XI3c instance.
-* @param	Slave device index of XI3c_SlaveInfoTable.
+* @param	DevIndex is the slave device index of XI3c_SlaveInfoTable.
 *
 * @return	None.
 *

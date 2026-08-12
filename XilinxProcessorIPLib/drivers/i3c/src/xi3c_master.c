@@ -18,6 +18,7 @@
 * ----- ---  -------- ---------------------------------------------
 * 1.00  gm  02/09/24 First release
 * 1.3   vlt 01/30/26 Fixed codespell errors.
+* 1.4   vn  07/30/26 Fix Doxygen warnings
 * </pre>
 *
 ******************************************************************************/
@@ -124,7 +125,10 @@ s32 XI3c_SendTransferCmd(XI3c *InstancePtr, XI3c_Cmd *Cmd, u8 Data)
 * @param	MsgPtr is the pointer to the send buffer.
 * @param	ByteCount is the number of bytes to be sent.
 *
-* @return	None.
+* @return
+*		- XST_SUCCESS if everything went well.
+*		- XST_SEND_ERROR if byte count exceeds max.
+*		- XST_NO_DATA if MsgPtr is NULL.
 *
 * @note		None.
 *
@@ -192,7 +196,10 @@ s32 XI3c_MasterSend(XI3c *InstancePtr, XI3c_Cmd *Cmd, u8 *MsgPtr, u16 ByteCount)
 * @param	MsgPtr is the pointer to the recv buffer.
 * @param	ByteCount is the number of bytes to be recv.
 *
-* @return	None.
+* @return
+*		- XST_SUCCESS if everything went well.
+*		- XST_RECV_ERROR if byte count exceeds max.
+*		- XST_NO_DATA if MsgPtr is NULL.
 *
 * @note		None.
 *
@@ -370,8 +377,6 @@ s32 XI3c_MasterRecvPolled(XI3c *InstancePtr, XI3c_Cmd *Cmd, u8 *MsgPtr, u16 Byte
 *
 * @param	InstancePtr is a pointer to the XI3c instance.
 *
-* @return	None
-*
 * @note
 *
 ****************************************************************************/
@@ -403,8 +408,6 @@ static void XI3c_IbiReadRxFifo(XI3c *InstancePtr)
 * @param        InstancePtr is a pointer to the XI3c instance.
 * @param        FunctionPtr is the pointer to the callback function.
 *
-* @return       None.
-*
 * @note
 *
 * The handler is called within interrupt context, so it should finish its
@@ -432,8 +435,6 @@ void XI3c_SetStatusHandler(XI3c *InstancePtr, XI3c_IntrHandler FunctionPtr)
 * It is an error if the amount of received data is more than expected.
 *
 * @param	InstancePtr is a pointer to the XI3c instance.
-*
-* @return	None.
 *
 * @note 	None.
 *

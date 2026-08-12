@@ -19,6 +19,7 @@
 * ----- ---  -------- ---------------------------------------------
 * 1.00 	gm   02/09/24 First release
 * 1.3   vlt  01/27/26 Fixed codespell issues
+* 1.4   vn   07/30/26 Fix Doxygen warnings
 * </pre>
 *
 ******************************************************************************/
@@ -56,8 +57,6 @@ u8 XI3C_DynaAddrList[] = { 0x8, 0x9, 0xa, 0xb, 0xc, 0xd, 0xe, 0xf, 0x10, 0x11,
 * dynamic addresses.
 *
 * @param	InstancePtr is a pointer to the XI3c instance.
-*
-* @return	None.
 *
 * @note		None.
 *
@@ -225,9 +224,7 @@ s32 XI3c_CfgInitialize(XI3c *InstancePtr, XI3c_Config *ConfigPtr,
 * Fill I3C Command fifo
 *
 * @param	InstancePtr is a pointer to the XI3c instance.
-* @param	TransferCmd is a pointer to the XI3c_Cmd instance.
-*
-* @return	None.
+* @param	Cmd is a pointer to the XI3c_Cmd instance.
 *
 * @note		None.
 *
@@ -254,9 +251,7 @@ void XI3c_FillCmdFifo(XI3c *InstancePtr, XI3c_Cmd *Cmd)
 * @brief
 * Fill I3C Write Tx FIFO.
 *
-* @param	BaseAddress contains the base address of the device.
-*
-* @return	None.
+* @param	InstancePtr is a pointer to the XI3c instance.
 *
 * @note		None.
 *
@@ -289,9 +284,7 @@ void XI3c_WriteTxFifo(XI3c *InstancePtr)
 * @brief
 * Read RX I3C FIFO.
 *
-* @param	BaseAddress contains the base address of the device.
-*
-* @return	None.
+* @param	InstancePtr is a pointer to the XI3c instance.
 *
 * @note		None.
 *
@@ -410,8 +403,6 @@ s32 XI3c_DynaAddrAssign(XI3c *InstancePtr, u8 DynaAddr[], u8 DevCount)
 * @param	InstancePtr is a pointer to the XI3c instance.
 * @param	DevCount is the number of slave devices present.
 *
-* @return	None.
-*
 * @note         None.
 *
 ******************************************************************************/
@@ -426,3 +417,5 @@ void XI3c_ConfigIbi(XI3c *InstancePtr, u8 DevCount)
 	for(Index = 0; (Index < DevCount) && (Index < XI3C_MAXDAACOUNT); Index++)
 		XI3c_UpdateAddrBcr(InstancePtr, Index);
 }
+
+/** @} */

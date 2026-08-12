@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2025 Advanced Micro Devices, Inc. All Rights Reserved
+* Copyright (C) 2025 - 2026 Advanced Micro Devices, Inc. All Rights Reserved
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -17,6 +17,7 @@
 * Ver   Who  Date     Changes
 * ----- ---  -------- ---------------------------------------------
 * 1.2   gm  02/18/24 Added slave mode support
+* 1.4   vn  07/30/26 Fix Doxygen warnings
 * </pre>
 *
 ******************************************************************************/
@@ -490,8 +491,6 @@ s32 XI3c_SlaveRecvPolled(XI3c *InstancePtr, u8 *MsgPtr)
 * is signalled to the upper layer by calling the callback handler.
 *
 * @param	InstancePtr is a pointer to the XI3c instance.
-*
-* @return	None.
 *
 * @note 	None.
 *

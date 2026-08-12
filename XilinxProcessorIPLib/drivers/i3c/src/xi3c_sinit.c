@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved
+* Copyright (C) 2024 - 2026 Advanced Micro Devices, Inc. All Rights Reserved
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -19,6 +19,7 @@
 * ----- ------ -------- --------------------------------------------
 * 1.00  gm      01/25/24 First release
 * 1.3   vlt     11/05/25 Add 64-bit Addressing support.
+* 1.4   vn      07/30/26 Fix Doxygen warnings
 * </pre>
 *
 ******************************************************************************/
@@ -48,8 +49,12 @@
 * Looks up the device configuration based on the unique device ID. A table
 * contains the configuration info for each device in the system.
 *
+* @if SDT
+* @param	BaseAddress contains the base address of the device.
+* @else
 * @param	DeviceId contains the ID of the device to look up the
 *		configuration for.
+* @endif
 *
 * @return	A pointer to the configuration found or NULL if the specified
 *		device ID was not found. See xi3c.h for the definition of

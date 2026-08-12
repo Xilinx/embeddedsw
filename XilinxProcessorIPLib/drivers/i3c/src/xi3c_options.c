@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2024 Advanced Micro Devices, Inc. All Rights Reserved
+* Copyright (C) 2024 - 2026 Advanced Micro Devices, Inc. All Rights Reserved
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -18,6 +18,7 @@
 * ----- ---  -------- ---------------------------------------------
 * 1.00  gm   03/18/24 Add Scl clock configuration support
 * 1.1   gm   10/07/24 Set Data Hold Time based on IP revision value.
+* 1.4   vn   07/30/26 Fix Doxygen warnings
 * </pre>
 *
 ******************************************************************************/
@@ -146,3 +147,5 @@ s32 XI3c_SetSClk(XI3c *InstancePtr, u32 SclkHz, u8 Mode)
 
 	return XST_SUCCESS;
 }
+
+/** @} */

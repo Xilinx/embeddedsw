@@ -1,6 +1,6 @@
 
 /******************************************************************************
-* Copyright (C) 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2024 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 /*****************************************************************************/
@@ -17,6 +17,7 @@
  * Ver   Who Date     Changes
  * ----- --- -------- -----------------------------------------------
  * 1.00 gm   02/9/24 First release
+ * 1.4   vn   07/30/26 Fix Doxygen warnings
  *
  * </pre>
  *
@@ -133,7 +134,11 @@ int main(void)
 *
 * This function uses interrupt driver mode of the I3C.
 *
+* @if SDT
+* @param	BaseAddress is the base address of the device.
+* @else
 * @param	DeviceId is the Device ID of the I3c Device and is the
+* @endif
 *		XPAR_<I3C_instance>_DEVICE_ID value from xparameters.h
 *
 * @return	XST_SUCCESS if successful, otherwise XST_FAILURE.
@@ -440,7 +445,7 @@ static int SetupInterruptSystem(XI3c *I3cInstPtr)
 * from the I3C.  It is called from an interrupt context such that the amount
 * of processing performed should be minimized.
 *
-* @return	None.
+* @param	Event is the status event from the I3C.
 *
 * @note		None.
 *
