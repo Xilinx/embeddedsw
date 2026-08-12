@@ -45,6 +45,7 @@
 * 7.8   cog     07/20/23 Added support for SDT flow
 * 7.10  cog     03/13/24 Fixed issue with interrupt masks.
 * 7.11  dc      02/18/26 Correct spelling errors
+* 8.1   vn      07/30/26 Fix Doxygen warnings
 *
 * </pre>
 *
@@ -326,7 +327,7 @@ extern "C" {
 #define XSM_ATR_VUSR3_LOWER_OFFSET	(XSM_IP_OFFSET + 0x3AC)
 					/**< VUSER3 Lower Alarm Reg */
 
-/*@}*/
+/** @} */
 
 /**
  * @name System Monitor/ADC Software Reset Register (SRR) mask(s)
@@ -334,7 +335,7 @@ extern "C" {
  */
 #define XSM_SRR_IPRST_MASK	0x0000000A   /**< Device Reset Mask */
 
-/*@}*/
+/** @} */
 
 /**
  * @name System Monitor/ADC Status Register (SR) mask(s)
@@ -348,7 +349,7 @@ extern "C" {
 #define XSM_SR_EOC_MASK		  0x00000040 /**< End of Conversion */
 #define XSM_SR_CH_MASK		  0x0000003F /**< Input ADC channel */
 
-/*@}*/
+/** @} */
 
 /**
  * @name System Monitor/ADC Alarm Output Register (AOR) mask(s)
@@ -370,7 +371,7 @@ extern "C" {
 #define XSM_AOR_TEMP_MASK	0x00000002 /**< ALM0 - Temp sensor Alarm Mask */
 #define XSM_AOR_OT_MASK		0x00000001 /**< Over Temp Alarm Output */
 
-/*@}*/
+/** @} */
 
 /**
  * @name System Monitor/ADC CONVST Register (CONVST) mask(s)
@@ -385,7 +386,7 @@ extern "C" {
 #define XSM_CONVST_WAITCYCLES_MASK	0x0003FFFC /**< Wait Cycles Mask */
 #define XSM_CONVST_WAITCYCLES_DEFAULT	0x03E8	/**< Wait Cycles
 							 default value */
-/*@}*/
+/** @} */
 
 /**
  * @name System Monitor/ADC Reset Register (ARR) mask(s)
@@ -393,14 +394,14 @@ extern "C" {
  */
 #define XSM_ARR_RST_MASK	0x00000001 /**< ADC Reset bit mask */
 
-/*@}*/
+/** @} */
 
 /**
  * @name Global Interrupt Enable Register (GIER) mask(s)
  * @{
  */
 #define XSM_GIER_GIE_MASK	0x80000000 /**< Global interrupt enable */
-/*@}*/
+/** @} */
 
 /**
  * @name System Monitor/ADC device Interrupt Status/Enable Registers
@@ -438,7 +439,7 @@ extern "C" {
 #define XSM_IPIXR_ALL_MASK	      0x0003C7FF /**< Mask of all interrupts */
 
 
-/*@}*/
+/** @} */
 
 /**
  * @name Mask for all ADC converted data including Minimum/Maximum Measurements
@@ -447,7 +448,7 @@ extern "C" {
  */
 #define XSM_ADCDATA_MAX_MASK	0x03FF
 
-/*@}*/
+/** @} */
 
 /**
  * @name Configuration Register 0 (CFR0) mask(s)
@@ -467,7 +468,7 @@ extern "C" {
 #define XSM_CFR0_ACQ_MASK	0x0100  /**< Add acquisition by 6 ADCCLK  */
 #define XSM_CFR0_CHANNEL_MASK	0x003F  /**< Channel number bit Mask */
 
-/*@}*/
+/** @} */
 
 /**
  * @name Configuration Register 1 (CFR1) mask(s)
@@ -504,7 +505,7 @@ extern "C" {
 #define XSM_CFR1_ALM_TEMP_MASK		  0x0002 /**< Alarm 0 - Temperature */
 #define XSM_CFR1_OT_MASK		  0x0001 /**< Over Temperature Enable */
 
-/*@}*/
+/** @} */
 
 /**
  * @name Configuration Register 2 (CFR2) mask(s)
@@ -520,7 +521,7 @@ extern "C" {
 #define XSM_CFR2_PD_ADC1_MASK	0x0020	/**<Power Down XADC Mask */
 #define XSM_CFR2_PD_SHIFT	4	/**<Power Down Shift */
 
-/*@}*/
+/** @} */
 
 /**
  * @name Configuration Register 3 (CFR3) mask(s)
@@ -536,7 +537,7 @@ extern "C" {
 /* Mask for all Alarms in CFR1 and CFR3 */
 #define XSM_CFR_ALM_ALL_MASK		  0xF0F0F
 
-/*@}*/
+/** @} */
 
 /**
  * @name Alarm masks for channels in Configuration registers 1 and 3
@@ -555,6 +556,8 @@ extern "C" {
 #define XSM_CFR_ALM_VCCINT_MASK	0x0004 /**< Alarm 1 - VCCINT Enable */
 #define XSM_CFR_ALM_TEMP_MASK		0x0002 /**< Alarm 0 - Temperature */
 #define XSM_CFR_OT_MASK		0x0001 /**< Over Temperature Enable */
+
+/** @} */
 
 /**
  * @name Sequence Register (SEQ) Bit Definitions
@@ -611,7 +614,7 @@ extern "C" {
 
 #define XSM_SEQ_CH_VUSR_SHIFT	32 /**< Shift for the Aux Channel */
 
-/*@}*/
+/** @} */
 
 /**
  * @name OT Upper Alarm Threshold Register Bit Definitions
@@ -624,7 +627,7 @@ extern "C" {
 #define XSM_ATR_OT_UPPER_ENB_VAL	0x0003 /**< Value for OT enable */
 #define XSM_ATR_OT_UPPER_VAL_MAX	0x0FFF /**< Max OT value */
 
-/*@}*/
+/** @} */
 
 /**************************** Type Definitions *******************************/
 

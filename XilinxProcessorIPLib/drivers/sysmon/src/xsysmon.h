@@ -202,6 +202,7 @@
 * 7.6  aad  03/23/20 Aligned Macros to the documentation
 * 7.8  cog  07/20/23 Added support for SDT flow
 * 8.0  se   03/05/26 Added SDT interrupt support and IP type detection
+* 8.1  vn   07/30/26 Fix Doxygen warnings
 * </pre>
 *
 *****************************************************************************/
@@ -252,7 +253,7 @@ extern "C" {
 #define XSM_CH_VUSR3            35  /**< VUSER3 Supply - UltraScale */
 
 
-/*@}*/
+/** @} */
 
 
 /**
@@ -263,7 +264,7 @@ extern "C" {
 #define XSM_CALIB_ADC_OFFSET_COEFF    1 /**< ADC Offset Calib Coefficient */
 #define XSM_CALIB_GAIN_ERROR_COEFF    2 /**< Gain Error Calib Coefficient*/
 
-/*@}*/
+/** @} */
 
 
 /**
@@ -294,7 +295,7 @@ extern "C" {
 #define XSM_MIN_VUSR3		0x8B /**< Minimum VUSR3 Data, Ultrascale */
 
 
-/*@}*/
+/** @} */
 
 
 /**
@@ -326,7 +327,7 @@ extern "C" {
 #define XSM_ATR_VUSR2_LOWER	 0x1A /**< VUSER2 Lower Alarm, Ultrascale */
 #define XSM_ATR_VUSR3_LOWER	 0x1B /**< VUSER3 Lower Alarm, Ultrascale */
 
-/*@}*/
+/** @} */
 
 
 /**
@@ -338,7 +339,7 @@ extern "C" {
 #define XSM_AVG_64_SAMPLES	2 /**< Average 64 samples */
 #define XSM_AVG_256_SAMPLES	3 /**< Average 256 samples */
 
-/*@}*/
+/** @} */
 
 
 /**
@@ -354,7 +355,7 @@ extern "C" {
 #define XSM_SEQ_MODE_INDEPENDENT 8 /**< Independent ADC Sequencer,
 				     *  7 Series and Zynq XADC only */
 
-/*@}*/
+/** @} */
 
 /* For backwards compatibility */
 #define XSM_CH_CALIBRATION	XSM_CH_ADC_CALIB

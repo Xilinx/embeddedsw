@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2007 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -41,6 +41,7 @@
 *                     are available in all examples. This is a fix for
 *                     CR-965028.
 * 7.8   cog  07/20/23 Added support for SDT flow
+* 8.1   vn   07/30/26 Fix Doxygen warnings
 * </pre>
 *
 *****************************************************************************/
@@ -81,8 +82,6 @@ static XSysMon SysMonInst;      /* System Monitor driver instance */
 /**
 *
 * Main function that invokes the polled example in this file.
-*
-* @param	None.
 *
 * @return
 *		- XST_SUCCESS if the example has completed successfully.

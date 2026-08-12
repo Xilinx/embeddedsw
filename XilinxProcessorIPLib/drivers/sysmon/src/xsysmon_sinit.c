@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2007 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -51,8 +51,12 @@ extern XSysMon_Config XSysMon_ConfigTable[];
 * The table XSysMon_ConfigTable contains the configuration info for each device
 * in the system.
 *
+* @if SDT
+* @param	BaseAddress is the base address of the device.
+* @else
 * @param	DeviceId contains the ID of the device for which the
 *		device configuration pointer is to be returned.
+* @endif
 *
 * @return
 *		- A pointer to the configuration found.

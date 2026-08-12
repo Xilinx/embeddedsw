@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2007 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -63,8 +63,6 @@
 *
 * @param	InstancePtr is a pointer to the XSysMon instance.
 *
-* @return	None.
-*
 * @note		The device must be configured at hardware build time to include
 *		interrupt component for this function to work.
 *
@@ -92,8 +90,6 @@ void XSysMon_IntrGlobalEnable(XSysMon *InstancePtr)
 * device is disabled.
 *
 * @param	InstancePtr is a pointer to the XSysMon instance.
-*
-* @return	None.
 *
 * @note		The device must be configured at hardware build time to include
 *		interrupt component for this function to work.
@@ -126,8 +122,6 @@ void XSysMon_IntrGlobalDisable(XSysMon *InstancePtr)
 *		Bit positions of 1 will be enabled. Bit positions of 0 will
 *		keep the previous setting. This mask is formed by OR'ing
 *		XSM_IPIXR_* bits defined in xsysmon_hw.h.
-*
-* @return	None.
 *
 * @note		The device must be configured at hardware build time to include
 *		interrupt component for this function to work.
@@ -164,8 +158,6 @@ void XSysMon_IntrEnable(XSysMon *InstancePtr, u32 Mask)
 *		Bit positions of 1 will be disabled. Bit positions of 0 will
 *		keep the previous setting. This mask is formed by OR'ing
 *		XSM_IPIXR_* bits defined in xsysmon_hw.h.
-*
-* @return	None.
 *
 * @note		The device must be configured at hardware build time to include
 *		interrupt component for this function to work.
@@ -265,8 +257,6 @@ u32 XSysMon_IntrGetStatus(XSysMon *InstancePtr)
 *		Bit positions of 1 will be cleared. Bit positions of 0 will not
 * 		change the previous interrupt status. This mask is formed by
 * 		OR'ing XSM_IPIXR_* bits which are defined in xsysmon_hw.h.
-*
-* @return	None.
 *
 * @note		The device must be configured at hardware build time to include
 *		interrupt component for this function to work.

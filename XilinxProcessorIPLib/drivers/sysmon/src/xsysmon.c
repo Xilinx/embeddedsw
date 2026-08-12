@@ -55,6 +55,7 @@
 * 7.5	mn    07/06/18  Fixed Doxygen warnings
 * 7.8   cog   07/20/23 Added support for SDT flow
 * 8.0   se    03/05/26 Added SDT interrupt support and IP type detection
+* 8.1   vn    07/30/26 Fix Doxygen warnings
 * </pre>
 *
 *****************************************************************************/
@@ -135,8 +136,6 @@ int XSysMon_CfgInitialize(XSysMon *InstancePtr, XSysMon_Config *ConfigPtr,
 *
 *
 * @param	InstancePtr is a pointer to the XSysMon instance.
-*
-* @return	None.
 *
 * @note		The Control registers in the SystemMonitor/ADC Hard Macro
 *		are not affected by this reset, only the Status registers
@@ -229,8 +228,6 @@ u32 XSysMon_GetAlarmOutputStatus(XSysMon *InstancePtr)
 *
 * @param	InstancePtr is a pointer to the XSysMon instance.
 *
-* @return	None.
-*
 * @note		The default state of the CONVST bit is a logic 0. The conversion
 *		is started when the CONVST bit is set to 1 from 0.
 *		This bit is cleared in this function so that the next conversion
@@ -269,8 +266,6 @@ void XSysMon_StartAdcConversion(XSysMon *InstancePtr)
 * This function resets the SystemMonitor/ADC Hard Macro in the device.
 *
 * @param	InstancePtr is a pointer to the XSysMon instance.
-*
-* @return	None.
 *
 * @note		The Control registers in the SystemMonitor/ADC Hard Macro
 *		are not affected by this reset, only the Status registers
@@ -477,8 +472,6 @@ u16 XSysMon_GetMinMaxMeasurement(XSysMon *InstancePtr, u8 MeasurementType)
 *		- XSM_AVG_16_SAMPLES for 16 samples of averaging
 *		- XSM_AVG_64_SAMPLES for 64 samples of averaging
 *		- XSM_AVG_256_SAMPLES for 256 samples of averaging
-*
-* @return	None.
 *
 * @note		None.
 *
@@ -688,8 +681,6 @@ int XSysMon_SetSingleChParams(XSysMon *InstancePtr, u8 Channel,
 *		XSM_CFR_ALM_*_MASK and XSM_CFR_OT_MASK masks defined in
 *		xsysmon_hw.h.
 *
-* @return	None.
-*
 * @note		The implementation of the alarm enables in the Configuration
 *		register 1 is such that the alarms for bit positions of 1 will
 *		be disabled and alarms for bit positions of 0 will be enabled.
@@ -818,8 +809,6 @@ u32 XSysMon_GetAlarmEnables(XSysMon *InstancePtr)
 *		Calibration can be disabled by specifying
 *		XSM_CFR1_CAL_DISABLE_MASK;
 *
-* @return	None.
-*
 * @note		None.
 *
 *****************************************************************************/
@@ -901,8 +890,6 @@ u16 XSysMon_GetCalibEnables(XSysMon *InstancePtr)
 * @param	SequencerMode is the sequencer mode to be set.
 *		Use XSM_SEQ_MODE_* bits defined in xsysmon.h.
 *
-* @return	None.
-*
 * @note		Only one of the modes can be enabled at a time.
 *
 *****************************************************************************/
@@ -975,8 +962,6 @@ u8 XSysMon_GetSequencerMode(XSysMon *InstancePtr)
 *		sampling (specify FALSE) or event driven sampling mode (specify
 *		TRUE) for the given channel.
 *
-* @return	None.
-*
 * @note		The Event mode is only available in 7 Series XADC and Zynq.
 *		This API should be used only with 7 Series XADC and Zynq .
 *
@@ -1019,12 +1004,6 @@ void XSysMon_SetSequencerEvent(XSysMon *InstancePtr, int IsEventMode)
 * @param	InstancePtr is a pointer to the XSysMon instance.
 * @param	Channel is the channel number used to connect to the external
 *		Mux. The valid channels are 0 to 6, 8, and 16 to 31.
-*
-* @return
-*		- XST_SUCCESS if the given values were written successfully to
-*		the Configuration Register 0.
-*		- XST_FAILURE if the channel sequencer is enabled or the input
-*		parameters are not valid for the selected channel.
 *
 * @note		The External Mux is only available in 7 Series and Zynq XADC.
 *		This API should be used only with 7 Series and Zynq XADC.
@@ -1073,8 +1052,6 @@ void XSysMon_SetExtenalMux(XSysMon *InstancePtr, u8 Channel)
 *		 - 0 to 255 for V6/7 Series and Zynq XADC.
 *                Values 0, 1, 2 are all mapped to 2.
 *		Refer to the device specification for more details.
-*
-* @return	None.
 *
 * @note		- The ADCCLK is an internal clock used by the ADC and is
 *		synchronized to the DCLK clock. The ADCCLK is equal to DCLK
@@ -1206,8 +1183,6 @@ int XSysMon_SetSeqChEnables(XSysMon *InstancePtr, u64 ChEnableMask)
 *		xsysmon_hw.h to interpret the Channel numbers. Bit masks of 1
 *		are the channels that are enabled and bit mask of 0 are
 *		the channels that are disabled.
-*
-* @return	None.
 *
 * @note		None.
 *
@@ -1559,8 +1534,6 @@ u32 XSysMon_GetSeqAcqTime(XSysMon *InstancePtr)
 *		specify the index.
 * @param	Value is the 16-bit threshold value to write into the register.
 *
-* @return	None.
-*
 * @note		Over Temperature upper threshold is programmable only in V6,
 *		7 Series/Zynq  XADC and UltraScale.
 *		BRAM high and low voltage threshold registers are available only
@@ -1646,8 +1619,6 @@ u16 XSysMon_GetAlarmThreshold(XSysMon *InstancePtr, u8 AlarmThrReg)
 * @param	Value is the 16-bit OT Upper Alarm Register powerdown value.
 *		Valid values are 0 to 0x0FFF.
 *
-* @return	None.
-*
 * @note		This API has been deprecated. Use XSysMon_SetAlarmThreshold(),
 *		instead.
 *		This API should be used only with V6/7 Series since the
@@ -1728,8 +1699,6 @@ u16 XSysMon_GetOverTemp(XSysMon *InstancePtr)
 *
 * @param	InstancePtr is a pointer to the XSysMon instance.
 *
-* @return	None.
-*
 * @note		This API should be used only with V6/7 Series since the
 *		upper threshold of OverTemp is programmable in only V6
 *		SysMon/7 Series and Zynq XADC.
@@ -1769,8 +1738,6 @@ void XSysMon_EnableUserOverTemp(XSysMon *InstancePtr)
 *
 * @param	InstancePtr is a pointer to the XSysMon instance.
 *
-* @return	None.
-*
 * @note		This API should be used only with V6 SysMon/7 Series and Zynq
 * 		XADC since the upper threshold of OverTemp is programmable
 *		in only V6 SysMon/7 Series and Zynq XADC.
@@ -1805,8 +1772,6 @@ void XSysMon_DisableUserOverTemp(XSysMon *InstancePtr)
 *
 * @param	InstancePtr is a pointer to the XSysMon instance.
 *
-* @return	None.
-*
 * @note		None
 *
 *****************************************************************************/
@@ -1836,8 +1801,6 @@ void XSysMon_EnableTempUpdate(XSysMon *InstancePtr)
 *
 * @param	InstancePtr is a pointer to the XSysMon instance.
 *
-* @return	None.
-*
 * @note		None
 *
 *****************************************************************************/
@@ -1866,8 +1829,6 @@ void XSysMon_DisableTempUpdate(XSysMon *InstancePtr)
 *
 * @param	InstancePtr is a pointer to the XSysMon instance.
 * @param	WaitCycles is number of wait cycles
-*
-* @return	None.
 *
 * @note		The default number of wait cycles are 1000(0x3E8).
 *

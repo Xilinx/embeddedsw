@@ -49,6 +49,7 @@
 * 7.8   cog  07/20/23 Added support for SDT flow
 * 7.11  dc   02/18/26 Correct spelling errors
 * 8.0   se   03/05/26 Added SDT interrupt support and IP type detection
+* 8.1   vn   07/30/26 Fix Doxygen warnings
 * </pre>
 *
 *****************************************************************************/
@@ -155,8 +156,6 @@ volatile static int VccauxIntr = FALSE;	  	/* VCCAUX alarm interrupt */
 *
 * Main function that invokes the Interrupt example.
 *
-* @param	None.
-*
 * @return
 *		- XST_SUCCESS if the example has completed successfully.
 *		- XST_FAILURE if the example has failed.
@@ -208,14 +207,18 @@ int main(void)
 *	- Wait until temperature alarm interrupt or VCCAUX alarm interrupt
 *	occurs
 *
+* @param	SysMonInstPtr is a pointer to the XSysMon driver Instance.
+* @if SDT
+* @param	BaseAddr is the base address of the device.
+* @else
 * @param	IntcInstancePtr is a pointer to the Interrupt Controller
 *		driver Instance.
-* @param	SysMonInstPtr is a pointer to the XSysMon driver Instance.
 * @param	SysMonDeviceId is the XPAR_<SYSMON_ADC_instance>_DEVICE_ID value
 *		from xparameters.h.
 * @param	SysMonIntrId is
 *		XPAR_<INTC_instance>_<SYSMON_ADC_instance>_VEC_ID value from
 *		xparameters.h
+* @endif
 * @param	Temp is an output parameter, it is a pointer through which the
 *		current temperature value is returned to the main function.
 *
