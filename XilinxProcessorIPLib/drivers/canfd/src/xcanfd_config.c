@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2015 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -27,6 +27,7 @@
 *							XCanFd_SetFBitTiming
 * 2.1   nsk  01/22/19 Fixed XCanFd_SetFBaudPrescalar(), which is not setting
 *		      prescalar value properly CR# 1016013
+* 2.13  vn   07/30/26 Fix Doxygen warnings
 *
 * </pre>
 ******************************************************************************/
@@ -190,8 +191,6 @@ int XCanFd_SetBitTiming(XCanFd *InstancePtr, u8 SyncJumpWidth,
 *		function returns. Its value ranges from 0 to 7.
 * @param	TimeSegment1 will store the Time Segment 1 value after this
 *		function returns. Its value ranges from 0 to 15.
-*
-* @return	None.
 *
 * @note		None.
 *
@@ -363,8 +362,6 @@ int XCanFd_SetFBitTiming(XCanFd *InstancePtr, u8 SyncJumpWidth,
 * @param	TimeSegment1 will store the Time Segment 1 value after this
 *		function returns. Its value ranges from 0 to 15.
 *
-* @return	None.
-*
 * @note		None.
 *
 ******************************************************************************/
@@ -398,8 +395,6 @@ void XCanFd_GetFBitTiming(XCanFd *InstancePtr, u8 *SyncJumpWidth,
 *
 *  @param	InstancePtr is a pointer to the XCanFd instance to be worked on.
 *
-*  @return	None.
-*
 *  @note	None.
 *
 * ****************************************************************************/
@@ -428,8 +423,6 @@ void XCanFd_SetBitRateSwitch_EnableNominal(XCanFd *InstancePtr)
 * Read the device specification for details.
 *
 * @param	InstancePtr is a pointer to the XCanFd instance to be worked on.
-*
-* @return	None.
 *
 * @note		if we set BRSD bit in Mode Select Register then CAN Controller
 *		transmits CAN FD Frames with Nominal Bit Rate. else with

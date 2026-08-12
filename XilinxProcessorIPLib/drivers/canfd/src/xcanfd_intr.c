@@ -29,6 +29,7 @@
 *					   moved to xcanfd_intr.c
 *       ask  07/03/18 Fix for Sequential recv CR# 992606,CR# 1004222.
 * 2.12  vlt  01/27/26 Fixed codespell issues
+* 2.13  vn   07/30/26 Fix Doxygen warnings
 * </pre>
 *
 ******************************************************************************/
@@ -64,8 +65,6 @@
 *		Bit positions of 0 will keep the previous setting. This mask is
 *		formed by OR'ing XCANFD_IXR_* bits defined in xcanfd_hw.h.
 *
-* @return	None.
-*
 * @note		None.
 *
 *****************************************************************************/
@@ -93,8 +92,6 @@ void XCanFd_InterruptEnable(XCanFd *InstancePtr, u32 Mask)
 * @param	Mask is the mask to enable. Bit positions of 1 will be enabled.
 *		Bit positions of 0 will keep the previous setting. This mask is
 *		formed by OR'ing XCANFD_IETRS_OFFSET* bits defined in xcanfd_hw.h.
-*
-* @return	None.
 *
 * @note		None.
 *
@@ -124,8 +121,6 @@ void XCanFd_InterruptEnable_ReadyRqt(XCanFd *InstancePtr, u32 Mask)
 *		Bit positions of 0 will keep the previous setting. This mask is
 *		formed by OR'ing XCANFD_IETCS_OFFSET* bits defined in xcanfd_hw.h.
 *
-* @return	None.
-*
 * @note		None.
 *
 *****************************************************************************/
@@ -154,8 +149,6 @@ void XCanFd_InterruptEnable_CancelRqt(XCanFd *InstancePtr, u32 Mask)
 *		This mask is formed by AND'ing XCANFD_IETRS_OFFSET* bits
 *		defined in xcanfd_hw.h.
 *
-* @return	None.
-*
 * @note		None.
 *
 *****************************************************************************/
@@ -183,8 +176,6 @@ void XCanFd_InterruptDisable_ReadyRqt(XCanFd *InstancePtr, u32 Mask)
 *		disabled. Bit positions of 0 will keep the previous setting.
 *		This mask is formed by AND'ing XCANFD_IETCS_OFFSET* bits defined in
 *		xcanfd_hw.h.
-*
-* @return	None.
 *
 * @note		None.
 *
@@ -216,8 +207,6 @@ void XCanFd_InterruptDisable_CancelRqt(XCanFd *InstancePtr, u32 Mask)
 * @param	RxBuffNumber has two values
 *		if 0 -> Access RxBufferFull0 Reg
 *		else -> Access RxBufferFull1 Reg
-*
-* @return	None.
 *
 * @note		None.
 *
@@ -263,8 +252,6 @@ void XCanFd_InterruptEnable_RxBuffFull(XCanFd *InstancePtr,
 *		if 0 -> Access RxBufferFull0 Reg.
 *		else -> Access RxBufferFull1 Reg.
 *
-* @return	None.
-*
 * @note		None.
 *
 *****************************************************************************/
@@ -307,8 +294,6 @@ void XCanFd_InterruptDisable_RxBuffFull(XCanFd *InstancePtr,
 *		disabled. Bit positions of 0 will keep the previous setting.
 *		This mask is formed by OR'ing XCANFD_IXR_* bits defined in
 *		xcanfd_hw.h.
-*
-* @return	None.
 *
 * @note		None.
 *
@@ -375,8 +360,6 @@ void XCanFd_InterruptClear(XCanFd *InstancePtr, u32 Mask)
 *
 * @param	InstancePtr is a pointer to the XCanFd instance that just
 *		interrupted.
-*
-* @return	None.
 *
 * @note		None.
 *

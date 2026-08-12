@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2015 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -64,6 +64,7 @@
 * 2.8	ht   06/19/23 Added support for system device-tree flow.
 * 2.8	gm   06/22/23 Add support for request/release node.
 * 2.10	ht   03/28/25 Remove Versal ES1 support as it is fixed in prod.
+* 2.13  vn   07/30/26 Fix Doxygen warnings
 *
 * </pre>
 ******************************************************************************/
@@ -200,7 +201,8 @@ int XCanFd_CfgInitialize(XCanFd *InstancePtr, XCanFd_Config *ConfigPtr,
 *
 * This routine releases resources of XCanFd instance/driver.
 *
-* @param	None
+* @param	InstancePtr is a pointer to the XCanFd instance to be worked on.
+*
 * @return	- XST_SUCCESS if node release was successful
 *		- XST_FAILURE or an error code or a reason code
 *		  if node release was fail
@@ -328,8 +330,6 @@ u8 XCanFd_GetMode(XCanFd *InstancePtr)
 * @param	OperationMode specify which operation mode to enter.Valid value
 *		is any of XCANFD_MODE_* defined in xcanfd.h. Please note no
 *		multiple modes could be entered at the same time.
-*
-* @return	None.
 *
 * @note		This function does NOT ensure CAN device enters the specified
 *		operation mode before returns the control to the caller.
@@ -480,8 +480,6 @@ void XCanFd_EnterMode(XCanFd *InstancePtr, u8 OperationMode)
 		this function returns.
 * @param	TxErrorCount will contain Transmit Error Counter value after
 *		this function returns.
-*
-* @return	None.
 *
 * @note		None.
 *
@@ -1181,8 +1179,6 @@ int XCanFd_TxBuffer_Cancel_Request(XCanFd *InstancePtr, u32 BufferNumber)
 *		enabled. Any filter not specified in this parameter will keep
 *		its previous enable/disable setting.
 *
-* @return	None.
-*
 * @note		In Sequential Mode, in order to receive data, we need to enable
 *		these filters. if we want to make filtration i.e Id match
 *		then we need to set the Id value in AFR Id register.
@@ -1218,8 +1214,6 @@ void XCanFd_AcceptFilterEnable(XCanFd *InstancePtr, u32 FilterIndexMask)
 *		disabled. Any filter not specified in this parameter will keep
 *		its previous enable/disable setting. If all acceptance filters
 *		are disabled then all received frames are stored in the RX FIFO.
-*
-* @return	None.
 *
 * @note		None
 *
@@ -1318,8 +1312,6 @@ int XCanFd_AcceptFilterSet(XCanFd *InstancePtr, u32 FilterIndex,
 * @param	IdValue will store the ID value read from the chosen Acceptance
 *		Filter ID Register after this function returns.
 *
-* @return	None.
-*
 * @note		Acceptance Filter Mask and ID Registers are optional registers
 *		in Xilinx CAN device. If they are NOT existing in the device,
 *		this function should NOT be used. Calling this function in this
@@ -1342,7 +1334,7 @@ void XCanFd_AcceptFilterGet(XCanFd *InstancePtr, u32 FilterIndex,
 				  XCANFD_AFIDR_OFFSET(FilterIndex));
 
 }
-
+#ifndef SDT
 /*****************************************************************************/
 /**
 *
@@ -1359,7 +1351,6 @@ void XCanFd_AcceptFilterGet(XCanFd *InstancePtr, u32 FilterIndex,
 * @note		None.
 *
 ******************************************************************************/
-#ifndef SDT
 XCanFd_Config *XCanFd_GetConfig(unsigned int InstanceIndex)
 {
 	XCanFd_Config *CfgPtr;
@@ -1382,8 +1373,6 @@ XCanFd_Config *XCanFd_GetConfig(unsigned int InstanceIndex)
 * handlers are set to this callback. It is considered an error for this handler
 * to be invoked.
 *
-*
-* @return	None.
 *
 * @note		None.
 *
@@ -1602,8 +1591,6 @@ int XCanFd_Send_Queue(XCanFd *InstancePtr)
 *
 * @param	InstancePtr is a pointer to the XCanFd instance to be worked on.
 *
-* @return	None.
-*
 *
 * @note		None.
 *
@@ -1720,8 +1707,6 @@ int XCanFd_GetNofMessages_Stored_TXE_FIFO(XCanFd *InstancePtr)
 *
 * @param	InstancePtr is a pointer to the XCanFd instance to be worked on.
 *
-* @return	None.
-*
 *
 * @note		None.
 *
@@ -1749,8 +1734,6 @@ void XCanFd_Enable_Tranceiver_Delay_Compensation(XCanFd *InstancePtr)
 * @param	InstancePtr is a pointer to the XCanFd instance to be worked on.
 *
 * @param	TdcOffset is the Delay Compensation Offset.
-*
-* @return	None.
 *
 *
 * @note		None.
@@ -1785,8 +1768,6 @@ void XCanFd_Set_Tranceiver_Delay_Compensation(XCanFd *InstancePtr,
 * This function Disables the Transceiver delay compensation.
 *
 * @param	InstancePtr is a pointer to the XCanFd instance to be worked on.
-*
-* @return	None.
 *
 * @note		None.
 *
@@ -1940,8 +1921,6 @@ static u32 XCanFd_SeqRecv_logic(XCanFd *InstancePtr, u32 ReadIndex, u32 FsrVal, 
 * Event States.
 *
 * @param        InstancePtr is a pointer to the XCanFd instance to be worked on.
-*
-* @return       None.
 *
 * @note         None.
 *

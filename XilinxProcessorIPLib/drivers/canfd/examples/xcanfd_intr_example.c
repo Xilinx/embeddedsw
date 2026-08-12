@@ -49,6 +49,7 @@
 * 2.8	ht   06/19/23 Added support for system device-tree flow
 * 2.10	ht   12/01/24 Fixed GCC warnings
 * 2.12  vlt  01/27/26 Fixed codespell issues
+* 2.13  vn   07/30/26 Fix Doxygen warnings
 *
 * </pre>
 *
@@ -222,7 +223,11 @@ int main(void)
 * The example configures the device for internal loopback mode, then
 * sends a CAN frame and receives the same CAN frame.
 *
+* @if SDT
+* @param	BaseAddress contains the CAN device base address.
+* @else
 * @param	DeviceId contains the CAN device ID.
+* @endif
 *
 * @return	XST_SUCCESS if successful, otherwise driver-specific error code.
 *
