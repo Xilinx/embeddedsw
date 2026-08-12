@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -30,6 +30,7 @@
 * 3.5	sne    07/01/20 Fixed MISRAC warnings.
 * 3.5	sne    07/01/20 Fixed multiple packets send issue.
 * 3.7	ht     06/28/23 Added support for system device-tree flow.
+* 3.13  vn     07/30/26 Fix Doxygen warnings
 * </pre>
 *
 ******************************************************************************/
@@ -133,8 +134,6 @@ s32 XCanPs_CfgInitialize(XCanPs *InstancePtr, XCanPs_Config *ConfigPtr,
 *
 * @param	InstancePtr is a pointer to the XCanPs instance.
 *
-* @return	None.
-*
 * @note		None.
 *
 ******************************************************************************/
@@ -211,8 +210,6 @@ u8 XCanPs_GetMode(XCanPs *InstancePtr)
 * @param	OperationMode specify which operation mode to enter. Valid value
 *		is any of XCANPS_MODE_* defined in xcanps.h. Multiple modes
 *		can not be entered at the same time.
-*
-* @return	None.
 *
 * @note
 *
@@ -350,8 +347,6 @@ u32 XCanPs_GetStatus(XCanPs *InstancePtr)
 *		counter value is returned.
 * @param	TxErrorCount is a pointer to data in which the Transmit Error
 *		counter value is returned.
-*
-* @return	None.
 *
 * @note		None.
 *
@@ -628,8 +623,6 @@ END:
 *		to be enabled. Any filter not specified in this parameter will
 *		keep its previous enable/disable setting.
 *
-* @return	None.
-*
 * @note		None.
 *
 *
@@ -667,8 +660,6 @@ void XCanPs_AcceptFilterEnable(XCanPs *InstancePtr, u32 FilterIndexes)
 *		keep its previous enable/disable setting. If all acceptance
 *		filters are disabled then all received frames are stored in the
 *		RX FIFO.
-*
-* @return	None.
 *
 * @note		None.
 *
@@ -831,8 +822,6 @@ s32 XCanPs_AcceptFilterSet(XCanPs *InstancePtr, u32 FilterIndex,
 *		from the chosen Acceptance Filter Mask Register is returned.
 * @param	IdValue is a pointer to the data in which the ID value read
 *		from the chosen Acceptance Filter ID Register is returned.
-*
-* @return	None.
 *
 * @note		None.
 *
@@ -1026,8 +1015,6 @@ s32 XCanPs_SetBitTiming(XCanPs *InstancePtr, u8 SyncJumpWidth,
 *		function returns. Its value ranges from 0 to 7.
 * @param	TimeSegment1 will store the Time Segment 1 value after this
 *		function returns. Its value ranges from 0 to 15.
-*
-* @return	None.
 *
 * @note		None.
 *

@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -22,6 +22,7 @@
 * 3.00  kvn  02/13/15 Modified code for MISRA-C:2012 compliance.
 * 3.5	sne  07/01/20 Fixed MISRAC warnings.
 * 3.7	ht   06/28/23 Added support for system device-tree flow.
+* 3.13  vn   07/30/26 Fix Doxygen warnings
 * </pre>
 *
 ******************************************************************************/
@@ -59,8 +60,6 @@
 * returns.
 *
 * @param	BaseAddr is the baseaddress of the interface.
-*
-* @return	None.
 *
 * @note		None.
 *

@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -23,6 +23,7 @@
 * 3.1   nsk    12/21/15 Updated XCanPs_IntrHandler to handle error
 *			interrupts correctly. CR#925615
 * 3.5	sne    07/01/20 Fixed MISRAC warnings.
+* 3.13  vn     07/30/26 Fix Doxygen warnings
 * </pre>
 *
 ******************************************************************************/
@@ -51,8 +52,6 @@
 * @param	Mask is the mask to enable. Bit positions of 1 will be enabled.
 *		Bit positions of 0 will keep the previous setting. This mask is
 *		formed by OR'ing XCANPS_IXR_* bits defined in xcanps_hw.h.
-*
-* @return	None.
 *
 * @note		None.
 *
@@ -84,8 +83,6 @@ void XCanPs_IntrEnable(XCanPs *InstancePtr, u32 Mask)
 *		disabled. Bit positions of 0 will keep the previous setting.
 *		This mask is formed by OR'ing XCANPS_IXR_* bits defined in
 *		xcanps_hw.h.
-*
-* @return	None.
 *
 * @note		None.
 *
@@ -201,8 +198,6 @@ void XCanPs_IntrClear(XCanPs *InstancePtr, u32 Mask)
 *
 * @param	InstancePtr is a pointer to the XCanPs instance that just
 *		interrupted.
-*
-* @return	None.
 *
 * @note		None.
 *

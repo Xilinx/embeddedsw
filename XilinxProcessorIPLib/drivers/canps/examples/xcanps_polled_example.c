@@ -30,6 +30,7 @@
 * 3.8   ht     01/19/24 Update example to fix peripheral test compilation warnings
 * 				and example compilation failure in SDT flow
 * 3.12  vlt    12/17/25 Update Doxygen comments to include SDT flow details.
+* 3.13  vn     07/30/26 Fix Doxygen warnings
 * </pre>
 *
 ******************************************************************************/
@@ -165,6 +166,7 @@ int main(void)
 * frame, receives the same Can frame, and verifies the frame contents.
 *
 * @if SDT
+* @param	CanInstancePtr is a pointer to the XCanPs instance
 * @param	BaseAddress contains the base address of the device
 * @else
 * @param	DeviceId is the XPAR_<CANPS_instance>_DEVICE_ID value from
