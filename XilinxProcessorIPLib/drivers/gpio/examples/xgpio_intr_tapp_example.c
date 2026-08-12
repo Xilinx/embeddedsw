@@ -39,6 +39,7 @@
 * 4.11  gm   12/06/23 Added IER and GIER calls in SDT flow.
 * 4.13 vlt   12/02/25 Added GlobalIntrMask initialization for SDT flow.
 * 4.13  vlt  12/12/25 Update Doxygen comments to include SDT flow details.
+* 4.14  vn   07/30/26 Fix Doxygen warnings
 *
 *</pre>
 *
@@ -225,14 +226,12 @@ int main(void)
 * @param	BaseAddress contains the base address of the device
 * @else
 * @param	IntcInstancePtr is a reference to the Interrupt Controller
-* @param	IntcInstancePtr is a reference to the Interrupt Controller
-*		driver Instance
 *		driver Instance
 * @param	DeviceId is the XPAR_<GPIO_instance>_DEVICE_ID value from
 *		xparameters.h
-* @endif
 * @param	IntrId is XPAR_<INTC_instance>_<GPIO_instance>_IP2INTC_IRPT_INTR
 *		value from xparameters.h
+* @endif
 * @param	IntrMask is the GPIO channel mask
 * @param	DataRead is the pointer where the data read from GPIO Input is
 *		returned
@@ -428,8 +427,6 @@ int GpioSetupIntrSystem(INTC *IntcInstancePtr, XGpio *InstancePtr,
 * This is the interrupt handler routine for the GPIO for this example.
 *
 * @param	CallbackRef is the Callback reference for the handler.
-*
-* @return	None.
 *
 * @note		None.
 *

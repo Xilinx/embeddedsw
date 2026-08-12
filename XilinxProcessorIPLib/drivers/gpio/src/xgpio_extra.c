@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2002 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -31,6 +31,7 @@
 * 3.00a sv   11/21/09 Updated to use HAL Processor APIs. Renamed the macros
 *		      XGpio_mWriteReg to XGpio_WriteReg, and XGpio_mReadReg
 *		      to XGpio_ReadReg.
+* 4.14  vn   07/30/26 Fix Doxygen warnings
 * </pre>
 *
 *****************************************************************************/
@@ -60,8 +61,6 @@
 * @param	Mask Set of bits that will be set to 1 in the discrete
 *		data register. All other bits in the data register are
 *		unaffected.
-*
-* @return	None.
 *
 * @note
 *
@@ -104,8 +103,6 @@ void XGpio_DiscreteSet(XGpio * InstancePtr, unsigned Channel, u32 Mask)
 * @param	Mask Set of bits that will be set to 0 in the discrete
 *		data register. All other bits in the data register are
 *		unaffected.
-*
-* @return	None.
 *
 *
 * The hardware must be built for dual channels if this function is used

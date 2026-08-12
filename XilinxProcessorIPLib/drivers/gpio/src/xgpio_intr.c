@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2002 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -30,6 +30,7 @@
 * 3.00a sv   11/21/09 Updated to use HAL Processor APIs. Renamed the macros
 *		      XGpio_mWriteReg to XGpio_WriteReg, and XGpio_mReadReg
 *		      to XGpio_ReadReg.
+* 4.14  vn   07/30/26 Fix Doxygen warnings
 
 * </pre>
 *
@@ -61,8 +62,6 @@
 *
 * @param	InstancePtr GPIO instance to operate on.
 *
-* @return	None.
-*
 * @note		None.
 *
 *****************************************************************************/
@@ -88,8 +87,6 @@ void XGpio_InterruptGlobalEnable(XGpio *InstancePtr)
 *
 * @param	InstancePtr GPIO instance to operate on.
 *
-* @return	None.
-*
 *
 *****************************************************************************/
 void XGpio_InterruptGlobalDisable(XGpio *InstancePtr)
@@ -114,8 +111,6 @@ void XGpio_InterruptGlobalDisable(XGpio *InstancePtr)
 * @param	Mask Mask to enable. Bit positions of 1 are enabled.
 *		This mask is formed by OR'ing bits from XGPIO_IR* bits which
 *		are contained in xgpio_l.h.
-*
-* @return	None.
 *
 *
 *****************************************************************************/
@@ -150,8 +145,6 @@ void XGpio_InterruptEnable(XGpio *InstancePtr, u32 Mask)
 *		mask is formed by OR'ing bits from XGPIO_IR* bits which are
 *		contained in xgpio_l.h.
 *
-* @return	None.
-*
 *
 *****************************************************************************/
 void XGpio_InterruptDisable(XGpio *InstancePtr, u32 Mask)
@@ -183,8 +176,6 @@ void XGpio_InterruptDisable(XGpio *InstancePtr, u32 Mask)
 * @param 	Mask Mask to clear pending interrupts. Bit positions
 *		of 1 are cleared. This mask is formed by OR'ing bits from
 *		XGPIO_IR* bits which are contained in xgpio_l.h.
-*
-* @return	None.
 *
 *
 *****************************************************************************/
@@ -219,8 +210,6 @@ void XGpio_InterruptClear(XGpio * InstancePtr, u32 Mask)
 *
 * @return	A mask of bits made from XGPIO_IR* bits which are contained in
 *		xgpio_l.h.
-*
-* @return	None.
 *
 *
 *****************************************************************************/

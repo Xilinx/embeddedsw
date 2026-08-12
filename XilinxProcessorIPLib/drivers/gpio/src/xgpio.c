@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2002 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -38,6 +38,7 @@
 *                     adding 64 bit support. CR# 867425.
 *                     Changed the prototype of XGpio_CfgInitialize API.
 * 4.9   pm   11/30/21 Addressed Doxygen warning
+* 4.14  vn   07/30/26 Fix Doxygen warnings
 * </pre>
 *
 *****************************************************************************/
@@ -122,8 +123,6 @@ int XGpio_CfgInitialize(XGpio * InstancePtr, XGpio_Config * Config,
 *		and which are output. Bits set to 0 are output and bits set to 1
 *		are input.
 *
-* @return	None.
-*
 * @note		The hardware must be built for dual channels if this function
 *		is used with any channel other than 1.  If it is not, this
 *		function will assert.
@@ -205,8 +204,6 @@ u32 XGpio_DiscreteRead(XGpio * InstancePtr, unsigned Channel)
 * @param	InstancePtr Pointer to an XGpio instance to be worked on.
 * @param	Channel Contains the channel of the GPIO (1 or 2) to operate on.
 * @param	Mask Value to be written to the discretes register.
-*
-* @return	None.
 *
 * @note		The hardware must be built for dual channels if this function
 *		is  used with any channel other than 1.  If it is not, this
