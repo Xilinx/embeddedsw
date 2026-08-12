@@ -153,6 +153,7 @@
 * 3.12  adk  06/02/25 Since PLM has custom implementation of outbyte() API
 *                     don't pull it for PLM template app case.
 * 3.14  vlt  12/18/25 Update Doxygen comments to include SDT flow details.
+* 3.15  vn   07/30/26 Fix Doxygen warnings
 * </pre>
 *
 *****************************************************************************/
@@ -202,7 +203,7 @@ extern "C" {
 #define XUN_OPTION_ASSERT_OUT1		0x0004 /**< Assert out1 signal */
 #define XUN_OPTION_ASSERT_RTS		0x0002 /**< Assert RTS signal */
 #define XUN_OPTION_ASSERT_DTR		0x0001 /**< Assert DTR signal */
-/*@}*/
+/** @} */
 
 /** @name Data format values
  * @{
@@ -224,7 +225,7 @@ extern "C" {
 
 #define XUN_FORMAT_2_STOP_BIT		1 /**< 2 stop bits */
 #define XUN_FORMAT_1_STOP_BIT		0 /**< 1 stop bit */
-/*@}*/
+/** @} */
 
 /** @name FIFO trigger values
  * @{
@@ -238,7 +239,7 @@ extern "C" {
 #define XUN_FIFO_TRIGGER_08		0x80 /**< 8 byte trigger level */
 #define XUN_FIFO_TRIGGER_04		0x40 /**< 4 byte trigger level */
 #define XUN_FIFO_TRIGGER_01		0x00 /**< 1 byte trigger level */
-/*@}*/
+/** @} */
 
 /** @name Modem status values
  * @{
@@ -256,7 +257,7 @@ extern "C" {
 #define XUN_MODEM_CTS_MASK		0x10 /**< Current state of CTS signal */
 #define XUN_MODEM_DCD_MASK 		0x80 /**< Current state of DCD signal */
 #define XUN_MODEM_RING_STOP_MASK	0x04 /**< Ringing has stopped */
-/*@}*/
+/** @} */
 
 /** @name Callback events
  * @{
@@ -272,7 +273,7 @@ extern "C" {
 #define XUN_EVENT_SENT_DATA		3 /**< Data has been sent */
 #define XUN_EVENT_RECV_ERROR		4 /**< A receive error was detected */
 #define XUN_EVENT_MODEM	 		5 /**< A change in modem status */
-/*@}*/
+/** @} */
 
 /** @name Error values
  * @{
@@ -288,7 +289,7 @@ extern "C" {
 #define XUN_ERROR_PARITY_MASK		0x04 /**< Receive parity error */
 #define XUN_ERROR_OVERRUN_MASK		0x02 /**< Receive overrun error */
 #define XUN_ERROR_NONE 			0x00 /**< No error */
-/*@}*/
+/** @} */
 
 /****************************************************************************
 *

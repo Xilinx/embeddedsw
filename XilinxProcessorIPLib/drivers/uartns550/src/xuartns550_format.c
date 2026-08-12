@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2002 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -26,6 +26,7 @@
 * 2.00a ktn  10/20/09 Converted all register accesses to 32 bit access.
 *		      Updated to use HAL Processor APIs. _m is removed from the
 *		      name of all the macro names/definitions.
+* 3.15  vn   07/30/26 Fix Doxygen warnings
 * </pre>
 *
 *****************************************************************************/
@@ -172,8 +173,6 @@ int XUartNs550_SetDataFormat(XUartNs550 *InstancePtr,
 * @param	InstancePtr is a pointer to the XUartNs550 instance.
 * @param	FormatPtr is a pointer to a format structure that will contain
 *		the data format after this call completes.
-*
-* @return	None.
 *
 * @note		None.
 *

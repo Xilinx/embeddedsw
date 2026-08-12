@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2002 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -36,6 +36,7 @@
 *                     don't pull it for PLM template app case.
 *       ss   07/11/25 Add define for ASUFW as outbyte() specific implementation
 *                     for ASUFW is added
+* 3.15  vn   07/30/26 Fix Doxygen warnings
 * </pre>
 *
 ******************************************************************************/
@@ -69,8 +70,6 @@
 *
 * @param	BaseAddress contains the base address of the UART.
 * @param	Data contains the data byte to be sent.
-*
-* @return	None.
 *
 * @note		None.
 *
@@ -126,8 +125,6 @@ u8 XUartNs550_RecvByte(UINTPTR BaseAddress)
 * @param	InputClockHz is the frequency of the input clock to the device
 *		in Hertz.
 * @param	BaudRate is the baud rate to be set.
-*
-* @return	None.
 *
 * @note		None.
 *

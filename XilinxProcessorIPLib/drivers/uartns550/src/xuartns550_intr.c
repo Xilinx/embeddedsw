@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2002 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -34,6 +34,7 @@
 *		      data is equal to the threshold).
 *		      The callback function with XUN_EVENT_RECV_DATA will be
 *		      called when all the requested data has been received
+* 3.15  vn  07/30/26 Fix Doxygen warnings
 * </pre>
 *
 *****************************************************************************/
@@ -95,8 +96,6 @@ static Handler HandlerTable[13] = {
 * @param	CallBackRef is the upper layer callback reference passed back
 *		when the callback function is invoked.
 *
-* @return	None.
-*
 * @note
 *
 * There is no assert on the CallBackRef since the driver doesn't know what it
@@ -130,8 +129,6 @@ void XUartNs550_SetHandler(XUartNs550 *InstancePtr,
 *
 * @param	InstancePtr contains a pointer to the instance of the UART that
 *		the interrupt is for.
-*
-* @return	None.
 *
 * @note		None.
 *

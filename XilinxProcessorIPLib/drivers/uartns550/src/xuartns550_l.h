@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2002 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -31,6 +31,7 @@
 *                     Changed the prototypes of XUartNs550_SendByte,
 *                     XUartNs550_RecvByte, XUartNs550_SetBaud APIs.
 * 3.6   sd   02/03/20 Updated the register macros for DRL and DRM registers.
+* 3.15  vn   07/30/26 Fix Doxygen warnings
 * </pre>
 *
 ******************************************************************************/
@@ -73,7 +74,7 @@ extern "C" {
 #define XUN_DLM_OFFSET	(XUN_REG_OFFSET + 0x04) /**< Divisor Register MSB */
 #define XUN_DRLS_OFFSET	(XUN_REG_OFFSET + 0x00) /**< Divisor Register LSB */
 #define XUN_DRLM_OFFSET	(XUN_REG_OFFSET + 0x04) /**< Divisor Register MSB */
-/* @} */
+/** @} */
 
 /*
  * The following constant specifies the size of the FIFOs, the size of the
@@ -91,7 +92,7 @@ extern "C" {
 #define XUN_IER_RX_LINE		0x00000004 /**< Receive status interrupt */
 #define XUN_IER_TX_EMPTY	0x00000002 /**< Transmitter empty interrupt */
 #define XUN_IER_RX_DATA		0x00000001 /**< Receiver data available */
-/* @} */
+/** @} */
 
 /**
  * @name Interrupt ID Register (INT_ID) mask(s)
@@ -99,7 +100,7 @@ extern "C" {
  */
 #define XUN_INT_ID_MASK		 0x0000000F /**< Only the interrupt ID */
 #define XUN_INT_ID_FIFOS_ENABLED 0x000000C0 /**< Only the FIFOs enable */
-/* @} */
+/** @} */
 
 /**
  * @name FIFO Control Register mask(s)
@@ -111,7 +112,7 @@ extern "C" {
 #define XUN_FIFO_RX_RESET	0x00000002 /**< Reset the receive FIFO */
 #define XUN_FIFO_ENABLE		0x00000001 /**< Enable the FIFOs */
 #define XUN_FIFO_RX_TRIGGER	0x000000C0 /**< Both trigger level bits */
-/* @} */
+/** @} */
 
 /**
  * @name Line Control Register(LCR) mask(s)
@@ -128,7 +129,7 @@ extern "C" {
 #define XUN_LCR_6_DATA_BITS	0x00000001 /**< 6 Data bits selection */
 #define XUN_LCR_LENGTH_MASK	0x00000003 /**< Both length bits mask */
 #define XUN_LCR_PARITY_MASK	0x00000018 /**< Both parity bits mask */
-/* @} */
+/** @} */
 
 /**
  * @name Mode Control Register(MCR) mask(s)
@@ -139,7 +140,7 @@ extern "C" {
 #define XUN_MCR_OUT_1		0x00000004 /**< General output 1 signal */
 #define XUN_MCR_RTS		0x00000002 /**< RTS signal */
 #define XUN_MCR_DTR		0x00000001 /**< DTR signal */
-/* @} */
+/** @} */
 
 /**
  * @name Line Status Register(LSR) mask(s)
@@ -155,7 +156,7 @@ extern "C" {
 #define XUN_LSR_DATA_READY	0x00000001 /**< Receive data ready */
 #define XUN_LSR_ERROR_BREAK	0x0000001E /**< Errors except FIFO error and
 						break detected */
-/* @} */
+/** @} */
 
 #define XUN_DIVISOR_BYTE_MASK	0x000000FF
 

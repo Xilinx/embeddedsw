@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2002 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -23,6 +23,7 @@
 * 1.11a sv   03/20/07 Updated to use the new coding guidelines.
 * 2.00a ktn  10/20/09 Updated to use HAL processor APIs. XUartNs550_mClearStats
 *		      macro is removed.
+* 3.15  vn   07/30/26 Fix Doxygen warnings
 * </pre>
 *
 *****************************************************************************/
@@ -53,8 +54,6 @@
 * @param	InstancePtr is a pointer to the XUartNs550 instance.
 * @param	StatsPtr is a pointer to a XUartNs550Stats structure to where
 *		the statistics are to be copied to.
-*
-* @return 	None.
 *
 * @note		None.
 *
@@ -90,8 +89,6 @@ void XUartNs550_GetStats(XUartNs550 *InstancePtr, XUartNs550Stats *StatsPtr)
 * This function zeros the statistics for the given instance.
 *
 * @param	InstancePtr is a pointer to the XUartNs550 instance.
-*
-* @return	None.
 *
 * @note		None.
 *

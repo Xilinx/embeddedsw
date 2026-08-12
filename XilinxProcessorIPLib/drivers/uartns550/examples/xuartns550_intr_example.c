@@ -37,6 +37,7 @@
 * 3.6   rna  01/06/20 Clean up options at end to get Success/Failure strings
 * 3.9   gm   07/09/23 Added SDT support.
 * 3.14  vlt  12/18/25 Update Doxygen comments to include SDT flow details.
+* 3.15  vn   07/30/26 Fix Doxygen warnings
 * </pre>
 ******************************************************************************/
 
@@ -384,8 +385,6 @@ int UartNs550IntrExample(XUartNs550 *UartInstancePtr,
 * @param	Event contains the specific kind of event that has occurred.
 * @param	EventData contains the number of bytes sent or received for sent
 *		and receive events.
-*
-* @return	None.
 *
 * @note		None.
 *
