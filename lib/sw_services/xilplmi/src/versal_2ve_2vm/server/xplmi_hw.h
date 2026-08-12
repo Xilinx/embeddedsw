@@ -65,6 +65,7 @@
 *       obs  12/31/2025 Fixed GCC warnings
 *       pre  03/12/2026 Added register addresses of ROM and PLM hashes
 *       pre  05/30/2026 Added PS I2C instances check for I2C handshake feature
+*       obs  08/11/2026 Reduced debug log buffer size from 16KB to 12KB
 *
 * </pre>
 *
@@ -764,7 +765,7 @@ static inline void XPlmi_OutByte64(u64 Addr, u8 Data)
  * 0xF2000000U to 0xF201011FU - Used by XilLoader to process CDO
  * 0xF2014000U to 0xF2014FFFU - Used for PLM Runtime Configuration Registers
  * 0xF2016000U to 0xF2016BFFU - Used for storing secure lockdown CDO proc data
- * 0xF2019000U to 0xF201CFFFU - Used by XilPlmi to store PLM prints
+ * 0xF2019000U to 0xF201BFFFU - Used by XilPlmi to store PLM prints
  * 0xF201D000U to 0xF201DFFFU - Used by XilPlmi to store PLM Trace Events
  * 0xF201E000U to 0xF2020000U - Used by XilPdi to get boot Header copied by ROM
  */
@@ -787,7 +788,7 @@ static inline void XPlmi_OutByte64(u64 Addr, u8 Data)
 
 /* Log Buffer default address and length */
 #define XPLMI_DEBUG_LOG_BUFFER_ADDR	(XPLMI_PMCRAM_BASEADDR + 0x19000U)
-#define XPLMI_DEBUG_LOG_BUFFER_LEN	(0x4000U) /* 16KB */
+#define XPLMI_DEBUG_LOG_BUFFER_LEN	(0x3000U) /* 12KB */
 
 /* Trace Buffer default address and length */
 #define XPLMI_TRACE_LOG_BUFFER_ADDR	(XPLMI_PMCRAM_BASEADDR + 0x1D000U)
