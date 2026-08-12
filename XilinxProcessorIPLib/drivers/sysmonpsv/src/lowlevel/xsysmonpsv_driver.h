@@ -36,6 +36,7 @@
 * 5.1   se     03/03/25 Compiler warnings fixed
 * 5.2   se     08/24/25 Microblaze support added
 * 5.3   se     03/13/26 Fix secure mode and PCSR re-lock in SDT flow
+* 5.4   vn     07/30/26 Fix Doxygen warnings
 *
 * </pre>
 *
@@ -88,7 +89,7 @@ typedef struct {
                                                   use to the Supply registers */
 } XSysMonPsv_Config;
 
-/*@}*/
+/** @} */
 
 /**
  * @brief This is an interrupt callback structure where callbacks and the
@@ -104,7 +105,7 @@ typedef struct {
                                           been set */
 } XSysMonPsv_EventHandler;
 
-/*@}*/
+/** @} */
 
 /**
  * @brief The XSysmonPsv driver instance data. The user is required to allocate a

@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2016 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -41,6 +41,7 @@
 * 5.0   se     08/01/24 Added new APIs to enable, set and get averaging for
 *                       voltage supplies and temperature satellites.
 * 5.2   se     08/24/25 Microblaze support added
+* 5.4   vn     07/30/26 Fix Doxygen warnings
 *
 * </pre>
 *
@@ -68,7 +69,7 @@ extern "C" {
 #endif
 /**************************** Type Definitions *******************************/
 
-/*@}*/
+/** @} */
 
 /**
  * @brief This typedef defines Threshold types.
@@ -79,7 +80,7 @@ typedef enum {
 	XSYSMONPSV_TH_UPPER, /**< Upper Threshold */
 } XSysMonPsv_Threshold;
 
-/*@}*/
+/** @} */
 
 /**
  * @name This array contains the names of the supplies
@@ -87,7 +88,7 @@ typedef enum {
  */
 extern const char *XSysMonPsv_Supply_Arr[]; /**< Names of the supplies
                                                 enabled in the design */
-/*@}*/
+/** @} */
 
 /**
  * @brief This typedef defines value types for voltage readings.
@@ -107,7 +108,7 @@ typedef enum {
                                           temperature since last VRef */
 } XSysMonPsv_Val;
 
-/*@}*/
+/** @} */
 
 /**
  * @brief This typedef defines types of supply values.
@@ -119,7 +120,7 @@ typedef enum {
 	XSYSMONPSV_4V_UNIPOLAR, /**< 4V unipolar fmt */
 	XSYSMONPSV_1V_BIPOLAR, /**< 1V bipolar fmt */
 } XSysMonPsv_VoltageScale;
-/*@}*/
+/** @} */
 
 /************************* Variable Definitions ******************************/
 
@@ -395,4 +396,3 @@ XSysMonPsv_Config *XSysMonPsv_LookupConfig(void);
 #endif
 
 #endif /* XSYSMONPSV_H_ */
-/** @} */

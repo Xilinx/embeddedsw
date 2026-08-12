@@ -35,6 +35,7 @@
 *                       printed on milli scale.
 * 5.3   se     03/13/26 Fix secure mode and PCSR re-lock in SDT flow
 *       se     03/20/26 Use static for driver instance structs
+* 5.4   vn     07/30/26 Fix Doxygen warnings
 *
 * </pre>
 *
@@ -96,7 +97,7 @@ int main(void)
  *
  * Callback function to notify temperature event.
  *
- * @param	Data is the data needed by the callback function.
+ * @param	data is the data needed by the callback function.
  *
  *****************************************************************************/
 void Temp_CallbackFunc(void *data)
@@ -111,7 +112,7 @@ void Temp_CallbackFunc(void *data)
  *
  * Callback function to notify supply event.
  *
- * @param	Data is the data needed by the callback function.
+ * @param	data is the data needed by the callback function.
  *
  *****************************************************************************/
 void Supply_CallbackFunc(void *data)

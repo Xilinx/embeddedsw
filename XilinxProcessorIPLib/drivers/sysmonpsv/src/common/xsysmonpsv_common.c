@@ -28,6 +28,7 @@
 *                       standardize return values to XST_FAILURE
 *       se     03/25/26 Fix Coverity/MISRA-C violations: U suffix,
 *                       (void) cast, sign conversion, parentheses
+* 5.4   vn     07/30/26 Fix Doxygen warnings
 *
 * </pre>
 *
@@ -172,8 +173,6 @@ u32 XSysMonPsv_SupplyThreshOffset(XSysMonPsv *InstancePtr, int Supply,
 * @param	Val Value in Q8P7 format.
 * @param	Val2 Constant 128.
 *
-* @return	None.
-*
 ***************************************************************************/
 void XSysMonPsv_Q8P7ToCelsius(u32 RawData, int *Val, int *Val2)
 {
@@ -189,8 +188,6 @@ void XSysMonPsv_Q8P7ToCelsius(u32 RawData, int *Val, int *Val2)
 * @param	RawData Raw Temperature Data.
 * @param	Val Numerator for conversion to deg C.
 * @param	Val2 Denominator for conversion to deg C in Q8.7 format.
-*
-* @return	None.
 *
 ***************************************************************************/
 void XSysMonPsv_CelsiusToQ8P7(u32 *RawData, int Val, int Val2)
@@ -209,8 +206,6 @@ void XSysMonPsv_CelsiusToQ8P7(u32 *RawData, int Val, int Val2)
 * @param	RawData Raw voltage data.
 * @param	Val Numerator for conversion to volts.
 * @param	Val2 Denominator for conversion to volts.
-*
-* @return	None.
 *
 ***************************************************************************/
 void XSysMonPsv_SupplyRawToProcessed(int RawData, int *Val, int *Val2)
@@ -239,8 +234,6 @@ void XSysMonPsv_SupplyRawToProcessed(int RawData, int *Val, int *Val2)
 * @param	Val2 Denominator for conversion to volts.
 * @param	RegVal Register Value.
 * @param	RawData Converted Raw data.
-*
-* @return	None.
 *
 ***************************************************************************/
 void XSysMonPsv_SupplyProcessedToRaw(int Val, int Val2, u32 RegVal,
@@ -463,8 +456,6 @@ int XSysMonPsv_InterruptGetStatus(XSysMonPsv *InstancePtr, u32 *IntrStatus)
 * @param	Mask 32 bit-mask of the interrupts to be cleared.
 *		Bit positions of 1 will be cleared. Bit positions of 0 will not
 *		change the previous interrupt status.*
-* @return	None.
-*
 *****************************************************************************/
 void XSysMonPsv_InterruptClear(XSysMonPsv *InstancePtr, u32 Mask)
 {
@@ -480,8 +471,6 @@ void XSysMonPsv_InterruptClear(XSysMonPsv *InstancePtr, u32 Mask)
 * Unlocks the register space of InstancePtr hardware.
 *
 * @param	InstancePtr Pointer to the driver instance.
-*
-* @return	None.
 *
 *****************************************************************************/
 void XSysMonPsv_UnlockRegspace(XSysMonPsv *InstancePtr)

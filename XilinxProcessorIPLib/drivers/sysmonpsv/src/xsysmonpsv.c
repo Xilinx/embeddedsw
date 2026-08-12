@@ -41,6 +41,7 @@
 *                       standardize return values to XST_FAILURE
 *       se     03/25/26 Fix Coverity/MISRA-C violations: U suffix,
 *                       (void) cast, sign conversion, parentheses
+* 5.4   vn     07/30/26 Fix Doxygen warnings
 *
 * </pre>
 *
@@ -113,8 +114,6 @@ s64 XSysMonPsv_CfgInitialize(XSysMonPsv *InstancePtr, XSysMonPsv_Config *CfgPtr)
 *
 * @param        InstancePtr Pointer to the XSysMonPsv instance.
 *
-* @return       None.
-*
 *
 ******************************************************************************/
 void XSysMonPsv_SystemReset(XSysMonPsv *InstancePtr)
@@ -138,8 +137,6 @@ void XSysMonPsv_SystemReset(XSysMonPsv *InstancePtr)
 *
 * @param        InstancePtr Pointer to the XSysMonPsv instance.
 * @param        Enable Flag to enable or disable gate registers.
-*
-* @return       None.
 *
 ******************************************************************************/
 void XSysMonPsv_EnRegGate(XSysMonPsv *InstancePtr, u8 Enable)
@@ -167,8 +164,6 @@ void XSysMonPsv_EnRegGate(XSysMonPsv *InstancePtr, u8 Enable)
 * @param        Address Value at which the Sysmon will be addressed on
 *               the PMBus.
 *
-* @return       None.
-*
 *
 ******************************************************************************/
 void XSysMonPsv_SetPMBusAddress(XSysMonPsv *InstancePtr, u8 Address)
@@ -192,8 +187,6 @@ void XSysMonPsv_SetPMBusAddress(XSysMonPsv *InstancePtr, u8 Address)
 *
 *  @param       InstancePtr Pointer to the driver instance.
 *  @param       Enable Value which enables or disables the PMBus.
-*
-*  @return      None.
 *
 *  @note        If Enable = 0, PMBus lines will be in tristate.
 *               If Enable = 1, PMBus lines will be active.
@@ -223,8 +216,6 @@ void XSysMonPsv_PMBusEnable(XSysMonPsv *InstancePtr, u8 Enable)
 *  @param       Enable Value which restrics or de-restrict the PMBus
 *               commands.
 *
-*  @return      None.
-*
 *  @note        If Enable = 0, PMBus commands are disabled.
 *               If Enable = 1, PMBus commands are enabled.
 *
@@ -253,8 +244,6 @@ void XSysMonPsv_PMBusEnableCmd(XSysMonPsv *InstancePtr, u8 Enable)
 *  @param       InstancePtr Pointer to the driver instance.
 *  @param       Interface Value which determies where the SMBus traffic
 *               gets routed to.
-*
-*  @return      None.
 *
 *  @note
 *               If Interface = 1, I2C command interface is enabled.
@@ -287,8 +276,6 @@ void XSysMonPsv_SelectExtInterface(XSysMonPsv *InstancePtr, u8 Interface)
 *               internal supplies since the last reset.
 * @param        ResetTemperature Resets the MIN and MAX values reached by
 *               the device since the last reset.
-*
-* @return       None.
 *
 *
 ******************************************************************************/
@@ -342,8 +329,6 @@ u16 XSysMonPsv_ReadDevTempThreshold(XSysMonPsv *InstancePtr,
 * @param        ThresholdType Enum which indicates the type of threshold.
 * @param        Value Raw ADC threshold value.
 *
-* @return       None.
-*
 * @note         Use XSysMonPsv_FloatToFixed to get the raw ADC value.
 *
 ******************************************************************************/
@@ -391,8 +376,6 @@ u16 XSysMonPsv_ReadOTTempThreshold(XSysMonPsv *InstancePtr,
 * @param        InstancePtr Pointer to the driver instance.
 * @param        ThresholdType Enum which indicates the type of threshold.
 * @param        Value Raw ADC threshold value.
-*
-* @return       None.
 *
 * @note         Use XSysMonPsv_FloatToFixed to get the raw ADC value.
 *
@@ -737,8 +720,6 @@ u32 XSysMonPsv_SetSupplyLowerThreshold(XSysMonPsv *InstancePtr,
 *               Mode = 1 Hysteresis Mode
 *               Mode = 0 Window Mode
 *
-* @return       None.
-*
 ******************************************************************************/
 void XSysMonPsv_SetTempMode(XSysMonPsv *InstancePtr, u32 Mode)
 {
@@ -762,8 +743,6 @@ void XSysMonPsv_SetTempMode(XSysMonPsv *InstancePtr, u32 Mode)
 * @param        Mode Sets the Hysteresis or Window mode.
 *               Mode = XSYSMONPSV_HYSTERESIS Hysteresis Mode
 *               Mode = XSYSMONPSV_WINDOW Window Mode
-*
-* @return       None.
 *
 ******************************************************************************/
 void XSysMonPsv_SetOTMode(XSysMonPsv *InstancePtr, u32 Mode)
@@ -1349,8 +1328,6 @@ int XSysMonPsv_GetSupplyThresholdLower(XSysMonPsv *InstancePtr, u32 Supply,
  * @param	SatId Temperature Satellite id, indexed from 1 to 64.
  * @param	Enable Enable/Disable flag.
  *
- * @return	None
- *
  *
 *******************************************************************************/
 void XSysMonPsv_EnableTempAverage(XSysMonPsv *InstancePtr, int SatId, u8 Enable)
@@ -1378,8 +1355,6 @@ void XSysMonPsv_EnableTempAverage(XSysMonPsv *InstancePtr, int SatId, u8 Enable)
  *
  * @param	InstancePtr Pointer to the driver instance.
  * @param	AverageRate Average Sampling Rate Value to be set.
- *
- * @return	None
  *
  *
 *******************************************************************************/
@@ -1483,8 +1458,6 @@ int XSysMonPsv_EnableSupplyAverage(XSysMonPsv *InstancePtr,
  *
  * @param	InstancePtr Pointer to the driver instance.
  * @param	AverageRate Average Sampling Rate Value to be set.
- *
- * @return	None
  *
  *
 *******************************************************************************/

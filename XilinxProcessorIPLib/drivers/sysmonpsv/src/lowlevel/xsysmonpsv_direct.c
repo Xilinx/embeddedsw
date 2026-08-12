@@ -23,6 +23,7 @@
 * 5.3   se     03/12/26 Enhancements: NULL checks, range validation,
 *                       standardize return values to XST_FAILURE
 *       se     03/13/26 Fix secure mode and PCSR re-lock in SDT flow
+* 5.4   vn     07/30/26 Fix Doxygen warnings
 *
 * </pre>
 *
@@ -43,8 +44,6 @@
  * @param	Offset Offset address for the register.
  * @param	Data Value to be read.
  *
- * @return	None.
- *
 *******************************************************************************/
 void XSysMonPsv_ReadReg32(XSysMonPsv *InstancePtr, u32 Offset, u32 *Data)
 {
@@ -60,8 +59,6 @@ void XSysMonPsv_ReadReg32(XSysMonPsv *InstancePtr, u32 Offset, u32 *Data)
  * @param	InstancePtr Pointer to the driver instance.
  * @param	Offset Offset address of the register.
  * @param	Data Value to be written.
- *
- * @return	None.
  *
 *******************************************************************************/
 void XSysMonPsv_WriteReg32(XSysMonPsv *InstancePtr, u32 Offset, u32 Data)
@@ -80,8 +77,6 @@ void XSysMonPsv_WriteReg32(XSysMonPsv *InstancePtr, u32 Offset, u32 Data)
  * @param	Offset Offset addtress of the register.
  * @param	Mask Bits to be masked.
  * @param	Data Value to be written.
- *
- * @return	None.
  *
 *******************************************************************************/
 void XSysMonPsv_UpdateReg32(XSysMonPsv *InstancePtr, u32 Offset, u32 Mask,

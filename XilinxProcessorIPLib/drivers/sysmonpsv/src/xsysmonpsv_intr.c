@@ -33,6 +33,7 @@
 * 4.0   se     11/10/22 Secure and Non-Secure mode integration
 * 5.2   se     08/24/25 Microblaze support added
 * 5.3   dc     02/18/26 Correct spelling errors
+* 5.4   vn     07/30/26 Fix Doxygen warnings
 *
 * </pre>
 *
@@ -68,8 +69,6 @@
 *               keep the previous setting. This mask is formed by OR'ing
 *               XSYSMONPSV_IER_*  bits defined in xsysmonpsv_hw.h.
 * @param        IntrNum Interrupt enable register to be used.
-*
-* @return       None.
 *
 *
 *****************************************************************************/
@@ -136,8 +135,6 @@ u32 XSysMonPsv_IntrGetEnabled(XSysMonPsv *InstancePtr, u8 IntrNum)
 *               XSYSMONPSV_IDR_*  bits defined in xsysmonpsv_hw.h.
 * @param        IntrNum Interrupt disable register to be used.
 *
-* @return       None.
-*
 *
 *****************************************************************************/
 void XSysMonPsv_IntrDisable(XSysMonPsv *InstancePtr, u32 Mask, u8 IntrNum)
@@ -194,8 +191,6 @@ u32 XSysMonPsv_IntrGetStatus(XSysMonPsv *InstancePtr)
 * @param        Mask 32 bit-mask of the interrupts to be cleared.
 *               Bit positions of 1 will be cleared. Bit positions of 0 will not
 *               change the previous interrupt status.*
-* @return       None.
-*
 *
 *****************************************************************************/
 void XSysMonPsv_IntrClear(XSysMonPsv *InstancePtr, u32 Mask)
@@ -217,7 +212,6 @@ void XSysMonPsv_IntrClear(XSysMonPsv *InstancePtr, u32 Mask)
 * @param        Supply Enum from the XSysMonPsv_Supply
 * @param        Mask 32 bit Mask for NEW_DATA_n fields in the interrupt
 *               registers
-* @return       None.
 *
 *
 *****************************************************************************/
