@@ -38,6 +38,7 @@
 * 6.10  ht    06/23/23 Added support for system device-tree flow.
 * 6.14  vlt  12/12/25 Update Doxygen comments to include SDT flow details.
 *       vlt  01/27/26 Fixed codespell issues.
+* 6.15  vn   07/30/26 Fix Doxygen warnings
 * </pre>
 *
 *****************************************************************************/
@@ -84,8 +85,6 @@ static XAxiPmon AxiPmonInst;      /* System Monitor driver instance */
 /**
 *
 * Main function that invokes the example in this file.
-*
-* @param	None.
 *
 * @return
 *		- XST_SUCCESS if the example has completed successfully.

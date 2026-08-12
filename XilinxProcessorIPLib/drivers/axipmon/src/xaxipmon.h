@@ -267,7 +267,7 @@ extern "C" {
 #define XAPM_MAX_COUNTERS		10U /**< Maximum number of Counters */
 #define XAPM_MAX_COUNTERS_PROFILE	48U /**< Maximum number of Counters */
 
-/*@}*/
+/** @} */
 
 
 /**
@@ -287,7 +287,7 @@ extern "C" {
 #define XAPM_METRIC_COUNTER_8	8U /**< Metric Counter 8 Register Index */
 #define XAPM_METRIC_COUNTER_9	9U /**< Metric Counter 9 Register Index */
 
-/*@}*/
+/** @} */
 
 /**
  * @name Indices for Incrementers and Sampled Incrementers used with
@@ -306,7 +306,7 @@ extern "C" {
 #define XAPM_INCREMENTER_8	8U /**< Metric Counter 0 Register Index */
 #define XAPM_INCREMENTER_9	9U /**< Metric Counter 0 Register Index */
 
-/*@}*/
+/** @} */
 
 /**
  * @name Macros for Metric Selector Settings
@@ -339,7 +339,7 @@ extern "C" {
 #define XAPM_METRIC_SET_30		30U /**< External event count */
 
 
-/*@}*/
+/** @} */
 
 
 /**
@@ -349,7 +349,7 @@ extern "C" {
 
 #define XAPM_MAX_AGENTS 	8U /**< Maximum number of Agents */
 
-/*@}*/
+/** @} */
 
 /**
  * @name Macros for Flags in Flag Enable Control Register
@@ -381,7 +381,7 @@ extern "C" {
 #define XAPM_FLAG_MC8		0x40000000U /**< Metric Counter 8 Flag */
 #define XAPM_FLAG_MC9		0x80000000U /**< Metric Counter 9 Flag */
 
-/*@}*/
+/** @} */
 
 /**
  * @name Macros for Read/Write Latency Start and End points
@@ -400,7 +400,7 @@ extern "C" {
 #define XAPM_LATENCY_FIRSTWR		1U /**< First Write as end point for
 					Latency calculation */
 
-/*@}*/
+/** @} */
 
 /**
  * @name Macros for Modes of APM
@@ -413,7 +413,7 @@ extern "C" {
 
 #define XAPM_MODE_ADVANCED		0U /**< APM in Advanced mode */
 
-/*@}*/
+/** @} */
 
 /**************************** Type Definitions *******************************/
 

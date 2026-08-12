@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2012 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -54,6 +54,7 @@
 *					 Zynq MP APM.
 *
 * 6.3  kvn  07/02/15 Modified code according to MISRA-C:2012 guidelines.
+* 6.15 vn   07/30/26 Fix Doxygen warnings
 * </pre>
 *
 *****************************************************************************/
@@ -364,7 +365,7 @@ extern "C" {
 #define XAPM_SWD_OFFSET			0x00000404U	/**< Software-written
 							Data Register */
 
-/* @} */
+/** @} */
 
 /**
  * @name AXI Monitor Sample Interval Control Register mask(s)
@@ -378,7 +379,7 @@ extern "C" {
 							*  counter */
 #define XAPM_SICR_ENABLE_MASK		0x00000001U /**< Enable the downcounter */
 
-/*@}*/
+/** @} */
 
 
 /** @name Interrupt Status/Enable Register Bit Definitions and Masks
@@ -424,7 +425,7 @@ extern "C" {
 					XAPM_IXR_MC7_OVERFLOW_MASK | \
 					XAPM_IXR_MC8_OVERFLOW_MASK | \
 					XAPM_IXR_MC9_OVERFLOW_MASK)
-/* @} */
+/** @} */
 
 /**
  * @name AXI Monitor Control Register mask(s)
@@ -470,7 +471,7 @@ extern "C" {
 #define XAPM_CR_MCNTR_ENABLE_MASK  		0x00000001U
 						/**< Metrics Counter
 					           Enable */
-/*@}*/
+/** @} */
 
 /**
  * @name AXI Monitor ID Register mask(s)
@@ -481,7 +482,7 @@ extern "C" {
 
 #define XAPM_ID_WID_MASK			0x0000FFFFU /**< Write ID */
 
-/*@}*/
+/** @} */
 
 /**
  * @name AXI Monitor ID Mask Register mask(s)
@@ -492,7 +493,7 @@ extern "C" {
 
 #define XAPM_MASKID_WID_MASK			0x0000FFFFU /**< Write ID Mask*/
 
-/*@}*/
+/** @} */
 
 /**************************** Type Definitions *******************************/
 

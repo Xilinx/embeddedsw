@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2012 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -98,6 +98,7 @@
 * 6.7   sd   17/11/18 Fix Doxygen reported warnings
 * 6.10  ht   06/23/23 Added support for system device-tree flow.
 * 6.12  ht   12/01/24 Fix GCC warnings
+* 6.15  vn   07/30/26 Fix Doxygen warnings
 * </pre>
 *
 *****************************************************************************/
@@ -267,8 +268,6 @@ s32 XAxiPmon_ResetMetricCounter(XAxiPmon *InstancePtr)
 *
 * @param	InstancePtr is a pointer to the XAxiPmon instance.
 *
-* @return	None.
-*
 * @note		None.
 *
 ******************************************************************************/
@@ -360,8 +359,6 @@ s32 XAxiPmon_ResetFifo(XAxiPmon *InstancePtr)
 * @param 	RangeUpper specifies the Upper limit in 32 bit Register
 * @param 	RangeLower specifies the Lower limit in 32 bit Register
 *
-* @return	None.
-*
 * @note		None
 *
 *****************************************************************************/
@@ -402,8 +399,6 @@ void XAxiPmon_SetIncrementerRange(XAxiPmon *InstancePtr, u8 IncrementerNum,
 * @param 	RangeLower specifies the user reference variable which returns
 *		the Lower Range Value of the specified Incrementer.
 *
-* @return	None.
-*
 * @note		None
 *
 *****************************************************************************/
@@ -435,8 +430,6 @@ void XAxiPmon_GetIncrementerRange(XAxiPmon *InstancePtr, u8 IncrementerNum,
 * @param	InstancePtr is a pointer to the XAxiPmon instance.
 * @param	SampleInterval is the Sample Interval value to be set
 *
-* @return	None
-*
 * @note		None.
 *
 *****************************************************************************/
@@ -466,8 +459,6 @@ void XAxiPmon_SetSampleInterval(XAxiPmon *InstancePtr, u32 SampleInterval)
 * @param	InstancePtr is a pointer to the XAxiPmon instance.
 * @param	SampleInterval is a pointer where the Sample Interval
 *		Counter value is returned.
-*
-* @return 	None.
 *
 * @note		None.
 *
@@ -633,8 +624,6 @@ s32 XAxiPmon_GetMetrics(XAxiPmon *InstancePtr, u8 CounterNum, u8 *Metrics,
 * @param	CntLowValue is the user space pointer with which lower 32 bits
 *		of Global Clock Counter has to be filled
 *
-* @return	None.
-*
 * @note		None.
 *
 *****************************************************************************/
@@ -775,8 +764,6 @@ u32 XAxiPmon_GetSampledMetricCounter(XAxiPmon *InstancePtr, u32 CounterNum)
 *		read.Use the XAPM_INCREMENTER_* defines for the Incrementer
 *		number.The valid values are 0 (XAPM_INCREMENTER_0) to
 *		9 (XAPM_INCREMENTER_9).
-* @param	IncrementerNum is the number of the specified Incrementer
-*		register
 * @return	RegValue is content of specified Metric Incrementer register.
 *
 * @note		None.
@@ -811,8 +798,6 @@ u32 XAxiPmon_GetIncrementer(XAxiPmon *InstancePtr, u32 IncrementerNum)
 *		register to read.Use the XAPM_INCREMENTER_* defines for the
 *		Incrementer number.The valid values are 0 (XAPM_INCREMENTER_0)
 *		to 9 (XAPM_INCREMENTER_9).
-* @param	IncrementerNum is the number of the specified Sampled
-*		Incrementer register
 * @return	RegValue is content of specified Sampled Incrementer register.
 *
 * @note		None.
@@ -844,8 +829,6 @@ u32 XAxiPmon_GetSampledIncrementer(XAxiPmon *InstancePtr, u32 IncrementerNum)
 *
 * @param	InstancePtr is a pointer to the XAxiPmon instance.
 * @param	SwData is the Software written Data.
-*
-* @return	None.
 *
 * @note		None.
 *
@@ -1086,8 +1069,6 @@ s32 XAxiPmon_StopCounters(XAxiPmon *InstancePtr)
 *
 * @param	InstancePtr is a pointer to the XAxiPmon instance.
 *
-* @return	None
-*
 * @note		None
 *
 *******************************************************************************/
@@ -1115,8 +1096,6 @@ void XAxiPmon_EnableMetricsCounter(XAxiPmon *InstancePtr)
 * This function disables the Metric Counters.
 *
 * @param	InstancePtr is a pointer to the XAxiPmon instance.
-*
-* @return	None
 *
 * @note		None
 *
@@ -1156,7 +1135,6 @@ void XAxiPmon_DisableMetricsCounter(XAxiPmon *InstancePtr)
 *		9 (XAPM_METRIC_COUNTER_9).
 * @param 	RangeUpper specifies the Upper limit in 32 bit Register
 * @param 	RangeLower specifies the Lower limit in 32 bit Register
-* @return	None
 *
 * @note		None.
 *
@@ -1237,8 +1215,6 @@ void XAxiPmon_GetLogEnableRanges(XAxiPmon *InstancePtr, u32 CounterNum,
 *
 * @param	InstancePtr is a pointer to the XAxiPmon instance.
 *
-* @return	None
-*
 * @note		None
 *
 *******************************************************************************/
@@ -1269,8 +1245,6 @@ void XAxiPmon_EnableEventLog(XAxiPmon *InstancePtr)
 *
 * @param	InstancePtr is a pointer to the XAxiPmon instance.
 *
-* @return	None
-*
 * @note		None
 *
 *******************************************************************************/
@@ -1298,8 +1272,6 @@ void XAxiPmon_EnableMetricCounterTrigger(XAxiPmon *InstancePtr)
 * Counters on external trigger pulse for a Slot.
 *
 * @param	InstancePtr is a pointer to the XAxiPmon instance.
-*
-* @return	None
 *
 * @note		None
 *
@@ -1330,8 +1302,6 @@ void XAxiPmon_DisableMetricCounterTrigger(XAxiPmon *InstancePtr)
 *
 * @param	InstancePtr is a pointer to the XAxiPmon instance.
 *
-* @return	None
-*
 * @note		None
 *
 *******************************************************************************/
@@ -1359,8 +1329,6 @@ void XAxiPmon_EnableEventLogTrigger(XAxiPmon *InstancePtr)
 * Log on external trigger pulse for a Slot.
 *
 * @param	InstancePtr is a pointer to the XAxiPmon instance.
-*
-* @return	None
 *
 * @note		None
 *
@@ -1481,8 +1449,6 @@ const char *XAxiPmon_GetMetricName(u8 Metrics)
 * @param	InstancePtr is a pointer to the XAxiPmon instance.
 * @param	WriteId is the Write ID to be written in ID register.
 *
-* @return	None.
-*
 * @note
 *			If ID filtering for write is of 32 bits(for Zynq MP APM) width then
 *			WriteID is written to XAPM_ID_OFFSET or if it is 16 bit width
@@ -1518,8 +1484,6 @@ void XAxiPmon_SetWriteId(XAxiPmon *InstancePtr, u32 WriteId)
 *
 * @param	InstancePtr is a pointer to the XAxiPmon instance.
 * @param	ReadId is the Read ID to be written in ID register.
-*
-* @return	None.
 *
 * @note
 *			If ID filtering for read is of 32 bits(for Zynq MP APM) width then
@@ -1634,7 +1598,6 @@ u32 XAxiPmon_GetReadId(XAxiPmon *InstancePtr)
 * @param	InstancePtr is a pointer to the XAxiPmon instance.
 * @param	Param is XAPM_LATENCY_ADDR_ISSUE or XAPM_LATENCY_ADDR_ACCEPT
 *		in xaxipmon.h.
-* @return	None
 *
 * @note		Param can be 0 - XAPM_LATENCY_ADDR_ISSUE
 *		or 1 - XAPM_LATENCY_ADDR_ACCEPT
@@ -1672,8 +1635,6 @@ void XAxiPmon_SetWrLatencyStart(XAxiPmon *InstancePtr, u8 Param)
 * @param	Param is XAPM_LATENCY_LASTWR or XAPM_LATENCY_FIRSTWR
 * 		in xaxipmon.h.
 *
-* @return	None
-*
 * @note		Param can be 0 - XAPM_LATENCY_LASTWR
 *		or 1 - XAPM_LATENCY_FIRSTWR
 *
@@ -1710,8 +1671,6 @@ void XAxiPmon_SetWrLatencyEnd(XAxiPmon *InstancePtr, u8 Param)
 * @param	Param is XAPM_LATENCY_ADDR_ISSUE or XAPM_LATENCY_ADDR_ACCEPT
 *		in xaxipmon.h.
 *
-* @return	None
-*
 * @note		Param can be 0 - XAPM_LATENCY_ADDR_ISSUE
 *		or 1 - XAPM_LATENCY_ADDR_ACCEPT
 *
@@ -1747,8 +1706,6 @@ void XAxiPmon_SetRdLatencyStart(XAxiPmon *InstancePtr, u8 Param)
 * @param	InstancePtr is a pointer to the XAxiPmon instance.
 * @param	Param is XAPM_LATENCY_LASTRD or XAPM_LATENCY_FIRSTRD
 * 		in xaxipmon.h.
-*
-* @return	None
 *
 * @note		Param can be 0 - XAPM_LATENCY_LASTRD
 *		or 1 - XAPM_LATENCY_FIRSTRD
@@ -1919,8 +1876,6 @@ u8 XAxiPmon_GetRdLatencyEnd(XAxiPmon *InstancePtr)
 * @param	InstancePtr is a pointer to the XAxiPmon instance.
 * @param	WrMask is the Write ID mask to be written in ID register.
 *
-* @return	None.
-*
 * @note
 *			If ID masking for write is of 32 bits(for Zynq MP APM) width then
 *			WrMask is written to XAPM_IDMASK_OFFSET or if it is 16 bit width
@@ -1956,8 +1911,6 @@ void XAxiPmon_SetWriteIdMask(XAxiPmon *InstancePtr, u32 WrMask)
 *
 * @param	InstancePtr is a pointer to the XAxiPmon instance.
 * @param	RdMask is the Read ID mask to be written in ID Mask register.
-*
-* @return	None.
 *
 * @note
 *			If ID masking for read is of 32 bits(for Zynq MP APM) width then

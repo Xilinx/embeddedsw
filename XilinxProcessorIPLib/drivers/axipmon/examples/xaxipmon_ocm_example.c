@@ -30,6 +30,7 @@
 *                       available in all examples. This is a fix for CR-965028.
 * 6.10  ht     06/23/23 Added support for system device-tree flow.
 * 6.14  vlt    01/27/26 Fixed codespell issues
+* 6.15  vn     07/30/26 Fix Doxygen warnings
 * </pre>
 *
 *****************************************************************************/
@@ -80,8 +81,6 @@ u32 MetricsBuffer[6];
 /**
 *
 * Main function that invokes the example in this file.
-*
-* @param	None.
 *
 * @return
 *		- XST_SUCCESS if the example has completed successfully.
@@ -197,10 +196,6 @@ int ApmCheck(u32 *BufferPtr, u16 Wtx, u16 Wbc, u16 Rtx, u16 Rbc)
 * Generates write and read transcations to OCM and reads metrics captured
 * by APM.
 *
-* @param	None.
-*
-* @return	None.
-*
 * @note		None.
 *
 *****************************************************************************/
@@ -229,7 +224,7 @@ void OcmTransaction()
 * Sets Counter 0 and Counter 1 for collecting the passed metrics
 *
 * @param    InstancePtr is pointer to APM instance.
-* @param    Slot is APM slot.
+* @param    slot is APM slot.
 * @param    Metric1 is Metric to be captured by Counter 1
 * @param    Metric2 is Metric to be captured by Counter 2
 *
@@ -277,8 +272,6 @@ int ApmMetricConfig(XAxiPmon *InstancePtr, u8 slot, u8 Metric1, u8 Metric2)
 * @param    BufferPtr is pointer to buffer.
 * @param    Counter1 is counter number.
 * @param    Counter2 is counter number.
-*
-* @return	None.
 *
 * @note     None.
 *
