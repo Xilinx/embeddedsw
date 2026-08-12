@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2013 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -41,6 +41,7 @@
 * 4.2   ap     08/09/23 reordered function XSdPs_Identify_UhsMode.
 * 4.3   ap     12/22/23 Add support to read custom HS400 tap delay value from design for eMMC.
 * 4.5   sk     10/28/25 Update IsCacheCoherent logic to include EL1_NS mode.
+* 4.7   vn     07/30/26 Fix Doxygen warnings
 * </pre>
 *
 ******************************************************************************/
@@ -214,6 +215,10 @@ RETURN_PATH:
 *
 *
 * @param	InstancePtr Pointer to the XSdPs instance.
+*
+* @return
+* 		- XST_SUCCESS if successful
+* 		- XST_FAILURE if failure
 *
 ******************************************************************************/
 s32 XSdPs_IdentifyCard(XSdPs *InstancePtr)
@@ -823,8 +828,6 @@ RETURN_PATH:
 *
 * @param	InstancePtr Pointer to the instance to be worked on.
 *
-* @return	None
-*
 ******************************************************************************/
 void XSdPs_HostConfig(XSdPs *InstancePtr)
 {
@@ -953,8 +956,6 @@ RETURN_PATH:
 * @param	InstancePtr Pointer to the XSdPs instance.
 * @param	ReadBuff Contains the response for CMD6
 *
-* @return	None.
-*
 *
 ******************************************************************************/
 void XSdPs_Identify_UhsMode(XSdPs *InstancePtr, u8 *ReadBuff)
@@ -988,8 +989,6 @@ void XSdPs_Identify_UhsMode(XSdPs *InstancePtr, u8 *ReadBuff)
 *
 *
 * @param	InstancePtr Pointer to the XSdPs instance.
-*
-* @return	None
 *
 ******************************************************************************/
 void XSdPs_SetTapDelay(XSdPs *InstancePtr)
@@ -1191,8 +1190,6 @@ RETURN_PATH:
 * @param	BlkCnt Block count.
 * @param	Buff  Pointer to data buffer.
 *
-* @return	None
-*
 ******************************************************************************/
 void XSdPs_SetupADMA2DescTbl(XSdPs *InstancePtr, u32 BlkCnt, const u8 *Buff)
 {
@@ -1212,8 +1209,6 @@ void XSdPs_SetupADMA2DescTbl(XSdPs *InstancePtr, u32 BlkCnt, const u8 *Buff)
 *
 * @param	InstancePtr Pointer to the XSdPs instance.
 * @param	BlkCnt Block count.
-*
-* @return	None
 *
 *
 ******************************************************************************/
@@ -1329,8 +1324,6 @@ s32 XSdPs_DllReset(XSdPs *InstancePtr)
 *
 * @param	InstancePtr Pointer to the instance to be worked on.
 * @param	ExtCsd Extended CSD register from the card.
-*
-* @return	None
 *
 ******************************************************************************/
 void XSdPs_IdentifyEmmcMode(XSdPs *InstancePtr, const u8 *ExtCsd)

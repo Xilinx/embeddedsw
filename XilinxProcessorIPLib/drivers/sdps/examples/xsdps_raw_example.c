@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2019 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -26,6 +26,7 @@
 * 3.9 	mn  12/02/19 First release
 * 3.10	mn  09/17/20 Fix sector offset issue with Non-HCS SD cards
 * 4.2   ro     06/12/23 Added support for system device-tree flow.
+* 4.7   vn     07/30/26 Fix Doxygen warnings
 *
 *</pre>
 *
@@ -95,8 +96,6 @@ int main(void)
 /**
 *
 * This function performs the SD Raw Read/ Write Test.
-*
-* @param	None
 *
 * @return	XST_SUCCESS if successful, otherwise XST_FAILURE.
 *

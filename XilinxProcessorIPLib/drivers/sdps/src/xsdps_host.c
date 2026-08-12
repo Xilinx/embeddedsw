@@ -44,6 +44,7 @@
 * 4.5   sk     10/28/25 Update IsCacheCoherent logic to include EL1_NS mode.
 * 4.6   vlt    03/14/26 Updated BaseAddress type from u32 to UINTPTR
 *                       to support 64-bit addressing.
+* 4.7   vn     07/30/26 Fix Doxygen warnings
 * </pre>
 *
 ******************************************************************************/
@@ -75,8 +76,6 @@ void XSdps_Smc(XSdPs *InstancePtr, u32 RegOffset, u32 Mask, u32 Val)
 *
 * @param        InstancePtr Pointer to the instance to be worked on.
 *
-* @return       None
-*
 *******************************************************************************/
 void XSdPs_SetTapDelay_SDR104(XSdPs *InstancePtr)
 {
@@ -96,8 +95,6 @@ void XSdPs_SetTapDelay_SDR104(XSdPs *InstancePtr)
 *
 * @param        InstancePtr Pointer to the instance to be worked on.
 *
-* @return       None
-*
 *******************************************************************************/
 void XSdPs_SetTapDelay_SDR50(XSdPs *InstancePtr)
 {
@@ -114,8 +111,6 @@ void XSdPs_SetTapDelay_SDR50(XSdPs *InstancePtr)
 * Sets the tap delay for DDR50 uhs mode.
 *
 * @param        InstancePtr Pointer to the instance to be worked on.
-*
-* @return       None
 *
 *******************************************************************************/
 void XSdPs_SetTapDelay_DDR50(XSdPs *InstancePtr)
@@ -143,8 +138,6 @@ void XSdPs_SetTapDelay_DDR50(XSdPs *InstancePtr)
 * Sets the tap delay for SDR25 uhs mode.
 *
 * @param        InstancePtr Pointer to the instance to be worked on.
-*
-* @return       None
 *
 *******************************************************************************/
 void XSdPs_SetTapDelay_SDR25(XSdPs *InstancePtr)
@@ -174,6 +167,10 @@ void XSdPs_SetTapDelay_SDR25(XSdPs *InstancePtr)
 *
 *
 * @param	InstancePtr Pointer to the XSdPs instance.
+*
+* @return
+* 		- XST_SUCCESS if successful
+* 		- XST_FAILURE if failure
 *
 ******************************************************************************/
 s32 XSdPs_Switch_Voltage(XSdPs *InstancePtr)
@@ -290,8 +287,6 @@ RETURN_PATH:
 * Sets bit to start execution of tuning.
 *
 * @param	InstancePtr Pointer to the instance to be worked on.
-*
-* @return	None
 *
 ******************************************************************************/
 void XSdPs_SetExecTuning(XSdPs *InstancePtr)
@@ -592,8 +587,6 @@ RETURN_PATH:
 *
 * @param	InstancePtr Pointer to the instance to be worked on.
 *
-* @return	None
-*
 ******************************************************************************/
 void XSdPs_DisableBusPower(XSdPs *InstancePtr)
 {
@@ -616,8 +609,6 @@ void XSdPs_DisableBusPower(XSdPs *InstancePtr)
 * Enables the bus power.
 *
 * @param	InstancePtr Pointer to the instance to be worked on.
-*
-* @return	None
 *
 ******************************************************************************/
 void XSdPs_EnableBusPower(XSdPs *InstancePtr)
@@ -975,11 +966,6 @@ s32 XSdPs_CalcBusSpeed(XSdPs *InstancePtr, u32 *Arg)
 * @param	BlkSize  Block size passed by the user.
 * @param	Buff  Pointer to the data buffer for a DMA transfer.
 *
-* @return
-* 		- XST_SUCCESS if initialization was successful
-* 		- XST_FAILURE if failure - could be because another transfer
-* 			is in progress or command or data inhibit is set
-*
 ******************************************************************************/
 void XSdPs_SetupReadDma(XSdPs *InstancePtr, u16 BlkCnt, u16 BlkSize, u8 *Buff)
 {
@@ -1022,11 +1008,6 @@ void XSdPs_SetupReadDma(XSdPs *InstancePtr, u16 BlkCnt, u16 BlkSize, u8 *Buff)
 * @param	BlkCnt  Block count passed by the user.
 * @param	BlkSize  Block size passed by the user.
 * @param	Buff  Pointer to the data buffer for a DMA transfer.
-*
-* @return
-* 		- XST_SUCCESS if initialization was successful
-* 		- XST_FAILURE if failure - could be because another transfer
-* 			is in progress or command or data inhibit is set
 *
 ******************************************************************************/
 void XSdPs_SetupWriteDma(XSdPs *InstancePtr, u16 BlkCnt, u16 BlkSize, const u8 *Buff)
@@ -1071,8 +1052,6 @@ void XSdPs_SetupWriteDma(XSdPs *InstancePtr, u16 BlkCnt, u16 BlkSize, const u8 *
 * @param	InstancePtr Pointer to the XSdPs instance.
 * @param	BlkCnt Block count.
 * @param	Buff Pointer to data buffer.
-*
-* @return	None
 *
 *
 ******************************************************************************/
@@ -1137,8 +1116,6 @@ void XSdPs_Setup32ADMA2DescTbl(XSdPs *InstancePtr, u32 BlkCnt, const u8 *Buff)
 * @param	InstancePtr Pointer to the XSdPs instance.
 * @param	BlkCnt Block count.
 * @param	Buff  Pointer to data buffer.
-*
-* @return	None
 *
 ******************************************************************************/
 void XSdPs_Setup64ADMA2DescTbl(XSdPs *InstancePtr, u32 BlkCnt, const u8 *Buff)
@@ -1252,8 +1229,6 @@ u32 XSdPs_CalcClock(XSdPs *InstancePtr, u32 SelFreq)
 * @param	InstancePtr Pointer to the XSdPs instance.
 * @param	EnRst Flag indicating whether to Assert or De-assert Reset.
 *
-* @return	None
-*
 * @note		This API is specific to ZynqMP platform.
 *
 ******************************************************************************/
@@ -1307,8 +1282,6 @@ void XSdPs_DllRstCtrl(XSdPs *InstancePtr, u8 EnRst)
 *
 *
 * @param	InstancePtr Pointer to the XSdPs instance.
-*
-* @return	None
 *
 *
 ******************************************************************************/
@@ -1490,8 +1463,6 @@ s32 XSdPs_SetVoltage18(XSdPs *InstancePtr)
 *
 * @param	InstancePtr Pointer to the instance to be worked on.
 *
-* @return	None
-*
 ******************************************************************************/
 void XSdPs_ConfigPower(XSdPs *InstancePtr)
 {
@@ -1520,8 +1491,6 @@ void XSdPs_ConfigPower(XSdPs *InstancePtr)
 *
 * @param	InstancePtr Pointer to the instance to be worked on.
 *
-* @return	None
-*
 ******************************************************************************/
 void XSdPs_ConfigDma(XSdPs *InstancePtr)
 {
@@ -1544,8 +1513,6 @@ void XSdPs_ConfigDma(XSdPs *InstancePtr)
 * Configures the Interrupts.
 *
 * @param	InstancePtr Pointer to the instance to be worked on.
-*
-* @return	None
 *
 ******************************************************************************/
 void XSdPs_ConfigInterrupt(XSdPs *InstancePtr)
