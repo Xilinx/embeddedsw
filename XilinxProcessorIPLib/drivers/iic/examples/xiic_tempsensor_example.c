@@ -39,6 +39,7 @@
 * 3.14  bkv  07/07/25 Fixed GCC Warnings.
 * 3.15  vlt  12/12/25 Update Doxygen comments to include SDT flow details.
 * 3.15  vlt  02/17/26 Added timeout handling to polled wait loops.
+* 3.16  vn   07/30/26 Fix Doxygen warnings
 *
 * </pre>
 *
@@ -445,7 +446,7 @@ static int SetupInterruptSystem(XIic *IicPtr)
 * and indicates that data in the specified buffer was received. The byte count
 * should equal the byte count of the buffer if all the buffer was filled.
 *
-* @param	CallBackRef is a pointer to the IIC device driver instance which
+* @param	CallbackRef is a pointer to the IIC device driver instance which
 *		the handler is being called for.
 * @param	ByteCount indicates the number of bytes remaining to be received of
 *		the requested byte count. A value of zero indicates all requested
@@ -453,7 +454,7 @@ static int SetupInterruptSystem(XIic *IicPtr)
 *
 * @return	None.
 *
-* @notes	None.
+* @note		None.
 *
 ****************************************************************************/
 static void RecvHandler(void *CallbackRef, int ByteCount)
@@ -469,13 +470,13 @@ static void RecvHandler(void *CallbackRef, int ByteCount)
 * indicates that the conditions of the IIC bus changed. This  handler should
 * not be called for the application unless an error occurs.
 *
-* @param	CallBackRef is a pointer to the IIC device driver instance which the
+* @param	CallbackRef is a pointer to the IIC device driver instance which the
 *		handler is being called for.
 * @param	Status contains the status of the IIC bus which changed.
 *
 * @return	None.
 *
-* @notes	None.
+* @note		None.
 *
 ****************************************************************************/
 static void StatusHandler(void *CallbackRef, int Status)

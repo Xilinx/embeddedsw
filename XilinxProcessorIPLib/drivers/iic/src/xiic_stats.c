@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2002 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -26,6 +26,7 @@
 *		     XIic_ClearStats function is updated as the
 *		     macro XIIC_CLEAR_STATS has been removed.
 * 3.13  bkv 02/20/25 Fixed run time error from invalid memory access.
+* 3.16  vn  07/30/26 Fix Doxygen warnings
 *
 * </pre>
 *
@@ -54,8 +55,6 @@
 * @param	InstancePtr is a pointer to the XIic instance to be worked on.
 * @param	StatsPtr is a pointer to a XIicStats structure which will get a
 *		copy of current statistics.
-*
-* @return	None.
 *
 * @note		None.
 *
@@ -90,8 +89,6 @@ void XIic_GetStats(XIic *InstancePtr, XIicStats * StatsPtr)
 * Clears the statistics for the IIC device by zeroing all counts.
 *
 * @param	InstancePtr is a pointer to the XIic instance to be worked on.
-*
-* @return	None.
 *
 * @note		None.
 *

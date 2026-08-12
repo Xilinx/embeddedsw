@@ -103,6 +103,7 @@
 * 3.15  vlt  02/17/26 Added timeout handling to polled wait loops.
 * 3.15  vlt  03/20/26 Updated comments lines for SCU200 and SCU35 EEPROM address,
 *                     page size, and address type.
+* 3.16  vn   07/30/26 Fix Doxygen warnings
 * </pre>
 *
 ******************************************************************************/
@@ -825,8 +826,6 @@ static void StatusHandler(XIic *InstancePtr, int Event)
 /*****************************************************************************/
 /**
 * This function initializes the IIC MUX to select EEPROM.
-*
-* @param	None.
 *
 * @return	XST_SUCCESS if pass, otherwise XST_FAILURE.
 *

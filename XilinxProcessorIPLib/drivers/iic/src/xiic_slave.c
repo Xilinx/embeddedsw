@@ -50,6 +50,7 @@
 * 3.7  rna  10/06/20 Flush the RxFIFO in NAAS handler only when the FIFO is not
 *                    empty and the controller is still in NAAS state.
 * 3.15 vlt  01/27/26 Fixed codespell issues.
+* 3.16 vn   07/30/26 Fix Doxygen warnings
 * </pre>
 *
 ****************************************************************************/
@@ -84,8 +85,6 @@ static void SendSlaveData(XIic *InstancePtr);
 * to the Cfg_Initialize() function and must be called before any functions in
 * this file are called.
 *
-*
-* @return 	None.
 *
 * @note		None.
 *

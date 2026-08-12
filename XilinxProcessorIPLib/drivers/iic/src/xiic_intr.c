@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2006 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -46,6 +47,7 @@
 *		      handling RX FULL interrupt when receive byte count is one,
 *		      because here the TX error interrupt indicate NACK, not
 *		      actually TX error.
+* 3.16  vn   07/30/26 Fix Doxygen warnings
 *
 * </pre>
 *
@@ -95,8 +97,6 @@ void (*XIic_BusNotBusyFuncPtr) (XIic *InstancePtr) = StubFunction;
 * higher priority system interrupts quicker response time.
 *
 * @param	InstancePtr is a pointer to the XIic instance to be worked on.
-*
-* @return	None.
 *
 * @internal
 *

@@ -60,6 +60,7 @@
 * 3.3   als  06/27/16 Added low-level XIic_WaitBusFree API.
 * 3.15  vlt  12/05/25 Add timing register offsets for clock configuration.
 *       vlt  01/27/26 Fixed codespell issues
+* 3.16  vn   07/30/26 Fix Doxygen warnings
 * </pre>
 *
 *****************************************************************************/
@@ -98,7 +99,7 @@ extern "C" {
 #define XIIC_TBA_REG_OFFSET	0x11C /**< 10 Bit Address reg */
 #define XIIC_RFD_REG_OFFSET	0x120 /**< Rx FIFO Depth reg */
 #define XIIC_GPO_REG_OFFSET	0x124 /**< Output Register */
-/* @} */
+/** @} */
 
 /*
  * Timing register offsets from RegisterBase. These are used only for
@@ -113,7 +114,7 @@ extern "C" {
 #define XIIC_THIGH_REG_OFFSET  0x13C /* THIGH Register */
 #define XIIC_TLOW_REG_OFFSET   0x140 /* TLOW Register */
 #define XIIC_THDDAT_REG_OFFSET 0x144 /* THDDAT Register */
-/* @} */
+/** @} */
 
 
 /**
@@ -121,7 +122,7 @@ extern "C" {
  * @{
  */
 #define XIIC_GINTR_ENABLE_MASK	0x80000000 /**< Global Interrupt Enable Mask */
-/* @} */
+/** @} */
 
 /** @name IIC Device Interrupt Status/Enable (INTR) Register Masks
  *
@@ -159,14 +160,14 @@ extern "C" {
  */
 #define XIIC_TX_RX_INTERRUPTS	(XIIC_INTR_RX_FULL_MASK | XIIC_TX_INTERRUPTS)
 
-/* @} */
+/** @} */
 
 /**
  * @name Reset Register mask
  * @{
  */
 #define XIIC_RESET_MASK		0x0000000A /**< RESET Mask  */
-/* @} */
+/** @} */
 
 
 /**
@@ -180,7 +181,7 @@ extern "C" {
 #define XIIC_CR_NO_ACK_MASK		0x00000010 /**< Tx Ack. NO ack = 1 */
 #define XIIC_CR_REPEATED_START_MASK	0x00000020 /**< Repeated start = 1 */
 #define XIIC_CR_GENERAL_CALL_MASK	0x00000040 /**< Gen Call enabled = 1 */
-/* @} */
+/** @} */
 
 /**
  * @name Status Register masks (SR) mask(s)
@@ -197,7 +198,7 @@ extern "C" {
 #define XIIC_SR_RX_FIFO_FULL_MASK	0x00000020 /**< 1 = Rx FIFO full */
 #define XIIC_SR_RX_FIFO_EMPTY_MASK	0x00000040 /**< 1 = Rx FIFO empty */
 #define XIIC_SR_TX_FIFO_EMPTY_MASK	0x00000080 /**< 1 = Tx FIFO empty */
-/* @} */
+/** @} */
 
 /**
  * @name Data Tx Register (DTR) mask(s)
@@ -206,14 +207,14 @@ extern "C" {
 #define XIIC_TX_DYN_START_MASK		0x00000100 /**< 1 = Set dynamic start */
 #define XIIC_TX_DYN_STOP_MASK		0x00000200 /**< 1 = Set dynamic stop */
 #define IIC_TX_FIFO_DEPTH		16     /**< Tx fifo capacity */
-/* @} */
+/** @} */
 
 /**
  * @name Data Rx Register (DRR) mask(s)
  * @{
  */
 #define IIC_RX_FIFO_DEPTH		16	/**< Rx fifo capacity */
-/* @} */
+/** @} */
 
 
 #define XIIC_TX_ADDR_SENT		0x00
@@ -586,4 +587,3 @@ u32 XIic_WaitBusFree(UINTPTR BaseAddress);
 #endif
 
 #endif /* end of protection macro */
-/** @} */

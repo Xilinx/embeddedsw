@@ -25,6 +25,7 @@
 * 2.00a ktn 10/22/09 Converted all register accesses to 32 bit access.
 * 		     Updated to use the HAL APIs/macros.
 * 3.15  vlt 12/04/25 Add XIic_SetClk API for dynamic clock configuration.
+* 3.16  vn  07/30/26 Fix Doxygen warnings
 * </pre>
 *
 ****************************************************************************/
@@ -104,8 +105,6 @@ static const struct TimingRegs TimingRegValues[] = {
 * @param	InstancePtr is a pointer to the XIic instance to be worked on.
 * @param	NewOptions are the options to be set.  See xiic.h for a list of
 *		the available options.
-*
-* @return	None.
 *
 * @note
 *

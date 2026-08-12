@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2002 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -28,6 +29,7 @@
 *		     the name and some of the macros have been renamed to be
 *		     consistent, see the xiic_i.h and xiic_l.h files for further
 *		     information
+* 3.16  vn  07/30/26 Fix Doxygen warnings
 * </pre>
 *
 ****************************************************************************/
@@ -63,8 +65,6 @@ static void ArbitrationLostHandler(XIic *InstancePtr);
 * to allowing any multi-master events to occur, such as after the driver is
 * initialized.
 *
-*
-* @return 	None.
 *
 * @note		None.
 *

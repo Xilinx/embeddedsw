@@ -291,6 +291,7 @@
 *                     clock configuration.And add XIic_SetClk API for
 *                     dynamic clock configuration.
 * 3.15  vlt  12/30/25 Update Doxygen comments to include SDT flow details.
+* 3.16  vn   07/30/26 Fix Doxygen warnings
 *
 * </pre>
 *
@@ -352,7 +353,7 @@ extern "C" {
 #define XII_REPEATED_START_OPTION	0x00000002
 #define XII_SEND_10_BIT_OPTION		0x00000004
 
-/*@}*/
+/** @} */
 
 /** @name Status events
  *
@@ -368,7 +369,7 @@ extern "C" {
 #define XII_MASTER_READ_EVENT	0x00000008 /**< Master reading from slave */
 #define XII_MASTER_WRITE_EVENT	0x00000010 /**< Master writing to slave */
 #define XII_GENERAL_CALL_EVENT	0x00000020 /**< General call to all slaves */
-/*@}*/
+/** @} */
 
 
 /*

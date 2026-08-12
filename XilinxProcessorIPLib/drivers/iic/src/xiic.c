@@ -60,6 +60,7 @@
 * 3.8	rna  11/30/20 Corrected the order of Assert in XIic_SetRecvHandler.
 * 3.15  vlt  12/04/25 Add AxiClkFreq and SerialClkDelay to XIic_CfgInitialize
 *                     API for clock configuration.
+* 3.16  vn   07/30/26 Fix Doxygen warnings
 * </pre>
 *
 ****************************************************************************/
@@ -329,8 +330,6 @@ int XIic_Stop(XIic *InstancePtr)
 * Resets the IIC device.
 *
 * @param    InstancePtr is a pointer to the XIic instance to be worked on.
-*
-* @return	None.
 *
 * @note     The complete IIC core is Reset on giving a software reset to
 *           the IIC core. Some previous versions of the core only reset
@@ -611,8 +610,6 @@ u32 XIic_IsSlave(XIic *InstancePtr)
 *		when the callback function is invoked.
 * @param	FuncPtr is the pointer to the callback function.
 *
-* @return	None.
-*
 * @note		The handler is called within interrupt context .
 *
 ****************************************************************************/
@@ -639,8 +636,6 @@ void XIic_SetRecvHandler(XIic *InstancePtr, void *CallBackRef,
 * @param	CallBackRef the upper layer callback reference passed back when
 *		the callback function is invoked.
 * @param	FuncPtr the pointer to the callback function.
-*
-* @return	None.
 *
 * @note		The handler is called within interrupt context .
 *
@@ -669,8 +664,6 @@ void XIic_SetSendHandler(XIic *InstancePtr, void *CallBackRef,
 * @param	CallBackRef is the upper layer callback reference passed back
 *		when the callback function is invoked.
 * @param	FuncPtr is the pointer to the callback function.
-*
-* @return	None.
 *
 * @note		The handler is called within interrupt context .
 *
