@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2015 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -96,6 +96,7 @@
 * 1.13  akm    02/13/24    Avoid loop counter reset.
 * 1.13  akm    02/13/24    Always wrap page to device size.
 * 1.15  akm    10/28/25    Update IsCacheCoherent logic to include EL3 mode.
+* 1.17  vn     07/30/26    Fix Doxygen warnings
 *
 * </pre>
 *
@@ -647,7 +648,6 @@ static void XNandPsu_InitTimingMode(XNandPsu *InstancePtr, OnfiParamPage *Param)
 * This function checks if the flash supports on-die ECC.
 *
 * @param	InstancePtr is a pointer to the XNandPsu instance.
-* @param	Param is pointer to ONFI parameter page.
 *
 * @return
 *		None
@@ -744,9 +744,6 @@ Out:
 *
 * @param	InstancePtr is a pointer to the XNandPsu instance.
 *
-* @return
-*		None
-*
 * @note		None
 *
 ******************************************************************************/
@@ -765,9 +762,6 @@ void XNandPsu_EnableDmaMode(XNandPsu *InstancePtr)
 * This function disables DMA mode of driver/controller operation.
 *
 * @param	InstancePtr is a pointer to the XNandPsu instance.
-*
-* @return
-*		None
 *
 * @note		None
 *
@@ -788,9 +782,6 @@ void XNandPsu_DisableDmaMode(XNandPsu *InstancePtr)
 *
 * @param	InstancePtr is a pointer to the XNandPsu instance.
 *
-* @return
-*		None
-*
 * @note		None
 *
 ******************************************************************************/
@@ -809,9 +800,6 @@ void XNandPsu_EnableEccMode(XNandPsu *InstancePtr)
 * This function disables ECC mode of driver/controller operation.
 *
 * @param	InstancePtr is a pointer to the XNandPsu instance.
-*
-* @return
-*		None
 *
 * @note		None
 *
@@ -1076,6 +1064,8 @@ static void XNandPsu_SetEccAddrSize(XNandPsu *InstancePtr)
 * This function setup the Ecc Spare Command Register.
 *
 * @param	InstancePtr is a pointer to the XNandPsu instance.
+* @param	SpareCmd is the spare command value.
+* @param	AddrCycles is the number of address cycles.
 *
 * @return
 *		None
@@ -1211,6 +1201,8 @@ static s32 XNandPsu_OnfiReadStatus(XNandPsu *InstancePtr, u32 Target,
 *
 * @param	InstancePtr is a pointer to the XNandPsu instance.
 * @param	Target is the chip select value.
+* @param	IdAddr is the ID address.
+* @param	IdLen is the ID length.
 * @param	Buf is the ONFI ID value to return.
 *
 * @return
@@ -1311,7 +1303,6 @@ Out:
 *
 * @param	InstancePtr is a pointer to the XNandPsu instance.
 * @param	Target is the chip select value.
-* @param	PrmIndex is the index of parameter page.
 * @param	Buf is the parameter page information to return.
 *
 * @return
@@ -2684,9 +2675,6 @@ static s32 XNandPsu_InitExtEcc(XNandPsu *InstancePtr, OnfiExtPrmPage *ExtPrm)
 * @param	DmaMode is the flag to set DMA mode.
 * @param	AddrCycles is the number of Address Cycles.
 *
-* @return
-*		None
-*
 * @note		None
 *
 ******************************************************************************/
@@ -2808,7 +2796,7 @@ Out:
 * This function writes data to the fifo.
 *
 * @param	InstancePtr is a pointer to the XNandPsu instance.
-* @param	Buf is the buffer pointer.
+* @param	Buffer is the buffer pointer.
 * @param	Size of the Buffer.
 *
 * @return

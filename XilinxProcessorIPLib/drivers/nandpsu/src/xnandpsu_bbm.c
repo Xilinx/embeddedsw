@@ -35,6 +35,7 @@
 * 1.14  sb     05/28/24    Use FlashBbt array of nandpsu structure instead of
 *                          local Buf array in XNandPsu_WriteBbt() and XNandPsu_ReadBbt(),
 *                          to avoid stack overflow.
+* 1.17  vn     07/30/26    Fix Doxygen warnings
 * </pre>
 *
 ******************************************************************************/
@@ -78,9 +79,6 @@ static s32 XNandPsu_UpdateBbt(XNandPsu *InstancePtr, u32 Target);
 * predefined pattern for searching Bad Block Table(BBT) in flash.
 *
 * @param	InstancePtr is a pointer to the XNandPsu instance.
-*
-* @return
-*		- NONE
 *
 ******************************************************************************/
 void XNandPsu_InitBbtDesc(XNandPsu *InstancePtr)
@@ -169,6 +167,7 @@ void XNandPsu_InitBbtDesc(XNandPsu *InstancePtr)
 * a RAM based Bad Block Table(BBT).
 *
 * @param	InstancePtr is a pointer to the XNandPsu instance.
+* @param	Target is the chip select value.
 *
 * @return
 *		- NONE
@@ -318,6 +317,7 @@ Out:
 *
 * @param	InstancePtr is a pointer to the XNandPsu instance.
 * @param	Buf is the buffer which contains BBT read from flash.
+* @param	Target is the chip select value.
 *
 * @return
 *		- NONE.
@@ -342,6 +342,7 @@ static void XNandPsu_ConvertBbt(XNandPsu *InstancePtr, u8 *Buf, u32 Target)
 * memory based Bad Block Table(BBT).
 *
 * @param	InstancePtr is the pointer to the XNandPsu instance.
+* @param	Target is the chip select value.
 * @return
 *		- XST_SUCCESS if successful.
 *		- XST_FAILURE if fail.
@@ -473,6 +474,7 @@ Out:
 *
 * @param	InstancePtr is the pointer to the XNandPsu instance.
 * @param	Desc is the BBT descriptor pattern to search.
+* @param	Target is the chip select value.
 *
 * @return
 *		- XST_SUCCESS if successful.
@@ -546,6 +548,7 @@ Out:
 * @param	InstancePtr is the pointer to the XNandPsu instance.
 * @param	Desc is the BBT descriptor to be written to flash.
 * @param	MirrorDesc is the mirror BBT descriptor.
+* @param	Target is the chip select value.
 *
 * @return
 *		- XST_SUCCESS if successful.
@@ -654,6 +657,7 @@ Out:
 * flash.
 *
 * @param	InstancePtr is the pointer to the XNandPsu instance.
+* @param	Target is the chip select value.
 * @return
 *		- XST_SUCCESS if successful.
 *		- XST_FAILURE if fail.
@@ -700,6 +704,7 @@ Out:
 *
 * @param	InstancePtr is the pointer to the XNandPsu instance.
 * @param	Desc is the BBT descriptor pointer.
+* @param	Target is the chip select value.
 * @return
 *		- XST_SUCCESS if successful.
 *		- XST_FAILURE if fail.

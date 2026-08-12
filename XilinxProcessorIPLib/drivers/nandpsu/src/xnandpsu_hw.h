@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2015 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -28,6 +28,7 @@
 *			   XNANDPSU_ECC_HAMMING_BCH_MASK.
 * 1.7	akm    09/03/20    Updated the Makefile to support parallel make
 * 			   execution.
+* 1.17  vn     07/30/26    Fix Doxygen warnings
 * </pre>
 *
 ******************************************************************************/
@@ -103,7 +104,7 @@ extern "C" {
 #define XNANDPSU_PKT_PKT_SIZE_MASK		0x000007FFU /**< Packet Size */
 #define XNANDPSU_PKT_PKT_CNT_MASK		0x00FFF000U /**< Packet Count*/
 #define XNANDPSU_PKT_PKT_CNT_SHIFT		12U /**< Packet Count Shift */
-/* @} */
+/** @} */
 
 /** @name Memory Address Register 1 bit definitions and masks
  *  @{
@@ -113,7 +114,7 @@ extern "C" {
 #define XNANDPSU_MEM_ADDR1_PG_ADDR_MASK		0xFFFF0000U /**< Page, Block
 							     Address Mask */
 #define XNANDPSU_MEM_ADDR1_PG_ADDR_SHIFT	16U /**< Page Shift */
-/* @} */
+/** @} */
 
 /** @name Memory Address Register 2 bit definitions and masks
  *  @{
@@ -130,7 +131,7 @@ extern "C" {
 							shift */
 #define XNANDPSU_MEM_ADDR2_BUS_WIDTH_SHIFT	24U	/**< Bus width shift */
 #define XNANDPSU_MEM_ADDR2_NFC_BCH_MODE_SHIFT	25U
-/* @} */
+/** @} */
 
 /** @name Command Register bit definitions and masks
  *  @{
@@ -152,7 +153,7 @@ extern "C" {
 #define XNANDPSU_CMD_ADDR_CYCLES_SHIFT		28U /**< Number of Address
 						     Cycles Shift */
 #define XNANDPSU_CMD_ECC_ON_SHIFT		31U /**< ECC ON/OFF */
-/* @} */
+/** @} */
 
 /** @name Program Register bit definitions and masks
  *  @{
@@ -200,7 +201,7 @@ extern "C" {
 							     Register Clear */
 #define XNANDPSU_PROG_VOL_SEL_MASK		0x02000000U /**< Volume Select */
 #define XNANDPSU_PROG_ODT_CONF_MASK		0x04000000U /**< ODT Configure */
-/* @} */
+/** @} */
 
 /** @name Interrupt Status Enable Register bit definitions and masks
  *  @{
@@ -235,7 +236,7 @@ extern "C" {
 #define XNANDPSU_INTR_STS_EN_ERR_AHB_STS_EN_MASK	0x00000080U /**< Error
 								     AHB Status
 								     Enable */
-/* @} */
+/** @} */
 
 /** @name Interrupt Signal Enable Register bit definitions and masks
  *  @{
@@ -270,7 +271,7 @@ extern "C" {
 #define XNANDPSU_INTR_SIG_EN_ERR_AHB_STS_EN_MASK	0x00000080U /**< Error
 								     AHB Signal
 								     Enable */
-/* @} */
+/** @} */
 
 /** @name Interrupt Status Register bit definitions and masks
  *  @{
@@ -294,7 +295,7 @@ extern "C" {
 								     */
 #define XNANDPSU_INTR_STS_ERR_AHB_STS_EN_MASK		0x00000080U /**< Error
 								     AHB */
-/* @} */
+/** @} */
 
 /** @name Interrupt bit definitions and masks
  *  @{
@@ -318,20 +319,20 @@ extern "C" {
 								Enable */
 #define XNANDPSU_INTR_ERR_AHB_STS_EN_MASK	0x00000080U /**< Error AHB Status
 								Enable */
-/* @} */
+/** @} */
 
 /** @name ID2 Register bit definitions and masks
  *  @{
  */
 #define XNANDPSU_ID2_DEVICE_ID2_MASK		0x000000FFU /**< MSB Device ID */
-/* @} */
+/** @} */
 
 /** @name Flash Status Register bit definitions and masks
  *  @{
  */
 #define XNANDPSU_FLASH_STS_FLASH_STS_MASK	0x0000FFFFU /**< Flash Status
 							     Value */
-/* @} */
+/** @} */
 
 /** @name Timing Register bit definitions and masks
  *  @{
@@ -346,7 +347,7 @@ extern "C" {
 #define XNANDPSU_TIMING_TADL_TIME_MASK		0x00007F80U /**< Address latch
 							     enable to Data
 							     loading time */
-/* @} */
+/** @} */
 
 /** @name ECC Register bit definitions and masks
  *  @{
@@ -355,7 +356,7 @@ extern "C" {
 #define XNANDPSU_ECC_SIZE_MASK			0x01FF0000U /**< ECC size */
 #define XNANDPSU_ECC_HAMMING_BCH_MASK		0x02000000U /**< Hamming/BCH
 							     support */
-/* @} */
+/** @} */
 
 /** @name ECC Error Count Register bit definitions and masks
  *  @{
@@ -366,7 +367,7 @@ extern "C" {
 #define XNANDPSU_ECC_ERR_CNT_PG_BND_ERR_CNT_MASK	0x0000FF00U /**< Page
 								     bound error
 								     count */
-/* @} */
+/** @} */
 
 /** @name ECC Spare Command Register bit definitions and masks
  *  @{
@@ -379,7 +380,7 @@ extern "C" {
 								     spare
 								     address
 								     cycles */
-/* @} */
+/** @} */
 
 /** @name Data Interface Register bit definitions and masks
  *  @{
@@ -391,7 +392,7 @@ extern "C" {
 							     Interface */
 #define XNANDPSU_DATA_INTF_NVDDR_SHIFT		3U /**< NVDDR mode shift */
 #define XNANDPSU_DATA_INTF_DATA_INTF_SHIFT	9U /**< Data Interface Shift */
-/* @} */
+/** @} */
 
 /** @name DMA Buffer Boundary Register bit definitions and masks
  *  @{
@@ -406,7 +407,7 @@ extern "C" {
 #define XNANDPSU_DMA_BUF_BND_128K		0x5U
 #define XNANDPSU_DMA_BUF_BND_256K		0x6U
 #define XNANDPSU_DMA_BUF_BND_512K		0x7U
-/* @} */
+/** @} */
 
 /** @name Slave DMA Configuration Register bit definitions and masks
  *  @{
@@ -431,7 +432,7 @@ extern "C" {
 #define XNANDPSU_SLV_DMA_CONF_SDMA_EN_MASK		0x10000000U /**< Slave
 								     DMA
 								     Enable */
-/* @} */
+/** @} */
 
 /**************************** Type Definitions *******************************/
 
