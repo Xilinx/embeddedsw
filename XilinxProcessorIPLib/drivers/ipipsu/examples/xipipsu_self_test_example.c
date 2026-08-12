@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2015 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -38,6 +38,7 @@
 *       ht  11/25/24 Update Message length to accommodate for CRC bytes
 *                    when IPI CRC is enabled
 * 2.18  an  08/01/25 Added support for Microblaze in system device-tree flow
+* 2.20  vn  07/30/26 Fix Doxygen warnings
 * </pre>
 *
 ******************************************************************************/
@@ -111,6 +112,8 @@ static void InvertBuffer(u32 *BufPtr, u32 MsgLen)
  * -Reads the message
  * -Inverts the bits
  * -Sends back the inverted message as response
+ *
+ * @param	XIpiPsuPtr Pointer to the IPI instance
  *
  */
 void IpiIntrHandler(void *XIpiPsuPtr)
@@ -288,6 +291,15 @@ static XStatus DoIpiTest(XIpiPsu *InstancePtr)
 	return Status;
 }
 
+/*****************************************************************************/
+/**
+ * Main function to run the IPI self test example.
+ *
+ * @return	XST_SUCCESS if successful, otherwise XST_FAILURE.
+ *
+ * @note	None.
+ *
+ ******************************************************************************/
 int main()
 {
 
