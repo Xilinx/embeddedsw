@@ -46,6 +46,7 @@
  *                     examples.
  * 4.9 vlt  12/18/25 Update Doxygen comments to include SDT flow details.
  *     vlt  01/27/26 Fixed codespell issues.
+ * 4.10 vn  07/30/26 Fix Doxygen warnings
  * </pre>
  *
  * ***************************************************************************
@@ -121,8 +122,6 @@ XLlFifo  XLlFifoInstance;
 *
 * This function is the main entry of the traffic generator test. 
 *
-* @param        None
-*
 * @return
 *				- XST_SUCCESS if tests pass
 *               - XST_FAILURE if fails.
@@ -167,11 +166,6 @@ int main()
 *	- Enable the Traffic Generation on the Core
 *	- Check for the Streaming data on the FIFO 
 *       - Return test status and exit
-*
-* @param	InstancePtr is a pointer to the instance of the
-*		XTrafGen component.
-* @param	DeviceId is Device ID of the Axi Traffic Generator Device,
-*
 *
 * @param	InstancePtr is a pointer to the instance of the
 *			XTrafGen component.

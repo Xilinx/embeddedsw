@@ -39,6 +39,7 @@
  * 4.5   sd   07/18/23 Fix the disable interrupt
  * 4.7   ar   03/07/24 Fix the interrupt ID sequence in the SDT flow.
  * 4.9  vlt  12/18/25 Update Doxygen comments to include SDT flow details.
+ * 4.10 vn   07/30/26 Fix Doxygen warnings
  * </pre>
  *
  * ***************************************************************************
@@ -182,8 +183,6 @@ volatile int Error;
 * Main function
 *
 * This function is the main entry of the traffic generator test. 
-*
-* @param	None
 *
 * @return
 *		- XST_SUCCESS if tests pass

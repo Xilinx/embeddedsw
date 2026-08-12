@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2013 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -24,6 +24,7 @@
 * 1.00a srt  01/24/13 First release
 * 1.01a adk  03/09/13 Updated driver to Support Static and Streaming mode.
 * 2.00a adk  16/09/13 Fixed CR:737291
+* 4.10  vn   07/30/26 Fix Doxygen warnings
 * </pre>
 ******************************************************************************/
 
@@ -73,9 +74,9 @@ static int XTrafGen_ProgramParamRam(XTrafGen *InstancePtr, u8 RdWrFlag);
  *
  * @param       InstancePtr is a pointer to the Axi Traffic Generator instance
  *              to be worked on.
- * @param	CfgPtr references the structure holding the hardware
+ * @param	Config references the structure holding the hardware
  *		configuration for the Axi Traffic Generator core to initialize.
- * @param 	EffectiveAddr is the device base address in the virtual memory
+ * @param 	EffectiveAddress is the device base address in the virtual memory
  *		address	space. The caller is responsible for keeping the
  *		address mapping from EffectiveAddr to the device physical base
  *		address unchanged once this function is invoked. Unexpected

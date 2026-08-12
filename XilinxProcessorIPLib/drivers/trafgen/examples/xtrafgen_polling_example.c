@@ -37,6 +37,7 @@
  *       ms   04/05/17 Added tabspace for return statements in functions for
  *                     proper documentation while generating doxygen.
  * 4.9  vlt  12/18/25 Update Doxygen comments to include SDT flow details.
+ * 4.10 vn   07/30/26 Fix Doxygen warnings
  * </pre>
  *
  * ***************************************************************************
@@ -128,8 +129,6 @@ u32 VerifyRamData[TEST_LENGTH];
 *
 * This function is the main entry of the traffic generator test. 
 *
-* @param        None
-*
 * @return
 *				- XST_SUCCESS if tests pass
 *               - XST_FAILURE if fails.
@@ -175,11 +174,6 @@ int main()
 *       - Check for errors
 *       - Read Master RAM and verify data
 *       - Return test status and exit
-*
-* @param	InstancePtr is a pointer to the instance of the
-*		XTrafGen component.
-* @param	DeviceId is Device ID of the Axi Traffic Generator Device,
-*
 *
 * @param	InstancePtr is a pointer to the instance of the
 *			XTrafGen component.

@@ -34,7 +34,7 @@
 * 3.1   adk  28/04/14 Fixed CR:782131 Incorrect Mask value for the loopenable
 *		      bit.
 * 4.9   vlt  01/27/26 Fixed codespell issues.
-*
+* 4.10  vn   07/30/26 Fix Doxygen warnings
 * </pre>
 
 ******************************************************************************/
@@ -75,7 +75,7 @@ extern "C" {
 #define XTG_STATIC_CNTL_OFFSET	0x60	/**< Static Control */
 #define XTG_STATIC_LEN_OFFSET	0x64	/**< Static Length */
 
-/*@}*/
+/** @} */
 
 /** @name Internal RAM Offsets
  * @{
@@ -85,7 +85,7 @@ extern "C" {
 #define XTG_MASTER_RAM_OFFSET	0xC000	/**< Master RAM Offset */
 #define XTG_COMMAND_RAM_MSB_OFFSET	0xa000	/**< Command RAM MSB Offset */
 
-/*@}*/
+/** @} */
 
 /** @name Master Control Register bit definitions.
  *  These bits are associated with the XTG_MCNTL_OFFSET register.
@@ -100,7 +100,7 @@ extern "C" {
 #define XTG_MCNTL_REV_SHIFT	24		/**< Core Rev shift */
 #define XTG_MCNTL_MSTID_SHIFT	21		/**< M_ID_WIDTH shift */
 
-/*@}*/
+/** @} */
 
 /** @name Slave Control Register bit definitions.
  *  These bits are associated with the XTG_SCNTL_OFFSET register.
@@ -117,7 +117,7 @@ extern "C" {
 #define XTG_SCNTL_ERREN_MASK	0x00008000	/**< Slv Error 
 						Interrupt Enable */
 
-/*@}*/
+/** @} */
 
 /** @name Error bitmasks
  *  These bits are shared with the XTG_ERR_STS_OFFSET and
@@ -155,9 +155,7 @@ extern "C" {
 						Read Length
 						Mask */
 
-/*@}*/
-
-/*@}*/
+/** @} */
 
 /** @name Master Error Interrupt Enable Register bit definitions.
  *  These bits are associated with the XTG_MSTERR_INTR_OFFSET register.
@@ -166,7 +164,7 @@ extern "C" {
 #define XTG_MSTERR_INTR_MINTREN_MASK	0x00008000	/**< Master Err 
 							 Interrupt Enable */
 
-/*@}*/
+/** @} */
 
 /** @name Config Status Register bit definitions.
  *  These bits are associated with the XTG_CFG_STS_OFFSET register.
@@ -181,9 +179,8 @@ extern "C" {
 #define XTG_CFG_STS_MFULL_MASK		0x01000000	/**< Full Mode */
 #define XTG_CFG_STS_MBASIC_MASK		0x00800000	/**< Basic Mode */
 
-/*@}*/
+/** @} */
 
-/*@}*/
 /** @name Streaming Control Register bit definitions.
  *  These bits are associated with the XTG_STR_CFG_OFFSET register.
  * @{
@@ -196,9 +193,8 @@ extern "C" {
 
 #define XTG_STREAM_CNTL_STEN_MASK		0x00000001	/**< Streaming Enable Mask */
 #define XTG_STREAM_CNTL_RESET_MASK		0x00000000	/**< Streaming Disable Mask */
-/*@}*/
+/** @} */
 
-/*@}*/
 /** @name Streaming Config Register bit definitions.
  *  These bits are associated with the XTG_STR_CFG_OFFSET register.
  * @{
@@ -213,10 +209,8 @@ extern "C" {
 #define XTG_STREAM_CFG_RANDLY_MASK		0x00000002	/**< Random Delay Mask */
 
 #define XTG_STREAM_CFG_RANDL_MASK		0x00000001	/**< Random Length Mask */
-/*@}*/
+/** @} */
 
-
-/*@}*/
 /** @name Streaming Transfer Length Register bit definitions.
  *  These bits are associated with the XTG_STR_TL_OFFSET register.
  * @{
@@ -225,9 +219,8 @@ extern "C" {
 #define XTG_STREAM_TL_TCNT_MASK		0xFFFF0000	/**< Transfer Count Mask */
 
 #define XTG_STREAM_TL_TLEN_MASK		0x0000FFFF	/**< Transfer Length Mask */
-/*@}*/
+/** @} */
 
-/*@}*/
 /** @name Static Control Register bit definitions.
  *  These bits are associated with the XTG_STATIC_CNTL_OFFSET register.
  * @{
@@ -240,15 +233,14 @@ extern "C" {
 
 #define XTG_STATIC_CNTL_STEN_MASK		0x00000001	/**< Static enable Mask */
 #define XTG_STATIC_CNTL_RESET_MASK		0x00000000	/**< Static Disable Mask */
-/*@}*/
+/** @} */
 
-/*@}*/
 /** @name Static Length Register bit definitions.
  *  These bits are associated with the XTG_STATIC_LEN_OFFSET register.
  * @{
  */
 #define XTG_STATIC_LEN_BLEN_MASK		0x000000FF	 /**< Burst length Mask */
-/*@}*/
+/** @} */
 
 /** @name Axi Traffic Generator Command Entry field mask/shifts
  *  @{
@@ -287,7 +279,7 @@ extern "C" {
 #define XTG_CACHE_SHIFT		4		/**< Driven to a*_cache line */
 #define XTG_EXPECTED_RESP_SHIFT	0		/**< Expected response */
 
-/*@}*/
+/** @} */
 
 
 /** @name Axi Traffic Generator Parameter Entry field mask/shifts
@@ -332,7 +324,7 @@ extern "C" {
 #define XTG_PARAMOP_INTERVALMODE_CONST	0	/**< Constant Interval mode */
 #define XTG_PARAMOP_INTERVALMODE_RAND	1	/**< Random Interval mode */
 
-/*@}*/
+/** @} */
 
 
 /***************** Macros (Inline Functions) Definitions *********************/
