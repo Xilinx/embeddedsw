@@ -29,6 +29,7 @@
 * 1.8   vlt    01/27/26 Fixed codespell issues.
 * 1.8   vlt    03/15/26 Updated BaseAddress type from u32 to UINTPTR
 *                       to support 64-bit addressing.
+* 1.9   vn     07/30/26 Fix Doxygen warnings
 * </pre>
 *
 ******************************************************************************/
@@ -77,8 +78,6 @@ static u8 NumPeripherals = sizeof(PeriList)/sizeof(PeriList[0]);
 /**
 * Main function to call Reset example.
 *
-* @param	None.
-*
 * @return	XST_SUCCESS if successful, otherwise XST_FAILURE.
 *
 * @note		None.
@@ -116,6 +115,7 @@ int main(void)
 * value of the register.
 *
 * @param	ResetInstancePtr is a pointer to instance of XResetPs driver.
+* @param	BaseAddress contains the base address of the device.
 *
 * @return	XST_SUCCESS if successful, otherwise XST_FAILURE.
 *

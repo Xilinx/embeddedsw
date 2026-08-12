@@ -26,6 +26,7 @@
 * 1.5   sk     11/30/21 Fix compilation warnings reported with "-Wundef" flag.
 * 1.6   sd     07/07/23 Added SDT support.
 * 1.8   vlt    01/27/26 Fixed codespell issues.
+* 1.9   vn     07/30/26 Fix Doxygen warnings
 * </pre>
 *
 ******************************************************************************/
@@ -681,8 +682,6 @@ XStatus XResetPs_CfgInitialize(XResetPs *InstancePtr,
 *
 * Pulse Reset RPU.
 *
-* @param	None.
-*
 * @return
 *		- XST_SUCCESS if successful else error code.
 *
@@ -783,8 +782,6 @@ static XStatus XResetPs_PulseResetRpuLs(void)
 *
 * Pulse Reset PS only.
 *
-* @param	None.
-*
 * @return
 *		- XST_SUCCESS if successful else error code.
 *
@@ -869,8 +866,6 @@ static XStatus XResetPs_PulseResetPsOnly(void)
 /**
 *
 * Pulse Reset FPD.
-*
-* @param	None.
 *
 * @return
 *		- XST_SUCCESS if successful else error code.
