@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2015 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -34,6 +34,7 @@
 * 1.10  mus    10/06/23 Fix compilation error for Microblaze RISC-V processor.
 * 1.10  ml     11/15/23 Fix compilation errors reported with -std=c2x compiler flag
 * 1.13  ml     07/21/25 Fixed GCC warnings
+* 1.14  vn     07/30/26 Fix Doxygen warnings
 * </pre>
 *
 ******************************************************************************/
@@ -69,8 +70,6 @@ static INLINE u32 XCoresightPs_DccGetStatus(void);
 * @param	BaseAddress is a dummy parameter to match the function proto
 *		of functions for other stdio devices.
 * @param	Data is the byte of data to send
-*
-* @return	None.
 *
 * @note		None.
 *
@@ -142,8 +141,6 @@ u8 XCoresightPs_DccRecvByte(u32 BaseAddress)
 /**INLINE
 *
 * This functions read the status register of the DCC.
-*
-* @param	BaseAddress is the base address of the device
 *
 * @return	The contents of the Status Register.
 *
