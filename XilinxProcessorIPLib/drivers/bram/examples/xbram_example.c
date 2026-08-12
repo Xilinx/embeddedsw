@@ -25,6 +25,7 @@
 *                     available in all examples. This is a fix for CR-965028.
 * 4.9   sd   07/07/23 Added SDT support.
 * 4.14  vlt  12/17/25 Update Doxygen comments to include SDT flow details.
+* 4.15  vn   07/30/26 Fix Doxygen warnings
 *</pre>
 *
 ******************************************************************************/
@@ -72,8 +73,6 @@ XBram Bram;	/* The Instance of the BRAM Driver */
 /**
 *
 * This function is the main function of the BRAM example.
-*
-* @param	None.
 *
 * @return
 *		- XST_SUCCESS to indicate success.

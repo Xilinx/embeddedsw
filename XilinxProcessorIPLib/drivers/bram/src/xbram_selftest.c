@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2011 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -42,6 +42,7 @@
 *		       flush the Cache after writing to BRAM (CR #719011)
 * 4.3   aru 04/09/19   Used UINTPTR instead of u32 for Addr in XBram_SelfTest()
 * 4.5    mn 04/12/20   Resolve build warnings for ARMCC toolchain
+* 4.15   vn 07/30/26   Fix Doxygen warnings
 *
 * </pre>
 *****************************************************************************/
@@ -80,7 +81,7 @@ static void InjectErrors(XBram *InstancePtr, UINTPTR Addr,
 /**
 * Generate a pseudo random number.
 *
-* @param	The PrngResult is the previous random number in the pseudo
+* @param	PrngResult is the previous random number in the pseudo
 *		random sequence, also known as the seed. It is modified to
 *		the calculated pseudo random number by the function.
 *
@@ -100,7 +101,7 @@ static INLINE u32 PrngData(u32 *PrngResult)
 /**
 * Calculate ECC from Data.
 *
-* @param	The Data Value
+* @param	Data is the Data Value
 *
 * @return 	The calculated ECC
 *
@@ -159,12 +160,12 @@ static INLINE u32 CalculateEcc(u32 Data)
 *
 * @param	InstancePtr is a pointer to the XBram instance to
 *		be worked on.
-* @param	The Addr is the indicated memory location to use
-* @param	The Index1 is the bit location of the first injected error
-* @param	The Index2 is the bit location of the second injected error
-* @param	The Width is the data byte width
-* @param	The ActualData is filled in with expected data for checking
-* @param	The ActualEcc is filled in with expected ECC for checking
+* @param	Addr is the indicated memory location to use
+* @param	Index1 is the bit location of the first injected error
+* @param	Index2 is the bit location of the second injected error
+* @param	Width is the data byte width
+* @param	ActualData is filled in with expected data for checking
+* @param	ActualEcc is filled in with expected ECC for checking
 *
 * @return 	None
 *

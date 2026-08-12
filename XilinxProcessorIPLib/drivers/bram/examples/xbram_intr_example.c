@@ -32,6 +32,7 @@
 * 4.9   sd   07/07/23 Added SDT support.
 * 4.13  ml   07/14/25 Fix GCC warnings.
 * 4.14  vlt  12/12/25 Update Doxygen comments to include SDT flow details.
+* 4.15  vn   07/30/26 Fix Doxygen warnings
 * </pre>
 *
 ******************************************************************************/
@@ -105,8 +106,6 @@ static volatile int ExceptionCount;	/* Total number of exceptions */
 /**
 * This function is the main function of the BRAM example.  It is
 * for initializing the BRAM device and setting up interrupts.
-*
-* @param	None.
 *
 * @return
 *		- XST_SUCCESS to indicate success.
@@ -248,6 +247,7 @@ int BramIntrExample(XBram* InstancePtr, UINTPTR BaseAddress)
 	return XST_SUCCESS;
 }
 
+#ifndef SDT
 /*****************************************************************************/
 /**
 *
@@ -268,7 +268,6 @@ int BramIntrExample(XBram* InstancePtr, UINTPTR BaseAddress)
 * @note		None.
 *
 ******************************************************************************/
-#ifndef SDT
 static int BramSetupIntrSystem(XIntc* IntcInstancePtr, XBram* InstancePtr,
 			 u16 DeviceId, u16 IntrId)
 {

@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -25,6 +25,7 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- -----------------------------------------------
 * 1.00a sa   05/11/10 Initial release
+* 4.15  vn   07/30/26 Fix Doxygen warnings
 * </pre>
 *
 *****************************************************************************/
@@ -53,8 +54,6 @@
 * @param	Mask is the mask to enable. Bit positions of 1 are enabled.
 *		This mask is formed by OR'ing bits from XBRAM_IR*
 *		bits which are contained in xbram_hw.h.
-*
-* @return	None.
 *
 * @note		None.
 *
@@ -90,8 +89,6 @@ void XBram_InterruptEnable(XBram *InstancePtr, u32 Mask)
 *		mask is formed by OR'ing bits from XBRAM_IR* bits
 *		which are contained in xbram_hw.h.
 *
-* @return	None.
-*
 * @note		None.
 *
 *****************************************************************************/
@@ -126,8 +123,6 @@ void XBram_InterruptDisable(XBram *InstancePtr, u32 Mask)
 *		of 1 are cleared. This mask is formed by OR'ing bits from
 *		XBRAM_IR* bits which are contained in
 *		xbram_hw.h.
-*
-* @return	None.
 *
 * @note		None.
 *

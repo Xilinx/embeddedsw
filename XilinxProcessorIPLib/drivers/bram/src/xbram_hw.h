@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2011 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -21,6 +21,7 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- -----------------------------------------------
 * 1.00a sa   24/11/10 First release
+* 4.15  vn   07/30/26 Fix Doxygen warnings
 * </pre>
 *
 ******************************************************************************/
@@ -307,7 +308,7 @@ extern "C" {
 				        *  255-224 */
 
 
-/* @} */
+/** @} */
 
 /** @name Interrupt Status and Enable Register bitmaps and masks
  *
@@ -317,7 +318,7 @@ extern "C" {
 #define XBRAM_IR_CE_MASK	0x2 /**< Mask for the correctable error */
 #define XBRAM_IR_UE_MASK	0x1 /**< Mask for the uncorrectable error */
 #define XBRAM_IR_ALL_MASK	0x3 /**< Mask of all bits */
-/*@}*/
+/** @} */
 
 
 /**************************** Type Definitions *******************************/
