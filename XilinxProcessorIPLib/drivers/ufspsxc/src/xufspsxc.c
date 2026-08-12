@@ -19,6 +19,7 @@
 * Ver   Who Date     Changes
 * ----- --- -------- -----------------------------------------------
 * 1.0   sk  01/16/24 First release
+* 1.3   vn  07/30/26 Fix Doxygen warnings
 *
 * </pre>
 *
@@ -50,8 +51,6 @@
 *			about a specific UFSPSXC device. This function initializes an
 *			InstancePtr object for a specific device specified by the
 *			contents of Config.
-*
-* @return	None
 *
 ******************************************************************************/
 void XUfsPsxc_CfgInitialize(XUfsPsxc *InstancePtr,

@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2024 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -19,6 +19,7 @@
 * Ver   Who Date     Changes
 * ----- --- -------- -----------------------------------------------
 * 1.0   sk  01/16/24 First release
+* 1.3   vn  07/30/26 Fix Doxygen warnings
 *
 * </pre>
 *
@@ -169,8 +170,6 @@ u32 XUfsPsxc_SetHce(const XUfsPsxc *InstancePtr, u32 Value)
 * @param	InstancePtr is a pointer to the XUfsPsxc instance.
 * @param	CmdDescPtr is a pointer to the XUfsPsxc_Xfer_CmdDesc instance.
 *
-* @return	None.
-*
 ******************************************************************************/
 void XUfsPsxc_FillNopOutUpiu(XUfsPsxc *InstancePtr,
 										XUfsPsxc_Xfer_CmdDesc *CmdDescPtr)
@@ -196,8 +195,6 @@ void XUfsPsxc_FillNopOutUpiu(XUfsPsxc *InstancePtr,
 *
 * @param	InstancePtr is a pointer to the XUfsPsxc instance.
 * @param	CmdDescPtr is a pointer to the XUfsPsxc_Xfer_CmdDesc instance.
-*
-* @return	None.
 *
 ******************************************************************************/
 void XUfsPsxc_FillTestUnitRdyUpiu(XUfsPsxc *InstancePtr,
@@ -230,8 +227,6 @@ void XUfsPsxc_FillTestUnitRdyUpiu(XUfsPsxc *InstancePtr,
 * @param	Address specifies the first logical block accessed by this command.
 * @param	BlkCnt is the number of blocks to be read.
 * @param	Buff is a pointer to the destination data buffer.
-*
-* @return	None.
 *
 ******************************************************************************/
 void XUfsPsxc_FillReadCmdUpiu(XUfsPsxc *InstancePtr,
@@ -313,8 +308,6 @@ void XUfsPsxc_FillReadCmdUpiu(XUfsPsxc *InstancePtr,
 * @param	BlkCnt is the number of blocks to write.
 * @param	Buff is a pointer to the destination data buffer.
 *
-* @return	None.
-*
 ******************************************************************************/
 void XUfsPsxc_FillWriteCmdUpiu(XUfsPsxc *InstancePtr,
 		XUfsPsxc_Xfer_CmdDesc *CmdDescPtr, u64 Address, u32 BlkCnt, const u8 *Buff)
@@ -385,8 +378,6 @@ void XUfsPsxc_FillWriteCmdUpiu(XUfsPsxc *InstancePtr,
 * @param	IsRead is a flag to indicate whether the operation is read or write.
 * @param    FlagIDn is a Flag Identification number.
 *
-* @return	None.
-*
 ******************************************************************************/
 void XUfsPsxc_FillFlagUpiu(XUfsPsxc *InstancePtr, XUfsPsxc_Xfer_CmdDesc *CmdDescPtr,
 								u32 IsRead, u32 FlagIDn)
@@ -436,8 +427,6 @@ void XUfsPsxc_FillFlagUpiu(XUfsPsxc *InstancePtr, XUfsPsxc_Xfer_CmdDesc *CmdDesc
 *           descriptor.
 * @param	Length is the number of bytes to read the descriptor.
 *
-* @return	None.
-*
 ******************************************************************************/
 void XUfsPsxc_FillDescUpiu(XUfsPsxc *InstancePtr, XUfsPsxc_Xfer_CmdDesc *CmdDescPtr,
 								u32 Tsf_DW0, u32 IsRead, u32 Length)
@@ -485,8 +474,6 @@ void XUfsPsxc_FillDescUpiu(XUfsPsxc *InstancePtr, XUfsPsxc_Xfer_CmdDesc *CmdDesc
 *           descriptor.
 * @param    AttrIDn is a Attribute Identification number.
 * @param	Value is value to be written to the attributes.
-*
-* @return	None.
 *
 ******************************************************************************/
 void XUfsPsxc_FillAttrUpiu(XUfsPsxc *InstancePtr, XUfsPsxc_Xfer_CmdDesc *CmdDescPtr,
@@ -661,7 +648,6 @@ ERROR:
 * This API does PHY Initialization sequence.
 *
 * @param	InstancePtr is a pointer to the XUfsPsxc instance.
-* @param	UicCmdPtr is a pointer to the XUfsPsxc_UicCmd instance.
 *
 * @return	XUFSPSXC_SUCCESS or Error codes.
 *

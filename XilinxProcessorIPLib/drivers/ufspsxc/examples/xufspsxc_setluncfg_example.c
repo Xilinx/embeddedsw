@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2024 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -22,6 +22,7 @@
 * ----- --- -------- ---------------------------------------------
 * 1.0 	sk  01/16/24 First release
 * 1.1   sk  01/13/25 Enable the LU before configuring the Boot LUN ID.
+* 1.3   vn  07/30/26 Fix Doxygen warnings
 *
 *</pre>
 *
@@ -115,8 +116,6 @@ int main(void)
 /**
 *
 * This function performs the UFS Raw Read/ Write Test.
-*
-* @param	None
 *
 * @return	XST_SUCCESS if successful, otherwise XST_FAILURE.
 *

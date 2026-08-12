@@ -1,7 +1,7 @@
 
 /*******************************************************************
 *
-* Copyright (c) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2024 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -22,6 +22,7 @@
 * ----- --- -------- -----------------------------------------------.
 * 1.0   sk  01/16/24 First release
 * 1.1   sk  03/12/25 Updated UFS config defines
+* 1.3   vn  07/30/26 Fix Doxygen warnings
 *
 * </pre>
 *
@@ -46,3 +47,4 @@ XUfsPsxc_Config XUfsPsxc_ConfigTable[XPAR_XUFSPSXC_NUM_INSTANCES] =
 		XPAR_XUFSPSXC_0_INTERRUPTS
 	}
 };
+/** @} */
