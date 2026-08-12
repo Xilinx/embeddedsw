@@ -44,6 +44,7 @@
 * 6.6   sd     12/16/24 Update the DDR_HIGH_ADDR to support BRAM..
 * 6.8   vlt    12/18/25 Update Doxygen comments to include SDT flow details.
 * 6.8   vlt    01/06/26 fixed GCC warnings.
+* 6.9   vn     07/30/26 Fix Doxygen warnings
 *
 * </pre>
 *
@@ -131,8 +132,6 @@ static XTft TftInstance;
 /**
 *
 * Main function that invokes the Tft example.
-*
-* @param	None.
 *
 * @return
 *		- XST_SUCCESS if successful.

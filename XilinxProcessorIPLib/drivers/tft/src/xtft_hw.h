@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2008 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -10,7 +10,6 @@
 * @file xtft_hw.h
 * @addtogroup tft Overview
 * @{
-* @details
 *
 * This file defines the macros and definitions for the Xilinx TFT Controller
 * device.
@@ -29,6 +28,7 @@
 *			 definitions to the xtft_hw.h file, these offsets
 *			 are valid only when the Address Width is greater
 *			 than 32 bits.
+* 6.9    vn   07/30/26  Fix Doxygen warnings
 * </pre>
 *
 ****************************************************************************/
@@ -60,7 +60,7 @@ extern "C" {
 #define XTFT_AR_LSB_OFFSET	0x10 /**< Address Reg LSB (Video memory) Offset */
 #define XTFT_AR_MSB_OFFSET	0x14 /**< Address Reg MSB (Video memory) Offset */
 
-/*@}*/
+/** @} */
 
 /**
  * @name TFT Control Register (CR) mask(s)
@@ -69,7 +69,7 @@ extern "C" {
 #define XTFT_CR_TDE_MASK	0x01 /**< TFT Display Enable Bit Mask */
 #define XTFT_CR_DPS_MASK	0x02 /**< TFT Display Scan Control Bit Mask */
 
-/*@}*/
+/** @} */
 
 /**
  * @name TFT Interrupt Enable and Status Register (IESR) mask(s)
@@ -79,7 +79,7 @@ extern "C" {
 							Status Bit Mask */
 #define XTFT_IESR_IE_MASK		0x08 /**< TFT Interrupt Enable Mask */
 
-/*@}*/
+/** @} */
 
 /**
  * Dimension Definitions

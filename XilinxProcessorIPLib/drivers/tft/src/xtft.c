@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2008 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -42,6 +42,7 @@
 *			 argument EffectiveAddr is a UINTPTR type
 * 6.4    sd    07/07/23  Added SDT support.
 * 6.7    ml    07/24/25  Fixed GCC Warnings.
+* 6.9    vn    07/30/26  Fix Doxygen warnings
 * </pre>
 *
 ****************************************************************************/
@@ -147,8 +148,6 @@ int XTft_CfgInitialize(XTft *InstancePtr, XTft_Config *ConfigPtr,
 *		Instance structure is updated. The valid values are
 *		0 to (XTFT_DISPLAY_HEIGHT - 1).
 *
-* @return	None.
-*
 * @note		None.
 *
 ****************************************************************************/
@@ -188,8 +187,6 @@ void XTft_SetPos(XTft *InstancePtr, u32 ColVal, u32 RowVal)
 *		(XTFT_DISPLAY_HEIGHT - 1)- XTFT_CHAR_HEIGHT, the first line
 *		will be deleted. The valid values are 0 to
 *		(XTFT_DISPLAY_HEIGHT - 1).
-*
-* @return	None.
 *
 * @note		This function differs from the function XTft_SetPos because
 *		you cannot move to any position on the screen as we have
@@ -243,8 +240,6 @@ void XTft_SetPosChar(XTft *InstancePtr, u32 ColVal, u32 RowVal)
 * @param 	BgColor is the color with which member BgColor of Instance
 *		structure is updated.
 *
-* @return	None.
-*
 * @note		Color Values must be 32bit. They can range from 0x0 to
 *		0xFFFFFFFF, out of these only 18 bits are valid data. These
 *		18 bits contain the Red, Green, Blue color values with
@@ -281,8 +276,6 @@ void XTft_SetColor(XTft *InstancePtr, u32 FgColor, u32 BgColor)
 *		values are 0 to (XTFT_DISPLAY_HEIGHT - 1).
 * @param	PixelVal represents the color with which it will be
 *		filled on screen.
-*
-* @return	None.
 *
 * @note		This API is independent of the interface the TFT
 *		Controller is connected to. The data is written
@@ -322,8 +315,6 @@ void XTft_SetPixel(XTft *InstancePtr, u32 ColVal, u32 RowVal, u32 PixelVal)
 * @param	PixelVal stores the color value on the screen pointed by
 *		given Column and Row position.
 *
-* @return	None.
-*
 * @note		This API is independent of the interface the TFT
 *		Controller is connected to. The data is read
 *		from the Video Memory.
@@ -360,8 +351,6 @@ void XTft_GetPixel(XTft *InstancePtr, u32 ColVal, u32 RowVal, u32 *PixelVal)
 * @param	InstancePtr is a pointer to the XTft instance.
 * @param	CharValue is the ASCII code value of the character to be
 *		written.
-*
-* @return	None.
 *
 * @note		As the character bitmap array does not support some of the
 *		ASCII values, to support some of those which carry
@@ -425,8 +414,6 @@ void XTft_Write(XTft *InstancePtr, u8 CharValue)
 *
 * @param	InstancePtr is a pointer to the XTft instance.
 *
-* @return	None.
-*
 * @note		None.
 *
 ****************************************************************************/
@@ -477,8 +464,6 @@ void XTft_Scroll(XTft *InstancePtr)
 *
 * @param	InstancePtr is a pointer to the XTft instance.
 *
-* @return	None.
-*
 * @note		None.
 *
 ****************************************************************************/
@@ -523,8 +508,6 @@ void XTft_ClearScreen(XTft *InstancePtr)
 * @param	PixelVal represents the color with which it will be
 *		filled on screen.
 *
-* @return	None.
-*
 * @note		It must be taken care to pass values such that column start
 *		position should not exceed column end position, same is the
 *		case with row position.
@@ -567,8 +550,6 @@ void XTft_FillScreen(XTft* InstancePtr, u32 ColStartVal, u32 RowStartVal,
 *
 * @param	InstancePtr is a pointer to the XTft instance.
 *
-* @return	None.
-*
 * @note		None.
 *
 ****************************************************************************/
@@ -607,8 +588,6 @@ void XTft_EnableDisplay(XTft* InstancePtr)
 *
 * @param	InstancePtr is a pointer to the XTft instance.
 *
-* @return	None.
-*
 * @note		None.
 *
 ****************************************************************************/
@@ -646,8 +625,6 @@ void XTft_DisableDisplay(XTft* InstancePtr)
 * bit in the Control register.
 *
 * @param	InstancePtr is a pointer to the XTft instance.
-*
-* @return	None.
 *
 * @note		By default the scan direction is reverse, the image we see in
 * 		reverse scan mode is the horizontal and vertical mirror image
@@ -689,8 +666,6 @@ void XTft_ScanReverse(XTft* InstancePtr)
 *
 * @param	InstancePtr is a pointer to the XTft instance.
 *
-* @return	None.
-*
 * @note		None.
 *
 ****************************************************************************/
@@ -730,8 +705,6 @@ void XTft_ScanNormal(XTft* InstancePtr)
 * @param	InstancePtr is a pointer to the XTft instance.
 * @param 	NewFrameBaseAddr is the new memory address value to be
 *		written to the Address register.
-*
-* @return	None.
 *
 * @note		The new memory address must be in the address range of
 *		external memory and it must be taken care that 2MB memory is
@@ -778,8 +751,6 @@ void XTft_SetFrameBaseAddr(XTft *InstancePtr, UINTPTR NewFrameBaseAddr)
 * @param	InstancePtr is a pointer to the XTft instance.
 * @param	RegOffset is the register offset from the base to write to.
 * @param	Data is the data written to the register.
-*
-* @return	None.
 *
 * @note		None.
 *
@@ -844,8 +815,6 @@ u32 XTft_ReadReg(XTft* InstancePtr, u32 RegOffset)
 *		to highlight the character.
 * @param	BgColor is the value with which the pixels will be filled
 *		with a different color from foreground.
-*
-* @return	None.
 *
 * @note		It must be taken care that the ASCII character which is to
 *		be written has value greater than 31 as character bitmap
@@ -914,8 +883,6 @@ static void XTft_WriteChar(XTft* InstancePtr,
 *
 * @param	InstancePtr is a pointer to the XTft instance.
 *
-* @return	None.
-*
 * @note		None.
 *
 ****************************************************************************/
@@ -944,8 +911,6 @@ void XTft_IntrEnable(XTft* InstancePtr)
 * Register.
 *
 * @param	InstancePtr is a pointer to the XTft instance.
-*
-* @return	None.
 *
 * @note		None.
 *
