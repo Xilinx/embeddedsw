@@ -755,7 +755,7 @@ static int XilNvm_EfuseInitPpkHash(XNvm_EfuseData *WriteEfuse,
 		Status = XilNvm_ValidateHash((char *)XNVM_EFUSE_PPK2_HASH,
 					XNVM_EFUSE_PPK_HASH_STRING_LEN);
 		if(Status != XST_SUCCESS) {
-			xil_printf("Ppk1Hash string validation failed\r\n");
+			xil_printf("Ppk2Hash string validation failed\r\n");
 			goto END;
 		}
 		Status = Xil_ConvertStringToHexBE((char *)XNVM_EFUSE_PPK2_HASH,
@@ -1628,7 +1628,7 @@ static int XilNvm_EfuseShowCtrlBits(void)
 		xil_printf("CRC check on User key 0 is disabled\n\r");
 	}
 	else {
-		xil_printf("CRC check on User key 1 is disabled\n\r");
+		xil_printf("CRC check on User key 0 is not disabled\n\r");
 	}
 	if (SecCtrlBits.UserKey0WrLk == TRUE) {
 		xil_printf("Programming User key 0 is disabled\n\r");
@@ -1640,7 +1640,7 @@ static int XilNvm_EfuseShowCtrlBits(void)
 		xil_printf("CRC check on User key 1 is disabled\n\r");
 	}
 	else {
-		xil_printf("CRC check on User key 1 is disabled\n\r");
+		xil_printf("CRC check on User key 1 is not disabled\n\r");
 	}
 	if (SecCtrlBits.UserKey1WrLk == TRUE) {
 		xil_printf("Programming User key 1 is disabled\n\r");

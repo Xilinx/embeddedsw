@@ -1202,7 +1202,7 @@ static int XilNvm_EfuseInitPpkHash(XNvm_EfuseDataAddr *WriteEfuse,
 		Status = XilNvm_ValidateHash((char *)Ppk2Hash[Idx],
 					XNVM_EFUSE_PPK_HASH_STRING_LEN);
 		if(Status != XST_SUCCESS) {
-			xil_printf("Ppk1Hash string validation failed\r\n");
+			xil_printf("Ppk2Hash string validation failed\r\n");
 			goto END;
 		}
 		Status = Xil_ConvertStringToHexBE((char *)Ppk2Hash[Idx],
