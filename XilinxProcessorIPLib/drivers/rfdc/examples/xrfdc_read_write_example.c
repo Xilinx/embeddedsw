@@ -67,6 +67,7 @@
 * 13.1  dc     03/08/26 Correct compiler warnings
 *       dc     04/15/26 Add base address definition to SDT flow
 * 13.2  akm    08/06/26 Fix missing field initializer warnings.
+* 13.2  vn     08/11/26 Fix Doxygen warnings.
 * </pre>
 *
 *****************************************************************************/
@@ -157,8 +158,6 @@ static struct metal_device CustomDev = {
 /**
 *
 * Main function that invokes the polled example in this file.
-*
-* @param	None.
 *
 * @return
 *		- XRFDC_SUCCESS if the example has completed successfully.

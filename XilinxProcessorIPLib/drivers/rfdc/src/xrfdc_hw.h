@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2017 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -110,7 +110,7 @@
 *                       the config structure.
 * 12.0  cog    01/07/23 Added VOP support for DC coupled DACs and removed VOP
 *                       support for ES1 Parts.
-*
+* 13.2  vn     08/11/26 Fix Doxygen warnings.
 *</pre>
 *
 ******************************************************************************/
@@ -413,7 +413,7 @@ extern "C" {
 		 XRFDC_HSCOM_FIFO_START_OFFSET :                                                                       \
 		 XRFDC_HSCOM_FIFO_START_OBS_OFFSET) /**< FIFO Start (or OBS) register common along tile TDD Selected */
 
-/* @} */
+/** @} */
 
 /** @name IP Register Map
  *
@@ -426,7 +426,7 @@ extern "C" {
 #define XRFDC_DAC_PATHS_ENABLED_OFFSET 0x00A8U /**< The DAC analogue/digital paths enabled in the design */
 #define XRFDC_PATH_ENABLED_TILE_SHIFT 4U /**< A shift to get to the correct tile for the path */
 
-/* @} */
+/** @} */
 
 /** @name Tile State - Tile state register
  *
@@ -436,7 +436,7 @@ extern "C" {
 
 #define XRFDC_CURRENT_STATE_MASK 0x0000000FU /**< Current tile state mask*/
 
-/* @} */
+/** @} */
 
 /** @name Calibration Mode - Calibration mode registers
  *
@@ -447,7 +447,7 @@ extern "C" {
 
 #define XRFDC_CAL_MODES_MASK 0x0003U /**< Calibration modes for Gen 3 mask*/
 
-/* @} */
+/** @} */
 /** @name Calibration Coefficients - Calibration coefficients and disable registers
  *
  * This register contains bits for calibration coefficients
@@ -478,7 +478,7 @@ extern "C" {
 
 #define XRFDC_CAL_SLICE_SHIFT 16U /**<Coefficient shift for HSADCs*/
 
-/* @} */
+/** @} */
 /** @name Calibration Coefficients - Calibration coefficients and disable registers
  *
  * This register contains bits for calibration coefficients
@@ -494,7 +494,7 @@ extern "C" {
 #define XRFDC_CAL_FREEZE_STS_SHIFT 1U /**< Calibration freeze status shift*/
 #define XRFDC_CAL_FREEZE_PIN_SHIFT 2U /**< Calibration freeze pin disable shift*/
 
-/* @} */
+/** @} */
 
 /** @name FIFO Enable - FIFO enable and disable register
  *
@@ -508,7 +508,7 @@ extern "C" {
 #define XRFDC_FIFO_EN_OBS_SHIFT 1U /**< FIFO OBS enable/disable  shift*/
 #define XRFDC_RESTART_MASK 0x00000001U /**< Restart bit mask */
 
-/* @} */
+/** @} */
 
 /** @name Clock Enable - FIFO Latency, fabric, DataPath,
  * 			full-rate, output register
@@ -525,7 +525,7 @@ extern "C" {
 #define XRFDC_DAT_CLK_EN_MASK 0x0000000FU /**< Data Path Clk enable */
 #define XRFDC_CLK_EN_LM_MASK 0x00000010U /**< Enable for FIFO Latency measurement clock */
 
-/* @} */
+/** @} */
 
 /** @name Debug reset - FIFO Latency, fabric, DataPath,
  * 			full-rate, output register
@@ -542,7 +542,7 @@ extern "C" {
 #define XRFDC_DBG_RST_DRP_CAL_MASK 0x00000010U /**< Reset subadc-drp register on clock cal */
 #define XRFDC_DBG_RST_LM_MASK 0x00000020U /**< Reset FIFO Latency measurement clock domain */
 
-/* @} */
+/** @} */
 
 /** @name Fabric rate - Fabric data rate for read and write
  *
@@ -557,7 +557,7 @@ extern "C" {
 #define XRFDC_DAC_FAB_RATE_RD_MASK 0x00001F00U /**< DAC FIFO Read Number of Words per clock */
 #define XRFDC_FAB_RATE_RD_SHIFT 8U /**< Fabric Read shift */
 
-/* @} */
+/** @} */
 
 /** @name Fabric Offset - FIFO de-skew
  *
@@ -568,7 +568,7 @@ extern "C" {
 
 #define XRFDC_FAB_RD_PTR_OFFST_MASK 0x0000003FU /**< FIFO read pointer offset for interface de-skew */
 
-/* @} */
+/** @} */
 
 /** @name Fabric ISR - Interrupt status register for FIFO interface
  *
@@ -582,7 +582,7 @@ extern "C" {
 #define XRFDC_FAB_ISR_USRDAT_MASK 0x00000003U /**< User-data overlap Mask */
 #define XRFDC_FAB_ISR_MARGIND_OVR_MASK 0x00000004U /**< Marginal-indicator overlap (overflow) */
 #define XRFDC_FAB_ISR_MARGIND_UND_MASK 0x00000008U /**< Marginal-indicator overlap (underflow) */
-/* @} */
+/** @} */
 
 /** @name Fabric IMR - Interrupt mask register for FIFO interface
  *
@@ -596,7 +596,7 @@ extern "C" {
 #define XRFDC_FAB_IMR_USRDAT_MASK 0x00000003U /**< User-data overlap Mask */
 #define XRFDC_FAB_IMR_MARGIND_OVR_MASK 0x00000004U /**< Marginal-indicator overlap (overflow) */
 #define XRFDC_FAB_IMR_MARGIND_UND_MASK 0x00000008U /**< Marginal-indicator overlap (underflow) */
-/* @} */
+/** @} */
 
 /** @name Update Dynamic - Trigger a dynamic update event
  *
@@ -611,7 +611,7 @@ extern "C" {
 #define XRFDC_UPDT_EVNT_QMC_MASK 0x00000004U /**< Trigger a update event apply to QMC_DCONFIG reg */
 #define XRFDC_ADC_UPDT_CRSE_DLY_MASK 0x00000008U /**< ADC Trigger a update event apply to Coarse delay_DCONFIG reg */
 #define XRFDC_DAC_UPDT_CRSE_DLY_MASK 0x00000020U /**< DAC Trigger a update event apply to Coarse delay_DCONFIG reg */
-/* @} */
+/** @} */
 
 /** @name FIFO Latency control - Config registers for FIFO Latency measurement
  *
@@ -624,7 +624,7 @@ extern "C" {
 #define XRFDC_FIFO_LTNCY_RESTRT_MASK 0x00000008U /**< Restart FIFO Latency measurement */
 #define XRFDC_FIFO_LTNCY_DIS_MASK 0x000000010U /**< Disable FIFO Latency measurement */
 
-/* @} */
+/** @} */
 
 /** @name Decode ISR - ISR for Decoder Interface
  *
@@ -643,7 +643,7 @@ extern "C" {
 #define XRFDC_DEC_ISR_SUBADC3_UND_MASK 0x00000040U /**< subadc3 decoder underflow range */
 #define XRFDC_DEC_ISR_SUBADC3_OVR_MASK 0x00000080U /**< subadc3 decoder overflow range */
 
-/* @} */
+/** @} */
 
 /** @name Decode IMR - IMR for Decoder Interface
  *
@@ -662,7 +662,7 @@ extern "C" {
 #define XRFDC_DEC_IMR_SUBADC3_OVR_MASK 0x00000080U /**< subadc3 decoder overflow range */
 #define XRFDC_DEC_IMR_MASK 0x000000FFU
 
-/* @} */
+/** @} */
 
 /** @name DataPath (DAC)- FIFO Latency, Image Reject Filter, Mode,
  *
@@ -677,7 +677,7 @@ extern "C" {
 
 #define XRFDC_DATAPATH_IMR_SHIFT 2U /**< IMR Mode shift */
 
-/* @} */
+/** @} */
 
 /** @name DataPath ISR - ISR for Data Path interface
  *
@@ -695,7 +695,7 @@ extern "C" {
 #define XRFDC_DAT_ISR_QMC_OFFST_MASK 0x00000080U /**< QMC offset overflow */
 #define XRFDC_DAC_DAT_ISR_INVSINC_MASK 0x00000100U /**< Inverse-Sinc offset overflow */
 
-/* @} */
+/** @} */
 
 /** @name DataPath IMR - IMR for Data Path interface
  *
@@ -722,7 +722,7 @@ extern "C" {
 #define XRFDC_ADC_DAT_IMR_MASK 0x000000FFU /**< ADC DataPath mask */
 #define XRFDC_DAC_DAT_IMR_MASK 0x0000FFFFU /**< DAC DataPath mask */
 
-/* @} */
+/** @} */
 
 /** @name FIFO IMR - FIFO for Data Path interface
  *
@@ -740,7 +740,7 @@ extern "C" {
 #define XRFDC_DAC_FIFO_IMR_SUPP_MASK 0x00000030U /**< DAC FIFO Mask */
 #define XRFDC_DAC_FIFO_IMR_MASK 0x0000003FU /**< DAC FIFO Mask */
 
-/* @} */
+/** @} */
 
 /** @name Decimation Config - Decimation control
  *
@@ -755,7 +755,7 @@ extern "C" {
 #define XRFDC_DEC_CFG_IQ_MASK 0x00000002U /**< IQ-2GSPS */
 #define XRFDC_DEC_CFG_4GSPS_MASK 0x00000003U /**< 4GSPS may be I or Q or Real depending on high level block config */
 
-/* @} */
+/** @} */
 
 /** @name Decimation Mode - Decimation Rate
  *
@@ -767,7 +767,7 @@ extern "C" {
 #define XRFDC_DEC_MOD_MASK 0x00000007U /**< Decimation mode Mask */
 #define XRFDC_DEC_MOD_MASK_EXT 0x0000003FU /**< Decimation mode Mask */
 
-/* @} */
+/** @} */
 
 /** @name Mixer config0 - Configure I channel coarse mixer mode of operation
  *
@@ -782,7 +782,7 @@ extern "C" {
 #define XRFDC_MIX_I_DAT_WRD2_MASK 0x000001C0U /**< Output data word[2] of I channel */
 #define XRFDC_MIX_I_DAT_WRD3_MASK 0x00000E00U /**< Output data word[3] of I channel */
 
-/* @} */
+/** @} */
 
 /** @name Mixer config1 - Configure Q channel coarse mixer mode of operation
  *
@@ -797,7 +797,7 @@ extern "C" {
 #define XRFDC_MIX_Q_DAT_WRD2_MASK 0x000001C0U /**< Output data word[2] of Q channel */
 #define XRFDC_MIX_Q_DAT_WRD3_MASK 0x00000E00U /**< Output data word[3] of Q channel */
 
-/* @} */
+/** @} */
 
 /** @name Mixer mode - Configure mixer mode of operation
  *
@@ -817,7 +817,7 @@ extern "C" {
 #define XRFDC_MIXER_MODE_R2C_MASK 0x00000005U /**< Mixer mode R2C Mask */
 #define XRFDC_MIXER_MODE_C2R_MASK 0x00000003U /**< Mixer mode C2R Mask */
 #define XRFDC_MIXER_MODE_OFF_MASK 0x00000000U /**< Mixer mode OFF Mask */
-/* @} */
+/** @} */
 
 /** @name NCO update - NCO update mode
  *
@@ -836,7 +836,7 @@ extern "C" {
 #define XRFDC_NCO_UPDT_DLY_MASK 0x00001FF8U /**< delay in clk_dp cycles in application of event after arrival */
 #define XRFDC_NCO_UPDT_RST_DLY_MASK 0x0000D000U /**< optional delay on the NCO phase reset delay */
 
-/* @} */
+/** @} */
 
 /** @name NCO Phase Reset - NCO Slice Phase Reset
  *
@@ -847,7 +847,7 @@ extern "C" {
 
 #define XRFDC_NCO_PHASE_RST_MASK 0x00000001U /**< Reset NCO Phase of current slice */
 
-/* @} */
+/** @} */
 
 /** @name DAC interpolation data
  *
@@ -857,7 +857,7 @@ extern "C" {
 
 #define XRFDC_DAC_INTERP_DATA_MASK 0x00000001U /**< Data type mask */
 
-/* @} */
+/** @} */
 
 /** @name NCO Freq Word[47:32] - NCO Phase increment(nco freq 48-bit)
  *
@@ -869,7 +869,7 @@ extern "C" {
 #define XRFDC_NCO_FQWD_UPP_MASK 0x0000FFFFU /**< NCO Phase increment[47:32] */
 #define XRFDC_NCO_FQWD_UPP_SHIFT 32U /**< Freq Word upper shift */
 
-/* @} */
+/** @} */
 
 /** @name NCO Freq Word[31:16] - NCO Phase increment(nco freq 48-bit)
  *
@@ -881,7 +881,7 @@ extern "C" {
 #define XRFDC_NCO_FQWD_MID_MASK 0x0000FFFFU /**< NCO Phase increment[31:16] */
 #define XRFDC_NCO_FQWD_MID_SHIFT 16U /**< Freq Word Mid shift */
 
-/* @} */
+/** @} */
 
 /** @name NCO Freq Word[15:0] - NCO Phase increment(nco freq 48-bit)
  *
@@ -893,7 +893,7 @@ extern "C" {
 #define XRFDC_NCO_FQWD_LOW_MASK 0x0000FFFFU /**< NCO Phase increment[15:0] */
 #define XRFDC_NCO_FQWD_MASK 0x0000FFFFFFFFFFFFU /**< NCO Freq offset[48:0] */
 
-/* @} */
+/** @} */
 
 /** @name NCO Phase Offset[17:16] - NCO Phase offset
  *
@@ -905,7 +905,7 @@ extern "C" {
 #define XRFDC_NCO_PHASE_UPP_MASK 0x00000003U /**< NCO Phase offset[17:16] */
 #define XRFDC_NCO_PHASE_UPP_SHIFT 16U /**< NCO phase upper shift */
 
-/* @} */
+/** @} */
 
 /** @name NCO Phase Offset[15:0] - NCO Phase offset
  *
@@ -917,7 +917,7 @@ extern "C" {
 #define XRFDC_NCO_PHASE_LOW_MASK 0x0000FFFFU /**< NCO Phase offset[15:0] */
 #define XRFDC_NCO_PHASE_MASK 0x0003FFFFU /**< NCO Phase offset[17:0] */
 
-/* @} */
+/** @} */
 
 /** @name NCO Phase mode - NCO Control setting mode
  *
@@ -930,7 +930,7 @@ extern "C" {
 #define XRFDC_NCO_PHASE_MOD_4PHASE 0x00000003U /**< NCO output 4 successive phase */
 #define XRFDC_NCO_PHASE_MOD_EVEN 0x00000001U /**< NCO output even phase */
 #define XRFDC_NCO_PHASE_MODE_ODD 0x00000002U /**< NCO output odd phase */
-/* @} */
+/** @} */
 
 /** @name QMC update - QMC update mode
  *
@@ -948,7 +948,7 @@ extern "C" {
 #define XRFDC_QMC_UPDT_MODE_FABRIC 0x00000005U /**< QMC event source selection is fabric */
 #define XRFDC_QMC_UPDT_DLY_MASK 0x00001FF8U /**< delay in clk_dp cycles in application of event after arrival */
 
-/* @} */
+/** @} */
 
 /** @name QMC Config - QMC Config register
  *
@@ -961,7 +961,7 @@ extern "C" {
 #define XRFDC_QMC_CFG_EN_PHASE_MASK 0x00000002U /**< enable QMC Phase correction mask */
 #define XRFDC_QMC_CFG_PHASE_SHIFT 1U /**< QMC config phase shift */
 
-/* @} */
+/** @} */
 
 /** @name QMC Offset - QMC offset correction
  *
@@ -973,7 +973,7 @@ extern "C" {
 #define XRFDC_QMC_OFFST_CRCTN_MASK 0x00000FFFU /**< QMC offset correction factor */
 #define XRFDC_QMC_OFFST_CRCTN_SIGN_MASK 0x00000800 /**< QMC offset correction factor sign bit*/
 
-/* @} */
+/** @} */
 
 /** @name QMC Gain - QMC Gain correction
  *
@@ -984,7 +984,7 @@ extern "C" {
 
 #define XRFDC_QMC_GAIN_CRCTN_MASK 0x00003FFFU /**< QMC gain correction factor */
 
-/* @} */
+/** @} */
 
 /** @name QMC Phase - QMC Phase correction
  *
@@ -996,7 +996,7 @@ extern "C" {
 #define XRFDC_QMC_PHASE_CRCTN_MASK 0x00000FFFU /**< QMC phase correction factor */
 #define XRFDC_QMC_PHASE_CRCTN_SIGN_MASK 0x00000800 /**< QMC phase correction factor sign bit*/
 
-/* @} */
+/** @} */
 
 /** @name Coarse Delay Update - Coarse delay update mode.
  *
@@ -1014,7 +1014,7 @@ extern "C" {
 #define XRFDC_CRSEDLY_UPDT_MODE_FABRIC 0x00000005U /**< Coarse delay event source selection is fabric */
 #define XRFDC_CRSEDLY_UPDT_DLY_MASK 0x00001FF8U /**< delay in clk_dp cycles in application of event after arrival */
 
-/* @} */
+/** @} */
 
 /** @name Coarse delay Config - Coarse delay select
  *
@@ -1026,7 +1026,7 @@ extern "C" {
 #define XRFDC_CRSE_DLY_CFG_MASK 0x00000007U /**< Coarse delay select */
 #define XRFDC_CRSE_DLY_CFG_MASK_EXT 0x0000003FU /**< Extended coarse delay select*/
 
-/* @} */
+/** @} */
 
 /** @name Data Scaling Config - Data Scaling enable
  *
@@ -1037,7 +1037,7 @@ extern "C" {
 
 #define XRFDC_DAT_SCALE_CFG_MASK 0x00000001U /**< Enable data scaling */
 
-/* @} */
+/** @} */
 
 /** @name Data Scaling Config - Data Scaling enable
  *
@@ -1048,7 +1048,7 @@ extern "C" {
 
 #define XRFDC_DAT_SCALE_CFG_MASK 0x00000001U /**< Enable data scaling */
 
-/* @} */
+/** @} */
 
 /** @name Switch Matrix Config
  *
@@ -1064,7 +1064,7 @@ extern "C" {
 #define XRFDC_SEL_CB_TO_DECI_MASK 0x00000020U /**< Control crossbar switch that select the data to decimation filter */
 #define XRFDC_SEL_CB_TO_MIX0_SHIFT 2U /**< Crossbar Mixer0 shift */
 
-/* @} */
+/** @} */
 
 /** @name Threshold0 Config
  *
@@ -1077,7 +1077,7 @@ extern "C" {
 #define XRFDC_TRSHD0_CLR_MOD_MASK 0x00000004U /**< Clear mode */
 #define XRFDC_TRSHD0_STIKY_CLR_MASK 0x00000008U /**< Clear sticky bit */
 
-/* @} */
+/** @} */
 
 /** @name Threshold0 Average[31:16]
  *
@@ -1088,7 +1088,7 @@ extern "C" {
 
 #define XRFDC_TRSHD0_AVG_UPP_MASK 0x0000FFFFU /**< Threshold0 under Averaging[31:16] */
 #define XRFDC_TRSHD0_AVG_UPP_SHIFT 16U /**< Threshold0 Avg upper shift */
-/* @} */
+/** @} */
 
 /** @name Threshold0 Average[15:0]
  *
@@ -1099,7 +1099,7 @@ extern "C" {
 
 #define XRFDC_TRSHD0_AVG_LOW_MASK 0x0000FFFFU /**< Threshold0 under Averaging[15:0] */
 
-/* @} */
+/** @} */
 
 /** @name Threshold0 Under threshold
  *
@@ -1110,7 +1110,7 @@ extern "C" {
 
 #define XRFDC_TRSHD0_UNDER_MASK 0x00003FFFU /**< Threshold0 under Threshold[13:0] */
 
-/* @} */
+/** @} */
 
 /** @name Threshold0 Over threshold
  *
@@ -1121,7 +1121,7 @@ extern "C" {
 
 #define XRFDC_TRSHD0_OVER_MASK 0x00003FFFU /**< Threshold0 under Threshold[13:0] */
 
-/* @} */
+/** @} */
 
 /** @name Threshold1 Config
  *
@@ -1134,7 +1134,7 @@ extern "C" {
 #define XRFDC_TRSHD1_CLR_MOD_MASK 0x00000004U /**< Clear mode */
 #define XRFDC_TRSHD1_STIKY_CLR_MASK 0x00000008U /**< Clear sticky bit */
 
-/* @} */
+/** @} */
 
 /** @name Threshold1 Average[31:16]
  *
@@ -1146,7 +1146,7 @@ extern "C" {
 #define XRFDC_TRSHD1_AVG_UPP_MASK 0x0000FFFFU /**< Threshold1 under Averaging[31:16] */
 #define XRFDC_TRSHD1_AVG_UPP_SHIFT 16U /**< Threshold1 Avg upper shift */
 
-/* @} */
+/** @} */
 
 /** @name Threshold1 Average[15:0]
  *
@@ -1157,7 +1157,7 @@ extern "C" {
 
 #define XRFDC_TRSHD1_AVG_LOW_MASK 0x0000FFFFU /**< Threshold1 under Averaging[15:0] */
 
-/* @} */
+/** @} */
 
 /** @name Threshold1 Under threshold
  *
@@ -1168,7 +1168,7 @@ extern "C" {
 
 #define XRFDC_TRSHD1_UNDER_MASK 0x00003FFFU /**< Threshold1 under Threshold[13:0] */
 
-/* @} */
+/** @} */
 
 /** @name Threshold1 Over threshold
  *
@@ -1179,7 +1179,7 @@ extern "C" {
 
 #define XRFDC_TRSHD1_OVER_MASK 0x00003FFFU /**< Threshold1 under Threshold[13:0] */
 
-/* @} */
+/** @} */
 
 /** @name TDD Control
  *
@@ -1199,7 +1199,7 @@ extern "C" {
 #define XRFDC_TDD_CTRL_RTP_SHIFT 2U /**< The IP RTS disable bit*/
 #define XRFDC_TDD_CTRL_RTP_OBS_SHIFT 4U /**< The IP RTS disable bit for the observation channel*/
 
-/* @} */
+/** @} */
 
 /** @name FrontEnd Data Control
  *
@@ -1210,7 +1210,7 @@ extern "C" {
 
 #define XRFDC_FEND_DAT_CTRL_MASK 0x000000FFU /**< raw data and cal coefficient to be streamed to memory */
 
-/* @} */
+/** @} */
 
 /** @name TI Digital Correction Block control0
  *
@@ -1222,7 +1222,7 @@ extern "C" {
 #define XRFDC_TI_DCB_CTRL0_MASK 0x0000FFFFU /**< TI  DCB gain and offset correction */
 #define XRFDC_TI_DCB_MODE_MASK 0x00007800U /**< TI DCB Mode mask */
 
-/* @} */
+/** @} */
 
 /** @name TI Digital Correction Block control1
  *
@@ -1233,7 +1233,7 @@ extern "C" {
 
 #define XRFDC_TI_DCB_CTRL1_MASK 0x00001FFFU /**< TI  DCB gain and offset correction */
 
-/* @} */
+/** @} */
 
 /** @name TI Digital Correction Block control2
  *
@@ -1244,7 +1244,7 @@ extern "C" {
 
 #define XRFDC_TI_DCB_CTRL2_MASK 0x00001FFFU /**< TI  DCB gain and offset correction */
 
-/* @} */
+/** @} */
 
 /** @name TI Time Skew control0
  *
@@ -1264,7 +1264,7 @@ extern "C" {
 #define XRFDC_TI_TISK_DITH_DLY_MASK 0x0000E000U /**< Programmable delay on dither path to match data path */
 #define XRFDC_TISK_ZONE_SHIFT 2U /**< Nyquist zone shift */
 
-/* @} */
+/** @} */
 
 /** @name DAC MC Config0
  *
@@ -1276,7 +1276,7 @@ extern "C" {
 #define XRFDC_MC_CFG0_MIX_MODE_MASK 0x00000002U /**< Enable 	Mixing mode */
 #define XRFDC_MC_CFG0_MIX_MODE_SHIFT 1U /**< Mix mode shift */
 
-/* @} */
+/** @} */
 
 /** @name TI Time Skew control0
  *
@@ -1295,7 +1295,7 @@ extern "C" {
 #define XRFDC_TISK_DBG_UPDT_RT_MASK 0x00001000U /**< Debug update rate */
 #define XRFDC_TISK_DITH_DLY_MASK 0x0000E000U /**< Programmable delay on dither path to match data path */
 
-/* @} */
+/** @} */
 
 /** @name TI Time Skew control1
  *
@@ -1307,7 +1307,7 @@ extern "C" {
 #define XRFDC_TISK_DZ_MIN_VAL_MASK 0x000000FFU /**< Deadzone min */
 #define XRFDC_TISK_DZ_MAX_VAL_MASK 0x0000FF00U /**< Deadzone max */
 
-/* @} */
+/** @} */
 
 /** @name TI Time Skew control2
  *
@@ -1321,7 +1321,7 @@ extern "C" {
 #define XRFDC_TISK_MU1_MASK 0x00000F00U /**< Filter1 multiplying factor */
 #define XRFDC_TISK_BYPASS1_MASK 0x00008000U /**< Filter1 multiplying factor */
 
-/* @} */
+/** @} */
 
 /** @name TI Time Skew control3
  *
@@ -1332,7 +1332,7 @@ extern "C" {
 
 #define XRFDC_TISK_SETTLE_MASK 0x000000FFU /**< Settling time following code update */
 
-/* @} */
+/** @} */
 
 /** @name TI Time Skew control4
  *
@@ -1344,7 +1344,7 @@ extern "C" {
 #define XRFDC_TISK_CAL_PRI_MASK 0x00000001U /**< */
 #define XRFDC_TISK_DITH_INV_MASK 0x00000FF0U /**< */
 
-/* @} */
+/** @} */
 
 /** @name TI Time Skew DAC0
  *
@@ -1356,7 +1356,7 @@ extern "C" {
 #define XRFDC_TISK_DAC0_CODE_MASK 0x000000FFU /**< Code to correction DAC of subadc ch0 front end switch0 */
 #define XRFDC_TISK_DAC0_OVRID_EN_MASK 0x00008000U /**< override enable */
 
-/* @} */
+/** @} */
 
 /** @name TI Time Skew DAC1
  *
@@ -1368,7 +1368,7 @@ extern "C" {
 #define XRFDC_TISK_DAC1_CODE_MASK 0x000000FFU /**< Code to correction DAC of subadc ch1 front end switch0 */
 #define XRFDC_TISK_DAC1_OVRID_EN_MASK 0x00008000U /**< override enable */
 
-/* @} */
+/** @} */
 
 /** @name TI Time Skew DAC2
  *
@@ -1380,7 +1380,7 @@ extern "C" {
 #define XRFDC_TISK_DAC2_CODE_MASK 0x000000FFU /**< Code to correction DAC of subadc ch2 front end switch0 */
 #define XRFDC_TISK_DAC2_OVRID_EN_MASK 0x00008000U /**< override enable */
 
-/* @} */
+/** @} */
 
 /** @name TI Time Skew DAC3
  *
@@ -1392,7 +1392,7 @@ extern "C" {
 #define XRFDC_TISK_DAC3_CODE_MASK 0x000000FFU /**< Code to correction DAC of subadc ch3 front end switch0 */
 #define XRFDC_TISK_DAC3_OVRID_EN_MASK 0x00008000U /**< override enable */
 
-/* @} */
+/** @} */
 
 /** @name TI Time Skew DACP0
  *
@@ -1404,7 +1404,7 @@ extern "C" {
 #define XRFDC_TISK_DACP0_CODE_MASK 0x000000FFU /**< Code to correction DAC of subadc ch0 front end switch1 */
 #define XRFDC_TISK_DACP0_OVRID_EN_MASK 0x00008000U /**< override enable */
 
-/* @} */
+/** @} */
 
 /** @name TI Time Skew DACP1
  *
@@ -1416,7 +1416,7 @@ extern "C" {
 #define XRFDC_TISK_DACP1_CODE_MASK 0x000000FFU /**< Code to correction DAC of subadc ch1 front end switch1 */
 #define XRFDC_TISK_DACP1_OVRID_EN_MASK 0x00008000U /**< override enable */
 
-/* @} */
+/** @} */
 
 /** @name TI Time Skew DACP2
  *
@@ -1428,7 +1428,7 @@ extern "C" {
 #define XRFDC_TISK_DACP2_CODE_MASK 0x000000FFU /**< Code to correction DAC of subadc ch2 front end switch1 */
 #define XRFDC_TISK_DACP2_OVRID_EN_MASK 0x00008000U /**< override enable */
 
-/* @} */
+/** @} */
 
 /** @name TI Time Skew DACP3
  *
@@ -1440,7 +1440,7 @@ extern "C" {
 #define XRFDC_TISK_DACP3_CODE_MASK 0x000000FFU /**< Code to correction DAC of subadc ch3 front end switch1 */
 #define XRFDC_TISK_DACP3_OVRID_EN_MASK 0x00008000U /**< override enable */
 
-/* @} */
+/** @} */
 
 /** @name SubDRP ADC0 address
  *
@@ -1451,7 +1451,7 @@ extern "C" {
 
 #define XRFDC_SUBDRP_ADC0_ADDR_MASK 0x000000FFU /**< sub-drp0 address */
 
-/* @} */
+/** @} */
 
 /** @name SubDRP ADC0 Data
  *
@@ -1462,7 +1462,7 @@ extern "C" {
 
 #define XRFDC_SUBDRP_ADC0_DAT_MASK 0x0000FFFFU /**< sub-drp0 data for read or write transaction */
 
-/* @} */
+/** @} */
 
 /** @name SubDRP ADC1 address
  *
@@ -1473,7 +1473,7 @@ extern "C" {
 
 #define XRFDC_SUBDRP_ADC1_ADDR_MASK 0x000000FFU /**< sub-drp1 address */
 
-/* @} */
+/** @} */
 
 /** @name SubDRP ADC1 Data
  *
@@ -1484,7 +1484,7 @@ extern "C" {
 
 #define XRFDC_SUBDRP_ADC1_DAT_MASK 0x0000FFFFU /**< sub-drp1 data for read or write transaction */
 
-/* @} */
+/** @} */
 
 /** @name SubDRP ADC2 address
  *
@@ -1495,7 +1495,7 @@ extern "C" {
 
 #define XRFDC_SUBDRP_ADC2_ADDR_MASK 0x000000FFU /**< sub-drp2 address */
 
-/* @} */
+/** @} */
 
 /** @name SubDRP ADC2 Data
  *
@@ -1506,7 +1506,7 @@ extern "C" {
 
 #define XRFDC_SUBDRP_ADC2_DAT_MASK 0x0000FFFFU /**< sub-drp2 data for read or write transaction */
 
-/* @} */
+/** @} */
 
 /** @name SubDRP ADC3 address
  *
@@ -1517,7 +1517,7 @@ extern "C" {
 
 #define XRFDC_SUBDRP_ADC3_ADDR_MASK 0x000000FFU /**< sub-drp3 address */
 
-/* @} */
+/** @} */
 
 /** @name SubDRP ADC3 Data
  *
@@ -1528,7 +1528,7 @@ extern "C" {
 
 #define XRFDC_SUBDRP_ADC3_DAT_MASK 0x0000FFFFU /**< sub-drp3 data for read or write transaction */
 
-/* @} */
+/** @} */
 
 /** @name RX MC PWRDWN
  *
@@ -1539,7 +1539,7 @@ extern "C" {
 
 #define XRFDC_RX_MC_PWRDWN_MASK 0x0000FFFFU /**< RX MC power down */
 
-/* @} */
+/** @} */
 
 /** @name RX MC Config0
  *
@@ -1553,7 +1553,7 @@ extern "C" {
 #define XRFDC_RX_MC_CFG0_IM3_DITH_MASK 0x00000020U /**< IM3 Dither Enable mode mask */
 #define XRFDC_RX_MC_CFG0_IM3_DITH_SHIFT 5U /**< IM3 Dither Enable mode shift */
 
-/* @} */
+/** @} */
 
 /** @name RX MC Config1
  *
@@ -1564,7 +1564,7 @@ extern "C" {
 
 #define XRFDC_RX_MC_CFG1_MASK 0x0000FFFFU /**< RX MC Config1 */
 
-/* @} */
+/** @} */
 
 /** @name RX MC Config2
  *
@@ -1575,7 +1575,7 @@ extern "C" {
 
 #define XRFDC_RX_MC_CFG2_MASK 0x0000FFFFU /**< RX MC Config2 */
 
-/* @} */
+/** @} */
 
 /** @name RX Pair MC Config0
  *
@@ -1589,7 +1589,7 @@ extern "C" {
 #define XRFDC_RX_PR_MC_CFG0_PSNK_MASK 0x00002000U /**< RX Pair MC Config0 */
 #define XRFDC_RX_PR_MC_CFG0_IDIV_MASK 0x00000010U /**< RX Pair MC Config0 */
 
-/* @} */
+/** @} */
 
 /** @name RX Pair MC Config1
  *
@@ -1601,7 +1601,7 @@ extern "C" {
 
 #define XRFDC_RX_PR_MC_CFG1_MASK 0x0000FFFFU /**< RX Pair MC Config1 */
 
-/* @} */
+/** @} */
 
 /** @name TI DCB Status0 BG
  *
@@ -1612,7 +1612,7 @@ extern "C" {
 
 #define XRFDC_TI_DCB_STS0_BG_MASK 0x0000FFFFU /**< DCB Status0 BG */
 
-/* @} */
+/** @} */
 
 /** @name TI DCB Status0 FG
  *
@@ -1623,7 +1623,7 @@ extern "C" {
 
 #define XRFDC_TI_DCB_STS0_FG_MASK 0x0000FFFFU /**< DCB Status0 FG */
 
-/* @} */
+/** @} */
 
 /** @name TI DCB Status1 BG
  *
@@ -1634,7 +1634,7 @@ extern "C" {
 
 #define XRFDC_TI_DCB_STS1_BG_MASK 0x0000FFFFU /**< DCB Status1 BG */
 
-/* @} */
+/** @} */
 
 /** @name TI DCB Status1 FG
  *
@@ -1645,7 +1645,7 @@ extern "C" {
 
 #define XRFDC_TI_DCB_STS1_FG_MASK 0x0000FFFFU /**< DCB Status1 FG */
 
-/* @} */
+/** @} */
 
 /** @name TI DCB Status2 BG
  *
@@ -1656,7 +1656,7 @@ extern "C" {
 
 #define XRFDC_TI_DCB_STS2_BG_MASK 0x0000FFFFU /**< DCB Status2 BG */
 
-/* @} */
+/** @} */
 
 /** @name TI DCB Status2 FG
  *
@@ -1667,7 +1667,7 @@ extern "C" {
 
 #define XRFDC_TI_DCB_STS2_FG_MASK 0x0000FFFFU /**< DCB Status2 FG */
 
-/* @} */
+/** @} */
 
 /** @name TI DCB Status3 BG
  *
@@ -1678,7 +1678,7 @@ extern "C" {
 
 #define XRFDC_TI_DCB_STS3_BG_MASK 0x0000FFFFU /**< DCB Status3 BG */
 
-/* @} */
+/** @} */
 
 /** @name TI DCB Status3 FG
  *
@@ -1689,7 +1689,7 @@ extern "C" {
 
 #define XRFDC_TI_DCB_STS3_FG_MASK 0x0000FFFFU /**< DCB Status3 FG */
 
-/* @} */
+/** @} */
 
 /** @name TI DCB Status4 MSB
  *
@@ -1700,7 +1700,7 @@ extern "C" {
 
 #define XRFDC_TI_DCB_STS4_MSB_MASK 0x0000FFFFU /**< read the status of gcb acc0 msb bits(subadc chan0) */
 
-/* @} */
+/** @} */
 
 /** @name TI DCB Status4 LSB
  *
@@ -1711,7 +1711,7 @@ extern "C" {
 
 #define XRFDC_TI_DCB_STS4_LSB_MASK 0x0000FFFFU /**< read the status of gcb acc0 lsb bits(subadc chan0) */
 
-/* @} */
+/** @} */
 
 /** @name TI DCB Status5 MSB
  *
@@ -1722,7 +1722,7 @@ extern "C" {
 
 #define XRFDC_TI_DCB_STS5_MSB_MASK 0x0000FFFFU /**< read the status of gcb acc1 msb bits(subadc chan1) */
 
-/* @} */
+/** @} */
 
 /** @name TI DCB Status5 LSB
  *
@@ -1733,7 +1733,7 @@ extern "C" {
 
 #define XRFDC_TI_DCB_STS5_LSB_MASK 0x0000FFFFU /**< read the status of gcb acc1 lsb bits(subadc chan1) */
 
-/* @} */
+/** @} */
 
 /** @name TI DCB Status6 MSB
  *
@@ -1744,7 +1744,7 @@ extern "C" {
 
 #define XRFDC_TI_DCB_STS6_MSB_MASK 0x0000FFFFU /**< read the status of gcb acc2 msb bits(subadc chan2) */
 
-/* @} */
+/** @} */
 
 /** @name TI DCB Status6 LSB
  *
@@ -1755,7 +1755,7 @@ extern "C" {
 
 #define XRFDC_TI_DCB_STS6_LSB_MASK 0x0000FFFFU /**< read the status of gcb acc2 lsb bits(subadc chan2) */
 
-/* @} */
+/** @} */
 
 /** @name TI DCB Status7 MSB
  *
@@ -1766,7 +1766,7 @@ extern "C" {
 
 #define XRFDC_TI_DCB_STS7_MSB_MASK 0x0000FFFFU /**< read the status of gcb acc3 msb bits(subadc chan3) */
 
-/* @} */
+/** @} */
 
 /** @name TI DCB Status7 LSB
  *
@@ -1777,7 +1777,7 @@ extern "C" {
 
 #define XRFDC_TI_DCB_STS7_LSB_MASK 0x0000FFFFU /**< read the status of gcb acc3 lsb bits(subadc chan3) */
 
-/* @} */
+/** @} */
 
 /** @name PLL_REFDIV
  *
@@ -1791,7 +1791,7 @@ extern "C" {
 #define XRFDC_REFCLK_DIV_3_MASK 0x1U /**< Mask for Div3 */
 #define XRFDC_REFCLK_DIV_4_MASK 0x2U /**< Mask for Div4 */
 
-/* @} */
+/** @} */
 
 /** @name FIFO Latency
  *
@@ -1804,7 +1804,7 @@ extern "C" {
 #define XRFDC_FIFO_LTNCY_KEY_MASK 0x00004000U /**< Latency measurement result identification key */
 #define XRFDC_FIFO_LTNCY_DONE_MASK 0x00008000U /**< Latency measurement done flag */
 
-/* @} */
+/** @} */
 
 /** @name Decoder Control
  *
@@ -1814,7 +1814,7 @@ extern "C" {
 
 #define XRFDC_DEC_CTRL_MODE_MASK 0x00000007U /**< Decoder mode */
 
-/* @} */
+/** @} */
 
 /** @name HSCOM Power state mask
  *
@@ -1824,7 +1824,7 @@ extern "C" {
 
 #define XRFDC_HSCOM_PWR_STATE_MASK 0x0000FFFFU /**< powerup state mask */
 
-/* @} */
+/** @} */
 
 /** @name Interpolation Control
  *
@@ -1839,7 +1839,7 @@ extern "C" {
 #define XRFDC_INTERP_MODE_I_MASK_EXT 0x0000003FU /**< Interp filter I */
 #define XRFDC_INTERP_MODE_Q_SHIFT_EXT 8U /**< Interp mode Q shift */
 
-/* @} */
+/** @} */
 
 /** @name Tile enables register
  *
@@ -1850,7 +1850,7 @@ extern "C" {
 
 #define XRFDC_DAC_TILES_ENABLED_SHIFT 4U /**< Shift to the DAC tile bits */
 
-/* @} */
+/** @} */
 
 /** @name Path enables register
  *
@@ -1861,7 +1861,7 @@ extern "C" {
 
 #define XRFDC_DIGITAL_PATH_ENABLED_SHIFT 16U /**< Shift to the digital path bits */
 
-/* @} */
+/** @} */
 
 /** @name Tile Reset
  *
@@ -1871,7 +1871,7 @@ extern "C" {
 
 #define XRFDC_TILE_RESET_MASK 0x00000001U /**< Tile reset mask */
 
-/* @} */
+/** @} */
 
 /** @name Status register
  *
@@ -1884,7 +1884,7 @@ extern "C" {
 #define XRFDC_PLL_LOCKED_MASK 0x00000008U /**< PLL Locked mask */
 #define XRFDC_PLL_LOCKED_SHIFT 3U /**< PLL locked shift */
 
-/* @} */
+/** @} */
 
 /** @name Restart State register
  *
@@ -1895,7 +1895,7 @@ extern "C" {
 #define XRFDC_PWR_STATE_MASK 0x0000FFFFU /**< State mask */
 #define XRFDC_RSR_START_SHIFT 8U /**< Start state shift */
 
-/* @} */
+/** @} */
 
 /** @name Clock Detect register
  *
@@ -1907,7 +1907,7 @@ extern "C" {
 #define XRFDC_CLOCK_DETECT_SRC_MASK 0x00005555U /**< Clock detect mask */
 #define XRFDC_CLOCK_DETECT_DST_SHIFT 1U /**< Clock detect mask */
 
-/* @} */
+/** @} */
 
 /** @name Common interrupt enable register
  *
@@ -1924,7 +1924,7 @@ extern "C" {
 #define XRFDC_EN_INTR_ADC_TILE1_MASK 0x00000020U /**< ADC Tile1 	interrupt enable mask */
 #define XRFDC_EN_INTR_ADC_TILE2_MASK 0x00000040U /**< ADC Tile2 	interrupt enable mask */
 #define XRFDC_EN_INTR_ADC_TILE3_MASK 0x00000080U /**< ADC Tile3 	interrupt enable mask */
-/* @} */
+/** @} */
 
 /** @name interrupt enable register
  *
@@ -1938,7 +1938,7 @@ extern "C" {
 #define XRFDC_EN_INTR_SLICE2_MASK 0x00000004U /**< slice2 	interrupt enable mask */
 #define XRFDC_EN_INTR_SLICE3_MASK 0x00000008U /**< slice3 	interrupt enable mask */
 #define XRFDC_INTR_COMMON_MASK 0x00000010U /**< Common interrupt enable mask */
-/* @} */
+/** @} */
 
 /** @name Converter(X) interrupt register
  *
@@ -1952,7 +1952,7 @@ extern "C" {
 #define XRFDC_INTR_DAT_OVR_MASK 0x00004000U /**< Data OF mask */
 #define XRFDC_INTR_CMODE_OVR_MASK 0x00040000U /**< Common mode OV mask */
 #define XRFDC_INTR_CMODE_UNDR_MASK 0x00080000U /**< Common mode UV mask */
-/* @} */
+/** @} */
 
 /** @name Multiband config register
  *
@@ -1969,7 +1969,7 @@ extern "C" {
 #define XRFDC_ALT_BOND_CLKDP_SHIFT 2U /** <Alt bondout shift */
 #define XRFDC_MB_CONFIG_MASK 0x00000007U /** <Multiband Config mask */
 
-/* @} */
+/** @} */
 
 /** @name Invsinc control register
  *
@@ -1978,7 +1978,7 @@ extern "C" {
  */
 #define XRFDC_EN_INVSINC_MASK 0x00000001U /**< invsinc enable mask */
 #define XRFDC_MODE_INVSINC_MASK 0x00000003U /**< invsinc mode mask */
-/* @} */
+/** @} */
 
 /** @name OBS FIFO start register
  *
@@ -1987,7 +1987,7 @@ extern "C" {
  */
 #define XRFDC_HSCOM_FIFO_START_OBS_EN_MASK 0x00000200U /**< invsinc enable mask */
 #define XRFDC_HSCOM_FIFO_START_OBS_EN_SHIFT 9U /**< invsinc mode mask */
-/* @} */
+/** @} */
 
 /** @name Signal Detector control register
  *
@@ -2008,7 +2008,7 @@ extern "C" {
 #define XRFDC_ADC_SIG_DETECT_MODE_WRITE_SHIFT 5 /**< mode shift fror writing */
 #define XRFDC_ADC_SIG_DETECT_MODE_READ_SHIFT 6 /**< mode shift fror reading */
 #define XRFDC_ADC_SIG_DETECT_HYST_SHIFT 7 /**< hysteresis enable shift */
-/* @} */
+/** @} */
 
 /** @name CLK_DIV register
  *
@@ -2021,7 +2021,7 @@ extern "C" {
 #define XRFDC_FAB_CLK_DIV_CAL_MASK 0x000000F0U /**< clk div cal mask */
 #define XRFDC_FAB_CLK_DIV_SYNC_PULSE_MASK 0x00000400U /**< clk div cal mask */
 
-/* @} */
+/** @} */
 
 /** @name Multiband Config
  *
@@ -2032,7 +2032,7 @@ extern "C" {
 #define XRFDC_MB_CFG_MASK 0x000001FFU /**< MB config mask */
 #define XRFDC_MB_EN_4X_MASK 0x00000100U /**< Enable 4X MB mask */
 
-/* @} */
+/** @} */
 
 /** @name Multi Tile Sync
  *
@@ -2053,7 +2053,7 @@ extern "C" {
 #define XRFDC_MTS_AMARK_LOC_M 0x0F0000U
 #define XRFDC_MTS_AMARK_DONE_M 0x100000U
 
-/* @} */
+/** @} */
 
 /** @name Output divider LSB register
  *
@@ -2068,7 +2068,7 @@ extern "C" {
 #define XRFDC_PLL_DIVIDER0_VALUE_MASK 0x003FU
 #define XRFDC_PLL_DIVIDER0_SHIFT 6U
 
-/* @} */
+/** @} */
 
 /** @name Multi-tile sync and clock source control register
  *
@@ -2080,7 +2080,7 @@ extern "C" {
 #define XRFDC_CLK_NETWORK_CTRL1_REGS_MASK 0x3U /**< PLL clock mask */
 #define XRFDC_CLK_NETWORK_CTRL1_EN_SYNC_MASK 0x1000U /**< PLL clock mask */
 
-/* @} */
+/** @} */
 
 /** @name PLL_CRS1 - PLL CRS1 register
  *
@@ -2091,7 +2091,7 @@ extern "C" {
 #define XRFDC_PLL_CRS1_VCO_SEL_MASK 0x00008001U /**< VCO SEL Mask */
 #define XRFDC_PLL_VCO_SEL_AUTO_MASK 0x00008000U /**< VCO Auto SEL Mask */
 
-/* @} */
+/** @} */
 
 /** Register bits Shift, Width Masks
  *
@@ -2101,7 +2101,7 @@ extern "C" {
 #define XRFDC_DIGI_ANALOG_SHIFT8 8U
 #define XRFDC_DIGI_ANALOG_SHIFT12 12U
 
-/* @} */
+/** @} */
 
 /** @name FIFO Delays
  *
@@ -2113,7 +2113,7 @@ extern "C" {
 #define XRFDC_ADC_FIFO_DELAY_MASK 0x0000001C0U /**< ADC FIFO ReadPtr Delay */
 #define XRFDC_ADC_FIFO_DELAY_SHIFT 6U /**< ADC FIFO ReadPtr Shift */
 
-/* @} */
+/** @} */
 
 /** @name Data Scaler register
  *
@@ -2123,7 +2123,7 @@ extern "C" {
 
 #define XRFDC_DATA_SCALER_MASK 0x00000001U /**< Clock detect mask */
 
-/* @} */
+/** @} */
 
 /** @name Calibration divider bypass register
  *
@@ -2133,7 +2133,7 @@ extern "C" {
 
 #define XRFDC_CAL_DIV_BYP_MASK 0x00000004U /**< Calibration divider bypass mask */
 
-/* @} */
+/** @} */
 
 #define XRFDC_IXR_FIFOUSRDAT_MASK 0x0000000FU
 #define XRFDC_DAC_IXR_FIFOUSRDAT_SUPP_MASK 0x30000000U

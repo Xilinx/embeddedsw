@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2017 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -54,6 +55,7 @@
 * 10.0  cog    11/26/20 Refactor and split files.
 * 11.0  cog    05/31/21 Upversion.
 * 11.1  cog    11/16/21 Upversion.
+* 13.2  vn     08/11/26 Fix Doxygen warnings.
 *
 * </pre>
 *
@@ -764,6 +766,9 @@ RETURN_PATH:
 *           kept this parameter. This is not used inside
 *           the interrupt handler API.
 * @param    XRFdcPtr contains a pointer to the driver instance
+*
+* @return
+*           - XRFDC_SUCCESS if successful.
 *
 * @note     None.
 *

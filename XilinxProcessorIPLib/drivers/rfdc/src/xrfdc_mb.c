@@ -44,6 +44,7 @@
 *       cog    01/18/22 Use single read access API rather than using
 *                       XRFdc_GetMultibandConfig in XRFdc_UpdateMBConfig.
 * 13.1  dc     02/18/26 Correct spelling errors
+* 13.2  vn     08/11/26 Fix Doxygen warnings.
 *
 * </pre>
 *
@@ -250,6 +251,7 @@ static void XRFdc_SB_R2C_C2R(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 Mixe
 * @param    InstancePtr is a pointer to the XRfdc instance.
 * @param    Type is ADC or DAC. 0 for ADC and 1 for DAC
 * @param    Tile_Id Valid values are 0-3.
+* @param    NoOfDataPaths is number of data paths enabled.
 * @param    MixerInOutDataType is mixer data type, valid values are XRFDC_MB_DATATYPE_*
 * @param    Mode is connection mode SB/MB_2X/MB_4X.
 * @param    DataPathIndex is the array that represents the blocks enabled in
@@ -429,6 +431,7 @@ static void XRFdc_MB_C2C(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u8 NoOfDataP
 * @param    InstancePtr is a pointer to the XRfdc instance.
 * @param    Type is ADC or DAC. 0 for ADC and 1 for DAC
 * @param    Tile_Id Valid values are 0-3.
+* @param    NoOfDataPaths is number of data paths enabled.
 * @param    MixerInOutDataType is mixer data type, valid values are XRFDC_MB_DATATYPE_*
 * @param    Mode is connection mode SB/MB_2X/MB_4X.
 * @param    DataPathIndex is the array that represents the blocks enabled in
@@ -975,7 +978,8 @@ static void XRFdc_SetSignalFlow(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 M
 * @param    Type is ADC or DAC. 0 for ADC and 1 for DAC
 * @param    Tile_Id Valid values are 0-3.
 * @param    Block_Id is Digital Data Path number.
-* @param    ConnectedData is Digital Data Path number.
+* @param    ConnectedIData is pointer to return the connected I data converter.
+* @param    ConnectedQData is pointer to return the connected Q data converter.
 *
 * @return
 *           - XRFDC_SUCCESS if successful.
@@ -1210,8 +1214,7 @@ int XRFdc_GetConnectedQData(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 Block
 * @param    ConnectedIData is Converter Id to which DigitalPathI connected.
 * @param    ConnectedQData is Converter Id to which DigitalPathQ connected.
 *
-* @return
-*           - None.
+* @note     None.
 *
 ******************************************************************************/
 void XRFdc_SetConnectedIQData(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 Block_Id, int ConnectedIData,

@@ -59,6 +59,7 @@
 * 13.0  cog    01/22/25 Only check datapath mode for Gen3/DFE devices in
 *                       XRFdc_MTS_Latency.
 * 13.1  dc     02/18/26 Correct spelling errors
+* 13.2  vn     08/11/26 Fix Doxygen warnings.
 *
 * </pre>
 *
@@ -643,7 +644,7 @@ static u32 XRFdc_MTS_Dtc_Scan(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, XRFdc_M
 * @param    InstancePtr is a pointer to the XRfdc instance.
 * @param    Type is ADC or DAC. 0 for ADC and 1 for DAC
 * @param    Tile_Id Valid values are 0-3.
-* @param    SettingsPtr dtc settings structure.
+* @param    ConfigPtr is pointer to the MultiConverter sync config structure.
 *
 * @return
 *         - XRFDC_MTS_OK if successful.
@@ -741,9 +742,9 @@ static void XRFdc_MTS_FIFOCtrl(XRFdc *InstancePtr, u32 Type, u32 FIFO_Mode, u32 
 * @param    Type is ADC or DAC. 0 for ADC and 1 for DAC
 * @param    Tile_Id Valid values are 0-3.
 * @param    FIFO_Id is FIFO number.
-* @param    Count is for internal usage.
-* @param    Loc is for internal usage.
-* @param    Done is for internal usage.
+* @param    CountPtr is pointer to return marker count.
+* @param    LocPtr is pointer to return marker location.
+* @param    DonePtr is pointer to return marker done status.
 *
 * @return
 * 		- None.

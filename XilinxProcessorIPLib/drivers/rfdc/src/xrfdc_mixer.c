@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2018 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -56,6 +57,7 @@
 * 11.0  cog    05/31/21 Upversion.
 * 11.1  cog    11/16/21 Upversion.
 *       cog    01/18/22 Added safety checks.
+* 13.2  vn     08/11/26 Fix Doxygen warnings.
 * </pre>
 *
 ******************************************************************************/
@@ -373,6 +375,9 @@ RETURN_PATH:
 *
 * @param    InstancePtr is a pointer to the XRfdc instance.
 * @param    Type is ADC or DAC. 0 for ADC and 1 for DAC
+* @param    Tile_Id Valid values are 0-3.
+* @param    Block_Id is ADC/DAC block number inside the tile. Valid values
+*           are 0-3.
 * @param    MixerSettingsPtr Pointer to the XRFdc_Mixer_Settings structure
 *           in which the Mixer/NCO settings are passed.
 *
@@ -582,7 +587,8 @@ static void XRFdc_SetFineMixer(XRFdc *InstancePtr, u32 BaseAddr, XRFdc_Mixer_Set
 * @param    InstancePtr is a pointer to the XRfdc instance.
 * @param    Type is ADC or DAC. 0 for ADC and 1 for DAC
 * @param    BaseAddr is ADC or DAC base address.
-* @param        Block_Id is ADC/DAC block number inside the tile.
+* @param    Tile_Id Valid values are 0-3.
+* @param    Block_Id is ADC/DAC block number inside the tile.
 * @param    CoarseMixFreq is ADC or DAC Coarse mixer frequency.
 * @param    MixerSettingsPtr Pointer to the XRFdc_Mixer_Settings structure
 *           in which the Mixer/NCO settings are passed.

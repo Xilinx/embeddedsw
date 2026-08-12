@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2018 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -36,6 +37,7 @@
 * 10.0  cog    11/26/20 xrfdc_mts.h is now integrated to xrfdc.h.
 *       cog    03/08/21 MTS now scans reference tile first. This has required a
 *                       change to the prototype of XRFdc_MultiConverter_Init.
+* 13.2  vn     08/11/26 Fix Doxygen warnings.
 *
 * </pre>
 *
@@ -80,8 +82,6 @@ static XRFdc RFdcInst;      /* RFdc driver instance */
 /**
 *
 * Main function that invokes the MTS example in this file.
-*
-* @param	None.
 *
 * @return
 *		- XRFDC_SUCCESS if the example has completed successfully.

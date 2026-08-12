@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2019 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -29,6 +29,7 @@
 *       cog    01/24/22 Metal log change.
 * 12.0  cog    09/01/22 Gen 3 devices now allowed to divide fabric clock
 *                       by 1.
+* 13.2  vn     08/11/26 Fix Doxygen warnings.
 *
 * </pre>
 *
@@ -58,6 +59,7 @@ static void XRFdc_IntResetInternalFIFOWidth(XRFdc *InstancePtr, u32 Type, u32 Ti
 *           are 0-3.
 * @param    DecimationFactor to be set for DAC block.
 *           XRFDC_INTERP_DECIM_* defines the valid values.
+* @param    Channel is FIFO channel. Valid values are XRFDC_FIFO_CHANNEL_*.
 *
 * @return
 *           - XRFDC_SUCCESS if successful.
@@ -571,6 +573,7 @@ RETURN_PATH:
 *           are 0-3.
 * @param    DecimationFactorPtr Pointer to return the Decimation factor
 *           for DAC blocks.
+* @param    Channel is FIFO channel. Valid values are XRFDC_FIFO_CHANNEL_*.
 *
 * @return
 *           - XRFDC_SUCCESS if successful.
@@ -1058,6 +1061,7 @@ RETURN_PATH:
 * @param    Block_Id is ADC block number inside the tile. Valid values
 *           are 0-3.
 * @param    FabricRdVldWords is Read fabric rate to be set for ADC block.
+* @param    Channel is FIFO channel. Valid values are XRFDC_FIFO_CHANNEL_*.
 *
 * @return
 *           - XRFDC_SUCCESS if successful.
@@ -1180,6 +1184,7 @@ u32 XRFdc_SetFabRdVldWordsObs(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u32
 *           are 0-3.
 * @param    FabricWrVldWordsPtr Pointer to return the fabric data rate for
 *           DAC block
+* @param    Channel is FIFO channel. Valid values are XRFDC_FIFO_CHANNEL_*.
 *
 * @return
 *           - XRFDC_SUCCESS if successful.
@@ -1297,6 +1302,7 @@ u32 XRFdc_GetFabWrVldWordsObs(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 Blo
 *           are 0-3.
 * @param    FabricRdVldWordsPtr Pointer to return the fabric data rate for
 *           ADC/DAC block
+* @param    Channel is FIFO channel. Valid values are XRFDC_FIFO_CHANNEL_*.
 *
 * @return
 *           - XRFDC_SUCCESS if successful.
@@ -1412,6 +1418,7 @@ u32 XRFdc_GetFabRdVldWordsObs(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 Blo
 * @param    Type is ADC or DAC. 0 for ADC and 1 for DAC
 * @param    Tile_Id Valid values are 0-3.
 * @param    Enable valid values are 1 (FIFO enable) and 0 (FIFO Disable)
+* @param    Channel is FIFO channel. Valid values are XRFDC_FIFO_CHANNEL_*.
 *
 * @return
 *           - XRFDC_SUCCESS if successful.
@@ -1562,6 +1569,7 @@ u32 XRFdc_SetupFIFOBoth(XRFdc *InstancePtr, u32 Type, int Tile_Id, u8 Enable)
 * @param    Type is ADC or DAC. 0 for ADC and 1 for DAC
 * @param    Tile_Id Valid values are 0-3.
 * @param    EnablePtr valid values are 1 (FIFO enable) and 0 (FIFO Disable)
+* @param    Channel is FIFO channel. Valid values are XRFDC_FIFO_CHANNEL_*.
 *
 * @return
 *           - XRFDC_SUCCESS if successful.

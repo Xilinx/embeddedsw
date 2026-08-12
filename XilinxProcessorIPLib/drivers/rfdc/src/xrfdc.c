@@ -215,6 +215,7 @@
 * 12.2  cog    01/29/24 Yocto SDT support.
 * 13.1  dc     02/18/26 Correct spelling errors
 *       dc     03/08/26 Correct compiler warnings
+* 13.2  vn     08/11/26 Fix Doxygen warnings.
 *
 * </pre>
 *
@@ -764,7 +765,7 @@ u32 XRFdc_Reset(XRFdc *InstancePtr, u32 Type, int Tile_Id)
 * @param    Type is ADC or DAC. 0 for ADC and 1 for DAC
 * @param    Tile_Id Valid values are 0-3, and -1.
 * @param    StartState Valid values are XRFDC_START_STATE_*.
-* @param    Tile_Id Valid values are XRFDC_END_STATE_*.
+* @param    EndState Valid values are XRFDC_END_STATE_*.
 *
 * @return
 *           - XRFDC_SUCCESS if successful.
@@ -845,6 +846,9 @@ RETURN_PATH:
 *
 *
 * @param    InstancePtr is a pointer to the XRfdc instance.
+* @param    Type is ADC or DAC. 0 for ADC and 1 for DAC
+* @param    Tile_Id Valid values are 0-3.
+* @param    BaseAddr is ADC or DAC base address.
 * @param    End is end state of State Machine.
 *
 * @return
@@ -1205,10 +1209,11 @@ RETURN_PATH:
 *
 *
 * @param    InstancePtr is a pointer to the XRfdc instance.
+* @param    BaseAddr is ADC or DAC base address.
 * @param    Tile_Id Valid values are 0-3.
 * @param    Block_Id is ADC/DAC block number inside the tile. Valid values
 *           are 0-3. XRFdc_BlockStatus.
-* @param    BlockStatus is Pointer to the XRFdc_BlockStatus structure through
+* @param    BlockStatusPtr is Pointer to the XRFdc_BlockStatus structure through
 *           which the ADC/DAC block status is returned.
 *
 * @return
@@ -1277,10 +1282,11 @@ RETURN_PATH:
 *
 *
 * @param    InstancePtr is a pointer to the XRfdc instance.
+* @param    BaseAddr is ADC or DAC base address.
 * @param    Tile_Id Valid values are 0-3.
 * @param    Block_Id is ADC/DAC block number inside the tile. Valid values
 *           are 0-3. XRFdc_BlockStatus.
-* @param    BlockStatus is Pointer to the XRFdc_BlockStatus structure through
+* @param    BlockStatusPtr is Pointer to the XRFdc_BlockStatus structure through
 *           which the DAC block status is returned.
 *
 * @return
@@ -1804,9 +1810,6 @@ static void XRFdc_DumpHSCOMRegs(XRFdc *InstancePtr, u32 Type, int Tile_Id)
 * @param    Type is ADC or DAC. 0 for ADC and 1 for DAC
 * @param    Tile_Id Valid values are 0-3, and -1.
 *
-* @return
-*           None
-*
 * @note     None.
 *
 ******************************************************************************/
@@ -2015,8 +2018,7 @@ RETURN_PATH:
 * @param    Mask contains bit mask value.
 * @param    Data contains value to be written to register.
 *
-* @return
-*           - None
+* @note     None.
 *
 ******************************************************************************/
 void XRFdc_ClrSetReg(XRFdc *InstancePtr, u32 BaseAddr, u32 RegAddr, u16 Mask, u16 Data)
@@ -2041,8 +2043,7 @@ void XRFdc_ClrSetReg(XRFdc *InstancePtr, u32 BaseAddr, u32 RegAddr, u16 Mask, u1
 * @param    RegAddr is register offset value.
 * @param    Mask contains bit mask value.
 *
-* @return
-*           - None
+* @note     None.
 *
 ******************************************************************************/
 void XRFdc_ClrReg(XRFdc *InstancePtr, u32 BaseAddr, u32 RegAddr, u16 Mask)
@@ -2090,6 +2091,7 @@ u16 XRFdc_RDReg(XRFdc *InstancePtr, u32 BaseAddr, u32 RegAddr, u16 Mask)
 * Get ADC type is High Speed or Medium Speed.
 *
 * @param    InstancePtr is a pointer to the XRfdc instance.
+* @param    Tile is the tile number. Valid values are 0-3.
 *
 * @return
 *           - Return 1 if ADC type is a dual type
@@ -2502,8 +2504,6 @@ u8 XRFdc_GetTileLayout(XRFdc *InstancePtr)
 *
 * This API is used to get the driver version.
 *
-* @param    None
-*
 * @return
 *           Driver version number
 *
@@ -2514,3 +2514,4 @@ double XRFdc_GetDriverVersion(void)
 {
 	return 13.1;
 }
+/** @} */

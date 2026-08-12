@@ -55,6 +55,7 @@
 * 8.0   cog    04/09/20 Fixed baremetal compilation bug.
 * 13.1  dc     02/18/26 Correct spelling errors
 * 13.2  akm    08/06/26 Fix missing field initializer warnings.
+* 13.2  vn     08/11/26 Fix Doxygen warnings.
 *
 * </pre>
 *
@@ -212,8 +213,6 @@ static struct metal_device metal_dev_cap = {
 /**
 *
 * Main function that invokes the polled example in this file.
-*
-* @param	None.
 *
 * @return
 *		- XRFDC_SUCCESS if the example has completed successfully.
@@ -517,7 +516,11 @@ int init_irq()
 *
 * Callback handler.
 *
-* @return	None
+* @param    CallBackRef is a pointer to the upper layer callback reference.
+* @param    Type is ADC or DAC. 0 for ADC and 1 for DAC.
+* @param    Tile_Id indicates Tile number (0-3).
+* @param    Block_Id indicates Block number (0-3).
+* @param    StatusEvent indicates the interrupt event.
 *
 * @note		None.
 *

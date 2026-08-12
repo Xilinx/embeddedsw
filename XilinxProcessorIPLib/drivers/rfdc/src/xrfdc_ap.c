@@ -44,6 +44,7 @@
 *       cog    01/25/25 QMC needs to take the XBar settings into account
 *                       for HSADCs.
 * 13.1  dc     02/18/26 Correct spelling errors
+* 13.2  vn     08/11/26 Fix Doxygen warnings.
 *
 * </pre>
 *
@@ -2838,7 +2839,7 @@ RETURN_PATH:
 *
 * @param    InstancePtr is a pointer to the XRfdc instance.
 * @param    Tile_Id Valid values are 0-3.
-* @param    mode is ADC/DAC block number inside the tile. Valid values
+* @param    Block_Id is ADC/DAC block number inside the tile. Valid values
 *           are 0-3.
 * @param    EnabledPtr is pointer a that is filled with whether the mode is
 *           enabled (1) or disabled(0).
@@ -2887,7 +2888,7 @@ RETURN_PATH:
 *
 * @param    InstancePtr is a pointer to the XRfdc instance.
 * @param    Tile_Id Valid values are 0-3.
-* @param    mode is ADC/DAC block number inside the tile. Valid values
+* @param    Block_Id is ADC/DAC block number inside the tile. Valid values
 *           are 0-3.
 * @param    Enable is whether to enable (1) or disable(0) the compatibility
 *           mode.
@@ -2943,7 +2944,7 @@ RETURN_PATH:
 * @param    Tile_Id Valid values are 0-3.
 * @param    Block_Id is ADC/DAC block number inside the tile. Valid values
 *           are 0-3.
-* @param    Attenuation is the attenuation in dB
+* @param    SettingsPtr is pointer to the DSA settings structure.
 *
 * @return
 *           - XRFDC_SUCCESS if successful.
@@ -3027,7 +3028,7 @@ RETURN_PATH:
 * @param    Tile_Id Valid values are 0-3.
 * @param    Block_Id is ADC/DAC block number inside the tile. Valid values
 *           are 0-3.
-* @param    AttenuationPtr is the attenuation in dB
+* @param    SettingsPtr is pointer to the DSA settings structure.
 *
 * @return
 *           - XRFDC_SUCCESS if successful.

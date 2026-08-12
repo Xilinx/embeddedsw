@@ -84,6 +84,7 @@
 *       cog    01/24/22 Fix static analysis errors.
 * 13.0  cog    01/15/25 Allow changing of single tile PLL frequency.
 * 13.1  dc     02/18/26 Correct spelling errors
+* 13.2  vn     08/11/26 Fix Doxygen warnings.
 * </pre>
 *
 ******************************************************************************/
@@ -886,7 +887,7 @@ RETURN_PATH:
 * This function is used to get the clock distribution
 *
 * @param        InstancePtr is a pointer to the XRfdc instance.
-* @param        DistributionSettingsPtr pointer to get the distribution settings
+* @param        DistributionSystemPtr pointer to get the distribution settings
 *
 * @return
 *           - XRFDC_SUCCESS if successful.
@@ -1532,6 +1533,10 @@ static u32 XRFdc_SetPLLConfig(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, double 
 * @param    Tile_Id Valid values are 0-3.
 * @param    PLLSettings pointer to the XRFdc_PLL_Settings structure to get
 *           the PLL configurations
+*
+* @return
+*           - XRFDC_SUCCESS if successful.
+*           - XRFDC_FAILURE if error occurs.
 *
 * @note     None.
 *
