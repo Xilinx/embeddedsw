@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -27,6 +27,7 @@
 * 3.00  kvn    02/13/15 Modified code for MISRA-C:2012 compliance.
 * 3.2	sne    08/05/19 Fixed coverity warnings.
 * 3.6	sb     06/27/23 Added support for system device-tree flow.
+* 3.10  vn     07/30/26 Fix Doxygen warnings
 *
 * </pre>
 *
@@ -118,8 +119,6 @@ s32 XWdtPs_CfgInitialize(XWdtPs *InstancePtr,
 *
 * @param	InstancePtr is a pointer to the XWdtPs instance.
 *
-* @return	None.
-*
 * @note		None.
 *
 ******************************************************************************/
@@ -167,8 +166,6 @@ void XWdtPs_Start(XWdtPs *InstancePtr)
 *
 * @param	InstancePtr is a pointer to the XWdtPs instance.
 *
-* @return	None.
-*
 * @note		None.
 *
 ******************************************************************************/
@@ -213,8 +210,6 @@ void XWdtPs_Stop(XWdtPs *InstancePtr)
 *		Valid Signal Values are XWDTPS_RESET_SIGNAL and
 *		XWDTPS_IRQ_SIGNAL.
 *		Only one of them can be specified at a time.
-*
-* @return	None.
 *
 * @note		None.
 *
@@ -271,8 +266,6 @@ void XWdtPs_EnableOutput(XWdtPs *InstancePtr, u8 Signal)
 *		Valid Signal Values are XWDTPS_RESET_SIGNAL and
 *		XWDTPS_IRQ_SIGNAL
 *		Only one of them can be specified at a time.
-*
-* @return	None.
 *
 * @note		None.
 *
@@ -398,8 +391,6 @@ u32 XWdtPs_GetControlValue(XWdtPs *InstancePtr, u8 Control)
 *		If the Control is XWDTPS_COUNTER_RESET then the valid values
 *		are 0x0 to 0xFFF, this sets the counter restart value of the CCR
 *		register.
-*
-* @return	None.
 *
 * @note		None.
 *

@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -22,6 +22,7 @@
 * 1.02a  sg    07/15/12 Removed defines related to  External Signal
 *			Length functionality for CR 658287
 * 3.00  kvn    02/13/15 Modified code for MISRA-C:2012 compliance.
+* 3.10  vn     07/30/26 Fix Doxygen warnings
 * </pre>
 *
 ******************************************************************************/
@@ -94,7 +95,7 @@ extern "C" {
 #define XWDTPS_CCR_PSCALE_0512  0x00000002U /**< divide clock by 512 */
 #define XWDTPS_CCR_PSCALE_4096  0x00000003U /**< divide clock by 4096 */
 
-/* @} */
+/** @} */
 
 /** @name  Restart register
  * This register resets the timer preventing a timeout. Value is specific
