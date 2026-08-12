@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2009 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -31,6 +31,7 @@
 *			   and program commands to ONFI command list.
 *			   Reading the cache features during read param page.
 * 2.7   sg     03/18/21    Added validation check for parameter page.
+* 2.12  vn     07/30/26    Fix Doxygen warnings
 * </pre>
 *
 ******************************************************************************/
@@ -245,6 +246,7 @@ static void Onfi_CmdReset(XNandPs *InstancePtr)
 * This function sends read ID command to the flash device.
 *
 * @param	InstancePtr is a pointer to the XNandPs instance.
+* @param	Address is the address to send with the read ID command.
 *
 * @return	None
 *
@@ -306,6 +308,7 @@ static void Onfi_CmdReadParamPage(XNandPs *InstancePtr)
 *
 * @param	InstancePtr is a pointer to the XNandPs instance.
 * @param	Feature is the feature value to read.
+* @param	Val is a pointer to the buffer to store the feature value.
 *
 * @return	None
 *
@@ -355,6 +358,7 @@ static void Onfi_GetFeature(XNandPs *InstancePtr, u8 Feature, u8 *Val)
 *
 * @param	InstancePtr is a pointer to the XNandPs instance.
 * @param	Feature is the feature value to Set.
+* @param	Val is a pointer to the buffer containing the feature value to set.
 *
 * @return	None
 *

@@ -162,7 +162,7 @@
 *                          while reading and writing bbt in flash.
 * 2.10 akm     10/04/24    Retrieve the 'reg' property value from smcc node 'ranges'
 * 2.11 vlt   12/30/25    Update Doxygen comments to include SDT flow details.
-*
+* 2.12 vn    07/30/26    Fix Doxygen warnings
 * </pre>
 *
 ******************************************************************************/
@@ -280,7 +280,7 @@ extern "C" {
 /**< set Ecc last */
 
 /**************************** Type Definitions *******************************/
-/*
+/**
  * This enum contains ECC Mode
  */
 typedef enum {

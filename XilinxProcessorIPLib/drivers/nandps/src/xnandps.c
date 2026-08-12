@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2009 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -54,6 +54,7 @@
 *			   page than hardcoding this value to 5 for read and
 *			   write operations.
 * 2.8  akm     07/06/23    Update the driver to support for system device-tree flow.
+* 2.12 vn      07/30/26    Fix Doxygen warnings
 * </pre>
 *
 ******************************************************************************/
@@ -1036,8 +1037,6 @@ int XNandPs_WriteCache(XNandPs *InstancePtr, u64 Offset, u32 Length,
 * @param	Command is the NAND command to send
 * @param	Page is the page offset required for specific commands
 * @param	Column the column offset required for specific commands
-*
-* @return	None
 *
 * @note		None
 *

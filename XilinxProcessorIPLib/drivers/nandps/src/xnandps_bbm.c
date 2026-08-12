@@ -28,6 +28,7 @@
 * 2.9   sb     01/03/2024  Use FlashBbt array of nandps structure instead
 *                          of local Buf array in XNandPs_WriteBbt() and XNandPs_ReadBbt(),
 *                          to avoid stack overflow.
+* 2.12  vn     07/30/26    Fix Doxygen warnings
 * </pre>
 *
 ******************************************************************************/
@@ -68,9 +69,6 @@ extern int XNandPs_ReadSpareBytes(XNandPs *InstancePtr, u32 Page, u8 *Buf);
 * predefined pattern for searching Bad Block Table(BBT) in flash.
 *
 * @param	InstancePtr is a pointer to the XNandPs instance.
-*
-* @return
-*		- NONE
 *
 ******************************************************************************/
 void XNandPs_InitBbtDesc(XNandPs *InstancePtr)

@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2009 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -23,6 +23,7 @@
 * Ver   Who    Date    	   Changes
 * ----- ----   ----------  -----------------------------------------------
 * 1.00a nm     12/10/2010  First release
+* 2.12  vn     07/30/26    Fix Doxygen warnings
 * </pre>
 *
 ******************************************************************************/
@@ -184,7 +185,7 @@ extern "C" {
 			controller interface 0 raw ECC interrupt status mask */
 #define XNANDPS_MEMC_STATUS_RAW_ECC_INT1_MASK		0x00001000 /**< Memory
 			controller interface 1 raw ECC interrupt status mask */
-/* @} */
+/** @} */
 
 /** @name Memory interface configurartion register bit definitions and masks
  *  @{
@@ -207,7 +208,7 @@ extern "C" {
 				controller interface 1 remap0 mask */
 #define XNANDPS_MEMC_IF_CONFIG_EX_MONITORS_MASK	0x00030000 /**< Memory
 				controller interface exclusive masks mask */
-/* @} */
+/** @} */
 
 /** @name Set configuration register bit definitions and masks
  *  @{
@@ -222,7 +223,7 @@ extern "C" {
 		controller interfce0 ECC interrupt enable mask */
 #define XNANDPS_MEMC_SET_CONFIG_ECC_INT_ENABLE1_MASK	0x00000040 /**< Memory
 		controller interfce1 ECC interrupt enable mask */
-/* @} */
+/** @} */
 
 /** @name Clear configuration register bit definitions and masks
  *  @{
@@ -241,7 +242,7 @@ extern "C" {
 			controller interface0 ECC interrupt disable mask */
 #define XNANDPS_MEMC_CLR_CONFIG_ECC_INT_DISABLE1_MASK	0x00000040 /**< Memory
 			controller interface1 ECC interrupt disable mask */
-/* @} */
+/** @} */
 
 /** @name Clear configuration register bit definitions and masks and shift
  *  @{
@@ -261,7 +262,7 @@ extern "C" {
 							  cmd_type shift */
 #define XNANDPS_DIRECT_CMD_CHIP_SELECT_SHIFT	23	/**< Direct command
 							  chip select shift */
-/* @} */
+/** @} */
 
 /** @name Set cycles register bit definitions and masks and shift
  *  @{
@@ -296,7 +297,7 @@ extern "C" {
 #define XNANDPS_SET_CYCLES_SET_T6_SHIFT	20	/**< Set cycles set_t6
 							  shift */
 
-/* @} */
+/** @} */
 
 /** @name Set opmode register bit definitions and masks
  *  @{
@@ -326,7 +327,7 @@ extern "C" {
 				memory width value for 16-bit flash */
 #define XNANDPS_SET_OPMODE_MW_32_BITS			0x2	/**< Set opmode
 				memory width value for 32-bit flash */
-/* @} */
+/** @} */
 
 /** @name Refresh period register bit definitions and masks
  *  @{
@@ -335,7 +336,7 @@ extern "C" {
 /**< Interface 0 refresh period mask */
 #define XNANDPS_REFRESH_PERIOD_1_MASK			0x0000000F
 /**< Interface 1 refresh period mask */
-/* @} */
+/** @} */
 
 /** @name Opmode register bit definitions and masks
  *  @{
@@ -361,21 +362,21 @@ extern "C" {
 #define XNANDPS_OPMODE_ADDRESS_MASK			0x00FF0000
 /**< Opmode Address match mask */
 #define XNANDPS_OPMODE_ADDRESS_MATCH_MASK		0xFF000000
-/* @} */
+/** @} */
 
 /** @name User status register bit definitions and masks
  *  @{
  */
 #define XNANDPS_USER_STATUS_MASK			0x000000FF /**< User
 							status mask */
-/* @} */
+/** @} */
 
 /** @name User config register bit definitions and masks
  *  @{
  */
 #define XNANDPS_USER_CONFIG_MASK			0x000000FF /**< User
 							config mask */
-/* @} */
+/** @} */
 
 /** @name ECC status register bit definitions and masks
  *  @{
@@ -396,7 +397,7 @@ extern "C" {
 					status ecc_can_correct mask */
 #define XNANDPS_ECC_READ_MASK				0x37000000 /**< Ecc
 						status ecc_read mask */
-/* @} */
+/** @} */
 
 /** @name ECC mem config register bit definitions and masks and shifts
  *  @{
@@ -445,8 +446,7 @@ extern "C" {
 					page size value for 1024 byte page */
 #define XNANDPS_ECC_MEMCFG_PAGE_SIZE_2048		0x3	/**< ECC cfg
 					page size value for 2048 byte page */
-/* @} */
-/* @} */
+/** @} */
 
 /** @name ECC mem command1 register bit definitions and masks and shifts
  *  @{
@@ -468,7 +468,7 @@ extern "C" {
 /**< Ecc command 1 nand_rd_cmd_end shift */
 #define XNANDPS_ECC_MEMCOMMAND1_RD_CMD_END_VALID_SHIFT	24
 /**< Ecc command 1 nand_rd_cmd_end_valid shift */
-/* @} */
+/** @} */
 
 /** @name ECC mem command2 register bit definitions and masks
  *  @{
@@ -491,7 +491,7 @@ extern "C" {
 /**< Ecc command2 nand_rd_col_change_end shift */
 #define XNANDPS_ECC_MEMCOMMAND2_RD_COL_CHANGE_END_VALID_SHIFT	24
 /**< Ecc command2 nand_rd_col_change_end_valid shift */
-/* @} */
+/** @} */
 
 /** @name ECC value register bit definitions and masks
  *  @{
@@ -508,7 +508,7 @@ extern "C" {
 /**< Ecc value ecc_valid mask */
 #define XNANDPS_ECC_VALUE_INT_MASK			0x80000000
 /**< Ecc value ecc_int mask */
-/* @} */
+/** @} */
 
 /** @name Peripheral ID register bit definitions and masks
  *  @{
@@ -521,14 +521,14 @@ extern "C" {
 /**< Peripheral ID revision mask */
 #define XNANDPS_PERIPH_ID_INTG_CFG_MASK		0x01000000
 /**< Peripheral ID integration_cfg mask */
-/* @} */
+/** @} */
 
 /** @name Peripheral ID register bit definitions and masks
  *  @{
  */
 #define XNANDPS_PCELL_ID_MASK				0x000000FF
 /**< Primecell identification register mask */
-/* @} */
+/** @} */
 
 /**************************** Type Definitions *******************************/
 
