@@ -7,7 +7,7 @@
 /*****************************************************************************/
 /**
 *
-* @file xclockps_example.c
+* @file xclockps_i2c_example.c
 *
 * This file contains a design example using the Clock Controller (ClockPs)
 * driver. It uses I2C peripheral clock for clock operations
@@ -22,6 +22,7 @@
 * 1.5   sd     07/10/23 Added SDT support
 * 1.7   vlt    03/14/26 Updated BaseAddress type from u32 to UINTPTR
 *                       to support 64-bit addressing.
+* 1.8   vn     07/30/26 Fix Doxygen warnings
 * </pre>
 *
 ******************************************************************************/
@@ -58,8 +59,6 @@ XClockPs_Config *ConfigPtr;
 /**
 * Main function to call Clock example.
 *
-* @param	None.
-*
 * @return	XST_SUCCESS if successful, otherwise XST_FAILURE.
 *
 * @note		None.
@@ -94,7 +93,11 @@ int main(void)
 *
 *
 * @param	ClockInstancePtr is a pointer to instance of XClockPs driver.
+* @if SDT
+* @param	BaseAddress is the base address of clock controller.
+* @else
 * @param	ClockDeviceId is the device ID of clock controller.
+* @endif
 *
 * @return	XST_SUCCESS if successful, otherwise XST_FAILURE.
 *

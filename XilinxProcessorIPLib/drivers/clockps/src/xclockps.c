@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2018 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -24,6 +24,7 @@
 *			function named "XClock_Absolute_Difference".
 * 1.2   sd     02/13/20 Rename ARRAY_SIZE
 * 1.5   sd     07/10/23 Added SDT support
+* 1.8   vn     07/30/26 Fix Doxygen warnings
 * </pre>
 *
 ******************************************************************************/
@@ -55,7 +56,7 @@ typedef struct {
 /**
  * Input clock database.
  *
- * @Note:
+ * @note
  * PSS REF CLK frequency is obtained from xparamters.h and has minor variations
  * based on board revisions. Other frequencies are independent to board
  * revisions and no macros for them are defined in xparameters.h

@@ -11,7 +11,7 @@ BEGIN driver clockps
 	OPTION supported_peripherals = ();
 	OPTION driver_state = ACTIVE;
 	OPTION copyfiles = all;
-	OPTION VERSION = 1.7;
+	OPTION VERSION = 1.8;
 	OPTION NAME = clockps;
 
 END driver
