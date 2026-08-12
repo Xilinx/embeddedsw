@@ -20,6 +20,7 @@
 * 1.6   sd  07/14/23 Added SDT support.
 * 1.8   sd  07/14/23 Change the Baseaddress macro.
 * 1.8  vlt  12/12/25 Update Doxygen comments to include SDT flow details.
+* 1.9  vn   07/30/26 Fix Doxygen warnings
 * </pre>
 *
 ******************************************************************************/
@@ -64,8 +65,6 @@ XAxis_Switch AxisSwitch;	/**< Instance of the AXI4-Stream Switch core */
 /**
 *
 * This is the main function for AXI4-Stream Switch example.
-*
-* @param	None.
 *
 * @return
 *		- XST_SUCCESS if AXI4-Stream Switch example ran successfully.

@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2015 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -25,6 +25,7 @@
 * Ver   Who Date     Changes
 * ----- --- -------- --------------------------------------------------
 * 1.00  sha 01/28/15 Initial release.
+* 1.9   vn  07/30/26 Fix Doxygen warnings
 * </pre>
 *
 ******************************************************************************/
@@ -52,14 +53,14 @@ extern "C" {
 #define XAXIS_SCR_MI_MUX_END_OFFSET	0x07C	/**< End of MI MUX Register
 						  *  offset */
 
-/*@}*/
+/** @} */
 
 /** @name MI MUX Control register mask
 * @{
 */
 #define XAXIS_SCR_CTRL_REG_UPDATE_MASK	0x02	/**< Register Update
 						  *  mask */
-/*@}*/
+/** @} */
 
 /** @name MI MUX register mask
 *
@@ -69,7 +70,7 @@ extern "C" {
 #define XAXIS_SCR_MI_X_MUX_MASK		0x0F		/**< MI MUX mask */
 #define XAXIS_SCR_MI_X_DISABLE_MASK	0x80000000	/**< MI Disable mask */
 #define XAXIS_SCR_MI_X_DISABLE_SHIFT	31	/**< MI Disable shift */
-/*@}*/
+/** @} */
 
 /**************************** Type Definitions *******************************/
 
@@ -126,7 +127,7 @@ extern "C" {
 ******************************************************************************/
 #define XAxisScr_WriteReg(BaseAddress, RegOffset, Data) \
 	XAxisScr_Out32((BaseAddress) + ((u32)RegOffset), (u32)(Data))
-/*@}*/
+/** @} */
 
 /************************** Function Prototypes ******************************/
 

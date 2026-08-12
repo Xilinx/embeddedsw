@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2015 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -29,6 +29,7 @@
 *                    As an example, if a MI is configured for SI[7] and the
 *                    API is called to check if the MI is configured for SI[3],
 *                    the API will return TRUE.
+* 1.9   vn  07/30/26 Fix Doxygen warnings
 * </pre>
 *
 ******************************************************************************/
@@ -112,8 +113,6 @@ s32 XAxisScr_CfgInitialize(XAxis_Switch *InstancePtr,
 * @param	SiIndex specifies an index that will be used as a source to
 *		MUX. The range is [0 to 15].
 *
-* @return	None.
-*
 * @note		MUX[MiIndex] is sourced from SI[SiIndex]. Axis_Switch core
 *		connects up to 16 masters to 16 slaves.
 *
@@ -144,8 +143,6 @@ void XAxisScr_MiPortEnable(XAxis_Switch *InstancePtr, u8 MiIndex, u8 SiIndex)
 * @param	InstancePtr is a pointer to the XAxis_Switch core instance.
 * @param	MiIndex specifies an index that will be used for disabling MUX
 *		which is within the range [0 to 15].
-*
-* @return	None.
 *
 * @note		MUX[MiIndex] is removed for SI[SiIndex]. Axis_Switch core
 *		connects up to 16 masters to 16 slaves.
@@ -265,8 +262,6 @@ s32 XAxisScr_IsMiPortDisabled(XAxis_Switch *InstancePtr, u8 MiIndex)
 * desired SI.
 *
 * @param	InstancePtr is a pointer to the XAxis_Switch core instance.
-*
-* @return	None.
 *
 * @note		Axis_Switch core connects up to 16 masters to 16 slaves.
 *
