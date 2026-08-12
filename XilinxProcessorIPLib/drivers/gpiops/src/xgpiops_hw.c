@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2013 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -27,6 +27,7 @@
 *                     as Pointer to const,Casting operation to a pointer,
 *                     Literal value requires a U suffix.
 * 3.5   sne  03/14/19 Added versal support.
+* 3.16  vn   07/30/26 Fix Doxygen warnings
 * </pre>
 *
 ******************************************************************************/
@@ -54,8 +55,6 @@
 * all registers
 *
 * @param	BaseAddress address of GPIO module
-*
-* @return	None
 *
 * @note		None.
 *

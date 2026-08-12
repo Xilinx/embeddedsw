@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -36,6 +36,7 @@
 * 3.6	sne  06/12/19 Fixed IAR compiler warning.
 * 3.6   sne  08/14/19 Added interrupt handler support on versal.
 * 3.13  gm   03/15/24 Added multi-core interrupt support.
+* 3.16  vn   07/30/26 Fix Doxygen warnings
 *
 * </pre>
 *
@@ -66,8 +67,6 @@
 * @param	Mask is the bit mask of the pins for which interrupts are to
 *		be enabled. Bit positions of 1 will be enabled. Bit positions
 *		of 0 will keep the previous setting.
-*
-* @return	None.
 *
 * @note		None.
 *
@@ -100,8 +99,6 @@ void XGpioPs_IntrEnable(XGpioPs *InstancePtr, u8 Bank, u32 Mask)
 *
 * @param	InstancePtr is a pointer to the XGpioPs instance.
 * @param	Pin is the pin number for which the interrupt is to be enabled.
-*
-* @return	None.
 *
 * @note		None.
 *
@@ -144,8 +141,6 @@ void XGpioPs_IntrEnablePin(XGpioPs *InstancePtr, u32 Pin)
 *		to be disabled. Bit positions of 1 will be disabled. Bit
 *		positions of 0 will keep the previous setting.
 *
-* @return	None.
-*
 * @note		None.
 *
 *****************************************************************************/
@@ -177,8 +172,6 @@ void XGpioPs_IntrDisable(XGpioPs *InstancePtr, u8 Bank, u32 Mask)
 *
 * @param	InstancePtr is a pointer to the XGpioPs instance.
 * @param	Pin is the pin number for which the interrupt is to be disabled.
-*
-* @return	None.
 *
 * @note		None.
 *
@@ -451,8 +444,6 @@ void XGpioPs_IntrClearPin(const XGpioPs *InstancePtr, u32 Pin)
 *		the configured interrupt polarity and 1 means  trigger on both
 *		edges.
 *
-* @return	None.
-*
 * @note		This function is used for setting the interrupt related
 *		properties of all the pins in the specified bank. The previous
 *		state of the pins is not maintained.
@@ -505,8 +496,6 @@ void XGpioPs_SetIntrType(const XGpioPs *InstancePtr, u8 Bank, u32 IntrType,
 *		the configured interrupt polarity and 1 means trigger on both
 *		edges.
 *
-* @return	None.
-*
 * @note		None.
 *
 *****************************************************************************/
@@ -547,8 +536,6 @@ void XGpioPs_GetIntrType(const XGpioPs *InstancePtr, u8 Bank, u32 *IntrType,
 * @param	Pin is the pin number whose IRQ type is to be set.
 * @param	IrqType is the IRQ type for GPIO Pin. Use XGPIOPS_IRQ_TYPE_*
 *		defined in xgpiops.h to specify the IRQ type.
-*
-* @return	None.
 *
 * @note		None.
 *
@@ -634,7 +621,7 @@ void XGpioPs_SetIntrTypePin(const XGpioPs *InstancePtr, u32 Pin, u8 IrqType)
 * @param	InstancePtr is a pointer to an XGpioPs instance.
 * @param	Pin is the pin number whose IRQ type is to be obtained.
 *
-* @return	None.
+* @return	IRQ Type of the given pin.
 *
 * @note		Use XGPIOPS_IRQ_TYPE_* defined in xgpiops.h for the IRQ type
 *		returned by this function.
@@ -710,8 +697,6 @@ u8 XGpioPs_GetIntrTypePin(const XGpioPs *InstancePtr, u32 Pin)
 * @param	FuncPointer is the pointer to the callback function.
 *
 *
-* @return	None.
-*
 * @note		The handler is called within interrupt context, so it should do
 *		its work quickly and queue potentially time-consuming work to a
 *		task-level thread.
@@ -738,8 +723,6 @@ void XGpioPs_SetCallbackHandler(XGpioPs *InstancePtr, void *CallBackRef,
 * when an interrupt
 *
 * @param	InstancePtr is a pointer to the XGpioPs instance.
-*
-* @return	None.
 *
 * @note		This function does not save and restore the processor context
 *		such that the user must provide this processing.

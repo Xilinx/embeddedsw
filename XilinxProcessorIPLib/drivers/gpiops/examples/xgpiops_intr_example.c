@@ -45,6 +45,7 @@
 * 3.9	sne  11/19/20 Added versal PmcGpio example support.
 * 3.12  gm   07/11/23 Added SDT support.
 * 3.15  vlt  01/27/26 Fixed codespell issues
+* 3.16  vn   07/30/26 Fix Doxygen warnings
 *
 *</pre>
 *
@@ -163,12 +164,17 @@ int main(void)
 * It is responsible for initializing the GPIO device, setting up interrupts and
 * providing a foreground loop such that interrupts can occur in the background.
 *
+* @if SDT
+* @param	Gpio is a pointer to the XGpioPs driver Instance.
+* @param	BaseAddress is the base address of the GPIO device.
+* @else
 * @param	Intc is a pointer to the XScuGic driver Instance.
 * @param	Gpio is a pointer to the XGpioPs driver Instance.
 * @param	DeviceId is the XPAR_<Gpio_Instance>_PS_DEVICE_ID value
 *		from xparameters.h.
 * @param	GpioIntrId is XPAR_<GIC>_<GPIO_Instance>_VEC_ID value
 *		from xparameters.h
+* @endif
 *
 * @return
 *		- XST_SUCCESS if the example has completed successfully.
@@ -285,9 +291,8 @@ int GpioIntrExample(XGpioPs *Gpio, UINTPTR BaseAddress)
 * interrupt processing and exit from the example.
 *
 * @param	CallBackRef is a pointer to the upper layer callback reference.
+* @param	Bank is the GPIO bank that caused the interrupt.
 * @param	Status is the Interrupt status of the GPIO bank.
-*
-* @return	None.
 *
 * @note		None.
 *

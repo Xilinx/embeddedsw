@@ -41,6 +41,7 @@
 * 3.9	sne  11/19/20 Added versal PmcGpio example support.
 * 3.12  gm   07/11/23 Added SDT support.
 * 3.15  vlt  12/12/25 Update Doxygen comments to include SDT flow details.
+* 3.16  vn   07/30/26 Fix Doxygen warnings
 *
 * </pre>
 *
@@ -224,8 +225,6 @@ int GpioPolledExample(UINTPTR BaseAddress, u32 *DataRead)
 /**
 *
 * This function does a minimal test on the GPIO device configured as OUTPUT.
-*
-* @param	None.
 *
 * @return	- XST_SUCCESS if the example has completed successfully.
 *		- XST_FAILURE if the example has failed.

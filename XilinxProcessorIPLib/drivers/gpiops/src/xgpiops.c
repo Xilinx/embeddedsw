@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -39,6 +39,7 @@
 * 3.13  gm   03/15/24 Added multi-core interrupt support.
 * 3.14  bkv  02/20/25 Changed data type of effective address from u32 to
 *                     UINTPTR to support both 32-bit and 64-bit platforms.
+* 3.16  vn   07/30/26 Fix Doxygen warnings
 *
 * </pre>
 *
@@ -268,8 +269,6 @@ u32 XGpioPs_ReadPin(const XGpioPs *InstancePtr, u32 Pin)
 * @param	Bank is the bank number of the GPIO to operate on.
 * @param	Data is the value to be written to the Data register.
 *
-* @return	None.
-*
 * @note		This function is used for writing to all the GPIO pins of
 *		the bank. The previous state of the pins is not maintained.
 *
@@ -300,8 +299,6 @@ void XGpioPs_Write(const XGpioPs *InstancePtr, u8 Bank, u32 Data)
 * @param	InstancePtr is a pointer to the XGpioPs instance.
 * @param	Pin is the pin number to which the Data is to be written.
 * @param	Data is the data to be written to the specified pin (0 or 1).
-*
-* @return	None.
 *
 * @note		This function does a masked write to the specified pin of
 *		the specified GPIO bank. The previous state of other pins
@@ -360,8 +357,6 @@ void XGpioPs_WritePin(const XGpioPs *InstancePtr, u32 Pin, u32 Data)
 *		all the pins in the Bank. Bits with 0 are set to Input mode,
 *		bits with 1 are	set to Output Mode.
 *
-* @return	None.
-*
 * @note		This function is used for setting the direction of all the pins
 *		in the specified bank. The previous state of the pins is
 *		not maintained.
@@ -394,8 +389,6 @@ void XGpioPs_SetDirection(const XGpioPs *InstancePtr, u8 Bank, u32 Direction)
 * @param	Pin is the pin number to which the Data is to be written.
 * @param	Direction is the direction to be set for the specified pin.
 *		Valid values are 0 for Input Direction, 1 for Output Direction.
-*
-* @return	None.
 *
 *****************************************************************************/
 void XGpioPs_SetDirectionPin(const XGpioPs *InstancePtr, u32 Pin, u32 Direction)
@@ -510,8 +503,6 @@ u32 XGpioPs_GetDirectionPin(const XGpioPs *InstancePtr, u32 Pin)
 *		all the pins in the Bank. The Output Enable of bits with 0 are
 *		disabled, the Output Enable of bits with 1 are enabled.
 *
-* @return	None.
-*
 * @note		This function is used for setting the Output Enables of all the
 *		pins in the specified bank. The previous state of the Output
 *		Enables is not maintained.
@@ -546,8 +537,6 @@ void XGpioPs_SetOutputEnable(const XGpioPs *InstancePtr, u8 Bank, u32 OpEnable)
 *		pin should be enabled.
 *		Valid values are 0 for Disabling Output Enable,
 *		1 for Enabling Output Enable.
-*
-* @return	None.
 *
 * @note		None.
 *
@@ -664,8 +653,6 @@ u32 XGpioPs_GetOutputEnablePin(const XGpioPs *InstancePtr, u32 Pin)
 * @param	BankNumber returns the Bank in which this GPIO pin is present.
 *		Valid values are 0 to XGPIOPS_MAX_BANKS - 1.
 * @param	PinNumberInBank returns the Pin Number within the Bank.
-*
-* @return	None.
 *
 * @note		None.
 *
@@ -811,8 +798,6 @@ void XGpioPs_GetBankPin(u8 PinNumber, u8 *BankNumber, u8 *PinNumberInBank)
 * @param	CallBackRef is a pointer to the upper layer callback reference
 * @param	Bank is the GPIO Bank in which an interrupt occurred.
 * @param	Status is the Interrupt status of the GPIO bank.
-*
-* @return	None.
 *
 * @note		None.
 *
