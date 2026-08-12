@@ -14,7 +14,7 @@
  * Functions in this file are the minimum required functions for the XRtcPsu
  * driver. See xrtcpsu.h for a detailed description of the driver.
  *
- * @notice	None.
+ * @note	None.
  *
  *
  * <pre>
@@ -48,6 +48,7 @@
  * 1.16  ht	09/26/25 Remove redundant calibration register write in XRtcPsu_SetTime.
  * 1.17  ht	01/19/26 Modify XRtcPsu_SecToDateTime, XRtcPsu_DateTimeToSec to
  *                       use 1970-01-01 as reference.
+ * 1.18  vn     07/30/26 Fix Doxygen warnings
  * </pre>
  *
  ******************************************************************************/
@@ -191,8 +192,6 @@ static void XRtcPsu_StubHandler(void *CallBackRef, u32 Event)
  * @param	InstancePtr is a pointer to the XRtcPsu instance.
  * @param	Time that should be updated into RTC write register.
  *
- * @return	None.
- *
  * @note		None.
  *
  *****************************************************************************/
@@ -278,8 +277,6 @@ u32 XRtcPsu_GetCurrentTime(XRtcPsu *InstancePtr)
  * @param	Periodic says whether the alarm need to set at periodic
  *		Intervals or a one-time alarm.
  *
- * @return	None.
- *
  * @note		None.
  *
  *****************************************************************************/
@@ -311,8 +308,6 @@ void XRtcPsu_SetAlarm(XRtcPsu *InstancePtr, u32 Alarm, u32 Periodic)
  *		format.
  * @param	dt is the DateTime format variable that stores the translated
  *		time.
- *
- * @return	None.
  *
  * @note	This API uses Unix epoch (1970-01-01 00:00:00 UTC) as reference.
  *		Supports years from 1970 to 2106 (unsigned 32-bit limit).
@@ -456,8 +451,6 @@ u32 XRtcPsu_DateTimeToSec(XRtcPsu_DT *dt)
  * @param	CrystalOscFreq is the Oscillator new frequency.
  *		If using the typical 32768Hz crystal, then input
  *		the same frequency value.
- *
- * @return	None.
  *
  * @note	After calculating the calibration register value,
  *		user / application must call CfgInitialize API again

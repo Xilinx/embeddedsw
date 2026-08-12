@@ -30,6 +30,7 @@
 *                       Literal value requires a U suffix,Casting operation to a pointer
 *                       Array has no bounds specified,Logical conjunctions need brackets.
 * 1.17  vlt    01/30/26 Fixed codespell errors.
+* 1.18  vn     07/30/26 Fix Doxygen warnings
 * </pre>
 *
 ******************************************************************************/
@@ -58,8 +59,6 @@
 * @param	InstancePtr is a pointer to the XRtcPsu instance
 * @param	Mask contains the interrupts to be enabled.
 *		A '1' enables an interrupt, and a '0' disables.
-*
-* @return	None.
 *
 * @note		None.
 *
@@ -94,8 +93,6 @@ void XRtcPsu_SetInterruptMask(XRtcPsu *InstancePtr, u32 Mask)
 * @param	Mask contains the interrupts to be disabled.
 *		A '1' enables an interrupt, and a '0' disables.
 *
-* @return	None.
-*
 * @note		None.
 *
 *****************************************************************************/
@@ -122,8 +119,6 @@ void XRtcPsu_ClearInterruptMask(XRtcPsu *InstancePtr, u32 Mask)
 * @param	FunctionPtr is the pointer to the callback function.
 * @param	CallBackRef is the upper layer callback reference passed back
 *		when the callback function is invoked.
-*
-* @return	None.
 *
 * @note
 *
@@ -154,8 +149,6 @@ void XRtcPsu_SetHandler(XRtcPsu *InstancePtr, XRtcPsu_Handler FunctionPtr,
 * can be called when an interrupt occurs.
 *
 * @param	InstancePtr contains a pointer to the driver instance
-*
-* @return	None.
 *
 * @note		None.
 *

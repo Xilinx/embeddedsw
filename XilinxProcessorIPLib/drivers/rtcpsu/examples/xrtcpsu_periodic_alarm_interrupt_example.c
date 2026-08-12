@@ -30,6 +30,7 @@
 * 1.13  ht  06/21/23 Added support for system device-tree flow.
 * 1.15  ht  12/13/24 Fix C++ compilation warnings and errors in SDT flow.
 * 1.17  vlt    12/16/25 Update Doxygen comments to include SDT flow details.
+* 1.18  vn     07/30/26 Fix Doxygen warnings
 * </pre>
 ****************************************************************************/
 
@@ -140,9 +141,9 @@ int main(void)
 * @param	IntcInstPtr is a pointer to the instance of the ScuGic driver.
 * @param	DeviceId is the device Id of the RTC device and is typically
 *		XPAR_<RTCPSU_instance>_DEVICE_ID value from xparameters.h.
-* @endif
 * @param	RtcIntrId is the interrupt Id and is typically
 *		XPAR_<RTCPSU_instance>_INTR value from xparameters_ps.h.
+* @endif
 *
 * @return	XST_SUCCESS if successful, otherwise XST_FAILURE.
 *
@@ -252,8 +253,6 @@ int RtcPsuPeriodicAlarmIntrExample(XRtcPsu *RtcInstPtr, UINTPTR BaseAddress)
 * @param	CallBackRef contains a callback reference from the driver,
 *		in this case it is the instance pointer for the XRtcPsu driver.
 * @param	Event contains the specific kind of event that has occurred.
-*
-* @return	None.
 *
 * @note		None.
 *
