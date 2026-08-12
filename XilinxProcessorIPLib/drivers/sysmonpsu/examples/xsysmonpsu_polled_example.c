@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2016 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -32,6 +32,7 @@
 * 2.6   aad   11/21/19 Removed reading of AUX channels
 *       aad   11/22/19 Added support for XSYSMON_PL
 * 2.9   cog    07/20/23 Added support for SDT flow
+* 3.4   vn     07/30/26 Fix Doxygen warnings
 * </pre>
 *
 *****************************************************************************/
@@ -86,8 +87,6 @@ static XSysMonPsu SysMonInst;      /* System Monitor driver instance */
 /**
 *
 * Main function that invokes the polled example in this file.
-*
-* @param	None.
 *
 * @return
 *		- XST_SUCCESS if the example has completed successfully.

@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2016 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -17,6 +18,7 @@
 * Ver   Who    Date	Changes
 * ----- -----  -------- -----------------------------------------------
 * 1.0   kvn    12/15/15 First release
+* 3.4   vn     07/30/26 Fix Doxygen warnings
 * </pre>
 *
 ******************************************************************************/
@@ -48,8 +50,6 @@
 *		keep the previous setting. This mask is formed by OR'ing
 *		XSYSMONPSU_IER_0_* and XSYSMONPSU_IER_1_* bits defined in
 *		xsysmonpsu_hw.h.
-*
-* @return	None.
 *
 * @note		None.
 *
@@ -87,8 +87,6 @@ void XSysMonPsu_IntrEnable(XSysMonPsu *InstancePtr, u64 Mask)
 *		keep the previous setting. This mask is formed by OR'ing
 *		XSYSMONPSU_IDR_0_* and XSYSMONPSU_IDR_1_* bits defined in
 *		xsysmonpsu_hw.h.
-*
-* @return	None.
 *
 * @note		None.
 *
@@ -194,8 +192,6 @@ u64 XSysMonPsu_IntrGetStatus(XSysMonPsu *InstancePtr)
 * 		OR'ing the XSYSMONPSU_ISR_0_* and XSYSMONPSU_ISR_1_* bits
 * 		which are defined in xsysmonpsu_hw.h.
 *
-* @return	None.
-*
 * @note		None.
 *
 *****************************************************************************/
@@ -221,5 +217,3 @@ void XSysMonPsu_IntrClear(XSysMonPsu *InstancePtr, u64 Mask)
 			  (u32)RegValue);
 }
 
-
-/** @} */

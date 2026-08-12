@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2016 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -23,6 +23,7 @@
 * ----- -----  -------- -----------------------------------------------
 * 1.0   kvn    12/15/15 First release.
 * 2.9   cog    07/20/23 Added support for SDT flow.
+* 3.4   vn     07/30/26 Fix Doxygen warnings
 *
 * </pre>
 *
@@ -58,7 +59,11 @@ extern XSysMonPsu_Config XSysMonPsu_ConfigTable[];
 * ID. The table XSysmonPsu_ConfigTable[] contains the configuration information
 * for each device in the system.
 *
+* @if SDT
+* @param	BaseAddress is the base address of the device.
+* @else
 * @param	DeviceId is the unique device ID of the device being looked up.
+* @endif
 *
 * @return	A pointer to the configuration table entry corresponding to the
 *		given device ID, or NULL if no match is found.

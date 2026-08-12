@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2016 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -26,6 +27,7 @@
 * 1.0   kvn    12/15/15 First release
 * 2.5   mn     07/06/18 Fixed Doxygen warnings
 * 2.7   aad    10/21/20 Modified code for MISRA-C:2012 Compliance.
+* 3.4   vn     07/30/26 Fix Doxygen warnings
 *
 * </pre>
 *
@@ -106,4 +108,3 @@ s32 XSysMonPsu_SelfTest(XSysMonPsu *InstancePtr)
 	/* Return the test result. */
 	return Status;
 }
-/** @} */

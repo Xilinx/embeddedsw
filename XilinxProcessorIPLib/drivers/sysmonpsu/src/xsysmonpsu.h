@@ -165,6 +165,7 @@
 *       se     07/30/24 OT Upper Alarm threshold requires 12-bit value update
 *                       to enable over-temperature default value override.
 * 3.3   dc     02/18/26 Correct spelling errors
+* 3.4   vn     07/30/26 Fix Doxygen warnings
 *
 * </pre>
 *
@@ -222,7 +223,7 @@ extern "C" {
 #define XSM_CH_DDRPHY_VREF  58U   /**< DDRPHY_VREF */
 #define XSM_CH_RESERVE1     63U   /**< PSGT_AT0 */
 
-/*@}*/
+/** @} */
 
 /**
  * @name Indexes for reading the Calibration Coefficient Data.
@@ -232,7 +233,7 @@ extern "C" {
 #define XSM_CALIB_ADC_OFFSET_COEFF    1U /**< ADC Offset Calib Coefficient */
 #define XSM_CALIB_GAIN_ERROR_COEFF    2U /**< Gain Error Calib Coefficient*/
 
-/*@}*/
+/** @} */
 
 /**
  * @name Indexes for reading the Minimum/Maximum Measurement Data.
@@ -265,7 +266,7 @@ extern "C" {
 #define XSM_MIN_VCCAMS      0x8CU  /**< Minimum VCCAMS Data */
 #define XSM_MIN_TEMP_REMOTE     0x8DU  /**< Minimum Remote Temperature Data */
 
-/*@}*/
+/** @} */
 
 /**
  * @name Averaging to be done for the channels.
@@ -276,7 +277,7 @@ extern "C" {
 #define XSM_AVG_64_SAMPLES	2U /**< Average 64 samples */
 #define XSM_AVG_256_SAMPLES	3U /**< Average 256 samples */
 
-/*@}*/
+/** @} */
 
 /**
  * @name Channel Sequencer Modes of operation.
@@ -288,7 +289,7 @@ extern "C" {
 #define XSM_SEQ_MODE_SINGCHAN	 3U /**< Single channel - No Sequencing */
 #define XSM_SEQ_MODE_OYLMPUS	 6U /**< Olympus mode */
 
-/*@}*/
+/** @} */
 
 /**
  * @name Clock Divisor values range.
@@ -297,7 +298,7 @@ extern "C" {
 #define XSM_CLK_DIV_MIN	 0U /**< Minimum Clock Divisor value */
 #define XSM_CLK_DIV_MAX	 255U /**< Maximum Clock Divisor value */
 
-/*@}*/
+/** @} */
 
 /**
  * @name Power down modes.
@@ -307,7 +308,7 @@ extern "C" {
 #define XSM_PWR_MODE_PARTIAL_SLEEP	1U /**< Partial sleep mode */
 #define XSM_PWR_MODE_SLEEP		3U /**< Full sleep mode */
 
-/*@}*/
+/** @} */
 
 /**
  * @name Alarm Threshold(Limit) Register (ATR) indexes.
@@ -342,7 +343,7 @@ extern "C" {
 #define XSM_ATR_VCCAMS_LOWER	 0x1CU /**< VCCAMS low voltage limit */
 #define XSM_ATR_TEMP_RMTE_LOWER	 0x1DU /**< Low remote Temperature limit */
 
-/*@}*/
+/** @} */
 
 /**
  * @name Alarm masks for channels in Configuration registers 1
@@ -363,7 +364,7 @@ extern "C" {
 #define XSM_CFR_ALM_TEMP_MASK		0x0002 /**< Alarm 0 - Temperature */
 #define XSM_CFR_ALM_OT_MASK		0x0001 /**< Over Temperature Alarm */
 
-/*@}*/
+/** @} */
 #define XSM_POLL_TIMEOUT		0XFFFFFFFFU
 
 /**************************** Type Definitions *******************************/

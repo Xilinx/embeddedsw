@@ -57,6 +57,7 @@
 *                       XSysMonPsu_UpdateAdcClkDivisor.
 * 3.1   sa     12/10/24 Modified code for MISRA-C:2012 Compliance
 * 3.3   dc     02/18/26 Correct spelling errors
+* 3.4   vn     07/30/26 Fix Doxygen warnings
 * </pre>
 *
 ******************************************************************************/
@@ -178,8 +179,6 @@ s32 XSysMonPsu_CfgInitialize(XSysMonPsu *InstancePtr, XSysMonPsu_Config *ConfigP
 *
 * @param	CallBackRef is unused by this function.
 *
-* @return	None.
-*
 * @note		None.
 *
 *****************************************************************************/
@@ -197,8 +196,6 @@ static void XSysMonPsu_StubHandler(void *CallBackRef)
 * This function resets the SystemMonitor
 *
 * @param	InstancePtr is a pointer to the XSysMonPsu instance.
-*
-* @return	None.
 *
 * @note		Upon reset, all Maximum and Minimum status registers will be
 *		reset to their default values. Currently running and any averaging
@@ -271,8 +268,6 @@ u32 XSysMonPsu_GetStatus(XSysMonPsu *InstancePtr, u32 SysmonBlk)
 * is finished. Refer to the device specification for more details.
 *
 * @param	InstancePtr is a pointer to the XSysMonPsu instance.
-*
-* @return	None.
 *
 * @note		The default state of the CONVST bit is a logic 0. The conversion
 *		is started when the CONVST bit is set to 1 from 0.
@@ -474,8 +469,6 @@ u16 XSysMonPsu_GetMinMaxMeasurement(XSysMonPsu *InstancePtr, u8 MeasurementType,
 *		- XSM_AVG_256_SAMPLES for 256 samples of averaging
 * @param	SysmonBlk is the value that tells whether it is for PS Sysmon
 *       block or PL Sysmon block register region.
-*
-* @return	None.
 *
 * @note		None.
 *
@@ -697,8 +690,6 @@ End:
 * @param	SysmonBlk is the value that tells whether it is for PS Sysmon
 *       block or PL Sysmon block register region.
 *
-* @return	None.
-*
 * @note		The implementation of the alarm enables in the Configuration
 *		register 1 is such that the alarms for bit positions of 0 will
 *		be enabled and alarms for bit positions of 1 will be disabled.
@@ -828,8 +819,6 @@ u32 XSysMonPsu_GetAlarmEnables(XSysMonPsu *InstancePtr, u32 SysmonBlk)
 * @param	SysmonBlk is the value that tells whether it is for PS Sysmon
 *       block or PL Sysmon block register region.
 *
-* @return	None.
-*
 * @note		Only one of the modes can be enabled at a time.
 *
 *****************************************************************************/
@@ -915,8 +904,6 @@ u8 XSysMonPsu_GetSequencerMode(XSysMonPsu *InstancePtr, u32 SysmonBlk)
 *		TRUE) for the channel.
 * @param	SysmonBlk is the value that tells whether it is for PS Sysmon
 *       block or PL Sysmon block register region.
-*
-* @return	None.
 *
 * @note		None.
 *
@@ -1009,12 +996,6 @@ s32 XSysMonPsu_GetSequencerEvent(XSysMonPsu *InstancePtr, u32 SysmonBlk)
 *		Mux. The valid channels are 0 to 5 and 16 to 31.
 * @param	SysmonBlk is the value that tells whether it is for PS Sysmon
 *       block or PL Sysmon block register region.
-*
-* @return
-*		- XST_SUCCESS if the given values were written successfully to
-*		the Configuration Register 0.
-*		- XST_FAILURE if the channel sequencer is enabled or the input
-*		parameters are not valid for the selected channel.
 *
 * @note		None.
 *
@@ -1111,8 +1092,6 @@ u32 XSysMonPsu_GetExtenalMux(XSysMonPsu *InstancePtr, u32 SysmonBlk)
 *		Refer to the device specification for more details.
 * @param	SysmonBlk is the value that tells whether it is for PS Sysmon
 *       block or PL Sysmon block register region.
-*
-* @return	None.
 *
 * @note		- The ADCCLK is an internal clock used by the ADC and is
 *		synchronized to the DCLK clock. The ADCCLK is equal to DCLK
@@ -1359,8 +1338,6 @@ s32 XSysMonPsu_SetSeqChEnables(XSysMonPsu *InstancePtr, u64 ChEnableMask,
 *		xsysmonpsu_hw.h to interpret the Channel numbers. Bit masks of 1
 *		are the channels that are enabled and bit mask of 0 are
 *		the channels that are disabled.
-*
-* @return	None.
 *
 * @note		None.
 *
@@ -1771,8 +1748,6 @@ u64 XSysMonPsu_GetSeqAcqTime(XSysMonPsu *InstancePtr, u32 SysmonBlk)
 * @param	SysmonBlk is the value that tells whether it is for PS Sysmon
 *       block or PL Sysmon block register region.
 *
-* @return	None.
-*
 * @note		None.
 *
 *****************************************************************************/
@@ -1902,8 +1877,6 @@ u16 XSysMonPsu_GetAlarmThreshold(XSysMonPsu *InstancePtr, u8 AlarmThrReg,
 *
 * @param	InstancePtr is a pointer to the XSysMonPsu instance.
 *
-* @return	None
-*
 * @note		In the auto-trigger mode, sample rate is of 1 Million samples.
 *
 *****************************************************************************/
@@ -1963,8 +1936,6 @@ u32 XSysMonPsu_GetMonitorStatus(XSysMonPsu *InstancePtr)
 * @param	ConfigPtr points to the XSysMonPsu device configuration
 *		structure.
 *
-* @return	None
-*
 * @note 	The user needs to first call the XSysMonPsu_LookupConfig() API
 *		which returns the Configuration structure pointer, this pointer
 *		is then passed as a parameter to the XSysMonPsu_InitInstance()
@@ -1989,4 +1960,3 @@ void XSysMonPsu_InitInstance(XSysMonPsu *InstancePtr,
 	InstancePtr->IsReady = XIL_COMPONENT_IS_READY;
 }
 
-/** @} */

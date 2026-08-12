@@ -46,6 +46,7 @@
 *      aad     11/22/19 Added support for PL_EXAMPLE
 * 2.9   cog    07/20/23 Added support for SDT flow
 * 3.3   dc     02/18/26 Correct spelling errors
+* 3.4   vn     07/30/26 Fix Doxygen warnings
 *
 * </pre>
 *
@@ -141,8 +142,6 @@ static volatile int Supply3Intr = FALSE;	/* Supply 3 alarm interrupt */
 /**
 *
 * Main function that invokes the Interrupt example.
-*
-* @param	None.
 *
 * @return
 *		- XST_SUCCESS if the example has completed successfully.

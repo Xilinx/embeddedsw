@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2016 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -33,6 +33,7 @@
 *                       interrupts.
 *       mn     03/08/18 Update code to run at higher frequency
 * 2.9   cog    07/20/23 Added support for SDT flow
+* 3.4   vn     07/30/26 Fix Doxygen warnings
 *
 * </pre>
 *
@@ -96,8 +97,6 @@ static volatile int VccintIntr = FALSE;	  	/* VCCINT alarm interrupt */
 /**
 *
 * Main function that invokes the Single Channel Interrupt example.
-*
-* @param	None.
 *
 * @return
 *		- XST_SUCCESS if the example has completed successfully.
