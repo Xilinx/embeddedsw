@@ -57,6 +57,13 @@ void XPmPlDevice_GetAieParent(const XPm_Device* Device, const XPm_PlDevice **Out
 XStatus XPmPlDevice_InitStart(XPm_PlDevice *PlDevice, const u32 *Args, u32 NumArgs);
 XStatus XPmPlDevice_InitFinish(XPm_PlDevice *PlDevice, const u32 *Args, u32 NumArgs);
 XStatus XPmPlDevice_MemCtrlrMap(XPm_PlDevice *PlDevice, const u32 *Args, u32 NumArgs);
+
+/**
+ * @brief Set XilSEM callback handler to clear the PLD node descriptors.
+ *
+ * @param Handler Pointer to XilSEM callback handler.
+ */
+void XPmPlDevice_SetSemCallback(void (*Handler)(u32 DeviceId));
 #ifdef __cplusplus
 }
 #endif
