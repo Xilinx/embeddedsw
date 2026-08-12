@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2005 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -24,6 +24,7 @@
 *		      The macros have been renamed to remove _m from the name.
 * 3.8   ht   12/13/23 Modify XCan_InterruptEnable to enable the interrupts.
 * 3.8	ht   12/13/23 Added support for ECC.
+* 3.13  vn   07/30/26 Fix Doxygen warnings
 * </pre>
 *
 ******************************************************************************/
@@ -59,8 +60,6 @@
 *		Bit positions of 0 will keep the previous setting. This mask is
 *		formed by OR'ing XCAN_IXR_* bits defined in xcan_l.h.
 *
-* @return	None.
-*
 * @note		None.
 *
 *****************************************************************************/
@@ -85,8 +84,6 @@ void XCan_InterruptEnable(XCan *InstancePtr, u32 Mask)
 *		disabled. Bit positions of 0 will keep the previous setting.
 *		This mask is formed by OR'ing XCAN_IXR_* bits defined in
 *		xcan_l.h.
-*
-* @return	None.
 *
 * @note		None.
 *
@@ -209,8 +206,6 @@ void XCan_InterruptClear(XCan *InstancePtr, u32 Mask)
 *
 * @param	InstancePtr is a pointer to the XCan instance that just
 *		interrupted.
-*
-* @return	None.
 *
 * @note		None.
 *

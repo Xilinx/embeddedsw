@@ -36,6 +36,7 @@
 * 3.7   ht     07/04/23 Added support for system device-tree flow.
 * 3.11  sp     21/07/25 Fix GCC Warnings.
 * 3.12  vlt  12/12/25 Update Doxygen comments to include SDT flow details.
+* 3.13  vn   07/30/26 Fix Doxygen warnings
 * </pre>
 *
 ******************************************************************************/
@@ -160,6 +161,7 @@ int main(void)
 * frame, receives the same Can frame, and verifies the frame contents.
 *
 * @if SDT
+* @param	CanPtr is a pointer to the XCan instance
 * @param	BaseAddress contains the base address of the device
 * @else
 * @param	DeviceId is the XPAR_CAN_<instance_num>_DEVICE_ID value from

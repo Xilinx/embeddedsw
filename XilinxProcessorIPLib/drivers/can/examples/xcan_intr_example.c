@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2005 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -44,6 +44,7 @@
 * 3.7   ht   07/04/23 Added support for system device-tree flow.
 * 3.8   ht   12/13/23 Added support for ECC.
 * 3.11  sp   21/07/25 Fix GCC Warnings.
+* 3.13  vn   07/30/26 Fix Doxygen warnings
 * </pre>
 *
 ******************************************************************************/
@@ -203,7 +204,11 @@ int main(void)
 * The example configures the device for internal loopback mode, then
 * sends a CAN frame and receives the same CAN frame.
 *
+* @if SDT
+* @param	BaseAddress contains the CAN device base address.
+* @else
 * @param	DeviceId contains the CAN device ID.
+* @endif
 *
 * @return	XST_SUCCESS if successful, otherwise driver-specific error code.
 *

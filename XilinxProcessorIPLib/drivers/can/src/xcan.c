@@ -30,6 +30,7 @@
 * 3.8   ht   12/13/23 Added support for ECC.
 * 3.11  sp   13/01/25 Fix GCC warnings.
 * 3.12  vlt  12/12/25 Update Doxygen comments to include SDT flow details.
+* 3.13  vn   07/30/26 Fix Doxygen warnings
 * </pre>
 ******************************************************************************/
 
@@ -238,8 +239,6 @@ int XCan_VmInitialize(XCan *InstancePtr, UINTPTR BaseAddress, UINTPTR VirtAddr)
 *
 * @param	InstancePtr is a pointer to the XCan instance to be worked on.
 *
-* @return	None.
-*
 * @note		None.
 *
 ******************************************************************************/
@@ -307,8 +306,6 @@ u8 XCan_GetMode(XCan *InstancePtr)
 * @param	OperationMode specify which operation mode to enter. Valid value
 *		is any of XCAN_MODE_* defined in xcan.h. Please note no multiple
 * 		modes could be entered at the same time.
-*
-* @return	None.
 *
 * @note
 *
@@ -457,8 +454,6 @@ u32 XCan_GetStatus(XCan *InstancePtr)
 *		function returns.
 * @param	TxErrorCount will contain Transmit Error Counter value after
 *		this function returns.
-*
-* @return	None.
 *
 * @note		None.
 *
@@ -708,8 +703,6 @@ int XCan_SendHighPriority(XCan *InstancePtr, u32 *FramePtr)
 *		enabled. Any filter not specified in this parameter will keep
 *		its previous enable/disable setting.
 *
-* @return	None.
-*
 * @note
 *
 * Acceptance Filter Register is an optional register in Xilinx CAN device.
@@ -755,8 +748,6 @@ void XCan_AcceptFilterEnable(XCan *InstancePtr, u32 FilterIndexes)
 *		disabled. Any filter not specified in this parameter will keep
 *		its previous enable/disable setting. If all acceptance filters
 *		are disabled then all received frames are stored in the RX FIFO.
-*
-* @return	None.
 *
 * @note
 *
@@ -936,8 +927,6 @@ int XCan_AcceptFilterSet(XCan *InstancePtr, u32 FilterIndex,
 *		Acceptance Filter Mask Register after this function returns.
 * @param	IdValue will store the ID value read from the chosen Acceptance
 *		Filter ID Register after this function returns.
-*
-* @return	None.
 *
 * @note
 *
@@ -1182,8 +1171,6 @@ static void StubHandler(void)
 *
 * @param        InstancePtr is a pointer to the XCan instance to be worked on.
 *
-* @return       None.
-*
 * @note         None.
 *
 ******************************************************************************/
@@ -1206,8 +1193,6 @@ void XCan_ResetECC(XCan *InstancePtr)
 * TX_TL FIFO, TX_OL FIFO, RX FIFO.
 *
 * @param        InstancePtr is a pointer to the XCan instance to be worked on.
-*
-* @return       None.
 *
 * @note         None.
 *

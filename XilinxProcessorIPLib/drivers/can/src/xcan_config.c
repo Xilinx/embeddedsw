@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2005 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -22,6 +22,7 @@
 * 1.10a mta  05/13/07 Updated to new coding style
 * 2.00a ktn  10/22/09 Updated to use the HAL APIs/macros.
 *		      The macros have been renamed to remove _m from the name.
+* 3.13  vn   07/30/26 Fix Doxygen warnings
 * </pre>
 ******************************************************************************/
 
@@ -181,8 +182,6 @@ int XCan_SetBitTiming(XCan *InstancePtr, u8 SyncJumpWidth,
 *		function returns. Its value ranges from 0 to 7.
 * @param	TimeSegment1 will store the Time Segment 1 value after this
 *		function returns. Its value ranges from 0 to 15.
-*
-* @return	None.
 *
 * @note		None.
 *
