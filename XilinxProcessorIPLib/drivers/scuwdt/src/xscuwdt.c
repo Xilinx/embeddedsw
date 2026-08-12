@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -22,6 +22,7 @@
 * 1.00a sdm 01/15/10 First release
 * 2.1 	sk  02/26/15 Modified the code for MISRA-C:2012 compliance.
 * 2.5   asa 07/18/23 Made updates for workflow decoupling flow.
+* 2.8   vn  07/30/26 Fix Doxygen warnings
 * </pre>
 *
 ******************************************************************************/
@@ -112,8 +113,6 @@ s32 XScuWdt_CfgInitialize(XScuWdt *InstancePtr,
 *
 * @param	InstancePtr is a pointer to the XScuWdt instance.
 *
-* @return	None.
-*
 * @note		User needs to select the appropriate mode (watchdog/timer)
 *		before using this API.
 *		See XScuWdt_SetWdMode/XScuWdt_SetTimerMode macros in
@@ -156,8 +155,6 @@ void XScuWdt_Start(XScuWdt *InstancePtr)
 * Stop the watchdog timer.
 *
 * @param	InstancePtr is a pointer to the XScuWdt instance.
-*
-* @return	None.
 *
 * @note		None.
 *

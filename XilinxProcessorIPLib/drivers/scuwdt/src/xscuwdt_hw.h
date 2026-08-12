@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -28,6 +28,7 @@
 *		     the xstatus.h of the standalone BSP during the
 *		     libgen.
 * 2.1 	sk  02/26/15 Modified the code for MISRA-C:2012 compliance.
+* 2.8   vn  07/30/26 Fix Doxygen warnings
 * </pre>
 *
 ******************************************************************************/
@@ -57,7 +58,7 @@ extern "C" {
 #define XSCUWDT_ISR_OFFSET	0x0CU /**< Watchdog Interrupt Status Register */
 #define XSCUWDT_RST_STS_OFFSET	0x10U /**< Watchdog Reset Status Register */
 #define XSCUWDT_DISABLE_OFFSET	0x14U /**< Watchdog Disable Register */
-/* @} */
+/** @} */
 
 /** @name Watchdog Control register
  * This register bits control the prescaler, WD/Timer mode, Intr enable,
@@ -73,7 +74,7 @@ extern "C" {
 #define XSCUWDT_CONTROL_AUTO_RELOAD_MASK 0x00000002U /**< Auto-reload (in
 							 timer mode) */
 #define XSCUWDT_CONTROL_WD_ENABLE_MASK	 0x00000001U /**< Watchdog enable */
-/* @} */
+/** @} */
 
 /** @name Interrupt Status register
  * This register indicates the Counter register has reached zero in Counter
@@ -82,7 +83,7 @@ extern "C" {
  */
 
 #define XSCUWDT_ISR_EVENT_FLAG_MASK	0x00000001U /**< Event flag */
-/*@}*/
+/** @} */
 
 /** @name Reset Status register
  * This register indicates the Counter register has reached zero in Watchdog
@@ -91,7 +92,7 @@ extern "C" {
  */
 
 #define XSCUWDT_RST_STS_RESET_FLAG_MASK	0x00000001U /**< Time out occurred */
-/*@}*/
+/** @} */
 
 /** @name Disable register
  * This register is used to switch from watchdog mode to timer mode.
@@ -104,7 +105,7 @@ extern "C" {
 							value 1 */
 #define XSCUWDT_DISABLE_VALUE2		0x87654321U /**< Watchdog mode disable
 							value 2 */
-/*@}*/
+/** @} */
 
 /**************************** Type Definitions *******************************/
 
