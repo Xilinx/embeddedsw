@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2017 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc.  All Rights Reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc.  All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -17,6 +17,7 @@
 * Ver  Who  Date      Changes
 * ---  ---  --------- -----------------------------------------------
 * 1.0  sg   09/18/17  First Release
+* 1.15 vn   07/30/26  Fix Doxygen warnings
 *
 * </pre>
 *
@@ -42,8 +43,6 @@
 *
 * @param	BaseAddress contains the base address of the device.
 * @param	Data contains the byte to be sent.
-*
-* @return	None.
 *
 * @note 	None.
 *
@@ -91,8 +90,6 @@ u8 XUartPsv_RecvByte(UINTPTR BaseAddress)
 *
 * @param	BaseAddress contains the base address of the device.
 *
-* @return	None
-*
 * @note 	None.
 *
 ******************************************************************************/
@@ -114,5 +111,4 @@ char inbyte(void) {
 }
 #endif
 #endif
-/** @} */
 /** @} */

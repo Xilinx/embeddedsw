@@ -26,6 +26,7 @@
 * 1.1   sd    07/11/19 Remove the hardcoded interrupt id.
 * 1.2   rna   01/20/20 Add selftest, while loop for waiting
 * 1.14  vlt  12/18/25 Update Doxygen comments to include SDT flow details.
+* 1.15  vn   07/30/26 Fix Doxygen warnings
 * </pre>
 ****************************************************************************/
 
@@ -335,8 +336,6 @@ int UartPsvIntrExample(XUartPsv *UartInstPtr, UINTPTR BaseAddress)
 * @param	Event contains the specific kind of event that has occurred.
 * @param	EventData contains the number of bytes sent or received for sent
 *		and receive events.
-*
-* @return	None.
 *
 * @note		None.
 *

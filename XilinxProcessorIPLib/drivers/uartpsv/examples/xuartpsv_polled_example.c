@@ -24,6 +24,7 @@
 * 1.0   sd    05/23/19 First Release
 * 1.2   rna   01/20/20 Add self test
 * 1.14  vlt   12/18/25 Update Doxygen comments to include SDT flow details.
+* 1.15  vn    07/30/26 Fix Doxygen warnings
 * </pre>
 ****************************************************************************/
 
@@ -122,6 +123,7 @@ int main(void)
 *
 *
 * @if SDT
+* @param	UartInstPtr is a pointer to the XUartPsv instance.
 * @param	BaseAddress contains the base address of the device
 * @else
 * @param	DeviceId is the device Id of the UART device and is typically

@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2017 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc.  All Rights Reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc.  All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -24,6 +24,7 @@
 *		      Add functions to set Tx and Rx FIFO threshold levels
 * 1.3  rna  04/08/20  Format is corrected in XUartPsv_SetDataFormat function
 *      rna  05/18/20  Fix MISRA-C violations
+* 1.15 vn   07/30/26  Fix Doxygen warnings
 * </pre>
 *
 ******************************************************************************/
@@ -144,8 +145,6 @@ u16 XUartPsv_GetOptions(XUartPsv *InstancePtr)
 * @param	Options contains the options to be set which are bit masks
 *		contained in the file xuartpsv.h and named XUARTPSV_OPTION_*.
 *
-* @return	None.
-*
 * @note 	None.
 *
 ******************************************************************************/
@@ -230,8 +229,6 @@ u8 XUartPsv_GetFifoThreshold(XUartPsv *InstancePtr)
 * @param	TriggerLevel contains the trigger level to set. This is a value
 * 			from 0-7
 *
-* @return	None
-*
 * @note 	None.
 *
 ******************************************************************************/
@@ -278,8 +275,6 @@ void XUartPsv_SetFifoThreshold(XUartPsv *InstancePtr, u8 TriggerLevel)
 * 			from 0-4 (XUARTPSV_UARTIFLS_TXIFLSEL_1_8 -
 * 			XUARTPSV_UARTIFLS_TXIFLSEL_7_8)
 *
-* @return	None
-*
 * @note 	None.
 *
 ******************************************************************************/
@@ -323,8 +318,6 @@ void XUartPsv_SetTxFifoThreshold(XUartPsv *InstancePtr, u8 TriggerLevel)
 * @param	TriggerLevel contains the trigger level to set. This is a value
 * 			from 0-32 (XUARTPSV_UARTIFLS_RXIFLSEL_1_8 -
 * 			XUARTPSV_UARTIFLS_RXIFLSEL_7_8)
-*
-* @return	None
 *
 * @note 	None.
 *
@@ -493,8 +486,6 @@ u8 XUartPsv_GetOperMode(XUartPsv *InstancePtr)
 * @param	InstancePtr is a pointer to the XUartPsv instance.
 * @param	OperationMode is the mode of the UART.
 *
-* @return	None.
-*
 * @note 	None.
 *
 ******************************************************************************/
@@ -648,8 +639,6 @@ s32 XUartPsv_SetDataFormat(XUartPsv *InstancePtr,
 * @param	InstancePtr is a pointer to the XUartPsv instance.
 * @param	FormatPtr is a pointer to a format structure that will
 *		contain the data format after this call completes.
-*
-* @return	None.
 *
 * @note 	None.
 *

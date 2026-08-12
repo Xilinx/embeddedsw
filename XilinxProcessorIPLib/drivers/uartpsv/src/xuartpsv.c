@@ -29,6 +29,7 @@
 * 1.8  sd   10/20/22  Add XUartPsv_CleanupRx and XUartPsv_CleanupTx to reset rx
 * 		      and Tx buffers.
 * 1.14 vlt  01/27/26  Fixed codespell issues
+* 1.15 vn   07/30/26  Fix Doxygen warnings
 * </pre>
 *
 ******************************************************************************/
@@ -700,8 +701,6 @@ s32 XUartPsv_SetBaudRate(XUartPsv *InstancePtr, u32 BaudRate)
  * @param	InstancePtr is a pointer to the XUartPsv instance
  * @param	CtrlRegister value to be written
  *
- * @return	None.
- *
  * @note 	None.
  *
  ******************************************************************************/
@@ -764,7 +763,7 @@ void XUartPsv_ProgramCtrlReg(XUartPsv *InstancePtr, u32 CtrlRegister)
 * This function is a cleanup function to  allow resetting Rx NextBytePtr, RemainingBytes and
 * RequestedBytes.
 *
-* @return	None.
+* @param	InstancePtr is a pointer to the XUartPsv instance.
 *
 * @note 	None.
 *
@@ -783,7 +782,7 @@ void XUartPsv_CleanupRx(XUartPsv *InstancePtr)
 * This function is a cleanup function to  allow resetting Tx NextBytePtr, RemainingBytes and
 * RequestedBytes.
 *
-* @return	None.
+* @param	InstancePtr is a pointer to the XUartPsv instance.
 *
 * @note 	None.
 *

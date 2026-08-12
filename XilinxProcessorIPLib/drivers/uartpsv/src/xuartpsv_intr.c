@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2017 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc.  All Rights Reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc.  All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -23,6 +23,7 @@
 *		      Add support for Rx errors
 *		      Change the Tx interrupt  path to support > 32 byte transfers
 * 1.3  rna  04/05/20  Correct XUartPsv_SetInterruptMask function clear IMSC
+* 1.15 vn   07/30/26  Fix Doxygen warnings
 * </pre>
 *
 ******************************************************************************/
@@ -80,8 +81,6 @@ u32 XUartPsv_GetInterruptMask(XUartPsv *InstancePtr)
 * @param	Mask contains the interrupts to be enabled or disabled.
 *		A '1' enables an interrupt, and a '0' disables.
 *
-* @return	None.
-*
 * @note 	None.
 *
 ******************************************************************************/
@@ -109,8 +108,6 @@ void XUartPsv_SetInterruptMask(XUartPsv *InstancePtr, u32 Mask)
 * @param	FuncPtr is the pointer to the callback function.
 * @param	CallBackRef is the upper layer callback reference passed back
 *		when the callback function is invoked.
-*
-* @return	None.
 *
 * @note
 * There is no assert on the CallBackRef since the driver doesn't know what it
@@ -140,8 +137,6 @@ void XUartPsv_SetHandler(XUartPsv *InstancePtr, XUartPsv_Handler FuncPtr,
 * can be called when an interrupt occurs.
 *
 * @param	InstancePtr contains a pointer to the driver instance
-*
-* @return	None.
 *
 * @note 	None.
 *
