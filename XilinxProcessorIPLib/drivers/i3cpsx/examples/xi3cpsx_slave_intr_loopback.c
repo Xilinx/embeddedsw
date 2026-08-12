@@ -27,6 +27,7 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- ---------------------------------------------------------
 * 1.00a sd  06/10/26 First release
+* 1.8   vn  07/30/26 Fix Doxygen warnings
 * </pre>
 *
 ******************************************************************************/
@@ -389,7 +390,8 @@ static int SetupMasterInterruptSystem(XI3cPsx *InstancePtr)
 * from the I3cPsx. It is called from an interrupt context such that the
 * amount of processing performed should be minimized.
 *
-* @return	None.
+* @param	CallBackRef is a pointer to the callback reference.
+* @param	Event is the status event from the I3cPsx.
 *
 * @note		None.
 *

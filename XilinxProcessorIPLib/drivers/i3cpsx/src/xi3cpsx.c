@@ -23,6 +23,7 @@
 *       	      Copy the input clock
 * 1.3  sd   11/17/23 Added support for system device-tree flow.
 *      sd   1/30/24  Moved prints under DEBUG flag.
+* 1.8  vn   07/30/26 Fix Doxygen warnings
 * </pre>
 *
 ******************************************************************************/
@@ -191,8 +192,6 @@ s32 XI3cPsx_CfgInitialize(XI3cPsx *InstancePtr, XI3cPsx_Config *ConfigPtr,
 * @param	TxBuf is the pointer to the send buffer.
 * @param	TxLen is the number of bytes to be sent.
 *
-* @return	None.
-*
 * @note		None.
 *
 ******************************************************************************/
@@ -234,8 +233,6 @@ void XI3cPsx_WrTxFifo(XI3cPsx *InstancePtr, u32 *TxBuf, u16 TxLen)
 * @param	InstancePtr is a pointer to the XI3cPsx instance.
 * @param	Cmd is a pointer to the XI3cPsx_Cmd structure.
 *
-* @return	None.
-*
 * @note		None.
 *
 ******************************************************************************/
@@ -258,8 +255,6 @@ void XI3cPsx_WrCmdFifo(XI3cPsx *InstancePtr, XI3cPsx_Cmd *Cmd)
 * @param	InstancePtr is a pointer to the XI3cPsx instance.
 * @param	RxBuf is the pointer to the recv buffer.
 * @param	RxLen is the number of bytes to be recv.
-*
-* @return	None.
 *
 * @note		None.
 *

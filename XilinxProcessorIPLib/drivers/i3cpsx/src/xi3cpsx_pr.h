@@ -23,6 +23,7 @@
 * ----- --- -------- -----------------------------------------------.
 * 1.00  sd  06/10/22 First release
 * 1.4   gm  10/07/24 Added DBP and slave transmit macros.
+* 1.8   vn  07/30/26 Fix Doxygen warnings
 *
 * </pre>
 *
@@ -143,3 +144,4 @@ extern "C" {
 #endif
 
 #endif
+/** @} */

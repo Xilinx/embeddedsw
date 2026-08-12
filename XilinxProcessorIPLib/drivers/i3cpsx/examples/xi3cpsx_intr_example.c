@@ -33,6 +33,7 @@
  * 1.4  gm   10/06/24 Added return statements and remove resetfifos
  * 1.6  an   07/08/25 Fixed GCC warnings
  * 1.7  vlt  12/18/25 Update Doxygen comments to include SDT flow details.
+ * 1.8  vn   07/30/26 Fix Doxygen warnings
  *
  * </pre>
  *
@@ -448,7 +449,8 @@ static int SetupInterruptSystem(XI3cPsx *InstancePtr)
 * from the I3cPsx.  It is called from an interrupt context such that the amount
 * of processing performed should be minimized.
 *
-* @return	None.
+* @param	CallBackRef is a pointer to the callback reference.
+* @param	Event is the status event from the I3cPsx.
 *
 * @note		None.
 *

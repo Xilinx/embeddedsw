@@ -20,6 +20,7 @@
 * Ver   Who Date     Changes
 * ----- --- -------- -----------------------------------------------.
 * 1.00  sd  06/10/22 First release
+* 1.8   vn  07/30/26 Fix Doxygen warnings
 *
 * </pre>
 *
@@ -40,8 +41,6 @@
 * and reenabling interrupts for the IIC device after the reset.
 *
 * @param        InstancePtr is a pointer to the XIicPs instance.
-*
-* @return       None.
 *
 * @note         None.
 *
@@ -67,8 +66,6 @@ void XI3cPsx_Reset(XI3cPsx *InstancePtr)
 * and reenabling interrupts for the IIC device after the reset.
 *
 * @param        InstancePtr is a pointer to the XIicPs instance.
-*
-* @return       None.
 *
 * @note         None.
 *

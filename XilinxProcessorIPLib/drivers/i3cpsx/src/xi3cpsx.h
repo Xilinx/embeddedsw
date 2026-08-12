@@ -77,6 +77,7 @@
 *      vlt  01/27/26 Fixed codespell issues.
 *      vlt  03/15/26 Updated BaseAddress type from u32 to UINTPTR
 *                    to support 64-bit addressing.
+* 1.8  vn   07/30/26 Fix Doxygen warnings
 * </pre>
 *
 ******************************************************************************/
@@ -99,8 +100,6 @@ extern "C" {
 #include "xil_util.h"
 
 /************************** Constant Definitions *****************************/
-
-/** @} */
 
 /** @name Callback events
  *

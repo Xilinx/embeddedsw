@@ -20,6 +20,7 @@
 * 1.00  sd  06/10/22 First release
 * 1.01  sd  12/14/22 Fix warnings
 * 1.3 	sd   1/30/24  Moved prints under DEBUG flag.
+* 1.8   vn  07/30/26 Fix Doxygen warnings
 * </pre>
 *
 ******************************************************************************/
@@ -545,9 +546,8 @@ s32 XI3cPsx_MasterRecvPolled(XI3cPsx *InstancePtr, u8 *MsgPtr,
 * should be minimized
 *
 * @param        InstancePtr is a pointer to the XI3c instance.
+* @param        CallBackRef is the callback reference passed to the handler.
 * @param        FunctionPtr is the pointer to the callback function.
-*
-* @return       None.
 *
 * @note
 *
@@ -578,8 +578,6 @@ void XI3cPsx_SetStatusHandler(XI3cPsx *InstancePtr, void *CallBackRef,
 * It is an error if the amount of received data is more than expected.
 *
 * @param	InstancePtr is a pointer to the XI3cPsx instance.
-*
-* @return	None.
 *
 * @note 	None.
 *

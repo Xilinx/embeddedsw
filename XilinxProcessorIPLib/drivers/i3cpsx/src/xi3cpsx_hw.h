@@ -23,6 +23,7 @@
 * 1.4   gm  10/07/24 Added macros for reading write and read fifo levels,
 * 		     enable and disable interrupts, and register offset.
 * 1.7   vlt 01/27/26 Fixed codespell issues.
+* 1.8   vn  07/30/26 Fix Doxygen warnings
 *
 * </pre>
 *
@@ -128,8 +129,8 @@ extern "C" {
 *
 * Enable interrupts
 *
-* @param        Base address of the XI3cPsx core instance.
-* @param        interrupt mask value.
+* @param        BaseAddress is the base address of the XI3cPsx core instance.
+* @param        IntrMask is the interrupt mask value.
 *
 * @return       None.
 *
@@ -150,8 +151,8 @@ extern "C" {
 *
 * Disable interrupts
 *
-* @param        Base address of the XI3cPsx core instance.
-* @param        interrupt mask value.
+* @param        BaseAddress is the base address of the XI3cPsx core instance.
+* @param        IntrMask is the interrupt mask value.
 *
 * @return       None.
 *
@@ -1033,6 +1034,7 @@ extern "C" {
 #define XI3CPSX_INTR_BUSOWNER_UPDATED		0x00002000	/**< BIT 13 - Role of the controller changes from being
 								  a Master to Slave or vice versa */
 #define XI3CPSX_INTR_BUS_RESET_DONE		0x00008000	/**< BIT 15 - Bus Reset Pattern Generation Done */
+/** @} */
 
 /**
  * Register: XI3CPSX_QUEUE_STATUS_LEVEL
