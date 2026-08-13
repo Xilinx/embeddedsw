@@ -2376,7 +2376,13 @@ u32 XRFdc_CheckTileEnabled(XRFdc *InstancePtr, u32 Type, u32 Tile_Id)
 	}
 
 	if ((TileEnableReg & TileMask) == 0U) {
-		Status = XRFDC_FAILURE;
+		/* Older RFdc IP generations (e.g. Gen1 XCZU27DR) do not populate
+		 * XRFDC_TILES_ENABLED_OFFSET, so it reads 0. Fall back to the
+		 * config structure as pre-2019 drivers did. */
+		u32 CfgEnable = (Type == XRFDC_ADC_TILE) ?
+				InstancePtr->RFdc_Config.ADCTile_Config[Tile_Id].Enable :
+				InstancePtr->RFdc_Config.DACTile_Config[Tile_Id].Enable;
+		Status = (CfgEnable == 0U) ? XRFDC_FAILURE : XRFDC_SUCCESS;
 	} else {
 		Status = XRFDC_SUCCESS;
 	}
