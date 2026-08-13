@@ -99,6 +99,7 @@
 *       vm   03/30/2026 Moved Mask for PDI Src in Extract Metaheader command
 *       ng   07/09/2026 Added handler for Set DDR address for restart image command
 * 2.5   tvp  08/03/2026 Enabled IPI access permissions of XLoader_ConfigureJtagState command for versal_2vp_p
+*       ng   08/05/2026 Reject reserved Image Store PDI IDs in Add/Remove IPI commands
 *
 * </pre>
 *
@@ -220,6 +221,28 @@ static XPlmi_Module XPlmi_Loader;
 #endif
 
 #define XLOADER_SD_MULTIBOOT_SHIFT		(4U)
+
+/*****************************************************************************/
+/**
+ * @brief	This function checks if Image Store PDI ID is in reserved range
+ *
+ * @param	PdiId is Image Store PDI ID
+ *
+ * @return
+ *		- TRUE if PDI ID is reserved
+ *		- FALSE otherwise
+ *
+ *****************************************************************************/
+static inline u32 XLoader_IsImgStorePdiIdReserved(u32 PdiId)
+{
+	u32 IsReserved = FALSE;
+
+	if ((PdiId & XLOADER_IMG_STORE_RESERVED_PDI_IDS_MASK) == XLOADER_IMG_STORE_RESERVED_PDI_IDS_MASK) {
+		IsReserved = TRUE;
+	}
+
+	return IsReserved;
+}
 
 
 /************************** Function Prototypes ******************************/
@@ -682,6 +705,7 @@ END:
  * 			- XLOADER_ERR_PDI_IMG_STORE_CFG_NOT_SET if image store configuration
  * 			is not enabled or error.
  * 			- XLOADER_ERR_PDI_IMG_STORE_FULL on PDI image list is full.
+ * 			- XLOADER_ERR_PDI_IMG_STORE_RESERVED_PDI_ID if PDI ID is reserved.
  *
  *****************************************************************************/
 static int XLoader_AddImageStorePdi(XPlmi_Cmd *Cmd)
@@ -700,6 +724,11 @@ static int XLoader_AddImageStorePdi(XPlmi_Cmd *Cmd)
 	if(PdiList->PdiImgStrSize == XLOADER_IMG_STORE_INVALID_SIZE) {
 		XPlmi_Printf(DEBUG_INFO,"Image Store Configuration not Set\n\r");
 		Status = XLOADER_ERR_PDI_IMG_STORE_CFG_NOT_SET;
+		goto END;
+	}
+
+	if (XLoader_IsImgStorePdiIdReserved(PdiId) == TRUE) {
+		Status = XLOADER_ERR_PDI_IMG_STORE_RESERVED_PDI_ID;
 		goto END;
 	}
 
@@ -899,6 +928,7 @@ END:
  * 			- XST_SUCCESS on success.
  * 			- XLOADER_ERR_PDI_LIST_EMPTY if there are no PDI's in the list.
  * 			- XLOADER_ERR_PDI_ADDR_NOT_FOUND if PDI address is invalid.
+ * 			- XLOADER_ERR_PDI_IMG_STORE_RESERVED_PDI_ID if PDI ID is reserved.
  *
 *****************************************************************************/
 static int XLoader_RemoveImageStorePdi(XPlmi_Cmd *Cmd)
@@ -911,6 +941,11 @@ static int XLoader_RemoveImageStorePdi(XPlmi_Cmd *Cmd)
 
 	if (PdiList->Count == 0U) {
 		Status = XLOADER_ERR_PDI_LIST_EMPTY;
+		goto END;
+	}
+
+	if (XLoader_IsImgStorePdiIdReserved(PdiId) == TRUE) {
+		Status = XLOADER_ERR_PDI_IMG_STORE_RESERVED_PDI_ID;
 		goto END;
 	}
 

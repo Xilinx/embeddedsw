@@ -266,6 +266,7 @@ extern "C" {
 #define XLOADER_IMG_INDEX_NOT_FOUND		(0xFFFFFFFFU)	/**< Image Index Not found */
 #define XLOADER_IMG_STORE_INVALID_ADDR		(0xFFFFFFFFFFFFFFFFUL)	/**< Invalid address in Image Store */
 #define XLOADER_IMG_STORE_INVALID_SIZE		(0x0U)	/**< Invalid size in Image Store */
+#define XLOADER_IMG_STORE_RESERVED_PDI_IDS_MASK	(0xFFFF0000U)	/**< Reserved Image Store PDI ID mask */
 
 /**
  * @name PDI Src Index
