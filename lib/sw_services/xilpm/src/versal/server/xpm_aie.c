@@ -360,7 +360,13 @@ XStatus AddAieDeviceNode(void)
 
 	AieDomain = XPmAie_GetDomain();
 	if (NULL == AieDomain) {
-		Status = XPM_INVALID_PWRDOMAIN;
+		/*
+		 * No AIE power domain present in this design (e.g. non-AIE
+		 * design, or HW_EMU/COSIM where the AIE domain is not brought
+		 * up). There is nothing to set up, so skip AIE cosim init
+		 * instead of failing the boot hook.
+		 */
+		Status = XST_SUCCESS;
 		goto done;
 	}
 
