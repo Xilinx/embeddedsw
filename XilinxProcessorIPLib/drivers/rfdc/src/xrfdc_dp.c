@@ -803,6 +803,11 @@ u32 XRFdc_IsDACDigitalPathEnabled(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id)
 	DigitalPathEnableReg = XRFdc_ReadReg(InstancePtr, XRFDC_IP_BASE, XRFDC_DAC_PATHS_ENABLED_OFFSET);
 	DigitalPathEnableReg &= (XRFDC_ENABLED << DigitalPathShift);
 	IsDigitalPathAvail = DigitalPathEnableReg >> DigitalPathShift;
+	if (IsDigitalPathAvail == 0U) {
+		/* Older RFdc IP does not populate XRFDC_DAC_PATHS_ENABLED_OFFSET.
+		 * Fall back to the config structure. */
+		IsDigitalPathAvail = InstancePtr->RFdc_Config.DACTile_Config[Tile_Id].DACBlock_Analog_Config[Block_Id].BlockAvailable;
+	}
 	return IsDigitalPathAvail;
 }
 
@@ -840,6 +845,11 @@ u32 XRFdc_IsADCDigitalPathEnabled(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id)
 	DigitalPathEnableReg = XRFdc_ReadReg(InstancePtr, XRFDC_IP_BASE, XRFDC_ADC_PATHS_ENABLED_OFFSET);
 	DigitalPathEnableReg &= (XRFDC_ENABLED << DigitalPathShift);
 	IsDigitalPathAvail = DigitalPathEnableReg >> DigitalPathShift;
+	if (IsDigitalPathAvail == 0U) {
+		/* Older RFdc IP does not populate XRFDC_ADC_PATHS_ENABLED_OFFSET.
+		 * Fall back to the config structure. */
+		IsDigitalPathAvail = InstancePtr->RFdc_Config.ADCTile_Config[Tile_Id].ADCBlock_Analog_Config[Block_Id].BlockAvailable;
+	}
 
 RETURN_PATH:
 	return IsDigitalPathAvail;
