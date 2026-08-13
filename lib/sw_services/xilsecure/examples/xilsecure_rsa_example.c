@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2014 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2026 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -27,6 +28,8 @@
 *                       deprecated.
 *       vns    03/26/19 Fixed compilation errors on IAR
 * 4.3   har    10/12/20 Addressed security review comments
+* 5.8   rpu    08/03/26 Initialize Status, remove dead assignment and replace magic
+*                       numbers with macros in hash print loops
 *
 * </pre>
 ******************************************************************************/
@@ -43,17 +46,17 @@ static u32 ImageOffset = 0x04000000;
 static u32 HeaderSrcOffset = 0x030;
 static u32 HeaderFsblTotalLenOffset = 0x040;
 
-#define XSECURE_PPK_SIZE					(512+512+64)
+#define XSECURE_PPK_SIZE					(512U+512U+64U)
 #define XSECURE_SPK_SIZE					XSECURE_PPK_SIZE
-#define XSECURE_SPK_SIG_SIZE					(512)
-#define XSECURE_BHDR_SIG_SIZE					(512)
-#define XSECURE_RSA_KEY_LEN					(4096)
-#define XSECURE_RSA_BIG_ENDIAN					(0x1)
-#define XSECURE_RSA_AC_ALIGN					(64)
+#define XSECURE_SPK_SIG_SIZE					(512U)
+#define XSECURE_BHDR_SIG_SIZE					(512U)
+#define XSECURE_RSA_KEY_LEN					(4096U)
+#define XSECURE_RSA_BIG_ENDIAN					(0x1U)
+#define XSECURE_RSA_AC_ALIGN					(64U)
 
-#define XSECURE_AUTH_HEADER_SIZE				(8)
+#define XSECURE_AUTH_HEADER_SIZE				(8U)
 
-#define	XSECURE_AUTH_CERT_USER_DATA			(64 - XSECURE_AUTH_HEADER_SIZE)
+#define	XSECURE_AUTH_CERT_USER_DATA			(64U - XSECURE_AUTH_HEADER_SIZE)
 
 #define XSECURE_AUTH_CERT_MIN_SIZE		(XSECURE_AUTH_HEADER_SIZE 	\
 						+ XSECURE_AUTH_CERT_USER_DATA 	\
@@ -63,12 +66,15 @@ static u32 HeaderFsblTotalLenOffset = 0x040;
 						+ XSECURE_BHDR_SIG_SIZE	\
 						+ XSECURE_FSBL_SIG_SIZE)
 
-#define XSECURE_AUTH_CERT_MAX_SIZE		(XSECURE_AUTH_CERT_MIN_SIZE + 60)
+#define XSECURE_AUTH_CERT_MAX_SIZE		(XSECURE_AUTH_CERT_MIN_SIZE + 60U)
 
 #define XSECURE_PARTIAL_AC_SIZE			(XSECURE_AUTH_CERT_MIN_SIZE -  \
 						 XSECURE_FSBL_SIG_SIZE)
 
-#define XSECURE_IMAGE_VERIF_ERROR                (2)
+#define XSECURE_IMAGE_VERIF_ERROR                (2U)
+
+#define XSECURE_RSA_SIG_HASH_OFFSET		(XSECURE_FSBL_SIG_SIZE - \
+						 XSECURE_HASH_TYPE_SHA3)
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
@@ -129,9 +135,9 @@ int main(void)
 /** //! [RSA example] */
 static u32 SecureRsaExample(void)
 {
-	u32 Status;
-	int ii;
-	int i;
+	u32 Status = XST_FAILURE;
+	u32 HashIndex;
+	u32 SigHashIndex;
 	XSecure_Rsa Secure_Rsa;
 	XSecure_Sha3 Secure_Sha3;
 	XCsuDma CsuDma;
@@ -250,18 +256,15 @@ static u32 SecureRsaExample(void)
 	}
 
 	xil_printf("\r\n Calculated Boot image Hash \r\n ");
-	i= 0;
-	for(i=0; i < 384/8; i++)
-	{
-		xil_printf(" %0x ", BIHash[i]);
+	for (HashIndex = 0U; HashIndex < XSECURE_HASH_TYPE_SHA3; HashIndex++) {
+		xil_printf(" %0x ", BIHash[HashIndex]);
 	}
 	xil_printf(" \r\n ");
 
 	xil_printf("\r\n Hash From Signature \r\n ");
-	ii= 128;
-	for(ii = 464; ii < 512; ii++)
-	{
-		xil_printf(" %0x ", XSecure_RsaSha3Array[ii]);
+	for (SigHashIndex = XSECURE_RSA_SIG_HASH_OFFSET;
+		SigHashIndex < XSECURE_FSBL_SIG_SIZE; SigHashIndex++) {
+		xil_printf(" %0x ", XSecure_RsaSha3Array[SigHashIndex]);
 	}
 	xil_printf(" \r\n ");
 
