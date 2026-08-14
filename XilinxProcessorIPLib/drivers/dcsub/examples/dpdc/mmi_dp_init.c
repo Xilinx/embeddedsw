@@ -66,6 +66,10 @@
  *****************************************************************************/
 static u8 XDpDc_PpcToPixModeSel(u8 Ppc)
 {
+	if ((Ppc != 1U) && (Ppc != 2U) && (Ppc != 4U)) {
+		xil_printf("[VID] WARNING: PPC unset or invalid (%u), expected 1, 2, or 4\r\n",
+			   Ppc);
+	}
 	Xil_AssertNonvoid((Ppc == 1U) || (Ppc == 2U) || (Ppc == 4U));
 
 	switch (Ppc) {
