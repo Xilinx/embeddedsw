@@ -123,6 +123,15 @@ extern "C" {
 
 /** @} */
 
+/** @name IBI (In-Band Interrupt) constants
+ * @{
+ */
+#define XI3CPSX_I3C_HOT_JOIN_ADDR	0x02U	/**< Reserved I3C Hot-Join address */
+#define XI3CPSX_I3C_BCR_IBI_PAYLOAD	0x04U	/**< BCR[2]: target sends data with IBI */
+#define XI3CPSX_IBI_MAX_PAYLOAD		255U	/**< Max IBI payload bytes (DATA_LEN is 8-bit: 0..255) */
+#define XI3CPSX_SLV_IBI_MAX_PAYLOAD	5U	/**< Max target-generated IBI payload: MDB + 4 data bytes */
+/** @} */
+
 /** name Role constants
  *
  * These constants are used to pass into the device setup routines to
@@ -147,6 +156,9 @@ extern "C" {
  */
 #define XI3CPSX_MAX_DAT_ENTRIES		11U
 
+#define XI3CPSX_DCT_ENTRY_WORDS		4U	/**< Words per Device Characteristics Table (DCT) entry */
+#define XI3CPSX_DCT_ENTRY_BYTES		(XI3CPSX_DCT_ENTRY_WORDS * 4U)	/**< Bytes per DCT entry; spacing between consecutive entries */
+
 /** Compile-time array element count helper. */
 #define XI3CPSX_ARRAY_SIZE(Array)	(sizeof(Array) / sizeof((Array)[0U]))
 
@@ -164,6 +176,24 @@ extern "C" {
 * @param	StatusEvent indicates one or more status events that occurred.
 */
 typedef void (*XI3cPsx_IntrHandler) (void *CallBackRef, u32 StatusEvent);
+
+/**
+* The IBI handler data type allows the user to define a callback function to
+* respond to In-Band Interrupt (SIR) events received from a target. This
+* function is executed in interrupt context, so the amount of processing
+* should be minimized.
+*
+* @param	CallBackRef is the callback reference passed in by the upper
+*		layer when setting the IBI handler, and passed back to the
+*		upper layer when the callback is invoked.
+* @param	DevAddr is the dynamic address of the target that raised the IBI.
+* @param	Payload points to the mandatory-data-byte/payload bytes drained
+*		from the IBI queue (valid for PayloadLen bytes). Only valid for
+*		the duration of the callback.
+* @param	PayloadLen is the number of valid payload bytes.
+*/
+typedef void (*XI3cPsx_IbiHandler) (void *CallBackRef, u32 DevAddr,
+				    u8 *Payload, u32 PayloadLen);
 
 /**
  * This typedef contains configuration information for the device.
@@ -225,6 +255,8 @@ typedef struct {
 	u32 IsReady;		/**< Device is initialized and ready */
 	u32 Options;		/**< Options set in the device */
 	u32 Addr[XI3CPSX_MAX_DAT_ENTRIES]; /**< Dynamic Addresses to be assigned */
+	u32 DatStartAddr;	/**< DAT base, read from DEVICE_ADDR_TABLE_POINTER */
+	u32 MaxDevs;		/**< DAT depth, capped at XI3CPSX_MAX_DAT_ENTRIES */
 
 	XI3cPsx_Master_Caps Caps; /**< Cmd, Data fifo depths */
 	u8 *SendBufferPtr;	/**< Pointer to send buffer */
@@ -232,7 +264,8 @@ typedef struct {
 	u16 SendByteCount;	/**< Number of bytes still expected to send */
 	u16 RecvByteCount;	/**< Number of bytes still expected to receive */
 	u16 CurrByteCount;	/**< No. of bytes expected in current transfer */
-	u8 Error;		/**< Error status of last transfer */
+	u8 Error;	/**< Error status of last transfer, set by the ISR */
+	volatile u32 RespDone;	/**< Set by the master ISR after it consumes a command response */
 
 	s32 UpdateTxSize;	/**< If tx size register has to be updated */
 	s32 IsSend;		/**< Whether master is sending or receiving */
@@ -243,12 +276,35 @@ typedef struct {
 	void *CallBackRef;	/**< Callback reference for event handler */
 
 	u32 SclkHz;	/**< SCL clock frequency */
+
+	u8 Bcr[XI3CPSX_MAX_DAT_ENTRIES];  /**< Per-device BCR captured during DAA */
+	u32 SirRejectMask;	/**< Shadow of IBI_SIR_REQ_REJECT (1 = reject) */
+	XI3cPsx_IbiHandler IbiHandler;	/**< IBI (SIR) event handler function */
+	void *IbiCallBackRef;	/**< Callback reference for the IBI handler */
+	u8 IbiData[XI3CPSX_IBI_MAX_PAYLOAD]; /**< Scratch buffer for IBI payload */
 } XI3cPsx;
 
 /************************** Variable Definitions *****************************/
 extern XI3cPsx_Config XI3cPsx_ConfigTable[];	/**< Configuration table */
 
 /***************** Macros (Inline Functions) Definitions *********************/
+/****************************************************************************/
+/**
+*
+* Return the register offset of a Device Address Table (DAT) entry. Entries are
+* one word wide and the table base comes from DEVICE_ADDR_TABLE_POINTER.
+*
+* @param	InstancePtr is a pointer to the XI3cPsx instance.
+* @param	Index is the DAT entry index.
+*
+* @return	Register offset of the requested DAT entry.
+*
+*****************************************************************************/
+static inline u32 XI3cPsx_DatEntryOffset(const XI3cPsx *InstancePtr, u32 Index)
+{
+	return InstancePtr->DatStartAddr + (Index * 4U);
+}
+
 /****************************************************************************/
 /**
 *
@@ -526,6 +582,14 @@ s32 XI3cPsx_MasterSendPolled(XI3cPsx *InstancePtr, u8 *MsgPtr, s32 ByteCount,
 s32 XI3cPsx_MasterRecvPolled(XI3cPsx *InstancePtr, u8 *MsgPtr, s32 ByteCount,
 			     XI3cPsx_Cmd *Cmds);
 void XI3cPsx_MasterInterruptHandler(XI3cPsx *InstancePtr);
+
+/*
+ * Functions for In-Band Interrupt (IBI/SIR) support, in xi3cpsx_master.c
+ */
+void XI3cPsx_SetIbiHandler(XI3cPsx *InstancePtr, void *CallBackRef,
+			   XI3cPsx_IbiHandler FunctionPtr);
+s32 XI3cPsx_EnableIbi(XI3cPsx *InstancePtr, u32 DevIndex);
+s32 XI3cPsx_DisableIbi(XI3cPsx *InstancePtr, u32 DevIndex);
 
 /*
  * Functions for device as slave, in XI3cPsx_slave.c

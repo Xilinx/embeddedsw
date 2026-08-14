@@ -65,6 +65,8 @@ s32 XI3cPsx_CfgInitialize(XI3cPsx *InstancePtr, XI3cPsx_Config *ConfigPtr,
 			  u32 EffectiveAddr)
 {
 	s32 Status;
+	u32 Reg;
+	u32 Index;
 
 	/* Assert the arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -84,6 +86,31 @@ s32 XI3cPsx_CfgInitialize(XI3cPsx *InstancePtr, XI3cPsx_Config *ConfigPtr,
 
 	/* Indicate the instance is now ready to use, initialized without error */
 	InstancePtr->IsReady = XIL_COMPONENT_IS_READY;
+
+	/* Discover the DAT geometry, capped by the driver's per-device arrays. */
+	Reg = XI3cPsx_ReadReg(EffectiveAddr, XI3CPSX_DEVICE_ADDR_TABLE_POINTER);
+	InstancePtr->DatStartAddr = XI3CPSX_BASEADDR +
+				    ((Reg &
+				      XI3CPSX_DEVICE_ADDR_TABLE_POINTER_P_DEV_ADDR_TABLE_START_ADDR_MASK) >>
+				     XI3CPSX_DEVICE_ADDR_TABLE_POINTER_P_DEV_ADDR_TABLE_START_ADDR_SHIFT);
+	InstancePtr->MaxDevs = (Reg &
+				XI3CPSX_DEVICE_ADDR_TABLE_POINTER_DEV_ADDR_TABLE_DEPTH_MASK) >>
+			       XI3CPSX_DEVICE_ADDR_TABLE_POINTER_DEV_ADDR_TABLE_DEPTH_SHIFT;
+	if (InstancePtr->MaxDevs > XI3CPSX_MAX_DAT_ENTRIES) {
+		InstancePtr->MaxDevs = XI3CPSX_MAX_DAT_ENTRIES;
+	}
+
+	/*
+	 * Default every target to "no IBI payload" so XI3cPsx_EnableIbi()
+	 * cannot act on an uncaptured BCR.
+	 */
+	for (Index = 0U; Index < XI3CPSX_MAX_DAT_ENTRIES; Index++) {
+		InstancePtr->Bcr[Index] = 0U;
+	}
+	InstancePtr->SirRejectMask = 0xFFFFFFFFU;
+	InstancePtr->IbiHandler = NULL;
+	InstancePtr->IbiCallBackRef = NULL;
+	InstancePtr->RespDone = 0U;
 
 	/*
 	 * Reset the I3C controller to get it into its initial state. It is expected

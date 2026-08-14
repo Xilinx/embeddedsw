@@ -53,7 +53,16 @@ typedef char XI3cPsx_DynaAddrListSizeCheck[
 /***************** Macros (Inline Functions) Definitions *********************/
 #define TX_MAX_LOOPCNT 1000000U	/**< Used to wait in polled function */
 
+#define XI3CPSX_IBI_DATA_SEGMENT_DWORDS 31U	/**< IBI data segment size in Dwords */
+
 /************************** Function Prototypes ******************************/
+static void XI3cPsx_ConfigIbi(XI3cPsx *InstancePtr);
+static void XI3cPsx_CaptureBcr(XI3cPsx *InstancePtr);
+static void XI3cPsx_HandleIbi(XI3cPsx *InstancePtr);
+static void XI3cPsx_IbiDrain(XI3cPsx *InstancePtr, u32 Len);
+static u32 XI3cPsx_IbiReadPayload(XI3cPsx *InstancePtr, u8 *Buf, u32 CopyLen,
+				  u32 QueueLen);
+static s32 XI3cPsx_SendEnecDisec(XI3cPsx *InstancePtr, u32 DevIndex, u8 Enable);
 
 /************************* Variable Definitions *****************************/
 /**
@@ -92,7 +101,7 @@ static s32 XI3cPsx_SetDynamicAddr(XI3cPsx *InstancePtr, const u32 *Addr, u32 Dev
 		Xil_AssertNonvoid(Addr != NULL);
 	}
 
-	if (Devices > XI3CPSX_MAX_DAT_ENTRIES) {
+	if (Devices > InstancePtr->MaxDevs) {
 		return XST_FAILURE;
 	}
 
@@ -104,7 +113,7 @@ static s32 XI3cPsx_SetDynamicAddr(XI3cPsx *InstancePtr, const u32 *Addr, u32 Dev
 		      << XI3CPSX_DEV_ADDR_TABLE_LOC1_DEV_DYNAMIC_ADDR_SHIFT;
 
 		XI3cPsx_WriteReg(InstancePtr->Config.BaseAddress,
-				 XI3CPSX_DEV_ADDR_TABLE_LOC1 + (i * 4U), Reg);
+				 XI3cPsx_DatEntryOffset(InstancePtr, i), Reg);
 		InstancePtr->Addr[i] = (u32)Da;
 	}
 	for (; i < XI3CPSX_MAX_DAT_ENTRIES; i++) {
@@ -192,7 +201,11 @@ s32 XI3cPsx_BusInit(XI3cPsx *InstancePtr)
 #ifdef DEBUG
 		XI3cPsx_PrintDCT(InstancePtr);
 #endif
-		/* Update applicable entries in DAT */
+		/* The DCT is only populated once ENTDAA has completed. */
+		XI3cPsx_CaptureBcr(InstancePtr);
+
+		/* Targets are opted in individually by XI3cPsx_EnableIbi(). */
+		XI3cPsx_ConfigIbi(InstancePtr);
 	}
 
 	return Status;
@@ -583,6 +596,11 @@ void XI3cPsx_MasterInterruptHandler(XI3cPsx *InstancePtr)
 	 */
 	XI3cPsx_WriteReg(InstancePtr->Config.BaseAddress, (u32)XI3CPSX_INTR_STATUS, IntrStatusReg);
 
+	/* IBI (SIR) received: level-triggered, serviced by draining the queue. */
+	if (IntrStatusReg & XI3CPSX_INTR_IBI_THLD) {
+		XI3cPsx_HandleIbi(InstancePtr);
+	}
+
 	/*
 	 * Tx empty
 	 */
@@ -656,7 +674,480 @@ void XI3cPsx_MasterInterruptHandler(XI3cPsx *InstancePtr)
 		XI3cPsx_DisableInterrupts(InstancePtr->Config.BaseAddress,
 					  XI3CPSX_INTR_RESP_READY);
 
-		InstancePtr->StatusHandler(InstancePtr->CallBackRef, InstancePtr->Error);
+		/* Signal completion so a waiting caller (e.g. SendEnecDisec)
+		 * need not read the response queue and race this ISR. */
+		InstancePtr->RespDone = 1U;
+
+		if (InstancePtr->StatusHandler != NULL) {
+			InstancePtr->StatusHandler(InstancePtr->CallBackRef, InstancePtr->Error);
+		}
+	}
+}
+
+/*****************************************************************************/
+/**
+* @brief
+* This function sets the IBI (SIR) handler, which the driver calls from
+* interrupt context when an In-Band Interrupt is received from a target.
+*
+* @param	InstancePtr is a pointer to the XI3cPsx instance.
+* @param	CallBackRef is the upper-layer callback reference, passed back
+*		to the handler when it is invoked.
+* @param	FunctionPtr is the pointer to the IBI callback function.
+*
+* @note		The handler runs in interrupt context and must copy the payload
+*		out immediately; the payload buffer is reused on the next IBI.
+*
+******************************************************************************/
+void XI3cPsx_SetIbiHandler(XI3cPsx *InstancePtr, void *CallBackRef,
+			   XI3cPsx_IbiHandler FunctionPtr)
+{
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(FunctionPtr != NULL);
+	Xil_AssertVoid(InstancePtr->IsReady == (u32)XIL_COMPONENT_IS_READY);
+
+	InstancePtr->IbiHandler = FunctionPtr;
+	InstancePtr->IbiCallBackRef = CallBackRef;
+}
+
+/*****************************************************************************/
+/**
+* @brief
+* This function programs the IBI defaults. It rejects all Slave-Interrupt
+* (SIR) and Master-Request (MR) events and sets the IBI status queue
+* threshold so that a single IBI generates an interrupt. Individual targets
+* are later opted in with XI3cPsx_EnableIbi().
+*
+* @param	InstancePtr is a pointer to the XI3cPsx instance.
+*
+* @return	None.
+*
+* @note		The IBI threshold interrupt itself is not enabled here; it is
+*		enabled lazily when the first target's IBI is enabled.
+*
+******************************************************************************/
+static void XI3cPsx_ConfigIbi(XI3cPsx *InstancePtr)
+{
+	u32 ThldReg;
+
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(InstancePtr->IsReady == (u32)XIL_COMPONENT_IS_READY);
+
+	InstancePtr->SirRejectMask = 0xFFFFFFFFU;
+	XI3cPsx_WriteReg(InstancePtr->Config.BaseAddress,
+			 XI3CPSX_IBI_SIR_REQ_REJECT, 0xFFFFFFFFU);
+	XI3cPsx_WriteReg(InstancePtr->Config.BaseAddress,
+			 XI3CPSX_IBI_MR_REQ_REJECT, 0xFFFFFFFFU);
+
+	/*
+	 * Program QUEUE_THLD_CTRL in one write: IBI status threshold 0
+	 * (interrupt per IBI) and a non-zero IBI data segment size so
+	 * IBI-with-data payload is buffered into the IBI queue.
+	 */
+	ThldReg = XI3cPsx_ReadReg(InstancePtr->Config.BaseAddress,
+				  XI3CPSX_QUEUE_THLD_CTRL);
+	ThldReg &= ~(XI3CPSX_QUEUE_THLD_CTRL_IBI_STATUS_THLD_MASK |
+		     XI3CPSX_QUEUE_THLD_CTRL_IBI_DATA_THLD_MASK);
+	ThldReg |= (XI3CPSX_IBI_DATA_SEGMENT_DWORDS <<
+		    XI3CPSX_QUEUE_THLD_CTRL_IBI_DATA_THLD_SHIFT) &
+		   XI3CPSX_QUEUE_THLD_CTRL_IBI_DATA_THLD_MASK;
+	XI3cPsx_WriteReg(InstancePtr->Config.BaseAddress,
+			 XI3CPSX_QUEUE_THLD_CTRL, ThldReg);
+}
+
+/*****************************************************************************/
+/**
+* @brief
+* This function captures the Bus Characteristic Register (BCR) of every
+* enumerated target from the Device Characteristic Table (DCT) into the
+* driver instance. The BCR is used to determine whether a target appends a
+* mandatory data byte to its IBI.
+*
+* @param	InstancePtr is a pointer to the XI3cPsx instance.
+*
+* @return	None.
+*
+* @note		Call after a successful ENTDAA so the DCT is populated.
+*
+******************************************************************************/
+static void XI3cPsx_CaptureBcr(XI3cPsx *InstancePtr)
+{
+	u32 Index;
+	u32 DctWord;
+
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(InstancePtr->IsReady == (u32)XIL_COMPONENT_IS_READY);
+
+	for (Index = 0U; (Index < InstancePtr->Config.DeviceCount) &&
+	     (Index < InstancePtr->MaxDevs); Index++) {
+		DctWord = XI3cPsx_ReadReg(InstancePtr->Config.BaseAddress,
+					  XI3CPSX_DEV_CHAR_TABLE1_LOC3 +
+					  (Index * XI3CPSX_DCT_ENTRY_BYTES));
+		InstancePtr->Bcr[Index] =
+			(u8)((DctWord & XI3CPSX_DEV_CHAR_TABLE1_LOC3_BCR_MASK) >>
+			     XI3CPSX_DEV_CHAR_TABLE1_LOC3_BCR_SHIFT);
+	}
+}
+
+/*****************************************************************************/
+/**
+* @brief
+* This function sends a direct ENEC or DISEC CCC to a single target to
+* enable or disable its Slave-Interrupt (SIR) event generation.
+*
+* @param	InstancePtr is a pointer to the XI3cPsx instance.
+* @param	DevIndex is the Device Address Table index of the target.
+* @param	Enable is TRUE to send ENEC(SIR), FALSE to send DISEC(SIR).
+*
+* @return
+*		- XST_SUCCESS if the CCC completed without error.
+*		- XST_SEND_ERROR if the payload could not be sent.
+*		- XST_TIMEOUT if the ISR never signaled completion.
+*		- XST_FAILURE if the CCC completed with a bus-level error.
+*
+******************************************************************************/
+static s32 XI3cPsx_SendEnecDisec(XI3cPsx *InstancePtr, u32 DevIndex, u8 Enable)
+{
+	XI3cPsx_Cmd Cmd = {0};
+	u8 Event = (u8)I3C_CCC_EVENT_SIR;
+	u8 Ccc;
+	u32 Timeout;
+	s32 Status;
+
+	Ccc = (u8)(Enable ? I3C_CCC_ENEC(0) : I3C_CCC_DISEC(0));
+
+	Cmd.TransArg = COMMAND_PORT_ARG_DATA_LEN(1U) | COMMAND_PORT_TRANSFER_ARG;
+	Cmd.TransCmd = (COMMAND_PORT_SPEED(0) |
+			COMMAND_PORT_DEV_INDEX(DevIndex) |
+			COMMAND_PORT_CMD(Ccc) |
+			COMMAND_PORT_CP |
+			COMMAND_PORT_TOC |
+			COMMAND_PORT_ROC);
+
+	/*
+	 * Send interrupt-driven so the ISR is the single response consumer and
+	 * the caller only waits (RespDone); a polled send would race the live
+	 * ISR, which clears the response first, and report a false send error.
+	 */
+	InstancePtr->Error = 0U;
+	InstancePtr->RespDone = 0U;
+	/* CCC send has no data-in phase; ensure the ISR does not drain RX. */
+	InstancePtr->RecvByteCount = 0U;
+
+	Status = XI3cPsx_MasterSend(InstancePtr, &Event, 1, Cmd);
+	if (Status != XST_SUCCESS) {
+		return Status;
+	}
+
+	/* Wait for the ISR to consume the response (it sets RespDone). */
+	Timeout = XI3CPSX_TIMEOUT_COUNTER;
+	while ((InstancePtr->RespDone == 0U) && (--Timeout != 0U)) {
+		/* Busy-wait for the response interrupt. */
+	}
+
+	if (Timeout == 0U) {
+		XI3cPsx_DisableInterrupts(InstancePtr->Config.BaseAddress,
+					  XI3CPSX_INTR_RESP_READY | XI3CPSX_INTR_TX_THLD);
+		return XST_TIMEOUT;
+	}
+
+	/* The bus-level result was captured by the ISR into InstancePtr->Error. */
+	Status = (InstancePtr->Error == 0U) ? XST_SUCCESS : XST_FAILURE;
+
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+* @brief
+* This function enables In-Band Interrupt (SIR) reception for a single
+* target. It clears the SIR reject in the target's DAT entry and in the
+* global reject register, sets IBI-with-data if the target's BCR advertises
+* a mandatory data byte, lazily enables the IBI threshold interrupt, and
+* sends ENEC(SIR) to the target.
+*
+* @param	InstancePtr is a pointer to the XI3cPsx instance.
+* @param	DevIndex is the Device Address Table index of the target
+*		(same index used during dynamic address assignment).
+*
+* @return
+*		- XST_SUCCESS if everything went well.
+*		- XST_SEND_ERROR if the ENEC(SIR) payload could not be sent.
+*		- XST_TIMEOUT if the IBI queue reset or the ENEC(SIR) response
+*		  never completed.
+*		- XST_FAILURE if any other error.
+*
+******************************************************************************/
+s32 XI3cPsx_EnableIbi(XI3cPsx *InstancePtr, u32 DevIndex)
+{
+	u32 DatReg;
+	u32 DatLoc;
+	u32 Poll;
+	u32 Timeout;
+	u32 WasAllRejected;
+	s32 Status;
+
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(InstancePtr->IsReady == (u32)XIL_COMPONENT_IS_READY);
+
+	if (DevIndex >= InstancePtr->MaxDevs) {
+		return XST_FAILURE;
+	}
+
+	DatLoc = XI3cPsx_DatEntryOffset(InstancePtr, DevIndex);
+	DatReg = XI3cPsx_ReadReg(InstancePtr->Config.BaseAddress, DatLoc);
+
+	/* No dynamic address means the target was never enumerated; reject. */
+	if ((DatReg & XI3CPSX_DEV_ADDR_TABLE_LOC1_DEV_DYNAMIC_ADDR_MASK) == 0U) {
+		return XST_FAILURE;
+	}
+
+	WasAllRejected = (InstancePtr->SirRejectMask == 0xFFFFFFFFU) ? 1U : 0U;
+
+	/*
+	 * Flush stale IBI queue entries (not cleared by the generic FIFO
+	 * reset). Only while no target is armed, so arming a second target
+	 * cannot discard IBIs the first one already queued.
+	 */
+	if (WasAllRejected != 0U) {
+		Timeout = XI3CPSX_TIMEOUT_COUNTER;
+		XI3cPsx_WriteReg(InstancePtr->Config.BaseAddress,
+				 XI3CPSX_RESET_CTRL,
+				 XI3CPSX_RESET_CTRL_BI_QUEUE_RST_MASK);
+		do {
+			Poll = XI3cPsx_ReadReg(InstancePtr->Config.BaseAddress,
+					       XI3CPSX_RESET_CTRL) &
+			       XI3CPSX_RESET_CTRL_BI_QUEUE_RST_MASK;
+		} while ((Poll != 0U) && (--Timeout != 0U));
+
+		if (Poll != 0U) {
+			return XST_TIMEOUT;
+		}
+	}
+
+	/* Update the DAT entry: accept SIR, request IBI-with-data if applicable. */
+	DatReg &= ~XI3CPSX_DEV_ADDR_TABLE_LOC1_SIR_REJECT_MASK;
+	if (InstancePtr->Bcr[DevIndex] & XI3CPSX_I3C_BCR_IBI_PAYLOAD) {
+		DatReg |= XI3CPSX_DEV_ADDR_TABLE_LOC1_IBI_WITH_DATA_MASK;
+	} else {
+		DatReg &= ~XI3CPSX_DEV_ADDR_TABLE_LOC1_IBI_WITH_DATA_MASK;
+	}
+	XI3cPsx_WriteReg(InstancePtr->Config.BaseAddress, DatLoc, DatReg);
+
+	/* Clear the per-device bit in the global SIR reject register. */
+	InstancePtr->SirRejectMask &= ~((u32)1U << DevIndex);
+	XI3cPsx_WriteReg(InstancePtr->Config.BaseAddress,
+			 XI3CPSX_IBI_SIR_REQ_REJECT, InstancePtr->SirRejectMask);
+
+	/* Tell the target to start generating SIRs; IBI_THLD stays disabled until ENEC completes. */
+	Status = XI3cPsx_SendEnecDisec(InstancePtr, DevIndex, TRUE);
+	if (Status != XST_SUCCESS) {
+		/* Roll back on failure. */
+		(void)XI3cPsx_DisableIbi(InstancePtr, DevIndex);
+		return Status;
+	}
+
+	/* Enable the IBI threshold interrupt once the first target is armed. */
+	if (WasAllRejected != 0U) {
+		XI3cPsx_EnableInterrupts(InstancePtr->Config.BaseAddress,
+					 XI3CPSX_INTR_IBI_THLD);
+	}
+
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+* @brief
+* This function disables In-Band Interrupt (SIR) reception for a single
+* target. It sends DISEC(SIR) to the target, sets the SIR reject in both the
+* DAT entry and the global reject register, and disables the IBI threshold
+* interrupt if no targets remain armed.
+*
+* @param	InstancePtr is a pointer to the XI3cPsx instance.
+* @param	DevIndex is the Device Address Table index of the target.
+*
+* @return
+*		- XST_SUCCESS if everything went well.
+*		- XST_SEND_ERROR if the DISEC(SIR) payload could not be sent.
+*		- XST_TIMEOUT if the DISEC(SIR) response never completed.
+*		- XST_FAILURE if any other error.
+*
+******************************************************************************/
+s32 XI3cPsx_DisableIbi(XI3cPsx *InstancePtr, u32 DevIndex)
+{
+	u32 DatReg;
+	u32 DatLoc;
+	s32 Status;
+
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(InstancePtr->IsReady == (u32)XIL_COMPONENT_IS_READY);
+
+	if (DevIndex >= InstancePtr->MaxDevs) {
+		return XST_FAILURE;
+	}
+
+	/* Tell the target to stop generating SIRs first. */
+	Status = XI3cPsx_SendEnecDisec(InstancePtr, DevIndex, FALSE);
+
+	/* Set the SIR reject in the DAT entry. */
+	DatLoc = XI3cPsx_DatEntryOffset(InstancePtr, DevIndex);
+	DatReg = XI3cPsx_ReadReg(InstancePtr->Config.BaseAddress, DatLoc);
+	DatReg |= XI3CPSX_DEV_ADDR_TABLE_LOC1_SIR_REJECT_MASK;
+	XI3cPsx_WriteReg(InstancePtr->Config.BaseAddress, DatLoc, DatReg);
+
+	/* Set the per-device bit in the global SIR reject register. */
+	InstancePtr->SirRejectMask |= ((u32)1U << DevIndex);
+	XI3cPsx_WriteReg(InstancePtr->Config.BaseAddress,
+			 XI3CPSX_IBI_SIR_REQ_REJECT, InstancePtr->SirRejectMask);
+
+	/* Disable the IBI threshold interrupt when no targets remain armed. */
+	if (InstancePtr->SirRejectMask == 0xFFFFFFFFU) {
+		XI3cPsx_DisableInterrupts(InstancePtr->Config.BaseAddress,
+					  XI3CPSX_INTR_IBI_THLD);
+	}
+
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+* @brief
+* This function returns the number of IBI status entries currently queued.
+*
+* @param	InstancePtr is a pointer to the XI3cPsx instance.
+*
+* @return	Number of queued IBI status entries.
+*
+******************************************************************************/
+static u32 XI3cPsx_IbiStsLevel(XI3cPsx *InstancePtr)
+{
+	return (XI3cPsx_ReadReg(InstancePtr->Config.BaseAddress,
+				XI3CPSX_QUEUE_STATUS_LEVEL) &
+		XI3CPSX_QUEUE_STATUS_LEVEL_IBI_STS_CNT_MASK) >>
+	       XI3CPSX_QUEUE_STATUS_LEVEL_IBI_STS_CNT_SHIFT;
+}
+
+/*****************************************************************************/
+/**
+* @brief
+* This function drains and discards Len bytes of IBI payload from the IBI
+* queue port. Used for IBI types the driver does not handle.
+*
+* @param	InstancePtr is a pointer to the XI3cPsx instance.
+* @param	Len is the payload length in bytes.
+*
+* @return	None.
+*
+******************************************************************************/
+static void XI3cPsx_IbiDrain(XI3cPsx *InstancePtr, u32 Len)
+{
+	u32 Words = XI3CPSX_CEIL_DIV(Len, 4U);
+	u32 Index;
+
+	for (Index = 0U; Index < Words; Index++) {
+		(void)XI3cPsx_ReadReg(InstancePtr->Config.BaseAddress,
+				      XI3CPSX_IBI_QUEUE_STATUS);
+	}
+}
+
+/*****************************************************************************/
+/**
+* @brief
+* This function reads an IBI payload from the IBI queue port. It pops
+* ceil(QueueLen/4) words so the whole payload is removed from the queue, but
+* copies at most CopyLen bytes into Buf. Reading the full queue length even
+* when CopyLen is smaller keeps the IBI queue from desynchronising.
+*
+* @param	InstancePtr is a pointer to the XI3cPsx instance.
+* @param	Buf is the destination buffer.
+* @param	CopyLen is the maximum number of payload bytes to copy to Buf.
+* @param	QueueLen is the number of payload bytes present in the queue.
+*
+* @return	The number of bytes copied into Buf.
+*
+******************************************************************************/
+static u32 XI3cPsx_IbiReadPayload(XI3cPsx *InstancePtr, u8 *Buf, u32 CopyLen,
+				  u32 QueueLen)
+{
+	u32 Words = XI3CPSX_CEIL_DIV(QueueLen, 4U);
+	u32 Word;
+	u32 ByteIdx = 0U;
+	u32 Index;
+	u32 Shift;
+
+	for (Index = 0U; Index < Words; Index++) {
+		Word = XI3cPsx_ReadReg(InstancePtr->Config.BaseAddress,
+				       XI3CPSX_IBI_QUEUE_STATUS);
+		for (Shift = 0U; Shift < 4U; Shift++) {
+			if (ByteIdx < CopyLen) {
+				Buf[ByteIdx] = (u8)((Word >> (8U * Shift)) & 0xFFU);
+			}
+			ByteIdx++;
+		}
+	}
+
+	return (CopyLen < ByteIdx) ? CopyLen : ByteIdx;
+}
+
+/*****************************************************************************/
+/**
+* @brief
+* This function services the IBI threshold interrupt. It drains every queued
+* IBI status entry, decodes the IBI type, and for a Slave-Interrupt (SIR)
+* reads the payload and dispatches it to the registered IBI handler.
+*
+* @param	InstancePtr is a pointer to the XI3cPsx instance.
+*
+* @return	None.
+*
+******************************************************************************/
+static void XI3cPsx_HandleIbi(XI3cPsx *InstancePtr)
+{
+	u32 Count;
+	u32 Index;
+	u32 Status;
+	u32 IbiId;
+	u32 Len;
+	u32 Addr;
+	u32 Rnw;
+
+	/* Read the queued IBI status count and process that many entries. */
+	Count = XI3cPsx_IbiStsLevel(InstancePtr);
+
+	for (Index = 0U; Index < Count; Index++) {
+		Status = XI3cPsx_ReadReg(InstancePtr->Config.BaseAddress,
+					 XI3CPSX_IBI_QUEUE_STATUS);
+
+		IbiId = (Status & XI3CPSX_IBI_QUEUE_STATUS_IBI_ID_MASK) >>
+			XI3CPSX_IBI_QUEUE_STATUS_IBI_ID_SHIFT;
+		Len = (Status & XI3CPSX_IBI_QUEUE_STATUS_DATA_LENGTH_MASK) >>
+		      XI3CPSX_IBI_QUEUE_STATUS_DATA_LENGTH_SHIFT;
+		Addr = IbiId >> 1;
+		Rnw = IbiId & 1U;
+
+		/* SIR: non-Hot-Join address with the read/not-write bit set. */
+		if ((Addr != XI3CPSX_I3C_HOT_JOIN_ADDR) && (Rnw != 0U)) {
+			u32 CopyLen = (Len > XI3CPSX_IBI_MAX_PAYLOAD) ?
+				      XI3CPSX_IBI_MAX_PAYLOAD : Len;
+
+			if (Len > 0U) {
+				CopyLen = XI3cPsx_IbiReadPayload(InstancePtr,
+								 InstancePtr->IbiData,
+								 CopyLen, Len);
+			}
+
+			/* IbiData is reused next iteration; the handler must copy it out now. */
+			if (InstancePtr->IbiHandler != NULL) {
+				InstancePtr->IbiHandler(InstancePtr->IbiCallBackRef,
+							Addr,
+							InstancePtr->IbiData,
+							CopyLen);
+			}
+		} else {
+			/* Non-SIR entry: drain to keep the IBI queue in sync. */
+			XI3cPsx_IbiDrain(InstancePtr, Len);
+		}
 	}
 }
 /** @} */

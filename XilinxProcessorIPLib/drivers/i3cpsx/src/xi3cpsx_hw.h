@@ -418,8 +418,8 @@ extern "C" {
  * Register: XI3CPSX_QUEUE_THLD_CTRL
  */
 #define XI3CPSX_QUEUE_THLD_CTRL    ( ( XI3CPSX_BASEADDR ) + 0x0000001C )
-#define XI3CPSX_QUEUE_THLD_CTRL_FULLMASK     0xff00ffff
-#define XI3CPSX_QUEUE_THLD_CTRL_FULLRWMASK  0xff00ffff
+#define XI3CPSX_QUEUE_THLD_CTRL_FULLMASK     0xffffffff	/**< Mask of all valid bits in QUEUE_THLD_CTRL */
+#define XI3CPSX_QUEUE_THLD_CTRL_FULLRWMASK  0xffffffff	/**< Mask of all read/write bits in QUEUE_THLD_CTRL */
 #define XI3CPSX_QUEUE_THLD_CTRL_DEFVAL   0x1000101
 
 /* access_type: rw */
@@ -427,6 +427,12 @@ extern "C" {
 #define XI3CPSX_QUEUE_THLD_CTRL_IBI_STATUS_THLD_WIDTH   8
 #define XI3CPSX_QUEUE_THLD_CTRL_IBI_STATUS_THLD_MASK    0xff000000
 #define XI3CPSX_QUEUE_THLD_CTRL_IBI_STATUS_THLD_DEFVAL  0x1
+
+/* access_type: rw */
+#define XI3CPSX_QUEUE_THLD_CTRL_IBI_DATA_THLD_SHIFT   16	/**< Bit shift for the IBI data segment threshold field */
+#define XI3CPSX_QUEUE_THLD_CTRL_IBI_DATA_THLD_WIDTH   8	/**< Bit width of the IBI data segment threshold field */
+#define XI3CPSX_QUEUE_THLD_CTRL_IBI_DATA_THLD_MASK    0x00ff0000	/**< Mask for the IBI data segment threshold field */
+#define XI3CPSX_QUEUE_THLD_CTRL_IBI_DATA_THLD_DEFVAL  0x0	/**< Reset value of the IBI data segment threshold field */
 
 /* access_type: rw */
 #define XI3CPSX_QUEUE_THLD_CTRL_RESP_BUF_THLD_SHIFT   8
@@ -1416,15 +1422,26 @@ extern "C" {
  * Register: XI3CPSX_SLV_INTR_REQ
  */
 #define XI3CPSX_SLV_INTR_REQ    ( ( XI3CPSX_BASEADDR ) + 0x0000008C )
-#define XI3CPSX_SLV_INTR_REQ_FULLMASK     0x0000030f
-#define XI3CPSX_SLV_INTR_REQ_FULLRWMASK  0x0000000f
+#define XI3CPSX_SLV_INTR_REQ_FULLMASK     0x00ffff0f	/**< Mask of all valid bits in SLV_INTR_REQ */
+#define XI3CPSX_SLV_INTR_REQ_FULLRWMASK  0x00ffff0f	/**< Mask of all read/write bits in SLV_INTR_REQ */
 #define XI3CPSX_SLV_INTR_REQ_DEFVAL   0x0
 
-/* access_type: ro */
-#define XI3CPSX_SLV_INTR_REQ_IBI_STS_SHIFT   8
-#define XI3CPSX_SLV_INTR_REQ_IBI_STS_WIDTH   2
-#define XI3CPSX_SLV_INTR_REQ_IBI_STS_MASK    0x00000300
-#define XI3CPSX_SLV_INTR_REQ_IBI_STS_DEFVAL  0x0
+/* access_type: rw */
+#define XI3CPSX_SLV_INTR_REQ_SIR_DATA_LENGTH_SHIFT   16	/**< Bit shift for the SIR data length field */
+#define XI3CPSX_SLV_INTR_REQ_SIR_DATA_LENGTH_WIDTH   8	/**< Bit width of the SIR data length field */
+#define XI3CPSX_SLV_INTR_REQ_SIR_DATA_LENGTH_MASK    0x00ff0000	/**< Mask for the SIR data length field */
+#define XI3CPSX_SLV_INTR_REQ_SIR_DATA_LENGTH_DEFVAL  0x0	/**< Reset value of the SIR data length field */
+
+/* access_type: rw */
+#define XI3CPSX_SLV_INTR_REQ_MDB_SHIFT   8	/**< Bit shift for the Mandatory Data Byte (MDB) field */
+#define XI3CPSX_SLV_INTR_REQ_MDB_WIDTH   8	/**< Bit width of the Mandatory Data Byte (MDB) field */
+#define XI3CPSX_SLV_INTR_REQ_MDB_MASK    0x0000ff00	/**< Mask for the Mandatory Data Byte (MDB) field */
+#define XI3CPSX_SLV_INTR_REQ_MDB_DEFVAL  0x0	/**< Reset value of the Mandatory Data Byte (MDB) field */
+
+/*
+ * IBI response status is read from XI3CPSX_SLV_IBI_RESP, not from this
+ * register; SLV_INTR_REQ[9:8] is not used for that purpose by this driver.
+ */
 
 /* access_type: rw */
 #define XI3CPSX_SLV_INTR_REQ_MR_SHIFT   3
@@ -1443,6 +1460,40 @@ extern "C" {
 #define XI3CPSX_SLV_INTR_REQ_SIR_WIDTH   1
 #define XI3CPSX_SLV_INTR_REQ_SIR_MASK    0x00000001
 #define XI3CPSX_SLV_INTR_REQ_SIR_DEFVAL  0x0
+
+/**
+ * Register: XI3CPSX_SLV_SIR_DATA
+ */
+#define XI3CPSX_SLV_SIR_DATA    ( ( XI3CPSX_BASEADDR ) + 0x00000094 )
+#define XI3CPSX_SLV_SIR_DATA_FULLMASK     0xffffffff	/**< Mask of all valid bits in SLV_SIR_DATA */
+#define XI3CPSX_SLV_SIR_DATA_FULLRWMASK  0xffffffff	/**< Mask of all read/write bits in SLV_SIR_DATA */
+#define XI3CPSX_SLV_SIR_DATA_DEFVAL   0x0	/**< Reset value of SLV_SIR_DATA */
+
+#define XI3CPSX_SLV_SIR_DATA_BYTE3_SHIFT   24	/**< Bit shift for IBI payload data byte 3 */
+#define XI3CPSX_SLV_SIR_DATA_BYTE3_MASK    0xff000000	/**< Mask for IBI payload data byte 3 */
+#define XI3CPSX_SLV_SIR_DATA_BYTE2_SHIFT   16	/**< Bit shift for IBI payload data byte 2 */
+#define XI3CPSX_SLV_SIR_DATA_BYTE2_MASK    0x00ff0000	/**< Mask for IBI payload data byte 2 */
+#define XI3CPSX_SLV_SIR_DATA_BYTE1_SHIFT   8	/**< Bit shift for IBI payload data byte 1 */
+#define XI3CPSX_SLV_SIR_DATA_BYTE1_MASK    0x0000ff00	/**< Mask for IBI payload data byte 1 */
+#define XI3CPSX_SLV_SIR_DATA_BYTE0_SHIFT   0	/**< Bit shift for IBI payload data byte 0 */
+#define XI3CPSX_SLV_SIR_DATA_BYTE0_MASK    0x000000ff	/**< Mask for IBI payload data byte 0 */
+
+/**
+ * Register: XI3CPSX_SLV_IBI_RESP
+ */
+#define XI3CPSX_SLV_IBI_RESP    ( ( XI3CPSX_BASEADDR ) + 0x00000098 )
+#define XI3CPSX_SLV_IBI_RESP_FULLMASK     0x00ffffff	/**< Mask of all valid bits in SLV_IBI_RESP */
+#define XI3CPSX_SLV_IBI_RESP_FULLRWMASK  0x00000000	/**< Mask of all read/write bits in SLV_IBI_RESP (read-only register) */
+#define XI3CPSX_SLV_IBI_RESP_DEFVAL   0x0	/**< Reset value of SLV_IBI_RESP */
+
+#define XI3CPSX_SLV_IBI_RESP_DATA_LENGTH_SHIFT   8	/**< Bit shift for the accepted IBI data length field */
+#define XI3CPSX_SLV_IBI_RESP_DATA_LENGTH_MASK    0x00ffff00	/**< Mask for the accepted IBI data length field */
+
+#define XI3CPSX_SLV_IBI_RESP_IBI_STS_SHIFT   0	/**< Bit shift for the IBI response status field */
+#define XI3CPSX_SLV_IBI_RESP_IBI_STS_MASK    0x00000003	/**< Mask for the IBI response status field */
+#define XI3CPSX_SLV_IBI_RESP_IBI_STS_ACK             0x1	/**< IBI_STS: controller ACK'd the IBI */
+#define XI3CPSX_SLV_IBI_RESP_IBI_STS_EARLY_TERMINATE 0x2	/**< IBI_STS: controller accepted only part of the IBI payload */
+#define XI3CPSX_SLV_IBI_RESP_IBI_STS_NACK            0x3	/**< IBI_STS: controller NACK'd the IBI */
 
 /**
  * Register: XI3CPSX_DEVICE_CTRL_EXTENDED
@@ -2609,9 +2660,33 @@ extern "C" {
  * Register: XI3CPSX_DEV_ADDR_TABLE_LOC1
  */
 #define XI3CPSX_DEV_ADDR_TABLE_LOC1    ( ( XI3CPSX_BASEADDR ) + 0x000002C0 )
-#define XI3CPSX_DEV_ADDR_TABLE_LOC1_FULLMASK     0xe0ff007f
-#define XI3CPSX_DEV_ADDR_TABLE_LOC1_FULLRWMASK  0xe0ff007f
+#define XI3CPSX_DEV_ADDR_TABLE_LOC1_FULLMASK     0xe0ff787f	/**< Mask of all valid bits in DEV_ADDR_TABLE_LOC1 */
+#define XI3CPSX_DEV_ADDR_TABLE_LOC1_FULLRWMASK  0xe0ff787f	/**< Mask of all read/write bits in DEV_ADDR_TABLE_LOC1 */
 #define XI3CPSX_DEV_ADDR_TABLE_LOC1_DEFVAL   0x0
+
+/* access_type: rw */
+#define XI3CPSX_DEV_ADDR_TABLE_LOC1_MR_REJECT_SHIFT   14	/**< Bit shift for the Master-Request reject field */
+#define XI3CPSX_DEV_ADDR_TABLE_LOC1_MR_REJECT_WIDTH   1	/**< Bit width of the Master-Request reject field */
+#define XI3CPSX_DEV_ADDR_TABLE_LOC1_MR_REJECT_MASK    0x00004000	/**< Mask for the Master-Request reject field */
+#define XI3CPSX_DEV_ADDR_TABLE_LOC1_MR_REJECT_DEFVAL  0x0	/**< Reset value of the Master-Request reject field */
+
+/* access_type: rw */
+#define XI3CPSX_DEV_ADDR_TABLE_LOC1_SIR_REJECT_SHIFT   13	/**< Bit shift for the Slave-Interrupt-Request reject field */
+#define XI3CPSX_DEV_ADDR_TABLE_LOC1_SIR_REJECT_WIDTH   1	/**< Bit width of the Slave-Interrupt-Request reject field */
+#define XI3CPSX_DEV_ADDR_TABLE_LOC1_SIR_REJECT_MASK    0x00002000	/**< Mask for the Slave-Interrupt-Request reject field */
+#define XI3CPSX_DEV_ADDR_TABLE_LOC1_SIR_REJECT_DEFVAL  0x0	/**< Reset value of the Slave-Interrupt-Request reject field */
+
+/* access_type: rw */
+#define XI3CPSX_DEV_ADDR_TABLE_LOC1_IBI_WITH_DATA_SHIFT   12	/**< Bit shift for the IBI-with-data field */
+#define XI3CPSX_DEV_ADDR_TABLE_LOC1_IBI_WITH_DATA_WIDTH   1	/**< Bit width of the IBI-with-data field */
+#define XI3CPSX_DEV_ADDR_TABLE_LOC1_IBI_WITH_DATA_MASK    0x00001000	/**< Mask for the IBI-with-data field */
+#define XI3CPSX_DEV_ADDR_TABLE_LOC1_IBI_WITH_DATA_DEFVAL  0x0	/**< Reset value of the IBI-with-data field */
+
+/* access_type: rw */
+#define XI3CPSX_DEV_ADDR_TABLE_LOC1_IBI_PEC_EN_SHIFT   11	/**< Bit shift for the IBI PEC-enable field */
+#define XI3CPSX_DEV_ADDR_TABLE_LOC1_IBI_PEC_EN_WIDTH   1	/**< Bit width of the IBI PEC-enable field */
+#define XI3CPSX_DEV_ADDR_TABLE_LOC1_IBI_PEC_EN_MASK    0x00000800	/**< Mask for the IBI PEC-enable field */
+#define XI3CPSX_DEV_ADDR_TABLE_LOC1_IBI_PEC_EN_DEFVAL  0x0	/**< Reset value of the IBI PEC-enable field */
 
 /* access_type: rw */
 #define XI3CPSX_DEV_ADDR_TABLE_LOC1_LEGACY_I2C_DEVICE_SHIFT   31
