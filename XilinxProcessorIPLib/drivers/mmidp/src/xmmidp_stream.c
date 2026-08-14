@@ -681,6 +681,10 @@ void XMmiDp_SetPixModeSel(XMmiDp *InstancePtr, u8 Stream, XMmiDp_PPC PixModeSel)
 	Xil_AssertVoid((Stream >= XMMIDP_STREAM_ID1) &&
 		       (Stream <= XMMIDP_STREAM_ID4));
 
+	Xil_AssertVoid((PixModeSel == XMMIDP_SINGLE_PIX_MODE) ||
+		       (PixModeSel == XMMIDP_DUAL_PIX_MODE) ||
+		       (PixModeSel == XMMIDP_QUAD_PIX_MODE));
+
 	InstancePtr->VSampleCtrl[Stream - 1].PixModeSel = PixModeSel;
 }
 
