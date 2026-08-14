@@ -36,6 +36,8 @@
  *                     uart fifo check function just before handoff
  *       sd   08/14/25 Skip UART Wait Transmission done check in FSBL
  *                     Handoff exit function depending on reset type
+ *       sd   08/14/26 Re-enable SYSMON tamper responses on all exit
+ *                     paths in XFsbl_ProtectionConfig
  *
  * </pre>
  *
@@ -1205,13 +1207,11 @@ static u32 XFsbl_ProtectionConfig(void)
 	}
 #endif
 
-	/*Enable Tamper responses*/
-
-	XFsbl_Out32(XFSBL_PS_SYSMON_CONFIGREG1, CfgRegVal1);
-	XFsbl_Out32(XFSBL_PS_SYSMON_CONFIGREG3, CfgRegVal3);
 	Status = XFSBL_SUCCESS;
-	goto END;
 
 END:
+	/* Always re-enable tamper responses, even on error */
+	XFsbl_Out32(XFSBL_PS_SYSMON_CONFIGREG1, CfgRegVal1);
+	XFsbl_Out32(XFSBL_PS_SYSMON_CONFIGREG3, CfgRegVal3);
 	return Status;
 }
