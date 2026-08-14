@@ -196,6 +196,19 @@ typedef void (*XI3cPsx_IbiHandler) (void *CallBackRef, u32 DevAddr,
 				    u8 *Payload, u32 PayloadLen);
 
 /**
+* The Hot-Join handler data type allows the user to define a callback
+* function the driver invokes (from interrupt context) to flag a Hot-Join
+* request. The joining target is NOT yet enrolled when this is called; the
+* application must run enrolment (ENTDAA) via XI3cPsx_HotJoinDaa() from
+* thread context.
+*
+* @param	CallBackRef is the callback reference passed in by the upper
+*		layer when setting the Hot-Join handler, and passed back to
+*		the upper layer when the callback is invoked.
+*/
+typedef void (*XI3cPsx_HjHandler) (void *CallBackRef);
+
+/**
  * This typedef contains configuration information for the device.
  */
 typedef struct {
@@ -282,6 +295,10 @@ typedef struct {
 	XI3cPsx_IbiHandler IbiHandler;	/**< IBI (SIR) event handler function */
 	void *IbiCallBackRef;	/**< Callback reference for the IBI handler */
 	u8 IbiData[XI3CPSX_IBI_MAX_PAYLOAD]; /**< Scratch buffer for IBI payload */
+
+	XI3cPsx_HjHandler HjHandler;	/**< Hot-Join notification handler function */
+	void *HjCallBackRef;	/**< Callback reference for the Hot-Join handler */
+	volatile u32 HotJoinPending;	/**< Set by the ISR on a Hot-Join; the application enrols the target via XI3cPsx_HotJoinDaa() */
 } XI3cPsx;
 
 /************************** Variable Definitions *****************************/
@@ -590,6 +607,15 @@ void XI3cPsx_SetIbiHandler(XI3cPsx *InstancePtr, void *CallBackRef,
 			   XI3cPsx_IbiHandler FunctionPtr);
 s32 XI3cPsx_EnableIbi(XI3cPsx *InstancePtr, u32 DevIndex);
 s32 XI3cPsx_DisableIbi(XI3cPsx *InstancePtr, u32 DevIndex);
+
+/*
+ * Functions for Hot-Join support, in xi3cpsx_master.c
+ */
+void XI3cPsx_SetHjHandler(XI3cPsx *InstancePtr, void *CallBackRef,
+			  XI3cPsx_HjHandler FunctionPtr);
+void XI3cPsx_EnableHotJoin(XI3cPsx *InstancePtr);
+void XI3cPsx_DisableHotJoin(XI3cPsx *InstancePtr);
+s32 XI3cPsx_HotJoinDaa(XI3cPsx *InstancePtr);
 
 /*
  * Functions for device as slave, in XI3cPsx_slave.c

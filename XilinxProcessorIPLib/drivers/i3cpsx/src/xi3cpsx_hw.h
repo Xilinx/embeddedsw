@@ -374,6 +374,17 @@ extern "C" {
 #define XI3CPSX_RESPONSE_ERR_STS_SHIFT			28
 #define XI3CPSX_RESPONSE_ERR_STS_MASK			0xf0000000
 
+/* RESPONSE_QUEUE_PORT error-status (ERR_STS) codes, DWC I3C databook. */
+#define XI3CPSX_RESPONSE_ERR_NONE		0x0U	/**< No error */
+#define XI3CPSX_RESPONSE_ERR_CRC		0x1U	/**< CRC error */
+#define XI3CPSX_RESPONSE_ERR_PARITY		0x2U	/**< Parity error */
+#define XI3CPSX_RESPONSE_ERR_FRAME		0x3U	/**< Frame error */
+#define XI3CPSX_RESPONSE_ERR_IBA_NACK		0x4U	/**< Broadcast address NACK */
+#define XI3CPSX_RESPONSE_ERR_ADDR_NACK		0x5U	/**< Address NACK (no target) */
+#define XI3CPSX_RESPONSE_ERR_OVERFLOW		0x6U	/**< RX/TX buffer over/underflow */
+#define XI3CPSX_RESPONSE_ERR_ABORTED		0x8U	/**< Transfer aborted */
+#define XI3CPSX_RESPONSE_ERR_I2C_W_NACK		0x9U	/**< I2C write data NACK */
+
 /**
  * Register: XI3CPSX_TX_RX_DATA_PORT
  */
@@ -420,7 +431,7 @@ extern "C" {
 #define XI3CPSX_QUEUE_THLD_CTRL    ( ( XI3CPSX_BASEADDR ) + 0x0000001C )
 #define XI3CPSX_QUEUE_THLD_CTRL_FULLMASK     0xffffffff	/**< Mask of all valid bits in QUEUE_THLD_CTRL */
 #define XI3CPSX_QUEUE_THLD_CTRL_FULLRWMASK  0xffffffff	/**< Mask of all read/write bits in QUEUE_THLD_CTRL */
-#define XI3CPSX_QUEUE_THLD_CTRL_DEFVAL   0x1000101
+#define XI3CPSX_QUEUE_THLD_CTRL_DEFVAL   0x1000101	/**< Reset value of QUEUE_THLD_CTRL */
 
 /* access_type: rw */
 #define XI3CPSX_QUEUE_THLD_CTRL_IBI_STATUS_THLD_SHIFT   24
@@ -1415,8 +1426,8 @@ extern "C" {
 /* access_type: rw */
 #define XI3CPSX_MAX_DATA_SPEED_MXDS_MAX_WR_SPEED_SHIFT   0
 #define XI3CPSX_MAX_DATA_SPEED_MXDS_MAX_WR_SPEED_WIDTH   3
-#define XI3CPSX_MAX_DATA_SPEED_MXDS_MAX_WR_SPEED_MASK    0x00000007
-#define XI3CPSX_MAX_DATA_SPEED_MXDS_MAX_WR_SPEED_DEFVAL  0x0
+#define XI3CPSX_MAX_DATA_SPEED_MXDS_MAX_WR_SPEED_MASK    0x00000007	/**< Mask for the max write speed field */
+#define XI3CPSX_MAX_DATA_SPEED_MXDS_MAX_WR_SPEED_DEFVAL  0x0	/**< Reset value of the max write speed field */
 
 /**
  * Register: XI3CPSX_SLV_INTR_REQ
@@ -1424,7 +1435,7 @@ extern "C" {
 #define XI3CPSX_SLV_INTR_REQ    ( ( XI3CPSX_BASEADDR ) + 0x0000008C )
 #define XI3CPSX_SLV_INTR_REQ_FULLMASK     0x00ffff0f	/**< Mask of all valid bits in SLV_INTR_REQ */
 #define XI3CPSX_SLV_INTR_REQ_FULLRWMASK  0x00ffff0f	/**< Mask of all read/write bits in SLV_INTR_REQ */
-#define XI3CPSX_SLV_INTR_REQ_DEFVAL   0x0
+#define XI3CPSX_SLV_INTR_REQ_DEFVAL   0x0	/**< Reset value of SLV_INTR_REQ */
 
 /* access_type: rw */
 #define XI3CPSX_SLV_INTR_REQ_SIR_DATA_LENGTH_SHIFT   16	/**< Bit shift for the SIR data length field */
@@ -1450,16 +1461,16 @@ extern "C" {
 #define XI3CPSX_SLV_INTR_REQ_MR_DEFVAL  0x0
 
 /* access_type: rw */
-#define XI3CPSX_SLV_INTR_REQ_SIR_CTRL_SHIFT   1
-#define XI3CPSX_SLV_INTR_REQ_SIR_CTRL_WIDTH   2
-#define XI3CPSX_SLV_INTR_REQ_SIR_CTRL_MASK    0x00000006
-#define XI3CPSX_SLV_INTR_REQ_SIR_CTRL_DEFVAL  0x0
+#define XI3CPSX_SLV_INTR_REQ_SIR_CTRL_SHIFT   1	/**< Bit shift for the SIR control field */
+#define XI3CPSX_SLV_INTR_REQ_SIR_CTRL_WIDTH   2	/**< Bit width of the SIR control field */
+#define XI3CPSX_SLV_INTR_REQ_SIR_CTRL_MASK    0x00000006	/**< Mask for the SIR control field */
+#define XI3CPSX_SLV_INTR_REQ_SIR_CTRL_DEFVAL  0x0	/**< Reset value of the SIR control field */
 
 /* access_type: rw */
-#define XI3CPSX_SLV_INTR_REQ_SIR_SHIFT   0
-#define XI3CPSX_SLV_INTR_REQ_SIR_WIDTH   1
-#define XI3CPSX_SLV_INTR_REQ_SIR_MASK    0x00000001
-#define XI3CPSX_SLV_INTR_REQ_SIR_DEFVAL  0x0
+#define XI3CPSX_SLV_INTR_REQ_SIR_SHIFT   0	/**< Bit shift for the SIR request field */
+#define XI3CPSX_SLV_INTR_REQ_SIR_WIDTH   1	/**< Bit width of the SIR request field */
+#define XI3CPSX_SLV_INTR_REQ_SIR_MASK    0x00000001	/**< Mask for the SIR request field */
+#define XI3CPSX_SLV_INTR_REQ_SIR_DEFVAL  0x0	/**< Reset value of the SIR request field */
 
 /**
  * Register: XI3CPSX_SLV_SIR_DATA
@@ -2653,8 +2664,8 @@ extern "C" {
 /* access_type: ro */
 #define XI3CPSX_DEV_CHAR_TABLE11_LOC4_DEV_DYNAMIC_ADDR_SHIFT   0
 #define XI3CPSX_DEV_CHAR_TABLE11_LOC4_DEV_DYNAMIC_ADDR_WIDTH   8
-#define XI3CPSX_DEV_CHAR_TABLE11_LOC4_DEV_DYNAMIC_ADDR_MASK    0x000000ff
-#define XI3CPSX_DEV_CHAR_TABLE11_LOC4_DEV_DYNAMIC_ADDR_DEFVAL  0x0
+#define XI3CPSX_DEV_CHAR_TABLE11_LOC4_DEV_DYNAMIC_ADDR_MASK    0x000000ff	/**< Mask for the device dynamic address field */
+#define XI3CPSX_DEV_CHAR_TABLE11_LOC4_DEV_DYNAMIC_ADDR_DEFVAL  0x0	/**< Reset value of the device dynamic address field */
 
 /**
  * Register: XI3CPSX_DEV_ADDR_TABLE_LOC1
@@ -2662,7 +2673,7 @@ extern "C" {
 #define XI3CPSX_DEV_ADDR_TABLE_LOC1    ( ( XI3CPSX_BASEADDR ) + 0x000002C0 )
 #define XI3CPSX_DEV_ADDR_TABLE_LOC1_FULLMASK     0xe0ff787f	/**< Mask of all valid bits in DEV_ADDR_TABLE_LOC1 */
 #define XI3CPSX_DEV_ADDR_TABLE_LOC1_FULLRWMASK  0xe0ff787f	/**< Mask of all read/write bits in DEV_ADDR_TABLE_LOC1 */
-#define XI3CPSX_DEV_ADDR_TABLE_LOC1_DEFVAL   0x0
+#define XI3CPSX_DEV_ADDR_TABLE_LOC1_DEFVAL   0x0	/**< Reset value of DEV_ADDR_TABLE_LOC1 */
 
 /* access_type: rw */
 #define XI3CPSX_DEV_ADDR_TABLE_LOC1_MR_REJECT_SHIFT   14	/**< Bit shift for the Master-Request reject field */

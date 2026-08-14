@@ -63,6 +63,7 @@ static void XI3cPsx_IbiDrain(XI3cPsx *InstancePtr, u32 Len);
 static u32 XI3cPsx_IbiReadPayload(XI3cPsx *InstancePtr, u8 *Buf, u32 CopyLen,
 				  u32 QueueLen);
 static s32 XI3cPsx_SendEnecDisec(XI3cPsx *InstancePtr, u32 DevIndex, u8 Enable);
+static u32 XI3cPsx_IsHotJoinRejected(XI3cPsx *InstancePtr);
 
 /************************* Variable Definitions *****************************/
 /**
@@ -187,7 +188,9 @@ s32 XI3cPsx_BusInit(XI3cPsx *InstancePtr)
 #ifdef DEBUG
 			xil_printf("RSTDAA failed\n");
 #endif
-			return XST_FAILURE;
+			/* Empty bus: RSTDAA NACK is expected for a Hot-Join
+			 * master. Clear the halt and continue to ENTDAA. */
+			XI3cPsx_Resume(InstancePtr);
 		}
 	}
 
@@ -206,6 +209,12 @@ s32 XI3cPsx_BusInit(XI3cPsx *InstancePtr)
 
 		/* Targets are opted in individually by XI3cPsx_EnableIbi(). */
 		XI3cPsx_ConfigIbi(InstancePtr);
+	} else if ((InstancePtr->Error == XI3CPSX_RESPONSE_ERR_ADDR_NACK) ||
+		   (InstancePtr->Error == XI3CPSX_RESPONSE_ERR_IBA_NACK)) {
+		/* Empty bus (expected for Hot-Join): clear halt, arm IBI/HJ. */
+		XI3cPsx_Resume(InstancePtr);
+		XI3cPsx_ConfigIbi(InstancePtr);
+		Status = XST_SUCCESS;
 	}
 
 	return Status;
@@ -424,7 +433,10 @@ s32 XI3cPsx_MasterSendPolled(XI3cPsx *InstancePtr, u8 *MsgPtr,
 	}
 
 	if (Cmds.TransCmd & COMMAND_PORT_ROC) {
-		if (XI3cPsx_GetResponse(InstancePtr))
+		/* Preserve the response error code so callers (e.g. BusInit) can
+		 * tell an expected address NACK from a real bus/protocol error. */
+		InstancePtr->Error = (u32)XI3cPsx_GetResponse(InstancePtr);
+		if (InstancePtr->Error != XI3CPSX_RESPONSE_ERR_NONE)
 			Status = XST_SEND_ERROR;
 		else
 			Status = XST_SUCCESS;
@@ -714,21 +726,24 @@ void XI3cPsx_SetIbiHandler(XI3cPsx *InstancePtr, void *CallBackRef,
 /**
 * @brief
 * This function programs the IBI defaults. It rejects all Slave-Interrupt
-* (SIR) and Master-Request (MR) events and sets the IBI status queue
-* threshold so that a single IBI generates an interrupt. Individual targets
-* are later opted in with XI3cPsx_EnableIbi().
+* (SIR), Master-Request (MR) and Hot-Join events, and sets the IBI status
+* queue threshold so that a single IBI generates an interrupt. Individual
+* targets are later opted in with XI3cPsx_EnableIbi(); Hot-Join is opted in
+* with XI3cPsx_EnableHotJoin().
 *
 * @param	InstancePtr is a pointer to the XI3cPsx instance.
 *
 * @return	None.
 *
 * @note		The IBI threshold interrupt itself is not enabled here; it is
-*		enabled lazily when the first target's IBI is enabled.
+*		enabled lazily when the first target's IBI (or Hot-Join) is
+*		enabled.
 *
 ******************************************************************************/
 static void XI3cPsx_ConfigIbi(XI3cPsx *InstancePtr)
 {
 	u32 ThldReg;
+	u32 DevCtrl;
 
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(InstancePtr->IsReady == (u32)XIL_COMPONENT_IS_READY);
@@ -738,6 +753,11 @@ static void XI3cPsx_ConfigIbi(XI3cPsx *InstancePtr)
 			 XI3CPSX_IBI_SIR_REQ_REJECT, 0xFFFFFFFFU);
 	XI3cPsx_WriteReg(InstancePtr->Config.BaseAddress,
 			 XI3CPSX_IBI_MR_REQ_REJECT, 0xFFFFFFFFU);
+
+	/* Reject Hot-Join until XI3cPsx_EnableHotJoin() opts in. */
+	DevCtrl = XI3cPsx_ReadReg(InstancePtr->Config.BaseAddress, XI3CPSX_DEVICE_CTRL);
+	DevCtrl |= XI3CPSX_DEVICE_CTRL_HOT_JOIN_CTRL_MASK;
+	XI3cPsx_WriteReg(InstancePtr->Config.BaseAddress, XI3CPSX_DEVICE_CTRL, DevCtrl);
 
 	/*
 	 * Program QUEUE_THLD_CTRL in one write: IBI status threshold 0
@@ -1001,10 +1021,185 @@ s32 XI3cPsx_DisableIbi(XI3cPsx *InstancePtr, u32 DevIndex)
 	XI3cPsx_WriteReg(InstancePtr->Config.BaseAddress,
 			 XI3CPSX_IBI_SIR_REQ_REJECT, InstancePtr->SirRejectMask);
 
-	/* Disable the IBI threshold interrupt when no targets remain armed. */
+	/*
+	 * Disable the IBI threshold interrupt when no targets remain armed
+	 * and Hot-Join is also rejected; either one alone still needs it.
+	 */
+	if ((InstancePtr->SirRejectMask == 0xFFFFFFFFU) &&
+	    (XI3cPsx_IsHotJoinRejected(InstancePtr) != 0U)) {
+		XI3cPsx_DisableInterrupts(InstancePtr->Config.BaseAddress,
+					  XI3CPSX_INTR_IBI_THLD);
+	}
+
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+* @brief
+* This function returns whether Hot-Join requests are currently rejected at
+* the controller (DEVICE_CTRL.HOT_JOIN_CTRL).
+*
+* @param	InstancePtr is a pointer to the XI3cPsx instance.
+*
+* @return	1 if Hot-Join is rejected, 0 if it is accepted.
+*
+******************************************************************************/
+static u32 XI3cPsx_IsHotJoinRejected(XI3cPsx *InstancePtr)
+{
+	return ((XI3cPsx_ReadReg(InstancePtr->Config.BaseAddress, XI3CPSX_DEVICE_CTRL) &
+		 XI3CPSX_DEVICE_CTRL_HOT_JOIN_CTRL_MASK) != 0U) ? 1U : 0U;
+}
+
+/*****************************************************************************/
+/**
+* @brief
+* This function enables Hot-Join request acceptance. It clears
+* DEVICE_CTRL.HOT_JOIN_CTRL so the controller ACKs a Hot-Join request, and
+* lazily enables the IBI threshold interrupt (shared with SIR) since
+* Hot-Join requests are reported through the same IBI queue.
+*
+* @param	InstancePtr is a pointer to the XI3cPsx instance.
+*
+* @note		A Hot-Join sets HotJoinPending and invokes the Hot-Join
+*		handler from the ISR. The blocking ENTDAA enrolment is deferred:
+*		the application must call XI3cPsx_HotJoinDaa() from thread
+*		context to assign the new target its dynamic address.
+*
+******************************************************************************/
+void XI3cPsx_EnableHotJoin(XI3cPsx *InstancePtr)
+{
+	u32 DevCtrl;
+
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(InstancePtr->IsReady == (u32)XIL_COMPONENT_IS_READY);
+
+	DevCtrl = XI3cPsx_ReadReg(InstancePtr->Config.BaseAddress, XI3CPSX_DEVICE_CTRL);
+	DevCtrl &= ~XI3CPSX_DEVICE_CTRL_HOT_JOIN_CTRL_MASK;
+	XI3cPsx_WriteReg(InstancePtr->Config.BaseAddress, XI3CPSX_DEVICE_CTRL, DevCtrl);
+
+	XI3cPsx_EnableInterrupts(InstancePtr->Config.BaseAddress, XI3CPSX_INTR_IBI_THLD);
+}
+
+/*****************************************************************************/
+/**
+* @brief
+* This function disables Hot-Join request acceptance. It sets
+* DEVICE_CTRL.HOT_JOIN_CTRL so the controller NACKs a Hot-Join request, and
+* disables the IBI threshold interrupt if no SIR target remains armed either.
+*
+* @param	InstancePtr is a pointer to the XI3cPsx instance.
+*
+******************************************************************************/
+void XI3cPsx_DisableHotJoin(XI3cPsx *InstancePtr)
+{
+	u32 DevCtrl;
+
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(InstancePtr->IsReady == (u32)XIL_COMPONENT_IS_READY);
+
+	DevCtrl = XI3cPsx_ReadReg(InstancePtr->Config.BaseAddress, XI3CPSX_DEVICE_CTRL);
+	DevCtrl |= XI3CPSX_DEVICE_CTRL_HOT_JOIN_CTRL_MASK;
+	XI3cPsx_WriteReg(InstancePtr->Config.BaseAddress, XI3CPSX_DEVICE_CTRL, DevCtrl);
+
 	if (InstancePtr->SirRejectMask == 0xFFFFFFFFU) {
 		XI3cPsx_DisableInterrupts(InstancePtr->Config.BaseAddress,
 					  XI3CPSX_INTR_IBI_THLD);
+	}
+}
+
+/*****************************************************************************/
+/**
+* @brief
+* This function sets the Hot-Join notification handler, which the driver
+* calls from interrupt context to flag a Hot-Join request. The joining
+* target is NOT yet enrolled when the handler runs; the application must
+* run enrolment (ENTDAA) via XI3cPsx_HotJoinDaa() from thread context.
+*
+* @param	InstancePtr is a pointer to the XI3cPsx instance.
+* @param	CallBackRef is the upper-layer callback reference, passed back
+*		to the handler when it is invoked.
+* @param	FunctionPtr is the pointer to the Hot-Join callback function.
+*
+* @note		The handler runs in interrupt context, so its work should be
+*		minimized (e.g. record the event and return).
+*
+******************************************************************************/
+void XI3cPsx_SetHjHandler(XI3cPsx *InstancePtr, void *CallBackRef,
+			  XI3cPsx_HjHandler FunctionPtr)
+{
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(FunctionPtr != NULL);
+	Xil_AssertVoid(InstancePtr->IsReady == (u32)XIL_COMPONENT_IS_READY);
+
+	InstancePtr->HjHandler = FunctionPtr;
+	InstancePtr->HjCallBackRef = CallBackRef;
+}
+
+/*****************************************************************************/
+/**
+* @brief
+* This function services a Hot-Join request by re-running ENTDAA (without
+* RSTDAA, so existing targets keep their address) and refreshing the
+* captured BCR of every enumerated target on success.
+*
+* @param	InstancePtr is a pointer to the XI3cPsx instance.
+*
+* @return
+*		- XST_SUCCESS if everything went well.
+*		- XST_FAILURE if any error.
+*
+* @note		Must be called from thread (non-interrupt) context - e.g.
+*		from the application after a Hot-Join notification. The ISR
+*		only flags the Hot-Join via HotJoinPending. The ENTDAA is
+*		issued interrupt-driven so the live ISR is the single response
+*		consumer; a polled send would race the ISR (which clears the
+*		response first) and time out.
+*
+******************************************************************************/
+s32 XI3cPsx_HotJoinDaa(XI3cPsx *InstancePtr)
+{
+	XI3cPsx_Cmd Cmd = {0};
+	u32 Timeout;
+	s32 Status;
+
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(InstancePtr->IsReady == (u32)XIL_COMPONENT_IS_READY);
+
+	InstancePtr->HotJoinPending = 0U;
+
+	Cmd.TransArg = COMMAND_PORT_TRANSFER_ARG;
+	Cmd.TransCmd = (COMMAND_PORT_DEV_COUNT(InstancePtr->Config.DeviceCount) |
+			COMMAND_PORT_DEV_INDEX(0) |
+			COMMAND_PORT_CMD(I3C_CCC_ENTDAA) |
+			COMMAND_PORT_ADDR_ASSGN_CMD |
+			COMMAND_PORT_TOC |
+			COMMAND_PORT_ROC);
+
+	InstancePtr->Error = 0U;
+	InstancePtr->RespDone = 0U;
+	InstancePtr->RecvByteCount = 0U;
+
+	XI3cPsx_EnableInterrupts(InstancePtr->Config.BaseAddress,
+				 XI3CPSX_INTR_RESP_READY);
+	XI3cPsx_WrCmdFifo(InstancePtr, &Cmd);
+
+	/* Wait for the ISR to consume the response (it sets RespDone). */
+	Timeout = XI3CPSX_TIMEOUT_COUNTER;
+	while ((InstancePtr->RespDone == 0U) && (--Timeout != 0U)) {
+		/* Busy-wait for the response interrupt. */
+	}
+
+	if (Timeout == 0U) {
+		XI3cPsx_DisableInterrupts(InstancePtr->Config.BaseAddress,
+					  XI3CPSX_INTR_RESP_READY);
+		return XST_TIMEOUT;
+	}
+
+	/* The bus-level result was captured by the ISR into InstancePtr->Error. */
+	Status = (InstancePtr->Error == 0U) ? XST_SUCCESS : XST_FAILURE;
+	if (Status == XST_SUCCESS) {
+		XI3cPsx_CaptureBcr(InstancePtr);
 	}
 
 	return Status;
@@ -1144,8 +1339,13 @@ static void XI3cPsx_HandleIbi(XI3cPsx *InstancePtr)
 							InstancePtr->IbiData,
 							CopyLen);
 			}
+		} else if ((Addr == XI3CPSX_I3C_HOT_JOIN_ADDR) && (Rnw == 0U)) {
+			InstancePtr->HotJoinPending = 1U;
+			if (InstancePtr->HjHandler != NULL) {
+				InstancePtr->HjHandler(InstancePtr->HjCallBackRef);
+			}
 		} else {
-			/* Non-SIR entry: drain to keep the IBI queue in sync. */
+			/* Non-SIR, non-Hot-Join entry (e.g. Master-Request): drain to keep the IBI queue in sync. */
 			XI3cPsx_IbiDrain(InstancePtr, Len);
 		}
 	}

@@ -111,6 +111,9 @@ s32 XI3cPsx_CfgInitialize(XI3cPsx *InstancePtr, XI3cPsx_Config *ConfigPtr,
 	InstancePtr->IbiHandler = NULL;
 	InstancePtr->IbiCallBackRef = NULL;
 	InstancePtr->RespDone = 0U;
+	InstancePtr->HjHandler = NULL;
+	InstancePtr->HjCallBackRef = NULL;
+	InstancePtr->HotJoinPending = 0U;
 
 	/*
 	 * Reset the I3C controller to get it into its initial state. It is expected
