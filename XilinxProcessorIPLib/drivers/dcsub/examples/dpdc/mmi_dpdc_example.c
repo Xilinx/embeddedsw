@@ -299,6 +299,12 @@ static void XDpDc_ApplyUserConfig(InitRunConfig *userConfig, RunConfig *runConfi
           runConfig->CursorCoordY = userConfig->cursor_coord_y;
           runConfig->CursorSizeX = userConfig->cursor_size_x;
           runConfig->CursorSizeY = userConfig->cursor_size_y;
+
+          /*
+           * DC nonlive path programs full H/V timing and full pixel clock;
+           * DC->DP interface is 1 pixel/clock. Match DP Tx PixModeSel.
+           */
+          runConfig->PPC = 1U;
         }
 
         if (runConfig->presentationmode == XDCSUB_PPTMODE_MIXED) {
@@ -370,6 +376,8 @@ static void XDpDc_ApplyUserConfig(InitRunConfig *userConfig, RunConfig *runConfi
             xil_printf("  CursorSize:           %d x %d\r\n",
                        runConfig->CursorSizeX, runConfig->CursorSizeY);
         }
+        xil_printf("PPC (DP output):        %u (single pixel)\r\n",
+                   runConfig->PPC);
     }
 
 #if defined (XPAR_XVTC_NUM_INSTANCES)
