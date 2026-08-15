@@ -83,14 +83,12 @@ u32 XPlmi_GetAsuUpdatePdiAddr(void)
 u8 XPlmi_AsuFwIsPresent(void)
 {
 	u8 IsAsuFwPresent = FALSE;
-	u32 RtcaVal;
+	u32 RegVal;
 
-	/**
-	 * Check ASU firmware presence by verifying FW_IS_PRESENT bit in
-	 * RTCA exec status register.
-	 */
-	RtcaVal = XPlmi_In32(XPLMI_ASU_RTCA_EXEC_STATUS);
-	if ((RtcaVal & XPLMI_ASU_RTCA_FW_IS_PRESENT_MASK) == XPLMI_ASU_RTCA_FW_IS_PRESENT_MASK) {
+	/** Check ASU firmware presence from FW_IS_PRESENT bit in ASU global control register. */
+	RegVal = XPlmi_In32(XPLMI_ASU_GLOBAL_CNTRL);
+	if ((RegVal & XPLMI_ASU_GLOBAL_CNTRL_FW_IS_PRESENT_MASK) ==
+			XPLMI_ASU_GLOBAL_CNTRL_FW_IS_PRESENT_MASK) {
 		IsAsuFwPresent = TRUE;
 	}
 
@@ -303,8 +301,8 @@ static int XPlmi_AsuUpdateTask(void *Arg)
 	XPlmi_Out32(XPLMI_ASU_MB_SOFT_RST, XPLMI_ASU_MB_SOFT_RST_DEASSERT_MASK);
 
 	/** Wait for ASU firmware to initialize */
-	Status = XPlmi_UtilPollForMask(XPLMI_ASU_RTCA_EXEC_STATUS,
-				       XPLMI_ASU_RTCA_FW_IS_PRESENT_MASK,
+	Status = XPlmi_UtilPollForMask(XPLMI_ASU_GLOBAL_CNTRL,
+				       XPLMI_ASU_GLOBAL_CNTRL_FW_IS_PRESENT_MASK,
 				       XPLMI_ASU_RST_TIMEOUT);
 	if (Status != XST_SUCCESS) {
 		XPlmi_Printf(DEBUG_GENERAL, "ASU failed to restart after update\n\r");

@@ -59,13 +59,12 @@ extern "C" {
 
 /* ASU register addresses */
 #define XPLMI_ASU_GLOBAL_BASEADDR		(0xEBF80000U) /**< ASU GLOBAL base address */
+#define XPLMI_ASU_GLOBAL_CNTRL			(XPLMI_ASU_GLOBAL_BASEADDR + 0x0U)
+						/**< ASU global control register */
+#define XPLMI_ASU_GLOBAL_CNTRL_FW_IS_PRESENT_MASK	(0x00000010U) /**< ASU FW_IS_PRESENT bit */
 
 /* ASU RTCA register */
 #define XPLMI_ASU_RTCA_BASEADDR			(0xEBE40000U) /**< ASU RTCA base address */
-#define XPLMI_ASU_RTCA_EXEC_STATUS		(XPLMI_ASU_RTCA_BASEADDR + 0x174U)
-						/**< ASU RTCA exec status (0xEBE40174) */
-#define XPLMI_ASU_RTCA_FW_IS_PRESENT_MASK	(0x00000002U) /**< ASU FW_IS_PRESENT bit in
-							     RTCA (bit 1) */
 
 /* ASU register bit definitions */
 #define XPLMI_ASU_MB_SOFT_RST			(XPLMI_ASU_GLOBAL_BASEADDR + 0x10054U)
