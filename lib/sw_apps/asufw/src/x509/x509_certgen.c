@@ -23,6 +23,7 @@
 *       vm   02/04/26 Replace magic number with named constant
 *       vm   02/02/26 Assigned proper suffix to integer constants to fix MISRA-C
 *                     violation for Rule 7.2
+*       rmv  08/04/26 Add support for basic constraints extension
 *
 * </pre>
 *
@@ -86,6 +87,9 @@ static const u8 Oid_P384[] = {0x06U, 0x05U, 0x2BU, 0x81U, 0x04U, 0x00U, 0x22U};
 									MSB set */
 #define X509_ASN1_ZERO_UNUSED_BITS				(0x00U)	/**< Zero unused bits in BIT
 									STRING */
+#define X509_PATH_LEN_CONSTRAINT_VALUE				(0x00U)	/**< Value of path length
+									constraint in basic
+									constraints extension */
 
 /************************************ Type Definitions *******************************************/
 /**
@@ -176,6 +180,7 @@ static s32 X509_GenAuthorityKeyIdentifierField(const u8 *IssuerPublicKey, u32 Is
 static void X509_UpdateKeyUsageVal(u8 *KeyUsageVal, X509_KeyUsageOption KeyUsageOption);
 static s32 X509_GenKeyUsageField(const X509_Config *Cfg);
 static s32 X509_GenExtKeyUsageField(void);
+static s32 X509_GenBasicConstraintsField(void);
 static inline s32 X509_GenSubAltNameField(const u8 *SubAltName, const u32 SubAltNameValLen);
 static inline void X509_AddTagField(u8 Asn1Tag);
 static inline s32 X509_ValidateAndAddTagField(u8 Asn1Tag);
@@ -236,11 +241,11 @@ s32 X509_GenerateX509Cert(u64 X509CertAddr, u32 MaxCertSize, u32 *X509CertSize,
 	u32 HashLen = 0U;
 	u32 SignLen = 0U;
 	u32 CertSize;
-	const u8 *TBSCertStart;
+	const u8 *TBSCertStart = NULL;
 	const u8 Hash[X509_HASH_MAX_SIZE_IN_BYTES] = {0U};
 	const u8 Sign[X509_SIGNATURE_MAX_SIZE_IN_BYTES] = {0U};
-	u8 *SequenceLenIdx;
-	u8 *SequenceValIdx;
+	u8 *SequenceLenIdx = NULL;
+	u8 *SequenceValIdx = NULL;
 
 	/** Validate certificate address, size and config. */
 	if ((X509CertAddr == 0U) || (X509CertSize == NULL) || (Cfg == NULL) ||
@@ -657,9 +662,9 @@ END:
 static s32 X509_Asn1CreateInteger(const u8 *IntegerVal, u32 IntegerLen)
 {
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
-	u8 *IntegerLenIdx;
-	u8 *IntegerValIdx;
-	const u8 *End;
+	u8 *IntegerLenIdx = NULL;
+	u8 *IntegerValIdx = NULL;
+	const u8 *End = NULL;
 
 	/** Validate buffer space and update tag, length and value field. */
 	Status = X509_ValidateAndUpdateTlvField(X509_ASN1_TAG_INTEGER, &IntegerLenIdx,
@@ -768,9 +773,9 @@ static s32 X509_Asn1CreateBitString(const u8 *BitStringVal, u32 BitStringLen, u3
 {
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
 	u8 NumofTrailingZeroes = 0U;
-	u8 *BitStringLenIdx;
-	u8 *BitStringValIdx;
-	const u8 *End;
+	u8 *BitStringLenIdx = NULL;
+	u8 *BitStringValIdx = NULL;
+	const u8 *End = NULL;
 	u32 RemainBufSize = 0U;
 
 	/** Validate buffer space and update tag, length and value field. */
@@ -836,7 +841,7 @@ END:
 static s32 X509_Asn1CreateOctetString(const u8 *OctetStringVal, u32 OctetStringLen)
 {
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
-	u8 *OctetStringLenIdx;
+	u8 *OctetStringLenIdx = NULL;
 	u32 RemainBufSize = 0U;
 
 	/** Add ASN.1 tag field. */
@@ -977,9 +982,9 @@ static s32 X509_GenSignAlgoField(void)
 {
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
 	const X509_InitData *InitData = X509_GetInitData();
-	u8 *SequenceLenIdx;
-	u8 *SequenceValIdx;
-	const u8 *End;
+	u8 *SequenceLenIdx = NULL;
+	u8 *SequenceValIdx = NULL;
+	const u8 *End = NULL;
 
 	/** Validate buffer space and update tag, length and value field. */
 	Status = X509_ValidateAndUpdateTlvField(X509_ASN1_TAG_SEQUENCE, &SequenceLenIdx,
@@ -1115,9 +1120,9 @@ static inline s32 X509_GenSubjectField(const u8 *Subject, const u32 SubjectValLe
 static s32 X509_GenPubKeyAlgIdentifierField(const X509_SubjectPublicKeyInfo *PubKeyInfo)
 {
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
-	u8 *SequenceLenIdx;
-	u8 *SequenceValIdx;
-	const u8 *End;
+	u8 *SequenceLenIdx = NULL;
+	u8 *SequenceValIdx = NULL;
+	const u8 *End = NULL;
 	u8 EccCurveType = (u8)PubKeyInfo->EccCurveType;
 
 	/** Validate buffer space and update tag, length and value field. */
@@ -1192,10 +1197,10 @@ END:
 static s32 X509_GenPublicKeyInfoField(const X509_SubjectPublicKeyInfo *PubKeyInfo)
 {
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
-	u8 *SequenceLenIdx;
-	u8 *SequenceValIdx;
+	u8 *SequenceLenIdx = NULL;
+	u8 *SequenceValIdx = NULL;
 	u8 UncompressedPublicKey[X509_ECC_P384_UNCOMPRESSED_PUBLIC_KEY_LEN] = {0U};
-	const u8 *End;
+	const u8 *End = NULL;
 
 	/** Validate buffer space and update tag, length and value field. */
 	Status = X509_ValidateAndUpdateTlvField(X509_ASN1_TAG_SEQUENCE, &SequenceLenIdx,
@@ -1284,12 +1289,12 @@ static s32 X509_GenSubjectKeyIdentifierField(const u8 *SubjectPublicKey, u32 Sub
 	const X509_InitData *InitData = X509_GetInitData();
 	u32 HashLen = 0U;
 	const u8 Hash[X509_HASH_MAX_SIZE_IN_BYTES] = {0U};
-	u8 *OctetStrLenIdx;
-	u8 *OctetStrValIdx;
-	u8 *SequenceLenIdx;
-	u8 *SequenceValIdx;
+	u8 *OctetStrLenIdx = NULL;
+	u8 *OctetStrValIdx = NULL;
+	u8 *SequenceLenIdx = NULL;
+	u8 *SequenceValIdx = NULL;
 	u8 UncompressedPublicKey[X509_ECC_P384_UNCOMPRESSED_PUBLIC_KEY_LEN] = {0U};
-	const u8 *End;
+	const u8 *End = NULL;
 
 	/**
 	 * First byte of the Public key should be 0x04 to indicate that it is
@@ -1402,14 +1407,14 @@ static s32 X509_GenAuthorityKeyIdentifierField(const u8 *IssuerPublicKey, u32 Is
 	const X509_InitData *InitData = X509_GetInitData();
 	u32 HashLen = 0U;
 	const u8 Hash[X509_HASH_MAX_SIZE_IN_BYTES] = {0U};
-	u8 *KeyIdSequenceLenIdx;
-	u8 *KeyIdSequenceValIdx;
-	u8 *OctetStrLenIdx;
-	u8 *OctetStrValIdx;
-	u8 *SequenceLenIdx;
-	u8 *SequenceValIdx;
+	u8 *KeyIdSequenceLenIdx = NULL;
+	u8 *KeyIdSequenceValIdx = NULL;
+	u8 *OctetStrLenIdx = NULL;
+	u8 *OctetStrValIdx = NULL;
+	u8 *SequenceLenIdx = NULL;
+	u8 *SequenceValIdx = NULL;
 	u8 UncompressedPublicKey[X509_ECC_P384_UNCOMPRESSED_PUBLIC_KEY_LEN] = {0U};
-	const u8 *End;
+	const u8 *End = NULL;
 
 	/**
 	 * First byte of the Public key should be 0x04 to indicate that it is
@@ -1549,11 +1554,11 @@ static s32 X509_GenKeyUsageField(const X509_Config *Cfg)
 	const u8 Oid_KeyUsageExtn[] = {0x06U, 0x03U, 0x55U, 0x1DU, 0x0FU};
 	u32 KeyUsageValLen = 0U;
 	u8 KeyUsageVal[X509_KEYUSAGE_VAL_LEN] = {0U};
-	u8 *OctetStrLenIdx;
-	u8 *OctetStrValIdx;
-	u8 *SequenceLenIdx;
-	u8 *SequenceValIdx;
-	const u8 *End;
+	u8 *OctetStrLenIdx = NULL;
+	u8 *OctetStrValIdx = NULL;
+	u8 *SequenceLenIdx = NULL;
+	u8 *SequenceValIdx = NULL;
+	const u8 *End = NULL;
 
 	/** Validate buffer space and update tag, length and value field. */
 	Status = X509_ValidateAndUpdateTlvField(X509_ASN1_TAG_SEQUENCE, &SequenceLenIdx,
@@ -1642,13 +1647,13 @@ static s32 X509_GenExtKeyUsageField(void)
 	const u8 Oid_EkuExtn[] = {0x06U, 0x03U, 0x55U, 0x1DU, 0x25U};
 	const u8 Oid_EkuClientAuth[] = {0x06U, 0x08U, 0x2BU, 0x06U, 0x01U, 0x05U, 0x05U, 0x07U,
 					0x03U, 0x02U};
-	u8 *EkuSequenceLenIdx;
-	u8 *EkuSequenceValIdx;
-	u8 *OctetStrLenIdx;
-	u8 *OctetStrValIdx;
-	u8 *SequenceLenIdx;
-	u8 *SequenceValIdx;
-	const u8 *End;
+	u8 *EkuSequenceLenIdx = NULL;
+	u8 *EkuSequenceValIdx = NULL;
+	u8 *OctetStrLenIdx = NULL;
+	u8 *OctetStrValIdx = NULL;
+	u8 *SequenceLenIdx = NULL;
+	u8 *SequenceValIdx = NULL;
+	const u8 *End = NULL;
 
 	/** Validate buffer space and update tag, length and value field. */
 	Status = X509_ValidateAndUpdateTlvField(X509_ASN1_TAG_SEQUENCE, &SequenceLenIdx,
@@ -1702,6 +1707,111 @@ static s32 X509_GenExtKeyUsageField(void)
 	End = &(CertInstance.Buf[CertInstance.Offset]);
 
 	*EkuSequenceLenIdx = (u8)(End - EkuSequenceValIdx);
+	*OctetStrLenIdx = (u8)(End - OctetStrValIdx);
+	*SequenceLenIdx = (u8)(End - SequenceValIdx);
+
+END:
+	return Status;
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	This function creates the basic constraints extension field present in
+ *		Certificate Request Info.
+ *
+ * @return
+ *	- XASUFW_SUCCESS, if successfully generated basic constraints field.
+ *	- XASUFW_FAILURE, in case of failure.
+ *	- XASUFW_X509_VALIDATE_BUFFER_SPACE_FAIL, if buffer validation is failed.
+ *	- XASUFW_X509_CREATE_RAW_DATA_FIELD_FROM_ARRAY_FAIL, if raw data field creation is failed.
+ *	- XASUFW_X509_CREATE_BOOLEAN_FAIL, if boolean creation is failed.
+ *	- XASUFW_X509_CREATE_INTEGER_FIELD_FAIL, if integer field creation is failed.
+ *	- Error code received from called functions in case of other failure from the called
+ *	  function.
+ *
+ * @note	id-ce-basicConstraints OBJECT IDENTIFIER ::= { id-ce 19 }
+ *		BasicConstraints ::= SEQUENCE {
+ *			CA			BOOLEAN DEFAULT FALSE,
+ *			pathLenConstraint	INTEGER (0..MAX) OPTIONAL
+ *		}
+ *
+ *************************************************************************************************/
+static s32 X509_GenBasicConstraintsField(void)
+{
+	CREATE_VOLATILE(Status, XASUFW_FAILURE);
+	const u8 PathLenConstraint = X509_PATH_LEN_CONSTRAINT_VALUE;
+	const u8 Oid_BasicConstraintsExtn[] = {0x06U, 0x03U, 0x55U, 0x1DU, 0x13U};
+	u8 *BasicConstraintsSequenceLenIdx = NULL;
+	u8 *BasicConstraintsSequenceValIdx = NULL;
+	u8 *OctetStrLenIdx = NULL;
+	u8 *OctetStrValIdx = NULL;
+	u8 *SequenceLenIdx = NULL;
+	u8 *SequenceValIdx = NULL;
+	const u8 *End = NULL;
+
+	/** Validate buffer space and update tag, length and value field. */
+	Status = X509_ValidateAndUpdateTlvField(X509_ASN1_TAG_SEQUENCE, &SequenceLenIdx,
+						&SequenceValIdx);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_X509_VALIDATE_BUFFER_SPACE_FAIL;
+		goto END;
+	}
+
+	/** Create field for basic constraints extension OID. */
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	Status = X509_Asn1CreateRawDataFromByteArray(Oid_BasicConstraintsExtn,
+						     sizeof(Oid_BasicConstraintsExtn));
+	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_X509_CREATE_RAW_DATA_FIELD_FROM_ARRAY_FAIL;
+		goto END;
+	}
+
+	/** Mark the extension as critical. */
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	Status = X509_Asn1CreateBoolean(XASU_TRUE);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_X509_CREATE_BOOLEAN_FAIL;
+		goto END;
+	}
+
+	/** Validate buffer space and update tag, length and value field. */
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	Status = X509_ValidateAndUpdateTlvField(X509_ASN1_TAG_OCTET_STRING, &OctetStrLenIdx,
+						&OctetStrValIdx);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_X509_VALIDATE_BUFFER_SPACE_FAIL;
+		goto END;
+	}
+
+	/** Validate buffer space and update tag, length and value field. */
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	Status = X509_ValidateAndUpdateTlvField(X509_ASN1_TAG_SEQUENCE,
+						&BasicConstraintsSequenceLenIdx,
+						&BasicConstraintsSequenceValIdx);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_X509_VALIDATE_BUFFER_SPACE_FAIL;
+		goto END;
+	}
+
+	/** Assert the CA boolean to indicate that the subject is a Certification Authority. */
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	Status = X509_Asn1CreateBoolean(XASU_TRUE);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_X509_CREATE_BOOLEAN_FAIL;
+		goto END;
+	}
+
+	/** Create integer field to store the path length constraint. */
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	Status = X509_Asn1CreateInteger(&PathLenConstraint, X509_SINGLE_BYTE);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_X509_CREATE_INTEGER_FIELD_FAIL);
+		goto END;
+	}
+
+	End = &(CertInstance.Buf[CertInstance.Offset]);
+
+	*BasicConstraintsSequenceLenIdx = (u8)(End - BasicConstraintsSequenceValIdx);
 	*OctetStrLenIdx = (u8)(End - OctetStrValIdx);
 	*SequenceLenIdx = (u8)(End - SequenceValIdx);
 
@@ -1829,10 +1939,10 @@ static s32 X509_ValidateAndAddTagByteFields(u8 Asn1Tag, u8 ByteValue)
 static s32 X509_GenX509v3ExtensionsField(const X509_Config *Cfg)
 {
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
-	u8 *OptionalTagLenIdx;
-	u8 *OptionalTagValIdx;
-	u8 *SequenceLenIdx;
-	u8 *SequenceValIdx;
+	u8 *OptionalTagLenIdx = NULL;
+	u8 *OptionalTagValIdx = NULL;
+	u8 *SequenceLenIdx = NULL;
+	u8 *SequenceValIdx = NULL;
 
 	/** Validate buffer space and update tag, length and value field. */
 	Status = X509_ValidateAndUpdateTlvField(X509_ASN1_TAG_OPTIONAL_PARAM_3_CONSTRUCTED_TAG,
@@ -2038,9 +2148,9 @@ static s32 X509_GenTBSCertificate(const X509_Config *Cfg, u32 *TBSCertLen)
 	u32 HashLen = 0U;
 	const u8 Hash[X509_HASH_MAX_SIZE_IN_BYTES] = {0U};
 	u32 TbsStart = CertInstance.Offset;
-	u8 *SequenceLenIdx;
-	u8 *SequenceValIdx;
-	const u8 *HashStartIdx;
+	u8 *SequenceLenIdx = NULL;
+	u8 *SequenceValIdx = NULL;
+	const u8 *HashStartIdx = NULL;
 
 	/** Validate buffer space and update tag, length and value field. */
 	Status = X509_ValidateAndUpdateTlvField(X509_ASN1_TAG_SEQUENCE, &SequenceLenIdx,
@@ -2205,11 +2315,11 @@ END:
 static s32 X509_GenSignField(const u8 *Signature, u32 SignLen)
 {
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
-	u8 *BitStrLenIdx;
-	u8 *BitStrValIdx;
-	u8 *SequenceLenIdx;
-	u8 *SequenceValIdx;
-	const u8 *End;
+	u8 *BitStrLenIdx = NULL;
+	u8 *BitStrValIdx = NULL;
+	u8 *SequenceLenIdx = NULL;
+	u8 *SequenceValIdx = NULL;
+	const u8 *End = NULL;
 
 	/** Validate buffer space and update tag, length and value field. */
 	Status = X509_ValidateAndUpdateTlvField(X509_ASN1_TAG_BIT_STRING, &BitStrLenIdx,
@@ -2274,6 +2384,8 @@ END:
  *	- XASUFW_X509_VALIDATE_BUFFER_SPACE_FAIL, if buffer validation is failed.
  *	- XASUFW_X509_GEN_KEY_USAGE_FIELD_FAIL, if key usage field generation is failed.
  *	- XASUFW_X509_CREATE_RAW_DATA_FIELD_FROM_ARRAY_FAIL, if raw data field creation is failed.
+ *	- XASUFW_X509_GEN_BASIC_CONSTRAINTS_FIELD_FAIL, if basic constraints field generation is
+ *	  failed.
  *	- XASUFW_X509_GEN_EXT_KEY_USAGE_FIELD_FAIL, if extended key usage field generation is
  *	  failed.
  *	- XASUFW_X509_UPDATE_ENCODED_LEN_FAIL, if update encoded length is failed.
@@ -2286,14 +2398,14 @@ static s32 X509_GenCsrExtensions(const X509_Config *Cfg)
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
 	const u8 Oid_ExtnRequest[] = {0x06U, 0x09U, 0x2AU, 0x86U, 0x48U, 0x86U, 0xF7U,
 				      0x0DU, 0x01U, 0x09U, 0x0EU};
-	u8 *ExtnReqSeqLenIdx;
-	u8 *ExtnReqSeqValIdx;
-	u8 *OptionalTagLenIdx;
-	u8 *OptionalTagValIdx;
-	u8 *SequenceLenIdx;
-	u8 *SequenceValIdx;
-	u8 *SetLenIdx;
-	u8 *SetValIdx;
+	u8 *ExtnReqSeqLenIdx = NULL;
+	u8 *ExtnReqSeqValIdx = NULL;
+	u8 *OptionalTagLenIdx = NULL;
+	u8 *OptionalTagValIdx = NULL;
+	u8 *SequenceLenIdx = NULL;
+	u8 *SequenceValIdx = NULL;
+	u8 *SetLenIdx = NULL;
+	u8 *SetValIdx = NULL;
 
 	/** Validate buffer space and update tag, length and value field. */
 	Status = X509_ValidateAndUpdateTlvField(X509_ASN1_TAG_OPTIONAL_PARAM_0_CONSTRUCTED_TAG,
@@ -2342,6 +2454,14 @@ static s32 X509_GenCsrExtensions(const X509_Config *Cfg)
 	Status = X509_GenKeyUsageField(Cfg);
 	if (Status != XASUFW_SUCCESS) {
 		Status = (s32)XASUFW_X509_GEN_KEY_USAGE_FIELD_FAIL;
+		goto END;
+	}
+
+	/** Generate basic constraints field. */
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	Status = X509_GenBasicConstraintsField();
+	if (Status != XASUFW_SUCCESS) {
+		Status = (s32)XASUFW_X509_GEN_BASIC_CONSTRAINTS_FIELD_FAIL;
 		goto END;
 	}
 
@@ -2437,8 +2557,8 @@ END:
 static s32 X509_GenCertReqInfo(const X509_Config *Cfg, u32 *CsrLen)
 {
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
-	u8 *SequenceLenIdx;
-	u8 *SequenceValIdx;
+	u8 *SequenceLenIdx = NULL;
+	u8 *SequenceValIdx = NULL;
 	u32 CsrStart = CertInstance.Offset;
 
 	/** Validate buffer space and update tag, length and value field. */
