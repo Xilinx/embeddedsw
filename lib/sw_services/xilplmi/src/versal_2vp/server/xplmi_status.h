@@ -32,6 +32,7 @@
 *                       address mode polling timeout handling
 *       obs  07/14/2026 Updated XLOADER_ERR_IMGHDR_TBL description for meta
 *                       header image/partition count check
+*       pre  07/24/2026 Enabled TPM feature for VERSAL_2VP devices
 *
 * </pre>
 *
@@ -238,6 +239,7 @@ typedef enum {
 							  invalid buffer index */
 	XPLMI_IPI_PSM_TO_PLM_EVENT_INFO_INVALID,	/**< 0x1B6 - PSM IPI event structure not
 							  initialized */
+	XPLMI_ERR_TPM_INIT, /**< 0x1B7 Error when TPM initialization gets failed */
 
 	/** Status codes used in PLM */
 	/* PLM error codes common for all platforms are from 0x200 to 0x29F */
@@ -579,6 +581,8 @@ typedef enum {
 	XLOADER_PRTN_HASH_NOT_PRESENT,	/**< 0x63B - Partition hash not present, data measurement not
 					  possible */
 	XLOADER_ERR_SECURE_CONFIG_MEASUREMENT,	/**< 0x63C - Error in Secure config measurement */
+	XLOADER_MEASURE_ROM_FAILURE,	/**< 0x63D - Error while ROM digest transfer to TPM */
+	XLOADER_MEASURE_PLM_FAILURE,	/**< 0x63E - Error while PLM digest transfer to TPM */
 	XLOADER_ERR_AUTH_JTAG_INVALID_PARAM = 0x65B,
 		/**< 0x65B Invalid parameter passed for JTAG authentication */
 	XLOADER_ERR_PRTN_REVOKED = 0x65D, /**< 0x65D - Partition is revoked */

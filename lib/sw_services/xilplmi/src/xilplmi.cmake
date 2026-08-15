@@ -130,7 +130,7 @@ if (NOT XILPLMI_plm_puf_en)
   set(PLM_PUF_EXCLUDE " ")
 endif()
 
-if (("${CMAKE_MACHINE}" STREQUAL "Versal") OR ("${CMAKE_SUBMACHINE}" STREQUAL "Versal_2VE_2VM"))
+if (("${CMAKE_MACHINE}" STREQUAL "Versal") OR ("${CMAKE_SUBMACHINE}" STREQUAL "Versal_2VE_2VM") OR ("Versal_2VP" IN_LIST VARIANT))
   option(XILPLMI_plm_tpm_en "Enables or Disables TPM" OFF)
   if (NOT XILPLMI_plm_tpm_en)
     set(PLM_TPM_EXCLUDE " ")

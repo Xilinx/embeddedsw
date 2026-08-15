@@ -30,6 +30,7 @@
 *       tvp  06/11/26 Initialize TRNG instance irrespective of PLM_OCP
 *       pre  07/14/26 Removed XLoader_GetI2CDeviceID function definition
 * 2.5   tvp  08/03/26 Added Jtag DAP config support for Non-Secure debug
+*       pre  07/24/26 Enabled TPM feature for VERSAL_2VP devices
 *
 * </pre>
 *
@@ -60,6 +61,13 @@
 #include "xocp.h"
 #include "xloader_secure.h"
 #endif
+#ifdef PLM_TPM
+#include "xloader_secure.h"
+#include "xsecure_sha.h"
+#include "xsecure_init.h"
+#include "xsecure_plat.h"
+#include "xtpm.h"
+#endif
 
 /************************************ Constant Definitions ****************************************/
 #define XLOADER_TCM_0			(0U) /**< TCM 0 */
@@ -81,11 +89,12 @@
 								  disabled */
 #endif
 
-#ifdef PLM_OCP
+#if (defined(PLM_OCP) || defined(PLM_TPM))
 #define XLOADER_PCR_MEASUREMENT_INDEX_MASK		(0xFFFF0000U) /**< Mask for PCR Measurement
 									index */
 #define XLOADER_PCR_MEASUREMENT_INDEX_SHIFT		(16U) /**< PCR Measurement index shift */
-
+#endif
+#ifdef PLM_OCP
 #ifdef PLM_OCP_NATIVE_KEY_MGMT
 #define XLOADER_INVALID_DEVAK_INDEX			(0xFFFFFFFFU) /**< INVALID DEVAK INDEX */
 #endif
@@ -122,8 +131,8 @@ static int XLoader_CheckHandoffCpu(const XilPdi* PdiPtr, const u32 DstnCpu);
 static int XLoader_GetLoadAddr(u32 DstnCpu, u64 *LoadAddrPtr, u32 Len);
 static int XLoader_DumpDdrmcRegisters(void);
 static int XLoader_InitTrngInstance(void);
+static void XLoader_LogMeasurementModuleStatus(void);
 #if (!defined(PLM_SECURE_EXCLUDE)) && (defined(PLM_OCP))
-static int XLoader_RunSha3EngineKat(XilPdi* PdiPtr);
 static int XLoader_SpkMeasurement(XLoader_SecureParams* SecureParams, XSecure_Sha3Hash* Sha3Hash);
 static int XLoader_ExtendSpkHash(XSecure_Sha3Hash* SpkHash , u32 PcrNo, u32 DigestIndex,
 				 u32 PdiType);
@@ -137,13 +146,13 @@ static int XLoader_ExtendEncRevokeId(XSecure_Sha3Hash* RevokeIdHash, u32 PcrInfo
 #endif
 
 /************************************ Variable Definitions ****************************************/
-#ifdef PLM_OCP
+#if (defined(PLM_OCP) || defined(PLM_TPM))
 static u8 ImageAuthState = (u8)XLOADER_IMAGE_NOT_AUTHENTICATED;
 #endif
 
 /************************************ Function Definitions ****************************************/
 
-#ifdef PLM_OCP
+#if (defined(PLM_OCP) || defined(PLM_TPM))
 /**************************************************************************************************/
 /**
  * @brief	This function provides pointer to PrtitionHashTable.
@@ -177,7 +186,7 @@ XSecure_Sha3Hash* XLoader_GetPtrnHashTable(void)
 int XLoader_UpdateDataMeasurement(const XilPdi* PdiPtr, u64 DataAddr, u32 DataLen)
 {
 	int Status = XST_FAILURE;
-#ifdef PLM_OCP
+#if (defined(PLM_OCP) || defined(PLM_TPM))
 	XLoader_ImageMeasureInfo ImageMeasureInfo = {0U};
 	u32 PcrInfo = PdiPtr->MetaHdr->ImgHdr[PdiPtr->ImageNum].PcrInfo;
 	u32 PrtnNum = PdiPtr->PrtnNum;
@@ -639,10 +648,10 @@ int XLoader_SecureConfigMeasurement(XLoader_SecureParams* SecurePtr, u32 PcrInfo
 			XLOADER_EFUSE_ROM_RSVD_AUTH_KEYS_TO_HASH_MASK) >>
 			XLOADER_EFUSE_ROM_RSVD_AUTH_KEYS_TO_HASH_SHIFT;;
 
-	if (PcrInfo == XOCP_PCR_INVALID_VALUE) {
-                Status = XST_SUCCESS;
-                goto END;
-        }
+	if (PcrInfo == XLOADER_PCR_INVALID_VALUE) {
+		Status = XST_SUCCESS;
+		goto END;
+	}
 
 	if (((IsAuthKeysToHashEnabled != 0U) || (IsAuthKeysToHashEnabledTmp != 0U)) &&
 		((IsAuthenticated == (u8)TRUE) || (IsAuthenticatedTmp == (u8)TRUE))) {
@@ -712,10 +721,10 @@ END:
 int XLoader_MeasureNLoad(XilPdi* PdiPtr)
 {
 	volatile int Status = XST_FAILURE;
-#ifdef PLM_OCP
+	u32 PcrInfo = PdiPtr->MetaHdr->ImgHdr[PdiPtr->ImageNum].PcrInfo;
+#if (defined(PLM_OCP) || defined(PLM_TPM))
 	volatile int TmpStatus = XST_FAILURE;
 	XLoader_ImageMeasureInfo ImageMeasureInfo = {0U};
-	u32 PcrInfo = PdiPtr->MetaHdr->ImgHdr[PdiPtr->ImageNum].PcrInfo;
 	u32 Index;
 	u32 AuthPrtnCount = 0;
 	XSecure_Sha3Hash *PtrnHashTablePtr;
@@ -817,30 +826,124 @@ int XLoader_MeasureNLoad(XilPdi* PdiPtr)
 END:
 #else
 	Status = XLoader_LoadImagePrtns(PdiPtr);
+	if (PcrInfo != (u32)XLOADER_PCR_INVALID_VALUE) {
+		XPlmi_Printf(DEBUG_GENERAL, "Warning: PCR extension failed for "
+					"image 0x%0x since TPM and OCP features are disabled\r\n",PdiPtr->ImageNum);
+	}
 #endif
 	return Status;
 }
 
-/**************************************************************************************************/
+/***************************************************************************************/
 /**
- * @brief	This function measures the data by calculating SHA3 hash.
- *
- * @param	ImageInfo Pointer to the XLoader_ImageMeasureInfo structure.
+ * @brief	This function extends the image hashes of ROM and PLM data
  *
  * @return
- * 		- XST_SUCCESS on successfully measuring the data.
- * 		- XLOADER_ERR_DATA_MEASUREMENT if error in data measurement.
+ * 			- XST_SUCCESS on successful extension
+ * 			- error code on failure
+ *
+ ***************************************************************************************/
+int XLoader_MeasureRomAndPlm(void)
+{
+#ifdef PLM_TPM
+	int Status = XST_FAILURE;
+	u32 *LpdInitializedPtr = XPlmi_GetLpdInitialized();
+
+	if (LpdInitializedPtr == NULL) {
+		Status = XPlmi_UpdateStatus(XLOADER_ERR_DATA_MEASUREMENT, Status);
+		goto END;
+	}
+
+	if ((*LpdInitializedPtr & LPD_INITIALIZED) != LPD_INITIALIZED) {
+		XPlmi_Printf(DEBUG_GENERAL, "%s: Warning: PCR extension failed for "
+					"ROM and PLM images due to uninitialized LPD\r\n", __func__);
+		Status = XST_SUCCESS;
+		goto END;
+	}
+
+	/**
+	 * - Sends ROM digest stored in PMC_GLOBAL_ROM_VALIDATION_DIGEST_0
+	 * - register to TPM
+	 */
+	Status = XTpm_MeasureRom();
+	if (Status != XST_SUCCESS) {
+		Status = XPlmi_UpdateStatus(XLOADER_MEASURE_ROM_FAILURE, Status);
+		goto END;
+	}
+
+	/* Skip PCR extension of PLM hash in case of non authenticated PDI */
+	if (XLoader_GetAHWRoT(NULL)  == (u32)XPLMI_RTCFG_SECURESTATE_NONSECURE) {
+		Status = XST_SUCCESS;
+		goto END;
+	}
+
+	/**
+	 * - Sends PLM digest stored in PMC_GLOBAL_FW_AUTH_HASH_0 register to TPM
+	 */
+	Status = XTpm_MeasurePlm();
+	if (Status != XST_SUCCESS) {
+		Status = XPlmi_UpdateStatus(XLOADER_MEASURE_PLM_FAILURE, Status);
+	}
+
+END:
+	return Status;
+#else
+	return XST_SUCCESS;
+#endif
+}
+
+
+/**************************************************************************************************/
+/**
+ * @brief	This function logs the measurement module availability status once
+ * 		at boot. Subsequent calls are no-ops.
+ *
+ * @return
+ * 		None.
+ *
+ **************************************************************************************************/
+static void XLoader_LogMeasurementModuleStatus(void)
+{
+	static u8 IsLogged = (u8)FALSE;
+
+	if (IsLogged == (u8)TRUE) {
+		return;
+	}
+	IsLogged = (u8)TRUE;
+
+#if !defined(PLM_OCP)
+	XPlmi_Printf(DEBUG_INFO, "OCP Module is not initialized\r\n");
+#endif
+#if !defined(PLM_TPM)
+	XPlmi_Printf(DEBUG_INFO, "TPM Module is not initialized\r\n");
+#endif
+}
+
+/**************************************************************************************************/
+/**
+ * @brief      This function measures the data by calculating SHA3 hash.
+ *
+ * @param      ImageInfo Pointer to the XLoader_ImageMeasureInfo structure.
+ *
+ * @return
+ *             - XST_SUCCESS on successfully measuring the data.
+ *             - XLOADER_ERR_DATA_MEASUREMENT if error in data measurement.
  *
  **************************************************************************************************/
 int XLoader_DataMeasurement(XLoader_ImageMeasureInfo *ImageInfo)
 {
-#ifdef PLM_OCP
-	volatile int Status = (int)XLOADER_ERR_DATA_MEASUREMENT;
+	volatile int Status = (int)XST_FAILURE;
+#if (defined(PLM_OCP) || defined(PLM_TPM))
 	u32 PcrNo;
 	XSecure_Sha3Hash Sha3Hash;
 	XSecure_Sha3 *Sha3InstPtr = XSecure_GetSha3Instance(XSECURE_SHA_0_DEVICE_ID);
-#ifndef PLM_SECURE_EXCLUDE
-	XilPdi* PdiPtr = XLoader_GetPdiInstance();
+#ifdef PLM_TPM
+	u32 *LpdInitializedPtr = XPlmi_GetLpdInitialized();
+
+	/* Validate LPD pointer */
+	if (LpdInitializedPtr == NULL) {
+		goto END;
+	}
 #endif
 
 #ifdef PLM_OCP_NATIVE_KEY_MGMT
@@ -851,25 +954,18 @@ int XLoader_DataMeasurement(XLoader_ImageMeasureInfo *ImageInfo)
 		goto END;
 	}
 
-	if ((ImageInfo->PcrInfo == XOCP_PCR_INVALID_VALUE) &&
+	if ((ImageInfo->PcrInfo == XLOADER_PCR_INVALID_VALUE) &&
 		((DevAkIndex[XOCP_DEFAULT_DEVAK_KEY_INDEX] == XLOADER_INVALID_DEVAK_INDEX) &&
 		(DevAkIndex[XOCP_KEYWRAP_DEVAK_KEY_INDEX] == XLOADER_INVALID_DEVAK_INDEX))) {
 		Status = XST_SUCCESS;
 		goto END;
 	}
 #else
-	if (ImageInfo->PcrInfo == XOCP_PCR_INVALID_VALUE) {
+	if (ImageInfo->PcrInfo == XLOADER_PCR_INVALID_VALUE) {
 		Status = XST_SUCCESS;
 		goto END;
 	}
 #endif
-
-#ifndef PLM_SECURE_EXCLUDE
-	Status = XLoader_RunSha3EngineKat(PdiPtr);
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
-#endif /* PLM_SECURE_EXCLUDE */
 
 	switch(ImageInfo->Flags) {
 	case XLOADER_MEASURE_START:
@@ -883,11 +979,12 @@ int XLoader_DataMeasurement(XLoader_ImageMeasureInfo *ImageInfo)
 		Status = XSecure_ShaFinish(Sha3InstPtr, (UINTPTR)&Sha3Hash, XSECURE_SHA_384_HASH_SIZE_IN_BYTES);
 		break;
 	default:
-		XPlmi_Printf(DEBUG_INFO, "Please check provided case\r\n");
+		/* No action */
+		Status = XST_FAILURE;
 		break;
 	}
 	if (Status != XST_SUCCESS) {
-		XPlmi_UpdateStatus(XLOADER_ERR_DATA_MEASUREMENT, Status);
+		XPLMI_STATUS_GLITCH_DETECT(Status);
 		goto END;
 	}
 
@@ -899,28 +996,50 @@ int XLoader_DataMeasurement(XLoader_ImageMeasureInfo *ImageInfo)
 			Status = XOcp_GenSubSysDevAk(ImageInfo->SubsystemID,
 						(u64)(UINTPTR)Sha3Hash.Hash);
 			if (Status != XST_SUCCESS) {
+				XPLMI_STATUS_GLITCH_DETECT(Status);
 				goto END;
 			}
 		}
 #endif /* PLM_OCP_NATIVE_KEY_MGMT */
-		if (ImageInfo->PcrInfo != XOCP_PCR_INVALID_VALUE) {
-			PcrNo = ImageInfo->PcrInfo & XOCP_PCR_NUMBER_MASK;
-
+		if (ImageInfo->PcrInfo != XLOADER_PCR_INVALID_VALUE) {
+			PcrNo = ImageInfo->PcrInfo & XLOADER_PCR_NUMBER_MASK;
+#ifdef PLM_TPM
+		/* Extend to external HW PCR (TPM) if LPD is initialized */
+		if ((*LpdInitializedPtr & LPD_INITIALIZED) == LPD_INITIALIZED) {
+			/* Extend to external HW PCR (TPM) */
+			Status = XTpm_MeasurePartition(PcrNo, (const u8*)(UINTPTR)&Sha3Hash.Hash);
+			if (Status != XST_SUCCESS) {
+				XPLMI_STATUS_GLITCH_DETECT(Status);
+				goto END;
+			}
+		}
+		/* Log warning if LPD is not initialized */
+		else {
+			XPlmi_Printf(DEBUG_GENERAL, "%s: Warning: PCR extension failed for "
+				"PCR 0x%x value due to uninitialized LPD\r\n", __func__, PcrNo);
+		}
+#endif
+#ifdef PLM_OCP
 			/* Extend SW PCR */
 			Status = XOcp_ExtendSwPcr(PcrNo, *(u32 *)(ImageInfo->DigestIndex),
 				(u64)(UINTPTR)Sha3Hash.Hash, XSECURE_SHA_384_HASH_SIZE_IN_BYTES,
 				ImageInfo->OverWrite);
+#endif
 		}
 	}
 
 END:
-	return Status;
+	if (Status != XST_SUCCESS) {
+		Status = XPlmi_UpdateStatus(XLOADER_ERR_DATA_MEASUREMENT, Status);
+	}
 #else
 	(void)ImageInfo;
-	XPlmi_Printf(DEBUG_INFO, "OCP Module is not initialized\r\n");
-	return XST_SUCCESS;
+	Status = XST_SUCCESS;
 #endif
+	XLoader_LogMeasurementModuleStatus();
+	return Status;
 }
+
 
 /**************************************************************************************************/
 /**
@@ -1855,48 +1974,4 @@ int XLoader_PlatInit(void)
 
 	return Status;
 }
-
-#if (!defined(PLM_SECURE_EXCLUDE)) && (defined(PLM_OCP))
-/*****************************************************************************/
-/**
- * @brief	This Function does the following:
- *		- It clears KAT Status before loading PPDI
- *		- It runs KAT for SHA3 Instance 1 if it is not already run.
- *		- It updates KAT status in PdiPtr and also RTCA.
- *
- * @param	PdiPtr is PDI Instance pointer
- *
- * @return
- * 		- XST_SUCCESS on success.
- * 		- Error code on failure.
- *
-*****************************************************************************/
-static int XLoader_RunSha3EngineKat(XilPdi* PdiPtr)
-{
-	volatile int Status = XST_FAILURE;
-	volatile int StatusTmp = XST_FAILURE;
-	XSecure_Sha *Sha3Instance = XSecure_GetSha3Instance(XSECURE_SHA_0_DEVICE_ID);
-
-	XLoader_ClearKatOnPPDI(PdiPtr, XPLMI_SECURE_SHA3_KAT_MASK);
-
-	if (XPlmi_IsKatRan(XPLMI_SECURE_SHA3_KAT_MASK) != (u8)TRUE) {
-		XPLMI_HALT_BOOT_SLD_TEMPORAL_CHECK(XLOADER_ERR_KAT_FAILED, Status, StatusTmp,
-			XSecure_Sha3Kat, Sha3Instance);
-		if ((Status != XST_SUCCESS) || (StatusTmp != XST_SUCCESS)) {
-			goto END;
-		}
-
-		PdiPtr->PlmKatStatus |= XPLMI_SECURE_SHA3_KAT_MASK;
-
-		/* Update KAT status */
-		XPlmi_UpdateKatStatus(PdiPtr->PlmKatStatus);
-	}
-
-	Status = XST_SUCCESS;
-
-END:
-	return Status;
-}
-#endif
-
 /** @} end of xloader_server_apis group */

@@ -26,6 +26,7 @@
 *       tvp  09/20/2025 Keep PLM_OCP_EXCLUDE commented, as it will be controlled from xilplmi cmake
 * 2.4   rmv  01/30/2026 Refactor OCP library
 *       pre  08/05/2026 Enabling PLM_I2C_MB_HANDSHAKE macro based on DDR5 IP
+*       pre  08/15/2026 Enabled TPM feature for VERSAL_2VP devices
 *
 * </pre>
 *
@@ -135,6 +136,9 @@ extern "C" {
 #define PLM_PUF
 #endif
 
+#if (!defined(PLM_TPM_EXCLUDE)) && (!defined(PLM_TPM))
+#define PLM_TPM
+#endif
 
 #if (!defined(PLM_OCP_EXCLUDE)) && (!defined(PLM_OCP)) && (!defined(PLM_SECURE_EXCLUDE))
 #define PLM_OCP

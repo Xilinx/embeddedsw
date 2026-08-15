@@ -80,6 +80,7 @@
 *       pre  05/25/2026 Added function to calculate I2C device ID for I2C handshake feature
 *       pre  07/14/2026 Removed XLoader_GetI2CDeviceID function definition
 *       vm   07/14/2026 Start ASUFW keep-alive monitor on ASU handoff
+*       pre  07/24/2026 Updated code to return error if extension to TPM PCR gets failed
 *
 * </pre>
 *
@@ -1378,6 +1379,7 @@ int XLoader_MeasureRomAndPlm(void)
 	u32 *LpdInitializedPtr = XPlmi_GetLpdInitialized();
 
 	if (LpdInitializedPtr == NULL) {
+		Status = XPlmi_UpdateStatus(XLOADER_ERR_DATA_MEASUREMENT, Status);
 		goto END;
 	}
 
@@ -1426,12 +1428,20 @@ END:
  *****************************************************************************/
 int XLoader_DataMeasurement(XLoader_ImageMeasureInfo *ImageInfo)
 {
-	volatile int Status = (int)XLOADER_ERR_DATA_MEASUREMENT;
+	volatile int Status = (int)XST_FAILURE;
 
 #if defined(PLM_OCP) || defined(PLM_TPM)
 	XSecure_Sha3 *Sha3InstPtr = XSecure_GetSha3Instance(XSECURE_SHA_0_DEVICE_ID);
 	XSecure_Sha384Hash Sha3Hash;
 	u32 PcrNo;
+#ifdef PLM_TPM
+	u32 *LpdInitializedPtr = XPlmi_GetLpdInitialized();
+
+	/* Validate LPD pointer */
+	if (LpdInitializedPtr == NULL) {
+		goto END;
+	}
+#endif
 
 	switch(ImageInfo->Flags) {
 	case XLOADER_MEASURE_START:
@@ -1453,10 +1463,11 @@ int XLoader_DataMeasurement(XLoader_ImageMeasureInfo *ImageInfo)
 		Status = XSecure_ShaFinish(Sha3InstPtr, (UINTPTR)&Sha3Hash, XSECURE_SHA_384_HASH_SIZE_IN_BYTES);
 		break;
 	default:
+		Status = XST_FAILURE;
 		break;
 	}
 	if (Status != XST_SUCCESS) {
-		Status = XPlmi_UpdateStatus(XLOADER_ERR_DATA_MEASUREMENT, Status);
+		XPLMI_STATUS_GLITCH_DETECT(Status);
 		goto END;
 	}
 
@@ -1470,17 +1481,26 @@ int XLoader_DataMeasurement(XLoader_ImageMeasureInfo *ImageInfo)
 			PcrNo = (u32)ImageInfo->PcrInfo & XLOADER_PCR_NUMBER_MASK;
 
 #ifdef PLM_TPM
-			/* Extend to external HW PCR (TPM) */
-			Status = XTpm_MeasurePartition(PcrNo, (const u8*)(UINTPTR)&Sha3Hash.Hash);
-			if (Status != XST_SUCCESS) {
-				Status = XPlmi_UpdateStatus(XLOADER_ERR_DATA_MEASUREMENT,
-						Status);
+			/* Extend to external HW PCR (TPM) if LPD is initialized */
+			if ((*LpdInitializedPtr & LPD_INITIALIZED) == LPD_INITIALIZED) {
+				/* Extend to external HW PCR (TPM) */
+				Status = XTpm_MeasurePartition(PcrNo, (const u8*)(UINTPTR)&Sha3Hash.Hash);
+				if (Status != XST_SUCCESS) {
+					XPLMI_STATUS_GLITCH_DETECT(Status);
+					goto END;
+				}
+			}
+			/* Log warning if LPD is not initialized */
+			else {
+				XPlmi_Printf(DEBUG_GENERAL, "%s: Warning: PCR extension failed for "
+					"PCR 0x%x value due to uninitialized LPD\r\n", __func__, PcrNo);
 			}
 #else
 			/* Extend to internal HW PCR */
 			Status = XOcp_ExtendHwPcr(PcrNo,(u64)(UINTPTR)&Sha3Hash.Hash,
 				XSECURE_SHA_384_HASH_SIZE_IN_BYTES);
 			if (Status != XST_SUCCESS) {
+				XPLMI_STATUS_GLITCH_DETECT(Status);
 				goto END;
 			}
 #endif

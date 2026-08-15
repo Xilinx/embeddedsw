@@ -217,6 +217,7 @@
 *       obs 05/20/2026 Add boot PDI guard and ELF partition filter in delayed handoff loop
 *       ng  07/09/2026 Added XLoader_SetDdrPdiAddr for set DDR address for restart image
 *       ng  07/13/2026 Reduced debug print levels on error paths
+*       pre 08/15/2026 Do not set boot done bit if ROM and PLM measurement fails in case of TPM being enabled.
 *
 * </pre>
 *
@@ -1230,6 +1231,9 @@ static int XLoader_LoadAndStartSubSystemPdi(XilPdi *PdiPtr)
 	}
 
 	Status = XLoader_MeasureRomAndPlm();
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
 
 	/* Mark PDI loading is completed */
 	XPlmi_Out32(PMC_GLOBAL_DONE, XLOADER_PDI_LOAD_COMPLETE);

@@ -178,6 +178,7 @@
 * 2.5   obs  07/14/2026 Bounded meta header image/partition count in XLoader_ReadAndVerifySecureHdrs
 *       tvp  07/28/2026 Add XLoader_GetAuthAlgoStr to log authentication
 *                       algorithm during PDI authentication
+*       pre  07/24/2026 Enabled TPM feature for VERSAL_2VP devices
 *
 * </pre>
 *
@@ -5028,7 +5029,11 @@ static int XLoader_VerifyAuthHashNUpdateNext(XLoader_SecureParams *SecurePtr, u3
 #else
 	XLoader_AuthCertificate *AcPtr=
 		(XLoader_AuthCertificate *)SecurePtr->AcPtr;
-#if (defined(versal) && defined(PLM_TPM)) || (defined(VERSAL_2VP) && defined(PLM_OCP))
+#ifdef XLOADER_STORE_PRTN_HASH
+	/**
+	 * Block 0 hash of each partition is stored in the hash table to
+	 * support TPM/OCP data measurements (enabled per-platform).
+	 */
 	XSecure_Sha3Hash *PtrnHashTablePtr = XLoader_GetPtrnHashTable();
 #endif
 #endif
@@ -5129,7 +5134,7 @@ static int XLoader_VerifyAuthHashNUpdateNext(XLoader_SecureParams *SecurePtr, u3
 			Status = XPlmi_UpdateStatus(XLOADER_ERR_PRTN_AUTH_FAIL, Status);
 			goto END;
 		}
-#if (defined(versal) && defined(PLM_TPM)) || (defined(VERSAL_2VP) && defined(PLM_OCP))
+#ifdef XLOADER_STORE_PRTN_HASH
 		/** Store Hash of the first block of the partition, required for data measurement */
 		Status = Xil_SMemCpy(&PtrnHashTablePtr[SecurePtr->PdiPtr->ImagePrtnId].Hash,
 				     XSECURE_SHA_384_HASH_SIZE_IN_BYTES, &BlkHash.Hash,

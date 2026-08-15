@@ -39,7 +39,7 @@ examples:
     versal_procs = ["microblaze", "psv_cortexa72", "psv_cortexr5"]
     versal_2ve_2vm_procs = ["microblaze", "cortexa78", "cortexr52"]
 
-    if (platform == "Versal" and proc in versal_procs) or (platform == "Versal_2VE_2VM" and proc in versal_2ve_2vm_procs):
+    if ((platform == "Versal" and proc in versal_procs) and ("Versal_2VP_P" not in variant)) or (platform == "Versal_2VE_2VM" and proc in versal_2ve_2vm_procs) :
       examples += ["xiltpm_example.c"]
 
 ...

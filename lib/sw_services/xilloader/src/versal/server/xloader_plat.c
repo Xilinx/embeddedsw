@@ -58,6 +58,8 @@
 *       obs  02/05/2026 Implement peripheral pre-allocation at handoff time
 *       pre  03/12/2026 Moved PCR number validation to XTpm_MeasurePartition API
 *       pre  03/16/2026 Updated PCR Info validation logic in XLoader_DataMeasurement API
+*       pre  07/24/2026 Updated code to return error if LPD status pointer is NULL during
+*                       ROM and PLM hashes extension
 *
 * </pre>
 *
@@ -611,6 +613,7 @@ int XLoader_MeasureRomAndPlm(void)
 	u32 *LpdInitializedPtr = XPlmi_GetLpdInitialized();
 
 	if (LpdInitializedPtr == NULL) {
+		Status = XPlmi_UpdateStatus(XLOADER_ERR_DATA_MEASUREMENT, Status);
 		goto END;
 	}
 
@@ -672,6 +675,7 @@ int XLoader_DataMeasurement(XLoader_ImageMeasureInfo *ImageInfo)
 	u32 *LpdInitializedPtr = XPlmi_GetLpdInitialized();
 
 	if (LpdInitializedPtr == NULL) {
+		Status = XPlmi_UpdateStatus(XLOADER_ERR_DATA_MEASUREMENT, Status);
 		goto END;
 	}
 
@@ -701,17 +705,19 @@ int XLoader_DataMeasurement(XLoader_ImageMeasureInfo *ImageInfo)
 	}
 
 	if (ImageInfo->Flags == XLOADER_MEASURE_FINISH) {
-		if ((*LpdInitializedPtr & LPD_INITIALIZED) != LPD_INITIALIZED) {
-			XPlmi_Printf(DEBUG_GENERAL, "%s: Warning: PCR extension failed for "
-					"PCR 0x%x value due to uninitialized LPD\r\n", __func__, (ImageInfo->PcrInfo  & XLOADER_PCR_NUMBER_MASK));
-			goto END;
+		/* Extend Image measurement to TPM PCR if LPD is initialized */
+		if ((*LpdInitializedPtr & LPD_INITIALIZED) == LPD_INITIALIZED) {
+			Status = XTpm_MeasurePartition((ImageInfo->PcrInfo  & XLOADER_PCR_NUMBER_MASK), (const u8*)(UINTPTR)&Sha3Hash.Hash);
+			if (Status != XST_SUCCESS) {
+				Status = XPlmi_UpdateStatus(XLOADER_ERR_DATA_MEASUREMENT,
+						Status);
+				goto END;
+			}
 		}
-
-		/* Extend Image Digest to TPM PCR */
-		Status = XTpm_MeasurePartition((ImageInfo->PcrInfo  & XLOADER_PCR_NUMBER_MASK), (const u8*)(UINTPTR)&Sha3Hash.Hash);
-		if (Status != XST_SUCCESS) {
-			Status = XPlmi_UpdateStatus(XLOADER_ERR_DATA_MEASUREMENT,
-					Status);
+		else {
+			/* Log warning if LPD is not initialized */
+			XPlmi_Printf(DEBUG_GENERAL, "%s: Warning: PCR extension failed for "
+				"PCR 0x%x value due to uninitialized LPD\r\n", __func__, (ImageInfo->PcrInfo  & XLOADER_PCR_NUMBER_MASK));
 		}
 	}
 

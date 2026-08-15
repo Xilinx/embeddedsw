@@ -141,6 +141,7 @@
 *                     as the partition hash is not stored in the table for these devices.
 *       ng   07/13/26 Reduced debug print levels on error paths
 * 2.5   tvp  07/29/26 Defeature Symmetric HWRoT boot mode for new devices
+*       pre  07/31/26 Enabled TPM feature for VERSAL_2VP devices
 *
 * </pre>
 *
@@ -565,7 +566,11 @@ int XLoader_VerifyHashNUpdateNext(XLoader_SecureParams *SecurePtr,
 	u32 DataLen = Size;
 	u8 *ExpHash = (u8 *)SecurePtr->Sha3Hash;
 	volatile int ClearStatus = XST_FAILURE;
-#if (defined(versal) && !defined(VERSAL_2VE_2VM) && defined(PLM_TPM)) || (defined(VERSAL_2VP) && defined(PLM_OCP))
+#ifdef XLOADER_STORE_PRTN_HASH
+	/**
+	 * Block 0 hash of each partition is stored in the hash table to
+	 * support TPM/OCP data measurements (enabled per-platform).
+	 */
 	XSecure_Sha3Hash *PtrnHashTablePtr = XLoader_GetPtrnHashTable();
 #endif
 
@@ -643,7 +648,7 @@ int XLoader_VerifyHashNUpdateNext(XLoader_SecureParams *SecurePtr,
 		goto END;
 	}
 
-#if (defined(versal) && !defined(VERSAL_2VE_2VM) && defined(PLM_TPM)) || (defined(VERSAL_2VP) && defined(PLM_OCP))
+#ifdef XLOADER_STORE_PRTN_HASH
 	/** Store Hash of first block required for the data measurements */
 	if (SecurePtr->BlockNum == 0x0U) {
 		/** Store Hash of the first block of the partition, required for data measurement */

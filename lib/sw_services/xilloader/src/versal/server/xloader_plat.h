@@ -48,6 +48,7 @@
 *                       non-authenticated/checksum enabled partitions
 * 2.4   rmv  01/30/2026 Renamed OCP keymanagment macro
 *       pre  08/05/2026 Added macro to calculate I2C device ID for I2C handshake feature
+*       pre  08/15/2026 Added XLOADER_STORE_PRTN_HASH to gate partition hash table store
 *
 * </pre>
 *
@@ -112,8 +113,13 @@ extern "C" {
 #define XLOADER_FPD_APU_CONFIG_0_VINITHI_MASK_CPU0	(0x100U) /**< VINITHI CPU0 mask */
 #define XLOADER_FPD_APU_CONFIG_0_VINITHI_MASK_CPU1	(0x200U) /**< VINITHI CPU1 mask */
 
-/* Data measurement flags applicable only for VersalNet */
 #ifdef PLM_TPM
+/**
+ * Store block-0 partition hash in PtrnHashTable for TPM data measurements.
+ * Defined per-platform so common code can use a single #ifdef.
+ */
+#define XLOADER_STORE_PRTN_HASH
+/* Data measurement flags */
 #define XLOADER_MEASURE_START		(0U) /**< Data measure start */
 #define XLOADER_MEASURE_UPDATE		(1U) /**< Data measure update */
 #define XLOADER_MEASURE_FINISH		(2U) /**< Data measure finish */
@@ -500,7 +506,7 @@ int XLoader_MeasureNLoad(XilPdi* PdiPtr);
 int XLoader_DataMeasurement(XLoader_ImageMeasureInfo *ImageInfo);
 void XLoader_ShaInstance1Reset(void);
 int XLoader_UpdateDataMeasurement(const XilPdi* PdiPtr, u64 DataAddr, u32 DataLen);
-#ifdef PLM_TPM
+#ifdef XLOADER_STORE_PRTN_HASH
 XSecure_Sha3Hash* XLoader_GetPtrnHashTable(void);
 #endif
 int XLoader_MeasureRomAndPlm(void);

@@ -26,6 +26,7 @@
 *                     XLoader_GetI2CDeviceID function declaration
 * 2.5   tvp  08/03/26 Added function declaration and error codes for JTAG Config Request
 *       pre  08/05/26 Removed unused error code
+*       pre  08/15/26 Enabled TPM feature for VERSAL_2VP devices
 *
 * </pre>
 *
@@ -90,10 +91,17 @@ extern "C" {
 #define XLOADER_FPD_APU_CONFIG_0_VINITHI_MASK_CPU0	(0x100U) /**< VINITHI CPU0 mask */
 #define XLOADER_FPD_APU_CONFIG_0_VINITHI_MASK_CPU1	(0x200U) /**< VINITHI CPU1 mask */
 
-/* Data measurement flags applicable only for VersalNet */
+#if (defined(PLM_OCP) || defined(PLM_TPM))
+/**
+ * Store block-0 partition hash in PtrnHashTable for OCP/TPM data measurements.
+ * Defined per-platform so common code can use a single #ifdef.
+ */
+#define XLOADER_STORE_PRTN_HASH
+/* Data measurement flags */
 #define XLOADER_MEASURE_START		(0U) /**< Data measure start */
 #define XLOADER_MEASURE_UPDATE		(1U) /**< Data measure update */
 #define XLOADER_MEASURE_FINISH		(2U) /**< Data measure finish */
+#endif
 
 #if defined(XLOADER_PMC_IIC) && defined(PLM_I2C_MB_HANDSHAKE)
 /* I2C Master Device IDs */
@@ -305,20 +313,6 @@ typedef struct {
 
 #define XLoader_VerifyDataAuth NULL  /**< Reserved */
 
-/***************************************************************************************/
-/**
- * @brief	This function extends the image hashes of ROM and PLM data
- *
- * @return
- * 			- XST_SUCCESS on successful extension
- * 			- error code on failure
- *
- ***************************************************************************************/
-static inline int XLoader_MeasureRomAndPlm(void)
-{
-	return XST_SUCCESS;
-}
-
 /**************************************************************************************************/
 /**
  * @brief	This function is used to check if the given NodeId is applicable for DFx.
@@ -474,8 +468,8 @@ int XLoader_DataMeasurement(XLoader_ImageMeasureInfo *ImageInfo);
 void XLoader_ShaInstance1Reset(void);
 int XLoader_PlatInit(void);
 int XLoader_ConfigureJtagState(XPlmi_Cmd *Cmd);
-
-#ifdef PLM_OCP
+int XLoader_MeasureRomAndPlm(void);
+#ifdef XLOADER_STORE_PRTN_HASH
 XSecure_Sha3Hash* XLoader_GetPtrnHashTable(void);
 #endif
 int XLoader_UpdateDataMeasurement(const XilPdi* PdiPtr, u64 DataAddr, u32 DataLen);

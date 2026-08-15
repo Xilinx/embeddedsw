@@ -12,7 +12,7 @@
 * This example illustrates extension of user data to specified PCR.
 * To build this application, xilmailbox library must be included in BSP and xiltpm
 * must be in client mode
-* This example is supported for Versal and Versal_2VE_2VM devices.
+* This example is supported for Versal, Versal_2VP and Versal_2VE_2VM devices.
 *
 * @note
 * Procedure to link and compile the example for the default ddr less designs
@@ -53,6 +53,7 @@
 * 1.0	pre    03/13/26 Initial Release
 *       pre    03/21/26 Added example usage of GetPcrLog API
 *       pre    04/24/26 Updated print statement to print PCR number in decimal format.
+*       pre    07/24/26 Added info of example support for VERSAL_2VP devices also.
 *
 * </pre>
 ******************************************************************************/
