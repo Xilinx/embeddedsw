@@ -21,6 +21,8 @@
  * 1.3 sd  4/09/20 Added versal support.
  * 1.4 sd  5/22/20 Added zynqmp set rate.
  * 		   Add Enable and Disable clock APIs.
+ * 1.12 ss  8/7/26  Updated clkx5 get/set input and output frequency APIs and
+ *         	clk_in_sel register control APIs.
  * </pre>
  *
  *****************************************************************************/
@@ -49,6 +51,7 @@ extern "C" {
 #define XCLK_WIZ_ISR_OFFSET	0x0000000C  /**< Interrupt Status Register */
 #define XCLK_WIZ_IER_OFFSET	0x00000010  /**< Interrupt Enable Register */
 #define XCLK_WIZ_RECONFIG_OFFSET	0x00000014  /**< Reconfig Register */
+#define XCLK_WIZ_CLKINSEL_OFFSET	0x00000018  /**< Clock Input Select Register */
 #define XCLK_WIZ_REG1_OFFSET	0x00000330
 #define XCLK_WIZ_REG2_OFFSET	0x00000334
 #define XCLK_WIZ_REG3_OFFSET	0x00000338
@@ -98,6 +101,17 @@ extern "C" {
 #define XCLK_WIZ_REG1_MX			(1 << 10)    /**< MX  3*/
 #define XCLK_WIZ_RECONFIG_LOAD			1
 #define XCLK_WIZ_RECONFIG_SADDR			2
+
+#define XCLK_WIZ_CLKINSEL_PIN_MASK		(1U << 0)    /**< Bit[0] clk_in_sel_pin (RO) */
+#define XCLK_WIZ_CLKINSEL_SRC_SHIFT		16  /**< Bit[16] clk_in_sel_src shift */
+#define XCLK_WIZ_CLKINSEL_SRC_MASK		(1U << 16)  /**< Bit[16] clk_in_sel_src (R/W) */
+#define XCLK_WIZ_CLKINSEL_REG_SHIFT		17  /**< Bit[17] clk_in_sel_reg shift */
+#define XCLK_WIZ_CLKINSEL_REG_MASK		(1U << 17)  /**< Bit[17] clk_in_sel_reg (R/W) */
+#define XCLK_WIZ_CLKINSEL_FINAL_SHIFT		18  /**< Bit[18] clk_in_sel_final shift */
+#define XCLK_WIZ_CLKINSEL_FINAL_MASK		(1U << 18)  /**< Bit[18] clk_in_sel_final (RO) */
+
+#define XCLK_WIZ_CLKINSEL_CLKIN2		0U  /**< Clock input 2 (secondary) */
+#define XCLK_WIZ_CLKINSEL_CLKIN1		1U  /**< Clock input 1 (primary) */
 
 #define XCLK_WIZ_REG11_CP_MASK			(0xF) /**< Mask for Charge Pump */
 #define XCLK_WIZ_REG17_RES_SHIFT		1 /**< Shift bits for Res */

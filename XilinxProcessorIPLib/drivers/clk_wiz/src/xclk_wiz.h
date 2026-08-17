@@ -85,7 +85,9 @@
 * 1.8 sd  8/19/24 Added XClk_Wiz_SetRateHz.
 * 1.11 sd  9/27/25 Added XClk_Wiz_GetInputRate.
 * 1.11 vlt 12/30/25 Update Doxygen comments to include SDT flow details.
-*      ss  7/10/26 Added XClk_Wiz_UpdateDivisors and XClk_Wiz_Reconfig APIs
+*      ss  7/10/26 Added XClk_Wiz_UpdateDivisors and XClk_Wiz_Reconfig APIs.
+* 1.12 ss  8/7/26  Updated clkx5 get/set input and output frequency APIs and
+*                  clk_in_sel register control APIs.
 * </pre>
 *
 ******************************************************************************/
@@ -485,6 +487,18 @@ void XClk_Wiz_SetMinErr(XClk_Wiz  *InstancePtr, u64 Minerr);
 u32 XClk_Wiz_UpdateDivisors(XClk_Wiz  *InstancePtr, u32 Mvalue, u32 Dvalue, u32 Ovalue);
 
 u32 XClk_Wiz_Reconfig(XClk_Wiz  *InstancePtr);
+
+u32 XClk_Wiz_SetClkInSel(XClk_Wiz  *InstancePtr, u32 Clkinputnumber);
+
+u32 XClk_Wiz_GetClkInSel(XClk_Wiz  *InstancePtr, u32 *Clkinputnumber);
+
+u32 XClk_Wiz_GetInFreqkHz(XClk_Wiz  *InstancePtr, u32 Clkinputnumber, u32 *RateKhz);
+
+u32 XClk_Wiz_SetInFreqkHz(XClk_Wiz  *InstancePtr, u32 Clkinputnumber, u32 RateKhz);
+
+u32 XClk_Wiz_GetOutFreqkHz(XClk_Wiz  *InstancePtr, u32 Clkoutputnumber, u32 *RateKhz);
+
+u32 XClk_Wiz_SetOutFreqkHz(XClk_Wiz  *InstancePtr, u32 Clkoutputnumber, u32 RateKhz);
 
 #ifdef __cplusplus
 }

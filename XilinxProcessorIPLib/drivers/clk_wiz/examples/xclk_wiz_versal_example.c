@@ -22,6 +22,7 @@
 * 1.8 sd  6/26/24 Update the device name and Baseaddress.
 *     sd  9/5/24  Add GetRate and multi clock support.
 * 1.11 vlt 12/12/25 Update Doxygen comments to include SDT flow details.
+* 1.12 ss  8/15/26  Updated specifiers.
 * </pre>
 *
 ******************************************************************************/
@@ -202,7 +203,7 @@ u32 ClkWiz_Example(UINTPTR BaseAddress)
 
 	XClk_Wiz_GetRate(&ClkWiz_Dynamic, 0, &Rate);
 	Rate = Rate / XCLK_MHZ;
-	xil_printf("\nThe Rate %ld MHz \n",  Rate);
+	xil_printf("\nThe Rate %llu MHz \n",  Rate);
 	/* Calling Clock wizard dynamic reconfig */
 
 	XClk_Wiz_WriteReg(CfgPtr_Dynamic->BaseAddr, XCLK_WIZ_REG25_OFFSET, 0);
@@ -223,6 +224,6 @@ u32 ClkWiz_Example(UINTPTR BaseAddress)
 
 	XClk_Wiz_GetRate(&ClkWiz_Dynamic, 0, &Rate);
 	Rate = Rate / XCLK_MHZ;
-	xil_printf("\nThe Rate %ld MHz \t Expected 200 MHz \n",  Rate);
+	xil_printf("\nThe Rate %llu MHz \t Expected 200 MHz \n",  Rate);
 	return Status;
 }

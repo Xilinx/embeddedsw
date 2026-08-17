@@ -1,4 +1,4 @@
-# Copyright (C) 2023 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (C) 2023-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 # SPDX-License-Identifier: MIT
 %YAML 1.2
 ---
@@ -45,7 +45,7 @@ properties:
     description: default frequency of the clock3
   xlnx,prim-in-freq:
     description: Input clock frequency
-  xlnx,num-out-clks:
+  xlnx,nr-outputs:
     description: Number of output clocks
 
 config:
@@ -68,7 +68,7 @@ required:
   - xlnx,enable-pll0
   - xlnx,enable-pll1
   - xlnx,prim-in-freq
-  - xlnx,num-out-clks
+  - xlnx,nr-outputs
   - interrupts
   - interrupt-parent
 
