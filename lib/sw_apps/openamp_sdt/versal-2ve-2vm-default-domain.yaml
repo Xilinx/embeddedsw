@@ -1,0 +1,112 @@
+# Copyright (C) 2026 Advanced Micro Devices, Inc.  All rights reserved.
+# SPDX-License-Identifier: MIT
+reserved-memory:
+  libmetal_elf@9968000:
+    label: libmetal_elf
+    start: 0x9968000
+    size: 0x60000
+    no-map: 1
+  libmetal_desc0@99c8000:
+    label: libmetal_desc0
+    start: 0x99c8000
+    size: 0x4000
+    no-map: 1
+  libmetal_desc1@99cc000:
+    label: libmetal_desc1
+    start: 0x99cc000
+    size: 0x4000
+    no-map: 1
+  libmetal_data@99d0000:
+    label: libmetal_data
+    start: 0x99d0000
+    size: 0x40000
+    no-map: 1
+
+axi:
+  libmetal_uio_desc0@99c8000:
+    linux,uio-name: "libmetal-desc0"
+    start: 0x99c8000
+    size: 0x4000
+    compatible: "uio"
+  libmetal_uio_desc1@99cc000:
+    linux,uio-name: "libmetal-desc1"
+    start: 0x99cc000
+    size: 0x4000
+    compatible: "uio"
+  libmetal_uio_data@99d0000:
+    linux,uio-name: "libmetal-data"
+    start: 0x99d0000
+    size: 0x40000
+    compatible: "uio"
+
+  timer@f1e90000:
+    linux,uio-name: "libmetal-timer"
+    compatible: "uio"
+  # linux -> rpu1 libmetal IPI
+  mailbox@eb360000:
+    linux,uio-name: "libmetal-ipi"
+    compatible: "uio"
+
+domains:
+  APU_Linux:
+    compatible: openamp,domain-v1
+    cpus:
+      - cluster: cpus_a78
+        cpumask: 0xff
+        mode:
+          secure: false
+          el: 0x3
+    os,type: linux
+    domain-to-domain:
+      compatible: openamp,domain-to-domain-v1
+      libmetal-relation:
+        compatible: libmetal,ipc-v1
+        relation0:
+          remote: RPU_1_BM
+          carveouts: [ libmetal_uio_desc0@99c8000, libmetal_uio_desc1@99cc000, libmetal_uio_data@99d0000 ]
+          mbox: ipi_3_to_ipi_2 # IPI3 OpenAMP example app (APU)
+          timer: ttc3
+
+  RPU_1_BM:
+    compatible: openamp,domain-v1
+    cpus:
+      - cluster: cpus_r52_1
+        # cluster_cpu is required for RPU domains. Lopper uses it to auto-generate
+        # cpu_config_str, rpu_pd_val, core_num and cluster_cpu properties in the
+        # output DTS. Without it, remoteproc nodes will not be generated.
+        cluster_cpu: cortexr52_1
+        cpumask: 0x2
+        mode:
+          secure: true
+          el: 0x3
+    os,type: baremetal
+    domain-to-domain:
+      compatible: openamp,domain-to-domain-v1
+      libmetal-relation:
+        compatible: libmetal,ipc-v1
+        relation0:
+          host: APU_Linux
+          carveouts: [ libmetal_uio_desc0@99c8000, libmetal_uio_desc1@99cc000, libmetal_uio_data@99d0000 ]
+          mbox: ipi_2_to_ipi_3 #IPI2 Libmetal example app (RPU)
+          timer: [ ttc2, ttc3 ]
+          elfload: [ libmetal_elf@9968000 ]
+
+    sram:
+      - dev: libmetal_elf@9968000
+        start: 0x9968000
+        size: 0x60000
+      - dev: r52_0b_atcm_global@eba80000
+        label: r52_0b_atcm_global
+        size: 64K
+        spec_name: R52_0B_ATCM_GLOBAL
+        start: '0xeba80000'
+      - dev: r52_0b_btcm_global@eba90000
+        label: r52_0b_btcm_global
+        size: 32K
+        spec_name: R52_0B_BTCM_GLOBAL
+        start: '0xeba90000'
+      - dev: r52_0b_ctcm_global@ebaa0000
+        label: r52_0b_ctcm_global
+        size: 32K
+        spec_name: R52_0B_CTCM_GLOBAL
+        start: '0xebaa0000'

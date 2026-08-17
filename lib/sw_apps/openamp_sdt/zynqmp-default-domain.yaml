@@ -1,0 +1,177 @@
+# Copyright (C) 2026 Advanced Micro Devices, Inc.  All rights reserved.
+# SPDX-License-Identifier: MIT
+reserved-memory:
+  ranges: true
+  "#size-cells": 2
+  "#address-cells": 2
+
+  rproc0@9800000:
+    label: rproc0
+    start: 0x9800000
+    size: 0x60000
+    no-map: 1
+  vdev0vring0@9860000:
+    label: vdev0vring0
+    start: 0x9860000
+    size: 0x4000
+    no-map: 1
+  vdev0vring1@9864000:
+    label: vdev0vring1
+    start: 0x9864000
+    size: 0x4000
+    no-map: 1
+  vdev0buffer@9868000:
+    label: vdev0buffer
+    start: 0x9868000
+    size: 0x100000
+    no-map: 1
+  libmetal_elf@9968000:
+    label: libmetal_elf
+    start: 0x9968000
+    size: 0x60000
+    no-map: 1
+  libmetal_desc0@99c8000:
+    label: libmetal_desc0
+    start: 0x99c8000
+    size: 0x4000
+    no-map: 1
+  libmetal_desc1@99cc000:
+    label: libmetal_desc1
+    start: 0x99cc000
+    size: 0x4000
+    no-map: 1
+  libmetal_data@99d0000:
+    label: libmetal_data
+    start: 0x99d0000
+    size: 0x40000
+    no-map: 1
+
+axi:
+  libmetal_uio_desc0@99c8000:
+    linux,uio-name: "libmetal-desc0"
+    start: 0x99c8000
+    size: 0x4000
+    compatible: "uio"
+  libmetal_uio_desc1@99cc000:
+    linux,uio-name: "libmetal-desc1"
+    start: 0x99cc000
+    size: 0x4000
+    compatible: "uio"
+  libmetal_uio_data@99d0000:
+    linux,uio-name: "libmetal-data"
+    start: 0x99d0000
+    size: 0x40000
+    compatible: "uio"
+
+  timer@ff130000:
+    compatible: "uio"
+    linux,uio-name: "libmetal-timer"
+  # linux -> rpu1 libmetal IPI
+  ipi@ff350000:
+    compatible: "uio"
+    linux,uio-name: "libmetal-ipi"
+
+domains:
+  APU_Linux: # host in channel from a53-0
+    compatible: openamp,domain-v1
+    cpus:
+      - cluster: cpus_a53
+        cpumask: 0xf
+        mode:
+          secure: true
+          el: 0x3
+    os,type: linux
+    reserved-memory:
+      - vdev0buffer@9868000
+      - vdev0vring1@9864000
+      - vdev0vring0@9860000
+      - rproc0@9800000
+    domain-to-domain:
+      compatible: openamp,domain-to-domain-v1
+      remoteproc-relation:
+        compatible: openamp,remoteproc-v2
+        relation0:
+          remote: R5_0_FREERTOS
+          elfload: [ psu_r5_0_atcm_global@ffe00000, psu_r5_0_btcm_global@ffe20000, rproc0@9800000 ]
+
+      rpmsg-relation:
+        compatible: openamp,rpmsg-v1
+        relation0:
+          remote: R5_0_FREERTOS
+          carveouts: [ vdev0vring0@9860000, vdev0vring1@9864000, vdev0buffer@9868000 ]
+          mbox: ipi_7_to_ipi_1
+          timer: [ ttc0, ttc1 ]
+
+      libmetal-relation:
+        compatible: libmetal,ipc-v1
+        relation0:
+          remote: R5_1_BAREMETAL
+          carveouts: [ libmetal_uio_desc0@99c8000, libmetal_uio_desc1@99cc000, libmetal_uio_data@99d0000 ]
+          mbox: ipi_8_to_ipi_2
+          timer: ttc2
+
+  R5_0_FREERTOS:
+    compatible: openamp,domain-v1
+    cpus:
+      - cluster: cpus_r5_0
+        cpumask: 0x1
+        mode:
+          secure: true
+          el: 0x3
+        # cluster_cpu is required for RPU domains. Lopper uses it to auto-generate
+        # cpu_config_str, rpu_pd_val, core_num and cluster_cpu properties in the
+        # output DTS. Without it, remoteproc nodes will not be generated.
+        cluster_cpu: psu_cortexr5_0
+    os,type: freertos
+    sram:
+      - dev: rproc0@9800000
+        start: 0x9800000
+        size: 0x6000
+      - dev: psv_r5_0_atcm_global@ffe00000
+        size: 64K
+    reserved-memory:
+      - vdev0buffer@9868000
+      - vdev0vring1@9864000
+      - vdev0vring0@9860000
+      - rproc0@9800000
+    domain-to-domain:
+      compatible: openamp,domain-to-domain-v1
+      rpmsg-relation:
+        compatible: openamp,rpmsg-v1
+        relation0:
+          host: APU_Linux
+          mbox: ipi_1_to_ipi_7
+          carveouts: [ vdev0vring0@9860000, vdev0vring1@9864000, vdev0buffer@9868000 ]
+          timer: ttc3
+
+  R5_1_BAREMETAL:
+    compatible: openamp,domain-v1
+    cpus:
+      - cluster: cpus_r5_1
+        cpumask: 0x2
+        mode:
+          secure: true
+          el: 0x3
+        # cluster_cpu is required for RPU domains. Lopper uses it to auto-generate
+        # cpu_config_str, rpu_pd_val, core_num and cluster_cpu properties in the
+        # output DTS. Without it, remoteproc nodes will not be generated.
+        cluster_cpu: psu_cortexr5_1
+    os,type: baremetal
+    domain-to-domain:
+      compatible: openamp,domain-to-domain-v1
+      libmetal-relation:
+        compatible: libmetal,ipc-v1
+        relation0:
+          host: APU_Linux
+          carveouts: [ libmetal_uio_desc0@99c8000, libmetal_uio_desc1@99cc000, libmetal_uio_data@99d0000 ]
+          mbox: ipi_2_to_ipi_8 #IPI2 Libmetal example app (RPU)
+          timer: ttc2
+          elfload: [ libmetal_elf@9968000 ]
+
+    sram:
+      - dev: libmetal_elf@9968000
+        start: 0x9968000
+        size: 0x60000
+      - dev: psu_r5_1_atcm_global@ffe90000
+        size: 64K
+        start: 0xffe90000

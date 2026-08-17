@@ -231,45 +231,73 @@ def openamp_lopper_run(bsp_sdt, linker_cmd, obj, esw_app_dir, soc):
     Returns:
         None
     """
-    # YAML repository location has different naming convention
-    # return original soc if key not found
+    # Only SoC names that differ from the YAML filename prefix need remapping.
+    # Versal and ZynqMP already match and fall through unchanged.
     soc = {"versalnet": "versal-net", "versal_2ve_2vm": "versal-2ve-2vm"}.get(soc, soc)
 
-    md_base_yaml = f"{soc}-multidomain-base.yaml"
-
+    # Build the OpenAMP example paths used by the generated outputs.
     base_dir = os.path.join(obj.app_src_dir, "openamp-system-reference")
     examples_dir = os.path.join(base_dir, "examples")
     output_sdt = os.path.join(base_dir, "openamp_output.dts")
 
+    # Pick the second lopper stage output and destination based on the app type.
     if obj.template == "libmetal_echo_demo":
-        domain_yaml = f"{soc}-libmetal-overlay.yaml"
         fname = "rpu.cmake"
         header_location = os.path.join(examples_dir, "libmetal", "machine", "remote", "amd_rpu")
         cmd2_substr = " --libmetal_output_file --compatible-string=libmetal,ipc-v1 "
         cmd2_substr += f" --processor={obj.proc} --openamp_output_filename={fname} --os=baremetal_dt "
     else:
-        domain_yaml = f"{soc}-openamp-overlay.yaml"
         fname = "amd_platform_info.h"
         header_location = os.path.join(examples_dir, "legacy_apps", "machine", "xlnx", "zynqmp_r5")
         cmd2_substr = f" --openamp_header_only --openamp_output_filename={fname} --openamp_remote={obj.proc} "
 
-    cmd1 = f"lopper -f --enhanced --auto -i {md_base_yaml} -i {domain_yaml} -O {obj.app_src_dir} {bsp_sdt} {output_sdt}"
+    hw_dir = os.path.join(obj.domain_path, "hw_artifacts")
+    # Pick up default domain YAMLs from the same ESW repo copy that supplied the template app.
+    yaml_dir = os.path.join(os.path.dirname(esw_app_dir), "openamp_sdt")
+
+    # Collect all YAMLs from the BSP hw_artifacts directory and use them as run-1 lopper inputs.
+    if os.path.isdir(hw_dir):
+        yaml_files = sorted(
+            os.path.join(hw_dir, entry)
+            for entry in os.listdir(hw_dir)
+            if os.path.isfile(os.path.join(hw_dir, entry))
+            and entry.lower().endswith((".yaml", ".yml"))
+        )
+    else:
+        yaml_files = []
+
+    # The normalized SoC name matches the default-domain YAML filename prefix.
+    default_yaml = f"{soc}-default-domain.yaml"
+    default_yaml_dst = os.path.join(hw_dir, default_yaml)
+
+    # Prefer user-provided BSP YAMLs and only add the repo default when none are present.
+    if yaml_files:
+        present_yamls = ", ".join(os.path.basename(yaml_file) for yaml_file in yaml_files)
+        logger.info(
+            f"Using existing Domain YAML input(s) from {hw_dir}: {present_yamls}. "
+            "Default domain YAML will not be added."
+        )
+    elif utils.is_file(os.path.join(yaml_dir, default_yaml)):
+        utils.copy_file(os.path.join(yaml_dir, default_yaml), default_yaml_dst)
+        yaml_files = [default_yaml_dst]
+        logger.info(f"No OpenAMP YAMLs found in {hw_dir}. Added default YAML: {default_yaml}.")
+    else:
+        logger.error(
+            f"No default OpenAMP domain YAML was found for SoC '{soc}' in {yaml_dir}."
+        )
+        sys.exit(1)
+
+    # Run lopper stage 1 with the YAML inputs from BSP hw_artifacts, then generate the final output artifact.
+    yaml_args = " ".join(f"-i {yaml_file}" for yaml_file in yaml_files)
+    cmd1 = f"lopper -f --enhanced --auto {yaml_args} -O {obj.app_src_dir} {bsp_sdt} {output_sdt}"
     cmd2 = f"lopper -f --enhanced -O {obj.app_src_dir} {output_sdt} -- openamp {cmd2_substr}"
 
-    hw_dir = os.path.join(obj.domain_path, "hw_artifacts")
-    yaml_dir = os.path.join(os.environ.get("XILINX_VITIS"), "data", "openamp-metadata")
-
-    for yaml_file in [ domain_yaml, md_base_yaml ]:
-        dst = os.path.join(hw_dir, yaml_file)
-        if os.path.exists(dst):
-            logger.info(f"{yaml_file} already exists. Remove it to use the default copy.")
-        else:
-            utils.copy_file(os.path.join(yaml_dir, yaml_file), dst)
-
-        # insert correct path for the YAML files to be picked up from
-        cmd1 = cmd1.replace(yaml_file, dst)
-
     utils.runcmd(cmd1, log_message="OpenAMP Lopper Run 1 - create DT")
+
+    if not utils.is_file(output_sdt):
+        logger.error(f"OpenAMP Lopper run 1 did not generate output SDT: {output_sdt}")
+        sys.exit(1)
+
     utils.runcmd(cmd2, log_message="OpenAMP Lopper Run 2 - generate output")
 
     if not utils.is_file(fname):
@@ -278,7 +306,6 @@ def openamp_lopper_run(bsp_sdt, linker_cmd, obj, esw_app_dir, soc):
 
     utils.copy_file(fname, os.path.join(header_location, fname))
     utils.remove(fname)
-
 
     # Change out SDT to use OpenAMP SDT here
     # Add flag at the end to denote this is for OpenAMP case
