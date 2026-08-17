@@ -17,6 +17,7 @@ XDsiTxSs_Config XDsiTxSs_ConfigTable[] __attribute__ ((section (".drvcfg_sec")))
 		0x0, /* xlnx,dsi-byte-fifo */
 		0x1, /* xlnx,dsi-crc-gen */
 		0x2, /* xlnx,dsi-pixels */
+		0x0, /* xlnx,en-esc-mode */
 		0x320, /* xlnx,dphy-linerate */
 		0x1, /* xlnx,dphy-en-reg-if */
 		0x1, /* xlnx,dphy-present */

@@ -23,6 +23,7 @@
 * 1.1 sss 08/17/16 Added 64 bit support
 *     sss 08/26/16 Add "Command Queue Vacancy" API
 *                  API for getting pixel format
+* 1.2  ai 08/12/26 Added LPDT (escape mode) support
 * </pre>
 *
 ******************************************************************************/
@@ -341,6 +342,80 @@ int XDsiTxSs_SendCmdModePacket(XDsiTxSs *InstancePtr)
 	/* Verify argument */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	return XDsi_SendCmdModePkt(InstancePtr->DsiPtr, &InstancePtr->CmdPkt);
+}
+
+/*****************************************************************************/
+/**
+* Reports whether escape mode (LPDT/ULPS) is available.
+*
+* @param[in]	InstancePtr  Pointer to the XDsiTxSs instance.
+*
+* @return	Non-zero if escape mode is available, 0 otherwise.
+*
+****************************************************************************/
+u32 XDsiTxSs_IsEscModeEnabled(XDsiTxSs *InstancePtr)
+{
+	/* Verify argument */
+	Xil_AssertNonvoid(InstancePtr != NULL);
+
+	return InstancePtr->Config.EnEscMode;
+}
+
+/*****************************************************************************/
+/**
+* Selects the DCS command mode or LPDT transport.
+*
+* @brief Chooses LPDT or DCS command mode for command packets. Returns
+* XST_NO_FEATURE on designs without escape mode.
+*
+* @param[in]	InstancePtr  Pointer to the XDsiTxSs instance.
+* @param[in]	Mode         XDSI_DCS_CMD_MODE or XDSI_LPDT_MODE.
+*
+* @return
+*		- XST_SUCCESS if the transport was selected.
+*		- XST_NO_FEATURE if escape-mode logic is not present in hardware.
+*		- XST_FAILURE if the controller is not in command mode, or a
+*		  previous command never completed.
+*
+****************************************************************************/
+int XDsiTxSs_SetLpdtMode(XDsiTxSs *InstancePtr, XDsi_CmdLpdtType Mode)
+{
+	/* Verify argument */
+	Xil_AssertNonvoid(InstancePtr != NULL);
+
+	if (!XDsiTxSs_IsEscModeEnabled(InstancePtr))
+		return XST_NO_FEATURE;
+
+	return XDsi_SetLpdtMode(InstancePtr->DsiPtr, Mode);
+}
+
+/*****************************************************************************/
+/**
+* Sends a command packet over LPDT.
+*
+* @brief Sends the command packet held in the subsystem structure over LPDT.
+* Returns XST_NO_FEATURE on designs without escape mode.
+*
+* @param[in]	InstancePtr  Pointer to the XDsiTxSs instance.
+*
+* @return
+*		- XST_SUCCESS if the packet was accepted for transmission.
+*		- XST_NO_FEATURE if escape-mode logic is not present in hardware.
+*		- XST_INVALID_PARAM if a long-packet payload exceeds 251 bytes.
+*		- XST_FAILURE on failure in packet transmission.
+*
+* @note	The transport must already be selected via XDsiTxSs_SetLpdtMode.
+*
+****************************************************************************/
+int XDsiTxSs_SendLpdtPacket(XDsiTxSs *InstancePtr)
+{
+	/* Verify argument */
+	Xil_AssertNonvoid(InstancePtr != NULL);
+
+	if (!XDsiTxSs_IsEscModeEnabled(InstancePtr))
+		return XST_NO_FEATURE;
+
+	return XDsi_SendLpdtPacket(InstancePtr->DsiPtr, &InstancePtr->CmdPkt);
 }
 
 /*****************************************************************************/

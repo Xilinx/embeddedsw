@@ -1,11 +1,11 @@
-# Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
+# Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 # SPDX-License-Identifier: MIT
 %YAML 1.2
 ---
 title: Bindings for dsitxss Sub system controller Driver
 
 maintainers:
-  - Kunal Rane <kvrane@amd.com>
+  - Asif Ikbal <asif.ikbal@amd.com>
 
 type: driver
 
@@ -31,6 +31,8 @@ properties:
     description: DSI CRC generate flag.
   xlnx,dsi-pixels:
     description: DSI no of pixels.
+  xlnx,en-esc-mode:
+    description: DSI escape-mode (LPDT/ULPS) logic present in subsystem.
   xlnx,dphy-linerate:
     description: DPhy line rate.
   xlnx,dphy-en-reg-if:
@@ -61,6 +63,7 @@ required:
   - xlnx,dsi-byte-fifo
   - xlnx,dsi-crc-gen
   - xlnx,dsi-pixels
+  - xlnx,en-esc-mode
   - xlnx,dphy-linerate
   - xlnx,dphy-en-reg-if
   - dphy-present

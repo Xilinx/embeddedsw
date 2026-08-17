@@ -189,6 +189,7 @@ typedef struct {
 				              8192, 16384 */
 	u8 CrcGen;		/**< CRC Generation enable or not */
 	u8 DsiPixel;	/**< Pixels per beat received on input stream */
+	u8 EnEscMode;	/**< Escape mode (LPDT/ULPS) logic present. */
 	u32 DphyLinerate;	/**< DPHY line rate */
 	u32 IsDphyRegIntfcPresent; /**< Flag for DPHY register
 				 *  interface presence */
@@ -267,6 +268,9 @@ u32 XDsiTxSs_SelfTest(XDsiTxSs *InstancePtr);
 void XDsiTxSs_SendShortPacket(XDsiTxSs *InstancePtr);
 int XDsiTxSs_SetDSIMode(XDsiTxSs *InstancePtr, XDsi_DsiModeType mode);
 int XDsiTxSs_SendCmdModePacket(XDsiTxSs *InstancePtr);
+u32 XDsiTxSs_IsEscModeEnabled(XDsiTxSs *InstancePtr);
+int XDsiTxSs_SetLpdtMode(XDsiTxSs *InstancePtr, XDsi_CmdLpdtType Mode);
+int XDsiTxSs_SendLpdtPacket(XDsiTxSs *InstancePtr);
 void XDsiTxSs_GetConfigParams(XDsiTxSs *InstancePtr);
 u32 XDsiTxSs_IsControllerReady(XDsiTxSs *InstancePtr);
 u32 XDsiTxSs_GetPixelFormat(XDsiTxSs *InstancePtr);
