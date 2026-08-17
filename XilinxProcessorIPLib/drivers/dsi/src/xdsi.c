@@ -280,10 +280,10 @@ void XDsi_SendShortPacket(XDsi *InstancePtr, XDsi_ShortPacket *ShortPacket)
 * Send a DSI long packet to the controller.
 *
 * @brief Sends a DSI long packet (>2 data bytes, up to 255 bytes) to the DSI
-* controller. The function writes the payload data to the XDSI_DATA_OFFSET
-* register in 32-bit chunks, then sends the packet header as a short packet.
-* Long packets are used for bulk data transfers such as image data or command
-* sequences in command mode.
+* controller. The function sends the packet header first, then writes the
+* payload to the XDSI_DATA_OFFSET register in 32-bit chunks. Long packets are
+* used for bulk data transfers such as image data or command sequences in
+* command mode.
 *
 * @param	InstancePtr is the XDsi instance to operate on. The instance must
 *		have been initialized and activated.
@@ -315,11 +315,14 @@ void XDsi_SendLongPacket(XDsi *InstancePtr, XDsiTx_CmdModePkt *CmdPacket)
 	else
 		MaxSize = MaxSize/4 + 1;
 
+	/* The header has to be queued first: the controller only raises
+	 * "wait for long packet data" once it has the header, and payload
+	 * written before that is not attached to any packet. */
+	XDsi_SendShortPacket(InstancePtr, &CmdPacket->SpktData);
+
 	for (i = 0; i < MaxSize; i++)
 		XDsi_WriteReg(InstancePtr->Config.BaseAddr,
 				XDSI_DATA_OFFSET, CmdPacket->LongPktData[i]);
-
-	XDsi_SendShortPacket(InstancePtr, &CmdPacket->SpktData);
 }
 
 /*****************************************************************************/
