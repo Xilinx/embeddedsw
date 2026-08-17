@@ -23,7 +23,7 @@
 * 1.1 sss 08/17/16 Added 64 bit support
 *     sss 08/26/16 Add "Command Queue Vacancy" API
 *                  API for getting pixel format
-* 1.2  ai 08/12/26 Added LPDT (escape mode) support
+* 1.2  ai 08/12/26 Added escape mode(LPDT/ULPS) support
 * </pre>
 *
 ******************************************************************************/
@@ -416,6 +416,53 @@ int XDsiTxSs_SendLpdtPacket(XDsiTxSs *InstancePtr)
 		return XST_NO_FEATURE;
 
 	return XDsi_SendLpdtPacket(InstancePtr->DsiPtr, &InstancePtr->CmdPkt);
+}
+
+/*****************************************************************************/
+/**
+* Enters or exits the Ultra-Low Power State (ULPS).
+*
+* @brief Puts the DSI link into ULPS, or brings it back out. Returns
+* XST_NO_FEATURE on designs without escape mode.
+*
+* @param[in]	InstancePtr  Pointer to the XDsiTxSs instance.
+* @param[in]	Enable       1 to enter ULPS, 0 to exit ULPS.
+*
+* @return
+*		- XST_SUCCESS if the requested ULPS transition completed.
+*		- XST_NO_FEATURE if escape-mode logic is not present in hardware.
+*		- XST_FAILURE if ULPS entry or exit was not observed in time.
+*
+* @note	ULPS entry resets the controller image FIFOs; the caller must
+*		re-arm the video output from a fresh frame after exit.
+*
+****************************************************************************/
+int XDsiTxSs_SetUlpsMode(XDsiTxSs *InstancePtr, u32 Enable)
+{
+	/* Verify argument */
+	Xil_AssertNonvoid(InstancePtr != NULL);
+
+	if (!XDsiTxSs_IsEscModeEnabled(InstancePtr))
+		return XST_NO_FEATURE;
+
+	return XDsi_SetUlpsMode(InstancePtr->DsiPtr, Enable);
+}
+
+/*****************************************************************************/
+/**
+* Reports whether the DSI lanes are in ULPS.
+*
+* @param[in]	InstancePtr  Pointer to the XDsiTxSs instance.
+*
+* @return	Non-zero if the lanes are in ULPS, 0 otherwise.
+*
+****************************************************************************/
+u32 XDsiTxSs_IsUlps(XDsiTxSs *InstancePtr)
+{
+	/* Verify argument */
+	Xil_AssertNonvoid(InstancePtr != NULL);
+
+	return XDsi_IsUlps(InstancePtr->DsiPtr);
 }
 
 /*****************************************************************************/

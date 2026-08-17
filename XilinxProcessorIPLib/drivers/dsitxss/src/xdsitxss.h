@@ -271,6 +271,8 @@ int XDsiTxSs_SendCmdModePacket(XDsiTxSs *InstancePtr);
 u32 XDsiTxSs_IsEscModeEnabled(XDsiTxSs *InstancePtr);
 int XDsiTxSs_SetLpdtMode(XDsiTxSs *InstancePtr, XDsi_CmdLpdtType Mode);
 int XDsiTxSs_SendLpdtPacket(XDsiTxSs *InstancePtr);
+int XDsiTxSs_SetUlpsMode(XDsiTxSs *InstancePtr, u32 Enable);
+u32 XDsiTxSs_IsUlps(XDsiTxSs *InstancePtr);
 void XDsiTxSs_GetConfigParams(XDsiTxSs *InstancePtr);
 u32 XDsiTxSs_IsControllerReady(XDsiTxSs *InstancePtr);
 u32 XDsiTxSs_GetPixelFormat(XDsiTxSs *InstancePtr);
