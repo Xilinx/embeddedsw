@@ -127,8 +127,7 @@ u32 XSfl_FlashNVLockRead(u8 SflHandler, u32 SectorAddress, u8 *IsLocked);
 u32 XSfl_AspValidateSectorRange(u8 SflHandler, u32 StartSector, u32 EndSector);
 u32 XSfl_FlashAspWriteGlobalFreeze(u8 SflHandler);
 
-/** @} */
-
 #endif /* CONFIG_ADVANCED_SECTOR_PROTECTION */
 
 #endif /* XILSFL_ASP_H */
+/** @} */

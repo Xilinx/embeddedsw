@@ -365,6 +365,6 @@ u32 XSfl_AspValidateSectorRange(u8 SflHandler, u32 StartSector,
 	return XSFL_ASP_RESULT_OK;
 }
 
-/** @} */
-
 #endif /* CONFIG_ADVANCED_SECTOR_PROTECTION */
+
+/** @} */

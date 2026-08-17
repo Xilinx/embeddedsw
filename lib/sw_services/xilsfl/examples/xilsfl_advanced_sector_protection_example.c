@@ -6,17 +6,18 @@
 /******************************************************************************/
 /**
  *
- * @file xilsfl_ospi_sector_lock_example.c
+ * @file xilsfl_advanced_sector_protection_example.c
  *
  * This file contains a design example using the SFL library for Advanced
- * Sector Protection (ASP) on NOR flash over OSPI. It interacts
- * over stdin: selects an ASP operation id, optionally programs password / NV
- * sector locks, unlocks NV lock bits, and prints NV lock status for a sector
- * range.
+ * Sector Protection (ASP) on serial NOR flash. It interacts over stdin:
+ * selects an ASP operation id, optionally programs password / NV sector locks,
+ * unlocks NV lock bits, and prints NV lock status for a sector range.
  *
- * The hardware which this example runs on, must have an octal serial nor flash
- * for it to run. This example has been tested with the Micron Octal Serial
- * Flash (MT35XU02GCBA).
+ * The same example covers both quad (QSPI, 4-4-4) and octal (OSPI, 8-8-8) NOR
+ * flash devices: the library drives both through the OSPI controller, and the
+ * ASP layer selects the command framing and dummy cycles from the detected
+ * flash make. This example has been tested with the Micron Octal Serial Flash
+ * (MT35XU02GCBA).
  *
  * @note
  *
@@ -47,7 +48,6 @@
 #include "xstatus.h"
 #include "xilsfl.h"
 #include "xparameters.h"
-#include "xil_cache.h"
 #include "xil_printf.h"
 #include <ctype.h>
 #include <stdio.h>
@@ -56,10 +56,11 @@
 /************************** Constant Definitions ****************************/
 
 /*
- * Maximum number of sectors whose NV lock state can be fetched in a single
- * READ_SECTOR_LOCK request (bounds the on-stack status buffer).
+ * Window size, in sectors, used to fetch NV lock state: it bounds the on-stack
+ * status buffer only. Larger spans are read in successive windows of this size,
+ * so this is not a device or vendor limit.
  */
-#define ASP_MAX_READ_SECTORS 256U
+#define ASP_LOCK_STATUS_CHUNK 256U
 
 /*
  * Map to BSP parameters — change in one place for the board/application.
@@ -76,11 +77,8 @@
 
 /************************** Function Prototypes ******************************/
 
-static void init_platform(void);
-static void cleanup_platform(void);
-
 static void PrintFlashInfoAsp(u8 SflHandlerIdx);
-static int XsflAspOspiSectorLockExample(void);
+static int XsflAdvancedSectorProtectionExample(void);
 
 static int AspScanPassword(u8 OutPwd[XSFL_ASP_PASSWORD_MAX_BYTES], u8 LenBytes);
 static int AspPwdBufAllZero(const u8 Pw[XSFL_ASP_PASSWORD_MAX_BYTES],
@@ -105,7 +103,7 @@ static u8 SflHandler;
 /*****************************************************************************/
 /**
  *
- * Main entry — runs the ASP OSPI sector-lock demonstration.
+ * Main entry — runs the Advanced Sector Protection demonstration.
  *
  * @return	XST_SUCCESS on success path, otherwise XST_FAILURE.
  *
@@ -116,7 +114,7 @@ int main(void)
 
 	xil_printf("\r\nAdvanced Sector Protection example\r\n");
 
-	Status = XsflAspOspiSectorLockExample();
+	Status = XsflAdvancedSectorProtectionExample();
 	if (Status != XST_SUCCESS) {
 		xil_printf("\r\nExample failed\r\n");
 		return XST_FAILURE;
@@ -129,21 +127,22 @@ int main(void)
 /*****************************************************************************/
 /**
  *
- * This function is the primary example routine: enables caches, initializes
- * the OSPI controller and NOR flash via XSfl_FlashInit, prints device info,
- * reads an ASP operation id from stdin, and dispatches the selected operation.
+ * This function is the primary example routine: initializes the controller and
+ * NOR flash via XSfl_FlashInit, prints device info, reads an ASP operation id
+ * from stdin, and dispatches the selected operation.
+ *
+ * XSFL_OSPI_CNTRL is the controller type for both quad and octal flash devices;
+ * the connected device protocol is detected during XSfl_FlashInit.
  *
  * @return	XST_SUCCESS on success, else XST_FAILURE.
  *
  ******************************************************************************/
-static int XsflAspOspiSectorLockExample(void)
+static int XsflAdvancedSectorProtectionExample(void)
 {
 	u32 Status = XST_SUCCESS;
 	u32 AspOperationId;
 	unsigned long UserInput;
 	XSfl_UserConfig SflConfig;
-
-	init_platform();
 
 	SflConfig.Ospi_Config.BaseAddress = OSPI_BASEADDR;
 	SflConfig.Ospi_Config.ChipSelect = XSFL_SELECT_FLASH_CS0;
@@ -205,7 +204,6 @@ static int XsflAspOspiSectorLockExample(void)
 
 done:
 	xil_printf("\r\nDone.\r\n");
-	cleanup_platform();
 	return (Status == XST_SUCCESS) ? XST_SUCCESS : XST_FAILURE;
 }
 
@@ -316,48 +314,6 @@ static void AspPrintResult(u32 Result)
 		xil_printf("ASP: operation failed\r\n");
 		break;
 	}
-}
-
-/*****************************************************************************/
-/**
- *
- * This function enables instruction and data caches for the target processor.
- *
- ******************************************************************************/
-static void init_platform(void)
-{
-#if defined(ARMR5)
-	Xil_ICacheEnable();
-	Xil_DCacheEnable();
-#elif defined(__MICROBLAZE__)
-#ifdef XPAR_MICROBLAZE_USE_ICACHE
-	Xil_ICacheEnable();
-#endif
-#ifdef XPAR_MICROBLAZE_USE_DCACHE
-	Xil_DCacheEnable();
-#endif
-#endif
-}
-
-/*****************************************************************************/
-/**
- *
- * This function disables instruction and data caches for the target processor.
- *
- ******************************************************************************/
-static void cleanup_platform(void)
-{
-#if defined(ARMR5)
-	Xil_DCacheDisable();
-	Xil_ICacheDisable();
-#elif defined(__MICROBLAZE__)
-#ifdef XPAR_MICROBLAZE_USE_DCACHE
-	Xil_DCacheDisable();
-#endif
-#ifdef XPAR_MICROBLAZE_USE_ICACHE
-	Xil_ICacheDisable();
-#endif
-#endif
 }
 
 /*****************************************************************************/
@@ -607,7 +563,7 @@ static u32 AspReadSectorLockStatus(u8 SflHandler)
 	u32 SectorIdx;
 	unsigned long UserInput;
 	u32 NumSectors;
-	u8 LockStatus[ASP_MAX_READ_SECTORS];
+	u8 LockStatus[ASP_LOCK_STATUS_CHUNK];
 	XSfl_AspParams Params;
 
 	if (AspGetNumSectors(SflHandler, &NumSectors) != XST_SUCCESS ||
@@ -647,13 +603,13 @@ static u32 AspReadSectorLockStatus(u8 SflHandler)
 		   (unsigned long)StartSector, (unsigned long)EndSector);
 
 	/*
-	 * Walk the requested span in windows of ASP_MAX_READ_SECTORS so the
+	 * Walk the requested span in windows of ASP_LOCK_STATUS_CHUNK so the
 	 * whole 0..(NumSectors-1) range can be displayed with a small fixed
 	 * buffer instead of one sized to the entire device.
 	 */
 	for (ChunkStart = StartSector; ChunkStart <= EndSector;
-	     ChunkStart += ASP_MAX_READ_SECTORS) {
-		ChunkEnd = ChunkStart + (ASP_MAX_READ_SECTORS - 1U);
+	     ChunkStart += ASP_LOCK_STATUS_CHUNK) {
+		ChunkEnd = ChunkStart + (ASP_LOCK_STATUS_CHUNK - 1U);
 		if (ChunkEnd > EndSector) {
 			ChunkEnd = EndSector;
 		}
@@ -662,7 +618,7 @@ static u32 AspReadSectorLockStatus(u8 SflHandler)
 		Params.StartSector = ChunkStart;
 		Params.EndSector = ChunkEnd;
 		Params.LockStatusOut = LockStatus;
-		Params.LockStatusCap = ASP_MAX_READ_SECTORS;
+		Params.LockStatusCap = ASP_LOCK_STATUS_CHUNK;
 
 		Result = XSfl_AspReadSectorLock(SflHandler, &Params);
 		if (Result != XSFL_ASP_RESULT_OK) {
@@ -700,7 +656,13 @@ static u32 AspReadSectorLockStatus(u8 SflHandler)
 static int AspScanPassword(u8 OutPwd[XSFL_ASP_PASSWORD_MAX_BYTES],
 			   u8 LenBytes)
 {
-	char AspHexInput[XSFL_ASP_PASSWORD_MAX_BYTES * 2U + 8];
+	/* Sized for the scanf field width below plus the terminator, so the two
+	 * cannot drift apart. 71 digits covers the 64 of a 32-byte password.
+	 * Deliberately not derived from XSFL_ASP_PASSWORD_MAX_BYTES: the field
+	 * width has to be a literal in the format string, so a smaller value of
+	 * that macro must not be able to shrink this buffer below it.
+	 */
+	char AspHexInput[72];
 	unsigned int ByteValue;
 	u32 ByteIdx;
 	u32 HexDigits = (u32)LenBytes * 2U;
@@ -770,6 +732,6 @@ static int AspPwdBufAllZero(const u8 Pw[XSFL_ASP_PASSWORD_MAX_BYTES],
 
 #else /* CONFIG_ADVANCED_SECTOR_PROTECTION */
 
-#error "xilsfl_ospi_sector_lock_example.c requires xilsfl_CONFIG_ADVANCED_SECTOR_PROTECTION=true in the BSP. Enable via config_bsp, rebuild the BSP, then create/build this example."
+#error "xilsfl_advanced_sector_protection_example.c requires xilsfl_CONFIG_ADVANCED_SECTOR_PROTECTION=true in the BSP. Enable via config_bsp, rebuild the BSP, then create/build this example."
 
 #endif /* CONFIG_ADVANCED_SECTOR_PROTECTION */

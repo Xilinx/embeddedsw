@@ -81,7 +81,7 @@ static u32 XSfl_MicronSectorProtectionReadChip(XSfl_Interface *SflInst, u16 *Spr
 	CmdBuffer[XSFL_DUMMY_OFFSET] =
 		(SflInst->SflFlashInfo.FlashMake == XSFL_MICRON_OCTAL_ID_BYTE0) ?
 		XSFL_MICRON_REG_READ_DUMMY_OCTAL : 0U;
-	CmdBuffer[XSFL_BYTECOUNT_OFFSET] = 2;
+	CmdBuffer[XSFL_BYTE_COUNT_OFFSET] = 2;
 
 	Status = XSfl_FlashRegisterReadWrite(SflInst, RxBuf, NULL, CmdBuffer, 0);
 	if (Status != XST_SUCCESS) {
@@ -119,7 +119,7 @@ static u32 XSfl_MicronEraseNvLockBitsCurrentDie(XSfl_Interface *SflInst)
 	CmdBuffer[XSFL_ADDRESS_OFFSET] = 0;
 	CmdBuffer[XSFL_ADDRESS_SIZE_OFFSET] = 0;
 	CmdBuffer[XSFL_DUMMY_OFFSET] = 0;
-	CmdBuffer[XSFL_BYTECOUNT_OFFSET] = 0;
+	CmdBuffer[XSFL_BYTE_COUNT_OFFSET] = 0;
 
 	Status = XSfl_FlashRegisterReadWrite(SflInst, NULL, NULL, CmdBuffer, 0);
 	if (Status != XST_SUCCESS) {
@@ -163,7 +163,7 @@ static u32 XSfl_MicronPasswordReadChip(XSfl_Interface *SflInst, u8 *OutPwd,
 	CmdBuffer[XSFL_ADDRESS_OFFSET] = 0;
 	CmdBuffer[XSFL_ADDRESS_SIZE_OFFSET] = 0;
 	CmdBuffer[XSFL_DUMMY_OFFSET] = DummyOctal;
-	CmdBuffer[XSFL_BYTECOUNT_OFFSET] = XSFL_MICRON_ASP_PASSWORD_BYTES;
+	CmdBuffer[XSFL_BYTE_COUNT_OFFSET] = XSFL_MICRON_ASP_PASSWORD_BYTES;
 
 	Status = XSfl_FlashRegisterReadWrite(SflInst, OutPwd, NULL, CmdBuffer, 0);
 	if (Status != XST_SUCCESS) {
@@ -212,7 +212,7 @@ static u32 XSfl_MicronPasswordWriteChip(XSfl_Interface *SflInst, const u8 *Pw,
 	CmdBuffer[XSFL_ADDRESS_OFFSET] = 0;
 	CmdBuffer[XSFL_ADDRESS_SIZE_OFFSET] = 0;
 	CmdBuffer[XSFL_DUMMY_OFFSET] = 0;
-	CmdBuffer[XSFL_BYTECOUNT_OFFSET] = XSFL_MICRON_ASP_PASSWORD_BYTES;
+	CmdBuffer[XSFL_BYTE_COUNT_OFFSET] = XSFL_MICRON_ASP_PASSWORD_BYTES;
 
 	Status = XSfl_FlashRegisterReadWrite(SflInst, NULL, TxBuf, CmdBuffer, 0);
 	memset(TxBuf, 0, sizeof(TxBuf));
@@ -300,7 +300,7 @@ u32 XSfl_AspMicronSectorProtectionWrite(u8 SflHandler, u16 SprWord)
 	CmdBuffer[XSFL_ADDRESS_OFFSET] = 0;
 	CmdBuffer[XSFL_ADDRESS_SIZE_OFFSET] = 0;
 	CmdBuffer[XSFL_DUMMY_OFFSET] = 0;
-	CmdBuffer[XSFL_BYTECOUNT_OFFSET] = 2U;
+	CmdBuffer[XSFL_BYTE_COUNT_OFFSET] = 2U;
 
 	Status = XSfl_FlashRegisterReadWrite(SflInst, NULL, TxBuf, CmdBuffer, 0);
 	memset(TxBuf, 0, sizeof(TxBuf));
@@ -411,7 +411,7 @@ u32 XSfl_AspMicronNVSectorLock(u8 SflHandler, u32 SectorAddress)
 	CmdBuffer[XSFL_ADDRESS_OFFSET] = RealAddr;
 	CmdBuffer[XSFL_ADDRESS_SIZE_OFFSET] = AddrSz;
 	CmdBuffer[XSFL_DUMMY_OFFSET] = 0;
-	CmdBuffer[XSFL_BYTECOUNT_OFFSET] = 0;
+	CmdBuffer[XSFL_BYTE_COUNT_OFFSET] = 0;
 
 	Status = XSfl_FlashRegisterReadWrite(SflInst, NULL, NULL, CmdBuffer, 1);
 	if (Status != XST_SUCCESS) {
@@ -483,7 +483,7 @@ u32 XSfl_AspMicronNVLockRead(u8 SflHandler, u32 SectorAddress, u8 *IsLocked)
 	 * Request a single data byte; XSfl_FlashRegisterReadWrite rounds this
 	 * up to 2 automatically in DDR-PHY mode.
 	 */
-	CmdBuffer[XSFL_BYTECOUNT_OFFSET] = 1;
+	CmdBuffer[XSFL_BYTE_COUNT_OFFSET] = 1;
 
 	Status = XSfl_FlashRegisterReadWrite(SflInst, RxBuf, NULL, CmdBuffer, 1);
 	if (Status != XST_SUCCESS) {
@@ -610,7 +610,7 @@ u32 XSfl_AspMicronGlobalFreezeWrite(u8 SflHandler)
 	CmdBuffer[XSFL_ADDRESS_OFFSET] = 0;
 	CmdBuffer[XSFL_ADDRESS_SIZE_OFFSET] = 0;
 	CmdBuffer[XSFL_DUMMY_OFFSET] = 0;
-	CmdBuffer[XSFL_BYTECOUNT_OFFSET] = 0;
+	CmdBuffer[XSFL_BYTE_COUNT_OFFSET] = 0;
 
 	Status = XSfl_FlashRegisterReadWrite(SflInst, NULL, NULL, CmdBuffer, 0);
 	if (Status != XST_SUCCESS) {
@@ -649,6 +649,6 @@ const XSfl_AspVendorOps XSfl_AspMicronOctalAspOpsTable = {
 	.AspPasswordLenBytes            = XSFL_MICRON_ASP_PASSWORD_BYTES,
 };
 
-/** @} */
-
 #endif /* CONFIG_ADVANCED_SECTOR_PROTECTION */
+
+/** @} */

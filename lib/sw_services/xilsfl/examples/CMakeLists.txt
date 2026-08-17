@@ -18,7 +18,7 @@ collector_list (_deps PROJECT_LIB_DEPS)
 
 SET(COMMON_EXAMPLES xilsfl_ospi_flash_readwrite_example.c)
 if(CONFIG_ADVANCED_SECTOR_PROTECTION_NUM EQUAL 1)
-	list(APPEND COMMON_EXAMPLES xilsfl_ospi_sector_lock_example.c)
+	list(APPEND COMMON_EXAMPLES xilsfl_advanced_sector_protection_example.c)
 endif()
 
 linker_gen("${CMAKE_CURRENT_SOURCE_DIR}/../../../../scripts/linker_files/")

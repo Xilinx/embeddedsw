@@ -592,12 +592,24 @@ u32 XSfl_AspSetPassword(u8 SflHandler, const XSfl_AspParams *Params)
 	u32 Status;
 	u16 SprBefore;
 	u16 SprWithPswdEnabled;
+	const XSfl_AspVendorOps *Ops;
 	u8 Readback[XSFL_ASP_PASSWORD_MAX_BYTES];
 
 	Xil_AssertNonvoid(SflHandler < XSFL_NUM_INSTANCES);
 	if ((Params == NULL) || (Params->Password == NULL) ||
 	    (Params->PasswordLen == 0U) ||
 	    (Params->PasswordLen > XSFL_ASP_PASSWORD_MAX_BYTES)) {
+		return XSFL_ASP_RESULT_INVALID_PASSWORD;
+	}
+
+	/* No vendor ASP implementation for this flash: not a password problem. */
+	Ops = SflInstance.Instance[SflHandler].SflFlashInfo.AspOps;
+	if ((Ops == NULL) || (Ops->AspPasswordLenBytes == 0U)) {
+		return XSFL_ASP_RESULT_OP_FAILED;
+	}
+
+	/* The vendor sequence transmits a fixed width, so nothing else fits. */
+	if (Params->PasswordLen != Ops->AspPasswordLenBytes) {
 		return XSFL_ASP_RESULT_INVALID_PASSWORD;
 	}
 
@@ -661,11 +673,14 @@ u32 XSfl_AspLockSectors(u8 SflHandler, const XSfl_AspParams *Params)
 	u32 SectorSize;
 	u32 SectorIdx;
 	u8 Protected;
+	const XSfl_AspVendorOps *Ops;
 
 	Xil_AssertNonvoid(SflHandler < XSFL_NUM_INSTANCES);
 	if (Params == NULL) {
 		return XSFL_ASP_RESULT_OP_FAILED;
 	}
+
+	Ops = SflInstance.Instance[SflHandler].SflFlashInfo.AspOps;
 
 	Status = XSfl_AspValidateSectorRange(SflHandler, Params->StartSector,
 			Params->EndSector);
@@ -686,7 +701,12 @@ u32 XSfl_AspLockSectors(u8 SflHandler, const XSfl_AspParams *Params)
 			1U : 0U;
 
 	if (Protected != 0U) {
-		if ((Params->Password == NULL) || (Params->PasswordLen == 0U)) {
+		if ((Ops == NULL) || (Ops->AspPasswordLenBytes == 0U)) {
+			return XSFL_ASP_RESULT_OP_FAILED;
+		}
+
+		if ((Params->Password == NULL) || (Params->PasswordLen == 0U) ||
+		    (Params->PasswordLen != Ops->AspPasswordLenBytes)) {
 			return XSFL_ASP_RESULT_INVALID_PASSWORD;
 		}
 
@@ -741,6 +761,11 @@ u32 XSfl_AspUnlockSectors(u8 SflHandler, const XSfl_AspParams *Params)
 {
 	u16 SprValue;
 	u8 Protected;
+	const XSfl_AspVendorOps *Ops;
+
+	Xil_AssertNonvoid(SflHandler < XSFL_NUM_INSTANCES);
+
+	Ops = SflInstance.Instance[SflHandler].SflFlashInfo.AspOps;
 
 	if (XSfl_FlashSectorProtectionRead(SflHandler, &SprValue) !=
 	    XST_SUCCESS) {
@@ -750,8 +775,13 @@ u32 XSfl_AspUnlockSectors(u8 SflHandler, const XSfl_AspParams *Params)
 			1U : 0U;
 
 	if (Protected != 0U) {
+		if ((Ops == NULL) || (Ops->AspPasswordLenBytes == 0U)) {
+			return XSFL_ASP_RESULT_OP_FAILED;
+		}
+
 		if ((Params == NULL) || (Params->Password == NULL) ||
-		    (Params->PasswordLen == 0U)) {
+		    (Params->PasswordLen == 0U) ||
+		    (Params->PasswordLen != Ops->AspPasswordLenBytes)) {
 			return XSFL_ASP_RESULT_INVALID_PASSWORD;
 		}
 
