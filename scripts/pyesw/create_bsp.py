@@ -53,6 +53,7 @@ class Domain(Repo):
         utils.mkdir(self.domain_dir)
         self.proc, self.proc_ip_name = self._validate_proc_inputs()
         self._validate_inputs()
+        self.build_metadata = self._set_build_metadata(args.get("bsp_build_dir"))
 
     def _get_family(self):
         """
@@ -146,6 +147,14 @@ class Domain(Repo):
                 """)
         sys.exit(1)
 
+    def _set_build_metadata(self, bsp_build_dir):
+        """Set the BSP CMake build directory path."""
+        if bsp_build_dir:
+            return utils.get_abs_path(bsp_build_dir).replace("\\", "/")
+        return os.path.join(
+            self.libsrc_folder, "build_configs", "gen_bsp"
+        ).replace("\\", "/")
+
     def _validate_inputs(self):
         """
         If User wants to validate the inputs before creating the domain,
@@ -216,6 +225,7 @@ class Domain(Repo):
         utils.mkdir(self.lib_folder)
         utils.mkdir(self.libsrc_folder)
         utils.mkdir(self.sdt_folder)
+        utils.mkdir(self.build_metadata, silent_discard=False)
         if (
             utils.is_dir(
                 os.path.join(utils.get_dir_path(self.sdt), "drivers"),
@@ -734,6 +744,7 @@ def create_domain(args):
         "drv_info": obj.drv_info,
         "lib_info": {},
         "lib_config": {},
+        "bsp_build_dir": obj.build_metadata,
     }
 
     # Write the domain specific data as a configuration file in yaml format.
@@ -808,9 +819,6 @@ def create_domain(args):
                     log_message="generate_config_object for PM use case",
                     error_message="Failed to generate the config object for PM use cases",
                 )
-
-    build_metadata = os.path.join(obj.libsrc_folder, "build_configs", "gen_bsp")
-    utils.mkdir(build_metadata)
 
     lop_cmds.append(
         [
@@ -910,7 +918,6 @@ endfunction(_my_hook_end_of_configure)
 
     utils.write_into_file(cmake_file, cmake_file_cmds)
 
-    build_metadata = os.path.join(obj.libsrc_folder, "build_configs", "gen_bsp")
     lib_list += ["standalone"]
     # Verify the cmake and gcc before calling cmake command
     utils.verify_tool_path("cmake", version=True)
@@ -924,13 +931,12 @@ endfunction(_my_hook_end_of_configure)
 
     # Run cmake configuration with all the default cache entries
     cmake_paths_append = cmake_paths_append.replace("\\", "/")
-    build_metadata = build_metadata.replace("\\", "/")
 
     if obj.os == "freertos":
-        os_config = lib_obj.get_default_lib_params(build_metadata, ["freertos"])
+        os_config = lib_obj.get_default_lib_params(obj.build_metadata, ["freertos"])
     else:
-        os_config = lib_obj.get_default_lib_params(build_metadata, ["standalone"])
-    proc_config = lib_obj.get_default_lib_params(build_metadata, [obj.proc])
+        os_config = lib_obj.get_default_lib_params(obj.build_metadata, ["standalone"])
+    proc_config = lib_obj.get_default_lib_params(obj.build_metadata, [obj.proc])
 
     if lib_obj.os_config:
         props = lib_obj.os_config.items()
@@ -940,7 +946,7 @@ endfunction(_my_hook_end_of_configure)
                     os_config[obj.os][key]["value"] = value
 
     if "microblaze" in obj.proc_ip_name:
-        cmake_config = lib_obj.get_default_lib_params(build_metadata, ["cmake"])
+        cmake_config = lib_obj.get_default_lib_params(obj.build_metadata, ["cmake"])
         if cmake_config["cmake"].get("CMAKE_MACHINE", {}):
             obj.family = cmake_config["cmake"]["CMAKE_MACHINE"]["value"]
             utils.update_yaml(obj.domain_config_file, "domain", "family", obj.family)
@@ -966,7 +972,7 @@ endfunction(_my_hook_end_of_configure)
     compile_commands.json file needs to be kept inside libsrc directory.
     """
     utils.copy_file(
-        os.path.join(build_metadata, "compile_commands.json"), obj.libsrc_folder
+        os.path.join(obj.build_metadata, "compile_commands.json"), obj.libsrc_folder
     )
 
     """
@@ -1069,6 +1075,11 @@ def main(arguments=None):
     )
     parser.add_argument(
         "-v", "--verbose", action="count", default=0, help="Increase output verbosity"
+    )
+    parser.add_argument(
+        "--bsp_build_dir",
+        action="store",
+        help="Specify the BSP CMake build directory (Default: <libsrc>/build_configs/gen_bsp)",
     )
     parser.add_argument(
         "-c",

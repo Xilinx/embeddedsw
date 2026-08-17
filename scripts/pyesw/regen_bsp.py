@@ -53,6 +53,10 @@ class RegenBSP(BSP, Library):
         )
 
     def modify_bsp(self, args):
+        old_domain_data = utils.fetch_yaml_data(self.domain_config_file, "domain")
+        if old_domain_data.get("bsp_build_dir"):
+            args["bsp_build_dir"] = old_domain_data["bsp_build_dir"]
+
         args.update(
             {
                 "ws_dir": self.domain_path,
@@ -97,7 +101,6 @@ class RegenBSP(BSP, Library):
             self.config_lib(None, libs_to_add, "", is_app=False)
             domain_data = utils.fetch_yaml_data(self.domain_config_file, "domain")
 
-        build_metadata = os.path.join(self.libsrc_folder, "build_configs", "gen_bsp")
         lib_config = domain_data["lib_config"]
         os_config = domain_data["os_config"]
         proc_config = domain_data["proc_config"]
@@ -128,7 +131,7 @@ class RegenBSP(BSP, Library):
         cmake_subdir_list = ";".join(self.lib_list)
         utils.runcmd(
             f'cmake {self.domain_path} {self.cmake_paths_append} -DSUBDIR_LIST="{cmake_subdir_list}" {cmake_cmd_append}',
-            cwd=build_metadata,
+            cwd=self.build_metadata,
             log_message="Reconfiguring CMake configurations",
             error_message="Error while executing CMake command",
         )

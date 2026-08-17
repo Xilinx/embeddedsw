@@ -230,11 +230,10 @@ def configure_bsp(args):
                         )
 
         # configure the lib build area with new params
-        build_metadata = os.path.join(obj.libsrc_folder, "build_configs/gen_bsp")
         if obj.os == "freertos" and lib_name == "freertos":
             utils.runcmd(
                 f'cmake {obj.domain_path} {obj.cmake_paths_append} -DSUBDIR_LIST="freertos10_xilinx" {cmake_cmd_append}',
-                cwd=build_metadata,
+                cwd=obj.build_metadata,
                 log_message=f"Configuring FreeRTOS with {cmake_cmd_append}",
                 error_message="Failed to configure FreeRTOS  ",
                 verbose_level=0,
@@ -242,7 +241,7 @@ def configure_bsp(args):
         else:
             utils.runcmd(
                 f'cmake {obj.domain_path} {obj.cmake_paths_append} -DSUBDIR_LIST="{lib_name}" {cmake_cmd_append}',
-                cwd=build_metadata,
+                cwd=obj.build_metadata,
                 log_message=f"Configuring {lib_name} with {cmake_cmd_append}",
                 error_message=f"Failed to configure {lib_name}",
                 verbose_level=0,

@@ -70,6 +70,10 @@ class BSP:
         self.toolchain_file = self.toolchain_file.replace("\\", "/")
         self.specs_file = self.specs_file.replace("\\", "/")
         self.cmake_paths_append = self.cmake_paths_append.replace("\\", "/")
+        self.build_metadata = domain_data.get(
+            "bsp_build_dir",
+            os.path.join(self.libsrc_folder, "build_configs", "gen_bsp"),
+        ).replace("\\", "/")
 
         self.drvlist = self.getdrv_list()
         self.lib_config = domain_data["lib_config"]
@@ -103,16 +107,14 @@ endfunction(_my_hook_end_of_configure)
     def build_bsp(self):
         cmake_file = os.path.join(self.domain_path, "CMakeLists.txt")
         self.libsrc_folder = self.libsrc_folder.replace("\\", "/")
-        build_libxil = os.path.join(self.libsrc_folder, "build_configs/gen_bsp")
-        if not os.path.isdir(build_libxil):
-            utils.mkdir(build_libxil)
+        if not os.path.isdir(self.build_metadata):
+            utils.mkdir(self.build_metadata, silent_discard=False)
         self.domain_path = self.domain_path.replace("\\", "/")
         self.cmake_paths_append = self.cmake_paths_append.replace("\\", "/")
-        build_libxil = build_libxil.replace("\\", "/")
         if self.config == "default":
             utils.runcmd(
                 f'cmake -G "{self.cmake_generator}" {self.domain_path} -DSUBDIR_LIST="ALL" {self.cmake_paths_append}',
-                cwd=build_libxil,
+                cwd=self.build_metadata,
                 log_message="Configuring cmake build area with all library subdir list",
                 error_message="Failed to configure cmake build area with all library subdir list",
             )
@@ -126,7 +128,7 @@ endfunction(_my_hook_end_of_configure)
         cmake_cmd = f"cmake --build . --parallel 22 {verbosity}"
         utils.runcmd(
             cmake_cmd,
-            cwd=build_libxil,
+            cwd=self.build_metadata,
             log_message="Building BSP",
             error_message="Failed to build the BSP",
             verbose_level=0,
@@ -139,7 +141,7 @@ endfunction(_my_hook_end_of_configure)
 
         utils.runcmd(
             f"cmake --install . {dump}",
-            cwd=build_libxil,
+            cwd=self.build_metadata,
             log_message="Copying headers and built archives",
             error_message="Failed to copy headers and built archives, cmake install failed",
             verbose_level=0,
@@ -154,17 +156,14 @@ endfunction(_my_hook_end_of_configure)
 
     def clean_bsp(self):
         self.libsrc_folder = self.libsrc_folder.replace("\\", "/")
-        cmake_cache = os.path.join(
-            self.libsrc_folder, "build_configs", "gen_bsp", "CMakeCache.txt"
-        )
+        cmake_cache = os.path.join(self.build_metadata, "CMakeCache.txt")
         if not utils.is_file(cmake_cache):
             logger.info("Nothing to clean build the BSP first")
         else:
-            build_libxil = os.path.join(self.libsrc_folder, "build_configs", "gen_bsp")
             utils.update_yaml(self.domain_config_file, "domain", "config", "default")
             utils.runcmd(
                 "cmake --build . --target clean",
-                cwd=build_libxil,
+                cwd=self.build_metadata,
                 log_message="Cleaning the BSP",
                 error_message="Failed to clean the BSP",
                 verbose_level=0,

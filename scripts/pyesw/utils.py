@@ -177,8 +177,8 @@ def mkdir(folderpath: str, silent_discard: bool = True) -> None:
     try:
         os.makedirs(folderpath)
         is_successful = True
-    except:
-        pass
+    except Exception as e:
+        assert silent_discard, e
 
     if not silent_discard:
         if is_successful:

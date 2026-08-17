@@ -52,9 +52,7 @@ def build_app(args):
     obj = Build_App(args)
 
     # Build the bsp first before building application
-    cmake_cache = os.path.join(
-        obj.libsrc_folder, "build_configs", "gen_bsp", "CMakeCache.txt"
-    )
+    cmake_cache = os.path.join(obj.build_metadata, "CMakeCache.txt")
     if utils.is_file(cmake_cache):
         generate_bsp(args)
 

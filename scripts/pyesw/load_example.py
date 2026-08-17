@@ -49,7 +49,8 @@ class LoadExample(BSP):
 
     def update_example(self):
         domain_data = utils.fetch_yaml_data(self.domain_config_file, "domain")
-        build_metadata = os.path.join(self.libsrc_folder, "build_configs", "exmetadata")
+        build_metadata = os.path.join(domain_data.get(
+            "bsp_build_dir", os.path.join(self.libsrc_folder, "build_configs", "exmetadata")), "exmetadata").replace("\\", "/")
 
         # If example metadata is already created return
         if utils.is_dir(build_metadata):

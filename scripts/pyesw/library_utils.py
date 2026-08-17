@@ -55,6 +55,10 @@ class Library(Repo):
         self.lib_info = self.domain_data["lib_info"]
         self.os_config = None
         self.cmake_generator = utils.get_cmake_generator()
+        self.build_metadata = self.domain_data.get(
+            "bsp_build_dir",
+            os.path.join(self.libsrc_folder, "build_configs", "gen_bsp"),
+        ).replace("\\", "/")
 
     def gen_lib_list(self):
         """
@@ -416,7 +420,6 @@ class Library(Repo):
         lib_config = {}
         if lib_list:
             # Run cmake configuration with all the default cache entries
-            build_metadata = os.path.join(self.libsrc_folder, "build_configs/gen_bsp")
             if "libmetal" in lib_list:
                 toolchain_file = os.path.join(
                     self.domain_path, self.domain_data["toolchain_file"]
@@ -428,7 +431,6 @@ class Library(Repo):
                     )
             self.cmake_paths_append = self.cmake_paths_append.replace("\\", "/")
             self.domain_path = self.domain_path.replace("\\", "/")
-            build_metadata = build_metadata.replace("\\", "/")
             cmake_lib_list = ";".join(lib_list)
             try:
                 # BSP_LIBSRC_SUBDIRS needs to be modified to avoid checking dependency chain
@@ -438,14 +440,14 @@ class Library(Repo):
                     cmake_cmd_append = cmake_cmd_append.replace("\\", "/")
                     utils.runcmd(
                         f'cmake -G "{self.cmake_generator}" {self.domain_path} {self.cmake_paths_append} -DSUBDIR_LIST="{cmake_lib_list}" {cmake_cmd_append} -LH > cmake_lib_configs.txt',
-                        cwd=build_metadata,
+                        cwd=self.build_metadata,
                         log_message=f"Running CMake Configuration with {cmake_lib_list}",
                         error_message=f"Failed to run CMake Configuration with {cmake_lib_list}",
                     )
                 else:
                     utils.runcmd(
                         f'cmake -G "{self.cmake_generator}" {self.domain_path} {self.cmake_paths_append} -DSUBDIR_LIST="{cmake_lib_list}" -LH > cmake_lib_configs.txt',
-                        cwd=build_metadata,
+                        cwd=self.build_metadata,
                         log_message=f"Running CMake Configuration with {cmake_lib_list}",
                         error_message=f"Failed to run CMake Configuration with {cmake_lib_list}",
                     )
@@ -464,7 +466,7 @@ class Library(Repo):
             for entry in ignore_default_data_list:
                 if entry in lib_list:
                     lib_list.remove(entry)
-            lib_config = self.get_default_lib_params(build_metadata, lib_list)
+            lib_config = self.get_default_lib_params(self.build_metadata, lib_list)
             if is_app:
                 comp_dir = self.get_comp_dir(comp_name)
                 yaml_file = os.path.join(comp_dir, "data", f"{comp_name}.yaml")
@@ -551,12 +553,9 @@ class Library(Repo):
     def remove_lib(self, lib):
         self.validate_lib_in_bsp(lib)
         lib_path = os.path.join(self.libsrc_folder, lib)
-        base_lib_build_dir = os.path.join(
-            self.libsrc_folder, "build_configs", "gen_bsp"
-        )
-        lib_build_dir = os.path.join(base_lib_build_dir, "libsrc", lib)
+        lib_build_dir = os.path.join(self.build_metadata, "libsrc", lib)
         targetdir_list = os.path.join(
-            base_lib_build_dir, "CMakeFiles", "TargetDirectories.txt"
+            self.build_metadata, "CMakeFiles", "TargetDirectories.txt"
         )
         has_lib_cmake_cache = utils.check_if_line_in_file(targetdir_list, f"{lib}.dir")
         if not has_lib_cmake_cache:
@@ -564,24 +563,24 @@ class Library(Repo):
             self.cmake_paths_append = self.cmake_paths_append.replace("\\", "/")
             utils.runcmd(
                 f'cmake -G "{self.cmake_generator}" {self.domain_path} -DSUBDIR_LIST="ALL" {self.cmake_paths_append}',
-                cwd=base_lib_build_dir,
+                cwd=self.build_metadata,
                 log_message="Configuring CMake with all Subdir list",
                 error_message="CMake Configuration with all Subdir list failed",
             )
 
         # Run make clean to remove the respective headers and .a from lib and include folder.
+        build_metadata = self.build_metadata.replace("\\", "/")
         if os.name == "nt":
-            base_lib_build_dir = base_lib_build_dir.replace("\\", "/")
             utils.runcmd(
                 r'cmake -DCONFIG="" -P CMakeFiles\clean_additional.cmake',
-                cwd=base_lib_build_dir,
+                cwd=build_metadata,
                 log_message="Running CMake clean ",
                 error_message="Failed to run CMake clean ",
             )
         else:
             utils.runcmd(
                 'cmake -DCONFIG="" -P CMakeFiles/clean_additional.cmake',
-                cwd=base_lib_build_dir,
+                cwd=build_metadata,
                 log_message="Running CMake clean ",
                 error_message="Failed to run CMake clean ",
             )
@@ -594,7 +593,7 @@ class Library(Repo):
         dump = utils.discard_dump()
         utils.runcmd(
             f"ninja CMakeFiles/rebuild_cache.util > {dump}",
-            cwd=base_lib_build_dir,
+            cwd=build_metadata,
             log_message=" Rebuilding CMake cache.util ",
             error_message=" Failed to rebuild CMake cache.util ",
         )
