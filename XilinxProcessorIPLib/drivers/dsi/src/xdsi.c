@@ -22,6 +22,7 @@
 * 1.0 ram 11/02/16 Initial Release DSI driver
 * 1.1 sss 08/17/16 Added 64 bit support
 *     sss 08/26/16 Add "Command Queue Vacancy" API
+* 1.2 ai 08/12/26 Added LPDT (escape mode) support
 *
 * </pre>
 *
@@ -424,6 +425,99 @@ int XDsi_SetMode(XDsi *InstancePtr, XDsi_DsiModeType mode)
 
 	return XST_SUCCESS;
 }
+
+/*****************************************************************************/
+/**
+* Selects the DCS command mode or LPDT transport.
+*
+* @brief Chooses whether the next command packets go out in DCS command mode
+* or over LPDT. The controller must already be in command mode.
+*
+* @param[in]	InstancePtr  Pointer to the XDsi instance. The instance must
+*			     have been initialized via XDsi_CfgInitialize().
+* @param[in]	Mode         Desired transport, one of:
+*			     - XDSI_DCS_CMD_MODE: DCS command mode (High-Speed)
+*			     - XDSI_LPDT_MODE: Low-Power Data Transmission
+*
+* @return
+*		- XST_SUCCESS if the transport was selected.
+*		- XST_FAILURE if the controller is not in command mode, or a
+*		  previous command never completed.
+*
+* @note	The caller must enable command mode (XDsi_SetMode with
+*		XDSI_COMMAND_MODE) before selecting LPDT.
+*
+* @see XDsi_SetMode, XDsi_SendLpdtPacket
+*
+****************************************************************************/
+int XDsi_SetLpdtMode(XDsi *InstancePtr, XDsi_CmdLpdtType Mode)
+{
+	u32 Timeout;
+
+	/* Verify arguments */
+	Xil_AssertNonvoid(InstancePtr != NULL);
+
+	/* LPDT/DCS command transport is only valid in command mode */
+	if (!XDsi_IsModeEnabled(InstancePtr))
+		return XST_FAILURE;
+
+	/* Wait for any in-progress command before switching transport. A
+	 * command that never completes must not trap the caller here. */
+	if (XDsi_IsEnabled(InstancePtr)) {
+		for (Timeout = XDSI_CMD_TIMEOUT;
+		     Timeout && XDsi_GetInProgress(InstancePtr); Timeout--)
+			;
+
+		if (!Timeout)
+			return XST_FAILURE;
+	}
+
+	XDsi_SetCmdLpdt(InstancePtr, Mode);
+
+	return XST_SUCCESS;
+}
+
+/*****************************************************************************/
+/**
+* Sends a command packet over LPDT.
+*
+* @brief Sends a short or long command packet while the controller is in LPDT
+* mode. Long-packet payloads are limited to 251 bytes.
+*
+* @param[in]	InstancePtr  Pointer to the XDsi instance. The instance must
+*			     have been initialized via XDsi_CfgInitialize().
+* @param[in]	CmdPktData   Pointer to the XDsiTx_CmdModePkt structure that
+*			     specifies the packet type, short-packet header and
+*			     long-packet payload.
+*
+* @return
+*		- XST_SUCCESS if the packet was accepted for transmission.
+*		- XST_INVALID_PARAM if a long-packet payload exceeds 251 bytes.
+*		- XST_FAILURE if the controller is not enabled or not in command
+*		  mode (propagated from XDsi_SendCmdModePkt).
+*
+* @see XDsi_SetLpdtMode, XDsi_SendCmdModePkt
+*
+****************************************************************************/
+int XDsi_SendLpdtPacket(XDsi *InstancePtr, XDsiTx_CmdModePkt *CmdPktData)
+{
+	/* Verify arguments */
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(CmdPktData != NULL);
+
+	/* Enforce the LPDT 251-byte payload cap for long packets. The word
+	 * count is carried in the long-packet header bytes (Data0=WC[7:0],
+	 * Data1=WC[15:8]). */
+	if (CmdPktData->CmdPkt == XDSI_CMD_MODE_LONG_PKT) {
+		u32 WordCount = ((u32)CmdPktData->SpktData.Data1 << 8) |
+				 (u32)CmdPktData->SpktData.Data0;
+		if (WordCount > 251U)
+			return XST_INVALID_PARAM;
+	}
+
+	return XDsi_SendCmdModePkt(InstancePtr, CmdPktData);
+}
+
 /*****************************************************************************/
 /**
 * Read current DSI controller configuration parameters.

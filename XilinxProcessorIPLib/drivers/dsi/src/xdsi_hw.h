@@ -101,6 +101,8 @@ extern "C" {
  * and number of lanes actively used.
  * @{
  */
+#define XDSI_PCR_CMD_LPDT_MASK		0x00004000  /**< CMD/LPDT mode select:
+						      *  0=DCS CMD, 1=LPDT */
 #define XDSI_PCR_EOTPENABLE_MASK	0x00002000  /**< End of Transmission
 						      *  Mask bit */
 #define XDSI_PCR_PIXELFORMAT_MASK	0x00001F80  /**< Pixel Format Type
@@ -114,6 +116,8 @@ extern "C" {
 #define XDSI_PCR_ACTLANES_MASK		0x00000003  /**< Active lanes
 						      *  in core */
 
+#define XDSI_PCR_CMD_LPDT_SHIFT		14  /**< Shift for CMD/LPDT
+						mode select */
 #define XDSI_PCR_EOTPENABLE_SHIFT	13  /**< Shift for EOTP
 						Enable */
 #define XDSI_PCR_PIXELFORMAT_SHIFT	7  /**< Shift for pixel

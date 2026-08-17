@@ -102,6 +102,13 @@ typedef enum {
         XDSI_CMD_MODE_LONG_PKT    /**< Command mode long packet */
 } XDsi_CmdModePktType;
 /**
+ * Defines the command-packet transport options for escape mode.
+ */
+typedef enum {
+	XDSI_DCS_CMD_MODE = 0,  /**< DCS command mode (High-Speed transport). */
+	XDSI_LPDT_MODE          /**< Low-Power Data Transmission (LP escape). */
+} XDsi_CmdLpdtType;
+/**
  * Video Timing Mode by default Non-burst mode with Sync Events
  */
 typedef enum {
@@ -112,6 +119,7 @@ typedef enum {
 } XDsi_VideoMode;
 
 #define NUM_PACKETS	64 /**< Number of packets for long packet data in command mode */
+#define XDSI_CMD_TIMEOUT	50000U /**< Poll iterations to await command completion */
 /**
  * MIPI DSI Command Mode configuration structure.
  */
@@ -578,6 +586,21 @@ static inline void XDsi_VideoModeEnable(XDsi *InstancePtr)
 /****************************************************************************/
 /**
 *
+* Selects the command transport: DCS command mode or LPDT.
+*
+* @param[in]	InstancePtr  Pointer to the DSI instance.
+* @param[in]	Mode         XDSI_DCS_CMD_MODE or XDSI_LPDT_MODE.
+*
+****************************************************************************/
+static inline void XDsi_SetCmdLpdt(XDsi *InstancePtr, XDsi_CmdLpdtType Mode)
+{
+	XDsi_SetBitField(InstancePtr->Config.BaseAddr, XDSI_PCR_OFFSET,
+	XDSI_PCR_CMD_LPDT_MASK, XDSI_PCR_CMD_LPDT_SHIFT, Mode);
+}
+
+/****************************************************************************/
+/**
+*
 * This function is used to enable the global interrupts. This is
 * used after setting the interrupts mask before enabling the core.
 *
@@ -904,6 +927,8 @@ u32 XDsi_SelfTest(XDsi *InstancePtr);
 void XDsi_SendShortPacket(XDsi *InstancePtr, XDsi_ShortPacket *ShortPacket);
 int XDsi_SendCmdModePkt(XDsi *InstancePtr, XDsiTx_CmdModePkt *CmdPkt);
 int XDsi_SetMode(XDsi *InstancePtr, XDsi_DsiModeType mode);
+int XDsi_SetLpdtMode(XDsi *InstancePtr, XDsi_CmdLpdtType Mode);
+int XDsi_SendLpdtPacket(XDsi *InstancePtr, XDsiTx_CmdModePkt *CmdPktData);
 void XDsi_GetConfigParams(XDsi *InstancePtr,
 		XDsi_ConfigParameters *ConfigInfo);
 s32 XDsi_SetVideoInterfaceTiming(XDsi *InstancePtr, XDsi_VideoMode VideoMode,
