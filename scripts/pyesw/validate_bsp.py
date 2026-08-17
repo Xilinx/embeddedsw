@@ -145,7 +145,7 @@ class Validation(BSP, Library):
             sys.exit(1)
 
         domain_data = utils.fetch_yaml_data(self.domain_config_file, "domain")
-        esw_app_dir = self.get_comp_dir(self.template)
+        esw_app_dir = self.get_comp_yaml_src(self.template)
         app_yaml_file = os.path.join(esw_app_dir, "data", f"{self.template}.yaml")
         app_lib_info = utils.fetch_yaml_data(app_yaml_file, "depends_libs")
         diff_lib_data = {}

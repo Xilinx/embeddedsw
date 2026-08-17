@@ -178,7 +178,7 @@ def configure_bsp(args):
                 xen_config_lops_file = os.path.join(
                     obj.domain_path, "hw_artifacts", "lop-xen-config.dts"
                 )
-                drv_path = obj.get_comp_dir("scugic")
+                drv_path = obj.get_comp_yaml_src("scugic")
                 drv_srcdir = os.path.join(drv_path, "src")
                 drvsrc = os.path.join(obj.libsrc_folder, "scugic", "src")
                 if utils.is_dir(drvsrc):
@@ -200,7 +200,7 @@ def configure_bsp(args):
                         )
                         if obj.os == "freertos":
                             lib = "freertos10_xilinx"
-                            lib_dir_path = obj.get_comp_dir(lib)
+                            lib_dir_path = obj.get_comp_yaml_src(lib)
                             srcdir = os.path.join(lib_dir_path, "src")
                             dstdir = os.path.join(obj.libsrc_folder, f"{lib}/src")
                             outfile = f"{lib}Example.cmake"

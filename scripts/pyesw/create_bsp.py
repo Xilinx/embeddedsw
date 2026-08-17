@@ -510,7 +510,9 @@ set( CMAKE_SUBMACHINE "VersalNet" CACHE STRING "cmake submachine" FORCE)
         compiler_flags = ""
         if app_name:
             app_yaml_dict = utils.load_yaml(
-                os.path.join(self.get_comp_dir(app_name), "data", f"{app_name}.yaml")
+                os.path.join(
+                    self.get_comp_yaml_src(app_name), "data", f"{app_name}.yaml"
+                )
             )
             if app_yaml_dict.get("extra_compiler_flags"):
                 utils.replace_line(
@@ -618,12 +620,11 @@ def create_domain(args):
         cmake_paths_append += " -Wno-dev "
 
     # Copy the standalone bsp src file.
-    os_dir_path = obj.get_comp_dir("standalone")
-    os_srcdir = os.path.join(os_dir_path, "src")
+    libsrc_os_dst_path = os.path.join(obj.libsrc_folder, "standalone", "src")
+    obj.os_info["standalone"] = obj.copy_comp_src("standalone", libsrc_os_dst_path)
+    os_srcdir = os.path.join(obj.get_comp_yaml_src("standalone", obj.sdt_folder), "src")
     bspsrc = os.path.join(obj.libsrc_folder, "standalone", "src")
     bspcomsrc = os.path.join(obj.libsrc_folder, "standalone", "src", "common")
-    utils.copy_directory(os_srcdir, bspsrc)
-    obj.os_info["standalone"] = {"path": os_dir_path}
 
     # Create lops file
     config_lops_file = os.path.join(obj.domain_dir, "lop-config.dts")
@@ -683,22 +684,31 @@ def create_domain(args):
         drv_list = drv_names.split()
 
     drv_lib_dep = []
+    drv_path_info = {}
     for drv in drv_list:
-        drv_path = obj.get_comp_dir(drv, obj.sdt_folder)
-        drv_srcdir = os.path.join(drv_path, "src")
         drvsrc = os.path.join(obj.libsrc_folder, drv, "src")
-        utils.copy_directory(drv_srcdir, drvsrc)
-        yaml_file = os.path.join(drv_path, "data", f"{drv}.yaml")
+        drv_path_info[drv] = obj.copy_comp_src(drv, drvsrc, obj.sdt_folder)
+        drv_paths = obj.get_comp_dir(drv, obj.sdt_folder)
+
+        # cmake_drv_path_list is used to load driver examples, let the examples be loaded from the first driver path
+        # found in the repo_paths_list which is expected to be the full source path.
+        # For YAML, we want to load the YAML from the last driver path found in the repo_paths_list since these YAMLs
+        # impact config structure and the xparameters.h.
+        drv_path_for_example = drv_paths[0]
+        drv_path_for_yaml = drv_paths[-1]
+        drv_srcdir = os.path.join(drv_path_for_yaml, "src")
+
+        yaml_file = os.path.join(drv_path_for_yaml, "data", f"{drv}.yaml")
         schema = utils.load_yaml(yaml_file)
         if schema and schema.get("depends_libs", {}):
             drv_lib_dep.extend(list(schema["depends_libs"].keys()))
 
-        if not drv_path:
+        if not drv_path_for_example:
             logger.error(
-                f"Couldn't find the src directory for {drv}. {drv_path} doesn't exist."
+                f"Couldn't find the src directory for {drv}. {drv_path_for_example} doesn't exist."
             )
             sys.exit(1)
-        cmake_drv_path_list += f"{drv_path};"
+        cmake_drv_path_list += f"{drv_path_for_example};"
         lop_cmds.append(
             [drvsrc, "module,baremetalconfig_xlnx", f"{obj.proc} {drv_srcdir}"]
         )
@@ -708,13 +718,16 @@ def create_domain(args):
     for ip, data in ip_drv_map.items():
         driver = data[1]
         if driver != "None":
-            drv_path = obj.get_comp_dir(driver, obj.sdt_folder)
-            if not drv_path:
-                logger.error(
-                    f"Couldn't find the src directory for {drv}. {drv_path} doesn't exist."
-                )
+            path_info = drv_path_info.get(driver)
+            if path_info is None:
+                logger.error(f"Path info for {driver} is not available, Exiting")
                 sys.exit(1)
-            obj.drv_info[ip] = {"driver": driver, "ip_name": data[0], "path": drv_path}
+            obj.drv_info[ip] = {
+                "driver": driver,
+                "ip_name": data[0],
+                **path_info,
+            }
+
         else:
             obj.drv_info[ip] = "None"
 
@@ -784,17 +797,14 @@ def create_domain(args):
                 lib_obj.copy_lib_src(lib)
 
     if obj.os == "freertos":
+        libsrc_dst_path = os.path.join(obj.libsrc_folder, "freertos10_xilinx", "src")
         # Copy the freertos source code to libsrc folder
-        os_dir_path = obj.get_comp_dir("freertos10_xilinx")
-        os_srcdir = os.path.join(os_dir_path, "src")
-        bspsrc = os.path.join(obj.libsrc_folder, "freertos10_xilinx/src")
-        utils.copy_directory(os_srcdir, bspsrc)
-        obj.os_info["freertos10_xilinx"] = {"path": os_dir_path}
+        obj.os_info["freertos10_xilinx"] = obj.copy_comp_src("freertos10_xilinx", libsrc_dst_path)
         lib_list.append("freertos10_xilinx")
 
     if lib_list:
         for lib in lib_list:
-            lib_dir_path = obj.get_comp_dir(lib)
+            lib_dir_path = obj.get_comp_yaml_src(lib)
             srcdir = os.path.join(lib_dir_path, "src")
             dstdir = os.path.join(obj.libsrc_folder, f"{lib}/src")
             outfile = f"{lib}Example.cmake"

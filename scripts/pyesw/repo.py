@@ -65,8 +65,21 @@ class Repo:
         for entries in self.repo_schema.keys():
             if comp_name in self.repo_schema[entries].keys():
                 path_found = True
-                comp_dir = self.repo_schema[entries][comp_name]["path"][0]
-                return self.validate_comp_path(comp_dir, comp_name)
+                comp_info = self.repo_schema[entries][comp_name]
+                full_paths = comp_info.get("path", [])
+                if not full_paths:
+                    logger.error(
+                        f"No full/base source found for {comp_name}. A partial "
+                        f"source cannot be used without a base embeddedsw source "
+                        f"that provides {comp_name}."
+                    )
+                    sys.exit(1)
+                comp_dir = self.validate_comp_path(full_paths[0], comp_name)
+                partial_paths = [
+                    self.validate_comp_path(path, comp_name)
+                    for path in comp_info.get("partial_paths", [])
+                ]
+                return [comp_dir] + partial_paths
         if not path_found:
             if sdt_path:
                 has_drivers = os.path.join(sdt_path, "drivers")
@@ -84,7 +97,7 @@ class Repo:
                         comp_dir = utils.get_dir_path(
                             utils.get_dir_path(yaml_file_abs[0])
                         )
-                        return self.validate_comp_path(comp_dir, comp_name)
+                        return [self.validate_comp_path(comp_dir, comp_name)]
             logger.error(f"Couldn't find the src directory for {comp_name}")
             sys.exit(1)
 
@@ -94,6 +107,55 @@ class Repo:
         ), f"{comp_dir} doesn't exist. Not able to fetch the dir for {comp_name}"
         return comp_dir
 
+    def get_comp_yaml_src(self, component, sdt_path=""):
+        """
+        Get the component's yaml file path.
+
+        Args:
+            component (str): Component name.
+
+        Returns:
+            str: Component's yaml file path.
+        """
+        sources = self.get_comp_dir(component, sdt_path)
+        last_src = sources[-1]
+        yaml_file = os.path.join(last_src, "data", f"{component}.yaml")
+        if not utils.is_file(yaml_file):
+            logger.error(f"Couldn't find the yaml file for {component}")
+            sys.exit(1)
+        return last_src
+
+    def copy_comp_src(self, component, dstdir, sdt_path=""):
+        """
+        Copy a component's source directories to the workd directory.
+
+        Args:
+            component (str): Component name.
+            dstdir (str): BSP libsrc folder or Application src dir.
+
+        Returns:
+            dict: Primary component path and its partial paths.
+        """
+        sources = self.get_comp_dir(component, sdt_path)
+        full_src = sources[0]
+        path_dict = {"path": full_src}
+        utils.copy_directory(os.path.join(full_src, "src"), dstdir)
+
+        partial_src = []
+        if len(sources) > 1:
+            partial_src = sources[1:]
+        if partial_src:
+            logger.info(
+                f"Detected partial source directories for {component}"
+            )
+            for component_path in partial_src:
+                logger.info(
+                    f"Copying partial source from {component_path} to {dstdir}"
+                )
+                utils.copy_directory(os.path.join(component_path, "src"), dstdir)
+            path_dict["partial_paths"] = partial_src
+
+        return path_dict
 
 """
 Rules that decide the priority order:
@@ -150,10 +212,15 @@ def resolve_paths(args):
                 )
                 continue
 
+            is_partial_source = yaml_data.get("source") == "partial"
             if not path_dict[yaml_data["type"]].get(comp_name):
-                path_dict[yaml_data["type"]][comp_name] = [(comp_version, dir_path)]
+                path_dict[yaml_data["type"]][comp_name] = [
+                    (comp_version, dir_path, is_partial_source)
+                ]
             else:
-                path_dict[yaml_data["type"]][comp_name] += [(comp_version, dir_path)]
+                path_dict[yaml_data["type"]][comp_name] += [
+                    (comp_version, dir_path, is_partial_source)
+                ]
 
     for comp_type in ["os", "driver", "library", "apps"]:
         for comp_name, version_path_tuple in path_dict[comp_type].items():
@@ -161,9 +228,16 @@ def resolve_paths(args):
             sorted_version_path_tuple = sorted(
                 version_path_tuple, key=lambda x: x[0], reverse=True
             )
+            partial_path_list = []
             for version_path_comb in sorted_version_path_tuple:
-                comp_path_list += [version_path_comb[1]]
+                if version_path_comb[2]:
+                    partial_path_list += [version_path_comb[1]]
+                else:
+                    comp_path_list += [version_path_comb[1]]
+
             path_dict[comp_type][comp_name] = {"path": comp_path_list}
+            if partial_path_list:
+                path_dict[comp_type][comp_name]["partial_paths"] = partial_path_list
 
     utils.write_yaml(".repo.yaml", path_dict)
     logger.info(

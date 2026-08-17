@@ -160,8 +160,9 @@ class Library(Repo):
             | srcdir (str): Path of src folder of library inside embeddedsw
             | dstdir (str): Path of src folder inside libsrc folder of bsp
         """
-        libdir = self.get_comp_dir(lib) if lib_path is None else lib_path
+        libdir = self.get_comp_yaml_src(lib) if lib_path is None else lib_path
         srcdir = os.path.join(libdir, "src")
+        dstdir = os.path.join(self.libsrc_folder, lib, "src")
         if lib in ["libmetal", "openamp"]:
             if lib_path is None:
                 srcdir = os.path.join(os.environ.get("XILINX_VITIS"), "data")
@@ -170,13 +171,18 @@ class Library(Repo):
                 srcdir = os.path.join(srcdir, "open-amp")
             else:  # no workaround needed for libmetal
                 srcdir = os.path.join(srcdir, lib)
-
-        dstdir = os.path.join(self.libsrc_folder, lib, "src")
-        utils.copy_directory(srcdir, dstdir)
-        if lib in ["libmetal", "openamp"]:
+            utils.copy_directory(srcdir, dstdir)
             open_amp_copy_lib_src(libdir, dstdir, lib)
+            self.lib_info[lib] = {"path": libdir}
+        elif lib_path is not None:
+            # FIXME: This usage of addlib <name>:<path> is obsolete and is no
+            # more in use. Adding below check to maintain backward compatibility
+            # for now.
+            utils.copy_directory(srcdir, dstdir)
+            self.lib_info[lib] = {"path": libdir}
+        else:
+            self.lib_info[lib] = self.copy_comp_src(lib, dstdir)
 
-        self.lib_info[lib] = {"path": libdir}
         return libdir, srcdir, dstdir
 
     def get_default_lib_params(self, build_lib_dir, lib_list):
@@ -288,7 +294,7 @@ class Library(Repo):
         return default_lib_config
 
     def validate_drv_for_lib(self, comp_name, drvlist):
-        comp_dir = self.get_comp_dir(comp_name)
+        comp_dir = self.get_comp_yaml_src(comp_name)
         yaml_file = os.path.join(comp_dir, "data", f"{comp_name}.yaml")
         schema = utils.load_yaml(yaml_file)
         if schema.get("depends"):
@@ -320,7 +326,7 @@ class Library(Repo):
         return True
 
     def get_depends_libs(self, lib_name, lib_list=[]):
-        app_dir = self.get_comp_dir(lib_name)
+        app_dir = self.get_comp_yaml_src(lib_name)
         yaml_file = os.path.join(app_dir, "data", f"{lib_name}.yaml")
         schema = utils.load_yaml(yaml_file)
         if schema and schema.get("depends_libs", {}):
@@ -376,7 +382,7 @@ class Library(Repo):
         lib_list = []
 
         # Read the yaml file of the passed component.
-        app_dir = self.get_comp_dir(app_name)
+        app_dir = self.get_comp_yaml_src(app_name)
         yaml_file = os.path.join(app_dir, "data", f"{app_name}.yaml")
         schema = utils.load_yaml(yaml_file)
         lib_config = {}
@@ -468,7 +474,7 @@ class Library(Repo):
                     lib_list.remove(entry)
             lib_config = self.get_default_lib_params(self.build_metadata, lib_list)
             if is_app:
-                comp_dir = self.get_comp_dir(comp_name)
+                comp_dir = self.get_comp_yaml_src(comp_name)
                 yaml_file = os.path.join(comp_dir, "data", f"{comp_name}.yaml")
                 schema = utils.load_yaml(yaml_file)
                 # Add the modified lib param values in yaml configuration dict

@@ -59,7 +59,7 @@ class ValidateHW(Repo):
         self.sdt = sdt
 
     def validate_hw(self):
-        app_dir = self.get_comp_dir(self.name)
+        app_dir = self.get_comp_yaml_src(self.name)
         yaml_file = os.path.join(app_dir, "data", f"{self.name}.yaml")
         """
         FIXME: currently there is no processor specific checks in the
@@ -98,7 +98,7 @@ class ValidateHW(Repo):
             lop_cmds = []
             config_lops_file = os.path.join(self.domain_dir, "lop-config.dts")
             for comp in comp_list:
-                comp_path = self.get_comp_dir(comp)
+                comp_path = self.get_comp_yaml_src(comp)
                 comp_srcdir = os.path.join(comp_path, "src")
                 lop_cmds.append(
                     [
