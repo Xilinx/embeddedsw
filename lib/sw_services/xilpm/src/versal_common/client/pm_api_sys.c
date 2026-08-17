@@ -1067,31 +1067,33 @@ done:
 
 /****************************************************************************/
 /**
- * @brief  This function reads the per-die VID (Voltage ID) eFuse value.
+ * @brief  This function reads a 32-bit word from a secure register node.
  *
- * @param  VidValue            Pointer to store the raw 32-bit VID eFuse word
+ * @param RegNodeId		Secure register node ID
+ * @param Offset		Byte offset of the word within the node
+ * @param Response		Buffer to store the word read
  *
  * @return XST_SUCCESS if successful else XST_FAILURE or an error code
  * or a reason code
  *
- * @note The raw 32-bit VID word is returned unchanged; decoding it
- * (control bits, MP_MAP) is left to the caller. Applicable to Versal
- * Gen 2 only.
+ * @note   PLM supports only a single word read for now.
  *
  ****************************************************************************/
-XStatus XPm_ReadVIDEfuse(u32 *const VidValue)
+XStatus XPm_ReadSecureReg(const u32 RegNodeId, const u32 Offset,
+			  u32 *const Response)
 {
 	XStatus Status = (s32)XST_FAILURE;
-	const u32 Payload[3] = {PM_VID_EFUSE_OFFSET, 1U, 0U};
+	/* Payload: [0] = register offset, [1] = word count, [2] = unused */
+	const u32 Payload[3] = {Offset, 1U, 0U};
 
-	if (NULL == VidValue) {
-		XPm_Err("Passing NULL pointer to %s\r\n", __func__);
+	if (NULL == Response) {
+		XPm_Err("Passing invalid argument to %s\r\n", __func__);
 		Status = (s32)XST_INVALID_PARAM;
 		goto done;
 	}
 
-	Status = XPm_DevIoctl2(PM_REG_EFUSE_CACHE, IOCTL_READ_REG, Payload,
-			       3U, VidValue, 1U);
+	Status = XPm_DevIoctl2(RegNodeId, IOCTL_READ_REG, Payload,
+			       3U, Response, 1U);
 done:
 	return Status;
 }
