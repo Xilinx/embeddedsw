@@ -22,7 +22,7 @@
 * 1.0 ram 11/02/16 Initial Release DSI driver
 * 1.1 sss 08/17/16 Added 64 bit support
 *     sss 08/26/16 Add "Command Queue Vacancy" API
-* 1.2 ai 08/12/26 Added LPDT (escape mode) support
+* 1.2 ai 08/12/26 Added escape mode(LPDT/ULPS) support
 *
 * </pre>
 *
@@ -33,6 +33,7 @@
 #include "xstatus.h"
 #include "xdsi.h"
 #include "xvidc.h"
+#include "sleep.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -516,6 +517,61 @@ int XDsi_SendLpdtPacket(XDsi *InstancePtr, XDsiTx_CmdModePkt *CmdPktData)
 	}
 
 	return XDsi_SendCmdModePkt(InstancePtr, CmdPktData);
+}
+
+/*****************************************************************************/
+/**
+* Enters or exits the Ultra-Low Power State (ULPS).
+*
+* @brief Puts the DSI link into ULPS to save power, or brings it back out.
+*
+* @param[in]	InstancePtr  Pointer to the XDsi instance. The instance must
+*			     have been initialized via XDsi_CfgInitialize().
+* @param[in]	Enable       1 to enter ULPS, 0 to exit ULPS.
+*
+* @return
+*		- XST_SUCCESS if the requested ULPS transition completed.
+*		- XST_FAILURE if ULPS entry or exit was not observed in time.
+*
+* @note	ULPS entry resets the controller image FIFOs; the caller must
+*		re-arm the video output from a fresh frame after exit.
+*
+* @see XDsi_IsUlps, XDsi_SetUlps
+*
+****************************************************************************/
+int XDsi_SetUlpsMode(XDsi *InstancePtr, u32 Enable)
+{
+	u32 Timeout;
+
+	/* Verify arguments */
+	Xil_AssertNonvoid(InstancePtr != NULL);
+
+	if (Enable) {
+		/* Case 6: ULPS entry requires the core to be enabled */
+		if (!XDsi_IsEnabled(InstancePtr))
+			XDsi_Enable(InstancePtr);
+
+		XDsi_SetUlps(InstancePtr, 1U);
+
+		/* Wait for the lanes to report ULPS */
+		for (Timeout = XDSI_ULPS_TIMEOUT;
+		     Timeout && !XDsi_IsUlps(InstancePtr); Timeout--)
+			;
+
+		return Timeout ? XST_SUCCESS : XST_FAILURE;
+	}
+
+	XDsi_SetUlps(InstancePtr, 0U);
+
+	/* Honor the ULPS wake-up time (T_WAKEUP > 1 ms) */
+	usleep(2000);
+
+	/* Clear the ULPS state interrupt, then re-read: cleared means the
+	 * lanes have exited ULPS. */
+	XDsi_WriteReg(InstancePtr->Config.BaseAddr, XDSI_ISR_OFFSET,
+		      XDSI_ISR_ULPS_MASK);
+
+	return XDsi_IsUlps(InstancePtr) ? XST_FAILURE : XST_SUCCESS;
 }
 
 /*****************************************************************************/

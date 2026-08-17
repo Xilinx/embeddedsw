@@ -119,6 +119,7 @@ typedef enum {
 } XDsi_VideoMode;
 
 #define NUM_PACKETS	64 /**< Number of packets for long packet data in command mode */
+#define XDSI_ULPS_TIMEOUT	50000U /**< Poll iterations to await ULPS entry */
 #define XDSI_CMD_TIMEOUT	50000U /**< Poll iterations to await command completion */
 /**
  * MIPI DSI Command Mode configuration structure.
@@ -601,6 +602,37 @@ static inline void XDsi_SetCmdLpdt(XDsi *InstancePtr, XDsi_CmdLpdtType Mode)
 /****************************************************************************/
 /**
 *
+* Requests ULPS entry or exit.
+*
+* @param[in]	InstancePtr  Pointer to the DSI instance.
+* @param[in]	Enable       1 to request ULPS entry, 0 to request ULPS exit.
+*
+****************************************************************************/
+static inline void XDsi_SetUlps(XDsi *InstancePtr, u32 Enable)
+{
+	XDsi_SetBitField(InstancePtr->Config.BaseAddr, XDSI_CCR_OFFSET,
+	XDSI_CCR_ULPS_MASK, XDSI_CCR_ULPS_SHIFT, Enable);
+}
+
+/****************************************************************************/
+/**
+*
+* Reports whether the lanes are in ULPS.
+*
+* @param[in]	InstancePtr  Pointer to the DSI instance.
+*
+* @return	Non-zero if the lanes are in ULPS, 0 otherwise.
+*
+****************************************************************************/
+static inline u32 XDsi_IsUlps(XDsi *InstancePtr)
+{
+	return XDsi_GetBitField(InstancePtr->Config.BaseAddr, XDSI_ISR_OFFSET,
+	XDSI_ISR_ULPS_MASK, XDSI_ISR_ULPS_SHIFT);
+}
+
+/****************************************************************************/
+/**
+*
 * This function is used to enable the global interrupts. This is
 * used after setting the interrupts mask before enabling the core.
 *
@@ -929,6 +961,7 @@ int XDsi_SendCmdModePkt(XDsi *InstancePtr, XDsiTx_CmdModePkt *CmdPkt);
 int XDsi_SetMode(XDsi *InstancePtr, XDsi_DsiModeType mode);
 int XDsi_SetLpdtMode(XDsi *InstancePtr, XDsi_CmdLpdtType Mode);
 int XDsi_SendLpdtPacket(XDsi *InstancePtr, XDsiTx_CmdModePkt *CmdPktData);
+int XDsi_SetUlpsMode(XDsi *InstancePtr, u32 Enable);
 void XDsi_GetConfigParams(XDsi *InstancePtr,
 		XDsi_ConfigParameters *ConfigInfo);
 s32 XDsi_SetVideoInterfaceTiming(XDsi *InstancePtr, XDsi_VideoMode VideoMode,
