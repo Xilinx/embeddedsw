@@ -24,6 +24,7 @@
 #include "xpm_runtime_api.h"
 #include "xpm_update.h"
 #include "xpm_runtime_aie.h"
+#include "xpm_aiedevice.h"
 
 /* Macro to check if a device is an RPU core */
 #define IS_DEV_RPU(DeviceId) \
@@ -629,7 +630,12 @@ XStatus XPm_Ioctl(const u32 SubsystemId, const u32 DeviceId, const pm_ioctl_id I
 		break;
 	case IOCTL_AIE_OPS:
 	case IOCTL_AIE2PS_OPS:
-		Status = XPmAie_Operations(SubsystemId, Arg1, Arg2, Arg3);
+		/* Validate that the device ID is a valid AIE device node */
+		if (!IS_DEV_AIE(DeviceId)) {
+			Status = XST_INVALID_PARAM;
+			goto done;
+		}
+		Status = XPmAie_Operations(SubsystemId, DeviceId, Arg1, Arg2, Arg3);
 		break;
 	case IOCTL_READ_GGS:
 	case IOCTL_WRITE_GGS:

@@ -2340,10 +2340,12 @@ static XStatus XPm_AddDevice(const u32 *Args, u32 NumArgs)
 
 	/*
 	 * Memory region device node does not have any power node as parent.
+	 * AIE device node uses Args[1] for partition info, not power node.
 	 * So, skipping this check even if the ADD_NODE command has more than
 	 * one argument.
 	 */
-	if (((u32)XPM_NODESUBCL_DEV_MEM_REGN != SubClass) && (NumArgs > 1U)) {
+	if (((u32)XPM_NODESUBCL_DEV_MEM_REGN != SubClass) &&
+	    ((u32)XPM_NODESUBCL_DEV_AIE != SubClass) && (NumArgs > 1U)) {
 		/*
 		 * Check for Num Args < 3U as device specific (except PLDevice)
 		 * AddNode functions currently don't implement any NumArgs checks

@@ -42,6 +42,9 @@ typedef struct XPm_AieDomainOpHooks XPm_AieDomainOpHooks;
 
 #define AIE_START_COL_MASK		(0x0000FFFFU)
 #define AIE_NUM_COL_MASK		(0xFFFF0000U)
+#define AIE_NUM_COL_SHIFT		(16U) /**< Bit shift to extract NumCol from OPS Part word */
+#define AIE_COL_ARG_MASK		(0x0000FFFFU) /**< Mask for CDO column arguments (StartCol, NumCol) */
+#define AIE_COL_U16_MAX			(0xFFFFU) /**< Maximum valid column value (u16 range) */
 
 /* Type of Tile */
 #define AIE_TILE_TYPE_UNDEFINED		(0U)
@@ -87,7 +90,7 @@ struct XPm_AieDomain {
 /************************** Function Prototypes ******************************/
 XStatus XPmAieDomain_Init(XPm_AieDomain *AieDomain, u32 Id, u32 BaseAddress,
 			  XPm_Power *Parent, const u32 *Args, u32 NumArgs);
-XStatus Aie_Operations(u32 Part, u32 Ops);
+XStatus Aie_Operations(u32 DeviceId, u32 Part, u32 Ops);
 XStatus AddAieDeviceNode(void);
 XPm_AieDomain* XPmAie_GetDomain(void);
 

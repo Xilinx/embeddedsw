@@ -1098,18 +1098,96 @@ done:
 	return Status;
 }
 
-
-static XStatus AddAieDevice(const u32 *Args)
+/****************************************************************************/
+/**
+ * @brief  Add an AIE device node to the topology database
+ *
+ * @param  Args: CDO arguments (Args[0]=NodeId, Args[1]=StartCol,
+ *         Args[2]=NumCol)
+ * @param  NumArgs: Number of arguments
+ *
+ * @return XST_SUCCESS if successful else XST_FAILURE or error code
+ *
+ * @note   None
+ *
+ ****************************************************************************/
+static XStatus AddAieDevice(const u32 *Args, u32 NumArgs)
 {
 	XStatus Status = XST_FAILURE;
 	u32 DeviceId = Args[0];
 	u32 Index = NODEINDEX(DeviceId);
-	u32 BaseAddr = Args[2];
+	u16 StartCol = 0U;
+	u16 EndCol = 0U;
+	u8 IsPartitioned = (u8)((3U == NumArgs) ? 1U : 0U);
 	XPm_AieDevice *AieDevice;
 
 	if ((u32)XPM_NODEIDX_DEV_AIE_MAX <= Index) {
 		Status = XST_INVALID_PARAM;
 		goto done;
+	}
+
+	/* Only NumArgs == 1 (unconstrained) or NumArgs == 3 (partitioned) are valid */
+	if ((1U != NumArgs) && (3U != NumArgs)) {
+		Status = XST_INVALID_PARAM;
+		goto done;
+	}
+
+	/* Parse partition info: Args[1]=StartCol, Args[2]=NumCol */
+	if (3U == NumArgs) {
+		/* Reject args that exceed the 16-bit column range */
+		if ((Args[1] > (u32)AIE_COL_U16_MAX) ||
+		    (Args[2] > (u32)AIE_COL_U16_MAX)) {
+			Status = XST_INVALID_PARAM;
+			goto done;
+		}
+
+		/* NumCol must be non-zero when partition args are provided */
+		if (0U == Args[2]) {
+			Status = XST_INVALID_PARAM;
+			goto done;
+		}
+
+		/* Validate that StartCol + NumCol does not wrap u16 range */
+		if ((Args[1] + Args[2] - 1U) > (u32)AIE_COL_U16_MAX) {
+			Status = XST_INVALID_PARAM;
+			goto done;
+		}
+
+		StartCol = (u16)(Args[1] & AIE_COL_ARG_MASK);
+		EndCol = (u16)(Args[1] + Args[2] - 1U);
+	}
+
+	/* Check for conflicts with existing AIE device nodes */
+	{
+		u32 BaseId = DeviceId & ~(u32)NODE_INDEX_MASK;
+		u32 Idx;
+		for (Idx = 0U; Idx < (u32)XPM_NODEIDX_DEV_AIE_MAX; Idx++) {
+			const XPm_AieDevice *AieDevNode;
+			/* Skip self (re-add case) */
+			if (Idx == NODEINDEX(DeviceId)) {
+				continue;
+			}
+			AieDevNode = (const XPm_AieDevice *)XPmDevice_GetById(BaseId + Idx);
+			if (NULL == AieDevNode) {
+				continue;
+			}
+			/* Cannot mix partitioned and unconstrained nodes */
+			if (IsPartitioned != AieDevNode->IsPartitioned) {
+				Status = XST_INVALID_PARAM;
+				goto done;
+			}
+			/* Unconstrained node cannot coexist with any other node */
+			if (0U == IsPartitioned) {
+				Status = XST_INVALID_PARAM;
+				goto done;
+			}
+			/* Both partitioned - check for column range overlap */
+			if ((StartCol <= AieDevNode->EndCol) &&
+			    (EndCol >= AieDevNode->StartCol)) {
+				Status = XST_INVALID_PARAM;
+				goto done;
+			}
+		}
 	}
 
 	/*
@@ -1130,7 +1208,8 @@ static XStatus AddAieDevice(const u32 *Args)
 		PmInfo("0x%x Device is already added\r\n", DeviceId);
 	}
 
-	Status = XPmAieDevice_Init(AieDevice, DeviceId, BaseAddr, NULL, NULL, NULL);
+	Status = XPmAieDevice_Init(AieDevice, DeviceId, 0U, NULL, NULL, NULL,
+				   StartCol, EndCol, IsPartitioned);
 
 done:
 	return Status;
@@ -1165,11 +1244,12 @@ static XStatus XPm_AddDevice(const u32 *Args, u32 NumArgs)
 	SubClass = NODESUBCLASS(DeviceId);
 
 	/*
-	 * Memory region device node does not have any power node as parent.
+	 * Memory region and AIE device nodes do not have a power node as parent.
 	 * So, skipping this check even if the ADD_NODE command has more than
 	 * one argument.
 	 */
-	if (((u32)XPM_NODESUBCL_DEV_MEM_REGN != SubClass) && (NumArgs > 1U)) {
+	if (((u32)XPM_NODESUBCL_DEV_MEM_REGN != SubClass) &&
+	    ((u32)XPM_NODESUBCL_DEV_AIE != SubClass) && (NumArgs > 1U)) {
 		/*
 		 * Check for Num Args < 3U as device specific (except PLDevice)
 		 * AddNode functions currently don't implement any NumArgs checks
@@ -1206,7 +1286,7 @@ static XStatus XPm_AddDevice(const u32 *Args, u32 NumArgs)
 		break;
 	case (u32)XPM_NODESUBCL_DEV_AIE:
 	/* PowerId is not passed by topology */
-		Status = AddAieDevice(Args);
+		Status = AddAieDevice(Args, NumArgs);
 		break;
 	default:
 		Status = XST_NO_FEATURE;
@@ -2767,7 +2847,7 @@ XStatus XPm_CosimAddAieDeviceNode(void)
 		goto done;
 	}
 
-	Status = XPmAieDevice_Init(AieDevice, NodeId, 0U, NULL, NULL, NULL);
+	Status = XPmAieDevice_Init(AieDevice, NodeId, 0U, NULL, NULL, NULL, 0U, 0U, 0U);
 	if (XST_SUCCESS != Status) {
 		goto done;
 	}

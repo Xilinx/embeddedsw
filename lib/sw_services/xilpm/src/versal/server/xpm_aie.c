@@ -2279,12 +2279,42 @@ done:
 	return Status;
 }
 
-XStatus Aie_Operations(u32 Part, u32 Ops)
+/****************************************************************************/
+/**
+ * @brief  Perform AIE column operations with partition bounds checking
+ *
+ * @param  DeviceId: AIE device node ID
+ * @param  Part: Packed column info (StartCol[15:0] | NumCol[31:16])
+ * @param  Ops: Bitmask of AIE operations to perform
+ *
+ * @return XST_SUCCESS if successful else XST_FAILURE or error code
+ *
+ * @note   None
+ *
+ ****************************************************************************/
+XStatus Aie_Operations(u32 DeviceId, u32 Part, u32 Ops)
 {
 	XStatus Status = XST_FAILURE;
 	const XPm_AieDomain *AieDomain = PmAieDomain;
 	const XPm_AieArray *Array = &AieDomain->Array;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
+	u32 ColStart = (Part & AIE_START_COL_MASK);
+	u32 NumCol = ((Part & AIE_NUM_COL_MASK) >> AIE_NUM_COL_SHIFT);
+	u32 ColEnd;
+
+	/* Reject zero-length column request */
+	if (0U == NumCol) {
+		Status = XST_INVALID_PARAM;
+		goto done;
+	}
+
+	ColEnd = ColStart + NumCol - 1U;
+
+	/* Validate requested columns against device partition bounds */
+	Status = XPmAieDevice_CheckPartitionBounds(DeviceId, ColStart, ColEnd);
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
 
 	if (AIE_GENV2 == Array->GenVersion) {
 		/* AIE2 Operations */
@@ -2300,6 +2330,7 @@ XStatus Aie_Operations(u32 Part, u32 Ops)
 		}
 	}
 
+done:
 	XPm_PrintDbgErr(Status, DbgErr);
 	return Status;
 }

@@ -19,6 +19,9 @@
  * @param  Power: Power Node dependency
  * @param  Clock: Clocks that AieDevice is dependent on
  * @param  Reset: AieDevice reset dependency
+ * @param  StartCol: Partition start column (inclusive), 0 if unconstrained
+ * @param  EndCol: Partition end column (inclusive), 0 if unconstrained
+ * @param  IsPartitioned: 1 if partition info was provided, 0 otherwise
  *
  * @return XST_SUCCESS if successful else XST_FAILURE or error code
  *
@@ -27,7 +30,8 @@
  ****************************************************************************/
 XStatus XPmAieDevice_Init(XPm_AieDevice *AieDevice, u32 NodeId,
 			  u32 BaseAddress, XPm_Power *Power,
-			  XPm_ClockNode *Clock, XPm_ResetNode *Reset)
+			  XPm_ClockNode *Clock, XPm_ResetNode *Reset,
+			  u16 StartCol, u16 EndCol, u8 IsPartitioned)
 {
 	XStatus Status = XST_FAILURE;
 
@@ -37,10 +41,57 @@ XStatus XPmAieDevice_Init(XPm_AieDevice *AieDevice, u32 NodeId,
 	}
 
 	AieDevice->Parent = NULL;
+	AieDevice->StartCol = StartCol;
+	AieDevice->EndCol = EndCol;
+	AieDevice->IsPartitioned = IsPartitioned;
 
 done:
 	return Status;
 
+}
+
+/****************************************************************************/
+/**
+ * @brief  Check if requested column range is within device partition bounds
+ *
+ * @param  DeviceId: AIE device node ID
+ * @param  ReqStartCol: Requested start column
+ * @param  ReqEndCol: Requested end column
+ *
+ * @return XST_SUCCESS if within bounds or unconstrained, XST_INVALID_PARAM otherwise
+ *
+ * @note None
+ *
+ ****************************************************************************/
+XStatus XPmAieDevice_CheckPartitionBounds(u32 DeviceId, u32 ReqStartCol, u32 ReqEndCol)
+{
+	XStatus Status = XST_FAILURE;
+	const XPm_AieDevice *AieDevice;
+
+	/* Look up the AIE device by node ID */
+	AieDevice = (const XPm_AieDevice *)XPmDevice_GetById(DeviceId);
+	if (NULL == AieDevice) {
+		Status = XST_DEVICE_NOT_FOUND;
+		goto done;
+	}
+
+	/* No constraint if device is unconstrained (no partition info provided) */
+	if (0U == AieDevice->IsPartitioned) {
+		Status = XST_SUCCESS;
+		goto done;
+	}
+
+	/* Requested range must be within the assigned partition bounds */
+	if ((ReqStartCol < (u32)AieDevice->StartCol) ||
+	    (ReqEndCol > (u32)AieDevice->EndCol)) {
+		Status = XST_INVALID_PARAM;
+		goto done;
+	}
+
+	Status = XST_SUCCESS;
+
+done:
+	return Status;
 }
 
 /****************************************************************************/

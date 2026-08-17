@@ -66,7 +66,6 @@ done:
 XStatus XPm_AieOperation(u32 SubsystemId, u32 Id, pm_ioctl_id IoctlId, u32 Part, u32 Ops, u32 Arg3)
 {
 	XStatus Status = XST_FAILURE;
-	(void)Id;
 	(void)SubsystemId;
 	(void)Arg3;
 
@@ -96,7 +95,13 @@ XStatus XPm_AieOperation(u32 SubsystemId, u32 Id, pm_ioctl_id IoctlId, u32 Part,
 		goto done;
 	}
 
-	Status = Aie_Operations(Part, Ops);
+	/* Validate that the device ID is a valid AIE device node */
+	if (!IS_DEV_AIE(Id)) {
+		Status = XST_INVALID_PARAM;
+		goto done;
+	}
+
+	Status = Aie_Operations(Id, Part, Ops);
 
 done:
 	return Status;

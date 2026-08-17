@@ -6,6 +6,7 @@
 #include "xpm_aie.h"
 #include "xpm_runtime_aie.h"
 #include "xpm_device.h"
+#include "xpm_aiedevice.h"
 #include "xpm_power.h"
 #include "xpm_debug.h"
 #include "xpm_regs.h"
@@ -1079,7 +1080,7 @@ static XStatus Aie2ps_CtrlPktTlastErr(u32 StartCol, u32 EndCol, const void *Buff
  * @return XST_SUCCESS if successful else error code
  *
  ******************************************************/
-static XStatus Aie2ps_Operation(u32 SubsystemId, u32 Size, u32 HighAddr, u32 LowAddr)
+static XStatus Aie2ps_Operation(u32 SubsystemId, u32 DeviceId, u32 Size, u32 HighAddr, u32 LowAddr)
 {
 	XStatus Status = XST_FAILURE;
 	u64 DdrAddr =  LowAddr | ((u64)HighAddr << 32U);
@@ -1140,6 +1141,12 @@ static XStatus Aie2ps_Operation(u32 SubsystemId, u32 Size, u32 HighAddr, u32 Low
 				goto done;
 			}
 
+			/* Validate requested columns against device partition bounds */
+			Status = XPmAieDevice_CheckPartitionBounds(DeviceId, StartCol, EndCol);
+			if (XST_SUCCESS != Status) {
+				goto done;
+			}
+
 			Buf += OpTypeLen->Len;
 		} else if ((u32)AIE_OPS_HANDSHAKE == OpTypeLen->Type) {
 			/* HandShake is dispatched directly because it needs
@@ -1187,18 +1194,19 @@ done:
  * @param  SubsystemId  Requesting subsystem ID; used to validate the source
  *                      DDR range against the subsystem's allowed memory
  *                      regions before any DMA fetch.
+ * @param  DeviceId     AIE device node ID for partition bounds validation
  * @param  Size         Buffer size in bytes
  * @param  HighAddr     Upper 32 bits of the buffer address
  * @param  LowAddr      Lower 32 bits of the buffer address
  *
  * @return XST_SUCCESS if successful else error code
  ***************************************************************************/
-XStatus XPmAie_Operations(u32 SubsystemId, u32 Size, u32 HighAddr, u32 LowAddr)
+XStatus XPmAie_Operations(u32 SubsystemId, u32 DeviceId, u32 Size, u32 HighAddr, u32 LowAddr)
 {
 	XStatus Status = XST_FAILURE;
 
 	/* @TODO: Check if AIE device is added and initialized */
-	Status = Aie2ps_Operation(SubsystemId, Size, HighAddr, LowAddr);
+	Status = Aie2ps_Operation(SubsystemId, DeviceId, Size, HighAddr, LowAddr);
 
 	return Status;
 }

@@ -26,6 +26,10 @@ extern "C" {
 #define ARR_RCOLOFF(ArrWord)   ((u8)(((ArrWord) >> 8U) & 0xFFU))
 #define ARR_LCOLOFF(ArrWord)   ((u8)((ArrWord) & 0xFFU))
 
+#define AIE_START_COL_MASK		(0x0000FFFFU) /**< Mask for StartCol in OPS Part word */
+#define AIE_COL_ARG_MASK		(0x0000FFFFU) /**< Mask for CDO column arguments (StartCol, NumCol) */
+#define AIE_COL_U16_MAX			(0xFFFFU) /**< Maximum valid column value (u16 range) */
+
 typedef struct XPm_AieArray XPm_AieArray;
 typedef struct XPm_AieDomain XPm_AieDomain;
 

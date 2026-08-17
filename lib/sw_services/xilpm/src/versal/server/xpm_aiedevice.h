@@ -32,12 +32,17 @@ struct XPm_AieDeviceNode {
 	XPm_Device Device;		/**< Device: Base class */
 	struct XPm_AieInitNodeOps *Ops; /**< Node Initialization Operations */
 	XPm_PlDevice *Parent;		/**< Parent of Aie device */
+	u16 StartCol;			/**< Partition start column (inclusive) */
+	u16 EndCol;			/**< Partition end column (inclusive) */
+	u8 IsPartitioned;		/**< 1 if partition info was provided */
 };
 
 /************************** Function Prototypes ******************************/
 XStatus XPmAieDevice_Init(XPm_AieDevice *AieDevice, u32 NodeId,
 			  u32 BaseAddress, XPm_Power *Power,
-			  XPm_ClockNode *Clock, XPm_ResetNode *Reset);
+			  XPm_ClockNode *Clock, XPm_ResetNode *Reset,
+			  u16 StartCol, u16 EndCol, u8 IsPartitioned);
+XStatus XPmAieDevice_CheckPartitionBounds(u32 DeviceId, u32 ReqStartCol, u32 ReqEndCol);
 XStatus XPmAieDevice_UpdateClockDiv(const u32 Divider);
 /**
  * @brief Query the current AIE clock divider value.
