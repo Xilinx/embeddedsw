@@ -200,7 +200,7 @@ XIic *IicFmcInstPtr, *IicAdapterInstPtr;/* The instance of the IIC device. */
 /*
  * Write buffer for writing a page.
  */
-u8 WriteBuffer[sizeof(AddressType) + PAGE_SIZE];
+u8 WriteBuffer[3 + PAGE_SIZE];
 
 u8 ReadBuffer[PAGE_SIZE];	/* Read buffer for reading a page. */
 
