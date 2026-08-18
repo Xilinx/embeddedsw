@@ -276,14 +276,11 @@ static int XSecure_ProcessCmd(XPlmi_Cmd *Cmd)
 {
 	volatile int Status = XST_FAILURE;
 	volatile int StatusTmp = XST_FAILURE;
-	u32 *Pload = NULL;
 
 	if ((Cmd == NULL) || (Cmd->Payload == NULL)) {
 		Status = XST_INVALID_PARAM;
 		goto END;
 	}
-
-	Pload = Cmd->Payload;
 
 	/** - Call the respective API handler according to API ID */
 	switch (Cmd->CmdId & XSECURE_API_ID_MASK) {

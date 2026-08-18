@@ -36,6 +36,7 @@
 #ifndef PLM_ECDSA_EXCLUDE
 #include "xsecure_defs.h"
 #include "xsecure_plat_defs.h"
+#include "xsecure_plat.h"
 #include "xsecure_ellipticplat.h"
 #include "xplmi_dma.h"
 #include "xsecure_elliptic.h"
