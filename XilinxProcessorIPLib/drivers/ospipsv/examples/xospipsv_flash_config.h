@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -117,6 +117,16 @@ extern "C" {
 #define MICRON_BP_BITS_MASK		0x7C
 #define CONFIG_REG2_VOLATILE_ADDR_MX 	0x00000300
 
+/*
+ * Define this to run the example in SDR-PHY or DDR-PHY mode. While still in
+ * SDR-NON-PHY mode the example then programs the RX tuning pattern below into
+ * the last sector of the flash, verifies it and hands it to the driver, which
+ * reads it back at every RX tap to calibrate the PHY. It is undefined by
+ * default, in which case the example runs in SDR-NON-PHY mode where no tuning
+ * is required.
+ */
+#undef FLASH_SETUP_TUNING_PATTERN
+
 /**************************** Type Definitions *******************************/
 
 typedef struct {
@@ -219,6 +229,61 @@ FlashInfo Flash_Config_Table[] = {
 		(BULK_ERASE_CMD << 8) | SEC_ERASE_CMD_4B, READ_STATUS_CMD, 0
 	},
 };
+
+#ifdef FLASH_SETUP_TUNING_PATTERN
+/*
+ * Size in bytes of the RX tuning pattern. The driver reads this many bytes at
+ * every RX tap, so it has to be a multiple of four.
+ */
+#define TUNING_PATTERN_SIZE	128U
+
+/*
+ * Address at which the RX tuning pattern is programmed, which is the start of
+ * the last sector of the flash on CS0.
+ */
+#define PATTERN_ADDRESS(Index)	(Flash_Config_Table[Index].FlashDeviceSize - \
+				 Flash_Config_Table[Index].SectSize)
+
+/*
+ * Reference pattern the RX tuning algorithm compares against. The example
+ * programs it into the flash and passes it to the driver.
+ */
+#ifdef __ICCARM__
+#pragma data_alignment = 4
+u8 TuningPattern[TUNING_PATTERN_SIZE] = {
+#else
+u8 TuningPattern[TUNING_PATTERN_SIZE] __attribute__ ((aligned(4))) = {
+#endif
+	0xFEU, 0xFFU, 0x01U, 0x01U, 0x01U, 0x01U, 0x01U, 0x00U,
+	0x00U, 0xFEU, 0xFEU, 0x01U, 0x01U, 0x01U, 0x01U, 0x00U,
+	0x00U, 0xFEU, 0xFEU, 0x01U, 0xFFU, 0xFFU, 0xFFU, 0xFFU,
+	0xFFU, 0x00U, 0x00U, 0xFEU, 0xFEU, 0xFFU, 0xFFU, 0xFFU,
+	0xFFU, 0x00U, 0x00U, 0xFEU, 0xFEU, 0xFFU, 0x01U, 0x01U,
+	0x01U, 0x01U, 0x01U, 0xFEU, 0x00U, 0xFEU, 0xFEU, 0x01U,
+	0x01U, 0x01U, 0x01U, 0xFEU, 0x00U, 0xFEU, 0xFEU, 0x01U,
+	0xFFU, 0xFFU, 0xFFU, 0xFFU, 0xFFU, 0xFEU, 0x00U, 0xFEU,
+	0xFEU, 0xFFU, 0xFFU, 0xFFU, 0xFFU, 0xFEU, 0x00U, 0xFEU,
+	0xFEU, 0xFFU, 0x01U, 0x01U, 0x01U, 0x01U, 0x01U, 0x00U,
+	0xFEU, 0xFEU, 0xFEU, 0x01U, 0x01U, 0x01U, 0x01U, 0x00U,
+	0xFEU, 0xFEU, 0xFEU, 0x01U, 0xFFU, 0xFFU, 0xFFU, 0xFFU,
+	0xFFU, 0x00U, 0xFEU, 0xFEU, 0xFEU, 0xFFU, 0xFFU, 0xFFU,
+	0xFFU, 0x00U, 0xFEU, 0xFEU, 0xFEU, 0xFFU, 0x01U, 0x01U,
+	0x01U, 0x01U, 0x01U, 0xFEU, 0xFEU, 0xFEU, 0xFEU, 0x01U,
+	0x01U, 0x01U, 0x01U, 0xFEU, 0xFEU, 0xFEU, 0xFEU, 0x01U
+};
+
+/*
+ * Buffer the pattern is read back into, both by the example when it verifies
+ * what it programmed and by the driver at every RX tap. It is filled using DMA,
+ * hence the cache line alignment.
+ */
+#ifdef __ICCARM__
+#pragma data_alignment = 64
+u8 TuningReadBuffer[TUNING_PATTERN_SIZE];
+#else
+u8 TuningReadBuffer[TUNING_PATTERN_SIZE] __attribute__ ((aligned(64)));
+#endif
+#endif
 
 /***************** Macros (Inline Functions) Definitions *********************/
 

@@ -45,6 +45,7 @@
 * 1.12  akm 01/01/25 Pass valid write command in DAC mode.
 * 1.12  sb  03/12/25 Fixed gcc and g++ warnings.
 * 1.14  vlt 12/15/25 Update Doxygen comments to include SDT flow details.
+* 1.15  sb  08/11/26 Add support for pattern-based RX PHY tuning.
 *
 *</pre>
 *
@@ -112,9 +113,16 @@ int FlashRegisterWrite(XOspiPsv *OspiPsvPtr, u32 ByteCount, u8 Command,
 		       u8 *WriteBfrPtr, u8 WrEn);
 s32 InitCmd(XOspiPsv *OspiPsvInstancePtr);
 int FlashEnterExit4BAddMode(XOspiPsv *OspiPsvPtr, int Enable);
+int FlashWriteCfgReg(XOspiPsv *OspiPsvPtr, u8 Opcode, u8 AddrSize, u32 Address,
+		     u8 *Data);
+int FlashReadCfgReg(XOspiPsv *OspiPsvPtr, u8 Opcode, u8 AddrSize, u32 Address,
+		    u8 Dummy, u8 *ConfigReg);
 int FlashSetSDRDDRMode(XOspiPsv *OspiPsvPtr, int Mode);
 int SetBlockProtect(XOspiPsv *OspiPsvPtr, u8 BlockProtectionVal, u8 IsBottom);
 int MicronBlockProtectTest(XOspiPsv *OspiPsvPtr);
+#ifdef FLASH_SETUP_TUNING_PATTERN
+int FlashSetupRxTuningPattern(XOspiPsv *OspiPsvPtr, int Mode);
+#endif
 int SpansionSetEccMode(XOspiPsv *OspiPsvPtr);
 int MxConfigDummy(XOspiPsv *OspiPsvPtr);
 
@@ -326,19 +334,11 @@ int OspiPsvPolledFlashExample(XOspiPsv *OspiPsvInstancePtr, UINTPTR BaseAddress)
 		Flash_Config_Table[FCTIndex].NumPage *= 2;
 		Flash_Config_Table[FCTIndex].NumSect *= 2;
 
-		/* Reset the controller mode to NON-PHY */
-		Status = XOspiPsv_SetSdrDdrMode(OspiPsvInstancePtr, XOSPIPSV_EDGE_MODE_SDR_NON_PHY);
-		if (Status != XST_SUCCESS) {
-			return XST_FAILURE;
-		}
-
+		/*
+		 * Both devices were switched to the required mode above, only
+		 * the address mode has to be set on the upper device.
+		 */
 		Status = XOspiPsv_SelectFlash(OspiPsvInstancePtr, XOSPIPSV_SELECT_FLASH_CS1);
-		if (Status != XST_SUCCESS) {
-			return XST_FAILURE;
-		}
-
-		/* Set Flash device and Controller modes */
-		Status = FlashSetSDRDDRMode(OspiPsvInstancePtr, XOSPIPSV_EDGE_MODE_SDR_NON_PHY);
 		if (Status != XST_SUCCESS) {
 			return XST_FAILURE;
 		}
@@ -348,6 +348,11 @@ int OspiPsvPolledFlashExample(XOspiPsv *OspiPsvInstancePtr, UINTPTR BaseAddress)
 			if (Status != XST_SUCCESS) {
 				return XST_FAILURE;
 			}
+		}
+
+		Status = XOspiPsv_SelectFlash(OspiPsvInstancePtr, XOSPIPSV_SELECT_FLASH_CS0);
+		if (Status != XST_SUCCESS) {
+			return XST_FAILURE;
 		}
 	}
 
@@ -518,8 +523,6 @@ int FlashReadID(XOspiPsv *OspiPsvPtr)
 	}
 	xil_printf("\n\r");
 
-	OspiPsvPtr->DeviceIdData = ((ReadBfrPtr[3] << 24) | (ReadBfrPtr[2] << 16) |
-				    (ReadBfrPtr[1] << 8) | ReadBfrPtr[0]);
 	ReadId = ((ReadBfrPtr[0] << 16) | (ReadBfrPtr[1] << 8) | ReadBfrPtr[2]);
 
 	FlashMake = ReadBfrPtr[0];
@@ -1509,10 +1512,236 @@ int FlashEnterExit4BAddMode(XOspiPsv *OspiPsvPtr, int Enable)
 	return Status;
 }
 
+#ifdef FLASH_SETUP_TUNING_PATTERN
+/*****************************************************************************/
+/**
+* Programs the RX tuning pattern into the last sector of the flash, verifies
+* it and gives it to the driver along with its location and how to read it
+* back, so that the tuning algorithm can compare against it.
+*
+* @param	OspiPsvPtr is a pointer to the OSPIPSV driver component to use.
+* @param	Mode is the edge mode the controller is about to be switched to.
+*
+* @return	 - XST_SUCCESS if successful.
+* 		 - XST_FAILURE if it fails.
+*
+* @note
+*		The pattern is programmed while the controller and the flash are
+*		still in SDR-NON-PHY mode, so this has to be called before
+*		either of them is switched. Tuning reads the pattern from
+*		whichever device is selected, so this also has to be called with
+*		the lower flash selected. The read instruction handed to the
+*		driver mirrors the one used by FlashRead() in the target mode,
+*		except that Extra_DummyCycle is left out since tuning is what
+*		determines it.
+*
+******************************************************************************/
+int FlashSetupRxTuningPattern(XOspiPsv *OspiPsvPtr, int Mode)
+{
+	XOspiPsv_RxTuning *RxTuning = &OspiPsvPtr->RxTuning;
+	int Status;
+	u32 Count;
+	/* The pattern is written to the last sector of the flash on CS0. */
+	u32 PatternAddr = PATTERN_ADDRESS(FCTIndex);
+
+	if ((Mode != XOSPIPSV_EDGE_MODE_DDR_PHY) &&
+	    (Mode != XOSPIPSV_EDGE_MODE_SDR_PHY)) {
+		return XST_SUCCESS;
+	}
+
+	Status = FlashErase(OspiPsvPtr, PatternAddr, TUNING_PATTERN_SIZE,
+			    CmdBfr);
+	if (Status != XST_SUCCESS) {
+		return XST_FAILURE;
+	}
+
+	if (OspiPsvPtr->OpMode == XOSPIPSV_DAC_EN_OPTION) {
+		Status = FlashLinearWrite(OspiPsvPtr, PatternAddr,
+					  TUNING_PATTERN_SIZE, TuningPattern);
+	}
+	else {
+		Status = FlashIoWrite(OspiPsvPtr, PatternAddr,
+				      TUNING_PATTERN_SIZE, TuningPattern);
+	}
+	if (Status != XST_SUCCESS) {
+		return XST_FAILURE;
+	}
+
+	Status = FlashRead(OspiPsvPtr, PatternAddr, TUNING_PATTERN_SIZE,
+			   CmdBfr, TuningReadBuffer);
+	if (Status != XST_SUCCESS) {
+		return XST_FAILURE;
+	}
+
+	for (Count = 0; Count < TUNING_PATTERN_SIZE; Count++) {
+		if (TuningReadBuffer[Count] != TuningPattern[Count]) {
+			return XST_FAILURE;
+		}
+	}
+
+	RxTuning->Opcode = (u8)Flash_Config_Table[FCTIndex].ReadCmd;
+	RxTuning->Proto = (u8)XOspiPsv_Get_Proto(OspiPsvPtr, 1);
+	RxTuning->Dummy = (u8)Flash_Config_Table[FCTIndex].DummyCycles;
+	if (Mode == XOSPIPSV_EDGE_MODE_DDR_PHY) {
+		RxTuning->Proto = XOSPIPSV_READ_8_8_8;
+		if (FlashMake == MACRONIX_OCTAL_ID_BYTE0) {
+			RxTuning->Opcode = (u8)(Flash_Config_Table[FCTIndex].ReadCmd >> 8);
+			RxTuning->Dummy = 20;
+		}
+		if (FlashMake == SPANSION_OCTAL_ID_BYTE0) {
+			RxTuning->Opcode = (u8)(Flash_Config_Table[FCTIndex].ReadCmd >> 8);
+			RxTuning->Dummy = 21;
+		}
+	}
+
+	RxTuning->Addrsize = 4;
+	RxTuning->PatternAddr = PatternAddr;
+	RxTuning->Pattern = TuningPattern;
+	RxTuning->PatternSize = TUNING_PATTERN_SIZE;
+	RxTuning->ReadBfrPtr = TuningReadBuffer;
+
+	return XST_SUCCESS;
+}
+#endif
+
+/*****************************************************************************/
+/**
+* Writes one byte into a configuration register of the flash device currently
+* selected. A write enable is issued before the write.
+*
+* @param	OspiPsvPtr is a pointer to the OSPIPSV driver component to use.
+* @param	Opcode is the write register command of the flash device.
+* @param	AddrSize is the size of the register address in bytes.
+* @param	Address is the register address.
+* @param	Data is the value to write, duplicated in both bytes as the DDR
+*		modes transfer two bytes.
+*
+* @return	 - XST_SUCCESS if successful.
+* 		 - XST_FAILURE if it fails.
+*
+******************************************************************************/
+int FlashWriteCfgReg(XOspiPsv *OspiPsvPtr, u8 Opcode, u8 AddrSize, u32 Address,
+		     u8 *Data)
+{
+	int Status;
+
+	FlashMsg.Opcode = WRITE_ENABLE_CMD;
+	FlashMsg.Addrsize = 0;
+	FlashMsg.Addrvalid = 0;
+	FlashMsg.TxBfrPtr = NULL;
+	FlashMsg.RxBfrPtr = NULL;
+	FlashMsg.ByteCount = 0;
+	FlashMsg.Flags = XOSPIPSV_MSG_FLAG_TX;
+	FlashMsg.IsDDROpCode = 0;
+	FlashMsg.Proto = 0;
+	FlashMsg.Dummy = 0;
+	if (OspiPsvPtr->SdrDdrMode == XOSPIPSV_EDGE_MODE_DDR_PHY) {
+		FlashMsg.Proto = XOSPIPSV_WRITE_8_0_0;
+	}
+
+	if (OspiPsvPtr->DualByteOpcodeEn == XOSPIPSV_DUAL_BYTE_OP_ENABLE) {
+		FlashMsg.ExtendedOpcode = (u8)(~FlashMsg.Opcode);
+	}
+	else if (OspiPsvPtr->DualByteOpcodeEn == XOSPIPSV_DUAL_BYTE_OP_SAME) {
+		FlashMsg.ExtendedOpcode = (u8)(FlashMsg.Opcode);
+	}
+
+	Status = XOspiPsv_PollTransfer(OspiPsvPtr, &FlashMsg);
+	if (Status != XST_SUCCESS) {
+		return XST_FAILURE;
+	}
+
+	FlashMsg.Opcode = Opcode;
+	FlashMsg.Addrvalid = 1;
+	FlashMsg.Addrsize = AddrSize;
+	FlashMsg.Addr = Address;
+	FlashMsg.TxBfrPtr = Data;
+	FlashMsg.RxBfrPtr = NULL;
+	FlashMsg.ByteCount = 1;
+	FlashMsg.Flags = XOSPIPSV_MSG_FLAG_TX;
+	FlashMsg.IsDDROpCode = 0;
+	FlashMsg.Proto = 0;
+	FlashMsg.Dummy = 0;
+	if (OspiPsvPtr->SdrDdrMode == XOSPIPSV_EDGE_MODE_DDR_PHY) {
+		FlashMsg.Proto = XOSPIPSV_WRITE_8_8_8;
+		FlashMsg.Addrsize = 4;
+		FlashMsg.ByteCount = 2;
+	}
+
+	if (OspiPsvPtr->DualByteOpcodeEn == XOSPIPSV_DUAL_BYTE_OP_ENABLE) {
+		FlashMsg.ExtendedOpcode = (u8)(~FlashMsg.Opcode);
+	}
+	else if (OspiPsvPtr->DualByteOpcodeEn == XOSPIPSV_DUAL_BYTE_OP_SAME) {
+		FlashMsg.ExtendedOpcode = (u8)(FlashMsg.Opcode);
+	}
+
+	Status = XOspiPsv_PollTransfer(OspiPsvPtr, &FlashMsg);
+	if (Status != XST_SUCCESS) {
+		return XST_FAILURE;
+	}
+
+	return XST_SUCCESS;
+}
+
+/*****************************************************************************/
+/**
+* Reads a configuration register of the flash device currently selected.
+*
+* @param	OspiPsvPtr is a pointer to the OSPIPSV driver component to use.
+* @param	Opcode is the read register command of the flash device.
+* @param	AddrSize is the size of the register address in bytes.
+* @param	Address is the register address.
+* @param	Dummy is the number of dummy cycles of the read command.
+* @param	ConfigReg is the two byte buffer the register is read into.
+*
+* @return	 - XST_SUCCESS if successful.
+* 		 - XST_FAILURE if it fails.
+*
+******************************************************************************/
+int FlashReadCfgReg(XOspiPsv *OspiPsvPtr, u8 Opcode, u8 AddrSize, u32 Address,
+		    u8 Dummy, u8 *ConfigReg)
+{
+	int Status;
+
+	FlashMsg.Opcode = Opcode;
+	FlashMsg.Addrsize = AddrSize;
+	FlashMsg.Addr = Address;
+	FlashMsg.Addrvalid = 1;
+	FlashMsg.TxBfrPtr = NULL;
+	FlashMsg.RxBfrPtr = ConfigReg;
+	FlashMsg.ByteCount = 1;
+	FlashMsg.Flags = XOSPIPSV_MSG_FLAG_RX;
+	FlashMsg.Dummy = Dummy + OspiPsvPtr->Extra_DummyCycle;
+	FlashMsg.IsDDROpCode = 0;
+	FlashMsg.Proto = 0;
+	if (OspiPsvPtr->SdrDdrMode == XOSPIPSV_EDGE_MODE_DDR_PHY) {
+		FlashMsg.ByteCount = 2;
+		FlashMsg.Proto = XOSPIPSV_READ_8_8_8;
+		FlashMsg.Addrsize = 4;
+	}
+
+	if (OspiPsvPtr->DualByteOpcodeEn == XOSPIPSV_DUAL_BYTE_OP_ENABLE) {
+		FlashMsg.ExtendedOpcode = (u8)(~FlashMsg.Opcode);
+	} else if (OspiPsvPtr->DualByteOpcodeEn == XOSPIPSV_DUAL_BYTE_OP_SAME) {
+		FlashMsg.ExtendedOpcode = (u8)(FlashMsg.Opcode);
+		FlashMsg.Dummy += 8;
+	}
+
+	Status = XOspiPsv_PollTransfer(OspiPsvPtr, &FlashMsg);
+	if (Status != XST_SUCCESS) {
+		return XST_FAILURE;
+	}
+
+	return XST_SUCCESS;
+}
+
 /*****************************************************************************/
 /**
 * This API enters the flash device into Octal DDR mode or exit from octal DDR
 * mode (switches to Extended SPI mode).
+*
+* In a stacked configuration both devices are switched, the controller is
+* switched once and RX tuning is run only against the lower device.
 *
 * @param	OspiPsvPtr is a pointer to the OSPIPSV driver component to use.
 * @param	Mode is either 1 or 0 if 1 then enter octal DDR mode if 0 exits.
@@ -1520,6 +1749,8 @@ int FlashEnterExit4BAddMode(XOspiPsv *OspiPsvPtr, int Enable)
 * @return	 - XST_SUCCESS if successful.
 * 		 - XST_FAILURE if it fails.
 *
+* @note
+*		The lower flash has to be selected on entry.
 *
 ******************************************************************************/
 int FlashSetSDRDDRMode(XOspiPsv *OspiPsvPtr, int Mode)
@@ -1553,15 +1784,9 @@ int FlashSetSDRDDRMode(XOspiPsv *OspiPsvPtr, int Mode)
 		AddrSize = 4;
 		if (Mode == XOSPIPSV_EDGE_MODE_DDR_PHY) {
 			Dummy = 4;
-			OspiPsvPtr->DeviceIdData = 0;
-			OspiPsvPtr->DeviceIdData = ((ReadBfrPtr[0] << 8) | ReadBfrPtr[0]);
-			OspiPsvPtr->DeviceIdData |= ((ReadBfrPtr[1] << 24) | (ReadBfrPtr[1] << 16));
 		}
 		else {
 			Dummy = 0;
-			OspiPsvPtr->DeviceIdData = 0;
-			OspiPsvPtr->DeviceIdData = ((ReadBfrPtr[3] << 24) | (ReadBfrPtr[2] << 16) |
-						    (ReadBfrPtr[1] << 8) | ReadBfrPtr[0]);
 		}
 	}
 
@@ -1594,63 +1819,57 @@ int FlashSetSDRDDRMode(XOspiPsv *OspiPsvPtr, int Mode)
 		}
 	}
 
-
-	FlashMsg.Opcode = WRITE_ENABLE_CMD;
-	FlashMsg.Addrsize = 0;
-	FlashMsg.Addrvalid = 0;
-	FlashMsg.TxBfrPtr = NULL;
-	FlashMsg.RxBfrPtr = NULL;
-	FlashMsg.ByteCount = 0;
-	FlashMsg.Flags = XOSPIPSV_MSG_FLAG_TX;
-	FlashMsg.IsDDROpCode = 0;
-	FlashMsg.Proto = 0;
-	if (OspiPsvPtr->SdrDdrMode == XOSPIPSV_EDGE_MODE_DDR_PHY) {
-		FlashMsg.Proto = XOSPIPSV_WRITE_8_0_0;
-	}
-
-	if (OspiPsvPtr->DualByteOpcodeEn == XOSPIPSV_DUAL_BYTE_OP_ENABLE) {
-		FlashMsg.ExtendedOpcode = (u8)(~FlashMsg.Opcode);
-	}
-	else if (OspiPsvPtr->DualByteOpcodeEn == XOSPIPSV_DUAL_BYTE_OP_SAME) {
-		FlashMsg.ExtendedOpcode = (u8)(FlashMsg.Opcode);
-	}
-
-	Status = XOspiPsv_PollTransfer(OspiPsvPtr, &FlashMsg);
+	/*
+	 * Program the tuning pattern while everything is still in the working
+	 * mode. It goes into the lower flash only, so the controller is tuned
+	 * once against that device and the taps it settles on are used for both
+	 * devices. Without it there is nothing to tune the PHY against, so the
+	 * PHY modes are not available.
+	 */
+#ifdef FLASH_SETUP_TUNING_PATTERN
+	Status = FlashSetupRxTuningPattern(OspiPsvPtr, Mode);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
+#else
+	if ((Mode == XOSPIPSV_EDGE_MODE_DDR_PHY) ||
+	    (Mode == XOSPIPSV_EDGE_MODE_SDR_PHY)) {
+		return XST_FAILURE;
+	}
+#endif
 
 	if (OspiPsvPtr->OpMode == XOSPIPSV_DAC_EN_OPTION) {
 		XOspiPsv_ConfigureAutoPolling(OspiPsvPtr, Mode);
 	}
 
-	FlashMsg.Opcode = Write_Reg_Opcode;
-	FlashMsg.Addrvalid = 1;
-	FlashMsg.Addrsize = AddrSize;
-	FlashMsg.Addr = Address;
-	FlashMsg.TxBfrPtr = Data;
-	FlashMsg.RxBfrPtr = NULL;
-	FlashMsg.ByteCount = 1;
-	FlashMsg.Flags = XOSPIPSV_MSG_FLAG_TX;
-	FlashMsg.IsDDROpCode = 0;
-	FlashMsg.Proto = 0;
-	if (OspiPsvPtr->SdrDdrMode == XOSPIPSV_EDGE_MODE_DDR_PHY) {
-		FlashMsg.Proto = XOSPIPSV_WRITE_8_8_8;
-		FlashMsg.Addrsize = 4;
-		FlashMsg.ByteCount = 2;
-	}
-
-	if (OspiPsvPtr->DualByteOpcodeEn == XOSPIPSV_DUAL_BYTE_OP_ENABLE) {
-		FlashMsg.ExtendedOpcode = (u8)(~FlashMsg.Opcode);
-	}
-	else if (OspiPsvPtr->DualByteOpcodeEn == XOSPIPSV_DUAL_BYTE_OP_SAME) {
-		FlashMsg.ExtendedOpcode = (u8)(FlashMsg.Opcode);
-		FlashMsg.Dummy += 8;
-	}
-
-	Status = XOspiPsv_PollTransfer(OspiPsvPtr, &FlashMsg);
+	/*
+	 * Switch every flash device while the controller is still in its
+	 * previous mode, so that each of them is reachable with the protocol it
+	 * is currently using.
+	 */
+	Status = FlashWriteCfgReg(OspiPsvPtr, Write_Reg_Opcode, AddrSize,
+				  Address, Data);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
+	}
+
+	if (OspiPsvPtr->Config.ConnectionMode ==
+			XOSPIPSV_CONNECTION_MODE_STACKED) {
+		Status = XOspiPsv_SelectFlash(OspiPsvPtr, XOSPIPSV_SELECT_FLASH_CS1);
+		if (Status != XST_SUCCESS) {
+			return XST_FAILURE;
+		}
+
+		Status = FlashWriteCfgReg(OspiPsvPtr, Write_Reg_Opcode, AddrSize,
+					  Address, Data);
+		if (Status != XST_SUCCESS) {
+			return XST_FAILURE;
+		}
+
+		Status = XOspiPsv_SelectFlash(OspiPsvPtr, XOSPIPSV_SELECT_FLASH_CS0);
+		if (Status != XST_SUCCESS) {
+			return XST_FAILURE;
+		}
 	}
 
 	if (Mode == XOSPIPSV_EDGE_MODE_DDR_PHY) {
@@ -1681,33 +1900,8 @@ int FlashSetSDRDDRMode(XOspiPsv *OspiPsvPtr, int Mode)
 		return XST_FAILURE;
 	}
 
-	/* Read Configuration register */
-	FlashMsg.Opcode = Read_Reg_Opcode;
-	FlashMsg.Addrsize = AddrSize;
-	FlashMsg.Addr = Address;
-	FlashMsg.Addrvalid = 1;
-	FlashMsg.TxBfrPtr = NULL;
-	FlashMsg.RxBfrPtr = ConfigReg;
-	FlashMsg.ByteCount = 1;
-	FlashMsg.Flags = XOSPIPSV_MSG_FLAG_RX;
-	FlashMsg.Dummy = Dummy + OspiPsvPtr->Extra_DummyCycle;
-	FlashMsg.IsDDROpCode = 0;
-	FlashMsg.Proto = 0;
-	if (OspiPsvPtr->SdrDdrMode == XOSPIPSV_EDGE_MODE_DDR_PHY) {
-		/* Read Configuration register */
-		FlashMsg.ByteCount = 2;
-		FlashMsg.Proto = XOSPIPSV_READ_8_8_8;
-		FlashMsg.Addrsize = 4;
-	}
-
-	if (OspiPsvPtr->DualByteOpcodeEn == XOSPIPSV_DUAL_BYTE_OP_ENABLE) {
-		FlashMsg.ExtendedOpcode = (u8)(~FlashMsg.Opcode);
-	} else if (OspiPsvPtr->DualByteOpcodeEn == XOSPIPSV_DUAL_BYTE_OP_SAME) {
-		FlashMsg.ExtendedOpcode = (u8)(FlashMsg.Opcode);
-		FlashMsg.Dummy += 8;
-	}
-
-	Status = XOspiPsv_PollTransfer(OspiPsvPtr, &FlashMsg);
+	Status = FlashReadCfgReg(OspiPsvPtr, Read_Reg_Opcode, AddrSize, Address,
+				 Dummy, ConfigReg);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
@@ -1716,7 +1910,30 @@ int FlashSetSDRDDRMode(XOspiPsv *OspiPsvPtr, int Mode)
 		return XST_FAILURE;
 	}
 
-	return Status;
+	if (OspiPsvPtr->Config.ConnectionMode ==
+			XOSPIPSV_CONNECTION_MODE_STACKED) {
+		Status = XOspiPsv_SelectFlash(OspiPsvPtr, XOSPIPSV_SELECT_FLASH_CS1);
+		if (Status != XST_SUCCESS) {
+			return XST_FAILURE;
+		}
+
+		Status = FlashReadCfgReg(OspiPsvPtr, Read_Reg_Opcode, AddrSize,
+					 Address, Dummy, ConfigReg);
+		if (Status != XST_SUCCESS) {
+			return XST_FAILURE;
+		}
+
+		if (ConfigReg[0] != Data[0]) {
+			return XST_FAILURE;
+		}
+
+		Status = XOspiPsv_SelectFlash(OspiPsvPtr, XOSPIPSV_SELECT_FLASH_CS0);
+		if (Status != XST_SUCCESS) {
+			return XST_FAILURE;
+		}
+	}
+
+	return XST_SUCCESS;
 }
 
 /*****************************************************************************/
