@@ -37,6 +37,7 @@
 *      ss  7/10/26 Added XClk_Wiz_UpdateDivisors and XClk_Wiz_Reconfig APIs.
 * 1.12 ss  8/7/26  Updated clkx5 get/set input and output frequency APIs and
 *					clk_in_sel register control APIs.
+* 1.12 ss  8/18/26 Added PFD range validation to divisor calculations.
 * </pre>
 ******************************************************************************/
 
@@ -147,10 +148,13 @@ static u32  XClk_Wiz_CalculateDivisors (XClk_Wiz  *InstancePtr, u64 SetRate)
 	u32 Platform;
 	u32 Mmin;
 	u32 Mmax;
+	u64 Pfd;
 	u32 Dmin;
 	u32 Dmax;
 	u32 Omin;
 	u32 Omax;
+	u64 PfdMin;
+	u64 PfdMax;
 
 	Platform = XGetPlatform_Info();
 
@@ -163,6 +167,8 @@ static u32  XClk_Wiz_CalculateDivisors (XClk_Wiz  *InstancePtr, u64 SetRate)
 		Dmax = XCLK_D_MAX;
 		Omin = XCLK_O_MIN;
 		Omax = XCLK_O_MAX;
+		PfdMin = XCLK_PFD_MIN;
+		PfdMax = XCLK_PFD_MAX;
 	} else {
 		VcoMin = XCLK_US_VCO_MIN;
 		VcoMax = XCLK_US_VCO_MAX;
@@ -172,6 +178,8 @@ static u32  XClk_Wiz_CalculateDivisors (XClk_Wiz  *InstancePtr, u64 SetRate)
 		Dmax = XCLK_US_D_MAX;
 		Omin = XCLK_US_O_MIN;
 		Omax = XCLK_US_O_MAX;
+		PfdMin = XCLK_US_PFD_MIN;
+		PfdMax = XCLK_US_PFD_MAX;
 	}
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -182,6 +190,10 @@ static u32  XClk_Wiz_CalculateDivisors (XClk_Wiz  *InstancePtr, u64 SetRate)
 
 	for (m = Mmin; m <= Mmax; m++) {
 		for (d = Dmin; d <= Dmax; d++) {
+			Pfd = (u64)InputRate / d;
+			if (Pfd < PfdMin * XCLK_MHZ || Pfd > PfdMax * XCLK_MHZ) {
+				continue;
+			}
 			Fvco = (u64)InputRate * m / (d * XCLK_MHZ);
 			if ( Fvco >= VcoMin && Fvco <= VcoMax ) {
 
@@ -241,10 +253,13 @@ static u32  XClk_Wiz_CalculateDivisorsHz (XClk_Wiz  *InstancePtr, u64 SetRate)
 	u32 Platform;
 	u32 Mmin;
 	u32 Mmax;
+	u64 Pfd;
 	u32 Dmin;
 	u32 Dmax;
 	u32 Omin;
 	u32 Omax;
+	u64 PfdMin;
+	u64 PfdMax;
 	u64 BestDiv = -1ULL;
 
 	Platform = XGetPlatform_Info();
@@ -258,6 +273,8 @@ static u32  XClk_Wiz_CalculateDivisorsHz (XClk_Wiz  *InstancePtr, u64 SetRate)
 		Dmax = XCLK_D_MAX;
 		Omin = XCLK_O_MIN;
 		Omax = XCLK_O_MAX;
+		PfdMin = XCLK_PFD_MIN;
+		PfdMax = XCLK_PFD_MAX;
 	} else {
 		VcoMin = XCLK_US_VCO_MIN;
 		VcoMax = XCLK_US_VCO_MAX;
@@ -267,6 +284,8 @@ static u32  XClk_Wiz_CalculateDivisorsHz (XClk_Wiz  *InstancePtr, u64 SetRate)
 		Dmax = XCLK_US_D_MAX;
 		Omin = XCLK_US_O_MIN;
 		Omax = XCLK_US_O_MAX;
+		PfdMin = XCLK_US_PFD_MIN;
+		PfdMax = XCLK_US_PFD_MAX;
 	}
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -277,6 +296,10 @@ static u32  XClk_Wiz_CalculateDivisorsHz (XClk_Wiz  *InstancePtr, u64 SetRate)
 
 	for (m = Mmin; m <= Mmax; m++) {
 		for (d = Dmin; d <= Dmax; d++) {
+			Pfd = (u64)InputRate / d;
+			if (Pfd < PfdMin * XCLK_MHZ || Pfd > PfdMax * XCLK_MHZ) {
+				continue;
+			}
 			Fvco = (u64)InputRate * m / d;
 			if ( Fvco >= (VcoMin * XCLK_MHZ) && Fvco <= (VcoMax * XCLK_MHZ) ) {
 
@@ -300,6 +323,9 @@ static u32  XClk_Wiz_CalculateDivisorsHz (XClk_Wiz  *InstancePtr, u64 SetRate)
 				}
 			}
 		}
+	}
+	if (BestDiv == -1ULL) {
+		return XST_FAILURE;
 	}
 	return XST_SUCCESS;
 }

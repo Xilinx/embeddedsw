@@ -88,6 +88,7 @@
 *      ss  7/10/26 Added XClk_Wiz_UpdateDivisors and XClk_Wiz_Reconfig APIs.
 * 1.12 ss  8/7/26  Updated clkx5 get/set input and output frequency APIs and
 *                  clk_in_sel register control APIs.
+* 1.12 ss  8/18/26 Added PFD range validation to divisor calculations.
 * </pre>
 *
 ******************************************************************************/
@@ -138,6 +139,11 @@ extern "C" {
 #define XCLK_US_D_MIN 1
 #define XCLK_US_O_MAX 128
 #define XCLK_US_O_MIN 1
+
+#define XCLK_PFD_MIN 10
+#define XCLK_PFD_MAX 500
+#define XCLK_US_PFD_MIN 10
+#define XCLK_US_PFD_MAX 500
 
 #define XCLK_MHZ 1000000
 #define XCLK_KHZ 1000
