@@ -1050,29 +1050,35 @@ static XStatus BfrbHouseClean(u32 PollTimeOut)
 		goto done;
 	}
 
-	/* Run BFRB BISR */
-	Status = XPmBisr_Repair2(BFRB_TAG_ID);
-	if (XST_SUCCESS != Status) {
-		DbgErr = XPM_INT_ERR_BFRB_BISR_REPAIR;
-		goto done;
+	/* Run BFRB BISR if houseclean disable mask not set */
+	if (PM_HOUSECLEAN_CHECK(BFR, BISR)) {
+		Status = XPmBisr_Repair2(BFRB_TAG_ID);
+		if (XST_SUCCESS != Status) {
+			DbgErr = XPM_INT_ERR_BFRB_BISR_REPAIR;
+			goto done;
+		}
 	}
 
-	/* Run MBIST for each BFRB */
-	XSECURE_TEMPORAL_IMPL((Status), (StatusTmp), (BfrbMbist),
-			(BfrbAddresses), ARRAY_SIZE(BfrbAddresses), (PollTimeOut));
-	/* Copy volatile to local to avoid MISRA */
-	XStatus LocalStatus = StatusTmp;
-	/* Required for redundancy */
-	if ((XST_SUCCESS != Status) || (XST_SUCCESS != LocalStatus)) {
-		DbgErr = XPM_INT_ERR_BFRB_MBIST;
-		goto done;
+	/* Run MBIST for each BFRB if houseclean disable mask not set */
+	if (PM_HOUSECLEAN_CHECK(BFR, MBIST)) {
+		XSECURE_TEMPORAL_IMPL((Status), (StatusTmp), (BfrbMbist),
+				(BfrbAddresses), ARRAY_SIZE(BfrbAddresses), (PollTimeOut));
+		/* Copy volatile to local to avoid MISRA */
+		XStatus LocalStatus = StatusTmp;
+		/* Required for redundancy */
+		if ((XST_SUCCESS != Status) || (XST_SUCCESS != LocalStatus)) {
+			DbgErr = XPM_INT_ERR_BFRB_MBIST;
+			goto done;
+		}
 	}
 
-	/* Run scan clear for each BFRB */
-	Status = BfrbScanClear(BfrbAddresses, ARRAY_SIZE(BfrbAddresses), PollTimeOut);
-	if (XST_SUCCESS != Status) {
-		DbgErr = XPM_INT_ERR_BFRB_SCAN_CLEAR;
-		goto done;
+	/* Run scan clear for each BFRB if houseclean disable mask not set */
+	if (PM_HOUSECLEAN_CHECK(BFR, SCAN)) {
+		Status = BfrbScanClear(BfrbAddresses, ARRAY_SIZE(BfrbAddresses), PollTimeOut);
+		if (XST_SUCCESS != Status) {
+			DbgErr = XPM_INT_ERR_BFRB_SCAN_CLEAR;
+			goto done;
+		}
 	}
 
 	/* Power down each BFRB to ensure no power leakage from unused instances */
