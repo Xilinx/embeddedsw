@@ -20,6 +20,7 @@
 *       mb   07/31/2024 Added the check to validate Payload for NULL pointer
 *       pre  03/02/2025 Implemented task based event notification functionality for AES IPI events
 * 5.6   mb   09/09/2025 Return error code on AES IPI event handling failure
+* 5.8   ks   08/18/2026 Preserve AES operation status across key zeroize
 *
 * </pre>
 *
@@ -122,6 +123,7 @@ END:
 static int XSecure_AesPerformOperationAndZeroizeKey(u32 SubsystemId, u32 AesParamsAddrLow, u32 AesParamsAddrHigh, u32 KeyAddrLow, u32 KeyAddrHigh)
 {
 	volatile int Status = XST_FAILURE;
+	volatile int SStatus = XST_FAILURE;
 	u64 Addr = ((u64)AesParamsAddrHigh << XSECURE_ADDR_HIGH_SHIFT) | (u64)AesParamsAddrLow;
 	XSecure_AesDataBlockParams AesParams;
 
@@ -141,8 +143,11 @@ static int XSecure_AesPerformOperationAndZeroizeKey(u32 SubsystemId, u32 AesPara
 	Status = XSecure_AesPerformOperation(SubsystemId, AesParamsAddrLow, AesParamsAddrHigh);
 
 END_KEY_CLR:
-	Status = XST_FAILURE;
-	Status = XSecure_AesKeyZeroize(AesParams.KeySrc);
+	/* Retain the key write or AES operation error over the zeroize result. */
+	SStatus = XSecure_AesKeyZeroize(AesParams.KeySrc);
+	if (Status == XST_SUCCESS) {
+		Status = SStatus;
+	}
 
 END:
 	return Status;
