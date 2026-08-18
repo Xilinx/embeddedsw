@@ -63,6 +63,7 @@
 *                    SDR-PHY & DDR-PHY mode.
 * 1.14  vlt 12/15/25 Update Doxygen comments to include SDT flow details.
 * 	    abh 11/10/25 Fixed MISRA-C violations
+* 1.15  sb  08/11/26 Add support for pattern-based RX PHY tuning.
 *
 * </pre>
 *
@@ -123,6 +124,30 @@ typedef struct {
 } XOspiPsv_Msg;
 
 /**
+ * This typedef holds the RX tuning related information.
+ *
+ * The RX tuning algorithm compares the data read at every RX tap against a
+ * reference pattern which is expected to be pre-programmed in the flash. The
+ * application owns the pattern and fills this structure in the driver instance
+ * before switching to a PHY mode using XOspiPsv_SetSdrDdrMode(). It supplies
+ * the reference data, the location of the pattern in flash, the read
+ * instruction used to fetch it and the buffer it is read into.
+ */
+typedef struct {
+	u8 Opcode;	/**< Read opcode used to fetch the pattern */
+	u8 Dummy;	/**< Number of dummy cycles for the read opcode */
+	u8 Proto;	/**< Indicate number of Cmd-Addr-Data lines */
+	u8 Addrsize;	/**< Size of the pattern address in bytes */
+	u32 PatternAddr;	/**< Flash address the pattern is programmed at */
+	u32 PatternSize;	/**< Number of pattern bytes to read and compare,
+			* has to be a multiple of four */
+	const u8 *Pattern;	/**< Reference pattern used for comparison */
+	u8 *ReadBfrPtr;	/**< Application buffer the pattern is read into.
+			* It is filled using DMA, so it has to be cache line
+			* aligned and at least PatternSize bytes long */
+} XOspiPsv_RxTuning;
+
+/**
  * This typedef contains configuration information for the device.
  */
 typedef struct {
@@ -179,6 +204,7 @@ typedef struct {
 	/**< Buffer used to read the unaligned bytes in DMA */
 	u8 UnalignReadBuffer[4] __attribute__ ((aligned(64))); /**< Read Buffer */
 #endif
+	XOspiPsv_RxTuning RxTuning;	/**< RX tuning configuration */
 } XOspiPsv;
 
 /************************** Variable Definitions *****************************/

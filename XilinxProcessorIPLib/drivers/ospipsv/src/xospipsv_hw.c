@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -27,6 +27,7 @@
 * 1.8   akm  01/03/23 Use Xil_WaitForEvent() API for register bit polling.
 * 1.11	akm  05/15/24 Added support for x2/x4 operations.
 * 1.13	sb   10/28/25 Added cache invalidate when EL1_NONSECURE is not defined.
+* 1.15	sb   08/11/26 Add support for pattern-based RX PHY tuning.
 *
 * </pre>
 *
@@ -35,6 +36,7 @@
 /***************************** Include Files *********************************/
 #include "xospipsv_control.h"
 #include "sleep.h"
+#include "xil_util.h"
 
 /************************** Constant Definitions *****************************/
 #define MAX_STIG_DELAY_CNT	50000U	/**< Max STIG delay count */
@@ -697,7 +699,7 @@ u32 XOspiPsv_CalculateRxTap(XOspiPsv *InstancePtr, XOspiPsv_Msg *FlashMsg,
 		u8 *AvgRXTap, u8 *MaxWindowSize, u8 DummyIncr, u32 TXTap)
 {
 	u32 Status;
-	const u32 *DeviceIdInfo;
+	s32 PatternMatch = -1;
 	u8 RXMaxTap = 0;
 	u8 RXMinTap = 0;
 	u8 RXTapFound = 0;
@@ -726,10 +728,12 @@ u32 XOspiPsv_CalculateRxTap(XOspiPsv *InstancePtr, XOspiPsv_Msg *FlashMsg,
 			if (Status != (u32)XST_SUCCESS) {
 				goto RETURN_PATH;
 			}
-			DeviceIdInfo = (u32 *)&(FlashMsg->RxBfrPtr[0]);
-		} while((InstancePtr->DeviceIdData == *DeviceIdInfo) && (Count <= (u8)10U));
+			PatternMatch = Xil_MemCmp(FlashMsg->RxBfrPtr,
+					InstancePtr->RxTuning.Pattern,
+					InstancePtr->RxTuning.PatternSize);
+		} while((PatternMatch == 0) && (Count <= (u8)10U));
 
-		if (InstancePtr->DeviceIdData == *DeviceIdInfo) {
+		if (PatternMatch == 0) {
 			if (RXTapFound == 0U) {
 				if (InstancePtr->DllMode == XOSPIPSV_DLL_MASTER_MODE) {
 					RXMinTap = (u8)XOspiPsv_ReadReg(InstancePtr->Config.BaseAddress,
@@ -754,7 +758,7 @@ u32 XOspiPsv_CalculateRxTap(XOspiPsv *InstancePtr, XOspiPsv_Msg *FlashMsg,
 				}
 			}
 		}
-		if ((InstancePtr->DeviceIdData != *DeviceIdInfo) || (Index == MaxTap)) {
+		if ((PatternMatch != 0) || (Index == MaxTap)) {
 			if (RXTapFound != 0U) {
 				WindowSize = RXMaxTap - RXMinTap + 1U;
 				if (WindowSize > *MaxWindowSize) {

@@ -52,6 +52,7 @@
 *                    SDR-PHY & DDR-PHY mode.
 * 1.13  sb  10/28/25 Added cache invalidate when EL1_NONSECURE is not defined.
 * 1.15  zm  08/07/26 Reject interrupt transfers the STIG path cannot issue.
+* 1.15  sb  08/11/26 Add support for pattern-based RX PHY tuning.
 *
 * </pre>
 *
@@ -67,8 +68,6 @@
 /************************** Constant Definitions *****************************/
 
 #define SILICON_VERSION_1	0x10U	/**< Silicon version */
-
-#define READ_ID		0x9FU	/**< Read Id opcode */
 
 #if defined (SPARTANUP)
 #define MAX_PHASE_SELECTOR_SPARTANUP     7U    /**< Max Phase selector for Spartanup */
@@ -129,6 +128,10 @@ u32 XOspiPsv_CfgInitialize(XOspiPsv *InstancePtr,
 		InstancePtr->Config.IsCacheCoherent = ConfigPtr->IsCacheCoherent;
 		InstancePtr->Config.ConnectionMode = ConfigPtr->ConnectionMode;
 		InstancePtr->Config.BusWidth = ConfigPtr->BusWidth;
+#ifdef SDT
+		InstancePtr->Config.IntrId = ConfigPtr->IntrId;
+		InstancePtr->Config.IntrParent = ConfigPtr->IntrParent;
+#endif
 		/* Other instance variable initializations */
 		InstancePtr->SendBufferPtr = NULL;
 		InstancePtr->RecvBufferPtr = NULL;
@@ -142,6 +145,20 @@ u32 XOspiPsv_CfgInitialize(XOspiPsv *InstancePtr,
 		InstancePtr->Extra_DummyCycle = 0U;
 		InstancePtr->DllMode = XOSPIPSV_DLL_BYPASS_MODE;
 		InstancePtr->DualByteOpcodeEn = 0U;
+		/*
+		 * RX tuning reads back the pattern programmed in the flash.
+		 * The application provides the reference pattern, its location,
+		 * the read instruction used to fetch it and the read buffer
+		 * before moving to a PHY mode.
+		 */
+		InstancePtr->RxTuning.Opcode = 0U;
+		InstancePtr->RxTuning.Dummy = 0U;
+		InstancePtr->RxTuning.Proto = 0U;
+		InstancePtr->RxTuning.Addrsize = 0U;
+		InstancePtr->RxTuning.PatternAddr = 0U;
+		InstancePtr->RxTuning.Pattern = NULL;
+		InstancePtr->RxTuning.PatternSize = 0U;
+		InstancePtr->RxTuning.ReadBfrPtr = NULL;
 #if defined (SPARTANUP)
 		/* Workaround for SpartanUP platform.
 		 * SpartanUP design does not include frequency information
@@ -839,13 +856,7 @@ u32 XOspiPsv_SetDllDelay(XOspiPsv *InstancePtr)
 	XOspiPsv_Msg FlashMsg = {0};
 	u32 Status;
 	u32 TXTap;
-	u8 ByteCnt = 4;
-#ifdef __ICCARM__
-#pragma data_alignment = 4
-	u8 ReadBfrPtr[8];
-#else
-	u8 ReadBfrPtr[8]__attribute__ ((aligned(4))) = {0};
-#endif
+	const XOspiPsv_RxTuning *RxTuning;
 #if defined (SPARTANUP)
 	u32 PhaseSel;
 	u32 PhyMstrCntrlReg;
@@ -881,35 +892,46 @@ u32 XOspiPsv_SetDllDelay(XOspiPsv *InstancePtr)
 
 	TXTap = TXTap <<
 			XOSPIPSV_PHY_CONFIGURATION_REG_PHY_CONFIG_TX_DLL_DELAY_FLD_SHIFT;
-	FlashMsg.Opcode = READ_ID;
-	FlashMsg.Addrsize = 0U;
-	FlashMsg.Addrvalid = 0U;
-	FlashMsg.TxBfrPtr = NULL;
-	FlashMsg.RxBfrPtr = ReadBfrPtr;
-	FlashMsg.ByteCount = ByteCnt;
-	FlashMsg.Flags = XOSPIPSV_MSG_FLAG_RX;
-	FlashMsg.Dummy = 0U;
-	FlashMsg.Addr = 0U;
-	FlashMsg.Proto = 0U;
-	FlashMsg.IsDDROpCode = 0U;
-	if (InstancePtr->SdrDdrMode == XOSPIPSV_EDGE_MODE_DDR_PHY) {
-		FlashMsg.Dummy = 8U;
-		FlashMsg.Proto = XOSPIPSV_READ_8_0_8;
+
+	/*
+	 * RX tuning reads back the pattern pre-programmed in the flash. The
+	 * application passes the reference pattern, its location and the read
+	 * instruction used to fetch it through InstancePtr->RxTuning.
+	 *
+	 * The same message is re-issued at every RX tap and XOspiPsv_Dma_Read()
+	 * rewrites ByteCount, Addr and RxBfrPtr when the byte count is not a
+	 * multiple of four, so a word aligned count is required to keep the
+	 * message reusable across the tuning loop. In IDAC mode the pattern is
+	 * fetched using DMA, which needs a word aligned destination as well.
+	 */
+	RxTuning = &InstancePtr->RxTuning;
+	if ((RxTuning->Pattern == NULL) || (RxTuning->ReadBfrPtr == NULL) ||
+			(RxTuning->PatternSize == 0U) ||
+			((RxTuning->PatternSize % 4U) != 0U) ||
+			(((UINTPTR)RxTuning->ReadBfrPtr % 4U) != 0U) ||
+			(RxTuning->Addrsize == 0U)) {
+		Status = (u32)XST_FAILURE;
+		goto RETURN_PATH;
 	}
 
+	FlashMsg.Opcode = RxTuning->Opcode;
+	FlashMsg.Addrsize = RxTuning->Addrsize;
+	FlashMsg.Addrvalid = 1U;
+	FlashMsg.Addr = RxTuning->PatternAddr;
+	FlashMsg.TxBfrPtr = NULL;
+	FlashMsg.RxBfrPtr = RxTuning->ReadBfrPtr;
+	FlashMsg.ByteCount = RxTuning->PatternSize;
+	FlashMsg.Flags = XOSPIPSV_MSG_FLAG_RX;
+	FlashMsg.Dummy = RxTuning->Dummy;
+	FlashMsg.Proto = RxTuning->Proto;
+	FlashMsg.IsDDROpCode = 0U;
+	FlashMsg.Xfer64bit = 0U;
 	if (InstancePtr->DualByteOpcodeEn == XOSPIPSV_DUAL_BYTE_OP_ENABLE) {
-		FlashMsg.ExtendedOpcode = (u8)(~FlashMsg.Opcode);
-		FlashMsg.Addrsize = 4U;
-		FlashMsg.Addrvalid = 1U;
-		FlashMsg.Dummy = 4;
-		FlashMsg.Proto = XOSPIPSV_READ_8_8_8;
-	}
-	else if (InstancePtr->DualByteOpcodeEn == XOSPIPSV_DUAL_BYTE_OP_SAME) {
-		FlashMsg.ExtendedOpcode = (u8)(FlashMsg.Opcode);
-		FlashMsg.Addrsize = 4U;
-		FlashMsg.Addrvalid = 1U;
-		FlashMsg.Dummy = 4;
-		FlashMsg.Proto = XOSPIPSV_READ_8_8_8;
+		FlashMsg.ExtendedOpcode = (u8)(~RxTuning->Opcode);
+	} else if (InstancePtr->DualByteOpcodeEn == XOSPIPSV_DUAL_BYTE_OP_SAME) {
+		FlashMsg.ExtendedOpcode = RxTuning->Opcode;
+	} else {
+		FlashMsg.ExtendedOpcode = 0U;
 	}
 
 	if (InstancePtr->DllMode == XOSPIPSV_DLL_MASTER_MODE) {
