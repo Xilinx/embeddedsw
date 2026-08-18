@@ -1,6 +1,6 @@
 /******************************************************************************
-* Copyright (c) 2019 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2026, Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2019 - 2022 Xilinx, Inc. All rights reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -62,6 +62,7 @@
 *       obs  09/30/2024 Fixed Doxygen Warnings
 * 2.4   tvp  02/04/26 Define register addresses for efuse ppk hash only for
 *                     platforms other than Versal_2vp_p
+*       sri  08/14/26 Updated XLoader_CopyHashBlock to add destination HashBlock parameter
 *
 * </pre>
 *
@@ -126,7 +127,6 @@ extern "C" {
 			/**< Misc CTRL register */
 #define XLOADER_BBRAM_CL_INCREMENT_COUNT		(0xFFFFFFFFU)  /**< Flag to indicate if counter in Configuration Limiter should be incremented */
 #define XLOADER_BBRAM_CL_DECREMENT_COUNT		(0x0U)  /**< Flag to indicate if counter in Configuration Limiter should be decremented */
-#define XLOADER_ENTRY_SIZE_IN_HASHBLOCK                        (52U)	/**< Each entry size in HashBlock */
 
 /**************************** Type Definitions *******************************/
 /**
@@ -158,7 +158,7 @@ int XLoader_VerifyHashNUpdateNext(XLoader_SecureParams *SecurePtr,
 int XLoader_ValidateMHHashBlockIntegrity(XLoader_SecureParams *SecurePtr);
 int XLoader_ValidateMetaHdrIntegrity(XLoader_SecureParams *SecurePtr);
 XLoader_HashBlock* XLoader_GetHashBlockInstance(void);
-int XLoader_CopyHashBlock(u32 TotalHBSize, XilPdi_HashBlock *SrcHB);
+int XLoader_CopyHashBlock(u32 TotalHBSize, XilPdi_HashBlock *SrcHB, XLoader_HashBlock *DestHB);
 #endif
 
 #ifdef __cplusplus

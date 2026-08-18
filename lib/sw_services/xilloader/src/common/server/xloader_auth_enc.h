@@ -74,6 +74,7 @@
 *       tvp  03/05/26 Add support for efuse PPK3-PPK8 hash for Versal_2vp_p
 *       sri  03/26/26 Added new IPI API for verifying Hash block requested by Versal 2Ve 2Vm client
 *       sri  04/24/26 Changed LMS KAT and SignVerify APIs from static to global scope to support authenticated JTAG functionality
+*       sri  08/14/26 Exported XLoader_AuthNCopyHashBlock and updated CopyHashBlock for Versal_2Ve_2Vm client HashBlock validation
 *
 * </pre>
 *
@@ -795,7 +796,7 @@ typedef struct XLoader_SecureParams {
 				u32 BlockSize, u8 Last); /**< Function pointer to process
 				                          * partition chunk */
 #if defined(VERSAL_2VE_2VM) || defined(VERSAL_2VP_P)
-	int (*CopyHashBlock)(u32 TotalHBSize, XilPdi_HashBlock *SrcHB);
+	int (*CopyHashBlock)(u32 TotalHBSize, XilPdi_HashBlock *SrcHB, XLoader_HashBlock *DestHB);
 					/**< Function pointer to copy hash block */
 #endif
 	u16 DmaFlags;    /**< Flags indicate mode of copying */
@@ -912,24 +913,22 @@ int XLoader_ProcessAuthEncPrtn(XLoader_SecureParams *SecurePtr, u64 DestAddr,
 int XLoader_RsaPssSignVerify(u8 *MsgHash, XSecure_Rsa *RsaInstPtr, u8 *Signature, u32 KeySize);
 #endif
 int XLoader_ClearAesKey(u32 *DecKeySrc);
-#if defined(VERSAL_2VE_2VM)
-int XLoader_AuthenticateClientHashBlock(XLoader_SecureParams *SecurePtr,
-        XLoader_HBSignParams *HBSignParams, XLoader_HashBlock *ClientHBInstance);
-#endif
 #endif
 int XLoader_CheckSecureStateAuth(volatile u32* AHWRoT);
 int XLoader_CheckSecureState(u32 RegVal, u32 Var, u32 ExpectedValue);
+#ifndef PLM_SECURE_EXCLUDE
 #if !defined(VERSAL_2VE_2VM) && !defined(VERSAL_2VP_P)
 int XLoader_ImgHdrTblAuth(XLoader_SecureParams *SecurePtr);
 int XLoader_DataAuth(XLoader_SecureParams *SecurePtr, u8 *Hash,
 	u8 *Signature);
 #else
+int XLoader_AuthNCopyHashBlock(XLoader_SecureParams *SecurePtr,
+        XLoader_HBSignParams *HBSignParams, XLoader_HashBlock *DestHBPtr);
 int XLoader_ShaDigestCalculation(u8 *InData, u32 DataSize, u8 *Hash);
 int XLoader_VerifyLmsSignature(XLoader_SecureParams *SecurePtr, u8 *SignBuff, u32 SignatureLen,
 	u8 *KeyAddr, u32 KeyLen, u8 *Data, u32 DataLen);
 int XLoader_LmsKat(XLoader_SecureParams *SecurePtr, u32 AuthType);
 #endif
-#ifndef PLM_SECURE_EXCLUDE
 int XLoader_VerifySignature(const XLoader_SecureParams *SecurePtr,
 	u8 *Hash, XLoader_AuthKey *AuthKey, u8 *Signature);
 int XLoader_PpkVerify(const XLoader_SecureParams *SecurePtr, const u32 PpkSize);

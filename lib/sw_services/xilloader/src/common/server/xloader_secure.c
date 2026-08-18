@@ -142,6 +142,8 @@
 *       ng   07/13/26 Reduced debug print levels on error paths
 * 2.5   tvp  07/29/26 Defeature Symmetric HWRoT boot mode for new devices
 *       pre  07/31/26 Enabled TPM feature for VERSAL_2VP devices
+*       sri  08/14/26 Updated XLoader_CopyHashBlock to support caller-supplied
+*                     destination HashBlock for client auth PDI validation
 *
 * </pre>
 *
@@ -182,6 +184,13 @@
 #define XLOADER_TRNG_RESET_REG				(0xF12300D0U) /**< TRNG reset register */
 #define XLOADER_TRNG_RESET_VAL				(0x01U) /**< TRNG reset value */
 #endif
+
+#if defined(VERSAL_2VE_2VM)
+/* Hash Block 0 Partition Indices */
+#define XLOADER_HB0_INDEX_4     (4U) /**< HB0 4th is filled by all 0s now */
+#define XLOADER_HB0_INDEX_5     (5U) /**< HB0 5th is filled by all 0s now */
+#endif
+#define XLOADER_ENTRY_SIZE_IN_HASHBLOCK     (52U)	/**< Each entry size in HashBlock */
 
 /************************** Function Prototypes ******************************/
 static int XLoader_StartNextChunkCopy(XLoader_SecureParams *SecurePtr,
@@ -1210,46 +1219,66 @@ XLoader_SecureTempParams* XLoader_GetTempParams(void) {
 #if defined(VERSAL_2VE_2VM) || defined(VERSAL_2VP_P)
 /*****************************************************************************/
 /**
-* @brief	This function copies the authenticated HashBlock content to
-* 		PPU1 RAM to use further during partition loading.
+* @brief	This function copies authenticated HashBlock entries from source
+* 			to destination HashBlock. Each entry is stored at the index	corresponding
+*			to its partition number for use during partition loading.
 *
 * @param	SrcHBSize	Source Hashblock size to be copied.
-* @param	SrcHB		Pointer to the HashBlock from where the content
-* 				to be copied.
+* @param	SrcHB		Pointer to the HashBlock from where the content	to be copied.
+* @param	DestHB		Pointer to the destination HashBlock instance.
 *
 * @return
 * 		- XST_SUCCESS if the HashBlock copy is successful.
-* 		- XST_FAILURE if the HashBlock copy is not successful.
+* 		- ErrorCode on failure.
 *
 ******************************************************************************/
-int XLoader_CopyHashBlock(u32 SrcHBSize, XilPdi_HashBlock *SrcHB)
+int XLoader_CopyHashBlock(u32 SrcHBSize, XilPdi_HashBlock *SrcHB, XLoader_HashBlock *DestHB)
 {
 	int Status = XST_FAILURE;
-	XLoader_HashBlock *HBPtr = XLoader_GetHashBlockInstance();
 	u32 NoOfEntries = SrcHBSize / XLOADER_ENTRY_SIZE_IN_HASHBLOCK;
 	u32 DstIdx;
 	u32 SrcIdx;
+#if defined(VERSAL_2VE_2VM)
+	XLoader_HashBlock *HBPtr = XLoader_GetHashBlockInstance();
+	/** - HB0 expected reserved hash data for 5th and 6th partition entries */
+	u8 ExpHb0Idx4And5RsvdHashData[XLOADER_ENTRY_SIZE_IN_HASHBLOCK] = {0U};
+#endif
 
-	/** - Copy authenticated HashBlock content to PPU1 RAM */
+	/** - Copy authenticated HashBlock entries to destination HashBlock */
 	for (SrcIdx = 0U; SrcIdx < NoOfEntries; SrcIdx++) {
+		Status = XST_FAILURE;
+#if defined(VERSAL_2VE_2VM)
+		/** - For HashBlock0, the 5th and 6th partition entries are expected to be zero */
+		if (DestHB != HBPtr) {
+			if ((SrcIdx == XLOADER_HB0_INDEX_4) || (SrcIdx == XLOADER_HB0_INDEX_5)) {
+				Status = Xil_SMemCmp((void*)&SrcHB->HashData[SrcIdx],
+						XLOADER_ENTRY_SIZE_IN_HASHBLOCK,
+						(void*)(UINTPTR)ExpHb0Idx4And5RsvdHashData,
+						XLOADER_ENTRY_SIZE_IN_HASHBLOCK,
+						XLOADER_ENTRY_SIZE_IN_HASHBLOCK);
+				if (Status == XST_SUCCESS) {
+					/* Skip copying this index's data intended for HB0 */
+					continue;
+				}
+			}
+		}
+#endif
 		DstIdx = SrcHB->HashData[SrcIdx].PrtnNum;
 		/** - Validate partition number is within bounds */
 		if (DstIdx > XIH_MAX_PRTNS) {
-			Status = XST_INVALID_PARAM;
-			goto END;
+			Status = XPlmi_UpdateStatus(XLOADER_ERR_HASH_BLOCK_COPY_FAIL, XST_INVALID_PARAM);
+			break;
 		}
-		Status = Xil_SecureMemCpy(&HBPtr->HashData[DstIdx],
-                        XLOADER_ENTRY_SIZE_IN_HASHBLOCK,
-			&SrcHB->HashData[SrcIdx],
-			XLOADER_ENTRY_SIZE_IN_HASHBLOCK);
+		Status = Xil_SecureMemCpy(&DestHB->HashData[DstIdx],
+					XLOADER_ENTRY_SIZE_IN_HASHBLOCK,
+					&SrcHB->HashData[SrcIdx],
+					XLOADER_ENTRY_SIZE_IN_HASHBLOCK);
 		if (Status != XST_SUCCESS) {
-			goto END;
+			Status = XPlmi_UpdateStatus(XLOADER_ERR_HASH_BLOCK_COPY_FAIL, Status);
+			break;
 		}
 	}
 
-	Status = XST_SUCCESS;
-
-END:
 	return Status;
 }
 
@@ -1284,6 +1313,7 @@ int XLoader_ValidateMHHashBlockIntegrity(XLoader_SecureParams *SecurePtr)
 	XilPdi_MetaHdr *MetaHdrPtr = SecurePtr->PdiPtr->MetaHdr;
 	u32 ReadOffset = MetaHdrPtr->ImgHdrTbl.HashBlockOffset * XIH_PRTN_WORD_LEN;
 	u32 HashBlockSize = MetaHdrPtr->ImgHdrTbl.HashBlockSize * XIH_PRTN_WORD_LEN;
+	XLoader_HashBlock *DestHBPtr = XLoader_GetHashBlockInstance();
 
 	XPlmi_Printf(DEBUG_INFO, "HashBlock1 integrity validation \n\r");
 
@@ -1297,7 +1327,6 @@ int XLoader_ValidateMHHashBlockIntegrity(XLoader_SecureParams *SecurePtr)
 	}
 
 	if (SecurePtr->PdiPtr->PdiType == XLOADER_PDI_TYPE_FULL) {
-
 		/** - Read the MetaHeader HashBlock hash */
 		Status = XST_FAILURE;
 		Status = XSecure_ShaDigest(ShaInstPtr, XSECURE_SHA3_384,
@@ -1335,7 +1364,7 @@ int XLoader_ValidateMHHashBlockIntegrity(XLoader_SecureParams *SecurePtr)
 	 * - If MetaHeader HashBlock integrity is verified successfully,
 	 * Copy MetaHeader HashBlock data to PPU1 RAM.
 	 */
-	Status = SecurePtr->CopyHashBlock(HashBlockSize, &MetaHdrPtr->HashBlock);
+	Status = SecurePtr->CopyHashBlock(HashBlockSize, &MetaHdrPtr->HashBlock, DestHBPtr);
 END:
 	/** - Zeroize the HashBlock1Hash buffer used for storing calculated HashBlock1 hash */
 	ClearStatus = XPlmi_MemSetBytes(&HashBlock1Hash, XSECURE_SHA_384_HASH_SIZE_IN_BYTES, 0U,
@@ -1344,11 +1373,10 @@ END:
 		Status = (int)((u32)Status | XLOADER_SEC_BUF_CLEAR_ERR);
 	}
 	else {
-                if (Status != XST_SUCCESS) {
-                        Status = (int)((u32)Status | XLOADER_SEC_BUF_CLEAR_SUCCESS);
-                }
-        }
-
+		if (Status != XST_SUCCESS) {
+			Status = (int)((u32)Status | XLOADER_SEC_BUF_CLEAR_SUCCESS);
+		}
+	}
 
 	return Status;
 }

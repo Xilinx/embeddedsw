@@ -100,6 +100,7 @@
 *       ng   07/09/2026 Added handler for Set DDR address for restart image command
 * 2.5   tvp  08/03/2026 Enabled IPI access permissions of XLoader_ConfigureJtagState command for versal_2vp_p
 *       ng   08/05/2026 Reject reserved Image Store PDI IDs in Add/Remove IPI commands
+*       sri  08/14/2026 Updated verify auth HashBlock IPI command to use XLoader_AuthNCopyHashBlock
 *
 * </pre>
 *
@@ -1342,24 +1343,31 @@ static int XLoader_VerifyAuthHashBlock(XPlmi_Cmd *Cmd)
 {
 	int Status = XST_FAILURE;
 	XLoader_SecureParams SecurePtr = {0U};
-	u64 HBSignParamsAddr = 0;
-	u64 HBInstanceAddr = 0;
+	u64 HBSignParamsAddr = 0U;
+	u64 DestHBInstanceAddr = 0U;
 
 	HBSignParamsAddr = Cmd->Payload[XLOADER_HB_SIGN_PARAMS_HIGH_ADDR_IDX];
 	HBSignParamsAddr = (u64)(Cmd->Payload[XLOADER_HB_SIGN_PARAMS_LOW_ADDR_IDX] | (SHIFT_TO_UPPER_U32(HBSignParamsAddr)));
-	HBInstanceAddr = Cmd->Payload[XLOADER_HB_INSTANCE_HIGH_ADDR_IDX];
-	HBInstanceAddr = (u64)(Cmd->Payload[XLOADER_HB_INSTANCE_LOW_ADDR_IDX] | (SHIFT_TO_UPPER_U32(HBInstanceAddr)));
+	DestHBInstanceAddr = Cmd->Payload[XLOADER_HB_INSTANCE_HIGH_ADDR_IDX];
+	DestHBInstanceAddr = (u64)(Cmd->Payload[XLOADER_HB_INSTANCE_LOW_ADDR_IDX] | (SHIFT_TO_UPPER_U32(DestHBInstanceAddr)));
 
+	if ((DestHBInstanceAddr == 0U) || (HBSignParamsAddr == 0U)) {
+		Status = XLOADER_ERR_INVALID_PARAM;
+		goto END;
+	}
+	SecurePtr.PdiPtr = NULL;
 	SecurePtr.NoLoad = XLOADER_NOLOAD_VAL;
+	/** Assign the function pointer to copy hash block */
+	SecurePtr.CopyHashBlock = XLoader_CopyHashBlock;
 	SecurePtr.AuthJtagMessagePtr = NULL;
 	SecurePtr.PmcDmaInstPtr = XPlmi_GetDmaInstance(PMCDMA_0_DEVICE);
 	if (SecurePtr.PmcDmaInstPtr == NULL) {
 		goto END;
 	}
 
-	XSECURE_TEMPORAL_CHECK(END, Status, XLoader_AuthenticateClientHashBlock, &SecurePtr,
+	XSECURE_TEMPORAL_CHECK(END, Status, XLoader_AuthNCopyHashBlock, &SecurePtr,
 								(XLoader_HBSignParams *)(UINTPTR)HBSignParamsAddr,
-								(XLoader_HashBlock *)(UINTPTR)HBInstanceAddr);
+								(XLoader_HashBlock *)(UINTPTR)DestHBInstanceAddr);
 
 END:
 	return Status;
