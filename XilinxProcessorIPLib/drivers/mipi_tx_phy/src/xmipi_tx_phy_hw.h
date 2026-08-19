@@ -58,10 +58,26 @@ extern "C" {
 						      *  Status Register */
 #define XMIPI_TX_PHY_DL3STATUS_REG_OFFSET 	0x00000028  /**< Data lane 3 PHY error
 						      *  Status Register */
+#define XMIPI_TX_PHY_DYNAMIC_LINERATE_REG_OFFSET	0x0000000C  /**< Dynamic Line Rate
+							      *  Register */
 #define XMIPI_TX_PHY_PROG_SEQ_CTRL_OFFSET 	0x00000038  /**< Prog Seq Control Register */
 #define XMIPI_TX_PHY_PROG_SEQ_DATA0_OFFSET 	0x0000003C  /**< Prog Seq Data Register 0 */
 #define XMIPI_TX_PHY_PROG_SEQ_DATA1_OFFSET 	0x00000040  /**< Prog Seq Data Register 1 */
+#define XMIPI_TX_PHY_MMCM_MULT_REG_OFFSET	0x00000044  /**< MMCM Multiplier Register */
+#define XMIPI_TX_PHY_MMCM_FRACT_MULT_REG_OFFSET 0x00000048  /**< MMCM Fractional
+							      *  Multiplier Register */
+#define XMIPI_TX_PHY_MMCM_DIV_REG_OFFSET	0x0000004C  /**< MMCM Divider Register */
+#define XMIPI_TX_PHY_MMCM_O_REG_OFFSET		0x00000050  /**< MMCM Output Divider Register */
 
+/** @} */
+
+/** @name Bitmasks and offsets of XMIPI_TX_PHY_DYNAMIC_LINERATE_REG_OFFSET register
+ *
+ * This register contains the dynamic line rate.
+ * @{
+ */
+#define XMIPI_TX_PHY_DYNAMIC_LINERATE_REG_LINERATE_MASK	0x0000FFFF /**< Current
+								 *  Line Rate */
 /** @} */
 
 /** @name Bitmasks and offsets of XMIPI_TX_PHY_CTRL_REG_OFFSET register

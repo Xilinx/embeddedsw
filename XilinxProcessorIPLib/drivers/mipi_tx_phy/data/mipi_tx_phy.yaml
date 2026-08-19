@@ -23,6 +23,8 @@ properties:
     description: MIPI Reg enablement
   xlnx,phy-lanes:
     description: Maximum phy lanes
+  xlnx,en-dynamic-line-rate:
+    description: Enable dynamic line rate
   xlnx,esc-clk-period:
     description: ESC clock period
   xlnx,esc-timeout:
@@ -42,6 +44,7 @@ required:
     - xlnx,phy-mode
     - xlnx,reg-on
     - xlnx,phy-lanes
+    - xlnx,en-dynamic-line-rate
     - xlnx,esc-clk-period
     - xlnx,esc-timeout
     - xlnx,line-rate

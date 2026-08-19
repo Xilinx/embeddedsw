@@ -150,6 +150,13 @@ extern "C" {
 #define XMIPI_TX_PHY_HS_SETTLE_MAX_VALUE	0x1FF /**< Maximum HS settle value (9-bit) */
 /** @} */
 
+/** @name mipi_tx_phy Dynamic Line Rate range
+ * @{
+*/
+#define XMIPI_TX_PHY_LINERATE_MIN	400	/**< Minimum line rate in Mbps */
+#define XMIPI_TX_PHY_LINERATE_MAX	4500	/**< Maximum line rate in Mbps */
+/** @} */
+
 /** @name mipi_tx_phy Flags to Enable or Disable core
  * @{
 */
@@ -286,6 +293,7 @@ typedef struct {
 	u32 IsDphy; /**< CPHY or DPHY Mode */
 	u32 IsRegisterPresent; /**< Is register access allowed */
 	u32 MaxLanesPresent; /**< Number of Lanes. Range 1 - 4 */
+	u32 IsDynamicLineRate; /**< Enable dynamic line rate */
 	u32 EscClkPeriod; /**< Escape Clock Period */
 	u32 EscTimeout; /**< Escape Timeout */
 	u32 HSLineRate; /**< High Speed Line Rate */
@@ -325,6 +333,15 @@ u8 XMipi_Tx_Phy_GetDLCalibStatus(XMipi_Tx_Phy *InstancePtr, u8 DataLane);
 u32 XMipi_Tx_Phy_GetDataLaneMode(XMipi_Tx_Phy *InstancePtr, u8 DataLane);
 void XMipi_Tx_Phy_Activate(XMipi_Tx_Phy *InstancePtr, u8 Flag);
 u8 XMipi_Tx_Phy_GetRegIntfcPresent(XMipi_Tx_Phy *InstancePtr);
+/* Dynamic line rate configuration in xmipi_tx_phy.c */
+u32 XMipi_Tx_Phy_DynamicLineRateConfig(XMipi_Tx_Phy *InstancePtr,
+			UINTPTR PllBaseAddr, u32 LineRate);
+
+/* X5PLL configuration in xmipi_tx_phy_xpll.c */
+u32 XMipi_Tx_Phy_XPllConfig(UINTPTR PllBaseAddr, u32 LineRate);
+
+/* MMCM configuration in xmipi_tx_phy_mmcm.c */
+u32 XMipi_Tx_Phy_MmcmConfig(XMipi_Tx_Phy *InstancePtr, u32 LineRate);
 
 u32 XMipi_Tx_Phy_Prog_Seq_Data(XMipi_Tx_Phy *InstancePtr, XMipi_Tx_Phy_ProgSeq bitpos, u32 Value);
 u32 XMipi_Tx_Phy_Get_Seq_Data(XMipi_Tx_Phy *InstancePtr, XMipi_Tx_Phy_ProgSeq bitpos);
