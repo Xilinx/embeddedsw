@@ -63,6 +63,8 @@
   *       tus  05/15/26 Remove 128-bit key support from XPuf_FormatAesKey
   *                     as it is not supported during boot
   * 2.8   rpu  06/25/26 Updated print statement to print GVF along with shutter value
+  *       rap  08/12/26 Changed empty parameter lists '()' to '(void)' in static
+  *                     function declarations to fix MISRA-C violation
   * </pre>
   *
   *@note
@@ -166,14 +168,14 @@ __attribute__ ((section (".data.GcmTag")));
 static int XPuf_ValidateUserInput(void);
 static int XPuf_GenerateKey(XPmcDma *DmaPtr);
 static int XPuf_GenerateBlackKey(XPmcDma *DmaPtr);
-static int XPuf_ProgramBlackKeynIV();
+static int XPuf_ProgramBlackKeynIV(void);
 static void XPuf_ReverseData(const u8 *OrgDataPtr, u8 *SwapPtr, u32 Len);
-static void XPuf_ShowPufSecCtrlBits();
+static void XPuf_ShowPufSecCtrlBits(void);
 static void XPuf_ShowData(const u8 *Data, u32 Len);
 static int XPuf_FormatAesKey(const u8 *Key, u8 *FormattedKey, u32 KeyLen);
 static int XPuf_CalculatePufHash(XPmcDma *DmaPtr, u32 *PufSyndromeData, u32 SyndromeDataLen,
 				 u8 *PufPpkHash);
-static int XPuf_WritePufSecCtrlBits();
+static int XPuf_WritePufSecCtrlBits(void);
 static int  XPuf_DecompressPufHd(u32 SynAddress, u32 *DeSynData);
 
 /************************** Function Definitions *****************************/
@@ -846,7 +848,7 @@ END:
  *		- XNVM_BBRAM_ERROR_AES_CRC_MISMATCH - CRC mismatch.
  *
 *******************************************************************************/
-static int XPuf_ProgramBlackKeynIV()
+static int XPuf_ProgramBlackKeynIV(void)
 {
 	int Status = XST_FAILURE;
 	XNvm_EfuseAesKeys AesKey;
@@ -921,7 +923,7 @@ END:
  * 		- XST_FAILURE - When memory initialization or eFuse write operation fails
  *
  ******************************************************************************/
-static int XPuf_WritePufSecCtrlBits()
+static int XPuf_WritePufSecCtrlBits(void)
 {
 	int Status = XST_SUCCESS;
 	XNvm_EfuseSecCtrlBits SecCtrlBits;
@@ -949,7 +951,7 @@ END:
  * @brief	This function shows PUF security control bits.
  *
  ******************************************************************************/
-static void XPuf_ShowPufSecCtrlBits()
+static void XPuf_ShowPufSecCtrlBits(void)
 {
 	int Status = XST_FAILURE;
 	XNvm_EfuseSecCtrlBits ReadSecCtrlBits;

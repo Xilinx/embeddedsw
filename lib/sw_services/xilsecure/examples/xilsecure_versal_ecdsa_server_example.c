@@ -58,21 +58,21 @@
 
 /************************** Function Prototypes ******************************/
 static void XSecure_ShowData(const u8* Data, u32 Len);
-int XSecure_TestP384();
+int XSecure_TestP384(void);
 #ifdef XSECURE_ECC_SUPPORT_NIST_P192
-int XSecure_TestP192();
+int XSecure_TestP192(void);
 #endif
 #ifdef XSECURE_ECC_SUPPORT_NIST_P224
-int XSecure_TestP224();
+int XSecure_TestP224(void);
 #endif
 #ifdef XSECURE_ECC_SUPPORT_NIST_P256
-int XSecure_TestP256();
+int XSecure_TestP256(void);
 #endif
 #ifdef XSECURE_ECC_SUPPORT_NIST_P521
-int XSecure_TestP521();
+int XSecure_TestP521(void);
 #endif
 
-int main()
+int main(void)
 {
 	int Status = XST_FAILURE;
 
@@ -134,7 +134,7 @@ END:
 *		- XST_FAILURE if the test for elliptic curve P-384 failed.
 *
 ******************************************************************************/
-int XSecure_TestP384()
+int XSecure_TestP384(void)
 {
 	int Status = XST_FAILURE;
 	u8 Qx[XSECURE_ECC_P384_SIZE_IN_BYTES] = {0U};
@@ -259,7 +259,7 @@ END:
 *
 ******************************************************************************/
 #ifdef XSECURE_ECC_SUPPORT_NIST_P521
-int XSecure_TestP521()
+int XSecure_TestP521(void)
 {
 	int Status = XST_FAILURE;
 
@@ -401,7 +401,7 @@ END:
 *
 ******************************************************************************/
 #ifdef XSECURE_ECC_SUPPORT_NIST_P256
-int XSecure_TestP256()
+int XSecure_TestP256(void)
 {
 	int Status = XST_FAILURE;
 	u8 Qx[XSECURE_ECC_P256_SIZE_IN_BYTES] = {0U};
@@ -515,7 +515,7 @@ END:
 *
 ******************************************************************************/
 #ifdef XSECURE_ECC_SUPPORT_NIST_P192
-int XSecure_TestP192()
+int XSecure_TestP192(void)
 {
 	int Status = XST_FAILURE;
 	u8 Qx[XSECURE_ECC_P192_SIZE_IN_BYTES] = {0U};
@@ -623,7 +623,7 @@ END:
 *
 ******************************************************************************/
 #ifdef XSECURE_ECC_SUPPORT_NIST_P224
-int XSecure_TestP224()
+int XSecure_TestP224(void)
 {
 	int Status = XST_FAILURE;
 	u8 Qx[XSECURE_ECC_P224_SIZE_IN_BYTES] = {0U};

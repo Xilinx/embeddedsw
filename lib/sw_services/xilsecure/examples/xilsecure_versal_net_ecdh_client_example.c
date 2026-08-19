@@ -115,7 +115,7 @@ static int GenerateSharedSecretExample(XSecure_ClientInstance *InstancePtr);
 		- Error code in case of failure
 *
 ******************************************************************************/
-int main()
+int main(void)
 {
 	int Status = XST_FAILURE;
 	XMailbox MailboxInstance;

@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2015 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2026 Advanced Micro Devices, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -23,6 +24,8 @@
 * 6.7   psl     04/10/19 Fixed IAR warnings.
 * 7.0   kpt     09/02/20 Added successfully ran print to the example in case of
 *                        Success
+* 8.0   rap     08/18/26 Added explicit void to function definitions and
+*                        declarations with empty parameter lists.
 *
 * </pre>
 *
@@ -61,7 +64,7 @@ u8 AesKey[XSK_ZYNQMP_BBRAMPS_AES_KEY_LEN_IN_BYTES];
 
 /*****************************************************************************/
 
-int main()
+int main(void)
 {
 	u32 Status = XST_SUCCESS;
 

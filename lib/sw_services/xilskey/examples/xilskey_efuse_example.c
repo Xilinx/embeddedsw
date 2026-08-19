@@ -242,7 +242,7 @@ u32 XilSKey_EfusePl_ReadorWrite(XilSKey_EPl *PlInstancePtr);
 XilSKey_EPl PlInstance; /*JTAG Tap Instance*/
 #endif
 /***************************************************************************/
-int main()
+int main(void)
 {
 	u32 PlStatus = 0xFFFF;
 	u32 PsStatus = 0xFFFF;

@@ -1,5 +1,5 @@
 /**************************************************************************************************
-* Copyright (C) 2024 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2024 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 
@@ -38,6 +38,8 @@
  *       pre  07/15/2024 Added support for SDT flow and fixed misrac warnings
  *       pre  07/26/2024 Corrected base address for SDT flow
  *       pre  10/19/2024 Added support for PL microblaze
+ * 2.5   rap  08/18/2026 Added explicit void to function definitions and
+ *                       declarations with empty parameter lists.
  *
  * </pre>
  *
@@ -193,7 +195,7 @@ void GenerateTestGlitch(u8 GdNum)
 	}
 }
 
-int main()
+int main(void)
 {
     int Status = XST_FAILURE;
 	/**

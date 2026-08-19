@@ -145,7 +145,7 @@ int main(void)
 *
 ****************************************************************************/
 /** //! [SHA3 example] */
-static int SecureSha3Example()
+static int SecureSha3Example(void)
 {
 	XCsuDma CsuDma;
 	XCsuDma_Config *Config;

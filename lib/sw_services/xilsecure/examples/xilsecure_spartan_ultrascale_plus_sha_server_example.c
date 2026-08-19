@@ -176,7 +176,7 @@ int main(void)
 *
 ****************************************************************************/
 /** //! [SHA example] */
-static int SecureShaExample()
+static int SecureShaExample(void)
 {
 	int Status = XST_FAILURE;
 	XPmcDma_Config *Config;

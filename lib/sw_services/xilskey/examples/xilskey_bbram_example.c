@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2013 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2026 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -48,6 +49,8 @@
 *                        example to library.
 * 6.8   psl     05/21/19 Initialized SystemInitDone ,to indicate
 *                        XilSKey_Bbram_JTAGServerInit status.
+* 8.0   rap     08/18/26 Added explicit void to function definitions and
+*                        declarations with empty parameter lists.
 ****************************************************************************/
 /***************************** Include Files *********************************/
 #include "stdio.h"
@@ -65,7 +68,7 @@ XilSKey_Bbram InstancePtr;
 int XilSKey_Bbram_InitData(XilSKey_Bbram *BbramInstancePtr);
 /***************************************************************************/
 
-int main()
+int main(void)
 {
 	int Status;
 

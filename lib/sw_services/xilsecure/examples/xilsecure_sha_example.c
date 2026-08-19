@@ -115,7 +115,7 @@ int main(void)
 *
 ****************************************************************************/
 /** //! [SHA3 example] */
-static u32 SecureSha3Example()
+static u32 SecureSha3Example(void)
 {
 	XSecure_Sha3 Secure_Sha3;
 	XCsuDma CsuDma;

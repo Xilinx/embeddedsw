@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2015 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -56,6 +56,8 @@
 * 7.5   ng       07/13/23 Added support for system device tree flow
 *       ng       08/31/23 removed redundant header file inclusion
 * 7.8   rpu      07/16/25 Fixed GCC warnings
+* 8.0   rap     08/18/26 Added explicit void to function definitions and
+*                        declarations with empty parameter lists.
 * </pre>
 *
 ******************************************************************************/
@@ -85,7 +87,7 @@
 
 static inline u32 XilSKey_EfusePs_ZynqMp_InitData(
 				XilSKey_ZynqMpEPs *PsInstancePtr);
-static inline u32 XilSKey_EfusePs_Example_ReadSecCtrlBits();
+static inline u32 XilSKey_EfusePs_Example_ReadSecCtrlBits(void);
 #if defined(XSK_ACCESS_PUF_USER_EFUSE)
 static inline u32 XilSKey_EfusePs_ZynqMp_ProgramPufFuses(void);
 static inline u32 XilSKey_EfusePs_ZynqMp_ReadPufFuses(void);
@@ -93,7 +95,7 @@ static inline u32 XilSKey_EfusePs_ZynqMp_ReadPufFuses(void);
 
 /*****************************************************************************/
 
-int main()
+int main(void)
 {
 
 	XilSKey_ZynqMpEPs PsInstance;
@@ -535,7 +537,7 @@ ERROR:
 * @note
 *
 *****************************************************************************/
-static inline u32 XilSKey_EfusePs_Example_ReadSecCtrlBits()
+static inline u32 XilSKey_EfusePs_Example_ReadSecCtrlBits(void)
 {
 	u32 PsStatus;
 	XilSKey_SecCtrlBits ReadSecCtrlBits;
@@ -751,7 +753,7 @@ static inline u32 XilSKey_EfusePs_Example_ReadSecCtrlBits()
 *		- XST_FAILURE - If program fails
 *
 *****************************************************************************/
-static inline u32 XilSKey_EfusePs_ZynqMp_ProgramPufFuses() {
+static inline u32 XilSKey_EfusePs_ZynqMp_ProgramPufFuses(void) {
 	XilSKey_PufEfuse PufFuse = {0};
 	u32 Status = XST_FAILURE;
 	u32 XSK_EFUSEPS_PufData[XSK_EFUSEPS_PUF_NUM_OF_ROWS];
@@ -792,7 +794,7 @@ END:
 *		- XST_FAILURE - If read fails
 *
 *****************************************************************************/
-static inline u32 XilSKey_EfusePs_ZynqMp_ReadPufFuses() {
+static inline u32 XilSKey_EfusePs_ZynqMp_ReadPufFuses(void) {
 	XilSKey_PufEfuse PufFuse = {0};
 	u32 Status = XST_FAILURE;
 	u32 Row = 0U;

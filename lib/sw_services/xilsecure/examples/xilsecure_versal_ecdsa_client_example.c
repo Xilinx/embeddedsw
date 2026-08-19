@@ -416,7 +416,7 @@ static int XSecure_Test_Ecc(XSecure_ClientInstance *InstancePtr, u8 *Q, u8 *R, u
 *		- XST_FAILURE if the ecdsa failed.
 *
 ******************************************************************************/
-int main()
+int main(void)
 {
 	int Status = XST_FAILURE;
 	XMailbox MailboxInstance;

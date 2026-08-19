@@ -67,6 +67,8 @@
 *                        XilSKey_Bbram_JTAGServerInit status.
 *                        And passed BbramInstancePtr instead of InstancePtr in
 *                        XilSKey_Bbram_JTAGServerInit.
+* 8.0   rap     08/18/26 Added explicit void to function definitions and
+*                        declarations with empty parameter lists.
 ******************************************************************************/
 
 /***************************** Include Files *********************************/
@@ -98,7 +100,7 @@ void Bbram_Close_Ultra(void);
 
 /*****************************************************************************/
 
-int main()
+int main(void)
 {
 	int Status;
 

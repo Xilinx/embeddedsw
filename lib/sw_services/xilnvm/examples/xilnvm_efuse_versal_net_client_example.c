@@ -160,9 +160,9 @@ static int XilNvm_WriteRomRsvdBits(void);
 static int XilNvm_WriteCtrlBits(void);
 static int XilNvm_EfuseWriteSecCtrl(void);
 static int XilNvm_EfuseWriteMiscCtrl(void);
-static int XilNvm_EfuseWriteSecMisc1Ctrl();
-static int XilNvm_EfuseWriteGlitchData();
-static int XilNvm_EfuseWriteBootEnvCtrl();
+static int XilNvm_EfuseWriteSecMisc1Ctrl(void);
+static int XilNvm_EfuseWriteGlitchData(void);
+static int XilNvm_EfuseWriteBootEnvCtrl(void);
 static int XilNvm_EfuseWriteIvs(void);
 static int XilNvm_EfuseInitIVs(XNvm_EfuseIvs *Ivs);
 static int XilNvm_EfuseInitAesKeys(XNvm_EfuseWriteDataAddr *WriteEfuse,
@@ -758,7 +758,7 @@ END:
  *	- Error code - On failure.
  *
  ******************************************************************************/
-static int XilNvm_EfuseProgramFuses()
+static int XilNvm_EfuseProgramFuses(void)
 {
 	int Status = XST_FAILURE;
 
@@ -871,7 +871,7 @@ static int XilNvm_WriteDmeRevoke(void)
  *	- Error code - On failure.
  *
  ******************************************************************************/
-static int XilNvm_WriteFipsInfoBits()
+static int XilNvm_WriteFipsInfoBits(void)
 {
 	int Status = XST_FAILURE;
 
@@ -895,7 +895,7 @@ static int XilNvm_WriteFipsInfoBits()
  *	- Error code - On failure.
  *
  ******************************************************************************/
-static int XilNvm_WriteRevocationId()
+static int XilNvm_WriteRevocationId(void)
 {
 	int Status = XST_FAILURE;
 
@@ -919,7 +919,7 @@ static int XilNvm_WriteRevocationId()
  *	- Error code - On failure.
  *
  ******************************************************************************/
-static int XilNvm_WriteOffChipRevokeId()
+static int XilNvm_WriteOffChipRevokeId(void)
 {
 	int Status = XST_FAILURE;
 
@@ -943,7 +943,7 @@ static int XilNvm_WriteOffChipRevokeId()
  *	- Error code - On failure.
  *
  ******************************************************************************/
-static int XilNvm_WriteDecOnlyFuses()
+static int XilNvm_WriteDecOnlyFuses(void)
 {
 	int Status = XST_FAILURE;
 
@@ -965,7 +965,7 @@ static int XilNvm_WriteDecOnlyFuses()
  *	- Error code - On failure.
  *
  ******************************************************************************/
-static int XilNvm_WritePlmUpdateBit()
+static int XilNvm_WritePlmUpdateBit(void)
 {
 	int Status = XST_FAILURE;
 
@@ -987,7 +987,7 @@ static int XilNvm_WritePlmUpdateBit()
  *	- Error code - On failure.
  *
  ******************************************************************************/
-static int XilNvm_WriteBootModeDisFuses()
+static int XilNvm_WriteBootModeDisFuses(void)
 {
 	int Status = XST_FAILURE;
 	u32 *BootModeDis = (u32*)(UINTPTR)&SharedMem[0U];
@@ -1028,7 +1028,7 @@ END:
  *	- Error code - On failure.
  *
  ******************************************************************************/
-static int XilNvm_WriteRomRsvdBits()
+static int XilNvm_WriteRomRsvdBits(void)
 {
 	int Status = XST_FAILURE;
 	u32 *RomRsvdBits = (u32*)(UINTPTR)&SharedMem[0U];
@@ -1066,7 +1066,7 @@ END:
  *	- Error code - On failure.
  *
  ******************************************************************************/
-static int XilNvm_WriteCtrlBits()
+static int XilNvm_WriteCtrlBits(void)
 {
 	int Status = XST_FAILURE;
 
@@ -1110,7 +1110,7 @@ END:
  *		- ErrorCode - On Failure
  *
  ******************************************************************************/
-static int XilNvm_EfuseWriteGlitchData()
+static int XilNvm_EfuseWriteGlitchData(void)
 {
 	int Status = XST_FAILURE;
 	u32 *GlitchData = (u32*)(UINTPTR)&SharedMem[0U];
@@ -1404,7 +1404,7 @@ END:
  *		- ErrCode - On failure
  *
  ******************************************************************************/
-static int XilNvm_EfuseWriteSecCtrl()
+static int XilNvm_EfuseWriteSecCtrl(void)
 {
 	int Status = XST_FAILURE;
 	u32 *SecCtrlBits = (u32*)(UINTPTR)&SharedMem[0U];
@@ -1490,7 +1490,7 @@ END:
  *		- Error Code - On Failure.
  *
  ******************************************************************************/
-static int XilNvm_EfuseWriteMiscCtrl()
+static int XilNvm_EfuseWriteMiscCtrl(void)
 {
 	int Status = XST_FAILURE;
 	u32 *MiscCtrlBits =(u32*)(UINTPTR)&SharedMem[0U];
@@ -1549,7 +1549,7 @@ END:
  *		- Error Code - On Failure.
  *
  ******************************************************************************/
-static int XilNvm_EfuseWriteSecMisc1Ctrl()
+static int XilNvm_EfuseWriteSecMisc1Ctrl(void)
 {
 	int Status = XST_FAILURE;
 	u32 *SecMisc1Bits = (u32*)(UINTPTR)&SharedMem[0U];
@@ -1594,7 +1594,7 @@ END:
  *		- Error Code - On Failure.
  *
  ******************************************************************************/
-static int XilNvm_EfuseWriteBootEnvCtrl()
+static int XilNvm_EfuseWriteBootEnvCtrl(void)
 {
 	int Status = XST_FAILURE;
 	u32 *BootEnvCtrlBits = (u32*)(UINTPTR)&SharedMem[0U];

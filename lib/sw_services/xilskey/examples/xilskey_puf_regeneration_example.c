@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2019 - 2020  Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
  *****************************************************************************/
 
@@ -21,7 +21,9 @@
  *       vns  03/21/19 Updated XilSKey_Efuse_ConvertStringToHexBE with bits
  * 7.0   kpt  09/02/20 Added successfully ran print to the example in case of
  *                     success
- * 7.5   ng      07/13/23 added SDT support
+ * 7.5   ng   07/13/23 added SDT support
+ * 8.0   rap  08/18/26 Added explicit void to function definitions and
+ *                     declarations with empty parameter lists.
  *
  * </pre>
  *
@@ -99,12 +101,12 @@ u8 PufIV[XSK_ZYNQMP_PUF_KEY_IV_LEN_IN_BYTES] = {0};
 
 /************************** Function Prototypes ******************************/
 
-static u32 XilSKey_Puf_Encrypt_data();
-static u32 XilSKey_Puf_Decrypt_data();
+static u32 XilSKey_Puf_Encrypt_data(void);
+static u32 XilSKey_Puf_Decrypt_data(void);
 
 /************************** Function Definitions *****************************/
 
-int main()
+int main(void)
 {
 	u32 Status;
 	u32 SiliconVer = XGetPSVersion_Info();
@@ -187,7 +189,7 @@ END:
  *		- ERROR if encryption was unsuccessful.
  *
  ******************************************************************************/
-u32 XilSKey_Puf_Encrypt_data()
+u32 XilSKey_Puf_Encrypt_data(void)
 {
 	u32 Status;
 	u32 DataOut;
@@ -295,7 +297,7 @@ ENDENCRYPT:
  *		- ERROR if encryption was unsuccessful.
  *
  ******************************************************************************/
-u32 XilSKey_Puf_Decrypt_data()
+u32 XilSKey_Puf_Decrypt_data(void)
 {
 	u32 Status;
 	u32 DataOut;

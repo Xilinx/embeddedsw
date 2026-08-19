@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2016 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2026 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
  *****************************************************************************/
 
@@ -33,6 +34,8 @@
  *       kal  05/15/20 Replace all eFuse read with Cache reads.
  * 7.0   kpt  09/02/20 Added successfully ran print to the example in case of
  *                     success
+* 8.0   rap   08/18/26 Added explicit void to function definitions and
+*                      declarations with empty parameter lists.
  *
  * </pre>
  *
@@ -81,15 +84,15 @@ typedef enum {
 
 #if defined XPUF_FUSE_SYN_DATA
 static void XilSKey_Generate_FuseFormat(XilSKey_Puf *InstancePtr);
-static u32 XilSkey_Program_Black_Key();
+static u32 XilSkey_Program_Black_Key(void);
 #endif
 static u32 XilSKey_Puf_ConvertStringToHexBE(const char * Str,
 					u8 * Buf, u32 Len);
-static u32 XilSKey_Puf_Encrypt_Key();
+static u32 XilSKey_Puf_Encrypt_Key(void);
 
 /************************** Function Definitions *****************************/
 
-int main() {
+int main(void) {
 
 	u32 Status;
 	u32 Index;
@@ -621,7 +624,7 @@ static void XilSKey_Generate_FuseFormat(XilSKey_Puf *InstancePtr)
  * @note	None,
  *
  ******************************************************************************/
-static u32 XilSkey_Program_Black_Key()
+static u32 XilSkey_Program_Black_Key(void)
 {
 	u32 Status;
 	u32 Index;
@@ -777,7 +780,7 @@ static u32 XilSKey_Puf_ConvertStringToHexBE(const char * Str, u8 * Buf, u32 Len)
  * @note	Encrypted key will be available @ PufInstance.BlackKey.
  *
  ******************************************************************************/
-static u32 XilSKey_Puf_Encrypt_Key()
+static u32 XilSKey_Puf_Encrypt_Key(void)
 {
 	u32 Status;
 	XCsuDma_Config *Config;
