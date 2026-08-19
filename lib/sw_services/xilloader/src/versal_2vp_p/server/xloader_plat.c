@@ -25,6 +25,7 @@
 *       pre 07/14/26 Removed XLoader_GetI2CDeviceID function definition
 * 2.5   tvp 08/03/26 Added Jtag DAP config support for Non-Secure debug
 *       sd  08/07/26 Used XPLMI_VERIFY_ADDR_RANGE macro for load address check
+*       sd  08/18/26 Fixed APU ELF load by aligning XLoader_ProcessElf with versal
 *
 * </pre>
 *
@@ -1016,6 +1017,7 @@ int XLoader_GetSDPdiSrcNAddr(u32 SecBootMode, XilPdi *PdiPtr, u32 *PdiSrc, u64 *
  *		- XLOADER_ERR_PM_DEV_IOCTL_RPU1_LOCKSTEP if IOCTL call to set RPU1 in lockstep mode
  *		  fails.
  *		- XLOADER_ERR_INVALID_TCM_ADDR on Invalid TCM address for A72 elfs.
+ * 		- XLOADER_ERR_INVALID_CPUID if invalid CPU id is selected.
  *
  **************************************************************************************************/
 int XLoader_ProcessElf(XilPdi* PdiPtr, const XilPdi_PrtnHdr * PrtnHdr,
@@ -1026,7 +1028,7 @@ int XLoader_ProcessElf(XilPdi* PdiPtr, const XilPdi_PrtnHdr * PrtnHdr,
 	u32 CapContext = (u32)PM_CAP_CONTEXT;
 	u32 Len = PrtnHdr->UnEncDataWordLen << XPLMI_WORD_LEN_SHIFT;
 	u64 EndAddr = PrtnParams->DeviceCopy.DestAddr + Len - 1U;
-	u32 ErrorCode;
+	u32 ErrorCode = 0U;
 	u32 Mode = 0U;
 	u8 TcmComb;
 
@@ -1086,7 +1088,7 @@ int XLoader_ProcessElf(XilPdi* PdiPtr, const XilPdi_PrtnHdr * PrtnHdr,
 	} else {
 		/* MISRA-C compliance */
 	}
-	if (Status != XST_SUCCESS) {
+	if ((Status != XST_SUCCESS) && (ErrorCode != 0U)) {
 		Status = XPlmi_UpdateStatus((XPlmiStatus_t)ErrorCode, XIL_SIGNED_ZERO);
 		goto END;
 	}
@@ -1094,13 +1096,16 @@ int XLoader_ProcessElf(XilPdi* PdiPtr, const XilPdi_PrtnHdr * PrtnHdr,
 	if ((PrtnParams->DstnCpu == XIH_PH_ATTRB_DSTN_CPU_R5_0) ||
 			(PrtnParams->DstnCpu == XIH_PH_ATTRB_DSTN_CPU_R5_L)) {
 		Status = XLoader_RequestTCM(XLOADER_TCM_0);
+		if (Status != XST_SUCCESS) {
+			goto END;
+		}
 	}
 	if ((PrtnParams->DstnCpu == XIH_PH_ATTRB_DSTN_CPU_R5_1) ||
 			(PrtnParams->DstnCpu == XIH_PH_ATTRB_DSTN_CPU_R5_L)) {
 		Status = XLoader_RequestTCM(XLOADER_TCM_1);
-	}
-	if (Status != XST_SUCCESS) {
-		goto END;
+		if (Status != XST_SUCCESS) {
+			goto END;
+		}
 	}
 
 	Status = XLoader_GetLoadAddr(PrtnParams->DstnCpu, &PrtnParams->DeviceCopy.DestAddr, Len);
