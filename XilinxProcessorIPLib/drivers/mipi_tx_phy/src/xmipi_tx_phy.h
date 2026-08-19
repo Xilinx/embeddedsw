@@ -316,6 +316,15 @@ typedef struct {
 /************************** Function Prototypes ******************************/
 
 /* Initialization function in xmipi_tx_phy_sinit.c */
+/**
+ * @brief Look up the device configuration based on the base address.
+ *
+ * @param	BaseAddress is the base address of the device to look up.
+ *
+ * @return	Pointer to the XMipi_Tx_Phy_Config entry, or NULL if not found.
+ *
+ * @note	None.
+ ******************************************************************************/
 XMipi_Tx_Phy_Config *XMipi_Tx_Phy_LookupConfig(UINTPTR BaseAddress);
 
 /* Initialization and control functions xmipi_tx_phy.c */
@@ -349,6 +358,15 @@ u32 XMipi_Tx_Phy_En_Prog_Seq_Ctrl(XMipi_Tx_Phy *InstancePtr);
 u32 XMipi_Tx_Phy_Dis_Prog_Seq_Ctrl(XMipi_Tx_Phy *InstancePtr);
 u32 XMipi_Tx_Phy_Get_Prog_Seq_Ctrl(XMipi_Tx_Phy *InstancePtr);
 /* Self test function in xcsiss_selftest.c */
+/**
+ * @brief Run a self-test on the MIPI TX PHY.
+ *
+ * @param	InstancePtr is a pointer to the XMipi_Tx_Phy instance.
+ *
+ * @return	XST_SUCCESS if the self-test passed, XST_FAILURE otherwise.
+ *
+ * @note	None.
+ ******************************************************************************/
 u32 XMipi_Tx_Phy_SelfTest(XMipi_Tx_Phy *InstancePtr);
 
 #ifdef __cplusplus
