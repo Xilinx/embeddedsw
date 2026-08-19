@@ -57,6 +57,8 @@
 * 2.3   vss  09/30/2025 Updated AES/SHA queueing macro checks.
 *       pre  10/25/2025 Made SBI and DMA1 reset logic specific to master SLR only for versal devices
 * 2.4	abh  11/01/2025 Fixed MISRA-C violations
+* 2.5   gnr  08/19/2026 Re-arm SMAP sync word detection and drain SBI FIFO
+*                       between PDIs on both success and failure paths
 *
 * </pre>
 *
@@ -70,6 +72,7 @@
 /***************************** Include Files *********************************/
 #include "xplmi_hw.h"
 #include "xloader.h"
+#include "xloader_sbi.h"
 #include "xplmi_proc.h"
 #include "xplmi.h"
 #include "xplmi_err.h"
@@ -271,6 +274,15 @@ END:
 			usleep(10U);
 			XPlmi_Out32(CRP_RST_SBI, 0x0U);
 			XPlmi_UtilRMW(CRP_RST_PDMA, CRP_RST_PDMA_RESET1_MASK, 0x0U);
+
+			/**
+			 * - Re-arm SMAP sync word detection and drain the SBI FIFO
+			 *   to remove any remaining data from the failed PDI. This
+			 *   is done before the error is escalated (ERROR_OUT) so
+			 *   that data for the next PDI is not lost. No-op for
+			 *   non-SMAP interfaces.
+			 */
+			(void)XLoader_SbiSyncWordReArm();
 		}
 		XPlmi_SetPlmLiveStatus();
 		usleep(XLOADER_SBI_DELAY_IN_MICROSEC);

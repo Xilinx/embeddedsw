@@ -218,6 +218,8 @@
 *       ng  07/09/2026 Added XLoader_SetDdrPdiAddr for set DDR address for restart image
 *       ng  07/13/2026 Reduced debug print levels on error paths
 *       pre 08/15/2026 Do not set boot done bit if ROM and PLM measurement fails in case of TPM being enabled.
+* 2.5   gnr  08/19/2026 Re-arm SMAP sync word detection and drain SBI FIFO before
+*                      setting the DONE pin after PDI load
 *
 * </pre>
 *
@@ -1233,6 +1235,18 @@ static int XLoader_LoadAndStartSubSystemPdi(XilPdi *PdiPtr)
 	Status = XLoader_MeasureRomAndPlm();
 	if (Status != XST_SUCCESS) {
 		goto END;
+	}
+
+	/*
+	 * Re-arm SMAP sync word detection and drain the SBI FIFO before setting
+	 * the DONE pin, so any extra words streamed after this PDI are discarded
+	 * by hardware and do not corrupt the next PDI (e.g. Segmented Boot). This
+	 * is a no-op when the boot interface is not SMAP. A drain failure is only
+	 * a warning and must not overwrite the load status.
+	 */
+	if (XLoader_SbiSyncWordReArm() != XST_SUCCESS) {
+		XPlmi_Printf(DEBUG_PRINT_ALWAYS,
+			"Warning: SBI sync word re-arm/FIFO drain failed\r\n");
 	}
 
 	/* Mark PDI loading is completed */

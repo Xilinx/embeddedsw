@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2017 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2025, Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -37,6 +37,8 @@
 * 1.07  ng   11/11/2022 Updated doxygen comments
 *       ng   03/30/2023 Updated algorithm and return values in doxygen comments
 * 2.1   mb   08/20/2024 Masked JCONFIG bit when bootmode is SBI JTAG
+* 2.5   gnr  08/19/2026 Added XLoader_SbiSyncWordReArm to re-enable SMAP sync
+*                       word detection and drain the SBI FIFO between PDIs
 *
 * </pre>
 *
@@ -67,6 +69,8 @@
 #define XLOADER_SBI_CTRL_INTERFACE_SMAP                  (0x0U)
 #define XLOADER_SBI_CTRL_INTERFACE_JTAG                  (0x4U)
 #define XLOADER_SBI_CTRL_INTERFACE_AXI_SLAVE             (0x8U)
+#define XLOADER_SBI_FIFO_DRAIN_TIMEOUT_US                (1000U) /**< Timeout to
+                                * wait for the SBI common buffer to drain */
 
 /************************** Function Prototypes ******************************/
 
@@ -218,6 +222,65 @@ int XLoader_SbiRecovery(void)
 
 END:
 	Status = XST_SUCCESS;
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function drains the SBI common buffer FIFO and re-arms the
+ *		SMAP sync word detection logic in the SBI hardware. This is used
+ *		between PDI loads so that any extra words streamed on SMAP after
+ *		a PDI (or remaining data from a failed PDI) are discarded before
+ *		the next PDI starts. The SBI is first disabled so that no new data
+ *		is pushed into the FIFO, the common buffer is then allowed to
+ *		drain, and finally the SBI is re-enabled to re-arm sync word
+ *		detection. It is a no-op when the active SBI interface is not SMAP.
+ *
+ * @return
+ *		- XST_SUCCESS on success (or when interface is not SMAP).
+ *		- XST_FAILURE if the SBI FIFO fails to drain within the timeout.
+ *
+ *****************************************************************************/
+int XLoader_SbiSyncWordReArm(void)
+{
+	int Status = XST_FAILURE;
+
+	/**
+	 * - This logic applies only to the SMAP interface. For any other
+	 *   interface (JTAG/PCIe/SBI) there is nothing to do.
+	 */
+	if ((XPlmi_In32(SLAVE_BOOT_SBI_CTRL) & SLAVE_BOOT_SBI_CTRL_INTERFACE_MASK)
+			!= XLOADER_SBI_CTRL_INTERFACE_SMAP) {
+		Status = XST_SUCCESS;
+		goto END;
+	}
+
+	/**
+	 * - Disable the SBI so that no new data is pushed into the FIFO while
+	 *   it is being drained.
+	 */
+	XPlmi_UtilRMW(SLAVE_BOOT_SBI_CTRL, SLAVE_BOOT_SBI_CTRL_ENABLE_MASK,
+		~SLAVE_BOOT_SBI_CTRL_ENABLE_MASK);
+
+	/**
+	 * - Wait until the common buffer drains to its empty value while the
+	 *   SBI is still disabled. This ensures no stale words from the
+	 *   previous PDI remain buffered before the next PDI is loaded.
+	 */
+	Status = XPlmi_UtilPoll(SLAVE_BOOT_SBI_STATUS,
+		SLAVE_BOOT_SBI_STATUS_CMN_BUF_SPACE_MASK,
+		SLAVE_BOOT_SBI_STATUS_CMN_BUF_SPACE_VAL,
+		XLOADER_SBI_FIFO_DRAIN_TIMEOUT_US, NULL);
+
+	/**
+	 * - Re-enable the SBI to re-arm the hardware sync word detection. This
+	 *   is done even if the drain timed out, so that the SBI is not left
+	 *   disabled for the next PDI.
+	 */
+	XPlmi_UtilRMW(SLAVE_BOOT_SBI_CTRL, SLAVE_BOOT_SBI_CTRL_ENABLE_MASK,
+		SLAVE_BOOT_SBI_CTRL_ENABLE_MASK);
+
+END:
 	return Status;
 }
 
