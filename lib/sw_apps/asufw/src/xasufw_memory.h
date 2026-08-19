@@ -111,6 +111,8 @@ extern "C" {
 #define XASUFW_PLMI_RTCFG_BASEADDR	(0xF2014000U) /**< PLM runtime configuration base address */
 #define XASUFW_PLM_RTCA_EFUSE_0_IV_ADDR	(XASUFW_PLMI_RTCFG_BASEADDR + 0x384U)
 						/**< Address of efuse 0 IV of size 12 bytes */
+#define XASUFW_PLM_RTCA_EFUSE_1_IV_ADDR	(XASUFW_PLMI_RTCFG_BASEADDR + 0x390U)
+						/**< Address of efuse 1 IV of size 12 bytes */
 
 /* DDR Reserved Area Configuration. */
 #define XASUFW_RTCFG_RSVD_DDR_ADDR	(XASUFW_PLMI_RTCFG_BASEADDR + 0x2A8U)

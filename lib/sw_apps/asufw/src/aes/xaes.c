@@ -1334,6 +1334,88 @@ END:
 
 /*************************************************************************************************/
 /**
+ * @brief	This function encrypts a red (plaintext) key with the PUF KEK to produce a black
+ * 		(encrypted) key. The PUF KEK is selected as the AES key source and an AES-GCM
+ * 		encrypt operation is run, mirroring the key-source selection done in
+ * 		XAes_DecryptEfuseBlackKey. It is general-purpose red-to-black encryption under
+ * 		PUF KEK.
+ *
+ * @param	InstancePtr	Pointer to the XAes instance.
+ * @param	DmaPtr		Pointer to the AsuDma instance.
+ * @param	AesParams	Pointer to the XAsu_AesParams structure holding the IV, input (red
+ * 				key), output (black key) and tag buffers. EngineMode must be
+ * 				XASU_AES_GCM_MODE and OperationType must be
+ * 				XASU_AES_ENCRYPT_OPERATION. The KeyObjectAddr field is not
+ * 				used; the PUF KEK is selected internally as the key source.
+ *
+ * @return
+ *		- XASUFW_SUCCESS, if encryption of the red key is successful.
+ *		- XASUFW_AES_INVALID_PARAM, if InstancePtr, DmaPtr or AesParams is NULL, ASU
+ *			DMA is not ready, or the engine mode/operation type is not GCM encrypt.
+ *		- XASUFW_AES_KEY_CONFIG_READBACK_ERROR, if the PUF key selection or key size does
+ *			not read back as written.
+ *		- Error codes from XAes_Compute, if the IV or tag parameters are invalid or the
+ *			AES operation fails.
+ *
+ * @note
+ *      Prerequisite: The PUF KEK must be transferred to the PUF key selection value before calling
+ *      this function.
+ *
+ *************************************************************************************************/
+s32 XAes_EncryptRedKey(XAes *InstancePtr, XAsufw_Dma *DmaPtr, XAsu_AesParams *AesParams)
+{
+	CREATE_VOLATILE(Status, XASUFW_FAILURE);
+
+	/** Validate the input arguments. */
+	if ((InstancePtr == NULL) || (AesParams == NULL)) {
+		Status = XASUFW_AES_INVALID_PARAM;
+		goto END;
+	}
+
+	if ((DmaPtr == NULL) || (DmaPtr->AsuDma.IsReady != XIL_COMPONENT_IS_READY)) {
+		Status = XASUFW_AES_INVALID_PARAM;
+		goto END;
+	}
+
+	/** This API only supports AES-GCM encrypt for red key encryption. */
+	if ((AesParams->EngineMode != (u8)XASU_AES_GCM_MODE) ||
+	    (AesParams->OperationType != (u8)XASU_AES_ENCRYPT_OPERATION)) {
+		Status = XASUFW_AES_INVALID_PARAM;
+		goto END;
+	}
+
+	/** Initialize the AES instance. */
+	InstancePtr->AsuDmaPtr = DmaPtr;
+	InstancePtr->EngineMode = XASU_AES_GCM_MODE;
+	InstancePtr->OperationType = XASU_AES_ENCRYPT_OPERATION;
+
+	/** Select the PUF key as key source with a key size of 256-bit. */
+	XAes_LoadKey(InstancePtr, XASU_AES_PUF_KEY, XASU_AES_KEY_SIZE_256_BITS);
+
+	/**
+	 * Read back the key selection and key size before any key material is processed. A glitched
+	 * write would encrypt the red key under the wrong key, and the result is burned into the
+	 * eFUSE permanently.
+	 */
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	Status = XAes_ValidateKeyConfig(InstancePtr, XASU_AES_PUF_KEY, XASU_AES_KEY_SIZE_256_BITS);
+	if (Status != XASUFW_SUCCESS) {
+		goto END;
+	}
+
+	/**
+	 * Perform the AES operation. XAes_Compute issues the KEY_LOAD which loads the pre-selected
+	 * PUF key into the AES engine, then encrypts the red key into the black key.
+	 */
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	Status = XAes_Compute(InstancePtr, DmaPtr, AesParams);
+
+END:
+	return Status;
+}
+
+/*************************************************************************************************/
+/**
  * @brief	This function updates data and key to the AES engine in split mode with DPA CM
  * 		enabled.
  *

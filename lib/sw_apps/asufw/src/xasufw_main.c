@@ -78,6 +78,7 @@
 #include "xasufw_kat.h"
 #include "xasufw_keymanagerhandler.h"
 #include "xasufw_lmshandler.h"
+#include "xasufw_provisionhandler.h"
 #include "xocp.h"
 #include "xil_error_node.h"
 #include "xoverlay.h"
@@ -440,6 +441,14 @@ static s32 XAsufw_ModulesInit(void)
 #ifdef XASU_KEYMANAGER_ENABLE
 	/** Key manager module initialization. */
 	Status = XAsufw_KeyManagerInit();
+	if (Status != XASUFW_SUCCESS) {
+		goto END;
+	}
+#endif
+
+#ifdef XASU_PROVISION_ENABLE
+	/** Provisioning module initialization. */
+	Status = XAsufw_ProvisionInit();
 	if (Status != XASUFW_SUCCESS) {
 		goto END;
 	}

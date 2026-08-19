@@ -21,39 +21,53 @@ endif()
 
 if((NOT (XILASU_rsa_keygen_2048_support)) AND NOT ((XILASU_rsa_keygen_3072_support)) AND NOT ((XILASU_rsa_keygen_4096_support)))
    set(XILASU_rsa_keygen_4096_support TRUE CACHE BOOL "By default RSA 4096 bit key generation is defined" FORCE)
+   set(XASU_RSA_4096_KEYGEN_ENABLE " ")
 endif()
 
 if((XILASU_cavp_support) AND NOT ((XILASU_ecies_support)))
   set(XILASU_ecies_support TRUE CACHE BOOL "ECIES is enabled as CAVP depends on ECIES" FORCE)
+  set(XASU_ECIES_ENABLE " ")
 endif()
 
 if((XILASU_cavp_support) AND NOT ((XILASU_kdf_support)))
   set(XILASU_kdf_support TRUE CACHE BOOL "KDF is enabled as CAVP depends on KDF" FORCE)
+  set(XASU_KDF_ENABLE " ")
 endif()
 
 if((XILASU_cavp_support) AND NOT ((XILASU_hmac_support)))
   set(XILASU_hmac_support TRUE CACHE BOOL "HMAC is enabled as CAVP depends on HMAC" FORCE)
+  set(XASU_HMAC_ENABLE " ")
 endif()
 
 if("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "microblaze_riscv")
   if((XILASU_keywrap_support) AND NOT ((XILASU_rsa_padding_support)))
     set(XILASU_rsa_padding_support TRUE CACHE BOOL "Padding is enabled as keywrap depends on RSA padding" FORCE)
+    set(XASU_RSA_PADDING_ENABLE " ")
   endif()
 
   if((XILASU_kdf_support) AND NOT ((XILASU_hmac_support)))
     set(XILASU_hmac_support TRUE CACHE BOOL "HMAC is enabled as KDF depends on HMAC" FORCE)
+    set(XASU_HMAC_ENABLE " ")
   endif()
 
   if((XILASU_ocp_support) AND NOT ((XILASU_hmac_support)))
     set(XILASU_hmac_support TRUE CACHE BOOL "HMAC is enabled as OCP depends on HMAC" FORCE)
+    set(XASU_HMAC_ENABLE " ")
   endif()
 
   if((XILASU_ocp_support) AND NOT ((XILASU_keymanager_support)))
     set(XILASU_keymanager_support TRUE CACHE BOOL "Key Manager is enabled as OCP depends on Key Manager" FORCE)
+    set(XASU_KEYMANAGER_ENABLE " ")
+  endif()
+
+  if((XILASU_provision_support) AND NOT ((XILASU_keymanager_support)))
+    set(XILASU_keymanager_support TRUE CACHE BOOL "Key Manager is enabled as Provisioning depends on Key Manager" FORCE)
+    set(XASU_KEYMANAGER_ENABLE " ")
   endif()
 
   if((XILASU_ecies_support) AND NOT ((XILASU_hmac_support)))
     set(XILASU_hmac_support TRUE CACHE BOOL "HMAC is enabled as ECIES depends on HMAC " FORCE)
+    set(XASU_HMAC_ENABLE " ")
   endif()
 
   if((XILASU_ecies_support))
@@ -65,6 +79,9 @@ if("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "microblaze_riscv")
     endif()
   endif()
 endif()
+
+# Generated here, after the dependency-enforcement blocks above, so a force-enabled flag is reflected in this same configure.
+configure_file(${CMAKE_CURRENT_SOURCE_DIR}/xasu_bsp_config.h.in ${CMAKE_BINARY_DIR}/include/xasu_bsp_config.h)
 
 add_subdirectory(common)
 if("${XILASU_Mode}" STREQUAL "server")

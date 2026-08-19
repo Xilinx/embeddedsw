@@ -518,6 +518,12 @@
 #define XASU_LMS_ENABLE /**< Macro to enable/disable support of LMS algorithm */
 //#define XASU_PERF_MEASUREMENT_ENABLE /**< Macro to enable/disable performance measurement */
 #define XASU_KEYMANAGER_ENABLE /**< Macro to enable/disable support of KeyManager */
+#define XASU_PROVISION_ENABLE /**< Macro to enable/disable support of Provisioning */
+
+/* Provisioning depends on the KeyManager (AKV vault) module; force it on if needed. */
+#if defined(XASU_PROVISION_ENABLE) && !defined(XASU_KEYMANAGER_ENABLE)
+#define XASU_KEYMANAGER_ENABLE
+#endif
 
 /* RSA key generation size (only one size can be enabled at a time) */
 //#define XASU_RSA_2048_KEYGEN_ENABLE /**< Macro to enable 2048-bit RSA key generation */

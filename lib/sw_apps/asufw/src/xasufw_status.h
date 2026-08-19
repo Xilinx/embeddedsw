@@ -116,8 +116,8 @@ enum {
 	XASUFW_INVALID_DMA_SSS_CONFIG, /**< 0x1CU - SSS configuration assignment failed as the DMA
 						address is invalid */
 	XASUFW_ERR_EXCEPTION, /**< 0x1DU - Processor exception received */
-	XASUFW_ERR_IPI_SEND_PLM_EFUSE_PRGM, /**< 0x1E - Failed while sending IPI for efuse write */
-	XASUFW_ERR_IPI_RSP_PLM_EFUSE_PRGM, /**< 0x1F - IPI response failure to program efuse */
+	XASUFW_ERR_IPI_SEND_PLM_EFUSE_REQ, /**< 0x1E - Failed while sending eFuse IPI request */
+	XASUFW_ERR_IPI_RSP_PLM_EFUSE_REQ, /**< 0x1F - IPI response failure to eFuse request */
 	XASUFW_VALIDATE_COMMAND_FAILED, /**< 0x20 - Command validation failed */
 	/* Termination code errors 0x21U to 0x2CU are reserved for errors returning from core */
 	XASUFW_ECC_INVALID_PARAM = 0x2DU, /**< 0x2DU - Invalid parameters to ECC APIs*/
@@ -554,7 +554,7 @@ enum {
 	XASUFW_OCP_DEVAK_NOT_READY, /**< 0x177U - Error when DevAk pair is not ready */
 	XASUFW_ERR_RESERVED_178, /**< 0x178U - Reserved */
 	XASUFW_OCP_UDE_KEK_GEN_FAIL, /**< 0x179U - Error when UDE KEK generation fails */
-	XASUFW_KDF_PUF_KEK_GEN_FAIL, /**< 0x17AU - Error when PUF KEK generation fails */
+	XASUFW_PUF_KEK_GEN_FAIL, /**< 0x17AU - Error when PUF KEK generation fails */
 	XASUFW_OCP_INVALID_BUF_SIZE, /**< 0x17B - Error when OCP buffer size is invalid */
 	XASUFW_VALIDATE_CMD_INVALID_CHANNEL_INDEX, /**< 0x17CU - Error when channel index is invalid */
 	XASUFW_ERR_VALIDATE_IPI_NO_IPI_ACCESS, /**< 0x17DU - Error when the requested command lacks
@@ -746,7 +746,7 @@ enum {
 	XASUFW_KEYMANAGER_VAULT_REVOKE_ID_MISMATCH, /**< 0x218U - Error when vault revoke ID does
 							not match with expected value. */
 	XASUFW_KEYMANAGER_INVALID_VAULT_ID, /**< 0x219U - Error when vault ID is invalid. */
-	XASUFW_KDF_IV_IS_ZERO, /**< 0x21AU - Error when KDF IV is zero */
+	XASUFW_KEK_IV_IS_ZERO, /**< 0x21AU - Error when the KEK IV is zero */
 	XASUFW_KDF_DECRYPT_BLACK_KEY_0_FAIL, /**< 0x21BU - Error when KDF decrypts black key 0
 						fails */
 	XASUFW_SHA_FINISH_FAILED, /**< 0x21CU - Error when SHA finish operation fails */
@@ -769,6 +769,15 @@ enum {
 						computation overflows a 32-bit value. */
 	XASUFW_X509_GEN_BASIC_CONSTRAINTS_FIELD_FAIL, /**< 0x229U - Error when basic constraints
 							field generation is failed */
+
+	/* Provisioning module error codes */
+	XASUFW_PROVISION_INVALID_PARAM, /**< 0x22AU - Error when a provisioning input parameter is
+						invalid */
+	XASUFW_PROVISION_MODULE_REGISTRATION_FAILED, /**< 0x22BU - Error when Provisioning module
+							registration fails */
+	XASUFW_PROVISION_KEY_FETCH_FAIL, /**< 0x22CU - Error when obtaining the key to be programmed
+						fails */
+	XASUFW_PROVISION_RED_ENCRYPT_FAIL, /**< 0x22DU - Error when red key encryption fails */
 
 	/* Additional status success codes */
 	XASUFW_OCP_CERT_GENERATION_SUCCESS = 0x3F7U, /**< 0x3F7U - OCP certificate generation

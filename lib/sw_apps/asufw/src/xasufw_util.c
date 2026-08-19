@@ -31,6 +31,7 @@
  * 1.2   am   05/18/25 Added XAsufw_WriteDataToRegs() API
  *       rmv  07/09/25 Added XAsufw_AsciiToInt() function.
  *       rmv  09/10/25 Simplified XAsufw_SMemSet() error handling by combining status checks
+ *       kp   08/19/26 Moved PLM XilNVM IPI command macros to xasufw_util.h
  *
  * </pre>
  *
@@ -46,17 +47,6 @@
 #include "xil_sutil.h"
 
 /************************************ Constant Definitions ***************************************/
-#define XASUFW_PLM_XILNVM_MODULE_ID			(11U) /**< XilNVM Module ID in PLM */
-#define XASUFW_PLM_XILNVM_WRITE_OFFCHIP_REVOKE_API_ID	(16U) /**< XilNVM Write off chip
-								*  revoke API ID */
-#define XASUFW_PLM_XILNVM_MAX_PAYLOAD_LEN		(3U) /**< Maximum payload length */
-#define XASUFW_PLM_XILNVM_RESP_LEN			(1U) /**< Response buffer length */
-#define XASUFW_PLM_XILNVM_CMD_HDR_INDEX			(0U) /**< PLM command payload index of header */
-#define XASUFW_PLM_XILNVM_ENVCTRL_INDEX			(1U) /**< PLM command payload index of environment
-								* control */
-#define XASUFW_PLM_XILNVM_OFFCHID_INDEX			(2U) /**< PLM command payload index of off chip ID */
-#define XASUFW_PLM_XILNVM_ENV_MON_CHECK			(0U) /**< Perform environment checks */
-
 #define XASUFW_ENDIANNESS_SWAP_OFFSET			(1U) /**< Position offset for swapping */
 #define XASUFW_ENDIANNESS_SWAP_MIN_LENGTH		(2U) /**< Minimum length to make a swap */
 
@@ -172,8 +162,8 @@ s32 XAsufw_ChangeEndianness(u8 *Buffer, u32 Length)
  *
  * @return
  *	-	XASUFW_SUCCESS, if efuse off chip revoke ID is programmed.
- *	-	XASUFW_ERR_IPI_SEND_PLM_EFUSE_PRGM, if the IPI request sending to PLM fails.
- *	-	XASUFW_ERR_IPI_RSP_PLM_EFUSE_PRGM, if the IPI response fails.
+ *	-	XASUFW_ERR_IPI_SEND_PLM_EFUSE_REQ, if the IPI request sending to PLM fails.
+ *	-	XASUFW_ERR_IPI_RSP_PLM_EFUSE_REQ, if the IPI response fails.
  *
  *************************************************************************************************/
 s32 XAsufw_NvmEfuseWriteOffChipRevokeId(const u32 OffChipRevokeIdNum)
@@ -192,14 +182,14 @@ s32 XAsufw_NvmEfuseWriteOffChipRevokeId(const u32 OffChipRevokeIdNum)
 	/** Send an IPI request to PLM to write efuse off chip revoke ID */
 	Status = XAsufw_SendIpiToPlm(Payload, XASUFW_PLM_XILNVM_MAX_PAYLOAD_LEN);
 	if (Status != XASUFW_SUCCESS) {
-		Status = XAsufw_UpdateErrorStatus(XASUFW_ERR_IPI_SEND_PLM_EFUSE_PRGM, Status);
+		Status = XAsufw_UpdateErrorStatus(XASUFW_ERR_IPI_SEND_PLM_EFUSE_REQ, Status);
 		goto END;
 	}
 
 	/** Read IPI response */
 	Status = XAsufw_ReadIpiRespFromPlm(&Response, XASUFW_PLM_XILNVM_RESP_LEN);
 	if ((Status != XASUFW_SUCCESS) || (Response != (u32)XASUFW_SUCCESS)) {
-		Status = XAsufw_UpdateErrorStatus(XASUFW_ERR_IPI_RSP_PLM_EFUSE_PRGM, Status);
+		Status = XAsufw_UpdateErrorStatus(XASUFW_ERR_IPI_RSP_PLM_EFUSE_REQ, Status);
 	}
 END:
 	return Status;

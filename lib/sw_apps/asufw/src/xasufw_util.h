@@ -28,6 +28,7 @@
  *       rmv  07/09/25 Added XAsufw_AsciiToInt() function prototype and added macro for integer
  *                     value.
  *       rmv  07/16/25 Added macro for buffer index zero
+ *       kp   08/19/26 Added shared PLM XilNVM IPI command macros
  *
  * </pre>
  *
@@ -108,6 +109,49 @@ extern "C" {
 #define XASUFW_BYTE_MULTIPLIER			(256U)		/**< Byte multiplier for endianness swap */
 #define XASUFW_MAX_BIT_INDEX_IN_WORD		(31U)	/**< Maximum bit index in a 32-bit word */
 #define XASUFW_BITS_IN_WORD			(32U)	/**< Number of bits in a 32-bit word */
+
+/* Constants common to every PLM XilNVM IPI request raised from ASUFW. */
+#define XASUFW_PLM_XILNVM_MODULE_ID		(11U)	/**< XilNVM module ID in PLM, must match
+								XPLMI_MODULE_XILNVM_ID */
+#define XASUFW_PLM_XILNVM_CMD_HDR_INDEX		(0U)	/**< PLM command payload index of header */
+#define XASUFW_PLM_XILNVM_RESP_LEN		(1U)	/**< Response buffer length */
+#define XASUFW_PLM_XILNVM_ENV_MON_CHECK		(0U)	/**< Perform environment checks */
+
+/* PLM XilNVM off chip revoke ID write request. */
+#define XASUFW_PLM_XILNVM_WRITE_OFFCHIP_REVOKE_API_ID	(16U) /**< XilNVM Write off chip
+								*  revoke API ID */
+#define XASUFW_PLM_XILNVM_MAX_PAYLOAD_LEN	(3U)	/**< Maximum payload length */
+#define XASUFW_PLM_XILNVM_ENVCTRL_INDEX		(1U)	/**< PLM command payload index of
+								environment control */
+#define XASUFW_PLM_XILNVM_OFFCHID_INDEX		(2U)	/**< PLM command payload index of off chip
+								ID */
+
+/*
+ * PLM XilNVM AES/USER key write request (per-key protocol).
+ * The PLM expects a separate XNVM_API_ID_EFUSE_WRITE_AES_KEY IPI command per key, with a payload of
+ * {KeyType, KeyAddr} pointing to the raw 256-bit key (NOT a bulk XNvm_EfuseDataAddr struct).
+ */
+#define XASUFW_PLM_XILNVM_WRITE_AES_KEY_API_ID	(7U)	/**< Must match
+								XNVM_API_ID_EFUSE_WRITE_AES_KEY */
+#define XASUFW_PLM_XILNVM_ENVDIS_KEYTYPE_INDEX	(1U)	/**< Payload index of EnvDis|KeyType */
+#define XASUFW_PLM_XILNVM_KEY_ADDR_LOW_INDEX	(2U)	/**< Payload index of key addr low */
+#define XASUFW_PLM_XILNVM_KEY_ADDR_HIGH_INDEX	(3U)	/**< Payload index of key addr high */
+#define XASUFW_PLM_XILNVM_WRITE_PAYLOAD_LEN	(4U)	/**< AES key write payload length
+								(hdr + 3) */
+#define XASUFW_PLM_XILNVM_PLOAD_LEN		(3U)	/**< Payload length in words
+								(hdr Len field) */
+#define XASUFW_PLM_XILNVM_KEYTYPE_SHIFT		(16U)	/**< KeyType occupies bits [31:16] of arg */
+#define XASUFW_NVM_EFUSE_AES_KEY_LEN_IN_WORDS	(8U)	/**< AES/USER key length in words */
+
+/* PLM XilNVM AES key CRC check request. */
+#define XASUFW_PLM_XILNVM_CHECK_CRC_API_ID	(39U)	/**< Must match the PLM command ID of
+							XNVM_API_ID_EFUSE_CHECK_AES_KEY_CRC */
+#define XASUFW_PLM_XILNVM_CRC_INDEX		(1U)	/**< Payload index of the key CRC */
+#define XASUFW_PLM_XILNVM_CRC_KEYTYPE_INDEX	(2U)	/**< Payload index of KeyType */
+#define XASUFW_PLM_XILNVM_CRC_PAYLOAD_LEN	(3U)	/**< CRC check payload length (hdr + 2) */
+#define XASUFW_PLM_XILNVM_CRC_PLOAD_LEN		(2U)	/**< CRC payload length in words */
+#define XASUFW_NVM_EFUSE_CRC_AES_ZEROS		(0x6858A3D5U)	/**< Must match
+								XNVM_EFUSE_CRC_AES_ZEROS */
 
 /**
  * Macro to verify command length from header matches expected parameter structure size.

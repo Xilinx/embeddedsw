@@ -389,10 +389,10 @@ END:
  * @return
  *	- XASUFW_SUCCESS, if KEK generation is successful.
  *	- XASUFW_KDF_INVALID_PARAM, if input parameters are invalid.
- *	- XASUFW_KDF_PUF_KEK_GEN_FAIL, if PUF KEK generation fails.
+ *	- XASUFW_PUF_KEK_GEN_FAIL, if PUF KEK generation fails.
  *	- XASUFW_MEM_COPY_FAIL, if memory copy operation fails.
  *	- XASUFW_KDF_DECRYPT_BLACK_KEY_0_FAIL, if black key decryption fails.
- *	- XASUFW_KDF_IV_IS_ZERO, if IV is zero.
+ *	- XASUFW_KEK_IV_IS_ZERO, if IV is zero.
  *
  *************************************************************************************************/
 s32 XKdf_GenerateKekFromEfuse0(XAsufw_Dma *DmaPtr, XAes *AesInstancePtr, const u8 *Context,
@@ -419,7 +419,7 @@ s32 XKdf_GenerateKekFromEfuse0(XAsufw_Dma *DmaPtr, XAes *AesInstancePtr, const u
 	 */
 	XFIH_CALL_GOTO(XAsufw_PmcKeyTransfer, XFihKdf, Status, END_CLR, &PufKekGenStatus);
 	if (PufKekGenStatus != (u32)XASUFW_SUCCESS) {
-		Status = XASUFW_KDF_PUF_KEK_GEN_FAIL;
+		Status = XASUFW_PUF_KEK_GEN_FAIL;
 		goto END_CLR;
 	}
 
@@ -436,7 +436,7 @@ s32 XKdf_GenerateKekFromEfuse0(XAsufw_Dma *DmaPtr, XAes *AesInstancePtr, const u
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	Status = XAsu_IsBufferNonZero(KekIv, XASU_AES_IV_SIZE_96BIT_IN_BYTES);
 	if (Status != XASUFW_SUCCESS) {
-		Status = XASUFW_KDF_IV_IS_ZERO;
+		Status = XASUFW_KEK_IV_IS_ZERO;
 		goto END_CLR;
 	}
 
