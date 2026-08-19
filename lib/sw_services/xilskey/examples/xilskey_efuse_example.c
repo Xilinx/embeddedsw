@@ -138,7 +138,7 @@
 * 3.00  vns     31/07/15 Modified XSK_EFUSEPL_RSA_KEY_HASH_STRING_SIZE macro
 *                        name to XSK_EFUSEPS_RSA_KEY_HASH_STRING_SIZE.
 *                        Added missing goto statement.
-*                        Modified init function, intialisation of instance is
+*                        Modified init function, initialisation of instance is
 *                        done based on the platform and Modified example
 *                        to support both Zynq PL's eFuse and also Ultrascale's
 *                        eFuse.
@@ -162,6 +162,8 @@
 *                        PPK hash string(zynq efuse ps)
 * 7.6   vns     04/04/24 Updated efuse PL secure bits of ultrascale devices
 * 8.0   rap     07/30/26 Fixed spelling error
+*       rap     08/13/26 Fixed obfuscation status check to use PlStatusBits
+*                        instead of PlStatus
 *
 ****************************************************************************/
 /***************************** Include Files *********************************/
@@ -777,7 +779,7 @@ u32 XilSKey_EfusePl_ReadnCheck(XilSKey_EPl *PlInstancePtr)
 			xil_printf("EfusePL status bits : Crypto is not disabled\n\r");
 		}
 
-		if(PlStatus & (1U <<
+		if(PlStatusBits & (1U <<
 			XSK_EFUSEPL_STATUS_ENABLE_OBFUSCATED_EFUSE_KEY)) {
 			xil_printf("EfusePL status bits :"
 			" Enabled obfuscation feature for eFUSE AES key\n\r");
