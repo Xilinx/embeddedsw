@@ -486,6 +486,43 @@ static u32 Csi2TxSs_SubCoreInitMipiTxPhy(XCsi2TxSs *CsiSsPtr)
 
 	return XST_SUCCESS;
 }
+
+/****************************************************************************/
+/**
+* This function configures the MIPI TX PHY PLL for a desired line rate at
+* runtime. It delegates to XMipi_Tx_Phy_DynamicLineRateConfig which handles
+* validation of CPHY mode and dynamic line rate hardware enablement.
+*
+* @param	InstancePtr is a pointer to the Subsystem instance to be
+*		worked on.
+* @param	PllBaseAddr is the base address of the PLL to be configured.
+* @param	LineRate is the desired line rate in Mbps (400-4500).
+*
+* @return
+*		- XST_SUCCESS if PLL configuration is successful.
+*		- XST_FAILURE if dynamic line rate configuration fails.
+*
+* @note		None.
+*
+****************************************************************************/
+u32 XCsi2TxSs_DynamicLineRateConfig(XCsi2TxSs *InstancePtr, UINTPTR PllBaseAddr,
+				u32 LineRate)
+{
+	u32 Status;
+
+	/* Verify arguments */
+	Xil_AssertNonvoid(InstancePtr != NULL);
+
+	Status = XMipi_Tx_Phy_DynamicLineRateConfig(InstancePtr->MipiTxPhyPtr,
+						PllBaseAddr, LineRate);
+	if (Status != XST_SUCCESS) {
+		xdbg_printf(XDBG_DEBUG_ERROR, "CSISS2TX ERR:: Mipi Tx Phy core "
+			"Dynamic Line Rate Configuration failed\n\r");
+		return XST_FAILURE;
+	}
+
+	return XST_SUCCESS;
+}
 #endif
 
 /****************************************************************************/
