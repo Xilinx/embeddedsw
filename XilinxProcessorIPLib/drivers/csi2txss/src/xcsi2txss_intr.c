@@ -65,8 +65,6 @@
 * @param	InstancePtr is a pointer to the XCsi2TxSs core instance that
 *		just interrupted.
 *
-* @return	None.
-*
 * @note		None.
 *
 ******************************************************************************/
@@ -141,8 +139,6 @@ u32 XCsi2TxSs_SetCallBack(XCsi2TxSs *InstancePtr, u32 HandlerType,
 * @param	InstancePtr is a pointer to the Subsystem instance to be
 *		worked on.
 * @param	IntrMask Indicates Mask for enable interrupts.
-*
-* @return	None
 *
 * @note		None
 *

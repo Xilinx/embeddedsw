@@ -255,7 +255,25 @@ typedef struct {
 /************************** Function Prototypes ******************************/
 
 /* Initialization function in xcsi2txss_sinit.c */
+/**
+ * @brief Look up the device configuration based on the base address.
+ *
+ * @param	BaseAddress is the base address of the device to look up.
+ *
+ * @return	Pointer to the XCsi2TxSs_Config entry, or NULL if not found.
+ *
+ * @note	None.
+ ******************************************************************************/
 XCsi2TxSs_Config* XCsi2TxSs_LookupConfig(UINTPTR BaseAddress);
+/**
+ * @brief Get the driver index based on the base address.
+ *
+ * @param	BaseAddress is the base address of the device.
+ *
+ * @return	Driver index in the configuration table.
+ *
+ * @note	None.
+ ******************************************************************************/
 u32 XCsi2TxSs_GetDrvIndex(UINTPTR BaseAddress);
 
 /* Initialization and control functions xcsi2txss.c */
@@ -277,12 +295,24 @@ void XCsi2TxSs_SetUlps(XCsi2TxSs *InstancePtr, u32 Value);
 u32 XCsi2TxSs_SetLineCountForVC(XCsi2TxSs *InstancePtr, u8 VC, u16 LineCount);
 u32 XCsi2TxSs_GetLineCountForVC(XCsi2TxSs *InstancePtr, u8 VC, u16 *LineCount);
 /* Self test function in xcsi2txss_selftest.c */
+/**
+ * @brief Run a self-test on the CSI2 TX subsystem.
+ *
+ * @param	InstancePtr is a pointer to the XCsi2TxSs instance.
+ *
+ * @return	XST_SUCCESS if the self-test passed, XST_FAILURE otherwise.
+ *
+ * @note	None.
+ ******************************************************************************/
 u32 XCsi2TxSs_SelfTest(XCsi2TxSs *InstancePtr);
 
 /* TBD */
 /* Interrupt functions in xcsi2txss_intr.c */
+/** @brief Interrupt handler for the CSI2 TX subsystem. */
 void XCsi2TxSs_IntrHandler(void *InstancePtr);
+/** @brief Disable the specified CSI2 TX subsystem interrupts. */
 void XCsi2TxSs_IntrDisable(XCsi2TxSs *InstancePtr, u32 IntrMask);
+/** @brief Register a user callback for the given handler type. */
 u32 XCsi2TxSs_SetCallBack(XCsi2TxSs *InstancePtr, u32 HandlerType,
 			void *CallbackFunc, void *CallbackRef);
 
