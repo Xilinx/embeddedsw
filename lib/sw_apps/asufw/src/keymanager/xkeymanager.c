@@ -2772,6 +2772,7 @@ static s32 XKeyManager_StoreX509RawPublicKey(XAsufw_Dma *DmaPtr,
 	u32 KeyLen;
 	u8 *KeyData;
 	u8 KeyUseCase = 0U;
+	u8 KeyAttributes = 0U;
 
 	/** Determine sub-vault type and key data based on public key type in certificate. */
 	if (CertInfo->PublicKeyType == X509_PUB_KEY_ECC) {
@@ -2786,6 +2787,31 @@ static s32 XKeyManager_StoreX509RawPublicKey(XAsufw_Dma *DmaPtr,
 		KeyLen = KeyLen / XASUFW_VALUE_TWO;
 
 		KeyData = CertInfo->PublicKey.EccPublicKey.PublicKey + XASUFW_BUFFER_INDEX_ONE;
+
+		/**
+		 * Record the NIST curve type (from the coordinate length) in the key attributes;
+		 * the vault validates it against the requested curve type on use.
+		 */
+		switch (KeyLen) {
+		case XASU_ECC_P192_PVT_KEY_SIZE_IN_BYTES:
+			KeyAttributes = (u8)XASU_ECC_NIST_P192;
+			break;
+		case XASU_ECC_P224_PVT_KEY_SIZE_IN_BYTES:
+			KeyAttributes = (u8)XASU_ECC_NIST_P224;
+			break;
+		case XASU_ECC_P256_PVT_KEY_SIZE_IN_BYTES:
+			KeyAttributes = (u8)XASU_ECC_NIST_P256;
+			break;
+		case XASU_ECC_P384_PVT_KEY_SIZE_IN_BYTES:
+			KeyAttributes = (u8)XASU_ECC_NIST_P384;
+			break;
+		case XASU_ECC_P521_PVT_KEY_SIZE_IN_BYTES:
+			KeyAttributes = (u8)XASU_ECC_NIST_P521;
+			break;
+		default:
+			Status = XASUFW_KEYMANAGER_INVALID_KEY_TYPE;
+			goto END;
+		}
 
 		/** Map X.509 key usage to ECC public key usage. */
 		KeyUseCase = XKeyManager_GetEccPubKeyUseCase(CertInfo->KeyUsage);
@@ -2857,6 +2883,7 @@ static s32 XKeyManager_StoreX509RawPublicKey(XAsufw_Dma *DmaPtr,
 	RawKeyParams.KeyMetadata.Length = (u16)KeyLen;
 	RawKeyParams.KeyMetadata.UsageCount = KeyParams->KeyMetadata.UsageCount;
 	RawKeyParams.KeyMetadata.KeyUseCase = KeyUseCase;
+	RawKeyParams.KeyMetadata.KeyAttributes = KeyAttributes;
 	RawKeyParams.KeyMetadata.EpochTime = KeyParams->KeyMetadata.EpochTime;
 	RawKeyParams.KeyMetadata.VaultId = KeyParams->KeyMetadata.VaultId;
 	RawKeyParams.KeyMetadata.KeyType = (u8)RawKeySubVaultType;
