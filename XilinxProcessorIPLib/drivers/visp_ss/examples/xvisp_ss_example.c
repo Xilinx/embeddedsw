@@ -26,6 +26,7 @@
 #include "xparameters.h"        /* Contains hardware platform parameters */
 #include "xscugic.h"           /* Generic Interrupt Controller driver */
 #include "xvisp_ss.h"          /* VISP SS driver header */
+#include "wdt_notifier.h"
 #include "xil_exception.h"     /* Exception handling utilities */
 #ifdef SDT
 extern xvisp_ss_Config xvisp_ss_ConfigTable[];
@@ -212,6 +213,7 @@ int main()
 {
 
 	RESULT ret = RET_SUCCESS;
+	u32 Status;
 
 #if ARMR52
 	reset_pmu_counter();
@@ -225,9 +227,19 @@ int main()
 	xil_printf("Memory manager initialized successfully.\r\n");
 
 	/* Initialize IRQ - setup interrupt handling infrastructure */
-	u32 Status = SetupInterruptSystem();
+	Status = SetupInterruptSystem();
 	if (Status == XST_FAILURE)
 		xil_printf("\r\n\r\n IRQ Configuration failed.\r\n\r\n");
+
+	#ifdef WDT_NOTIFIER
+	Status = WdtNotifier_Init();
+	if (Status == XST_DEVICE_NOT_FOUND) {
+		xil_printf("[APU WDT] WDT disabled -- use the design with IPI-0 enabled\r\n");
+	} else if (Status != XST_SUCCESS) {
+		xil_printf("[APU WDT] Init FAILED (status=%d) -- halting\r\n",
+			   (int)Status);
+	}
+	#endif
 
 	/* Configure VISP SS - main video processing subsystem */
 	Status = config_visp_ss();
@@ -375,7 +387,6 @@ int config_visp_ss()
 
 	/* Lookup the device configuration */
 	for (int i = 0; i < VISP_INST; i++) {
-		MEMSET(CfgPtr, 0, sizeof(xvisp_ss_Config));
 #ifndef SDT
 		CfgPtr = XVisp_Ss_LookupConfig(i);
 #else

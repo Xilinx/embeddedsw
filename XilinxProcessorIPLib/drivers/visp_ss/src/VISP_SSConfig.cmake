@@ -10,6 +10,7 @@ set(USER_COMPILE_DEFINITIONS
 "FMC_AXI_IIC=1"
 "SDT=1"
 "PORTING_25=1"
+"WDT_NOTIFIER"
 #This is requried when we are enabling FUSA
 #"ENABLE_MBOX_INTEGRITY=1"
 )

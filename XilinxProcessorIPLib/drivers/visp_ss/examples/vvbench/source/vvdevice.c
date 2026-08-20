@@ -173,6 +173,10 @@ extern int ATM_ENABLE;
  * correct argument passing. Args are the high-mem prefix and is_64bit flag,
  * both derived from where the linker placed the ISP buffer pools. */
 extern int SetATM(uint32_t high_mem, uint32_t is_64bit);
+/* WdtSendTest() is provided by the visp_ss BSP driver (wdt_notifier.c). It
+ * kicks off the WDT test by asking the RPU to stop petting its WWDT so the
+ * APU-side notifier can observe the resulting WWDT0 expiry. */
+extern int WdtSendTest(void);
 extern int init_lilo;
 extern int userVirtualChannelId;
 int ISP_ID;
@@ -363,6 +367,13 @@ int VsiVvdeviceExecuteCaseline
 		 * 0x500 for DDR_CH_1) and the is_64bit flag, both auto-derived from
 		 * where the linker placed the ISP buffer pools (BUFFER_POOL_REGION). */
 		result = SetATM((uint32_t)mm_get_high_mem_prefix(), (uint32_t)mm_is_high_mem());
+
+#ifdef WDT_SEND_TEST
+		/* Kick off the WDT test right after the ATM command: ask the RPU to
+		 * stop petting its WWDT after the configured interval so the APU-side
+		 * notifier observes the resulting WWDT0 expiry. Enable via -DWDT_SEND_TEST. */
+		WdtSendTest();
+#endif
 #endif
 		LOGI("%s   %d: after VsiVvdeviceInstanceInit ", __func__, __LINE__);
 
