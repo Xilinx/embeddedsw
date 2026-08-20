@@ -430,6 +430,10 @@ END:
  * @return
  * 	- XASUFW_SUCCESS, if calculation and copying of hash is successful.
  * 	- XASUFW_SHA_INVALID_PARAM, if any input parameters are invalid.
+ * 	- XASUFW_SHA_INVALID_HASH_SIZE, if the hash buffer size is invalid, or if an
+ * 	  intermediate SHAKE256 XOF block is not a full rate block.
+ * 	- XASUFW_SHA_NEXT_XOF_INVALID_MASK, if the NEXT_XOF flag is not a boolean, or is
+ * 	  non-zero for any mode other than SHAKE256.
  * 	- XASUFW_SHA_INIT_NOT_DONE, if SHA component is not ready.
  * 	- XASUFW_SHA_STATE_MISMATCH_ERROR, if SHA is not in started or isLast state.
  * 	- XASUFW_FAILURE, if there is any other failure.
@@ -444,6 +448,7 @@ s32 XSha_Finish(XSha *InstancePtr, XAsufw_Dma *DmaPtr, u64 HashAddr, u32 HashBuf
 	u8 Data[XSHA_MAX_PADDING_LENGTH];
 	u32 LengthFieldSize = 0U;
 	u64 TotalLen = 0U;
+	u8 IsInvalidXofBlockLen = (u8)XASU_FALSE;
 
 	/** Validate input parameters. */
 	if ((InstancePtr == NULL) || (DmaPtr == NULL) || (HashAddr == 0U)) {
@@ -451,19 +456,34 @@ s32 XSha_Finish(XSha *InstancePtr, XAsufw_Dma *DmaPtr, u64 HashAddr, u32 HashBuf
 		goto END;
 	}
 
+	/**
+	 * NextXofOutput is a boolean. SHAKE256 accepts FALSE or TRUE; for every other
+	 * mode it must remain FALSE.
+	 */
+	if (((NextXofOutput != XASU_FALSE) && (NextXofOutput != XASU_TRUE)) ||
+	    ((InstancePtr->ShaMode != XASU_SHA_MODE_SHAKE256) &&
+	     (NextXofOutput != XASU_FALSE))) {
+		Status = XASUFW_SHA_NEXT_XOF_INVALID_MASK;
+		goto END;
+	}
+
+	/**
+	 * SHAKE256 XOF continuation blocks must be a full rate block; only the last
+	 * may be shorter.
+	 */
+	IsInvalidXofBlockLen = (((InstancePtr->ShaMode == XASU_SHA_MODE_SHAKE256) &&
+	    (NextXofOutput == XASU_TRUE) &&
+	    (HashBufSize != XASU_SHAKE_256_MAX_HASH_LEN)) ? (u8)XASU_TRUE : (u8)XASU_FALSE);
+
+	/** Validate hash size. */
 	if ((HashBufSize == 0U) ||
 	   ((InstancePtr->ShaMode != XASU_SHA_MODE_SHAKE256) &&
 	   (HashBufSize != InstancePtr->ShaDigestSize)) ||
 	   ((InstancePtr->ShaType == XASU_XSHA_1_TYPE) &&
 	   (InstancePtr->ShaMode == XASU_SHA_MODE_SHAKE256) &&
-	   (HashBufSize > XASU_SHAKE_256_MAX_HASH_LEN))) {
+	   (HashBufSize > XASU_SHAKE_256_MAX_HASH_LEN)) ||
+	   (IsInvalidXofBlockLen == (u8)XASU_TRUE)) {
 		Status = XASUFW_SHA_INVALID_HASH_SIZE;
-		goto END;
-	}
-
-	if ((InstancePtr->ShaMode == XASU_SHA_MODE_SHAKE256) &&
-		(NextXofOutput > XASU_SHA_NEXT_XOF_ENABLE_MASK)) {
-		Status = XASUFW_SHA_NEXT_XOF_INVALID_MASK;
 		goto END;
 	}
 
@@ -543,9 +563,10 @@ s32 XSha_Finish(XSha *InstancePtr, XAsufw_Dma *DmaPtr, u64 HashAddr, u32 HashBuf
 
 END:
 	if (InstancePtr != NULL) {
-		if ((InstancePtr->ShaType == XASU_XSHA_1_TYPE) &&
+		if ((Status == XASUFW_SUCCESS) &&
+		    (InstancePtr->ShaType == XASU_XSHA_1_TYPE) &&
 		    (InstancePtr->ShaMode == XASU_SHA_MODE_SHAKE256) &&
-		    (NextXofOutput == XASU_SHA_NEXT_XOF_ENABLE_MASK)) {
+		    (NextXofOutput == XASU_TRUE)) {
 			XAsufw_WriteReg(InstancePtr->BaseAddress + XASU_SHA_NEXT_XOF_OFFSET,
 					XASU_SHA_NEXT_XOF_ENABLE_MASK);
 		} else {

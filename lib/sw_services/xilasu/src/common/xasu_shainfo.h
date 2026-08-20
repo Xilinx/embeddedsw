@@ -79,7 +79,12 @@ typedef struct {
 				 * - TRUE: Last update. */
 	u8 OperationFlags; /**< SHA2/3 operation flags is a combination of (XASU_INIT,
 					* XASU_UPDATE, XASU_FINISH) */
-	u8 ShakeReserved; /**< SHA3 SHAKE256 next xof enable flag. NA for client. ASUFW internal use */
+	u8 XofEnableFlag; /**< Requests more SHAKE256 XOF output blocks.
+				 * Meaningful only for SHA3 SHAKE256 mode;
+				 * For every other mode it must be FALSE and a non-zero
+				 * value is rejected with XASU_INVALID_ARGUMENT.
+				 * - FALSE: Final (or only) output block.
+				 * - TRUE:  More output blocks follow. */
 	u8 Reserved[4]; /**< Explicit padding to ensure consistent struct size across architectures */
 } XAsu_ShaOperationCmd;
 

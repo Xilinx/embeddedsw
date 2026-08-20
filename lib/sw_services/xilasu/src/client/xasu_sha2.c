@@ -125,6 +125,12 @@ s32 XAsu_Sha2Operation(XAsu_ClientParams *ClientParamPtr, XAsu_ShaOperationCmd *
 		goto END;
 	}
 
+	/** SHA2 does not support SHAKE256 XOF, so the XOF enable flag must be clear. */
+	if (ShaClientParamPtr->XofEnableFlag != XASU_FALSE) {
+		Status = XASU_INVALID_ARGUMENT;
+		goto END;
+	}
+
 	/** Handle context operation. */
 	Status = XAsu_HandleContextOperation(ClientParamPtr, &P0Sha2Ctx, &P1Sha2Ctx,
 				     ShaClientParamPtr->OperationFlags, &UniqueId);

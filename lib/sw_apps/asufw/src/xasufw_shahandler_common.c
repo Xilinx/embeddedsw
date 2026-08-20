@@ -107,6 +107,7 @@ s32 XAsufw_ShaOperation(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	XAsufw_ShaContext *ShaCtxPtr = NULL;
 	XSha *ShaInstancePtr = NULL;
 	XAsufw_Resource ResourceId = XASUFW_INVALID;
+	u8 IsFinalShaFinishCall = XASU_FALSE;
 
 	/** Get SHA module. */
 	ShaModulePtr = XAsufw_GetModule(ModuleId);
@@ -166,29 +167,14 @@ s32 XAsufw_ShaOperation(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	case XSHA_NON_BLOCKING_CMD_STAGE_UPDATE_IN_PROGRESS:
 		ShaCtxPtr->CmdStage = XSHA_NON_BLOCKING_CMD_STAGE_INIT;
 		if ((Cmd->OperationFlags & XASU_FINISH) == XASU_FINISH) {
-			/** If operation flags include SHA FINISH, perform SHA finish operation. */
+			/** Perform SHA finish; XofEnableFlag drives NEXT_XOF for SHAKE256. */
 			Status = XSha_Finish(ShaInstancePtr, ShaModulePtr->AsuDmaPtr,
-					Cmd->HashAddr, Cmd->HashBufSize, XASU_FALSE);
+					Cmd->HashAddr, Cmd->HashBufSize, Cmd->XofEnableFlag);
 			if (Status != XASUFW_SUCCESS) {
 				Status = XAsufw_UpdateErrorStatus(Status,
 								  XASUFW_SHA_FINISH_FAILED);
 				goto END;
 			}
-		} else {
-			if (ShaModulePtr->AsuDmaPtr != NULL) {
-				/**
-				 * If SHA_FINISH is not set in operation flags and SHA update is
-				 * complete, release DMA resource and Idle SHA resource.
-				 */
-				Status = XAsufw_ReleaseDmaResource(ShaModulePtr->AsuDmaPtr,
-						ReqId);
-				if (Status != XASUFW_SUCCESS) {
-					Status = XAsufw_UpdateErrorStatus(Status,
-							XASUFW_RESOURCE_RELEASE_NOT_ALLOWED);
-				}
-				ShaModulePtr->AsuDmaPtr = NULL;
-			}
-			XAsufw_IdleResource(ResourceId);
 		}
 		break;
 	default:
@@ -197,21 +183,35 @@ s32 XAsufw_ShaOperation(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	}
 
 END:
-	if (((Status != XASUFW_SUCCESS) ||
-	      ((Cmd->OperationFlags & XASU_FINISH) == XASU_FINISH)) &&
-	     (Status != XASUFW_CMD_IN_PROGRESS)) {
-		/** Release resources. */
-		if ((ResourceId != XASUFW_INVALID) &&
-		    (XAsufw_ReleaseResource(ResourceId, ReqId) != XASUFW_SUCCESS)) {
-			Status = XAsufw_UpdateErrorStatus(Status,
-					XASUFW_RESOURCE_RELEASE_NOT_ALLOWED);
-		}
-		/** Clear DMA pointer. */
-		if (ShaModulePtr != NULL) {
+	/** Final finish = SHA finish that is not a SHAKE256 XOF continuation */
+	IsFinalShaFinishCall = (((Cmd->OperationFlags & XASU_FINISH) == XASU_FINISH) &&
+			  (Cmd->XofEnableFlag != XASU_TRUE)) ?
+			  (u8)XASU_TRUE : (u8)XASU_FALSE;
+
+	/** A DMA transfer still in progress must retain its resources */
+	if (Status != XASUFW_CMD_IN_PROGRESS) {
+		/** Release the DMA resource. */
+		if ((ShaModulePtr != NULL) && (ShaModulePtr->AsuDmaPtr != NULL)) {
+			if (XAsufw_ReleaseDmaResource(ShaModulePtr->AsuDmaPtr,
+						      ReqId) != XASUFW_SUCCESS) {
+				Status = XAsufw_UpdateErrorStatus(Status,
+						XASUFW_RESOURCE_RELEASE_NOT_ALLOWED);
+			}
 			ShaModulePtr->AsuDmaPtr = NULL;
 		}
-		/** Reset SHA instance. */
-		XSha_Reset(ShaInstancePtr);
+
+		if ((Status != XASUFW_SUCCESS) || (IsFinalShaFinishCall == XASU_TRUE)) {
+			/** Final or failed: release the SHA resource and reset the engine. */
+			if ((ResourceId != XASUFW_INVALID) &&
+			    (XAsufw_ReleaseResource(ResourceId, ReqId) != XASUFW_SUCCESS)) {
+				Status = XAsufw_UpdateErrorStatus(Status,
+						XASUFW_RESOURCE_RELEASE_NOT_ALLOWED);
+			}
+			XSha_Reset(ShaInstancePtr);
+		} else {
+			/** Keep-alive: idle the SHA so the same owner can re-acquire it. */
+			XAsufw_IdleResource(ResourceId);
+		}
 	}
 
 	return Status;

@@ -49,6 +49,11 @@
 /**
  * @brief	This function sends a command to ASUFW to generate the digest for the provided
  * 		input message using the specified SHA algorithm.
+ * 		For SHAKE256 multi-block XOF output, set ShaClientParamPtr->XofEnableFlag to TRUE
+ * 		on every FINISH except the last (FALSE ends the XOF and releases the engine). The
+ * 		caller must wait for each block's response before sending the next, and must reuse
+ * 		the same client priority so the same context and SHA3 engine are retained. Getting
+ * 		either wrong can leave the SHA engine locked.
  *
  * @param	ClientParamPtr		Pointer to the XAsu_ClientParams structure which holds
  * 					client input arguments.
@@ -125,6 +130,21 @@ s32 XAsu_Sha3Operation(XAsu_ClientParams *ClientParamPtr, XAsu_ShaOperationCmd *
 		goto END;
 	}
 
+	/**
+	 * XofEnableFlag is valid only for SHAKE256 and must be a boolean; for every other mode
+	 * it must be clear.
+	 */
+	if (ShaClientParamPtr->ShaMode != XASU_SHA_MODE_SHAKE256) {
+		if (ShaClientParamPtr->XofEnableFlag != XASU_FALSE) {
+			Status = XASU_INVALID_ARGUMENT;
+			goto END;
+		}
+	} else if ((ShaClientParamPtr->XofEnableFlag != XASU_TRUE) &&
+			(ShaClientParamPtr->XofEnableFlag != XASU_FALSE)) {
+		Status = XASU_INVALID_ARGUMENT;
+		goto END;
+	}
+
 	/** Handle context operation. */
 	Status = XAsu_HandleContextOperation(ClientParamPtr, &P0Sha3Ctx, &P1Sha3Ctx,
 				     ShaClientParamPtr->OperationFlags, &UniqueId);
@@ -132,8 +152,14 @@ s32 XAsu_Sha3Operation(XAsu_ClientParams *ClientParamPtr, XAsu_ShaOperationCmd *
 		goto END;
 	}
 
-	/** Cleanup on FINISH operation. */
-	if ((ShaClientParamPtr->OperationFlags & XASU_FINISH) == XASU_FINISH) {
+	/**
+	 * Cleanup on the final FINISH only. A SHAKE256 XOF continuation
+	 * (XofEnableFlag set) must retain the context so subsequent FINISH calls
+	 * reuse the same unique ID.
+	 */
+	if (((ShaClientParamPtr->OperationFlags & XASU_FINISH) == XASU_FINISH) &&
+	    ((ShaClientParamPtr->ShaMode != XASU_SHA_MODE_SHAKE256) ||
+	     (ShaClientParamPtr->XofEnableFlag != XASU_TRUE))) {
 		Status = XAsu_CleanupFinishOperation(ClientParamPtr, &P0Sha3Ctx, &P1Sha3Ctx,
 					     UniqueId, NULL, 0U);
 		if (Status != XST_SUCCESS) {
