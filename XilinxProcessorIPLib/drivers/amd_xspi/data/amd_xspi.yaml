@@ -1,0 +1,68 @@
+# Copyright (C) 2026 Advanced Micro Devices, Inc. All Rights Reserved.
+# SPDX-License-Identifier: MIT
+
+%YAML 1.2
+---
+title: Bindings for AXI XSPI Controller
+
+maintainers:
+  - Amit Kumar Mahapatra <amit.kumar-mahapatra@amd.com>
+
+type: driver
+
+device_type: spi
+
+properties:
+  compatible:
+    OneOf:
+      - items:
+          - enum:
+              - amd,axi-xspi
+
+  reg:
+    description: Physical base address and size of the controller register map
+
+  amd,spi-mode:
+    description: SPI mode (0=Std Half-duplex, 1=Std, 2=Dual, 3=Quad, 4=xSPI 1.0, 5=xSPI 2.0 HyperBus)
+
+  amd,fifo-depth:
+    description: Depth of the TX/RX FIFOs (default 1024)
+
+  amd,num-ss-bits:
+    description: Number of slave select bits supported (max 8)
+
+  amd,ext-spi-clk-freq:
+    description: >
+      External SPI clock frequency in MHz. This is the clock into the core;
+      the bus clock is this divided by sck-ratio.
+
+  amd,sck-ratio:
+    description: >
+      SPI clock division ratio, which divides ext-spi-clk-freq to give SCK.
+      2, 4, 8 or 16 in standard mode; 2 or 4 in every other mode.
+
+config:
+  - AmdXspi_Config
+
+required:
+  - compatible
+  - reg
+  - amd,spi-mode
+  - amd,fifo-depth
+  - amd,num-ss-bits
+  - amd,ext-spi-clk-freq
+  - amd,sck-ratio
+  - interrupts
+  - interrupt-parent
+
+examples:
+  amd_xspi_hyperbus_hyperram_polled_example.c:
+    - dependency_files:
+        - amd_xspi_hyperbus_config.h
+    - reg
+  amd_xspi_hyperbus_hyperram_intr_example.c:
+    - dependency_files:
+        - amd_xspi_hyperbus_config.h
+    - interrupts
+
+...
