@@ -6,6 +6,10 @@
 #include "xpm_runtime_mem.h"
 #include "xpm_mem.h"
 #include "xpm_subsystem.h"
+#include "xpm_power.h"
+#include "xpm_nodeid.h"
+#include "xpm_common.h"
+#include "cfu_apb.h"
 
 struct XPm_ExclusionRegion {
 	u64 StartAddress;
@@ -228,17 +232,6 @@ done:
  ****************************************************************************/
 XStatus XPm_IsMemAddressValid(u32 SubsystemId, u64 RegionAddr, u64 RegionSize) {
 	XStatus Status = XPM_FAILURE;
-	const XPm_MemDevice *MemDevice = NULL;
-	const XPm_MemCtrlrDevice *MCDev = NULL;
-	/* store the provided region address in a local variable */
-	u64 CurrentRegionAddr = RegionAddr;
-	/* store the provided region size in a local variable */
-	u64 CurrentRegionSize = RegionSize;
-	/* indicates whether there's an overlapping of region or not */
-	u8 IsOverlapMemRegion = 0U;
-	/* indicates the type of memory overlap */
-	u8 OverlapMemType = (u8)MEM_TYPE_NONE;
-	u32 DeviceId;
 
 	if (RegionSize < 1U) {
 		Status = XST_INVALID_PARAM;
@@ -287,10 +280,68 @@ XStatus XPm_IsMemAddressValid(u32 SubsystemId, u64 RegionAddr, u64 RegionSize) {
 		goto done;
 	}
 
-	/** manually over-write the status to failure
-	 *  this is for Non-PL Mem-Regns ( as we further check parent controller's state )
-	*/
-	Status = XPM_FAILURE;
+	/**
+	 * For Non-PL Mem-Regns, reachability is decided by the parent controller
+	 * device(s); delegate to the shared device-reachability core. EnableLog=1U
+	 * preserves this validator's original per-device diagnostic logging.
+	 */
+	Status = XPm_CheckMemDevRangeReachable(RegionAddr, RegionSize, 1U);
+
+done:
+	return Status;
+}
+
+/****************************************************************************/
+/**
+ * @brief  Checks whether a given address range (addr + size) is fully
+ * 		reachable through RUNNING memory-controller devices (OCM/TCM/DDR).
+ *
+ * @param  RegionAddr 	Start Address of the range
+ * @param  RegionSize 	Size of the range
+ * @param  EnableLog 	1U => emit the per-device diagnostic PmErr logs
+ * 				("Node not running" and "Mismatch Memory type
+ * 				access!"); 0U => silent.
+ *
+ * @return Status of the operation:
+ * 		- XPM_SUCCESS: entire range contained in RUNNING device(s)
+ * 		- XPM_PM_NO_ACCESS: range found but a part not RUNNING
+ * 		- XPM_ERR_MEM_ACCESS_TYPE: cross-type overlap
+ * 		- XPM_FAILURE: range not found / unresolved overlap
+ *
+ * @note   Shared reachability core used by XPm_IsMemAddressValid() and the
+ * 		memory-table State projection. The per-device diagnostic PmErr logs
+ * 		("Node not running" and "Mismatch Memory type access!" - 4 in total)
+ * 		are gated by @p EnableLog: XPm_IsMemAddressValid() passes 1U to
+ * 		preserve its original logging, while the high-frequency State
+ * 		refresh passes 0U to stay silent (no log spam). Return codes are
+ * 		identical for both callers.
+ *
+ ****************************************************************************/
+XStatus XPm_CheckMemDevRangeReachable(u64 RegionAddr, u64 RegionSize, u8 EnableLog) {
+	XStatus Status = XPM_FAILURE;
+	const XPm_MemDevice *MemDevice = NULL;
+	const XPm_MemCtrlrDevice *MCDev = NULL;
+
+	/*
+	 * Overflow/size guard mirroring the validator's pre-checks. This is dead
+	 * on the XPm_IsMemAddressValid() path (it already guards before calling,
+	 * so behavior there is preserved) and protects the State-refresh caller
+	 * from a corrupt/overflowing row.
+	 */
+	if ((RegionSize < 1U) || (RegionAddr > (U64_MAX_SIZE - RegionSize))) {
+		Status = XPM_FAILURE;
+		goto done;
+	}
+
+	/* store the provided region address in a local variable */
+	u64 CurrentRegionAddr = RegionAddr;
+	/* store the provided region size in a local variable */
+	u64 CurrentRegionSize = RegionSize;
+	/* indicates whether there's an overlapping of region or not */
+	u8 IsOverlapMemRegion = 0U;
+	/* indicates the type of memory overlap */
+	u8 OverlapMemType = (u8)MEM_TYPE_NONE;
+	u32 DeviceId;
 
 	for (u32 idx = (u32)XPM_NODEIDX_DEV_MIN; idx <= (u32)XPM_NODEIDX_DEV_MAX; idx++) {
 		const XPm_Device *Device = XPmDevice_GetByIndex(idx);
@@ -327,7 +378,9 @@ XStatus XPm_IsMemAddressValid(u32 SubsystemId, u64 RegionAddr, u64 RegionSize) {
 			 * - only access to same memory type is allowed during overlapping condition
 			 */
 			if ((1U == IsOverlapMemRegion) && ((u32)MEM_TYPE_OCM_TCM != OverlapMemType)) {
-				PmErr("Mismatch Memory type access!\r\n");
+				if (0U != EnableLog) {
+					PmErr("Mismatch Memory type access!\r\n");
+				}
 				Status = XPM_ERR_MEM_ACCESS_TYPE;
 				goto done;
 			}
@@ -339,7 +392,9 @@ XStatus XPm_IsMemAddressValid(u32 SubsystemId, u64 RegionAddr, u64 RegionSize) {
 				Status = XPM_SUCCESS;
 			}
 			else {
-				PmErr("Node [0x%x] not running...!\r\n", DeviceId);
+				if (0U != EnableLog) {
+					PmErr("Node [0x%x] not running...!\r\n", DeviceId);
+				}
 				Status = XPM_PM_NO_ACCESS;
 				/* if any part of the region is not accessible, we are done */
 				goto done;
@@ -389,7 +444,9 @@ XStatus XPm_IsMemAddressValid(u32 SubsystemId, u64 RegionAddr, u64 RegionSize) {
 				 * - only access to same memory type is allowed during overlapping condition
 				 */
 				if ((1U == IsOverlapMemRegion) && ((u32)MEM_TYPE_DDR != OverlapMemType)) {
-					PmErr("Mismatch Memory type access!\r\n");
+					if (0U != EnableLog) {
+						PmErr("Mismatch Memory type access!\r\n");
+					}
 					Status = XPM_ERR_MEM_ACCESS_TYPE;
 					goto done;
 				}
@@ -401,7 +458,9 @@ XStatus XPm_IsMemAddressValid(u32 SubsystemId, u64 RegionAddr, u64 RegionSize) {
 					Status = XPM_SUCCESS;
 				}
 				else {
-					PmErr("Node [0x%x] not running...!\r\n", DeviceId);
+					if (0U != EnableLog) {
+						PmErr("Node [0x%x] not running...!\r\n", DeviceId);
+					}
 					Status = XPM_PM_NO_ACCESS;
 					/* if any part of the region is not accessible, we are done */
 					goto done;
@@ -457,4 +516,30 @@ XStatus XPm_IsMemAddressValid(u32 SubsystemId, u64 RegionAddr, u64 RegionSize) {
 
 done:
 	return Status;
+}
+
+/****************************************************************************/
+/**
+ * @brief  Compute whether the PL fabric is physically reachable now.
+ *
+ * A PL region has no parent controller node, so reachability is decided by the
+ * PL power domain being ON and the CFU end-of-startup (EOS) being asserted in
+ * hardware.
+ *
+ * @return 1U if the PL fabric is reachable, 0U otherwise.
+ *
+ ****************************************************************************/
+u32 XPm_IsPlFabricReachable(void) {
+	u32 Reachable = 0U;
+	const XPm_Power *Power = XPmPower_GetById(PM_POWER_PLD);
+	/* Read the CFU end-of-startup status (idempotent, PMC-domain register) into
+	 * a local so the MMIO read is not a side-effecting operand of && (MISRA
+	 * R13.5). */
+	const u32 Eos = (0U != (XPm_In32(CFU_APB_CFU_FGCR) & CFU_APB_CFU_FGCR_EOS_MASK)) ? 1U : 0U;
+
+	if ((NULL != Power) && ((u8)XPM_POWER_STATE_ON == Power->Node.State) && (1U == Eos)) {
+		Reachable = 1U;
+	}
+
+	return Reachable;
 }

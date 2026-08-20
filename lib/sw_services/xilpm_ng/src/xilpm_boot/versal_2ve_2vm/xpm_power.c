@@ -10,6 +10,9 @@
 #include "xpm_pll.h"
 #include "xpm_debug.h"
 #include "xpm_update.h"
+#ifdef XILPM_RUNTIME
+#include "xpm_memtbl.h"
+#endif
 
 static XPm_Power *PmPowers[XPM_NODEIDX_POWER_MAX] XPM_INIT_DATA(PmPowers) = { NULL };
 /* coverity[misra_c_2025_rule_8_9_violation] IPU save/restore persistent state; must retain file scope for the persistence/update mechanism. Excluded from static analysis per design. */
@@ -420,6 +423,15 @@ static XStatus PowerEvent(XPm_Node *Node, u32 Event)
 
 	PmDbg("[OUT] Id:0x%x, UseCount:%d, State=%x, Event=%x\r\n",
 			Node->Id, Power->UseCount, Node->State, Event);
+
+#ifdef XILPM_RUNTIME
+	/*
+	 * Refresh PL-fabric region State in the memory-range table after a PL
+	 * power-domain event. Filtered internally to PM_POWER_PLD; reads live
+	 * PLD/EOS state only, writes only the table (no PM call).
+	 */
+	XPm_MemTblOnPowerEvent(Node->Id);
+#endif
 
 	XPm_PrintDbgErr(Status, DbgErr);
 	return Status;

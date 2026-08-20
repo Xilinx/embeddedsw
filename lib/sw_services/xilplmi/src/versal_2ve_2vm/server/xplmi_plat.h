@@ -72,6 +72,7 @@
 * 2.4	abh  10/14/2025 Fixed MISRAC Violations
 *       vm   03/16/2026 Added error code related to ASU update event
 *       pre 03/23/26 Added macro for TPM data structure export
+*       ias  08/19/2026 Added XPlmi_MemTblInit declaration
 * </pre>
 *
 ******************************************************************************/
@@ -867,6 +868,10 @@ int XPlmi_ListMaskWrite(XPlmi_Cmd *Cmd);
 int XPlmi_ListMaskPoll(XPlmi_Cmd *Cmd);
 
 int XPlmi_RomISR(XPlmi_RomIntr RomServiceReq);
+
+/* Memory-range reachability table: clear the header so an absent table
+ * present-detects as empty (NumEntries == 0). */
+int XPlmi_MemTblInit(void);
 
 /************************** Variable Definitions *****************************/
 

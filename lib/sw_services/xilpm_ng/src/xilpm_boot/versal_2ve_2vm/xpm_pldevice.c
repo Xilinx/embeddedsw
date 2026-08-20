@@ -8,6 +8,9 @@
 #include "xpm_defs.h"
 #include "xpm_api.h"
 #include "xpm_update.h"
+#ifdef XILPM_RUNTIME
+#include "xpm_memtbl.h"
+#endif
 #define PWR_DOMAIN_UNUSED_BITMASK		0U
 #define PWR_DOMAIN_NOC_BITMASK			BIT(0)
 #define PWR_DOMAIN_PL_BITMASK			BIT(1)
@@ -528,6 +531,20 @@ XStatus XPmPlDevice_InitFinish(XPm_PlDevice *PlDevice, const u32 *Args, u32 NumA
 
 done:
 	XPm_PrintDbgErr(Status, DbgErr);
+#ifdef XILPM_RUNTIME
+	/*
+	 * PL (re)configuration is the only lifecycle point at which CFU EOS and
+	 * DFX-driven DDRMC bring-up/release settle without a PM_POWER_PLD power
+	 * event (the PLD domain stays ON across a partial reconfig) and without
+	 * XPmDevice_ChangeState (DDRMCs are non-requestable and take the
+	 * direct-state fallback). FUNC_MEM_CTRLR_MAP requires the PLD (or a parent)
+	 * to be INITIALIZING, so every DFX DDRMC request/release is bracketed by
+	 * this InitFinish; one recompute-all here refreshes the PL-fabric and
+	 * DFX-touched DDR rows that would otherwise be stale. Present-gated and
+	 * idempotent; covers the RUNNING and UNUSED settle outcomes.
+	 */
+	XPm_MemTblRecomputeAll();
+#endif
 	return Status;
 }
 

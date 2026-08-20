@@ -61,6 +61,7 @@
 * 2.3   abh 07/21/2025 Fixed GCC warnings
 *       sk  09/26/2025 Removed unused IRO Freq define
 * 2.4   abh 10/10/2025 Fixed MISRA-C violations
+*       ias  08/19/2026 Added XPlmi_MemTblInit
 *
 * </pre>
 *
@@ -1137,4 +1138,54 @@ int XPlmi_VerifyAddrRangeRedundant(u32 SubsystemId, u64 Addr, u64 Size)
 	return (int)XST_SUCCESS;
 }
 #endif
+
+/*
+ * Tripwire: the memory-range table MUST lie outside the
+ * [0, XPLMI_PMC_CDO_MAX_LEN) region that XPlm_ProcessPmcCdo clears to
+ * 0xDEADBEEF at the end of every PMC-CDO pass, else it would be wiped before
+ * consumers read it.
+ */
+_Static_assert(XPLMI_MEMTBL_ADDR >= (XPLMI_PMCRAM_BASEADDR + XPLMI_PMC_CDO_MAX_LEN),
+	       "Memory-range table must lie outside the PMC-CDO clear region");
+
+/*****************************************************************************/
+/**
+ * @brief	Marks the memory-range table as absent by clearing its header
+ * (NumEntries in word0) with actual zeros, so present-detection reads
+ * NumEntries == 0. Mirrors the Runtime Configuration Area init: skipped on
+ * in-place PLM update (the table is preserved across an IPU) and run before
+ * XPlm_ProcessPmcCdo so the configuration CDO block_write can fill the table.
+ * Only the header is cleared (present-detection keys on NumEntries); the CDO
+ * overwrites the whole table when present.
+ *
+ * @return	XST_SUCCESS on success and error code on failure
+ *
+ *****************************************************************************/
+int XPlmi_MemTblInit(void)
+{
+	int Status = XST_FAILURE;
+
+	/*
+	 * Skip on in-place PLM update: the table is preserved in PMC RAM across
+	 * an IPU, so it must never be cleared here.
+	 */
+	if ((XPlmi_IsPlmUpdateDone() == (u8)TRUE) ||
+		(XPlmi_IsPlmUpdateDoneTmp() == (u8)TRUE)) {
+		Status = XST_SUCCESS;
+		goto END;
+	}
+
+	/*
+	 * Clear the header with ACTUAL zeros (not the XPLMI_DATA_INIT_PZM
+	 * 0xDEADBEEF pattern) so an absent table reads NumEntries == 0. The table
+	 * lies at XPLMI_MEMTBL_ADDR (>= XPLMI_PMC_CDO_MAX_LEN, per the assert
+	 * above), outside the end-of-XPlm_ProcessPmcCdo PZM fill, so this clear
+	 * persists to the configuration CDO block_write.
+	 */
+	Status = XPlmi_MemSet((u64)XPLMI_MEMTBL_ADDR, 0U,
+		(XPLMI_MEMTBL_HDR_LEN >> XPLMI_WORD_LEN_SHIFT));
+
+END:
+	return Status;
+}
 /** @} End of xilplmi_server_apis group */

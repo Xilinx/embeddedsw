@@ -66,6 +66,7 @@
 *       pre  03/12/2026 Added register addresses of ROM and PLM hashes
 *       pre  05/30/2026 Added PS I2C instances check for I2C handshake feature
 *       obs  08/11/2026 Reduced debug log buffer size from 16KB to 12KB
+*       ias  08/19/2026 Added memory-range reachability table PMC RAM reservation
 *
 * </pre>
 *
@@ -766,6 +767,7 @@ static inline void XPlmi_OutByte64(u64 Addr, u8 Data)
  * 0xF2014000U to 0xF2014FFFU - Used for PLM Runtime Configuration Registers
  * 0xF2016000U to 0xF2016BFFU - Used for storing secure lockdown CDO proc data
  * 0xF2019000U to 0xF201BFFFU - Used by XilPlmi to store PLM prints
+ * 0xF201C800U to 0xF201CFFFU - Used for the memory-range reachability table
  * 0xF201D000U to 0xF201DFFFU - Used by XilPlmi to store PLM Trace Events
  * 0xF201E000U to 0xF2020000U - Used by XilPdi to get boot Header copied by ROM
  */
@@ -801,6 +803,33 @@ static inline void XPlmi_OutByte64(u64 Addr, u8 Data)
 /* PMC RAM secure lockdown reserved memory macros */
 #define XPLMI_PMCRAM_BUFFER_MEMORY			(XPLMI_PMCRAM_BASEADDR + 0x15000U)
 #define XPLMI_PMCRAM_BUFFER_MEMORY_LENGTH		(0x2000U)
+
+/*
+ * Memory-range reachability table in PMC RAM.
+ *
+ * The configuration tooling writes a static, sorted subsystem->memory-region
+ * table here and PLM maintains the runtime-mutable per-row State +
+ * UpdateCounter so that consumers see correct region reachability. 2048 bytes
+ * are reserved for it.
+ *
+ * Placed at offset 0x1C800 - the upper 2KB of the 0xF201C000-0xF201CFFF slice
+ * above the 12KB debug-log buffer (see XPLMI_DEBUG_LOG_BUFFER_LEN). This is
+ * >= 0x14000, so it survives the [0, 0x14000) 0xDEADBEEF PZM fill performed at
+ * the end of every PMC-CDO pass (cold boot AND in-place PLM update) and is
+ * preserved across IPU (RTCA-class). The matching tooling table address and
+ * the consumer's read-only XMPU aperture must use this same address.
+ */
+#define XPLMI_MEMTBL_ADDR				(XPLMI_PMCRAM_BASEADDR + 0x1C800U)
+#define XPLMI_MEMTBL_LENGTH				(0x800U) /* 2048B */
+/* Header length (2 words); present-detection reads NumEntries in word0. */
+#define XPLMI_MEMTBL_HDR_LEN				(0x8U)
+/*
+ * Tripwire: the table MUST lie outside the [0, XPLMI_PMC_CDO_MAX_LEN) PMC-CDO
+ * clear region, else it would be wiped before consumers read it. The _Static_assert
+ * enforcing this lives in xplmi_plat.c (which sees both XPLMI_MEMTBL_ADDR and
+ * XPLMI_PMC_CDO_MAX_LEN); it cannot live here because xplmi_hw.h does not include
+ * xplmi.h where XPLMI_PMC_CDO_MAX_LEN is defined.
+ */
 
 /*
  * Definitions required from Efuse

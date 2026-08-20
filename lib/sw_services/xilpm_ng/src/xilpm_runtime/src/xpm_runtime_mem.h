@@ -125,6 +125,8 @@ static inline AddrRangeStatus checkAddrRangeContainment(u64 *RegionStart, u64 *R
 }
 
 XStatus XPm_IsMemRegnAddressValid(u32 SubsystemId, u64 RegionAddr, u64 RegionSize, u8 *IsPLMem);
+XStatus XPm_CheckMemDevRangeReachable(u64 RegionAddr, u64 RegionSize, u8 EnableLog);
+u32 XPm_IsPlFabricReachable(void);
 
 #ifdef __cplusplus
 }

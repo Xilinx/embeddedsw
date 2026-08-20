@@ -19,6 +19,7 @@
 #include "xpm_update.h"
 #include "xpm_runtime_aie.h"
 #include "xpm_rpucore.h"
+#include "xpm_memtbl.h"
 
 /** Device security bit: non-secure */
 #define DEV_NONSECURE			(1U)
@@ -1353,6 +1354,13 @@ static XStatus XPmDevice_ChangeState(XPm_Device *Device, const u32 NextState)
 		Device->Node.State = (u8)NextState;
 		/** TODO: Add Notification on this state transition*/
 		// Send notification about device state change
+
+		/*
+		 * Refresh region State in the memory-range table on OCM/TCM
+		 * request/release and DDR self-refresh entered via SetRequirement.
+		 * Filtered internally; reads live state only.
+		 */
+		XPm_MemTblOnDeviceStateChange(Device->Node.Id);
 	}
 
 done:

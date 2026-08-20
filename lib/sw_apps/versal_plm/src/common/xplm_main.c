@@ -45,6 +45,7 @@
 * 1.11  ng   04/30/2024 Fixed doxygen grouping
 *       kd   08/22/2025 Added psm firmware presence check for In-Place PLM Update
 *       vm   03/16/2026 Added ASU in-place update initialization for VERSAL_2VE_2VM
+*       ias  08/19/2026 Added memory-range reachability table region init call
 *
 * </pre>
 *
@@ -187,6 +188,18 @@ static int XPlm_Init(void)
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
+
+#ifdef VERSAL_2VE_2VM
+	/*
+	 * Zeroize the memory-range table area (skipped on IPU). Placed right
+	 * after RTCA init and before XPlm_ProcessPmcCdo so the configuration CDO
+	 * block_write fills the zeroed region.
+	 */
+	Status = XPlmi_MemTblInit();
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+#endif
 
 #ifdef DEBUG_UART_MDM
 	/* If MDM UART, banner can be printed before any initialization */

@@ -35,6 +35,7 @@
 #include "xpm_access.h"
 #include "xpm_power_handlers.h"
 #include "xpm_debug.h"
+#include "xpm_memtbl.h"
 
 
 #define XPm_RegisterWakeUpHandler(GicId, SrcId, NodeId)	\
@@ -1644,6 +1645,15 @@ XStatus XPm_HookAfterPlmCdo(void)
 	if (XST_SUCCESS != Status) {
 		goto done;
 	}
+
+	/*
+	 * Memory-range table seed pass. Placed BEFORE the PLM update guard so it
+	 * runs on both cold boot and in-place PLM update, and present-gated
+	 * internally so it is harmless when the table is absent. This is the only
+	 * DDR State trigger at cold boot: DDRMC is not requestable and its
+	 * bring-up bypasses XPmDevice_ChangeState.
+	 */
+	XPm_MemTblRecomputeAll();
 
 	if (0U != XPlmi_IsPlmUpdateDone()) {
 		/* Skip during PLM update */

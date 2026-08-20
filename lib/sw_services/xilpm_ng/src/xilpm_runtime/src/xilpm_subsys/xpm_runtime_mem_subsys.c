@@ -6,7 +6,6 @@
 #include "xstatus.h"
 #include "xpm_regs.h"
 #include "xpm_requirement.h"
-#include "cfu_apb.h"
 #include "xpm_runtime_mem.h"
 
 /********************* Macro / Struct Definitions *********************/
@@ -16,9 +15,6 @@
 #define PL_MEM_REGN_FLAGS_MASK_64	((u64)0xF0000000U << 32)
 #define PL_MEM_REGN_FLAGS(SZ_64BIT)	((u32)(((SZ_64BIT) & PL_MEM_REGN_FLAGS_MASK_64) >> PL_MEM_REGN_FLAGS_SHIFT_64))
 #define IS_PL_MEM_REGN(SZ_64BIT)	((u32)PL_MEM_REGN == PL_MEM_REGN_FLAGS((u64)(SZ_64BIT)))
-
-/** check whether PL EOS startup bit is asserted */
-#define IS_PL_STARTUP_ASSERTED 		(0U != (XPlmi_In32(CFU_APB_CFU_FGCR) & CFU_APB_CFU_FGCR_EOS_MASK))
 
 /********************* Static Function Definitions *********************/
 
@@ -302,21 +298,12 @@ XStatus XPm_IsMemRegnAddressValid(u32 SubsystemId, u64 RegionAddr, u64 RegionSiz
 	if (1U == *IsPLMem) {
 		/* Address Range provided falls in PL Region */
 		/**
-		 * - Check whether PL Power Domain is up ( because no parent node for PL )
+		 * - PL fabric has no parent controller node; reachability is decided
+		 * by the PLD power domain being ON and the CFU end-of-startup asserted.
 		 * Note: For any other Mem-Regn, power checking is done by retrieving
 		 * their parent's controller node in XPm_IsMemAddressValid()
-		 * - Check whether PL Startup has been asserted in hardware
 		 */
-		const XPm_Power *Power = XPmPower_GetById(PM_POWER_PLD);
-		/* Read the CFU end-of-startup status (idempotent, PMC-domain register) into a
-		 * local so the MMIO read is not a side-effecting operand of && (MISRA R13.5). */
-		const u32 PlStartupAsserted = (IS_PL_STARTUP_ASSERTED) ? 1U : 0U;
-		if ((NULL != Power) && ((u8)XPM_POWER_STATE_ON == Power->Node.State) && (1U == PlStartupAsserted)) {
-			Status = XPM_SUCCESS;
-		}
-		else {
-			Status = XPM_PM_NO_ACCESS;
-		}
+		Status = (1U == XPm_IsPlFabricReachable()) ? XPM_SUCCESS : XPM_PM_NO_ACCESS;
 	}
 
 done:
