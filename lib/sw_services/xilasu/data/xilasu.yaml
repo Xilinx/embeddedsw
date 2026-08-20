@@ -36,6 +36,7 @@ examples:
   xasu_lms_example.c: []
   xasu_multi_crypto_example.c: []
   xasu_keymanager_example.c: []
+  xasu_ocp_user_cert_example.c: []
 
   condition : |
     examples = []
@@ -47,4 +48,4 @@ examples:
                 "xasu_kdf_example.c", "xasu_trng_example.c",
                 "xasu_ecies_example.c", "xasu_keywrap_example.c",
                 "xasu_ocp_example.c", "xasu_ocp_ude_example.c", "xasu_ude_keys_enc_example.c", "xasu_lms_example.c",
-                "xasu_multi_crypto_example.c", "xasu_keymanager_example.c"]
+                "xasu_multi_crypto_example.c", "xasu_keymanager_example.c", "xasu_ocp_user_cert_example.c"]
