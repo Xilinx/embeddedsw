@@ -18,6 +18,7 @@ properties:
           - xlnx,v-mix-5.3
           - xlnx,v-mix-6.0
           - xlnx,v-mix-6.1
+          - xlnx,v-mix-6.2
 
   reg:
     description: Physical base address and size of the controller register map
