@@ -32,7 +32,6 @@ XilAudioExtFrame  SdpExtFrame_q;
 extern u32 infofifo[64]; /**< RX and TX can store up to 4 infoframes each. fifo of 8 */
 extern u8 endindex;
 extern u8 fifocount;
-u32 hdrframe[9];
 u16 fifoOverflow=0;
 void Dp21RxSs_Pt_RxSetEDID (u8 edid_monitor[384]);
 extern u8 tx_pass;
@@ -53,7 +52,16 @@ extern XTmrCtr TmrCtr; 			/**< Timer instance. */
 DP_Rx_Training_Algo_Config RxTrainConfig;
 extern XVphy VPhyInst;			/**< The DPRX Subsystem instance. */
 
-u32 hdrframe[9];
+/* VSC SDP colorimetry / static-HDR pass-through (defined in passthrough.c) */
+extern XDp_TxVscExtPacket ExtFrame_tx_vsc;
+extern u8 type_vsc;
+extern volatile u8  rx_last_sdp_type;
+extern volatile u32 rx_vsc_ext_cta_count;
+
+/* Static-HDR (DRM) InfoFrame pass-through (defined in passthrough.c). */
+extern u32          hdr_if_frame[8];
+extern volatile u8  hdr_if_valid;
+extern volatile u32 rx_drm_if_count;
 extern XVphy_PllType VPHY_RX_PLL_TYPE;
 extern XVphy_ChannelId VPHY_RX_CHANNEL_TYPE;
 
@@ -207,6 +215,16 @@ u32 Dp21RxSs_Pt_RxSetup(void)
         XDp_WriteReg(DpRxSsInst.DpPtr->Config.BaseAddr, XDP_RX_OVER_CTRL_DPCD, 0x1);
         XDp_WriteReg(DpRxSsInst.DpPtr->Config.BaseAddr, 0x1600, 0x1);
         XDp_WriteReg(DpRxSsInst.DpPtr->Config.BaseAddr, XDP_RX_OVER_CTRL_DPCD, 0x0);
+
+	/*
+	 * Enable colorimetry information over the VSC SDP in the RX. This is
+	 * required to receive extended colorimetry (e.g. BT.2020 for HDR) and
+	 * to advertise VSC SDP colorimetry capability in the RX DPCD.
+	 */
+	XDp_RxVSCEn(DpRxSsInst.DpPtr);
+	xil_printf(ANSI_COLOR_GREEN
+		   "DP RX enabled for VSC Colorimetry support"
+		   ANSI_COLOR_RESET " \r\n");
 
 	/*
 	 * Enable Rx
@@ -700,6 +718,7 @@ void Dp21RxSs_Pt_RxUnplugHandler(void *InstancePtr)
 	SdpExtFrame_q.Header[1] = 0;
 	SdpExtFrame.frame_count = 0;
 	SdpExtFrame.frame_count = 0;
+	type_vsc = 0;
 
 	rx_unplugged = 1;
 
@@ -1184,36 +1203,69 @@ void Dp21RxSs_Pt_RxInfoPacketHandler(void *InstancePtr)
 {
 	XDpRxSs *DpRxSsPtr = (XDpRxSs *)InstancePtr;
 #if ENABLE_AUDIO
-        int i;
-        for(i = 0; i < 8; i++) {
-		if (tx_pass) {
-			/*
-			 * Start putting into FIFO. These will be programmed into TX
-			 */
-			infofifo[(endindex*8)+i] = XDp_ReadReg(DpRxSsPtr->DpPtr->Config.BaseAddr,
-							       XDP_RX_AUDIO_INFO_DATA(1));
-                } else {
-			/*
-			 * Read or Ignore until TX is up and running.
-			 */
-                        XDp_ReadReg(DpRxSsPtr->DpPtr->Config.BaseAddr,
-				    XDP_RX_AUDIO_INFO_DATA(1));
-                }
-        }
+	int i;
+	u32 w[8];
+	u8  iftype;
 
+	/*
+	 * Drain the 8 words (32 bytes) of the received InfoFrame SDP from the
+	 * info-packet register bank. The register must be read on every
+	 * INFO_PKT interrupt to avoid stale data. Word 0 is the SDP header:
+	 *   [7:0]   = HB0 (Secondary-data Packet ID)
+	 *   [15:8]  = HB1 (Secondary-data Packet Type / InfoFrame type)
+	 *   [23:16] = HB2, [31:24] = HB3
+	 */
+	for (i = 0; i < 8; i++) {
+		w[i] = XDp_ReadReg(DpRxSsPtr->DpPtr->Config.BaseAddr,
+				   XDP_RX_AUDIO_INFO_DATA(1));
+	}
+
+	/*
+	 * Pass-through ring buffer: push every received InfoFrame into infofifo
+	 * so the TX vsync handler can replay it downstream (audio InfoFrame,
+	 * DRM/static-HDR InfoFrame, etc.). This is the original behaviour the TX
+	 * relies on to send its info packets, so it must be preserved for ALL
+	 * InfoFrame types (including 0x87).
+	 */
 	if (tx_pass) {
-		if(endindex < (AUXFIFOSIZE - 1)) {
+		for (i = 0; i < 8; i++) {
+			infofifo[(endindex * 8) + i] = w[i];
+		}
+
+		if (endindex < (AUXFIFOSIZE - 1)) {
 			endindex++;
 		} else {
 			endindex = 0;
 		}
 
-                if (fifocount >= AUXFIFOSIZE) {
-                        fifoOverflow++;
-                }
+		if (fifocount >= AUXFIFOSIZE) {
+			fifoOverflow++;
+		}
 
-                fifocount++;
-        }
+		fifocount++;
+	}
+
+	/*
+	 * Additionally capture the DRM / static-HDR InfoFrame (SDP type 0x87)
+	 * into hdr_if_frame[] so it can be decoded/displayed via the 's' menu.
+	 * HB1 (InfoFrame type) is bits [15:8] of the header word. This capture
+	 * is independent of use_vsc / MSA MISC1 bit-6 (HDR metadata is carried
+	 * as an InfoFrame, not a VSC SDP) and does NOT divert the packet away
+	 * from the ring buffer above - the same 0x87 is still forwarded to the
+	 * TX through infofifo, exactly as before.
+	 */
+	iftype = (w[0] >> 8) & 0xFF;
+	if (iftype == 0x87) {
+		for (i = 0; i < 8; i++) {
+			hdr_if_frame[i] = w[i];
+		}
+		if (!hdr_if_valid) {
+			/* Print once on first capture to avoid flooding. */
+			xil_printf("0x87 (DRM/static-HDR) InfoFrame received\r\n");
+		}
+		hdr_if_valid = 1;
+		rx_drm_if_count++;
+	}
 #endif
 }
 
@@ -1247,14 +1299,20 @@ void Dp21RxSs_Pt_RxExtPacketHandler(void *InstancePtr)
         SdpExtFrame.Header[1] = (ExtFrame[0]&0xFF00)>>8;
         SdpExtFrame.Header[2] = (ExtFrame[0]&0xFF0000)>>16;
         SdpExtFrame.Header[3] = (ExtFrame[0]&0xFF000000)>>24;
-        if (SdpExtFrame.Header[2] == 0x05) {
-		/*
-		 * This example supports only colorimetry extended
-		 * packets
-		 */
+
+        /*
+         * HB1 (Header[1]) is the Secondary-data Packet Type.
+         */
+        rx_last_sdp_type = SdpExtFrame.Header[1];
+
+        if ((SdpExtFrame.Header[1] == 0x7) || (SdpExtFrame.Header[1] == 0x20)
+		       || (SdpExtFrame.Header[1] == 0x21)) {
+		ExtFrame_tx_vsc.Header = ExtFrame[0];
+		type_vsc = 0x13;
+                rx_vsc_ext_cta_count++;
         } else {
                 /*
-		 * For future use
+		 * For future use (e.g. VSC_EXT_VESA/VSC_EXT_CTA HDR metadata)
                  */
         }
 
@@ -1269,6 +1327,10 @@ void Dp21RxSs_Pt_RxExtPacketHandler(void *InstancePtr)
                 SdpExtFrame.Payload[(i*4)+1] = (ExtFrame[i+1]&0xFF00)>>8;
                 SdpExtFrame.Payload[(i*4)+2] = (ExtFrame[i+1]&0xFF0000)>>16;
                 SdpExtFrame.Payload[(i*4)+3] = (ExtFrame[i+1]&0xFF000000)>>24;
+                if (type_vsc == 0x13) {
+                        /* Forward the colorimetry VSC payload to the TX */
+                        ExtFrame_tx_vsc.Payload[i] = ExtFrame[i+1];
+                }
         }
 }
 
@@ -1299,6 +1361,114 @@ void Dp21RxSs_Pt_RxPrint_InfoPkt()
                         AudioinfoFrame.level_shift);
         xil_printf(" -downmix_inhibit            : 0x%x \r\n",
                         AudioinfoFrame.downmix_inhibit);
+}
+
+/*****************************************************************************/
+/**
+*
+* This function decodes and prints the last received SDP / extension packet,
+* identifying the SDP type (including the VSC SDP used for colorimetry and the
+* VSC_EXT_VESA / VSC_EXT_CTA packets used for HDR metadata).
+*
+* @param    None.
+*
+* @return   None.
+*
+* @note     None.
+*
+******************************************************************************/
+void Dp21RxSs_Pt_RxPrint_ExtPkt(void)
+{
+	int i = 0;
+
+	xil_printf("Received SDP Packet Type::\r\n");
+	switch (SdpExtFrame.Header[1]) {
+	case 0x04:
+		xil_printf(" -> Extension\r\n");
+		break;
+	case 0x05:
+		xil_printf(" -> Audio_CopyManagement\r\n");
+		break;
+	case 0x06:
+		xil_printf(" -> ISRC\r\n");
+		break;
+	case 0x07:
+		xil_printf(" -> Video Stream Configuration (VSC)\r\n");
+		break;
+	case 0x20:
+		xil_printf(" -> Video Stream Configuration Extension"
+			   " for VESA (VSC_EXT_VESA) - Used for HDR Metadata\r\n");
+		break;
+	case 0x21:
+		xil_printf(" -> VSC_EXT_CTA for CTA INFOFRAME with"
+			   " payload of more than 28 bytes\r\n");
+		break;
+	default:
+		xil_printf(" -> Reserved/Not Defined\r\n");
+		break;
+	}
+
+	xil_printf(" Header Bytes : 0x%x, 0x%x, 0x%x, 0x%x \r\n",
+		   SdpExtFrame.Header[0], SdpExtFrame.Header[1],
+		   SdpExtFrame.Header[2], SdpExtFrame.Header[3]);
+	for (i = 0; i < 8; i++) {
+		xil_printf(" Payload Bytes : 0x%x, 0x%x, 0x%x, 0x%x \r\n",
+			   SdpExtFrame.Payload[(i * 4)],
+			   SdpExtFrame.Payload[(i * 4) + 1],
+			   SdpExtFrame.Payload[(i * 4) + 2],
+			   SdpExtFrame.Payload[(i * 4) + 3]);
+	}
+	xil_printf(" Frame Count : %d \r\n", SdpExtFrame.frame_count);
+}
+
+/*****************************************************************************/
+/**
+*
+* This function decodes and prints the last captured DRM / static-HDR
+* InfoFrame (INFOFRAME SDP, type 0x87). The DRM InfoFrame arrives on the RX
+* info-packet path (not the ext-packet path used by the VSC colorimetry SDP),
+* and is captured by Dp21RxSs_Pt_RxInfoPacketHandler into hdr_if_frame[].
+*
+* @param    None.
+*
+* @return   None.
+*
+* @note     None.
+*
+******************************************************************************/
+void Dp21RxSs_Pt_RxPrint_HdrInfoPkt(void)
+{
+	u8 b[32];
+	int i;
+
+	if (!hdr_if_valid) {
+		xil_printf("No DRM/HDR (0x87) InfoFrame captured yet.\r\n");
+		return;
+	}
+
+	/* Unpack the 8 captured words (little-endian) into 32 bytes. */
+	for (i = 0; i < 8; i++) {
+		b[(i * 4) + 0] =  hdr_if_frame[i]        & 0xFF;
+		b[(i * 4) + 1] = (hdr_if_frame[i] >> 8)  & 0xFF;
+		b[(i * 4) + 2] = (hdr_if_frame[i] >> 16) & 0xFF;
+		b[(i * 4) + 3] = (hdr_if_frame[i] >> 24) & 0xFF;
+	}
+
+	xil_printf("DRM / static-HDR InfoFrame (SDP type 0x87):\r\n");
+	xil_printf(" Header : 0x%02x 0x%02x 0x%02x 0x%02x\r\n",
+		   b[0], b[1], b[2], b[3]);
+	/* Payload: b[4]=IF version, b[5]=IF length, b[6]=EOTF, b[7]=Static MD ID */
+	xil_printf(" IF Version : %d   IF Length : %d\r\n", b[4], b[5]);
+	xil_printf(" EOTF : %d (0=SDR gamma, 1=HDR gamma, 2=PQ/ST2084, 3=HLG)\r\n",
+		   b[6]);
+	xil_printf(" Static Metadata Descriptor ID : %d\r\n", b[7]);
+	for (i = 0; i < 8; i++) {
+		xil_printf(" Data[%2d..%2d] : 0x%02x 0x%02x 0x%02x 0x%02x\r\n",
+			   i * 4, (i * 4) + 3,
+			   b[i * 4], b[(i * 4) + 1],
+			   b[(i * 4) + 2], b[(i * 4) + 3]);
+	}
+	xil_printf(" DRM InfoFrames received : %d\r\n", rx_drm_if_count);
 }
 
 void Dp21RxSs_Pt_RxSetEDID(u8 edid_monitor[384])

@@ -87,6 +87,38 @@ u8 LineRate_init_tx;
 u8 LaneCount_init_tx;
 XDp_MainStreamAttributes* Msa_Pt;
 u8 rx_all_detect = 0;
+
+/*
+ * VSC SDP colorimetry / static-HDR pass-through globals.
+ * ExtFrame_tx_vsc holds the VSC extended (colorimetry) SDP captured on the RX
+ * so that it can be replayed on the TX. use_vsc reflects whether the incoming
+ * stream signals colorimetry through the VSC SDP (MSA MISC1 bit-6). type_vsc is
+ * set to 0x13 once a colorimetry VSC extended packet has been captured.
+ */
+XDp_TxVscExtPacket ExtFrame_tx_vsc;
+u8 use_vsc = 0;
+u8 type_vsc = 0;
+
+volatile u8  rx_last_sdp_type = 0;
+volatile u32 rx_vsc_ext_cta_count = 0;
+
+/*
+ * Static-HDR (DRM) InfoFrame pass-through.
+ * The DRM/HDR metadata (EOTF, mastering luminance, color primaries) arrives as
+ * an INFOFRAME SDP (HB1 = 0x87) on the RX *info-packet* path
+ * (XDP_RX_AUDIO_INFO_DATA / XDPRXSS_HANDLER_DP_INFO_PKT_EVENT) - a different
+ * callback and register bank than the VSC colorimetry SDP (0x07), which uses
+ * the ext-packet path. Because the HDR metadata is carried as an InfoFrame and
+ * NOT as a VSC SDP, the source does not set MSA MISC1 bit-6 for it; therefore
+ * its capture/replay must be independent of use_vsc.
+ * hdr_if_frame[] holds the 8 captured 32-bit words (SDP header + payload) so the
+ * TX can replay the DRM InfoFrame downstream once per frame whenever one has
+ * been received (hdr_if_valid), mirroring the automatic replay of the VSC SDP.
+ */
+u32          hdr_if_frame[8];
+volatile u8  hdr_if_valid = 0;
+volatile u32 rx_drm_if_count = 0;
+
 user_config_struct user_config;
 XVidC_VideoMode VmId;
 
@@ -486,6 +518,47 @@ void Dp21RxSs_Pt_Setup(void)
 #ifdef Txo
 					xil_printf ("========== Tx CRC===========\r\n");
 					XVidFrameCrc_Report(&VidFrameCRC_tx, PPC_TX);
+#endif
+					break;
+
+				case 's':
+#ifdef Rxo
+				{
+					/*
+					 * Dump the last received SDP / colorimetry
+					 * (VSC) extended packet and the VSC packet
+					 * being replayed on the TX.
+					 */
+					int idx;
+					Dp21RxSs_Pt_RxPrint_ExtPkt();
+					xil_printf("Last SDP type (HB1)      : 0x%x\r\n",
+						   rx_last_sdp_type);
+					xil_printf("VSC/HDR frames count  : %d %s\r\n",
+						   rx_vsc_ext_cta_count,
+						   rx_vsc_ext_cta_count ? "(static-HDR SDP received)" : "");
+					xil_printf("VSC colorimetry pass-through: %s\r\n",
+						   use_vsc ? "ON" : "OFF");
+					if (use_vsc) {
+						xil_printf("TX VSC ExtPkt Header: 0x%x\r\n",
+							   ExtFrame_tx_vsc.Header);
+						for (idx = 0; idx < 8; idx++) {
+							xil_printf("TX VSC ExtPkt Data[%d]: 0x%x\r\n",
+								   idx, ExtFrame_tx_vsc.Payload[idx]);
+						}
+					}
+
+					/*
+					 * Static-HDR (DRM) InfoFrame (SDP type
+					 * 0x87) received on the info-packet path.
+					 * Independent of use_vsc / MISC1 bit-6.
+					 */
+					xil_printf("HDR (DRM 0x87) InfoFrames rx : %d %s\r\n",
+						   rx_drm_if_count,
+						   rx_drm_if_count ? "(static-HDR InfoFrame received)" : "");
+					if (hdr_if_valid) {
+						Dp21RxSs_Pt_RxPrint_HdrInfoPkt();
+					}
+				}
 #endif
 					break;
 

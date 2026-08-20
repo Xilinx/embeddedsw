@@ -63,6 +63,10 @@ volatile u8 prev_line_rate; 		/**< This previous line rate to keep
 
 extern XVphy VPhyInst;			/**< The DPRX Subsystem instance.*/
 
+/* VSC SDP colorimetry / static-HDR pass-through (defined in passthrough.c) */
+extern XDp_TxVscExtPacket ExtFrame_tx_vsc;
+extern u8 use_vsc;
+
 /************************** Variable Definitions *****************************/
 #define DPCD_TEST_CRC_R_Cr   0x240
 #define DPCD_TEST_SINK_MISC  0x246
@@ -1022,8 +1026,19 @@ u32 Dp21RxSs_Pt_StartTx(u8 line_rate, u8 lane_count, user_config_struct user_con
 
 	XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr, XDP_TX_ENABLE, 0x1);
 
-	xil_printf("\r\nTraining TX with: Link rate %x, Lane %d, BPC %d\r\n",
-		   line_rate,lane_count, bpc);
+	/*
+	 * DP TX supports sending colorimetry info over the VSC extended SDP.
+	 * If VSC information is to be sent, the TX has to be configured for VSC
+	 * mode before the training is started. The entire packet (captured from
+	 * the RX during pass-through) is provided here; BPC / VideoMode / dynamic
+	 * range / colorimetry are extracted by the driver from the packet
+	 * contents. This carries the colorimetry needed for static-HDR content.
+	 */
+	XDpTxss_EnableVscColorimetry(&DpTxSsInst, use_vsc);
+	XDpTxSs_SetVscExtendedPacket(&DpTxSsInst, ExtFrame_tx_vsc);
+
+	xil_printf("\r\nTraining TX with: Link rate %x, Lane %d, BPC %d, (VSC %d)\r\n",
+		   line_rate,lane_count, bpc, use_vsc);
 
 	Status = XDpTxSs_SetLinkRate(&DpTxSsInst, line_rate);
 	if(Status != XST_SUCCESS){

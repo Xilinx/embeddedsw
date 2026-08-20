@@ -108,6 +108,7 @@ void Dp21RxSs_Pt_HelpMenu(void)
 	print(" 3 = Toggle HPD to ask for Retraining\n\r");
 	print(" 4 = Restart TX path \n\r");
 	print(" c = Check SUM on Rx and Tx\n\r");
+	print(" s = Show received SDP / VSC colorimetry (HDR) packet\r\n");
 	print(" n = Clone EDID from Monitor\r\n");
 	print(" z = Display this menu again\r\n");
 	print(" x = Return to Main menu\r\n");

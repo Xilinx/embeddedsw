@@ -91,6 +91,7 @@ u32 Dp21RxSs_Pt_PhyInit(UINTPTR BaseAddress);
 u32 Dp21RxSs_Pt_CalcStride(XVidC_ColorFormat Cfmt, u16 AXIMMDataWidth,
 	       XVidC_VideoStream *StreamPtr);
 extern XDp_MainStreamAttributes* Msa_Pt;
+extern u8 use_vsc;	/**< 1 when stream carries colorimetry via VSC SDP */
 
 /*
  * DDR Addresses of Frame Buffer
@@ -1439,7 +1440,7 @@ int Dp21RxSs_Pt_ConfigWrFb(u32 StrideInBytes, XVidC_ColorFormat Cfmt,
 
 	Status = XVFrmbufWr_SetMemFormat(&frmbufwr, StrideInBytes, Cfmt, StreamPtr);
 	if(Status != XST_SUCCESS) {
-		xil_printf("ERROR:: Unable to configure Frame Buffer Write\r\n");
+		xil_printf("ERROR:: Unable to configure Frame Buffer Write: 0x%x: 0x%x\r\n", Status, Cfmt);
 		return(XST_FAILURE);
 	}
 
@@ -1492,7 +1493,7 @@ int Dp21RxSs_Pt_ConfigRdFb(u32 StrideInBytes, XVidC_ColorFormat Cfmt,
 	 */
 	Status = XVFrmbufRd_SetMemFormat(&frmbufrd, StrideInBytes, Cfmt, StreamPtr);
 	if(Status != XST_SUCCESS) {
-		xil_printf("ERROR:: Unable to configure Frame Buffer Read\r\n");
+		xil_printf("ERROR:: Unable to configure Frame Buffer Read: 0x%x: 0x%x\r\n", Status, Cfmt);
 		return(XST_FAILURE);
 	}
 
@@ -1976,6 +1977,17 @@ int Dp21RxSs_Pt_DetectResolution(XDpRxSs *InstancePtr)
 	char *color;
 
 	Msa_Pt = XDpRxss_GetMsa(InstancePtr);
+
+	/*
+	 * Detect whether the incoming stream carries its colorimetry through the
+	 * VSC SDP. MSA MISC1 bit-6 (VSC_SDP colorimetry indication) is set by the
+	 * upstream source when colorimetry is conveyed via the VSC SDP (used for
+	 * wide-gamut / static-HDR content). This drives the TX to replay the
+	 * colorimetry over the VSC SDP during pass-through.
+	 */
+	use_vsc = (XDp_ReadReg(InstancePtr->DpPtr->Config.BaseAddr,
+			       XDP_RX_MSA_MISC1) >> 6) & 0x1;
+
 	Dp21RxSs_Pt_FbStopWr();
 	XDp_RxSetLineReset(InstancePtr->DpPtr, XDP_TX_STREAM_ID1);
 	XDp_RxDtgDis(InstancePtr->DpPtr);
@@ -1988,12 +2000,13 @@ int Dp21RxSs_Pt_DetectResolution(XDpRxSs *InstancePtr)
 		color="YUV444";
 	}
 	if (InstancePtr->link_up_trigger == 1) {
-		xil_printf("*** Resolution: %lu x %lu @ %luHz, BPC = %lu, Color = %s ***\r\n",
+		xil_printf("*** Resolution: %lu x %lu @ %luHz, BPC = %lu, Color = %s, (VSC %d) ***\r\n",
 				Msa_Pt[0].Vtm.Timing.HActive,
 				Msa_Pt[0].Vtm.Timing.VActive,
 				Msa_Pt[0].Vtm.FrameRate,
 				Msa_Pt[0].BitsPerColor,
-				color);
+				color,
+				use_vsc);
 	}
 
 	if (InstancePtr->link_up_trigger == 1) {
