@@ -198,6 +198,7 @@ static XVidC_ColorFormat XDpDc_VideoFormatToColorFormat(XDc_VideoFormat Fmt)
 #define XMMIDP_AUD_HBR_MODE_DISABLE	0x0
 #define XMMIDP_AUD_TIMESTAMP_VER	0x12
 #define XMMIDP_SDP_STREAM_ENABLE	0x1
+#define XMMIDP_SDP_FIXED_PRIORITY_EN	0x1
 
 /******************************************************************************/
 /**
@@ -528,6 +529,14 @@ void XMmiDp_SetupAudioStream(RunConfig *RunCfgPtr)
 
 	XMmiDp_SetSdpHorAudStreamEn(InstancePtr, XMMIDP_STREAM_ID1, XMMIDP_SDP_STREAM_ENABLE);
 	XMmiDp_SetSdpHorAudTimeStampEn(InstancePtr, XMMIDP_STREAM_ID1, XMMIDP_SDP_STREAM_ENABLE);
+
+	/* Enable fixed-priority arbitration for both vertical and horizontal
+	 * SDP slots so audio + audio-timestamp packets get deterministic
+	 * delivery timing. */
+	XMmiDp_SetSdpVertFixedPriority(InstancePtr, XMMIDP_STREAM_ID1,
+				       XMMIDP_SDP_FIXED_PRIORITY_EN);
+	XMmiDp_SetSdpHorFixedPriority(InstancePtr, XMMIDP_STREAM_ID1,
+				      XMMIDP_SDP_FIXED_PRIORITY_EN);
 
 	XMmiDp_ConfigureAudioController(InstancePtr, XMMIDP_STREAM_ID1);
 }
