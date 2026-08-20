@@ -35,6 +35,9 @@
 * 9.5   ml   31/03/26 Bridge INTC through GIC in XSetupInterruptSystem for
 *                     cascaded INTC-to-GIC topologies. Fixed XDisableIntrId
 *                     to decode IntrId before passing to XIntc_Disable.
+* 9.5   ml   20/08/26 Add per-root XIntcInitRoots[] and XIntcGicConnectedRoots[]
+*                     for SDT multi-root INTC cascade. XIntcGetInstance() walks
+*                     IntrParent chain to locate the correct root instance.
 * </pre>
 *
 ******************************************************************************/
@@ -49,7 +52,46 @@ static int ScuGicInitialized;
 #endif
 
 #if defined (XPAR_AXI_INTC) /* available in xintc.h */
-static XIntc XIntcInstance ;
+/* One XIntc instance per chain root; multi-root designs need separate instances. */
+#ifdef SDT
+static XIntc XIntcInstances[XPAR_INTC_NUM_DRV_INSTANCES];
+#else
+static XIntc XIntcInstances[XPAR_XINTC_NUM_INSTANCES];
+#endif
+#if defined (SDT)
+/* Base address of each initialized chain root; index matches XIntcInstances[]. */
+static UINTPTR XIntcInitRoots[XPAR_INTC_NUM_DRV_INSTANCES];
+static u32     XIntcInitCount;
+#if defined (XPAR_SCUGIC)
+/* Base addresses of roots whose GIC SPI has been connected, in connection order. */
+static UINTPTR XIntcGicConnectedRoots[XPAR_INTC_NUM_DRV_INSTANCES];
+static u32     XIntcGicConnectedCount;
+#endif
+#endif
+
+/*
+ * Returns the XIntc instance for the chain root of IntcParent.
+ * In SDT mode walks the IntrParent chain and returns NULL if not yet initialized.
+ * In non-SDT mode always returns the single global instance (slot 0).
+ */
+static XIntc *XIntcGetInstance(UINTPTR IntcParent)
+{
+#ifdef SDT
+	XIntc_Config *RootCfg = XIntc_GetChainRoot(IntcParent);
+	UINTPTR RootBase = (RootCfg != NULL) ? RootCfg->BaseAddress
+					     : XGet_BaseAddr(IntcParent);
+	u32 i;
+	for (i = 0; i < XIntcInitCount; i++) {
+		if (XIntcInitRoots[i] == RootBase)
+			return &XIntcInstances[i];
+	}
+	return NULL;
+#else
+	/* Non-SDT: single root, always slot 0 */
+	(void)IntcParent;
+	return &XIntcInstances[0];
+#endif
+}
 #endif
 
 /*****************************************************************************/
@@ -72,8 +114,10 @@ int XConfigInterruptCntrl(UINTPTR IntcParent)
 	UINTPTR BaseAddr = XGet_BaseAddr(IntcParent);
 #endif
 #if defined (XPAR_AXI_INTC)
-	XIntc_Config *PrimaryCfg;
+#ifdef SDT
+	XIntc_Config *RootCfg;
 	UINTPTR InitBaseAddr;
+#endif
 #endif
 
 	if (XGet_IntcType(IntcParent) == XINTC_TYPE_IS_SCUGIC) {
@@ -102,25 +146,48 @@ int XConfigInterruptCntrl(UINTPTR IntcParent)
 #endif
 	} else {
 #if defined (XPAR_AXI_INTC)
-		if (XIntcInstance.IsReady != XIL_COMPONENT_IS_READY) {
-			/*
-			 * In cascade mode, override the caller-supplied BaseAddr
-			 * with the PRIMARY controller's address, since
-			 * XIntc_Initialize must always target the root controller
-			 * that connects to the CPU (or GIC).
-			 */
-			PrimaryCfg = XIntc_GetPrimaryController();
-			if (PrimaryCfg != NULL &&
-			    PrimaryCfg->IntcType != XIN_INTC_NOCASCADE) {
-				InitBaseAddr = PrimaryCfg->BaseAddress;
-			} else {
-				InitBaseAddr = BaseAddr;
-			}
+#ifdef SDT
+		/* Walk IntrParent chain to find chain root; each root initializes once. */
+		RootCfg = XIntc_GetChainRoot(IntcParent);
+		InitBaseAddr = (RootCfg != NULL) ? RootCfg->BaseAddress : BaseAddr;
+		{
+			u32 i, found = 0;
 
-			Status = XIntc_Initialize(&XIntcInstance, InitBaseAddr);
+			for (i = 0; i < XIntcInitCount; i++) {
+				if (XIntcInitRoots[i] == InitBaseAddr) {
+					found = 1;
+					break;
+				}
+			}
+			if (!found) {
+				XIntc *InstPtr;
+
+				if (XIntcInitCount >= XPAR_INTC_NUM_DRV_INSTANCES)
+					return XST_FAILURE;
+				InstPtr = &XIntcInstances[XIntcInitCount];
+				InstPtr->IsStarted = 0;
+				Status = XIntc_Initialize(InstPtr, InitBaseAddr);
+				if (Status == XST_SUCCESS)
+					XIntcInitRoots[XIntcInitCount++] = InitBaseAddr;
+			} else {
+				Status = XST_SUCCESS;
+			}
+		}
+#else
+		if (XIntcInstances[0].IsReady != XIL_COMPONENT_IS_READY) {
+			XIntc_Config *PrimaryCfg = XIntc_GetPrimaryController();
+			UINTPTR InitBaseAddr;
+
+			if (PrimaryCfg != NULL &&
+			    PrimaryCfg->IntcType != XIN_INTC_NOCASCADE)
+				InitBaseAddr = PrimaryCfg->BaseAddress;
+			else
+				InitBaseAddr = BaseAddr;
+			Status = XIntc_Initialize(&XIntcInstances[0], InitBaseAddr);
 		} else {
 			Status = XST_SUCCESS;
 		}
+#endif
 		return Status;
 #else
 		return XST_FAILURE;
@@ -178,8 +245,24 @@ int XConnectToInterruptCntrl(u32 IntrId, void *IntrHandler, void *CallBackRef, U
 	} else {
 #if defined (XPAR_AXI_INTC)
 		u16 IntrNum = XGet_IntrId(IntrId);
-		Status = XIntc_Connect(&XIntcInstance, IntrNum, \
+#ifdef SDT
+		/* SDT: register into the target controller's HandlerTable by base address */
+		{
+			UINTPTR LeafBase = XGet_BaseAddr(IntcParent);
+
+			if (XIntc_LookupConfig(LeafBase) == NULL)
+				return XST_FAILURE;
+			XIntc_RegisterHandler(LeafBase, IntrNum,
+					      (XInterruptHandler)IntrHandler, CallBackRef);
+			Status = XST_SUCCESS;
+		}
+#else
+		XIntc *IntcInstPtr = XIntcGetInstance(IntcParent);
+		if (IntcInstPtr == NULL)
+			return XST_FAILURE;
+		Status = XIntc_Connect(IntcInstPtr, IntrNum, \
 				       (XInterruptHandler)IntrHandler, CallBackRef);
+#endif
 		return Status;
 #else
 		return Status;
@@ -215,8 +298,33 @@ int XConnectToFastInterruptCntrl(u32 IntrId, void *IntrHandler, UINTPTR IntcPare
 	if (XGet_IntcType(IntcParent) == XINTC_TYPE_IS_INTC) {
 #if defined (XPAR_AXI_INTC)
 		u16 IntrNum = XGet_IntrId(IntrId);
-		Status = XIntc_ConnectFastHandler(&XIntcInstance, IntrNum, \
-						  (XFastInterruptHandler)IntrHandler);
+#ifdef SDT
+		/* SDT: construct temporary leaf instance to target its IVAR directly. */
+		{
+			UINTPTR LeafBase = XGet_BaseAddr(IntcParent);
+			XIntc_Config *LeafCfg;
+			XIntc LeafInst;
+
+			LeafCfg = XIntc_LookupConfig(LeafBase);
+			if (LeafCfg == NULL)
+				return XST_FAILURE;
+			LeafInst.BaseAddress = LeafBase;
+			LeafInst.CfgPtr = LeafCfg;
+			LeafInst.IsReady = XIL_COMPONENT_IS_READY;
+			Status = XIntc_ConnectFastHandler(&LeafInst, IntrNum, \
+							  (XFastInterruptHandler)IntrHandler);
+		}
+#else
+		/* Non-SDT: XIntc_LookupConfig takes DeviceId, not base address. */
+		{
+			XIntc *InstPtr = XIntcGetInstance(IntcParent);
+
+			if (InstPtr == NULL)
+				return XST_FAILURE;
+			Status = XIntc_ConnectFastHandler(InstPtr, IntrNum, \
+							  (XFastInterruptHandler)IntrHandler);
+		}
+#endif
 		return Status;
 #else
 		return XST_FAILURE;
@@ -257,7 +365,19 @@ int XDisconnectInterruptCntrl(u32 IntrId, UINTPTR IntcParent)
 	} else {
 #if defined (XPAR_AXI_INTC)
 		u16 IntrNum = XGet_IntrId(IntrId);
-		XIntc_Disconnect(&XIntcInstance, IntrNum);
+#if defined (SDT)
+		/* SDT: target leaf controller — handlers were registered by leaf base. */
+		UINTPTR LeafBase = XGet_BaseAddr(IntcParent);
+		u32 Ier = XIntc_In32(LeafBase + XIN_IER_OFFSET);
+
+		XIntc_Out32(LeafBase + XIN_IER_OFFSET, Ier & ~(1U << IntrNum));
+		XIntc_RegisterHandler(LeafBase, IntrNum, XNullHandler, NULL);
+#else
+		XIntc *DisInstPtr = XIntcGetInstance(IntcParent);
+		if (DisInstPtr == NULL)
+			return XST_FAILURE;
+		XIntc_Disconnect(DisInstPtr, IntrNum);
+#endif
 #else
 		return XST_FAILURE;
 #endif
@@ -294,11 +414,14 @@ int XStartInterruptCntrl(u32 Mode, UINTPTR IntcParent)
 		return 0;
 	} else  {
 #if defined (XPAR_AXI_INTC)
-		if (XIntcInstance.IsStarted != XIL_COMPONENT_IS_STARTED) {
-			Status = XIntc_Start(&XIntcInstance, Mode);
-		} else {
+		XIntc *InstPtr = XIntcGetInstance(IntcParent);
+
+		if (InstPtr == NULL)
+			return XST_FAILURE;
+		if (InstPtr->IsStarted != XIL_COMPONENT_IS_STARTED)
+			Status = XIntc_Start(InstPtr, Mode);
+		else
 			Status = XST_SUCCESS;
-		}
 		return Status;
 #else
 		return XST_FAILURE;
@@ -338,7 +461,15 @@ void XEnableIntrId( u32 IntrId, UINTPTR IntcParent)
 	} else {
 #if defined (XPAR_AXI_INTC)
 		u16 IntrNum = XGet_IntrId(IntrId);
-		XIntc_Enable(&XIntcInstance, IntrNum);
+#ifdef SDT
+		UINTPTR BaseAddr = XGet_BaseAddr(IntcParent);
+		u32 Ier = XIntc_In32(BaseAddr + XIN_IER_OFFSET);
+		XIntc_Out32(BaseAddr + XIN_IER_OFFSET, Ier | (1U << IntrNum));
+#else
+		XIntc *InstPtr = XIntcGetInstance(IntcParent);
+		if (InstPtr != NULL)
+			XIntc_Enable(InstPtr, IntrNum);
+#endif
 #endif
 	}
 
@@ -374,7 +505,15 @@ void XDisableIntrId( u32 IntrId, UINTPTR IntcParent)
 	} else {
 #if defined (XPAR_AXI_INTC)
 		u16 IntrNum = XGet_IntrId(IntrId);
-		XIntc_Disable(&XIntcInstance, IntrNum);
+#ifdef SDT
+		UINTPTR BaseAddr = XGet_BaseAddr(IntcParent);
+		u32 Ier = XIntc_In32(BaseAddr + XIN_IER_OFFSET);
+		XIntc_Out32(BaseAddr + XIN_IER_OFFSET, Ier & ~(1U << IntrNum));
+#else
+		XIntc *InstPtr = XIntcGetInstance(IntcParent);
+		if (InstPtr != NULL)
+			XIntc_Disable(InstPtr, IntrNum);
+#endif
 #endif
 	}
 }
@@ -459,7 +598,9 @@ void XStopInterruptCntrl( UINTPTR IntcParent)
 #endif
 	} else {
 #if defined (XPAR_AXI_INTC)
-		XIntc_Stop(&XIntcInstance);
+		XIntc *StopInstPtr = XIntcGetInstance(IntcParent);
+		if (StopInstPtr != NULL)
+			XIntc_Stop(StopInstPtr);
 #endif
 	}
 
@@ -498,19 +639,18 @@ void XRegisterInterruptHandler(void *IntrHandler,  UINTPTR IntcParent)
 #endif
 	} else {
 #if defined (XPAR_AXI_INTC)
-		/*
-		 * For cascade mode, the exception handler must always be registered with
-		 * the PRIMARY controller (connected to CPU), not secondary controllers.
-		 * Use XIntcInstance which is initialized with the PRIMARY controller.
-		 */
+		/* Register the correct chain root's instance as the exception handler. */
+		XIntc *RegInstPtr = XIntcGetInstance(IntcParent);
+		if (RegInstPtr == NULL)
+			return;
 		if (IntrHandler == NULL) {
 			Xil_ExceptionRegisterHandler(XIL_EXCEPTION_ID_INT, \
 						     (Xil_ExceptionHandler) XIntc_InterruptHandler,
-						     &XIntcInstance);
+						     RegInstPtr);
 		} else {
 			Xil_ExceptionRegisterHandler(XIL_EXCEPTION_ID_INT, \
 						     (Xil_ExceptionHandler) IntrHandler,
-						     &XIntcInstance);
+						     RegInstPtr);
 		}
 #endif
 	}
@@ -562,26 +702,36 @@ int XSetupInterruptSystem(void *DriverInstance, void *IntrHandler, u32 IntrId,  
 	Xil_ExceptionInit();
 
 #if defined (XPAR_AXI_INTC) && defined (XPAR_SCUGIC) && defined (SDT)
-	{
-		static int GicIntcSetup = 0;
-		XIntc_Config *PrimaryCfg = XIntc_GetPrimaryController();
+	/* Bridge INTC->GIC only for INTC-type IntcParent; skip for direct GIC interrupts. */
+	if (XGet_IntcType(IntcParent) == XINTC_TYPE_IS_INTC) {
+		u16 GicIntrNum;
+		u8 cpu_mask;
+		u32 j, gicConnected = 0;
+		XIntc *InstPtr = XIntcGetInstance(IntcParent);
 
-		if (!GicIntcSetup && PrimaryCfg != NULL &&
-		    (PrimaryCfg->IntrParent != XINTC_NO_PARENT) &&
-		    XGet_IntcType(PrimaryCfg->IntrParent) == XINTC_TYPE_IS_SCUGIC) {
-			u16 GicIntrNum;
+		if (InstPtr == NULL)
+			return XST_FAILURE;
 
-			/* Initialize GIC if needed for INTC->GIC connection */
+		GicIntrNum = XGet_IntrId(InstPtr->CfgPtr->IntrId) +
+			     XGet_IntrOffset(InstPtr->CfgPtr->IntrId);
+
+		/* Connect each root's GIC SPI once; track via array (NULL check unreliable). */
+		for (j = 0; j < XIntcGicConnectedCount; j++) {
+			if (XIntcGicConnectedRoots[j] == InstPtr->BaseAddress) {
+				gicConnected = 1;
+				break;
+			}
+		}
+
+		if (!gicConnected) {
 			if (!ScuGicInitialized) {
-				Status = XConfigInterruptCntrl(PrimaryCfg->IntrParent);
-				if (Status != XST_SUCCESS) {
+				Status = XConfigInterruptCntrl(InstPtr->CfgPtr->IntrParent);
+				if (Status != XST_SUCCESS)
 					return XST_FAILURE;
-				}
 				ScuGicInitialized = TRUE;
 			}
 
-			GicIntrNum = XGet_IntrId(PrimaryCfg->IntrId) +
-				     XGet_IntrOffset(PrimaryCfg->IntrId);
+			cpu_mask = (u8)XScuGic_GetCpuID();
 
 			XScuGic_SetPriorityTriggerType(&XScuGicInstance,
 						       GicIntrNum,
@@ -590,25 +740,24 @@ int XSetupInterruptSystem(void *DriverInstance, void *IntrHandler, u32 IntrId,  
 
 			Status = XScuGic_Connect(&XScuGicInstance, GicIntrNum,
 						 (Xil_ExceptionHandler)XIntc_InterruptHandler,
-						 &XIntcInstance);
-			if (Status != XST_SUCCESS) {
+						 (void *)InstPtr);
+			if (Status != XST_SUCCESS)
 				return XST_FAILURE;
-			}
 
+			XScuGic_InterruptMaptoCpu(&XScuGicInstance, cpu_mask, GicIntrNum);
 			XScuGic_Enable(&XScuGicInstance, GicIntrNum);
 
-			/*
-			 * In INTC->GIC mode, register GIC as the CPU exception
-			 * handler since it is the top-level controller.
-			 */
+			if (XIntcGicConnectedCount < XPAR_INTC_NUM_DRV_INSTANCES)
+				XIntcGicConnectedRoots[XIntcGicConnectedCount++] = InstPtr->BaseAddress;
+			else
+				return XST_FAILURE;
+
 			Xil_ExceptionRegisterHandler(XIL_EXCEPTION_ID_INT,
 						     (Xil_ExceptionHandler)XScuGic_InterruptHandler,
 						     &XScuGicInstance);
-
-			GicIntcSetup = 1;
-		} else {
-			XRegisterInterruptHandler(NULL, IntcParent);
 		}
+	} else {
+		XRegisterInterruptHandler(NULL, IntcParent);
 	}
 #else
 	XRegisterInterruptHandler(NULL, IntcParent);
@@ -713,7 +862,25 @@ s32 XTriggerSoftwareIntr(u32 IntrId, UINTPTR IntcParent, u32 Cpu_Id)
 	} else {
 #if defined (XPAR_AXI_INTC)
 		(void) Cpu_Id;
-		Status = XIntc_TriggerSwIntr(&XIntcInstance, IntrNum);
+#ifdef SDT
+		/* SDT: IntcParent encodes the target controller; write directly to its ISR */
+		UINTPTR TgtBase = XGet_BaseAddr(IntcParent);
+		XIntc_Config *TgtCfg;
+		XIntc TempSwInst;
+
+		TgtCfg = XIntc_LookupConfig(TgtBase);
+		if (TgtCfg == NULL)
+			return XST_FAILURE;
+		TempSwInst.BaseAddress = TgtBase;
+		TempSwInst.CfgPtr = TgtCfg;
+		TempSwInst.IsReady = XIL_COMPONENT_IS_READY;
+		Status = XIntc_TriggerSwIntr(&TempSwInst, IntrNum);
+#else
+		XIntc *SwInstPtr = XIntcGetInstance(IntcParent);
+		if (SwInstPtr == NULL)
+			return XST_FAILURE;
+		Status = XIntc_TriggerSwIntr(SwInstPtr, IntrNum);
+#endif
 #endif
 	}
 

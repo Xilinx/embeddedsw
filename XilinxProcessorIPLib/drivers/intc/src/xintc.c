@@ -69,6 +69,13 @@
 *                    Disable, Acknowledge, ConnectFastHandler,
 *                    SetNormalIntrMode, and TriggerSwIntr. Fixed
 *                    SetNormalIntrMode bug where Id was reused as loop counter.
+* 3.22 ml   20/08/26 Add XIntc_GetChainRoot() to walk IntrParent links and
+*                    find the root of any cascade chain in SDT flow.
+*                    XIntc_InitializeSlaves: two-pass chain-scoped init —
+*                    pass 1 resets in-chain slave HW, pass 2 arms each
+*                    cascade pin using IntrId[4:0]. XIntc_Enable: replace
+*                    hardcoded bit-31 cascade mask with IntrId[4:0]-derived
+*                    pin for SDT multi-root topologies.
 * </pre>
 *
 ******************************************************************************/
@@ -107,6 +114,7 @@ static void XIntc_InitializeSlaves(XIntc *InstancePtr);
 
 #ifdef SDT
 static XIntc_Config* XIntc_FindControllerByAddr(UINTPTR BaseAddr);
+XIntc_Config *XIntc_GetChainRoot(UINTPTR IntcParent);
 #endif
 static XIntc_Config* XIntc_FindControllerForId(u8 Id, u8 *LocalId);
 
@@ -161,6 +169,46 @@ static XIntc_Config* XIntc_FindControllerByAddr(UINTPTR BaseAddr)
 	}
 	return NULL;
 }
+
+/*****************************************************************************/
+/**
+* Walks the IntrParent chain upward to find the root INTC controller for
+* the given cascade chain. Stops when the parent is the CPU
+* (IntrParent == XINTC_NO_PARENT) or a GIC SPI (IntrParent LSB == 0).
+*
+* @param	IntcParent  Encoded interrupt-parent of any node in the chain.
+*                           Bit[0]: 1 = INTC parent, 0 = GIC parent.
+*                           Bits[63:1]: parent base address.
+*
+* @return	XIntc_Config pointer of the chain root, or NULL if lookup fails.
+*
+******************************************************************************/
+XIntc_Config *XIntc_GetChainRoot(UINTPTR IntcParent)
+{
+	XIntc_Config *CfgPtr;
+	UINTPTR CurBase;
+	u32 Depth = 0;
+
+	/* XINTC_NO_PARENT (0xFFFF) or a GIC parent (LSB==0) — no INTC chain */
+	if (IntcParent == XINTC_NO_PARENT || !(IntcParent & 1U))
+		return NULL;
+
+	CurBase = IntcParent & XINTC_INTR_PARENT_MASK;
+
+	while (Depth++ < XPAR_INTC_NUM_DRV_INSTANCES) {
+		CfgPtr = XIntc_LookupConfig(CurBase);
+		if (CfgPtr == NULL)
+			return NULL;
+
+		/* Root: parent is CPU (MicroBlaze) or GIC (LSB == 0) */
+		if (CfgPtr->IntrParent == XINTC_NO_PARENT ||
+		    !(CfgPtr->IntrParent & 1U))
+			return CfgPtr;
+
+		CurBase = CfgPtr->IntrParent & XINTC_INTR_PARENT_MASK;
+	}
+	return NULL; /* Cycle or depth exceeded */
+}
 #endif
 
 /*****************************************************************************/
@@ -181,7 +229,7 @@ static XIntc_Config* XIntc_FindControllerForId(u8 Id, u8 *LocalId)
 	u32 Count;
 	u32 RemainingId = Id;
 #ifdef SDT
-	XIntc_Config *CascadeChain[XINTC_MAX_CASCADE_CONTROLLERS];
+	XIntc_Config *CascadeChain[XPAR_INTC_NUM_DRV_INSTANCES];
 	u32 ChainLength = 0;
 	u32 Head;
 	u32 j;
@@ -221,7 +269,7 @@ static XIntc_Config* XIntc_FindControllerForId(u8 Id, u8 *LocalId)
 
 	Head = 0;
 	while (Head < ChainLength &&
-	       ChainLength < XINTC_MAX_CASCADE_CONTROLLERS) {
+	       ChainLength < XPAR_INTC_NUM_DRV_INSTANCES) {
 		for (i = 0; i < Count; i++) {
 			ParentAddr = XIntc_ConfigTable[i].IntrParent &
 				     XINTC_INTR_PARENT_MASK;
@@ -236,7 +284,7 @@ static XIntc_Config* XIntc_FindControllerForId(u8 Id, u8 *LocalId)
 				}
 			}
 			if (!AlreadyInChain &&
-			    ChainLength < XINTC_MAX_CASCADE_CONTROLLERS) {
+			    ChainLength < XPAR_INTC_NUM_DRV_INSTANCES) {
 				CascadeChain[ChainLength++] =
 					&XIntc_ConfigTable[i];
 			}
@@ -498,19 +546,29 @@ int XIntc_Start(XIntc *InstancePtr, u8 Mode)
 	 */
 	InstancePtr->IsStarted = XIL_COMPONENT_IS_STARTED;
 
-	/* Start the Slaves for Cascade Mode */
+	/* Start the Slaves for Cascade Mode — only slaves in this chain */
 	if (InstancePtr->CfgPtr->IntcType != XIN_INTC_NOCASCADE) {
 #ifndef SDT
 		Count = XPAR_XINTC_NUM_INSTANCES;
-#else
-		Count = XPAR_INTC_NUM_DRV_INSTANCES;
-#endif
 		for (Index = 0; Index < Count; Index++) {
 			if (XIntc_ConfigTable[Index].IntcType != XIN_INTC_PRIMARY) {
 				XIntc_Out32(XIntc_ConfigTable[Index].BaseAddress +
 					    XIN_MER_OFFSET, MasterEnable);
 			}
 		}
+#else
+		Count = XPAR_INTC_NUM_DRV_INSTANCES;
+		for (Index = 0; Index < Count; Index++) {
+			XIntc_Config *CfgPtr = &XIntc_ConfigTable[Index];
+
+			if (CfgPtr->IntrParent == XINTC_NO_PARENT ||
+			    !(CfgPtr->IntrParent & 1U))
+				continue;
+			if (XIntc_GetChainRoot(CfgPtr->IntrParent) != InstancePtr->CfgPtr)
+				continue;
+			XIntc_Out32(CfgPtr->BaseAddress + XIN_MER_OFFSET, MasterEnable);
+		}
+#endif
 	}
 
 	/* Start the master/primary controller */
@@ -742,13 +800,17 @@ void XIntc_Enable(XIntc *InstancePtr, u8 Id)
 			    (CurrentIER | Mask));
 
 #ifdef SDT
-		/* Walk up cascade chain enabling IRQ 31 on each parent */
+		/* Walk up cascade chain enabling the cascade pin on each parent */
 		if (InstancePtr->CfgPtr->IntcType != XIN_INTC_NOCASCADE) {
 			CascadeDepth = 0;
 			while (CfgPtr->IntcType != XIN_INTC_PRIMARY &&
-			       CascadeDepth < XINTC_MAX_CASCADE_CONTROLLERS) {
+			       CascadeDepth < XPAR_INTC_NUM_DRV_INSTANCES) {
+				u32 CascadePin = CfgPtr->IntrId &
+						 (XIN_CONTROLLER_MAX_INTRS - 1U);
+
 				ParentCfg = XIntc_FindControllerByAddr(
-						CfgPtr->IntrParent);
+						CfgPtr->IntrParent &
+						XINTC_INTR_PARENT_MASK);
 				if (ParentCfg == NULL) {
 					break;
 				}
@@ -756,7 +818,7 @@ void XIntc_Enable(XIntc *InstancePtr, u8 Id)
 							XIN_IER_OFFSET);
 				XIntc_Out32(ParentCfg->BaseAddress +
 					    XIN_IER_OFFSET,
-					    (CurrentIER | XIN_CASCADE_IRQ_MASK));
+					    (CurrentIER | (1U << CascadePin)));
 				CfgPtr = ParentCfg;
 				CascadeDepth++;
 			}
@@ -1300,24 +1362,93 @@ void XIntc_SetNormalIntrMode(XIntc *InstancePtr, u8 Id)
 static void XIntc_InitializeSlaves(XIntc *InstancePtr)
 {
 	int Index;
-	u32 Mask;
 	XIntc_Config *CfgPtr;
 	int Id;
 
+#ifdef SDT
+	/*
+	 * Two-pass init for slaves in this chain root only.
+	 * Pass 1: reset slave HW state and init HandlerTable.
+	 * Pass 2: arm cascade pin in parent IER using IntrId[4:0].
+	 */
+
+	/* Pass 1 */
+	for (Index = 0; Index < XPAR_INTC_NUM_DRV_INSTANCES; Index++) {
+		CfgPtr = &XIntc_ConfigTable[Index];
+
+		if (CfgPtr->IntrParent == XINTC_NO_PARENT || !(CfgPtr->IntrParent & 1U))
+			continue;
+		if (XIntc_GetChainRoot(CfgPtr->IntrParent) != InstancePtr->CfgPtr)
+			continue;
+
+		XIntc_Out32(CfgPtr->BaseAddress + XIN_IAR_OFFSET, 0xFFFFFFFF);
+		XIntc_Out32(CfgPtr->BaseAddress + XIN_IER_OFFSET, 0x0);
+		XIntc_Out32(CfgPtr->BaseAddress + XIN_MER_OFFSET, 0);
+
+		if (CfgPtr->FastIntr == TRUE) {
+			XIntc_Out32(CfgPtr->BaseAddress + XIN_IMR_OFFSET, 0);
+#ifdef XPAR_MICROBLAZE_BASE_VECTORS
+			if (CfgPtr->VectorAddrWidth >
+			    XINTC_STANDARD_VECTOR_ADDRESS_WIDTH) {
+				for (Id = 0; Id < 32; Id++)
+					XIntc_Out64(CfgPtr->BaseAddress +
+						    XIN_IVEAR_OFFSET + (Id * 8),
+						    XPAR_MICROBLAZE_BASE_VECTORS + 0x10);
+			} else {
+				for (Id = 0; Id < 32; Id++)
+					XIntc_Out32(CfgPtr->BaseAddress +
+						    XIN_IVAR_OFFSET + (Id * 4),
+						    XPAR_MICROBLAZE_BASE_VECTORS + 0x10);
+			}
+#else
+			if (CfgPtr->VectorAddrWidth >
+			    XINTC_STANDARD_VECTOR_ADDRESS_WIDTH) {
+				for (Id = 0; Id < 32; Id++)
+					XIntc_Out64(CfgPtr->BaseAddress +
+						    XIN_IVEAR_OFFSET + (Id * 8), 0x10);
+			} else {
+				for (Id = 0; Id < 32; Id++)
+					XIntc_Out32(CfgPtr->BaseAddress +
+						    XIN_IVAR_OFFSET + (Id * 4), 0x10);
+			}
+#endif
+		}
+
+		for (Id = 0; Id < (CfgPtr->NumberofIntrs + CfgPtr->NumberofSwIntrs); Id++) {
+			if ((CfgPtr->HandlerTable[Id].Handler == 0) ||
+			    (CfgPtr->HandlerTable[Id].Handler == XNullHandler))
+				CfgPtr->HandlerTable[Id].Handler = StubHandler;
+			CfgPtr->HandlerTable[Id].CallBackRef = InstancePtr;
+		}
+	}
+
+	/* Pass 2 */
+	for (Index = 0; Index < XPAR_INTC_NUM_DRV_INSTANCES; Index++) {
+		u32 PinNum;
+		UINTPTR ParentBase;
+
+		CfgPtr = &XIntc_ConfigTable[Index];
+
+		if (CfgPtr->IntrParent == XINTC_NO_PARENT || !(CfgPtr->IntrParent & 1U))
+			continue;
+		if (XIntc_GetChainRoot(CfgPtr->IntrParent) != InstancePtr->CfgPtr)
+			continue;
+
+		PinNum     = CfgPtr->IntrId & (XIN_CONTROLLER_MAX_INTRS - 1U);
+		ParentBase = CfgPtr->IntrParent & XINTC_INTR_PARENT_MASK;
+		XIntc_Out32(ParentBase + XIN_IER_OFFSET,
+			    XIntc_In32(ParentBase + XIN_IER_OFFSET) | (1U << PinNum));
+	}
+#else
+	u32 Mask;
+
 	Mask = XIntc_BitPosMask[31]; /* Convert from integer id to bit mask */
 
-	/* Enable interrupt id with 31 for Master
-	 * interrupt controller
-	 */
+	/* Enable interrupt id with 31 for Master interrupt controller */
 	XIntc_Out32(InstancePtr->CfgPtr->BaseAddress + XIN_IER_OFFSET, Mask);
 
-#ifndef SDT
 	for (Index = 1; Index <= XPAR_XINTC_NUM_INSTANCES - 1; Index++) {
 		CfgPtr = XIntc_LookupConfig(Index);
-#else
-	for (Index = 1; Index <=XPAR_INTC_NUM_DRV_INSTANCES  - 1; Index++) {
-		CfgPtr = XIntc_LookupConfig(XIntc_ConfigTable[Index].BaseAddress);
-#endif
 		if (CfgPtr == NULL) {
 			return;
 		}
@@ -1398,6 +1529,7 @@ static void XIntc_InitializeSlaves(XIntc *InstancePtr)
 			CfgPtr->HandlerTable[Id].CallBackRef = InstancePtr;
 		}
 	}
+#endif
 }
 
 /*****************************************************************************/

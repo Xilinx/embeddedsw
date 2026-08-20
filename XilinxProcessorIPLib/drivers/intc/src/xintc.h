@@ -209,6 +209,9 @@
 *                      routing through the GIC from the INTC.
 * 3.22   ml   26/02/26 Added cascade helper macros and XIntc_GetPrimaryController()
 *                      API to support topology-aware cascade in SDT flow.
+* 3.22   ml   20/08/26 Add XIntc_GetChainRoot() declaration for SDT multi-root
+*                      cascade support. Remove XINTC_MAX_CASCADE_CONTROLLERS;
+*                      replaced by XPAR_INTC_NUM_DRV_INSTANCES throughout.
 * </pre>
 *
 ******************************************************************************/
@@ -288,14 +291,6 @@ extern "C" {
  * SECONDARY controllers to chain to the next controller in cascade mode.
  */
 #define XIN_CASCADE_IRQ_MASK		0x80000000U
-
-/**
- * Maximum number of interrupt controllers that can be daisy-chained
- * together in cascade mode. Limited to 8 because the driver API uses
- * u8 for global interrupt IDs (max 255), and each controller owns 32
- * interrupt positions (8 * 32 = 256).
- */
-#define XINTC_MAX_CASCADE_CONTROLLERS	8U
 
 /**
  * Mask used to extract the parent controller base address from IntrParent
@@ -394,6 +389,9 @@ XIntc_Config *XIntc_LookupConfig(UINTPTR BaseAddr);
 #endif
 XIntc_Config *LookupConfigByBaseAddress(UINTPTR BaseAddress);
 XIntc_Config *XIntc_GetPrimaryController(void);
+#ifdef SDT
+XIntc_Config *XIntc_GetChainRoot(UINTPTR IntcParent);
+#endif
 
 extern XIntc_Config XIntc_ConfigTable[];
 

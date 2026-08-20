@@ -70,6 +70,10 @@
 *                     config table lookup in SDT flow. Extended interrupt
 *                     service loop to cover cascade bit 31. Fixed preprocessor
 *                     guards to enable cascade support in SDT builds.
+* 3.22  ml   20/08/26 Add XIntc_GetChildForPin() to match a slave controller
+*                     by parent base address and cascade pin number. Update
+*                     XIntc_CascadeHandler to scan all 32 bits in SDT mode
+*                     and dispatch cascade interrupts via pin-number matching.
 * </pre>
 *
 ******************************************************************************/
@@ -602,6 +606,45 @@ void XIntc_RegisterFastHandler(UINTPTR BaseAddress, u8 Id,
 /*****************************************************************************/
 /**
 *
+* Returns the base address of the child INTC controller wired to a specific
+* pin on the given parent. Unlike XIntc_GetChildBaseAddress which matched
+* only on parent address, this also checks the pin number so that multi-child
+* topologies (e.g. two independent cascade chains) dispatch to the correct
+* child controller.
+*
+* @param	ParentBaseAddr is the base address of the parent INTC controller.
+* @param	Pin is the cascade pin number (IntrId[4:0]) to match.
+*
+* @return	Base address of the matching child controller, or 0 if not found.
+*
+* @note		None.
+*
+******************************************************************************/
+#ifdef SDT
+static UINTPTR XIntc_GetChildForPin(UINTPTR ParentBaseAddr, u32 Pin)
+{
+	u32 i;
+	UINTPTR ParentAddr;
+
+	for (i = 0; i < XPAR_INTC_NUM_DRV_INSTANCES; i++) {
+		/* Skip non-INTC parents (LSB must be 1) */
+		if (!(XIntc_ConfigTable[i].IntrParent & 1U) ||
+		    XIntc_ConfigTable[i].IntrParent == XINTC_NO_PARENT)
+			continue;
+		ParentAddr = XIntc_ConfigTable[i].IntrParent &
+			XINTC_INTR_PARENT_MASK;
+		if (ParentAddr == ParentBaseAddr &&
+				(XIntc_ConfigTable[i].IntrId & (XIN_CONTROLLER_MAX_INTRS - 1U)) == Pin) {
+			return XIntc_ConfigTable[i].BaseAddress;
+		}
+	}
+	return 0;
+}
+#endif
+
+/*****************************************************************************/
+/**
+*
 * This function is called by primary interrupt handler for the driver to handle
 * all Controllers in Cascade mode.It will resolve which interrupts are active
 * and enabled and call the appropriate interrupt handler. It uses the
@@ -619,33 +662,9 @@ void XIntc_RegisterFastHandler(UINTPTR BaseAddress, u8 Id,
 *
 * @return	None.
 *
-* @note
+* @note		None.
 *
 ******************************************************************************/
-
-#ifdef SDT
-/*
- * Returns the base address of the first child controller whose
- * interrupt-parent points to ParentBaseAddr. In cascade mode each
- * controller uses IRQ 31 as its single cascade output, so there is
- * at most one child per parent.
- */
-static UINTPTR XIntc_GetChildBaseAddress(UINTPTR ParentBaseAddr)
-{
-	u32 i;
-	UINTPTR ParentAddr;
-
-	for (i = 0; i < XPAR_INTC_NUM_DRV_INSTANCES; i++) {
-		ParentAddr = XIntc_ConfigTable[i].IntrParent &
-			     XINTC_INTR_PARENT_MASK;
-		if (ParentAddr == ParentBaseAddr) {
-			return XIntc_ConfigTable[i].BaseAddress;
-		}
-	}
-	return 0;
-}
-#endif
-
 static void XIntc_CascadeHandler(void *DeviceId)
 {
 	u32 IntrStatus;
@@ -682,13 +701,19 @@ static void XIntc_CascadeHandler(void *DeviceId)
 	 * In cascade mode, PRIMARY and SECONDARY controllers use bit 31 for
 	 * cascading to child controllers. NumberofIntrs may not include this
 	 * cascade bit, so extend the loop to cover all 32 positions.
+	 * In SDT, the cascade pin can be at any position (not just 31), so
+	 * always scan all 32 bits to detect any cascade pin that fires.
 	 */
 	LoopBound = CfgPtr->NumberofIntrs + CfgPtr->NumberofSwIntrs;
+#ifdef SDT
+	LoopBound = XIN_CONTROLLER_MAX_INTRS;
+#else
 	if (CfgPtr->IntcType != XIN_INTC_NOCASCADE &&
 	    CfgPtr->IntcType != XIN_INTC_LAST &&
 	    LoopBound < XIN_CONTROLLER_MAX_INTRS) {
 		LoopBound = XIN_CONTROLLER_MAX_INTRS;
 	}
+#endif
 
 	/* Service each interrupt that is active and enabled by
 	 * checking each bit in the register from LSB to MSB which
@@ -702,20 +727,44 @@ static void XIntc_CascadeHandler(void *DeviceId)
 			 * for interrupt id 31 and until interrupts of last
 			 * instance/controller are handled
 			 */
-			if ((IntrNumber == 31) &&
-			    (CfgPtr->IntcType != XIN_INTC_LAST) &&
-			    (CfgPtr->IntcType != XIN_INTC_NOCASCADE)) {
 #ifdef SDT
-				/* In SDT flow, find child controller by searching config table */
-				UINTPTR ChildBaseAddr = XIntc_GetChildBaseAddress(CfgPtr->BaseAddress);
+			{
+				/* SDT: any pin can cascade; cache result for handler guard. */
+				UINTPTR ChildBaseAddr = XIntc_GetChildForPin(
+						CfgPtr->BaseAddress, IntrNumber);
 				if (ChildBaseAddr != 0) {
 					XIntc_CascadeHandler((void *)ChildBaseAddr);
 				}
+
+				/* If the interrupt has been setup to
+				 * acknowledge it before servicing the
+				 * interrupt, then ack it */
+				if (CfgPtr->AckBeforeService & IntrMask) {
+					XIntc_AckIntr(CfgPtr->BaseAddress, IntrMask);
+				}
+
+				/* Handler of cascade pin has to be called only
+				 * for Last controller in cascade Mode. Reuse the
+				 * cached ChildBaseAddr — no second lookup needed.
+				 */
+				if (ChildBaseAddr == 0 &&
+					    IntrNumber < (u32)(CfgPtr->NumberofIntrs +
+							       CfgPtr->NumberofSwIntrs)) {
+					/* The interrupt is active and enabled, call
+					 * the interrupt handler that was setup with
+					 * the specified parameter
+					 */
+					TablePtr = &(CfgPtr->HandlerTable[IntrNumber]);
+					TablePtr->Handler(TablePtr->CallBackRef);
+				}
+			}
 #else
+			if ((IntrNumber == 31) &&
+			    (CfgPtr->IntcType != XIN_INTC_LAST) &&
+			    (CfgPtr->IntcType != XIN_INTC_NOCASCADE)) {
 				/* In non-SDT flow, use device ID incremented by 1 */
 				XIntc_CascadeHandler((void *)++Id);
 				Id--;
-#endif
 			}
 
 			/* If the interrupt has been setup to
@@ -725,12 +774,13 @@ static void XIntc_CascadeHandler(void *DeviceId)
 				XIntc_AckIntr(CfgPtr->BaseAddress, IntrMask);
 			}
 
-			/* Handler of 31 interrupt Id has to be called only
+			/* Handler of cascade pin has to be called only
 			 * for Last controller in cascade Mode
 			 */
 			if (!((IntrNumber == 31) &&
 			      (CfgPtr->IntcType != XIN_INTC_LAST) &&
-			      (CfgPtr->IntcType != XIN_INTC_NOCASCADE))) {
+			      (CfgPtr->IntcType != XIN_INTC_NOCASCADE)))
+			{
 
 				/* The interrupt is active and enabled, call
 				 * the interrupt handler that was setup with
@@ -739,6 +789,7 @@ static void XIntc_CascadeHandler(void *DeviceId)
 				TablePtr = &(CfgPtr->HandlerTable[IntrNumber]);
 				TablePtr->Handler(TablePtr->CallBackRef);
 			}
+#endif
 			/* If the interrupt has been setup to acknowledge it
 			 * after it has been serviced then ack it
 			 */

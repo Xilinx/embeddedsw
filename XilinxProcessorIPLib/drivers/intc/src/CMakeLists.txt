@@ -29,13 +29,6 @@ if ((EXISTS "${INTC_DIR}/INTCConfig.cmake") AND
 	list(LENGTH DRIVER_INSTANCES drv_instances)
 	list(APPEND defs "#define XPAR_INTC_NUM_DRV_INSTANCES ${drv_instances}\n")
 	if(is_cascade)
-		# Must match XINTC_MAX_CASCADE_CONTROLLERS in xintc.h (u8 global IDs, 8 * 32 = 256).
-		set(max_cascade_controllers 8)
-		if(drv_instances GREATER max_cascade_controllers)
-			message(FATAL_ERROR
-				"INTC cascade mode supports at most ${max_cascade_controllers} driver instances "
-				"(XINTC_MAX_CASCADE_CONTROLLERS); found ${drv_instances}.")
-		endif()
 		math(EXPR max_intr_cascade "${drv_instances} * 32")
 		list(APPEND defs "#define XPAR_INTC_MAX_NUM_INTR_INPUTS ${max_intr_cascade}\n")
 	else()
