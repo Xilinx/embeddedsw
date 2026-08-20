@@ -33,6 +33,8 @@
 /* Shared audio channel limits used by dcsub driver and examples */
 #define XDCSUB_AUDIO_CHANNELS_MIN	1U
 #define XDCSUB_AUDIO_CHANNELS_MAX	8U
+/** Highest audio sample frequency selector supported by the DC */
+#define XDCSUB_AUDIO_FREQ_MAX		XDC_AUD_FREQ_192K
 
 /****************************** Type Definitions ******************************/
 typedef struct {
@@ -226,6 +228,9 @@ u32 XDcSub_SetInputAudioSelect(XDcSub *InstancePtr, XDc_AudioStream AudStream);
 u32 XDcSub_ConfigureDcVideo(XDc *InstancePtr);
 u32 XDcSub_SetAudioChCtrl(XDcSub *InstancePtr, u8 AudioChannels);
 u32 XDcSub_SetAudioSegmentedMode(XDcSub *InstancePtr, u8 AudSegmentedMode);
+u32 XDcSub_SetAudioSampleFrequency(XDcSub *InstancePtr,
+				   XDc_AudSampleFreq Freq,
+				   XDc_AudChannels ActiveChannels);
 void XDcSub_EnableSdp(XDcSub *InstancePtr);
 void XDcSub_SetSdpAckSel(XDcSub *InstancePtr, u8 AckSel);
 u32 XDcSub_SetCursorSdpRdyInterval(XDcSub *InstancePtr, u16 RdyInterval);

@@ -1348,6 +1348,48 @@ u32 XDcSub_SetAudioSegmentedMode(XDcSub *InstancePtr, u8 AudSegmentedMode)
 }
 
 /******************************************************************************/
+/**
+ * This function sets the audio channel status sample frequency and the active
+ * channel count so the audio sink decodes the sample rate selected by the
+ * application.
+ *
+ * @param       InstancePtr is a pointer to the XDcSub instance.
+ * @param       Freq selects the sampling frequency.
+ * @param       ActiveChannels is the active audio channel count.
+ *
+ * @return      XST_SUCCESS or XST_INVALID_PARAM.
+ *
+ *
+*******************************************************************************/
+u32 XDcSub_SetAudioSampleFrequency(XDcSub *InstancePtr,
+				   XDc_AudSampleFreq Freq,
+				   XDc_AudChannels ActiveChannels)
+{
+	XDc *DcConfigPtr;
+
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(InstancePtr->DcPtr != NULL);
+	Xil_AssertNonvoid(Freq <= XDC_AUD_FREQ_192K);
+	Xil_AssertNonvoid((ActiveChannels >= XDC_AUD_CHANNELS_1) &&
+			  (ActiveChannels <= XDC_AUD_CHANNELS_8));
+
+	DcConfigPtr = InstancePtr->DcPtr;
+
+	if (Freq > XDC_AUD_FREQ_192K)
+		return XST_INVALID_PARAM;
+
+	if (ActiveChannels < XDC_AUD_CHANNELS_1 ||
+	    ActiveChannels > XDC_AUD_CHANNELS_8)
+		return XST_INVALID_PARAM;
+
+	DcConfigPtr->AudChStatusFreq = Freq;
+	DcConfigPtr->AudActiveChannels = ActiveChannels;
+	XDc_SetAudioChannelStatus(DcConfigPtr);
+
+	return XST_SUCCESS;
+}
+
+/******************************************************************************/
 /** This function sets Cursor Sdp Ready Interval.
  *
  * @param       InstancePtr is a pointer to the XDc instance.

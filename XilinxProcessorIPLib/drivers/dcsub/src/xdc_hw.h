@@ -1339,6 +1339,55 @@ extern "C" {
 #define XDC_AUD_CH_STATUS67_REG5_STATUS5_WIDTH   32
 #define XDC_AUD_CH_STATUS67_REG5_STATUS5_MASK    0xFFFFFFFF
 
+/*
+ * Audio channel status fields carried in the REG4 and REG5 words of
+ * every XDC_AUD_CH_STATUS<Pair> register group
+ */
+#define XDC_AUD_CH_STATUS_PAIRS         4	/**< Audio channel pairs */
+/** Address step between the register groups of two channel pairs */
+#define XDC_AUD_CH_STATUS_PAIR_OFFSET \
+	(XDC_AUD_CH_STATUS23_REG0 - XDC_AUD_CH_STATUS01_REG0)
+#define XDC_AUD_CH_STATUS_RESET_VAL     0x00000000 /**< Channel status word reset value */
+
+#define XDC_AUD_CH_STATUS_REG4_VALID_SHIFT   0		/**< Validity bit shift */
+#define XDC_AUD_CH_STATUS_REG4_VALID_WIDTH   1		/**< Validity bit width */
+#define XDC_AUD_CH_STATUS_REG4_VALID_MASK    0x00000001	/**< Validity bit mask */
+
+#define XDC_AUD_CH_STATUS_REG4_SAMP_FREQ_SHIFT   3		/**< Sampling frequency LSB nibble shift */
+#define XDC_AUD_CH_STATUS_REG4_SAMP_FREQ_WIDTH   4		/**< Sampling frequency LSB nibble width */
+#define XDC_AUD_CH_STATUS_REG4_SAMP_FREQ_MASK    0x00000078	/**< Sampling frequency LSB nibble mask */
+
+#define XDC_AUD_CH_STATUS_REG5_SAMP_FREQ_SHIFT   23		/**< Sampling frequency MSB nibble shift */
+#define XDC_AUD_CH_STATUS_REG5_SAMP_FREQ_WIDTH   4		/**< Sampling frequency MSB nibble width */
+#define XDC_AUD_CH_STATUS_REG5_SAMP_FREQ_MASK    0x07800000	/**< Sampling frequency MSB nibble mask */
+
+#define XDC_AUD_CH_STATUS_REG5_CH_COUNT0_SHIFT   19		/**< First channel count nibble shift */
+#define XDC_AUD_CH_STATUS_REG5_CH_COUNT0_WIDTH   4		/**< First channel count nibble width */
+#define XDC_AUD_CH_STATUS_REG5_CH_COUNT0_MASK    0x00780000	/**< First channel count nibble mask */
+
+#define XDC_AUD_CH_STATUS_REG5_CH_COUNT1_SHIFT   15		/**< Second channel count nibble shift */
+#define XDC_AUD_CH_STATUS_REG5_CH_COUNT1_WIDTH   4		/**< Second channel count nibble width */
+#define XDC_AUD_CH_STATUS_REG5_CH_COUNT1_MASK    0x00078000	/**< Second channel count nibble mask */
+
+/*
+ * Sampling frequency nibbles of the audio channel status. The LSB
+ * nibble is the bit reversed mirror of the MSB nibble because the channel
+ * status is transmitted LSB first.
+ */
+#define XDC_AUD_CH_STATUS_SAMP_FREQ_MSB_44_1K    0x0	/**< 44.1 kHz MSB nibble */
+#define XDC_AUD_CH_STATUS_SAMP_FREQ_MSB_48K      0x2	/**< 48 kHz MSB nibble */
+#define XDC_AUD_CH_STATUS_SAMP_FREQ_MSB_88_2K    0x8	/**< 88.2 kHz MSB nibble */
+#define XDC_AUD_CH_STATUS_SAMP_FREQ_MSB_96K      0xA	/**< 96 kHz MSB nibble */
+#define XDC_AUD_CH_STATUS_SAMP_FREQ_MSB_176_4K   0xC	/**< 176.4 kHz MSB nibble */
+#define XDC_AUD_CH_STATUS_SAMP_FREQ_MSB_192K     0xE	/**< 192 kHz MSB nibble */
+
+#define XDC_AUD_CH_STATUS_SAMP_FREQ_LSB_44_1K    0xF	/**< 44.1 kHz LSB nibble */
+#define XDC_AUD_CH_STATUS_SAMP_FREQ_LSB_48K      0xD	/**< 48 kHz LSB nibble */
+#define XDC_AUD_CH_STATUS_SAMP_FREQ_LSB_88_2K    0x7	/**< 88.2 kHz LSB nibble */
+#define XDC_AUD_CH_STATUS_SAMP_FREQ_LSB_96K      0x5	/**< 96 kHz LSB nibble */
+#define XDC_AUD_CH_STATUS_SAMP_FREQ_LSB_176_4K   0x3	/**< 176.4 kHz LSB nibble */
+#define XDC_AUD_CH_STATUS_SAMP_FREQ_LSB_192K     0x1	/**< 192 kHz LSB nibble */
+
 /**
  *  * Register: XDC_AUD_CH_0_DATA_REG0
  *   */

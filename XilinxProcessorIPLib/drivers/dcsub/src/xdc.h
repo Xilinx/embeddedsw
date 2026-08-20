@@ -264,6 +264,32 @@ typedef enum {
 	XDC_AUD_ENABLE  = 0x1,
 } XDc_AudEn;
 
+/**
+ *  This typedef describes the supported audio sample frequencies
+ * */
+typedef enum {
+	XDC_AUD_FREQ_44_1K  = 0,
+	XDC_AUD_FREQ_48K    = 1,
+	XDC_AUD_FREQ_88_2K  = 2,
+	XDC_AUD_FREQ_96K    = 3,
+	XDC_AUD_FREQ_176_4K = 4,
+	XDC_AUD_FREQ_192K   = 5,
+} XDc_AudSampleFreq;
+
+/**
+ *  This typedef describes the supported active audio channel counts
+ * */
+typedef enum {
+	XDC_AUD_CHANNELS_1 = 1,
+	XDC_AUD_CHANNELS_2 = 2,
+	XDC_AUD_CHANNELS_3 = 3,
+	XDC_AUD_CHANNELS_4 = 4,
+	XDC_AUD_CHANNELS_5 = 5,
+	XDC_AUD_CHANNELS_6 = 6,
+	XDC_AUD_CHANNELS_7 = 7,
+	XDC_AUD_CHANNELS_8 = 8,
+} XDc_AudChannels;
+
 
 /**
  *  This typedef enables partial blend
@@ -440,6 +466,8 @@ typedef struct {
 	u8 AudBurstLen;
 	u8 AudChannelSel;
 	u16 AudSampleRate;
+	XDc_AudSampleFreq AudChStatusFreq;	/**< Audio channel status frequency selector */
+	XDc_AudChannels AudActiveChannels;	/**< Active audio channel count */
 	XDc_AudEn AudioEnable;
 	u16 AudChCtrl;
 	u8 AudSegmentedMode;
@@ -524,6 +552,7 @@ void XDc_DisableAudio(XDc *InstancePtr);
 void XDc_SetVideoTiming(XDc *InstancePtr);
 void XDc_SetAudioChCtrl(XDc *InstancePtr);
 void XDc_SetAudioSegmentedMode(XDc *InstancePtr);
+void XDc_SetAudioChannelStatus(XDc *InstancePtr);
 void XDc_SetCursorSdpRdyInterval(XDc *InstancePtr);
 void XDc_SetSdpAckSel(XDc *InstancePtr);
 

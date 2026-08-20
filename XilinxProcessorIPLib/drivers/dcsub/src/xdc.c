@@ -1617,6 +1617,75 @@ void XDc_SetAudioSegmentedMode(XDc *InstancePtr)
 }
 
 /******************************************************************************/
+/** This function sets the IEC 60958 audio channel status words of every
+ * channel pair (CH01, CH23, CH45, CH67) from the sample frequency and the
+ * active channel count held in the instance.
+ *
+ * @param       InstancePtr is a pointer to the XDc instance.
+ *
+*******************************************************************************/
+void XDc_SetAudioChannelStatus(XDc *InstancePtr)
+{
+	static const u8 SampFreqMsb[XDC_AUD_FREQ_192K + 1] = {
+		[XDC_AUD_FREQ_44_1K]  = XDC_AUD_CH_STATUS_SAMP_FREQ_MSB_44_1K,
+		[XDC_AUD_FREQ_48K]    = XDC_AUD_CH_STATUS_SAMP_FREQ_MSB_48K,
+		[XDC_AUD_FREQ_88_2K]  = XDC_AUD_CH_STATUS_SAMP_FREQ_MSB_88_2K,
+		[XDC_AUD_FREQ_96K]    = XDC_AUD_CH_STATUS_SAMP_FREQ_MSB_96K,
+		[XDC_AUD_FREQ_176_4K] = XDC_AUD_CH_STATUS_SAMP_FREQ_MSB_176_4K,
+		[XDC_AUD_FREQ_192K]   = XDC_AUD_CH_STATUS_SAMP_FREQ_MSB_192K,
+	};
+	static const u8 SampFreqLsb[XDC_AUD_FREQ_192K + 1] = {
+		[XDC_AUD_FREQ_44_1K]  = XDC_AUD_CH_STATUS_SAMP_FREQ_LSB_44_1K,
+		[XDC_AUD_FREQ_48K]    = XDC_AUD_CH_STATUS_SAMP_FREQ_LSB_48K,
+		[XDC_AUD_FREQ_88_2K]  = XDC_AUD_CH_STATUS_SAMP_FREQ_LSB_88_2K,
+		[XDC_AUD_FREQ_96K]    = XDC_AUD_CH_STATUS_SAMP_FREQ_LSB_96K,
+		[XDC_AUD_FREQ_176_4K] = XDC_AUD_CH_STATUS_SAMP_FREQ_LSB_176_4K,
+		[XDC_AUD_FREQ_192K]   = XDC_AUD_CH_STATUS_SAMP_FREQ_LSB_192K,
+	};
+	u32 BaseAddr;
+	u32 Offset;
+	u32 Reg4;
+	u32 Reg5;
+	u32 Pair;
+
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(InstancePtr->AudChStatusFreq <= XDC_AUD_FREQ_192K);
+	Xil_AssertVoid((InstancePtr->AudActiveChannels >= XDC_AUD_CHANNELS_1) &&
+		       (InstancePtr->AudActiveChannels <= XDC_AUD_CHANNELS_8));
+
+	BaseAddr = InstancePtr->Config.BaseAddr;
+
+	/* Validity bit and sampling frequency LSB nibble. */
+	Reg4 = XDC_AUD_CH_STATUS_REG4_VALID_MASK |
+	       ((u32)SampFreqLsb[InstancePtr->AudChStatusFreq] <<
+		XDC_AUD_CH_STATUS_REG4_SAMP_FREQ_SHIFT);
+
+	/* Sampling frequency MSB nibble and the active channel count, which the
+	 * channel status carries in two nibbles. */
+	Reg5 = ((u32)SampFreqMsb[InstancePtr->AudChStatusFreq] <<
+		XDC_AUD_CH_STATUS_REG5_SAMP_FREQ_SHIFT) |
+	       ((u32)InstancePtr->AudActiveChannels <<
+		XDC_AUD_CH_STATUS_REG5_CH_COUNT0_SHIFT) |
+	       ((u32)InstancePtr->AudActiveChannels <<
+		XDC_AUD_CH_STATUS_REG5_CH_COUNT1_SHIFT);
+
+	for (Pair = 0U; Pair < XDC_AUD_CH_STATUS_PAIRS; Pair++) {
+		Offset = Pair * XDC_AUD_CH_STATUS_PAIR_OFFSET;
+
+		XDc_WriteReg(BaseAddr, XDC_AUD_CH_STATUS01_REG0 + Offset,
+			     XDC_AUD_CH_STATUS_RESET_VAL);
+		XDc_WriteReg(BaseAddr, XDC_AUD_CH_STATUS01_REG1 + Offset,
+			     XDC_AUD_CH_STATUS_RESET_VAL);
+		XDc_WriteReg(BaseAddr, XDC_AUD_CH_STATUS01_REG2 + Offset,
+			     XDC_AUD_CH_STATUS_RESET_VAL);
+		XDc_WriteReg(BaseAddr, XDC_AUD_CH_STATUS01_REG3 + Offset,
+			     XDC_AUD_CH_STATUS_RESET_VAL);
+		XDc_WriteReg(BaseAddr, XDC_AUD_CH_STATUS01_REG4 + Offset, Reg4);
+		XDc_WriteReg(BaseAddr, XDC_AUD_CH_STATUS01_REG5 + Offset, Reg5);
+	}
+}
+
+/******************************************************************************/
 /** This function sets Cursor Sdp Ready Interval.
  *
  * @param       InstancePtr is a pointer to the XDc instance.
