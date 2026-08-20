@@ -82,8 +82,8 @@ static u8 SharedSecret[XASU_ECC_P256_PVT_KEY_SIZE_IN_BYTES]
 static u8 SharedSecret1[XASU_ECC_P256_PVT_KEY_SIZE_IN_BYTES]
         __attribute__ ((section (".data.SharedSecret1")));
 
-volatile u8 Notify = 0; /**< To notify the call back from client library */
-volatile u32 ErrorStatus = XST_FAILURE; /**< Status variable to store the error returned from
+static volatile u8 Notify = 0; /**< To notify the call back from client library */
+static volatile u32 ErrorStatus = XST_FAILURE; /**< Status variable to store the error returned from
 						server. */
 
 /************************************ Function Definitions ***************************************/
@@ -95,7 +95,8 @@ volatile u32 ErrorStatus = XST_FAILURE; /**< Status variable to store the error 
 *
 * @return
 *		- XST_SUCCESS if example runs successfully
-*		- ErrorCode if the example fails.
+*		- Error code from ASUFW application, if the server reports an error.
+*		- XST_FAILURE, in case of failure.
 *
 **************************************************************************************************/
 int main(void)
@@ -217,10 +218,15 @@ int main(void)
 END:
 	if (Status != XST_SUCCESS) {
 		xil_printf("\r\n ECDH client example failed with Status = %08x", Status);
-	} else if ((ErrorStatus != XST_SUCCESS) ||
-		  (ClientParams.AdditionalStatus != XASU_RSA_ECDH_SUCCESS)) {
-		xil_printf("\r\n ECDH client example failed with error from server Status = %08x,"
-			" Additional Status = %08x", ErrorStatus, ClientParams.AdditionalStatus);
+	} else if (ErrorStatus != XST_SUCCESS) {
+		Status = (s32)ErrorStatus;
+		xil_printf("\r\n ECDH client example failed with error from server Status = %08x",
+			ErrorStatus);
+	} else if (ClientParams.AdditionalStatus != XASU_RSA_ECDH_SUCCESS) {
+		/* Operation did not succeed even though the server reported no error. */
+		Status = XST_FAILURE;
+		xil_printf("\r\n ECDH client example failed with Additional Status = %08x",
+			ClientParams.AdditionalStatus);
 	} else {
 		xil_printf("\r\n Successfully ran ECDH client example ");
 	}

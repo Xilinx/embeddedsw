@@ -281,8 +281,8 @@ static const u8 XAsu_LmsSignature[XASU_LMS_TEST_SIG_SIZE] __attribute__ ((
 	0xC4U, 0xDFU, 0x2AU, 0xBEU, 0x20U, 0x1FU, 0xEFU, 0xAAU
 };
 
-static volatile u8 Notify = 0U; /**< To notify the call back from client library */
-volatile u32 ErrorStatus = XST_FAILURE; /**< Status variable to store the error returned from
+static volatile u8 Notify = 0; /**< To notify the call back from client library */
+static volatile u32 ErrorStatus = XST_FAILURE; /**< Status variable to store the error returned from
 						server. */
 
 /************************************ Function Definitions ***************************************/
@@ -293,7 +293,8 @@ volatile u32 ErrorStatus = XST_FAILURE; /**< Status variable to store the error 
  *
  * @return
  *		- XST_SUCCESS if example runs successfully.
- *		- ErrorCode if the example fails.
+ *		- Error code from ASUFW application, if the server reports an error.
+ *		- XST_FAILURE, in case of failure.
  *
  *************************************************************************************************/
 int main(void)
@@ -337,7 +338,8 @@ END:
  *
  * @return
  *		- XST_SUCCESS if LMS signature verification is successful.
- *		- Error code if verification fails.
+ *		- Error code from ASUFW application, if the server reports an error.
+ *		- XST_FAILURE, in case of failure.
  *
  * @note	The signature and public key used here are sample values. For actual verification,
  *		use properly generated LMS keys and signatures.
@@ -385,10 +387,15 @@ static s32 XAsu_LmsSignVerifyExample(void)
 END:
 	if (Status != XST_SUCCESS) {
 		xil_printf("\r\n LMS signature verification failed with Status = %08x", Status);
-	} else if ((ErrorStatus != XST_SUCCESS) ||
-		  (ClientParams.AdditionalStatus != XASU_LMS_SIGNATURE_VERIFIED)) {
+	} else if (ErrorStatus != XST_SUCCESS) {
+		Status = (s32)ErrorStatus;
 		xil_printf("\r\n LMS signature verification failed with error from server = %08x",
 				ErrorStatus);
+	} else if (ClientParams.AdditionalStatus != XASU_LMS_SIGNATURE_VERIFIED) {
+		/* Signature was not verified even though the server reported no error. */
+		Status = XST_FAILURE;
+		xil_printf("\r\n LMS signature verification failed with Additional Status = %08x",
+				ClientParams.AdditionalStatus);
 	} else {
 		xil_printf("\r\n Successfully ran LMS signature verification ");
 	}

@@ -93,9 +93,9 @@ static u32 ActualCertSize __attribute__ ((section (".data.ActualCertSize")));
 /**< ECC signature buffer */
 static u8 Signature[XOCP_ECC_SIGN_TOTAL_LEN] __attribute__ ((section (".data.Signature")));
 
-static u8 Notify = 0;			/**< To notify the call back from client library */
-static u32 ErrorStatus = XST_FAILURE;	/**< Variable holds the status of the OCP operation from
-					client library and gets updated during callback. */
+static volatile u8 Notify = 0;		/**< To notify the call back from client library */
+static volatile u32 ErrorStatus = XST_FAILURE;	/**< Variable holds the status of the OCP operation
+					from client library and gets updated during callback. */
 
 /**< Attestation data */
 static u8 AttestData[XOCP_ATTEST_DATA_SIZE]__attribute__ ((section (".data.AttestData"))) =
@@ -117,6 +117,7 @@ static u8 AttestData[XOCP_ATTEST_DATA_SIZE]__attribute__ ((section (".data.Attes
  *
  * @return
  *	- XST_SUCCESS, if example is run successfully.
+ *	- Error code from ASUFW application, if the server reports an error.
  *	- XST_FAILURE, in case of failure.
  *
  *************************************************************************************************/
@@ -168,7 +169,7 @@ int main(void)
 	Status = XAsu_OcpAttestation();
 
 END:
-	if ((ErrorStatus == XST_SUCCESS) && (Status == XST_SUCCESS)) {
+	if (Status == XST_SUCCESS) {
 		XilAsu_Printf("OCP example ran successfully\n");
 	} else {
 		XilAsu_Printf("OCP example failed\n");
@@ -185,6 +186,7 @@ END:
 *
 * @return
 *	- XST_SUCCESS, if DevIk certificate is retrieved successfully.
+*	- Error code from ASUFW application, if the server reports an error.
 *	- XST_FAILURE, in case of failure.
 *
 **************************************************************************************************/
@@ -229,10 +231,16 @@ static int XOcp_GetX509DevIK(void)
 END:
 	if (Status != XST_SUCCESS) {
 		XilAsu_Printf("DevIk certificate generation failed with Status = %08x\n", Status);
-	} else if ((ErrorStatus != XST_SUCCESS) ||
-		   (ClientParam.AdditionalStatus != XASU_OCP_CERT_GENERATION_SUCCESS)) {
-		XilAsu_Printf("DevIk certificate generation failed with error from server = %08x and "
-			      "additional error of %08x\n", ErrorStatus, ClientParam.AdditionalStatus);
+	} else if (ErrorStatus != XST_SUCCESS) {
+		Status = (s32)ErrorStatus;
+		XilAsu_Printf("DevIk certificate generation failed with error from server = %08x "
+			      "and additional error of %08x\n", ErrorStatus,
+			      ClientParam.AdditionalStatus);
+	} else if (ClientParam.AdditionalStatus != XASU_OCP_CERT_GENERATION_SUCCESS) {
+		/* Operation did not succeed even though the server reported no error. */
+		Status = XST_FAILURE;
+		XilAsu_Printf("DevIk certificate generation failed with additional error of %08x\n",
+			      ClientParam.AdditionalStatus);
 	} else {
 		XilAsu_Printf("Successfully generated X.509 DevIk certificate\n");
 	}
@@ -248,6 +256,7 @@ END:
 *
 * @return
 *	- XST_SUCCESS, if DevAk certificate is retrieved successfully.
+*	- Error code from ASUFW application, if the server reports an error.
 *	- XST_FAILURE, in case of failure.
 *
 **************************************************************************************************/
@@ -270,6 +279,7 @@ static int XOcp_GetX509DevAK(void)
 	OcpDevAkCertClientParam.CertActualSizeAddr = (u64)(UINTPTR)&ActualCertSize;
 	OcpDevAkCertClientParam.DevKeySel = XOCP_DEVAK;
 
+	ErrorStatus = XST_FAILURE;
 	/* Generate DevAk certificate. */
 	Status = XAsu_OcpGetDevAkX509Certificate(&ClientParam, &OcpDevAkCertClientParam);
 	if (Status != XST_SUCCESS) {
@@ -291,10 +301,16 @@ static int XOcp_GetX509DevAK(void)
 END:
 	if (Status != XST_SUCCESS) {
 		XilAsu_Printf("DevAk certificate generation failed with Status = %08x\n", Status);
-	} else if ((ErrorStatus != XST_SUCCESS) ||
-		   (ClientParam.AdditionalStatus != XASU_OCP_CERT_GENERATION_SUCCESS)) {
-		XilAsu_Printf("DevAk certificate generation failed with error from server = %08x and "
-			      "additional error of %08x\n", ErrorStatus, ClientParam.AdditionalStatus);
+	} else if (ErrorStatus != XST_SUCCESS) {
+		Status = (s32)ErrorStatus;
+		XilAsu_Printf("DevAk certificate generation failed with error from server = %08x "
+			      "and additional error of %08x\n", ErrorStatus,
+			      ClientParam.AdditionalStatus);
+	} else if (ClientParam.AdditionalStatus != XASU_OCP_CERT_GENERATION_SUCCESS) {
+		/* Operation did not succeed even though the server reported no error. */
+		Status = XST_FAILURE;
+		XilAsu_Printf("DevAk certificate generation failed with additional error of %08x\n",
+			      ClientParam.AdditionalStatus);
 	} else {
 		XilAsu_Printf("Successfully generated X.509 DevAk certificate\n");
 	}
@@ -310,6 +326,7 @@ END:
 *
 * @return
 *	- XST_SUCCESS, if CSR is retrieved successfully.
+*	- Error code from ASUFW application, if the server reports an error.
 *	- XST_FAILURE, in case of failure.
 *
 **************************************************************************************************/
@@ -332,6 +349,7 @@ static int XOcp_GetX509DevIkCsr(void)
 	OcpDevIkCsrClientParam.CertActualSizeAddr = (u64)(UINTPTR)&ActualCertSize;
 	OcpDevIkCsrClientParam.DevKeySel = XOCP_DEVIK;
 
+	ErrorStatus = XST_FAILURE;
 	/* Generate DevIk CSR(Certificate Signing Request). */
 	Status = XAsu_OcpGetDevIkCsr(&ClientParam, &OcpDevIkCsrClientParam);
 	if (Status != XST_SUCCESS) {
@@ -353,10 +371,16 @@ static int XOcp_GetX509DevIkCsr(void)
 END:
 	if (Status != XST_SUCCESS) {
 		XilAsu_Printf("DevIk CSR generation failed with Status = %08x\n", Status);
-	} else if ((ErrorStatus != XST_SUCCESS) ||
-		   (ClientParam.AdditionalStatus != XASU_OCP_CERT_GENERATION_SUCCESS)) {
+	} else if (ErrorStatus != XST_SUCCESS) {
+		Status = (s32)ErrorStatus;
 		XilAsu_Printf("DevIk CSR generation failed with error from server = %08x and "
-			      "additional error of %08x\n", ErrorStatus, ClientParam.AdditionalStatus);
+			      "additional error of %08x\n", ErrorStatus,
+			      ClientParam.AdditionalStatus);
+	} else if (ClientParam.AdditionalStatus != XASU_OCP_CERT_GENERATION_SUCCESS) {
+		/* Operation did not succeed even though the server reported no error. */
+		Status = XST_FAILURE;
+		XilAsu_Printf("DevIk CSR generation failed with additional error of %08x\n",
+			      ClientParam.AdditionalStatus);
 	} else {
 		XilAsu_Printf("Successfully generated X.509 DevIk CSR\n");
 	}
@@ -372,6 +396,7 @@ END:
 *
 * @return
 *	- XST_SUCCESS, if attestation is run successfully.
+*	- Error code from ASUFW application, if the server reports an error.
 *	- XST_FAILURE, in case of failure.
 *
 **************************************************************************************************/
@@ -393,6 +418,7 @@ static int XAsu_OcpAttestation(void)
 	OcpDevAkAttestParam.SignatureAddr = (u64)(UINTPTR)Signature;
 	OcpDevAkAttestParam.SignatureBufLen = XOCP_ECC_SIGN_TOTAL_LEN;
 
+	ErrorStatus = XST_FAILURE;
 	/* DevAk attestaion. */
 	Status = XAsu_OcpDevAkAttestation(&ClientParam, &OcpDevAkAttestParam);
 	if (Status != XST_SUCCESS) {
@@ -414,6 +440,7 @@ END:
 	if (Status != XST_SUCCESS) {
 		XilAsu_Printf("OCP attestation failed with Status = %08x\n", Status);
 	} else if (ErrorStatus != XST_SUCCESS) {
+		Status = (s32)ErrorStatus;
 		XilAsu_Printf("OCP attestation failed with error from server = %08x\n",
 			      ErrorStatus);
 	} else {
