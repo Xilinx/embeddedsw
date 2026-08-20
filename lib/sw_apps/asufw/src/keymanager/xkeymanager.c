@@ -2617,7 +2617,9 @@ static s32 XKeyManager_UpdateVaultInfo(u32 SubSystemId, u8 *VaultIdPtr)
  *
  * @param	SubSystemId	Subsystem identifier requesting key access.
  * @param	SubVaultPtr	Pointer to the sub-vault containing the key.
- * @param	KeyUseCase	Requested use case for the key.
+ * @param	KeyUseCase	Bit mask of the use cases requested for the key. The key must hold
+ * 				every requested use case, so passing more than one bit narrows the
+ * 				set of keys that qualify. A zero mask is not a valid request.
  * @param	VaultId		Identifier of the vault containing the key.
  * @param	IsKeyUsed	TRUE if the key is being used, FALSE if only validated.
  *
@@ -2627,7 +2629,8 @@ static s32 XKeyManager_UpdateVaultInfo(u32 SubSystemId, u8 *VaultIdPtr)
  * 	- XASUFW_KEYMANAGER_ACCESS_DENIED, if subsystem lacks access rights.
  * 	- XASUFW_KEYMANAGER_KEY_EXPIRED, if key usage count is exhausted or the current epoch time has
  * 		reached or passed the key's epoch time.
- * 	- XASUFW_KEYMANAGER_KEY_USE_CASE_ERROR, if key use case is not allowed.
+ * 	- XASUFW_KEYMANAGER_KEY_USE_CASE_ERROR, if KeyUseCase is zero or the key does not hold
+ * 		all the requested use cases.
  *
  *************************************************************************************************/
 static s32 XKeyManager_CheckKeyValidity(u32 SubSystemId, u8 *SubVaultPtr, u8 KeyUseCase, u8 VaultId,
@@ -2668,8 +2671,8 @@ static s32 XKeyManager_CheckKeyValidity(u32 SubSystemId, u8 *SubVaultPtr, u8 Key
 		}
 	}
 
-	/** Check for key use case. */
-	if ((MetaDataPtr->KeyUseCase & KeyUseCase) == 0U) {
+	/** Reject the key unless it holds every requested use case. */
+	if ((KeyUseCase == 0U) || ((MetaDataPtr->KeyUseCase & KeyUseCase) != KeyUseCase)) {
 		Status = XASUFW_KEYMANAGER_KEY_USE_CASE_ERROR;
 		goto END;
 	}
