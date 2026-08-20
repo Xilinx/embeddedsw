@@ -60,7 +60,6 @@ typedef struct {
 /************************************ Function Prototypes ****************************************/
 static inline s32 X509_UpdateOffsetToNextField(u32 Len);
 static s32 X509_ValidateTag(u8 Tag);
-static s32 X509_ValidateTimeAndDate(const X509_DateTime *DateTime);
 static s32 X509_ParseTimeAndDate(u8 YearLen, X509_DateTime *DateTime);
 static s32 X509_GetValidity(void);
 static s32 X509_GetAlgorithm(X509_PublicKeyType *KeyType);
@@ -266,13 +265,26 @@ END:
  *	- XASUFW_SUCCESS, if date and time is valid.
  *	- XASUFW_FAILURE, in case of failure.
  *	- XASUFW_X509_INVALID_DATA, if date or time is invalid.
+ *	- XASUFW_X509_INVALID_PARAM, if parameter is invalid.
  *
  *************************************************************************************************/
-static s32 X509_ValidateTimeAndDate(const X509_DateTime *DateTime)
+s32 X509_ValidateTimeAndDate(const X509_DateTime *DateTime)
 {
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
 	u8 Days;
 	u16 Year;
+
+	/** Validate the date and time structure pointer. */
+	if (DateTime == NULL) {
+		Status = XASUFW_X509_INVALID_PARAM;
+		goto END;
+	}
+
+	/** Day cannot be zero. */
+	if (DateTime->Day == 0U) {
+		Status = XASUFW_X509_INVALID_DATA;
+		goto END;
+	}
 
 	/** Validate month and get number of days based on month. */
 	switch (DateTime->Month) {

@@ -204,7 +204,7 @@ static int XOcp_GetX509DevIK(void)
 	/* OCP parameters structure initialization for DevIk X.509 certificate generation. */
 	OcpDevIkCertClientParam.CertBufAddr = (u64)(UINTPTR)X509Cert;
 	OcpDevIkCertClientParam.CertBufLen = XOCP_X509_CERT_BUF_SIZE;
-	OcpDevIkCertClientParam.CertActualSize = (u64)(UINTPTR)&ActualCertSize;
+	OcpDevIkCertClientParam.CertActualSizeAddr = (u64)(UINTPTR)&ActualCertSize;
 	OcpDevIkCertClientParam.DevKeySel = XOCP_DEVIK;
 
 	ErrorStatus = XST_FAILURE;
@@ -267,7 +267,7 @@ static int XOcp_GetX509DevAK(void)
 	/* OCP parameters structure initialization for DevAk X.509 certificate generation. */
 	OcpDevAkCertClientParam.CertBufAddr = (u64)(UINTPTR)X509Cert;
 	OcpDevAkCertClientParam.CertBufLen = XOCP_X509_CERT_BUF_SIZE;
-	OcpDevAkCertClientParam.CertActualSize = (u64)(UINTPTR)&ActualCertSize;
+	OcpDevAkCertClientParam.CertActualSizeAddr = (u64)(UINTPTR)&ActualCertSize;
 	OcpDevAkCertClientParam.DevKeySel = XOCP_DEVAK;
 
 	/* Generate DevAk certificate. */
@@ -329,7 +329,7 @@ static int XOcp_GetX509DevIkCsr(void)
 	/* OCP parameters structure initialization for DevIk CSR generation. */
 	OcpDevIkCsrClientParam.CertBufAddr = (u64)(UINTPTR)X509Cert;
 	OcpDevIkCsrClientParam.CertBufLen = XOCP_X509_CERT_BUF_SIZE;
-	OcpDevIkCsrClientParam.CertActualSize = (u64)(UINTPTR)&ActualCertSize;
+	OcpDevIkCsrClientParam.CertActualSizeAddr = (u64)(UINTPTR)&ActualCertSize;
 	OcpDevIkCsrClientParam.DevKeySel = XOCP_DEVIK;
 
 	/* Generate DevIk CSR(Certificate Signing Request). */

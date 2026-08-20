@@ -90,6 +90,13 @@ extern "C" {
  * Base address and size of the crypto algorithm data block. These must match the
  * ORIGIN and LENGTH of tmr_ram_crypto_data_block_Mem in lscript.ld; keep both in sync
  * when the linker memory map changes.
+ *
+ * The crypto algorithm data block is shared across multiple crypto algorithms (RSA, key wrap,
+ * key manager, KAT, etc.). The usable region is limited to XASUFW_CRYPTO_ALGO_DATA_BLOCK_SIZE;
+ * layouts are shared among users and concurrent access across tasks is unsupported.
+ * This block can be used in blocking mode only to avoid concurrent access across tasks. If it
+ * is required to use it in non-blocking mode, then it should be hanlded using resource protection
+ * to make sure that only one crypto algorithm is using it at a time.
  */
 #define XASUFW_CRYPTO_ALGO_DATA_BLOCK		(0xEBE4C800U)	/**< Base address of the crypto
 								algorithm data block in data RAM */

@@ -90,31 +90,40 @@ static const u8 Oid_P384[] = {0x06U, 0x05U, 0x2BU, 0x81U, 0x04U, 0x00U, 0x22U};
 #define X509_PATH_LEN_CONSTRAINT_VALUE				(0x00U)	/**< Value of path length
 									constraint in basic
 									constraints extension */
+#define X509_ASN1_MAX_ENCODED_VAL_LEN				(0xFFFFU) /**< Maximum value length
+									which can be DER encoded */
+#define X509_ASN1_MAX_LEN_FIELD_SIZE				(3U)	/**< Number of bytes
+									occupied by the longest
+									supported DER encoded
+									length field */
+#define X509_UTC_TIME_LEN	\
+	(X509_ASN1_TIME_WITH_ZERO_TIME_OFFSET(X509_ASN1_YEAR_LEN_UTC_BYTES))
+						/**< Length of a time in the UTC form
+						YYMMDDHHMMSSZ */
+#define X509_GENERALIZED_TIME_LEN	\
+	(X509_ASN1_TIME_WITH_ZERO_TIME_OFFSET(X509_ASN1_YEAR_LEN_GEN_BYTES))
+						/**< Length of a time in the generalized
+						form YYYYMMDDHHMMSSZ */
+#define X509_ASN1_MIN_UTC_YEAR	\
+	(X509_ASN1_YEAR_MIN_OFFSET + X509_ASN1_THRESHOLD_YEARS)
+						/**< Earliest year which the two digit year
+						of the UTC form can represent */
+#define X509_ASN1_MIN_GENERALIZED_YEAR	\
+	(X509_ASN1_YEAR_MAX_OFFSET + X509_ASN1_THRESHOLD_YEARS)
+						/**< Earliest year which RFC 5280 requires
+						to be encoded in the generalized form */
+#define X509_ASN1_YEARS_PER_CENTURY			(100U)	/**< Number of years in a century */
 
 /************************************ Type Definitions *******************************************/
 /**
  * This structure holds certificate generation information.
  */
 typedef struct {
-	u8 *Buf;			/**< Pointer to store X.509 certificate */
+	u8 *Buf;			/**< Pointer to the buffer storing the DER encoded data */
+	u32 BufSize;			/**< Size of the buffer pointed by Buf */
 	u32 Offset;			/**< Current offset of buffer */
 	u32 SerialOffset;		/**< Offset of serial field */
 } X509_CertGenInfo;
-
-/**
- * This typedef contains information about Key Usage options.
- */
-typedef enum {
-	X509_DIGITALSIGNATURE,	/**< Digital Signature */
-	X509_NONREPUDIATION,	/**< Non Repudiation */
-	X509_KEYENCIPHERMENT,	/**< Key Encipherment */
-	X509_DATAENCIPHERMENT,	/**< Data Encipherment */
-	X509_KEYAGREEMENT,	/**< Key Agreement */
-	X509_KEYCERTSIGN,	/**< Key Certificate Sign */
-	X509_CRLSIGN,		/**< CRL Sign */
-	X509_ENCIPHERONLY,	/**< Encipher Only */
-	X509_DECIPHERONLY	/**< Decipher Only */
-} X509_KeyUsageOption;
 
 /********************************** Variable Definitions *****************************************/
 /**< X.509 public key OID list */
@@ -164,7 +173,11 @@ static s32 X509_Asn1CreateInteger(const u8 *IntegerVal, u32 IntegerLen);
 static s32 X509_Asn1CreateRawDataFromByteArray(const u8 *RawData, const u32 LenOfRawDataVal);
 static u8 X509_Asn1GetTrailingZeroesCount(u8 Data);
 static s32 X509_Asn1CreateBitString(const u8 *BitStringVal, u32 BitStringLen, u32 IsLastByteFull);
-static s32 X509_Asn1CreateOctetString(const u8 *OctetStringVal, u32 OctetStringLen);
+static s32 X509_Asn1CreateTlvField(u8 Asn1Tag, const u8 *Val, u32 ValLen);
+static inline s32 X509_Asn1CreateOctetString(const u8 *OctetStringVal, u32 OctetStringLen);
+static inline s32 X509_Asn1CreatePrintableString(const u8 *Val, u32 ValLen);
+static s32 X509_Asn1CreateNameAttribute(const u8 *OidTlv, u32 OidTlvLen, const u8 *Val,
+					u32 ValLen);
 static s32 X509_Asn1CreateBoolean(const u32 BooleanVal);
 static inline s32 X509_GenVersionField(u8 Version);
 static s32 X509_GenSignAlgoField(void);
@@ -177,7 +190,8 @@ static s32 X509_GenSubjectKeyIdentifierField(const u8 *SubjectPublicKey, u32 Sub
 					     const void *PlatformData);
 static s32 X509_GenAuthorityKeyIdentifierField(const u8 *IssuerPublicKey, u32 IssuerPubKeyLen,
 					       const void *PlatformData);
-static void X509_UpdateKeyUsageVal(u8 *KeyUsageVal, X509_KeyUsageOption KeyUsageOption);
+static void X509_UpdateKeyUsageVal(u8 *KeyUsageVal, u8 KeyUsageBitPos);
+static inline void X509_UpdateKeyUsageValFromMask(u8 *KeyUsageVal, u32 KeyUsageMask);
 static s32 X509_GenKeyUsageField(const X509_Config *Cfg);
 static s32 X509_GenExtKeyUsageField(void);
 static s32 X509_GenBasicConstraintsField(void);
@@ -191,6 +205,16 @@ static s32 X509_GenTBSCertificate(const X509_Config *Cfg, u32 *TBSCertLen);
 static s32 X509_GenSignField(const u8 *Signature, u32 SignLen);
 static s32 X509_GenCsrExtensions(const X509_Config *Cfg);
 static s32 X509_GenCertReqInfo(const X509_Config *Cfg, u32 *CsrLen);
+static s32 X509_Asn1EncodeName(const XAsu_X509Name *Name, u8 *DerBuf, u32 DerBufSize,
+			       u32 *DerLen);
+static s32 X509_Asn1EncodeValidity(const XAsu_X509Validity *Validity, u8 *DerBuf,
+				   u32 DerBufSize, u32 *DerLen);
+static u32 X509_Asn1IsPrintableChar(u8 Char);
+static s32 X509_ValidatePrintableString(const u8 *Str, u32 StrLen, u32 MaxStrLen);
+static s32 X509_Asn1CreateCertTime(const XAsu_X509Time *Time);
+static s32 X509_ValidateName(const XAsu_X509Name *Name);
+static s32 X509_ValidateValidity(const XAsu_X509Validity *Validity);
+static inline void X509_GetDateTime(const XAsu_X509Time *Time, X509_DateTime *DateTime);
 
 /*************************************************************************************************/
 /**
@@ -256,7 +280,8 @@ s32 X509_GenerateX509Cert(u64 X509CertAddr, u32 MaxCertSize, u32 *X509CertSize,
 
 	/** Validate X.509 configs. */
 	if ((Cfg->UserCfg == NULL) || ((Cfg->IsCsr != XASU_TRUE) && (Cfg->IsCsr != XASU_FALSE)) ||
-	    ((Cfg->IsSelfSigned != XASU_TRUE) && (Cfg->IsSelfSigned != XASU_FALSE))) {
+	    ((Cfg->IsSelfSigned != XASU_TRUE) && (Cfg->IsSelfSigned != XASU_FALSE)) ||
+	    (Cfg->KeyUsage == 0U)) {
 		Status = XASUFW_INVALID_PARAM;
 		goto END;
 	}
@@ -295,6 +320,7 @@ s32 X509_GenerateX509Cert(u64 X509CertAddr, u32 MaxCertSize, u32 *X509CertSize,
 
 	/** Initialize X.509 certificate generation instance. */
 	CertInstance.Buf = (u8 *)(UINTPTR)X509CertAddr;
+	CertInstance.BufSize = MaxCertSize;
 	CertInstance.Offset = 0U;
 
 	/** Validate buffer space and update tag, length and value field. */
@@ -416,6 +442,103 @@ END:
 
 /*************************************************************************************************/
 /**
+ * @brief	This function builds the DER encoded user configuration of an X.509 certificate
+ *		from the user configuration.
+ *
+ * @param	CertFields	Pointer to the structure holding the user supplied certificate
+ *				fields.
+ * @param	UserCfg		Pointer to the structure to be filled with the DER encoded
+ *				certificate fields.
+ *
+ * @return
+ *	- XASUFW_SUCCESS, if the user configuration is built successfully.
+ *	- XASUFW_FAILURE, in case of failure.
+ *	- XASUFW_X509_INVALID_PARAM, if parameter is invalid.
+ *	- XASUFW_X509_GEN_SUBJECT_FIELD_FAIL, if the subject is invalid or its DER encoding is
+ *	  failed.
+ *	- XASUFW_X509_GEN_ISSUER_FIELD_FAIL, if the issuer is invalid or its DER encoding is failed.
+ *	- XASUFW_X509_GEN_VALIDITY_FIELD_FAIL, if the validity period is invalid or its DER encoding
+ *	  is failed.
+ *	- XASUFW_ZEROIZE_MEMSET_FAIL, if zeroize memset is failed.
+ *
+ *************************************************************************************************/
+s32 X509_BuildUserCfg(const XAsu_X509CertFields *CertFields, X509_UserCfg *UserCfg)
+{
+	CREATE_VOLATILE(Status, XASUFW_FAILURE);
+
+	/** Validate input parameters. */
+	if ((CertFields == NULL) || (UserCfg == NULL)) {
+		Status = XASUFW_X509_INVALID_PARAM;
+		goto END;
+	}
+
+	/** Validate the subject name. */
+	Status = X509_ValidateName(&CertFields->Subject);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_X509_GEN_SUBJECT_FIELD_FAIL);
+		goto END;
+	}
+
+	/** Validate the issuer name. */
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	Status = X509_ValidateName(&CertFields->Issuer);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_X509_GEN_ISSUER_FIELD_FAIL);
+		goto END;
+	}
+
+	/** Validate the validity period. */
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	Status = X509_ValidateValidity(&CertFields->Validity);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_X509_GEN_VALIDITY_FIELD_FAIL);
+		goto END;
+	}
+
+	/** Clear the user configuration before it is filled with the DER encoded fields. */
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	Status = Xil_SMemSet(UserCfg, sizeof(X509_UserCfg), 0U, sizeof(X509_UserCfg));
+	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_ZEROIZE_MEMSET_FAIL;
+		goto END;
+	}
+
+	/** DER encode the subject name. */
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	Status = X509_Asn1EncodeName(&CertFields->Subject, UserCfg->Subject, X509_SUBJECT_MAX_SIZE,
+				     &UserCfg->SubjectLen);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_X509_GEN_SUBJECT_FIELD_FAIL);
+		goto END;
+	}
+
+	/** DER encode the issuer name. */
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	Status = X509_Asn1EncodeName(&CertFields->Issuer, UserCfg->Issuer, X509_ISSUER_MAX_SIZE,
+				     &UserCfg->IssuerLen);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_X509_GEN_ISSUER_FIELD_FAIL);
+		goto END;
+	}
+
+	/** DER encode the validity period. */
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	Status = X509_Asn1EncodeValidity(&CertFields->Validity, UserCfg->Validity,
+					 X509_VALIDITY_MAX_SIZE, &UserCfg->ValidityLen);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_X509_GEN_VALIDITY_FIELD_FAIL);
+		goto END;
+	}
+
+	/** Set the subject alternate name availability flag to false. */
+	UserCfg->IsSubAltNameAvailable = (u32)XASU_FALSE;
+
+END:
+	return Status;
+}
+
+/*************************************************************************************************/
+/**
  * @brief	This function encodes the Length field in the DER encoded value
  *		and updates in the provided pointer. In case the Length field
  *		requires more than one byte, it also shifts the value accordingly.
@@ -437,7 +560,7 @@ static s32 X509_UpdateEncodedLength(u8 *LenIdx, u32 Len, u8 *ValIdx)
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
 	u32 RemainBufSize = 0U;
 
-	RemainBufSize = X509_CERTIFICATE_MAX_SIZE_IN_BYTES - CertInstance.Offset;
+	RemainBufSize = CertInstance.BufSize - CertInstance.Offset;
 
 	if (Len <= X509_ASN1_SHORT_FORM_MAX_LENGTH_IN_BYTES) {
 		*LenIdx = (u8)Len;
@@ -470,21 +593,21 @@ END:
 
 /*************************************************************************************************/
 /**
- * @brief	This function validates if there is required space available in
- *		X.509 certificate buffer.
+ * @brief	This function validates if there is required space available in the destination
+ *		buffer of the DER encoding instance.
  *
  * @param	RequiredSize	Number of bytes required in the buffer.
  *
  * @return
- *	- XASUFW_SUCCESS, if sufficient buffer space is available in X.509 certificate buffer.
- *	- XASUFW_FAILURE, if sufficient buffer space is not available in X.509 certificate buffer.
+ *	- XASUFW_SUCCESS, if sufficient buffer space is available in the destination buffer.
+ *	- XASUFW_FAILURE, if sufficient buffer space is not available in the destination buffer.
  *
  *************************************************************************************************/
 static inline s32 X509_ValidateBufferSpace(u32 RequiredSize)
 {
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
 
-	if ((CertInstance.Offset + RequiredSize) < X509_CERTIFICATE_MAX_SIZE_IN_BYTES) {
+	if ((CertInstance.Offset + RequiredSize) < CertInstance.BufSize) {
 		Status = XASUFW_SUCCESS;
 	}
 
@@ -493,7 +616,7 @@ static inline s32 X509_ValidateBufferSpace(u32 RequiredSize)
 
 /*************************************************************************************************/
 /**
- * @brief	This function validates available space in X.509 buffer and updates ASN.1
+ * @brief	This function validates available space in the destination buffer and updates ASN.1
  *		tag, length and value field.
  *
  * @param	Asn1Tag		ASN.1 tag to be added.
@@ -525,14 +648,14 @@ static s32 X509_ValidateAndUpdateTlvField(u8 Asn1Tag, u8 **LenIdx, u8 **ValIdx)
 
 /*************************************************************************************************/
 /**
- * @brief	This function validates available space in X.509 buffer and writes a
+ * @brief	This function validates available space in the destination buffer and writes a
  *		single byte to the buffer.
  *
  * @param	Value	The byte value to write
  *
  * @return
  *	- XASUFW_SUCCESS, if sufficient buffer space is available and byte is written.
- *	- XASUFW_FAILURE, if sufficient buffer space is not available in X.509 certificate buffer.
+ *	- XASUFW_FAILURE, if sufficient buffer space is not available in the destination buffer.
  *
  *************************************************************************************************/
 static s32 X509_ValidateAndUpdateByteField(u8 Value)
@@ -627,7 +750,7 @@ static s32 X509_Asn1CreateIntegerFieldFromByteArray(const u8 *IntegerVal, u32 In
 		}
 	}
 
-	RemainBufSize = X509_CERTIFICATE_MAX_SIZE_IN_BYTES - CertInstance.Offset;
+	RemainBufSize = CertInstance.BufSize - CertInstance.Offset;
 
 	/** Copy integer values. */
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
@@ -709,7 +832,7 @@ static s32 X509_Asn1CreateRawDataFromByteArray(const u8 *RawData, const u32 LenO
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
 	u32 RemainBufSize = 0U;
 
-	RemainBufSize = X509_CERTIFICATE_MAX_SIZE_IN_BYTES - CertInstance.Offset;
+	RemainBufSize = CertInstance.BufSize - CertInstance.Offset;
 
 	Status = Xil_SMemCpy(&(CertInstance.Buf[CertInstance.Offset]), RemainBufSize, RawData,
 			     LenOfRawDataVal, LenOfRawDataVal);
@@ -803,7 +926,7 @@ static s32 X509_Asn1CreateBitString(const u8 *BitStringVal, u32 BitStringLen, u3
 		goto END;
 	}
 
-	RemainBufSize = X509_CERTIFICATE_MAX_SIZE_IN_BYTES - CertInstance.Offset;
+	RemainBufSize = CertInstance.BufSize - CertInstance.Offset;
 
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	Status = Xil_SMemCpy(&(CertInstance.Buf[CertInstance.Offset]), RemainBufSize,
@@ -824,6 +947,78 @@ END:
 
 /*************************************************************************************************/
 /**
+ * @brief	This function creates a DER encoded ASN.1 TLV(Tag, Length, Value) field.
+ *
+ * @param	Asn1Tag		ASN.1 tag of the TLV pair.
+ * @param	Val		Value of the TLV pair.
+ * @param	ValLen		Length of the value of the TLV pair in bytes.
+ *
+ * @return
+ *	- XASUFW_SUCCESS, if successfully created DER encoded ASN.1 TLV pair.
+ *	- XASUFW_FAILURE, in case of failure.
+ *	- XASUFW_X509_INVALID_FIELD_LEN, if the value length cannot be DER encoded.
+ *	- XASUFW_X509_VALIDATE_BUFFER_SPACE_FAIL, if buffer validation is failed.
+ *	- XASUFW_MEM_COPY_FAIL, if memory copy is failed.
+ *	- Error code received from called functions in case of other failure from the called
+ *	function.
+ *
+ *************************************************************************************************/
+static s32 X509_Asn1CreateTlvField(u8 Asn1Tag, const u8 *Val, u32 ValLen)
+{
+	CREATE_VOLATILE(Status, XASUFW_FAILURE);
+	u8 *LenIdx;
+
+	/** Validate that the length can be encoded in the supported number of length bytes. */
+	if (ValLen > X509_ASN1_MAX_ENCODED_VAL_LEN) {
+		Status = XASUFW_X509_INVALID_FIELD_LEN;
+		goto END;
+	}
+
+	/** Add ASN.1 tag field. */
+	Status = X509_ValidateAndAddTagField(Asn1Tag);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_X509_VALIDATE_BUFFER_SPACE_FAIL;
+		goto END;
+	}
+
+	/** Validate buffer space for the length field. */
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	Status = X509_ValidateBufferSpace(X509_ASN1_MAX_LEN_FIELD_SIZE);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_X509_VALIDATE_BUFFER_SPACE_FAIL;
+		goto END;
+	}
+
+	LenIdx = &(CertInstance.Buf[CertInstance.Offset++]);
+
+	/**
+	 * Add the length field. Lengths up to 127 use the short form and longer lengths use the
+	 * long form with one or two length bytes.
+	 */
+	if (ValLen <= X509_ASN1_SHORT_FORM_MAX_LENGTH_IN_BYTES) {
+		*LenIdx = (u8)ValLen;
+	} else if (ValLen <= X509_ASN1_LONG_FORM_2_BYTES_MAX_LENGTH_IN_BYTES) {
+		*LenIdx = X509_ASN1_LONG_FORM_LENGTH_1BYTE;
+		*(LenIdx + XASUFW_BUFFER_INDEX_ONE) = (u8)ValLen;
+		CertInstance.Offset++;
+	} else {
+		*LenIdx = X509_ASN1_LONG_FORM_LENGTH_2BYTES;
+		*(LenIdx + XASUFW_BUFFER_INDEX_ONE) = (u8)((ValLen & X509_ASN1_BYTE1_MASK) >>
+							   X509_ASN1_NO_OF_BITS_IN_BYTE);
+		*(LenIdx + XASUFW_BUFFER_INDEX_TWO) = (u8)(ValLen & X509_ASN1_BYTE0_MASK);
+		CertInstance.Offset += XASUFW_VALUE_TWO;
+	}
+
+	/** Add the value field. */
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	Status = X509_Asn1CreateRawDataFromByteArray(Val, ValLen);
+
+END:
+	return Status;
+}
+
+/*************************************************************************************************/
+/**
  * @brief	This function creates DER encoded ASN.1 OctetString.
  *
  * @param	OctetStringVal	Value of the ASN.1 OctetString.
@@ -832,53 +1027,128 @@ END:
  * @return
  *	- XASUFW_SUCCESS, if successfully created DER encoded ASN.1 OctetString.
  *	- XASUFW_FAILURE, in case of failure.
- *	- XASUFW_X509_VALIDATE_BUFFER_SPACE_FAIL, if buffer validation is failed.
- *	- XASUFW_MEM_COPY_FAIL, if memory copy is failed.
  *	- Error code received from called functions in case of other failure from the called
  *	function.
  *
  *************************************************************************************************/
-static s32 X509_Asn1CreateOctetString(const u8 *OctetStringVal, u32 OctetStringLen)
+static inline s32 X509_Asn1CreateOctetString(const u8 *OctetStringVal, u32 OctetStringLen)
+{
+	return X509_Asn1CreateTlvField(X509_ASN1_TAG_OCTET_STRING, OctetStringVal, OctetStringLen);
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	This function creates DER encoded ASN.1 PrintableString.
+ *
+ * @param	Val	Value of the ASN.1 PrintableString.
+ * @param	ValLen	Length of the value of the ASN.1 PrintableString in bytes.
+ *
+ * @return
+ *	- XASUFW_SUCCESS, if successfully created DER encoded ASN.1 PrintableString.
+ *	- XASUFW_FAILURE, in case of failure.
+ *	- Error code received from called functions in case of other failure from the called
+ *	function.
+ *
+ *************************************************************************************************/
+static inline s32 X509_Asn1CreatePrintableString(const u8 *Val, u32 ValLen)
+{
+	return X509_Asn1CreateTlvField(X509_ASN1_TAG_PRINTABLE_STRING, Val, ValLen);
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	This function creates a DER encoded RelativeDistinguishedName holding a single
+ *		attribute type and value pair.
+ *
+ * @param	OidTlv		Pointer to the DER encoded TLV pair of the attribute type OID.
+ * @param	OidTlvLen	Length of the DER encoded TLV pair of the attribute type OID.
+ * @param	Val		Pointer to the printable string attribute value.
+ * @param	ValLen		Length of the printable string attribute value.
+ *
+ * @return
+ *	- XASUFW_SUCCESS, if the attribute is created successfully.
+ *	- XASUFW_FAILURE, in case of failure.
+ *	- XASUFW_X509_VALIDATE_BUFFER_SPACE_FAIL, if buffer validation is failed.
+ *	- XASUFW_X509_CREATE_RAW_DATA_FIELD_FROM_ARRAY_FAIL, if raw data field creation is failed.
+ *	- XASUFW_X509_CREATE_PRINTABLE_STRING_FAIL, if printable string creation is failed.
+ *	- XASUFW_X509_UPDATE_ENCODED_LEN_FAIL, if updating encoded length is failed.
+ *	- Error code received from called functions in case of other failure from the called
+ *	function.
+ *
+ * @note	RelativeDistinguishedName ::= SET SIZE (1..MAX) OF AttributeTypeAndValue
+ *		AttributeTypeAndValue ::= SEQUENCE {
+ *			type	AttributeType,
+ *			value	AttributeValue
+ *		}
+ *
+ *		The attribute value is encoded as a PrintableString.
+ *
+ *************************************************************************************************/
+static s32 X509_Asn1CreateNameAttribute(const u8 *OidTlv, u32 OidTlvLen, const u8 *Val, u32 ValLen)
 {
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
-	u8 *OctetStringLenIdx = NULL;
-	u32 RemainBufSize = 0U;
+	u8 *SetLenIdx = NULL;
+	u8 *SetValIdx = NULL;
+	u8 *SequenceLenIdx = NULL;
+	u8 *SequenceValIdx = NULL;
 
-	/** Add ASN.1 tag field. */
-	Status = X509_ValidateAndAddTagField(X509_ASN1_TAG_OCTET_STRING);
+	/** Validate buffer space and update tag, length and value field of the SET. */
+	Status = X509_ValidateAndUpdateTlvField(X509_ASN1_TAG_SET, &SetLenIdx, &SetValIdx);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XASUFW_X509_VALIDATE_BUFFER_SPACE_FAIL;
 		goto END;
 	}
 
-	OctetStringLenIdx = &(CertInstance.Buf[CertInstance.Offset++]);
-
-	if (OctetStringLen <= X509_ASN1_SHORT_FORM_MAX_LENGTH_IN_BYTES) {
-		*OctetStringLenIdx = (u8)OctetStringLen;
-	} else if (OctetStringLen <= X509_ASN1_LONG_FORM_2_BYTES_MAX_LENGTH_IN_BYTES) {
-		*OctetStringLenIdx = X509_ASN1_LONG_FORM_LENGTH_1BYTE;
-		*(OctetStringLenIdx + XASUFW_BUFFER_INDEX_ONE) = (u8)OctetStringLen;
-		CertInstance.Offset++;
-	} else {
-		*OctetStringLenIdx = X509_ASN1_LONG_FORM_LENGTH_2BYTES;
-		*(OctetStringLenIdx + XASUFW_BUFFER_INDEX_ONE) = (u8)((OctetStringLen &
-								      X509_ASN1_BYTE1_MASK)
-								>> X509_ASN1_NO_OF_BITS_IN_BYTE);
-		*(OctetStringLenIdx + XASUFW_BUFFER_INDEX_TWO) = (u8)(OctetStringLen &
-								      X509_ASN1_BYTE0_MASK);
-		CertInstance.Offset += XASUFW_VALUE_TWO;
-	}
-
-	RemainBufSize = X509_CERTIFICATE_MAX_SIZE_IN_BYTES - CertInstance.Offset;
-
+	/** Validate buffer space and update tag, length and value field of the SEQUENCE. */
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-	Status = Xil_SMemCpy(&(CertInstance.Buf[CertInstance.Offset]), RemainBufSize,
-			     OctetStringVal, OctetStringLen, OctetStringLen);
+	Status = X509_ValidateAndUpdateTlvField(X509_ASN1_TAG_SEQUENCE, &SequenceLenIdx,
+						&SequenceValIdx);
 	if (Status != XASUFW_SUCCESS) {
-		Status = XASUFW_MEM_COPY_FAIL;
+		Status = XASUFW_X509_VALIDATE_BUFFER_SPACE_FAIL;
 		goto END;
 	}
-	CertInstance.Offset += OctetStringLen;
+
+	/** Add the attribute type OID. */
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	Status = X509_Asn1CreateRawDataFromByteArray(OidTlv, OidTlvLen);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_X509_CREATE_RAW_DATA_FIELD_FROM_ARRAY_FAIL;
+		goto END;
+	}
+
+	/** Add the attribute value. */
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	Status = X509_Asn1CreatePrintableString(Val, ValLen);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_X509_CREATE_PRINTABLE_STRING_FAIL);
+		goto END;
+	}
+
+	/** Update the length of the AttributeTypeAndValue SEQUENCE. */
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	Status = X509_UpdateEncodedLength(SequenceLenIdx,
+					  (u32)(&(CertInstance.Buf[CertInstance.Offset]) -
+						SequenceValIdx), SequenceValIdx);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_X509_UPDATE_ENCODED_LEN_FAIL);
+		goto END;
+	}
+	if ((*SequenceLenIdx & (u8)(~X509_ASN1_SHORT_FORM_MAX_LENGTH_IN_BYTES)) != 0U) {
+		CertInstance.Offset += (u32)((*SequenceLenIdx) & X509_LOWER_NIBBLE_MASK);
+	}
+
+	/** Update the length of the RelativeDistinguishedName SET. */
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	Status = X509_UpdateEncodedLength(SetLenIdx,
+					  (u32)(&(CertInstance.Buf[CertInstance.Offset]) -
+						SetValIdx), SetValIdx);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_X509_UPDATE_ENCODED_LEN_FAIL);
+		goto END;
+	}
+	if ((*SetLenIdx & (u8)(~X509_ASN1_SHORT_FORM_MAX_LENGTH_IN_BYTES)) != 0U) {
+		CertInstance.Offset += (u32)((*SetLenIdx) & X509_LOWER_NIBBLE_MASK);
+	}
 
 END:
 	return Status;
@@ -1502,20 +1772,45 @@ END:
 /*************************************************************************************************/
 /**
  * @brief	This function updates the value of Key Usage extension field
- *		present in TBS Certificate as per the KeyUsageOption.
+ *		present in TBS Certificate as per the key usage bit position.
  *
- * @param	KeyUsageVal	Pointer in the Key Usage value buffer where the Key Usage option
+ * @param	KeyUsageVal	Pointer in the Key Usage value buffer where the Key Usage bit
  *				shall be updated.
- * @param	KeyUsageOption	Type of key usage which has to be updated.
+ * @param	KeyUsageBitPos	Position of the key usage bit within the BIT STRING.
  *
  *************************************************************************************************/
-static void X509_UpdateKeyUsageVal(u8 *KeyUsageVal, X509_KeyUsageOption KeyUsageOption)
+static void X509_UpdateKeyUsageVal(u8 *KeyUsageVal, u8 KeyUsageBitPos)
 {
-	u8 Idx = ((u8)KeyUsageOption / X509_ASN1_NO_OF_BITS_IN_BYTE);
+	u8 Idx = (KeyUsageBitPos / X509_ASN1_NO_OF_BITS_IN_BYTE);
 	u8 ShiftVal = (X509_ASN1_NO_OF_BITS_IN_BYTE * (Idx + XASUFW_VALUE_ONE)) -
-		      (u8)KeyUsageOption - XASUFW_VALUE_ONE;
+		      KeyUsageBitPos - XASUFW_VALUE_ONE;
 
 	KeyUsageVal[Idx] |= 1U << ShiftVal;
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	This function updates the value of the Key Usage extension field present in TBS
+ *		Certificate from a mask of key usage options.
+ *
+ * @param	KeyUsageVal	Pointer in the Key Usage value buffer where the Key Usage options
+ *				shall be updated.
+ * @param	KeyUsageMask	Bit wise OR of the XASU_X509_KEY_USAGE_* masks.
+ *
+ *************************************************************************************************/
+static inline void X509_UpdateKeyUsageValFromMask(u8 *KeyUsageVal, u32 KeyUsageMask)
+{
+	u32 Mask = XASU_X509_KEY_USAGE_DIGITAL_SIGNATURE;
+	u8 KeyUsageBitPos = 0U;
+
+	/** Update the Key Usage value buffer with the Key Usage options. */
+	while (Mask <= XASU_X509_KEY_USAGE_MAX_MASK) {
+		if ((KeyUsageMask & Mask) != 0U) {
+			X509_UpdateKeyUsageVal(KeyUsageVal, KeyUsageBitPos);
+		}
+		Mask <<= 1U;
+		KeyUsageBitPos++;
+	}
 }
 
 /*************************************************************************************************/
@@ -1593,12 +1888,7 @@ static s32 X509_GenKeyUsageField(const X509_Config *Cfg)
 		goto END;
 	}
 
-	if (Cfg->IsSelfSigned == XASU_TRUE) {
-		X509_UpdateKeyUsageVal(KeyUsageVal, X509_KEYCERTSIGN);
-	} else {
-		X509_UpdateKeyUsageVal(KeyUsageVal, X509_DIGITALSIGNATURE);
-		X509_UpdateKeyUsageVal(KeyUsageVal, X509_KEYAGREEMENT);
-	}
+	X509_UpdateKeyUsageValFromMask(KeyUsageVal, Cfg->KeyUsage);
 
 	if ((KeyUsageVal[XASUFW_BUFFER_INDEX_ONE] & X509_ASN1_BYTE0_MASK) == 0U) {
 		KeyUsageValLen = X509_KEYUSAGE_VAL_LEN - XASUFW_VALUE_ONE;
@@ -1854,7 +2144,8 @@ static inline void X509_AddTagField(u8 Asn1Tag)
 
 /*************************************************************************************************/
 /**
- * @brief	This function validates buffer space and adds ASN.1 tag field in X.509 Certificate.
+ * @brief	This function validates buffer space and adds ASN.1 tag field in the destination
+ *		buffer.
  *
  * @param	Asn1Tag		ASN.1 tag to be added.
  *
@@ -1872,8 +2163,8 @@ static inline s32 X509_ValidateAndAddTagField(u8 Asn1Tag)
 
 /*************************************************************************************************/
 /**
- * @brief	This function validates buffer space and adds ASN.1 tag and byte fields in
- *		X.509 Certificate.
+ * @brief	This function validates buffer space and adds ASN.1 tag and byte fields in the
+ *		destination buffer.
  *
  * @param	Asn1Tag		ASN.1 tag to be added.
  * @param	ByteValue	Byte value to be added after the tag.
@@ -2619,6 +2910,439 @@ static s32 X509_GenCertReqInfo(const X509_Config *Cfg, u32 *CsrLen)
 	}
 
 	*CsrLen = CertInstance.Offset - CsrStart;
+
+END:
+	return Status;
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	This function DER encodes the distinguished name attributes into an X.501
+ *		RDNSequence.
+ *
+ * @param	Name		Pointer to the structure holding the distinguished name attributes.
+ * @param	DerBuf		Pointer to the buffer for storing the DER encoded name.
+ * @param	DerBufSize	Size of the buffer used for storing the DER encoded name.
+ * @param	DerLen		Pointer to store the length of the DER encoded name.
+ *
+ * @return
+ *	- XASUFW_SUCCESS, if the name is DER encoded successfully.
+ *	- XASUFW_FAILURE, in case of failure.
+ *	- XASUFW_X509_VALIDATE_BUFFER_SPACE_FAIL, if buffer validation is failed.
+ *	- XASUFW_X509_CREATE_NAME_ATTRIBUTE_FAIL, if creation of a name attribute is failed.
+ *	- XASUFW_X509_UPDATE_ENCODED_LEN_FAIL, if updating encoded length is failed.
+ *	- Error code received from called functions in case of other failure from the called
+ *	function.
+ *
+ * @note	Name ::= RDNSequence
+ *		RDNSequence ::= SEQUENCE OF RelativeDistinguishedName
+ *
+ *		The organization name attribute (OID 2.5.4.10) is encoded before the common name
+ *		attribute (OID 2.5.4.3), and each attribute value is encoded as a PrintableString.
+ *
+ *************************************************************************************************/
+static s32 X509_Asn1EncodeName(const XAsu_X509Name *Name, u8 *DerBuf, u32 DerBufSize,
+			       u32 *DerLen)
+{
+	CREATE_VOLATILE(Status, XASUFW_FAILURE);
+	static const u8 Oid_OrganizationName[] = {0x06U, 0x03U, 0x55U, 0x04U, 0x0AU};
+	static const u8 Oid_CommonName[] = {0x06U, 0x03U, 0x55U, 0x04U, 0x03U};
+	X509_CertGenInfo CallerInstance = CertInstance;
+	u8 *SequenceLenIdx = NULL;
+	u8 *SequenceValIdx = NULL;
+
+	/** Initialize certificate generation instance at the given buffer. */
+	CertInstance.Buf = DerBuf;
+	CertInstance.BufSize = DerBufSize;
+	CertInstance.Offset = 0U;
+
+	/** Validate buffer space and update tag, length and value field of the RDNSequence. */
+	Status = X509_ValidateAndUpdateTlvField(X509_ASN1_TAG_SEQUENCE, &SequenceLenIdx,
+						&SequenceValIdx);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_X509_VALIDATE_BUFFER_SPACE_FAIL;
+		goto END;
+	}
+
+	/** Add the organization name attribute. */
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	Status = X509_Asn1CreateNameAttribute(Oid_OrganizationName,
+					      XASUFW_ARRAY_SIZE(Oid_OrganizationName),
+					      Name->OrgName, Name->OrgNameLen);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_X509_CREATE_NAME_ATTRIBUTE_FAIL);
+		goto END;
+	}
+
+	/** Add the common name attribute. */
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	Status = X509_Asn1CreateNameAttribute(Oid_CommonName, XASUFW_ARRAY_SIZE(Oid_CommonName),
+					      Name->CommonName, Name->CommonNameLen);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_X509_CREATE_NAME_ATTRIBUTE_FAIL);
+		goto END;
+	}
+
+	/** Update the length of the RDNSequence. */
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	Status = X509_UpdateEncodedLength(SequenceLenIdx,
+					  (u32)(&(CertInstance.Buf[CertInstance.Offset]) -
+						SequenceValIdx),
+					  SequenceValIdx);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_X509_UPDATE_ENCODED_LEN_FAIL);
+		goto END;
+	}
+	if ((*SequenceLenIdx & (u8)(~X509_ASN1_SHORT_FORM_MAX_LENGTH_IN_BYTES)) != 0U) {
+		CertInstance.Offset += (u32)((*SequenceLenIdx) & X509_LOWER_NIBBLE_MASK);
+	}
+
+	*DerLen = CertInstance.Offset;
+
+END:
+	/** Restore certificate generation instance. */
+	CertInstance = CallerInstance;
+
+	return Status;
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	This function DER encodes the validity period into an ASN.1 SEQUENCE of two
+ *		times.
+ *
+ * @param	Validity	Pointer to the structure holding the validity period.
+ * @param	DerBuf		Pointer to the buffer for storing the DER encoded validity.
+ * @param	DerBufSize	Size of the buffer used for storing the DER encoded validity.
+ * @param	DerLen		Pointer to store the length of the DER encoded validity.
+ *
+ * @return
+ *	- XASUFW_SUCCESS, if the validity is DER encoded successfully.
+ *	- XASUFW_FAILURE, in case of failure.
+ *	- XASUFW_X509_VALIDATE_BUFFER_SPACE_FAIL, if buffer validation is failed.
+ *	- XASUFW_X509_CREATE_TIME_FIELD_FAIL, if creation of an ASN.1 time is failed.
+ *	- XASUFW_X509_UPDATE_ENCODED_LEN_FAIL, if updating encoded length is failed.
+ *	- Error code received from called functions in case of other failure from the called
+ *	function.
+ *
+ * @note	Validity ::= SEQUENCE {
+ *			notBefore	Time,
+ *			notAfter	Time
+ *		}
+ *
+ *		Time ::= CHOICE {
+ *			utcTime		UTCTime,
+ *			generalTime	GeneralizedTime
+ *		}
+ *
+ *************************************************************************************************/
+static s32 X509_Asn1EncodeValidity(const XAsu_X509Validity *Validity, u8 *DerBuf,
+				   u32 DerBufSize, u32 *DerLen)
+{
+	CREATE_VOLATILE(Status, XASUFW_FAILURE);
+	X509_CertGenInfo CallerInstance = CertInstance;
+	u8 *SequenceLenIdx = NULL;
+	u8 *SequenceValIdx = NULL;
+
+	/** Initialize certificate generation instance at the given buffer. */
+	CertInstance.Buf = DerBuf;
+	CertInstance.BufSize = DerBufSize;
+	CertInstance.Offset = 0U;
+
+	/** Validate buffer space and update tag, length and value field of the validity. */
+	Status = X509_ValidateAndUpdateTlvField(X509_ASN1_TAG_SEQUENCE, &SequenceLenIdx,
+						&SequenceValIdx);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_X509_VALIDATE_BUFFER_SPACE_FAIL;
+		goto END;
+	}
+
+	/** Add the start time of the validity period. */
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	Status = X509_Asn1CreateCertTime(&Validity->NotBefore);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_X509_CREATE_TIME_FIELD_FAIL);
+		goto END;
+	}
+
+	/** Add the end time of the validity period. */
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	Status = X509_Asn1CreateCertTime(&Validity->NotAfter);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_X509_CREATE_TIME_FIELD_FAIL);
+		goto END;
+	}
+
+	/** Update the length of the validity. */
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	Status = X509_UpdateEncodedLength(SequenceLenIdx,
+					  (u32)(&(CertInstance.Buf[CertInstance.Offset]) -
+						SequenceValIdx),
+					  SequenceValIdx);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_X509_UPDATE_ENCODED_LEN_FAIL);
+		goto END;
+	}
+	if ((*SequenceLenIdx & (u8)(~X509_ASN1_SHORT_FORM_MAX_LENGTH_IN_BYTES)) != 0U) {
+		CertInstance.Offset += (u32)((*SequenceLenIdx) & X509_LOWER_NIBBLE_MASK);
+	}
+
+	*DerLen = CertInstance.Offset;
+
+END:
+	/** Restore certificate generation instance. */
+	CertInstance = CallerInstance;
+
+	return Status;
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	This function checks whether the given character belongs to the ASN.1
+ *		PrintableString character set.
+ *
+ * @param	Char	Character to be checked.
+ *
+ * @return
+ *	- XASU_TRUE, if the character belongs to the PrintableString character set.
+ *	- XASU_FALSE, otherwise.
+ *
+ *************************************************************************************************/
+static u32 X509_Asn1IsPrintableChar(u8 Char)
+{
+	u32 IsPrintable = (u32)XASU_FALSE;
+
+	if (((Char >= (u8)'A') && (Char <= (u8)'Z')) ||
+	    ((Char >= (u8)'a') && (Char <= (u8)'z')) ||
+	    ((Char >= (u8)'0') && (Char <= (u8)'9')) ||
+	    (Char == (u8)' ') || (Char == (u8)'\'') || (Char == (u8)'(') ||
+	    (Char == (u8)')') || (Char == (u8)'+') || (Char == (u8)',') ||
+	    (Char == (u8)'-') || (Char == (u8)'.') || (Char == (u8)'/') ||
+	    (Char == (u8)':') || (Char == (u8)'=') || (Char == (u8)'?')) {
+		IsPrintable = (u32)XASU_TRUE;
+	}
+
+	return IsPrintable;
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	This function validates that the given string can be encoded as an ASN.1
+ *		PrintableString.
+ *
+ * @param	Str		Pointer to the string.
+ * @param	StrLen		Length of the string.
+ * @param	MaxStrLen	Maximum permitted length of the string.
+ *
+ * @return
+ *	- XASUFW_SUCCESS, if the string is a valid PrintableString.
+ *	- XASUFW_FAILURE, in case of failure.
+ *	- XASUFW_X509_INVALID_PARAM, if parameter is invalid.
+ *	- XASUFW_X509_INVALID_DATA, if the string holds a character outside the PrintableString
+ *	  character set.
+ *
+ *************************************************************************************************/
+static s32 X509_ValidatePrintableString(const u8 *Str, u32 StrLen, u32 MaxStrLen)
+{
+	CREATE_VOLATILE(Status, XASUFW_FAILURE);
+	u32 Idx;
+
+	/** Validate the string and its length. */
+	if ((Str == NULL) || (StrLen == 0U) || (StrLen > MaxStrLen)) {
+		Status = XASUFW_X509_INVALID_PARAM;
+		goto END;
+	}
+
+	/** Validate each character of the string against the PrintableString character set. */
+	for (Idx = 0U; Idx < StrLen; Idx++) {
+		if (X509_Asn1IsPrintableChar(Str[Idx]) != (u32)XASU_TRUE) {
+			Status = XASUFW_X509_INVALID_DATA;
+			goto END;
+		}
+	}
+
+	Status = XASUFW_SUCCESS;
+
+END:
+	return Status;
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	This function validates the attributes of a distinguished name.
+ *
+ * @param	Name	Pointer to the structure holding the distinguished name attributes.
+ *
+ * @return
+ *	- XASUFW_SUCCESS, if the distinguished name is valid.
+ *	- XASUFW_FAILURE, in case of failure.
+ *	- XASUFW_X509_INVALID_DATA, if the distinguished name is invalid.
+ *	- Error code received from called functions in case of other failure from the called
+ *	function.
+ *
+ *************************************************************************************************/
+static s32 X509_ValidateName(const XAsu_X509Name *Name)
+{
+	CREATE_VOLATILE(Status, XASUFW_FAILURE);
+
+	/** Validate the organization name. */
+	Status = X509_ValidatePrintableString(Name->OrgName, Name->OrgNameLen,
+					      XASU_X509_ORG_NAME_MAX_LEN);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_X509_INVALID_DATA;
+		goto END;
+	}
+
+	/** Validate the common name. */
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	Status = X509_ValidatePrintableString(Name->CommonName, Name->CommonNameLen,
+					      XASU_X509_COMMON_NAME_MAX_LEN);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_X509_INVALID_DATA;
+	}
+
+END:
+	return Status;
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	This function validates the validity period.
+ *
+ * @param	Validity	Pointer to the structure holding the validity period.
+ *
+ * @return
+ *	- XASUFW_SUCCESS, if the validity period is valid.
+ *	- XASUFW_FAILURE, in case of failure.
+ *	- XASUFW_X509_TIME_AND_DATE_INVALID, if the date and time is invalid.
+ *	- Error code received from called functions in case of other failure from the called
+ *	function.
+ *
+ *************************************************************************************************/
+static s32 X509_ValidateValidity(const XAsu_X509Validity *Validity)
+{
+	CREATE_VOLATILE(Status, XASUFW_FAILURE);
+	X509_DateTime DateTime = {0U};
+
+	/** Validate the start time of the validity period. */
+	X509_GetDateTime(&Validity->NotBefore, &DateTime);
+	Status = X509_ValidateTimeAndDate(&DateTime);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_X509_TIME_AND_DATE_INVALID;
+		goto END;
+	}
+
+	/** Validate the end time of the validity period. */
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	X509_GetDateTime(&Validity->NotAfter, &DateTime);
+	Status = X509_ValidateTimeAndDate(&DateTime);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_X509_TIME_AND_DATE_INVALID;
+	}
+
+END:
+	return Status;
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	This function fills the date and time used within the module from the date and time
+ *		supplied by the user.
+ *
+ * @param	Time		Pointer to the user supplied date and time.
+ * @param	DateTime	Pointer to the date and time to be filled.
+ *
+ *************************************************************************************************/
+static inline void X509_GetDateTime(const XAsu_X509Time *Time, X509_DateTime *DateTime)
+{
+	DateTime->Year = Time->Year;
+	DateTime->Month = Time->Month;
+	DateTime->Day = Time->Day;
+	DateTime->Hour = Time->Hour;
+	DateTime->Min = Time->Minute;
+	DateTime->Sec = Time->Second;
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	This function creates a DER encoded ASN.1 time from the given date and time.
+ *
+ * @param	Time	Pointer to the date and time.
+ *
+ * @return
+ *	- XASUFW_SUCCESS, if the ASN.1 time is created successfully.
+ *	- XASUFW_FAILURE, in case of failure.
+ *	- XASUFW_INT_TO_ASCII_FAIL, if the integer to ASCII conversion fails.
+ *	- XASUFW_X509_INVALID_DATA, if the date and time is invalid.
+ *	- Error code received from called functions in case of other failure from the called
+ *	function.
+ *
+ * @note	RFC 5280 requires a date through the year 2049 to be encoded as an UTCTime holding
+ *		a two digit year and a date from the year 2050 onwards to be encoded as a
+ *		GeneralizedTime holding a four digit year. Both forms are terminated with the zero
+ *		time offset, as the time is always UTC.
+ *
+ *		The date and time is validated by X509_BuildUserCfg() before it reaches this
+ *		function.
+ *
+ *************************************************************************************************/
+static s32 X509_Asn1CreateCertTime(const XAsu_X509Time *Time)
+{
+	CREATE_VOLATILE(Status, XASUFW_FAILURE);
+	X509_DateTime DateTime = {0U};
+	u8 TimeStr[X509_GENERALIZED_TIME_LEN] = {0U};
+	const u8 *const SegmentVal[] = {&DateTime.Month, &DateTime.Day, &DateTime.Hour,
+					&DateTime.Min, &DateTime.Sec};
+	u32 Offset;
+	u32 Idx;
+	u32 YearLen;
+	u32 YearVal;
+	u32 TimeLen;
+	u8 Asn1Tag;
+
+	X509_GetDateTime(Time, &DateTime);
+
+	/** Select the encoded form and the year it holds from the year of the date. */
+	if (DateTime.Year < X509_ASN1_MIN_GENERALIZED_YEAR) {
+		if (DateTime.Year < X509_ASN1_MIN_UTC_YEAR) {
+			Status = XASUFW_X509_INVALID_DATA;
+			goto END;
+		}
+		YearLen = X509_ASN1_YEAR_LEN_UTC_BYTES;
+		TimeLen = X509_UTC_TIME_LEN;
+		Asn1Tag = X509_ASN1_TAG_UTC_TIME;
+		YearVal = (u32)DateTime.Year % X509_ASN1_YEARS_PER_CENTURY;
+	} else {
+		YearLen = X509_ASN1_YEAR_LEN_GEN_BYTES;
+		TimeLen = X509_GENERALIZED_TIME_LEN;
+		Asn1Tag = X509_ASN1_TAG_GENERALIZED_TIME;
+		YearVal = (u32)DateTime.Year;
+	}
+
+	/** Format the date and time as the characters of the selected form. */
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	Status = XAsufw_IntToAscii(TimeStr, YearLen, YearVal);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_INT_TO_ASCII_FAIL;
+		goto END;
+	}
+
+	Offset = YearLen;
+	for (Idx = 0U; Idx < XASUFW_ARRAY_SIZE(SegmentVal); Idx++) {
+		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+		Status = XAsufw_IntToAscii(&TimeStr[Offset], X509_ASN1_TIME_SEGMENT_LEN,
+					   (u32)*SegmentVal[Idx]);
+		if (Status != XASUFW_SUCCESS) {
+			Status = XASUFW_INT_TO_ASCII_FAIL;
+			goto END;
+		}
+		Offset += X509_ASN1_TIME_SEGMENT_LEN;
+	}
+	TimeStr[Offset] = (u8)X509_ASN1_ZERO_TIME_OFFSET_VAL;
+
+	/** Add the tag, length and value field of the time. */
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	Status = X509_Asn1CreateTlvField(Asn1Tag, TimeStr, TimeLen);
 
 END:
 	return Status;

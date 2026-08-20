@@ -50,6 +50,8 @@ s32 XAsu_OcpGetDevAkX509Certificate(XAsu_ClientParams *ClientParamPtr,
 				    XAsu_OcpCertParams *OcpCertClientParamPtr);
 s32 XAsu_OcpGetDevIkCsr(XAsu_ClientParams *ClientParamPtr,
 			XAsu_OcpCertParams *OcpCertClientParamPtr);
+s32 XAsu_OcpGetUserX509Certificate(XAsu_ClientParams *ClientParamPtr,
+				   XAsu_OcpUserCertParams *OcpUserCertClientParamPtr);
 s32 XAsu_OcpDevAkAttestation(XAsu_ClientParams *ClientParamPtr,
 			     XAsu_OcpDevAkAttest *OcpDevAkAttestParamPtr);
 s32 XAsu_OcpUdeChallengeReq(XAsu_ClientParams *ClientParamPtr, XAsu_OcpUdeParams *OcpUdeParamsPtr);

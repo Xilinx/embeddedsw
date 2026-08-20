@@ -104,6 +104,8 @@ typedef struct {
 s32 XOcp_GenerateDeviceKeys(XAsufw_Dma *DmaPtr, u32 EventMask);
 s32 XOcp_GetX509Cert(u32 SubsystemId, const XAsu_OcpCertParams *OcpCertParam, void *PlatData,
 		     u8 IsCsr);
+s32 XOcp_GetUserX509Cert(u32 SubsystemId, const XAsu_OcpUserCertParams *OcpUserCertParam,
+			 void *PlatData);
 s32 XOcp_AttestWithDevAk(XAsufw_Dma *DmaPtr, const XAsu_OcpDevAkAttest *OcpAttestParam,
 			 u32 SubsystemId);
 XOcp_DeviceKeys* XOcp_GetDevIk(void);

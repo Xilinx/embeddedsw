@@ -769,6 +769,26 @@ enum {
 						computation overflows a 32-bit value. */
 	XASUFW_X509_GEN_BASIC_CONSTRAINTS_FIELD_FAIL, /**< 0x229U - Error when basic constraints
 							field generation is failed */
+	XASUFW_X509_BUILD_USER_CFG_FAIL, /**< 0x22AU - Error when building the DER encoded user
+						configuration from the certificate fields
+						is failed */
+	XASUFW_OCP_INVALID_PUB_KEY_ID, /**< 0x22BU - Error when the public key ID given by the user
+						does not refer to a usable ECC public key */
+	XASUFW_OCP_INVALID_SIGN_KEY_ID, /**< 0x22CU - Error when the private key ID given by the
+						user does not refer to a usable ECC signing key */
+	XASUFW_OCP_USER_X509_CERT_GEN_FAIL, /**< 0x22DU - Error when user X.509 certificate
+						generation is failed */
+	XASUFW_X509_CREATE_PRINTABLE_STRING_FAIL, /**< 0x22EU - Error when printable string creation
+						is failed */
+	XASUFW_X509_CREATE_NAME_ATTRIBUTE_FAIL, /**< 0x22FU - Error when creation of a
+						distinguished name attribute is failed */
+	XASUFW_X509_CREATE_TIME_FIELD_FAIL, /**< 0x230U - Error when creation of an ASN.1 time is
+						failed */
+	XASUFW_X509_TIME_AND_DATE_INVALID, /**< 0x231U - Error when the time and date is invalid */
+	XASUFW_INT_TO_ASCII_FAIL, /**< 0x232U - Error when integer to ASCII conversion fails */
+	XASUFW_OCP_ISSUER_KEY_PAIR_MISMATCH, /**< 0x233U - Error when the issuer public key and the
+						issuer private key given by the user do not form
+						a key pair */
 
 	/* Provisioning module error codes */
 	XASUFW_PROVISION_INVALID_PARAM, /**< 0x22AU - Error when a provisioning input parameter is

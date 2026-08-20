@@ -67,6 +67,22 @@ _Static_assert(sizeof(XOcp_CdoData) <= XASUFW_OCP_CDO_DATA_SIZE,
 #define XOCP_X509_CERT_FIELD_LEN	(4U)		/**< Certificate size field length */
 
 /************************************ Type Definitions *******************************************/
+/** This structure contains the working data of a user X.509 certificate request. */
+typedef struct {
+	u8 CertBuf[X509_CERTIFICATE_MAX_SIZE_IN_BYTES];	/**< Generated user certificate */
+	X509_UserCfg DerCfg;		/**< DER encoded user certificate configuration */
+	XAsu_X509UserCertCfg UserCfg;	/**< User supplied certificate configuration */
+	X509_Config CertCfg;		/**< Certificate generation configuration */
+	XAsu_EccKeyObject SubjectPubKeyObj;	/**< Subject public key of the certificate */
+	XAsu_EccKeyObject IssuerPubKeyObj;	/**< Issuer public key verifying the signature */
+	XAsu_EccKeyObject IssuerPvtKeyObj;	/**< Issuer private key signing the certificate */
+} XOcp_UserCertData;
+
+_Static_assert(sizeof(XOcp_UserCertData) <= XASUFW_CRYPTO_ALGO_DATA_BLOCK_SIZE,
+	       "User certificate working data exceeds the crypto algorithm data block size limit");
+
+_Static_assert(X509_CERTIFICATE_MAX_SIZE_IN_BYTES <= XASUFW_CRYPTO_ALGO_DATA_BLOCK_SIZE,
+	       "Device certificate buffer exceeds the crypto algorithm data block size limit");
 
 /********************************** Variable Definitions *****************************************/
 static XOcp_DeviceKeys DevIkData;	/**< Device identity key data */
@@ -869,6 +885,8 @@ s32 XOcp_GetX509Cert(u32 SubsystemId, const XAsu_OcpCertParams *OcpCertParam, vo
 	XASUFW_MEASURE_PERF_START(XASU_MODULE_OCP_ID);
 
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
+	CREATE_VOLATILE(ClearStatus, XASUFW_FAILURE);
+	XFih_Var XFihClr = XFih_VolatileAssignXfihVar(XFIH_FAILURE);
 	X509_Config CertCfg;
 	XOcp_CdoData *CdoData = (XOcp_CdoData *)XASUFW_OCP_CDO_DATA_ADDR;
 	const X509_PlatData *PlatDataPtr = (X509_PlatData *)PlatData;
@@ -878,7 +896,7 @@ s32 XOcp_GetX509Cert(u32 SubsystemId, const XAsu_OcpCertParams *OcpCertParam, vo
 	const u8 *IssuerPvtKey = NULL;
 	const u8 *IssuerPubKey = NULL;
 	const u8 *SubjectPubKey = NULL;
-	u8 CertBuf[X509_CERTIFICATE_MAX_SIZE_IN_BYTES];
+	u8 *CertBuf = (u8 *)(UINTPTR)XASUFW_CRYPTO_ALGO_DATA_BLOCK;
 
 	/** Validate OCP certificate parameters. */
 	Status = XAsu_OcpValidateCertParams(OcpCertParam);
@@ -947,6 +965,9 @@ s32 XOcp_GetX509Cert(u32 SubsystemId, const XAsu_OcpCertParams *OcpCertParam, vo
 			XAsu_DoubleCurveLength(XASU_ECC_P384_PVT_KEY_SIZE_IN_BYTES);
 		CertCfg.PubKeyInfo.SubjectPublicKey = IssuerPubKey;
 		CertCfg.IsSelfSigned = (u8)XASU_TRUE;
+
+		/** The DevIk key signs the DevAk certificates. */
+		CertCfg.KeyUsage = XASU_X509_KEY_USAGE_KEY_CERT_SIGN;
 	} else {
 		/** Get subsystem index using subsystem ID. */
 		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
@@ -998,6 +1019,10 @@ s32 XOcp_GetX509Cert(u32 SubsystemId, const XAsu_OcpCertParams *OcpCertParam, vo
 			XAsu_DoubleCurveLength(XASU_ECC_P384_PVT_KEY_SIZE_IN_BYTES);
 		CertCfg.PubKeyInfo.SubjectPublicKey = SubjectPubKey;
 		CertCfg.IsSelfSigned = (u8)XASU_FALSE;
+
+		/** The DevAk key signs attestation data and derives shared secrets. */
+		CertCfg.KeyUsage = XASU_X509_KEY_USAGE_DIGITAL_SIGNATURE |
+				   XASU_X509_KEY_USAGE_KEY_AGREEMENT;
 	}
 
 	/** Generate X.509 certificate. */
@@ -1027,7 +1052,7 @@ s32 XOcp_GetX509Cert(u32 SubsystemId, const XAsu_OcpCertParams *OcpCertParam, vo
 	/** Copy actual size of generated certificate to destination address using DMA. */
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	Status = XAsufw_DmaXfr(PlatDataPtr->DmaPtr, (u64)(UINTPTR)&CertSize,
-			       (u64)(UINTPTR)OcpCertParam->CertActualSize,
+			       OcpCertParam->CertActualSizeAddr,
 			       XOCP_X509_CERT_FIELD_LEN, 0U);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XASUFW_DMA_COPY_FAIL;
@@ -1043,6 +1068,219 @@ s32 XOcp_GetX509Cert(u32 SubsystemId, const XAsu_OcpCertParams *OcpCertParam, vo
 	XASUFW_MEASURE_PERF_STOP(XASU_MODULE_OCP_ID);
 
 END:
+	/** Zeroize the certificate buffer so it does not outlive this command. */
+	XFIH_CALL(Xil_SecureZeroize, XFihClr, ClearStatus, CertBuf,
+		  X509_CERTIFICATE_MAX_SIZE_IN_BYTES);
+	Status = XAsufw_UpdateBufStatus(Status, ClearStatus);
+
+	return Status;
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	This function generates a user X.509 certificate.
+ *
+ * @param	SubsystemId		Subsystem ID which owns the public key and requests the
+ *					certificate.
+ * @param	OcpUserCertParam	Pointer to the user certificate request parameters.
+ * @param	PlatData		Pointer to platform specific data.
+ *
+ * @return
+ *	- XASUFW_SUCCESS, if certificate is generated successfully.
+ *	- XASUFW_FAILURE, in case of failure.
+ *	- XASUFW_OCP_INVALID_PARAM, if input parameter or the user certificate configuration is
+ *	  invalid.
+ *	- XASUFW_ZEROIZE_MEMSET_FAIL, if clearing the working data is failed.
+ *	- XASUFW_OCP_INVALID_PUB_KEY_ID, if the public key cannot be fetched from the vault.
+ *	- XASUFW_OCP_INVALID_SIGN_KEY_ID, if the issuer private key cannot be fetched from the
+ *	  vault.
+ *	- XASUFW_OCP_ISSUER_KEY_PAIR_MISMATCH, if the issuer public and private keys are not a key
+ *	  pair.
+ *	- XASUFW_X509_BUILD_USER_CFG_FAIL, if building the DER encoded user configuration is failed.
+ *	- XASUFW_OCP_USER_X509_CERT_GEN_FAIL, if certificate generation is failed.
+ *	- XASUFW_OCP_INVALID_BUF_SIZE, if buffer size is not sufficient.
+ *	- XASUFW_DMA_COPY_FAIL, if DMA transfer is failed.
+ *
+ *************************************************************************************************/
+s32 XOcp_GetUserX509Cert(u32 SubsystemId, const XAsu_OcpUserCertParams *OcpUserCertParam,
+			 void *PlatData)
+{
+	/**
+	 * Capture the start time of the user X.509 certificate generation operation, if
+	 * performance measurement is enabled.
+	 */
+	XASUFW_MEASURE_PERF_START(XASU_MODULE_OCP_ID);
+	CREATE_VOLATILE(Status, XASUFW_FAILURE);
+	CREATE_VOLATILE(ClearStatus, XASUFW_FAILURE);
+	XFih_Var XFihClr = XFih_VolatileAssignXfihVar(XFIH_FAILURE);
+	XFih_Var XFihPwct = XFih_VolatileAssignXfihVar(XFIH_FAILURE);
+	XOcp_UserCertData *CertData = (XOcp_UserCertData *)(UINTPTR)XASUFW_CRYPTO_ALGO_DATA_BLOCK;
+	const X509_PlatData *PlatDataPtr = (const X509_PlatData *)PlatData;
+	u32 CertSize = 0U;
+
+	/** Validate platform data and user certificate request parameters. */
+	if ((PlatData == NULL) || (OcpUserCertParam == NULL)) {
+		Status = XASUFW_OCP_INVALID_PARAM;
+		goto END;
+	}
+
+	Status = XAsu_OcpValidateUserCertParams(OcpUserCertParam);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_OCP_INVALID_PARAM;
+		goto END;
+	}
+
+	/** Clear the working data. */
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	Status = Xil_SMemSet(CertData, sizeof(XOcp_UserCertData), 0U, sizeof(XOcp_UserCertData));
+	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_ZEROIZE_MEMSET_FAIL;
+		goto END;
+	}
+
+	/** Copy the user certificate configuration from the user memory to ASU memory. */
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	Status = XAsufw_DmaXfr(PlatDataPtr->DmaPtr, OcpUserCertParam->UserCertCfgAddr,
+			       (u64)(UINTPTR)&CertData->UserCfg,
+			       (u32)sizeof(XAsu_X509UserCertCfg), 0U);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_DMA_COPY_FAIL;
+		goto END;
+	}
+
+	/** Validate the user certificate configuration. */
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	Status = XAsu_OcpValidateUserCertCfg(&CertData->UserCfg);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_OCP_INVALID_PARAM;
+		goto END;
+	}
+
+	/** Build the DER encoded user configuration from the user certificate fields. */
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	Status = X509_BuildUserCfg(&CertData->UserCfg.CertCfg, &CertData->DerCfg);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_X509_BUILD_USER_CFG_FAIL);
+		goto END;
+	}
+
+	/** Fetch the subject public key from the key vault. */
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	CertData->SubjectPubKeyObj.CurveType = XASU_ECC_NIST_P384;
+	Status = XKeyManager_UpdateKeyObjFromVault(PlatDataPtr->DmaPtr,
+			CertData->UserCfg.SubjectPubKeyId,
+			(u64)(UINTPTR)&CertData->SubjectPubKeyObj, SubsystemId,
+			XKeyManager_GetEccPubKeyUseCase(CertData->UserCfg.CertCfg.KeyUsage),
+			XKEYMANAGER_RSA_OP_NONE, XASU_ECC_PUB_SUBVAULT_ID);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_OCP_INVALID_PUB_KEY_ID);
+		goto END;
+	}
+
+	/** Fetch the issuer private key from the user key vault. */
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	CertData->IssuerPvtKeyObj.CurveType = XASU_ECC_NIST_P384;
+	Status = XKeyManager_UpdateKeyObjFromVault(PlatDataPtr->DmaPtr,
+			CertData->UserCfg.IssuerPvtKeyId,
+			(u64)(UINTPTR)&CertData->IssuerPvtKeyObj, SubsystemId,
+			XASU_KEYMANAGER_ECC_PVT_SIGN_GEN_USE_CASE,
+			XKEYMANAGER_RSA_OP_NONE, XASU_ECC_PVT_SUBVAULT_ID);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_OCP_INVALID_SIGN_KEY_ID);
+		goto END;
+	}
+
+	/** Fetch the issuer public key from the user key vault to verify the signature. */
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	CertData->IssuerPubKeyObj.CurveType = XASU_ECC_NIST_P384;
+	Status = XKeyManager_UpdateKeyObjFromVault(PlatDataPtr->DmaPtr,
+			CertData->UserCfg.IssuerPubKeyId,
+			(u64)(UINTPTR)&CertData->IssuerPubKeyObj, SubsystemId,
+			XASU_KEYMANAGER_ECC_PUB_SIGN_VER_USE_CASE,
+			XKEYMANAGER_RSA_OP_NONE, XASU_ECC_PUB_SUBVAULT_ID);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_OCP_INVALID_PUB_KEY_ID);
+		goto END;
+	}
+
+	/** Verify the issuer public and private keys are a key pair. */
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	XFIH_CALL(XEcc_Pwct, XFihPwct, Status, XEcc_GetInstance(XASU_XECC_0_DEVICE_ID),
+		  PlatDataPtr->DmaPtr, CertData->IssuerPvtKeyObj.CurveType,
+		  CertData->IssuerPvtKeyObj.KeyLen, CertData->IssuerPvtKeyObj.KeyAddr,
+		  CertData->IssuerPubKeyObj.KeyAddr);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_OCP_ISSUER_KEY_PAIR_MISMATCH);
+		goto END;
+	}
+
+	/** Set X.509 certificate configurations. */
+	CertData->CertCfg.UserCfg = &CertData->DerCfg;
+	CertData->CertCfg.PubKeyInfo.PubKeyType = X509_PUB_KEY_ECC;
+	CertData->CertCfg.PubKeyInfo.EccCurveType = X509_ECC_CURVE_TYPE_384;
+	CertData->CertCfg.PubKeyInfo.SubjectPubKeyLen =
+		XAsu_DoubleCurveLength(CertData->SubjectPubKeyObj.KeyLen);
+	CertData->CertCfg.PubKeyInfo.SubjectPublicKey =
+		(const u8 *)(UINTPTR)CertData->SubjectPubKeyObj.KeyAddr;
+	CertData->CertCfg.IsCsr = (u32)XASU_FALSE;
+	CertData->CertCfg.IsSelfSigned = (u32)XASU_FALSE;
+	CertData->CertCfg.KeyUsage = CertData->UserCfg.CertCfg.KeyUsage;
+	CertData->CertCfg.IssuerPubKeyLen =
+		XAsu_DoubleCurveLength(CertData->IssuerPubKeyObj.KeyLen);
+	CertData->CertCfg.IssuerPublicKey =
+		(const u8 *)(UINTPTR)CertData->IssuerPubKeyObj.KeyAddr;
+	CertData->CertCfg.IssuerPrvtKey = (const u8 *)(UINTPTR)CertData->IssuerPvtKeyObj.KeyAddr;
+	CertData->CertCfg.PlatformData = PlatData;
+
+	/** Generate the user X.509 certificate. */
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	Status = X509_GenerateX509Cert((u64)(UINTPTR)CertData->CertBuf,
+				       X509_CERTIFICATE_MAX_SIZE_IN_BYTES, &CertSize,
+				       &CertData->CertCfg);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_OCP_USER_X509_CERT_GEN_FAIL);
+		goto END;
+	}
+
+	/** Validate certificate buffer length. */
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	if (OcpUserCertParam->CertBufLen < CertSize) {
+		Status = XASUFW_OCP_INVALID_BUF_SIZE;
+		goto END;
+	}
+
+	/** Copy generated certificate to destination address using DMA. */
+	Status = XAsufw_DmaXfr(PlatDataPtr->DmaPtr, (u64)(UINTPTR)CertData->CertBuf,
+			       OcpUserCertParam->CertBufAddr, CertSize, 0U);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_DMA_COPY_FAIL;
+		goto END;
+	}
+
+	/** Copy actual size of generated certificate to destination address using DMA. */
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	Status = XAsufw_DmaXfr(PlatDataPtr->DmaPtr, (u64)(UINTPTR)&CertSize,
+			       OcpUserCertParam->CertActualSizeAddr,
+			       XOCP_X509_CERT_FIELD_LEN, 0U);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_DMA_COPY_FAIL;
+		goto END;
+	}
+
+	ReturnStatus = XASUFW_OCP_CERT_GENERATION_SUCCESS;
+
+	/**
+	 * Measure and print the performance time for the user X.509 certificate generation
+	 * operation, if performance measurement is enabled.
+	 */
+	XASUFW_MEASURE_PERF_STOP(XASU_MODULE_OCP_ID);
+
+END:
+	/** Zeroize the user certificate data. */
+	XFIH_CALL(Xil_SecureZeroize, XFihClr, ClearStatus, (u8 *)(UINTPTR)CertData,
+		  (u32)sizeof(XOcp_UserCertData));
+	Status = XAsufw_UpdateBufStatus(Status, ClearStatus);
+
 	return Status;
 }
 

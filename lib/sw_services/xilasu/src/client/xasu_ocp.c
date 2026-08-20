@@ -166,6 +166,71 @@ END:
 
 /*************************************************************************************************/
 /**
+ * @brief	This function sends command to ASUFW to generate a user X.509 certificate.
+ *
+ * @param	ClientParamPtr			Pointer to the XAsu_ClientParams structure which
+ *						holds the client input parameters.
+ * @param	OcpUserCertClientParamPtr	Pointer to XAsu_OcpUserCertParams structure which
+ *						holds the user certificate request parameters.
+ *
+ * @return
+ *	- XST_SUCCESS, if IPI request to ASUFW is sent successfully.
+ *	- XST_FAILURE, in case of failure.
+ *	- XASU_INVALID_ARGUMENT, if any input parameter is invalid.
+ *	- XASU_INVALID_UNIQUE_ID, if the unique ID is invalid.
+ *
+ * @note	Currently, the user X.509 certificate generation is only supported for ECC P-384
+ *		keys. Other key types are not supported yet.
+ *
+ *************************************************************************************************/
+s32 XAsu_OcpGetUserX509Certificate(XAsu_ClientParams *ClientParamPtr,
+				   XAsu_OcpUserCertParams *OcpUserCertClientParamPtr)
+{
+	s32 Status = XST_FAILURE;
+	u32 Header;
+	u8 UniqueId;
+
+	/** Validate OCP client parameter. */
+	if (OcpUserCertClientParamPtr == NULL) {
+		Status = XASU_INVALID_ARGUMENT;
+		goto END;
+	}
+
+	/** Validate client parameter. */
+	Status = XAsu_ValidateClientParameters(ClientParamPtr);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	/** Validate OCP client parameter inputs. */
+	Status = XAsu_OcpValidateUserCertParams(OcpUserCertClientParamPtr);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	/** Generate a unique ID and register the callback function. */
+	UniqueId = XAsu_RegCallBackNGetUniqueId(ClientParamPtr, NULL, 0U, XASU_TRUE);
+	if (UniqueId >= XASU_UNIQUE_ID_MAX) {
+		Status = XASU_INVALID_UNIQUE_ID;
+		goto END;
+	}
+
+	/** Create command header. */
+	Header = XAsu_CreateHeader(XASU_OCP_GET_USER_X509_CERT_CMD_ID, UniqueId,
+				   XASU_MODULE_OCP_ID,
+				   (u8)(sizeof(XAsu_OcpUserCertParams) / XASU_WORD_LEN_IN_BYTES),
+				   ClientParamPtr->SecureFlag);
+
+	/** Update request buffer and send an IPI request to ASUFW. */
+	Status = XAsu_SendCmdToAsu(ClientParamPtr, OcpUserCertClientParamPtr,
+				   (u32)(sizeof(XAsu_OcpUserCertParams)), Header);
+
+END:
+	return Status;
+}
+
+/*************************************************************************************************/
+/**
  * @brief	This function sends command to ASUFW to perform CSR(Certificate Signing Request)
  *		generation operation.
  *

@@ -34,6 +34,7 @@ extern "C" {
 
 /*************************************** Include Files *******************************************/
 #include "xil_types.h"
+#include "xasu_ocpinfo.h"
 
 /************************************ Constant Definitions ***************************************/
 #define X509_ISSUER_MAX_SIZE		(600U)	/**< Max length of the DER encoded Issuer field
@@ -239,6 +240,7 @@ typedef struct {
 	X509_SubjectPublicKeyInfo PubKeyInfo;	/**< Subject public key information */
 	u32 IsCsr;				/**< Flag to check if Certificate Signing Request */
 	u32 IsSelfSigned;			/**< Flag to check if self-signed certificate */
+	u32 KeyUsage;				/**< Key usage */
 	u32 IssuerPubKeyLen;			/**< Issuer public Key length */
 	const u8 *IssuerPublicKey;		/**< Issuer public Key */
 	const u8 *IssuerPrvtKey;		/**< Issuer private Key */
@@ -309,6 +311,8 @@ typedef struct {
 #define X509_ASN1_TAG_OCTET_STRING			(0x04U)	/**< ASN.1 tag for octet string */
 #define X509_ASN1_TAG_NULL				(0x05U)	/**< ASN.1 tag for null */
 #define X509_ASN1_TAG_OID				(0x06U)	/**< ASN.1 tag for OIDs */
+#define X509_ASN1_TAG_PRINTABLE_STRING			(0x13U)	/**< ASN.1 tag for printable
+								string */
 #define X509_ASN1_TAG_UTC_TIME				(0x17U)	/**< ASN.1 tag for UTC time
 								format */
 #define X509_ASN1_TAG_GENERALIZED_TIME			(0x18U)	/**< ASN.1 tag for GENERALIZED
@@ -326,6 +330,8 @@ s32 X509_ParseCertificate(u64 X509CertAddr, u32 Size, X509_CertInfo *CertInfo);
 s32 X509_GenerateX509Cert(u64 X509CertAddr, u32 MaxCertSize, u32 *X509CertSize,
 			  const X509_Config *Cfg);
 s32 X509_Init(const X509_InitData *CfgData);
+s32 X509_ValidateTimeAndDate(const X509_DateTime *DateTime);
+s32 X509_BuildUserCfg(const XAsu_X509CertFields *CertFields, X509_UserCfg *UserCfg);
 
 /************************************ Variable Definitions ***************************************/
 

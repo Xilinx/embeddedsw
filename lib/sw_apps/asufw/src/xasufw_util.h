@@ -29,6 +29,7 @@
  *                     value.
  *       rmv  07/16/25 Added macro for buffer index zero
  *       kp   08/19/26 Added shared PLM XilNVM IPI command macros
+ *       rmv  08/20/26 Added XAsufw_IntToAscii() function prototype.
  *
  * </pre>
  *
@@ -237,6 +238,7 @@ s32 XAsufw_SMemSet(void *Dest, const u32 DestSize);
 s32 XAsufw_WriteDataToRegsWithEndianSwap(u32 BaseAddress, u32 RegOffset, const u32 *DataArray,
         u32 NumOfWords);
 s32 XAsufw_AsciiToInt(const u8 *Buf, u32 Len, u32 *Value);
+s32 XAsufw_IntToAscii(u8 *Buf, u32 Len, u32 Value);
 u32 XAsufw_SwapBytes(const u8 *const Source, u32 Bytes);
 
 /************************************ Variable Definitions ***************************************/

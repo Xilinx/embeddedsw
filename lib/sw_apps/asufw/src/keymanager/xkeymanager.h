@@ -55,16 +55,6 @@ extern "C" {
 #define XKEYMANAGER_MINOR_VERSION	(0U) /**< Minor version of the key manager */
 #define XKEYMANAGER_IDENTIFICATION_STRING	(0x4C564B58U) /**< Key manager identification string */
 
-#define XKEYMANAGER_X509_DIGITALSIGNATURE_USE_CASE	(0x01U)	/**< Digital signature use case */
-#define XKEYMANAGER_X509_NONREPUDIATION_USE_CASE	(0x02U)	/**< Non-repudiation use case */
-#define XKEYMANAGER_X509_KEYENCIPHERMENT_USE_CASE	(0x04U)	/**< Key encipherment use case */
-#define XKEYMANAGER_X509_DATAENCIPHERMENT_USE_CASE	(0x08U)	/**< Data encipherment use case */
-#define XKEYMANAGER_X509_KEYAGREEMENT_USE_CASE		(0x10U)	/**< Key agreement use case */
-#define XKEYMANAGER_X509_KEYCERTSIGN_USE_CASE		(0x20U)	/**< Certificate signing use case */
-#define XKEYMANAGER_X509_CRLSIGN_USE_CASE		(0x40U)	/**< CRL signing use case */
-#define XKEYMANAGER_X509_ENCIPHERONLY_USE_CASE		(0x80U)	/**< Encipher only use case */
-#define XKEYMANAGER_X509_DECIPHERONLY_USE_CASE		(0x100U) /**< Decipher only use case */
-
 #define XKEYMANAGER_RSA_ALL_KEY_USE_CASES_VALUE	(7U)	/**< Value for all RSA key use cases*/
 
 #define XKEYMANAGER_ASU_SUBSYSTEM_ID			(0x1C000002U)	/**< ASU subsystem ID */
@@ -221,6 +211,7 @@ s32 XKeyManager_ExportKeyVault(XAsufw_Dma *DmaPtr, XAes *AesInstancePtr, u64 Exp
 s32 XKeyManager_ImportKeyVault(XAsufw_Dma *DmaPtr, XAes *AesInstancePtr, u64 ImportAddr,
 			       u32 ImportSize);
 s32 XKeyManager_SetEpochTime(u32 NewEpochTime);
+u8 XKeyManager_GetEccPubKeyUseCase(u32 KeyUsage);
 #endif /* XASU_KEYMANAGER_ENABLE */
 
 /************************************ Variable Definitions ***************************************/

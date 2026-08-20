@@ -32,6 +32,7 @@
  *       rmv  07/09/25 Added XAsufw_AsciiToInt() function.
  *       rmv  09/10/25 Simplified XAsufw_SMemSet() error handling by combining status checks
  *       kp   08/19/26 Moved PLM XilNVM IPI command macros to xasufw_util.h
+ *       rmv  08/20/26 Added XAsufw_IntToAscii() function.
  *
  * </pre>
  *
@@ -50,8 +51,8 @@
 #define XASUFW_ENDIANNESS_SWAP_OFFSET			(1U) /**< Position offset for swapping */
 #define XASUFW_ENDIANNESS_SWAP_MIN_LENGTH		(2U) /**< Minimum length to make a swap */
 
-#define XASUFW_MAX_ASCII_TO_INT_LEN	(9U) /**< Max ASCII digits for u32 conversion */
-#define XASUFW_ASCII_TO_INT_BASE	(10U) /**< Decimal base for ASCII to integer conversion */
+#define XASUFW_MAX_DECIMAL_DIGITS	(9U) /**< Max ASCII digits for u32 conversion */
+#define XASUFW_DECIMAL_BASE		(10U) /**< Base of the decimal number system */
 
 /************************************** Type Definitions *****************************************/
 
@@ -288,7 +289,7 @@ s32 XAsufw_AsciiToInt(const u8 *Buf, u32 Len, u32 *Value)
 	*Value = 0U;
 
 	/* Limit length to max 9 digits to support 999,999,999. */
-	if (Len > XASUFW_MAX_ASCII_TO_INT_LEN) {
+	if (Len > XASUFW_MAX_DECIMAL_DIGITS) {
 		Status = XASUFW_INVALID_PARAM;
 		goto END;
 	}
@@ -299,9 +300,66 @@ s32 XAsufw_AsciiToInt(const u8 *Buf, u32 Len, u32 *Value)
 			*Value = 0U;
 			goto END;
 		}
-		*Value = (((*Value) * XASUFW_ASCII_TO_INT_BASE) + (Buf[Idx] - (u8)'0'));
+		*Value = (((*Value) * XASUFW_DECIMAL_BASE) + (Buf[Idx] - (u8)'0'));
 		Idx++;
 		LenTmp--;
+	}
+
+	Status = XASUFW_SUCCESS;
+END:
+	return Status;
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	This function converts an integer to a zero padded decimal ASCII value which holds
+ *		the requested number of digits.
+ *
+ * @param	Buf	Pointer to the buffer in which the ASCII value is stored.
+ * @param	Len	Number of digits of the ASCII value.
+ * @param	Value	Integer value to be converted.
+ *
+ * @return
+ *	- XASUFW_SUCCESS, if integer to ASCII conversion is successful.
+ *	- XASUFW_FAILURE, if integer to ASCII conversion fails.
+ *	- XASUFW_INVALID_PARAM, if input parameters are invalid or the value needs more digits
+ *	  than requested.
+ *
+ * @note	The buffer is cleared when the value does not fit in the requested number of
+ *		digits, as a truncated value silently misrepresents it.
+ *
+ *************************************************************************************************/
+s32 XAsufw_IntToAscii(u8 *Buf, u32 Len, u32 Value)
+{
+	s32 Status = XASUFW_FAILURE;
+	u32 Idx = Len;
+	u32 RemainingVal = Value;
+
+	if ((Buf == NULL) || (Len == 0U)) {
+		Status = XASUFW_INVALID_PARAM;
+		goto END;
+	}
+
+	/* Limit length to max 9 digits to support 999,999,999. */
+	if (Len > XASUFW_MAX_DECIMAL_DIGITS) {
+		Status = XASUFW_INVALID_PARAM;
+		goto END;
+	}
+
+	/** Convert integer to ASCII value, starting from the least significant digit. */
+	while (Idx != 0U) {
+		Idx--;
+		Buf[Idx] = (u8)'0' + (u8)(RemainingVal % XASUFW_DECIMAL_BASE);
+		RemainingVal /= XASUFW_DECIMAL_BASE;
+	}
+
+	/** Any remainder is a digit which does not fit in the requested number of digits. */
+	if (RemainingVal != 0U) {
+		Status = XAsufw_SMemSet(Buf, Len);
+		if (Status == XASUFW_SUCCESS) {
+			Status = XASUFW_INVALID_PARAM;
+		}
+		goto END;
 	}
 
 	Status = XASUFW_SUCCESS;

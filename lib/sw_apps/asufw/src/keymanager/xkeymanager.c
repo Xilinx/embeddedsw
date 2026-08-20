@@ -2622,7 +2622,8 @@ static s32 XKeyManager_UpdateVaultInfo(u32 SubSystemId, u8 *VaultIdPtr)
  * @param	IsKeyUsed	TRUE if the key is being used, FALSE if only validated.
  *
  * @return
- * 	- XASUFW_SUCCESS, if key is valid and accessible for the requested use case.
+ * 	- XASUFW_SUCCESS, if key is valid and accessible for every requested use case.
+ * 	- XASUFW_KEYMANAGER_INVALID_PARAM, if an input parameter is invalid.
  * 	- XASUFW_KEYMANAGER_ACCESS_DENIED, if subsystem lacks access rights.
  * 	- XASUFW_KEYMANAGER_KEY_EXPIRED, if key usage count is exhausted or the current epoch time has
  * 		reached or passed the key's epoch time.
@@ -2707,6 +2708,43 @@ END:
 
 /*************************************************************************************************/
 /**
+ * @brief	This function translates the X.509 key usage extension of a certificate into the
+ *		key vault use case which the ECC public key of that certificate is granted.
+ *
+ * @param	KeyUsage	Bit wise OR of the XASU_X509_KEY_USAGE_* masks.
+ *
+ * @return
+ *	- Bit wise OR of the XASU_KEYMANAGER_ECC_PUB_* use case masks.
+ *
+ *************************************************************************************************/
+u8 XKeyManager_GetEccPubKeyUseCase(u32 KeyUsage)
+{
+	u8 KeyUseCase = 0U;
+
+	/**
+	 * The two encodings are unrelated bitmasks, so each X.509 key usage bit is mapped
+	 * explicitly.
+	 */
+	if ((KeyUsage & (XASU_X509_KEY_USAGE_DIGITAL_SIGNATURE |
+			 XASU_X509_KEY_USAGE_NON_REPUDIATION |
+			 XASU_X509_KEY_USAGE_KEY_CERT_SIGN |
+			 XASU_X509_KEY_USAGE_CRL_SIGN)) != 0U) {
+		KeyUseCase |= (u8)XASU_KEYMANAGER_ECC_PUB_SIGN_VER_USE_CASE;
+	}
+
+	if ((KeyUsage & XASU_X509_KEY_USAGE_KEY_AGREEMENT) != 0U) {
+		KeyUseCase |= (u8)XASU_KEYMANAGER_ECC_PUB_KEY_AGREEMENT_USE_CASE;
+	}
+
+	if ((KeyUsage & XASU_X509_KEY_USAGE_DATA_ENCIPHERMENT) != 0U) {
+		KeyUseCase |= (u8)XASU_KEYMANAGER_ECC_PUB_KEY_AUTH_ENC_USE_CASE;
+	}
+
+	return KeyUseCase;
+}
+
+/*************************************************************************************************/
+/**
  * @brief	Store a raw public key extracted from X.509 certificate to the key vault.
  *
  * @param	DmaPtr		Pointer to the XAsufw_Dma instance.
@@ -2720,6 +2758,8 @@ END:
  *	- XASUFW_FAILURE, in case of failure.
  *	- XASUFW_KEYMANAGER_INVALID_KEY_TYPE, if certificate contains unsupported public key type.
  *	- XASUFW_MEM_COPY_FAIL, if memory copy operation fails.
+ *	- XASUFW_KEYMANAGER_INVALID_EXPONENT_SIZE, if the public exponent size is not supported.
+ *	- XASUFW_KEYMANAGER_UPDATE_KEY_VAULT_FAIL, if updating key vault fails.
  *
  *************************************************************************************************/
 static s32 XKeyManager_StoreX509RawPublicKey(XAsufw_Dma *DmaPtr,
@@ -2747,24 +2787,8 @@ static s32 XKeyManager_StoreX509RawPublicKey(XAsufw_Dma *DmaPtr,
 
 		KeyData = CertInfo->PublicKey.EccPublicKey.PublicKey + XASUFW_BUFFER_INDEX_ONE;
 
-		/**
-		 * Map X.509 key usage to ECC public key usage:
-		 * - digitalSignature/nonRepudiation -> Signature verification
-		 * - keyAgreement -> Key Agreement
-		 * - dataEncipherment -> Authentication encryption scheme
-		 */
-		if (((CertInfo->KeyUsage & XKEYMANAGER_X509_DIGITALSIGNATURE_USE_CASE) != 0U) ||
-		    ((CertInfo->KeyUsage & XKEYMANAGER_X509_NONREPUDIATION_USE_CASE) != 0U)) {
-			KeyUseCase |= XASU_KEYMANAGER_ECC_PUB_SIGN_VER_USE_CASE;
-		}
-
-		if ((CertInfo->KeyUsage & XKEYMANAGER_X509_KEYAGREEMENT_USE_CASE) != 0U) {
-			KeyUseCase |= XASU_KEYMANAGER_ECC_PUB_KEY_AGREEMENT_USE_CASE;
-		}
-
-		if ((CertInfo->KeyUsage & XKEYMANAGER_X509_DATAENCIPHERMENT_USE_CASE) != 0U) {
-			KeyUseCase |= XASU_KEYMANAGER_ECC_PUB_KEY_AUTH_ENC_USE_CASE;
-		}
+		/** Map X.509 key usage to ECC public key usage. */
+		KeyUseCase = XKeyManager_GetEccPubKeyUseCase(CertInfo->KeyUsage);
 	} else if (CertInfo->PublicKeyType == X509_PUB_KEY_RSA) {
 		RawKeySubVaultType = XASU_RSA_PUB_SUBVAULT_ID;
 		KeyLen = CertInfo->PublicKey.RsaPublicKey.ModulusLen;
@@ -2783,17 +2807,17 @@ static s32 XKeyManager_StoreX509RawPublicKey(XAsufw_Dma *DmaPtr,
 		 * - keyEncipherment/dataEncipherment -> ENCRYPT
 		 * - keyAgreement -> KEY_TRANSPORT
 		 */
-		if (((CertInfo->KeyUsage & XKEYMANAGER_X509_DIGITALSIGNATURE_USE_CASE) != 0U) ||
-		    ((CertInfo->KeyUsage & XKEYMANAGER_X509_NONREPUDIATION_USE_CASE) != 0U)) {
+		if ((CertInfo->KeyUsage & (XASU_X509_KEY_USAGE_DIGITAL_SIGNATURE |
+					   XASU_X509_KEY_USAGE_NON_REPUDIATION)) != 0U) {
 			KeyUseCase |= XASU_KEYMANAGER_RSA_PUB_SIGN_VER_USE_CASE;
 		}
 
-		if (((CertInfo->KeyUsage & XKEYMANAGER_X509_KEYENCIPHERMENT_USE_CASE) != 0U) ||
-		    ((CertInfo->KeyUsage & XKEYMANAGER_X509_DATAENCIPHERMENT_USE_CASE) != 0U)) {
+		if ((CertInfo->KeyUsage & (XASU_X509_KEY_USAGE_KEY_ENCIPHERMENT |
+					   XASU_X509_KEY_USAGE_DATA_ENCIPHERMENT)) != 0U) {
 			KeyUseCase |= XASU_KEYMANAGER_RSA_PUB_ENCRYPT_USE_CASE;
 		}
 
-		if ((CertInfo->KeyUsage & XKEYMANAGER_X509_KEYAGREEMENT_USE_CASE) != 0U) {
+		if ((CertInfo->KeyUsage & XASU_X509_KEY_USAGE_KEY_AGREEMENT) != 0U) {
 			KeyUseCase |= XASU_KEYMANAGER_RSA_PUB_KEY_TRANSPORT_USE_CASE;
 		}
 

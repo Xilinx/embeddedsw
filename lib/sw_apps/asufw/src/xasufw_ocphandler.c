@@ -53,6 +53,7 @@
 static s32 XAsufw_OcpDevIkCsrX509CertGen(const XAsu_ReqBuf *ReqBuf, u32 ReqId);
 static s32 XAsufw_OcpDevIkX509CertGen(const XAsu_ReqBuf *ReqBuf, u32 ReqId);
 static s32 XAsufw_OcpDevAkX509CertGen(const XAsu_ReqBuf *ReqBuf, u32 ReqId);
+static s32 XAsufw_OcpUserX509CertGen(const XAsu_ReqBuf *ReqBuf, u32 ReqId);
 static s32 XAsufw_OcpDevAkAttestation(const XAsu_ReqBuf *ReqBuf, u32 ReqId);
 static s32 XAsufw_OcpUdeChallengeReq(const XAsu_ReqBuf *ReqBuf, u32 ReqId);
 static s32 XAsufw_OcpUdePvtKeysEncrypt(const XAsu_ReqBuf *ReqBuf, u32 ReqId);
@@ -93,6 +94,8 @@ s32 XAsufw_OcpInit(void)
 			XASUFW_MODULE_COMMAND(XAsufw_OcpUdePvtKeysEncrypt),
 		[XASU_OCP_GET_HUK_CMD_ID] =
 			XASUFW_MODULE_COMMAND(XAsufw_OcpGetHuk),
+		[XASU_OCP_GET_USER_X509_CERT_CMD_ID] =
+			XASUFW_MODULE_COMMAND(XAsufw_OcpUserX509CertGen),
 	};
 
 	/**
@@ -125,6 +128,11 @@ s32 XAsufw_OcpInit(void)
 			XASUFW_OCP_RESOURCE_MASK | XASUFW_AES_RESOURCE_MASK |
 			XASUFW_RSA_RESOURCE_MASK | XASUFW_OVERLAY_RESOURCE_MASK,
 		[XASU_OCP_GET_HUK_CMD_ID] = XASUFW_OCP_RESOURCE_MASK,
+		[XASU_OCP_GET_USER_X509_CERT_CMD_ID] = XASUFW_DMA_RESOURCE_MASK |
+			XASUFW_OCP_RESOURCE_MASK | XASUFW_TRNG_RESOURCE_MASK |
+			XASUFW_TRNG_RANDOM_BYTES_MASK | XASUFW_SHA3_RESOURCE_MASK |
+			XASUFW_ECC_RESOURCE_MASK | XASUFW_KEYMANAGER_RESOURCE_MASK |
+			XASUFW_OVERLAY_RESOURCE_MASK,
 	};
 
 	/** The XAsufw_OcpAccessPermBuf contains the IPI access permissions for each supported command. */
@@ -136,6 +144,8 @@ s32 XAsufw_OcpInit(void)
 		[XASU_OCP_UDE_CHALLENGE_REQ_CMD_ID] = XASUFW_ALL_IPI_FULL_ACCESS(XASU_OCP_UDE_CHALLENGE_REQ_CMD_ID),
 		[XASU_OCP_UDE_PVT_KEYS_ENCRYPT_CMD_ID] = XASUFW_ALL_IPI_FULL_ACCESS(XASU_OCP_UDE_PVT_KEYS_ENCRYPT_CMD_ID),
 		[XASU_OCP_GET_HUK_CMD_ID] = XASUFW_ALL_IPI_FULL_ACCESS(XASU_OCP_GET_HUK_CMD_ID),
+		[XASU_OCP_GET_USER_X509_CERT_CMD_ID] =
+			XASUFW_ALL_IPI_FULL_ACCESS(XASU_OCP_GET_USER_X509_CERT_CMD_ID),
 	};
 
 	XAsufw_OcpModule.Id = XASU_MODULE_OCP_ID;
@@ -287,6 +297,57 @@ static s32 XAsufw_OcpDevAkX509CertGen(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	/** Generate DevAk certificate for given subsystem. */
 	Status = XOcp_GetX509Cert(SubsystemId, OcpCertParam, (void *)(UINTPTR)&PlatData,
 				  XASU_FALSE);
+
+END:
+	/** Release resources. */
+	if (XAsufw_ReleaseResource(XASUFW_OCP, ReqId) != XASUFW_SUCCESS) {
+		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_RESOURCE_RELEASE_NOT_ALLOWED);
+	}
+	XAsufw_OcpModule.AsuDmaPtr = NULL;
+	XAsufw_OcpModule.ShaPtr = NULL;
+
+	return Status;
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	This function is handler for user X.509 certificate generation command.
+ *
+ * @param	ReqBuf	Pointer to the request buffer.
+ * @param	ReqId	Request Unique ID.
+ *
+ * @return
+ *	- XASUFW_SUCCESS, if user certificate is generated successfully.
+ *	- XASUFW_FAILURE, in case of failure.
+ *	- XASUFW_INVALID_SUBSYSTEM_ID, if subsystem id is not retrieved.
+ *	- XASUFW_RESOURCE_RELEASE_NOT_ALLOWED, if resource release is not allowed.
+ *
+ *************************************************************************************************/
+static s32 XAsufw_OcpUserX509CertGen(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
+{
+	s32 Status = XASUFW_FAILURE;
+	const XAsu_OcpUserCertParams *OcpUserCertParam =
+		(const XAsu_OcpUserCertParams *)ReqBuf->Arg;
+	X509_PlatData PlatData;
+	u32 SubsystemId = 0U;
+	u32 IpiMask = ReqId >> XASUFW_IPI_BITMASK_SHIFT;
+
+	/** Verify command length. */
+	XASUFW_VERIFY_CMD_LEN(END, Status, ReqBuf, XAsu_OcpUserCertParams);
+
+	/** Get subsystem ID from IPI mask. */
+	SubsystemId = XAsu_GetSubsysIdFromIpiMask(IpiMask);
+	if (SubsystemId == XASUFW_INVALID_SUBSYS_ID) {
+		Status = XASUFW_INVALID_SUBSYSTEM_ID;
+		goto END;
+	}
+
+	/** Assign DMA and SHA instance pointers. */
+	PlatData.DmaPtr = XAsufw_OcpModule.AsuDmaPtr;
+	PlatData.ShaPtr = XAsufw_OcpModule.ShaPtr;
+
+	/** Generate the user certificate for the public key owned by the requesting subsystem. */
+	Status = XOcp_GetUserX509Cert(SubsystemId, OcpUserCertParam, (void *)(UINTPTR)&PlatData);
 
 END:
 	/** Release resources. */
@@ -486,7 +547,8 @@ static s32 XAsufw_OcpResourceHandler(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	if (CmdId != XASU_OCP_UDE_PVT_KEYS_ENCRYPT_CMD_ID) {
 		if ((CmdId == XASU_OCP_GET_DEVIK_X509_CERT_CMD_ID) ||
 		    (CmdId == XASU_OCP_GET_DEVAK_X509_CERT_CMD_ID) ||
-		    (CmdId == XASU_OCP_GET_DEVIK_CSR_X509_CERT_CMD_ID)) {
+		    (CmdId == XASU_OCP_GET_DEVIK_CSR_X509_CERT_CMD_ID) ||
+		    (CmdId == XASU_OCP_GET_USER_X509_CERT_CMD_ID)) {
 			/** Allocate SHA3 resource which are dependent on SHA3 HW. */
 			XAsufw_AllocateResource(XASUFW_SHA3, XASUFW_OCP, ReqId);
 			XAsufw_OcpModule.ShaPtr = XSha_GetInstance(XASU_XSHA_1_DEVICE_ID);
@@ -504,6 +566,11 @@ static s32 XAsufw_OcpResourceHandler(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 
 		/** Allocate ECC resource. */
 		XAsufw_AllocateResource(XASUFW_ECC, XASUFW_OCP, ReqId);
+
+		/** Allocate key manager resource for user certificate generation. */
+		if (CmdId == XASU_OCP_GET_USER_X509_CERT_CMD_ID) {
+			XAsufw_AllocateResource(XASUFW_KEYMANAGER, XASUFW_OCP, ReqId);
+		}
 	} else {
 		/** Allocate AES resource. */
 		XAsufw_AllocateResource(XASUFW_AES, XASUFW_OCP, ReqId);
