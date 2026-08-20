@@ -453,7 +453,8 @@ void XDpDc_MainHelpMenu(InitRunConfig *config)
             xil_printf("  g - Configure Stream2 Format\r\n");
             xil_printf("  c - Toggle Cursor Enable (with Position & Size config)\r\n");
             xil_printf("  x - Configure Cursor Position & Size\r\n");
-            xil_printf("  a - Toggle Audio Enable (and select channels 1-8)\r\n");
+            xil_printf("  a - Toggle Audio Enable (select channels %d-%d and sample frequency)\r\n",
+                       XDCSUB_AUDIO_CHANNELS_MIN, XDCSUB_AUDIO_CHANNELS_MAX);
             xil_printf("  n - Toggle SDP Enable\r\n");
         }
 
@@ -563,7 +564,12 @@ void XDpDc_DisplayConfig(InitRunConfig *config)
 
     xil_printf("Audio Enable:           %s\r\n", config->audio_enable ? "Yes" : "No");
     if (config->audio_enable) {
+        u32 audioRateHz = XDpDc_GetAudSampleRateHz(config->audio_frequency);
+
         xil_printf("Audio Channels:         %d\r\n", config->audio_channels);
+        xil_printf("Audio Frequency:        %d.%d kHz\r\n",
+                   audioRateHz / XDPDC_HZ_PER_KHZ,
+                   (audioRateHz % XDPDC_HZ_PER_KHZ) / XDPDC_HZ_PER_TENTH_KHZ);
     }
     xil_printf("SDP Enable:             %s\r\n", config->sdp_enable ? "Yes" : "No");
     xil_printf("Partial Plane Blend:    %s\r\n", config->partial_plane_blend_enable ? "Yes" : "No");
@@ -982,7 +988,8 @@ void XAvpg_Config(InitRunConfig *config, u8 idx)
 
     /* Disable audio */
     config->audio_enable = 0;
-    config->audio_channels = 0;
+    config->audio_channels = XDPDC_AUD_CHANNELS_NONE;
+    config->audio_frequency = XDPDC_AUD_FREQ_UNSET;
 
 avpg_cfg_menu:
 
@@ -1492,7 +1499,8 @@ static void XDpDc_SelectPresentationMode(InitRunConfig *config)
         config->stream2_format = RGBA8888;
         config->cursor_enable = 0;
         config->audio_enable = 0;
-        config->audio_channels = 0;
+        config->audio_channels = XDPDC_AUD_CHANNELS_NONE;
+        config->audio_frequency = XDPDC_AUD_FREQ_UNSET;
         config->sdp_enable = 0;
         break;
     case '1':
@@ -1510,7 +1518,8 @@ static void XDpDc_SelectPresentationMode(InitRunConfig *config)
         config->avpg[1] = config->avpg[0];
         config->cursor_enable = 0;
         config->audio_enable = 0;
-        config->audio_channels = 0;
+        config->audio_channels = XDPDC_AUD_CHANNELS_NONE;
+        config->audio_frequency = XDPDC_AUD_FREQ_UNSET;
         config->sdp_enable = 0;
         break;
     case '2':
@@ -1527,7 +1536,8 @@ static void XDpDc_SelectPresentationMode(InitRunConfig *config)
         config->avpg[0].ppc = 0;
         config->cursor_enable = 0;
         config->audio_enable = 0;
-        config->audio_channels = 0;
+        config->audio_channels = XDPDC_AUD_CHANNELS_NONE;
+        config->audio_frequency = XDPDC_AUD_FREQ_UNSET;
         config->sdp_enable = 0;
         break;
     default:
@@ -1701,6 +1711,9 @@ void XDpDc_MenuLoop(InitRunConfig *config)
                 }
                 if (config->audio_enable) {
                     u32 channels;
+                    u32 freq;
+                    u32 idx;
+                    u32 audioRateHz;
 
                     xil_printf("Enter Number of audio channels (1-8): ");
                     channels = read_uint();
@@ -1709,13 +1722,42 @@ void XDpDc_MenuLoop(InitRunConfig *config)
                         xil_printf("ERROR: Invalid channel count %d. Audio disabled.\r\n",
                                    channels);
                         config->audio_enable = 0;
-                        config->audio_channels = 0;
-                    } else {
-                        config->audio_channels = (u8)channels;
-                        xil_printf("Audio Channels: %d\r\n", config->audio_channels);
+                        config->audio_channels = XDPDC_AUD_CHANNELS_NONE;
+                        config->audio_frequency = XDPDC_AUD_FREQ_UNSET;
+                        break;
                     }
+
+                    config->audio_channels = (u8)channels;
+                    xil_printf("Audio Channels: %d\r\n", config->audio_channels);
+
+                    do {
+                        xil_printf("\r\nAudio Sample Frequency:\r\n");
+                        for (idx = 0; idx <= (u32)XDCSUB_AUDIO_FREQ_MAX; idx++) {
+                            audioRateHz = XDpDc_GetAudSampleRateHz((u8)idx);
+                            xil_printf("  %d: %d.%d kHz\r\n", idx,
+                                       audioRateHz / XDPDC_HZ_PER_KHZ,
+                                       (audioRateHz % XDPDC_HZ_PER_KHZ) /
+                                       XDPDC_HZ_PER_TENTH_KHZ);
+                        }
+                        xil_printf("Enter selection (0-%d): ",
+                                   XDCSUB_AUDIO_FREQ_MAX);
+                        freq = read_uint();
+                        if (freq > (u32)XDCSUB_AUDIO_FREQ_MAX) {
+                            xil_printf("ERROR: %d is not a supported audio sample frequency. "
+                                       "Select only one of the listed frequencies.\r\n",
+                                       freq);
+                        }
+                    } while (freq > (u32)XDCSUB_AUDIO_FREQ_MAX);
+
+                    config->audio_frequency = (u8)freq;
+                    audioRateHz = XDpDc_GetAudSampleRateHz(config->audio_frequency);
+                    xil_printf("Audio Frequency: %d.%d kHz\r\n",
+                               audioRateHz / XDPDC_HZ_PER_KHZ,
+                               (audioRateHz % XDPDC_HZ_PER_KHZ) /
+                               XDPDC_HZ_PER_TENTH_KHZ);
                 } else {
-                    config->audio_channels = 0;
+                    config->audio_channels = XDPDC_AUD_CHANNELS_NONE;
+                    config->audio_frequency = XDPDC_AUD_FREQ_UNSET;
                     xil_printf("Audio Channels: %d\r\n", config->audio_channels);
                 }
                 break;
@@ -2046,7 +2088,8 @@ void XDpDc_InitConfigDefaults(InitRunConfig *config)
         config->ppb_offset_y = 80;
 
         config->audio_enable = 0;
-        config->audio_channels = 0;
+        config->audio_channels = XDPDC_AUD_CHANNELS_NONE;
+        config->audio_frequency = XDPDC_AUD_FREQ_UNSET;
         config->sdp_enable = 0;
 
         if (config->presentationmode == XDCSUB_PPTMODE_NONLIVE) {

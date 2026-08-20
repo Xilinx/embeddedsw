@@ -52,6 +52,24 @@ extern "C" {
 #define APP_DEFAULT_LIVE_PIXFMT RGB_8BPC
 #define APP_DEFAULT_DC_OUT_FMT  RGB_8BPC
 
+/* Audio channel count held while audio is disabled */
+#define XDPDC_AUD_CHANNELS_NONE 0U
+
+/* Sample rate reported for an unsupported sample frequency selector */
+#define XDPDC_AUD_RATE_UNSUPPORTED_HZ 0U
+
+/* Divisors used to report a rate in Hz as kHz with one decimal */
+#define XDPDC_HZ_PER_KHZ        1000U
+#define XDPDC_HZ_PER_TENTH_KHZ  100U
+
+/* Audio sample rates in Hz supported by the DC */
+#define XDPDC_AUD_RATE_44_1K_HZ  44100U
+#define XDPDC_AUD_RATE_48K_HZ    48000U
+#define XDPDC_AUD_RATE_88_2K_HZ  88200U
+#define XDPDC_AUD_RATE_96K_HZ    96000U
+#define XDPDC_AUD_RATE_176_4K_HZ 176400U
+#define XDPDC_AUD_RATE_192K_HZ   192000U
+
 /**************************** Type Definitions *******************************/
 
 /**
@@ -122,6 +140,7 @@ typedef struct {
         XDc_CursorBlend CursorEnable;	/**< Cursor enable */
         XDc_AudEn AudioEnable;		/**< Audio enable */
         u8 AudioChannels;		/**< Number of audio channels */
+        u8 AudioFrequency;		/**< Audio sample frequency */
         u8 SdpEnable;			/**< SDP enable */
         XDc_PartialBlendEn Stream1PbEnable; /**< Stream 1 partial blend */
         XDc_PartialBlendEn Stream2PbEnable; /**< Stream 2 partial blend */
@@ -180,6 +199,7 @@ extern u32 Out_CSCOffset_YUV[];
 
 /************************** Function Prototypes ******************************/
 
+u32 XDpDc_GetAudSampleRateHz(u8 AudioFrequency);
 
 #ifdef __cplusplus
 }

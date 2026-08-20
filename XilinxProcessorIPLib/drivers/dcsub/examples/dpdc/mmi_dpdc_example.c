@@ -58,6 +58,37 @@ u32 In_CSCOffset_YUV[] = { 0x0000, 0x1800, 0x1800 };
 u32 Out_CSCCoeff_YUV[] = { 0x04C8, 0x0964, 0x01D3, 0x7D4C, 0x7AB4, 0x0800, 0x0800, 0x7945, 0x7EB5 };
 u32 Out_CSCOffset_YUV[] = { 0x0000, 0x0800, 0x0800 };
 
+/* Audio sample rates in Hz, indexed by XDc_AudSampleFreq */
+static const u32 XDpDc_AudSampleRateHz[XDC_AUD_FREQ_192K + 1] = {
+    [XDC_AUD_FREQ_44_1K]  = XDPDC_AUD_RATE_44_1K_HZ,
+    [XDC_AUD_FREQ_48K]    = XDPDC_AUD_RATE_48K_HZ,
+    [XDC_AUD_FREQ_88_2K]  = XDPDC_AUD_RATE_88_2K_HZ,
+    [XDC_AUD_FREQ_96K]    = XDPDC_AUD_RATE_96K_HZ,
+    [XDC_AUD_FREQ_176_4K] = XDPDC_AUD_RATE_176_4K_HZ,
+    [XDC_AUD_FREQ_192K]   = XDPDC_AUD_RATE_192K_HZ,
+};
+
+/*****************************************************************************/
+/**
+*
+* This function returns the audio sample rate in Hz for a sample frequency
+* selector.
+*
+* @param    AudioFrequency is the sample frequency selector.
+*
+* @return   Sample rate in Hz, or XDPDC_AUD_RATE_UNSUPPORTED_HZ if the
+*           selector is not supported.
+*
+******************************************************************************/
+u32 XDpDc_GetAudSampleRateHz(u8 AudioFrequency)
+{
+    if (AudioFrequency > (u8)XDCSUB_AUDIO_FREQ_MAX) {
+        return XDPDC_AUD_RATE_UNSUPPORTED_HZ;
+    }
+
+    return XDpDc_AudSampleRateHz[AudioFrequency];
+}
+
 /*****************************************************************************/
 /**
 *
@@ -340,7 +371,27 @@ static void XDpDc_ApplyUserConfig(InitRunConfig *userConfig, RunConfig *runConfi
     /* Set audio enable */
     runConfig->AudioEnable = userConfig->audio_enable ? XDC_AUD_ENABLE : XDC_AUD_DISABLE;
     runConfig->AudioChannels = userConfig->audio_enable ?
-                               userConfig->audio_channels : 0;
+                               userConfig->audio_channels : XDPDC_AUD_CHANNELS_NONE;
+    runConfig->AudioFrequency = userConfig->audio_frequency;
+
+    if ((runConfig->AudioEnable == XDC_AUD_ENABLE) &&
+        ((runConfig->AudioChannels < XDCSUB_AUDIO_CHANNELS_MIN) ||
+         (runConfig->AudioChannels > XDCSUB_AUDIO_CHANNELS_MAX))) {
+        xil_printf("ERROR: Unsupported audio channel count %d. Select %d to %d "
+                   "channels. Disabling audio.\r\n", runConfig->AudioChannels,
+                   XDCSUB_AUDIO_CHANNELS_MIN, XDCSUB_AUDIO_CHANNELS_MAX);
+        runConfig->AudioEnable = XDC_AUD_DISABLE;
+        runConfig->AudioChannels = XDPDC_AUD_CHANNELS_NONE;
+    }
+
+    if ((runConfig->AudioEnable == XDC_AUD_ENABLE) &&
+        (runConfig->AudioFrequency > (u8)XDCSUB_AUDIO_FREQ_MAX)) {
+        xil_printf("ERROR: Unsupported audio sample frequency %d. Select a "
+                   "frequency from the audio menu. Disabling audio.\r\n",
+                   runConfig->AudioFrequency);
+        runConfig->AudioEnable = XDC_AUD_DISABLE;
+        runConfig->AudioChannels = XDPDC_AUD_CHANNELS_NONE;
+    }
 
     /* Set SDP enable */
     runConfig->SdpEnable = userConfig->sdp_enable ? 1U : 0U;
@@ -405,7 +456,12 @@ static void XDpDc_ApplyUserConfig(InitRunConfig *userConfig, RunConfig *runConfi
     xil_printf("OutStreamFormat:        %s (%d)\r\n", format_to_string(runConfig->OutStreamFormat), runConfig->OutStreamFormat);
     xil_printf("AudioEnable:            %s\r\n", runConfig->AudioEnable ? "ENABLED" : "DISABLED");
     if (runConfig->AudioEnable) {
+        u32 audioRateHz = XDpDc_GetAudSampleRateHz(runConfig->AudioFrequency);
+
         xil_printf("AudioChannels:          %d\r\n", runConfig->AudioChannels);
+        xil_printf("AudioFrequency:         %d.%d kHz\r\n",
+                   audioRateHz / XDPDC_HZ_PER_KHZ,
+                   (audioRateHz % XDPDC_HZ_PER_KHZ) / XDPDC_HZ_PER_TENTH_KHZ);
     }
     xil_printf("SdpEnable:              %s\r\n", runConfig->SdpEnable ? "ENABLED" : "DISABLED");
     xil_printf("Stream1 PartialBlend:   %s\r\n", runConfig->Stream1PbEnable == PB_ENABLE ? "ENABLED" : "DISABLED");

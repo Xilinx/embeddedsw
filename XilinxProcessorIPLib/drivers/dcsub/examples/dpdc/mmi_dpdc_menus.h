@@ -34,6 +34,8 @@
 
 /************************** Constant Definitions *****************************/
 
+/* Sample-frequency selector held while audio is disabled */
+#define XDPDC_AUD_FREQ_UNSET		0xFFU
 
 /**************************** Type Definitions *******************************/
 
@@ -55,6 +57,7 @@ typedef struct {
     u8 cursor_enable;			/**< Cursor enable */
     u8 audio_enable;			/**< Audio enable */
     u8 audio_channels;			/**< Number of audio channels */
+    u8 audio_frequency;			/**< Sample frequency selector */
     u8 sdp_enable;			/**< SDP enable */
     u8 partial_plane_blend_enable;	/**< Partial plane blend enable */
     u8 ppb_stream_select;		/**< PPB stream: 1=Stream1, 2=Stream2 */
