@@ -213,6 +213,17 @@ u32 XDpDc_InitDcSubPtr(RunConfig *RunCfgPtr)
 				   Status);
 			return Status;
 		}
+
+		/* Set the audio channel status sample frequency */
+		Status = XDcSub_SetAudioSampleFrequency(
+				RunCfgPtr->DcSubPtr,
+				(XDc_AudSampleFreq)RunCfgPtr->AudioFrequency,
+				(XDc_AudChannels)AudioChannels);
+		if (Status != XST_SUCCESS) {
+			xil_printf("ERROR: Failed to program audio sample frequency (status=0x%X)\r\n",
+				   Status);
+			return Status;
+		}
 	}
 
 	/* Initialize SDP if enabled (BEFORE hardware init) */

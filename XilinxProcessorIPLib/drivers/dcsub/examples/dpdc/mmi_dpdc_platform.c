@@ -34,6 +34,9 @@
 #define CLK_LOCK			1
 #define PL_AUD_CLK_MULT			512
 
+/* Clock wizard output driving the audio sample clock */
+#define XDPDC_AUD_CLK_WIZ_OUT0		0U
+
 #define XDCDMA_IEN_VSYNC_INT_MASK	0x0000000C
 #define XDCDMA_INTR_ID			179
 #define XDCDMA_INTR_PARENT		0xe2000000
@@ -78,7 +81,7 @@ u32 XClk_WaitForLock(XClk_Wiz_Config *CfgPtr)
 {
 	u32 Count = 0;
 
-	while (!XClk_Wiz_ReadReg(CfgPtr->BaseAddr, XCLK_WIZ_REG4_OFFSET) & CLK_LOCK) {
+	while (!(XClk_Wiz_ReadReg(CfgPtr->BaseAddr, XCLK_WIZ_STATUS_OFFSET) & CLK_LOCK)) {
 		if (Count == 10000) {
 			return XST_FAILURE;
 		}
@@ -151,7 +154,7 @@ u32 XDpDc_InitClkWiz(RunConfig *RunCfgPtr)
 
 	Status = XClk_WaitForLock(CfgPtr);
 	if (Status != XST_SUCCESS) {
-		Reg = XClk_Wiz_ReadReg(CfgPtr->BaseAddr, XCLK_WIZ_REG4_OFFSET) & CLK_LOCK;
+		Reg = XClk_Wiz_ReadReg(CfgPtr->BaseAddr, XCLK_WIZ_STATUS_OFFSET) & CLK_LOCK;
 		xil_printf("  ERROR: Video clock not locked: 0x%x (expected: 0x1)\r\n", Reg);
 	} else {
 		xil_printf("  ClkWiz: PLL locked\r\n");
@@ -163,6 +166,9 @@ u32 XDpDc_InitClkWiz(RunConfig *RunCfgPtr)
 
 	if(RunCfgPtr->AudioEnable)
 	{
+		u32 AudFs;
+		u32 AudClkkHz;
+		u64 AudClkHz;
 
 		AudCfgPtr = XClk_Wiz_LookupConfig(CLK_WIZ_AUD_BASEADDR);
 		if (!AudCfgPtr) {
@@ -178,7 +184,29 @@ u32 XDpDc_InitClkWiz(RunConfig *RunCfgPtr)
 
 		XClk_Wiz_WriteReg(AudCfgPtr->BaseAddr, XCLK_WIZ_REG25_OFFSET, 0);
 
-		Status = XClk_Wiz_SetRateHz(&AudInstancePtr, PL_AUD_CLK_MULT * 48000);
+		/* Scale the PL audio clock with the selected sample rate so the
+		 * DC audio sampler matches the rate advertised in the channel
+		 * status (PL_AUD_CLK_MULT x Fs) */
+		AudFs = XDpDc_GetAudSampleRateHz(RunCfgPtr->AudioFrequency);
+
+		if (AudFs == XDPDC_AUD_RATE_UNSUPPORTED_HZ) {
+			xil_printf("  ERROR: Unsupported audio sample frequency %d. "
+				   "Select a frequency from the audio menu\r\n",
+				   RunCfgPtr->AudioFrequency);
+			return XST_FAILURE;
+		}
+
+		AudClkHz = (u64)PL_AUD_CLK_MULT * (u64)AudFs;
+
+		/* Round the requested rate to the nearest kHz */
+		AudClkkHz = (u32)((AudClkHz + (XDPDC_HZ_PER_KHZ / 2U)) /
+				  XDPDC_HZ_PER_KHZ);
+
+		xil_printf("  AudClkWiz: target Fs=%u Hz -> clock=%u kHz\r\n",
+			   AudFs, AudClkkHz);
+
+		Status = XClk_Wiz_SetOutFreqkHz(&AudInstancePtr,
+						XDPDC_AUD_CLK_WIZ_OUT0, AudClkkHz);
 		if (Status != XST_SUCCESS) {
 			xil_printf("  ERROR: Failed to set Audio Clock Wizard rate\r\n");
 			return XST_FAILURE;
@@ -189,9 +217,15 @@ u32 XDpDc_InitClkWiz(RunConfig *RunCfgPtr)
 
 		Status = XClk_WaitForLock(AudCfgPtr);
 		if (Status != XST_SUCCESS) {
-			Reg = XClk_Wiz_ReadReg(AudCfgPtr->BaseAddr, XCLK_WIZ_REG4_OFFSET) & CLK_LOCK;
+			Reg = XClk_Wiz_ReadReg(AudCfgPtr->BaseAddr, XCLK_WIZ_STATUS_OFFSET) & CLK_LOCK;
 			xil_printf("  ERROR: Audio clock not locked: 0x%x (expected: 0x1)\r\n", Reg);
+		} else {
+			xil_printf("  AudClkWiz: PLL locked\r\n");
 		}
+
+		XClk_Wiz_GetRate(&AudInstancePtr, XDPDC_AUD_CLK_WIZ_OUT0, &Rate);
+		xil_printf("  AudClkWiz: PLL rate %llu kHz\r\n",
+			   Rate / XDPDC_HZ_PER_KHZ);
 
 	}
 	return Status;
