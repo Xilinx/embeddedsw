@@ -867,6 +867,7 @@ END:
  *	- XASUFW_OCP_KEY_MGMT_NOT_READY, if DevIk pair is not generated.
  *	- XASUFW_OCP_DEVAK_NOT_READY, if DevAk pair is not generated.
  *	- XASUFW_OCP_INVALID_SUBSYSTEM_INDEX, if subsystem index is invalid.
+ *	- XASUFW_X509_INVALID_FIELD_LEN, if certificate field length is invalid.
  *	- XASUFW_ZEROIZE_MEMSET_FAIL, if zeroize memset is failed.
  *	- XASUFW_MEM_COPY_FAIL, if memory copy is failed.
  *	- XASUFW_OCP_X509_CERT_GEN_FAIL, if certificate generation is failed.
@@ -993,6 +994,13 @@ s32 XOcp_GetX509Cert(u32 SubsystemId, const XAsu_OcpCertParams *OcpCertParam, vo
 
 		/** Get user configurations for DevAk certificate. */
 		CertCfg.UserCfg = &CdoData->SubsysData[SubsysIdx].UserCfg;
+
+		/** Validate CDO supplied issuer lengths before use. */
+		if ((CertCfg.UserCfg->IssuerLen > X509_ISSUER_MAX_SIZE) ||
+		    (CdoData->AsuSubsysData.UserCfg.IssuerLen > X509_ISSUER_MAX_SIZE)) {
+			Status = XASUFW_X509_INVALID_FIELD_LEN;
+			goto END;
+		}
 
 		/** Update Issuer with CA issuer. */
 		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);

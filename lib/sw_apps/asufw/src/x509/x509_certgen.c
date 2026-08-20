@@ -242,6 +242,7 @@ static inline void X509_GetDateTime(const XAsu_X509Time *Time, X509_DateTime *Da
  *	- XASUFW_X509_GEN_SIGN_FIELD_FAIL, if signature field generation is failed.
  *	- XASUFW_X509_UPDATE_ENCODED_LEN_FAIL, if update encoded length is failed.
  *	- XASUFW_X509_VALIDATE_BUFFER_SPACE_FAIL, if buffer validation is failed.
+ *	- XASUFW_X509_INVALID_FIELD_LEN, if field length is invalid.
  *	- Error code received from called functions in case of other failure from the called
  *	  function.
  *
@@ -290,6 +291,21 @@ s32 X509_GenerateX509Cert(u64 X509CertAddr, u32 MaxCertSize, u32 *X509CertSize,
 	if ((Cfg->UserCfg->IssuerLen == 0U) || (Cfg->UserCfg->SubjectLen == 0U) ||
 	    (Cfg->UserCfg->ValidityLen == 0U)) {
 		Status = XASUFW_INVALID_PARAM;
+		goto END;
+	}
+
+	/** Validate X.509 user config field lengths against the buffers which hold them. */
+	if ((Cfg->UserCfg->IssuerLen > X509_ISSUER_MAX_SIZE) ||
+	    (Cfg->UserCfg->SubjectLen > X509_SUBJECT_MAX_SIZE) ||
+	    (Cfg->UserCfg->ValidityLen > X509_VALIDITY_MAX_SIZE)) {
+		Status = XASUFW_X509_INVALID_FIELD_LEN;
+		goto END;
+	}
+
+	/** Validate Subject Alternative Name length, if it is provided by the user. */
+	if ((Cfg->UserCfg->IsSubAltNameAvailable == XASU_TRUE) &&
+	    (Cfg->UserCfg->SubAltNameLen > X509_SUB_ALT_NAME_MAX_SIZE)) {
+		Status = XASUFW_X509_INVALID_FIELD_LEN;
 		goto END;
 	}
 
