@@ -48,6 +48,7 @@ typedef struct {
 
 /*************************** Macros (Inline Functions) Definitions *******************************/
 #define X509_LOWER7_BITS_MASK		(0x7FU)	/**< Mask to get lower 7 bits */
+#define X509_MSB_MASK			(0x80U)	/**< Mask to get the most significant bit */
 #define X509_MAX_DAYS_IN_MONTH		(31U)	/**< Maximum days in month(except February) */
 #define X509_MIN_DAYS_IN_MONTH		(30U)	/**< Minimum days in month(except February) */
 #define X509_MAX_DAYS_IN_FEB		(29U)	/**< February month days in leap year */
@@ -734,6 +735,21 @@ static s32 X509_GetRsaPubKey(X509_CertInfo *CertInfo)
 	/** Parse and stores modulus part of public key. */
 	CertInfo->PublicKey.RsaPublicKey.Modulus = &X509_CertInstance.Buf[X509_CertInstance.Offset];
 	CertInfo->PublicKey.RsaPublicKey.ModulusLen = X509_CertInstance.FieldLen;
+
+	/**
+	 * Skip the leading 0x00 sign byte a DER INTEGER carries for a full length RSA modulus, so
+	 * the reported modulus length equals the RSA key size. DER prepends that byte only when
+	 * the most significant bit of the value is set, so a 0x00 followed by a byte whose most
+	 * significant bit is clear belongs to the modulus and is kept. The offset advances over
+	 * the full DER field below.
+	 */
+	if ((CertInfo->PublicKey.RsaPublicKey.ModulusLen > 1U) &&
+	    (CertInfo->PublicKey.RsaPublicKey.Modulus[0U] == 0x00U) &&
+	    ((CertInfo->PublicKey.RsaPublicKey.Modulus[1U] & X509_MSB_MASK) != 0U)) {
+		CertInfo->PublicKey.RsaPublicKey.Modulus =
+			&CertInfo->PublicKey.RsaPublicKey.Modulus[1U];
+		CertInfo->PublicKey.RsaPublicKey.ModulusLen--;
+	}
 
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	Status = X509_UpdateOffsetToNextField(X509_CertInstance.FieldLen);
