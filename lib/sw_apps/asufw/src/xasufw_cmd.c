@@ -24,6 +24,7 @@
  * 1.1   ma   12/12/24 Updated resource allocation logic
  *       ma   02/28/25 Move IPI triggering to remote processor to xasufw_queuescheduler.c
  *       rmv  09/09/25 Added bound checks for command ID and handler in XAsufw_CommandQueueHandler()
+ *       vm   07/13/26 Skip resource handler when a command does not need any resource
  *
  * </pre>
  *
@@ -343,10 +344,15 @@ s32 XAsufw_CheckAndAllocateResources(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 		ReqResources = Module->ResourcesRequired[CmdId];
 		Status = XAsufw_CheckResourceAvailability(ReqResources, ReqId, ReqBuf);
 		/**
-		 * If required resources are available, allocate the resource.
-		 * Otherwise, return error code.
+		 * If required resources are available, allocate the resource. Otherwise, return
+		 * error code. A command which requires no resources has nothing for the resource
+		 * handler to allocate, so the handler is skipped for it. A module resource
+		 * handler allocates the resources of the module without looking at the command,
+		 * hence this check is the only thing which keeps a zero-resource command from
+		 * reserving them.
 		 */
-		if ((Status == XASUFW_SUCCESS) && (Module->ResourceHandler != NULL)) {
+		if ((Status == XASUFW_SUCCESS) && (ReqResources != 0U) &&
+				(Module->ResourceHandler != NULL)) {
 			Status = Module->ResourceHandler(ReqBuf, ReqId);
 		}
 	}

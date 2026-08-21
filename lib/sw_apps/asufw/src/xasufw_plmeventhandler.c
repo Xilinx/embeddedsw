@@ -16,6 +16,7 @@
  * Ver   Who  Date     Changes
  * ----- ---- -------- ----------------------------------------------------------------------------
  * 1.0   rmv  08/08/25 Initial release
+ *       vm   07/13/26 Reject in-place update when crypto operations are active
  *
  * </pre>
  *
@@ -174,13 +175,18 @@ END:
  * @param	ReqId	Request Unique ID.
  *
  * @return
- *	- XASUFW_SUCCESS, if command executed successfully.
+ *	- XASUFW_SUCCESS, if the update is rejected with the BUSY update state set.
  *	- XASUFW_FAILURE, if ASUFW update fails.
+ *	- Remaining error codes are returned from XAsufw_PerformAsufwUpdate().
+ *
+ * @note	An accepted update jumps to the relocated update manager and never returns here,
+ *		so the rejection is reported by XAsufw_PerformAsufwUpdate() where the decision is
+ *		made, instead of reading the update state register back.
  *
  *************************************************************************************************/
 static s32 XAsufw_AsufwUpdate(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 {
-	s32 Status = XASUFW_SUCCESS;
+	s32 Status = XASUFW_FAILURE;
 	(void)ReqBuf;
 	(void)ReqId;
 
@@ -188,13 +194,7 @@ static s32 XAsufw_AsufwUpdate(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 
 	/** Perform ASUFW update operation. */
 	Status = XAsufw_PerformAsufwUpdate();
-	if (Status != XASUFW_SUCCESS) {
-		goto END;
-	}
 
-	XAsufw_Printf(DEBUG_GENERAL, "ASUFW Update command completed successfully\r\n");
-
-END:
 	return Status;
 }
 

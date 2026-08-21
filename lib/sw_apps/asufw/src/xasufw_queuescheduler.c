@@ -30,6 +30,7 @@
  * 1.2   am   05/18/25 Fixed implicit conversion of operands
  *       rmv  07/30/25 Added function to provide subsystem ID
  *       rmv  09/12/25 Moved shared memory macros to xasufw_memory.h file
+ *       vm   07/13/26 Add active crypto operation detection for in-place update
  *
  * </pre>
  *
@@ -43,6 +44,7 @@
 #include "xasufw_memory.h"
 #include "xasufw_cmd.h"
 #include "xasufw_debug.h"
+#include "xasufw_resourcemanager.h"
 #include "xasufw_status.h"
 #include "xasufw_util.h"
 #include "xil_util.h"
@@ -421,42 +423,46 @@ END:
 
 /*************************************************************************************************/
 /**
- * @brief	Trigger pending requests after ASU in-place update by waking queue tasks.
+ * @brief	This function triggers pending requests after ASU in-place update by waking
+ *		queue tasks.
+ *
+ * @note	An in-place update is refused while any channel queue has unserved client
+ *		requests or any crypto resource is reserved by a client request, and no queue
+ *		task runs once the update starts.
+ *
+ *		Requests can still arrive after that check, because the reserved DDR init and
+ *		database backup run with interrupts enabled. The dispatch loop cannot recover
+ *		them: the IPI is acknowledged as soon as the ISR runs, XAsufw_DisableInterrupts()
+ *		clears IPI_ASU_ISR during shutdown, and the queue task trigger is held in ASU RAM
+ *		which the new image overwrites. Only the request in shared memory survives, so
+ *		the queue task is triggered here.
  *
  *************************************************************************************************/
 void XAsufw_PostUpdateTriggerPendingRequests(void)
 {
 	u32 ChannelIdx;
-	u32 BufIdx;
-	XAsu_ChannelMemory *ChannelMem;
+	u32 NumChannels;
+	const XAsu_ChannelMemory *ChannelMem;
 	XTask_TaskNode *Task;
 
-	/** Iterate through all channels and trigger the queue task if there are pending requests. */
-	for (ChannelIdx = 0U; ChannelIdx < CommChannelInfo->NumOfIpiChannels; ChannelIdx++) {
+	if (CommChannelInfo == NULL) {
+		goto END;
+	}
+
+	/**
+	 * A channel count beyond the supported maximum is clamped rather than treated as an
+	 * error, because serving the queues which can be read is better than serving none.
+	 * XAsufw_AreCryptoOperationsActive() rejects the same condition instead, as a gate which
+	 * cannot read every queue must not let the update start.
+	 */
+	NumChannels = CommChannelInfo->NumOfIpiChannels;
+	if (NumChannels > XASU_MAX_CHANNELS_SUPPORTED) {
+		NumChannels = XASU_MAX_CHANNELS_SUPPORTED;
+	}
+
+	/** Iterate through all channels and trigger the queue task for pending requests. */
+	for (ChannelIdx = 0U; ChannelIdx < NumChannels; ChannelIdx++) {
 		ChannelMem = &SharedMemory->ChannelMemory[ChannelIdx];
-
-		/**
-		 * After ASU in-place update, module-local runtime state (e.g., AsuDmaPtr)
-		 * is reinitialized to NULL. Commands still marked as DMA_WAIT_COMPLETE
-		 * will skip resource allocation in the normal scheduler path and directly
-		 * call handlers with NULL DMA pointer, causing failures. Converting
-		 * DMA_WAIT_COMPLETE to VALIDATED forces these requests through
-		 * CheckAndAllocateResources() so DMA and crypto handlers can re-populate
-		 * runtime pointers.
-		 */
-		for (BufIdx = 0U; BufIdx < XASU_MAX_BUFFERS; BufIdx++) {
-			if (ChannelMem->P0ChannelQueue.ChannelQueueBufs[BufIdx].ReqBufStatus ==
-					XASU_COMMAND_DMA_WAIT_COMPLETE) {
-				ChannelMem->P0ChannelQueue.ChannelQueueBufs[BufIdx].ReqBufStatus =
-					XASU_COMMAND_VALIDATED;
-			}
-
-			if (ChannelMem->P1ChannelQueue.ChannelQueueBufs[BufIdx].ReqBufStatus ==
-					XASU_COMMAND_DMA_WAIT_COMPLETE) {
-				ChannelMem->P1ChannelQueue.ChannelQueueBufs[BufIdx].ReqBufStatus =
-					XASU_COMMAND_VALIDATED;
-			}
-		}
 
 		if (ChannelMem->P0ChannelQueue.ReqSent != ChannelMem->P0ChannelQueue.ReqServed) {
 			Task = CommChannelTasks.Channel[ChannelIdx].P0QueueTask;
@@ -476,5 +482,67 @@ void XAsufw_PostUpdateTriggerPendingRequests(void)
 			}
 		}
 	}
+
+END:
+	return;
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	This function checks if any client crypto operation is still in progress.
+ *
+ * @note	When this reports active, ASUFW rejects the in-place update with the BUSY update
+ *		state. PLM returns XPLMI_ERR_ASU_UPDATE_BUSY and the host must re-issue the update
+ *		once client crypto work completes. Active is the rejecting value, hence it is the
+ *		initial value and it is overwritten only after every check has passed. The two
+ *		report values differ in several bits, so that a corrupted value cannot read as
+ *		idle.
+ *
+ * @return
+ *	- XASUFW_CRYPTO_ACTIVE, if a client request is pending in any channel queue, any crypto
+ *	  resource is reserved by a client request, or the channel configuration is not initialized
+ *	  yet or holds a channel count beyond the supported maximum.
+ *	- XASUFW_CRYPTO_IDLE, if all client requests have been served and no client-owned resource
+ *	  is reserved.
+ *
+ *************************************************************************************************/
+u32 XAsufw_AreCryptoOperationsActive(void)
+{
+	u32 ChannelIdx;
+	u32 Active = XASUFW_CRYPTO_ACTIVE;
+	u32 NumChannels;
+	const XAsu_ChannelMemory *ChannelMem;
+
+	/** Report active when the channel state is unknown, so that the update is rejected. */
+	if (CommChannelInfo == NULL) {
+		goto END;
+	}
+
+	/**
+	 * A channel count beyond the supported maximum leaves the queues which cannot be read
+	 * unaccounted for, so report active and let the update be rejected.
+	 */
+	NumChannels = CommChannelInfo->NumOfIpiChannels;
+	if (NumChannels > XASU_MAX_CHANNELS_SUPPORTED) {
+		goto END;
+	}
+
+	for (ChannelIdx = 0U; ChannelIdx < NumChannels; ChannelIdx++) {
+		ChannelMem = &SharedMemory->ChannelMemory[ChannelIdx];
+
+		if ((ChannelMem->P0ChannelQueue.ReqSent != ChannelMem->P0ChannelQueue.ReqServed) ||
+				(ChannelMem->P1ChannelQueue.ReqSent !=
+				ChannelMem->P1ChannelQueue.ReqServed)) {
+			goto END;
+		}
+	}
+
+	/** Every queue is drained, so the reserved resources decide the outcome. */
+	if (XAsufw_AreResourcesInUse() == XASUFW_RESOURCES_FREE) {
+		Active = XASUFW_CRYPTO_IDLE;
+	}
+
+END:
+	return Active;
 }
 /** @} */

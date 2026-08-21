@@ -16,6 +16,7 @@
  * Ver   Who  Date     Changes
  * ----- ---- -------- ----------------------------------------------------------------------------
  * 1.0   vm   03/16/26 Initial release
+ *       vm   07/30/26 Add busy rejection support for in-place update
  *
  * </pre>
  *
@@ -28,6 +29,7 @@
 #include "xasufw_update.h"
 #include "xasufw_status.h"
 #include "xasufw_util.h"
+#include "xasufw_queuescheduler.h"
 #include "xasufw_init.h"
 #include "xasufw_ipi.h"
 #include "xasufw_hw.h"
@@ -185,17 +187,40 @@ END:
  * @brief	This function performs the ASUFW update operation.
  *
  * @return
- *	- XASUFW_SUCCESS, if ASUFW update completed successfully.
+ *	- XASUFW_SUCCESS, if the update is rejected with the BUSY update state due to active
+ *	  crypto operations. An accepted update jumps to the relocated update manager and never
+ *	  returns from this function.
  * 	- XASUFW_FAILURE, in case of failure.
  *	- XASUFW_INVALID_RSVD_DDR_ADDR, if DDR reserved area address is invalid.
  *	- XASUFW_INSUFFICIENT_RSVD_DDR_SIZE, if DDR reserved area size is insufficient.
  *	- XASUFW_DATA_BACKUP_FAIL, if data backup operation fails.
- *	- XASUFW_INVALID_PARAM, if parameters are invalid.
+ *	- XASUFW_UPDATE_MGR_RELOCATION_FAIL, if update manager relocation fails.
  *
  *************************************************************************************************/
 s32 XAsufw_PerformAsufwUpdate(void)
 {
 	s32 Status = XASUFW_FAILURE;
+	CREATE_VOLATILE(CryptoActive, (s32)XASUFW_CRYPTO_ACTIVE);
+
+	/**
+	 * Reject the update when client crypto work or reserved resources are active. The state is
+	 * read a second time so that a single glitched read or skipped branch cannot let the update
+	 * start while a crypto engine is still in use. Only the idle value lets the update start,
+	 * hence a corrupted value rejects it.
+	 */
+	ASSIGN_VOLATILE(CryptoActive, (s32)XAsufw_AreCryptoOperationsActive());
+	if ((s32)XASUFW_CRYPTO_IDLE == CryptoActive) {
+		ASSIGN_VOLATILE(CryptoActive, (s32)XASUFW_CRYPTO_ACTIVE);
+		ASSIGN_VOLATILE(CryptoActive, (s32)XAsufw_AreCryptoOperationsActive());
+	}
+
+	if ((s32)XASUFW_CRYPTO_IDLE != CryptoActive) {
+		XAsufw_SetUpdateState(XASUFW_UPDATE_STATE_BUSY);
+		XAsufw_Printf(DEBUG_GENERAL,
+			"ASUFW update rejected: crypto operations in progress\r\n");
+		Status = XASUFW_SUCCESS;
+		goto END;
+	}
 
 	/** Initialize reserved DDR region used for database backup. */
 	Status = XAsufw_InitDbRegion();

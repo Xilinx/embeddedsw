@@ -30,6 +30,7 @@
  *	 rmv  09/09/25 Replace bitwise operations and values with macros
  *	 rmv  09/11/25 Updated XAsufw_ResourceInit() function prototype
  *	 rmv  09/11/25 Removed code duplication in XAsufw_AllocateDmaResource()
+ *       vm   07/13/26 Added check for resources reserved by client requests
  *
  * </pre>
  *
@@ -89,6 +90,7 @@ typedef struct {
 
 /************************************ Function Prototypes ****************************************/
 static s32 XAsufw_IsResourceAvailable(XAsufw_Resource Resource, u32 ReqId);
+static u32 XAsufw_IsClientOwnedResource(u32 OwnerId);
 
 /************************************ Variable Definitions ***************************************/
 static XAsufw_ResourceManager ResourceManager[XASUFW_MAX_RESOURCES];
@@ -512,5 +514,91 @@ void XAsufw_UpdateResourceOwner(XAsufw_Resource Resource, u32 ReqId)
 {
     ResourceManager[Resource].OwnerId = ReqId;
     ResourceManager[Resource].State = XASUFW_RESOURCE_IS_IDLE;
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	This function checks whether a resource owner belongs to a client request.
+ *
+ * @note	Internal ASUFW requests such as PLM event handling, PLI and RSA key generation
+ *		are excluded, because only client-owned resources block an in-place update.
+ *		The PLM event request ID has to be excluded for the update to work at all: the
+ *		ASUFW update command is served as a PLM event and owns any resource reserved
+ *		under that ID, so counting it would make every update reject itself.
+ *		The RSA key pair generation task releases RSA and TRNG before it returns from
+ *		every cycle and stores a key in the ASU vault only after generation completes,
+ *		so an update accepted while that task is part way through discards a partial key
+ *		pair which was never visible to a client, and the task regenerates it after the
+ *		update.
+ *		Client owned is the value which rejects an in-place update, hence it is the
+ *		initial value and it is replaced only for an owner which is proven internal.
+ *
+ * @param	OwnerId	Resource owner request ID.
+ *
+ * @return
+ *	- XASUFW_RESOURCES_IN_USE, if the owner is a client crypto request.
+ *	- XASUFW_RESOURCES_FREE, if the owner is free or an internal ASUFW request.
+ *
+ *************************************************************************************************/
+static u32 XAsufw_IsClientOwnedResource(u32 OwnerId)
+{
+	u32 ClientOwned = XASUFW_RESOURCES_IN_USE;
+
+	if ((OwnerId == 0U) || (OwnerId == XASUFW_REQUEST_ID_RSA_KEYGEN) ||
+			(OwnerId == XASUFW_REQUEST_ID_PLI) ||
+			(OwnerId == XASUFW_REQUEST_ID_PLM_EVENT)) {
+		ClientOwned = XASUFW_RESOURCES_FREE;
+	}
+
+	return ClientOwned;
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	This function checks if any crypto resource is reserved between commands.
+ *
+ * @note	In use is the value which rejects an in-place update, hence it is the initial
+ *		value and it is replaced only after every resource has been scanned. Both values
+ *		carry several bits, so that a corrupted report reads as in use rather than free.
+ *
+ * @return
+ *	- XASUFW_RESOURCES_IN_USE, if any resource is reserved by a client request or holds a
+ *	  state which is not one of the defined values.
+ *	- XASUFW_RESOURCES_FREE, if no client-owned resource is reserved.
+ *
+ *************************************************************************************************/
+u32 XAsufw_AreResourcesInUse(void)
+{
+	u32 Idx;
+	u32 InUse = XASUFW_RESOURCES_IN_USE;
+	XAsufw_ResourceState State;
+
+	for (Idx = 0U; Idx < XASUFW_MAX_RESOURCES; Idx++) {
+		/**
+		 * A state which holds none of the defined values means the entry cannot be
+		 * trusted, so the update is rejected instead of skipping the entry.
+		 */
+		State = ResourceManager[Idx].State;
+		if ((State != XASUFW_RESOURCE_IS_FREE) && (State != XASUFW_RESOURCE_IS_IDLE) &&
+				(State != XASUFW_RESOURCE_IS_BUSY) &&
+				(State != XASUFW_RESOURCE_IS_DISABLED)) {
+			goto END;
+		}
+
+		/**
+		 * The owner is checked for every defined state, because the owner ID is cleared
+		 * when a resource is released, disabled or initialized.
+		 */
+		if (XAsufw_IsClientOwnedResource(ResourceManager[Idx].OwnerId) !=
+				XASUFW_RESOURCES_FREE) {
+			goto END;
+		}
+	}
+
+	/** No client-owned resource is found after scanning every resource. */
+	InUse = XASUFW_RESOURCES_FREE;
+
+END:
+	return InUse;
 }
 /** @} */

@@ -21,6 +21,7 @@
  *       ss   09/26/24 Fixed doxygen comments
  * 1.1   ma   12/12/24 Added support for DMA non-blocking wait
  *       rmv  07/30/25 Added declaration for XAsufw_GetSubsysIdFromIpiMask() function
+ *       vm   07/13/26 Add helper to detect active client crypto operations
  *
  * </pre>
  *
@@ -49,6 +50,13 @@ extern "C" {
 #define XASUFW_RESP_DATA_OFFSET			(2U) /**< Response data offset in response buffer */
 
 #define XASUFW_INVALID_SUBSYS_ID		(0xFFFFFFFFU) /**< Invalid subsystem ID */
+
+/**
+ * Crypto activity report values. The two values differ in several bits, so that a corrupted
+ * report cannot read as idle and let an in-place update start.
+ */
+#define XASUFW_CRYPTO_ACTIVE			(0xE2U) /**< Crypto operations are active */
+#define XASUFW_CRYPTO_IDLE			(0x1EU) /**< Crypto operations are idle */
 
 /** @cond xasufw_queuescheduler_internal */
 /************************************** Type Definitions *****************************************/
@@ -81,6 +89,7 @@ s32 XAsufw_ChannelConfigInit(void);
 void XAsufw_TriggerQueueTask(u32 IpiMask);
 s32 XAsufw_CheckPreemption(u32 CurrentReqId, u32 OwnerReqId);
 void XAsufw_PostUpdateTriggerPendingRequests(void);
+u32 XAsufw_AreCryptoOperationsActive(void);
 
 /************************************ Variable Definitions ***************************************/
 

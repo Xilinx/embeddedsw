@@ -28,6 +28,7 @@
  *       rmv  07/16/25 Added macro for PLM event resource mask
  *       rmv  07/16/25 Added OCP to the resources list
  *	 rmv  09/11/25 Updated XAsufw_ResourceInit() function prototype
+ *       vm   07/13/26 Added shared request ID for PLM events and reserved resource check
  *
  * </pre>
  *
@@ -52,6 +53,16 @@ extern "C" {
 #define XASUFW_REQUEST_ID_PLI			0xFFFFFFFFU		/**< Request ID of PLI */
 #define XASUFW_REQUEST_ID_RSA_KEYGEN		0xFFFFFFFEU		/**< Request ID for RSA key-gen background task
 										  (exclusive access to RSA/TRNG) */
+#define XASUFW_REQUEST_ID_PLM_EVENT		0x3FU			/**< PLM event request ID */
+
+/**
+ * Values reported by XAsufw_AreResourcesInUse(). Both values carry several bits, so that a
+ * corrupted report cannot read as free and let an in-place update start over a reserved resource.
+ */
+#define XASUFW_RESOURCES_IN_USE			0xC7U			/**< A client request has a
+										     resource reserved */
+#define XASUFW_RESOURCES_FREE			0x3BU			/**< No client-owned resource
+										     is reserved */
 
 #define XASUFW_DMA_RESOURCE_MASK        0x1U /**< DMA resource mask */
 #define XASUFW_AES_RESOURCE_MASK        0x2U /**< AES resource mask */
@@ -116,6 +127,7 @@ void XAsufw_IdleResource(XAsufw_Resource Resource);
 void XAsufw_DisableResource(XAsufw_Resource Resource);
 s32 XAsufw_IsResourceBusy(XAsufw_Resource Resource, u32 ReqId);
 void XAsufw_UpdateResourceOwner(XAsufw_Resource Resource, u32 ReqId);
+u32 XAsufw_AreResourcesInUse(void);
 
 /************************************ Variable Definitions ***************************************/
 
