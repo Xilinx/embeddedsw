@@ -1,5 +1,5 @@
 /**************************************************************************************************
-* Copyright (c) 2025, Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2025 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 
@@ -17,6 +17,8 @@
  * Ver   Who  Date     Changes
  * ----- ---- -------- ----------------------------------------------------------------------------
  * 1.0   rmv  08/07/25 Initial release
+ *       vm   07/30/26 Added post-update PLM event trigger API, PLM event command IDs and
+ *                     command count
  *
  * </pre>
  *
@@ -40,10 +42,16 @@ extern "C" {
 /************************************** Type Definitions *****************************************/
 
 /*************************** Macros (Inline Functions) Definitions *******************************/
+#define XASUFW_OCP_GEN_DEV_KEYS_CMD_ID		(0U)	/**< Command ID for device key generation */
+#define XASUFW_ASU_UPDATE_CMD_ID		(1U)	/**< Command ID for ASUFW update */
+#define XASUFW_PLM_EVT_MAX_CMDS			(2U)	/**< Number of commands supported by the
+							     PLM event module. It also sizes the
+							     pending event flag array. */
 
 /************************************ Function Prototypes ****************************************/
 s32 XAsufw_PlmEventInit(void);
 void XAsufw_HandlePlmEvent(void);
+void XAsufw_PostUpdatePlmEvents(void);
 
 /************************************ Variable Definitions ***************************************/
 

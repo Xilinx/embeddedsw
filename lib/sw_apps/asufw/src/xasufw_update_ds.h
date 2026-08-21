@@ -16,6 +16,7 @@
  * Ver   Who  Date     Changes
  * ----- ---- -------- ----------------------------------------------------------------------------
  * 1.0   vm   03/16/26 Initial release
+ *       vm   07/30/26 Export default database handler API
  *
  * </pre>
  *
@@ -107,6 +108,7 @@ typedef struct {
 	}
 
 /************************************ Function Prototypes ****************************************/
+s32 XAsufw_DsOps(u32 Op, u64 Addr, void *Data);
 
 /************************************ Variable Definitions ***************************************/
 

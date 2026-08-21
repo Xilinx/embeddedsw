@@ -17,6 +17,8 @@
  * ----- ---- -------- ----------------------------------------------------------------------------
  * 1.0   rmv  08/08/25 Initial release
  *       vm   07/13/26 Reject in-place update when crypto operations are active
+ *       vm   07/30/26 Moved the command IDs and count to the header and added a size check on
+ *                     the command table
  *
  * </pre>
  *
@@ -44,9 +46,6 @@
 /************************************** Type Definitions *****************************************/
 
 /*************************** Macros (Inline Functions) Definitions *******************************/
-#define XASU_OCP_GEN_DEV_KEYS_CMD_ID		(0U)	/**< Command ID for device key generation */
-#define XASU_ASUFW_UPDATE_CMD_ID		(1U)	/**< Command ID for ASUFW update */
-#define XASU_PLM_EVT_MAX_CMDS			(2U)	/**< Maximum number of commands supported by PLM event module */
 
 /************************************ Function Prototypes ****************************************/
 static s32 XAsufw_PlmEvtResourceHandler(const XAsu_ReqBuf *ReqBuf, u32 ReqId);
@@ -78,33 +77,41 @@ s32 XAsufw_PlmInit(void)
 	 */
 	static const XAsufw_ModuleCmd XAsufw_PlmEvtCmds[] = {
 #ifdef XASU_OCP_ENABLE
-		[XASU_OCP_GEN_DEV_KEYS_CMD_ID] = XASUFW_MODULE_COMMAND(XAsufw_GenerateDeviceKeys),
+		[XASUFW_OCP_GEN_DEV_KEYS_CMD_ID] = XASUFW_MODULE_COMMAND(XAsufw_GenerateDeviceKeys),
 #else
-		[XASU_OCP_GEN_DEV_KEYS_CMD_ID] = NULL,
+		[XASUFW_OCP_GEN_DEV_KEYS_CMD_ID] = NULL,
 #endif
-		[XASU_ASUFW_UPDATE_CMD_ID] = XASUFW_MODULE_COMMAND(XAsufw_AsufwUpdate),
+		[XASUFW_ASU_UPDATE_CMD_ID] = XASUFW_MODULE_COMMAND(XAsufw_AsufwUpdate),
 	};
 
 	/**
 	 * The XAsufw_PlmEvtResources contains the required resources for each supported
 	 * command.
 	 */
-	static XAsufw_ResourcesRequired XAsufw_PlmEvtResources[XASU_PLM_EVT_MAX_CMDS] = {
+	static XAsufw_ResourcesRequired XAsufw_PlmEvtResources[XASUFW_PLM_EVT_MAX_CMDS] = {
 #ifdef XASU_OCP_ENABLE
-			[XASU_OCP_GEN_DEV_KEYS_CMD_ID] = XASUFW_DMA_RESOURCE_MASK |
+			[XASUFW_OCP_GEN_DEV_KEYS_CMD_ID] = XASUFW_DMA_RESOURCE_MASK |
 				XASUFW_TRNG_RESOURCE_MASK | XASUFW_SHA3_RESOURCE_MASK |
 				XASUFW_HMAC_RESOURCE_MASK | XASUFW_RSA_RESOURCE_MASK |
 				XASUFW_OVERLAY_RESOURCE_MASK,
 #else
-			[XASU_OCP_GEN_DEV_KEYS_CMD_ID] = 0U,
+			[XASUFW_OCP_GEN_DEV_KEYS_CMD_ID] = 0U,
 #endif
-			[XASU_ASUFW_UPDATE_CMD_ID] = 0U,
+			[XASUFW_ASU_UPDATE_CMD_ID] = 0U,
 		};
+
+	/**
+	 * The command count is also the size of the pending event flag array which survives an
+	 * in-place update, and it bounds the dispatch loop which indexes this table, so a table
+	 * and a count which disagree either drop a command silently or read past the table.
+	 */
+	_Static_assert(XASUFW_ARRAY_SIZE(XAsufw_PlmEvtCmds) == XASUFW_PLM_EVT_MAX_CMDS,
+		       "PLM event command table must have one entry per supported command");
 
 	XAsufw_PlmEvtModule.Id = XASU_MODULE_PLM_ID;
 	XAsufw_PlmEvtModule.Cmds = XAsufw_PlmEvtCmds;
 	XAsufw_PlmEvtModule.ResourcesRequired = XAsufw_PlmEvtResources;
-	XAsufw_PlmEvtModule.CmdCnt = XASU_PLM_EVT_MAX_CMDS;
+	XAsufw_PlmEvtModule.CmdCnt = XASUFW_PLM_EVT_MAX_CMDS;
 	XAsufw_PlmEvtModule.ResourceHandler = XAsufw_PlmEvtResourceHandler;
 	XAsufw_PlmEvtModule.AsuDmaPtr = NULL;
 	XAsufw_PlmEvtModule.ShaPtr = NULL;

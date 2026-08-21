@@ -40,6 +40,7 @@
  *       rmv  08/11/25 Initialize PLM event module
  *       rmv  08/11/25 Initialize OCP module
  *       vm   07/14/26 Initialize keep-alive counter support.
+ *       vm   07/30/26 Trigger preserved PLM events after update
  *
  * </pre>
  *
@@ -74,6 +75,7 @@
 #include "xasufw_config.h"
 #include "xasufw_perf.h"
 #include "xasufw_plmeventhandler.h"
+#include "xasufw_plmeventschedular.h"
 #include "xasufw_ocphandler.h"
 #include "xasufw_kat.h"
 #include "xasufw_keymanagerhandler.h"
@@ -211,9 +213,10 @@ int main(void)
 	}
 #endif
 
-	/** Check if this is a post-update boot and trigger pending requests. */
+	/** Check if this is a post-update boot and trigger pending requests and events. */
 	if (XAsufw_GetUpdateState() == XASUFW_UPDATE_STATE_LOAD_ELF_DONE) {
 		XAsufw_PostUpdateTriggerPendingRequests();
+		XAsufw_PostUpdatePlmEvents();
 		XAsufw_SetUpdateState(XASUFW_UPDATE_STATE_FINISHED);
 	}
 

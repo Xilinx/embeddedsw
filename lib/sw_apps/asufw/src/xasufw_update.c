@@ -17,6 +17,7 @@
  * ----- ---- -------- ----------------------------------------------------------------------------
  * 1.0   vm   03/16/26 Initial release
  *       vm   07/30/26 Add busy rejection support for in-place update
+ *       vm   07/30/26 Export default database handler for data structure backup
  *
  * </pre>
  *
@@ -50,7 +51,6 @@ static void XAsufw_DisableInterrupts(void);
 static s32 XAsufw_ShutdownAsu(void);
 static s32 XAsufw_InitDbRegion(void);
 static u32 XAsufw_GetDbSize(void);
-static s32 XAsufw_DsOps(u32 Op, u64 Addr, void *Data);
 static XAsufw_DsEntry* XAsufw_GetDsEntry(XAsufw_DsEntry *DsList, u32 DsCnt, XAsufw_DsVer *DsVer);
 static s32 XAsufw_StoreDataBackup(void);
 static void XAsufw_AsuUpdateMgr(void) __attribute__((section(".update_mgr_a")));
@@ -260,7 +260,7 @@ END:
  *	- XASUFW_ZEROIZE_MEMSET_FAIL, if memory zeroize operation fails.
  *
  *************************************************************************************************/
-static s32 XAsufw_DsOps(u32 Op, u64 Addr, void *Data)
+s32 XAsufw_DsOps(u32 Op, u64 Addr, void *Data)
 {
 	s32 Status = XASUFW_FAILURE;
 	u32 Len = 0U;
