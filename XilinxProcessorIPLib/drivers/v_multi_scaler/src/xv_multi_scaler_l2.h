@@ -48,7 +48,6 @@ extern "C" {
 
 /************************** Constant Definitions *****************************/
 
-
 /**
  * Maximum number of vertical taps supported by the scaler
  */
@@ -139,6 +138,31 @@ typedef enum
 	XV_MULTI_SCALER_BGRX8 = 27,       /**< BGR with alpha, 8-bit per component */
 	XV_MULTI_SCALER_UYVY8 = 28,       /**< UYVY 4:2:2, 8-bit */
 	XV_MULTI_SCALER_BGR8 = 29,        /**< BGR packed, 8-bit per component */
+	XV_MULTI_SCALER_Y_U_V8 = 42,      /**< YUV 4:4:4 3-planar, 8-bit per component*/
+	XV_MULTI_SCALER_Y_U_V10 = 43,     /**< YUV 4:4:4 3-planar, 10-bit per component*/
+	XV_MULTI_SCALER_Y_U_V12 = 44,     /**<YUV 4:4:4 3-planar, 12-bit per component*/
+	XV_MULTI_SCALER_Y_UV12 = 32,     /**<YUV 4:2:2 2-planar, 12-bit per component*/
+	XV_MULTI_SCALER_Y_UV12_420 = 33,     /**<YUV 4:2:0 2-planar, 12-bit per component*/
+	XV_MULTI_SCALER_Y12 = 34,        /**<Y-only 1-planar, 12-bit per component*/
+	XV_MULTI_SCALER_Y_U_V10_L16LE = 45,  /**< YUV 4:4:4 3-planar, 10-bit per component,
+                                         *   packed in 16-bit little-endian word,
+                                         *   LSB-aligned (bits [9:0] active, [15:10] zero-padded) */
+
+	XV_MULTI_SCALER_Y_U_V10_M16LE = 53,  /**< YUV 4:4:4 3-planar, 10-bit per component,
+                                         *   packed in 16-bit little-endian word,
+                                         *   MSB-aligned (bits [15:6] active, [5:0] zero-padded) */
+
+	XV_MULTI_SCALER_Y_U_V12_L16LE = 49,  /**< YUV 4:4:4 3-planar, 12-bit per component,
+                                         *   packed in 16-bit little-endian word,
+                                         *   LSB-aligned (bits [11:0] active, [15:12] zero-padded) */
+
+	XV_MULTI_SCALER_Y_U_V12_M16LE = 57,  /**< YUV 4:4:4 3-planar, 12-bit per component,
+                                         *   packed in 16-bit little-endian word,
+                                         *   MSB-aligned (bits [15:4] active, [3:0] zero-padded) */
+	XV_MULTI_SCALER_Y10_L16LE = 48,		/**< Y only (grayscale), 10-bit per component LSB-aligned */
+	XV_MULTI_SCALER_Y10_M16LE = 56,		/**< Y only (grayscale), 10-bit per component MSB-aligned */
+	XV_MULTI_SCALER_Y12_L16LE = 52,		/**< Y only (grayscale), 12-bit per component LSB-aligned */
+	XV_MULTI_SCALER_Y12_M16LE = 60,		/**< Y only (grayscale), 12-bit per component MSB-aligned */
 } XV_MULTISCALER_MEMORY_FORMATS;
 
 /**
@@ -159,6 +183,7 @@ typedef struct {
 	u32 ChannelId;                        /**< Output channel identifier (0-7) */
 	UINTPTR SrcImgBuf0;                   /**< Source image buffer 0 address */
 	UINTPTR SrcImgBuf1;                   /**< Source image buffer 1 address (for chroma) */
+	UINTPTR SrcImgBuf2;                   /**< Source image buffer 1 address (for chroma) */
 	u32 HeightIn;                         /**< Input image height in pixels */
 	u32 HeightOut;                        /**< Output image height in pixels */
 	u32 WidthIn;                          /**< Input image width in pixels */
@@ -169,6 +194,7 @@ typedef struct {
 	u32 OutStride;                        /**< Output buffer stride in bytes */
 	UINTPTR DstImgBuf0;                   /**< Destination image buffer 0 address */
 	UINTPTR DstImgBuf1;                   /**< Destination image buffer 1 address (for chroma) */
+	UINTPTR DstImgBuf2;                   /**< Destination image buffer 1 address (for chroma) */
 	XV_multi_scaler_Crop_Window CropWin;  /**< Crop window configuration */
 } XV_multi_scaler_Video_Config;
 

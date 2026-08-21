@@ -105,6 +105,12 @@ extern "C" {
 /** Macro to generate function name for setting destination image buffer 1 of channel x */
 #define XV_MULTI_SCALER_DST_IMG_BUF_1(x) \
 				XV_multi_scaler_Set_HwReg_dstImgBuf1_##x##_V
+/** Macro to generate function name for setting source image buffer 2 of channel x */
+#define XV_MULTI_SCALER_SRC_IMG_BUF_2(x) \
+				XV_multi_scaler_Set_HwReg_srcImgBuf2_##x##_V
+/** Macro to generate function name for setting destination image buffer 2 of channel x */
+#define XV_MULTI_SCALER_DST_IMG_BUF_2(x) \
+				XV_multi_scaler_Set_HwReg_dstImgBuf2_##x##_V
 #endif
 
 /**************************** Type Definitions *******************************/
@@ -128,6 +134,7 @@ typedef struct {
     u32 ScaleMode;               /**< Scaling mode (bilinear, bicubic, polyphase) */
     u32 NumTaps;                 /**< Number of filter taps */
     u32 MaxOuts;                 /**< Maximum number of output channels */
+    u32 IsTileFormat;            /**< Tile format flag */
     u16 IntrId;                  /**< Interrupt ID */
     UINTPTR IntrParent;          /**< Bit[0] Interrupt parent type Bit[64/32:1] Parent base address */
 } XV_multi_scaler_Config;
@@ -263,6 +270,12 @@ u64 XV_multi_scaler_Get_HwReg_dstImgBuf0_0_V(XV_multi_scaler *InstancePtr);
 void XV_multi_scaler_Set_HwReg_dstImgBuf1_0_V(XV_multi_scaler *InstancePtr,
 	u64 Data);
 u64 XV_multi_scaler_Get_HwReg_dstImgBuf1_0_V(XV_multi_scaler *InstancePtr);
+void XV_multi_scaler_Set_HwReg_srcImgBuf2_0_V(XV_multi_scaler *InstancePtr,
+	u64 Data);
+u64 XV_multi_scaler_Get_HwReg_srcImgBuf2_0_V(XV_multi_scaler *InstancePtr);
+void XV_multi_scaler_Set_HwReg_dstImgBuf2_0_V(XV_multi_scaler *InstancePtr,
+	u64 Data);
+u64 XV_multi_scaler_Get_HwReg_dstImgBuf2_0_V(XV_multi_scaler *InstancePtr);
 
 /* Channel 1 Register Access Functions */
 void XV_multi_scaler_Set_HwReg_WidthIn_1(XV_multi_scaler *InstancePtr,
@@ -307,6 +320,12 @@ u64 XV_multi_scaler_Get_HwReg_dstImgBuf0_1_V(XV_multi_scaler *InstancePtr);
 void XV_multi_scaler_Set_HwReg_dstImgBuf1_1_V(XV_multi_scaler *InstancePtr,
 	u64 Data);
 u64 XV_multi_scaler_Get_HwReg_dstImgBuf1_1_V(XV_multi_scaler *InstancePtr);
+void XV_multi_scaler_Set_HwReg_srcImgBuf2_1_V(XV_multi_scaler *InstancePtr,
+	u64 Data);
+u64 XV_multi_scaler_Get_HwReg_srcImgBuf2_1_V(XV_multi_scaler *InstancePtr);
+void XV_multi_scaler_Set_HwReg_dstImgBuf2_1_V(XV_multi_scaler *InstancePtr,
+	u64 Data);
+u64 XV_multi_scaler_Get_HwReg_dstImgBuf2_1_V(XV_multi_scaler *InstancePtr);
 
 /* Channel 2 Register Access Functions */
 void XV_multi_scaler_Set_HwReg_WidthIn_2(XV_multi_scaler *InstancePtr,
@@ -351,6 +370,12 @@ u64 XV_multi_scaler_Get_HwReg_dstImgBuf0_2_V(XV_multi_scaler *InstancePtr);
 void XV_multi_scaler_Set_HwReg_dstImgBuf1_2_V(XV_multi_scaler *InstancePtr,
 	u64 Data);
 u64 XV_multi_scaler_Get_HwReg_dstImgBuf1_2_V(XV_multi_scaler *InstancePtr);
+void XV_multi_scaler_Set_HwReg_srcImgBuf2_2_V(XV_multi_scaler *InstancePtr,
+	u64 Data);
+u64 XV_multi_scaler_Get_HwReg_srcImgBuf2_2_V(XV_multi_scaler *InstancePtr);
+void XV_multi_scaler_Set_HwReg_dstImgBuf2_2_V(XV_multi_scaler *InstancePtr,
+	u64 Data);
+u64 XV_multi_scaler_Get_HwReg_dstImgBuf2_2_V(XV_multi_scaler *InstancePtr);
 
 /* Channel 3 Register Access Functions */
 void XV_multi_scaler_Set_HwReg_WidthIn_3(XV_multi_scaler *InstancePtr,
@@ -395,6 +420,12 @@ u64 XV_multi_scaler_Get_HwReg_dstImgBuf0_3_V(XV_multi_scaler *InstancePtr);
 void XV_multi_scaler_Set_HwReg_dstImgBuf1_3_V(XV_multi_scaler *InstancePtr,
 	u64 Data);
 u64 XV_multi_scaler_Get_HwReg_dstImgBuf1_3_V(XV_multi_scaler *InstancePtr);
+void XV_multi_scaler_Set_HwReg_srcImgBuf2_3_V(XV_multi_scaler *InstancePtr,
+	u64 Data);
+u64 XV_multi_scaler_Get_HwReg_srcImgBuf2_3_V(XV_multi_scaler *InstancePtr);
+void XV_multi_scaler_Set_HwReg_dstImgBuf2_3_V(XV_multi_scaler *InstancePtr,
+	u64 Data);
+u64 XV_multi_scaler_Get_HwReg_dstImgBuf2_3_V(XV_multi_scaler *InstancePtr);
 
 /* Channel 4 Register Access Functions */
 void XV_multi_scaler_Set_HwReg_WidthIn_4(XV_multi_scaler *InstancePtr,
@@ -439,6 +470,12 @@ u64 XV_multi_scaler_Get_HwReg_dstImgBuf0_4_V(XV_multi_scaler *InstancePtr);
 void XV_multi_scaler_Set_HwReg_dstImgBuf1_4_V(XV_multi_scaler *InstancePtr,
 	u64 Data);
 u64 XV_multi_scaler_Get_HwReg_dstImgBuf1_4_V(XV_multi_scaler *InstancePtr);
+void XV_multi_scaler_Set_HwReg_srcImgBuf2_4_V(XV_multi_scaler *InstancePtr,
+	u64 Data);
+u64 XV_multi_scaler_Get_HwReg_srcImgBuf2_4_V(XV_multi_scaler *InstancePtr);
+void XV_multi_scaler_Set_HwReg_dstImgBuf2_4_V(XV_multi_scaler *InstancePtr,
+	u64 Data);
+u64 XV_multi_scaler_Get_HwReg_dstImgBuf2_4_V(XV_multi_scaler *InstancePtr);
 
 /* Channel 5 Register Access Functions */
 void XV_multi_scaler_Set_HwReg_WidthIn_5(XV_multi_scaler *InstancePtr,
@@ -483,6 +520,12 @@ u64 XV_multi_scaler_Get_HwReg_dstImgBuf0_5_V(XV_multi_scaler *InstancePtr);
 void XV_multi_scaler_Set_HwReg_dstImgBuf1_5_V(XV_multi_scaler *InstancePtr,
 	u64 Data);
 u64 XV_multi_scaler_Get_HwReg_dstImgBuf1_5_V(XV_multi_scaler *InstancePtr);
+void XV_multi_scaler_Set_HwReg_srcImgBuf2_5_V(XV_multi_scaler *InstancePtr,
+	u64 Data);
+u64 XV_multi_scaler_Get_HwReg_srcImgBuf2_5_V(XV_multi_scaler *InstancePtr);
+void XV_multi_scaler_Set_HwReg_dstImgBuf2_5_V(XV_multi_scaler *InstancePtr,
+	u64 Data);
+u64 XV_multi_scaler_Get_HwReg_dstImgBuf2_5_V(XV_multi_scaler *InstancePtr);
 
 /* Channel 6 Register Access Functions */
 void XV_multi_scaler_Set_HwReg_WidthIn_6(XV_multi_scaler *InstancePtr,
@@ -527,6 +570,12 @@ u64 XV_multi_scaler_Get_HwReg_dstImgBuf0_6_V(XV_multi_scaler *InstancePtr);
 void XV_multi_scaler_Set_HwReg_dstImgBuf1_6_V(XV_multi_scaler *InstancePtr,
 	u64 Data);
 u64 XV_multi_scaler_Get_HwReg_dstImgBuf1_6_V(XV_multi_scaler *InstancePtr);
+void XV_multi_scaler_Set_HwReg_srcImgBuf2_6_V(XV_multi_scaler *InstancePtr,
+	u64 Data);
+u64 XV_multi_scaler_Get_HwReg_srcImgBuf2_6_V(XV_multi_scaler *InstancePtr);
+void XV_multi_scaler_Set_HwReg_dstImgBuf2_6_V(XV_multi_scaler *InstancePtr,
+	u64 Data);
+u64 XV_multi_scaler_Get_HwReg_dstImgBuf2_6_V(XV_multi_scaler *InstancePtr);
 
 /* Channel 7 Register Access Functions */
 void XV_multi_scaler_Set_HwReg_WidthIn_7(XV_multi_scaler *InstancePtr,
@@ -571,6 +620,12 @@ u64 XV_multi_scaler_Get_HwReg_dstImgBuf0_7_V(XV_multi_scaler *InstancePtr);
 void XV_multi_scaler_Set_HwReg_dstImgBuf1_7_V(XV_multi_scaler *InstancePtr,
 	u64 Data);
 u64 XV_multi_scaler_Get_HwReg_dstImgBuf1_7_V(XV_multi_scaler *InstancePtr);
+void XV_multi_scaler_Set_HwReg_srcImgBuf2_7_V(XV_multi_scaler *InstancePtr,
+	u64 Data);
+u64 XV_multi_scaler_Get_HwReg_srcImgBuf2_7_V(XV_multi_scaler *InstancePtr);
+void XV_multi_scaler_Set_HwReg_dstImgBuf2_7_V(XV_multi_scaler *InstancePtr,
+	u64 Data);
+u64 XV_multi_scaler_Get_HwReg_dstImgBuf2_7_V(XV_multi_scaler *InstancePtr);
 
 /* Channel 0 Vertical Filter Coefficient Memory Access */
 u32 XV_multi_scaler_Get_HwReg_mm_vfltCoeff_0_BaseAddress(XV_multi_scaler

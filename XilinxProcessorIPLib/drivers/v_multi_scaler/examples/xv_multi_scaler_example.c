@@ -37,6 +37,7 @@
 #include "xil_cache.h"
 #include "xparameters.h"
 #include "xv_multi_scaler_l2.h"
+#include "xvidc.h"
 #include "xinterrupt_wrap.h"
 
 /************************** Constant Definitions *****************************/
@@ -84,7 +85,7 @@
 
 /** GPIO base address */
 #if defined XPAR_XGPIO_NUM_INSTANCES
-#define GPIO_BASE XPAR_XGPIO_0_BASEADDR
+#define GPIO_BASE XPAR_AXI_GPIO_0_BASEADDR
 #endif
 
 #define XPAR_PSU_GPIO_0_BASEADDR XPAR_GPIO_BASEADDR
@@ -113,19 +114,15 @@ u32 interrupt_flag;
 XV_multi_scaler_Video_Config useCase[USECASE_COUNT][XNUM_OUTPUTS] = {
 	{
 		{
-			0, SRC_BUF_START_ADDR, SRC_BUF_START_ADDR + 1 *
-			XV_MAX_BUF_SIZE, 720, 540, 1920, 1920,
+			0, (SRC_BUF_START_ADDR), (SRC_BUF_START_ADDR + 0x1000000), (SRC_BUF_START_ADDR + 0x2000000), 720, 540, 1920, 1920,
 			XV_MULTI_SCALER_RGB8, XV_MULTI_SCALER_RGB8, 0, 0,
-			DST_BUF_START_ADDR, DST_BUF_START_ADDR + 1 *
-			XV_MAX_BUF_SIZE,
+			(DST_BUF_START_ADDR), (DST_BUF_START_ADDR + 0x1000000), (DST_BUF_START_ADDR + 0x2000000),
 			{0, 0, 0, 0, 0}
 		},
 		{
-			1, SRC_BUF_START_ADDR + 2 * XV_MAX_BUF_SIZE,
-			SRC_BUF_START_ADDR + 3 * XV_MAX_BUF_SIZE, 1280, 1920,
+			1, (SRC_BUF_START_ADDR), (SRC_BUF_START_ADDR + 0x1000000), (SRC_BUF_START_ADDR + 0x2000000), 1280, 1920,
 			720, 720, XV_MULTI_SCALER_RGB8,	XV_MULTI_SCALER_RGB8, 0,
-			0, DST_BUF_START_ADDR + 2 * XV_MAX_BUF_SIZE,
-			DST_BUF_START_ADDR + 3 * XV_MAX_BUF_SIZE,
+			0, (DST_BUF_START_ADDR), (DST_BUF_START_ADDR + 0x1000000), (DST_BUF_START_ADDR + 0x2000000),
 			{800, 600, 0, 0, 1}
 		}
 	}
@@ -134,19 +131,17 @@ XV_multi_scaler_Video_Config useCase[USECASE_COUNT][XNUM_OUTPUTS] = {
 XV_multi_scaler_Video_Config useCase[USECASE_COUNT][XNUM_OUTPUTS] = {
 	{
 		{
-			0, SRC_BUF_START_ADDR, SRC_BUF_START_ADDR + 8 *
-			XV_MAX_BUF_SIZE, 720, 540, 1920, 1920,
-			XV_MULTI_SCALER_RGB8, XV_MULTI_SCALER_RGB8, 0, 0,
-			DST_BUF_START_ADDR, DST_BUF_START_ADDR + 7 *
-			XV_MAX_BUF_SIZE,
+			0, (SRC_BUF_START_ADDR), (SRC_BUF_START_ADDR + 0x1000000), (SRC_BUF_START_ADDR + 0x2000000),
+			480, 1080, 640, 1920,
+			XV_MULTI_SCALER_Y_U_V8, XV_MULTI_SCALER_Y_U_V8, 0, 0,
+			(DST_BUF_START_ADDR), (DST_BUF_START_ADDR + 0x1000000), (DST_BUF_START_ADDR + 0x2000000),
 			{0, 0, 0, 0, 0}
 		},
 		{
-			1, SRC_BUF_START_ADDR + XV_MAX_BUF_SIZE,
-			SRC_BUF_START_ADDR + 9 * XV_MAX_BUF_SIZE, 1280, 1920,
-			720, 720, XV_MULTI_SCALER_RGB8,	XV_MULTI_SCALER_RGB8, 0,
-			0, DST_BUF_START_ADDR + XV_MAX_BUF_SIZE,
-			DST_BUF_START_ADDR + 8 * XV_MAX_BUF_SIZE,
+			1, (SRC_BUF_START_ADDR + 0x3000000), (SRC_BUF_START_ADDR + 0x4000000), (SRC_BUF_START_ADDR + 0x5000000),
+			1280, 1920, 720, 720,
+			XV_MULTI_SCALER_Y_UV8,	XV_MULTI_SCALER_Y_UV8, 0, 0,
+			(DST_BUF_START_ADDR + 0x3000000), (DST_BUF_START_ADDR + 0x4000000), (DST_BUF_START_ADDR + 0x5000000),
 			{800, 600, 0, 0, 1}
 		}
 	}
@@ -156,6 +151,67 @@ XV_multi_scaler_Video_Config useCase[USECASE_COUNT][XNUM_OUTPUTS] = {
 /*****************************************************************************/
 /*                       Function Implementations                            */
 /*****************************************************************************/
+
+
+
+/*****************************************************************************/
+/**
+ * @brief Calculate the pitch for a tiled memory layout
+ *
+ * This function calculates the memory pitch (line stride) in bytes for the
+ * tile based memory format. The image width is first rounded up to the next
+ * tile boundary, and the resulting pixel count is then converted to bytes
+ * using the component depth of the given color format.
+ *
+ * @param  Cfmt Memory color format identifier (e.g. XVIDC_CSF_MEM_Y_UV8)
+ * @param  tile Tile width in pixels used for alignment (e.g. XVIDC_TILE_32)
+ * @param  width Image width in pixels
+ *
+ * @return Pitch value in bytes
+ *
+ * @note   The tile argument must be a power of two, as the alignment is done
+ *         with a bit mask. The returned value is the minimum pitch the core
+ *         requires for the given format and width.
+ *
+ *******************************************************************************/
+u32 CalcPitch(u16 Cfmt, u16 tile, u32 width)
+{
+	u32 depth, pitch_pixels, pitch_bytes;
+
+	switch (Cfmt) {
+		case XVIDC_CSF_MEM_Y_U_V12:
+		case XVIDC_CSF_MEM_Y_UV12:
+		case XVIDC_CSF_MEM_Y_UV12_420:
+		case XVIDC_CSF_MEM_Y12:
+			/* 12 bits per component (Y_U_V12, Y_UV12, Y_UV12_420, Y12) */
+			depth = 12;
+			break;
+		case XVIDC_CSF_MEM_Y_U_V10:
+		case XVIDC_CSF_MEM_Y_UV10:
+		case XVIDC_CSF_MEM_Y_UV10_420:
+		case XVIDC_CSF_MEM_Y10:
+			/* 10 bits per component (Y_U_V10, Y_UV10, Y_UV10_420, Y10) */
+			depth = 10;
+			break;
+		case XVIDC_CSF_MEM_Y_U_V8:
+		case XVIDC_CSF_MEM_Y_UV8:
+		case XVIDC_CSF_MEM_Y_UV8_420:
+		case XVIDC_CSF_MEM_Y8:
+			/* 8 bits per component (Y_U_V8, Y_UV8, Y_UV8_420, Y8) */
+			depth = 8;
+			break;
+		default:
+			/* 8 bits per component as default */
+			depth = 8;
+	}
+
+    pitch_pixels = (width + tile - 1) & (~(tile - 1));
+    pitch_bytes = (pitch_pixels * depth * 4) / 8;
+
+    xil_printf("Default or minimum required stride = %d bytes\n", pitch_bytes);
+
+    return pitch_bytes;
+}
 
 /*****************************************************************************/
 /**
@@ -215,6 +271,8 @@ void XV_Reset_MultiScaler(void)
  *******************************************************************************/
 void *XVMultiScalerCallback(void *data)
 {
+	(void)data;
+
 	xil_printf("\nMultiScaler interrupt received. \n\r");
 
 	/* Clear interrupt flag to signal completion */
@@ -258,6 +316,7 @@ static u32 CalcStride(u16 Cfmt, u16 AXIMMDataWidth, u32 width)
 			bpp_denominator = 3;
 			break;
 		case XV_MULTI_SCALER_Y_UV8:
+		case XV_MULTI_SCALER_Y_U_V8:
 		case XV_MULTI_SCALER_Y_UV8_420:
 		case  XV_MULTI_SCALER_Y8:
 			/* 1 byte per pixel (Y_UV8, Y_UV8_420, Y8) */
@@ -316,7 +375,6 @@ int main(void)
 	u32 i;
 	u32 j;
 	u32 cnt = 0;
-	u32 width_in_words = 0;
 	u32 width_out_words = 0;
 	_Bool flag = 1;
 	u32 num_outs;
@@ -335,9 +393,9 @@ int main(void)
 	Xil_ExceptionDisable();
 
 	xil_printf("\r\n-----------------------------------------------\r\n");
-	xil_printf(" Xilinx Multi Scaler Example Design %s\r\n",
+	xil_printf(" AMD Multi Scaler Example Design %s\r\n",
 		XMULTISCALER_SW_VER);
-	xil_printf("	(c) 2018 by Xilinx Inc.\r\n");
+	xil_printf("	(c) 2026 by AMD Inc.\r\n");
 
 	status = XV_multi_scaler_Initialize(MultiScalerPtr,
 		XPAR_XV_MULTI_SCALER_0_BASEADDR);
@@ -354,8 +412,7 @@ int main(void)
 				       MultiScalerInst.Config.IntrParent,
 				       XINTERRUPT_DEFAULT_PRIORITY);
 
-	if (status == XST_SUCCESS) {
-	} else {
+	if (status != XST_SUCCESS) {
 		xil_printf("ERR:: Unable to register interrupt handler");
 		return XST_FAILURE;
 	}
@@ -363,7 +420,6 @@ int main(void)
 	Xil_ExceptionEnable();
 	while (cnt < USECASE_COUNT) {
 		xil_printf("\nUse case %d:\n", cnt);
-
 		XV_Reset_MultiScaler();
 		XV_MultiScalerSetNumOutputs(MultiScalerPtr, XNUM_OUTPUTS);
 		num_outs = XV_MultiScalerGetNumOutputs(MultiScalerPtr); 
@@ -378,18 +434,30 @@ int main(void)
 				thisCase->ColorFormatIn,
 				MultiScalerPtr->MaxDataWidth,
 				thisCase->WidthIn);
-			thisCase->OutStride = CalcStride(
-				thisCase->ColorFormatOut,
-				MultiScalerPtr->MaxDataWidth,
-				thisCase->WidthOut);
+			if(MultiScalerPtr->Config.IsTileFormat) {
+				thisCase->OutStride = CalcPitch(
+					thisCase->ColorFormatOut,
+					XVIDC_TILE_32,
+					thisCase->WidthOut);
+			} else {
+				thisCase->OutStride = CalcStride(
+					thisCase->ColorFormatOut,
+					MultiScalerPtr->MaxDataWidth,
+					thisCase->WidthOut);
+			}
 			memset((u32 *)thisCase->SrcImgBuf0, 0,
 				thisCase->HeightIn * thisCase->InStride);
 			memset((u32 *)thisCase->SrcImgBuf1, 0,
 				thisCase->HeightIn * thisCase->InStride);
+			memset((u32 *)thisCase->SrcImgBuf2, 0,
+					thisCase->HeightIn * thisCase->InStride);
 			memset((u32 *)thisCase->DstImgBuf0, 0xAA,
 				thisCase->HeightOut * thisCase->OutStride +
 				10);
-			memset((u32 *)thisCase->DstImgBuf1, 0xAA,
+			memset((u32 *)thisCase->DstImgBuf1, 0xAB,
+				thisCase->HeightOut * thisCase->OutStride +
+				10);
+			memset((u32 *)thisCase->DstImgBuf2, 0xAC,
 				thisCase->HeightOut * thisCase->OutStride +
 				10);
 			XV_MultiScalerSetChannelConfig(MultiScalerPtr,
@@ -408,7 +476,6 @@ int main(void)
 		/* Check if the data in the destination buffer is proper*/
 		for (k = 0; k < XNUM_OUTPUTS; k++) {
 			thisCase = &useCase[cnt][k];
-			width_in_words = thisCase->InStride / 4;
 			width_out_words = thisCase->OutStride / 4;
 
 			for (i = 0; i < thisCase->HeightOut; i++) {

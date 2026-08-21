@@ -15,6 +15,7 @@ properties:
       - items:
         - enum:
           - xlnx,v-multi-scaler-1.2
+          - xlnx,v-multi-scaler-2.0
   reg:
     description: Physical base address and size of the controller register map
   samples-per-clock:
@@ -33,6 +34,8 @@ properties:
     description: Number of Taps to be used for colour conversion.
   xlnx,max-outs:
     description: Maximum number of channels to be used by Multiscaler.
+    xlnx,is-tile-format:
+    description: is-tile-format to be used by Multiscaler.
 
 required:
     - compatible
@@ -45,6 +48,7 @@ required:
     - xlnx,scale-mode
     - xlnx,taps
     - xlnx,max-outs
+    - xlnx,is-tile-format
     - interrupts
     - interrupt-parent
 

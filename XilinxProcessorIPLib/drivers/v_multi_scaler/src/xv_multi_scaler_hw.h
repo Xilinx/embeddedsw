@@ -76,12 +76,18 @@
 // 0x00170 : Data signal of HwReg_srcImgBuf1_0_V
 //           bit 31~0 - HwReg_srcImgBuf1_0_V[31:0] (Read/Write)
 // 0x00174 : reserved
+// 0x00180 : Data signal of HwReg_srcImgBuf2_0_V
+//           bit 31~0 - HwReg_srcImgBuf2_0_V[31:0] (Read/Write)
+// 0x00184 : reserved
 // 0x00190 : Data signal of HwReg_dstImgBuf0_0_V
 //           bit 31~0 - HwReg_dstImgBuf0_0_V[31:0] (Read/Write)
 // 0x00194 : reserved
 // 0x00200 : Data signal of HwReg_dstImgBuf1_0_V
 //           bit 31~0 - HwReg_dstImgBuf1_0_V[31:0] (Read/Write)
 // 0x00204 : reserved
+// 0x00210 : Data signal of HwReg_dstImgBuf2_0_V
+//           bit 31~0 - HwReg_dstImgBuf2_0_V[31:0] (Read/Write)
+// 0x00214 : reserved
 // 0x00300 : Data signal of HwReg_WidthIn_1
 //           bit 15~0 - HwReg_WidthIn_1[15:0] (Read/Write)
 //           others   - reserved
@@ -126,12 +132,18 @@
 // 0x00370 : Data signal of HwReg_srcImgBuf1_1_V
 //           bit 31~0 - HwReg_srcImgBuf1_1_V[31:0] (Read/Write)
 // 0x00374 : reserved
+// 0x00380 : Data signal of HwReg_srcImgBuf2_1_V
+//           bit 31~0 - HwReg_srcImgBuf2_1_V[31:0] (Read/Write)
+// 0x00384 : reserved
 // 0x00390 : Data signal of HwReg_dstImgBuf0_1_V
 //           bit 31~0 - HwReg_dstImgBuf0_1_V[31:0] (Read/Write)
 // 0x00394 : reserved
 // 0x00400 : Data signal of HwReg_dstImgBuf1_1_V
 //           bit 31~0 - HwReg_dstImgBuf1_1_V[31:0] (Read/Write)
 // 0x00404 : reserved
+// 0x00410 : Data signal of HwReg_dstImgBuf2_1_V
+//           bit 31~0 - HwReg_dstImgBuf2_1_V[31:0] (Read/Write)
+// 0x00414 : reserved
 // 0x00500 : Data signal of HwReg_WidthIn_2
 //           bit 15~0 - HwReg_WidthIn_2[15:0] (Read/Write)
 //           others   - reserved
@@ -176,12 +188,18 @@
 // 0x00570 : Data signal of HwReg_srcImgBuf1_2_V
 //           bit 31~0 - HwReg_srcImgBuf1_2_V[31:0] (Read/Write)
 // 0x00574 : reserved
+// 0x00580 : Data signal of HwReg_srcImgBuf2_2_V
+//           bit 31~0 - HwReg_srcImgBuf2_2_V[31:0] (Read/Write)
+// 0x00584 : reserved
 // 0x00590 : Data signal of HwReg_dstImgBuf0_2_V
 //           bit 31~0 - HwReg_dstImgBuf0_2_V[31:0] (Read/Write)
 // 0x00594 : reserved
 // 0x00600 : Data signal of HwReg_dstImgBuf1_2_V
 //           bit 31~0 - HwReg_dstImgBuf1_2_V[31:0] (Read/Write)
 // 0x00604 : reserved
+// 0x00610 : Data signal of HwReg_dstImgBuf2_2_V
+//           bit 31~0 - HwReg_dstImgBuf2_2_V[31:0] (Read/Write)
+// 0x00614 : reserved
 // 0x00700 : Data signal of HwReg_WidthIn_3
 //           bit 15~0 - HwReg_WidthIn_3[15:0] (Read/Write)
 //           others   - reserved
@@ -226,12 +244,18 @@
 // 0x00770 : Data signal of HwReg_srcImgBuf1_3_V
 //           bit 31~0 - HwReg_srcImgBuf1_3_V[31:0] (Read/Write)
 // 0x00774 : reserved
+// 0x00780 : Data signal of HwReg_srcImgBuf2_3_V
+//           bit 31~0 - HwReg_srcImgBuf2_3_V[31:0] (Read/Write)
+// 0x00784 : reserved
 // 0x00790 : Data signal of HwReg_dstImgBuf0_3_V
 //           bit 31~0 - HwReg_dstImgBuf0_3_V[31:0] (Read/Write)
 // 0x00794 : reserved
 // 0x00800 : Data signal of HwReg_dstImgBuf1_3_V
 //           bit 31~0 - HwReg_dstImgBuf1_3_V[31:0] (Read/Write)
 // 0x00804 : reserved
+// 0x00810 : Data signal of HwReg_dstImgBuf2_3_V
+//           bit 31~0 - HwReg_dstImgBuf2_3_V[31:0] (Read/Write)
+// 0x00814 : reserved
 // 0x00900 : Data signal of HwReg_WidthIn_4
 //           bit 15~0 - HwReg_WidthIn_4[15:0] (Read/Write)
 //           others   - reserved
@@ -276,12 +300,18 @@
 // 0x00970 : Data signal of HwReg_srcImgBuf1_4_V
 //           bit 31~0 - HwReg_srcImgBuf1_4_V[31:0] (Read/Write)
 // 0x00974 : reserved
+// 0x00980 : Data signal of HwReg_srcImgBuf2_4_V
+//           bit 31~0 - HwReg_srcImgBuf2_4_V[31:0] (Read/Write)
+// 0x00984 : reserved
 // 0x00990 : Data signal of HwReg_dstImgBuf0_4_V
 //           bit 31~0 - HwReg_dstImgBuf0_4_V[31:0] (Read/Write)
 // 0x00994 : reserved
 // 0x01000 : Data signal of HwReg_dstImgBuf1_4_V
 //           bit 31~0 - HwReg_dstImgBuf1_4_V[31:0] (Read/Write)
 // 0x01004 : reserved
+// 0x01010 : Data signal of HwReg_dstImgBuf2_4_V
+//           bit 31~0 - HwReg_dstImgBuf2_4_V[31:0] (Read/Write)
+// 0x01014 : reserved
 // 0x01100 : Data signal of HwReg_WidthIn_5
 //           bit 15~0 - HwReg_WidthIn_5[15:0] (Read/Write)
 //           others   - reserved
@@ -326,12 +356,18 @@
 // 0x01170 : Data signal of HwReg_srcImgBuf1_5_V
 //           bit 31~0 - HwReg_srcImgBuf1_5_V[31:0] (Read/Write)
 // 0x01174 : reserved
+// 0x01180 : Data signal of HwReg_srcImgBuf2_5_V
+//           bit 31~0 - HwReg_srcImgBuf2_5_V[31:0] (Read/Write)
+// 0x01184 : reserved
 // 0x01190 : Data signal of HwReg_dstImgBuf0_5_V
 //           bit 31~0 - HwReg_dstImgBuf0_5_V[31:0] (Read/Write)
 // 0x01194 : reserved
 // 0x01200 : Data signal of HwReg_dstImgBuf1_5_V
 //           bit 31~0 - HwReg_dstImgBuf1_5_V[31:0] (Read/Write)
 // 0x01204 : reserved
+// 0x01210 : Data signal of HwReg_dstImgBuf2_5_V
+//           bit 31~0 - HwReg_dstImgBuf2_5_V[31:0] (Read/Write)
+// 0x01214 : reserved
 // 0x01300 : Data signal of HwReg_WidthIn_6
 //           bit 15~0 - HwReg_WidthIn_6[15:0] (Read/Write)
 //           others   - reserved
@@ -376,12 +412,18 @@
 // 0x01370 : Data signal of HwReg_srcImgBuf1_6_V
 //           bit 31~0 - HwReg_srcImgBuf1_6_V[31:0] (Read/Write)
 // 0x01374 : reserved
+// 0x01380 : Data signal of HwReg_srcImgBuf2_6_V
+//           bit 31~0 - HwReg_srcImgBuf2_6_V[31:0] (Read/Write)
+// 0x01384 : reserved
 // 0x01390 : Data signal of HwReg_dstImgBuf0_6_V
 //           bit 31~0 - HwReg_dstImgBuf0_6_V[31:0] (Read/Write)
 // 0x01394 : reserved
 // 0x01400 : Data signal of HwReg_dstImgBuf1_6_V
 //           bit 31~0 - HwReg_dstImgBuf1_6_V[31:0] (Read/Write)
 // 0x01404 : reserved
+// 0x01410 : Data signal of HwReg_dstImgBuf2_6_V
+//           bit 31~0 - HwReg_dstImgBuf2_6_V[31:0] (Read/Write)
+// 0x01414 : reserved
 // 0x01500 : Data signal of HwReg_WidthIn_7
 //           bit 15~0 - HwReg_WidthIn_7[15:0] (Read/Write)
 //           others   - reserved
@@ -426,12 +468,18 @@
 // 0x01570 : Data signal of HwReg_srcImgBuf1_7_V
 //           bit 31~0 - HwReg_srcImgBuf1_7_V[31:0] (Read/Write)
 // 0x01574 : reserved
+// 0x01580 : Data signal of HwReg_srcImgBuf2_7_V
+//           bit 31~0 - HwReg_srcImgBuf2_7_V[31:0] (Read/Write)
+// 0x01584 : reserved
 // 0x01590 : Data signal of HwReg_dstImgBuf0_7_V
 //           bit 31~0 - HwReg_dstImgBuf0_7_V[31:0] (Read/Write)
 // 0x01594 : reserved
 // 0x01600 : Data signal of HwReg_dstImgBuf1_7_V
 //           bit 31~0 - HwReg_dstImgBuf1_7_V[31:0] (Read/Write)
 // 0x01604 : reserved
+// 0x01610 : Data signal of HwReg_dstImgBuf2_7_V
+//           bit 31~0 - HwReg_dstImgBuf2_7_V[31:0] (Read/Write)
+// 0x01614 : reserved
 // 0x02000 ~
 // 0x023ff : Memory 'HwReg_mm_vfltCoeff_0' (384 * 16b)
 //           Word n : bit [15: 0] - HwReg_mm_vfltCoeff_0[2n]
@@ -603,6 +651,12 @@ extern "C" {
 /** Source buffer 1 address bit width (32-bit pointer) */
 #define XV_MULTI_SCALER_CTRL_BITS_HWREG_SRCIMGBUF1_0_V_DATA 32
 
+/** Source image buffer 2 address register for channel 0 */
+#define XV_MULTI_SCALER_CTRL_ADDR_HWREG_SRCIMGBUF2_0_V_DATA 0x00180
+
+/** Source buffer 2 address bit width (32-bit pointer) */
+#define XV_MULTI_SCALER_CTRL_BITS_HWREG_SRCIMGBUF2_0_V_DATA 32
+
 /** Destination image buffer 0 address register for channel 0 */
 #define XV_MULTI_SCALER_CTRL_ADDR_HWREG_DSTIMGBUF0_0_V_DATA 0x00190
 
@@ -614,6 +668,12 @@ extern "C" {
 
 /** Destination buffer 1 address bit width (32-bit pointer) */
 #define XV_MULTI_SCALER_CTRL_BITS_HWREG_DSTIMGBUF1_0_V_DATA 32
+
+/** Destination image buffer 2 address register for channel 0 */
+#define XV_MULTI_SCALER_CTRL_ADDR_HWREG_DSTIMGBUF2_0_V_DATA 0x00210
+
+/** Destination buffer 2 address bit width (32-bit pointer) */
+#define XV_MULTI_SCALER_CTRL_BITS_HWREG_DSTIMGBUF2_0_V_DATA 32
 
 /*
  * Channel 1 Configuration Registers (Base Address: 0x00300)
@@ -666,6 +726,10 @@ extern "C" {
 #define XV_MULTI_SCALER_CTRL_ADDR_HWREG_SRCIMGBUF1_1_V_DATA 0x00370
 /** Source buffer 1 address bit width (32-bit pointer) */
 #define XV_MULTI_SCALER_CTRL_BITS_HWREG_SRCIMGBUF1_1_V_DATA 32
+/** Source image buffer 2 address register for channel 1 */
+#define XV_MULTI_SCALER_CTRL_ADDR_HWREG_SRCIMGBUF2_1_V_DATA 0x00380
+/** Source buffer 2 address bit width (32-bit pointer) */
+#define XV_MULTI_SCALER_CTRL_BITS_HWREG_SRCIMGBUF2_1_V_DATA 32
 /** Destination image buffer 0 address register for channel 1 */
 #define XV_MULTI_SCALER_CTRL_ADDR_HWREG_DSTIMGBUF0_1_V_DATA 0x00390
 /** Destination buffer 0 address bit width (32-bit pointer) */
@@ -674,6 +738,10 @@ extern "C" {
 #define XV_MULTI_SCALER_CTRL_ADDR_HWREG_DSTIMGBUF1_1_V_DATA 0x00400
 /** Destination buffer 1 address bit width (32-bit pointer) */
 #define XV_MULTI_SCALER_CTRL_BITS_HWREG_DSTIMGBUF1_1_V_DATA 32
+/** Destination image buffer 2 address register for channel 1 */
+#define XV_MULTI_SCALER_CTRL_ADDR_HWREG_DSTIMGBUF2_1_V_DATA 0x00410
+/** Destination buffer 2 address bit width (32-bit pointer) */
+#define XV_MULTI_SCALER_CTRL_BITS_HWREG_DSTIMGBUF2_1_V_DATA 32
 
 /*
  * Channel 2 Configuration Registers (Base Address: 0x00500)
@@ -726,6 +794,10 @@ extern "C" {
 #define XV_MULTI_SCALER_CTRL_ADDR_HWREG_SRCIMGBUF1_2_V_DATA 0x00570
 /** Source buffer 1 address bit width (32-bit pointer) */
 #define XV_MULTI_SCALER_CTRL_BITS_HWREG_SRCIMGBUF1_2_V_DATA 32
+/** Source image buffer 2 address register for channel 2 */
+#define XV_MULTI_SCALER_CTRL_ADDR_HWREG_SRCIMGBUF2_2_V_DATA 0x00580
+/** Source buffer 2 address bit width (32-bit pointer) */
+#define XV_MULTI_SCALER_CTRL_BITS_HWREG_SRCIMGBUF2_2_V_DATA 32
 /** Destination image buffer 0 address register for channel 2 */
 #define XV_MULTI_SCALER_CTRL_ADDR_HWREG_DSTIMGBUF0_2_V_DATA 0x00590
 /** Destination buffer 0 address bit width (32-bit pointer) */
@@ -734,6 +806,10 @@ extern "C" {
 #define XV_MULTI_SCALER_CTRL_ADDR_HWREG_DSTIMGBUF1_2_V_DATA 0x00600
 /** Destination buffer 1 address bit width (32-bit pointer) */
 #define XV_MULTI_SCALER_CTRL_BITS_HWREG_DSTIMGBUF1_2_V_DATA 32
+/** Destination image buffer 2 address register for channel 2 */
+#define XV_MULTI_SCALER_CTRL_ADDR_HWREG_DSTIMGBUF2_2_V_DATA 0x00610
+/** Destination buffer 2 address bit width (32-bit pointer) */
+#define XV_MULTI_SCALER_CTRL_BITS_HWREG_DSTIMGBUF2_2_V_DATA 32
 
 /*
  * Channel 3 Configuration Registers (Base Address: 0x00700)
@@ -786,6 +862,10 @@ extern "C" {
 #define XV_MULTI_SCALER_CTRL_ADDR_HWREG_SRCIMGBUF1_3_V_DATA 0x00770
 /** Source buffer 1 address bit width (32-bit pointer) */
 #define XV_MULTI_SCALER_CTRL_BITS_HWREG_SRCIMGBUF1_3_V_DATA 32
+/** Source image buffer 2 address register for channel 3 */
+#define XV_MULTI_SCALER_CTRL_ADDR_HWREG_SRCIMGBUF2_3_V_DATA 0x00780
+/** Source buffer 2 address bit width (32-bit pointer) */
+#define XV_MULTI_SCALER_CTRL_BITS_HWREG_SRCIMGBUF2_3_V_DATA 32
 /** Destination image buffer 0 address register for channel 3 */
 #define XV_MULTI_SCALER_CTRL_ADDR_HWREG_DSTIMGBUF0_3_V_DATA 0x00790
 /** Destination buffer 0 address bit width (32-bit pointer) */
@@ -794,6 +874,10 @@ extern "C" {
 #define XV_MULTI_SCALER_CTRL_ADDR_HWREG_DSTIMGBUF1_3_V_DATA 0x00800
 /** Destination buffer 1 address bit width (32-bit pointer) */
 #define XV_MULTI_SCALER_CTRL_BITS_HWREG_DSTIMGBUF1_3_V_DATA 32
+/** Destination image buffer 2 address register for channel 3 */
+#define XV_MULTI_SCALER_CTRL_ADDR_HWREG_DSTIMGBUF2_3_V_DATA 0x00810
+/** Destination buffer 2 address bit width (32-bit pointer) */
+#define XV_MULTI_SCALER_CTRL_BITS_HWREG_DSTIMGBUF2_3_V_DATA 32
 
 /*
  * Channel 4 Configuration Registers (Base Address: 0x00900)
@@ -846,6 +930,10 @@ extern "C" {
 #define XV_MULTI_SCALER_CTRL_ADDR_HWREG_SRCIMGBUF1_4_V_DATA 0x00970
 /** Source buffer 1 address bit width (32-bit pointer) */
 #define XV_MULTI_SCALER_CTRL_BITS_HWREG_SRCIMGBUF1_4_V_DATA 32
+/** Source image buffer 2 address register for channel 4 */
+#define XV_MULTI_SCALER_CTRL_ADDR_HWREG_SRCIMGBUF2_4_V_DATA 0x00980
+/** Source buffer 2 address bit width (32-bit pointer) */
+#define XV_MULTI_SCALER_CTRL_BITS_HWREG_SRCIMGBUF2_4_V_DATA 32
 /** Destination image buffer 0 address register for channel 4 */
 #define XV_MULTI_SCALER_CTRL_ADDR_HWREG_DSTIMGBUF0_4_V_DATA 0x00990
 /** Destination buffer 0 address bit width (32-bit pointer) */
@@ -854,6 +942,10 @@ extern "C" {
 #define XV_MULTI_SCALER_CTRL_ADDR_HWREG_DSTIMGBUF1_4_V_DATA 0x01000
 /** Destination buffer 1 address bit width (32-bit pointer) */
 #define XV_MULTI_SCALER_CTRL_BITS_HWREG_DSTIMGBUF1_4_V_DATA 32
+/** Destination image buffer 2 address register for channel 4 */
+#define XV_MULTI_SCALER_CTRL_ADDR_HWREG_DSTIMGBUF2_4_V_DATA 0x01010
+/** Destination buffer 2 address bit width (32-bit pointer) */
+#define XV_MULTI_SCALER_CTRL_BITS_HWREG_DSTIMGBUF2_4_V_DATA 32
 
 /*
  * Channel 5 Configuration Registers (Base Address: 0x01100)
@@ -906,6 +998,10 @@ extern "C" {
 #define XV_MULTI_SCALER_CTRL_ADDR_HWREG_SRCIMGBUF1_5_V_DATA 0x01170
 /** Source buffer 1 address bit width (32-bit pointer) */
 #define XV_MULTI_SCALER_CTRL_BITS_HWREG_SRCIMGBUF1_5_V_DATA 32
+/** Source image buffer 2 address register for channel 5 */
+#define XV_MULTI_SCALER_CTRL_ADDR_HWREG_SRCIMGBUF2_5_V_DATA 0x01180
+/** Source buffer 2 address bit width (32-bit pointer) */
+#define XV_MULTI_SCALER_CTRL_BITS_HWREG_SRCIMGBUF2_5_V_DATA 32
 /** Destination image buffer 0 address register for channel 5 */
 #define XV_MULTI_SCALER_CTRL_ADDR_HWREG_DSTIMGBUF0_5_V_DATA 0x01190
 /** Destination buffer 0 address bit width (32-bit pointer) */
@@ -914,6 +1010,10 @@ extern "C" {
 #define XV_MULTI_SCALER_CTRL_ADDR_HWREG_DSTIMGBUF1_5_V_DATA 0x01200
 /** Destination buffer 1 address bit width (32-bit pointer) */
 #define XV_MULTI_SCALER_CTRL_BITS_HWREG_DSTIMGBUF1_5_V_DATA 32
+/** Destination image buffer 2 address register for channel 5 */
+#define XV_MULTI_SCALER_CTRL_ADDR_HWREG_DSTIMGBUF2_5_V_DATA 0x01210
+/** Destination buffer 2 address bit width (32-bit pointer) */
+#define XV_MULTI_SCALER_CTRL_BITS_HWREG_DSTIMGBUF2_5_V_DATA 32
 
 /*
  * Channel 6 Configuration Registers (Base Address: 0x01300)
@@ -966,6 +1066,10 @@ extern "C" {
 #define XV_MULTI_SCALER_CTRL_ADDR_HWREG_SRCIMGBUF1_6_V_DATA 0x01370
 /** Source buffer 1 address bit width (32-bit pointer) */
 #define XV_MULTI_SCALER_CTRL_BITS_HWREG_SRCIMGBUF1_6_V_DATA 32
+/** Source image buffer 2 address register for channel 6 */
+#define XV_MULTI_SCALER_CTRL_ADDR_HWREG_SRCIMGBUF2_6_V_DATA 0x01380
+/** Source buffer 2 address bit width (32-bit pointer) */
+#define XV_MULTI_SCALER_CTRL_BITS_HWREG_SRCIMGBUF2_6_V_DATA 32
 /** Destination image buffer 0 address register for channel 6 */
 #define XV_MULTI_SCALER_CTRL_ADDR_HWREG_DSTIMGBUF0_6_V_DATA 0x01390
 /** Destination buffer 0 address bit width (32-bit pointer) */
@@ -974,6 +1078,10 @@ extern "C" {
 #define XV_MULTI_SCALER_CTRL_ADDR_HWREG_DSTIMGBUF1_6_V_DATA 0x01400
 /** Destination buffer 1 address bit width (32-bit pointer) */
 #define XV_MULTI_SCALER_CTRL_BITS_HWREG_DSTIMGBUF1_6_V_DATA 32
+/** Destination image buffer 2 address register for channel 6 */
+#define XV_MULTI_SCALER_CTRL_ADDR_HWREG_DSTIMGBUF2_6_V_DATA 0x01410
+/** Destination buffer 2 address bit width (32-bit pointer) */
+#define XV_MULTI_SCALER_CTRL_BITS_HWREG_DSTIMGBUF2_6_V_DATA 32
 
 /*
  * Channel 7 Configuration Registers (Base Address: 0x01500)
@@ -1026,6 +1134,10 @@ extern "C" {
 #define XV_MULTI_SCALER_CTRL_ADDR_HWREG_SRCIMGBUF1_7_V_DATA 0x01570
 /** Source buffer 1 address bit width (32-bit pointer) */
 #define XV_MULTI_SCALER_CTRL_BITS_HWREG_SRCIMGBUF1_7_V_DATA 32
+/** Source image buffer 2 address register for channel 7 */
+#define XV_MULTI_SCALER_CTRL_ADDR_HWREG_SRCIMGBUF2_7_V_DATA 0x01580
+/** Source buffer 2 address bit width (32-bit pointer) */
+#define XV_MULTI_SCALER_CTRL_BITS_HWREG_SRCIMGBUF2_7_V_DATA 32
 /** Destination image buffer 0 address register for channel 7 */
 #define XV_MULTI_SCALER_CTRL_ADDR_HWREG_DSTIMGBUF0_7_V_DATA 0x01590
 /** Destination buffer 0 address bit width (32-bit pointer) */
@@ -1034,6 +1146,10 @@ extern "C" {
 #define XV_MULTI_SCALER_CTRL_ADDR_HWREG_DSTIMGBUF1_7_V_DATA 0x01600
 /** Destination buffer 1 address bit width (32-bit pointer) */
 #define XV_MULTI_SCALER_CTRL_BITS_HWREG_DSTIMGBUF1_7_V_DATA 32
+/** Destination image buffer 2 address register for channel 7 */
+#define XV_MULTI_SCALER_CTRL_ADDR_HWREG_DSTIMGBUF2_7_V_DATA 0x01610
+/** Destination buffer 2 address bit width (32-bit pointer) */
+#define XV_MULTI_SCALER_CTRL_BITS_HWREG_DSTIMGBUF2_7_V_DATA 32
 
 /*
  * Filter Coefficient Memory Regions
