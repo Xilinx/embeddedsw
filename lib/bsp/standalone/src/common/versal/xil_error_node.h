@@ -23,6 +23,7 @@
 *       kj       12/01/2023 Add HBM CATTRIP Sw Error Mask
 *       tvp      07/07/2025 Add SW PCR Error Mask
 * 8.0   sk       09/23/2025 Added Additional HBMON Error ID's
+*       sd       08/20/2026 Added PMC WWDT error event mask
 *
 * </pre>
 *
@@ -255,6 +256,9 @@ extern "C" {
 
 /** Error event mask for CFRAME SEU ECC Error. */
 #define XIL_EVENT_ERROR_MASK_SEUECC		(0x00080000U)
+
+/** Error event mask for PMC WWDT Error. */
+#define XIL_EVENT_ERROR_MASK_PMX_WWDT		(0x00100000U)
 
 /** Error event mask for RTC Alarm Error. */
 #define XIL_EVENT_ERROR_MASK_RTCALARM		(0x00400000U)

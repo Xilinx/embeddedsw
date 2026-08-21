@@ -22,6 +22,7 @@
 *       sd  03/13/26 Added macros for hardware interrupt registers
 * 3.0   sd  08/03/26 Clear SSS Cfg Error set during ROM PCR Extension
 *       sd  08/07/26 Added declaration for XPlmi_SaveLpdEAMInfo
+*       sd  08/20/26 Included xplmi_wdt_hw.h for PMC WDT definitions
 * </pre>
 *
 ***************************************************************************************************/
@@ -35,6 +36,7 @@ extern "C" {
 
 /*************************************** Include Files ********************************************/
 #include "xplmi_hw.h"
+#include "xplmi_wdt_hw.h"
 #include "xplmi_dma.h"
 #include "xplmi_event_logging.h"
 #include "xplmi_cmd.h"

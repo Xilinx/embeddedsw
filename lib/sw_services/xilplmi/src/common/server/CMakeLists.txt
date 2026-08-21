@@ -1,4 +1,4 @@
-# Copyright (C) 2024 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (C) 2024 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 
 collect (PROJECT_LIB_HEADERS xplmi_generic.h)
@@ -19,6 +19,7 @@ collect (PROJECT_LIB_HEADERS xplmi_proc.h)
 collect (PROJECT_LIB_HEADERS xplmi_scheduler.h)
 collect (PROJECT_LIB_HEADERS xplmi_modules.h)
 collect (PROJECT_LIB_HEADERS xplmi_event_logging.h)
+collect (PROJECT_LIB_HEADERS xplmi_wdt_hw.h)
 
 collect (PROJECT_LIB_SOURCES xplmi_err_common.c)
 collect (PROJECT_LIB_SOURCES xplmi_proc.c)

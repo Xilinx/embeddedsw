@@ -16,6 +16,7 @@
 * Ver   Who  Date        Changes
 * ----- ---- -------- ----------------------------------------------------------------------------
 * 1.0   sd   10/13/25 Initial release
+*       sd   08/20/26 Added default PMC WWDT config in PMC CDO hook
 *
 * </pre>
 *
@@ -35,6 +36,7 @@
 #include "xpm_device.h"
 #include "xpm_nodeid.h"
 #include "xplmi_plat.h"
+#include "xplmi_wdt.h"
 
 /************************************ Constant Definitions ****************************************/
 
@@ -81,6 +83,15 @@ int XPlm_HookAfterPmcCdo(void *Arg)
 	int Status = XST_FAILURE;
 
 	(void)Arg;
+
+	/*
+	 * if ROM SWDT usage EFUSE is enabled and no WDT is configured,
+	 * enable WDT with default timeout
+	 */
+	Status = XPlmi_DefaultSWdtConfig();
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
 
 	/* Call XilPM hook */
 	Status = XPm_HookAfterPlmCdo();

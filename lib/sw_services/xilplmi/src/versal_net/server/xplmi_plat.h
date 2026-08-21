@@ -66,6 +66,7 @@
 *       obs  08/26/2025 Added error codes and macros for handling verifying address range
 * 2.4   sk   01/18/2026 Added macros for LPD Domain Init Status
 *       abh  11/21/2025 Fixed MISRAC Violations
+*       sd   08/20/2026 Included xplmi_wdt_hw.h for PMC WDT definitions
 *
 * </pre>
 *
@@ -80,6 +81,7 @@ extern "C" {
 
 /***************************** Include Files *********************************/
 #include "xplmi_hw.h"
+#include "xplmi_wdt_hw.h"
 #include "xplmi_dma.h"
 #include "xplmi_event_logging.h"
 #include "xplmi_update.h"

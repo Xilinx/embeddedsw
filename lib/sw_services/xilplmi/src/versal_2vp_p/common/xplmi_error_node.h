@@ -16,6 +16,7 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- ----------------------------------------------------------------------------
 * 2.3   tvp  07/07/25 Initial release
+*       sd   08/20/26 Added PMC WWDT error node
 *
 * </pre>
 *
@@ -106,7 +107,7 @@ typedef enum {
 #define XPLMI_ERROR_CFI				(0x31U)
 #define XPLMI_ERROR_SEUCRC			(0x32U)
 #define XPLMI_ERROR_SEUECC			(0x33U)
-#define XPLMI_ERROR_PMC_RSRV4			(0x34U)
+#define XPLMI_ERROR_PMX_WWDT			(0x34U)
 #define XPLMI_ERROR_PMC_RSRV5			(0x35U)
 #define XPLMI_ERROR_RTCALARM			(0x36U)
 #define XPLMI_ERROR_NPLL			(0x37U)

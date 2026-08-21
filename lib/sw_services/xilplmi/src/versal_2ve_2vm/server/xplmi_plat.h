@@ -74,6 +74,7 @@
 *       pre 03/23/26 Added macro for TPM data structure export
 *       ias  08/19/2026 Added XPlmi_MemTblInit declaration
 * 2.5   vm   07/13/2026 Added error code for in-place ASU update rejection
+*       sd   08/20/2026 Included xplmi_wdt_hw.h for PMC WDT definitions
 * </pre>
 *
 ******************************************************************************/
@@ -87,6 +88,7 @@ extern "C" {
 
 /***************************** Include Files *********************************/
 #include "xplmi_hw.h"
+#include "xplmi_wdt_hw.h"
 #include "xplmi_dma.h"
 #include "xplmi_event_logging.h"
 #include "xplmi_update.h"

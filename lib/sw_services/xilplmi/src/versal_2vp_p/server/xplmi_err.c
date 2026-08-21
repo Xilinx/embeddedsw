@@ -17,6 +17,7 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- ----------------------------------------------------------------------------
 * 2.3   sd  10/13/25 Initial release
+*       sd  08/20/26 Added PMC WWDT SRST error action
 *
 * </pre>
 *
@@ -154,8 +155,8 @@ static XPlmi_Error_t ErrorTable[XPLMI_ERROR_SW_ERR_MAX] = {
 				 .SubsystemId = 0U, },
 	[XPLMI_ERROR_SEUECC] = { .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE,
 				 .SubsystemId = 0U, },
-	[XPLMI_ERROR_PMC_RSRV4] = { .Handler = NULL, .Action = XPLMI_EM_ACTION_INVALID,
-				    .SubsystemId = 0U, },
+	[XPLMI_ERROR_PMX_WWDT] = { .Handler = NULL, .Action = XPLMI_EM_ACTION_SRST,
+				   .SubsystemId = 0U, },
 	[XPLMI_ERROR_PMC_RSRV5] = { .Handler = NULL, .Action = XPLMI_EM_ACTION_INVALID,
 				    .SubsystemId = 0U, },
 	[XPLMI_ERROR_RTCALARM] = { .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE,
@@ -682,6 +683,13 @@ int XPlmi_RestrictErrActions(XPlmi_EventType NodeType, u32 RegMask, u32 ErrorAct
 	    (ErrorAction > XPLMI_EM_ACTION_ERROUT)) {
 		XPlmi_Printf(DEBUG_GENERAL, "Only HW Error Actions are supported for HBM "
 			     "CATTRIP\n\r");
+	}
+	else if ((NodeType == XPLMI_NODETYPE_EVENT_PMC_ERR2) &&
+		 (RegMask == XIL_EVENT_ERROR_MASK_PMX_WWDT) &&
+		 (ErrorAction > XPLMI_EM_ACTION_ERROUT) &&
+		 (ErrorAction != XPLMI_EM_ACTION_NONE)) {
+		XPlmi_Printf(DEBUG_GENERAL, "Only HW Error Actions are"
+			" supported for PMC WDT\n\r");
 	}
 	else {
 		Status = XST_SUCCESS;

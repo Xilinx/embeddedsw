@@ -24,6 +24,7 @@
 * 1.02  bm   05/01/2023 Fix Default PMC WDT timeout when Efuse is enabled
 *       ng   02/14/2024 removed int typecast for errors
 * 2.0   sk   03/20/2026 Fix wdt periodicity param passing to driver
+*       sd   08/20/2026 Included xplmi_wdt_hw.h for PMC WDT definitions
 *
 * </pre>
 *
@@ -36,6 +37,7 @@
 
 /***************************** Include Files *********************************/
 #include "xplmi_wdt.h"
+#include "xplmi_wdt_hw.h"
 #include "xplmi_hw.h"
 #include "xplmi_status.h"
 #include "xplmi_debug.h"
