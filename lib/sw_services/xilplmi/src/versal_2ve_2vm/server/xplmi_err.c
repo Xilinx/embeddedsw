@@ -33,6 +33,7 @@
 *       vm   03/16/2026 Added ASU update event
 *       gnr  04/07/2026 Added redundancy on checking the errors and carrying out the actions
 *       gnr  05/17/2026 Default error action of IPI_ERR changed to XPLMI_EM_ACTION_SRST
+*       ias  08/07/2026 Added error link table for DDR EDAC source tracing
 *
 * </pre>
 *
@@ -56,6 +57,11 @@
 /************************** Constant Definitions *****************************/
 #define XPLMI_ERROR_TABLE_DS_VER	(1U) /**< Error table data structure version */
 #define XPLMI_ERROR_TABLE_DS_LCVER	(1U) /**< Error table data structure LC version */
+
+#define XPLMI_ERRLINK_TABLE_DS_VER	(1U) /**< Error link table data structure version */
+#define XPLMI_ERRLINK_TABLE_DS_LCVER	(1U) /**< Error link table data structure LC version */
+#define XPLMI_ERRLINK_POOL_DS_VER	(1U) /**< Error link pool data structure version */
+#define XPLMI_ERRLINK_POOL_DS_LCVER	(1U) /**< Error link pool data structure LC version */
 
 #define XPLMI_NUM_ERROUTS_VERSION	(1U) /**< ERROUTS version */
 #define XPLMI_NUM_ERROUTS_LCVERSION	(1U) /**< ERROUTS LC version */
@@ -566,6 +572,348 @@ XPlmi_Error_t *XPlmi_GetErrorTable(void)
 
 /*****************************************************************************/
 /**
+ * @brief	This function provides the link_nodes error-link table pointer.
+ *
+ * The table is keyed by the same ErrorId space as ErrorTable[] and holds an
+ * index handle (PoolIdx) into the node-id pool for each linked error. It is
+ * marked persistent via EXPORT_GENERIC_DS so that boot-time links survive an
+ * In-Place PLM Update; because the handles are indices (not pointers) the data
+ * survives the update in-place with no fix-up needed.
+ *
+ * @return	Pointer to the error link table
+ *
+ *****************************************************************************/
+XPlmi_ErrLink *XPlmi_GetErrLinkTable(void)
+{
+	static XPlmi_ErrLink ErrLinkTable[XPLMI_ERROR_SW_ERR_MAX];
+
+	EXPORT_GENERIC_DS(ErrLinkTable, XPLMI_ERRLINK_TABLE_DS_ID,
+		XPLMI_ERRLINK_TABLE_DS_VER, XPLMI_ERRLINK_TABLE_DS_LCVER,
+		sizeof(ErrLinkTable), (u32)(UINTPTR)ErrLinkTable);
+
+	return ErrLinkTable;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function provides the link_nodes node-id pool pointer.
+ *
+ * The pool is a flat static store of node IDs, referenced by index handles from
+ * ErrLinkTable[]. Node IDs are stored verbatim, in CDO order (no dedup, no
+ * reorder). It is marked persistent via EXPORT_GENERIC_DS alongside the table.
+ *
+ * @return	Pointer to the node-id pool
+ *
+ *****************************************************************************/
+u32 *XPlmi_GetErrLinkPool(void)
+{
+	static u32 ErrLinkPool[XPLMI_ERRLINK_POOL_WORDS];
+
+	EXPORT_GENERIC_DS(ErrLinkPool, XPLMI_ERRLINK_POOL_DS_ID,
+		XPLMI_ERRLINK_POOL_DS_VER, XPLMI_ERRLINK_POOL_DS_LCVER,
+		sizeof(ErrLinkPool), (u32)(UINTPTR)ErrLinkPool);
+
+	return ErrLinkPool;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function links a verbatim, CDO-ordered list of node IDs to an
+ *		error event (link_nodes EM command writer).
+ *
+ * For each set bit of Mask, the corresponding ErrorId is pointed at a run of
+ * node IDs appended into the static ErrLinkPool[] in CDO order (no dedup, no
+ * reorder). Repeated links for the same {EventNodeId, Mask} append after the
+ * previous run. NODE_ALL is rejected by the caller (command handler). The
+ * linkage is keyed by the same ErrorId space as ErrorTable[]; an entry is
+ * considered "linked" iff its Count is non-zero, so the zero-initialised
+ * (BSS / persistent-reset) state is naturally "empty" without pre-init.
+ *
+ * @param	EventNodeId is the error event node ID (e.g. PMC_ERR1).
+ * @param	Mask is the error register mask (one or more bits).
+ * @param	NodeIds points to the array of node IDs to link (verbatim).
+ * @param	Count is the number of node IDs in NodeIds.
+ *
+ * @return
+ *		- XST_SUCCESS on success.
+ *		- XST_INVALID_PARAM on invalid parameter.
+ *		- XPLMI_INVALID_NODE_ID on invalid event node ID or ErrorId.
+ *		- XST_BUFFER_TOO_SMALL if the node-id pool cannot hold the list.
+ *
+ *****************************************************************************/
+int XPlmi_LinkNodes(u32 EventNodeId, u32 Mask, const u32 *NodeIds, u32 Count)
+{
+	int Status = XST_FAILURE;
+	XPlmi_ErrLink *ErrLinkTable = XPlmi_GetErrLinkTable();
+	u32 *ErrLinkPool = XPlmi_GetErrLinkPool();
+	u32 BaseErrorId;
+	u32 ErrorId;
+	u32 ErrMasks = Mask;
+	u32 PoolUsed = 0U;
+	u32 PoolBase;
+	u32 Idx;
+
+	/** - Validate parameters. */
+	if ((NodeIds == NULL) || (Count == 0U) || (Mask == 0U)) {
+		/*
+		 * A zero mask has no ErrorId bits to point at the run: the copy
+		 * into ErrLinkPool[] would leak pool space with no linkage,
+		 * eventually failing later valid links with XST_BUFFER_TOO_SMALL.
+		 */
+		Status = XST_INVALID_PARAM;
+		goto END;
+	}
+	if ((EventNodeId & (~XPLMI_NODE_TYPE_MASK)) !=
+			XIL_NODETYPE_EVENT_ERROR_ID_ENCODING) {
+		Status = XPLMI_INVALID_NODE_ID;
+		goto END;
+	}
+
+	/**
+	 * - Compute the current pool high-water mark. Links are boot-only, append
+	 *   only and never freed, so the next-free offset is the maximum of
+	 *   (PoolIdx + Count) across all linked entries. O(n) over the table is
+	 *   acceptable at boot time and needs no separate persistent counter.
+	 */
+	for (Idx = 0U; Idx < (u32)XPLMI_ERROR_SW_ERR_MAX; Idx++) {
+		if (ErrLinkTable[Idx].Count != 0U) {
+			u32 End = (u32)ErrLinkTable[Idx].PoolIdx +
+					(u32)ErrLinkTable[Idx].Count;
+			if (End > PoolUsed) {
+				PoolUsed = End;
+			}
+		}
+	}
+
+	/** - Reject an implausibly large Count up front so the PoolUsed + Count
+	 *    check below cannot wrap (defensive; Count is CDO-frame-bounded). */
+	if (Count > (u32)XPLMI_ERRLINK_POOL_WORDS) {
+		Status = XST_BUFFER_TOO_SMALL;
+		goto END;
+	}
+
+	/** - Bounds check the pool before writing anything. */
+	if ((PoolUsed + Count) > (u32)XPLMI_ERRLINK_POOL_WORDS) {
+		Status = XST_BUFFER_TOO_SMALL;
+		goto END;
+	}
+	PoolBase = PoolUsed;
+
+	/**
+	 * - link_nodes must be all-or-nothing: a later failing bit must not leave
+	 *   persistent partial linkage. Pass 1 dry-runs every set bit (target
+	 *   ErrorId range + the contiguous-repeat condition) and mutates nothing;
+	 *   only if every bit validates does pass 2 copy the pool and commit the
+	 *   ErrLinkTable[] entries.
+	 */
+	BaseErrorId = XPlmi_EventNodeType(EventNodeId) * (u32)XPLMI_MAX_ERR_BITS;
+
+	/** - Pass 1: validate all target ErrorIds and repeat-link conditions. */
+	ErrMasks = Mask;
+	ErrorId = BaseErrorId;
+	for (; ErrMasks != 0U; ErrMasks >>= 1U) {
+		if ((ErrMasks & 0x1U) != 0U) {
+			if (ErrorId >= (u32)XPLMI_ERROR_SW_ERR_MAX) {
+				Status = XPLMI_INVALID_NODE_ID;
+				goto END;
+			}
+			if ((ErrLinkTable[ErrorId].Count != 0U) &&
+			    (((u32)ErrLinkTable[ErrorId].PoolIdx +
+			      (u32)ErrLinkTable[ErrorId].Count) != PoolBase)) {
+				/*
+				 * Non-contiguous repeat (an intervening link to a
+				 * different ErrorId was appended in between). A
+				 * single {PoolIdx, Count} handle cannot describe a
+				 * split run, so reject rather than corrupt.
+				 * Note: if interleaved repeats for the
+				 * same ErrorId must be supported, switch to a
+				 * per-run linked chain in the pool.
+				 */
+				Status = XST_INVALID_PARAM;
+				goto END;
+			}
+		}
+		ErrorId++;
+	}
+
+	/**
+	 * - Pass 2 (commit): every bit validated, so copy the node IDs verbatim
+	 *   into the pool (preserving CDO order) and point each ErrorId at the run.
+	 *   Aliasing multiple ErrorIds at the same run is safe because the pool is
+	 *   immutable at runtime. No failure is possible past this point.
+	 */
+	for (Idx = 0U; Idx < Count; Idx++) {
+		ErrLinkPool[PoolBase + Idx] = NodeIds[Idx];
+	}
+
+	ErrMasks = Mask;
+	ErrorId = BaseErrorId;
+	for (; ErrMasks != 0U; ErrMasks >>= 1U) {
+		if ((ErrMasks & 0x1U) != 0U) {
+			if (ErrLinkTable[ErrorId].Count == 0U) {
+				/* First run for this ErrorId. */
+				ErrLinkTable[ErrorId].PoolIdx = (u16)PoolBase;
+				ErrLinkTable[ErrorId].Count = (u16)Count;
+			} else {
+				/*
+				 * Contiguous repeat (validated in pass 1): the
+				 * existing run ends exactly where this new run was
+				 * appended, so just grow the count. No reorder,
+				 * no dedup - true "as-is" append in CDO order.
+				 */
+				ErrLinkTable[ErrorId].Count += (u16)Count;
+			}
+		}
+		ErrorId++;
+	}
+
+	Status = XST_SUCCESS;
+
+END:
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function returns the verbatim (CDO-ordered) node-id list
+ *		linked to a single-bit error event (link_nodes reader).
+ *
+ * Intended to be called down from xilpm_ng (get_event_status). For a
+ * single-bit RegMask it resolves the ErrorId and returns a pointer into the
+ * static node-id pool along with the run length. The returned pointer refers
+ * to persistent storage and must be treated as read-only.
+ *
+ * @param	ErrorNodeId is the error event node ID (e.g. PMC_ERR1).
+ * @param	RegMask is the single-bit error register mask.
+ * @param	NodeList returns a pointer to the stored node-id array.
+ * @param	Count returns the number of node IDs in NodeList.
+ *
+ * @return
+ *		- XST_SUCCESS if a non-empty list is linked.
+ *		- XST_INVALID_PARAM on invalid parameter.
+ *		- XPLMI_INVALID_NODE_ID on invalid event node ID or ErrorId.
+ *		- XST_FAILURE if no nodes are linked for the given event/mask.
+ *
+ *****************************************************************************/
+int XPlmi_GetLinkedNodes(u32 ErrorNodeId, u32 RegMask, const u32 **NodeList,
+		u32 *Count)
+{
+	int Status = XST_FAILURE;
+	const XPlmi_ErrLink *ErrLinkTable = XPlmi_GetErrLinkTable();
+	const u32 *ErrLinkPool = XPlmi_GetErrLinkPool();
+	u32 ErrorId;
+
+	/** - Validate parameters. */
+	if ((NodeList == NULL) || (Count == NULL)) {
+		Status = XST_INVALID_PARAM;
+		goto END;
+	}
+	*NodeList = NULL;
+	*Count = 0U;
+
+	if ((ErrorNodeId & (~XPLMI_NODE_TYPE_MASK)) !=
+			XIL_NODETYPE_EVENT_ERROR_ID_ENCODING) {
+		Status = XPLMI_INVALID_NODE_ID;
+		goto END;
+	}
+
+	/** - Resolve ErrorId for the single-bit mask. */
+	ErrorId = XPlmi_GetErrorId(ErrorNodeId, RegMask);
+	if (ErrorId >= (u32)XPLMI_ERROR_SW_ERR_MAX) {
+		Status = XPLMI_INVALID_NODE_ID;
+		goto END;
+	}
+
+	/** - Return failure/empty if nothing is linked. */
+	if (ErrLinkTable[ErrorId].Count == 0U) {
+		Status = XST_FAILURE;
+		goto END;
+	}
+
+	*NodeList = &ErrLinkPool[ErrLinkTable[ErrorId].PoolIdx];
+	*Count = (u32)ErrLinkTable[ErrorId].Count;
+	Status = XST_SUCCESS;
+
+END:
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	link_nodes command handler body for Versal 2VE/2VM devices. Parses
+ *		the CDO payload and links a verbatim, CDO-ordered list of node IDs
+ *		to an error event. CDO-only (IPI callers are rejected).
+ *
+ * @param	Cmd is pointer to the command structure
+ *
+ * @return
+ *		- XST_SUCCESS on success.
+ *		- XPLMI_INVALID_NODE_ID on invalid node ID or NODE_ALL sentinel.
+ *		- XST_INVALID_PARAM on invalid parameters / IPI caller.
+ *		- Error code from XPlmi_LinkNodes on storage failure.
+ *
+ *****************************************************************************/
+int XPlmi_Versal2Ve2VmLinkNodes(XPlmi_Cmd *Cmd)
+{
+	int Status = XST_FAILURE;
+	u32 EventNodeId;
+	u32 Mask;
+	const u32 *NodeIds;
+	u32 Count;
+	u32 Idx;
+	u32 NodeIndex;
+
+	/** - Reject IPI callers: link_nodes is CDO-only. */
+	if (Cmd->IpiMask != 0U) {
+		XPlmi_Printf(DEBUG_INFO, "%s: link_nodes is CDO-only\r\n", __func__);
+		Status = XST_INVALID_PARAM;
+		goto END;
+	}
+
+	/** - Need at least EventNodeId + Mask + one node id. */
+	if (Cmd->PayloadLen < XPLMI_CMD_ARG_CNT_THREE) {
+		Status = XST_INVALID_PARAM;
+		goto END;
+	}
+
+	EventNodeId = Cmd->Payload[XPLMI_EM_LINK_NODES_EVENTID_OFFSET];
+	Mask = Cmd->Payload[XPLMI_EM_LINK_NODES_MASK_OFFSET];
+	NodeIds = &Cmd->Payload[XPLMI_EM_LINK_NODES_NODEID_OFFSET];
+	Count = Cmd->PayloadLen - XPLMI_EM_LINK_NODES_NODEID_OFFSET;
+
+	XPlmi_Printf(DEBUG_DETAILED,
+		"%s: EventNodeId: 0x%0x, Mask: 0x%0x, Count: %u\r\n",
+		__func__, EventNodeId, Mask, Count);
+
+	/** - Reject a zero mask: it would leak pool space with no linkage. */
+	if (Mask == 0U) {
+		XPlmi_Printf(DEBUG_INFO, "%s: zero mask rejected\r\n", __func__);
+		Status = XST_INVALID_PARAM;
+		goto END;
+	}
+
+	/** - Reject NODE_ALL sentinel: link_nodes requires concrete node IDs. */
+	for (Idx = 0U; Idx < Count; Idx++) {
+		NodeIndex = NodeIds[Idx] & XPLMI_EM_LINK_NODE_INDEX_MASK;
+		if ((NodeIndex == XPLMI_EM_LINK_NODE_ALL_14) ||
+			(NodeIndex == XPLMI_EM_LINK_NODE_ALL_10)) {
+			XPlmi_Printf(DEBUG_INFO,
+				"%s: NODE_ALL sentinel 0x%0x rejected\r\n",
+				__func__, NodeIds[Idx]);
+			Status = XPLMI_INVALID_NODE_ID;
+			goto END;
+		}
+	}
+
+	/** - Store the linkage keyed by ErrorId. */
+	Status = XPlmi_LinkNodes(EventNodeId, Mask, NodeIds, Count);
+
+END:
+	return Status;
+}
+
+/*****************************************************************************/
+/**
  * @brief	This function reconfigures error actions after the update
  *
  *****************************************************************************/
@@ -575,6 +923,12 @@ void XPlmi_ReconfigErrActions(void)
 	u32 ErrorNodeId;
 	XPlmi_EventType NodeType;
 
+	/*
+	 * link_nodes storage (ErrLinkTable/ErrLinkPool) is intentionally NOT
+	 * touched here: it is persisted via EXPORT_GENERIC_DS and its handles are
+	 * indices (not pointers), so the linkage survives the In-Place PLM Update
+	 * BSS reset byte-for-byte with no re-apply/rebuild needed.
+	 */
 	for (ErrIndex = 0U; ErrIndex < XPLMI_ARRAY_SIZE(ErrorTable); ErrIndex++) {
 
 		ErrorTable[ErrIndex].Handler = NULL;

@@ -720,6 +720,62 @@ done:
 
 /****************************************************************************/
 /**
+ * @brief  Check whether the caller has registered notifiers covering EVERY
+ *         requested event-mask bit for the given subsystem and node. Used by
+ *         GET_EVENT_STATUS as the permission gate: the requested Mask must be a
+ *         subset of the bits registered by the caller for {NodeId}, otherwise a
+ *         caller registered for one bit could read/clear another bit via an
+ *         OR'd mask.
+ *
+ * @param  SubsystemId  Subsystem Id of the caller
+ * @param  NodeId       Event/error node id (e.g. PMC_ERR1)
+ * @param  Mask         Requested event mask (all bits must be registered)
+ *
+ * @return XST_SUCCESS if every requested bit is registered; XPM_PM_NO_ACCESS
+ *         otherwise.
+ *
+ ****************************************************************************/
+XStatus XPmNotifier_IsRegistered(u32 SubsystemId, u32 NodeId, u32 Mask)
+{
+	XStatus Status = XPM_PM_NO_ACCESS;
+	u32 Registered = 0U;
+	u32 Idx;
+
+	if (0U == Mask) {
+		/* An empty request is never "registered". */
+		goto done;
+	}
+
+	/*
+	 * Accumulate every event-mask bit the caller has registered for this
+	 * node across all matching entries. The glitch-hardening redundancy for
+	 * this gate is provided by the caller's hand-rolled double CALL of this
+	 * function (XPm_DoGetEventStatus), NOT by XSECURE_TEMPORAL_CHECK - which
+	 * only copies its argument in this tree (xil_sutil.h) and does not
+	 * re-invoke. An in-function duplicate read of the same non-volatile array
+	 * would likewise be collapsed by CSE and add no real check.
+	 */
+	for (Idx = 0U; Idx < ARRAY_SIZE(PmNotifiers); Idx++) {
+		if ((SubsystemId == PmNotifiers[Idx].SubsystemId) &&
+		    (NodeId == PmNotifiers[Idx].NodeId)) {
+			Registered |= PmNotifiers[Idx].EventMask;
+		}
+	}
+
+	/*
+	 * Pass only if EVERY requested bit is registered, i.e. Mask is a subset
+	 * of the accumulated registered bits.
+	 */
+	if (0U == (Mask & ~Registered)) {
+		Status = XST_SUCCESS;
+	}
+
+done:
+	return Status;
+}
+
+/****************************************************************************/
+/**
  * @brief  This function triggers the notification if enabled for current
  *         NodeId and current event.
  *

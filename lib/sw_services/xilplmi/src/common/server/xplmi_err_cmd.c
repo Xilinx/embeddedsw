@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2019 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -44,6 +44,7 @@
 *       am   04/04/2024 Fixed doxygen warnings
 * 2.01  sk   08/26/2024 Updated EAM support for Versal 2VE and 2VM Devices
 *       sk   02/20/2025 EM Set action support for Versal 2VE and 2VM Devices
+*       ias  08/07/2026 Added link_nodes command for DDR EDAC source tracing
 *
 * </pre>
 *
@@ -66,6 +67,9 @@
 /* Error Module command Ids */
 #define XPLMI_CMD_ID_EM_FEATURES	(0U)	/**< Command Id of error module features */
 #define XPLMI_CMD_ID_EM_SET_ACTION	(1U)	/**< Command Id of set action error module */
+#ifdef VERSAL_2VE_2VM
+#define XPLMI_CMD_ID_EM_LINK_NODES	(2U)	/**< Command Id of link nodes error module */
+#endif
 
 /**************************** Type Definitions *******************************/
 
@@ -248,6 +252,43 @@ END:
 	return Status;
 }
 
+#ifdef VERSAL_2VE_2VM
+/*****************************************************************************/
+/**
+ * @brief	This function links a verbatim, CDO-ordered list of node IDs to an
+ *		error event so that get_event_status knows which devices to read
+ *		for the event. CDO-only (IPI callers are rejected). Registered only
+ *		on Versal 2VE/2VM; the parsing body lives in the platform file
+ *		(XPlmi_Versal2Ve2VmLinkNodes), mirroring EM_SET_ACTION.
+ *
+ * Command payload parameters are:
+ * - Event Node ID (e.g. PMC_ERR1)
+ * - Error ID Mask (one or more bits)
+ * - One or more concrete Node IDs (stored verbatim and in order; NODE_ALL
+ *   sentinel is rejected)
+ *
+ * @param	Cmd is pointer to the command structure
+ *
+ * @return
+ *		- XST_SUCCESS on success.
+ *		- XPLMI_INVALID_NODE_ID on invalid node ID or NODE_ALL sentinel.
+ *		- XST_INVALID_PARAM on invalid parameters / IPI caller.
+ *		- Error code from XPlmi_LinkNodes on storage failure.
+ *
+ *****************************************************************************/
+static int XPlmi_CmdEmLinkNodes(XPlmi_Cmd *Cmd)
+{
+	int Status = XST_FAILURE;
+
+	XPLMI_EXPORT_CMD(XPLMI_CMD_ID_EM_LINK_NODES, XPLMI_MODULE_ERROR_ID,
+		XPLMI_CMD_ARG_CNT_THREE, XPLMI_UNLIMITED_ARG_CNT);
+
+	Status = XPlmi_Versal2Ve2VmLinkNodes(Cmd);
+
+	return Status;
+}
+#endif /* VERSAL_2VE_2VM */
+
 /** @cond xplmi_internal */
 /*****************************************************************************/
 /**
@@ -258,6 +299,9 @@ static const XPlmi_ModuleCmd XPlmi_ErrCmds[] =
 {
 	XPLMI_MODULE_COMMAND(XPlmi_CmdEmFeatures),
 	XPLMI_MODULE_COMMAND(XPlmi_CmdEmSetAction),
+#ifdef VERSAL_2VE_2VM
+	XPLMI_MODULE_COMMAND(XPlmi_CmdEmLinkNodes),
+#endif
 };
 
 /*****************************************************************************/
@@ -269,6 +313,9 @@ static XPlmi_AccessPerm_t XPlmi_ErrAccessPermBuff[XPLMI_ARRAY_SIZE(XPlmi_ErrCmds
 {
 	XPLMI_ALL_IPI_FULL_ACCESS(XPLMI_CMD_ID_EM_FEATURES),
 	XPLMI_ALL_IPI_FULL_ACCESS(XPLMI_CMD_ID_EM_SET_ACTION),
+#ifdef VERSAL_2VE_2VM
+	XPLMI_ALL_IPI_NO_ACCESS(XPLMI_CMD_ID_EM_LINK_NODES),
+#endif
 };
 
 /*****************************************************************************/

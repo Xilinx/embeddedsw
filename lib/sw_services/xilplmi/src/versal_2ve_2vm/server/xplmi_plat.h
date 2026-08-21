@@ -72,6 +72,7 @@
 * 2.4	abh  10/14/2025 Fixed MISRAC Violations
 *       vm   03/16/2026 Added error code related to ASU update event
 *       pre 03/23/26 Added macro for TPM data structure export
+*       ias  08/07/2026 Added data structure IDs for error link table
 *       ias  08/19/2026 Added XPlmi_MemTblInit declaration
 * 2.5   vm   07/13/2026 Added error code for in-place ASU update rejection
 *       sd   08/20/2026 Included xplmi_wdt_hw.h for PMC WDT definitions
@@ -370,6 +371,8 @@ typedef enum {
 #define XPLMI_BOARD_PARAMS_DS_ID	(0x09U) /**< Board parameters data structure Id */
 #define XPLMI_PPU_BUFFER_DS_ID		(0x0AU) /**< PSM Buffers data structure Id */
 #define XPLMI_PMC_BUFFER_DS_ID		(0x0BU) /**< PMC Buffers data structure Id */
+#define XPLMI_ERRLINK_TABLE_DS_ID	(0x0CU) /**< Error link table data structure Id */
+#define XPLMI_ERRLINK_POOL_DS_ID	(0x0DU) /**< Error link node-id pool data structure Id */
 #define XPLMI_UPDATE_PDIADDR_DS_ID	(0x10U) /**< Update IPI mask data structure Id */
 #define XPLMI_XIOMODULE_DS_ID		(0x11U) /**< IOModule data structure Id */
 #define XPLMI_PPU_BUFFER_LIST_DS_ID	(0x12U) /**< PSM Buffers data structure Id */

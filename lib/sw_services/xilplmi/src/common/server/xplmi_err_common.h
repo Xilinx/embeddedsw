@@ -74,6 +74,7 @@
 *       sk   02/20/2025 Added declaration for PSM handlers
 *       pre  09/08/2025 Added XPLMI_REG_OFFSET4 macro
 * 2.4   abh  10/14/2025 Fixed MISRAC Violations
+*       ias  08/07/2026 Added link_nodes API declarations
 * </pre>
 *
 * @note
@@ -169,6 +170,22 @@ extern "C" {
 
 #define XPLMI_REG_OFFSET4 (0x4U) /** Register offset4 */
 
+/*
+ * link_nodes (EM module command) storage bounds.
+ * ErrLinkTable[] is keyed by the same ErrorId space as ErrorTable[]; each entry
+ * holds an index handle (PoolIdx) into ErrLinkPool[] plus the number of node IDs
+ * linked for that ErrorId. Handles are indices (not pointers) so the data
+ * survives the In-Place PLM Update BSS reset byte-for-byte with no fix-up.
+ */
+#define XPLMI_ERRLINK_EMPTY		(0xFFFFU) /**< Empty PoolIdx sentinel */
+/*
+ * Pool capacity (in u32 node IDs). Sized generously for the DDR-EDAC use case:
+ * PMC_ERR1.DDRMC_CR/_NCR each link 10 RegNodes on Versal 2VE/2VM (2 per
+ * controller x 5) = 20 node IDs across the two masks, with head-room for
+ * additional linked events. Bump this macro if more/larger links are added.
+ */
+#define XPLMI_ERRLINK_POOL_WORDS	(64U)	/**< Node-id pool capacity (u32) */
+
 /**************************** Type Definitions *******************************/
 /* Pointer to Error Handler Function */
 typedef void (*XPlmi_ErrorHandler_t) (u32 ErrorNodeId, u32 RegMask);
@@ -182,6 +199,16 @@ typedef struct {
 	u8 Action; /**< Action to take on error */
 	u32 SubsystemId; /**< Subsystem ID for shutdown or restart */
 } XPlmi_Error_t;
+
+/**
+ * Data structure that holds the link_nodes linkage for an error node. Parallel
+ * to XPlmi_Error_t, keyed by the same ErrorId (does not touch the certified
+ * XPlmi_Error_t struct).
+ */
+typedef struct {
+	u16 PoolIdx; /**< Index handle into ErrLinkPool[]; XPLMI_ERRLINK_EMPTY if none */
+	u16 Count; /**< Number of linked node IDs stored at PoolIdx */
+} XPlmi_ErrLink;
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
@@ -267,6 +294,9 @@ void __attribute__((noreturn)) XPlmi_SoftResetHandler(void);
 void XPlmi_EmClearError(XPlmi_EventType ErrorNodeType, u32 ErrorId);
 u32 XPlmi_UpdateNumErrOutsCount(u8 UpdateType);
 int XPlmi_EmGetAction(u32 ErrorNodeId, u32 ErrorMasks, u8 *ActionIdPtr);
+int XPlmi_LinkNodes(u32 EventNodeId, u32 Mask, const u32 *NodeIds, u32 Count);
+int XPlmi_GetLinkedNodes(u32 ErrorNodeId, u32 RegMask, const u32 **NodeList,
+		u32 *Count);
 
 #ifndef VERSAL_2VE_2VM
 void XPlmi_ErrPSMIntrHandler(u32 ErrorNodeId, u32 RegMask);

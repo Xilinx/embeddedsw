@@ -32,6 +32,8 @@ void XPmNotifier_Event(const u32 NodeId, const u32 Event);
 
 XStatus XPmNotifier_RestoreEmActions(void);
 
+XStatus XPmNotifier_IsRegistered(u32 SubsystemId, u32 NodeId, u32 Mask);
+
 #ifdef __cplusplus
 }
 #endif

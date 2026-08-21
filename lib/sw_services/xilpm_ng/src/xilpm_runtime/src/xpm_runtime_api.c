@@ -8,6 +8,7 @@
 #include "xstatus.h"
 #include "xplmi.h"
 #include "xplmi_cmd.h"
+#include "xplmi_dma.h"
 #include "xpm_api.h"
 #include "xpm_subsystem.h"
 #include "xpm_requirement.h"
@@ -136,6 +137,7 @@ static XStatus XPm_DoGetClockDivider(XPlmi_Cmd* Cmd);
 static XStatus XPm_DoSetClockParent(XPlmi_Cmd* Cmd);
 static XStatus XPm_DoGetClockParent(XPlmi_Cmd* Cmd);
 static XStatus XPm_DoSetNodeAccess(XPlmi_Cmd * Cmd);
+static XStatus XPm_DoGetEventStatus(XPlmi_Cmd * Cmd);
 static XStatus XPm_DoGetClockRate(XPlmi_Cmd * Cmd);
 #ifdef XILPM_NG_ENABLE_CLK_SCMI
 static XStatus XPm_DoProgramClockRate(XPlmi_Cmd* Cmd);
@@ -452,6 +454,7 @@ XStatus XPm_RuntimeInit(void)
 	XPlmi_PmCmds[PM_ACTIVATE_SUBSYSTEM].Handler = (XPlmi_CmdHandler)&XPm_DoActivateSubsystem;
 	XPlmi_PmCmds[PM_FEATURE_CHECK].Handler = (XPlmi_CmdHandler)&XPm_DoFeatureCheck;
 	XPlmi_PmCmds[PM_SET_NODE_ACCESS].Handler = (XPlmi_CmdHandler)&XPm_DoSetNodeAccess;
+	XPlmi_PmCmds[PM_GET_EVENT_STATUS].Handler = (XPlmi_CmdHandler)&XPm_DoGetEventStatus;
 	XPlmi_PmCmds[PM_CLOCK_GETRATE].Handler = (XPlmi_CmdHandler)&XPm_DoGetClockRate;
 #ifdef XILPM_NG_ENABLE_CLK_SCMI
 	XPlmi_PmCmds[PM_CLOCK_PROGRAM_RATE].Handler = (XPlmi_CmdHandler)&XPm_DoProgramClockRate;
@@ -4051,6 +4054,247 @@ static XStatus XPm_DoSetNodeAccess(XPlmi_Cmd * Cmd)
 
 	return Status;
 }
+
+/*
+ * GET_EVENT_STATUS staging: request/reply buffers live in DDR/PMC RAM and are
+ * referenced by address in the IPI. We DMA them into local staging areas so
+ * all packing/bounds checks operate on trusted PLM memory. Sized for versal_2ve_2vm
+ * (~1.1 KB reply for 5 controllers); tune via build flags.
+ */
+#ifndef XPM_EVENT_STATUS_REQ_MAX_WORDS
+/** Request staging buffer capacity, in 32-bit words */
+#define XPM_EVENT_STATUS_REQ_MAX_WORDS		(64U)
+#endif
+/* XPM_EVENT_STATUS_REPLY_MAX_WORDS (xpm_access.h) sizes the reply staging
+ * buffer below. The deferred-clear store is bounded separately (xpm_access.c). */
+
+/** Fixed request-header words preceding the optional arg vector
+ *  (word0=ReqSize, EventID, Mask, Flags) */
+#define XPM_EVENT_STATUS_REQ_HDR_WORDS		(4U)
+
+/****************************************************************************/
+/**
+ * @brief  EEMI handler for PM_GET_EVENT_STATUS (0x4F). Reads the raw register
+ *         snapshot of every node linked to {EventID, Mask} into the caller's
+ *         reply buffer for DDR EDAC source tracing.
+ *
+ * @param  Cmd  Command frame. Args (Payload):
+ *              [0]=ReqBufAddrHi [1]=ReqBufAddrLo
+ *              [2]=ReplyBufAddrHi [3]=ReplyBufAddrLo.
+ *              Sizes live in word0 of each buffer.
+ *
+ * @return XST_SUCCESS if successful else an error code. Response:
+ *         [0]=Status (snapshot delivery), [1]=RequestSizeConsumed,
+ *         [2]=ReplySizeUsed, [3]=ClearStatus (deferred ISR-clear outcome;
+ *         separate from [0] so a post-delivery clear failure never discards a
+ *         valid snapshot).
+ *
+ ****************************************************************************/
+static XStatus XPm_DoGetEventStatus(XPlmi_Cmd * Cmd)
+{
+	volatile XStatus Status = XST_FAILURE;
+	u32 SubsystemId = Cmd->SubsystemId;
+	u32 CmdType = Cmd->IpiReqType;
+	u64 ReqAddr;
+	u64 ReplyAddr;
+	static u32 ReqBuf[XPM_EVENT_STATUS_REQ_MAX_WORDS] = {0};
+	static u32 ReplyBuf[XPM_EVENT_STATUS_REPLY_MAX_WORDS] = {0};
+	u32 ReqSize = 0U;
+	u32 ReqWords;
+	u32 ReplyCap;
+	u32 EventId;
+	u32 Mask;
+	u32 Flags;
+	u32 ReqArgCnt = 0U;
+	const u32 *ReqArgs = NULL;
+	u32 ReplyUsed = 0U;
+	u32 ReqConsumed = 0U;
+	XStatus ClearStatus = XST_SUCCESS;	/* deferred-clear outcome (Response[3]) */
+
+	/*
+	 * The 4 address words are always present in the fixed IPI buffer. Do NOT
+	 * gate on Cmd->Len here: EEMI PM calls arriving via TF-A carry no length in
+	 * the command header (TF-A's PM_PACK_PAYLOAD sets only api/module/flag, so
+	 * PLM computes Cmd->Len == 0 for every SMC/IPI PM command). Every other PM
+	 * handler likewise reads Cmd->Payload[] directly. The caller-supplied
+	 * addresses below are range-validated before any access.
+	 */
+	ReqAddr = ((u64)Cmd->Payload[0] << 32U) | (u64)Cmd->Payload[1];
+	ReplyAddr = ((u64)Cmd->Payload[2] << 32U) | (u64)Cmd->Payload[3];
+
+	/*
+	 * Validate word0 (4 bytes) of each buffer BEFORE reading it so a
+	 * validation-enabled build rejects a bad/disallowed address before PLM
+	 * touches it (validate-before-touch). The full spans are validated below
+	 * once the sizes are known. On default builds the macro is a no-op (see the
+	 * platform note at the full-span validation).
+	 */
+	XPLMI_VERIFY_ADDR_RANGE(SubsystemId, ReqAddr, (u64)sizeof(u32), Status,
+				XPLMI_ERR_INVALID_ADDR_RANGE, done);
+	XPLMI_VERIFY_ADDR_RANGE(SubsystemId, ReplyAddr, (u64)sizeof(u32), Status,
+				XPLMI_ERR_INVALID_ADDR_RANGE, done);
+
+	/* Read word0 of each buffer to learn the request/reply sizes. */
+	Status = XPlmi_MemCpy64((u64)(UINTPTR)&ReqSize, ReqAddr, sizeof(u32));
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
+	Status = XPlmi_MemCpy64((u64)(UINTPTR)&ReplyCap, ReplyAddr, sizeof(u32));
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
+
+	if ((ReqSize < (XPM_EVENT_STATUS_REQ_HDR_WORDS * (u32)sizeof(u32))) ||
+	    (0U != (ReqSize & (u32)(sizeof(u32) - 1U))) ||
+	    (ReqSize > (XPM_EVENT_STATUS_REQ_MAX_WORDS * (u32)sizeof(u32)))) {
+		Status = XST_INVALID_PARAM;
+		goto done;
+	}
+	ReqWords = ReqSize / (u32)sizeof(u32);
+
+	if ((0U != (ReplyCap & (u32)(sizeof(u32) - 1U))) ||
+	    (ReplyCap < (u32)sizeof(u32))) {
+		Status = XST_INVALID_PARAM;
+		goto done;
+	}
+
+	/*
+	 * The PLM staging buffer (XPM_EVENT_STATUS_REPLY_MAX_WORDS) is the maximum
+	 * reply the PLM can produce in one call. A caller ReplyCap larger than that
+	 * is NOT an error: clamp the working capacity to the staging cap and let the
+	 * overflow path return XST_BUFFER_TOO_SMALL + required size so the caller can
+	 * resize and retry. REPLY_MAX_WORDS must stay >= the true worst-case reply,
+	 * else a resize-and-retry loop cannot converge (always clamped, always over).
+	 */
+	if (ReplyCap > (XPM_EVENT_STATUS_REPLY_MAX_WORDS * (u32)sizeof(u32))) {
+		ReplyCap = XPM_EVENT_STATUS_REPLY_MAX_WORDS * (u32)sizeof(u32);
+	}
+
+	/*
+	 * Validate the FULL request/reply spans (once each) via the standard
+	 * XPLMI_VERIFY_ADDR_RANGE macro, then DMA the request into staging. The
+	 * macro is gated by PLM_ENABLE_VERIFY_ADDR_REDUNDANT_CALL /
+	 * PLM_ENABLE_ADDR_RANGE_VALIDATION and compiles to a no-op on builds where
+	 * neither is set (the default on versal_2ve_2vm); on such builds the caller
+	 * address is not range-checked here and hardware isolation (XMPU/XPPU) is
+	 * the boundary, as with every other PLM IPI handler.
+	 */
+	XPLMI_VERIFY_ADDR_RANGE(SubsystemId, ReqAddr, (u64)ReqSize, Status,
+				XPLMI_ERR_INVALID_ADDR_RANGE, done);
+	XPLMI_VERIFY_ADDR_RANGE(SubsystemId, ReplyAddr, (u64)ReplyCap, Status,
+				XPLMI_ERR_INVALID_ADDR_RANGE, done);
+
+	Status = XPlmi_MemCpy64((u64)(UINTPTR)&ReqBuf[0], ReqAddr, ReqSize);
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
+
+	/*
+	 * Unpack the fixed request header (word0 = size, already consumed) and
+	 * expose any trailing words as the optional per-event argument vector.
+	 */
+	EventId = ReqBuf[1];
+	Mask = ReqBuf[2];
+	Flags = ReqBuf[3];
+	if (ReqWords > XPM_EVENT_STATUS_REQ_HDR_WORDS) {
+		ReqArgs = &ReqBuf[XPM_EVENT_STATUS_REQ_HDR_WORDS];
+		ReqArgCnt = ReqWords - XPM_EVENT_STATUS_REQ_HDR_WORDS;
+	}
+	/* Whole request buffer was read/consumed */
+	ReqConsumed = ReqSize;
+
+	/*
+	 * Permission gate: the caller must have a live notifier for {EventId,Mask}.
+	 * Per-aperture ACCESS_* is additionally enforced inside XPmAccess_ReadReg.
+	 * Redundant check to harden the gate against glitch.
+	 */
+	{
+		/* Two independent reads of the gate for glitch redundancy. */
+		volatile XStatus GateChk = XPmNotifier_IsRegistered(SubsystemId,
+								    EventId, Mask);
+		volatile XStatus GateChkTmp = XPmNotifier_IsRegistered(SubsystemId,
+								       EventId, Mask);
+		/*
+		 * Snapshot each volatile into a plain local on its own statement so
+		 * the compound condition has no side effect (MISRA 13.5); the two
+		 * reads above are preserved so the redundancy still holds.
+		 */
+		XStatus GateChkVal = GateChk;
+		XStatus GateChkTmpVal = GateChkTmp;
+		if ((XST_SUCCESS != GateChkVal) || (XST_SUCCESS != GateChkTmpVal)) {
+			Status = XPM_PM_NO_ACCESS;
+			goto done;
+		}
+	}
+
+	/* Seed reply word0 (capacity) into the staging area for the core */
+	ReplyBuf[0] = ReplyCap;
+
+	Status = XPmAccess_GetEventStatus(SubsystemId, EventId, Mask, Flags,
+					  ReqArgs, ReqArgCnt, ReplyBuf, ReplyCap,
+					  &ReplyUsed, CmdType);
+	/*
+	 * Snapshot the volatile Status once before testing it twice so the
+	 * compound condition has no side effect (MISRA 13.5). This is a plain
+	 * control-flow check, so a single read is correct. XST_BUFFER_TOO_SMALL
+	 * is not a hard failure: it carries the required size back to the caller.
+	 */
+	XStatus StatusChk = Status;
+	if ((XST_SUCCESS != StatusChk) && (XST_BUFFER_TOO_SMALL != StatusChk)) {
+		goto done;
+	}
+
+	/*
+	 * On success, DMA out only the used span (also mirror word0 = used size).
+	 * On XST_BUFFER_TOO_SMALL, ReplyUsed carries the *required* size so the
+	 * caller can resize and retry; nothing is written to the reply payload.
+	 */
+	if (XST_SUCCESS == Status) {
+		u32 OutBytes = ReplyUsed;
+		if (OutBytes > ReplyCap) {
+			OutBytes = ReplyCap;
+		}
+		ReplyBuf[0] = ReplyUsed;
+		Status = XPlmi_MemCpy64(ReplyAddr, (u64)(UINTPTR)&ReplyBuf[0],
+					OutBytes);
+		if (XST_SUCCESS != Status) {
+			goto done;
+		}
+
+		/*
+		 * The snapshot is now safely delivered to the caller. ONLY now
+		 * apply the deferred ISR clears (recorded, write-permission
+		 * verified, but NOT performed by XPmAccess_GetEventStatus) so a
+		 * clear-write failure can never destroy the reply the caller
+		 * already received.
+		 *
+		 * Contract: snapshot delivery and ISR clear are
+		 * SEPARATE outcomes. A post-DMA clear failure must NOT fail the
+		 * whole command - that would make a strict caller discard a valid
+		 * snapshot it already received. Keep Status (Response[0]) at
+		 * XST_SUCCESS and report the clear outcome in Response[3]. The
+		 * up-front per-aperture write-permission checks guarantee no clear
+		 * is skipped for a PERMISSION reason, so no permission failure can
+		 * leave a partial ISR; a mid-batch HW write failure can still
+		 * leave a partially-cleared ISR, which the caller detects via
+		 * Response[3] and may re-issue.
+		 */
+		ClearStatus = XPmAccess_ApplyEventClears(SubsystemId, CmdType);
+	}
+
+done:
+	/*
+	 * Report snapshot delivery and deferred-clear outcomes independently:
+	 * [0]=Status, [1]=request bytes consumed, [2]=reply bytes used (or the
+	 * required size on XST_BUFFER_TOO_SMALL), [3]=deferred ISR-clear outcome.
+	 */
+	Cmd->Response[0] = (u32)Status;
+	Cmd->Response[1] = ReqConsumed;
+	Cmd->Response[2] = ReplyUsed;
+	Cmd->Response[3] = (u32)ClearStatus;
+	return Status;
+}
+
 /****************************************************************************/
 /**
  * @brief  Hook called after boot PDI loading is complete. On QEMU/COSIM
