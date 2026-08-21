@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2019 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -12,8 +12,12 @@
 #include "xpfw_error_manager.h"
 #include "xpfw_restart.h"
 #include "xpfw_mod_wdt.h"
+#if defined(ENABLE_UNUSED_APU_FPD_PWR_DWN) && defined(ENABLE_PM)
+#include "pm_proc.h"
+#endif
 
-#if defined(ENABLE_SCHEDULER) && (defined(ENABLE_EM) || defined(ENABLE_WDT) || defined(ENABLE_SECURE))
+#if defined(ENABLE_SCHEDULER) && (defined(ENABLE_EM) || defined(ENABLE_WDT) || \
+	defined(ENABLE_SECURE) || defined(ENABLE_UNUSED_APU_FPD_PWR_DWN))
 
 static const XPfw_Module_t *CommonModPtr;
 
@@ -101,6 +105,11 @@ static void CheckFsblCompletion(void)
 					"APU-only restart failed. APU-only warm-restart "
 					"may not work\r\n", __func__);
 		}
+#elif defined(ENABLE_UNUSED_APU_FPD_PWR_DWN) && defined(ENABLE_PM)
+		/* Restart-via-DDR not selected; reap unused APU cores and FPD */
+		PmForceDownUnusedApuAndFpd();
+#else
+		/* No action required. */
 #endif
 
 #ifdef ENABLE_WDT

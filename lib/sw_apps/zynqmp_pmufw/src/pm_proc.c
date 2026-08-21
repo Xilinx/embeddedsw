@@ -1,6 +1,6 @@
 /*
 * Copyright (c) 2014 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All rights reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
  */
 
@@ -37,6 +37,9 @@
 #include "pm_system.h"
 #include "pm_clock.h"
 #include "xpfw_aib.h"
+#ifdef ENABLE_UNUSED_APU_FPD_PWR_DWN
+#include "pm_power.h"
+#endif
 
 /* Enable/disable macros for processor's wfi event in GPI2 register */
 #define ENABLE_WFI(mask)    XPfw_RMW32(PMU_LOCAL_GPI2_ENABLE, (mask), (mask));
@@ -810,6 +813,53 @@ void PmForceDownUnusableRpuCores(void)
 	XPfw_RMW32(PMU_GLOBAL_GLOBAL_GEN_STORAGE4,
 		   RPU0_STATUS_MASK | RPU1_STATUS_MASK,
 		   RPU0_STATUS_MASK | RPU1_STATUS_MASK);
+}
+#endif
+
+#ifdef ENABLE_UNUSED_APU_FPD_PWR_DWN
+/**
+ * PmForceDownUnusedApuAndFpd() - Force down APU cores/FPD that are not in use
+ *
+ * @note	Called once at FSBL completion (from the common module's
+ *		CheckFsblCompletion task) when the restart-via-DDR path is not
+ *		selected. The per-APU-core usage bits (APU0..3_USED_STATUS_MASK)
+ *		in GEN_STORAGE4 are populated by FSBL as it loads partitions, so
+ *		a core whose bit is clear has no partition loaded and is forced
+ *		down. The FPD is powered down only when none of the APU cores
+ *		are in use, because a used APU core resides within the FPD.
+ */
+void PmForceDownUnusedApuAndFpd(void)
+{
+	u32 value = XPfw_Read32(PMU_GLOBAL_GLOBAL_GEN_STORAGE4);
+
+	if (0U == (value & APU_USED_STATUS_MASK)) {
+		s32 status;
+
+		/*
+		 * None of the APU cores are in use, so power down the whole
+		 * FPD.
+		 */
+		PmInfo("No APU core in use, powering down FPD\r\n");
+		status = PmNodeForceDown(&pmPowerDomainFpd_g.power.node);
+		if (XST_SUCCESS != status) {
+			PmErr("FPD force power down failed, status = %d\r\n",
+			      status);
+		}
+	} else {
+		/* FPD is in use, so force down only the unused APU cores. */
+		if (0U == (value & APU0_USED_STATUS_MASK)) {
+			(void)PmProcForceDown(&pmProcApu0_g.node);
+		}
+		if (0U == (value & APU1_USED_STATUS_MASK)) {
+			(void)PmProcForceDown(&pmProcApu1_g.node);
+		}
+		if (0U == (value & APU2_USED_STATUS_MASK)) {
+			(void)PmProcForceDown(&pmProcApu2_g.node);
+		}
+		if (0U == (value & APU3_USED_STATUS_MASK)) {
+			(void)PmProcForceDown(&pmProcApu3_g.node);
+		}
+	}
 }
 #endif
 

@@ -119,6 +119,15 @@ extern "C" {
  *	- ENABLE_POS : Enables Power Off Suspend feature
  *	- ENABLE_DDR_SR_WR : Enables DDR self refresh over warm restart feature
  *	- ENABLE_UNUSED_RPU_PWR_DWN : Enables unused RPU power down feature
+ *	- ENABLE_UNUSED_APU_FPD_PWR_DWN : Power down APU and FPD when no A53
+ *			partition is loaded from BIF. This feature requires
+ *			USE_DDR_FOR_APU_RESTART to be disabled; if both are
+ *			enabled, USE_DDR_FOR_APU_RESTART takes precedence and
+ *			this feature has no effect. Powering down the FPD
+ *			also tears down every FPD peripheral (DDR, GEM, SATA,
+ *			GPU, DisplayPort, PCIe, etc.), so enable this only on
+ *			designs where no master (RPU or PL) uses any FPD
+ *			peripheral while no A53 partition is loaded
  *	- DISABLE_CLK_PERMS : Disable clock permission checking (it is not safe
  *			to ever disable clock permission checking). Do this at
  *			your own responsibility.
@@ -275,6 +284,10 @@ extern "C" {
 
 #ifndef ENABLE_UNUSED_RPU_PWR_DWN_VAL
 #define ENABLE_UNUSED_RPU_PWR_DWN_VAL		(1U)
+#endif
+
+#ifndef ENABLE_UNUSED_APU_FPD_PWR_DWN_VAL
+#define ENABLE_UNUSED_APU_FPD_PWR_DWN_VAL	(0U)
 #endif
 
 #ifndef PMU_MIO_INPUT_PIN_VAL
@@ -569,6 +582,10 @@ extern "C" {
 #define ENABLE_UNUSED_RPU_PWR_DWN
 #endif
 
+#if (ENABLE_UNUSED_APU_FPD_PWR_DWN_VAL) && (!defined(ENABLE_UNUSED_APU_FPD_PWR_DWN))
+#define ENABLE_UNUSED_APU_FPD_PWR_DWN
+#endif
+
 #if (PMU_MIO_INPUT_PIN_VAL) && (!defined(PMU_MIO_INPUT_PIN))
 #define PMU_MIO_INPUT_PIN			0U
 #endif
@@ -644,6 +661,10 @@ extern "C" {
 #if (USE_DDR_FOR_APU_RESTART_VAL) && (!defined(USE_DDR_FOR_APU_RESTART))
 #define USE_DDR_FOR_APU_RESTART
 #endif
+#endif
+
+#if defined(ENABLE_UNUSED_APU_FPD_PWR_DWN) && defined(USE_DDR_FOR_APU_RESTART)
+#warning "ENABLE_UNUSED_APU_FPD_PWR_DWN has no effect while USE_DDR_FOR_APU_RESTART is enabled; disable USE_DDR_FOR_APU_RESTART to use the unused APU/FPD power down feature"
 #endif
 
 #if (ENABLE_IOCTL_VAL) && (!defined(ENABLE_IOCTL))

@@ -75,8 +75,29 @@ typedef u8 PmProcEvent;
 /* Triggered when PMU receives wake interrupt targeted to the processor */
 #define PM_PROC_EVENT_WAKE          5U
 
+/*
+ * GEN_STORAGE4 processor usage bits. These are mirrored in the FSBL as
+ * XFSBL_R5_0_STATUS_MASK/XFSBL_R5_1_STATUS_MASK and XFSBL_APU0_USED_STATUS_MASK
+ * through XFSBL_APU3_USED_STATUS_MASK in lib/sw_apps/zynqmp_fsbl/src/xfsbl_hw.h.
+ * The bit positions in both copies must be kept in sync, otherwise FSBL and
+ * PMUFW will disagree about which processor is in use.
+ */
 #define RPU0_STATUS_MASK		BIT(1U)
 #define RPU1_STATUS_MASK		BIT(2U)
+#ifdef ENABLE_UNUSED_APU_FPD_PWR_DWN
+/*
+ * GEN_STORAGE4 bits 5-8: per-APU-core usage status (bit 0 avoided as it
+ * collides with the CHECK_HEALTHY_BOOT flag; bits 3-4 are the restart scope).
+ */
+#define APU0_USED_STATUS_MASK		BIT(5U)
+#define APU1_USED_STATUS_MASK		BIT(6U)
+#define APU2_USED_STATUS_MASK		BIT(7U)
+#define APU3_USED_STATUS_MASK		BIT(8U)
+#define APU_USED_STATUS_MASK		(APU0_USED_STATUS_MASK | \
+					 APU1_USED_STATUS_MASK | \
+					 APU2_USED_STATUS_MASK | \
+					 APU3_USED_STATUS_MASK)
+#endif
 
 #define PM_PROC_RPU_LOVEC_ADDR  0x00000000U
 #define PM_PROC_RPU_HIVEC_ADDR  0xFFFF0000U
@@ -173,6 +194,10 @@ s32 PmProcSleep(PmProc* const proc);
 
 #ifdef ENABLE_UNUSED_RPU_PWR_DWN
 void PmForceDownUnusableRpuCores(void);
+#endif
+
+#if defined(ENABLE_UNUSED_APU_FPD_PWR_DWN) && defined(ENABLE_PM)
+void PmForceDownUnusedApuAndFpd(void);
 #endif
 
 #ifdef __cplusplus
