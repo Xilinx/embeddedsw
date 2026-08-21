@@ -16,6 +16,7 @@
  * Ver   Who  Date     Changes
  * ----- ---- -------- ----------------------------------------------------------------------------
  * 1.0   rmv  04/01/26 Initial release
+ *       rmv  08/21/26 Added validation of client provided buffers
  *
  * </pre>
  *
@@ -30,6 +31,7 @@
 #include "xsha.h"
 #include "xsha_hw.h"
 #include "xasufw_util.h"
+#include "xasufw_memvalidation.h"
 #include "xasufw_resourcemanager.h"
 #include "xasufw_debug.h"
 #include "xasufw_kat.h"
@@ -90,6 +92,7 @@ static XAsufw_Resource XAsufw_GetShaResourceId(u32 ModuleId)
  * 	- XASUFW_INVALID_PARAM, if invalid parameter is passed.
  * 	- XASUFW_RESOURCE_INVALID, if resource is invalid.
  * 	- XASUFW_VALIDATE_CMD_MODULE_NOT_REGISTERED, if module is not registered.
+ * 	- XASUFW_INVALID_SUBSYSTEM_ID, if subsystem id is not retrieved.
  * 	- XASUFW_SHA_START_FAILED, if SHA start fails.
  * 	- XASUFW_SHA_UPDATE_FAIL, if SHA update fails.
  * 	- XASUFW_SHA_FINISH_FAILED, if SHA finish fails.
@@ -108,6 +111,11 @@ s32 XAsufw_ShaOperation(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	XSha *ShaInstancePtr = NULL;
 	XAsufw_Resource ResourceId = XASUFW_INVALID;
 	u8 IsFinalShaFinishCall = XASU_FALSE;
+	u32 SubsystemId = 0U;
+	u32 IpiMask = ReqId >> XASUFW_IPI_BITMASK_SHIFT;
+
+	/** Verify command length. */
+	XASUFW_VERIFY_CMD_LEN(END, Status, ReqBuf, XAsu_ShaOperationCmd);
 
 	/** Get SHA module. */
 	ShaModulePtr = XAsufw_GetModule(ModuleId);
@@ -136,6 +144,13 @@ s32 XAsufw_ShaOperation(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 		goto END;
 	}
 
+	/** Get subsystem ID from IPI mask. */
+	SubsystemId = XAsu_GetSubsysIdFromIpiMask(IpiMask);
+	if (SubsystemId == XASUFW_INVALID_SUBSYS_ID) {
+		Status = XASUFW_INVALID_SUBSYSTEM_ID;
+		goto END;
+	}
+
 	switch (ShaCtxPtr->CmdStage) {
 	case XSHA_NON_BLOCKING_CMD_STAGE_INIT:
 		if ((Cmd->OperationFlags & XASU_INIT) == XASU_INIT) {
@@ -149,6 +164,9 @@ s32 XAsufw_ShaOperation(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 
 		/** If operation flags include SHA UPDATE perform SHA update operation. */
 		if ((Cmd->OperationFlags & XASU_UPDATE) == XASU_UPDATE) {
+			/** Validate the client provided input data buffer. */
+			XASUFW_VALIDATE_MEM_ACCESS(END, Status, SubsystemId, Cmd->DataAddr,
+						   Cmd->DataSize);
 			Status = XSha_Update(ShaInstancePtr, ShaModulePtr->AsuDmaPtr,
 					     Cmd->DataAddr, Cmd->DataSize, Cmd->IsLast);
 			if (Status == XASUFW_CMD_IN_PROGRESS) {
@@ -167,6 +185,10 @@ s32 XAsufw_ShaOperation(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	case XSHA_NON_BLOCKING_CMD_STAGE_UPDATE_IN_PROGRESS:
 		ShaCtxPtr->CmdStage = XSHA_NON_BLOCKING_CMD_STAGE_INIT;
 		if ((Cmd->OperationFlags & XASU_FINISH) == XASU_FINISH) {
+			/** Validate the client provided hash buffer. */
+			XASUFW_VALIDATE_MEM_ACCESS(END, Status, SubsystemId, Cmd->HashAddr,
+						   Cmd->HashBufSize);
+
 			/** Perform SHA finish; XofEnableFlag drives NEXT_XOF for SHAKE256. */
 			Status = XSha_Finish(ShaInstancePtr, ShaModulePtr->AsuDmaPtr,
 					Cmd->HashAddr, Cmd->HashBufSize, Cmd->XofEnableFlag);

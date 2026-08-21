@@ -15,6 +15,7 @@
 * Ver   Who Date     Changes
 * ----- ---- -------- -----------------------------------------------------------------------------
 * 1.0   ss   02/24/25 Initial release
+*       rmv  08/17/26 Added validation of client provided buffers
 *
 * </pre>
 *
@@ -32,6 +33,7 @@
 #include "xsha_hw.h"
 #include "xasufw_status.h"
 #include "xasufw_util.h"
+#include "xasufw_memvalidation.h"
 #include "xasufw_cmd.h"
 #include "xasufw_kat.h"
 #include "xasufw_aeshandler.h"
@@ -46,6 +48,9 @@ static s32 XAsufw_KeyWrapKat(const XAsu_ReqBuf *ReqBuf, u32 ReqId);
 static s32 XAsufw_KeyWrapResourceHandler(const XAsu_ReqBuf *ReqBuf, u32 ReqId);
 static s32 XAsufw_KeyWrap(const XAsu_ReqBuf *ReqBuf, u32 ReqId);
 static s32 XAsufw_KeyUnwrap(const XAsu_ReqBuf *ReqBuf, u32 ReqId);
+static s32 XAsufw_KeyWrapValidateBuffers(u32 SubsystemId,
+					 const XAsu_KeyWrapParams *KeyWrapParams,
+					 u32 ExpoCompSize, u32 KeyCompSize);
 
 /************************************ Variable Definitions ***************************************/
 static XAsufw_Module XAsufw_KeyWrapModule; /**< ASUFW Key wrap unwp Module ID and commands array */
@@ -204,6 +209,49 @@ END:
 
 /*************************************************************************************************/
 /**
+ * @brief	This function validates the client provided buffers that the key wrap and unwrap
+ *		operations share.
+ *
+ * @param	SubsystemId	Subsystem ID.
+ * @param	KeyWrapParams	Pointer to the key wrap parameters.
+ * @param	ExpoCompSize	Size of the pre-calculated exponentiation values in bytes.
+ * @param	KeyCompSize	Size of the RSA key component structure in bytes.
+ *
+ * @return
+ *	- XASUFW_SUCCESS, if all the provided buffers are accessible to the subsystem.
+ *	- An error code from XAsufw_ValidateMemRegnAccess, if any buffer is not accessible.
+ *
+ *************************************************************************************************/
+static s32 XAsufw_KeyWrapValidateBuffers(u32 SubsystemId,
+					 const XAsu_KeyWrapParams *KeyWrapParams,
+					 u32 ExpoCompSize, u32 KeyCompSize)
+{
+	s32 Status = XASUFW_FAILURE;
+
+	/** Validate the client provided data and label buffers. */
+	XASUFW_VALIDATE_MEM_ACCESS(END, Status, SubsystemId, KeyWrapParams->InputDataAddr,
+				   KeyWrapParams->InputDataLen);
+	XASUFW_VALIDATE_MEM_ACCESS(END, Status, SubsystemId, KeyWrapParams->OutputDataAddr,
+				   KeyWrapParams->OutputDataLen);
+	XASUFW_VALIDATE_MEM_ACCESS(END, Status, SubsystemId, KeyWrapParams->OptionalLabelAddr,
+				   KeyWrapParams->OptionalLabelSize);
+
+	/** Validate the client provided pre-calculated exponentiation values. */
+	XASUFW_VALIDATE_MEM_ACCESS(END, Status, SubsystemId, KeyWrapParams->ExpoCompAddr,
+				   ExpoCompSize);
+
+	/** Validate the client provided RSA key buffer. */
+	XASUFW_VALIDATE_MEM_ACCESS(END, Status, SubsystemId, KeyWrapParams->KeyCompAddr,
+				   KeyCompSize);
+
+	Status = XASUFW_SUCCESS;
+
+END:
+	return Status;
+}
+
+/*************************************************************************************************/
+/**
  * @brief	This function is a common handler to perform key wrap operation using SHA2/SHA3
  * 		engine.
  *
@@ -215,6 +263,7 @@ END:
  * 	- XASUFW_KEYWRAP_GEN_WRAPPED_KEY_OPERATION_FAIL, if operation fails
  * 	- XASUFW_RESOURCE_RELEASE_NOT_ALLOWED, if illegal resource release is requested.
  * 	- XASUFW_INVALID_SUBSYSTEM_ID, if invalid subsystem ID is provided.
+ * 	- XASUFW_VALIDATE_BUFFERS_FAILED, if validation of the client provided buffers fails.
  *
  *************************************************************************************************/
 static s32 XAsufw_KeyWrap(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
@@ -238,7 +287,6 @@ static s32 XAsufw_KeyWrap(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 		goto END;
 	}
 
-#ifdef XASU_KEYMANAGER_ENABLE
 	/** Get subsystem ID from IPI mask. */
 	SubsystemId = XAsu_GetSubsysIdFromIpiMask(IpiMask);
 	if (SubsystemId == XASUFW_INVALID_SUBSYS_ID) {
@@ -246,6 +294,16 @@ static s32 XAsufw_KeyWrap(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 		goto END;
 	}
 
+	/** Validate the client provided buffers. */
+	Status = XAsufw_KeyWrapValidateBuffers(SubsystemId, &KeyWrapParams,
+					       sizeof(XAsu_RsaRRModN),
+					       sizeof(XAsu_RsaPubKeyComp));
+	if (Status != XASUFW_SUCCESS) {
+		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_VALIDATE_BUFFERS_FAILED);
+		goto END;
+	}
+
+#ifdef XASU_KEYMANAGER_ENABLE
 	/** Resolve RSA public key from vault if key ID is provided. */
 	if (KeyWrapParams.RsaKeyId != 0U) {
 		KeyWrapParams.KeyCompAddr = (u64)(UINTPTR)(XASUFW_CRYPTO_ALGO_DATA_BLOCK +
@@ -281,8 +339,6 @@ static s32 XAsufw_KeyWrap(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 		AesKeyObjPtr = &AesKeyObj;
 	}
 #else
-	(void)IpiMask;
-	(void)SubsystemId;
 	(void)AesKeyObj;
 #endif
 
@@ -322,6 +378,7 @@ END:
  * 	- XASUFW_KEYWRAP_GEN_UNWRAPPED_KEY_OPERATION_FAIL, if operation fails.
  * 	- XASUFW_RESOURCE_RELEASE_NOT_ALLOWED, if illegal resource release is requested.
  * 	- XASUFW_INVALID_SUBSYSTEM_ID, if invalid subsystem ID is provided.
+ * 	- XASUFW_VALIDATE_BUFFERS_FAILED, if validation of the client provided buffers fails.
  *
  *************************************************************************************************/
 static s32 XAsufw_KeyUnwrap(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
@@ -343,7 +400,6 @@ static s32 XAsufw_KeyUnwrap(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 		goto END;
 	}
 
-#ifdef XASU_KEYMANAGER_ENABLE
 	/** Get subsystem ID from IPI mask. */
 	SubsystemId = XAsu_GetSubsysIdFromIpiMask(IpiMask);
 	if (SubsystemId == XASUFW_INVALID_SUBSYS_ID) {
@@ -351,6 +407,16 @@ static s32 XAsufw_KeyUnwrap(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 		goto END;
 	}
 
+	/** Validate the client provided buffers. */
+	Status = XAsufw_KeyWrapValidateBuffers(SubsystemId, &KeyWrapParams,
+					       sizeof(XAsu_RsaRModN),
+					       sizeof(XAsu_RsaPvtKeyComp));
+	if (Status != XASUFW_SUCCESS) {
+		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_VALIDATE_BUFFERS_FAILED);
+		goto END;
+	}
+
+#ifdef XASU_KEYMANAGER_ENABLE
 	/** Resolve RSA private key from vault if key ID is provided. */
 	if (KeyWrapParams.RsaKeyId != 0U) {
 		KeyWrapParams.KeyCompAddr = (u64)(UINTPTR)(XASUFW_CRYPTO_ALGO_DATA_BLOCK +
@@ -369,10 +435,7 @@ static s32 XAsufw_KeyUnwrap(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 		/* Clear KeyId since keyaddress is fetched. */
 		KeyWrapParams.RsaKeyId = 0U;
 	}
-#else
-	(void)IpiMask;
-	(void)SubsystemId;
-#endif
+#endif /* XASU_KEYMANAGER_ENABLE */
 
 	/** Perform Key unwrap operation using given SHA crypto engine. */
 	OutLenAddr = (u32 *)XAsufw_GetRespBuf(ReqBuf, XAsu_ChannelQueueBuf, RespBuf) +

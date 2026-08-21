@@ -18,6 +18,7 @@
  * 1.0   ss   11/25/25 Initial release
  *       yog  01/28/26 Added RSA key pair generation command handler.
  *       vm   08/19/26 Removed unreachable resource allocation skip for set epoch time
+ *       rmv  08/17/26 Added validation of client provided buffers
  *
  * </pre>
  *
@@ -37,6 +38,7 @@
 #include "xasu_def.h"
 #include "xasufw_status.h"
 #include "xasufw_util.h"
+#include "xasufw_memvalidation.h"
 #include "xoverlay.h"
 #include "xasufw_aeshandler.h"
 #include "xasufw_memory.h"
@@ -292,6 +294,7 @@ END:
  * 	- XASUFW_SUCCESS, if vault creation operation is successful.
  * 	- XASUFW_KEYMANAGER_VAULT_GEN_ERROR, if generation operation fails.
  * 	- XASUFW_RESOURCE_RELEASE_NOT_ALLOWED, if illegal resource release is requested.
+ * 	- XASUFW_INVALID_SUBSYSTEM_ID, if the subsystem ID cannot be derived from the IPI mask.
  *
  *************************************************************************************************/
 static s32 XAsufw_KeyManagerCreateKeyVault(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
@@ -341,6 +344,7 @@ END:
  * 	- XASUFW_SUCCESS, if vault deletion operation is successful.
  * 	- XASUFW_KEYMANAGER_VAULT_DELETE_ERROR, if deletion operation fails.
  * 	- XASUFW_RESOURCE_RELEASE_NOT_ALLOWED, if illegal resource release is requested.
+ * 	- XASUFW_INVALID_SUBSYSTEM_ID, if the subsystem ID cannot be derived from the IPI mask.
  *
  *************************************************************************************************/
 static s32 XAsufw_KeyManagerDeleteKeyVault(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
@@ -387,6 +391,7 @@ END:
  * 	- XASUFW_KEYMANAGER_KEY_GEN_ERROR, if AES key generation operation fails.
  * 	- XASUFW_KEYMANAGER_IV_GEN_ERROR, if AES IV generation operation fails.
  * 	- XASUFW_RESOURCE_RELEASE_NOT_ALLOWED, if illegal resource release is requested.
+ * 	- XASUFW_INVALID_SUBSYSTEM_ID, if the subsystem ID cannot be derived from the IPI mask.
  *
  *************************************************************************************************/
 static s32 XAsufw_KeyManagerGenKeyIv(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
@@ -410,6 +415,13 @@ static s32 XAsufw_KeyManagerGenKeyIv(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 		Status = XASUFW_INVALID_SUBSYSTEM_ID;
 		goto END;
 	}
+
+	/**
+	 * Validate the client provided key buffer, which is used only when the generated key is
+	 * returned to the caller instead of being stored in the key vault.
+	 */
+	XASUFW_VALIDATE_MEM_ACCESS(END, Status, SubsystemId, Cmd->KeyObjectAddr,
+				   Cmd->KeyMetadata.Length);
 
 	/** Perform Key/IV generation operation. */
 	Status = XKeyManager_GenerateKeyIv(XAsufw_KeyManagerModule.AsuDmaPtr, Cmd, OutIdAddr,
@@ -439,6 +451,7 @@ END:
  * 	- XASUFW_SUCCESS, if key deletion operation is successful.
  * 	- XASUFW_KEYMANAGER_KEY_DELETE_ERROR, if key deletion operation fails.
  * 	- XASUFW_RESOURCE_RELEASE_NOT_ALLOWED, if illegal resource release is requested.
+ * 	- XASUFW_INVALID_SUBSYSTEM_ID, if the subsystem ID cannot be derived from the IPI mask.
  *
  *************************************************************************************************/
 static s32 XAsufw_KeyManagerDeleteKey(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
@@ -507,6 +520,13 @@ static s32 XAsufw_KeyManagerRsaKeyPairGen(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 		goto END;
 	}
 
+	/**
+	 * Validate the client provided key buffer, which is used only when the generated key pair
+	 * is returned to the caller instead of being stored in the key vault.
+	 */
+	XASUFW_VALIDATE_MEM_ACCESS(END, Status, SubsystemId, Cmd->KeyObjectAddr,
+				   sizeof(XAsu_RsaKeyPairObject));
+
 	/** Perform RSA key pair generation operation. */
 	Status = XKeyManager_GenerateRsaKeyPair(XAsufw_KeyManagerModule.AsuDmaPtr, Cmd, OutId,
 					SubsystemId);
@@ -557,6 +577,13 @@ static s32 XAsufw_KeyManagerEccKeyPairGen(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 		Status = XASUFW_INVALID_SUBSYSTEM_ID;
 		goto END;
 	}
+
+	/**
+	 * Validate the client provided key buffer, which is used only when the generated key pair
+	 * is returned to the caller instead of being stored in the key vault.
+	 */
+	XASUFW_VALIDATE_MEM_ACCESS(END, Status, SubsystemId, Cmd->KeyObjectAddr,
+				   sizeof(XAsu_EccKeyPairObject));
 
 	/** Perform ECC key pair generation operation. */
 	Status = XKeyManager_GenerateEccKeyPair(XAsufw_KeyManagerModule.AsuDmaPtr, Cmd, OutId,
@@ -640,6 +667,25 @@ static s32 XAsufw_KeyManagerStoreKey(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 		goto END;
 	}
 
+	/**
+	 * Validate the client provided key buffer. A wrapped key is supplied as a blob of
+	 * WrappedInputLen bytes, whereas a plain key holds the key length given in the metadata.
+	 */
+	if ((Cmd->KeyMetadata.KeyType & XASU_KM_KEYTYPE_WRAPPED_BIT_MASK) ==
+			XASU_KM_KEYTYPE_WRAPPED_BIT_MASK) {
+		XASUFW_VALIDATE_MEM_ACCESS(END, Status, SubsystemId, Cmd->KeyObjectAddr,
+					   Cmd->WrappedInputLen);
+		/** The unwrapping AES key comes from the key vault when no address is given. */
+		XASUFW_VALIDATE_MEM_ACCESS(END, Status, SubsystemId,
+			Cmd->AesKeyObj.KeyAddress,
+			(Cmd->AesKeyObj.KeySize == XASU_AES_KEY_SIZE_128_BITS) ?
+			XASU_AES_KEY_SIZE_128BIT_IN_BYTES :
+			XASU_AES_KEY_SIZE_256BIT_IN_BYTES);
+	} else {
+		XASUFW_VALIDATE_MEM_ACCESS(END, Status, SubsystemId, Cmd->KeyObjectAddr,
+					   Cmd->KeyMetadata.Length);
+	}
+
 	/** Store the key in the vault for the requesting subsystem. */
 	Status = XKeyManager_StoreKeyInVault(XAsufw_KeyManagerModule.AsuDmaPtr,
 										XAsufw_KeyManagerModule.AesPtr, Cmd, OutIdAddr, SubsystemId);
@@ -671,6 +717,7 @@ END:
  *	- XASUFW_CMD_IN_PROGRESS, if DMA transfer is in progress (non-blocking mode).
  *	- XASUFW_KEYMANAGER_EXPORT_VAULT_ERROR, if vault export operation fails.
  *	- XASUFW_RESOURCE_RELEASE_NOT_ALLOWED, if illegal resource release is requested.
+ *	- XASUFW_INVALID_SUBSYSTEM_ID, if invalid subsystem ID is provided.
  *
  *************************************************************************************************/
 static s32 XAsufw_KeyManagerExportVault(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
@@ -678,12 +725,24 @@ static s32 XAsufw_KeyManagerExportVault(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	s32 Status = XASUFW_FAILURE;
 	const XAsu_KeyVaultTransferParams *Cmd = (const XAsu_KeyVaultTransferParams *)ReqBuf->Arg;
 	u32 *ActualSizeAddr;
+	u32 SubsystemId = 0U;
+	u32 IpiMask = ReqId >> XASUFW_IPI_BITMASK_SHIFT;
 
 	/** Verify command length. */
 	XASUFW_VERIFY_CMD_LEN(END, Status, ReqBuf, XAsu_KeyVaultTransferParams);
 
 	ActualSizeAddr = (u32 *)XAsufw_GetRespBuf(ReqBuf, XAsu_ChannelQueueBuf, RespBuf) +
 						  XASUFW_RESP_DATA_OFFSET;
+
+	/** Get subsystem ID from IPI mask. */
+	SubsystemId = XAsu_GetSubsysIdFromIpiMask(IpiMask);
+	if (SubsystemId == XASUFW_INVALID_SUBSYS_ID) {
+		Status = XASUFW_INVALID_SUBSYSTEM_ID;
+		goto END;
+	}
+
+	/** Validate the client provided vault destination buffer. */
+	XASUFW_VALIDATE_MEM_ACCESS(END, Status, SubsystemId, Cmd->DataAddr, Cmd->BufSize);
 
 	/** Export the entire key vault. */
 	Status = XKeyManager_ExportKeyVault(XAsufw_KeyManagerModule.AsuDmaPtr,
@@ -726,15 +785,28 @@ DONE:
  *	- XASUFW_CMD_IN_PROGRESS, if DMA transfer is in progress (non-blocking mode).
  *	- XASUFW_KEYMANAGER_IMPORT_VAULT_ERROR, if vault import operation fails.
  *	- XASUFW_RESOURCE_RELEASE_NOT_ALLOWED, if illegal resource release is requested.
+ *	- XASUFW_INVALID_SUBSYSTEM_ID, if invalid subsystem ID is provided.
  *
  *************************************************************************************************/
 static s32 XAsufw_KeyManagerImportVault(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 {
 	s32 Status = XASUFW_FAILURE;
 	const XAsu_KeyVaultTransferParams *Cmd = (const XAsu_KeyVaultTransferParams *)ReqBuf->Arg;
+	u32 SubsystemId = 0U;
+	u32 IpiMask = ReqId >> XASUFW_IPI_BITMASK_SHIFT;
 
 	/** Verify command length. */
 	XASUFW_VERIFY_CMD_LEN(END, Status, ReqBuf, XAsu_KeyVaultTransferParams);
+
+	/** Get subsystem ID from IPI mask. */
+	SubsystemId = XAsu_GetSubsysIdFromIpiMask(IpiMask);
+	if (SubsystemId == XASUFW_INVALID_SUBSYS_ID) {
+		Status = XASUFW_INVALID_SUBSYSTEM_ID;
+		goto END;
+	}
+
+	/** Validate the client provided vault source buffer. */
+	XASUFW_VALIDATE_MEM_ACCESS(END, Status, SubsystemId, Cmd->DataAddr, Cmd->BufSize);
 
 	/** Import the entire key vault. */
 	Status = XKeyManager_ImportKeyVault(XAsufw_KeyManagerModule.AsuDmaPtr,

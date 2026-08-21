@@ -15,6 +15,7 @@
 * Ver   Who Date     Changes
 * ----- ---- -------- -----------------------------------------------------------------------------
 * 1.0   ma  01/15/25 Initial release
+*       rmv 08/17/26 Added validation of client provided buffers
 *
 * </pre>
 *
@@ -31,6 +32,7 @@
 #include "xasufw_resourcemanager.h"
 #include "xsha_hw.h"
 #include "xasufw_util.h"
+#include "xasufw_memvalidation.h"
 #include "xasufw_kat.h"
 #include "xkeymanager.h"
 #include "xasu_sharedmem.h"
@@ -208,6 +210,7 @@ END:
  * 	- XASUFW_SUCCESS, if KDF operation is successful.
  * 	- XASUFW_RESOURCE_RELEASE_NOT_ALLOWED, if illegal resource release is requested.
  * 	- Error codes from XKdf_Generate API, if any failure occurs.
+ * 	- XASUFW_INVALID_SUBSYSTEM_ID, if the subsystem ID cannot be derived from the IPI mask.
  *
  *************************************************************************************************/
 static s32 XAsufw_KdfGenerate(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
@@ -228,7 +231,6 @@ static s32 XAsufw_KdfGenerate(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 		goto END;
 	}
 
-#ifdef XASU_KEYMANAGER_ENABLE
 	/** Get subsystem ID from IPI mask. */
 	SubsystemId = XAsu_GetSubsysIdFromIpiMask(IpiMask);
 	if (SubsystemId == XASUFW_INVALID_SUBSYS_ID) {
@@ -236,6 +238,17 @@ static s32 XAsufw_KdfGenerate(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 		goto END;
 	}
 
+	/** Validate the client provided key buffer. */
+	XASUFW_VALIDATE_MEM_ACCESS(END, Status, SubsystemId, KdfParams.KeyObject.KeyInAddr,
+				   KdfParams.KeyObject.KeyInLen);
+
+	/** Validate the client provided context and output key buffers. */
+	XASUFW_VALIDATE_MEM_ACCESS(END, Status, SubsystemId, KdfParams.ContextAddr,
+				   KdfParams.ContextLen);
+	XASUFW_VALIDATE_MEM_ACCESS(END, Status, SubsystemId, KdfParams.KeyOutAddr,
+				   KdfParams.KeyOutLen);
+
+#ifdef XASU_KEYMANAGER_ENABLE
 	/** If key vault ID is provided, resolve key object from vault. */
 	if (KdfParams.KeyObject.KeyId != 0U) {
 		Status = XKeyManager_UpdateKeyObjFromVault(XAsufw_KdfModule.AsuDmaPtr,
@@ -251,9 +264,6 @@ static s32 XAsufw_KdfGenerate(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 		/* Clear KeyId since keyaddress is fetched. */
 		KdfParams.KeyObject.KeyId = 0U;
 	}
-#else
-	(void)SubsystemId;
-	(void)IpiMask;
 #endif /* XASU_KEYMANAGER_ENABLE */
 
 	/**
@@ -324,15 +334,34 @@ static s32 XAsufw_KdfKat(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
  * 	- XASUFW_RESOURCE_RELEASE_NOT_ALLOWED, if illegal resource release is requested.
  * 	- XASUFW_INVALID_PARAM, if any argument is invalid.
  * 	- Error codes from XKdf_CmacGenerate API, if any failure occurs.
+ * 	- XASUFW_INVALID_SUBSYSTEM_ID, if the subsystem ID cannot be derived from the IPI mask.
  *
  *************************************************************************************************/
 static s32 XAsufw_CmacKdfGenerate(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 {
 	s32 Status = XASUFW_FAILURE;
 	const XAsu_CmacKdfParams *CmacKdfParams = (const XAsu_CmacKdfParams *)ReqBuf->Arg;
+	u32 IpiMask = ReqId >> XASUFW_IPI_BITMASK_SHIFT;
+	u32 SubsystemId = 0U;
 
 	/** Verify command length. */
 	XASUFW_VERIFY_CMD_LEN(END, Status, ReqBuf, XAsu_CmacKdfParams);
+
+	/** Get subsystem ID from IPI mask. */
+	SubsystemId = XAsu_GetSubsysIdFromIpiMask(IpiMask);
+	if (SubsystemId == XASUFW_INVALID_SUBSYS_ID) {
+		Status = XASUFW_INVALID_SUBSYSTEM_ID;
+		goto END;
+	}
+
+	/** Validate the client provided key, context and output key buffers. */
+	XASUFW_VALIDATE_MEM_ACCESS(END, Status, SubsystemId,
+				   CmacKdfParams->KdfParams.KeyObject.KeyInAddr,
+				   CmacKdfParams->KdfParams.KeyObject.KeyInLen);
+	XASUFW_VALIDATE_MEM_ACCESS(END, Status, SubsystemId, CmacKdfParams->KdfParams.ContextAddr,
+				   CmacKdfParams->KdfParams.ContextLen);
+	XASUFW_VALIDATE_MEM_ACCESS(END, Status, SubsystemId, CmacKdfParams->KdfParams.KeyOutAddr,
+				   CmacKdfParams->KdfParams.KeyOutLen);
 
 	/** Perform KDF generate. */
 	Status = XKdf_CmacGenerate(XAsufw_KdfModule.AsuDmaPtr, XAsufw_KdfModule.AesPtr,
@@ -364,15 +393,36 @@ END:
  * 	- XASUFW_RESOURCE_RELEASE_NOT_ALLOWED, if illegal resource release is requested.
  * 	- XASUFW_INVALID_PARAM, if any argument is invalid.
  * 	- Error codes from XHkdf_Generate API, if any failure occurs.
+ * 	- XASUFW_INVALID_SUBSYSTEM_ID, if the subsystem ID cannot be derived from the IPI mask.
  *
  *************************************************************************************************/
 static s32 XAsufw_HkdfGenerate(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 {
 	s32 Status = XASUFW_FAILURE;
 	const XAsu_HkdfParams *HKdfParams = (const XAsu_HkdfParams *)ReqBuf->Arg;
+	u32 IpiMask = ReqId >> XASUFW_IPI_BITMASK_SHIFT;
+	u32 SubsystemId = 0U;
 
 	/** Verify command length. */
 	XASUFW_VERIFY_CMD_LEN(END, Status, ReqBuf, XAsu_HkdfParams);
+
+	/** Get subsystem ID from IPI mask. */
+	SubsystemId = XAsu_GetSubsysIdFromIpiMask(IpiMask);
+	if (SubsystemId == XASUFW_INVALID_SUBSYS_ID) {
+		Status = XASUFW_INVALID_SUBSYSTEM_ID;
+		goto END;
+	}
+
+	/** Validate the client provided key, context and output key buffers. */
+	XASUFW_VALIDATE_MEM_ACCESS(END, Status, SubsystemId,
+				   HKdfParams->KdfParams.KeyObject.KeyInAddr,
+				   HKdfParams->KdfParams.KeyObject.KeyInLen);
+	XASUFW_VALIDATE_MEM_ACCESS(END, Status, SubsystemId, HKdfParams->KdfParams.ContextAddr,
+				   HKdfParams->KdfParams.ContextLen);
+	XASUFW_VALIDATE_MEM_ACCESS(END, Status, SubsystemId, HKdfParams->KdfParams.KeyOutAddr,
+				   HKdfParams->KdfParams.KeyOutLen);
+	XASUFW_VALIDATE_MEM_ACCESS(END, Status, SubsystemId, HKdfParams->SaltAddr,
+				   HKdfParams->SaltLen);
 
 	/** Perform HKDF generate. */
 	Status = XHkdf_Generate(XAsufw_KdfModule.AsuDmaPtr, XAsufw_KdfModule.ShaPtr, HKdfParams);

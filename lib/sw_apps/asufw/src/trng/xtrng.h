@@ -21,6 +21,7 @@
  * 1.1   ma   12/24/24 Added API to disable autoproc mode
  *       rmv  08/01/25 Added API to set TRNG to default mode
  *       rmv  09/09/25 Moved XTrng_ErrorState enum from header to source file
+ *       rmv  08/21/26 Added block length and DF length macros
  *
  * </pre>
  *
@@ -43,6 +44,9 @@ extern "C" {
 #define XTRNG_DEFAULT_SEED_LIFE				256U /**< Default seed life */
 #define XTRNG_PERS_STRING_LEN_IN_WORDS		12U /**< Personalization string length in words */
 #define XTRNG_PERS_STRING_LEN_IN_BYTES		48U /**< Personalization string length in bytes */
+#define XTRNG_BLOCK_LEN_IN_BYTES			16U /**< TRNG block length in bytes */
+#define XTRNG_DF_MIN_LENGTH					2U /**< Minimum DF input length */
+#define XTRNG_DF_MAX_LENGTH					0x1FU /**< Maximum DF input length */
 #define XTRNG_SEC_STRENGTH_IN_BYTES			32U /**< Security strength in Bytes */
 #define XTRNG_SEC_STRENGTH_IN_WORDS			8U /**< Security strength in words */
 #define XTRNG_USER_CFG_SEED_LIFE			256U /**< User config seed life */

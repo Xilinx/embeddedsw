@@ -15,6 +15,7 @@
 * Ver   Who Date     Changes
 * ----- ---- -------- -----------------------------------------------------------------------------
 * 1.0   yog 01/02/25 Initial release
+*       rmv 08/17/26 Added validation of client provided buffers
 *
 * </pre>
 *
@@ -30,6 +31,7 @@
 #include "xsha_hw.h"
 #include "xasufw_status.h"
 #include "xasufw_util.h"
+#include "xasufw_memvalidation.h"
 #include "xasufw_cmd.h"
 #include "xasufw_kat.h"
 #include "xkeymanager.h"
@@ -176,6 +178,7 @@ END:
  * 	- XASUFW_RESOURCE_RELEASE_NOT_ALLOWED, if illegal resource release is requested.
  * 	- XASUFW_CMD_IN_PROGRESS, if HMAC update is in progress(non-blocking).
  * 	- XASUFW_INVALID_CMD_STAGE, if command stage is invalid.
+ * 	- XASUFW_INVALID_SUBSYSTEM_ID, if the subsystem ID cannot be derived from the IPI mask.
  *
  *************************************************************************************************/
 static s32 XAsufw_HmacComputeSha(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
@@ -195,17 +198,22 @@ static s32 XAsufw_HmacComputeSha(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 
 	KeyObject = HmacParamsPtr->KeyObject;
 
+	/** Get subsystem ID from IPI mask. */
+	SubsystemId = XAsu_GetSubsysIdFromIpiMask(IpiMask);
+	if (SubsystemId == XASUFW_INVALID_SUBSYS_ID) {
+		Status = XASUFW_INVALID_SUBSYSTEM_ID;
+		goto END;
+	}
+
 	switch (HmacCmdStage) {
 	case XHMAC_NON_BLOCKING_CMD_STAGE_INIT:
 		if ((HmacParamsPtr->OperationFlags & XASU_INIT) == XASU_INIT) {
-#ifdef XASU_KEYMANAGER_ENABLE
-			/** Get subsystem ID from IPI mask. */
-			SubsystemId = XAsu_GetSubsysIdFromIpiMask(IpiMask);
-			if (SubsystemId == XASUFW_INVALID_SUBSYS_ID) {
-				Status = XASUFW_INVALID_SUBSYSTEM_ID;
-				goto END;
-			}
+			/** Validate the client provided key buffer. */
+			XASUFW_VALIDATE_MEM_ACCESS(END, Status, SubsystemId,
+						   KeyObject.KeyInAddr,
+						   KeyObject.KeyInLen);
 
+#ifdef XASU_KEYMANAGER_ENABLE
 			if (HmacParamsPtr->KeyObject.KeyId != 0U) {
 				Status = XKeyManager_UpdateKeyObjFromVault(
 						XAsufw_HmacModule.AsuDmaPtr,
@@ -220,9 +228,6 @@ static s32 XAsufw_HmacComputeSha(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 					goto END;
 				}
 			}
-#else
-	(void)SubsystemId;
-	(void)IpiMask;
 #endif /* XASU_KEYMANAGER_ENABLE */
 
 			/**
@@ -243,6 +248,11 @@ static s32 XAsufw_HmacComputeSha(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	case XHMAC_NON_BLOCKING_CMD_STAGE_UPDATE_IN_PROGRESS:
 		HmacCmdStage = XHMAC_NON_BLOCKING_CMD_STAGE_INIT;
 		if ((HmacParamsPtr->OperationFlags & XASU_UPDATE) == XASU_UPDATE) {
+			/** Validate the client provided message buffer. */
+			XASUFW_VALIDATE_MEM_ACCESS(END, Status, SubsystemId,
+						   HmacParamsPtr->MsgBufferAddr,
+						   HmacParamsPtr->MsgLen);
+
 			/**
 			 * If operation flags include HMAC UPDATE, perform HMAC update operation.
 			 */

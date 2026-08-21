@@ -30,6 +30,7 @@
  *       rmv  07/16/25 Added macro for buffer index zero
  *       kp   08/19/26 Added shared PLM XilNVM IPI command macros
  *       rmv  08/20/26 Added XAsufw_IntToAscii() function prototype.
+ *       rmv  08/21/26 Added macro for the maximum 64-bit address and default subsystem ID
  *
  * </pre>
  *
@@ -96,6 +97,8 @@ extern "C" {
 
 #define XASUFW_LSB_MASK_VALUE			(255U) /**< Integer to octet stream primitive limit */
 #define XASUFW_MAX_32BIT_ADDRESS		(0xFFFFFFFFU) /**< Max supported 32-bit address */
+#define XASUFW_MAX_64BIT_ADDRESS		(0xFFFFFFFFFFFFFFFFULL)	/**< Max supported 64-bit
+									address */
 
 #define XASUFW_VALUE_ONE			(1U)	/**< Integer value 1U */
 #define XASUFW_VALUE_TWO			(2U)	/**< Integer value 2U */
@@ -110,6 +113,8 @@ extern "C" {
 #define XASUFW_BYTE_MULTIPLIER			(256U)		/**< Byte multiplier for endianness swap */
 #define XASUFW_MAX_BIT_INDEX_IN_WORD		(31U)	/**< Maximum bit index in a 32-bit word */
 #define XASUFW_BITS_IN_WORD			(32U)	/**< Number of bits in a 32-bit word */
+
+#define XASUFW_DEFAULT_SUBSYSTEM_ID		(0x1C000000U) /**< Default subsystem ID */
 
 /* Constants common to every PLM XilNVM IPI request raised from ASUFW. */
 #define XASUFW_PLM_XILNVM_MODULE_ID		(11U)	/**< XilNVM module ID in PLM, must match

@@ -16,6 +16,7 @@
 * ----- ---- -------- -----------------------------------------------------------------------------
 * 1.0   ss   01/21/26 Initial release
 * 1.1   ss   03/21/26 Added non-blocking DMA support for LMS/HSS signature verification
+*       rmv  08/17/26 Added validation of client provided buffers
 *
 * </pre>
 *
@@ -34,6 +35,7 @@
 #include "xsha_hw.h"
 #include "xasufw_status.h"
 #include "xasufw_util.h"
+#include "xasufw_memvalidation.h"
 #include "xasufw_cmd.h"
 #include "xasufw_kat.h"
 #include "xasu_lmsinfo.h"
@@ -223,7 +225,6 @@ static s32 XAsufw_LmsSignVerify(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 		goto END;
 	}
 
-#ifdef XASU_KEYMANAGER_ENABLE
 	/** Get subsystem ID from IPI mask. */
 	SubSystemId = XAsu_GetSubsysIdFromIpiMask(IpiMask);
 	if (SubSystemId == XASUFW_INVALID_SUBSYS_ID) {
@@ -231,6 +232,17 @@ static s32 XAsufw_LmsSignVerify(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 		goto END;
 	}
 
+	/** Validate the client provided message and signature buffers. */
+	XASUFW_VALIDATE_MEM_ACCESS(END, Status, SubSystemId, LmsParams.MsgAddr, LmsParams.MsgLen);
+	XASUFW_VALIDATE_MEM_ACCESS(END, Status, SubSystemId, LmsParams.SignatureAddr,
+				   LmsParams.SignatureLen);
+
+	/** Validate the client provided public key buffer. */
+	XASUFW_VALIDATE_MEM_ACCESS(END, Status, SubSystemId,
+				   LmsParams.LmsHssKeyObj.PubKeyAddr,
+				   LmsParams.LmsHssKeyObj.PubKeyLen);
+
+#ifdef XASU_KEYMANAGER_ENABLE
 	/** Update LMS key object from vault if public key ID is valid. */
 	if (LmsParams.LmsHssKeyObj.PubKeyId != 0U) {
 		Status = XKeyManager_UpdateKeyObjFromVault(XAsufw_LmsModule.AsuDmaPtr,
@@ -244,9 +256,6 @@ static s32 XAsufw_LmsSignVerify(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 		/* Clear KeyId since keyaddress is fetched. */
 		LmsParams.LmsHssKeyObj.PubKeyId = 0U;
 	}
-#else
-	(void)SubSystemId;
-	(void)IpiMask;
 #endif /* XASU_KEYMANAGER_ENABLE */
 
 	/**
@@ -328,7 +337,6 @@ static s32 XAsufw_HssSignVerify(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 			goto END;
 		}
 
-#ifdef XASU_KEYMANAGER_ENABLE
 		/** Get subsystem ID from IPI mask. */
 		SubSystemId = XAsu_GetSubsysIdFromIpiMask(IpiMask);
 		if (SubSystemId == XASUFW_INVALID_SUBSYS_ID) {
@@ -336,6 +344,18 @@ static s32 XAsufw_HssSignVerify(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 			goto END;
 		}
 
+		/** Validate the client provided message and signature buffers. */
+		XASUFW_VALIDATE_MEM_ACCESS(END, Status, SubSystemId, HssParams.MsgAddr,
+					   HssParams.MsgLen);
+		XASUFW_VALIDATE_MEM_ACCESS(END, Status, SubSystemId, HssParams.SignatureAddr,
+					   HssParams.SignatureLen);
+
+		/** Validate the client provided public key buffer. */
+		XASUFW_VALIDATE_MEM_ACCESS(END, Status, SubSystemId,
+					   HssParams.LmsHssKeyObj.PubKeyAddr,
+					   HssParams.LmsHssKeyObj.PubKeyLen);
+
+#ifdef XASU_KEYMANAGER_ENABLE
 		/** Update LMS key object from vault if public key ID is valid. */
 		if (HssParams.LmsHssKeyObj.PubKeyId != 0U) {
 			Status = XKeyManager_UpdateKeyObjFromVault(XAsufw_LmsModule.AsuDmaPtr,
@@ -349,9 +369,6 @@ static s32 XAsufw_HssSignVerify(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 			/* Clear KeyId since keyaddress is fetched. */
 			HssParams.LmsHssKeyObj.PubKeyId = 0U;
 		}
-#else
-	(void)SubSystemId;
-	(void)IpiMask;
 #endif /* XASU_KEYMANAGER_ENABLE */
 	}
 

@@ -28,6 +28,7 @@
  *       rmv  08/01/25 Added API to set TRNG to default mode
  *       rmv  09/09/25 Bring TRNG mode check together in XTrng_Reseed()
  *       rmv  09/09/25 Moved XTrng_ErrorState enum from header to source file
+ *       rmv  08/21/26 Moved block length and DF length macros to the header
  *
  * </pre>
  *
@@ -49,13 +50,10 @@
 /** TBD: Need to update to proper timeout value after measurement */
 #define XTRNG_RESEED_TIMEOUT			1500000U	/**< Reseed timeout in micro-seconds */
 #define XTRNG_GENERATE_TIMEOUT			1500000U	/**< Generate timeout in micro-seconds */
-#define XTRNG_BLOCK_LEN_IN_BYTES		16U	/**< TRNG block length in bytes */
 #define XTRNG_MIN_SEEDLIFE				1U	/**< Minimum seed life */
 #define XTRNG_MAX_SEEDLIFE				0x80000U /**< Maximum seed life 2^19 */
 #define XTRNG_SEC_STRENGTH_IN_BURSTS	2U	/**< Security strength in 128-bit bursts */
 #define XTRNG_BURST_SIZE_IN_WORDS		4U	/**< Burst size in words */
-#define XTRNG_DF_MIN_LENGTH				2U	/**< Minimum DF input length */
-#define XTRNG_DF_MAX_LENGTH				0x1FU	/**< Maximum DF input length */
 #define XTRNG_AUTOPROC_NRNPS_VALUE		0x3FU /**< Autoproc NRNPS value */
 
 #define XTRNG_DF_NUM_OF_BYTES_BEFORE_MIN_700CLKS_WAIT	8U

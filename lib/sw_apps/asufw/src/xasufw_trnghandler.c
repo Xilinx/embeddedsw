@@ -30,6 +30,7 @@
  *       rmv  09/12/25 Moved all DRBG related functions and commands under
  * 					   XASU_TRNG_ENABLE_DRBG_MODE macro
  *       rmv  09/22/25 Updated timeout value from 100ms to 40ms
+ *       rmv  08/17/26 Added validation of client provided buffers
  *
  * </pre>
  *
@@ -42,6 +43,7 @@
 #include "xasufw_trnghandler.h"
 #include "xasufw_modules.h"
 #include "xasufw_status.h"
+#include "xasufw_memvalidation.h"
 #include "xtrng.h"
 #include "xtrng_hw.h"
 #include "xasu_trnginfo.h"
@@ -265,6 +267,8 @@ END:
  * @return
  * 	- XASUFW_SUCCESS, if command execution is successful.
  * 	- XASUFW_FAILURE, if there is any failure.
+ * 	- XASUFW_INVALID_PARAM, if the command length does not match the command parameters.
+ * 	- XASUFW_INVALID_SUBSYSTEM_ID, if invalid subsystem ID is provided.
  *
  *************************************************************************************************/
 static s32 XAsufw_TrngDrbgInstantiate(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
@@ -273,8 +277,25 @@ static s32 XAsufw_TrngDrbgInstantiate(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	XTrng *XAsufw_Trng = XTrng_GetInstance(XASU_XTRNG_0_DEVICE_ID);
 	XTrng_UserConfig UsrCfg;
 	XAsu_DrbgInstantiateCmd *Cmd = (XAsu_DrbgInstantiateCmd *)ReqBuf->Arg;
+	u32 IpiMask = ReqId >> XASUFW_IPI_BITMASK_SHIFT;
+	u32 SubsystemId = 0U;
 
-	(void)ReqId;
+	/** Verify command length. */
+	XASUFW_VERIFY_CMD_LEN(END, Status, ReqBuf, XAsu_DrbgInstantiateCmd);
+
+	/** Get subsystem ID from IPI mask. */
+	SubsystemId = XAsu_GetSubsysIdFromIpiMask(IpiMask);
+	if (SubsystemId == XASUFW_INVALID_SUBSYS_ID) {
+		Status = XASUFW_INVALID_SUBSYSTEM_ID;
+		goto END;
+	}
+
+	/** Validate the client provided seed buffer. */
+	XASUFW_VALIDATE_MEM_ACCESS(END, Status, SubsystemId, Cmd->SeedPtr, Cmd->SeedLen);
+
+	/** Validate the client provided personalization string. */
+	XASUFW_VALIDATE_MEM_ACCESS(END, Status, SubsystemId, Cmd->PersStrPtr,
+				   XTRNG_PERS_STRING_LEN_IN_BYTES);
 
 	/* Instantiate TRNG in DRBG mode. */
 	UsrCfg.Mode = XTRNG_DRBG_MODE;
@@ -306,6 +327,9 @@ END:
  * @return
  * 	- XASUFW_SUCCESS, if command execution is successful.
  * 	- XASUFW_FAILURE, if there is any failure.
+ * 	- XASUFW_INVALID_PARAM, if the command length does not match the command parameters.
+ * 	- XASUFW_INVALID_SUBSYSTEM_ID, if invalid subsystem ID is provided.
+ * 	- XASUFW_TRNG_INVALID_DF_LENGTH, if the derivative function length is out of range.
  *
  *************************************************************************************************/
 static s32 XAsufw_TrngDrbgReseed(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
@@ -313,14 +337,39 @@ static s32 XAsufw_TrngDrbgReseed(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	s32 Status = XASUFW_FAILURE;
 	XTrng *XAsufw_Trng = XTrng_GetInstance(XASU_XTRNG_0_DEVICE_ID);
 	XAsu_DrbgReseedCmd *Cmd = (XAsu_DrbgReseedCmd *)ReqBuf->Arg;
+	u32 IpiMask = ReqId >> XASUFW_IPI_BITMASK_SHIFT;
+	u32 SubsystemId = 0U;
+	u32 DFLen = Cmd->DFLen;
 
-	(void)ReqId;
+	/** Verify command length. */
+	XASUFW_VERIFY_CMD_LEN(END, Status, ReqBuf, XAsu_DrbgReseedCmd);
 
-	Status = XTrng_Reseed(XAsufw_Trng, (u8 *)(UINTPTR)Cmd->ReseedPtr, (u8)Cmd->DFLen);
+	/** Get subsystem ID from IPI mask. */
+	SubsystemId = XAsu_GetSubsysIdFromIpiMask(IpiMask);
+	if (SubsystemId == XASUFW_INVALID_SUBSYS_ID) {
+		Status = XASUFW_INVALID_SUBSYSTEM_ID;
+		goto END;
+	}
+
+	/** Reject a derivative function length that the reseed operation does not support. */
+	if ((DFLen < XTRNG_DF_MIN_LENGTH) || (DFLen > XTRNG_DF_MAX_LENGTH)) {
+		Status = XASUFW_TRNG_INVALID_DF_LENGTH;
+		goto END;
+	}
+
+	/**
+	 * Validate the client provided seed buffer for the number of bytes the reseed operation
+	 * reads from it.
+	 */
+	XASUFW_VALIDATE_MEM_ACCESS(END, Status, SubsystemId, Cmd->ReseedPtr,
+				   ((u64)DFLen + 1U) * (u64)XTRNG_BLOCK_LEN_IN_BYTES);
+
+	Status = XTrng_Reseed(XAsufw_Trng, (u8 *)(UINTPTR)Cmd->ReseedPtr, (u8)DFLen);
 	if (Status != XASUFW_SUCCESS) {
 		(void)XTrng_Uninstantiate(XAsufw_Trng);
 	}
 
+END:
 	return Status;
 }
 
@@ -334,6 +383,8 @@ static s32 XAsufw_TrngDrbgReseed(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
  * @return
  * 	- XASUFW_SUCCESS, if command execution is successful.
  * 	- XASUFW_FAILURE, if there is any failure.
+ * 	- XASUFW_INVALID_PARAM, if the command length does not match the command parameters.
+ * 	- XASUFW_INVALID_SUBSYSTEM_ID, if invalid subsystem ID is provided.
  *
  *************************************************************************************************/
 static s32 XAsufw_TrngDrbgGenerate(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
@@ -341,8 +392,21 @@ static s32 XAsufw_TrngDrbgGenerate(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	s32 Status = XASUFW_FAILURE;
 	XTrng *XAsufw_Trng = XTrng_GetInstance(XASU_XTRNG_0_DEVICE_ID);
 	XAsu_DrbgGenerateCmd *Cmd = (XAsu_DrbgGenerateCmd *)ReqBuf->Arg;
+	u32 IpiMask = ReqId >> XASUFW_IPI_BITMASK_SHIFT;
+	u32 SubsystemId = 0U;
 
-	(void)ReqId;
+	/** Verify command length. */
+	XASUFW_VERIFY_CMD_LEN(END, Status, ReqBuf, XAsu_DrbgGenerateCmd);
+
+	/** Get subsystem ID from IPI mask. */
+	SubsystemId = XAsu_GetSubsysIdFromIpiMask(IpiMask);
+	if (SubsystemId == XASUFW_INVALID_SUBSYS_ID) {
+		Status = XASUFW_INVALID_SUBSYSTEM_ID;
+		goto END;
+	}
+
+	/** Validate the client provided random data buffer. */
+	XASUFW_VALIDATE_MEM_ACCESS(END, Status, SubsystemId, Cmd->RandBuf, Cmd->RandBufSize);
 
 	Status = XTrng_Generate(XAsufw_Trng, (u8 *)(UINTPTR)Cmd->RandBuf, Cmd->RandBufSize,
 			(u8)Cmd->PredResistance);
@@ -350,6 +414,7 @@ static s32 XAsufw_TrngDrbgGenerate(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 		(void)XTrng_Uninstantiate(XAsufw_Trng);
 	}
 
+END:
 	return Status;
 }
 #endif /* XASU_TRNG_ENABLE_DRBG_MODE */

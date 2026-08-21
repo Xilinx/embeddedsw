@@ -22,6 +22,7 @@
  *       ma   12/12/24 Updated resource allocation logic
  *       yog  03/25/25 Added support for public key generation.
  *       yog  07/11/25 Updated code related to curve type value updation.
+ *       rmv  08/17/26 Added validation of client provided buffers
  *
  * </pre>
  *
@@ -35,6 +36,7 @@
 #include "xasufw_ecchandler.h"
 #include "xasufw_status.h"
 #include "xasufw_util.h"
+#include "xasufw_memvalidation.h"
 #include "xasufw_cmd.h"
 #include "xasufw_debug.h"
 #include "xasufw_kat.h"
@@ -251,7 +253,6 @@ static s32 XAsufw_EccGenSign(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	} else {
 		ResourceId = XASUFW_RSA;
 	}
-#ifdef XASU_KEYMANAGER_ENABLE
 	/** Get subsystem ID from IPI mask. */
 	SubSystemId = XAsu_GetSubsysIdFromIpiMask(IpiMask);
 	if (SubSystemId == XASUFW_INVALID_SUBSYS_ID) {
@@ -259,6 +260,11 @@ static s32 XAsufw_EccGenSign(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 		goto END;
 	}
 
+	/** Validate the client provided private key buffer. */
+	XASUFW_VALIDATE_MEM_ACCESS(END, Status, SubSystemId, EccKeyObj.KeyAddr,
+				   EccKeyObj.KeyLen);
+
+#ifdef XASU_KEYMANAGER_ENABLE
 	/** If KeyAddr is zero and KeyId is provided, retrieve private key from vault. */
 	if (EccKeyObj.KeyId != 0U) {
 		Status = XKeyManager_UpdateKeyObjFromVault(XAsufw_EccModule.AsuDmaPtr,
@@ -270,10 +276,13 @@ static s32 XAsufw_EccGenSign(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 			goto END;
 		}
 	}
-#else
-	(void)SubSystemId;
-	(void)IpiMask;
 #endif /* XASU_KEYMANAGER_ENABLE */
+
+	/** Validate the client provided digest and signature buffers. */
+	XASUFW_VALIDATE_MEM_ACCESS(END, Status, SubSystemId, EccParamsPtr->DigestAddr,
+				   EccParamsPtr->DigestLen);
+	XASUFW_VALIDATE_MEM_ACCESS(END, Status, SubSystemId, EccParamsPtr->SignAddr,
+				   XASUFW_DOUBLE_VALUE(EccKeyObj.KeyLen));
 
 	/**
 	 * Generate signature using core API XEcc_GenerateSignature or XRsa_EccGenerateSignature
@@ -339,7 +348,6 @@ static s32 XAsufw_EccVerifySign(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	} else {
 		ResourceId = XASUFW_RSA;
 	}
-#ifdef XASU_KEYMANAGER_ENABLE
 	/** Get subsystem ID from IPI mask. */
 	SubSystemId = XAsu_GetSubsysIdFromIpiMask(IpiMask);
 	if (SubSystemId == XASUFW_INVALID_SUBSYS_ID) {
@@ -347,6 +355,11 @@ static s32 XAsufw_EccVerifySign(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 		goto END;
 	}
 
+	/** Validate the client provided public key buffer. */
+	XASUFW_VALIDATE_MEM_ACCESS(END, Status, SubSystemId, EccKeyObj.KeyAddr,
+				   XASUFW_DOUBLE_VALUE(EccKeyObj.KeyLen));
+
+#ifdef XASU_KEYMANAGER_ENABLE
 	/** If KeyAddr is zero and KeyId is provided, retrieve public key from vault. */
 	if (EccKeyObj.KeyId != 0U) {
 		Status = XKeyManager_UpdateKeyObjFromVault(XAsufw_EccModule.AsuDmaPtr,
@@ -358,10 +371,13 @@ static s32 XAsufw_EccVerifySign(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 			goto END;
 		}
 	}
-#else
-	(void)SubSystemId;
-	(void)IpiMask;
 #endif /* XASU_KEYMANAGER_ENABLE */
+
+	/** Validate the client provided digest and signature buffers. */
+	XASUFW_VALIDATE_MEM_ACCESS(END, Status, SubSystemId, EccParamsPtr->DigestAddr,
+				   EccParamsPtr->DigestLen);
+	XASUFW_VALIDATE_MEM_ACCESS(END, Status, SubSystemId, EccParamsPtr->SignAddr,
+				   XASUFW_DOUBLE_VALUE(EccKeyObj.KeyLen));
 
 	/**
 	 * Verify signature using core API XEcc_VerifySignature or XRsa_EccVerifySignature
@@ -428,7 +444,6 @@ static s32 XAsufw_EccGenPubKey(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	} else {
 		ResourceId = XASUFW_RSA;
 	}
-#ifdef XASU_KEYMANAGER_ENABLE
 	/** Get subsystem ID from IPI mask. */
 	SubSystemId = XAsu_GetSubsysIdFromIpiMask(IpiMask);
 	if (SubSystemId == XASUFW_INVALID_SUBSYS_ID) {
@@ -436,6 +451,11 @@ static s32 XAsufw_EccGenPubKey(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 		goto END;
 	}
 
+	/** Validate the client provided private key buffer. */
+	XASUFW_VALIDATE_MEM_ACCESS(END, Status, SubSystemId, EccPvtKeyObj.KeyAddr,
+				   EccPvtKeyObj.KeyLen);
+
+#ifdef XASU_KEYMANAGER_ENABLE
 	if (EccPvtKeyObj.KeyId != 0U) {
 		Status = XKeyManager_UpdateKeyObjFromVault(XAsufw_EccModule.AsuDmaPtr,
 			EccPvtKeyObj.KeyId, (u64)(UINTPTR)&EccPvtKeyObj, SubSystemId,
@@ -446,10 +466,11 @@ static s32 XAsufw_EccGenPubKey(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 			goto END;
 		}
 	}
-#else
-	(void)SubSystemId;
-	(void)IpiMask;
 #endif /* XASU_KEYMANAGER_ENABLE */
+
+	/** Validate the client buffer receiving the generated public key. */
+	XASUFW_VALIDATE_MEM_ACCESS(END, Status, SubSystemId, EccParamsPtr->PubKeyAddr,
+				   XASUFW_DOUBLE_VALUE(EccPvtKeyObj.KeyLen));
 
 	/**
 	 * Generate the public key using core API XEcc_GeneratePublicKey or XRsa_EccGeneratePubKey
@@ -490,6 +511,7 @@ END:
  * 	- XASUFW_SUCCESS, if public key validation operation is successful.
  * 	- XASUFW_RESOURCE_RELEASE_NOT_ALLOWED, upon illegal resource release.
  * 	- XASUFW_INVALID_PARAM, if any argument is invalid.
+ * 	- XASUFW_INVALID_SUBSYSTEM_ID, if invalid subsystem ID is provided.
  *
  *************************************************************************************************/
 static s32 XAsufw_EccValidatePubKey(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
@@ -498,6 +520,8 @@ static s32 XAsufw_EccValidatePubKey(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	XEcc *EccInstancePtr = XEcc_GetInstance(XASU_XECC_0_DEVICE_ID);
 	const XAsu_EccKeyParams *EccParamsPtr = (const XAsu_EccKeyParams *)ReqBuf->Arg;
 	XAsufw_Resource ResourceId = XASUFW_INVALID;
+	u32 SubSystemId = 0U;
+	u32 IpiMask = ReqId >> XASUFW_IPI_BITMASK_SHIFT;
 
 	if ((EccParamsPtr->PvtKey.CurveType == XASU_ECC_NIST_P256) ||
 		(EccParamsPtr->PvtKey.CurveType == XASU_ECC_NIST_P384)) {
@@ -508,6 +532,17 @@ static s32 XAsufw_EccValidatePubKey(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 
 	/** Verify command length. */
 	XASUFW_VERIFY_CMD_LEN(END, Status, ReqBuf, XAsu_EccKeyParams);
+
+	/** Get subsystem ID from IPI mask. */
+	SubSystemId = XAsu_GetSubsysIdFromIpiMask(IpiMask);
+	if (SubSystemId == XASUFW_INVALID_SUBSYS_ID) {
+		Status = XASUFW_INVALID_SUBSYSTEM_ID;
+		goto END;
+	}
+
+	/** Validate the client provided public key buffer. */
+	XASUFW_VALIDATE_MEM_ACCESS(END, Status, SubSystemId, EccParamsPtr->PubKeyAddr,
+				   XASUFW_DOUBLE_VALUE(EccParamsPtr->PvtKey.KeyLen));
 
 	/**
 	 * Validate the public key using core API XEcc_ValidatePublicKey or XRsa_EccValidatePubKey
@@ -568,7 +603,7 @@ static s32 XAsufw_EcdhGenSharedSecret(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	/** Copy key object from request */
 	PvtKeyObj = EcdhParamsPtr->PvtKey;
 	PubKeyObj = EcdhParamsPtr->PubKey;
-#ifdef XASU_KEYMANAGER_ENABLE
+
 	/** Get subsystem ID from IPI mask. */
 	SubSystemId = XAsu_GetSubsysIdFromIpiMask(IpiMask);
 	if (SubSystemId == XASUFW_INVALID_SUBSYS_ID) {
@@ -576,6 +611,13 @@ static s32 XAsufw_EcdhGenSharedSecret(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 		goto END;
 	}
 
+	/** Validate the client provided key buffers. */
+	XASUFW_VALIDATE_MEM_ACCESS(END, Status, SubSystemId, PvtKeyObj.KeyAddr,
+				   PvtKeyObj.KeyLen);
+	XASUFW_VALIDATE_MEM_ACCESS(END, Status, SubSystemId, PubKeyObj.KeyAddr,
+				   XASUFW_DOUBLE_VALUE(PubKeyObj.KeyLen));
+
+#ifdef XASU_KEYMANAGER_ENABLE
 	if (PvtKeyObj.KeyId != 0U) {
 		Status = XKeyManager_UpdateKeyObjFromVault(XAsufw_EccModule.AsuDmaPtr,
 			PvtKeyObj.KeyId, (u64)(UINTPTR)&PvtKeyObj, SubSystemId,
@@ -597,10 +639,20 @@ static s32 XAsufw_EcdhGenSharedSecret(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 			goto END;
 		}
 	}
-#else
-	(void)SubSystemId;
-	(void)IpiMask;
 #endif /* XASU_KEYMANAGER_ENABLE */
+
+	/**
+	 * Validate the client buffer receiving the shared secret. The secret is written either
+	 * to the shared secret buffer or, when that buffer is not provided, as an object ID.
+	 */
+	if (EcdhParamsPtr->SharedSecretAddr != 0U) {
+		XASUFW_VALIDATE_MEM_ACCESS(END, Status, SubSystemId,
+					   EcdhParamsPtr->SharedSecretAddr, PvtKeyObj.KeyLen);
+	} else {
+		XASUFW_VALIDATE_MEM_ACCESS(END, Status, SubSystemId,
+					   EcdhParamsPtr->SharedSecretObjIdAddr,
+					   XASUFW_WORD_LEN_IN_BYTES);
+	}
 
 	/** Generate shared secret using public key and private key based on curve type. */
 	Status = XRsa_EcdhGenSharedSecret(XAsufw_EccModule.AsuDmaPtr, PvtKeyObj.CurveType,

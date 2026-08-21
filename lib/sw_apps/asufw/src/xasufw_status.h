@@ -53,6 +53,7 @@
  *       LP   04/07/25 Added HKDF error codes
  *       rmv  08/04/25 Added error code for TRNG mode configuration failure
  *       rmv  08/04/25 Added error codes for OCP functionality
+ *       rmv  08/21/26 Added error codes for memory region access validation
  *
  * </pre>
  *
@@ -796,6 +797,19 @@ enum {
 	XASUFW_OCP_ISSUER_KEY_PAIR_MISMATCH, /**< 0x237U - Error when the issuer public key and the
 						issuer private key given by the user do not form
 						a key pair */
+	XASUFW_MEM_REGN_INVALID_PARAM, /**< 0x238U - Error when input parameters to the memory
+						region address validation are invalid. */
+	XASUFW_MEM_REGN_TABLE_INVALID, /**< 0x239U - Error when the memory region table is
+						invalid. */
+	XASUFW_MEM_REGN_TABLE_SYNC_FAIL, /**< 0x23AU - Error when table is not synchronized between
+						PLM and ASUFW. */
+	XASUFW_MEM_REGN_ACCESS_DENIED, /**< 0x23BU - Error when the requested address range is not
+						accessible. */
+	XASUFW_MEM_REGN_REGION_INACTIVE, /**< 0x23CU - Error when the region is inactive. */
+	XASUFW_MEM_REGN_INVALID_ACCESS_BIT, /**< 0x23DU - Error when the access bit index is invalid. */
+	XASUFW_SEARCH_MEM_REGN_FAILED, /**< 0x23EU - Error when the search operation fails. */
+	XASUFW_VALIDATE_BUFFERS_FAILED, /**< 0x23FU - Error when validation of the client provided
+						buffers of a command fails. */
 
 	/* Additional status success codes */
 	XASUFW_OCP_CERT_GENERATION_SUCCESS = 0x3F7U, /**< 0x3F7U - OCP certificate generation

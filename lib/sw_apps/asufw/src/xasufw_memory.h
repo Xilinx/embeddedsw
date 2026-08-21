@@ -18,6 +18,7 @@
  * 1.0   ma   07/23/23 Initial release
  *       yog  09/26/24 Added doxygen groupings and fixed doxygen comments.
  *       rmv  09/12/25 Added shared memory related macros
+ *       rmv  08/21/26 Added memory region access table address and size macros
  *
  * </pre>
  *
@@ -116,6 +117,16 @@ extern "C" {
 
 /* PLM RunTime Configuration Area Base Address */
 #define XASUFW_PLMI_RTCFG_BASEADDR	(0xF2014000U) /**< PLM runtime configuration base address */
+
+/*
+ * Memory region access table in PMC RAM. The configuration tool populates the table and PLM
+ * maintains it at runtime; ASUFW only reads it. The base address and size must match
+ * XPLMI_MEMTBL_ADDR and XPLMI_MEMTBL_LENGTH on the PLM side.
+ */
+#define XASUFW_MEM_REGN_TABLE_BASE_ADDR	(0xF201C800U)	/**< PMC RAM base address of the memory
+							region access table */
+#define XASUFW_MEM_REGN_TABLE_SIZE_BYTES (0x800U)	/**< Size of the PMC RAM region reserved
+							for the memory region access table */
 #define XASUFW_PLM_RTCA_EFUSE_0_IV_ADDR	(XASUFW_PLMI_RTCFG_BASEADDR + 0x384U)
 						/**< Address of efuse 0 IV of size 12 bytes */
 #define XASUFW_PLM_RTCA_EFUSE_1_IV_ADDR	(XASUFW_PLMI_RTCFG_BASEADDR + 0x390U)

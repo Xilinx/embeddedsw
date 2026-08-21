@@ -16,6 +16,7 @@
  * Ver   Who  Date     Changes
  * ----- ---- -------- ----------------------------------------------------------------------------
  * 1.0   rmv  07/16/25 Initial release
+ *       rmv  08/17/26 Added validation of client provided buffers
  *
  * </pre>
  *
@@ -37,6 +38,7 @@
 #include "xasufw_resourcemanager.h"
 #include "xasufw_status.h"
 #include "xasufw_util.h"
+#include "xasufw_memvalidation.h"
 #include "xocp.h"
 #include "xsha_hw.h"
 #include "xocp_ude.h"
@@ -186,6 +188,7 @@ END:
  * @return
  *	- XASUFW_SUCCESS, if DevIk CSR is generated successfully.
  *	- XASUFW_FAILURE, in case of failure.
+ *	- XASUFW_INVALID_SUBSYSTEM_ID, if subsystem id is not retrieved.
  *	- XASUFW_RESOURCE_RELEASE_NOT_ALLOWED, if resource release is not allowed.
  *
  *************************************************************************************************/
@@ -194,9 +197,24 @@ static s32 XAsufw_OcpDevIkCsrX509CertGen(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	s32 Status = XASUFW_FAILURE;
 	const XAsu_OcpCertParams *OcpCertParam = (const XAsu_OcpCertParams *)ReqBuf->Arg;
 	X509_PlatData PlatData;
+	u32 SubsystemId = 0U;
+	u32 IpiMask = ReqId >> XASUFW_IPI_BITMASK_SHIFT;
 
 	/** Verify command length. */
 	XASUFW_VERIFY_CMD_LEN(END, Status, ReqBuf, XAsu_OcpCertParams);
+
+	/** Get subsystem ID from IPI mask. */
+	SubsystemId = XAsu_GetSubsysIdFromIpiMask(IpiMask);
+	if (SubsystemId == XASUFW_INVALID_SUBSYS_ID) {
+		Status = XASUFW_INVALID_SUBSYSTEM_ID;
+		goto END;
+	}
+
+	/** Validate the client provided certificate and certificate size buffers. */
+	XASUFW_VALIDATE_MEM_ACCESS(END, Status, SubsystemId, OcpCertParam->CertBufAddr,
+				   OcpCertParam->CertBufLen);
+	XASUFW_VALIDATE_MEM_ACCESS(END, Status, SubsystemId, OcpCertParam->CertActualSizeAddr,
+				   XASUFW_WORD_LEN_IN_BYTES);
 
 	/** Assign DMA and SHA instance pointers. */
 	PlatData.DmaPtr = XAsufw_OcpModule.AsuDmaPtr;
@@ -227,6 +245,7 @@ END:
  * @return
  *	- XASUFW_SUCCESS, if DevIk certificate is generated successfully.
  *	- XASUFW_FAILURE, in case of failure.
+ *	- XASUFW_INVALID_SUBSYSTEM_ID, if subsystem id is not retrieved.
  *	- XASUFW_RESOURCE_RELEASE_NOT_ALLOWED, if resource release is not allowed.
  *
  *************************************************************************************************/
@@ -235,9 +254,24 @@ static s32 XAsufw_OcpDevIkX509CertGen(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	s32 Status = XASUFW_FAILURE;
 	const XAsu_OcpCertParams *OcpCertParam = (const XAsu_OcpCertParams *)ReqBuf->Arg;
 	X509_PlatData PlatData;
+	u32 SubsystemId = 0U;
+	u32 IpiMask = ReqId >> XASUFW_IPI_BITMASK_SHIFT;
 
 	/** Verify command length. */
 	XASUFW_VERIFY_CMD_LEN(END, Status, ReqBuf, XAsu_OcpCertParams);
+
+	/** Get subsystem ID from IPI mask. */
+	SubsystemId = XAsu_GetSubsysIdFromIpiMask(IpiMask);
+	if (SubsystemId == XASUFW_INVALID_SUBSYS_ID) {
+		Status = XASUFW_INVALID_SUBSYSTEM_ID;
+		goto END;
+	}
+
+	/** Validate the client provided certificate and certificate size buffers. */
+	XASUFW_VALIDATE_MEM_ACCESS(END, Status, SubsystemId, OcpCertParam->CertBufAddr,
+				   OcpCertParam->CertBufLen);
+	XASUFW_VALIDATE_MEM_ACCESS(END, Status, SubsystemId, OcpCertParam->CertActualSizeAddr,
+				   XASUFW_WORD_LEN_IN_BYTES);
 
 	/** Assign DMA and SHA instance pointers. */
 	PlatData.DmaPtr = XAsufw_OcpModule.AsuDmaPtr;
@@ -289,6 +323,12 @@ static s32 XAsufw_OcpDevAkX509CertGen(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 		Status = XASUFW_INVALID_SUBSYSTEM_ID;
 		goto END;
 	}
+
+	/** Validate the client provided certificate and certificate size buffers. */
+	XASUFW_VALIDATE_MEM_ACCESS(END, Status, SubsystemId, OcpCertParam->CertBufAddr,
+				   OcpCertParam->CertBufLen);
+	XASUFW_VALIDATE_MEM_ACCESS(END, Status, SubsystemId, OcpCertParam->CertActualSizeAddr,
+				   XASUFW_WORD_LEN_IN_BYTES);
 
 	/** Assign DMA and SHA instance pointers. */
 	PlatData.DmaPtr = XAsufw_OcpModule.AsuDmaPtr;
@@ -390,6 +430,12 @@ static s32 XAsufw_OcpDevAkAttestation(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 		goto END;
 	}
 
+	/** Validate the client provided attestation data and signature buffers. */
+	XASUFW_VALIDATE_MEM_ACCESS(END, Status, SubsystemId, OcpAttestParam->DataAddr,
+				   OcpAttestParam->DataLen);
+	XASUFW_VALIDATE_MEM_ACCESS(END, Status, SubsystemId, OcpAttestParam->SignatureAddr,
+				   OcpAttestParam->SignatureBufLen);
+
 	/** DevAk attestation. */
 	Status = XOcp_AttestWithDevAk(XAsufw_OcpModule.AsuDmaPtr, OcpAttestParam, SubsystemId);
 
@@ -412,6 +458,7 @@ END:
  *
  * @return
  *	- XASUFW_SUCCESS, if resource is allocated successfully.
+ *	- XASUFW_INVALID_SUBSYSTEM_ID, if subsystem id is not retrieved.
  *	- XASUFW_OCP_UDE_CHALLENGE_RESPONSE_FAIL, if UDE challenge response operation fails.
  *	- XASUFW_RESOURCE_RELEASE_NOT_ALLOWED, if resource release is not allowed.
  *
@@ -420,9 +467,24 @@ static s32 XAsufw_OcpUdeChallengeReq(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 {
 	s32 Status = XASUFW_FAILURE;
 	const XAsu_OcpUdeParams *OcpUdeParamsPtr = (const XAsu_OcpUdeParams *)(UINTPTR)ReqBuf->Arg;
+	u32 SubsystemId = 0U;
+	u32 IpiMask = ReqId >> XASUFW_IPI_BITMASK_SHIFT;
 
 	/** Verify command length. */
 	XASUFW_VERIFY_CMD_LEN(END, Status, ReqBuf, XAsu_OcpUdeParams);
+
+	/** Get subsystem ID from IPI mask. */
+	SubsystemId = XAsu_GetSubsysIdFromIpiMask(IpiMask);
+	if (SubsystemId == XASUFW_INVALID_SUBSYS_ID) {
+		Status = XASUFW_INVALID_SUBSYSTEM_ID;
+		goto END;
+	}
+
+	/** Validate the client provided nonce and UDE response buffers. */
+	XASUFW_VALIDATE_MEM_ACCESS(END, Status, SubsystemId, OcpUdeParamsPtr->NonceAddr,
+				   XASU_OCP_UDE_NONCE_SIZE_IN_BYTES);
+	XASUFW_VALIDATE_MEM_ACCESS(END, Status, SubsystemId, OcpUdeParamsPtr->OcpUdeResponseAddr,
+				   sizeof(XAsu_OcpUdeResponse));
 
 	Status = XOcp_GenerateUdeResponse(XAsufw_OcpModule.AsuDmaPtr, OcpUdeParamsPtr);
 	if (Status != XASUFW_SUCCESS) {
@@ -448,6 +510,7 @@ END:
  *
  * @return
  *	- XASUFW_SUCCESS, if resource is allocated successfully.
+ *	- XASUFW_INVALID_SUBSYSTEM_ID, if subsystem id is not retrieved.
  *	- XASUFW_OCP_UDE_KEY_ENCRYPT_FAIL, in case of UDE key encryption failure.
  *	- XASUFW_RESOURCE_RELEASE_NOT_ALLOWED, if resource release is not allowed.
  *
@@ -456,9 +519,22 @@ static s32 XAsufw_OcpUdePvtKeysEncrypt(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 {
 	s32 Status = XASUFW_FAILURE;
 	const XAsu_OcpUdeKeyEncrypt *OcpUdeKeyEnc = (const XAsu_OcpUdeKeyEncrypt *)ReqBuf->Arg;
+	u32 SubsystemId = 0U;
+	u32 IpiMask = ReqId >> XASUFW_IPI_BITMASK_SHIFT;
 
 	/** Verify command length. */
 	XASUFW_VERIFY_CMD_LEN(END, Status, ReqBuf, XAsu_OcpUdeKeyEncrypt);
+
+	/** Get subsystem ID from IPI mask. */
+	SubsystemId = XAsu_GetSubsysIdFromIpiMask(IpiMask);
+	if (SubsystemId == XASUFW_INVALID_SUBSYS_ID) {
+		Status = XASUFW_INVALID_SUBSYSTEM_ID;
+		goto END;
+	}
+
+	/** Validate the client provided encrypted private key buffer. */
+	XASUFW_VALIDATE_MEM_ACCESS(END, Status, SubsystemId, OcpUdeKeyEnc->UdeEncPvtKeyAddr,
+				   XASU_OCP_UDE_KEY_SIZE_IN_BYTES);
 
 	Status = XOcp_EncryptUdeKeys(XAsufw_OcpModule.AsuDmaPtr, OcpUdeKeyEnc);
 	if (Status != XASUFW_SUCCESS) {

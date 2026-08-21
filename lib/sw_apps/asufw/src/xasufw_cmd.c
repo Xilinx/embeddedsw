@@ -230,6 +230,7 @@ END:
  *  - XASUFW_VALIDATE_CMD_INVALID_COMMAND_RECEIVED, when invalid command ID is received.
  *  - XASUFW_ERR_VALIDATE_IPI_NO_IPI_ACCESS, if the requested command lacks required IPI access
  *    permissions for the request type.
+ *  - XASUFW_INVALID_SUBSYSTEM_ID, if the subsystem ID cannot be derived from the IPI mask.
  *  - XASUFW_FAILURE, if there is any failure.
  *
  *************************************************************************************************/

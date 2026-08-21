@@ -17,6 +17,7 @@
 * 1.0   yog  02/20/25 Initial release
 *       yog  03/24/25 Removed random number generation in encryption opetation.
 *       am   04/18/25 Removed unused variable
+*       rmv  08/17/26 Added validation of client provided buffers
 *
 * </pre>
 *
@@ -33,6 +34,7 @@
 #include "xsha_hw.h"
 #include "xasufw_status.h"
 #include "xasufw_util.h"
+#include "xasufw_memvalidation.h"
 #include "xasufw_cmd.h"
 #include "xasufw_kat.h"
 #include "xasu_eccinfo.h"
@@ -206,15 +208,43 @@ END:
  * 	- XASUFW_SUCCESS, if ECIES encrypt operation is successful.
  * 	- XASUFW_ECIES_ENCRYPT_FAILED, if ECIES encryption operation fails.
  * 	- XASUFW_RESOURCE_RELEASE_NOT_ALLOWED, if illegal resource release is requested.
+ * 	- XASUFW_INVALID_SUBSYSTEM_ID, if invalid subsystem ID is provided.
  *
  *************************************************************************************************/
 static s32 XAsufw_EciesEncrypt(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 {
 	s32 Status = XASUFW_FAILURE;
 	const XAsu_EciesParams *EciesParamsPtr = (const XAsu_EciesParams *)ReqBuf->Arg;
+	u32 IpiMask = ReqId >> XASUFW_IPI_BITMASK_SHIFT;
+	u32 SubsystemId = 0U;
 
 	/** Verify command length. */
 	XASUFW_VERIFY_CMD_LEN(END, Status, ReqBuf, XAsu_EciesParams);
+
+	/** Get subsystem ID from IPI mask. */
+	SubsystemId = XAsu_GetSubsysIdFromIpiMask(IpiMask);
+	if (SubsystemId == XASUFW_INVALID_SUBSYS_ID) {
+		Status = XASUFW_INVALID_SUBSYSTEM_ID;
+		goto END;
+	}
+
+	/** Validate the client provided buffers. */
+	XASUFW_VALIDATE_MEM_ACCESS(END, Status, SubsystemId, EciesParamsPtr->RxKeyAddr,
+				   XASUFW_DOUBLE_VALUE(EciesParamsPtr->EccKeyLength));
+	XASUFW_VALIDATE_MEM_ACCESS(END, Status, SubsystemId, EciesParamsPtr->TxKeyAddr,
+				   XASUFW_DOUBLE_VALUE(EciesParamsPtr->EccKeyLength));
+	XASUFW_VALIDATE_MEM_ACCESS(END, Status, SubsystemId, EciesParamsPtr->InDataAddr,
+				   EciesParamsPtr->DataLength);
+	XASUFW_VALIDATE_MEM_ACCESS(END, Status, SubsystemId, EciesParamsPtr->OutDataAddr,
+				   EciesParamsPtr->DataLength);
+	XASUFW_VALIDATE_MEM_ACCESS(END, Status, SubsystemId, EciesParamsPtr->IvAddr,
+				   EciesParamsPtr->IvLength);
+	XASUFW_VALIDATE_MEM_ACCESS(END, Status, SubsystemId, EciesParamsPtr->MacAddr,
+				   EciesParamsPtr->MacLength);
+	XASUFW_VALIDATE_MEM_ACCESS(END, Status, SubsystemId, EciesParamsPtr->ContextAddr,
+				   EciesParamsPtr->ContextLen);
+	XASUFW_VALIDATE_MEM_ACCESS(END, Status, SubsystemId, EciesParamsPtr->SaltAddr,
+				   EciesParamsPtr->SaltLen);
 
 	/** Perform ECIES encryption. */
 	Status = XEcies_Encrypt(XAsufw_EciesModule.AsuDmaPtr, XAsufw_EciesModule.ShaPtr,
@@ -249,15 +279,43 @@ END:
  * 	- XASUFW_SUCCESS, if ECIES decryption operation is successful.
  * 	- XASUFW_ECIES_DECRYPT_FAILED, if ECIES decryption operation fails.
  * 	- XASUFW_RESOURCE_RELEASE_NOT_ALLOWED, if illegal resource release is requested.
+ * 	- XASUFW_INVALID_SUBSYSTEM_ID, if invalid subsystem ID is provided.
  *
  *************************************************************************************************/
 static s32 XAsufw_EciesDecrypt(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 {
 	s32 Status = XASUFW_FAILURE;
 	const XAsu_EciesParams *EciesParamsPtr = (const XAsu_EciesParams *)ReqBuf->Arg;
+	u32 IpiMask = ReqId >> XASUFW_IPI_BITMASK_SHIFT;
+	u32 SubsystemId = 0U;
 
 	/** Verify command length. */
 	XASUFW_VERIFY_CMD_LEN(END, Status, ReqBuf, XAsu_EciesParams);
+
+	/** Get subsystem ID from IPI mask. */
+	SubsystemId = XAsu_GetSubsysIdFromIpiMask(IpiMask);
+	if (SubsystemId == XASUFW_INVALID_SUBSYS_ID) {
+		Status = XASUFW_INVALID_SUBSYSTEM_ID;
+		goto END;
+	}
+
+	/** Validate the client provided buffers. */
+	XASUFW_VALIDATE_MEM_ACCESS(END, Status, SubsystemId, EciesParamsPtr->RxKeyAddr,
+				   EciesParamsPtr->EccKeyLength);
+	XASUFW_VALIDATE_MEM_ACCESS(END, Status, SubsystemId, EciesParamsPtr->TxKeyAddr,
+				   XASUFW_DOUBLE_VALUE(EciesParamsPtr->EccKeyLength));
+	XASUFW_VALIDATE_MEM_ACCESS(END, Status, SubsystemId, EciesParamsPtr->InDataAddr,
+				   EciesParamsPtr->DataLength);
+	XASUFW_VALIDATE_MEM_ACCESS(END, Status, SubsystemId, EciesParamsPtr->OutDataAddr,
+				   EciesParamsPtr->DataLength);
+	XASUFW_VALIDATE_MEM_ACCESS(END, Status, SubsystemId, EciesParamsPtr->IvAddr,
+				   EciesParamsPtr->IvLength);
+	XASUFW_VALIDATE_MEM_ACCESS(END, Status, SubsystemId, EciesParamsPtr->MacAddr,
+				   EciesParamsPtr->MacLength);
+	XASUFW_VALIDATE_MEM_ACCESS(END, Status, SubsystemId, EciesParamsPtr->ContextAddr,
+				   EciesParamsPtr->ContextLen);
+	XASUFW_VALIDATE_MEM_ACCESS(END, Status, SubsystemId, EciesParamsPtr->SaltAddr,
+				   EciesParamsPtr->SaltLen);
 
 	/** Perform ECIES decryption. */
 	Status = XEcies_Decrypt(XAsufw_EciesModule.AsuDmaPtr, XAsufw_EciesModule.ShaPtr,

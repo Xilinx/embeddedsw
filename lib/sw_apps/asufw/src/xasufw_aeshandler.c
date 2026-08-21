@@ -22,6 +22,7 @@
  *       am   04/14/25 Added support for DMA non-blocking wait
  * 1.2   am   05/18/25 Fixed implicit conversion of operands
  *       am   07/18/25 Added core reset support for single glitch recovery
+ *       rmv  08/17/26 Added validation of client provided buffers
  *
  * </pre>
  *
@@ -36,6 +37,7 @@
 #include "xasufw_modules.h"
 #include "xasufw_status.h"
 #include "xasufw_util.h"
+#include "xasufw_memvalidation.h"
 #include "xasufw_resourcemanager.h"
 #include "xasufw_debug.h"
 #include "xasufw_kat.h"
@@ -175,6 +177,7 @@ END:
  *
  * @return
  * 	- XASUFW_SUCCESS, if encryption/decryption operation is successful.
+ * 	- XASUFW_INVALID_SUBSYSTEM_ID, if subsystem id is not retrieved.
  * 	- XASUFW_AES_WRITE_KEY_FAILED, if Key write to AES USER key register fails.
  * 	- XASUFW_AES_INIT_FAILED, if initialization of AES engine fails.
  * 	- XASUFW_AES_UPDATE_FAILED, if update of data to AES engine fails.
@@ -193,10 +196,21 @@ static s32 XAsufw_AesOperation(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	u8 KeyUsecase = 0U;
 	u64 LocalIvAddr = 0U;
 	u32 LocalIvLen = 0U;
+	u32 LocalKeyLen = 0U;
 	u32 SubsystemId = 0U;
 	u32 IpiMask = ReqId >> XASUFW_IPI_BITMASK_SHIFT;
 	XAsu_AesKeyObject KeyObject;
 	XAsu_AesIvObject IvObject;
+
+	/** Verify command length. */
+	XASUFW_VERIFY_CMD_LEN(END, Status, ReqBuf, XAsu_AesParams);
+
+	/** Get subsystem ID from IPI mask. */
+	SubsystemId = XAsu_GetSubsysIdFromIpiMask(IpiMask);
+	if (SubsystemId == XASUFW_INVALID_SUBSYS_ID) {
+		Status = XASUFW_INVALID_SUBSYSTEM_ID;
+		goto END;
+	}
 
 	/**
 	 * If the DMA non-blocking transfer was initiated previously,
@@ -212,21 +226,6 @@ static s32 XAsufw_AesOperation(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	else if (CmdStage == XAES_NON_BLOCKING_DATA_UPDATE_INPROGRESS) {
 		goto XAES_STAGE_DATA_UPDATE_DONE;
 	}
-
-	/** Verify command length. */
-	XASUFW_VERIFY_CMD_LEN(END, Status, ReqBuf, XAsu_AesParams);
-
-#ifdef XASU_KEYMANAGER_ENABLE
-	/** Get subsystem ID from IPI mask. */
-	SubsystemId = XAsu_GetSubsysIdFromIpiMask(IpiMask);
-	if (SubsystemId == XASUFW_INVALID_SUBSYS_ID) {
-		Status = XASUFW_INVALID_SUBSYSTEM_ID;
-		goto END;
-	}
-#else
-	(void)SubsystemId;
-	(void)IpiMask;
-#endif /* XASU_KEYMANAGER_ENABLE */
 
 	/**
 	 * For AES CCM mode, AadLen and DataLen in INIT encode the B0 block, so they must
@@ -261,6 +260,10 @@ static s32 XAsufw_AesOperation(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 		LocalIvAddr = AesParamsPtr->IvObj.IvAddr;
 		LocalIvLen = AesParamsPtr->IvObj.IvLen;
 
+		/** Validate the client provided IV buffer. */
+		XASUFW_VALIDATE_MEM_ACCESS(END, Status, SubsystemId, LocalIvAddr,
+					   LocalIvLen);
+
 #ifdef XASU_KEYMANAGER_ENABLE
 		if (AesParamsPtr->IvObj.IvId != 0U) {
 			IvObject.IvId = AesParamsPtr->IvObj.IvId;
@@ -280,6 +283,10 @@ static s32 XAsufw_AesOperation(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	}
 
 	if ((AesParamsPtr->OperationFlags & XASU_INIT) == XASU_INIT) {
+		/** Validate the client provided key object buffer. */
+		XASUFW_VALIDATE_MEM_ACCESS(END, Status, SubsystemId, AesParamsPtr->KeyObjectAddr,
+					   sizeof(XAsu_AesKeyObject));
+
 		/** Copy KeyObject structure from 64-bit address space to local structure using ASU DMA. */
 		Status = XAsufw_DmaXfr(XAsufw_AesModule.AsuDmaPtr, AesParamsPtr->KeyObjectAddr,
 			(u64)(UINTPTR)&KeyObject, sizeof(XAsu_AesKeyObject), 0U);
@@ -287,6 +294,14 @@ static s32 XAsufw_AesOperation(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 			Status = XASUFW_DMA_COPY_FAIL;
 			goto END;
 		}
+
+		LocalKeyLen = (KeyObject.KeySize == XASU_AES_KEY_SIZE_128_BITS) ?
+				XASU_AES_KEY_SIZE_128BIT_IN_BYTES :
+				XASU_AES_KEY_SIZE_256BIT_IN_BYTES;
+
+		/** Validate the client provided key buffer. */
+		XASUFW_VALIDATE_MEM_ACCESS(END, Status, SubsystemId, KeyObject.KeyAddress,
+					   LocalKeyLen);
 
 #ifdef XASU_KEYMANAGER_ENABLE
 		if (KeyObject.KeyId != 0U) {
@@ -370,6 +385,11 @@ static s32 XAsufw_AesOperation(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 					(AesParamsPtr->DataLen != 0U)) {
 				AadIsLast = XASU_FALSE;
 			}
+
+			/** Validate the client provided AAD buffer. */
+			XASUFW_VALIDATE_MEM_ACCESS(END, Status, SubsystemId, AesParamsPtr->AadAddr,
+						   AesParamsPtr->AadLen);
+
 			Status = XAes_Update(XAsufw_Aes, XAsufw_AesModule.AsuDmaPtr, AesParamsPtr->AadAddr, 0U,
 				AesParamsPtr->AadLen, AadIsLast);
 			if (Status == XASUFW_CMD_IN_PROGRESS) {
@@ -392,6 +412,14 @@ XAES_STAGE_DATA_UPDATE:
 		 * For authentication only modes like CMAC, plaintext is not required.
 		 */
 		if ((AesParamsPtr->InputDataAddr != 0U) && (EngineMode != XASU_AES_CMAC_MODE)) {
+			/** Validate the client provided payload buffers. */
+			XASUFW_VALIDATE_MEM_ACCESS(END, Status, SubsystemId,
+						   AesParamsPtr->InputDataAddr,
+						   AesParamsPtr->DataLen);
+			XASUFW_VALIDATE_MEM_ACCESS(END, Status, SubsystemId,
+						   AesParamsPtr->OutputDataAddr,
+						   AesParamsPtr->DataLen);
+
 			Status = XAes_Update(XAsufw_Aes, XAsufw_AesModule.AsuDmaPtr,
 					AesParamsPtr->InputDataAddr, AesParamsPtr->OutputDataAddr,
 					AesParamsPtr->DataLen, AesParamsPtr->IsLast);
@@ -412,6 +440,10 @@ XAES_STAGE_DATA_UPDATE_DONE:
 	CmdStage = XAES_NON_BLOCKING_CMD_STAGE_INIT;
 
 	if ((AesParamsPtr->OperationFlags & XASU_FINISH) == XASU_FINISH) {
+		/** Validate the client provided tag buffer. */
+		XASUFW_VALIDATE_MEM_ACCESS(END, Status, SubsystemId, AesParamsPtr->TagAddr,
+					   AesParamsPtr->TagLen);
+
 		/** Complete the AES operation. */
 		Status = XAes_Final(XAsufw_Aes, XAsufw_AesModule.AsuDmaPtr, AesParamsPtr->TagAddr,
 					AesParamsPtr->TagLen);

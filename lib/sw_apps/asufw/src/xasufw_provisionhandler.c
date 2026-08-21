@@ -17,6 +17,7 @@
  * Ver   Who  Date     Changes
  * ----- ---- -------- ----------------------------------------------------------------------------
  * 1.0   kp   06/27/26 Initial release
+ *       rmv  08/21/26 Added validation of client provided buffers
  *
  * </pre>
  *
@@ -32,6 +33,7 @@
 #include "xasufw_resourcemanager.h"
 #include "xasufw_status.h"
 #include "xasufw_aeshandler.h"
+#include "xasufw_memvalidation.h"
 #include "xaes.h"
 
 #ifdef XASU_PROVISION_ENABLE
@@ -184,6 +186,10 @@ static s32 XAsufw_ProvisionUserEfuse(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 		Status = XASUFW_INVALID_SUBSYSTEM_ID;
 		goto END;
 	}
+
+	/** Validate that the client provided KeyAddr buffer is accessible to the subsystem. */
+	XASUFW_VALIDATE_MEM_ACCESS(END, Status, SubsystemId, Cmd->KeyAddr,
+				   XASU_PROVISION_USER_EFUSE_KEY_SIZE_IN_BYTES);
 
 	/** Program the requested USER eFUSE key. */
 	Status = XProvision_UserEfuse(XAsufw_ProvisionModule.AsuDmaPtr,
