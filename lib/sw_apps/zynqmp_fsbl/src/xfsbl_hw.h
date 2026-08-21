@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2015 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -801,12 +801,12 @@ extern "C" {
 #define XFSBL_R5_L				(0x2U)
 
 /**
- * To indicate usage of RPU cores to PMU, PMU_GLOBAL_GLOB_GEN_STORAGE4 is used
+ * To indicate usage of cores to PMU, PMU_GLOBAL_GLOB_GEN_STORAGE4 is used
  */
-#define XFSBL_R5_USAGE_STATUS_REG		(PMU_GLOBAL_GLOB_GEN_STORAGE4)
-/* Bit 1 of rpu uasge status register is used for R50 status */
+#define XFSBL_CORE_USAGE_STATUS_REG		(PMU_GLOBAL_GLOB_GEN_STORAGE4)
+/* Bit 1 of core usage status register is used for R50 status */
 #define XFSBL_R5_0_STATUS_MASK			(1U << 1)
-/* Bit 2 of rpu usage status register is used for R51 status */
+/* Bit 2 of core usage status register is used for R51 status */
 #define XFSBL_R5_1_STATUS_MASK			(1U << 2)
 
 /**

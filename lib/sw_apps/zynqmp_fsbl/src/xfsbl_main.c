@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2015 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc.  All rights reserve.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc.  All rights reserve.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -162,8 +162,8 @@ int main(void )
 					 * Mark RPU cores as usable in JTAG boot
 					 * mode.
 					 */
-					Xil_Out32(XFSBL_R5_USAGE_STATUS_REG,
-						  (Xil_In32(XFSBL_R5_USAGE_STATUS_REG) |
+					Xil_Out32(XFSBL_CORE_USAGE_STATUS_REG,
+						  (Xil_In32(XFSBL_CORE_USAGE_STATUS_REG) |
 						   (XFSBL_R5_0_STATUS_MASK |
 						    XFSBL_R5_1_STATUS_MASK)));
 
@@ -181,8 +181,8 @@ int main(void )
 					PartitionNum = 0x1U;
 
 					/* Clear RPU status register */
-					Xil_Out32(XFSBL_R5_USAGE_STATUS_REG,
-						  (Xil_In32(XFSBL_R5_USAGE_STATUS_REG) &
+					Xil_Out32(XFSBL_CORE_USAGE_STATUS_REG,
+						  (Xil_In32(XFSBL_CORE_USAGE_STATUS_REG) &
 						  ~(XFSBL_R5_0_STATUS_MASK |
 						    XFSBL_R5_1_STATUS_MASK)));
 
@@ -612,7 +612,7 @@ static void XFsbl_MarkUsedRPUCores(XFsblPs *FsblInstPtr, u32 PartitionNum)
 	DestCpu = XFsbl_GetDestinationCpu(&FsblInstPtr->ImageHeader.
 					  PartitionHeader[PartitionNum]);
 
-	RegValue = Xil_In32(XFSBL_R5_USAGE_STATUS_REG);
+	RegValue = Xil_In32(XFSBL_CORE_USAGE_STATUS_REG);
 
 	/*
 	 * Check if any RPU core is used. If it is used set particular bit of
@@ -622,17 +622,17 @@ static void XFsbl_MarkUsedRPUCores(XFsblPs *FsblInstPtr, u32 PartitionNum)
 	switch (DestCpu) {
 	case XIH_PH_ATTRB_DEST_CPU_R5_0:
 	case XIH_PH_ATTRB_DEST_CPU_R5_L:
-		Xil_Out32(XFSBL_R5_USAGE_STATUS_REG, RegValue |
+		Xil_Out32(XFSBL_CORE_USAGE_STATUS_REG, RegValue |
 			  XFSBL_R5_0_STATUS_MASK);
 		break;
 	case XIH_PH_ATTRB_DEST_CPU_R5_1:
-		Xil_Out32(XFSBL_R5_USAGE_STATUS_REG, RegValue |
+		Xil_Out32(XFSBL_CORE_USAGE_STATUS_REG, RegValue |
 			  XFSBL_R5_1_STATUS_MASK);
 		break;
 	case XIH_PH_ATTRB_DEST_CPU_NONE:
 		if ((FsblInstance.ProcessorID == XIH_PH_ATTRB_DEST_CPU_R5_0) ||
 		    (FsblInstance.ProcessorID == XIH_PH_ATTRB_DEST_CPU_R5_L)) {
-			Xil_Out32(XFSBL_R5_USAGE_STATUS_REG, RegValue |
+			Xil_Out32(XFSBL_CORE_USAGE_STATUS_REG, RegValue |
 				  XFSBL_R5_0_STATUS_MASK);
 		}
 	}
