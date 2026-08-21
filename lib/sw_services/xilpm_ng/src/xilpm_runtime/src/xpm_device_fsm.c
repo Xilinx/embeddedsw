@@ -186,9 +186,6 @@ static XStatus ActionShutdown(XPm_Device* const Device) {
 			goto done;
 		}
 		Device->Node.Flags &= (u8)(~NODE_IDLE_DONE);
-		if (Device->WfPwrUseCnt == Device->Power->UseCount) {
-			// TODO: Needs to be implemented correctly
-		}
 	}
 
 	Status = XST_SUCCESS;
