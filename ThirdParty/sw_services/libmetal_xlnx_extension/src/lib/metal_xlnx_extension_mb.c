@@ -78,17 +78,16 @@ static void sys_irq_change(unsigned int vector, int is_enable)
 	unsigned int ier;
 	unsigned int mask;
 
-	mask = 1 >> ((vector%32)-1); /* set bit corresponding to interrupt */
-	mask = is_enable ? mask : ~mask; /* if disable then turn off bit */
-
-	cfgptr = XIntc_LookupConfig(vector/32);
-	Xil_AssertVoid(cfgptr != NULL);
 	Xil_AssertVoid(vector < XPAR_INTC_MAX_NUM_INTR_INPUTS);
+	mask = 1U << (vector % 32U); /* set bit corresponding to interrupt */
+
+	cfgptr = XIntc_LookupConfig(vector / 32U);
+	Xil_AssertVoid(cfgptr != NULL);
 
 	ier = XIntc_In32(cfgptr->BaseAddress + XIN_IER_OFFSET);
 
 	XIntc_Out32(cfgptr->BaseAddress + XIN_IER_OFFSET,
-		(ier | mask));
+		is_enable ? (ier | mask) : (ier & ~mask));
 #else
 	(void)vector;
 	(void)is_enable;
