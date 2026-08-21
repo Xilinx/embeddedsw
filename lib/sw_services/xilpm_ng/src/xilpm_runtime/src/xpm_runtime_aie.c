@@ -158,6 +158,7 @@ static XStatus Aie2ps_Zeroization(u32 StartCol, u32 EndCol, const void *Buffer)
 	u64 BaseAddress;
 	u32 Col, Row, Mrow;
 	u32 Ops = ((const struct XPm_AieTypeLen *)Buffer)->Type;
+	u32 Platform = XPm_GetPlatform();
 
 	/* Unlock PCSR */
 	XPm_UnlockPcsr(AieDomain->AieNpiAddress);
@@ -174,6 +175,17 @@ static XStatus Aie2ps_Zeroization(u32 StartCol, u32 EndCol, const void *Buffer)
 
 				AieWrite64(BaseAddress + AIE2PS_CORE_MODULE_MEM_CTRL_OFFSET,
 					   AIE2PS_CORE_MODULE_MEM_CTRL_MEM_ZEROISATION_MASK);
+
+				/* Read back to confirm the trigger asserted (skip on simulation) */
+				if ((PLATFORM_VERSION_QEMU != Platform) &&
+				    (PLATFORM_VERSION_COSIM != Platform) &&
+				    (AIE2PS_CORE_MODULE_MEM_CTRL_MEM_ZEROISATION_MASK !=
+				     (AIE2PS_CORE_MODULE_MEM_CTRL_MEM_ZEROISATION_MASK &
+				      AieRead64(BaseAddress + AIE2PS_CORE_MODULE_MEM_CTRL_OFFSET)))) {
+					DbgErr = XPM_INT_ERR_AIE_MEMORY_ZEROISATION;
+					Status = XPM_REG_WRITE_FAILED;
+					goto done;
+				}
 			}
 		}
 	} else {
@@ -189,6 +201,17 @@ static XStatus Aie2ps_Zeroization(u32 StartCol, u32 EndCol, const void *Buffer)
 
 				AieWrite64(BaseAddress + AIE2PS_MEM_MODULE_MEM_CTRL_OFFSET,
 					   AIE2PS_MEM_MODULE_MEM_CTRL_MEM_ZEROISATION_MASK);
+
+				/* Read back to confirm the trigger asserted (skip on simulation) */
+				if ((PLATFORM_VERSION_QEMU != Platform) &&
+				    (PLATFORM_VERSION_COSIM != Platform) &&
+				    (AIE2PS_MEM_MODULE_MEM_CTRL_MEM_ZEROISATION_MASK !=
+				     (AIE2PS_MEM_MODULE_MEM_CTRL_MEM_ZEROISATION_MASK &
+				      AieRead64(BaseAddress + AIE2PS_MEM_MODULE_MEM_CTRL_OFFSET)))) {
+					DbgErr = XPM_INT_ERR_AIE_MEMORY_ZEROISATION;
+					Status = XPM_REG_WRITE_FAILED;
+					goto done;
+				}
 			}
 		}
 	} else {
@@ -205,6 +228,17 @@ static XStatus Aie2ps_Zeroization(u32 StartCol, u32 EndCol, const void *Buffer)
 				AieRMW64(BaseAddress + AIE2PS_MEM_TILE_MODULE_MEM_CTRL_OFFSET,
 					 AIE2PS_MEM_TILE_MODULE_MEM_CTRL_MEM_ZEROISATION_MASK,
 					 AIE2PS_MEM_TILE_MODULE_MEM_CTRL_MEM_ZEROISATION_MASK);
+
+				/* Read back to confirm the trigger asserted (skip on simulation) */
+				if ((PLATFORM_VERSION_QEMU != Platform) &&
+				    (PLATFORM_VERSION_COSIM != Platform) &&
+				    (AIE2PS_MEM_TILE_MODULE_MEM_CTRL_MEM_ZEROISATION_MASK !=
+				     (AIE2PS_MEM_TILE_MODULE_MEM_CTRL_MEM_ZEROISATION_MASK &
+				      AieRead64(BaseAddress + AIE2PS_MEM_TILE_MODULE_MEM_CTRL_OFFSET)))) {
+					DbgErr = XPM_INT_ERR_AIE_MEMORY_ZEROISATION;
+					Status = XPM_REG_WRITE_FAILED;
+					goto done;
+				}
 			}
 		}
 	} else {
@@ -281,6 +315,7 @@ static XStatus Aie2ps_UcZeroization(u32 StartCol, u32 EndCol, const void *Buffer
 	u32 Col;
 	u32 AieZeroizationTime = 0U;
 	u32 Value = ((const struct XPm_AieOpUcZeroisation *)Buffer)->Flag;
+	u32 Platform = XPm_GetPlatform();
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 	XStatus UcZeroStatus = XST_FAILURE;
 
@@ -288,6 +323,15 @@ static XStatus Aie2ps_UcZeroization(u32 StartCol, u32 EndCol, const void *Buffer
 		BaseAddress = AIE2PS_TILE_BADDR(NocAddress, Col, 0U);
 
 		AieWrite64(BaseAddress + AIE2PS_UC_MODULE_MEM_ZERO_OFFSET, Value);
+
+		/* Read back to confirm the requested triggers asserted (skip on simulation) */
+		if ((PLATFORM_VERSION_QEMU != Platform) &&
+		    (PLATFORM_VERSION_COSIM != Platform) &&
+		    (Value != ((AieRead64(BaseAddress + AIE2PS_UC_MODULE_MEM_ZERO_OFFSET)) & Value))) {
+			DbgErr = XPM_INT_ERR_AIE_UC_ZEROISATION;
+			Status = XPM_REG_WRITE_FAILED;
+			goto done;
+		}
 	}
 
 	/* Poll the last cell for uc zeroization complete */
