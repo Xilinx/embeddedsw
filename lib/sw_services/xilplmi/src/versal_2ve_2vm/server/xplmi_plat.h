@@ -73,6 +73,7 @@
 *       vm   03/16/2026 Added error code related to ASU update event
 *       pre 03/23/26 Added macro for TPM data structure export
 *       ias  08/19/2026 Added XPlmi_MemTblInit declaration
+* 2.5   vm   07/13/2026 Added error code for in-place ASU update rejection
 * </pre>
 *
 ******************************************************************************/
@@ -319,6 +320,9 @@ enum {
 
 	/** 0x20F - ASU firmware shutdown timeout during in-place update. */
 	XPLMI_ERR_ASU_SHUTDOWN_TIMEOUT,
+
+	/** 0x210 - ASU firmware rejected in-place update due to active crypto operations. */
+	XPLMI_ERR_ASU_UPDATE_BUSY,
 };
 
 /** This structure holds the module operation information. */

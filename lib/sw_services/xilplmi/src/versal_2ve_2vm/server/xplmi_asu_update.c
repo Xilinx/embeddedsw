@@ -17,6 +17,7 @@
 * Ver   Who  Date        Changes
 * ====  ==== ======== ==============================================================================
 * 1.0   vm   03/16/26 Initial release
+* 2.5   vm   07/13/26 Abort in-place update on BUSY and shutdown timeout
 *
 * </pre>
 *
@@ -228,6 +229,14 @@ int XPlmi_AsuUpdate(XPlmi_Cmd *Cmd)
 		goto END;
 	}
 
+	/**
+	 * Clear update state before starting a new update attempt. Both PLM and ASUFW write this
+	 * register during the in-place update handshake; PLM writes INIT here before triggering
+	 * the update task, and ASUFW writes BUSY, INIT, SHUTDOWN_DONE or FINISHED as the update
+	 * proceeds.
+	 */
+	XPlmi_Out32(XPLMI_ASU_UPDATE_STATE_REG, XPLMI_UPDATE_STATE_INIT);
+
 	/** Send event notification to trigger ASU shutdown */
 	XPlmi_HandleSwError(XIL_NODETYPE_EVENT_ERROR_SW_ERR,
 		XIL_EVENT_ERROR_MASK_ASU_UPDATE);
@@ -251,6 +260,7 @@ END:
  * @return
  * 		- XST_SUCCESS if ASU update completed successfully.
  * 		- XPLMI_ERR_ASU_SHUTDOWN_TIMEOUT if ASU shutdown exceeds 60 seconds.
+ * 		- XPLMI_ERR_ASU_UPDATE_BUSY if ASU rejects update due to active crypto operations.
  * 		- XPLMI_ERR_ASU_FW_NOT_RUNNING if ASU firmware fails to restart after update.
  * 		- Error code from XLoader_LoadAsu() if firmware loading fails.
  *
@@ -265,12 +275,24 @@ static int XPlmi_AsuUpdateTask(void *Arg)
 	/** Check ASU shutdown state */
 	CurrentState = XPlmi_In32(XPLMI_ASU_UPDATE_STATE_REG);
 
+	/** Abort when ASUFW rejects update due to active crypto operations. */
+	if (CurrentState == XPLMI_UPDATE_STATE_BUSY) {
+		XPlmi_Printf(DEBUG_GENERAL,
+			"ASU update aborted: crypto operations in progress\n\r");
+		XPlmi_Out32(XPLMI_ASU_UPDATE_STATE_REG, XPLMI_UPDATE_STATE_INIT);
+		RetryCount = 0U;
+		Status = XPLMI_ERR_ASU_UPDATE_BUSY;
+		goto END;
+	}
+
 	/** Retry if shutdown is not complete */
 	if (CurrentState != XPLMI_UPDATE_STATE_SHUTDOWN_DONE) {
 		RetryCount++;
 
 		if (RetryCount >= XPLMI_ASU_MAX_RETRY_COUNT) {
 			XPlmi_Printf(DEBUG_GENERAL, "ASU shutdown timeout\n\r");
+			RetryCount = 0U;
+			XPlmi_Out32(XPLMI_ASU_UPDATE_STATE_REG, XPLMI_UPDATE_STATE_INIT);
 			Status = XPLMI_ERR_ASU_SHUTDOWN_TIMEOUT;
 			goto END;
 		}

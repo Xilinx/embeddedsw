@@ -17,6 +17,7 @@
 * Ver   Who  Date        Changes
 * ====  ==== ======== ==============================================================================
 * 1.0   vm   03/16/26 Initial release
+* 2.5   vm   07/13/26 Add BUSY update state for in-place update rejection
 *
 * </pre>
 *
@@ -42,6 +43,11 @@ extern "C" {
  * lib/sw_apps/asufw/src/xasufw_update.h
  */
 #define XPLMI_UPDATE_STATE_INIT			(0x0U)	/**< Update state: Init - update process started. */
+#define XPLMI_UPDATE_STATE_BUSY			(0x1U)	/**< Update state: Busy - ASUFW sets
+							     this when rejecting the update due
+							     to active client crypto work; PLM
+							     reads it and returns
+							     XPLMI_ERR_ASU_UPDATE_BUSY. */
 #define XPLMI_UPDATE_STATE_SHUTDOWN_DONE	(0x2U)	/**< Update state: Shutdown done. */
 #define XPLMI_UPDATE_STATE_LOAD_ELF_DONE	(0x3U)	/**< Update state: Load ELF done. */
 #define XPLMI_UPDATE_STATE_FINISHED		(0x4U)	/**< Update state: Finished. */
