@@ -55,6 +55,7 @@
 static void XFsbl_UpdateMultiBoot(u32 MultiBootValue);
 static void XFsbl_FallBack(void);
 static void XFsbl_MarkUsedRPUCores(XFsblPs *FsblInstPtr, u32 PartitionNum);
+static void XFsbl_MarkUsedApu(XFsblPs *FsblInstPtr, u32 PartitionNum);
 /**
  * Functions defined in xfsbl_handoff.S
  */
@@ -165,7 +166,12 @@ int main(void )
 					Xil_Out32(XFSBL_CORE_USAGE_STATUS_REG,
 						  (Xil_In32(XFSBL_CORE_USAGE_STATUS_REG) |
 						   (XFSBL_R5_0_STATUS_MASK |
-						    XFSBL_R5_1_STATUS_MASK)));
+						    XFSBL_R5_1_STATUS_MASK |
+						    XFSBL_APU0_USED_STATUS_MASK |
+						    XFSBL_APU1_USED_STATUS_MASK |
+						    XFSBL_APU2_USED_STATUS_MASK |
+						    XFSBL_APU3_USED_STATUS_MASK
+						    )));
 
 					/**
 					 * This is JTAG boot mode, go to the handoff stage
@@ -180,11 +186,16 @@ int main(void )
 					 */
 					PartitionNum = 0x1U;
 
-					/* Clear RPU status register */
+					/* Clear RPU/APU status register */
 					Xil_Out32(XFSBL_CORE_USAGE_STATUS_REG,
 						  (Xil_In32(XFSBL_CORE_USAGE_STATUS_REG) &
 						  ~(XFSBL_R5_0_STATUS_MASK |
-						    XFSBL_R5_1_STATUS_MASK)));
+						    XFSBL_R5_1_STATUS_MASK |
+						    XFSBL_APU0_USED_STATUS_MASK |
+						    XFSBL_APU1_USED_STATUS_MASK |
+						    XFSBL_APU2_USED_STATUS_MASK |
+						    XFSBL_APU3_USED_STATUS_MASK
+						    )));
 
 					FsblStage = XFSBL_STAGE3;
 				}
@@ -224,6 +235,8 @@ int main(void )
 
 					XFsbl_MarkUsedRPUCores(&FsblInstance,
 							       PartitionNum);
+					XFsbl_MarkUsedApu(&FsblInstance,
+							  PartitionNum);
 					/**
 					 * Check loading all partitions is completed
 					 */
@@ -635,6 +648,47 @@ static void XFsbl_MarkUsedRPUCores(XFsblPs *FsblInstPtr, u32 PartitionNum)
 			Xil_Out32(XFSBL_CORE_USAGE_STATUS_REG, RegValue |
 				  XFSBL_R5_0_STATUS_MASK);
 		}
+	}
+}
+
+static void XFsbl_MarkUsedApu(XFsblPs *FsblInstPtr, u32 PartitionNum)
+{
+	u32 DestCpu, RegValue;
+	u32 CoreMask = 0U;
+
+	DestCpu = XFsbl_GetDestinationCpu(&FsblInstPtr->ImageHeader.
+					  PartitionHeader[PartitionNum]);
+
+	/*
+	 * A partition with no destination CPU is loaded by the running CPU, so
+	 * treat it as targeting the A53 core on which FSBL is executing.
+	 */
+	if (XIH_PH_ATTRB_DEST_CPU_NONE == DestCpu) {
+		DestCpu = FsblInstPtr->ProcessorID;
+	}
+
+	switch (DestCpu) {
+	case XIH_PH_ATTRB_DEST_CPU_A53_0:
+		CoreMask = XFSBL_APU0_USED_STATUS_MASK;
+		break;
+	case XIH_PH_ATTRB_DEST_CPU_A53_1:
+		CoreMask = XFSBL_APU1_USED_STATUS_MASK;
+		break;
+	case XIH_PH_ATTRB_DEST_CPU_A53_2:
+		CoreMask = XFSBL_APU2_USED_STATUS_MASK;
+		break;
+	case XIH_PH_ATTRB_DEST_CPU_A53_3:
+		CoreMask = XFSBL_APU3_USED_STATUS_MASK;
+		break;
+	default:
+		/* for MISRA C compliance */
+		break;
+	}
+
+	if (0U != CoreMask) {
+		RegValue = Xil_In32(XFSBL_CORE_USAGE_STATUS_REG);
+		Xil_Out32(XFSBL_CORE_USAGE_STATUS_REG,
+			  RegValue | CoreMask);
 	}
 }
 

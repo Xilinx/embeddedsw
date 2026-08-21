@@ -804,10 +804,25 @@ extern "C" {
  * To indicate usage of cores to PMU, PMU_GLOBAL_GLOB_GEN_STORAGE4 is used
  */
 #define XFSBL_CORE_USAGE_STATUS_REG		(PMU_GLOBAL_GLOB_GEN_STORAGE4)
+/*
+ * The processor usage bits below are also defined in the PMUFW as
+ * RPU0_STATUS_MASK/RPU1_STATUS_MASK and APU0_USED_STATUS_MASK through
+ * APU3_USED_STATUS_MASK in lib/sw_apps/zynqmp_pmufw/src/pm_proc.h. The bit
+ * positions in both copies must be kept in sync, otherwise FSBL and PMUFW
+ * will disagree about which processor is in use.
+ */
 /* Bit 1 of core usage status register is used for R50 status */
 #define XFSBL_R5_0_STATUS_MASK			(1U << 1)
 /* Bit 2 of core usage status register is used for R51 status */
 #define XFSBL_R5_1_STATUS_MASK			(1U << 2)
+/* Bit 5 of core usage status register is used for A53_0 status */
+#define XFSBL_APU0_USED_STATUS_MASK		(1U << 5)
+/* Bit 6 of core usage status register is used for A53_1 status */
+#define XFSBL_APU1_USED_STATUS_MASK		(1U << 6)
+/* Bit 7 of core usage status register is used for A53_2 status */
+#define XFSBL_APU2_USED_STATUS_MASK		(1U << 7)
+/* Bit 8 of core usage status register is used for A53_3 status */
+#define XFSBL_APU3_USED_STATUS_MASK		(1U << 8)
 
 /**
  * TCM address for R5
