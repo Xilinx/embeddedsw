@@ -17,6 +17,7 @@
  * ----- ---- -------- ----------------------------------------------------------------------------
  * 1.0   ss   11/25/25 Initial release
  *       yog  01/28/26 Added RSA key pair generation command handler.
+ *       vm   08/19/26 Removed unreachable resource allocation skip for set epoch time
  *
  * </pre>
  *
@@ -207,12 +208,6 @@ static s32 XAsufw_KeyManagerResourceHandler(const XAsu_ReqBuf *ReqBuf, u32 ReqId
 {
 	s32 Status = XASUFW_FAILURE;
 	u32 CmdId = ReqBuf->Header & XASU_COMMAND_ID_MASK;
-
-	/** The set epoch time command does not require any resources, so skip resource allocation. */
-	if (CmdId == XASU_KM_SET_EPOCH_TIME_CMD_ID) {
-		Status = XASUFW_SUCCESS;
-		goto END;
-	}
 
 	if ((CmdId == XASU_KM_STORE_KEY_CMD_ID) || (CmdId == XASU_KM_EXPORT_KEYVAULT_CMD_ID) ||
 	    (CmdId == XASU_KM_IMPORT_KEYVAULT_CMD_ID)) {
