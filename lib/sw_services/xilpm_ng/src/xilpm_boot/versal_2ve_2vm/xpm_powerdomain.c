@@ -442,6 +442,7 @@ XStatus XPm_PowerDwnFPD(const XPm_Node *Node)
 {
 	XStatus Status = XST_FAILURE;
 	u32 DbgErr = (u32)XPM_INT_ERR_UNDEFINED;
+	const XPm_Device *AmsRoot = NULL;
 	const XPm_PsFpDomain *FpDomain = NULL;
 
 	if (NULL == Node) {
@@ -457,6 +458,21 @@ XStatus XPm_PowerDwnFPD(const XPm_Node *Node)
 		Status = XST_FAILURE;
 		goto done;
 	}
+
+	AmsRoot = XPmDevice_GetById(PM_DEV_AMS_ROOT);
+	if (NULL == AmsRoot) {
+		PmErr("AMS root device not found\r\n");
+		DbgErr = (u32)XPM_INT_ERR_INVALID_DEVICE;
+		Status = XST_FAILURE;
+		goto done;
+	}
+
+	/* Bypass FPD at the AMS root before the FPD rail drops */
+	XPm_UnlockPcsr(AmsRoot->Node.BaseAddress);
+	PmRmw32(AmsRoot->Node.BaseAddress + AMS_ROOT_TOKEN_MNGR_OFFSET,
+		AMS_ROOT_TOKEN_MNGR_BYPASS_FPD_MASK,
+		AMS_ROOT_TOKEN_MNGR_BYPASS_FPD_MASK);
+	(void)XPm_LockPcsr(AmsRoot->Node.BaseAddress);
 
 	/* disable CRL Write Protections */
 	PmOut32(PSX_CRL_BASEADDR + PSX_CRL_WPROT_OFFSET, 0U);
@@ -512,6 +528,20 @@ XStatus XPm_PowerDwnFPD(const XPm_Node *Node)
 
 	/* Isolate: FPD-MMI_DFX */
 	/* TODO: FIXME: Missing? */
+
+	/* Assert FPD SRST before POR */
+	Status = PwrDomainRstAction(PM_RST_FPD_SRST, XPM_RST_STATE_ASSERTED);
+	if (XST_SUCCESS != Status) {
+		PmErr("FPD SRST assert failed, Status=0x%x\r\n", Status);
+		DbgErr = XPM_INT_ERR_RST_ASSERT;
+		goto done;
+	}
+	Status = PwrDomainRstAction(PM_RST_FPD_POR, XPM_RST_STATE_ASSERTED);
+	if (XST_SUCCESS != Status) {
+		PmErr("FPD POR assert failed, Status=0x%x\r\n", Status);
+		DbgErr = XPM_INT_ERR_RST_ASSERT;
+		goto done;
+	}
 
 	/* set reset value for LPD SLCR Scan Clear Trigger */
 	PmOut32(PSXC_LPX_SLCR_SCAN_CLEAR_TRIGGER, 0U);

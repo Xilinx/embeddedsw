@@ -9,6 +9,7 @@
 #include "xpm_psfpdomain.h"
 #include "xpm_regs.h"
 #include "xpm_device.h"
+#include "xpm_reset.h"
 #include "xpm_debug.h"
 #include "xpm_rail.h"
 #include "xpm_ams_trim.h"
@@ -19,6 +20,7 @@ XStatus FpdInitStart(XPm_PowerDomain *PwrDomain, const u32 *Args,
 	volatile XStatus Status = XST_FAILURE;
 	volatile XStatus StatusTmp = XST_FAILURE;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
+	XPm_ResetNode *FpdRst = NULL;
 	(void)PwrDomain;
 	(void)Args;
 	(void)NumOfArgs;
@@ -40,6 +42,21 @@ XStatus FpdInitStart(XPm_PowerDomain *PwrDomain, const u32 *Args,
 		Status = XST_FAILURE;
 		DbgErr = XPM_INT_ERR_VID_ADJUST;
 		goto done;
+	}
+
+	/*
+	 * Sync the FPD reset nodes' SW state to de-asserted. The CDO performs
+	 * the actual HW reset release during the FPD power sequence (fpd_srst);
+	 * this only mirrors it in the reset node state. No-op until
+	 * PM_RST_FPD_POR / PM_RST_FPD_SRST are present in the device topology.
+	 */
+	FpdRst = XPmReset_GetById(PM_RST_FPD_POR);
+	if (NULL != FpdRst) {
+		FpdRst->Node.State = XPM_RST_STATE_DEASSERTED;
+	}
+	FpdRst = XPmReset_GetById(PM_RST_FPD_SRST);
+	if (NULL != FpdRst) {
+		FpdRst->Node.State = XPM_RST_STATE_DEASSERTED;
 	}
 
 done:

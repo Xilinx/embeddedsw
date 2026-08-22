@@ -814,6 +814,15 @@ extern "C" {
 #define PMC_SYSMON_SUPPLY0_TH_LOWER			PMC_SYSMON_BASEADDR + (0x00001980U)
 #define PMC_SYSMON_NEW_DATA_FLAG0			PMC_SYSMON_BASEADDR + (0x00001000U)
 
+/*
+ * AMS root (PMC SysMon) SSC token manager. Each BYPASS bit disables the SSC
+ * interface to that domain's SysMon satellite(s): 1 = disable, 0 = enable.
+ */
+#define AMS_ROOT_TOKEN_MNGR_OFFSET			(0x00000104U) /**< AMS root SSC token manager register offset */
+#define AMS_ROOT_TOKEN_MNGR_BYPASS_FPD_MASK		(0x00040000U) /**< Bypass the SSC interface to the FPD SysMon satellites */
+#define AMS_ROOT_TOKEN_MNGR_BYPASS_LPD_MASK		(0x00080000U) /**< Bypass the SSC interface to the LPD SysMon satellites */
+#define AMS_ROOT_TOKEN_MNGR_BYPASS_PL_MASK		(0x00100000U) /**< Bypass the SSC interface to the PL SysMon satellites */
+
 /**
  * Register: PSXC_LPX_SLCR
  */
