@@ -455,6 +455,7 @@ END:
  *		- XASUFW_AES_WRITE_KEY_FAILED, if key write to AES key registers fails.
  *		- XASUFW_AES_KEY_ZEROED, if the key is zeroed.
  *		- XASUFW_AES_KEY_CONFIG_READBACK_ERROR, if key configuration readback fails.
+ *		- Error code from XAsufw_UpdateBufStatus, if local key buffer zeroization fails.
  *
  *************************************************************************************************/
 s32 XAes_WriteKey(XAes *InstancePtr, XAsufw_Dma *DmaPtr, XAsu_AesKeyObject *KeyObjectPtr)
@@ -548,7 +549,7 @@ s32 XAes_WriteKey(XAes *InstancePtr, XAsufw_Dma *DmaPtr, XAsu_AesKeyObject *KeyO
 				(u64)(UINTPTR)&CtxPtr->KeyObject, sizeof(XAsu_AesKeyObject), 0U);
 			if (Status != XASUFW_SUCCESS) {
 				Status = XASUFW_DMA_COPY_FAIL;
-				goto END;
+				goto END_CLR;
 			}
 
 			/** Copy user key to DDR context for restore. */
@@ -559,7 +560,7 @@ s32 XAes_WriteKey(XAes *InstancePtr, XAsufw_Dma *DmaPtr, XAsu_AesKeyObject *KeyO
 				(KeySizeInWords * XASUFW_WORD_LEN_IN_BYTES), 0U);
 			if (Status != XASUFW_SUCCESS) {
 				Status = XASUFW_DMA_COPY_FAIL;
-				goto END;
+				goto END_CLR;
 			}
 		}
 	}
@@ -572,7 +573,7 @@ s32 XAes_WriteKey(XAes *InstancePtr, XAsufw_Dma *DmaPtr, XAsu_AesKeyObject *KeyO
 	Status = XAes_ValidateKeyConfig(InstancePtr, KeyObjectPtr->KeySrc, KeyObjectPtr->KeySize);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XASUFW_AES_KEY_CONFIG_READBACK_ERROR;
-		goto END;
+		goto END_CLR;
 	}
 
 END_CLR:
@@ -2415,11 +2416,14 @@ END:
  *		- XASUFW_FAILURE, if read/verification of the tag fails.
  *		- XASUFW_AES_READ_TAG_FAIL, if reading AES tag fails.
  *		- XASUFW_DMA_COPY_FAIL, if DMA copy fails.
+ *		- Error code from XAsufw_UpdateBufStatus, if local tag buffer zeroization fails.
  *
  *************************************************************************************************/
 static s32 XAes_ProcessTag(const XAes *InstancePtr, u64 TagAddr, u32 TagLen)
 {
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
+	CREATE_VOLATILE(ClearStatus, XASUFW_FAILURE);
+	XFih_Var XFihTagClear = XFih_VolatileAssignXfihVar(XFIH_FAILURE);
 	u8 Tag[XASU_AES_MAX_TAG_LENGTH_IN_BYTES] = {0U};
 
 	/** If AES operation type is encryption, */
@@ -2453,6 +2457,10 @@ static s32 XAes_ProcessTag(const XAes *InstancePtr, u64 TagAddr, u32 TagLen)
 	}
 
 END:
+	XFIH_CALL(Xil_SecureZeroize, XFihTagClear, ClearStatus, Tag,
+		  XASU_AES_MAX_TAG_LENGTH_IN_BYTES);
+	Status = XAsufw_UpdateBufStatus(Status, ClearStatus);
+
 	return Status;
 }
 

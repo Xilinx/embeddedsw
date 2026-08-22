@@ -120,6 +120,7 @@ static s32 XOcp_GenerateUdeKek(XAsufw_Dma *DmaPtr, XAes *AesInstancePtr, u8 *Out
  *	- XASUFW_OCP_UDE_IV_COPY_FAIL, if UDE IV copy operation fails.
  *	- XASUFW_OCP_UDE_AES_COMPUTE_FAIL, if UDE key encryption operation fails.
  *	- XASUFW_OCP_UDE_PVT_KEY_GEN_FAIL, if UDE private key generation fails.
+ *	- Error code from XAsufw_UpdateBufStatus, if local buffer zeroization fails.
  *
  *************************************************************************************************/
 s32 XOcp_EncryptUdeKeys(XAsufw_Dma *DmaPtr, const XAsu_OcpUdeKeyEncrypt *OcpUdeKeyEnc)
@@ -155,7 +156,7 @@ s32 XOcp_EncryptUdeKeys(XAsufw_Dma *DmaPtr, const XAsu_OcpUdeKeyEncrypt *OcpUdeK
 			XASU_OCP_UDE_IV_SIZE_IN_BYTES, XASU_OCP_UDE_IV_SIZE_IN_BYTES);
 	if (Status != XST_SUCCESS) {
 		Status = XASUFW_MEM_COPY_FAIL;
-		goto END;
+		goto END_CLR;
 	}
 
 	/** Check if IV is non-zero. */
@@ -163,7 +164,7 @@ s32 XOcp_EncryptUdeKeys(XAsufw_Dma *DmaPtr, const XAsu_OcpUdeKeyEncrypt *OcpUdeK
 	Status = XAsu_IsBufferNonZero(UdeKekIv, XASU_OCP_UDE_IV_SIZE_IN_BYTES);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XASUFW_OCP_UDE_IV_IS_ZERO;
-		goto END;
+		goto END_CLR;
 	}
 	/**
 	 * Based on UDE key ID, update the KEK IV with the offset to the local buffer.
@@ -186,7 +187,7 @@ s32 XOcp_EncryptUdeKeys(XAsufw_Dma *DmaPtr, const XAsu_OcpUdeKeyEncrypt *OcpUdeK
 			break;
 		default:
 			Status = XASUFW_OCP_INVALID_PARAM;
-			goto END;
+			goto END_CLR;
 			break;
 	}
 	Xil_IncrementBuffer(UdeKekIv, XASU_OCP_UDE_IV_SIZE_IN_BYTES, IvIncVal);
@@ -298,6 +299,7 @@ END:
  * 	- XASUFW_OCP_UDE_AES_COMPUTE_FAIL, if AES compute fails.
  * 	- XASUFW_OCP_UDE_KEY_DECRYPT_FAIL, if key decryption fails.
  * 	- Errors codes from AES, if AES operation fails.
+ * 	- Error code from XAsufw_UpdateBufStatus, if local buffer zeroization fails.
  *
  *************************************************************************************************/
 static s32 XOcp_DecryptPvtKey(XAsufw_Dma *DmaPtr, u32 UdeUserKeyAddr, u8* Iv, u8* UdeDecPvtKey)
@@ -379,6 +381,7 @@ END:
  * 	- XASUFW_OCP_UDE_KEK_NOT_PRESENT, if generated UDE KEK buffer is all zeros.
  * 	- XASUFW_OCP_AES_WRITE_KEY_FAILURE, if AES write key fails.
  * 	- Error codes from AES, if AES operation fails.
+ * 	- Error code from XAsufw_UpdateBufStatus, if local buffer zeroization fails.
  *
  *************************************************************************************************/
 static s32 XOcp_AesCompute(XAsufw_Dma *DmaPtr, u64 IvAddr, u64 InAddr, u64 OutAddr)
@@ -387,7 +390,7 @@ static s32 XOcp_AesCompute(XAsufw_Dma *DmaPtr, u64 IvAddr, u64 InAddr, u64 OutAd
 	CREATE_VOLATILE(ClearStatus, XASUFW_FAILURE);
 	XAsu_AesParams AesParams;
 	XAsu_AesKeyObject KeyObject;
-	u8 TagBuf[XASU_OCP_UDE_TAG_SIZE_IN_BYTES];
+	u8 TagBuf[XASU_OCP_UDE_TAG_SIZE_IN_BYTES] = {0U};
 	XAes *AesInstancePtr = XAes_GetInstance(XASU_XAES_0_DEVICE_ID);
 	XFih_Var XFihUde = XFih_VolatileAssignXfihVar(XFIH_FAILURE);
 	u8 UdeKek[XOCP_UDE_KEK_SIZE_IN_BYTES] = {0U};
@@ -451,6 +454,10 @@ END_CLR:
 
 	/** Zeroize the key object. */
 	ClearStatus = Xil_SecureZeroize((u8 *)(UINTPTR)&KeyObject, sizeof(XAsu_AesKeyObject));
+	Status = XAsufw_UpdateBufStatus(Status, ClearStatus);
+
+	/** Zeroize the local GCM tag buffer. */
+	ClearStatus = Xil_SecureZeroize(TagBuf, XASU_OCP_UDE_TAG_SIZE_IN_BYTES);
 	Status = XAsufw_UpdateBufStatus(Status, ClearStatus);
 
 END:
@@ -539,6 +546,7 @@ END:
  *	- XASUFW_OCP_MEASUREMENT_UPDATE_FAIL, if measurement update fails.
  *	- XASUFW_OCP_SHA_DIGEST_FAIL, if SHA digest generation fails.
  *	- XASUFW_OCP_UDE_SIGNATURE_GEN_FAIL, if UDE signature generation fails.
+ *	- Error code from XAsufw_UpdateBufStatus, if local buffer zeroization fails.
  *
  *************************************************************************************************/
 static s32 XOcp_BuildUdeResponseData(XAsufw_Dma *DmaPtr, const u8 *UdeDecPvtKey,
@@ -703,6 +711,7 @@ END:
  *	- XASUFW_MEM_COPY_FAIL, if IV copy fails.
  *	- XASUFW_OCP_UDE_KEY_DECRYPT_FAIL, if UDE private key decryption fails.
  *	- XASUFW_OCP_UDE_PUBLIC_KEY_GEN_FAIL, if UDE public key generation fails.
+ *	- Error code from XAsufw_UpdateBufStatus, if local buffer zeroization fails.
  *
  *************************************************************************************************/
 static s32 XOcp_ProcessUdeResponse(XAsufw_Dma *DmaPtr, XAsu_OcpUdeResponse *OcpUdeResp,

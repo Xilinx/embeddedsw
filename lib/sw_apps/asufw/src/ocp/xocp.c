@@ -94,7 +94,7 @@ static s32 XOcp_GenerateDevIkAkPvtKey(const XOcp_PrivateKeyGen *PvtKeyInfo);
 static s32 XOcp_GenerateSwCdi(u32 SubsystemId, XAsufw_Dma *DmaPtr, u8 *SwCdi, u32 CdiLen);
 static s32 XOcp_GetAsuCdiAddr(u32 *AsuCdiAddr);
 static s32 XOcp_GenerateDevIk(XAsufw_Dma *DmaPtr);
-static s32 XOcp_GetSubsystemHashAddr(u32 SubsystemId, u32 *SwHashAddr);
+static s32 XOcp_GetSubsystemHash(u32 SubsystemId, u8 *SwHashBuf);
 static s32 XOcp_GenerateDevAk(u32 SubsysIdx, XAsufw_Dma *DmaPtr);
 static s32 XOcp_GetSubsytemIndex(u32 SubsystemId, u32 *SubsystemIdx);
 static s32 XOcp_StoreDeviceKeyPairInVault(XOcp_DeviceKeys *DevKey, const u8 *PvtKey,
@@ -335,6 +335,7 @@ XOcp_DeviceKeys* XOcp_GetDevIk(void)
  *	  fails.
  *	- Error code received from called functions in case of other failure from the called
  *	  function.
+ *	- Error code from XAsufw_UpdateBufStatus, if local buffer zeroization fails.
  *
  *************************************************************************************************/
 static s32 XOcp_GenerateDevIk(XAsufw_Dma *DmaPtr)
@@ -435,6 +436,7 @@ END:
  *	  fails.
  *	- Error code received from called functions in case of other failure from the called
  *	  function.
+ *	- Error code from XAsufw_UpdateBufStatus, if local buffer zeroization fails.
  *
  *************************************************************************************************/
 static s32 XOcp_GenerateDevAk(u32 SubsysIdx, XAsufw_Dma *DmaPtr)
@@ -472,7 +474,7 @@ static s32 XOcp_GenerateDevAk(u32 SubsysIdx, XAsufw_Dma *DmaPtr)
 				    XOCP_DICE_CDI_SIZE_IN_BYTES);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_OCP_GEN_SUBSYSTEM_CDI_FAIL);
-		goto END;
+		goto END_CLR;
 	}
 
 	/** Assign an address of personalized string if it is available in ASU CDO. */
@@ -548,11 +550,14 @@ END:
  *	- XASUFW_OCP_TRNG_UNINSTANTIATE_FAIL, if TRNG uninstantiate is failed.
  *	- XASUFW_OCP_TRNG_INSTANTIATE_FAIL, if TRNG instantiate is failed.
  *	- XASUFW_OCP_GEN_ECC_PVT_KEY_FAIL, if private key generation is failed.
+ *	- Error code from XAsufw_UpdateBufStatus, if local buffer zeroization fails.
  *
  *************************************************************************************************/
 static s32 XOcp_GenerateDevIkAkPvtKey(const XOcp_PrivateKeyGen *PvtKeyInfo)
 {
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
+	CREATE_VOLATILE(ClearStatus, XASUFW_FAILURE);
+	XFih_Var XFihClr = XFih_VolatileAssignXfihVar(XFIH_FAILURE);
 	XTrng_UserConfig UsrCfg;
 	XTrng *TrngInstance = XTrng_GetInstance(XASU_XTRNG_0_DEVICE_ID);
 	u8 RandBuf[XOCP_DEV_KEY_RANDOM_BUF_SIZE] = {0U};
@@ -614,6 +619,10 @@ static s32 XOcp_GenerateDevIkAkPvtKey(const XOcp_PrivateKeyGen *PvtKeyInfo)
 	}
 
 END:
+	/** Zeroize TRNG random buffer. */
+	XFIH_CALL(Xil_SecureZeroize, XFihClr, ClearStatus, RandBuf, XOCP_DEV_KEY_RANDOM_BUF_SIZE);
+	Status = XAsufw_UpdateBufStatus(Status, ClearStatus);
+
 	/** Enable TRNG to default mode. */
 	Status = XAsufw_UpdateErrorStatus(Status, XTrng_EnableDefaultMode(TrngInstance));
 
@@ -1311,16 +1320,23 @@ END:
  *	- XASUFW_HMAC_FINAL_FAILED, if HMAC final is failed.
  *	- Error code received from called functions in case of other failure from the called
  *	function.
+ *	- Error code from XAsufw_UpdateBufStatus, if local buffer zeroization fails.
  *
  *************************************************************************************************/
 static s32 XOcp_GenerateSwCdi(u32 SubsystemId, XAsufw_Dma *DmaPtr, u8 *SwCdi, u32 CdiLen)
 {
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
+	CREATE_VOLATILE(ClearStatus, XASUFW_FAILURE);
+	XFih_Var XFihClr = XFih_VolatileAssignXfihVar(XFIH_FAILURE);
 	XHmac *XAsufw_HmacInstance = XHmac_GetInstance();
 	XSha *Sha3Ptr = XSha_GetInstance(XASU_XSHA_1_DEVICE_ID);
 	u32 AsuCdiAddr = 0U;
-	u32 SwHashAddr = 0U;
 	u8 HmacOutput[XASU_SHA_384_HASH_LEN] = {0U};
+	/**
+	 * File-static so the address stays valid if PLM writes the hash after an IPI poll
+	 * timeout. A stack buffer would already have been reused on that path.
+	 */
+	static u8 SwHash[XASU_SHA_384_HASH_LEN] = {0U};
 
 	/** Get ASU CDI seed */
 	Status = XOcp_GetAsuCdiAddr(&AsuCdiAddr);
@@ -1329,9 +1345,9 @@ static s32 XOcp_GenerateSwCdi(u32 SubsystemId, XAsufw_Dma *DmaPtr, u8 *SwCdi, u3
 		goto END;
 	}
 
-	/** Get the hash address of the subsystem. */
+	/** Get the hash of the subsystem from PLM. */
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-	Status = XOcp_GetSubsystemHashAddr(SubsystemId, &SwHashAddr);
+	Status = XOcp_GetSubsystemHash(SubsystemId, SwHash);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_OCP_GET_SUBSYSTEM_HASH_FAIL);
 		goto END;
@@ -1348,7 +1364,7 @@ static s32 XOcp_GenerateSwCdi(u32 SubsystemId, XAsufw_Dma *DmaPtr, u8 *SwCdi, u3
 
 	/** Perform HMAC update operations. */
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-	Status = XHmac_Update(XAsufw_HmacInstance, DmaPtr, (u64)SwHashAddr,
+	Status = XHmac_Update(XAsufw_HmacInstance, DmaPtr, (u64)(UINTPTR)SwHash,
 			      XOCP_DICE_CDI_SIZE_IN_BYTES, XASU_TRUE);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_HMAC_UPDATE_FAILED);
@@ -1368,6 +1384,12 @@ static s32 XOcp_GenerateSwCdi(u32 SubsystemId, XAsufw_Dma *DmaPtr, u8 *SwCdi, u3
 	Status = Xil_SMemCpy(SwCdi, CdiLen, HmacOutput, XASU_SHA_384_HASH_LEN, CdiLen);
 
 END:
+	/** Zeroize CDI-related remnants with fault-hardened clears. */
+	XFIH_CALL(Xil_SecureZeroize, XFihClr, ClearStatus, HmacOutput, XASU_SHA_384_HASH_LEN);
+	Status = XAsufw_UpdateBufStatus(Status, ClearStatus);
+	XFIH_CALL(Xil_SecureZeroize, XFihClr, ClearStatus, SwHash, XASU_SHA_384_HASH_LEN);
+	Status = XAsufw_UpdateBufStatus(Status, ClearStatus);
+
 	return Status;
 }
 
@@ -1453,31 +1475,31 @@ END:
 }
 
 /*************************************************************************************************/
- /**
- * @brief	This function provides the subsystem hash address.
+/**
+ * @brief	This function retrieves the subsystem hash into the caller-provided buffer.
  *
  * @param	SubsystemId	Subsystem ID.
- * @param	SwHashAddr	Pointer to the variable to store subsystem hash.
+ * @param	SwHashBuf	Buffer for PLM to write the subsystem hash. Must be large enough
+ *				to hold XASU_SHA_384_HASH_LEN bytes and remain valid even if the
+ *				IPI poll times out (not a stack buffer).
  *
  * @return
- *	- XASUFW_SUCCESS, if subsystem hash address is retrieved successfully.
- *	- XASUFW_FAILURE, in case of failure.
+ *	- XASUFW_SUCCESS, if subsystem hash is retrieved successfully.
  *	- XASUFW_OCP_SEND_IPI_REQ_FAIL, if IPI request is failed.
  *	- XASUFW_OCP_READ_IPI_RESP_FAIL, if IPI response read is failed.
  *
  *************************************************************************************************/
-static s32 XOcp_GetSubsystemHashAddr(u32 SubsystemId, u32 *SwHashAddr)
+static s32 XOcp_GetSubsystemHash(u32 SubsystemId, u8 *SwHashBuf)
 {
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
 	u32 Payload[XOCP_SUBSYS_HASH_TX_PAYLOAD_SIZE];
 	s32 Response = XASUFW_FAILURE;
-	static u8 SwHash[XASU_SHA_384_HASH_LEN] = {0U};
 
 	/** Prepare IPI request payload. */
 	Payload[XASUFW_BUFFER_INDEX_ZERO] = XASUFW_PLM_IPI_HEADER(XOCP_SUBSYS_HASH_TX_CMD_LEN,
 			XASUFW_PLM_CMD_ID_SUBSYSTEM_HASH_TX_ID, XASUFW_PLM_ASU_MODULE_ID);
 	Payload[XASUFW_BUFFER_INDEX_ONE] = SubsystemId;
-	Payload[XASUFW_BUFFER_INDEX_TWO] = (u32)(UINTPTR)SwHash;
+	Payload[XASUFW_BUFFER_INDEX_TWO] = (u32)(UINTPTR)SwHashBuf;
 
 	/** Send IPI request to PLM to get subsystem hash. */
 	Status = XAsufw_SendIpiToPlm(Payload, XOCP_SUBSYS_HASH_TX_PAYLOAD_SIZE);
@@ -1494,9 +1516,6 @@ static s32 XOcp_GetSubsystemHashAddr(u32 SubsystemId, u32 *SwHashAddr)
 		Status = XASUFW_OCP_READ_IPI_RESP_FAIL;
 		goto END;
 	}
-
-	/** Provide subsystem hash address to caller. */
-	*SwHashAddr = (u32)SwHash;
 
 END:
 	return Status;

@@ -72,11 +72,13 @@ static s32 XEcies_AesCompute(XAes *AesInstancePtr, XAsufw_Dma *DmaPtr,
  * @return
  * 	- XASUFW_SUCCESS, if ECIES encryption is successful.
  * 	- XASUFW_ECIES_INVALID_PARAM, if input parameters are invalid.
+ * 	- XASUFW_ECIES_PUB_KEY_VALIDATE_FAILURE, if Rx public key validation fails.
  * 	- XASUFW_ECIES_PVT_KEY_GEN_FAILURE, if private key generation fails.
  * 	- XASUFW_ECIES_PUB_KEY_GEN_FAILURE, if public key generation fails.
  * 	- XASUFW_ECIES_ECDH_FAILURE, if ECDH operation fails.
  * 	- XASUFW_ECIES_HKDF_FAILURE, if HKDF operation fails.
  * 	- XASUFW_ECIES_AES_FAILURE, if AES operation fails.
+ * 	- Error code from XAsufw_UpdateBufStatus, if local buffer zeroization fails.
  *
  *************************************************************************************************/
 s32 XEcies_Encrypt(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr, XAes *AesInstancePtr,
@@ -123,7 +125,7 @@ s32 XEcies_Encrypt(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr, XAes *AesInstancePt
 					PrivKey, NULL, 0U);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_ECIES_PVT_KEY_GEN_FAILURE);
-		goto END;
+		goto END_CLR;
 	}
 
 	/** Calculate Tx public key using the generated Tx private key. */
@@ -133,37 +135,44 @@ s32 XEcies_Encrypt(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr, XAes *AesInstancePt
 				EciesParams->TxKeyAddr);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_ECIES_PUB_KEY_GEN_FAILURE);
-		goto END;
+		goto END_CLR;
 	}
 
 	/** Execute ECDH to compute the shared secret using the Tx Private key and Rx public key. */
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	Status = XRsa_EcdhGenSharedSecret(DmaPtr, EciesParams->EccCurveType,
-		EciesParams->EccKeyLength, (u64)(UINTPTR)PrivKey, EciesParams->RxKeyAddr,
-		(u64)(UINTPTR)SharedSecret, 0U);
+			EciesParams->EccKeyLength, (u64)(UINTPTR)PrivKey, EciesParams->RxKeyAddr,
+			(u64)(UINTPTR)SharedSecret, 0U);
+	if ((Status != XASUFW_SUCCESS) || (ReturnStatus != XASUFW_RSA_ECDH_SUCCESS)) {
+		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_ECIES_ECDH_FAILURE);
+	}
+	/**
+	 * Reset ReturnStatus after it has been checked. ECDH writes this global, so it must
+	 * not remain SUCCESS and be reused by a later ECDH or other operation.
+	 */
+	ReturnStatus = XASUFW_FAILURE;
 
 	/** Zeroize the private key immediately after use. */
 	XFIH_CALL(Xil_SecureZeroize, XFihEcies, ClearStatus, PrivKey,
 			XASU_ECC_P521_PVT_KEY_SIZE_IN_BYTES);
 	Status = XAsufw_UpdateBufStatus(Status, ClearStatus);
-	if ((Status != XASUFW_SUCCESS) || (ClearStatus != XASUFW_SUCCESS) ||
-		(ReturnStatus != XASUFW_RSA_ECDH_SUCCESS)) {
-		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_ECIES_ECDH_FAILURE);
-		goto END;
+	if (Status != XASUFW_SUCCESS) {
+		goto END_CLR;
 	}
-	ReturnStatus = XASUFW_FAILURE;
 
 	/** Generate the encryption key from the shared secret using KDF.  */
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	Status = XEcies_HkdfGenerate(DmaPtr, ShaInstancePtr, EciesParams, SharedSecret, KOut);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_ECIES_HKDF_FAILURE);
+	}
 
 	/** Zeroize the shared secret immediately after use. */
 	XFIH_CALL(Xil_SecureZeroize, XFihEcies, ClearStatus, SharedSecret,
 			XASU_ECC_P521_PVT_KEY_SIZE_IN_BYTES);
 	Status = XAsufw_UpdateBufStatus(Status, ClearStatus);
-	if ((Status != XASUFW_SUCCESS) || (ClearStatus != XASUFW_SUCCESS)) {
-		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_ECIES_HKDF_FAILURE);
-		goto END;
+	if (Status != XASUFW_SUCCESS) {
+		goto END_CLR;
 	}
 
 	/**
@@ -173,20 +182,35 @@ s32 XEcies_Encrypt(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr, XAes *AesInstancePt
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	Status = XEcies_AesCompute(AesInstancePtr, DmaPtr, EciesParams, KOut,
 				   XASU_AES_ENCRYPT_OPERATION);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_ECIES_AES_FAILURE);
+	}
 
 	/** Zeroize the key derived from KDF immediately after use. */
 	XFIH_CALL(Xil_SecureZeroize, XFihEcies, ClearStatus, KOut,
 			XASU_AES_KEY_SIZE_256BIT_IN_BYTES);
 	Status = XAsufw_UpdateBufStatus(Status, ClearStatus);
-	if ((Status != XASUFW_SUCCESS) || (ClearStatus != XASUFW_SUCCESS)) {
-		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_ECIES_AES_FAILURE);
-	}
 
 	/**
 	 * Measure and print the performance time for the ECIES encryption operation, if
 	 * performance measurement is enabled.
 	 */
 	XASUFW_MEASURE_PERF_STOP(XASU_MODULE_ECIES_ID);
+	goto END;
+
+END_CLR:
+	/** Zeroize private key, shared secret, and derived key remnants. */
+	XFIH_CALL(Xil_SecureZeroize, XFihEcies, ClearStatus, PrivKey,
+			XASU_ECC_P521_PVT_KEY_SIZE_IN_BYTES);
+	Status = XAsufw_UpdateBufStatus(Status, ClearStatus);
+
+	XFIH_CALL(Xil_SecureZeroize, XFihEcies, ClearStatus, SharedSecret,
+			XASU_ECC_P521_PVT_KEY_SIZE_IN_BYTES);
+	Status = XAsufw_UpdateBufStatus(Status, ClearStatus);
+
+	XFIH_CALL(Xil_SecureZeroize, XFihEcies, ClearStatus, KOut,
+			XASU_AES_KEY_SIZE_256BIT_IN_BYTES);
+	Status = XAsufw_UpdateBufStatus(Status, ClearStatus);
 
 END:
 	return Status;
@@ -205,9 +229,11 @@ END:
  * @return
  * 	- XASUFW_SUCCESS, if ECIES decryption is successful.
  * 	- XASUFW_ECIES_INVALID_PARAM, if input parameters are invalid.
+ * 	- XASUFW_ECIES_PUB_KEY_VALIDATE_FAILURE, if Tx public key validation fails.
  * 	- XASUFW_ECIES_ECDH_FAILURE, if ECDH operation fails.
  * 	- XASUFW_ECIES_HKDF_FAILURE, if HKDF operation fails.
  * 	- XASUFW_ECIES_AES_FAILURE, if AES operation fails.
+ * 	- Error code from XAsufw_UpdateBufStatus, if local buffer zeroization fails.
  *
  *************************************************************************************************/
 s32 XEcies_Decrypt(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr, XAes *AesInstancePtr,
@@ -254,21 +280,22 @@ s32 XEcies_Decrypt(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr, XAes *AesInstancePt
 		(u64)(UINTPTR)SharedSecret, 0U);
 	if ((Status != XASUFW_SUCCESS) || (ReturnStatus != XASUFW_RSA_ECDH_SUCCESS)) {
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_ECIES_ECDH_FAILURE);
-		goto END;
+		goto END_CLR;
 	}
-	ReturnStatus = XASUFW_FAILURE;
 
 	/** Generate the decryption key from the shared secret using KDF.  */
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	Status = XEcies_HkdfGenerate(DmaPtr, ShaInstancePtr, EciesParams, SharedSecret, KOut);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_ECIES_HKDF_FAILURE);
+	}
 
 	/** Zeroize the shared secret immediately after use. */
 	XFIH_CALL(Xil_SecureZeroize, XFihEcies, ClearStatus, SharedSecret,
 		XASU_ECC_P521_PVT_KEY_SIZE_IN_BYTES);
 	Status = XAsufw_UpdateBufStatus(Status, ClearStatus);
-	if ((Status != XASUFW_SUCCESS) || (ClearStatus != XASUFW_SUCCESS)) {
-		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_ECIES_HKDF_FAILURE);
-		goto END;
+	if (Status != XASUFW_SUCCESS) {
+		goto END_CLR;
 	}
 
 	/**
@@ -278,22 +305,39 @@ s32 XEcies_Decrypt(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr, XAes *AesInstancePt
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	Status = XEcies_AesCompute(AesInstancePtr, DmaPtr, EciesParams, KOut,
 				   XASU_AES_DECRYPT_OPERATION);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_ECIES_AES_FAILURE);
+	}
 
 	/** Zeroize the key derived from KDF immediately after use. */
 	XFIH_CALL(Xil_SecureZeroize, XFihEcies, ClearStatus, KOut,
 			XASU_AES_KEY_SIZE_256BIT_IN_BYTES);
 	Status = XAsufw_UpdateBufStatus(Status, ClearStatus);
-	if ((Status != XASUFW_SUCCESS) || (ClearStatus != XASUFW_SUCCESS)) {
-		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_ECIES_AES_FAILURE);
-	}
 
 	/**
 	 * Measure and print the performance time for the ECIES decryption operation, if
 	 * performance measurement is enabled.
 	 */
 	XASUFW_MEASURE_PERF_STOP(XASU_MODULE_ECIES_ID);
+	goto END;
+
+END_CLR:
+	/** Zeroize shared secret and derived key remnants. */
+	XFIH_CALL(Xil_SecureZeroize, XFihEcies, ClearStatus, SharedSecret,
+			XASU_ECC_P521_PVT_KEY_SIZE_IN_BYTES);
+	Status = XAsufw_UpdateBufStatus(Status, ClearStatus);
+
+	XFIH_CALL(Xil_SecureZeroize, XFihEcies, ClearStatus, KOut,
+			XASU_AES_KEY_SIZE_256BIT_IN_BYTES);
+	Status = XAsufw_UpdateBufStatus(Status, ClearStatus);
 
 END:
+	/**
+	 * Reset ReturnStatus after it has been checked. ECDH writes this global, so it must
+	 * not remain SUCCESS and be reused by a later ECDH or other operation.
+	 */
+	ReturnStatus = XASUFW_FAILURE;
+
 	return Status;
 }
 
@@ -359,6 +403,7 @@ static s32 XEcies_HkdfGenerate(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr,
  * 	- XASUFW_SUCCESS, if AES operation is successful.
  * 	- XASUFW_ECIES_AES_WRITE_KEY_FAILURE, if AES write key fails.
  * 	- Errors codes from AES, if AES operation fails.
+ * 	- Error code from XAsufw_UpdateBufStatus, if AES key object zeroization fails.
  *
  *************************************************************************************************/
 static s32 XEcies_AesCompute(XAes *AesInstancePtr, XAsufw_Dma *DmaPtr,

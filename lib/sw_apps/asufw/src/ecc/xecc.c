@@ -418,6 +418,7 @@ END:
  * 		- XASUFW_ECC_EPHEMERAL_KEY_GEN_FAIL, if ephemeral key generation fails.
  * 		- Also, this function can return termination error codes from 0x21U to 0x2CU from core,
  * 		please refer to xasufw_status.h.
+ * 		- Error code from XAsufw_UpdateBufStatus, if local buffer zeroization fails.
  *
  *************************************************************************************************/
 s32 XEcc_GenerateSignature(XEcc *InstancePtr, XAsufw_Dma *DmaPtr, u32 CurveType, u32 CurveLen,
@@ -474,7 +475,7 @@ s32 XEcc_GenerateSignature(XEcc *InstancePtr, XAsufw_Dma *DmaPtr, u32 CurveType,
 	Status = Xil_SecureZeroize(Hash, XASU_SHA_512_HASH_LEN);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XASUFW_ZEROIZE_MEMSET_FAIL;
-		goto END;
+		goto END_CLR;
 	}
 
 	/**

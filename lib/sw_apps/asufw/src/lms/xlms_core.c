@@ -98,6 +98,7 @@ static s32 XLms_ValidateInputs(XAsufw_Dma *DmaPtr,
 		const XAsu_LmsHssSignVerifyParams *LmsSignVerifyParams, XLms_SignVerifyCtx *CtxPtr);
 static s32 XLms_ComputeMerkleRoot(XSha *ShaInstPtr, XAsufw_Dma *DmaPtr,
 	const XLms_SignVerifyCtx *CtxPtr, const u8 *Path, u32 StartNodeNum);
+static s32 XLms_ClearCommonVerifyState(s32 Status);
 
 /************************** Variable Definitions *************************************************/
 static volatile XLms_PublicKey AuthenticatedKey; /**< Latest authenticated HSS/LMS public key */
@@ -105,6 +106,8 @@ static XLms_DataDigestFixedFields DigestPrefixFields; /**< Cached I/q/C/D_MESG f
 							hashing messages */
 static volatile u32 SignatureLengthConsumed = 0U; /**< Tracks bytes of HSS signature already
 							processed during init */
+static volatile u8 IsHssVerifyInProgress = XASU_FALSE; /**< Non-zero while an HSS verify chain is
+								active */
 static XLms_DataDigest DigestChecksum; /**< Holds message digest plus Winternitz checksum for OTS
 						processing */
 static u32 CurrentLmsQ = 0U; /**< Current LMS leaf index extracted from signature */
@@ -125,6 +128,63 @@ static XLms_PubKeyTmp LmsPubKeyTmpBuff; /**< Structured view over leaf/internal 
 						layout */
 
 /************************** Function Definitions *************************************************/
+
+/*************************************************************************************************/
+/**
+ * @brief	This function zeroizes shared LMS/HSS signature verification scratch buffers and
+ *		resets the common verification state.
+ *
+ * @param	Status	Current operation status to merge with buffer-clear results.
+ *
+ * @return
+ *		- The incoming Status value, with buffer-clear status bits merged
+ *		- Error code from XAsufw_UpdateBufStatus, if any scratch buffer zeroization fails
+ *
+ *************************************************************************************************/
+static s32 XLms_ClearCommonVerifyState(s32 Status)
+{
+	CREATE_VOLATILE(ClearStatus, XASUFW_FAILURE);
+
+	ClearStatus = Xil_SecureZeroize((u8 *)(UINTPTR)&AuthenticatedKey, sizeof(AuthenticatedKey));
+	Status = XAsufw_UpdateBufStatus(Status, ClearStatus);
+
+	ASSIGN_VOLATILE(ClearStatus, XASUFW_FAILURE);
+	ClearStatus = Xil_SecureZeroize((u8 *)(UINTPTR)&DigestPrefixFields, sizeof(DigestPrefixFields));
+	Status = XAsufw_UpdateBufStatus(Status, ClearStatus);
+
+	ASSIGN_VOLATILE(ClearStatus, XASUFW_FAILURE);
+	ClearStatus = Xil_SecureZeroize((u8 *)(UINTPTR)&DigestChecksum, sizeof(DigestChecksum));
+	Status = XAsufw_UpdateBufStatus(Status, ClearStatus);
+
+	ASSIGN_VOLATILE(ClearStatus, XASUFW_FAILURE);
+	ClearStatus = Xil_SecureZeroize(LmsLocalPubKeyBuff, sizeof(LmsLocalPubKeyBuff));
+	Status = XAsufw_UpdateBufStatus(Status, ClearStatus);
+
+	ASSIGN_VOLATILE(ClearStatus, XASUFW_FAILURE);
+	ClearStatus = Xil_SecureZeroize(LmsLocalSignatureBuff, sizeof(LmsLocalSignatureBuff));
+	Status = XAsufw_UpdateBufStatus(Status, ClearStatus);
+
+	ASSIGN_VOLATILE(ClearStatus, XASUFW_FAILURE);
+	ClearStatus = Xil_SecureZeroize(LmsTmpBuff, sizeof(LmsTmpBuff));
+	Status = XAsufw_UpdateBufStatus(Status, ClearStatus);
+
+	ASSIGN_VOLATILE(ClearStatus, XASUFW_FAILURE);
+	ClearStatus = Xil_SecureZeroize((u8 *)(UINTPTR)&LmsPubKeyTmpBuff, sizeof(LmsPubKeyTmpBuff));
+	Status = XAsufw_UpdateBufStatus(Status, ClearStatus);
+
+	/** Reset leftover HSS/OTS state along with shared scratch. */
+	SignatureLengthConsumed = 0U;
+	CurrentLmsQ = 0U;
+	OtsProcessDmaState = XLMS_DMA_STATE_IDLE;
+	LmsOtsSignatureBuff_g = NULL;
+	LmsOtsSignParam_g = NULL;
+	HashOutputN_g = XLMS_N_FIELD_SIZE;
+	HssCallerShaMode_g = 0U;
+	HssCallerShaType_g = 0U;
+	IsHssVerifyInProgress = XASU_FALSE;
+
+	return Status;
+}
 
 /*************************************************************************************************/
 /**
@@ -160,6 +220,7 @@ static XLms_PubKeyTmp LmsPubKeyTmpBuff; /**< Structured view over leaf/internal 
 								the public key
 *		- XASUFW_LMS_PUB_KEY_AUTHENTICATION_GLITCH_ERROR - Root comparison glitch detected
 *		- XASUFW_CMD_IN_PROGRESS - Non-blocking DMA transfer started for large signature or message
+*		- Error code from XAsufw_UpdateBufStatus, if scratch buffer zeroization fails
 *
 **************************************************************************************************/
 s32 XLms_SignatureVerification(XSha *ShaInstPtr, XAsufw_Dma *DmaPtr,
@@ -172,6 +233,7 @@ s32 XLms_SignatureVerification(XSha *ShaInstPtr, XAsufw_Dma *DmaPtr,
 	XASUFW_MEASURE_PERF_START(XASU_MODULE_LMS_ID);
 
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
+	CREATE_VOLATILE(ClearStatus, XASUFW_FAILURE);
 	static XLms_SignVerifyCtx Ctx;
 	const u8* Path = NULL;
 	u32 CurrentNodeNum = 0U;
@@ -373,9 +435,6 @@ s32 XLms_SignatureVerification(XSha *ShaInstPtr, XAsufw_Dma *DmaPtr,
 						XASUFW_LMS_PUB_KEY_AUTHENTICATION_FAILED_ERROR);
 			goto END;
 		}
-
-		/* Additional status if signature verification is successful without any glitch */
-		ReturnStatus = XASUFW_LMS_SIGNATURE_VERIFIED;
 	}
 
 	/**
@@ -385,6 +444,21 @@ s32 XLms_SignatureVerification(XSha *ShaInstPtr, XAsufw_Dma *DmaPtr,
 	XASUFW_MEASURE_PERF_STOP(XASU_MODULE_LMS_ID);
 
 END:
+	if (Status != XASUFW_CMD_IN_PROGRESS) {
+		ClearStatus = Xil_SecureZeroize(ExpectedPublicKey, sizeof(ExpectedPublicKey));
+		Status = XAsufw_UpdateBufStatus(Status, ClearStatus);
+		SignVerifyDmaState = XLMS_DMA_STATE_IDLE;
+		/** Scrub shared buffers when not mid-HSS; HSS terminal paths scrub elsewhere. */
+		if (IsHssVerifyInProgress != XASU_TRUE) {
+			Status = XLms_ClearCommonVerifyState(Status);
+		}
+
+		/* Additional status if signature verification is successful without any glitch */
+		if (Status == XASUFW_SUCCESS) {
+			ReturnStatus = XASUFW_LMS_SIGNATURE_VERIFIED;
+		}
+	}
+
 	return Status;
 }
 
@@ -426,6 +500,7 @@ END:
 *		- XASUFW_LMS_HSS_L1_PUB_KEY_LMS_OTS_TYPE_UNSUPPORTED_ERROR - Upper level LMS OTS type
 							unsupported when preparing digest context
 *		- XASUFW_CMD_IN_PROGRESS - Non-blocking DMA transfer started for large signature
+*		- Error code from XAsufw_UpdateBufStatus, if scratch buffer zeroization fails
 **************************************************************************************************/
 s32 XLms_HssInit(XSha *ShaInstPtr, XAsufw_Dma *DmaPtr,
 		const XAsu_LmsHssSignVerifyParams *HssParamsPtr)
@@ -437,6 +512,7 @@ s32 XLms_HssInit(XSha *ShaInstPtr, XAsufw_Dma *DmaPtr,
 	XASUFW_MEASURE_PERF_START(XASU_MODULE_LMS_ID);
 
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
+	CREATE_VOLATILE(ClearStatus, XASUFW_FAILURE);
 	XLms_Type PublicKeyLmsType = XLMS_NOT_SUPPORTED;
 	XLms_OtsType PublicKeyLmsOtsType = XLMS_OTS_NOT_SUPPORTED;
 	static const u8* TmpPublicKeyPtr = NULL;
@@ -456,6 +532,7 @@ s32 XLms_HssInit(XSha *ShaInstPtr, XAsufw_Dma *DmaPtr,
 	u32 ResumeState = HssInitDmaState;
 	const u8 *SignBuff = NULL;
 	const u8 *PublicKey = NULL;
+	CREATE_VOLATILE(OpStatus, XASUFW_FAILURE);
 
 	/** Validate input pointers. */
 	if ((NULL == ShaInstPtr) || (NULL == DmaPtr)) {
@@ -509,6 +586,7 @@ s32 XLms_HssInit(XSha *ShaInstPtr, XAsufw_Dma *DmaPtr,
 	case XLMS_DMA_STATE_IDLE:
 		CurrentLmsQ = XASUFW_ALLFS;
 		SignatureLengthConsumed = 0U;
+		IsHssVerifyInProgress = XASU_TRUE;
 
 		/** Validate that the public key buffer is long enough to extract L and LMS type */
 		if ((XLMS_HSS_LEVELS_FIELD_SIZE + XLMS_TYPE_SIZE) > HssParamsPtr->LmsHssKeyObj.PubKeyLen) {
@@ -836,6 +914,24 @@ s32 XLms_HssInit(XSha *ShaInstPtr, XAsufw_Dma *DmaPtr,
 	}
 
 END:
+	if (Status != XASUFW_CMD_IN_PROGRESS) {
+		ASSIGN_VOLATILE(OpStatus, Status);
+
+		HssInitDmaState = XLMS_DMA_STATE_IDLE;
+
+		ClearStatus = Xil_SecureZeroize(HssLocalSignBuff, sizeof(HssLocalSignBuff));
+		Status = XAsufw_UpdateBufStatus(OpStatus, ClearStatus);
+
+		ASSIGN_VOLATILE(ClearStatus, XASUFW_FAILURE);
+		ClearStatus = Xil_SecureZeroize(HssLocalPubKeyBuff, sizeof(HssLocalPubKeyBuff));
+		Status = XAsufw_UpdateBufStatus(Status, ClearStatus);
+
+		if (OpStatus != XASUFW_SUCCESS) {
+			/** Scrub shared verify buffers and clear HSS/OTS leftover state. */
+			Status = XLms_ClearCommonVerifyState(Status);
+		}
+	}
+
 	return Status;
 }
 
@@ -855,6 +951,7 @@ END:
 *		- XASUFW_SHA_START_FAILED - SHA engine start operation failed
 *		- XASUFW_SHA_UPDATE_FAIL - SHA engine update operations failed
 *		- XASUFW_CMD_IN_PROGRESS - Non-blocking DMA in progress for large message
+*		- Error code from XAsufw_UpdateBufStatus, if scratch buffer zeroization fails
 **************************************************************************************************/
 s32 XLms_HashMessage(XSha *ShaInstPtr, XAsufw_Dma *DmaPtr, u64 DataAddr, u32 DataLen, u32 Mode)
 {
@@ -953,6 +1050,13 @@ s32 XLms_HashMessage(XSha *ShaInstPtr, XAsufw_Dma *DmaPtr, u64 DataAddr, u32 Dat
 	}
 
 END:
+	if (Status != XASUFW_CMD_IN_PROGRESS) {
+		HashMessageDmaState = XLMS_DMA_STATE_IDLE;
+		if (Status != XASUFW_SUCCESS) {
+			Status = XLms_ClearCommonVerifyState(Status);
+		}
+	}
+
 	return Status;
 }
 
@@ -980,6 +1084,7 @@ END:
 *		- XASUFW_LMS_HSS_L0_PUB_KEY_AUTH_FAILED_ERROR - Final LMS verification failed to
 								authenticate public key
 *		- XASUFW_CMD_IN_PROGRESS - Non-blocking DMA transfer started for large signature
+*		- Error code from XAsufw_UpdateBufStatus, if scratch buffer zeroization fails
 **************************************************************************************************/
 s32 XLms_HssFinish(XSha *ShaInstPtr, XAsufw_Dma *DmaPtr, u64 SignatureAddr, u32 SignatureLen)
 {
@@ -1137,6 +1242,13 @@ s32 XLms_HssFinish(XSha *ShaInstPtr, XAsufw_Dma *DmaPtr, u64 SignatureAddr, u32 
 	XASUFW_MEASURE_PERF_STOP(XASU_MODULE_LMS_ID);
 
 END:
+	if (Status != XASUFW_CMD_IN_PROGRESS) {
+		HssFinishDmaState = XLMS_DMA_STATE_IDLE;
+		SignNpskLen_s = 0U;
+
+		Status = XLms_ClearCommonVerifyState(Status);
+	}
+
 	return Status;
 }
 
@@ -1287,6 +1399,7 @@ END:
 *		- XASUFW_LMS_PUB_KEY_AUTHENTICATION_FAILED_ERROR - Calculated root does not match
 *								public key
 *		- XASUFW_LMS_PUB_KEY_AUTHENTICATION_GLITCH_ERROR - Root comparison glitch detected
+*		- Error code from XAsufw_UpdateBufStatus, if scratch buffer zeroization fails
 *
 **************************************************************************************************/
 static s32 XLms_OtsSignatureProcess(XSha *ShaInstPtr, XAsufw_Dma *DmaPtr,
@@ -1294,6 +1407,7 @@ static s32 XLms_OtsSignatureProcess(XSha *ShaInstPtr, XAsufw_Dma *DmaPtr,
 {
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
 	u8 *DigestChecksumBytes = (u8*)(UINTPTR)&DigestChecksum;
+	CREATE_VOLATILE(ClearStatus, XASUFW_FAILURE);
 	u32 Checksum = 0U;
 	u32 DigitVal = 0U;
 	u32 DigitIndex = 0U;
@@ -1595,6 +1709,19 @@ static s32 XLms_OtsSignatureProcess(XSha *ShaInstPtr, XAsufw_Dma *DmaPtr,
 	}
 
 END:
+	if (Status != XASUFW_CMD_IN_PROGRESS) {
+		OtsProcessDmaState = XLMS_DMA_STATE_IDLE;
+
+		ClearStatus = Xil_SecureZeroize((u8 *)(UINTPTR)&LmsOtsSignVerifBuff,
+						sizeof(LmsOtsSignVerifBuff));
+		Status = XAsufw_UpdateBufStatus(Status, ClearStatus);
+
+		ASSIGN_VOLATILE(ClearStatus, XASUFW_FAILURE);
+		ClearStatus = Xil_SecureZeroize((u8 *)(UINTPTR)&TmpHashPerDigitBuff,
+						sizeof(TmpHashPerDigitBuff));
+		Status = XAsufw_UpdateBufStatus(Status, ClearStatus);
+	}
+
 	return Status;
 }
 
@@ -1836,6 +1963,10 @@ static s32 XLms_ValidateInputs(XAsufw_Dma *DmaPtr,
 	}
 
 END:
+	if (Status != XASUFW_CMD_IN_PROGRESS) {
+		ValidateInputsDmaState = XLMS_DMA_STATE_IDLE;
+	}
+
 	return Status;
 }
 

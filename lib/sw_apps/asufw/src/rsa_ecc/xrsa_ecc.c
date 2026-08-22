@@ -424,6 +424,7 @@ END:
  *	third party code.
  *	- XASUFW_RSA_ECC_HASH_CALC_FAIL, if hash calculation fails in case of Ed25519ph or Ed448ph.
  *	- XASUFW_RSA_ECC_INCORRECT_CURVE, if input curvetype or curvelen is incorrect.
+ *	- Error code from XAsufw_UpdateBufStatus, if local buffer zeroization fails.
  *
  *************************************************************************************************/
 s32 XRsa_EccGenerateSignature(XAsufw_Dma *DmaPtr, u32 CurveType, u32 CurveLen, u64 PrivKeyAddr,
@@ -593,7 +594,7 @@ s32 XRsa_EccGenerateSignature(XAsufw_Dma *DmaPtr, u32 CurveType, u32 CurveLen, u
 					HashLen);
 			if (Status != XASUFW_SUCCESS) {
 				Status = XASUFW_RSA_ECC_HASH_CALC_FAIL;
-				goto END;
+				goto END_CLR;
 			}
 			HashBufAddr = (u64)(UINTPTR)Hash;
 			HashBufLen = XASU_SHA_512_HASH_LEN;
@@ -705,6 +706,7 @@ END:
  *	-	XASUFW_RSA_CHANGE_ENDIANNESS_ERROR, if endianness change fails.
  *	-	XASUFW_FAILURE, if operation fails due to any other reasons.
  *	-	XASUFW_RSA_ECC_INCORRECT_CURVE, if input curvetype or curvelen is incorrect.
+ *	-	Error code from XAsufw_UpdateBufStatus, if local buffer zeroization fails.
  *
  *************************************************************************************************/
 s32 XRsa_EccVerifySignature(XAsufw_Dma *DmaPtr, u32 CurveType, u32 CurveLen, u64 PubKeyAddr,
@@ -854,7 +856,7 @@ s32 XRsa_EccVerifySignature(XAsufw_Dma *DmaPtr, u32 CurveType, u32 CurveLen, u64
 					HashLen);
 			if (Status != XASUFW_SUCCESS) {
 				Status = XASUFW_RSA_ECC_HASH_CALC_FAIL;
-				goto END;
+				goto END_CLR;
 			}
 			HashBufAddr = (u64)(UINTPTR)Hash;
 			HashBufLen = XASU_SHA_512_HASH_LEN;
@@ -1219,6 +1221,7 @@ u32 XRsa_EccValidateAndGetCrvInfo(u32 CurveType, EcdsaCrvInfo **Crv)
  *	-	XASUFW_RSA_CHANGE_ENDIANNESS_ERROR, if endianness change fails.
  *	-	XASUFW_FAILURE, if operation fails due to any other reasons.
  *	-	XASUFW_RSA_ECC_INCORRECT_CURVE, if input curvetype or curvelen is incorrect.
+ *	-	Error code from XAsufw_UpdateBufStatus, if local buffer zeroization fails.
  *
  *************************************************************************************************/
 s32 XRsa_EcdhGenSharedSecret(XAsufw_Dma *DmaPtr, u32 CurveType, u32 CurveLen, u64 PrivKeyAddr,
@@ -1310,7 +1313,7 @@ s32 XRsa_EcdhGenSharedSecret(XAsufw_Dma *DmaPtr, u32 CurveType, u32 CurveLen, u6
 	Status = Xil_SecureZeroize(PrivKey, XASU_ECC_P521_PVT_KEY_SIZE_IN_BYTES);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XASUFW_ZEROIZE_MEMSET_FAIL;
-		goto END;
+		goto END_CLR;
 	}
 
 	/** Copy private key to local address using DMA and change endianness of the data. */

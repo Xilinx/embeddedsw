@@ -77,12 +77,15 @@ static s32 XKeywrap_WrapOp(const XAsu_KeyWrapParams *KeyWrapParamsPtr, XAes *Aes
  * @return
  * 	- XASUFW_SUCCESS, if key wrap operation is successful.
  * 	- XASUFW_KEYWRAP_INVALID_PARAM, if input parameter validation fails.
+ * 	- XASUFW_KEYWRAP_INVALID_OUTPUT_BUF_LEN, if the output buffer is too small.
  * 	- XASUFW_RAND_GEN_ERROR, if ephemeral AES key using TRNG generation fails.
  * 	- XASUFW_RSA_OAEP_ENCODE_ERROR, if OAEP encode operation fails.
+ * 	- XASUFW_RSA_INVALID_OUTPUT_BUF_LEN, if OAEP encode output length is invalid.
  * 	- XASUFW_AES_WRITE_KEY_FAILED, if AES write key fails.
  * 	- XASUFW_KEYWRAP_AES_KEY_CLEAR_FAIL, if AES key clear fails.
  * 	- XASUFW_KEYWRAP_AES_WRAPPED_KEY_ERROR, if AES key wrap fails.
  * 	- XASUFW_DMA_COPY_FAIL, if coping wrapped key to user provided address using DMA fails.
+ * 	- Error code from XAsufw_UpdateBufStatus, if local buffer zeroization fails.
  *
  *************************************************************************************************/
 s32 XKeyWrap(const XAsu_KeyWrapParams *KeyWrapParamsPtr, XAsufw_Dma *AsuDmaPtr,
@@ -102,10 +105,10 @@ s32 XKeyWrap(const XAsu_KeyWrapParams *KeyWrapParamsPtr, XAsufw_Dma *AsuDmaPtr,
 	u32 OutDataLen = 0U;
 	u32 PadLen = 0U;
 	u32 RsaOaepOutLen = 0U;
-	u8 OutData[XASUFW_KEYWRAP_MAX_OUTPUT_SIZE_IN_BYTES];
-	u8 EphemeralAesKey[XASU_AES_KEY_SIZE_256BIT_IN_BYTES];
+	u8 OutData[XASUFW_KEYWRAP_MAX_OUTPUT_SIZE_IN_BYTES] = {0U};
+	u8 EphemeralAesKey[XASU_AES_KEY_SIZE_256BIT_IN_BYTES] = {0U};
 	XAsu_RsaOaepPaddingParams PaddingParams;
-	XAsu_AesKeyObject AesKeyObj;
+	XAsu_AesKeyObject AesKeyObj = {0U};
 
 	/** Validate input parameters. */
 	if ((KeyWrapParamsPtr == NULL) || (AsuDmaPtr == NULL) || (ShaInstancePtr == NULL)
@@ -148,12 +151,17 @@ s32 XKeyWrap(const XAsu_KeyWrapParams *KeyWrapParamsPtr, XAsufw_Dma *AsuDmaPtr,
 		Status = XTrng_GetRandomNumbers(EphemeralAesKey, AesKeySizeInBytes);
 		if (Status != XASUFW_SUCCESS) {
 			Status = XASUFW_RAND_GEN_ERROR;
+			/** Clear the partial key here; skip END_CLR as user key 7 was never written. */
+			XFIH_CALL(Xil_SecureZeroize, XFihBufferClear, ClearStatus, EphemeralAesKey,
+					XASU_AES_KEY_SIZE_256BIT_IN_BYTES);
+			Status = XAsufw_UpdateBufStatus(Status, ClearStatus);
 			goto END;
 		}
 		AesKeyObj.KeyAddress = (u64)(UINTPTR)EphemeralAesKey;
 		AesKeyObj.KeySize = KeyWrapParamsPtr->AesKeySize;
 		AesKeyObj.KeyId = 0U;
 	}
+	/** Force user key 7 after populate; a caller key object copy overwrites KeySrc. */
 	AesKeyObj.KeySrc = XASU_AES_USER_KEY_7;
 
 	/**
@@ -173,16 +181,18 @@ s32 XKeyWrap(const XAsu_KeyWrapParams *KeyWrapParamsPtr, XAsufw_Dma *AsuDmaPtr,
 	PaddingParams.ShaType = KeyWrapParamsPtr->ShaType;
 	PaddingParams.ShaMode = KeyWrapParamsPtr->ShaMode;
 
+	/** Perform the RSA OAEP encode operation. */
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-	Status = XRsa_OaepEncode(AsuDmaPtr, ShaInstancePtr, &PaddingParams, KeyWrapParamsPtr->KeyCompAddr, &RsaOaepOutLen);
+	Status = XRsa_OaepEncode(AsuDmaPtr, ShaInstancePtr, &PaddingParams,
+				KeyWrapParamsPtr->KeyCompAddr, &RsaOaepOutLen);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XASUFW_RSA_OAEP_ENCODE_ERROR;
-		goto END;
+		goto END_CLR;
 	}
 
 	if (RsaOaepOutLen != KeyWrapParamsPtr->RsaKeySize) {
 		Status = XASUFW_RSA_INVALID_OUTPUT_BUF_LEN;
-		goto END;
+		goto END_CLR;
 	}
 
 	/** Write AES key. */
@@ -190,7 +200,7 @@ s32 XKeyWrap(const XAsu_KeyWrapParams *KeyWrapParamsPtr, XAsufw_Dma *AsuDmaPtr,
 	Status = XAes_WriteKey(AesInstancePtr, AsuDmaPtr, &AesKeyObj);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XASUFW_AES_WRITE_KEY_FAILED;
-		goto END_KEY_CLR;
+		goto END_CLR;
 	}
 
 	/** Zeroize AES key immediately after use. */
@@ -199,7 +209,7 @@ s32 XKeyWrap(const XAsu_KeyWrapParams *KeyWrapParamsPtr, XAsufw_Dma *AsuDmaPtr,
 	Status = XAsufw_UpdateBufStatus(Status, ClearStatus);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XASUFW_KEYWRAP_AES_KEY_CLEAR_FAIL;
-		goto END_KEY_CLR;
+		goto END_CLR;
 	}
 
 	/** Perform AES Key Wrap. */
@@ -230,9 +240,13 @@ END_CLR:
 	ClearStatus = Xil_SecureZeroize(OutData, XASUFW_KEYWRAP_MAX_OUTPUT_SIZE_IN_BYTES);
 	Status = XAsufw_UpdateBufStatus(Status, ClearStatus);
 
-END_KEY_CLR:
 	/** Clear the key written to the XASU_AES_USER_KEY_7 key source. */
 	Status = XAsufw_UpdateErrorStatus(Status, XAes_KeyClear(AesInstancePtr, AesKeyObj.KeySrc));
+
+	/** Zeroize the ephemeral key, which is already cleared on the success path. */
+	XFIH_CALL(Xil_SecureZeroize, XFihBufferClear, ClearStatus, EphemeralAesKey,
+			XASU_AES_KEY_SIZE_256BIT_IN_BYTES);
+	Status = XAsufw_UpdateBufStatus(Status, ClearStatus);
 
 END:
 	return Status;
@@ -253,9 +267,11 @@ END:
  * 	- XASUFW_SUCCESS, if key unwrap operation is successful.
  * 	- XASUFW_KEYWRAP_INVALID_PARAM, if input parameter validation fails.
  * 	- XASUFW_RSA_OAEP_DECODE_ERROR, if OAEP decode operation fails.
+ * 	- XASUFW_RSA_INVALID_OUTPUT_BUF_LEN, if OAEP decode output length is invalid.
  * 	- XASUFW_AES_WRITE_KEY_FAILED, if AES write key fails.
  * 	- XASUFW_KEYWRAP_AES_KEY_CLEAR_FAIL, if AES key clear fails.
  * 	- XASUFW_KEYWRAP_AES_UNWRAPPED_KEY_ERROR, if AES key unwrap fails.
+ * 	- Error code from XAsufw_UpdateBufStatus, if local buffer zeroization fails.
  *
  *************************************************************************************************/
 s32 XKeyUnwrap(const XAsu_KeyWrapParams *KeyUnwrapParamsPtr, XAsufw_Dma *AsuDmaPtr,
@@ -270,10 +286,10 @@ s32 XKeyUnwrap(const XAsu_KeyWrapParams *KeyUnwrapParamsPtr, XAsufw_Dma *AsuDmaP
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
 	XFih_Var XFihBufferClear = XFih_VolatileAssignXfihVar(XFIH_FAILURE);
 	CREATE_VOLATILE(ClearStatus, XASUFW_FAILURE);
-	u8 AesKeyOut[XASU_AES_KEY_SIZE_256BIT_IN_BYTES];
+	u8 AesKeyOut[XASU_AES_KEY_SIZE_256BIT_IN_BYTES] = {0U};
 	u32 RsaOaepOutLen = 0U;
 	XAsu_RsaOaepPaddingParams PaddingParams;
-	XAsu_AesKeyObject AesKeyObj;
+	XAsu_AesKeyObject AesKeyObj = {0U};
 
 	/** Validate input parameters. */
 	if ((KeyUnwrapParamsPtr == NULL) || (AsuDmaPtr == NULL) || (ShaInstancePtr == NULL)
@@ -287,6 +303,9 @@ s32 XKeyUnwrap(const XAsu_KeyWrapParams *KeyUnwrapParamsPtr, XAsufw_Dma *AsuDmaP
 		Status = XASUFW_KEYWRAP_INVALID_PARAM;
 		goto END;
 	}
+
+	AesKeyObj.KeySize = KeyUnwrapParamsPtr->AesKeySize;
+	AesKeyObj.KeySrc = XASU_AES_USER_KEY_7;
 
 	/**
 	 * Update RSA OAEP related parameters for decryption of provided input to extract AES key
@@ -309,18 +328,17 @@ s32 XKeyUnwrap(const XAsu_KeyWrapParams *KeyUnwrapParamsPtr, XAsufw_Dma *AsuDmaP
 	Status = XRsa_OaepDecode(AsuDmaPtr, ShaInstancePtr, &PaddingParams, KeyUnwrapParamsPtr->KeyCompAddr, &RsaOaepOutLen);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XASUFW_RSA_OAEP_DECODE_ERROR;
-		goto END;
+		goto END_KEY_CLR;
 	}
 
-	if (RsaOaepOutLen != (((u32)KeyUnwrapParamsPtr->AesKeySize << XAES_KEY_SIZE_CONVERSION_SHIFT) +
+	if (RsaOaepOutLen != (((u32)KeyUnwrapParamsPtr->AesKeySize <<
+				XAES_KEY_SIZE_CONVERSION_SHIFT) +
 				XAES_KEY_SIZE_CONVERSION_OFFSET)) {
 		Status = XASUFW_RSA_INVALID_OUTPUT_BUF_LEN;
-		goto END;
+		goto END_KEY_CLR;
 	}
 
 	AesKeyObj.KeyAddress = (u64)(UINTPTR)AesKeyOut;
-	AesKeyObj.KeySize = KeyUnwrapParamsPtr->AesKeySize;
-	AesKeyObj.KeySrc = XASU_AES_USER_KEY_7;
 
 	/** Write AES key. */
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
@@ -360,6 +378,11 @@ END_KEY_CLR:
 		Status = XAsufw_UpdateErrorStatus(Status, ClearStatus);
 	}
 
+	/** Zeroize the decoded AES key, which is already cleared on the success path. */
+	XFIH_CALL(Xil_SecureZeroize, XFihBufferClear, ClearStatus, AesKeyOut,
+			XASU_AES_KEY_SIZE_256BIT_IN_BYTES);
+	Status = XAsufw_UpdateBufStatus(Status, ClearStatus);
+
 END:
 	return Status;
 }
@@ -381,6 +404,7 @@ END:
  * 	- XASUFW_DMA_COPY_FAIL, if input data copy using DMA fails.
  * 	- XASUFW_ZEROIZE_MEMSET_FAIL, if zeroization fails for padding length.
  * 	- XASUFW_KEYWRAP_AES_DATA_CALC_FAIL, if AES operation fails.
+ * 	- Error code from XAsufw_UpdateBufStatus, if local scratch buffer zeroization fails.
  *
  *************************************************************************************************/
 static s32 XKeywrap_WrapOp(const XAsu_KeyWrapParams *KeyWrapParamsPtr, XAes *AesInstancePtr,
@@ -572,9 +596,10 @@ static s32 XKeywrap_WrapOp(const XAsu_KeyWrapParams *KeyWrapParamsPtr, XAes *Aes
 	}
 
 END_CLR:
-	/** Zeroize local buffer of input data. */
+	/** Zeroize wrap workspace from InData through end of AesOutData. */
 	XFIH_CALL(Xil_SecureZeroize, XFihBufferClear, ClearStatus, InData,
-			XASUFW_KEYWRAP_MAX_OUTPUT_SIZE_IN_BYTES + (XASU_AES_BLOCK_SIZE_IN_BYTES * 2U));
+			(u32)((UINTPTR)(AesOutData + XASU_AES_BLOCK_SIZE_IN_BYTES) -
+			(UINTPTR)InData));
 	Status = XAsufw_UpdateBufStatus(Status, ClearStatus);
 
 END:
@@ -599,6 +624,7 @@ END:
  * 	- XASUFW_DMA_COPY_FAIL, if input data copy using DMA fails.
  * 	- XASUFW_KEYWRAP_AES_DATA_CALC_FAIL, if AES operation fails.
  * 	- XASUFW_KEYWRAP_ICV_CMP_FAIL, if ICV comparison with first 4 bytes of output fails.
+ * 	- Error code from XAsufw_UpdateBufStatus, if local scratch buffer zeroization fails.
  *
  *************************************************************************************************/
 s32 XKeyWrap_UnwrapOp(const XAsu_KeyWrapParams *KeyUnwrapParamsPtr, XAes *AesInstancePtr,
@@ -826,9 +852,10 @@ s32 XKeyWrap_UnwrapOp(const XAsu_KeyWrapParams *KeyUnwrapParamsPtr, XAes *AesIns
 	}
 
 END_CLR:
-	/** Zeroize input data local buffer. */
+	/** Zeroize unwrap workspace from InData through end of OutData. */
 	XFIH_CALL(Xil_SecureZeroize, XFihBufferClear, ClearStatus, InData,
-			XASUFW_KEYWRAP_MAX_OUTPUT_SIZE_IN_BYTES);
+			(u32)((UINTPTR)(OutData + XASUFW_KEYWRAP_MAX_OUTPUT_SIZE_IN_BYTES) -
+			(UINTPTR)InData));
 	Status = XAsufw_UpdateBufStatus(Status, ClearStatus);
 
 END:
