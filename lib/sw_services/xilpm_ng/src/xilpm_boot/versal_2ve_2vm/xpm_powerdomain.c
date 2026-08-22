@@ -4,6 +4,7 @@
 ******************************************************************************/
 
 #include "xplmi.h"
+#include "xplmi_err.h"
 #include "xpm_defs.h"
 #include "xpm_common.h"
 #include "xpm_node.h"
@@ -20,6 +21,7 @@
 #include "xpm_debug.h"
 #include "xpm_err.h"
 #include "xpm_domain_iso.h"
+#include "xpm_gic_proxy.h"
 #include "xpm_pmc.h"
 #ifdef PLM_ENABLE_STL
 #include "xstl_plminterface.h"
@@ -52,6 +54,40 @@
 typedef XStatus (*XPm_DomainInitStartOp)(XPm_PowerDomain *PwrDomain, const u32 *Args, u32 NumOfArgs);
 typedef XStatus (*XPm_DomainInitFinishOp)(const XPm_PowerDomain *PwrDomain, const u32 *Args, u32 NumOfArgs);
 typedef XStatus (*XPm_DomainAmsTrimOp)(const XPm_PowerDomain *PwrDomain, const u32 *Args, u32 NumOfArgs);
+
+/******************************************************************/
+/**
+ * @brief  CMN Flushing feature is not supported in BOOT
+ *
+ * @return Status of the operation: XPM_NO_FEATURE
+ *
+ * @note  Weak Symbol - Stub implementation for BOOT-only builds. The
+ *        parameter is left undocumented here on purpose; the runtime
+ *        implementation in xpm_runtime_mem_subsys.c documents it, and
+ *        Doxygen merges both into one symbol.
+ *
+ ******************************************************************/
+XStatus __attribute__((weak, noinline)) XPmSubsystem_CmnFlushForCore(u32 PowerDomainId) {
+	XStatus Status = XPM_FAILURE;
+	(void)PowerDomainId;
+
+	Status = XPM_NO_FEATURE;
+	return Status;
+}
+
+/******************************************************************/
+/**
+ * @brief  GIC Proxy wakeup is not supported in BOOT
+ *
+ * @return Status of the operation: XPM_NO_FEATURE
+ *
+ * @note  Weak Symbol - Stub implementation for BOOT-only builds.
+ *        Overridden by the runtime implementation (xpm_gic_proxy.c)
+ *
+ ******************************************************************/
+XStatus __attribute__((weak, noinline)) XPmGicProxy_EnableWakeup(void) {
+	return XPM_NO_FEATURE;
+}
 
 /* Dispatch functions */
 static XPm_DomainInitStartOp XPmPowerDomain_GetInitStartOp(u32 DomainId)
@@ -160,20 +196,26 @@ static XPm_DomainAmsTrimOp XPmPowerDomain_GetAmsTrimOp(u32 DomainId)
 }
 
 /**
- * @brief 	Helper function to perform PL domain reset actions (assert/de-assert)
+ * @brief 	Helper function to perform power domain reset actions (assert/de-assert)
  *
- * @param RstNodeId 	Node Id to assert reset for PL Power Domain
+ * @param RstNodeId 	Node Id to assert reset for Power Domain
  * @param Action	Reset action to be performed (assert/de-assert)
  *
  * @return XST_SUCCESS if successful else XST_FAILURE or error code
  */
-static inline XStatus PLRstAction(u32 RstNodeId, u32 Action) {
+static inline XStatus PwrDomainRstAction(u32 RstNodeId, u32 Action) {
 	XStatus Status = XST_FAILURE;
 	XPm_ResetNode *Rst = XPmReset_GetById(RstNodeId);
 	u32 ControlReg = 0x0UL;
 	u32 Mask = 0x0UL;
 
 	if (NULL == Rst) {
+		/*
+		 * Reset node not present in this device topology (e.g. the FPD
+		 * POR/SRST nodes prior to their addition in versal-topology).
+		 * Treat as a no-op so the power transition is not blocked.
+		 */
+		Status = XST_SUCCESS;
 		goto done;
 	}
 
@@ -297,25 +339,224 @@ XStatus XPm_PowerDwnLPD(void)
 	return Status;
 }
 
+/****************************************************************************/
+/**
+ * @brief  Perform the hardware power up sequence for the FPD power domain.
+ *
+ * @param  Node: Pointer to the FPD domain node
+ *
+ * @return XST_SUCCESS if successful else XST_FAILURE or error code
+ *
+ * @note   The CDO drives the overall FPD resume sequence; this only performs
+ *         the hardware power up.
+ *
+ ****************************************************************************/
 XStatus XPm_PowerUpFPD(const XPm_Node *Node)
 {
 	XStatus Status = XST_FAILURE;
+	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
+	const XPm_PsFpDomain *FpDomain = NULL;
 
-	/* TODO: Add Power up sequence for FPD */
-	(void)Node;
-	Status = XST_SUCCESS;
+	/**
+	 * Perform the FPD power up sequence
+	 *
+	 * - CDO takes care of the sequence,
+	 * 	only perform HW PowerUp
+	*/
 
+	if (NULL == Node) {
+		DbgErr = XPM_INT_ERR_INVALID_NODE;
+		Status = XST_FAILURE;
+		goto done;
+	}
+
+	FpDomain = (XPm_PsFpDomain *)XPmPower_GetById(Node->Id);
+	if (NULL == FpDomain) {
+		Status = XPM_INVALID_PWRDOMAIN;
+		DbgErr = XPM_INT_ERR_INVALID_PWR_DOMAIN;
+		goto done;
+	}
+
+	Status = XPmPower_UpdateDomainPower(&FpDomain->Domain, XPM_POWER_STATE_ON);
+	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_FPD_RAIL_CONTROL;
+		goto done;
+	}
+
+done:
+	XPm_PrintDbgErr(Status, DbgErr);
 	return Status;
 }
 
+/**
+ * @brief	Arm the GIC proxy so an APU wake interrupt can still be latched
+ *		while the FPD power domain is off
+ *
+ * @return XST_SUCCESS if the proxy was armed or the core is not suspending,
+ *	   else XST_FAILURE or error code
+ *
+ * @note	Bit 0 of ResumeAddr is the valid flag and is only set once the
+ *		core has self-suspended. Without it the FPD power down is a
+ *		shutdown and there is no wake path to arm.
+ */
+static XStatus XPm_ApuArmGicProxyWake(void)
+{
+	XStatus Status = XST_FAILURE;
+	const XPm_Core *ApuCore = (XPm_Core *)XPmDevice_GetById(PM_DEV_ACPU_0_0);
+
+	if (NULL == ApuCore) {
+		/* No APU in topology: nothing to arm, power-down may still proceed */
+		PmWarn("APU core 0x%x not in topology, GIC proxy not armed\r\n",
+		       PM_DEV_ACPU_0_0);
+		Status = XST_SUCCESS;
+		goto done;
+	}
+
+	if (0U == (u32)(ApuCore->ResumeAddr & 1ULL)) {
+		/* No resume address: treat as shutdown, not suspend-with-wake */
+		PmInfo("No APU resume address set, treating FPD off as shutdown\r\n");
+		Status = XST_SUCCESS;
+		goto done;
+	}
+
+	/* Core is suspending: arm GIC proxy before FPD rail drops */
+	Status = XPmGicProxy_EnableWakeup();
+	if (XST_SUCCESS != Status) {
+		PmErr("GIC proxy wakeup enable failed, Status=0x%x\r\n", Status);
+	}
+
+done:
+	return Status;
+}
+
+/****************************************************************************/
+/**
+ * @brief  Perform the hardware power down sequence for the FPD power domain.
+ *
+ * @param  Node: Pointer to the FPD domain node
+ *
+ * @return XST_SUCCESS if successful else XST_FAILURE or error code
+ *
+ ****************************************************************************/
 XStatus XPm_PowerDwnFPD(const XPm_Node *Node)
 {
 	XStatus Status = XST_FAILURE;
+	u32 DbgErr = (u32)XPM_INT_ERR_UNDEFINED;
+	const XPm_PsFpDomain *FpDomain = NULL;
 
-	/* TODO: Add Power down sequence for FPD */
-	(void)Node;
-	Status = XST_SUCCESS;
+	if (NULL == Node) {
+		DbgErr = (u32)XPM_INT_ERR_INVALID_NODE;
+		Status = XST_FAILURE;
+		goto done;
+	}
 
+	/* Flush subsystem state before FPD power-off */
+	Status = XPmSubsystem_CmnFlushForCore(Node->Id);
+	if (XST_SUCCESS != Status) {
+		DbgErr = (u32)XPM_INT_ERR_FPD_CMN_FLUSH;
+		Status = XST_FAILURE;
+		goto done;
+	}
+
+	/* disable CRL Write Protections */
+	PmOut32(PSX_CRL_BASEADDR + PSX_CRL_WPROT_OFFSET, 0U);
+	/* disable LPD SLCR Write Protections */
+	PmOut32(LPD_SLCR_BASEADDR + LPD_SLCR_WPROT0_OFFSET, 0U);
+	/* disable CRP Write Protections */
+	PmOut32(CRP_BASEADDR + CRP_WPROT_OFFSET, 0U);
+
+	/**
+	 * Mask APLL lock-loss on PMC3 before cutting FPD rail.
+	 * Unmasked in FpdInitFinish once the FPD CDO has relocked the APLLs.
+	 */
+	(void)XPlmi_EmDisableLpdSlcrErrors(EAM_PMC3_ERR0_MASK_REG,
+					   EAM_APLL_LOCK_LOSS_MASK);
+
+	/* Isolate: FPD-SOC */
+	Status = XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_FPD_SOC, XPM_ISO_ENABLE);
+	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_FPD_SOC_ISO;
+		goto done;
+	}
+
+	/* Isolate: FPD-LPD */
+	Status = XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_LPD_FPD, XPM_ISO_ENABLE);
+	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_FPD_LPD_ISO;
+		goto done;
+	}
+
+	/* Isolate: FPD-LPD_DFX */
+	Status = XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_LPD_FPD_DFX, XPM_ISO_ENABLE);
+	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_FPD_LPD_DFX_ISO;
+		goto done;
+	}
+
+	/* Isolate: FPD-PL_TEST */
+	Status = XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_FPD_PL_TEST, XPM_ISO_ENABLE);
+	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_FPD_PL_TEST_ISO;
+		goto done;
+	}
+
+	/* Isolate: FPD-PL */
+	Status = XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_FPD_PL, XPM_ISO_ENABLE);
+	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_FPD_PL_ISO;
+		goto done;
+	}
+
+	/* Isolate: FPD-MMI */
+	/* TODO: FIXME: Missing? */
+
+	/* Isolate: FPD-MMI_DFX */
+	/* TODO: FIXME: Missing? */
+
+	/* set reset value for LPD SLCR Scan Clear Trigger */
+	PmOut32(PSXC_LPX_SLCR_SCAN_CLEAR_TRIGGER, 0U);
+
+	/* set reset value for LPD SCLR Mem Clear Trigger */
+	PmOut32(PSXC_LPX_SLCR_MEM_CLEAR_TRIGGER, 0U);
+
+	/* set reset value for CRP XDP Control */
+	/* TODO: FIXME: MACROs missing */
+	PmRmw32(CRP_BASEADDR + CRP_PPLL_TO_XPD_CTRL_OFFSET, 0x3FF00U, 0x200U);
+
+	/*
+	 * The GIC sits inside FPD and is shut off with the domain, so the GIC
+	 * proxy has to carry the wake path while FPD is down. Arm it before the
+	 * rail drops so a wake cannot land with the GIC already gone.
+	 */
+	Status = XPm_ApuArmGicProxyWake();
+	if (XST_SUCCESS != Status) {
+		DbgErr = (u32)XPM_INT_ERR_GIC_PROXY_WAKEUP;
+		goto done;
+	}
+
+	FpDomain = (XPm_PsFpDomain *)XPmPower_GetById(Node->Id);
+	if (NULL == FpDomain) {
+		Status = XPM_INVALID_PWRDOMAIN;
+		DbgErr = XPM_INT_ERR_INVALID_PWR_DOMAIN;
+		goto done;
+	}
+
+	/* Rail Update Status - must be the last step */
+	Status = XPmPower_UpdateDomainPower(&FpDomain->Domain, XPM_POWER_STATE_OFF);
+	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_FPD_RAIL_CONTROL;
+		goto done;
+	}
+
+done:
+	/* enable CRL Write Protections */
+	PmOut32(PSX_CRL_BASEADDR + PSX_CRL_WPROT_OFFSET, 1U);
+	/* enable LPD SLCR Write Protections */
+	PmOut32(LPD_SLCR_BASEADDR + LPD_SLCR_WPROT0_OFFSET, 1U);
+	/* enable CRP Write Protections */
+	PmOut32(CRP_BASEADDR + CRP_WPROT_OFFSET, 1U);
+
+	XPm_PrintDbgErr(Status, DbgErr);
 	return Status;
 }
 
@@ -365,12 +606,12 @@ XStatus XPm_PowerUpPLD(const XPm_Node *Node)
 	 * change Reset Node change to de-asserted for software sync
 	 * ( actual reset de-assertion is done by CDO )
 	*/
-	Status = PLRstAction(PM_RST_PL_POR, XPM_RST_STATE_DEASSERTED);
+	Status = PwrDomainRstAction(PM_RST_PL_POR, XPM_RST_STATE_DEASSERTED);
 	if (XST_SUCCESS != Status) {
 		DbgErr = XPM_INT_ERR_RST_RELEASE;
 		goto done;
 	}
-	Status = PLRstAction(PM_RST_PL_SRST, XPM_RST_STATE_DEASSERTED);
+	Status = PwrDomainRstAction(PM_RST_PL_SRST, XPM_RST_STATE_DEASSERTED);
 	if (XST_SUCCESS != Status) {
 		DbgErr = XPM_INT_ERR_RST_RELEASE;
 		goto done;
@@ -478,13 +719,13 @@ XStatus XPm_PowerDwnPLD(const XPm_Node *Node)
 
 	/* Extract needed logic from XPmReset_AssertbyId() to boot module */
 	/* Assert POR PL */
-	Status = PLRstAction(PM_RST_PL_POR, XPM_RST_STATE_ASSERTED);
+	Status = PwrDomainRstAction(PM_RST_PL_POR, XPM_RST_STATE_ASSERTED);
 	if (XST_SUCCESS != Status) {
 		DbgErr = XPM_INT_ERR_RST_ASSERT;
 		goto done;
 	}
 	/* Assert SRST PL */
-	Status = PLRstAction(PM_RST_PL_SRST, XPM_RST_STATE_ASSERTED);
+	Status = PwrDomainRstAction(PM_RST_PL_SRST, XPM_RST_STATE_ASSERTED);
 	if (XST_SUCCESS != Status) {
 		DbgErr = XPM_INT_ERR_RST_ASSERT;
 		goto done;

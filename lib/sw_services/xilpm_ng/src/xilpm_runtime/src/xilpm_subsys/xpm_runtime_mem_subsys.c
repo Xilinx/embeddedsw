@@ -7,6 +7,8 @@
 #include "xpm_regs.h"
 #include "xpm_requirement.h"
 #include "xpm_runtime_mem.h"
+#include "xpm_runtime_device.h"
+#include "xpm_powerdomain.h"
 
 /********************* Macro / Struct Definitions *********************/
 
@@ -323,4 +325,66 @@ done:
 XStatus XPmSubsystem_CmnFlush(u32 SubsystemId)
 {
 	return SubsystemCmnFlush(SubsystemId, &AddrRegnCmnFlushCb);
+}
+
+/****************************************************************************/
+/**
+ * @brief  Flush all memory region/device nodes (DDR, OCM, TCM, PL) depending
+ * 	   on the subsystems tied to cores in the given power domain
+ *
+ * @param  PowerDomainId 	ID of given power domain
+ *
+ * @return XST_SUCCESS if successful else appropriate return code
+ *
+ * @note 	Function needs to be updates to accomodate RPU Cores
+ *
+ ****************************************************************************/
+XStatus XPmSubsystem_CmnFlushForCore(u32 PowerDomainId) {
+	XStatus Status = XST_FAILURE;
+	u32 SubsystemIdMask = 0x0U;
+	u32 CoreIdx = 0x0U;
+	u32 MaxCoreIdx = 0x0U;
+
+	/* TODO: FIXME: needs better scalable solution to handle RPU Cores */
+	if (PM_POWER_FPD == PowerDomainId) {
+		CoreIdx = PM_DEV_ACPU_0_0;
+		MaxCoreIdx = PM_DEV_ACPU_3_3;
+	} else {
+		Status = XST_INVALID_PARAM;
+		goto done;
+	}
+
+	for (u32 i = CoreIdx; i <= MaxCoreIdx; i++) {
+		XPm_Device *Core = XPmDevice_GetById(i);
+
+		if (NULL == Core) {
+			/* not a populated core node */
+			continue;
+		}
+
+		u32 SubsystemId = XPmDevice_GetSubsystemIdOfCore(Core);
+		if (INVALID_SUBSYSID == SubsystemId) {
+			/* core not owned by any subsystem, skip it */
+			continue;
+		}
+
+		/* check whether given subsystem is already flushed */
+		if (0U != (SubsystemIdMask & ((u32)1U << NODEINDEX(SubsystemId)))) {
+			continue;
+		}
+
+		Status = XPmSubsystem_CmnFlush(SubsystemId);
+		if (XST_SUCCESS != Status) {
+			PmErr("CMN Flush failed\r\n");
+			goto done;
+		}
+
+		/* Mark the subsystem as flushed */
+		SubsystemIdMask |= ((u32)1U << NODEINDEX(SubsystemId));
+	}
+
+	Status = XST_SUCCESS;
+
+done:
+	return Status;
 }

@@ -241,13 +241,12 @@ XStatus XPmDomainCtrl_Control(const XPm_PowerDomain *PwrDomain, u32 State) {
 
 	Status = XST_SUCCESS;
 
-	/**
-	 * TODO: FIXME: Add a robust time-out/N-retry mechanism to check whether requested power state is achieved or not.
-	 * This is because external HW sequencer may take some time to perform the power transition and
-	 * Note: we only have to check for POWER OFF ( as in PowerUp Sequence, we already check power when performing initialization )
+	/*
+	 * TODO: Replace this fixed delay with a time-out/retry loop that polls
+	 * the power rail state. The external HW sequencer needs time to
+	 * complete the transition.
 	 */
-	/* check power for PSFP Power Rail */
-	/* check power for PL Power Rail */
+	usleep(150000);
 
 done:
 	XPm_PrintDbgErr(Status, DbgErr);

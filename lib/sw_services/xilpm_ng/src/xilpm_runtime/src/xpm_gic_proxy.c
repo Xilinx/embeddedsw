@@ -312,3 +312,29 @@ static XPm_GicProxy_t XPm_GicProxy = {
 	.Enable = &XPmGicProxy_Enable,
 	.Flags = 0U,
 };
+
+/**
+ * @brief  Enable GIC Proxy wake interrupts (runtime override of the weak
+ *         BOOT stub defined in xpm_powerdomain.c).
+ *
+ * @return XST_SUCCESS on success, error code on failure.
+ *
+ * @note   Strong symbol - linked when XilPM runtime (EEMI/Subsystem) is
+ *         enabled; overrides the weak BOOT-only stub.
+ */
+XStatus XPmGicProxy_EnableWakeup(void)
+{
+	return XPm_GicProxy.Enable();
+}
+
+/**
+ * @brief  Clear all cached GIC Proxy wake-up sources.
+ *
+ * @note   Public wrapper around the file-local XPm_GicProxy.Clear() so callers
+ *         outside this translation unit (e.g. the wakeup path) can reset the
+ *         GIC Proxy setup.
+ */
+void XPmGicProxy_ClearWakeup(void)
+{
+	XPm_GicProxy.Clear();
+}

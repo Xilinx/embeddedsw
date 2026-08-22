@@ -17,7 +17,7 @@ static XPmRuntime_PeriphList *PeriphList XPM_INIT_DATA(PeriphList) = NULL;
  *         XST_DEVICE_NOT_FOUND if the peripheral list is empty
  *
  ****************************************************************************/
-maybe_unused static XStatus XPmRuntime_Periph_GetWakeProcId(const XPm_Periph * Device, u32 *WakeProcId)
+XStatus XPmRuntime_Periph_GetWakeProcId(const XPm_Periph * Device, u32 *WakeProcId)
 {
 	XStatus Status = XST_FAILURE;
 	if ((NULL == Device) || (NULL == WakeProcId)) {

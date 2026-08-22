@@ -86,16 +86,18 @@ static XStatus ActionBringUpAll(XPm_Device* const Device)
 		PmErr("Bring up device failed!\n");
 		goto done;
 	}
-	/** Start clocks */
-	Status = SetClocks(Device, 1U);
-	if (XST_SUCCESS != Status) {
-		PmErr("clock set failed!\n");
-		goto done;
-	}
+
 	/** Skip releasing reset if device is core type; since it is done as the part of request wakeup */
 	if (((u32)XPM_NODECLASS_DEVICE == NODECLASS(Device->Node.Id)) &&
 	    ((u32)XPM_NODESUBCL_DEV_CORE == NODESUBCLASS(Device->Node.Id))) {
 		Status = XST_SUCCESS;
+		goto done;
+	}
+
+	/** Start clocks */
+	Status = SetClocks(Device, 1U);
+	if (XST_SUCCESS != Status) {
+		PmErr("clock set failed!\n");
 		goto done;
 	}
 

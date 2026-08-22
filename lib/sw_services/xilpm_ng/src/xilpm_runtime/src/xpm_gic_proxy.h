@@ -43,6 +43,8 @@ typedef struct {
  ********************************************************************/
 
 XStatus XPmGicProxy_WakeEventSet(const XPm_Periph *Periph, u8 Enable);
+XStatus XPmGicProxy_EnableWakeup(void);
+void XPmGicProxy_ClearWakeup(void);
 
 #ifdef __cplusplus
 }

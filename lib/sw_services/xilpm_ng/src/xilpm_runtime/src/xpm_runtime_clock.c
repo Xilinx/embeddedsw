@@ -184,6 +184,13 @@ static void XPmClock_ReleaseInt(XPm_ClockNode *Clk)
 	XStatus Status;
 
 	if (Clk != NULL) {
+		/* Add a guard check on Clock UseCount */
+		if (0U == Clk->UseCount) {
+			PmWarn("ReleaseInt: UseCount already 0 for 0x%x (%s), skipping\r\n",
+				Clk->Node.Id, Clk->Name);
+			goto done;
+		}
+
 		/* Decrease the use count of clock */
 		PmDecrementClk(Clk->Node.Id, Clk->Name, Clk->UseCount);
 
@@ -208,6 +215,7 @@ static void XPmClock_ReleaseInt(XPm_ClockNode *Clk)
 			}
 		}
 	}
+done:
 	return;
 }
 

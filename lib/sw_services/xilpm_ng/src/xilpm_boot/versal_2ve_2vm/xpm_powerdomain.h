@@ -24,6 +24,12 @@ typedef struct XPm_PowerDomain XPm_PowerDomain;
 #define XPM_DOMAIN_INIT_STATUS_REG		PMC_GLOBAL_PERS_GLOB_GEN_STORAGE0
 #define MAX_POWERDOMAINS			6U /**< Maximum number of power domains */
 
+#define EAM_PMC3_ERR0_MASK_REG 			(LPD_SLCR_BASEADDR + 0x00040160U) /**< EAM PMC3 ERR0 mask register */
+#define EAM_EN_OFFSET 				(0x20U) /**< Offset from an EAM mask register to its error enable (unmask) register */
+#define EAM_DIS_OFFSET 				(0x40U) /**< Offset from an EAM mask register to its error disable (mask) register */
+#define EAM_APLL_LOCK_LOSS_MASK 		(0x00000060U) /**< APLL lock-loss error bits within PMC3 ERR0 */
+#define CRP_PPLL_TO_XPD_CTRL_OFFSET		(0x100U) /**< CRP offset of the PPLL-to-XPD clock control register */
+
 struct XPm_PowerDomain {
 	XPm_Power Power; /**< Power: Power node base class */
 	u32 Parents[MAX_POWERDOMAINS]; /**< List of Parent Rail Ids */
@@ -70,6 +76,7 @@ XStatus XPmPowerDomain_InitDomain(XPm_PowerDomain *PwrDomain, u32 Function,
 				  const u32 *Args, u32 NumArgs);
 XStatus XPmPower_CheckPower(const XPm_Rail *Rail, u32 VoltageRailMask);
 XStatus XPmPower_SysmonCheckPower(const XPm_Rail *Rail);
+XStatus XPmSubsystem_CmnFlushForCore(u32 PowerDomainId);
 #ifdef __cplusplus
 }
 #endif

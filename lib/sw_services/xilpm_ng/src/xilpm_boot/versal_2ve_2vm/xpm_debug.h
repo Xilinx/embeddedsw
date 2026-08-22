@@ -235,6 +235,12 @@ extern "C" {
 #define XPM_INT_ERR_FPD_PL_TEST_ISO		0x3504U
 /* Error during fpd rail control */
 #define XPM_INT_ERR_FPD_RAIL_CONTROL		0X3505U
+/** Error during CMN flush before FPD power down */
+#define XPM_INT_ERR_FPD_CMN_FLUSH		0x3506U
+/** Error during FPD-LPD Isolation disable/enable */
+#define XPM_INT_ERR_FPD_LPD_ISO			0x3507U
+/** Error during FPD-LPD DFX Isolation disable/enable */
+#define XPM_INT_ERR_FPD_LPD_DFX_ISO		0x3508U
 
 /************************* Miscellaneous Errors ******************************/
 /************************** (0x3600) - (0x36FF) ******************************/
@@ -282,6 +288,8 @@ extern "C" {
 #define XPM_INT_ERR_ISO_MAX_DEPENDENCIES	0X3614U
 /* Out of bound */
 #define XPM_INT_ERR_OUT_OF_RANGE		0x3615U
+/** Error while arming the GIC proxy wake path */
+#define XPM_INT_ERR_GIC_PROXY_WAKEUP		0x3616U
 
 /************************** PLD specific Errors ******************************/
 /************************** (0x3700) - (0x37FF) ******************************/

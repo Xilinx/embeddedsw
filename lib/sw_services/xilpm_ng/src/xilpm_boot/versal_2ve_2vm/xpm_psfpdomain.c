@@ -3,6 +3,8 @@
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
+#include "xplmi.h"
+#include "xplmi_err.h"
 #include "xpm_common.h"
 #include "xpm_psfpdomain.h"
 #include "xpm_regs.h"
@@ -49,10 +51,18 @@ XStatus FpdInitFinish(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 		u32 NumOfArgs)
 {
 	XStatus Status = XST_FAILURE;
+	u32 WProt = 0U;
 
 	(void)PwrDomain;
 	(void)Args;
 	(void)NumOfArgs;
+
+	/* Unmask the APLL lock-loss errors masked in XPm_PowerDwnFPD */
+	PmIn32(LPD_SLCR_BASEADDR + LPD_SLCR_WPROT0_OFFSET, WProt);
+	PmOut32(LPD_SLCR_BASEADDR + LPD_SLCR_WPROT0_OFFSET, 0U);
+	(void)EmEnableLpdSlcrErrAction(EAM_PMC3_ERR0_MASK_REG,
+				       EAM_APLL_LOCK_LOSS_MASK);
+	PmOut32(LPD_SLCR_BASEADDR + LPD_SLCR_WPROT0_OFFSET, WProt);
 
 	/*
 	 * Todo: This is a SW work around.

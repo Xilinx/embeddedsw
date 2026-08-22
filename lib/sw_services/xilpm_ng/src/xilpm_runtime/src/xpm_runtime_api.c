@@ -468,16 +468,41 @@ done:
 	return Status;
 }
 
+/*****************************************************************************/
+/**
+ * @brief Wake the APU core linked to a GIC proxy wake interrupt
+ *
+ * Uses XPm_RequestWakeUp() so FPD is restored first if it was powered off
+ * during suspend.
+ *
+ * @param  PeriphIdx	Index of the peripheral that raised the wake interrupt
+ *
+ * @return XST_SUCCESS if the core is running or was woken,
+ *	   XST_FAILURE or error code on failure
+ *
+ *****************************************************************************/
 static XStatus XPm_GicProxyWakeUp(const u32 PeriphIdx)
 {
 	XStatus Status = XST_FAILURE;
+	u32 WakeProcId = 0U;
+	u32 SubsystemId;
 
-	const XPmRuntime_Periph *Periph = (XPmRuntime_Periph *)XPmDevice_GetByIndex(PeriphIdx);
-	if ((NULL == Periph) || (0U == Periph->WakeProcId)) {
+	XPm_Periph *Periph = (XPm_Periph *)XPmDevice_GetByIndex(PeriphIdx);
+	if (NULL == Periph) {
 		goto done;
 	}
 
-	XPm_Core *Core = (XPm_Core *)XPmDevice_GetById(Periph->WakeProcId);
+	Status = XPmRuntime_Periph_GetWakeProcId(Periph, &WakeProcId);
+	if ((XST_SUCCESS != Status) || (0U == WakeProcId)) {
+		Status = XST_FAILURE;
+		goto done;
+	}
+
+	XPm_Core *Core = (XPm_Core *)XPmDevice_GetById(WakeProcId);
+	if (NULL == Core) {
+		Status = XST_FAILURE;
+		goto done;
+	}
 
 	/* Do not process anything if core is already running */
 	if ((u8)XPM_DEVSTATE_RUNNING == Core->Device.Node.State) {
@@ -485,7 +510,15 @@ static XStatus XPm_GicProxyWakeUp(const u32 PeriphIdx)
 		goto done;
 	}
 
-	Status = XPmCore_RequestWakeup(Core, 0, 0);
+	/* Extract subsystem id from wake-up core */
+	SubsystemId = XPmDevice_GetSubsystemIdOfCore((XPm_Device *)Core);
+	if (INVALID_SUBSYSID == SubsystemId) {
+		Status = XPM_INVALID_SUBSYSID;
+		goto done;
+	}
+
+	/* Request wakeup for the core */
+	Status = XPm_RequestWakeUp(SubsystemId, WakeProcId, 0, 0, 0, XPLMI_CMD_SECURE);
 
 done:
 	return Status;
@@ -532,6 +565,7 @@ static XStatus XPm_RegisterWakeUpHandlers(void)
 	XPm_RegisterWakeUpHandler((u32)XPLMI_PMC_GIC_IRQ_GICP1, (u32)XPLMI_GICP1_SRC5, XPM_NODEIDX_DEV_USB_1);
 	XPm_RegisterWakeUpHandler((u32)XPLMI_PMC_GIC_IRQ_GICP1, (u32)XPLMI_GICP1_SRC6, XPM_NODEIDX_DEV_USB_1);
 	XPm_RegisterWakeUpHandler((u32)XPLMI_PMC_GIC_IRQ_GICP5, (u32)XPLMI_GICP1_SRC4, XPM_NODEIDX_DEV_MMI_GEM);
+	XPm_RegisterWakeUpHandler((u32)XPLMI_PMC_GIC_IRQ_GICP6, (u32)XPLMI_GICP6_SRC8, XPM_NODEIDX_DEV_RTC);
 
 END:
 	return Status;
@@ -2381,6 +2415,21 @@ XStatus XPm_RequestWakeUp(u32 SubsystemId, const u32 DeviceId,
 					if (XST_SUCCESS != Status) {
 						goto done;
 					}
+				}
+
+				/* If APU Cores are requested to wakeup, re-load FPD CDO */
+				if ((u32)XPM_NODETYPE_DEV_CORE_APU == NODETYPE(CoreDeviceId)) {
+					Power = XPmPower_GetById(PM_POWER_FPD);
+					if ((NULL != Power) && ((u8)XPM_POWER_STATE_OFF == Power->Node.State)) {
+						Status = XPm_RestartCbWrapper(Power->Node.Id);
+						if (XST_SUCCESS != Status) {
+							PmErr("Error during RestartCbWrapper: 0x%x\r\n", Status);
+							goto done;
+						}
+					}
+
+					/* clear GIC Proxy setup */
+					XPmGicProxy_ClearWakeup();
 				}
 			}
 			/* Make sure subsystem owns the core before requesting wakeup */
