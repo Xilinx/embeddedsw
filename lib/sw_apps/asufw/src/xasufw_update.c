@@ -18,6 +18,9 @@
  * 1.0   vm   03/16/26 Initial release
  *       vm   07/30/26 Add busy rejection support for in-place update
  *       vm   07/30/26 Export default database handler for data structure backup
+ *       vm   08/22/26 Validate the version of a backed up data structure while restoring it,
+ *                     report the reason a data structure could not be restored and aligned the
+ *                     version record field order with XPlmi_DsVer
  *
  * </pre>
  *
@@ -258,6 +261,8 @@ END:
  *	- XASUFW_INVALID_PARAM, if invalid parameters or operation type.
  *	- XASUFW_MEM_COPY_FAIL, if memory copy operation fails.
  *	- XASUFW_ZEROIZE_MEMSET_FAIL, if memory zeroize operation fails.
+ *	- XASUFW_DS_VERSION_INCOMPATIBLE, if the version of the backed up data structure is not
+ *	  supported by the running firmware.
  *
  *************************************************************************************************/
 s32 XAsufw_DsOps(u32 Op, u64 Addr, void *Data)
@@ -297,15 +302,29 @@ s32 XAsufw_DsOps(u32 Op, u64 Addr, void *Data)
 		}
 		/**
 		 * Write data structure version header to DDR.
-		 * Pack version information (DsId, ModuleId, Version, LcVersion) into u32.
+		 * Pack version information (ModuleId, DsId, Version, LcVersion) into u32.
 		 * Write packed version and length at the beginning of DDR location.
 		 */
-		VerPacked = XASUFW_PACK_DS_VER(DsEntry->DsHdr.Ver.DsId,
-			DsEntry->DsHdr.Ver.ModuleId, DsEntry->DsHdr.Ver.Version,
+		VerPacked = XASUFW_PACK_DS_VER(DsEntry->DsHdr.Ver.ModuleId,
+			DsEntry->DsHdr.Ver.DsId, DsEntry->DsHdr.Ver.Version,
 			DsEntry->DsHdr.Ver.LcVersion);
 		XAsufw_WriteReg((u32)Addr, VerPacked);
 		XAsufw_WriteReg((u32)(Addr + XASUFW_WORD_LEN_IN_BYTES), DsEntry->DsHdr.Len);
 	} else if (Op == XASUFW_RESTORE_DATABASE) {
+		/**
+		 * Reject the restore when the layout of the backed up data structure is outside
+		 * the range the running firmware supports, as its content cannot be interpreted
+		 * in that case.
+		 */
+		if ((RestoreDsHdr->Ver.Version > DsEntry->DsHdr.Ver.Version) ||
+			(RestoreDsHdr->Ver.Version < DsEntry->DsHdr.Ver.LcVersion)) {
+			XAsufw_Printf(DEBUG_GENERAL, "Incompatible data structure - ModuleId: "
+				"0x%x, DsId: 0x%x, Version: 0x%x\r\n", RestoreDsHdr->Ver.ModuleId,
+				RestoreDsHdr->Ver.DsId, RestoreDsHdr->Ver.Version);
+			Status = XASUFW_DS_VERSION_INCOMPATIBLE;
+			goto END;
+		}
+
 		Len = DsEntry->DsHdr.Len;
 		/**
 		 * Handle version compatibility during restore.
@@ -386,6 +405,10 @@ END:
  *	- XASUFW_FAILURE, in case of failure.
  *	- XASUFW_DATA_RESTORE_FAIL, if data restore operation fails.
  *	- XASUFW_INVALID_PARAM, if parameters are invalid.
+ *	- XASUFW_MEM_COPY_FAIL, if memory copy operation fails.
+ *	- XASUFW_ZEROIZE_MEMSET_FAIL, if memory zeroize operation fails.
+ *	- XASUFW_DS_VERSION_INCOMPATIBLE, if the version of the backed up data structure is not
+ *	  supported by the running firmware.
  *
  *************************************************************************************************/
 s32 XAsufw_RestoreDataBackup(void)
@@ -442,7 +465,14 @@ s32 XAsufw_RestoreDataBackup(void)
 			Status = DsEntry->Handler(XASUFW_RESTORE_DATABASE,
 					DsAddr, DsEntry);
 			if (Status != XASUFW_SUCCESS) {
-				Status = XASUFW_DATA_RESTORE_FAIL;
+				/**
+				 * Keep the status of the handler, as it tells why the data
+				 * structure could not be restored. Only a generic failure is
+				 * reported as a data restore failure.
+				 */
+				if (Status == XASUFW_FAILURE) {
+					Status = XASUFW_DATA_RESTORE_FAIL;
+				}
 				break;
 			}
 		}

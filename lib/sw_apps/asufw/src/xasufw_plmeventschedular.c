@@ -17,6 +17,8 @@
  * ----- ---- -------- ----------------------------------------------------------------------------
  * 1.0   rmv   08/07/24 Initial release
  *       vm    07/30/26 Preserve pending PLM events across in-place update
+ *       vm    08/22/26 Raised the exported data structure version as the version record field
+ *                      order changed
  *
  * </pre>
  *
@@ -46,8 +48,8 @@
 #define XASUFW_NOTIFICATION_TASK_DELAY	(100U)	/**< PLM to ASU notification task handler delay */
 #define XASUFW_EVENT_PENDING		(0x1U)	/**< Event pending flag */
 #define XASUFW_PLM_EVENT_DS_ID		(0x1U)	/**< Data structure ID of the pending events */
-#define XASUFW_PLM_EVENT_DS_VERSION	(0x1U)	/**< Pending events data structure version */
-#define XASUFW_PLM_EVENT_DS_LCVERSION	(0x1U)	/**< Pending events lowest compatible version */
+#define XASUFW_PLM_EVENT_DS_VERSION	(0x2U)	/**< Pending events data structure version */
+#define XASUFW_PLM_EVENT_DS_LCVERSION	(0x2U)	/**< Pending events lowest compatible version */
 
 /************************************ Function Prototypes ****************************************/
 static s32 XAsufw_PlmEventTaskHandler(void *Arg);

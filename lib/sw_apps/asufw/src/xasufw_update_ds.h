@@ -17,6 +17,8 @@
  * ----- ---- -------- ----------------------------------------------------------------------------
  * 1.0   vm   03/16/26 Initial release
  *       vm   07/30/26 Export default database handler API
+ *       vm   08/22/26 Added ASU data structure version metadata export and aligned the version
+ *                     record field order with XPlmi_DsVer
  *
  * </pre>
  *
@@ -37,17 +39,18 @@ extern "C" {
 
 /************************************ Constant Definitions ***************************************/
 /* Bit shift positions for packing data structure version fields */
-#define XASUFW_DS_MODULEID_SHIFT	(8U)	/**< Module ID bit shift position */
+#define XASUFW_DS_DSID_SHIFT		(8U)	/**< Data structure ID bit shift position */
 #define XASUFW_DS_VERSION_SHIFT		(16U)	/**< Version bit shift position */
 #define XASUFW_DS_LCVERSION_SHIFT	(24U)	/**< Lowest compatible version bit shift position */
 
 /************************************** Type Definitions *****************************************/
 /**
- * This typedef contains data structure version information.
+ * This typedef contains data structure version information. The field order matches XPlmi_DsVer
+ * as the record is written into the ASU data structure information optional data of the PDI.
  */
 typedef struct {
-	u8 DsId;		/**< Data Structure ID. */
 	u8 ModuleId;		/**< Module ID. */
+	u8 DsId;		/**< Data Structure ID. */
 	u8 Version;		/**< Version. */
 	u8 LcVersion;		/**< Lowest compatible version. */
 } XAsufw_DsVer;
@@ -83,27 +86,48 @@ typedef struct {
 /**
  * Macro to pack XAsufw_DsVer fields into a u32 value.
  */
-#define XASUFW_PACK_DS_VER(DsId, ModuleId, Version, LcVersion) \
-	(((u32)(DsId)) | ((u32)(ModuleId) << XASUFW_DS_MODULEID_SHIFT) | \
+#define XASUFW_PACK_DS_VER(ModuleId, DsId, Version, LcVersion) \
+	(((u32)(ModuleId)) | ((u32)(DsId) << XASUFW_DS_DSID_SHIFT) | \
 	 ((u32)(Version) << XASUFW_DS_VERSION_SHIFT) | \
 	 ((u32)(LcVersion) << XASUFW_DS_LCVERSION_SHIFT))
 
 /**
- * Macro to export data structures for update functionality.
+ * Section attribute for the data structure entries used by the store and restore flow.
+ */
+#define XASUFW_DSENTRY_ATTR	__attribute__((used)) \
+				__attribute__((section(".struct_entries")))
+
+/**
+ * Section attribute for the data structure version records which are added to the ASU data
+ * structure information optional data of the image header table while generating the PDI.
+ */
+#define XASUFW_DSVER_ATTR	__attribute__((used)) \
+				__attribute__((section(".struct_versions")))
+
+/**
+ * Macro to export data structures for update functionality. It emits the data structure version
+ * record and the data structure entry.
  */
 #define EXPORT_ASUFW_DS(VarName, MId, DId, DsVer, LcVer, Size, VarAddr) \
-	static XAsufw_DsEntry __attribute__((used)) __attribute__((section(".struct_entries")))\
+	static XAsufw_DsVer XASUFW_DSVER_ATTR \
+	VarName##_DsInfo = { \
+		.ModuleId = (MId), \
+		.DsId = (DId), \
+		.Version = (DsVer), \
+		.LcVersion = (LcVer) \
+	}; \
+	static XAsufw_DsEntry XASUFW_DSENTRY_ATTR \
 	VarName##_DsEntry = { \
 		.DsHdr = { \
 			.Ver = { \
-				.DsId = DId, \
-				.ModuleId = MId, \
-				.Version = DsVer, \
-				.LcVersion = LcVer \
+				.ModuleId = (MId), \
+				.DsId = (DId), \
+				.Version = (DsVer), \
+				.LcVersion = (LcVer) \
 			}, \
-			.Len = Size \
+			.Len = (Size) \
 		}, \
-		.Addr = VarAddr, \
+		.Addr = (VarAddr), \
 		.Handler = XAsufw_DsOps \
 	}
 

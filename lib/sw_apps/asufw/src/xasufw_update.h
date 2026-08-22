@@ -17,6 +17,8 @@
  * ----- ---- -------- ----------------------------------------------------------------------------
  * 1.0   vm   03/16/26 Initial release
  *       vm   07/13/26 Add BUSY update state for in-place update rejection
+ *       vm   08/22/26 Bumped the database version as the data structure version record which
+ *                     heads every record of the database changed its field order
  *
  * </pre>
  *
@@ -40,7 +42,7 @@ extern "C" {
 /************************************ Constant Definitions ***************************************/
 #define XASUFW_STORE_DATABASE		(0x1U)	/**< Store database operation */
 #define XASUFW_RESTORE_DATABASE		(0x2U)	/**< Restore database operation */
-#define XASUFW_UPDATE_DB_VERSION	(1U)	/**< Database version */
+#define XASUFW_UPDATE_DB_VERSION	(2U)	/**< Database version */
 #define XASUFW_DS_HDR_SIZE		(sizeof(XAsufw_DsHdr))	/**< Data structure header size */
 
 #define XASUFW_INVALID_RSVD_DDR_ADDR	(0xFFFFFFFFU)	/**< Invalid reserved DDR address */

@@ -54,6 +54,7 @@
  *       rmv  08/04/25 Added error code for TRNG mode configuration failure
  *       rmv  08/04/25 Added error codes for OCP functionality
  *       rmv  08/21/26 Added error codes for memory region access validation
+ *       vm   08/22/26 Added error code for an incompatible data structure version during restore
  *
  * </pre>
  *
@@ -810,6 +811,9 @@ enum {
 	XASUFW_SEARCH_MEM_REGN_FAILED, /**< 0x23EU - Error when the search operation fails. */
 	XASUFW_VALIDATE_BUFFERS_FAILED, /**< 0x23FU - Error when validation of the client provided
 						buffers of a command fails. */
+	XASUFW_DS_VERSION_INCOMPATIBLE, /**< 0x240U - Error when the version of a backed up data
+						structure is not supported by the running
+						firmware */
 
 	/* Additional status success codes */
 	XASUFW_OCP_CERT_GENERATION_SUCCESS = 0x3F7U, /**< 0x3F7U - OCP certificate generation

@@ -181,6 +181,12 @@ SECTIONS
    __data_struct_end = .;
 } > tmr_ram_instr_cntlr_Mem
 
+/* Collect DS version records for optional-data block id 0x04 in IHT */
+.struct_info_asu (INFO) : {
+   KEEP(*(.struct_info_hdr))
+   KEEP(*(.struct_versions))
+}
+
 .update_mgr_a : {
    . = ALIGN(16);
    __update_mgr_a_fn_start = .;
