@@ -469,6 +469,8 @@ class Library(Repo):
 
             # Get the default cmake entries into yaml configuration file
             ignore_default_data_list = ["standalone", "freertos10_xilinx", "libsrc"]
+            if utils.is_third_party_os(self.os):
+                ignore_default_data_list.append(self.os)
             for entry in ignore_default_data_list:
                 if entry in lib_list:
                     lib_list.remove(entry)

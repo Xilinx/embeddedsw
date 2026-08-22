@@ -781,7 +781,21 @@ def create_domain(args):
         # If template app is passed, read the app's yaml file and add
         # lib accordingly.
         lib_list, cmake_cmd_append = lib_obj.add_lib_for_apps(obj.app)
-    else:
+
+    if utils.is_third_party_os(obj.os):
+        # If third party os is passed, read the os's yaml file and add
+        # lib accordingly.
+        os_lib_list, os_cmake_cmd_append = lib_obj.add_lib_for_apps(obj.os)
+        # When app and thirdparty os both are passed, we need to add the thirdparty os
+        # lib to the existing lib_list and cmake_cmd_append.
+        if obj.app:
+            lib_list.extend(lib for lib in os_lib_list if lib not in lib_list)
+            cmake_cmd_append += os_cmake_cmd_append
+        else:
+            lib_list = os_lib_list
+            cmake_cmd_append = os_cmake_cmd_append
+
+    if (not obj.app) and (not utils.is_third_party_os(obj.os)):
         # If no app is passed and bsp is created add xiltimer by default.
         lib_obj.copy_lib_src("xiltimer")
 
@@ -796,11 +810,14 @@ def create_domain(args):
                 lib_list.append(lib)
                 lib_obj.copy_lib_src(lib)
 
-    if obj.os == "freertos":
-        libsrc_dst_path = os.path.join(obj.libsrc_folder, "freertos10_xilinx", "src")
+    if obj.os != "standalone":
+        native_os_name = obj.os
+        if obj.os == "freertos":
+            native_os_name = "freertos10_xilinx"
+        libsrc_dst_path = os.path.join(obj.libsrc_folder, native_os_name, "src")
         # Copy the freertos source code to libsrc folder
-        obj.os_info["freertos10_xilinx"] = obj.copy_comp_src("freertos10_xilinx", libsrc_dst_path)
-        lib_list.append("freertos10_xilinx")
+        obj.os_info[native_os_name] = obj.copy_comp_src(native_os_name, libsrc_dst_path)
+        lib_list.append(native_os_name)
 
     if lib_list:
         for lib in lib_list:
@@ -882,6 +899,12 @@ def create_domain(args):
     if args.get("verbose") > 1:
         cmake_extra_flags_append = ""
 
+    third_party_bsp_definitions = ""
+    if utils.is_third_party_os(obj.os):
+        os_upper = obj.os.upper()
+        third_party_bsp_definitions = f"add_compile_definitions({os_upper}_BSP)\n"
+
+
     # Create new CMakeLists.txt
     cmake_file = os.path.join(obj.domain_dir, "CMakeLists.txt")
     cmake_file_cmds = f"""
@@ -901,6 +924,7 @@ include_directories(${{CMAKE_INCLUDE_PATH}})
 if("${{CMAKE_SYSTEM_NAME}}" STREQUAL "FreeRTOS")
 add_compile_definitions(FREERTOS_BSP)
 endif()
+{third_party_bsp_definitions}
 if (EXISTS ${{metal_BINARY_DIR}})
 include_directories(${{metal_BINARY_DIR}}/lib/include)
 endif()
@@ -942,10 +966,7 @@ endfunction(_my_hook_end_of_configure)
     # Run cmake configuration with all the default cache entries
     cmake_paths_append = cmake_paths_append.replace("\\", "/")
 
-    if obj.os == "freertos":
-        os_config = lib_obj.get_default_lib_params(obj.build_metadata, ["freertos"])
-    else:
-        os_config = lib_obj.get_default_lib_params(obj.build_metadata, ["standalone"])
+    os_config = lib_obj.get_default_lib_params(obj.build_metadata, [obj.os])
     proc_config = lib_obj.get_default_lib_params(obj.build_metadata, [obj.proc])
 
     if lib_obj.os_config:
@@ -1009,6 +1030,16 @@ CompileFlags:
 
 
 def main(arguments=None):
+    parser_args = arguments if arguments is not None else sys.argv[1:]
+    repo_parser = argparse.ArgumentParser(add_help=False)
+    repo_parser.add_argument("-r", "--repo_info", default=".repo.yaml")
+    repo_args, _ = repo_parser.parse_known_args(parser_args)
+    template_list = "\n".join(
+        f"        - {template}"
+        for template in utils.get_template_choices(repo_args.repo_info)
+    )
+    os_list = utils.get_os_choices(repo_args.repo_info)
+
     parser = argparse.ArgumentParser(
         description="Create bsp for the given sdt, os, processor and template app",
         usage='use "empyro create_bsp --help" for more information',
@@ -1055,7 +1086,7 @@ def main(arguments=None):
         action="store",
         default="standalone",
         help="Specify OS (Default: standalone)",
-        choices=["standalone", "freertos"],
+        choices=os_list,
     )
     parser.add_argument(
         "-t",
@@ -1063,9 +1094,8 @@ def main(arguments=None):
         action="store",
         default="",
         help=textwrap.dedent(f"""\
-        Specify template app name. Available names are as below. Please note that
-        these template names are maintained statically, they don't contain the custom templates.
-{'\n'.join([f"            - {template}" for template in utils.VALID_TEMPLATES])}
+        Specify template app name. Available names are as below.
+{template_list}
         """),
     )
     parser.add_argument(

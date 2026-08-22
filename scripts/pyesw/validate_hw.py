@@ -86,6 +86,8 @@ class ValidateHW(Repo):
             if schema:
                 if self.os == "freertos":
                     comp_list.append("freertos10_xilinx")
+                elif utils.is_third_party_os(self.os):
+                    comp_list.append(self.os)
                 if (
                     schema.get("depends")
                     or schema.get("required_mem")

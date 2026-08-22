@@ -9,10 +9,7 @@ import argparse
 import os
 import utils
 from build_bsp import BSP, generate_bsp
-from create_app import App
 from open_amp import openamp_app_names, openamp_app_configure_common
-from utils import is_file
-from validate_bsp import Validation
 
 logger = utils.get_logger(__name__)
 

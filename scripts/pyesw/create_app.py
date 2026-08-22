@@ -299,6 +299,15 @@ CompileFlags:
 
 
 def main(arguments=None):
+    parser_args = arguments if arguments is not None else sys.argv[1:]
+    repo_parser = argparse.ArgumentParser(add_help=False)
+    repo_parser.add_argument("-r", "--repo_info", default=".repo.yaml")
+    repo_args, _ = repo_parser.parse_known_args(parser_args)
+    template_list = "\n".join(
+        f"        - {template}"
+        for template in utils.get_template_choices(repo_args.repo_info)
+    )
+
     parser = argparse.ArgumentParser(
         description="Use this script to create a template App using the BSP path",
         usage='use "empyro create_app --help" for more information',
@@ -332,9 +341,8 @@ def main(arguments=None):
         action="store",
         required=True,
         help=textwrap.dedent(f"""\
-        Specify template app name. Available names are as below. Please note that
-        these template names are maintained statically, they don't contain the custom templates.
-{'\n'.join([f"            - {template}" for template in utils.VALID_TEMPLATES])}
+        Specify template app name. Available names are as below.
+{template_list}
         """),
     )
     parser.add_argument(
