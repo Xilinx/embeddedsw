@@ -68,6 +68,7 @@
 *                       const pointer to prevent caller from modifying digest table in PMC RAM.
 * 1.15  sd   07/23/2026 Fixed infinite loop in XilPdi_SearchOptionalData on
 *                       zero length optional data header.
+*       vm   08/22/2026 Skip SMAP bus width in optional data of partial ASU update PDI
 *
 * </pre>
 *
@@ -91,6 +92,8 @@
 #define XILPDI_PDI_TYPE_PARTIAL_METAHEADER		(0x5U)
 
 #define XILPDI_PDI_TYPE_PARTIAL                         (0x2U)
+
+#define XILPDI_PDI_TYPE_IAU				(0x7U) /**< PDI type of an in-place ASU update PDI */
 
 /************************** Function Prototypes ******************************/
 
@@ -415,8 +418,10 @@ int XilPdi_ReadOptionalData(const XilPdi_MetaHdr * MetaHdrPtr, u8 PdiType)
 	 * - Read the IHT Optional data from Meta header
 	 */
 	OptionalDataStartAddress = MetaHdrPtr->FlashOfstAddr + MetaHdrPtr->MetaHdrOfst + XIH_IHT_LEN;
+	/* An in-place ASU update PDI is a partial PDI and carries the SMAP prefix. */
 	if ((PdiType == XILPDI_PDI_TYPE_PARTIAL_METAHEADER) ||
-		(PdiType == XILPDI_PDI_TYPE_PARTIAL)) {
+		(PdiType == XILPDI_PDI_TYPE_PARTIAL) ||
+		(PdiType == XILPDI_PDI_TYPE_IAU)) {
 		OptionalDataStartAddress += SMAP_BUS_WIDTH_LENGTH;
 	}
 
