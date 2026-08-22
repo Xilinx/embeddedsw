@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2024 - 2025, Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2024 - 2026, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 /*****************************************************************************/
@@ -18,6 +18,7 @@
 * 1.10  kal  24/07/2024 Initial release
 * 1.11  sk   03/05/2025 Added ASU destination CPU attribute
 *       sk   03/17/2025 Updated Header attributes for RPU clusters
+* 1.15  vm   08/22/2026 Added ASU data structure information optional data Id
 *
 * </pre>
 *
@@ -155,6 +156,7 @@ extern "C" {
 #define XIH_OPT_DATA_NON_DATA_LEN	(8U)
 
 #define XIH_OPT_DATA_STRUCT_INFO_ID	(2U)
+#define XIH_OPT_DATA_ASU_STRUCT_INFO_ID	(4U) /**< ASU data structure information optional data Id */
 /**
  * Offset to the metaheader offset field present in boot header
  */

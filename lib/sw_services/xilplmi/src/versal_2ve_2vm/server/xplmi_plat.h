@@ -75,6 +75,7 @@
 *       ias  08/19/2026 Added XPlmi_MemTblInit declaration
 * 2.5   vm   07/13/2026 Added error code for in-place ASU update rejection
 *       sd   08/20/2026 Included xplmi_wdt_hw.h for PMC WDT definitions
+*       vm   08/22/2026 Added error code for invalid ASU update handler
 * </pre>
 *
 ******************************************************************************/
@@ -325,6 +326,9 @@ enum {
 
 	/** 0x210 - ASU firmware rejected in-place update due to active crypto operations. */
 	XPLMI_ERR_ASU_UPDATE_BUSY,
+
+	/** 0x211 - Error when a NULL handler is registered with ASU in-place update. */
+	XPLMI_ERR_ASU_UPDATE_INVALID_HANDLER,
 };
 
 /** This structure holds the module operation information. */

@@ -18,6 +18,7 @@
 * ====  ==== ======== ==============================================================================
 * 1.0   vm   03/16/26 Initial release
 * 2.5   vm   07/13/26 Add BUSY update state for in-place update rejection
+*       vm   08/22/26 Added compatibility check handler for ASU update PDI
 *
 * </pre>
 *
@@ -81,8 +82,8 @@ extern "C" {
 							     per HW spec */
 
 /************************************** Type Definitions ******************************************/
-typedef int (*XPlmi_CheckAsuPresenceInPdi_t)(u32 PdiAddr);
 typedef int (*XPlmi_LoadAsuImage_t)(void);
+typedef int (*XPlmi_AsuCompatibilityCheck_t)(u32 PdiAddr);
 
 /******************************** Macros (Inline Functions) Definitions ***************************/
 
@@ -90,8 +91,8 @@ typedef int (*XPlmi_LoadAsuImage_t)(void);
 u8 XPlmi_AsuFwIsPresent(void);
 int XPlmi_AsuUpdate(XPlmi_Cmd *Cmd);
 int XPlmi_AsuUpdateInit(XPlmi_IsPdiAddrLookup_t IsPdiAddrLookupHandler,
-		XPlmi_CheckAsuPresenceInPdi_t CheckAsuPresenceHandler,
-		XPlmi_LoadAsuImage_t LoadAsuImageHandler);
+		XPlmi_LoadAsuImage_t LoadAsuImageHandler,
+		XPlmi_AsuCompatibilityCheck_t AsuCompatibilityCheckHandler);
 u32 XPlmi_GetAsuUpdatePdiAddr(void);
 
 #ifdef __cplusplus

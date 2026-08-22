@@ -76,6 +76,7 @@
 *       obs  07/14/2026 Updated XLOADER_ERR_IMGHDR_TBL description for meta
 *                       header image/partition count check
 *       vm   07/14/2026 Added ASUFW keep-alive error codes.
+*       vm   08/22/2026 Added error codes for in-place ASU update compatibility check
 *
 * </pre>
 *
@@ -356,6 +357,18 @@ typedef enum {
 						  the PDI used for In-Place PLM Update */
 	XPLM_ERR_ASUFW_NOT_ALIVE,		/**< 0x2A8 - ASUFW is not alive */
 	XPLM_ERR_ASUFW_KEEP_ALIVE_TASK_CREATE,	/**< 0x2A9 - Failed to start ASUFW keep-alive check */
+	XPLM_ERR_ASU_UPDATE_INVALID_ADDR,	/**< 0x2AA - Error when an invalid address of the PDI is
+						used for In-Place ASU Update */
+	XPLM_ERR_ASU_UPDATE_INVALID_OPT_DATA_LEN,	/**< 0x2AB - Error when the optional data length
+						of the PDI used for In-Place ASU Update is zero or
+						exceeds the optional data copy in PMC RAM */
+	XPLM_ERR_ASU_UPDATE_NO_STRUCT_DATA,	/**< 0x2AC - Error when ASU data structure information is
+						not found in the PDI used for In-Place ASU Update */
+	XPLM_ERR_ASU_UPDATE_INVALID_DS_LEN,	/**< 0x2AD - Error when the ASU data structure information
+						length is too short or reaches beyond the optional
+						data */
+	XPLM_ERR_ASU_UPDATE_DS_CHECKSUM_FAILED,	/**< 0x2AE - Error when checksum of ASU data structure
+						information in optional data of PDI fails */
 
 	/** Status codes used in XLOADER */
 	/* Xilloader error codes common for all platforms are from 0x300 to 0x39F */

@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2025, Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -27,6 +27,7 @@
 *       am   02/22/2025 Added Puf on dmand regeneration support
 *       sk   03/25/2025 Updated platform name
 *       kd   08/22/2025 Added psm firmware presence check for In-Place PLM Update
+*       vm   08/22/2026 Added compatibility check for in-place ASU update
 *
 * </pre>
 *
@@ -98,7 +99,8 @@ void XPlm_EnablePlatformSlaveErrors(void);
 int XPlm_CompatibilityCheck(u32 PdiAddr);
 int XPlm_PostPlmUpdate(void);
 int XPlmi_PufOnDemandRegeneration(u8* StatusFlag);
-int XPlm_CheckAsuPresenceInPdi(u32 PdiAddr);
+/** Checks whether the given PDI can be used for an in-place ASU update */
+int XPlm_AsuCompatibilityCheck(u32 PdiAddr);
 
 /************************** Variable Definitions *****************************/
 

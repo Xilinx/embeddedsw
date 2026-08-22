@@ -34,6 +34,7 @@
 *       pre  03/23/2026 Added PLM hash extension to TPM after PLM update
 * 2.0   sd   07/01/2026 Updated logic to handle zero-length optional-data
 *       vm   07/14/2026 Start ASUFW keep-alive monitor after in-place PLM update
+*       vm   08/22/2026 Added compatibility check for in-place ASU update
 *
 * </pre>
 *
@@ -82,6 +83,10 @@
 
 /* ASU firmware image ID */
 #define XPLMI_ASUFW_IMAGE_ID			(0x1C000002U) /**< ASUFW image ID in PDI */
+
+#define XPLM_ASU_DS_INFO_MIN_LEN_IN_WORDS	(3U) /**< Shortest usable ASU data structure
+						information block: header word, one version
+						record and checksum word */
 
 /**************************** Type Definitions *******************************/
 
@@ -432,57 +437,158 @@ END:
 
 /**************************************************************************************************/
 /**
- * @brief	This function checks if ASUFW image is present in PDI by searching for ASUFW
- * 		image ID (0x1C000002) in the PDI image headers.
+ * @brief	This function checks whether the given PDI can be used for an in-place ASU update.
+ * 		It validates the PDI address range, confirms an ASUFW image is present and verifies
+ * 		the ASU data structure information optional data. The data structure version records
+ * 		themselves are not compared here, as the versions supported by the running ASU
+ * 		firmware are known only to it and are checked while it restores its data structures.
  *
- * @param	PdiAddr is the PDI address to check.
+ * @param	PdiAddr is the PDI address containing ASUFW.
  *
  * @return
- * 		- XST_SUCCESS if ASUFW image is found.
- * 		- XLOADER_ERR_ASU_FW_NOT_FOUND if ASUFW image is not found.
- * 		- XST_FAILURE for other errors.
+ *		- XST_SUCCESS, if the PDI passes the ASU compatibility checks.
+ *		- XPLM_ERR_ASU_UPDATE_INVALID_ADDR, if PDI addresses are invalid.
+ *		- Error code from XPlmi_MemSetBytes, if the PDI instance could not be cleared.
+ *		- Error code from XLoader_PdiInit, if the meta header of the PDI is not valid.
+ *		- XLOADER_ERR_ASU_FW_NOT_FOUND, if ASUFW image is not found in the PDI.
+ *		- XPLM_ERR_ASU_UPDATE_INVALID_OPT_DATA_LEN, if the optional data length is zero or
+ *		  larger than the optional data copy in PMC RAM.
+ *		- XPLM_ERR_ASU_UPDATE_NO_STRUCT_DATA, if ASU data structure information is missing.
+ *		- XPLM_ERR_ASU_UPDATE_INVALID_DS_LEN, if the data structure information length is
+ *		  too short or reaches beyond the optional data.
+ *		- XPLM_ERR_ASU_UPDATE_DS_CHECKSUM_FAILED, if data structure information checksum
+ *		  fails.
+ *
+ * @note	The checksum, the device identification code and, when enabled, the authentication
+ *		of the image header table are verified by the meta header read below, so they are
+ *		not repeated here. The identification string and the version of the table are not
+ *		checked either, because an ASU update PDI may be built as a partial PDI, which
+ *		carries neither the full PDI identification string nor the data structure format
+ *		the in-place PLM update relies on.
+ *		The checks run while the update command is handled, whereas the image is loaded
+ *		after ASU has shut down and the loader reads the PDI from DDR again, so the
+ *		verdict covers the PDI as it is seen here. The loader authenticates the image it
+ *		loads.
  *
  **************************************************************************************************/
-int XPlm_CheckAsuPresenceInPdi(u32 PdiAddr)
+int XPlm_AsuCompatibilityCheck(u32 PdiAddr)
 {
-	int Status = XST_FAILURE;
-	XilPdi TempPdiInst;
-	XilPdi *PdiPtr = &TempPdiInst;
+	volatile int Status = XST_FAILURE;
+	volatile int StatusTmp = XST_FAILURE;
+	int ClearStatus = XST_FAILURE;
+	u32 Offset;
+	u32 OptionalDataLen;
+	u32 OptionalDataEndAddr;
+	u32 DsInfoLen;
+	u32 PdiId;
+	XilPdi *PdiPtr = XLoader_GetPdiInstance();
 
-	/** - Check if PDI address is valid */
-	if (PdiAddr == 0U) {
-		XPlmi_Printf(DEBUG_GENERAL, "ERROR: Invalid PDI address\n\r");
-		Status = XPLMI_ERR_INVALID_PAYLOAD_LEN;
+	/** - Save the PDI ID so that a rejected PDI is not left published in run time config. */
+	PdiId = XPlmi_In32(XPLMI_RTCFG_PDI_ID_ADDR);
+
+	/** - Check if the given PDI address and its image header table are within lower DDR. */
+	if ((PdiAddr == 0U) || (PdiAddr > XPLMI_2GB_END_ADDR) ||
+		((PdiAddr + SMAP_BUS_WIDTH_LENGTH + XIH_IHT_LEN) > XPLMI_2GB_END_ADDR)) {
+		Status = (int)XPLM_ERR_ASU_UPDATE_INVALID_ADDR;
 		goto END;
 	}
 
-	/** - Initialize PDI structure */
+	/** - Clear the PDI instance before it is reused for the update PDI. */
 	Status = XPlmi_MemSetBytes(PdiPtr, sizeof(XilPdi), 0U, sizeof(XilPdi));
 	if (Status != XST_SUCCESS) {
-		XPlmi_Printf(DEBUG_GENERAL, "ERROR: PDI memset failed\n\r");
 		goto END;
 	}
 
-	/** - Initialize PDI */
+	/**
+	 * - Read the meta header of the update PDI. The loader copies the image header table
+	 * optional data into PMC RAM.
+	 */
+	Status = XST_FAILURE;
 	PdiPtr->PdiType = XLOADER_PDI_TYPE_IAU;
 	Status = XLoader_PdiInit(PdiPtr, XLOADER_PDI_SRC_DDR, (u64)PdiAddr);
 	if (Status != XST_SUCCESS) {
 		XPlmi_Printf(DEBUG_GENERAL,
-			     "ERROR: XLoader_PdiInit failed (0x%x)\n\r", Status);
-			goto END;
-	}
-
-	/** - Check if ASUFW image is present in the PDI */
-	Status = XLoader_GetImageAndPrtnInfo(PdiPtr, XPLMI_ASUFW_IMAGE_ID);
-	if (Status != XST_SUCCESS) {
-		XPlmi_Printf(DEBUG_GENERAL, "ERROR: ASUFW image not found in PDI\n\r");
-		Status = XLOADER_ERR_ASU_FW_NOT_FOUND;
+			"ASU compatibility check: PDI initialization failed: 0x%x\n\r", Status);
 		goto END;
 	}
 
-	Status = XST_SUCCESS;
+	/** - Confirm ASUFW image is present in the PDI. */
+	Status = XST_FAILURE;
+	Status = XLoader_GetImageAndPrtnInfo(PdiPtr, XPLMI_ASUFW_IMAGE_ID);
+	if (Status != XST_SUCCESS) {
+		XPlmi_Printf(DEBUG_GENERAL,
+			"ASU compatibility check: ASUFW image not found in PDI\n\r");
+		Status = (int)XLOADER_ERR_ASU_FW_NOT_FOUND;
+		goto END;
+	}
+
+	/**
+	 * - Check the optional data length. It has to be non-zero and to fit in the copy the
+	 * loader places in PMC RAM, which is what the search below reads.
+	 */
+	OptionalDataLen = PdiPtr->MetaHdr->ImgHdrTbl.OptionalDataLen;
+	if ((OptionalDataLen == 0U) || (OptionalDataLen >
+		(XILPDI_OPTIONAL_DATA_MAX_SIZE_16K_BYTES >> XPLMI_WORD_LEN_SHIFT))) {
+		XPlmi_Printf(DEBUG_GENERAL,
+			"ASU compatibility check: invalid optional data length in PDI\n\r");
+		Status = (int)XPLM_ERR_ASU_UPDATE_INVALID_OPT_DATA_LEN;
+		goto END;
+	}
+
+	/**
+	 * - Search the optional data copy the loader placed in PMC RAM for the ASU data structure
+	 * information.
+	 */
+	Offset = XILPDI_PMCRAM_IHT_DATA_ADDR;
+	OptionalDataEndAddr = Offset + (OptionalDataLen << XPLMI_WORD_LEN_SHIFT);
+	Offset = (u32)XilPdi_SearchOptionalData(Offset, OptionalDataEndAddr,
+			XIH_OPT_DATA_ASU_STRUCT_INFO_ID);
+	if (Offset >= OptionalDataEndAddr) {
+		XPlmi_Printf(DEBUG_GENERAL,
+			"ASU compatibility check: data structure information not found\n\r");
+		Status = (int)XPLM_ERR_ASU_UPDATE_NO_STRUCT_DATA;
+		goto END;
+	}
+
+	/**
+	 * - The block holds one header word, at least one data structure version record and one
+	 * checksum word, and it has to end within the optional data.
+	 */
+	DsInfoLen = (XPlmi_In32(Offset) & XIH_OPT_DATA_HDR_LEN_MASK) >> XIH_OPT_DATA_LEN_SHIFT;
+	if ((DsInfoLen < XPLM_ASU_DS_INFO_MIN_LEN_IN_WORDS) ||
+		((DsInfoLen << XPLMI_WORD_LEN_SHIFT) > (OptionalDataEndAddr - Offset))) {
+		XPlmi_Printf(DEBUG_GENERAL,
+			"ASU compatibility check: invalid data structure information length\n\r");
+		Status = (int)XPLM_ERR_ASU_UPDATE_INVALID_DS_LEN;
+		goto END;
+	}
+
+	/** - Verify checksum of the ASU data structure information. */
+	Status = XST_FAILURE;
+	StatusTmp = XST_FAILURE;
+	XSECURE_REDUNDANT_CALL(Status, StatusTmp, XilPdi_ValidateChecksum, (void *)(UINTPTR)Offset,
+		(DsInfoLen << XPLMI_WORD_LEN_SHIFT));
+	if ((Status != XST_SUCCESS) || (StatusTmp != XST_SUCCESS)) {
+		Status = (int)XPLM_ERR_ASU_UPDATE_DS_CHECKSUM_FAILED;
+	}
 
 END:
+	if (Status != XST_SUCCESS) {
+		/**
+		 * - Restore the PDI ID published in run time configuration and clear the PDI
+		 * instance, which is shared with the image load paths. The image header table
+		 * and optional data of the rejected PDI stay in the PMC RAM area reserved for
+		 * them, which the next meta header read clears before it is used.
+		 */
+		XPlmi_Out32(XPLMI_RTCFG_PDI_ID_ADDR, PdiId);
+		ClearStatus = XPlmi_MemSetBytes(PdiPtr, sizeof(XilPdi), 0U, sizeof(XilPdi));
+		if (ClearStatus != XST_SUCCESS) {
+			XPlmi_Printf(DEBUG_GENERAL,
+				"ASU compatibility check: PDI instance clear failed: 0x%x\n\r",
+				ClearStatus);
+		}
+	}
+
 	return Status;
 }
 /** @endcond */

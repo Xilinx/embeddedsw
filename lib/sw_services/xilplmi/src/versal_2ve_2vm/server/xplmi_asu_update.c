@@ -18,6 +18,7 @@
 * ====  ==== ======== ==============================================================================
 * 1.0   vm   03/16/26 Initial release
 * 2.5   vm   07/13/26 Abort in-place update on BUSY and shutdown timeout
+*       vm   08/22/26 Added compatibility check for ASU update PDI
 *
 * </pre>
 *
@@ -54,9 +55,8 @@ static int XPlmi_AsuUpdateTask(void *Arg);
 /************************************ Variable Definitions ****************************************/
 static XPlmi_IsPdiAddrLookup_t XPlmi_IsPdiAddrLookup;	/**< Function pointer for PDI address
 							     lookup */
-static XPlmi_CheckAsuPresenceInPdi_t XPlmi_IsAsuPresenceInPdi;	/**< Function pointer for ASU
-								     presence check */
 static XPlmi_LoadAsuImage_t XLoader_LoadAsu; /**< Function pointer for ASU image loading */
+static XPlmi_AsuCompatibilityCheck_t XPlm_AsuCompatCheck;	/**< ASU compatibility check */
 static u32 UpdateAsuPdiAddr = XPLMI_INVALID_UPDATE_ADDR; /**< Update PDI address */
 
 /**************************************************************************************************/
@@ -101,25 +101,36 @@ u8 XPlmi_AsuFwIsPresent(void)
  * @brief	This function initializes ASU in-place update subsystem.
  *
  * @param	IsPdiAddrLookupHandler is the PDI address look-up handler.
- * @param	CheckAsuPresenceHandler is the callback to check ASU presence in PDI.
  * @param	LoadAsuImageHandler is the callback to load ASU image from PDI.
+ * @param	AsuCompatibilityCheckHandler is the ASU PDI compatibility check callback.
  *
  * @return
  * 		- XST_SUCCESS if initialization successful.
+ * 		- XPLMI_ERR_ASU_UPDATE_INVALID_HANDLER if any of the handlers is NULL.
  * 		- XPLM_ERR_TASK_CREATE if failed to create ASU update task.
  *
  **************************************************************************************************/
 int XPlmi_AsuUpdateInit(XPlmi_IsPdiAddrLookup_t IsPdiAddrLookupHandler,
-		XPlmi_CheckAsuPresenceInPdi_t CheckAsuPresenceHandler,
-		XPlmi_LoadAsuImage_t LoadAsuImageHandler)
+		XPlmi_LoadAsuImage_t LoadAsuImageHandler,
+		XPlmi_AsuCompatibilityCheck_t AsuCompatibilityCheckHandler)
 {
 	volatile int Status = XST_FAILURE;
 	XPlmi_TaskNode *Task = NULL;
 
+	/**
+	 * - Validate the handlers as they are called without any further checks. PLM passes fixed
+	 * function addresses, so this is a defensive check only.
+	 */
+	if ((IsPdiAddrLookupHandler == NULL) || (LoadAsuImageHandler == NULL) ||
+		(AsuCompatibilityCheckHandler == NULL)) {
+		Status = (int)XPLMI_ERR_ASU_UPDATE_INVALID_HANDLER;
+		goto END;
+	}
+
 	/** Store the handler function pointers */
 	XPlmi_IsPdiAddrLookup = IsPdiAddrLookupHandler;
-	XPlmi_IsAsuPresenceInPdi = CheckAsuPresenceHandler;
 	XLoader_LoadAsu = LoadAsuImageHandler;
+	XPlm_AsuCompatCheck = AsuCompatibilityCheckHandler;
 
 	/** Create ASU update task which will be triggered by IPI command */
 	Task = XPlmi_TaskCreate(XPLM_TASK_PRIORITY_1, XPlmi_AsuUpdateTask, NULL);
@@ -207,18 +218,19 @@ int XPlmi_AsuUpdate(XPlmi_Cmd *Cmd)
 		UpdateAsuPdiAddr = Cmd->Payload[INDEX_ONE];
 	}
 
-	/** Check if ASU image is present in the specified PDI */
-	Status = XPlmi_IsAsuPresenceInPdi(UpdateAsuPdiAddr);
-	if (Status != XST_SUCCESS) {
-		XPlmi_Printf(DEBUG_GENERAL, "ASU image not found in PDI\n\r");
-		goto END;
-	}
-
 	/** Check if ASU firmware is currently running */
 	AsuFwPresent = XPlmi_AsuFwIsPresent();
 	if (AsuFwPresent == FALSE) {
 		XPlmi_Printf(DEBUG_GENERAL, "ASU firmware is not running\n\r");
 		Status = XPLMI_ERR_ASU_FW_NOT_RUNNING;
+		goto END;
+	}
+
+	/** - Check ASU PDI compatibility before triggering update. */
+	Status = XPlm_AsuCompatCheck(UpdateAsuPdiAddr);
+	if (Status != XST_SUCCESS) {
+		XPlmi_Printf(DEBUG_GENERAL,
+			"ASU compatibility check failed: 0x%x\n\r", Status);
 		goto END;
 	}
 
@@ -246,6 +258,11 @@ int XPlmi_AsuUpdate(XPlmi_Cmd *Cmd)
 	Status = XST_SUCCESS;
 
 END:
+	if (Status != XST_SUCCESS) {
+		/** - Drop the update PDI address so that a rejected PDI is never loaded. */
+		UpdateAsuPdiAddr = XPLMI_INVALID_UPDATE_ADDR;
+	}
+
 	return Status;
 }
 

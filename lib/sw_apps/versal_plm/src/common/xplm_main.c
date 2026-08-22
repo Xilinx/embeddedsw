@@ -46,6 +46,8 @@
 *       kd   08/22/2025 Added psm firmware presence check for In-Place PLM Update
 *       vm   03/16/2026 Added ASU in-place update initialization for VERSAL_2VE_2VM
 *       ias  08/19/2026 Added memory-range reachability table region init call
+*       vm   08/22/2026 Replaced ASU presence check handler registration with ASU
+*                       update PDI compatibility check handler
 *
 * </pre>
 *
@@ -159,8 +161,8 @@ static int XPlm_Init(void)
 
 #ifdef VERSAL_2VE_2VM
 	/** - Initialize ASU in-place update subsystem for VERSAL_2VE_2VM platforms */
-	Status = XPlmi_AsuUpdateInit(XLoader_IsPdiAddrLookup, XPlm_CheckAsuPresenceInPdi,
-			XLoader_LoadAsuImage);
+	Status = XPlmi_AsuUpdateInit(XLoader_IsPdiAddrLookup, XLoader_LoadAsuImage,
+			XPlm_AsuCompatibilityCheck);
 	if (Status != XST_SUCCESS) {
 		XPlmi_Printf(DEBUG_GENERAL, "ASU update initialization failed: 0x%x\n\r", Status);
 		XPlmi_ErrMgr(Status);
