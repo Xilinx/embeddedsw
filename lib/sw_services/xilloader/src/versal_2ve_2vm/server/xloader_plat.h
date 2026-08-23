@@ -62,6 +62,7 @@
 *       pre  07/14/2026 Added XLOADER_GET_I2C_DEVICE_ID macro for I2C handshake feature and removed
 *                       XLoader_GetI2CDeviceID function declaration
 *       pre  08/05/2026 Removed unused error code
+*       ng   08/21/2026 Added prototype for XLoader_ConfigureGlitchDetector function
 *
 * </pre>
 *
@@ -152,6 +153,30 @@ extern "C" {
 				/**< Value to lock write to PMC_TAP registers */
 #define XLOADER_PMC_TAP_UNLOCK_VAL		(0x0U)
 				/**< Value to unlock write to PMC_TAP registers */
+
+/* ASU/LPD GD reset assert/release values and RMW masks (xplmi_hw.h has offsets) */
+#define XLOADER_RST_ASU_GD_ASSERT_VAL		(0x3U)
+				/**< Value to assert ASU glitch detector reset */
+#define XLOADER_RST_ASU_GD_RELEASE_VAL		(0x0U)
+				/**< Value to release ASU glitch detector reset */
+#define XLOADER_RST_ASU_GD_RMW_MASK		(0x3U)
+				/**< RMW mask for ASU glitch detector reset register */
+#define XLOADER_RST_LPD_GD_RMW_MASK		(0x3U)
+				/**< RMW mask for LPD glitch detector reset register */
+#define XLOADER_RST_LPD_GD_ASSERT_VAL		(0x3U)
+				/**< Value to assert LPD glitch detector reset */
+#define XLOADER_RST_LPD_GD_RELEASE_VAL		(0x0U)
+				/**< Value to release LPD glitch detector reset */
+
+/* Field widths of the ASU/LPD GD registers (identical layout on both), for XPlmi_UtilRMW masks */
+#define XLOADER_GD_VAL_SEL_RMW_MASK		(0x7U)
+				/**< RMW mask for GD VAL_SEL field */
+#define XLOADER_GD_COMP_SEL_RMW_MASK		(0x3U)
+				/**< RMW mask for GD COMP_SEL field */
+#define XLOADER_GD_DEL_SEL_RMW_MASK		(0xFU)
+				/**< RMW mask for GD DEL_SEL field */
+#define XLOADER_GD_SPARE_SEL_RMW_MASK		(0xFU)
+				/**< RMW mask for GD SPARE_SEL field */
 
 #if defined(XLOADER_PMC_IIC) && defined(PLM_I2C_MB_HANDSHAKE)
 /* I2C Master Device IDs */
@@ -340,6 +365,57 @@ enum {
 
 	/** 0x103 - Error during memset on UFS Bootfile */
 	XLOADER_ERR_MEMSET_UFS_BOOT_FILE,
+
+	/** 0x104 - Invalid glitch detector number */
+	XLOADER_ERR_GLITCH_DETECTOR_INVALID_GDNUM,
+
+	/** 0x105 - Invalid payload length for Configure Glitch Detector command */
+	XLOADER_ERR_GLITCH_DETECTOR_INVALID_LEN,
+
+	/** 0x106 - Invalid glitch detector type in Configure Glitch Detector command */
+	XLOADER_ERR_GLITCH_DETECTOR_INVALID_TYPE,
+
+	/** 0x107 - Invalid Depth/Width/RefVoltage in Configure Glitch Detector command */
+	XLOADER_ERR_GLITCH_DETECTOR_INVALID_PARAM,
+
+	/** 0x108 - Failed to configure PMC glitch detector */
+	XLOADER_ERR_PMC_GLITCH_DETECTOR_CONFIG_FAILED,
+
+	/** 0x109 - ASU GD config Depth/Width/RefVoltage exceed permitted field lengths */
+	XLOADER_ERR_ASU_GD_FIELD_LEN_EXCEEDED,
+
+	/** 0x10A - LPD GD config GdNum/Depth/Width/RefVoltage exceed permitted field lengths */
+	XLOADER_ERR_LPD_GD_FIELD_LEN_EXCEEDED,
+
+	/** 0x10B - Failed to assert/release ASU GD */
+	XLOADER_ERR_ASU_GD_RESET_FAILED,
+
+	/** 0x10C - ASU glitch detector VAL_SEL write failed */
+	XLOADER_ERR_ASU_GD_VAL_SEL_WRITE_FAILED,
+
+	/** 0x10D - ASU glitch detector COMP_SEL write failed */
+	XLOADER_ERR_ASU_GD_COMP_SEL_WRITE_FAILED,
+
+	/** 0x10E - ASU glitch detector DEL_SEL write failed */
+	XLOADER_ERR_ASU_GD_DEL_SEL_WRITE_FAILED,
+
+	/** 0x10F - ASU glitch detector SPARE_SEL write failed */
+	XLOADER_ERR_ASU_GD_SPARE_SEL_WRITE_FAILED,
+
+	/** 0x110 - Failed to assert/release LPD GD */
+	XLOADER_ERR_LPD_GD_RESET_FAILED,
+
+	/** 0x111 - LPD glitch detector VAL_SEL write failed */
+	XLOADER_ERR_LPD_GD_VAL_SEL_WRITE_FAILED,
+
+	/** 0x112 - LPD glitch detector COMP_SEL write failed */
+	XLOADER_ERR_LPD_GD_COMP_SEL_WRITE_FAILED,
+
+	/** 0x113 - LPD glitch detector DEL_SEL write failed */
+	XLOADER_ERR_LPD_GD_DEL_SEL_WRITE_FAILED,
+
+	/** 0x114 - LPD glitch detector SPARE_SEL write failed */
+	XLOADER_ERR_LPD_GD_SPARE_SEL_WRITE_FAILED,
 
 };
 
@@ -532,6 +608,7 @@ int XLoader_CheckAndUpdateSecureState(void);
 int XLoader_MeasureNLoad(XilPdi* PdiPtr);
 void XLoader_ShaInstance1Reset(void);
 int XLoader_MeasureRomAndPlm(void);
+int XLoader_ConfigureGlitchDetector(XPlmi_Cmd *Cmd);
 
 /************************** Variable Definitions *****************************/
 

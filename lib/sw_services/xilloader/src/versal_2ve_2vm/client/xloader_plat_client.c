@@ -21,6 +21,7 @@
  * 2.40  sri  03/26/26 Added client API to validate authenticated PDI
  * 2.4   sms  04/16/26 Updated the Payload and Response buffer length parameters in the function
  *       sri  07/21/26 Added RevokeID verification by reading eFuse cache directly
+ * 2.5   ng   08/17/26 Added XLoader_ConfigureGlitchDetector client API
  *
  * </pre>
  *
@@ -42,6 +43,7 @@
 #include "xil_sutil.h"
 #include "xloader_defs.h"
 #include "xil_io.h"
+#include "xloader_generic.h"
 
 /************************** Constant Definitions *****************************/
 #define XLOADER_SMAP_WD_PATTERN_SIZE         (0x00000010U) /**< Size of SMAP width pattern */
@@ -1254,6 +1256,83 @@ static int XLoader_VerifyAuthHashBlock(XLoader_ClientInstance *InstancePtr, u64 
 	/* Send IPI request to XilLoader server to verify the Hash Block signature */
 	Status = XLoader_ProcessMailbox(InstancePtr, Payload, PAYLOAD_ARG_CNT);
 
+	return Status;
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	This function sends an IPI request to configure one or more glitch detectors
+ *		via XLOADER_CMD_ID_CONFIG_GLITCH_DETECTOR.
+ *
+ *		Each word in GdCfgWords packs four u8 fields (LSB first):
+ *		- [7:0]   GD type (XLOADER_GD_TYPE_*)
+ *		- [15:8]  depth
+ *		- [23:16] width
+ *		- [31:24] ref_voltage
+ *
+ *		Use XLoader_PackGlitchDetectorCfg() to build each word. Payload length is 1..5
+ *
+ * @param	InstancePtr	Pointer to the client instance.
+ * @param	GdCfgWords	Array of packed glitch-detector config words.
+ * @param	NumWords	Number of config words (XLOADER_GD_CFG_MIN_LEN .. MAX_LEN).
+ *
+ * @return
+ *		 - XST_SUCCESS on success.
+ *		 - XST_INVALID_PARAM on invalid arguments.
+ *		 - Error code from PLM on failure.
+ *
+ *************************************************************************************************/
+int XLoader_ConfigureGlitchDetector(XLoader_ClientInstance *InstancePtr, const u32 *GdCfgWords,
+				    u32 NumWords)
+{
+	volatile int Status = (int)XST_FAILURE;
+	u32 Payload[PAYLOAD_ARG_CNT] = {0U};
+
+	/**
+	* - Perform input parameter validation. Return error if parameters are invalid.
+	*/
+	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL) || (GdCfgWords == NULL)) {
+		Status = (int)XST_INVALID_PARAM;
+		goto END;
+	}
+
+	/** Fill Payload: header length equals number of GD config words */
+	switch (NumWords) {
+	case XLOADER_GD_CFG_LEN_1:
+		XLOADER_PACK_PAYLOAD1(Payload, (u32)XLOADER_CMD_ID_CONFIG_GLITCH_DETECTOR,
+				      GdCfgWords[0U]);
+		break;
+	case XLOADER_GD_CFG_LEN_2:
+		XLOADER_PACK_PAYLOAD2(Payload, (u32)XLOADER_CMD_ID_CONFIG_GLITCH_DETECTOR,
+				      GdCfgWords[0U], GdCfgWords[1U]);
+		break;
+	case XLOADER_GD_CFG_LEN_3:
+		XLOADER_PACK_PAYLOAD3(Payload, (u32)XLOADER_CMD_ID_CONFIG_GLITCH_DETECTOR,
+				      GdCfgWords[0U], GdCfgWords[1U], GdCfgWords[2U]);
+		break;
+	case XLOADER_GD_CFG_LEN_4:
+		XLOADER_PACK_PAYLOAD4(Payload, (u32)XLOADER_CMD_ID_CONFIG_GLITCH_DETECTOR,
+				      GdCfgWords[0U], GdCfgWords[1U], GdCfgWords[2U],
+				      GdCfgWords[3U]);
+		break;
+	case XLOADER_GD_CFG_LEN_5:
+		XLOADER_PACK_PAYLOAD5(Payload, (u32)XLOADER_CMD_ID_CONFIG_GLITCH_DETECTOR,
+				      GdCfgWords[0U], GdCfgWords[1U], GdCfgWords[2U],
+				      GdCfgWords[3U], GdCfgWords[4U]);
+		break;
+	default:
+		Status = (int)XST_INVALID_PARAM;
+		break;
+	}
+
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	/** Send request using generic API */
+	Status = XLoader_SendRequest(InstancePtr, Payload, (u32)PAYLOAD_ARG_CNT, NULL, 0U);
+
+END:
 	return Status;
 }
 

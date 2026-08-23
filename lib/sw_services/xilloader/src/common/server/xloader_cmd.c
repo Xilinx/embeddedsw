@@ -98,9 +98,10 @@
 *       sk   04/10/2026 Added implementation for set image info command
 *       vm   03/30/2026 Moved Mask for PDI Src in Extract Metaheader command
 *       ng   07/09/2026 Added handler for Set DDR address for restart image command
-* 2.5   tvp  08/03/2026 Enabled IPI access permissions of XLoader_ConfigureJtagState command for versal_2vp_p
+* 2.5   tvp  08/03/2026 Enabled IPI access permissions of XLoader_ConfigureJtagState command for versal_2vp_p
 *       ng   08/05/2026 Reject reserved Image Store PDI IDs in Add/Remove IPI commands
 *       sri  08/14/2026 Updated verify auth HashBlock IPI command to use XLoader_AuthNCopyHashBlock
+*       ng   08/17/2026 Added handler for Configure Glitch Detector command
 *
 * </pre>
 *
@@ -1439,6 +1440,11 @@ static const XPlmi_ModuleCmd XLoader_Cmds[] =
 #endif
 	XPLMI_MODULE_COMMAND(XLoader_CfiSelectiveRead),
 	XPLMI_MODULE_COMMAND(XLoader_SetDdrAddrForImageRestart),
+#if defined(VERSAL_2VE_2VM)
+	XPLMI_MODULE_COMMAND(XLoader_ConfigureGlitchDetector),
+#else
+	XPLMI_MODULE_COMMAND(NULL),
+#endif
 };
 
 /*****************************************************************************/
@@ -1480,6 +1486,11 @@ static XPlmi_AccessPerm_t XLoader_AccessPermBuff[XPLMI_ARRAY_SIZE(XLoader_Cmds)]
 #endif
 	XPLMI_ALL_IPI_FULL_ACCESS(XLOADER_CFI_SEL_READBACK_ID),
 	XPLMI_ALL_IPI_FULL_ACCESS(XLOADER_SET_DDR_ADDR_FOR_RESTART_IMAGE_ID),
+#if defined(VERSAL_2VE_2VM)
+	XPLMI_ALL_IPI_FULL_ACCESS(XLOADER_CMD_ID_CONFIG_GLITCH_DETECTOR),
+#else
+	XPLMI_ALL_IPI_NO_ACCESS(XLOADER_CMD_ID_CONFIG_GLITCH_DETECTOR),
+#endif
 };
 
 #if (!defined(VERSAL_NET) && !defined(VERSAL_2VE_2VM))

@@ -193,6 +193,7 @@ i2c_handshake,0x710,0,0,0,0,0,0,0,0,CDO,Handshake
 data_auth,0x711,3,3,3,3,3,3,0,3,IPI,Data Authentication
 Cfi_selective_readback,0x712,3,3,3,3,3,3,0,3,IPI,Reads given number of cframes from the start frame given
 set_ddr_addr_for_restart_image,0x713,3,3,3,3,3,3,0,0,IPI,Configure DDR address to trigger Image restart from DDR
+config_glitch_detector,0x714,1,1,1,1,1,1,0,0,IPI,Configure Glitch Detector
 em_features,0x800,3,3,3,3,3,3,0,0,CDO/IPI,Features
 em_set_action,0x801,3,3,3,3,3,3,0,0,CDO/IPI,Em Set Action
 nvm_features,0xb00,3,3,3,3,3,3,0,0,IPI,Features

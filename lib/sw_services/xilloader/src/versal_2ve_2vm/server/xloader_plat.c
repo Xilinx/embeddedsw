@@ -81,6 +81,7 @@
 *       pre  07/14/2026 Removed XLoader_GetI2CDeviceID function definition
 *       vm   07/14/2026 Start ASUFW keep-alive monitor on ASU handoff
 *       pre  07/24/2026 Updated code to return error if extension to TPM PCR gets failed
+*       ng   08/22/2026 Added Configure Glitch Detector command handler
 *
 * </pre>
 *
@@ -120,6 +121,7 @@
 #include "xpm_apucore.h"
 #include "xloader_auth_jtag.h"
 #include "xloader_secure.h"
+#include "xil_sutil.h"
 #ifdef PLM_TPM
 #include "xtpm.h"
 #endif
@@ -186,6 +188,9 @@ static int XLoader_ExtendSpkId(XSecure_Sha384Hash* SpkIdHash, u32 PcrInfo, u32 D
 static int XLoader_EncRevokeIdMeasurement(XLoader_SecureParams* SecurePtr, XSecure_Sha384Hash* Sha3Hash);
 static int XLoader_ExtendEncRevokeId(XSecure_Sha384Hash* RevokeIdHash, u32 PcrInfo, u32 DigestIndex, u32 OverWrite);
 #endif
+static int XLoader_ConfigureAsuGd(u8 Depth, u8 Width, u8 RefVoltage);
+static int XLoader_ConfigureLpdGd(u8 Depth, u8 Width, u8 RefVoltage, u8 GdNum);
+static int XLoader_ConfigurePmcGd(u8 Depth, u8 Width, u8 RefVoltage, u8 GdNum);
 
 /************************** Variable Definitions *****************************/
 
@@ -1973,6 +1978,391 @@ int XLoader_LoadAsuImage(void)
 
 	/** Signal ASUFW that ELF has been loaded. */
 	XPlmi_Out32(XPLMI_ASU_UPDATE_STATE_REG, XPLMI_UPDATE_STATE_LOAD_ELF_DONE);
+END:
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	Configure the ASU glitch detector (one control per register).
+ *
+ * @param	Depth is the minimum voltage glitch detection depth (5 bits)
+ * @param	Width is the minimum glitch detector width (4 bits)
+ * @param	RefVoltage is the reference voltage (4 bits)
+ *
+ * @return
+ * 		- XST_SUCCESS on success.
+ * 		- XLOADER_ERR_ASU_GD_FIELD_LEN_EXCEEDED if Depth/Width/RefVoltage exceed
+ * 		  permitted field lengths
+ * 		- XLOADER_ERR_ASU_GD_RESET_FAILED if failed to assert/release ASU GD
+ * 		- XLOADER_ERR_ASU_GD_VAL_SEL_WRITE_FAILED if the VAL_SEL write failed
+ * 		- XLOADER_ERR_ASU_GD_COMP_SEL_WRITE_FAILED if the COMP_SEL write failed
+ * 		- XLOADER_ERR_ASU_GD_DEL_SEL_WRITE_FAILED if the DEL_SEL write failed
+ * 		- XLOADER_ERR_ASU_GD_SPARE_SEL_WRITE_FAILED if the SPARE_SEL write failed
+ *
+ * @note	RST_ASU_GD is in the psx_crl aperture, which is write protected by
+ *		psx_crl.wprot. The existing protection setting is saved, cleared
+ *		for the duration of the update and restored afterwards, so this
+ *		does not change the platform's lock policy.
+ *
+ *****************************************************************************/
+static int XLoader_ConfigureAsuGd(u8 Depth, u8 Width, u8 RefVoltage)
+{
+	int Status = (int)XST_FAILURE;
+	int SStatus = (int)XST_FAILURE;
+	u32 ValSel;
+	u32 CompSel;
+	u32 DelSel;
+	u32 SpareSel;
+	u32 SavedWprot;
+
+	if ((Depth > XLOADER_GD_DEPTH_MAX) || (Width > XLOADER_GD_WIDTH_MAX) ||
+	    (RefVoltage > XLOADER_GD_REFVOL_MAX)) {
+		Status = (int)XLOADER_ERR_ASU_GD_FIELD_LEN_EXCEEDED;
+		goto END;
+	}
+
+	ValSel = (u32)RefVoltage & XLOADER_GD_REFVOL_3LSBITS_MASK;
+	CompSel = ((u32)Depth & XLOADER_GD_DEPTH_2MSBITS_MASK) >>
+			XLOADER_GD_DEPTH_2MSBITS_RSHIFT;
+	DelSel = (u32)Width & XLOADER_GD_WIDTH_BITS_MASK;
+	SpareSel = ((u32)RefVoltage & XLOADER_GD_REFVOL_MSBIT_MASK) |
+			 ((u32)Depth & XLOADER_GD_DEPTH_3LSBITS_MASK);
+
+	/* Unlock psx_crl so the reset control can be driven */
+	SavedWprot = XPlmi_In32(PSX_CRL_WPROT_ADDR);
+	XPlmi_Out32(PSX_CRL_WPROT_ADDR, PSX_CRL_WPROT_ENABLE_MASK);
+
+	/* Hold the detector in reset while calibration is programmed */
+	Status = Xil_SecureRMW32(PSX_CRL_RST_ASU_GD_ADDR, XLOADER_RST_ASU_GD_RMW_MASK,
+				 XLOADER_RST_ASU_GD_ASSERT_VAL);
+	if (Status != XST_SUCCESS) {
+		Status = (int)XLOADER_ERR_ASU_GD_RESET_FAILED;
+		goto RESTORE;
+	}
+
+	Status = Xil_SecureRMW32(ASU_GD_VAL_SEL_ADDR,
+				 XLOADER_GD_VAL_SEL_RMW_MASK, ValSel);
+	if (Status != XST_SUCCESS) {
+		Status = (int)XLOADER_ERR_ASU_GD_VAL_SEL_WRITE_FAILED;
+		goto RELEASE_RESET;
+	}
+
+	Status = Xil_SecureRMW32(ASU_GD_COMP_SEL_ADDR,
+				 XLOADER_GD_COMP_SEL_RMW_MASK, CompSel);
+	if (Status != XST_SUCCESS) {
+		Status = (int)XLOADER_ERR_ASU_GD_COMP_SEL_WRITE_FAILED;
+		goto RELEASE_RESET;
+	}
+
+	Status = Xil_SecureRMW32(ASU_GD_DEL_SEL_ADDR,
+				 XLOADER_GD_DEL_SEL_RMW_MASK, DelSel);
+	if (Status != XST_SUCCESS) {
+		Status = (int)XLOADER_ERR_ASU_GD_DEL_SEL_WRITE_FAILED;
+		goto RELEASE_RESET;
+	}
+
+	Status = Xil_SecureRMW32(ASU_GD_SPARE_SEL_ADDR,
+				 XLOADER_GD_SPARE_SEL_RMW_MASK, SpareSel);
+	if (Status != XST_SUCCESS) {
+		Status = (int)XLOADER_ERR_ASU_GD_SPARE_SEL_WRITE_FAILED;
+	}
+
+RELEASE_RESET:
+	/* Release reset so the detector can operate */
+	SStatus = Xil_SecureRMW32(PSX_CRL_RST_ASU_GD_ADDR, XLOADER_RST_ASU_GD_RMW_MASK,
+				 XLOADER_RST_ASU_GD_RELEASE_VAL);
+	if ((SStatus != XST_SUCCESS) && (Status == XST_SUCCESS)) {
+		Status = (int)XLOADER_ERR_ASU_GD_RESET_FAILED;
+	}
+
+RESTORE:
+	/* Restore the write protection setting the platform had before */
+	XPlmi_Out32(PSX_CRL_WPROT_ADDR, SavedWprot);
+
+END:
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	Configure an LPD glitch detector via lpd_slcr GD registers.
+ *
+ * @param	Depth is the minimum voltage glitch detection depth (5 bits)
+ * @param	Width is the minimum glitch detector width (4 bits)
+ * @param	RefVoltage is the reference voltage (4 bits)
+ * @param	GdNum is the LPD glitch detector number (0 or 1)
+ *
+ * @return
+ * 		- XST_SUCCESS on success.
+ * 		- XLOADER_ERR_LPD_GD_FIELD_LEN_EXCEEDED if GdNum/Depth/Width/RefVoltage
+ * 		  exceed permitted field lengths
+ * 		- XLOADER_ERR_LPD_GD_RESET_FAILED if failed to assert/release LPD GD
+ * 		- XLOADER_ERR_LPD_GD_VAL_SEL_WRITE_FAILED if the VAL_SEL write failed
+ * 		- XLOADER_ERR_LPD_GD_COMP_SEL_WRITE_FAILED if the COMP_SEL write failed
+ * 		- XLOADER_ERR_LPD_GD_DEL_SEL_WRITE_FAILED if the DEL_SEL write failed
+ * 		- XLOADER_ERR_LPD_GD_SPARE_SEL_WRITE_FAILED if the SPARE_SEL write failed
+ *
+ * @note	Two apertures are touched here and both are write protected. The
+ *		calibration registers are in lpd_slcr, guarded by lpd_slcr.wprot0,
+ *		and RST_RPU_GD_0/RST_RPU_GD_1 are in psx_crl, guarded by
+ *		psx_crl.wprot. Both settings are saved, cleared and restored.
+ *		Like the ASU detector, the LPX detectors come out of POR with
+ *		their reset register at 0x3, so calibration is bracketed by an
+ *		assert/release; without the release the block stays in reset and
+ *		never reports a glitch.
+ *
+ *****************************************************************************/
+static int XLoader_ConfigureLpdGd(u8 Depth, u8 Width, u8 RefVoltage, u8 GdNum)
+{
+	int Status = (int)XST_FAILURE;
+	int SStatus = (int)XST_FAILURE;
+	u32 ValSelAddr;
+	u32 CompSelAddr;
+	u32 DelSelAddr;
+	u32 SpareSelAddr;
+	u32 ValSel;
+	u32 CompSel;
+	u32 DelSel;
+	u32 SpareSel;
+	u32 SavedCrlWprot;
+	u32 SavedSlcrWprot;
+	u32 RstAddr;
+
+	if ((GdNum > XLOADER_GD_NUM1) ||
+	    (Depth > XLOADER_GD_DEPTH_MAX) || (Width > XLOADER_GD_WIDTH_MAX) ||
+	    (RefVoltage > XLOADER_GD_REFVOL_MAX)) {
+		Status = (int)XLOADER_ERR_LPD_GD_FIELD_LEN_EXCEEDED;
+		goto END;
+	}
+
+	ValSel = (u32)RefVoltage & XLOADER_GD_REFVOL_3LSBITS_MASK;
+	CompSel = ((u32)Depth & XLOADER_GD_DEPTH_2MSBITS_MASK) >>
+			XLOADER_GD_DEPTH_2MSBITS_RSHIFT;
+	DelSel = (u32)Width & XLOADER_GD_WIDTH_BITS_MASK;
+	SpareSel = ((u32)RefVoltage & XLOADER_GD_REFVOL_MSBIT_MASK) |
+			 ((u32)Depth & XLOADER_GD_DEPTH_3LSBITS_MASK);
+
+	if (GdNum == XLOADER_GD_NUM0) {
+		ValSelAddr = LPD_GD0_VAL_SEL_ADDR;
+		CompSelAddr = LPD_GD0_COMP_SEL_ADDR;
+		DelSelAddr = LPD_GD0_DEL_SEL_ADDR;
+		SpareSelAddr = LPD_GD0_SPARE_SEL_ADDR;
+		RstAddr = PSX_CRL_RST_RPU_GD_0_ADDR;
+	} else {
+		ValSelAddr = LPD_GD1_VAL_SEL_ADDR;
+		CompSelAddr = LPD_GD1_COMP_SEL_ADDR;
+		DelSelAddr = LPD_GD1_DEL_SEL_ADDR;
+		SpareSelAddr = LPD_GD1_SPARE_SEL_ADDR;
+		RstAddr = PSX_CRL_RST_RPU_GD_1_ADDR;
+	}
+
+	/* Unlock both apertures for the duration of the update */
+	SavedCrlWprot = XPlmi_In32(PSX_CRL_WPROT_ADDR);
+	XPlmi_Out32(PSX_CRL_WPROT_ADDR, PSX_CRL_WPROT_ENABLE_MASK);
+	SavedSlcrWprot = XPlmi_In32(LPD_SLCR_WPROT0_ADDR);
+	XPlmi_Out32(LPD_SLCR_WPROT0_ADDR, LPD_SLCR_WPROT0_ENABLE_MASK);
+
+	/* Hold the detector in reset while calibration is programmed */
+	Status = Xil_SecureRMW32(RstAddr, XLOADER_RST_LPD_GD_RMW_MASK,
+				 XLOADER_RST_LPD_GD_ASSERT_VAL);
+	if (Status != XST_SUCCESS) {
+		Status = (int)XLOADER_ERR_LPD_GD_RESET_FAILED;
+		goto RESTORE;
+	}
+
+	Status = Xil_SecureRMW32(ValSelAddr, XLOADER_GD_VAL_SEL_RMW_MASK, ValSel);
+	if (Status != XST_SUCCESS) {
+		Status = (int)XLOADER_ERR_LPD_GD_VAL_SEL_WRITE_FAILED;
+		goto RELEASE_RESET;
+	}
+
+	Status = Xil_SecureRMW32(CompSelAddr, XLOADER_GD_COMP_SEL_RMW_MASK, CompSel);
+	if (Status != XST_SUCCESS) {
+		Status = (int)XLOADER_ERR_LPD_GD_COMP_SEL_WRITE_FAILED;
+		goto RELEASE_RESET;
+	}
+
+	Status = Xil_SecureRMW32(DelSelAddr, XLOADER_GD_DEL_SEL_RMW_MASK, DelSel);
+	if (Status != XST_SUCCESS) {
+		Status = (int)XLOADER_ERR_LPD_GD_DEL_SEL_WRITE_FAILED;
+		goto RELEASE_RESET;
+	}
+
+	Status = Xil_SecureRMW32(SpareSelAddr, XLOADER_GD_SPARE_SEL_RMW_MASK, SpareSel);
+	if (Status != XST_SUCCESS) {
+		Status = (int)XLOADER_ERR_LPD_GD_SPARE_SEL_WRITE_FAILED;
+	}
+
+RELEASE_RESET:
+	/* Release reset so the detector can operate */
+	SStatus = Xil_SecureRMW32(RstAddr, XLOADER_RST_LPD_GD_RMW_MASK,
+				 XLOADER_RST_LPD_GD_RELEASE_VAL);
+	if ((SStatus != XST_SUCCESS) && (Status == XST_SUCCESS)) {
+		Status = (int)XLOADER_ERR_LPD_GD_RESET_FAILED;
+	}
+
+RESTORE:
+	/* Restore the write protection settings the platform had before */
+	XPlmi_Out32(LPD_SLCR_WPROT0_ADDR, SavedSlcrWprot);
+	XPlmi_Out32(PSX_CRL_WPROT_ADDR, SavedCrlWprot);
+
+END:
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	Configure a PMC glitch detector via GD_FUSE_CTRL.
+ *
+ * @param	Depth is the minimum voltage glitch detection depth
+ * @param	Width is the minimum glitch detector width
+ * @param	RefVoltage is the reference voltage for the comparators
+ * @param	GdNum is the glitch detector number (0 or 1)
+ *
+ * @return
+ * 		- XST_SUCCESS on success.
+ * 		- XLOADER_ERR_GLITCH_DETECTOR_INVALID_GDNUM on invalid GdNum
+ * 		- XLOADER_ERR_GLITCH_DETECTOR_INVALID_PARAM on out of range
+ * 		  Depth/Width/RefVoltage
+ * 		- XLOADER_ERR_PMC_GLITCH_DETECTOR_CONFIG_FAILED if GD_FUSE_CTRL write
+ * 		  did not read back as programmed
+ *****************************************************************************/
+static int XLoader_ConfigurePmcGd(u8 Depth, u8 Width, u8 RefVoltage, u8 GdNum)
+{
+	int Status = (int)XST_FAILURE;
+	u32 Data = 0U;
+	u32 Addr;
+
+	if (GdNum > XLOADER_GD_NUM1) {
+		Status = (int)XLOADER_ERR_GLITCH_DETECTOR_INVALID_GDNUM;
+		goto END;
+	}
+
+	if ((Depth > XLOADER_GD_DEPTH_MAX) || (Width > XLOADER_GD_WIDTH_MAX) ||
+	(RefVoltage > XLOADER_GD_REFVOL_MAX)) {
+		Status = (int)XLOADER_ERR_GLITCH_DETECTOR_INVALID_PARAM;
+		goto END;
+	}
+
+	Data = (((u32)RefVoltage & XLOADER_GD_REFVOL_MSBIT_MASK) <<
+		 XLOADER_GD_REFVOL_MSBIT_SHIFT) |
+		(((u32)RefVoltage & XLOADER_GD_REFVOL_3LSBITS_MASK) <<
+		  XLOADER_GD_REFVOL_3LSBITS_SHIFT);
+	Data |= (((u32)Depth & XLOADER_GD_DEPTH_2MSBITS_MASK) <<
+		 XLOADER_GD_DEPTH_2MSBITS_SHIFT) |
+		 (((u32)Depth & XLOADER_GD_DEPTH_3LSBITS_MASK) <<
+		 XLOADER_GD_DEPTH_3LSBITS_SHIFT);
+	Data |= ((u32)Width & XLOADER_GD_WIDTH_BITS_MASK) <<
+		 XLOADER_GD_WIDTH_BITS_SHIFT;
+	Data |= XLOADER_GD_USER_REG_VAL;
+
+	if (GdNum == XLOADER_GD_NUM0) {
+		Addr = PMC_ANALOG_GD_FUSE_CTRL0;
+	} else {
+		Addr = PMC_ANALOG_GD_FUSE_CTRL1;
+	}
+
+	Status = Xil_SecureRMW32(Addr, XLOADER_GD_FUSE_CTRL_RMW_MASK, Data);
+	if (Status != XST_SUCCESS) {
+		Status = (int)XLOADER_ERR_PMC_GLITCH_DETECTOR_CONFIG_FAILED;
+	}
+
+END:
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function configures the glitch detectors.
+ *
+ *  Each payload word packs four u8 fields (LSB first):
+ *	- [7:0]   GD type (1=PMC GD0, 2=PMC GD1, 3=ASU, 4=LPD GD0, 5=LPD GD1)
+ *	- [15:8]  depth
+ *	- [23:16] width
+ *	- [31:24] ref_voltage
+ *
+ *  Payload length: 1..5
+ *
+ * @param	Cmd is pointer to the command structure
+ *
+ * @return
+ * 		- XST_SUCCESS on success.
+ * 		- XLOADER_ERR_GLITCH_DETECTOR_INVALID_LEN on invalid payload length
+ * 		- XLOADER_ERR_GLITCH_DETECTOR_INVALID_TYPE on unsupported GD type
+ * 		- XLOADER_ERR_GLITCH_DETECTOR_INVALID_GDNUM on invalid PMC GD number
+ * 		- XLOADER_ERR_GLITCH_DETECTOR_INVALID_PARAM on out of range
+ * 		  Depth/Width/RefVoltage for a PMC detector
+ * 		- XLOADER_ERR_PMC_GLITCH_DETECTOR_CONFIG_FAILED if PMC GD_FUSE_CTRL write
+ * 		  did not read back as programmed
+ * 		- XLOADER_ERR_ASU_GD_FIELD_LEN_EXCEEDED if ASU Depth/Width/RefVoltage
+ * 		  exceed permitted field lengths
+ * 		- XLOADER_ERR_ASU_GD_RESET_FAILED if failed to assert/release ASU GD
+ * 		- XLOADER_ERR_ASU_GD_VAL_SEL_WRITE_FAILED if the ASU VAL_SEL write failed
+ * 		- XLOADER_ERR_ASU_GD_COMP_SEL_WRITE_FAILED if the ASU COMP_SEL write failed
+ * 		- XLOADER_ERR_ASU_GD_DEL_SEL_WRITE_FAILED if the ASU DEL_SEL write failed
+ * 		- XLOADER_ERR_ASU_GD_SPARE_SEL_WRITE_FAILED if the ASU SPARE_SEL write failed
+ * 		- XLOADER_ERR_LPD_GD_FIELD_LEN_EXCEEDED if LPD GdNum/Depth/Width/RefVoltage
+ * 		  exceed permitted field lengths
+ * 		- XLOADER_ERR_LPD_GD_RESET_FAILED if failed to assert/release LPD GD
+ * 		- XLOADER_ERR_LPD_GD_VAL_SEL_WRITE_FAILED if the LPD VAL_SEL write failed
+ * 		- XLOADER_ERR_LPD_GD_COMP_SEL_WRITE_FAILED if the LPD COMP_SEL write failed
+ * 		- XLOADER_ERR_LPD_GD_DEL_SEL_WRITE_FAILED if the LPD DEL_SEL write failed
+ * 		- XLOADER_ERR_LPD_GD_SPARE_SEL_WRITE_FAILED if the LPD SPARE_SEL write failed
+ *
+ *****************************************************************************/
+int XLoader_ConfigureGlitchDetector(XPlmi_Cmd *Cmd)
+{
+	int Status = (int)XST_FAILURE;
+	u32 Index;
+	u32 Word;
+	XLoader_GdType GdType;
+	u8 Depth;
+	u8 Width;
+	u8 RefVoltage;
+
+	if ((Cmd->Len < XLOADER_GD_CFG_MIN_LEN) ||
+	(Cmd->Len > XLOADER_GD_CFG_MAX_LEN)) {
+		Status = (int)XLOADER_ERR_GLITCH_DETECTOR_INVALID_LEN;
+		goto END;
+	}
+
+	for (Index = 0U; Index < Cmd->Len; Index++) {
+		Word = Cmd->Payload[Index];
+		GdType = (XLoader_GdType)((Word >> XLOADER_GD_TYPE_SHIFT) & XLOADER_GD_FIELD_MASK);
+		Depth = (u8)((Word >> XLOADER_GD_DEPTH_SHIFT) & XLOADER_GD_FIELD_MASK);
+		Width = (u8)((Word >> XLOADER_GD_WIDTH_SHIFT) & XLOADER_GD_FIELD_MASK);
+		RefVoltage = (u8)((Word >> XLOADER_GD_REFVOL_SHIFT) & XLOADER_GD_FIELD_MASK);
+
+		switch (GdType) {
+		case XLOADER_GD_TYPE_PMC_GD0:
+			Status = XLoader_ConfigurePmcGd(Depth, Width, RefVoltage, XLOADER_GD_NUM0);
+			break;
+		case XLOADER_GD_TYPE_PMC_GD1:
+			Status = XLoader_ConfigurePmcGd(Depth, Width, RefVoltage, XLOADER_GD_NUM1);
+			break;
+		case XLOADER_GD_TYPE_ASU_GD:
+			Status = XLoader_ConfigureAsuGd(Depth, Width, RefVoltage);
+			break;
+		case XLOADER_GD_TYPE_LPD_GD0:
+			Status = XLoader_ConfigureLpdGd(Depth, Width, RefVoltage, XLOADER_GD_NUM0);
+			break;
+		case XLOADER_GD_TYPE_LPD_GD1:
+			Status = XLoader_ConfigureLpdGd(Depth, Width, RefVoltage, XLOADER_GD_NUM1);
+			break;
+		default:
+			Status = (int)XLOADER_ERR_GLITCH_DETECTOR_INVALID_TYPE;
+			break;
+		}
+
+		if (Status != XST_SUCCESS) {
+			XPlmi_Printf(DEBUG_GENERAL, "Glitch detector config failed for "
+				     "GD type %u, depth %u, width %u, refvol %u\r\n",
+				     GdType, Depth, Width, RefVoltage);
+			goto END;
+		}
+	}
+
 END:
 	return Status;
 }

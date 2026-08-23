@@ -65,13 +65,12 @@
 *       obs  12/31/2025 Fixed GCC warnings
 *       pre  03/12/2026 Added register addresses of ROM and PLM hashes
 *       pre  05/30/2026 Added PS I2C instances check for I2C handshake feature
-*       obs  08/11/2026 Reduced debug log buffer size from 16KB to 12KB
+* 2.5   obs  08/11/2026 Reduced debug log buffer size from 16KB to 12KB
 *       ias  08/19/2026 Added memory-range reachability table PMC RAM reservation
 *       sd   08/20/2026 Moved PMC WDT instance selection to xplmi_wdt_hw.h
+*       ng   08/20/2026 Added addresses for glitch detector configuration
 *
 * </pre>
-*
-* @note
 *
 ******************************************************************************/
 
@@ -1177,6 +1176,16 @@ static inline void XPlmi_OutByte64(u64 Addr, u8 Data)
 #define PMC_ANALOG_BASEADDR	(0XF1160000U)
 
 /*
+ * Register: PMC_ANALOG_GD_FUSE_CTRL0
+ */
+#define PMC_ANALOG_GD_FUSE_CTRL0	(PMC_ANALOG_BASEADDR + 0X00000020U)
+
+/*
+ * Register: PMC_ANALOG_GD_FUSE_CTRL1
+ */
+#define PMC_ANALOG_GD_FUSE_CTRL1	(PMC_ANALOG_BASEADDR + 0X00000024U)
+
+/*
  * Register: PMC_ANALOG_SLVERR_CTRL
  */
 #define PMC_ANALOG_SLVERR_CTRL	(PMC_ANALOG_BASEADDR + 0X00000050U)
@@ -1413,6 +1422,8 @@ static inline void XPlmi_OutByte64(u64 Addr, u8 Data)
  * Definitions required for LPX_SLCR
  */
 #define LPD_SLCR_BASEADDR			(0xEB410000U)
+#define LPD_SLCR_WPROT0_ADDR			(LPD_SLCR_BASEADDR)
+#define LPD_SLCR_WPROT0_ENABLE_MASK		(0x0U)
 #define LPD_SLCR_EAM_PMC0_ERR0_MASK   		(( LPD_SLCR_BASEADDR ) + 0x00040040U)
 #define LPD_SLCR_EAM_PMC3_ERR0_MASK  		(( LPD_SLCR_BASEADDR ) + 0x00040160U)
 #define LPD_SLCR_EAM_PMC3_ERR0_DIS  		(( LPD_SLCR_BASEADDR ) + 0x000401A0U)
@@ -1426,6 +1437,29 @@ static inline void XPlmi_OutByte64(u64 Addr, u8 Data)
 #define LPD_SLCR_INT_LPXASILD_UNCORR_ERR_ISR    ( ( LPD_SLCR_BASEADDR ) + 0x000005C0U )
 #define INTLPD_ASILD_UNCORR_ERR_MASK		XPLMI_BIT(0U)
 #define INTOCM_ASILD_UNCORR_ERR_MASK		XPLMI_BIT(1U)
+
+/*
+ * LPD (LPX) glitch detector calibration registers (lpd_slcr aperture).
+ */
+#define LPD_GD0_BASEADDR			(0xEB430000U)
+#define LPD_GD1_BASEADDR			(0xEB430028U)
+#define LPD_GD0_VAL_SEL_ADDR			(LPD_GD0_BASEADDR + 0x0U)
+#define LPD_GD0_COMP_SEL_ADDR			(LPD_GD0_BASEADDR + 0x8U)
+#define LPD_GD0_DEL_SEL_ADDR			(LPD_GD0_BASEADDR + 0xCU)
+#define LPD_GD0_SPARE_SEL_ADDR			(LPD_GD0_BASEADDR + 0x10U)
+#define LPD_GD1_VAL_SEL_ADDR			(LPD_GD1_BASEADDR + 0x0U)
+#define LPD_GD1_COMP_SEL_ADDR			(LPD_GD1_BASEADDR + 0x8U)
+#define LPD_GD1_DEL_SEL_ADDR			(LPD_GD1_BASEADDR + 0xCU)
+#define LPD_GD1_SPARE_SEL_ADDR			(LPD_GD1_BASEADDR + 0x10U)
+
+/*
+ * ASU glitch detector calibration registers.
+ */
+#define ASU_GD_BASEADDR				(0xEBF90028U)
+#define ASU_GD_VAL_SEL_ADDR			(ASU_GD_BASEADDR + 0x0U)
+#define ASU_GD_COMP_SEL_ADDR			(ASU_GD_BASEADDR + 0x8U)
+#define ASU_GD_DEL_SEL_ADDR			(ASU_GD_BASEADDR + 0xCU)
+#define ASU_GD_SPARE_SEL_ADDR			(ASU_GD_BASEADDR + 0x10U)
 
 /*
  * Definitions required for APU_CLUSTER
@@ -1493,8 +1527,11 @@ static inline void XPlmi_OutByte64(u64 Addr, u8 Data)
 #define RPU_CLUSTER_CFG_SLSPLIT_MASK		(0x00000001U)
 
 #define PSX_CRL_BASEADDR		(0xEB5E0000U)
-#define PSX_CRL_WPROT_ADDR			(PSX_CRL_BASEADDR + 0x1CU)
+#define PSX_CRL_WPROT_ADDR		(PSX_CRL_BASEADDR + 0x1CU)
 #define PSX_CRL_WPROT_ENABLE_MASK	(0x0U)
+#define PSX_CRL_RST_ASU_GD_ADDR		(PSX_CRL_BASEADDR + 0x32CU)
+#define PSX_CRL_RST_RPU_GD_0_ADDR	(PSX_CRL_BASEADDR + 0x324U)
+#define PSX_CRL_RST_RPU_GD_1_ADDR	(PSX_CRL_BASEADDR + 0x328U)
 #define CRL_RPU_CLK_CTRL_ADDR		(PSX_CRL_BASEADDR + 0x10CU)
 #define CRL_RST_RPU_ADDR		(PSX_CRL_BASEADDR + 0x310U)
 #define RPU_CLK_CTRL_CLKACT_MASK	(0x01000000U)
