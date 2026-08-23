@@ -17,6 +17,7 @@
  * ----- ---- -------- ----------------------------------------------------------------------------
  * 1.00  gnr  02/09/26 Initial release
  * 2.40  sri  03/26/26 Added client API to validate authenticated PDI
+ * 2.5   ng   08/17/26 Removed XLOADER_PDI_SRC_DDR and XLOADER_PDI_SRC_IS macros
  *
  * </pre>
  *
@@ -48,8 +49,6 @@ typedef struct {
 } XLoader_DDRCounters;
 
 /*************************** Macros (Inline Functions) Definitions *******************************/
-#define XLOADER_PDI_SRC_DDR			(0xF)	/**< Source of PDI is DDR */
-#define XLOADER_PDI_SRC_IS			(0x10)	/**< Source of PDI is Image Store */
 #define XLOADER_PDI_TYPE_FULL		        (0x1U)  /**< PDI type full */
 #define XLOADER_PDI_TYPE_PARTIAL	        (0x2U)  /**< PDI type partial */
 

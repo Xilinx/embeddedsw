@@ -1,5 +1,5 @@
 /**************************************************************************************************
-* Copyright (C) 2024 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2024 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 
@@ -19,6 +19,7 @@
  *       har  02/16/24 Added XLoader_GetOptionalData API
  *       har  03/05/24 Fixed doxygen warnings
  *       kpt  10/04/24 Added support to validate partial and optimized authentication enabled PDI
+ * 2.5   ng   08/17/26 Removed XLOADER_PDI_SRC_DDR and XLOADER_PDI_SRC_IS macros
  *
  * </pre>
  *
@@ -50,8 +51,6 @@ typedef struct {
 } XLoader_DDRCounters;
 
 /*************************** Macros (Inline Functions) Definitions *******************************/
-#define XLOADER_PDI_SRC_DDR			(0xF)	/**< Source of PDI is DDR */
-#define XLOADER_PDI_SRC_IS			(0x10)	/**< Source of PDI is Image Store */
 #define XLOADER_PDI_TYPE_FULL		        (0x1U)  /**< PDI type full */
 #define XLOADER_PDI_TYPE_PARTIAL	        (0x2U)  /**< PDI type partial */
 
