@@ -1,0 +1,73 @@
+name: "CodeQL with build"
+
+on:
+  workflow_dispatch:
+
+jobs:
+  analyze:
+    name: Analyze (C++ manual build)
+    runs-on: [self-hosted, xhdsaddepal50]
+    permissions:
+      security-events: write
+      packages: read
+      actions: read
+      contents: read
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@v4
+        with:
+          languages: c-cpp
+          build-mode: manual
+          queries: security-extended
+          config-file: ./.github/codeql/codeql-config.yml
+          
+      - name: Build asufw + PLM + xilsecure with empyro
+        shell: bash
+        run: |
+          set -e
+          source /proj/xbuilds/2026.2_daily_latest/installs/lin64/2026.2/Vitis/settings64.sh
+
+          export LOCAL_LOPPER_EXE=/proj/ssw_xhd/regressions/no_delete/lopper_empyro/2026.2/linux/bin_workdir/bin/lopper/lopper
+          export LOCAL_EMPYRO_EXE=/proj/ssw_xhd/regressions/no_delete/lopper_empyro/2026.2/linux/bin_workdir/bin/empyro/empyro
+
+          empyro repo -st "$GITHUB_WORKSPACE"
+
+          # ---- asufw (palmyra_se10, versal2) ----
+          mkdir -p build_asu/work/dts/dts
+          cp -r /proj/ssw_xhd/designs/2026.2/designs_dts/designs_stable_latest/versal2/prod/palmyra_se10/dts/* build_asu/work/dts/dts/
+          empyro create_bsp -s build_asu/work/dts/dts/system-top.dts -t asufw -p asu -o standalone -w build_asu/work/bsp_dir
+          empyro build_bsp -d build_asu/work/bsp_dir
+          empyro validate_bsp -d build_asu/work/bsp_dir -t asufw
+          empyro create_app -t asufw -d build_asu/work/bsp_dir -w build_asu/work/app_dir -n asufw
+          empyro build_app -w build_asu/work/app_dir
+
+          # ---- PLM (apex_se11, versal2) ----
+          mkdir -p build_plm/work/dts
+          cp -r /proj/ssw_xhd/designs/2026.2/designs_dts/designs_stable_latest/versal2/prod/apex_se11/dts/* build_plm/work/dts/
+          empyro create_bsp -s build_plm/work/dts/system-top.dts -t versal_plm -p pmc_0 -o standalone -w build_plm/work/bsp_dir
+          empyro build_bsp -d build_plm/work/bsp_dir
+          empyro validate_bsp -d build_plm/work/bsp_dir -t versal_plm
+          empyro create_app -t versal_plm -d build_plm/work/bsp_dir -w build_plm/work/app_dir -n versal_plm
+          empyro build_app -w build_plm/work/app_dir
+
+          # ---- xilsecure example (vck190_ebm1, versal, freertos) ----
+          mkdir -p build_xilsecure/work/dts
+          cp -r /proj/ssw_xhd/designs/2026.2/designs_dts/designs_stable_latest/versal/prod/vck190_ebm1/dts/* build_xilsecure/work/dts/
+          empyro create_bsp -s build_xilsecure/work/dts/system-top.dts -t empty_application -p psv_cortexa72_0 -o freertos -w build_xilsecure/work/bsp_dir
+          empyro config_bsp -d build_xilsecure/work/bsp_dir -al xilmailbox
+          empyro config_bsp -d build_xilsecure/work/bsp_dir -al xilsecure
+          empyro build_bsp -d build_xilsecure/work/bsp_dir
+          empyro validate_bsp -d build_xilsecure/work/bsp_dir -t empty_application
+          empyro create_app -t empty_application -d build_xilsecure/work/bsp_dir -w build_xilsecure/work/app_dir -n xilsecure_versal_aes_client_example
+          empyro load_example -d build_xilsecure/work/bsp_dir
+          empyro create_example -d build_xilsecure/work/bsp_dir -e xilsecure_versal_aes_client_example.c -n xilsecure -s build_xilsecure/work/app_dir/src -w build_xilsecure/work/app_dir/build
+          empyro build_app -w build_xilsecure/work/app_dir
+
+      - name: Perform CodeQL Analysis
+        uses: github/codeql-action/analyze@v4
+        with:
+          category: "/language:c-cpp/manual-build"

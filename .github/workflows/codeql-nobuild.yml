@@ -1,0 +1,32 @@
+name: "CodeQL EMBEDDEDSW (no build)"
+
+on:
+  workflow_dispatch:
+
+jobs:
+  analyze:
+    name: Analyze EMBEDDEDSW (C/C++ no-build)
+    runs-on: 
+      group: TEAMCI
+      labels: [self-hosted, xhdsaddepal50]
+    permissions:
+      security-events: write
+      packages: read
+      actions: read
+      contents: read
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@v4
+        with:
+          languages: c-cpp
+          build-mode: none
+          queries: security-extended
+          config-file: ./.github/codeql/codeql-config.yml
+
+      - name: Perform CodeQL Analysis
+        uses: github/codeql-action/analyze@v4
+        with:
+          category: "/language:c-cpp"

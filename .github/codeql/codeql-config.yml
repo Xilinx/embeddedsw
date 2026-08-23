@@ -1,0 +1,3 @@
+name: "CodeQL Config"
+paths-ignore:
+  - ThirdParty/sw_services/lwip220/src/lwip-2.2.0/src/netif/bridgeif_fdb.c
