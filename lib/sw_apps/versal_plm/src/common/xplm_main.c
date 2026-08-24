@@ -48,6 +48,7 @@
 *       ias  08/19/2026 Added memory-range reachability table region init call
 *       vm   08/22/2026 Replaced ASU presence check handler registration with ASU
 *                       update PDI compatibility check handler
+*       ias  08/24/2026 Fixed versal_gen2_tr build: gate MemTblInit on XPLMI_MEMTBL_ADDR
 *
 * </pre>
 *
@@ -191,11 +192,17 @@ static int XPlm_Init(void)
 		goto END;
 	}
 
-#ifdef VERSAL_2VE_2VM
+#ifdef XPLMI_MEMTBL_ADDR
 	/*
 	 * Zeroize the memory-range table area (skipped on IPU). Placed right
 	 * after RTCA init and before XPlm_ProcessPmcCdo so the configuration CDO
 	 * block_write fills the zeroed region.
+	 *
+	 * Gated on XPLMI_MEMTBL_ADDR (the backend-feature macro), not
+	 * VERSAL_2VE_2VM: versal_gen2_tr also defines VERSAL_2VE_2VM but stages an
+	 * xilplmi server without XPlmi_MemTblInit(), so the platform macro would
+	 * leave an undefined reference at link. XPLMI_MEMTBL_ADDR is defined only
+	 * where the definition (and the table it zeroes) exists.
 	 */
 	Status = XPlmi_MemTblInit();
 	if (Status != XST_SUCCESS) {
