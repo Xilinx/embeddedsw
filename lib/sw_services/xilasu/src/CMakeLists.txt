@@ -19,8 +19,7 @@ if( (XILASU_rsa_keygen_2048_support AND XILASU_rsa_keygen_3072_support) OR
    message(FATAL_ERROR "Enable only one of XILASU_rsa_keygen_2048_support, XILASU_rsa_keygen_3072_support, XILASU_rsa_keygen_4096_support.")
 endif()
 
-if((NOT (XILASU_rsa_keygen_2048_support)) AND NOT ((XILASU_rsa_keygen_3072_support)) AND NOT ((XILASU_rsa_keygen_4096_support)))
-   set(XILASU_rsa_keygen_4096_support TRUE CACHE BOOL "By default RSA 4096 bit key generation is defined" FORCE)
+if((NOT XILASU_rsa_keygen_2048_support) AND (NOT XILASU_rsa_keygen_3072_support) AND (NOT XILASU_rsa_keygen_4096_support))
    set(XASU_RSA_4096_KEYGEN_ENABLE " ")
 endif()
 
