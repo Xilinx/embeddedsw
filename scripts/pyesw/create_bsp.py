@@ -131,13 +131,7 @@ class Domain(Repo):
 
         """
 
-        cpulist_metafiles = [
-            "cpulist.yaml",
-            "lop-cpulist.dts.dtb",
-            "lop-cpulist.dts.pp",
-        ]
-
-        utils.remove_directory(self.domain_dir, cpulist_metafiles, force_remove=False)
+        utils.remove_directory(self.domain_dir, utils.cpulist_metafiles, force_remove=False)
         logger.error(f"""\b
                 Please pass a valid processor name. Valid Processor Names for the given SDT are:
                 {list(avail_cpu_data.keys())}
@@ -151,9 +145,7 @@ class Domain(Repo):
         """Set the BSP CMake build directory path."""
         if bsp_build_dir:
             return utils.get_abs_path(bsp_build_dir).replace("\\", "/")
-        return os.path.join(
-            self.libsrc_folder, "build_configs", "gen_bsp"
-        ).replace("\\", "/")
+        return os.path.join(self.domain_dir, "build").replace("\\", "/")
 
     def _validate_inputs(self):
         """
@@ -165,7 +157,7 @@ class Domain(Repo):
         """
         if self.proc_ip_name in ("cortexa78", "cortexr52") and "freertos" in self.os:
             utils.remove_directory(
-                self.domain_dir, cpulist_metafiles, force_remove=False
+                self.domain_dir, utils.cpulist_metafiles, force_remove=False
             )
             logger.error(
                 f"Invalid os selection, {self.os} is not supported for the {self.proc} processor"
@@ -174,7 +166,7 @@ class Domain(Repo):
 
         if "a53" not in self.proc and self.proc_mode == "32-bit":
             utils.remove_directory(
-                self.domain_dir, cpulist_metafiles, force_remove=False
+                self.domain_dir, utils.cpulist_metafiles, force_remove=False
             )
             logger.error(
                 f"Invalid mode configuration, 32-bit mode configuration is applicable only for ZynqMP A53 processors"
@@ -183,7 +175,7 @@ class Domain(Repo):
 
         if all(["a53" in self.proc, self.proc_mode == "32-bit", "freertos" in self.os]):
             utils.remove_directory(
-                self.domain_dir, cpulist_metafiles, force_remove=False
+                self.domain_dir, utils.cpulist_metafiles, force_remove=False
             )
             logger.error(
                 f"Invalid OS selection: {self.os} is unsupported for {self.proc} processor in {self.proc_mode} mode"
@@ -1119,7 +1111,7 @@ def main(arguments=None):
     parser.add_argument(
         "--bsp_build_dir",
         action="store",
-        help="Specify the BSP CMake build directory (Default: <libsrc>/build_configs/gen_bsp)",
+        help="Specify the BSP CMake build directory (Default: <domain>/build)",
     )
     parser.add_argument(
         "-c",

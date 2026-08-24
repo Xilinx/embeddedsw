@@ -54,8 +54,9 @@ class RegenBSP(BSP, Library):
 
     def modify_bsp(self, args):
         old_domain_data = utils.fetch_yaml_data(self.domain_config_file, "domain")
-        if old_domain_data.get("bsp_build_dir"):
-            args["bsp_build_dir"] = old_domain_data["bsp_build_dir"]
+        old_bsp_build_dir = old_domain_data.get("bsp_build_dir", "")
+        if old_bsp_build_dir and "build_configs" not in old_bsp_build_dir:
+            args["bsp_build_dir"] = old_bsp_build_dir
 
         args.update(
             {
@@ -74,6 +75,7 @@ class RegenBSP(BSP, Library):
         utils.remove(self.libsrc_folder)
         utils.remove(self.include_folder)
         utils.remove(self.lib_folder)
+        utils.remove(self.build_metadata)
 
         # Create BSP
         create_domain(args)
@@ -87,8 +89,6 @@ class RegenBSP(BSP, Library):
         libs_to_add = []
         # Check library list against existing lib_list in the previous bsp.yaml
         # if lib is missing add the library
-        cmake_file = os.path.join(self.domain_path, "CMakeLists.txt")
-        build_folder = os.path.join(self.libsrc_folder, "build_configs")
         ignored_lib_list = []
         for lib in lib_diff_old_to_new:
             if not self.validate_drv_for_lib(lib, drvlist):

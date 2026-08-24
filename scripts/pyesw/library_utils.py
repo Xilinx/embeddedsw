@@ -55,10 +55,12 @@ class Library(Repo):
         self.lib_info = self.domain_data["lib_info"]
         self.os_config = None
         self.cmake_generator = utils.get_cmake_generator()
-        self.build_metadata = self.domain_data.get(
-            "bsp_build_dir",
-            os.path.join(self.libsrc_folder, "build_configs", "gen_bsp"),
-        ).replace("\\", "/")
+        if self.domain_data.get("bsp_build_dir"):
+            self.build_metadata = self.domain_data["bsp_build_dir"].replace("\\", "/")
+        else:
+            self.build_metadata = os.path.join(self.domain_path, "build").replace(
+                "\\", "/"
+            )
 
     def gen_lib_list(self):
         """

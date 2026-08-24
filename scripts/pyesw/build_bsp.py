@@ -70,10 +70,12 @@ class BSP:
         self.toolchain_file = self.toolchain_file.replace("\\", "/")
         self.specs_file = self.specs_file.replace("\\", "/")
         self.cmake_paths_append = self.cmake_paths_append.replace("\\", "/")
-        self.build_metadata = domain_data.get(
-            "bsp_build_dir",
-            os.path.join(self.libsrc_folder, "build_configs", "gen_bsp"),
-        ).replace("\\", "/")
+        if domain_data.get("bsp_build_dir"):
+            self.build_metadata = domain_data["bsp_build_dir"].replace("\\", "/")
+        else:
+            self.build_metadata = os.path.join(self.domain_path, "build").replace(
+                "\\", "/"
+            )
 
         self.drvlist = self.getdrv_list()
         self.lib_config = domain_data["lib_config"]

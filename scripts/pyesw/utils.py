@@ -901,3 +901,9 @@ def get_sample_sdt_list():
         return os.listdir(sample_sdt_path)
     else:
         return default_sample_sdt_list
+
+cpulist_metafiles = [
+            "cpulist.yaml",
+            "lop-cpulist.dts.dtb",
+            "lop-cpulist.dts.pp",
+        ]

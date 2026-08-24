@@ -71,7 +71,7 @@ add_custom_target(combined ALL
 	COMMAND ${CUSTOM_COMMAND}
 	COMMAND ${CMAKE_COMMAND} -E copy ${XIL_LIB} ${CMAKE_LIBRARY_PATH}
 	WORKING_DIRECTORY ${CMAKE_BINARY_DIR}
-	COMMENT "Archiving C static library libsrc/build_configs/gen_bsp/libxil.a"
+	COMMENT "Archiving C static library ${CMAKE_BINARY_DIR}/libxil.a"
 	DEPENDS ${DRIVER_LIST})
 
 if("${proc_compiler}" STREQUAL "iccarm.exe")
