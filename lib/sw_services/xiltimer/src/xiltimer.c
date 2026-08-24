@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2021-2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022-2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -28,6 +28,8 @@
 *  1.3  gm	 21/07/23 Added Timer Release Callback function.
 *  2.0  ml       28/03/24 added description and removed comments to
 *                         fix doxygen warnings.
+*  2.4  vmt      08/20/26 Added weak definitions of sleep and tick
+*                         timer instance variables.
 * </pre>
 ******************************************************************************/
 
@@ -38,6 +40,12 @@
 
 /****************************  Constant Definitions  *************************/
 XTimer TimerInst;
+#ifdef XSLEEPTIMER_INSTANCE
+__attribute__((weak)) UINTPTR XSleepTimer_Instance = XSLEEPTIMER_INSTANCE;
+#endif
+#ifdef XTICKTIMER_INSTANCE
+__attribute__((weak)) UINTPTR XTickTimer_Instance = XTICKTIMER_INSTANCE;
+#endif
 void XilTimer_Sleep(unsigned long delay, XTimer_DelayType DelayType);
 
 /*****************************************************************************/
