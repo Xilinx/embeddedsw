@@ -782,9 +782,15 @@ static void HdmiRx1_VtdIntrHandler(XV_HdmiRx1 *InstancePtr)
 					if (VrrActive | (FvaFactor >1)) {
 
 						Vic = InstancePtr->Stream.Vic;
+						DecodedVmId = XVIDC_VM_NOT_SUPPORTED;
+						VidEntry = NULL;
 						if (Vic != 0) {
 							DecodedVmId = XV_HdmiRx1_LookupVmId(Vic);
 							VidEntry = XVidC_GetVideoModeData(DecodedVmId);
+						}
+						/* VidEntry is NULL when the source-supplied VIC is not
+						 * in the driver's VicTable; fall back to VTEM timing */
+						if (Vic != 0 && VidEntry != NULL) {
 							BaseTiming->F0PVFrontPorch =
 								VidEntry->Timing.F0PVFrontPorch;
 							InstancePtr->Stream.Video.BaseFrameRate =
