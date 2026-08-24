@@ -806,7 +806,7 @@ static int XLoader_ProcessPrtn(XilPdi* PdiPtr)
 		/* Just copy the partitions to PMC RAM and skip processing */
 		PrtnParams.DeviceCopy.DestAddr = XPLMI_PMCRAM_BASEADDR;
 		Status = XLoader_PrtnCopy(PdiPtr, &PrtnParams.DeviceCopy, &SecureParams);
-		XPlmi_Printf(DEBUG_INFO, "Skipping MJTAG partition\n\r");
+		XPlmi_Printf(DEBUG_GENERAL, "Skipping MJTAG partition\n\r");
 		goto END;
 	}
 
