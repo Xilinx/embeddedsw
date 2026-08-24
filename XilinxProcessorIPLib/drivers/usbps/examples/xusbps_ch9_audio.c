@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2020 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
  ******************************************************************************/
 
@@ -19,6 +19,7 @@
  * ----- ---- -------- -------------------------------------------------------
  * 1.0  pm 	20/02/20 First release
  * 2.10  ka     21/08/25 Fixed GCC warnings
+ * 2.11  ka     24/08/26 Fix missing field initializer and type-limits warnings
  *
  * </pre>
  *
@@ -622,6 +623,7 @@ USB_CONFIG __attribute__ ((aligned(16))) config2 = {
 		XUSBPS_DT_CS_ENDPOINT,		/* bDescriptorType */
 		UAC_EP_GENERAL,			/* bDescriptorSubtype */
 		0x00,				/* bmAttributes */
+		0x00,				/* bmControls */
 		0x00,				/* bLockDelayUnits */
 		0x00,				/* wLockDelayL */
 		0x00				/* wLockDelayH */
@@ -755,7 +757,7 @@ u32 XUsbPs_Ch9SetupStrDescReply(u8 *BufPtr, u32 BufLen, u8 Index)
 		return 0;
 	}
 
-	if (Index >= sizeof(StringList) / sizeof(u8 *)) {
+	if (Index >= sizeof(StringList[0]) / sizeof(StringList[0][0])) {
 		return 0;
 	}
 
