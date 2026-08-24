@@ -18,6 +18,7 @@
 * 1.7   rmv  01/30/26 Refactor OCP library
 *       rmv  02/18/26 Increase value of maximum OCP subsystems
 *       rpu  03/11/26 Validate input parameters
+*       dmi  08/19/26 Validate ASU RAM destination for CDI and subsystem hash transfers
 * </pre>
 *
 **************************************************************************************************/
@@ -39,6 +40,8 @@
 #include "xplmi_scheduler.h"
 #include "xplmi_err_common.h"
 #include "xplmi_update.h"
+#include "xplmi_hw.h"
+#include "xil_sutil.h"
 
 /********************************** Constant Definitions *****************************************/
 #define XOCP_SUBSYS_INFO_VERSION			(1U) /**< Subsystem info version */
@@ -71,12 +74,16 @@ typedef struct {
 #define XOCP_INVALID_SUBSYSTEM_ID		(0x00000000U)	/**< Invalid subsystem ID */
 
 #define XOCP_PLM_ASUFW_EVENT_MASK		(0x00000001U)	/**< PLM to ASU event mask */
+
+#define XOCP_ASU_RAM_SIZE_IN_BYTES	\
+	((XPLMI_ASU_RAM_HIGH_ADDR - XPLMI_ASU_RAM_BASE_ADDR) + 1U) /**< ASU RAM size in bytes */
 /** @}
  * @endcond
  */
 
 /************************************ Function Prototypes ****************************************/
 static int XOcp_GetSubsysDigestAddr(u32 SubsystemId, u32 *SubsysHashAddrPtr);
+static int XOcp_ValidateAsuRamAddr(u32 Addr, u32 Size);
 static int XOcp_GenerateAsuCdiSeed(void);
 static int XOcp_GenerateCdiAndNotify(u32 SubsystemId);
 static XOcp_SubsysInfo *XOcp_GetOcpSubsysInfoDb(void);
@@ -273,11 +280,47 @@ static int XOcp_GetSubsysDigestAddr(u32 SubsystemId, u32 *SubsysHashAddrPtr)
 
 /*************************************************************************************************/
 /**
+ * @brief	This function validates that the destination buffer provided by the requester lies
+ *		completely within the ASU RAM.
+ *
+ * @param	Addr	Start address of the destination buffer, which must lie in the ASU RAM.
+ * @param	Size	Size of the destination buffer in bytes, which must not take the buffer
+ *			beyond the end of the ASU RAM.
+ *
+ * @return
+ *	- XST_SUCCESS, if the buffer lies within the ASU RAM.
+ *	- XST_INVALID_PARAM, otherwise.
+ *
+ *************************************************************************************************/
+static int XOcp_ValidateAsuRamAddr(u32 Addr, u32 Size)
+{
+	volatile int Status = (int)XST_INVALID_PARAM;
+
+	/** - Validate input parameters. */
+	if ((Size == 0U) || (Size > XOCP_ASU_RAM_SIZE_IN_BYTES)) {
+		goto END;
+	}
+
+	/** - Validate that both the first and the last byte lie within the ASU RAM. */
+	if ((Addr < XPLMI_ASU_RAM_BASE_ADDR) ||
+	    ((Addr + (Size - 1U)) > XPLMI_ASU_RAM_HIGH_ADDR)) {
+		goto END;
+	}
+
+	Status = XST_SUCCESS;
+
+END:
+	return Status;
+}
+
+/*************************************************************************************************/
+/**
  * @brief	This function copies stored subsystem digest from the OCP subsystem information
  *		database based on subsystem ID.
  *
  * @param	SubsystemId		Subsystem ID for which the digest is requested.
- * @param	SubsysHashAddrPtr	Address to store the subsystem hash.
+ * @param	SubsysHashAddrPtr	Address to store the subsystem hash, which must be part of
+ *					the ASU RAM.
  *
  * @return
  *	- XST_SUCCESS, if the subsystem digest is retrieved successfully.
@@ -290,10 +333,8 @@ int XOcp_GetSubsysDigest(u32 SubsystemId, u32 SubsysHashAddrPtr)
 	u32 SubsystemHash = 0U;
 
 	/** - Validate input parameters. */
-	if (SubsysHashAddrPtr == 0U) {
-		Status = (int)XST_INVALID_PARAM;
-		goto END;
-	}
+	XSECURE_TEMPORAL_CHECK(END, Status, XOcp_ValidateAsuRamAddr, SubsysHashAddrPtr,
+			       XOCP_SHA3_LEN_IN_BYTES);
 
 	/** - Get the address of the subsystem digest for the required subsystem. */
 	Status = XOcp_GetSubsysDigestAddr(SubsystemId, &SubsystemHash);
@@ -445,7 +486,7 @@ END:
 /**
  * @brief	This function copies the ASU CDI to provided address.
  *
- * @param	CdiAddr		Address to store ASU CDI.
+ * @param	CdiAddr		Address to store ASU CDI, which must be part of the ASU RAM.
  *
  * @return
  *	- XST_SUCCESS, if ASU CDI is copied successfully.
@@ -457,10 +498,10 @@ int XOcp_GetAsuCdiSeed(u32 CdiAddr)
 	volatile int Status = XST_FAILURE;
 
 	/** - Validate input parameters. */
-	if (CdiAddr == 0U) {
-		Status = (int)XST_INVALID_PARAM;
-		goto END;
-	}
+	XSECURE_TEMPORAL_CHECK(END, Status, XOcp_ValidateAsuRamAddr, CdiAddr,
+			       XOCP_CDI_SIZE_IN_BYTES);
+
+	Status = XST_FAILURE;
 
 	if (IsAsuCdiValid == TRUE) {
 		Status = Xil_SMemCpy((void *)(UINTPTR)CdiAddr, XOCP_CDI_SIZE_IN_BYTES,
