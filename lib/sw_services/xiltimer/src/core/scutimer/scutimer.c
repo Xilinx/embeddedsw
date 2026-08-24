@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2021-2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 /*****************************************************************************/
@@ -28,6 +28,7 @@
  *                      Update XTimer_ScutimerTickInterval to add support for SDT
  *                      flow.
  *  2.0  ml    28/03/24 Added description to fix doxygen warnings
+ *  2.4  vmt   08/20/26 Added weak sleep and tick timer instance variables.
  *</pre>
  *
  *@note
@@ -174,13 +175,8 @@ static void XTimer_ScutimerTickInterval(XTimer *InstancePtr, u32 Delay)
 #endif
 
 	if (FALSE == IsTickTimerStarted) {
-#ifdef SDT
-		XTimer_ScutimerInit(InstancePtr, XTICKTIMER_BASEADDRESS,
+		XTimer_ScutimerInit(InstancePtr, XTickTimer_Instance,
 				    &InstancePtr->ScuTimer_TickInst);
-#else
-		XTimer_ScutimerInit(InstancePtr, XTICKTIMER_DEVICEID,
-				    &InstancePtr->ScuTimer_TickInst);
-#endif
 		IsTickTimerStarted = TRUE;
 	}
 	Freq = XTIMER_DELAY_MSEC / Delay;
@@ -275,13 +271,8 @@ static void XTimer_ScutimerModifyInterval(XTimer *InstancePtr, u32 delay,
 #endif
 
 	if (FALSE == IsSleepTimerStarted) {
-#ifdef SDT
-		XTimer_ScutimerInit(InstancePtr, XSLEEPTIMER_BASEADDRESS,
+		XTimer_ScutimerInit(InstancePtr, XSleepTimer_Instance,
 				    &InstancePtr->ScuTimer_SleepInst);
-#else
-		XTimer_ScutimerInit(InstancePtr, XSLEEPTIMER_DEVICEID,
-				    &InstancePtr->ScuTimer_SleepInst);
-#endif
 		IsSleepTimerStarted = TRUE;
 	}
 	XScuTimer_Stop(ScuTimerInstPtr);
@@ -355,13 +346,8 @@ void XTime_GetTime(XTime *Xtime_Global)
 	static u32 IsSleepTimerStarted = FALSE;
 
 	if (FALSE == IsSleepTimerStarted) {
-#ifdef SDT
-		XTimer_ScutimerInit(InstancePtr, XSLEEPTIMER_BASEADDRESS,
+		XTimer_ScutimerInit(InstancePtr, XSleepTimer_Instance,
 				    &InstancePtr->ScuTimer_SleepInst);
-#else
-		XTimer_ScutimerInit(InstancePtr, XSLEEPTIMER_DEVICEID,
-				    &InstancePtr->ScuTimer_SleepInst);
-#endif
 		IsSleepTimerStarted = TRUE;
 	}
 
