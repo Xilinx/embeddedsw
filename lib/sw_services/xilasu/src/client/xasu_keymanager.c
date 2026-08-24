@@ -18,6 +18,7 @@
  * ----- ---- -------- ----------------------------------------------------------------------------
  * 1.0   ss   11/25/25 Initial release
  *       yog  01/28/26 Added RSA key pair generation client API.
+ *       kp   08/22/26 Used composite key ID in key metadata.
  *
  * </pre>
  *
@@ -307,8 +308,7 @@ END:
  *
  * @param	ClientParamPtr	Pointer to the XAsu_ClientParams structure which holds the
  * 				client input parameters.
- * @param	KeyId		Composite key identifier containing VaultId (bits [23:16]),
- *				KeyType (bits [31:24]), and KeyIndex (bits [15:0]).
+ * @param	KeyId		Composite key identifier, built with XASU_KM_COMPOSE_KEY_ID().
  *
  * @return
  * 		- XST_SUCCESS, if IPI request to ASU is sent successfully.
@@ -565,7 +565,8 @@ s32 XAsu_KmStoreKey(XAsu_ClientParams *ClientParamPtr, XAsu_KeyManagerParams *Ke
 	}
 
 	/** Validate key attributes against the key type. */
-	if (XAsu_KmValidateKeyAttributes(KeyParams->KeyMetadata.KeyType,
+	if (XAsu_KmValidateKeyAttributes(
+			XASU_KM_GET_KEY_TYPE(KeyParams->KeyMetadata.CompositeKeyId),
 			KeyParams->KeyMetadata.KeyAttributes) != XST_SUCCESS) {
 		Status = XASU_INVALID_ARGUMENT;
 		goto END;

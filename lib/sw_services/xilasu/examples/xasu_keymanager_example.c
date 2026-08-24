@@ -118,6 +118,7 @@
  * Ver   Who  Date     Changes
  * ----- ---- -------- ----------------------------------------------------------------------------
  * 1.0   pks  07/22/26 Initial release
+ *       kp   08/22/26 Used composite key ID in key metadata.
  *
  * </pre>
  *
@@ -932,8 +933,8 @@ static s32 XAsu_KmDemo_StoreEccKey(void)
 	KmParams.KeyObjectAddr = (u64)(UINTPTR)KmEccPvtKey;
 	KmParams.KeyIdAddr = (u64)(UINTPTR)&KmEccPvtKeyId;
 	/* Target the vault created in step 1 (KmVaultId, CreateVault). */
-	KmParams.KeyMetadata.VaultId = (u8)KmVaultId;
-	KmParams.KeyMetadata.KeyType = (u8)XASU_ECC_PVT_SUBVAULT_ID;
+	KmParams.KeyMetadata.CompositeKeyId =
+			XASU_KM_COMPOSE_KEY_ID((u8)KmVaultId, (u8)XASU_ECC_PVT_SUBVAULT_ID, 0U);
 	KmParams.KeyMetadata.KeyAttributes = (u8)XASU_KM_EXAMPLE_ECC_CURVE;
 	KmParams.KeyMetadata.KeyUseCase = (u8)XASU_KEYMANAGER_ECC_PVT_SIGN_GEN_USE_CASE;
 	KmParams.KeyMetadata.UsageCount = XASU_KM_EXAMPLE_USAGE_COUNT;
@@ -1020,8 +1021,8 @@ static s32 XAsu_KmDemo_StoreRsaPubKey(void)
 	KmParams.KeyObjectAddr = (u64)(UINTPTR)&KmRsaPubKeyComp;
 	KmParams.KeyIdAddr = (u64)(UINTPTR)&KmRsaPubKeyId;
 	/* Target the vault created in step 1 (KmVaultId, CreateVault). */
-	KmParams.KeyMetadata.VaultId = (u8)KmVaultId;
-	KmParams.KeyMetadata.KeyType = (u8)XASU_RSA_PUB_SUBVAULT_ID;
+	KmParams.KeyMetadata.CompositeKeyId =
+			XASU_KM_COMPOSE_KEY_ID((u8)KmVaultId, (u8)XASU_RSA_PUB_SUBVAULT_ID, 0U);
 	KmParams.KeyMetadata.KeyAttributes = 0U;
 	KmParams.KeyMetadata.KeyUseCase = (u8)XASU_KM_EXAMPLE_RSA_PUB_USE_CASE;
 	KmParams.KeyMetadata.UsageCount = XASU_KM_EXAMPLE_RSA_USAGE_COUNT;
@@ -1095,7 +1096,7 @@ static s32 XAsu_KmDemo_GenerateAesKey(void)
 	 * the key-encryption key (KEK) that wraps/unwraps the client DEK (step 13). */
 	GenKmParams.KeyIdAddr = (u64)(UINTPTR)&KmGenAesKeyId;
 	/* Target the vault created in step 1 (KmVaultId, CreateVault). */
-	GenKmParams.KeyMetadata.VaultId = (u8)KmVaultId;
+	GenKmParams.KeyMetadata.CompositeKeyId = XASU_KM_COMPOSE_KEY_ID((u8)KmVaultId, 0U, 0U);
 	GenKmParams.KeyMetadata.KeyUseCase = (u8)XASU_KM_EXAMPLE_AES_KEK_USE_CASE;
 	GenKmParams.KeyMetadata.UsageCount = XASU_KM_EXAMPLE_AES_KEK_USAGE_COUNT;
 	GenKmParams.KeyMetadata.Length = XASU_KM_EXAMPLE_AES_KEY_LEN_IN_BYTES;
@@ -1161,7 +1162,7 @@ static s32 XAsu_KmDemo_GenerateAesIv(void)
 	 * here (step 4). It is later consumed as IvId by every AES-GCM operation (steps 5 and 13). */
 	GenIvParams.KeyIdAddr = (u64)(UINTPTR)&KmGenAesIvId;
 	/* Target the vault created in step 1 (KmVaultId, CreateVault). */
-	GenIvParams.KeyMetadata.VaultId = (u8)KmVaultId;
+	GenIvParams.KeyMetadata.CompositeKeyId = XASU_KM_COMPOSE_KEY_ID((u8)KmVaultId, 0U, 0U);
 	GenIvParams.KeyMetadata.KeyUseCase = (u8)XASU_KM_EXAMPLE_AES_USE_CASE;
 	GenIvParams.KeyMetadata.UsageCount = XASU_KM_EXAMPLE_IV_USAGE_COUNT;
 	GenIvParams.KeyMetadata.Length = XASU_KM_EXAMPLE_AES_IV_LEN_IN_BYTES;
@@ -1228,7 +1229,7 @@ static s32 XAsu_KmDemo_GenerateRawKey(void)
 	 * and the KDF derivation (step 8). */
 	GenRawParams.KeyIdAddr = (u64)(UINTPTR)&KmGenRawKeyId;
 	/* Target the vault created in step 1 (KmVaultId, CreateVault). */
-	GenRawParams.KeyMetadata.VaultId = (u8)KmVaultId;
+	GenRawParams.KeyMetadata.CompositeKeyId = XASU_KM_COMPOSE_KEY_ID((u8)KmVaultId, 0U, 0U);
 	GenRawParams.KeyMetadata.KeyUseCase = (u8)XASU_KM_EXAMPLE_RAW_KEY_USE_CASE;
 	GenRawParams.KeyMetadata.UsageCount = XASU_KM_EXAMPLE_RAW_USAGE_COUNT;
 	GenRawParams.KeyMetadata.Length = XASU_KM_EXAMPLE_RAW_KEY_LEN_IN_BYTES;
@@ -1324,9 +1325,9 @@ static s32 XAsu_KmDemo_AesGcmOp(u8 OperationType, u64 KeyAddr, u32 KeyId, u64 In
 	/* Reference the generated IV by IvId; IvAddr = 0 selects vault resolution. KmGenAesIvId is the
 	 * IV generated in step 4. This helper is shared by the AES-GCM round-trip (step 5) and both
 	 * legs of the key-wrap workflow (step 13), so the same vaulted IV backs every AES-GCM op. */
-	AesParams.IvAddr = 0U;
-	AesParams.IvId = KmGenAesIvId;
-	AesParams.IvLen = XASU_KM_EXAMPLE_AES_IV_LEN_IN_BYTES;
+	AesParams.IvObj.IvAddr = 0U;
+	AesParams.IvObj.IvId = KmGenAesIvId;
+	AesParams.IvObj.IvLen = XASU_KM_EXAMPLE_AES_IV_LEN_IN_BYTES;
 	AesParams.DataLen = Len;
 	AesParams.AadAddr = (u64)(UINTPTR)KmAesAad;
 	AesParams.AadLen = XASU_KM_EXAMPLE_AES_AAD_LEN_IN_BYTES;
@@ -1764,7 +1765,7 @@ static s32 XAsu_KmDemo_GenerateEccKeyPair(void)
 
 	/* Curve type and length are common to both pairs. */
 	/* Target the vault created in step 1 (KmVaultId, CreateVault). */
-	GenEccParams.KeyMetadata.VaultId = (u8)KmVaultId;
+	GenEccParams.KeyMetadata.CompositeKeyId = XASU_KM_COMPOSE_KEY_ID((u8)KmVaultId, 0U, 0U);
 	GenEccParams.KeyMetadata.KeyAttributes = (u8)XASU_KM_EXAMPLE_ECC_CURVE;
 	GenEccParams.KeyMetadata.Length = XASU_KM_EXAMPLE_ECC_KEY_LEN_IN_BYTES;
 
@@ -1878,7 +1879,7 @@ static s32 XAsu_KmDemo_EccSignOp(u32 PvtKeyId)
 	EccParams.Key.KeyLen = XASU_KM_EXAMPLE_ECC_KEY_LEN_IN_BYTES;
 	EccParams.DigestAddr = (u64)(UINTPTR)KmEccDigest;
 	EccParams.SignAddr = (u64)(UINTPTR)KmEccSignature;
-	EccParams.CurveType = XASU_KM_EXAMPLE_ECC_CURVE;
+	EccParams.Key.CurveType = XASU_KM_EXAMPLE_ECC_CURVE;
 	EccParams.DigestLen = XASU_KM_EXAMPLE_ECC_DIGEST_LEN_IN_BYTES;
 
 #ifndef XASU_CACHE_DISABLE
@@ -1936,7 +1937,7 @@ static s32 XAsu_KmDemo_EccVerifyOp(u32 PubKeyId)
 	EccParams.Key.KeyLen = XASU_KM_EXAMPLE_ECC_KEY_LEN_IN_BYTES;
 	EccParams.DigestAddr = (u64)(UINTPTR)KmEccDigest;
 	EccParams.SignAddr = (u64)(UINTPTR)KmEccSignature;
-	EccParams.CurveType = XASU_KM_EXAMPLE_ECC_CURVE;
+	EccParams.Key.CurveType = XASU_KM_EXAMPLE_ECC_CURVE;
 	EccParams.DigestLen = XASU_KM_EXAMPLE_ECC_DIGEST_LEN_IN_BYTES;
 
 #ifndef XASU_CACHE_DISABLE
@@ -2055,7 +2056,7 @@ static s32 XAsu_KmDemo_EcdhOp(u32 PvtKeyId, u32 PeerPubKeyId, u64 SharedSecretAd
 	EcdhParams.PubKey.KeyLen = XASU_KM_EXAMPLE_ECC_KEY_LEN_IN_BYTES;
 	EcdhParams.SharedSecretAddr = SharedSecretAddr;
 	EcdhParams.SharedSecretObjIdAddr = 0U;
-	EcdhParams.CurveType = XASU_KM_EXAMPLE_ECC_CURVE;
+	EcdhParams.PvtKey.CurveType = XASU_KM_EXAMPLE_ECC_CURVE;
 
 #ifndef XASU_CACHE_DISABLE
 	/* Invalidate the shared-secret destination before the request so no dirty line evicts
@@ -2299,9 +2300,8 @@ static s32 XAsu_KmDemo_StoreWrappedDek(void)
 	KmParams.AesKeyObj.KeySrc = XASU_AES_USER_KEY_0;
 	KmParams.AesKeyObj.KeyId = KmGenAesKeyId;
 	/* Target the vault created in step 1 (KmVaultId, CreateVault). */
-	KmParams.KeyMetadata.VaultId = (u8)KmVaultId;
-	KmParams.KeyMetadata.KeyType =
-		(u8)(XASU_AES_SUBVAULT_ID | XASU_KM_KEYTYPE_WRAPPED_BIT_MASK);
+	KmParams.KeyMetadata.CompositeKeyId = XASU_KM_COMPOSE_KEY_ID((u8)KmVaultId,
+			(u8)(XASU_AES_SUBVAULT_ID | XASU_KM_KEYTYPE_WRAPPED_BIT_MASK), 0U);
 	KmParams.KeyMetadata.KeyUseCase = (u8)XASU_KM_EXAMPLE_AES_USE_CASE;
 	/* The stored DEK is resolved three times overall: the verify re-encrypt and the decrypt below
 	 * (step 13), plus one decrypt after the export/import round-trip (step 15 content check). */

@@ -55,6 +55,7 @@
  *       rmv  08/04/25 Added error codes for OCP functionality
  *       rmv  08/21/26 Added error codes for memory region access validation
  *       vm   08/22/26 Added error code for an incompatible data structure version during restore
+ *       kp   08/22/26 Added error codes for user-addressable vault ID and key slot
  *
  * </pre>
  *
@@ -814,6 +815,12 @@ enum {
 	XASUFW_DS_VERSION_INCOMPATIBLE, /**< 0x240U - Error when the version of a backed up data
 						structure is not supported by the running
 						firmware */
+
+	/* User-addressable key vault/slot error codes */
+	XASUFW_KEYMANAGER_VAULT_ID_IN_USE, /**< 0x241U - Error when requested vault ID is
+						occupied. */
+	XASUFW_KEYMANAGER_KEY_SLOT_IN_USE, /**< 0x242U - Error when requested key slot is
+						occupied. */
 
 	/* Additional status success codes */
 	XASUFW_OCP_CERT_GENERATION_SUCCESS = 0x3F7U, /**< 0x3F7U - OCP certificate generation

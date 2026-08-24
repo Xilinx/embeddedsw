@@ -18,6 +18,7 @@
  * ----- ---- -------- ----------------------------------------------------------------------------
  * 1.0   ss   11/25/25 Initial release
  *       yog  01/28/26 Added RSA key pair generation command and structure definitions.
+ *       kp   08/22/26 Added composite key ID and user-requested vault ID definitions.
  *
  * </pre>
  *
@@ -70,6 +71,19 @@ extern "C" {
 #define XASU_KM_KEYTYPE_WRAPPED_BIT_MASK	(0x80U) /**< Bit mask for wrapped key type */
 
 #define XASU_KM_MAX_VAULTS			(64U) /**< Maximum number of key vaults supported */
+
+/*
+ * Composite key identifier layout, a single u32 addressing one key:
+ *	- Bits [31:24]: Vault ID.
+ *	- Bits [23:16]: Key type (XAsu_KeyManagerSubVaultType, optionally OR'ed with
+ *			XASU_KM_KEYTYPE_WRAPPED_BIT_MASK on the Store Key API).
+ *	- Bits [15:0] : 1-based slot in the sub-vault. 0 requests auto-assign.
+ */
+#define XASU_KM_VAULT_ID_SHIFT		(24U) /**< Vault ID bit position */
+#define XASU_KM_KEY_TYPE_SHIFT		(16U) /**< Key type bit position */
+#define XASU_KM_VAULT_ID_MASK		(0xFF000000U) /**< Vault ID mask */
+#define XASU_KM_KEY_TYPE_MASK		(0x00FF0000U) /**< Key type mask */
+#define XASU_KM_KEY_INDEX_MASK		(0x0000FFFFU) /**< Key index mask */
 
 #define XASU_KM_KDF_HMAC_MAX_KEY_LENGTH		(136U) /**< Max key length for KDF/HMAC in
 							    key vault. */
@@ -140,13 +154,21 @@ typedef enum {
 
 /** This structure contains key meta data information. */
 typedef struct {
-	u16 KeyId;	/**< Key identifier within sub-vault.
-					This field is applicable only in server context and NA for client. */
-	u8 KeyType;	/**< Type of key stored. This field is applicable only for Store Key API.
-			Lower bits map to the SubVault ID and use XAsu_KeyManagerSubVaultType enum values.
-			For wrapped keys, OR with XASU_KM_KEYTYPE_WRAPPED_BIT_MASK.
-			Mask out this bit before comparing with XAsu_KeyManagerSubVaultType values. */
-	u8 VaultId;	/**< Identifier of the vault for which the API is intended. */
+	/*
+	 * Client input on all Store and Generate Key APIs, so callers must zero-initialise this
+	 * structure: stale bits are read as a request.
+	 */
+	u32 CompositeKeyId;	/**< Composite key identifier, built with
+				XASU_KM_COMPOSE_KEY_ID():
+				- Bits [31:24]: vault ID. Always required.
+				- Bits [23:16]: key type, an XAsu_KeyManagerSubVaultType value
+				  optionally OR'ed with XASU_KM_KEYTYPE_WRAPPED_BIT_MASK. Required
+				  by the Store Key API only; the Generate Key APIs derive it.
+				- Bits [15:0]: 1-based key slot within the sub-vault. 0 requests
+				  an auto-assigned slot; other values request a specific slot,
+				  which may be rejected if already in use. Key pair APIs apply
+				  the requested slot to both the private and public
+				  sub-vaults. */
 	u8 KeyUseCase;	/**< Usage scenario stored alongside the key. */
 	u8 KeyAttributes;	/**< Additional attribute for the key (applicable for ECC keys
 				and RSA private keys to represent prime/totient presence information) */
@@ -188,7 +210,8 @@ typedef struct {
 	u16 X509KeyVaultCapacity; /**< Count for X.509 certificates. */
 	u16 AccessRights; /**< Access permissions for the key vault. */
 	u8 Restrictions;	/**< Key vault restrictions. */
-	u8 Reserved[3]; /**< Explicit padding to ensure consistent struct size across architectures */
+	u8 VaultId;	/**< Requested vault ID. 0: auto-assign, non-zero: use that ID. */
+	u8 Reserved[2]; /**< Explicit padding to ensure consistent struct size across architectures */
 } XAsu_KeyManagerSubVaultParams;
 
 /** This structure contains the RSA key pair object with modulus, exponents, and CRT parameters. */
@@ -218,6 +241,20 @@ typedef struct {
 } XAsu_KeyVaultTransferParams;
 
 /*************************** Macros (Inline Functions) Definitions *******************************/
+#define XASU_KM_COMPOSE_KEY_ID(VaultId, KeyType, KeyIndex) \
+	(((((u32)(VaultId)) << XASU_KM_VAULT_ID_SHIFT) & XASU_KM_VAULT_ID_MASK) | \
+	 ((((u32)(KeyType)) << XASU_KM_KEY_TYPE_SHIFT) & XASU_KM_KEY_TYPE_MASK) | \
+	 (((u32)(KeyIndex)) & XASU_KM_KEY_INDEX_MASK))	/**< Fuse vault ID, key type and key
+					index into a composite key ID. Pass key type 0 on the
+					Generate Key APIs, which derive it themselves. */
+#define XASU_KM_GET_VAULT_ID(KeyId) \
+	((u8)((((u32)(KeyId)) & XASU_KM_VAULT_ID_MASK) >> XASU_KM_VAULT_ID_SHIFT))
+					/**< Extract vault ID from a composite key ID */
+#define XASU_KM_GET_KEY_TYPE(KeyId) \
+	((u8)((((u32)(KeyId)) & XASU_KM_KEY_TYPE_MASK) >> XASU_KM_KEY_TYPE_SHIFT))
+					/**< Extract key type, wrapped-key bit included */
+#define XASU_KM_GET_KEY_INDEX(KeyId)	((u16)(((u32)(KeyId)) & XASU_KM_KEY_INDEX_MASK))
+					/**< Extract key index, 0 if auto-assign requested */
 
 /************************************ Function Prototypes ****************************************/
 

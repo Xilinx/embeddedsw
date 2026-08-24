@@ -46,6 +46,7 @@
  * Ver   Who  Date     Changes
  * ----- ---- -------- ----------------------------------------------------------------------------
  * 1.0   rv   08/14/26 Initial release
+ *       kp   08/22/26 Used composite key ID in key metadata.
  *
  * </pre>
  *
@@ -372,8 +373,8 @@ static s32 XAsu_OcpUserCertStoreEccPvtKey(u32 VaultId, const u8 *Key, u8 KeyUseC
 		(XAsuClient_ResponseHandler)((void *)XAsu_OcpUserCertCallBackRef);
 	ClientParams.CallBackRefPtr = (void *)&ClientParams;
 
-	KeyParams.KeyMetadata.KeyType = (u8)XASU_ECC_PVT_SUBVAULT_ID;
-	KeyParams.KeyMetadata.VaultId = (u8)VaultId;
+	KeyParams.KeyMetadata.CompositeKeyId =
+			XASU_KM_COMPOSE_KEY_ID((u8)VaultId, (u8)XASU_ECC_PVT_SUBVAULT_ID, 0U);
 	KeyParams.KeyMetadata.KeyAttributes = (u8)XASU_ECC_NIST_P384;
 	KeyParams.KeyMetadata.KeyUseCase = KeyUseCase;
 	KeyParams.KeyMetadata.Length = XOCP_USER_CERT_CURVE_LEN;
@@ -421,8 +422,8 @@ static s32 XAsu_OcpUserCertStoreEccPubKey(u32 VaultId, const u8 *Key, u8 KeyUseC
 		(XAsuClient_ResponseHandler)((void *)XAsu_OcpUserCertCallBackRef);
 	ClientParams.CallBackRefPtr = (void *)&ClientParams;
 
-	KeyParams.KeyMetadata.KeyType = (u8)XASU_ECC_PUB_SUBVAULT_ID;
-	KeyParams.KeyMetadata.VaultId = (u8)VaultId;
+	KeyParams.KeyMetadata.CompositeKeyId =
+			XASU_KM_COMPOSE_KEY_ID((u8)VaultId, (u8)XASU_ECC_PUB_SUBVAULT_ID, 0U);
 	KeyParams.KeyMetadata.KeyAttributes = (u8)XASU_ECC_NIST_P384;
 	KeyParams.KeyMetadata.KeyUseCase = KeyUseCase;
 	KeyParams.KeyMetadata.Length = XOCP_USER_CERT_CURVE_LEN;

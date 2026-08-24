@@ -16,6 +16,7 @@
 * Ver   Who  Date       Changes
 * ----- ---- -------- ---------------------------------------------------------------------------
 * 1.0   rmv  07/16/25 Initial release
+*       kp   08/22/26 Used composite key ID for device key vault storage.
 *
 * </pre>
 *
@@ -725,11 +726,11 @@ static s32 XOcp_StoreDeviceKeyPairInVault(XOcp_DeviceKeys *DevKey, const u8 *Pvt
 	KmParams.KeyMetadata.Length = XASU_ECC_P384_PVT_KEY_SIZE_IN_BYTES;
 	KmParams.KeyMetadata.EpochTime = 0U;
 	KmParams.KeyMetadata.UsageCount = XASU_KM_USAGE_COUNT_NON_DEPLETING_VALUE;
-	KmParams.KeyMetadata.VaultId = XKEYMANAGER_ASU_VAULT_ID;
 	KmParams.KeyMetadata.KeyUseCase = XASU_KEYMANAGER_ECC_PVT_SIGN_GEN_USE_CASE;
 
 	/** Store the private key in the ECC private sub-vault. */
-	KmParams.KeyMetadata.KeyType = (u8)XASU_ECC_PVT_SUBVAULT_ID;
+	KmParams.KeyMetadata.CompositeKeyId = XASU_KM_COMPOSE_KEY_ID(XKEYMANAGER_ASU_VAULT_ID,
+					XASU_ECC_PVT_SUBVAULT_ID, 0U);
 	KmParams.KeyObjectAddr = (u64)(UINTPTR)PvtKey;
 	Status = XKeyManager_StoreKeyInAsuVault(&KmParams, &DevKey->PvtKeyId);
 	if (Status != XASUFW_SUCCESS) {
@@ -740,7 +741,8 @@ static s32 XOcp_StoreDeviceKeyPairInVault(XOcp_DeviceKeys *DevKey, const u8 *Pvt
 	/** Store the public key in the ECC public sub-vault. */
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	KmParams.KeyMetadata.KeyUseCase = XASU_KEYMANAGER_ECC_PUB_SIGN_VER_USE_CASE;
-	KmParams.KeyMetadata.KeyType = (u8)XASU_ECC_PUB_SUBVAULT_ID;
+	KmParams.KeyMetadata.CompositeKeyId = XASU_KM_COMPOSE_KEY_ID(XKEYMANAGER_ASU_VAULT_ID,
+					XASU_ECC_PUB_SUBVAULT_ID, 0U);
 	KmParams.KeyObjectAddr = (u64)(UINTPTR)PubKey;
 	Status = XKeyManager_StoreKeyInAsuVault(&KmParams, &DevKey->PubKeyId);
 	if (Status != XASUFW_SUCCESS) {

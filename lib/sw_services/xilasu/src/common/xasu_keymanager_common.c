@@ -17,6 +17,7 @@
  * Ver   Who  Date     Changes
  * ----- ---- -------- ----------------------------------------------------------------------------
  * 1.0   ss   11/30/25 Initial release
+ *       kp   08/22/26 Added vault ID validation and composite key ID handling.
  *
  * </pre>
  *
@@ -94,15 +95,17 @@ END:
 s32 XAsu_KmValidateKeyMetadata(const XAsu_KeyManagerKeyMetadata *MetadataPtr)
 {
 	s32 Status = XST_FAILURE;
+	u8 VaultId;
 
 	if (MetadataPtr == NULL) {
 		goto END;
 	}
 
+	VaultId = XASU_KM_GET_VAULT_ID(MetadataPtr->CompositeKeyId);
 	if ((MetadataPtr->KeyUseCase == 0U) ||
 	    (MetadataPtr->UsageCount == 0U) ||
-	    (MetadataPtr->VaultId == 0U) ||
-	    (MetadataPtr->VaultId >= XASU_KM_MAX_VAULTS)) {
+	    (VaultId == 0U) ||
+	    (VaultId >= XASU_KM_MAX_VAULTS)) {
 		goto END;
 	}
 
@@ -271,6 +274,11 @@ s32 XAsu_KmValidateVaultCreateParams(const XAsu_KeyManagerSubVaultParams *Params
 
 	if ((ParamsPtr->Restrictions != XASU_KEYMANAGER_NON_EXPORTABLE_VAULT) &&
 		(ParamsPtr->Restrictions != XASU_KEYMANAGER_EXPORTABLE_VAULT)) {
+		goto END;
+	}
+
+	/** Reject requested vault ID out of user range (0 = auto-assign). */
+	if (ParamsPtr->VaultId >= XASU_KM_MAX_VAULTS) {
 		goto END;
 	}
 

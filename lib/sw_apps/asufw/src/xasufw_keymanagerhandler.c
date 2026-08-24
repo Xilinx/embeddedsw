@@ -19,6 +19,7 @@
  *       yog  01/28/26 Added RSA key pair generation command handler.
  *       vm   08/19/26 Removed unreachable resource allocation skip for set epoch time
  *       rmv  08/17/26 Added validation of client provided buffers
+ *       kp   08/22/26 Used composite key ID in key metadata.
  *
  * </pre>
  *
@@ -671,8 +672,8 @@ static s32 XAsufw_KeyManagerStoreKey(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	 * Validate the client provided key buffer. A wrapped key is supplied as a blob of
 	 * WrappedInputLen bytes, whereas a plain key holds the key length given in the metadata.
 	 */
-	if ((Cmd->KeyMetadata.KeyType & XASU_KM_KEYTYPE_WRAPPED_BIT_MASK) ==
-			XASU_KM_KEYTYPE_WRAPPED_BIT_MASK) {
+	if ((XASU_KM_GET_KEY_TYPE(Cmd->KeyMetadata.CompositeKeyId) &
+			XASU_KM_KEYTYPE_WRAPPED_BIT_MASK) == XASU_KM_KEYTYPE_WRAPPED_BIT_MASK) {
 		XASUFW_VALIDATE_MEM_ACCESS(END, Status, SubsystemId, Cmd->KeyObjectAddr,
 					   Cmd->WrappedInputLen);
 		/** The unwrapping AES key comes from the key vault when no address is given. */
