@@ -45,6 +45,7 @@
 * 2.01  sk   08/26/2024 Updated EAM support for Versal 2VE and 2VM Devices
 *       sk   02/20/2025 EM Set action support for Versal 2VE and 2VM Devices
 *       ias  08/07/2026 Added link_nodes command for DDR EDAC source tracing
+*       ias  08/24/2026 Gate link_nodes command on XPLMI_EM_LINK_NODES_SUPPORT
 *
 * </pre>
 *
@@ -67,7 +68,7 @@
 /* Error Module command Ids */
 #define XPLMI_CMD_ID_EM_FEATURES	(0U)	/**< Command Id of error module features */
 #define XPLMI_CMD_ID_EM_SET_ACTION	(1U)	/**< Command Id of set action error module */
-#ifdef VERSAL_2VE_2VM
+#ifdef XPLMI_EM_LINK_NODES_SUPPORT
 #define XPLMI_CMD_ID_EM_LINK_NODES	(2U)	/**< Command Id of link nodes error module */
 #endif
 
@@ -252,7 +253,7 @@ END:
 	return Status;
 }
 
-#ifdef VERSAL_2VE_2VM
+#ifdef XPLMI_EM_LINK_NODES_SUPPORT
 /*****************************************************************************/
 /**
  * @brief	This function links a verbatim, CDO-ordered list of node IDs to an
@@ -287,7 +288,7 @@ static int XPlmi_CmdEmLinkNodes(XPlmi_Cmd *Cmd)
 
 	return Status;
 }
-#endif /* VERSAL_2VE_2VM */
+#endif /* XPLMI_EM_LINK_NODES_SUPPORT */
 
 /** @cond xplmi_internal */
 /*****************************************************************************/
@@ -299,7 +300,7 @@ static const XPlmi_ModuleCmd XPlmi_ErrCmds[] =
 {
 	XPLMI_MODULE_COMMAND(XPlmi_CmdEmFeatures),
 	XPLMI_MODULE_COMMAND(XPlmi_CmdEmSetAction),
-#ifdef VERSAL_2VE_2VM
+#ifdef XPLMI_EM_LINK_NODES_SUPPORT
 	XPLMI_MODULE_COMMAND(XPlmi_CmdEmLinkNodes),
 #endif
 };
@@ -313,7 +314,7 @@ static XPlmi_AccessPerm_t XPlmi_ErrAccessPermBuff[XPLMI_ARRAY_SIZE(XPlmi_ErrCmds
 {
 	XPLMI_ALL_IPI_FULL_ACCESS(XPLMI_CMD_ID_EM_FEATURES),
 	XPLMI_ALL_IPI_FULL_ACCESS(XPLMI_CMD_ID_EM_SET_ACTION),
-#ifdef VERSAL_2VE_2VM
+#ifdef XPLMI_EM_LINK_NODES_SUPPORT
 	XPLMI_ALL_IPI_NO_ACCESS(XPLMI_CMD_ID_EM_LINK_NODES),
 #endif
 };

@@ -41,6 +41,7 @@
 *       sk   10/16/2025 Enabling PLM_I2C_MB_HANDSHAKE macro based on DDR5 IP
 * 2.4   rmv  01/30/2026 Refactor OCP library
 *       pre  03/12/2026 Added configurable option for TPM support
+*       ias  08/24/2026 Added XPLMI_EM_LINK_NODES_SUPPORT for DDR EDAC
 *
 * </pre>
 *
@@ -246,6 +247,15 @@ extern "C" {
  * The below define enable events queuing mechanism for SHA & AES
  */
 #define PLM_ENABLE_SHA_AES_EVENTS_QUEUING
+
+/*
+ * Signals that this platform's xilplmi backend implements the error-module
+ * link_nodes command (XPlmi_Versal2Ve2VmLinkNodes) for DDR EDAC source
+ * tracing. The shared xplmi_err_cmd.c gates the command on this macro, so it
+ * is compiled only where the platform provides the implementation. Absent from
+ * the versal_gen2_tr (imt) xplmi_config.h, so that build correctly omits it.
+ */
+#define XPLMI_EM_LINK_NODES_SUPPORT
 
 /************************** Function Prototypes ******************************/
 
