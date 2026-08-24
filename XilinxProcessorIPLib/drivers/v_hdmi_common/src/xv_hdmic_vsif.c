@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2014 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -477,10 +477,12 @@ int XV_HdmiC_Parse_HF_VSIF(XHdmiC_Aux *AuxPtr, XHdmiC_VSIF  *VSIFPtr)
             }
             Info_3D->DisparityData.Multi_Region_Disparity_Length = *(++pData);
             Len = Info_3D->DisparityData.Multi_Region_Disparity_Length;
-            //TODO: check this length
-            /* Refer Table 7-10 in HDMI 2.1b spec */
-            for (int i = 0; i < (Len - 2); i++) {
-               Info_3D->DisparityData.Min_Disparity_In_Region[i] = *(++pData);
+            /* value 0x1 is prohibited and 0x11 is the max value */
+            if (Len > 0x1 && (Len < (XHDMIC_3D_DISPARITY_DATA_MAX_LENGTH - 1))) {
+                /* Refer Table 7-10 in HDMI 2.1b spec */
+                for (int i = 0; i < (Len - 2); i++) {
+                   Info_3D->DisparityData.Min_Disparity_In_Region[i] = *(++pData);
+                }
             }
             Status = XST_SUCCESS;
             break;
