@@ -26,6 +26,7 @@
  * 2.1   skg     12/14/22 Added enum for slr indexes
  * 2.5   hj      02/17/25 Added IV and red key macros for SSITs.
  * 2.7   bha     01/06/26 Fixed Doxygen warnings
+ * 2.8   tvp     08/21/26 Define PUF_RO_SWAP for Versal_2vp_p
  *
  * </pre>
  *
@@ -270,7 +271,7 @@ extern "C" {
 #endif
 #endif
 
-#if defined (VERSAL_NET)
+#if defined(VERSAL_NET) || defined(VERSAL_2VP_P)
 #define PUF_RO_SWAP				(0x00000000)
 #endif
 
