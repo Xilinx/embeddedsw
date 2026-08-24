@@ -43,3 +43,35 @@ int SetATM(uint32_t high_mem, uint32_t is_64bit)
 
 	return result;
 }
+
+int SetIspInputSplit(uint32_t enable)
+{
+	RESULT result = RET_SUCCESS;
+
+	Payload_packet packet;
+	memset(&packet, 0, sizeof(Payload_packet));
+
+	packet.cookie = 0xABCE;
+	packet.type = CMD;
+	packet.payload_size = 0;
+
+	uint8_t *p_data = packet.payload_data;
+
+	/* Send enable flag (1 = 2x2 split-input tile mode, 0 = full frame).
+	 * Single global mode: it is not per-instance, so no instanceId is sent. */
+	memcpy(p_data, &enable, sizeof(uint32_t));
+	p_data += sizeof(uint32_t);
+	packet.payload_size += sizeof(uint32_t);
+
+	if (packet.payload_size > MAX_ITEM)
+		return RET_OUTOFRANGE;
+
+	result = Send_Command(APU_2_RPU_MB_CMD_SET_ISP_INPUT_SPLIT, &packet,
+			      packet.payload_size + payload_extra_size, dest_cpu_id, src_cpu_id);
+	if (RET_SUCCESS != result)
+		return RET_FAILURE;
+
+	apu_wait_for_ACK(packet.cookie, packet.payload_data);; //replace with wait_response();
+
+	return result;
+}

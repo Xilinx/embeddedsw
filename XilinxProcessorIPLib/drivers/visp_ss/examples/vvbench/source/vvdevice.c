@@ -134,6 +134,14 @@ extern int TDatabase_query(void* hDatabase, char const *pCategory, void** result
 extern const EmbeddedJson *find_image_data(const char* name);
 
 extern XVisp_Ss VispSsInst[XPAR_XVISP_SS_NUM_INSTANCES];
+/* Image splitter/stitcher is a design-wide PL feature (all visp_ss instances share
+ * the same value), so gate it at compile time from the canonical XPAR macro. */
+#if defined(XPAR_XVISP_SS_0_IMAGE_SPLITTER_STITCHER_ENABLE) && \
+    (XPAR_XVISP_SS_0_IMAGE_SPLITTER_STITCHER_ENABLE == 1)
+#define SPLITTER_ENABLED  1
+#else
+#define SPLITTER_ENABLED  0
+#endif
 extern int image_len;
 extern int custom_json;
 
@@ -173,6 +181,10 @@ extern int ATM_ENABLE;
  * correct argument passing. Args are the high-mem prefix and is_64bit flag,
  * both derived from where the linker placed the ISP buffer pools. */
 extern int SetATM(uint32_t high_mem, uint32_t is_64bit);
+/* SetIspInputSplit() is provided by the visp_ss BSP driver (visp_common.c). It
+ * tells the RPU whether to run the ISP pipeline in 2x2 split-input (quarter-tile)
+ * mode (1) or full-frame mode (0). Must be sent BEFORE the camera is connected. */
+extern int SetIspInputSplit(uint32_t enable);
 /* WdtSendTest() is provided by the visp_ss BSP driver (wdt_notifier.c). It
  * kicks off the WDT test by asking the RPU to stop petting its WWDT so the
  * APU-side notifier can observe the resulting WWDT0 expiry. */
@@ -362,6 +374,13 @@ int VsiVvdeviceExecuteCaseline
 		}
 #endif
 #ifndef ARMR52
+#if SPLITTER_ENABLED
+		/* Splitter/stitcher design: put the ISP pipeline in 2x2 split-input mode.
+		 * Not sent for full-frame designs (RPU defaults to full-frame), so older
+		 * firmware without this command is unaffected. Must precede camera connect. */
+		result = SetIspInputSplit(1);
+#endif
+
 		/* Always inform the RPU of the current addressing mode. SetATM() sends
 		 * the high-mem prefix (0x0 in 32-bit / low mode, 0x8 for DDR_LOW_1,
 		 * 0x500 for DDR_CH_1) and the is_64bit flag, both auto-derived from
@@ -795,8 +814,15 @@ int VsiVvdeviceExecuteCaseline
 		ISP_ID = caseCtx->instanceCfgCtx[index].hpId;
 		isp_instance_idx = index;
 		iba_vdev->portId = caseCtx->instanceCfgCtx[index].workCfg.modeCfg.mcm.portId;
-		iba_vdev->sensorHeight = caseCtx->instanceCfgCtx[index].sensorCfg.sensorHeight;
-		iba_vdev->sensorWidth = caseCtx->instanceCfgCtx[index].sensorCfg.sensorWidth;
+		if (SPLITTER_ENABLED) {
+			/* Split/stitch: each ISP receives a 2x2 quarter tile (half width, half
+			 * height) of the shared sensor frame. */
+			iba_vdev->sensorWidth = caseCtx->instanceCfgCtx[index].sensorCfg.sensorWidth / 2;
+			iba_vdev->sensorHeight = caseCtx->instanceCfgCtx[index].sensorCfg.sensorHeight / 2;
+		} else {
+			iba_vdev->sensorWidth = caseCtx->instanceCfgCtx[index].sensorCfg.sensorWidth;
+			iba_vdev->sensorHeight = caseCtx->instanceCfgCtx[index].sensorCfg.sensorHeight;
+		}
 		iba_vdev->virtualChannelId = caseCtx->instanceCfgCtx[index].sensorCfg.virtualChannelId; //2026.1
 		if(iba_vdev->hpId%2 == 0) {
 			iba_vdev->ppc = VispSsInst[index].Config.Iba0Ppc;
@@ -860,6 +886,10 @@ int VsiVvdeviceExecuteCaseline
 #ifdef XPAR_XV_FRMBUF_WR_NUM_INSTANCES
 	enable_fbwr();
 #endif
+	/* Splitter/stitcher shares ONE physical sensor across all ISP instances, so its
+	 * frame rate must be set only once (before it streams). Re-setting it for later
+	 * instances hits an already-streaming sensor, which some sensors reject. */
+	int sensorFpsSet = 0;
 	for (int index = 0; index < totalInstance; index++) {
 
 		if (caseCtx->instanceCfgCtx[index].instanceEnable == 0) {
@@ -886,7 +916,8 @@ int VsiVvdeviceExecuteCaseline
 				bufIoArray[bufIoArrayCount++] = bufIo;
 			}
 		}
-		if (CAMDEV_INPUT_TYPE_SENSOR == caseCtx->instanceCfgCtx[index].inputType) {
+		if (CAMDEV_INPUT_TYPE_SENSOR == caseCtx->instanceCfgCtx[index].inputType
+		    && !(SPLITTER_ENABLED && sensorFpsSet)) {
 			//set sensor fps
 			result = VsiCamDeviceSensorSetFrameRate(pVvbenchInstance->hCamDevice[index],
 								&caseCtx->instanceCfgCtx[index].sensorCfg.fps);
@@ -908,6 +939,13 @@ int VsiVvdeviceExecuteCaseline
 				return -1;
 			}
 			LOGI("SENSOR_FPS_GET Result, fps:%.2f", fps);
+			sensorFpsSet = 1;
+		}
+		else if (SPLITTER_ENABLED
+			 && CAMDEV_INPUT_TYPE_SENSOR == caseCtx->instanceCfgCtx[index].inputType) {
+			/* Shared sensor already configured by the first instance; skip the
+			 * redundant frame-rate set (some sensors reject it while streaming). */
+			LOGI("SENSOR_FPS: shared sensor already set, SKIPPING frame-rate for instance %d", index);
 		}
 		if (caseCtx->instanceCfgCtx[index].startPathSimultaneous) {
 			LOGI("VsiVvdevicePathEnable called Simultaneously");
@@ -2028,7 +2066,10 @@ int VsiVvdeviceSubModuleControl
 	LOGI("%s enter \n", __func__);
 
 	//AWB
-	if (caseCtx->instanceCfgCtx[index].moduleCfg.awb.isSupport || caseCtx->swSimuCfg.enable) {
+	/* 3A tuning (AWB/AE/AF) is disabled for splitter/stitcher designs: calibration is
+	 * keyed to the full sensor resolution and does not apply to the per-ISP tiles. */
+	if ((caseCtx->instanceCfgCtx[index].moduleCfg.awb.isSupport || caseCtx->swSimuCfg.enable)
+	    && !SPLITTER_ENABLED) {
 		result = VsiVvbenchAwbFunc(hCamDevice, caseCtx, index);
 		if (0 != result) {
 			LOGE("VsiVvbenchAwbFunc failed!");
@@ -2038,7 +2079,8 @@ int VsiVvdeviceSubModuleControl
 
 	if (caseCtx->instanceCfgCtx[index].inputType != CAMDEV_INPUT_TYPE_IMAGE) {
 		//AEC
-		if (caseCtx->instanceCfgCtx[index].moduleCfg.ae.isSupport || caseCtx->fineTuneMode) {
+		if ((caseCtx->instanceCfgCtx[index].moduleCfg.ae.isSupport || caseCtx->fineTuneMode)
+		    && !SPLITTER_ENABLED) {
 			result = VsiVvbenchAeFunc(hCamDevice, caseCtx, index);
 			if (0 != result) {
 				LOGE("VsiVvbenchAeFunc failed!");
@@ -2047,7 +2089,8 @@ int VsiVvdeviceSubModuleControl
 		}
 
 		//AF
-		if (caseCtx->instanceCfgCtx[index].moduleCfg.af.isSupport || caseCtx->fineTuneMode) {
+		if ((caseCtx->instanceCfgCtx[index].moduleCfg.af.isSupport || caseCtx->fineTuneMode)
+		    && !SPLITTER_ENABLED) {
 			result = VsiVvbenchAfFunc(hCamDevice, caseCtx, index);
 			if (0 != result) {
 				LOGE("VsiVvbenchAeFunc failed!");

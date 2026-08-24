@@ -88,6 +88,17 @@ typedef struct {
 	u16 Oba1SpBpp;            /**< Oba1 self path of bits per pixel */
 	u16 Oba1SpPpc;            /**< Oba1 self path of pixel per clock */
 	char *Oba1SpDataFormat;   /**< Oba1 self path of dataformat support */
+	/* Image Splitter/Stitcher Configuration */
+	u16 SplitterStitcherEnable;     /**< Image splitter/stitcher enable */
+	u16 SplitterStitcherDataFormat; /**< Image splitter/stitcher data format */
+	u16 SplitterStitcherHres;       /**< Image splitter/stitcher horizontal resolution */
+	u16 SplitterStitcherVres;       /**< Image splitter/stitcher vertical resolution */
+	u16 SplitterStitcherRpu;        /**< Image splitter/stitcher RPU ID */
+	u16 SplitterStitcherVcid;       /**< Image splitter/stitcher vcid */
+	u16 SplitterStitcherRgb888;     /**< Image splitter/stitcher RGB888 support */
+	u16 SplitterStitcherY;          /**< Image splitter/stitcher Y support */
+	u16 SplitterStitcherYuv422;     /**< Image splitter/stitcher YUV422 support */
+	u16 SplitterStitcherYuv420;     /**< Image splitter/stitcher YUV420 support */
 	/* Interrupt Configuration */
 	u16 Interrupts[4];        /**< Interrupts array */
 	u32 InterruptParent;      /**< Interrupt parent ID */

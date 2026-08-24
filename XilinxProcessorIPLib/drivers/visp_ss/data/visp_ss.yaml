@@ -35,6 +35,26 @@ properties:
     description: Maximum columns supported by core instance
   xlnx,iba0_max-height:
     description: Maximum rows supported by core instance
+  xlnx,image-splitter-stitcher-enable:
+    description: Image splitter/stitcher enable
+  xlnx,image-splitter-stitcher-data-format:
+    description: Image splitter/stitcher data format
+  xlnx,image-splitter-stitcher-hres:
+    description: Image splitter/stitcher horizontal resolution
+  xlnx,image-splitter-stitcher-vres:
+    description: Image splitter/stitcher vertical resolution
+  xlnx,image-splitter-stitcher-rpu:
+    description: Image splitter/stitcher RPU id
+  xlnx,image-splitter-stitcher-vcid:
+    description: Image splitter/stitcher vcid
+  xlnx,image-splitter-stitcher-rgb888:
+    description: Image splitter/stitcher RGB888 support
+  xlnx,image-splitter-stitcher-y:
+    description: Image splitter/stitcher Y support
+  xlnx,image-splitter-stitcher-yuv422:
+    description: Image splitter/stitcher YUV422 support
+  xlnx,image-splitter-stitcher-yuv420:
+    description: Image splitter/stitcher YUV420 support
 
 config:
     - xvisp_ss_Config
@@ -88,6 +108,16 @@ required:
     - xlnx,oba1_sp_bpp
     - xlnx,oba1_sp_ppc
     - xlnx,oba1_sp_data_format
+    - xlnx,image-splitter-stitcher-enable
+    - xlnx,image-splitter-stitcher-data-format
+    - xlnx,image-splitter-stitcher-hres
+    - xlnx,image-splitter-stitcher-vres
+    - xlnx,image-splitter-stitcher-rpu
+    - xlnx,image-splitter-stitcher-vcid
+    - xlnx,image-splitter-stitcher-rgb888
+    - xlnx,image-splitter-stitcher-y
+    - xlnx,image-splitter-stitcher-yuv422
+    - xlnx,image-splitter-stitcher-yuv420
     - interrupts : 4
     - interrupt-parent
 

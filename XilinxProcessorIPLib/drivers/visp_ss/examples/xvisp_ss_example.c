@@ -157,6 +157,16 @@ static int MipiCsiSs_GetId(void *CallbackRef);
 #define VISP_INST XPAR_XVISP_SS_NUM_INSTANCES
 XVisp_Ss VispSsInst[VISP_INST];
 
+/* Image splitter/stitcher is a design-wide PL feature (all visp_ss instances share
+ * the same value), so gate it at compile time from the canonical XPAR macro -
+ * consistent with the other XPAR-based build switches used in this example. */
+#if defined(XPAR_XVISP_SS_0_IMAGE_SPLITTER_STITCHER_ENABLE) && \
+    (XPAR_XVISP_SS_0_IMAGE_SPLITTER_STITCHER_ENABLE == 1)
+#define SPLITTER_ENABLED  1
+#else
+#define SPLITTER_ENABLED  0
+#endif
+
 /* Global interrupt controller instance - manages all system interrupts */
 XScuGic Intc;
 
@@ -1057,10 +1067,30 @@ int init_fbwr(u8 hpId, CamDeviceBufChainId_t bufIo, CamDevicePipeOutFmt_t outFor
 	/* Calculate frame buffer writer ID based on hardware pipeline and buffer chain */
 	XVidC_VideoMode resIdOut;
 	u32 stride;
-	u32 fbwr_id = bufIo + hpId * 2; /* Max 2 FBWR per ISP (MP & SP1) */
 	u32 alignment = 32; /* Frame buffer alignment requirement for DMA */
+	u32 fbwr_id;
 
+#if SPLITTER_ENABLED
+	/* Splitter/stitcher design: the PL stitches the per-ISP tiles into a single
+	 * stream feeding the one physical frame-buffer writer. Configure that writer
+	 * exactly once, for the full stitched resolution, and skip the remaining
+	 * per-pipeline calls (hpId 0..3). */
+	static int single_fbwr_configured = 0;
+	if (single_fbwr_configured) {
+		xil_printf("init FBWR: single stitched frmbuf already configured, skipping hpId=%d\n", hpId);
+		return 0;
+	}
+	fbwr_id = 0; /* single physical frame-buffer writer */
+	outFormat.outWidth = XPAR_XVISP_SS_0_IMAGE_SPLITTER_STITCHER_HRES;
+	outFormat.outHeight = XPAR_XVISP_SS_0_IMAGE_SPLITTER_STITCHER_VRES;
+	bufsize *= 4; /* stitched frame is 4x the area of one 2x2 tile */
+	single_fbwr_configured = 1;
+	xil_printf("init FBWR[%d] (single stitched %ux%u)\n", fbwr_id,
+		   (unsigned)outFormat.outWidth, (unsigned)outFormat.outHeight);
+#else
+	fbwr_id = bufIo + hpId * 2; /* Max 2 FBWR per ISP (MP & SP1) */
 	xil_printf("init FBWR[%d]\n", fbwr_id);
+#endif
 
 	/* Mark this FBWR as enabled for later processing */
 	fbwr_enable[fbwr_id] = 1;

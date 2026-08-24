@@ -484,6 +484,19 @@ typedef enum
 	MB_CMD_BUF_RET,
 	APU_2_RPU_MB_CMD_SWITCH_TO_LLP,
 	APU_2_RPU_MB_CMD_WDT_TEST,
+
+	/* AMD: enable/disable 2x2 split-input (quarter-tile) ISP acquisition at
+	 * runtime for splitter/stitcher pipelines (1 sensor -> PL img_split -> 4
+	 * ISP tiles -> img_stitch). This is a single global mode that applies to
+	 * ALL ISP instances at once; it is not per-instance.
+	 * Payload: uint32_t enable (1=split tile, 0=full frame).
+	 * Must be sent BEFORE APU_2_RPU_MB_CMD_CONNECT_CAMERA; defaults to
+	 * full-frame when never sent.
+	 * Explicit value 0xA005 to match the RPU enum byte-for-byte on the wire:
+	 * the RPU places this command right after its 0xA001-0xA004 mailbox
+	 * self-test block (see mailbox_cmd.h), which is absent on the APU side. */
+	APU_2_RPU_MB_CMD_SET_ISP_INPUT_SPLIT = 0xA005,
+
 	DUMMY_MB_CMD = 0xdeadfeed,
 } MBCmdId_E;
 

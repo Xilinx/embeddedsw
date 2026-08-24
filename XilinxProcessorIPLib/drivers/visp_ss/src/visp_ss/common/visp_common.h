@@ -21,4 +21,9 @@
  * the same binary works for low / 32-bit and any high-memory region. */
 int SetATM(uint32_t high_mem, uint32_t is_64bit);
 
+/* Enable/disable 2x2 split-input (quarter-tile) ISP acquisition for splitter/
+ * stitcher pipelines. enable: 1 = split tile mode, 0 = full frame. Global mode
+ * (applies to all ISP instances); must be sent before the camera is connected. */
+int SetIspInputSplit(uint32_t enable);
+
 int ATM_ENABLE = 0;
