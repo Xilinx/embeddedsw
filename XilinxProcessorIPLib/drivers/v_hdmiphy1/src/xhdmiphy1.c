@@ -894,7 +894,8 @@ u32 XHdmiphy1_DrpWr(XHdmiphy1 *InstancePtr, u8 QuadId,
 * @param	QuadId is the GT quad ID to operate on.
 * @param	ChId is the channel ID on which to direct the DRP access.
 * @param	Addr is the DRP address to issue the DRP access to.
-* @param	RetVal is the DRP read_value returned implicitly.
+* @param	RetVal is the DRP read_value returned implicitly. It is set
+*		to 0 when the DRP access fails.
 *
 * @return
 *		- XST_SUCCESS if the DRP access was successful.
@@ -908,7 +909,8 @@ u16 XHdmiphy1_DrpRd(XHdmiphy1 *InstancePtr, u8 QuadId,
         XHdmiphy1_ChannelId ChId, u16 Addr, u16 *RetVal)
 {
 	u32 Status;
-	u16 Val;
+	/* DrpAccess() only writes Val on success; keep timeouts deterministic. */
+	u16 Val = 0;
 
 	Status = XHdmiphy1_DrpAccess(InstancePtr, QuadId, ChId,
 			XHDMIPHY1_DIR_RX, /* Read. */
