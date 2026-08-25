@@ -21,7 +21,9 @@
 #include "xpm_debug.h"
 #include "xpm_err.h"
 #include "xpm_domain_iso.h"
+#ifdef XILPM_RUNTIME
 #include "xpm_gic_proxy.h"
+#endif
 #include "xpm_pmc.h"
 #ifdef PLM_ENABLE_STL
 #include "xstl_plminterface.h"
@@ -73,20 +75,6 @@ XStatus __attribute__((weak, noinline)) XPmSubsystem_CmnFlushForCore(u32 PowerDo
 
 	Status = XPM_NO_FEATURE;
 	return Status;
-}
-
-/******************************************************************/
-/**
- * @brief  GIC Proxy wakeup is not supported in BOOT
- *
- * @return Status of the operation: XPM_NO_FEATURE
- *
- * @note  Weak Symbol - Stub implementation for BOOT-only builds.
- *        Overridden by the runtime implementation (xpm_gic_proxy.c)
- *
- ******************************************************************/
-XStatus __attribute__((weak, noinline)) XPmGicProxy_EnableWakeup(void) {
-	return XPM_NO_FEATURE;
 }
 
 /* Dispatch functions */
@@ -419,11 +407,16 @@ static XStatus XPm_ApuArmGicProxyWake(void)
 		goto done;
 	}
 
+#ifdef XILPM_RUNTIME
 	/* Core is suspending: arm GIC proxy before FPD rail drops */
 	Status = XPmGicProxy_EnableWakeup();
 	if (XST_SUCCESS != Status) {
 		PmErr("GIC proxy wakeup enable failed, Status=0x%x\r\n", Status);
 	}
+#else
+	/* No GIC proxy in boot-only builds: nothing to arm */
+	Status = XST_SUCCESS;
+#endif
 
 done:
 	return Status;
