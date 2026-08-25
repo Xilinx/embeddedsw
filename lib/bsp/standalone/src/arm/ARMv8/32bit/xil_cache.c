@@ -589,7 +589,7 @@ void Xil_ICacheInvalidateRange(INTPTR adr, u32 len)
 		mtcp(XREG_CP15_CACHE_SIZE_SEL, 0x1);
 		while (tempadr < tempend) {
 			/*Invalidate I Cache line*/
-			mtcp(XREG_CP15_INVAL_IC_LINE_MVA_POU, adr & (~0x3F));
+			mtcp(XREG_CP15_INVAL_IC_LINE_MVA_POU, tempadr & (~0x3F));
 			((MAX_ADDR - tempadr) < cacheline) ? (tempadr = MAX_ADDR) : (tempadr += cacheline) ;
 		}
 	}

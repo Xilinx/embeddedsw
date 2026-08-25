@@ -813,7 +813,7 @@ void Xil_ICacheInvalidateRange(INTPTR  adr, INTPTR len)
 		mtcp(CSSELR_EL1, 0x1);
 		while (tempadr < tempend) {
 			/*Invalidate I Cache line*/
-			mtcpic(IVAU, adr & (~0x3F));
+			mtcpic(IVAU, tempadr & (~0x3F));
 
 			tempadr += cacheline;
 		}
