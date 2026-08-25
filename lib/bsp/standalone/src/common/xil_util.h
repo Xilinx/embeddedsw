@@ -97,6 +97,7 @@ extern "C" {
 
 #define XIL_SIGNED_ZERO     (0)     /**< Signed zero value */
 #define XIL_UNSIGNED_ZERO   (0U)    /**< Unsigned zero value */
+#define XIL_UNSIGNED_ONE    (1U)    /**< Unsigned one value */
 
 /****************** Macros (Inline Functions) Definitions *********************/
 

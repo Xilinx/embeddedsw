@@ -7,7 +7,7 @@
 /*****************************************************************************/
 /**
 *
-* @file net/server/xnvm_cmd.c
+* @file versal_next/server/xnvm_cmd.c
 *
 * This file contains the xilnvm IPI/CDO handler implementation.
 *
@@ -48,6 +48,8 @@
 #include "xnvm_cmd.h"
 
 /************************** Function Prototypes ******************************/
+static int XNvm_FeaturesCmd(u32 ApiId);
+static int XNvm_ProcessCmd(XPlmi_Cmd *Cmd);
 
 /************************** Constant Definitions *****************************/
 static XPlmi_ModuleCmd XNvm_Cmds[XNVM_API_MAX];
@@ -117,6 +119,44 @@ static XPlmi_Module XPlmi_Nvm =
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /************************** Function Definitions *****************************/
+
+/**
+ * @name Public APIs
+ * @{
+ */
+
+/*****************************************************************************/
+/**
+ * @brief	This function registers the XilNvm commands to the PLMI.
+ *
+ * @param	OcpHandler Pointer to OCP handler
+ *
+ * @return
+ *		- XST_SUCCESS - On successful registration
+ *		- XST_FAILURE - If OCP handler registration failed
+ *
+ *****************************************************************************/
+int XNvm_CmdsInit(int (*OcpHandler)(void))
+{
+	int Status = XST_FAILURE;
+	u32 Idx;
+	XNvm_OcpHandler StoredHandler;
+
+	/** - Register command handlers with XilPlmi */
+	for (Idx = 0U; Idx < XPlmi_Nvm.CmdCnt; Idx++) {
+		XNvm_Cmds[Idx].Handler = &XNvm_ProcessCmd;
+	}
+	XPlmi_ModuleRegister(&XPlmi_Nvm);
+	StoredHandler = XNvm_ManageOcpHandler(OcpHandler);
+	if (StoredHandler != OcpHandler) {
+		XNvm_Printf(XNVM_DEBUG_GENERAL, "OCP handler registration failed\r\n");
+	}
+	else {
+		Status = XST_SUCCESS;
+	}
+
+	return Status;
+}
 
 /*****************************************************************************/
 /**
@@ -244,39 +284,6 @@ static int XNvm_ProcessCmd(XPlmi_Cmd *Cmd)
 	}
 
 END:
-	return Status;
-}
-
-/*****************************************************************************/
-/**
- * @brief	This function registers the XilNvm commands to the PLMI.
- *
- * @param	OcpHandler Pointer to OCP handler
- *
- * @return
- *		- XST_SUCCESS - On successful registration
- *		- XST_FAILURE - If OCP handler registration failed
- *
- *****************************************************************************/
-int XNvm_CmdsInit(int (*OcpHandler)(void))
-{
-	int Status = XST_FAILURE;
-	u32 Idx;
-	XNvm_OcpHandler StoredHandler;
-
-	/** - Register command handlers with XilPlmi */
-	for (Idx = 0U; Idx < XPlmi_Nvm.CmdCnt; Idx++) {
-		XNvm_Cmds[Idx].Handler = &XNvm_ProcessCmd;
-	}
-	XPlmi_ModuleRegister(&XPlmi_Nvm);
-	StoredHandler = XNvm_ManageOcpHandler(OcpHandler);
-	if (StoredHandler != OcpHandler) {
-		XNvm_Printf(XNVM_DEBUG_GENERAL, "OCP handler registration failed\r\n");
-	}
-	else {
-		Status = XST_SUCCESS;
-	}
-
 	return Status;
 }
 

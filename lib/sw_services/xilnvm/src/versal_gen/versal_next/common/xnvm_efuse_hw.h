@@ -7,7 +7,7 @@
 /******************************************************************************/
 /**
 *
-* @file versal_net/common/xnvm_efuse_hw.h
+* @file xnvm_efuse_hw.h
 *
 * This file contains NVM library eFUSE controller register definitions
 *
@@ -17,7 +17,7 @@
 * MODIFICATION HISTORY:
 *
 * Ver   Who  Date        Changes
-* ----- ---- ---------- --------------------------------------------------------
+* ----- ---- ---------- -------------------------------------------------------
 * 3.0   kal  07/12/2022 Initial release
 * 3.2   har  02/22/2023 Added macros related to ROM Rsvd bits
 *       yog  09/13/2023 Moved XNVM_EFUSE_CACHE_DME_FIPS_DME_MODE_MASK
@@ -29,8 +29,8 @@
 * @note
 *
 * @endcond
+*
 *******************************************************************************/
-
 #ifndef XNVM_EFUSE_HW_H
 #define XNVM_EFUSE_HW_H
 
@@ -55,6 +55,8 @@ extern "C" {
                         /**< eFUSE cache ME ID code register offset */
 #define XNVM_EFUSE_CACHE_DME_FIPS_OFFSET		(0x00000234U)
                         /**< eFUSE cache DME FIPS register offset */
+#define XNVM_EFUSE_CACHE_BOOT_MODE_DIS_OFFSET		(0x00000238U)
+                        /**< eFUSE cache boot mode disable register offset */
 #define XNVM_EFUSE_CACHE_CRC_OFFSET			(0x0000023CU)
                         /**< eFUSE cache CRC register offset */
 /** @} */
@@ -270,6 +272,8 @@ extern "C" {
                         /**< eFUSE PPK0 hash start row */
 #define XNVM_EFUSE_CRC_SALT_ROW				(179U)
                         /**< eFUSE CRC salt row */
+#define XNVM_EFUSE_CRC_SALT				(0x000000FFU)
+                        /**< eFUSE CRC salt value */
 #define XNVM_EFUSE_DISABLE_PLM_UPDATE_ROW		(185U)
                         /**< eFUSE disable PLM update row */
 #define XNVM_EFUSE_ROM_RSVD_START_ROW			(184U)
@@ -280,6 +284,14 @@ extern "C" {
                         /**< eFUSE page 0 PUF syndrome data row */
 #define XNVM_EFUSE_PAGE_1_PUF_SYN_DATA_ROW		(192U)
                         /**< eFUSE page 1 PUF syndrome data row */
+
+#ifdef VERSAL_2VE_2VM
+#define XNVM_EFUSE_PAGE_MAX				(XNVM_EFUSE_PAGE_2)
+                        /**< Maximum eFUSE page index (versal_2ve_2vm) */
+#else
+#define XNVM_EFUSE_PAGE_MAX				(XNVM_EFUSE_PAGE_1)
+                        /**< Maximum eFUSE page index (Versal Net) */
+#endif
 
 #ifdef VERSAL_2VE_2VM
 #define XNVM_EFUSE_ADD_PPK0_HASH_START_ROW		(144U)
@@ -304,10 +316,18 @@ extern "C" {
                         /**< eFUSE additional PPK2 hash start row */
 #define XNVM_EFUSE_ADD_PPK2_HASH_START_COL_NUM		(8U)
                         /**< eFUSE additional PPK2 hash start column number */
-#define XNVM_EFUSE_ADD_PPK2_HASH_END_COL_NUM          	(15U)
+#define XNVM_EFUSE_ADD_PPK2_HASH_END_COL_NUM           	(15U)
                         /**< eFUSE additional PPK2 hash end column number */
 #define XNVM_EFUSE_ADD_PPK2_HASH_NUM_OF_ROWS		(16U)
                         /**< eFUSE number of rows for additional PPK2 hash */
+
+#define XNVM_EFUSE_CACHE_PPK0_USER_FUSE_OFFSET		(0x000002D0U)
+                        /**< eFUSE cache PPK0 user fuse register offset */
+#define XNVM_EFUSE_CACHE_PPK1_USER_FUSE_OFFSET		(0x000002E0U)
+                        /**< eFUSE cache PPK1 user fuse register offset */
+#define XNVM_EFUSE_CACHE_PPK2_USER_FUSE_OFFSET		(0x000002F0U)
+                        /**< eFUSE cache PPK2 user fuse register offset */
+#define XNVM_EFUSE_PPK_HASH_USER_FUSE_NUM_OF_CACHE_ROWS	(4U)
 
 #endif
 
@@ -341,6 +361,33 @@ extern "C" {
                         /**< eFUSE row 0 PUF CHASH protection column */
 #define XNVM_EFUSE_ROW_0_SEC_MISC1_PROT_COL_NUM		(18U)
                         /**< eFUSE row 0 security misc 1 protection column */
+/** @} */
+
+/**
+ * @name  Protection bit masks of various eFuses
+ * @{
+ */
+#define XNVM_EFUSE_PROTECTION_BIT_SECURITY_CONTROL_MASK	((u32)1U << XNVM_EFUSE_ROW_0_SEC_CTRL_PROT_0_COL_NUM) |      \
+				                                ((u32)1U << XNVM_EFUSE_ROW_0_SEC_CTRL_PROT_1_COL_NUM)
+			/**< eFuse protection bits for security control */
+#define XNVM_EFUSE_PROTECTION_BIT_SECURITY_MISC_0_MASK	((u32)1U << XNVM_EFUSE_ROW_0_SEC_MISC0_PROT_0_COL_NUM) |     \
+				                                ((u32)1U << XNVM_EFUSE_ROW_0_SEC_MISC0_PROT_1_COL_NUM)
+			/**< eFuse protection bits for security misc 0 */
+#define XNVM_EFUSE_PROTECTION_BIT_PPK_0_HASH_MASK	((u32)1U << XNVM_EFUSE_ROW_0_PPK_HASH_PROT_0_COL_NUM) |      \
+				                                ((u32)1U << XNVM_EFUSE_ROW_0_PPK_HASH_PROT_1_COL_NUM)
+			/**< eFuse protection bits for PPK0 hash */
+#define XNVM_EFUSE_PROTECTION_BIT_META_HEADER_IV_MASK	((u32)1U << XNVM_EFUSE_ROW_0_META_HEADER_EXPORT_DFT_PROT_0_COL_NUM) |        \
+				                                ((u32)1U << XNVM_EFUSE_ROW_0_META_HEADER_EXPORT_DFT_PROT_1_COL_NUM)
+			/**< eFuse protection bits for Meta header IV */
+#define XNVM_EFUSE_PROTECTION_BIT_ME_ID_CODE_MASK	((u32)1U << XNVM_EFUSE_ROW_0_CRC_PROT_0_COL_NUM) |   \
+				                                ((u32)1U << XNVM_EFUSE_ROW_0_CRC_PROT_1_COL_NUM)
+			/**< eFuse protection bits for ME ID code and CRC */
+#define XNVM_EFUSE_PROTECTION_BIT_PUF_CHASH_MASK	((u32)1U << XNVM_EFUSE_ROW_0_PUF_CHASH_PROT_COL_NUM)
+			/**< eFuse protection bit for PUF Challenge Hash */
+#define XNVM_EFUSE_PROTECTION_BIT_SECURITY_MISC_1_MASK	((u32)1U << XNVM_EFUSE_ROW_0_SEC_MISC1_PROT_COL_NUM)
+			/**< eFuse protection bits for security misc 1 */
+/** @} */
+
 #define XNVM_EFUSE_AES_KEY_0_TO_127_COL_START_NUM	(8U)
                         /**< eFUSE AES key bits 0-127 start column */
 #define XNVM_EFUSE_AES_KEY_0_TO_127_COL_END_NUM		(15U)
@@ -584,8 +631,13 @@ extern "C" {
                         /**< eFUSE DME FIPS number of rows */
 #define XNVM_EFUSE_PAGE_0_PUF_SYN_DATA_NUM_OF_ROWS	(64U)
                         /**< eFUSE page 0 PUF synthesis data number of rows */
+#define XNVM_EFUSE_PRGM_BUF_WORDS			\
+	XNVM_EFUSE_PAGE_0_PUF_SYN_DATA_NUM_OF_ROWS
+                        /**< Max COMPUTE_PRG cache span (PUF page chunk) */
 #define XNVM_EFUSE_PAGE_1_PUF_SYN_DATA_NUM_OF_ROWS      (63U)
                         /**< eFUSE page 1 PUF synthesis data number of rows */
+#define XNVM_EFUSE_PUF_SYN_PAGE_MAX			(XNVM_EFUSE_PAGE_1)
+                        /**< Maximum PUF syndrome data page index */
 #define XNVM_EFUSE_PUF_CHASH_NUM_OF_ROWS		(1U)
                         /**< eFUSE PUF CHASH number of rows */
 #define XNVM_EFUSE_PUF_AUX_NUM_OF_ROWS			(1U)
@@ -626,4 +678,4 @@ extern "C" {
 }
 #endif
 
-#endif	/* XNVM_EFUSE_HW_H */
+#endif /* XNVM_EFUSE_HW_H */

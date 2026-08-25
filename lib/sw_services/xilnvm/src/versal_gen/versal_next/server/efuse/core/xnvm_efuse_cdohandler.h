@@ -7,7 +7,7 @@
 /*****************************************************************************/
 /**
 *
-* @file net/server/xnvm_efuse_cdohandler.h
+* @file xnvm_efuse_cdohandler.h
 * This file contains the Versal_Net XilNvm eFUSE Cdo handler declaration.
 *
 * <pre>

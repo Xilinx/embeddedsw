@@ -7,7 +7,7 @@
 /*****************************************************************************/
 /**
 *
-* @file xnvm_bbram_cdohandler.c
+* @file versal_next/server/xnvm_bbram_cdohandler.c
 *
 * This file contains the Versal_Net XilNvm BBRAM CDO Handler definition.
 *
