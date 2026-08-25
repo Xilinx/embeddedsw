@@ -297,6 +297,16 @@ XStatus XPm_IsMemRegnAddressValid(u32 SubsystemId, u64 RegionAddr, u64 RegionSiz
 		goto done;
 	}
 
+	/**
+	 * Built-in subsystems (PMC/ASU) are trusted; a non-PL range not covered
+	 * by a Mem-Regn defers to the memory-controller state check in
+	 * XPm_IsMemAddressValid().
+	 */
+	if ((1U == SkipSubsysCheck) && (0U == *IsPLMem) &&
+	    (0U == IsOverlapMemRegion) && (XPM_SUCCESS != Status)) {
+		Status = XPM_SUCCESS;
+	}
+
 	if (1U == *IsPLMem) {
 		/* Address Range provided falls in PL Region */
 		/**
