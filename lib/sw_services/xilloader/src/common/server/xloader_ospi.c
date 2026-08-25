@@ -55,6 +55,8 @@
 *       aa   04/23/2026 Fix OSPI SDR fallback for Spansion flash
 * 2.5   aa   07/02/2026 Implemented timeout handling for OSPI 4B address mode
 *                       polling to prevent indefinite hangs
+*       gnr  08/25/2026 Fixed OSPI device reset for VERSAL_2VE_2VM devices to use
+*                       XOspiPsv_DeviceResetViaOspi instead of XOspiPsv_DeviceReset
 *
 * </pre>
 *
@@ -497,7 +499,11 @@ END1:
 		XLoader_Printf(DEBUG_INFO,
 			"OSPI DDR mode configuration failed 0x%08x, falling back to SDR\r\n",
 			(u32)Status);
+#ifdef VERSAL_2VE_2VM
+		Status = (int)XOspiPsv_DeviceResetViaOspi(&OspiPsvInstance, XOSPIPSV_HWPIN_RESET);
+#else
 		Status = (int)XOspiPsv_DeviceReset(XOSPIPSV_HWPIN_RESET);
+#endif
 		if (Status != XST_SUCCESS) {
 			goto END;
 		}
