@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2014 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -421,6 +422,13 @@ int XV_HdmiTx_VSIF_Extract3DInfo(u8 *VSIFRaw, XV_HdmiTx_3D_Info *InstancePtr)
         /* Extract the 3D Metadata length */
         InstancePtr->MetaData.Length = (*pData & XV_HDMITX_3D_META_LENGTH_MASK) >> XV_HDMITX_3D_META_LENGTH_SHIFT;
 
+        /* Reject and clamp an oversized length so the output structure never
+         * retains a length larger than the Data[] buffer can hold */
+        if (InstancePtr->MetaData.Length > XV_HDMITX_3D_META_MAX_SIZE) {
+            InstancePtr->MetaData.Length = XV_HDMITX_3D_META_MAX_SIZE;
+            return XST_FAILURE;
+        }
+
         /* Extract the 3D Metadata */
         int i;
         for (i = 0; i<InstancePtr->MetaData.Length; i++){
@@ -453,6 +461,7 @@ int XV_HdmiTx_VSIF_GeneratePacket(XV_HdmiTx_VSIF  *VSIFPtr, XHdmiC_Aux *AuxPtr)
     u8 Index = 0;
     u8 ByteCount = 0;
     u8 Crc = 0;
+    u8 MetaLength = 0;
 
     XV_HdmiTx_3D_Struct_Field Format;
     XV_HdmiTx_3D_Sampling_Method SampMethod;
@@ -506,13 +515,22 @@ int XV_HdmiTx_VSIF_GeneratePacket(XV_HdmiTx_VSIF  *VSIFPtr, XHdmiC_Aux *AuxPtr)
 
             /* 3D Metadata */
             if (VSIFPtr->Info_3D.MetaData.IsPresent) {
+                /* Clamp the metadata length to the source/destination buffer
+                 * size to avoid an out-of-bounds read of MetaData.Data[] and
+                 * out-of-bounds write of AuxPtr->Data.Byte[]; the same clamped
+                 * value is advertised so the length field matches the payload */
+                MetaLength = VSIFPtr->Info_3D.MetaData.Length;
+                if (MetaLength > XV_HDMITX_3D_META_MAX_SIZE) {
+                    MetaLength = XV_HDMITX_3D_META_MAX_SIZE;
+                }
+
                 /* 3D_Metadata_type */
                 AuxPtr->Data.Byte[++ByteCount] = (VSIFPtr->Info_3D.MetaData.Type << XV_HDMITX_3D_META_TYPE_SHIFT) & XV_HDMITX_3D_META_TYPE_MASK;
                 /* 3D_Metadata_length */
-                AuxPtr->Data.Byte[ByteCount] |= (VSIFPtr->Info_3D.MetaData.Length << XV_HDMITX_3D_META_LENGTH_SHIFT) & XV_HDMITX_3D_META_LENGTH_MASK;
+                AuxPtr->Data.Byte[ByteCount] |= (MetaLength << XV_HDMITX_3D_META_LENGTH_SHIFT) & XV_HDMITX_3D_META_LENGTH_MASK;
 
                 /* 3D_Metadata */
-                for (Index = 0; Index < VSIFPtr->Info_3D.MetaData.Length; Index++) {
+                for (Index = 0; Index < MetaLength; Index++) {
                     AuxPtr->Data.Byte[++ByteCount] = VSIFPtr->Info_3D.MetaData.Data[Index];
                 }
             }
