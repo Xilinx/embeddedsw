@@ -671,17 +671,35 @@ int XV_HdmiC_VSIF_Extract3DInfo(u8 *VSIFRaw, XHdmiC_3D_Info *InstancePtr)
 static void XV_HdmiC_InsertECCBytes(XHdmiC_Aux *AuxPtr, u8 *ByteCount)
 {
     u8 temp[32];
+    u32 InLen = *ByteCount;
+    u32 OutLen;
     int j = 0;
 
-    for (int i = 0; i < *ByteCount; i++) {
+    /* Clamp the input so the expanded output can never exceed temp[]/Data.Byte[] */
+    if (InLen > sizeof(temp)) {
+        InLen = sizeof(temp);
+    }
+
+    /*
+     * One ECC placeholder byte is inserted after every 7 data bytes. Compute
+     * the expanded length up front and clamp it to the buffer size, then
+     * iterate against that fixed bound so 'i' can never exceed 31.
+     */
+    OutLen = InLen ? (InLen + (InLen - 1) / 7) : 0;
+    if (OutLen > sizeof(temp)) {
+        OutLen = sizeof(temp);
+    }
+
+    for (u32 i = 0; i < OutLen; i++) {
         if ((i + 1) % 8 != 0) {
             temp[i] = AuxPtr->Data.Byte[j++];
         } else {
             temp[i] = 0x0;
-            (*ByteCount)++;
         }
     }
-    memcpy(AuxPtr->Data.Byte, temp, *ByteCount);
+
+    *ByteCount = (u8)OutLen;
+    memcpy(AuxPtr->Data.Byte, temp, OutLen);
 }
 
 /*****************************************************************************/
@@ -767,7 +785,8 @@ XHdmiC_Aux XV_HdmiC_HF_VSIF_GeneratePacket(XHdmiC_VSIF  *VSIFPtr)
         case XHDMIC_3D_DISPARITY_INFO_UNKNOWN:
             break;
         case XHDMIC_3D_PROD_DISPARITY_HINT_INFO:
-            for (int i = 0; i < XHDMIC_3D_DISPARITY_VERSION1_LENGTH; i++)
+            for (int i = 0; i < XHDMIC_3D_DISPARITY_VERSION1_LENGTH &&
+                    ByteCount < (sizeof(Aux.Data.Byte) - 1); i++)
                 Aux.Data.Byte[++ByteCount] =
                         Info_3D->DisparityData.Video_Min_Max_Disparity_Hint[i];
             break;
@@ -778,7 +797,8 @@ XHdmiC_Aux XV_HdmiC_HF_VSIF_GeneratePacket(XHdmiC_VSIF  *VSIFPtr)
                Aux.Data.Byte[++ByteCount] =
                        Info_3D->DisparityData.Max_Disparity_In_Picture;
                /* Refer Table 7-10 in HDMI 2.1b spec */
-               for (int i = 0; i < (temp - 2); i++) {
+               for (int i = 0; i < (temp - 2) &&
+                       ByteCount < (sizeof(Aux.Data.Byte) - 1); i++) {
                    Aux.Data.Byte[++ByteCount] =
                            Info_3D->DisparityData.Min_Disparity_In_Region[i];
                }
@@ -786,17 +806,23 @@ XHdmiC_Aux XV_HdmiC_HF_VSIF_GeneratePacket(XHdmiC_VSIF  *VSIFPtr)
             break;
         case XHDMIC_3D_PROD_AND_MULTI_DIPARITY_INFO:
             /* First three bytes are production disparity hint info */
-            for (int i = 0; i < XHDMIC_3D_DISPARITY_VERSION1_LENGTH; i++) {
+            for (int i = 0; i < XHDMIC_3D_DISPARITY_VERSION1_LENGTH &&
+                    ByteCount < (sizeof(Aux.Data.Byte) - 1); i++) {
                 Aux.Data.Byte[++ByteCount] =
                         Info_3D->DisparityData.Video_Min_Max_Disparity_Hint[i];
+                if (ByteCount >= (sizeof(Aux.Data.Byte) - 1))
+                    break;
                 Aux.Data.Byte[++ByteCount] =
                         Info_3D->DisparityData.Multi_Region_Disparity_Length;
+                if (ByteCount >= (sizeof(Aux.Data.Byte) - 1))
+                    break;
                 Aux.Data.Byte[++ByteCount] =
                         Info_3D->DisparityData.Multi_Region_Disparity_Length;
                 /* Refer Table 7-10 in HDMI 2.1b spec */
-                for (int i = 0; i < 2; i++) {
+                for (int k = 0; k < 2 &&
+                        ByteCount < (sizeof(Aux.Data.Byte) - 1); k++) {
                     Aux.Data.Byte[++ByteCount] =
-                            Info_3D->DisparityData.Min_Disparity_In_Region[i];
+                            Info_3D->DisparityData.Min_Disparity_In_Region[k];
                 }
            }
            break;
@@ -806,14 +832,21 @@ XHdmiC_Aux XV_HdmiC_HF_VSIF_GeneratePacket(XHdmiC_VSIF  *VSIFPtr)
     }
 
     /* 3D Metadata */
-    if (Info_3D->MetaData.IsPresent) {
+    if (Info_3D->MetaData.IsPresent &&
+            ByteCount < (sizeof(Aux.Data.Byte) - 1)) {
         Aux.Data.Byte[++ByteCount] = (Info_3D->MetaData.Type << XHDMIC_3D_META_TYPE_SHIFT) &
                                      XHDMIC_3D_META_TYPE_MASK;
         Aux.Data.Byte[ByteCount] |= (Info_3D->MetaData.Length << XHDMIC_3D_META_LENGTH_SHIFT) &
                                     XHDMIC_3D_META_LENGTH_MASK;
-        for (Index = 0; Index < (Info_3D->MetaData.Length + 1); Index++) {
+        for (Index = 0; Index < (Info_3D->MetaData.Length + 1) &&
+                Index < XHDMIC_3D_META_MAX_SIZE &&
+                ByteCount < (sizeof(Aux.Data.Byte) - 1); Index++) {
             Aux.Data.Byte[++ByteCount] = Info_3D->MetaData.Data[Index];
         }
+    }
+    /* Clamp before ECC expansion so the payload can never exceed Data.Byte[] */
+    if (ByteCount > sizeof(Aux.Data.Byte)) {
+        ByteCount = sizeof(Aux.Data.Byte);
     }
     XV_HdmiC_InsertECCBytes(&Aux, &ByteCount);
     /* Set the payload length */
