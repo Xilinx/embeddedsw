@@ -1,4 +1,3 @@
-#include <string.h>
 /******************************************************************************\
 |* Copyright (C) 2024 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 |* Copyright (c) <2021> by VeriSilicon Holdings Co., Ltd. ("VeriSilicon")     *|
@@ -12,21 +11,16 @@
 |*                                                                            *|
 \******************************************************************************/
 
+#include <string.h>
 
 #include "mbox_cmd.h"
+
 #include <stdio.h>
+
+#include "mbox_command.h"
+#include "mbox_interface.h"
 #include "xil_printf.h"
-#include <xipipsu.h>
-#include "xscugic.h"
-#include <xil_cache.h>
-#include "oslayer.h"
-#include "mbox_api.h"
-#include "mbox_error_code.h"
-#include "mbox_seq.h"
-#include "mbox_checksum.h"
 #include "sensor_cmd.h"
-#include <xil_mmu.h>
-#include <xipipsu.h>
 #include "vlog.h"
 #include "xparameters.h"
 #if ENABLE_VMIX_MACRO
@@ -34,279 +28,199 @@
 	#include "xvidc.h"
 #endif
 
-#define  XPAR_PS_0_PSPMC_0_PSV_IPI_1_BIT_MASK  0x00001000U
-#define  XPAR_PS_0_PSPMC_0_PSV_IPI_2_BIT_MASK  0x00000010U
-#define IPI5_IPI_NOBUF3_BITMASK 0x00001000U
-#if ARMR52
-#define IPI1_BASEADDR 0xeb340000
-#else
-#define IPI5_BASEADDR 0xeb380000
-#endif
-#ifdef SDT
-	#include "xinterrupt_wrap.h"
-#endif
 #ifdef XPAR_I2C0_BASEADDR
 #include "control.h"
 #endif
 
 #define LOGTAG "MCMD"
-extern XScuGic Intc;
 extern long int apu_parsecontrolenter;
 
-static MboxFifoCtrl *apu_fifo_ctrl = NULL;
-static MboxPostMsg *rmsg_rpu0 = NULL;
-static MboxPostMsg *rmsg_rpu1 = NULL;
-static MboxPostMsg *rmsg_rpu2 = NULL;
-static MboxPostMsg *rmsg_rpu3 = NULL;
-static MboxPostMsg *rmsg_apu = NULL;
-static MboxPostMsg *rmsg_response_to_apu = NULL;
-static MboxPostMsg *rmsg_command_to_apu = NULL;
-static MboxPostMsg *wmsg = NULL;  // for write message to RPU
-XIpiPsu IpiInst_apu_rpu;
-XScuGic GicInst;
-uint32_t flag = 0;
-//#define DEBUG_ENABLE_LOG
-
 /*-------------------for set param to RPU-------------*/
-volatile static bool ACK = false;
-volatile static bool mb_data_flag = 0;
-volatile static uint32_t payload_ret_cookie;
-volatile static bool ACK_PROC = false; // for processing command from RPU
-volatile static bool ACK_PROC_FUSA = false; // for processing command from RPU
-
-extern uint32_t __mbox_start;
+static volatile bool ACK = false;
+static volatile bool mb_data_flag = false;
+static volatile uint32_t payload_ret_cookie = 0;
+static volatile bool ACK_PROC = false;
+static volatile bool ACK_PROC_FUSA = false;
 
 /**
- * Interrupt Handler :
- * -Polls for each of the valid sources
- * -Checks if there is a message
- * -Reads the message
- * -Inverts the bits
- * -Sends back the inverted message as response
+ * @brief Sets the response acknowledgment flag.
+ */
+void mbox_command_set_ack(bool ack)
+{
+	ACK = ack;
+}
+
+/**
+ * @brief Sets the response data-ready flag.
+ */
+void mbox_command_set_data_ready(bool ready)
+{
+	mb_data_flag = ready;
+}
+
+/**
+ * @brief Stores the cookie of the most recent response.
+ */
+void mbox_command_set_cookie(uint32_t cookie)
+{
+	payload_ret_cookie = cookie;
+}
+
+/**
+ * @brief Returns whether the response acknowledgment flag is set.
+ */
+bool mbox_command_is_ack_set(void)
+{
+	return ACK;
+}
+
+/**
+ * @brief Returns whether response payload data is ready.
+ */
+bool mbox_command_is_data_ready(void)
+{
+	return mb_data_flag;
+}
+
+/**
+ * @brief Returns the cookie of the most recent response.
+ */
+uint32_t mbox_command_get_cookie(void)
+{
+	return payload_ret_cookie;
+}
+
+/**
+ * @brief Marks the pending command as an asynchronous command.
+ */
+void mbox_command_mark_async_cmd(void)
+{
+	ACK_PROC = true;
+}
+
+/**
+ * @brief Marks the pending command as an asynchronous FuSa command.
+ */
+void mbox_command_mark_async_fusa_cmd(void)
+{
+	ACK_PROC_FUSA = true;
+}
+
+/**
+ * @brief Initializes the mailbox for the given core.
  *
+ * @param[in] cpu Local core identifier.
+ *
+ * @return VPI_SUCCESS on success, an error code otherwise.
  */
-void IpiIntrHandler(void *XIpiPsuPtr)
+int32_t mailbox_init(uint32_t cpu)
 {
-
-	u32 IpiSrcMask; /**< Holds the IPI status register value */
-	u32 SrcIndex;
-	XIpiPsu *InstancePtr = (XIpiPsu *) XIpiPsuPtr;
-	Xil_AssertVoid(InstancePtr != NULL);
-	IpiSrcMask = XIpiPsu_GetInterruptStatus(InstancePtr);
-#ifdef DEBUG_ENABLE_LOG
-	xil_printf("!!APU ---->IRQ no %d triggered\r\n", InstancePtr->Config.IntId);
-#endif
-	/* Poll for each source and send Response (Response = ~Msg) */
-	for (SrcIndex = 0U; SrcIndex < InstancePtr->Config.TargetCount;
-	     SrcIndex++) {
-
-		if (IpiSrcMask & InstancePtr->Config.TargetList[SrcIndex].Mask) {
-			/* Clear the Interrupt Status - This clears the OBS bit on the SRC CPU registers */
-			XIpiPsu_ClearInterruptStatus(InstancePtr,
-						     InstancePtr->Config.TargetList[SrcIndex].Mask);
-		}
-	}
-	apu_mailbox_read(IpiSrcMask);  //Hook the function which is to be called by the interrupt handler
+	return mbox_interface_init((MboxCoreId)cpu);
 }
-
-#ifndef SDT
-static XStatus SetupInterruptSystem(XScuGic *IntcInstancePtr,
-				    XIpiPsu *IpiInstancePtr, u32 IpiIntrId)
-{
-	uint32_t Status = 0, ret = 0;
-	XScuGic_Config *IntcConfig; /* Config for interrupt controller */
-
-	/* Initialize the interrupt controller driver */
-	IntcConfig = XScuGic_LookupConfig(0xe2000000);
-	if (NULL == IntcConfig)
-		return XST_FAILURE;
-
-	Status = XScuGic_CfgInitialize(&Intc, IntcConfig,
-				       IntcConfig->CpuBaseAddress);
-	if (Status != XST_SUCCESS)
-		return XST_FAILURE;
-
-	/*
-	 * Connect the interrupt controller interrupt handler to the
-	 * hardware interrupt handling logic in the processor.
-	 */
-	Xil_ExceptionRegisterHandler(XIL_EXCEPTION_ID_INT,
-				     (Xil_ExceptionHandler) XScuGic_InterruptHandler, IntcInstancePtr);
-
-	/*
-	 * Connect a device driver handler that will be called when an
-	 * interrupt for the device occurs, the device driver handler
-	 * performs the specific interrupt processing for the device
-	 */
-	LOGI("Interrupt ID: %d\r\n", IpiIntrId);
-	Status = XScuGic_Connect(IntcInstancePtr, IpiIntrId,
-				 (Xil_InterruptHandler) IpiIntrHandler, (void *) IpiInstancePtr);
-
-	if (Status != XST_SUCCESS)
-		return XST_FAILURE;
-
-	/* Enable the interrupt for the device */
-	XScuGic_Enable(IntcInstancePtr, IpiIntrId);
-
-	/* Enable interrupts */
-	Xil_ExceptionEnable();
-
-	return XST_SUCCESS;
-}
-#endif
-
-
-int ipi_init(int src_ipi_id, XIpiPsu *IpiInst)
-{
-	uint32_t ret = 0, baseaddr = 0;
-	XIpiPsu_Config *CfgPtr;
-
-	switch (src_ipi_id) {
-		case MBOX_CORE_APU:
-		#if ARMR52
-			baseaddr = IPI1_BASEADDR; //IPI-1
-		#else
-			baseaddr = IPI5_BASEADDR; //IPI-5
-		#endif
-			break;
-		default:
-			xil_printf("Not a Valid IPI core \n");
-			return -1;
-			break;
-	}
-	/* Look Up the config data */
-
-#ifndef SDT
-	CfgPtr = XIpiPsu_LookupConfig(src_ipi_id);
-#else
-	CfgPtr = XIpiPsu_LookupConfig(baseaddr);
-#endif
-	/* Init with the Cfg Data */
-	XIpiPsu_CfgInitialize(IpiInst, CfgPtr, CfgPtr->BaseAddress);
-
-	// xil_printf("APU ipi instance src config:\r\n");
-	// xil_printf("InstancePtr->Config.BaseAddress:%x.\r\n", IpiInst->Config.BaseAddress);
-	// xil_printf("IpiInst->Config.IntId:%x.\r\n", IpiInst->Config.IntId);
-	// xil_printf("InstancePtr->Config.BitMask:%x.\r\n", IpiInst->Config.BitMask);
-	// xil_printf("InstancePtr->Config.BufferIndex:%x.\r\n", IpiInst->Config.BufferIndex);
-	// xil_printf("InstancePtr->Config.TargetList[0].Mask:%x.\r\n", IpiInst->Config.TargetList[0].Mask);
-#ifndef SDT
-	/* Setup the GIC */
-	SetupInterruptSystem(&Intc, IpiInst, (IpiInst->Config.IntId));
-#else
-	XSetupInterruptSystem(IpiInst, &IpiIntrHandler,
-			      IpiInst->Config.IntId,
-			      IpiInst->Config.IntrParent,
-			      //XINTERRUPT_DEFAULT_PRIORITY);
-			      0xA0);
-#endif
-	/* Enable reception of IPIs from all CPUs */
-	XIpiPsu_InterruptEnable(IpiInst, XIPIPSU_ALL_MASK);
-
-	/* Clear Any existing Interrupts */
-	XIpiPsu_ClearInterruptStatus(IpiInst, XIPIPSU_ALL_MASK);
-	return ret;
-
-}
-
 
 /**
- * @brief	Tests the IPI by sending a message and checking the response
+ * @brief Closes the mailbox interface.
  */
-
-static XStatus trigger_ipi(XIpiPsu *InstancePtr, uint32_t dst_ipi_id)
+void mailbox_close()
 {
-
-	u32 Status = 0, dst_ipi_id_offset = 0;
-
-	if (dst_ipi_id == MBOX_CORE_RPU0) {
-		dst_ipi_id_offset = RPU0_TARGET; /*3rd IPI target is the APU,1-rpu[0],2-rpu[1]*/
-	} else if (dst_ipi_id == MBOX_CORE_RPU1) {
-		dst_ipi_id_offset = RPU1_TARGET; /*3rd IPI target is the APU,1-rpu[0],2-rpu[1]*/
-	} else if (dst_ipi_id == MBOX_CORE_RPU2) {
-		dst_ipi_id_offset = RPU2_TARGET; /*3rd IPI target is the APU,1-rpu[0],2-rpu[1]*/
-	} else if (dst_ipi_id == MBOX_CORE_RPU3) {
-		dst_ipi_id_offset = RPU3_TARGET; /*3rd IPI target is the APU,1-rpu[0],2-rpu[1]*/
-	}
-
-	/* Self trigger
-	dst_ipi_id_offset=APU_TARGET; */
-	InstancePtr->Config.TargetList[dst_ipi_id_offset].Mask = IPI5_IPI_NOBUF3_BITMASK;
-	XIpiPsu_TriggerIpi(InstancePtr, InstancePtr->Config.TargetList[dst_ipi_id_offset].Mask);
-
-	Status = XIpiPsu_PollForAck(InstancePtr, InstancePtr->Config.TargetList[dst_ipi_id_offset].Mask,
-				    TIMEOUT_COUNT);
-
-	if (XST_SUCCESS == Status) {
-		Status = XST_SUCCESS;
-	} else {
-		Status = XST_FAILURE;
-	}
-	return Status;
+	mbox_interface_close();
 }
 
-
-XStatus apu_postmsg(MboxCoreId receiver_id)
+/**
+ * @brief Initializes the mailbox IPI transport on the local core.
+ *
+ * @return 0 on success, -1 on failure.
+ */
+int init_mailbox_ipi()
 {
-	u32 Status = XST_FAILURE;
-
-	if (MBOX_CORE_RPU0 == receiver_id)
-		Status = trigger_ipi(&IpiInst_apu_rpu, MBOX_CORE_RPU0);
-
-	if (MBOX_CORE_RPU1 == receiver_id)
-
-		Status = trigger_ipi(&IpiInst_apu_rpu, MBOX_CORE_RPU1);
-
-	if (MBOX_CORE_RPU2 == receiver_id)
-		Status = trigger_ipi(&IpiInst_apu_rpu, MBOX_CORE_RPU2);
-
-	if (MBOX_CORE_RPU3 == receiver_id)
-
-		Status = trigger_ipi(&IpiInst_apu_rpu, MBOX_CORE_RPU3);
-
-	return Status;
+	return (mailbox_init(src_cpu_id) == VPI_SUCCESS) ? 0 : -1;
 }
 
+/**
+ * @brief Sends a mailbox command to a remote core.
+ *
+ * @param[in] cmd      Command identifier to send.
+ * @param[in] data     Pointer to the command payload.
+ * @param[in] size     Payload size in bytes.
+ * @param[in] dest_cpu Destination core identifier.
+ * @param[in] src_cpu  Source core identifier.
+ *
+ * @return VPI_SUCCESS on success, an error code otherwise.
+ */
+int Send_Command(MBCmdId_E cmd, void *data, uint32_t size, uint8_t dest_cpu, uint8_t src_cpu)
+{
+	return mbox_interface_send_command(cmd, data, size, dest_cpu, src_cpu);
+}
+
+/**
+ * @brief Sends a mailbox response to a remote core.
+ *
+ * @param[in] res      Response identifier to send.
+ * @param[in] data     Pointer to the response payload.
+ * @param[in] size     Payload size in bytes.
+ * @param[in] dest_cpu Destination core identifier.
+ * @param[in] src_cpu  Source core identifier.
+ *
+ * @return VPI_SUCCESS on success, an error code otherwise.
+ */
+int Send_Response(MBCmdId_E res, void *data, uint32_t size, uint8_t dest_cpu, uint8_t src_cpu)
+{
+	return mbox_interface_send_response(res, data, size, dest_cpu, src_cpu);
+}
+
+/**
+ * @brief Sends a raw mailbox message without command framing.
+ *
+ * @param[in] cmdId       Message identifier to send.
+ * @param[in] struct_msg  Pointer to the raw payload.
+ * @param[in] size        Payload size in bytes.
+ * @param[in] receiver_id Destination core identifier.
+ * @param[in] core_id     Source core identifier.
+ *
+ * @return VPI_SUCCESS on success, an error code otherwise.
+ */
 int32_t write_mboxcmd(uint32_t cmdId, void *struct_msg, uint32_t size, MboxCoreId receiver_id,
 		      MboxCoreId core_id)
 {
-	uint32_t ret = VPI_SUCCESS;
-	int status;
-
-	if (size == 0) {
-		wmsg->msg_id = cmdId;
-	} else {
-		wmsg->msg_id = cmdId;
-		wmsg->size = sizeof(Payload_packet) - MAX_ITEM + ((Payload_packet *)
-			     struct_msg)->payload_size;
-		memcpy(&wmsg->payload, struct_msg, wmsg->size);
-	}
-	wmsg->media_server_flags = 0;
-	wmsg->timestamp_low = 0;
-	wmsg->timestamp_high = 0;
-
-#if defined(ENABLE_MBOX_INTEGRITY)
-	mbox_seq_assign_outbound(receiver_id, &wmsg->payload);
-	wmsg->checksum = mbox_checksum_calculate(wmsg);
-#endif
-
-	if (MBOX_CORE_APU == core_id)
-		ret = vpi_mbox_post(apu_fifo_ctrl, wmsg, receiver_id, apu_postmsg);
-
-	if (ret) {
-		if (ret == VPI_ERR_FULL)
-			LOGE("VPI_ERR_FULL error in rpu_fifo_ctrl[1]\n");
-		return VPI_ERR_GENERIC;
-	}
-
-	return VPI_SUCCESS;
+	return mbox_interface_send_raw(cmdId, struct_msg, size,
+				      (uint8_t)receiver_id, (uint8_t)core_id);
 }
 
+/**
+ * @brief Waits for the response that matches the given cookie.
+ *
+ * @param[in]  cookie Cookie identifying the awaited response.
+ * @param[out] data   Buffer that receives the response payload.
+ *
+ * @return Response subcode on success, an error code otherwise.
+ */
+uint8_t apu_wait_for_ACK(uint32_t cookie, void *data)
+{
+	return mbox_interface_wait_for_ack(cookie, data);
+}
+
+/**
+ * @brief Dispatches pending inbound mailbox messages for the given IPI source.
+ *
+ * @param[in] IpiSrcMask Interrupt source mask of the triggering IPI.
+ */
+void apu_mailbox_read(uint32_t IpiSrcMask)
+{
+	mbox_interface_rx_dispatch(IpiSrcMask);
+}
+
+/**
+ * @brief Processes a pending asynchronous command received from a remote core.
+ */
 void Apu_Mbox_Check_Command(void)
 {
+	MboxPostMsg *rmsg_command_to_apu = mbox_interface_get_command_msg();
 	uint32_t msg_id_;
 	uint32_t size_;
 	Payload_packet proc_cmd_packet;
+
+	if (rmsg_command_to_apu == NULL)
+		return;
 
 	if (ACK_PROC == true) {
 		LOGI("\r\n processing command from RPU \r\n");
@@ -324,11 +238,18 @@ void Apu_Mbox_Check_Command(void)
 }
 
 
+/**
+ * @brief Processes a pending asynchronous FuSa command received from a remote core.
+ */
 void Apu_Mbox_Check_FusaCommand(void)
 {
+	MboxPostMsg *rmsg_command_to_apu = mbox_interface_get_command_msg();
 	uint32_t msg_id_;
 	uint32_t size_;
 	Payload_packet proc_cmd_packet;
+
+	if (rmsg_command_to_apu == NULL)
+		return;
 
 	if (ACK_PROC_FUSA == true) {
 		ACK_PROC_FUSA = false;
@@ -344,243 +265,6 @@ void Apu_Mbox_Check_FusaCommand(void)
 	}
 }
 
-
-#define ACK_TIMEOUT_US 180000000U  /* 3-minute timeout for RPU ACK */
-#define ACK_POLL_INTERVAL_US 100U   /* 100 microsecond poll interval */
-
-uint8_t apu_wait_for_ACK(uint32_t cookie, void *data)
-{
-	volatile Payload_packet *packet = &rmsg_response_to_apu->payload;
-	uint32_t elapsed_us = 0;
-
-	while (ACK == false || cookie != payload_ret_cookie) {
-		Apu_Mbox_Check_Command();
-
-		if (ACK == false || cookie != payload_ret_cookie) {
-			usleep(ACK_POLL_INTERVAL_US);
-			elapsed_us += ACK_POLL_INTERVAL_US;
-			if (elapsed_us >= ACK_TIMEOUT_US) {
-				LOGE("ACK timeout (%u us) for cookie 0x%x",
-				     ACK_TIMEOUT_US, cookie);
-				ACK = false;
-				mb_data_flag = false;
-				return (uint8_t)VPI_ERR_TIMEOUT;
-			}
-		}
-	}
-	if (mb_data_flag) {
-		uint32_t safe_size = packet->payload_size;
-		if (safe_size > MAX_ITEM)
-			safe_size = MAX_ITEM;
-		memcpy(data, packet->payload_data, safe_size);
-	}
-	ACK = false;
-	mb_data_flag = false;
-	return packet->resp_field.error_subcode_t;
-}
-
-
-void apu_mailbox_read(uint32_t IpiSrcMask)
-{
-	if (vpi_mbox_is_empty(apu_fifo_ctrl, dest_cpu_id,
-			      src_cpu_id)) //rpu0 check  the msg from MBOX_CORE_APU
-		xil_printf("APU there is no msg in Share memory!\r\n");
-	else {
-		while (!vpi_mbox_is_empty(apu_fifo_ctrl, dest_cpu_id, src_cpu_id)) {
-			vpi_mbox_read(apu_fifo_ctrl, rmsg_apu, dest_cpu_id); //rpu0 rece MBOX_CORE_APU's msg
-
-			if (rmsg_apu->payload.payload_size > MAX_ITEM) {
-				LOGE("Mbox payload_size %u exceeds MAX_ITEM %u, dropping frame\r\n",
-				     rmsg_apu->payload.payload_size, (uint32_t)MAX_ITEM);
-				continue;
-			}
-
-#if defined(ENABLE_MBOX_INTEGRITY)
-			if (rmsg_apu->checksum != mbox_checksum_calculate(rmsg_apu)) {
-				LOGE("Mbox checksum mismatch: msg_id=%u size=%u\r\n",
-				     rmsg_apu->msg_id, rmsg_apu->size);
-				continue;
-			}
-
-			/* INIT_FIRMWARE always restarts both sides' counters at 0. */
-			if (rmsg_apu->msg_id == MB_CMD_RES_SUCCESS &&
-			    rmsg_apu->payload.resp_field.processed_cmdid ==
-				    APU_2_RPU_MB_CMB_INIT_FIRMWARE)
-				mbox_seq_mark_resync(src_cpu_id);
-
-			if (mbox_seq_validate_inbound(src_cpu_id, rmsg_apu) != VPI_SUCCESS)
-				continue;
-#endif
-
-			//need make sure APU initiative call function to RPU after last function had receive response
-			//to make it is compatitable for apu_wait_for_mb_data and apu_wait_for_ACK function
-			if ((rmsg_apu->msg_id == MB_CMD_RES_SUCCESS) || (rmsg_apu->msg_id == MB_CMD_GET_SUCCESS)) {
-				uint32_t copy_size = sizeof(MboxPostMsg) - MAX_ITEM + rmsg_apu->payload.payload_size;
-				memcpy(rmsg_response_to_apu, rmsg_apu, copy_size);
-			} else {
-				uint32_t copy_size = sizeof(MboxPostMsg) - MAX_ITEM + rmsg_apu->payload.payload_size;
-				memcpy(rmsg_command_to_apu, rmsg_apu, copy_size);
-			}
-			ParseCommand(rmsg_apu->msg_id, &rmsg_apu->payload, rmsg_apu->size, src_cpu_id, dest_cpu_id);
-
-		}
-	}
-
-}
-
-
-int32_t mailbox_init(uint32_t cpu)
-{
-
-	uint32_t mbox_start = (uint32_t)&__mbox_start;
-	rmsg_rpu0 = (MboxPostMsg *)osMalloc(sizeof(MboxPostMsg));
-	if (rmsg_rpu0 == NULL) {
-		xil_printf("APU-%d Failed to allocate memory\r\n", XPAR_CPU_ID);
-		goto err_nomem;
-	}
-
-	rmsg_rpu1 = (MboxPostMsg *)osMalloc(sizeof(MboxPostMsg));
-	if (rmsg_rpu1 == NULL) {
-		xil_printf("APU-%d Failed to allocate memory\r\n", XPAR_CPU_ID);
-		goto err_free_rpu0;
-	}
-	rmsg_rpu2 = (MboxPostMsg *)osMalloc(sizeof(MboxPostMsg));
-	if (rmsg_rpu2 == NULL) {
-		xil_printf("APU-%d Failed to allocate memory\r\n", XPAR_CPU_ID);
-		goto err_free_rpu1;
-	}
-	rmsg_rpu3 = (MboxPostMsg *)osMalloc(sizeof(MboxPostMsg));
-	if (rmsg_rpu3 == NULL) {
-		xil_printf("APU-%d Failed to allocate memory\r\n", XPAR_CPU_ID);
-		goto err_free_rpu2;
-	}
-	rmsg_apu = (MboxPostMsg *)osMalloc(sizeof(MboxPostMsg));
-	if (rmsg_apu == NULL) {
-		xil_printf("APU-%d Failed to allocate memory\r\n", XPAR_CPU_ID);
-		goto err_free_rpu3;
-	}
-	rmsg_response_to_apu = (MboxPostMsg *)osMalloc(sizeof(MboxPostMsg));
-	if (rmsg_response_to_apu == NULL) {
-		xil_printf("APU-%d Failed to allocate memory\r\n", XPAR_CPU_ID);
-		goto err_free_apu;
-	}
-	rmsg_command_to_apu = (MboxPostMsg *)osMalloc(sizeof(MboxPostMsg));
-	if (rmsg_command_to_apu == NULL) {
-		xil_printf("APU-%d Failed to allocate memory\r\n", XPAR_CPU_ID);
-		goto err_free_resp;
-	}
-	wmsg = (MboxPostMsg *) osMalloc(sizeof(MboxPostMsg));
-	if (wmsg == NULL) {
-		xil_printf("APU-%d Failed to allocate memory\r\n", XPAR_CPU_ID);
-		goto err_free_cmd;
-	}
-
-	/* Initialize wmsg fields */
-	memset(wmsg, 0, sizeof(MboxPostMsg));
-
-#if defined(ENABLE_MBOX_INTEGRITY)
-	mbox_seq_init_all();
-#endif
-
-#define MBOX_SECTION_SIZE 0x200000
-#define BLOCK_SIZE_2MB 0x200000U
-
-	for (int i = 0; i < (MBOX_SECTION_SIZE / BLOCK_SIZE_2MB); i++) {
-		xil_printf("MBOX_FIFO_BLOCK_SIZE/BLOCK_SIZE_2MB %d, i-%d\r\n",
-			   MBOX_FIFO_BLOCK_SIZE / BLOCK_SIZE_2MB, i);
-#if defined __aarch64__
-		Xil_SetTlbAttributes(mbox_start + i * BLOCK_SIZE_2MB, NORM_NONCACHE);
-#endif
-	}
-
-
-	if (MBOX_CORE_APU == cpu)
-		apu_fifo_ctrl = vpi_mbox_init(MBOX_CORE_APU, mbox_start, MBOX_FIFO_BLOCK_SIZE);
-
-	xil_printf("APU mailbox init done, sizeof(MboxPostMsg)=%u, sizeof(Payload_packet)=%u\r\n",
-		   sizeof(MboxPostMsg), sizeof(Payload_packet));
-
-	return VPI_SUCCESS;
-
-err_free_cmd:
-	osFree(rmsg_command_to_apu);
-	rmsg_command_to_apu = NULL;
-err_free_resp:
-	osFree(rmsg_response_to_apu);
-	rmsg_response_to_apu = NULL;
-err_free_apu:
-	osFree(rmsg_apu);
-	rmsg_apu = NULL;
-err_free_rpu3:
-	osFree(rmsg_rpu3);
-	rmsg_rpu3 = NULL;
-err_free_rpu2:
-	osFree(rmsg_rpu2);
-	rmsg_rpu2 = NULL;
-err_free_rpu1:
-	osFree(rmsg_rpu1);
-	rmsg_rpu1 = NULL;
-err_free_rpu0:
-	osFree(rmsg_rpu0);
-	rmsg_rpu0 = NULL;
-err_nomem:
-	return VPI_ERR_NOMEM;
-}
-
-void mailbox_close()
-{
-	if (apu_fifo_ctrl)
-		vpi_mbox_destory(apu_fifo_ctrl);
-	apu_fifo_ctrl = NULL;
-
-	osFree(rmsg_rpu0);
-	osFree(rmsg_rpu1);
-	osFree(rmsg_rpu2);
-	osFree(rmsg_rpu3);
-	osFree(rmsg_apu);
-	osFree(rmsg_response_to_apu);
-	osFree(rmsg_command_to_apu);
-	osFree(wmsg);
-	wmsg = NULL;
-	rmsg_apu = NULL;
-	rmsg_response_to_apu = NULL;
-	rmsg_command_to_apu = NULL;
-	rmsg_rpu0 = NULL;
-	rmsg_rpu1 = NULL;
-	rmsg_rpu2 = NULL;
-	rmsg_rpu3 = NULL;
-
-}
-
-
-int init_mailbox_ipi()
-{
-
-	mailbox_init(src_cpu_id);
-	ipi_init(MBOX_CORE_APU,
-		 &IpiInst_apu_rpu); //2 for APU-IPI is the deviceId in the XIpiPsu_ConfigTable[]
-
-	return 0;
-
-}
-
-
-int Send_Command(MBCmdId_E cmd, void *data, uint32_t size, uint8_t dest_cpu, uint8_t src_cpu)
-{
-	int ret = 0;
-	((Payload_packet *)data)->resp_field.error_subcode_t = RET_SUCCESS;
-	ret = write_mboxcmd(cmd, data, size, dest_cpu, src_cpu);
-	return ret;
-}
-
-int Send_Response(MBCmdId_E res, void *data, uint32_t size, uint8_t dest_cpu, uint8_t src_cpu)
-{
-	int ret = 0;
-
-	ret = write_mboxcmd(res, data, size, dest_cpu, src_cpu);
-
-	return ret;
-}
 #if ENABLE_VMIX_MACRO
 	VMix_input_buffer Vmix_buff;
 	extern XV_Mix_l2  mix;
@@ -597,14 +281,14 @@ uint32_t ParseCommand(MBCmdId_E cmd, void *data, uint32_t size,	MboxCoreId core_
 	switch (cmd) {
 		/*These cases handle the commands sent by the RPU's*/
 		case MB_CMD_RES_SUCCESS:
-			payload_ret_cookie = packet->cookie;
-			ACK = true;
+			mbox_command_set_cookie(packet->cookie);
+			mbox_command_set_ack(true);
 			break;
 
 		case MB_CMD_GET_SUCCESS:
-			payload_ret_cookie = packet->cookie;
-			ACK = true;
-			mb_data_flag = true;
+			mbox_command_set_cookie(packet->cookie);
+			mbox_command_set_ack(true);
+			mbox_command_set_data_ready(true);
 
 			break;
 		case RPU_2_APU_MB_CMD_ISP_ERR_REPORT:
@@ -638,11 +322,11 @@ uint32_t ParseCommand(MBCmdId_E cmd, void *data, uint32_t size,	MboxCoreId core_
 		case	RPU_2_APU_MB_CMD_IsiWriteRegIss:
 		case	RPU_2_APU_MB_CMD_IsiReadRegIss:
 
-			ACK_PROC = true;
+			mbox_command_mark_async_cmd();
 			break;
 
 		case RPU_2_APU_MB_CMD_FUSA_EVENT_CB:
-			ACK_PROC_FUSA = true;
+			mbox_command_mark_async_fusa_cmd();
 			break;
 
 		case RPU_2_APU_MB_CMD_FULL_BUFFER_INFORM:

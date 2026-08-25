@@ -16,4 +16,12 @@ collect (PROJECT_LIB_HEADERS mbox_seq.h)
 
 collect (PROJECT_LIB_HEADERS mbox_checksum.h)
 
+collect (PROJECT_LIB_HEADERS mbox_command.h)
+
+collect (PROJECT_LIB_HEADERS mbox_integrity.h)
+
+collect (PROJECT_LIB_HEADERS mbox_interface.h)
+
+collect (PROJECT_LIB_HEADERS mbox_phy.h)
+
 collect (PROJECT_LIB_HEADERS sensor_cmd.h)

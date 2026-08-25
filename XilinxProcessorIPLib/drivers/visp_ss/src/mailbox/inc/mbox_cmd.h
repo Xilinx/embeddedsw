@@ -24,7 +24,7 @@
 #include "mbox_fifo.h"
 #include "mbox_hardware.h"
 #include "sensor_cmd.h"
-
+#include <xstatus.h>
 
 #define MBOX_FIFO_BLOCK_SIZE (sizeof(FifoControl) + sizeof(MboxPostMsg)*MAX_MSGS_PER_BOX)
 
@@ -39,6 +39,15 @@
 
 int32_t mailbox_init(uint32_t cpu);
 int init_mailbox_ipi();
+
+/**
+ * @brief Triggers the IPI that notifies the receiver of a posted message.
+ *
+ * @param[in] receiver_id Destination core identifier.
+ *
+ * @return XST_SUCCESS on success, XST_FAILURE otherwise.
+ */
+XStatus apu_postmsg(MboxCoreId receiver_id);
 int32_t write_mboxcmd(uint32_t, void *, uint32_t, MboxCoreId, MboxCoreId);
 void apu_mailbox_read(/*void *CallbackRef*/ uint32_t);
 uint32_t ParseCommand(MBCmdId_E, void *, uint32_t,	MboxCoreId, MboxCoreId);

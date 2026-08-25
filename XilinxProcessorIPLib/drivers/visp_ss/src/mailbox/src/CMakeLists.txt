@@ -13,3 +13,9 @@ collect (PROJECT_LIB_SOURCES mbox_fifo.c)
 collect (PROJECT_LIB_SOURCES mbox_seq.c)
 
 collect (PROJECT_LIB_SOURCES mbox_checksum.c)
+
+collect (PROJECT_LIB_SOURCES mbox_integrity.c)
+
+collect (PROJECT_LIB_SOURCES mbox_interface.c)
+
+collect (PROJECT_LIB_SOURCES mbox_phy.c)
