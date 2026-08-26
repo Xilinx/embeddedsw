@@ -33,9 +33,14 @@
 * 3.9  sb   07/05/23 Added support for system device-tree flow.
 * 3.13 sb   09/09/25 Fix flash status register check in erase function
 * 3.14 vlt  12/18/25 Update Doxygen comments to include SDT flow details.
+* 3.15 vn   08/26/26 Fix Doxygen warnings.
 * </pre>
 *
 ******************************************************************************/
+
+/** @addtogroup xspips_flash_intr_example
+ * @{
+ */
 
 /***************************** Include Files *********************************/
 
@@ -491,8 +496,6 @@ int SpiPsFlashIntrExample(XSpiPs *SpiInstancePtr, UINTPTR BaseAddress)
 * @param	CallBackRef is a reference passed to the handler.
 * @param	StatusEvent is the status of the SPI .
 * @param	ByteCount is the number of bytes transferred.
-*
-* @return	None
 *
 * @note		None.
 *
@@ -1085,3 +1088,4 @@ static void SpiPsDisableIntrSystem(XScuGic *IntcInstancePtr, u16 SpiIntrId)
 	XScuGic_Disconnect(IntcInstancePtr, SpiIntrId);
 }
 #endif
+/** @} */

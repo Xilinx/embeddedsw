@@ -29,9 +29,14 @@
 *                       instance name from "Spi" to "SpiPs"
 * 3.9   sb   07/05/23   Added support for system device-tree flow.
 * 3.14 vlt  12/18/25 Update Doxygen comments to include SDT flow details.
+* 3.15 vn   08/26/26 Fix Doxygen warnings.
 * </pre>
 *
 *******************************************************************************/
+
+/** @addtogroup xspips_selftest_example
+ * @{
+ */
 
 /***************************** Include Files **********************************/
 
@@ -159,3 +164,4 @@ int SpiPsSelfTestExample(UINTPTR BaseAddress)
 
 	return XST_SUCCESS;
 }
+/** @} */

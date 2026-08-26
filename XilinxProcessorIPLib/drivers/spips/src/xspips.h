@@ -243,6 +243,7 @@
 * 3.14  vlt    12/18/25 Update Doxygen comments to include SDT flow details.
 * 3.14  vlt    03/14/26 Updated BaseAddress type from u32 to UINTPTR
 *                       to support 64-bit addressing.
+* 3.15  vn     08/26/26 Fix Doxygen warnings.
 *
 * </pre>
 *
@@ -326,7 +327,7 @@ extern "C" {
 #define XSPIPS_DECODE_SSELECT_OPTION		0x00000008U  /**< Select 16 slaves Option */
 #define XSPIPS_FORCE_SSELECT_OPTION			0x00000010U /**< Force Slave Select */
 #define XSPIPS_MANUAL_START_OPTION			0x00000020U /**< Manual Start mode option */
-/*@}*/
+/** @} */
 
 
 /** @name SPI Clock Prescaler options
@@ -344,7 +345,7 @@ extern "C" {
 #define XSPIPS_CLK_PRESCALE_64		0x05U  /**< PCLK/64 Prescaler */
 #define XSPIPS_CLK_PRESCALE_128		0x06U  /**< PCLK/128 Prescaler */
 #define XSPIPS_CLK_PRESCALE_256		0x07U  /**< PCLK/256 Prescaler */
-/*@}*/
+/** @} */
 
 
 /** @name Callback events
@@ -360,7 +361,7 @@ extern "C" {
 #define XSPIPS_EVENT_TRANSMIT_UNDERRUN	3U  /**< TX FIFO empty */
 #define XSPIPS_EVENT_RECEIVE_OVERRUN	4U /**< Receive data loss because
 						RX FIFO full */
-/*@}*/
+/** @} */
 
 
 /**************************** Type Definitions *******************************/

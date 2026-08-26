@@ -31,10 +31,15 @@
 *                     the file in doxygen examples.
 * 3.9   sb   07/05/23 Added support for system device-tree flow.
 * 3.14  vlt  12/18/25 Update Doxygen comments to include SDT flow details.
+* 3.15  vn   08/26/26 Fix Doxygen warnings.
 *
 *</pre>
 *
 ******************************************************************************/
+
+/** @addtogroup xspips_eeprom_polled_example
+ * @{
+ */
 
 /***************************** Include Files *********************************/
 
@@ -315,8 +320,6 @@ int SpiPsEepromPolledExample(XSpiPs *SpiInstancePtr, UINTPTR BaseAddress)
 * @param	ByteCount contains the number of bytes to read.
 * @param	Buffer is a buffer to read the data into.
 *
-* @return	None.
-*
 * @note		None.
 *
 ******************************************************************************/
@@ -354,8 +357,6 @@ void EepromRead(XSpiPs *SpiPtr, u16 Address, int ByteCount,
 * @param	Address contains the address to write data to in the EEPROM.
 * @param	ByteCount contains the number of bytes to write.
 * @param	Buffer is a buffer of data to write from.
-*
-* @return	None.
 *
 * @note		None.
 *
@@ -425,3 +426,4 @@ void EepromWrite(XSpiPs *SpiPtr, u16 Address, u8 ByteCount,
 		}
 	}
 }
+/** @} */

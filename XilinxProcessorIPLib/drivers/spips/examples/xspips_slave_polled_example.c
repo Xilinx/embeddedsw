@@ -40,9 +40,15 @@
 * 3.9   sb   07/05/23 Added support for system device-tree flow.
 * 3.13  sb   09/09/25 Fix GCC warnings.
 * 3.14 vlt  12/18/25 Update Doxygen comments to include SDT flow details.
+* 3.15 vn   08/26/26 Fix Doxygen warnings.
 * </pre>
 *
 ******************************************************************************/
+
+
+/** @addtogroup xspips_slave_polled_example
+ * @{
+ */
 
 /***************************** Include Files *********************************/
 
@@ -198,3 +204,4 @@ int SpiPsSlavePolledExample(UINTPTR BaseAddress)
 
 	return XST_SUCCESS;
 }
+/** @} */

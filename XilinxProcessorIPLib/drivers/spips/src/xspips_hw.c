@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2013 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -24,6 +25,7 @@
 * 			entries. This change is to tackle CR#910231.
 * 3.1   tjs    11/23/18 Added a check for A72 and R5 processor to
 *                       avoid changes made for the workaround DT#842463.
+* 3.15  vn     08/26/26 Fix Doxygen warnings.
 * </pre>
 *
 ******************************************************************************/
@@ -50,8 +52,6 @@
 * Resets the spi module
 *
 * @param    BaseAddress is the base address of the device.
-*
-* @return	None
 *
 * @note		None.
 *

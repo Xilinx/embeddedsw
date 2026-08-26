@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -28,6 +29,7 @@
 * 3.2   aru    01/20/19 Fixes violations according to MISRAC-2012
 *                       in safety mode and done changes such as
 *                       Declared the pointer param as Pointer to const
+* 3.15  vn     08/26/26 Fix Doxygen warnings.
 * </pre>
 *
 ******************************************************************************/
@@ -377,8 +379,6 @@ s32 XSpiPs_SetDelays(const XSpiPs *InstancePtr, u8 DelayNss, u8 DelayBtwn,
 *		This is a return parameter.
 * @param	DelayInit is a pointer to the Delay Initially value. This is
 *		a return parameter.
-*
-* @return	None.
 *
 * @note		None.
 *

@@ -25,10 +25,15 @@
 * 3.9   sb  07/05/23 Added support for system device-tree flow.
 *       pre 10/23/25 Fixed bug in TPM command transmission
 * 3.14 vlt  12/18/25 Update Doxygen comments to include SDT flow details.
+* 3.15 vn   08/26/26 Fix Doxygen warnings.
 *
 *</pre>
 *
 ******************************************************************************/
+
+/** @addtogroup xspips_tpm_polled_example
+ * @{
+ */
 
 /***************************** Include Files *********************************/
 
@@ -181,8 +186,6 @@ static u8 sha256[XSPIPS_TPM_SHA256_DIGEST_SIZE] = {
 /**
 *
 * Main function to call the Spi TPM example.
-*
-* @param	None
 *
 * @return	XST_SUCCESS if successful, otherwise XST_FAILURE.
 *
@@ -609,7 +612,7 @@ int SpiPsTpmAccessSet(XSpiPs *SpiPtr, u8 Access)
 * This function reads data from TPM FIFO.
 *
 * @param	SpiPtr is a pointer to the SPIPS driver component to use.
-* @param	Data is to be read to data FIFO
+* @param	DataPtr is to be read to data FIFO
 * @param	ByteCount is the number of bytes to read.
 *
 * @return	XST_SUCCESS if successful, else XST_FAILURE.
@@ -794,3 +797,4 @@ int SpiPsTpmDataTransfer(XSpiPs *SpiPtr, u8 *TxBuf, u8 *RxBuf, u16 Txlen)
 
 	return XST_SUCCESS;
 }
+/** @} */

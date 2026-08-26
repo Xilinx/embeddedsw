@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -30,6 +31,7 @@
 * 1.06a hk      08/22/13 Added prototypes of reset API and related constant
 *                        definitions.
 * 3.00  kvn     02/13/15 Modified code for MISRA-C:2012 compliance.
+* 3.15  vn      08/26/26 Fix Doxygen warnings.
 *
 * </pre>
 *
@@ -67,7 +69,7 @@ extern "C" {
 #define XSPIPS_SICR_OFFSET	0x24U  /**< Slave Idle Count */
 #define XSPIPS_TXWR_OFFSET	0x28U  /**< Transmit FIFO Watermark */
 #define XSPIPS_RXWR_OFFSET	0x2CU  /**< Receive FIFO Watermark */
-/* @} */
+/** @} */
 
 /** @name Configuration Register
  *
@@ -95,7 +97,7 @@ extern "C" {
 
 #define XSPIPS_CR_MSTREN_MASK    0x00000001U /**< Master Mode Enable */
 #define XSPIPS_CR_RESET_STATE    0x00020000U /**< Mode Fail Generation Enable */
-/* @} */
+/** @} */
 
 
 /** @name SPI Interrupt Registers
@@ -148,7 +150,7 @@ extern "C" {
 						       * reg empty */
 #define XSPIPS_IXR_DISABLE_ALL_MASK	0x00000043U  /**< Disable all
 						       * interrupts */
-/* @} */
+/** @} */
 
 
 /** @name Enable Register
@@ -158,7 +160,7 @@ extern "C" {
  * @{
  */
 #define XSPIPS_ER_ENABLE_MASK	0x00000001U /**< SPI Enable Bit Mask */
-/* @} */
+/** @} */
 
 
 /** @name Delay Register
@@ -178,7 +180,7 @@ extern "C" {
 #define XSPIPS_DR_AFTER_MASK	0x0000FF00U /**< Delay After Transfers mask */
 #define XSPIPS_DR_AFTER_SHIFT	8U 	   /**< Delay After Transfers shift */
 #define XSPIPS_DR_INIT_MASK	0x000000FFU /**< Delay Initially mask */
-/* @} */
+/** @} */
 
 
 /** @name Slave Idle Count Registers
@@ -191,7 +193,7 @@ extern "C" {
  * @{
  */
 #define XSPIPS_SICR_MASK	0x000000FFU /**< Slave Idle Count Mask */
-/* @} */
+/** @} */
 
 
 
@@ -206,7 +208,7 @@ extern "C" {
 #define XSPIPS_TXWR_MASK	0x0000007FU /**< Transmit Watermark Mask */
 #define XSPIPS_TXWR_RESET_VALUE	0x00000001U /**< Transmit Watermark
 					      * register reset value */
-/* @} */
+/** @} */
 
 /** @name Receive FIFO Watermark Register
  *
@@ -219,7 +221,7 @@ extern "C" {
 #define XSPIPS_RXWR_MASK	0x0000007FU /**< Receive Watermark Mask */
 #define XSPIPS_RXWR_RESET_VALUE	0x00000001U /**< Receive Watermark
 					      * register reset value */
-/* @} */
+/** @} */
 
 /** @name FIFO Depth
  *
@@ -228,7 +230,7 @@ extern "C" {
  * @{
  */
 #define XSPIPS_FIFO_DEPTH	128U /**< FIFO depth of Tx and Rx */
-/* @} */
+/** @} */
 
 /**************************** Type Definitions *******************************/
 

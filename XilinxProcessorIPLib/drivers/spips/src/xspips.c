@@ -60,6 +60,7 @@
 * 3.12  sb     02/24/25 Use delay in interrupt handler for slave mode only.
 * 3.13  sb     09/09/25 Fix chip selection issues
 * 3.14  sb     04/01/26 Fix TX/RX FIFO byte-order handling.
+* 3.15  vn     08/26/26 Fix Doxygen warnings.
 * </pre>
 *
 ******************************************************************************/
@@ -220,8 +221,6 @@ s32 XSpiPs_CfgInitialize(XSpiPs *InstancePtr, const XSpiPs_Config *ConfigPtr,
 * and restarting the SPI device after the reset.
 *
 * @param	InstancePtr is a pointer to the XSpiPs instance.
-*
-* @return	None.
 *
 * @note		None.
 *
@@ -825,8 +824,6 @@ u8 XSpiPs_GetSlaveSelect(const XSpiPs *InstancePtr)
 *		when the callback function is invoked.
 * @param	FunctionPtr is the pointer to the callback function.
 *
-* @return	None.
-*
 * @note
 *
 * The handler is called within interrupt context, so it should do its work
@@ -904,8 +901,6 @@ static void StubStatusHandler(const void *CallBackRef, u32 StatusEvent,
 *   other than to inform the upper layer software of the error.
 *
 * @param	InstancePtr is a pointer to the XSpiPs instance.
-*
-* @return	None.
 *
 * @note
 *
@@ -1148,8 +1143,6 @@ END:
 * fault is cleared.
 *
 * @param	InstancePtr is a pointer to the XSpiPs instance.
-*
-* @return	None.
 *
 * @note
 *
