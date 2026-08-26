@@ -34,9 +34,14 @@
 * 3.9   gm   09/05/23 Corrected SDT support checks.
 * 3.12  bkv  07/07/25 Fixed GCC Warnings.
 * 3.13  vlt  12/18/25 Update Doxygen comments to include SDT flow details.
+* 3.14  vn   08/26/26 Fix Doxygen warnings
 *
 * </pre>
 ******************************************************************************/
+
+/** @addtogroup xuartlite_intr_example
+ * @{
+ */
 
 /***************************** Include Files *********************************/
 
@@ -550,4 +555,4 @@ static void UartLiteDisableIntrSystem(INTC *IntcInstancePtr,
 
 }
 #endif
-
+/** @} */

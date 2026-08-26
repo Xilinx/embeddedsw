@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2002 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -23,6 +23,7 @@
 * 1.00b jhl  02/21/02 Repartitioned the driver for smaller files
 * 2.00a ktn  10/20/09 Updated to use HAL Processor APIs.
 *		      XUartLite_mClearStats macro is removed.
+* 3.14  vn   08/26/26 Fix Doxygen warnings
 * </pre>
 *
 *****************************************************************************/
@@ -58,8 +59,6 @@
 * @param	StatsPtr is a pointer to a XUartLiteStats structure to where the
 *		statistics are to be copied.
 *
-* @return	None.
-*
 * @note		None.
 *
 *****************************************************************************/
@@ -92,8 +91,6 @@ void XUartLite_GetStats(XUartLite *InstancePtr, XUartLite_Stats *StatsPtr)
 * This function zeros the statistics for the given instance.
 *
 * @param	InstancePtr is a pointer to the XUartLite instance.
-*
-* @return	None.
 *
 * @note		None.
 *

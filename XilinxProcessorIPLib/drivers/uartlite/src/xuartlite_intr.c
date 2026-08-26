@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2002 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -28,6 +28,7 @@
 *		      renamed to remove _m from the name.
 * 3.8	gm   09/25/22 Use XUartLite_GetSR instead of accessing status register
 *                     directly.
+* 3.14 vn  08/26/26 Fix Doxygen warnings
 * </pre>
 *
 *****************************************************************************/
@@ -65,8 +66,6 @@ typedef void (*Handler)(XUartLite *InstancePtr);
 * @param	CallBackRef is the upper layer callback reference passed back
 *		when the callback function is invoked.
 *
-* @return	None.
-*
 * @note		There is no assert on the CallBackRef since the driver doesn't
 *		know what it is (nor should it)
 *
@@ -98,8 +97,6 @@ void XUartLite_SetRecvHandler(XUartLite *InstancePtr,
 * @param	CallBackRef is the upper layer callback reference passed back
 *		when the callback function is invoked.
 *
-* @return 	None.
-*
 * @note		There is no assert on the CallBackRef since the driver doesn't
 *		know what it is (nor should it)
 *
@@ -130,8 +127,6 @@ void XUartLite_SetSendHandler(XUartLite *InstancePtr,
 *
 * @param	InstancePtr contains a pointer to the instance of the UART that
 *		the interrupt is for.
-*
-* @return	None.
 *
 * @note		None.
 *
@@ -259,8 +254,6 @@ static void SendDataHandler(XUartLite *InstancePtr)
 *
 * @param	InstancePtr is a pointer to the XUartLite instance.
 *
-* @return	None.
-*
 * @note		None.
 *
 *****************************************************************************/
@@ -288,8 +281,6 @@ void XUartLite_DisableInterrupt(XUartLite *InstancePtr)
 * transitions from not empty to empty.
 *
 * @param	InstancePtr is a pointer to the XUartLite instance.
-*
-* @return	None.
 *
 * @note		None.
 *

@@ -54,6 +54,7 @@
 * 3.8	gm   09/25/22 Use XUartLite_GetSR instead of accessing status register
 *                     directly.
 * 3.13  vlt  01/27/26 Fixed codespell issues
+* 3.14  vn   08/26/26 Fix Doxygen warnings
 *
 * </pre>
 *
@@ -333,8 +334,6 @@ unsigned int XUartLite_Recv(XUartLite *InstancePtr, u8 *DataBufferPtr,
 * FIFOs to get rid of any unwanted data.
 *
 * @param	InstancePtr is a pointer to the XUartLite instance .
-*
-* @return	None.
 *
 * @note		None.
 *

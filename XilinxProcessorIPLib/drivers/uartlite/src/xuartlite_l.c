@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2002 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -30,6 +30,7 @@
 *       	      don't pull it for PLM template app case.
 *       ss   07/11/25 Add define for ASUFW as outbyte() specific implementation
 *                     for ASUFW is added
+* 3.14  vn   08/26/26 Fix Doxygen warnings
 * </pre>
 *
 ******************************************************************************/
@@ -62,8 +63,6 @@
 *
 * @param	BaseAddress is the base address of the device
 * @param	Data is the byte of data to send
-*
-* @return	None.
 *
 * @note		None.
 *

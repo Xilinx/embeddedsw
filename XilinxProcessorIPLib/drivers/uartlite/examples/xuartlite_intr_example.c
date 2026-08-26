@@ -33,9 +33,14 @@
 * 3.9   gm   07/08/23 Added SDT support
 * 3.12  bkv  07/07/25 Fixed GCC Warnings.
 * 3.13  vlt  12/18/25 Update Doxygen comments to include SDT flow details.
+* 3.14  vn   08/26/26 Fix Doxygen warnings
 *
 * </pre>
 ******************************************************************************/
+
+/** @addtogroup xuartlite_intr_example
+ * @{
+ */
 
 /***************************** Include Files *********************************/
 
@@ -331,8 +336,6 @@ int UartLiteIntrExample(XUartLite *UartLiteInstPtr,
 * @param	EventData contains the number of bytes sent or received for sent
 *		and receive events.
 *
-* @return	None.
-*
 * @note		None.
 *
 ****************************************************************************/
@@ -359,8 +362,6 @@ void SendHandler(void *CallBackRef, unsigned int EventData)
 *		this case it is the instance pointer for the UartLite driver.
 * @param	EventData contains the number of bytes sent or received for sent
 *		and receive events.
-*
-* @return	None.
 *
 * @note		None.
 *
@@ -500,5 +501,4 @@ static int SetupInterruptSystem(INTC *IntcInstancePtr,
 	return XST_SUCCESS;
 }
 #endif
-
-
+/** @} */
