@@ -15,6 +15,7 @@
 # 5.2   ap    10/11/23 Add TRIM option for SDT flow.
 # 5.3   oh    07/24/24 Updated Library version for 2024.2
 # 5.6   an    11/12/25 Update the FatFS version to R0.16
+# 5.7   an    08/26/26 Updated Library version for 2026.2
 ##############################################################################
 
 OPTION psf_version = 2.1;
@@ -25,7 +26,7 @@ BEGIN LIBRARY xilffs
   OPTION REQUIRES_OS = (standalone freertos10_xilinx);
   OPTION APP_LINKER_FLAGS = "-Wl,--start-group,-lxilffs,-lxil,-lgcc,-lc,--end-group";
   OPTION desc = "Generic Fat File System Library R0.16";
-  OPTION VERSION = 5.6;
+  OPTION VERSION = 5.7;
   OPTION NAME = xilffs;
   PARAM name = fs_interface, desc = "Enables file system with selected interface. Enter 1 for SD. Enter 2 for RAM", type = int, default = 1;
   PARAM name = read_only, desc = "Enables the file system in Read_Only mode if true. ZynqMP fsbl will set this to true", type = bool, default = false;

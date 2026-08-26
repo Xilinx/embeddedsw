@@ -21,6 +21,7 @@
  * ----- ---- -------- -------------------------------------------------------
  * 5.2   ht   10/10/23    Added code for versioning of library.
  * 5.6   an   11/12/25    Update the FatFS version to R0.16
+ * 5.7   an   08/26/26    Updated Library version for 2026.2
  *
  *</pre>
  *
@@ -40,8 +41,8 @@ extern "C" {
 
 /************************** Constant Definitions *****************************/
 /* Library version info */
-#define XILFFS_MAJOR_VERSION	5U
-#define XILFFS_MINOR_VERSION	6U
+#define XILFFS_MAJOR_VERSION	5U	/**< Major version of xilffs library */
+#define XILFFS_MINOR_VERSION	7U	/**< Minor version of xilffs library */
 
 /****************** Macros (Inline Functions) Definitions *********************/
 
