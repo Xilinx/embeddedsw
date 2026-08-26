@@ -34,7 +34,7 @@ extern "C" {
 #include "xil_types.h"
 #include "xparameters.h"
 #include "xstatus.h"
-#ifndef PLATFORM_MB
+#if !defined (PLATFORM_MB) && !defined (__riscv)
 #include "xscugic.h"
 #else
 #include "xintc.h"
@@ -50,7 +50,7 @@ extern "C" {
 #else
 #include "xvphy.h"
 #include "xvphy_i.h"
-#ifndef PLATFORM_MB
+#if !defined (PLATFORM_MB) && !defined (__riscv)
 #include "xuartps_hw.h"
 #include "xiicps.h"
 #else
@@ -83,7 +83,7 @@ extern "C" {
 * There is only one interrupt controlled to be selected from SCUGIC and GPIO
 * INTC. INTC selection is based on INTC parameters defined xparameters.h file.
 */
-#ifndef PLATFORM_MB
+#if !defined (PLATFORM_MB) && !defined (__riscv)
 #else
 #endif
 
@@ -169,7 +169,7 @@ extern "C" {
  */
 #define VERSAL_FABRIC_8B10B             1
 #else
-#ifndef PLATFORM_MB
+#if !defined (PLATFORM_MB) && !defined (__riscv)
 #define XINTC_DEVICE_ID			XPAR_SCUGIC_SINGLE_DEVICE_ID
 #else
 #define XINTC_DEVICE_ID	XPAR_INTC_0_DEVICE_ID

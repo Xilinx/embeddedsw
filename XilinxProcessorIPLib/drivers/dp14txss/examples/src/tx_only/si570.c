@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2020 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -23,7 +24,7 @@
 #include "xbasic_types.h"
 #include "xdptxss_dp14_tx.h"
 
-#ifdef PLATFORM_MB
+#if defined (PLATFORM_MB) || defined (__riscv)
 #if ENABLE_AUDIO
 volatile u8 TransmitComplete;   /* Flag to check completion of Transmission */
 volatile u8 ReceiveComplete;    /* Flag to check completion of Reception */

@@ -57,7 +57,7 @@ void* VPhyInst;
 extern volatile u8 hpd_pulse_con_event;
 volatile u8 prev_line_rate; /*This previous line rate to keep previous info to compare
 						with new line rate request*/
-#ifndef PLATFORM_MB
+#if !defined (PLATFORM_MB) && !defined (__riscv)
 XScuGic IntcInst;
 #else
 XIntc IntcInst;
@@ -70,7 +70,7 @@ extern XTmrCtr TmrCtr; /* Timer instance.*/
 XDp_TxVscExtPacket VscPkt;	/* VSC Packet to populate the vsc data to be sent by
 								tx */
 
-#ifdef PLATFORM_MB
+#if defined (PLATFORM_MB) || defined (__riscv)
 XIic  IicPtr;
 typedef u8 AddressType;
 u8 si570_reg_value[NUM_MODES][NUM_CLOCK_REGS] = {
@@ -251,7 +251,7 @@ int main()
 	return XST_SUCCESS;
 }
 
-#ifndef PLATFORM_MB
+#if !defined (PLATFORM_MB) && !defined (__riscv)
 int I2cMux_Ps(u8 Data)
 {
         u8 Buffer;
@@ -386,7 +386,7 @@ u32 DpTxSs_Main(UINTPTR BaseAddress)
 	xil_printf ("Compliance mode not supported for Versal\r\n");
 	set_phy = 0;
 #endif
-#ifdef PLATFORM_MB
+#if defined (PLATFORM_MB) || defined (__riscv)
 	xil_printf ("Compliance mode not supported for VCU118\r\n");
 	set_phy = 0;
 #endif
@@ -407,7 +407,7 @@ u32 DpTxSs_Main(UINTPTR BaseAddress)
 	// I2C MUX device address : 0x74
 	// Si570 device address : 0x5D
 	//setting Si570 on zcu102 to be 24.576MHz for audio
-#ifndef PLATFORM_MB
+#if !defined (PLATFORM_MB) && !defined (__riscv)
 #ifdef versal
 	I2cMux_Ps(0x40);
 #endif
@@ -562,7 +562,7 @@ u32 DpTxSs_PlatformInit(void)
 	// Set up timer options.
 	XTmrCtr_SetResetValue(&TmrCtr, XTC_TIMER_0, TIMER_RESET_VALUE);
 	XTmrCtr_Start(&TmrCtr, XTC_TIMER_0);
-#ifndef PLATFORM_MB
+#if !defined (PLATFORM_MB) && !defined (__riscv)
 #ifdef versal
      /*
       * Get the CLK_WIZ Dynamic reconfiguration driver instance
@@ -2257,7 +2257,7 @@ int VideoFMC_Init(void){
     XIic_Reset(&IicInstance);
 
 	/* Set the I2C Mux to select the HPC FMC */
-#ifndef PLATFORM_MB
+#if !defined (PLATFORM_MB) && !defined (__riscv)
 	Buffer[0] = 0x01; // Enable HPC0
 #else
 	Buffer[0] = 0x02; // Enable HPC0

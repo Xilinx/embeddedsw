@@ -47,7 +47,7 @@
 #include <xstatus.h>
 #include <xtmrctr.h>
 #include "xinterrupt_wrap.h"
-#ifndef PLATFORM_MB
+#if !defined (PLATFORM_MB) && !defined (__riscv)
 #include <xuartps_hw.h>
 #include "xscugic.h"
 #include "xiicps.h"
@@ -74,7 +74,7 @@
 * INTC. INTC selection is based on INTC parameters defined xparameters.h file.
 */
 #define XPAR_IIC_0_BASEADDR XPAR_AXI_IIC_0_BASEADDR
-#ifndef PLATFORM_MB
+#if !defined (PLATFORM_MB) && !defined (__riscv)
 #define XINTC_DPRXSS_DP_INTERRUPT_ID \
 	XPAR_FABRIC_DP14RXSS_0_VEC_ID
 #define XINTC 			XScuGic
@@ -396,7 +396,7 @@ int VideoFMC_Init(void){
     XIic_Reset(&IicInstance);
 
 	/* Set the I2C Mux to select the HPC FMC */
-#ifndef PLATFORM_MB
+#if !defined (PLATFORM_MB) && !defined (__riscv)
 	Buffer[0] = 0x07;
 #else
 	Buffer[0] = 0x02;
@@ -1701,7 +1701,7 @@ void ReportVideoCRC()
 	XVidFrameCrc_Report();
 }
 
-#ifndef PLATFORM_MB
+#if !defined (PLATFORM_MB) && !defined (__riscv)
 /*****************************************************************************/
 /**
 *
@@ -2306,7 +2306,7 @@ char xil_getc(u32 timeout_ms){
 	  XTmrCtr_Start(&TmrCtr, 0);
 	}
 
-#ifndef PLATFORM_MB
+#if !defined (PLATFORM_MB) && !defined (__riscv)
 	while((!XUartPs_IsReceiveData(STDIN_BASEADDRESS)) && (timeout == 0)){
 #else
 	while(XUartLite_IsReceiveEmpty(STDIN_BASEADDRESS) && (timeout == 0)){
@@ -2326,7 +2326,7 @@ char xil_getc(u32 timeout_ms){
 	if(timeout == 1){
 		c = 0;
 	} else {
-#ifndef PLATFORM_MB
+#if !defined (PLATFORM_MB) && !defined (__riscv)
 		c = XUartPs_RecvByte_NonBlocking();
 #else
 		c = XUartLite_RecvByte(STDIN_BASEADDRESS);
