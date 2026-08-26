@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2007 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -9,8 +9,6 @@
 *
 * @file xilflash.h
 * @addtogroup xilflash_apis Library-APIs
-* @{
-* @cond xilflash_internal
 * @{
 *
 * This module implements the functionality for flash memory devices that
@@ -200,6 +198,7 @@
 * 4.7	akm  07/23/19 Initialized Status variable to XST_FAILURE.
 * 4.8	sne  04/23/21 Fixed doxygen warnings.
 * 4.10	akm  07/14/23 Added support for system device-tree flow.
+* 4.14 vn   08/26/26 Fix Doxygen warnings.
 * </pre>
 *
 ***************************************************************************/
@@ -210,6 +209,9 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
+
+/** @cond xilflash_internal */
+/** @{ */
 
 /***************************** Include Files *********************************/
 
@@ -609,9 +611,8 @@ typedef struct XFlashTag {
 	 ((Block) < (GeometryPtr)->EraseRegion[Region].Number) &&	     \
 	 ((BlockOffset) < (GeometryPtr)->EraseRegion[Region].Size))
 
-/**
-@}
-@endcond */
+/** @} */
+/**@endcond */
 
 /************************** Function Prototypes ******************************/
 
@@ -630,9 +631,10 @@ int XFlash_Lock(XFlash *InstancePtr, u32 Offset, u32 Bytes);
 int XFlash_Unlock(XFlash *InstancePtr, u32 Offset, u32 Bytes);
 int XFlash_IsReady(XFlash *InstancePtr);
 
+/** @} */
+
 #ifdef __cplusplus
 }
 #endif
 
 #endif /* end of protection macro */
-/* @} */

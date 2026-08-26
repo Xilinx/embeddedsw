@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2007 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -29,6 +29,7 @@
 *		      API, as required by the new version of the library
 * 4.7	akm  07/23/19 Initialized Status variable to XST_FAILURE.
 * 4.10	akm  07/14/23 Added support for system device-tree flow.
+* 4.14 vn   08/26/26 Fix Doxygen warnings.
 *</pre>
 ******************************************************************************/
 
@@ -101,8 +102,6 @@ u8 WriteBuffer[FLASH_TEST_SIZE]; /* Write buffer. */
 *
 * Main function to execute the Platform Flash Read/Write example.
 *
-* @param	None
-*
 * @return	XST_SUCCESS if successful else XST_FAILURE.
 *
 * @note		None.
@@ -126,8 +125,6 @@ int main(void)
 /**
 *
 * This function writes, reads, and verifies the data to the Flash device.
-*
-* @param	None
 *
 * @return	XST_SUCCESS if successful else XST_FAILURE.
 *

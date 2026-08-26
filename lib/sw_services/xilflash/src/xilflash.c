@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2007 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -41,6 +41,7 @@
 *		      fails to work.
 * 4.4   ms   08/03/17 Added tags and modified comment lines style for doxygen.
 * 4.10	akm  07/14/23 Added support for system device-tree flow.
+* 4.14  vn   08/26/26 Fix Doxygen warnings.
 * </pre>
 *
 *
@@ -84,9 +85,9 @@ static int SetVTable(XFlash *InstancePtr);
 * 	- Set default options for the instance.
 * 	- Setup the VTable.
 * 	- Call the family initialize function of the instance.
-*	- Initialize the Xilinx Platform Flash XL to Async mode if the user
-*	  selects to use the Platform Flash XL in the MLD. The Platform Flash XL
-*	  is an Intel CFI complaint device.
+* 	- Initialize the Xilinx Platform Flash XL to Async mode if the user
+* 	  selects to use the Platform Flash XL in the MLD. The Platform Flash XL
+* 	  is an Intel CFI complaint device.
 *
 * @param	InstancePtr	Pointer to the XFlash instance.
 * @param	BaseAddress	Base address of the flash memory.
