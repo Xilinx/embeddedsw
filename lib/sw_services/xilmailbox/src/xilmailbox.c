@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2019 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -10,7 +10,6 @@
  * @file xilmailbox.c
  * @addtogroup xilmailbox Overview
  * @{
- * @details
  *
  * This file contains the definitions for xilinx mailbox library top level
  * functions.
@@ -32,6 +31,7 @@
  * 			  different IPI channels concurrently.
  * 			  Use RemoteId based APIs to support concurrent IPI
  * 			  channel requests.
+ * 1.14  vn   08/26/26    Fix Doxygen warnings.
  *
  *</pre>
  *
@@ -274,6 +274,8 @@ u32 XMailbox_GetSharedMem(XMailbox *InstancePtr, u64 **Address)
 *
 * @brief	This function releases the shared memory
 *
+* @param	InstancePtr is a pointer to the XMailbox instance.
+*
 * @return
 *	-	XST_SUCCESS - if memory is released
 *	-	XST_FAILURE - if memory is not released
@@ -293,3 +295,4 @@ int XMailbox_ReleaseSharedMem(XMailbox *InstancePtr)
 
 	return Status;
 }
+/** @} */

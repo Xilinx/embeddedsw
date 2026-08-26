@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2023 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (c) 2023 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -9,7 +9,6 @@
  * @file xilmailbox_ipips_intr.c
  * @addtogroup xilmailbox Overview
  * @{
- * @details
  *
  * This file contains the definitions for XIpiPs_PollforDone and XIpiPs_RegisterIrq.
  *
@@ -30,6 +29,7 @@
  * 			  different IPI channels concurrently.
  * 			  Use RemoteId based APIs to support concurrent IPI
  * 			  channel requests.
+ * 1.14  vn   08/26/26    Fix Doxygen warnings.
  *
  *  *</pre>
  *
@@ -128,8 +128,12 @@ u32 XIpiPs_PollforDoneById(XMailbox *InstancePtr, u32 RemoteId)
 /**
  * This function registers an irq
  *
- * @param IntcInstancePtr Pointer to the scugic instance
+ * @if SDT
  * @param InstancePtr Pointer to the XMailbox instance
+ * @else
+ * @param IntcInstancePtr Pointer to the XScuGic instance
+ * @param InstancePtr Pointer to the XMailbox instance
+ * @endif
  * @param IpiIntrId is the interrupt id of the IPI
  *
  * @return
@@ -239,3 +243,4 @@ XStatus XIpiPs_RegisterIrq(XMailbox *InstancePtr, u32 IpiIntrId)
 }
 #endif
 #endif
+/** @} */

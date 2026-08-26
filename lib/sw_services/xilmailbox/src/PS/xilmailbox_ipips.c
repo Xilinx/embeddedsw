@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2019 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -10,7 +10,6 @@
  * @file xilmailbox_ipips.c
  * @addtogroup xilmailbox Overview
  * @{
- * @details
  *
  * This file contains the definitions for ZynqMP and versal IPI implementation.
  *
@@ -40,6 +39,7 @@
  * 			  different IPI channels concurrently.
  * 			  Use RemoteId based APIs to support concurrent IPI
  * 			  channel requests.
+ * 1.14  vn   08/26/26   Fix Doxygen warnings.
  *</pre>
  *
  *@note
@@ -58,7 +58,11 @@
  * Initialize the XMailbox Instance
  *
  * @param	InstancePtr is a pointer to the instance to be worked on
+ * @if SDT
+ * @param	BaseAddress is the base address of the IPI instance
+ * @else
  * @param	DeviceId is the IPI Instance to be worked on
+ * @endif
  *
  * @return	XST_SUCCESS if initialization was successful
  * 		XST_FAILURE in case of failure
@@ -93,4 +97,4 @@ u32 XMailbox_Initialize(XMailbox *InstancePtr, UINTPTR BaseAddress)
 #endif
 	return Status;
 }
-
+/** @} */

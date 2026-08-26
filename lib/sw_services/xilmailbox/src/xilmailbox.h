@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2019 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2023 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -59,6 +59,7 @@
  * 			  different IPI channels concurrently.
  * 			  Use RemoteId based APIs to support concurrent IPI
  * 			  channel requests.
+ * 1.14  vn   08/26/26    Fix Doxygen warnings.
  *
  *</pre>
  *
@@ -194,4 +195,5 @@ int XMailbox_ReleaseSharedMem(XMailbox *InstancePtr);
 }
 #endif
 
+/** @} */
 #endif /* XILMAILBOX_H */

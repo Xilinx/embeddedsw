@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2019 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -10,7 +10,6 @@
  * @file xilmailbox_ipips.h
  * @addtogroup xilmailbox Overview
  * @{
- * @details
  *
  * <pre>
  * MODIFICATION HISTORY:
@@ -23,6 +22,7 @@
  * 1.8   ht   07/24/23    Restructure the code for more modularity
  * 1.12  ht   06/04/25    Refactor conditional inclusion of interrupt headers.
  * 1.12  an   08/22/25    Refactor to skip interrupt registration for PMC, PSM
+ * 1.14  vn   08/26/26    Fix Doxygen warnings.
  *</pre>
  *
  *@note
@@ -115,4 +115,5 @@ typedef struct {
 }
 #endif
 
+/** @} */
 #endif /* XILMAILBOX_IPIPS_H */

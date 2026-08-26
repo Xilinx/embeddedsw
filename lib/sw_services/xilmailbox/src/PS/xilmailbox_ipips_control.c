@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2023 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (c) 2023 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -9,7 +9,6 @@
  * @file xilmailbox_ipips_control.c
  * @addtogroup xilmailbox Overview
  * @{
- * @details
  *
  * This file contains the options for ZynqMP and versal IPI implementation.
  *
@@ -29,6 +28,7 @@
  * 			  different IPI channels concurrently.
  * 			  Use RemoteId based APIs to support concurrent IPI
  * 			  channel requests.
+ * 1.14  vn   08/26/26    Fix Doxygen warnings
  *
  *  *</pre>
  *
@@ -47,7 +47,11 @@
  * Initialize the ZynqMP Mailbox Instance
  *
  * @param       InstancePtr is a pointer to the instance to be worked on
+ * @if SDT
+ * @param       BaseAddress is the base address of the IPI instance
+ * @else
  * @param       DeviceId is the IPI Instance to be worked on
+ * @endif
  *
  * @return      XST_SUCCESS if initialization was successful
  *              XST_FAILURE in case of failure
@@ -321,8 +325,6 @@ u32 XIpiPs_RecvDataById(XMailbox *InstancePtr, void *MsgBufferPtr, u32 MsgLen,
  *
  * @param XMailboxPtr Pointer to the XMailbox instance
  *
- * @return      None
- *
  ****************************************************************************/
 void XIpiPs_IntrHandler(void *XMailboxPtr)
 {
@@ -346,8 +348,6 @@ void XIpiPs_IntrHandler(void *XMailboxPtr)
  *
  * @param XMailboxPtr Pointer to the XMailbox instance
  *
- * @return      None
- *
  ****************************************************************************/
 void XIpiPs_ErrorIntrHandler(void *XMailboxPtr)
 {
@@ -364,3 +364,4 @@ void XIpiPs_ErrorIntrHandler(void *XMailboxPtr)
 }
 #endif
 #endif
+/** @} */

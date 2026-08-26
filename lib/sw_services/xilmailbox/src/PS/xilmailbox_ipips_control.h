@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2023 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (c) 2023 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -9,7 +9,6 @@
  * @file xilmailbox_ipips_control.h
  * @addtogroup xilmailbox Overview
  * @{
- * @details
  *
  * <pre>
  * MODIFICATION HISTORY:
@@ -26,6 +25,7 @@
  * 			  different IPI channels concurrently.
  * 			  Use RemoteId based APIs to support concurrent IPI
  * 			  channel requests.
+ * 1.14  vn   08/26/26    Fix Doxygen warnings.
  *
  *  *</pre>
  *
@@ -98,4 +98,5 @@ XStatus XIpiPs_RegisterIrq(XMailbox *InstancePtr, u32 IpiIntrId);
 }
 #endif
 
+/** @} */
 #endif /* XILMAILBOX_IPIPS_CONTROL_H */
