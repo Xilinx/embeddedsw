@@ -36,6 +36,7 @@
 * 1.20  sb  05/20/24 Add support for ISSI flash is25lp01gg
 * 1.20  sb  09/13/24 Updated examples to configure correct baud rate value
 *       zm  07/15/26 Add support for Macronix flash mx25u25635f.
+* 1.24  vn  08/26/26 Fix Doxygen warnings.
 *
 *</pre>
 *
@@ -712,4 +713,3 @@ static INLINE u8 CalculatePreScaler(u8 BaudRateDiv)
 #endif
 
 #endif /* XQSPIPSU_FLASH_CONFIG_H_ */
-/** @} */

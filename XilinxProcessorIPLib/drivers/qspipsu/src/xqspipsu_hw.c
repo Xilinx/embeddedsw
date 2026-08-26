@@ -31,6 +31,7 @@
  * 			 Microblaze platform.
  * 1.22   sb   10/24/25 Added cache invalidate when EL1_NONSECURE is not defined.
  *        zm   06/18/26 Queued whole transfer into GENFIFO to fix bus conflict.
+ * 1.24   vn   08/26/26 Fix Doxygen warnings.
  *
  * </pre>
  ******************************************************************************/
@@ -63,8 +64,6 @@
  * @param	InstancePtr Pointer to the XQspiPsu instance.
  * @param	Msg Pointer to the structure containing transfer data.
  * @param	Size Number of bytes to be transmitted.
- *
- * @return	None
  *
  * @note	None.
  *
@@ -117,8 +116,6 @@ void XQspiPsu_FillTxFifo(XQspiPsu *InstancePtr, XQspiPsu_Msg *Msg, u32 Size)
  * @param	InstancePtr Pointer to the XQspiPsu instance.
  * @param	Msg Pointer to the structure containing transfer data.
  *
- * @return	None
- *
  * @note	None.
  *
  ******************************************************************************/
@@ -143,8 +140,6 @@ void XQspiPsu_TXSetup(XQspiPsu *InstancePtr, XQspiPsu_Msg *Msg)
  *
  * @param	InstancePtr Pointer to the XQspiPsu instance.
  * @param	Msg Pointer to the structure containing transfer data.
- *
- * @return	None
  *
  * @note	None.
  *
@@ -205,8 +200,6 @@ void XQspiPsu_SetupRxDma(const XQspiPsu *InstancePtr,
  *
  * @param	InstancePtr Pointer to the XQspiPsu instance.
  * @param	Msg Pointer to the structure containing transfer data.
- *
- * @return	None
  *
  * @note	None.
  *
@@ -297,8 +290,6 @@ u32 XQspiPsu_SetIOMode(XQspiPsu *InstancePtr, XQspiPsu_Msg *Msg)
  * @param	InstancePtr Pointer to the XQspiPsu instance.
  * @param	Msg Pointer to the structure containing transfer data.
  *
- * @return	None
- *
  *
  ******************************************************************************/
 void XQspiPsu_RXSetup(XQspiPsu *InstancePtr, XQspiPsu_Msg *Msg)
@@ -331,8 +322,6 @@ void XQspiPsu_RXSetup(XQspiPsu *InstancePtr, XQspiPsu_Msg *Msg)
  * @param	Msg Pointer to the structure containing transfer data.
  * @param	GenFifoEntry Pointer to the variable in which GENFIFO mask
  *		is returned to calling function
- *
- * @return	None
  *
  *
  ******************************************************************************/
@@ -409,11 +398,6 @@ void XQspiPsu_TXRXSetup(XQspiPsu *InstancePtr, XQspiPsu_Msg *Msg,
  * @param	InstancePtr Pointer to the XQspiPsu instance.
  * @param	Msg Pointer to the structure containing transfer data.
  * @param	GenFifoEntry Pointer to the variable in which GENFIFO mask is returned to the calling function.
- *
- * @return
- *		- XST_SUCCESS if successful.
- *		- XST_FAILURE if transfer fails.
- *		- XST_DEVICE_BUSY if a transfer is already in progress.
  *
  *
  ******************************************************************************/
@@ -560,8 +544,6 @@ u32 XQspiPsu_SelectSpiMode(u8 SpiMode)
  *
  * @param	InstancePtr Pointer to the XQspiPsu instance.
  *
- * @return	None.
- *
  *
  ******************************************************************************/
 void XQspiPsu_SetDefaultConfig(XQspiPsu *InstancePtr)
@@ -627,8 +609,6 @@ void XQspiPsu_SetDefaultConfig(XQspiPsu *InstancePtr)
  * @param	Msg Pointer to the structure containing transfer data.
  * @param	Size Number of bytes to be read.
  *
- * @return	None
- *
  *
  ******************************************************************************/
 void XQspiPsu_ReadRxFifo(XQspiPsu *InstancePtr,	XQspiPsu_Msg *Msg, s32 Size)
@@ -673,8 +653,6 @@ void XQspiPsu_ReadRxFifo(XQspiPsu *InstancePtr,	XQspiPsu_Msg *Msg, s32 Size)
  * @param	InstancePtr Pointer to the XQspiPsu instance.
  * @param	Msg Pointer to the structure containing transfer data.
  * @param	StatusReg Interrupt status Register value.
- *
- * @return	None.
  *
  *
  ******************************************************************************/

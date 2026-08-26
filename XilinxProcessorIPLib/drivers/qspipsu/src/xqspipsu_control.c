@@ -33,6 +33,7 @@
  *        zm   06/25/26 Restrict IO mode demotion to RX messages, guard Msg[]
  *                      indexing against MsgCnt == NumMsg and skip IO reads
  *                      when RxBytes is zero.
+ * 1.24   vn   08/26/26 Fix Doxygen warnings.
  * </pre>
  *
  ******************************************************************************/
@@ -60,11 +61,6 @@
  *
  * @param	InstancePtr Pointer to the XQspiPsu instance.
  * @param	Msg Pointer to the structure containing transfer data.
- *
- * @return
- *		- XST_SUCCESS if successful.
- *		- XST_FAILURE if transfer fails.
- *		- XST_DEVICE_BUSY if a transfer is already in progress.
  *
  *
  ******************************************************************************/
@@ -129,8 +125,6 @@ void XQspiPsu_GenFifoEntryData(XQspiPsu *InstancePtr, XQspiPsu_Msg *Msg)
  *
  *
  * @param	FlashMsg Pointer to the structure containing transfer data.
- *
- * @return	None
  *
  *
  ******************************************************************************/
@@ -368,9 +362,6 @@ END:
  *
  * @param       InstancePtr Pointer to the XQspiPsu instance.
  * @param       QspiPsuStatusReg Status of QSPI status register.
- * @param       DeltaMsgCnt Message count flag.
- *
- * @return      None.
  *
  *
 ******************************************************************************/
@@ -413,9 +404,6 @@ void XQspiPsu_IntrDataTransfer(XQspiPsu *InstancePtr, u32 *QspiPsuStatusReg)
  *
  * @param       InstancePtr Pointer to the XQspiPsu instance.
  * @param       QspiPsuStatusReg Status of QSPI status register.
- * @param       DeltaMsgCnt Message count flag.
- *
- * @return      None.
  *
  *
 ******************************************************************************/

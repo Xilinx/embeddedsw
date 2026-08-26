@@ -75,10 +75,15 @@
 * 1.21  bkv 04/04/25 Fixed g++ warnings.
 * 1.23  vlt 12/16/25 Update Doxygen comments to include SDT flow details.
 *       zm  07/15/26 Enable Quad mode for Macronix flash.
+* 1.24  vn  08/26/26 Fix Doxygen warnings.
 *
 *</pre>
 *
 ******************************************************************************/
+
+/** @addtogroup xqspipsu_polldata_polltimeout_interrupt_example
+ * @{
+ */
 
 /***************************** Include Files *********************************/
 
@@ -169,6 +174,7 @@ void QspiPsuHandler(void *CallBackRef, u32 StatusEvent, unsigned int ByteCount);
 void QspiPsuConfigurePoll(XQspiPsu *QspiPsuPtr);
 int FlashEnterExit4BAddMode(XQspiPsu *QspiPsuPtr, unsigned int Enable);
 int FlashEnableQuadMode(XQspiPsu *QspiPsuPtr);
+
 /************************** Variable Definitions *****************************/
 u8 TxBfrPtr;
 u8 ReadBfrPtr[3];
@@ -290,8 +296,8 @@ int main(void)
  * @param	IntcInstancePtr is a pointer to the instance of the Intc device.
  * @param	QspiPsuDeviceId is the Device ID of the Qspi Device and is the
  *		XPAR_<QSPI_instance>_DEVICE_ID value from xparameters.h.
- * @endif
  * @param	QspiPsuIntrId is the interrupt Id for an QSPIPSU device.
+ * @endif
  *
  * @return	XST_SUCCESS if successful, else XST_FAILURE.
  *
@@ -548,8 +554,6 @@ int QspiPsuInterruptFlashExample(XQspiPsu *QspiPsuInstancePtr,
  * @param	ByteCount is the number of bytes transferred up until the event
  *		occurred.
  *
- * @return	None
- *
  * @note	None.
  *
  *****************************************************************************/
@@ -586,8 +590,6 @@ void QspiPsuHandler(void *CallBackRef, u32 StatusEvent, unsigned int ByteCount)
  * for status.
  *
  * @param	QspiPsuPtr is a pointer to the QSPIPSU driver component to use.
- *
- * @return	None.
  *
  * @note	None.
  *
@@ -2446,3 +2448,5 @@ int FlashEnableQuadMode(XQspiPsu *QspiPsuPtr)
 ERROR_PATH:
 	return Status;
 }
+
+/** @} */

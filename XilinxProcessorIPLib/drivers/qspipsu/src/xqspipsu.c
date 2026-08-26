@@ -87,6 +87,7 @@
  * 1.19 sb  01/12/24 Added support for baud rate divisor
  * 1.22 sb  10/24/25 Added cache invalidate when EL1_NONSECURE is not defined.
  *      zm  06/18/26 Queued whole transfer into GENFIFO to fix bus conflict.
+ * 1.24 vn  08/26/26 Fix Doxygen warnings.
  *
  * </pre>
  *
@@ -213,8 +214,6 @@ s32 XQspiPsu_CfgInitialize(XQspiPsu *InstancePtr,
  *
  * @param	InstancePtr Pointer to the XQspiPsu instance.
  *
- * @return	None.
- *
  * @note	None.
  *
  ******************************************************************************/
@@ -253,8 +252,6 @@ void XQspiPsu_Idle(const XQspiPsu *InstancePtr)
  *
  * @param	InstancePtr Pointer to the XQspiPsu instance.
  *
- * @return	None.
- *
  * @note	None.
  *
  ******************************************************************************/
@@ -279,8 +276,6 @@ void XQspiPsu_Reset(XQspiPsu *InstancePtr)
  * Aborts a transfer in progress.
  *
  * @param	InstancePtr Pointer to the XQspiPsu instance.
- *
- * @return	None.
  *
  * @note	None.
  *
@@ -371,8 +366,6 @@ void XQspiPsu_Abort(XQspiPsu *InstancePtr)
  *
  * @param       InstancePtr Pointer to the XQspiPsu instance.
  * @param       StatusReg Interrupt status Register value.
- *
- * @return	None.
  *
  * @note	None.
  *
@@ -664,8 +657,6 @@ s32 XQspiPsu_InterruptHandler(XQspiPsu *InstancePtr)
  *		when the callback function is invoked.
  * @param	FuncPointer Pointer to the callback function.
  *
- * @return	None.
- *
  * @note
  *
  * The handler is called within interrupt context, so it should do its work
@@ -692,8 +683,6 @@ void XQspiPsu_SetStatusHandler(XQspiPsu *InstancePtr, void *CallBackRef,
  * @param	InstancePtr Pointer to the QSPIPSU driver component to use.
  *
  * @param	Toggle Value of the GPIO pin
- *
- * @return	None
  *
  * @note	By default, the Write Protect pin as per the QSPI controller is driven High
  *		which means no write protection. Calling this function once

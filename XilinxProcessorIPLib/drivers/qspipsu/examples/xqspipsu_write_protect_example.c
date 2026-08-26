@@ -59,10 +59,15 @@
 * 1.20  sb  09/13/24 Updated examples to configure correct baud rate value
 * 1.21  sb  01/02/25 Fixed gcc and g++ warnings.
 * 1.21  bkv 04/04/25 Fixed g++ warnings.
+* 1.24  vn  08/26/26 Fix Doxygen warnings.
 *
 *</pre>
 *
 ******************************************************************************/
+
+/** @addtogroup xqspipsu_write_protect_example
+ * @{
+ */
 
 /***************************** Include Files *********************************/
 
@@ -255,16 +260,16 @@ int main(void)
  * flash devices greater than or equal to 128Mb and drive the Write
  * Protect pin of the flash device using GQSPI GPIO.
  *
- * @param	IntcInstancePtr is a pointer to the instance of the Intc device.
  * @param	QspiPsuInstancePtr is a pointer to the instance of the QspiPsu
  *		device.
  * @if SDT
  * @param	BaseAddress contains the base address of the device
  * @else
+ * @param	IntcInstancePtr is a pointer to the instance of the Intc device.
  * @param	QspiPsuDeviceId is the Device ID of the Qspi Device and is the
  *		XPAR_<QSPI_instance>_DEVICE_ID value from xparameters.h.
- * @endif
  * @param	QspiPsuIntrId is the interrupt Id for an QSPIPSU device.
+ * @endif
  *
  * @return	XST_SUCCESS if successful, else XST_FAILURE.
  *
@@ -505,8 +510,6 @@ int QspiPsuWriteProtectFlashExample(XQspiPsu *QspiPsuInstancePtr,
  * @param	StatusEvent is the event that just occurred.
  * @param	ByteCount is the number of bytes transferred up until the event
  *		occurred.
- *
- * @return	None
  *
  * @note	None.
  *
@@ -2129,3 +2132,5 @@ int FlashEnableQuadMode(XQspiPsu *QspiPsuPtr)
 ERROR_PATH:
 	return Status;
 }
+
+/** @} */

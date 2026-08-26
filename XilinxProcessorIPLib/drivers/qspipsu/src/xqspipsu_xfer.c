@@ -9,7 +9,6 @@
  * @file xqspipsu_xfer.c
  * @addtogroup qspipsu_api QSPIPSU APIs
  * @{
- * @details
  *
  * The xqspipsu_transfer.c contains functions to receive and transfer data
  * in polled and interrupt mode.
@@ -24,6 +23,7 @@
  * 1.22   sb  10/24/2025 Added cache invalidate when EL1_NONSECURE is not defined.
  *        zm  06/18/2026 Queued whole transfer into GENFIFO to fix bus conflict.
  *        zm  06/25/2026 Skip IO read when RxBytes is zero.
+ * 1.24   vn  08/26/26   Fix Doxygen warnings.
  *
  * </pre>
  ******************************************************************************/
@@ -155,9 +155,6 @@ END:
  *
  * @param	InstancePtr Pointer to the XQspiPsu instance.
  * @param	QspiPsuStatusReg Status QSPI status register.
- * @param	DeltaMsgCnt Message count flag.
- *
- * @return	None.
  *
  *
  ******************************************************************************/
@@ -180,9 +177,6 @@ void XQspiPsu_IntrSendData(XQspiPsu *InstancePtr, u32 QspiPsuStatusReg)
  * @param	InstancePtr Pointer to the XQspiPsu instance.
  * @param	QspiPsuStatusReg Status QSPI status register.
  * @param	DmaIntrStatusReg Status DMA interrupt register.
- * @param	DeltaMsgCnt Message count flag.
- *
- * @return	None.
  *
  *
  ******************************************************************************/

@@ -6,7 +6,7 @@
 /*****************************************************************************/
 /**
 *
-* @file xqspipsu_generic_nand flash_polled_example.c
+* @file xqspipsu_generic_nand_flash_polled_example.c
 *
 *
 * This file contains a design example using the QSPIPSU driver (XQspiPsu).
@@ -31,10 +31,15 @@
 * 1.18   sb   06/07/23 Added support for system device-tree flow.
 * 1.21   sb   01/02/25 Fixed gcc and g++ warnings.
 * 1.23  vlt 12/16/25 Update Doxygen comments to include SDT flow details.
+* 1.24  vn  08/26/26 Fix Doxygen warnings.
 *
 *</pre>
 *
 ******************************************************************************/
+
+/** @addtogroup xqspipsu_generic_nand_flash_polled_example
+ * @{
+ */
 
 /***************************** Include Files *********************************/
 #include "xparameters.h"	/* SDK generated parameters */
@@ -208,8 +213,6 @@ u32 MaxData;
 /**
  *
  * Main function to call the QSPIPSU Flash Polled example.
- *
- * @param	None
  *
  * @return	XST_SUCCESS if successful, otherwise XST_FAILURE.
  *
@@ -433,7 +436,7 @@ int QspiPsuPolledFlashExample(XQspiPsu *QspiPsuInstancePtr, UINTPTR BaseAddress)
  *
  * Reads the flash ID information
  *
- * @param	None.
+ * @param	QspiPsuPtr is a pointer to the QSPIPSU driver component to use.
  *
  * @return	XST_SUCCESS if successful, else XST_FAILURE.
  *
@@ -486,7 +489,7 @@ int FlashReadID(XQspiPsu *QspiPsuPtr)
  * @param	Address contains the address to write data to in the Flash.
  * @param	ByteCount contains the number of bytes to write.
  * @param	Command is the command used to write data to the flash.
- * @param	Pointer to the write buffer (which is to be transmitted)
+ * @param	WriteBfrPtr is pointer to the write buffer (which is to be transmitted)
  *
  * @return	XST_SUCCESS if successful, else XST_FAILURE.
  *
@@ -587,7 +590,7 @@ int FlashWrite(XQspiPsu *QspiPsuPtr, u32 Address, u32 ByteCount, u8 Command,
  * This function erases the sectors in the  serial Flash connected to the
  * QSPIPSU interface.
  *
- * @param	QspiPtr is a pointer to the QSPIPSU driver component to use.
+ * @param	QspiPsuPtr is a pointer to the QSPIPSU driver component to use.
  * @param	Address contains the address of the first sector which needs to
  *		be erased.
  *
@@ -664,15 +667,15 @@ int FlashErase(XQspiPsu *QspiPsuPtr, u32 Address)
  *
  * This function performs read. DMA is the default setting.
  *
- * @param	QspiPtr is a pointer to the QSPIPSU driver component to use.
+ * @param	QspiPsuPtr is a pointer to the QSPIPSU driver component to use.
  * @param	Address contains the address of the first sector which needs to
  *			be erased.
  * @param	ByteCount contains the total size to be erased.
  * @param	Command is the command used to read data from the flash.
  *		Supports normal, fast, dual and quad read commands.
- * @param	Pointer to the write buffer which contains data to be
+ * @param	WriteBfrPtr is pointer to the write buffer which contains data to be
  *		transmitted
- * @param	Pointer to the read buffer to which valid received data
+ * @param	ReadBfrPtr is pointer to the read buffer to which valid received data
  *		should be written
  *
  * @return	XST_SUCCESS if successful, else XST_FAILURE.
@@ -885,7 +888,7 @@ int FlashIsNotBusy(XQspiPsu *QspiPsuPtr)
  * This API is to check bad block information.
  *
  * @param	QspiPsuPtr is a pointer to the QSPIPSU driver component to use.
- *
+ * @param	Address contains the address to check for bad block.
  *
  * @return	XST_SUCCESS if successful, else XST_FAILURE.
  *
@@ -977,7 +980,6 @@ int FlashCheckIsBadBlock(XQspiPsu *QspiPsuPtr, u32 Address)
 * This function reads Parameter Page data from the flash.
 *
 * @param        QspiPsuPtr is a pointer to the QSPIPSU driver component to use.
-* @param        Buf is the parameter page information to return.
 *
 * @return
 *               - XST_SUCCESS if successful.
@@ -1083,7 +1085,7 @@ s32 XQspiPsu_ReadParamPage(XQspiPsu *QspiPsuPtr)
 *
 * This function calculates parameter page CRC.
 *
-* @param        Parambuf is a pointer to the ONFI parameter page buffer.
+* @param        ParamBuf is a pointer to the ONFI parameter page buffer.
 * @param        StartOff is the starting offset in buffer to calculate CRC.
 * @param        Length is the number of bytes for which CRC is calculated.
 *
@@ -1130,3 +1132,5 @@ s32 XQspiPsu_ParamPageCrc(u8 *ParamBuf, u32 StartOff, u32 Length)
 	}
 	return Crc;
 }
+
+/** @} */

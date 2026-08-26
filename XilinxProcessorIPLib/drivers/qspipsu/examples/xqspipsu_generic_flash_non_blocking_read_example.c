@@ -53,10 +53,15 @@
 * 1.21   bkv 04/04/25 Fixed g++ warnings.
 * 1.23   vlt 12/18/25 Update Doxygen comments to include SDT flow details.
 *        zm  07/15/26 Enable Quad mode for Macronix flash.
+* 1.24   vn  08/26/26 Fix Doxygen warnings.
 *
 *</pre>
 *
 ******************************************************************************/
+
+/** @addtogroup xqspipsu_generic_flash_non_blocking_read_example
+ * @{
+ */
 
 /***************************** Include Files *********************************/
 
@@ -129,6 +134,7 @@ int FlashRegisterWrite(XQspiPsu *QspiPsuPtr, u32 ByteCount, u8 Command,
 		       u8 *WriteBfrPtr, u8 WrEn);
 int FlashEnterExit4BAddMode(XQspiPsu *QspiPsuPtr, unsigned int Enable);
 int FlashEnableQuadMode(XQspiPsu *QspiPsuPtr);
+
 /************************** Variable Definitions *****************************/
 u8 TxBfrPtr;
 u8 ReadBfrPtr[3];
@@ -2484,3 +2490,5 @@ int FlashEnableQuadMode(XQspiPsu *QspiPsuPtr)
 ERROR_PATH:
 	return Status;
 }
+
+/** @} */

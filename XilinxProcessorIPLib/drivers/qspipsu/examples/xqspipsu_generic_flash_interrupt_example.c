@@ -77,10 +77,15 @@
 * 1.21  bkv 04/04/25 Fixed g++ warnings.
 * 1.23  vlt 12/16/25 Update Doxygen comments to include SDT flow details.
 *       zm  07/15/26 Enable Quad mode for Macronix flash.
+* 1.24  vn  08/26/26 Fix Doxygen warnings.
 *
 *</pre>
 *
 ******************************************************************************/
+
+/** @addtogroup xqspipsu_generic_flash_interrupt_example
+ * @{
+ */
 
 /***************************** Include Files *********************************/
 
@@ -544,8 +549,6 @@ int QspiPsuInterruptFlashExample(XQspiPsu *QspiPsuInstancePtr, UINTPTR BaseAddre
  * @param	StatusEvent is the event that just occurred.
  * @param	ByteCount is the number of bytes transferred up until the event
  *		occurred.
- *
- * @return	None
  *
  * @note	None.
  *
@@ -3002,3 +3005,5 @@ int GetStatusReadAnyReg(XQspiPsu *QspiPsuPtr, u32 Address)
 
 	return Status;
 }
+
+/** @} */

@@ -78,10 +78,15 @@
 * 1.21  sb  01/02/25 Fixed gcc and g++ warnings.
 * 1.21  bkv 04/04/25 Fixed g++ warnings.
 * 1.23  vlt 12/16/25 Update Doxygen comments to include SDT flow details.
+* 1.24  vn  08/26/26 Fix Doxygen warnings.
 *
 *</pre>
 *
 ******************************************************************************/
+
+/** @addtogroup xqspipsu_generic_flash_lqspi_example
+ * @{
+ */
 
 /***************************** Include Files *********************************/
 
@@ -162,6 +167,7 @@ static void QspiPsuDisableIntrSystem(XScuGic *IntcInstancePtr, u16 QspiPsuIntrId
 void QspiPsuHandler(void *CallBackRef, u32 StatusEvent, unsigned int ByteCount);
 int FlashEnterExit4BAddMode(XQspiPsu *QspiPsuPtr, unsigned int Enable);
 int FlashEnableQuadMode(XQspiPsu *QspiPsuPtr);
+
 /************************** Variable Definitions *****************************/
 u8 TxBfrPtr;
 u8 ReadBfrPtr[3];
@@ -308,16 +314,16 @@ int XQspiPsu_LqspiRead(XQspiPsu *InstancePtr, u8 *RecvBufPtr, UINTPTR Address,
  * device driver in single, parallel and stacked modes using
  * flash devices greater than or equal to 128Mb.
  *
- * @param       IntcInstancePtr is a pointer to the instance of the Intc device.
  * @param       QspiPsuInstancePtr is a pointer to the instance of the QspiPsu
  *              device.
  * @if SDT
  * @param	BaseAddress contains the base address of the device
  * @else
+ * @param       IntcInstancePtr is a pointer to the instance of the Intc device.
  * @param	QspiPsuDeviceId is the Device ID of the Qspi Device and is the
  *		XPAR_<QSPI_instance>_DEVICE_ID value from xparameters.h.
- * @endif
  * @param       QspiPsuIntrId is the interrupt Id for an QSPIPSU device.
+ * @endif
  *
  * @return	XST_SUCCESS if successful, else XST_FAILURE.
  *
@@ -2349,3 +2355,5 @@ int FlashEnableQuadMode(XQspiPsu *QspiPsuPtr)
 ERROR_PATH:
 	return Status;
 }
+
+/** @} */

@@ -51,6 +51,7 @@
 * 1.18 sb  08/01/23 Added support for Feed back clock
 * 1.18 sb  09/11/23 Fix MISRA-C violation 10.1.
 * 1.18 sb  09/11/23 Fix MISRA-C violation 2.2 and 2.6.
+* 1.24 vn  08/26/26 Fix Doxygen warnings.
 *
 * </pre>
 *
@@ -392,11 +393,6 @@ END:
 * @param	FlashCS  Flash Chip Select.
 * @param	FlashBus  Flash Bus (Upper, Lower or Both).
 *
-* @return
-*		- XST_SUCCESS if successful.
-*		- XST_DEVICE_IS_STARTED if the device is already started.
-*		It must be stopped to re-initialize.
-*
 * @note		If this function is not called at least once in the application,
 *		the driver assumes there is a single flash connected to the
 *		lower bus and CS line.
@@ -531,8 +527,6 @@ s32 XQspiPsu_SetReadMode(XQspiPsu *InstancePtr, u32 Mode)
 *
 * @param	InstancePtr Pointer to the XQspiPsu instance.
 * @param	Value Value of the WP_HOLD bit in configuration register
-*
-* @return	None
 *
 * @note
 * This function is not thread-safe. This function can only be used with single
