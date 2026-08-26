@@ -136,17 +136,43 @@ int VsiVvbenchLscFunc
 )
 {
 	int result = 0;
-	LOGI("%s enter \n", __func__);
+	LOGI("[LSC-DBG] %s enter: index=%d\n", __func__, index);
 
-	if (NULL == hCamDevice || 0 == caseCtx->instanceCfgCtx[index].hCamCommon || NULL == caseCtx) {
+	if (NULL == hCamDevice || NULL == caseCtx) {
+		LOGE("[LSC-DBG] invalid input: hCamDevice=%p caseCtx=%p\n", hCamDevice, caseCtx);
+		return -1;
+	}
+	if (0 == caseCtx->instanceCfgCtx[index].hCamCommon) {
+		LOGE("[LSC-DBG] instance %d has no CamCommon handle\n", index);
 		return -1;
 	}
 
 	bool_t enable = caseCtx->instanceCfgCtx[index].moduleCfg.lsc.enable;
 	CamDeviceConfigMode_t mode = caseCtx->instanceCfgCtx[index].moduleCfg.lsc.mode;
+	LOGI("[LSC-DBG] index=%d hpId=%d swSimu=%d isSupport=%d enable=%d useCfg=%d mode=%d\n",
+	     index, caseCtx->instanceCfgCtx[index].hpId, caseCtx->swSimuCfg.enable,
+	     caseCtx->instanceCfgCtx[index].moduleCfg.lsc.isSupport, enable,
+	     caseCtx->instanceCfgCtx[index].moduleCfg.lsc.useCfg, mode);
 
-	if (!caseCtx->swSimuCfg.enable) {
-		if (enable && !caseCtx->instanceCfgCtx[index].moduleCfg.lsc.useCfg) {
+	if (!enable) {
+		int commonResult;
+		int deviceResult;
+
+		LOGI("[LSC-DBG] index=%d taking explicit DISABLE branch\n", index);
+		commonResult = VsiCamCommonLscSetState(
+			caseCtx->instanceCfgCtx[index].hCamCommon, false, mode);
+		deviceResult = VsiCamDeviceLscDisable(hCamDevice);
+		LOGI("[LSC-DBG] index=%d SetState(false)=%d DeviceDisable=%d\n",
+		     index, commonResult, deviceResult);
+		result = commonResult | deviceResult;
+		if (0 != result) {
+			LOGE("Vvbench Disable LSC Failed!\n");
+			return -1;
+		}
+	}
+	else if (!caseCtx->swSimuCfg.enable) {
+		if (!caseCtx->instanceCfgCtx[index].moduleCfg.lsc.useCfg) {
+			LOGI("[LSC-DBG] index=%d taking direct ENABLE branch\n", index);
 			result = VsiCamDeviceLscEnable(hCamDevice);
 			if (0 != result) {
 				LOGE("Vvbench Enable LSC Failed!");
@@ -154,6 +180,7 @@ int VsiVvbenchLscFunc
 			}
 		}
 		else {
+			LOGI("[LSC-DBG] index=%d taking database LOAD branch\n", index);
 			result = VsiCamCommonLscSetState(caseCtx->instanceCfgCtx[index].hCamCommon, enable, mode);
 			if (0 != result) {
 				LOGE("Vvbench Set LSC State to Database Failed!\n");
@@ -168,6 +195,7 @@ int VsiVvbenchLscFunc
 		}
 	}
 	else {
+		LOGI("[LSC-DBG] index=%d taking simulator database branch\n", index);
 		result = VsiCamCommonLscGetState(caseCtx->instanceCfgCtx[index].hCamCommon, &enable);
 		if (0 != result) {
 			LOGE("Vvbench Get LSC Status from Database Failed!\n");
@@ -181,6 +209,16 @@ int VsiVvbenchLscFunc
 		}
 	}
 
+	CamDeviceLscStatus_t status;
+	MEMSET(&status, 0, sizeof(status));
+	result = VsiCamDeviceLscGetStatus(hCamDevice, &status);
+	if (RET_SUCCESS != result) {
+		LOGE("[LSC-DBG] index=%d final LSC status read failed: %d\n", index, result);
+		return -1;
+	}
+	LOGI("[LSC-DBG] index=%d hpId=%d final hardware enable=%d\n",
+	     index, caseCtx->instanceCfgCtx[index].hpId, status.enable);
+
 	if (enable) {
 		result = VsiVvbenchLscGetFunc(hCamDevice);
 		if (0 != result) {
@@ -189,6 +227,6 @@ int VsiVvbenchLscFunc
 		}
 	}
 
-	LOGI("%s exit", __func__);
+	LOGI("[LSC-DBG] %s exit: index=%d", __func__, index);
 	return result;
 }
