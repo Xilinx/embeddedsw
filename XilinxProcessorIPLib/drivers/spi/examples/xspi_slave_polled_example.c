@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2008 - 2023 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -44,8 +44,13 @@
 *                     CR-965028.
 * 4.11  sb   07/11/23 Added support for system device-tree flow.
 *
+* 4.17  vn   08/26/26 Fix Doxygen warnings.
 *</pre>
 ******************************************************************************/
+
+/** @addtogroup xspi_slave_polled_example
+ * @{
+ */
 
 /***************************** Include Files *********************************/
 
@@ -149,9 +154,12 @@ int main(void)
 * prints the received data.
 *
 * @param	SpiInstancePtr is a pointer to the instance of Spi component.
-*
+* @if SDT
+* @param	BaseAddress is the base address of the Spi Device.
+* @else
 * @param	SpiDeviceId is the Device ID of the Spi Device and is the
 *		XPAR_<SPI_instance>_DEVICE_ID value from xparameters.h.
+* @endif
 *
 * @return	XST_SUCCESS if successful, otherwise XST_FAILURE.
 *
@@ -240,3 +248,4 @@ static int SpiSlavePolledExample(XSpi *SpiInstancePtr, UINTPTR BaseAddress)
 
 	return XST_SUCCESS;
 }
+/** @} */

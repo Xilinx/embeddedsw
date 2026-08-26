@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2011 - 2023 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2023 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -32,9 +32,14 @@
 *                     CR-965028.
 *       ms   04/05/17 Modified Comment lines to follow doxygen rules.
 * 4.11  sb   07/11/23 Added support for system device-tree flow.
+* 4.17  vn   08/26/26 Fix Doxygen warnings.
 * </pre>
 *
 ******************************************************************************/
+
+/** @addtogroup xspi_winbond_flash_quad_example
+ * @{
+ */
 
 /***************************** Include Files *********************************/
 
@@ -1039,8 +1044,6 @@ int SpiFlashEnableHPM(XSpi *SpiPtr)
 * This function waits till the Winbond serial Flash is ready to accept next
 * command.
 *
-* @param	None
-*
 * @return	XST_SUCCESS if successful else XST_FAILURE.
 *
 * @note		This function reads the status register of the Buffer and waits
@@ -1091,8 +1094,6 @@ int SpiFlashWaitForFlashReady(void)
 * @param	StatusEvent is the event that just occurred.
 * @param	ByteCount is the number of bytes transferred up until the event
 *		occurred.
-*
-* @return	None.
 *
 * @note		None.
 *
@@ -1196,3 +1197,4 @@ static int SetupInterruptSystem(XSpi *SpiPtr)
 	return XST_SUCCESS;
 }
 #endif
+/** @} */

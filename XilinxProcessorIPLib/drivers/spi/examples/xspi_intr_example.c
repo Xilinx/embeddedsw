@@ -40,8 +40,13 @@
 *		      controller instance to SpiIntrExample() function.
 * 4.11	sb   07/11/23 Added support for system device-tree flow.
 * 4.16  vlt  12/18/25 Update Doxygen comments to include SDT flow details.
+* 4.17  vn   08/26/26 Fix Doxygen warnings.
 *</pre>
 ******************************************************************************/
+
+/** @addtogroup xspi_intr_example
+ * @{
+ */
 
 /***************************** Include Files *********************************/
 
@@ -207,10 +212,10 @@ int main(void)
 * 		component.
 * @param	SpiDeviceId is the Device ID of the Spi Device and is the
 *		XPAR_<SPI_instance>_DEVICE_ID value from xparameters.h.
-* @endif
 * @param	SpiIntrId is the interrupt Id and is typically
 *		XPAR_<INTC_instance>_<SPI_instance>_VEC_ID value from
 *		xparameters.h .
+* @endif
 *
 *
 * @return	XST_SUCCESS if successful, otherwise XST_FAILURE.
@@ -370,8 +375,6 @@ int SpiIntrExample(XSpi *SpiInstancePtr, UINTPTR BaseAddress)
 * @param	StatusEvent is the event that just occurred.
 * @param	ByteCount is the number of bytes transferred up until the event
 *		occurred.
-*
-* @return	None.
 *
 * @note		None.
 *
@@ -550,3 +553,4 @@ static void SpiDisableIntrSystem(INTC *IntcInstancePtr, u16 SpiIntrId)
 
 }
 #endif
+/** @} */

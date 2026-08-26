@@ -88,6 +88,7 @@
 * 4.16  zm   04/03/26 Added the Inhibit logic in XSpi_InterruptHandler.
 *       zm   07/10/26 Added ByteCount alignment check against data width in
 *                     XSpi_Transfer.
+* 4.17  vn   08/26/26 Fix Doxygen warnings.
 * </pre>
 *
 ******************************************************************************/
@@ -437,8 +438,6 @@ int XSpi_Stop(XSpi *InstancePtr)
 * and restarting the SPI device after the reset.
 *
 * @param	InstancePtr is a pointer to the XSpi instance to be worked on.
-*
-* @return	None.
 *
 * @note		None.
 *
@@ -1026,8 +1025,6 @@ u32 XSpi_GetSlaveSelect(XSpi *InstancePtr)
 *		when the callback function is invoked.
 * @param	FuncPtr is the pointer to the callback function.
 *
-* @return	None.
-*
 * @note
 *
 * The handler is called within interrupt context, so it should do its work
@@ -1110,8 +1107,6 @@ static void StubStatusHandler(void *CallBackRef, u32 StatusEvent,
 *   This interrupt is valid only for axi_qspi.
 *
 * @param	InstancePtr is a pointer to the XSpi instance to be worked on.
-*
-* @return	None.
 *
 * @note
 *
@@ -1382,8 +1377,6 @@ void XSpi_InterruptHandler(void *InstancePtr)
 * busy flag is set to false.
 *
 * @param	InstancePtr is a pointer to the XSpi instance to be worked on.
-*
-* @return	None.
 *
 * @note
 *

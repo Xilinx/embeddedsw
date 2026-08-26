@@ -49,9 +49,14 @@
 *                     CR-965028.
 * 4.11  sb   07/11/23 Added support for system device-tree flow.
 * 4.16  vlt  12/18/25 Update Doxygen comments to include SDT flow details.
+* 4.17  vn   08/26/26 Fix Doxygen warnings.
 *
 *</pre>
 ******************************************************************************/
+
+/** @addtogroup xspi_slave_intr_example
+ * @{
+ */
 
 /***************************** Include Files *********************************/
 
@@ -311,6 +316,7 @@ static int SpiSlaveIntrExample(XSpi *SpiInstancePtr, UINTPTR BaseAddress)
 
 	return XST_SUCCESS;
 }
+#ifndef SDT
 /****************************************************************************/
 /**
 *
@@ -329,7 +335,6 @@ static int SpiSlaveIntrExample(XSpi *SpiInstancePtr, UINTPTR BaseAddress)
 * @note		None.
 *
 ****************************************************************************/
-#ifndef SDT
 static int SetupInterruptSystem(XSpi *SpiInstance)
 {
 	int Status;
@@ -405,8 +410,6 @@ static int SetupInterruptSystem(XSpi *SpiInstance)
 * @param	StatusEvent is the status of the SPI.
 * @param	ByteCount is the number of bytes transferred.
 *
-* @return	None.
-*
 * @note		None.
 *
 ******************************************************************************/
@@ -423,3 +426,4 @@ static void SpiHandler(void *CallBackRef, u32 StatusEvent,
 		TransferInProgress = FALSE;
 	}
 }
+/** @} */

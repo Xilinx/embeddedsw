@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2002 - 2023 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -26,6 +26,7 @@
 * 2.00a sv   07/30/08 Removed the call to the Macro for clearing statistics.
 * 3.00a ktn  10/28/09 Updated all the register accesses as 32 bit access.
 *		      Updated driver to use the HAL APIs/macros.
+* 4.17  vn   08/26/26 Fix Doxygen warnings.
 * </pre>
 *
 ******************************************************************************/
@@ -59,8 +60,6 @@
 * @param	StatsPtr is a pointer to a XSpi_Stats structure which will get a
 *		copy of current statistics.
 *
-* @return	None.
-*
 * @note		Statistics are not updated in polled mode of operation.
 *
 ******************************************************************************/
@@ -84,8 +83,6 @@ void XSpi_GetStats(XSpi *InstancePtr, XSpi_Stats *StatsPtr)
 * Clears the statistics for the SPI device.
 *
 * @param	InstancePtr is a pointer to the XSpi instance to be worked on.
-*
-* @return	None.
 *
 * @note		Statistics are not updated in polled mode of operation.
 *

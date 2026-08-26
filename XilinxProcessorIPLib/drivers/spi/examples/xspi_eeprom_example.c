@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2001 - 2023 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2023 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -38,9 +38,14 @@
 *                     CR-965028.
 *       ms   04/05/17 Modified Comment lines to follow doxygen rules.
 * 4.11  sb   07/11/23 Added support for system device-tree flow.
+* 4.17  vn   08/26/26 Fix Doxygen warnings.
 *</pre>
 *
 ******************************************************************************/
+
+/** @addtogroup xspi_eeprom_example
+ * @{
+ */
 
 /***************************** Include Files *********************************/
 
@@ -342,8 +347,6 @@ int main(void)
 * @param	StatusEvent is the status of the SPI .
 * @param	ByteCount is the number of bytes transferred.
 *
-* @return	None
-*
 * @note		None.
 *
 ******************************************************************************/
@@ -375,8 +378,6 @@ void SpiHandler(void *CallBackRef, u32 StatusEvent, unsigned int ByteCount)
 * @param 	Address contains the address to read data from in the EEPROM.
 * @param 	ByteCount contains the number of bytes to read.
 * @param 	Buffer is a buffer to read the data into.
-*
-* @return	None.
 *
 * @note		None.
 *
@@ -421,8 +422,6 @@ void EepromRead(XSpi *SpiPtr, u16 Address, int ByteCount, EepromBuffer Buffer)
 * @param 	Address contains the address to write data to in the EEPROM.
 * @param 	ByteCount contains the number of bytes to write.
 * @param 	Buffer is a buffer of data to write from.
-*
-* @return	None.
 *
 * @note		None.
 *
@@ -596,3 +595,4 @@ static int SetupInterruptSystem(XSpi *SpiPtr)
 }
 #endif
 
+/** @} */

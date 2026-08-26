@@ -39,8 +39,13 @@
 *                     CR-965028.
 * 4.11  sb   07/11/23 Added support for system device-tree flow.
 * 4.16  vlt  12/18/25 Update Doxygen comments to include SDT flow details.
+* 4.17  vn   08/26/26 Fix Doxygen warnings.
 *</pre>
 ******************************************************************************/
+
+/** @addtogroup xspi_polled_example
+ * @{
+ */
 
 /***************************** Include Files *********************************/
 
@@ -253,3 +258,4 @@ int SpiPolledExample(XSpi *SpiInstancePtr, UINTPTR BaseAddress)
 
 	return XST_SUCCESS;
 }
+/** @} */

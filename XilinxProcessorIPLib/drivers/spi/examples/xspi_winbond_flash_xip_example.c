@@ -30,8 +30,13 @@
 *       ms   04/10/17 Modified filename tag to include the file in doxygen
 *                     examples.
 * 4.11  sb   07/11/23 Added support for system device-tree flow.
+* 4.17  vn   08/26/26 Fix Doxygen warnings.
 *</pre>
 ******************************************************************************/
+
+/** @addtogroup xspi_winbond_flash_xip_example
+ * @{
+ */
 
 /***************************** Include Files *********************************/
 
@@ -166,3 +171,4 @@ int SpiXipExample(XSpi *SpiInstancePtr, UINTPTR BaseAddress)
 
 	return XST_SUCCESS;
 }
+/** @} */

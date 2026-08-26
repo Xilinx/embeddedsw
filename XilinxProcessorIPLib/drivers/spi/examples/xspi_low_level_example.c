@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2002 - 2023 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -42,9 +42,13 @@
 *                     are available in all examples. This is a fix for
 *                     CR-965028.
 * 4.11  sb   07/11/23 Added support for system device-tree flow.
-*
+* 4.17  vn   08/26/26 Fix Doxygen warnings.
 *</pre>
 *******************************************************************************/
+
+/** @addtogroup xspi_low_level_example
+ * @{
+ */
 
 /***************************** Include Files **********************************/
 
@@ -206,3 +210,4 @@ int XSpi_LowLevelExample(u32 BaseAddress)
 
 	return XST_SUCCESS;
 }
+/** @} */

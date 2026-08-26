@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2008 - 2023 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2023 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -39,9 +39,14 @@
 *                     CR-965028.
 *       ms   04/05/17 Modified Comment lines to follow doxygen rules.
 * 4.11  sb   07/11/23 Added support for system device-tree flow.
+* 4.17  vn   08/26/26 Fix Doxygen warnings.
 * </pre>
 *
 ******************************************************************************/
+
+/** @addtogroup xspi_intel_flash_example
+ * @{
+ */
 
 /***************************** Include Files *********************************/
 
@@ -757,8 +762,6 @@ int SpiIntelFlashWriteStatus(XSpi *SpiPtr, u8 StatusRegister)
 * This function waits till the Intel Serial Flash is ready to accept next
 * command.
 *
-* @param	None
-*
 * @return	XST_SUCCESS if successful else XST_FAILURE.
 *
 * @note		This function reads the status register of the Buffer and waits
@@ -809,8 +812,6 @@ int SpiIntelFlashWaitForFlashNotBusy(void)
 * @param	StatusEvent is the event that just occurred.
 * @param	ByteCount is the number of bytes transferred up until the event
 *		occurred.
-*
-* @return	None.
 *
 * @note		None.
 *
@@ -915,3 +916,4 @@ static int SetupInterruptSystem(XSpi *SpiPtr)
 }
 #endif
 
+/** @} */

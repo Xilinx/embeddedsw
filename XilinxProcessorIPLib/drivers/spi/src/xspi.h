@@ -291,6 +291,7 @@
 * 4.11  sb   07/11/23 Added support for system device-tree flow.
 * 4.13  ap   08/20/24 Added logic to wait for FIFO reset to complete.
 * 4.16  vlt  12/18/25 Update Doxygen comments to include SDT flow details.
+* 4.17  vn   08/26/26 Fix Doxygen warnings.
 * </pre>
 *
 ******************************************************************************/
@@ -349,7 +350,7 @@ extern "C" {
 #define XSP_CLK_PHASE_1_OPTION		0x4
 #define XSP_LOOPBACK_OPTION		0x8
 #define XSP_MANUAL_SSELECT_OPTION	0x10
-/*@}*/
+/** @} */
 
 /**************************** Type Definitions *******************************/
 

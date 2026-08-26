@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2012 - 2023 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2023 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -33,9 +33,14 @@
 *                     CR-965028.
 *       ms   04/05/17 Modified Comment lines to follow doxygen rules.
 * 4.11  sb   07/11/23 Added support for system device-tree flow.
+* 4.17  vn   08/26/26 Fix Doxygen warnings.
 * </pre>
 *
 ******************************************************************************/
+
+/** @addtogroup xspi_numonyx_flash_quad_example
+ * @{
+ */
 
 /***************************** Include Files *********************************/
 
@@ -600,6 +605,7 @@ int SpiFlashWriteEnable(XSpi *SpiPtr)
 * @param	SpiPtr is a pointer to the instance of the Spi device.
 * @param	Addr is the address in the Buffer, where to write the data.
 * @param	ByteCount is the number of bytes to be written.
+* @param	WriteCmd is the write command used to write data to the flash.
 *
 * @return	XST_SUCCESS if successful else XST_FAILURE.
 *
@@ -668,6 +674,7 @@ int SpiFlashWrite(XSpi *SpiPtr, u32 Addr, u32 ByteCount, u8 WriteCmd)
 * @param	Addr is the starting address in the Flash Memory from which the
 *		data is to be read.
 * @param	ByteCount is the number of bytes to be read.
+* @param	ReadCmd is the read command used to read data from the flash.
 *
 * @return	XST_SUCCESS if successful else XST_FAILURE.
 *
@@ -890,8 +897,6 @@ int SpiFlashGetStatus(XSpi *SpiPtr)
 * This function waits till the Numonyx serial Flash is ready to accept next
 * command.
 *
-* @param	None
-*
 * @return	XST_SUCCESS if successful else XST_FAILURE.
 *
 * @note		This function reads the status register of the Buffer and waits
@@ -943,8 +948,6 @@ int SpiFlashWaitForFlashReady(void)
 * @param	StatusEvent is the event that just occurred.
 * @param	ByteCount is the number of bytes transferred up until the event
 *		occurred.
-*
-* @return	None.
 *
 * @note		None.
 *
@@ -1090,3 +1093,4 @@ static int SetupInterruptSystem(XSpi *SpiPtr)
 	return XST_SUCCESS;
 }
 #endif
+/** @} */

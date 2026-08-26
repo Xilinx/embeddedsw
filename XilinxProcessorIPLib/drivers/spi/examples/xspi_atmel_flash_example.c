@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2008 - 2023 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2023 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -57,9 +57,14 @@
 *                     CR-965028.
 *       ms   04/05/17 Modified Comment lines to follow doxygen rules.
 * 4.11  sb   07/11/23 Added support for system device-tree flow.
+* 4.17  vn   08/26/26 Fix Doxygen warnings.
 * </pre>
 *
 ******************************************************************************/
+
+/** @addtogroup xspi_atmel_flash_example
+ * @{
+ */
 
 /***************************** Include Files *********************************/
 
@@ -594,8 +599,6 @@ static int SpiAtmelFlashWaitForFlashNotBusy(XSpi *SpiPtr)
 * @param	ByteCount is the number of bytes transferred up until the event
 *		occurred.
 *
-* @return	None.
-*
 * @note		None.
 *
 ******************************************************************************/
@@ -698,3 +701,4 @@ static int SetupInterruptSystem(XSpi *SpiPtr)
 	return XST_SUCCESS;
 }
 #endif
+/** @} */

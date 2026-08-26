@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2001 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -32,7 +32,7 @@
 * 3.01a sdm  04/23/10 Added definitions for the new slave mode interrupts.
 * 3.02a sdm  03/30/11 Added definitions for the new register bits in axi_qspi.
 * 3.04a bss  03/21/12 Added XIP Mode Register masks
-*
+* 4.17  vn   08/26/26 Fix Doxygen warnings
 * </pre>
 *
 ******************************************************************************/
@@ -119,7 +119,7 @@ extern "C" {
 #define XSP_TFO_OFFSET		0x74	/**< Tx FIFO occupancy */
 #define XSP_RFO_OFFSET		0x78	/**< Rx FIFO occupancy */
 
-/* @} */
+/** @} */
 
 
 /**
@@ -128,7 +128,7 @@ extern "C" {
  */
 #define XSP_GINTR_ENABLE_MASK	0x80000000	/**< Global interrupt enable */
 
-/* @} */
+/** @} */
 
 
 /** @name SPI Device Interrupt Status/Enable Registers
@@ -195,7 +195,7 @@ extern "C" {
 				 XSP_INTR_RX_OVERRUN_MASK |	\
 				 XSP_INTR_SLAVE_MODE_FAULT_MASK | \
 				 XSP_INTR_CMD_ERR_MASK)
-/* @} */
+/** @} */
 
 /**
  * SPI Software Reset Register (SRR) mask.
@@ -230,7 +230,7 @@ extern "C" {
  */
 #define XSP_CR_LSB_MSB_FIRST_MASK	0x00000200
 
-/* @} */
+/** @} */
 
 /** @name SPI Control Register (CR) masks for XIP Mode
  *
@@ -240,7 +240,7 @@ extern "C" {
 #define XSP_CR_XIP_CLK_POLARITY_MASK	0x00000002 /**< Clock polarity
 								high or low */
 
-/* @} */
+/** @} */
 
 
 
@@ -266,7 +266,7 @@ extern "C" {
 #define XSP_SR_LOOP_BACK_ERR_MASK  0x00000200 /**< Loop back error */
 #define XSP_SR_CMD_ERR_MASK	   0x00000400 /**< 'Invalid cmd' error */
 
-/* @} */
+/** @} */
 
 /** @name Status Register (SR) masks for XIP Mode
  *
@@ -283,7 +283,7 @@ extern "C" {
 #define XSP_SR_XIP_AXI_ERROR_MASK	0x00000010 /**< AXI Transaction
 								Error */
 
-/* @} */
+/** @} */
 
 
 /** @name SPI Transmit FIFO Occupancy (TFO) mask
@@ -293,7 +293,7 @@ extern "C" {
 /* The binary value plus one yields the occupancy.*/
 #define XSP_TFO_MASK		0x0000001F
 
-/* @} */
+/** @} */
 
 /** @name SPI Receive FIFO Occupancy (RFO) mask
  *
@@ -302,7 +302,7 @@ extern "C" {
 /* The binary value plus one yields the occupancy.*/
 #define XSP_RFO_MASK		0x0000001F
 
-/* @} */
+/** @} */
 
 /** @name Data Width Definitions
  *
@@ -313,7 +313,7 @@ extern "C" {
 						Wide */
 #define XSP_DATAWIDTH_WORD	32  /**< Tx/Rx Reg is Word (32 bit)  Wide */
 
-/* @} */
+/** @} */
 
 /** @name SPI Modes
  *
@@ -325,7 +325,7 @@ extern "C" {
 #define XSP_DUAL_MODE		1
 #define XSP_QUAD_MODE		2
 
- /*@}*/
+ /** @} */
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
