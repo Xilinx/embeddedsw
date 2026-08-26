@@ -822,7 +822,51 @@ enum {
 	XASUFW_KEYMANAGER_KEY_SLOT_IN_USE, /**< 0x242U - Error when requested key slot is
 						occupied. */
 
+	XASUFW_MLDSA_INVALID_PARAM, /**< 0x243U - Error when ML-DSA input parameter is invalid */
+	XASUFW_MLDSA_UNSUPPORTED_PARAM_SET, /**< 0x244U - Error when ML-DSA parameter set is
+						unsupported */
+	XASUFW_MLDSA_UNSUPPORTED_PREHASH_ALG, /**< 0x245U - Error when ML-DSA pre-hash algorithm is
+						unsupported */
+	XASUFW_MLDSA_UNSUPPORTED_SIGN_MODE, /**< 0x246U - Error when ML-DSA sign mode is
+						unsupported */
+	XASUFW_MLDSA_PREHASH_FAILED, /**< 0x247U - Error when ML-DSA message pre-hash fails */
+	XASUFW_MLDSA_RANDOM_GEN_FAILED, /**< 0x248U - Error when ML-DSA random generation fails */
+	XASUFW_MLDSA_KEYGEN_FAILED, /**< 0x249U - Error when ML-DSA key pair generation fails */
+	XASUFW_MLDSA_SIGN_FAILED, /**< 0x24AU - Error when ML-DSA signature generation fails */
+	XASUFW_MLDSA_VERIFY_FAILED, /**< 0x24BU - Error when ML-DSA signature verification fails */
+
+	XASUFW_MLKEM_INVALID_PARAM, /**< 0x24CU - Error when ML-KEM input parameter is invalid */
+	XASUFW_MLKEM_UNSUPPORTED_PARAM_SET, /**< 0x24DU - Error when ML-KEM parameter set is
+						unsupported */
+	XASUFW_MLKEM_INIT_FAILED, /**< 0x24EU - Error when ML-KEM object initialization fails */
+	XASUFW_MLKEM_KEYGEN_FAILED, /**< 0x24FU - Error when ML-KEM key pair generation fails */
+	XASUFW_MLKEM_ENCAPS_FAILED, /**< 0x250U - Error when ML-KEM encapsulation fails */
+	XASUFW_MLKEM_DECAPS_FAILED, /**< 0x251U - Error when ML-KEM decapsulation fails */
+	XASUFW_MLDSA_MODULE_REGISTRATION_FAILED, /**< 0x252U - Error when ML-DSA module registration
+						fails */
+	XASUFW_MLKEM_MODULE_REGISTRATION_FAILED, /**< 0x253U - Error when ML-KEM module registration
+						fails */
+	XASUFW_MLDSA_KAT_FAILED, /**< 0x254U - Error when ML-DSA Known Answer Test fails */
+	XASUFW_MLKEM_KAT_FAILED, /**< 0x255U - Error when ML-KEM Known Answer Test fails */
+	XASUFW_MLKEM_RANDOM_GEN_FAILED, /**< 0x256U - Error when ML-KEM random generation fails */
+	XASUFW_MLDSA_KAT_COMPARISON_FAILED, /**< 0x257U - ML-DSA KAT comparison failed */
+	XASUFW_MLKEM_KAT_COMPARISON_FAILED, /**< 0x258U - ML-KEM KAT comparison failed */
+	XASUFW_PQC_KAT_DIGEST_FAILED, /**< 0x259U - Error when the SHA2-256 digest of a PQC KAT
+						output fails */
+	XASUFW_MLDSA_PWCT_SIGN_GEN_FAIL, /**< 0x25AU - Sign generation failure in ML-DSA PWCT */
+	XASUFW_MLDSA_PWCT_SIGN_VER_FAIL, /**< 0x25BU - Sign verification failure in ML-DSA PWCT */
+	XASUFW_MLKEM_PWCT_ENCAPS_FAIL, /**< 0x25CU - Encapsulation failure in ML-KEM PWCT */
+	XASUFW_MLKEM_PWCT_DECAPS_FAIL, /**< 0x25DU - Decapsulation failure in ML-KEM PWCT */
+	XASUFW_MLKEM_PWCT_COMPARISON_FAIL, /**< 0x25EU - Shared secret comparison failure in ML-KEM
+						PWCT */
+	XASUFW_MLDSA_KEY_PAIR_GENERATION_FAIL, /**< 0x25FU - Error when ML-DSA key pair generation
+						for the key vault fails */
+	XASUFW_MLKEM_KEY_PAIR_GENERATION_FAIL, /**< 0x260U - Error when ML-KEM key pair generation
+						for the key vault fails */
+
 	/* Additional status success codes */
+	XASUFW_MLDSA_SIGNATURE_VERIFIED = 0x3F6U, /**< 0x3F6U - Successfully verified ML-DSA
+							signature */
 	XASUFW_OCP_CERT_GENERATION_SUCCESS = 0x3F7U, /**< 0x3F7U - OCP certificate generation
 							  successful */
 	XASUFW_LMS_SIGNATURE_VERIFIED,	/**< 0x3F8U - LMS signature verification is successful */

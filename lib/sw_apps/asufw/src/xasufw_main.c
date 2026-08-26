@@ -81,6 +81,8 @@
 #include "xasufw_keymanagerhandler.h"
 #include "xasufw_lmshandler.h"
 #include "xasufw_provisionhandler.h"
+#include "xasufw_mldsahandler.h"
+#include "xasufw_mlkemhandler.h"
 #include "xocp.h"
 #include "xil_error_node.h"
 #include "xoverlay.h"
@@ -422,6 +424,22 @@ static s32 XAsufw_ModulesInit(void)
 #ifdef XASU_LMS_ENABLE
 	/** LMS module initialization. */
 	Status = XAsufw_LmsInit();
+	if (Status != XASUFW_SUCCESS) {
+		goto END;
+	}
+#endif
+
+#ifdef XASU_MLDSA_ENABLE
+	/** ML-DSA (FIPS 204) module initialization. */
+	Status = XAsufw_MldsaInit();
+	if (Status != XASUFW_SUCCESS) {
+		goto END;
+	}
+#endif
+
+#ifdef XASU_MLKEM_ENABLE
+	/** ML-KEM (FIPS 203) module initialization. */
+	Status = XAsufw_MlkemInit();
 	if (Status != XASUFW_SUCCESS) {
 		goto END;
 	}

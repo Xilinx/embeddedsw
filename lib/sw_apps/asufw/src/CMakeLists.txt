@@ -85,6 +85,10 @@ collect (PROJECT_LIB_SOURCES xasufw_provisionhandler.c)
 collect (PROJECT_LIB_HEADERS xasufw_provisionhandler.h)
 collect (PROJECT_LIB_SOURCES xasufw_lmshandler.c)
 collect (PROJECT_LIB_HEADERS xasufw_lmshandler.h)
+collect (PROJECT_LIB_SOURCES xasufw_mldsahandler.c)
+collect (PROJECT_LIB_HEADERS xasufw_mldsahandler.h)
+collect (PROJECT_LIB_SOURCES xasufw_mlkemhandler.c)
+collect (PROJECT_LIB_HEADERS xasufw_mlkemhandler.h)
 collect (PROJECT_LIB_SOURCES xasufw_perf.c)
 collect (PROJECT_LIB_HEADERS xasufw_perf.h)
 collect (PROJECT_LIB_SOURCES xasufw_update.c)
@@ -95,11 +99,29 @@ collect (PROJECT_LIB_HEADERS xasufw_keytransfer.h)
 collect (PROJECT_LIB_SOURCES xasufw_keepalive.c)
 collect (PROJECT_LIB_HEADERS xasufw_keepalive.h)
 
+# The BSP is a separate cmake project, so the ML-DSA and ML-KEM state is read back from the
+# xilasu config header it generates. A disabled feature renders as an #undef comment and
+# contributes no entry, so a non-empty list means at least one of the two is enabled.
+set(ASUFW_BSP_CONFIG_HEADER "${CMAKE_INCLUDE_PATH}/xasu_bsp_config.h")
+if(NOT EXISTS "${ASUFW_BSP_CONFIG_HEADER}")
+  message(FATAL_ERROR
+    "asufw: xilasu config header '${ASUFW_BSP_CONFIG_HEADER}' not found; the ML-DSA and "
+    "ML-KEM build configuration cannot be determined.")
+endif()
+file(STRINGS "${ASUFW_BSP_CONFIG_HEADER}" ASUFW_PQC_CONFIG_LINES
+     REGEX "^#define[ \t]+XASU_ML(DSA|KEM)_ENABLE")
+
 collect(PROJECT_LIB_DEPS xilstandalone)
 collect(PROJECT_LIB_DEPS xil)
 collect(PROJECT_LIB_DEPS xiltimer)
 collect(PROJECT_LIB_DEPS xilasu)
 collect(PROJECT_LIB_DEPS xilasu_mbv)
+# ML-DSA and ML-KEM share a single liboqs archive, so it is linked as soon as either one is
+# enabled. With both off it must be left out: the BSP deletes liboqs_mbv.a in that case, so an
+# unconditional -loqs_mbv would not resolve.
+if(ASUFW_PQC_CONFIG_LINES)
+  collect(PROJECT_LIB_DEPS oqs_mbv)
+endif()
 collect(PROJECT_LIB_DEPS gcc)
 collect(PROJECT_LIB_DEPS c)
 
@@ -139,6 +161,8 @@ add_subdirectory(keymanager)
 add_subdirectory(provision)
 add_subdirectory(lms)
 add_subdirectory(overlay)
+add_subdirectory(mldsa)
+add_subdirectory(mlkem)
 
 if (CMAKE_EXPORT_COMPILE_COMMANDS AND
     (NOT ${YOCTO}))
@@ -187,6 +211,13 @@ add_dependency_on_bsp(_sources)
 add_executable(${APP_NAME}.elf ${_sources})
 string (REPLACE ";" ",-l" _deps "${_deps}")
 set(_linker_command "-Wl,-Map=${APP_NAME}.map -Wl,--build-id=none -Wl,--gc-sections -T\"${CMAKE_SOURCE_DIR}/lscript.ld\" -L\"${CMAKE_LIBRARY_PATH}/\" -L\"${USER_LINK_DIRECTORIES}/\" -Wl,--start-group,-l${_deps} -Wl,--end-group")
+# lscript.ld defaults to the stack and heap the ML-DSA and ML-KEM paths need: the deep frames of
+# liboqs signing and encapsulation, and a heap for the aligned allocations its SHA3 layer makes.
+# With both features off nothing reaches the allocator and those frames are gone, so hand the
+# space back to the resident instruction RAM the two sections are carved from.
+if(NOT ASUFW_PQC_CONFIG_LINES)
+  string(APPEND _linker_command " -Wl,--defsym=_STACK_SIZE=0x1000 -Wl,--defsym=_HEAP_SIZE=0x0")
+endif()
 set_target_properties(${APP_NAME}.elf PROPERTIES LINK_DEPENDS ${CMAKE_SOURCE_DIR}/lscript.ld)
 target_link_libraries(${APP_NAME}.elf ${_linker_command})
 target_compile_definitions(${APP_NAME}.elf PUBLIC ${USER_COMPILE_DEFINITIONS})
