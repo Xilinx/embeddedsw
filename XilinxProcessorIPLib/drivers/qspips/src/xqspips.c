@@ -59,7 +59,7 @@
 *			 TXD1/2/3 to TXD0 added. If WRSR instruction is sent with
 *            byte count 3 (spansion), instruction size and TXD register
 *			 changed accordingly. CR# 712502 and 703869.
-*            Added (#ifdef linear base address) in the Linear read function.
+*            Added ("#ifdef linear base address") in the Linear read function.
 *            Changed  XPAR_XQSPIPS_0_LINEAR_BASEADDR to
 *            XPAR_PS7_QSPI_LINEAR_0_S_AXI_BASEADDR in
 *            XQspiPs_LqspiRead function. Fix for CR#718141
@@ -87,6 +87,7 @@
 * 3.7	akm 03/19/20 Modified XQspiPs_PolledTransfer(), XQspiPs_Transfer() and
 *			XQspiPs_InterruptHandler() APIs to fill TX FIFO with valid
 *			data when RX buffer is not NULL.
+* 3.16 vn 08/26/26 Fix Doxygen warnings
 *
 * </pre>
 *
@@ -244,8 +245,6 @@ int XQspiPs_CfgInitialize(XQspiPs *InstancePtr, XQspiPs_Config *ConfigPtr,
 *
 * @param	InstancePtr is a pointer to the XQspiPs instance.
 *
-* @return	None.
-*
 * @note		None.
 *
 ******************************************************************************/
@@ -280,8 +279,6 @@ void XQspiPs_Reset(XQspiPs *InstancePtr)
 * The byte counts are cleared, the busy flag is cleared.
 *
 * @param	InstancePtr is a pointer to the XQspiPs instance.
-*
-* @return	None.
 *
 * @note
 *
@@ -1198,8 +1195,6 @@ int XQspiPs_SetSlaveSelect(XQspiPs *InstancePtr)
 *		when the callback function is invoked.
 * @param	FuncPtr is the pointer to the callback function.
 *
-* @return	None.
-*
 * @note
 *
 * The handler is called within interrupt context, so it should do its work
@@ -1227,8 +1222,6 @@ void XQspiPs_SetStatusHandler(XQspiPs *InstancePtr, void *CallBackRef,
 * @param	StatusEvent is the event that just occurred.
 * @param	ByteCount is the number of bytes transferred up until the event
 *		occurred.
-*
-* @return	None.
 *
 * @note		None.
 *
@@ -1269,8 +1262,6 @@ static void StubStatusHandler(void *CallBackRef, u32 StatusEvent,
 *   layer software of the error.
 *
 * @param	InstancePtr is a pointer to the XQspiPs instance.
-*
-* @return	None.
 *
 * @note
 *
@@ -1541,8 +1532,6 @@ void XQspiPs_InterruptHandler(void *InstancePtr)
 * @param	InstancePtr is a pointer to the XQspiPs instance.
 * @param	Data is the data which needs to be copied to the Rx buffer.
 * @param	Size is the number of bytes to be copied to the Receive buffer.
-*
-* @return	None.
 *
 * @note		None.
 *

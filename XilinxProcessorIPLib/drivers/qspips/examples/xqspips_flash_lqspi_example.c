@@ -55,9 +55,14 @@
 * 3.11  akm 07/10/23 Add support for system device-tree flow for example.
 * 3.14  sb  03/25/25 Fixed gcc and g++ warnings.
 * 3.15  vlt 12/16/25 Update Doxygen comments to include SDT flow details.
+* 3.16  vn  08/26/26 Fix Doxygen warnings
 * </pre>
 *
 ******************************************************************************/
+
+/** @addtogroup qspips_flash_lqspi_example
+ * @{
+ */
 
 /***************************** Include Files *********************************/
 
@@ -410,8 +415,6 @@ int LinearQspiFlashExample(XQspiPs *QspiInstancePtr, UINTPTR BaseAddress)
 *		device supports only Page Program command to write data to the
 *		flash.
 *
-* @return	None.
-*
 * @note		None.
 *
 ******************************************************************************/
@@ -484,8 +487,6 @@ void FlashWrite(XQspiPs *QspiPtr, u32 Address, u32 ByteCount, u8 Command)
 * @param	Address contains the address of the first sector which needs to
 *		be erased.
 * @param	ByteCount contains the total size to be erased.
-*
-* @return	None.
 *
 * @note		None.
 *
@@ -656,7 +657,6 @@ int FlashReadID(void)
  *
  * @param	QspiPtr is a pointer to the QSPI driver component to use.
  *
- * @return	None.
  *
  * @note		None.
  *
@@ -700,3 +700,4 @@ void FlashQuadEnable(XQspiPs *QspiPtr)
 		}
 	}
 }
+/** @} */

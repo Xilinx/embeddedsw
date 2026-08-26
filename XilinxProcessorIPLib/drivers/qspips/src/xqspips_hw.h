@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -38,6 +38,7 @@
 * 					 controller does not update FIFO status flags as expected
 * 					 when thresholds are used.
 * 3.6   akm 03/28/19 Fixed memory leak issue while reading from qspi.(CR#1016357)
+* 3.16  vn  08/26/26 Fix Doxygen warnings
 *
 * </pre>
 *
@@ -84,7 +85,7 @@ extern "C" {
 #define XQSPIPS_LQSPI_SR_OFFSET  	0xA4 /**< Linear QSPI status register */
 #define XQSPIPS_MOD_ID_OFFSET  		0xFC /**< Module ID register */
 
-/* @} */
+/** @} */
 
 /** @name Configuration Register
  *
@@ -130,7 +131,7 @@ extern "C" {
 	XQSPIPS_CR_MANSTRT_MASK | \
 	XQSPIPS_CR_ENDIAN_MASK | \
 	XQSPIPS_CR_REF_CLK_MASK
-/* @} */
+/** @} */
 
 
 /** @name QSPI Interrupt Registers
@@ -180,7 +181,7 @@ extern "C" {
 						    need write to clear */
 #define XQSPIPS_ISR_RESET_STATE    0x00000004  /**< Default to tx/rx empty */
 #define XQSPIPS_IXR_DISABLE_ALL    0x0000007D  /**< Disable all interrupts */
-/* @} */
+/** @} */
 
 
 /** @name Enable Register
@@ -190,7 +191,7 @@ extern "C" {
  * @{
  */
 #define XQSPIPS_ER_ENABLE_MASK    0x00000001 /**< QSPI Enable Bit Mask */
-/* @} */
+/** @} */
 
 
 /** @name Delay Register
@@ -209,7 +210,7 @@ extern "C" {
 #define XQSPIPS_DR_AFTER_MASK	0x0000FF00 /**< Delay After Transfers mask */
 #define XQSPIPS_DR_AFTER_SHIFT	8 	   /**< Delay After Transfers shift */
 #define XQSPIPS_DR_INIT_MASK	0x000000FF /**< Delay Initially mask */
-/* @} */
+/** @} */
 
 /** @name Slave Idle Count Registers
  *
@@ -221,7 +222,7 @@ extern "C" {
  * @{
  */
 #define XQSPIPS_SICR_MASK	0x000000FF /**< Slave Idle Count Mask */
-/* @} */
+/** @} */
 
 
 /** @name Transmit FIFO Watermark Register
@@ -234,7 +235,7 @@ extern "C" {
 #define XQSPIPS_TXWR_RESET_VALUE    0x00000001 /**< Transmit Watermark
 						  * register reset value */
 
-/* @} */
+/** @} */
 
 /** @name Receive FIFO Watermark Register
  *
@@ -246,7 +247,7 @@ extern "C" {
 #define XQSPIPS_RXWR_RESET_VALUE    0x00000001 /**< Receive Watermark
 						  * register reset value */
 
-/* @} */
+/** @} */
 
 /** @name FIFO Depth
  *
@@ -255,7 +256,7 @@ extern "C" {
  * @{
  */
 #define XQSPIPS_FIFO_DEPTH	63	/**< FIFO depth (words) */
-/* @} */
+/** @} */
 
 
 /** @name Linear QSPI Configuration Register
@@ -278,7 +279,7 @@ extern "C" {
 							 read data */
 #define XQSPIPS_LQSPI_CR_INST_MASK	 0x000000FF /**< Read instr code */
 #define XQSPIPS_LQSPI_CR_RST_STATE	 0x8000016B /**< Default CR value */
-/* @} */
+/** @} */
 
 /** @name Linear QSPI Status Register
  *
@@ -291,7 +292,7 @@ extern "C" {
 							  received */
 #define XQSPIPS_LQSPI_SR_WR_RECVD_MASK	  0x00000002 /**< AXI write command
 							  received */
-/* @} */
+/** @} */
 
 
 /** @name Loopback Delay Adjust Register
@@ -303,7 +304,7 @@ extern "C" {
 
 #define XQSPIPS_LPBK_DLY_ADJ_USE_LPBK_MASK 0x00000020 /**< Loopback Bit */
 
-/* @} */
+/** @} */
 
 
 /** @name SLCR Register
@@ -318,7 +319,7 @@ extern "C" {
 #define LQSPI_RST_CTRL 0x00000230 /**< Quad SPI Software Reset Control */
 #define SLCR_LOCKSTA 0x0000000C /**< SLCR Write Protection status */
 
-/* @} */
+/** @} */
 
 
 /** @name SLCR Register
@@ -335,7 +336,7 @@ extern "C" {
 #define SLCR_UNLOCK_MASK 0xDF0D /**< SLCR Write Protection Unlock */
 #define LQSPI_RST_CTRL_MASK 0x3 /**< Quad SPI Software Reset Control */
 
-/* @} */
+/** @} */
 
 
 /**************************** Type Definitions *******************************/

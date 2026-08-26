@@ -276,6 +276,7 @@
 * 3.15  vlt 12/30/25 Update Doxygen comments to include SDT flow details.
 * 3.15  vlt 03/15/26 Updated BaseAddress type from u32 to UINTPTR
 *                    to support 64-bit addressing.
+* 3.16  vn  08/26/26 Fix Doxygen warnings
 *
 * </pre>
 *
@@ -349,7 +350,7 @@ extern "C" {
 #define XQSPIPS_MANUAL_START_OPTION	0x20 /**< Manual Start enable */
 #define XQSPIPS_LQSPI_MODE_OPTION	0x80 /**< Linear QPSI mode */
 #define XQSPIPS_HOLD_B_DRIVE_OPTION	0x100 /**< Drive HOLD_B Pin */
-/*@}*/
+/** @} */
 
 
 /** @name QSPI Clock Prescaler options
@@ -368,7 +369,7 @@ extern "C" {
 #define XQSPIPS_CLK_PRESCALE_128	0x06 /**< PCLK/128 Prescaler */
 #define XQSPIPS_CLK_PRESCALE_256	0x07 /**< PCLK/256 Prescaler */
 
-/*@}*/
+/** @} */
 
 
 /** @name Callback events
@@ -384,7 +385,7 @@ extern "C" {
 #define XQSPIPS_EVENT_RECEIVE_OVERRUN	4 /**< Receive data loss because
 					    *  RX FIFO full
 					    */
-/*@}*/
+/** @} */
 
 /** @name Flash commands
  *
@@ -424,7 +425,7 @@ extern "C" {
 #define XQSPIPS_FLASH_OPCODE_READ_LOCK_REG	0xE8	/* Lock Reg Read */
 #define XQSPIPS_FLASH_OPCODE_WRITE_LOCK_REG	0xE5	/* Lock Reg Write */
 
-/*@}*/
+/** @} */
 
 /** @name Instruction size
  *
@@ -438,7 +439,7 @@ extern "C" {
 #define XQSPIPS_SIZE_THREE	3
 #define XQSPIPS_SIZE_FOUR	4
 
-/*@}*/
+/** @} */
 
 /** @name ConnectionMode
  *
@@ -451,7 +452,7 @@ extern "C" {
 #define XQSPIPS_CONNECTION_MODE_STACKED		1
 #define XQSPIPS_CONNECTION_MODE_PARALLEL	2
 
-/*@}*/
+/** @} */
 
 /** @name FIFO threshold value
  *
@@ -462,7 +463,7 @@ extern "C" {
  */
 #define XQSPIPS_RXFIFO_THRESHOLD_OPT		32
 
-/*@}*/
+/** @} */
 
 /**************************** Type Definitions *******************************/
 /**

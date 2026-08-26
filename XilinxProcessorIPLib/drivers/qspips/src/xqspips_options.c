@@ -35,6 +35,7 @@
 *			 LQSPI_MODE_OPTION is set. Moved Enable() to XQpsiPs_LqspiRead().
 * 3.3   sk  11/07/15 Modified the API prototypes according to MISRAC standards
 *                    to remove compilation warnings. CR# 868893.
+* 3.16  vn  08/26/26 Fix Doxygen warnings
 *</pre>
 *
 ******************************************************************************/
@@ -374,8 +375,6 @@ int XQspiPs_SetDelays(XQspiPs *InstancePtr, u8 DelayNss, u8 DelayBtwn,
 *		This is a return parameter.
 * @param	DelayInit is a pointer to the Delay Initially value. This is
 *		a return parameter.
-*
-* @return	None.
 *
 * @note		None.
 *

@@ -42,9 +42,14 @@
 * 3.11 akm 07/10/23 Add support for system device-tree flow for example.
 * 3.14 sb  03/25/25 Fixed gcc and g++ warnings.
 * 3.15 vlt 12/18/25 Update Doxygen comments to include SDT flow details.
+* 3.16 vn  08/26/26 Fix Doxygen warnings
 * </pre>
 *
 ******************************************************************************/
+
+/** @addtogroup qspips_g128_flash_example
+ * @{
+ */
 
 /***************************** Include Files *********************************/
 #ifndef SDT
@@ -682,9 +687,7 @@ int QspiG128FlashExample(XQspiPs *QspiInstancePtr, UINTPTR BaseAddress)
 * @param	Command is the command used to write data to the flash. QSPI
 *		device supports only Page Program command to write data to the
 *		flash.
-* @param	WriteBfrptr is the pointer to the write buffer(which is to be transmitted)
-*
-* @return	None.
+* @param	WriteBfrPtr is the pointer to the write buffer(which is to be transmitted)
 *
 * @note		None.
 *
@@ -800,8 +803,6 @@ void FlashWrite(XQspiPs *QspiPtr, u32 Address, u32 ByteCount, u8 Command,
 * @param	ByteCount contains the total size to be erased.
 * @param	WriteBfrPtr is Pointer to the write buffer
 *		(which is to be transmitted)
-*
-* @return	None.
 *
 * @note		None.
 *
@@ -1226,8 +1227,6 @@ int FlashReadID(XQspiPs *QspiPtr, u8 *WriteBfrPtr, u8 *ReadBfrPtr)
 * @param	ReadBfrPtr is pointer to the read buffer to which valid
 *		received data should be written
 *
-* @return	none.
-*
 * @note		None.
 *
 ******************************************************************************/
@@ -1397,8 +1396,6 @@ int SendBankSelect(XQspiPs *QspiPtr, u8 *WriteBfrPtr, u32 BankSel)
 * @param	QspiPtr is a pointer to the QSPI driver component to use.
 * @param	WriteBfrPtr is the pointer to command+address to be sent
 *
-* @return	None
-*
 * @note		None.
 *
 ******************************************************************************/
@@ -1463,8 +1460,6 @@ void BulkErase(XQspiPs *QspiPtr, u8 *WriteBfrPtr)
 *
 * @param	QspiPtr is a pointer to the QSPI driver component to use.
 * @param	WriteBfrPtr is the pointer to command+address to be sent
-*
-* @return	None
 *
 * @note		None.
 *
@@ -1618,3 +1613,4 @@ u32 GetRealAddr(XQspiPs *QspiPtr, u32 Address)
 	return(RealAddr);
 
 }
+/** @} */

@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2013 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -21,6 +21,7 @@
 * 2.03a hk  09/17/13 First release
 * 3.1   hk  06/19/14 When writing to the configuration register, set/reset
 *                    required bits leaving reserved bits untouched. CR# 796813.
+* 3.16  vn  08/26/26 Fix Doxygen warnings
 *
 * </pre>
 *
@@ -40,7 +41,7 @@
  * @{
  */
 #define XQSPIPS_CR_PRESC_DIV_BY_4	0x01
-/* @} */
+/** @} */
 
 /**************************** Type Definitions *******************************/
 
@@ -58,8 +59,6 @@
 * register writes.
 *
 * @param	BaseAddress
-*
-* @return	None.
 *
 * @note		None.
 *
@@ -135,8 +134,6 @@ void XQspiPs_ResetHw(u32 BaseAddress)
 * Initializes QSPI to Linear mode with default QSPI boot settings.
 *
 * @param	BaseAddress
-*
-* @return	None.
 *
 * @note		None.
 *

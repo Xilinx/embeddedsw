@@ -23,9 +23,14 @@
 * 1.00  drg/jz 01/25/10 First release.
 * 3.11  akm    07/10/23 Add support for system device-tree flow for example.
 * 3.15  vlt    12/18/25 Update Doxygen comments to include SDT flow details.
+* 3.16  vn     08/26/26 Fix Doxygen warnings
 * </pre>
 *
 *******************************************************************************/
+
+/** @addtogroup qspips_selftest_example
+ * @{
+ */
 
 /***************************** Include Files **********************************/
 
@@ -155,3 +160,4 @@ int QspiPsSelfTestExample(UINTPTR BaseAddress)
 
 	return XST_SUCCESS;
 }
+/** @} */
