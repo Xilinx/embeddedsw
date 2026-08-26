@@ -10,6 +10,7 @@
 # 4.0     adk    10/12/13  Removed support for xps_ll_fifo
 # 5.3     rsp    11/08/18  Fix poll and interrupt example receive sequence i.e
 #                          RDFO should be read before reading RLR.
+# 6.2     vn     08/26/26  Fix Doxygen warnings.
 ##############################################################################
 OPTION psf_version = 2.1;
 
@@ -18,7 +19,7 @@ BEGIN driver llfifo
   OPTION supported_peripherals = (axi_fifo_mm_s_v[4-9]_[1-9]);
   OPTION driver_state = ACTIVE;
   OPTION copyfiles = all;
-  OPTION VERSION = 6.1;
+  OPTION VERSION = 6.2;
   OPTION NAME = llfifo;
 
 END driver

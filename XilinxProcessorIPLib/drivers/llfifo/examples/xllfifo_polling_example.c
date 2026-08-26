@@ -45,9 +45,14 @@
  *                      first will result in the RDFO being reset to zero and
  *                      no data being received.
  * 6.1   vlt 12/18/25 Update Doxygen comments to include SDT flow details.
+ * 6.2   vn  08/26/26 Fix Doxygen warnings.
  * </pre>
  *
  * ***************************************************************************
+ */
+
+/** @addtogroup llfifo_polling_example
+ * @{
  */
 
 /***************************** Include Files *********************************/
@@ -109,8 +114,6 @@ u32 DestinationBuffer[MAX_DATA_BUFFER_SIZE * WORD_SIZE];
 * Main function
 *
 * This function is the main entry of the Axi FIFO Polling test.
-*
-* @param	None
 *
 * @return
 *		- XST_SUCCESS if tests pass
@@ -379,3 +382,4 @@ static void Uart550_Setup(void)
 			XUN_LCR_8_DATA_BITS);
 }
 #endif
+/** @} */

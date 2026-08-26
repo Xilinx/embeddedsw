@@ -29,6 +29,7 @@
 *		       XLLF_INT_RFPE_MASK for the new version of the
 *		       AXI4-Stream FIFO core (v2.01a and later)
 * 6.1  vlt   01/22/26  Fixed codespell issues
+* 6.2  vn    08/26/26  Fix Doxygen warnings.
 * </pre>
 *
 ******************************************************************************/
@@ -73,7 +74,7 @@ extern "C" {
 #define XLLF_TDR_OFFSET  0x0000002C  /**< Transmit Destination  */
 #define XLLF_RDR_OFFSET  0x00000030  /**< Receive Destination  */
 
-/*@}*/
+/** @} */
 
 /* Register masks. The following constants define bit locations of various
  * control bits in the registers. Constants are not defined for those registers
@@ -107,7 +108,7 @@ extern "C" {
 #define XLLF_INT_ERROR_MASK       0xf2000000 /**< Error status ints */
 #define XLLF_INT_RXERROR_MASK     0xe0000000 /**< Receive Error status ints */
 #define XLLF_INT_TXERROR_MASK     0x12000000 /**< Transmit Error status ints */
-/*@}*/
+/** @} */
 
 /** @name Reset register values
  *  These bits are associated with the XLLF_TDFR_OFFSET and XLLF_RDFR_OFFSET
@@ -117,7 +118,7 @@ extern "C" {
 #define XLLF_RDFR_RESET_MASK        0x000000a5 /**< receive reset value */
 #define XLLF_TDFR_RESET_MASK        0x000000a5 /**< Transmit reset value */
 #define XLLF_LLR_RESET_MASK         0x000000a5 /**< Local Link reset value */
-/*@}*/
+/** @} */
 
 /**************************** Type Definitions *******************************/
 

@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2005 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -35,6 +35,7 @@
  * 5.5   sk   06/15/20 In XLlFifo_iRead_Aligned and XLlFifo_iWrite_Aligned add
  *		       type casting to fix gcc warnings.
  * 5.6   sd   07/7/23  Add system devicetree support.
+ * 6.2   vn   08/26/26 Fix Doxygen warnings.
  * </pre>
  ******************************************************************************/
 
@@ -79,9 +80,11 @@
  * Interrupts are handled in the OS/Application layer above this driver.
  ******************************************************************************/
 
+/** @cond INTERNAL */
 xdbg_stmnt(u32 _xllfifo_rr_value;)
 xdbg_stmnt(u32 _xllfifo_ipie_value;)
 xdbg_stmnt(u32 _xllfifo_ipis_value;)
+/** @endcond */
 
 /*****************************************************************************/
 /**
@@ -216,8 +219,6 @@ u32 XLlFifo_iTxVacancy(XLlFifo *InstancePtr)
 * @param    InstancePtr references the FIFO on which to operate.
 *
 * @param    Bytes specifies the number of bytes to transmit.
-*
-* @return   N/A
 *
 ******************************************************************************/
 void XLlFifo_iTxSetLen(XLlFifo *InstancePtr, u32 Bytes)
@@ -405,8 +406,6 @@ u32 XLlFifo_RxGetWord(XLlFifo *InstancePtr)
 * @param    InstancePtr references the FIFO on which to operate.
 * @param    Word is the data word to be written to FIFO.
 *
-* @return   N/A
-*
 * @note
 * C-style signature:
 *    void XLlFifo_TxPutWord(XLlFifo *InstancePtr, u32 Word)
@@ -434,8 +433,6 @@ void XLlFifo_TxPutWord(XLlFifo *InstancePtr, u32 Word)
 *
 * @param    BaseAddress is the processor address used to access the
 *           base address of the Fifo device.
-*
-* @return   N/A
 *
 ******************************************************************************/
 void XLlFifo_Initialize(XLlFifo *InstancePtr, UINTPTR BaseAddress)

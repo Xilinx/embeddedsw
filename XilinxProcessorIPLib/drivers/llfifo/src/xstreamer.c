@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2005 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -25,6 +25,7 @@
 *		       to zero when all the bytes are read.
 * 5.5   sk   06/15/20  In XStrm_Read and XStrm_Write add type casting to fix
 *		       gcc warnings.
+* 6.2   vn   08/26/26  Fix Doxygen warnings.
 * </pre>
 ******************************************************************************/
 
@@ -208,8 +209,6 @@ void XStrm_RxInitialize(XStrm_RxFifoStreamer *InstancePtr, unsigned FifoWidth,
 *           the actual FIFO. The true vacancy value needs to come through this
 *           streamer driver because it holds some of the bytes.
 *
-* @return   N/A
-*
 ******************************************************************************/
 void XStrm_TxInitialize(XStrm_TxFifoStreamer *InstancePtr, unsigned FifoWidth,
 			void *FifoInstance, XStrm_XferFnType WriteFn,
@@ -268,8 +267,6 @@ u32 XStrm_RxGetLen(XStrm_RxFifoStreamer *InstancePtr)
 * @param    BufPtr specifies the memory address to place the data read.
 *
 * @param    Bytes specifies the number of bytes to read.
-*
-* @return   N/A
 *
 ******************************************************************************/
 void XStrm_Read(XStrm_RxFifoStreamer *InstancePtr, void *BufPtr,
@@ -366,8 +363,6 @@ void XStrm_Read(XStrm_RxFifoStreamer *InstancePtr, void *BufPtr,
 *
 * @param    Bytes specifies the frame length in bytes.
 *
-* @return   N/A
-*
 ******************************************************************************/
 void XStrm_TxSetLen(XStrm_TxFifoStreamer *InstancePtr, u32 Bytes)
 {
@@ -403,8 +398,6 @@ void XStrm_TxSetLen(XStrm_TxFifoStreamer *InstancePtr, u32 Bytes)
 * @param    BufPtr specifies the memory address of data to write.
 *
 * @param    Bytes specifies the number of bytes to write.
-*
-* @return   N/A
 *
 ******************************************************************************/
 void XStrm_Write(XStrm_TxFifoStreamer *InstancePtr, void *BufPtr,
