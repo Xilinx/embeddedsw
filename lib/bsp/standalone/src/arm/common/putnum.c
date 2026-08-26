@@ -52,5 +52,7 @@ void putnum(u32 num)
 	val--;
   }
 
+  buf[8] = '\0';
+
   print (buf);
 }
