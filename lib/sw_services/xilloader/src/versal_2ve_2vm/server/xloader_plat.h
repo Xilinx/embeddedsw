@@ -608,7 +608,9 @@ int XLoader_CheckAndUpdateSecureState(void);
 int XLoader_MeasureNLoad(XilPdi* PdiPtr);
 void XLoader_ShaInstance1Reset(void);
 int XLoader_MeasureRomAndPlm(void);
+#if defined(VERSAL_2VE_2VM) && !defined(VERSAL_2VP_P)
 int XLoader_ConfigureGlitchDetector(XPlmi_Cmd *Cmd);
+#endif
 
 /************************** Variable Definitions *****************************/
 
