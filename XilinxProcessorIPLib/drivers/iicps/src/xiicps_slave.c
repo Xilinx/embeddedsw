@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -30,6 +30,7 @@
 *       rna 04/09/20 Added timeout as event in slave interrupt handler.
 * 3.16  gm  05/10/22 Updated slave mode receive API's by removing byte count
 * 		     dependency.
+* 3.24  vn  08/26/26 Fix Doxygen warnings
 * </pre>
 *
 ******************************************************************************/
@@ -56,8 +57,6 @@
 *
 * @param	InstancePtr Pointer to the XIicPs instance.
 * @param	SlaveAddr Address of the slave we are receiving from.
-*
-* @return	None.
 *
 * @note
 *	Interrupt is always enabled no matter the transfer is interrupt-driven
@@ -114,8 +113,6 @@ void XIicPs_SetupSlave(XIicPs *InstancePtr, u16 SlaveAddr)
 * @param	MsgPtr Pointer to the send buffer.
 * @param	ByteCount Number of bytes to be sent.
 *
-* @return	None.
-*
 * @note		This send routine is for interrupt-driven transfer only.
 *
 ****************************************************************************/
@@ -156,8 +153,6 @@ void XIicPs_SlaveSend(XIicPs *InstancePtr, u8 *MsgPtr, s32 ByteCount)
 * @param	InstancePtr Pointer to the XIicPs instance.
 * @param	MsgPtr Pointer to the receive buffer.
 * @param	ByteCount Number of bytes to be received.
-*
-* @return	None.
 *
 * @note		This routine is for interrupt-driven transfer only.
 *
@@ -468,8 +463,6 @@ s32 XIicPs_SlaveRecvPolled(XIicPs *InstancePtr, u8 *MsgPtr, s32 ByteCount)
 *
 *
 * @param	InstancePtr Pointer to the XIicPs instance.
-*
-* @return	None.
 *
 *
 ****************************************************************************/

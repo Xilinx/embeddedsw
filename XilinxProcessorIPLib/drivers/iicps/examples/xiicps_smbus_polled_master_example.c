@@ -21,10 +21,15 @@
  * 3.18  gm  07/14/23 Added SDT support.
  * 3.22  bkv 07/09/25 Fixed GCC Warnings.
  * 3.23  vlt 12/17/25 Update Doxygen comments to include SDT flow details.
+ * 3.24  vn  08/26/26 Fix Doxygen warnings
  *
  * </pre>
  *
  ****************************************************************************/
+
+/** @addtogroup xiicps_smbus_polled_master_example
+ * @{
+ */
 
 /***************************** Include Files **********************************/
 #include "xparameters.h"
@@ -68,6 +73,7 @@ int IicPsMasterPolledExample(UINTPTR BaseAddress);
 #endif
 int XIicPsSmbusPolledMasterWriteBlockData(XIicPs *InstancePtr, u8 Command, u8 ByteCount, u8 *SendBufferPtr);
 int XIicPsSmbusPolledMasterReadBlockData(XIicPs *InstancePtr, u8 Command, u8 ByteCount, u8 *RecvBufferPtr);
+
 /************************** Variable Definitions ******************************/
 
 XIicPs Iic;		/**< Instance of the IIC Device */
@@ -351,3 +357,4 @@ int XIicPsSmbusPolledMasterReadBlockData(XIicPs *InstancePtr, u8 Command, u8 Byt
 
 	return XST_SUCCESS;
 }
+/** @} */

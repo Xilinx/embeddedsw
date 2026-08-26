@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -20,6 +20,7 @@
 * ----- ------  -------- -----------------------------------------------
 * 1.00a drg/jz  01/30/10 First release
 * 3.00	sk		01/31/15 Modified the code according to MISRAC 2012 Compliant.
+* 3.24 vn  08/26/26 Fix Doxygen warnings
 *
 * </pre>
 *
@@ -55,8 +56,6 @@
 * @param	CallBackRef Upper layer callback reference passed back
 *		when the callback function is invoked.
 * @param	FunctionPtr Pointer to the callback function.
-*
-* @return	None.
 *
 * @note
 *

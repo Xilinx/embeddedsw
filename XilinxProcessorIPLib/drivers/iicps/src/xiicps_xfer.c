@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -22,6 +22,7 @@
 *		02/18/20 Modified latest code for MISRA-C:2012 Compliance.
 * 3.18  gm      08/25/23 Added XIicPs_MasterPolledRead, XIicPs_MasterIntrSend
 *			 and XIicPs_MasterIntrRead functions.
+* 3.24  vn      08/26/26 Fix Doxygen warnings
 * </pre>
 *
 ******************************************************************************/
@@ -113,8 +114,6 @@ s32 XIicPs_SetupMaster(XIicPs *InstancePtr, s32 Role)
 *
 * @param        InstancePtr Pointer to the XIicPs instance.
 *
-* @return       None.
-*
 *
 ****************************************************************************/
 void MasterSendData(XIicPs *InstancePtr)
@@ -150,8 +149,6 @@ void MasterSendData(XIicPs *InstancePtr)
 * @param        InstancePtr Pointer to the XIicPs instance.
 * @param        IsHold Hold status.
 * @param        ByteCountVar ByteCount.
-*
-* @return       None.
 *
 *
  ****************************************************************************/
@@ -244,8 +241,6 @@ void XIicPs_MasterPolledRead(XIicPs *InstancePtr, s32 IsHold, s32 ByteCountVar)
 * @param        IntrStatusReg Value of interrupt status register.
 * @param        StatusEventPtr Pointer to the StatusEvent.
 *
-* @return       None.
-*
  ****************************************************************************/
 
 void XIicPs_MasterIntrSend(XIicPs *InstancePtr, u32 IntrStatusReg,
@@ -269,8 +264,6 @@ void XIicPs_MasterIntrSend(XIicPs *InstancePtr, u32 IntrStatusReg,
 * @param        InstancePtr Pointer to the XIicPs instance.
 * @param        IntrStatusRegPtr Pointer to the interrupt status register.
 * @param        IsHold Hold status.
-*
-* @return       None.
 *
 *
  ****************************************************************************/

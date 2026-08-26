@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -22,6 +22,7 @@
  * 1.00a jz  01/30/10 First release
  * 3.18  gm  07/14/23 Added SDT support.
  * 3.21  an  03/28/25 Added VEK385 board i2c slave address
+ * 3.24  vn  08/26/26 Fix Doxygen warnings
  *
  * </pre>
  *
@@ -127,7 +128,12 @@ int main(void)
 /**
 * This function perform the initial configuration for the IICPS Device.
 *
-* @param	DeviceId instance and Interrupt ID mapped to the device.
+* @if SDT
+* @param	BaseAddress is the base address of the device.
+* @else
+* @param	DeviceId is the Device ID of the IicPs Device.
+* @param	Int_Id is the interrupt ID mapped to the device.
+* @endif
 *
 * @return	XST_SUCCESS if pass, otherwise XST_FAILURE.
 *
@@ -220,8 +226,13 @@ int IicPsSlaveMonitorExample(void)
 *
 * This function checks the availability of a slave using slave monitor mode.
 *
-* @param	DeviceId is the Device ID of the IicPs Device and is the
-*		XPAR_<IICPS_instance>_DEVICE_ID value from xparameters.h
+* @param	Address is the slave address to monitor.
+* @if SDT
+* @param	BaseAddress is the base address of the device.
+* @else
+* @param	DeviceId is the Device ID of the IicPs Device.
+* @param	Int_Id is the interrupt ID mapped to the device.
+* @endif
 *
 * @return	XST_SUCCESS if successful, otherwise XST_FAILURE.
 *
@@ -423,8 +434,6 @@ static int SetupInterruptSystem(XIicPs *IicPsPtr, u32 Int_Id)
 * @param	CallBackRef contains a callback reference from the driver, in
 *		this case it is the instance pointer for the IIC driver.
 * @param	Event contains the specific kind of event that has occurred.
-*
-* @return	None.
 *
 * @note		None.
 *

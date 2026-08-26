@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2013 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -23,6 +23,7 @@
 *				01/31/15 Modified the code according to MISRAC 2012 Compliant.
 * 3.11  rna	02/11/20 Moved XIicPs_Reset function from xiicps.c
 * 3.18  gm	08/25/23 Added XIicPs_MasterRead function.
+* 3.24  vn 08/26/26 Fix Doxygen warnings
 * </pre>
 *
 ******************************************************************************/
@@ -54,8 +55,6 @@
 *	Update relevant configuration registers with reset values
 *
 * @param   BaseAddress Base address of the interface
-*
-* @return None.
 *
 * @note
 * This function will not modify the slcr registers that are relevant for
@@ -101,8 +100,6 @@ void XIicPs_ResetHw(UINTPTR BaseAddress)
 *
 * @param        InstancePtr Pointer to the XIicPs instance.
 *
-* @return       None.
-*
 *
 ******************************************************************************/
 void XIicPs_Reset(XIicPs *InstancePtr)
@@ -137,8 +134,6 @@ void XIicPs_Reset(XIicPs *InstancePtr)
 * @param        InstancePtr Pointer to the XIicPs instance.
 * @param        IsHold Hold status.
 * @param        ByteCntPtr Pointer to the byte count.
-*
-* @return       None.
 *
 *
  ****************************************************************************/

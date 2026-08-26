@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -54,6 +54,7 @@
 *	rna 05/24/21 Fix Misra c violations
 * 3.18 gm  08/11/23 Update Receive Polled and Interrupt Handler functions
 * 		     as modular.
+* 3.24 vn  08/26/26 Fix Doxygen warnings
 * </pre>
 *
 ******************************************************************************/
@@ -87,8 +88,6 @@
 * @param	MsgPtr Pointer to the send buffer.
 * @param	ByteCount Number of bytes to be sent.
 * @param	SlaveAddr Address of the slave we are sending to.
-*
-* @return	None.
 *
 * @note		This send routine is for interrupt-driven transfer only.
 *
@@ -175,8 +174,6 @@ void XIicPs_MasterSend(XIicPs *InstancePtr, u8 *MsgPtr, s32 ByteCount,
 * @param	MsgPtr Pointer to the receive buffer.
 * @param	ByteCount Number of bytes to be received.
 * @param	SlaveAddr Address of the slave we are receiving from.
-*
-* @return	None.
 *
 * @note		This receive routine is for interrupt-driven transfer only.
 *
@@ -537,8 +534,6 @@ s32 XIicPs_MasterRecvPolled(XIicPs *InstancePtr, u8 *MsgPtr,
 * @param	InstancePtr Pointer to the XIicPs instance.
 * @param	SlaveAddr Address of the slave to contact.
 *
-* @return	None.
-*
 *
 ****************************************************************************/
 void XIicPs_EnableSlaveMonitor(XIicPs *InstancePtr, u16 SlaveAddr)
@@ -604,8 +599,6 @@ void XIicPs_EnableSlaveMonitor(XIicPs *InstancePtr, u16 SlaveAddr)
 * Disables slave monitor mode.
 *
 * @param	InstancePtr Pointer to the XIicPs instance.
-*
-* @return	None.
 *
 *
 ****************************************************************************/
@@ -702,8 +695,6 @@ void XIicPs_DisableSlaveMonitor(XIicPs *InstancePtr)
 *	layer by calling the callback handler.
 *
 * @param	InstancePtr Pointer to the XIicPs instance.
-*
-* @return	None.
 *
 *
 ****************************************************************************/

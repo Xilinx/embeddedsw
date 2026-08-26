@@ -25,6 +25,7 @@
 * 1.00a jz  01/30/10 First release
 * 3.18  gm  07/14/23 Added SDT support.
 * 3.23  vlt 12/17/25 Update Doxygen comments to include SDT flow details.
+* 3.24  vn  08/26/26 Fix Doxygen warnings
 *
 * </pre>
 *
@@ -309,8 +310,6 @@ int IicPsSlaveIntrExample(UINTPTR BaseAddress)
 * @param	CallBackRef contains a callback reference from the driver,
 *		in this case it is the instance pointer for the IIC driver.
 * @param	Event contains the specific kind of event that has occurred.
-*
-* @return	None.
 *
 * @note		None.
 *

@@ -27,6 +27,7 @@
  * 1.00a sg  03/09/19 First release
  * 3.18   gm   07/14/23 Added SDT support.
  * 3.23  vlt 12/17/25 Update Doxygen comments to include SDT flow details.
+ * 3.24  vn  08/26/26 Fix Doxygen warnings
  *
  * </pre>
  *
@@ -359,8 +360,6 @@ s32 IicPsMultiMasterIntrExample(UINTPTR BaseAddress)
 * @param	CallBackRef contains a callback reference from the driver, in
 *		this case it is the instance pointer for the IIC driver.
 * @param	Event contains the specific kind of event that has occurred.
-*
-* @return	None.
 *
 * @note		None.
 *

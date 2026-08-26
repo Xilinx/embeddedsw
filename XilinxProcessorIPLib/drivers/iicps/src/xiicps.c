@@ -34,6 +34,7 @@
 * 3.11  rna	02/11/20 Moved XIicPs_Reset to xiicps_hw.c
 * 3.18  gm	07/14/23 Added SDT support.
 * 3.23  vlt     03/30/26 Implemented bus recovery feature.
+* 3.24  vn      08/26/26 Fix Doxygen warnings
 *
 * </pre>
 *
@@ -202,8 +203,6 @@ static INLINE void StubHandler(void *CallBackRef, u32 StatusEvent)
 * cleared.
 *
 * @param	InstancePtr Pointer to the XIicPs instance.
-*
-* @return	None.
 *
 *
 ******************************************************************************/

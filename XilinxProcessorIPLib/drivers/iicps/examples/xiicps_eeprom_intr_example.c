@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -45,6 +45,7 @@
 *		      instances
 *        rna  03/26/20 Eeprom page size detection support is added.
 * 3.18   gm   08/26/23 Added SDT support.
+* 3.24   vn   08/26/26 Fix Doxygen warnings
 * </pre>
 *
 ******************************************************************************/
@@ -304,6 +305,7 @@ int IicPsEepromIntrExample(void)
 /**
 * This function writes a buffer of data to the IIC serial EEPROM.
 *
+* @param	IicInstance is a pointer to the IIC instance.
 * @param	ByteCount contains the number of bytes in the buffer to be
 *		written.
 *
@@ -353,6 +355,7 @@ static int EepromWriteData(XIicPs *IicInstance, u16 ByteCount)
 /**
 * This function reads data from the IIC serial EEPROM into a specified buffer.
 *
+* @param	IicInstance is a pointer to the IIC instance.
 * @param	BufferPtr contains the address of the data buffer to be filled.
 * @param	ByteCount contains the number of bytes in the buffer to be read.
 *
@@ -492,8 +495,6 @@ static int SetupInterruptSystem(XIicPs *IicPsPtr, u32 Int_Id)
 * @param	CallBackRef contains a callback reference from the driver, in
 *		this case it is the instance pointer for the IIC driver.
 * @param	Event contains the specific kind of event that has occurred.
-* @param	EventData contains the number of bytes sent or received for sent
-*		and receive events.
 *
 * @return	None.
 *
@@ -523,7 +524,8 @@ void Handler(void *CallBackRef, u32 Event)
 /**
 * This function initializes the IIC MUX to select the required channel.
 *
-* @param	MuxAddress and Channel select value.
+* @param	MuxIicAddr is the IIC address of the MUX.
+* @param	WriteBuffer is the channel select value.
 *
 * @return	XST_SUCCESS if pass, otherwise XST_FAILURE.
 *
@@ -572,7 +574,12 @@ static int MuxInitChannel(u16 MuxIicAddr, u8 WriteBuffer)
 /**
 * This function perform the initial configuration for the IICPS Device.
 *
-* @param	DeviceId instance and Interrupt ID mapped to the device.
+* @if SDT
+* @param	BaseAddress is the base address of the device.
+* @else
+* @param	DeviceId is the Device ID of the IicPs Device.
+* @param	Int_Id is the interrupt ID mapped to the device.
+* @endif
 *
 * @return	XST_SUCCESS if pass, otherwise XST_FAILURE.
 *
@@ -669,9 +676,8 @@ static int IicPsFindDevice(u16 addr, UINTPTR BaseAddress)
 /**
 * This function is use to figure out the Eeprom slave device
 *
-* @param	Eeprom slave address
-*
-* @param	Pagesize pointer
+* @param	Eeprom_Addr is the EEPROM slave address.
+* @param	PageSize is the pagesize pointer.
 *
 * @return	XST_SUCCESS if successful and also update the epprom slave
 * device address in addr variable else XST_FAILURE.
@@ -781,9 +787,8 @@ static int FindEepromDevice(u16 Address)
 /**
 * This function is used to figure out page size Eeprom slave device
 *
-* @param	Eeprom Address
-*
-* @param	Pagesize pointer
+* @param	EepromAddr is the EEPROM address.
+* @param	PageSize_ptr is the pagesize pointer.
 *
 * @return	XST_SUCCESS if successful and also update the epprom slave
 * device pagesize else XST_FAILURE.
@@ -861,8 +866,13 @@ static int FindEepromPageSize(u16 EepromAddr, u32 *PageSize_ptr)
 *
 * This function checks the availability of a slave using slave monitor mode.
 *
-* @param	DeviceId is the Device ID of the IicPs Device and is the
-*		XPAR_<IICPS_instance>_DEVICE_ID value from xparameters.h
+* @param	Address is the slave address to monitor.
+* @if SDT
+* @param	BaseAddress is the base address of the device.
+* @else
+* @param	DeviceId is the Device ID of the IicPs Device.
+* @param	Int_Id is the interrupt ID mapped to the device.
+* @endif
 *
 * @return	XST_SUCCESS if successful, otherwise XST_FAILURE.
 *

@@ -22,10 +22,15 @@
  * 1.00a jz  01/30/10 First release
  * 3.18  gm  07/14/23 Added SDT support.
  * 3.23  vlt 12/17/25 Update Doxygen comments to include SDT flow details.
+ * 3.24  vn  08/26/26 Fix Doxygen warnings.
  *
  * </pre>
  *
  ****************************************************************************/
+
+/** @addtogroup xiicps_polled_master_example
+ * @{
+ */
 
 /***************************** Include Files **********************************/
 #include "xparameters.h"
@@ -223,3 +228,4 @@ int IicPsMasterPolledExample(UINTPTR BaseAddress)
 
 	return XST_SUCCESS;
 }
+/** @} */
