@@ -54,6 +54,10 @@ s32 XAsu_KmDeleteKeyVault(XAsu_ClientParams *ClientParamPtr, u32 VaultId);
 s32 XAsu_KmDeleteKey(XAsu_ClientParams *ClientParamPtr, u32 KeyId);
 s32 XAsu_KmGenerateRsaKeyPair(XAsu_ClientParams *ClientParamPtr,
 				XAsu_KeyManagerParams *KmSubVaultParamPtr);
+s32 XAsu_KmGenerateMldsaKeyPair(XAsu_ClientParams *ClientParamPtr,
+				XAsu_KeyManagerPqcKeyGenParams *KmSubVaultParamPtr);
+s32 XAsu_KmGenerateMlkemKeyPair(XAsu_ClientParams *ClientParamPtr,
+				XAsu_KeyManagerPqcKeyGenParams *KmSubVaultParamPtr);
 s32 XAsu_KmGenerateEccKeyPair(XAsu_ClientParams *ClientParamPtr,
 				XAsu_KeyManagerParams *KmSubVaultParamPtr);
 s32 XAsu_KmStoreKey(XAsu_ClientParams *ClientParamPtr, XAsu_KeyManagerParams *KeyParams);

@@ -55,6 +55,8 @@
 #include "xasufw_memory.h"
 #include "xasufw_hw.h"
 #include "xasufw_perf.h"
+#include "xmldsa.h"
+#include "xmlkem.h"
 
 #ifdef XASU_KEYMANAGER_ENABLE
 /************************************ Constant Definitions ***************************************/
@@ -72,6 +74,17 @@
 		 *   derived from the XAsu_RsaPubKeyComp. */
 #define XKEYMANAGER_RSA_PUB_KEY_PUBEXP_OFFSET	((u32)offsetof(XAsu_RsaPubKeyComp, PubExp))
 		/**< Offset of the RSA public exponent within XAsu_RsaPubKeyComp. */
+
+/*
+ * Both RSA public key paths below pack PubExp || Modulus into the crypto auxiliary buffer, and
+ * each bounds only the modulus, against the declared RSA maximum. The exponent that precedes it
+ * is what the buffer must also hold, so raising the RSA key cap fails the build here rather than
+ * writing past the buffer.
+ */
+_Static_assert((XRSA_PUBEXP_SIZE_IN_BYTES + XRSA_MAX_KEY_SIZE_IN_BYTES) <=
+	       XASUFW_CRYPTO_AUX_BUF_SIZE,
+	       "packed RSA public key overruns the crypto auxiliary buffer");
+
 #define XKEYMANAGER_IS_BIT_SET(Value, Index) (((Value) & ((u16)1U << (Index))) != 0U) /**< Check if a bit is set */
 
 #define XKEYMANAGER_ASYM_KEY_TYPE_COUNT	(2U)	/**< Number of asymmetric key types (private and public) */
@@ -114,6 +127,8 @@
 static s32 XKeyManager_UpdateKeyVault(XAsufw_Dma *DmaPtr, XAsu_KeyManagerSubVaultType KeyType,
 				const XAsu_KeyManagerParams *ParamsPtr, const u8 *KeyData,
 				u16 ResolvedSlot, u32 *KeyIdPtr);
+static s32 XKeyManager_ValidatePqcStoreKeyLength(XAsu_KeyManagerSubVaultType KeyType,
+				const XAsu_KeyManagerParams *ParamsPtr);
 static s32 XKeyManager_UpdateVaultInfo(u32 SubSystemId, u8 ReqVaultId, u8 *VaultIdPtr);
 static s32 XKeyManager_GetKeySlot(u8 VaultId, XAsu_KeyManagerSubVaultType KeyType, u16 ReqKeyId,
 				u16 *SlotPtr);
@@ -144,6 +159,18 @@ static s32 XKeyManager_UpdateEccPvtKeyObjectFromVault(XAsu_EccKeyObject *KeyObje
        u32 SubSystemId, u8 KeyUsecase, u32 KeyId);
 static s32 XKeyManager_UpdateLmsPubKeyObjectFromVault(u64 KeyObjectAddr, u32 SubSystemId,
 	u8 KeyUsecase, u32 KeyId);
+#ifdef XASU_MLDSA_ENABLE
+static s32 XKeyManager_UpdateMldsaPvtKeyObjectFromVault(u64 KeyObjectAddr, u32 SubSystemId,
+	u8 KeyUsecase, u32 KeyId);
+static s32 XKeyManager_UpdateMldsaPubKeyObjectFromVault(u64 KeyObjectAddr, u32 SubSystemId,
+	u8 KeyUsecase, u32 KeyId);
+#endif /* XASU_MLDSA_ENABLE */
+#ifdef XASU_MLKEM_ENABLE
+static s32 XKeyManager_UpdateMlkemPvtKeyObjectFromVault(u64 KeyObjectAddr, u32 SubSystemId,
+	u8 KeyUsecase, u32 KeyId);
+static s32 XKeyManager_UpdateMlkemPubKeyObjectFromVault(u64 KeyObjectAddr, u32 SubSystemId,
+	u8 KeyUsecase, u32 KeyId);
+#endif /* XASU_MLKEM_ENABLE */
 static inline u8 XKeyManager_GetRevokeId(void);
 static s32 XKeyManager_GenerateAndWriteAesKey(XAsufw_Dma *DmaPtr, XAes *AesInstancePtr);
 
@@ -162,7 +189,11 @@ static const u32 XKeyManager_KeyObjectSizeLookup[XKEYMANAGER_MAX_SUB_VAULTS] = {
 	[XASU_ECC_PVT_SUBVAULT_ID] = sizeof(XKeyManager_EccPvtKeyObject),
 	[XASU_ECC_PUB_SUBVAULT_ID] = sizeof(XKeyManager_EccPubKeyObject),
 	[XASU_LMS_SUBVAULT_ID] = sizeof(XKeyManager_LmsPubKeyObject),
-	[XASU_X509_SUBVAULT_ID] = sizeof(XKeyManager_X509KeyObject)
+	[XASU_X509_SUBVAULT_ID] = sizeof(XKeyManager_X509KeyObject),
+	[XASU_MLDSA_PVT_SUBVAULT_ID] = sizeof(XKeyManager_MldsaPvtKeyObject),
+	[XASU_MLDSA_PUB_SUBVAULT_ID] = sizeof(XKeyManager_MldsaPubKeyObject),
+	[XASU_MLKEM_PVT_SUBVAULT_ID] = sizeof(XKeyManager_MlkemPvtKeyObject),
+	[XASU_MLKEM_PUB_SUBVAULT_ID] = sizeof(XKeyManager_MlkemPubKeyObject)
 };
 
 /*************************************************************************************************/
@@ -411,7 +442,15 @@ s32 XKeyManager_CreateKeyVault(const XAsu_KeyManagerSubVaultParams *ParamsPtr, u
 			    ((u64)ParamsPtr->ECCPvtKeyVaultCapacity * sizeof(XKeyManager_EccPvtKeyObject)) +
 			    ((u64)ParamsPtr->ECCPubKeyVaultCapacity * sizeof(XKeyManager_EccPubKeyObject)) +
 			    ((u64)ParamsPtr->LMSKeyVaultCapacity * sizeof(XKeyManager_LmsPubKeyObject)) +
-			    ((u64)ParamsPtr->X509KeyVaultCapacity * sizeof(XKeyManager_X509KeyObject));
+			    ((u64)ParamsPtr->X509KeyVaultCapacity * sizeof(XKeyManager_X509KeyObject)) +
+			    ((u64)ParamsPtr->MldsaPvtKeyVaultCapacity *
+					sizeof(XKeyManager_MldsaPvtKeyObject)) +
+			    ((u64)ParamsPtr->MldsaPubKeyVaultCapacity *
+					sizeof(XKeyManager_MldsaPubKeyObject)) +
+			    ((u64)ParamsPtr->MlkemPvtKeyVaultCapacity *
+					sizeof(XKeyManager_MlkemPvtKeyObject)) +
+			    ((u64)ParamsPtr->MlkemPubKeyVaultCapacity *
+					sizeof(XKeyManager_MlkemPubKeyObject));
 
 	/* Ensure at least one sub-vault has non-zero capacity. */
 	if (TotalSubVaultSize == 0U) {
@@ -1235,6 +1274,450 @@ END:
 	return Status;
 }
 
+#ifdef XASU_MLDSA_ENABLE
+/*************************************************************************************************/
+/**
+ * @brief	Generate an ML-DSA key pair and either export it via DMA or store it in the vault.
+ *
+ * @param	DmaPtr		Pointer to the XAsufw_Dma instance.
+ * @param	Sha3Ptr		Pointer to the SHA3 instance, used by the ML-DSA core.
+ * @param	PqcParamsPtr	Pointer to XAsu_KeyManagerPqcKeyGenParams. The parameter set is
+ *				carried in KmParams.KeyMetadata.KeyAttributes and the public key
+ *				length in KmParams.KeyMetadata.Length. Each stored object records
+ *				its own length. A non-zero SeedAddr derives the pair from that seed
+ *				instead of one drawn from the TRNG. When the pair is stored,
+ *				KmParams.KeyMetadata.CompositeKeyId selects the vault and the slot
+ *				index requested in both the private and the public sub-vault, or
+ *				zero to take the first free slot in each.
+ * @param	KeyIdPtr	Pointer to the output Key IDs.
+ * @param	SubSystemId	Subsystem ID for which the key is being generated.
+ *
+ * @return
+ * 	- XASUFW_SUCCESS, when the key is generated and transferred or updated in the vault.
+ * 	- XASUFW_KEYMANAGER_INVALID_PARAM, if any input parameter is invalid.
+ * 	- XASUFW_KEYMANAGER_INVALID_VAULT_ACCESS, if the vault does not exist or the subsystem does
+ * 	  not have access to it.
+ * 	- XASUFW_KEYMANAGER_KEY_SLOT_IN_USE, if the requested key slot is already occupied,
+ * 	  packed with the operation-specific slot resolution error.
+ * 	- XASUFW_KEYMANAGER_MAX_CAPACITY_REACHED, if the sub-vault has no free slot.
+ * 	- XASUFW_MLDSA_KEY_PAIR_GENERATION_FAIL, if ML-DSA key pair generation or its pairwise
+ * 	  consistency test fails.
+ * 	- XASUFW_KEYMANAGER_UPDATE_PVT_KEY_FAIL, if updating the private key in the vault fails.
+ * 	- XASUFW_KEYMANAGER_UPDATE_PUB_KEY_FAIL, if updating the public key in the vault fails.
+ * 	- XASUFW_DMA_COPY_FAIL, if DMA transfer fails.
+ *
+ *************************************************************************************************/
+s32 XKeyManager_GenerateMldsaKeyPair(XAsufw_Dma *DmaPtr, XSha *Sha3Ptr,
+			const XAsu_KeyManagerPqcKeyGenParams *PqcParamsPtr, u32 *KeyIdPtr,
+			u32 SubSystemId)
+{
+	/**
+	 * Capture the start time of the ML-DSA key pair generation operation, if performance
+	 * measurement is enabled.
+	 */
+	XASUFW_MEASURE_PERF_START(XASU_MODULE_KEYMANAGER_ID);
+
+	CREATE_VOLATILE(Status, XASUFW_FAILURE);
+	CREATE_VOLATILE(DeleteStatus, XASUFW_FAILURE);
+	XFih_Var XFihMldsaKey = XFih_VolatileAssignXfihVar(XFIH_FAILURE);
+	s32 ClearStatus = XASUFW_FAILURE;
+	u8 *ScratchPtr = NULL;
+	u8 *PubKey;
+	u8 *PvtKey;
+	u32 PubKeyLen = 0U;
+	u32 PvtKeyLen = 0U;
+	XMldsa_KeyGenParams KeyGenParams;
+	const XAsu_KeyManagerParams *ParamsPtr = NULL;
+	u16 PvtSlot = 0U;
+	u16 PubSlot = 0U;
+	u16 ReqSlot;
+	u8 VaultId;
+
+	/** Validate the input parameters. */
+	if ((PqcParamsPtr == NULL) || (DmaPtr == NULL) || (Sha3Ptr == NULL)) {
+		Status = XASUFW_KEYMANAGER_INVALID_PARAM;
+		goto END;
+	}
+
+	ParamsPtr = &PqcParamsPtr->KmParams;
+
+	if ((KeyIdPtr == NULL) && (ParamsPtr->KeyObjectAddr == 0U)) {
+		Status = XASUFW_KEYMANAGER_INVALID_PARAM;
+		goto END;
+	}
+
+	/**
+	 * Validate the seed and the parameter set against the contract the client validates them
+	 * against, which also resolves both key lengths of the requested parameter set.
+	 */
+	Status = XAsu_KmValidateMldsaKeyGenParams(PqcParamsPtr, &PubKeyLen, &PvtKeyLen);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_KEYMANAGER_INVALID_PARAM;
+		goto END;
+	}
+
+	/**
+	 * Resolve both sub-vault slots before generating the key pair, so a slot conflict is
+	 * reported without creating key material and cannot leave a half-stored pair. The
+	 * requested slot applies to both the private and the public sub-vault.
+	 */
+	if (ParamsPtr->KeyObjectAddr == 0U) {
+		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+		Status = XAsu_KmValidateVaultParams(ParamsPtr);
+		if (Status != XASUFW_SUCCESS) {
+			Status = XASUFW_KEYMANAGER_INVALID_PARAM;
+			goto END;
+		}
+		VaultId = XASU_KM_GET_VAULT_ID(ParamsPtr->KeyMetadata.CompositeKeyId);
+		ReqSlot = XASU_KM_GET_KEY_INDEX(ParamsPtr->KeyMetadata.CompositeKeyId);
+
+		/** Validate the vault exists and belongs to the subsystem. */
+		if ((VaultManager.VaultInfo[VaultId].VaultSize == 0U) ||
+		    (VaultManager.VaultInfo[VaultId].SubSystemId != SubSystemId)) {
+			Status = XASUFW_KEYMANAGER_INVALID_VAULT_ACCESS;
+			goto END;
+		}
+
+		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+		Status = XKeyManager_GetKeySlot(VaultId, XASU_MLDSA_PVT_SUBVAULT_ID, ReqSlot,
+				&PvtSlot);
+		if (Status != XASUFW_SUCCESS) {
+			Status = XAsufw_UpdateErrorStatus(Status,
+					XASUFW_KEYMANAGER_UPDATE_PVT_KEY_FAIL);
+			goto END;
+		}
+		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+		Status = XKeyManager_GetKeySlot(VaultId, XASU_MLDSA_PUB_SUBVAULT_ID, ReqSlot,
+				&PubSlot);
+		if (Status != XASUFW_SUCCESS) {
+			Status = XAsufw_UpdateErrorStatus(Status,
+					XASUFW_KEYMANAGER_UPDATE_PUB_KEY_FAIL);
+			goto END;
+		}
+	}
+
+	/**
+	 * The core leaves the fresh pair in its scratch region rather than copying it out, so the
+	 * two keys are read from there and cleared at END_CLR.
+	 */
+	ScratchPtr = (u8 *)(UINTPTR)XMLDSA_SCRATCH_ADDR;
+	PubKey = ScratchPtr + XMLDSA_KEYGEN_PK_OFFSET;
+	PvtKey = ScratchPtr + XMLDSA_KEYGEN_SK_OFFSET;
+
+	KeyGenParams.PubKeyAddr = (u64)(UINTPTR)PubKey;
+	KeyGenParams.PrivKeyAddr = (u64)(UINTPTR)PvtKey;
+	KeyGenParams.SeedAddr = PqcParamsPtr->SeedAddr;
+	KeyGenParams.PubKeyLen = PubKeyLen;
+	KeyGenParams.PrivKeyLen = PvtKeyLen;
+	KeyGenParams.SeedLen = PqcParamsPtr->SeedLen;
+	KeyGenParams.ParamSet = ParamsPtr->KeyMetadata.KeyAttributes;
+
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	/**
+	 * Generate the ML-DSA key pair. The core runs the pairwise consistency test on the fresh
+	 * pair before reporting success, so an inconsistent pair is never stored.
+	 */
+	Status = XMldsa_KeyGen(DmaPtr, Sha3Ptr, &KeyGenParams);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_MLDSA_KEY_PAIR_GENERATION_FAIL);
+		goto END_CLR;
+	}
+
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	if (ParamsPtr->KeyObjectAddr != 0U) {
+		/**
+		 * If KeyObjectAddr is provided, copy the pair to the provided address using DMA,
+		 * public key first followed by the private key.
+		 */
+		Status = XAsufw_DmaXfr(DmaPtr, (u64)(UINTPTR)PubKey, ParamsPtr->KeyObjectAddr,
+				       PubKeyLen, 0U);
+		if (Status != XASUFW_SUCCESS) {
+			Status = XASUFW_DMA_COPY_FAIL;
+			goto END_CLR;
+		}
+
+		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+		Status = XAsufw_DmaXfr(DmaPtr, (u64)(UINTPTR)PvtKey,
+				       ParamsPtr->KeyObjectAddr + (u64)PubKeyLen, PvtKeyLen, 0U);
+		if (Status != XASUFW_SUCCESS) {
+			Status = XASUFW_DMA_COPY_FAIL;
+		}
+	} else {
+		/**
+		 * Else, store the key in the vault at the slots resolved before generation.
+		 * - Update the private key to key vault and store the KeyId to (KeyIdPtr + 1U).
+		 */
+		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+		Status = XKeyManager_UpdateKeyVault(DmaPtr, XASU_MLDSA_PVT_SUBVAULT_ID, ParamsPtr,
+					PvtKey, PvtSlot,
+					(KeyIdPtr + XKEYMANAGER_PVT_KEY_ID_OFFSET));
+		if (Status != XASUFW_SUCCESS) {
+			Status = XAsufw_UpdateErrorStatus(Status,
+					XASUFW_KEYMANAGER_UPDATE_PVT_KEY_FAIL);
+			goto END_CLR;
+		}
+
+		/** - Update the public key to key vault and store the KeyId to KeyIdPtr. */
+		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+		Status = XKeyManager_UpdateKeyVault(DmaPtr, XASU_MLDSA_PUB_SUBVAULT_ID, ParamsPtr,
+					PubKey, PubSlot, KeyIdPtr);
+		if (Status != XASUFW_SUCCESS) {
+			/* Status holds the cause from XKeyManager_UpdateKeyVault, retain it. */
+			Status = XAsufw_UpdateErrorStatus(Status,
+					XASUFW_KEYMANAGER_UPDATE_PUB_KEY_FAIL);
+
+			/** - Delete the private half so a failed pair leaves no orphan key. */
+			DeleteStatus = XKeyManager_DeleteKey(
+					*(KeyIdPtr + XKEYMANAGER_PVT_KEY_ID_OFFSET), SubSystemId);
+			if (DeleteStatus != XASUFW_SUCCESS) {
+				Status = XAsufw_UpdateBufStatus(Status, DeleteStatus);
+			}
+		}
+	}
+
+	/**
+	 * Measure and print the performance time for the ML-DSA key pair generation operation, if
+	 * performance measurement is enabled.
+	 */
+	XASUFW_MEASURE_PERF_STOP(XASU_MODULE_KEYMANAGER_ID);
+
+END_CLR:
+	/*
+	 * Securely zeroize the key pair. The core clears the seed and the test signature it left
+	 * behind, but the pair itself is this function's to clear once the keys are stored, on
+	 * both the success and the failure paths.
+	 */
+	if (ScratchPtr != NULL) {
+		XFIH_CALL(Xil_SecureZeroize, XFihMldsaKey, ClearStatus, ScratchPtr,
+				XMLDSA_KEYGEN_KEY_PAIR_LEN);
+		Status = XAsufw_UpdateBufStatus(Status, ClearStatus);
+	}
+
+END:
+	return Status;
+}
+#endif /* XASU_MLDSA_ENABLE */
+
+#ifdef XASU_MLKEM_ENABLE
+/*************************************************************************************************/
+/**
+ * @brief	Generate an ML-KEM key pair and either export it via DMA or store it in the vault.
+ *
+ * @param	DmaPtr		Pointer to the XAsufw_Dma instance.
+ * @param	PqcParamsPtr	Pointer to XAsu_KeyManagerPqcKeyGenParams. The parameter set is
+ *				carried in KmParams.KeyMetadata.KeyAttributes and the encapsulation
+ *				key length in KmParams.KeyMetadata.Length. Each stored object records
+ *				its own length. A non-zero SeedAddr derives the pair from that
+ *				64-byte d || z seed instead of one drawn from the TRNG. When the pair
+ *				is stored, KmParams.KeyMetadata.CompositeKeyId selects the vault and
+ *				the slot index requested in both the decapsulation and the
+ *				encapsulation sub-vault, or zero to take the first free slot in each.
+ * @param	KeyIdPtr	Pointer to the output Key IDs.
+ * @param	SubSystemId	Subsystem ID for which the key is being generated.
+ *
+ * @return
+ * 	- XASUFW_SUCCESS, when the key is generated and transferred or updated in the vault.
+ * 	- XASUFW_KEYMANAGER_INVALID_PARAM, if any input parameter is invalid.
+ * 	- XASUFW_KEYMANAGER_INVALID_VAULT_ACCESS, if the vault does not exist or the subsystem does
+ * 	  not have access to it.
+ * 	- XASUFW_KEYMANAGER_KEY_SLOT_IN_USE, if the requested key slot is already occupied,
+ * 	  packed with the operation-specific slot resolution error.
+ * 	- XASUFW_KEYMANAGER_MAX_CAPACITY_REACHED, if the sub-vault has no free slot.
+ * 	- XASUFW_MLKEM_KEY_PAIR_GENERATION_FAIL, if ML-KEM key pair generation or its pairwise
+ * 	  consistency test fails.
+ * 	- XASUFW_KEYMANAGER_UPDATE_PVT_KEY_FAIL, if updating the decapsulation key in the vault fails.
+ * 	- XASUFW_KEYMANAGER_UPDATE_PUB_KEY_FAIL, if updating the encapsulation key in the vault fails.
+ * 	- XASUFW_DMA_COPY_FAIL, if DMA transfer fails.
+ *
+ *************************************************************************************************/
+s32 XKeyManager_GenerateMlkemKeyPair(XAsufw_Dma *DmaPtr,
+			const XAsu_KeyManagerPqcKeyGenParams *PqcParamsPtr, u32 *KeyIdPtr,
+			u32 SubSystemId)
+{
+	/**
+	 * Capture the start time of the ML-KEM key pair generation operation, if performance
+	 * measurement is enabled.
+	 */
+	XASUFW_MEASURE_PERF_START(XASU_MODULE_KEYMANAGER_ID);
+
+	CREATE_VOLATILE(Status, XASUFW_FAILURE);
+	CREATE_VOLATILE(DeleteStatus, XASUFW_FAILURE);
+	XFih_Var XFihMlkemKey = XFih_VolatileAssignXfihVar(XFIH_FAILURE);
+	s32 ClearStatus = XASUFW_FAILURE;
+	u8 *ScratchPtr = NULL;
+	u8 *PubKey;
+	u8 *PvtKey;
+	u32 PubKeyLen = 0U;
+	u32 PvtKeyLen = 0U;
+	XMlkem_KeyGenParams KeyGenParams;
+	const XAsu_KeyManagerParams *ParamsPtr = NULL;
+	u16 PvtSlot = 0U;
+	u16 PubSlot = 0U;
+	u16 ReqSlot;
+	u8 VaultId;
+
+	/** Validate the input parameters. */
+	if ((PqcParamsPtr == NULL) || (DmaPtr == NULL)) {
+		Status = XASUFW_KEYMANAGER_INVALID_PARAM;
+		goto END;
+	}
+
+	ParamsPtr = &PqcParamsPtr->KmParams;
+
+	if ((KeyIdPtr == NULL) && (ParamsPtr->KeyObjectAddr == 0U)) {
+		Status = XASUFW_KEYMANAGER_INVALID_PARAM;
+		goto END;
+	}
+
+	/**
+	 * Validate the seed and the parameter set against the contract the client validates them
+	 * against, which also resolves both key lengths of the requested parameter set.
+	 */
+	Status = XAsu_KmValidateMlkemKeyGenParams(PqcParamsPtr, &PubKeyLen, &PvtKeyLen);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_KEYMANAGER_INVALID_PARAM;
+		goto END;
+	}
+
+	/**
+	 * Resolve both sub-vault slots before generating the key pair, so a slot conflict is
+	 * reported without creating key material and cannot leave a half-stored pair. The
+	 * requested slot applies to both the decapsulation and the encapsulation sub-vault.
+	 */
+	if (ParamsPtr->KeyObjectAddr == 0U) {
+		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+		Status = XAsu_KmValidateVaultParams(ParamsPtr);
+		if (Status != XASUFW_SUCCESS) {
+			Status = XASUFW_KEYMANAGER_INVALID_PARAM;
+			goto END;
+		}
+		VaultId = XASU_KM_GET_VAULT_ID(ParamsPtr->KeyMetadata.CompositeKeyId);
+		ReqSlot = XASU_KM_GET_KEY_INDEX(ParamsPtr->KeyMetadata.CompositeKeyId);
+
+		/** Validate the vault exists and belongs to the subsystem. */
+		if ((VaultManager.VaultInfo[VaultId].VaultSize == 0U) ||
+		    (VaultManager.VaultInfo[VaultId].SubSystemId != SubSystemId)) {
+			Status = XASUFW_KEYMANAGER_INVALID_VAULT_ACCESS;
+			goto END;
+		}
+
+		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+		Status = XKeyManager_GetKeySlot(VaultId, XASU_MLKEM_PVT_SUBVAULT_ID, ReqSlot,
+				&PvtSlot);
+		if (Status != XASUFW_SUCCESS) {
+			Status = XAsufw_UpdateErrorStatus(Status,
+					XASUFW_KEYMANAGER_UPDATE_PVT_KEY_FAIL);
+			goto END;
+		}
+		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+		Status = XKeyManager_GetKeySlot(VaultId, XASU_MLKEM_PUB_SUBVAULT_ID, ReqSlot,
+				&PubSlot);
+		if (Status != XASUFW_SUCCESS) {
+			Status = XAsufw_UpdateErrorStatus(Status,
+					XASUFW_KEYMANAGER_UPDATE_PUB_KEY_FAIL);
+			goto END;
+		}
+	}
+
+	/**
+	 * The core leaves the fresh pair in its scratch region rather than copying it out, so the
+	 * two keys are read from there and cleared at END_CLR.
+	 */
+	ScratchPtr = (u8 *)(UINTPTR)XMLKEM_SCRATCH_ADDR;
+	PubKey = ScratchPtr + XMLKEM_KEYGEN_PK_OFFSET;
+	PvtKey = ScratchPtr + XMLKEM_KEYGEN_SK_OFFSET;
+
+	KeyGenParams.PubKeyAddr = (u64)(UINTPTR)PubKey;
+	KeyGenParams.PrivKeyAddr = (u64)(UINTPTR)PvtKey;
+	KeyGenParams.SeedAddr = PqcParamsPtr->SeedAddr;
+	KeyGenParams.PubKeyLen = PubKeyLen;
+	KeyGenParams.PrivKeyLen = PvtKeyLen;
+	KeyGenParams.SeedLen = PqcParamsPtr->SeedLen;
+	KeyGenParams.ParamSet = ParamsPtr->KeyMetadata.KeyAttributes;
+
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	/**
+	 * Generate the ML-KEM key pair. The core runs the pairwise consistency test on the fresh
+	 * pair before reporting success, so an inconsistent pair is never stored.
+	 */
+	Status = XMlkem_KeyGen(DmaPtr, &KeyGenParams);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_MLKEM_KEY_PAIR_GENERATION_FAIL);
+		goto END_CLR;
+	}
+
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	if (ParamsPtr->KeyObjectAddr != 0U) {
+		/**
+		 * If KeyObjectAddr is provided, copy the pair to the provided address using DMA,
+		 * encapsulation key first followed by the decapsulation key.
+		 */
+		Status = XAsufw_DmaXfr(DmaPtr, (u64)(UINTPTR)PubKey, ParamsPtr->KeyObjectAddr,
+				       PubKeyLen, 0U);
+		if (Status != XASUFW_SUCCESS) {
+			Status = XASUFW_DMA_COPY_FAIL;
+			goto END_CLR;
+		}
+
+		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+		Status = XAsufw_DmaXfr(DmaPtr, (u64)(UINTPTR)PvtKey,
+				       ParamsPtr->KeyObjectAddr + (u64)PubKeyLen, PvtKeyLen, 0U);
+		if (Status != XASUFW_SUCCESS) {
+			Status = XASUFW_DMA_COPY_FAIL;
+		}
+	} else {
+		/**
+		 * Else, store the key in the vault at the slots resolved before generation.
+		 * - Update the decapsulation key to key vault and store the KeyId to
+		 *   (KeyIdPtr + 1U).
+		 */
+		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+		Status = XKeyManager_UpdateKeyVault(DmaPtr, XASU_MLKEM_PVT_SUBVAULT_ID, ParamsPtr,
+					PvtKey, PvtSlot,
+					(KeyIdPtr + XKEYMANAGER_PVT_KEY_ID_OFFSET));
+		if (Status != XASUFW_SUCCESS) {
+			Status = XAsufw_UpdateErrorStatus(Status,
+					XASUFW_KEYMANAGER_UPDATE_PVT_KEY_FAIL);
+			goto END_CLR;
+		}
+
+		/** - Update the encapsulation key to key vault and store the KeyId to KeyIdPtr. */
+		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+		Status = XKeyManager_UpdateKeyVault(DmaPtr, XASU_MLKEM_PUB_SUBVAULT_ID, ParamsPtr,
+					PubKey, PubSlot, KeyIdPtr);
+		if (Status != XASUFW_SUCCESS) {
+			/* Status holds the cause from XKeyManager_UpdateKeyVault, retain it. */
+			Status = XAsufw_UpdateErrorStatus(Status,
+					XASUFW_KEYMANAGER_UPDATE_PUB_KEY_FAIL);
+
+			/** - Delete the private half so a failed pair leaves no orphan key. */
+			DeleteStatus = XKeyManager_DeleteKey(
+					*(KeyIdPtr + XKEYMANAGER_PVT_KEY_ID_OFFSET), SubSystemId);
+			if (DeleteStatus != XASUFW_SUCCESS) {
+				Status = XAsufw_UpdateBufStatus(Status, DeleteStatus);
+			}
+		}
+	}
+
+	/**
+	 * Measure and print the performance time for the ML-KEM key pair generation operation, if
+	 * performance measurement is enabled.
+	 */
+	XASUFW_MEASURE_PERF_STOP(XASU_MODULE_KEYMANAGER_ID);
+
+END_CLR:
+	/* Securely zeroize the key pair left in the scratch region; see the ML-DSA path. */
+	if (ScratchPtr != NULL) {
+		XFIH_CALL(Xil_SecureZeroize, XFihMlkemKey, ClearStatus, ScratchPtr,
+				XMLKEM_KEYGEN_KEY_PAIR_LEN);
+		Status = XAsufw_UpdateBufStatus(Status, ClearStatus);
+	}
+
+END:
+	return Status;
+}
+#endif /* XASU_MLKEM_ENABLE */
+
 /*************************************************************************************************/
 /**
  * @brief	This function update key object from vault based on key type.
@@ -1374,6 +1857,34 @@ s32 XKeyManager_UpdateKeyObjFromVault(XAsufw_Dma *DmaPtr, u32 KeyId, u64 KeyObje
 								    KeyUsecase,
 								    ActualKeyId);
 		break;
+#ifdef XASU_MLDSA_ENABLE
+	case XASU_MLDSA_PVT_SUBVAULT_ID:
+		/** Update ML-DSA private key object from vault. */
+		Status = XKeyManager_UpdateMldsaPvtKeyObjectFromVault(KeyObjectAddr, SubSystemId,
+								      KeyUsecase,
+								      ActualKeyId);
+		break;
+	case XASU_MLDSA_PUB_SUBVAULT_ID:
+		/** Update ML-DSA public key object from vault. */
+		Status = XKeyManager_UpdateMldsaPubKeyObjectFromVault(KeyObjectAddr, SubSystemId,
+								      KeyUsecase,
+								      ActualKeyId);
+		break;
+#endif /* XASU_MLDSA_ENABLE */
+#ifdef XASU_MLKEM_ENABLE
+	case XASU_MLKEM_PVT_SUBVAULT_ID:
+		/** Update ML-KEM decapsulation key object from vault. */
+		Status = XKeyManager_UpdateMlkemPvtKeyObjectFromVault(KeyObjectAddr, SubSystemId,
+								      KeyUsecase,
+								      ActualKeyId);
+		break;
+	case XASU_MLKEM_PUB_SUBVAULT_ID:
+		/** Update ML-KEM encapsulation key object from vault. */
+		Status = XKeyManager_UpdateMlkemPubKeyObjectFromVault(KeyObjectAddr, SubSystemId,
+								      KeyUsecase,
+								      ActualKeyId);
+		break;
+#endif /* XASU_MLKEM_ENABLE */
 	default:
 		/** Invalid key type. */
 		Status = XASUFW_KEYMANAGER_INVALID_KEY_TYPE;
@@ -1954,7 +2465,9 @@ END:
  *	- XASUFW_AES_WRITE_KEY_FAILED, if writing AES key for unwrapping fails.
  *	- XASUFW_KEYMANAGER_GET_KEYOBJ_FAILED, if resolving key object for unwrapping fails.
  *	- XASUFW_KEYWRAP_AES_UNWRAPPED_KEY_ERROR, if unwrapping input key fails.
- *	- XASUFW_KEYMANAGER_INVALID_BUF_SIZE, if unwrapped key size exceeds maximum buffer size.
+ *	- XASUFW_KEYMANAGER_INVALID_BUF_SIZE, if unwrapped key size exceeds maximum buffer size, or
+ *	  if a PQC key's declared length disagrees with the length its parameter set defines for
+ *	  the target sub-vault, the latter packed with the key vault update error.
  *	- XASUFW_DMA_COPY_FAIL, if the DMA transfer or the memory copy fails.
  *
  *************************************************************************************************/
@@ -2035,6 +2548,14 @@ s32 XKeyManager_StoreKeyInVault(XAsufw_Dma *DmaPtr, XAes *AesInstancePtr, const 
 	}
 
 	KeyType = (u8)(ReqKeyType & ~XASU_KM_KEYTYPE_WRAPPED_BIT_MASK);
+
+	/** For a PQC sub-vault, check the declared length against the parameter set. */
+	Status = XKeyManager_ValidatePqcStoreKeyLength((XAsu_KeyManagerSubVaultType)KeyType,
+			KeyParams);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_KEYMANAGER_UPDATE_KEY_VAULT_FAIL);
+		goto END;
+	}
 
 	/** Resolve the target slot before unwrap or parse, so a slot conflict fails fast. */
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
@@ -2155,7 +2676,7 @@ s32 XKeyManager_StoreKeyInVault(XAsufw_Dma *DmaPtr, XAes *AesInstancePtr, const 
 			goto END_KEY_CLR;
 		}
 
-		RsaPubKeyData = (u8 *)(UINTPTR)XASUFW_CRYPTO_ALGO_DATA_BLOCK;
+		RsaPubKeyData = (u8 *)(UINTPTR)XASUFW_CRYPTO_AUX_BUF_ADDR;
 
 		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 		/** Pack the public exponent at the start of the scratch buffer. */
@@ -2685,6 +3206,67 @@ END:
 
 /*************************************************************************************************/
 /**
+ * @brief	Check the declared length of a caller-supplied PQC key against the length its
+ *		parameter set defines for the sub-vault it is being stored in.
+ *
+ * @param	KeyType		Sub-vault the key is being stored in.
+ * @param	ParamsPtr	Pointer to the XAsu_KeyManagerParams.
+ *
+ * @return
+ *	- XASUFW_SUCCESS, if the sub-vault is not a PQC one, or the declared length matches.
+ *	- XASUFW_KEYMANAGER_INVALID_PARAM, if the PQC parameter set in KeyAttributes is unsupported.
+ *	- XASUFW_KEYMANAGER_INVALID_BUF_SIZE, if the declared length disagrees with the parameter
+ *	  set.
+ *
+ * @note	Only the store path may apply this check. The key data it stores is the caller's
+ *		buffer, which the handler validated against the declared length, so copying the
+ *		parameter set length out of it would read past the validated window unless the two
+ *		agree. A key generated into the vault is written from an internal buffer that the
+ *		declared length does not describe, and a key pair is written by two calls that a
+ *		single declared length cannot satisfy at once.
+ *
+ *************************************************************************************************/
+static s32 XKeyManager_ValidatePqcStoreKeyLength(XAsu_KeyManagerSubVaultType KeyType,
+				const XAsu_KeyManagerParams *ParamsPtr)
+{
+	CREATE_VOLATILE(Status, XASUFW_FAILURE);
+	u32 PubKeyLen = 0U;
+	u32 PrivKeyLen = 0U;
+	u32 ExpectedLength;
+
+	if ((KeyType == XASU_MLDSA_PVT_SUBVAULT_ID) || (KeyType == XASU_MLDSA_PUB_SUBVAULT_ID)) {
+		Status = XAsu_KmGetMldsaKeyLengths(ParamsPtr->KeyMetadata.KeyAttributes,
+						&PubKeyLen, &PrivKeyLen);
+	} else if ((KeyType == XASU_MLKEM_PVT_SUBVAULT_ID) ||
+		   (KeyType == XASU_MLKEM_PUB_SUBVAULT_ID)) {
+		Status = XAsu_KmGetMlkemKeyLengths(ParamsPtr->KeyMetadata.KeyAttributes,
+						&PubKeyLen, &PrivKeyLen);
+	} else {
+		Status = XASUFW_SUCCESS;
+		goto END;
+	}
+
+	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_KEYMANAGER_INVALID_PARAM;
+		goto END;
+	}
+
+	if ((KeyType == XASU_MLDSA_PVT_SUBVAULT_ID) || (KeyType == XASU_MLKEM_PVT_SUBVAULT_ID)) {
+		ExpectedLength = PrivKeyLen;
+	} else {
+		ExpectedLength = PubKeyLen;
+	}
+
+	if ((u32)ParamsPtr->KeyMetadata.Length != ExpectedLength) {
+		Status = XASUFW_KEYMANAGER_INVALID_BUF_SIZE;
+	}
+
+END:
+	return Status;
+}
+
+/*************************************************************************************************/
+/**
  * @brief	Write the provided key into the vault at a slot the caller already resolved
  *		through XKeyManager_GetKeySlot. This function only writes; it never resolves.
  *
@@ -2698,7 +3280,9 @@ END:
  * @return
  * 	- XASUFW_SUCCESS, if key vault updation is successful.
  * 	- XASUFW_FAILURE, if key vault updation fails, including an invalid (zero) ResolvedSlot.
- * 	- XASUFW_KEYMANAGER_INVALID_BUF_SIZE, if the key length exceeds the maximum key size.
+ * 	- XASUFW_KEYMANAGER_INVALID_PARAM, if the PQC parameter set in KeyAttributes is unsupported.
+ * 	- XASUFW_KEYMANAGER_INVALID_BUF_SIZE, if the key length to store is zero or exceeds the
+ * 	  sub-vault's maximum key size.
  *	- XASUFW_DMA_COPY_FAIL, if the DMA transfer or the memory copy fails.
  *
  *************************************************************************************************/
@@ -2715,6 +3299,9 @@ static s32 XKeyManager_UpdateKeyVault(XAsufw_Dma *DmaPtr, XAsu_KeyManagerSubVaul
 	u32 KeyObjectSize = 0U;
 	u32 MaxKeySize = 0U;
 	u32 KeyCopyLength = 0U;
+	u32 PqcPubKeyLen = 0U;
+	u32 PqcPrivKeyLen = 0U;
+	u16 MetadataLength = ParamsPtr->KeyMetadata.Length;
 	u8 VaultId = XASU_KM_GET_VAULT_ID(ParamsPtr->KeyMetadata.CompositeKeyId);
 
 	/** Fail safe on an unresolved (zero) slot: guards the pointer math below from underflow. */
@@ -2753,12 +3340,72 @@ static s32 XKeyManager_UpdateKeyVault(XAsufw_Dma *DmaPtr, XAsu_KeyManagerSubVaul
 		MaxKeySize = XASU_X509_MAX_SIZE_IN_BYTES;
 	} else if (KeyType == XASU_LMS_SUBVAULT_ID) {
 		MaxKeySize = XASU_LMS_MAX_PUB_KEY_SIZE;
+	} else if ((KeyType == XASU_MLDSA_PVT_SUBVAULT_ID) ||
+		   (KeyType == XASU_MLDSA_PUB_SUBVAULT_ID)) {
+		/*
+		 * The ML-DSA public key and private key have unrelated sizes, so a single
+		 * declared length cannot describe both. Both lengths come from the ML-DSA
+		 * parameter set in KeyAttributes, and the sub-vault being written decides which
+		 * one applies: XASU_MLDSA_PUB_SUBVAULT_ID stores the public key and
+		 * XASU_MLDSA_PVT_SUBVAULT_ID stores the private key.
+		 *
+		 * Each object therefore records the length of the key it holds. The vault
+		 * resolver hands that length to the core as KeyLen, and the core rejects a key
+		 * shorter than the ML-DSA parameter set requires for that key.
+		 */
+		Status = XAsu_KmGetMldsaKeyLengths(ParamsPtr->KeyMetadata.KeyAttributes,
+						&PqcPubKeyLen, &PqcPrivKeyLen);
+		if (Status != XASUFW_SUCCESS) {
+			Status = XASUFW_KEYMANAGER_INVALID_PARAM;
+			goto END;
+		}
+
+		if (KeyType == XASU_MLDSA_PVT_SUBVAULT_ID) {
+			MaxKeySize = XASU_MLDSA_MAX_PRIV_KEY_LEN;
+			KeyCopyLength = PqcPrivKeyLen;
+		} else {
+			MaxKeySize = XASU_MLDSA_MAX_PUB_KEY_LEN;
+			KeyCopyLength = PqcPubKeyLen;
+		}
+		MetadataLength = (u16)KeyCopyLength;
+	} else if ((KeyType == XASU_MLKEM_PVT_SUBVAULT_ID) ||
+		   (KeyType == XASU_MLKEM_PUB_SUBVAULT_ID)) {
+		/*
+		 * The ML-KEM encapsulation key and decapsulation key have unrelated sizes, so a
+		 * single declared length cannot describe both. Both lengths come from the ML-KEM
+		 * parameter set in KeyAttributes, and the sub-vault being written decides which
+		 * one applies: XASU_MLKEM_PUB_SUBVAULT_ID stores the encapsulation key and
+		 * XASU_MLKEM_PVT_SUBVAULT_ID stores the decapsulation key.
+		 *
+		 * Each object therefore records the length of the key it holds. The vault
+		 * resolver hands that length to the core as KeyLen, and the core rejects a key
+		 * shorter than the ML-KEM parameter set requires for that key.
+		 */
+		Status = XAsu_KmGetMlkemKeyLengths(ParamsPtr->KeyMetadata.KeyAttributes,
+						&PqcPubKeyLen, &PqcPrivKeyLen);
+		if (Status != XASUFW_SUCCESS) {
+			Status = XASUFW_KEYMANAGER_INVALID_PARAM;
+			goto END;
+		}
+
+		if (KeyType == XASU_MLKEM_PVT_SUBVAULT_ID) {
+			MaxKeySize = XASU_MLKEM_MAX_PRIV_KEY_LEN;
+			KeyCopyLength = PqcPrivKeyLen;
+		} else {
+			MaxKeySize = XASU_MLKEM_MAX_PUB_KEY_LEN;
+			KeyCopyLength = PqcPubKeyLen;
+		}
+		MetadataLength = (u16)KeyCopyLength;
 	} else {
 		/* Do nothing */
 	}
 
-	/** Validate key copy length against maximum key size. */
-	if (KeyCopyLength > MaxKeySize) {
+	/**
+	 * Validate key copy length against maximum key size. A zero length is rejected as well,
+	 * so that an unhandled key type, which leaves both values at zero, cannot silently store
+	 * an empty key.
+	 */
+	if ((KeyCopyLength == 0U) || (KeyCopyLength > MaxKeySize)) {
 		Status = XASUFW_KEYMANAGER_INVALID_BUF_SIZE;
 		goto END;
 	}
@@ -2774,6 +3421,7 @@ static s32 XKeyManager_UpdateKeyVault(XAsufw_Dma *DmaPtr, XAsu_KeyManagerSubVaul
 	KeyContentPtr = (u8 *)KeyMetadataPtr + sizeof(XAsu_KeyManagerKeyMetadata);
 
 	/** Copy key data to vault using DMA. */
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	if (DmaPtr != NULL) {
 		Status = XAsufw_DmaXfr(DmaPtr, (u64)(UINTPTR)KeyData, (u64)(UINTPTR)KeyContentPtr,
 				       KeyCopyLength, 0U);
@@ -2790,7 +3438,7 @@ static s32 XKeyManager_UpdateKeyVault(XAsufw_Dma *DmaPtr, XAsu_KeyManagerSubVaul
 	KeyMetadataPtr->CompositeKeyId = XASU_KM_COMPOSE_KEY_ID(VaultId, KeyType, ResolvedSlot);
 	KeyMetadataPtr->EpochTime = ParamsPtr->KeyMetadata.EpochTime;
 	KeyMetadataPtr->UsageCount = ParamsPtr->KeyMetadata.UsageCount;
-	KeyMetadataPtr->Length = ParamsPtr->KeyMetadata.Length;
+	KeyMetadataPtr->Length = MetadataLength;
 	KeyMetadataPtr->KeyUseCase = ParamsPtr->KeyMetadata.KeyUseCase;
 	KeyMetadataPtr->KeyAttributes = ParamsPtr->KeyMetadata.KeyAttributes;
 
@@ -3110,7 +3758,7 @@ static s32 XKeyManager_StoreX509RawPublicKey(XAsufw_Dma *DmaPtr,
 		 * (Length + XRSA_PUBEXP_SIZE_IN_BYTES) bytes for RSA public keys. Pack the
 		 * certificate's exponent and modulus into a scratch buffer in that layout.
 		 */
-		KeyData = (u8 *)(UINTPTR)XASUFW_CRYPTO_ALGO_DATA_BLOCK;
+		KeyData = (u8 *)(UINTPTR)XASUFW_CRYPTO_AUX_BUF_ADDR;
 
 		/**
 		 * Map X.509 key usage to RSA public key usage:
@@ -3905,6 +4553,240 @@ static s32 XKeyManager_UpdateLmsPubKeyObjectFromVault(u64 KeyObjectAddr, u32 Sub
 END:
 	return Status;
 }
+
+#ifdef XASU_MLDSA_ENABLE
+/*************************************************************************************************/
+/**
+ * @brief	Retrieve ML-DSA private key from key vault if KeyId is provided.
+ *
+ * @param	KeyObjectAddr	Address of the ML-DSA sign/verify parameters to be updated.
+ * @param	SubSystemId	Subsystem ID of the requested subsystem.
+ * @param	KeyUsecase	Requested use case for the key.
+ * @param	KeyId		Composite key identifier.
+ *
+ * @return
+ *		- XASUFW_SUCCESS, if key resolution is successful.
+ *		- XASUFW_KEYMANAGER_INVALID_PARAM, if any input parameter is invalid.
+ *		- XASUFW_KEYMANAGER_GET_KEYOBJ_PTR_FAILED, if get key object pointer failed.
+ *
+ * @note	The key bytes are left in the vault; only their address and length are handed back,
+ *		and the ML-DSA core streams them out of the vault through DMA.
+ *
+ *************************************************************************************************/
+static s32 XKeyManager_UpdateMldsaPvtKeyObjectFromVault(u64 KeyObjectAddr, u32 SubSystemId,
+	u8 KeyUsecase, u32 KeyId)
+{
+	s32 Status = XASUFW_FAILURE;
+	const XKeyManager_MldsaPvtKeyObject *KeyVaultKeyObjectPtr;
+	XAsu_MldsaSignVerifyParams *ParamsPtr;
+
+	/** Validate input parameters. */
+	if (KeyObjectAddr == 0U) {
+		Status = XASUFW_KEYMANAGER_INVALID_PARAM;
+		goto END;
+	}
+
+	ParamsPtr = (XAsu_MldsaSignVerifyParams *)(UINTPTR)KeyObjectAddr;
+
+	/** Get key vault key object pointer based on the KeyId, SubSystemId, and KeyUsecase. */
+	KeyVaultKeyObjectPtr = (XKeyManager_MldsaPvtKeyObject *)XKeyManager_GetKeyObjectPtr(KeyId,
+									SubSystemId, KeyUsecase, TRUE);
+	if (KeyVaultKeyObjectPtr == NULL) {
+		Status = XASUFW_KEYMANAGER_GET_KEYOBJ_PTR_FAILED;
+		goto END;
+	}
+
+	/**
+	 * Reject a key from a different parameter set: the core only rejects a key shorter than
+	 * the requested set needs, so a key from a larger set would otherwise be used truncated.
+	 */
+	if (KeyVaultKeyObjectPtr->Metadata.KeyAttributes != ParamsPtr->ParamSet) {
+		Status = XASUFW_KEYMANAGER_INVALID_PARAM;
+		goto END;
+	}
+
+	ParamsPtr->KeyAddr = (u64)(UINTPTR)KeyVaultKeyObjectPtr->PrivateKey;
+	ParamsPtr->KeyLen = KeyVaultKeyObjectPtr->Metadata.Length;
+
+	Status = XASUFW_SUCCESS;
+
+END:
+	return Status;
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	Retrieve ML-DSA public key from key vault if KeyId is provided.
+ *
+ * @param	KeyObjectAddr	Address of the ML-DSA sign/verify parameters to be updated.
+ * @param	SubSystemId	Subsystem ID of the requested subsystem.
+ * @param	KeyUsecase	Requested use case for the key.
+ * @param	KeyId		Composite key identifier.
+ *
+ * @return
+ *		- XASUFW_SUCCESS, if key resolution is successful.
+ *		- XASUFW_KEYMANAGER_INVALID_PARAM, if any input parameter is invalid.
+ *		- XASUFW_KEYMANAGER_GET_KEYOBJ_PTR_FAILED, if get key object pointer failed.
+ *
+ *************************************************************************************************/
+static s32 XKeyManager_UpdateMldsaPubKeyObjectFromVault(u64 KeyObjectAddr, u32 SubSystemId,
+	u8 KeyUsecase, u32 KeyId)
+{
+	s32 Status = XASUFW_FAILURE;
+	const XKeyManager_MldsaPubKeyObject *KeyVaultKeyObjectPtr;
+	XAsu_MldsaSignVerifyParams *ParamsPtr;
+
+	/** Validate input parameters. */
+	if (KeyObjectAddr == 0U) {
+		Status = XASUFW_KEYMANAGER_INVALID_PARAM;
+		goto END;
+	}
+
+	ParamsPtr = (XAsu_MldsaSignVerifyParams *)(UINTPTR)KeyObjectAddr;
+
+	/** Get key vault key object pointer based on the KeyId, SubSystemId, and KeyUsecase. */
+	KeyVaultKeyObjectPtr = (XKeyManager_MldsaPubKeyObject *)XKeyManager_GetKeyObjectPtr(KeyId,
+									SubSystemId, KeyUsecase, TRUE);
+	if (KeyVaultKeyObjectPtr == NULL) {
+		Status = XASUFW_KEYMANAGER_GET_KEYOBJ_PTR_FAILED;
+		goto END;
+	}
+
+	/**
+	 * Reject a key from a different parameter set: the core only rejects a key shorter than
+	 * the requested set needs, so a key from a larger set would otherwise be used truncated.
+	 */
+	if (KeyVaultKeyObjectPtr->Metadata.KeyAttributes != ParamsPtr->ParamSet) {
+		Status = XASUFW_KEYMANAGER_INVALID_PARAM;
+		goto END;
+	}
+
+	ParamsPtr->KeyAddr = (u64)(UINTPTR)KeyVaultKeyObjectPtr->PublicKey;
+	ParamsPtr->KeyLen = KeyVaultKeyObjectPtr->Metadata.Length;
+
+	Status = XASUFW_SUCCESS;
+
+END:
+	return Status;
+}
+#endif /* XASU_MLDSA_ENABLE */
+
+#ifdef XASU_MLKEM_ENABLE
+/*************************************************************************************************/
+/**
+ * @brief	Retrieve ML-KEM decapsulation key from key vault if KeyId is provided.
+ *
+ * @param	KeyObjectAddr	Address of the ML-KEM encaps/decaps parameters to be updated.
+ * @param	SubSystemId	Subsystem ID of the requested subsystem.
+ * @param	KeyUsecase	Requested use case for the key.
+ * @param	KeyId		Composite key identifier.
+ *
+ * @return
+ *		- XASUFW_SUCCESS, if key resolution is successful.
+ *		- XASUFW_KEYMANAGER_INVALID_PARAM, if any input parameter is invalid.
+ *		- XASUFW_KEYMANAGER_GET_KEYOBJ_PTR_FAILED, if get key object pointer failed.
+ *
+ * @note	The key bytes are left in the vault; only their address and length are handed back,
+ *		and the ML-KEM core streams them out of the vault through DMA.
+ *
+ *************************************************************************************************/
+static s32 XKeyManager_UpdateMlkemPvtKeyObjectFromVault(u64 KeyObjectAddr, u32 SubSystemId,
+	u8 KeyUsecase, u32 KeyId)
+{
+	s32 Status = XASUFW_FAILURE;
+	const XKeyManager_MlkemPvtKeyObject *KeyVaultKeyObjectPtr;
+	XAsu_MlkemEncapsDecapsParams *ParamsPtr;
+
+	/** Validate input parameters. */
+	if (KeyObjectAddr == 0U) {
+		Status = XASUFW_KEYMANAGER_INVALID_PARAM;
+		goto END;
+	}
+
+	ParamsPtr = (XAsu_MlkemEncapsDecapsParams *)(UINTPTR)KeyObjectAddr;
+
+	/** Get key vault key object pointer based on the KeyId, SubSystemId, and KeyUsecase. */
+	KeyVaultKeyObjectPtr = (XKeyManager_MlkemPvtKeyObject *)XKeyManager_GetKeyObjectPtr(KeyId,
+									SubSystemId, KeyUsecase, TRUE);
+	if (KeyVaultKeyObjectPtr == NULL) {
+		Status = XASUFW_KEYMANAGER_GET_KEYOBJ_PTR_FAILED;
+		goto END;
+	}
+
+	/**
+	 * Reject a key from a different parameter set: the core only rejects a key shorter than
+	 * the requested set needs, so a key from a larger set would otherwise be used truncated.
+	 */
+	if (KeyVaultKeyObjectPtr->Metadata.KeyAttributes != ParamsPtr->ParamSet) {
+		Status = XASUFW_KEYMANAGER_INVALID_PARAM;
+		goto END;
+	}
+
+	ParamsPtr->KeyAddr = (u64)(UINTPTR)KeyVaultKeyObjectPtr->PrivateKey;
+	ParamsPtr->KeyLen = KeyVaultKeyObjectPtr->Metadata.Length;
+
+	Status = XASUFW_SUCCESS;
+
+END:
+	return Status;
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	Retrieve ML-KEM encapsulation key from key vault if KeyId is provided.
+ *
+ * @param	KeyObjectAddr	Address of the ML-KEM encaps/decaps parameters to be updated.
+ * @param	SubSystemId	Subsystem ID of the requested subsystem.
+ * @param	KeyUsecase	Requested use case for the key.
+ * @param	KeyId		Composite key identifier.
+ *
+ * @return
+ *		- XASUFW_SUCCESS, if key resolution is successful.
+ *		- XASUFW_KEYMANAGER_INVALID_PARAM, if any input parameter is invalid.
+ *		- XASUFW_KEYMANAGER_GET_KEYOBJ_PTR_FAILED, if get key object pointer failed.
+ *
+ *************************************************************************************************/
+static s32 XKeyManager_UpdateMlkemPubKeyObjectFromVault(u64 KeyObjectAddr, u32 SubSystemId,
+	u8 KeyUsecase, u32 KeyId)
+{
+	s32 Status = XASUFW_FAILURE;
+	const XKeyManager_MlkemPubKeyObject *KeyVaultKeyObjectPtr;
+	XAsu_MlkemEncapsDecapsParams *ParamsPtr;
+
+	/** Validate input parameters. */
+	if (KeyObjectAddr == 0U) {
+		Status = XASUFW_KEYMANAGER_INVALID_PARAM;
+		goto END;
+	}
+
+	ParamsPtr = (XAsu_MlkemEncapsDecapsParams *)(UINTPTR)KeyObjectAddr;
+
+	/** Get key vault key object pointer based on the KeyId, SubSystemId, and KeyUsecase. */
+	KeyVaultKeyObjectPtr = (XKeyManager_MlkemPubKeyObject *)XKeyManager_GetKeyObjectPtr(KeyId,
+									SubSystemId, KeyUsecase, TRUE);
+	if (KeyVaultKeyObjectPtr == NULL) {
+		Status = XASUFW_KEYMANAGER_GET_KEYOBJ_PTR_FAILED;
+		goto END;
+	}
+
+	/**
+	 * Reject a key from a different parameter set: the core only rejects a key shorter than
+	 * the requested set needs, so a key from a larger set would otherwise be used truncated.
+	 */
+	if (KeyVaultKeyObjectPtr->Metadata.KeyAttributes != ParamsPtr->ParamSet) {
+		Status = XASUFW_KEYMANAGER_INVALID_PARAM;
+		goto END;
+	}
+
+	ParamsPtr->KeyAddr = (u64)(UINTPTR)KeyVaultKeyObjectPtr->PublicKey;
+	ParamsPtr->KeyLen = KeyVaultKeyObjectPtr->Metadata.Length;
+
+	Status = XASUFW_SUCCESS;
+
+END:
+	return Status;
+}
+#endif /* XASU_MLKEM_ENABLE */
 
 /*************************************************************************************************/
 /**

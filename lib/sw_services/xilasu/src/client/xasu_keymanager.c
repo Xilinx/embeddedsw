@@ -32,6 +32,8 @@
 #include "xasu_keymanager_common.h"
 #include "xasu_aesinfo.h"
 #include "xasu_eccinfo.h"
+#include "xasu_mldsainfo.h"
+#include "xasu_mlkeminfo.h"
 #include "xasu_def.h"
 #include "xasu_ecies_common.h"
 
@@ -515,6 +517,189 @@ s32 XAsu_KmGenerateEccKeyPair(XAsu_ClientParams *ClientParamPtr,
 	/** Update request buffer and send an IPI request to ASU. */
 	Status = XAsu_SendCmdToAsu(ClientParamPtr, KmSubVaultParamPtr,
 					(u32)(sizeof(XAsu_KeyManagerParams)), Header);
+
+END:
+	return Status;
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	This function sends a command to ASUFW to perform ML-DSA key pair generation for
+ *		the requested subsystem.
+ *
+ * @param	ClientParamPtr		Pointer to the XAsu_ClientParams structure which holds the
+ * 					client input parameters.
+ * @param	KmSubVaultParamPtr	Pointer to XAsu_KeyManagerPqcKeyGenParams structure which
+ *					holds the parameters of KeyVault input arguments. The ML-DSA
+ *					parameter set is passed in KmParams.KeyMetadata.KeyAttributes
+ *					and the public key length in KmParams.KeyMetadata.Length.
+ *					A non-zero SeedAddr derives the pair from that seed instead of
+ *					one drawn from the TRNG. When the pair is stored,
+ *					KmParams.KeyMetadata.CompositeKeyId selects the vault and the
+ *					slot index requested in both the private and the public
+ *					sub-vault, or zero to take the first free slot in each.
+ *
+ * @return
+ * 		- XST_SUCCESS, if IPI request to ASU is sent successfully.
+ * 		- XASU_INVALID_ARGUMENT, if any argument is invalid.
+ * 		- XASU_QUEUE_FULL, if Queue buffer is full.
+ * 		- XST_FAILURE, if sending an IPI request to ASU fails.
+ *
+ *************************************************************************************************/
+s32 XAsu_KmGenerateMldsaKeyPair(XAsu_ClientParams *ClientParamPtr,
+				XAsu_KeyManagerPqcKeyGenParams *KmSubVaultParamPtr)
+{
+	s32 Status = XST_FAILURE;
+	u32 Header;
+	u8 UniqueId;
+	u8 *RespBufferPtr = NULL;
+	u8 RespSize = 0U;
+	u32 PubKeyLen = 0U;
+	u32 PvtKeyLen = 0U;
+
+	/** Validation of inputs. */
+	Status = XAsu_ValidateClientParameters(ClientParamPtr);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	if (KmSubVaultParamPtr == NULL) {
+		Status = XASU_INVALID_ARGUMENT;
+		goto END;
+	}
+
+	Status = XAsu_KmValidateVaultParams(&KmSubVaultParamPtr->KmParams);
+	if (Status != XST_SUCCESS) {
+		Status = XASU_INVALID_ARGUMENT;
+		goto END;
+	}
+
+	/** Validate the ML-DSA key generation parameters. */
+	Status = XAsu_KmValidateMldsaKeyGenParams(KmSubVaultParamPtr, &PubKeyLen, &PvtKeyLen);
+	if (Status != XST_SUCCESS) {
+		Status = XASU_INVALID_ARGUMENT;
+		goto END;
+	}
+
+	/**
+	 * Generate a unique ID and register the callback function.
+	 * Two key IDs will be returned, as for the ECC key pair generation command:
+	 * - First key ID will be the public key ID
+	 * - Second key ID will be the private key ID
+	 */
+	if (KmSubVaultParamPtr->KmParams.KeyIdAddr != 0U) {
+		RespBufferPtr = (u8 *)(UINTPTR)KmSubVaultParamPtr->KmParams.KeyIdAddr;
+		RespSize = (XASU_KM_NUM_OF_KEY_IDS * XASU_KM_OUTPUT_ID_SIZE_IN_BYTES);
+	}
+	UniqueId = XAsu_RegCallBackNGetUniqueId(ClientParamPtr, RespBufferPtr, RespSize, XASU_TRUE);
+	if (UniqueId >= XASU_UNIQUE_ID_MAX) {
+		Status = XASU_INVALID_UNIQUE_ID;
+		goto END;
+	}
+
+	/** Create command header. */
+	Header = XAsu_CreateHeader(XASU_KM_GEN_MLDSA_KEY_PAIR_CMD_ID, UniqueId,
+				XASU_MODULE_KEYMANAGER_ID,
+				(u8)(sizeof(XAsu_KeyManagerPqcKeyGenParams) /
+					XASU_WORD_LEN_IN_BYTES),
+				ClientParamPtr->SecureFlag);
+
+	/** Update request buffer and send an IPI request to ASU. */
+	Status = XAsu_SendCmdToAsu(ClientParamPtr, KmSubVaultParamPtr,
+					(u32)(sizeof(XAsu_KeyManagerPqcKeyGenParams)), Header);
+
+END:
+	return Status;
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	This function sends a command to ASUFW to perform ML-KEM key pair generation for
+ *		the requested subsystem.
+ *
+ * @param	ClientParamPtr		Pointer to the XAsu_ClientParams structure which holds the
+ * 					client input parameters.
+ * @param	KmSubVaultParamPtr	Pointer to XAsu_KeyManagerPqcKeyGenParams structure which
+ *					holds the parameters of KeyVault input arguments. The ML-KEM
+ *					parameter set is passed in KmParams.KeyMetadata.KeyAttributes
+ *					and the encapsulation key length in
+ *					KmParams.KeyMetadata.Length. A non-zero SeedAddr derives the
+ *					pair from that 64-byte d || z seed instead of one drawn from
+ *					the TRNG. When the pair is stored,
+ *					KmParams.KeyMetadata.CompositeKeyId selects the vault and the
+ *					slot index requested in both the decapsulation and the
+ *					encapsulation sub-vault, or zero to take the first free slot
+ *					in each.
+ *
+ * @return
+ * 		- XST_SUCCESS, if IPI request to ASU is sent successfully.
+ * 		- XASU_INVALID_ARGUMENT, if any argument is invalid.
+ * 		- XASU_QUEUE_FULL, if Queue buffer is full.
+ * 		- XST_FAILURE, if sending an IPI request to ASU fails.
+ *
+ *************************************************************************************************/
+s32 XAsu_KmGenerateMlkemKeyPair(XAsu_ClientParams *ClientParamPtr,
+				XAsu_KeyManagerPqcKeyGenParams *KmSubVaultParamPtr)
+{
+	s32 Status = XST_FAILURE;
+	u32 Header;
+	u8 UniqueId;
+	u8 *RespBufferPtr = NULL;
+	u8 RespSize = 0U;
+	u32 PubKeyLen = 0U;
+	u32 PvtKeyLen = 0U;
+
+	/** Validation of inputs. */
+	Status = XAsu_ValidateClientParameters(ClientParamPtr);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	if (KmSubVaultParamPtr == NULL) {
+		Status = XASU_INVALID_ARGUMENT;
+		goto END;
+	}
+
+	Status = XAsu_KmValidateVaultParams(&KmSubVaultParamPtr->KmParams);
+	if (Status != XST_SUCCESS) {
+		Status = XASU_INVALID_ARGUMENT;
+		goto END;
+	}
+
+	/**
+	 * Validate the seed and the parameter set against the same contract the server validates
+	 * them against, so that the request is rejected here rather than after an IPI round trip.
+	 */
+	Status = XAsu_KmValidateMlkemKeyGenParams(KmSubVaultParamPtr, &PubKeyLen, &PvtKeyLen);
+	if (Status != XST_SUCCESS) {
+		Status = XASU_INVALID_ARGUMENT;
+		goto END;
+	}
+
+	/**
+	 * Generate a unique ID and register the callback function. Two key IDs are returned:
+	 * the encapsulation key ID first, then the decapsulation key ID.
+	 */
+	if (KmSubVaultParamPtr->KmParams.KeyIdAddr != 0U) {
+		RespBufferPtr = (u8 *)(UINTPTR)KmSubVaultParamPtr->KmParams.KeyIdAddr;
+		RespSize = (XASU_KM_NUM_OF_KEY_IDS * XASU_KM_OUTPUT_ID_SIZE_IN_BYTES);
+	}
+	UniqueId = XAsu_RegCallBackNGetUniqueId(ClientParamPtr, RespBufferPtr, RespSize, XASU_TRUE);
+	if (UniqueId >= XASU_UNIQUE_ID_MAX) {
+		Status = XASU_INVALID_UNIQUE_ID;
+		goto END;
+	}
+
+	/** Create command header. */
+	Header = XAsu_CreateHeader(XASU_KM_GEN_MLKEM_KEY_PAIR_CMD_ID, UniqueId,
+				XASU_MODULE_KEYMANAGER_ID,
+				(u8)(sizeof(XAsu_KeyManagerPqcKeyGenParams) /
+					XASU_WORD_LEN_IN_BYTES),
+				ClientParamPtr->SecureFlag);
+
+	/** Update request buffer and send an IPI request to ASU. */
+	Status = XAsu_SendCmdToAsu(ClientParamPtr, KmSubVaultParamPtr,
+					(u32)(sizeof(XAsu_KeyManagerPqcKeyGenParams)), Header);
 
 END:
 	return Status;

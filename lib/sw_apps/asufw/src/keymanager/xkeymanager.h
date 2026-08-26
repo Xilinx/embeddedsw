@@ -46,10 +46,13 @@ extern "C" {
 #include "xasu_ocpinfo.h"
 #include "xasu_eccinfo.h"
 #include "xasu_lmsinfo.h"
+#include "xasu_mldsainfo.h"
+#include "xasu_mlkeminfo.h"
+#include "xsha.h"
 
 #ifdef XASU_KEYMANAGER_ENABLE
 /************************************ Constant Definitions ***************************************/
-#define XKEYMANAGER_MAX_SUB_VAULTS	(9U) /**< Total number of supported sub-vaults */
+#define XKEYMANAGER_MAX_SUB_VAULTS	(13U) /**< Total number of supported sub-vaults */
 
 #define XKEYMANAGER_MAJOR_VERSION	(1U) /**< Major version of the key manager */
 #define XKEYMANAGER_MINOR_VERSION	(0U) /**< Minor version of the key manager */
@@ -157,6 +160,39 @@ typedef struct {
 	u8 PublicKey[XASU_LMS_MAX_PUB_KEY_SIZE];	/**< LMS public key data. */
 } XKeyManager_LmsPubKeyObject;
 
+/*
+ * The PQC key objects are sized to the largest parameter set and are defined unconditionally,
+ * independent of XASU_MLDSA_ENABLE / XASU_MLKEM_ENABLE. Gating them on the algorithm build
+ * options would make the persisted vault layout differ between builds, which would break
+ * export/import between two firmware images that only differ in enabled algorithms.
+ */
+
+/** This structure contains ML-DSA private key object information. */
+typedef struct {
+	XAsu_KeyManagerKeyMetadata Metadata;	/**< Key metadata. */
+	u8 PrivateKey[XASU_MLDSA_MAX_PRIV_KEY_LEN];	/**< ML-DSA private key (ML-DSA-87 sized). */
+} XKeyManager_MldsaPvtKeyObject;
+
+/** This structure contains ML-DSA public key object information. */
+typedef struct {
+	XAsu_KeyManagerKeyMetadata Metadata;	/**< Key metadata. */
+	u8 PublicKey[XASU_MLDSA_MAX_PUB_KEY_LEN];	/**< ML-DSA public key (ML-DSA-87 sized). */
+} XKeyManager_MldsaPubKeyObject;
+
+/** This structure contains ML-KEM decapsulation key object information. */
+typedef struct {
+	XAsu_KeyManagerKeyMetadata Metadata;	/**< Key metadata. */
+	u8 PrivateKey[XASU_MLKEM_MAX_PRIV_KEY_LEN];	/**< ML-KEM decapsulation key
+								(ML-KEM-1024 sized). */
+} XKeyManager_MlkemPvtKeyObject;
+
+/** This structure contains ML-KEM encapsulation key object information. */
+typedef struct {
+	XAsu_KeyManagerKeyMetadata Metadata;	/**< Key metadata. */
+	u8 PublicKey[XASU_MLKEM_MAX_PUB_KEY_LEN];	/**< ML-KEM encapsulation key
+								(ML-KEM-1024 sized). */
+} XKeyManager_MlkemPubKeyObject;
+
 /** This structure contains key manager vault and sub vault header information. */
 typedef struct {
 	XKeyManager_VaultHeader Header;	/**< Vault header. */
@@ -195,6 +231,16 @@ s32 XKeyManager_GenerateRsaKeyPair(XAsufw_Dma *DmaPtr, const XAsu_KeyManagerPara
 			u32 *KeyIdPtr, u32 SubSystemId);
 s32 XKeyManager_GenerateEccKeyPair(XAsufw_Dma *DmaPtr, const XAsu_KeyManagerParams *ParamsPtr,
 			u32 *KeyIdPtr, u32 SubSystemId);
+#ifdef XASU_MLDSA_ENABLE
+s32 XKeyManager_GenerateMldsaKeyPair(XAsufw_Dma *DmaPtr, XSha *Sha3Ptr,
+			const XAsu_KeyManagerPqcKeyGenParams *PqcParamsPtr, u32 *KeyIdPtr,
+			u32 SubSystemId);
+#endif
+#ifdef XASU_MLKEM_ENABLE
+s32 XKeyManager_GenerateMlkemKeyPair(XAsufw_Dma *DmaPtr,
+			const XAsu_KeyManagerPqcKeyGenParams *PqcParamsPtr, u32 *KeyIdPtr,
+			u32 SubSystemId);
+#endif
 s32 XKeyManager_DeleteKey(u32 KeyId, u32 SubSystemId);
 u16 XKeyManager_GetAsuRsaActiveKeyCount(XAsu_KeyManagerSubVaultType KeyType);
 s32 XKeyManager_StoreRsaKeyPairInAsuVault(const u8 *KeyData, u32 KeyLen, u8 VaultId);

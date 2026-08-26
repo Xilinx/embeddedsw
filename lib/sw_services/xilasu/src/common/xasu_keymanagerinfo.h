@@ -58,7 +58,11 @@ extern "C" {
 #define XASU_KM_EXPORT_KEYVAULT_CMD_ID		(9U) /**< Command ID for exporting key vault */
 #define XASU_KM_IMPORT_KEYVAULT_CMD_ID		(10U) /**< Command ID for importing key vault */
 #define XASU_KM_SET_EPOCH_TIME_CMD_ID		(11U) /**< Command ID for setting epoch time */
-#define XASU_KM_MAX_CMDS			(12U) /**< Maximum number of commands
+#define XASU_KM_GEN_MLDSA_KEY_PAIR_CMD_ID	(12U) /**< Command ID for ML-DSA key pair
+							generation */
+#define XASU_KM_GEN_MLKEM_KEY_PAIR_CMD_ID	(13U) /**< Command ID for ML-KEM key pair
+							generation */
+#define XASU_KM_MAX_CMDS			(14U) /**< Maximum number of commands
 							supported by KeyManager module */
 
 #define XASU_KM_OUTPUT_ID_SIZE_IN_BYTES		(4U) /**< Key vault output id size */
@@ -133,6 +137,22 @@ extern "C" {
 /* Key usecases for LMS public key type. */
 #define XASU_KEYMANAGER_LMS_PUB_SIGN_VER_USE_CASE	(0x01U)	/**< LMS public key signature verification use case */
 
+/* Key usecases for ML-DSA private key type. */
+#define XASU_KEYMANAGER_MLDSA_PVT_SIGN_GEN_USE_CASE	(0x01U)	/**< ML-DSA private key sign
+								use case */
+
+/* Key usecases for ML-DSA public key type. */
+#define XASU_KEYMANAGER_MLDSA_PUB_SIGN_VER_USE_CASE	(0x01U)	/**< ML-DSA public key signature
+								verification use case */
+
+/* Key usecases for ML-KEM decapsulation (private) key type. */
+#define XASU_KEYMANAGER_MLKEM_PVT_DECAPS_USE_CASE	(0x01U)	/**< ML-KEM private key
+								decapsulation use case */
+
+/* Key usecases for ML-KEM encapsulation (public) key type. */
+#define XASU_KEYMANAGER_MLKEM_PUB_ENCAPS_USE_CASE	(0x01U)	/**< ML-KEM public key
+								encapsulation use case */
+
 /* Key attribute for RSA private decrypt operation. */
 #define XASU_KM_RSA_PVT_ATTR_MAX	(2U) /**< Maximum allowed value for RSA private key attribute */
 
@@ -149,6 +169,10 @@ typedef enum {
 	XASU_ECC_PUB_SUBVAULT_ID,	/**< ECC public key sub-vault ID. */
 	XASU_LMS_SUBVAULT_ID,		/**< LMS key sub-vault ID. */
 	XASU_X509_SUBVAULT_ID,		/**< X509 certificate sub-vault ID. */
+	XASU_MLDSA_PVT_SUBVAULT_ID,	/**< ML-DSA private key sub-vault ID. */
+	XASU_MLDSA_PUB_SUBVAULT_ID,	/**< ML-DSA public key sub-vault ID. */
+	XASU_MLKEM_PVT_SUBVAULT_ID,	/**< ML-KEM decapsulation key sub-vault ID. */
+	XASU_MLKEM_PUB_SUBVAULT_ID,	/**< ML-KEM encapsulation key sub-vault ID. */
 	XASU_INVALID_SUBVAULT_ID,	/**< Invalid sub-vault identifier. */
 } XAsu_KeyManagerSubVaultType;
 
@@ -171,8 +195,13 @@ typedef struct {
 				  sub-vaults. */
 	u8 KeyUseCase;	/**< Usage scenario stored alongside the key. */
 	u8 KeyAttributes;	/**< Additional attribute for the key (applicable for ECC keys
-				and RSA private keys to represent prime/totient presence information) */
+				and RSA private keys to represent prime/totient presence information).
+				For ML-DSA and ML-KEM key pair generation this field carries the
+				parameter set, as XAsu_MldsaParamSet or XAsu_MlkemParamSet. */
 	u16 Length;	/**< For ECC module: this parameter refers to Curve Length.
+				For ML-DSA and ML-KEM key pair generation: the public or
+				encapsulation key length of the parameter set named by
+				KeyAttributes, which the request is cross-checked against.
 				For other modules: this parameter refers to Key length. */
 	u32 EpochTime;	/**< Time stamp expiry for the key. */
 	u32 UsageCount;	/**< Number of times the key can be used. */
@@ -196,6 +225,23 @@ typedef struct {
 	u8 Reserved[4]; /**< Explicit padding to ensure consistent struct size across architectures */
 } XAsu_KeyManagerParams;
 
+/**
+ * This structure contains info for the ML-DSA and ML-KEM key pair generation parameters.
+ * Those two APIs are the only ones that can derive a key pair from a caller supplied seed, so the
+ * seed travels in this structure rather than in XAsu_KeyManagerParams, which every other key
+ * manager API shares and whose command length would otherwise change for all of them.
+ */
+typedef struct {
+	XAsu_KeyManagerParams KmParams; /**< Key manager parameters common to every key type. */
+	u64 SeedAddr; /**< Address of the seed the key pair is derived from.
+						Zero draws the seed from the TRNG, which is what a caller
+						other than an algorithm validation harness does. */
+	u32 SeedLen; /**< Length of the seed in bytes: zero when SeedAddr is zero, otherwise
+						XASU_MLDSA_KEYGEN_SEED_LEN for the ML-DSA API (xi) and
+						XASU_MLKEM_KEYGEN_SEED_LEN for the ML-KEM API (d || z). */
+	u8 Reserved[4]; /**< Explicit padding to ensure consistent struct size across architectures */
+} XAsu_KeyManagerPqcKeyGenParams;
+
 /** This structure contains info for different sub vault capacities. */
 typedef struct {
 	u64 VaultIdAddr; /**< Address where generated vault ID is stored. */
@@ -208,6 +254,10 @@ typedef struct {
 	u16 ECCPubKeyVaultCapacity; /**< Count for ECC public keys. */
 	u16 LMSKeyVaultCapacity; /**< Count for LMS keys. */
 	u16 X509KeyVaultCapacity; /**< Count for X.509 certificates. */
+	u16 MldsaPvtKeyVaultCapacity; /**< Count for ML-DSA private keys. */
+	u16 MldsaPubKeyVaultCapacity; /**< Count for ML-DSA public keys. */
+	u16 MlkemPvtKeyVaultCapacity; /**< Count for ML-KEM decapsulation keys. */
+	u16 MlkemPubKeyVaultCapacity; /**< Count for ML-KEM encapsulation keys. */
 	u16 AccessRights; /**< Access permissions for the key vault. */
 	u8 Restrictions;	/**< Key vault restrictions. */
 	u8 VaultId;	/**< Requested vault ID. 0: auto-assign, non-zero: use that ID. */

@@ -45,6 +45,7 @@
 #include "xasufw_memory.h"
 #include "xasu_sharedmem.h"
 #include "xocp.h"
+#include "xsha_hw.h"
 
 #ifdef XASU_KEYMANAGER_ENABLE
 /************************************ Constant Definitions ***************************************/
@@ -73,6 +74,12 @@ static s32 XAsufw_KeyManagerDeleteKey(const XAsu_ReqBuf *ReqBuf, u32 ReqId);
 static s32 XAsufw_KeyManagerGenKeyIv(const XAsu_ReqBuf *ReqBuf, u32 ReqId);
 static s32 XAsufw_KeyManagerRsaKeyPairGen(const XAsu_ReqBuf *ReqBuf, u32 ReqId);
 static s32 XAsufw_KeyManagerEccKeyPairGen(const XAsu_ReqBuf *ReqBuf, u32 ReqId);
+#ifdef XASU_MLDSA_ENABLE
+static s32 XAsufw_KeyManagerMldsaKeyPairGen(const XAsu_ReqBuf *ReqBuf, u32 ReqId);
+#endif
+#ifdef XASU_MLKEM_ENABLE
+static s32 XAsufw_KeyManagerMlkemKeyPairGen(const XAsu_ReqBuf *ReqBuf, u32 ReqId);
+#endif
 static s32 XAsufw_CreateAsuKeyVault(void);
 static s32 XAsufw_KeyManagerStoreKey(const XAsu_ReqBuf *ReqBuf, u32 ReqId);
 static s32 XAsufw_KeyManagerExportVault(const XAsu_ReqBuf *ReqBuf, u32 ReqId);
@@ -110,6 +117,18 @@ s32 XAsufw_KeyManagerInit(void)
 		[XASU_KM_EXPORT_KEYVAULT_CMD_ID] = XASUFW_MODULE_COMMAND(XAsufw_KeyManagerExportVault),
 		[XASU_KM_IMPORT_KEYVAULT_CMD_ID] = XASUFW_MODULE_COMMAND(XAsufw_KeyManagerImportVault),
 		[XASU_KM_SET_EPOCH_TIME_CMD_ID] = XASUFW_MODULE_COMMAND(XAsufw_KeyManagerSetEpochTime),
+#ifdef XASU_MLDSA_ENABLE
+		[XASU_KM_GEN_MLDSA_KEY_PAIR_CMD_ID] =
+			XASUFW_MODULE_COMMAND(XAsufw_KeyManagerMldsaKeyPairGen),
+#else
+		[XASU_KM_GEN_MLDSA_KEY_PAIR_CMD_ID] = XASUFW_MODULE_COMMAND(NULL),
+#endif
+#ifdef XASU_MLKEM_ENABLE
+		[XASU_KM_GEN_MLKEM_KEY_PAIR_CMD_ID] =
+			XASUFW_MODULE_COMMAND(XAsufw_KeyManagerMlkemKeyPairGen),
+#else
+		[XASU_KM_GEN_MLKEM_KEY_PAIR_CMD_ID] = XASUFW_MODULE_COMMAND(NULL),
+#endif
 	};
 
 	/** The XAsufw_KeyManagerResourcesBuf contains the required resources for each supported command. */
@@ -137,6 +156,27 @@ s32 XAsufw_KeyManagerInit(void)
 		[XASU_KM_IMPORT_KEYVAULT_CMD_ID] = XASUFW_KEYMANAGER_RESOURCE_MASK |
 		XASUFW_DMA_RESOURCE_MASK | XASUFW_KDF_RESOURCE_MASK |XASUFW_AES_RESOURCE_MASK,
 		[XASU_KM_SET_EPOCH_TIME_CMD_ID] = 0,
+#ifdef XASU_MLDSA_ENABLE
+		/*
+		 * Key generation seeds the ML-DSA core from the TRNG unless the request carries a
+		 * seed, and runs its pairwise consistency test on SHA3, then the key manager either
+		 * stores the pair in the vault or exports it to KeyObjectAddr. The TRNG is reserved
+		 * either way, since the choice of seed source is per request.
+		 */
+		[XASU_KM_GEN_MLDSA_KEY_PAIR_CMD_ID] = XASUFW_KEYMANAGER_RESOURCE_MASK |
+		XASUFW_DMA_RESOURCE_MASK | XASUFW_MLDSA_RESOURCE_MASK | XASUFW_TRNG_RESOURCE_MASK |
+		XASUFW_TRNG_RANDOM_BYTES_MASK | XASUFW_SHA3_RESOURCE_MASK |
+		XASUFW_OVERLAY_RESOURCE_MASK,
+#else
+		[XASU_KM_GEN_MLDSA_KEY_PAIR_CMD_ID] = 0U,
+#endif
+#ifdef XASU_MLKEM_ENABLE
+		[XASU_KM_GEN_MLKEM_KEY_PAIR_CMD_ID] = XASUFW_KEYMANAGER_RESOURCE_MASK |
+		XASUFW_DMA_RESOURCE_MASK | XASUFW_MLKEM_RESOURCE_MASK | XASUFW_TRNG_RESOURCE_MASK |
+		XASUFW_TRNG_RANDOM_BYTES_MASK | XASUFW_OVERLAY_RESOURCE_MASK,
+#else
+		[XASU_KM_GEN_MLKEM_KEY_PAIR_CMD_ID] = 0U,
+#endif
 	};
 
 	/** The XAsufw_KeyManagerAccessPermBuf contains the IPI access permissions for each supported command. */
@@ -153,6 +193,20 @@ s32 XAsufw_KeyManagerInit(void)
 		[XASU_KM_EXPORT_KEYVAULT_CMD_ID] = XASUFW_ALL_IPI_FULL_ACCESS(XASU_KM_EXPORT_KEYVAULT_CMD_ID),
 		[XASU_KM_IMPORT_KEYVAULT_CMD_ID] = XASUFW_ALL_IPI_FULL_ACCESS(XASU_KM_IMPORT_KEYVAULT_CMD_ID),
 		[XASU_KM_SET_EPOCH_TIME_CMD_ID] = XASUFW_ALL_IPI_FULL_ACCESS(XASU_KM_SET_EPOCH_TIME_CMD_ID),
+#ifdef XASU_MLDSA_ENABLE
+		[XASU_KM_GEN_MLDSA_KEY_PAIR_CMD_ID] =
+			XASUFW_ALL_IPI_FULL_ACCESS(XASU_KM_GEN_MLDSA_KEY_PAIR_CMD_ID),
+#else
+		[XASU_KM_GEN_MLDSA_KEY_PAIR_CMD_ID] =
+			XASUFW_ALL_IPI_NO_ACCESS(XASU_KM_GEN_MLDSA_KEY_PAIR_CMD_ID),
+#endif
+#ifdef XASU_MLKEM_ENABLE
+		[XASU_KM_GEN_MLKEM_KEY_PAIR_CMD_ID] =
+			XASUFW_ALL_IPI_FULL_ACCESS(XASU_KM_GEN_MLKEM_KEY_PAIR_CMD_ID),
+#else
+		[XASU_KM_GEN_MLKEM_KEY_PAIR_CMD_ID] =
+			XASUFW_ALL_IPI_NO_ACCESS(XASU_KM_GEN_MLKEM_KEY_PAIR_CMD_ID),
+#endif
 	};
 
 	XAsufw_KeyManagerModule.Id = XASU_MODULE_KEYMANAGER_ID;
@@ -222,16 +276,15 @@ static s32 XAsufw_KeyManagerResourceHandler(const XAsu_ReqBuf *ReqBuf, u32 ReqId
 		}
 	}
 
-	/** Allocate KeyManager resource. */
-	XAsufw_AllocateResource(XASUFW_KEYMANAGER, XASUFW_KEYMANAGER, ReqId);
-
 	if ((CmdId == XASU_KM_GEN_AES_KEY_CMD_ID) || (CmdId == XASU_KM_GEN_AES_IV_CMD_ID) ||
 	    (CmdId == XASU_KM_GEN_RAW_KEY_CMD_ID) ||
 	    (CmdId == XASU_KM_GEN_RSA_KEY_PAIR_CMD_ID) ||
 	    (CmdId == XASU_KM_GEN_ECC_KEY_PAIR_CMD_ID) ||
 	    (CmdId == XASU_KM_STORE_KEY_CMD_ID) ||
 	    (CmdId == XASU_KM_EXPORT_KEYVAULT_CMD_ID) ||
-	    (CmdId == XASU_KM_IMPORT_KEYVAULT_CMD_ID)) {
+	    (CmdId == XASU_KM_IMPORT_KEYVAULT_CMD_ID) ||
+	    (CmdId == XASU_KM_GEN_MLDSA_KEY_PAIR_CMD_ID) ||
+	    (CmdId == XASU_KM_GEN_MLKEM_KEY_PAIR_CMD_ID)) {
 		/** Allocate DMA resource. */
 		XAsufw_KeyManagerModule.AsuDmaPtr = XAsufw_AllocateDmaResource(XASUFW_KEYMANAGER, ReqId);
 		if (XAsufw_KeyManagerModule.AsuDmaPtr == NULL) {
@@ -240,10 +293,14 @@ static s32 XAsufw_KeyManagerResourceHandler(const XAsu_ReqBuf *ReqBuf, u32 ReqId
 		}
 	}
 
+	XAsufw_AllocateResource(XASUFW_KEYMANAGER, XASUFW_KEYMANAGER, ReqId);
+
 	if ((CmdId == XASU_KM_GEN_AES_KEY_CMD_ID) || (CmdId == XASU_KM_GEN_AES_IV_CMD_ID) ||
 	    (CmdId == XASU_KM_GEN_RAW_KEY_CMD_ID) || (CmdId == XASU_KM_GEN_RSA_KEY_PAIR_CMD_ID) ||
 	    (CmdId == XASU_KM_GEN_ECC_KEY_PAIR_CMD_ID) ||
-	    (CmdId == XASU_KM_EXPORT_KEYVAULT_CMD_ID)) {
+	    (CmdId == XASU_KM_EXPORT_KEYVAULT_CMD_ID) ||
+	    (CmdId == XASU_KM_GEN_MLDSA_KEY_PAIR_CMD_ID) ||
+	    (CmdId == XASU_KM_GEN_MLKEM_KEY_PAIR_CMD_ID)) {
 		/** Allocate TRNG resource. */
 		XAsufw_AllocateResource(XASUFW_TRNG, XASUFW_KEYMANAGER, ReqId);
 	}
@@ -261,6 +318,41 @@ static s32 XAsufw_KeyManagerResourceHandler(const XAsu_ReqBuf *ReqBuf, u32 ReqId
 			Status = XAsufw_UpdateErrorStatus(Status, XASUFW_OVERLAY_ACTIVATE_FAIL);
 			if (XAsufw_ReleaseResource(XASUFW_KEYMANAGER, ReqId) != XASUFW_SUCCESS) {
 				Status = XAsufw_UpdateErrorStatus(Status, XASUFW_RESOURCE_RELEASE_NOT_ALLOWED);
+			}
+			goto END;
+		}
+	}
+
+	if (CmdId == XASU_KM_GEN_MLDSA_KEY_PAIR_CMD_ID) {
+		/** Allocate ML-DSA, SHA3 and overlay window resources. */
+		XAsufw_AllocateResource(XASUFW_MLDSA, XASUFW_KEYMANAGER, ReqId);
+		XAsufw_AllocateResource(XASUFW_SHA3, XASUFW_KEYMANAGER, ReqId);
+		XAsufw_AllocateResource(XASUFW_OVERLAY, XASUFW_KEYMANAGER, ReqId);
+
+		/** Activate ML-DSA overlay. */
+		Status = XOverlay_Activate(XOVERLAY_ALGO_MLDSA, XAsufw_KeyManagerModule.AsuDmaPtr);
+		if (Status != XASUFW_SUCCESS) {
+			Status = XAsufw_UpdateErrorStatus(Status, XASUFW_OVERLAY_ACTIVATE_FAIL);
+			if (XAsufw_ReleaseResource(XASUFW_KEYMANAGER, ReqId) != XASUFW_SUCCESS) {
+				Status = XAsufw_UpdateErrorStatus(Status,
+					XASUFW_RESOURCE_RELEASE_NOT_ALLOWED);
+			}
+			goto END;
+		}
+	}
+
+	if (CmdId == XASU_KM_GEN_MLKEM_KEY_PAIR_CMD_ID) {
+		/** Allocate ML-KEM and overlay window resources. */
+		XAsufw_AllocateResource(XASUFW_MLKEM, XASUFW_KEYMANAGER, ReqId);
+		XAsufw_AllocateResource(XASUFW_OVERLAY, XASUFW_KEYMANAGER, ReqId);
+
+		/** Activate ML-KEM overlay. */
+		Status = XOverlay_Activate(XOVERLAY_ALGO_MLKEM, XAsufw_KeyManagerModule.AsuDmaPtr);
+		if (Status != XASUFW_SUCCESS) {
+			Status = XAsufw_UpdateErrorStatus(Status, XASUFW_OVERLAY_ACTIVATE_FAIL);
+			if (XAsufw_ReleaseResource(XASUFW_KEYMANAGER, ReqId) != XASUFW_SUCCESS) {
+				Status = XAsufw_UpdateErrorStatus(Status,
+					XASUFW_RESOURCE_RELEASE_NOT_ALLOWED);
 			}
 			goto END;
 		}
@@ -602,6 +694,169 @@ END:
 
 	return Status;
 }
+
+#ifdef XASU_MLDSA_ENABLE
+/*************************************************************************************************/
+/**
+ * @brief	This function is a handler for key vault ML-DSA key pair generation operation
+ *		command.
+ *
+ * @param	ReqBuf	Pointer to the request buffer.
+ * @param	ReqId	Request Unique ID.
+ *
+ * @return
+ * 	- XASUFW_SUCCESS, if ML-DSA key pair generation operation is successful.
+ * 	- XASUFW_RESOURCE_RELEASE_NOT_ALLOWED, if illegal resource release is requested.
+ * 	- XASUFW_KEYMANAGER_KEY_OBJ_GEN_ERROR, if ML-DSA key pair generation operation fails.
+ * 	- XASUFW_INVALID_SUBSYSTEM_ID, if invalid subsystem ID is provided.
+ * 	- XASUFW_KEYMANAGER_INVALID_PARAM, if the requested parameter set is not supported.
+ * 	- Error code from XAsufw_ValidateMemRegnAccess, if a client buffer is not accessible to the
+ *    requesting subsystem.
+ *
+ *************************************************************************************************/
+static s32 XAsufw_KeyManagerMldsaKeyPairGen(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
+{
+	s32 Status = XASUFW_FAILURE;
+	const XAsu_KeyManagerPqcKeyGenParams *Cmd =
+		(const XAsu_KeyManagerPqcKeyGenParams *)ReqBuf->Arg;
+	u32 *OutId;
+	u32 SubsystemId = 0U;
+	u32 IpiMask = ReqId >> XASUFW_IPI_BITMASK_SHIFT;
+	XSha *Sha3Ptr = XSha_GetInstance(XASU_XSHA_1_DEVICE_ID);
+	u32 PubKeyLen = 0U;
+	u32 PvtKeyLen = 0U;
+
+	/** Verify command length. */
+	XASUFW_VERIFY_CMD_LEN(END, Status, ReqBuf, XAsu_KeyManagerPqcKeyGenParams);
+
+	OutId = (u32 *)XAsufw_GetRespBuf(ReqBuf, XAsu_ChannelQueueBuf, RespBuf) +
+						XASUFW_RESP_DATA_OFFSET;
+	/** Get subsystem ID from IPI mask. */
+	SubsystemId = XAsu_GetSubsysIdFromIpiMask(IpiMask);
+	if (SubsystemId == XASUFW_INVALID_SUBSYS_ID) {
+		Status = XASUFW_INVALID_SUBSYSTEM_ID;
+		goto END;
+	}
+
+	/** Validate the client provided seed buffer. A zero SeedAddr means draw from the TRNG. */
+	XASUFW_VALIDATE_MEM_ACCESS(END, Status, SubsystemId, Cmd->SeedAddr, Cmd->SeedLen);
+
+	/**
+	 * Validate the client provided key buffer, which takes the generated pair as the public
+	 * key followed by the private key, and is used only when the pair is returned to the
+	 * caller instead of being stored in the key vault. Sizing it from the requested parameter
+	 * set rather than the largest one keeps a caller that sized its buffer for ML-DSA-44 from
+	 * being held to the ML-DSA-87 footprint.
+	 */
+	if (Cmd->KmParams.KeyObjectAddr != 0U) {
+		Status = XAsu_KmGetMldsaKeyLengths(Cmd->KmParams.KeyMetadata.KeyAttributes,
+						&PubKeyLen, &PvtKeyLen);
+		if (Status != XASUFW_SUCCESS) {
+			Status = XASUFW_KEYMANAGER_INVALID_PARAM;
+			goto END;
+		}
+		XASUFW_VALIDATE_MEM_ACCESS(END, Status, SubsystemId, Cmd->KmParams.KeyObjectAddr,
+					   (u64)PubKeyLen + (u64)PvtKeyLen);
+	}
+
+	/** Perform ML-DSA key pair generation operation. */
+	Status = XKeyManager_GenerateMldsaKeyPair(XAsufw_KeyManagerModule.AsuDmaPtr, Sha3Ptr, Cmd,
+					OutId, SubsystemId);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_KEYMANAGER_KEY_OBJ_GEN_ERROR);
+	}
+
+END:
+	/** Release resources. */
+	if (XAsufw_ReleaseResource(XASUFW_KEYMANAGER, ReqId) != XASUFW_SUCCESS) {
+		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_RESOURCE_RELEASE_NOT_ALLOWED);
+	}
+	XAsufw_KeyManagerModule.AsuDmaPtr = NULL;
+
+	return Status;
+}
+#endif /* XASU_MLDSA_ENABLE */
+
+#ifdef XASU_MLKEM_ENABLE
+/*************************************************************************************************/
+/**
+ * @brief	This function is a handler for key vault ML-KEM key pair generation operation
+ *		command.
+ *
+ * @param	ReqBuf	Pointer to the request buffer.
+ * @param	ReqId	Request Unique ID.
+ *
+ * @return
+ * 	- XASUFW_SUCCESS, if ML-KEM key pair generation operation is successful.
+ * 	- XASUFW_RESOURCE_RELEASE_NOT_ALLOWED, if illegal resource release is requested.
+ * 	- XASUFW_KEYMANAGER_KEY_OBJ_GEN_ERROR, if ML-KEM key pair generation operation fails.
+ * 	- XASUFW_INVALID_SUBSYSTEM_ID, if invalid subsystem ID is provided.
+ * 	- XASUFW_KEYMANAGER_INVALID_PARAM, if the requested parameter set is not supported.
+ * 	- Error code from XAsufw_ValidateMemRegnAccess, if a client buffer is not accessible to the
+ *    requesting subsystem.
+ *
+ *************************************************************************************************/
+static s32 XAsufw_KeyManagerMlkemKeyPairGen(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
+{
+	s32 Status = XASUFW_FAILURE;
+	const XAsu_KeyManagerPqcKeyGenParams *Cmd =
+		(const XAsu_KeyManagerPqcKeyGenParams *)ReqBuf->Arg;
+	u32 *OutId;
+	u32 SubsystemId = 0U;
+	u32 IpiMask = ReqId >> XASUFW_IPI_BITMASK_SHIFT;
+	u32 PubKeyLen = 0U;
+	u32 PvtKeyLen = 0U;
+
+	/** Verify command length. */
+	XASUFW_VERIFY_CMD_LEN(END, Status, ReqBuf, XAsu_KeyManagerPqcKeyGenParams);
+
+	OutId = (u32 *)XAsufw_GetRespBuf(ReqBuf, XAsu_ChannelQueueBuf, RespBuf) +
+						XASUFW_RESP_DATA_OFFSET;
+	/** Get subsystem ID from IPI mask. */
+	SubsystemId = XAsu_GetSubsysIdFromIpiMask(IpiMask);
+	if (SubsystemId == XASUFW_INVALID_SUBSYS_ID) {
+		Status = XASUFW_INVALID_SUBSYSTEM_ID;
+		goto END;
+	}
+
+	/** Validate the client provided seed buffer. A zero SeedAddr means draw from the TRNG. */
+	XASUFW_VALIDATE_MEM_ACCESS(END, Status, SubsystemId, Cmd->SeedAddr, Cmd->SeedLen);
+
+	/**
+	 * Validate the client provided key buffer, which takes the generated pair as the
+	 * encapsulation key followed by the decapsulation key, and is used only when the pair is
+	 * returned to the caller instead of being stored in the key vault. Sizing it from the
+	 * requested parameter set rather than the largest one keeps a caller that sized its buffer
+	 * for ML-KEM-512 from being held to the ML-KEM-1024 footprint.
+	 */
+	if (Cmd->KmParams.KeyObjectAddr != 0U) {
+		Status = XAsu_KmGetMlkemKeyLengths(Cmd->KmParams.KeyMetadata.KeyAttributes,
+						&PubKeyLen, &PvtKeyLen);
+		if (Status != XASUFW_SUCCESS) {
+			Status = XASUFW_KEYMANAGER_INVALID_PARAM;
+			goto END;
+		}
+		XASUFW_VALIDATE_MEM_ACCESS(END, Status, SubsystemId, Cmd->KmParams.KeyObjectAddr,
+					   (u64)PubKeyLen + (u64)PvtKeyLen);
+	}
+
+	/** Perform ML-KEM key pair generation operation. */
+	Status = XKeyManager_GenerateMlkemKeyPair(XAsufw_KeyManagerModule.AsuDmaPtr, Cmd, OutId,
+					SubsystemId);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_KEYMANAGER_KEY_OBJ_GEN_ERROR);
+	}
+
+END:
+	/** Release resources. */
+	if (XAsufw_ReleaseResource(XASUFW_KEYMANAGER, ReqId) != XASUFW_SUCCESS) {
+		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_RESOURCE_RELEASE_NOT_ALLOWED);
+	}
+	XAsufw_KeyManagerModule.AsuDmaPtr = NULL;
+
+	return Status;
+}
+#endif /* XASU_MLKEM_ENABLE */
 
 /*************************************************************************************************/
 /**

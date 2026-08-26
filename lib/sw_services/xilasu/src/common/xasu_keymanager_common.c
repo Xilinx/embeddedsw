@@ -31,6 +31,8 @@
 #include "xasu_keymanager_common.h"
 #include "xasu_aesinfo.h"
 #include "xasu_hmacinfo.h"
+#include "xasu_mldsainfo.h"
+#include "xasu_mlkeminfo.h"
 
 /************************** Constant Definitions *************************************************/
 
@@ -213,6 +215,204 @@ END:
 
 /*************************************************************************************************/
 /**
+ * @brief	This function resolves the ML-DSA public and private key lengths of a parameter
+ *		set. Unlike the other algorithms, an ML-DSA key pair has no single "key length":
+ *		the two halves differ in size and neither is derivable from the other, so both are
+ *		returned from the parameter set carried in the key attributes.
+ *
+ * @param	ParamSet	ML-DSA parameter set (see XAsu_MldsaParamSet).
+ * @param	PubKeyLenPtr	Pointer to the output public key length in bytes.
+ * @param	PrivKeyLenPtr	Pointer to the output private key length in bytes.
+ *
+ * @return
+ *	- XST_SUCCESS, if the parameter set is supported and both lengths are returned.
+ *	- XST_FAILURE, if a pointer is NULL or the parameter set is unsupported.
+ *
+ *************************************************************************************************/
+s32 XAsu_KmGetMldsaKeyLengths(u8 ParamSet, u32 *PubKeyLenPtr, u32 *PrivKeyLenPtr)
+{
+	s32 Status = XST_FAILURE;
+
+	if ((PubKeyLenPtr == NULL) || (PrivKeyLenPtr == NULL)) {
+		goto END;
+	}
+
+	if (ParamSet == (u8)XASU_MLDSA_44) {
+		*PubKeyLenPtr = XASU_MLDSA_44_PUB_KEY_LEN;
+		*PrivKeyLenPtr = XASU_MLDSA_44_PRIV_KEY_LEN;
+	} else if (ParamSet == (u8)XASU_MLDSA_65) {
+		*PubKeyLenPtr = XASU_MLDSA_65_PUB_KEY_LEN;
+		*PrivKeyLenPtr = XASU_MLDSA_65_PRIV_KEY_LEN;
+	} else if (ParamSet == (u8)XASU_MLDSA_87) {
+		*PubKeyLenPtr = XASU_MLDSA_87_PUB_KEY_LEN;
+		*PrivKeyLenPtr = XASU_MLDSA_87_PRIV_KEY_LEN;
+	} else {
+		goto END;
+	}
+
+	Status = XST_SUCCESS;
+
+END:
+	return Status;
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	This function resolves the ML-KEM encapsulation (public) and decapsulation
+ *		(private) key lengths of a parameter set. See XAsu_KmGetMldsaKeyLengths for why
+ *		both lengths are returned rather than a single key length.
+ *
+ * @param	ParamSet	ML-KEM parameter set (see XAsu_MlkemParamSet).
+ * @param	PubKeyLenPtr	Pointer to the output encapsulation key length in bytes.
+ * @param	PrivKeyLenPtr	Pointer to the output decapsulation key length in bytes.
+ *
+ * @return
+ *	- XST_SUCCESS, if the parameter set is supported and both lengths are returned.
+ *	- XST_FAILURE, if a pointer is NULL or the parameter set is unsupported.
+ *
+ *************************************************************************************************/
+s32 XAsu_KmGetMlkemKeyLengths(u8 ParamSet, u32 *PubKeyLenPtr, u32 *PrivKeyLenPtr)
+{
+	s32 Status = XST_FAILURE;
+
+	if ((PubKeyLenPtr == NULL) || (PrivKeyLenPtr == NULL)) {
+		goto END;
+	}
+
+	if (ParamSet == (u8)XASU_MLKEM_512) {
+		*PubKeyLenPtr = XASU_MLKEM_512_PUB_KEY_LEN;
+		*PrivKeyLenPtr = XASU_MLKEM_512_PRIV_KEY_LEN;
+	} else if (ParamSet == (u8)XASU_MLKEM_768) {
+		*PubKeyLenPtr = XASU_MLKEM_768_PUB_KEY_LEN;
+		*PrivKeyLenPtr = XASU_MLKEM_768_PRIV_KEY_LEN;
+	} else if (ParamSet == (u8)XASU_MLKEM_1024) {
+		*PubKeyLenPtr = XASU_MLKEM_1024_PUB_KEY_LEN;
+		*PrivKeyLenPtr = XASU_MLKEM_1024_PRIV_KEY_LEN;
+	} else {
+		goto END;
+	}
+
+	Status = XST_SUCCESS;
+
+END:
+	return Status;
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	This function validates the ML-DSA key pair generation parameters against the
+ *		contract both the client and the server hold the request to, and returns the key
+ *		lengths of the requested parameter set as a by-product, since every caller needs
+ *		them right after.
+ *
+ * @param	PqcParamsPtr	Pointer to XAsu_KeyManagerPqcKeyGenParams structure that holds the
+ *				key generation parameters.
+ * @param	PubKeyLenPtr	Pointer to the output public key length in bytes.
+ * @param	PrivKeyLenPtr	Pointer to the output private key length in bytes.
+ *
+ * @return
+ *	- XST_SUCCESS, if input validation is successful.
+ *	- XST_FAILURE, if input validation fails.
+ *
+ *************************************************************************************************/
+s32 XAsu_KmValidateMldsaKeyGenParams(const XAsu_KeyManagerPqcKeyGenParams *PqcParamsPtr,
+				u32 *PubKeyLenPtr, u32 *PrivKeyLenPtr)
+{
+	volatile s32 Status = XST_FAILURE;
+
+	if (PqcParamsPtr == NULL) {
+		goto END;
+	}
+
+	/**
+	 * An explicit seed must come with its exact length and a zero address with a zero length,
+	 * so that a request cannot name a seed the core would then draw for itself.
+	 */
+	if (((PqcParamsPtr->SeedAddr == 0U) && (PqcParamsPtr->SeedLen != 0U)) ||
+	    ((PqcParamsPtr->SeedAddr != 0U) &&
+	     (PqcParamsPtr->SeedLen != XASU_MLDSA_KEYGEN_SEED_LEN))) {
+		goto END;
+	}
+
+	/** Resolve both key lengths from the parameter set. */
+	Status = XAsu_KmGetMldsaKeyLengths(PqcParamsPtr->KmParams.KeyMetadata.KeyAttributes,
+					PubKeyLenPtr, PrivKeyLenPtr);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	/**
+	 * Confirm the declared length is the public key length of that set. Both halves of the
+	 * pair are sized from the parameter set, so the declared length is a cross-check rather
+	 * than an input.
+	 */
+	Status = XST_FAILURE;
+	if (PqcParamsPtr->KmParams.KeyMetadata.Length != (u16)(*PubKeyLenPtr)) {
+		goto END;
+	}
+
+	Status = XST_SUCCESS;
+
+END:
+	return Status;
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	This function validates the ML-KEM key pair generation parameters against the
+ *		contract both the client and the server hold the request to. See
+ *		XAsu_KmValidateMldsaKeyGenParams for why the key lengths are returned as well.
+ *
+ * @param	PqcParamsPtr	Pointer to XAsu_KeyManagerPqcKeyGenParams structure that holds the
+ *				key generation parameters.
+ * @param	PubKeyLenPtr	Pointer to the output encapsulation key length in bytes.
+ * @param	PrivKeyLenPtr	Pointer to the output decapsulation key length in bytes.
+ *
+ * @return
+ *	- XST_SUCCESS, if input validation is successful.
+ *	- XST_FAILURE, if input validation fails.
+ *
+ *************************************************************************************************/
+s32 XAsu_KmValidateMlkemKeyGenParams(const XAsu_KeyManagerPqcKeyGenParams *PqcParamsPtr,
+				u32 *PubKeyLenPtr, u32 *PrivKeyLenPtr)
+{
+	volatile s32 Status = XST_FAILURE;
+
+	if (PqcParamsPtr == NULL) {
+		goto END;
+	}
+
+	/**
+	 * An explicit seed must come with its exact length and a zero address with a zero length,
+	 * so that a request cannot name a seed the core would then draw for itself.
+	 */
+	if (((PqcParamsPtr->SeedAddr == 0U) && (PqcParamsPtr->SeedLen != 0U)) ||
+	    ((PqcParamsPtr->SeedAddr != 0U) &&
+	     (PqcParamsPtr->SeedLen != XASU_MLKEM_KEYGEN_SEED_LEN))) {
+		goto END;
+	}
+
+	/** Resolve both key lengths from the parameter set. */
+	Status = XAsu_KmGetMlkemKeyLengths(PqcParamsPtr->KmParams.KeyMetadata.KeyAttributes,
+					PubKeyLenPtr, PrivKeyLenPtr);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	/** Confirm the declared length is the encapsulation key length of that set. */
+	Status = XST_FAILURE;
+	if (PqcParamsPtr->KmParams.KeyMetadata.Length != (u16)(*PubKeyLenPtr)) {
+		goto END;
+	}
+
+	Status = XST_SUCCESS;
+
+END:
+	return Status;
+}
+
+/*************************************************************************************************/
+/**
  * @brief	This function validates that exactly one of KeyCompAddr or KeyId is provided.
  *
  * @param	KeyCompAddr	Address of the key component structure.
@@ -268,7 +468,11 @@ s32 XAsu_KmValidateVaultCreateParams(const XAsu_KeyManagerSubVaultParams *Params
 	    (ParamsPtr->ECCPvtKeyVaultCapacity == 0U) &&
 	    (ParamsPtr->ECCPubKeyVaultCapacity == 0U) &&
 	    (ParamsPtr->LMSKeyVaultCapacity == 0U) &&
-	    (ParamsPtr->X509KeyVaultCapacity == 0U)) {
+	    (ParamsPtr->X509KeyVaultCapacity == 0U) &&
+	    (ParamsPtr->MldsaPvtKeyVaultCapacity == 0U) &&
+	    (ParamsPtr->MldsaPubKeyVaultCapacity == 0U) &&
+	    (ParamsPtr->MlkemPvtKeyVaultCapacity == 0U) &&
+	    (ParamsPtr->MlkemPubKeyVaultCapacity == 0U)) {
 		goto END;
 	}
 

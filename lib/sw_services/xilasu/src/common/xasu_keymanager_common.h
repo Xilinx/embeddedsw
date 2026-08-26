@@ -62,6 +62,12 @@ s32 XAsu_KmValidateVaultParams(const XAsu_KeyManagerParams *KmParamsPtr);
 s32 XAsu_KmValidateKeyMetadata(const XAsu_KeyManagerKeyMetadata *MetadataPtr);
 s32 XAsu_KmValidateKeyAttributes(u8 KeyType, u8 KeyAttributes);
 s32 XAsu_KmValidateKeyLength(u32 KeyLength, u8 KeyType);
+s32 XAsu_KmGetMldsaKeyLengths(u8 ParamSet, u32 *PubKeyLenPtr, u32 *PrivKeyLenPtr);
+s32 XAsu_KmGetMlkemKeyLengths(u8 ParamSet, u32 *PubKeyLenPtr, u32 *PrivKeyLenPtr);
+s32 XAsu_KmValidateMldsaKeyGenParams(const XAsu_KeyManagerPqcKeyGenParams *PqcParamsPtr,
+				u32 *PubKeyLenPtr, u32 *PrivKeyLenPtr);
+s32 XAsu_KmValidateMlkemKeyGenParams(const XAsu_KeyManagerPqcKeyGenParams *PqcParamsPtr,
+				u32 *PubKeyLenPtr, u32 *PrivKeyLenPtr);
 s32 XAsu_KmValidateKeyAddrNdKeyId(u64 KeyCompAddr, u32 KeyId);
 s32 XAsu_KmValidateVaultCreateParams(const XAsu_KeyManagerSubVaultParams *ParamsPtr);
 
