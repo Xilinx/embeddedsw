@@ -24,6 +24,7 @@
 * 1.03a  sg     07/16/12 Modified the device ID to use the first Device Id
 * 			Removed the printf at the start of the main
 * 3.18    vlt 12/18/25 Update Doxygen comments to include SDT flow details.
+* 3.19    vn  08/26/26 Fix Doxygen warnings
 * </pre>
 ******************************************************************************/
 
@@ -119,6 +120,7 @@ int main(void)
 *
 *
 * @if SDT
+* @param	UartInstPtr is a pointer to the XUartPs instance.
 * @param	BaseAddress contains the base address of the device
 * @else
 * @param	DeviceId is the unique device id from hardware build.

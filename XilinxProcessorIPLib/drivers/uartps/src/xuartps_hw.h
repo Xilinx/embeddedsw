@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -34,6 +34,7 @@
 *			modem control register.
 * 4.0   sd     02/02/24 Added macros for transmission FIFO empty check
 *                       and transmission active state check
+* 3.19  vn     08/26/26 Fix Doxygen warnings
 *
 * </pre>
 *
@@ -76,7 +77,7 @@ extern "C" {
 #define XUARTPS_FLOWDEL_OFFSET	0x0038U  /**< Flow Delay [5:0] */
 #define XUARTPS_TXWM_OFFSET		0x0044U  /**< TX FIFO Trigger Level [5:0] */
 #define XUARTPS_RXBS_OFFSET		0x0048U  /**< RX FIFO Byte Status [11:0] */
-/* @} */
+/** @} */
 
 /** @name Control Register
  *
@@ -95,7 +96,7 @@ extern "C" {
 #define XUARTPS_CR_EN_DIS_MASK	0x0000003CU  /**< Enable/disable Mask */
 #define XUARTPS_CR_TXRST	0x00000002U  /**< TX logic reset */
 #define XUARTPS_CR_RXRST	0x00000001U  /**< RX logic reset */
-/* @}*/
+/** @}*/
 
 
 /** @name Mode Register
@@ -132,7 +133,7 @@ extern "C" {
 #define XUARTPS_MR_CHARLEN_SHIFT			1U  /**< Data Length shift */
 #define XUARTPS_MR_CHARLEN_MASK		0x00000006U /**< Data length mask */
 #define XUARTPS_MR_CLKSEL			0x00000001U /**< Input clock selection */
-/* @} */
+/** @} */
 
 
 /** @name Interrupt Registers
@@ -164,7 +165,7 @@ extern "C" {
 #define XUARTPS_IXR_RXEMPTY	0x00000002U /**< RX FIFO empty interrupt. */
 #define XUARTPS_IXR_RXOVR  	0x00000001U /**< RX FIFO trigger interrupt. */
 #define XUARTPS_IXR_MASK	0x00003FFFU /**< Valid bit mask */
-/* @} */
+/** @} */
 
 
 /** @name Baud Rate Generator Register
@@ -180,6 +181,7 @@ extern "C" {
 #define XUARTPS_BAUDGEN_DISABLE		0x00000000U /**< Disable clock */
 #define XUARTPS_BAUDGEN_MASK		0x0000FFFFU /**< Valid bits mask */
 #define XUARTPS_BAUDGEN_RESET_VAL	0x0000028BU /**< Reset value */
+/** @} */
 
 /** @name Baud Divisor Rate register
  *
@@ -193,7 +195,7 @@ extern "C" {
  */
 #define XUARTPS_BAUDDIV_MASK        0x000000FFU	/**< 8 bit baud divider mask */
 #define XUARTPS_BAUDDIV_RESET_VAL   0x0000000FU	/**< Reset value */
-/* @} */
+/** @} */
 
 
 /** @name Receiver Timeout Register
@@ -216,7 +218,7 @@ extern "C" {
 #define XUARTPS_RXWM_DISABLE	0x00000000U  /**< Disable RX trigger interrupt */
 #define XUARTPS_RXWM_MASK		0x0000003FU  /**< Valid bits mask */
 #define XUARTPS_RXWM_RESET_VAL	0x00000020U  /**< Reset value */
-/* @} */
+/** @} */
 
 /** @name Transmit FIFO Trigger Level Register
  *
@@ -227,7 +229,7 @@ extern "C" {
 
 #define XUARTPS_TXWM_MASK		0x0000003FU  /**< Valid bits mask */
 #define XUARTPS_TXWM_RESET_VAL	0x00000020U  /**< Reset value */
-/* @} */
+/** @} */
 
 /** @name Modem Control Register
  *
@@ -239,7 +241,7 @@ extern "C" {
 #define XUARTPS_MODEMCR_FCM	0x00000020U  /**< Flow control mode */
 #define XUARTPS_MODEMCR_RTS	0x00000002U  /**< Request to send */
 #define XUARTPS_MODEMCR_DTR	0x00000001U  /**< Data terminal ready */
-/* @} */
+/** @} */
 
 /** @name Modem Status Register
  *
@@ -263,7 +265,7 @@ extern "C" {
 #define XUARTPS_MODEMSR_TERI  0x00000004U  /**< Trailing Edge Ring Indicator */
 #define XUARTPS_MODEMSR_DDSR	0x00000002U  /**< Change of DSR */
 #define XUARTPS_MODEMSR_DCTS	0x00000001U  /**< Change of CTS */
-/* @} */
+/** @} */
 
 /** @name Channel Status Register
  *
@@ -283,7 +285,7 @@ extern "C" {
 #define XUARTPS_SR_RXFULL	0x00000004U /**< RX FIFO full */
 #define XUARTPS_SR_RXEMPTY	0x00000002U /**< RX FIFO empty */
 #define XUARTPS_SR_RXOVR	0x00000001U /**< RX FIFO fill over trigger */
-/* @} */
+/** @} */
 
 /** @name Flow Delay Register
  *
@@ -298,7 +300,7 @@ extern "C" {
  * @{
  */
 #define XUARTPS_FLOWDEL_MASK	XUARTPS_RXWM_MASK	/**< Valid bit mask */
-/* @} */
+/** @} */
 
 /** @name Receiver FIFO Byte Status Register
  *
@@ -323,7 +325,7 @@ extern "C" {
 #define XUARTPS_RXBS_BYTE0_FRME		0x00000002U /**< Byte0 Frame Error */
 #define XUARTPS_RXBS_BYTE0_PARE		0x00000001U /**< Byte0 Parity Error */
 #define XUARTPS_RXBS_MASK		0x00000007U /**< 3 bit RX byte status mask */
-/* @} */
+/** @} */
 
 
 /*

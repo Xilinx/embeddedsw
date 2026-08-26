@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -23,6 +23,7 @@
 *			value was not being written to the register.
 * 3.00  kvn    02/13/15 Modified code for MISRA-C:2012 compliance.
 * 3.2   rk     07/20/16 Modified the logic for transmission break bit set
+* 3.19  vn     08/26/26 Fix Doxygen warnings
 *
 * </pre>
 *
@@ -140,8 +141,6 @@ u16 XUartPs_GetOptions(XUartPs *InstancePtr)
 * @param	Options contains the options to be set which are bit masks
 *		contained in the file xuartps.h and named XUARTPS_OPTION_*.
 *
-* @return	None.
-*
 * @note		None.
 *
 *****************************************************************************/
@@ -236,8 +235,6 @@ u8 XUartPs_GetFifoThreshold(XUartPs *InstancePtr)
 *
 * @param	InstancePtr is a pointer to the XUartPs instance.
 * @param	TriggerLevel contains the trigger level to set.
-*
-* @return	None
 *
 * @note		None.
 *
@@ -412,8 +409,6 @@ u8 XUartPs_GetOperMode(XUartPs *InstancePtr)
 * @param	InstancePtr is a pointer to the XUartPs instance.
 * @param	OperationMode is the mode of the UART.
 *
-* @return	None.
-*
 * @note		None.
 *
 *****************************************************************************/
@@ -503,8 +498,6 @@ u8 XUartPs_GetFlowDelay(XUartPs *InstancePtr)
 * @param	InstancePtr is a pointer to the XUartPs instance.
 * @param	FlowDelayValue is the Setting for the flow delay.
 *
-* @return	None.
-*
 * @note		None.
 *
 *****************************************************************************/
@@ -568,8 +561,6 @@ u8 XUartPs_GetRecvTimeout(XUartPs *InstancePtr)
 *		on the receiver data line.
 *		Timeout duration = RecvTimeout x 4 x Bit Period. 0 disables the
 *		timeout function.
-*
-* @return	None.
 *
 * @note		None.
 *
@@ -697,8 +688,6 @@ s32 XUartPs_SetDataFormat(XUartPs *InstancePtr,
 * @param	InstancePtr is a pointer to the XUartPs instance.
 * @param	FormatPtr is a pointer to a format structure that will contain
 *		the data format after this call completes.
-*
-* @return	None.
 *
 * @note		None.
 *

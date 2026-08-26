@@ -22,6 +22,7 @@
 * 3.00  kvn    02/13/15 Modified code for MISRA-C:2012 compliance.
 * 4.00  sd     02/02/24 Added wait for transmission done function
 * 3.18  vlt    01/27/26 Fixed codespell issues
+* 3.19  vn     08/26/26 Fix Doxygen warnings
 * </pre>
 *
 *****************************************************************************/
@@ -48,8 +49,6 @@
 *
 * @param	BaseAddress contains the base address of the device.
 * @param	Data contains the byte to be sent.
-*
-* @return	None.
 *
 * @note		None.
 *
@@ -96,8 +95,6 @@ u8 XUartPs_RecvByte(u32 BaseAddress)
 * This function resets UART
 *
 * @param	BaseAddress contains the base address of the device.
-*
-* @return	None
 *
 * @note		None.
 *
@@ -160,7 +157,7 @@ void XUartPs_ResetHw(u32 BaseAddress)
 *
 * This function waits for transmission to complete
 *
-* @return	None
+* @param	BaseAddress contains the base address of the device.
 *
 * @note		None.
 *

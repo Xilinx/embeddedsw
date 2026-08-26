@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -22,6 +22,7 @@
 * 3.00  kvn    02/13/15 Modified code for MISRA-C:2012 compliance.
 * 3.1	kvn    04/10/15 Modified code for latest RTL changes.
 * 3.7   aru    08/17/18 Resolved MISRA-C mandatory violations.(CR#1007755)
+* 3.19  vn     08/26/26 Fix Doxygen warnings
 * </pre>
 *
 *****************************************************************************/
@@ -86,8 +87,6 @@ u32 XUartPs_GetInterruptMask(XUartPs *InstancePtr)
 * @param	Mask contains the interrupts to be enabled or disabled.
 *		A '1' enables an interrupt, and a '0' disables.
 *
-* @return	None.
-*
 * @note		None.
 *
 *****************************************************************************/
@@ -120,8 +119,6 @@ void XUartPs_SetInterruptMask(XUartPs *InstancePtr, u32 Mask)
 * @param	CallBackRef is the upper layer callback reference passed back
 *		when the callback function is invoked.
 *
-* @return	None.
-*
 * @note
 *
 * There is no assert on the CallBackRef since the driver doesn't know what it
@@ -151,8 +148,6 @@ void XUartPs_SetHandler(XUartPs *InstancePtr, XUartPs_Handler FuncPtr,
 * can be called when an interrupt occurs.
 *
 * @param	InstancePtr contains a pointer to the driver instance
-*
-* @return	None.
 *
 * @note		None.
 *

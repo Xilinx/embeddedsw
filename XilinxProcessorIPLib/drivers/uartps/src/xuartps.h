@@ -153,6 +153,7 @@
 * 3.18  vlt    12/30/25 Update Doxygen comments to include SDT flow details.
 * 3.18  vlt    03/14/26 Updated BaseAddress type from u32 to UINTPTR
 *                       to support 64-bit addressing.
+* 3.19  vn     08/26/26 Fix Doxygen warnings
 * </pre>
 *
 *****************************************************************************/
@@ -207,7 +208,7 @@ extern "C" {
 #define XUARTPS_OPTION_ASSERT_RTS	0x0004U /**< Assert the RTS bit */
 #define XUARTPS_OPTION_ASSERT_DTR	0x0002U /**< Assert the DTR bit */
 #define XUARTPS_OPTION_SET_FCM		0x0001U /**< Turn on flow control mode */
-/*@}*/
+/** @} */
 
 
 /** @name Channel Operational Mode
@@ -223,7 +224,7 @@ extern "C" {
 #define XUARTPS_OPER_MODE_LOCAL_LOOP	(u8)0x02U	/**< Local Loopback Mode */
 #define XUARTPS_OPER_MODE_REMOTE_LOOP	(u8)0x03U	/**< Remote Loopback Mode */
 
-/* @} */
+/** @} */
 
 /** @name Data format values
  *
@@ -246,7 +247,7 @@ extern "C" {
 #define XUARTPS_FORMAT_2_STOP_BIT	2U /**< 2 stop bits */
 #define XUARTPS_FORMAT_1_5_STOP_BIT	1U /**< 1.5 stop bits */
 #define XUARTPS_FORMAT_1_STOP_BIT	0U /**< 1 stop bit */
-/*@}*/
+/** @} */
 
 /** @name Callback events
  *
@@ -265,7 +266,7 @@ extern "C" {
 											 *	error detected */
 #define XUARTPS_EVENT_RECV_ORERR		7U /**< A receive overrun error detected */
 
-/*@}*/
+/** @} */
 
 #define TIMEOUT_VAL				1000000U /**< Wait for 1 sec in worst case */
 

@@ -37,9 +37,14 @@
 * 3.12	gm	09/26/22 Corrected SetRecvTimeout description details.
 * 3.16	ht	10/28/24 Fix compilation warnings in SDT flow peripheral tests
 * 3.18  vlt     12/18/25 Update Doxygen comments to include SDT flow details.
+* 3.19  vn      08/26/26 Fix Doxygen warnings
 *
 * </pre>
 ****************************************************************************/
+
+/** @addtogroup xuartps_intr_example
+ * @{
+ */
 
 /***************************** Include Files *******************************/
 
@@ -369,8 +374,6 @@ int UartPsIntrExample(XUartPs *UartInstPtr, UINTPTR BaseAddress)
 * @param	EventData contains the number of bytes sent or received for sent
 *		and receive events.
 *
-* @return	None.
-*
 * @note		None.
 *
 ***************************************************************************/
@@ -549,3 +552,4 @@ static int SetupInterruptSystem(INTC *IntcInstancePtr,
 	return XST_SUCCESS;
 }
 #endif
+/** @} */
