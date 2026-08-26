@@ -28,6 +28,7 @@
  * 3.18   gm   07/14/23 Added SDT support.
  * 3.23  vlt 12/17/25 Update Doxygen comments to include SDT flow details.
  * 3.24  vn  08/26/26 Fix Doxygen warnings
+ * 3.24  vn  08/26/26 Fix GCC Warnings
  *
  * </pre>
  *
@@ -366,6 +367,8 @@ s32 IicPsMultiMasterIntrExample(UINTPTR BaseAddress)
 *******************************************************************************/
 void Handler(void *CallBackRef, u32 Event)
 {
+	(void)CallBackRef;
+
 	/*
 	 * All of the data transfer has been finished.
 	 */

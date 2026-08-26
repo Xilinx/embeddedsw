@@ -24,6 +24,7 @@
 * 3.22  bkv 07/09/25 Fixed GCC Warning.
 * 3.23  vlt 12/17/25 Update Doxygen comments to include SDT flow details.
 * 3.24  vn  08/26/26 Fix Doxygen warnings
+* 3.24  vn  08/26/26 Fix GCC Warnings
 *
 * </pre>
 *
@@ -395,6 +396,8 @@ int XIicPsSmbusReadBlockData(XIicPs *InstancePtr, u8 *Command, u8 *ByteCount, u8
 *******************************************************************************/
 void Handler(void *CallBackRef, u32 Event)
 {
+	(void)CallBackRef;
+
 	/*
 	 * Data transfer finishes.
 	 */
