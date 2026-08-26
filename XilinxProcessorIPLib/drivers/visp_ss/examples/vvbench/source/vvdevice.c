@@ -394,6 +394,13 @@ int VsiVvdeviceExecuteCaseline
 		WdtSendTest();
 #endif
 #endif
+#if ARMR52
+				/* Always inform the RPU of the current addressing mode. SetATM() sends
+		 * the high-mem prefix (0x0 in 32-bit / low mode, 0x8 for DDR_LOW_1,
+		 * 0x500 for DDR_CH_1) and the is_64bit flag, both auto-derived from
+		 * where the linker placed the ISP buffer pools (BUFFER_POOL_REGION). */
+		result = SetATM((uint32_t)mm_get_high_mem_prefix(), (uint32_t)mm_is_high_mem());
+#endif
 		LOGI("%s   %d: after VsiVvdeviceInstanceInit ", __func__, __LINE__);
 
 		result = SendFirmwareCompability();
@@ -1408,22 +1415,14 @@ int VsiVvdeviceExecuteCaseline
 			for (int idx = 0; idx < totalInstance; idx++) {
 				if(caseCtx->instanceCfgCtx[idx].instancePath[CAMDEV_BUFCHAIN_MP].pathEnable
 				   && tempBuf[idx][CAMDEV_BUFCHAIN_MP] != NULL) {
-					#if ARMR52
-					u64 dumpAddr = (u64)tempBuf[idx][CAMDEV_BUFCHAIN_MP]->baseAddress | ((u64)MM_GET_HIGH_MEM_PREFIX << 32);
-					#else
 					u64 dumpAddr = (u64)tempBuf[idx][CAMDEV_BUFCHAIN_MP]->baseAddress | (mm_get_high_mem_prefix() << 32);
-					#endif
 					LOGI(" |  mrd -bin -file dump_ISP%d_MP.rgb 0x%llx 0x%x\r\n\n",
 					    caseCtx->instanceCfgCtx[idx].hpId, dumpAddr,
 					    tempBuf[idx][CAMDEV_BUFCHAIN_MP]->baseSize / 4);
 				}
 				if(caseCtx->instanceCfgCtx[idx].instancePath[CAMDEV_BUFCHAIN_SP1].pathEnable
 				   && tempBuf[idx][CAMDEV_BUFCHAIN_SP1] != NULL) {
-					#if ARMR52
-					u64 dumpAddr = (u64)tempBuf[idx][CAMDEV_BUFCHAIN_SP1]->baseAddress | ((u64)MM_GET_HIGH_MEM_PREFIX << 32);
-					#else
 					u64 dumpAddr = (u64)tempBuf[idx][CAMDEV_BUFCHAIN_SP1]->baseAddress | (mm_get_high_mem_prefix() << 32);
-					#endif
 					LOGI(" |  mrd -bin -file dump_ISP%d_SP.rgb 0x%llx 0x%x\r\n\n",
 					    caseCtx->instanceCfgCtx[idx].hpId, dumpAddr,
 					    tempBuf[idx][CAMDEV_BUFCHAIN_SP1]->baseSize / 4);
@@ -3272,11 +3271,7 @@ void VsiVvdeviceShowBuffer
 		/* Reconstruct full 64-bit CPU address from 32-bit ATM address */
 		uint64_t showFullAddr;
 		if (ATM_ENABLE) {
-			#if ARMR52
-			showFullAddr = (uint64_t)pNowBuffer->baseAddress | ((uint64_t)MM_GET_HIGH_MEM_PREFIX << 32);
-			#else
 			showFullAddr = (uint64_t)pNowBuffer->baseAddress | (mm_get_high_mem_prefix() << 32);
-			#endif
 		} else {
 			showFullAddr = (uint64_t)pNowBuffer->pIplAddress;
 		}
@@ -3626,11 +3621,7 @@ int VsiVvdeviceGetInputPicture
 			 * pIplAddress is uint32_t and cannot hold 64-bit addr, so reconstruct here. */
 			uint64_t fullAddr;
 			if (ATM_ENABLE) {
-				#if ARMR52
-				fullAddr = (uint64_t)pBuff->baseAddress | ((uint64_t)MM_GET_HIGH_MEM_PREFIX << 32);
-				#else
 				fullAddr = (uint64_t)pBuff->baseAddress | (mm_get_high_mem_prefix() << 32);
-				#endif
 			} else {
 				fullAddr = (uint64_t)pBuff->pIplAddress;
 			}

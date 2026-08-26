@@ -11,11 +11,32 @@
 // #define RPU0_FW_START_ADDR                  (0x12000000)
 // #define RPU0_FW_SIZE                        (0x10000000) // 256MB
 
-#define RPU0_FW_START_ADDR                  (0x31000000)
-#define RPU0_FW_SIZE                        (0x10000000) // 256MB
+#define RPU0_FW_START_ADDR                  (0x20000000)
+/* App/code/pool/heap window.
+* Reverse-camera configuration:
+* Starts at 0x20000000 and ends at 0x41000000
+* (RPU0_FW_SIZE = 0x21000000).
+* Sentry-mode configuration:
+* Starts at 0x20000000 and spans a larger DDR window
+* (RPU0_FW_SIZE = 0x60000000).
+*
+* A 16MB gap must be maintained before the DisplayPort frame-buffer region
+* at 0x42000000 (see mmi_dc_nonlive_test.h). On Cortex-R52 (PMSAv8), MPU
+* regions must not overlap. Even sharing the boundary address 0x42000000
+* with the display region can cause access faults/stalls (observed during
+* FillBufferSolid writes to 0x42000000).
+*
+* The original reverse-camera layout used:
+* FW: 0x31000000 - 0x41000000
+* Display: 0x42000000
+*
+* RPU0_FW_SIZE must match _FW_START_SIZE in lscript.ld.
+*/
+#define RPU0_FW_SIZE                       0x60000000//(0x21000000) (16MB gap before 0x42000000 display)
 
 #define RPU0_LOAD_CALIB_START_ADDR          (0xF800000U)
 #define RPU0_LOAD_CALIB_SIZE                (0x28000U)
+
 
 #define RPU_MBOX_START_ADDR		    	    (0x1E0A8000U)
 #define RPU_MBOX_SIZE                       (0x400000U)
@@ -25,14 +46,16 @@
 #define RPU_SHM_SIZE                         (0X40000U)
 #define RPU_SHM_END_ADDR                     (RPU_SHM_START_ADDR+RPU_SHM_SIZE)
 #define RPU_MBOX_RPUSHM_SIZE        	     (RPU_MBOX_SIZE + RPU_SHM_SIZE - 1)
+
 #define RPU_FW_START_ADDR                    RPU0_FW_START_ADDR
 #define RPU_FW_SIZE                          RPU0_FW_SIZE
 #define RPU_LOAD_CALIB_START_ADDR            RPU0_LOAD_CALIB_START_ADDR
 #define RPU_LOAD_CALIB_SIZE                  RPU0_LOAD_CALIB_SIZE
 
-#define RPU_TDATABASE_BIN_ADDR               0x30000000
+#define RPU_TDATABASE_BIN_ADDR               0x1f000000
 #define RPU_TDATABASE_BIN_SIZE               0xe5e50
 XMpuConfig_Initial InitialMpu_Config __attribute__((section(".bootdata"))) = {
+
 {
 		/* TCM  */
 		0x00000000U,

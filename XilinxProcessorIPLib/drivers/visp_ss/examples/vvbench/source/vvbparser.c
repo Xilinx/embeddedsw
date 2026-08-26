@@ -661,16 +661,11 @@ int VsiVvbenchExecuteList
 			}
 			item = cJSON_GetObjectItem(caseCfg, "ATMenable");
 			if (item && (item->valueint == 1)) {
-				#if ARMR52
-				ATM_ENABLE = 0;
-				#else
 				ATM_ENABLE = item->valueint;
 				LOGI("ATM_ENABLED\n");
-				#endif
 			} else {
-				#if ARMR52
-				ATM_ENABLE = 0;
-				#endif
+				ATM_ENABLE = 1;
+				LOGI("ATM_ENABLED\n");
 			}
 		}
 		cJSON *caseLists = cJSON_GetObjectItem(listRoot, "caseLists");

@@ -36,9 +36,11 @@ extern xvisp_ss_Config xvisp_ss_ConfigTable[];
 #include "mimo.h"
 #include "image.h"
 #include "vmix_hdmi_bridge.h"
+#ifndef ARMR52
 #include "ext_auto.h"
 #include "ext_manual.h"
 #include "finetune.h"
+#endif
 #ifdef DP_DISPLAY_AVAILABLE
 #include "dp_display_bridge.h"
 /* Enable DisplayPort live output: ISP -> frmbuf_wr -> DDR -> frmbuf_rd -> DC -> DP */
