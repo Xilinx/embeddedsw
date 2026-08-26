@@ -1192,6 +1192,39 @@ u8 XDpRxss_GetColorComponent(XDpRxSs *InstancePtr, u8 Stream)
 
 /******************************************************************************/
 /**
+ * This function maps XVidC_ColorStd to the raw MISC0 YCbCr colorimetry code.
+ * MsaConfig->YCbCrColorimetry must hold the MISC0 bit value (0 = BT601,
+ * 1 = BT709), not the XVidC_ColorStd enum value.
+ *
+ * @param	ColorStd is the color standard returned by XDpRxss_GetColorimetry.
+ * @param	Misc0Colorimetry is a pointer to the converted MISC0 colorimetry
+ *		code (valid only when XST_SUCCESS is returned).
+ *
+ * @return
+ *		- XST_SUCCESS if conversion was successful.
+ *		- XST_FAILURE if colorimetry is unknown.
+ *
+*******************************************************************************/
+static int XDpRxss_MapColorStdToMisc0Colorimetry(u8 ColorStd,
+		u8 *Misc0Colorimetry)
+{
+	switch (ColorStd) {
+	case XVIDC_BT_601:
+		*Misc0Colorimetry =
+			XDP_RX_MAIN_STREAMX_MISC0_YCBCR_COLORIMETRY_BT601;
+		return XST_SUCCESS;
+	case XVIDC_BT_709:
+		*Misc0Colorimetry =
+			XDP_RX_MAIN_STREAMX_MISC0_YCBCR_COLORIMETRY_BT709;
+		return XST_SUCCESS;
+	default:
+		xil_printf("Unknown YCbCr Colorimetry\r\n");
+		return XST_FAILURE;
+	}
+}
+
+/******************************************************************************/
+/**
  * This function extracts the YCbCrColorimetry from MISC0 or VSC SDP packet
  * based on whether reception of colorimetry information through VSC SDP packets
  * or through MISC registers of the stream.
@@ -1271,6 +1304,8 @@ XDp_MainStreamAttributes *XDpRxss_GetMsa(XDpRxSs *DpRxSsInst)
 	u32 rxMsaNVid = 0;
 	u8 bpc;
 	u8 color_mode = 0;
+	u8 ColorStd;
+	u8 Misc0Colorimetry;
 	XDp_MainStreamAttributes *Msa_Config =
 			(XDp_MainStreamAttributes *)&DpRxSsInst->DpPtr->RxInstance.MsaConfig;
 
@@ -1423,7 +1458,15 @@ XDp_MainStreamAttributes *XDpRxss_GetMsa(XDpRxSs *DpRxSsInst)
 		DpRxSsInst->DpPtr->RxInstance.MsaConfig[(Stream - 1)].PixelClockHz = DpHres_total * DpVres_total * recv_frame_clk_int;
 		DpRxSsInst->DpPtr->RxInstance.MsaConfig[(Stream - 1)].Vtm.FrameRate =recv_frame_clk_int;
 		DpRxSsInst->DpPtr->RxInstance.MsaConfig[(Stream - 1)].DynamicRange = XDpRxss_GetDynamicRange(DpRxSsInst, Stream);
-		DpRxSsInst->DpPtr->RxInstance.MsaConfig[(Stream - 1)].YCbCrColorimetry = XDpRxss_GetColorimetry(DpRxSsInst, Stream);
+		ColorStd = XDpRxss_GetColorimetry(DpRxSsInst, Stream);
+		if (XDpRxss_MapColorStdToMisc0Colorimetry(ColorStd,
+				&Misc0Colorimetry) != XST_SUCCESS) {
+			/* Safe fallback to avoid MISC0 bit corruption. */
+			Misc0Colorimetry =
+				XDP_RX_MAIN_STREAMX_MISC0_YCBCR_COLORIMETRY_BT601;
+		}
+		DpRxSsInst->DpPtr->RxInstance.MsaConfig[(Stream - 1)].YCbCrColorimetry =
+			Misc0Colorimetry;
 		DpRxSsInst->DpPtr->RxInstance.MsaConfig[(Stream - 1)].Vtm.VmId =
 		XVidC_GetVideoModeId(DpHres, DpVres,
 				     DpRxSsInst->DpPtr->RxInstance.MsaConfig[(Stream - 1)].Vtm.FrameRate,
