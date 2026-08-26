@@ -21,6 +21,7 @@
  * 1.0   sb  8/20/24  Initial release
  * 1.1   sb  02/11/25 Add support for x2/x4 operation.
  * 1.3   zm  03/09/26 Add support for W25Q128JW Winbond flash.
+ * 1.4   vn  08/26/26 Fix Doxygen warnings.
  *
  * </pre>
  *
@@ -97,3 +98,4 @@ extern const XFlashInfo Flash_Config_Table[];
 /***************** Macros (Inline Functions) Definitions *********************/
 
 #endif /* XILSFL_FLASHCONFIG_H */
+/** @} */

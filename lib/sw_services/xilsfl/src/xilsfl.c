@@ -24,6 +24,7 @@
  * 1.1   sb  02/11/25  Add support for x2/x4 operation.
  * 1.3   zm  03/09/26  Add support for W25Q128JW Winbond flash.
  * 1.3   sb  07/20/26  Add support for Advanced Sector Protection (ASP).
+ * 1.4   vn  08/26/26  Fix Doxygen warnings.
  *
  * </pre>
  *
@@ -57,6 +58,7 @@ XSfl  SflInstance;
  *
  * This function initializes controller interface and serial nor flash connected.
  *
+ * @param	SflHandler is a pointer to the SFL handler index.
  * @param	SflUserOptions contains the controller and flash configuration info.
  * @param	ControllerInfo contains the type of controller.
  *

@@ -28,6 +28,7 @@
  *       zm  07/17/26  Add support for Macronix OSPI flashes mx66um2g45g and mx66uw2g345gxrix0.
  *       zm  08/03/26  Add support for GD25LR512MF GigaDevice flash.
  *       zm  08/03/26  Add support for MX25U6432F Macronix flash.
+ * 1.4   vn  08/26/26  Fix Doxygen warnings.
  *
  * </pre>
  *
@@ -221,7 +222,7 @@ u32 XSfl_FlashEnterExit4BAddMode(XSfl_Interface *SflInstancePtr, int Enable, u8 
  * This function used to erase the sectors of the serial nor flash connected to the
  * specific interface.
  *
- * @param	Sfl_Handler is a pointer to the XSfl interface component to use.
+ * @param	SflInstancePtr is a pointer to the XSfl interface component to use.
  * @param	Address contains the address of the first sector which needs to
  *              be erased.
  *
@@ -299,7 +300,7 @@ u32 XSfl_SectorErase(XSfl_Interface *SflInstancePtr, u32 Address)
  *
  * This function writes to the serial nor flash connected to the specific interface.
  *
- * @param	Sfl_Handler is a index to the Sfl interface component to use.
+ * @param	SflInstancePtr is a pointer to the Sfl interface component to use.
  * @param	Address contains the address of the first page which needs to
  *              be written.
  * @param	ByteCount contains the number of bytes to write.
@@ -391,7 +392,7 @@ u32 XSfl_FlashPageWrite(XSfl_Interface *SflInstancePtr, u32 Address, u32 ByteCou
  *
  * This function performs read from the serial nor flash connected to specific interface.
  *
- * @param	Sfl_Handler is a index to the XSfl interface component to use.
+ * @param	SflInstancePtr is a pointer to the XSfl interface component to use.
  * @param	Address contains the address of the flash that needs to be read.
  * @param	ByteCount contains the total size to be erased.
  * @param	ReadBfrPtr is the pointer to the read buffer to which valid received data should be
@@ -512,7 +513,7 @@ u32 XSfl_FlashReadProcess(XSfl_Interface *SflInstancePtr, u32 Address, u32 ByteC
  *
  * This function performs non-blocking read from the serial nor flash connected to specific interface.
  *
- * @param	Sfl_Handler is a index to the XSfl interface component to use.
+ * @param	SflInstancePtr is a pointer to the XSfl interface component to use.
  * @param	Address contains the address of the flash that needs to be read.
  * @param	ByteCount contains the total size to be erased.
  * @param	ReadBfrPtr is the pointer to the read buffer to which valid received data should be
@@ -644,7 +645,7 @@ u32 XSfl_FlashNonBlockingReadProcess(XSfl_Interface *SflInstancePtr, u32 Address
  * This function used to check  read completion status the serial Flash
  * connected to the Specific interface.
  *
- * @param	Sfl_Handler is a pointer to the XSfl interface driver component to use.
+ * @param	SflInstancePtr is a pointer to the XSfl interface driver component to use.
  *
  * @return	XST_SUCCESS if successful, else error code.
  *

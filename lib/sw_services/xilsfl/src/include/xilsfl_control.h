@@ -9,8 +9,6 @@
  * @file xilsfl_control.h
  * @addtogroup xilsfl overview
  * @{
- * @details
- *
  *
  * <pre>
  * MODIFICATION HISTORY:
@@ -21,6 +19,7 @@
  * 1.0   sb  9/25/24  Add XSfl_FlashNonBlockingReadProcess API.
  * 1.3   zm  03/09/26 Add support for W25Q128JW Winbond flash.
  *       zm  08/03/26 Add support for MX25U6432F Macronix flash.
+ * 1.4   vn  08/26/26 Fix Doxygen warnings.
  *
  * </pre>
  *
@@ -78,5 +77,4 @@ u32 XSfl_FlashEnableQuadMode(XSfl_Interface *SflInstancePtr, u8 ChipSelNum);
 /*****************************************************************************/
 
 #endif /* XILSFL_CONTROL_H */
-/** @endcond */
 /** @} */

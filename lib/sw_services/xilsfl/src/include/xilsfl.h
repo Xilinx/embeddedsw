@@ -29,6 +29,7 @@
  *       zm  08/03/26  Add support for GD25LR512MF GigaDevice flash.
  *       zm  08/03/26  Add support for MX25U6432F Macronix flash.
  * 1.3   sb  07/20/26  Add support for Advanced Sector Protection (ASP).
+ * 1.4   vn  08/26/26  Fix Doxygen warnings.
  *
  * </pre>
  *
@@ -337,6 +338,7 @@
  * Setting this bit enables Quad SPI transfers.
  */
 #define XSFL_MX_QUAD_ENABLE_BIT 0x40U
+/** @} */
 
 /**************************** Type Definitions *******************************/
 
@@ -467,5 +469,6 @@ u32 XSfl_AspUnlockSectors(u8 SflHandler, const XSfl_AspParams *Params);
 u32 XSfl_AspReadSectorLock(u8 SflHandler, const XSfl_AspParams *Params);
 #endif
 /************************** Variable Definitions *****************************/
+
 #endif /* XILSFL_H */
 /** @} */

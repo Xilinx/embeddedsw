@@ -1,5 +1,5 @@
 /******************************************************************************
- * Copyright (c) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+ * Copyright (c) 2024 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
  * SPDX-License-Identifier: MIT
  *******************************************************************************/
 
@@ -20,8 +20,7 @@
  *
  * None.
  *
-
- *</pre>
+ * <pre>
  * MODIFICATION HISTORY:
  *
  * Ver   Who  Date     Changes
@@ -30,8 +29,9 @@
  * 1.0   sb  9/25/24   Use XSfl_FlashRead to read unaligned bytes.
  * 1.1   sb  01/28/25  Add support for Spartanup platform.
  * 1.1   sb  02/11/25  Add condition to avoid dma read on Spartanup.
+ * 1.4   vn  08/26/26  Fix Doxygen warnings.
  *
- *</pre>
+ * </pre>
  ******************************************************************************/
 
 /***************************** Include Files *********************************/

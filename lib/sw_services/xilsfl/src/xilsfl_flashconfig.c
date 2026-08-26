@@ -26,6 +26,7 @@
  *       zm  07/17/26  Add support for Macronix OSPI flashes mx66um2g45g and mx66uw2g345gxrix0.
  *       zm  08/03/26  Add support for GD25LR512MF GigaDevice flash.
  *       zm  08/03/26  Add support for MX25U6432F Macronix flash.
+ * 1.4   vn  08/26/26  Fix Doxygen warnings.
  *
  * </pre>
  *
@@ -250,8 +251,10 @@ const XFlashInfo Flash_Config_Table[] = {
 /*****************************************************************************/
 /**
  *
- * This function used to Identifies the flash in FCT table.
+ * Identifies the flash in the Flash Configuration Table (FCT).
  *
+ * @param	ReadId is the JEDEC read ID of the flash device.
+ * @param	FCTIndex is a pointer to store the matching FCT table index.
  *
  * @return	XST_SUCCESS if successful, otherwise XST_FAILURE.
  *
@@ -270,3 +273,4 @@ u32 XSfl_CalculateFCTIndex(u32 ReadId, u32 *FCTIndex)
 
 	return XST_FAILURE;
 }
+/** @} */

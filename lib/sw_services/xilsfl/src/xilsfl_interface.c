@@ -8,7 +8,7 @@
 /**
  *
  * @file xilsfl_interface.c
- * @addtogroup xilsfl overview SFL APIs
+ * @addtogroup xilsfl overview
  * @{
  *
  * This file implements the functions required to use the SFL interface hardware to
@@ -24,6 +24,7 @@
  *       zm  07/17/26 Use FCTIndex (not [0]) for the status register protocol.
  *       zm  07/17/26 Set 4-byte address and dummy for Macronix OPI status read.
  *       zm  08/03/26 Add support for MX25U6432F Macronix flash.
+ * 1.4   vn  08/26/26 Fix Doxygen warnings.
  *
  * </pre>
  *
