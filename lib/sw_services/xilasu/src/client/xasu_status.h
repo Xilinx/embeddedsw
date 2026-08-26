@@ -71,6 +71,8 @@ enum {
  * functionalities and these codes should not be used for failures in client
  */
 enum {
+	XASU_MLDSA_SIGNATURE_VERIFIED = 0x3F6U, /**< 0x3F6U - Successfully verified ML-DSA
+							signature */
 	XASU_OCP_CERT_GENERATION_SUCCESS = 0x3F7U, /**< 0x3F7U - OCP certificate generation
 							successful */
 	XASU_LMS_SIGNATURE_VERIFIED, /**< 0x3F8U - LMS signature verification is successful */
