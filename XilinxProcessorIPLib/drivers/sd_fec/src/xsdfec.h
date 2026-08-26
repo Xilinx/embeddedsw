@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * Copyright (C) 2016 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
@@ -22,10 +22,10 @@
  * \section sec_data Data Structures
  * One or more device specific headers are produced during the generation of the board support package, defining further device specific
  * configuration parameters:
- * - When the device is configured for Turbo Decode, the header x<ipinst_name>_turbo_params.h, contains an XSdFecturbo_parameters
+ * - When the device is configured for Turbo Decode, the header "x<ipinst_name>_turbo_params.h", contains an XSdFecturbo_parameters
  * structure which is populated to match the corresponding IP GUI configuration.
  * - When the device is configured for LDPC a header is generated per LDPC code specified on the corresponding IP GUI;
- * x<ipinst_name >_<code_id>_params.h. Each header defines an XSdFecldpc_parameters structure populated with the configuration 
+ * "x<ipinst_name>_<code_id>_params.h". Each header defines an XSdFecldpc_parameters structure populated with the configuration
  * data required for the corresponding LDPC code.
  *
  * \section sec_api API
@@ -93,7 +93,7 @@ typedef struct {
 
 /** \brief Struct defining LDPC code parameters
  *
- * Member values are defined in device specific header x<ipinst_name >_<code_id>_params.h. as per IP GUI configuration
+ * Member values are defined in device specific header "x<ipinst_name>_<code_id>_params.h". as per IP GUI configuration
  */
 typedef struct {
   u32  N;
@@ -115,7 +115,7 @@ typedef struct {
 
 /** \brief Struct defining Turbo Decode parameters
  *
- * Member values defined in device specific header x<ipinst_name>_turbo_params.h as per IP GUI configuration
+ * Member values defined in device specific header "x<ipinst_name>_turbo_params.h" as per IP GUI configuration
  */
 typedef struct {
   u8  Alg;
@@ -180,7 +180,7 @@ int XSdFecCfgInitialize(XSdFec *InstancePtr, XSdFec_Config *ConfigPtr);
  * @param CodeId      Code number to be used for the specified LDPC code
  * @param SCOffset    Scale table offset to use for specified LDPC code
  * @param LAOffset    LA table offset to use for specified LDPC code
- * @param QSCOffset   QC table offset to use for specified LDPC code
+ * @param QCOffset    QC table offset to use for specified LDPC code
  * @param ParamsPtr   Pointer to parameters struct for the LDPC code to be added to the device
  *
  */

@@ -13,6 +13,6 @@ BEGIN driver sd_fec
  OPTION driver_state = ACTIVE;
  OPTION copyfiles = all;
  OPTION name = sd_fec;
- OPTION version = 1.5 ;
+ OPTION version = 1.6 ;
 
 END driver
