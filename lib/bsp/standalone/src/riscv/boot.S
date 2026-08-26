@@ -47,6 +47,12 @@
 
 #include "xparameters.h"
 
+/* RV32E has no F/D extension support; FPU must not be enabled for it */
+#if defined(__riscv_32e) && defined(XPAR_MICROBLAZE_RISCV_USE_FPU) && \
+    (XPAR_MICROBLAZE_RISCV_USE_FPU > 0)
+#error "XPAR_MICROBLAZE_RISCV_USE_FPU must be 0 for an RV32E processor; RV32E does not support the F/D floating-point extension"
+#endif
+
 .global _boot
 .global __stack
 .global __global_pointer$
@@ -80,6 +86,7 @@ _boot:
 	addi	x13,x0,0
 	addi	x14,x0,0
 	addi	x15,x0,0
+#ifndef __riscv_32e
 	addi	x16,x0,0
 	addi	x17,x0,0
 	addi	x18,x0,0
@@ -96,7 +103,7 @@ _boot:
 	addi	x29,x0,0
 	addi	x30,x0,0
 	addi	x31,x0,0
-
+#endif
 
 /* Initialize global pointer reg */
 	.option push

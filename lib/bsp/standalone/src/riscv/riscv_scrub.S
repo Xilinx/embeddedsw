@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2023 Advanced Micro Devices, Inc. All rights reserved.
+* Copyright (c) 2023 - 2026 Advanced Micro Devices, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 /******************************************************************************
@@ -15,6 +15,13 @@
 *    Parameters:
 *       None
 *
+* MODIFICATION HISTORY:
+*
+* Ver   Who  Date     Changes
+* ----- ---- -------- ---------------------------------------------------
+* 9.0   sa   12/11/22 Initial version
+* 9.2   ss   21/04/26 Use t0 instead of t3 for RV32E compatibility.
+*                     t3 (x28) does not exist in RV32E (only x0-x15).
 *
 *******************************************************************************/
 
@@ -100,6 +107,16 @@
 	.globl	riscv_scrub
 	.align	2
 
+/*
+ * Register usage:
+ *   t0 (x5)  - scratch/temporary for load-store in LMB scrub
+ *   t1 (x6)  - pointer to persistent data
+ *   t2 (x7)  - index values
+ *
+ * Note: t0 is used instead of t3 for RV32E compatibility.
+ *       RV32E only has registers x0-x15 (t0-t2 are x5-x7).
+ *       t3-t6 (x28-x31) do not exist in RV32E.
+ */
 riscv_scrub:
 #ifdef FAULT_TOLERANT
 	la	t1, L_persistent_data			/* Get pointer to data */
@@ -107,8 +124,8 @@ riscv_scrub:
 #ifdef HAS_SCRUBBABLE_LMB
 L_dlmb:
 	lw	t2, DLMB_INDEX_OFFSET(t1)		/* Get dlmb index */
-	lw	t3, 0(t2)				/* Load and store */
-	sw	t3, 0(t2)
+	lw	t0, 0(t2)				/* Load from memory (use t0 for RV32E compat) */
+	sw	t0, 0(t2)				/* Store back to scrub ECC */
 	addi	t2, t2, 4				/* Increment and save dlmb index */
 	andi	t2, t2, DLMB_MASK
 	sw	t2, DLMB_INDEX_OFFSET(t1)

@@ -10,6 +10,12 @@
 
 #include "xparameters.h"
 
+/* RV32E has no F/D extension support; FPU must not be enabled for it */
+#if defined(__riscv_32e) && defined(XPAR_MICROBLAZE_RISCV_USE_FPU) && \
+    (XPAR_MICROBLAZE_RISCV_USE_FPU > 0)
+#error "XPAR_MICROBLAZE_RISCV_USE_FPU must be 0 for an RV32E processor; RV32E does not support the F/D floating-point extension"
+#endif
+
 /* 64-bit definitions */
 #if __riscv_xlen == 64
 #define INTPTR_DATAITEM			.quad
@@ -27,8 +33,17 @@
 #define LOAD				lw
 #endif /* 64-bit definitions */
 
-/* FPU definitions */
+/* FPU definitions
+ * Note: RV32E does not permit F or D extensions, so FPU is always absent
+ * when __riscv_32e is defined. The XPAR guard below naturally evaluates to
+ * the "else" branch (FPREGSIZE=0, FPREGCOUNT=0) in that case.
+ */
+#ifdef __riscv_32e
+#define REGCOUNT			16
+#else
 #define REGCOUNT			32
+#endif
+
 #if defined(XPAR_MICROBLAZE_RISCV_USE_FPU) && (XPAR_MICROBLAZE_RISCV_USE_FPU == 2)
 #define FPREGSIZE			8
 #define FPREGCOUNT			33
@@ -57,7 +72,37 @@
 #define PUSH_FPREG(regnum)		STOREFP NUM_TO_FPREG(regnum), FPREG_OFFSET(regnum)(sp)
 #define POP_FPREG(regnum)		LOADFP  NUM_TO_FPREG(regnum), FPREG_OFFSET(regnum)(sp)
 
-/* Misaligned handler macros */
+/*
+ * RV32E register remapping for misaligned handlers
+ *
+ * RV32E only has x0-x15. The ABI temporaries t3(x28), t4(x29), t5(x30)
+ * do not exist. We remap them to a3(x13), a4(x14), a5(x15) which are
+ * available caller-saved registers. These are saved on the stack at trap
+ * entry and restored at trap exit, exactly as t3/t4/t5 are in RV32I.
+ *
+ * All uses of t3, t4, t5 throughout handle_load_misalign,
+ * handle_store_misalign, and the jump table macros automatically resolve
+ * to the remapped registers via these aliases.
+ */
+#ifdef __riscv_32e
+#define t3	a3
+#define t4	a4
+#define t5	a5
+#endif
+
+/* Misaligned handler macros
+ *
+ * T4_TO_STACK / T4_FROM_STACK:
+ *   In RV32I  t4=x29 is used as the data scratch register.
+ *   In RV32E  the alias above maps t4 -> a4(x14), so these macros
+ *   continue to work correctly without any further changes.
+ *
+ * T4_TO_REG_V / REG_TO_T4_V:
+ *   Used when the destination/source register is one that was saved early
+ *   on the stack (t1=x6, t2=x7 in both ISAs; additionally a3/a4/a5 in
+ *   RV32E). The value is written to / read from the stack slot so that the
+ *   final early-register pop restores the correct value.
+ */
 #define T4_TO_STACK(regnum)		STORE t4, REG_OFFSET(regnum)(sp)
 #define T4_FROM_STACK(regnum)		LOAD  t4, REG_OFFSET(regnum)(sp)
 
@@ -112,14 +157,33 @@ _trap_handler:
 	addi		sp, sp, -(HANDLER_STACK_SIZE)	/* Create stack frame */
 	PUSH_REG(6)					/* Save t1 = x6 */
 	PUSH_REG(7)					/* Save t2 = x7 */
+	/*
+	 * Save the three scratch registers used by the misalign handlers.
+	 *
+	 * RV32I: t3=x28, t4=x29, t5=x30 are the natural ABI temporaries.
+	 * RV32E: those registers do not exist; a3=x13, a4=x14, a5=x15 are
+	 *        used instead (via the t3/t4/t5 aliases defined above).
+	 *        PUSH_REG(28/29/30) would reference non-existent registers,
+	 *        so we push x13/x14/x15 instead. These are NOT pushed again
+	 *        in the full-save block below, matching the way x28/x29/x30
+	 *        are omitted from the full-save block in RV32I.
+	 */
+#ifdef __riscv_32e
+	PUSH_REG(13)					/* Save a3 = x13 (used as t3 substitute) */
+	PUSH_REG(14)					/* Save a4 = x14 (used as t4 substitute) */
+	PUSH_REG(15)					/* Save a5 = x15 (used as t5 substitute) */
+#else
 	PUSH_REG(28)					/* Save t3 = x28 */
 	PUSH_REG(29)					/* Save t4 = x29 */
 	PUSH_REG(30)					/* Save t5 = x30 */
+#endif
 	csrr		t1, mcause
 	li		t2, 6				/* Store address misaligned */
 	beq		t1, t2, handle_store_misalign
 	li		t2, 4				/* Load address misaligned */
 	beq		t1, t2, handle_load_misalign
+
+	/* Full register save for interrupt/exception dispatch */
 	PUSH_REG(1)
 	PUSH_REG(3)
 	PUSH_REG(4)
@@ -129,6 +193,13 @@ _trap_handler:
 	PUSH_REG(10)
 	PUSH_REG(11)
 	PUSH_REG(12)
+	/*
+	 * RV32I:  x13/x14/x15 are NOT saved early, push them now.
+	 * RV32E:  x13/x14/x15 were already pushed as scratch substitutes
+	 *         above; skipping them here avoids double-save and keeps
+	 *         each register in its correct, single stack slot.
+	 */
+#ifndef __riscv_32e
 	PUSH_REG(13)
 	PUSH_REG(14)
 	PUSH_REG(15)
@@ -145,6 +216,8 @@ _trap_handler:
 	PUSH_REG(26)
 	PUSH_REG(27)
 	PUSH_REG(31)
+	/* x28/x29/x30 already saved as t3/t4/t5 above - not repeated */
+#endif /* !__riscv_32e */
 #if defined(XPAR_MICROBLAZE_RISCV_USE_FPU) && (XPAR_MICROBLAZE_RISCV_USE_FPU > 0)
 	PUSH_FPREG(0)					/* Save f0 to f31 */
 	PUSH_FPREG(1)
@@ -185,7 +258,7 @@ _trap_handler:
 	bltz		t1, is_interrupt
 	la		t2, RISCV_ExceptionVectorTable	/* Load exception vector table base address */
 is_interrupt:
-        slli		t1, t1, SHIFT			/* Calculate vector offset = t1 * SHIFT */
+	slli		t1, t1, SHIFT			/* Calculate vector offset = t1 * SHIFT */
 	add		t2, t2, t1			/* Get pointer to vector */
 	LOAD		a0, REGSIZE(t2)			/* Load argument to handler from vector */
 	LOAD		t2, 0(t2)			/* Load vector itself from vector */
@@ -226,6 +299,8 @@ is_interrupt:
 	POP_FPREG(1)
 	POP_FPREG(0)
 #endif
+	/* Full register restore - mirror of full save above */
+#ifndef __riscv_32e
 	POP_REG(31)
 	POP_REG(27)
 	POP_REG(26)
@@ -242,6 +317,8 @@ is_interrupt:
 	POP_REG(15)
 	POP_REG(14)
 	POP_REG(13)
+	/* x28/x29/x30 restored below in the common early-reg pop */
+#endif /* !__riscv_32e */
 	POP_REG(12)
 	POP_REG(11)
 	POP_REG(10)
@@ -252,9 +329,20 @@ is_interrupt:
 	POP_REG(3)
 	POP_REG(1)
 misalign_done:
+	/*
+	 * Restore the three scratch registers saved at entry.
+	 * RV32I:  t5=x30, t4=x29, t3=x28
+	 * RV32E:  a5=x15, a4=x14, a3=x13 (via the aliases above)
+	 */
+#ifdef __riscv_32e
+	POP_REG(15)					/* Restore a5 = x15 (t5 substitute) */
+	POP_REG(14)					/* Restore a4 = x14 (t4 substitute) */
+	POP_REG(13)					/* Restore a3 = x13 (t3 substitute) */
+#else
 	POP_REG(30)					/* Restore t5 = x30 */
 	POP_REG(29)					/* Restore t4 = x29 */
 	POP_REG(28)					/* Restore t3 = x28 */
+#endif
 	POP_REG(7)					/* Restore t2 = x7 */
 	POP_REG(6)					/* Restore t1 = x6 */
 	addi		sp, sp, (HANDLER_STACK_SIZE)	/* Restore stack frame */
@@ -262,11 +350,17 @@ misalign_done:
 
 /*
  * Load address misalign exception handler
- *   t1 = faulting virtual address
+ *   t1 = faulting virtual address (from mtval)
  *   t2 = transfer size
- *   t3 = destination register * 8 (without C extension) or 4 (with C extension)
- *   t4 = register data value
- *   t5 = data store address
+ *   t3 = destination register index * stride
+ *        RV32I: t3=x28   RV32E: t3 aliased to a3=x13
+ *   t4 = register data value / jump targets
+ *        RV32I: t4=x29   RV32E: t4 aliased to a4=x14
+ *   t5 = scratch (fetched instruction word)
+ *        RV32I: t5=x30   RV32E: t5 aliased to a5=x15
+ *
+ * All references to t3/t4/t5 below automatically use the correct physical
+ * register for each ISA via the aliases defined at the top of this file.
  */
 
 handle_load_misalign:
@@ -399,13 +493,27 @@ load_table:
 	T4_TO_REG   (3)
 	T4_TO_REG   (4)
 	T4_TO_REG   (5)
-	T4_TO_REG_V (6)
-	T4_TO_REG_V (7)
+	T4_TO_REG_V (6)				/* t1=x6: saved early -> write to stack slot */
+	T4_TO_REG_V (7)				/* t2=x7: saved early -> write to stack slot */
 	T4_TO_REG   (8)
 	T4_TO_REG   (9)
 	T4_TO_REG   (10)
 	T4_TO_REG   (11)
 	T4_TO_REG   (12)
+#ifdef __riscv_32e
+	/*
+	 * In RV32E, x13/x14/x15 are saved early on the stack as scratch
+	 * substitutes for t3/t4/t5. A misaligned load targeting one of
+	 * these registers must write the result to the stack slot so that
+	 * the early-register pop at misalign_done restores the correct
+	 * value. Using T4_TO_REG_V writes to the stack slot safely.
+	 * Note: t4 here is aliased to a4=x14, so T4_TO_STACK stores a4
+	 * into the slot for the target register.
+	 */
+	T4_TO_REG_V (13)			/* a3=x13: saved early -> write to stack slot */
+	T4_TO_REG_V (14)			/* a4=x14: saved early -> write to stack slot */
+	T4_TO_REG_V (15)			/* a5=x15: saved early -> write to stack slot */
+#else
 	T4_TO_REG   (13)
 	T4_TO_REG   (14)
 	T4_TO_REG   (15)
@@ -421,18 +529,25 @@ load_table:
 	T4_TO_REG   (25)
 	T4_TO_REG   (26)
 	T4_TO_REG   (27)
-	T4_TO_REG_V (28)
-	T4_TO_REG_V (29)
-	T4_TO_REG_V (30)
+	T4_TO_REG_V (28)			/* t3=x28: saved early -> write to stack slot */
+	T4_TO_REG_V (29)			/* t4=x29: saved early -> write to stack slot */
+	T4_TO_REG_V (30)			/* t5=x30: saved early -> write to stack slot */
 	T4_TO_REG   (31)
+#endif /* __riscv_32e */
 
 /*
  * Store address misalign exception handler
- *   t1 = faulting virtual address
+ *   t1 = faulting virtual address (from mtval)
  *   t2 = transfer size
- *   t3 = source register * 8 (without C extension) or 4 (with C extension)
+ *   t3 = source register index * stride
+ *        RV32I: t3=x28   RV32E: t3 aliased to a3=x13
  *   t4 = register data value
- *   t5 = scratch
+ *        RV32I: t4=x29   RV32E: t4 aliased to a4=x14
+ *   t5 = scratch (fetched instruction bits)
+ *        RV32I: t5=x30   RV32E: t5 aliased to a5=x15
+ *
+ * All references to t3/t4/t5 below automatically use the correct physical
+ * register for each ISA via the aliases defined at the top of this file.
  */
 
 handle_store_misalign:
@@ -545,13 +660,24 @@ store_table:
 	REG_TO_T4   (3)
 	REG_TO_T4   (4)
 	REG_TO_T4   (5)
-	REG_TO_T4_V (6)
-	REG_TO_T4_V (7)
+	REG_TO_T4_V (6)				/* t1=x6: saved early -> read from stack slot */
+	REG_TO_T4_V (7)				/* t2=x7: saved early -> read from stack slot */
 	REG_TO_T4   (8)
 	REG_TO_T4   (9)
 	REG_TO_T4   (10)
 	REG_TO_T4   (11)
 	REG_TO_T4   (12)
+#ifdef __riscv_32e
+	/*
+	 * In RV32E, x13/x14/x15 are saved early as scratch substitutes.
+	 * A misaligned store sourcing one of these registers must read the
+	 * original value from the stack slot (not the clobbered register),
+	 * so REG_TO_T4_V is used to load from the saved stack slot.
+	 */
+	REG_TO_T4_V (13)			/* a3=x13: saved early -> read from stack slot */
+	REG_TO_T4_V (14)			/* a4=x14: saved early -> read from stack slot */
+	REG_TO_T4_V (15)			/* a5=x15: saved early -> read from stack slot */
+#else
 	REG_TO_T4   (13)
 	REG_TO_T4   (14)
 	REG_TO_T4   (15)
@@ -567,10 +693,11 @@ store_table:
 	REG_TO_T4   (25)
 	REG_TO_T4   (26)
 	REG_TO_T4   (27)
-	REG_TO_T4_V (28)
-	REG_TO_T4_V (29)
-	REG_TO_T4_V (30)
+	REG_TO_T4_V (28)			/* t3=x28: saved early -> read from stack slot */
+	REG_TO_T4_V (29)			/* t4=x29: saved early -> read from stack slot */
+	REG_TO_T4_V (30)			/* t5=x30: saved early -> read from stack slot */
 	REG_TO_T4   (31)
+#endif /* __riscv_32e */
 
 
 .section .data
