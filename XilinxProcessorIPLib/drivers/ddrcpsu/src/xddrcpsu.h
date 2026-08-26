@@ -1,13 +1,13 @@
 /*******************************************************************************
 * Copyright (C) 2016 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
 /******************************************************************************/
 /**
  *
- * @file xddcrpsu.h
+ * @file xddrcpsu.h
  * @addtogroup ddrcpsu Overview
  * @{
  * @details
@@ -25,7 +25,7 @@
  * 1.0	ssc   04/28/16 First Release.
  * 1.1  adk   04/08/16 Export DDR freq to xparameters.h file.
  * 1.5  ht    08/03/23 Added support for system device-tree flow.
- *
+ * 1.9  vn    08/26/26 Fix Doxygen warnings.
  * </pre>
  *
 *******************************************************************************/
