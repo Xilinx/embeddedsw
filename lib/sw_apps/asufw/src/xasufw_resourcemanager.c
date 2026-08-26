@@ -360,6 +360,12 @@ s32 XAsufw_CheckResourceAvailability(XAsufw_ResourcesRequired Resources, u32 Req
 			case XASUFW_PROVISION_RESOURCE_MASK:
 				Resource = XASUFW_PROVISION;
 				break;
+			case XASUFW_MLDSA_RESOURCE_MASK:
+				Resource = XASUFW_MLDSA;
+				break;
+			case XASUFW_MLKEM_RESOURCE_MASK:
+				Resource = XASUFW_MLKEM;
+				break;
 			default:
 				Status = XASUFW_RESOURCE_INVALID;
 				break;

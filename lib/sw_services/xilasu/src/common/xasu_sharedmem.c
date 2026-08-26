@@ -29,6 +29,26 @@
 #include "xasu_sharedmem.h"
 
 /********************************* Constant Definitions ******************************************/
+/*
+ * XAsu_GetModuleInfoSlot() in xasu_sharedmem.h indexes the module info region for module IDs below
+ * XASU_RTCA_MODULE_INFO_ENTRIES and the extension region for the rest, so the two regions together
+ * have to cover every module ID, and each region has to hold the entries it claims. Nothing else
+ * ties XASU_MAX_MODULES in xasu_def.h to the region sizes here, so raising it past the two regions,
+ * or growing XAsu_CryptoAlgInfo so that either region runs into whatever RTCA field follows it,
+ * fails the build rather than writing past the region.
+ *
+ * These live here rather than beside the function because that header is wrapped in extern "C" and
+ * so can be included from a C++ translation unit, where _Static_assert is not valid. This file is
+ * always compiled as C.
+ */
+_Static_assert(XASU_MAX_MODULES <= (2U * XASU_RTCA_MODULE_INFO_ENTRIES),
+	       "XASU_MAX_MODULES exceeds the two RTCA module info regions");
+_Static_assert((XASU_RTCA_MODULE_INFO_ENTRIES * sizeof(XAsu_CryptoAlgInfo)) <=
+	       (XASU_RTCA_DBG_LOG_BUF_INFO_ADDR - XASU_RTCA_MODULE_INFO_BASEADDR),
+	       "RTCA module info region overruns the debug log buffer info at RTCA 0x15C");
+_Static_assert((XASU_RTCA_MODULE_INFO_ENTRIES * sizeof(XAsu_CryptoAlgInfo)) <=
+	       (XASU_CHANNEL_MEMORY_BASEADDR - XASU_RTCA_MODULE_INFO_EXT_BASEADDR),
+	       "RTCA module info extension region overruns the channel memory at RTCA 0x1000");
 
 /*********************************** Macros Definitions ******************************************/
 #define XASU_INVALID_SUBSYS_ID		(0xFFFFFFFFU) /**< Invalid Subsystem ID */

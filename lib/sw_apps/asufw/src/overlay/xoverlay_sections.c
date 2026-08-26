@@ -42,6 +42,14 @@
 #define XOVERLAY_LMS_HDR	OVERLAY_SECTION(".overlay_lms.header")		/**< LMS overlay
 										header section */
 #endif
+#ifdef XASU_MLDSA_ENABLE
+#define XOVERLAY_MLDSA_HDR	OVERLAY_SECTION(".overlay_mldsa.header")	/**< ML-DSA overlay
+										header section */
+#endif
+#ifdef XASU_MLKEM_ENABLE
+#define XOVERLAY_MLKEM_HDR	OVERLAY_SECTION(".overlay_mlkem.header")	/**< ML-KEM overlay
+										header section */
+#endif
 
 /********************************** Variable Definitions *****************************************/
 extern char __overlay_rsa_ecc_img_size[];	/**< Size of the RSA-ECC overlay image */
@@ -52,6 +60,18 @@ extern char __overlay_rsa_ecc_data_size[];	/**< Size of the RSA-ECC overlay data
 extern char __overlay_lms_img_size[];	/**< Size of the LMS overlay image */
 extern char __overlay_lms_txt_size[];	/**< Size of the LMS overlay text image */
 extern char __overlay_lms_data_size[];	/**< Size of the LMS overlay data image */
+#endif
+
+#ifdef XASU_MLDSA_ENABLE
+extern char __overlay_mldsa_img_size[];		/**< Size of the ML-DSA overlay image */
+extern char __overlay_mldsa_txt_size[];		/**< Size of the ML-DSA overlay text image */
+extern char __overlay_mldsa_data_size[];	/**< Size of the ML-DSA overlay data image */
+#endif
+
+#ifdef XASU_MLKEM_ENABLE
+extern char __overlay_mlkem_img_size[];		/**< Size of the ML-KEM overlay image */
+extern char __overlay_mlkem_txt_size[];		/**< Size of the ML-KEM overlay text image */
+extern char __overlay_mlkem_data_size[];	/**< Size of the ML-KEM overlay data image */
 #endif
 
 /**< RSA-ECC overlay header */
@@ -77,4 +97,30 @@ const XOverlay_Header XLms_OverlayHeader = {
 	.DataSize = (u32)(UINTPTR)__overlay_lms_data_size,
 };
 #endif /* XASU_LMS_ENABLE */
+
+#ifdef XASU_MLDSA_ENABLE
+/**< ML-DSA overlay header */
+XOVERLAY_MLDSA_HDR
+const XOverlay_Header XMldsa_OverlayHeader = {
+	.Magic = XOVERLAY_MAGIC,
+	.AlgoId = XOVERLAY_ALGO_MLDSA,
+	.Version = XOVERLAY_HEADER_VERSION,
+	.ImgSize = (u32)(UINTPTR)__overlay_mldsa_img_size,
+	.TxtSize = (u32)(UINTPTR)__overlay_mldsa_txt_size,
+	.DataSize = (u32)(UINTPTR)__overlay_mldsa_data_size,
+};
+#endif /* XASU_MLDSA_ENABLE */
+
+#ifdef XASU_MLKEM_ENABLE
+/**< ML-KEM overlay header */
+XOVERLAY_MLKEM_HDR
+const XOverlay_Header XMlkem_OverlayHeader = {
+	.Magic = XOVERLAY_MAGIC,
+	.AlgoId = XOVERLAY_ALGO_MLKEM,
+	.Version = XOVERLAY_HEADER_VERSION,
+	.ImgSize = (u32)(UINTPTR)__overlay_mlkem_img_size,
+	.TxtSize = (u32)(UINTPTR)__overlay_mlkem_txt_size,
+	.DataSize = (u32)(UINTPTR)__overlay_mlkem_data_size,
+};
+#endif /* XASU_MLKEM_ENABLE */
 /** @} */

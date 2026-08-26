@@ -84,6 +84,8 @@ extern "C" {
 #define XASUFW_LMS_RESOURCE_MASK	0x20000U /**< LMS resource mask */
 #define XASUFW_OVERLAY_RESOURCE_MASK	0x40000U /**< Shared overlay window resource mask */
 #define XASUFW_PROVISION_RESOURCE_MASK	0x80000U /**< Provisioning resource mask */
+#define XASUFW_MLDSA_RESOURCE_MASK	0x100000U /**< ML-DSA resource mask */
+#define XASUFW_MLKEM_RESOURCE_MASK	0x200000U /**< ML-KEM resource mask */
 
 /************************************** Type Definitions *****************************************/
 /**
@@ -110,7 +112,9 @@ typedef enum {
 	XASUFW_LMS,	/**< 17: LMS */
 	XASUFW_OVERLAY,	/**< 18: Shared overlay window */
 	XASUFW_PROVISION, /**< 19: Provisioning */
-	XASUFW_INVALID,	/**< 20: Invalid */
+	XASUFW_MLDSA,	/**< 20: ML-DSA */
+	XASUFW_MLKEM,	/**< 21: ML-KEM */
+	XASUFW_INVALID,	/**< 22: Invalid */
 } XAsufw_Resource;
 
 /*************************** Macros (Inline Functions) Definitions *******************************/

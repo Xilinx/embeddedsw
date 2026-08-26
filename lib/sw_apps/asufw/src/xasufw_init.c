@@ -92,23 +92,40 @@
  * 				XASUFW_NIST_NON_COMPLIANT).
  * @param	FEATURE_CAPS	Compile-time feature capability bitmask for the module.
  *
- * This macro sets:
- *  - 'Version' using XASUFW_ALG_BUILD_VERSION(MAJOR, MINOR)
- *  - 'NistStatus' to XASUFW_NIST_FLAG
- *  - 'KatStatus' to XASU_STATUS_NOT_RUN
- *  - 'FeatureCaps' to FEATURE_CAPS
- *
+ * The macro builds the module-specific constants from MODULE and forwards them to
+ * XAsufw_SetCryptoModuleInfo(), which writes the fields through a single resolved slot pointer.
  */
 #define XASUFW_INIT_CRYPTO_MODULE_INFO(MODULE, XASUFW_NIST_FLAG, FEATURE_CAPS) \
-	XAsu_CryptoAlgInfoPtr[XASU_MODULE_##MODULE##_ID].Version = \
-		XASUFW_ALG_BUILD_VERSION(XASUFW_##MODULE##_MAJOR_VERSION, XASUFW_##MODULE##_MINOR_VERSION); \
-	XAsu_CryptoAlgInfoPtr[XASU_MODULE_##MODULE##_ID].NistStatus = XASUFW_NIST_FLAG; \
-	XAsu_CryptoAlgInfoPtr[XASU_MODULE_##MODULE##_ID].KatStatus = XASU_STATUS_NOT_RUN; \
-	XAsu_CryptoAlgInfoPtr[XASU_MODULE_##MODULE##_ID].FeatureCaps = FEATURE_CAPS;
+	XAsufw_SetCryptoModuleInfo(XASU_MODULE_##MODULE##_ID, \
+		XASUFW_ALG_BUILD_VERSION(XASUFW_##MODULE##_MAJOR_VERSION, \
+					 XASUFW_##MODULE##_MINOR_VERSION), \
+		(u8)(XASUFW_NIST_FLAG), FEATURE_CAPS)
 
 /************************************** Type Definitions *****************************************/
 
 /*************************** Macros (Inline Functions) Definitions *******************************/
+
+/*************************************************************************************************/
+/**
+ * @brief	This function writes the crypto algorithm information of a module to its module
+ * 		info slot in the RTCA.
+ *
+ * @param	ModuleId	Module ID whose information is to be written.
+ * @param	Version		Algorithm version built from the module major and minor versions.
+ * @param	NistStatus	NIST compliance status of the module.
+ * @param	FeatureCaps	Feature capability bitmask of the module.
+ *
+ *************************************************************************************************/
+static inline void XAsufw_SetCryptoModuleInfo(u32 ModuleId, u32 Version, u8 NistStatus,
+					      u16 FeatureCaps)
+{
+	XAsu_CryptoAlgInfo *ModuleInfoPtr = XAsu_GetModuleInfoSlot(ModuleId);
+
+	ModuleInfoPtr->Version = Version;
+	ModuleInfoPtr->NistStatus = NistStatus;
+	ModuleInfoPtr->KatStatus = XASU_STATUS_NOT_RUN;
+	ModuleInfoPtr->FeatureCaps = FeatureCaps;
+}
 
 /************************************ Function Prototypes ****************************************/
 static void XAsufw_ExceptionEnable(void);
@@ -594,8 +611,6 @@ void XAsufw_RtcaInit(void)
  *************************************************************************************************/
 void XAsufw_UpdateModulesInfo(void)
 {
-	XAsu_CryptoAlgInfo *XAsu_CryptoAlgInfoPtr = GetModuleInfoPtr();
-
 	XASUFW_INIT_CRYPTO_MODULE_INFO(TRNG, XASUFW_NIST_COMPLIANT, XASUFW_TRNG_FEATURE_CAPS);
 	XASUFW_INIT_CRYPTO_MODULE_INFO(SHA2, XASUFW_NIST_COMPLIANT, 0U);
 	XASUFW_INIT_CRYPTO_MODULE_INFO(SHA3, XASUFW_NIST_COMPLIANT, 0U);
@@ -622,6 +637,12 @@ void XAsufw_UpdateModulesInfo(void)
 #endif
 #ifdef XASU_LMS_ENABLE
 	XASUFW_INIT_CRYPTO_MODULE_INFO(LMS, XASUFW_NIST_COMPLIANT, 0U);
+#endif
+#ifdef XASU_MLDSA_ENABLE
+	XASUFW_INIT_CRYPTO_MODULE_INFO(MLDSA, XASUFW_NIST_COMPLIANT, 0U);
+#endif
+#ifdef XASU_MLKEM_ENABLE
+	XASUFW_INIT_CRYPTO_MODULE_INFO(MLKEM, XASUFW_NIST_COMPLIANT, 0U);
 #endif
 }
 

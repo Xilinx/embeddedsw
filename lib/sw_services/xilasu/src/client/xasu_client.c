@@ -396,7 +396,7 @@ s32 XAsu_GetModuleInfo(XAsu_CryptoAlgInfo *AlginfoPtr, u32 ModuleId)
 {
 	s32 Status = XST_FAILURE;
 	u32 Timeout = 0U;
-	const XAsu_CryptoAlgInfo *AlgInfoDataPtr = (const XAsu_CryptoAlgInfo*)XASU_RTCA_MODULE_INFO_BASEADDR;
+	const XAsu_CryptoAlgInfo *AlgInfoDataPtr = NULL;
 
 	/** Validate input parameters. */
 	if ((AlginfoPtr == NULL) || (ModuleId >= XASU_MAX_MODULES)) {
@@ -415,9 +415,10 @@ s32 XAsu_GetModuleInfo(XAsu_CryptoAlgInfo *AlginfoPtr, u32 ModuleId)
 		Timeout++;
 	}
 
+	AlgInfoDataPtr = (const XAsu_CryptoAlgInfo *)XAsu_GetModuleInfoSlot(ModuleId);
+
 	Status = Xil_SecureMemCpy((void *)AlginfoPtr, (u32)sizeof(XAsu_CryptoAlgInfo),
-				   (const void *)(&(AlgInfoDataPtr[ModuleId])),
-				   (u32)sizeof(XAsu_CryptoAlgInfo));
+				   (const void *)AlgInfoDataPtr, (u32)sizeof(XAsu_CryptoAlgInfo));
 END:
 	return Status;
 }

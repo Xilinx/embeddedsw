@@ -31,6 +31,8 @@
 #cmakedefine    XASU_LMS_ENABLE
 #cmakedefine    XASU_KEYMANAGER_ENABLE
 #cmakedefine    XASU_PROVISION_ENABLE
+#cmakedefine    XASU_MLDSA_ENABLE
+#cmakedefine    XASU_MLKEM_ENABLE
 #cmakedefine    XASU_RSA_4096_KEYGEN_ENABLE
 #cmakedefine    XASU_RSA_3072_KEYGEN_ENABLE
 #cmakedefine    XASU_RSA_2048_KEYGEN_ENABLE

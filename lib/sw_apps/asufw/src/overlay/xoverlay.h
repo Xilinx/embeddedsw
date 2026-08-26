@@ -47,6 +47,8 @@ extern "C" {
 #define XOVERLAY_ALGO_INVALID		(0U)		/**< Invalid overlay algorithm ID */
 #define XOVERLAY_ALGO_RSA_ECC		(1U)		/**< Combined RSA and ECC overlay algorithm ID */
 #define XOVERLAY_ALGO_LMS		(2U)		/**< LMS overlay algorithm ID */
+#define XOVERLAY_ALGO_MLDSA		(3U)		/**< ML-DSA overlay algorithm ID */
+#define XOVERLAY_ALGO_MLKEM		(4U)		/**< ML-KEM overlay algorithm ID */
 
 /************************************** Type Definitions *****************************************/
 /**

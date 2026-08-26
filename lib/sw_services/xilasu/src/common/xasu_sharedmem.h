@@ -43,6 +43,7 @@ extern "C" {
 
 /*************************************** Include Files *******************************************/
 #include "xil_types.h"
+#include "xasu_def.h"
 
 /************************************ Constant Definitions ***************************************/
 #define XASU_MAX_BUFFERS				(8U) /**< Maximum request and response buffers */
@@ -89,7 +90,10 @@ extern "C" {
 
 #define XASU_RTCA_MODULE_INFO_BASEADDR		(XASU_RTCA_BASEADDR + 0xA8U)
 						/**< Base address of module info of
-						size (180 bytes) */
+						size (180 bytes). The region holds 15
+						XAsu_CryptoAlgInfo entries and ends at
+						RTCA 0x15C, so it covers module IDs 0 to 14
+						only */
 
 #define XASU_RTCA_DBG_LOG_BUF_INFO_ADDR		(XASU_RTCA_BASEADDR + 0x15CU)
 						/**< Debug log buffer info address */
@@ -121,6 +125,17 @@ extern "C" {
 						XASU_FW_VERSION_MAJOR_SHIFT) | \
 						(u32)XASU_FW_VERSION_MINOR)
 						/**< Default FW version = 0x00000200 (v2.0) */
+
+#define XASU_RTCA_MODULE_INFO_EXT_BASEADDR	(XASU_RTCA_BASEADDR + 0x1A4U)
+						/**< Base address of the module info extension
+						region of size (180 bytes). It holds the entries
+						of module IDs 15 to 29, which have no slot in the
+						region at RTCA 0xA8. Placing them here keeps the
+						offsets of the existing RTCA fields unchanged */
+
+#define XASU_RTCA_MODULE_INFO_ENTRIES		(15U)
+						/**< Number of module info entries held by each
+						of the two module info regions */
 
 #define XASU_RTCA_KAT_EXEC_STATUS_VALUE		(0x01U)
 						/**< KAT status execution complete value */
@@ -197,6 +212,33 @@ typedef struct {
 
 /*************************** Macros (Inline Functions) Definitions *******************************/
 #define XASU_MAX_CHANNELS_SUPPORTED	(8U) /**< Maximum channels supported */
+
+/**
+ * @brief	Gets pointer to the module info entry of the given module in the RTCA.
+ *
+ * @param	ModuleId	Module ID whose entry is required. Must be less than
+ * 				XASU_MAX_MODULES.
+ *
+ * @return	Pointer to the XAsu_CryptoAlgInfo entry of the given module.
+ *
+ * @note	The module info region at RTCA 0xA8 is 180 bytes and hence holds the entries of
+ * 		module IDs 0 to 14 only. Entries of module IDs 15 and above are read from and
+ * 		written to the extension region at RTCA 0x1A4, as indexing the first region with
+ * 		those module IDs would land on the debug log buffer info at RTCA 0x15C.
+ */
+static inline XAsu_CryptoAlgInfo *XAsu_GetModuleInfoSlot(u32 ModuleId)
+{
+	XAsu_CryptoAlgInfo *SlotPtr;
+
+	if (ModuleId < XASU_RTCA_MODULE_INFO_ENTRIES) {
+		SlotPtr = &((XAsu_CryptoAlgInfo *)(UINTPTR)XASU_RTCA_MODULE_INFO_BASEADDR)[ModuleId];
+	} else {
+		SlotPtr = &((XAsu_CryptoAlgInfo *)(UINTPTR)XASU_RTCA_MODULE_INFO_EXT_BASEADDR)
+			  [ModuleId - XASU_RTCA_MODULE_INFO_ENTRIES];
+	}
+
+	return SlotPtr;
+}
 
 /************************************ Function Prototypes ****************************************/
 u32 XAsu_GetSubsysIdFromIpiMask(u32 IpiMask);

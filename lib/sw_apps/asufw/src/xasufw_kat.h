@@ -45,6 +45,7 @@ extern "C" {
 
 /*************************************** Include Files *******************************************/
 #include "xil_types.h"
+#include "xasu_sharedmem.h"
 #include "xsha.h"
 #include "xaes.h"
 #include "xasufw_resourcemanager.h"
@@ -60,16 +61,6 @@ extern "C" {
 /*************************** Macros (Inline Functions) Definitions *******************************/
 
 /**
- * @brief	Gets pointer to module information array.
- *
- * @return	Pointer to the XAsu_CryptoAlgInfo array containing module information.
- */
-static inline XAsu_CryptoAlgInfo *GetModuleInfoPtr(void)
-{
-	return (XAsu_CryptoAlgInfo *)XASU_RTCA_MODULE_INFO_BASEADDR;
-}
-
-/**
  * @brief	Returns pointer to the KatStatus for the specified module.
  *
  * @param	ModuleId	The module ID for which to get the KAT status pointer.
@@ -78,20 +69,20 @@ static inline XAsu_CryptoAlgInfo *GetModuleInfoPtr(void)
  */
 static inline u8 *XAsu_GetKatStatusPtr(u32 ModuleId)
 {
-	return &GetModuleInfoPtr()[ModuleId].KatStatus;
+	return &XAsu_GetModuleInfoSlot(ModuleId)->KatStatus;
 }
 
 /** Set KAT status as passed. */
 #define XASUFW_SET_KAT_PASSED(ModuleId) \
-	(GetModuleInfoPtr()[ModuleId].KatStatus = XASU_STATUS_PASS)
+	(XAsu_GetModuleInfoSlot(ModuleId)->KatStatus = XASU_STATUS_PASS)
 
 /** Mark KAT status as failed. */
 #define XASUFW_MARK_KAT_FAILED(ModuleId) \
-	(GetModuleInfoPtr()[ModuleId].KatStatus = XASU_STATUS_FAIL)
+	(XAsu_GetModuleInfoSlot(ModuleId)->KatStatus = XASU_STATUS_FAIL)
 
 /** Check whether KAT status is passed or not. */
 #define XASUFW_IS_KAT_PASSED(ModuleId) \
-	(GetModuleInfoPtr()[ModuleId].KatStatus == XASU_STATUS_PASS)
+	(XAsu_GetModuleInfoSlot(ModuleId)->KatStatus == XASU_STATUS_PASS)
 
 /************************************ Function Prototypes ****************************************/
 void XAsufw_RunCryptoKats(void);
@@ -120,6 +111,12 @@ s32 XAsufw_KeyWrapOperationKat(XAsufw_Dma *AsuDmaPtr);
 #endif
 #ifdef XASU_LMS_ENABLE
 s32 XAsufw_HssOperationKat(XAsufw_Dma *AsuDmaPtr);
+#endif
+#ifdef XASU_MLDSA_ENABLE
+s32 XAsufw_MldsaOperationKat(XAsufw_Dma *AsuDmaPtr);
+#endif
+#ifdef XASU_MLKEM_ENABLE
+s32 XAsufw_MlkemOperationKat(XAsufw_Dma *AsuDmaPtr);
 #endif
 
 /************************************ Variable Definitions ***************************************/

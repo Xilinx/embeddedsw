@@ -52,6 +52,28 @@ extern char __overlay_lms_txt_size[];		/**< Size of the LMS overlay text image *
 extern char __overlay_lms_data_size[];		/**< Size of the LMS overlay data image */
 #endif
 
+/*
+ * The ML-DSA and ML-KEM data images hold only the KAT vectors of those algorithms. Their constant
+ * tables stay resident: the tables do get per-symbol sections, but the resident .rodata output
+ * section is matched ahead of the data overlay block and its .rodata.* catch-all claims them
+ * first. See the overlay blocks in lscript.ld.
+ */
+#ifdef XASU_MLDSA_ENABLE
+extern char __load_start_overlay_mldsa[];	/**< LMA of the ML-DSA overlay image */
+extern char __load_start_overlay_mldsa_data[];	/**< LMA of the ML-DSA overlay data image */
+extern char __overlay_mldsa_img_size[];		/**< Size of the ML-DSA overlay image */
+extern char __overlay_mldsa_txt_size[];		/**< Size of the ML-DSA overlay text image */
+extern char __overlay_mldsa_data_size[];	/**< Size of the ML-DSA overlay data image */
+#endif
+
+#ifdef XASU_MLKEM_ENABLE
+extern char __load_start_overlay_mlkem[];	/**< LMA of the ML-KEM overlay image */
+extern char __load_start_overlay_mlkem_data[];	/**< LMA of the ML-KEM overlay data image */
+extern char __overlay_mlkem_img_size[];		/**< Size of the ML-KEM overlay image */
+extern char __overlay_mlkem_txt_size[];		/**< Size of the ML-KEM overlay text image */
+extern char __overlay_mlkem_data_size[];	/**< Size of the ML-KEM overlay data image */
+#endif
+
 extern char __overlay_window_start[];		/**< Start address of the IRAM overlay window */
 extern char __overlay_data_window_start[];	/**< Start address of the data overlay window */
 
@@ -83,6 +105,28 @@ static const XOverlay_CatalogEntry Catalog[] = {
 		.ImgSize = (u32)(UINTPTR)__overlay_lms_img_size,
 		.TxtSize = (u32)(UINTPTR)__overlay_lms_txt_size,
 		.DataSize = (u32)(UINTPTR)__overlay_lms_data_size,
+		.OnLoad = NULL,
+	},
+#endif
+#ifdef XASU_MLDSA_ENABLE
+	{
+		.AlgoId = XOVERLAY_ALGO_MLDSA,
+		.ImgLma = (const void *)(UINTPTR)__load_start_overlay_mldsa,
+		.DataLma = (const void *)(UINTPTR)__load_start_overlay_mldsa_data,
+		.ImgSize = (u32)(UINTPTR)__overlay_mldsa_img_size,
+		.TxtSize = (u32)(UINTPTR)__overlay_mldsa_txt_size,
+		.DataSize = (u32)(UINTPTR)__overlay_mldsa_data_size,
+		.OnLoad = NULL,
+	},
+#endif
+#ifdef XASU_MLKEM_ENABLE
+	{
+		.AlgoId = XOVERLAY_ALGO_MLKEM,
+		.ImgLma = (const void *)(UINTPTR)__load_start_overlay_mlkem,
+		.DataLma = (const void *)(UINTPTR)__load_start_overlay_mlkem_data,
+		.ImgSize = (u32)(UINTPTR)__overlay_mlkem_img_size,
+		.TxtSize = (u32)(UINTPTR)__overlay_mlkem_txt_size,
+		.DataSize = (u32)(UINTPTR)__overlay_mlkem_data_size,
 		.OnLoad = NULL,
 	},
 #endif

@@ -46,9 +46,11 @@ extern "C" {
  * 0xEBE41000 - 0xEBE48FFF : IPI Shared Memory		(32KB)
  * 0xEBE49000 - 0xEBE49FFF : Debug Log Buffer		(4KB)
  * 0xEBE4A000 - 0xEBE4C7FF : OCP Memory			(10KB)
- * 0xEBE4C800 - 0xEBE4D9FF : Crypto Algorithm Data Block	(4.5KB)
- * 0xEBE4DA00 - 0xEBE4DBFF : Update Manager		(512B)
- * 0xEBE4DC00 - 0xEBE5FFFF : Overlay Data Window	(73KB)
+ * 0xEBE4C800 - 0xEBE503FF : Crypto Algorithm Data Block	(15KB)
+ *   0xEBE4C800 - 0xEBE500FF : Shared pool, reused by every overlay serialized algorithm
+ *   0xEBE50100 - 0xEBE5030F : Auxiliary buffer for the two commands outside that serialization
+ * 0xEBE50400 - 0xEBE505FF : Update Manager		(512B)
+ * 0xEBE50600 - 0xEBE5FFFF : Overlay Data Window	(62.5KB)
  */
 
 /*  ASUFW Data Ram Start and end address related defines */
@@ -102,8 +104,48 @@ extern "C" {
 #define XASUFW_CRYPTO_ALGO_DATA_BLOCK		(0xEBE4C800U)	/**< Base address of the crypto
 								algorithm data block in data RAM */
 
-#define XASUFW_CRYPTO_ALGO_DATA_BLOCK_SIZE	(0x1200U)	/**< Size of the crypto algorithm
-								data block in bytes (4.5KB) */
+#define XASUFW_CRYPTO_ALGO_DATA_BLOCK_SIZE	(0x3C00U)	/**< Size of the crypto algorithm
+								data block in bytes (15KB) */
+
+/*
+ * Region at the base of the block, addressed directly as XASUFW_CRYPTO_ALGO_DATA_BLOCK and reused
+ * by every algorithm that stages data here: RSA and key wrap work from the base, the key manager
+ * stages a generated RSA key pair there, and ML-DSA and ML-KEM each carve a scratch region out of
+ * it to suit themselves, in xmldsa.h and xmlkem.h, with the known-answer tests taking their output
+ * buffers from the space just above whichever scratch is in use. Reusing the same bytes is safe
+ * because every command that reaches this pool holds XASUFW_OVERLAY for its whole duration,
+ * including across a non-blocking suspend, so no two of them are ever in flight together. The size
+ * covers the largest single user, which is ML-DSA-87's carve; each user asserts its own footprint
+ * against it.
+ *
+ * This macro, not the linker script, decides where every user of the block lands: the auxiliary
+ * buffer below starts at the block base plus this size, and lscript.ld only mirrors the value to
+ * record the layout of the region it reserves. A build failure guards what matters, that this
+ * size plus the auxiliary buffer stays inside the block, asserted in xasufw_kat.c. Divergence from
+ * the mirror in lscript.ld therefore misleads a reader rather than moving any address.
+ */
+#define XASUFW_CRYPTO_SHARED_POOL_SIZE		(0x3900U)	/**< Size of the shared pool at the
+								base of the block in bytes;
+								mirrored by _CRYPTO_SHARED_POOL_SIZE
+								in lscript.ld */
+
+/*
+ * Buffer following the shared pool, for the two commands that stage data in the block without
+ * holding XASUFW_OVERLAY: the AES counter-measure KAT, which writes a mask and masked data, and
+ * the key manager store-key path, which packs an RSA public key as PubExp || Modulus. Either can
+ * be dispatched while an overlay holding command sits suspended with live key material in the
+ * shared pool, which is why they stay out of it. The two share these bytes: each holds
+ * XASUFW_AES for its whole duration and neither ever suspends, so their use of the buffer begins
+ * and ends within a single dispatch. The size covers the larger of the two.
+ */
+#define XASUFW_CRYPTO_AUX_BUF_ADDR		(XASUFW_CRYPTO_ALGO_DATA_BLOCK + \
+						XASUFW_CRYPTO_SHARED_POOL_SIZE)
+							/**< Base address of the auxiliary buffer */
+
+#define XASUFW_CRYPTO_AUX_BUF_SIZE		(0x210U)	/**< Size of the auxiliary buffer in
+								bytes; mirrored by
+								_CRYPTO_AUX_BUF_SIZE in
+								lscript.ld */
 
 /*
  * Base address and size of the OCP CDO data block. These must match the ORIGIN and
