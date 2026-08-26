@@ -50,6 +50,7 @@
 *       obs  02/04/2025 Updated XPLMI_CMD_RESP_SIZE macro value
 *       pre  03/02/2025 Added BufIndex as member in cmd structure
 *       ng   03/26/2025 Include xplm config header file for max user modules macro definition
+* 2.5   abh  08/24/2026 Converted XPlmi_GetCdoErr from static inline to regular function
 *
 * </pre>
 *
@@ -133,30 +134,9 @@ struct XPlmi_Cmd {
 };
 
 /***************** Macros (Inline Functions) Definitions *********************/
-/**
- * @brief	Inline function to determine the Cdo error type based on the
- * 			command Id
- *
- * @param	CmdId is the Command ID
- *
- * @return 	CDO Error Type in
- * 			 - 0x2xyz format for CDO Error
- * 			 - 0x3xyz format for User Module CDO Error
- *
- *****************************************************************************/
-static inline u32 XPlmi_GetCdoErr(u32 CmdId) {
-	u32 CdoErrType = (u32)XPLMI_ERR_CDO_CMD;
-
-#if ( XPAR_MAX_USER_MODULES > 0U )
-	u32 ModuleId = (CmdId & XPLMI_CMD_MODULE_ID_MASK) >> XPLMI_CMD_MODULE_ID_SHIFT;
-		if ( ModuleId >= XPLMI_USER_MODULE_START_INDEX ) {
-			CdoErrType = XPLMI_ERR_USER_MODULE_CDO_CMD;
-		}
-#endif
-		return (CdoErrType + (CmdId & XPLMI_ERR_CDO_CMD_MASK));
-}
 
 /************************** Function Prototypes ******************************/
+u32 XPlmi_GetCdoErr(u32 CmdId);
 int XPlmi_CmdExecute(XPlmi_Cmd * CmdPtr);
 int XPlmi_CmdResume(XPlmi_Cmd * CmdPtr);
 

@@ -32,6 +32,7 @@
 *       bs   07/15/2024 Updated Cmd Resume to return error in 0x2XXX format
 *       pre  03/02/2025 Modified error throwing condition after exiting from command handler
 * 2.4   abh  10/27/2025 Fixed MISRA-C violations
+* 2.5   abh  08/24/2026 Converted XPlmi_GetCdoErr from static inline to regular function
 *
 * </pre>
 *
@@ -61,6 +62,29 @@
 /************************** Variable Definitions *****************************/
 
 /*****************************************************************************/
+
+/*****************************************************************************/
+/**
+ * @brief	Determine the Cdo error type based on the command Id
+ *
+ * @param	CmdId is the Command ID
+ *
+ * @return	CDO Error Type in
+ *			 - 0x2xyz format for CDO Error
+ *			 - 0x3xyz format for User Module CDO Error
+ *
+ *****************************************************************************/
+u32 XPlmi_GetCdoErr(u32 CmdId) {
+	u32 CdoErrType = (u32)XPLMI_ERR_CDO_CMD;
+
+#if ( XPAR_MAX_USER_MODULES > 0U )
+	u32 ModuleId = (CmdId & XPLMI_CMD_MODULE_ID_MASK) >> XPLMI_CMD_MODULE_ID_SHIFT;
+	if ( ModuleId >= XPLMI_USER_MODULE_START_INDEX ) {
+		CdoErrType = XPLMI_ERR_USER_MODULE_CDO_CMD;
+	}
+#endif
+	return (CdoErrType + (CmdId & XPLMI_ERR_CDO_CMD_MASK));
+}
 
 /*****************************************************************************/
 /**
