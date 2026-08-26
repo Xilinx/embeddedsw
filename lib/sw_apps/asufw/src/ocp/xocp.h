@@ -115,10 +115,11 @@ s32 XOcp_GetHuk(u8 *HukBuf);
 
 /************************************ Variable Definitions ***************************************/
 
+#endif /* XASU_OCP_ENABLE */
+
 #ifdef __cplusplus
 }
 #endif
 
-#endif /* XASU_OCP_ENABLE */
 #endif /* XOCP_H_ */
 /** @} */

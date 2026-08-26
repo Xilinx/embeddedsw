@@ -1,5 +1,5 @@
 /**************************************************************************************************
-* Copyright (C) 2025, Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2025 - 2026, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 
@@ -47,10 +47,11 @@ s32 XAsufw_OcpInit(void);
 
 /************************************ Variable Definitions ***************************************/
 
+#endif /* XASU_OCP_ENABLE */
+
 #ifdef __cplusplus
 }
 #endif
 
-#endif /* XASU_OCP_ENABLE */
 #endif /* XASUFW_OCPHANDLER_H_ */
 /** @} */

@@ -49,10 +49,11 @@ s32 XOcp_EncryptUdeKeys(XAsufw_Dma *DmaPtr, const XAsu_OcpUdeKeyEncrypt *OcpUdeK
 
 /************************************ Variable Definitions ***************************************/
 
+#endif /* XASU_OCP_ENABLE */
+
 #ifdef __cplusplus
 }
 #endif
 
-#endif /* XASU_OCP_ENABLE */
 #endif /* XOCP_UDE_H_ */
 /** @} */
