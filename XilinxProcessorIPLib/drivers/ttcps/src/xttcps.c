@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -56,6 +56,8 @@
 *                       is used for all three counters.
 * 3.23	bdk   11/12/25	Modifying declaration of the XTtcPs_ConfigTable to fix MISRA-C
 *			violations for rules 5.8 and 8.3
+* 3.24  ml    08/11/26  Added bounds check on GetIndexFromBaseAddr() return value to
+*                       prevent out-of-bounds access.
 * </pre>
 *
 ******************************************************************************/
@@ -206,6 +208,10 @@ s32 XTtcPs_CfgInitialize(XTtcPs *InstancePtr, XTtcPs_Config *ConfigPtr,
 	TtcNodeState[ConfigPtr->DeviceId]++;
 #else
 	Index = GetIndexFromBaseAddr(ConfigPtr->BaseAddress);
+	if (Index >= XPAR_XTTCPS_NUM_INSTANCES) {
+		(void)XPm_ReleaseNode(XpmGetNodeId((UINTPTR)TtcNodeAddr));
+		return XST_FAILURE;
+	}
 	TtcNodeState[Index]++;
 #endif
 #endif
@@ -662,6 +668,7 @@ void XTtcPs_CalcIntervalFromFreq(XTtcPs *InstancePtr, u32 Freq,
  *
  * @return
  *		- XST_SUCCESS if successful.
+ *		- XST_FAILURE if index not found within the config table.
  *
  * @note	None.
  *
@@ -675,6 +682,10 @@ u32 XTtcPs_InterruptHandler(XTtcPs *InstancePtr)
 	BaseAddr = InstancePtr->Config.BaseAddress & COUNTER_BASE_ADDRESS_MASK;
 
 	Index = GetIndexFromBaseAddr(BaseAddr);
+
+	if ((Index + 2U) >= XPAR_XTTCPS_NUM_INSTANCES) {
+		return XST_FAILURE;
+	}
 
         /*
          * Check the interrupt status register (ISR) of counter 0
@@ -737,6 +748,9 @@ void XTtcPs_SetStatusHandler(XTtcPs *InstancePtr, void *CallBackRef,
 	Xil_AssertVoid(FuncPointer != NULL);
 	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 	Index = GetIndexFromBaseAddr(InstancePtr->Config.BaseAddress);
+	if (Index >= XPAR_XTTCPS_NUM_INSTANCES) {
+		return;
+	}
 	StatusHandlerTable[Index].StatusHandler = FuncPointer;
 	StatusHandlerTable[Index].StatusRef  = CallBackRef;
 }

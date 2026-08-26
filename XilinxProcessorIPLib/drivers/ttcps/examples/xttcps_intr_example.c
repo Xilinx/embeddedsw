@@ -49,6 +49,8 @@
 * 3.23 bdk    12/08/25 Updated comments to support SDT flow for Doxygen
 *                      documentation.
 * 3.23 ml     02/03/26 Fix codespell warnings
+* 3.24 ml     08/11/26 Added bounds check in SDT flow of SetupTicker() and SetupPWM() to
+*                      prevent out-of-bounds access.
 *</pre>
 ******************************************************************************/
 
@@ -319,10 +321,13 @@ int SetupTicker(void)
 #ifndef SDT
 	TimerSetup = &(SettingsTable[TTC_TICK_DEVICE_ID]);
 #else
-	for (Index_Tick = 0U; XTtcPs_ConfigTable[Index_Tick].Name != NULL; Index_Tick++) {
+	for (Index_Tick = 0U; Index_Tick < NUM_DEVICES && XTtcPs_ConfigTable[Index_Tick].Name != NULL; Index_Tick++) {
 		if (XTtcPs_ConfigTable[Index_Tick].BaseAddress == TTC_TICK_BASEADDR) {
 			break;
 		}
+	}
+	if (Index_Tick >= NUM_DEVICES || XTtcPs_ConfigTable[Index_Tick].Name == NULL) {
+		return XST_FAILURE;
 	}
 	TimerSetup = &(SettingsTable[Index_Tick]);
 #endif
@@ -411,10 +416,13 @@ int SetupPWM(void)
 #ifndef SDT
 	TimerSetup = &(SettingsTable[TTC_PWM_DEVICE_ID]);
 #else
-	for (Index_PWM = 0U; XTtcPs_ConfigTable[Index_PWM].Name != NULL; Index_PWM++) {
+	for (Index_PWM = 0U; Index_PWM < NUM_DEVICES && XTtcPs_ConfigTable[Index_PWM].Name != NULL; Index_PWM++) {
 		if (XTtcPs_ConfigTable[Index_PWM].BaseAddress == TTC_PWM_BASEADDR) {
 			break;
 		}
+	}
+	if (Index_PWM >= NUM_DEVICES || XTtcPs_ConfigTable[Index_PWM].Name == NULL) {
+		return XST_FAILURE;
 	}
 	TimerSetup = &(SettingsTable[Index_PWM]);
 #endif
