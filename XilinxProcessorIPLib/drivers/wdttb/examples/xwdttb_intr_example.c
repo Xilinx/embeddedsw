@@ -42,9 +42,14 @@
 * 5.1	sne  06/01/20 Corrected fabric watchdog interrupt id.
 * 5.7	sb   07/12/23 Added support for system device-tree flow.
 * 5.12  vlt  12/18/25 Update Doxygen comments to include SDT flow details.
+* 5.13  vn   08/26/26 Fix Doxygen warnings.
 * </pre>
 *
 ******************************************************************************/
+
+/** @addtogroup xwdttb_intr_example
+ * @{
+ */
 
 /***************************** Include Files *********************************/
 
@@ -539,4 +544,4 @@ static void WdtTbDisableIntrSystem(INTC *IntcInstancePtr, u16 WdtTbIntrId)
 
 }
 #endif
-
+/** @} */

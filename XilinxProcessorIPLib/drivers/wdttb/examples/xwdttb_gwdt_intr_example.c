@@ -27,13 +27,18 @@
 * ----- ---- -------- ---------------------------------------------------------
 * 5.0	sne  03/26/20 First release
 * 5.1   sne  06/01/20 Configured Generic watchdog offset value.
-* 5.7   sb   06/27/23 Correct the interrupt ID for Versal-net platform.
+* 5.7   sb   06/27/23 Correct the interrupt ID for Versal- net platform.
 * 5.7   sb   07/12/23 Added support for system device-tree flow.
 * 5.12  vlt  12/18/25 Update Doxygen comments to include SDT flow details.
+* 5.13  vn   08/26/26 Fix Doxygen warnings.
 *
 * </pre>
 *
 ******************************************************************************/
+
+/** @addtogroup xwdttb_gwdt_intr_example
+ * @{
+ */
 
 /***************************** Include Files *********************************/
 
@@ -420,3 +425,4 @@ static void GWdtDisableIntrSystem(XScuGic *IntcInstancePtr, u16 GWdtIntrId)
 
 }
 #endif
+/** @} */

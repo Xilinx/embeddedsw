@@ -25,6 +25,7 @@
 * 4.3  srm 01/30/18 Added doxygen tags
 * 5.7  sb  07/12/23 Added support for system device-tree flow.
 * 5.12 vlt 12/18/25 Update Doxygen comments to include SDT flow details.
+* 5.13 vn  08/26/26 Fix Doxygen warnings
 * </pre>
 *
 ******************************************************************************/
@@ -109,7 +110,6 @@ XWdtTb_Config *XWdtTb_LookupConfig(UINTPTR BaseAddress)
 
 	return (XWdtTb_Config *)CfgPtr;
 }
-/** @} */
 
 #endif
 /** @} */

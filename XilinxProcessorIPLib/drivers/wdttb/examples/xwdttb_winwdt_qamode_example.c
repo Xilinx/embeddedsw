@@ -22,13 +22,18 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- ---------------------------------------------------------
 * 5.6   asa  01/13/23 First release of Q&A mode example.
-* 5.7   sb   06/27/23 Correct the interrupt ID for Versal-net platform.
+* 5.7   sb   06/27/23 Correct the interrupt ID for Versal- net platform.
 * 5.7   sb   07/12/23 Added support for system device-tree flow.
 * 5.12  vlt  12/18/25 Update Doxygen comments to include SDT flow details.
+* 5.13  vn   08/26/26 Fix Doxygen warnings
 *
 * </pre>
 *
 ******************************************************************************/
+
+/** @addtogroup xwdttb_winwdt_qamode_example
+ * @{
+ */
 
 /***************************** Include Files *********************************/
 #include "xparameters.h"
@@ -403,6 +408,7 @@ int WdtTbIntrExample(XWdtTb *WdtTbInstancePtr, UINTPTR BaseAddress)
 	}
 }
 
+#ifndef SDT
 /*****************************************************************************/
 /**
 *
@@ -427,7 +433,6 @@ int WdtTbIntrExample(XWdtTb *WdtTbInstancePtr, UINTPTR BaseAddress)
 * @note		None.
 *
 ******************************************************************************/
-#ifndef SDT
 static int WinWdtQAModeSetupIntrSystem(INTC *IntcInstancePtr,
 				       XWdtTb *WdtTbInstancePtr,
 				       u16 WdtTbIntrId)
@@ -577,3 +582,4 @@ static void WinWdtQAModeDisableIntrSystem(INTC *IntcInstancePtr,
 #endif
 }
 #endif
+/** @} */

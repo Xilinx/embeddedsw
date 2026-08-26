@@ -80,6 +80,7 @@
 * 5.7  sb    09/13/23 Fix MISRA-C violation 12.1.
 * 5.9  ht    05/15/23 Port XWdtTb_Initialize() to SDT flow
 * 5.12 vlt   12/18/25 Update Doxygen comments to include SDT flow details.
+* 5.13 vn    08/26/26 Fix Doxygen warnings
 *
 * </pre>
 *
@@ -341,8 +342,6 @@ End:
 * @param	InstancePtr Pointer to the XWdtTb instance to be
 *		worked on.
 *
-* @return	None.
-*
 * @note
 *		- For legacy, the timebase is reset to 0 when the Watchdog
 *		Timer is started. The timebase is always incrementing.
@@ -548,8 +547,6 @@ u32 XWdtTb_IsGenericWdtFWExpired(const XWdtTb *InstancePtr)
 * @param	InstancePtr Pointer to the XWdtTb instance to be
 *		worked on.
 *
-* @return	None.
-*
 *
 ******************************************************************************/
 void XWdtTb_RestartWdt(const XWdtTb *InstancePtr)
@@ -613,8 +610,6 @@ void XWdtTb_RestartWdt(const XWdtTb *InstancePtr)
 * @param	InstancePtr Pointer to the XWdtTb instance to be
 *		worked on.
 *
-* @return	None.
-*
 * @note		This must be called before Window WDT is enabled. Once Window
 *		WDT is enabled, it can only be disabled by applying reset.
 *
@@ -643,8 +638,6 @@ void XWdtTb_AlwaysEnable(const XWdtTb *InstancePtr)
 *
 * @param	InstancePtr Pointer to the XWdtTb instance to be
 *		worked on.
-*
-* @return	None.
 *
 * @note		Event can be cleared by applying reset to the core followed
 *		by writing 111. Writing any other pattern has no effect.
@@ -687,8 +680,6 @@ void XWdtTb_ClearLastEvent(const XWdtTb *InstancePtr)
 * @param	InstancePtr Pointer to the XWdtTb instance to be
 *		worked on.
 *
-* @return	None.
-*
 *
 ******************************************************************************/
 void XWdtTb_ClearResetPending(const XWdtTb *InstancePtr)
@@ -716,8 +707,6 @@ void XWdtTb_ClearResetPending(const XWdtTb *InstancePtr)
 *
 * @param	InstancePtr Pointer to the XWdtTb instance to be
 *		worked on.
-*
-* @return	None.
 *
 *
 ******************************************************************************/
@@ -767,8 +756,6 @@ void XWdtTb_IntrClear(const XWdtTb *InstancePtr)
 *		worked on.
 * @param	ByteCount Specifies the selected byte count value to be set in
 *		the second window configuration.
-*
-* @return	None.
 *
 * @note
 *		- This function must be called before Window WDT start/enable
@@ -838,8 +825,6 @@ u32 XWdtTb_GetByteCount(const XWdtTb *InstancePtr)
 *		- 2 = Second window byte 2 selected.
 *		- 3 = Second window byte 3 selected.
 *
-* @return	None.
-*
 * @note
 *		- This function must be called before window WDT start/enable
 *		or after Window WDT stop/disable.
@@ -906,8 +891,6 @@ u32 XWdtTb_GetByteSegment(const XWdtTb *InstancePtr)
 * @param	InstancePtr is a pointer to the XWdtTb instance to be
 *		worked on.
 *
-* @return	None.
-*
 * @note
 *		- This function must be called before Window WDT start/enable
 *		or after Window WDT stop/disable.
@@ -943,8 +926,6 @@ void XWdtTb_EnableSst(const XWdtTb *InstancePtr)
 * @param	InstancePtr Pointer to the XWdtTb instance to be
 *		worked on.
 *
-* @return	None.
-*
 * @note		This function must be called before Window WDT start/enable or
 *		after Window WDT stop/disable.
 *
@@ -974,8 +955,6 @@ void XWdtTb_DisableSst(const XWdtTb *InstancePtr)
 *
 * @param	InstancePtr Pointer to the XWdtTb instance to be
 *		worked on.
-*
-* @return	None.
 *
 * @note
 *		- This function must be called before Window WDT start/enable
@@ -1014,8 +993,6 @@ void XWdtTb_EnablePsm(const XWdtTb *InstancePtr)
 * @param	InstancePtr Pointer to the XWdtTb instance to be
 *		worked on.
 *
-* @return	None.
-*
 * @note		This function must be called before Window WDT start/enable or
 *		after Window WDT stop/disable.
 *
@@ -1045,8 +1022,6 @@ void XWdtTb_DisablePsm(const XWdtTb *InstancePtr)
 *
 * @param	InstancePtr Pointer to the XWdtTb instance to be
 *		worked on.
-*
-* @return	None.
 *
 * @note
 *		- This function must be called before Window WDT start/enable
@@ -1086,8 +1061,6 @@ void XWdtTb_EnableFailCounter(XWdtTb *InstancePtr)
 * @param	InstancePtr Pointer to the XWdtTb instance to be
 *		worked on.
 *
-* @return	None.
-*
 * @note		This function must be called before Window WDT start/enable or
 *		after Window WDT stop/disable.
 *
@@ -1121,8 +1094,6 @@ void XWdtTb_DisableFailCounter(XWdtTb *InstancePtr)
 * @param	InstancePtr Pointer to the XWdtTb instance to be
 *		worked on.
 *
-* @return	None.
-*
 * @note		This function must be called before Window WDT start/enable or
 *		after Window WDT stop/disable.
 *
@@ -1152,8 +1123,6 @@ void XWdtTb_EnableExtraProtection(const XWdtTb *InstancePtr)
 *
 * @param	InstancePtr Pointer to the XWdtTb instance to be
 *		worked on.
-*
-* @return	None.
 *
 * @note		This function must be called before Window WDT start/enable or
 *		after Window WDT stop/disable.
@@ -1186,8 +1155,6 @@ void XWdtTb_DisableExtraProtection(const XWdtTb *InstancePtr)
 *		worked on.
 * @param	FirstWinCount Specifies the first window count value.
 * @param	SecondWinCount Specifies the second window count value.
-*
-* @return	None.
 *
 * @note
 *		This function must be called before Window WDT start/enable
@@ -1227,7 +1194,6 @@ void XWdtTb_SetWindowCount(const XWdtTb *InstancePtr, u32 FirstWinCount,
 * @param     InstancePtr Pointer to the XWdtTb instance to be
 *            worked on.
 * @param     GWOR_config  Specifies the GWDT_Offset_reg count value.
-* @return    None.
 *
 * @note
 *            This function must be called before Window WDT start/enable
@@ -1250,7 +1216,6 @@ void XWdtTb_SetGenericWdtWindow(const XWdtTb *InstancePtr, u32 GWOR_config)
 *
 * @param     InstancePtr pointer to the XWdtTb instance to be worked on.
 * @param     MilliSeconds GWDT count value in milliseconds.
-* @return    None.
 *
 * @note
 *            This function must be called before Window WDT start/enable

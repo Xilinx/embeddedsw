@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -21,6 +21,7 @@
 * ----- ---- -------- ---------------------------------------------------------
 * 5.0	sne  11/19/19 First release
 * 5.7	sb   09/13/23 Fix MISRA-C violation 10.4
+* 5.13 vn  08/26/26 Fix Doxygen warnings
 *
 * </pre>
 *
@@ -162,8 +163,6 @@ s32 XWdtTb_DisableWinWdt(XWdtTb *InstancePtr)
 *
 * @param        InstancePtr Pointer to the XWdtTb instance to be
 *               worked on.
-*
-* @return       None.
 *
 * @note         This will start the timebase watchdog timer.
 *
