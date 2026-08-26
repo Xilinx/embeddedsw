@@ -69,6 +69,7 @@
 *       ias  08/19/2026 Added memory-range reachability table PMC RAM reservation
 *       sd   08/20/2026 Moved PMC WDT instance selection to xplmi_wdt_hw.h
 *       ng   08/20/2026 Added addresses for glitch detector configuration
+*       ng   08/23/2026 Added register definitions for slave error handlers
 *
 * </pre>
 *
@@ -516,6 +517,11 @@ extern "C" {
  * TAMPER_INT mask value
  */
 #define PMC_GLOBAL_TAMPER_INT_MASK	(0x00000008U)
+
+/*
+ * ADDR_ERROR mask value
+ */
+#define PMC_GLOBAL_ADDR_ERROR_MASK	(0x1U)
 
 /*
  * SSS_CFG_ERR mask value
@@ -1026,6 +1032,9 @@ static inline void XPlmi_OutByte64(u64 Addr, u8 Data)
  * Definitions required from crp.h
  */
 #define CRP_BASEADDR		(0XF1260000U)
+#define CRP_IR_STATUS			(CRP_BASEADDR + 0x4U)
+#define CRP_IR_STATUS_ADDR_DECODE_ERROR_MASK	(0x1U)
+#define CRP_WPROT			(CRP_BASEADDR + 0x1CU)
 #define CRP_BOOT_MODE_USER		(CRP_BASEADDR + 0X00000200U)
 #define CRP_BOOT_MODE_USER_BOOT_MODE_MASK		(0X0000000FU)
 #define CRP_BOOT_MODE_POR		(CRP_BASEADDR + 0X00000204U)
@@ -1184,6 +1193,12 @@ static inline void XPlmi_OutByte64(u64 Addr, u8 Data)
  * Register: PMC_ANALOG_GD_FUSE_CTRL1
  */
 #define PMC_ANALOG_GD_FUSE_CTRL1	(PMC_ANALOG_BASEADDR + 0X00000024U)
+
+/*
+ * Register: PMC_ANALOG_ISR
+ */
+#define PMC_ANALOG_ISR	(PMC_ANALOG_BASEADDR + 0X00000040U)
+#define PMC_ANALOG_ISR_SLV_ERR_MASK	(0x1U)
 
 /*
  * Register: PMC_ANALOG_SLVERR_CTRL

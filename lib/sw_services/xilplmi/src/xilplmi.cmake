@@ -258,4 +258,13 @@ set(XILPLMI_USER_MODULES_COUNT "${XILPLMI_user_modules_count}")
 set(XILPLMI_plm_version_user_defined "0" CACHE STRING "User defined PLM version.")
 set(XILPLMI_PLM_VERSION_USER_DEFINED "${XILPLMI_plm_version_user_defined}")
 
+if (("${CMAKE_MACHINE}" STREQUAL "Versal") AND NOT (("Versal_2VP_P" IN_LIST VARIANT) OR ("Versal_2VP" IN_LIST VARIANT)))
+  option(XILPLMI_slave_error_handlers_en "Enables or Disables Slave error handlers" OFF)
+  if (XILPLMI_slave_error_handlers_en)
+    set(PLM_ENABLE_SLAVE_ERROR_HANDLERS " ")
+  endif()
+else()
+  set(PLM_ENABLE_SLAVE_ERROR_HANDLERS " ")
+endif()
+
 configure_file(${CMAKE_CURRENT_SOURCE_DIR}/xplmi_bsp_config.h.in ${CMAKE_BINARY_DIR}/include/xplmi_bsp_config.h)

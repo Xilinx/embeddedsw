@@ -35,6 +35,7 @@
 *                       secure lockdown
 * 2.4   abh  12/24/2025 Fixed MISRA-C Violations
 * 2.5   gnr  24/07/2026 Updated XPlmi_PmcApbErrorHandler to clear PMC Analog Slave error interrupt
+*       ng   23/08/2026 Added slave error handlers for address, address decode and PMC Analog errors
 *
 * </pre>
 *
@@ -68,16 +69,15 @@
 #define PMC_ANALOG_GD_STATUS 		(PMC_ANALOG_GD0_RST_STATUS_REG_MASK | \
 					 PMC_ANALOG_GD1_RST_STATUS_REG_MASK)
 					/**< Glitch detector status mask */
-#define PMC_ANALOG_ISR_REG		(0xF1160040U)
-					/**< PMC_ANALOG ISR register address */
-#define PMC_ANALOG_SLV_ERR_STATUS_REG_MASK	(0x1U)
-					/**< PMC_ANALOG Slave error status mask */
 #define CRP_CFU_REF_CTRL				(0xF1260108U)
 					/**< CRP CFU_REF_CTRL register address */
 #define CRP_CFU_REF_CTRL_DIVISOR_MASK	(0x3FF00U)
 					/**< CRP CFU_REF_CTRL Divisor mask */
 #define CFU_REF_CTRL_DIVISOR_INCREASE	(0x2U)
 					/**< CRP CFU_REF_CTRL Divisor increase */
+
+/** CRP WPROT access enable */
+#define XPLMI_EN_CRP_WPROT_ACCESS		(0x0U)
 
 /** @endcond */
 
@@ -310,6 +310,9 @@ static void XPlmi_PmcApbErrorHandler(const u32 ErrorNodeId,
 	volatile u32 TamperRespTmp = XPLMI_RTCFG_TAMPER_RESP_SLD_0_1_MASK;
 	volatile u32 IsrVal = PMC_GLOBAL_TAMPER_INT_MASK;
 	volatile u32 IsrValTmp = PMC_GLOBAL_TAMPER_INT_MASK;
+#ifdef PLM_ENABLE_SLAVE_ERROR_HANDLERS
+	volatile u32 CrpWprotState;
+#endif
 
 	(void)ErrorNodeId;
 	(void)ErrorMask;
@@ -335,30 +338,55 @@ static void XPlmi_PmcApbErrorHandler(const u32 ErrorNodeId,
 					"notification of PMC_APB error\r\n",
 					TamperResp);
 		}
-	} else {
-		XPlmi_Printf(DEBUG_GENERAL, "Received PMC_APB interrupt is other than "
-				"tamper interrupt. PMC_GLOBAL_ISR: 0x%x\r\n", IsrVal);
-		/**
-		 * Check if interrupt is due to PMC Analog Slave error. If yes, clear the interrupt
-		 * to avoid repeated interrupts.
-		 */
-		IsrVal = Xil_In32(PMC_ANALOG_ISR_REG);
-		IsrValTmp = Xil_In32(PMC_ANALOG_ISR_REG);
-		if (((IsrVal & PMC_ANALOG_SLV_ERR_STATUS_REG_MASK) ==
-				PMC_ANALOG_SLV_ERR_STATUS_REG_MASK) ||
-			((IsrValTmp & PMC_ANALOG_SLV_ERR_STATUS_REG_MASK) ==
-					PMC_ANALOG_SLV_ERR_STATUS_REG_MASK)) {
-			Xil_Out32(PMC_ANALOG_ISR_REG, PMC_ANALOG_SLV_ERR_STATUS_REG_MASK);
-		}
+
+		/** Clear the Tamper interrupt source. */
+		Xil_UtilRMW32(PMC_ANALOG_GD_CTRL_REG, PMC_ANALOG_GD_STATUS,
+			      PMC_ANALOG_GD_STATUS);
+		Xil_Out32(PMC_GLOBAL_ISR, PMC_GLOBAL_TAMPER_INT_MASK);
+		Xil_UtilRMW32(PMC_ANALOG_GD_CTRL_REG, PMC_ANALOG_GD_STATUS, 0U);
+	}
+
+#ifdef PLM_ENABLE_SLAVE_ERROR_HANDLERS
+	/** Check if interrupt is due to address error. */
+	if(((IsrVal & PMC_GLOBAL_ADDR_ERROR_MASK) == PMC_GLOBAL_ADDR_ERROR_MASK) ||
+	   ((IsrValTmp & PMC_GLOBAL_ADDR_ERROR_MASK) == PMC_GLOBAL_ADDR_ERROR_MASK)) {
+		XPlmi_Printf(DEBUG_GENERAL, "PMC_GLOBAL_ISR: 0x%x\r\n", IsrVal);
+		/** Clear the address error interrupt. */
+		XPlmi_Out32(PMC_GLOBAL_ISR, PMC_GLOBAL_ADDR_ERROR_MASK);
+	}
+
+	/** Check if the interrupt is due to address decode error. */
+	IsrVal = Xil_In32(CRP_IR_STATUS);
+	IsrValTmp = Xil_In32(CRP_IR_STATUS);
+	if (((IsrVal & CRP_IR_STATUS_ADDR_DECODE_ERROR_MASK) == CRP_IR_STATUS_ADDR_DECODE_ERROR_MASK) ||
+	    ((IsrValTmp & CRP_IR_STATUS_ADDR_DECODE_ERROR_MASK) == CRP_IR_STATUS_ADDR_DECODE_ERROR_MASK)) {
+		XPlmi_Printf(DEBUG_GENERAL, "CRP_IR_STATUS: 0x%x\r\n", IsrVal);
+
+		/** - Read CRP WPROT register. */
+		CrpWprotState = Xil_In32(CRP_WPROT);
+
+		/** - Enable writes to CRP address space. */
+		XPlmi_Out32(CRP_WPROT, XPLMI_EN_CRP_WPROT_ACCESS);
+		/** Clear the address decode error interrupt. */
+		XPlmi_Out32(CRP_IR_STATUS, CRP_IR_STATUS_ADDR_DECODE_ERROR_MASK);
+		/** - Disable writes to CRP address space. */
+		XPlmi_Out32(CRP_WPROT, CrpWprotState);
 	}
 
 	/**
-	 * Clear the interrupt source
+	 * Check if interrupt is due to PMC Analog Slave error. If yes, clear the interrupt
+	 * to avoid repeated interrupts.
 	 */
-	Xil_UtilRMW32(PMC_ANALOG_GD_CTRL_REG, PMC_ANALOG_GD_STATUS,
-			PMC_ANALOG_GD_STATUS);
-	Xil_Out32(PMC_GLOBAL_ISR, PMC_GLOBAL_TAMPER_INT_MASK);
-	Xil_UtilRMW32(PMC_ANALOG_GD_CTRL_REG, PMC_ANALOG_GD_STATUS, 0U);
+	IsrVal = Xil_In32(PMC_ANALOG_ISR);
+	IsrValTmp = Xil_In32(PMC_ANALOG_ISR);
+	if (((IsrVal & PMC_ANALOG_ISR_SLV_ERR_MASK) ==
+	     PMC_ANALOG_ISR_SLV_ERR_MASK) ||
+	    ((IsrValTmp & PMC_ANALOG_ISR_SLV_ERR_MASK) ==
+	     PMC_ANALOG_ISR_SLV_ERR_MASK)) {
+		XPlmi_Printf(DEBUG_GENERAL, "PMC_ANALOG_ISR: 0x%x\r\n", IsrVal);
+		Xil_Out32(PMC_ANALOG_ISR, PMC_ANALOG_ISR_SLV_ERR_MASK);
+	}
+#endif
 
 	/**
 	 * Once the interrupt is received, PLM disables the interrupt and
