@@ -21,6 +21,7 @@
 * Ver   Who  Date        Changes
 * ----- ---- -------- -------------------------------------------------------
 * 3.0   sd   08/20/2026 Initial release
+*       ng   08/27/2026 Reordered the base address for handling the device family
 *
 * </pre>
 *
@@ -39,12 +40,12 @@ extern "C" {
 
 /************************** Constant Definitions *****************************/
 /* PMC WWDT address map, one branch per device family that has a PMC WWDT. */
-#if defined(VERSAL_2VP_P)
-#define XPLMI_PMC_WDT_BASEADDR		(0xF1158000U)
-#define XPLMI_PMC_GWDT_CNTRL_STATUS_REG	(0xF115A000U)
-#elif defined(VERSAL_2VE_2VM) || defined(VERSAL_NET)
-#define XPLMI_PMC_WDT_BASEADDR		(0xF03F0000U)
-#define XPLMI_PMC_GWDT_CNTRL_STATUS_REG	(0xF03F2000U)
+#if defined(VERSAL_2VE_2VM) || defined(VERSAL_NET)
+	#define XPLMI_PMC_WDT_BASEADDR		(0xF03F0000U)
+	#define XPLMI_PMC_GWDT_CNTRL_STATUS_REG	(0xF03F2000U)
+#elif defined(VERSAL_2VP_P)
+	#define XPLMI_PMC_WDT_BASEADDR		(0xF1158000U)
+	#define XPLMI_PMC_GWDT_CNTRL_STATUS_REG	(0xF115A000U)
 #endif
 
 #ifdef XPLMI_PMC_WDT_BASEADDR
