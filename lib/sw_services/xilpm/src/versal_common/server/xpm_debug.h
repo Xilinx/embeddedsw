@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2020 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -466,6 +466,12 @@ extern "C" {
 #define XPM_INT_ERR_LPD_CPM6_ISO		0x4015U
 /* Error during CPM6 GTMPW MIBST Loop */
 #define XPM_INT_ERR_CPM6_GTMPW_MBIST_LOOP	0x4016U
+/** Error during CPM6 BISR repair */
+#define XPM_INT_ERR_CPM6_BISR_REPAIR		0x4017U
+/** Error during CPM6 GTMPW BISR repair */
+#define XPM_INT_ERR_CPM6_GTMPW_BISR_REPAIR	0x4018U
+/** Error during CPM6 BISR in reset */
+#define XPM_INT_ERR_CPM6_BISR_RST		0x4019U
 
 /************************** AIE specific Errors ******************************/
 /************************** (0x4100) - (0x41FF) ******************************/

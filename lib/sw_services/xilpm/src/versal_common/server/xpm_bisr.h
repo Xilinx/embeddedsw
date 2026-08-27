@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -47,6 +47,8 @@ extern "C" {
 #define HNICX_LCS_TAG_ID       0x23
 #define HNICX_DPU_TAG_ID       0x24
 #define DDRMC5_MAIN_TAG_ID   0x26
+#define CPM6_TAG_ID		0x38	/**< BISR tag ID for CPM6 */
+#define CPM6_GTMPW_TAG_ID	0x39	/**< BISR tag ID for CPM6_GTMPW */
 
 
 #define PMC_EFUSE_BISR_EXIT_CODE			(0U)

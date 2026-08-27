@@ -1,6 +1,6 @@
 /******************************************************************************
  * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
- * Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+ * Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
  * SPDX-License-Identifier: MIT
  *****************************************************************************/
 
@@ -28,6 +28,48 @@ maybe_unused static inline XStatus XPmRepair_Vdu(u32 EfuseTagAddr, u32 TagSize,
 }
 
 maybe_unused static inline XStatus XPmRepair_Bfrb(u32 EfuseTagAddr, u32 TagSize,
+			u32 TagOptional, u32 *TagDataAddr)
+{
+	(void)EfuseTagAddr;
+	(void)TagSize;
+	(void)TagOptional;
+	(void)TagDataAddr;
+
+	return XST_INVALID_PARAM;
+}
+
+/**
+ * @brief  Stub for CPM6 BISR repair (CPM6 is not present on this platform).
+ *
+ * @param  EfuseTagAddr  Address of the eFuse BISR tag word (unused)
+ * @param  TagSize       Number of repair-data words (unused)
+ * @param  TagOptional   Tag optional field (unused)
+ * @param  TagDataAddr   Address following the repair data (unused)
+ *
+ * @return XST_INVALID_PARAM always
+ */
+maybe_unused static inline XStatus XPmRepair_Cpm6(u32 EfuseTagAddr, u32 TagSize,
+			u32 TagOptional, u32 *TagDataAddr)
+{
+	(void)EfuseTagAddr;
+	(void)TagSize;
+	(void)TagOptional;
+	(void)TagDataAddr;
+
+	return XST_INVALID_PARAM;
+}
+
+/**
+ * @brief  Stub for CPM6 GTMPW BISR repair (GTMPW is not present on this platform).
+ *
+ * @param  EfuseTagAddr  Address of the eFuse BISR tag word (unused)
+ * @param  TagSize       Number of repair-data words (unused)
+ * @param  TagOptional   Tag optional field (unused)
+ * @param  TagDataAddr   Address following the repair data (unused)
+ *
+ * @return XST_INVALID_PARAM always
+ */
+maybe_unused static inline XStatus XPmRepair_Gtmpw(u32 EfuseTagAddr, u32 TagSize,
 			u32 TagOptional, u32 *TagDataAddr)
 {
 	(void)EfuseTagAddr;

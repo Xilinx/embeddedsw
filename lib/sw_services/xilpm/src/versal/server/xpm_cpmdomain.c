@@ -627,16 +627,34 @@ static XStatus Cpm6Bisr(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 			u32 NumOfArgs)
 {
 	XStatus Status = XST_FAILURE;
+	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
+	u32 RegVal;
+	u32 SecLockDownInfo = GetSecLockDownInfoFromArgs(Args, NumOfArgs);
 
-	/* Unused args */
-	(void)PwrDomain;
-	(void)Args;
-	(void)NumOfArgs;
+	if (IS_SECLOCKDOWN(SecLockDownInfo)) {
+		RegVal = XPm_In32(CRL_RST_OCM2_CTRL) &
+					(CRL_RST_OCM2_CTRL_POR_MASK | CRL_RST_OCM2_CTRL_SRST_MASK);
 
-	/*
-	 * TODO: Add calls to BISR repair sequence for CPM6 and GTMPW when available.
-	 * The sequence should follow the same format as Cpm5Bisr
-	 */
+		/* If reset is active skip BISR for secure lock down */
+		if (0U != RegVal) {
+			DbgErr = XPM_INT_ERR_CPM6_BISR_RST;
+			goto done;
+		}
+	}
+
+	if (PM_HOUSECLEAN_CHECK(CPM, BISR)) {
+		PmInfo("Triggering BISR for power node 0x%x\r\n", PwrDomain->Power.Node.Id);
+
+		/* Bisr on CPM6 PD */
+		Status = XPmBisr_Repair2(CPM6_TAG_ID);
+		if (XST_SUCCESS != Status) {
+			DbgErr = XPM_INT_ERR_CPM6_BISR_REPAIR;
+			goto done;
+		}
+	} else {
+		/* BISR is skipped */
+		PmInfo("Skipping BISR for power node 0x%x\r\n", PwrDomain->Power.Node.Id);
+	}
 
 	/* De-assert InitCtrl for Gtmpw if available */
 	for (u32 i = 0; i < ARRAY_SIZE(GtmpwAddresses); ++i) {
@@ -650,6 +668,18 @@ static XStatus Cpm6Bisr(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 		XPm_LockPcsr(GtmpwAddresses[i]);
 
 		if (XST_SUCCESS != Status) {
+			DbgErr = XPM_INT_ERR_BISR_REPAIR;
+			goto done;
+		}
+	}
+
+	if (PM_HOUSECLEAN_CHECK(CPM, BISR)) {
+		PmInfo("Triggering BISR for CPM6_GTMPW\r\n");
+
+		/* Bisr on GTMPW_CPM6 */
+		Status = XPmBisr_Repair2(CPM6_GTMPW_TAG_ID);
+		if (XST_SUCCESS != Status) {
+			DbgErr = XPM_INT_ERR_CPM6_GTMPW_BISR_REPAIR;
 			goto done;
 		}
 	}
@@ -657,6 +687,7 @@ static XStatus Cpm6Bisr(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 	Status = XST_SUCCESS;
 
 done:
+	XPm_PrintDbgErr(Status, DbgErr);
 	return Status;
 }
 #endif

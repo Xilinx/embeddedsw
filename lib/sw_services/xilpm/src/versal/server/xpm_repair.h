@@ -1,6 +1,6 @@
 /******************************************************************************
  * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
- * Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+ * Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
  * SPDX-License-Identifier: MIT
  *****************************************************************************/
 
@@ -86,14 +86,8 @@ XStatus XPmRepair_Vdu(u32 EfuseTagAddr, u32 TagSize, u32 TagOptional, u32 *TagDa
 XStatus XPmRepair_Bfrb(u32 EfuseTagAddr, u32 TagSize, u32 TagOptional, u32 *TagDataAddr);
 XStatus XPmRepair_Ddrmc5_Crypto(u32 EfuseTagAddr, u32 TagSize, u32 TagOptional, u32 *TagDataAddr);
 XStatus XPmRepair_Ddrmc5_Main(u32 EfuseTagAddr, u32 TagSize, u32 TagOptional, u32 *TagDataAddr);
-#if defined(XCVR1602) || defined(XCVR1652)
-XStatus XPmRepair_Cram_CacheType_SDFEC(u32 * EfuseRowTagPtr, u32 *EfuseNextAddr);
-
-// BISR Error Bit used in bit 29:0 in PMC_GLOBAL_PMC_GSW_ERR. set by XPmBisr_SwError()
-#define PMC_GSW_ERR_BISR_UNKN_TAG_ID      0x1U        // Tag ID requested to repair  is not in XPmTagIdWhiteList[]
-#define PMC_GSW_ERR_BISR_INVLD_TAG_SIZE   0x2U        //
-#define PMC_GSW_ERR_BISR_BAD_TAG_TYPE     0x3U        // tag     in XPmTagIdWhiteList[], but not support by current FW
-#define PMC_GSW_ERR_BISR_UNSUPPORTED_ID   0x4U        // eFuse has TagID not in XPmTagIdWhiteList[]
+XStatus XPmRepair_Cpm6(u32 EfuseTagAddr, u32 TagSize, u32 TagOptional, u32 *TagDataAddr);
+XStatus XPmRepair_Gtmpw(u32 EfuseTagAddr, u32 TagSize, u32 TagOptional, u32 *TagDataAddr);
 
 typedef enum {
 	PMC_EFUSE_BISR_STATUS_PASSED = 0,       // The BISR for TAGID has run and passed
@@ -107,6 +101,15 @@ typedef enum {
 	ERRSTS_REPAIR_BAD_TAG_SIZE    = 0x98,   // ERRSTS_PMC2ATE_REPAIR_BAD_TAG_SIZE, BISR_SIZE error. for HardBlock repair, the tag size is unexpected (must be 1)
 	ERRSTS_REPAIR_TAGID_OUTOFRANGE = 0x99,   // ERRSTS_PMC2ATE_REPAIR_TAGID_OUTOFRANGE. can't be written into st_BisrTagsTable.status
 } Bisr_Repair_Status;
+
+#if defined(XCVR1602) || defined(XCVR1652)
+XStatus XPmRepair_Cram_CacheType_SDFEC(u32 * EfuseRowTagPtr, u32 *EfuseNextAddr);
+
+// BISR Error Bit used in bit 29:0 in PMC_GLOBAL_PMC_GSW_ERR. set by XPmBisr_SwError()
+#define PMC_GSW_ERR_BISR_UNKN_TAG_ID      0x1U        // Tag ID requested to repair  is not in XPmTagIdWhiteList[]
+#define PMC_GSW_ERR_BISR_INVLD_TAG_SIZE   0x2U        // BISR data size for the tag is invalid (unexpected number of words)
+#define PMC_GSW_ERR_BISR_BAD_TAG_TYPE     0x3U        // tag     in XPmTagIdWhiteList[], but not support by current FW
+#define PMC_GSW_ERR_BISR_UNSUPPORTED_ID   0x4U        // eFuse has TagID not in XPmTagIdWhiteList[]
 #endif
 
 #ifdef XCVP1902

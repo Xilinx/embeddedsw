@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc.  All rights reserve.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc.  All rights reserve.
 * SPDX-License-Identifier: MIT
 *****************************************************************************/
 #include "xpm_repair.h"
@@ -43,6 +43,29 @@
 #define DDRMC5_NPI_CACHE_DATA_CRYPTO_REGISTER_OFFSET    (0x00000404U)
 #define DDRMC5_NPI_PCSR_BISR_CRYPTO_TRIGGER_MASK        (0x04000000U)
 #define DDRMC_NPI_PCSR_MASK_REGISTER_OFFSET             (0x00000000U)
+
+/* CPM6 SLCR BISR register definitions */
+#define CPM6_SLCR_WPROTS                                (CPM6_SLCR_BASEADDR + 0x00000000U)           /**< CPM6 SLCR SRST write-protect register */
+#define CPM6_SLCR_WPROTP                                (CPM6_SLCR_BASEADDR + 0x00000004U)           /**< CPM6 SLCR POR write-protect register */
+#define CPM6_SLCR_WPROTP_DEFVAL                         (0x00000001U)                                /**< Default (locked) value of CPM6_SLCR_WPROTP */
+#define CPM6_SLCR_WPROTS_DEFVAL                         (0x00000001U)                                /**< Default (locked) value of CPM6_SLCR_WPROTS */
+#define CPM6_SLCR_BISR_CACHE_STATUS                     (CPM6_SLCR_BASEADDR + 0x00000500U)           /**< CPM6 SLCR BISR cache status register */
+#define CPM6_SLCR_BISR_CACHE_STATUS_DONE_MASK           (0x00000001U)                                /**< BISR repair done bit in BISR_CACHE_STATUS */
+#define CPM6_SLCR_BISR_CACHE_STATUS_PASS_MASK           (0x00000002U)                                /**< BISR repair pass bit in BISR_CACHE_STATUS */
+#define CPM6_SLCR_BISR_CACHE_CTRL                       (CPM6_SLCR_BASEADDR + 0x00000504U)           /**< CPM6 SLCR BISR cache control register */
+#define CPM6_SLCR_BISR_CACHE_CTRL_CLR_MASK              (0x00000010U)                                /**< Clear BISR test data bit in BISR_CACHE_CTRL */
+#define CPM6_SLCR_BISR_CACHE_CTRL_TRIGGER_MASK          (0x00000001U)                                /**< Trigger BISR repair bit in BISR_CACHE_CTRL */
+#define CPM6_SLCR_BISR_CACHE_DATA_0                     (CPM6_SLCR_BASEADDR + 0x00000508U)           /**< First CPM6 SLCR BISR cache data register */
+
+/* CPM6 GTMPW NPI BISR register definitions. Offsets/masks are shared by all
+ * four gtmpw0..3 NPI instances; the base address is derived from the eFuse
+ * tag optional field (upper 16 bits of the module base address). */
+#define CPM6_GTMPW0_NPI_BASEADDR                           (0xFCD00000U)                             /**< CPM6 GTMPW0 NPI base address */
+#define CPM6_GTMPW0_NPI_BISR_CACHE_DATA_0                  (CPM6_GTMPW0_NPI_BASEADDR + 0x00000064U)  /**< First GTMPW NPI BISR cache data register */
+#define CPM6_GTMPW0_NPI_REG_PCSR_MASK_BISR_TRIGGER_MASK    (0x20000000U)                             /**< BISR trigger bit in GTMPW NPI PCSR mask register */
+#define CPM6_GTMPW0_NPI_REG_PCSR_CONTROL_BISR_TRIGGER_MASK (0x20000000U)                             /**< BISR trigger bit in GTMPW NPI PCSR control register */
+#define CPM6_GTMPW0_NPI_REG_PCSR_STATUS_BISR_DONE_MASK     (0x00080000U)                             /**< BISR done bit in GTMPW NPI PCSR status register */
+#define CPM6_GTMPW0_NPI_REG_PCSR_STATUS_BISR_PASS_MASK     (0x00100000U)                             /**< BISR pass bit in GTMPW NPI PCSR status register */
 
 #if defined(XCVR1602) || defined(XCVR1652)
 /* For BFR_FT, DFE, SDFEC repair, BISR Data Format
@@ -519,6 +542,124 @@ done:
 	/* Disable BISR clock */
 	XPm_RMW32(BaseAddr | DDRMC5_NPI_CLK_GATE_REGISTER_OFFSET, DDRMC5_NPI_CLK_GATE_CRYPTO_BISREN_MASK, ~DDRMC5_NPI_CLK_GATE_CRYPTO_BISREN_MASK);
 
+	return Status;
+}
+
+/****************************************************************************/
+/**
+ * @brief  Run the CPM6 SLCR BISR memory repair sequence.
+ *
+ * @param  EfuseTagAddr  Address of the eFuse BISR tag word
+ * @param  TagSize       Number of repair-data words following the tag
+ * @param  TagOptional   Tag optional field (unused for CPM6)
+ * @param  TagDataAddr   Returns the eFuse address following the repair data
+ *
+ * @return XST_SUCCESS if the repair completed and passed;
+ *         ERRSTS_REPAIR_BAD_TAG_SIZE, ERRSTS_REPAIR_TIMEOUT or
+ *         ERRSTS_REPAIR_FUNCTION_FAILED otherwise.
+ ****************************************************************************/
+XStatus XPmRepair_Cpm6(u32 EfuseTagAddr, u32 TagSize, u32 TagOptional, u32 *TagDataAddr)
+{
+	XStatus Status = XST_FAILURE;
+	u64 BisrDataDestAddr = (u64)CPM6_SLCR_BISR_CACHE_DATA_0;
+
+	/* Unused argument */
+	(void)TagOptional;
+
+	/* Sanity check added in case user enters invalid data size */
+	if (TagSize > 16U) {
+		Status = (XStatus)ERRSTS_REPAIR_BAD_TAG_SIZE;
+		goto done;
+	}
+
+	/* Disable write protection */
+	XPm_Out32(CPM6_SLCR_WPROTS, 0U);
+	XPm_Out32(CPM6_SLCR_WPROTP, 0U);
+
+	/* Copy repair data */
+	*TagDataAddr = XPmBisr_CopyStandard(EfuseTagAddr, TagSize, BisrDataDestAddr);
+
+	/* Clear BISR test data register */
+	XPm_RMW32(CPM6_SLCR_BISR_CACHE_CTRL, CPM6_SLCR_BISR_CACHE_CTRL_CLR_MASK, CPM6_SLCR_BISR_CACHE_CTRL_CLR_MASK);
+	XPm_RMW32(CPM6_SLCR_BISR_CACHE_CTRL, CPM6_SLCR_BISR_CACHE_CTRL_CLR_MASK, 0U);
+
+	/* Trigger BISR */
+	XPm_RMW32(CPM6_SLCR_BISR_CACHE_CTRL, CPM6_SLCR_BISR_CACHE_CTRL_TRIGGER_MASK, CPM6_SLCR_BISR_CACHE_CTRL_TRIGGER_MASK);
+
+	/* Wait for BISR to return DONE */
+	Status = XPm_PollForMask(CPM6_SLCR_BISR_CACHE_STATUS, CPM6_SLCR_BISR_CACHE_STATUS_DONE_MASK, XPM_POLL_TIMEOUT);
+	if (XST_SUCCESS != Status) {
+		Status = (XStatus)ERRSTS_REPAIR_TIMEOUT;
+		goto done;
+	}
+
+	/* Wait for BISR to return PASS */
+	Status = XPm_PollForMask(CPM6_SLCR_BISR_CACHE_STATUS, CPM6_SLCR_BISR_CACHE_STATUS_PASS_MASK, XPM_POLL_TIMEOUT);
+	if (XST_SUCCESS != Status) {
+		Status = (XStatus)ERRSTS_REPAIR_FUNCTION_FAILED;
+	}
+
+	XPm_Out32(CPM6_SLCR_WPROTP, CPM6_SLCR_WPROTP_DEFVAL);
+	XPm_Out32(CPM6_SLCR_WPROTS, CPM6_SLCR_WPROTS_DEFVAL);
+done:
+	return Status;
+}
+
+/****************************************************************************/
+/**
+ * @brief  Run the CPM6 GTMPW NPI BISR memory repair sequence.
+ *
+ * @param  EfuseTagAddr  Address of the eFuse BISR tag word
+ * @param  TagSize       Number of repair-data words following the tag
+ * @param  TagOptional   Upper 16 bits of the GTMPW NPI module base address
+ * @param  TagDataAddr   Returns the eFuse address following the repair data
+ *
+ * @return XST_SUCCESS if the repair completed and passed;
+ *         ERRSTS_REPAIR_BAD_TAG_SIZE, ERRSTS_REPAIR_TIMEOUT or
+ *         ERRSTS_REPAIR_FUNCTION_FAILED otherwise.
+ ****************************************************************************/
+XStatus XPmRepair_Gtmpw(u32 EfuseTagAddr, u32 TagSize, u32 TagOptional, u32 *TagDataAddr)
+{
+	XStatus Status = XST_FAILURE;
+	u32 BaseAddr = TagOptional << NPI_EFUSE_ENDPOINT_SHIFT;     /* Module Base Address */
+	u32 RegAddrOffset = (CPM6_GTMPW0_NPI_BISR_CACHE_DATA_0 - CPM6_GTMPW0_NPI_BASEADDR);
+	u64 BisrDataDestAddr = (u64)BaseAddr + (u64)RegAddrOffset;
+	u32 RegValue;
+
+	/* Sanity check added in case user enters invalid data size */
+	if (TagSize > 2U) {
+		Status = (XStatus)ERRSTS_REPAIR_BAD_TAG_SIZE;
+		goto done;
+	}
+
+	/* Unlock PCSR */
+	XPm_UnlockPcsr(BaseAddr);
+
+	/* Copy repair data */
+	*TagDataAddr = XPmBisr_CopyStandard(EfuseTagAddr, TagSize, BisrDataDestAddr);
+
+	/* Trigger BISR */
+	XPm_Out32(BaseAddr + NPI_PCSR_MASK_OFFSET, CPM6_GTMPW0_NPI_REG_PCSR_MASK_BISR_TRIGGER_MASK);
+	XPm_Out32(BaseAddr + NPI_PCSR_CONTROL_OFFSET, CPM6_GTMPW0_NPI_REG_PCSR_CONTROL_BISR_TRIGGER_MASK);
+
+	/* Wait for BISR to finish */
+	Status = XPm_PollForMask(BaseAddr + NPI_PCSR_STATUS_OFFSET, CPM6_GTMPW0_NPI_REG_PCSR_STATUS_BISR_DONE_MASK, XPM_POLL_TIMEOUT);
+	if (XST_SUCCESS != Status) {
+		Status = (XStatus)ERRSTS_REPAIR_TIMEOUT;
+		goto done;
+	}
+
+	/* Check for BISR PASS */
+	RegValue = XPm_In32(BaseAddr + NPI_PCSR_STATUS_OFFSET);
+	if ((RegValue & CPM6_GTMPW0_NPI_REG_PCSR_STATUS_BISR_PASS_MASK) == 0U) {
+		Status = (XStatus)ERRSTS_REPAIR_FUNCTION_FAILED;
+		goto done;
+	}
+
+	Status = XST_SUCCESS;
+done:
+	/* Lock PCSR */
+	XPm_LockPcsr(BaseAddr);
 	return Status;
 }
 

@@ -1,6 +1,6 @@
 /******************************************************************************
  * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
- * Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+ * Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
  * SPDX-License-Identifier: MIT
  *****************************************************************************/
 #include "xpm_bisr.h"
@@ -452,6 +452,12 @@ XStatus XPmBisr_Repair2(u32 TagId)
 			case DDRMC5_MAIN_TAG_ID:
 				Status = XPmRepair_Ddrmc5_Main(EfuseCurrAddr, EfuseBisrSize, EfuseBisrOptional, &EfuseNextAddr);
 				break;
+			case CPM6_TAG_ID:
+				Status = XPmRepair_Cpm6(EfuseCurrAddr, EfuseBisrSize, EfuseBisrOptional, &EfuseNextAddr);
+				break;
+			case CPM6_GTMPW_TAG_ID:
+				Status = XPmRepair_Gtmpw(EfuseCurrAddr, EfuseBisrSize, EfuseBisrOptional, &EfuseNextAddr);
+				break;
 #ifdef XCVP1902
 			case VP1902_LAGUNA_TAG_ID:
 				EfuseNextAddr = XPmRepair_Laguna_vp1902(EfuseCurrAddr, EfuseBisrSize);
@@ -503,6 +509,8 @@ XStatus XPmBisr_TagSupportCheck2(u32 TagId)
 	case HNICX_LCS_TAG_ID:
 	case HNICX_DPU_TAG_ID:
 	case DDRMC5_MAIN_TAG_ID:
+	case CPM6_TAG_ID:
+	case CPM6_GTMPW_TAG_ID:
 #ifdef XCVP1902
 	case VP1902_LAGUNA_TAG_ID:
 #endif
