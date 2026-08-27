@@ -123,6 +123,12 @@ int32_t mbox_interface_send_command(MBCmdId_E cmd, void *data, uint32_t size,
 	if (payload == NULL)
 		return VPI_ERR_INVALID;
 
+    if (payload->payload_size > MAX_ITEM) {
+		LOGE("Mbox payload_size %u exceeds MAX_ITEM %u, dropping\r\n",
+		     payload->payload_size, (uint32_t)MAX_ITEM);
+		return VPI_ERR_GENERIC;
+	}
+
 	payload->resp_field.error_subcode_t = RET_SUCCESS;
 
 	(void)size;
@@ -152,6 +158,12 @@ int32_t mbox_interface_send_response(MBCmdId_E res, void *data, uint32_t size,
 	if (payload == NULL)
 		return VPI_ERR_INVALID;
 
+    if (payload->payload_size > MAX_ITEM) {
+		LOGE("Mbox payload_size %u exceeds MAX_ITEM %u, dropping\r\n",
+		     payload->payload_size, (uint32_t)MAX_ITEM);
+		return VPI_ERR_GENERIC;
+	}
+
 	(void)size;
 	memset(&tmp_msg, 0, sizeof(tmp_msg));
 	tmp_msg.msg_id = res;
@@ -164,17 +176,30 @@ int32_t mbox_interface_send_response(MBCmdId_E res, void *data, uint32_t size,
 
 /**
  * @brief Sends a raw payload as a mailbox message without command framing.
+ * Validates payload_size against MAX_ITEM before copying to prevent buffer
+ * overflow on the RPU->APU response path where payload_size is caller-controlled.
  */
 int32_t mbox_interface_send_raw(uint32_t msg_id, void *data, uint32_t size,
 			       uint8_t dest_cpu, uint8_t src_cpu)
 {
 	MboxPostMsg tmp_msg;
+    uint32_t payload_size;
 
 	if (data == NULL)
 		return VPI_ERR_INVALID;
 
 	if (size > sizeof(Payload_packet))
 		return VPI_ERR_INVALID;
+
+    if (size > 0) {
+		payload_size = ((Payload_packet *)data)->payload_size;
+
+		if (payload_size > MAX_ITEM) {
+			LOGE("Mbox payload_size %u exceeds MAX_ITEM %u, dropping\r\n",
+			     payload_size, (uint32_t)MAX_ITEM);
+			return VPI_ERR_GENERIC;
+		}
+	}
 
 	memset(&tmp_msg, 0, sizeof(tmp_msg));
 	tmp_msg.msg_id = msg_id;
