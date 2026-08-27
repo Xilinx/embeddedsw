@@ -139,6 +139,12 @@ s32 XAsu_ClientInit(XMailbox *MailboxInstancePtr)
 		goto END;
 	}
 
+	/** Check ASUFW version compatibility with client library. */
+	Status = XAsu_CheckFwCompatibility();
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
 	/** Initialize performance measurement. */
 	XAsu_PerfInit();
 
@@ -419,6 +425,58 @@ s32 XAsu_GetModuleInfo(XAsu_CryptoAlgInfo *AlginfoPtr, u32 ModuleId)
 
 	Status = Xil_SecureMemCpy((void *)AlginfoPtr, (u32)sizeof(XAsu_CryptoAlgInfo),
 				   (const void *)AlgInfoDataPtr, (u32)sizeof(XAsu_CryptoAlgInfo));
+END:
+	return Status;
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	This function checks the backward compatibility between the ASUFW version
+ *		running on the server and the XilAsu client library version. It reads the
+ *		ASUFW version from the RTCA shared memory and compares it against
+ *		the client library version.
+ *
+ * @return
+ *	- XST_SUCCESS, if ASUFW version is compatible with the client.
+ *	- XASU_FW_VERSION_MISMATCH, if ASUFW version is not compatible.
+ *
+ *************************************************************************************************/
+s32 XAsu_CheckFwCompatibility(void)
+{
+	s32 Status = XASU_FW_VERSION_MISMATCH;
+	u32 FwVersionReg;
+	u32 FwMajor;
+#if (XASU_FW_VERSION_MINOR > 0U)
+	u32 FwMinor;
+#endif
+
+	/** Read ASUFW firmware version from RTCA shared memory. */
+	FwVersionReg = Xil_In32(XASU_RTCA_FW_VERSION_ADDR);
+
+	/** Extract major and minor version fields. */
+	FwMajor = (FwVersionReg & XASU_FW_VERSION_MAJOR_MASK) >> XASU_FW_VERSION_MAJOR_SHIFT;
+#if (XASU_FW_VERSION_MINOR > 0U)
+	FwMinor = (FwVersionReg & XASU_FW_VERSION_MINOR_MASK);
+#endif
+
+	/**
+	 * Backward compatibility check:
+	 * - Major version must match the client major version (different major = breaking change).
+	 * - Minor version of ASUFW must be >= client minor version (higher minor = new features
+	 *   added but backward compatible, lower minor = server missing features client expects).
+	 */
+	if (FwMajor != (u32)XASU_FW_VERSION_MAJOR) {
+		goto END;
+	}
+
+#if (XASU_FW_VERSION_MINOR > 0U)
+	if (FwMinor < (u32)XASU_FW_VERSION_MINOR) {
+		goto END;
+	}
+#endif
+
+	Status = XST_SUCCESS;
+
 END:
 	return Status;
 }

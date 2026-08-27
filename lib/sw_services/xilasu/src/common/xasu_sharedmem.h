@@ -115,17 +115,6 @@ extern "C" {
 						[7:0]: Minor version,
 						[31:16]: Reserved */
 
-/* ASUFW version register field definitions */
-#define XASU_FW_VERSION_MAJOR_SHIFT		(8U)  /**< Shift for major version */
-
-/* Default ASUFW version: Major = 2, Minor = 0 */
-#define XASU_FW_VERSION_MAJOR			(2U)  /**< ASUFW major version */
-#define XASU_FW_VERSION_MINOR			(0U)  /**< ASUFW minor version */
-#define XASU_FW_VERSION_VALUE			(((u32)XASU_FW_VERSION_MAJOR << \
-						XASU_FW_VERSION_MAJOR_SHIFT) | \
-						(u32)XASU_FW_VERSION_MINOR)
-						/**< Default FW version = 0x00000200 (v2.0) */
-
 #define XASU_RTCA_MODULE_INFO_EXT_BASEADDR	(XASU_RTCA_BASEADDR + 0x1A4U)
 						/**< Base address of the module info extension
 						region of size (180 bytes). It holds the entries

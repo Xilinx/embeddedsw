@@ -64,6 +64,7 @@ enum {
 	XASU_INVALID_SECURE_FLAG,	/**< 0x1E - Invalid secure flag */
 	XASU_KAT_EXEC_NOT_COMPLETED,	/**< 0x1F - KAT execution is not completed */
 	XASU_FREE_CTX_FAIL,		/**< 0x20 - Failed to free context */
+	XASU_FW_VERSION_MISMATCH,	/**< 0x21 - ASUFW version is not compatible with client */
 };
 
 /**

@@ -78,6 +78,19 @@ extern "C" {
 #define XASU_STATUS_FAIL		(0xE2U) /**<  Failed status. */
 #define XASU_STATUS_PASS		(0x1EU) /**<  Success status. */
 
+/* ASUFW version register field definitions */
+#define XASU_FW_VERSION_MAJOR_SHIFT		(8U)  /**< Shift for major version */
+#define XASU_FW_VERSION_MAJOR_MASK		(0x0000FF00U) /**< Mask for major version */
+#define XASU_FW_VERSION_MINOR_MASK		(0x000000FFU) /**< Mask for minor version */
+
+/* ASUFW version: Major = 2, Minor = 0 */
+#define XASU_FW_VERSION_MAJOR			(2U)  /**< ASUFW major version */
+#define XASU_FW_VERSION_MINOR			(0U)  /**< ASUFW minor version */
+#define XASU_FW_VERSION_VALUE			(((u32)XASU_FW_VERSION_MAJOR << \
+						XASU_FW_VERSION_MAJOR_SHIFT) | \
+						(u32)XASU_FW_VERSION_MINOR)
+						/**< FW version = 0x00000200 (v2.0) */
+
 /*************************** Macros (Inline Functions) Definitions *******************************/
 
 /************************************** Type Definitions *****************************************/
