@@ -216,7 +216,7 @@ set(_linker_command "-Wl,-Map=${APP_NAME}.map -Wl,--build-id=none -Wl,--gc-secti
 # With both features off nothing reaches the allocator and those frames are gone, so hand the
 # space back to the resident instruction RAM the two sections are carved from.
 if(NOT ASUFW_PQC_CONFIG_LINES)
-  string(APPEND _linker_command " -Wl,--defsym=_STACK_SIZE=0x1000 -Wl,--defsym=_HEAP_SIZE=0x0")
+  string(APPEND _linker_command " -Wl,--defsym=_STACK_SIZE=0x1400 -Wl,--defsym=_HEAP_SIZE=0x0")
 endif()
 set_target_properties(${APP_NAME}.elf PROPERTIES LINK_DEPENDS ${CMAKE_SOURCE_DIR}/lscript.ld)
 target_link_libraries(${APP_NAME}.elf ${_linker_command})
