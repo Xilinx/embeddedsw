@@ -161,11 +161,17 @@ static XPlmi_AccessPerm_t XPlmi_PmAccessPermBuff[PM_API_MAX] XPM_INIT_DATA(XPlmi
 	XPLMI_ALL_IPI_NO_ACCESS(PM_ISO_CONTROL),
 	XPLMI_ALL_IPI_FULL_ACCESS(PM_ACTIVATE_SUBSYSTEM),
 	XPLMI_ALL_IPI_NO_ACCESS(PM_SET_NODE_ACCESS),
+#ifdef XPLMI_EM_LINK_NODES_SUPPORT
 	/*
 	 * Real gate = notifier-registration check + per-aperture ACCESS_*
-	 * policy; IPI perm itself is open.
+	 * policy; IPI perm itself is open. Gated on XPLMI_EM_LINK_NODES_SUPPORT
+	 * together with the runtime handler so the command is fully absent -
+	 * no IPI access advertised - on platforms that compile the feature out.
+	 * The access table is a designated-initializer array ([ApiId] = ...),
+	 * so the omitted slot simply defaults to no-access.
 	 */
 	XPLMI_ALL_IPI_FULL_ACCESS(PM_GET_EVENT_STATUS),
+#endif /* XPLMI_EM_LINK_NODES_SUPPORT */
 	XPLMI_ALL_IPI_NO_ACCESS(PM_BISR),
 	XPLMI_ALL_IPI_NO_ACCESS(PM_APPLY_TRIM),
 	XPLMI_ALL_IPI_NO_ACCESS(PM_NOC_CLOCK_ENABLE),

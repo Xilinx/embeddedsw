@@ -96,10 +96,12 @@ XStatus XPm_FeatureCheck(u32 ApiId, u32 *Version)
 		*Version = XST_API_REG_NOTIFIER_VERSION;
 		Status = XST_SUCCESS;
 		break;
+#ifdef XPLMI_EM_LINK_NODES_SUPPORT
 	case PM_API(PM_GET_EVENT_STATUS):
 		*Version = XST_API_BASE_VERSION;
 		Status = XST_SUCCESS;
 		break;
+#endif /* XPLMI_EM_LINK_NODES_SUPPORT */
 	case PM_API(PM_SELF_SUSPEND):
 		*Version = XST_API_SELF_SUSPEND_VERSION;
 		Status = XST_SUCCESS;

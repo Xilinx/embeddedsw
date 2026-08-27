@@ -137,7 +137,9 @@ static XStatus XPm_DoGetClockDivider(XPlmi_Cmd* Cmd);
 static XStatus XPm_DoSetClockParent(XPlmi_Cmd* Cmd);
 static XStatus XPm_DoGetClockParent(XPlmi_Cmd* Cmd);
 static XStatus XPm_DoSetNodeAccess(XPlmi_Cmd * Cmd);
+#ifdef XPLMI_EM_LINK_NODES_SUPPORT
 static XStatus XPm_DoGetEventStatus(XPlmi_Cmd * Cmd);
+#endif /* XPLMI_EM_LINK_NODES_SUPPORT */
 static XStatus XPm_DoGetClockRate(XPlmi_Cmd * Cmd);
 #ifdef XILPM_NG_ENABLE_CLK_SCMI
 static XStatus XPm_DoProgramClockRate(XPlmi_Cmd* Cmd);
@@ -454,7 +456,9 @@ XStatus XPm_RuntimeInit(void)
 	XPlmi_PmCmds[PM_ACTIVATE_SUBSYSTEM].Handler = (XPlmi_CmdHandler)&XPm_DoActivateSubsystem;
 	XPlmi_PmCmds[PM_FEATURE_CHECK].Handler = (XPlmi_CmdHandler)&XPm_DoFeatureCheck;
 	XPlmi_PmCmds[PM_SET_NODE_ACCESS].Handler = (XPlmi_CmdHandler)&XPm_DoSetNodeAccess;
+#ifdef XPLMI_EM_LINK_NODES_SUPPORT
 	XPlmi_PmCmds[PM_GET_EVENT_STATUS].Handler = (XPlmi_CmdHandler)&XPm_DoGetEventStatus;
+#endif /* XPLMI_EM_LINK_NODES_SUPPORT */
 	XPlmi_PmCmds[PM_CLOCK_GETRATE].Handler = (XPlmi_CmdHandler)&XPm_DoGetClockRate;
 #ifdef XILPM_NG_ENABLE_CLK_SCMI
 	XPlmi_PmCmds[PM_CLOCK_PROGRAM_RATE].Handler = (XPlmi_CmdHandler)&XPm_DoProgramClockRate;
@@ -4055,11 +4059,18 @@ static XStatus XPm_DoSetNodeAccess(XPlmi_Cmd * Cmd)
 	return Status;
 }
 
+#ifdef XPLMI_EM_LINK_NODES_SUPPORT
 /*
  * GET_EVENT_STATUS staging: request/reply buffers live in DDR/PMC RAM and are
  * referenced by address in the IPI. We DMA them into local staging areas so
  * all packing/bounds checks operate on trusted PLM memory. Sized for versal_2ve_2vm
  * (~1.1 KB reply for 5 controllers); tune via build flags.
+ *
+ * The whole PM_GET_EVENT_STATUS handler is gated on XPLMI_EM_LINK_NODES_SUPPORT:
+ * it depends on the error->node linkage backend (XPlmi_GetLinkedNodes, via
+ * XPmAccess_GetEventStatus) that only the platforms defining this macro provide.
+ * Forks without it (e.g. imt versal_gen2_tr) compile the feature out entirely -
+ * the command is neither registered (below) nor advertised (xpm_feature_check.c).
  */
 #ifndef XPM_EVENT_STATUS_REQ_MAX_WORDS
 /** Request staging buffer capacity, in 32-bit words */
@@ -4294,6 +4305,7 @@ done:
 	Cmd->Response[3] = (u32)ClearStatus;
 	return Status;
 }
+#endif /* XPLMI_EM_LINK_NODES_SUPPORT */
 
 /****************************************************************************/
 /**

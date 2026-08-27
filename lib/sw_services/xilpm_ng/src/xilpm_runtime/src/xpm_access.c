@@ -479,6 +479,16 @@ done:
 	return Status;
 }
 
+#ifdef XPLMI_EM_LINK_NODES_SUPPORT
+/*
+ * The GET_EVENT_STATUS machinery below reads the error->node linkage table via
+ * XPlmi_GetLinkedNodes(), which is provided only by the platform xilplmi
+ * backend that also defines XPLMI_EM_LINK_NODES_SUPPORT (the same macro that
+ * gates the link_nodes store command). Platforms/forks without that backend
+ * (e.g. imt versal_gen2_tr) omit the macro, so the whole feature - request
+ * parsing, node union, aperture reads and deferred ISR clears - compiles out
+ * cleanly instead of leaving an unresolved reference at link time.
+ */
 /*
  * Reply-buffer builder used by GET_EVENT_STATUS. It packs 32-bit words into a
  * caller-provided reply and always tracks the number of words that *would* be
@@ -1201,6 +1211,7 @@ done:
 	PmEventClearCnt = 0U;
 	return Status;
 }
+#endif /* XPLMI_EM_LINK_NODES_SUPPORT */
 
 /**
  * @brief  Validate the clear_type field of a SET_NODE_ACCESS word2.
