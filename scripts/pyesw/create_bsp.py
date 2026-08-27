@@ -359,6 +359,13 @@ set( CMAKE_SUBMACHINE "VersalNet" CACHE STRING "cmake submachine" FORCE)
                 'set( CMAKE_SYSTEM_PROCESSOR "cortexa53-32")',
             )
 
+        if self.proc == "asu":
+            utils.replace_line(
+                toolchain_file_copy,
+                'CMAKE_SYSTEM_PROCESSOR "microblaze_riscv"',
+                'set( CMAKE_SYSTEM_PROCESSOR "asu")',
+            )
+
         if self.family == "Versal_2VE_2VM":
             utils.replace_line(
                 toolchain_file_copy,

@@ -1,4 +1,4 @@
-# Copyright (C) 2023 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 
 if(("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "cortexr5") OR
@@ -10,7 +10,8 @@ if("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "cortexa9")
 collect (PROJECT_LIB_SOURCES globaltimer_sleep_zynq.c)
 endif()
 
-if("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "microblaze_riscv")
+if(("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "microblaze_riscv") OR
+    ("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "asu"))
 collect (PROJECT_LIB_SOURCES microblaze_riscv_sleep.c)
 endif()
 

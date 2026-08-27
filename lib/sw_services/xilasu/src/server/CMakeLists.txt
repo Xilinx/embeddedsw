@@ -1,4 +1,4 @@
-# Copyright (C) 2024 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (C) 2024 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 
 collect (PROJECT_LIB_HEADERS Ecdsa.h)
@@ -16,7 +16,7 @@ if(XILASU_mlkem_support)
   collect (PROJECT_LIB_HEADERS oqs_mlkem_internal.h)
 endif()
 
-if("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "microblaze_riscv")
+if(XILASU_IS_ASU)
   # A single liboqs drop serves both ML-DSA and ML-KEM, so it is required as soon as either
   # one is enabled and must not be demanded when both are off.
   set(asu_required_archives libxilasu.a)
@@ -34,6 +34,7 @@ if("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "microblaze_riscv")
     endif()
   endforeach()
 
+  # libxilasu_mbv.a: historical ASUFW link name for the ASU server library
   execute_process(COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_CURRENT_SOURCE_DIR}/libxilasu.a ${CMAKE_LIBRARY_PATH}/libxilasu_mbv.a)
   if(XILASU_mldsa_support OR XILASU_mlkem_support)
     execute_process(COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_CURRENT_SOURCE_DIR}/liboqs.a ${CMAKE_LIBRARY_PATH}/liboqs_mbv.a)

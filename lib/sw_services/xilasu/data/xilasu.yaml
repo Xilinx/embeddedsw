@@ -10,7 +10,7 @@ type: library
 description: Xilinx Application Security Unit Library
 supported_processors:
   - condition: |
-      supported_processors = ["cortexa78", "cortexr52", "asu", "microblaze"]
+      supported_processors = ["cortexa78", "cortexr52", "asu", "microblaze", "microblaze_riscv"]
       if platform in ("microblaze", "microblaze_riscv"):
         supported_processors = []
 supported_os: [standalone]
@@ -45,7 +45,7 @@ examples:
   condition : |
     examples = []
     if platform == "Versal_2VE_2VM":
-      if proc in ["cortexa78", "cortexr52", "microblaze"]:
+      if proc in ["cortexa78", "cortexr52", "microblaze", "microblaze_riscv"]:
         examples += ["xasu_aes_example.c", "xasu_ecc_example.c", "xasu_rsa_example.c",
                   "xasu_sha2_example.c", "xasu_sha3_example.c",
                 "xasu_ecdh_example.c", "xasu_hmac_example.c",

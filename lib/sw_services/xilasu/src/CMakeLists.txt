@@ -38,7 +38,7 @@ if((XILASU_cavp_support) AND NOT ((XILASU_hmac_support)))
   set(XASU_HMAC_ENABLE " ")
 endif()
 
-if("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "microblaze_riscv")
+if(XILASU_IS_ASU)
   if((XILASU_keywrap_support) AND NOT ((XILASU_rsa_padding_support)))
     set(XILASU_rsa_padding_support TRUE CACHE BOOL "Padding is enabled as keywrap depends on RSA padding" FORCE)
     set(XASU_RSA_PADDING_ENABLE " ")

@@ -1,4 +1,4 @@
-# Copyright (c) 2023 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+# Copyright (c) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 # SPDX-License-Identifier: MIT
 cmake_minimum_required(VERSION 3.15)
 
@@ -90,6 +90,7 @@ if (${XILFFS_fs_interface})
 
 	if((NOT "${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "microblaze") AND
            (NOT "${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "microblaze_riscv") AND
+	   (NOT "${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "asu") AND
            (NOT "${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "microblazeel") AND
 	   (NOT "${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "plm_microblaze") AND
 	   (NOT "${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "pmu_microblaze") AND

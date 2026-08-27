@@ -122,7 +122,8 @@ function (linker_gen path)
 	endif()
 	if (NOT DEFINED STACK_SIZE)
 		if(("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "microblaze") OR
-			("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "microblaze_riscv"))
+			("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "microblaze_riscv") OR
+			("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "asu"))
 	        set(STACK_SIZE 0x400)
 	    else()
 	        set(STACK_SIZE 0x2000)
@@ -130,7 +131,8 @@ function (linker_gen path)
 	endif()
 	if (NOT DEFINED HEAP_SIZE)
 		if(("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "microblaze") OR
-			("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "microblaze_riscv"))
+			("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "microblaze_riscv") OR
+			("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "asu"))
 	        set(HEAP_SIZE 0x800)
 	    else()
 	        set(HEAP_SIZE 0x2000)
@@ -163,7 +165,8 @@ function (linker_gen path)
             list(APPEND LINKER_FILE lscript_mb.ld.in)
         endif()
 
-        if(("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "microblaze_riscv"))
+        if(("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "microblaze_riscv") OR
+          ("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "asu"))
             configure_file(${path}/lscript_mb_riscv.ld.in ${CMAKE_SOURCE_DIR}/lscript.ld)
             list(APPEND LINKER_FILE_PATH ${path}/lscript_mb_riscv.ld.in)
             list(APPEND LINKER_FILE lscript_mb_riscv.ld.in)

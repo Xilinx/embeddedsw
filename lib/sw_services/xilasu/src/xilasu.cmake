@@ -1,10 +1,20 @@
 # Copyright (C) 2024 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 
-if("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "microblaze_riscv")
+set(XILASU_IS_ASU FALSE)
+if("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "asu")
+  set(XILASU_IS_ASU TRUE)
+endif()
+
+if(XILASU_IS_ASU)
   set(XILASU_Mode "server")
 else()
   set(XILASU_Mode "client")
+endif()
+
+if(DEFINED TEMPLATE AND "${TEMPLATE}" STREQUAL "asufw" AND NOT XILASU_IS_ASU)
+  message(FATAL_ERROR
+    "ASUFW build requires CMAKE_SYSTEM_PROCESSOR=asu in the domain toolchain.")
 endif()
 
 option(XILASU_cavp_support "Enables/Disables CAVP related APIs in ASUFW." OFF)
@@ -39,7 +49,8 @@ if(XILASU_rsa_keygen_4096_support )
     set(XASU_RSA_4096_KEYGEN_ENABLE " ")
 endif()
 
-if("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "microblaze_riscv")
+# Server configuration options are applicable only for ASU processor
+if(XILASU_IS_ASU)
     option(XILASU_aes_cm_mode_support "Enables/Disables counter measure mode for AES." ON)
     if(XILASU_aes_cm_mode_support)
         set(XASU_AES_CM_ENABLE " ")

@@ -82,7 +82,8 @@ if("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "cortexa9")
 	collect (PROJECT_LIB_SOURCES ${CMAKE_CURRENT_SOURCE_DIR}/../xcortexa9_g.c)
 endif()
 
-if("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "microblaze_riscv")
+if(("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "microblaze_riscv") OR
+    ("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "asu"))
 	collect (PROJECT_LIB_SOURCES ${CMAKE_CURRENT_SOURCE_DIR}/../xmicroblaze_riscv_g.c)
 endif()
 

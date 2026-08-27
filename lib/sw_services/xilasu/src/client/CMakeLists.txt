@@ -2,7 +2,14 @@
 # SPDX-License-Identifier: MIT
 
 if (NOT ("xilmailbox" IN_LIST BSP_LIBSRC_SUBDIRS))
-  message(WARNING "XilAsu library requires XilMailbox library in client mode.")
+  if (NOT ${YOCTO})
+    message(FATAL_ERROR
+      "XilAsu client mode requires XilMailbox in the BSP. "
+      "For an ASU domain, ensure the domain toolchain sets "
+      "CMAKE_SYSTEM_PROCESSOR=asu.")
+  else()
+    message(WARNING "XilAsu library requires XilMailbox library in client mode.")
+  endif()
 endif()
 
 collect (PROJECT_LIB_SOURCES xasu_aes.c)

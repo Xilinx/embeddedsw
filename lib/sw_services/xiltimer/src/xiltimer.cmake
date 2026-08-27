@@ -1,4 +1,4 @@
-# Copyright (C) 2023 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 cmake_minimum_required(VERSION 3.15)
 
@@ -13,7 +13,8 @@ list(LENGTH SCUTIMER_NUM_DRIVER_INSTANCES CONFIG_SCUTIMER)
 list(LENGTH TOTAL_TIMER_INSTANCES _len)
 
 if (NOT "${TOTAL_TIMER_INSTANCES}" STREQUAL "")
-    if(("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "microblaze_riscv"))
+    if(("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "microblaze_riscv") OR
+       ("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "asu"))
 	set(XILTIMER_sleep_timer "Default" CACHE STRING "This parameter is used to select specific timer for sleep functionality")
 	SET_PROPERTY(CACHE XILTIMER_sleep_timer PROPERTY STRINGS "Default")
     else()
@@ -169,7 +170,8 @@ if (("${XILTIMER_sleep_timer}" STREQUAL "Default") OR
 	set(XTIMER_DEFAULT_TIMER_IS_MB " ")
     endif()
 
-    if(("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "microblaze_riscv"))
+    if(("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "microblaze_riscv") OR
+       ("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "asu"))
 	set(XSLEEPTIMER_FREQ XPAR_CPU_CORE_CLOCK_FREQ_HZ)
 	set(XTIMER_DEFAULT_TIMER_IS_MB_RISCV " ")
     endif()
