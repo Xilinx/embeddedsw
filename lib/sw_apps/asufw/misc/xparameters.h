@@ -519,6 +519,16 @@
 //#define XASU_PERF_MEASUREMENT_ENABLE /**< Macro to enable/disable performance measurement */
 #define XASU_KEYMANAGER_ENABLE /**< Macro to enable/disable support of KeyManager */
 #define XASU_PROVISION_ENABLE /**< Macro to enable/disable support of Provisioning */
+/*
+ * These two cost instruction RAM beyond the code they add. Either one on its own switches the link
+ * to the stack and heap the liboqs paths need, raising _STACK_SIZE from 0x1400 to 0x7000, so most
+ * of the cost lands as soon as one is enabled. With the module set above left as it is, enabling
+ * overflows tmr_ram_instr_cntlr_Mem; other modules as required have to be switched off to make
+ * room. Read the stack, heap and instruction RAM budget comment at the top of src/lscript.ld before
+ * enabling either.
+ */
+//#define XASU_MLDSA_ENABLE /**< Macro to enable/disable support of ML-DSA */
+//#define XASU_MLKEM_ENABLE /**< Macro to enable/disable support of ML-KEM */
 
 /* Provisioning depends on the KeyManager (AKV vault) module; force it on if needed. */
 #if defined(XASU_PROVISION_ENABLE) && !defined(XASU_KEYMANAGER_ENABLE)
