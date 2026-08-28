@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 *
 * SPDX-License-Identifier: MIT
 *
@@ -30,9 +31,10 @@ __attribute__((weak)) s32 _sys_read(__attribute__((unused)) u32 fh,
 		}
 	}
 
-	return numbytes;
+	/* Return the number of characters NOT read */
+	return (s32)(len - (u32)numbytes);
 #endif
-	/* Return the number of character read */
-	return 0;
+	/* No STDIN configured: nothing was read */
+	return (s32)len;
 }
 #endif

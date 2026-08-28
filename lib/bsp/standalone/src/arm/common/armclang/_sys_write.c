@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 *
 * SPDX-License-Identifier: MIT
 *
@@ -34,7 +35,8 @@ __attribute__((weak)) s32 _sys_write(__attribute__((unused)) u32 fh,
 		}
 	}
 
-	return len;
+	/* All bytes written; return the number NOT written */
+	return 0;
 #endif
 #endif
 	return 0;
