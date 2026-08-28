@@ -68,6 +68,7 @@ s32 XAsu_KmExportKeyVault(XAsu_ClientParams *ClientParamPtr,
 s32 XAsu_KmImportKeyVault(XAsu_ClientParams *ClientParamPtr,
 			  XAsu_KeyVaultTransferParams *ImportParams);
 s32 XAsu_KmSetEpochTime(XAsu_ClientParams *ClientParamPtr, u32 CurrentEpochTime);
+s32 XAsu_KmXorKeys(XAsu_ClientParams *ClientParamPtr, XAsu_KmXorKeyParams *XorParamsPtr);
 
 /************************************ Variable Definitions ***************************************/
 #ifdef __cplusplus

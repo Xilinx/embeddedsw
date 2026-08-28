@@ -152,6 +152,44 @@ END:
 
 /*************************************************************************************************/
 /**
+ * @brief	This function validates that an AES key does not combine the key split use case
+ *		with any other use case. The key type is taken as a parameter rather than read from
+ *		the key metadata, because the Generate Key APIs derive it themselves and leave the
+ *		key type field unset. For any other key type the function returns success, since the
+ *		key split use case bit is reserved there.
+ *
+ * @param	KeyType		Key type identifier. May include the wrapped-key bit
+ *				(XASU_KM_KEYTYPE_WRAPPED_BIT_MASK), which is masked out before
+ *				comparing against the sub-vault identifier.
+ * @param	KeyUseCase	Key use case value from the key metadata.
+ *
+ * @return
+ *	- XST_SUCCESS, if the key use case is valid for the given key type.
+ *	- XST_FAILURE, if the key use case is invalid.
+ *
+ *************************************************************************************************/
+s32 XAsu_KmValidateAesKeySplitUseCase(u8 KeyType, u8 KeyUseCase)
+{
+	s32 Status = XST_FAILURE;
+
+	/**
+	 * For an AES key the key split use case is exclusive. A key which also carries another AES
+	 * use case is usable as a key in its own right, which defeats the purpose of splitting it.
+	 */
+	if (((u8)(KeyType & ~XASU_KM_KEYTYPE_WRAPPED_BIT_MASK) == (u8)XASU_AES_SUBVAULT_ID) &&
+	    ((KeyUseCase & XASU_KEYMANAGER_AES_KEY_SPLIT_USE_CASE) != 0U) &&
+	    (KeyUseCase != XASU_KEYMANAGER_AES_KEY_SPLIT_USE_CASE)) {
+		goto END;
+	}
+
+	Status = XST_SUCCESS;
+
+END:
+	return Status;
+}
+
+/*************************************************************************************************/
+/**
  * @brief	This function validates key length parameters for a given key.
  *
  * @param	KeyLength	Length of the key material in bytes.
@@ -487,6 +525,104 @@ s32 XAsu_KmValidateVaultCreateParams(const XAsu_KeyManagerSubVaultParams *Params
 	}
 
 	Status = XST_SUCCESS;
+END:
+	return Status;
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	This function validates the input parameters for combining two AES key splits using
+ *		XOR. The key type of the input key splits and the length of the combined key are
+ *		validated by the server against the stored key splits.
+ *
+ * @param	ParamsPtr	Pointer to the XAsu_KmXorKeyParams structure.
+ *
+ * @return
+ *	- XST_SUCCESS, if the input parameters are valid.
+ *	- XST_FAILURE, if any input parameter is invalid.
+ *
+ *************************************************************************************************/
+s32 XAsu_KmValidateXorKeyParams(const XAsu_KmXorKeyParams *ParamsPtr)
+{
+	s32 Status = XST_FAILURE;
+
+	/** Validate input parameters. */
+	if (ParamsPtr == NULL) {
+		goto END;
+	}
+
+	/** Validate that both input key IDs are provided. */
+	if ((ParamsPtr->SplitKeyId1 == 0U) || (ParamsPtr->SplitKeyId2 == 0U)) {
+		goto END;
+	}
+
+	/**
+	 * The address for the output key ID is required when the destination slot is auto-assigned,
+	 * and shall not be supplied when the caller selects the slot, since the composite key ID is
+	 * then already known to the caller.
+	 */
+	if (XASU_KM_GET_KEY_INDEX(ParamsPtr->OutKeyMetadata.CompositeKeyId) == 0U) {
+		if (ParamsPtr->OutKeyIdAddr == 0U) {
+			goto END;
+		}
+	} else {
+		if (ParamsPtr->OutKeyIdAddr != 0U) {
+			goto END;
+		}
+	}
+
+	/**
+	 * Reject identical input key IDs. A key XORed with itself yields an all zero key, so
+	 * allowing this would let the caller install a known key of its choosing.
+	 */
+	if (ParamsPtr->SplitKeyId1 == ParamsPtr->SplitKeyId2) {
+		goto END;
+	}
+
+	/** The combined key must not overwrite either input key split. */
+	if ((ParamsPtr->OutKeyMetadata.CompositeKeyId == ParamsPtr->SplitKeyId1) ||
+	    (ParamsPtr->OutKeyMetadata.CompositeKeyId == ParamsPtr->SplitKeyId2)) {
+		goto END;
+	}
+
+	/**
+	 * Key splitting is defined for AES keys only. The key slot may be zero, which requests an
+	 * auto-assigned slot.
+	 */
+	if (XASU_KM_GET_KEY_TYPE(ParamsPtr->OutKeyMetadata.CompositeKeyId) !=
+			(u8)XASU_AES_SUBVAULT_ID) {
+		goto END;
+	}
+
+	/**
+	 * Validate the metadata of the combined key. This rejects a zero key use case, which is
+	 * required here because the use case of the input key splits cannot be inherited.
+	 */
+	Status = XAsu_KmValidateKeyMetadata(&ParamsPtr->OutKeyMetadata);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	/** Validate the key attributes of the combined key against its key type. */
+	Status = XAsu_KmValidateKeyAttributes(
+			XASU_KM_GET_KEY_TYPE(ParamsPtr->OutKeyMetadata.CompositeKeyId),
+			ParamsPtr->OutKeyMetadata.KeyAttributes);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	/** Validate the key use case of the combined key against its key type. */
+	Status = XAsu_KmValidateAesKeySplitUseCase(
+			XASU_KM_GET_KEY_TYPE(ParamsPtr->OutKeyMetadata.CompositeKeyId),
+			ParamsPtr->OutKeyMetadata.KeyUseCase);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	/** Validate the length of the combined key. */
+	Status = XAsu_KmValidateKeyLength((u32)ParamsPtr->OutKeyMetadata.Length,
+					  XASU_KM_AES_KEYTYPE);
+
 END:
 	return Status;
 }

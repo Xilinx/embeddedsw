@@ -874,6 +874,13 @@ s32 XKeyManager_GenerateKeyIv(XAsufw_Dma *DmaPtr,
 		goto END;
 	}
 
+	/** Validate key use case against the key type. */
+	if (XAsu_KmValidateAesKeySplitUseCase((u8)KeyType,
+			ParamsPtr->KeyMetadata.KeyUseCase) != XST_SUCCESS) {
+		Status = XASUFW_KEYMANAGER_INVALID_PARAM;
+		goto END;
+	}
+
 	/** Validate key length based on key type. */
 	Status = XAsu_KmValidateKeyLength(ParamsPtr->KeyMetadata.Length, (u8)KeyType);
 	if (Status != XASUFW_SUCCESS) {
@@ -2536,6 +2543,13 @@ s32 XKeyManager_StoreKeyInVault(XAsufw_Dma *DmaPtr, XAes *AesInstancePtr, const 
 	/** Validate key attributes against the key type. */
 	if (XAsu_KmValidateKeyAttributes(ReqKeyType,
 			KeyParams->KeyMetadata.KeyAttributes) != XST_SUCCESS) {
+		Status = XASUFW_KEYMANAGER_INVALID_PARAM;
+		goto END;
+	}
+
+	/** Validate key use case against the key type. */
+	if (XAsu_KmValidateAesKeySplitUseCase(ReqKeyType,
+			KeyParams->KeyMetadata.KeyUseCase) != XST_SUCCESS) {
 		Status = XASUFW_KEYMANAGER_INVALID_PARAM;
 		goto END;
 	}
@@ -4822,6 +4836,183 @@ s32 XKeyManager_SetEpochTime(u32 NewEpochTime)
 	Status = XASUFW_SUCCESS;
 
 END:
+	return Status;
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	This function generates a key by combining two AES key splits using a bitwise XOR
+ *		and stores the combined key in the key vault slot given by the output key metadata,
+ *		or in the first free slot when none is requested. The key splits are read in place
+ *		from the key vault and the combined key is formed in an internal buffer, so the
+ *		combined key is never exposed outside the ASU other than through the destination
+ *		key vault slot. Each input key must carry the key split use case and no other use
+ *		case, which prevents it from being used as a key in its own right. The composite
+ *		key ID of the stored key is written to KeyIdPtr.
+ *
+ * @param	DmaPtr		Pointer to the XAsufw_Dma instance.
+ * @param	SubSystemId	Subsystem ID requesting the operation.
+ * @param	ParamsPtr	Pointer to the XAsu_KmXorKeyParams structure containing the input
+ *				key IDs and the metadata of the combined key.
+ * @param	KeyIdPtr	Pointer to the output composite key ID of the combined key.
+ *
+ * @return
+ * 	- XASUFW_SUCCESS, if the combined key is stored successfully.
+ * 	- XASUFW_KEYMANAGER_INVALID_PARAM, if any input parameter is invalid, or the requested key
+ * 		slot exceeds the sub-vault capacity.
+ * 	- XASUFW_KEYMANAGER_INVALID_VAULT_ACCESS, if the subsystem does not own the output vault.
+ * 	- XASUFW_KEYMANAGER_KEY_SLOT_IN_USE, if the requested key slot is already occupied.
+ * 	- XASUFW_KEYMANAGER_MAX_CAPACITY_REACHED, if the AES sub-vault has no free slot.
+ * 	- XASUFW_KEYMANAGER_GET_KEYOBJ_PTR_FAILED, if an input key split is unavailable, is not
+ * 		accessible to the subsystem, or is expired.
+ * 	- XASUFW_KEYMANAGER_KEY_USE_CASE_ERROR, if an input key carries any use case other than
+ * 		the key split use case.
+ * 	- XASUFW_KEYMANAGER_KEY_LENGTH_MISMATCH, if the input key split lengths differ from each
+ * 		other or from the length declared in the output key metadata.
+ * 	- XASUFW_LOOP_INDEX_CMP_ERROR, if the XOR combine loop does not complete.
+ * 	- XASUFW_KEYMANAGER_UPDATE_KEY_VAULT_FAIL, if the key slot cannot be resolved, packed
+ * 		with the specific slot resolution error.
+ * 	- Error codes returned by XKeyManager_UpdateKeyVault, if storing the combined key fails.
+ *
+ *************************************************************************************************/
+s32 XKeyManager_CombineKeysXor(XAsufw_Dma *DmaPtr, u32 SubSystemId,
+	const XAsu_KmXorKeyParams *ParamsPtr, u32 *KeyIdPtr)
+{
+	/**
+	 * Capture the start time of the XOR key combine operation, if performance
+	 * measurement is enabled.
+	 */
+	XASUFW_MEASURE_PERF_START(XASU_MODULE_KEYMANAGER_ID);
+
+	CREATE_VOLATILE(Status, XASUFW_FAILURE);
+	XFih_Var XFihKeyManager = XFih_VolatileAssignXfihVar(XFIH_FAILURE);
+	s32 ClearStatus = XASUFW_FAILURE;
+	const XKeyManager_AesKeyObject *SplitKeyAPtr = NULL;
+	const XKeyManager_AesKeyObject *SplitKeyBPtr = NULL;
+	u8 CombinedKey[XASU_AES_KEY_SIZE_256BIT_IN_BYTES] = {0U};
+	XAsu_KeyManagerParams UpdateParams = {0U};
+	u16 ResolvedSlot = 0U;
+	u8 OutVaultId;
+	u32 KeyLength = 0U;
+	volatile u32 Index = 0U;
+
+	/** Validate input parameters. */
+	if ((DmaPtr == NULL) || (ParamsPtr == NULL) || (KeyIdPtr == NULL)) {
+		Status = XASUFW_KEYMANAGER_INVALID_PARAM;
+		goto END;
+	}
+
+	Status = XAsu_KmValidateXorKeyParams(ParamsPtr);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_KEYMANAGER_INVALID_PARAM;
+		goto END;
+	}
+
+	OutVaultId = XASU_KM_GET_VAULT_ID(ParamsPtr->OutKeyMetadata.CompositeKeyId);
+
+	/**
+	 * Both input key splits must be AES keys. The key type of the output key is validated in
+	 * XAsu_KmValidateXorKeyParams.
+	 */
+	if ((XASU_KM_GET_KEY_TYPE(ParamsPtr->SplitKeyId1) != (u8)XASU_AES_SUBVAULT_ID) ||
+	    (XASU_KM_GET_KEY_TYPE(ParamsPtr->SplitKeyId2) != (u8)XASU_AES_SUBVAULT_ID)) {
+		Status = XASUFW_KEYMANAGER_INVALID_PARAM;
+		goto END;
+	}
+
+	/** Validate the vault exists and belongs to the subsystem. */
+	if ((VaultManager.VaultInfo[OutVaultId].VaultSize == 0U) ||
+	    (VaultManager.VaultInfo[OutVaultId].SubSystemId != SubSystemId)) {
+		Status = XASUFW_KEYMANAGER_INVALID_VAULT_ACCESS;
+		goto END;
+	}
+
+	/**
+	 * Resolve the destination slot before either key split is consumed, so a slot conflict
+	 * does not deplete their usage counts. An occupied slot is rejected here, which also
+	 * covers a request naming the slot of one of the input key splits.
+	 */
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	Status = XKeyManager_GetKeySlot(OutVaultId, XASU_AES_SUBVAULT_ID,
+			XASU_KM_GET_KEY_INDEX(ParamsPtr->OutKeyMetadata.CompositeKeyId),
+			&ResolvedSlot);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_KEYMANAGER_UPDATE_KEY_VAULT_FAIL);
+		goto END;
+	}
+
+	/**
+	 * Get key object pointer of the first input key split. This validates the vault access
+	 * rights, the key split use case and the key expiry, and decrements the usage count.
+	 */
+	SplitKeyAPtr = (const XKeyManager_AesKeyObject *)XKeyManager_GetKeyObjectPtr(
+				ParamsPtr->SplitKeyId1, SubSystemId,
+				XASU_KEYMANAGER_AES_KEY_SPLIT_USE_CASE, TRUE);
+	if (SplitKeyAPtr == NULL) {
+		Status = XASUFW_KEYMANAGER_GET_KEYOBJ_PTR_FAILED;
+		goto END;
+	}
+
+	/** Get key object pointer of the second input key split. */
+	SplitKeyBPtr = (const XKeyManager_AesKeyObject *)XKeyManager_GetKeyObjectPtr(
+				ParamsPtr->SplitKeyId2, SubSystemId,
+				XASU_KEYMANAGER_AES_KEY_SPLIT_USE_CASE, TRUE);
+	if (SplitKeyBPtr == NULL) {
+		Status = XASUFW_KEYMANAGER_GET_KEYOBJ_PTR_FAILED;
+		goto END;
+	}
+
+	/**
+	 * Require the key split use case to be the only use case set. Creation of a key with a
+	 * mixed use case is rejected by XAsu_KmValidateKeyMetadata, so this guards against a key
+	 * vault imported from an image which predates that check.
+	 */
+	if ((SplitKeyAPtr->Metadata.KeyUseCase != XASU_KEYMANAGER_AES_KEY_SPLIT_USE_CASE) ||
+	    (SplitKeyBPtr->Metadata.KeyUseCase != XASU_KEYMANAGER_AES_KEY_SPLIT_USE_CASE)) {
+		Status = XASUFW_KEYMANAGER_KEY_USE_CASE_ERROR;
+		goto END;
+	}
+
+	/**
+	 * A bitwise XOR preserves the operand length, so both input key splits and the declared
+	 * length of the combined key must agree.
+	 */
+	KeyLength = (u32)SplitKeyAPtr->Metadata.Length;
+	if ((KeyLength != (u32)SplitKeyBPtr->Metadata.Length) ||
+	    (KeyLength != (u32)ParamsPtr->OutKeyMetadata.Length) ||
+	    (KeyLength > XASU_AES_KEY_SIZE_256BIT_IN_BYTES)) {
+		Status = XASUFW_KEYMANAGER_KEY_LENGTH_MISMATCH;
+		goto END;
+	}
+
+	/** Combine the two key splits using a bitwise XOR. */
+	for (Index = 0U; Index < KeyLength; Index++) {
+		CombinedKey[Index] = SplitKeyAPtr->Content[Index] ^ SplitKeyBPtr->Content[Index];
+	}
+
+	if (Index != KeyLength) {
+		Status = XASUFW_LOOP_INDEX_CMP_ERROR;
+		goto END;
+	}
+
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	/** Store the combined key at the resolved key vault slot. */
+	UpdateParams.KeyMetadata = ParamsPtr->OutKeyMetadata;
+	Status = XKeyManager_UpdateKeyVault(DmaPtr, XASU_AES_SUBVAULT_ID, &UpdateParams,
+		CombinedKey, ResolvedSlot, KeyIdPtr);
+
+	/**
+	 * Measure and print the performance time for the XOR key combine operation, if
+	 * performance measurement is enabled.
+	 */
+	XASUFW_MEASURE_PERF_STOP(XASU_MODULE_KEYMANAGER_ID);
+
+END:
+	/** Securely zeroize the combined key buffer. */
+	XFIH_CALL(Xil_SecureZeroize, XFihKeyManager, ClearStatus, CombinedKey,
+			XASU_AES_KEY_SIZE_256BIT_IN_BYTES);
+	Status = XAsufw_UpdateBufStatus(Status, ClearStatus);
+
 	return Status;
 }
 #endif  /* XASU_KEYMANAGER_ENABLE */

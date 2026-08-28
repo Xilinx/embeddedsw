@@ -258,6 +258,8 @@ s32 XKeyManager_ImportKeyVault(XAsufw_Dma *DmaPtr, XAes *AesInstancePtr, u64 Imp
 			       u32 ImportSize);
 s32 XKeyManager_SetEpochTime(u32 NewEpochTime);
 u8 XKeyManager_GetEccPubKeyUseCase(u32 KeyUsage);
+s32 XKeyManager_CombineKeysXor(XAsufw_Dma *DmaPtr, u32 SubSystemId,
+	const XAsu_KmXorKeyParams *ParamsPtr, u32 *KeyIdPtr);
 #endif /* XASU_KEYMANAGER_ENABLE */
 
 /************************************ Variable Definitions ***************************************/

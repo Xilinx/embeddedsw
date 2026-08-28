@@ -157,6 +157,13 @@ s32 XAsu_KmGenerateAesKey(XAsu_ClientParams *ClientParamPtr,
 		goto END;
 	}
 
+	/** Validate key use case against the key type. */
+	if (XAsu_KmValidateAesKeySplitUseCase((u8)XASU_AES_SUBVAULT_ID,
+			KmSubVaultParamPtr->KeyMetadata.KeyUseCase) != XST_SUCCESS) {
+		Status = XASU_INVALID_ARGUMENT;
+		goto END;
+	}
+
 	Status = XAsu_KmValidateKeyLength(KmSubVaultParamPtr->KeyMetadata.Length,
 					  XASU_KM_AES_KEYTYPE);
 	if (Status != XST_SUCCESS) {
@@ -757,6 +764,14 @@ s32 XAsu_KmStoreKey(XAsu_ClientParams *ClientParamPtr, XAsu_KeyManagerParams *Ke
 		goto END;
 	}
 
+	/** Validate key use case against the key type. */
+	if (XAsu_KmValidateAesKeySplitUseCase(
+			XASU_KM_GET_KEY_TYPE(KeyParams->KeyMetadata.CompositeKeyId),
+			KeyParams->KeyMetadata.KeyUseCase) != XST_SUCCESS) {
+		Status = XASU_INVALID_ARGUMENT;
+		goto END;
+	}
+
 	/** Generate a unique ID and register the callback function. */
 	UniqueId = XAsu_RegCallBackNGetUniqueId(ClientParamPtr,
 						(u8 *)(UINTPTR)KeyParams->KeyIdAddr,
@@ -1007,6 +1022,81 @@ s32 XAsu_KmSetEpochTime(XAsu_ClientParams *ClientParamPtr, u32 CurrentEpochTime)
 	/** Update request buffer and send an IPI request to ASU. */
 	Status = XAsu_SendCmdToAsu(ClientParamPtr, &CurrentEpochTime,
 					(u32)(sizeof(CurrentEpochTime)), Header);
+
+END:
+	return Status;
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	This function sends a command to ASUFW to generate a key by combining two AES key
+ *		splits using XOR and to store the combined key in the specified key vault slot, or
+ *		in the first free slot when none is requested.
+ *
+ * @param	ClientParamPtr	Pointer to the XAsu_ClientParams structure which holds the
+ *				client input parameters.
+ * @param	XorParamsPtr	Pointer to the XAsu_KmXorKeyParams structure which holds the input
+ *				key IDs, the metadata of the combined key and, when the slot is
+ *				auto-assigned, the address where the composite key ID of the
+ *				combined key is stored.
+ *
+ * @return
+ *		- XST_SUCCESS, if IPI request to ASU is sent successfully.
+ *		- XST_FAILURE, if sending an IPI request to ASU fails.
+ *		- XASU_INVALID_ARGUMENT, if any argument is invalid.
+ *		- XASU_INVALID_UNIQUE_ID, if unique ID generation fails.
+ *
+ *************************************************************************************************/
+s32 XAsu_KmXorKeys(XAsu_ClientParams *ClientParamPtr, XAsu_KmXorKeyParams *XorParamsPtr)
+{
+	s32 Status = XST_FAILURE;
+	u32 Header;
+	u8 UniqueId;
+	u8 *OutIdBufPtr = NULL;
+	u8 OutIdBufSize = 0U;
+
+	/** Validations of inputs. */
+	Status = XAsu_ValidateClientParameters(ClientParamPtr);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	if (XorParamsPtr == NULL) {
+		Status = XASU_INVALID_ARGUMENT;
+		goto END;
+	}
+
+	/** Validate the XOR key combine parameters. */
+	if (XAsu_KmValidateXorKeyParams(XorParamsPtr) != XST_SUCCESS) {
+		Status = XASU_INVALID_ARGUMENT;
+		goto END;
+	}
+
+	/**
+	 * Register a response buffer only when the caller asked for the assigned key ID, which is
+	 * required only for an auto-assigned slot.
+	 */
+	if (XorParamsPtr->OutKeyIdAddr != 0U) {
+		OutIdBufPtr = (u8 *)(UINTPTR)XorParamsPtr->OutKeyIdAddr;
+		OutIdBufSize = XASU_KM_OUTPUT_ID_SIZE_IN_BYTES;
+	}
+
+	/** Generate a unique ID and register the callback function. */
+	UniqueId = XAsu_RegCallBackNGetUniqueId(ClientParamPtr, OutIdBufPtr, OutIdBufSize,
+						XASU_TRUE);
+	if (UniqueId >= XASU_UNIQUE_ID_MAX) {
+		Status = XASU_INVALID_UNIQUE_ID;
+		goto END;
+	}
+
+	/** Create command header. */
+	Header = XAsu_CreateHeader(XASU_KM_XOR_KEY_CMD_ID, UniqueId, XASU_MODULE_KEYMANAGER_ID,
+				(u8)(sizeof(XAsu_KmXorKeyParams) / XASU_WORD_LEN_IN_BYTES),
+				ClientParamPtr->SecureFlag);
+
+	/** Update request buffer and send an IPI request to ASU. */
+	Status = XAsu_SendCmdToAsu(ClientParamPtr, XorParamsPtr,
+					(u32)(sizeof(XAsu_KmXorKeyParams)), Header);
 
 END:
 	return Status;

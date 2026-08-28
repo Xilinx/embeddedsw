@@ -863,6 +863,8 @@ enum {
 						for the key vault fails */
 	XASUFW_MLKEM_KEY_PAIR_GENERATION_FAIL, /**< 0x260U - Error when ML-KEM key pair generation
 						for the key vault fails */
+	XASUFW_KEYMANAGER_KEY_LENGTH_MISMATCH, /**< 0x261U - Error when key lengths do not match
+						the expected length. */
 
 	/* Additional status success codes */
 	XASUFW_MLDSA_SIGNATURE_VERIFIED = 0x3F6U, /**< 0x3F6U - Successfully verified ML-DSA

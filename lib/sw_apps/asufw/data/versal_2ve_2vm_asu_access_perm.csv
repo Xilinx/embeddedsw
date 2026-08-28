@@ -60,6 +60,7 @@ km_gen_ecc_key_pair,KeyManager(0xC),0xC07,3,3,3,3,3,3,3,3,Performs ECC key pair 
 km_store_key,KeyManager(0xC),0xC08,3,3,3,3,3,3,3,3,Stores a pre-generated key into the key vault
 km_export_keyvault,KeyManager(0xC),0xC09,3,3,3,3,3,3,3,3,Exports the contents of a key vault
 km_import_keyvault,KeyManager(0xC),0xC0A,3,3,3,3,3,3,3,3,Imports a previously exported key vault
+km_xor_key,KeyManager(0xC),0xC0E,3,3,3,3,3,3,3,3,Combines two AES key splits using XOR and stores the combined key in the specified or first free key vault slot
 lms_sign_verify_sha2,LMS(0xD),0xD00,3,3,3,3,3,3,3,3,Performs LMS signature verification using SHA2 crypto engine
 lms_sign_verify_sha3,LMS(0xD),0xD01,3,3,3,3,3,3,3,3,Performs LMS signature verification using SHA3 crypto engine
 hss_sign_verify_sha2,LMS(0xD),0xD02,3,3,3,3,3,3,3,3,Performs HSS signature verification using SHA2 crypto engine

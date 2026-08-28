@@ -61,6 +61,7 @@ extern "C" {
 s32 XAsu_KmValidateVaultParams(const XAsu_KeyManagerParams *KmParamsPtr);
 s32 XAsu_KmValidateKeyMetadata(const XAsu_KeyManagerKeyMetadata *MetadataPtr);
 s32 XAsu_KmValidateKeyAttributes(u8 KeyType, u8 KeyAttributes);
+s32 XAsu_KmValidateAesKeySplitUseCase(u8 KeyType, u8 KeyUseCase);
 s32 XAsu_KmValidateKeyLength(u32 KeyLength, u8 KeyType);
 s32 XAsu_KmGetMldsaKeyLengths(u8 ParamSet, u32 *PubKeyLenPtr, u32 *PrivKeyLenPtr);
 s32 XAsu_KmGetMlkemKeyLengths(u8 ParamSet, u32 *PubKeyLenPtr, u32 *PrivKeyLenPtr);
@@ -70,6 +71,7 @@ s32 XAsu_KmValidateMlkemKeyGenParams(const XAsu_KeyManagerPqcKeyGenParams *PqcPa
 				u32 *PubKeyLenPtr, u32 *PrivKeyLenPtr);
 s32 XAsu_KmValidateKeyAddrNdKeyId(u64 KeyCompAddr, u32 KeyId);
 s32 XAsu_KmValidateVaultCreateParams(const XAsu_KeyManagerSubVaultParams *ParamsPtr);
+s32 XAsu_KmValidateXorKeyParams(const XAsu_KmXorKeyParams *ParamsPtr);
 
 #ifdef __cplusplus
 }

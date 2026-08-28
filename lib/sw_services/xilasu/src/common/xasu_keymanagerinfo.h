@@ -62,7 +62,9 @@ extern "C" {
 							generation */
 #define XASU_KM_GEN_MLKEM_KEY_PAIR_CMD_ID	(13U) /**< Command ID for ML-KEM key pair
 							generation */
-#define XASU_KM_MAX_CMDS			(14U) /**< Maximum number of commands
+#define XASU_KM_XOR_KEY_CMD_ID			(14U) /**< Command ID for combining two AES key
+							splits using XOR */
+#define XASU_KM_MAX_CMDS			(15U) /**< Maximum number of commands
 							supported by KeyManager module */
 
 #define XASU_KM_OUTPUT_ID_SIZE_IN_BYTES		(4U) /**< Key vault output id size */
@@ -102,6 +104,10 @@ extern "C" {
 #define XASU_KEYMANAGER_AES_KEY_WRAP_USE_CASE		(0x04U)	/**< Data key wrap use case */
 #define XASU_KEYMANAGER_AES_KEY_UNWRAP_USE_CASE		(0x08U)	/**< Data key unwrap use case */
 #define XASU_KEYMANAGER_AES_AUTH_USE_CASE			(0x10U)	/**< Data authentication use case */
+#define XASU_KEYMANAGER_AES_KEY_SPLIT_USE_CASE		(0x20U)	/**< AES key may be used only as an
+								input to XOR key combine. Exclusive:
+								cannot be combined with any other
+								AES use case. */
 
 /* Key usecases for RSA private key type. */
 #define XASU_KEYMANAGER_RSA_PVT_SIGN_GEN_USE_CASE		(0x01U)	/**< RSA private key sign
@@ -289,6 +295,22 @@ typedef struct {
 	u32 BufSize;		/**< Buffer size for export or actual data size for import. */
 	u8 Reserved[4]; /**< Explicit padding to ensure consistent struct size across architectures */
 } XAsu_KeyVaultTransferParams;
+
+/** This structure contains info for combining two AES key splits using XOR. */
+typedef struct {
+	XAsu_KeyManagerKeyMetadata OutKeyMetadata; /**< Metadata of the combined key. Its
+							CompositeKeyId gives the destination vault
+							and the AES sub-vault, and the slot within
+							it, or 0 to auto-assign the first free
+							slot. Length shall match the length of
+							the input key splits. */
+	u64 OutKeyIdAddr; /**< Address where the composite key ID of the combined key is stored.
+				Required when the destination slot in CompositeKeyId is 0, which
+				requests an auto-assigned slot. Shall be 0 when a slot is
+				selected, as the composite key ID is then already known. */
+	u32 SplitKeyId1; /**< Key ID of the first input AES key split. */
+	u32 SplitKeyId2; /**< Key ID of the second input AES key split. */
+} XAsu_KmXorKeyParams;
 
 /*************************** Macros (Inline Functions) Definitions *******************************/
 #define XASU_KM_COMPOSE_KEY_ID(VaultId, KeyType, KeyIndex) \

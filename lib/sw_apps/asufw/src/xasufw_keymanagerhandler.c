@@ -85,6 +85,7 @@ static s32 XAsufw_KeyManagerStoreKey(const XAsu_ReqBuf *ReqBuf, u32 ReqId);
 static s32 XAsufw_KeyManagerExportVault(const XAsu_ReqBuf *ReqBuf, u32 ReqId);
 static s32 XAsufw_KeyManagerImportVault(const XAsu_ReqBuf *ReqBuf, u32 ReqId);
 static s32 XAsufw_KeyManagerSetEpochTime(const XAsu_ReqBuf *ReqBuf, u32 ReqId);
+static s32 XAsufw_KeyManagerXorKeys(const XAsu_ReqBuf *ReqBuf, u32 ReqId);
 
 /************************************ Variable Definitions ***************************************/
 static XAsufw_Module XAsufw_KeyManagerModule; /**< ASUFW KeyManager Module ID and commands array */
@@ -129,6 +130,7 @@ s32 XAsufw_KeyManagerInit(void)
 #else
 		[XASU_KM_GEN_MLKEM_KEY_PAIR_CMD_ID] = XASUFW_MODULE_COMMAND(NULL),
 #endif
+		[XASU_KM_XOR_KEY_CMD_ID] = XASUFW_MODULE_COMMAND(XAsufw_KeyManagerXorKeys),
 	};
 
 	/** The XAsufw_KeyManagerResourcesBuf contains the required resources for each supported command. */
@@ -177,6 +179,8 @@ s32 XAsufw_KeyManagerInit(void)
 #else
 		[XASU_KM_GEN_MLKEM_KEY_PAIR_CMD_ID] = 0U,
 #endif
+		[XASU_KM_XOR_KEY_CMD_ID] = XASUFW_KEYMANAGER_RESOURCE_MASK |
+		XASUFW_DMA_RESOURCE_MASK,
 	};
 
 	/** The XAsufw_KeyManagerAccessPermBuf contains the IPI access permissions for each supported command. */
@@ -207,6 +211,7 @@ s32 XAsufw_KeyManagerInit(void)
 		[XASU_KM_GEN_MLKEM_KEY_PAIR_CMD_ID] =
 			XASUFW_ALL_IPI_NO_ACCESS(XASU_KM_GEN_MLKEM_KEY_PAIR_CMD_ID),
 #endif
+		[XASU_KM_XOR_KEY_CMD_ID] = XASUFW_ALL_IPI_FULL_ACCESS(XASU_KM_XOR_KEY_CMD_ID),
 	};
 
 	XAsufw_KeyManagerModule.Id = XASU_MODULE_KEYMANAGER_ID;
@@ -284,7 +289,8 @@ static s32 XAsufw_KeyManagerResourceHandler(const XAsu_ReqBuf *ReqBuf, u32 ReqId
 	    (CmdId == XASU_KM_EXPORT_KEYVAULT_CMD_ID) ||
 	    (CmdId == XASU_KM_IMPORT_KEYVAULT_CMD_ID) ||
 	    (CmdId == XASU_KM_GEN_MLDSA_KEY_PAIR_CMD_ID) ||
-	    (CmdId == XASU_KM_GEN_MLKEM_KEY_PAIR_CMD_ID)) {
+	    (CmdId == XASU_KM_GEN_MLKEM_KEY_PAIR_CMD_ID) ||
+		(CmdId == XASU_KM_XOR_KEY_CMD_ID)) {
 		/** Allocate DMA resource. */
 		XAsufw_KeyManagerModule.AsuDmaPtr = XAsufw_AllocateDmaResource(XASUFW_KEYMANAGER, ReqId);
 		if (XAsufw_KeyManagerModule.AsuDmaPtr == NULL) {
@@ -1133,6 +1139,57 @@ static s32 XAsufw_KeyManagerSetEpochTime(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	Status = XKeyManager_SetEpochTime(CurrentEpochTime);
 
 END:
+	return Status;
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	This function is a handler for the XOR key combine command. It generates a key by
+ *		combining two AES key splits using XOR and stores the combined key in the key vault
+ *		slot identified by the output key metadata.
+ *
+ * @param	ReqBuf	Pointer to the request buffer.
+ * @param	ReqId	Request Unique ID.
+ *
+ * @return
+ * 	- XASUFW_SUCCESS, if the XOR key combine operation is successful.
+ * 	- XASUFW_INVALID_SUBSYSTEM_ID, if an invalid subsystem ID is provided.
+ * 	- Error codes returned by XKeyManager_CombineKeysXor, if the operation fails.
+ * 	- XASUFW_RESOURCE_RELEASE_NOT_ALLOWED, if releasing the resource fails.
+ *
+ *************************************************************************************************/
+static s32 XAsufw_KeyManagerXorKeys(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
+{
+	s32 Status = XASUFW_FAILURE;
+	const XAsu_KmXorKeyParams *Cmd = (const XAsu_KmXorKeyParams *)ReqBuf->Arg;
+	u32 *OutIdAddr;
+	u32 SubsystemId = 0U;
+	u32 IpiMask = ReqId >> XASUFW_IPI_BITMASK_SHIFT;
+
+	/** Verify the command length. */
+	XASUFW_VERIFY_CMD_LEN(END, Status, ReqBuf, XAsu_KmXorKeyParams);
+
+	OutIdAddr = (u32 *)XAsufw_GetRespBuf(ReqBuf, XAsu_ChannelQueueBuf, RespBuf) +
+		XASUFW_RESP_DATA_OFFSET;
+
+	/** Get the subsystem ID from the IPI mask. */
+	SubsystemId = XAsu_GetSubsysIdFromIpiMask(IpiMask);
+	if (SubsystemId == XASUFW_INVALID_SUBSYS_ID) {
+		Status = XASUFW_INVALID_SUBSYSTEM_ID;
+		goto END;
+	}
+
+	/** Combine the two AES key splits using XOR and store the combined key. */
+	Status = XKeyManager_CombineKeysXor(XAsufw_KeyManagerModule.AsuDmaPtr, SubsystemId, Cmd,
+		OutIdAddr);
+
+END:
+	/** Release resources. */
+	if (XAsufw_ReleaseResource(XASUFW_KEYMANAGER, ReqId) != XASUFW_SUCCESS) {
+		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_RESOURCE_RELEASE_NOT_ALLOWED);
+	}
+	XAsufw_KeyManagerModule.AsuDmaPtr = NULL;
+
 	return Status;
 }
 #endif  /* XASU_KEYMANAGER_ENABLE */
