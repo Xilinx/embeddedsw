@@ -656,20 +656,26 @@ static XStatus Cpm6Bisr(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 		PmInfo("Skipping BISR for power node 0x%x\r\n", PwrDomain->Power.Node.Id);
 	}
 
-	/* De-assert InitCtrl for Gtmpw if available */
-	for (u32 i = 0; i < ARRAY_SIZE(GtmpwAddresses); ++i) {
-		if (0U == GtmpwAddresses[i]) {
-			continue;
-		}
+	/*
+	 * Skip CPM6 GTMPW houseclean during secure lockdown: the GTMPW NPI
+	 * PCSR write access hangs in the secure lockdown state.
+	 */
+	if (!IS_SECLOCKDOWN(SecLockDownInfo)) {
+		/* De-assert InitCtrl for Gtmpw if available */
+		for (u32 i = 0; i < ARRAY_SIZE(GtmpwAddresses); ++i) {
+			if (0U == GtmpwAddresses[i]) {
+				continue;
+			}
 
-		/* De-assert InitCtrl */
-		XPm_UnlockPcsr(GtmpwAddresses[i]);
-		Status = XPm_PcsrWrite(GtmpwAddresses[i], GTMPW_PCSR_INITCTRL_MASK, 0U);
-		XPm_LockPcsr(GtmpwAddresses[i]);
+			/* De-assert InitCtrl */
+			XPm_UnlockPcsr(GtmpwAddresses[i]);
+			Status = XPm_PcsrWrite(GtmpwAddresses[i], GTMPW_PCSR_INITCTRL_MASK, 0U);
+			XPm_LockPcsr(GtmpwAddresses[i]);
 
-		if (XST_SUCCESS != Status) {
-			DbgErr = XPM_INT_ERR_BISR_REPAIR;
-			goto done;
+			if (XST_SUCCESS != Status) {
+				DbgErr = XPM_INT_ERR_BISR_REPAIR;
+				goto done;
+			}
 		}
 	}
 
@@ -1027,6 +1033,13 @@ static XStatus Cpm6MbistClear(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 	}
 
 	PmInfo("Triggering MBIST for power node 0x%x\r\n", PwrDomain->Power.Node.Id);
+
+	/* Skip CPM6 MBIST during secure lockdown on XC2VP3602: the CPM_SLCR secure
+	   write access hangs in the secure lockdown machine state. */
+	if (IS_SECLOCKDOWN(SecLockDownInfo)) {
+		Status = XST_SUCCESS;
+		goto done;
+	}
 
 	/* Disable write protection */
 	XPm_Out32(Cpm->CpmSlcrSecureBaseAddr + CPM6_SLCR_SECURE_WPROTS_OFFSET, 0U);

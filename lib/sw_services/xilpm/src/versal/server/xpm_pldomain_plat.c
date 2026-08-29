@@ -2012,11 +2012,20 @@ static XStatus PldInitStart(XPm_PowerDomain *PwrDomain, const u32 *Args,
 	}
 
 	if ((PLATFORM_VERSION_SILICON == Platform) || (PLATFORM_VERSION_FCV == Platform)) {
-		/*House clean GTY*/
-		Status = GtyHouseClean(Pld, PollTimeOut);
-		if (XST_SUCCESS != Status) {
-			DbgErr = XPM_INT_ERR_GTY_HC;
-			XPlmi_Printf(DEBUG_GENERAL, "ERROR: %s : GTY HC failed", __func__);
+#if defined(XC2VP3602)
+		/*
+		 * Skip GT houseclean during secure lockdown to avoid the GTMPW
+		 * NPI PCSR access hang.
+		 */
+		if (!IS_SECLOCKDOWN(SecLockDownInfo))
+#endif
+		{
+			/*House clean GTY*/
+			Status = GtyHouseClean(Pld, PollTimeOut);
+			if (XST_SUCCESS != Status) {
+				DbgErr = XPM_INT_ERR_GTY_HC;
+				XPlmi_Printf(DEBUG_GENERAL, "ERROR: %s : GTY HC failed", __func__);
+			}
 		}
 	}
 
