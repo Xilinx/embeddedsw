@@ -35,7 +35,6 @@
 #include "lwipopts.h"
 #include "xil_printf.h"
 #include "sleep.h"
-#include "lwip/priv/tcp_priv.h"
 #include "lwip/init.h"
 #include "lwip/inet.h"
 #include "xil_cache.h"
@@ -44,9 +43,6 @@
 #include "lwip/dhcp.h"
 extern volatile int dhcp_timoutcntr;
 #endif
-
-extern volatile int TcpFastTmrFlag;
-extern volatile int TcpSlowTmrFlag;
 
 #define DEFAULT_IP_ADDRESS	"192.168.1.10"
 #define DEFAULT_IP_MASK		"255.255.255.0"
@@ -187,14 +183,6 @@ int main(void)
 	xil_printf("\r\n");
 
 	while (1) {
-		if (TcpFastTmrFlag) {
-			tcp_fasttmr();
-			TcpFastTmrFlag = 0;
-		}
-		if (TcpSlowTmrFlag) {
-			tcp_slowtmr();
-			TcpSlowTmrFlag = 0;
-		}
 		xemacif_input(netif);
 	}
 
