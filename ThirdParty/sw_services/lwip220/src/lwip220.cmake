@@ -1,4 +1,4 @@
-# Copyright (C) 2023 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 cmake_minimum_required(VERSION 3.15)
 
@@ -202,7 +202,7 @@ endif()
 
 #TCP options
 if (${lwip220_tcp})
-    set(LWIP_TCP 1)
+    set(LWIP_TCP " ")
 endif()
 set(TCP_MSS ${lwip220_tcp_mss})
 set(TCP_SND_BUF ${lwip220_tcp_snd_buf})
@@ -211,6 +211,9 @@ set(TCP_TTL ${lwip220_tcp_ttl})
 set(TCP_MAXRTX ${lwip220_tcp_maxrtx})
 set(TCP_SYNMAXRTX ${lwip220_tcp_synmaxrtx})
 set(TCP_QUEUE_OOSEQ ${lwip220_tcp_queue_ooseq})
+if (NOT ${lwip220_tcp})
+    set(TCP_QUEUE_OOSEQ 0)
+endif()
 
 ## Checksum handling should be based on the MAC_INSTANCE variable
 list(LENGTH MAC_INSTANCES _len)

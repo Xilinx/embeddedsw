@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2023 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 #ifndef __LWIPOPTS_H_
@@ -59,7 +59,7 @@
 #cmakedefine UDP_TTL @UDP_TTL@
 #cmakedefine LWIP_UDP_OPT_BLOCK_TX_TILL_COMPLETE @LWIP_UDP_OPT_BLOCK_TX_TILL_COMPLETE@
 
-#cmakedefine LWIP_TCP @LWIP_TCP@
+#cmakedefine01 LWIP_TCP @LWIP_TCP@
 #cmakedefine TCP_MSS @TCP_MSS@
 #cmakedefine TCP_SND_BUF @TCP_SND_BUF@
 #cmakedefine TCP_WND @TCP_WND@
