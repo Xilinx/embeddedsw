@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2012 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -18,6 +19,7 @@
 * 1.00a jz	04/28/11 Initial release
 * 7.00a kc  10/18/13 Integrated SD/MMC driver
 * 12.00a ssc 12/11/14 Fix for CR# 839182
+* 13.00a sd  08/31/26 Check f_read status and short reads in SDAccess
 *
 * </pre>
 *
@@ -131,9 +133,15 @@ u32 SDAccess( u32 SourceAddress, u32 DestinationAddress, u32 LengthBytes)
 	}
 
 	rc = f_read(&fil, (void*)DestinationAddress, LengthBytes, &br);
-
-	if (rc) {
+	if (rc != FR_OK) {
 		fsbl_printf(DEBUG_GENERAL,"*** ERROR: f_read returned %d\r\n", rc);
+		return XST_FAILURE;
+	}
+
+	if (br != LengthBytes) {
+		fsbl_printf(DEBUG_GENERAL,"*** ERROR: f_read short read %u/%u\r\n",
+				(unsigned int)br, (unsigned int)LengthBytes);
+		return XST_FAILURE;
 	}
 
 	return XST_SUCCESS;
