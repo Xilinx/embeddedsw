@@ -45,8 +45,10 @@ __cpu_init:
 /* Reset and start Cycle Counter */
 	mov	r2, #0x80000000		/* clear overflow */
 	mcr	p15, 0, r2, c9, c12, 3
-	mov	r2, #0xd		/* D, C, E */
-	mcr	p15, 0, r2, c9, c12, 0
+	mrc	p15, 0, r2, c9, c12, 0	/* Read PMCR */
+	orr	r2, r2, #0x1d		/* X, D, C, E (set X to enable event export) */
+	mcr	p15, 0, r2, c9, c12, 0	/* Write PMCR */
+	isb
 	mov	r2, #0x80000000		/* enable cycle counter */
 	mcr	p15, 0, r2, c9, c12, 1
 
