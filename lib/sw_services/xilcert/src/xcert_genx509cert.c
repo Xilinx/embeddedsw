@@ -43,6 +43,7 @@
 *       rpu  01/17/2026 Add Layer field to TCB Info extension
 *       rmv  01/30/2026 Renamed OCP keymanagement macro
 *       tbk  05/03/2026 Add validation for xcert remaining buffer before writing field
+*       sri  08/24/2026 Centralize SKI/AKI macros; Versal Net keeps SHA-1 via xcert_sha.h
 *
 * </pre>
 * @note
@@ -63,9 +64,10 @@
 #include "xplmi.h"
 #include "xplmi_status.h"
 #include "xplmi_tamper.h"
-#include "xsecure_init.h"
 #include "xplmi_dma.h"
 #include "xsecure_kat.h"
+
+/** @cond xcert_internal */
 
 /************************** Constant Definitions *****************************/
 /** @name Object IDs
@@ -233,6 +235,8 @@ static int XCert_GenFwVersionField(XCert_Config *Cfg);
 static int XCert_GenSecurityVersionField(void);
 #endif
 
+
+/** @endcond */
 
 /************************** Function Definitions *****************************/
 
@@ -452,7 +456,7 @@ int XCert_GenerateX509Cert(u64 X509CertAddr, u32 MaxCertSize, u32 *X509CertSize,
 	}
 
 	if ((*SequenceLenIdx & (u8)(~XCERT_SHORT_FORM_MAX_LENGTH_IN_BYTES)) != 0U) {
-		XCert_AdvanceOffset(X509CertInfo, (u32)(*SequenceLenIdx & XCERT_LOWER_NIBBLE_MASK));
+		XCert_AdvanceOffset(X509CertInfo, (u32)((u32)(*SequenceLenIdx) & (u32)XCERT_LOWER_NIBBLE_MASK));
 	}
 
 	/**
@@ -468,10 +472,8 @@ END:
 	return Status;
 }
 
-/**
- * @cond xcert_internal
- * @{
- */
+/** @cond xcert_internal */
+
 /*****************************************************************************/
 /**
  * @brief	This function provides the pointer to the X509 InfoStore database.
@@ -706,6 +708,8 @@ END:
 	return Status;
 }
 
+/** @endcond */
+
 /*****************************************************************************/
 /**
  * @brief	This function stores the user provided value for the user configurable
@@ -793,6 +797,8 @@ int XCert_StoreCertUserInput(u32 SubSystemId, XCert_UserCfgFields FieldType,
 END:
 	return Status;
 }
+
+/** @cond xcert_internal */
 
 /*****************************************************************************/
 /**
@@ -1155,8 +1161,8 @@ END:
  *		extnValue   OCTET STRING
  *		}
  *		To calculate value of SubjectKeyIdentifier field, hash is
- *		calculated on the Subject Public Key and 20 bytes from LSB of
- *		the hash is considered as the value for this field.
+ *		calculated on the Subject Public Key. Versal Net uses SHA-1
+ *		(20-byte digest); Versal_2VP/_P use SHA3-384 (first 20 bytes).
  *
  ******************************************************************************/
 static int XCert_GenSubjectKeyIdentifierField(const u8 *SubjectPublicKey)
@@ -1167,12 +1173,7 @@ static int XCert_GenSubjectKeyIdentifierField(const u8 *SubjectPublicKey)
 	u8 *OctetStrLenIdx;
 	u8 *OctetStrValIdx;
 	u8 UncompressedPublicKey[XCERT_ECC_P384_UNCOMPRESSED_PUBLIC_KEY_LEN];
-#ifndef VERSAL_2VP
-	u8 Hash[XSECURE_SHA1_HASH_SIZE];
-#else
-	XSecure_Sha3Hash Sha3Hash_Instance;
-	XSecure_Sha *ShaInstPtr = XSecure_GetSha3Instance(XSECURE_SHA_0_DEVICE_ID);
-#endif
+	u8 Hash[XCERT_SHA_HASH_LEN] = {0U};
 	XCert_X509CertInfo *X509CertInfo = XCert_GetX509CertInstance();
 
 	/**
@@ -1199,18 +1200,16 @@ static int XCert_GenSubjectKeyIdentifierField(const u8 *SubjectPublicKey)
 		goto END;
 	}
 
-#ifndef VERSAL_2VP
-	Status = XSecure_Sha1Digest(UncompressedPublicKey, XCERT_ECC_P384_UNCOMPRESSED_PUBLIC_KEY_LEN, Hash);
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
+#if (XCERT_SHA_HASH_LEN > XCERT_KEY_ID_VAL_LEN)
+	Status = XCert_ShaDigest(UncompressedPublicKey, XCERT_ECC_P384_UNCOMPRESSED_PUBLIC_KEY_LEN,
+				 Hash);
 #else
-	Status = XSecure_Sha3Digest(ShaInstPtr, (UINTPTR)UncompressedPublicKey,
-				    XCERT_ECC_P384_UNCOMPRESSED_PUBLIC_KEY_LEN, &Sha3Hash_Instance);
+	Status = XCert_Sha1Digest(UncompressedPublicKey, XCERT_ECC_P384_UNCOMPRESSED_PUBLIC_KEY_LEN,
+				  Hash);
+#endif
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
-#endif
 
 	Status = XCert_UpdateTLVField(XCERT_ASN1_TAG_OCTETSTRING,
 					&OctetStrLenIdx, &OctetStrValIdx);
@@ -1218,17 +1217,10 @@ static int XCert_GenSubjectKeyIdentifierField(const u8 *SubjectPublicKey)
 		goto END;
 	}
 
-#ifndef VERSAL_2VP
-	Status = XCert_CreateOctetString(Hash, XCERT_SUB_KEY_ID_VAL_LEN);
+	Status = XCert_CreateOctetString(&Hash[XCERT_SHA_KEY_ID_OFFSET], XCERT_SUB_KEY_ID_VAL_LEN);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
-#else
-	Status = XCert_CreateOctetString(Sha3Hash_Instance.Hash, XCERT_SUB_KEY_ID_VAL_LEN);
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
-#endif
 
 	*OctetStrLenIdx = XCERT_PTR_DIFF_U8(X509CertInfo->CurrOffset, OctetStrValIdx);
 	*SequenceLenIdx = XCERT_PTR_DIFF_U8(X509CertInfo->CurrOffset, SequenceValIdx);
@@ -1256,9 +1248,9 @@ END:
  *		authorityCertSerialNumber [2] CertificateSerialNumber OPTIONAL  }
  *
  *		KeyIdentifier ::= OCTET STRING
- *		To calculate value ofAuthorityKeyIdentifier field, hash is
- *		calculated on the Issuer Public Key and 20 bytes from LSB of
- *		the hash is considered as the value for this field.
+ *		To calculate value of AuthorityKeyIdentifier field, hash is
+ *		calculated on the Issuer Public Key. Versal Net uses SHA-1
+ *		(20-byte digest); Versal_2VP/_P use SHA3-384 (first 20 bytes).
  *
  ******************************************************************************/
 static int XCert_GenAuthorityKeyIdentifierField(const u8 *IssuerPublicKey)
@@ -1271,12 +1263,7 @@ static int XCert_GenAuthorityKeyIdentifierField(const u8 *IssuerPublicKey)
 	u8 *KeyIdSequenceLenIdx;
 	u8 *KeyIdSequenceValIdx;
 	u8 UncompressedPublicKey[XCERT_ECC_P384_UNCOMPRESSED_PUBLIC_KEY_LEN];
-#ifndef VERSAL_2VP
-	u8 Hash[XSECURE_SHA1_HASH_SIZE];
-#else
-	XSecure_Sha3Hash Sha3Hash_Instance;
-	XSecure_Sha *ShaInstPtr = XSecure_GetSha3Instance(XSECURE_SHA_0_DEVICE_ID);
-#endif
+	u8 Hash[XCERT_SHA_HASH_LEN] = {0U};
 	XCert_X509CertInfo *X509CertInfo = XCert_GetX509CertInstance();
 
 	/**
@@ -1303,18 +1290,16 @@ static int XCert_GenAuthorityKeyIdentifierField(const u8 *IssuerPublicKey)
 		goto END;
 	}
 
-#ifndef VERSAL_2VP
-	Status = XSecure_Sha1Digest(UncompressedPublicKey, XCERT_ECC_P384_UNCOMPRESSED_PUBLIC_KEY_LEN, Hash);
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
+#if (XCERT_SHA_HASH_LEN > XCERT_KEY_ID_VAL_LEN)
+	Status = XCert_ShaDigest(UncompressedPublicKey, XCERT_ECC_P384_UNCOMPRESSED_PUBLIC_KEY_LEN,
+				 Hash);
 #else
-	Status = XSecure_Sha3Digest(ShaInstPtr, (UINTPTR)UncompressedPublicKey,
-				    XCERT_ECC_P384_UNCOMPRESSED_PUBLIC_KEY_LEN, &Sha3Hash_Instance);
+	Status = XCert_Sha1Digest(UncompressedPublicKey, XCERT_ECC_P384_UNCOMPRESSED_PUBLIC_KEY_LEN,
+				  Hash);
+#endif
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
-#endif
 	Status = XCert_UpdateTLVField(XCERT_ASN1_TAG_OCTETSTRING,
 					&OctetStrLenIdx, &OctetStrValIdx);
 	if (Status != XST_SUCCESS) {
@@ -1326,19 +1311,11 @@ static int XCert_GenAuthorityKeyIdentifierField(const u8 *IssuerPublicKey)
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
-#ifndef VERSAL_2VP
-
-	Status = XCert_CreateOctetString(Hash, XCERT_AUTH_KEY_ID_VAL_LEN);
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
-#else
-	Status = XCert_CreateOctetString(Sha3Hash_Instance.Hash, XCERT_SUB_KEY_ID_VAL_LEN);
+	Status = XCert_CreateOctetString(&Hash[XCERT_SHA_KEY_ID_OFFSET], XCERT_AUTH_KEY_ID_VAL_LEN);
 
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
-#endif
 	/**
 	 * 0x80 indicates that the SEQUENCE contains the optional parameter tagged
 	 * as [0] in the AuthorityKeyIdentifier sequence
@@ -1516,7 +1493,7 @@ static int XCert_GenTcbInfoExtnField(XCert_Config *Cfg)
 	}
 	if ((*TcbInfoSequenceLenIdx & (u8)(~XCERT_SHORT_FORM_MAX_LENGTH_IN_BYTES)) != 0U) {
 		XCert_AdvanceOffset(X509CertInfo,
-					(u32)(*TcbInfoSequenceLenIdx & XCERT_LOWER_NIBBLE_MASK));
+					(u32)((u32)(*TcbInfoSequenceLenIdx) & (u32)XCERT_LOWER_NIBBLE_MASK));
 	}
 
 	Status = XCert_UpdateEncodedLength(OctetStrLenIdx,
@@ -1527,7 +1504,7 @@ static int XCert_GenTcbInfoExtnField(XCert_Config *Cfg)
 		goto END;
 	}
 	if ((*OctetStrLenIdx & (u8)(~XCERT_SHORT_FORM_MAX_LENGTH_IN_BYTES)) != 0U) {
-		XCert_AdvanceOffset(X509CertInfo, (u32)(*OctetStrLenIdx & XCERT_LOWER_NIBBLE_MASK));
+		XCert_AdvanceOffset(X509CertInfo, (u32)((u32)(*OctetStrLenIdx) & (u32)XCERT_LOWER_NIBBLE_MASK));
 	}
 
 	Status = XCert_UpdateEncodedLength(SequenceLenIdx,
@@ -1538,7 +1515,7 @@ static int XCert_GenTcbInfoExtnField(XCert_Config *Cfg)
 		goto END;
 	}
 	if ((*SequenceLenIdx & (u8)(~XCERT_SHORT_FORM_MAX_LENGTH_IN_BYTES)) != 0U) {
-		XCert_AdvanceOffset(X509CertInfo, (u32)(*SequenceLenIdx & XCERT_LOWER_NIBBLE_MASK));
+		XCert_AdvanceOffset(X509CertInfo, (u32)((u32)(*SequenceLenIdx) & (u32)XCERT_LOWER_NIBBLE_MASK));
 	}
 
 END:
@@ -1636,8 +1613,9 @@ END:
  ******************************************************************************/
 static void XCert_UpdateKeyUsageVal(u8 *KeyUsageVal, XCert_KeyUsageOption KeyUsageOption)
 {
-	u8 Idx = KeyUsageOption / XCERT_LEN_OF_BYTE_IN_BITS;
-	u8 ShiftVal = (XCERT_LEN_OF_BYTE_IN_BITS * (Idx + 1U)) - (u8)KeyUsageOption - 1U;
+	u32 KeyUsageOptionVal = (u32)KeyUsageOption;
+	u8 Idx = (u8)(KeyUsageOptionVal / XCERT_LEN_OF_BYTE_IN_BITS);
+	u8 ShiftVal = (XCERT_LEN_OF_BYTE_IN_BITS * (Idx + 1U)) - (u8)KeyUsageOptionVal - 1U;
 
 	KeyUsageVal[Idx] |= 1U << ShiftVal;
 }
@@ -1932,7 +1910,7 @@ static int XCert_GenX509v3ExtensionsField(XCert_Config *Cfg)
 		goto END;
 	}
 	if ((*SequenceLenIdx & (u8)(~XCERT_SHORT_FORM_MAX_LENGTH_IN_BYTES)) != 0U) {
-		XCert_AdvanceOffset(X509CertInfo, (u32)(*SequenceLenIdx & XCERT_LOWER_NIBBLE_MASK));
+		XCert_AdvanceOffset(X509CertInfo, (u32)((u32)(*SequenceLenIdx) & (u32)XCERT_LOWER_NIBBLE_MASK));
 	}
 
 	Status = XCert_UpdateEncodedLength(OptionalTagLenIdx,
@@ -1944,7 +1922,7 @@ static int XCert_GenX509v3ExtensionsField(XCert_Config *Cfg)
 	}
 	if ((*OptionalTagLenIdx & (u8)(~XCERT_SHORT_FORM_MAX_LENGTH_IN_BYTES)) != 0U) {
 		XCert_AdvanceOffset(X509CertInfo,
-					(u32)(*OptionalTagLenIdx & XCERT_LOWER_NIBBLE_MASK));
+					(u32)((u32)(*OptionalTagLenIdx) & (u32)XCERT_LOWER_NIBBLE_MASK));
 	}
 
 END:
@@ -2123,7 +2101,7 @@ static int XCert_GenDmeExtnField(u32 *Len, const XCert_DmeResponse *DmeResp)
 
 	if ((*DmeSequenceLenIdx & (u8)(~XCERT_SHORT_FORM_MAX_LENGTH_IN_BYTES)) != 0U) {
 		XCert_AdvanceOffset(X509CertInfo,
-					(u32)(*DmeSequenceLenIdx & XCERT_LOWER_NIBBLE_MASK));
+					(u32)((u32)(*DmeSequenceLenIdx) & (u32)XCERT_LOWER_NIBBLE_MASK));
 	}
 
 	Status = XCert_UpdateEncodedLength(OctetStrLenIdx,
@@ -2134,7 +2112,7 @@ static int XCert_GenDmeExtnField(u32 *Len, const XCert_DmeResponse *DmeResp)
 	}
 
 	if ((*OctetStrLenIdx & (u8)(~XCERT_SHORT_FORM_MAX_LENGTH_IN_BYTES)) != 0U) {
-		XCert_AdvanceOffset(X509CertInfo, (u32)(*OctetStrLenIdx & XCERT_LOWER_NIBBLE_MASK));
+		XCert_AdvanceOffset(X509CertInfo, (u32)((u32)(*OctetStrLenIdx) & (u32)XCERT_LOWER_NIBBLE_MASK));
 	}
 
 	Status = XCert_UpdateEncodedLength(SequenceLenIdx,
@@ -2145,7 +2123,7 @@ static int XCert_GenDmeExtnField(u32 *Len, const XCert_DmeResponse *DmeResp)
 	}
 
 	if ((*SequenceLenIdx & (u8)(~XCERT_SHORT_FORM_MAX_LENGTH_IN_BYTES)) != 0U) {
-		XCert_AdvanceOffset(X509CertInfo, (u32)(*SequenceLenIdx & XCERT_LOWER_NIBBLE_MASK));
+		XCert_AdvanceOffset(X509CertInfo, (u32)((u32)(*SequenceLenIdx) & (u32)XCERT_LOWER_NIBBLE_MASK));
 	}
 
 	*Len = XCERT_PTR_DIFF_U32(X509CertInfo->CurrOffset, CertReqInfoBuf);
@@ -2313,7 +2291,7 @@ static int XCert_GenCsrExtensions(XCert_Config *Cfg)
 		goto END;
 	}
 	if ((*SequenceLenIdx & (u8)(~XCERT_SHORT_FORM_MAX_LENGTH_IN_BYTES)) != 0U) {
-		XCert_AdvanceOffset(X509CertInfo, (u32)(*SequenceLenIdx & XCERT_LOWER_NIBBLE_MASK));
+		XCert_AdvanceOffset(X509CertInfo, (u32)((u32)(*SequenceLenIdx) & (u32)XCERT_LOWER_NIBBLE_MASK));
 	}
 
 	Status = XCert_UpdateEncodedLength(SetLenIdx,
@@ -2323,7 +2301,7 @@ static int XCert_GenCsrExtensions(XCert_Config *Cfg)
 		goto END;
 	}
 	if ((*SetLenIdx & (u8)(~XCERT_SHORT_FORM_MAX_LENGTH_IN_BYTES)) != 0U) {
-		XCert_AdvanceOffset(X509CertInfo, (u32)((*SetLenIdx) & XCERT_LOWER_NIBBLE_MASK));
+		XCert_AdvanceOffset(X509CertInfo, (u32)((u32)(*SetLenIdx) & (u32)XCERT_LOWER_NIBBLE_MASK));
 	}
 
 	Status = XCert_UpdateEncodedLength(ExtnReqSeqLenIdx,
@@ -2334,7 +2312,7 @@ static int XCert_GenCsrExtensions(XCert_Config *Cfg)
 	}
 	if ((*ExtnReqSeqLenIdx & (u8)(~XCERT_SHORT_FORM_MAX_LENGTH_IN_BYTES)) != 0U) {
 		XCert_AdvanceOffset(X509CertInfo,
-					(u32)(*ExtnReqSeqLenIdx & XCERT_LOWER_NIBBLE_MASK));
+					(u32)((u32)(*ExtnReqSeqLenIdx) & (u32)XCERT_LOWER_NIBBLE_MASK));
 	}
 
 	Status = XCert_UpdateEncodedLength(OptionalTagLenIdx,
@@ -2345,7 +2323,7 @@ static int XCert_GenCsrExtensions(XCert_Config *Cfg)
 	}
 	if ((*OptionalTagLenIdx & (u8)(~XCERT_SHORT_FORM_MAX_LENGTH_IN_BYTES)) != 0U) {
 		XCert_AdvanceOffset(X509CertInfo,
-					(u32)(*OptionalTagLenIdx & XCERT_LOWER_NIBBLE_MASK));
+					(u32)((u32)(*OptionalTagLenIdx) & (u32)XCERT_LOWER_NIBBLE_MASK));
 	}
 
 END:
@@ -2496,7 +2474,7 @@ static int XCert_GenTBSCertificate(XCert_Config *Cfg)
 		goto END;
 	}
 	if ((*SequenceLenIdx & (u8)(~XCERT_SHORT_FORM_MAX_LENGTH_IN_BYTES)) != 0U) {
-		XCert_AdvanceOffset(X509CertInfo, (u32)(*SequenceLenIdx & XCERT_LOWER_NIBBLE_MASK));
+		XCert_AdvanceOffset(X509CertInfo, (u32)((u32)(*SequenceLenIdx) & (u32)XCERT_LOWER_NIBBLE_MASK));
 	}
 END:
 	return Status;
@@ -2565,7 +2543,7 @@ static int XCert_GenCertReqInfo(XCert_Config *Cfg)
 		goto END;
 	}
 	if ((*SequenceLenIdx & (u8)(~XCERT_SHORT_FORM_MAX_LENGTH_IN_BYTES)) != 0U) {
-		XCert_AdvanceOffset(X509CertInfo, (u32)(*SequenceLenIdx & XCERT_LOWER_NIBBLE_MASK));
+		XCert_AdvanceOffset(X509CertInfo, (u32)((u32)(*SequenceLenIdx) & (u32)XCERT_LOWER_NIBBLE_MASK));
 	}
 END:
 	return Status;
@@ -2750,10 +2728,8 @@ static int XCert_GenLayerField(XCert_Config *Cfg)
 }
 #endif /* VERSAL_2VE_2VM */
 
+/** @endcond */
+
 #endif  /* PLM_OCP_NATIVE_KEY_MGMT */
 
-
-/**
- * @}
- * @endcond
- */
+/** @} */

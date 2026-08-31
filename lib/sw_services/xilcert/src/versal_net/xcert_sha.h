@@ -1,5 +1,5 @@
 /***************************************************************************************************
-* Copyright (C) 2025, Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2025 - 2026, Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ***************************************************************************************************/
 
@@ -16,6 +16,7 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- -----------------------------------------------------------------------------
 * 1.4   tvp  09/01/25 Initial release
+* 1.6   sri  08/24/26 Keep SHA-1 for SKI/AKI on Versal Net (backward compatibility)
 *
 * </pre>
 *
@@ -31,6 +32,10 @@ extern "C" {
 #include "xsecure_sha384.h"
 #include "xsecure_plat_kat.h"
 #include "xsecure_sha1.h"
+/** SKI/AKI hash: SHA-1 on Versal Net for backward compatibility with existing certs */
+#define XCERT_SHA_HASH_LEN                      XSECURE_SHA1_HASH_SIZE
+/** Byte offset within SHA digest used for SKI/AKI key identifier */
+#define XCERT_SHA_KEY_ID_OFFSET                 (0U)
 #include "xcert_genx509cert.h"
 #include "xplmi.h"
 #include "xplmi_tamper.h"
@@ -118,6 +123,24 @@ static inline int XCert_ShaDigest(u8* Data, u32 Size, u8* Hash)
 
 /**************************************************************************************************/
 /**
+ * @brief	This wrapper calls SHA-1 digest for SKI/AKI on Versal Net.
+ *
+ * @param	Data	Starting address of input data.
+ * @param	Size	Size of input data in bytes.
+ * @param	Hash	Pointer to storage for output SHA-1 hash.
+ *
+ * @return
+ * 		- XST_SUCCESS on success.
+ * 		- Error code on failure.
+ *
+ **************************************************************************************************/
+static inline int XCert_Sha1Digest(u8 *Data, u32 Size, u8 *Hash)
+{
+	return XSecure_Sha1Digest(Data, Size, Hash);
+}
+
+/**************************************************************************************************/
+/**
  * @brief	This wrapper function perform KAT on SHA2-384 and set plm kat mask.
  *
  * @return
@@ -149,3 +172,4 @@ END:
 }
 #endif
 #endif /* XCERT_SHA_H */
+/** @} */

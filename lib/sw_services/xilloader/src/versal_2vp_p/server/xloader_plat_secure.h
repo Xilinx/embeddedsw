@@ -18,6 +18,7 @@
 *       tvp 02/04/26 Add register addresses for efuse ppk hash
 *       sd  04/13/26 Added PUF support for VERSAL_2VP_P
 *       rpu 04/22/26 Moved Versal_2vp_p efuse ppk register addresses to xloader_secure.h
+* 2.5   sri 08/24/26 Added XLOADER_SEC_STATE_CONFIG_MEASUREMENT_ERROR
 * </pre>
 *
 ***************************************************************************************************/
@@ -140,6 +141,8 @@ typedef enum {
 		/**<0x30 - Error in LMS sign verification due to error in SHA operation */
 	XLOADER_SEC_LMS_PUBKEY_SIZE_VALIDATE_ERR,
 		/**<0x31 - Error in LMS sign verification due to invalid public key size */
+	XLOADER_SEC_STATE_CONFIG_MEASUREMENT_ERROR,
+		/**<0x32 Error when secure state config measurement failed */
 } XLoader_SecErrCodes;
 
 

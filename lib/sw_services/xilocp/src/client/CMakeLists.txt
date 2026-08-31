@@ -14,6 +14,13 @@ if("${CMAKE_SUBMACHINE}" STREQUAL "VersalNet")
     add_subdirectory(key_mgmt)
 endif()
 
+if("${CMAKE_MACHINE}" STREQUAL "Versal")
+    if("Versal_2VP_P" IN_LIST VARIANT)
+        add_subdirectory(dme)
+        add_subdirectory(key_mgmt)
+    endif()
+endif()
+
 if("${CMAKE_SUBMACHINE}" STREQUAL "Versal_2VE_2VM")
     add_subdirectory(hwpcr)
     add_subdirectory(swpcr)

@@ -26,6 +26,8 @@
 * 2.5   tvp 08/03/26 Added Jtag DAP config support for Non-Secure debug
 *       sd  08/07/26 Used XPLMI_VERIFY_ADDR_RANGE macro for load address check
 *       sd  08/18/26 Fixed APU ELF load by aligning XLoader_ProcessElf with versal
+*       sri 08/24/26 OCP: HW PCR extend, 2VP_P auth cert secure-config measurement,
+*                    CheckAndUpdateSecureState, ProcessElf fixes
 *
 * </pre>
 *
@@ -49,11 +51,14 @@
 #include "xloader_plat.h"
 #include "xplmi_err.h"
 #include "xloader_ddr.h"
-#include "xilpdi.h"
+#include "xloader_kat.h"
 #include "xsecure_trng.h"
 #ifdef PLM_OCP
 #include "xocp.h"
 #include "xloader_secure.h"
+#endif
+#if (!defined(PLM_SECURE_EXCLUDE)) && (defined(PLM_OCP))
+#include "xocp_pcr.h"
 #endif
 
 /************************************ Constant Definitions ****************************************/
@@ -119,15 +124,15 @@ static int XLoader_GetLoadAddr(u32 DstnCpu, u64 *LoadAddrPtr, u32 Len);
 static int XLoader_DumpDdrmcRegisters(void);
 #if (!defined(PLM_SECURE_EXCLUDE)) && (defined(PLM_OCP))
 static int XLoader_RunSha3EngineKat(XilPdi* PdiPtr);
-static int XLoader_SpkMeasurement(XLoader_SecureParams* SecureParams, XSecure_Sha384Hash* Sha3Hash);
+static int XLoader_SpkMeasurement(XLoader_SecureParams* SecurePtr, XSecure_Sha384Hash* Sha3Hash);
 static int XLoader_ExtendSpkHash(XSecure_Sha384Hash* SpkHash , u32 PcrNo, u32 DigestIndex,
 				 u32 PdiType);
 static int XLoader_SpkIdMeasurement(XLoader_SecureParams* SecurePtr, XSecure_Sha384Hash* Sha3Hash);
-static int XLoader_ExtendSpkId(XSecure_Sha384Hash* SpkIdHash, u32 PcrInfo, u32 DigestIndex,
+static int XLoader_ExtendSpkId(XSecure_Sha384Hash* SpkIdHash, u32 PcrNo, u32 DigestIndex,
 			       u32 PdiType);
 static int XLoader_EncRevokeIdMeasurement(XLoader_SecureParams* SecurePtr,
 					  XSecure_Sha384Hash* Sha3Hash);
-static int XLoader_ExtendEncRevokeId(XSecure_Sha384Hash* RevokeIdHash, u32 PcrInfo, u32 DigestIndex,
+static int XLoader_ExtendEncRevokeId(XSecure_Sha384Hash* RevokeIdHash, u32 PcrNo, u32 DigestIndex,
 				     u32 PdiType);
 #endif
 static int XLoader_InitTrngInstance(void);
@@ -174,7 +179,7 @@ int XLoader_UpdateDataMeasurement(const XilPdi* PdiPtr, u64 DataAddr, u32 DataLe
 	u32 PrtnNum = PdiPtr->PrtnNum;
 	ChecksumType = XilPdi_GetChecksumType(&PdiPtr->MetaHdr->PrtnHdr[PrtnNum]);
 	/** Update data for measurement only if Authentication or ChecksumType is not SHA3 hash */
-	if ((!XilPdi_IsAuthEnabled(&PdiPtr->MetaHdr->ImgHdrTbl)) &&
+	if ((XilPdi_IsAuthEnabled(&PdiPtr->MetaHdr->ImgHdrTbl) == 0U) &&
 	    (ChecksumType != XIH_PH_ATTRB_HASH_SHA3)) {
 		ImageMeasureInfo.DataAddr = DataAddr;
 		ImageMeasureInfo.DataSize = DataLen;
@@ -402,22 +407,28 @@ static int XLoader_SpkMeasurement(XLoader_SecureParams* SecurePtr,
 	u32 AuthType;
 	u32 SpkLen = 0U;
 
-	AuthType = XLoader_GetAuthPubAlgo(&SecurePtr->AcPtr->AuthHdr);
-
+	AuthType = XLoader_GetAuthPubAlgo(SecurePtr->AcPtr->PPK.Header);
 	if (AuthType == XLOADER_PUB_STRENGTH_RSA_4096) {
-		SpkLen = XLOADER_SPK_SIZE - XOCP_WORD_LEN;
+		SpkLen = XLOADER_RSA_KEY_SIZE_IN_BYTES;
 	} else if (AuthType == XLOADER_PUB_STRENGTH_ECDSA_P384) {
-		SpkLen = (XLOADER_ECDSA_P384_KEYSIZE + XLOADER_ECDSA_P384_KEYSIZE);
-	} else if (AuthType == XLOADER_PUB_STRENGTH_ECDSA_P521) {
-		SpkLen = (XLOADER_ECDSA_P521_KEYSIZE + XLOADER_ECDSA_P521_KEYSIZE);
+		SpkLen = XLOADER_ECDSA_P384_KEY_SIZE_IN_BYTES;
+	} else if (AuthType == XLOADER_PUB_STRENGTH_LMS_HSS) {
+		SpkLen = XLOADER_LMS_HSS_KEY_SIZE_IN_BYTES;
+	} else if (AuthType == XLOADER_PUB_STRENGTH_LMS) {
+		SpkLen = XLOADER_LMS_KEY_SIZE_IN_BYTES;
+	} else if (AuthType == XLOADER_PUB_STRENGTH_MLDSA) {
+		SpkLen = XLOADER_MLDSA_KEY_SIZE_IN_BYTES;
+	} else if (AuthType == XLOADER_PUB_STRENGTH_SLHDSA) {
+		SpkLen = XLOADER_SLHDSA_KEY_SIZE_IN_BYTES;
 	} else {
-		/* MISRA-C compliance */
+		goto END;
 	}
 
 	Status = XSecure_ShaDigest(ShaInstPtr, XSECURE_SHA3_384,
-			(UINTPTR)&SecurePtr->AcPtr->Spk,
-			SpkLen, (u64)(UINTPTR)Sha3Hash, XSECURE_SHA_384_HASH_SIZE_IN_BYTES);
-
+			(UINTPTR)&SecurePtr->AcPtr->SPK.Header,
+			SpkLen + XLOADER_KEY_HDR_SIZE_IN_BYTES,
+			(u64)(UINTPTR)Sha3Hash, XSECURE_SHA_384_HASH_SIZE_IN_BYTES);
+END:
 	return Status;
 }
 
@@ -439,9 +450,16 @@ static int XLoader_ExtendSpkHash(XSecure_Sha384Hash* SpkHash , u32 PcrNo, u32 Di
 				 u32 PdiType)
 {
 	int Status = XST_FAILURE;
+
+	Status = XOcp_ExtendHwPcr((XOcp_HwPcr)PcrNo, (u64)(UINTPTR)&SpkHash->Hash,
+			XSECURE_SHA_384_HASH_SIZE_IN_BYTES);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
 	Status = XOcp_ExtendSwPcr(PcrNo, DigestIndex,
 			          (u64)(UINTPTR)&SpkHash->Hash, XSECURE_SHA_384_HASH_SIZE_IN_BYTES, PdiType);
-
+END:
 	return Status;
 }
 
@@ -462,9 +480,10 @@ static int XLoader_SpkIdMeasurement(XLoader_SecureParams* SecurePtr, XSecure_Sha
 	int Status = XST_FAILURE;
 	XSecure_Sha *Sha3InstPtr = XSecure_GetSha3Instance(XSECURE_SHA_0_DEVICE_ID);
 
-	Status = XSecure_ShaDigest(Sha3InstPtr, XSECURE_SHA3_384, (UINTPTR)&SecurePtr->AcPtr->SpkId,
-				   sizeof(SecurePtr->AcPtr->SpkId), (u64)(UINTPTR)Sha3Hash,
-				   XSECURE_SHA_384_HASH_SIZE_IN_BYTES);
+	Status = XSecure_ShaDigest(Sha3InstPtr, XSECURE_SHA3_384,
+			(UINTPTR)&SecurePtr->AcPtr->SPK.Header,
+			XLOADER_KEY_HDR_SIZE_IN_BYTES,
+			(u64)(UINTPTR)Sha3Hash, XSECURE_SHA_384_HASH_SIZE_IN_BYTES);
 
 	return Status;
 }
@@ -486,9 +505,16 @@ static int XLoader_SpkIdMeasurement(XLoader_SecureParams* SecurePtr, XSecure_Sha
 static int XLoader_ExtendSpkId(XSecure_Sha384Hash* SpkIdHash, u32 PcrNo, u32 DigestIndex, u32 PdiType)
 {
 	int Status = XST_FAILURE;
+
+	Status = XOcp_ExtendHwPcr((XOcp_HwPcr)PcrNo, (u64)(UINTPTR)&SpkIdHash->Hash,
+			XSECURE_SHA_384_HASH_SIZE_IN_BYTES);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
 	Status = XOcp_ExtendSwPcr(PcrNo, DigestIndex,
 				(u64)(UINTPTR)&SpkIdHash->Hash, XSECURE_SHA_384_HASH_SIZE_IN_BYTES, PdiType);
-
+END:
 	return Status;
 }
 
@@ -536,9 +562,17 @@ static int XLoader_ExtendEncRevokeId(XSecure_Sha384Hash* RevokeIdHash, u32 PcrNo
 				     u32 PdiType)
 {
 	int Status = XST_FAILURE;
+
+	Status = XOcp_ExtendHwPcr((XOcp_HwPcr)PcrNo, (u64)(UINTPTR)&RevokeIdHash->Hash,
+			XSECURE_SHA_384_HASH_SIZE_IN_BYTES);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
 	Status = XOcp_ExtendSwPcr(PcrNo, DigestIndex, (u64)(UINTPTR)&RevokeIdHash->Hash,
 				  XSECURE_SHA_384_HASH_SIZE_IN_BYTES, PdiType);
 
+END:
 	return Status;
 }
 #endif
@@ -561,20 +595,21 @@ int XLoader_SecureConfigMeasurement(XLoader_SecureParams* SecurePtr, u32 PcrInfo
 				    u32 OverWrite)
 {
 	int Status = XLOADER_ERR_SECURE_CONFIG_MEASUREMENT;
-#if defined(PLM_OCP)
+#if (!defined(PLM_SECURE_EXCLUDE)) && (defined(PLM_OCP))
 	volatile u32 IsAuthenticated = SecurePtr->IsAuthenticated;
 	volatile u32 IsAuthenticatedTmp = SecurePtr->IsAuthenticated;
 	volatile u32 IsEncrypted = SecurePtr->IsEncrypted;
 	volatile u32 IsEncryptedTmp = SecurePtr->IsEncrypted;
-	u32 MeasureIdx = (PcrInfo & XOCP_PCR_MEASUREMENT_INDEX_MASK) >> 16U;
+	u32 MeasureIdx = (PcrInfo & XOCP_PCR_MEASUREMENT_INDEX_MASK) >>
+			   XOCP_PCR_MEASUREMENT_INDEX_SHIFT;
 	u32 PcrNo = PcrInfo & XOCP_PCR_NUMBER_MASK;
 	XSecure_Sha384Hash Sha3Hash = {0U};
 	volatile u32 IsAuthKeysToHashEnabled = (XPlmi_In32(XLOADER_EFUSE_ROM_RSVD_CACHE_ADDRESS) &
 			XLOADER_EFUSE_ROM_RSVD_AUTH_KEYS_TO_HASH_MASK) >>
-			XLOADER_EFUSE_ROM_RSVD_AUTH_KEYS_TO_HASH_SHIFT;;
+			XLOADER_EFUSE_ROM_RSVD_AUTH_KEYS_TO_HASH_SHIFT;
 	volatile u32 IsAuthKeysToHashEnabledTmp = (XPlmi_In32(XLOADER_EFUSE_ROM_RSVD_CACHE_ADDRESS) &
 			XLOADER_EFUSE_ROM_RSVD_AUTH_KEYS_TO_HASH_MASK) >>
-			XLOADER_EFUSE_ROM_RSVD_AUTH_KEYS_TO_HASH_SHIFT;;
+			XLOADER_EFUSE_ROM_RSVD_AUTH_KEYS_TO_HASH_SHIFT;
 
 	if (PcrInfo == XOCP_PCR_INVALID_VALUE) {
                 Status = XST_SUCCESS;
@@ -601,7 +636,7 @@ int XLoader_SecureConfigMeasurement(XLoader_SecureParams* SecurePtr, u32 PcrInfo
 		if (Status != XST_SUCCESS) {
 			goto END;
 		}
-		MeasureIdx = MeasureIdx + 1;
+		MeasureIdx = MeasureIdx + 1U;
 
 	}
 	if ((IsEncrypted == (u8)TRUE) || (IsEncryptedTmp == (u8)TRUE)) {
@@ -614,7 +649,7 @@ int XLoader_SecureConfigMeasurement(XLoader_SecureParams* SecurePtr, u32 PcrInfo
 			if (Status != XST_SUCCESS) {
 				goto END;
 			}
-			MeasureIdx = MeasureIdx + 1;
+			MeasureIdx = MeasureIdx + 1U;
 		}
 	}
 
@@ -623,7 +658,7 @@ int XLoader_SecureConfigMeasurement(XLoader_SecureParams* SecurePtr, u32 PcrInfo
 	Status = XST_SUCCESS;
 END:
 	if (Status != XST_SUCCESS) {
-		XPlmi_UpdateStatus(XLOADER_ERR_SECURE_CONFIG_MEASUREMENT, Status);
+		Status = XPlmi_UpdateStatus(XLOADER_ERR_SECURE_CONFIG_MEASUREMENT, Status);
 	}
 #else
 	(void)SecurePtr;
@@ -659,8 +694,16 @@ int XLoader_MeasureNLoad(XilPdi* PdiPtr)
 	PtrnHashTablePtr = XLoader_GetPtrnHashTable();
 	PdiPtr->DigestIndex = (PcrInfo & XLOADER_PCR_MEASUREMENT_INDEX_MASK) >>
 			       XLOADER_PCR_MEASUREMENT_INDEX_SHIFT;
+	ImageMeasureInfo.DigestIndex = &PdiPtr->DigestIndex;
+	if ((PdiPtr->PdiType == XLOADER_PDI_TYPE_PARTIAL) ||
+	    (PdiPtr->PdiType == XLOADER_PDI_TYPE_IPU) ||
+	    (PdiPtr->IsSubsystemRestart == (u8)TRUE)) {
+		ImageMeasureInfo.OverWrite = (u32)TRUE;
+	} else {
+		ImageMeasureInfo.OverWrite = (u32)FALSE;
+	}
 
-	if (XilPdi_IsAuthEnabled(&PdiPtr->MetaHdr->ImgHdrTbl) ||
+	if ((XilPdi_IsAuthEnabled(&PdiPtr->MetaHdr->ImgHdrTbl) != 0U) ||
 	    (ChecksumType == XIH_PH_ATTRB_HASH_SHA3)) {
 		Status = XLoader_LoadImagePrtns(PdiPtr);
 		if (Status != XST_SUCCESS) {
@@ -731,7 +774,7 @@ int XLoader_DataMeasurement(XLoader_ImageMeasureInfo *ImageInfo)
 	volatile int Status = (int)XLOADER_ERR_DATA_MEASUREMENT;
 	u32 PcrNo;
 	XSecure_Sha384Hash Sha3Hash;
-	XSecure_Sha3 *Sha3InstPtr = XSecure_GetSha3Instance(XSECURE_SHA_0_DEVICE_ID);
+	XSecure_Sha *Sha3InstPtr = XSecure_GetSha3Instance(XSECURE_SHA_0_DEVICE_ID);
 #ifndef PLM_SECURE_EXCLUDE
 	XilPdi* PdiPtr = XLoader_GetPdiInstance();
 #endif
@@ -780,7 +823,7 @@ int XLoader_DataMeasurement(XLoader_ImageMeasureInfo *ImageInfo)
 		break;
 	}
 	if (Status != XST_SUCCESS) {
-		XPlmi_UpdateStatus(XLOADER_ERR_DATA_MEASUREMENT, Status);
+		Status = XPlmi_UpdateStatus(XLOADER_ERR_DATA_MEASUREMENT, Status);
 		goto END;
 	}
 
@@ -798,6 +841,13 @@ int XLoader_DataMeasurement(XLoader_ImageMeasureInfo *ImageInfo)
 #endif /* PLM_OCP_NATIVE_KEY_MGMT */
 		if (ImageInfo->PcrInfo != XOCP_PCR_INVALID_VALUE) {
 			PcrNo = ImageInfo->PcrInfo & XOCP_PCR_NUMBER_MASK;
+
+			/* Extend HW PCR */
+			Status = XOcp_ExtendHwPcr((XOcp_HwPcr)PcrNo, (u64)(UINTPTR)Sha3Hash.Hash,
+				XSECURE_SHA_384_HASH_SIZE_IN_BYTES);
+			if (Status != XST_SUCCESS) {
+				goto END;
+			}
 
 			/* Extend SW PCR */
 			Status = XOcp_ExtendSwPcr(PcrNo, *(u32 *)(ImageInfo->DigestIndex),
@@ -1731,6 +1781,32 @@ static int XLoader_InitTrngInstance(void)
 	}
 
 END:
+	return Status;
+}
+
+
+/**************************************************************************************************/
+/**
+ * @brief	This function checks and updates the secure state configuration.
+ *
+ * @return
+ * 		- XST_SUCCESS on success.
+ * 		- Error code on failure.
+ *
+ **************************************************************************************************/
+int XLoader_CheckAndUpdateSecureState(void)
+{
+	int Status = XST_FAILURE;
+
+#if (!defined(PLM_SECURE_EXCLUDE)) && (defined(PLM_OCP))
+	Status = XOcp_CheckAndExtendSecureState();
+	if (Status != XST_SUCCESS) {
+		Status = XLoader_UpdateMinorErr(XLOADER_SEC_STATE_CONFIG_MEASUREMENT_ERROR, Status);
+	}
+#else
+	Status = XST_SUCCESS;
+#endif
+
 	return Status;
 }
 

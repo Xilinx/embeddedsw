@@ -28,8 +28,7 @@
 * 1.6   vm   12/18/2025 Add Error code for Insufficient Memory
 *       rmv  01/30/2026 Renamed OCP keymanagment macro
 *       tbk  05/03/2026 Add validation for xcert remaining buffer before writing field
-*
-*
+*       sri  08/24/2026 Centralize XCERT_SHA_HASH_LEN and XCERT_SHA_KEY_ID_OFFSET
 * </pre>
 *
 *
@@ -62,6 +61,16 @@ extern "C" {
 	/**< Max length of the DER encoded Subject Alternative Name field received from CDO */
 #define XCERT_HASH_SIZE_IN_BYTES				(48U)
 					/**< Length of hash in bytes */
+#define XCERT_KEY_ID_VAL_LEN					(20U)
+					/**< Length of SKI/AKI key identifier in bytes */
+#ifndef XCERT_SHA_HASH_LEN
+#define XCERT_SHA_HASH_LEN                      XCERT_HASH_SIZE_IN_BYTES
+					/**< SKI/AKI digest buffer (Versal Net overrides to SHA-1) */
+#endif
+#ifndef XCERT_SHA_KEY_ID_OFFSET
+#define XCERT_SHA_KEY_ID_OFFSET                 (0U)
+					/**< SKI/AKI key id offset (platform may override) */
+#endif
 #define XCert_Printf						XPlmi_Printf
 				/**< Alias of XPlmi_Printf to be used in XilCert*/
 #define XCERT_ECC_P384_PUBLIC_KEY_LEN				(96U)
@@ -211,4 +220,3 @@ u32* XCert_GetSpkId(void);
 #endif
 #endif  /* PLM_OCP_NATIVE_KEY_MGMT */
 #endif  /* XCERT_GENX509CERT_H */
-/* @} */

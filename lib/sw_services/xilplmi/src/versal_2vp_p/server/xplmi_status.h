@@ -51,12 +51,12 @@ extern "C" {
  * XXXX - Major error code - PLM/LOADER/XPLMI error codes as defined in xplmi_status.h
  * YYYY - Minor error code - Libraries / Drivers error code as defined in respective modules
  */
-#define XPLMI_STATUS_MODULE_MASK			(0x4000FFFFU)
-#define XPLMI_ERR_CDO_CMD_MASK				(0x1FFFU)
-#define XPLMI_STATUS_SHIFT				(16U)
-#define XPLMI_ERR_CODE_MASK				(0x7FFFFFFFU)
+#define XPLMI_STATUS_MODULE_MASK      (0x4000FFFFU) /**< PLMI status module mask */
+#define XPLMI_ERR_CDO_CMD_MASK        (0x1FFFU) /**< CDO command error mask */
+#define XPLMI_STATUS_SHIFT            (16U) /**< PLMI status shift value */
+#define XPLMI_ERR_CODE_MASK           (0x7FFFFFFFU) /**< PLMI error code mask */
 
-#define XPLMI_WARNING_STATUS_MASK			(0x40000000)
+#define XPLMI_WARNING_STATUS_MASK     (0x40000000U) /**< PLMI warning status mask */
 
 /*
  * Use these masks to change any major error or minor error into a warning. It's expected to OR the
@@ -71,7 +71,7 @@ extern "C" {
  * In case of failure of any security operation, the buffer must be cleared. In case of
  * success/failure in clearing the buffer, the following error codes shall be updated in the status
  */
-#define XLOADER_SEC_CHUNK_CLEAR_ERR	((u32)0x20U << 8U)
+#define XLOADER_SEC_CHUNK_CLEAR_ERR	((u32)0x20U << 8U) /**< Error in clearing secure chunk */
 #define XLOADER_SEC_BUF_CLEAR_ERR	((u32)0x80U << 8U) /**< Error in clearing buffer */
 #define XLOADER_SEC_BUF_CLEAR_SUCCESS	((u32)0x40U << 8U) /**< Buffer is successfully cleared */
 /**
@@ -208,7 +208,7 @@ typedef enum {
 						  buffer */
 	XPLMI_SSIT_INTR_NOT_ENABLED,	/**< 0x1AB - SSIT interrupts are not enabled. Hence, cannot
 					  trigger the event */
-	XPLMI_ERR_RESERVED_1AC,		/**< 0x1AC - XPLMI_ERR_RESERVED_1AC */
+	XPLMI_ERR_INVALID_ROM_INT_REQ,	/**< 0x1AC - Error when an invalid interrupt request for ROM */
 	XPLMI_ERR_RESERVED_1AD,		/**< 0x1AD - XPLMI_ERR_RESERVED_1AD */
 	XPLMI_SSIT_SECURE_COMM_INVALID_SRCADDR,	/**< 0X1AE - Error if configure secure communication
 						  has invalid source address in payload */
@@ -654,6 +654,7 @@ typedef enum {
 	XOCP_DEVAK_MAX_COUNT_EXCEED = 0x6C0,	/**< 0x6C0 DEVAK MAX count exceeded */
 	XOCP_DEVAK_PER_SUBSYSTEM_MAX_COUNT_EXCEED,	/**< 0x6C1 DEVAK per subsystem MAX count
 							  exceeded */
+	XOCP_ERR_INVALID_XPPU_CONFIGURATION,	/**< 0x6CC Invalid XPPU configuration */
 	XOCP_ERR_KAT_FAILED = 0x6D0,	/**< 0x6D0 Error when KAT fails */
 	XOCP_ERR_X509_USER_CFG_STORE_LIMIT_CROSSED,	/**< 0x6D1 Storing user configuration for
 							  more than 4 subsystems is not allowed */
@@ -689,6 +690,14 @@ typedef enum {
 /************************************** Type Definitions ******************************************/
 
 /*************************** Macros (Inline Functions) Definitions ********************************/
+/**
+ * @brief Updates PLMI status with module status.
+ *
+ * @param PlmiStatus PLMI status code.
+ * @param ModuleStatus Module-specific status code.
+ *
+ * @return Combined status value.
+ */
 static inline int XPlmi_UpdateStatus(XPlmiStatus_t PlmiStatus, int ModuleStatus)
 {
 	u32 UStatus = (u32)PlmiStatus;

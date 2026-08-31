@@ -46,6 +46,8 @@
 *       tvp  05/16/25 Add support for Versal_2vp
 * 1.7   rmv  01/30/26 Refactor OCP library
 *       rpu  03/11/26 Validate input parameters
+* 1.8   sri  08/24/26 Versal_2VP_P: DevIK CSR, DevAK chain, and attestation via shared
+*                     GetX509/keymgmt; failure-only DevIK private key zeroize in XOcp_GenerateDevIKKeyPair
 * </pre>
 *
 **************************************************************************************************/
@@ -181,6 +183,7 @@ int XOcp_GenerateDevIKKeyPair(void)
 {
 	volatile int Status = XST_FAILURE;
 	volatile int SStatusTmp = XST_FAILURE;
+	int ClrStatus = XST_FAILURE;
 	XSecure_TrngInstance *TrngInstance = XSecure_GetTrngInstance();
 	XOcp_KeyMgmt *KeyInstPtr = XOcp_GetKeyMgmtInstance();
 	XOcp_RegSpace* XOcp_Reg = XOcp_GetRegSpace();
@@ -223,13 +226,16 @@ END:
 	if (Status != XST_SUCCESS) {
 #ifndef VERSAL_2VP
 		/** - Zeroize private keys */
-		Status = XOcp_KeyZeroize(XOCP_PMC_GLOBAL_DEV_IK_PRIVATE_ZEROIZE_CTRL,
+		ClrStatus = XOcp_KeyZeroize(XOCP_PMC_GLOBAL_DEV_IK_PRIVATE_ZEROIZE_CTRL,
 				(UINTPTR)XOCP_PMC_GLOBAL_DEV_IK_PRIVATE_ZEROIZE_STATUS);
 #else
 		/** - Zeroize private keys stored in PMC RAM for Versal_2vp */
-		Status = Xil_SecureZeroize((u8 *)(UINTPTR)XOcp_Reg->DevIkPvtAddr,
+		ClrStatus = Xil_SecureZeroize((u8 *)(UINTPTR)XOcp_Reg->DevIkPvtAddr,
 				XOCP_ECC_P384_SIZE_BYTES);
 #endif
+		if (ClrStatus != XST_SUCCESS) {
+			Status |= ClrStatus;
+		}
 	}
 RET:
 	return Status;
@@ -379,7 +385,7 @@ int XOcp_GenerateDevAk(u32 SubSystemId)
 	volatile int Status = XST_FAILURE;
 	volatile int SStatusTmp = XST_FAILURE;
 	XOcp_DevAkData *DevAkData = XOcp_GetDevAkData();
-	u32 DevAkIndex[XOCP_MAX_KEYS_SUPPPORTED_PER_SUBSYSTEM];
+	u32 DevAkIndex[XOCP_MAX_KEYS_SUPPPORTED_PER_SUBSYSTEM] = {0U};
 	u8 Seed[XOCP_DEVAK_GEN_TRNG_SEED_SIZE_IN_BYTES];
 	XSecure_ElliptcPrivateKeyGen KeyGenParams;
 	XSecure_EllipticKeyAddr PubKeyAddr;
@@ -535,7 +541,7 @@ END:
 int XOcp_GetX509Certificate(XOcp_X509Cert *XOcp_GetX509CertPtr, u32 SubSystemId)
 {
 	volatile int Status = XST_FAILURE;
-	u32 DevAkIndex[XOCP_MAX_KEYS_SUPPPORTED_PER_SUBSYSTEM];
+	u32 DevAkIndex[XOCP_MAX_KEYS_SUPPPORTED_PER_SUBSYSTEM] = {0U};
 	XOcp_DevAkData *DevAkData = NULL;
 	XCert_Config CertConfig;
 	XOcp_KeyMgmt *KeyInstPtr = XOcp_GetKeyMgmtInstance();
@@ -688,7 +694,7 @@ int XOcp_AttestWithKeyWrapDevAk(XOcp_Attest *AttestationInfoPtr, u32 SubSystemId
 	u64 AttnPloadAddr, u32 AttnPloadSize)
 {
 	int Status = XST_FAILURE;
-	u32 DevAkIndex[XOCP_MAX_KEYS_SUPPPORTED_PER_SUBSYSTEM];
+	u32 DevAkIndex[XOCP_MAX_KEYS_SUPPPORTED_PER_SUBSYSTEM] = {0U};
 
 	/** Validate input parameters */
 	if ((AttestationInfoPtr == NULL) || (AttnPloadAddr == 0U) || (AttnPloadSize == 0U) ||
@@ -729,7 +735,7 @@ END:
  * @brief	This function signs the provided hash with the DevAk private key
  * 		available at provided DevAkIndex
  *
- * @param   	AttestationInfoPtr - Address of XOcp_AttestWithDevAk structure.
+ * @param   	AttestationInfoPtr - Address of XOcp_Attest structure.
  * @param	DevAkIndex - Index of the DevAk private key in XOcp_DevAkData structure
  *
  * @return
@@ -786,6 +792,48 @@ static int XOcp_Attestation(XOcp_Attest *AttestationInfoPtr, u32 DevAkIndex)
 END:
 	return Status;
 }
+
+#ifndef VERSAL_2VP
+/*****************************************************************************/
+/**
+ * @brief	This function zeroizes the data using specified control registers.
+ *
+ * @param	CtrlReg holds the address of zeroize control register.
+ * @param	StatusReg holds the address of status register.
+ *
+ * @return
+ *		- XST_SUCCESS - If zeroization status is pass
+ *		- XST_FAILURE - Upon any failure
+ *
+ ******************************************************************************/
+static int XOcp_KeyZeroize(u32 CtrlReg, UINTPTR StatusReg)
+{
+	volatile int Status = XST_FAILURE;
+	u32 ReadReg;
+
+	/** - Writes data to 32-bit address and checks for blind writes */
+	XSECURE_TEMPORAL_CHECK(END, Status, Xil_SecureOut32, CtrlReg,
+		XOCP_PMC_GLOBAL_ZEROIZE_CTRL_ZEROIZE_MASK);
+
+	Status = (int)Xil_WaitForEvent(StatusReg,
+			XOCP_PMC_GLOBAL_ZEROIZE_STATUS_PASS_MASK,
+			XOCP_PMC_GLOBAL_ZEROIZE_STATUS_PASS_MASK,
+			XOCP_TIMEOUT_MAX);
+	if (Status == XST_SUCCESS) {
+		ReadReg = XPlmi_In32(StatusReg) &
+				XOCP_PMC_GLOBAL_ZEROIZE_STATUS_PASS_MASK;
+		if (ReadReg != XOCP_PMC_GLOBAL_ZEROIZE_STATUS_PASS_MASK) {
+			Status = XST_FAILURE;
+		}
+	}
+
+END:
+	/** - Clearing Zeroize Control register */
+	XPlmi_Out32(CtrlReg, XOCP_PMC_GLOBAL_ZEROIZE_CTRL_ZEROIZE_CLEAR_MASK);
+
+	return Status;
+}
+#endif
 
 #ifdef VERSAL_NET
 /*****************************************************************************/
@@ -847,46 +895,6 @@ int XOcp_ShutdownHandler(XPlmi_ModuleOp Op)
 	}
 
 END:
-	return Status;
-}
-
-/*****************************************************************************/
-/**
- * @brief	This function zeroizes the data using specified control registers.
- *
- * @param	CtrlReg holds the address of zeroize control register.
- * @param	StatusReg holds the address of status register.
- *
- * @return
- *		- XST_SUCCESS - If zeroization status is pass
- *		- XST_FAILURE - Upon any failure
- *
- ******************************************************************************/
-static int XOcp_KeyZeroize(u32 CtrlReg, UINTPTR StatusReg)
-{
-	volatile int Status = XST_FAILURE;
-	u32 ReadReg;
-
-	/** - Writes data to 32-bit address and checks for blind writes */
-	XSECURE_TEMPORAL_CHECK(END, Status, Xil_SecureOut32, CtrlReg,
-		XOCP_PMC_GLOBAL_ZEROIZE_CTRL_ZEROIZE_MASK);
-
-	Status = (int)Xil_WaitForEvent(StatusReg,
-			XOCP_PMC_GLOBAL_ZEROIZE_STATUS_PASS_MASK,
-			XOCP_PMC_GLOBAL_ZEROIZE_STATUS_PASS_MASK,
-			XOCP_TIMEOUT_MAX);
-	if (Status == XST_SUCCESS) {
-		ReadReg = XPlmi_In32(StatusReg) &
-				XOCP_PMC_GLOBAL_ZEROIZE_STATUS_PASS_MASK;
-		if (ReadReg != XOCP_PMC_GLOBAL_ZEROIZE_STATUS_PASS_MASK) {
-			Status = XST_FAILURE;
-		}
-	}
-
-END:
-	/** - Clearing Zeroize Control register */
-	XPlmi_Out32(CtrlReg, XOCP_PMC_GLOBAL_ZEROIZE_CTRL_ZEROIZE_CLEAR_MASK);
-
 	return Status;
 }
 #endif
@@ -1029,7 +1037,7 @@ int XOcp_GenSharedSecretwithDevAk(u32 SubSystemId, u64 PubKeyAddr, u64 SharedSec
 	volatile int Status = XST_FAILURE;
 	volatile int ClrStatus = XST_FAILURE;
 	XOcp_DevAkData *DevAkData = XOcp_GetDevAkData();
-	u32 DevAkIndex[XOCP_MAX_KEYS_SUPPPORTED_PER_SUBSYSTEM];
+	u32 DevAkIndex[XOCP_MAX_KEYS_SUPPPORTED_PER_SUBSYSTEM] = {0U};
 	u64 PrvtKeyAddr;
 	u8 PubKeyTmp[XSECURE_ECC_P384_SIZE_IN_BYTES * 2U];
 	u8 SharedSecretTmp[XSECURE_ECC_P384_SIZE_IN_BYTES * 2U];
@@ -1095,7 +1103,7 @@ END:
 int XOcp_GenSubSysDevAk(u32 SubsystemID, u64 InHash)
 {
 	int Status = XST_FAILURE;
-	u32 DevAkIndex[XOCP_MAX_KEYS_SUPPPORTED_PER_SUBSYSTEM];
+	u32 DevAkIndex[XOCP_MAX_KEYS_SUPPPORTED_PER_SUBSYSTEM] = {0U};
 	XOcp_DevAkData *DevAkData = XOcp_GetDevAkData();
 	u32 KeyIndex = 0U;
 
@@ -1143,7 +1151,7 @@ END:
 int XOcp_SetAppVersion(u32 SubsystemID, u64 AppVersion, u32 AppVersionLen)
 {
 	int Status = XST_FAILURE;
-	u32 DevAkIndex[XOCP_MAX_KEYS_SUPPPORTED_PER_SUBSYSTEM];
+	u32 DevAkIndex[XOCP_MAX_KEYS_SUPPPORTED_PER_SUBSYSTEM] = {0U};
 	XOcp_DevAkData *DevAkData = XOcp_GetDevAkData();
 	XOcp_SubSysHash *SubSysHashDs = XOcp_GetSubSysHash();
 	u32 KeyIndex = 0U;

@@ -25,6 +25,7 @@
 * 2.4   rmv 01/30/26 Refactor OCP library
 * 2.5   sd  03/03/26 Added PLM_ENABLE_ADDR_RANGE_VALIDATION macro and enable by default
 *       pre 08/05/26 Enabling PLM_I2C_MB_HANDSHAKE macro based on DDR5 IP
+*       sri 08/24/26 Enable OCP for Versal_2VP_P (PLM_OCP, PLM_HW_PCR, native key mgmt)
 *
 * </pre>
 *
@@ -124,7 +125,7 @@ extern "C" {
 //#define PLM_PUF_EXCLUDE
 //#define PLM_ECDSA_EXCLUDE
 //#define PLM_RSA_EXCLUDE
-#define PLM_OCP_EXCLUDE
+//#define PLM_OCP_EXCLUDE
 
 #if (!defined(PLM_NVM_EXCLUDE)) && (!defined(PLM_NVM))
 #define PLM_NVM
@@ -134,8 +135,9 @@ extern "C" {
 #define PLM_PUF
 #endif
 
-#if (!defined(PLM_OCP_EXCLUDE)) && (!defined(PLM_OCP)) && (!defined(PLM_SECURE_EXCLUDE))
+#if (!defined(PLM_OCP_EXCLUDE)) && (!defined(PLM_OCP))
 #define PLM_OCP
+#define PLM_HW_PCR
 #if (!defined(PLM_OCP_KEY_MGMT_EXCLUDE)) && (!defined(PLM_OCP_KEY_MGMT)) && (!defined(PLM_ECDSA_EXCLUDE))
 #define PLM_OCP_KEY_MGMT
 #define PLM_OCP_NATIVE_KEY_MGMT

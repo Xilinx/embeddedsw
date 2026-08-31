@@ -20,6 +20,7 @@
 *                    XLoader_GetI2CDeviceID function declaration
 * 2.5   tvp 08/03/26 Added function declaration and error codes for JTAG Config Request
 *       pre 08/05/26 Removed unused error code
+*       sri 08/24/26 Declare XLoader_CheckAndUpdateSecureState for OCP secure state (Versal Net reuse)
 *
 * </pre>
 *
@@ -398,20 +399,6 @@ static inline int XLoader_ReadDdrCryptoPerfCounters(XPlmi_Cmd *Cmd)
 
 /**************************************************************************************************/
 /**
- * @brief	This Function checks and updates the secure state configuration.
- *
- * @return
- * 		- XST_SUCCESS on success.
- * 		- Error code on failure.
- *
- **************************************************************************************************/
-static inline int XLoader_CheckAndUpdateSecureState(void)
-{
-	return XST_SUCCESS;
-}
-
-/**************************************************************************************************/
-/**
  * @brief	This function will sync the PDI load status with master.
  *
  * @param	PdiPtr is pointer to PDI instance.
@@ -479,6 +466,7 @@ int XLoader_DataMeasurement(XLoader_ImageMeasureInfo *ImageInfo);
 void XLoader_ShaInstance1Reset(void);
 int XLoader_PlatInit(void);
 int XLoader_ConfigureJtagState(XPlmi_Cmd *Cmd);
+int XLoader_CheckAndUpdateSecureState(void);
 
 #if defined(PLM_OCP)
 XSecure_Sha384Hash* XLoader_GetPtrnHashTable(void);

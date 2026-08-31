@@ -20,8 +20,9 @@
 *        sd  03/03/26 Replaced XPlmi_GetRawVoltage inline function with macro
 * 2.4    tvp 03/06/26 Add SSS config masks for SHA2 engine
 * 2.5    sd  03/13/26 Added changes to enable hardware interrupts
-* 3.0    sd  08/03/26 Clear SSS Cfg Error set during ROM PCR Extension
+*        sd  08/03/26 Clear SSS Cfg Error set during ROM PCR Extension
 *        sd  08/07/26 Removed unused XPlmi_VerifyAddrRange function
+*        sri 08/24/26 Add XPlmi_RomISR for OCP DME ROM service
 *
 * </pre>
 *
@@ -99,6 +100,9 @@
 static int XPlmi_UpdateResetReason(void);
 static void XPlmi_HwIntrHandler(void *CallbackRef);
 static int XPlmi_SsitWaitForDmaDone(XPmcDma *DmaPtr, XPmcDma_Channel Channel);
+static void XPlmi_DisableIOmodule(void);
+static u32 XPlmi_GetIoIntrMask(void);
+static void XPlmi_SetIoIntrMask(u32 Value);
 
 /************************************ Variable Definitions ****************************************/
 /* Structure for Top level interrupt table */
@@ -805,6 +809,101 @@ u8 XPlmi_IsKatRan(u32 PlmKatMask)
 	}
 
 	return IsKatRan;
+}
+
+/****************************************************************************/
+/**
+ * @brief	This function will disable the IOmodule interrupts.
+ *
+ ****************************************************************************/
+static void XPlmi_DisableIOmodule(void)
+{
+	const XIOModule *IOModule = XPlmi_GetIOModuleInst();
+
+	XIomodule_Out32(IOModule->BaseAddress + XIN_IER_OFFSET, 0U);
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function returns the current enabled interrupt mask of
+ *		IOmodule.
+ *
+ * @return	Current interrupt enable mask
+ *
+ *****************************************************************************/
+static u32 XPlmi_GetIoIntrMask(void)
+{
+	const XIOModule *IOModule = XPlmi_GetIOModuleInst();
+
+	return (IOModule->CurrentIER);
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function enables the IOModule interrupts with provided value.
+ *
+ *****************************************************************************/
+static void XPlmi_SetIoIntrMask(u32 Value)
+{
+	const XIOModule *IOModule = XPlmi_GetIOModuleInst();
+
+	XPlmi_Out32(IOModule->BaseAddress + XIN_IER_OFFSET, Value);
+}
+
+/**************************************************************************************************/
+/**
+ * @brief	This function raises an interrupt request to ROM and waits for
+ *		completion. Before calling this API all pre-requisites for ROM service shall
+ *		be completed.
+ *
+ * @param	RomServiceReq ROM service interrupt request identifier
+ *
+ * @return
+ *		- XST_SUCCESS on success.
+ *		- XPLMI_ERR_INVALID_ROM_INT_REQ on invalid interrupt request for ROM.
+ *
+ **************************************************************************************************/
+int XPlmi_RomISR(XPlmi_RomIntr RomServiceReq)
+{
+	int Status = XST_FAILURE;
+	u32 IntrMask;
+	u32 IoMask;
+
+	if ((RomServiceReq >= XPLMI_INVALID_INT) ||
+		(RomServiceReq == XPLMI_PLM_UPDT_REQ)) {
+		Status = XPLMI_ERR_INVALID_ROM_INT_REQ;
+		goto END;
+	}
+	IntrMask = (u32)1U << (u32)RomServiceReq;
+	XPlmi_Out32(PMC_GLOBAL_ROM_INT_REASON, IntrMask);
+	/* Generate ROM interrupt */
+	XPlmi_Out32(PMC_GLOBAL_ROM_INT, IntrMask);
+
+	/* For DME request keeping Microblaze into sleep state */
+	if (RomServiceReq == XPLMI_DME_CHL_SIGN_GEN) {
+		/* Disable Interrupts */
+		microblaze_disable_interrupts();
+		/* Storing current interrupt enable mask of IOModule's IER */
+		IoMask = XPlmi_GetIoIntrMask();
+		XPlmi_DisableIOmodule();
+		mb_sleep();
+		Status = (int)Xil_WaitForEvent((UINTPTR)PMC_GLOBAL_PPU_1_RST_MODE,
+			PMC_GLOBAL_PPU_1_RST_MODE_WAKEUP_MASK,
+			PMC_GLOBAL_PPU_1_RST_MODE_WAKEUP_MASK,
+			XPLMI_ROM_SERVICE_TIMEOUT);
+		XPlmi_PpuWakeUpDis();
+		XPlmi_SetIoIntrMask(IoMask);
+		microblaze_enable_interrupts();
+		if (Status != XST_SUCCESS) {
+			goto END;
+		}
+	}
+	Status = (int)Xil_WaitForEvent((UINTPTR)PMC_GLOBAL_ROM_INT_REASON,
+		IntrMask, IntrMask, XPLMI_ROM_SERVICE_TIMEOUT);
+
+	XPlmi_Out32(PMC_GLOBAL_ROM_INT_REASON, IntrMask);
+END:
+	return Status;
 }
 
 /** @} end of xilplmi_server_apis */

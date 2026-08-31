@@ -240,7 +240,7 @@ int XPlm_ModuleInit(void *Arg)
 #endif
 #endif
 
-	/* OCP module is applicable only for Versalnet and Versal_2vp */
+	/* OCP module is applicable only for Versalnet, Versal_2VP and Versal_2VP_P */
 #ifdef PLM_OCP
 #ifdef PLM_OCP_NATIVE_KEY_MGMT
 #ifdef VERSAL_2VP

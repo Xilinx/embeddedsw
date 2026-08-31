@@ -12,7 +12,7 @@ maintainers:
 
 type: library
 
-description: Xilinx Open Compute Platform(OCP) support Library. Supported for Versal Net, Versal_2VE_2VM.
+description: Xilinx Open Compute Platform(OCP) support Library. Supported for Versal Net, Versal_2VE_2VM, Versal_2VP, Versal_2VP_P.
 
 supported_processors:
   - condition : |
@@ -22,7 +22,7 @@ supported_processors:
       elif platform in ["Versal_2VE_2VM"]:
         supported_processors = ["microblaze", "microblaze_riscv", "cortexa78", "cortexr52", "pmc"]
       elif platform in ["Versal"]:
-        if "Versal_2VP" in variant:
+        if ("Versal_2VP" in variant) or ("Versal_2VP_P" in variant):
           supported_processors = ["microblaze", "psv_cortexa72", "psv_cortexr5", "psv_pmc"]
       else:
         supported_processors = []
@@ -39,8 +39,12 @@ examples:
   condition : |
     examples = []
 
+    versal_procs = ["microblaze", "psv_cortexa72", "psv_cortexr5", "psv_pmc"]
     versalnet_procs = ["microblaze", "psx_cortexa78", "psx_cortexr52"]
     versal_2ve_2vm_procs = ["microblaze", "microblaze_riscv", "cortexa78", "cortexr52"]
+
+    if (platform == "Versal" and proc in versal_procs) and (("Versal_2VP" in variant) or ("Versal_2VP_P" in variant)):
+      examples += ["xilocp_client_devicekey_example.c"]
 
     if platform in ["VersalNet"] and proc in versalnet_procs:
       examples += ["xilocp_client_devicekey_example.c", "xilocp_client_dme_example.c"]

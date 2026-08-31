@@ -133,15 +133,15 @@ static int XLoader_DumpDdrmcRegisters(void);
 static int XLoader_InitTrngInstance(void);
 static void XLoader_LogMeasurementModuleStatus(void);
 #if (!defined(PLM_SECURE_EXCLUDE)) && (defined(PLM_OCP))
-static int XLoader_SpkMeasurement(XLoader_SecureParams* SecureParams, XSecure_Sha3Hash* Sha3Hash);
+static int XLoader_SpkMeasurement(XLoader_SecureParams* SecurePtr, XSecure_Sha3Hash* Sha3Hash);
 static int XLoader_ExtendSpkHash(XSecure_Sha3Hash* SpkHash , u32 PcrNo, u32 DigestIndex,
 				 u32 PdiType);
 static int XLoader_SpkIdMeasurement(XLoader_SecureParams* SecurePtr, XSecure_Sha3Hash* Sha3Hash);
-static int XLoader_ExtendSpkId(XSecure_Sha3Hash* SpkIdHash, u32 PcrInfo, u32 DigestIndex,
+static int XLoader_ExtendSpkId(XSecure_Sha3Hash* SpkIdHash, u32 PcrNo, u32 DigestIndex,
 			       u32 PdiType);
 static int XLoader_EncRevokeIdMeasurement(XLoader_SecureParams* SecurePtr,
 					  XSecure_Sha3Hash* Sha3Hash);
-static int XLoader_ExtendEncRevokeId(XSecure_Sha3Hash* RevokeIdHash, u32 PcrInfo, u32 DigestIndex,
+static int XLoader_ExtendEncRevokeId(XSecure_Sha3Hash* RevokeIdHash, u32 PcrNo, u32 DigestIndex,
 				     u32 PdiType);
 #endif
 

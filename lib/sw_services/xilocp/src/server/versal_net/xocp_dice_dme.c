@@ -18,6 +18,7 @@
 * 1.5   tvp  06/05/25 Initial release
 *       sd   11/07/25 Update condition to reflect the revised function return value
 * 1.7   rmv  01/30/26 Refactor OCP library
+* 1.8   sri  08/24/26 Versal_2VP_P: Use SHA3 KAT before DEV IK hash in DME path
 *
 * </pre>
 *
@@ -29,13 +30,17 @@
 #ifdef PLM_OCP
 #include "xocp_plat.h"
 #include "xocp_hw.h"
-#include "xocp_sha.h"
+#include <xocp_sha.h>
 #include "xocp_keymgmt_native.h"
 #include "xocp_dice_dme.h"
 #include "xplmi.h"
 #include "xplmi_tamper.h"
 #include "xsecure_plat_kat.h"
 #include "xsecure_kat.h"
+#if defined(VERSAL_2VP_P)
+#include "xsecure_init.h"
+#include "xsecure_sha.h"
+#endif
 #include "xocp_dme.h"
 #include "xil_sutil.h"
 
@@ -69,6 +74,7 @@
  * @endcond
  */
 /************************************** Type Definitions ******************************************/
+/** @cond xocp_internal */
 /**
  * Dme XPPU config
  */
@@ -120,6 +126,8 @@ static XOcp_DmeXppuCfg XOcp_DmeXppuCfgTable[XOCP_XPPU_MAX_APERTURES] =
 	{PMC_XPPU_MASTER_ID01, XOCP_XPPU_MASTER_ID1_PPU1_CONFIG_VAL, 0U, 0U},
 };
 
+/** @endcond */
+
 /*************************** Macros (Inline Functions) Definitions ********************************/
 
 /************************************ Function Prototypes *****************************************/
@@ -157,7 +165,10 @@ int XOcp_GenerateDmeResponseImpl(u64 NonceAddr, u64 DmeStructResAddr)
 	XOcp_RegSpace* XOcp_Reg = XOcp_GetRegSpace();
 #ifdef PLM_OCP_NATIVE_KEY_MGMT
 	u32 *DevIkPubKey = (u32 *)(UINTPTR)XOcp_Reg->DevIkPubXAddr;
-	u8 Sha3Hash[XOCP_SHA3_LEN_IN_BYTES];
+	u8 Sha3Hash[XOCP_SHA3_LEN_IN_BYTES] = {0U};
+#if defined(VERSAL_2VP_P)
+	XSecure_Sha *ShaInstPtr = XSecure_GetSha3Instance(XSECURE_SHA_0_DEVICE_ID);
+#endif
 #endif
 	XOcp_Dme RomDmeInput;
 	XOcp_DmeResponse *DmeResponse = XOcp_GetDmeResponse();
@@ -187,6 +198,19 @@ int XOcp_GenerateDmeResponseImpl(u64 NonceAddr, u64 DmeStructResAddr)
 #ifdef PLM_OCP_NATIVE_KEY_MGMT
 	/** - Fill the DME structure's DEVICE ID field with hash of DEV IK Public key */
 	if (XOcp_IsDevIkReady() != FALSE) {
+#if defined(VERSAL_2VP_P)
+		if (XPlmi_IsKatRan(XPLMI_SECURE_SHA3_KAT_MASK) != TRUE) {
+			XPLMI_HALT_BOOT_SLD_TEMPORAL_CHECK(XOCP_ERR_KAT_FAILED, Status, SStatus,
+							XSecure_Sha3Kat, ShaInstPtr);
+			if ((Status != XST_SUCCESS) || (SStatus != XST_SUCCESS)) {
+				goto RET;
+			}
+			XPlmi_SetKatMask(XPLMI_SECURE_SHA3_KAT_MASK);
+		}
+		Status = XSecure_ShaDigest(ShaInstPtr, XSECURE_SHA3_384,
+				(u64)(UINTPTR)DevIkPubKey, XOCP_SIZE_OF_ECC_P384_PUBLIC_KEY_BYTES,
+				(u64)(UINTPTR)Sha3Hash, XSECURE_SHA_384_HASH_SIZE_IN_BYTES);
+#else
 		if (XPlmi_IsKatRan(XPLMI_SECURE_SHA384_KAT_MASK) != TRUE) {
 			XPLMI_HALT_BOOT_SLD_TEMPORAL_CHECK(XOCP_ERR_KAT_FAILED, Status, SStatus,
 							XSecure_Sha384Kat);
@@ -197,6 +221,7 @@ int XOcp_GenerateDmeResponseImpl(u64 NonceAddr, u64 DmeStructResAddr)
 		}
 		Status = XOcp_ShaDigest((u8 *)(UINTPTR)DevIkPubKey,
 				XOCP_SIZE_OF_ECC_P384_PUBLIC_KEY_BYTES, Sha3Hash);
+#endif
 		if (Status != XST_SUCCESS) {
 			goto RET;
 		}
@@ -243,7 +268,7 @@ int XOcp_GenerateDmeResponseImpl(u64 NonceAddr, u64 DmeStructResAddr)
 	/** - If XPPU is not enabled, enable XPPU */
 	RegVal = (Xil_In32(PMC_XPPU_CTRL) & PMC_XPPU_CTRL_ENABLE_MASK);
 	RegValtmp = (Xil_In32(PMC_XPPU_CTRL) & PMC_XPPU_CTRL_ENABLE_MASK);
-	if ((RegVal != XOCP_PMC_XPPU_CTRL_ENABLE_VAL) || (RegVal != XOCP_PMC_XPPU_CTRL_ENABLE_VAL)) {
+	if ((RegVal != XOCP_PMC_XPPU_CTRL_ENABLE_VAL) || (RegValtmp != XOCP_PMC_XPPU_CTRL_ENABLE_VAL)) {
 		Status = Xil_SecureRMW32(PMC_XPPU_CTRL, PMC_XPPU_CTRL_ENABLE_MASK,
 				XOCP_PMC_XPPU_CTRL_ENABLE_VAL);
 		if (Status != XST_SUCCESS) {

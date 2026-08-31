@@ -20,9 +20,10 @@
 * 2.4   sk  01/18/26 Added macros for LPD Domain Init Status
 *       tvp 03/06/26 Add macro for SSS config mask for SHA2 source
 *       sd  03/13/26 Added macros for hardware interrupt registers
-* 3.0   sd  08/03/26 Clear SSS Cfg Error set during ROM PCR Extension
+* 2.5   sd  08/03/26 Clear SSS Cfg Error set during ROM PCR Extension
 *       sd  08/07/26 Added declaration for XPlmi_SaveLpdEAMInfo
 *       sd  08/20/26 Included xplmi_wdt_hw.h for PMC WDT definitions
+*       sri 08/24/26 Declare XPlmi_RomISR for OCP DME ROM service (Versal Net reuse)
 * </pre>
 *
 ***************************************************************************************************/
@@ -536,6 +537,10 @@ typedef struct {
 typedef int (*XPlmi_UpdateHandler_t)(XPlmi_ModuleOp Op);
 
 /* ROM interrupt services */
+/**
+ * @enum XPlmi_RomIntr
+ * @brief ROM interrupt service request types.
+ */
 typedef enum {
 	XPLMI_DME_CHL_SIGN_GEN = 0U,	/**< DME channel signature generation */
 	XPLMI_PCR_OP,			/**< PCR extension */
@@ -972,6 +977,7 @@ u8 XPlmi_IsPlmUpdateDone(void);
 u8 XPlmi_IsPlmUpdateDoneTmp(void);
 u8 XPlmi_IsPlmUpdateInProgress(void);
 void XPlmi_SaveLpdEAMInfo(void);
+int XPlmi_RomISR(XPlmi_RomIntr RomServiceReq);
 
 /************************************ Variable Definitions ****************************************/
 

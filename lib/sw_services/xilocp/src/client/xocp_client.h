@@ -22,6 +22,7 @@
 * 1.2   kpt  06/02/23 Updated XOcp_GetHwPcrLog prototype
 *       kal  06/02/23 Added client side API for SW PCR
 * 1.7   rpu  02/18/26 Refactor OCP client library
+* 1.8   sri  08/24/26 Add DME and key mgmt client includes for Versal_2VP_P
 * </pre>
 *
 * @note
@@ -46,6 +47,9 @@ extern "C" {
 #elif defined(VERSAL_NET)
 #include "xocp_swpcr.h"
 #include "xocp_hwpcr.h"
+#include "xocp_dme.h"
+#include "xocp_key_mgmt.h"
+#elif defined(VERSAL_2VP_P)
 #include "xocp_dme.h"
 #include "xocp_key_mgmt.h"
 #endif
