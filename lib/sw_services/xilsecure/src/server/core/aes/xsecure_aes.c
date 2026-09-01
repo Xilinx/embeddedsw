@@ -111,6 +111,7 @@
 *                       key clear mask to registers
 *       mb   04/17/2026 Update crypto check for AES/SHA/RSA
 * 5.8   tvp  06/23/2026 Skip AAD size quad-word check for Versal_2VP_P
+*       tvp  09/01/2026 Fix KEK IV endianness on DMA byte-swap platforms
 * </pre>
 *
 ******************************************************************************/
@@ -591,6 +592,15 @@ int XSecure_AesKekDecrypt(const XSecure_Aes *InstancePtr,
 	XSecure_WriteReg(InstancePtr->BaseAddress,
 			XSECURE_AES_START_MSG_OFFSET,
 			XSECURE_AES_START_MSG_VAL_MASK);
+
+#ifdef XSECURE_AES_DMA_BYTE_SWAP
+	/**
+	 * - Suppress PMC DMA channel byte swap for the KEK IV transfer so
+	 *   only AES DATA_SWAP handles endianness, matching the black key
+	 *   generation path in XSecure_AesConfig().
+	 */
+	XSecure_ConfigureDmaByteSwap(XSECURE_ENABLE_BYTE_SWAP);
+#endif
 
 	/** - Enable Byte swap */
 	XSecure_WriteReg(InstancePtr->BaseAddress,
