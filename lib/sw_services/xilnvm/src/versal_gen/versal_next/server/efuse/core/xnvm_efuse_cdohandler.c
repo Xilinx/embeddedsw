@@ -7,7 +7,7 @@
 /*****************************************************************************/
 /**
 *
-* @file net/server/xnvm_efuse_cdohandler.c
+* @file xnvm_efuse_cdohandler.c
 *
 * This file contains the Versal_Net XilNvm EFUSE CDO Handler definition.
 *
@@ -425,6 +425,28 @@ END:
 		}
 	}
 	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function sets or returns XNvm_OcpHandler.
+ *
+ * @param	OcpHandler - Pointer to the OCP handler function to be registered.
+ *
+ * @return
+ * 		- XNvm_OcpHandler
+ * 		- NULL if not registered
+ *
+ *****************************************************************************/
+XNvm_OcpHandler XNvm_ManageOcpHandler(XNvm_OcpHandler OcpHandler)
+{
+	static XNvm_OcpHandler NvmOcpHandler =  NULL;
+
+	if (OcpHandler != NULL) {
+		NvmOcpHandler = OcpHandler;
+	}
+
+	return NvmOcpHandler;
 }
 
 /*****************************************************************************/
@@ -1267,28 +1289,6 @@ static int XNvm_EfuseWriteRomRsvd(u32 EnvDisFlag, u32 RomRsvdBits)
 	Status = XNvm_EfuseWriteRomRsvdBits(EnvDisFlag, RomRsvdBits);
 
 	return Status;
-}
-
-/*****************************************************************************/
-/**
- * @brief	This function sets or returns XNvm_OcpHandler.
- *
- * @param	OcpHandler - Pointer to the OCP handler function to be registered.
- *
- * @return
- * 		- XNvm_OcpHandler
- * 		- NULL if not registered
- *
- *****************************************************************************/
-XNvm_OcpHandler XNvm_ManageOcpHandler(XNvm_OcpHandler OcpHandler)
-{
-	static XNvm_OcpHandler NvmOcpHandler =  NULL;
-
-	if (OcpHandler != NULL) {
-		NvmOcpHandler = OcpHandler;
-	}
-
-	return NvmOcpHandler;
 }
 
 /*****************************************************************************/

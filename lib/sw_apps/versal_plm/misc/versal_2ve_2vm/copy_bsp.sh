@@ -108,11 +108,17 @@ else
     echo "XILPM_RUNTIME_LIB is not set"
 fi
 mkdir -p $BSP_DIR/libsrc/xilnvm/src
+XNVM_GEN=$SERVICES_DIR/xilnvm/src/versal_gen
 cp -r $SERVICES_DIR/xilnvm/src/Makefile $BSP_DIR/libsrc/xilnvm/src
-cp -r $SERVICES_DIR/xilnvm/src/versal_gen/versal_net/common/* $BSP_DIR/libsrc/xilnvm/src/
-cp -r $SERVICES_DIR/xilnvm/src/versal_gen/versal_net/server/* $BSP_DIR/libsrc/xilnvm/src/
-cp -r $SERVICES_DIR/xilnvm/src/versal_gen/common/server/* $BSP_DIR/libsrc/xilnvm/src/
-cp -r $SERVICES_DIR/xilnvm/src/versal_gen/common/* $BSP_DIR/libsrc/xilnvm/src/
+cp -r $XNVM_GEN/versal_next/common/* $BSP_DIR/libsrc/xilnvm/src/
+cp $XNVM_GEN/versal_next/server/xnvm_cmd.c $XNVM_GEN/versal_next/server/xnvm_bbram_cdohandler.c $BSP_DIR/libsrc/xilnvm/src/
+cp $XNVM_GEN/versal_next/server/xnvm_cmd.h $XNVM_GEN/versal_next/server/xnvm_bbram_cdohandler.h $BSP_DIR/libsrc/xilnvm/src/
+cp -r $XNVM_GEN/versal_next/server/efuse/core/* $BSP_DIR/libsrc/xilnvm/src/
+cp -r $XNVM_GEN/versal_next/server/efuse/versal_net/* $BSP_DIR/libsrc/xilnvm/src/
+cp $XNVM_GEN/versal_next/server/efuse/field/common/*.h $BSP_DIR/libsrc/xilnvm/src/
+cp $XNVM_GEN/versal_next/server/efuse/field/versal_2ve2vm/*.h $BSP_DIR/libsrc/xilnvm/src/
+cp -r $XNVM_GEN/common/server/* $BSP_DIR/libsrc/xilnvm/src/
+cp $XNVM_GEN/common/*.c $XNVM_GEN/common/*.h $BSP_DIR/libsrc/xilnvm/src/
 cp $BSP_DIR/libsrc/xilnvm/src/*.h $BSP_DIR/include/
 
 mkdir -p $BSP_DIR/libsrc/xilocp/src
