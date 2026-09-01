@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2021-2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2023 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 /*****************************************************************************/
@@ -28,7 +28,6 @@
  * 2.0   ml    29/03/24 Added description to fix doxygen warnings.
  * 2.4   bdk   13/11/25 Typecasted with proper datatypes to fix MISRA-C
  *			violation rules for 10.1 and 17.7
- * 2.4   vmt   08/20/26 Added weak sleep and tick timer instance variables.
  *</pre>
  *
  *@note
@@ -207,8 +206,13 @@ static void XTimer_TtcTickInterval(XTimer *InstancePtr, u32 Delay)
 	static u32 IsTickTimerStarted = FALSE;
 
 	if (FALSE == IsTickTimerStarted) {
-		XTimer_TtcInit(XTickTimer_Instance,
+#ifdef SDT
+		XTimer_TtcInit(XTICKTIMER_BASEADDRESS,
 			       &InstancePtr->TtcPs_TickInst);
+#else
+		XTimer_TtcInit(XTICKTIMER_DEVICEID,
+			       &InstancePtr->TtcPs_TickInst);
+#endif
 		IsTickTimerStarted = TRUE;
 	}
 	Freq = XTIMER_DELAY_MSEC / Delay;
@@ -323,8 +327,13 @@ static void XTimer_TtcModifyInterval(XTimer *InstancePtr, u32 delay,
 	static u32 IsSleepTimerStarted = FALSE;
 
 	if (FALSE == IsSleepTimerStarted) {
-		(void)XTimer_TtcInit(XSleepTimer_Instance,
+#ifdef SDT
+		(void)XTimer_TtcInit(XSLEEPTIMER_BASEADDRESS,
 			       &InstancePtr->TtcPs_SleepInst);
+#else
+		XTimer_TtcInit(XSLEEPTIMER_DEVICEID,
+			       &InstancePtr->TtcPs_SleepInst);
+#endif
 		IsSleepTimerStarted = TRUE;
 	}
 
@@ -376,8 +385,13 @@ void XTime_GetTime(XTime *Xtime_Global)
 	static u32 IsSleepTimerStarted = FALSE;
 
 	if (FALSE == IsSleepTimerStarted) {
-		(void)XTimer_TtcInit(XSleepTimer_Instance,
+#ifdef SDT
+		(void)XTimer_TtcInit(XSLEEPTIMER_BASEADDRESS,
 			       &InstancePtr->TtcPs_SleepInst);
+#else
+		XTimer_TtcInit(XSLEEPTIMER_DEVICEID,
+			       &InstancePtr->TtcPs_SleepInst);
+#endif
 		IsSleepTimerStarted = TRUE;
 	}
 

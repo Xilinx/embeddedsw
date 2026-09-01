@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2021-2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 /*****************************************************************************/
@@ -21,7 +21,6 @@
  *  1.0  adk   24/11/21 Initial release.
  *  	 adk   07/02/22 Updated the IntrHandler as per XTimer_SetHandler() API.
  *  1.1	 adk   08/08/22 Added doxygen tags.
- *  2.4  vmt   08/20/26 Added weak sleep and tick timer instance variables.
  *</pre>
  *
  *@note
@@ -159,7 +158,11 @@ static void XAxiTimer_TickInterval(XTimer *InstancePtr, u32 Delay)
 	static u32 IsTickTimerStarted = FALSE;
 
 	if (FALSE == IsTickTimerStarted) {
-		XAxiTimer_Init(InstancePtr, XTickTimer_Instance,
+#ifdef SDT
+		XAxiTimer_Init(InstancePtr, XTICKTIMER_BASEADDRESS,
+#else
+		XAxiTimer_Init(InstancePtr, XTICKTIMER_DEVICEID,
+#endif
 				&InstancePtr->AxiTimer_TickInst);
 		IsTickTimerStarted = TRUE;
 	}
@@ -268,7 +271,11 @@ static void XAxiTimer_ModifyInterval(XTimer *InstancePtr, u32 delay,
 	static u32 IsSleepTimerStarted = FALSE;
 
 	if (FALSE == IsSleepTimerStarted) {
-		XAxiTimer_Init(InstancePtr, XSleepTimer_Instance,
+#ifdef SDT
+		XAxiTimer_Init(InstancePtr, XSLEEPTIMER_BASEADDRESS,
+#else
+		XAxiTimer_Init(InstancePtr, XSLEEPTIMER_DEVICEID,
+#endif
 				&InstancePtr->AxiTimer_SleepInst);
 		IsSleepTimerStarted = TRUE;
 	}
@@ -321,7 +328,11 @@ void XTime_GetTime(XTime *Xtime_Global)
 	static u32 IsSleepTimerStarted = FALSE;
 
 	if (FALSE == IsSleepTimerStarted) {
-		XAxiTimer_Init(InstancePtr, XSleepTimer_Instance,
+#ifdef SDT
+		XAxiTimer_Init(InstancePtr, XSLEEPTIMER_BASEADDRESS,
+#else
+		XAxiTimer_Init(InstancePtr, XSLEEPTIMER_DEVICEID,
+#endif
 				&InstancePtr->AxiTimer_SleepInst);
 		IsSleepTimerStarted = TRUE;
 	}

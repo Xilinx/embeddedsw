@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2021-2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022-2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -28,8 +28,6 @@
 *  1.4  ht      09/12/23 Added code for versioning of library.
 *  1.4  mus     15/02/24 Added correct APIs to set/get MB V frequency.
 *  2.0  ml      28/03/24 Added description to fix doxygen warnings.
-*  2.4  vmt     08/20/26 Added weak sleep and tick timer instance
-*                        variables.
 * </pre>
 ******************************************************************************/
 #ifndef XILTIMER_H
@@ -148,30 +146,6 @@ typedef struct XTimerTag {
 
 typedef u64 XTime;
 extern XTimer TimerInst;
-
-/*
- * Weak default timer instance variables used by xiltimer.
- * Holds timer base addresses (SDT) or device IDs (non-SDT).
- * Applications may override these values to select a different
- * timer instance.
- */
-#ifdef XSLEEPTIMER_BASEADDRESS
-#define XSLEEPTIMER_INSTANCE XSLEEPTIMER_BASEADDRESS
-#elif defined(XSLEEPTIMER_DEVICEID)
-#define XSLEEPTIMER_INSTANCE XSLEEPTIMER_DEVICEID
-#endif
-#ifdef XTICKTIMER_BASEADDRESS
-#define XTICKTIMER_INSTANCE XTICKTIMER_BASEADDRESS
-#elif defined(XTICKTIMER_DEVICEID)
-#define XTICKTIMER_INSTANCE XTICKTIMER_DEVICEID
-#endif
-
-#ifdef XSLEEPTIMER_INSTANCE
-extern UINTPTR XSleepTimer_Instance;
-#endif
-#ifdef XTICKTIMER_INSTANCE
-extern UINTPTR XTickTimer_Instance;
-#endif
 
 /****************** Macros (Inline Functions) Definitions *********************/
 
