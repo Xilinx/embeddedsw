@@ -7,7 +7,7 @@
 /*****************************************************************************/
 /**
  *
- * @file versal_next/server/xnvm_cmd.h
+ * @file net/server/xnvm_cmd.h
  *
 * This file Contains the client function prototypes, defines and macros for
 * the NVM programming.

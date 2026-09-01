@@ -206,7 +206,6 @@ extern "C" {
 #define XNVM_EFUSE_ADDR_COLUMN_SHIFT			(0U) /**< eFUSE address column bit shift */
 #define XNVM_EFUSE_ADDR_ROW_SHIFT			(5U) /**< eFUSE address row bit shift */
 #define XNVM_EFUSE_ADDR_PAGE_SHIFT			(13U) /**< eFUSE address page bit shift */
-#define XNVM_EFUSE_LAST_ROW_IN_PAGE			(255U) /**< Last valid row index on an eFuse page */
 /** @} */
 
 #define XNVM_EFUSE_CACHE_LOAD_MASK			(0x01U) /**< eFuse Cache load mask */

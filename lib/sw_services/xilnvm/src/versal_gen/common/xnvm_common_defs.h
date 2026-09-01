@@ -129,8 +129,10 @@ typedef enum {
 	XNVM_EFUSE_PPK0 = 0,	/**< 0U */
 	XNVM_EFUSE_PPK1,	/**< 1U */
 	XNVM_EFUSE_PPK2,	/**< 2U */
+#ifdef XNVM_EN_ADD_PPKS
 	XNVM_EFUSE_PPK3,	/**< 3U */
 	XNVM_EFUSE_PPK4		/**< 4U */
+#endif
 } XNvm_PpkType;
 
 /** Enum for Aes key types */

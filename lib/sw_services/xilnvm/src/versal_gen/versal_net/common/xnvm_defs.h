@@ -68,9 +68,7 @@ extern "C" {
 #define XNVM_EFUSE_CRC_AES_ZEROS 	(0x6858A3D5U) 	/** All zero AES key CRC value */
 #define XNVM_NUM_OF_CACHE_ADDR_PER_PAGE	(0x400U) 	/** Number of cache addresses per eFuse page */
 #define XNVM_EFUSE_ERROR_BYTE_SHIFT	(8U) 		/** Number of bit positions to be shifted to achieve 1 byte shift */
-#define XNVM_EFUSE_ERROR_NIBBLE_SHIFT	(4U) 		/** Number of bit positions to be shifted to achieve 1 nibble shift */
-#define XNVM_EFUSE_MAX_PPK_TYPE		(XNVM_EFUSE_PPK2)
-			/** Last valid PPK index on Versal Net / Versal_2VE_2VM */
+#define XNVM_EFUSE_ERROR_NIBBLE_SHIFT	(4U) 		/** Number of bit positions to be shifted to achieve 1 byte shift */
 
 /**
  * BBRAM configuration limiter
@@ -583,8 +581,12 @@ typedef enum {
 	XNVM_API_ID_EFUSE_RELOAD_N_PRGM_PROT_BITS,
 	XNVM_API_ID_EFUSE_WRITE_UDS,
 	XNVM_API_ID_EFUSE_WRITE_DME_KEY,
+#ifdef XNVM_ACCESS_PUF_USER_DATA
 	XNVM_API_ID_EFUSE_WRITE_PUF_USER_FUSE,
+#endif
+#ifdef VERSAL_2VE_2VM
 	XNVM_API_ID_BBRAM_WRITE_CFG_LMT_PARAMS,
+#endif
 	XNVM_API_ID_EFUSE_CHECK_AES_KEY_CRC,
 	XNVM_API_MAX,
 } XNvm_ApiId;

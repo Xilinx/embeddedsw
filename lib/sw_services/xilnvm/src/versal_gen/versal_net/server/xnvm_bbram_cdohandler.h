@@ -7,7 +7,7 @@
 /*****************************************************************************/
 /**
 *
-* @file versal_next/server/xnvm_bbram_cdohandler.h
+* @file xnvm_bbram_cdohandler.h
 * @addtogroup xnvm_server_apis XilNvm Plat Server APIs
 * @{
 * @cond xnvm_internal
