@@ -110,7 +110,9 @@ typedef struct {
 	u64 OutputDataAddr;      /**< Output data address */
 	u64 OptionalLabelAddr;   /**< Optional label address */
 	u32 InputDataSize;       /**< Input data size */
-	u32 OutputDataSize;      /**< Output data size */
+	u32 OutputDataSize;      /**< On OAEP decrypt, input is the size of the buffer at
+								OutputDataAddr and output is the decoded message length.
+								On OAEP encrypt, this field is ignored; use InputDataSize. */
 	u32 OptionalLabelSize;    /**< Optional label size */
 	void *ShaInstancePtr;    /**< SHA instance for MGF */
 	XSecure_ShaMode ShaType; /**< SHA type for MGF */

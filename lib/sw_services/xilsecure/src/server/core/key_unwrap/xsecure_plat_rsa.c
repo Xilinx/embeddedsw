@@ -210,7 +210,7 @@ static int XSecure_RsaOaepDecode(XSecure_RsaOaepParam *OaepParam, u64 InputDataA
 	u8 Seed[XSECURE_SHA3_HASH_LENGTH_IN_BYTES] = {0U};
 	volatile u8 DBTmp = 0xFFU;
 	u8 IsPsZero = 0x00U;
-	u32 Index = 0U;
+	volatile u32 Index = 0U;
 	u32 ActualMsgLen = 0U;
 	XSecure_MgfInput MgfParam;
 	const XSecure_HashAlgInfo *HashPtr = XSecure_GetHashInstance(OaepParam->ShaType);
@@ -275,6 +275,12 @@ static int XSecure_RsaOaepDecode(XSecure_RsaOaepParam *OaepParam, u64 InputDataA
 		}
 	}
 
+	/** - Check if the index is within the valid range */
+	if (Index >= (XSECURE_RSA_KEY_GEN_SIZE_IN_BYTES - HashPtr->HashLen - 1U)) {
+		Status = (int)XSECURE_RSA_OAEP_DB_MISMATCH_ERROR;
+		goto END;
+	}
+
 	if ((DB[Index] != 0x01U) || (IsPsZero != 0x00U)) {
 		Status = (int)XSECURE_RSA_OAEP_DB_MISMATCH_ERROR;
 		goto END;
@@ -282,7 +288,10 @@ static int XSecure_RsaOaepDecode(XSecure_RsaOaepParam *OaepParam, u64 InputDataA
 
 	Index = Index + 1U;
 	ActualMsgLen = (XSECURE_RSA_KEY_GEN_SIZE_IN_BYTES - HashPtr->HashLen - 1U) - Index;
-	if (ActualMsgLen > (XSECURE_RSA_KEY_GEN_SIZE_IN_BYTES - (2U * HashPtr->HashLen) - 2U)) {
+
+	/** - Check if the decoded message length is valid */
+	if ((ActualMsgLen > (XSECURE_RSA_KEY_GEN_SIZE_IN_BYTES - (2U * HashPtr->HashLen) - 2U)) ||
+		(ActualMsgLen > OaepParam->OutputDataSize)) {
 		Status = (int)XSECURE_RSA_OAEP_INVALID_MSG_LEN;
 		goto END;
 	}
@@ -342,6 +351,8 @@ END:
  * @return
  *		 - XST_SUCCESS - On success.
  *		 - XSECURE_RSA_OAEP_INVALID_PARAM - On invalid parameter.
+ *		 - XSECURE_RSA_OAEP_INVALID_MSG_LEN - If the decoded message does not
+ *		   fit in the output buffer.
  *		 - XST_FAILURE - On failure.
  *
  ******************************************************************************/
@@ -352,6 +363,12 @@ int XSecure_RsaOaepDecrypt(XSecure_RsaPrivKey *PrivKey, XSecure_RsaOaepParam *Oa
 	u8 Output[XSECURE_RSA_KEY_GEN_SIZE_IN_BYTES] = {0U};
 
 	if ((PrivKey == NULL) || (OaepParam == NULL)) {
+		Status = (int)XSECURE_RSA_OAEP_INVALID_PARAM;
+		goto END;
+	}
+
+	/** - OutputDataSize is a mandatory input capacity of the buffer at OutputDataAddr */
+	if (OaepParam->OutputDataSize == 0U) {
 		Status = (int)XSECURE_RSA_OAEP_INVALID_PARAM;
 		goto END;
 	}

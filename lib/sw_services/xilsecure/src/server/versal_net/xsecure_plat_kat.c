@@ -242,6 +242,7 @@ int XSecure_RsaPwct(XSecure_RsaPrivKey *PrivKey, XSecure_RsaPubKey *PubKey, void
 
 	OaepParam.InputDataAddr = (u64)(UINTPTR)EncOutput;
 	OaepParam.OutputDataAddr = (u64)(UINTPTR)DecOutput;
+	OaepParam.OutputDataSize = (u32)sizeof(DecOutput);
 	OaepParam.ShaInstancePtr = (void*)ShaInstancePtr;
 	OaepParam.ShaType = Shatype;
 	Status = XSecure_RsaOaepDecrypt(PrivKey, &OaepParam);

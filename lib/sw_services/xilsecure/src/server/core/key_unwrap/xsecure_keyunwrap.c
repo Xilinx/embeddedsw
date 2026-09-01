@@ -234,6 +234,7 @@ int XSecure_KeyUnwrap(XSecure_KeyWrapData *KeyWrapData)
 
 	OaepParam.InputDataAddr = (u64)(UINTPTR)WrapRsaKey;
 	OaepParam.OutputDataAddr = (u64)(UINTPTR)EphAesKey;
+	OaepParam.OutputDataSize = (u32)sizeof(EphAesKey);
 	OaepParam.ShaInstancePtr = NULL;
 	OaepParam.ShaType = XSECURE_SHA2_384;
 	XSECURE_TEMPORAL_CHECK(END, Status, XSecure_RsaOaepDecrypt, PrivKey, &OaepParam);
