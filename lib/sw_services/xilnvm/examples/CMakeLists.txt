@@ -1,4 +1,4 @@
-# Copyright (C) 2024 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (C) 2024 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 cmake_minimum_required(VERSION 3.15)
 include(${CMAKE_CURRENT_SOURCE_DIR}/XilnvmExample.cmake)
@@ -21,10 +21,14 @@ if("${CMAKE_MACHINE}" STREQUAL "spartanuplus")
     SET(COMMON_EXAMPLES xilnvm_efuse_spartan_ultrascale_plus_example.c;)
 else()
     if("${XILNVM_mode}" STREQUAL "server")
-        SET(COMMON_EXAMPLES xilnvm_bbram_versal_server_example.c;xilnvm_efuse_versal_server_example.c;)
+        if((NOT "Versal_2VP" IN_LIST VARIANT) AND (NOT "Versal_2VP_P" IN_LIST VARIANT))
+            SET(COMMON_EXAMPLES xilnvm_bbram_versal_server_example.c;xilnvm_efuse_versal_server_example.c;)
+        endif()
     else()
 	if ("${CMAKE_SUBMACHINE}" STREQUAL "Versal_2VE_2VM")
 		SET(COMMON_EXAMPLES xilnvm_bbram_versal_client_example.c;xilnvm_efuse_versal_net_client_example.c;xilnvm_bbram_config_limiter_client_example.c)
+	elseif("Versal_2VP" IN_LIST VARIANT)
+		SET(COMMON_EXAMPLES xilnvm_bbram_versal_client_example.c;xilnvm_efuse_versal_client_example.c)
 	else()
 		SET(COMMON_EXAMPLES xilnvm_bbram_versal_client_example.c;xilnvm_efuse_versal_client_example.c;xilnvm_bbram_versal_ssit_client_example.c;xilnvm_efuse_versal_ssit_client_example.c)
 	endif()
