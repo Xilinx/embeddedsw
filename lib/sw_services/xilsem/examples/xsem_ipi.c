@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 /**
@@ -139,7 +139,7 @@ static XStatus IpiConfigure(XIpiPsu * IpiInst, XScuGic * GicInst)
 	}
 
 #ifdef SDT
-	/* Setup Envirnorment for Interrupts */
+	/* Setup Environment for Interrupts */
 	Status = XSetupInterruptSystem(IpiInst, &IpiIrqHandler,
 				   IpiInst->Config.IntId,
 				   IpiInst->Config.IntrParent,

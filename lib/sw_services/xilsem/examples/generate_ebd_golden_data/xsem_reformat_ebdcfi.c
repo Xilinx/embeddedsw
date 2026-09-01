@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
-* (c) Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* (c) Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 /**
@@ -19,6 +19,7 @@
  * 0.2	 anv   05/10/2023  Modified to add copyright information in
  *                         xsem_ebdgoldendata.c
  * 0.3   anv   02/25/2025  Added support for SSIT devices.
+ * 0.4   anv   08/28/2026  Fixed SLR-3 golden data generation path.
  *
  * </pre>
  *
@@ -234,7 +235,7 @@ int main(int argc, char *argv[]) {
 		fptr = fopen("xsem_ebdgoldendata1.c", "w");
 	} else if (Slr_Id == 2U) {
 		fptr = fopen("xsem_ebdgoldendata2.c", "w");
-	} else if (Slr_Id == 2U) {
+	} else if (Slr_Id == 3U) {
 		fptr = fopen("xsem_ebdgoldendata3.c", "w");
 	} else {
 		printf("Invalid SLR ID \n");

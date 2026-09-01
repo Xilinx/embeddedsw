@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
-* (c) Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* (c) Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 /**
@@ -31,6 +31,7 @@
  *                           ErrAddrLowHigh
  * 0.8  anv      03/24/2025  Correct status check masks for event notifications
  * 0.9  gayu     09/08/2025  Fixed Gcc warnings.
+ * 1.0  anv      08/28/2026  Corrected Golden CRC failure message.
  * </pre>
  *
  *****************************************************************************/
@@ -277,7 +278,7 @@ static XStatus XSem_Ssit_ApiCfrGetStatusSlr(u32 TargetSlr, \
 		(TargetSlr == IpiResp.RespMsg2)) {
 		xil_printf("[%s] Success: Getting Cfr Status of SLR-%u\n\r", \
 			__func__, TargetSlr);
-		/* update data in to [out] param cram structure */
+		/* update data into [out] param cram structure */
 		CfrStatusInfo->Status = StatusInfo.CramStatus;
 		#if defined(XILSEM_CORR_ERRINJ_ENABLE)
 			CfrStatusInfo->Status = CfrStatusInfo->Status & \
@@ -684,7 +685,7 @@ static XStatus XSem_ApiCfrGetFrameEcc(u32 FrameAddr, u32 RowLoc)
 			(CMD_ACK_SEM_READ_FRAME_ECC == IpiResp.RespMsg1) && \
 			(XST_SUCCESS == IpiResp.RespMsg4)) {
 			xil_printf("[%s] Success: Get Frame ECC on" \
-				"SLR-%u\n\r", __func__, SlrCnt);
+				" SLR-%u\n\r", __func__, SlrCnt);
 			xil_printf("Ecc value for segment 0 of "\
 				"SLR-%u = 0x%08x\n\r", SlrCnt, IpiResp.RespMsg2);
 			xil_printf("Ecc value for segment 1 of SLR-%u ="\
@@ -824,7 +825,7 @@ int main(void)
 	Status = XSem_ApiCfrGetCrc(RowLoc);
 	/* Read Golden ECC for Row 0 for each SLR */
 	if (XST_SUCCESS != Status) {
-			xil_printf("Failed to read Golden ECC\n\r");
+			xil_printf("Failed to read Golden CRC\n\r");
 			++FailCnt;
 	}
 	xil_printf("==================================================\n\r");

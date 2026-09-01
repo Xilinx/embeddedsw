@@ -1,7 +1,7 @@
 /******************************************************************************
 * Copyright (c) 2021 - 2022 Xilinx, Inc.  All rights reserved.
 * (c) Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
-* Copyright (C) 2023 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 /**
@@ -31,6 +31,9 @@
  *                         for XSem_CmdNpiGetStatus API as this is not a
  *                         valid case for deferred start-up.
  * 1.0   gayu  09/08/2025  Fixed Gcc warnings.
+ * 1.1   anv   08/28/2026  Added XilPM event notification support for EL1
+ *                         non-secure SMC flow and corrected runtime print
+ *                         messages.
  * </pre>
  *
  *****************************************************************************/
@@ -40,6 +43,32 @@
 #include "xsem_ipi.h"
 #include "xsem_gic_setup.h"
 #include "xil_cache.h"
+
+/* Enable XilPM notifications for EL1 non-secure SMC flow, where
+ * TF-A propagates PLM PM notification IPIs to the application via
+ * an SGI.
+ */
+#if defined(XPM_SUPPORT) && defined(__aarch64__) && (EL1_NONSECURE == 1)
+#define XILPM_EVENT_NOTIFY
+#include "pm_api_sys.h"
+#include "xil_error_node.h"
+#define XPM_NOTIFY_SGI		(9U)
+
+static volatile u8 Pm_EventCnt_Npi = 0U;
+static void XPm_SemNotifyCallback(XPm_Notifier *Notif);
+
+static void XPm_SgiHandler(void *CallbackRef)
+{
+	(void)CallbackRef;
+	XPm_HandlePmNotification();
+}
+
+static XPm_Notifier PmNotifier = {
+	.callback = XPm_SemNotifyCallback,
+	.node = XIL_NODETYPE_EVENT_ERROR_SW_ERR,
+	.event = XIL_EVENT_ERROR_MASK_XSEM_NPI_UE,
+};
+#endif
 
 #define NPI_STATUS_SHA_COMP_SCAN_ERR_SHIFT	(17U)
 #define NPI_STATUS_SHA_COMP_SCAN_ERR_MASK	(0x00020000U)
@@ -88,7 +117,7 @@ struct XSem_Npi_Events_t{
 	u32 GpioEventCnt;
 	u32 SelfDiagFailEventCnt;
 	u32 GtArbFailEventCnt;
-} NpiEvents;
+} Sem_NpiEvents;
 
 XSem_DescriptorData DescData_PreInj = {0};
 XSem_DescriptorData DescData_PostInj = {0};
@@ -224,7 +253,7 @@ END:
 }
 
 /******************************************************************************
- * @brief	This function is used to Register XilSEM even notifications
+ * @brief	This function is used to Register XilSEM event notifications
  *
  * @param[in]	Enable : Enable event notification in XilSEM
  *
@@ -269,45 +298,45 @@ void XSem_IpiCallback(void)
 
 	if ((XSEM_EVENT_ERROR == Payload[0]) && (XSEM_NOTIFY_NPI == Payload[1])) {
 		if (XSEM_EVENT_NPI_CRC_ERR == Payload[2]) {
-			NpiEvents.CrcEventCnt = 1U;
+			Sem_NpiEvents.CrcEventCnt = 1U;
 		} else if (XSEM_EVENT_NPI_DESC_FMT_ERR == Payload[2]) {
-			NpiEvents.DescFmtEventCnt = 1U;
+			Sem_NpiEvents.DescFmtEventCnt = 1U;
 			xil_printf("[ALERT] Received Descriptor Format error event"
 					" notification from XilSEM\n\r");
 		} else if (XSEM_EVENT_NPI_DESC_ABSNT_ERR == Payload[2]) {
-			NpiEvents.DescAbsntEventCnt = 1U;
+			Sem_NpiEvents.DescAbsntEventCnt = 1U;
 			xil_printf("[ALERT] Received Descriptor Absent error event"
-					"notification from XilSEM\n\r");
+					" notification from XilSEM\n\r");
 		} else if (XSEM_EVENT_NPI_SHA_IND_ERR == Payload[2]) {
-			NpiEvents.ShaIndEventCnt = 1U;
+			Sem_NpiEvents.ShaIndEventCnt = 1U;
 			xil_printf("[ALERT] Received SHA indicator error event"
-					"notification from XilSEM\n\r");
+					" notification from XilSEM\n\r");
 		} else if (XSEM_EVENT_NPI_SHA_ENGINE_ERR == Payload[2]) {
-			NpiEvents.ShaEngineEventCnt = 1U;
+			Sem_NpiEvents.ShaEngineEventCnt = 1U;
 			xil_printf("[ALERT] Received SHA engine error event notification"
 					" from XilSEM\n\r");
 		} else if (XSEM_EVENT_NPI_PSCAN_MISSED_ERR == Payload[2]) {
-			NpiEvents.PscanMissedEventCnt = 1U;
+			Sem_NpiEvents.PscanMissedEventCnt = 1U;
 			xil_printf("[ALERT] Received Periodic Scan missed error event"
 					" notification from XilSEM\n\r");
 		} else if (XSEM_EVENT_NPI_CRYPTO_EXPORT_SET_ERR == Payload[2]) {
-			NpiEvents.CryptoExportSetEventCnt = 1U;
+			Sem_NpiEvents.CryptoExportSetEventCnt = 1U;
 			xil_printf("[ALERT] Received Cryptographic Accelerator Disabled"
 					" event notification from XilSEM\n\r");
 		} else if (XSEM_EVENT_NPI_SFTY_WR_ERR == Payload[2]) {
-			NpiEvents.SftyWrEventCnt = 1U;
+			Sem_NpiEvents.SftyWrEventCnt = 1U;
 			xil_printf("[ALERT] Received Safety Write error event"
 					" notification from XilSEM\n\r");
 		} else if (XSEM_EVENT_NPI_GPIO_ERR == Payload[2]) {
-			NpiEvents.GpioEventCnt = 1U;
+			Sem_NpiEvents.GpioEventCnt = 1U;
 			xil_printf("[ALERT] Received GPIO error event notification from"
 					" XilSEM\n\r");
 		} else if (XSEM_EVENT_NPI_SELF_DIAG_FAIL == Payload[2]) {
-			NpiEvents.SelfDiagFailEventCnt = 1U;
+			Sem_NpiEvents.SelfDiagFailEventCnt = 1U;
 			xil_printf("[ALERT] Received NPI Self-diagnosis fail event"
 					" notification from XilSEM\n\r");
 		} else if (XSEM_EVENT_NPI_GT_ARB_FAIL == Payload[2]) {
-			NpiEvents.GtArbFailEventCnt = 1U;
+			Sem_NpiEvents.GtArbFailEventCnt = 1U;
 			xil_printf("[ALERT] Received GT arbitration failure event"
 					" notification from XilSEM\n\r");
 		} else {
@@ -374,14 +403,23 @@ void PrintErrReport(void)
 		FailCnt++;
 	}
 
-	/* Check event notification */
-	if (NpiEvents.CrcEventCnt == 1U) {
+#ifdef XILPM_EVENT_NOTIFY
+	if (Pm_EventCnt_Npi == 1U) {
+		xil_printf("[SUCCESS] Received NPI error event notification (XilPM)\n\r");
+		Pm_EventCnt_Npi = 0U;
+	} else {
+		xil_printf("[FAILURE] No NPI error event notification received (XilPM)\n\r");
+		FailCnt++;
+	}
+#else
+	if (Sem_NpiEvents.CrcEventCnt == 1U) {
 		xil_printf("[SUCCESS] Received CRC error event notification\n\r");
-		NpiEvents.CrcEventCnt = 0U;
+		Sem_NpiEvents.CrcEventCnt = 0U;
 	} else {
 		xil_printf("[FAILURE] No CRC error event notification received\n\r");
 		FailCnt++;
 	}
+#endif
 
 	/* Print total descriptor count */
 	xil_printf("\n\r----------------------------------------------------\n\r");
@@ -455,6 +493,24 @@ void PrintErrReport(void)
 }
 #endif /* End of XILSEM_ERRINJ_ENABLE */
 
+#ifdef XILPM_EVENT_NOTIFY
+/******************************************************************************
+ * @brief	Callback to receive XilPM event notifications.
+ *
+ * @param[in]	Notif : Pointer to XilPM notifier instance
+ *
+ *****************************************************************************/
+static void XPm_SemNotifyCallback(XPm_Notifier *Notif)
+{
+	if (XIL_EVENT_ERROR_MASK_XSEM_NPI_UE == Notif->received_event) {
+		Pm_EventCnt_Npi = 1U;
+	} else {
+		xil_printf("[%s] Unexpected XilPM event: 0x%x\n\r", __func__,
+				Notif->received_event);
+	}
+}
+#endif
+
 /*****************************************************************************/
 /**
 *
@@ -491,12 +547,40 @@ int main(void)
 
 	Status = XSem_IpiInitApi();
 	if (XST_SUCCESS != Status) {
-		xil_printf("Ipi init failure with status 0x%x\n\r", \
+		xil_printf("[%s] IPI init failure with status 0x%x\n\r", \
 				__func__, Status);
 		FailCnt++;
 		goto END;
 	}
-
+#ifdef XILPM_EVENT_NOTIFY
+	Status = XPm_InitXilpm(&IpiInst);
+	if (XST_SUCCESS != Status) {
+		xil_printf("XPm_InitXilpm failed: 0x%x\n\r", Status);
+		FailCnt++;
+		goto END;
+	}
+	Status = XScuGic_Connect(&GicInst, XPM_NOTIFY_SGI,
+				  (Xil_ExceptionHandler)XPm_SgiHandler, &GicInst);
+	if (XST_SUCCESS != Status) {
+		xil_printf("SGI connect failed: 0x%x\n\r", Status);
+		FailCnt++;
+		goto END;
+	}
+	XScuGic_Enable(&GicInst, XPM_NOTIFY_SGI);
+	Status = XPm_RegisterNotifier(&PmNotifier);
+	if (XST_SUCCESS != Status) {
+		xil_printf("XPm_RegisterNotifier failed: 0x%x\n\r", Status);
+		FailCnt++;
+		goto END;
+	}
+	/* Register SGI with TF-A and enable it before registering notifiers. */
+	Status = XPm_RegisterSgi(XPM_NOTIFY_SGI);
+	if (XST_SUCCESS != Status) {
+		xil_printf("XPm_RegisterSgi failed: 0x%x\n\r", Status);
+		FailCnt++;
+		goto END;
+	}
+#endif
 	XSem_NpiEventRegisterNotifier(1U);
 
 	/* The following sequence demonstrates how to inject errors in NPI
@@ -517,17 +601,18 @@ int main(void)
 	TempVal = DataMaskShift(NpiStatus.Status,
 					XSEM_NPI_SCAN_STATUS_MASK, 0U);
 	if ((TempVal == XSEM_NPI_SCAN_ACTIVE) ||
-					(TempVal == XSEM_NPI_SCAN_IDLE)){
-		for(Index = 0U; Index < MAX_NPI_SLV_SKIP_CNT; Index++){
-		xil_printf("NPI Scan Fail Count for register %x: %x\n",\
-				Index,NpiStatus.SlvSkipCnt[Index]);
+					(TempVal == XSEM_NPI_SCAN_IDLE)) {
+		for (Index = 0U; Index < MAX_NPI_SLV_SKIP_CNT; Index++) {
+			xil_printf("NPI Scan Fail Count for register %x: %x\n\r",
+					Index, NpiStatus.SlvSkipCnt[Index]);
 		}
-		xil_printf("SHA mismatch Err details recorded as\n");
-		for(Index = 0U; Index < MAX_NPI_ERR_INFO_CNT; Index++){
-		xil_printf("ErrInfo[%x]: %x\n",Index,NpiStatus.ErrInfo[Index]);
+		xil_printf("SHA mismatch error details recorded as\n\r");
+		for (Index = 0U; Index < MAX_NPI_ERR_INFO_CNT; Index++) {
+			xil_printf("ErrInfo[%x]: %x\n\r", Index,
+					NpiStatus.ErrInfo[Index]);
 		}
-		xil_printf("NPI Scan Count = %x\n",NpiStatus.ScanCnt);
-		xil_printf("HBCount = %x\n",NpiStatus.HbCnt);
+		xil_printf("NPI Scan Count = %x\n\r", NpiStatus.ScanCnt);
+		xil_printf("HBCount = %x\n\r", NpiStatus.HbCnt);
 	}
 
 	TempA_32 = DataMaskShift(NpiStatus.Status, NPI_STATUS_SCAN_PSCAN_EN_MASK,
@@ -671,12 +756,12 @@ END:
 	xil_printf("\n\r-------------- Test Report --------------\n\r");
 	xil_printf("Failed Command Count : %d\n\r", FailCnt);
 
-	if(FailCnt) {
-			xil_printf("NPI examples Failed \n");
-	}else{
-			xil_printf("NPI examples ran successfully \n");
-		}
-		xil_printf("-----------------------------------------\n\r");
+	if (FailCnt != 0U) {
+		xil_printf("NPI example failed\n\r");
+	} else {
+		xil_printf("NPI example ran successfully\n\r");
+	}
+	xil_printf("-----------------------------------------\n\r");
 
 	/* Enable cache to disable PLM access to OCM registers */
 	Xil_DCacheEnable();

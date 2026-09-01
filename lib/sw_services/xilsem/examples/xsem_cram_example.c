@@ -39,6 +39,9 @@
  *                         FailCnt is updated correctly.
  * 1.4   gayu  03/26/2026  Fix Correctable Error count check in detect only
  *                         configuration
+ * 1.5   anv   08/28/2026  Added XilPM event notification support for EL1
+ *                         non-secure SMC flow and corrected runtime print
+ *                         messages.
  * </pre>
  *
  *****************************************************************************/
@@ -47,6 +50,36 @@
 #include "xsem_client_api.h"
 #include "xsem_ipi.h"
 #include "xsem_gic_setup.h"
+
+/* Enable XilPM notifications for EL1 non-secure SMC flow, where
+ * TF-A propagates PLM PM notification IPIs to the application via
+ * an SGI.
+ */
+#if defined(XPM_SUPPORT) && defined(__aarch64__) && (EL1_NONSECURE == 1)
+#define XILPM_EVENT_NOTIFY
+#include "pm_api_sys.h"
+#include "xil_error_node.h"
+#define XPM_NOTIFY_SGI		(9U)
+
+/* Global variables to hold the XilPM event count when notified */
+static volatile u8 Pm_EventCnt_UnCorEcc = 0U;
+static volatile u8 Pm_EventCnt_CorEcc = 0U;
+
+static void XPm_SemNotifyCallback(XPm_Notifier *Notif);
+
+static void XPm_SgiHandler(void *CallbackRef)
+{
+	(void)CallbackRef;
+	XPm_HandlePmNotification();
+}
+
+static XPm_Notifier PmNotifier = {
+	.callback = XPm_SemNotifyCallback,
+	.node = XIL_NODETYPE_EVENT_ERROR_SW_ERR,
+	.event = XIL_EVENT_ERROR_MASK_XSEM_CRAM_CE |
+		 XIL_EVENT_ERROR_MASK_XSEM_CRAM_UE,
+};
+#endif
 
 #define CRAM_STATUS_INIT_DONE_MASK	(0X00010000U)
 #define CRAM_STATUS_COR_ERR_MASK	(0X00000800U)
@@ -68,10 +101,10 @@ XSem_Notifier Notifier = {
 u32 FailCnt= 0;
 
 /*Global variables to hold the event count when notified*/
-u8 EventCnt_UnCorEcc = 0U;
-u8 EventCnt_Crc = 0U;
-u8 EventCnt_CorEcc = 0U;
-u8 EventCnt_IntErr = 0U;
+u8 Sem_EventCnt_UnCorEcc = 0U;
+u8 Sem_EventCnt_Crc = 0U;
+u8 Sem_EventCnt_CorEcc = 0U;
+u8 Sem_EventCnt_IntErr = 0U;
 
 /****************************************************************************
  * @brief    	Initialize XilSEM IPI instance and register ISR handler to
@@ -401,17 +434,29 @@ void PrintErrReport(u32 IntialCorErrCnt)
 			FailCnt++;
 		}
 
+#ifdef XILPM_EVENT_NOTIFY
+		if ((Pm_EventCnt_UnCorEcc == 1U) && (Pm_EventCnt_CorEcc == 0U)) {
+			xil_printf("[SUCCESS] Received Uncorrectable error" \
+				" event notification (XilPM)\n\r");
+			Pm_EventCnt_UnCorEcc = 0U;
+		} else {
+			xil_printf("[FAILURE] No Uncorrectable error event" \
+				" notification received (XilPM)\n\r");
+			FailCnt++;
+		}
+#else
 		/*Check Event notification*/
-		if(EventCnt_UnCorEcc == 1U && EventCnt_Crc == 0U &&
-			EventCnt_CorEcc == 0U && EventCnt_IntErr == 0U){
+		if(Sem_EventCnt_UnCorEcc == 1U && Sem_EventCnt_Crc == 0U &&
+			Sem_EventCnt_CorEcc == 0U && Sem_EventCnt_IntErr == 0U){
 			xil_printf("[SUCCESS] Received Uncorrectable error" \
 				" event notification\n\r");
-			EventCnt_UnCorEcc = 0U;
+			Sem_EventCnt_UnCorEcc = 0U;
 		} else {
 			xil_printf("[FAILURE] No Uncorrectable error event" \
 				" notification received\n\r");
 			FailCnt++;
 		}
+#endif
 
 	} else if (Status == CRAM_STATUS_CRC_ERR_MASK) {
 
@@ -427,17 +472,29 @@ void PrintErrReport(u32 IntialCorErrCnt)
 			FailCnt++;
 		}
 
+#ifdef XILPM_EVENT_NOTIFY
+		if ((Pm_EventCnt_UnCorEcc == 1U) && (Pm_EventCnt_CorEcc == 0U)) {
+			xil_printf("[SUCCESS] Received CRC error" \
+				" event notification (XilPM - as UE)\n\r");
+			Pm_EventCnt_UnCorEcc = 0U;
+		} else {
+			xil_printf("[FAILURE] No CRC error event" \
+				" notification received (XilPM)\n\r");
+			FailCnt++;
+		}
+#else
 		/*Check Event notification*/
-		if(EventCnt_UnCorEcc == 0U && EventCnt_Crc == 1U &&
-			EventCnt_CorEcc == 0U && EventCnt_IntErr == 0U){
+		if(Sem_EventCnt_UnCorEcc == 0U && Sem_EventCnt_Crc == 1U &&
+			Sem_EventCnt_CorEcc == 0U && Sem_EventCnt_IntErr == 0U){
 			xil_printf("[SUCCESS] Received CRC error" \
 				" event notification\n\r");
-			EventCnt_Crc = 0U;
+			Sem_EventCnt_Crc = 0U;
 		} else {
 			xil_printf("[FAILURE] No CRC error event" \
 				" notification received\n\r");
 			FailCnt++;
 		}
+#endif
 
 	} else if(Status == CRAM_STATUS_COR_ERR_MASK) {
 
@@ -464,17 +521,30 @@ void PrintErrReport(u32 IntialCorErrCnt)
 			}
 		}
 
-		/*Check Event notification*/
-		if(EventCnt_UnCorEcc == 0U && EventCnt_Crc == 0U &&
-			EventCnt_CorEcc == 1U && EventCnt_IntErr == 0U){
+#ifdef XILPM_EVENT_NOTIFY
+		/*Check XilPm Event notification*/
+		if ((Pm_EventCnt_CorEcc == 1U) && (Pm_EventCnt_UnCorEcc == 0U)) {
+			xil_printf("[SUCCESS] Received Correctable error" \
+				" event notification (XilPM)\n\r");
+			Pm_EventCnt_CorEcc = 0U;
+		} else {
+			xil_printf("[FAILURE] No Correctable error event" \
+				" notification received (XilPM)\n\r");
+			FailCnt++;
+		}
+#else
+		/*Check Sem Event notification*/
+		if(Sem_EventCnt_UnCorEcc == 0U && Sem_EventCnt_Crc == 0U &&
+			Sem_EventCnt_CorEcc == 1U && Sem_EventCnt_IntErr == 0U){
 			xil_printf("[SUCCESS] Received Correctable error" \
 				" event notification\n\r");
-			EventCnt_CorEcc = 0U;
+			Sem_EventCnt_CorEcc = 0U;
 		} else {
 			xil_printf("[FAILURE] No Correctable error event" \
 				" notification received\n\r");
 			FailCnt++;
 		}
+#endif
 
 		/*To print error location details*/
 		ErrIndex = (CorErrCount % 7U);
@@ -567,19 +637,19 @@ void XSem_IpiCallback(void)
 			(XSEM_NOTIFY_CRAM == Payload[1])) {
 		if (XSEM_EVENT_CRAM_UNCOR_ECC_ERR == Payload[2]) {
 			xil_printf("Received CRAM Uncorrectable error event \n");
-			EventCnt_UnCorEcc = 1U;
+			Sem_EventCnt_UnCorEcc = 1U;
 		} else if (XSEM_EVENT_CRAM_CRC_ERR == Payload[2]) {
 			xil_printf("Received CRAM CRC error event \n");
-			EventCnt_Crc = 1U;
+			Sem_EventCnt_Crc = 1U;
 		} else if (XSEM_EVENT_CRAM_INT_ERR == Payload[2]) {
 			xil_printf("[ALERT] Received internal error event" \
 				" notification from XilSEM\n\r");
-			EventCnt_IntErr = 1U;
+			Sem_EventCnt_IntErr = 1U;
 		} else if (XSEM_EVENT_CRAM_COR_ECC_ERR == Payload[2]) {
-			xil_printf("Received CRAM Correcatble error event \n");
-			EventCnt_CorEcc = 1U;
+			xil_printf("Received CRAM Correctable error event \n");
+			Sem_EventCnt_CorEcc = 1U;
 		} else {
-			xil_printf("%s Someother callback received: %d:%d:%d\n",
+			xil_printf("%s Some other callback received: %d:%d:%d\n",
 					__func__, Payload[0], \
 					Payload[1], Payload[2]);
 		}
@@ -588,6 +658,28 @@ void XSem_IpiCallback(void)
 				__func__, Payload[0]);
 	}
 }
+
+/******************************************************************************
+ * @brief	Callback to receive XilPM event notifications.
+ *
+ * @param[in]	Notif : Pointer to XilPM notifier instance
+ *
+ *****************************************************************************/
+#ifdef XILPM_EVENT_NOTIFY
+static void XPm_SemNotifyCallback(XPm_Notifier *Notif)
+{
+	if (XIL_EVENT_ERROR_MASK_XSEM_CRAM_CE == Notif->received_event) {
+		xil_printf("Received CRAM Correctable error event (XilPM)\n");
+		Pm_EventCnt_CorEcc = 1U;
+	} else if (XIL_EVENT_ERROR_MASK_XSEM_CRAM_UE == Notif->received_event) {
+		xil_printf("Received CRAM Uncorrectable/CRC error event (XilPM)\n");
+		Pm_EventCnt_UnCorEcc = 1U;
+	} else {
+		xil_printf("%s Some other callback received: 0x%x\n", __func__,
+				Notif->received_event);
+	}
+}
+#endif
 
 /***************************************************************************
  * @brief	Main showing example with usage of API's to StartScan, StopScan,
@@ -617,11 +709,41 @@ int main(void)
 	 */
 	Status = XSem_IpiInitApi();
 	if (XST_SUCCESS != Status) {
-		xil_printf("Ipi init failure with status 0x%x\n\r", \
+		xil_printf("[%s] IPI init failure with status 0x%x\n\r", \
 				__func__, Status);
 		FailCnt++;
 		goto END;
 	}
+
+#ifdef XILPM_EVENT_NOTIFY
+	Status = XPm_InitXilpm(&IpiInst);
+	if (XST_SUCCESS != Status) {
+		xil_printf("XPm_InitXilpm failed: 0x%x\n\r", Status);
+		FailCnt++;
+		goto END;
+	}
+	Status = XScuGic_Connect(&GicInst, XPM_NOTIFY_SGI,
+				  (Xil_ExceptionHandler)XPm_SgiHandler, &GicInst);
+	if (XST_SUCCESS != Status) {
+		xil_printf("SGI connect failed: 0x%x\n\r", Status);
+		FailCnt++;
+		goto END;
+	}
+	XScuGic_Enable(&GicInst, XPM_NOTIFY_SGI);
+	Status = XPm_RegisterNotifier(&PmNotifier);
+	if (XST_SUCCESS != Status) {
+		xil_printf("XPm_RegisterNotifier failed: 0x%x\n\r", Status);
+		FailCnt++;
+		goto END;
+	}
+	/* Register SGI with TF-A and enable it before registering notifiers. */
+	Status = XPm_RegisterSgi(XPM_NOTIFY_SGI);
+	if (XST_SUCCESS != Status) {
+		xil_printf("XPm_RegisterSgi failed: 0x%x\n\r", Status);
+		FailCnt++;
+		goto END;
+	}
+#endif
 
 	/* Initialize CRAM scan if not initialized
 	 * This is applicable when CRAM Scan is set for deferred start up.
@@ -794,9 +916,9 @@ END:
 	xil_printf("\n\r-------------- Test Report --------------\n\r");
 	xil_printf("Failed Command Count : %d\n\r", FailCnt);
 	if(FailCnt) {
-		xil_printf("CRAM examples Failed \n");
+		xil_printf("CRAM example failed\n\r");
 	}else{
-		xil_printf("CRAM examples ran successfully \n");
+		xil_printf("CRAM example ran successfully\n\r");
 	}
 	xil_printf("-----------------------------------------\n\r");
 	return 0;

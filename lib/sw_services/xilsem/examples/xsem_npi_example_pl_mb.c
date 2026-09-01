@@ -244,7 +244,7 @@ END:
 	return Status;
 }
 /******************************************************************************
- * @brief	This function is used to Register XilSEM even notifications
+ * @brief	This function is used to Register XilSEM event notifications
  *
  * @param[in]	Enable : Enable event notification in XilSEM
  *

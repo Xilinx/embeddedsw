@@ -30,6 +30,7 @@
  *                           IPI interrupt handler
  * 0.6   gam     03/26/2026  Fix Correctable Error count check in detect only
  *                           configuration
+ * 0.7   anv     08/28/2026  Corrected runtime print messages.
  *
  * </pre>
  *
@@ -551,7 +552,7 @@ void XSem_IpiCallback(void)
 	if ((XSEM_EVENT_ERROR == Payload[0]) && \
 			(XSEM_NOTIFY_CRAM == Payload[1])) {
 		if (XSEM_EVENT_CRAM_UNCOR_ECC_ERR == Payload[2]) {
-			xil_printf("Received CRAM Uncorrecatble error event \n");
+			xil_printf("Received CRAM Uncorrectable error event \n");
 			EventCnt_UnCorEcc = 1U;
 		} else if (XSEM_EVENT_CRAM_CRC_ERR == Payload[2]) {
 			xil_printf("Received CRAM CRC error event \n");
@@ -564,7 +565,7 @@ void XSem_IpiCallback(void)
 			xil_printf("Received CRAM Correctable error event \n");
 			EventCnt_CorEcc = 1U;
 		} else {
-			xil_printf("%s Someother callback received: %d:%d:%d\n",
+			xil_printf("%s Some other callback received: %d:%d:%d\n",
 					__func__, Payload[0], \
 					Payload[1], Payload[2]);
 		}
