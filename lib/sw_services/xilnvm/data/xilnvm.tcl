@@ -12,6 +12,7 @@
 # 3.1  skg  12/07/22 Added a user configuration parameter
 # 3.3  vss  12/21/23 Added microblaze support for versalnet
 #      vss  02/23/24 Added configuration parameters for eFuse write
+# 3.8  vss  09/01/26 Updated sources for the eFuse band engine layout
 #
 ##############################################################################
 
@@ -28,16 +29,16 @@ proc nvm_drc {libhandle} {
 	set os_type [hsi::get_os];
 
 	set versal_dir "./src/versal_gen/versal"
-	set versal_net_dir    "./src/versal_gen/versal_net"
+	set versal_next_dir   "./src/versal_gen/versal_next"
 	set versal_family_dir "./src/versal_gen/common"
 
 	set versal_client_dir "$versal_dir/client"
 	set versal_server_dir "$versal_dir/server"
 	set versal_common_dir "$versal_dir/common"
 
-	set versal_net_client_dir "$versal_net_dir/client"
-	set versal_net_server_dir "$versal_net_dir/server"
-	set versal_net_common_dir "$versal_net_dir/common"
+	set versal_next_client_dir "$versal_next_dir/client"
+	set versal_next_server_dir "$versal_next_dir/server"
+	set versal_next_common_dir "$versal_next_dir/common"
 
 	set family_common_client_dir "$versal_family_dir/client"
 	set family_common_server_dir "$versal_family_dir/server"
@@ -83,8 +84,8 @@ proc nvm_drc {libhandle} {
 		"psxl_pmc" -
 		"psx_pmc" {
 			copy_files_to_src $family_common_server_dir
-			copy_files_to_src $versal_net_server_dir
-			copy_files_to_src $versal_net_common_dir
+			copy_versal_next_server_to_src $versal_next_server_dir
+			copy_files_to_src $versal_next_common_dir
 			copy_files_to_src $versal_family_dir
 		}
 
@@ -110,13 +111,13 @@ proc nvm_drc {libhandle} {
 		"psx_cortexa78" {
 			if {$mode == "server"} {
 				copy_files_to_src $family_common_server_dir
-				copy_files_to_src $versal_net_server_dir
-				copy_files_to_src $versal_net_common_dir
+				copy_versal_next_server_to_src $versal_next_server_dir
+				copy_files_to_src $versal_next_common_dir
 				copy_files_to_src $versal_family_dir
 			} else {
 				copy_files_to_src $family_common_client_dir
-				copy_files_to_src $versal_net_client_dir
-				copy_files_to_src $versal_net_common_dir
+				copy_files_to_src $versal_next_client_dir
+				copy_files_to_src $versal_next_common_dir
 				copy_files_to_src $versal_family_dir
 			}
 		}
@@ -126,8 +127,8 @@ proc nvm_drc {libhandle} {
 				IP_NAME=="psxl_cortexa78" || IP_NAME=="psx_cortexa78"}]
 			if {[llength $is_versal_net] > 0} {
 					copy_files_to_src $family_common_client_dir
-					copy_files_to_src $versal_net_client_dir
-					copy_files_to_src $versal_net_common_dir
+					copy_files_to_src $versal_next_client_dir
+					copy_files_to_src $versal_next_common_dir
 					copy_files_to_src $versal_family_dir
 			} else {
 					copy_files_to_src $family_common_client_dir
@@ -166,9 +167,33 @@ proc generate {libhandle} {
 }
 
 proc copy_files_to_src {dir_path} {
-        foreach entry [glob -nocomplain [file join $dir_path *]] {
+        foreach entry [glob -nocomplain -types f [file join $dir_path *]] {
                 file copy -force $entry "./src"
         }
+}
+
+#---------------------------------------------
+# copy_versal_next_server_to_src
+#---------------------------------------------
+proc copy_versal_next_server_to_src {server_dir} {
+	set efuse_dir "$server_dir/efuse"
+
+	# All device field tables share the xnvm_efuse_plat_field.h file name, so
+	# exactly one of them may be flattened into ./src.
+	set is_versal_2ve_2vm [hsi::get_cells -hier -filter {IP_NAME=="pmc" ||
+		IP_NAME=="cortexa78" || IP_NAME=="cortexr52"}]
+	if {[llength $is_versal_2ve_2vm] > 0} {
+		set field_device_dir "$efuse_dir/field/versal_2ve2vm"
+	} else {
+		set field_device_dir "$efuse_dir/field/versal_net"
+	}
+
+	copy_files_to_src $server_dir
+	copy_files_to_src "$efuse_dir/core"
+	# Platform glue is shared by every band engine device.
+	copy_files_to_src "$efuse_dir/versal_net"
+	copy_files_to_src "$efuse_dir/field/common"
+	copy_files_to_src $field_device_dir
 }
 
 #-------
