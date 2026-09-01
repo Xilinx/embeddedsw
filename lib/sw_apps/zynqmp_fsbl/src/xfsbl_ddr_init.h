@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2019 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023, Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
  ******************************************************************************/
 
@@ -28,6 +28,8 @@
  *       mn   12/24/19 Enable Address Mirroring based on SPD data
  *       bsv  02/05/20 Added support for ZCU208 board
  * 6.1   ng   07/13/23 Added SDT support
+ * 6.3   sd   08/28/26 Added XFSBL_MAX_HIF_ADDR macro for HIF address array
+ *                     bounds
  *
  * </pre>
  *
@@ -57,6 +59,8 @@ extern "C" {
 #define XFSBL_MAX_BANKS				3U
 /* Maximum number of Bank Groups in DDR */
 #define XFSBL_MAX_BANK_GROUPS			2U
+/* Number of HIF address entries used for address-map calculation */
+#define XFSBL_MAX_HIF_ADDR			40U
 /* Total number of DDR controller registers */
 #define XFSBL_DDRC_REG_COUNT			115U
 /* Total number of DDR PHY registers */

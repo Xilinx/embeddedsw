@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2019 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
  ******************************************************************************/
 
@@ -35,6 +35,8 @@
  * 6.1   ng   07/13/23 Added SDT support
  * 6.2   pre  29/12/23 Xil_WaitForEvent function is used instead of
  *                     XFsbl_PollTimeout
+ * 6.3   sd   09/01/26 Added bounds check for HIF address array searches
+ *                     in address map calculation
  *
  * </pre>
  *
@@ -1117,12 +1119,17 @@ static void XFsbl_DdrCalcBankAddr(struct DdrcInitData *DdrDataPtr, u32 *HifAddr)
 		if (BankBit < PDimmPtr->NumBankAddr) {
 			Index = BankBit + 2U;
 
-			while (HifAddr[Index] != XFSBL_HIF_BANK(BankBit)) {
+			while ((Index < XFSBL_MAX_HIF_ADDR) &&
+				(HifAddr[Index] != XFSBL_HIF_BANK(BankBit))) {
 				Index++;
 			}
 
-			DdrDataPtr->AddrMapBankBit[BankBit] = Index -
-				(BankBit + 2U);
+			if (Index < XFSBL_MAX_HIF_ADDR) {
+				DdrDataPtr->AddrMapBankBit[BankBit] = Index -
+					(BankBit + 2U);
+			} else {
+				DdrDataPtr->AddrMapBankBit[BankBit] = 0x1FU;
+			}
 		} else {
 			DdrDataPtr->AddrMapBankBit[BankBit] = 0x1FU;
 		}
@@ -1150,15 +1157,16 @@ static void XFsbl_DdrCalcBgAddr(struct DdrcInitData *DdrDataPtr, u32 *HifAddr)
 		if (BgBit < PDimmPtr->NumBgAddr) {
 			Index = BgBit + 2U;
 
-			while (HifAddr[Index] != XFSBL_HIF_BG(BgBit)) {
+			while ((Index < XFSBL_MAX_HIF_ADDR) &&
+				(HifAddr[Index] != XFSBL_HIF_BG(BgBit))) {
 				Index++;
 			}
 
-			if (Index >= (BgBit + 2U)) {
+			if (Index < XFSBL_MAX_HIF_ADDR) {
 				DdrDataPtr->AddrMapBgBit[BgBit] = Index -
 					(BgBit + 2U);
 			} else {
-				DdrDataPtr->AddrMapBgBit[BgBit] = 0U;
+				DdrDataPtr->AddrMapBgBit[BgBit] = 0x1FU;
 			}
 		} else {
 			DdrDataPtr->AddrMapBgBit[BgBit] = 0x1FU;
@@ -1187,11 +1195,16 @@ static void XFsbl_DdrCalcColAddr(struct DdrcInitData *DdrDataPtr, u32 *HifAddr)
 		if (ColBit < PDimmPtr->NumColAddr) {
 			Index = ColBit;
 
-			while (HifAddr[Index] != XFSBL_HIF_COLUMN(ColBit)) {
+			while ((Index < XFSBL_MAX_HIF_ADDR) &&
+				(HifAddr[Index] != XFSBL_HIF_COLUMN(ColBit))) {
 				Index++;
 			}
 
-			DdrDataPtr->AddrMapColBit[ColBit] = Index - ColBit;
+			if (Index < XFSBL_MAX_HIF_ADDR) {
+				DdrDataPtr->AddrMapColBit[ColBit] = Index - ColBit;
+			} else {
+				DdrDataPtr->AddrMapColBit[ColBit] = 0xFU;
+			}
 		} else {
 			DdrDataPtr->AddrMapColBit[ColBit] = 0xFU;
 		}
@@ -1222,12 +1235,17 @@ static void XFsbl_DdrCalcRowAddr(struct DdrcInitData *DdrDataPtr, u32 *HifAddr)
 		if (RowBit < PDimmPtr->NumRowAddr) {
 			Index = RowBit + 6U;
 
-			while (HifAddr[Index] != XFSBL_HIF_ROW(RowBit)) {
+			while ((Index < XFSBL_MAX_HIF_ADDR) &&
+				(HifAddr[Index] != XFSBL_HIF_ROW(RowBit))) {
 				Index++;
 			}
 
-			DdrDataPtr->AddrMapRowBit[RowBit] = Index -
-				(RowBit + 6U);
+			if (Index < XFSBL_MAX_HIF_ADDR) {
+				DdrDataPtr->AddrMapRowBit[RowBit] = Index -
+					(RowBit + 6U);
+			} else {
+				DdrDataPtr->AddrMapRowBit[RowBit] = 0xFU;
+			}
 		} else {
 			DdrDataPtr->AddrMapRowBit[RowBit] = 0xFU;
 		}
@@ -1246,7 +1264,7 @@ static void XFsbl_DdrCalcRowAddr(struct DdrcInitData *DdrDataPtr, u32 *HifAddr)
 static void XFsbl_DdrCalcAddrMap(struct DdrcInitData *DdrDataPtr)
 {
 	XFsbl_DimmParams *PDimmPtr = &DdrDataPtr->PDimm;
-	u32 HifAddr[40U] = {0U};
+	u32 HifAddr[XFSBL_MAX_HIF_ADDR] = {0U};
 	u32 RegVal[12U];
 	u32 Index;
 
