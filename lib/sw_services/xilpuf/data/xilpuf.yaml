@@ -64,13 +64,15 @@ examples:
                                "psxl_cortexa78", "psxl_cortexr52", "cortexa78", "cortexr52"]
     spartanuplus_procs = ["microblaze", "microblaze_riscv"]
 
-    if platform in ["Versal", "VersalNet", "Versal_2VE_2VM"] and proc in versal_all_family_procs and not "Versal_2VP_P" in variant:
-      examples += ["xilpuf_client_example.c", "xilpuf_enc_dec_data_client_example.c"]
+    if platform in ["Versal", "VersalNet", "Versal_2VE_2VM"] and proc in versal_all_family_procs and ("Versal_2VP_P" not in variant):
+      examples += ["xilpuf_client_example.c"]
+      if "Versal_2VP" not in variant:
+        examples += ["xilpuf_enc_dec_data_client_example.c"]
 
     if (platform == "VersalNet" and proc in versalnet_procs) or (platform == "Versal_2VE_2VM" and proc in versal_2ve_2vm_procs):
       examples += ["xilpuf_versal_net_example.c"]
 
-    if platform in ["Versal"] and proc in versal_procs and not "Versal_2VP_P" in variant:
+    if platform in ["Versal"] and proc in versal_procs and ("Versal_2VP" not in variant) and ("Versal_2VP_P" not in variant):
       examples += ["xilpuf_enc_dec_data_example.c", "xilpuf_example.c", "xilpuf_ssit_client_example.c"]
 
     if "spartanuplus" in variant and proc in spartanuplus_procs:
