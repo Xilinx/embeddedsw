@@ -1529,8 +1529,10 @@ static XPlmi_Module XPlmi_Loader =
 	NULL,
 #endif
 	XLoader_AccessPermBuff,
-#ifdef VERSAL_NET
+#if defined(VERSAL_NET)
 	XLoader_UpdateHandler
+#elif defined(VERSAL_2VP_P)
+	NULL
 #endif
 };
 

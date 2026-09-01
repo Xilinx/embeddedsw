@@ -331,7 +331,7 @@ static XPlmi_Module XPlmi_ErrModule =
 	XPLMI_ARRAY_SIZE(XPlmi_ErrCmds),
 	NULL,
 	XPlmi_ErrAccessPermBuff,
-#ifdef VERSAL_NET
+#if defined(VERSAL_NET) || defined(VERSAL_2VP_P)
 	NULL
 #endif
 };

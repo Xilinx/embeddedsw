@@ -156,10 +156,10 @@ static XPlmi_Module XPlmi_Pm =
 	PM_API(PM_API_MAX),
 	NULL,
 	XPlmi_PmAccessPermBuff,
-#ifdef VERSAL_NET
-#ifndef VERSAL_2VE_2VM
+#if defined(VERSAL_NET) && !defined(VERSAL_2VE_2VM)
 	XPmUpdate_ShutdownHandler
-#endif
+#elif defined(VERSAL_2VP_P)
+	NULL
 #endif
 };
 static int (*PmRestartCb)(u32 ImageId, u32 *FuncId);

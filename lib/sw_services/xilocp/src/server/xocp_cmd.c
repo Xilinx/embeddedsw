@@ -267,12 +267,10 @@ void XOcp_CmdsInit(void)
 		XOCP_API(XOCP_API_MAX),
 		NULL,
 		XOcp_AccessPermBuff,
-#ifdef VERSAL_NET
-#ifdef PLM_OCP_NATIVE_KEY_MGMT
+#if defined(VERSAL_NET) && defined(PLM_OCP_NATIVE_KEY_MGMT)
 		XOcp_ShutdownHandler
-#else
+#elif defined(VERSAL_NET) || defined(VERSAL_2VP_P)
 		NULL
-#endif
 #endif
 	};
 	u32 Idx;

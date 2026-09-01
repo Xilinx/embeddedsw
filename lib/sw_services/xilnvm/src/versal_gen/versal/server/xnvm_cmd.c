@@ -106,6 +106,9 @@ static XPlmi_Module XPlmi_Nvm =
 	XNVM_API(XNVM_API_MAX),
 	XNvm_InvalidCmdHandler,
 	XNvm_AccessPermBuff,
+#if defined(VERSAL_NET) || defined(VERSAL_2VP_P)
+	NULL
+#endif
 };
 
 /**************************** Type Definitions *******************************/
