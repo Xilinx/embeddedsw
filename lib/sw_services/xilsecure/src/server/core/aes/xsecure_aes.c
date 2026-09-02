@@ -757,8 +757,8 @@ int XSecure_AesDecryptFinal(XSecure_Aes *InstancePtr, u64 GcmTagAddr)
 	}
 
 	if (InstancePtr->AesState != XSECURE_AES_UPDATE_DONE) {
-			Status = (int)XSECURE_AES_STATE_MISMATCH_ERROR;
-			goto END;
+		Status = (int)XSECURE_AES_STATE_MISMATCH_ERROR;
+		goto END;
 	}
 
 	XSecure_WriteReg(InstancePtr->BaseAddress,
