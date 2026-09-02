@@ -612,6 +612,7 @@ int XSecure_AesKekDecrypt(const XSecure_Aes *InstancePtr,
 	AesDmaCfg.SrcDataAddr = IvAddr;
 	AesDmaCfg.IsLastChunkSrc = (u8)TRUE;
 
+	/** - IV Transfer */
 	Status = XSecure_AesPmcDmaCfgAndXfer(InstancePtr, &AesDmaCfg,
 		XSECURE_SECURE_GCM_TAG_SIZE);
 	if (Status != XST_SUCCESS) {
