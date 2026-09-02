@@ -351,6 +351,16 @@ static u32 Xil_SetTlbAttributesR52(UINTPTR Addr, u32 Size, u32 Attrib)
 
 		Xil_AddEntryToMPUConfig(MpuConfigNew, Temp);
 		Xil_SetMPUConfig(MpuConfigNew);
+	} else if ((StartRegNum == 0xFF) || (EndRegNum == 0xFF)) {
+		/*
+		 * Partial overlap: exactly one endpoint of the requested range
+		 * falls inside an existing MPU region while the other does not
+		 * (the "start outside/end inside" and vice-versa scenarios noted
+		 * as unhandled above). The sentinel 0xFF must never be used as an
+		 * MPU region index, so reject the request instead of forwarding
+		 * it to Xil_AdjustOverlappedRegions().
+		 */
+		return XST_FAILURE;
 	} else {
 		ReqMPUConfig.BaseAddress = (Localaddr & XMPU_PBAR_REG_BASEADDR_MASK);
 		ReqMPUConfig.Size = (Size - 1);
@@ -386,6 +396,16 @@ u32 Xil_AdjustOverlappedRegions(struct XRequestMpuConfig ReqMPUConfig )
 	u32 Attrib =  ReqMPUConfig.Attribute, Size = ReqMPUConfig.Size;
 	u32 ReqEndAddr, Endaddr;
 	u32 Localaddr = ReqMPUConfig.BaseAddress;
+
+	/*
+	 * StartRegNum/EndRegNum are used directly as indices into the
+	 * MAX_POSSIBLE_MPU_REGS-entry MpuConfig array below. Guard against an
+	 * out-of-range index (e.g. the 0xFF sentinel) to avoid an OOB access.
+	 */
+	if ((StartRegNum >= MAX_POSSIBLE_MPU_REGS) ||
+	    (EndRegNum >= MAX_POSSIBLE_MPU_REGS)) {
+		return XST_FAILURE;
+	}
 
 	Xil_GetMPUConfig(MpuConfig);
 	Xil_GetMPUConfig(MpuConfigNew);
