@@ -1389,7 +1389,7 @@ XDp_MainStreamAttributes *XDpRxss_GetMsa(XDpRxSs *DpRxSsInst)
 		DpRxSsInst->DpPtr->RxInstance.MsaConfig[(Stream - 1)].SynchronousClockMode =
 				rxMsamisc0 & 1;
 
-		bpc = XDpRxss_GetBpc(DpRxSsInst, XDP_RX_STREAM_ID1);
+		bpc = XDpRxss_GetBpc(DpRxSsInst, Stream);
 		DpRxSsInst->DpPtr->RxInstance.MsaConfig[(Stream - 1)].BitsPerColor = bpc;
 
 		color_mode = XDpRxss_GetColorComponent(DpRxSsInst, Stream);
@@ -1501,8 +1501,12 @@ XDp_MainStreamAttributes *XDpRxss_GetMsa(XDpRxSs *DpRxSsInst)
 		} else if (color_mode == 2) {
 			DpRxSsInst->DpPtr->RxInstance.MsaConfig[Stream - 1].ComponentFormat =
 					XDP_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_YCBCR422;
+		} else if (color_mode == 3) {
+			/* YUV420 is signalled via VSC SDP, not MISC0. */
+			DpRxSsInst->DpPtr->RxInstance.MsaConfig[Stream - 1].ComponentFormat =
+					XDP_RX_MAIN_VSC_SDP_COMPONENT_FORMAT_YCBCR420;
 		} else {
-			//RAW, 420, Y unsupported
+			//RAW, Y unsupported
 			xil_printf("Unsupported Color Format\r\n");
 		}
 	}

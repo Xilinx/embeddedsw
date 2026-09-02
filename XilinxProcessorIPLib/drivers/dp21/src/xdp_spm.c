@@ -1065,6 +1065,40 @@ void XDp_RxSetUserPixelWidth(XDp *InstancePtr, u8 UserPixelWidth)
 
 /******************************************************************************/
 /**
+ * Read the received VSC SDP payload (DB16..DB18) for a stream. MST streams
+ * 2-4 have dedicated per-stream copies; stream 1 uses the legacy/generic
+ * register. If a per-stream copy reads back 0 (not populated on this core),
+ * fall back to the legacy/generic register, which carries the latest
+ * received VSC payload regardless of stream.
+ *
+ * @param	InstancePtr is a pointer to the XDp instance.
+ * @param	Stream is the stream number (XDP_RX_STREAM_ID1..4).
+ *
+ * @return	The 24-bit VSC SDP payload word.
+ *
+*******************************************************************************/
+static u32 XDp_RxReadVscPayload(XDp *InstancePtr, u8 Stream)
+{
+	u32 Val;
+
+	if (Stream == XDP_RX_STREAM_ID1) {
+		return XDp_ReadReg(InstancePtr->Config.BaseAddr,
+				XDP_RX_SDP_PAYLOAD_STREAM1);
+	}
+
+	Val = XDp_ReadReg(InstancePtr->Config.BaseAddr,
+			XDP_RX_VSC_COLOR_FORMAT_STREAM1 +
+			4 * (Stream - XDP_RX_STREAM_ID1));
+	if (Val == 0) {
+		Val = XDp_ReadReg(InstancePtr->Config.BaseAddr,
+				XDP_RX_SDP_PAYLOAD_STREAM1);
+	}
+
+	return Val;
+}
+
+/******************************************************************************/
+/**
  * This function extracts the colorimetry from MISC0 or VSC SDP packet
  * based on whether reception of colorimetry information through VSC SDP packets or
  * through MISC registers of the stream.
@@ -1090,10 +1124,10 @@ XDp_DynamicRange XDp_RxGetDynamicRange(XDp *InstancePtr, u8 Stream)
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 	Xil_AssertNonvoid(XDp_GetCoreType(InstancePtr) == XDP_RX);
-	Xil_AssertNonvoid((Stream == XDP_TX_STREAM_ID1) ||
-						(Stream == XDP_TX_STREAM_ID2) ||
-						(Stream == XDP_TX_STREAM_ID3) ||
-						(Stream == XDP_TX_STREAM_ID4));
+	Xil_AssertNonvoid((Stream == XDP_RX_STREAM_ID1) ||
+						(Stream == XDP_RX_STREAM_ID2) ||
+						(Stream == XDP_RX_STREAM_ID3) ||
+						(Stream == XDP_RX_STREAM_ID4));
 
 	/* Extract color depth from VSC packet */
 	ReadVal = XDp_ReadReg(InstancePtr->Config.BaseAddr, XDP_RX_MSA_MISC1);
@@ -1102,7 +1136,7 @@ XDp_DynamicRange XDp_RxGetDynamicRange(XDp *InstancePtr, u8 Stream)
 
 	/* Extract YCbCrColorimetry from MISC0. */
 	RegVal = XDp_ReadReg(InstancePtr->Config.BaseAddr, XDP_RX_MSA_MISC0 +
-			StreamOffset[Stream - XDP_TX_STREAM_ID1]);
+			StreamOffset[Stream - XDP_RX_STREAM_ID1]);
 
 	/* Determine number of bits per color component. */
 	RegVal  &= XDP_RX_MAIN_STREAMX_MISC0_DYNAMIC_RANGE_MASK;
@@ -1148,28 +1182,28 @@ XVidC_ColorStd XDp_RxGetColorimetry(XDp *InstancePtr, u8 Stream)
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 	Xil_AssertNonvoid(XDp_GetCoreType(InstancePtr) == XDP_RX);
-	Xil_AssertNonvoid((Stream == XDP_TX_STREAM_ID1) ||
-						(Stream == XDP_TX_STREAM_ID2) ||
-						(Stream == XDP_TX_STREAM_ID3) ||
-						(Stream == XDP_TX_STREAM_ID4));
+	Xil_AssertNonvoid((Stream == XDP_RX_STREAM_ID1) ||
+						(Stream == XDP_RX_STREAM_ID2) ||
+						(Stream == XDP_RX_STREAM_ID3) ||
+						(Stream == XDP_RX_STREAM_ID4));
 
 	/* Extract color depth from VSC packet */
-	ReadVal = XDp_ReadReg(InstancePtr->Config.BaseAddr, XDP_RX_MSA_MISC1);
+	ReadVal = XDp_ReadReg(InstancePtr->Config.BaseAddr, XDP_RX_MSA_MISC1 +
+			StreamOffset[Stream - XDP_RX_STREAM_ID1]);
 	ColorimetryThroughVsc = (ReadVal & XDP_DPCD_MSA_TIMING_PAR_IGNORED_MASK) >>
 					XDP_RX_XDP_MSA_TIMING_PAR_IGNORED_SHIFT;
 
 
 	/* Extract YCbCrColorimetry from MISC0. */
 	RegVal = XDp_ReadReg(InstancePtr->Config.BaseAddr, XDP_RX_MSA_MISC0 +
-			StreamOffset[Stream - XDP_TX_STREAM_ID1]);
+			StreamOffset[Stream - XDP_RX_STREAM_ID1]);
 
 	/* Determine number of  component. */
 	RegVal  &= XDP_RX_MAIN_STREAMX_MISC0_YCBCR_COLORIMETRY_MASK;
 	RegVal >>= XDP_RX_MAIN_STREAMX_MISC0_YCBCR_COLORIMETRY_SHIFT;
 
 	if (ColorimetryThroughVsc) {
-		RegVal = XDp_ReadReg(InstancePtr->Config.BaseAddr,
-				XDP_RX_SDP_PAYLOAD_STREAM1);
+		RegVal = XDp_RxReadVscPayload(InstancePtr, Stream);
 		RegVal = ((RegVal & XDP_RX_AUDIO_EXT_DATA_DB16) &
 				XDP_RX_MAIN_VSC_SDP_YCBCR_COLORIMETRY_MASK);
 	}
@@ -1211,27 +1245,27 @@ XVidC_ColorDepth XDp_RxGetBpc(XDp *InstancePtr, u8 Stream)
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 	Xil_AssertNonvoid(XDp_GetCoreType(InstancePtr) == XDP_RX);
-	Xil_AssertNonvoid((Stream == XDP_TX_STREAM_ID1) ||
-						(Stream == XDP_TX_STREAM_ID2) ||
-						(Stream == XDP_TX_STREAM_ID3) ||
-						(Stream == XDP_TX_STREAM_ID4));
+	Xil_AssertNonvoid((Stream == XDP_RX_STREAM_ID1) ||
+						(Stream == XDP_RX_STREAM_ID2) ||
+						(Stream == XDP_RX_STREAM_ID3) ||
+						(Stream == XDP_RX_STREAM_ID4));
 
 	/* Extract color depth from VSC packet */
-	ReadVal = XDp_ReadReg(InstancePtr->Config.BaseAddr, XDP_RX_MSA_MISC1);
+	ReadVal = XDp_ReadReg(InstancePtr->Config.BaseAddr, XDP_RX_MSA_MISC1 +
+			StreamOffset[Stream - XDP_RX_STREAM_ID1]);
 	ColorimetryThroughVsc = (ReadVal & XDP_DPCD_MSA_TIMING_PAR_IGNORED_MASK) >>
 							XDP_RX_XDP_MSA_TIMING_PAR_IGNORED_SHIFT;
 
 	/* Extract color depth from MISC0. */
 	RegVal = XDp_ReadReg(InstancePtr->Config.BaseAddr, XDP_RX_MSA_MISC0 +
-			StreamOffset[Stream - XDP_TX_STREAM_ID1]);
+			StreamOffset[Stream - XDP_RX_STREAM_ID1]);
 
 	/* Determine number of bits per color component. */
 	RegVal  &= XDP_MAIN_STREAMX_MISC0_BDC_MASK;
 	RegVal >>= XDP_MAIN_STREAMX_MISC0_BDC_SHIFT;
 
 	if (ColorimetryThroughVsc) {
-		RegVal = XDp_ReadReg(InstancePtr->Config.BaseAddr,
-				XDP_RX_SDP_PAYLOAD_STREAM1);
+		RegVal = XDp_RxReadVscPayload(InstancePtr, Stream);
 		/* Decoding Data byte 17 */
 		RegVal = ((RegVal & XDP_RX_AUDIO_EXT_DATA_DB17) >> 8) &
 					XDP_RX_MAIN_VSC_SDP_BDC_MASK;
@@ -1279,19 +1313,19 @@ XVidC_ColorFormat XDp_RxGetColorComponent(XDp *InstancePtr, u8 Stream)
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 	Xil_AssertNonvoid(XDp_GetCoreType(InstancePtr) == XDP_RX);
-	Xil_AssertNonvoid((Stream == XDP_TX_STREAM_ID1) ||
-						(Stream == XDP_TX_STREAM_ID2) ||
-						(Stream == XDP_TX_STREAM_ID3) ||
-						(Stream == XDP_TX_STREAM_ID4));
+	Xil_AssertNonvoid((Stream == XDP_RX_STREAM_ID1) ||
+						(Stream == XDP_RX_STREAM_ID2) ||
+						(Stream == XDP_RX_STREAM_ID3) ||
+						(Stream == XDP_RX_STREAM_ID4));
 
-	RegVal = XDp_ReadReg(InstancePtr->Config.BaseAddr, XDP_RX_MSA_MISC1);
+	RegVal = XDp_ReadReg(InstancePtr->Config.BaseAddr, XDP_RX_MSA_MISC1 +
+			StreamOffset[Stream - XDP_RX_STREAM_ID1]);
 	ColorimetryThroughVsc = (RegVal & XDP_DPCD_MSA_TIMING_PAR_IGNORED_MASK) >>
 							XDP_RX_XDP_MSA_TIMING_PAR_IGNORED_SHIFT;
 	if (ColorimetryThroughVsc)
 	{
 		/* Extract color component from VSC  packet */
-		RegVal = XDp_ReadReg(InstancePtr->Config.BaseAddr,
-						XDP_RX_SDP_PAYLOAD_STREAM1);
+		RegVal = XDp_RxReadVscPayload(InstancePtr, Stream);
 		/* Decoding Data byte 16 */
 		RegVal = ((RegVal & XDP_RX_AUDIO_EXT_DATA_DB16) >>
 				XDP_RX_MAIN_VSC_SDP_COMPONENT_FORMAT_SHIFT);
@@ -1307,7 +1341,7 @@ XVidC_ColorFormat XDp_RxGetColorComponent(XDp *InstancePtr, u8 Stream)
 
 	/* Extract color component from MISC0. */
 	RegVal = XDp_ReadReg(InstancePtr->Config.BaseAddr, XDP_RX_MSA_MISC0 +
-			StreamOffset[Stream - XDP_TX_STREAM_ID1]);
+			StreamOffset[Stream - XDP_RX_STREAM_ID1]);
 
 	/* Determine the color component format for the stream. */
 	RegVal  &= XDP_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_MASK;

@@ -1198,6 +1198,11 @@ extern "C" {
 #define XDP_RX_AUDIO_EXT_DATA(NUM)	(0x330 + 4 * (NUM - 1)) /**< Word
 							formatted as per
 							extension packet. */
+
+/* Bit[8] enables the secondary/SDP datapath; must be set before enabling
+ * VSC colorimetry reception via DTG_ENABLE[2] (XDp_RxVSCEn()). */
+#define XDP_RX_SEC_DATAPATH_ENABLE	0x464
+#define XDP_RX_SEC_DATAPATH_ENABLE_MASK	0x00000100	/**< bit[8] */
 /** @} */
 
 /** @name DPRX core registers: DPCD configuration space.
@@ -1352,6 +1357,13 @@ extern "C" {
 							of stream 1. */
 #define XDP_RX_SDP_PAYLOAD_STREAM1	0x0644	/**< VSC SDP payload data from
 							DB16 to DB18 */
+
+/* Per-stream VSC SDP colour-format registers for MST (streams 2-4 have
+ * dedicated copies; stream 1 falls back to XDP_RX_SDP_PAYLOAD_STREAM1). */
+#define XDP_RX_VSC_COLOR_FORMAT_STREAM1	0x648
+#define XDP_RX_VSC_COLOR_FORMAT_STREAM2	0x64C
+#define XDP_RX_VSC_COLOR_FORMAT_STREAM3	0x650
+#define XDP_RX_VSC_COLOR_FORMAT_STREAM4	0x654
 /** @} */
 
 /** @name DPRX core registers: DPCD registers for HDCP.
