@@ -28,6 +28,7 @@
 *       sd  08/18/26 Fixed APU ELF load by aligning XLoader_ProcessElf with versal
 *       sri 08/24/26 OCP: HW PCR extend, 2VP_P auth cert secure-config measurement,
 *                    CheckAndUpdateSecureState, ProcessElf fixes
+*       tvp 09/02/26 Fix build when PLM_SECURE_EXCLUDE is enabled with PLM_OCP
 *
 * </pre>
 *
@@ -386,7 +387,7 @@ END:
 	return Status;
 }
 
-#ifdef PLM_OCP
+#if (!defined(PLM_SECURE_EXCLUDE)) && (defined(PLM_OCP))
 /**************************************************************************************************/
 /**
  * @brief	This function measures the SPK by calculating SHA3 hash.
