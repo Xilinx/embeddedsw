@@ -1,5 +1,5 @@
 /******************************************************************************
- * Copyright (c) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+ * Copyright (c) 2024 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
  * SPDX-License-Identifier: MIT
  ******************************************************************************/
 
@@ -23,6 +23,7 @@
  *                   and add support for non-blocking read
  * 1.1   sb  01/28/25  Add support to read in stig when DMA is not available.
  * 1.1   sb  02/11/25  Add support for x2/x4 operation.
+ * 1.4   sb  09/01/26  Fix stale flash message fields.
  *
  * </pre>
  *
@@ -170,10 +171,8 @@ u32 XSfl_OspiTransfer(u8 Index, XSfl_Msg *SflMsg) {
 	FlashMsg.Addrvalid = SflMsg->Addrvalid;
 	FlashMsg.Proto = SflMsg->Proto;
 
-        if(SflMsg->Xfer64bit) {
-		FlashMsg.RxAddr64bit = SflMsg->RxAddr64bit;
-                FlashMsg.Xfer64bit = SflMsg->Xfer64bit;
-	}
+	FlashMsg.RxAddr64bit = SflMsg->RxAddr64bit;
+	FlashMsg.Xfer64bit = SflMsg->Xfer64bit;
 
 	if(FlashMsg.RxBfrPtr != NULL){
 		FlashMsg.Dummy = SflMsg->Dummy + OspiInstance.Extra_DummyCycle;
@@ -182,9 +181,7 @@ u32 XSfl_OspiTransfer(u8 Index, XSfl_Msg *SflMsg) {
 		FlashMsg.Flags = XOSPIPSV_MSG_FLAG_TX;
 	}
 
-	if (SflMsg->DualByteOpCode){
-		FlashMsg.ExtendedOpcode = SflMsg->DualByteOpCode;
-	}
+	FlashMsg.ExtendedOpcode = SflMsg->DualByteOpCode;
 
 	Status = XOspiPsv_PollTransfer(&OspiInstance, &FlashMsg);
 
@@ -227,10 +224,8 @@ u32 XSfl_OspiNonBlockingTransfer(u8 Index, XSfl_Msg *SflMsg) {
 	FlashMsg.Addrvalid = SflMsg->Addrvalid;
 	FlashMsg.Proto = SflMsg->Proto;
 
-        if(SflMsg->Xfer64bit) {
-		FlashMsg.RxAddr64bit = SflMsg->RxAddr64bit;
-                FlashMsg.Xfer64bit = SflMsg->Xfer64bit;
-	}
+	FlashMsg.RxAddr64bit = SflMsg->RxAddr64bit;
+	FlashMsg.Xfer64bit = SflMsg->Xfer64bit;
 
 	if(FlashMsg.RxBfrPtr != NULL){
 		FlashMsg.Dummy = SflMsg->Dummy + OspiInstance.Extra_DummyCycle;
@@ -239,9 +234,7 @@ u32 XSfl_OspiNonBlockingTransfer(u8 Index, XSfl_Msg *SflMsg) {
 		FlashMsg.Flags = XOSPIPSV_MSG_FLAG_TX;
 	}
 
-	if (SflMsg->DualByteOpCode){
-		FlashMsg.ExtendedOpcode = SflMsg->DualByteOpCode;
-	}
+	FlashMsg.ExtendedOpcode = SflMsg->DualByteOpCode;
 
 	Status = XOspiPsv_StartDmaTransfer(&OspiInstance, &FlashMsg);
 
