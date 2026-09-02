@@ -38,6 +38,8 @@
 *	vss  03/04/24 Removed code redundancy for AesPerformOperation API
 * 5.4   yog  04/29/24 Fixed doxygen warnings.
 * 5.7   tbk  03/16/26 Added SMC support
+* 5.8   tbk  07/06/26 Restricted IPI messaging in XSecure_AesKekDecrypt, made it
+*                     return error and deprecated the API for 2027.2 release
 *
 * </pre>
 *
@@ -52,8 +54,6 @@
 
 /************************** Constant Definitions *****************************/
 #define XSECURE_SLR_INDEX_SHIFT (6U)	/**< SLR index shift */
-#define XSECURE_KEY_SIZE_SHIFT		(16U)	/**< Key size shift constant */
-#define XSECURE_DST_KEY_SRC_SHIFT	(8U)	/**< Destination key source shift constant */
 
 /**************************** Type Definitions *******************************/
 
@@ -596,10 +596,13 @@ END:
 	return Status;
 }
 
+#ifndef VERSAL_2VP
 /*****************************************************************************/
 /**
- * @brief	This function sends IPI request to decrypt the key in
- * 		KEK key form
+ * @brief	This function is deprecated and no longer decrypts the key in
+ * 		KEK key form. IPI messaging for this API is restricted, hence it
+ * 		always returns an error. This API will be removed in the 2027.2
+ * 		release.
  *
  * @param	InstancePtr	Pointer to the client instance
  * @param	IvAddr		Address of IV holding buffer for decryption
@@ -611,48 +614,23 @@ END:
  * @param	Size		Size of the key
  *
  * @return
- *		 - XST_SUCCESS  On successful key decryption
- *		 - XSECURE_AES_INVALID_PARAM  On invalid parameter
- *		 - XST_FAILURE  If there is a failure
+ *		 - XST_FAILURE  Always, as IPI messaging is restricted for this API
  *
  ******************************************************************************/
+/* IPI messaging is restricted for this API and it will be deprecated in the 2027.2 release */
 int XSecure_AesKekDecrypt(XSecure_ClientInstance *InstancePtr, u64 IvAddr,
 				XSecure_AesKeySource DstKeySrc, XSecure_AesKeySource DecKeySrc,
 				XSecure_AesKeySize Size)
 {
-	volatile int Status = XST_FAILURE;
-	u32 Payload[PAYLOAD_ARG_CNT];
+	(void)InstancePtr;
+	(void)IvAddr;
+	(void)DstKeySrc;
+	(void)DecKeySrc;
+	(void)Size;
 
-	/**
-	 * - Perform input parameter validation on InstancePtr. Return XST_FAILURE if input parameters
-	 * are invalid
-	 */
-	if (InstancePtr == NULL) {
-		goto END;
-	}
-
-	if ((Size != XSECURE_AES_KEY_SIZE_128) &&
-		 (Size != XSECURE_AES_KEY_SIZE_256)) {
-		Status = XSECURE_AES_INVALID_PARAM;
-		goto END;
-	}
-
-	/** - Fill Payload */
-	XSECURE_PACK_PAYLOAD3(Payload, ((InstancePtr->SlrIndex << XSECURE_SLR_INDEX_SHIFT)
-				| XSECURE_API_AES_KEK_DECRYPT),
-				(((u32)Size << XSECURE_KEY_SIZE_SHIFT) | ((u32)DstKeySrc << XSECURE_DST_KEY_SRC_SHIFT) | DecKeySrc),
-				IvAddr,
-				(IvAddr >> XSECURE_ADDR_HIGH_SHIFT));
-
-	/**
-	 * - Send request to PLM through generic request API.
-	 * - This internally handles SMC or IPI mailbox based on build configuration.
-	 */
-	Status = XSecure_SendRequest(InstancePtr, Payload, (u32)PAYLOAD_ARG_CNT, NULL, 0U);
-
-END:
-	return Status;
+	return XST_FAILURE;
 }
+#endif
 /*****************************************************************************/
 /**
  *

@@ -28,6 +28,7 @@
 * 5.3	vss  10/03/23 Added single API support for AES AAD and GMAC operations
 *	vss  03/04/24 Removed code redundancy for AesPerformOperation API
 * 5.4   yog  04/29/24 Fixed doxygen grouping and doxygen warnings.
+* 5.8   tbk  07/06/26 Restricted XSecure_AesKekDecrypt to non-versal_2vp platforms
 *
 * </pre>
 *
@@ -103,8 +104,10 @@ int XSecure_AesDecryptFinal(XSecure_ClientInstance *InstancePtr, u64 GcmTagAddr)
 int XSecure_AesEncryptFinal(XSecure_ClientInstance *InstancePtr, u64 GcmTagAddr);
 int XSecure_AesKeyZero(XSecure_ClientInstance *InstancePtr, XSecure_AesKeySource KeySrc);
 int XSecure_AesWriteKey(XSecure_ClientInstance *InstancePtr, XSecure_AesKeySource KeySrc, u32 Size, u64 KeyAddr);
+#ifndef VERSAL_2VP
 int XSecure_AesKekDecrypt(XSecure_ClientInstance *InstancePtr, u64 IvAddr, XSecure_AesKeySource DstKeySrc,
 	XSecure_AesKeySource DecKeySrc, XSecure_AesKeySize Size);
+#endif
 int XSecure_AesSetDpaCm(XSecure_ClientInstance *InstancePtr, u8 DpaCmCfg);
 int XSecure_AesEncryptData(XSecure_ClientInstance *InstancePtr, XSecure_AesKeySource KeySrc, u32 KeySize, u64 IvAddr,
 	u64 InDataAddr, u64 OutDataAddr, u32 Size, u64 GcmTagAddr);
