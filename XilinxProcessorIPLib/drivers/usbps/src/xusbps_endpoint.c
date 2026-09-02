@@ -31,6 +31,7 @@
  *            Caches After Buffer Receive in Endpoint Buffer Handler...)
  * 2.5   pm  02/20/20 Added ISO endpoint support.
  * 2.11  ka  01/29/26 Fix codespell errors.
+ * 2.12  ka  09/02/26 Fix MISRA-C Rule 21.18 violation
  * </pre>
  ******************************************************************************/
 
@@ -435,7 +436,9 @@ void XUsbPs_EpGetData(XUsbPs *InstancePtr, u8 EpNum, u32 BufferLen)
 		Xil_DCacheInvalidateRange((unsigned int)DataBuff,
 					  InavalidateLen);
 
-		memcpy(Ep->BufferPtr, DataBuff,  BufferLen);
+		if (BufferLen != 0U) {
+			memcpy(Ep->BufferPtr, DataBuff, BufferLen);
+		}
 
 		Ep->BytesTxed += BufferLen;
 		Ep->BufferPtr += BufferLen;
