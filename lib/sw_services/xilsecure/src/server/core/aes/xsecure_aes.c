@@ -111,7 +111,9 @@
 *                       key clear mask to registers
 *       mb   04/17/2026 Update crypto check for AES/SHA/RSA
 *       tbk  04/29/2026 Move AesState update after DMA transfer in
-*                       XSecure_AesUpdateAad GMAC path
+*                       XSecure_AesUpdateAad GMAC path and remove
+*                       conditional check before release reset in
+*                       XSecure_AesKeyZero
 * 5.8   tvp  06/23/2026 Skip AAD size quad-word check for Versal_2VP_P
 *       tvp  09/01/2026 Fix KEK IV endianness on DMA byte-swap platforms
 * </pre>
@@ -1262,10 +1264,9 @@ int XSecure_AesKeyZero(const XSecure_Aes *InstancePtr, XSecure_AesKeySrc KeySrc)
 		goto END_CLR;
 	}
 
-	RstState = XSecure_ReadReg(InstancePtr->BaseAddress,XSECURE_AES_SOFT_RST_OFFSET);
-	if (RstState == XSECURE_RESET_SET){
-		XSecure_ReleaseReset(InstancePtr->BaseAddress,
-			XSECURE_AES_SOFT_RST_OFFSET);
+	RstState = XSecure_ReadReg(InstancePtr->BaseAddress, XSECURE_AES_SOFT_RST_OFFSET);
+	if (RstState == XSECURE_RESET_SET) {
+		XSecure_ReleaseReset(InstancePtr->BaseAddress, XSECURE_AES_SOFT_RST_OFFSET);
 	}
 
 	/** - Zeroize the specified key source */
