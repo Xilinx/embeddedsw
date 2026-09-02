@@ -311,8 +311,7 @@ END:
  * @return
  * 		- XST_SUCCESS, if IPI request to ASU is sent successfully.
  * 		- XASU_INVALID_ARGUMENT, if any argument is invalid.
- * 		- XASU_QUEUE_FULL, if Queue buffer is full.
- * 		- XST_FAILURE, if sending an IPI request to ASU fails.
+ * 		- XASU_INVALID_UNIQUE_ID, if unique ID generation fails.
  *
  *************************************************************************************************/
 s32 XAsu_RsaOaepEnc(XAsu_ClientParams *ClientParamPtr,
@@ -348,7 +347,8 @@ s32 XAsu_RsaOaepEnc(XAsu_ClientParams *ClientParamPtr,
 		goto END;
 	}
 
-	if (RsaClientParamPtr->XAsu_RsaOpComp.OutputDataLen < RsaClientParamPtr->XAsu_RsaOpComp.KeySize) {
+	if (RsaClientParamPtr->XAsu_RsaOpComp.OutputDataLen <
+	    RsaClientParamPtr->XAsu_RsaOpComp.KeySize) {
 		Status = XASU_INVALID_ARGUMENT;
 		goto END;
 	}
@@ -359,7 +359,8 @@ s32 XAsu_RsaOaepEnc(XAsu_ClientParams *ClientParamPtr,
 		goto END;
 	}
 
-	if (RsaClientParamPtr->XAsu_RsaOpComp.Len > RsaClientParamPtr->XAsu_RsaOpComp.KeySize) {
+	if (RsaClientParamPtr->XAsu_RsaOpComp.Len >
+	    RsaClientParamPtr->XAsu_RsaOpComp.KeySize) {
 		Status = XASU_INVALID_ARGUMENT;
 		goto END;
 	}
@@ -411,8 +412,7 @@ END:
  * @return
  * 		- XST_SUCCESS, if IPI request to ASU is sent successfully.
  * 		- XASU_INVALID_ARGUMENT, if any argument is invalid.
- * 		- XASU_QUEUE_FULL, if Queue buffer is full.
- * 		- XST_FAILURE, if sending an IPI request to ASU fails.
+ * 		- XASU_INVALID_UNIQUE_ID, if unique ID generation fails.
  *
  *************************************************************************************************/
 s32 XAsu_RsaOaepDec(XAsu_ClientParams *ClientParamPtr,
@@ -459,7 +459,8 @@ s32 XAsu_RsaOaepDec(XAsu_ClientParams *ClientParamPtr,
 		goto END;
 	}
 
-	if (RsaClientParamPtr->XAsu_RsaOpComp.Len > RsaClientParamPtr->XAsu_RsaOpComp.KeySize) {
+	if (RsaClientParamPtr->XAsu_RsaOpComp.Len >
+	    RsaClientParamPtr->XAsu_RsaOpComp.KeySize) {
 		Status = XASU_INVALID_ARGUMENT;
 		goto END;
 	}
@@ -511,8 +512,7 @@ END:
  * @return
  * 		- XST_SUCCESS, if IPI request to ASU is sent successfully.
  * 		- XASU_INVALID_ARGUMENT, if any argument is invalid.
- * 		- XASU_QUEUE_FULL, if Queue buffer is full.
- * 		- XST_FAILURE, if sending an IPI request to ASU fails.
+ * 		- XASU_INVALID_UNIQUE_ID, if unique ID generation fails.
  *
  *************************************************************************************************/
 s32 XAsu_RsaPssSignGen(XAsu_ClientParams *ClientParamPtr, XAsu_RsaPaddingParams *RsaClientParamPtr)
@@ -546,7 +546,8 @@ s32 XAsu_RsaPssSignGen(XAsu_ClientParams *ClientParamPtr, XAsu_RsaPaddingParams 
 		goto END;
 	}
 
-	if (RsaClientParamPtr->XAsu_RsaOpComp.OutputDataLen < RsaClientParamPtr->XAsu_RsaOpComp.KeySize) {
+	if (RsaClientParamPtr->XAsu_RsaOpComp.OutputDataLen <
+	    RsaClientParamPtr->XAsu_RsaOpComp.KeySize) {
 		Status = XASU_INVALID_ARGUMENT;
 		goto END;
 	}
@@ -612,8 +613,7 @@ END:
  * @return
  * 		- XST_SUCCESS, if IPI request to ASU is sent successfully.
  * 		- XASU_INVALID_ARGUMENT, if any argument is invalid.
- * 		- XASU_QUEUE_FULL, if Queue buffer is full.
- * 		- XST_FAILURE, if sending an IPI request to ASU fails.
+ * 		- XASU_INVALID_UNIQUE_ID, if unique ID generation fails.
  *
  *************************************************************************************************/
 s32 XAsu_RsaPssSignVer(XAsu_ClientParams *ClientParamPtr, XAsu_RsaPaddingParams *RsaClientParamPtr)
@@ -652,16 +652,17 @@ s32 XAsu_RsaPssSignVer(XAsu_ClientParams *ClientParamPtr, XAsu_RsaPaddingParams 
 		goto END;
 	}
 
+	if (RsaClientParamPtr->SignatureLen !=
+	    RsaClientParamPtr->XAsu_RsaOpComp.KeySize) {
+		Status = XASU_INVALID_ARGUMENT;
+		goto END;
+	}
+
 	if ((RsaClientParamPtr->XAsu_RsaOpComp.Len != XASU_SHA_SHAKE_256_HASH_LEN) &&
 	    (RsaClientParamPtr->XAsu_RsaOpComp.Len != XASU_SHA_384_HASH_LEN) &&
 	    (RsaClientParamPtr->XAsu_RsaOpComp.Len != XASU_SHA_512_HASH_LEN) &&
 	    (RsaClientParamPtr->XAsu_RsaOpComp.Len != XASU_SHAKE_256_MAX_HASH_LEN) &&
 	    (RsaClientParamPtr->InputDataType == XASU_RSA_HASHED_INPUT_DATA)) {
-		Status = XASU_INVALID_ARGUMENT;
-		goto END;
-	}
-
-	if ((RsaClientParamPtr->SignatureLen != RsaClientParamPtr->XAsu_RsaOpComp.KeySize)) {
 		Status = XASU_INVALID_ARGUMENT;
 		goto END;
 	}

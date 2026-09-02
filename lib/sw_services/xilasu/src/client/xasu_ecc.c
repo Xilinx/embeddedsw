@@ -466,10 +466,21 @@ static s32 XAsu_ValidateEccParameters(XAsu_EccParams *EccParamsPtr)
 		goto END;
 	}
 
-	/** Validate curve information. */
-	if (XAsu_EccValidateCurveInfo(EccParamsPtr->Key.CurveType,
-						EccParamsPtr->Key.KeyLen) != XST_SUCCESS) {
-		goto END;
+	/**
+	 * Validate curve information. When key is provided via address, both
+	 * CurveType and KeyLen are validated. When KeyId is used (vault-stored
+	 * key), only CurveType is validated since the firmware derives key
+	 * length from the stored key metadata.
+	 */
+	if (EccParamsPtr->Key.KeyAddr != 0U) {
+		if (XAsu_EccValidateCurveInfo(EccParamsPtr->Key.CurveType,
+				EccParamsPtr->Key.KeyLen) != XST_SUCCESS) {
+			goto END;
+		}
+	} else {
+		if (EccParamsPtr->Key.CurveType > XASU_ECC_CURVE_TYPE_MAX) {
+			goto END;
+		}
 	}
 
 	/** Validate the digest length. */
@@ -518,10 +529,21 @@ static s32 XAsu_ValidateEccKeyParameters(const XAsu_EccKeyParams *EccKeyParamsPt
 		goto END;
 	}
 
-	/** Validate curve information. */
-	if (XAsu_EccValidateCurveInfo(EccKeyParamsPtr->PvtKey.CurveType,
-								EccKeyParamsPtr->PvtKey.KeyLen) != XST_SUCCESS) {
-		goto END;
+	/**
+	 * Validate curve information. When key is provided via address, both
+	 * CurveType and KeyLen are validated. When KeyId is used (vault-stored
+	 * key), only CurveType is validated since the firmware derives key
+	 * length from the stored key metadata.
+	 */
+	if (EccKeyParamsPtr->PvtKey.KeyAddr != 0U) {
+		if (XAsu_EccValidateCurveInfo(EccKeyParamsPtr->PvtKey.CurveType,
+				EccKeyParamsPtr->PvtKey.KeyLen) != XST_SUCCESS) {
+			goto END;
+		}
+	} else {
+		if (EccKeyParamsPtr->PvtKey.CurveType > XASU_ECC_CURVE_TYPE_MAX) {
+			goto END;
+		}
 	}
 
 	Status = XST_SUCCESS;
@@ -567,17 +589,31 @@ static s32 XAsu_ValidateEcdhParameters(const XAsu_EcdhParams *EcdhParamsPtr)
 		goto END;
 	}
 
-	if (EcdhParamsPtr->PvtKey.KeyLen != EcdhParamsPtr->PubKey.KeyLen) {
-		goto END;
-	}
-
+	/** Both keys must use the same curve. */
 	if (EcdhParamsPtr->PvtKey.CurveType != EcdhParamsPtr->PubKey.CurveType) {
 		goto END;
 	}
 
-	/** Validate curve information. */
-	if (XAsu_EccValidateCurveInfo(EcdhParamsPtr->PvtKey.CurveType,
-								EcdhParamsPtr->PvtKey.KeyLen) != XST_SUCCESS) {
+	/**
+	 * Validate curve information. Since both keys share the same
+	 * CurveType, only one range check is needed. For each key provided
+	 * via address, both CurveType and KeyLen are validated; vault-stored
+	 * keys (KeyAddr == 0) skip KeyLen validation since the firmware
+	 * derives it from metadata.
+	 */
+	if (EcdhParamsPtr->PvtKey.CurveType > XASU_ECC_CURVE_TYPE_MAX) {
+		goto END;
+	}
+
+	if ((EcdhParamsPtr->PvtKey.KeyAddr != 0U) &&
+		(XAsu_EccValidateCurveInfo(EcdhParamsPtr->PvtKey.CurveType,
+			EcdhParamsPtr->PvtKey.KeyLen) != XST_SUCCESS)) {
+		goto END;
+	}
+
+	if ((EcdhParamsPtr->PubKey.KeyAddr != 0U) &&
+		(XAsu_EccValidateCurveInfo(EcdhParamsPtr->PubKey.CurveType,
+			EcdhParamsPtr->PubKey.KeyLen) != XST_SUCCESS)) {
 		goto END;
 	}
 

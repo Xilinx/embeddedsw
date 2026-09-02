@@ -1153,7 +1153,7 @@ EcdsaCrvInfo *XRsa_EccGetCrvData(u32 CurveType)
 	u16 CrvType;
 	u16 CrvClass;
 
-	if (CurveType > XASU_ECC_CURVE448) {
+	if (CurveType > XASU_ECC_CURVE_TYPE_MAX) {
 		goto END;
 	}
 

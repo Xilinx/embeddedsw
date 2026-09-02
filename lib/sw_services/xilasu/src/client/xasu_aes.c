@@ -408,7 +408,8 @@ static s32 XAsu_AesValidateKeyObjectParams(const XAsu_AesKeyObject *KeyObjectPtr
 		goto END;
 	}
 
-	if ((KeyObjectPtr->KeySize != XASU_AES_KEY_SIZE_128_BITS) &&
+	if ((KeyObjectPtr->KeyAddress != 0U) &&
+		(KeyObjectPtr->KeySize != XASU_AES_KEY_SIZE_128_BITS) &&
 		(KeyObjectPtr->KeySize != XASU_AES_KEY_SIZE_256_BITS)) {
 		goto END;
 	}
