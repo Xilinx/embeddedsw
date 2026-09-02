@@ -857,6 +857,8 @@ END:
  *		- XSECURE_AES_KEY_CLEAR_ERROR - Key clear operation failed
  *		- XST_FAILURE - On failure
  *
+ * @note	XSecure_AesDecryptInit must be called before this API.
+ *
  ******************************************************************************/
 int XSecure_AesDecryptData(XSecure_Aes *InstancePtr, u64 InDataAddr,
 	u64 OutDataAddr, u32 Size, u64 GcmTagAddr)
