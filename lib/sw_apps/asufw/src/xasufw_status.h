@@ -865,6 +865,13 @@ enum {
 						for the key vault fails */
 	XASUFW_KEYMANAGER_KEY_LENGTH_MISMATCH, /**< 0x261U - Error when key lengths do not match
 						the expected length. */
+	XASUFW_PLEXT_MODULE_REGISTRATION_FAILED, /**< 0x262U - PL extension module registration
+							failed */
+	XASUFW_PLEXT_WINDOW_NOT_CONFIGURED, /**< 0x263U - Error when the PL configuration window
+						is not usable */
+	XASUFW_PLEXT_INVALID_PARAM, /**< 0x264U - Invalid parameters to PL extension APIs */
+	XASUFW_PLEXT_CFG_READBACK_FAILED, /**< 0x265U - Error when the ASU to PL isolation, key or
+						PL mode configuration readback fails */
 
 	/* Additional status success codes */
 	XASUFW_MLDSA_SIGNATURE_VERIFIED = 0x3F6U, /**< 0x3F6U - Successfully verified ML-DSA

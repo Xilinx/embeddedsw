@@ -64,7 +64,8 @@ extern "C" {
 #define XASU_MODULE_PROVISION_ID	(14U) /**< Provisioning module ID */
 #define XASU_MODULE_MLDSA_ID		(15U) /**< ML-DSA module ID */
 #define XASU_MODULE_MLKEM_ID		(16U) /**< ML-KEM module ID */
-#define XASU_MAX_MODULES			(17U) /**< Maximum supported modules in ASU */
+#define XASU_MODULE_PLEXT_ID		(17U) /**< PL extension module ID */
+#define XASU_MAX_MODULES			(18U) /**< Maximum supported modules in ASU */
 
 #define XASU_ASU_DMA_MAX_TRANSFER_LENGTH	(0x1FFFFFFCU)
 						/**< ASU DMA maximum transfer length in bytes. */

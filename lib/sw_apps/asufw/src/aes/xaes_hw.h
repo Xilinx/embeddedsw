@@ -255,6 +255,8 @@ extern "C" {
 	/**< Key source selection value for user Key7 */
 #define XAES_KEY_SEL_PUF_KEY_VALUE			(0xDBDE8200U)
 	/**< Key source selection value for PUF Key */
+#define XAES_PL_KEY_SEL_OFFSET				(0x00000190U)
+						/**< PL key select register offset */
 /** @} */
 
 /**

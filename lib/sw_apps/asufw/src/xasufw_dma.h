@@ -79,6 +79,7 @@ s32 XAsufw_StartDmaXfr(XAsufw_Dma *DmaPtr, u64 SrcAddr, u64 DestAddr, u32 Len, u
 s32 XAsufw_DmaXfr(XAsufw_Dma *AsuDmaPtr, u64 SrcAddr, u64 DstAddr, const u32 Size, u32 Flags);
 void XAsufw_DmaCfgNonBlocking(XAsufw_Dma *DmaPtr, XAsuDma_Channel Channel,
 			      const XAsu_ReqBuf *ReqBuf, u32 ReqId, XAsufw_DmaState DmaState);
+s32 XAsufw_WaitForDmaDone(XAsufw_Dma *DmaPtr, XAsuDma_Channel Channel);
 void XAsufw_HandleDmaDoneIntr(u32 DmaIntrNum);
 
 /************************************ Variable Definitions ***************************************/

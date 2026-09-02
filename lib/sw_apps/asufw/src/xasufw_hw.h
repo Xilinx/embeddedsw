@@ -102,6 +102,25 @@ extern "C" {
 /** ASU_GLOBAL GLOBAL_GEN_STORAGE7 register address */
 #define ASU_GLOBAL_GLOBAL_GEN_STORAGE7		(ASU_GLOBAL_BASEADDR + 0x0000003CU)
 
+/**
+ * @name ASU to PL isolation control register
+ * Design specific register which gates the ASU to PL boundary. A PL design which integrates the
+ * ASU to PL interface differently needs the offset and the masks updated to match.
+ * @{
+ */
+#define ASU_PL_CSR_BASEADDR				(0xEBFC0000U)
+					/**< ASU-PL interface control and status base address */
+#define ASU_PL_CSR_ISOLATION_CTRL_OFFSET		(0x00010000U)
+					/**< ASU to PL isolation control register offset */
+#define ASU_PL_CSR_ISOLATION_CTRL			(ASU_PL_CSR_BASEADDR + \
+							ASU_PL_CSR_ISOLATION_CTRL_OFFSET)
+					/**< ASU to PL isolation control register address */
+#define ASU_PL_CSR_ISOLATION_DATA_EN_MASK		(0x00000001U)
+					/**< ASU to PL AXI stream data path enable mask */
+#define ASU_PL_CSR_ISOLATION_KEY_EN_MASK		(0x00000002U)
+					/**< ASU to PL APB and key path enable mask */
+/** @} */
+
 /*
  * Definitions required from asu_io_bus.h
  */

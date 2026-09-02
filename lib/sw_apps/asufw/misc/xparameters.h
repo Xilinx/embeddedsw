@@ -529,6 +529,7 @@
  */
 //#define XASU_MLDSA_ENABLE /**< Macro to enable/disable support of ML-DSA */
 //#define XASU_MLKEM_ENABLE /**< Macro to enable/disable support of ML-KEM */
+//#define XASU_PLEXT_ENABLE /**< Macro to enable/disable support of PL extension */
 
 /* Provisioning depends on the KeyManager (AKV vault) module; force it on if needed. */
 #if defined(XASU_PROVISION_ENABLE) && !defined(XASU_KEYMANAGER_ENABLE)

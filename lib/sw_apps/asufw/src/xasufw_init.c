@@ -644,6 +644,9 @@ void XAsufw_UpdateModulesInfo(void)
 #ifdef XASU_MLKEM_ENABLE
 	XASUFW_INIT_CRYPTO_MODULE_INFO(MLKEM, XASUFW_NIST_COMPLIANT, 0U);
 #endif
+#ifdef XASU_PLEXT_ENABLE
+	XASUFW_INIT_CRYPTO_MODULE_INFO(PLEXT, XASUFW_NIST_NON_COMPLIANT, 0U);
+#endif
 }
 
 /*************************************************************************************************/

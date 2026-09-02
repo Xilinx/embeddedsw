@@ -83,6 +83,7 @@
 #include "xasufw_provisionhandler.h"
 #include "xasufw_mldsahandler.h"
 #include "xasufw_mlkemhandler.h"
+#include "xasufw_plexthandler.h"
 #include "xocp.h"
 #include "xil_error_node.h"
 #include "xoverlay.h"
@@ -470,6 +471,14 @@ static s32 XAsufw_ModulesInit(void)
 #ifdef XASU_PROVISION_ENABLE
 	/** Provisioning module initialization. */
 	Status = XAsufw_ProvisionInit();
+	if (Status != XASUFW_SUCCESS) {
+		goto END;
+	}
+#endif
+
+#ifdef XASU_PLEXT_ENABLE
+	/** PL extension module initialization. */
+	Status = XAsufw_PlExtInit();
 	if (Status != XASUFW_SUCCESS) {
 		goto END;
 	}

@@ -88,6 +88,9 @@ extern "C" {
 #define XASUFW_MLKEM_MAJOR_VERSION		(1U) /**< Major version number of ML-KEM module */
 #define XASUFW_MLKEM_MINOR_VERSION		(0U) /**< Minor version number of ML-KEM module */
 
+#define XASUFW_PLEXT_MAJOR_VERSION		(1U) /**< Major version number of PL extension module */
+#define XASUFW_PLEXT_MINOR_VERSION		(0U) /**< Minor version number of PL extension module */
+
 #define XASUFW_NIST_COMPLIANT			(0xFFU) /**< Indicates that the algorithm is
 								NIST compliant */
 #define XASUFW_NIST_NON_COMPLIANT		(0x00U) /**< Indicates that the algorithm is

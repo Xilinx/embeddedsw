@@ -54,7 +54,6 @@
 
 /************************************ Function Prototypes ****************************************/
 static s32 XAsufw_DmaDrvInit(XAsufw_Dma *DmaPtr, u32 DeviceId);
-static s32 XAsufw_WaitForDmaDone(XAsufw_Dma *DmaPtr, XAsuDma_Channel Channel);
 
 /************************************ Variable Definitions ***************************************/
 static XAsufw_Dma AsuDma0;		/**< Instance of the ASU DMA0 Device */
@@ -198,7 +197,7 @@ XAsufw_Dma *XAsufw_GetDmaInstance(u32 BaseAddress)
  * 	  destination channel WaitForDone.
  *
  *************************************************************************************************/
-static s32 XAsufw_WaitForDmaDone(XAsufw_Dma *DmaPtr, XAsuDma_Channel Channel)
+s32 XAsufw_WaitForDmaDone(XAsufw_Dma *DmaPtr, XAsuDma_Channel Channel)
 {
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
 
