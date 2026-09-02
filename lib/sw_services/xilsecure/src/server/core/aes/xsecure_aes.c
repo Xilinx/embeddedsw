@@ -110,6 +110,8 @@
 * 5.7   tbk  04/07/2026 Optimized key zeroization by directly writing combined
 *                       key clear mask to registers
 *       mb   04/17/2026 Update crypto check for AES/SHA/RSA
+*       tbk  04/29/2026 Move AesState update after DMA transfer in
+*                       XSecure_AesUpdateAad GMAC path
 * 5.8   tvp  06/23/2026 Skip AAD size quad-word check for Versal_2VP_P
 *       tvp  09/01/2026 Fix KEK IV endianness on DMA byte-swap platforms
 * </pre>
@@ -470,7 +472,6 @@ int XSecure_AesUpdateAad(XSecure_Aes *InstancePtr, u64 AadAddr, u32 AadSize)
 	 * endianness configuration below is skipped for those parts.
 	 */
 	if (InstancePtr->IsGmacEn == (u32)TRUE) {
-		InstancePtr->AesState = XSECURE_AES_UPDATE_DONE;
 #ifndef XSECURE_AES_DMA_BYTE_SWAP
 		XSecure_AesPmcDmaCfgEndianness(InstancePtr->PmcDmaPtr,
             XPMCDMA_DST_CHANNEL, XSECURE_ENABLE_BYTE_SWAP);
@@ -483,8 +484,11 @@ int XSecure_AesUpdateAad(XSecure_Aes *InstancePtr, u64 AadAddr, u32 AadSize)
 		goto CLEAR;
 	}
 
-	if ((InstancePtr->IsGmacEn == (u32)TRUE) && (InstancePtr->OperationId == XSECURE_ENCRYPT)){
-		Status = XSecure_AesCopyGcmTag(InstancePtr, &AesDmaCfg);
+	if (InstancePtr->IsGmacEn == (u32)TRUE) {
+		InstancePtr->AesState = XSECURE_AES_UPDATE_DONE;
+		if (InstancePtr->OperationId == XSECURE_ENCRYPT) {
+			Status = XSecure_AesCopyGcmTag(InstancePtr, &AesDmaCfg);
+		}
 	}
 
 	InstancePtr->IsGmacEn = (u32)FALSE;
