@@ -345,6 +345,30 @@ extern "C" {
 #define XDP_TX_AUDIO_EXT_DATA(NUM)	(0x330 + 4 * (NUM - 1)) /**< Word
 							formatted as per
 							extension packet. */
+
+/* Per-stream secondary-data-packet (SDP) support for MST (DP2.1a).
+ * Each MST video stream has its own VSC extended-packet buffer. Stream 1
+ * reuses the legacy 0x330 bank so that Single stream mode and DP1.4 behaviour
+ * is unchanged. */
+
+/* VSC extended-packet (SDP) data buffers - 9 words each (header + DB0..DB28) */
+#define XDP_TX_AUDIO_EXT_DATA_STREAM2(NUM)	(0x37C + 4 * (NUM - 1))
+#define XDP_TX_AUDIO_EXT_DATA_STREAM3(NUM)	(0x628 + 4 * (NUM - 1))
+#define XDP_TX_AUDIO_EXT_DATA_STREAM4(NUM)	(0x674 + 4 * (NUM - 1))
+#define XDP_TX_AUDIO_EXT_DATA_STREAM2_OFFSET	(0x37C - 0x330)	/**< 0x04C */
+#define XDP_TX_AUDIO_EXT_DATA_STREAM3_OFFSET	(0x628 - 0x330)	/**< 0x2F8 */
+#define XDP_TX_AUDIO_EXT_DATA_STREAM4_OFFSET	(0x674 - 0x330)	/**< 0x344 */
+
+/* VSC_COLOR_INFO status registers (RO): color format/bpc extracted by the
+ * core from the transmitted VSC SDP, plus a packet-valid bit. */
+#define XDP_TX_VSC_COLOR_INFO		0x5F0
+#define XDP_TX_VSC_COLOR_INFO_STREAM2	0x5F4
+#define XDP_TX_VSC_COLOR_INFO_STREAM3	0x5F8
+#define XDP_TX_VSC_COLOR_INFO_STREAM4	0x5FC
+#define XDP_TX_VSC_COLOR_FORMAT_MASK	0x0000000F	/**< VSC_COLOR_FORMAT[3:0] */
+#define XDP_TX_VSC_BPC_MASK		0x00000070	/**< VSC_BPC[6:4] */
+#define XDP_TX_VSC_BPC_SHIFT		4
+#define XDP_TX_VSC_PACKET_VALID_MASK	0x00000080	/**< VSC_PACKET_VALID[7] */
 /** @} */
 
 /** @name DPTX core registers: DisplayPort video.
@@ -599,7 +623,14 @@ extern "C" {
 				0x00000020	/**< Extended packet has been
 							transmitted and the core
 							is ready to accept a new
-							packet. */
+							packet (stream 1). */
+/* Per-stream VSC/EXT packet-transmitted interrupts (INTERRUPT_STATUS 0x140). */
+#define XDP_TX_INTERRUPT_STATUS_EXT_PKT_TXD_STREAM2_MASK \
+				0x00000040	/**< EXT_PKT_TXD_STREAM2 [6] */
+#define XDP_TX_INTERRUPT_STATUS_EXT_PKT_TXD_STREAM3_MASK \
+				0x00000080	/**< EXT_PKT_TXD_STREAM3 [7] */
+#define XDP_TX_INTERRUPT_STATUS_EXT_PKT_TXD_STREAM4_MASK \
+				0x00000100	/**< EXT_PKT_TXD_STREAM4 [8] */
 #define XDP_TX_INTERRUPT_STATUS_VBLANK_STREAM1_MASK \
 				0x00000400	/** < For every Vsync
 							interrupt is generated */

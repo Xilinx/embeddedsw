@@ -1069,9 +1069,13 @@ typedef struct {
 	u8 NumOfMstStreams;		/**< No of mst streams supported */
 	u8 IsTps4Supported;		/**< Is TPS4 supported by the
 							downstream sink */
-	u8 ColorimetryThroughVsc;		/**< Enable / Disable of sending
-                                                        colorimetry information
-                                                        through VSC packet */
+	u8 ColorimetryThroughVsc[4];		/**< Per-stream enable / disable of
+                                                        sending colorimetry
+                                                        information through the
+                                                        VSC packet. Index is
+                                                        (StreamId - 1). Only
+                                                        [0] is used in single
+                                                        stream mode. */
 	u8 SideBandMsgCapable; /**< SideBand Message Support */
 	u8 isRxMstCapable; /**< Sink MST Capable Status */
 	XDp_TxLttprConfig LttprConfig;	/**< Configuration structure
@@ -1091,9 +1095,12 @@ typedef struct {
 							of attributes. When MST
 							mode is disabled, only
 							MsaConfig[0] is used. */
-	XDp_TxVscExtPacket VscPacket;            /**< Configuration structure
-                                                        for VSC extended packet
-                                                        data */
+	XDp_TxVscExtPacket VscPacket[4];         /**< Per-stream configuration
+                                                        structure for the VSC
+                                                        extended packet data.
+                                                        Index is (StreamId - 1).
+                                                        Only [0] is used in
+                                                        single stream mode. */
 	XDp_TxMstStream MstStreamConfig[4];	/**< Configuration structure
 							for a multi-stream
 							transport (MST)

@@ -381,15 +381,29 @@ void XDpTxSs_HpdPulseProcess(void *InstancePtr)
 void XDpTxSs_WriteVscExtPktProcess(void *InstancePtr)
 {
 	int i;
+	u8 Stream;
+	u32 ExtDataOffset[4] = {0,
+			       XDP_TX_AUDIO_EXT_DATA_STREAM2_OFFSET,
+			       XDP_TX_AUDIO_EXT_DATA_STREAM3_OFFSET,
+			       XDP_TX_AUDIO_EXT_DATA_STREAM4_OFFSET};
 	XDpTxSs *XDpTxSsPtr = (XDpTxSs *)InstancePtr;
 	XDp *XDpPtr = XDpTxSsPtr->DpPtr;
 
-	if (XDpPtr->TxInstance.ColorimetryThroughVsc) {
-		XDp_WriteReg(XDpPtr->Config.BaseAddr, XDP_TX_AUDIO_EXT_DATA(1),
-			XDpPtr->TxInstance.VscPacket.Header);
+	/* Refresh the VSC SDP buffer for every stream that transmits
+	 * colorimetry through VSC. In single stream mode only stream 1 (index 0)
+	 * is enabled; in multi stream mode each enabled stream has its own
+	 * extended-packet buffer. */
+	for (Stream = 0; Stream < 4; Stream++) {
+		if (!XDpPtr->TxInstance.ColorimetryThroughVsc[Stream])
+			continue;
+
+		XDp_WriteReg(XDpPtr->Config.BaseAddr,
+			     XDP_TX_AUDIO_EXT_DATA(1) + ExtDataOffset[Stream],
+			     XDpPtr->TxInstance.VscPacket[Stream].Header);
 		for (i = 0; i < XDPTXSS_EXT_DATA_2ND_TO_9TH_WORD; i++) {
-			XDp_WriteReg(XDpPtr->Config.BaseAddr, XDP_TX_AUDIO_EXT_DATA(i+2),
-					XDpPtr->TxInstance.VscPacket.Payload[i]);
+			XDp_WriteReg(XDpPtr->Config.BaseAddr,
+				     XDP_TX_AUDIO_EXT_DATA(i + 2) + ExtDataOffset[Stream],
+				     XDpPtr->TxInstance.VscPacket[Stream].Payload[i]);
 		}
 	}
 }

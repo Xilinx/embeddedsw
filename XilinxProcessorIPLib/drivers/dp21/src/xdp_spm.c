@@ -589,8 +589,8 @@ u32 XDp_TxCfgSetColorEncode(XDp *InstancePtr, u8 Stream,
 	MsaConfig->Misc0	    = 0;
 	MsaConfig->Misc1	    = 0;
 
-	if (InstancePtr->TxInstance.ColorimetryThroughVsc) {
-		Format = InstancePtr->TxInstance.VscPacket.ComponentFormat;
+	if (InstancePtr->TxInstance.ColorimetryThroughVsc[Stream - 1]) {
+		Format = InstancePtr->TxInstance.VscPacket[Stream - 1].ComponentFormat;
 	}
 
 	switch (Format) {
@@ -617,9 +617,9 @@ u32 XDp_TxCfgSetColorEncode(XDp *InstancePtr, u8 Stream,
 		Status = XST_FAILURE;
 	}
 
-	if (InstancePtr->TxInstance.ColorimetryThroughVsc) {
+	if (InstancePtr->TxInstance.ColorimetryThroughVsc[Stream - 1]) {
 		MsaConfig->YCbCrColorimetry =
-				InstancePtr->TxInstance.VscPacket.YCbCrColorimetry;
+				InstancePtr->TxInstance.VscPacket[Stream - 1].YCbCrColorimetry;
 	}
 	else {
 		if (ColorCoeffs == XVIDC_BT_601) {
@@ -635,8 +635,8 @@ u32 XDp_TxCfgSetColorEncode(XDp *InstancePtr, u8 Stream,
 		}
 	}
 
-	if (InstancePtr->TxInstance.ColorimetryThroughVsc) {
-		Range = InstancePtr->TxInstance.VscPacket.DynamicRange;
+	if (InstancePtr->TxInstance.ColorimetryThroughVsc[Stream - 1]) {
+		Range = InstancePtr->TxInstance.VscPacket[Stream - 1].DynamicRange;
 	}
 
 	if (Range == XDP_DR_VESA) {
@@ -682,9 +682,9 @@ void XDp_TxCfgMsaSetBpc(XDp *InstancePtr, u8 Stream, u8 BitsPerColor)
 				(BitsPerColor == 10) || (BitsPerColor == 12) ||
 				(BitsPerColor == 16));
 
-	if (InstancePtr->TxInstance.ColorimetryThroughVsc) {
+	if (InstancePtr->TxInstance.ColorimetryThroughVsc[Stream - 1]) {
 		InstancePtr->TxInstance.MsaConfig[Stream - 1].BitsPerColor =
-				InstancePtr->TxInstance.VscPacket.BitsPerColor;
+				InstancePtr->TxInstance.VscPacket[Stream - 1].BitsPerColor;
 	} else {
 		InstancePtr->TxInstance.MsaConfig[Stream - 1].BitsPerColor =
 				BitsPerColor;
@@ -936,7 +936,7 @@ void XDp_TxSetMsaValues(XDp *InstancePtr, u8 Stream)
 			StreamOffset[Stream - 1], MsaConfig->VStart);
 		XDp_WriteReg(ConfigPtr->BaseAddr, XDP_TX_MAIN_STREAM_MISC0 +
 			StreamOffset[Stream - 1], MsaConfig->Misc0);
-		if (InstancePtr->TxInstance.ColorimetryThroughVsc) {
+		if (InstancePtr->TxInstance.ColorimetryThroughVsc[Stream - 1]) {
 			MsaConfig->Misc1|= XDP_DPCD_MSA_TIMING_PAR_IGNORED_MASK;
 		}
 		XDp_WriteReg(ConfigPtr->BaseAddr, XDP_TX_MAIN_STREAM_MISC1 +

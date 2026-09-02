@@ -834,9 +834,9 @@ u32 XDpTxSs_SetBpc(XDpTxSs *InstancePtr, u8 Bpc)
 			(Bpc == XVIDC_BPC_16));
 
 	/* Set bits per color */
-	if (InstancePtr->DpPtr->TxInstance.ColorimetryThroughVsc) {
+	if (InstancePtr->DpPtr->TxInstance.ColorimetryThroughVsc[XDP_TX_STREAM_ID1 - 1]) {
 		InstancePtr->UsrOpt.Bpc =
-				InstancePtr->DpPtr->TxInstance.VscPacket.BitsPerColor;
+				InstancePtr->DpPtr->TxInstance.VscPacket[XDP_TX_STREAM_ID1 - 1].BitsPerColor;
 	} else {
 		InstancePtr->UsrOpt.Bpc = Bpc;
 	}
@@ -1682,6 +1682,8 @@ u32 XDpTxSs_CheckVscColorimetrySupport(XDpTxSs *InstancePtr)
  * header information to the driver structure.
  *
  * @param	InstancePtr is a pointer to the XDp instance.
+ * @param   StreamId is the MST stream number (1..4) that this VSC packet is
+ *          associated with. Use XDP_TX_STREAM_ID1 for single stream mode.
  * @param   VscPkt is a driver extended packet structure
  *
  * @return
@@ -1691,15 +1693,20 @@ u32 XDpTxSs_CheckVscColorimetrySupport(XDpTxSs *InstancePtr)
  * @note	None.
  *
 *******************************************************************************/
-u32 XDpTxSs_SetVscExtendedPacket(XDpTxSs *InstancePtr, XDp_TxVscExtPacket VscPkt)
+u32 XDpTxSs_SetVscExtendedPacket(XDpTxSs *InstancePtr, u8 StreamId,
+				XDp_TxVscExtPacket VscPkt)
 {
 	XDp_TxVscExtPacket *VscPacket;
 	u32 DataByte;
 
 	/* Verify arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid((StreamId == XDP_TX_STREAM_ID1) ||
+			  (StreamId == XDP_TX_STREAM_ID2) ||
+			  (StreamId == XDP_TX_STREAM_ID3) ||
+			  (StreamId == XDP_TX_STREAM_ID4));
 
-	VscPacket = &InstancePtr->DpPtr->TxInstance.VscPacket;
+	VscPacket = &InstancePtr->DpPtr->TxInstance.VscPacket[StreamId - 1];
 
 	/* Decoding Data byte 16 */
 	DataByte =  VscPkt.Payload[XDP_TX_AUDIO_EXT_DATA_DB16_TO_DB18] &
@@ -1748,6 +1755,8 @@ u32 XDpTxSs_SetVscExtendedPacket(XDpTxSs *InstancePtr, XDp_TxVscExtPacket VscPkt
  * through VSC extended packet.
  *
  * @param	InstancePtr is a pointer to the XDp instance.
+ * @param   StreamId is the MST stream number (1..4). Use XDP_TX_STREAM_ID1
+ *          for single stream mode.
  * @param   Enable specifies to enable the flag
  *       - 0 = Disable the sending colorimetry through VSC packet else enable
  *             Enable the sending colorimetry through VSC packet
@@ -1756,12 +1765,16 @@ u32 XDpTxSs_SetVscExtendedPacket(XDpTxSs *InstancePtr, XDp_TxVscExtPacket VscPkt
  * @note	None.
  *
 *******************************************************************************/
-void XDpTxss_EnableVscColorimetry(XDpTxSs *InstancePtr, u8 Enable)
+void XDpTxss_EnableVscColorimetry(XDpTxSs *InstancePtr, u8 StreamId, u8 Enable)
 {
 	/* Verify arguments. */
 	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid((StreamId == XDP_TX_STREAM_ID1) ||
+		       (StreamId == XDP_TX_STREAM_ID2) ||
+		       (StreamId == XDP_TX_STREAM_ID3) ||
+		       (StreamId == XDP_TX_STREAM_ID4));
 
-	InstancePtr->DpPtr->TxInstance.ColorimetryThroughVsc = Enable;
+	InstancePtr->DpPtr->TxInstance.ColorimetryThroughVsc[StreamId - 1] = Enable;
 }
 
 /*****************************************************************************/

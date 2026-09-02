@@ -844,7 +844,10 @@ static void XDp_TxInterruptHandler(XDp *InstancePtr)
 		}
 	}
 
-	if(IntrStatus & XDP_TX_INTERRUPT_STATUS_EXT_PKT_TXD_MASK){
+	if (IntrStatus & (XDP_TX_INTERRUPT_STATUS_EXT_PKT_TXD_MASK |
+			  XDP_TX_INTERRUPT_STATUS_EXT_PKT_TXD_STREAM2_MASK |
+			  XDP_TX_INTERRUPT_STATUS_EXT_PKT_TXD_STREAM3_MASK |
+			  XDP_TX_INTERRUPT_STATUS_EXT_PKT_TXD_STREAM4_MASK)) {
 		if (InstancePtr->TxInstance.ExtPktCallbackHandler)
 			InstancePtr->TxInstance.ExtPktCallbackHandler(
 				InstancePtr->TxInstance.ExtPktCallbackHandlerRef);
