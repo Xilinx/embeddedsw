@@ -111,9 +111,14 @@
 *                       key clear mask to registers
 *       mb   04/17/2026 Update crypto check for AES/SHA/RSA
 *       tbk  04/29/2026 Move AesState update after DMA transfer in
-*                       XSecure_AesUpdateAad GMAC path and remove
-*                       conditional check before release reset in
-*                       XSecure_AesKeyZero
+*                       XSecure_AesUpdateAad GMAC path, remove conditional
+*                       check before release reset in XSecure_AesKeyZero, and
+*                       repack AesKeyLookupTbl entries (drop RegOffset and
+*                       compute via XSecure_GetKeyRegOffset, narrow
+*                       KeyDecSrcSelVal to u8, replace KeyClearVal with
+*                       KeyClearBitPos and use
+*                       XSECURE_AES_KEY_CLEAR_BIT_POS_TO_MASK helper at the
+*                       call site) for memory footprint reduction
 * 5.8   tvp  06/23/2026 Skip AAD size quad-word check for Versal_2VP_P
 *       tvp  09/01/2026 Fix KEK IV endianness on DMA byte-swap platforms
 * </pre>
@@ -166,6 +171,46 @@ static int XSecure_ValidateAndUpdateData(XSecure_Aes *InstancePtr, u64 InDataAdd
 	u64 OutDataAddr, u32 Size, u8 IsLastChunk);
 static int XSecure_AesCopyGcmTag(const XSecure_Aes *InstancePtr,
 	XSecure_AesDmaCfg* AesDmaCfg);
+
+/*****************************************************************************/
+/**
+ * @brief	This function returns the AES key register offset for a given
+ *		key source. The offset was previously stored as RegOffset in
+ *		AesKeyLookupTbl[]; computing it on demand drops a sparse u32
+ *		field from every table entry.
+ *
+ *		Only XSECURE_AES_BH_KEY and XSECURE_AES_USER_KEY_0..7 have a
+ *		writable register slot. USER_KEY_0..7 are guaranteed to be
+ *		contiguous in the XSecure_AesKeySrc enum, so the offset for
+ *		USER_KEY_N is XSECURE_AES_USER_KEY_0_0_OFFSET plus N times
+ *		(XSECURE_AES_USER_KEY_1_0_OFFSET -
+ *		XSECURE_AES_USER_KEY_0_0_OFFSET), matching the hardware
+ *		bank layout.
+ *
+ * @param	KeySrc	AES key source
+ *
+ * @return	Register offset for the key source, or XSECURE_AES_INVALID_CFG
+ *		if the source has no writable slot.
+ *
+ *****************************************************************************/
+static INLINE u32 XSecure_GetKeyRegOffset(XSecure_AesKeySrc KeySrc)
+{
+	u32 Offset = XSECURE_AES_INVALID_CFG;
+
+	if (KeySrc == XSECURE_AES_BH_KEY) {
+		Offset = (u32)XSECURE_AES_BH_KEY_0_OFFSET;
+	} else if ((KeySrc >= XSECURE_AES_USER_KEY_0) &&
+		(KeySrc <= XSECURE_AES_USER_KEY_7)) {
+		Offset = (u32)XSECURE_AES_USER_KEY_0_0_OFFSET +
+			(((u32)KeySrc - (u32)XSECURE_AES_USER_KEY_0) *
+			((u32)XSECURE_AES_USER_KEY_1_0_OFFSET -
+			(u32)XSECURE_AES_USER_KEY_0_0_OFFSET));
+	} else {
+		/* All other key sources have no writable register slot */
+	}
+
+	return Offset;
+}
 
 /************************** Variable Definitions *****************************/
 
@@ -367,7 +412,7 @@ int XSecure_AesWriteKey(const XSecure_Aes *InstancePtr,
 		goto END;
 	}
 
-	Offset = AesKeyLookupTbl[KeySrc].RegOffset;
+	Offset = XSecure_GetKeyRegOffset(KeySrc);
 	if (Offset == XSECURE_AES_INVALID_CFG) {
 		Status = (int)XSECURE_AES_INVALID_PARAM;
 		goto END;
@@ -1256,8 +1301,9 @@ int XSecure_AesKeyZero(const XSecure_Aes *InstancePtr, XSecure_AesKeySrc KeySrc)
 	else if (KeySrc == XSECURE_AES_KUP_AND_EXPANDED_KEYS) {
 		Mask = XSECURE_AES_KEY_CLEAR_KUP_AND_EXP_KEYS_MASK;
 	}
-	else if (AesKeyLookupTbl[KeySrc].KeyClearVal != XSECURE_AES_INVALID_CFG) {
-		Mask = AesKeyLookupTbl[KeySrc].KeyClearVal;
+	else if (AesKeyLookupTbl[KeySrc].KeyClearBitPos != XSECURE_AES_INVALID_CFG) {
+		Mask = XSECURE_AES_KEY_CLEAR_BIT_POS_TO_MASK(
+				AesKeyLookupTbl[KeySrc].KeyClearBitPos);
 	}
 	else {
 		Status = XST_INVALID_PARAM;

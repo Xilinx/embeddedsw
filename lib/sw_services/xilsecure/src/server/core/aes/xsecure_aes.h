@@ -49,6 +49,9 @@
 *       pre  03/02/2025 Removed data context setting and resource busy functionality for AES
 * 5.6	obs  07/25/2025 Added XSECURE_AES_IV_SIZE_IN_BYTES macro
 * 5.7   tbk  02/05/2026 Remove unwanted header
+*       tbk  04/29/2026 Repack XSecure_AesKeyLookup struct: drop RegOffset,
+*                       narrow KeyDecSrcSelVal to u8, replace KeyClearVal with
+*                       KeyClearBitPos
 *
 * </pre>
 *
@@ -145,12 +148,11 @@ typedef struct {
 
 /** This structure contains parameters to configure key source for AES */
 typedef struct {
-	u32 RegOffset;	/**< Register offset for key source */
 	u32 KeySrcSelVal;	/**< Selection value for key source */
 	u8  UsrWrAllowed;	/**< User write allowed or not for key source */
 	u8  KeyDecSrcAllowed;	/**< Key decryption source allowed */
-	u32 KeyDecSrcSelVal;	/**< Selection value for key decryption source*/
-	u32 KeyClearVal;	/**< Key source clear value*/
+	u8  KeyDecSrcSelVal;	/**< Selection value for key decryption source*/
+	u8  KeyClearBitPos;	/**< Bit position of key source clear */
 } XSecure_AesKeyLookup;
 
 extern const XSecure_AesKeyLookup AesKeyLookupTbl[XSECURE_MAX_KEY_SOURCES];

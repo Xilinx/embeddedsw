@@ -17,6 +17,11 @@
 * ----- ---- -------- -------------------------------------------------------
 * 1.0   kpt  08/17/23 Initial release
 * 5.7   tbk  04/07/26 Added combined KUP and expanded key clear mask and enum
+*       tbk  04/29/26 Narrow XSECURE_AES_INVALID_CFG to 0xFFU, rename orphan
+*                     per-key XSECURE_AES_KEY_CLEAR_*_MASK macros to
+*                     XSECURE_AES_KEY_CLEAR_*_BIT_POS for use from
+*                     AesKeyLookupTbl[].KeyClearBitPos, and add
+*                     XSECURE_AES_KEY_CLEAR_BIT_POS_TO_MASK helper
 *
 * </pre>
 *
@@ -78,62 +83,64 @@ extern "C" {
 #define XSECURE_AES_KEY_CLEAR_OFFSET			(0x00000014U)
 							/**< AES Key Clear register offset */
 
-#define XSECURE_AES_KEY_CLEAR_PUF_KEY_MASK		(0x00200000U)
-							/**< PUF key clear mask */
+#define XSECURE_AES_KEY_CLEAR_PUF_KEY_BIT_POS		(21U)
+							/**< PUF key clear bit position */
 
-#define XSECURE_AES_KEY_CLEAR_BBRAM_RED_KEY_MASK	(0x00100000U)
-							/**< BBRAM Red key clear mask */
+#define XSECURE_AES_KEY_CLEAR_BBRAM_RED_KEY_BIT_POS	(20U)
+							/**< BBRAM Red key clear bit position */
 
-#define XSECURE_AES_KEY_CLEAR_BH_RED_KEY_MASK		(0x00080000U)
-							/**< BH Red key clear mask */
+#define XSECURE_AES_KEY_CLEAR_BH_RED_KEY_BIT_POS	(19U)
+							/**< BH Red key clear bit position */
 
-#define XSECURE_AES_KEY_CLEAR_BH_KEY_MASK		(0x00040000U)
-							/**< BH key clear mask */
+#define XSECURE_AES_KEY_CLEAR_BH_KEY_BIT_POS		(18U)
+							/**< BH key clear bit position */
 
-#define XSECURE_AES_KEY_CLEAR_EFUSE_USER_RED_KEY_1_MASK	(0x00020000U)
-							/**< eFUSE User Red key 1 clear mask */
+#define XSECURE_AES_KEY_CLEAR_EFUSE_USER_RED_KEY_1_BIT_POS	(17U)
+							/**< eFUSE User Red key 1 clear bit position */
 
-#define XSECURE_AES_KEY_CLEAR_EFUSE_USER_RED_KEY_0_MASK	(0x00010000U)
-							/**< eFUSE User Red key 0 clear mask */
+#define XSECURE_AES_KEY_CLEAR_EFUSE_USER_RED_KEY_0_BIT_POS	(16U)
+							/**< eFUSE User Red key 0 clear bit position */
 
-#define XSECURE_AES_KEY_CLEAR_EFUSE_RED_KEY_MASK	(0x00008000U)
-							/**< eFUSE Red key clear mask */
+#define XSECURE_AES_KEY_CLEAR_EFUSE_RED_KEY_BIT_POS	(15U)
+							/**< eFUSE Red key clear bit position */
 
-#define XSECURE_AES_KEY_CLEAR_EFUSE_USER_KEY_1_MASK	(0x00004000U)
-							/**< eFUSE User key 1 clear mask */
+#define XSECURE_AES_KEY_CLEAR_EFUSE_USER_KEY_1_BIT_POS	(14U)
+							/**< eFUSE User key 1 clear bit position */
 
-#define XSECURE_AES_KEY_CLEAR_EFUSE_USER_KEY_0_MASK	(0x00002000U)
-							/**< eFUSE User key 0 clear mask */
+#define XSECURE_AES_KEY_CLEAR_EFUSE_USER_KEY_0_BIT_POS	(13U)
+							/**< eFUSE User key 0 clear bit position */
 
-#define XSECURE_AES_KEY_CLEAR_EFUSE_KEY_MASK		(0x00001000U)
-							/**< eFUSE key clear mask */
+#define XSECURE_AES_KEY_CLEAR_EFUSE_KEY_BIT_POS		(12U)
+							/**< eFUSE key clear bit position */
 
-#define XSECURE_AES_KEY_CLEAR_USER_KEY_7_MASK		(0x00000800U)
-							/**< User key 7 clear mask */
+#define XSECURE_AES_KEY_CLEAR_USER_KEY_7_BIT_POS	(11U)
+							/**< User key 7 clear bit position */
 
-#define XSECURE_AES_KEY_CLEAR_USER_KEY_6_MASK		(0x00000400U)
-							/**< User key 6 clear mask */
+#define XSECURE_AES_KEY_CLEAR_USER_KEY_6_BIT_POS	(10U)
+							/**< User key 6 clear bit position */
 
-#define XSECURE_AES_KEY_CLEAR_USER_KEY_5_MASK		(0x00000200U)
-							/**< User key 5 clear mask */
+#define XSECURE_AES_KEY_CLEAR_USER_KEY_5_BIT_POS	(9U)
+							/**< User key 5 clear bit position */
 
-#define XSECURE_AES_KEY_CLEAR_USER_KEY_4_MASK		(0x00000100U)
-							/**< User key 4 clear mask */
+#define XSECURE_AES_KEY_CLEAR_USER_KEY_4_BIT_POS	(8U)
+							/**< User key 4 clear bit position */
 
-#define XSECURE_AES_KEY_CLEAR_USER_KEY_3_MASK		(0x00000080U)
-							/**< User key 3 clear mask */
+#define XSECURE_AES_KEY_CLEAR_USER_KEY_3_BIT_POS	(7U)
+							/**< User key 3 clear bit position */
 
-#define XSECURE_AES_KEY_CLEAR_USER_KEY_2_MASK		(0x00000040U)
-							/**< User key 2 clear mask */
+#define XSECURE_AES_KEY_CLEAR_USER_KEY_2_BIT_POS	(6U)
+							/**< User key 2 clear bit position */
 
-#define XSECURE_AES_KEY_CLEAR_USER_KEY_1_MASK		(0x00000020U)
-							/**< User key 1 clear mask */
+#define XSECURE_AES_KEY_CLEAR_USER_KEY_1_BIT_POS	(5U)
+							/**< User key 1 clear bit position */
 
-#define XSECURE_AES_KEY_CLEAR_USER_KEY_0_MASK		(0x00000010U)
-							/**< User key 0 clear mask */
+#define XSECURE_AES_KEY_CLEAR_USER_KEY_0_BIT_POS	(4U)
+							/**< User key 0 clear bit position */
 
 #define XSECURE_AES_KEY_CLEAR_KUP_KEY_MASK		(0x00000002U)
 							/**< KUP key clear mask */
+#define XSECURE_AES_KEY_CLEAR_KUP_KEY_BIT_POS		(1U)
+							/**< KUP key clear bit position */
 
 #define XSECURE_AES_KEY_CLEAR_AES_KEY_ZEROIZE_MASK	(0x00000001U)
 							/**< AES key zeroize mask */
@@ -158,7 +165,11 @@ extern "C" {
 #define XSECURE_AES_KEY_DEC_SEL_EFUSE_USR0_RED		(0x3U)	/**< eFUSE User Red Key 0 */
 #define XSECURE_AES_KEY_DEC_SEL_EFUSE_USR1_RED		(0x4U)	/**< eFUSE User Red Key 1 */
 
-#define XSECURE_AES_INVALID_CFG		(0xFFFFFFFFU)	/**< Invalid Configuration */
+#define XSECURE_AES_INVALID_CFG		(0xFFU)		/**< Invalid Configuration */
+
+/** Convert a stored AesKeyLookupTbl bit position into the corresponding
+ *  AES_KEY_CLEAR register mask. */
+#define XSECURE_AES_KEY_CLEAR_BIT_POS_TO_MASK(BitPos)	((u32)1U << (BitPos))
 
 #define XSECURE_MAX_KEY_SOURCES		XSECURE_AES_EXPANDED_KEYS
 					/**< Max key source value */
