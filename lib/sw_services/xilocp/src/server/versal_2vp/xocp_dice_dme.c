@@ -671,7 +671,6 @@ static int XOcp_DmeChallengeSignature(XOcp_Dme *DmePtr)
 {
 	volatile int Status = XST_FAILURE;
 	volatile int ClrStatus = XST_FAILURE;
-
 	u8 Qx[XSECURE_ECC_P384_SIZE_IN_BYTES] = {0U};
 	u8 Qy[XSECURE_ECC_P384_SIZE_IN_BYTES] = {0U};
 	u8 R[XSECURE_ECC_P384_SIZE_IN_BYTES] = {0U};
@@ -790,7 +789,11 @@ static int XOcp_DmeChallengeSignature(XOcp_Dme *DmePtr)
 END:
 
 	TrngInstance = XSecure_GetTrngInstance();
-	Status = XSecure_Uninstantiate(TrngInstance);
+	ClrStatus = XSecure_Uninstantiate(TrngInstance);
+	/** - Update Status with uninstantiate result only if there is no earlier failure */
+	if (ClrStatus != XST_SUCCESS) {
+		Status |= ClrStatus;
+	}
 
 	/** - Zeroize all local buffers */
 	ClrStatus = Xil_SecureZeroize((u8 *)Qx, XSECURE_ECC_P384_SIZE_IN_BYTES);
