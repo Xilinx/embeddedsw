@@ -61,6 +61,7 @@
 * 2.3   ng   11/22/2023 Fixed doxygen grouping
 * 2.4   ng   04/30/2024 Fixed doxygen comments
 * 2.8   tbk  07/02/2026 Added return-time redundancy guard in XPuf_Registration
+*       ks   08/19/2026 Validate PufOperation in XPuf_Registration
 *
 * </pre>
 *
@@ -221,6 +222,12 @@ int XPuf_Registration(XPuf_Data *PufData)
 	 * return XPUF_ERROR_INVALID_PARAM if input parameters are invalid.
 	 */
 	if (PufData == NULL) {
+		Status = XPUF_ERROR_INVALID_PARAM;
+		goto END;
+	}
+
+	/** - Validate the requested PUF operation is PUF registration. */
+	if (PufData->PufOperation != XPUF_REGISTRATION) {
 		Status = XPUF_ERROR_INVALID_PARAM;
 		goto END;
 	}
