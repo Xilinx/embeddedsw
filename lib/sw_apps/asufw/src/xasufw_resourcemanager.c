@@ -31,6 +31,7 @@
  *	 rmv  09/11/25 Updated XAsufw_ResourceInit() function prototype
  *	 rmv  09/11/25 Removed code duplication in XAsufw_AllocateDmaResource()
  *       vm   07/13/26 Added check for resources reserved by client requests
+ *	 kk   07/10/26 Added SLH-DSA to the resources list
  *
  * </pre>
  *
@@ -47,6 +48,7 @@
 #include "xasufw_ecchandler.h"
 #include "xasufw_error_manager.h"
 #include "xasufw_aeshandler.h"
+#include "xasufw_slhdsahandler.h"
 
 /************************************ Constant Definitions ***************************************/
 
@@ -366,6 +368,24 @@ s32 XAsufw_CheckResourceAvailability(XAsufw_ResourcesRequired Resources, u32 Req
 			case XASUFW_MLKEM_RESOURCE_MASK:
 				Resource = XASUFW_MLKEM;
 				break;
+			case XASUFW_SLHDSA_RESOURCE_MASK:
+				Resource = XASUFW_SLHDSA;
+				break;
+#ifdef XASU_SLHDSA_ENABLE
+			case XASUFW_SLHDSA_SHA_RESOURCE_MASK:
+				/**
+				 * The SHA engine required by SLH-DSA depends on the requested
+				 * parameter set, so it is resolved from the request buffer.
+				 * An unsupported parameter set yields no valid engine and the
+				 * request is rejected here.
+				 */
+				Resource = XAsufw_GetSlhdsaShaMaskResourceId(ReqBuf);
+				if (Resource == XASUFW_INVALID) {
+					Status = XASUFW_RESOURCE_INVALID;
+					goto END;
+				}
+				break;
+#endif
 			default:
 				Status = XASUFW_RESOURCE_INVALID;
 				break;

@@ -714,6 +714,74 @@ END:
 
 /*************************************************************************************************/
 /**
+ * @brief	This function sends a command to ASUFW to perform SLH-DSA key pair generation for
+ *		the requested subsystem.
+ *
+ * @param	ClientParamPtr		Pointer to the XAsu_ClientParams structure which holds the
+ *					client input parameters.
+ * @param	KeyGenParamsPtr		Pointer to XAsu_SlhdsaKeyGenParams structure which holds
+ *					the key generation parameters. ParamSet selects the key
+ *					sizes and the hash family, and SkOutAddr and PkOutAddr name
+ *					the buffers that receive the pair.
+ *
+ * @return
+ *		- XST_SUCCESS, if IPI request to ASU is sent successfully.
+ *		- XASU_INVALID_ARGUMENT, if any argument is invalid.
+ *		- XASU_INVALID_UNIQUE_ID, if no queue slot is available.
+ *		- XASU_QUEUE_FULL, if Queue buffer is full.
+ *		- XST_FAILURE, if sending an IPI request to ASU fails.
+ *
+ *************************************************************************************************/
+s32 XAsu_KmGenerateSlhdsaKeyPair(XAsu_ClientParams *ClientParamPtr,
+				XAsu_SlhdsaKeyGenParams *KeyGenParamsPtr)
+{
+	s32 Status = XST_FAILURE;
+	u32 Header;
+	u8 UniqueId;
+	u32 PubKeyLen = 0U;
+	u32 PvtKeyLen = 0U;
+
+	/** Validation of inputs. */
+	Status = XAsu_ValidateClientParameters(ClientParamPtr);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	if (KeyGenParamsPtr == NULL) {
+		Status = XASU_INVALID_ARGUMENT;
+		goto END;
+	}
+
+	/** Validate the SLH-DSA key generation parameters. */
+	Status = XAsu_KmValidateSlhdsaKeyGenParams(KeyGenParamsPtr, &PubKeyLen, &PvtKeyLen);
+	if (Status != XST_SUCCESS) {
+		Status = XASU_INVALID_ARGUMENT;
+		goto END;
+	}
+
+	/** Generate a unique ID and register the callback function. */
+	UniqueId = XAsu_RegCallBackNGetUniqueId(ClientParamPtr, NULL, 0U, XASU_TRUE);
+	if (UniqueId >= XASU_UNIQUE_ID_MAX) {
+		Status = XASU_INVALID_UNIQUE_ID;
+		goto END;
+	}
+
+	/** Create command header. */
+	Header = XAsu_CreateHeader(XASU_KM_GEN_SLHDSA_KEY_PAIR_CMD_ID, UniqueId,
+				XASU_MODULE_KEYMANAGER_ID,
+				(u8)(sizeof(XAsu_SlhdsaKeyGenParams) / XASU_WORD_LEN_IN_BYTES),
+				ClientParamPtr->SecureFlag);
+
+	/** Update request buffer and send an IPI request to ASU. */
+	Status = XAsu_SendCmdToAsu(ClientParamPtr, KeyGenParamsPtr,
+					(u32)(sizeof(XAsu_SlhdsaKeyGenParams)), Header);
+
+END:
+	return Status;
+}
+
+/*************************************************************************************************/
+/**
  * @brief	This function sends a command to ASUFW to store a key in the vault for the
  *		requested subsystem.
  *

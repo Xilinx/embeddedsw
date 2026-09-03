@@ -126,12 +126,12 @@ if("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "microblaze_riscv")
     endif()
 
     option(XILASU_keywrap_support "Enables/Disables keywrap algorithm in ASUFW which depends on RSA padding." ON)
-    if(XILASU_keywrap_support )
+    if(XILASU_keywrap_support)
         set(XASU_KEYWRAP_ENABLE " ")
     endif()
 
     option(XILASU_ocp_support "Enables/Disables OCP support in ASUFW." ON)
-    if(XILASU_ocp_support )
+    if(XILASU_ocp_support)
 	set(XASU_OCP_ENABLE " ")
     endif()
 
@@ -141,8 +141,13 @@ if("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "microblaze_riscv")
     endif()
 
     option(XILASU_lms_support "Enables/Disables LMS algorithm in ASUFW." ON)
-    if(XILASU_lms_support )
+    if(XILASU_lms_support)
         set(XASU_LMS_ENABLE " ")
+    endif()
+
+    option(XILASU_slhdsa_support "Enables/Disables SLH-DSA algorithm in ASUFW." OFF)
+    if(XILASU_slhdsa_support)
+        set(XASU_SLHDSA_ENABLE " ")
     endif()
 
     option(XILASU_keymanager_support "Enables/Disables KeyManager module in ASUFW." ON)

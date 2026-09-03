@@ -21,6 +21,7 @@
  *       ma   01/15/25 Added macro for KDF module ID.
  *       rmv  08/11/25 Added macro for PLM event module ID.
  *       rmv  07/16/25 Added macro for OCP module ID.
+ *       kk   07/10/26 Added macro for SLH-DSA module ID.
  *
  * </pre>
  *
@@ -65,7 +66,8 @@ extern "C" {
 #define XASU_MODULE_MLDSA_ID		(15U) /**< ML-DSA module ID */
 #define XASU_MODULE_MLKEM_ID		(16U) /**< ML-KEM module ID */
 #define XASU_MODULE_PLEXT_ID		(17U) /**< PL extension module ID */
-#define XASU_MAX_MODULES			(18U) /**< Maximum supported modules in ASU */
+#define XASU_MODULE_SLHDSA_ID		(18U) /**< SLH-DSA module ID */
+#define XASU_MAX_MODULES			(19U) /**< Maximum supported modules in ASU */
 
 #define XASU_ASU_DMA_MAX_TRANSFER_LENGTH	(0x1FFFFFFCU)
 						/**< ASU DMA maximum transfer length in bytes. */

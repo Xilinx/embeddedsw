@@ -16,6 +16,7 @@
 * Ver   Who  Date       Changes
 * ----- ---- -------- ----------------------------------------------------------------------------
 * 1.0   rmv  06/11/26 Initial release
+*       kk   08/25/26 Added SLH-DSA overlay section definitions
 *
 * </pre>
 *
@@ -50,6 +51,10 @@
 #define XOVERLAY_MLKEM_HDR	OVERLAY_SECTION(".overlay_mlkem.header")	/**< ML-KEM overlay
 										header section */
 #endif
+#ifdef XASU_SLHDSA_ENABLE
+#define XOVERLAY_SLHDSA_HDR	OVERLAY_SECTION(".overlay_slhdsa.header")	/**< SLH-DSA overlay
+										header section */
+#endif
 
 /********************************** Variable Definitions *****************************************/
 extern char __overlay_rsa_ecc_img_size[];	/**< Size of the RSA-ECC overlay image */
@@ -60,6 +65,11 @@ extern char __overlay_rsa_ecc_data_size[];	/**< Size of the RSA-ECC overlay data
 extern char __overlay_lms_img_size[];	/**< Size of the LMS overlay image */
 extern char __overlay_lms_txt_size[];	/**< Size of the LMS overlay text image */
 extern char __overlay_lms_data_size[];	/**< Size of the LMS overlay data image */
+#endif
+#ifdef XASU_SLHDSA_ENABLE
+extern char __overlay_slhdsa_img_size[];	/**< Size of the SLH-DSA overlay image */
+extern char __overlay_slhdsa_txt_size[];	/**< Size of the SLH-DSA overlay text image */
+extern char __overlay_slhdsa_data_size[];	/**< Size of the SLH-DSA overlay data image */
 #endif
 
 #ifdef XASU_MLDSA_ENABLE
@@ -123,4 +133,17 @@ const XOverlay_Header XMlkem_OverlayHeader = {
 	.DataSize = (u32)(UINTPTR)__overlay_mlkem_data_size,
 };
 #endif /* XASU_MLKEM_ENABLE */
+
+#ifdef XASU_SLHDSA_ENABLE
+/**< SLH-DSA overlay header */
+XOVERLAY_SLHDSA_HDR
+const XOverlay_Header XSlhdsa_OverlayHeader = {
+	.Magic = XOVERLAY_MAGIC,
+	.AlgoId = XOVERLAY_ALGO_SLHDSA,
+	.Version = XOVERLAY_HEADER_VERSION,
+	.ImgSize = (u32)(UINTPTR)__overlay_slhdsa_img_size,
+	.TxtSize = (u32)(UINTPTR)__overlay_slhdsa_txt_size,
+	.DataSize = (u32)(UINTPTR)__overlay_slhdsa_data_size,
+};
+#endif /* XASU_SLHDSA_ENABLE */
 /** @} */

@@ -16,6 +16,7 @@
 * Ver   Who  Date       Changes
 * ----- ---- -------- ----------------------------------------------------------------------------
 * 1.0   rmv  06/11/26 Initial release
+*       kk   08/25/26 Added SLH-DSA overlay algorithm ID
 *
 * </pre>
 *
@@ -49,6 +50,7 @@ extern "C" {
 #define XOVERLAY_ALGO_LMS		(2U)		/**< LMS overlay algorithm ID */
 #define XOVERLAY_ALGO_MLDSA		(3U)		/**< ML-DSA overlay algorithm ID */
 #define XOVERLAY_ALGO_MLKEM		(4U)		/**< ML-KEM overlay algorithm ID */
+#define XOVERLAY_ALGO_SLHDSA		(5U)		/**< SLH-DSA overlay algorithm ID */
 
 /************************************** Type Definitions *****************************************/
 /**

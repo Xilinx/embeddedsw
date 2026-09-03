@@ -519,6 +519,7 @@
 //#define XASU_PERF_MEASUREMENT_ENABLE /**< Macro to enable/disable performance measurement */
 #define XASU_KEYMANAGER_ENABLE /**< Macro to enable/disable support of KeyManager */
 #define XASU_PROVISION_ENABLE /**< Macro to enable/disable support of Provisioning */
+//#define XASU_SLHDSA_ENABLE /**< Macro to enable/disable support of SLH-DSA algorithm */
 /*
  * These two cost instruction RAM beyond the code they add. Either one on its own switches the link
  * to the stack and heap the liboqs paths need, raising _STACK_SIZE from 0x1400 to 0x7000, so most

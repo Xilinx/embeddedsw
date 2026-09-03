@@ -64,7 +64,9 @@ extern "C" {
 							generation */
 #define XASU_KM_XOR_KEY_CMD_ID			(14U) /**< Command ID for combining two AES key
 							splits using XOR */
-#define XASU_KM_MAX_CMDS			(15U) /**< Maximum number of commands
+#define XASU_KM_GEN_SLHDSA_KEY_PAIR_CMD_ID	(15U) /**< Command ID for SLH-DSA key pair
+							generation */
+#define XASU_KM_MAX_CMDS			(16U) /**< Maximum number of commands
 							supported by KeyManager module */
 
 #define XASU_KM_OUTPUT_ID_SIZE_IN_BYTES		(4U) /**< Key vault output id size */
@@ -247,6 +249,19 @@ typedef struct {
 						XASU_MLKEM_KEYGEN_SEED_LEN for the ML-KEM API (d || z). */
 	u8 Reserved[4]; /**< Explicit padding to ensure consistent struct size across architectures */
 } XAsu_KeyManagerPqcKeyGenParams;
+
+/**
+ * This structure contains info for the SLH-DSA key pair generation parameters, sent over IPI with
+ * XASU_KM_GEN_SLHDSA_KEY_PAIR_CMD_ID. The FIPS 205 seeds are always drawn from the TRNG, so a
+ * caller cannot supply one and no seed travels here. The key vault does not hold SLH-DSA keys yet,
+ * so the pair is returned to the caller buffers named below.
+ */
+typedef struct {
+	u64 SkOutAddr;	/**< DMA address for secret key output (size per ParamSet) */
+	u64 PkOutAddr;	/**< DMA address for public key output (size per ParamSet) */
+	u8 ParamSet;	/**< Parameter set selector (XASU_SLHDSA_PARAM_*) */
+	u8 Reserved[7];	/**< Reserved to pad the structure to 24 bytes */
+} XAsu_SlhdsaKeyGenParams;
 
 /** This structure contains info for different sub vault capacities. */
 typedef struct {

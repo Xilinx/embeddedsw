@@ -31,6 +31,8 @@
  *       kp   08/19/26 Added shared PLM XilNVM IPI command macros
  *       rmv  08/20/26 Added XAsufw_IntToAscii() function prototype.
  *       rmv  08/21/26 Added macro for the maximum 64-bit address and default subsystem ID
+ *       kk   07/10/26 Added bit-width macros for SLH-DSA
+ *       kk   08/30/26 Added byte and integer conversion helper function prototypes.
  *
  * </pre>
  *
@@ -111,8 +113,12 @@ extern "C" {
 #define XASUFW_BYTE_MASK			(0xFFU)		/**< Single byte mask */
 #define XASUFW_TWO_BYTE_MASK			(0x00FFU)	/**< Lower byte mask (16-bit) */
 #define XASUFW_BYTE_MULTIPLIER			(256U)		/**< Byte multiplier for endianness swap */
+#define XASUFW_MAX_BIT_INDEX_IN_BYTE		(XASUFW_BYTE_LEN_IN_BITS - 1U) \
+							/**< Maximum bit index in a byte */
 #define XASUFW_MAX_BIT_INDEX_IN_WORD		(31U)	/**< Maximum bit index in a 32-bit word */
 #define XASUFW_BITS_IN_WORD			(32U)	/**< Number of bits in a 32-bit word */
+#define XASUFW_BITS_IN_U64			(XASUFW_BYTE_LEN_IN_BITS * XASUFW_U64_IN_BYTES) \
+							/**< Number of bits in a 64-bit value */
 
 #define XASUFW_DEFAULT_SUBSYSTEM_ID		(0x1C000000U) /**< Default subsystem ID */
 
@@ -237,6 +243,7 @@ static inline void XAsufw_I2Osp(u32 Integer, u32 Size, u8 *Convert)
 void XAsufw_RMW(u32 Addr, u32 Mask, u32 Value);
 void XAsufw_CryptoCoreReleaseReset(u32 BaseAddress, u32 Offset);
 void XAsufw_CryptoCoreSetReset(u32 BaseAddress, u32 Offset);
+void XAsufw_U64ToBeBytes(u64 Val, u32 Len, u8 *Out);
 s32 XAsufw_ChangeEndianness(u8 *Buffer, u32 Length);
 s32 XAsufw_NvmEfuseWriteOffChipRevokeId(const u32 OffChipRevokeIdNum);
 s32 XAsufw_SMemSet(void *Dest, const u32 DestSize);
@@ -245,6 +252,9 @@ s32 XAsufw_WriteDataToRegsWithEndianSwap(u32 BaseAddress, u32 RegOffset, const u
 s32 XAsufw_AsciiToInt(const u8 *Buf, u32 Len, u32 *Value);
 s32 XAsufw_IntToAscii(u8 *Buf, u32 Len, u32 Value);
 u32 XAsufw_SwapBytes(const u8 *const Source, u32 Bytes);
+u32 XAsufw_CeilDivU32(u32 Num, u32 Den);
+u64 XAsufw_BeBytesToU64(const u8 *Src, u32 Len);
+u64 XAsufw_ModPow2U64(u64 X, u64 K);
 
 /************************************ Variable Definitions ***************************************/
 /** @cond xasufw_util_internal */

@@ -28,6 +28,7 @@
  *       yog  01/02/25 Added HMAC KAT
  *       ma   01/15/25 Added KDF KAT
  *       yog  02/21/25 Added ECIES KAT
+ *       kk   07/10/26 Added SLH-DSA KAT function prototype
  *
  * </pre>
  *
@@ -117,6 +118,9 @@ s32 XAsufw_MldsaOperationKat(XAsufw_Dma *AsuDmaPtr);
 #endif
 #ifdef XASU_MLKEM_ENABLE
 s32 XAsufw_MlkemOperationKat(XAsufw_Dma *AsuDmaPtr);
+#endif
+#ifdef XASU_SLHDSA_ENABLE
+s32 XAsufw_SlhdsaOperationKat(XAsufw_Dma *AsuDmaPtr);
 #endif
 
 /************************************ Variable Definitions ***************************************/

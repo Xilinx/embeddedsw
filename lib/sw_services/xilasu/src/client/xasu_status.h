@@ -20,6 +20,7 @@
  *       yog  09/26/24 Added doxygen groupings.
  *       yog  03/25/25 Added XASU_INVALID_CURVEINFO error code.
  *       lp   07/10/25 Added XASU_CLIENT_CTX_NOT_CREATED and XASU_REQUEST_INPROGRESS error codes.
+ *       kk   07/10/26 Added XASU_SLHDSA_SIGNATURE_VERIFIED error code
  *
  * </pre>
  *
@@ -72,6 +73,8 @@ enum {
  * functionalities and these codes should not be used for failures in client
  */
 enum {
+	XASU_SLHDSA_SIGNATURE_VERIFIED = 0x3F5U, /**< 0x3F5U - SLH-DSA signature verification
+							is successful */
 	XASU_MLDSA_SIGNATURE_VERIFIED = 0x3F6U, /**< 0x3F6U - Successfully verified ML-DSA
 							signature */
 	XASU_OCP_CERT_GENERATION_SUCCESS = 0x3F7U, /**< 0x3F7U - OCP certificate generation

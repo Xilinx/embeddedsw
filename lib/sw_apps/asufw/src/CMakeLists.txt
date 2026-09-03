@@ -91,6 +91,8 @@ collect (PROJECT_LIB_SOURCES xasufw_mlkemhandler.c)
 collect (PROJECT_LIB_HEADERS xasufw_mlkemhandler.h)
 collect (PROJECT_LIB_SOURCES xasufw_plexthandler.c)
 collect (PROJECT_LIB_HEADERS xasufw_plexthandler.h)
+collect (PROJECT_LIB_SOURCES xasufw_slhdsahandler.c)
+collect (PROJECT_LIB_HEADERS xasufw_slhdsahandler.h)
 collect (PROJECT_LIB_SOURCES xasufw_perf.c)
 collect (PROJECT_LIB_HEADERS xasufw_perf.h)
 collect (PROJECT_LIB_SOURCES xasufw_update.c)
@@ -165,6 +167,7 @@ add_subdirectory(lms)
 add_subdirectory(overlay)
 add_subdirectory(mldsa)
 add_subdirectory(mlkem)
+add_subdirectory(slhdsa)
 
 if (CMAKE_EXPORT_COMPILE_COMMANDS AND
     (NOT ${YOCTO}))
@@ -206,6 +209,9 @@ set(ASUFW_OVERLAY_SOURCES
 	${CMAKE_CURRENT_SOURCE_DIR}/lms/xlms_core.c
 	${CMAKE_CURRENT_SOURCE_DIR}/lms/xlms_ots.c
 	${CMAKE_CURRENT_SOURCE_DIR}/ecies/xecies.c
+	${CMAKE_CURRENT_SOURCE_DIR}/slhdsa/xslhdsa.c
+	${CMAKE_CURRENT_SOURCE_DIR}/slhdsa/xslhdsa_core.c
+	${CMAKE_CURRENT_SOURCE_DIR}/slhdsa/xslhdsa_hash.c
 	${CMAKE_CURRENT_SOURCE_DIR}/overlay/xoverlay_sections.c)
 set_source_files_properties(${ASUFW_OVERLAY_SOURCES} PROPERTIES COMPILE_OPTIONS "-fno-lto;-msmall-data-limit=0")
 
@@ -218,7 +224,7 @@ set(_linker_command "-Wl,-Map=${APP_NAME}.map -Wl,--build-id=none -Wl,--gc-secti
 # With both features off nothing reaches the allocator and those frames are gone, so hand the
 # space back to the resident instruction RAM the two sections are carved from.
 if(NOT ASUFW_PQC_CONFIG_LINES)
-  string(APPEND _linker_command " -Wl,--defsym=_STACK_SIZE=0x1400 -Wl,--defsym=_HEAP_SIZE=0x0")
+  string(APPEND _linker_command " -Wl,--defsym=_STACK_SIZE=0x2000 -Wl,--defsym=_HEAP_SIZE=0x0")
 endif()
 set_target_properties(${APP_NAME}.elf PROPERTIES LINK_DEPENDS ${CMAKE_SOURCE_DIR}/lscript.ld)
 target_link_libraries(${APP_NAME}.elf ${_linker_command})

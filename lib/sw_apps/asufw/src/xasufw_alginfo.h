@@ -16,6 +16,7 @@
  * Ver   Who  Date     Changes
  * ----- ---- -------- ----------------------------------------------------------------------------
  * 1.0   ss   05/20/25 Initial release
+ *       kk   07/10/26 Added SLH-DSA module version macros
  *
  * </pre>
  *
@@ -90,6 +91,9 @@ extern "C" {
 
 #define XASUFW_PLEXT_MAJOR_VERSION		(1U) /**< Major version number of PL extension module */
 #define XASUFW_PLEXT_MINOR_VERSION		(0U) /**< Minor version number of PL extension module */
+
+#define XASUFW_SLHDSA_MAJOR_VERSION		(1U) /**< Major version number of SLH-DSA module */
+#define XASUFW_SLHDSA_MINOR_VERSION		(0U) /**< Minor version number of SLH-DSA module */
 
 #define XASUFW_NIST_COMPLIANT			(0xFFU) /**< Indicates that the algorithm is
 								NIST compliant */

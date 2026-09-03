@@ -56,6 +56,7 @@
  *       rmv  08/21/26 Added error codes for memory region access validation
  *       vm   08/22/26 Added error code for an incompatible data structure version during restore
  *       kp   08/22/26 Added error codes for user-addressable vault ID and key slot
+ *       kk   08/29/26 Added error codes for SLH-DSA functionality
  *
  * </pre>
  *
@@ -873,7 +874,55 @@ enum {
 	XASUFW_PLEXT_CFG_READBACK_FAILED, /**< 0x265U - Error when the ASU to PL isolation, key or
 						PL mode configuration readback fails */
 
+	XASUFW_SLHDSA_INVALID_PARAM, /**< 0x266U - SLH-DSA invalid parameter, covering NULL
+						pointers, a signature length that does not match
+						the bound parameter set, a context string that is
+						absent or longer than the FIPS 205 limit and a
+						pre-hashed message length that does not match the
+						pre-hash digest length */
+	XASUFW_SLHDSA_MODULE_REGISTRATION_FAILED, /**< 0x267U - SLH-DSA module
+						registration failed */
+	XASUFW_SLHDSA_KEYGEN_FAILED, /**< 0x268U - SLH-DSA key generation failed */
+	XASUFW_SLHDSA_SIGN_FAILED, /**< 0x269U - SLH-DSA sign operation failed */
+	XASUFW_SLHDSA_SIGN_VERIFY_FAILED, /**< 0x26AU - SLH-DSA signature verification failed */
+	XASUFW_SLHDSA_KAT_FAILED, /**< 0x26BU - SLH-DSA KAT failed */
+	XASUFW_SLHDSA_OPERATION_TIMEOUT, /**< 0x26CU - SLH-DSA key generation or signing exceeded
+						the keep-alive run-time cap */
+	XASUFW_SLHDSA_COPY_FAILED, /**< 0x26DU - Error when an SLH-DSA buffer copy fails, covering
+						the sign or verify parameters read out of the
+						request buffer, the generated key fields written
+						to the secret or public key, key field loads into
+						the instance, the pre-hash prefix, the WOTS chain
+						seed, the truncated digest, MGF1 output and the
+						H_msg and PRF_msg seed blocks */
+	XASUFW_SLHDSA_KEY_OUT_DMA_FAILED, /**< 0x26EU - Error when the generated SLH-DSA secret or
+						public key cannot be written to the client output
+						buffer */
+	XASUFW_SLHDSA_VERIFY_ROOT_MISMATCH, /**< 0x26FU - Error when the hypertree root recovered
+						from the SLH-DSA signature does not match PK.root */
+	XASUFW_SLHDSA_UNSUPPORTED_PARAM_SET, /**< 0x270U - Error when the SLH-DSA parameter set is
+						unsupported or the hash operations table for its
+						hash family cannot be resolved */
+	XASUFW_SLHDSA_UNSUPPORTED_PREHASH_ALG, /**< 0x271U - Error when the SLH-DSA pre-hash
+						algorithm is unsupported or does not match the
+						requested hash identifier */
+	XASUFW_SLHDSA_PRF_MSG_FAILED, /**< 0x272U - Error when PRF_msg fails to produce the
+						signature randomizer R */
+	XASUFW_SLHDSA_HASH_MSG_FAILED, /**< 0x273U - Error when H_msg fails while signing or
+						verifying */
+	XASUFW_SLHDSA_FORS_FAILED, /**< 0x274U - Error when the FORS stage of signing or
+						verification fails for a reason other than a root
+						mismatch */
+	XASUFW_SLHDSA_HT_FAILED, /**< 0x275U - Error when the hypertree stage of signing or
+						verification fails for a reason other than a root
+						mismatch */
+	XASUFW_SLHDSA_LOOKUP_GLITCH_ERROR, /**< 0x276U - Error when the redundant
+						parameter-set check after lookup does not match,
+						indicating a glitch */
+
 	/* Additional status success codes */
+	XASUFW_SLHDSA_SIGNATURE_VERIFIED = 0x3F5U, /**< 0x3F5U - SLH-DSA signature verification
+							is successful */
 	XASUFW_MLDSA_SIGNATURE_VERIFIED = 0x3F6U, /**< 0x3F6U - Successfully verified ML-DSA
 							signature */
 	XASUFW_OCP_CERT_GENERATION_SUCCESS = 0x3F7U, /**< 0x3F7U - OCP certificate generation

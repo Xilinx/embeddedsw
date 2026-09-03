@@ -57,6 +57,7 @@
 #include "xasufw_perf.h"
 #include "xmldsa.h"
 #include "xmlkem.h"
+#include "xslhdsa.h"
 
 #ifdef XASU_KEYMANAGER_ENABLE
 /************************************ Constant Definitions ***************************************/
@@ -1724,6 +1725,96 @@ END:
 	return Status;
 }
 #endif /* XASU_MLKEM_ENABLE */
+
+#ifdef XASU_SLHDSA_ENABLE
+/*************************************************************************************************/
+/**
+ * @brief	Generate an SLH-DSA key pair and export it to the caller buffers.
+ *
+ * @param	DmaPtr			Pointer to the XAsufw_Dma instance.
+ * @param	ShaPtr			Pointer to the SHA instance the requested parameter set runs
+ *					on, which is SHA3 for the SHAKE sets and SHA2 otherwise.
+ * @param	KeyGenParamsPtr		Pointer to XAsu_SlhdsaKeyGenParams. ParamSet selects the
+ *					key sizes and the hash family, and SkOutAddr and PkOutAddr
+ *					name the buffers that receive the pair.
+ *
+ * @return
+ * 	- XASUFW_SUCCESS, when the key pair is generated and transferred to the caller buffers.
+ * 	- XASUFW_KEYMANAGER_INVALID_PARAM, if any input pointer is NULL or the key generation
+ * 	  parameters do not meet the contract the client validates them against.
+ * 	- Error code received from XSlhDsa_KeyGen in case of key pair generation failure, which
+ * 	  already carries the failing keygen stage and its underlying cause.
+ *
+ * @note
+ *	The key vault does not hold SLH-DSA keys yet, so no key identifier is produced.
+ *
+ *************************************************************************************************/
+s32 XKeyManager_GenerateSlhdsaKeyPair(XAsufw_Dma *DmaPtr, XSha *ShaPtr,
+			const XAsu_SlhdsaKeyGenParams *KeyGenParamsPtr)
+{
+	/**
+	 * Capture the start time of the SLH-DSA key pair generation operation, if performance
+	 * measurement is enabled.
+	 */
+	XASUFW_MEASURE_PERF_START(XASU_MODULE_KEYMANAGER_ID);
+
+	CREATE_VOLATILE(Status, XASUFW_FAILURE);
+	XSlhDsa_KeyGenParams KeyGenParams;
+	u32 PubKeyLen = 0U;
+	u32 PvtKeyLen = 0U;
+
+	/** Validate the input parameters. */
+	if ((DmaPtr == NULL) || (ShaPtr == NULL) || (KeyGenParamsPtr == NULL)) {
+		Status = XASUFW_KEYMANAGER_INVALID_PARAM;
+		goto END;
+	}
+
+	/**
+	 * Validate the key generation parameters against the contract the client validates them
+	 * against, which also resolves both key lengths of the requested parameter set.
+	 */
+	Status = XAsu_KmValidateSlhdsaKeyGenParams(KeyGenParamsPtr, &PubKeyLen, &PvtKeyLen);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_KEYMANAGER_INVALID_PARAM;
+		goto END;
+	}
+
+	/**
+	 * The core transfers the fresh pair to the two addresses named here, which are the client
+	 * buffers because the key vault does not hold SLH-DSA keys yet. Once it does, only these
+	 * two addresses move to a firmware scratch region the vault update reads the pair from.
+	 */
+	KeyGenParams.PubKeyAddr = KeyGenParamsPtr->PkOutAddr;
+	KeyGenParams.PrivKeyAddr = KeyGenParamsPtr->SkOutAddr;
+	KeyGenParams.PubKeyLen = PubKeyLen;
+	KeyGenParams.PrivKeyLen = PvtKeyLen;
+	KeyGenParams.ParamSet = KeyGenParamsPtr->ParamSet;
+
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	/**
+	 * Generate the key pair. XSlhDsa_KeyGen draws the three FIPS 205 seeds from the TRNG and
+	 * transfers both keys to the caller buffers, clearing the sensitive state it holds on
+	 * every exit path.
+	 *
+	 * The status is returned unchanged: the keygen stage already tags its own failures, and
+	 * only three error fields are available, so re-tagging here would overwrite the stage
+	 * that identifies where the failure happened.
+	 */
+	Status = XSlhDsa_KeyGen(DmaPtr, ShaPtr, &KeyGenParams);
+	if (Status != XASUFW_SUCCESS) {
+		goto END;
+	}
+
+	/**
+	 * Measure and print the performance time for the SLH-DSA key pair generation operation,
+	 * if performance measurement is enabled.
+	 */
+	XASUFW_MEASURE_PERF_STOP(XASU_MODULE_KEYMANAGER_ID);
+
+END:
+	return Status;
+}
+#endif /* XASU_SLHDSA_ENABLE */
 
 /*************************************************************************************************/
 /**

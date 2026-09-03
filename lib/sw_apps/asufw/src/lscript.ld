@@ -173,6 +173,13 @@ OVERLAY __overlay_window_start : NOCROSSREFS AT (ORIGIN(ddr_overlay_store_Mem))
       . = ALIGN(_OVERLAY_IMG_ALIGN);
    }
 
+   .overlay_slhdsa
+   {
+      KEEP(*(.overlay_slhdsa.header))
+      "*slhdsa/*.o*"(.text .text.*)
+      . = ALIGN(_OVERLAY_IMG_ALIGN);
+   }
+
    /*
     * Add other algorithms above this block. The combined RSA-ECC image must
     * remain the last algorithm because its LOADADDR + SIZEOF defines the end
@@ -197,17 +204,19 @@ OVERLAY __overlay_window_start : NOCROSSREFS AT (ORIGIN(ddr_overlay_store_Mem))
 __overlay_lms_txt_size = SIZEOF(.overlay_lms);
 __overlay_mldsa_txt_size = SIZEOF(.overlay_mldsa);
 __overlay_mlkem_txt_size = SIZEOF(.overlay_mlkem);
+__overlay_slhdsa_txt_size = SIZEOF(.overlay_slhdsa);
 __overlay_rsa_ecc_txt_size = SIZEOF(.overlay_rsa_ecc);
 
-__overlay_window_size = MAX(MAX(MAX(__overlay_rsa_ecc_txt_size, __overlay_lms_txt_size),
-                            __overlay_mldsa_txt_size), __overlay_mlkem_txt_size);
+__overlay_window_size = MAX(MAX(MAX(MAX(__overlay_rsa_ecc_txt_size, __overlay_lms_txt_size),
+                            __overlay_mldsa_txt_size), __overlay_mlkem_txt_size),
+                            __overlay_slhdsa_txt_size);
 
 __overlay_store_text_window_end = LOADADDR(.overlay_rsa_ecc) + SIZEOF(.overlay_rsa_ecc);
 
 .text : {
    . = ALIGN(2048);
-   *(EXCLUDE_FILE("*ecc/*.o*" "*rsa_ecc/*.o*" "*lms/*.o*" "*ecies/*.o*") .text)
-   *(EXCLUDE_FILE("*ecc/*.o*" "*rsa_ecc/*.o*" "*lms/*.o*" "*ecies/*.o*") .text.*)
+   *(EXCLUDE_FILE("*ecc/*.o*" "*rsa_ecc/*.o*" "*lms/*.o*" "*ecies/*.o*" "*slhdsa/*.o*") .text)
+   *(EXCLUDE_FILE("*ecc/*.o*" "*rsa_ecc/*.o*" "*lms/*.o*" "*ecies/*.o*" "*slhdsa/*.o*") .text.*)
    *(.gnu.linkonce.t.*)
 } > tmr_ram_instr_cntlr_Mem
 
@@ -261,16 +270,16 @@ __overlay_store_text_window_end = LOADADDR(.overlay_rsa_ecc) + SIZEOF(.overlay_r
 
 .rodata : {
    __rodata_start = .;
-   *(EXCLUDE_FILE("*ecc/*.o*" "*rsa_ecc/*.o*" "*lms/*.o*" "*ecies/*.o*") .rodata)
-   *(EXCLUDE_FILE("*ecc/*.o*" "*rsa_ecc/*.o*" "*lms/*.o*" "*ecies/*.o*") .rodata.*)
+   *(EXCLUDE_FILE("*ecc/*.o*" "*rsa_ecc/*.o*" "*lms/*.o*" "*ecies/*.o*" "*slhdsa/*.o*") .rodata)
+   *(EXCLUDE_FILE("*ecc/*.o*" "*rsa_ecc/*.o*" "*lms/*.o*" "*ecies/*.o*" "*slhdsa/*.o*") .rodata.*)
    *(.gnu.linkonce.r.*)
    __rodata_end = .;
 } > tmr_ram_instr_cntlr_Mem
 
 .srodata : {
    __srodata_start = .;
-   *(EXCLUDE_FILE("*ecc/*.o*" "*rsa_ecc/*.o*" "*lms/*.o*" "*ecies/*.o*") .srodata)
-   *(EXCLUDE_FILE("*ecc/*.o*" "*rsa_ecc/*.o*" "*lms/*.o*" "*ecies/*.o*") .srodata.*)
+   *(EXCLUDE_FILE("*ecc/*.o*" "*rsa_ecc/*.o*" "*lms/*.o*" "*ecies/*.o*" "*slhdsa/*.o*") .srodata)
+   *(EXCLUDE_FILE("*ecc/*.o*" "*rsa_ecc/*.o*" "*lms/*.o*" "*ecies/*.o*" "*slhdsa/*.o*") .srodata.*)
    __srodata_end = .;
 } > tmr_ram_instr_cntlr_Mem
 
@@ -292,8 +301,8 @@ __overlay_store_text_window_end = LOADADDR(.overlay_rsa_ecc) + SIZEOF(.overlay_r
 
 .data : {
    __data_start = .;
-   *(EXCLUDE_FILE("*ecc/*.o*" "*rsa_ecc/*.o*" "*lms/*.o*" "*ecies/*.o*") .data)
-   *(EXCLUDE_FILE("*ecc/*.o*" "*rsa_ecc/*.o*" "*lms/*.o*" "*ecies/*.o*") .data.*)
+   *(EXCLUDE_FILE("*ecc/*.o*" "*rsa_ecc/*.o*" "*lms/*.o*" "*ecies/*.o*" "*slhdsa/*.o*") .data)
+   *(EXCLUDE_FILE("*ecc/*.o*" "*rsa_ecc/*.o*" "*lms/*.o*" "*ecies/*.o*" "*slhdsa/*.o*") .data.*)
    *(.gnu.linkonce.d.*)
    /*
     * Data structures kept out of the overlay window and placed in loaded, non-overlay memory
@@ -330,8 +339,8 @@ __overlay_store_text_window_end = LOADADDR(.overlay_rsa_ecc) + SIZEOF(.overlay_r
 
 .sdata : {
    __sdata_start = .;
-   *(EXCLUDE_FILE("*ecc/*.o*" "*rsa_ecc/*.o*" "*lms/*.o*" "*ecies/*.o*") .sdata)
-   *(EXCLUDE_FILE("*ecc/*.o*" "*rsa_ecc/*.o*" "*lms/*.o*" "*ecies/*.o*") .sdata.*)
+   *(EXCLUDE_FILE("*ecc/*.o*" "*rsa_ecc/*.o*" "*lms/*.o*" "*ecies/*.o*" "*slhdsa/*.o*") .sdata)
+   *(EXCLUDE_FILE("*ecc/*.o*" "*rsa_ecc/*.o*" "*lms/*.o*" "*ecies/*.o*" "*slhdsa/*.o*") .sdata.*)
    *(.gnu.linkonce.s.*)
    __sdata_end = .;
 } > tmr_ram_instr_cntlr_Mem
@@ -360,8 +369,8 @@ __overlay_store_text_window_end = LOADADDR(.overlay_rsa_ecc) + SIZEOF(.overlay_r
 
 .sbss (NOLOAD) : {
    __sbss_start = .;
-   *(EXCLUDE_FILE("*ecc/*.o*" "*rsa_ecc/*.o*" "*lms/*.o*" "*ecies/*.o*") .sbss)
-   *(EXCLUDE_FILE("*ecc/*.o*" "*rsa_ecc/*.o*" "*lms/*.o*" "*ecies/*.o*") .sbss.*)
+   *(EXCLUDE_FILE("*ecc/*.o*" "*rsa_ecc/*.o*" "*lms/*.o*" "*ecies/*.o*" "*slhdsa/*.o*") .sbss)
+   *(EXCLUDE_FILE("*ecc/*.o*" "*rsa_ecc/*.o*" "*lms/*.o*" "*ecies/*.o*" "*slhdsa/*.o*") .sbss.*)
    *(.gnu.linkonce.sb.*)
    __sbss_end = .;
 } > tmr_ram_instr_cntlr_Mem
@@ -384,8 +393,8 @@ __overlay_store_text_window_end = LOADADDR(.overlay_rsa_ecc) + SIZEOF(.overlay_r
 
 .bss (NOLOAD) : {
    __bss_start = .;
-   *(EXCLUDE_FILE("*ecc/*.o*" "*rsa_ecc/*.o*" "*lms/*.o*" "*ecies/*.o*") .bss)
-   *(EXCLUDE_FILE("*ecc/*.o*" "*rsa_ecc/*.o*" "*lms/*.o*" "*ecies/*.o*") .bss.*)
+   *(EXCLUDE_FILE("*ecc/*.o*" "*rsa_ecc/*.o*" "*lms/*.o*" "*ecies/*.o*" "*slhdsa/*.o*") .bss)
+   *(EXCLUDE_FILE("*ecc/*.o*" "*rsa_ecc/*.o*" "*lms/*.o*" "*ecies/*.o*" "*slhdsa/*.o*") .bss.*)
    *(.gnu.linkonce.b.*)
    *(COMMON)
    __bss_end = .;
@@ -480,6 +489,18 @@ OVERLAY __overlay_data_window_start : NOCROSSREFS AT (__overlay_store_text_windo
       . = ALIGN(_OVERLAY_IMG_ALIGN);
    }
 
+   .overlay_slhdsa_data
+   {
+      *(.overlay_slhdsa_data)
+      "*slhdsa/*.o*"(.srodata .srodata.*)
+      "*slhdsa/*.o*"(.rodata .rodata.*)
+      "*slhdsa/*.o*"(.sdata .sdata.*)
+      "*slhdsa/*.o*"(.data .data.*)
+      "*slhdsa/*.o*"(.sbss .sbss.*)
+      "*slhdsa/*.o*"(.bss .bss.*)
+      . = ALIGN(_OVERLAY_IMG_ALIGN);
+   }
+
    /*
     * Add other algorithms above this block. The combined RSA-ECC image must
     * remain the last algorithm because its LOADADDR + SIZEOF defines the end
@@ -523,11 +544,14 @@ __overlay_mldsa_data_size = SIZEOF(.overlay_mldsa_data);
 __overlay_mldsa_img_size = SIZEOF(.overlay_mldsa) + SIZEOF(.overlay_mldsa_data);
 __overlay_mlkem_data_size = SIZEOF(.overlay_mlkem_data);
 __overlay_mlkem_img_size = SIZEOF(.overlay_mlkem) + SIZEOF(.overlay_mlkem_data);
+__overlay_slhdsa_data_size = SIZEOF(.overlay_slhdsa_data);
+__overlay_slhdsa_img_size = SIZEOF(.overlay_slhdsa) + SIZEOF(.overlay_slhdsa_data);
 __overlay_rsa_ecc_data_size = SIZEOF(.overlay_rsa_ecc_data);
 __overlay_rsa_ecc_img_size = SIZEOF(.overlay_rsa_ecc) + SIZEOF(.overlay_rsa_ecc_data);
 
-__overlay_data_window_size = MAX(MAX(MAX(__overlay_rsa_ecc_data_size, __overlay_lms_data_size),
-                             __overlay_mldsa_data_size), __overlay_mlkem_data_size);
+__overlay_data_window_size = MAX(MAX(MAX(MAX(__overlay_rsa_ecc_data_size, __overlay_lms_data_size),
+                             __overlay_mldsa_data_size), __overlay_mlkem_data_size),
+                             __overlay_slhdsa_data_size);
 __overlay_store_data_window_end = LOADADDR(.overlay_rsa_ecc_data) + SIZEOF(.overlay_rsa_ecc_data);
 
 /*
@@ -536,9 +560,10 @@ __overlay_store_data_window_end = LOADADDR(.overlay_rsa_ecc_data) + SIZEOF(.over
  *     mldsa    0x7240    192 bytes spare   <-- sizes the window
  *     rsa_ecc  0x5C80   5760 bytes spare
  *     mlkem    0x40C0  12864 bytes spare
+ *     slhdsa   0x3900  14848 bytes spare
  *     lms      0x1D40  21952 bytes spare
  *
- * The window is the MAX of the four, not their sum, so only ML-DSA is close to the limit and the
+ * The window is the MAX of the five, not their sum, so only ML-DSA is close to the limit and the
  * 192 bytes are the whole budget for growth in the ML-DSA core, in the liboqs ML-DSA objects it
  * pulls in, or from a change in code generation. Expect to have to reclaim space rather than to
  * find any: a liboqs re-drop or a toolchain update is more likely than not to exceed it, and the
@@ -556,6 +581,8 @@ ASSERT(__overlay_mldsa_txt_size <= LENGTH(tmr_ram_overlay_win_Mem),
       "overlay mldsa code window does not fit in instruction RAM")
 ASSERT(__overlay_mlkem_txt_size <= LENGTH(tmr_ram_overlay_win_Mem),
       "overlay mlkem code window does not fit in instruction RAM")
+ASSERT(__overlay_slhdsa_txt_size <= LENGTH(tmr_ram_overlay_win_Mem),
+      "overlay slhdsa code window does not fit in instruction RAM")
 ASSERT(__overlay_rsa_ecc_data_size <= LENGTH(tmr_ram_overlay_data_Mem),
       "overlay rsa_ecc data window does not fit in ASU data memory")
 ASSERT(__overlay_lms_data_size <= LENGTH(tmr_ram_overlay_data_Mem),
@@ -564,6 +591,8 @@ ASSERT(__overlay_mldsa_data_size <= LENGTH(tmr_ram_overlay_data_Mem),
       "overlay mldsa data window does not fit in ASU data memory")
 ASSERT(__overlay_mlkem_data_size <= LENGTH(tmr_ram_overlay_data_Mem),
       "overlay mlkem data window does not fit in ASU data memory")
+ASSERT(__overlay_slhdsa_data_size <= LENGTH(tmr_ram_overlay_data_Mem),
+      "overlay slhdsa data window does not fit in ASU data memory")
 
 ASSERT(__crypto_aux_buf_end <=
       ORIGIN(tmr_ram_crypto_data_block_Mem) + LENGTH(tmr_ram_crypto_data_block_Mem),
@@ -595,6 +624,9 @@ ASSERT(SIZEOF(.overlay_mldsa) == 0 ||
 ASSERT(SIZEOF(.overlay_mlkem) == 0 ||
        __overlay_store_text_window_end >= LOADADDR(.overlay_mlkem) + SIZEOF(.overlay_mlkem),
        "overlay text store truncated by .overlay_mlkem; RSA-ECC text must remain last")
+ASSERT(SIZEOF(.overlay_slhdsa) == 0 ||
+       __overlay_store_text_window_end >= LOADADDR(.overlay_slhdsa) + SIZEOF(.overlay_slhdsa),
+       "overlay text store truncated by .overlay_slhdsa; RSA-ECC text must remain last")
 ASSERT(SIZEOF(.overlay_lms_data) == 0 ||
        __overlay_store_data_window_end >= LOADADDR(.overlay_lms_data) + SIZEOF(.overlay_lms_data),
        "overlay data store truncated by .overlay_lms_data; RSA-ECC data must remain last")
@@ -604,6 +636,9 @@ ASSERT(SIZEOF(.overlay_mldsa_data) == 0 ||
 ASSERT(SIZEOF(.overlay_mlkem_data) == 0 ||
        __overlay_store_data_window_end >= LOADADDR(.overlay_mlkem_data) + SIZEOF(.overlay_mlkem_data),
        "overlay data store truncated by .overlay_mlkem_data; RSA-ECC data must remain last")
+ASSERT(SIZEOF(.overlay_slhdsa_data) == 0 ||
+       __overlay_store_data_window_end >= LOADADDR(.overlay_slhdsa_data) + SIZEOF(.overlay_slhdsa_data),
+       "overlay data store truncated by .overlay_slhdsa_data; RSA-ECC data must remain last")
 
 ASSERT(__overlay_store_data_window_end - ORIGIN(ddr_overlay_store_Mem) <= _OVERLAY_STORE_SIZE,
        "overlay images do not fit in the DDR overlay store (_OVERLAY_STORE_SIZE)")

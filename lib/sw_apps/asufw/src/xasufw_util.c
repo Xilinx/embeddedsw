@@ -33,6 +33,8 @@
  *       rmv  09/10/25 Simplified XAsufw_SMemSet() error handling by combining status checks
  *       kp   08/19/26 Moved PLM XilNVM IPI command macros to xasufw_util.h
  *       rmv  08/20/26 Added XAsufw_IntToAscii() function.
+ *       kk   08/30/26 Added XAsufw_BeBytesToU64(), XAsufw_U64ToBeBytes(), XAsufw_CeilDivU32()
+ *                     and XAsufw_ModPow2U64() functions.
  *
  * </pre>
  *
@@ -110,6 +112,29 @@ void XAsufw_CryptoCoreReleaseReset(u32 BaseAddress, u32 Offset)
 void XAsufw_CryptoCoreSetReset(u32 BaseAddress, u32 Offset)
 {
 	XAsufw_WriteReg((BaseAddress + Offset), XASUFW_RESET_SET);
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	This function encodes an unsigned 64-bit integer as big-endian bytes.
+ *
+ * @param	Val	Value to encode.
+ * @param	Len	Number of output bytes to write.
+ * @param	Out	Pointer to the destination byte buffer.
+ *
+ * @note	Writes the least significant Len bytes of Val in big-endian order. The caller must
+ *		pass a non-NULL Out which holds at least Len bytes.
+ *
+ *************************************************************************************************/
+void XAsufw_U64ToBeBytes(u64 Val, u32 Len, u8 *Out)
+{
+	u64 Remaining = Val;
+	u32 Pos;
+
+	for (Pos = 0; Pos < Len; Pos++) {
+		Out[Len - 1U - Pos] = (u8)(Remaining & XASUFW_LSB_MASK_VALUE);
+		Remaining >>= XASUFW_ONE_BYTE_SHIFT_VALUE;
+	}
 }
 
 /*************************************************************************************************/
@@ -393,6 +418,78 @@ u32 XAsufw_SwapBytes(const u8 *const Source, u32 Bytes)
 	 */
 	for (i = 0; i < Bytes; i++) {
 		Result = ((XASUFW_BYTE_MULTIPLIER * Result) + (Buf[i] & XASUFW_BYTE_MASK));
+	}
+
+	return Result;
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	This function computes the ceiling of an unsigned 32-bit division.
+ *
+ * @param	Num	Numerator.
+ * @param	Den	Denominator.
+ *
+ * @return
+ *		u32 - Smallest integer greater than or equal to Num / Den.
+ *
+ * @note	The caller must pass a non-zero Den.
+ *
+ *************************************************************************************************/
+u32 XAsufw_CeilDivU32(u32 Num, u32 Den)
+{
+	return (Num / Den) + (((Num % Den) != 0U) ? 1U : 0U);
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	This function converts big-endian bytes to an unsigned 64-bit integer.
+ *
+ * @param	Src	Pointer to the source byte buffer.
+ * @param	Len	Number of bytes to consume (up to 8).
+ *
+ * @return
+ *		u64 - Integer assembled from Src[0..Len-1] in big-endian order.
+ *
+ * @note	The caller must pass a non-NULL Src which holds at least Len bytes.
+ *
+ *************************************************************************************************/
+u64 XAsufw_BeBytesToU64(const u8 *Src, u32 Len)
+{
+	u64 Acc = 0;
+	u32 Idx;
+
+	for (Idx = 0; Idx < Len; Idx++) {
+		Acc = (Acc << XASUFW_ONE_BYTE_SHIFT_VALUE) | (u64)Src[Idx];
+	}
+
+	return Acc;
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	This function reduces a 64-bit value modulo 2^k.
+ *
+ * @param	X	Value to reduce.
+ * @param	K	Exponent k for modulus 2^k.
+ *
+ * @return
+ *		u64 - X mod 2^k, 0 when K is 0 and X when K is greater than or equal to
+ *		XASUFW_BITS_IN_U64.
+ *
+ *************************************************************************************************/
+u64 XAsufw_ModPow2U64(u64 X, u64 K)
+{
+	u64 Result;
+
+	if (K == 0ULL) {
+		Result = 0ULL;
+	}
+	else if (K >= (u64)XASUFW_BITS_IN_U64) {
+		Result = X;
+	}
+	else {
+		Result = X & ((1ULL << K) - 1ULL);
 	}
 
 	return Result;

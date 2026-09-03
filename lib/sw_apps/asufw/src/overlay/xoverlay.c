@@ -16,6 +16,7 @@
 * Ver   Who  Date       Changes
 * ----- ---- -------- ----------------------------------------------------------------------------
 * 1.0   rmv  06/11/26 Initial release
+*       kk   08/25/26 Added SLH-DSA overlay catalog entry
 *
 * </pre>
 *
@@ -50,6 +51,13 @@ extern char __load_start_overlay_lms_data[];	/**< LMA of the LMS overlay data im
 extern char __overlay_lms_img_size[];		/**< Size of the LMS overlay image */
 extern char __overlay_lms_txt_size[];		/**< Size of the LMS overlay text image */
 extern char __overlay_lms_data_size[];		/**< Size of the LMS overlay data image */
+#endif
+#ifdef XASU_SLHDSA_ENABLE
+extern char __load_start_overlay_slhdsa[];	/**< LMA of the SLH-DSA overlay image */
+extern char __load_start_overlay_slhdsa_data[];	/**< LMA of the SLH-DSA overlay data image */
+extern char __overlay_slhdsa_img_size[];	/**< Size of the SLH-DSA overlay image */
+extern char __overlay_slhdsa_txt_size[];	/**< Size of the SLH-DSA overlay text image */
+extern char __overlay_slhdsa_data_size[];	/**< Size of the SLH-DSA overlay data image */
 #endif
 
 /*
@@ -127,6 +135,17 @@ static const XOverlay_CatalogEntry Catalog[] = {
 		.ImgSize = (u32)(UINTPTR)__overlay_mlkem_img_size,
 		.TxtSize = (u32)(UINTPTR)__overlay_mlkem_txt_size,
 		.DataSize = (u32)(UINTPTR)__overlay_mlkem_data_size,
+		.OnLoad = NULL,
+	},
+#endif
+#ifdef XASU_SLHDSA_ENABLE
+	{
+		.AlgoId = XOVERLAY_ALGO_SLHDSA,
+		.ImgLma = (const void *)(UINTPTR)__load_start_overlay_slhdsa,
+		.DataLma = (const void *)(UINTPTR)__load_start_overlay_slhdsa_data,
+		.ImgSize = (u32)(UINTPTR)__overlay_slhdsa_img_size,
+		.TxtSize = (u32)(UINTPTR)__overlay_slhdsa_txt_size,
+		.DataSize = (u32)(UINTPTR)__overlay_slhdsa_data_size,
 		.OnLoad = NULL,
 	},
 #endif

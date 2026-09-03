@@ -41,6 +41,7 @@
  *       rmv  08/11/25 Initialize OCP module
  *       vm   07/14/26 Initialize keep-alive counter support.
  *       vm   07/30/26 Trigger preserved PLM events after update
+ *       kk   07/10/26 Initialize SLH-DSA module
  *
  * </pre>
  *
@@ -84,6 +85,7 @@
 #include "xasufw_mldsahandler.h"
 #include "xasufw_mlkemhandler.h"
 #include "xasufw_plexthandler.h"
+#include "xasufw_slhdsahandler.h"
 #include "xocp.h"
 #include "xil_error_node.h"
 #include "xoverlay.h"
@@ -441,6 +443,14 @@ static s32 XAsufw_ModulesInit(void)
 #ifdef XASU_MLKEM_ENABLE
 	/** ML-KEM (FIPS 203) module initialization. */
 	Status = XAsufw_MlkemInit();
+	if (Status != XASUFW_SUCCESS) {
+		goto END;
+	}
+#endif
+
+#ifdef XASU_SLHDSA_ENABLE
+	/** SLH-DSA module initialization. */
+	Status = XAsufw_SlhdsaInit();
 	if (Status != XASUFW_SUCCESS) {
 		goto END;
 	}

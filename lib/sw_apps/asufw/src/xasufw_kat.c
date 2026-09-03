@@ -37,6 +37,7 @@
  *       am   03/14/25 Fix code spell warning
  *       LP   04/07/25 Added HKDF KAT
  *       yog  01/28/26 Updated RSA padding KAT calls with KeyParamAddr parameter.
+ *       kk   07/10/26 Added SLH-DSA keyGen KAT
  *
  * </pre>
  *
@@ -51,28 +52,23 @@
 #include "xasufw_status.h"
 #include "xasufw_cmd.h"
 #include "xasu_eccinfo.h"
-#include "xasu_rsainfo.h"
 #include "xasufw_util.h"
-#include "xasu_hmacinfo.h"
 #include "xkdf.h"
 #include "xhkdf.h"
 #include "xecies.h"
-#include "xecc.h"
-#include "xrsa_ecc.h"
 #include "xrsa_padding.h"
-#include "xaes_hw.h"
 #include "xkeywrap.h"
 #include "xtrng.h"
 #include "xtrng_hw.h"
 #include "xasufw_hw.h"
 #include "xlms_core.h"
-#include "xasu_lmsinfo.h"
-#include "xasu_shainfo.h"
 #include "xoverlay.h"
 #include "xasufw_memory.h"
 #include "xmldsa.h"
 #include "xmlkem.h"
 #include "xasu_mldsainfo.h"
+#include "xslhdsa.h"
+#include "xasu_slhdsainfo.h"
 
 /************************************ Constant Definitions ***************************************/
 
@@ -160,6 +156,8 @@ static s32 XAsufw_PqcSha256Digest(XAsufw_Dma *AsuDmaPtr, const u8 *Segment1Ptr, 
 					/**< Place a vector in the ML-KEM overlay data image */
 #define XASUFW_KAT_LMS_DATA	__attribute__((section(".overlay_lms_data")))
 					/**< Place a vector in the LMS overlay data image */
+#define XASUFW_KAT_SLHDSA_DATA	__attribute__((section(".overlay_slhdsa_data")))
+					/**< Place a vector in the SLH-DSA overlay data image */
 #define XASUFW_KAT_RSAECC_DATA	__attribute__((section(".overlay_rsa_ecc_data")))
 					/**< Place a vector in the RSA-ECC overlay data image */
 
@@ -1307,6 +1305,55 @@ _Static_assert(((XASUFW_MLKEM_KAT_BUF_ADDR - XASUFW_CRYPTO_ALGO_DATA_BLOCK) +
 	       XASUFW_MLKEM_KAT_BUF_LEN) <= XASUFW_CRYPTO_SHARED_POOL_SIZE,
 	       "ML-KEM known-answer test buffer overruns the shared crypto pool in lscript.ld");
 #endif /* XASU_MLKEM_ENABLE */
+#ifdef XASU_SLHDSA_ENABLE
+/**
+ * ACVP SLH-DSA-SHAKE-256s keyGen KAT vectors (tgId=10 tcId=91).
+ *
+ * SkSeed, SkPrf, and PkSeed are the deterministic ACVP inputs; expected Sk/Pk/Sig
+ * arrays are compared after firmware keyGen/sign operations.
+ */
+static const XASUFW_KAT_SLHDSA_DATA u8 SlhdsaAcvpKeyGenSkSeed[XASU_SLHDSA_256S_N] = {
+	0xE4U, 0x40U, 0xE3U, 0x96U, 0x44U, 0xA1U, 0x1AU, 0x6AU, 0x58U, 0xE8U, 0x50U, 0xC0U,
+	0x9CU, 0x8FU, 0x03U, 0xC2U, 0x73U, 0xE4U, 0x65U, 0x23U, 0x7FU, 0x3BU, 0xEFU, 0x7CU,
+	0x58U, 0xDEU, 0x62U, 0x28U, 0x1EU, 0x67U, 0x6CU, 0xEAU
+};
+
+static const XASUFW_KAT_SLHDSA_DATA u8 SlhdsaAcvpKeyGenSkPrf[XASU_SLHDSA_256S_N] = {
+	0x99U, 0xC1U, 0x99U, 0xC0U, 0x0DU, 0xB3U, 0x0FU, 0x84U, 0x99U, 0xA6U, 0x1BU, 0x5BU,
+	0x9DU, 0xC8U, 0xA3U, 0x61U, 0x72U, 0x5FU, 0x6AU, 0xE8U, 0x0EU, 0x97U, 0x03U, 0x71U,
+	0x76U, 0xF4U, 0x08U, 0xC3U, 0x0BU, 0x38U, 0x84U, 0x4DU
+};
+
+static const XASUFW_KAT_SLHDSA_DATA u8 SlhdsaAcvpKeyGenPkSeed[XASU_SLHDSA_256S_N] = {
+	0xD7U, 0xB5U, 0xE7U, 0x55U, 0xB4U, 0x87U, 0x9FU, 0xDEU, 0x32U, 0x88U, 0xA2U, 0x1AU,
+	0xF3U, 0xE3U, 0x2FU, 0xBBU, 0x00U, 0x6FU, 0xD9U, 0xB8U, 0xBCU, 0x2BU, 0x18U, 0x0EU,
+	0xB9U, 0xB0U, 0xD8U, 0x2CU, 0x9FU, 0x31U, 0x57U, 0xAFU
+};
+
+static const XASUFW_KAT_SLHDSA_DATA u8 SlhdsaAcvpKeyGenExpectedSk[XASU_SLHDSA_256S_SK_SIZE] = {
+	0xE4U, 0x40U, 0xE3U, 0x96U, 0x44U, 0xA1U, 0x1AU, 0x6AU, 0x58U, 0xE8U, 0x50U, 0xC0U,
+	0x9CU, 0x8FU, 0x03U, 0xC2U, 0x73U, 0xE4U, 0x65U, 0x23U, 0x7FU, 0x3BU, 0xEFU, 0x7CU,
+	0x58U, 0xDEU, 0x62U, 0x28U, 0x1EU, 0x67U, 0x6CU, 0xEAU, 0x99U, 0xC1U, 0x99U, 0xC0U,
+	0x0DU, 0xB3U, 0x0FU, 0x84U, 0x99U, 0xA6U, 0x1BU, 0x5BU, 0x9DU, 0xC8U, 0xA3U, 0x61U,
+	0x72U, 0x5FU, 0x6AU, 0xE8U, 0x0EU, 0x97U, 0x03U, 0x71U, 0x76U, 0xF4U, 0x08U, 0xC3U,
+	0x0BU, 0x38U, 0x84U, 0x4DU, 0xD7U, 0xB5U, 0xE7U, 0x55U, 0xB4U, 0x87U, 0x9FU, 0xDEU,
+	0x32U, 0x88U, 0xA2U, 0x1AU, 0xF3U, 0xE3U, 0x2FU, 0xBBU, 0x00U, 0x6FU, 0xD9U, 0xB8U,
+	0xBCU, 0x2BU, 0x18U, 0x0EU, 0xB9U, 0xB0U, 0xD8U, 0x2CU, 0x9FU, 0x31U, 0x57U, 0xAFU,
+	0x02U, 0xACU, 0xD6U, 0xB3U, 0x19U, 0x8EU, 0xE1U, 0xC9U, 0xFEU, 0x9AU, 0xFEU, 0x61U,
+	0xFDU, 0x86U, 0xD1U, 0xE0U, 0x87U, 0x7AU, 0xD9U, 0x06U, 0x19U, 0x80U, 0xB5U, 0x7BU,
+	0x17U, 0x8CU, 0xE2U, 0x71U, 0x91U, 0xD8U, 0xEBU, 0x1BU
+};
+
+static const XASUFW_KAT_SLHDSA_DATA u8 SlhdsaAcvpKeyGenExpectedPk[XASU_SLHDSA_256S_PK_SIZE] = {
+	0xD7U, 0xB5U, 0xE7U, 0x55U, 0xB4U, 0x87U, 0x9FU, 0xDEU, 0x32U, 0x88U, 0xA2U, 0x1AU,
+	0xF3U, 0xE3U, 0x2FU, 0xBBU, 0x00U, 0x6FU, 0xD9U, 0xB8U, 0xBCU, 0x2BU, 0x18U, 0x0EU,
+	0xB9U, 0xB0U, 0xD8U, 0x2CU, 0x9FU, 0x31U, 0x57U, 0xAFU, 0x02U, 0xACU, 0xD6U, 0xB3U,
+	0x19U, 0x8EU, 0xE1U, 0xC9U, 0xFEU, 0x9AU, 0xFEU, 0x61U, 0xFDU, 0x86U, 0xD1U, 0xE0U,
+	0x87U, 0x7AU, 0xD9U, 0x06U, 0x19U, 0x80U, 0xB5U, 0x7BU, 0x17U, 0x8CU, 0xE2U, 0x71U,
+	0x91U, 0xD8U, 0xEBU, 0x1BU
+};
+#endif /* XASU_SLHDSA_ENABLE */
+
 
 /*************************************************************************************************/
 /**
@@ -1427,6 +1474,23 @@ void XAsufw_RunCryptoKats(void)
 		}
 	}
 #endif /* XASU_MLKEM_ENABLE */
+
+#ifdef XASU_SLHDSA_ENABLE
+	/** Activate SLH-DSA overlay before running SLH-DSA KAT. */
+	Status = XOverlay_Activate(XOVERLAY_ALGO_SLHDSA, AsuDmaPtr);
+	if (Status != XASUFW_SUCCESS) {
+		XASUFW_MARK_KAT_FAILED(XASU_MODULE_SLHDSA_ID);
+		XAsufw_DisableResource(XASUFW_SLHDSA);
+	} else {
+		/** Run SLH-DSA keyGen KAT with ACVP SHAKE-256s vectors. */
+		Status = XAsufw_SlhdsaOperationKat(AsuDmaPtr);
+		if (Status == XASUFW_SUCCESS) {
+			/** On SLH-DSA KAT success, mark SLH-DSA module KAT as passed
+			 *  in RTCA area. */
+			XASUFW_SET_KAT_PASSED(XASU_MODULE_SLHDSA_ID);
+		}
+	}
+#endif /* XASU_SLHDSA_ENABLE */
 
 	XAsufw_RMW(XASU_RTCA_EXEC_STATUS_ADDR, XASU_RTCA_KAT_EXEC_STATUS_MASK,
 			XASU_RTCA_KAT_EXEC_STATUS_VALUE);
@@ -2704,6 +2768,94 @@ END:
 	return Status;
 }
 #endif /* XASU_LMS_ENABLE */
+
+#ifdef XASU_SLHDSA_ENABLE
+/*************************************************************************************************/
+/**
+ * @brief	This function runs SLH-DSA key-generation KAT on ASU.
+ *
+ * @param	AsuDmaPtr	Pointer to the AsuDma instance.
+ *
+ * @return
+ *	- XASUFW_SUCCESS, if SLH-DSA KAT is successful.
+ *	- XASUFW_SLHDSA_KAT_FAILED, if SLH-DSA KAT fails.
+ *	- Error code received from called functions in case of other failure from the called
+ *	  function.
+ *
+ * @note
+ *	Uses ACVP SLH-DSA-SHAKE-256s keyGen vectors (tgId=10 tcId=91) and binds the SHA3
+ *	engine for SHAKE parameter sets during the test.
+ *
+ *************************************************************************************************/
+s32 XAsufw_SlhdsaOperationKat(XAsufw_Dma *AsuDmaPtr)
+{
+	s32 Status = XASUFW_FAILURE;
+	XSlhDsa_Instance *InstPtr = XSlhDsa_GetInstance();
+	XSha *ShaInstPtr = XSha_GetInstance(XASU_XSHA_1_DEVICE_ID);
+	u8 Sk[XASU_SLHDSA_MAX_SK_SIZE];
+	u8 Pk[XASU_SLHDSA_MAX_PK_SIZE];
+
+	/** Bind the instance to the SHAKE-256s parameter set used by the ACVP vectors. */
+	Status = XSlhDsa_BindParam(InstPtr, XSLHDSA_PARAM_SET_SHAKE_256S);
+	if (Status != XASUFW_SUCCESS) {
+		goto END;
+	}
+
+	/**
+	 * Attach the SHA3 engine and DMA instances to the SLH-DSA instance. SHAKE parameter
+	 * sets derive every hash from SHAKE256, so the SHA3 engine must be bound before the
+	 * key generation is started.
+	 */
+	InstPtr->ShaInst = ShaInstPtr;
+	InstPtr->DmaInst = AsuDmaPtr;
+
+	/** Generate the key pair from the deterministic ACVP SK.seed, SK.prf and PK.seed. */
+	Status = XSlhDsa_KeyGenInternal(InstPtr, SlhdsaAcvpKeyGenSkSeed,
+					      SlhdsaAcvpKeyGenSkPrf,
+					      SlhdsaAcvpKeyGenPkSeed, Sk, Pk);
+	if (Status != XASUFW_SUCCESS) {
+		goto END;
+	}
+
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	/** Compare the generated secret key with expected secret key. */
+	Status = Xil_SMemCmp(Sk, XASU_SLHDSA_256S_SK_SIZE,
+			     SlhdsaAcvpKeyGenExpectedSk,
+			     XASU_SLHDSA_256S_SK_SIZE,
+			     XASU_SLHDSA_256S_SK_SIZE);
+	if (Status != XASUFW_SUCCESS) {
+		goto END;
+	}
+
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	/** Compare the generated public key with expected public key. */
+	Status = Xil_SMemCmp(Pk, XASU_SLHDSA_256S_PK_SIZE,
+			     SlhdsaAcvpKeyGenExpectedPk,
+			     XASU_SLHDSA_256S_PK_SIZE,
+			     XASU_SLHDSA_256S_PK_SIZE);
+
+END:
+	/**
+	 * Clear the seeds and intermediate state retained in the SLH-DSA instance and zeroize
+	 * the local key buffers, so that no key material outlives the test on any exit path.
+	 */
+	Status = XAsufw_UpdateBufStatus(Status, XSlhDsa_ClearSensitiveState(InstPtr));
+	Status = XAsufw_UpdateBufStatus(Status, Xil_SecureZeroize(Sk, XASU_SLHDSA_256S_SK_SIZE));
+	Status = XAsufw_UpdateBufStatus(Status, Xil_SecureZeroize(Pk, XASU_SLHDSA_256S_PK_SIZE));
+
+	if (Status != XASUFW_SUCCESS) {
+		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_SLHDSA_KAT_FAILED);
+		/**
+		 * On SLH-DSA KAT failure, mark SLH-DSA module KAT as failed in RTCA area and
+		 * disable the SLH-DSA resource.
+		 */
+		XASUFW_MARK_KAT_FAILED(XASU_MODULE_SLHDSA_ID);
+		XAsufw_DisableResource(XASUFW_SLHDSA);
+	}
+
+	return Status;
+}
+#endif /* XASU_SLHDSA_ENABLE */
 
 /*************************************************************************************************/
 /**

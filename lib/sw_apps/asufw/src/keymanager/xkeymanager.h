@@ -48,6 +48,7 @@ extern "C" {
 #include "xasu_lmsinfo.h"
 #include "xasu_mldsainfo.h"
 #include "xasu_mlkeminfo.h"
+#include "xasu_slhdsainfo.h"
 #include "xsha.h"
 
 #ifdef XASU_KEYMANAGER_ENABLE
@@ -240,6 +241,10 @@ s32 XKeyManager_GenerateMldsaKeyPair(XAsufw_Dma *DmaPtr, XSha *Sha3Ptr,
 s32 XKeyManager_GenerateMlkemKeyPair(XAsufw_Dma *DmaPtr,
 			const XAsu_KeyManagerPqcKeyGenParams *PqcParamsPtr, u32 *KeyIdPtr,
 			u32 SubSystemId);
+#endif
+#ifdef XASU_SLHDSA_ENABLE
+s32 XKeyManager_GenerateSlhdsaKeyPair(XAsufw_Dma *DmaPtr, XSha *ShaPtr,
+			const XAsu_SlhdsaKeyGenParams *KeyGenParamsPtr);
 #endif
 s32 XKeyManager_DeleteKey(u32 KeyId, u32 SubSystemId);
 u16 XKeyManager_GetAsuRsaActiveKeyCount(XAsu_KeyManagerSubVaultType KeyType);

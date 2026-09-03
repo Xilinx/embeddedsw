@@ -32,6 +32,7 @@
  *       am   06/16/25 Fixed consecutive PMC to ASU key transfers failing
  *       rmv  09/09/25 Removed XASUFW_KILO macro as it not needed and fix doxygen comments
  *       kp   03/16/26 Added ASU RAM ECC initialization and interrupt handling
+ *       kk   07/10/26 Added SLH-DSA crypto module info
  *
  * </pre>
  *
@@ -58,12 +59,10 @@
 #include "xasu_sharedmem.h"
 #include "xasufw_alginfo.h"
 #include "xasufw_kat.h"
-#include "xasufw_hw.h"
 #include "xil_error_node.h"
 
 /************************************ Constant Definitions ***************************************/
 #define MB_IOMODULE_GPO1_PIT1_PRESCALE_SRC_MASK	(0x2U) /**< IO Module PIT1 prescaler source mask */
-#define XASUFW_ASU_IRO_FREQ_IN_HZ	(500000000U) /**< ASU IRO frequency 500Mhz */
 #define XASUFW_IOMODULE_IPI_INTRNUM	(28U) /**< IPI interrupt number in IO Module */
 #define XASUFW_IOMODULE_DATA_ECC_INTRNUM  (16U) /**< Data RAM ECC interrupt number in
 						      IO Module (riscv_interrupt[0]) */
@@ -79,7 +78,6 @@
 #define XASUFW_PIT2			(1U) /**< ASUFW PIT2 */
 #define XASUFW_PIT3			(2U) /**< ASUFW PIT3 */
 #define XASUFW_PIT_FREQ_DIVISOR		(100U) /**< ASUFW PIT frequency divisor */
-#define XASUFW_MEGA			(1000000U) /**< Value for mega */
 #define XASUFW_WORD_SIZE_IN_BITS	(32U) /**< Word size in bits */
 
 /**
@@ -134,6 +132,7 @@ static void XAsufw_InitPitTimer(u8 Timer, u32 ResetValue);
 static void XAsufw_Pit3TimerHandler(const void *Data);
 static s32 XAsufw_RegisterNotifier(u32 EventErrMask, u32 Enable);
 static void XAsufw_RamEccCtrl(u32 BaseAddr);
+static u64 XAsufw_GetPitElapsedTicks(u64 TimerValStart, u64 TimerValEnd);
 #ifdef XASUFW_RAM_ECC_ENABLE
 static void XAsufw_RamEccIntrHandler(void *CallbackRef);
 #endif
@@ -545,6 +544,48 @@ u64 XAsufw_GetTimerValue(void)
 
 /*************************************************************************************************/
 /**
+ * @brief	This function returns the elapsed PIT tick count between two samples.
+ *
+ * @param	TimerValStart	Earlier timer sample (larger value while counting down).
+ * @param	TimerValEnd	Later timer sample (smaller value while counting down).
+ *
+ * @return	Elapsed ticks, or 0 if TimerValStart is less than TimerValEnd.
+ *
+ * @note	The PIT timer starts at a high value and counts down.
+ *
+ *************************************************************************************************/
+static u64 XAsufw_GetPitElapsedTicks(u64 TimerValStart, u64 TimerValEnd)
+{
+	u64 TDiff = 0U;
+
+	if (TimerValStart >= TimerValEnd) {
+		TDiff = TimerValStart - TimerValEnd;
+	}
+
+	return TDiff;
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	This function converts two PIT samples into elapsed whole microseconds.
+ *
+ * @param	TimerValStart	Earlier timer sample (larger value while counting down).
+ * @param	TimerValEnd	Later timer sample (smaller value while counting down).
+ *
+ * @return	Elapsed time in whole microseconds.
+ *
+ * @note	The PIT timer starts at a high value and counts down.
+ *
+ *************************************************************************************************/
+u64 XAsufw_GetElapsedTimeUs(u64 TimerValStart, u64 TimerValEnd)
+{
+	u32 AsuIroFreqMHz = XASUFW_ASU_IRO_FREQ_IN_HZ / XASUFW_MEGA;
+
+	return XAsufw_GetPitElapsedTicks(TimerValStart, TimerValEnd) / AsuIroFreqMHz;
+}
+
+/*************************************************************************************************/
+/**
  * @brief	This function measures the total time taken between two points for performance
  * 		measurement.
  *
@@ -565,7 +606,7 @@ void XAsufw_MeasurePerfTime(u64 TimerValStart, XAsufw_PerfTime *PerfTime)
 	TimerValEnd = XAsufw_GetTimerValue();
 
 	/** Capture elapsed time. */
-	TDiff = TimerValStart - TimerValEnd;
+	TDiff = XAsufw_GetPitElapsedTicks(TimerValStart, TimerValEnd);
 
 	/** Calculate whole microseconds. */
 	PerfTime->TPerfUs = TDiff / AsuIroFreqMHz;
@@ -646,6 +687,9 @@ void XAsufw_UpdateModulesInfo(void)
 #endif
 #ifdef XASU_PLEXT_ENABLE
 	XASUFW_INIT_CRYPTO_MODULE_INFO(PLEXT, XASUFW_NIST_NON_COMPLIANT, 0U);
+#endif
+#ifdef XASU_SLHDSA_ENABLE
+	XASUFW_INIT_CRYPTO_MODULE_INFO(SLHDSA, XASUFW_NIST_COMPLIANT, 0U);
 #endif
 }
 

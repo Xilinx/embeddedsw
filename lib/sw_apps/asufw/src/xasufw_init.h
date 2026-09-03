@@ -22,6 +22,7 @@
  * 1.1   am   01/22/25 Added key transfer support
  *       am   02/24/25 Renamed XAsufw_GetKeys() to XAsufw_PmcKeyTransfer()
  * 1.2   am   05/20/25 Changed time units from ms to us in XAsufw_PerfTime
+ *       kk   07/10/26 Added IRO frequency macros and elapsed-time API
  *
  * </pre>
  *
@@ -41,6 +42,10 @@ extern "C" {
 #include "xil_types.h"
 
 /************************************ Constant Definitions ***************************************/
+/** ASU IRO frequency in Hz (500 MHz). Shared by PIT setup, perf timing, and SLH-DSA keep-alive. */
+#define XASUFW_ASU_IRO_FREQ_IN_HZ	(500000000U)
+/** Hertz per megahertz; used to convert IRO frequency for microsecond timing. */
+#define XASUFW_MEGA			(1000000U)
 
 /** @cond xasufw_init_internal */
 /************************************** Type Definitions *****************************************/
@@ -64,6 +69,7 @@ s32 XAsufw_StartTimer(void);
 void XAsufw_StopIoModule(void);
 s32 XAsufw_SetUpInterruptSystem(void);
 u64 XAsufw_GetTimerValue(void);
+u64 XAsufw_GetElapsedTimeUs(u64 TimerValStart, u64 TimerValEnd);
 void XAsufw_MeasurePerfTime(u64 TCur, XAsufw_PerfTime *PerfTime);
 void XAsufw_PrintAsuTimeStamp(void);
 void XAsufw_RtcaInit(void);

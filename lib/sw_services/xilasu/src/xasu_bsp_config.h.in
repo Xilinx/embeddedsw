@@ -29,6 +29,7 @@
 #cmakedefine    XASU_ECC_SUPPORT_EDWARD_P448
 #cmakedefine    XASU_TRIGGER_SLD_ON_KAT_FAILURE
 #cmakedefine    XASU_LMS_ENABLE
+#cmakedefine    XASU_SLHDSA_ENABLE
 #cmakedefine    XASU_KEYMANAGER_ENABLE
 #cmakedefine    XASU_PROVISION_ENABLE
 #cmakedefine    XASU_MLDSA_ENABLE

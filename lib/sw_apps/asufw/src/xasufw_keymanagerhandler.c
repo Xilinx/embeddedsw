@@ -46,6 +46,8 @@
 #include "xasu_sharedmem.h"
 #include "xocp.h"
 #include "xsha_hw.h"
+#include "xasufw_slhdsahandler.h"
+#include "xasu_slhdsa_common.h"
 
 #ifdef XASU_KEYMANAGER_ENABLE
 /************************************ Constant Definitions ***************************************/
@@ -79,6 +81,9 @@ static s32 XAsufw_KeyManagerMldsaKeyPairGen(const XAsu_ReqBuf *ReqBuf, u32 ReqId
 #endif
 #ifdef XASU_MLKEM_ENABLE
 static s32 XAsufw_KeyManagerMlkemKeyPairGen(const XAsu_ReqBuf *ReqBuf, u32 ReqId);
+#endif
+#ifdef XASU_SLHDSA_ENABLE
+static s32 XAsufw_KeyManagerSlhdsaKeyPairGen(const XAsu_ReqBuf *ReqBuf, u32 ReqId);
 #endif
 static s32 XAsufw_CreateAsuKeyVault(void);
 static s32 XAsufw_KeyManagerStoreKey(const XAsu_ReqBuf *ReqBuf, u32 ReqId);
@@ -131,6 +136,12 @@ s32 XAsufw_KeyManagerInit(void)
 		[XASU_KM_GEN_MLKEM_KEY_PAIR_CMD_ID] = XASUFW_MODULE_COMMAND(NULL),
 #endif
 		[XASU_KM_XOR_KEY_CMD_ID] = XASUFW_MODULE_COMMAND(XAsufw_KeyManagerXorKeys),
+#ifdef XASU_SLHDSA_ENABLE
+		[XASU_KM_GEN_SLHDSA_KEY_PAIR_CMD_ID] =
+			XASUFW_MODULE_COMMAND(XAsufw_KeyManagerSlhdsaKeyPairGen),
+#else
+		[XASU_KM_GEN_SLHDSA_KEY_PAIR_CMD_ID] = XASUFW_MODULE_COMMAND(NULL),
+#endif
 	};
 
 	/** The XAsufw_KeyManagerResourcesBuf contains the required resources for each supported command. */
@@ -181,6 +192,19 @@ s32 XAsufw_KeyManagerInit(void)
 #endif
 		[XASU_KM_XOR_KEY_CMD_ID] = XASUFW_KEYMANAGER_RESOURCE_MASK |
 		XASUFW_DMA_RESOURCE_MASK,
+#ifdef XASU_SLHDSA_ENABLE
+		/*
+		 * Key generation draws the three FIPS 205 seeds from the TRNG and runs on SHA2 or
+		 * SHA3 depending on the requested parameter set, so the engine is reserved through
+		 * a mask that is resolved from the request rather than named here.
+		 */
+		[XASU_KM_GEN_SLHDSA_KEY_PAIR_CMD_ID] = XASUFW_KEYMANAGER_RESOURCE_MASK |
+		XASUFW_DMA_RESOURCE_MASK | XASUFW_SLHDSA_RESOURCE_MASK | XASUFW_TRNG_RESOURCE_MASK |
+		XASUFW_TRNG_RANDOM_BYTES_MASK | XASUFW_SLHDSA_SHA_RESOURCE_MASK |
+		XASUFW_OVERLAY_RESOURCE_MASK,
+#else
+		[XASU_KM_GEN_SLHDSA_KEY_PAIR_CMD_ID] = 0U,
+#endif
 	};
 
 	/** The XAsufw_KeyManagerAccessPermBuf contains the IPI access permissions for each supported command. */
@@ -212,6 +236,14 @@ s32 XAsufw_KeyManagerInit(void)
 			XASUFW_ALL_IPI_NO_ACCESS(XASU_KM_GEN_MLKEM_KEY_PAIR_CMD_ID),
 #endif
 		[XASU_KM_XOR_KEY_CMD_ID] = XASUFW_ALL_IPI_FULL_ACCESS(XASU_KM_XOR_KEY_CMD_ID),
+#ifdef XASU_SLHDSA_ENABLE
+		/* Secret key material is returned to the caller, so secure IPI access only. */
+		[XASU_KM_GEN_SLHDSA_KEY_PAIR_CMD_ID] =
+			XASUFW_ALL_IPI_SECURE_ACCESS(XASU_KM_GEN_SLHDSA_KEY_PAIR_CMD_ID),
+#else
+		[XASU_KM_GEN_SLHDSA_KEY_PAIR_CMD_ID] =
+			XASUFW_ALL_IPI_NO_ACCESS(XASU_KM_GEN_SLHDSA_KEY_PAIR_CMD_ID),
+#endif
 	};
 
 	XAsufw_KeyManagerModule.Id = XASU_MODULE_KEYMANAGER_ID;
@@ -270,6 +302,9 @@ static s32 XAsufw_KeyManagerResourceHandler(const XAsu_ReqBuf *ReqBuf, u32 ReqId
 {
 	s32 Status = XASUFW_FAILURE;
 	u32 CmdId = ReqBuf->Header & XASU_COMMAND_ID_MASK;
+#ifdef XASU_SLHDSA_ENABLE
+	XAsufw_Resource ShaResource;
+#endif
 
 	if ((CmdId == XASU_KM_STORE_KEY_CMD_ID) || (CmdId == XASU_KM_EXPORT_KEYVAULT_CMD_ID) ||
 	    (CmdId == XASU_KM_IMPORT_KEYVAULT_CMD_ID)) {
@@ -290,7 +325,8 @@ static s32 XAsufw_KeyManagerResourceHandler(const XAsu_ReqBuf *ReqBuf, u32 ReqId
 	    (CmdId == XASU_KM_IMPORT_KEYVAULT_CMD_ID) ||
 	    (CmdId == XASU_KM_GEN_MLDSA_KEY_PAIR_CMD_ID) ||
 	    (CmdId == XASU_KM_GEN_MLKEM_KEY_PAIR_CMD_ID) ||
-		(CmdId == XASU_KM_XOR_KEY_CMD_ID)) {
+	    (CmdId == XASU_KM_XOR_KEY_CMD_ID) ||
+	    (CmdId == XASU_KM_GEN_SLHDSA_KEY_PAIR_CMD_ID)) {
 		/** Allocate DMA resource. */
 		XAsufw_KeyManagerModule.AsuDmaPtr = XAsufw_AllocateDmaResource(XASUFW_KEYMANAGER, ReqId);
 		if (XAsufw_KeyManagerModule.AsuDmaPtr == NULL) {
@@ -306,7 +342,8 @@ static s32 XAsufw_KeyManagerResourceHandler(const XAsu_ReqBuf *ReqBuf, u32 ReqId
 	    (CmdId == XASU_KM_GEN_ECC_KEY_PAIR_CMD_ID) ||
 	    (CmdId == XASU_KM_EXPORT_KEYVAULT_CMD_ID) ||
 	    (CmdId == XASU_KM_GEN_MLDSA_KEY_PAIR_CMD_ID) ||
-	    (CmdId == XASU_KM_GEN_MLKEM_KEY_PAIR_CMD_ID)) {
+	    (CmdId == XASU_KM_GEN_MLKEM_KEY_PAIR_CMD_ID) ||
+	    (CmdId == XASU_KM_GEN_SLHDSA_KEY_PAIR_CMD_ID)) {
 		/** Allocate TRNG resource. */
 		XAsufw_AllocateResource(XASUFW_TRNG, XASUFW_KEYMANAGER, ReqId);
 	}
@@ -363,6 +400,42 @@ static s32 XAsufw_KeyManagerResourceHandler(const XAsu_ReqBuf *ReqBuf, u32 ReqId
 			goto END;
 		}
 	}
+
+#ifdef XASU_SLHDSA_ENABLE
+	if (CmdId == XASU_KM_GEN_SLHDSA_KEY_PAIR_CMD_ID) {
+		/**
+		 * Resolve the hash engine with the same helper the resource availability check
+		 * used, so the engine allocated here is always the one reported as required.
+		 * Resolving before any allocation also means an unresolvable request needs no
+		 * resource unwinding.
+		 */
+		ShaResource = XAsufw_GetSlhdsaShaMaskResourceId(ReqBuf);
+		if (ShaResource == XASUFW_INVALID) {
+			Status = XASUFW_RESOURCE_INVALID;
+			if (XAsufw_ReleaseResource(XASUFW_KEYMANAGER, ReqId) != XASUFW_SUCCESS) {
+				Status = XAsufw_UpdateErrorStatus(Status,
+					XASUFW_RESOURCE_RELEASE_NOT_ALLOWED);
+			}
+			goto END;
+		}
+
+		/** Allocate SLH-DSA, the resolved hash engine and overlay window resources. */
+		XAsufw_AllocateResource(XASUFW_SLHDSA, XASUFW_KEYMANAGER, ReqId);
+		XAsufw_AllocateResource(ShaResource, XASUFW_KEYMANAGER, ReqId);
+		XAsufw_AllocateResource(XASUFW_OVERLAY, XASUFW_KEYMANAGER, ReqId);
+
+		/** Activate SLH-DSA overlay. */
+		Status = XOverlay_Activate(XOVERLAY_ALGO_SLHDSA, XAsufw_KeyManagerModule.AsuDmaPtr);
+		if (Status != XASUFW_SUCCESS) {
+			Status = XAsufw_UpdateErrorStatus(Status, XASUFW_OVERLAY_ACTIVATE_FAIL);
+			if (XAsufw_ReleaseResource(XASUFW_KEYMANAGER, ReqId) != XASUFW_SUCCESS) {
+				Status = XAsufw_UpdateErrorStatus(Status,
+					XASUFW_RESOURCE_RELEASE_NOT_ALLOWED);
+			}
+			goto END;
+		}
+	}
+#endif /* XASU_SLHDSA_ENABLE */
 
 	if ((CmdId == XASU_KM_STORE_KEY_CMD_ID) || (CmdId == XASU_KM_EXPORT_KEYVAULT_CMD_ID) ||
 	    (CmdId == XASU_KM_IMPORT_KEYVAULT_CMD_ID)) {
@@ -863,6 +936,97 @@ END:
 	return Status;
 }
 #endif /* XASU_MLKEM_ENABLE */
+
+#ifdef XASU_SLHDSA_ENABLE
+/*************************************************************************************************/
+/**
+ * @brief	This function is a handler for SLH-DSA key pair generation operation command.
+ *
+ * @param	ReqBuf	Pointer to the request buffer.
+ * @param	ReqId	Request Unique ID.
+ *
+ * @return
+ * 	- XASUFW_SUCCESS, if SLH-DSA key pair generation operation is successful.
+ * 	- XASUFW_INVALID_PARAM, if the request length is invalid.
+ * 	- XASUFW_INVALID_SUBSYSTEM_ID, if invalid subsystem ID is provided.
+ * 	- XASUFW_KEYMANAGER_INVALID_PARAM, if the requested parameter set is unsupported.
+ * 	- XASUFW_MEM_REGN_ACCESS_DENIED, if a client key output buffer lies outside the memory
+ *    regions the requesting subsystem is permitted to access.
+ * 	- XASUFW_RESOURCE_RELEASE_NOT_ALLOWED, if illegal resource release is requested.
+ * 	- XASUFW_KEYMANAGER_KEY_OBJ_GEN_ERROR, if key pair generation fails, combined with the
+ *    underlying callee status via XAsufw_UpdateErrorStatus.
+ *
+ * @note
+ *	Parameter structure: XAsu_SlhdsaKeyGenParams. The generated pair is returned to the
+ *	caller through SkOutAddr and PkOutAddr; the key vault does not yet hold SLH-DSA keys.
+ *	Key generation runs to completion without returning to the task scheduler and takes
+ *	seconds, during which the key manager resource stays owned by this request.
+ *
+ *************************************************************************************************/
+static s32 XAsufw_KeyManagerSlhdsaKeyPairGen(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
+{
+	s32 Status = XASUFW_FAILURE;
+	const XAsu_SlhdsaKeyGenParams *Cmd = (const XAsu_SlhdsaKeyGenParams *)ReqBuf->Arg;
+	XSha *ShaPtr = NULL;
+	u32 SubsystemId = 0U;
+	u32 IpiMask = ReqId >> XASUFW_IPI_BITMASK_SHIFT;
+	u32 PubKeyLen = 0U;
+	u32 PvtKeyLen = 0U;
+
+	/** Verify command length. */
+	XASUFW_VERIFY_CMD_LEN(END, Status, ReqBuf, XAsu_SlhdsaKeyGenParams);
+
+	/** Get subsystem ID from IPI mask. */
+	SubsystemId = XAsu_GetSubsysIdFromIpiMask(IpiMask);
+	if (SubsystemId == XASUFW_INVALID_SUBSYS_ID) {
+		Status = XASUFW_INVALID_SUBSYSTEM_ID;
+		goto END;
+	}
+
+	/**
+	 * Validate the client provided key output buffers. The checks use the same size helpers
+	 * the key generation DMA transfers use, so a client cannot have a shorter region accepted
+	 * than the amount of key material it receives. A zero length also rejects an unsupported
+	 * parameter set before any buffer is examined.
+	 */
+	PubKeyLen = XAsu_SlhdsaGetPkSize(Cmd->ParamSet);
+	PvtKeyLen = XAsu_SlhdsaGetSkSize(Cmd->ParamSet);
+	if ((PubKeyLen == 0U) || (PvtKeyLen == 0U)) {
+		Status = XASUFW_KEYMANAGER_INVALID_PARAM;
+		goto END;
+	}
+
+	XASUFW_VALIDATE_MEM_ACCESS(END, Status, SubsystemId, Cmd->SkOutAddr, PvtKeyLen);
+	XASUFW_VALIDATE_MEM_ACCESS(END, Status, SubsystemId, Cmd->PkOutAddr, PubKeyLen);
+
+	/**
+	 * Select the hash engine of the parameter set: SHAKE sets run on SHA3 and SHA2 sets on
+	 * SHA2. Unsupported sets are already rejected above, so the SHA2 branch can be the
+	 * default.
+	 */
+	if ((Cmd->ParamSet == (u8)XASU_SLHDSA_PARAM_SHAKE_256S) ||
+	    (Cmd->ParamSet == (u8)XASU_SLHDSA_PARAM_SHAKE_128S)) {
+		ShaPtr = XSha_GetInstance(XASU_XSHA_1_DEVICE_ID);
+	} else {
+		ShaPtr = XSha_GetInstance(XASU_XSHA_0_DEVICE_ID);
+	}
+
+	/** Perform SLH-DSA key pair generation operation. */
+	Status = XKeyManager_GenerateSlhdsaKeyPair(XAsufw_KeyManagerModule.AsuDmaPtr, ShaPtr, Cmd);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_KEYMANAGER_KEY_OBJ_GEN_ERROR);
+	}
+
+END:
+	/** Release resources. */
+	if (XAsufw_ReleaseResource(XASUFW_KEYMANAGER, ReqId) != XASUFW_SUCCESS) {
+		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_RESOURCE_RELEASE_NOT_ALLOWED);
+	}
+	XAsufw_KeyManagerModule.AsuDmaPtr = NULL;
+
+	return Status;
+}
+#endif /* XASU_SLHDSA_ENABLE */
 
 /*************************************************************************************************/
 /**

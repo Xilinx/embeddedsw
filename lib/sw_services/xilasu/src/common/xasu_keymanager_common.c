@@ -33,6 +33,7 @@
 #include "xasu_hmacinfo.h"
 #include "xasu_mldsainfo.h"
 #include "xasu_mlkeminfo.h"
+#include "xasu_slhdsainfo.h"
 
 /************************** Constant Definitions *************************************************/
 
@@ -338,6 +339,49 @@ END:
 
 /*************************************************************************************************/
 /**
+ * @brief	This function resolves the SLH-DSA public and private key lengths of a parameter
+ *		set. Both follow the FIPS 205 security parameter n of the set, the public key
+ *		being 2n bytes and the secret key 4n, so no single "key length" describes the pair
+ *		and each length is returned separately. The two sets sharing a security strength
+ *		differ only in their hash family, so they resolve to the same pair of lengths.
+ *
+ * @param	ParamSet	SLH-DSA parameter set (see xasu_slhdsainfo.h).
+ * @param	PubKeyLenPtr	Pointer to the output public key length in bytes.
+ * @param	PrivKeyLenPtr	Pointer to the output private key length in bytes.
+ *
+ * @return
+ *	- XST_SUCCESS, if the parameter set is supported and both lengths are returned.
+ *	- XST_FAILURE, if a pointer is NULL or the parameter set is unsupported.
+ *
+ *************************************************************************************************/
+s32 XAsu_KmGetSlhdsaKeyLengths(u8 ParamSet, u32 *PubKeyLenPtr, u32 *PrivKeyLenPtr)
+{
+	s32 Status = XST_FAILURE;
+
+	if ((PubKeyLenPtr == NULL) || (PrivKeyLenPtr == NULL)) {
+		goto END;
+	}
+
+	if ((ParamSet == (u8)XASU_SLHDSA_PARAM_SHAKE_256S) ||
+	    (ParamSet == (u8)XASU_SLHDSA_PARAM_SHA2_256S)) {
+		*PubKeyLenPtr = XASU_SLHDSA_256S_PK_SIZE;
+		*PrivKeyLenPtr = XASU_SLHDSA_256S_SK_SIZE;
+	} else if ((ParamSet == (u8)XASU_SLHDSA_PARAM_SHAKE_128S) ||
+		   (ParamSet == (u8)XASU_SLHDSA_PARAM_SHA2_128S)) {
+		*PubKeyLenPtr = XASU_SLHDSA_128S_PK_SIZE;
+		*PrivKeyLenPtr = XASU_SLHDSA_128S_SK_SIZE;
+	} else {
+		goto END;
+	}
+
+	Status = XST_SUCCESS;
+
+END:
+	return Status;
+}
+
+/*************************************************************************************************/
+/**
  * @brief	This function validates the ML-DSA key pair generation parameters against the
  *		contract both the client and the server hold the request to, and returns the key
  *		lengths of the requested parameter set as a by-product, since every caller needs
@@ -444,6 +488,51 @@ s32 XAsu_KmValidateMlkemKeyGenParams(const XAsu_KeyManagerPqcKeyGenParams *PqcPa
 	}
 
 	Status = XST_SUCCESS;
+
+END:
+	return Status;
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	This function validates the SLH-DSA key pair generation parameters against the
+ *		contract both the client and the server hold the request to, and returns the key
+ *		lengths of the requested parameter set as a by-product, since every caller needs
+ *		them right after.
+ *
+ * @param	KeyGenParamsPtr	Pointer to XAsu_SlhdsaKeyGenParams structure that holds the key
+ *				generation parameters.
+ * @param	PubKeyLenPtr	Pointer to the output public key length in bytes.
+ * @param	PrivKeyLenPtr	Pointer to the output secret key length in bytes.
+ *
+ * @return
+ *	- XST_SUCCESS, if input validation is successful.
+ *	- XST_FAILURE, if input validation fails.
+ *
+ *************************************************************************************************/
+s32 XAsu_KmValidateSlhdsaKeyGenParams(const XAsu_SlhdsaKeyGenParams *KeyGenParamsPtr,
+				u32 *PubKeyLenPtr, u32 *PrivKeyLenPtr)
+{
+	volatile s32 Status = XST_FAILURE;
+
+	if (KeyGenParamsPtr == NULL) {
+		goto END;
+	}
+
+	/**
+	 * Both output addresses are mandatory. A zero address is treated as invalid rather than
+	 * as a request to skip an output, because key generation always produces both keys.
+	 */
+	if ((KeyGenParamsPtr->SkOutAddr == 0U) || (KeyGenParamsPtr->PkOutAddr == 0U)) {
+		goto END;
+	}
+
+	/**
+	 * Resolve both key lengths from the parameter set, which also confirms the parameter set
+	 * is one of the supported sets.
+	 */
+	Status = XAsu_KmGetSlhdsaKeyLengths(KeyGenParamsPtr->ParamSet, PubKeyLenPtr,
+					PrivKeyLenPtr);
 
 END:
 	return Status;

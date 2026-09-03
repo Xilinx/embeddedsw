@@ -29,6 +29,7 @@
  *       rmv  07/16/25 Added OCP to the resources list
  *	 rmv  09/11/25 Updated XAsufw_ResourceInit() function prototype
  *       vm   07/13/26 Added shared request ID for PLM events and reserved resource check
+ *       kk   07/10/26 Added macro for SLH-DSA resource mask
  *
  * </pre>
  *
@@ -86,6 +87,8 @@ extern "C" {
 #define XASUFW_PROVISION_RESOURCE_MASK	0x80000U /**< Provisioning resource mask */
 #define XASUFW_MLDSA_RESOURCE_MASK	0x100000U /**< ML-DSA resource mask */
 #define XASUFW_MLKEM_RESOURCE_MASK	0x200000U /**< ML-KEM resource mask */
+#define XASUFW_SLHDSA_RESOURCE_MASK	0x400000U /**< SLH-DSA resource mask */
+#define XASUFW_SLHDSA_SHA_RESOURCE_MASK	0x800000U /**< SHA2/SHA3 selected by SLH-DSA ParamSet */
 
 /************************************** Type Definitions *****************************************/
 /**
@@ -114,7 +117,8 @@ typedef enum {
 	XASUFW_PROVISION, /**< 19: Provisioning */
 	XASUFW_MLDSA,	/**< 20: ML-DSA */
 	XASUFW_MLKEM,	/**< 21: ML-KEM */
-	XASUFW_INVALID,	/**< 22: Invalid */
+	XASUFW_SLHDSA,	/**< 22: SLH-DSA */
+	XASUFW_INVALID,	/**< 23: Invalid */
 } XAsufw_Resource;
 
 /*************************** Macros (Inline Functions) Definitions *******************************/
