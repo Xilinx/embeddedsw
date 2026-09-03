@@ -268,9 +268,6 @@ END:
  *
  * @param	InstancePtr 	Pointer to the XSecure_Rsa instance.
  *
- * @return	None.
- *
- *
  ******************************************************************************/
 static void XSecure_RsaPutData(XSecure_Rsa *InstancePtr)
 {
@@ -301,9 +298,6 @@ static void XSecure_RsaPutData(XSecure_Rsa *InstancePtr)
  * @param	InstancePtr	Pointer to the XSecure_Rsa instance.
  * @param	RdData		Pointer to location where the decrypted data
  *		will be written
- *
- * @return	None
- *
  *
  ******************************************************************************/
 static void XSecure_RsaGetData(XSecure_Rsa *InstancePtr, u32 *RdData)
@@ -356,8 +350,6 @@ END: ;
  *
  * @param	InstancePtr Pointer to XSeure_Rsa instance
  *
- * @return	None
- *
  * @note	MINV is the 32-bit value of `-M mod 2**32`,
  *		where M is LSB 32 bits of the original modulus.
  *
@@ -402,9 +394,6 @@ static void XSecure_RsaMod32Inverse(XSecure_Rsa *InstancePtr)
  * @param	InstancePtr	Pointer to the XSecure_Aes instance.
  * @param	WrData		Pointer to the data to be written to RSA RAM
  * @param	RamOffset	Offset for the data to be written in RSA RAM
- *
- * @return	None
- *
  *
  ******************************************************************************/
 static void XSecure_RsaWriteMem(XSecure_Rsa *InstancePtr, u32* WrData,

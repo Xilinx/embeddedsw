@@ -53,7 +53,7 @@
 #define XSECURE_RSA_ECDSA_RSA_ADDRESS (0xF1200000U) /**< RSA ECDSA BaseAddress */
 /************************** Variable Definitions *****************************/
 
-/* XSecure_SssLookupTable[Input source][Resource] */
+/**< Secure Stream Switch (SSS) configuration lookup table */
 const u8 XSecure_SssLookupTable[XSECURE_SSS_MAX_SRCS][XSECURE_SSS_MAX_SRCS] = {
 	/*+----+-----+-----+-----+-----+-----+-----+--------+
 	*|DMA0| DMA1| PTPI| AES | SHA3_0 | SBI | SHA3_1 |Invalid |
@@ -70,7 +70,7 @@ const u8 XSecure_SssLookupTable[XSECURE_SSS_MAX_SRCS][XSECURE_SSS_MAX_SRCS] = {
 	{0x00U, 0x00U, 0x00U, 0x00U, 0x00U, 0x00U, 0x00U, 0x00U}, /* Invalid */
 };
 
-/*
+/**
 * The configuration table for devices
 */
 const XSecure_ShaConfig ShaConfigTable[XSECURE_SHA_NUM_OF_INSTANCES] =

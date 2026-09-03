@@ -75,8 +75,8 @@ extern "C" {
  */
 /**< All asserts are under XSECDEBUG macro now */
 #ifdef XSECDEBUG
-#define XSecure_AssertVoid		(Xil_AssertVoid)
-#define XSecure_AssertNonvoid		(Xil_AssertNonvoid)
+#define XSecure_AssertVoid		(Xil_AssertVoid) /**< Asserts if XSECDEBUG macro is defined */
+#define XSecure_AssertNonvoid		(Xil_AssertNonvoid) /**< Asserts if XSECDEBUG macro is defined */
 /** @} */
 /**
  * @name  Definition of asserts if macro is undefined
@@ -84,8 +84,8 @@ extern "C" {
  */
 /**< Asserts if XSECDEBUG macro is undefined */
 #else
-#define XSecure_AssertVoid(Expression)
-#define XSecure_AssertNonvoid(Expression)
+#define XSecure_AssertVoid(Expression) /**< Assert for void return functions */
+#define XSecure_AssertNonvoid(Expression) /**< Assert for non-void return functions */
 #endif
 /** @} */
 

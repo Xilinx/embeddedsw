@@ -37,6 +37,7 @@
 *       gm      07/16/21 Support added to read 32 bit data from 64bit address
 *       har     08/14/21 Added macro for QWord
 *       am      09/17/21 Resolved compiler warnings
+* 5.8   rap  08/28/26 Fixed Doxygen Warnings
 *
 * </pre>
 *
@@ -80,10 +81,10 @@ extern "C" {
  */
 /**< All asserts are under XSECDEBUG macro now */
 #ifdef XSECDEBUG
-#define XSecure_AssertVoid		(Xil_AssertVoid)
-#define XSecure_AssertVoidAlways	(Xil_AssertVoidAlways)
-#define XSecure_AssertNonvoid		(Xil_AssertNonvoid)
-#define XSecure_AssertNonvoidAlways	(Xil_AssertNonvoidAlways)
+#define XSecure_AssertVoid		(Xil_AssertVoid) /**< Assert for void return functions */
+#define XSecure_AssertVoidAlways	(Xil_AssertVoidAlways) /**< Asserts always for void functions */
+#define XSecure_AssertNonvoid		(Xil_AssertNonvoid) /**< Asserts for non-void functions */
+#define XSecure_AssertNonvoidAlways	(Xil_AssertNonvoidAlways) /**< Asserts always for non-void functions */
 /** @} */
 /**
  * @name  Definition of asserts if macro is undefined
@@ -91,10 +92,10 @@ extern "C" {
  */
 /**< Asserts if XSECDEBUG macro is undefined */
 #else
-#define XSecure_AssertVoid(Expression)
-#define XSecure_AssertVoidAlways()
-#define XSecure_AssertNonvoid(Expression)
-#define XSecure_AssertNonvoidAlways()
+#define XSecure_AssertVoid(Expression) /**< Assert for void return functions */
+#define XSecure_AssertVoidAlways() /**< Asserts always for void functions */
+#define XSecure_AssertNonvoid(Expression) /**< Asserts for non-void functions */
+#define XSecure_AssertNonvoidAlways() /**< Asserts always for non-void functions */
 #endif
 /** @} */
 

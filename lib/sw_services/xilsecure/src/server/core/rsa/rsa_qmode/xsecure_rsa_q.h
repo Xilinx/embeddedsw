@@ -56,6 +56,7 @@
 #define XSECURE_RSA_PUB_EXP_SIZE		(4U)          /**< RSA public exponent size */
 
 /***************************** Type Definitions ******************************/
+/** RSA quiet mode operation parameters */
 typedef struct {
 	u8 InData[XSECURE_RSA_SIZE_IN_BYTES];  /**< Input data */
 	u8 Exp[XSECURE_RSA_SIZE_IN_BYTES];     /**< Exponent */
@@ -80,8 +81,8 @@ int XSecure_RsaExp(u8 *Hash, u8 *Exp, u8 *Mod, u8 *P, u8 *Q, u8 *Pub, u8 *Tot,
 int XSecure_RsaExpopt(u8 *Hash, u8 *Exp, u8 *Mod, u8 *RN, u8 *RRN, u8 *P, u8 *Q, u8 *Pub, u8 *Tot,
 	int Len, u8 *Res);
 
-/** @} */
-
 #endif	/* PLM_RSA_EXCLUDE_H_ */
+
+/** @} */
 
 #endif /* XSECURE_RSA_Q_H_ */

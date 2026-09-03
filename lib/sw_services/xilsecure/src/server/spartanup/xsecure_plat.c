@@ -60,6 +60,7 @@
 
 /************************** Variable Definitions *****************************/
 
+/** This structure holds the AES key lookup table */
 const XSecure_AesKeyLookup AesKeyLookupTbl [XSECURE_MAX_KEY_SOURCES] =
 {
 	/** - BH_KEY */
@@ -198,7 +199,7 @@ const XSecure_AesKeyLookup AesKeyLookupTbl [XSECURE_MAX_KEY_SOURCES] =
 	}
 };
 
-/* XSecure_SssLookupTable[Input source][Resource] */
+/** Secure Stream Switch (SSS) configuration lookup table */
 const u8 XSecure_SssLookupTable
 		[XSECURE_SSS_MAX_SRCS][XSECURE_SSS_MAX_SRCS] = {
 	/*+----+-----+-----+-----+-----+-----+-----+--------+
@@ -213,7 +214,7 @@ const u8 XSecure_SssLookupTable
 	{0x00U, 0x00U, 0x00U, 0x00U, 0x00U}, /* Invalid  */
 };
 
-/*
+/**
 * The configuration table for devices
 */
 const XSecure_ShaConfig ShaConfigTable[XSECURE_SHA_NUM_OF_INSTANCES] =

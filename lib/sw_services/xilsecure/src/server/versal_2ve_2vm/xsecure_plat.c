@@ -48,7 +48,9 @@
 #define XSECURE_RSA_ECDSA_RSA_ADDRESS (0xF1200000U) /**< RSA ECDSA BaseAddress */
 /************************** Variable Definitions *****************************/
 
-/* XSecure_SssLookupTable[Input source][Resource] */
+/**
+ * XSecure_SssLookupTable[Input source][Resource]
+ */
 const u8 XSecure_SssLookupTable[XSECURE_SSS_MAX_SRCS][XSECURE_SSS_MAX_SRCS] = {
 	/*+----+------+------+------+------+-----+------+--------+
 	*|DMA0| DMA1  | PTPI | AES  | SHA3 | SBI | SHA2 | Invalid|
@@ -65,7 +67,7 @@ const u8 XSecure_SssLookupTable[XSECURE_SSS_MAX_SRCS][XSECURE_SSS_MAX_SRCS] = {
 	{0x00U, 0x00U, 0x00U, 0x00U, 0x00U, 0x00U, 0x00U, 0x00U}, /* Invalid */
 };
 
-/*
+/**
 * The configuration table for devices
 */
 const XSecure_ShaConfig ShaConfigTable[XSECURE_SHA_NUM_OF_INSTANCES] =
@@ -150,6 +152,8 @@ static void XSecure_UpdateEcdsaCryptoStatus(u32 Op);
 /**
  * @brief	This function updates TRNG crypto indicator
  *
+ * @param	Op	To set or clear the bit
+ *
  *****************************************************************************/
 void XSecure_UpdateTrngCryptoStatus(u32 Op)
 {
@@ -233,6 +237,8 @@ static void XSecure_UpdateEcdsaCryptoStatus(u32 Op)
 /*****************************************************************************/
 /**
  * @brief	This function configures DMA Byte Swap based on the user input
+ *
+ * @param	Op	DMA Byte Swap configuration value
  *
  *****************************************************************************/
 void XSecure_ConfigureDmaByteSwap(u32 Op)

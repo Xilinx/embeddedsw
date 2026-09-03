@@ -150,7 +150,7 @@ typedef struct {
  * Size = 4 + 4 + 16 + H Len (32) = 56 Bytes
  */
 typedef union XSecure_LmsPublicKey_ {
-	u8 Buff[XSECURE_LMS_PUB_KEY_TOTAL_SIZE];
+	u8 Buff[XSECURE_LMS_PUB_KEY_TOTAL_SIZE];	/**< Raw buffer holding the complete public key */
 	struct {
 		/**
 		 * @brief LmsType XSecure_LmsType
@@ -188,7 +188,7 @@ typedef union XSecure_LmsPublicKey_ {
  * Size = 16(I) + 4(node_number/2) + 2(D_INTR) + (32 * 2)
  */
 typedef union XSecure_LmsPubKeyTmp_ {
-	u8 Buff[XSECURE_LMS_PUB_KEY_TMP_BUFFER_INTR_TOTAL_SIZE];
+	u8 Buff[XSECURE_LMS_PUB_KEY_TMP_BUFFER_INTR_TOTAL_SIZE];	/**< Raw buffer holding the temporary public key data */
 	struct {
 		/**
 		 * I - Merkle Tree's unique identifier (uniformly random 16-byte string)

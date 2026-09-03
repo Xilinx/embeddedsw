@@ -244,8 +244,6 @@ s32 XSecure_Sha3LastUpdate(XSecure_Sha3 *InstancePtr)
  * @param	Dst 	Pointer to location where padding is to be applied.
  * @param	MsgLen	Length of padding in bytes.
  *
- * @return	None
- *
  ******************************************************************************/
 static void XSecure_Sha3KeccakPadd(XSecure_Sha3 *InstancePtr, u8 *Dst,
 		u32 MsgLen)
@@ -266,8 +264,6 @@ static void XSecure_Sha3KeccakPadd(XSecure_Sha3 *InstancePtr, u8 *Dst,
  * @param	InstancePtr is a pointer to the XSecure_Sha3 instance.
  * @param	Dst is the pointer to location where padding is to be applied
  * @param	MsgLen is the length of padding in bytes
- *
- * @return	None
  *
  * @note	None
  *

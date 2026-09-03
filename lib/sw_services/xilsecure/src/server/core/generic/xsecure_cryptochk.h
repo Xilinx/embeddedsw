@@ -22,6 +22,7 @@
 * 4.6   har     09/16/21 Updated release version to 4.6
 * 5.1   har     01/23/23 Corrected the value of XSECURE_CRP_RST_PS_PS_SRST_MASK
 * 5.7   mb      04/17/26 Update XSecure_CryptoCheck API definitions
+* 5.8   rap     08/28/26 Fixed Doxygen Warnings
 *
 * </pre>
 *
@@ -57,7 +58,7 @@ typedef enum {
  */
 /**< IP_DISABLE_0 register address and definitions */
 #define XSECURE_EFUSE_CACHE_IP_DISABLE0			(0xF1250018U)
-#define XSECURE_EFUSE_CACHE_IP_DISABLE0_EXPORT_MASK	(0x20000000U)
+#define XSECURE_EFUSE_CACHE_IP_DISABLE0_EXPORT_MASK	(0x20000000U) /**< Export mask for IP_DISABLE_0 register */
 /** @} */
 
 /**
@@ -66,7 +67,7 @@ typedef enum {
  */
 /**< CFU_FGCR register address and definitions */
 #define XSECURE_CFU_APB_CFU_FGCR			(0xF12B0018U)
-#define XSECURE_CFU_APB_CFU_FGCR_EOS_MASK		(0x00000002U)
+#define XSECURE_CFU_APB_CFU_FGCR_EOS_MASK		(0x00000002U) /**< EOS mask for CFU_FGCR register */
 /** @} */
 
 /**
@@ -75,7 +76,7 @@ typedef enum {
  */
 /**< RST_PS register address and definitions */
 #define XSECURE_CRP_RST_PS				(0xF126031CU)
-#define XSECURE_CRP_RST_PS_PS_SRST_MASK			(0x00000004U)
+#define XSECURE_CRP_RST_PS_PS_SRST_MASK			(0x00000004U) /**< PS SRST mask for RST_PS register */
 /** @} */
 
 /***************** Macros (Inline Functions) Definitions *********************/

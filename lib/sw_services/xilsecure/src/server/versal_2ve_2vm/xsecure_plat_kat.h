@@ -50,7 +50,6 @@ int XSecure_HmacKat(XSecure_Sha *SecureSha3);
  * @}
  * @endcond
  */
-int XSecure_Sha384Kat(void);
 int XSecure_RsaPrivateDecryptKat(void);
 int XSecure_Sha2256Kat(XSecure_Sha *SecureSha);
 int XSecure_ShakeKat(XSecure_Sha *SecureSha);

@@ -22,6 +22,7 @@
 *                     XSECURE_AES_KEY_CLEAR_*_BIT_POS for use from
 *                     AesKeyLookupTbl[].KeyClearBitPos, and add
 *                     XSECURE_AES_KEY_CLEAR_BIT_POS_TO_MASK helper
+* 5.8   rap  08/28/26 Fixed Doxygen Warnings
 *
 * </pre>
 *
@@ -53,26 +54,26 @@ extern "C" {
  * @{
  */
 /**< Key select values */
-#define XSECURE_AES_KEY_SEL_BBRAM_KEY			(0xBBDE6600U)
-#define XSECURE_AES_KEY_SEL_BBRAM_RD_KEY		(0xBBDE8200U)
-#define XSECURE_AES_KEY_SEL_BH_KEY			(0xBDB06600U)
-#define XSECURE_AES_KEY_SEL_BH_RD_KEY			(0xBDB08200U)
-#define XSECURE_AES_KEY_SEL_EFUSE_KEY			(0xEFDE6600U)
-#define XSECURE_AES_KEY_SEL_EFUSE_RED_KEY		(0xEFDE8200U)
-#define XSECURE_AES_KEY_SEL_EFUSE_USR_KEY0		(0xEF856601U)
-#define XSECURE_AES_KEY_SEL_EFUSE_USR_KEY1		(0xEF856602U)
-#define XSECURE_AES_KEY_SEL_EFUSE_USR_RD_KEY0		(0xEF858201U)
-#define XSECURE_AES_KEY_SEL_EFUSE_USR_RD_KEY1		(0xEF858202U)
-#define XSECURE_AES_KEY_SEL_KUP_KEY			(0xBDC98200U)
-#define XSECURE_AES_KEY_SEL_PUF_KEY			(0xDBDE8200U)
-#define XSECURE_AES_KEY_SEL_USR_KEY_0			(0xBD858201U)
-#define XSECURE_AES_KEY_SEL_USR_KEY_1			(0xBD858202U)
-#define XSECURE_AES_KEY_SEL_USR_KEY_2			(0xBD858204U)
-#define XSECURE_AES_KEY_SEL_USR_KEY_3			(0xBD858208U)
-#define XSECURE_AES_KEY_SEL_USR_KEY_4			(0xBD858210U)
-#define XSECURE_AES_KEY_SEL_USR_KEY_5			(0xBD858220U)
-#define XSECURE_AES_KEY_SEL_USR_KEY_6			(0xBD858240U)
-#define XSECURE_AES_KEY_SEL_USR_KEY_7			(0xBD858280U)
+#define XSECURE_AES_KEY_SEL_BBRAM_KEY			(0xBBDE6600U)	/**< BBRAM Key select value */
+#define XSECURE_AES_KEY_SEL_BBRAM_RD_KEY		(0xBBDE8200U)	/**< BBRAM Red Key select value */
+#define XSECURE_AES_KEY_SEL_BH_KEY				(0xBDB06600U)	/**< BH Key select value */
+#define XSECURE_AES_KEY_SEL_BH_RD_KEY			(0xBDB08200U)	/**< BH Red Key select value */
+#define XSECURE_AES_KEY_SEL_EFUSE_KEY			(0xEFDE6600U)	/**< eFUSE Key select value */
+#define XSECURE_AES_KEY_SEL_EFUSE_RED_KEY		(0xEFDE8200U)	/**< eFUSE Red Key select value */
+#define XSECURE_AES_KEY_SEL_EFUSE_USR_KEY0		(0xEF856601U)	/**< eFUSE User Key 0 select value */
+#define XSECURE_AES_KEY_SEL_EFUSE_USR_KEY1		(0xEF856602U)	/**< eFUSE User Key 1 select value */
+#define XSECURE_AES_KEY_SEL_EFUSE_USR_RD_KEY0	(0xEF858201U)	/**< eFUSE User Red Key 0 select value */
+#define XSECURE_AES_KEY_SEL_EFUSE_USR_RD_KEY1	(0xEF858202U)	/**< eFUSE User Red Key 1 select value */
+#define XSECURE_AES_KEY_SEL_KUP_KEY				(0xBDC98200U)	/**< KUP Key select value */
+#define XSECURE_AES_KEY_SEL_PUF_KEY				(0xDBDE8200U)	/**< PUF Key select value */
+#define XSECURE_AES_KEY_SEL_USR_KEY_0			(0xBD858201U)	/**< User Key 0 select value */
+#define XSECURE_AES_KEY_SEL_USR_KEY_1			(0xBD858202U)	/**< User Key 1 select value */
+#define XSECURE_AES_KEY_SEL_USR_KEY_2			(0xBD858204U)	/**< User Key 2 select value */
+#define XSECURE_AES_KEY_SEL_USR_KEY_3			(0xBD858208U)	/**< User Key 3 select value */
+#define XSECURE_AES_KEY_SEL_USR_KEY_4			(0xBD858210U)	/**< User Key 4 select value */
+#define XSECURE_AES_KEY_SEL_USR_KEY_5			(0xBD858220U)	/**< User Key 5 select value */
+#define XSECURE_AES_KEY_SEL_USR_KEY_6			(0xBD858240U)	/**< User Key 6 select value */
+#define XSECURE_AES_KEY_SEL_USR_KEY_7			(0xBD858280U)	/**< User Key 7 select value */
 /** @} */
 
 /**

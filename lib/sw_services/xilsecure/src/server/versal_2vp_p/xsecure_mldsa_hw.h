@@ -6,7 +6,7 @@
 /**************************************************************************************************/
 /**
 *
-* @file server/core/mldsa/xsecure_mldsa_hw.h
+* @file server/versal_2vp_p/xsecure_mldsa_hw.h
 *
 * This file contains hardware register offsets for MLDSA core
 *

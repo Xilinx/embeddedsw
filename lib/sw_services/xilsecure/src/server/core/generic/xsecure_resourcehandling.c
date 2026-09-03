@@ -229,6 +229,8 @@ END:
 * @brief	The function initializes the queues of SHA & AES IPI events and
 *           free resource task
 *
+* @param	PpdiEventParamsPtr is the pointer to partial PDI event parameters
+*
 * @return
 *		- XST_SUCCESS - On success
 *		- XST_INVALID_PARAM - If PpdiEventParamsPtr is NULL

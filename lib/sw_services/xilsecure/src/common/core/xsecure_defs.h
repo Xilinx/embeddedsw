@@ -78,7 +78,7 @@ extern "C" {
 #if (XSECURE_DEBUG)
 #define XSECURE_DEBUG_GENERAL (1U)
 #else
-#define XSECURE_DEBUG_GENERAL (0U)
+#define XSECURE_DEBUG_GENERAL (0U) /**< General debug print control macro */
 #endif
 /** @} */
 /***************** Macros (Inline Functions) Definitions *********************/

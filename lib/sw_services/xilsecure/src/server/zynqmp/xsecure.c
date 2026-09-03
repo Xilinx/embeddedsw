@@ -127,9 +127,12 @@ u8 Buffer[XSECURE_BUFFER_SIZE];
 			/**< Buffer to store */
 #endif
 #endif
-u32 XsecureIv[XSECURE_IV_LEN];
+u32 XsecureIv[XSECURE_IV_LEN]; /**< Secure IV */
 
 /**************************** Type Definitions *******************************/
+/**
+ * @brief This structure holds parameters for data authentication.
+ */
 typedef struct {
 	XCsuDma *CsuDmaInstPtr; /**< CSUDMA instance pointer */
 	u8 *Data; /**< Data pointer */

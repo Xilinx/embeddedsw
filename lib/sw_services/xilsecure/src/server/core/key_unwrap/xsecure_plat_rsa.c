@@ -632,6 +632,8 @@ END:
 /**
  * @brief	This function performs the RSA key generation.
  *
+ * @param	arg	is the argument passed by the scheduler (unused).
+ *
  * @return
  *		 - XST_SUCCESS - On success.
  *		 - XSECURE_ERR_RSA_KEY_PAIR_GEN_SCHEDULER - If RSA key pair generation fails.
@@ -762,6 +764,8 @@ XSecure_RsaPrivKey* XSecure_GetRsaPrivateKey(u32 RsaIdx)
 /*****************************************************************************/
 /**
  * @brief	This function returns RSA public key.
+ *
+ * @param	RsaIdx	Index of the RSA key to retrieve.
  *
  * @return
  *		 - Pointer to XSecure_RsaPubKey or NULL otherwise.

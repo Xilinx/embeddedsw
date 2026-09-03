@@ -31,11 +31,13 @@
 
 #include "xil_types.h"
 
+/** ECDSA public key structure */
 typedef struct {
 	u8* Qx;		/**< Public key curve point x */
 	u8* Qy;		/**< Public key curve point y */
 } EcdsaKey;
 
+/** ECDSA signature structure */
 typedef struct {
 	u8* r;		/**< The signature component r */
 	u8* s;		/**< The signature component s */
@@ -80,6 +82,7 @@ typedef enum {
 //    obfuscated, as this API is intended for an end-user that does
 //    not necessarily have the rights to the
 //
+/** ECDSA curve information structure */
 typedef struct {
 	EcdsaCrvTyp CrvType;	/**< Curve type */
 	u16 Bits;				/**< Curve bites */
@@ -108,9 +111,9 @@ typedef struct {
  * @{
  */
 /**< Validate Public Key error codes */
-#define ELLIPTIC_KEY_ZERO					(0x1)
-#define ELLIPTIC_KEY_WRONG_ORDER				(0x2)
-#define ELLIPTIC_KEY_NOT_ON_CRV				(0x3)
+#define ELLIPTIC_KEY_ZERO					(0x1)	/**< Public key is zero */
+#define ELLIPTIC_KEY_WRONG_ORDER			(0x2)	/**< Public key has wrong order */
+#define ELLIPTIC_KEY_NOT_ON_CRV				(0x3)	/**< Public key is not on the curve */
 /** @} */
 
 /**
@@ -118,12 +121,12 @@ typedef struct {
  * @{
  */
 /**< Verify Sign error codes */
-#define ELLIPTIC_BAD_SIGN					(0x1)
-#define ELLIPTIC_VER_SIGN_INCORRECT_HASH_LEN		(0x2)
-#define ELLIPTIC_VER_SIGN_R_ZERO				(0x3)
-#define ELLIPTIC_VER_SIGN_S_ZERO				(0x4)
-#define ELLIPTIC_VER_SIGN_R_ORDER_ERROR			(0x5)
-#define ELLIPTIC_VER_SIGN_S_ORDER_ERROR			(0x6)
+#define ELLIPTIC_BAD_SIGN						(0x1)	/**< Signature verification failed */
+#define ELLIPTIC_VER_SIGN_INCORRECT_HASH_LEN	(0x2)	/**< Incorrect hash length */
+#define ELLIPTIC_VER_SIGN_R_ZERO				(0x3)	/**< Signature component r is zero */
+#define ELLIPTIC_VER_SIGN_S_ZERO				(0x4)	/**< Signature component s is zero */
+#define ELLIPTIC_VER_SIGN_R_ORDER_ERROR			(0x5)	/**< Signature component r not within curve order */
+#define ELLIPTIC_VER_SIGN_S_ORDER_ERROR			(0x6)	/**< Signature component s not within curve order */
 /** @} */
 
 /**
@@ -131,9 +134,9 @@ typedef struct {
  * @{
  */
 /**< Generate sign error codes */
-#define ELLIPTIC_GEN_SIGN_BAD_R				(0x1)
-#define ELLIPTIC_GEN_SIGN_BAD_S				(0x2)
-#define ELLIPTIC_GEN_SIGN_INCORRECT_HASH_LEN		(0x3)
+#define ELLIPTIC_GEN_SIGN_BAD_R					(0x1)	/**< Generated signature component r is invalid */
+#define ELLIPTIC_GEN_SIGN_BAD_S					(0x2)	/**< Generated signature component s is invalid */
+#define ELLIPTIC_GEN_SIGN_INCORRECT_HASH_LEN	(0x3)	/**< Incorrect hash length */
 /** @} */
 
 /**

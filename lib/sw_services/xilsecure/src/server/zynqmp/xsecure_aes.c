@@ -81,7 +81,7 @@
 
 /***************** Macros (Inline Functions) Definitions *********************/
 #ifdef XSECURE_TPM_ENABLE
-#define XSECURE_HASH_LEN	(48U)
+#define XSECURE_HASH_LEN	(48U) /**< SHA-384 hash length in bytes */
 #endif
 
 /*****************************************************************************/
@@ -1646,8 +1646,6 @@ ENDF:
  *                                         XCSUDMA_DST_CHANNEL
  * @param	EndianType 		1 : Enable Byte Swapping
  *                          0 : Disable Byte Swapping
- *
- * @return
  *
  ******************************************************************************/
 static void XSecure_AesCsuDmaConfigureEndiannes(XCsuDma *InstancePtr,

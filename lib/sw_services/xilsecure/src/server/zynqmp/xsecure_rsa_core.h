@@ -125,7 +125,7 @@ extern "C" {
 #define XSECURE_CSU_RSA_CONTROL_EXP	(0x01U) /**< Exponentiation Opcode */
 #define XSECURE_CSU_RSA_CONTROL_EXP_PRE	(0x05U) /**< Expo. using R*R mod M */
 #define XSECURE_CSU_RSA_CONTROL_MASK	(XSECURE_CSU_RSA_CONTROL_4096 + \
-					XSECURE_CSU_RSA_CONTROL_EXP_PRE)
+					XSECURE_CSU_RSA_CONTROL_EXP_PRE) /**< RSA Control Mask */
 
 /** @name RSA status Register
  *
@@ -159,8 +159,8 @@ typedef struct {
 	u8* ModExt; /**< Precalc. R sq. mod N */
 	u8* ModExpo; /**< Exponent */
 	u8 EncDec; /**< 0 for signature verification and 1 for generation */
-	u32 SizeInWords;/** RSA key size in words */
-	XSecure_RsaState RsaState;
+	u32 SizeInWords;/**< RSA key size in words */
+	XSecure_RsaState RsaState; /**< RSA state */
 } XSecure_Rsa;
 
 /***************************** Function Prototypes ***************************/

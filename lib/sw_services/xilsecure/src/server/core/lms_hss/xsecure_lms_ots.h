@@ -18,6 +18,7 @@
 * ----- ---- -------- ----------------------------------------------------------
 * 5.4   kal  07/24/24 Initial release
 * 5.7   tvp  11/20/25  Code refactoring for platform specific LMS functionality
+* 5.8   rap  08/28/26 Fixed Doxygen Warnings
 *
 * </pre>
 *
@@ -303,7 +304,7 @@ typedef struct {
  * Size = 4 + 16 + 4 + H Len (32) = 56 Bytes
  */
 typedef union XSecure_LmsOtsPublicKey_ {
-	u8 Buff[XSECURE_LMS_OTS_PUB_KEY_TOTAL_SIZE];
+	u8 Buff[XSECURE_LMS_OTS_PUB_KEY_TOTAL_SIZE];	/**< Byte buffer of LMS OTS public key */
 	struct {
 		/**
 		 * @brief Type XSecure_LmsOtsType
@@ -343,7 +344,7 @@ typedef union XSecure_LmsOtsPublicKey_ {
  * Size = 1 + 16 + 4 + 2 + 1 + H Len (32) = 56 Bytes
  */
 typedef union XSecure_LmsOtsHashPerDigit_ {
-	u8 Buff[1U + XSECURE_LMS_OTS_SIGN_VERIF_TMP_BUFF_TOTAL_SIZE];
+	u8 Buff[1U + XSECURE_LMS_OTS_SIGN_VERIF_TMP_BUFF_TOTAL_SIZE];	/**< Byte buffer of LMS OTS hash per digit */
 	struct {
 		/**
 		 * 1 reserved byte added at start of buffer, to manage word aligned sha finish copies to buffer
@@ -386,7 +387,7 @@ typedef union XSecure_LmsOtsHashPerDigit_ {
  * Size = 16(I) + 4(q) + 2(D_PBLC) + (p * H Len (32))
  */
 typedef union XSecure_LmsOtsSignToPubKeyHash_ {
-	u8 Buff[XSECURE_LMS_OTS_SIGN_VERIF_CHAIN_TMP_BUFF_TOTAL_SIZE];
+	u8 Buff[XSECURE_LMS_OTS_SIGN_VERIF_CHAIN_TMP_BUFF_TOTAL_SIZE];	/**< Byte buffer of LMS OTS sign to public key hash */
 	struct {
 		/**
 		 * I - Merkle Tree's unique identifier (uniformly random 16-byte string)
@@ -442,7 +443,7 @@ typedef struct XSecure_LmsOtsSignature_ {
  * Size = I (16) + q (4) + D_MESG (2) + C (32) = 54 Bytes
  */
 typedef union XSecure_LmsDataDigestFixedFields_ {
-	u8 Buff[XSECURE_LMS_MESSAGE_TO_DIGEST_PREFIX_SIZE];
+	u8 Buff[XSECURE_LMS_MESSAGE_TO_DIGEST_PREFIX_SIZE];	/**< Byte buffer of LMS data digest fixed fields */
 	struct {
 		/**
 		 * I - Merkle Tree's unique identifier (uniformly random 16-byte string)
@@ -473,7 +474,7 @@ typedef union XSecure_LmsDataDigestFixedFields_ {
  * Size = Digest (32) + Check sum (2) = 34 Bytes
  */
 typedef union XSecure_LmsDataDigest_ {
-	u8 Buff[XSECURE_LMS_DIGEST_CHECKSUM_SIZE];
+	u8 Buff[XSECURE_LMS_DIGEST_CHECKSUM_SIZE];	/**< Byte buffer of LMS data digest */
 	struct {
 		/**
 		 * Digest - Digest of data to be authenticated

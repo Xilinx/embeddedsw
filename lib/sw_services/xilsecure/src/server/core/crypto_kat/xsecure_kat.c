@@ -64,10 +64,10 @@
  * @name AES KAT parameters
  * @{
  */
-/**< AES KAT parameters */
-#define XSECURE_KAT_AES_SPLIT_DATA_SIZE		(4U)
-#define XSECURE_KAT_KEY_SIZE_IN_WORDS		(8U)
-#define XSECURE_KAT_OPER_DATA_SIZE_IN_WORDS	(16U)
+/** AES KAT parameters */
+#define XSECURE_KAT_AES_SPLIT_DATA_SIZE		(4U) /**< AES KAT split data size in words */
+#define XSECURE_KAT_KEY_SIZE_IN_WORDS		(8U) /**< AES KAT key size in words */
+#define XSECURE_KAT_OPER_DATA_SIZE_IN_WORDS	(16U) /**< AES KAT operation data size in words */
 /** @} */
 
 static const u32 Key0[XSECURE_KAT_KEY_SIZE_IN_WORDS] =

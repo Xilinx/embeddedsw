@@ -90,6 +90,7 @@ typedef struct {
 		(w) = RotateLeft32((w), 30U); \
 	} while (FALSE)
 
+/** R1 intermediate operation used in SHA1 digest calculation */
 #define R1(v, w, x, y, z, i)   \
 	do {	\
 		BLK(i); \
@@ -98,6 +99,7 @@ typedef struct {
 		(w) = RotateLeft32((w), 30U); \
 	} while (FALSE)
 
+/** R2 intermediate operation used in SHA1 digest calculation */
 #define R2(v, w, x, y, z, i)   \
 	do {	\
 		BLK(i); \
@@ -106,6 +108,7 @@ typedef struct {
 		(w) = RotateLeft32((w), 30U); \
 	} while (FALSE)
 
+/** R3 intermediate operation used in SHA1 digest calculation */
 #define R3(v, w, x, y, z, i)   \
 	do {	\
 		BLK(i); \
@@ -114,6 +117,7 @@ typedef struct {
 		(w) = RotateLeft32((w), 30U); \
 	} while (FALSE)
 
+/** R4 intermediate operation used in SHA1 digest calculation */
 #define R4(v, w, x, y, z, i)   \
 	do {	\
 		BLK(i); \

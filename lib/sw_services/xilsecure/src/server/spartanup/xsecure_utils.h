@@ -81,8 +81,8 @@ extern "C" {
  */
 /**< All asserts are under XSECDEBUG macro now */
 #ifdef XSECDEBUG
-#define XSecure_AssertVoid		(Xil_AssertVoid)
-#define XSecure_AssertNonvoid		(Xil_AssertNonvoid)
+#define XSecure_AssertVoid		(Xil_AssertVoid) /**< Assert for void return functions */
+#define XSecure_AssertNonvoid	(Xil_AssertNonvoid) /**< Assert for non-void return functions */
 /** @} */
 /**
  * @name  Definition of asserts if macro is undefined
@@ -90,8 +90,8 @@ extern "C" {
  */
 /**< Asserts if XSECDEBUG macro is undefined */
 #else
-#define XSecure_AssertVoid(Expression)
-#define XSecure_AssertNonvoid(Expression)
+#define XSecure_AssertVoid(Expression) /**< Assert for void return functions */
+#define XSecure_AssertNonvoid(Expression) /**< Assert for non-void return functions */
 #endif
 /** @} */
 
@@ -133,6 +133,8 @@ static inline void XSecure_WriteReg(UINTPTR BaseAddress,
  *
  * @param        Addr is the address
  *
+ * @return       The value read from the 64-bit address
+ *
  ******************************************************************************/
 static inline u32 XSecure_In64(u64 Addr)
 {
@@ -148,6 +150,8 @@ static inline u32 XSecure_In64(u64 Addr)
  * @brief        This function reads a byte from 64-bit address
  *
  * @param        Addr is the address
+ *
+ * @return       The byte read from the 64-bit address
  *
  ******************************************************************************/
 static inline u8 XSecure_InByte64(u64 Addr)

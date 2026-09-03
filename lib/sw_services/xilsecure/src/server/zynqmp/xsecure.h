@@ -39,6 +39,7 @@
 *       rpo  09/10/20 Added a new error for RSA input validation parameter
 * 4.7   am   11/26/21 Resolved doxygen warnings
 * 5.2   ng   07/13/23 Added SDT support
+* 5.8   rap  08/28/26 Fixed Doxygen Warnings
 *
 * </pre>
 *
@@ -188,10 +189,10 @@ extern "C" {
  */
 /**< eFuse secure control register offsets and definitions */
 #define XSECURE_EFUSE_SEC_CTRL    (XSECURE_EFUSE_BASEADDR  + 0X00001058U)
-#define XSECURE_EFUSE_SEC_CTRL_PPK0_REVOKE	(0x18000000U)
-#define XSECURE_EFUSE_SEC_CTRL_PPK1_REVOKE	(0xC0000000U)
-#define XSECURE_EFUSE_SEC_CTRL_RSA_ENABLE   	(0x03FFF800U)
-#define XSECURE_EFUSE_SEC_CTRL_ENC_ONLY		(0x00000004U)
+#define XSECURE_EFUSE_SEC_CTRL_PPK0_REVOKE	(0x18000000U) /**< eFuse secure control PPK0 revoke */
+#define XSECURE_EFUSE_SEC_CTRL_PPK1_REVOKE	(0xC0000000U) /**< eFuse secure control PPK1 revoke */
+#define XSECURE_EFUSE_SEC_CTRL_RSA_ENABLE   (0x03FFF800U) /**< eFuse secure control RSA enable */
+#define XSECURE_EFUSE_SEC_CTRL_ENC_ONLY		(0x00000004U) /**< eFuse secure control encryption only */
 /** @} */
 
 #define XSECURE_SPK_SIZE			(512U+512U+64U) /**< SPK size */
@@ -250,20 +251,20 @@ extern "C" {
 
 /**************************** Type Definitions *******************************/
 
-/* Partition address */
+/** Partition address */
 typedef struct {
 	u32 AddrHigh;	/**< Partition address high */
 	u32 AddrLow;	/**< Partition address low */
 }XSecure_DataAddr;
 
-/* RSA key components */
+/** RSA key components */
 typedef struct {
 	u8 *Modulus;		/**< Modulus */
 	u8 *Exponentiation;	/**< Exponentitation */
 	u8 *Exponent;		/**< Exponent */
 }XSecure_RsaKey;
 
-/* AES Params*/
+/** AES Params*/
 typedef struct {
 	u64 Src; /**< Source address */
 	u64 Iv; /**< initialization vector */
@@ -297,7 +298,7 @@ typedef struct {
 	u32 Checksum; /**< checksum of the partition header */
 } XSecure_PartitionHeader;
 
-/* Image info */
+/** Image info */
 typedef struct {
 	u32 EfuseRsaenable; /**< 0 if not burnt 0xFF if burnt */
 	XSecure_PartitionHeader *PartitionHdr; /**< Pointer to the buffer

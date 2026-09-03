@@ -30,11 +30,13 @@
 
 #include "xil_types.h"
 
+/** Structure to hold ECDSA public key curve points */
 typedef struct {
 	u8* Qx;		/**< Public key curve point x */
 	u8* Qy;		/**< Public key curve point y */
 } EcdsaKey;
 
+/** Structure to hold ECDSA signature components */
 typedef struct {
 	u8* r;		/**< The signature component r */
 	u8* s;		/**< The signature component s */
@@ -79,6 +81,7 @@ typedef enum {
 //    obfuscated, as this API is intended for an end-user that does
 //    not necessarily have the rights to the
 //
+/** Structure to hold ECDSA curve information */
 typedef struct {
 	EcdsaCrvTyp CrvType;	/**< Curve type */
 	u16 Bits;				/**< Curve bits */

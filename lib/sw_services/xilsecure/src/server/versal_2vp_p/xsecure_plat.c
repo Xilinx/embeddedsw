@@ -39,7 +39,9 @@
 
 /************************************* Variable Definitions ***************************************/
 
-/* XSecure_SssLookupTable[Input source][Resource] */
+/**
+ * Secure Stream Switch (SSS) configuration lookup table
+ */
 const u8 XSecure_SssLookupTable[XSECURE_SSS_MAX_SRCS][XSECURE_SSS_MAX_SRCS] = {
 	/*+----+------+------+------+------+-----+------+--------+
 	*|DMA0| DMA1  | PTPI | AES  | SHA3 | SBI | SHA2 | Invalid|
@@ -56,7 +58,9 @@ const u8 XSecure_SssLookupTable[XSECURE_SSS_MAX_SRCS][XSECURE_SSS_MAX_SRCS] = {
 	{0x00U, 0x00U, 0x00U, 0x00U, 0x00U, 0x00U, 0x00U, 0x00U}, /* Invalid */
 };
 
-/* The configuration table for devices */
+/**
+ * The configuration table for devices
+ */
 const XSecure_ShaConfig ShaConfigTable[XSECURE_SHA_NUM_OF_INSTANCES] =
 {
 	{

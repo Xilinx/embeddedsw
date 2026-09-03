@@ -40,6 +40,7 @@
 * 5.6   rpu  08/11/2025 Removed crypto check in xsecure_init
 *       vss  09/30/2025 Updated AES/SHA queueing macro checks.
 * 5.7   tvp  02/23/2025 Initialize SHA2 for Versal_2vp_p
+* 5.8   rap  08/28/26 Fixed Doxygen Warnings
 * </pre>
 *
 ******************************************************************************/
@@ -182,6 +183,8 @@ END:
 /**
  * @brief	This function provides the pointer to the sha3 instance
  *
+ * @param	DeviceId is the device identifier of the SHA instance
+ *
  * @return
  *		 - Pointer to the XSecure_Sha instance
  *
@@ -194,6 +197,8 @@ XSecure_Sha *XSecure_GetSha3Instance(u32 DeviceId)
 /*****************************************************************************/
 /**
  * @brief	This function provides the pointer to the sha2 instance
+ *
+ * @param	DeviceId is the device identifier of the SHA instance
  *
  * @return
  *		 - Pointer to the XSecure_Sha instance
@@ -242,6 +247,8 @@ XSecure_Rsa *XSecure_GetRsaInstance(void)
 /**
  * @brief	This function provides the pointer to the sha instance
  * 		based on the DevieId
+ *
+ * @param	DeviceId is the device identifier of the SHA instance
  *
  * @return
  *		 - Pointer to the XSecure_Sha instance

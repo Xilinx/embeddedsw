@@ -47,10 +47,11 @@ extern "C" {
 #if (defined(PLM_ENABLE_SHA_AES_EVENTS_QUEUING) && defined(XPLMI_IPI_DEVICE_ID))
 #define XSECURE_EVENT_PENDING (1U) /**< Indicates event pending */
 #define XSECURE_EVENT_CLEAR (0U) /**< Indicates no event  */
-#define XSECURE_2SEC_INTREMSOF_10MSEC (200U) /*< 2seconds Timeout value in terms of 10msec */
+#define XSECURE_2SEC_INTREMSOF_10MSEC (200U) /**< 2seconds Timeout value in terms of 10msec */
 #define XSECURE_TIMEOUT_CLEAR         (0U) /**< Timeout clear */
 
 /**************************** Type Definitions *******************************/
+/** Resource status enumeration */
 typedef enum {
 	XSECURE_RES_FREE = 0, /**< Resource free */
 	XSECURE_RES_BUSY, /**< Resource busy */

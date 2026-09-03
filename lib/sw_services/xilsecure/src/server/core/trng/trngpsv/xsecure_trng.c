@@ -68,6 +68,11 @@ XSecure_TrngInstance *XSecure_GetTrngInstance(void)
 /**
  * @brief	This function initialize and configures the TRNG into DRNG/HRNG mode of operation.
  *
+ * @param	XSecureTrngMode Mode of TRNG operation (DRNG/HRNG/PTRNG).
+ * @param	Seed Pointer to the seed used for TRNG initialization.
+ * @param	SeedLength Length of the seed in bytes.
+ * @param	PersStr Pointer to the personalization string.
+ *
  * @return
  *		 - XST_SUCCESS - Upon success.
  *		 - XST_FAILURE - On failure.

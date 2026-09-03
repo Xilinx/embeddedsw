@@ -51,8 +51,6 @@ static void XSecure_MldsaMsgTransferToCore(u64 DataAddr, u32 DataLen);
  * @param	DataAddr	64-bit address of the message/data to be transferred.
  * @param	DataLen		Length of the message/data in bytes.
  *
- * @return	None
- *
  **************************************************************************************************/
 static void XSecure_MldsaMsgTransferToCore(u64 DataAddr, u32 DataLen)
 {

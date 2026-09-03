@@ -539,5 +539,5 @@ static int XSecure_IsNonZeroBuffer(u8 *Data, const u32 Size)
 
 	return Status;
 }
-/** @} */
 #endif
+/** @} */
