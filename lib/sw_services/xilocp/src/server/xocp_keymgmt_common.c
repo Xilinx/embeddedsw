@@ -18,6 +18,7 @@
 * 1.7   rmv  01/30/26 Refactor OCP library
 *       rpu  03/11/26 Validate input parameters
 *       rpu  02/18/26 Fixed Doxygen warnings
+* 1.8   ks   08/20/26 Reject all-zero DICE CDI after loop exhaustion
 * </pre>
 *
 **************************************************************************************************/
@@ -88,10 +89,13 @@ int XOcp_ValidateDiceCdi(void)
 			}
 		}
 	}
-	if (Index > XOCP_CDI_SIZE_IN_WORDS) {
+	/** - If Index equal to size means every CDI word was zero. */
+	if (Index == XOCP_CDI_SIZE_IN_WORDS) {
+		Status = (int)XOCP_DICE_CDI_SEED_ZERO;
+	} else if (Index > XOCP_CDI_SIZE_IN_WORDS) {
 		Status = (int)XOCP_ERR_GLITCH_DETECTED;
 	} else {
-		Status = XST_SUCCESS;
+		/* MISRA-C compliance */
 	}
 
 END:
