@@ -220,6 +220,7 @@
 *       pre 08/15/2026 Do not set boot done bit if ROM and PLM measurement fails in case of TPM being enabled.
 * 2.5   gnr  08/19/2026 Re-arm SMAP sync word detection and drain SBI FIFO before
 *                      setting the DONE pin after PDI load
+*       dc   09/01/2026 Enable DAP device state change scheduler for VERSAL_2VP_P
 *
 * </pre>
 *
@@ -392,8 +393,8 @@ int XLoader_Init(void)
 #endif
 
 	/**
-	 * - Add DAP status check task to the scheduler, this is
-	 * applicable only for VersalNet.
+	 * - Add DAP status check task to the scheduler. This is applicable
+	 * for VersalNet, Versal_2VE_2VM, and Versal_2VP_P.
 	 */
 	Status = XLoader_AddDeviceStateChangeToScheduler();
 	if (Status != XST_SUCCESS) {

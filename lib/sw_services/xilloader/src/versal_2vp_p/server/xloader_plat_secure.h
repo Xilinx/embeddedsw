@@ -19,6 +19,7 @@
 *       sd  04/13/26 Added PUF support for VERSAL_2VP_P
 *       rpu 04/22/26 Moved Versal_2vp_p efuse ppk register addresses to xloader_secure.h
 * 2.5   sri 08/24/26 Added XLOADER_SEC_STATE_CONFIG_MEASUREMENT_ERROR
+*       dc  09/01/26 Enabled DAP device state change scheduler task
 * </pre>
 *
 ***************************************************************************************************/
@@ -40,8 +41,13 @@ extern "C" {
 #include "xplmi_config.h"
 #ifndef PLM_SECURE_EXCLUDE
 #include "xsecure_kat.h"
+#include "xloader.h"
 
 /************************************ Constant Definitions ****************************************/
+#define XLOADER_EFUSE_CACHE_JTAG_DIS_MASK		(0x00000004U) /**< eFUSE cache JTAG disable mask */
+#define XLOADER_JTAG_SEC_GATE_CLOSE			(0x00U) /**< JTAG secure gate close */
+#define XLOADER_JTAG_SEC_GATE_OPEN			(0x01U) /**< JTAG secure gate open */
+#define XLOADER_DEVICE_STATE_POLL_INTERVAL		(1000U) /**< Device state poll interval */
 
 /************************************** Type Definitions ******************************************/
 typedef enum {
@@ -178,22 +184,11 @@ typedef struct {
 #define XLOADER_PMC_TAP_INST_MASK_1_ENABLE_MASK		(0x071BFF91U)
 		/**< Mask to enable required instructions in Instruction Mask 1 register */
 
-/**************************************************************************************************/
-/**
- * @brief	This function is supported only for Versalnet, nothing to be done in Versal_2vp.
- *
- * @return
- * 		- XST_SUCCESS always.
- *
- **************************************************************************************************/
-static inline int XLoader_AddDeviceStateChangeToScheduler(void)
-{
-	return XST_SUCCESS;
-}
-
 /************************************ Function Prototypes *****************************************/
 u32 XLoader_GetKekSrc(void);
 int XLoader_AesObfusKeySelect(u32 PdiKeySrc, u32 DecKeyMask, void *KeySrcPtr);
+int XLoader_AddDeviceStateChangeToScheduler(void);
+int XLoader_CheckDeviceStateChange(void *Arg);
 #ifndef XSECURE_RSA_EXCLUDE
 int XLoader_RsaKat(void);
 int XLoader_MaskGenFunc(XSecure_Sha3 *Sha3InstancePtr, u8 * Out, u32 OutLen, u8 *Input);

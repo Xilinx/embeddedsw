@@ -18,6 +18,7 @@
 * ----- ---- -------- ----------------------------------------------------------------------------
 * 2.3   sd  10/13/25 Initial release
 *       sd  08/20/26 Added PMC WWDT SRST error action
+*       dc  09/01/26 Added DEV_STATE_CHANGE SW error table entry
 *
 * </pre>
 *
@@ -305,6 +306,8 @@ static XPlmi_Error_t ErrorTable[XPLMI_ERROR_SW_ERR_MAX] = {
 				 .SubsystemId = 0U, },
 	[XPLMI_ERROR_HBM_SW_CATTRIP] = { .Handler = NULL, .Action = XPLMI_EM_ACTION_SRST,
 					 .SubsystemId = 0U, },
+	[XPLMI_ERROR_DEV_STATE_CHANGE] = { .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE,
+					   .SubsystemId = 0U, },
 };
 
 /**************************************************************************************************/

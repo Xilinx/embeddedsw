@@ -24,6 +24,7 @@
 *       tvp      07/07/2025 Add SW PCR Error Mask
 * 8.0   sk       09/23/2025 Added Additional HBMON Error ID's
 *       sd       08/20/2026 Added PMC WWDT error event mask
+*       dc       09/01/2026 Added XIL_EVENT_ERROR_MASK_DEV_STATE_CHANGE
 *
 * </pre>
 *
@@ -491,6 +492,8 @@ extern "C" {
 #define XIL_EVENT_ERROR_MASK_HB_MON_5		(0x00000800U)
 #define XIL_EVENT_ERROR_MASK_HB_MON_6		(0x00001000U)
 #define XIL_EVENT_ERROR_MASK_HB_MON_7		(0x00002000U)
+/** Error event mask for DAP / JTAG secure-gate device state change. */
+#define XIL_EVENT_ERROR_MASK_DEV_STATE_CHANGE	(0x00004000U)
 /**
  * @}
  */
