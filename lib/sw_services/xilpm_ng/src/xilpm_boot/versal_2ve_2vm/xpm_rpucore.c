@@ -336,6 +336,33 @@ static XStatus SetResetState(const XPm_RpuCore *Core, u32 Value)
 			PmErr("RPU Core Reset node is NULL\r\n");
 			goto done;
 		}
+
+		/*
+		 * A reset handle can be shared by sibling cores of the same
+		 * cluster (e.g. RPU_A_TOPRESET is a reset parent of both
+		 * RPU_A_0 and RPU_A_1). Asserting such a shared reset while a
+		 * sibling core is already RUNNING would reset that sibling
+		 * mid-execution. When asserting, skip any reset that a running
+		 * or powering-down sibling still depends on. Deassert (release)
+		 * is always safe and must not be skipped.
+		 */
+		if (0U != Value) {
+			const XPm_ResetHandle *DevHandle = Reset->RstHandles;
+			while (NULL != DevHandle) {
+				if ((Device->Node.Id != DevHandle->Device->Node.Id) &&
+				    (((u32)XPM_DEVSTATE_RUNNING == DevHandle->Device->Node.State) ||
+				     ((u32)XPM_DEVSTATE_PENDING_PWR_DWN == DevHandle->Device->Node.State))) {
+					break;
+				}
+				DevHandle = DevHandle->NextDevice;
+			}
+			if (NULL != DevHandle) {
+				/* Shared reset in use by a running sibling: skip assert */
+				CurHandle = CurHandle->NextReset;
+				continue;
+			}
+		}
+
 		u32 RpuRstAddr = Reset->Node.BaseAddress;
 		u32 Mask = BITNMASK(Reset->Shift, Reset->Width);
 		if (0U == Value) {
