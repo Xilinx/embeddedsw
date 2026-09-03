@@ -18,6 +18,8 @@
 * ----- ---- -------- ---------------------------------------------------------------------------
 * 1.0   yog  08/21/25 Initial release
 *       yog  04/17/26 Updated code to zeroize UDE KEK immediately after use to avoid exposure in memory.
+*       yog  08/24/26 Encrypt/decrypt UDE private keys directly with the PUF KEK,
+*                     removing the derived UDE KEK (CMAC-KDF from eFUSE-0).
 *
 * </pre>
 *
@@ -35,7 +37,7 @@
 #include "xocp_ude.h"
 #include "xocp.h"
 #include "xaes.h"
-#include "xkdf.h"
+#include "xasufw_keytransfer.h"
 #include "xsha.h"
 #include "xsha_hw.h"
 #include "xasu_generic.h"
@@ -49,13 +51,9 @@
 /********************************** Constant Definitions *****************************************/
 
 /************************************ Macro Definitions ******************************************/
-#define XOCP_UDE_KEK_SIZE_IN_BYTES	(32U)	/**< UDE KEK size in bytes */
-#define XOCP_UDE_CONTEXT		"UDE_ENCRYPTION_KEY" /**< UDE context */
-#define XOCP_UDE_CONTEXT_LEN		(18U)		/**< UDE context length */
 #define XOCP_UDE0_IV_INC_VAL		(0x02U)	/**< UDE0 IV increment value */
 #define XOCP_UDE1_IV_INC_VAL		(0x03U)	/**< UDE1 IV increment value */
 #define XOCP_UDE2_IV_INC_VAL		(0x04U)	/**< UDE2 IV increment value */
-#define XOCP_DEC_BLACK_KEY_IV_INC_VAL	(0x10U)	/**< UDE decryption black key IV increment value */
 #define XASU_OCP_UDE_TAG_SIZE_IN_BYTES	(16U)	/**< UDE tag size in bytes */
 
 /************************************ Type Definitions *******************************************/
@@ -72,54 +70,22 @@ static s32 XOcp_BuildUdeResponseData(XAsufw_Dma *DmaPtr, const u8 *UdeDecPvtKey,
 static s32 XOcp_PrepareUdeDecKey(XAsufw_Dma *DmaPtr, u8 *UdeKekIv, u8 *UdeDecPvtKey);
 static s32 XOcp_ProcessUdeResponse(XAsufw_Dma *DmaPtr, XAsu_OcpUdeResponse *OcpUdeResp,
 				   const XAsu_OcpUdeParams *OcpUdeParamsPtr);
-static s32 XOcp_GenerateUdeKek(XAsufw_Dma *DmaPtr, XAes *AesInstancePtr, u8 *OutputKek);
-
-/*************************************************************************************************/
-/**
- * @brief	This function generates the UDE KEK by decrypting the eFUSE black key using the PUF KEK
- * 		and applying a Key Derivation Function (KDF) to the result.
- *
- * @param	DmaPtr		Pointer to the XAsufw_Dma instance.
- * @param	AesInstancePtr	Pointer to the XAes instance.
- * @param	OutputKek	Pointer to output buffer where KEK will be written.
- * 				Caller is responsible for zeroizing this buffer after use.
- *
- * @return
- *		- XASUFW_SUCCESS, if UDE KEK generation is successful.
- *		- XASUFW_FAILURE, in case of failure.
- *
- *************************************************************************************************/
-static s32 XOcp_GenerateUdeKek(XAsufw_Dma *DmaPtr, XAes *AesInstancePtr, u8 *OutputKek)
-{
-	CREATE_VOLATILE(Status, XASUFW_FAILURE);
-	const char *CtxStr = XOCP_UDE_CONTEXT;
-	const u8 *Context = (const u8 *)CtxStr;
-
-	/** Generate UDE KEK from eFUSE black key using PUF KEK and KDF. */
-	Status = XKdf_GenerateKekFromEfuse0(DmaPtr, AesInstancePtr, Context,
-					    XOCP_UDE_CONTEXT_LEN,
-					    XOCP_DEC_BLACK_KEY_IV_INC_VAL,
-					    XOCP_UDE_KEK_SIZE_IN_BYTES,
-					    OutputKek);
-
-	return Status;
-}
 
 /*************************************************************************************************/
  /**
- * @brief	This function generates a UDE private key, encrypts it with the UDE KEK,
- * 		and returns the encrypted key based on the provided key ID.
+ * @brief	This function generates a UDE private key, encrypts it with the PUF KEK.
  *
  * @param	DmaPtr		Pointer to the XAsufw_Dma instance.
  * @param	OcpUdeKeyEnc	Pointer to the XAsu_OcpUdeKeyEncrypt structure.
  *
  * @return
  *	- XASUFW_SUCCESS, if UDE key encryption is successful.
- *	- XASUFW_FAILURE, in case of failure.
  *	- XASUFW_OCP_INVALID_PARAM, if any input param is invalid.
- *	- XASUFW_OCP_UDE_IV_COPY_FAIL, if UDE IV copy operation fails.
- *	- XASUFW_OCP_UDE_AES_COMPUTE_FAIL, if UDE key encryption operation fails.
+ *	- XASUFW_MEM_COPY_FAIL, if copying the IV from RTCA fails.
+ *	- XASUFW_OCP_UDE_IV_IS_ZERO, if the IV read from RTCA is all zeros.
  *	- XASUFW_OCP_UDE_PVT_KEY_GEN_FAIL, if UDE private key generation fails.
+ *	- XASUFW_OCP_UDE_AES_COMPUTE_FAIL, with the XOcp_AesCompute error embedded, if UDE key
+ *	  encryption fails.
  *	- Error code from XAsufw_UpdateBufStatus, if local buffer zeroization fails.
  *
  *************************************************************************************************/
@@ -232,17 +198,9 @@ END:
  * @param	OcpUdeParamsPtr	Pointer to XAsu_OcpUdeParams structure.
  *
  * @return
- *	- XASUFW_SUCCESS, if subsystem hash address is retrieved successfully.
- *	- XASUFW_FAILURE, in case of failure.
+ *	- XASUFW_SUCCESS, if the UDE response is generated successfully.
  *	- XASUFW_OCP_INVALID_PARAM, if any input param is invalid.
- *	- XASUFW_OCP_UDE_ALL_PVT_KEYS_REVOKED, if all UDE private keys are revoked.
- *	- XASUFW_OCP_DEVICE_ID_CALC_FAIL, if device ID calculation fails.
- *	- XASUFW_OCP_MEASUREMENT_UPDATE_FAIL, if measurement update fails.
- *	- XASUFW_MEM_COPY_FAIL, if memcpy operation fails.
- *	- XASUFW_OCP_SHA_DIGEST_FAIL, if SHA digest generation fails.
- *	- XASUFW_OCP_UDE_SIGNATURE_GEN_FAIL, if UDE signature generation fails.
- *	- XASUFW_OCP_UDE_KEY_DECRYPT_FAIL, if UDE private key decryption fails.
- *	- XASUFW_OCP_NONCE_UPDATE_FAIL, if nonce update fails.
+ *	- Error codes from XOcp_ProcessUdeResponse, if UDE response generation fails.
  *
  *************************************************************************************************/
 s32 XOcp_GenerateUdeResponse(XAsufw_Dma *DmaPtr, const XAsu_OcpUdeParams *OcpUdeParamsPtr)
@@ -284,7 +242,7 @@ END:
 
 /*************************************************************************************************/
 /**
- * @brief	This function decrypts the UDE encrypted private key using UDE KEK.
+ * @brief	This function decrypts the UDE encrypted private key using the PUF KEK.
  *
  * @param	DmaPtr		Pointer to the XAsufw_Dma instance.
  * @param	UdeUserKeyAddr	Address of UDE user key
@@ -292,14 +250,14 @@ END:
  * @param	UdeDecPvtKey	Pointer to store the decrypted key.
  *
  * @return
- * 	- XASUFW_SUCCESS, if AES operation is successful.
- * 	- XASUFW_MEM_COPY_FAIL, if mem copy fails.
- * 	- XASUFW_OCP_UDE_CHANGE_ENDIANNESS_ERROR, if endianness change fails.
- * 	- XASUFW_ZEROIZE_MEMSET_FAIL, if mem set fails.
- * 	- XASUFW_OCP_UDE_AES_COMPUTE_FAIL, if AES compute fails.
- * 	- XASUFW_OCP_UDE_KEY_DECRYPT_FAIL, if key decryption fails.
- * 	- Errors codes from AES, if AES operation fails.
- * 	- Error code from XAsufw_UpdateBufStatus, if local buffer zeroization fails.
+ *	- XASUFW_SUCCESS, if the UDE private key is decrypted successfully.
+ *	- XASUFW_MEM_COPY_FAIL, if mem copy fails.
+ *	- XASUFW_OCP_UDE_CHANGE_ENDIANNESS_ERROR, if endianness change fails.
+ *	- XASUFW_ZEROIZE_MEMSET_FAIL, if mem set fails.
+ *	- XASUFW_OCP_UDE_AES_COMPUTE_FAIL, with the XOcp_AesCompute error embedded, if the AES
+ *	  operation fails.
+ *	- XASUFW_OCP_UDE_KEY_DECRYPT_FAIL, if key decryption fails.
+ *	- Error code from XAsufw_UpdateBufStatus, if local buffer zeroization fails.
  *
  *************************************************************************************************/
 static s32 XOcp_DecryptPvtKey(XAsufw_Dma *DmaPtr, u32 UdeUserKeyAddr, u8* Iv, u8* UdeDecPvtKey)
@@ -337,7 +295,7 @@ static s32 XOcp_DecryptPvtKey(XAsufw_Dma *DmaPtr, u32 UdeUserKeyAddr, u8* Iv, u8
 
 	/**
 	 * Decrypt the UDE encrypted private key.
-	 *  - Encrypt the zero data with the UDE KEK and updated IV.
+	 *  - Encrypt the zero data with the PUF KEK and updated IV.
 	 *  - XOR the resultant data with the UDE user key data (UDE encrypted private key).
 	 */
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
@@ -365,10 +323,15 @@ END:
 
 /*************************************************************************************************/
 /**
- * @brief	This function performs the AES encrypt/decrypt operation as part of OCP.
- * 		- Regenerates UDE KEK on-demand for each operation.
- * 		- Immediately zeroizes KEK after use so that it's lifetime is scoped to a
- * 		  single AES operation.
+ * @brief	This function performs the AES-GCM operation used for UDE private key encryption
+ *		and decryption, using the PUF KEK directly as the AES key source.
+ *		- Ensures the PUF KEK is transferred from the PMC and selects it as the AES key
+ *		  source through XAes_EncryptRedKey.
+ *		- The operation is always performed in encrypt mode:
+ *		    - Encryption: the UDE private key is encrypted directly.
+ *		    - Decryption: the zero buffer is encrypted to reproduce the keystream, which the
+ *		      caller XORs with the UDE encrypted private key.
+ *		- Clears the PUF key and the eFUSE keys from the AES engine on every path.
  *
  * @param	DmaPtr		Pointer to the XAsufw_Dma instance.
  * @param	IvAddr		Pointer to the IV (Initialization Vector) address.
@@ -376,62 +339,42 @@ END:
  * @param	OutAddr		Pointer to the output data address.
  *
  * @return
- * 	- XASUFW_SUCCESS, if AES operation is successful.
- * 	- XASUFW_OCP_UDE_KEK_GEN_FAIL, if UDE KEK generation fails.
- * 	- XASUFW_OCP_UDE_KEK_NOT_PRESENT, if generated UDE KEK buffer is all zeros.
- * 	- XASUFW_OCP_AES_WRITE_KEY_FAILURE, if AES write key fails.
- * 	- Error codes from AES, if AES operation fails.
- * 	- Error code from XAsufw_UpdateBufStatus, if local buffer zeroization fails.
+ *	- XASUFW_SUCCESS, if AES operation is successful.
+ *	- XASUFW_PUF_KEK_GEN_FAIL, if PUF KEK generation fails.
+ *	- Error codes from XAsufw_PmcKeyTransfer, if the eFUSE and PUF key transfer from the PMC
+ *	  fails.
+ *	- Error codes from XAes_EncryptRedKey, if the AES operation fails.
+ *	- Error code from XAes_KeyClear, if clearing the keys from the AES engine fails.
+ *	- Error code from XAsufw_UpdateBufStatus, if local buffer zeroization fails.
  *
  *************************************************************************************************/
 static s32 XOcp_AesCompute(XAsufw_Dma *DmaPtr, u64 IvAddr, u64 InAddr, u64 OutAddr)
 {
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
 	CREATE_VOLATILE(ClearStatus, XASUFW_FAILURE);
-	XAsu_AesParams AesParams;
-	XAsu_AesKeyObject KeyObject;
+	XFih_Var XFihUde = XFih_VolatileAssignXfihVar(XFIH_FAILURE);
+	XAsu_AesParams AesParams = {0U};
 	u8 TagBuf[XASU_OCP_UDE_TAG_SIZE_IN_BYTES] = {0U};
 	XAes *AesInstancePtr = XAes_GetInstance(XASU_XAES_0_DEVICE_ID);
-	XFih_Var XFihUde = XFih_VolatileAssignXfihVar(XFIH_FAILURE);
-	u8 UdeKek[XOCP_UDE_KEK_SIZE_IN_BYTES] = {0U};
+	u32 PufKekGenStatus = XASUFW_FAILURE;
 
-	/** Generate UDE KEK on-demand. */
-	Status = XOcp_GenerateUdeKek(DmaPtr, AesInstancePtr, UdeKek);
-	if (Status != XASUFW_SUCCESS) {
-		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_OCP_UDE_KEK_GEN_FAIL);
+	/**
+	 * Ensure the PUF KEK (and eFUSE keys) are transferred from the PMC before the PUF key is
+	 * selected as the AES key source, and validate the PUF KEK generation status.
+	 */
+	XFIH_CALL_GOTO(XAsufw_PmcKeyTransfer, XFihUde, Status, END, &PufKekGenStatus);
+	if (PufKekGenStatus != (u32)XASUFW_SUCCESS) {
+		Status = XASUFW_PUF_KEK_GEN_FAIL;
 		goto END;
-	}
-
-	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-	/** Check if the UDE KEK buffer is non-zero. */
-	Status = XAsu_IsBufferNonZero(UdeKek, XOCP_UDE_KEK_SIZE_IN_BYTES);
-	if (Status != XASUFW_SUCCESS) {
-		Status = XASUFW_OCP_UDE_KEK_NOT_PRESENT;
-		goto END;
-	}
-
-	KeyObject.KeySize = (u32)XASU_AES_KEY_SIZE_256_BITS;
-	KeyObject.KeySrc = XASU_AES_USER_KEY_7;
-	KeyObject.KeyAddress = (u64)(UINTPTR)(UdeKek);
-
-	/** Write AES key - UDE KEK for encryption and decryption of UDE private keys. */
-	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-	Status = XAes_WriteKey(AesInstancePtr, DmaPtr, &KeyObject);
-	if (Status != XASUFW_SUCCESS) {
-		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_OCP_AES_WRITE_KEY_FAILURE);
-		goto END_CLR;
 	}
 
 	/**
-	 * Initialize AES parameters structure. AES compute is always performed in encrypt mode
-	 * for both encryption and decryption of UDE private keys.
-	 * Decryption of the UDE encrypted private key is as follows:
-	 *  - Encrypt the zero data with the UDE KEK and updated IV.
-	 *  - XOR the resultant data with the UDE user key data (UDE encrypted private key).
+	 * Encrypt with the PUF KEK using AES-GCM. XAes_EncryptRedKey selects the PUF key as the
+	 * AES key source, so no key material is written or derived here. The same encrypt
+	 * operation serves both encryption and (keystream-based) decryption of the UDE key.
 	 */
 	AesParams.EngineMode = (u8)XASU_AES_GCM_MODE;
 	AesParams.OperationType = XASU_AES_ENCRYPT_OPERATION;
-	AesParams.KeyObjectAddr = (u64)(UINTPTR)&KeyObject;
 	AesParams.IvObj.IvAddr = (u64)(UINTPTR)IvAddr;
 	AesParams.IvObj.IvLen = XASU_OCP_UDE_IV_SIZE_IN_BYTES;
 	AesParams.InputDataAddr = (u64)(UINTPTR)InAddr;
@@ -442,31 +385,22 @@ static s32 XOcp_AesCompute(XAsufw_Dma *DmaPtr, u64 IvAddr, u64 InAddr, u64 OutAd
 	AesParams.TagAddr = (u64)(UINTPTR)TagBuf;
 	AesParams.TagLen = XASU_OCP_UDE_TAG_SIZE_IN_BYTES;
 
-	/** Perform AES operation based on the operation type. */
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-	Status = XAes_Compute(AesInstancePtr, DmaPtr, &AesParams);
-
-END_CLR:
-
-	/** Clear the key written to the XASU_AES_USER_KEY_7 key source. */
-	XFIH_CALL(XAes_KeyClear, XFihUde, ClearStatus, AesInstancePtr, KeyObject.KeySrc);
-	Status = XAsufw_UpdateErrorStatus(Status, ClearStatus);
-
-	/** Zeroize the key object. */
-	ClearStatus = Xil_SecureZeroize((u8 *)(UINTPTR)&KeyObject, sizeof(XAsu_AesKeyObject));
-	Status = XAsufw_UpdateBufStatus(Status, ClearStatus);
+	Status = XAes_EncryptRedKey(AesInstancePtr, DmaPtr, &AesParams);
 
 	/** Zeroize the local GCM tag buffer. */
 	ClearStatus = Xil_SecureZeroize(TagBuf, XASU_OCP_UDE_TAG_SIZE_IN_BYTES);
 	Status = XAsufw_UpdateBufStatus(Status, ClearStatus);
 
 END:
-	/**
-	 * Immediately zeroize the UDE KEK from memory.
-	 * This ensures the KEK only existed for the duration of this single operation.
-	 */
-	XFIH_CALL(Xil_SecureZeroize, XFihUde, ClearStatus, UdeKek, XOCP_UDE_KEK_SIZE_IN_BYTES);
-	Status = XAsufw_UpdateBufStatus(Status, ClearStatus);
+	/** Clear the PUF key and eFUSE keys from the AES engine after use. */
+	XFIH_CALL(XAes_KeyClear, XFihUde, ClearStatus, AesInstancePtr, XAES_KEY_CLEAR_MULTI_KEY_FLAG |
+		XAES_KEY_SRC_TO_CLEAR_MASK(XASU_AES_EFUSE_KEY_0) |
+		XAES_KEY_SRC_TO_CLEAR_MASK(XASU_AES_EFUSE_KEY_RED_0) |
+		XAES_KEY_SRC_TO_CLEAR_MASK(XASU_AES_PUF_KEY) |
+		XAES_KEY_SRC_TO_CLEAR_MASK(XASU_AES_EFUSE_KEY_1) |
+		XAES_KEY_SRC_TO_CLEAR_MASK(XASU_AES_EFUSE_KEY_RED_1));
+	Status = XAsufw_UpdateErrorStatus(Status, ClearStatus);
 
 	return Status;
 }
@@ -474,14 +408,15 @@ END:
 /*************************************************************************************************/
  /**
  * @brief	This function checks the revocation status of UDE private keys and gets the active
- * 		UDE key information (Key address and IV increment value).
+ *		UDE key information (Key address and IV increment value).
  *
  * @param	UdeUserKeyPtr	Pointer to the variable that will hold active UDE user key address.
  * @param	IvIncValPtr	Pointer to the variable that will hold IV increment value.
  *
  * @return
  *	- XASUFW_SUCCESS, if active UDE key information is retrieved successfully.
- *	- XASUFW_FAILURE, in case of failure.
+ *	- XASUFW_OCP_UDE_ALL_PVT_KEYS_REVOKED, if all UDE private keys are revoked.
+ *	- XASUFW_FAILURE, if no UDE key revocation bit reads back as unrevoked.
  *
  *************************************************************************************************/
 static s32 XOcp_GetActiveUdeKeyInfo(u32 *UdeUserKeyPtr, u8 *IvIncValPtr)
@@ -538,7 +473,6 @@ END:
  *
  * @return
  *	- XASUFW_SUCCESS, if UDE response data population and signing is successful.
- *	- XASUFW_FAILURE, in case of failure.
  *	- XASUFW_OCP_DEVICE_ID_CALC_FAIL, if device ID calculation fails.
  *	- XASUFW_KEYMANAGER_GET_KEYOBJ_FAILED, if DevIk public key cannot be fetched from the
  *	  ASU key vault.
@@ -655,10 +589,10 @@ END:
  *
  * @return
  *	- XASUFW_SUCCESS, if UDE key preparation is successful.
- *	- XASUFW_FAILURE, in case of failure.
  *	- XASUFW_OCP_UDE_ALL_PVT_KEYS_REVOKED, if all UDE private keys are revoked.
  *	- XASUFW_OCP_UDE_KEY_NOT_PROGRAMMED, if UDE key is not programmed into eFUSEs.
- *	- XASUFW_OCP_UDE_KEY_DECRYPT_FAIL, if UDE private key decryption fails.
+ *	- XASUFW_OCP_UDE_KEY_DECRYPT_FAIL, with the XOcp_DecryptPvtKey error embedded, if UDE
+ *	  private key decryption fails.
  *
  *************************************************************************************************/
 static s32 XOcp_PrepareUdeDecKey(XAsufw_Dma *DmaPtr, u8 *UdeKekIv, u8 *UdeDecPvtKey)
@@ -707,10 +641,12 @@ END:
  *
  * @return
  *	- XASUFW_SUCCESS, if UDE response generation is successful.
- *	- XASUFW_FAILURE, in case of failure.
  *	- XASUFW_MEM_COPY_FAIL, if IV copy fails.
- *	- XASUFW_OCP_UDE_KEY_DECRYPT_FAIL, if UDE private key decryption fails.
+ *	- XASUFW_OCP_UDE_IV_IS_ZERO, if the IV read from RTCA is all zeros.
+ *	- XASUFW_OCP_UDE_PREPARE_DEC_KEY_FAIL, with the XOcp_PrepareUdeDecKey error embedded, if
+ *	  the UDE private key could not be prepared.
  *	- XASUFW_OCP_UDE_PUBLIC_KEY_GEN_FAIL, if UDE public key generation fails.
+ *	- Error codes from XOcp_BuildUdeResponseData, if response data population or signing fails.
  *	- Error code from XAsufw_UpdateBufStatus, if local buffer zeroization fails.
  *
  *************************************************************************************************/

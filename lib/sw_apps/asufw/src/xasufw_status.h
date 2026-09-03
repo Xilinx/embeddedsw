@@ -557,7 +557,7 @@ enum {
 	XASUFW_OCP_KEY_MGMT_NOT_READY, /**< 0x176U - Error when DevIk pair is not ready */
 	XASUFW_OCP_DEVAK_NOT_READY, /**< 0x177U - Error when DevAk pair is not ready */
 	XASUFW_ERR_RESERVED_178, /**< 0x178U - Reserved */
-	XASUFW_OCP_UDE_KEK_GEN_FAIL, /**< 0x179U - Error when UDE KEK generation fails */
+	XASUFW_ERR_RESERVED_179, /**< 0x179U - Reserved */
 	XASUFW_PUF_KEK_GEN_FAIL, /**< 0x17AU - Error when PUF KEK generation fails */
 	XASUFW_OCP_INVALID_BUF_SIZE, /**< 0x17B - Error when OCP buffer size is invalid */
 	XASUFW_VALIDATE_CMD_INVALID_CHANNEL_INDEX, /**< 0x17CU - Error when channel index is invalid */
@@ -576,7 +576,7 @@ enum {
 	XASUFW_OCP_NONCE_UPDATE_FAIL, /**< 0x186U - Error when nonce update is failed */
 	XASUFW_OCP_MEASUREMENT_UPDATE_FAIL, /**< 0x187U - Error when measurement update is failed */
 	XASUFW_OCP_UDE_SIGNATURE_GEN_FAIL, /**< 0x188U - Error when UDE signature generation is failed */
-	XASUFW_OCP_AES_WRITE_KEY_FAILURE, /**< 0x189U - Error when AES write key operation fails */
+	XASUFW_ERR_RESERVED_189, /**< 0x189U - Reserved */
 	XASUFW_OCP_UDE_KEY_ENCRYPT_FAIL, /**< 0x18AU - Error when UDE key encryption is failed */
 	XASUFW_OCP_UDE_KEY_DECRYPT_FAIL, /**< 0x18BU - Error when UDE key decryption is failed */
 	XASUFW_OCP_UDE_PVT_KEY_GEN_FAIL, /**< 0x18CU - Error when UDE private key generation fails */
@@ -594,7 +594,7 @@ enum {
 
 	XASUFW_ECIES_PUB_KEY_VALIDATE_FAILURE, /**< 0x196U - Error when public key validation fails
 						in ECIES */
-	XASUFW_OCP_UDE_KEK_NOT_PRESENT, /**< 0x197U - Error when UDE KEK is not present */
+	XASUFW_ERR_RESERVED_197, /**< 0x197U - Reserved */
 
 	XASUFW_AES_CONTEXT_SAVE_FAIL, /**< 0x198U - Error when AES context saving fails */
 	XASUFW_AES_CONTEXT_USER_KEY_RESTORE_FAIL, /**< 0x199U - Error when AES context user key restore fails */
