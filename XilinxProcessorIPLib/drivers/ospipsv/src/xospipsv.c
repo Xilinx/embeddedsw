@@ -53,6 +53,7 @@
 * 1.13  sb  10/28/25 Added cache invalidate when EL1_NONSECURE is not defined.
 * 1.15  zm  08/07/26 Reject interrupt transfers the STIG path cannot issue.
 * 1.15  sb  08/11/26 Add support for pattern-based RX PHY tuning.
+* 1.15  vn  09/03/26 Fix doxygen warnings.
 *
 * </pre>
 *
@@ -229,8 +230,6 @@ u32 XOspiPsv_CfgInitialize(XOspiPsv *InstancePtr,
 * and restarting the OSPIPSV device after the reset.
 *
 * @param	InstancePtr Pointer to the XOspiPsv instance.
-*
-* @return	None.
 *
 ******************************************************************************/
 void XOspiPsv_Reset(XOspiPsv *InstancePtr)
@@ -812,8 +811,6 @@ u32 XOspiPsv_IntrHandler(XOspiPsv *InstancePtr)
  *
  * @param	InstancePtr Pointer to the XOspiPsv instance.
  *
- * @return	None.
- *
  *****************************************************************************/
 void XOspiPsv_Idle(const XOspiPsv *InstancePtr)
 {
@@ -1037,8 +1034,6 @@ ERROR_PATH:
  * @param	CallBackRef Upper layer callback reference passed back
  *		when the callback function is invoked.
  * @param	FuncPointer Pointer to the callback function.
- *
- * @return	None.
  *
  * @note
  *

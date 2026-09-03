@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2018 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -28,6 +28,7 @@
 * 1.6   sk   02/07/22 Replaced driver version in addtogroup with Overview.
 * 1.11  sb   07/09/24 Limit dummy value range in XOspiPsv_ConfigureAutoPolling().
 * 1.11  ng  08/20/24 Add spartanup device support
+* 1.15  vn  09/03/26 Fix doxygen warnings.
 *
 * </pre>
 *
@@ -444,10 +445,6 @@ ERROR_PATH:
 *
 * @param	InstancePtr Pointer to the XOspiPsv instance.
 * @param	FlashMode Edge mode. XOSPIPSV_EDGE_MODE_* represents valid values.
-*
-* @return
-*		- XST_SUCCESS if successful.
-*		- XST_FAILURE if fail to set.
 *
 ******************************************************************************/
 void XOspiPsv_ConfigureAutoPolling(const XOspiPsv *InstancePtr, u32 FlashMode)

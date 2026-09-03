@@ -20,6 +20,7 @@
 * ----- --- -------- -----------------------------------------------
 * 1.13  sb  02/07/25 First release
 * 1.15  zm  08/07/26 Gate the STIG path on protocol and on transfer size.
+* 1.15  vn  09/03/26 Fix doxygen warnings.
 *
 * </pre>
 ******************************************************************************/
@@ -104,8 +105,6 @@ u32 XOspiPsv_PollSendData(XOspiPsv *InstancePtr, XOspiPsv_Msg *Msg){
 * @param	InstancePtr Pointer to the XOspiPsv instance.
 * @param	Msg Pointer to the structure containing transfer data.
 *
-* @return	None.
-*
 ******************************************************************************/
 void XOspiPsv_IntrRecvData(XOspiPsv *InstancePtr, XOspiPsv_Msg *Msg){
 	XOspiPsv_Setup_Dev_Read_Instr_Reg(InstancePtr, Msg);
@@ -147,8 +146,6 @@ void XOspiPsv_IntrRecvData(XOspiPsv *InstancePtr, XOspiPsv_Msg *Msg){
 *
 * @param	InstancePtr Pointer to the XOspiPsv instance.
 * @param	Msg Pointer to the structure containing transfer data.
-*
-* @return	None.
 *
 ******************************************************************************/
 void XOspiPsv_IntrSendData(XOspiPsv *InstancePtr, XOspiPsv_Msg *Msg){

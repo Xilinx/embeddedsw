@@ -40,10 +40,15 @@
 * 1.12  sb  03/12/25 Fixed gcc and g++ warnings.
 * 1.14  vlt 12/15/25 Update Doxygen comments to include SDT flow details.
 * 1.15  sb  08/11/26 Add support for pattern-based RX PHY tuning.
+* 1.15  vn  09/03/26 Fix doxygen warnings.
 *
 *</pre>
 *
 ******************************************************************************/
+
+/** @addtogroup xospipsv_flash_non_blocking_read_example
+ * @{
+ */
 
 /***************************** Include Files *********************************/
 
@@ -2184,3 +2189,4 @@ int MxConfigDummy(XOspiPsv *OspiPsvPtr){
 	}
 	return Status;
 }
+/** @} */

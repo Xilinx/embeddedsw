@@ -45,11 +45,16 @@
 * 1.12  akm 01/01/25 Pass valid write command in DAC mode.
 * 1.12  sb  03/12/25 Fixed gcc and g++ warnings.
 * 1.14  vlt 12/15/25 Update Doxygen comments to include SDT flow details.
+* 1.15  vn  09/03/26 Fix doxygen warnings.
 * 1.15  sb  08/11/26 Add support for pattern-based RX PHY tuning.
 *
 *</pre>
 *
 ******************************************************************************/
+
+/** @addtogroup xospipsv_flash_polled_example
+ * @{
+ */
 
 /***************************** Include Files *********************************/
 
@@ -1974,7 +1979,7 @@ u32 GetRealAddr(XOspiPsv *OspiPsvPtr, u32 Address)
  * This function test the Block Protect feature for Micron flash by enabling
  * the write protect for the first sector.
  *
- * @param	OspiPsvPtr is a pointer to the OSPIPSV driver component to use
+ * @param	OspiPsvInstancePtr is a pointer to the OSPIPSV driver component to use
  *
  * @return	XST_SUCCESS or XST_FAILURE.
  *
@@ -2446,3 +2451,5 @@ int MxConfigDummy(XOspiPsv *OspiPsvPtr){
 	}
 	return Status;
 }
+
+/** @} */

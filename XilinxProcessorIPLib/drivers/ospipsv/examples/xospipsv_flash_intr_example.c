@@ -41,10 +41,15 @@
 * 1.12  sb  03/12/25 Fixed gcc and g++ warnings.
 * 1.14  vlt 12/15/25 Update Doxygen comments to include SDT flow details.
 * 1.15  sb  08/11/26 Add support for pattern-based RX PHY tuning.
+* 1.15  vn  09/03/26 Fix doxygen warnings.
 *
 *</pre>
 *
 ******************************************************************************/
+
+/** @addtogroup xospipsv_flash_intr_example
+ * @{
+ */
 
 /***************************** Include Files *********************************/
 
@@ -1574,6 +1579,7 @@ int FlashEnterExit4BAddMode(XOspiPsv *OspiPsvPtr, int Enable)
 	return Status;
 }
 
+#ifndef SDT
 /*****************************************************************************/
 /**
  *
@@ -1589,7 +1595,6 @@ int FlashEnterExit4BAddMode(XOspiPsv *OspiPsvPtr, int Enable)
  * @note	None.
  *
  ******************************************************************************/
-#ifndef SDT
 static int OspiPsvSetupIntrSystem(XScuGic *IntcInstancePtr,
 				  XOspiPsv *OspiPsvInstancePtr)
 {
@@ -1653,11 +1658,7 @@ static int OspiPsvSetupIntrSystem(XScuGic *IntcInstancePtr,
  * This function disables the interrupts that occur for the OspiPsv device.
  *
  * @param	IntcInstancePtr is a pointer to the instance of the Intc device.
- * @param	OspiPsvInstancePtr is a pointer to the instance of
- *		the OspiPsv device.
  * @param	OspiPsvIntrId is the interrupt Id for an OSPIPSV device.
- *
- * @return	XST_SUCCESS if successful, otherwise XST_FAILURE.
  *
  * @note	None.
  *
@@ -1685,8 +1686,6 @@ static void OspiPsvDisableIntrSystem(XScuGic *IntcInstancePtr,
  * @param        CallBackRef is the upper layer callback reference passed back
  *               when the callback function is invoked.
  * @param        StatusEvent is the event that just occurred.
- *
- * @return	None
  *
  * @note	None.
  *
@@ -2472,3 +2471,4 @@ int MxConfigDummy(XOspiPsv *OspiPsvPtr){
 	}
 	return Status;
 }
+/** @} */

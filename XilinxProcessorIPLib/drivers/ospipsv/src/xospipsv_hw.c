@@ -28,6 +28,7 @@
 * 1.11	akm  05/15/24 Added support for x2/x4 operations.
 * 1.13	sb   10/28/25 Added cache invalidate when EL1_NONSECURE is not defined.
 * 1.15	sb   08/11/26 Add support for pattern-based RX PHY tuning.
+* 1.15  vn   09/03/26 Fix doxygen warnings.
 *
 * </pre>
 *
@@ -67,8 +68,6 @@
 * @param	Num_wr_data_bytes Number of bytes to write.
 * @param	Dummy Number of bytes to write.
 * @param	Membank_en Enables STIG memory bank.
-*
-* @return	None.
 *
 ******************************************************************************/
 void XOspiPsv_Setup_Stig_Ctrl(const XOspiPsv *InstancePtr,
@@ -159,8 +158,6 @@ ERROR_PATH:
 * @param	InstancePtr Pointer to the XOspiPsv instance.
 * @param	Msg Pointer to the structure containing transfer data.
 *
-* @return	None
-*
 * @note		This operation is in IO mode of reading.
 *
 ******************************************************************************/
@@ -189,10 +186,6 @@ void XOspiPsv_FifoRead(XOspiPsv *InstancePtr, XOspiPsv_Msg *Msg)
 *
 * @param	InstancePtr Pointer to the XOspiPsv instance.
 * @param	Msg Pointer to the structure containing transfer data.
-*
-* @return
-*		- XST_SUCCESS if successful.
-*		- XST_FAILURE if transfer fails.
 *
 * @note		This operation is in IO mode of writing.
 *
@@ -226,8 +219,6 @@ void XOspiPsv_FifoWrite(XOspiPsv *InstancePtr, XOspiPsv_Msg *Msg)
 *
 * @param	InstancePtr Pointer to the XOspiPsv instance.
 * @param	Msg Pointer to the structure containing transfer data.
-*
-* @return	None
 *
 * @note		Used in DMA or Linear operations.
 *
@@ -345,8 +336,6 @@ void XOspiPsv_Setup_Dev_Write_Instr_Reg(const XOspiPsv *InstancePtr,
 * @param	InstancePtr Pointer to the XOspiPsv instance.
 * @param	Msg Pointer to the structure containing transfer data.
 *
-* @return	None
-*
 * @note		Used in DMA or Linear operations
 *
 ******************************************************************************/
@@ -460,8 +449,6 @@ void XOspiPsv_Setup_Dev_Read_Instr_Reg(const XOspiPsv *InstancePtr,
 * @param	InstancePtr Pointer to the XOspiPsv instance.
 * @param	Msg Pointer to the structure containing transfer data.
 *
-* @return	None
-*
 ******************************************************************************/
 void XOspiPsv_Setup_Devsize(const XOspiPsv *InstancePtr,
 				const XOspiPsv_Msg *Msg)
@@ -486,8 +473,6 @@ void XOspiPsv_Setup_Devsize(const XOspiPsv *InstancePtr,
 *
 * @param	InstancePtr Pointer to the XOspiPsv instance.
 *
-* @return	None
-*
 ******************************************************************************/
 void XOspiPsv_Start_Indr_RdTransfer(const XOspiPsv *InstancePtr)
 {
@@ -508,8 +493,6 @@ void XOspiPsv_Start_Indr_RdTransfer(const XOspiPsv *InstancePtr)
 *
 * @param	InstancePtr Pointer to the XOspiPsv instance.
 * @param	Msg Pointer to the structure containing transfer data.
-*
-* @return	None
 *
 ******************************************************************************/
 void XOspiPsv_Config_IndirectAhb(const XOspiPsv *InstancePtr,
@@ -540,8 +523,6 @@ void XOspiPsv_Config_IndirectAhb(const XOspiPsv *InstancePtr,
 *
 * @param	InstancePtr Pointer to the XOspiPsv instance.
 * @param	Msg Pointer to the structure containing transfer data.
-*
-* @return	None
 *
 ******************************************************************************/
 void XOspiPsv_Config_Dma(const XOspiPsv *InstancePtr, const XOspiPsv_Msg *Msg)
