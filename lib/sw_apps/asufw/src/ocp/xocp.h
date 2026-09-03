@@ -100,12 +100,53 @@ typedef struct {
 	u32 CertMaxSize;		/**< Maximum size of X.509 certificate */
 } XOcp_CertData;
 
+/**
+ * This structure contains the working data of an X.509 certificate generation request. It is
+ * reserved in the crypto algorithm data block instead of the caller's stack. The caller obtains it
+ * through XOcp_GetUserCertData(), clears it, populates the fields it supplies, and zeroizes it
+ * when the request completes.
+ */
+typedef struct {
+	u8 CertBuf[X509_CERTIFICATE_MAX_SIZE_IN_BYTES];	/**< Generated user certificate */
+	X509_UserCfg DerCfg;		/**< DER encoded user certificate configuration */
+	XAsu_X509UserCertCfg UserCfg;	/**< User supplied certificate configuration */
+	X509_Config CertCfg;		/**< Certificate generation configuration */
+	XAsu_EccKeyObject SubjectPubKeyObj;	/**< Subject public key of the certificate */
+	XAsu_EccKeyObject IssuerPubKeyObj;	/**< Issuer public key verifying the signature */
+	XAsu_EccKeyObject IssuerPvtKeyObj;	/**< Issuer private key signing the certificate */
+} XOcp_UserCertData;
+
+/**
+ * This structure contains the caller supplied key material and configuration used to generate an
+ * X.509 certificate. The issuer key pair and the subject public key are supplied directly by the
+ * caller, which allows the same generator to be used for user certificates (keys fetched from the
+ * key vault) and for the UDE self-signed CA certificate (freshly generated keys).
+ */
+typedef struct {
+	const XAsu_X509CertFields *CertFields;	/**< Subject and issuer distinguished names,
+						validity period and key usage */
+	const u8 *SubjectPubKey;		/**< Subject public key (uncompressed X || Y) */
+	const u8 *IssuerPubKey;			/**< Issuer public key (uncompressed X || Y). Equal
+						to SubjectPubKey for a self-signed certificate */
+	const u8 *IssuerPvtKey;			/**< Issuer private key that signs the certificate */
+	u64 CertBufAddr;			/**< Destination address for the DER encoded
+						certificate */
+	u32 SubjectPubKeyLen;			/**< Subject public key length in bytes */
+	u32 IssuerPubKeyLen;			/**< Issuer public key length in bytes */
+	u32 CertBufMaxSize;			/**< Size in bytes of the destination buffer */
+	u32 IsSelfSigned;			/**< XASU_TRUE if the certificate is self-signed
+						(issuer name and key equal the subject) */
+	u32 IsCaCert;				/**< XASU_TRUE to emit the CA BasicConstraints
+						extension (CA=TRUE, pathLenConstraint=0) */
+} XOcp_X509CertGenParams;
+
 /************************************ Function Prototypes ****************************************/
 s32 XOcp_GenerateDeviceKeys(XAsufw_Dma *DmaPtr, u32 EventMask);
 s32 XOcp_GetX509Cert(u32 SubsystemId, const XAsu_OcpCertParams *OcpCertParam, void *PlatData,
 		     u8 IsCsr);
-s32 XOcp_GetUserX509Cert(u32 SubsystemId, const XAsu_OcpUserCertParams *OcpUserCertParam,
+s32 XOcp_GetUserX509Cert(const XOcp_X509CertGenParams *CertGenParams, u32 *CertSize,
 			 void *PlatData);
+XOcp_UserCertData *XOcp_GetUserCertData(void);
 s32 XOcp_AttestWithDevAk(XAsufw_Dma *DmaPtr, const XAsu_OcpDevAkAttest *OcpAttestParam,
 			 u32 SubsystemId);
 XOcp_DeviceKeys* XOcp_GetDevIk(void);

@@ -2289,6 +2289,19 @@ static s32 X509_GenX509v3ExtensionsField(const X509_Config *Cfg)
 		goto END;
 	}
 
+	/**
+	 * Generate the basic constraints field for a CA certificate (CA=TRUE, pathLenConstraint=0).
+	 */
+	if (Cfg->IsCaCert == XASU_TRUE) {
+		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+		Status = X509_GenBasicConstraintsField();
+		if (Status != XASUFW_SUCCESS) {
+			Status = XAsufw_UpdateErrorStatus(Status,
+					XASUFW_X509_GEN_BASIC_CONSTRAINTS_FIELD_FAIL);
+			goto END;
+		}
+	}
+
 	/** Generate key usage field. */
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	Status = X509_GenKeyUsageField(Cfg);
@@ -2297,8 +2310,12 @@ static s32 X509_GenX509v3ExtensionsField(const X509_Config *Cfg)
 		goto END;
 	}
 
-	/** Generate extended key usage field, if certificate is self signed. */
-	if (Cfg->IsSelfSigned == XASU_TRUE) {
+	/**
+	 * Generate the extended key usage field for a self-signed identity certificate. A CA
+	 * certificate (e.g. the UDE self-signed CA certificate) does not carry the clientAuth
+	 * extended key usage, so it is suppressed in that case.
+	 */
+	if ((Cfg->IsSelfSigned == XASU_TRUE) && (Cfg->IsCaCert != XASU_TRUE)) {
 		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 		Status = X509_GenExtKeyUsageField();
 		if (Status != XASUFW_SUCCESS) {

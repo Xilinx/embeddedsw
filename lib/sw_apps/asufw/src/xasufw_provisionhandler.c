@@ -35,6 +35,7 @@
 #include "xasufw_aeshandler.h"
 #include "xasufw_memvalidation.h"
 #include "xaes.h"
+#include "xoverlay.h"
 
 #ifdef XASU_PROVISION_ENABLE
 /************************************ Constant Definitions ***************************************/
@@ -46,6 +47,7 @@
 /************************************ Function Prototypes ****************************************/
 static s32 XAsufw_ProvisionResourceHandler(const XAsu_ReqBuf *ReqBuf, u32 ReqId);
 static s32 XAsufw_ProvisionUserEfuse(const XAsu_ReqBuf *ReqBuf, u32 ReqId);
+static s32 XAsufw_ProvisionUde(const XAsu_ReqBuf *ReqBuf, u32 ReqId);
 
 /************************************ Variable Definitions ***************************************/
 static XAsufw_Module XAsufw_ProvisionModule; /**< ASUFW Provisioning Module ID and commands array */
@@ -67,6 +69,8 @@ s32 XAsufw_ProvisionInit(void)
 	static const XAsufw_ModuleCmd XAsufw_ProvisionCmds[XASU_PROVISION_MAX_CMDS] = {
 		[XASU_PROVISION_USER_EFUSE_CMD_ID] =
 			XASUFW_MODULE_COMMAND(XAsufw_ProvisionUserEfuse),
+		[XASU_PROVISION_UDE_CMD_ID] =
+			XASUFW_MODULE_COMMAND(XAsufw_ProvisionUde),
 	};
 
 	/** The XAsufw_ProvisionResourcesBuf contains the required resources for each command. */
@@ -75,12 +79,20 @@ s32 XAsufw_ProvisionInit(void)
 			XASUFW_DMA_RESOURCE_MASK | XASUFW_AES_RESOURCE_MASK |
 			XASUFW_TRNG_RESOURCE_MASK | XASUFW_TRNG_RANDOM_BYTES_MASK |
 			XASUFW_KEYMANAGER_RESOURCE_MASK,
+		[XASU_PROVISION_UDE_CMD_ID] = XASUFW_PROVISION_RESOURCE_MASK |
+			XASUFW_DMA_RESOURCE_MASK | XASUFW_AES_RESOURCE_MASK |
+			XASUFW_TRNG_RESOURCE_MASK | XASUFW_TRNG_RANDOM_BYTES_MASK |
+			XASUFW_SHA3_RESOURCE_MASK | XASUFW_RSA_RESOURCE_MASK |
+			XASUFW_ECC_RESOURCE_MASK | XASUFW_KEYMANAGER_RESOURCE_MASK |
+			XASUFW_OVERLAY_RESOURCE_MASK,
 	};
 
 	/** XAsufw_ProvisionAccessPermBuf holds the IPI access permissions per command. */
 	static XAsufw_AccessPerm_t XAsufw_ProvisionAccessPermBuf[XASU_PROVISION_MAX_CMDS] = {
 		[XASU_PROVISION_USER_EFUSE_CMD_ID] =
 			XASUFW_ALL_IPI_FULL_ACCESS(XASU_PROVISION_USER_EFUSE_CMD_ID),
+		[XASU_PROVISION_UDE_CMD_ID] =
+			XASUFW_ALL_IPI_FULL_ACCESS(XASU_PROVISION_UDE_CMD_ID),
 	};
 
 	XAsufw_ProvisionModule.Id = XASU_MODULE_PROVISION_ID;
@@ -113,13 +125,15 @@ s32 XAsufw_ProvisionInit(void)
  *	- XASUFW_SUCCESS, if resource allocation is successful.
  *	- XASUFW_AES_CONTEXT_SAVE_FAIL, if saving the AES context fails.
  *	- XASUFW_DMA_RESOURCE_ALLOCATION_FAILED, if DMA resource allocation fails.
+ *	- XASUFW_OVERLAY_ACTIVATE_FAIL, if activating the RSA-ECC overlay fails.
+ *	- XASUFW_RESOURCE_RELEASE_NOT_ALLOWED, if releasing the resources after a failed
+ *		allocation is not allowed.
  *
  *************************************************************************************************/
 static s32 XAsufw_ProvisionResourceHandler(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 {
 	s32 Status = XASUFW_FAILURE;
-
-	(void)ReqBuf;
+	u32 CmdId = ReqBuf->Header & XASU_COMMAND_ID_MASK;
 
 	/** Check and save the AES context if the resource is not busy. */
 	Status = XAsufw_AesCheckAndSaveContext(ReqId);
@@ -128,11 +142,18 @@ static s32 XAsufw_ProvisionResourceHandler(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 		goto END;
 	}
 
+	/**
+	 * Allocate the Provisioning resource before any other resource. Every resource below is
+	 * allocated with Provisioning as its main resource, so Provisioning must already be owned
+	 * by this request for a single release to free them all if a later step fails.
+	 */
+	XAsufw_AllocateResource(XASUFW_PROVISION, XASUFW_PROVISION, ReqId);
+
 	/** Allocate the DMA resource. */
 	XAsufw_ProvisionModule.AsuDmaPtr = XAsufw_AllocateDmaResource(XASUFW_PROVISION, ReqId);
 	if (XAsufw_ProvisionModule.AsuDmaPtr == NULL) {
 		Status = XASUFW_DMA_RESOURCE_ALLOCATION_FAILED;
-		goto END;
+		goto RELEASE_RESOURCE;
 	}
 
 	/** Allocate the AES resource (used for red key encryption). */
@@ -145,10 +166,39 @@ static s32 XAsufw_ProvisionResourceHandler(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	/** Allocate the KeyManager resource (used for the AKV vault key source). */
 	XAsufw_AllocateResource(XASUFW_KEYMANAGER, XASUFW_PROVISION, ReqId);
 
-	/** Allocate the Provisioning resource last, only after all fallible allocations succeed. */
-	XAsufw_AllocateResource(XASUFW_PROVISION, XASUFW_PROVISION, ReqId);
+	/**
+	 * The UDE command additionally generates an ECC P-384 key pair and a self-signed X.509
+	 * certificate, which need the ECC and SHA3 engines and the RSA-ECC overlay.
+	 */
+	if (CmdId == XASU_PROVISION_UDE_CMD_ID) {
+		XAsufw_AllocateResource(XASUFW_OVERLAY, XASUFW_PROVISION, ReqId);
+		XAsufw_AllocateResource(XASUFW_SHA3, XASUFW_PROVISION, ReqId);
+		XAsufw_AllocateResource(XASUFW_RSA, XASUFW_PROVISION, ReqId);
+		XAsufw_AllocateResource(XASUFW_ECC, XASUFW_PROVISION, ReqId);
+
+		/** Activate the RSA-ECC overlay before any ECC operation. */
+		Status = XOverlay_Activate(XOVERLAY_ALGO_RSA_ECC,
+					   XAsufw_ProvisionModule.AsuDmaPtr);
+		if (Status != XASUFW_SUCCESS) {
+			Status = XAsufw_UpdateErrorStatus(Status, XASUFW_OVERLAY_ACTIVATE_FAIL);
+			goto RELEASE_RESOURCE;
+		}
+	}
 
 	Status = XASUFW_SUCCESS;
+	goto END;
+
+RELEASE_RESOURCE:
+	/**
+	 * Release the Provisioning resource and every resource allocated under it. The command
+	 * handler does not run when resource allocation fails, so this is the only place that can
+	 * hand the engines back.
+	 */
+	if (XAsufw_ReleaseResource(XASUFW_PROVISION, ReqId) != XASUFW_SUCCESS) {
+		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_RESOURCE_RELEASE_NOT_ALLOWED);
+	}
+	XAsufw_ProvisionModule.AsuDmaPtr = NULL;
+	XAsufw_ProvisionModule.AesPtr = NULL;
 
 END:
 	return Status;
@@ -194,6 +244,60 @@ static s32 XAsufw_ProvisionUserEfuse(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	/** Program the requested USER eFUSE key. */
 	Status = XProvision_UserEfuse(XAsufw_ProvisionModule.AsuDmaPtr,
 				      XAsufw_ProvisionModule.AesPtr, Cmd, SubsystemId);
+
+END:
+	/** Release resources. */
+	if (XAsufw_ReleaseResource(XASUFW_PROVISION, ReqId) != XASUFW_SUCCESS) {
+		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_RESOURCE_RELEASE_NOT_ALLOWED);
+	}
+	XAsufw_ProvisionModule.AsuDmaPtr = NULL;
+	XAsufw_ProvisionModule.AesPtr = NULL;
+
+	return Status;
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	This function is the handler for the UDE key provisioning command. It generates a UDE
+ *		ECC P-384 key pair, programs the PUF KEK encrypted private key into the requested
+ *		eFUSE slot via the PLM, and returns a self-signed X.509 certificate over the generated
+ *		public key to the caller.
+ *
+ * @param	ReqBuf	Pointer to the request buffer.
+ * @param	ReqId	Request Unique ID.
+ *
+ * @return
+ *	- XASUFW_SUCCESS, if the UDE key provisioning is successful.
+ *	- XASUFW_INVALID_PARAM, if the command length is invalid.
+ *	- XASUFW_INVALID_SUBSYSTEM_ID, if the subsystem ID is invalid.
+ *	- Error code from XProvision_Ude, if the provisioning operation fails.
+ *	- XASUFW_RESOURCE_RELEASE_NOT_ALLOWED, if illegal resource release is requested.
+ *
+ *************************************************************************************************/
+static s32 XAsufw_ProvisionUde(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
+{
+	s32 Status = XASUFW_FAILURE;
+	const XAsu_ProvisionUdeParams *Cmd = (const XAsu_ProvisionUdeParams *)ReqBuf->Arg;
+	u32 SubsystemId = 0U;
+	u32 IpiMask = ReqId >> XASUFW_IPI_BITMASK_SHIFT;
+
+	/** Verify command length. */
+	XASUFW_VERIFY_CMD_LEN(END, Status, ReqBuf, XAsu_ProvisionUdeParams);
+
+	/** Get subsystem ID from IPI mask. */
+	SubsystemId = XAsu_GetSubsysIdFromIpiMask(IpiMask);
+	if (SubsystemId == XASUFW_INVALID_SUBSYS_ID) {
+		Status = XASUFW_INVALID_SUBSYSTEM_ID;
+		goto END;
+	}
+
+	/** Validate that the client provided certificate output buffers are accessible. */
+	XASUFW_VALIDATE_MEM_ACCESS(END, Status, SubsystemId, Cmd->CertBufAddr, Cmd->CertBufMaxSize);
+	XASUFW_VALIDATE_MEM_ACCESS(END, Status, SubsystemId, Cmd->CertActualSizeAddr,
+				   (u32)sizeof(u32));
+
+	/** Provision the requested UDE key pair. */
+	Status = XProvision_Ude(XAsufw_ProvisionModule.AsuDmaPtr, Cmd);
 
 END:
 	/** Release resources. */

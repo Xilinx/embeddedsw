@@ -240,6 +240,12 @@ typedef struct {
 	X509_SubjectPublicKeyInfo PubKeyInfo;	/**< Subject public key information */
 	u32 IsCsr;				/**< Flag to check if Certificate Signing Request */
 	u32 IsSelfSigned;			/**< Flag to check if self-signed certificate */
+	u32 IsCaCert;				/**< Flag to check if the certificate is a CA
+						certificate. When set, the BasicConstraints
+						extension (CA=TRUE, pathLenConstraint=0) is
+						emitted and the self-signed extended key usage
+						(clientAuth) is suppressed. Used for the UDE
+						self-signed CA certificate. */
 	u32 KeyUsage;				/**< Key usage */
 	u32 IssuerPubKeyLen;			/**< Issuer public Key length */
 	const u8 *IssuerPublicKey;		/**< Issuer public Key */

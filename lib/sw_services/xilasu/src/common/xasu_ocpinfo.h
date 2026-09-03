@@ -49,7 +49,8 @@ extern "C" {
 							certificate generation */
 #define XASU_OCP_DEVAK_ATTESTATION_CMD_ID	(3U)	/**< Command ID for DevAk attestation */
 #define XASU_OCP_UDE_CHALLENGE_REQ_CMD_ID	(4U)	/**< Command ID for UDE challenge request */
-#define XASU_OCP_UDE_PVT_KEYS_ENCRYPT_CMD_ID	(5U)	/**< Command ID for UDE private keys encryption */
+#define XASU_OCP_RESERVED_CMD_ID		(5U)	/**< Reserved command ID (previously used for
+							UDE private keys encryption) */
 #define XASU_OCP_GET_HUK_CMD_ID			(6U)	/**< Command ID for Hardware Unique Key generation */
 #define XASU_OCP_GET_USER_X509_CERT_CMD_ID	(7U)	/**< Command ID for user x509 certificate
 							generation using key vault keys */
@@ -67,6 +68,8 @@ extern "C" {
 							/**< Measurement size in bytes */
 #define XASU_OCP_ECC_P384_SIZE_IN_WORDS		(12U)	/**< P-384 size in words */
 #define XASU_OCP_UDE_KEY_SIZE_IN_BYTES		(48U)	/**< UDE key size in bytes */
+#define XASU_OCP_UDE_PUB_KEY_SIZE_IN_BYTES	(96U)	/**< UDE public key size in bytes
+							(ECC P-384 X || Y) */
 #define XASU_OCP_UDE_IV_SIZE_IN_BYTES		(12U)	/**< UDE Iv size in bytes */
 #define XASU_OCP_UDE_USER_KEY_0_ID		(0U)	/**< UDE User Key 0 ID */
 #define XASU_OCP_UDE_USER_KEY_1_ID		(1U)	/**< UDE User Key 1 ID */
@@ -242,15 +245,6 @@ typedef struct {
 	u64 NonceAddr;	/**< Address of the Nonce buffer */
 	u64 OcpUdeResponseAddr;	/**< Address of the UDE response structure */
 } XAsu_OcpUdeParams;
-
-/**
- * This structure contains information related to UDE private key encryption.
- */
-typedef struct {
-	u64 UdeEncPvtKeyAddr; /**< Address of the UDE Encrypted Private Key */
-	u32 UdeKeyId; /**< ID of the UDE Key either 3/4/5 */
-	u32 Reserved; /**< Reserved */
-} XAsu_OcpUdeKeyEncrypt;
 
 /*************************** Macros (Inline Functions) Definitions *******************************/
 

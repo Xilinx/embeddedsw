@@ -27,6 +27,7 @@
 
 /************************************ Include Files **********************************************/
 #include "xasu_provision_common.h"
+#include "xasu_ocpinfo.h"
 
 /********************************* Constant Definitions ******************************************/
 
@@ -96,6 +97,55 @@ s32 XAsu_ProvisionValidateUserEfuseParams(const XAsu_ProvisionUserEfuseParams *P
 			break;
 		default:
 			goto END;
+	}
+
+	Status = XST_SUCCESS;
+
+END:
+	return Status;
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	This function validates the Unique Device Endorsement (UDE) key provisioning
+ *		parameters.
+ *
+ * @param	ParamsPtr	Pointer to the XAsu_ProvisionUdeParams structure which holds the UDE
+ *				key provisioning input arguments.
+ *
+ * @return
+ *	- XST_SUCCESS, if the parameters are validated successfully.
+ *	- XST_FAILURE, if the parameters validation fails.
+ *
+ *************************************************************************************************/
+s32 XAsu_ProvisionValidateUdeParams(const XAsu_ProvisionUdeParams *ParamsPtr)
+{
+	volatile s32 Status = XST_FAILURE;
+
+	if (ParamsPtr == NULL) {
+		goto END;
+	}
+
+	/** Validate the certificate output buffer address and its actual-size output address. */
+	if ((ParamsPtr->CertBufAddr == 0U) || (ParamsPtr->CertActualSizeAddr == 0U)) {
+		goto END;
+	}
+
+	/** Validate the certificate output buffer size. */
+	if (ParamsPtr->CertBufMaxSize == 0U) {
+		goto END;
+	}
+
+	/** Validate the UDE key type (only ECC NIST P-384 is supported currently). */
+	if (ParamsPtr->UdeKeyType != XASU_PROVISION_UDE_KEY_TYPE_ECC_P384) {
+		goto END;
+	}
+
+	/** Validate the target UDE eFUSE slot. */
+	if ((ParamsPtr->UdeSlot != XASU_OCP_UDE_USER_KEY_0_ID) &&
+	    (ParamsPtr->UdeSlot != XASU_OCP_UDE_USER_KEY_1_ID) &&
+	    (ParamsPtr->UdeSlot != XASU_OCP_UDE_USER_KEY_2_ID)) {
+		goto END;
 	}
 
 	Status = XST_SUCCESS;

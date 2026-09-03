@@ -552,7 +552,7 @@ enum {
 	XASUFW_OCP_X509_MODULE_INIT_FAIL, /**< 0x171U - OCP X.509 module initialization is failed */
 	XASUFW_OCP_MODULE_REGISTRATION_FAIL, /**< 0x172U - OCP module registration is failed */
 	XASUFW_OCP_X509_CERT_GEN_FAIL, /**< 0x173U - X.509 certificate generation is failed */
-	XASUFW_ERR_RESERVED_174, /**< 0x174U - Reserved */
+	XASUFW_OCP_DISABLED, /**< 0x174U - Error when OCP is disabled */
 	XASUFW_INVALID_SUBSYSTEM_ID, /**< 0x175U - Error when subsystem ID is invalid */
 	XASUFW_OCP_KEY_MGMT_NOT_READY, /**< 0x176U - Error when DevIk pair is not ready */
 	XASUFW_OCP_DEVAK_NOT_READY, /**< 0x177U - Error when DevAk pair is not ready */
@@ -577,7 +577,7 @@ enum {
 	XASUFW_OCP_MEASUREMENT_UPDATE_FAIL, /**< 0x187U - Error when measurement update is failed */
 	XASUFW_OCP_UDE_SIGNATURE_GEN_FAIL, /**< 0x188U - Error when UDE signature generation is failed */
 	XASUFW_ERR_RESERVED_189, /**< 0x189U - Reserved */
-	XASUFW_OCP_UDE_KEY_ENCRYPT_FAIL, /**< 0x18AU - Error when UDE key encryption is failed */
+	XASUFW_ERR_RESERVED_18A, /**< 0x18AU - Reserved */
 	XASUFW_OCP_UDE_KEY_DECRYPT_FAIL, /**< 0x18BU - Error when UDE key decryption is failed */
 	XASUFW_OCP_UDE_PVT_KEY_GEN_FAIL, /**< 0x18CU - Error when UDE private key generation fails */
 	XASUFW_CRYPTO_DISABLED, /**< 0x18DU - Error when crypto is disabled via eFuse */
@@ -822,7 +822,6 @@ enum {
 						occupied. */
 	XASUFW_KEYMANAGER_KEY_SLOT_IN_USE, /**< 0x242U - Error when requested key slot is
 						occupied. */
-
 	XASUFW_MLDSA_INVALID_PARAM, /**< 0x243U - Error when ML-DSA input parameter is invalid */
 	XASUFW_MLDSA_UNSUPPORTED_PARAM_SET, /**< 0x244U - Error when ML-DSA parameter set is
 						unsupported */
@@ -919,6 +918,25 @@ enum {
 	XASUFW_SLHDSA_LOOKUP_GLITCH_ERROR, /**< 0x276U - Error when the redundant
 						parameter-set check after lookup does not match,
 						indicating a glitch */
+	XASUFW_OCP_UDE_PVT_KEY_ENCRYPT_FAIL, /**< 0x277U - Error when UDE private key encryption
+						fails */
+	XASUFW_OCP_UDE_GET_SLOT_INFO_FAIL, /**< 0x278U - Error when UDE slot information retrieval
+						fails */
+	/* UDE key provisioning error codes */
+	XASUFW_PROVISION_UDE_SLOT_PROGRAMMED, /**< 0x279U - Error when the target UDE eFUSE slot is
+						already programmed */
+	XASUFW_PROVISION_UDE_ENCRYPT_FAIL, /**< 0x27AU - Error when UDE key pair generation, private
+						key encryption or certificate generation fails */
+	XASUFW_PROVISION_UDE_EFUSE_WRITE_FAIL, /**< 0x27BU - Error when the UDE eFUSE write request to
+						PLM fails */
+	XASUFW_PROVISION_UDE_KEY_TYPE_UPDATE_FAIL, /**< 0x27CU - Error when updating the UDE key type
+						in the key vault header during provisioning fails */
+	XASUFW_PROVISION_UDE_CERT_COPY_FAIL, /**< 0x27DU - Error when copying the UDE certificate size
+						to the caller fails */
+	XASUFW_PROVISION_PLM_IPI_FAIL, /**< 0x27EU - Error when the IPI request/response to PLM fails
+						during UDE provisioning */
+	XASUFW_PROVISION_PLM_ERROR, /**< 0x27FU - Error reported by PLM for the UDE eFUSE write */
+
 
 	/* Additional status success codes */
 	XASUFW_SLHDSA_SIGNATURE_VERIFIED = 0x3F5U, /**< 0x3F5U - SLH-DSA signature verification

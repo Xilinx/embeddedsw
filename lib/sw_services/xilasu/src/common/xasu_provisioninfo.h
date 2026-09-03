@@ -48,11 +48,25 @@ extern "C" {
 /* Provisioning module command IDs */
 #define XASU_PROVISION_USER_EFUSE_CMD_ID	(0U) /**< Command ID for USER eFUSE key
 								provisioning */
-#define XASU_PROVISION_MAX_CMDS			(1U) /**< Maximum number of commands supported by
+#define XASU_PROVISION_UDE_CMD_ID		(1U) /**< Command ID for Unique Device Endorsement
+								(UDE) key provisioning */
+#define XASU_PROVISION_MAX_CMDS			(2U) /**< Maximum number of commands supported by
 								the Provisioning module */
 
 #define XASU_PROVISION_USER_EFUSE_KEY_SIZE_IN_BYTES	(32U) /**< USER eFUSE key size in bytes
 								(256-bit) */
+
+/* UDE key sizes (ECC NIST P-384). */
+#define XASU_PROVISION_UDE_PVT_KEY_SIZE_IN_BYTES	(48U) /**< UDE private key size in bytes
+								(ECC P-384). */
+#define XASU_PROVISION_UDE_CERT_MAX_SIZE_IN_BYTES	(2000U) /**< Maximum size in bytes of the
+								UDE self-signed X.509 certificate. */
+
+/*
+ * UDE key type. Only ECC NIST P-384 is supported currently; ML-DSA support is deferred to a later
+ * release.
+ */
+#define XASU_PROVISION_UDE_KEY_TYPE_ECC_P384	(0U) /**< UDE key type ECC NIST P-384. */
 
 /* USER eFUSE key identifier (which eFUSE user key to program). */
 #define XASU_PROVISION_EFUSE_USER_KEY_0		(1U) /**< Program USER_EFUSE_KEY_0 */
@@ -88,6 +102,26 @@ typedef struct {
 				XASU_PROVISION_EFUSE_USER_KEY_1). */
 	u8 KeySource;	/**< Source of the key to be programmed (XASU_PROVISION_KEY_SOURCE_*). */
 } XAsu_ProvisionUserEfuseParams;
+
+/**
+ * This structure contains the parameters for the Unique Device Endorsement (UDE) key provisioning
+ * command. The UDE key pair (ECC NIST P-384) is generated inside the ASU (the private key never
+ * leaves the ASU), the private key is encrypted with the PUF KEK and programmed into the requested
+ * eFUSE slot, and a self-signed X.509 certificate over the generated public key is returned to the
+ * caller at CertBufAddr with its actual size at CertActualSizeAddr.
+ */
+typedef struct {
+	u64 CertBufAddr;	/**< Address of the caller buffer that receives the generated UDE
+					self-signed X.509 certificate (DER encoded). */
+	u64 CertActualSizeAddr;	/**< Address of the caller u32 that receives the actual size in
+					bytes of the generated certificate. */
+	u32 CertBufMaxSize;	/**< Size in bytes of the caller certificate buffer at CertBufAddr.
+					Must be able to hold up to
+					XASU_PROVISION_UDE_CERT_MAX_SIZE_IN_BYTES bytes. */
+	u8 UdeSlot;	/**< Target UDE eFUSE slot to program (XASU_OCP_UDE_USER_KEY_0/1/2_ID). */
+	u8 UdeKeyType;	/**< UDE key type (XASU_PROVISION_UDE_KEY_TYPE_ECC_P384). */
+	u16 Reserved;	/**< Reserved for alignment. */
+} XAsu_ProvisionUdeParams;
 
 /*************************** Macros (Inline Functions) Definitions *******************************/
 

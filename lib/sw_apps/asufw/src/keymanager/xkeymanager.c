@@ -113,6 +113,7 @@ _Static_assert((XRSA_PUBEXP_SIZE_IN_BYTES + XRSA_MAX_KEY_SIZE_IN_BYTES) <=
 
 #define XKEYMANAGER_MAX_REVOKE_REG_INDEX		(7U)	/**< Maximum revoke register
 								index */
+#define XKEYMANAGER_UDE_ALL_KEY_SLOTS_UNPROGRAMMED	(0xFFU) /**< All key slots unprogrammed */
 
 /************************************** Type Definitions *****************************************/
 
@@ -289,6 +290,70 @@ s32 XKeyManager_CfgInitialize(void)
 		VaultHeaderPtr->MajorVersion = XKEYMANAGER_MAJOR_VERSION;
 		VaultHeaderPtr->MinorVersion = XKEYMANAGER_MINOR_VERSION;
 		VaultHeaderPtr->RevokeId = 0x00U;
+		VaultHeaderPtr->UdeKeyType = XKEYMANAGER_UDE_ALL_KEY_SLOTS_UNPROGRAMMED;
+	}
+
+	Status = XASUFW_SUCCESS;
+
+END:
+	return Status;
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	Update the UDE key type field in the key vault main header. Each UDE slot occupies
+ * 		two bits in the UDE key type byte (UDE_0 in the lowest two bits, UDE_3 in the highest
+ * 		two bits). A single slot can be updated without disturbing the other slots, or the
+ * 		complete byte can be loaded directly by passing
+ * 		XKEYMANAGER_UDE_ALL_KEY_SLOTS_UNPROGRAMMED as the slot.
+ *
+ * @param	UdeSlot		UDE slot to update (0 to XKEYMANAGER_UDE_MAX_SLOTS - 1). When set to
+ * 				XKEYMANAGER_UDE_ALL_KEY_SLOTS_UNPROGRAMMED, UdeKeyType is written
+ * 				to the header as the complete UDE key type byte.
+ * @param	UdeKeyType	UDE key type value. For a specific slot only the lower two bits are
+ * 				used; for XKEYMANAGER_UDE_ALL_KEY_SLOTS_UNPROGRAMMED the full
+ * 				byte is written to the header.
+ *
+ * @return
+ * 	- XASUFW_SUCCESS, if the UDE key type is updated successfully.
+ * 	- XASUFW_KEYMANAGER_KEY_VAULT_DDR_INIT_FAILED, if the key vault DDR space is not configured.
+ * 	- XASUFW_KEYMANAGER_INVALID_PARAM, if the UDE slot is invalid.
+ *
+ *************************************************************************************************/
+s32 XKeyManager_UpdateUdeKeyType(u8 UdeSlot, u8 UdeKeyType)
+{
+	s32 Status = XASUFW_FAILURE;
+	XKeyManager_VaultMainHeader *VaultHeaderPtr = NULL;
+	u8 ShiftCount;
+
+	/** The key vault DDR space must be configured before the main header can be updated. */
+	if (VaultManager.TotalVaultSize == 0U) {
+		Status = XASUFW_KEYMANAGER_KEY_VAULT_DDR_INIT_FAILED;
+		goto END;
+	}
+
+	/** Validate the UDE slot. */
+	if ((UdeSlot != XKEYMANAGER_UDE_ALL_KEY_SLOTS_UNPROGRAMMED) &&
+	    (UdeSlot >= XKEYMANAGER_UDE_MAX_SLOTS)) {
+		Status = XASUFW_KEYMANAGER_INVALID_PARAM;
+		goto END;
+	}
+
+	VaultHeaderPtr = (XKeyManager_VaultMainHeader *)XKEYMANAGER_GET_VAULT_BASE_PTR();
+
+	if (UdeSlot == XKEYMANAGER_UDE_ALL_KEY_SLOTS_UNPROGRAMMED) {
+		/** Load the complete UDE key type byte directly. */
+		VaultHeaderPtr->UdeKeyType = UdeKeyType;
+	} else {
+		/**
+		 * Per-slot update: clear the two bits belonging to the requested slot and program
+		 * the new key type code without disturbing the other slots.
+		 */
+		ShiftCount = (u8)(UdeSlot * XKEYMANAGER_UDE_KEY_TYPE_BITS_PER_SLOT);
+		VaultHeaderPtr->UdeKeyType &=
+			(u8)(~(XKEYMANAGER_UDE_KEY_TYPE_SLOT_MASK << ShiftCount));
+		VaultHeaderPtr->UdeKeyType |=
+			(u8)((UdeKeyType & XKEYMANAGER_UDE_KEY_TYPE_SLOT_MASK) << ShiftCount);
 	}
 
 	Status = XASUFW_SUCCESS;

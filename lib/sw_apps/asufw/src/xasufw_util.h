@@ -155,6 +155,25 @@ extern "C" {
 #define XASUFW_PLM_XILNVM_KEYTYPE_SHIFT		(16U)	/**< KeyType occupies bits [31:16] of arg */
 #define XASUFW_NVM_EFUSE_AES_KEY_LEN_IN_WORDS	(8U)	/**< AES/USER key length in words */
 
+/*
+ * PLM XilNVM UDE (DME) private key eFUSE write request. The PLM expects the
+ * XNVM_API_ID_EFUSE_WRITE_DME_KEY IPI command with a payload of {EnvDis | (DmeKeyType << 16),
+ * KeyAddrLow, KeyAddrHigh} pointing to the encrypted (black) UDE private key, followed by a cache
+ * reload request so the newly programmed key is visible in the eFUSE cache.
+ *
+ * These API IDs are the XilNVM IPI ABI defined by the XNvm_ApiId enum in
+ * lib/sw_services/xilnvm/src/versal_gen/versal_next/common/xnvm_defs.h. They are intentionally
+ * redeclared here (not #included) because ASUFW and XilNVM are separate firmware images on
+ * different processors; if XilNVM ever renumbers XNvm_ApiId, these values must be updated to match.
+ */
+#define XASUFW_PLM_XILNVM_WRITE_DME_KEY_API_ID	(36U)	/**< Must match
+							XNVM_API_ID_EFUSE_WRITE_DME_KEY */
+#define XASUFW_PLM_XILNVM_RELOAD_API_ID		(34U)	/**< Must match
+							XNVM_API_ID_EFUSE_RELOAD_N_PRGM_PROT_BITS */
+#define XASUFW_PLM_XILNVM_RELOAD_PAYLOAD_LEN	(1U)	/**< Reload request payload length
+							(header only) */
+#define XASUFW_PLM_XILNVM_ENV_MON_DIS		(0U)	/**< Disable environment checks */
+
 /* PLM XilNVM AES key CRC check request. */
 #define XASUFW_PLM_XILNVM_CHECK_CRC_API_ID	(39U)	/**< Must match the PLM command ID of
 							XNVM_API_ID_EFUSE_CHECK_AES_KEY_CRC */

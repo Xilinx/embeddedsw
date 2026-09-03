@@ -108,4 +108,73 @@ s32 XAsu_ProvisionUserEfuse(XAsu_ClientParams *ClientParamPtr,
 END:
 	return Status;
 }
+
+/*************************************************************************************************/
+/**
+ * @brief	This function sends a command to ASUFW to provision a Unique Device Endorsement
+ *		(UDE) key pair.
+ *
+ *		The UDE key pair (ECC NIST P-384) is generated inside the ASU so the private key is
+ *		never exposed outside the ASU. The private key is encrypted with the PUF KEK and
+ *		programmed into the requested eFUSE slot by the ASU (via the PLM), and a self-signed
+ *		X.509 certificate over the generated public key is returned to the caller at
+ *		ParamsPtr->CertBufAddr with its actual size at ParamsPtr->CertActualSizeAddr.
+ *
+ * @param	ClientParamPtr	Pointer to the XAsu_ClientParams structure which holds the client
+ *				input parameters.
+ * @param	ParamsPtr	Pointer to the XAsu_ProvisionUdeParams structure which holds the UDE
+ *				key provisioning input arguments.
+ *
+ * @return
+ *	- XST_SUCCESS, if the IPI request to ASUFW is sent successfully.
+ *	- XASU_INVALID_ARGUMENT, if any argument is invalid.
+ *	- XASU_INVALID_UNIQUE_ID, if the received Queue ID is invalid.
+ *	- XST_FAILURE, in case of failure.
+ *
+ *************************************************************************************************/
+s32 XAsu_ProvisionUde(XAsu_ClientParams *ClientParamPtr, XAsu_ProvisionUdeParams *ParamsPtr)
+{
+	s32 Status = XST_FAILURE;
+	u32 Header;
+	u8 UniqueId;
+
+	/** Validate the provisioning input parameter pointer. */
+	if (ParamsPtr == NULL) {
+		Status = XASU_INVALID_ARGUMENT;
+		goto END;
+	}
+
+	/** Validate client parameters. */
+	Status = XAsu_ValidateClientParameters(ClientParamPtr);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	/** Validate the UDE provisioning input parameters. */
+	Status = XAsu_ProvisionValidateUdeParams(ParamsPtr);
+	if (Status != XST_SUCCESS) {
+		Status = XASU_INVALID_ARGUMENT;
+		goto END;
+	}
+
+	/** Generate a unique ID and register the callback function. */
+	UniqueId = XAsu_RegCallBackNGetUniqueId(ClientParamPtr, NULL, 0U, XASU_TRUE);
+	if (UniqueId >= XASU_UNIQUE_ID_MAX) {
+		Status = XASU_INVALID_UNIQUE_ID;
+		goto END;
+	}
+
+	/** Create command header. */
+	Header = XAsu_CreateHeader(XASU_PROVISION_UDE_CMD_ID, UniqueId,
+				   XASU_MODULE_PROVISION_ID,
+				   (u8)(sizeof(XAsu_ProvisionUdeParams) / XASU_WORD_LEN_IN_BYTES),
+				   ClientParamPtr->SecureFlag);
+
+	/** Update request buffer and send an IPI request to ASUFW. */
+	Status = XAsu_SendCmdToAsu(ClientParamPtr, ParamsPtr,
+				   (u32)(sizeof(XAsu_ProvisionUdeParams)), Header);
+
+END:
+	return Status;
+}
 /** @} */

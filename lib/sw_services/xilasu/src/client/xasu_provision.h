@@ -46,6 +46,7 @@ extern "C" {
 /************************************ Function Prototypes ****************************************/
 s32 XAsu_ProvisionUserEfuse(XAsu_ClientParams *ClientParamPtr,
 			    XAsu_ProvisionUserEfuseParams *ParamsPtr);
+s32 XAsu_ProvisionUde(XAsu_ClientParams *ClientParamPtr, XAsu_ProvisionUdeParams *ParamsPtr);
 
 /************************************ Variable Definitions ***************************************/
 #ifdef __cplusplus

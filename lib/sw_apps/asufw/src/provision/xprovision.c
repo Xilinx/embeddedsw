@@ -44,6 +44,7 @@
 #include "xkeymanager.h"
 #include "xasu_aesinfo.h"
 #include "xasu_generic.h"
+#include "xocp_ude.h"
 #include "xfih.h"
 #include "xil_sutil.h"
 
@@ -57,6 +58,23 @@
 							AES-GCM operation (96-bit) */
 #define XPROVISION_EFUSE_TAG_SIZE_IN_BYTES	(16U)	/**< GCM tag size in bytes */
 
+#define XPROVISION_UDE_PVT_KEY_LEN_IN_WORDS	(XASU_PROVISION_UDE_PVT_KEY_SIZE_IN_BYTES >> 2U)
+							/**< UDE private key length in words */
+
+/*
+ * UDE key type codes recorded in the key vault header (two bits per UDE slot; the KeyManager packs
+ * the code into the slot's position).
+ */
+#define XPROVISION_UDE_KEY_TYPE_CODE_P384	(0x0U)	/**< 2-bit UDE key type code: ECC P-384 */
+#define XPROVISION_UDE_KEY_TYPE_CODE_MLDSA	(0x1U)	/**< 2-bit UDE key type code: ML-DSA */
+#define XPROVISION_UDE_KEY_TYPE_CODE_UNPROGRAMMED	(0x3U)	/**< 2-bit UDE key type code:
+								slot unprogrammed (matches the
+								all-slots-unprogrammed default) */
+
+#define XPROVISION_UDE_CLEAR_CHUNK_SIZE_IN_BYTES	(64U)	/**< Chunk size used to clear the
+								caller certificate buffer during
+								provisioning rollback */
+
 /************************************ Type Definitions *******************************************/
 
 /********************************** Variable Definitions *****************************************/
@@ -69,6 +87,8 @@ static s32 XProvision_EncryptRedKey(XAsufw_Dma *DmaPtr, XAes *AesInstancePtr, u8
 				      const u8 *PlainKey, u8 *BlackKey);
 static s32 XProvision_WriteUserKeyToEfuse(u32 EfuseKeyId, const u32 *KeyData);
 static s32 XProvision_CheckEfuseKeyBlank(u32 EfuseKeyId);
+static s32 XProvision_IsUdeSlotFree(u8 UdeSlot);
+static s32 XProvision_WriteUdeKeyToEfuse(u32 UdeSlot, const u32 *KeyData);
 
 /*************************************************************************************************/
 /**
@@ -380,8 +400,9 @@ static s32 XProvision_WriteUserKeyToEfuse(u32 EfuseKeyId, const u32 *KeyData)
 
 	/**
 	 * Build the AES-key-write IPI payload: {hdr, EnvDis|KeyType, KeyAddrLow,
-	 * KeyAddrHigh}. The PLM reads the key by address; the caller supplies it in
-	 * aligned, stable memory.
+	 * KeyAddrHigh}. The PLM reads the key by address; KeyData is a u32 array (the black key),
+	 * so it is naturally word (4-byte) aligned as the XilNVM AES key write requires, and it
+	 * stays valid for the duration of this blocking IPI exchange.
 	 */
 	Payload[XASUFW_PLM_XILNVM_CMD_HDR_INDEX] =
 		XASUFW_PLM_IPI_HEADER(XASUFW_PLM_XILNVM_PLOAD_LEN,
@@ -473,6 +494,282 @@ static s32 XProvision_CheckEfuseKeyBlank(u32 EfuseKeyId)
 		XAsufw_Printf(DEBUG_PRINT_ALWAYS, "PLM eFUSE CRC check failed: 0x%08x\r\n",
 			      Response);
 		Status = XASUFW_ERR_IPI_RSP_PLM_EFUSE_REQ;
+	}
+
+END:
+	return Status;
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	This function provisions a Unique Device Endorsement (UDE) key pair.
+ *
+ *		The ECC NIST P-384 key pair is generated inside the ASU so the private key is never
+ *		exposed outside the ASU. The private key is encrypted with the PUF KEK (reusing the OCP
+ *		UDE encryption scheme), the encrypted key is programmed into the requested UDE eFUSE
+ *		slot via the PLM (XilNVM), and a self-signed X.509 certificate over the generated
+ *		public key is returned to the caller along with its actual size.
+ *
+ * @param	DmaPtr		Pointer to the XAsufw_Dma instance.
+ * @param	ParamsPtr	Pointer to the XAsu_ProvisionUdeParams structure.
+ *
+ * @return
+ *	- XASUFW_SUCCESS, if the UDE key pair is provisioned successfully.
+ *	- XASUFW_PROVISION_INVALID_PARAM, if any input parameter is invalid.
+ *	- XASUFW_PROVISION_UDE_SLOT_PROGRAMMED, if the target UDE slot is already programmed.
+ *	- XASUFW_PROVISION_UDE_ENCRYPT_FAIL, if UDE key pair generation, private key encryption or
+ *	  certificate generation fails.
+ *	- XASUFW_PROVISION_UDE_EFUSE_WRITE_FAIL, if the eFUSE write request to the PLM fails.
+ *	- XASUFW_PROVISION_UDE_KEY_TYPE_UPDATE_FAIL, if updating the key vault header fails.
+ *	- XASUFW_PROVISION_UDE_CERT_COPY_FAIL, if copying the certificate size to the caller fails.
+ *	- XASUFW_OCP_DISABLED, if OCP is disabled.
+ *
+ *************************************************************************************************/
+s32 XProvision_Ude(XAsufw_Dma *DmaPtr, const XAsu_ProvisionUdeParams *ParamsPtr)
+{
+	CREATE_VOLATILE(Status, XASUFW_FAILURE);
+	s32 ClearStatus = XASUFW_FAILURE;
+	u32 CertSize = 0U;
+	XFih_Var XFihProvision = XFih_VolatileAssignXfihVar(XFIH_FAILURE);
+	u32 EncPvtKey[XPROVISION_UDE_PVT_KEY_LEN_IN_WORDS];
+	u8 UdeKeyTypeCode;
+
+	/** Validate input parameters. */
+	if (DmaPtr == NULL) {
+		Status = XASUFW_PROVISION_INVALID_PARAM;
+		goto END;
+	}
+
+	Status = XAsu_ProvisionValidateUdeParams(ParamsPtr);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_PROVISION_INVALID_PARAM;
+		goto END;
+	}
+
+	/** Clear the encrypted key buffer before use. */
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	Status = Xil_SecureZeroize((u8 *)EncPvtKey, XASU_PROVISION_UDE_PVT_KEY_SIZE_IN_BYTES);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_ZEROIZE_MEMSET_FAIL;
+		goto END;
+	}
+
+	/** Ensure the target UDE eFUSE slot is not already programmed. */
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	Status = XProvision_IsUdeSlotFree(ParamsPtr->UdeSlot);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_PROVISION_UDE_SLOT_PROGRAMMED);
+		XFIH_GOTO(END);
+	}
+
+	/**
+	 * Generate the UDE key pair, encrypt the private key with the PUF KEK into the local buffer,
+	 * and generate a self-signed X.509 certificate over the generated public key into the
+	 * caller's certificate buffer. The OCP UDE key encryption scheme is reused so the encrypted
+	 * key stays byte-compatible with the UDE challenge response decryption path, and the private
+	 * key is never exposed outside the ASU.
+	 */
+#ifdef XASU_OCP_ENABLE
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	Status = XOcp_EncryptUdeKeys(DmaPtr, (u32)ParamsPtr->UdeSlot, (u8 *)EncPvtKey,
+						ParamsPtr->CertBufAddr, ParamsPtr->CertBufMaxSize,
+						&CertSize);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_PROVISION_UDE_ENCRYPT_FAIL);
+		XFIH_GOTO(END_CLR);
+	}
+#else
+	ASSIGN_VOLATILE(Status, XASUFW_OCP_DISABLED);
+	XFIH_GOTO(END_CLR);
+#endif /* XASU_OCP_ENABLE */
+
+	/**
+	 * Record the provisioned UDE key type in the key vault header for the programmed slot only
+	 * (00b = ECC P-384, 01b = ML-DSA). The KeyManager packs the two-bit code into the slot's
+	 * position (UDE_0 in the lowest two bits, UDE_3 in the highest two bits) without disturbing
+	 * the other slots.
+	 */
+	if (ParamsPtr->UdeKeyType == XASU_PROVISION_UDE_KEY_TYPE_ECC_P384) {
+		UdeKeyTypeCode = XPROVISION_UDE_KEY_TYPE_CODE_P384;
+	} else {
+		UdeKeyTypeCode = XPROVISION_UDE_KEY_TYPE_CODE_MLDSA;
+	}
+
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	Status = XKeyManager_UpdateUdeKeyType(ParamsPtr->UdeSlot, UdeKeyTypeCode);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_PROVISION_UDE_KEY_TYPE_UPDATE_FAIL);
+		goto END_CLR;
+	}
+
+	/**
+	 * Return the actual size of the generated UDE certificate to the caller. The certificate
+	 * itself was already copied to the caller's buffer by XOcp_EncryptUdeKeys.
+	 */
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	Status = XAsufw_DmaXfr(DmaPtr, (u64)(UINTPTR)&CertSize, ParamsPtr->CertActualSizeAddr,
+			       (u32)sizeof(CertSize), 0U);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_PROVISION_UDE_CERT_COPY_FAIL);
+		goto END_CLR;
+	}
+
+	/** Program the encrypted UDE private key into the requested eFUSE slot via the PLM. */
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	Status = XProvision_WriteUdeKeyToEfuse((u32)ParamsPtr->UdeSlot, (const u32 *)EncPvtKey);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_PROVISION_UDE_EFUSE_WRITE_FAIL);
+	}
+
+END_CLR:
+	/** Zeroize the local encrypted key buffer. */
+	XFIH_CALL(Xil_SecureZeroize, XFihProvision, ClearStatus, (u8 *)EncPvtKey,
+		  XASU_PROVISION_UDE_PVT_KEY_SIZE_IN_BYTES);
+	Status = XAsufw_UpdateBufStatus(Status, ClearStatus);
+
+END:
+	return Status;
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	This function checks whether the requested UDE eFUSE slot is free (not yet
+ *		programmed) by reading its eFUSE cache and ensuring it is all zeros.
+ *
+ * @param	UdeSlot		UDE eFUSE slot (XASU_OCP_UDE_USER_KEY_0/1/2_ID).
+ *
+ * @return
+ *	- XASUFW_SUCCESS, if the UDE slot is free.
+ *	- XASUFW_PROVISION_INVALID_PARAM, if the UDE slot is invalid.
+ *	- XASUFW_PROVISION_UDE_SLOT_PROGRAMMED, if the UDE slot is already programmed.
+ *	- XASUFW_OCP_DISABLED, if OCP is disabled.
+ *
+ *************************************************************************************************/
+static s32 XProvision_IsUdeSlotFree(u8 UdeSlot)
+{
+	s32 Status = XASUFW_FAILURE;
+#ifdef XASU_OCP_ENABLE
+	u32 UdeUserKeyAddr = 0U;
+
+	/** Map the UDE slot to its eFUSE cache address. */
+	Status = XOcp_GetUdeSlotInfo((u32)UdeSlot, &UdeUserKeyAddr, NULL);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_PROVISION_INVALID_PARAM);
+		goto END;
+	}
+
+	/**
+	 * If the eFUSE cache for the slot is non-zero, the slot is already programmed. Note the PLM
+	 * (XilNVM) also enforces this during the key write.
+	 */
+	Status = XASUFW_FAILURE;
+	Status = XAsu_IsBufferNonZero((u8 *)(UINTPTR)UdeUserKeyAddr,
+				      XASU_PROVISION_UDE_PVT_KEY_SIZE_IN_BYTES);
+	if (Status == XASUFW_SUCCESS) {
+		Status = XASUFW_PROVISION_UDE_SLOT_PROGRAMMED;
+		goto END;
+	}
+
+	Status = XASUFW_SUCCESS;
+
+END:
+#else
+	/** UDE slot mapping lives in the OCP module, so the check is unsupported without OCP. */
+	(void)UdeSlot;
+	Status = XASUFW_OCP_DISABLED;
+#endif /* XASU_OCP_ENABLE */
+	return Status;
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	This function sends an IPI request to the PLM to program a UDE (DME) private key
+ *		into the requested eFUSE slot with the provided encrypted key, and reloads the eFUSE
+ *		cache so the newly programmed key is visible.
+ *
+ * @param	UdeSlot		UDE eFUSE (DME user key) slot to program.
+ * @param	KeyData		Pointer to the encrypted UDE private key data to be programmed.
+ *
+ * @return
+ *	- XASUFW_SUCCESS, if the UDE eFUSE key is programmed.
+ *	- XASUFW_PROVISION_INVALID_PARAM, if input parameters are invalid.
+ *	- XASUFW_PROVISION_PLM_IPI_FAIL, if the IPI request/response to the PLM fails.
+ *	- XASUFW_PROVISION_PLM_ERROR, if the PLM reports a failure for the eFUSE write.
+ *
+ *************************************************************************************************/
+static s32 XProvision_WriteUdeKeyToEfuse(u32 UdeSlot, const u32 *KeyData)
+{
+	CREATE_VOLATILE(Status, XASUFW_FAILURE);
+	u32 Payload[XASUFW_PLM_XILNVM_WRITE_PAYLOAD_LEN];
+	u32 Response = (u32)XASUFW_FAILURE;
+
+	if ((KeyData == NULL) || ((UdeSlot != XASU_OCP_UDE_USER_KEY_0_ID) &&
+	    (UdeSlot != XASU_OCP_UDE_USER_KEY_1_ID) && (UdeSlot != XASU_OCP_UDE_USER_KEY_2_ID))) {
+		Status = XASUFW_PROVISION_INVALID_PARAM;
+		goto END;
+	}
+
+	/**
+	 * Build the DME-key-write IPI payload: {hdr, EnvDis | (DmeKeyType << 16), KeyAddrLow,
+	 * KeyAddrHigh}.
+	 */
+	Payload[XASUFW_PLM_XILNVM_CMD_HDR_INDEX] =
+		XASUFW_PLM_IPI_HEADER(XASUFW_PLM_XILNVM_PLOAD_LEN,
+				      XASUFW_PLM_XILNVM_WRITE_DME_KEY_API_ID,
+				      XASUFW_PLM_XILNVM_MODULE_ID);
+	Payload[XASUFW_PLM_XILNVM_ENVDIS_KEYTYPE_INDEX] =
+		(UdeSlot << XASUFW_PLM_XILNVM_KEYTYPE_SHIFT) |
+		XASUFW_PLM_XILNVM_ENV_MON_DIS;
+	Payload[XASUFW_PLM_XILNVM_KEY_ADDR_LOW_INDEX] = (u32)(UINTPTR)KeyData;
+	/* ASU is a 32-bit address space; the high address word is always zero. */
+	Payload[XASUFW_PLM_XILNVM_KEY_ADDR_HIGH_INDEX] = 0U;
+
+	/** Send an IPI request to the PLM to write the UDE eFUSE key. */
+	Status = XAsufw_SendIpiToPlm(Payload, XASUFW_PLM_XILNVM_WRITE_PAYLOAD_LEN);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_PROVISION_PLM_IPI_FAIL;
+		goto END;
+	}
+
+	/** Read the IPI response and check for a PLM-reported failure. */
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	Status = XAsufw_ReadIpiRespFromPlm(&Response, XASUFW_PLM_XILNVM_RESP_LEN);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_PROVISION_PLM_IPI_FAIL;
+		goto END;
+	} else if (Response != (u32)XASUFW_SUCCESS) {
+		XAsufw_Printf(DEBUG_PRINT_ALWAYS, "PLM UDE eFUSE write failed: 0x%08x\r\n", Response);
+		Status = XASUFW_PROVISION_PLM_ERROR;
+		goto END;
+	} else {
+		/* Do nothing. */
+	}
+
+	/**
+	 * Request the PLM to reload the eFUSE cache and program the protection bits so the newly
+	 * programmed UDE key is reflected in the eFUSE cache.
+	 */
+	Payload[XASUFW_PLM_XILNVM_CMD_HDR_INDEX] =
+		XASUFW_PLM_IPI_HEADER(0U, XASUFW_PLM_XILNVM_RELOAD_API_ID,
+				      XASUFW_PLM_XILNVM_MODULE_ID);
+
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	Status = XAsufw_SendIpiToPlm(Payload, XASUFW_PLM_XILNVM_RELOAD_PAYLOAD_LEN);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_PROVISION_PLM_IPI_FAIL;
+		goto END;
+	}
+
+	Response = (u32)XASUFW_FAILURE;
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	Status = XAsufw_ReadIpiRespFromPlm(&Response, XASUFW_PLM_XILNVM_RESP_LEN);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_PROVISION_PLM_IPI_FAIL;
+	} else if (Response != (u32)XASUFW_SUCCESS) {
+		XAsufw_Printf(DEBUG_PRINT_ALWAYS, "PLM eFUSE reload failed: 0x%08x\r\n", Response);
+		Status = XASUFW_PROVISION_PLM_ERROR;
+	} else {
+		/* Do nothing. */
 	}
 
 END:

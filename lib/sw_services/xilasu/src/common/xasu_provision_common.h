@@ -44,6 +44,7 @@ extern "C" {
 
 /************************************ Function Prototypes ****************************************/
 s32 XAsu_ProvisionValidateUserEfuseParams(const XAsu_ProvisionUserEfuseParams *ParamsPtr);
+s32 XAsu_ProvisionValidateUdeParams(const XAsu_ProvisionUdeParams *ParamsPtr);
 
 /************************************ Variable Definitions ***************************************/
 

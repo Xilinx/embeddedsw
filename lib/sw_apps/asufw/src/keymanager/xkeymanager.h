@@ -67,6 +67,14 @@ extern "C" {
 
 #define XKEYMANAGER_ASU_RSA_KEY_VAULT_CAPACITY	(2U)	/**< Number of RSA key pairs that can be
 								 stored in ASU vault */
+/*
+ * UDE key type encoding in the key vault main header. Each UDE slot occupies two bits, so the byte
+ * holds up to XKEYMANAGER_UDE_MAX_SLOTS slots (UDE_0 in bits 1 and 0, up to UDE_2 in bits 5 and 4).
+ * The top two bits (7 and 6) are unused.
+ */
+#define XKEYMANAGER_UDE_KEY_TYPE_BITS_PER_SLOT	(2U)	/**< UDE key type bits per slot */
+#define XKEYMANAGER_UDE_KEY_TYPE_SLOT_MASK	(0x3U)	/**< 2-bit mask for a single UDE slot */
+#define XKEYMANAGER_UDE_MAX_SLOTS		(3U)	/**< Maximum number of UDE slots in the byte */
 
 /************************************** Type Definitions *****************************************/
 /** This enum contains RSA operation types for private key retrieval. */
@@ -82,8 +90,8 @@ typedef struct {
 	u16 MinorVersion;	/**< Key vault minor version. */
 	u16 MajorVersion;	/**< Key vault major version. */
 	u8 RevokeId;	/**< Revocation identifier. */
-	u8 Reserved1;	/**< Reserved byte. */
-	u16 Reserved2;	/**< Reserved halfword. */
+	u8 UdeKeyType;	/**< UDE key type (two bits per UDE slot). */
+	u16 Reserved;	/**< Reserved halfword. */
 } XKeyManager_VaultMainHeader;
 
 /** This structure contains key vault header related information. */
@@ -221,6 +229,7 @@ typedef struct {
 
 /************************************ Function Prototypes ****************************************/
 s32 XKeyManager_CfgInitialize(void);
+s32 XKeyManager_UpdateUdeKeyType(u8 UdeSlot, u8 UdeKeyType);
 s32 XKeyManager_CreateKeyVault(const XAsu_KeyManagerSubVaultParams *ParamsPtr, u32 SubsystemId,
 						u32 IpiMask, u32 *VaultIdPtr);
 s32 XKeyManager_DeleteKeyVault(u32 SubsystemId, u32 VaultId);

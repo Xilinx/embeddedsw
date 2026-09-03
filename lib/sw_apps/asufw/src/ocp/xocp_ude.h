@@ -45,7 +45,9 @@ extern "C" {
 
 /************************************ Function Prototypes ****************************************/
 s32 XOcp_GenerateUdeResponse(XAsufw_Dma *DmaPtr, const XAsu_OcpUdeParams *OcpUdeParamsPtr);
-s32 XOcp_EncryptUdeKeys(XAsufw_Dma *DmaPtr, const XAsu_OcpUdeKeyEncrypt *OcpUdeKeyEnc);
+s32 XOcp_EncryptUdeKeys(XAsufw_Dma *DmaPtr, u32 UdeKeyId, u8 *EncPvtKey, u64 CertBufAddr,
+			u32 CertBufMaxSize, u32 *CertSize);
+s32 XOcp_GetUdeSlotInfo(u32 UdeKeyId, u32 *UdeUserKeyAddrPtr, u8 *IvIncValPtr);
 
 /************************************ Variable Definitions ***************************************/
 

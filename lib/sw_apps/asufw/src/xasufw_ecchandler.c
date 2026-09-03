@@ -787,7 +787,7 @@ XAsufw_Resource XAsufw_GetEccMaskResourceId(const XAsu_ReqBuf *ReqBuf)
 		} else {
 			Resource = XASUFW_RSA;
 		}
-	} else if (ModuleId == XASU_MODULE_OCP_ID) {
+	} else if ((ModuleId == XASU_MODULE_OCP_ID) || (ModuleId == XASU_MODULE_PROVISION_ID)) {
 		Resource = XASUFW_ECC;
 	} else {
 		Resource = XASUFW_INVALID;
