@@ -18,6 +18,7 @@
 * 1.6   tvp  05/16/25 Initial release
 *       tvp  09/13/25 Moved XOcp_ReadSecureConfig to platform file
 * 1.7   rmv  01/30/26 Refactor OCP library
+* 1.8   rap  08/28/26 Fixed Doxygen Warnings
 *
 * </pre>
 *
@@ -69,19 +70,19 @@ typedef struct {
  * Data structure to hold secure configs.
  */
 typedef struct {
-	u32 BootmodeDis;	/* BOOT_MODE_DIS_15_0 */
-	u32 MiscCtrl;		/* MISC_CTRL */
-	u32 AnlgTrim3; 		/* ANLG_TRIM_3 */
-	u32 BootEnvCtrl;	/* BOOT_ENV_CTRL considering reserved bits */
-	u32 IpDisable1;		/* IP_DISABLE_1 */
-	u32 Caher1;		/* Caher_1 */
-	u32 DecOnly;		/* DEC_ONLY */
-	u32 SecCtrl;		/* Secure control */
-	u32 SecMisc1;		/* SEC_MISC 1 */
-	u32 DmeFips;		/* DME FIPS */
-	u32 IPDisable0;		/* IP_DISABLE_0 */
-	u32 RomRsvd;		/* ROM RSVD */
-	u32 RoSwapEn;		/* RO_SWAP_EN */
+	u32 BootmodeDis;	/**< BOOT_MODE_DIS_15_0 */
+	u32 MiscCtrl;		/**< MISC_CTRL */
+	u32 AnlgTrim3; 		/**< ANLG_TRIM_3 */
+	u32 BootEnvCtrl;	/**< BOOT_ENV_CTRL considering reserved bits */
+	u32 IpDisable1;		/**< IP_DISABLE_1 */
+	u32 Caher1;		/**< Caher_1 */
+	u32 DecOnly;		/**< DEC_ONLY */
+	u32 SecCtrl;		/**< Secure control */
+	u32 SecMisc1;		/**< SEC_MISC 1 */
+	u32 DmeFips;		/**< DME FIPS */
+	u32 IPDisable0;		/**< IP_DISABLE_0 */
+	u32 RomRsvd;		/**< ROM RSVD */
+	u32 RoSwapEn;		/**< RO_SWAP_EN */
 } XOcp_SecureConfig;
 
 /*************************** Macros (Inline Functions) Definitions ********************************/

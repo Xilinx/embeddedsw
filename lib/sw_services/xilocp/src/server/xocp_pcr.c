@@ -17,6 +17,7 @@
 * ----- ---- -------- -----------------------------------------------------------------------------
 * 1.7   rmv  01/30/26 Refactor OCP library
 *       rpu  03/11/26 Validate input parameters
+* 1.8   rap  08/28/26 Fixed Doxygen Warnings
 * </pre>
 *
 **************************************************************************************************/
@@ -1004,7 +1005,7 @@ END:
  * @brief	This function clears the all digest data for the specified SW PCR.
  *
  * @param	PcrNum		SW PCR number
- * 		DigestIdx	DigestIdx in the SW PCR log
+ * @param	DigestIdx	DigestIdx in the SW PCR log
  *
  * @return
  *		- XST_SUCCESS - Upon success
@@ -1186,7 +1187,7 @@ END:
  * 		That is (Event Id || Version || Data) for a specific digest.
  *
  * @param	DigestIdx	PCR Digest index in the SW PCR log
- * 		Hash		Pointer to the Hash where the resultant hash
+ * @param	Hash		Pointer to the Hash where the resultant hash
  * 				shall be placed
  *
  * @return

@@ -17,6 +17,7 @@
 * ----- ---- -------- -----------------------------------------------------------------------------
 * 1.7   rmv  01/30/26 Refactor OCP library
 *       rpu  03/11/26 Validate input parameters
+* 1.8   rap  08/28/26 Fixed Doxygen Warnings
 * </pre>
 *
 **************************************************************************************************/
@@ -99,6 +100,10 @@ END:
 /*****************************************************************************/
 /**
  * @brief	This function returns the status of Dme challenge response
+ *
+ * @return
+ *		- TRUE if the DME challenge response is available.
+ *		- FALSE if the DME challenge response is not available.
  *
  ******************************************************************************/
 u32 XOcp_IsDmeChlAvail(void)

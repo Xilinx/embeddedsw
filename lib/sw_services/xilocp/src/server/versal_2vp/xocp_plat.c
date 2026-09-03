@@ -19,6 +19,7 @@
 *       tvp  09/13/25 Moved XOcp_ReadSecureConfig from xocp.c to platform file
 * 1.7   rmv  01/30/26 Refactor OCP library
 * 1.8   tvp  08/10/26 Remove Caher1 and RomRsvd from secure config
+*       rap  08/28/26 Fixed Doxygen Warnings
 *
 * </pre>
 *
@@ -41,11 +42,17 @@
  */
 
 /************************************** Type Definitions ******************************************/
+/**
+ * @brief Structure to hold DevIK public key components.
+ */
 typedef struct {
 	u32 DevIkPubX[XOCP_ECC_P384_SIZE_WORDS];	/**< DevIK Public key X */
 	u32 DevIkPubY[XOCP_ECC_P384_SIZE_WORDS];	/**< DevIK Public key Y */
 } XOcp_DevPubIk;
 
+/**
+ * @brief Structure to hold DME signature components.
+ */
 typedef struct {
 	u32 DmeSignatureR[XOCP_ECC_P384_SIZE_WORDS];	/**< Signature comp R */
 	u32 DmeSignatureS[XOCP_ECC_P384_SIZE_WORDS];	/**< Signature comp S */

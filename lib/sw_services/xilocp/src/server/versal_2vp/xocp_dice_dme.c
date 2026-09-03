@@ -21,6 +21,7 @@
 * 1.7   tvp  12/10/25 Add required header file
 *       rmv  01/30/26 Refactor OCP library
 *       tvp  03/31/26 Use generic API to increment IV
+* 1.8   rap  08/28/26 Fixed Doxygen Warnings
 *
 * </pre>
 *
@@ -90,9 +91,6 @@ static XOcp_SecureTapConfig SecureTapConfig;
  * @brief	This function provides Kek IV.
  *
  * @param	IvAddr is pointer to store Kek IV.
- *
- * @return
- * 		- None.
  *
  **************************************************************************************************/
 static void XOcp_GetIvData(u8 *IvAddr)
