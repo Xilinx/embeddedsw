@@ -1,5 +1,5 @@
 /***************************************************************************************************
-* Copyright (C) 2025, Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2025 - 2026, Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ***************************************************************************************************/
 
@@ -157,4 +157,6 @@ END:
 #ifdef __cplusplus
 }
 #endif
+
+/** @} */
 #endif /* XCERT_SHA_H */
