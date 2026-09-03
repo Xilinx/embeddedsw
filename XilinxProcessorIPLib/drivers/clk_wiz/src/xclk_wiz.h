@@ -89,6 +89,7 @@
 * 1.12 ss  8/7/26  Updated clkx5 get/set input and output frequency APIs and
 *                  clk_in_sel register control APIs.
 * 1.12 ss  8/18/26 Added PFD range validation to divisor calculations.
+* 1.12 vn  09/3/26  Fix doxygen warnings.
 * </pre>
 *
 ******************************************************************************/
@@ -147,7 +148,7 @@ extern "C" {
 
 #define XCLK_MHZ 1000000
 #define XCLK_KHZ 1000
-/*@}*/
+/** @} */
 
 /*****************************************************************************/
 /**
@@ -257,7 +258,7 @@ typedef struct {
 *
 * @param	RegisterOffset is offset where the register is present
 *
-* @param	BitName is the part of the bitname before _MASK
+* @param	BitMask is the mask of the bit to be set
 *
 * @return	None
 *
@@ -280,7 +281,7 @@ static inline void XCLK_WIZ_BIT_SET(UINTPTR BaseAddress, u32 RegisterOffset, \
 *
 * @param	RegisterOffset is offset where the register is present
 *
-* @param	BitName is the part of the bitname before _MASK
+* @param	BitMask is the mask of the bit to be set
 *
 * @return	None
 *
@@ -305,7 +306,9 @@ static inline void XCLK_WIZ_BIT_RESET(UINTPTR BaseAddress, u32 RegisterOffset,
 *
 * @param	RegisterOffset is offset where the register is present
 *
-* @param	BitName is the part of the bitname before _MASK or _SHIFT
+* @param	BitMask is the mask of the bit to be set
+*
+* @param	BitShift is the number of bits to shift right
 *
 * @return	Bit Field Value in u32 format
 *
@@ -329,7 +332,9 @@ static inline u32 XCLK_WIZ_GET_BITFIELD_VALUE(UINTPTR BaseAddress,
 *
 * @param	RegisterOffset is offset where the register is present
 *
-* @param	BitName is the part of the bitname before _MASK or _SHIFT
+* @param	BitMask is the mask of the bit to be set
+*
+* @param	BitShift is the number of bits to shift left
 *
 * @param	Value is to be set. Passed in u32 format.
 *

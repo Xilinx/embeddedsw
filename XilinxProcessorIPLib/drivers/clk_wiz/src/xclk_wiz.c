@@ -38,6 +38,7 @@
 * 1.12 ss  8/7/26  Updated clkx5 get/set input and output frequency APIs and
 *					clk_in_sel register control APIs.
 * 1.12 ss  8/18/26 Added PFD range validation to divisor calculations.
+* 1.12 vn  09/3/26  Fix doxygen warnings.
 * </pre>
 ******************************************************************************/
 
@@ -336,8 +337,6 @@ static u32  XClk_Wiz_CalculateDivisorsHz (XClk_Wiz  *InstancePtr, u64 SetRate)
 *
 * @param	InstancePtr is the XClk_Wiz instance to operate on.
 * @param	Minerr is the error margin that can be tolerated in Hz.
-*
-* @return	None
 *
 * @note		Should be called only if there is only one output clock.
 *****************************************************************************/
@@ -1094,8 +1093,6 @@ u32 XClk_Wiz_WaitForLock(XClk_Wiz  *InstancePtr)
 * @param	InstancePtr is the XClk_Wiz instance to operate on.
 * @param	Rate is the frequency for which is to be set.
 *
-* @return 	None
-*
 * @note		Should be called only if the input provider clock is changed eg
 * 		input clock is si570.
 *****************************************************************************/
@@ -1205,8 +1202,6 @@ u32 XClk_Wiz_GetInputRate(XClk_Wiz  *InstancePtr)
 * IER  and ISR Registers.
 *
 * @param	InstancePtr is the XClk_Wiz instance to operate on.
-*
-* @return 	None
 *
 ****************************************************************************/
 void XClk_Wiz_GetInterruptSettings(XClk_Wiz  *InstancePtr)

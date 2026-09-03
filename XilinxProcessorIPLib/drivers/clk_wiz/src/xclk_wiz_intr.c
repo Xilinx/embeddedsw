@@ -23,6 +23,7 @@
 * 1.2 ms  03/02/17 Fixed compilation errors. Fix for CR-970507.
 * 1.6 sd  07/07/23 Added SDT support.
 * 1.11 vlt 01/27/26 Fixed codespell issues
+* 1.12 vn  09/3/26  Fix doxygen warnings.
 * </pre>
 ******************************************************************************/
 
@@ -58,8 +59,6 @@
 * @param	InstancePtr is the XClk_Wiz instance to operate on
 * @param	Mask is the interrupt mask which need to be enabled in core
 *
-* @return	None
-*
 * @note		None
 *
 ****************************************************************************/
@@ -82,8 +81,6 @@ void XClk_Wiz_InterruptEnable(XClk_Wiz *InstancePtr, u32 Mask)
 *
 * @param	InstancePtr is the XClk_Wiz instance to operate on
 * @param	Mask is the interrupt mask which need to be enabled in core
-*
-* @return	None
 *
 * @note		None
 *
@@ -154,8 +151,6 @@ u32 XClk_Wiz_InterruptGetStatus(XClk_Wiz *InstancePtr)
 * @param	InstancePtr is the XClk_Wiz instance to operate on
 * @param	Mask is Interrupt Mask with bits set for corresponding interrupt
 *		to be cleared in the Interrupt Status register
-*
-* @return 	None
 *
 * @note		None
 *
@@ -252,8 +247,6 @@ int XClk_Wiz_SetCallBack(XClk_Wiz *InstancePtr, u32 HandleType,
 * XClk_Wiz_SetCallBack() during initialization phase.
 *
 * @param	InstancePtr is a pointer to the XClk_Wiz core instance.
-*
-* @return	None
 *
 * @note		Interrupt should be enabled to execute interrupt handler.
 *

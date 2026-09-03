@@ -22,9 +22,14 @@
 * 1.10 sd 12/2/24 Remove an un-needed register write.
 * 1.11 vlt 12/17/25 Update Doxygen comments to include SDT flow details.
 * 1.12 ss  8/15/26  Updated specifiers.
+* 1.12 vn  09/3/26  Fix doxygen warnings.
 * </pre>
 *
 ******************************************************************************/
+
+/** @addtogroup xclk_wiz_setrate_example
+ * @{
+ */
 
 /***************************** Include Files *********************************/
 
@@ -78,8 +83,6 @@ XClk_Wiz ClkWiz_Dynamic; /* The instance of the ClkWiz_Dynamic */
 * This is the main function for XClk_Wiz rate example. If the
 * ClkWiz_Example function which sets up the system succeeds, this function
 * will set the desired rate.
-*
-* @param	None.
 *
 * @return	XST_SUCCESS if successful, otherwise XST_FAILURE.
 *
@@ -189,3 +192,5 @@ u32 ClkWiz_Example(UINTPTR BaseAddress)
 	xil_printf("\nThe Rate %llu MHz\t Expected 50 MHz \n",  Rate);
 	return Status;
 }
+
+/** @} */

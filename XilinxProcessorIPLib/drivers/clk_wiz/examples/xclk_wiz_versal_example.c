@@ -23,9 +23,14 @@
 *     sd  9/5/24  Add GetRate and multi clock support.
 * 1.11 vlt 12/12/25 Update Doxygen comments to include SDT flow details.
 * 1.12 ss  8/15/26  Updated specifiers.
+* 1.12 vn  09/3/26  Fix doxygen warnings.
 * </pre>
 *
 ******************************************************************************/
+
+/** @addtogroup xclk_wiz_versal_example
+ * @{
+ */
 
 /***************************** Include Files *********************************/
 
@@ -113,8 +118,6 @@ u32 XClk_WaitForLock(XClk_Wiz_Config *CfgPtr_Dynamic)
 * This is the main function for XClk_Wiz rate example. If the
 * ClkWiz_Example function which sets up the system succeeds, this function
 * will set the desired rate.
-*
-* @param	None.
 *
 * @return
 *		- XST_FAILURE if the interrupt example was unsuccessful.
@@ -227,3 +230,5 @@ u32 ClkWiz_Example(UINTPTR BaseAddress)
 	xil_printf("\nThe Rate %llu MHz \t Expected 200 MHz \n",  Rate);
 	return Status;
 }
+
+/** @} */

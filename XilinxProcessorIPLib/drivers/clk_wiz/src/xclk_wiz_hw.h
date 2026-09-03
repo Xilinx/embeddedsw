@@ -23,6 +23,7 @@
  * 		   Add Enable and Disable clock APIs.
  * 1.12 ss  8/7/26  Updated clkx5 get/set input and output frequency APIs and
  *         	clk_in_sel register control APIs.
+ * 1.12 vn  09/3/26  Fix doxygen warnings.
  * </pre>
  *
  *****************************************************************************/
@@ -127,7 +128,7 @@ extern "C" {
 #define XCLK_WIZ_CLKOUT0_P5FEDGE_MASK		(1 << 15)  /**< Mask for P5EDGE */
 #define XCLK_WIZ_REG12_EDGE_SHIFT		10  /**< Shift bits for Edge */
 #define XCLK_WIZ_REG1_EDGE_SHIFT		8  /**< Shift bits for Edge */
-/*@}*/
+/** @} */
 
 /** @name Bitmasks and offsets of XCLK_WIZ_ISR_OFFSET register
  * This register is used to display interrupt status register
@@ -210,7 +211,7 @@ extern "C" {
 							User clock 1 max */
 #define XCLK_WIZ_ISR_CLK0_MAXFREQ_SHIFT            0   /**< Shift bits for
 							User clock 0 max */
-/*@}*/
+/** @} */
 
 /** @name Bitmasks and offsets of XCLK_WIZ_IER_OFFSET register
  * This register is used to display interrupt status register
@@ -282,7 +283,7 @@ extern "C" {
 							User clock 1 max */
 #define XCLK_WIZ_IER_CLK0_MAXFREQ_SHIFT            0   /**< Shift bits for
 							User clock 0 max */
-/*@}*/
+/** @} */
 
 #define XCLK_WIZ_IER_ALLINTR_MASK	0x0000FFFF /**< All interrupts enable
 							mask */

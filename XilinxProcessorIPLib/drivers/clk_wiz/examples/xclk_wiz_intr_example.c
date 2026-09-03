@@ -31,9 +31,14 @@
 * 1.6 sd 7/7/23    Add SDT support.
 * 1.7 ml 11/15/23  Fix compilation errors reported with -std=c2x compiler flag
 * 1.11 vlt 12/17/25 Update Doxygen comments to include SDT flow details.
+* 1.12 vn  09/3/26  Fix doxygen warnings.
 * </pre>
 *
 ******************************************************************************/
+
+/** @addtogroup xclk_wiz_intr_example
+ * @{
+ */
 
 /***************************** Include Files *********************************/
 
@@ -192,9 +197,7 @@ int Wait_For_Lock(XClk_Wiz_Config *CfgPtr_Dynamic)
 * vary.  Just keep in mind that after resetting or updating the PHY modes,
 * the PHY typically needs time to recover.
 *
-* @param	Number of seconds to sleep
-*
-* @return	None
+* @param	Seconds is the number of seconds to sleep
 *
 * @note		None
 *
@@ -235,8 +238,6 @@ void Delay(u32 Seconds)
 * per input array
 *
 * @param	CfgPtr_Dynamic provides pointer to clock wizard dynamic config
-* @param	Findex provides the index for Frequency divide register
-* @param	Sindex provides the index for Frequency phase register
 *
 * @return
 *		-  Error 0 for pass scenario
@@ -369,8 +370,6 @@ int Clk_Wiz_Reconfig(XClk_Wiz_Config *CfgPtr_Dynamic)
 * ClkWiz_IntrExample function which sets up the system succeeds, this function
 * will wait for the interrupts. Notify the events
 *
-* @param	None.
-*
 * @return
 *		- XST_FAILURE if the interrupt example was unsuccessful.
 *
@@ -405,6 +404,7 @@ int main()
 }
 #endif
 
+#ifndef SDT
 /****************************************************************************/
 /**
 *
@@ -413,6 +413,9 @@ int main()
 * actual system may or may not have an interrupt controller. The CLK_WIZ
 * could be directly connected to a processor without an interrupt controller.
 * The user should modify this function to fit the application.
+*
+* @param	IntcInstancePtr is a pointer to the instance of the interrupt
+*		controller.
 *
 * @param	ClkWizPtr contains a pointer to the instance of the CLK_WIZ
 *		component which is going to be connected to the interrupt
@@ -423,7 +426,6 @@ int main()
 * @note		None
 *
 ****************************************************************************/
-#ifndef SDT
 int SetupInterruptSystem(INTC *IntcInstancePtr, XClk_Wiz *ClkWizPtr)
 {
 
@@ -671,8 +673,6 @@ u32 ClkWiz_IntrExample(UINTPTR BaseAddress)
 *
 * @param	Mask of interrupt which caused this event
 *
-* @return	None
-*
 * @note		None
 *
 ******************************************************************************/
@@ -724,8 +724,6 @@ void ClkWiz_ClkOutOfRangeEventHandler(void *CallBackRef, u32 Mask)
 *
 * @param	Mask of interrupt which caused this event
 *
-* @return	None
-*
 * @note		None
 *
 ******************************************************************************/
@@ -756,8 +754,6 @@ void ClkWiz_ClkGlitchEventHandler(void *CallBackRef, u32 Mask)
 *
 * @param	Mask of interrupt which caused this event
 *
-* @return	None
-*
 * @note		None
 *
 ******************************************************************************/
@@ -777,3 +773,5 @@ void ClkWiz_ClkStopEventHandler(void *CallBackRef, u32 Mask)
 	}
 	Clk_Stop_Flag = 0;
 }
+
+/** @} */
