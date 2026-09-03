@@ -119,6 +119,7 @@ extern "C" {
 
 /**
  *  @name SysMon register offset aliases for XilNvm
+ *  @{
  */
 #ifdef VERSAL_PLM
 #define XNVM_SYSMON_PCSR_LOCK		XPLMI_SYSMON_PCSR_LOCK       /**< PCSR Lock register offset */
@@ -137,9 +138,9 @@ extern "C" {
 
 /***************************** Type Definitions *******************************/
 #ifdef VERSAL_PLM
-typedef XPlmi_SysMonPsv XNvm_SysmonPsv;
+typedef XPlmi_SysMonPsv XNvm_SysmonPsv; /**< SysMon PSV instance type */
 #else
-typedef XSysMonPsv XNvm_SysmonPsv;
+typedef XSysMonPsv XNvm_SysmonPsv; /**< SysMon PSV instance type */
 #endif
 
 /**

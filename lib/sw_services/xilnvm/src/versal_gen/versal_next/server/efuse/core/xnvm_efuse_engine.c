@@ -539,6 +539,7 @@ END:
  *
  * @param	Field - Field whose bands are programmed in order.
  * @param	Data - Caller source data words (validated by caller).
+ * @param	NumWords - Number of valid words in Data.
  *
  * @return
  *		- XST_SUCCESS on success.

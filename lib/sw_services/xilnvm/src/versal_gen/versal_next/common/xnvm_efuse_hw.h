@@ -328,6 +328,7 @@ extern "C" {
 #define XNVM_EFUSE_CACHE_PPK2_USER_FUSE_OFFSET		(0x000002F0U)
                         /**< eFUSE cache PPK2 user fuse register offset */
 #define XNVM_EFUSE_PPK_HASH_USER_FUSE_NUM_OF_CACHE_ROWS	(4U)
+                        /**< Number of eFUSE cache rows per PPK hash user fuse */
 
 #endif
 
@@ -591,7 +592,6 @@ extern "C" {
                         /**< eFUSE ROM reserved start column */
 #define XNVM_EFUSE_ROM_RSVD_END_COL			(31U)
                         /**< eFUSE ROM reserved end column */
-/** @} */
 
 /**
  * @name eFuse number of rows

@@ -7,7 +7,7 @@
 /*****************************************************************************/
 /**
 *
-* @file versal_net/common/xnvm_validate.h
+* @file versal_next/common/xnvm_validate.h
 * @addtogroup xnvm_versal_net_validate_api_ids XilNvm Validate APIs
 * @{
 * @cond xnvm_internal

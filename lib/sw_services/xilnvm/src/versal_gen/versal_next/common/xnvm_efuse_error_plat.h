@@ -7,7 +7,7 @@
 /*****************************************************************************/
 /**
  *
- * @file versal_net/common/xnvm_efuse_error_plat.h
+ * @file versal_next/common/xnvm_efuse_error_plat.h
  *
  * Header file for xnvm_efuse.c
  *

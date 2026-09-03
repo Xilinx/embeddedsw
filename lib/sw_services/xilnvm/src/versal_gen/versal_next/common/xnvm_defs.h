@@ -7,7 +7,7 @@
 /*****************************************************************************/
 /**
 *
-* @file versal_net/common/xnvm_defs.h
+* @file versal_next/common/xnvm_defs.h
 * @addtogroup xnvm_def_api_ids XilNvm Definitions
 * @{
 *

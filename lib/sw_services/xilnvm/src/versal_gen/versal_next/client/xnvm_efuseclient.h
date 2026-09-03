@@ -7,7 +7,7 @@
 /*****************************************************************************/
 /**
 *
-* @file versal_net/client/xnvm_efuseclient.h
+* @file versal_next/client/xnvm_efuseclient.h
 *
 * This file contains the client function prototypes, defines and macros for
 * the eFUSE programming and read.

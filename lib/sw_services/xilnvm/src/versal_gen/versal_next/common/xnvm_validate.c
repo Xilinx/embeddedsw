@@ -7,7 +7,7 @@
 /*****************************************************************************/
 /**
 *
-* @file versal_net/common/xnvm_validate.c
+* @file versal_next/common/xnvm_validate.c
 *
 * This file contains the implementation of APIs used to validate write request for
 * eFUSEs.

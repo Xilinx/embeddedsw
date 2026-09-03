@@ -8,7 +8,7 @@
 /******************************************************************************/
 /**
 *
-* @file versal_net/client/xnvm_efuseclient_hw.h
+* @file versal_next/client/xnvm_efuseclient_hw.h
 *
 * This file contains register offsets for EFUSE_CACHE module and other related
 * definitions.

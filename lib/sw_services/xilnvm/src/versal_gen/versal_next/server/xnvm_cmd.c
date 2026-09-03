@@ -319,4 +319,6 @@ END:
 	return Status;
 }
 
+/** @} */
+
 #endif
