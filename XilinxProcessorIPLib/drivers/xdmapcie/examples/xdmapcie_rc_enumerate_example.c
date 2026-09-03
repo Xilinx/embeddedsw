@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2019 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -140,7 +140,7 @@ int main(void)
 
 	int Status;
 
-#if defined(XPS_BOARD_VEK385_1)
+#if defined(XPS_BOARD_VEK385) || defined(XPS_BOARD_VEK385_1)
 	/* Initialize I2C and perform GPIO reset sequence */
 	Status = XDmaPcie_IicInit();
 	if (Status != XST_SUCCESS) {
