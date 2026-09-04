@@ -942,6 +942,12 @@ int XSecure_HssInit(XSecure_Sha *ShaInstPtr, XPmcDma *DmaPtr, XSecure_HssInitPar
 	}
 
 	ShaPlatConfig = (XSecure_ShaPlatConfig *)ShaInstPtr->ShaPlatConfig;
+	if (NULL == ShaPlatConfig) {
+		Status = XSECURE_LMS_INVALID_PARAM;
+		XSecure_Printf(XSECURE_DEBUG_GENERAL,
+			"LMS HSS Init - null SHA platform config\n\r");
+		goto END;
+	}
 
 	/* ****************************************************************************************** */
 	/** - Public key processing - sequence */

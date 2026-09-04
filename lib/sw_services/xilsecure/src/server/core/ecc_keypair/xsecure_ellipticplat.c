@@ -258,9 +258,7 @@ int XSecure_EllipticGenEphemeralNSign(XSecure_EllipticCrvTyp CrvType,
 	volatile int ClearStatus = XST_FAILURE;
 	volatile int ClearStatusTmp = XST_FAILURE;
 	u8 EphemeralKey[XSECURE_ECC_P384_SIZE_IN_BYTES] = {0U};
-	u8 *SigR = Signature;
-	u8 *SigS = &Signature[XSECURE_ECC_P384_SIZE_IN_BYTES];
-	XSecure_EllipticSign Sign = {SigR, SigS};
+	XSecure_EllipticSign Sign;
 
 	/**
 	 * - Only P-384 is supported. Validate all inputs before any entropy or
@@ -272,6 +270,9 @@ int XSecure_EllipticGenEphemeralNSign(XSecure_EllipticCrvTyp CrvType,
 		Status = (int)XSECURE_ELLIPTIC_INVALID_PARAM;
 		goto END;
 	}
+
+	Sign.SignR = Signature;
+	Sign.SignS = &Signature[XSECURE_ECC_P384_SIZE_IN_BYTES];
 
 	/**
 	 * - Generate Ephemeral Key using TRNG for generating ECDSA signature

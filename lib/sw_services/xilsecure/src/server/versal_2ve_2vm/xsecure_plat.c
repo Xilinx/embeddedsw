@@ -565,7 +565,14 @@ int XSecure_ShaValidateModeAndCfgInstance(XSecure_Sha * const InstancePtr,
 	XSecure_ShaMode ShaMode)
 {
 	volatile int Status = XST_FAILURE;
-	XSecure_ShaPlatConfig *ShaPlatConfig = (XSecure_ShaPlatConfig *)InstancePtr->ShaPlatConfig;
+	XSecure_ShaPlatConfig *ShaPlatConfig = NULL;
+
+	if ((InstancePtr == NULL) || (InstancePtr->ShaPlatConfig == NULL)) {
+		Status = (int)XSECURE_SHA_INVALID_PARAM;
+		goto END;
+	}
+
+	ShaPlatConfig = (XSecure_ShaPlatConfig *)InstancePtr->ShaPlatConfig;
 
 	/** - Initializes the SHA instance based on SHA Mode */
 	switch(ShaMode) {

@@ -711,7 +711,18 @@ static int XSecure_TransferNistPad(XSecure_Sha* const InstancePtr)
 	u32 PadLen = 0U;
 	u32 PadBufOffset;
 	u8 *PartialData;
-	XSecure_ShaPlatConfig *ShaPlatConfig = (XSecure_ShaPlatConfig *)InstancePtr->ShaPlatConfig;
+	XSecure_ShaPlatConfig *ShaPlatConfig;
+
+	if (InstancePtr == NULL) {
+		Status = (int)XSECURE_SHA_INVALID_PARAM;
+		goto END;
+	}
+
+	ShaPlatConfig = (XSecure_ShaPlatConfig *)InstancePtr->ShaPlatConfig;
+	if (ShaPlatConfig == NULL) {
+		Status = (int)XSECURE_SHA_INVALID_PARAM;
+		goto END;
+	}
 
 	BlockLen = XSecure_ShaGetBlockLen(ShaPlatConfig->HashAlgo);
 	if (BlockLen == 0U) {

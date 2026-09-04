@@ -91,7 +91,7 @@ int XSecure_Sha3IpiHandler(XPlmi_Cmd *Cmd)
 	int SStatus = XST_FAILURE;
 	XSecure_Sha3 *XSecureSha3InstPtr = XSecure_GetSha3Instance(XSECURE_SHA_0_DEVICE_ID);
 
-	if (NULL == Cmd) {
+	if ((Cmd == NULL) || (Cmd->Payload == NULL)) {
 		Status = XST_INVALID_PARAM;
 		goto END;
 	}
@@ -225,13 +225,23 @@ END:
 static int XSecure_ShaOperation(const XPlmi_Cmd *Cmd)
 {
 	int Status = XST_FAILURE;
-	const u32 *Pload = Cmd->Payload;
-	u32 InputSize = Pload[2U];
-	XSecure_Sha3 *XSecureSha3InstPtr = XSecure_GetSha3Instance(XSECURE_SHA_0_DEVICE_ID);;
+	const u32 *Pload;
+	u32 InputSize;
+	XSecure_Sha3 *XSecureSha3InstPtr = XSecure_GetSha3Instance(XSECURE_SHA_0_DEVICE_ID);
 	XPmcDma *PmcDmaInstPtr = XPlmi_GetDmaInstance(PMCDMA_0_DEVICE);
-	u64 DataAddr = ((u64)Pload[1U] << XSECURE_ADDR_HIGH_SHIFT) | (u64)Pload[0U];
-	u64 DstAddr = ((u64)Pload[4U] << XSECURE_ADDR_HIGH_SHIFT) | (u64)Pload[3U];
+	u64 DataAddr;
+	u64 DstAddr;
 	XSecure_Sha3Hash Hash = {0U};
+
+	if ((Cmd == NULL) || (Cmd->Payload == NULL)) {
+		Status = XST_INVALID_PARAM;
+		goto END;
+	}
+
+	Pload = Cmd->Payload;
+	InputSize = Pload[2U];
+	DataAddr = ((u64)Pload[1U] << XSECURE_ADDR_HIGH_SHIFT) | (u64)Pload[0U];
+	DstAddr = ((u64)Pload[4U] << XSECURE_ADDR_HIGH_SHIFT) | (u64)Pload[3U];
 
 	if (((InputSize & XSECURE_IPI_FIRST_PACKET_MASK) != 0U) &&
 		((InputSize & XSECURE_IPI_CONTINUE_MASK) == 0U)){
