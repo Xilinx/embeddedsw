@@ -28,8 +28,8 @@
 * </pre>
 *
 ******************************************************************************/
-#ifndef __XTRNPSX_HW_H_
-#define __XTRNPSX_HW_H_
+#ifndef XTRNGPSX_HW_H
+#define XTRNGPSX_HW_H
 
 #ifdef __cplusplus
 extern "C" {
@@ -151,4 +151,4 @@ extern "C" {
 }
 #endif
 /** @} */
-#endif /* __XTRNGPSX_HW_H_ */
+#endif /* XTRNGPSX_HW_H */
