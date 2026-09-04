@@ -172,7 +172,13 @@ int XPm_PlatProcessCmd(XPlmi_Cmd * Cmd)
 
 	switch (CmdId) {
 	case PM_API(PM_INIT_NODE):
-		Status = XPm_InitNode(Pload[0], Pload[1], &Pload[2], Len-2U);
+		/* Node id and function words must be present before Len underflows */
+		if (XPLMI_CMD_ARG_CNT_TWO > Len) {
+			Status = XST_INVALID_PARAM;
+			break;
+		}
+		Status = XPm_InitNode(Pload[0], Pload[1], &Pload[2],
+				      Len - XPLMI_CMD_ARG_CNT_TWO);
 		break;
 	case PM_API(PM_NOC_CLOCK_ENABLE):
 		Status = XPm_NocClockEnable(Pload[0], &Pload[1], Len-1U);
