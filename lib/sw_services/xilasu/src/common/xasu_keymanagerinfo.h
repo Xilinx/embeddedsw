@@ -66,7 +66,12 @@ extern "C" {
 							splits using XOR */
 #define XASU_KM_GEN_SLHDSA_KEY_PAIR_CMD_ID	(15U) /**< Command ID for SLH-DSA key pair
 							generation */
-#define XASU_KM_MAX_CMDS			(16U) /**< Maximum number of commands
+
+#define XASU_KM_GEN_PROV_KEY_PAIR_CMD_ID	(16U) /**< Command ID for provisioning (ECIES) ECC key
+							pair generation into the ASU exportable vault */
+#define XASU_KM_DELETE_PROV_KEY_PAIR_CMD_ID	(17U) /**< Command ID for provisioning (ECIES) ECC key
+							pair deletion from the ASU exportable vault */
+#define XASU_KM_MAX_CMDS			(18U) /**< Maximum number of commands
 							supported by KeyManager module */
 
 #define XASU_KM_OUTPUT_ID_SIZE_IN_BYTES		(4U) /**< Key vault output id size */
@@ -131,12 +136,20 @@ extern "C" {
 #define XASU_KEYMANAGER_ECC_PUB_SIGN_VER_USE_CASE		(0x01U)	/**< ECC public key sign verification use case */
 #define XASU_KEYMANAGER_ECC_PUB_KEY_AGREEMENT_USE_CASE	(0x02U)	/**< ECC public key key agreement use case */
 #define XASU_KEYMANAGER_ECC_PUB_KEY_AUTH_ENC_USE_CASE	(0x04U)	/**< ECC public key key authentication and encryption use case */
+#define XASU_KEYMANAGER_ECC_PUB_PROV_ENCRYPT_USE_CASE	(0x10U)	/**< ECC public key restricted to
+						encrypting provisioning material (ECIES) only. Shares
+						the bit position of its private counterpart
+						XASU_KEYMANAGER_ECC_PVT_PROV_UNWRAP_USE_CASE, so a key
+						pair generated for provisioning stores one value on
+						both halves. */
 
 /* Key usecases for ECC private key type. */
 #define XASU_KEYMANAGER_ECC_PVT_SIGN_GEN_USE_CASE		(0x01U)	/**< ECC private key sign use case */
 #define XASU_KEYMANAGER_ECC_PVT_KEY_AGREEMENT_USE_CASE	(0x02U)	/**< ECC private key key agreement use case */
 #define XASU_KEYMANAGER_ECC_PVT_KEY_AUTH_ENC_USE_CASE	(0x04U)	/**< ECC private key key authentication and encryption use case */
 #define XASU_KEYMANAGER_ECC_PVT_PUB_KEY_GEN_USE_CASE	(0x08U)	/**< ECC private key for public key generation */
+#define XASU_KEYMANAGER_ECC_PVT_PROV_UNWRAP_USE_CASE	(0x10U)	/**< ECC private key restricted
+						to provisioning-material unwrap (ECIES) only */
 
 /* Key usecases for KDF/HMAC key type. */
 #define XASU_KEYMANAGER_KDF_HMAC_KDF_USE_CASE	(0x01U)	/**< Key derivation key use case */

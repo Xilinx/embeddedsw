@@ -64,6 +64,10 @@ extern "C" {
 #define XKEYMANAGER_ASU_SUBSYSTEM_ID			(0x1C000002U)	/**< ASU subsystem ID */
 
 #define XKEYMANAGER_ASU_VAULT_ID	(0U)	/**< Vault index for ASU internal vault */
+#define XKEYMANAGER_ASU_EXPORTABLE_VAULT_ID	(1U)	/**< Vault index for the ASU-owned
+								exportable vault holding the ECIES
+								provisioning key (created right after
+								vault 0) */
 
 #define XKEYMANAGER_ASU_RSA_KEY_VAULT_CAPACITY	(2U)	/**< Number of RSA key pairs that can be
 								 stored in ASU vault */
@@ -259,6 +263,8 @@ s32 XKeyManager_DeleteKey(u32 KeyId, u32 SubSystemId);
 u16 XKeyManager_GetAsuRsaActiveKeyCount(XAsu_KeyManagerSubVaultType KeyType);
 s32 XKeyManager_StoreRsaKeyPairInAsuVault(const u8 *KeyData, u32 KeyLen, u8 VaultId);
 s32 XKeyManager_StoreKeyInAsuVault(const XAsu_KeyManagerParams *ParamsPtr, u32 *KeyIdPtr);
+s32 XKeyManager_GenerateProvisioningKeyPair(XAsufw_Dma *DmaPtr, u32 SubSystemId, u8 KeyUseCase);
+s32 XKeyManager_DeleteProvisioningKeyPair(u32 SubSystemId, u8 KeyUseCase);
 s32 XKeyManager_FetchRsaKeyPairFromAsuVault(XAsufw_Dma *DmaPtr, u8 *DestBuf, u8 VaultId, u64 KeyAddr);
 s32 XKeyManager_StoreKeyInVault(XAsufw_Dma *DmaPtr,  XAes *AesInstancePtr, const XAsu_KeyManagerParams *KeyParams,
 				u32 *KeyIdPtr, u32 SubSystemId);

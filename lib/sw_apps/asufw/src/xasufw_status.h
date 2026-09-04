@@ -936,7 +936,14 @@ enum {
 	XASUFW_PROVISION_PLM_IPI_FAIL, /**< 0x27EU - Error when the IPI request/response to PLM fails
 						during UDE provisioning */
 	XASUFW_PROVISION_PLM_ERROR, /**< 0x27FU - Error reported by PLM for the UDE eFUSE write */
-
+	XASUFW_KEYMANAGER_PROVISIONING_KEY_ALREADY_EXISTS, /**< 0x280U - Error when a provisioning
+						key pair is requested for a subsystem that already
+						holds one. */
+	XASUFW_KEYMANAGER_GET_PROVISIONING_KEY_SLOT_FAILED, /**< 0x281U - Error when a provisioning
+						key slot fetch has failed. */
+	XASUFW_KEYMANAGER_INVALID_PROVISIONING_USE_CASE, /**< 0x282U - Error when the requested
+						provisioning key use case is not one of the
+						supported provisioning use cases. */
 
 	/* Additional status success codes */
 	XASUFW_SLHDSA_SIGNATURE_VERIFIED = 0x3F5U, /**< 0x3F5U - SLH-DSA signature verification

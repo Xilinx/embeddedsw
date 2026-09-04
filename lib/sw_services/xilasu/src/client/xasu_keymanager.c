@@ -782,6 +782,114 @@ END:
 
 /*************************************************************************************************/
 /**
+ * @brief	This function sends a command to ASUFW to generate the wrapped-provisioning (ECIES)
+ *		ECC key pair for the requesting subsystem. Both halves are persisted in the
+ *		ASU-owned exportable vault and neither the key material nor a key ID is returned:
+ *		the ASU locates the private key internally when it unwraps provisioning material.
+ *		A subsystem which already holds a provisioning key pair is refused; it must delete
+ *		the existing pair first with XAsu_KmDeleteProvisioningKeyPair().
+ *
+ * @param	ClientParamPtr	Pointer to the XAsu_ClientParams structure which holds the
+ *				client input parameters. The command takes no other parameter: the
+ *				vault id (ASU-owned exportable vault), use case (provisioning/ECIES
+ *				unwrap), curve (P-384), key length, epoch time, non-depleting usage
+ *				count and the key slot are all set internally by the ASU, the slot
+ *				being derived from the requesting subsystem.
+ *
+ * @return
+ *		- XST_SUCCESS, if IPI request to ASU is sent successfully.
+ *		- XASU_INVALID_ARGUMENT, if any argument is invalid.
+ *		- XASU_INVALID_UNIQUE_ID, if the generated unique ID is invalid.
+ *		- XST_FAILURE, if sending an IPI request to ASU fails.
+ *
+ *************************************************************************************************/
+s32 XAsu_KmGenerateProvisioningKeyPair(XAsu_ClientParams *ClientParamPtr)
+{
+	s32 Status = XST_FAILURE;
+	u32 Header;
+	u8 UniqueId;
+
+	/** Validation of inputs. */
+	Status = XAsu_ValidateClientParameters(ClientParamPtr);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	/**
+	 * Generate a unique ID and register the callback function. There is no response payload:
+	 * the command returns status only and no key material or key ID reaches the caller.
+	 */
+	UniqueId = XAsu_RegCallBackNGetUniqueId(ClientParamPtr, NULL, 0U, XASU_TRUE);
+	if (UniqueId >= XASU_UNIQUE_ID_MAX) {
+		Status = XASU_INVALID_UNIQUE_ID;
+		goto END;
+	}
+
+	/** Create command header. */
+	Header = XAsu_CreateHeader(XASU_KM_GEN_PROV_KEY_PAIR_CMD_ID, UniqueId,
+				XASU_MODULE_KEYMANAGER_ID, XASU_CMD_LEN_ZERO,
+				ClientParamPtr->SecureFlag);
+
+	/** Update request buffer and send an IPI request to ASU. */
+	Status = XAsu_SendCmdToAsu(ClientParamPtr, NULL, 0U, Header);
+
+END:
+	return Status;
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	This function sends a command to ASUFW to delete the wrapped-provisioning (ECIES)
+ *		ECC key pair which the requesting subsystem holds in the ASU-owned exportable
+ *		vault. A client cannot delete the pair itself with XAsu_KmDeleteKey(), because that
+ *		vault is owned by the ASU, so this command is the only way to release the slot and
+ *		roll the key pair over by generating a fresh one.
+ *
+ * @param	ClientParamPtr	Pointer to the XAsu_ClientParams structure which holds the
+ *				client input parameters. The command takes no other parameter: the
+ *				key slot is derived from the requesting subsystem, so a subsystem
+ *				can only ever delete its own provisioning key pair.
+ *
+ * @return
+ *		- XST_SUCCESS, if IPI request to ASU is sent successfully.
+ *		- XASU_INVALID_ARGUMENT, if any argument is invalid.
+ *		- XASU_INVALID_UNIQUE_ID, if the generated unique ID is invalid.
+ *		- XST_FAILURE, if sending an IPI request to ASU fails.
+ *
+ *************************************************************************************************/
+s32 XAsu_KmDeleteProvisioningKeyPair(XAsu_ClientParams *ClientParamPtr)
+{
+	s32 Status = XST_FAILURE;
+	u32 Header;
+	u8 UniqueId;
+
+	/** Validation of inputs. */
+	Status = XAsu_ValidateClientParameters(ClientParamPtr);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	/** Generate a unique ID and register the callback function. Status only, no response data. */
+	UniqueId = XAsu_RegCallBackNGetUniqueId(ClientParamPtr, NULL, 0U, XASU_TRUE);
+	if (UniqueId >= XASU_UNIQUE_ID_MAX) {
+		Status = XASU_INVALID_UNIQUE_ID;
+		goto END;
+	}
+
+	/** Create command header. */
+	Header = XAsu_CreateHeader(XASU_KM_DELETE_PROV_KEY_PAIR_CMD_ID, UniqueId,
+				XASU_MODULE_KEYMANAGER_ID, XASU_CMD_LEN_ZERO,
+				ClientParamPtr->SecureFlag);
+
+	/** Update request buffer and send an IPI request to ASU. */
+	Status = XAsu_SendCmdToAsu(ClientParamPtr, NULL, 0U, Header);
+
+END:
+	return Status;
+}
+
+/*************************************************************************************************/
+/**
  * @brief	This function sends a command to ASUFW to store a key in the vault for the
  *		requested subsystem.
  *
@@ -793,6 +901,7 @@ END:
  * @return
  *		- XST_SUCCESS, if IPI request to ASU is sent successfully.
  *		- XASU_INVALID_ARGUMENT, if any argument is invalid.
+ *		- XASU_INVALID_UNIQUE_ID, if the generated unique ID is invalid.
  *		- XST_FAILURE, if sending an IPI request to ASU fails.
  *
  *************************************************************************************************/

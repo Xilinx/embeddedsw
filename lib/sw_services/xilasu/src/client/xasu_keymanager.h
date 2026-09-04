@@ -63,6 +63,8 @@ s32 XAsu_KmGenerateSlhdsaKeyPair(XAsu_ClientParams *ClientParamPtr,
 				XAsu_SlhdsaKeyGenParams *KeyGenParamsPtr);
 s32 XAsu_KmGenerateEccKeyPair(XAsu_ClientParams *ClientParamPtr,
 				XAsu_KeyManagerParams *KmSubVaultParamPtr);
+s32 XAsu_KmGenerateProvisioningKeyPair(XAsu_ClientParams *ClientParamPtr);
+s32 XAsu_KmDeleteProvisioningKeyPair(XAsu_ClientParams *ClientParamPtr);
 s32 XAsu_KmStoreKey(XAsu_ClientParams *ClientParamPtr, XAsu_KeyManagerParams *KeyParams);
 s32 XAsu_KmGenerateRawKey(XAsu_ClientParams *ClientParamPtr,
 				XAsu_KeyManagerParams *KmSubVaultParamPtr);
