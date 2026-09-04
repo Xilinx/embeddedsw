@@ -40,6 +40,7 @@
 * 2.4   abh  10/09/2025 Added macros to be MISRA-C compliant
 *       aa   02/03/2026 Added Macro for Macronix flash
 * 2.5   aa   07/02/2026 Added timeout macro for OSPI 4B address mode polling
+*       gnr  09/02/2026 Added PDI-based OSPI RX tuning pattern support
 *
 * </pre>
 *
@@ -55,6 +56,7 @@ extern "C" {
 
 /***************************** Include Files *********************************/
 #ifdef XLOADER_OSPI
+#include "xilpdi.h"
 
 /************************** Constant Definitions *****************************/
 /*
@@ -177,6 +179,7 @@ extern "C" {
 int XLoader_OspiInit(u32 DeviceFlags);
 int XLoader_OspiCopy(u64 SrcAddr, u64 DestAddress, u32 Length, u32 Flags);
 int XLoader_OspiRelease(void);
+int XLoader_FlashSetupRxTuningPattern(const XilPdi_MetaHdr *MetaHdrPtr);
 
 /************************** Variable Definitions *****************************/
 

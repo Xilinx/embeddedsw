@@ -1,6 +1,6 @@
 ###############################################################################
 # Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
-# Copyright (c) 2022 - 2026, Advanced Micro Devices, Inc. All Rights Reserved.
+# Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 # SPDX-License-Identifier: MIT
 #
 # Modification History
@@ -42,6 +42,7 @@
 #                       for PLM_GET_OPT_DATA_EN enabled
 #       pre  08/07/2026 Reduced print level to level0 when DDR IP and I2C instances
 #                       are present in design.
+#       gnr  09/03/2026 Reduced print level to level0 when OSPI is enabled for Versal
 #
 ##############################################################################
 
@@ -302,6 +303,7 @@ proc xgen_opts_file {libhandle} {
 	set opt_data_en [common::get_property CONFIG.plm_get_opt_data_en $libhandle]
 	set ddr5 [expr {[hsi::get_cells -hier -filter {IP_NAME==noc_mc_ddr5}] ne ""}]
 	set iic [expr {[hsi::get_cells -hier -filter {IP_NAME==psv_i2c}] ne ""}]
+	set ospi_en [common::get_property CONFIG.plm_ospi_en $libhandle]
 
 	set macronix_ospi_ddr_en [common::get_property CONFIG.plm_macronix_ospi_ddr_en $libhandle]
 	if {($macronix_ospi_ddr_en == true) || ($proc_type != "psv_pmc")} {
@@ -313,7 +315,8 @@ proc xgen_opts_file {libhandle} {
 	if {((($sem_cfrscan_en > 0) || ($sem_npiscan_en > 0)) && ($sem_print_flag == true)) || \
 	    ($proc_type == "psv_pmc" && $opt_data_en == true) || \
 	    ($proc_type == "psv_pmc" && $macronix_ospi_ddr_en == true) ||\
-	    (($proc_type == "psv_pmc") && ($ddr5 == 1) && ($iic == 1))} {
+	    (($proc_type == "psv_pmc") && ($ddr5 == 1) && ($iic == 1)) ||\
+	    ($proc_type == "psv_pmc" && $ospi_en == true)} {
 		puts "Level_0 is selected"
 		puts $file_handle "#define PLM_PRINT"
 	} elseif {$value == "level0"} {

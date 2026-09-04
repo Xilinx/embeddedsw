@@ -17,6 +17,7 @@
 	((defined(PLM_GET_OPT_DATA_EN) && (defined(VERSAL)))) || \
 	((defined(PLM_MACRONIX_OSPI_DDR)) && (defined(VERSAL))) || \
 	(defined(XPAR_XIICPS_NUM_INSTANCES) && defined(NOC_MC_DDR5) && defined(VERSAL)) || \
+	((!defined(PLM_OSPI_EXCLUDE)) && (defined(VERSAL))) || \
 	(defined(PLM_PRINT_LEVEL0)))
 #define PLM_PRINT
 #cmakedefine    PLM_SEM_BEAM_TESTING

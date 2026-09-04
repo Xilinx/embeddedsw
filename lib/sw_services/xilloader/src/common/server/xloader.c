@@ -221,6 +221,7 @@
 * 2.5   gnr  08/19/2026 Re-arm SMAP sync word detection and drain SBI FIFO before
 *                      setting the DONE pin after PDI load
 *       dc   09/01/2026 Enable DAP device state change scheduler for VERSAL_2VP_P
+*       gnr  09/02/2026 Configure OSPI RX tuning after reading PDI optional data
 *
 * </pre>
 *
@@ -800,6 +801,23 @@ static int XLoader_ReadAndValidateHdrs(XilPdi* PdiPtr, u32 RegValue, u64 PdiAddr
 		Status = XPlmi_UpdateStatus(XLOADER_ERR_READ_IHT_OPTIONAL_DATA, Status);
 		goto END;
 	}
+
+#ifdef XLOADER_OSPI
+	/**
+	 * Configure OSPI PHY mode only after the RX tuning pattern optional data
+	 * has been copied to PMC RAM.
+	 */
+	if (((PdiPtr->PdiType == XLOADER_PDI_TYPE_FULL) ||
+		 (PdiPtr->PdiType == XLOADER_PDI_TYPE_FULL_METAHEADER)) &&
+		(PdiPtr->PdiIndex == XLOADER_OSPI_INDEX) &&
+		((PdiPtr->SlrType == XLOADER_SSIT_MASTER_SLR) ||
+		 (PdiPtr->SlrType == XLOADER_SSIT_MONOLITIC))) {
+		Status = XLoader_FlashSetupRxTuningPattern(PdiPtr->MetaHdr);
+		if (Status != XST_SUCCESS) {
+			goto END;
+		}
+	}
+#endif
 
 #ifndef PLM_SECURE_EXCLUDE
 	Status = XPlmi_MemSetBytes(SecureTempParams, sizeof(XLoader_SecureTempParams),

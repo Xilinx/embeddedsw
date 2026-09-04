@@ -57,6 +57,7 @@
 *                       polling to prevent indefinite hangs
 *       gnr  08/25/2026 Fixed OSPI device reset for VERSAL_2VE_2VM devices to use
 *                       XOspiPsv_DeviceResetViaOspi instead of XOspiPsv_DeviceReset
+*       gnr  09/02/2026 Added PDI-based OSPI RX tuning pattern support
 *
 * </pre>
 *
@@ -84,6 +85,10 @@
 #include "xpm_nodeid.h"
 
 /************************** Constant Definitions *****************************/
+#define XLOADER_OSPI_RX_TUNING_PATTERN_SIZE	(128U)
+#define XLOADER_OSPI_RX_TUNING_SECTION_SIZE	\
+	(XLOADER_OSPI_RX_TUNING_PATTERN_SIZE + XILPDI_OPTIONAL_DATA_DOUBLE_WORD_LEN)
+
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
@@ -92,6 +97,10 @@
 static int FlashReadID(XOspiPsv *OspiPsvPtr);
 static int XLoader_FlashEnterExit4BAddMode(XOspiPsv *OspiPsvPtr, u32 Enable);
 static int XLoader_FlashSetDDRMode(XOspiPsv *OspiPsvPtr);
+static int XLoader_FlashSetSdrMode(XOspiPsv *OspiPsvPtr);
+static int XLoader_FlashSet4BAddressMode(XOspiPsv *OspiPsvPtr);
+static void XLoader_FlashFillRxTuning(XOspiPsv_RxTuning *RxTuning, u32 Mode,
+		u64 PatternFlashAddr, u64 OptionalDataAddr);
 static int XLoader_SpansionSetEccMode(XOspiPsv *OspiPsvPtr);
 #ifdef PLM_MACRONIX_OSPI_DDR
 static int XLoader_MxConfigDummy(XOspiPsv *OspiPsvPtr);
@@ -101,6 +110,8 @@ static int XLoader_MxConfigDummy(XOspiPsv *OspiPsvPtr);
 static XOspiPsv OspiPsvInstance;
 static u8 OspiFlashMake;
 static u32 OspiFlashSize = 0U;
+static u8 OspiRxTuningReadBuffer[XLOADER_OSPI_RX_TUNING_PATTERN_SIZE]
+	__attribute__ ((aligned(64U)));
 
 /*****************************************************************************/
 /**
@@ -314,7 +325,6 @@ int XLoader_OspiInit(u32 DeviceFlags)
 {
 	int Status = XST_FAILURE;
 	XOspiPsv_Config *OspiConfig;
-	u8 OspiMode;
 	(void)DeviceFlags;
 #ifndef VERSAL_2VE_2VM
 	u32 CapSecureAccess = (u32)PM_CAP_ACCESS | (u32)PM_CAP_SECURE;
@@ -417,8 +427,7 @@ int XLoader_OspiInit(u32 DeviceFlags)
 		goto END;
 	}
 
-	OspiMode = OspiPsvInstance.Config.ConnectionMode;
-	switch(OspiMode) {
+	switch(OspiPsvInstance.Config.ConnectionMode) {
 		case XOSPIPSV_CONNECTION_MODE_SINGLE:
 		case XOSPIPSV_CONNECTION_MODE_STACKED:
 			break;
@@ -431,151 +440,340 @@ int XLoader_OspiInit(u32 DeviceFlags)
 		goto END;
 	}
 
-	/**
-	 * - Validate OSPI DDR mode is supported on SPP, EMU and FCV platforms.
-	*/
-	if(XPLMI_PLATFORM == PMC_TAP_VERSION_SILICON) {
+END:
+	return Status;
+}
 
-		/* Configure Flash ECC mode */
-		if (OspiFlashMake == SPANSION_OCTAL_ID_BYTE0) {
-			Status = XLoader_FlashEnterExit4BAddMode(&OspiPsvInstance, TRUE);
-			if (Status != XST_SUCCESS) {
-				XLoader_Printf(DEBUG_INFO,"Spansion Set 4B Address Mode Failure\r\n");
-				goto END;
-			}
-			Status = XLoader_SpansionSetEccMode(&OspiPsvInstance);
-			if (Status != XST_SUCCESS) {
-				XLoader_Printf(DEBUG_INFO,"Spansion Set ECC Failure\r\n");
-				goto END;
-			}
-		}
-#ifdef PLM_MACRONIX_OSPI_DDR
-		/* Configure Flash Dummy cycles in flash device */
-		if (OspiFlashMake == MACRONIX_OCTAL_ID_BYTE0) {
-			Status = XLoader_MxConfigDummy(&OspiPsvInstance);
-			if (Status != XST_SUCCESS) {
-				Status = XPlmi_UpdateStatus(XLOADER_ERR_OSPI_DUMMY_CFG, Status);
-				goto END;
-			}
-		}
+/*****************************************************************************/
+/**
+ * @brief	Restore the OSPI flash and controller to SDR non-PHY mode.
+ *
+ * @param	OspiPsvPtr is a pointer to the OSPIPSV instance.
+ *
+ * @return	XST_SUCCESS on success and an error code on failure.
+ *
+ *****************************************************************************/
+static int XLoader_FlashSetSdrMode(XOspiPsv *OspiPsvPtr)
+{
+	int Status;
+
+#ifdef VERSAL_2VE_2VM
+	Status = (int)XOspiPsv_DeviceResetViaOspi(OspiPsvPtr,
+			XOSPIPSV_HWPIN_RESET);
+#else
+	Status = (int)XOspiPsv_DeviceReset(XOSPIPSV_HWPIN_RESET);
 #endif
-		/**
-		 * - Set Flash device and Controller modes.
-		*/
-		Status = XLoader_FlashSetDDRMode(&OspiPsvInstance);
-		if (Status != XST_SUCCESS) {
-			goto END1;
-		}
-
-		if (OspiMode == XOSPIPSV_CONNECTION_MODE_STACKED) {
-			Status = (int)XOspiPsv_SelectFlash(&OspiPsvInstance, XOSPIPSV_SELECT_FLASH_CS1);
-			if (Status != XST_SUCCESS) {
-				Status = XPlmi_UpdateStatus(
-						XLOADER_ERR_OSPI_SEL_FLASH_CS1, Status);
-				goto END;
-			}
-
-			/* Set Flash device and Controller modes */
-			Status = (int)XOspiPsv_SetSdrDdrMode(&OspiPsvInstance,
-						XOSPIPSV_EDGE_MODE_SDR_NON_PHY);
-			if (Status != XST_SUCCESS) {
-				goto END1;
-			}
-
-			Status = XLoader_FlashSetDDRMode(&OspiPsvInstance);
-			if (Status != XST_SUCCESS) {
-				goto END1;
-			}
-		}
-
-		Status = (int)(XOspiPsv_SetClkPrescaler(&OspiPsvInstance, XOSPIPSV_CLK_PRESCALE_2));
-		if (Status != XST_SUCCESS) {
-			Status = XPlmi_UpdateStatus(XLOADER_ERR_OSPI_PRESCALER_CLK, Status);
-		}
+	if (Status != XST_SUCCESS) {
+		goto END;
 	}
 
-END1:
-	if ((XPLMI_PLATFORM == PMC_TAP_VERSION_SILICON) && (Status != XST_SUCCESS)) {
-		XLoader_Printf(DEBUG_INFO,
-			"OSPI DDR mode configuration failed 0x%08x, falling back to SDR\r\n",
-			(u32)Status);
-#ifdef VERSAL_2VE_2VM
-		Status = (int)XOspiPsv_DeviceResetViaOspi(&OspiPsvInstance, XOSPIPSV_HWPIN_RESET);
-#else
-		Status = (int)XOspiPsv_DeviceReset(XOSPIPSV_HWPIN_RESET);
-#endif
-		if (Status != XST_SUCCESS) {
-			goto END;
-		}
+	Status = (int)XOspiPsv_SelectFlash(OspiPsvPtr,
+			XOSPIPSV_SELECT_FLASH_CS0);
+	if (Status != XST_SUCCESS) {
+		Status = XPlmi_UpdateStatus(XLOADER_ERR_OSPI_SEL_FLASH_CS0,
+				Status);
+		goto END;
+	}
 
-		Status = (int)XOspiPsv_SelectFlash(&OspiPsvInstance, XOSPIPSV_SELECT_FLASH_CS0);
+	if ((OspiFlashMake == MACRONIX_OCTAL_ID_BYTE0) ||
+			(OspiFlashMake == SPANSION_OCTAL_ID_BYTE0)) {
+		Status = (int)XOspiPsv_ConfigDualByteOpcode(OspiPsvPtr,
+				(u8)XOSPIPSV_DUAL_BYTE_OP_DISABLE);
 		if (Status != XST_SUCCESS) {
 			Status = XPlmi_UpdateStatus(
-					XLOADER_ERR_OSPI_SEL_FLASH_CS0, Status);
-			goto END;
-		}
-		if ((OspiFlashMake == MACRONIX_OCTAL_ID_BYTE0) ||
-				(OspiFlashMake == SPANSION_OCTAL_ID_BYTE0)) {
-			Status = (int)XOspiPsv_ConfigDualByteOpcode(
-				&OspiPsvInstance,
-				(u8)XOSPIPSV_DUAL_BYTE_OP_DISABLE);
-			if (Status != XST_SUCCESS) {
-				Status = XPlmi_UpdateStatus(
 					XLOADER_ERR_OSPI_DUAL_BYTE_OP_DISABLE,
 					Status);
-				goto END;
-			}
-		}
-
-		Status = (int)XOspiPsv_SetSdrDdrMode(&OspiPsvInstance,
-				XOSPIPSV_EDGE_MODE_SDR_NON_PHY);
-		if (Status != XST_SUCCESS) {
-			Status = XPlmi_UpdateStatus(
-					XLOADER_ERR_OSPI_SDR_NON_PHY, Status);
 			goto END;
 		}
+	}
 
-		if (OspiMode == XOSPIPSV_CONNECTION_MODE_STACKED) {
-			Status = (int)XOspiPsv_SelectFlash(&OspiPsvInstance,
+	Status = (int)XOspiPsv_SetSdrDdrMode(OspiPsvPtr,
+			XOSPIPSV_EDGE_MODE_SDR_NON_PHY);
+	if (Status != XST_SUCCESS) {
+		Status = XPlmi_UpdateStatus(XLOADER_ERR_OSPI_SDR_NON_PHY,
+				Status);
+		goto END;
+	}
+
+	Status = (int)XOspiPsv_SetClkPrescaler(OspiPsvPtr,
+			XOSPIPSV_CLK_PRESCALE_6);
+	if (Status != XST_SUCCESS) {
+		Status = XPlmi_UpdateStatus(XLOADER_ERR_OSPI_PRESCALER_CLK,
+				Status);
+		goto END;
+	}
+	OspiPsvPtr->Extra_DummyCycle = 0U;
+
+END:
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	Enter four-byte address mode on each flash device that requires it.
+ *
+ * @param	OspiPsvPtr is a pointer to the OSPIPSV instance.
+ *
+ * @return	XST_SUCCESS on success and an error code on failure.
+ *
+ *****************************************************************************/
+static int XLoader_FlashSet4BAddressMode(XOspiPsv *OspiPsvPtr)
+{
+	int Status = XST_SUCCESS;
+
+	if (OspiFlashMake == SPANSION_OCTAL_ID_BYTE0) {
+		goto END;
+	}
+
+	if (OspiPsvPtr->Config.ConnectionMode ==
+			XOSPIPSV_CONNECTION_MODE_STACKED) {
+		Status = (int)XOspiPsv_SelectFlash(OspiPsvPtr,
 				XOSPIPSV_SELECT_FLASH_CS1);
-			if (Status != XST_SUCCESS) {
-				Status = XPlmi_UpdateStatus(
-					XLOADER_ERR_OSPI_SEL_FLASH_CS1, Status);
-				goto END;
-			}
-
-			Status = (int)XOspiPsv_SetSdrDdrMode(&OspiPsvInstance,
-						XOSPIPSV_EDGE_MODE_SDR_NON_PHY);
-			if (Status != XST_SUCCESS) {
-				Status = XPlmi_UpdateStatus(
-					XLOADER_ERR_OSPI_SDR_NON_PHY, Status);
-				goto END;
-			}
-		}
-		OspiPsvInstance.Extra_DummyCycle = 0U;
-	}
-
-	/**
-	 * - Enter 4B address mode.
-	 */
-	if (OspiMode == XOSPIPSV_CONNECTION_MODE_STACKED) {
-		if (OspiFlashMake != SPANSION_OCTAL_ID_BYTE0) {
-			Status = XLoader_FlashEnterExit4BAddMode(&OspiPsvInstance, (u32)TRUE);
-			if (Status != XST_SUCCESS) {
-				goto END;
-			}
-		}
-		Status = (int)XOspiPsv_SelectFlash(&OspiPsvInstance, XOSPIPSV_SELECT_FLASH_CS0);
 		if (Status != XST_SUCCESS) {
 			Status = XPlmi_UpdateStatus(
-						XLOADER_ERR_OSPI_SEL_FLASH_CS0, Status);
+					XLOADER_ERR_OSPI_SEL_FLASH_CS1, Status);
+			goto END;
+		}
+
+		Status = XLoader_FlashEnterExit4BAddMode(OspiPsvPtr,
+				(u32)TRUE);
+		if (Status != XST_SUCCESS) {
 			goto END;
 		}
 	}
 
-	if (OspiFlashMake != SPANSION_OCTAL_ID_BYTE0) {
-		Status = XLoader_FlashEnterExit4BAddMode(&OspiPsvInstance, (u32)TRUE);
+	Status = (int)XOspiPsv_SelectFlash(OspiPsvPtr,
+			XOSPIPSV_SELECT_FLASH_CS0);
+	if (Status != XST_SUCCESS) {
+		Status = XPlmi_UpdateStatus(XLOADER_ERR_OSPI_SEL_FLASH_CS0,
+				Status);
+		goto END;
 	}
+
+	Status = XLoader_FlashEnterExit4BAddMode(OspiPsvPtr, (u32)TRUE);
+
+END:
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	Fill OSPI RX tuning fields for DDR_PHY or SDR_PHY reads.
+ *
+ * @param	RxTuning is the driver RX tuning structure to populate.
+ * @param	Mode is XOSPIPSV_EDGE_MODE_DDR_PHY or XOSPIPSV_EDGE_MODE_SDR_PHY.
+ * @param	PatternFlashAddr is the flash address of the 128-byte pattern.
+ * @param	OptionalDataAddr is the PMC RAM address of the optional-data
+ *		section header.
+ *
+ *****************************************************************************/
+static void XLoader_FlashFillRxTuning(XOspiPsv_RxTuning *RxTuning, u32 Mode,
+		u64 PatternFlashAddr, u64 OptionalDataAddr)
+{
+	RxTuning->Addrsize = XLOADER_OSPI_READ_ADDR_SIZE;
+	RxTuning->PatternAddr = (u32)PatternFlashAddr;
+	RxTuning->Pattern = (const u8 *)(UINTPTR)
+		(OptionalDataAddr + XILPDI_OPTIONAL_DATA_WORD_LEN);
+	RxTuning->PatternSize = XLOADER_OSPI_RX_TUNING_PATTERN_SIZE;
+	RxTuning->ReadBfrPtr = OspiRxTuningReadBuffer;
+
+	if (Mode == XOSPIPSV_EDGE_MODE_DDR_PHY) {
+		RxTuning->Opcode = READ_CMD_OCTAL_4B;
+		RxTuning->Dummy = XLOADER_OSPI_DDR_DUMMY_CYCLES;
+		RxTuning->Proto = XOSPIPSV_READ_8_8_8;
+		if (OspiFlashMake == MACRONIX_OCTAL_ID_BYTE0) {
+			RxTuning->Opcode = READ_CMD_OPI_MX;
+			RxTuning->Dummy = XLOADER_MACRONIX_OSPI_DDR_DUMMY_CYCLES;
+		}
+		else if (OspiFlashMake == SPANSION_OCTAL_ID_BYTE0) {
+			RxTuning->Opcode = READ_CMD_OPI_SPN;
+			RxTuning->Dummy = XLOADER_SPANSION_OSPI_DDR_DUMMY_CYCLES;
+		}
+	}
+	else {
+		if ((OspiFlashMake == MACRONIX_OCTAL_ID_BYTE0) ||
+				(OspiFlashMake == SPANSION_OCTAL_ID_BYTE0)) {
+			RxTuning->Opcode = READ_CMD_4B;
+			RxTuning->Dummy = 0U;
+			RxTuning->Proto = XOSPIPSV_READ_1_1_1;
+		}
+		else {
+			RxTuning->Opcode = READ_CMD_OCTAL_4B;
+			RxTuning->Dummy = XLOADER_OSPI_SDR_DUMMY_CYCLES;
+			RxTuning->Proto = XOSPIPSV_READ_1_1_8;
+		}
+	}
+}
+
+/*****************************************************************************/
+/**
+ * @brief	Configure pattern-based OSPI RX tuning after optional data is read.
+ *
+ * @param	MetaHdrPtr is a pointer to the PDI metaheader instance.
+ *
+ * @return	XST_SUCCESS on success, including a successful SDR fallback, and
+ *		an error code if recovery or address-mode configuration fails.
+ *
+ *****************************************************************************/
+int XLoader_FlashSetupRxTuningPattern(const XilPdi_MetaHdr *MetaHdrPtr)
+{
+	int Status = XST_SUCCESS;
+	u64 OptionalDataStartAddr;
+	u64 OptionalDataEndAddr;
+	u64 OptionalDataAddr;
+	u64 PatternFlashAddr = 0U;
+	u32 SectionSize;
+	u32 HasValidPattern = (u32)FALSE;
+	XOspiPsv_RxTuning *RxTuning = &OspiPsvInstance.RxTuning;
+
+	if (MetaHdrPtr == NULL) {
+		Status = XST_INVALID_PARAM;
+		goto END;
+	}
+
+	OptionalDataStartAddr = XILPDI_PMCRAM_IHT_DATA_ADDR;
+	OptionalDataEndAddr = OptionalDataStartAddr +
+		((u64)MetaHdrPtr->ImgHdrTbl.OptionalDataLen <<
+		 XILPDI_WORD_LEN_SHIFT);
+	OptionalDataAddr = XilPdi_SearchOptionalData(OptionalDataStartAddr,
+			OptionalDataEndAddr, XILPDI_OSPI_RX_TUNING_DATA_ID);
+
+	if (OptionalDataAddr < OptionalDataEndAddr) {
+		SectionSize = ((Xil_In32((UINTPTR)OptionalDataAddr) &
+			XIH_OPT_DATA_HDR_LEN_MASK) >> XIH_OPT_DATA_LEN_SHIFT) <<
+			XILPDI_WORD_LEN_SHIFT;
+		if ((SectionSize == XLOADER_OSPI_RX_TUNING_SECTION_SIZE) &&
+			((OptionalDataAddr + (u64)SectionSize) <=
+			 OptionalDataEndAddr) &&
+			(XilPdi_ValidateChecksum(
+				(const void *)(UINTPTR)OptionalDataAddr,
+				SectionSize) == XST_SUCCESS)) {
+			HasValidPattern = (u32)TRUE;
+		}
+		else {
+			XLoader_Printf(DEBUG_INFO,
+				"Invalid OSPI RX tuning optional data, using SDR\r\n");
+		}
+	}
+	else {
+		XLoader_Printf(DEBUG_INFO,
+			"OSPI RX tuning optional data not found, using SDR\r\n");
+	}
+
+	if (XPLMI_PLATFORM != PMC_TAP_VERSION_SILICON) {
+		goto SDR_NON_PHY;
+	}
+
+	/*
+	 * Configure Spansion ECC in SDR mode. The required four-byte mode
+	 * command is issued before writing its configuration registers.
+	 */
+	if (OspiFlashMake == SPANSION_OCTAL_ID_BYTE0) {
+		Status = XLoader_FlashEnterExit4BAddMode(
+				&OspiPsvInstance, (u32)TRUE);
+		if (Status != XST_SUCCESS) {
+			XLoader_Printf(DEBUG_INFO,
+				"Spansion Set 4B Address Mode Failure\r\n");
+			goto END;
+		}
+		Status = XLoader_SpansionSetEccMode(&OspiPsvInstance);
+		if (Status != XST_SUCCESS) {
+			XLoader_Printf(DEBUG_INFO,
+				"Spansion Set ECC Failure\r\n");
+			goto END;
+		}
+	}
+
+	if (HasValidPattern != (u32)TRUE) {
+		goto SDR_NON_PHY;
+	}
+
+	PatternFlashAddr = MetaHdrPtr->FlashOfstAddr +
+		MetaHdrPtr->MetaHdrOfst + XIH_IHT_LEN +
+		(OptionalDataAddr - OptionalDataStartAddr) +
+		XILPDI_OPTIONAL_DATA_WORD_LEN;
+	if ((PatternFlashAddr + XLOADER_OSPI_RX_TUNING_PATTERN_SIZE) >
+			(u64)OspiFlashSize) {
+		XLoader_Printf(DEBUG_INFO,
+			"OSPI RX tuning pattern is not in CS0, using SDR\r\n");
+		goto SDR_NON_PHY;
+	}
+
+	XLoader_FlashFillRxTuning(RxTuning, XOSPIPSV_EDGE_MODE_DDR_PHY,
+			PatternFlashAddr, OptionalDataAddr);
+
+#ifdef PLM_MACRONIX_OSPI_DDR
+	if (OspiFlashMake == MACRONIX_OCTAL_ID_BYTE0) {
+		Status = XLoader_MxConfigDummy(&OspiPsvInstance);
+		if (Status != XST_SUCCESS) {
+			Status = XPlmi_UpdateStatus(
+				XLOADER_ERR_OSPI_DUMMY_CFG, Status);
+			XLoader_Printf(DEBUG_INFO,
+				"OSPI DDR PHY failed 0x%08x\r\n", (u32)Status);
+			goto SDR_PHY;
+		}
+	}
+#endif
+
+	Status = XLoader_FlashSetDDRMode(&OspiPsvInstance);
+	if (Status != XST_SUCCESS) {
+		XLoader_Printf(DEBUG_INFO,
+			"OSPI DDR PHY failed 0x%08x\r\n", (u32)Status);
+		goto SDR_PHY;
+	}
+
+	Status = (int)XOspiPsv_SetClkPrescaler(&OspiPsvInstance,
+			XOSPIPSV_CLK_PRESCALE_2);
+	if (Status != XST_SUCCESS) {
+		Status = XPlmi_UpdateStatus(XLOADER_ERR_OSPI_PRESCALER_CLK,
+				Status);
+		XLoader_Printf(DEBUG_INFO,
+			"OSPI DDR PHY failed 0x%08x\r\n", (u32)Status);
+		goto SDR_PHY;
+	}
+
+	XLoader_Printf(DEBUG_INFO, "OSPI DDR PHY passed\r\n");
+	goto SET_4B_ADDRESS_MODE;
+
+SDR_PHY:
+	Status = XLoader_FlashSetSdrMode(&OspiPsvInstance);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	XLoader_FlashFillRxTuning(RxTuning, XOSPIPSV_EDGE_MODE_SDR_PHY,
+			PatternFlashAddr, OptionalDataAddr);
+
+	Status = (int)XOspiPsv_SetSdrDdrMode(&OspiPsvInstance,
+			XOSPIPSV_EDGE_MODE_SDR_PHY);
+	if (Status != XST_SUCCESS) {
+		XLoader_Printf(DEBUG_INFO,
+			"OSPI SDR PHY failed 0x%08x\r\n", (u32)Status);
+		goto SDR_NON_PHY;
+	}
+
+	Status = (int)XOspiPsv_SetClkPrescaler(&OspiPsvInstance,
+			XOSPIPSV_CLK_PRESCALE_2);
+	if (Status != XST_SUCCESS) {
+		Status = XPlmi_UpdateStatus(XLOADER_ERR_OSPI_PRESCALER_CLK,
+				Status);
+		XLoader_Printf(DEBUG_INFO,
+			"OSPI SDR PHY failed 0x%08x\r\n", (u32)Status);
+		goto SDR_NON_PHY;
+	}
+
+	XLoader_Printf(DEBUG_INFO, "OSPI SDR PHY passed\r\n");
+	goto SET_4B_ADDRESS_MODE;
+
+SDR_NON_PHY:
+	Status = XLoader_FlashSetSdrMode(&OspiPsvInstance);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+	XLoader_Printf(DEBUG_INFO, "OSPI SDR NON PHY passed\r\n");
+
+SET_4B_ADDRESS_MODE:
+	Status = XLoader_FlashSet4BAddressMode(&OspiPsvInstance);
 
 END:
 	return Status;
@@ -1043,6 +1241,8 @@ static int XLoader_FlashSetDDRMode(XOspiPsv *OspiPsvPtr)
 	u8* TxData = &Data[0U];
 	u32 Address = 0U;
 	u32 NumDie;
+	u32 NumFlash = 1U;
+	u32 FlashIndex;
 
 	if (OspiFlashMake == MACRONIX_OCTAL_ID_BYTE0) {
 		WriteRegOpcode = WRITE_CONFIG2_REG_MX;
@@ -1057,6 +1257,23 @@ static int XLoader_FlashSetDDRMode(XOspiPsv *OspiPsvPtr)
 		Dummy = 0;
 		TxData = &SpansionData[0U];
 	 }
+
+	if (OspiPsvPtr->Config.ConnectionMode ==
+			XOSPIPSV_CONNECTION_MODE_STACKED) {
+		NumFlash = 2U;
+	}
+
+	/*
+	 * Switch every flash while the controller is still in SDR mode. RX
+	 * tuning is performed once against CS0 after both devices are switched.
+	 */
+	for (FlashIndex = 0U; FlashIndex < NumFlash; FlashIndex++) {
+		Status = (int)XOspiPsv_SelectFlash(OspiPsvPtr,
+			(u8)((FlashIndex == 0U) ? XOSPIPSV_SELECT_FLASH_CS0 :
+			XOSPIPSV_SELECT_FLASH_CS1));
+		if (Status != XST_SUCCESS) {
+			goto END;
+		}
 
 	/** Write enable command */
 	FlashMsg.Opcode = OSPI_WRITE_ENABLE_CMD;
@@ -1128,6 +1345,14 @@ static int XLoader_FlashSetDDRMode(XOspiPsv *OspiPsvPtr)
 			goto END;
 		}
 	}
+	}
+
+	Status = (int)XOspiPsv_SelectFlash(OspiPsvPtr,
+			XOSPIPSV_SELECT_FLASH_CS0);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
 	if ((OspiFlashMake == MACRONIX_OCTAL_ID_BYTE0) &&
 		(OspiPsvPtr->DualByteOpcodeEn == XOSPIPSV_DUAL_BYTE_OP_DISABLE)) {
 		Status = (int)XOspiPsv_ConfigDualByteOpcode(OspiPsvPtr,
@@ -1150,7 +1375,14 @@ static int XLoader_FlashSetDDRMode(XOspiPsv *OspiPsvPtr)
 		goto END;
 	}
 
-	/* Read Configuration register of each die */
+	/* Read and verify the configuration register of every flash and die. */
+	for (FlashIndex = 0U; FlashIndex < NumFlash; FlashIndex++) {
+		Status = (int)XOspiPsv_SelectFlash(OspiPsvPtr,
+			(u8)((FlashIndex == 0U) ? XOSPIPSV_SELECT_FLASH_CS0 :
+			XOSPIPSV_SELECT_FLASH_CS1));
+		if (Status != XST_SUCCESS) {
+			goto END;
+		}
 
 	if ((OspiFlashMake == SPANSION_OCTAL_ID_BYTE0) && (OspiFlashSize == XLOADER_FLASH_SIZE_2G)) {
 		NumDie = SPANSION_DIE_COUNT_PER_FLASH;
@@ -1195,7 +1427,13 @@ static int XLoader_FlashSetDDRMode(XOspiPsv *OspiPsvPtr)
 			goto END;
 		}
 	}
-	XLoader_Printf(DEBUG_GENERAL,"OSPI mode switched to DDR\n\r");
+	}
+
+	Status = (int)XOspiPsv_SelectFlash(OspiPsvPtr,
+			XOSPIPSV_SELECT_FLASH_CS0);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
 
 END:
 	return Status;

@@ -75,6 +75,7 @@
 * 1.13  pre  04/17/2026 Added APIs to get EL and TZ attributes from partition header
 * 1.14  pre  07/14/2026 Return type of XilPdi_IsPrtnHashPresent function is changed to
 *                       const pointer to prevent caller from modifying digest table in PMC RAM.
+*       gnr  09/02/2026 Reserved optional data ID for OSPI RX tuning pattern
 *
 * </pre>
 *
@@ -234,6 +235,11 @@ extern "C" {
  * Partition hash data Id
  */
 #define XILPDI_PARTITION_HASH_DATA_ID	(3U)
+
+/**
+ * OSPI RX tuning pattern data Id
+ */
+#define XILPDI_OSPI_RX_TUNING_DATA_ID	(0x05U)
 
 /**
  * Common address of storing partition hashes for both versal and versal_net
