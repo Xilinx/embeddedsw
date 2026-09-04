@@ -33,6 +33,10 @@
  *       am   07/18/25 Modified XAes_SetReset() visibility from static to non-static
  *       kd   07/23/25 Fixed gcc warnings
  *       am   07/23/25 Replaced runtime AesCmConfig checks with compile-time macro
+ * 1.3	 kp   08/21/26 Skip the engine OUT snapshot when nothing was processed since the
+ *		     last context load, scrub inapplicable context fields, harden the
+ *		     finalized-MAC save/restore path, and clear the DDR context once no
+ *		     request is owed it
  *
  * </pre>
  *
@@ -52,6 +56,11 @@
 #include "xasufw_perf.h"
 
 /************************** Constant Definitions *************************************************/
+/** The context occupies a fixed slice of the reserved area, ahead of the key vault. */
+_Static_assert(sizeof(XAes_ContextInfo) <= XAES_CONTEXT_DDR_MAX_SIZE,
+	"XAes_ContextInfo exceeds its DDR slice");
+_Static_assert(XAES_CONTEXT_DDR_MAX_SIZE <= XASUFW_DDR_RSVD_SIZE,
+	"AES DDR slice exceeds the reserved area");
 
 /************************** Macros Definitions ***************************************************/
 #define XAES_TIMEOUT_MAX		(5000U) /**<  AES maximum wait timeout value in
@@ -148,7 +157,6 @@
 #define XAES_CCM_FLAG_SIZE_IN_BYTES	(1U) /**< Size of the flag field prepended to IV in
 						CCM mode (in bytes). */
 #define XAES_GCM_J0_IV_INIT_VAl		(0x01U) /**< Initial counter value used in GCM mode IV formatting. */
-#define XAES_TAG_LEN_IN_WORDS		(4U) /**< Number of 32-bit words in a 128-bit AES authentication tag. */
 #define XAES_CCM_MIN_LEN_FIELD_SIZE	(2U) /**< AES CCM minimum length field size in bytes. */
 #define XAES_CCM_MAX_LEN_FIELD_SIZE	(8U) /**< AES CCM maximum length field size in bytes. */
 #define XAES_CCM_2BYTE_LEN_FIELD_SIZE	(2U) /**< AES CCM 2bytes length field size. */
@@ -200,12 +208,21 @@ struct _XAes {
 	XAes_State AesState;	/**< AES internal state machine */
 	u8 OperationType;	/**< AES operation type (Encryption/Decryption) */
 	u8 EngineMode;		/**< Aes Engine mode */
-	u8 CcmAadZeroBlockPadLen; /**< Number of zero bytes needed to pad AAD to AES block length in CCM. */
-	u8 Reserved2;		/**< Reserved for alignment */
+	u8 UseSavedMac;		/**< When TRUE, XAes_Final replays SavedMac instead of
+					querying the engine. */
+	u8 CcmAadResidueLen;	/**< Valid bytes in CcmAadResidue (0..16). */
+	u32 SavedMac[XAES_TAG_LEN_IN_WORDS]; /**< Finalized MAC restored from a saved auth-only
+					context. */
+	u8 CcmAadResidue[XASU_AES_BLOCK_SIZE_IN_BYTES]; /**< Partial CCM CBC-MAC block (prefix + AAD
+						tail) so the engine only ingests whole 16B
+						blocks. */
 };
 /** @endcond */
 
 /************************** Variable Definitions *************************************************/
+/** When TRUE, a chunk has passed through the engine since the last IV/context load. */
+static volatile u8 XAes_HasProcessedSinceLoad = XASU_FALSE;
+
 /**
  * @brief AES Key Lookup Table
  *
@@ -328,10 +345,10 @@ static void XAes_ConfigAesOperation(const XAes *InstancePtr);
 static void XAes_LoadKey(const XAes *InstancePtr, u32 KeySrc, u32 KeySize);
 static s32 XAes_ValidateKeyConfig(const XAes *InstancePtr, u32 KeySrc, u32 KeySize);
 static u32 XAes_BuildModeConfig(u32 EngineMode, u32 OperationType);
-static s32 XAes_ValidateModeConfig(const XAes *InstancePtr);
+static s32 XAes_ValidateModeConfig(const XAes *InstancePtr, u32 ExpModeConfig);
 static s32 XAes_ProcessAndLoadIv(XAes *InstancePtr, u64 IvAddr, u32 IvLen);
 static s32 XAes_GHashCal(const XAes *InstancePtr, u64 IvAddr, u32 IvGen, u32 IvLen);
-static s32 XAes_ReadTag(const XAes *InstancePtr, u32 TagOutAddr);
+static s32 XAes_ReadTag(const XAes *InstancePtr, u32 TagOutAddr, u8 ReportTagRead);
 static s32 XAes_ReadNVerifyTag(const XAes *InstancePtr, u32 TagInAddr, u32 TagLen);
 static s32 XAes_ProcessTag(const XAes *InstancePtr, u64 TagAddr, u32 TagLen);
 static void XAes_ConfigAad(const XAes *InstancePtr);
@@ -340,11 +357,15 @@ static s32 XAes_CfgDmaWithAesAndXfer(const XAes *InstancePtr, u64 InDataAddr, u6
 	u32 Size, u8 IsLastChunk);
 static s32 XAes_DummyEncryption(XAes *InstancePtr);
 static s32 XAes_FinalizeAadUpdate(XAes *InstancePtr);
+static s32 XAes_CcmReblockAadUpdate(XAes *InstancePtr, u64 InDataAddr, u32 DataLength);
 static s32 XAes_CheckAndRestoreUserKeyContext(const XAes *InstancePtr, XAes_ContextInfo *CtxPtr);
 static s32 XAes_CcmValidatePlainTextLength(u32 PlainTextLen, u8 LengthFieldSize);
 static s32 XAes_ResetAndClearKey(XAes *InstancePtr, u32 KeySrc);
 static s32 XAes_WaitForDone(const XAes *InstancePtr);
 static s32 XAes_WaitForReady(const XAes *InstancePtr);
+static s32 XAes_SaveEngineContext(const XAes *InstancePtr, XAes_ContextInfo *CtxPtr);
+static s32 XAes_RestoreEngineContext(const XAes *InstancePtr, const XAes_ContextInfo *CtxPtr);
+static s32 XAes_ProcessSavedTag(const XAes *InstancePtr, u64 TagAddr, u32 TagLen);
 
 /*************************************************************************************************/
 /**
@@ -613,6 +634,9 @@ END:
  *		- XASUFW_AES_INVALID_ENGINE_MODE, if AES engine mode is invalid.
  *		- XASUFW_AES_INVALID_OPERATION_TYPE, if AES operation type is invalid.
  *		- XASUFW_AES_INVALID_IV, if IV is invalid with respect to the engine mode.
+ *		- XASUFW_AES_MODE_CONFIG_READBACK_ERROR, if the mode configuration read-back
+ *		  does not match.
+ *		- XASUFW_ZEROIZE_MEMSET_FAIL, if zeroizing the stale saved MAC fails.
  *		- XASUFW_AES_ECB_CBC_DUMMY_ENCRYPTION_FAILED, if dummy encryption fails for CBC or ECB mode.
  *
  *************************************************************************************************/
@@ -669,6 +693,26 @@ s32 XAes_Init(XAes *InstancePtr, XAsufw_Dma *DmaPtr, u64 IvAddr, u32 IvLen,
 	InstancePtr->EngineMode = EngineMode;
 	InstancePtr->OperationType = OperationType;
 
+	/** Drop replay state left by a previous operation. */
+	InstancePtr->UseSavedMac = XASU_FALSE;
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	Status = Xil_SecureZeroize((u8 *)InstancePtr->SavedMac,
+		(u32)sizeof(InstancePtr->SavedMac));
+	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_ZEROIZE_MEMSET_FAIL;
+		goto END;
+	}
+
+	/** Drop CCM AAD residue left by a previous operation's mode. */
+	InstancePtr->CcmAadResidueLen = 0U;
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	Status = Xil_SecureZeroize(InstancePtr->CcmAadResidue,
+		(u32)sizeof(InstancePtr->CcmAadResidue));
+	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_ZEROIZE_MEMSET_FAIL;
+		goto END;
+	}
+
 	/** Release reset of AES engine. */
 	XAsufw_CryptoCoreReleaseReset(InstancePtr->AesBaseAddress, XAES_SOFT_RST_OFFSET);
 
@@ -682,7 +726,8 @@ s32 XAes_Init(XAes *InstancePtr, XAsufw_Dma *DmaPtr, u64 IvAddr, u32 IvLen,
 
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	/** Validate mode configuration (Engine mode and Operation type). */
-	Status = XAes_ValidateModeConfig(InstancePtr);
+	Status = XAes_ValidateModeConfig(InstancePtr,
+		XAes_BuildModeConfig(InstancePtr->EngineMode, InstancePtr->OperationType));
 	if (Status != XASUFW_SUCCESS) {
 		Status = XASUFW_AES_MODE_CONFIG_READBACK_ERROR;
 		goto END;
@@ -758,12 +803,12 @@ RET:
  *		- XASUFW_AES_UNALIGNED_BLOCK_SIZE_INPUT_LENGTH, if input data length is not 16 bytes
  * 			aligned for CBC and ECB mode.
  *		- XASUFW_AES_FINALIZE_AAD_UPDATE_FAIL, if finalizing AAD update fails.
+ *		- XASUFW_AES_WAIT_FOR_DONE_TIMEOUT, if the engine does not become ready in time.
  *
  *************************************************************************************************/
 s32 XAes_Update(XAes *InstancePtr, XAsufw_Dma *DmaPtr, u64 InDataAddr, u64 OutDataAddr,
 	u32 DataLength, u8 IsLastChunk)
 {
-	u8 DmaXferIsLast = XASU_FALSE;
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
 
 	/** Validate the input arguments. */
@@ -825,6 +870,17 @@ s32 XAes_Update(XAes *InstancePtr, XAsufw_Dma *DmaPtr, u64 InDataAddr, u64 OutDa
 			Status = XAsufw_UpdateErrorStatus(Status,XASUFW_AES_FINALIZE_AAD_UPDATE_FAIL);
 			goto END;
 		}
+
+		/** Wait for the engine to be ready after the AAD phase before the payload DMA. */
+		if ((InstancePtr->EngineMode == XASU_AES_GCM_MODE) ||
+				(InstancePtr->EngineMode == XASU_AES_CCM_MODE)) {
+			ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+			Status = XAes_WaitForReady(InstancePtr);
+			if (Status != XASUFW_SUCCESS) {
+				Status = XASUFW_AES_WAIT_FOR_DONE_TIMEOUT;
+				goto END;
+			}
+		}
 	}
 
 	/** Initialize the AES instance with ASU DMA pointer. */
@@ -849,26 +905,32 @@ s32 XAes_Update(XAes *InstancePtr, XAsufw_Dma *DmaPtr, u64 InDataAddr, u64 OutDa
 			XAES_DATA_UPDATE_IN_PROGRESS;
 	}
 
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	/**
-	 * For CCM AAD updates, when zero-block padding is still required after this chunk
-	 * (CcmAadZeroBlockPadLen != 0), defer the IsLast=TRUE signal to XAes_FinalizeAadUpdate
-	 * which sends the actual final transfer (zero padding) with IsLast=TRUE. Sending
-	 * IsLast=TRUE here would prematurely terminate the AAD phase before the padding is sent.
-	 * DmaXferIsLast is the IsLast value for the actual DMA transfer, which may differ from
-	 * the user-provided IsLastChunk when CCM zero-pad is still pending.
+	 * CCM AAD re-blocking: buffer the 2/6-byte prefix + partial block so the engine only
+	 * ingests whole 16B blocks (keeps every save aligned); the final block is emitted in
+	 * XAes_FinalizeAadUpdate.
 	 */
-	DmaXferIsLast = IsLastChunk;
 	if ((OutDataAddr == XAES_AAD_UPDATE_NO_OUTPUT_ADDR) &&
-			(InstancePtr->EngineMode == XASU_AES_CCM_MODE) &&
-			(IsLastChunk == XASU_TRUE) &&
-			(InstancePtr->CcmAadZeroBlockPadLen != 0U)) {
-		DmaXferIsLast = XASU_FALSE;
+			(InstancePtr->EngineMode == XASU_AES_CCM_MODE)) {
+		Status = XAes_CcmReblockAadUpdate(InstancePtr, InDataAddr, DataLength);
+	} else {
+		/** Configure DMA with AES and transfer the data to AES engine. */
+		Status = XAes_CfgDmaWithAesAndXfer(InstancePtr, InDataAddr, OutDataAddr, DataLength,
+			IsLastChunk);
 	}
 
-	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-	/** Configure DMA with AES and transfer the data to AES engine. */
-	Status = XAes_CfgDmaWithAesAndXfer(InstancePtr, InDataAddr, OutDataAddr, DataLength,
-		DmaXferIsLast);
+	/** Blocking CCM auth-only: finalize now so a later save is a pure register snapshot. */
+	if ((Status == XASUFW_SUCCESS) &&
+			(InstancePtr->EngineMode == XASU_AES_CCM_MODE) &&
+			(InstancePtr->AesState == XAES_ONLY_AAD_UPDATE_IN_PROGRESS)) {
+		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+		Status = XAes_FinalizeAadUpdate(InstancePtr);
+		if (Status != XASUFW_SUCCESS) {
+			Status = XAsufw_UpdateErrorStatus(Status,
+				XASUFW_AES_FINALIZE_AAD_UPDATE_FAIL);
+		}
+	}
 
 END:
 	/**
@@ -906,12 +968,17 @@ RET:
  *		- XASUFW_AES_WAIT_FOR_DONE_TIMEOUT, if wait for done timed out.
  *		- XASUFW_AES_INVALID_TAG, if tag is invalid with respect to the engine mode.
  *		- XASUFW_AES_FINALIZE_AAD_UPDATE_FAIL, if finalizing AAD update fails.
+ *		- XASUFW_DMA_COPY_FAIL, if replaying a saved auth-only tag fails to copy it.
+ *		- XASUFW_AES_TAG_COMPARE_FAILED, if replaying a saved auth-only tag fails
+ *		  verification.
  *
  *************************************************************************************************/
 s32 XAes_Final(XAes *InstancePtr, XAsufw_Dma *DmaPtr, u64 TagAddr, u32 TagLen)
 {
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
-	XAes_ContextInfo *CtxPtr = NULL;
+	s32 ClearStatus = XASUFW_FAILURE;
+	XFih_Var XFihMacClear;
+	XFih_Var UseSavedMacFih;
 
 	/** Validate the input arguments. */
 	if (InstancePtr == NULL) {
@@ -936,11 +1003,20 @@ s32 XAes_Final(XAes *InstancePtr, XAsufw_Dma *DmaPtr, u64 TagAddr, u32 TagLen)
 		Status = XASUFW_AES_INVALID_TAG;
 		goto END;
 	}
-
+	/** Replay the saved MAC and skip engine finalize, if resuming a finalized auth-only MAC. */
+	UseSavedMacFih = XFih_VolatileAssignU32((u32)((InstancePtr->UseSavedMac == XASU_TRUE) &&
+		(InstancePtr->AesState == XAES_ONLY_AAD_UPDATE_IN_PROGRESS)));
+	XFIH_IF_FAILOUT_WITH_VALUE (UseSavedMacFih, ==, (u32)XASU_TRUE) {
+		InstancePtr->AsuDmaPtr = DmaPtr;
+		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+		Status = XAes_ProcessSavedTag(InstancePtr, TagAddr, TagLen);
+		goto END;
+	}
 	/**
 	 * During only AAD update (no payload) after non-blocking DMA wait, finalize the AAD update
 	 * phase by optionally sending zero padding (for CCM mode) and clearing the AAD
-	 * configuration for all modes.
+	 * configuration for all modes. Only the finalize clears those configuration bits, and it
+	 * returns immediately when there is nothing left to finalize.
 	 */
 	if (InstancePtr->AesState == XAES_ONLY_AAD_UPDATE_IN_PROGRESS) {
 		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
@@ -984,24 +1060,23 @@ s32 XAes_Final(XAes *InstancePtr, XAsufw_Dma *DmaPtr, u64 TagAddr, u32 TagLen)
 		Status = XAes_ProcessTag(InstancePtr, TagAddr, TagLen);
 	}
 
+END:
 	/**
 	 * Measure and print the performance time for the AES finalization operation, if
 	 * performance measurement is enabled.
 	 */
 	XASUFW_MEASURE_PERF_STOP(XASU_MODULE_AES_ID);
 
-END:
+	/** Clear the replay flag and zeroize the saved MAC after the operation. */
+	InstancePtr->UseSavedMac = XASU_FALSE;
+	XFIH_CALL(Xil_SecureZeroize, XFihMacClear, ClearStatus,
+		(u8 *)InstancePtr->SavedMac, (u32)sizeof(InstancePtr->SavedMac));
+	Status = XAsufw_UpdateBufStatus(Status, ClearStatus);
+
 	/** Set AES under reset and clear the expanded key after AES operation is complete. */
 	Status = XAsufw_UpdateErrorStatus(Status, XAes_ResetAndClearKey(InstancePtr, XASU_AES_EXPANDED_KEYS));
 
 RET:
-	if (XAes_GetContextDdrPtr(&CtxPtr) == XASUFW_SUCCESS) {
-		if (CtxPtr->IsContextSaved == XASU_TRUE) {
-			/** Set restore context flag to true in DDR context. */
-			CtxPtr->IsContextRestoreReq = XASU_TRUE;
-		}
-	}
-
 	return Status;
 }
 
@@ -1024,6 +1099,7 @@ RET:
  *		- XASUFW_AES_INVALID_PARAM, if any input argument is invalid.
  *		- XASUFW_AES_STATE_MISMATCH_ERROR, if AES state is not XAES_STARTED.
  *		- XASUFW_DMA_COPY_FAIL, if DMA copy of nonce fails.
+ *		- XASUFW_MEM_COPY_FAIL, if seeding the AAD-length prefix into the residue fails.
  *		- XASUFW_AES_CFG_SSS_WITH_DMA_XFER_FAIL, if DMA transfer to AES engine fails.
  *
  *************************************************************************************************/
@@ -1090,8 +1166,8 @@ s32 XAes_CcmSendB0Header(XAes *InstancePtr, XAsufw_Dma *DmaPtr, u64 NonceAddr, u
 	/** Initialize the AES instance with ASU DMA pointer. */
 	InstancePtr->AsuDmaPtr = DmaPtr;
 
-	/** Clear CCM AAD zero block pad length to avoid stale values from previous operations. */
-	InstancePtr->CcmAadZeroBlockPadLen = 0U;
+	/** Clear the CCM AAD residue (partial-block) buffer for this fresh operation. */
+	InstancePtr->CcmAadResidueLen = 0U;
 
 	/**
 	 * Configure AES AAD mode bits.
@@ -1166,17 +1242,14 @@ s32 XAes_CcmSendB0Header(XAes *InstancePtr, XAsufw_Dma *DmaPtr, u64 NonceAddr, u
 		}
 
 		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-		/** Configure DMA with AES and transfer the AAD length header to AES engine. */
-		Status = XAes_CfgDmaWithAesAndXfer(InstancePtr, (u64)(UINTPTR)NonceHeader, 0U,
-			AadLengthEncodingSize, XASU_FALSE);
-		if (Status != XASUFW_SUCCESS) {
-			Status = XAsufw_UpdateErrorStatus(Status, XASUFW_AES_CFG_SSS_WITH_DMA_XFER_FAIL);
+		/** Seed the length prefix into the residue so the engine sees whole 16B blocks. */
+		Status = Xil_SMemCpy(InstancePtr->CcmAadResidue, XASU_AES_BLOCK_SIZE_IN_BYTES,
+			NonceHeader, AadLengthEncodingSize, AadLengthEncodingSize);
+		if (Status != XST_SUCCESS) {
+			Status = XASUFW_MEM_COPY_FAIL;
 			goto END;
 		}
-
-		InstancePtr->CcmAadZeroBlockPadLen = (u8)((XASU_AES_BLOCK_SIZE_IN_BYTES -
-			((AadLengthEncodingSize + TotalAadLen) % XASU_AES_BLOCK_SIZE_IN_BYTES)) %
-			XASU_AES_BLOCK_SIZE_IN_BYTES);
+		InstancePtr->CcmAadResidueLen = AadLengthEncodingSize;
 	}
 
 END:
@@ -1669,40 +1742,120 @@ END:
  * @return
  * 		- XASUFW_SUCCESS, if context was successfully saved.
  * 		- XASUFW_AES_INVALID_PARAM, if any parameter is invalid.
- * 		- XASUFW_FAILURE, upon any other failure.
+ * 		- XASUFW_AES_GET_CONTEXT_FAIL, if the DDR context address is not available.
+ * 		- XASUFW_AES_WAIT_FOR_DONE_TIMEOUT, if the engine does not become ready in time.
+ * 		- XASUFW_AES_CONTEXT_SAVE_FAIL, if saving the AES engine context to DDR fails.
+ * 		- XASUFW_MEM_COPY_FAIL, if copying the CCM AAD residue into the context fails.
+ * 		- XASUFW_ZEROIZE_MEMSET_FAIL, if clearing an inapplicable CCM AAD residue or
+ * 		  saved MAC fails.
+ * 		- XASUFW_AES_READ_TAG_FAIL, if reading the finalized auth-only tag fails.
+ * 		- XASUFW_AES_ERR_CTX_SAVED_GLITCH, if the saved state read-back does not match,
+ * 		  or a finalized auth-only session did not stage its tag.
+ * 		- XASUFW_AES_KEY_CLEAR_ERROR, if clearing the expanded key fails. The key is
+ * 		  cleared on every exit, so this can surface even after a successful save.
  *
  *************************************************************************************************/
 s32 XAes_SaveContext(XAes *InstancePtr)
 {
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
+	s32 ClearStatus = XASUFW_FAILURE;
 	XFih_Var AesCurrentState = XFIH_FAILURE;
 	XFih_Var AesSavedState = XFIH_FAILURE;
+	u8 UseCachedTag = XASU_TRUE;
+	XFih_Var XFihAesReset;
 	XAes_ContextInfo *CtxPtr = NULL;
-	u32 Index;
 
 	/** Validate the input arguments.*/
 	if (InstancePtr == NULL) {
 		Status = XASUFW_AES_INVALID_PARAM;
-		goto END;
+		goto RET;
 	}
 
 	Status = XAes_GetContextDdrPtr(&CtxPtr);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XASUFW_AES_GET_CONTEXT_FAIL;
+		goto RET;
+	}
+
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	/** Wait for the current block to finish so the OUT registers are snapshot-able. */
+	Status = XAes_WaitForReady(InstancePtr);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_AES_WAIT_FOR_DONE_TIMEOUT;
 		goto END;
 	}
 
 	/** Save mode configuration directly to DDR context. */
 	CtxPtr->ModeConfig = XAsufw_ReadReg(InstancePtr->AesBaseAddress + XAES_MODE_CONFIG_OFFSET);
 
-	/** Save the intermediate context. */
-	for (Index = 0U; Index < XASUFW_BUFFER_INDEX_FOUR; Index++) {
-		CtxPtr->IvOut[Index] = XAsufw_ReadReg(InstancePtr->AesBaseAddress +
-			XAES_IV_OUT_0_OFFSET + (Index * XASUFW_WORD_LEN_IN_BYTES));
-#ifdef XASU_AES_CM_ENABLE
-		CtxPtr->IvMaskOut[Index] = XAsufw_ReadReg(InstancePtr->AesBaseAddress +
-			XAES_IV_MASK_OUT_0_OFFSET + (Index * XASUFW_WORD_LEN_IN_BYTES));
-#endif
+	/** Save the IV/counter and, for GCM/CCM, the auth chain (INT_MAC/GCMLEN/S0). */
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	Status = XAes_SaveEngineContext(InstancePtr, CtxPtr);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_AES_CONTEXT_SAVE_FAIL;
+		goto END;
+	}
+
+	CtxPtr->IsMacFinalized = XASU_FALSE;
+
+	/** Carry the CCM AAD residue so the resumed AAD re-blocks; gated to CCM. */
+	CtxPtr->CcmAadResidueLen = (InstancePtr->EngineMode == XASU_AES_CCM_MODE) ?
+		InstancePtr->CcmAadResidueLen : 0U;
+	if (CtxPtr->CcmAadResidueLen != 0U) {
+		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+		Status = Xil_SMemCpy(CtxPtr->CcmAadResidue, XASU_AES_BLOCK_SIZE_IN_BYTES,
+			InstancePtr->CcmAadResidue, CtxPtr->CcmAadResidueLen,
+			CtxPtr->CcmAadResidueLen);
+		if (Status != XST_SUCCESS) {
+			Status = XASUFW_MEM_COPY_FAIL;
+			goto END;
+		}
+	} else {
+		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+		/** Clear the CCM AAD residue when it does not apply. */
+		Status = Xil_SecureZeroize(CtxPtr->CcmAadResidue,
+			(u32)sizeof(CtxPtr->CcmAadResidue));
+		if (Status != XASUFW_SUCCESS) {
+			Status = XASUFW_ZEROIZE_MEMSET_FAIL;
+			goto END;
+		}
+	}
+
+	/** Snapshot the finalized auth-only tag from read-only MAC_OUT for replay on resume. */
+	if (((InstancePtr->EngineMode == XASU_AES_GCM_MODE) ||
+			(InstancePtr->EngineMode == XASU_AES_CCM_MODE) ||
+			(InstancePtr->EngineMode == XASU_AES_CMAC_MODE)) &&
+			(InstancePtr->AesState == XAES_ONLY_AAD_UPDATE_IN_PROGRESS)) {
+		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+
+		/** Read MAC_OUT on a first finalize; on a re-save the engine was reset, so use the copy. */
+		if (InstancePtr->UseSavedMac == XASU_FALSE) {
+			UseCachedTag = XASU_FALSE;
+			Status = XAes_ReadTag(InstancePtr, (u32)(UINTPTR)CtxPtr->SavedMac,
+				XASU_FALSE);
+			if (Status != XASUFW_SUCCESS) {
+				Status = XASUFW_AES_READ_TAG_FAIL;
+				goto END;
+			}
+		} else {
+			Status = Xil_SMemCpy(CtxPtr->SavedMac, sizeof(CtxPtr->SavedMac),
+				InstancePtr->SavedMac, sizeof(InstancePtr->SavedMac),
+				sizeof(InstancePtr->SavedMac));
+			if (Status != XST_SUCCESS) {
+				Status = XASUFW_MEM_COPY_FAIL;
+				goto END;
+			}
+		}
+		CtxPtr->IsMacFinalized = XASU_TRUE;
+	} else {
+		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+		/** Clear the saved MAC when no finalized tag applies. */
+		Status = Xil_SecureZeroize((u8 *)(UINTPTR)CtxPtr->SavedMac,
+			(u32)sizeof(CtxPtr->SavedMac));
+		if (Status != XASUFW_SUCCESS) {
+			Status = XASUFW_ZEROIZE_MEMSET_FAIL;
+			goto END;
+		}
 	}
 
 	/** Read the current AES state with fault-injection protection. */
@@ -1724,10 +1877,31 @@ s32 XAes_SaveContext(XAes *InstancePtr)
 		Status = XASUFW_AES_ERR_CTX_SAVED_GLITCH;
 	}
 
-	/** Set AES under reset after saving the context. */
-	XAes_SetReset(InstancePtr);
+	/** Verify the tag was staged, and that a cached copy was taken only when one was armed. */
+	if ((Status == XASUFW_SUCCESS) &&
+			(CtxPtr->AesSavedState == (u8)XAES_ONLY_AAD_UPDATE_IN_PROGRESS) &&
+			((InstancePtr->EngineMode == XASU_AES_GCM_MODE) ||
+			(InstancePtr->EngineMode == XASU_AES_CCM_MODE) ||
+			(InstancePtr->EngineMode == XASU_AES_CMAC_MODE)) &&
+			((CtxPtr->IsMacFinalized != XASU_TRUE) ||
+			(InstancePtr->UseSavedMac != UseCachedTag))) {
+		Status = XASUFW_AES_ERR_CTX_SAVED_GLITCH;
+	}
 
 END:
+	if (Status != XASUFW_SUCCESS) {
+		/** Clear the partially saved context in DDR, as it holds key, IV and MAC state. */
+		ClearStatus = Xil_SecureZeroize((u8 *)(UINTPTR)CtxPtr, sizeof(XAes_ContextInfo));
+		Status = XAsufw_UpdateBufStatus(Status, ClearStatus);
+	}
+
+	/** Set AES under reset and clear the expanded key on every exit. */
+	XFIH_CALL(XAes_ResetAndClearKey, XFihAesReset, ClearStatus, InstancePtr,
+		XASU_AES_EXPANDED_KEYS);
+
+	Status = XAsufw_UpdateErrorStatus(Status, ClearStatus);
+
+RET:
 	return Status;
 }
 
@@ -1741,8 +1915,19 @@ END:
  * @return
  * 		- XASUFW_SUCCESS, if context was successfully restored.
  * 		- XASUFW_AES_INVALID_PARAM, if any parameter is invalid.
- * 		- XASUFW_FAILURE, upon any other failure.
+ * 		- XASUFW_AES_GET_CONTEXT_FAIL, if the DDR context address is not available.
  * 		- XASUFW_AES_CONTEXT_USER_KEY_RESTORE_FAIL, if user key context restore fails.
+ * 		- XASUFW_AES_KEY_CONFIG_READBACK_ERROR, if the key configuration read-back
+ * 		  does not match.
+ * 		- XASUFW_AES_MODE_CONFIG_READBACK_ERROR, if the mode configuration read-back
+ * 		  does not match.
+ * 		- XASUFW_AES_ECB_CBC_DUMMY_ENCRYPTION_FAILED, if regenerating the CBC decrypt
+ * 		  key schedule fails.
+ * 		- XASUFW_AES_ERR_CTX_RESTORE_GLITCH, if the restore loop did not complete, or a
+ * 		  finalized auth-only session did not arm the MAC replay.
+ * 		- XASUFW_MEM_COPY_FAIL, if copying the CCM AAD residue or the saved MAC fails.
+ * 		- XASUFW_AES_CONTEXT_RESTORE_FAIL, if restoring the AES engine context fails.
+ * 		- XASUFW_AES_KEY_CLEAR_ERROR, if clearing the expanded key fails.
  *
  *************************************************************************************************/
 s32 XAes_RestoreContext(XAes *InstancePtr)
@@ -1751,7 +1936,6 @@ s32 XAes_RestoreContext(XAes *InstancePtr)
 	s32 ClearStatus = XASUFW_FAILURE;
 	XFih_Var XFihAesCtxClear;
 	XAes_ContextInfo *CtxPtr = NULL;
-	volatile u32 Index = 0U;
 
 	/** Validate the input arguments.*/
 	if (InstancePtr == NULL) {
@@ -1759,14 +1943,16 @@ s32 XAes_RestoreContext(XAes *InstancePtr)
 		goto END;
 	}
 
+	/** Ensure no stale finalized-MAC replay is left over from a prior restore. */
+	InstancePtr->UseSavedMac = XASU_FALSE;
+
 	Status = XAes_GetContextDdrPtr(&CtxPtr);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XASUFW_AES_GET_CONTEXT_FAIL;
 		goto END;
 	}
 
-	if ((CtxPtr->IsContextSaved != XASU_TRUE) ||
-			(CtxPtr->IsContextRestoreReq != XASU_TRUE)) {
+	if (CtxPtr->IsContextSaved != XASU_TRUE) {
 		Status = XASUFW_AES_INVALID_PARAM;
 		goto END;
 	}
@@ -1778,6 +1964,7 @@ s32 XAes_RestoreContext(XAes *InstancePtr)
 	XASUFW_TEMPORAL_REDUNDANT_CALL(XAes_ConfigCounterMeasures, InstancePtr);
 
 	/** Check and restore the keys if provided key source is a user key. */
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	Status = XAes_CheckAndRestoreUserKeyContext(InstancePtr, CtxPtr);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_AES_CONTEXT_USER_KEY_RESTORE_FAIL);
@@ -1808,42 +1995,84 @@ s32 XAes_RestoreContext(XAes *InstancePtr)
 		(u8)XASU_AES_ENCRYPT_OPERATION : (u8)XASU_AES_DECRYPT_OPERATION;
 
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-	/** Validate restored mode configuration(Engine mode and Operation type). */
-	Status = XAes_ValidateModeConfig(InstancePtr);
+	/** Validate the restored MODE_CONFIG against the saved snapshot. */
+	Status = XAes_ValidateModeConfig(InstancePtr, CtxPtr->ModeConfig);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XASUFW_AES_MODE_CONFIG_READBACK_ERROR;
 		goto END;
 	}
 
-	for (Index = 0U; Index < XASUFW_BUFFER_INDEX_FOUR; Index++) {
-		XAsufw_WriteReg(InstancePtr->AesBaseAddress + XAES_IV_IN_0_OFFSET +
-			(Index * XASUFW_WORD_LEN_IN_BYTES), CtxPtr->IvOut[Index]);
-#ifdef XASU_AES_CM_ENABLE
-		XAsufw_WriteReg(InstancePtr->AesBaseAddress + XAES_IV_MASK_IN_0_OFFSET +
-			(Index * XASUFW_WORD_LEN_IN_BYTES), CtxPtr->IvMaskOut[Index]);
-#endif
+	/** CBC decrypt: rebuild the key schedule via dummy encryption, before the IV restore. */
+	if ((InstancePtr->EngineMode == XASU_AES_CBC_MODE) &&
+			(InstancePtr->OperationType == XASU_AES_DECRYPT_OPERATION)) {
+		InstancePtr->AesState = XAES_STARTED;
+
+		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+		Status = XAes_DummyEncryption(InstancePtr);
+		if (Status != XASUFW_SUCCESS) {
+			Status = XASUFW_AES_ECB_CBC_DUMMY_ENCRYPTION_FAILED;
+			goto END;
+		}
 	}
 
-	if (Index != XASUFW_BUFFER_INDEX_FOUR) {
-		Status = XASUFW_AES_ERR_CTX_RESTORE_GLITCH;
+	/** Restore the IV and, for GCM/CCM, the auth chain, then pulse the combined load. */
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	Status = XAes_RestoreEngineContext(InstancePtr, CtxPtr);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_AES_CONTEXT_RESTORE_FAIL;
 		goto END;
 	}
-
-	/** Trigger IV Load. */
-	XAsufw_WriteReg((InstancePtr->AesBaseAddress + XAES_OPERATION_OFFSET),
-		XAES_IV_LOAD_MASK);
 
 	/** Restore the AES state machine to saved state. */
 	InstancePtr->AesState = (XAes_State)CtxPtr->AesSavedState;
 
+	/** Restore the CCM AAD residue withheld at the mid-AAD save so the stream re-blocks. */
+	InstancePtr->CcmAadResidueLen = CtxPtr->CcmAadResidueLen;
+	if (CtxPtr->CcmAadResidueLen != 0U) {
+		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+		Status = Xil_SMemCpy(InstancePtr->CcmAadResidue, XASU_AES_BLOCK_SIZE_IN_BYTES,
+			CtxPtr->CcmAadResidue, CtxPtr->CcmAadResidueLen, CtxPtr->CcmAadResidueLen);
+		if (Status != XST_SUCCESS) {
+			Status = XASUFW_MEM_COPY_FAIL;
+			goto END;
+		}
+	}
+
+	/** Stage a finalized auth-only MAC for XAes_Final to replay; HW has no MAC_IN reload. */
+	if ((CtxPtr->IsMacFinalized == XASU_TRUE) &&
+			(CtxPtr->AesSavedState == (u8)XAES_ONLY_AAD_UPDATE_IN_PROGRESS) &&
+			((InstancePtr->EngineMode == XASU_AES_GCM_MODE) ||
+			(InstancePtr->EngineMode == XASU_AES_CCM_MODE) ||
+			(InstancePtr->EngineMode == XASU_AES_CMAC_MODE))) {
+		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+		Status = Xil_SMemCpy(InstancePtr->SavedMac, sizeof(InstancePtr->SavedMac),
+			CtxPtr->SavedMac, sizeof(CtxPtr->SavedMac), sizeof(CtxPtr->SavedMac));
+		if (Status != XST_SUCCESS) {
+			Status = XASUFW_MEM_COPY_FAIL;
+			goto END;
+		}
+		InstancePtr->UseSavedMac = XASU_TRUE;
+	}
+
+	/** Loaded but not yet used: the engine OUT registers are stale by definition. */
+	XAes_HasProcessedSinceLoad = XASU_FALSE;
+
 	Status = XASUFW_SUCCESS;
 
-END:
-	/** Clear saved AES context in DDR. */
-	if (XAes_GetContextDdrPtr(&CtxPtr) == XASUFW_SUCCESS) {
-		XFIH_CALL(Xil_SecureZeroize, XFihAesCtxClear, ClearStatus,
-			(u8 *)(UINTPTR)CtxPtr, sizeof(XAes_ContextInfo));
+	/** Verify a finalized auth-only session armed the MAC replay. */
+	if ((CtxPtr->IsMacFinalized == XASU_TRUE) &&
+			(CtxPtr->AesSavedState == (u8)XAES_ONLY_AAD_UPDATE_IN_PROGRESS) &&
+			(InstancePtr->UseSavedMac != XASU_TRUE)) {
+		Status = XASUFW_AES_ERR_CTX_RESTORE_GLITCH;
+		goto END;
+	}
 
+END:
+	if (XAes_GetContextDdrPtr(&CtxPtr) == XASUFW_SUCCESS) {
+		/** Mark the saved context as consumed. */
+		XFIH_CALL(Xil_SecureZeroize, XFihAesCtxClear, ClearStatus,
+			(u8 *)(UINTPTR)&CtxPtr->IsContextSaved,
+			(u32)sizeof(CtxPtr->IsContextSaved));
 		Status = XAsufw_UpdateBufStatus(Status, ClearStatus);
 	}
 
@@ -1855,6 +2084,237 @@ END:
 		Status = XAsufw_UpdateErrorStatus(Status, XAes_ResetAndClearKey(InstancePtr, XASU_AES_EXPANDED_KEYS));
 	}
 
+	return Status;
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	This function snapshots the intermediate IV/counter state into the DDR context,
+ *		and, for GCM/CCM, the resumable authentication chain in the same pass: the
+ *		intermediate MAC, the processed bit-length (GCMLEN) for GCM, the S0 block for
+ *		CCM, and the corresponding countermeasure masks when CM is enabled. On success
+ *		it also records whether the auth chain was captured in CtxPtr->IsAuthCtxSaved.
+ *
+ * @param	InstancePtr	Pointer to the XAes instance.
+ * @param	CtxPtr		Pointer to the AES context info structure.
+ *
+ * @return
+ *		- XASUFW_SUCCESS, if the engine context is saved successfully, or the snapshot is
+ *		  skipped because nothing was processed since the last load.
+ *		- XASUFW_AES_ERR_CTX_SAVED_GLITCH, if the save loop did not run to completion.
+ *
+ *************************************************************************************************/
+static s32 XAes_SaveEngineContext(const XAes *InstancePtr, XAes_ContextInfo *CtxPtr)
+{
+	CREATE_VOLATILE(Status, XASUFW_FAILURE);
+	volatile u32 Index = 0U;
+
+	/** Snapshot the engine only if a chunk was processed since the last context load. */
+	if (XAes_HasProcessedSinceLoad != XASU_FALSE) {
+		for (Index = 0U; Index < XASUFW_BUFFER_INDEX_FOUR; Index++) {
+			/** Intermediate IV/counter state (and its mask when CM is enabled). */
+			CtxPtr->IvOut[Index] = XAsufw_ReadReg(InstancePtr->AesBaseAddress +
+				XAES_IV_OUT_0_OFFSET + (Index * XASUFW_WORD_LEN_IN_BYTES));
+#ifdef XASU_AES_CM_ENABLE
+			CtxPtr->IvMaskOut[Index] = XAsufw_ReadReg(InstancePtr->AesBaseAddress +
+				XAES_IV_MASK_OUT_0_OFFSET + (Index * XASUFW_WORD_LEN_IN_BYTES));
+#endif
+			if ((InstancePtr->EngineMode == XASU_AES_GCM_MODE) ||
+					(InstancePtr->EngineMode == XASU_AES_CCM_MODE)) {
+				/** Intermediate MAC chain (common to GCM and CCM). */
+				CtxPtr->IntMacOut[Index] = XAsufw_ReadReg(InstancePtr->AesBaseAddress +
+					XAES_INT_MAC_OUT_0_OFFSET + (Index * XASUFW_WORD_LEN_IN_BYTES));
+#ifdef XASU_AES_CM_ENABLE
+				CtxPtr->IntMacMaskOut[Index] = XAsufw_ReadReg(InstancePtr->AesBaseAddress +
+					XAES_INT_MAC_MASK_OUT_0_OFFSET +
+					(Index * XASUFW_WORD_LEN_IN_BYTES));
+#endif
+				if (InstancePtr->EngineMode == XASU_AES_GCM_MODE) {
+					/** GCM additionally needs the processed message bit-length. */
+					CtxPtr->GcmLenOut[Index] = XAsufw_ReadReg(
+						InstancePtr->AesBaseAddress + XAES_GCMLEN_OUT_0_OFFSET +
+						(Index * XASUFW_WORD_LEN_IN_BYTES));
+				} else {
+					/** CCM additionally needs the S0 block (and its mask under CM). */
+					CtxPtr->S0Out[Index] = XAsufw_ReadReg(InstancePtr->AesBaseAddress +
+						XAES_S0_OUT_0_OFFSET + (Index * XASUFW_WORD_LEN_IN_BYTES));
+#ifdef XASU_AES_CM_ENABLE
+					CtxPtr->S0MaskOut[Index] = XAsufw_ReadReg(
+						InstancePtr->AesBaseAddress + XAES_S0_MASK_OUT_0_OFFSET +
+						(Index * XASUFW_WORD_LEN_IN_BYTES));
+#endif
+				}
+			}
+		}
+		CtxPtr->IsAuthCtxSaved = ((InstancePtr->EngineMode == XASU_AES_GCM_MODE) ||
+			(InstancePtr->EngineMode == XASU_AES_CCM_MODE)) ? XASU_TRUE : XASU_FALSE;
+	}
+
+	/** The snapshot loop must run iff a chunk was processed since the last load. */
+	if (Index != ((XAes_HasProcessedSinceLoad != XASU_FALSE) ? XASUFW_BUFFER_INDEX_FOUR : 0U)) {
+		Status = XASUFW_AES_ERR_CTX_SAVED_GLITCH;
+	} else {
+		Status = XASUFW_SUCCESS;
+	}
+
+	return Status;
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	This function writes the saved IV/counter state back into the AES engine input
+ *		registers and, for GCM/CCM, the auth chain (INT_MAC, GCMLEN for GCM, S0 for CCM,
+ *		plus their countermeasure masks when CM is enabled), then triggers the single
+ *		combined operation pulse that loads all of it into the engine.
+ *
+ * @param	InstancePtr	Pointer to the XAes instance.
+ * @param	CtxPtr		Pointer to the AES context info structure.
+ *
+ * @return
+ *		- XASUFW_SUCCESS, if the engine context is restored successfully.
+ *		- XASUFW_AES_ERR_CTX_RESTORE_GLITCH, if the restore loop did not complete.
+ *
+ *************************************************************************************************/
+static s32 XAes_RestoreEngineContext(const XAes *InstancePtr, const XAes_ContextInfo *CtxPtr)
+{
+	CREATE_VOLATILE(Status, XASUFW_FAILURE);
+	volatile u32 Index = 0U;
+	u32 OperationLoadMask = XAES_IV_LOAD_MASK;
+
+	for (Index = 0U; Index < XASUFW_BUFFER_INDEX_FOUR; Index++) {
+		/** GCM/CCM reload the masked IV pair; other modes reload the true IV, zero mask. */
+#ifdef XASU_AES_CM_ENABLE
+		if ((InstancePtr->EngineMode == XASU_AES_GCM_MODE) ||
+				(InstancePtr->EngineMode == XASU_AES_CCM_MODE)) {
+			XAsufw_WriteReg(InstancePtr->AesBaseAddress + XAES_IV_IN_0_OFFSET +
+				(Index * XASUFW_WORD_LEN_IN_BYTES), CtxPtr->IvOut[Index]);
+			XAsufw_WriteReg(InstancePtr->AesBaseAddress + XAES_IV_MASK_IN_0_OFFSET +
+				(Index * XASUFW_WORD_LEN_IN_BYTES), CtxPtr->IvMaskOut[Index]);
+		} else {
+			XAsufw_WriteReg(InstancePtr->AesBaseAddress + XAES_IV_IN_0_OFFSET +
+				(Index * XASUFW_WORD_LEN_IN_BYTES),
+				CtxPtr->IvOut[Index] ^ CtxPtr->IvMaskOut[Index]);
+			XAsufw_WriteReg(InstancePtr->AesBaseAddress + XAES_IV_MASK_IN_0_OFFSET +
+				(Index * XASUFW_WORD_LEN_IN_BYTES), 0U);
+		}
+#else
+		XAsufw_WriteReg(InstancePtr->AesBaseAddress + XAES_IV_IN_0_OFFSET +
+			(Index * XASUFW_WORD_LEN_IN_BYTES), CtxPtr->IvOut[Index]);
+#endif
+
+		/** Restore the auth chain (INT_MAC, +GCMLEN for GCM, +S0 for CCM). */
+		if ((CtxPtr->IsAuthCtxSaved == XASU_TRUE) &&
+				((InstancePtr->EngineMode == XASU_AES_GCM_MODE) ||
+				(InstancePtr->EngineMode == XASU_AES_CCM_MODE))) {
+			XAsufw_WriteReg(InstancePtr->AesBaseAddress + XAES_INT_MAC_IN_0_OFFSET +
+				(Index * XASUFW_WORD_LEN_IN_BYTES), CtxPtr->IntMacOut[Index]);
+#ifdef XASU_AES_CM_ENABLE
+			XAsufw_WriteReg(InstancePtr->AesBaseAddress +
+				XAES_INT_MAC_MASK_IN_0_OFFSET + (Index * XASUFW_WORD_LEN_IN_BYTES),
+				CtxPtr->IntMacMaskOut[Index]);
+#endif
+			if (InstancePtr->EngineMode == XASU_AES_GCM_MODE) {
+				XAsufw_WriteReg(InstancePtr->AesBaseAddress +
+					XAES_GCMLEN_IN_0_OFFSET +
+					(Index * XASUFW_WORD_LEN_IN_BYTES),
+					CtxPtr->GcmLenOut[Index]);
+			} else {
+				XAsufw_WriteReg(InstancePtr->AesBaseAddress + XAES_S0_IN_0_OFFSET +
+					(Index * XASUFW_WORD_LEN_IN_BYTES), CtxPtr->S0Out[Index]);
+#ifdef XASU_AES_CM_ENABLE
+				XAsufw_WriteReg(InstancePtr->AesBaseAddress +
+					XAES_S0_MASK_IN_0_OFFSET +
+					(Index * XASUFW_WORD_LEN_IN_BYTES),
+					CtxPtr->S0MaskOut[Index]);
+#endif
+			}
+		}
+	}
+
+	/** Validate that all the words are restored, to detect a glitched loop. */
+	if (Index != XASUFW_BUFFER_INDEX_FOUR) {
+		Status = XASUFW_AES_ERR_CTX_RESTORE_GLITCH;
+	} else {
+		if ((CtxPtr->IsAuthCtxSaved == XASU_TRUE) &&
+				((InstancePtr->EngineMode == XASU_AES_GCM_MODE) ||
+				(InstancePtr->EngineMode == XASU_AES_CCM_MODE))) {
+			OperationLoadMask |= XAES_INTMAC_LOAD_MASK;
+			if (InstancePtr->EngineMode == XASU_AES_CCM_MODE) {
+				OperationLoadMask |= XAES_S0_LOAD_MASK;
+			}
+		}
+		/** Trigger the combined IV / INT_MAC / S0 load. */
+		XAsufw_WriteReg((InstancePtr->AesBaseAddress + XAES_OPERATION_OFFSET),
+			OperationLoadMask);
+
+		Status = XASUFW_SUCCESS;
+	}
+
+	return Status;
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	This function replays a previously finalized authenticate-only MAC. It is used
+ *		after restoring a context that was preempted once the MAC had already been latched
+ *		into the read-only MAC registers (GMAC/CMAC/CCM authenticate-only). For encryption
+ *		it copies the saved MAC to the user tag buffer; for decryption it compares the
+ *		saved MAC against the user supplied tag.
+ *
+ * @param	InstancePtr	Pointer to the XAes instance.
+ * @param	TagAddr		Address of the tag buffer.
+ * @param	TagLen		Length of the tag in bytes.
+ *
+ * @return
+ *		- XASUFW_SUCCESS, if the tag is replayed/verified successfully. On success the
+ *		  global ReturnStatus additional status is set to XASUFW_AES_TAG_READ for
+ *		  encryption or XASUFW_AES_TAG_MATCHED for decryption, mirroring the normal tag
+ *		  path.
+ *		- XASUFW_DMA_COPY_FAIL, if DMA copy of the user tag fails.
+ *		- XASUFW_AES_TAG_COMPARE_FAILED, if tag verification fails.
+ *
+ *************************************************************************************************/
+static s32 XAes_ProcessSavedTag(const XAes *InstancePtr, u64 TagAddr, u32 TagLen)
+{
+	CREATE_VOLATILE(Status, XASUFW_FAILURE);
+	XFih_Var XFihTagCmp;
+	XFih_Var OpType = XFIH_FAILURE;
+	u8 Tag[XASU_AES_MAX_TAG_LENGTH_IN_BYTES] = {0U};
+
+	OpType = XFih_VolatileAssignU32((u32)InstancePtr->OperationType);
+
+	/**
+	 * Dual-rail gate: emitting the MAC needs both rails to agree the operation is an
+	 * encrypt; any skip or rail mismatch falls to the verify path.
+	 */
+	XFIH_IF_FAILOUT_WITH_VALUE (OpType, ==, (u32)XASU_AES_ENCRYPT_OPERATION) {
+		Status = XAsufw_DmaXfr(InstancePtr->AsuDmaPtr, (u64)(UINTPTR)InstancePtr->SavedMac,
+				       TagAddr, TagLen, 0U);
+		if (Status != XASUFW_SUCCESS) {
+			Status = XASUFW_DMA_COPY_FAIL;
+			goto END;
+		}
+		ReturnStatus = XASUFW_AES_TAG_READ;
+	} else {
+		Status = XAsufw_DmaXfr(InstancePtr->AsuDmaPtr, TagAddr, (u64)(UINTPTR)Tag,
+				       TagLen, 0U);
+		if (Status != XASUFW_SUCCESS) {
+			Status = XASUFW_DMA_COPY_FAIL;
+			goto END;
+		}
+
+		/** Constant-time, FI-hardened compare of the user tag against the saved MAC. */
+		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+		XFIH_CALL(Xil_SMemCmp_CT, XFihTagCmp, Status,
+			  (const u8 *)(UINTPTR)InstancePtr->SavedMac, TagLen, Tag, TagLen, TagLen);
+		if (Status != XST_SUCCESS) {
+			Status = XASUFW_AES_TAG_COMPARE_FAILED;
+			goto END;
+		}
+		ReturnStatus = XASUFW_AES_TAG_MATCHED;
+	}
+
+END:
 	return Status;
 }
 
@@ -2103,34 +2563,35 @@ static u32 XAes_BuildModeConfig(u32 EngineMode, u32 OperationType)
 
 /*************************************************************************************************/
 /**
- * @brief	This function validates the AES_MODE_CONFIG register configuration by reading back
- * 		the AES_MODE_CONFIG register and compares it against the expected value derived
- * 		from the instance configuration.
+ * @brief	This function validates the AES_MODE_CONFIG register by reading it back and
+ *		comparing it against the expected value supplied by the caller.
  *
- * @param	InstancePtr	Pointer to AES instance.
+ *		The expected value differs by context:
+ *		- Fresh init (XAes_Init): XAes_BuildModeConfig(EngineMode, OperationType), which
+ *		  carries only the ENGINE_MODE and ENC_DEC fields. This doubles as a glitch/tamper
+ *		  check on the mode configuration write.
+ *		- Context restore (XAes_RestoreContext): the full saved MODE_CONFIG snapshot. A
+ *		  context preserved during the authentication (AAD) phase also carries the AUTH /
+ *		  AUTH_WITH_NO_PAYLOAD bits for GCM/CCM/CMAC, which cannot be rebuilt from just
+ *		  the two fields and must be matched as-is.
+ *
+ * @param	InstancePtr	Pointer to the AES instance.
+ * @param	ExpModeConfig	Expected AES_MODE_CONFIG register value.
  *
  * @return
- * 		- XASUFW_SUCCESS, if configuration matches.
- * 		- XASUFW_AES_MODE_CONFIG_READBACK_ERROR, if mismatch detected.
+ *		- XASUFW_SUCCESS, if the readback matches the expected value.
+ *		- XASUFW_AES_MODE_CONFIG_READBACK_ERROR, if a mismatch is detected.
  *
  *************************************************************************************************/
-static s32 XAes_ValidateModeConfig(const XAes *InstancePtr)
+static s32 XAes_ValidateModeConfig(const XAes *InstancePtr, u32 ExpModeConfig)
 {
 	CREATE_VOLATILE(Status, XASUFW_AES_MODE_CONFIG_READBACK_ERROR);
-	u32 ExpModeConfigReg;
 
-	ExpModeConfigReg = XAes_BuildModeConfig(InstancePtr->EngineMode,
-		InstancePtr->OperationType);
-
-	if (XAsufw_ReadReg(InstancePtr->AesBaseAddress + XAES_MODE_CONFIG_OFFSET) !=
-			ExpModeConfigReg) {
-		XFIH_GOTO(END);
+	if (XAsufw_ReadReg(InstancePtr->AesBaseAddress + XAES_MODE_CONFIG_OFFSET) ==
+			ExpModeConfig) {
+		Status = XASUFW_SUCCESS;
 	}
 
-	Status = XASUFW_SUCCESS;
-
-/* coverity[misra_c_2023_rule_2_6_violation] This label 'END' is used by XFIH_GOTO macro */
-END:
 	return Status;
 }
 
@@ -2294,7 +2755,7 @@ static s32 XAes_GHashCal(const XAes *InstancePtr, u64 IvAddr, u32 IvGen, u32 IvL
 
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	/** Get newly generated IV from the MAC registers. */
-	Status = XAes_ReadTag(InstancePtr, IvGen);
+	Status = XAes_ReadTag(InstancePtr, IvGen, XASU_FALSE);
 
 END:
 	return Status;
@@ -2306,13 +2767,15 @@ END:
  *
  * @param	InstancePtr	Pointer to the XAes instance.
  * @param	TagOutAddr	Address of the buffer to store tag.
+ * @param	ReportTagRead	Whether this read should be reported to the client via
+ *				ReturnStatus.
  *
  * @return
  *		- XASUFW_SUCCESS, if tag read is successful.
  *		- XASUFW_AES_TAG_GENERATE_FAILED, if tag read fails.
  *
  *************************************************************************************************/
-static s32 XAes_ReadTag(const XAes *InstancePtr, u32 TagOutAddr)
+static s32 XAes_ReadTag(const XAes *InstancePtr, u32 TagOutAddr, u8 ReportTagRead)
 {
 	CREATE_VOLATILE(Status, XASUFW_AES_TAG_GENERATE_FAILED);
 	volatile u32 Index = 0U;
@@ -2332,9 +2795,11 @@ static s32 XAes_ReadTag(const XAes *InstancePtr, u32 TagOutAddr)
 		/* Perform endian swap. */
 		TagPtr[Index] = Xil_EndianSwap32(TagPtr[Index]);
 	}
-	if (Index == XASUFW_WORD_LEN_IN_BYTES) {
+	if (Index == XAES_TAG_LEN_IN_WORDS) {
 		Status = XASUFW_SUCCESS;
-		ReturnStatus = XASUFW_AES_TAG_READ;
+		if (ReportTagRead == XASU_TRUE) {
+			ReturnStatus = XASUFW_AES_TAG_READ;
+		}
 	}
 
 	return Status;
@@ -2424,12 +2889,18 @@ static s32 XAes_ProcessTag(const XAes *InstancePtr, u64 TagAddr, u32 TagLen)
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
 	CREATE_VOLATILE(ClearStatus, XASUFW_FAILURE);
 	XFih_Var XFihTagClear = XFih_VolatileAssignXfihVar(XFIH_FAILURE);
+	XFih_Var OpType = XFIH_FAILURE;
 	u8 Tag[XASU_AES_MAX_TAG_LENGTH_IN_BYTES] = {0U};
 
-	/** If AES operation type is encryption, */
-	if (InstancePtr->OperationType == XASU_AES_ENCRYPT_OPERATION) {
+	OpType = XFih_VolatileAssignU32((u32)InstancePtr->OperationType);
+
+	/**
+	 * Dual-rail gate: emitting the tag needs both rails to agree the operation is an
+	 * encrypt; any skip or rail mismatch falls to the verify path.
+	 */
+	XFIH_IF_FAILOUT_WITH_VALUE (OpType, ==, (u32)XASU_AES_ENCRYPT_OPERATION) {
 		/** - Read the generated tag from AES engine to local array. */
-		Status = XAes_ReadTag(InstancePtr, (u32)Tag);
+		Status = XAes_ReadTag(InstancePtr, (u32)Tag, XASU_TRUE);
 		if (Status != XASUFW_SUCCESS) {
 			Status = XAsufw_UpdateErrorStatus(Status, XASUFW_AES_READ_TAG_FAIL);
 			goto END;
@@ -2520,8 +2991,10 @@ static void XAes_ClearConfigAad(const XAes *InstancePtr)
  * @return
  *		- XASUFW_SUCCESS, if transfer is successful.
  *		- XASUFW_FAILURE, if any failure occurs.
+ *		- XASUFW_CMD_IN_PROGRESS, if a non-blocking DMA transfer has been initiated.
  *		- XASUFW_AES_CFG_SSS_WITH_DMA_XFER_FAIL, if SSS configuration check fails.
  *		- XASUFW_DMA_WAIT_FOR_DONE_TIMED_OUT, if DMA wait for done timed out.
+ *		- XASUFW_AES_GLITCH_ERROR, if the processed-since-load flag read back wrong.
  *
  *************************************************************************************************/
 static s32 XAes_CfgDmaWithAesAndXfer(const XAes *InstancePtr, u64 InDataAddr, u64 OutDataAddr, u32 Size,
@@ -2548,6 +3021,9 @@ static s32 XAes_CfgDmaWithAesAndXfer(const XAes *InstancePtr, u64 InDataAddr, u6
 
 	XAsuDma_ByteAlignedTransfer(&InstancePtr->AsuDmaPtr->AsuDma, XCSUDMA_SRC_CHANNEL,
 		InDataAddr, Size, IsLastChunk);
+
+	/** Mark the engine OUT registers as holding live state. */
+	XAes_HasProcessedSinceLoad = XASU_TRUE;
 
 	/** If the data length is greater than XASUFW_DMA_BLOCKING_SIZE, do not wait for DMA done. */
 	if (Size <= XASUFW_DMA_BLOCKING_SIZE) {
@@ -2580,6 +3056,12 @@ static s32 XAes_CfgDmaWithAesAndXfer(const XAes *InstancePtr, u64 InDataAddr, u6
 		}
 	} else {
 		Status = XASUFW_CMD_IN_PROGRESS;
+	}
+
+	/** Verify the processed-since-load flag was written. */
+	if (((Status == XASUFW_SUCCESS) || (Status == XASUFW_CMD_IN_PROGRESS)) &&
+			(XAes_HasProcessedSinceLoad != XASU_TRUE)) {
+		Status = XASUFW_AES_GLITCH_ERROR;
 	}
 
 END:
@@ -2658,16 +3140,97 @@ u8 XAes_GetEngineMode(const XAes *InstancePtr)
  * @param	InstancePtr	Pointer to the XAes instance.
  *
  * @return
- *		- XASU_TRUE, if the AES state is XAES_DATA_UPDATE_IN_PROGRESS or XAES_UPDATE_COMPLETED.
- *		- XASU_FALSE, if the AES state is neither of the above, or if InstancePtr is NULL.
+ *		- XASU_TRUE, if the AES state is XAES_DATA_UPDATE_IN_PROGRESS,
+ *		  XAES_UPDATE_COMPLETED, XAES_AAD_UPDATE_IN_PROGRESS or
+ *		  XAES_ONLY_AAD_UPDATE_IN_PROGRESS.
+ *		- XASU_FALSE, if the AES state is none of the above, or if InstancePtr is NULL.
  *
  *************************************************************************************************/
 u8 XAes_GetAndValidateInternalState(const XAes *InstancePtr)
 {
 	u8 AesState = (InstancePtr != NULL) ? (u8)InstancePtr->AesState :
 		(u8)XASUFW_AES_INVALID_INTERNAL_STATE;
+	/** Saveable whenever mid-message: the AAD states plus the payload states. */
 	return (((AesState == (u8)XAES_UPDATE_COMPLETED) ||
-		(AesState == (u8)XAES_DATA_UPDATE_IN_PROGRESS)) ? XASU_TRUE : XASU_FALSE);
+		(AesState == (u8)XAES_DATA_UPDATE_IN_PROGRESS) ||
+		(AesState == (u8)XAES_AAD_UPDATE_IN_PROGRESS) ||
+		(AesState == (u8)XAES_ONLY_AAD_UPDATE_IN_PROGRESS)) ? XASU_TRUE : XASU_FALSE);
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	Feeds a CCM AAD chunk as whole 16-byte blocks only, buffering the trailing partial
+ *		block (1..16 bytes) in CcmAadResidue so a mid-AAD context save is always
+ *		block-aligned.
+ *
+ * @param	InstancePtr	Pointer to the XAes instance.
+ * @param	InDataAddr	Address of the client AAD chunk.
+ * @param	DataLength	Length of the client AAD chunk in bytes.
+ *
+ * @return
+ *		- XASUFW_SUCCESS, if the chunk was consumed successfully.
+ *		- XASUFW_CMD_IN_PROGRESS, if DMA transfer is in progress (non-blocking mode).
+ *		- XASUFW_DMA_COPY_FAIL, if copying the AAD tail into the residue fails.
+ *		- Error code from XAes_CfgDmaWithAesAndXfer, if feeding a block to the engine fails.
+ *
+ *************************************************************************************************/
+static s32 XAes_CcmReblockAadUpdate(XAes *InstancePtr, u64 InDataAddr, u32 DataLength)
+{
+	CREATE_VOLATILE(Status, XASUFW_FAILURE);
+	u8 ResLen = InstancePtr->CcmAadResidueLen;
+	u32 Total = (u32)ResLen + DataLength;
+	u32 BodyLen;
+	u32 NewResLen;
+
+	/** <=1 block: buffer it all, feed nothing so the residue never empties. */
+	if (Total <= XASU_AES_BLOCK_SIZE_IN_BYTES) {
+		Status = XAsufw_DmaXfr(InstancePtr->AsuDmaPtr, InDataAddr,
+			(u64)(UINTPTR)&InstancePtr->CcmAadResidue[ResLen], DataLength, 0U);
+		if (Status != XASUFW_SUCCESS) {
+			Status = XASUFW_DMA_COPY_FAIL;
+			goto END;
+		}
+		InstancePtr->CcmAadResidueLen = (u8)Total;
+		goto END;
+	}
+
+	/** Retain 1..16 trailing bytes as residue; feed the rest. */
+	NewResLen = ((Total - XASUFW_VALUE_ONE) % XASU_AES_BLOCK_SIZE_IN_BYTES) + XASUFW_VALUE_ONE;
+	BodyLen = DataLength - NewResLen;
+
+	/** Feed the residue first; blocking, so it completes before the buffer is reused below. */
+	if (ResLen > 0U) {
+		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+		Status = XAes_CfgDmaWithAesAndXfer(InstancePtr,
+			(u64)(UINTPTR)InstancePtr->CcmAadResidue,
+			XAES_AAD_UPDATE_NO_OUTPUT_ADDR, (u32)ResLen, XASU_FALSE);
+		if (Status != XASUFW_SUCCESS) {
+			goto END;
+		}
+	}
+
+	/** Capture the new residue before feeding the body, which may stay in-flight. */
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	Status = XAsufw_DmaXfr(InstancePtr->AsuDmaPtr, InDataAddr + BodyLen,
+		(u64)(UINTPTR)InstancePtr->CcmAadResidue, NewResLen, 0U);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_DMA_COPY_FAIL;
+		goto END;
+	}
+	InstancePtr->CcmAadResidueLen = (u8)NewResLen;
+
+	/** Feed the body last; a large (>4096B) transfer may stay in-flight (quiesced later). */
+	if (BodyLen > 0U) {
+		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+		Status = XAes_CfgDmaWithAesAndXfer(InstancePtr, InDataAddr,
+			XAES_AAD_UPDATE_NO_OUTPUT_ADDR, BodyLen, XASU_FALSE);
+		if (Status != XASUFW_SUCCESS) {
+			goto END;
+		}
+	}
+
+END:
+	return Status;
 }
 
 /*************************************************************************************************/
@@ -2681,38 +3244,55 @@ u8 XAes_GetAndValidateInternalState(const XAes *InstancePtr)
  *		- XASUFW_SUCCESS, if finalization of AAD successful.
  *		- XASUFW_FAILURE, if finalization of AAD fails.
  *		- XASUFW_ZEROIZE_MEMSET_FAIL, if zeroizing memory fails.
+ *		- XASUFW_MEM_COPY_FAIL, if copying the residue tail into the final block fails.
  *		- XASUFW_AES_CFG_SSS_WITH_DMA_XFER_FAIL, if configuring SSS with DMA transfer fails.
  *
  *************************************************************************************************/
 static s32 XAes_FinalizeAadUpdate(XAes *InstancePtr)
 {
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
-	u8 MaxCcmAadZeroPadding[XASU_AES_BLOCK_SIZE_IN_BYTES];
+	u8 FinalBlock[XASU_AES_BLOCK_SIZE_IN_BYTES];
+	u32 ResidueLen;
+
+	/** Nothing to do once finalized: the AAD config is cleared here and empties the residue. */
+	if ((InstancePtr->CcmAadResidueLen == 0U) &&
+			((XAsufw_ReadReg(InstancePtr->AesBaseAddress + XAES_MODE_CONFIG_OFFSET) &
+			(XAES_MODE_CONFIG_AUTH_MASK |
+			XAES_MODE_CONFIG_AUTH_WITH_NO_PAYLOAD_MASK)) == 0U)) {
+		Status = XASUFW_SUCCESS;
+		goto END;
+	}
 
 	/**
-	 * After AAD update:
-	 * - If the engine mode is AES-CCM and CcmAadZeroBlockPadLen is non-zero, push zero padding
-	 *   data to AES engine and clear the AAD configuration after dma non-blocking.
-	 * - For other MAC modes, just clear the AAD configuration after dma non-blocking.
+	 * Emit the final [residue tail][zero pad] block with IsLast=TRUE, asserting wlast on the
+	 * true final block to finalize the CCM CBC-MAC.
 	 */
 	if ((InstancePtr->EngineMode == XASU_AES_CCM_MODE) &&
-			(InstancePtr->CcmAadZeroBlockPadLen != 0U)) {
-		Status = Xil_SMemSet(MaxCcmAadZeroPadding, InstancePtr->CcmAadZeroBlockPadLen, 0U,
-			InstancePtr->CcmAadZeroBlockPadLen);
+			(InstancePtr->CcmAadResidueLen != 0U)) {
+		ResidueLen = (u32)InstancePtr->CcmAadResidueLen;
+
+		Status = Xil_SMemSet(FinalBlock, XASU_AES_BLOCK_SIZE_IN_BYTES, 0U,
+			XASU_AES_BLOCK_SIZE_IN_BYTES);
 		if (Status != XST_SUCCESS) {
 			Status = XASUFW_ZEROIZE_MEMSET_FAIL;
 			goto END;
 		}
+		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+		Status = Xil_SMemCpy(FinalBlock, XASU_AES_BLOCK_SIZE_IN_BYTES,
+			InstancePtr->CcmAadResidue, ResidueLen, ResidueLen);
+		if (Status != XST_SUCCESS) {
+			Status = XASUFW_MEM_COPY_FAIL;
+			goto END;
+		}
 
 		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-		Status = XAes_CfgDmaWithAesAndXfer(InstancePtr,
-			(u64)(UINTPTR)MaxCcmAadZeroPadding, 0U,
-			InstancePtr->CcmAadZeroBlockPadLen, XASU_TRUE);
+		Status = XAes_CfgDmaWithAesAndXfer(InstancePtr, (u64)(UINTPTR)FinalBlock, 0U,
+			XASU_AES_BLOCK_SIZE_IN_BYTES, XASU_TRUE);
 		if (Status != XASUFW_SUCCESS) {
 			Status = XAsufw_UpdateErrorStatus(Status, XASUFW_AES_CFG_SSS_WITH_DMA_XFER_FAIL);
 			goto END;
 		}
-		InstancePtr->CcmAadZeroBlockPadLen = 0U;
+		InstancePtr->CcmAadResidueLen = 0U;
 	}
 
 	XAes_ClearConfigAad(InstancePtr);
@@ -2873,11 +3453,14 @@ static s32 XAes_CcmValidatePlainTextLength(u32 PlainTextLen, u8 LengthFieldSize)
  *          - XASUFW_SUCCESS, if reset and key clear are successful.
  *          - XASUFW_AES_INVALID_PARAM, if InstancePtr is NULL or KeySrc is invalid.
  *          - XASUFW_AES_KEY_CLEAR_ERROR, if key zeroization fails.
+ *          - Buffer clear status bits, if clearing the DDR context fails.
  *
  *************************************************************************************************/
 static s32 XAes_ResetAndClearKey(XAes *InstancePtr, u32 KeySrc)
 {
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
+	CREATE_VOLATILE(ClearStatus, XASUFW_FAILURE);
+	XAes_ContextInfo *CtxPtr = NULL;
 
 	/** Validate the input arguments. */
 	if (InstancePtr == NULL) {
@@ -2890,6 +3473,15 @@ static s32 XAes_ResetAndClearKey(XAes *InstancePtr, u32 KeySrc)
 
 	/** Zeroize the specified key source. */
 	Status = XAes_KeyClear(InstancePtr, KeySrc);
+
+	/** Clear the DDR context when it holds data no request is owed. */
+	if (XAes_GetContextDdrPtr(&CtxPtr) == XASUFW_SUCCESS) {
+		if ((CtxPtr->ReqId != 0U) && (CtxPtr->IsContextSaved != XASU_TRUE)) {
+			ClearStatus = Xil_SecureZeroize((u8 *)(UINTPTR)CtxPtr,
+				sizeof(XAes_ContextInfo));
+			Status = XAsufw_UpdateBufStatus(Status, ClearStatus);
+		}
+	}
 
 END:
 	return Status;
@@ -2942,6 +3534,74 @@ static s32 XAes_WaitForReady(const XAes *InstancePtr)
 
 /*************************************************************************************************/
 /**
+ * @brief	This function quiesces the AES engine after a non-blocking DMA transfer completes.
+ *		The done ISR only acknowledges the channel it was waiting on. For payload-phase
+ *		DMA (SRC+DST), the stale source done must be cleared here or the next transfer
+ *		short-circuits. For AAD-phase DMA (SRC only), the ISR already cleared the source
+ *		channel, so interrupt clears are skipped. The engine is then waited idle. For CCM
+ *		authenticate-only operations, the deferred final AAD block (residue tail + zero
+ *		padding) is finalized on the AAD path.
+ *
+ * @param	InstancePtr	Pointer to the XAes instance.
+ * @param	DmaPtr		Pointer to the ASU DMA instance used for the transfer.
+ *
+ * @return
+ *		- XASUFW_SUCCESS, if the engine becomes idle within the timeout.
+ *		- XASUFW_AES_INVALID_PARAM, if InstancePtr or DmaPtr is NULL.
+ *		- XASUFW_AES_WAIT_FOR_DONE_TIMEOUT, if the engine does not become ready in time.
+ *		- XASUFW_AES_FINALIZE_AAD_UPDATE_FAIL, if CCM AAD finalization fails.
+ *
+ *************************************************************************************************/
+s32 XAes_PostNbDmaRoutine(XAes *InstancePtr, XAsufw_Dma *DmaPtr)
+{
+	CREATE_VOLATILE(Status, XASUFW_FAILURE);
+
+	if ((InstancePtr == NULL) || (DmaPtr == NULL)) {
+		Status = XASUFW_AES_INVALID_PARAM;
+		goto END;
+	}
+
+	/** Payload-phase NB DMA is ISR-cleared on DST only, leaving the SRC done bit stale. */
+	if ((InstancePtr->AesState == XAES_DATA_UPDATE_IN_PROGRESS) ||
+			(InstancePtr->AesState == XAES_UPDATE_COMPLETED)) {
+		XAsuDma_IntrClear(&DmaPtr->AsuDma, XCSUDMA_SRC_CHANNEL, XCSUDMA_IXR_DONE_MASK);
+	}
+
+	/** Wait for the AES engine to finish processing the DMA data before proceeding. */
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	Status = XAes_WaitForReady(InstancePtr);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_AES_WAIT_FOR_DONE_TIMEOUT;
+		goto END;
+	}
+
+	/** CCM auth-only NB: finalize now so MAC_OUT holds the tag before any save window. */
+	if ((InstancePtr->EngineMode == XASU_AES_CCM_MODE) &&
+			(InstancePtr->AesState == XAES_ONLY_AAD_UPDATE_IN_PROGRESS)) {
+		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+		Status = XAes_FinalizeAadUpdate(InstancePtr);
+		if (Status != XASUFW_SUCCESS) {
+			Status = XAsufw_UpdateErrorStatus(Status,
+				XASUFW_AES_FINALIZE_AAD_UPDATE_FAIL);
+		}
+	}
+
+END:
+	if (Status != XASUFW_SUCCESS) {
+		/**
+		 * Side Effects / Error Handling:
+		 *   - Set AES under reset upon any failure.
+		 *   - Clear the expanded keys (XASU_AES_EXPANDED_KEYS) upon any failure.
+		 */
+		Status = XAsufw_UpdateErrorStatus(Status,
+			XAes_ResetAndClearKey(InstancePtr, XASU_AES_EXPANDED_KEYS));
+	}
+
+	return Status;
+}
+
+/*************************************************************************************************/
+/**
  * @brief	This function places the AES hardware core into reset state and updates AES state
  * 		machine to initialized state.
  *
@@ -2964,6 +3624,8 @@ void XAes_SetReset(XAes *InstancePtr)
 
 		InstancePtr->AesState = XAES_INITIALIZED;
 		XAsufw_CryptoCoreSetReset(InstancePtr->AesBaseAddress, XAES_SOFT_RST_OFFSET);
+		/** Reset invalidates the engine OUT registers. */
+		XAes_HasProcessedSinceLoad = XASU_FALSE;
 	}
 }
 /** @} */

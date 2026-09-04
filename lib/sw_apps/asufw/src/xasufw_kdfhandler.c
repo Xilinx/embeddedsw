@@ -144,6 +144,8 @@ s32 XAsufw_KdfInit(void)
  *
  * @return
  * 	- XASUFW_SUCCESS, if resource allocation is successful.
+ * 	- XASUFW_RESOURCE_UNAVAILABLE, if the AES context cannot be saved yet, so that the
+ * 	  scheduler re-queues the request.
  * 	- XASUFW_DMA_RESOURCE_ALLOCATION_FAILED, if DMA resource allocation fails.
  * 	- XASUFW_AES_CONTEXT_SAVE_FAIL, if AES context save fails (CMAC-KDF only).
  *
@@ -165,7 +167,10 @@ static s32 XAsufw_KdfResourceHandler(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 		ResourceId = XASUFW_AES;
 		/** Check and save the AES context if resource is not busy. */
 		Status = XAsufw_AesCheckAndSaveContext(ReqId);
-		if (Status != XASUFW_SUCCESS) {
+		if (Status == XASUFW_RESOURCE_UNAVAILABLE) {
+			/** Propagate the deferral as-is so the scheduler re-queues the request. */
+			goto END;
+		} else if (Status != XASUFW_SUCCESS) {
 			Status = XAsufw_UpdateErrorStatus(Status, XASUFW_AES_CONTEXT_SAVE_FAIL);
 			goto END;
 		}

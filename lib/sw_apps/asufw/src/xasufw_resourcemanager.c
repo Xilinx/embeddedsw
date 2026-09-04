@@ -32,6 +32,7 @@
  *	 rmv  09/11/25 Removed code duplication in XAsufw_AllocateDmaResource()
  *       vm   07/13/26 Added check for resources reserved by client requests
  *	 kk   07/10/26 Added SLH-DSA to the resources list
+ * 	 kp   08/21/26 Added XAsufw_IsResourceFree() to query free resource state
  *
  * </pre>
  *
@@ -140,8 +141,10 @@ s32 XAsufw_ReleaseResource(XAsufw_Resource Resource, u32 ReqId)
 		goto END;
 	}
 
-	/** Release the requested resource. */
-	ResourceManager[Resource].State = XASUFW_RESOURCE_IS_FREE;
+	/** Release the requested resource, but never clear a KAT-disabled state. */
+	if (ResourceManager[Resource].State != XASUFW_RESOURCE_IS_DISABLED) {
+		ResourceManager[Resource].State = XASUFW_RESOURCE_IS_FREE;
+	}
 	ResourceManager[Resource].OwnerId = 0x0U;
 
 	/** Release all the allocated resources of main resource. */
@@ -626,5 +629,37 @@ u32 XAsufw_AreResourcesInUse(void)
 
 END:
 	return InUse;
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	This function returns the current owner Id of the given resource.
+ *
+ * @param	Resource	The resource identifier to query.
+ *
+ * @return
+ * 		- The unique ID of the request which currently owns the resource.
+ *
+ *************************************************************************************************/
+u32 XAsufw_GetResourceOwner(XAsufw_Resource Resource)
+{
+	return ResourceManager[Resource].OwnerId;
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	This function checks whether the given resource is currently free.
+ *
+ * @param	Resource	The resource identifier to query.
+ *
+ * @return
+ * 		- XASU_TRUE, if the resource is free.
+ * 		- XASU_FALSE, if the resource is not free.
+ *
+ *************************************************************************************************/
+u8 XAsufw_IsResourceFree(XAsufw_Resource Resource)
+{
+	return ((ResourceManager[Resource].State == XASUFW_RESOURCE_IS_FREE) ? XASU_TRUE :
+		XASU_FALSE);
 }
 /** @} */

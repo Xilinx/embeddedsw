@@ -30,6 +30,7 @@
  *	 rmv  09/11/25 Updated XAsufw_ResourceInit() function prototype
  *       vm   07/13/26 Added shared request ID for PLM events and reserved resource check
  *       kk   07/10/26 Added macro for SLH-DSA resource mask
+ * 	 kp   08/21/26 Added XAsufw_IsResourceFree() prototype
  *
  * </pre>
  *
@@ -136,6 +137,8 @@ void XAsufw_DisableResource(XAsufw_Resource Resource);
 s32 XAsufw_IsResourceBusy(XAsufw_Resource Resource, u32 ReqId);
 void XAsufw_UpdateResourceOwner(XAsufw_Resource Resource, u32 ReqId);
 u32 XAsufw_AreResourcesInUse(void);
+u32 XAsufw_GetResourceOwner(XAsufw_Resource Resource);
+u8 XAsufw_IsResourceFree(XAsufw_Resource Resource);
 
 /************************************ Variable Definitions ***************************************/
 

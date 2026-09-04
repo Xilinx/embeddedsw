@@ -36,6 +36,7 @@
  *       am   04/14/25 Added macros related to non-blocking update stages.
  * 1.2   am   05/18/25 Moved non-blocking update stages macros to aes handler
  *       am   07/18/25 Modified XAes_SetReset() visibility from static to non-static
+ * 1.3	 kp   08/21/26 Removed IsContextRestoreReq from XAes_ContextInfo
  *
  * </pre>
  *
@@ -59,6 +60,11 @@ extern "C" {
 #include "xasufw_util.h"
 
 /************************** Constant Definitions *************************************************/
+/** Number of 32-bit words in a 128-bit AES authentication tag. */
+#define XAES_TAG_LEN_IN_WORDS				4U
+
+/** Size of the AES slice of the reserved DDR area, which precedes the key vault. */
+#define XAES_CONTEXT_DDR_MAX_SIZE			256U
 
 /************************************** Type Definitions *****************************************/
 typedef struct _XAes_Config XAes_Config; /**< This typedef is to create alias name
@@ -75,13 +81,27 @@ typedef struct _XAes XAes; /**< This typedef is to create alias name for _XAes *
 typedef struct {
 	u32 ReqId;				/**< Request ID associated with this context. */
 	u32 ModeConfig;				/**< AES mode configuration register value. */
-	u32 IvOut[XASUFW_BUFFER_INDEX_FOUR];	/**< Intermediate output. */
-	u32 IvMaskOut[XASUFW_BUFFER_INDEX_FOUR]; /**< Intermediate mask output. */
+	u32 IvOut[XASUFW_BUFFER_INDEX_FOUR];	/**< Intermediate IV/counter output. */
+	u32 IvMaskOut[XASUFW_BUFFER_INDEX_FOUR]; /**< Intermediate IV mask output (CM). */
+	u32 IntMacOut[XASUFW_BUFFER_INDEX_FOUR]; /**< Intermediate MAC output (GCM/CCM). */
+	u32 IntMacMaskOut[XASUFW_BUFFER_INDEX_FOUR]; /**< Intermediate MAC mask output (CM). */
+	u32 S0Out[XASUFW_BUFFER_INDEX_FOUR];	/**< CCM S0 output. */
+	u32 S0MaskOut[XASUFW_BUFFER_INDEX_FOUR]; /**< CCM S0 mask output (CM). */
+	u32 GcmLenOut[XASUFW_BUFFER_INDEX_FOUR]; /**< GCM processed bit-length output. */
+	u32 SavedMac[XAES_TAG_LEN_IN_WORDS];	/**< Finalized MAC captured for auth-only
+						replay. */
 	u32 Key[XASU_AES_KEY_SIZE_256BIT_IN_WORDS]; /**< User key array. */
 	XAsu_AesKeyObject KeyObject;		/**< Key object address. */
+	u8 CcmAadResidue[XASU_AES_BLOCK_SIZE_IN_BYTES]; /**< Partial CCM CBC-MAC block (prefix + AAD
+						tail) held across the context switch. */
+	u8 CcmAadResidueLen;			/**< Valid bytes in CcmAadResidue (0..16). */
 	u8 IsContextSaved;			/**< Flag indicating if context is valid. */
-	u8 IsContextRestoreReq;			/**< Flag indicating if context restore is required. */
 	u8 AesSavedState;			/**< AES internal state. */
+	u8 IsAuthCtxSaved;			/**< Flag indicating INT_MAC/S0/GCMLEN context is
+						saved. */
+	u8 IsMacFinalized;			/**< Flag indicating auth-only MAC was already
+						finalized and is held in SavedMac for replay. */
+	u8 Reserved[3];				/**< Reserved for alignment. */
 } XAes_ContextInfo;
 
 /*************************** Macros (Inline Functions) Definitions *******************************/
@@ -127,6 +147,7 @@ u8 XAes_GetAndValidateInternalState(const XAes *InstancePtr);
 s32 XAes_GetContextDdrPtr(XAes_ContextInfo **CtxPtrPtr);
 s32 XAes_SaveContext(XAes *InstancePtr);
 s32 XAes_RestoreContext(XAes *InstancePtr);
+s32 XAes_PostNbDmaRoutine(XAes *InstancePtr, XAsufw_Dma *DmaPtr);
 
 #ifdef __cplusplus
 }

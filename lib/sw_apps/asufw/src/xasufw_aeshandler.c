@@ -23,6 +23,7 @@
  * 1.2   am   05/18/25 Fixed implicit conversion of operands
  *       am   07/18/25 Added core reset support for single glitch recovery
  *       rmv  08/17/26 Added validation of client provided buffers
+ * 1.3	 kp   08/21/26 Release the preempted owner's hold on AES after parking its context
  *
  * </pre>
  *
@@ -138,6 +139,9 @@ END:
  *
  * @return
  * 	- XASUFW_SUCCESS, if resource allocation is successful.
+ * 	- XASUFW_RESOURCE_UNAVAILABLE, if the AES context cannot be saved yet, so that the
+ * 	  scheduler re-queues the request.
+ * 	- XASUFW_AES_CONTEXT_SAVE_FAIL, if AES context save fails.
  * 	- XASUFW_DMA_RESOURCE_ALLOCATION_FAILED, if DMA resource allocation fails.
  *
  *************************************************************************************************/
@@ -148,7 +152,10 @@ static s32 XAsufw_AesResourceHandler(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 
 	/** Check and save the context if resource is not busy. */
 	Status = XAsufw_AesCheckAndSaveContext(ReqId);
-	if (Status != XASUFW_SUCCESS) {
+	if (Status == XASUFW_RESOURCE_UNAVAILABLE) {
+		/** Propagate the deferral as-is so the scheduler re-queues the request. */
+		goto END;
+	} else if (Status != XASUFW_SUCCESS) {
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_AES_CONTEXT_SAVE_FAIL);
 		goto END;
 	}
@@ -220,10 +227,18 @@ static s32 XAsufw_AesOperation(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	 * - In case of AES data update is in progress, jump to XAES_STAGE_DATA_UPDATE_DONE,
 	 *   to complete the update.
 	 */
-	if (CmdStage == XAES_NON_BLOCKING_AAD_UPDATE_IN_PROGRESS) {
-		goto XAES_STAGE_DATA_UPDATE;
-	}
-	else if (CmdStage == XAES_NON_BLOCKING_DATA_UPDATE_INPROGRESS) {
+	if ((CmdStage == XAES_NON_BLOCKING_AAD_UPDATE_IN_PROGRESS) ||
+			(CmdStage == XAES_NON_BLOCKING_DATA_UPDATE_INPROGRESS)) {
+		/** Quiesce the engine after the NB DMA so a context switch sees stable state. */
+		Status = XAes_PostNbDmaRoutine(XAsufw_Aes, XAsufw_AesModule.AsuDmaPtr);
+		if (Status != XASUFW_SUCCESS) {
+			CmdStage = XAES_NON_BLOCKING_CMD_STAGE_INIT;
+			Status = XAsufw_UpdateErrorStatus(Status, XASUFW_AES_UPDATE_FAILED);
+			goto END;
+		}
+		if (CmdStage == XAES_NON_BLOCKING_AAD_UPDATE_IN_PROGRESS) {
+			goto XAES_STAGE_DATA_UPDATE;
+		}
 		goto XAES_STAGE_DATA_UPDATE_DONE;
 	}
 
@@ -531,8 +546,11 @@ static s32 XAsufw_AesKat(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
  *
  * @return
  * 	- XASUFW_SUCCESS, if context save is successful or not required.
- * 	- XASUFW_RESOURCE_UNAVAILABLE, if resource is busy in ECB mode.
- * 	- XASUFW_FAILURE, if context save operation fails.
+ * 	- XASUFW_RESOURCE_UNAVAILABLE, if the single context slot is already occupied, or if the
+ * 	  engine mode is ECB or GHASH (neither supports context switching). The request is to be
+ * 	  deferred and retried, not failed.
+ * 	- Error code from XAes_SaveContext, if context save operation fails.
+ * 	- Error code from XAes_KeyClear, if clearing the dropped owner's key fails.
  *
  *************************************************************************************************/
 s32 XAsufw_AesCheckAndSaveContext(u32 ReqId)
@@ -541,24 +559,47 @@ s32 XAsufw_AesCheckAndSaveContext(u32 ReqId)
 	XAes *AesInstancePtr = XAes_GetInstance(XASU_XAES_0_DEVICE_ID);
 	XAes_ContextInfo *Ctx = NULL;
 	u8 EngineMode = XAes_GetEngineMode(AesInstancePtr);
+	u32 OwnerId = 0U;
 
 	if (XAes_GetContextDdrPtr(&Ctx) == XASUFW_SUCCESS) {
-		if (!(XAsufw_IsResourceBusy(XASUFW_AES, ReqId)) && (Ctx->IsContextSaved != XASU_TRUE) &&
-				(XAes_GetAndValidateInternalState(AesInstancePtr))) {
-			/** AES-ECB and AES-CCM mode doesn't support context switching. */
-			if ((EngineMode == XASU_AES_ECB_MODE) ||
-					(EngineMode == XASU_AES_CCM_MODE)) {
+		/** Only a preemptor, i.e. AES idle but owned by another request, may save. */
+		if (!(XAsufw_IsResourceBusy(XASUFW_AES, ReqId))) {
+			OwnerId = XAsufw_GetResourceOwner(XASUFW_AES);
+			/** Single slot: never overwrite a context owed to another request. */
+			if (Ctx->IsContextSaved == XASU_TRUE) {
 				Status = XASUFW_RESOURCE_UNAVAILABLE;
 				goto END;
 			}
 
-			Status = XAes_SaveContext(AesInstancePtr);
+			if (XAes_GetAndValidateInternalState(AesInstancePtr)) {
+				/** ECB is stateless and GHASH has no save-restore path. */
+				if ((EngineMode == XASU_AES_ECB_MODE) ||
+						(EngineMode == XASU_AES_GHASH_MODE)) {
+					Status = XASUFW_RESOURCE_UNAVAILABLE;
+					goto END;
+				}
+
+				/** Store the resource owner request ID in the context. */
+				Ctx->ReqId = OwnerId;
+
+				Status = XAes_SaveContext(AesInstancePtr);
+				if (Status != XASUFW_SUCCESS) {
+					goto END;
+				}
+			} else {
+				/** Not saveable: reset so the dropped owner cannot resume on a new key. */
+				XAes_SetReset(AesInstancePtr);
+				Status = XAes_KeyClear(AesInstancePtr, XASU_AES_EXPANDED_KEYS);
+				if (Status != XASUFW_SUCCESS) {
+					goto END;
+				}
+			}
+
+			/** Release the preempted owner's hold on AES. */
+			Status = XAsufw_ReleaseResource(XASUFW_AES, OwnerId);
 			if (Status != XASUFW_SUCCESS) {
 				goto END;
 			}
-		}
-		else {
-			Ctx->ReqId = ReqId;
 		}
 	}
 

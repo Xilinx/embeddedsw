@@ -140,6 +140,146 @@ extern "C" {
 /** @} */
 
 /**
+ * @name  AES_INT_MAC_IN registers (intermediate MAC restore - CCM/GCM)
+ * @{
+ */
+#define XAES_INT_MAC_IN_0_OFFSET			(0x00000120U)
+	/**<  INT_MAC input data bits 31 to 0 */
+#define XAES_INT_MAC_IN_1_OFFSET			(0x00000124U)
+	/**<  INT_MAC input data bits 63 to 32 */
+#define XAES_INT_MAC_IN_2_OFFSET			(0x00000128U)
+	/**<  INT_MAC input data bits 95 to 64 */
+#define XAES_INT_MAC_IN_3_OFFSET			(0x0000012CU)
+	/**<  INT_MAC input data bits 127 to 96 */
+/** @} */
+
+/**
+ * @name  AES_INT_MAC_MASK_IN registers (intermediate MAC mask restore - CM enabled)
+ * @{
+ */
+#define XAES_INT_MAC_MASK_IN_0_OFFSET			(0x00000130U)
+	/**<  INT_MAC_MASK input data bits 31 to 0 */
+#define XAES_INT_MAC_MASK_IN_1_OFFSET			(0x00000134U)
+	/**<  INT_MAC_MASK input data bits 63 to 32 */
+#define XAES_INT_MAC_MASK_IN_2_OFFSET			(0x00000138U)
+	/**<  INT_MAC_MASK input data bits 95 to 64 */
+#define XAES_INT_MAC_MASK_IN_3_OFFSET			(0x0000013CU)
+	/**<  INT_MAC_MASK input data bits 127 to 96 */
+/** @} */
+
+/**
+ * @name  AES_INT_MAC_OUT registers (intermediate MAC snapshot - CCM/GCM)
+ * @{
+ */
+#define XAES_INT_MAC_OUT_0_OFFSET			(0x00000140U)
+	/**<  INT_MAC output data bits 31 to 0 */
+#define XAES_INT_MAC_OUT_1_OFFSET			(0x00000144U)
+	/**<  INT_MAC output data bits 63 to 32 */
+#define XAES_INT_MAC_OUT_2_OFFSET			(0x00000148U)
+	/**<  INT_MAC output data bits 95 to 64 */
+#define XAES_INT_MAC_OUT_3_OFFSET			(0x0000014CU)
+	/**<  INT_MAC output data bits 127 to 96 */
+/** @} */
+
+/**
+ * @name  AES_INT_MAC_MASK_OUT registers (intermediate MAC mask snapshot - CM enabled)
+ * @{
+ */
+#define XAES_INT_MAC_MASK_OUT_0_OFFSET			(0x00000150U)
+	/**<  INT_MAC_MASK output data bits 31 to 0 */
+#define XAES_INT_MAC_MASK_OUT_1_OFFSET			(0x00000154U)
+	/**<  INT_MAC_MASK output data bits 63 to 32 */
+#define XAES_INT_MAC_MASK_OUT_2_OFFSET			(0x00000158U)
+	/**<  INT_MAC_MASK output data bits 95 to 64 */
+#define XAES_INT_MAC_MASK_OUT_3_OFFSET			(0x0000015CU)
+	/**<  INT_MAC_MASK output data bits 127 to 96 */
+/** @} */
+
+/**
+ * @name  AES_S0_IN registers (CCM S0 restore)
+ * @{
+ */
+#define XAES_S0_IN_0_OFFSET				(0x00000160U)
+	/**<  S0 input data bits 31 to 0 */
+#define XAES_S0_IN_1_OFFSET				(0x00000164U)
+	/**<  S0 input data bits 63 to 32 */
+#define XAES_S0_IN_2_OFFSET				(0x00000168U)
+	/**<  S0 input data bits 95 to 64 */
+#define XAES_S0_IN_3_OFFSET				(0x0000016CU)
+	/**<  S0 input data bits 127 to 96 */
+/** @} */
+
+/**
+ * @name  AES_S0_MASK_IN registers (CCM S0 mask restore - CM enabled)
+ * @{
+ */
+#define XAES_S0_MASK_IN_0_OFFSET			(0x00000170U)
+	/**<  S0_MASK input data bits 31 to 0 */
+#define XAES_S0_MASK_IN_1_OFFSET			(0x00000174U)
+	/**<  S0_MASK input data bits 63 to 32 */
+#define XAES_S0_MASK_IN_2_OFFSET			(0x00000178U)
+	/**<  S0_MASK input data bits 95 to 64 */
+#define XAES_S0_MASK_IN_3_OFFSET			(0x0000017CU)
+	/**<  S0_MASK input data bits 127 to 96 */
+/** @} */
+
+/**
+ * @name  AES_S0_OUT registers (CCM S0 snapshot)
+ * @{
+ */
+#define XAES_S0_OUT_0_OFFSET				(0x00000180U)
+	/**<  S0 output data bits 31 to 0 */
+#define XAES_S0_OUT_1_OFFSET				(0x00000184U)
+	/**<  S0 output data bits 63 to 32 */
+#define XAES_S0_OUT_2_OFFSET				(0x00000188U)
+	/**<  S0 output data bits 95 to 64 */
+#define XAES_S0_OUT_3_OFFSET				(0x0000018CU)
+	/**<  S0 output data bits 127 to 96 */
+/** @} */
+
+/**
+ * @name  AES_S0_MASK_OUT registers (CCM S0 mask snapshot - CM enabled)
+ * @{
+ */
+#define XAES_S0_MASK_OUT_0_OFFSET			(0x00000190U)
+	/**<  S0_MASK output data bits 31 to 0 */
+#define XAES_S0_MASK_OUT_1_OFFSET			(0x00000194U)
+	/**<  S0_MASK output data bits 63 to 32 */
+#define XAES_S0_MASK_OUT_2_OFFSET			(0x00000198U)
+	/**<  S0_MASK output data bits 95 to 64 */
+#define XAES_S0_MASK_OUT_3_OFFSET			(0x0000019CU)
+	/**<  S0_MASK output data bits 127 to 96 */
+/** @} */
+
+/**
+ * @name  AES_GCMLEN_IN registers (GCM processed-length restore)
+ * @{
+ */
+#define XAES_GCMLEN_IN_0_OFFSET				(0x000001A0U)
+	/**<  GCMLEN input data bits 31 to 0 */
+#define XAES_GCMLEN_IN_1_OFFSET				(0x000001A4U)
+	/**<  GCMLEN input data bits 63 to 32 */
+#define XAES_GCMLEN_IN_2_OFFSET				(0x000001A8U)
+	/**<  GCMLEN input data bits 95 to 64 */
+#define XAES_GCMLEN_IN_3_OFFSET				(0x000001ACU)
+	/**<  GCMLEN input data bits 127 to 96 */
+/** @} */
+
+/**
+ * @name  AES_GCMLEN_OUT registers (GCM processed-length snapshot)
+ * @{
+ */
+#define XAES_GCMLEN_OUT_0_OFFSET			(0x000001B0U)
+	/**<  GCMLEN output data bits 31 to 0 */
+#define XAES_GCMLEN_OUT_1_OFFSET			(0x000001B4U)
+	/**<  GCMLEN output data bits 63 to 32 */
+#define XAES_GCMLEN_OUT_2_OFFSET			(0x000001B8U)
+	/**<  GCMLEN output data bits 95 to 64 */
+#define XAES_GCMLEN_OUT_3_OFFSET			(0x000001BCU)
+	/**<  GCMLEN output data bits 127 to 96 */
+/** @} */
+
+/**
  * @name  AES_KEY_DEC_TRIG register
  * @{
  */

@@ -25,6 +25,9 @@
  *       ma   02/28/25 Move IPI triggering to remote processor to xasufw_queuescheduler.c
  *       rmv  09/09/25 Added bound checks for command ID and handler in XAsufw_CommandQueueHandler()
  *       vm   07/13/26 Skip resource handler when a command does not need any resource
+ * 1.2	 kp   08/21/26 Derive AES context restore trigger from resource ownership instead of
+ *		     relying solely on XAes_Final; recover parked context on resource-handler
+ *		     allocation failure too
  *
  * </pre>
  *
@@ -355,6 +358,10 @@ s32 XAsufw_CheckAndAllocateResources(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 		if ((Status == XASUFW_SUCCESS) && (ReqResources != 0U) &&
 				(Module->ResourceHandler != NULL)) {
 			Status = Module->ResourceHandler(ReqBuf, ReqId);
+			if (Status != XASUFW_SUCCESS) {
+				/** The handler may have parked a context before failing; recover it. */
+				XAsufw_CheckAndRestoreAesContext();
+			}
 		}
 	}
 
@@ -364,8 +371,9 @@ END:
 
 /*************************************************************************************************/
 /**
- * @brief	This function restores AES context if required and updates the resource owner of
- * 		restored context. when a previous AES operation had saved context.
+ * @brief	This function determines whether a parked AES context is due for restore based on
+ * 		the current AES resource ownership, and if so, restores it and updates the resource
+ * 		owner of the restored context.
  *
  *************************************************************************************************/
 static void XAsufw_CheckAndRestoreAesContext(void)
@@ -376,7 +384,9 @@ static void XAsufw_CheckAndRestoreAesContext(void)
 	u32 ReqId = 0U;
 
 	if (XAes_GetContextDdrPtr(&Ctx) == XASUFW_SUCCESS) {
-		if (Ctx->IsContextRestoreReq == XASU_TRUE) {
+		/** Restore as soon as AES is free and not disabled. */
+		if ((Ctx->IsContextSaved == XASU_TRUE) &&
+				(XAsufw_IsResourceFree(XASUFW_AES) == XASU_TRUE)) {
 			ReqId = Ctx->ReqId;
 			Status = XAes_RestoreContext(AesInstancePtr);
 			if (Status != XASUFW_SUCCESS) {
