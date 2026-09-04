@@ -1,4 +1,4 @@
-# Copyright (C) 2023 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 
 cmake_minimum_required(VERSION 3.15)
@@ -14,7 +14,7 @@ if(NOT("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "plm_microblaze"))
 	file(READ "${HEADER_FILE_PATH}" HEADER_CONTENTS)
 	string(REGEX MATCH "#define[ \t]+${MACRO_NAME}[ \t]+" MACRO_FOUND "${HEADER_CONTENTS}")
 	if (NOT (MACRO_FOUND))
-		message(FATAL_ERROR "XilSem client library requires atleast one IPI instance.")
+		message(FATAL_ERROR "XilSem client library requires at least one IPI instance.")
 	endif()
 endif()
 

@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 /**
@@ -22,7 +22,7 @@
  *                         to support different SSIT devices.
  * 0.6   anv   10/18/2023  Added macro protection to Enable Error Injection
  *                         Feature usage and Updated to get
- *                         XilSEM NPI status prints of all SLRs seperately
+ *                         XilSEM NPI status prints of all SLRs separately
  * 0.5   gayu  09/08/2025  Fixed Gcc warnings.
  * </pre>
  *

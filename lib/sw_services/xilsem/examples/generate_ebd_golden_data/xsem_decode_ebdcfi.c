@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
-* (c) Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 /**
@@ -86,8 +86,8 @@ int main( )
 				fprintf(OutputFilePtr, "%s", "\n");
 
 				/**
-				 * Create seperate structure for each row of a block type and
-				 * initiailise with essentail bit data of all frames in that
+				 * Create separate structure for each row of a block type and
+				 * initiailise with essential bit data of all frames in that
 				 * row by reading from *.ebd_cfi
 				 */
 				fprintf(OutputFilePtr, "%s" "%d" "%s" "%d" "%s" "%d" "%s" "%s", "volatile XSem_EbdSet EbdSetBT", BlockType[BT_Index], "Row", RowIndex, "[",  LFAddr[BT_Index][RowIndex], "]", " =");

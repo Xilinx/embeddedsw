@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2021 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 /*****************************************************************************/
@@ -47,7 +47,7 @@
 * 1.8   hb   07/03/2022   Added APIs to support SSIT devices
 * 1.9	hv   07/24/2022   Added client interface to read Cfr Status
 * 2.0	hv   08/08/2022   Fixed Misra C violations
-* 2.1	hv   08/15/2022   Updated APIs to read status of all SLRs seperately
+* 2.1	hv   08/15/2022   Updated APIs to read status of all SLRs separately
 *						  in case of broadcast
 * 2.2	rama 08/28/2022   Updated CRAM & NPI status bit information
 * 2.3   anv  02/18/2024   Added client interface to read total frames for a
@@ -58,6 +58,8 @@
 *                         applications.
 * 2.6   gam  10/02/2025   Updated payload to have common payload format
 *                         between linux and baremetal app.
+* 2.7   gam  07/01/2026   Corrected code spell, updated NPI PMC RAM status
+*                         and fixed Misra C violations rule - 11.3, 10.3, 10.6
 * </pre>
 *
 * @note
@@ -101,7 +103,7 @@ static void XSem_CopyCmdResponse(XSemIpiResp *Resp, XSmc_OutVar Out)
  *		Primarily this function sends an IPI request to PLM to invoke
  *		SEM Event Notifier registration, waits for PLM to process the
  *		request and check the status. Since SLR slave devices do not support
- *		IPI, registering events to mater registers events on all slave SLRs
+ *		IPI, registering events to master registers events on all slave SLRs
  *		In case of EL1 Non-Secure mode, this function generates an SMC call
  *		to TF-A. The SMC request goes to the PLM through the TF-A.
  *		This function reads the response of the SMC call
@@ -125,7 +127,7 @@ static void XSem_CopyCmdResponse(XSemIpiResp *Resp, XSmc_OutVar Out)
  *****************************************************************************/
 XStatus XSem_RegisterEvent(XIpiPsu *IpiInst, XSem_Notifier* Notifier)
 {
-	XStatus Status = XST_FAILURE;
+	XStatus Status = (XStatus)XST_FAILURE;
 
 #if defined (__aarch64__) && (EL1_NONSECURE == 1)
 	XSmc_OutVar Out;
@@ -138,7 +140,7 @@ XStatus XSem_RegisterEvent(XIpiPsu *IpiInst, XSem_Notifier* Notifier)
 					Notifier->Flag, 0, 0, 0, 0);
 	/* Copy response message */
 	XSem_CopyCmdResponse(Resp, Out);
-	Status = XST_SUCCESS;
+	Status = (XStatus)XST_SUCCESS;
 #else
 	u32 Payload[PAYLOAD_ARG_CNT] = {0U};
 	u32 Response[RESPONSE_ARG_CNT] = {0U};
@@ -208,7 +210,7 @@ END:
  *****************************************************************************/
 XStatus XSem_CmdCfrInit(XIpiPsu *IpiInst, XSemIpiResp *Resp)
 {
-	XStatus Status = XST_FAILURE;
+	XStatus Status = (XStatus)XST_FAILURE;
 
 #if defined (__aarch64__) && (EL1_NONSECURE == 1)
 	XSmc_OutVar Out;
@@ -217,7 +219,7 @@ XStatus XSem_CmdCfrInit(XIpiPsu *IpiInst, XSemIpiResp *Resp)
 	Out = Xil_Smc(XSEM_CFR_INIT_SMC_FID, 0, 0, 0, 0, 0, 0, 0);
 	/* Copy response message*/
 	XSem_CopyCmdResponse(Resp, Out);
-	Status = XST_SUCCESS;
+	Status = (XStatus)XST_SUCCESS;
 #else
 	u32 Payload[PAYLOAD_ARG_CNT] = {0U};
 	u32 Response[RESPONSE_ARG_CNT] = {0U};
@@ -287,7 +289,7 @@ END:
  *****************************************************************************/
 XStatus XSem_CmdCfrStartScan(XIpiPsu *IpiInst, XSemIpiResp *Resp)
 {
-	XStatus Status = XST_FAILURE;
+	XStatus Status = (XStatus)XST_FAILURE;
 
 #if defined (__aarch64__) && (EL1_NONSECURE == 1)
 	XSmc_OutVar Out;
@@ -296,7 +298,7 @@ XStatus XSem_CmdCfrStartScan(XIpiPsu *IpiInst, XSemIpiResp *Resp)
 	Out = Xil_Smc(XSEM_CFR_START_SMC_FID, 0, 0, 0, 0, 0, 0, 0);
 	/* Copy response message */
 	XSem_CopyCmdResponse(Resp, Out);
-	Status = XST_SUCCESS;
+	Status = (XStatus)XST_SUCCESS;
 #else
 	u32 Payload[PAYLOAD_ARG_CNT] = {0U};
 	u32 Response[RESPONSE_ARG_CNT] = {0U};
@@ -363,7 +365,7 @@ END:
  *****************************************************************************/
 XStatus XSem_CmdCfrStopScan(XIpiPsu *IpiInst, XSemIpiResp *Resp)
 {
-	XStatus Status = XST_FAILURE;
+	XStatus Status = (XStatus)XST_FAILURE;
 
 #if defined (__aarch64__) && (EL1_NONSECURE == 1)
 	XSmc_OutVar Out;
@@ -372,7 +374,7 @@ XStatus XSem_CmdCfrStopScan(XIpiPsu *IpiInst, XSemIpiResp *Resp)
 	Out = Xil_Smc(XSEM_CFR_STOP_SMC_FID, 0, 0, 0, 0, 0, 0, 0);
 	/* Copy response message*/
 	XSem_CopyCmdResponse(Resp, Out);
-	Status = XST_SUCCESS;
+	Status = (XStatus)XST_SUCCESS;
 #else
 	u32 Payload[PAYLOAD_ARG_CNT] = {0U};
 	u32 Response[RESPONSE_ARG_CNT] = {0U};
@@ -470,7 +472,7 @@ XStatus XSem_CmdCfrNjctErr (XIpiPsu *IpiInst, \
 			XSemCfrErrInjData *ErrDetail, \
 			XSemIpiResp *Resp)
 {
-	XStatus Status = XST_FAILURE;
+	XStatus Status = (XStatus)XST_FAILURE;
 
 #if defined (__aarch64__) && (EL1_NONSECURE == 1)
 	XSmc_OutVar Out;
@@ -485,7 +487,7 @@ XStatus XSem_CmdCfrNjctErr (XIpiPsu *IpiInst, \
 					Data[1], ErrDetail->Row, 0, 0, 0, 0);
 	/* Copy response message*/
 	XSem_CopyCmdResponse(Resp, Out);
-	Status = XST_SUCCESS;
+	Status = (XStatus)XST_SUCCESS;
 #else
 	u32 Payload[PAYLOAD_ARG_CNT] = {0U};
 	u32 Response[RESPONSE_ARG_CNT] = {0U};
@@ -546,7 +548,7 @@ END:
  *				- 0001: Target is master only
  *				- 0010: Target is slave 0 only
  *				- 0100: Target is slave 1 only
- *				- 1000: Target is slave 2 onl
+ *				- 1000: Target is slave 2 only
  *			- Bit [24:20]: CRAM Error codes
  *				- 00001: Unexpected CRC error when CRAM is not in observation state
  *				- 00010: Unexpected ECC error when CRAM is
@@ -660,7 +662,7 @@ END:
  *****************************************************************************/
 XStatus XSem_CmdCfrGetStatus(XSemCfrStatus *CfrStatusInfo)
 {
-	XStatus Status = XST_FAILURE;
+	XStatus Status = (XStatus)XST_FAILURE;
 	u32 Index = 0U;
 
 	/* Validate CRAM scan status info structure pointer */
@@ -676,12 +678,12 @@ XStatus XSem_CmdCfrGetStatus(XSemCfrStatus *CfrStatusInfo)
 	/* Get CRAM scan error addresses */
 	for (Index = 0U; Index < MAX_CRAMERR_REGISTER_CNT; Index++) {
 		CfrStatusInfo->ErrAddrL[Index] = \
-			Xil_In32((PMC_RAM_SEM_CRAMERR_ADDRL0 + (Index * 8U)));
+			Xil_In32((UINTPTR)(PMC_RAM_SEM_CRAMERR_ADDRL0 + (Index * 8U)));
 		CfrStatusInfo->ErrAddrH[Index] = \
-			Xil_In32((PMC_RAM_SEM_CRAMERR_ADDRH0 + (Index * 8U)));
+			Xil_In32((UINTPTR)(PMC_RAM_SEM_CRAMERR_ADDRH0 + (Index * 8U)));
 	}
 
-	Status = XST_SUCCESS;
+	Status = (XStatus)XST_SUCCESS;
 
 END:
 	return Status;
@@ -729,7 +731,7 @@ END:
 XStatus XSem_CmdCfrReadFrameEcc(XIpiPsu *IpiInst, u32 CframeAddr, u32 RowLoc,
 		 XSemIpiResp *Resp)
 {
-	XStatus Status = XST_FAILURE;
+	XStatus Status = (XStatus)XST_FAILURE;
 
 #if defined (__aarch64__) && (EL1_NONSECURE == 1)
 	XSmc_OutVar Out;
@@ -742,7 +744,7 @@ XStatus XSem_CmdCfrReadFrameEcc(XIpiPsu *IpiInst, u32 CframeAddr, u32 RowLoc,
 					RowLoc, 0, 0, 0, 0, 0);
 	/* Copy response message*/
 	XSem_CopyCmdResponse(Resp, Out);
-	Status = XST_SUCCESS;
+	Status = (XStatus)XST_SUCCESS;
 #else
 	u32 Payload[PAYLOAD_ARG_CNT] = {0U};
 	u32 Response[RESPONSE_ARG_CNT] = {0U};
@@ -809,7 +811,7 @@ END:
  *****************************************************************************/
 XStatus XSem_CmdNpiStartScan (XIpiPsu *IpiInst, XSemIpiResp * Resp)
 {
-	XStatus Status = XST_FAILURE;
+	XStatus Status = (XStatus)XST_FAILURE;
 
 #if defined (__aarch64__) && (EL1_NONSECURE == 1)
 	XSmc_OutVar Out;
@@ -818,7 +820,7 @@ XStatus XSem_CmdNpiStartScan (XIpiPsu *IpiInst, XSemIpiResp * Resp)
 	Out = Xil_Smc(XSEM_NPI_START_SMC_FID, 0, 0, 0, 0, 0, 0, 0);
 	/* Copy response message*/
 	XSem_CopyCmdResponse(Resp, Out);
-	Status = XST_SUCCESS;
+	Status = (XStatus)XST_SUCCESS;
 #else
 	u32 Payload[PAYLOAD_ARG_CNT] = {0U};
 	u32 Response[RESPONSE_ARG_CNT] = {0U};
@@ -882,7 +884,7 @@ END:
  *****************************************************************************/
 XStatus XSem_CmdNpiStopScan (XIpiPsu *IpiInst, XSemIpiResp * Resp)
 {
-	XStatus Status = XST_FAILURE;
+	XStatus Status = (XStatus)XST_FAILURE;
 #if defined (__aarch64__) && (EL1_NONSECURE == 1)
 	XSmc_OutVar Out;
 	(void) IpiInst;
@@ -890,7 +892,7 @@ XStatus XSem_CmdNpiStopScan (XIpiPsu *IpiInst, XSemIpiResp * Resp)
 	Out = Xil_Smc(XSEM_NPI_STOP_SMC_FID, 0, 0, 0, 0, 0, 0, 0);
 	/* Copy response message*/
 	XSem_CopyCmdResponse(Resp, Out);
-	Status = XST_SUCCESS;
+	Status = (XStatus)XST_SUCCESS;
 #else
 	u32 Payload[PAYLOAD_ARG_CNT] = {0U};
 	u32 Response[RESPONSE_ARG_CNT] = {0U};
@@ -959,7 +961,7 @@ END:
  *****************************************************************************/
 XStatus XSem_CmdNpiInjectError (XIpiPsu *IpiInst, XSemIpiResp * Resp)
 {
-	XStatus Status = XST_FAILURE;
+	XStatus Status = (XStatus)XST_FAILURE;
 
 #if defined (__aarch64__) && (EL1_NONSECURE == 1)
 	XSmc_OutVar Out;
@@ -968,7 +970,7 @@ XStatus XSem_CmdNpiInjectError (XIpiPsu *IpiInst, XSemIpiResp * Resp)
 	Out = Xil_Smc(XSEM_NPI_ERRINJ_SMC_FID, 0, 0, 0, 0, 0, 0, 0);
 	/* Copy response message*/
 	XSem_CopyCmdResponse(Resp, Out);
-	Status = XST_SUCCESS;
+	Status = (XStatus)XST_SUCCESS;
 #else
 	u32 Payload[PAYLOAD_ARG_CNT] = {0U};
 	u32 Response[RESPONSE_ARG_CNT] = {0U};
@@ -1033,7 +1035,7 @@ END:
 XStatus XSem_CmdNpiGetGldnSha (XIpiPsu *IpiInst, XSemIpiResp * Resp,
 		XSem_DescriptorData * DescData)
 {
-	XStatus Status = XST_FAILURE;
+	XStatus Status = (XStatus)XST_FAILURE;
 
 #if defined (__aarch64__) && (EL1_NONSECURE == 1)
 	XSmc_OutVar Out;
@@ -1045,7 +1047,7 @@ XStatus XSem_CmdNpiGetGldnSha (XIpiPsu *IpiInst, XSemIpiResp * Resp,
 	Out = Xil_Smc(XSEM_NPI_GLDNSHA_SMC_FID, Data, 0, 0, 0, 0, 0, 0);
 	/* Copy response message*/
 	XSem_CopyCmdResponse(Resp, Out);
-	Status = XST_SUCCESS;
+	Status = (XStatus)XST_SUCCESS;
 #else
 	u32 Payload[PAYLOAD_ARG_CNT] = {0U};
 	u32 Response[RESPONSE_ARG_CNT] = {0U};
@@ -1061,7 +1063,7 @@ XStatus XSem_CmdNpiGetGldnSha (XIpiPsu *IpiInst, XSemIpiResp * Resp,
 		goto END;
 	}
 	/* Pack commands to be sent over IPI */
-	PACK_PAYLOAD3(Payload, CMD_NPI_GET_GLDN_SHA, 0, (u32 *)DescData);
+	PACK_PAYLOAD3(Payload, CMD_NPI_GET_GLDN_SHA, 0, (UINTPTR)DescData);
 
 	/* Send request to PLM with the payload */
 	Status = XSem_IpiSendReqPlm(IpiInst, Payload);
@@ -1145,11 +1147,7 @@ END:
  *						during the scan. This failure indicates that there is some corruption
  *						in the XilSEM NPI descriptor data. The scan will be stopped,
  *						and notification will be sent to R5
- *			- Bit [18]: 0 - NPI descriptors are present in the memory
- *						1 - Indicates the absence of NPI Descriptor (Zero descriptors)
- *						This failure indicates that there is some corruption
- *						in the XilSEM NPI descriptor data. The scan will be stopped,
- *						and notification will be sent to R5
+ *			- Bit [18]: Reserved
  *			- Bit [17]: 0 - No error in SHA comparison during run time
  *						1-  Indicates SHA comparison failure occurred during run time.
  *						This failure indicates that there is some bit flip in the NPI
@@ -1220,7 +1218,7 @@ END:
  *****************************************************************************/
 XStatus XSem_CmdNpiGetStatus(XSemNpiStatus *NpiStatusInfo)
 {
-	XStatus Status = XST_FAILURE;
+	XStatus Status = (XStatus)XST_FAILURE;
 	u32 Index = 0U;
 
 	/* Validate NPI status Info structure pointer */
@@ -1239,15 +1237,15 @@ XStatus XSem_CmdNpiGetStatus(XSemNpiStatus *NpiStatusInfo)
 	/* Get NPI scan slave skip count */
 	for (Index = 0U; Index < MAX_NPI_SLV_SKIP_CNT; Index++) {
 		NpiStatusInfo->SlvSkipCnt[Index] = \
-			Xil_In32(PMC_RAM_SEM_NPI_SLVSKIP_CNT0 + (Index * 4U));
+			Xil_In32((UINTPTR)(PMC_RAM_SEM_NPI_SLVSKIP_CNT0 + (Index * 4U)));
 	}
 	/* Get NPI scan error info */
 	for (Index = 0U; Index < MAX_NPI_ERR_INFO_CNT; Index++) {
 		NpiStatusInfo->ErrInfo[Index] = \
-			Xil_In32(PMC_RAM_SEM_NPIERR_INFO0 + (Index * 4U));
+			Xil_In32((UINTPTR)(PMC_RAM_SEM_NPIERR_INFO0 + (Index * 4U)));
 	}
 
-	Status = XST_SUCCESS;
+	Status = (XStatus)XST_SUCCESS;
 
 END:
 	return Status;
@@ -1320,7 +1318,7 @@ END:
  *****************************************************************************/
 XStatus XSem_CmdGetConfig(XIpiPsu *IpiInst, XSemIpiResp *Resp)
 {
-	XStatus Status = XST_FAILURE;
+	XStatus Status = (XStatus)XST_FAILURE;
 
 #if defined (__aarch64__) && (EL1_NONSECURE == 1)
 	XSmc_OutVar Out;
@@ -1329,7 +1327,7 @@ XStatus XSem_CmdGetConfig(XIpiPsu *IpiInst, XSemIpiResp *Resp)
 	Out = Xil_Smc(XSEM_GET_CFG_SMC_FID, 0, 0, 0, 0, 0, 0, 0);
 	/* Copy response message*/
 	XSem_CopyCmdResponse(Resp, Out);
-	Status = XST_SUCCESS;
+	Status = (XStatus)XST_SUCCESS;
 #else
 	u32 Payload[PAYLOAD_ARG_CNT] = {0U};
 	u32 Response[RESPONSE_ARG_CNT] = {0U};
@@ -1398,18 +1396,21 @@ u32 XSem_CmdCfrGetCrc(u32 RowIndex)
 	 * CFRAME_SEU_CRC_ADDR (128-Bit) register
 	 */
 	/** Read CRC register word 0 */
-	(void)Xil_In32(CFRAME_BASE_ADDRESS +
-			(RowIndex * CFRAME_ROW_OFFSET) + CFRAME_SEU_CRC_ADDR);
-	/** Read CRC register word 1 */
-	(void)Xil_In32(CFRAME_BASE_ADDRESS +
-			(RowIndex * CFRAME_ROW_OFFSET) + CFRAME_SEU_CRC_ADDR + 0x04U);
-	/** Read CRC register word 2 and store it as GoldenCrc */
-	GoldenCrc = Xil_In32(CFRAME_BASE_ADDRESS +
+	(void)Xil_In32((UINTPTR)(CFRAME_BASE_ADDRESS +
 			(RowIndex * CFRAME_ROW_OFFSET) +
-			CFRAME_SEU_CRC_ADDR + 0x08U);
+			CFRAME_SEU_CRC_ADDR));
+	/** Read CRC register word 1 */
+	(void)Xil_In32((UINTPTR)(CFRAME_BASE_ADDRESS +
+			(RowIndex * CFRAME_ROW_OFFSET) +
+			CFRAME_SEU_CRC_ADDR + 0x04U));
+	/** Read CRC register word 2 and store it as GoldenCrc */
+	GoldenCrc = Xil_In32((UINTPTR)(CFRAME_BASE_ADDRESS +
+			(RowIndex * CFRAME_ROW_OFFSET) +
+			CFRAME_SEU_CRC_ADDR + 0x08U));
 	/** Read CRC register word 3 */
-	(void)Xil_In32(CFRAME_BASE_ADDRESS +
-			(RowIndex * CFRAME_ROW_OFFSET) + CFRAME_SEU_CRC_ADDR + 0x0CU);
+	(void)Xil_In32((UINTPTR)(CFRAME_BASE_ADDRESS +
+			(RowIndex * CFRAME_ROW_OFFSET) +
+			CFRAME_SEU_CRC_ADDR + 0x0CU));
 
 	/** Return GoldenCrc */
 	return GoldenCrc;
@@ -1448,9 +1449,9 @@ void XSem_CmdCfrGetTotalFrames(u32 RowIndex, u32 *FrameCntPtr)
 
 	for (TypeId = 0U; TypeId < 8U; TypeId++) {
 		/* Read total frames in each type */
-		Buf[TypeId] = Xil_In32(CFRAME_BASE_ADDRESS + \
-		                        (RowIndex * CFRAME_ROW_OFFSET) + \
-								(CFRAME_LAST_BOT_ADDR + (TypeId * 4U)));
+		Buf[TypeId] = Xil_In32((UINTPTR)(CFRAME_BASE_ADDRESS + \
+		                       (RowIndex * CFRAME_ROW_OFFSET) + \
+							(CFRAME_LAST_BOT_ADDR + (TypeId * 4U))));
 	}
 	/* Get Type_0 total frames */
 	FrameCntPtr[0] = Buf[0] & CFRAME_BIT_0_19_MASK;
@@ -1523,7 +1524,7 @@ void XSem_CmdCfrGetTotalFrames(u32 RowIndex, u32 *FrameCntPtr)
 XStatus XSem_Ssit_CmdCfrInit(XIpiPsu *IpiInst, XSemIpiResp *Resp,
 		u32 TargetSlr)
 {
-	XStatus Status = XST_FAILURE;
+	XStatus Status = (XStatus)XST_FAILURE;
 	u32 Payload[PAYLOAD_ARG_CNT] = {0U};
 	u32 Response[RESPONSE_ARG_CNT] = {0U};
 
@@ -1616,7 +1617,7 @@ END:
 XStatus XSem_Ssit_CmdCfrStartScan(XIpiPsu *IpiInst, XSemIpiResp *Resp,
 		u32 TargetSlr)
 {
-	XStatus Status = XST_FAILURE;
+	XStatus Status = (XStatus)XST_FAILURE;
 	u32 Payload[PAYLOAD_ARG_CNT] = {0U};
 	u32 Response[RESPONSE_ARG_CNT] = {0U};
 
@@ -1707,7 +1708,7 @@ END:
 XStatus XSem_Ssit_CmdCfrStopScan(XIpiPsu *IpiInst, XSemIpiResp *Resp,
 		u32 TargetSlr)
 {
-	XStatus Status = XST_FAILURE;
+	XStatus Status = (XStatus)XST_FAILURE;
 	u32 Payload[PAYLOAD_ARG_CNT] = {0U};
 	u32 Response[RESPONSE_ARG_CNT] = {0U};
 
@@ -1820,7 +1821,7 @@ XStatus XSem_Ssit_CmdCfrNjctErr (XIpiPsu *IpiInst, \
 			XSemCfrErrInjData *ErrDetail, \
 			XSemIpiResp *Resp, u32 TargetSlr)
 {
-	XStatus Status = XST_FAILURE;
+	XStatus Status = (XStatus)XST_FAILURE;
 	u32 Payload[PAYLOAD_ARG_CNT] = {0U};
 	u32 Response[RESPONSE_ARG_CNT] = {0U};
 
@@ -1912,7 +1913,7 @@ END:
 XStatus XSem_Ssit_CmdCfrReadFrameEcc(XIpiPsu *IpiInst, u32 CframeAddr,
 		u32 RowLoc, XSemIpiResp *Resp, u32 TargetSlr)
 {
-	XStatus Status = XST_FAILURE;
+	XStatus Status = (XStatus)XST_FAILURE;
 	u32 Payload[PAYLOAD_ARG_CNT] = {0U};
 	u32 Response[RESPONSE_ARG_CNT] = {0U};
 
@@ -2023,11 +2024,7 @@ END:
  *						during the scan. This failure indicates that there is some corruption
  *						in the XilSEM NPI descriptor data. The scan will be stopped,
  *						and notification will be sent to R5
- *			- Bit [18]: 0 - NPI descriptors are present in the memory
- *						1 - Indicates the absence of NPI Descriptor (Zero descriptors)
- *						This failure indicates that there is some corruption
- *						in the XilSEM NPI descriptor data. The scan will be stopped,
- *						and notification will be sent to R5
+ *			- Bit [18]: Reserved
  *			- Bit [17]: 0 - No error in SHA comparison during run time
  *						1-  Indicates SHA comparison failure occurred during run time.
  *						This failure indicates that there is some bit flip in the NPI
@@ -2041,7 +2038,7 @@ END:
  *						0001 - Target is master only
  *						0010 - Target is slave 0 only
  *						0100 - Target is slave 1 only
- *						1000 - Target is slave 2 onl
+ *						1000 - Target is slave 2 only
  *			- Bit [11]: 0 - NPI scan task is not added to PLM Scheduler
  *						to run periodically
  *						1 - NPI scan task is added to PLM Scheduler to run periodically
@@ -2098,7 +2095,7 @@ END:
  *				- 0001: Target is master only
  *				- 0010: Target is slave 0 only
  *				- 0100: Target is slave 1 only
- *				- 1000: Target is slave 2 onl
+ *				- 1000: Target is slave 2 only
  *			- Bit [24:20]: CRAM Error codes
  *				- 00001: Unexpected CRC error when CRAM is
  *				not in observation state
@@ -2215,7 +2212,7 @@ END:
 XStatus XSem_Ssit_CmdGetStatus(XIpiPsu *IpiInst, XSemIpiResp *Resp,
 		u32 TargetSlr, XSemStatus *StatusInfo)
 {
-	XStatus Status = XST_FAILURE;
+	XStatus Status = (XStatus)XST_FAILURE;
 	u32 Payload[PAYLOAD_ARG_CNT] = {0U};
 	u32 Response[RESPONSE_ARG_CNT] = {0U};
 
@@ -2290,7 +2287,7 @@ END:
 XStatus XSem_Ssit_CmdNpiStartScan (XIpiPsu *IpiInst, XSemIpiResp * Resp,
 		u32 TargetSlr)
 {
-	XStatus Status = XST_FAILURE;
+	XStatus Status = (XStatus)XST_FAILURE;
 	u32 Payload[PAYLOAD_ARG_CNT] = {0U};
 	u32 Response[RESPONSE_ARG_CNT] = {0U};
 
@@ -2377,7 +2374,7 @@ END:
 XStatus XSem_Ssit_CmdNpiStopScan (XIpiPsu *IpiInst, XSemIpiResp * Resp,
 		u32 TargetSlr)
 {
-	XStatus Status = XST_FAILURE;
+	XStatus Status = (XStatus)XST_FAILURE;
 	u32 Payload[PAYLOAD_ARG_CNT] = {0U};
 	u32 Response[RESPONSE_ARG_CNT] = {0U};
 
@@ -2461,7 +2458,7 @@ END:
 XStatus XSem_Ssit_CmdNpiInjectError (XIpiPsu *IpiInst, XSemIpiResp * Resp,
 		u32 TargetSlr)
 {
-	XStatus Status = XST_FAILURE;
+	XStatus Status = (XStatus)XST_FAILURE;
 	u32 Payload[PAYLOAD_ARG_CNT] = {0U};
 	u32 Response[RESPONSE_ARG_CNT] = {0U};
 
@@ -2572,7 +2569,7 @@ END:
 XStatus XSem_Ssit_CmdGetConfig(XIpiPsu *IpiInst, XSemIpiResp *Resp,
 		u32 TargetSlr)
 {
-	XStatus Status = XST_FAILURE;
+	XStatus Status = (XStatus)XST_FAILURE;
 	u32 Payload[PAYLOAD_ARG_CNT] = {0U};
 	u32 Response[RESPONSE_ARG_CNT] = {0U};
 
@@ -2645,7 +2642,7 @@ END:
 XStatus XSem_Ssit_CmdCfrGetCrc(XIpiPsu *IpiInst, u32 RowIndex,
 		XSemIpiResp *Resp, u32 TargetSlr)
 {
-	XStatus Status = XST_FAILURE;
+	XStatus Status = (XStatus)XST_FAILURE;
 	u32 Payload[PAYLOAD_ARG_CNT] = {0U};
 	u32 Response[RESPONSE_ARG_CNT] = {0U};
 
@@ -2729,7 +2726,7 @@ END:
 XStatus XSem_Ssit_CmdCfrGetTotalFrames(XIpiPsu *IpiInst, XSemIpiResp *Resp,
 		u32 RowIndex, u32 TargetSlr,u32 *FrameCntBuf)
 {
-	XStatus Status = XST_FAILURE;
+	XStatus Status = (XStatus)XST_FAILURE;
 	u32 Buf[8]={0};
 	u32 Payload[PAYLOAD_ARG_CNT] = {0U};
 	u32 Response[RESPONSE_ARG_CNT] = {0U};

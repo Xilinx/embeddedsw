@@ -1,6 +1,6 @@
 /******************************************************************************
-* Copyright (c) 2020-2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2020-2022 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 /**
@@ -23,6 +23,7 @@
 * 0.6	hv   08/18/2021   Fix Doxygen warnings
 * 0.7	hv   08/08/2022   Fixed Misra C violations
 * 0.8   anv  02/23/2024   Updated comments for Ug643
+* 0.9   gam  07/01/2026   Fixed Misra C violation rule - 10.3
 * </pre>
 *
 * @note
@@ -52,7 +53,7 @@
 XStatus XSem_IpiSendReqPlm(XIpiPsu *IpiInst,
 			u32 Payload[PAYLOAD_ARG_CNT])
 {
-	XStatus Status = XST_FAILURE;
+	XStatus Status = (XStatus)XST_FAILURE;
 
 	/* Check if IPI Instance is NULL */
 	if (NULL == IpiInst) {
@@ -105,7 +106,7 @@ END:
 XStatus XSem_IpiPlmRespMsg(XIpiPsu *IpiInst,
 				u32 RespMsg[RESPONSE_ARG_CNT])
 {
-	XStatus Status = XST_FAILURE;
+	XStatus Status = (XStatus)XST_FAILURE;
 
 	/* Check if IPI Instance is NULL */
 	if (NULL == IpiInst) {
