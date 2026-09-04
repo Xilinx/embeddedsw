@@ -259,7 +259,13 @@ int XPm_PlatProcessCmd(XPlmi_Cmd *Cmd)
 		}
 		break;
 	case PM_API(PM_INIT_NODE):
-		Status = XPm_InitNode(Pload[0], Pload[1], &Pload[2], Len-2U);
+		/* Node id and function words must be present before Len underflows */
+		if (XPM_INIT_NODE_MIN_ARG_CNT > Len) {
+			Status = XST_INVALID_PARAM;
+			break;
+		}
+		Status = XPm_InitNode(Pload[0], Pload[1], &Pload[2],
+				      Len - XPM_INIT_NODE_MIN_ARG_CNT);
 		break;
 	case PM_API(PM_APPLY_TRIM):
 		Status = XPm_PldApplyTrim(Pload[0]);

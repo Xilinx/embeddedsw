@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -22,6 +22,9 @@ extern "C" {
 
 /* Persistent global general storage register base address */
 #define PGGS_BASEADDR	(0xF1110050U)
+
+/** Mandatory PM_INIT_NODE payload words: node id and function id */
+#define XPM_INIT_NODE_MIN_ARG_CNT	(2U)
 
 /* Ioctl Permission bits for global general storage registers (pggs/ggs) */
 #define IOCTL_PERM_READ_WRITE_MASK \
