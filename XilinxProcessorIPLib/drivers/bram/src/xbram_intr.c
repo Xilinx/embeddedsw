@@ -26,6 +26,7 @@
 * ----- ---- -------- -----------------------------------------------
 * 1.00a sa   05/11/10 Initial release
 * 4.15  vn   07/30/26 Fix Doxygen warnings
+* 4.15  ss   08/24/26 Fix interrupt status register read
 * </pre>
 *
 *****************************************************************************/
@@ -203,6 +204,6 @@ u32 XBram_InterruptGetStatus(XBram *InstancePtr)
 	Xil_AssertNonvoid(InstancePtr->Config.CtrlBaseAddress != 0);
 
 	return XBram_ReadReg(InstancePtr->Config.CtrlBaseAddress,
-			     XBRAM_ECC_EN_IRQ_OFFSET);
+			     XBRAM_ECC_STATUS_OFFSET);
 }
 /** @} */
