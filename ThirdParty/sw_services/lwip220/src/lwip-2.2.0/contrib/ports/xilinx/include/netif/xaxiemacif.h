@@ -1,6 +1,6 @@
 /*
  * Copyright (C) 2010 - 2022 Xilinx, Inc.
- * Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc.
+ * Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification,
@@ -105,8 +105,8 @@ typedef struct {
 
 extern xaxiemacif_s xaxiemacif;
 
-#ifndef XLWIP_CONFIG_INCLUDE_AXI_ETHERNET_FIFO
 s32_t xaxiemac_is_tx_space_available(xaxiemacif_s *emac);
+#ifndef XLWIP_CONFIG_INCLUDE_AXI_ETHERNET_FIFO
 #ifdef XLWIP_CONFIG_INCLUDE_AXI_ETHERNET_MCDMA
 s32_t process_sent_bds(XMcdma_ChanCtrl *Tx_Chan);
 #else

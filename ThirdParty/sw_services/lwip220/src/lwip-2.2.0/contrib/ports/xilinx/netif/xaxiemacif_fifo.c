@@ -1,6 +1,6 @@
 /*
  * Copyright (C) 2010 - 2022 Xilinx, Inc.
- * Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc.
+ * Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification,
@@ -86,7 +86,7 @@ xaxiemacif_s *xaxiemacif_fast;
 extern u32 xInsideISR;
 #endif
 
-int xaxiemac_is_tx_space_available(xaxiemacif_s *emac)
+s32_t xaxiemac_is_tx_space_available(xaxiemacif_s *emac)
 {
 	return ((XLlFifo_TxVacancy(&emac->axififo) * 4) > XAE_MAX_FRAME_SIZE);
 }
@@ -223,7 +223,9 @@ XStatus init_axi_fifo(struct xemac_s *xemac)
 	xaxiemacif_fast = xaxiemacif;
 	xemac_fast = xemac;
 #endif
+#ifndef SDT
 	struct xtopology_t *xtopologyp = &xtopology[xemac->topology_index];
+#endif
 
 	/* initialize ll fifo */
 	XLlFifo_Initialize(&xaxiemacif->axififo,
