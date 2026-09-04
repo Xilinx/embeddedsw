@@ -66,7 +66,7 @@ int XSecure_TrngIpiHandler(XPlmi_Cmd *Cmd)
 	volatile int Status = XST_FAILURE;
 	u32 *Pload = NULL;
 
-	if (Cmd == NULL || Cmd->Payload == NULL) {
+	if ((Cmd == NULL) || (Cmd->Payload == NULL)) {
 		Status = XST_INVALID_PARAM;
 		goto END;
 	}

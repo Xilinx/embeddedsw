@@ -65,7 +65,7 @@ int XSecure_PlatAesIpiHandler(XPlmi_Cmd *Cmd)
 	u32 *Pload = NULL;
 	XSecure_Aes *AesInstPtr = XSecure_GetAesInstance();
 
-	if (Cmd == NULL || Cmd->Payload == NULL) {
+	if ((Cmd == NULL) || (Cmd->Payload == NULL)) {
 		Status = XST_INVALID_PARAM;
 		goto END;
 	}

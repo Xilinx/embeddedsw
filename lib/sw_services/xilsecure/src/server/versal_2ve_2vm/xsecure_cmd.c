@@ -284,7 +284,7 @@ static int XSecure_ProcessCmd(XPlmi_Cmd *Cmd)
 	volatile int Status = XST_FAILURE;
 	volatile int StatusTmp = XST_FAILURE;
 
-	if (Cmd == NULL || Cmd->Payload == NULL) {
+	if ((Cmd == NULL) || (Cmd->Payload == NULL)) {
 		Status = XST_INVALID_PARAM;
 		goto END;
 	}
