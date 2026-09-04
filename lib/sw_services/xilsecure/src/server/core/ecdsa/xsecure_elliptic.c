@@ -60,6 +60,7 @@
 *       mb   05/23/24 Added P192 curve support
 *       mb   05/23/24 Added P224 urve support
 * 5.7   mb   04/17/26 Update crypto check for AES/SHA/RSA
+* 5.8   ks   08/26/26 Store the generated public key only on success
 *
 * </pre>
 *
@@ -162,6 +163,14 @@ int XSecure_EllipticGenerateKey_64Bit(XSecure_EllipticCrvTyp CrvType,
 	/** - Store Priv key to local buffer */
 	XSecure_PutData(Size, (u8*)D, DAddr);
 
+	/** - Clear the local public key buffer before it is populated. */
+	Status = XST_FAILURE;
+	Status = Xil_SMemSet(PubKey, (u32)sizeof(PubKey), 0U,
+			(u32)sizeof(PubKey));
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
 	Key.Qx = (u8 *)(UINTPTR)PubKey;
 	Key.Qy = (u8 *)(UINTPTR)(PubKey + OffSet);
 
@@ -174,6 +183,7 @@ int XSecure_EllipticGenerateKey_64Bit(XSecure_EllipticCrvTyp CrvType,
 	Status = Ecdsa_GeneratePublicKey(Crv, D, (EcdsaKey *)&Key);
 	if (Status != XST_SUCCESS) {
 		Status = (int)XSECURE_ELLIPTIC_GEN_KEY_ERR;
+		goto END;
 	}
 	/** - Store key to destination address */
 	XSecure_GetData(Size, (u8 *)PubKey, KeyAddr->Qx);
