@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -75,8 +75,12 @@ XStatus XPm_PlatSendDirectPowerDown(XPm_Core *Core)
 		But in case of subsystem restart we will release TCMs by assuming only rpu is using the TCMs.
 		So, execute direct power down for rpu.
 	*/
-	if ((Core->Device.Power->Parent->Node.State == (u8)XPM_POWER_STATE_ON) &&
+	/* Parent power node is optional and XPmSubsystem_GetById() returns NULL when the
+	   core has no allocated requirement, so validate both before dereferencing them */
+	if ((NULL != Core->Device.Power) && (NULL != Core->Device.Power->Parent) &&
+	    (Core->Device.Power->Parent->Node.State == (u8)XPM_POWER_STATE_ON) &&
 	    ((((u32)XPM_NODETYPE_DEV_CORE_RPU == NODETYPE(Core->Device.Node.Id)) &&
+		(NULL != Subsystem) &&
 		((PENDING_POWER_OFF == Subsystem->State) || (PENDING_RESTART == Subsystem->State))) ||
 		((u32)XPM_NODETYPE_DEV_CORE_APU == NODETYPE(Core->Device.Node.Id)))) {
 		/* Power down the core */
