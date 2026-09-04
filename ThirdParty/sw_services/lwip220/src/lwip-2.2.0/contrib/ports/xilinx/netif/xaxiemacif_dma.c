@@ -30,6 +30,7 @@
  */
 
 #include "lwipopts.h"
+#include <string.h>
 
 #if !NO_SYS
 #include "FreeRTOS.h"
@@ -204,6 +205,12 @@ s32_t is_checksum_valid(XAxiDma_Bd *rxbd, struct pbuf *p) {
 		u32_t computed_csum;
 		u16_t padding_len, tcp_payload_len, packet_len;
 		u16_t csum;
+		ip4_addr_t src_addr, dest_addr;
+
+		/* ehdr->ip.{src,dest} live inside a packed struct; copy to
+		 * naturally-aligned locals before taking their address */
+		memcpy(&src_addr, &ehdr->ip.src, sizeof(src_addr));
+		memcpy(&dest_addr, &ehdr->ip.dest, sizeof(dest_addr));
 
 		/* determine length of IP header */
 		iphdr_len = (IPH_HL(&ehdr->ip) * 4);
@@ -214,8 +221,8 @@ s32_t is_checksum_valid(XAxiDma_Bd *rxbd, struct pbuf *p) {
 
 		csum_in_rxbd = extract_csum(rxbd);
 		pseudo_csum = htons(inet_chksum_pseudo(NULL,
-					proto, tcp_payload_len, (ip_addr_t *)&ehdr->ip.src,
-					(ip_addr_t *)&ehdr->ip.dest));
+					proto, tcp_payload_len, &src_addr,
+					&dest_addr));
 
 		/* xps_ll_temac computes the checksum of the packet starting at byte 14
 		 * we need to subtract the values of the ethernet & IP headers
@@ -733,7 +740,7 @@ XStatus init_axi_dma(struct xemac_s *xemac)
 	struct pbuf *p;
 	XStatus status;
 	u32_t i;
-#if !defined(__MICROBLAZE__) && !defined(__riscv__)
+#if !defined(__MICROBLAZE__) && !defined(__riscv)
 	u32_t bd_space_index = 0;
 #endif
 	UINTPTR baseaddr;
@@ -744,10 +751,7 @@ XStatus init_axi_dma(struct xemac_s *xemac)
 	xaxiemacif_fast = xaxiemacif;
 	xemac_fast = xemac;
 #endif
-#if NO_SYS
-	struct xtopology_t *xtopologyp = &xtopology[xemac->topology_index];
-#endif
-#if !NO_SYS
+#ifndef SDT
 	struct xtopology_t *xtopologyp = &xtopology[xemac->topology_index];
 #endif
 
