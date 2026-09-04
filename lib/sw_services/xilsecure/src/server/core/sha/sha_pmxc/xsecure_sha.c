@@ -82,7 +82,7 @@ static int XSecure_ShaDmaTransfer(XSecure_Sha* const InstancePtr, u64 DataAddr, 
 /************************** Variable Definitions *****************************/
 
 /** SHA platform configuration */
-XSecure_ShaPlatConfig ShaInitPlatConfig[XSECURE_SHA_NUM_OF_INSTANCES] =
+static XSecure_ShaPlatConfig ShaInitPlatConfig[XSECURE_SHA_NUM_OF_INSTANCES] =
 {
 	{
 		.ModeOffset = XSECURE_SHA3_MODE_OFFSET,
