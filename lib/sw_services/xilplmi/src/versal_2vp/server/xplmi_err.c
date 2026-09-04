@@ -18,6 +18,7 @@
 * ----- ---- -------- ----------------------------------------------------------------------------
 * 2.3   tvp  07/07/25 Initial release
 *       pre  09/08/2025 Added print statement with DEBUG_INFO level
+*       pre  09/04/2026 Added additional HBMON Error ID's
 *
 * </pre>
 *
@@ -305,6 +306,14 @@ static XPlmi_Error_t ErrorTable[XPLMI_ERROR_SW_ERR_MAX] = {
 				 .SubsystemId = 0U, },
 	[XPLMI_ERROR_HBM_SW_CATTRIP] = { .Handler = NULL, .Action = XPLMI_EM_ACTION_SRST,
 					 .SubsystemId = 0U, },
+	[XPLMI_ERROR_HB_MON_4] = { .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE,
+				   .SubsystemId = 0U, },
+	[XPLMI_ERROR_HB_MON_5] = { .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE,
+				   .SubsystemId = 0U, },
+	[XPLMI_ERROR_HB_MON_6] = { .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE,
+				   .SubsystemId = 0U, },
+	[XPLMI_ERROR_HB_MON_7] = { .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE,
+				   .SubsystemId = 0U, },
 };
 
 /**************************************************************************************************/

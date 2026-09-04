@@ -16,6 +16,7 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- ----------------------------------------------------------------------------
 * 2.3   tvp  07/07/25 Initial release
+*       pre  09/04/26 Added additional HBMON Error ID's
 *
 * </pre>
 *
@@ -195,7 +196,11 @@ typedef enum {
 
 /* HBM CATTRIP Notification SW Error */
 #define XPLMI_ERROR_HBM_SW_CATTRIP		(0x89U)
-#define XPLMI_ERROR_SW_ERR_MAX			(0x8AU)
+#define XPLMI_ERROR_HB_MON_4			(0x8AU)
+#define XPLMI_ERROR_HB_MON_5			(0x8BU)
+#define XPLMI_ERROR_HB_MON_6			(0x8CU)
+#define XPLMI_ERROR_HB_MON_7			(0x8DU)
+#define XPLMI_ERROR_SW_ERR_MAX			(0x8EU)
 
 #define XPLMI_ERROR_PSMERR_MAX			XPLMI_ERROR_PSMERR2_MAX
 #define XPLMI_ERROR_PMCERR_MAX			XPLMI_ERROR_PMCERR2_MAX

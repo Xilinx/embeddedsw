@@ -18,6 +18,7 @@
 * 2.3   tvp  07/07/25 Initial release
 *       sd   08/20/26 Added PMC WWDT error node
 *       dc   09/01/26 Added XPLMI_ERROR_DEV_STATE_CHANGE
+*       pre  09/04/26 Added additional HBMON Error ID's
 *
 * </pre>
 *
@@ -199,11 +200,14 @@ typedef enum {
 
 /* HBM CATTRIP Notification SW Error */
 #define XPLMI_ERROR_HBM_SW_CATTRIP		(0x89U)
+#define XPLMI_ERROR_HB_MON_4			(0x8AU)
+#define XPLMI_ERROR_HB_MON_5			(0x8BU)
+#define XPLMI_ERROR_HB_MON_6			(0x8CU)
+#define XPLMI_ERROR_HB_MON_7			(0x8DU)
 /*
  * DAP / JTAG secure-gate device state change.
- * SW ERR bit 14 (mask 0x00004000) -> ID 0x8E. Unused IDs 0x8A-0x8D are in
- * range of SW_ERR_MAX and zero-init to ACTION_INVALID (classic Versal
- * HB_MON_4..7). Versal Net uses XPLMI_ERROR_DEV_STATE_CHANGE 0xE5 / mask 0x20.
+ * SW ERR bit 14 (mask 0x00004000) -> ID 0x8E. Versal Net uses
+ * XPLMI_ERROR_DEV_STATE_CHANGE 0xE5 / mask 0x20.
  */
 #define XPLMI_ERROR_DEV_STATE_CHANGE		(0x8EU)
 #define XPLMI_ERROR_SW_ERR_MAX			(0x8FU)
