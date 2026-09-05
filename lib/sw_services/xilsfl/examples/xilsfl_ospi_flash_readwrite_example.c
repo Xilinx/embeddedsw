@@ -30,6 +30,7 @@
  * 1.1   sb  01/28/25  Add support for Spartanup platform.
  * 1.1   sb  02/11/25  Add condition to avoid dma read on Spartanup.
  * 1.4   vn  08/26/26  Fix Doxygen warnings.
+ * 1.4   zm  09/05/26  Fix erase size in the OSPI read/write example.
  *
  * </pre>
  ******************************************************************************/
@@ -177,7 +178,7 @@ int SflReadWriteExample(void) {
 	/*
 	 * Erase byte count and address should be align with sector size.
 	 */
-	ByteCount = SectSize;
+	ByteCount = ((MaxData + SectSize - 1U) / SectSize) * SectSize;
 
 	Status = XSfl_FlashErase(SflHandler, TEST_ADDRESS, ByteCount);
 	if (Status != XST_SUCCESS) {
