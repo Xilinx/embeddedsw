@@ -559,6 +559,12 @@ XStatus XPmPin_GetPinGroups(u32 PinId, u32 Index, u16 *Groups)
 		goto done;
 	}
 
+	/* Bound Index before the unsigned remaining-count subtraction can wrap */
+	if (Index > (u32)Pin->RuntimeOps->NumGroups) {
+		Status = XST_INVALID_PARAM;
+		goto done;
+	}
+
 	/* Read up to 6 group IDs from Index */
 	if ((Pin->RuntimeOps->NumGroups - Index) > MAX_GROUPS_PER_RES) {
 		NumRead = MAX_GROUPS_PER_RES;
