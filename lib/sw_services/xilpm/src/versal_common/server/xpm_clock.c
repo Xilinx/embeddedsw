@@ -947,7 +947,8 @@ XStatus XPmClock_QueryMuxSources(u32 ClockId, u32 Index, u32 *Resp)
 
 	/* Skip parent till index */
 	for (i = 0; i < 3U; i++) {
-		if (Clk->ClkNode.NumParents == (Index + i)) {
+		/* Index is caller-supplied; terminate at or past the last parent */
+		if ((Index + i) >= (u32)Clk->ClkNode.NumParents) {
 			Resp[i] = 0xFFFFFFFFU;
 			break;
 		}
