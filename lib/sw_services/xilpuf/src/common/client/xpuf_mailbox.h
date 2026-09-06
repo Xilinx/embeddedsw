@@ -24,6 +24,7 @@
 * 2.4   ng   04/30/24 Fixed doxygen comments
 * 2.5   obs  02/18/25 Fixed IPI message length
 * 2.6   sd   04/13/26 Added PUF support for VERSAL_2VP_P
+* 2.8   tus  08/07/26 Added optional IPI response argument to XPuf_ProcessMailbox
 *
 * </pre>
 *
@@ -163,7 +164,7 @@ static inline int XPuf_SetSlrIndex(XPuf_ClientInstance *InstancePtr, u32 SlrInde
 /************************** Variable Definitions *****************************/
 
 /************************** Function Definitions *****************************/
-int XPuf_ProcessMailbox(XMailbox *MailboxPtr, u32 *MsgPtr, u32 MsgLen);
+int XPuf_ProcessMailbox(XMailbox *MailboxPtr, u32 *MsgPtr, u32 MsgLen, u32 *Response);
 
 #ifdef __cplusplus
 }

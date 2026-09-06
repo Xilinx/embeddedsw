@@ -17,6 +17,7 @@
 * 2.2  mmd     07/04/23 Initial Release
 *      vss     09/21/23 Fixed doxygen warnings
 *      mb      05/04/26 Updated minor version to 2.7
+* 2.8  tus     08/07/26 Updated minor version to 2.8
 *
 * </pre>
 *
@@ -33,8 +34,8 @@ extern "C" {
 #include "xil_util.h"
 
 /**************************** Constant Definitions ****************************/
-#define XPUF_MAJOR_VERSION	2 /**< Major version of Xilpuf */
-#define XPUF_MINOR_VERSION	7 /**< Minor version of Xilpuf */
+#define XPUF_MAJOR_VERSION	2U /**< Major version of Xilpuf */
+#define XPUF_MINOR_VERSION	8U /**< Minor version of Xilpuf */
 
 /****************** Macros (Inline Functions) Definitions *********************/
 

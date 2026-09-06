@@ -26,6 +26,7 @@
 * 2.3   ng   11/22/2023 Fixed doxygen grouping
 * 2.7   tus  04/07/2026 Fix MISRA C Rule 10.3
 *       sd   04/13/2026 Added PUF support for VERSAL_2VP_P
+* 2.8   tus  08/07/2026 Added library version support with capability bits
 *
 * </pre>
 *
@@ -45,6 +46,9 @@
 #include "xpuf_ipihandler.h"
 #include "xpuf_defs.h"
 #include "xpuf_cmd.h"
+#include "xpuf_ver.h"
+#include "xil_util.h"
+#include "xil_cryptoalginfo.h"
 #if (!defined(VERSAL_NET) && !defined(VERSAL_2VP_P))
 #include "xplmi_ssit.h"
 #endif
@@ -53,6 +57,13 @@
 static int XPuf_InvalidCmdHandler(u32 *Payload, u32 *RespBuf);
 
 /************************** Constant Definitions *****************************/
+/**
+ * Compile-time aggregate feature capabilities reported in the Features command.
+ * No server BSP capability bits are defined yet, so it is 0U.
+ */
+#define XPUF_LIB_CAPABILITIES			(0U)
+			/**< Capabilities[0]: aggregate of enabled XilPuf features */
+
 static XPlmi_ModuleCmd XPuf_Cmds[XPUF_API_MAX];
 
 /* Buffer holding access permissions of puf module commands */
@@ -176,6 +187,17 @@ static int XPuf_ProcessCmd(XPlmi_Cmd *Cmd)
 	switch (Cmd->CmdId & XPUF_API_ID_MASK) {
 		case XPUF_API(XPUF_API_FEATURES):
 			Status = XPuf_FeaturesCmd(Pload[0U]);
+			/*
+			 * Always report the library version/capability at fixed response
+			 * indices so the client can query them through the Features
+			 * command without a dedicated IPI command / api-id.
+			 * XIL_LIBINFO_VERSION_RESP_INDEX carries the packed version (Major
+			 * in the upper 16 bits, Minor in the lower 16 bits) and
+			 * XIL_LIBINFO_CAP0_RESP_INDEX carries capability word 0.
+			 */
+			Cmd->Response[XIL_LIBINFO_VERSION_RESP_INDEX] = ((u32)XPUF_MAJOR_VERSION << 16U) |
+					((u32)XPUF_MINOR_VERSION & 0xFFFFU);
+			Cmd->Response[XIL_LIBINFO_CAP0_RESP_INDEX] = XPUF_LIB_CAPABILITIES;
 			break;
 		case XPUF_API(XPUF_PUF_REGISTRATION):
 		case XPUF_API(XPUF_PUF_REGENERATION):

@@ -24,6 +24,8 @@
 * 2.3   ng   11/22/23 Fixed doxygen grouping
 * 2.7   bha  01/06/26 Fixed Doxygen warnings
 *       sd   04/13/26 Added PUF support for VERSAL_2VP_P
+* 2.8   tus  08/07/26 Added XPuf_GetClientLibVersion and
+*                     XPuf_GetServerLibInfo
 *
 * </pre>
 *
@@ -38,6 +40,8 @@ extern "C" {
 
 /***************************** Include Files *********************************/
 #include "xil_types.h"
+#include "xil_util.h"
+#include "xil_cryptoalginfo.h"
 #include "xpuf_mailbox.h"
 #include "xpuf_defs.h"
 
@@ -67,6 +71,8 @@ int XPuf_ClientInit(XPuf_ClientInstance* const InstancePtr, XMailbox* const Mail
 int XPuf_Registration(const XPuf_ClientInstance *InstancePtr, const u64 DataAddr);
 int XPuf_Regeneration(const XPuf_ClientInstance *InstancePtr, const u64 DataAddr);
 int XPuf_ClearPufID(const XPuf_ClientInstance *InstancePtr);
+int XPuf_GetClientLibVersion(u32 *Version);
+int XPuf_GetServerLibInfo(XPuf_ClientInstance *InstancePtr, Xil_LibInfo *LibInfo);
 
 /************************** Variable Definitions *****************************/
 

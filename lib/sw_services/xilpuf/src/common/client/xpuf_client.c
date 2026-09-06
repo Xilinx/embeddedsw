@@ -30,6 +30,8 @@
 * 2.4   ng   04/30/24 Fixed doxygen comments
 * 2.7   tbk  03/20/26 Added SMC support for client applications
 *       sd   04/13/26 Added PUF support for VERSAL_2VP_P
+* 2.8   tus  08/07/26 Added XPuf_GetClientLibVersion and
+*                     XPuf_GetServerLibInfo
 *
 * </pre>
 *
@@ -43,6 +45,8 @@
 /***************************** Include Files *********************************/
 #include "xpuf_client.h"
 #include "xpuf_generic.h"
+#include "xpuf_ver.h"
+#include "xil_util.h"
 
 /************************** Constant Definitions *****************************/
 #ifndef VERSAL_2VP_P
@@ -234,6 +238,105 @@ int XPuf_ClearPufID(const XPuf_ClientInstance *InstancePtr)
 	if (Status != XST_SUCCESS) {
 		XPuf_Printf(XPUF_DEBUG_GENERAL, "Clear PUF ID Failed \r\n");
 	}
+
+END:
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function returns the XilPuf library version that the client is built with.
+ *
+ * @param	Version		Pointer to hold the 32-bit library version, where the upper 16 bits
+ *			hold the major version and the lower 16 bits hold the minor version
+ *
+ * @return
+ *		- XST_SUCCESS if the library version is read successfully
+ *		- XST_INVALID_PARAM if Version is NULL
+ *
+ ******************************************************************************/
+int XPuf_GetClientLibVersion(u32 *Version)
+{
+	int Status = XST_FAILURE;
+
+	if (Version == NULL) {
+		Status = XST_INVALID_PARAM;
+		goto END;
+	}
+
+	*Version = XPuf_GetLibVersion();
+	Status = XST_SUCCESS;
+
+END:
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function sends an IPI request to get the XilPuf library version and
+ *		capability bits running on the PLM.
+ *
+ * @param	InstancePtr	Pointer to the client instance
+ * @param	LibInfo		Pointer to Xil_LibInfo. LibVersion and Capability
+ *			are filled on success. The Version and NistStatus fields
+ *			are reserved for XilPuf and must be ignored.
+ *
+ * @return
+ *		- XST_SUCCESS if the library information is read successfully
+ *		- XST_INVALID_PARAM if any input parameter is invalid
+ *		- XST_FAILURE if there is a failure
+ *
+ ******************************************************************************/
+int XPuf_GetServerLibInfo(XPuf_ClientInstance *InstancePtr, Xil_LibInfo *LibInfo)
+{
+	volatile int Status = XST_FAILURE;
+	u32 Payload[PAYLOAD_ARG_CNT] = {0U};
+	u32 Response[RESPONSE_ARG_CNT] = {0U};
+
+	/**
+	 * - Perform input parameter validation. Return XST_INVALID_PARAM if input parameters are
+	 * invalid.
+	 */
+	if ((InstancePtr == NULL) || (LibInfo == NULL)) {
+		Status = XST_INVALID_PARAM;
+		goto END;
+	}
+
+	/**
+	 * - Query library info via the Features command using a valid PUF api-id as
+	 *   the selector, so the command succeeds and the server returns the library
+	 *   version/capability at fixed indices.
+	 */
+#ifndef VERSAL_2VP_P
+	XPUF_PACK_PAYLOAD1(Payload, ((InstancePtr->SlrIndex << XPUF_SLR_INDEX_SHIFT)
+				| (u32)XPUF_API_FEATURES), (u32)XPUF_PUF_REGISTRATION);
+#else
+	XPUF_PACK_PAYLOAD1(Payload, (u32)XPUF_API_FEATURES, (u32)XPUF_PUF_REGISTRATION);
+#endif
+
+	/**
+	 * - Send request to server via SMC for EL1 non-secure AArch64 applications or via IPI
+	 * mailbox for other environments.
+	 */
+	Status = XPuf_SendRequest(InstancePtr, Payload, (u32)PAYLOAD_ARG_CNT, Response,
+			(u32)RESPONSE_ARG_CNT);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	/*
+	 * XPuf_SendRequest strips the status word, so the data starts at Response[0]
+	 * and matches Xil_LibInfo. Copy it in one shot; the server does not emit
+	 * Capability[1], so zero it afterwards. Version/NistStatus are reserved for
+	 * XilPuf.
+	 */
+	Status = Xil_SMemCpy(LibInfo, sizeof(Xil_LibInfo), &Response[0U],
+			(u32)(XIL_LIBINFO_RESP_WORDS * sizeof(u32)),
+			(u32)(XIL_LIBINFO_RESP_WORDS * sizeof(u32)));
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+	LibInfo->Capability[1U] = 0U;
 
 END:
 	return Status;

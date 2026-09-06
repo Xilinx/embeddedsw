@@ -26,6 +26,7 @@
 *       kpt  08/03/23 Fix security review comments
 * 2.4   ng   04/30/24 Fixed doxygen comments
 * 2.8   tbk  06/22/26 Added input parameter validation
+*       tus  08/07/26 Added optional IPI response argument to XPuf_ProcessMailbox
 *
 * </pre>
 *
@@ -61,6 +62,9 @@
  * @param	MailboxPtr	Pointer to mailbox instance
  * @param	MsgPtr		Pointer to the payload message
  * @param	MsgLen		Length of the message
+ * @param	Response	Pointer to store the IPI response. When non-NULL,
+ * 				the buffer must hold RESPONSE_ARG_CNT words. Word 0 is
+ * 				the IPI status and the following words are payload data.
  *
  * @return
  *		- XST_SUCCESS if the IPI send and receive is successful
@@ -71,10 +75,14 @@
  * 		in IPI buffer.
  *
  ****************************************************************************/
-int XPuf_ProcessMailbox(XMailbox *MailboxPtr, u32 *MsgPtr, u32 MsgLen)
+int XPuf_ProcessMailbox(XMailbox *MailboxPtr, u32 *MsgPtr, u32 MsgLen, u32 *Response)
 {
 	volatile int Status = XST_FAILURE;
-	u32 Response[RESPONSE_ARG_CNT];
+	u32 LocalResp[RESPONSE_ARG_CNT] = {0U};
+
+	if (Response == NULL) {
+		Response = LocalResp;
+	}
 
 	/** - Validate input parameters. */
 	if ((MailboxPtr == NULL) || (MsgPtr == NULL) || (MsgLen == 0U)) {
