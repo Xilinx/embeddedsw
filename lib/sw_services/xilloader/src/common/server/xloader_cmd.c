@@ -102,6 +102,8 @@
 *       ng   08/05/2026 Reject reserved Image Store PDI IDs in Add/Remove IPI commands
 *       sri  08/14/2026 Updated verify auth HashBlock IPI command to use XLoader_AuthNCopyHashBlock
 *       ng   08/17/2026 Added handler for Configure Glitch Detector command
+*       tus  08/19/2026 Added support for getting XilLoader library
+*                       version and capability bits
 *
 * </pre>
 *
@@ -124,12 +126,14 @@
 #include "xpm_api.h"
 #include "xpm_nodeid.h"
 #include "xil_util.h"
+#include "xil_cryptoalginfo.h"
 #include "xloader_ddr.h"
 #include "xplmi_plat.h"
 #include "xloader_plat.h"
 #include "xloader_defs.h"
 #include "xloader_auth_enc.h"
 #include "xloader_secure.h"
+#include "xloader_ver.h"
 #if (!defined(VERSAL_NET) && !defined(VERSAL_2VP))
 #include "xplmi_ssit.h"
 #endif
@@ -173,6 +177,12 @@ static XPlmi_Module XPlmi_Loader;
 #define XLOADER_CMD_ID_SET_IMAGE_INFO_PUID_INDEX	(2U)
 #define XLOADER_CMD_ID_SET_IMAGE_INFO_FUNCID_INDEX	(3U)
 #define XLOADER_RESP_CMD_FEATURES_CMD_SUPPORTED	(1U)
+/**
+ * Compile-time aggregate feature capabilities reported in the Features command.
+ * No server BSP capability bits are defined yet, so it is 0U.
+ */
+#define XLOADER_LIB_CAPABILITIES		(0U)
+			/**< Capabilities[0]: aggregate of enabled XilLoader features */
 #define XLOADER_RESP_CMD_GET_IMG_INFO_UID_INDEX		(1U)
 #define XLOADER_RESP_CMD_GET_IMG_INFO_PID_INDEX		(2U)
 #define XLOADER_RESP_CMD_GET_IMG_INFO_FUNCID_INDEX		(3U)
@@ -275,10 +285,22 @@ static int XLoader_Features(XPlmi_Cmd *Cmd)
 	else {
 		Cmd->Response[XLOADER_RESP_CMD_FEATURES_CMD_SUPPORTED] = XLOADER_FAILURE;
 	}
+
+	/*
+	 * Always report the library version/capability at fixed response indices
+	 * so the client can query them through the Features command without a
+	 * dedicated IPI command. XIL_LIBINFO_VERSION_RESP_INDEX carries the packed
+	 * version (Major in the upper 16 bits, Minor in the lower 16 bits) and
+	 * XIL_LIBINFO_CAP0_RESP_INDEX carries capability word 0.
+	 */
+	Cmd->Response[XIL_LIBINFO_VERSION_RESP_INDEX] = ((u32)XLOADER_MODULE_MAJOR_VERSION << 16U) |
+				((u32)XLOADER_MODULE_MINOR_VERSION & 0xFFFFU);
+	Cmd->Response[XIL_LIBINFO_CAP0_RESP_INDEX] = XLOADER_LIB_CAPABILITIES;
 	Cmd->Response[XLOADER_RESP_CMD_EXEC_STATUS_INDEX] = XLOADER_SUCCESS;
 
 	return XST_SUCCESS;
 }
+
 /**
  * @endcond
  */

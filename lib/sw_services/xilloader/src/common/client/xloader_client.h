@@ -23,6 +23,8 @@
  * 2.4   sri  03/26/26 Included header file for cache disable option
  *       vm   03/30/26 Added support for OSPI as pdi source to get the optional data
  *       ng   07/09/26 Added XLoader_SetDdrAddrForRestartImage prototype
+ * 2.5   tus  07/29/26 Added XLoader_GetClientLibVersion and
+ *                     XLoader_GetServerLibInfo
  *
  * </pre>
  *
@@ -38,6 +40,8 @@ extern "C" {
 /*************************************** Include Files *******************************************/
 
 #include "xil_types.h"
+#include "xil_util.h"
+#include "xil_cryptoalginfo.h"
 #include "xloader_mailbox.h"
 #include "xloader_defs.h"
 #if defined(VERSAL_NET) || defined(VERSAL_2VE_2VM)
@@ -126,6 +130,8 @@ int XLoader_InputSlrIndex(XLoader_ClientInstance *InstancePtr, u32 SlrIndex);
 int XLoader_GetOptionalData(XLoader_ClientInstance *InstancePtr,
 		const XLoader_OptionalDataInfo* OptionalDataInfo, u64 DestAddr, u32 *DestSize);
 int XLoader_SetDdrAddrForRestartImage(XLoader_ClientInstance *InstancePtr, u64 DdrPdiAddr);
+int XLoader_GetClientLibVersion(u32 *Version);
+int XLoader_GetServerLibInfo(XLoader_ClientInstance *InstancePtr, Xil_LibInfo *LibInfo);
 
 /************************************ Variable Definitions ***************************************/
 

@@ -25,6 +25,8 @@
  *       vm   03/30/26 Added support for OSPI as pdi source to get the optional data
  *       pre  07/15/26 Added input parameter validation at required places
  *       ng   07/09/26 Added XLoader_SetDdrAddrForRestartImage client API
+ * 2.5   tus  07/29/26 Added XLoader_GetClientLibVersion and
+ *                     XLoader_GetServerLibInfo
  *
  * </pre>
  *
@@ -39,6 +41,8 @@
 
 #include "xloader_client.h"
 #include "xloader_generic.h"
+#include "xloader_ver.h"
+#include "xil_util.h"
 
 /************************************ Constant Definitions ***************************************/
 
@@ -531,6 +535,99 @@ int XLoader_SetDdrAddrForRestartImage(XLoader_ClientInstance *InstancePtr, u64 D
 
 	/** Send request using generic API */
 	Status = XLoader_SendRequest(InstancePtr, Payload, (u32)PAYLOAD_ARG_CNT, NULL, 0U);
+
+END:
+	return Status;
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	This function returns the XilLoader library version that the client is built with.
+ *
+ * @param	Version		Pointer to hold the 32-bit library version, where the upper 16 bits
+ * 			hold the major version and the lower 16 bits hold the minor version.
+ *
+ * @return
+ *		 - XST_SUCCESS on success.
+ *		 - XST_INVALID_PARAM if Version is NULL.
+ *
+ **************************************************************************************************/
+int XLoader_GetClientLibVersion(u32 *Version)
+{
+	int Status = XST_FAILURE;
+
+	if (Version == NULL) {
+		Status = XST_INVALID_PARAM;
+		goto END;
+	}
+
+	*Version = XLoader_GetLibVersion();
+	Status = XST_SUCCESS;
+
+END:
+	return Status;
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	This function sends an IPI request to get the XilLoader library version and
+ * 		capability bits running on the PLM.
+ *
+ * @param	InstancePtr	Pointer to the client instance. On SSIT parts, the
+ * 			SlrIndex field selects the SLR whose loader info is queried.
+ * @param	LibInfo		Pointer to Xil_LibInfo. LibVersion and Capability
+ * 			are filled on success. The Version and NistStatus fields
+ * 			are reserved for XilLoader and must be ignored.
+ *
+ * @return
+ *		 - XST_SUCCESS on success.
+ *		 - XST_INVALID_PARAM if any input parameter is invalid.
+ *		 - XST_FAILURE on failure.
+ *
+ **************************************************************************************************/
+int XLoader_GetServerLibInfo(XLoader_ClientInstance *InstancePtr, Xil_LibInfo *LibInfo)
+{
+	volatile int Status = XST_FAILURE;
+	u32 Payload[PAYLOAD_ARG_CNT] = {0U};
+	u32 Response[RESPONSE_ARG_CNT] = {0U};
+
+	/**
+	* - Perform input parameter validation. Return error if parameters are invalid.
+	*/
+	if ((InstancePtr == NULL) || (LibInfo == NULL)) {
+		Status = XST_INVALID_PARAM;
+		goto END;
+	}
+
+	/**
+	 * Query library info via the Features command using a valid command id as
+	 * the selector, so the command succeeds and the server returns the library
+	 * version/capability at fixed indices. The SlrIndex is folded into the API
+	 * id so the request is routed to the intended SLR on SSIT parts.
+	 */
+	XLOADER_PACK_PAYLOAD1(Payload, (u32)(((InstancePtr->SlrIndex) << XLOADER_SLR_INDEX_SHIFT)
+			| (u32)XLOADER_CMD_ID_FEATURES), (u32)XLOADER_CMD_ID_FEATURES);
+
+	/** Send request using generic API */
+	Status = XLoader_SendRequest(InstancePtr, Payload, (u32)PAYLOAD_ARG_CNT, Response,
+			(u32)RESPONSE_ARG_CNT);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	/*
+	 * XLoader_SendRequest strips the status word, so the data starts at
+	 * Response[0] and matches Xil_LibInfo. Copy it in one shot; the server does
+	 * not emit Capability[1], so zero it afterwards. Version/NistStatus are
+	 * reserved for XilLoader.
+	 */
+	Status = Xil_SMemCpy(LibInfo, sizeof(Xil_LibInfo), &Response[0U],
+			(u32)(XIL_LIBINFO_RESP_WORDS * sizeof(u32)),
+			(u32)(XIL_LIBINFO_RESP_WORDS * sizeof(u32)));
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+	LibInfo->Capability[1U] = 0U;
 
 END:
 	return Status;
