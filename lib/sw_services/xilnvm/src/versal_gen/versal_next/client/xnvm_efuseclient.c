@@ -33,6 +33,7 @@
 * 3.7  mb   01/13/2026 Added client API to check EFUSE AES keys CRC
 *      nik  01/06/2026 Added support to allow use of PUF Helper Data eFUSEs for general purpose.
 *      tvp  04/27/2026 Block XNvm_EfuseReadDmeMode for versal_2ve_2vm
+* 3.8  tus  08/20/26 Added optional IPI response argument to XNvm_ProcessMailbox
 * </pre>
 *
 * @note
@@ -269,7 +270,7 @@ int XNvm_EfuseWrite(XNvm_ClientInstance *InstancePtr, const u64 DataAddr)
 
 	/** - Fill IPI Payload */
 	XNVM_PACK_PAYLOAD0(Payload, (u32)XNVM_API_ID_EFUSE_RELOAD_N_PRGM_PROT_BITS);
-	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, Payload, PAYLOAD_ARG_CNT);
+	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, Payload, PAYLOAD_ARG_CNT, NULL);
 	RetStatus = Status;
 
 END:
@@ -405,7 +406,7 @@ int XNvm_EfuseWriteIVs(XNvm_ClientInstance *InstancePtr, const u64 IvAddr, const
 
 	/** - Fill IPI Payload */
 	XNVM_PACK_PAYLOAD0(Payload, (u32)XNVM_API_ID_EFUSE_RELOAD_N_PRGM_PROT_BITS);
-	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, Payload, PAYLOAD_ARG_CNT);
+	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, Payload, PAYLOAD_ARG_CNT, NULL);
 	RetStatus = Status;
 
 END:
@@ -464,7 +465,7 @@ int XNvm_EfuseWriteDiceUds(XNvm_ClientInstance *InstancePtr, const u64 UdsAddr, 
 	 */
 	Status = XST_FAILURE;
 	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, (u32 *)UdsWriteCdo,
-			sizeof(XNvm_UdsWriteCdo) / XNVM_WORD_LEN);
+			(u32)sizeof(XNvm_UdsWriteCdo) / XNVM_WORD_LEN, NULL);
 	if (Status != XST_SUCCESS) {
 		XSECURE_STATUS_CHK_GLITCH_DETECT(Status);
 		XNvm_Printf(XNVM_DEBUG_GENERAL, "UDS write failed; Error Code = %x\r\n", Status);
@@ -478,7 +479,7 @@ int XNvm_EfuseWriteDiceUds(XNvm_ClientInstance *InstancePtr, const u64 UdsAddr, 
 
 	/** - Fill IPI Payload */
 	XNVM_PACK_PAYLOAD0(Payload, (u32)XNVM_API_ID_EFUSE_RELOAD_N_PRGM_PROT_BITS);
-	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, Payload, PAYLOAD_ARG_CNT);
+	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, Payload, PAYLOAD_ARG_CNT, NULL);
 	RetStatus = Status;
 
 END:
@@ -542,7 +543,7 @@ int XNvm_WriteDmePrivateKey(XNvm_ClientInstance *InstancePtr, u32 DmeKeyType, co
 	 */
 	Status = XST_FAILURE;
 	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, (u32 *)DmeKeyWriteCdo,
-			sizeof(XNvm_DmeKeyWriteCdo) / XNVM_WORD_LEN);
+			(u32)sizeof(XNvm_DmeKeyWriteCdo) / XNVM_WORD_LEN, NULL);
 	if (Status != XST_SUCCESS) {
 		XSECURE_STATUS_CHK_GLITCH_DETECT(Status);
 		XNvm_Printf(XNVM_DEBUG_GENERAL, "DME key write failed; Error Code = %x\r\n", Status);
@@ -556,7 +557,7 @@ int XNvm_WriteDmePrivateKey(XNvm_ClientInstance *InstancePtr, u32 DmeKeyType, co
 
 	/** - Fill IPI Payload */
 	XNVM_PACK_PAYLOAD0(Payload, (u32)XNVM_API_ID_EFUSE_RELOAD_N_PRGM_PROT_BITS);
-	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, Payload, PAYLOAD_ARG_CNT);
+	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, Payload, PAYLOAD_ARG_CNT, NULL);
 	RetStatus = Status;
 
 END:
@@ -610,7 +611,7 @@ int XNvm_WriteDmeRevoke(XNvm_ClientInstance *InstancePtr, u16 DmeRevokeNum, cons
 	 *  Wait for IPI response from PLM  with a default timeout of 300 seconds
 	 */
 	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, (u32 *)RevokeId,
-			sizeof(XNvm_DmeRevokeId) / XNVM_WORD_LEN);
+			(u32)sizeof(XNvm_DmeRevokeId) / XNVM_WORD_LEN, NULL);
 	if (Status != XST_SUCCESS) {
 		XSECURE_STATUS_CHK_GLITCH_DETECT(Status);
 		XNvm_Printf(XNVM_DEBUG_GENERAL, "DME key revoke failed; Error Code = %x\r\n", Status);
@@ -624,7 +625,7 @@ int XNvm_WriteDmeRevoke(XNvm_ClientInstance *InstancePtr, u16 DmeRevokeNum, cons
 
 	/** - Fill IPI Payload */
 	XNVM_PACK_PAYLOAD0(Payload, (u32)XNVM_API_ID_EFUSE_RELOAD_N_PRGM_PROT_BITS);
-	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, Payload, PAYLOAD_ARG_CNT);
+	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, Payload, PAYLOAD_ARG_CNT, NULL);
 
 END:
 	return Status;
@@ -670,7 +671,7 @@ int XNvm_EfuseWriteDmeMode(XNvm_ClientInstance *InstancePtr, u32 DmeMode, const 
 	 * Wait for IPI response from PLM  with a default timeout of 300 seconds
 	 */
 	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, (u32 *)DmeModeWriteCdo,
-			sizeof(XNvm_DmeModeWriteCdo) / XNVM_WORD_LEN);
+			(u32)sizeof(XNvm_DmeModeWriteCdo) / XNVM_WORD_LEN, NULL);
 	if (Status != XST_SUCCESS) {
 		XSECURE_STATUS_CHK_GLITCH_DETECT(Status);
 		XNvm_Printf(XNVM_DEBUG_GENERAL, "DME mode write failed;"
@@ -685,7 +686,7 @@ int XNvm_EfuseWriteDmeMode(XNvm_ClientInstance *InstancePtr, u32 DmeMode, const 
 
 	/** - Fill IPI Payload */
 	XNVM_PACK_PAYLOAD0(Payload, (u32)XNVM_API_ID_EFUSE_RELOAD_N_PRGM_PROT_BITS);
-	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, Payload, PAYLOAD_ARG_CNT);
+	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, Payload, PAYLOAD_ARG_CNT, NULL);
 
 END:
 	return Status;
@@ -733,7 +734,7 @@ int XNvm_EfuseReadDmeMode(XNvm_ClientInstance *InstancePtr, const u64 DmeModeAdd
 	 * - If the timeout exceeds then error is returned otherwise it returns the status of the IPI response
 	 */
 	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, (u32 *)RdCacheCdo,
-			sizeof(XNvm_RdCacheCdo) / XNVM_WORD_LEN);
+			(u32)sizeof(XNvm_RdCacheCdo) / XNVM_WORD_LEN, NULL);
 
 END:
 	return Status;
@@ -780,7 +781,7 @@ int XNvm_EfuseWriteSecCtrlBits(XNvm_ClientInstance *InstancePtr, u32 SecCtrlBits
 	 * Wait for IPI response from PLM  with a default timeout of 300 seconds
 	 */
 	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, (u32 *)SecCtrlBitsWrCdo,
-			sizeof(XNvm_SecCtrlBitsWriteCdo) / XNVM_WORD_LEN);
+			(u32)sizeof(XNvm_SecCtrlBitsWriteCdo) / XNVM_WORD_LEN, NULL);
 	if (Status != XST_SUCCESS) {
 		XSECURE_STATUS_CHK_GLITCH_DETECT(Status);
 		XNvm_Printf(XNVM_DEBUG_GENERAL, "Secure Control Bits write failed;"
@@ -795,7 +796,7 @@ int XNvm_EfuseWriteSecCtrlBits(XNvm_ClientInstance *InstancePtr, u32 SecCtrlBits
 
 	/** - Fill IPI Payload */
 	XNVM_PACK_PAYLOAD0(Payload, (u32)XNVM_API_ID_EFUSE_RELOAD_N_PRGM_PROT_BITS);
-	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, Payload, PAYLOAD_ARG_CNT);
+	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, Payload, PAYLOAD_ARG_CNT, NULL);
 
 END:
 	return Status;
@@ -842,7 +843,7 @@ int XNvm_EfuseWritePufCtrlBits(XNvm_ClientInstance *InstancePtr, u32 PufCtrlBits
 	 * Wait for IPI response from PLM  with a default timeout of 300 seconds.
 	 */
 	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, (u32 *)PufCtrlBitsWrCdo,
-			sizeof(XNvm_PufCtrlBitsWriteCdo) / XNVM_WORD_LEN);
+			(u32)sizeof(XNvm_PufCtrlBitsWriteCdo) / XNVM_WORD_LEN, NULL);
 	if (Status != XST_SUCCESS) {
 		XSECURE_STATUS_CHK_GLITCH_DETECT(Status);
 		XNvm_Printf(XNVM_DEBUG_GENERAL, "Puf Control Bits write failed;"
@@ -857,7 +858,7 @@ int XNvm_EfuseWritePufCtrlBits(XNvm_ClientInstance *InstancePtr, u32 PufCtrlBits
 
 	/** - Fill IPI Payload */
 	XNVM_PACK_PAYLOAD0(Payload, (u32)XNVM_API_ID_EFUSE_RELOAD_N_PRGM_PROT_BITS);
-	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, Payload, PAYLOAD_ARG_CNT);
+	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, Payload, PAYLOAD_ARG_CNT, NULL);
 
 END:
 	return Status;
@@ -904,7 +905,7 @@ int XNvm_EfuseWriteMiscCtrlBits(XNvm_ClientInstance *InstancePtr, u32 MiscCtrlBi
 	 * Wait for IPI response from PLM  with a default timeout of 300 seconds
 	 */
 	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, (u32 *)MiscCtrlBitsWrCdo,
-			sizeof(XNvm_MiscCtrlBitsWriteCdo) / XNVM_WORD_LEN);
+			(u32)sizeof(XNvm_MiscCtrlBitsWriteCdo) / XNVM_WORD_LEN, NULL);
 	if (Status != XST_SUCCESS) {
 		XSECURE_STATUS_CHK_GLITCH_DETECT(Status);
 		XNvm_Printf(XNVM_DEBUG_GENERAL, "Misc Control Bits write failed;"
@@ -919,7 +920,7 @@ int XNvm_EfuseWriteMiscCtrlBits(XNvm_ClientInstance *InstancePtr, u32 MiscCtrlBi
 
 	/** - Fill IPI Payload */
 	XNVM_PACK_PAYLOAD0(Payload, (u32)XNVM_API_ID_EFUSE_RELOAD_N_PRGM_PROT_BITS);
-	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, Payload, PAYLOAD_ARG_CNT);
+	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, Payload, PAYLOAD_ARG_CNT, NULL);
 
 END:
 	return Status;
@@ -965,7 +966,7 @@ int XNvm_EfuseWriteBootModeDis(XNvm_ClientInstance *InstancePtr, u32 BootModeDis
 	 *  Wait for IPI response from PLM  with a default timeout of 300 seconds
 	 */
 	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, (u32 *)BootModeDisCdo,
-			sizeof(XNvm_BootModeDisCdo) / XNVM_WORD_LEN);
+			(u32)sizeof(XNvm_BootModeDisCdo) / XNVM_WORD_LEN, NULL);
 	if (Status != XST_SUCCESS) {
 		XSECURE_STATUS_CHK_GLITCH_DETECT(Status);
 		XNvm_Printf(XNVM_DEBUG_GENERAL, "Boot Mode disable write failed;"
@@ -980,7 +981,7 @@ int XNvm_EfuseWriteBootModeDis(XNvm_ClientInstance *InstancePtr, u32 BootModeDis
 
 	/** - Fill IPI Payload */
 	XNVM_PACK_PAYLOAD0(Payload, (u32)XNVM_API_ID_EFUSE_RELOAD_N_PRGM_PROT_BITS);
-	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, Payload, PAYLOAD_ARG_CNT);
+	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, Payload, PAYLOAD_ARG_CNT, NULL);
 
 END:
 	return Status;
@@ -1027,7 +1028,7 @@ int XNvm_EfuseWriteSecMisc1Bits(XNvm_ClientInstance *InstancePtr, u32 SecMisc1Bi
 	 *  Wait for IPI response from PLM  with a default timeout of 300 seconds
 	 */
 	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, (u32 *)SecMisc1BitsCdo,
-			sizeof(XNvm_SecMisc1BitsCdo) / XNVM_WORD_LEN);
+			(u32)sizeof(XNvm_SecMisc1BitsCdo) / XNVM_WORD_LEN, NULL);
 	if (Status != XST_SUCCESS) {
 		XSECURE_STATUS_CHK_GLITCH_DETECT(Status);
 		XNvm_Printf(XNVM_DEBUG_GENERAL, "Sec Misc 1 Bits write failed;"
@@ -1042,7 +1043,7 @@ int XNvm_EfuseWriteSecMisc1Bits(XNvm_ClientInstance *InstancePtr, u32 SecMisc1Bi
 
 	/** - Fill IPI Payload */
 	XNVM_PACK_PAYLOAD0(Payload, (u32)XNVM_API_ID_EFUSE_RELOAD_N_PRGM_PROT_BITS);
-	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, Payload, PAYLOAD_ARG_CNT);
+	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, Payload, PAYLOAD_ARG_CNT, NULL);
 
 END:
 	return Status;
@@ -1088,7 +1089,7 @@ int XNvm_EfuseWriteBootEnvCtrlBits(XNvm_ClientInstance *InstancePtr, u32 BootEnv
 	 *  Wait for IPI response from PLM  with a default timeout of 300 seconds
 	 */
 	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, (u32 *)BootEnvCtrlBitsCdo,
-			sizeof(XNvm_BootEnvCtrlBitsCdo) / XNVM_WORD_LEN);
+			(u32)sizeof(XNvm_BootEnvCtrlBitsCdo) / XNVM_WORD_LEN, NULL);
 	if (Status != XST_SUCCESS) {
 		XSECURE_STATUS_CHK_GLITCH_DETECT(Status);
 		XNvm_Printf(XNVM_DEBUG_GENERAL, "Boot Env Ctrl Bits write failed;"
@@ -1103,7 +1104,7 @@ int XNvm_EfuseWriteBootEnvCtrlBits(XNvm_ClientInstance *InstancePtr, u32 BootEnv
 
 	/** - Fill IPI Payload */
 	XNVM_PACK_PAYLOAD0(Payload, (u32)XNVM_API_ID_EFUSE_RELOAD_N_PRGM_PROT_BITS);
-	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, Payload, PAYLOAD_ARG_CNT);
+	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, Payload, PAYLOAD_ARG_CNT, NULL);
 
 END:
 	return Status;
@@ -1149,7 +1150,7 @@ int XNvm_EfuseWriteRomRsvdBits(XNvm_ClientInstance *InstancePtr, u32 RomRsvdBits
 	 * Wait for IPI response from PLM  with a default timeout of 300 seconds
 	 */
 	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, (u32 *)RomRsvdBitsWriteCdo,
-			sizeof(XNvm_RomRsvdBitsWriteCdo) / XNVM_WORD_LEN);
+			(u32)sizeof(XNvm_RomRsvdBitsWriteCdo) / XNVM_WORD_LEN, NULL);
 	if (Status != XST_SUCCESS) {
 		XNvm_Printf(XNVM_DEBUG_GENERAL, "Rom Reserved Bits write failed;"
 			"Error Code = %x\r\n", Status);
@@ -1163,7 +1164,7 @@ int XNvm_EfuseWriteRomRsvdBits(XNvm_ClientInstance *InstancePtr, u32 RomRsvdBits
 
 	/** - Fill IPI Payload */
 	XNVM_PACK_PAYLOAD0(Payload, (u32)XNVM_API_ID_EFUSE_RELOAD_N_PRGM_PROT_BITS);
-	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, Payload, PAYLOAD_ARG_CNT);
+	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, Payload, PAYLOAD_ARG_CNT, NULL);
 
 END:
 	return Status;
@@ -1209,7 +1210,7 @@ int XNvm_EfuseWriteGlitchConfigBits(XNvm_ClientInstance *InstancePtr, u32 Glitch
 	 * Wait for IPI response from PLM  with a default timeout of 300 seconds
 	 */
 	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, (u32 *)GlitchConfigCdo,
-			sizeof(XNvm_GlitchConfigCdo) / XNVM_WORD_LEN);
+			(u32)sizeof(XNvm_GlitchConfigCdo) / XNVM_WORD_LEN, NULL);
 	if (Status != XST_SUCCESS) {
 		XNvm_Printf(XNVM_DEBUG_GENERAL, "Glitch Config Bits write failed;"
 			"Error Code = %x\r\n", Status);
@@ -1223,7 +1224,7 @@ int XNvm_EfuseWriteGlitchConfigBits(XNvm_ClientInstance *InstancePtr, u32 Glitch
 
 	/** - Fill IPI Payload */
 	XNVM_PACK_PAYLOAD0(Payload, (u32)XNVM_API_ID_EFUSE_RELOAD_N_PRGM_PROT_BITS);
-	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, Payload, PAYLOAD_ARG_CNT);
+	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, Payload, PAYLOAD_ARG_CNT, NULL);
 
 END:
 	return Status;
@@ -1266,7 +1267,7 @@ int XNvm_EfuseWritePlmUpdate(XNvm_ClientInstance *InstancePtr, const u32 EnvDisF
 	 * Wait for IPI response from PLM  with a default timeout of 300 seconds
 	 */
 	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, (u32 *)DisPlmUpdateCdo,
-			sizeof(XNvm_DisPlmUpdateCdo) / XNVM_WORD_LEN);
+			(u32)sizeof(XNvm_DisPlmUpdateCdo) / XNVM_WORD_LEN, NULL);
 	if (Status != XST_SUCCESS) {
 		XNvm_Printf(XNVM_DEBUG_GENERAL, "Write disable PLM update failed;"
 			"Error Code = %x\r\n", Status);
@@ -1280,7 +1281,7 @@ int XNvm_EfuseWritePlmUpdate(XNvm_ClientInstance *InstancePtr, const u32 EnvDisF
 
 	/** - Fill IPI Payload */
 	XNVM_PACK_PAYLOAD0(Payload, (u32)XNVM_API_ID_EFUSE_RELOAD_N_PRGM_PROT_BITS);
-	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, Payload, PAYLOAD_ARG_CNT);
+	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, Payload, PAYLOAD_ARG_CNT, NULL);
 
 END:
 	return Status;
@@ -1323,7 +1324,7 @@ int XNvm_EfuseWriteDecOnly(XNvm_ClientInstance *InstancePtr, const u32 EnvDisFla
 	 *  Wait for IPI response from PLM  with a default timeout of 300 seconds.
 	 */
 	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, (u32 *)DecOnlyCdo,
-			sizeof(XNvm_DecOnlyCdo) / XNVM_WORD_LEN);
+			(u32)sizeof(XNvm_DecOnlyCdo) / XNVM_WORD_LEN, NULL);
 	if (Status != XST_SUCCESS) {
 		XNvm_Printf(XNVM_DEBUG_GENERAL, "Write dec only efuses failed;"
 			"Error Code = %x\r\n", Status);
@@ -1337,7 +1338,7 @@ int XNvm_EfuseWriteDecOnly(XNvm_ClientInstance *InstancePtr, const u32 EnvDisFla
 
 	/** - Fill IPI Payload */
 	XNVM_PACK_PAYLOAD0(Payload, (u32)XNVM_API_ID_EFUSE_RELOAD_N_PRGM_PROT_BITS);
-	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, Payload, PAYLOAD_ARG_CNT);
+	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, Payload, PAYLOAD_ARG_CNT, NULL);
 
 END:
 	return Status;
@@ -1384,7 +1385,7 @@ int XNvm_EfuseWriteFipsInfo(XNvm_ClientInstance *InstancePtr, const u16 FipsMode
 	 *  Wait for IPI response from PLM  with a default timeout of 300 seconds.
 	 */
 	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, (u32 *)FipsInfoCdo,
-			sizeof(XNvm_FipsInfoCdo) / XNVM_WORD_LEN);
+			(u32)sizeof(XNvm_FipsInfoCdo) / XNVM_WORD_LEN, NULL);
 	if (Status != XST_SUCCESS) {
 		XNvm_Printf(XNVM_DEBUG_GENERAL, "Write FIPS info efuses failed;"
 			"Error Code = %x\r\n", Status);
@@ -1398,7 +1399,7 @@ int XNvm_EfuseWriteFipsInfo(XNvm_ClientInstance *InstancePtr, const u16 FipsMode
 
 	/** - Fill IPI Payload */
 	XNVM_PACK_PAYLOAD0(Payload, (u32)XNVM_API_ID_EFUSE_RELOAD_N_PRGM_PROT_BITS);
-	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, Payload, PAYLOAD_ARG_CNT);
+	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, Payload, PAYLOAD_ARG_CNT, NULL);
 
 END:
 	return Status;
@@ -1448,7 +1449,7 @@ int XNvm_EfuseWriteRevocationId(XNvm_ClientInstance *InstancePtr, const u32 Revo
 	 * Wait for IPI response from PLM  with a default timeout of 300 seconds.
 	 */
 	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, (u32 *)RevokeIdCdo,
-			sizeof(XNvm_RevokeIdCdo) / XNVM_WORD_LEN);
+			(u32)sizeof(XNvm_RevokeIdCdo) / XNVM_WORD_LEN, NULL);
 	if (Status != XST_SUCCESS) {
 		XNvm_Printf(XNVM_DEBUG_GENERAL, "Write revocation Id efuses failed;"
 			"Error Code = %x\r\n", Status);
@@ -1462,7 +1463,7 @@ int XNvm_EfuseWriteRevocationId(XNvm_ClientInstance *InstancePtr, const u32 Revo
 
 	/** - Fill IPI Payload */
 	XNVM_PACK_PAYLOAD0(Payload, (u32)XNVM_API_ID_EFUSE_RELOAD_N_PRGM_PROT_BITS);
-	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, Payload, PAYLOAD_ARG_CNT);
+	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, Payload, PAYLOAD_ARG_CNT, NULL);
 
 END:
 	return Status;
@@ -1512,7 +1513,7 @@ int XNvm_EfuseWriteOffChipRevocationId(XNvm_ClientInstance *InstancePtr, const u
 	 *  Wait for IPI response from PLM with a default timeout of 300 seconds.
 	 */
 	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, (u32 *)OffChipIdCdo,
-			sizeof(XNvm_OffChipIdCdo) / XNVM_WORD_LEN);
+			(u32)sizeof(XNvm_OffChipIdCdo) / XNVM_WORD_LEN, NULL);
 	if (Status != XST_SUCCESS) {
 		XNvm_Printf(XNVM_DEBUG_GENERAL, "Write off chip revocation Id efuses failed;"
 			"Error Code = %x\r\n", Status);
@@ -1526,7 +1527,7 @@ int XNvm_EfuseWriteOffChipRevocationId(XNvm_ClientInstance *InstancePtr, const u
 
 	/** - Fill IPI Payload */
 	XNVM_PACK_PAYLOAD0(Payload, (u32)XNVM_API_ID_EFUSE_RELOAD_N_PRGM_PROT_BITS);
-	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, Payload, PAYLOAD_ARG_CNT);
+	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, Payload, PAYLOAD_ARG_CNT, NULL);
 
 END:
 	return Status;
@@ -1570,7 +1571,7 @@ int XNvm_EfuseWritePufAsUserFuses(XNvm_ClientInstance *InstancePtr, const u64 Pu
 	 *  - Send PUF user fuses CDO to PLM to write user specified PUF data to corresponding eFuses.
 	 *  Return XST_FAILURE if IPI request processing fails in PLM.
 	 */
-	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, Payload, PAYLOAD_ARG_CNT);
+	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, Payload, PAYLOAD_ARG_CNT, NULL);
 	if (Status != XST_SUCCESS) {
 		XSECURE_STATUS_CHK_GLITCH_DETECT(Status);
 		XNvm_Printf(XNVM_DEBUG_GENERAL, "PUF user fuses write failed; Error Code = %x\r\n", Status);
@@ -1634,7 +1635,7 @@ int XNvm_EfuseReadPufAsUserFuses(XNvm_ClientInstance *InstancePtr, const u64 Puf
 	 * If the timeout exceeds return error else return the status of the IPI response.
 	 */
 	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, (u32 *)RdCacheCdo,
-			sizeof(XNvm_RdCacheCdo) / XNVM_WORD_LEN);
+			(u32)sizeof(XNvm_RdCacheCdo) / XNVM_WORD_LEN, NULL);
 	if (Status != XST_SUCCESS) {
 		XNvm_Printf(XNVM_DEBUG_GENERAL, "PUF user fuses read failed; Error Code = %x\r\n", Status);
 	}
@@ -1690,7 +1691,7 @@ int XNvm_EfuseWritePuf(XNvm_ClientInstance *InstancePtr, const u64 PufHdAddr)
 	 * If the timeout exceeds then return error else return status of the IPI response.
 	 */
 	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, (u32*)PufWrCdo,
-			sizeof(XNvm_PufWriteCdo) / XNVM_WORD_LEN);
+			(u32)sizeof(XNvm_PufWriteCdo) / XNVM_WORD_LEN, NULL);
 	if (Status != XST_SUCCESS) {
 		XSECURE_STATUS_CHK_GLITCH_DETECT(Status);
 		XNvm_Printf(XNVM_DEBUG_GENERAL, "Writing PUF data failed;"
@@ -1705,7 +1706,7 @@ int XNvm_EfuseWritePuf(XNvm_ClientInstance *InstancePtr, const u64 PufHdAddr)
 
 	/** - Fill IPI Payload */
 	XNVM_PACK_PAYLOAD0(Payload, (u32)XNVM_API_ID_EFUSE_RELOAD_N_PRGM_PROT_BITS);
-	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, Payload, PAYLOAD_ARG_CNT);
+	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, Payload, PAYLOAD_ARG_CNT, NULL);
 
 END:
 	return Status;
@@ -1765,7 +1766,7 @@ int XNvm_EfuseReadPuf(XNvm_ClientInstance *InstancePtr, u64 PufHdAddr)
 		LowAddr, HighAddr);
 
 	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, (u32 *)RdCacheCdo,
-			sizeof(XNvm_RdCacheCdo) / XNVM_WORD_LEN);
+			(u32)sizeof(XNvm_RdCacheCdo) / XNVM_WORD_LEN, NULL);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
@@ -1782,7 +1783,7 @@ int XNvm_EfuseReadPuf(XNvm_ClientInstance *InstancePtr, u64 PufHdAddr)
 
 	Status = XST_FAILURE;
 	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, (u32 *)RdCacheCdo,
-			sizeof(XNvm_RdCacheCdo) / XNVM_WORD_LEN);
+			(u32)sizeof(XNvm_RdCacheCdo) / XNVM_WORD_LEN, NULL);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
@@ -1799,7 +1800,7 @@ int XNvm_EfuseReadPuf(XNvm_ClientInstance *InstancePtr, u64 PufHdAddr)
 
 	Status = XST_FAILURE;
 	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, (u32 *)RdCacheCdo,
-			sizeof(XNvm_RdCacheCdo) / XNVM_WORD_LEN);
+			(u32)sizeof(XNvm_RdCacheCdo) / XNVM_WORD_LEN, NULL);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
@@ -1821,7 +1822,7 @@ int XNvm_EfuseReadPuf(XNvm_ClientInstance *InstancePtr, u64 PufHdAddr)
 	 */
 	Status = XST_FAILURE;
 	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, (u32 *)RdCacheCdo,
-			sizeof(XNvm_RdCacheCdo) / XNVM_WORD_LEN);
+			(u32)sizeof(XNvm_RdCacheCdo) / XNVM_WORD_LEN, NULL);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
@@ -1915,7 +1916,7 @@ int XNvm_EfuseReadIv(XNvm_ClientInstance *InstancePtr, const u64 IvAddr,
 	 * If the timeout exceed return error else return the status of the IPI response
 	 */
 	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, (u32 *)RdCacheCdo,
-			sizeof(XNvm_RdCacheCdo) / XNVM_WORD_LEN);
+			(u32)sizeof(XNvm_RdCacheCdo) / XNVM_WORD_LEN, NULL);
 
 END:
 	return Status;
@@ -1972,7 +1973,7 @@ int XNvm_EfuseReadRevocationId(XNvm_ClientInstance *InstancePtr, const u64 Revok
 	 * If the timeout exceeds return error else return the status of the IPI response.
 	 */
 	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, (u32 *)RdCacheCdo,
-			sizeof(XNvm_RdCacheCdo) / XNVM_WORD_LEN);
+			(u32)sizeof(XNvm_RdCacheCdo) / XNVM_WORD_LEN, NULL);
 
 END:
 	return Status;
@@ -2033,7 +2034,7 @@ int XNvm_EfuseReadUserFuses(XNvm_ClientInstance *InstancePtr, u64 UserFuseAddr)
 	 */
 	Status = XST_FAILURE;
 	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, (u32 *)RdCacheCdo,
-			sizeof(XNvm_RdCacheCdo) / XNVM_WORD_LEN);
+			(u32)sizeof(XNvm_RdCacheCdo) / XNVM_WORD_LEN, NULL);
 
 END:
 	return Status;
@@ -2087,7 +2088,7 @@ int XNvm_EfuseReadMiscCtrlBits(XNvm_ClientInstance *InstancePtr, const u64 MiscC
 	 * If the timeout exceeds then return error else return the status of the IPI response.
 	 */
 	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, (u32 *)RdCacheCdo,
-			sizeof(XNvm_RdCacheCdo) / XNVM_WORD_LEN);
+			(u32)sizeof(XNvm_RdCacheCdo) / XNVM_WORD_LEN, NULL);
 	if (Status != XST_SUCCESS) {
 		XSECURE_STATUS_CHK_GLITCH_DETECT(Status);
 		goto END;
@@ -2188,7 +2189,7 @@ int XNvm_EfuseReadSecCtrlBits(XNvm_ClientInstance *InstancePtr, const u64 SecCtr
 	 * If the timeout exceeds then return error else return the status of the IPI response.
 	 */
 	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, (u32 *)RdCacheCdo,
-			sizeof(XNvm_RdCacheCdo) / XNVM_WORD_LEN);
+			(u32)sizeof(XNvm_RdCacheCdo) / XNVM_WORD_LEN, NULL);
 	if (Status != XST_SUCCESS) {
 		XSECURE_STATUS_CHK_GLITCH_DETECT(Status);
 		goto END;
@@ -2324,7 +2325,7 @@ int XNvm_EfuseReadSecMisc1Bits(XNvm_ClientInstance *InstancePtr, const u64 SecMi
 	 * If the timeout exceeds then return error else return status of the IPI response.
 	 */
 	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, (u32 *)RdCacheCdo,
-			sizeof(XNvm_RdCacheCdo) / XNVM_WORD_LEN);
+			(u32)sizeof(XNvm_RdCacheCdo) / XNVM_WORD_LEN, NULL);
 	if (Status != XST_SUCCESS) {
 		XSECURE_STATUS_CHK_GLITCH_DETECT(Status);
 		goto END;
@@ -2405,7 +2406,7 @@ int XNvm_EfuseReadBootEnvCtrlBits(XNvm_ClientInstance *InstancePtr, const u64 Bo
 	 * If the timeout exceeds then return error else return the status of the IPI response
 	 */
 	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, (u32 *)RdCacheCdo,
-			sizeof(XNvm_RdCacheCdo) / XNVM_WORD_LEN);
+			(u32)sizeof(XNvm_RdCacheCdo) / XNVM_WORD_LEN, NULL);
 	if (Status != XST_SUCCESS) {
 		XSECURE_STATUS_CHK_GLITCH_DETECT(Status);
 		goto END;
@@ -2494,7 +2495,7 @@ int XNvm_EfuseReadRomRsvdBits(XNvm_ClientInstance *InstancePtr, const u64 RomRsv
 	 *    If the timeout exceeds then error is returned otherwise it returns the status of the IPI response
 	 */
 	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, (u32 *)RdCacheCdo,
-			sizeof(XNvm_RdCacheCdo) / XNVM_WORD_LEN);
+			(u32)sizeof(XNvm_RdCacheCdo) / XNVM_WORD_LEN, NULL);
 	if (Status != XST_SUCCESS) {
 		XSECURE_STATUS_CHK_GLITCH_DETECT(Status);
 		goto END;
@@ -2576,7 +2577,7 @@ int XNvm_EfuseReadFipsInfoBits(XNvm_ClientInstance *InstancePtr, const u64 FipsI
 	 *    If the timeout exceeds then error is returned otherwise it returns the status of the IPI response
 	 */
 	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, (u32 *)RdCacheCdo,
-			sizeof(XNvm_RdCacheCdo) / XNVM_WORD_LEN);
+			(u32)sizeof(XNvm_RdCacheCdo) / XNVM_WORD_LEN, NULL);
 	if (Status != XST_SUCCESS) {
 		XSECURE_STATUS_CHK_GLITCH_DETECT(Status);
 		goto END;
@@ -2596,7 +2597,7 @@ int XNvm_EfuseReadFipsInfoBits(XNvm_ClientInstance *InstancePtr, const u64 FipsI
 	 */
 	Status = XST_FAILURE;
 	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, (u32 *)RdCacheCdo,
-			sizeof(XNvm_RdCacheCdo) / XNVM_WORD_LEN);
+			(u32)sizeof(XNvm_RdCacheCdo) / XNVM_WORD_LEN, NULL);
 	if (Status != XST_SUCCESS) {
 		XSECURE_STATUS_CHK_GLITCH_DETECT(Status);
 		goto END;
@@ -2659,7 +2660,7 @@ int XNvm_EfuseReadPufSecCtrlBits(XNvm_ClientInstance *InstancePtr, const u64 Puf
 		HighAddr);
 
 	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, (u32 *)RdCacheCdo,
-			sizeof(XNvm_RdCacheCdo) / XNVM_WORD_LEN);
+			(u32)sizeof(XNvm_RdCacheCdo) / XNVM_WORD_LEN, NULL);
 	if (Status != XST_SUCCESS) {
 		XSECURE_STATUS_CHK_GLITCH_DETECT(Status);
 		goto END;
@@ -2679,7 +2680,7 @@ int XNvm_EfuseReadPufSecCtrlBits(XNvm_ClientInstance *InstancePtr, const u64 Puf
 	 */
 	Status = XST_FAILURE;
 	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, (u32 *)RdCacheCdo,
-			sizeof(XNvm_RdCacheCdo) / XNVM_WORD_LEN);
+			(u32)sizeof(XNvm_RdCacheCdo) / XNVM_WORD_LEN, NULL);
 	if (Status != XST_SUCCESS) {
 		XSECURE_STATUS_CHK_GLITCH_DETECT(Status);
 		goto END;
@@ -2767,7 +2768,7 @@ int XNvm_EfuseReadOffchipRevokeId(XNvm_ClientInstance *InstancePtr, const u64 Of
 	 * If the timeout exceeds then return error else return the status of the IPI response.
 	 */
 	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, (u32 *)RdCacheCdo,
-			sizeof(XNvm_RdCacheCdo) / XNVM_WORD_LEN);
+			(u32)sizeof(XNvm_RdCacheCdo) / XNVM_WORD_LEN, NULL);
 
 END:
 	return Status;
@@ -2836,7 +2837,7 @@ int XNvm_EfuseReadPpkHash(XNvm_ClientInstance *InstancePtr, const u64 PpkHashAdd
 	 * If the timeout exceeds then return error else return the status of the IPI response.
 	 */
 	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, (u32 *)RdCacheCdo,
-			sizeof(XNvm_RdCacheCdo) / XNVM_WORD_LEN);
+			(u32)sizeof(XNvm_RdCacheCdo) / XNVM_WORD_LEN, NULL);
 
 END:
 	return Status;
@@ -2884,7 +2885,7 @@ int XNvm_EfuseReadDecOnly(XNvm_ClientInstance *InstancePtr, const u64 DecOnlyAdd
 	 * If the timeout exceeds then error is returned otherwise it returns the status of the IPI response
 	 */
 	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, (u32 *)RdCacheCdo,
-			sizeof(XNvm_RdCacheCdo) / XNVM_WORD_LEN);
+			(u32)sizeof(XNvm_RdCacheCdo) / XNVM_WORD_LEN, NULL);
 
 END:
 	return Status;
@@ -2932,7 +2933,7 @@ int XNvm_EfuseReadBootModeDis(XNvm_ClientInstance *InstancePtr, const u64 BootMo
 	 * If the timeout exceeds then error is returned otherwise it returns the status of the IPI response
 	 */
 	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, (u32 *)RdCacheCdo,
-			sizeof(XNvm_RdCacheCdo) / XNVM_WORD_LEN);
+			(u32)sizeof(XNvm_RdCacheCdo) / XNVM_WORD_LEN, NULL);
 
 END:
 	return Status;
@@ -2983,7 +2984,7 @@ int XNvm_EfuseReadDmeRevokeId(XNvm_ClientInstance *InstancePtr, const u64 DmeRev
 	 * If the timeout exceeds then error is returned otherwise it returns the status of the IPI response
 	 */
 	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, (u32 *)RdCacheCdo,
-			sizeof(XNvm_RdCacheCdo) / XNVM_WORD_LEN);
+			(u32)sizeof(XNvm_RdCacheCdo) / XNVM_WORD_LEN, NULL);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
@@ -3041,7 +3042,7 @@ int XNvm_EfuseReadDna(XNvm_ClientInstance *InstancePtr, const u64 DnaAddr)
 	 * If the timeout exceeds then error is returned otherwise it returns the status of the IPI response
 	 */
 	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, (u32 *)RdCacheCdo,
-			sizeof(XNvm_RdCacheCdo) / XNVM_WORD_LEN);
+			(u32)sizeof(XNvm_RdCacheCdo) / XNVM_WORD_LEN, NULL);
 
 END:
 	return Status;
@@ -3190,7 +3191,7 @@ static int XNvm_EfuseValidateNdWriteAesKey(const XNvm_ClientInstance *InstancePt
 	 */
 	Status = XST_FAILURE;
 	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, (u32 *)KeyWrCdo,
-			sizeof(XNvm_AesKeyWriteCdo) / XNVM_WORD_LEN);
+			(u32)sizeof(XNvm_AesKeyWriteCdo) / XNVM_WORD_LEN, NULL);
 
 END:
 	return Status;
@@ -3238,7 +3239,7 @@ static int XNvm_EfuseValidatNdWritePpkHash(const XNvm_ClientInstance *InstancePt
 	 */
 	Status = XST_FAILURE;
 	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, (u32 *)PpkWrCdo,
-			sizeof(XNvm_PpkWriteCdo) / XNVM_WORD_LEN);
+			(u32)sizeof(XNvm_PpkWriteCdo) / XNVM_WORD_LEN, NULL);
 
 END:
 	return Status;
@@ -3286,7 +3287,7 @@ static int XNvm_EfuseValidateNdWriteIv(const XNvm_ClientInstance *InstancePtr,
 	 */
 	Status = XST_FAILURE;
 	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, (u32 *)IvWrCdo,
-			sizeof(XNvm_IvWriteCdo) / XNVM_WORD_LEN);
+			(u32)sizeof(XNvm_IvWriteCdo) / XNVM_WORD_LEN, NULL);
 END:
 	return Status;
 }
@@ -3348,7 +3349,7 @@ int XNvm_EfuseAesKeyCrcCheck(const XNvm_ClientInstance *InstancePtr, const u32 A
 	 *  - Send check AES key CRC CDO to PLM to check the given CRC.
 	 *  Return XST_FAILURE if IPI request processing fails in PLM.
 	 */
-	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, Payload, PAYLOAD_ARG_CNT);
+	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, Payload, PAYLOAD_ARG_CNT, NULL);
 
 END:
 	return Status;

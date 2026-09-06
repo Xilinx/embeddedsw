@@ -29,6 +29,7 @@
 *       ng   11/22/23 Fixed doxygen grouping
 * 3.4   obs  02/18/25 Fixed IPI message length
 * 3.7   mb   04/23/26 Remove unused macros
+* 3.8   tus  08/20/26 Added optional IPI response argument to XNvm_ProcessMailbox
 *
 * </pre>
 *
@@ -157,7 +158,7 @@ static inline int XNvm_SetSlrIndex(XNvm_ClientInstance *InstancePtr, u32 SlrInde
 /************************** Variable Definitions *****************************/
 
 /************************** Function Definitions *****************************/
-int XNvm_ProcessMailbox(XMailbox *MailboxPtr, u32 *MsgPtr, u32 MsgLen);
+int XNvm_ProcessMailbox(XMailbox *MailboxPtr, u32 *MsgPtr, u32 MsgLen, u32 *Response);
 int XNvm_ClientInit(XNvm_ClientInstance* const InstancePtr, XMailbox* const MailboxPtr);
 
 #ifdef __cplusplus

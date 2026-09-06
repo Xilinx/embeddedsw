@@ -28,6 +28,8 @@
 *       nik  01/06/2026 Added support to allow use of PUF Helper Data eFUSEs for general purpose.
 *       tus  04/23/2026 Stored the return value and verify it matches the input
 *                       Ocphandler to confirm registration.
+* 3.8   tus  08/10/2026 Added support to return the XilNvm library
+*                       version and capability bits
 *
 * </pre>
 *
@@ -49,12 +51,63 @@
 #include "xnvm_plat_cmd.h"
 #endif
 #include "xnvm_cmd.h"
+#include "xnvm_ver.h"
+#include "xil_util.h"
+#include "xil_cryptoalginfo.h"
 
 /************************** Function Prototypes ******************************/
 static int XNvm_FeaturesCmd(u32 ApiId);
 static int XNvm_ProcessCmd(XPlmi_Cmd *Cmd);
 
 /************************** Constant Definitions *****************************/
+#ifdef XNVM_ACCESS_PUF_USER_DATA
+#define XNVM_CAP_ACCESS_PUF_USER_DATA	((u32)1U << XNVM_CAP_ACCESS_PUF_USER_DATA_BIT)	/**< PUF user data access enabled */
+#else
+#define XNVM_CAP_ACCESS_PUF_USER_DATA	(0U)	/**< PUF user data access disabled */
+#endif
+#ifdef XNVM_EN_ADD_PPKS
+#define XNVM_CAP_EN_ADD_PPKS		((u32)1U << XNVM_CAP_EN_ADD_PPKS_BIT)	/**< Additional PPKs enabled */
+#else
+#define XNVM_CAP_EN_ADD_PPKS		(0U)	/**< Additional PPKs disabled */
+#endif
+#ifdef XNVM_WRITE_SECURITY_CRITICAL_EFUSE
+#define XNVM_CAP_WRITE_SECURITY_CRITICAL_EFUSE	((u32)1U << XNVM_CAP_WRITE_SECURITY_CRITICAL_EFUSE_BIT)	/**< Security-critical eFuse write enabled */
+#else
+#define XNVM_CAP_WRITE_SECURITY_CRITICAL_EFUSE	(0U)	/**< Security-critical eFuse write disabled */
+#endif
+#ifdef XNVM_WRITE_USER_EFUSE
+#define XNVM_CAP_WRITE_USER_EFUSE	((u32)1U << XNVM_CAP_WRITE_USER_EFUSE_BIT)	/**< User eFuse write enabled */
+#else
+#define XNVM_CAP_WRITE_USER_EFUSE	(0U)	/**< User eFuse write disabled */
+#endif
+#ifdef XNVM_WRITE_KEY_MANAGEMENT_EFUSE
+#define XNVM_CAP_WRITE_KEY_MANAGEMENT_EFUSE	((u32)1U << XNVM_CAP_WRITE_KEY_MANAGEMENT_EFUSE_BIT)	/**< Key-management eFuse write enabled */
+#else
+#define XNVM_CAP_WRITE_KEY_MANAGEMENT_EFUSE	(0U)	/**< Key-management eFuse write disabled */
+#endif
+#ifdef XNVM_SET_EFUSE_CLK_FREQUENCY_FROM_RTCA
+#define XNVM_CAP_SET_EFUSE_CLK_FREQUENCY_FROM_RTCA	((u32)1U << XNVM_CAP_SET_EFUSE_CLK_FREQUENCY_FROM_RTCA_BIT)	/**< eFuse clock from RTCA enabled */
+#else
+#define XNVM_CAP_SET_EFUSE_CLK_FREQUENCY_FROM_RTCA	(0U)	/**< eFuse clock from RTCA disabled */
+#endif
+#ifdef XNVM_ENABLE_ENV_MONITOR_CHECKS
+#define XNVM_CAP_ENABLE_ENV_MONITOR_CHECKS	((u32)1U << XNVM_CAP_ENABLE_ENV_MONITOR_CHECKS_BIT)	/**< Env monitor checks enabled */
+#else
+#define XNVM_CAP_ENABLE_ENV_MONITOR_CHECKS	(0U)	/**< Env monitor checks disabled */
+#endif
+
+/**
+ * Library-wide capability bitmap reported to the client.
+ */
+#define XNVM_LIB_CAPABILITIES	\
+	(XNVM_CAP_ACCESS_PUF_USER_DATA | XNVM_CAP_EN_ADD_PPKS | \
+	 XNVM_CAP_WRITE_SECURITY_CRITICAL_EFUSE | \
+	 XNVM_CAP_WRITE_USER_EFUSE | \
+	 XNVM_CAP_WRITE_KEY_MANAGEMENT_EFUSE | \
+	 XNVM_CAP_SET_EFUSE_CLK_FREQUENCY_FROM_RTCA | \
+	 XNVM_CAP_ENABLE_ENV_MONITOR_CHECKS)
+			/**< Capabilities[0]: aggregate of enabled XilNvm features */
+
 static XPlmi_ModuleCmd XNvm_Cmds[XNVM_API_MAX];
 
 /* Structure holding access permissions of nvm module commands */
@@ -256,7 +309,18 @@ static int XNvm_ProcessCmd(XPlmi_Cmd *Cmd)
 	switch (Cmd->CmdId & XNVM_API_ID_MASK) {
 	case XNVM_API(XNVM_API_FEATURES):
 		Status = XNvm_FeaturesCmd(Pload[0]);
-                break;
+		/*
+		 * Always report the library version/capability at fixed response
+		 * indices so the client can query them through the Features command
+		 * without a dedicated IPI command / api-id.
+		 * XIL_LIBINFO_VERSION_RESP_INDEX carries the packed version (Major in
+		 * the upper 16 bits, Minor in the lower 16 bits) and
+		 * XIL_LIBINFO_CAP0_RESP_INDEX carries capability word 0.
+		 */
+		Cmd->Response[XIL_LIBINFO_VERSION_RESP_INDEX] = ((u32)XNVM_MAJOR_VERSION << 16U) |
+				((u32)XNVM_MINOR_VERSION & 0xFFFFU);
+		Cmd->Response[XIL_LIBINFO_CAP0_RESP_INDEX] = XNVM_LIB_CAPABILITIES;
+		break;
 	case XNVM_API(XNVM_API_ID_BBRAM_WRITE_AES_KEY):
 	case XNVM_API(XNVM_API_ID_BBRAM_ZEROIZE):
 	case XNVM_API(XNVM_API_ID_BBRAM_WRITE_USER_DATA):

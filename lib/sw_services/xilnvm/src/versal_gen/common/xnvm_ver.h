@@ -16,6 +16,7 @@
 * ----- ------  -------- ------------------------------------------------------
 * 3.2   mmd     07/04/23 Initial Release
 *       mb      05/04/26 Updated minor version to 3.7
+* 3.8   tus     08/10/26 Updated minor version to 3.8
 * </pre>
 *
 ******************************************************************************/
@@ -31,8 +32,8 @@ extern "C" {
 #include "xil_util.h"
 
 /**************************** Constant Definitions ****************************/
-#define XNVM_MAJOR_VERSION	3 /**< Major Version of XilNvm */
-#define XNVM_MINOR_VERSION	7 /**< Minor version of XilNvm */
+#define XNVM_MAJOR_VERSION	3U /**< Major Version of XilNvm */
+#define XNVM_MINOR_VERSION	8U /**< Minor version of XilNvm */
 
 /****************** Macros (Inline Functions) Definitions *********************/
 

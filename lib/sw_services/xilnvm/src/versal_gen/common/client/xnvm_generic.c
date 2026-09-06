@@ -17,6 +17,7 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- ---------------------------------------------------------------------------
 * 3.7   tbk  03/24/26 Initial release for unified SMC/Mailbox handling
+* 3.8   tus  08/10/26 Returned the response payload on the IPI mailbox path
 *
 * </pre>
 *
@@ -52,8 +53,14 @@
  * @param	InstancePtr	Pointer to the client instance
  * @param	PayloadBuf	Pointer to the payload message
  * @param	PayloadLen	Length of the payload message
- * @param	ResponseBuf	Pointer to store response values (can be NULL)
- * @param	ResponseLen	Length of response buffer (pass 0U when ResponseBuf is NULL)
+ * @param	ResponseBuf	Pointer to the caller buffer that receives the response
+ *				data words. When non-NULL, it must hold RESPONSE_ARG_CNT
+ *				words: the IPI receive path fills the whole response frame
+ *				before the status word is shifted out. May be NULL when no
+ *				response data is needed.
+ * @param	ResponseLen	Number of response data words the caller consumes
+ *				(0..RESPONSE_ARG_CNT - 1). This is the count of returned
+ *				words, not the required buffer size (see ResponseBuf).
  *
  * @return
  * 		- XST_SUCCESS  If the request is successful
@@ -68,9 +75,15 @@ int XNvm_SendRequest(const XNvm_ClientInstance *InstancePtr, u32 *PayloadBuf, u3
 			u32 *ResponseBuf, u32 ResponseLen)
 {
 	volatile int Status = XST_FAILURE;
+	u32 Idx = 0U;
 
-	/** - Validate input parameters */
-	if ((PayloadBuf == NULL) || (PayloadLen == 0U)) {
+	/**
+	 * - A non-zero ResponseLen requires a non-NULL ResponseBuf. ResponseLen is
+	 *   clamped below to the reachable data words before the mailbox shift.
+	 */
+	if ((PayloadBuf == NULL) || (PayloadLen == 0U) ||
+	    (ResponseLen > (u32)RESPONSE_ARG_CNT) ||
+	    ((ResponseLen > 0U) && (ResponseBuf == NULL))) {
 		Status = XST_INVALID_PARAM;
 		goto END;
 	}
@@ -78,6 +91,7 @@ int XNvm_SendRequest(const XNvm_ClientInstance *InstancePtr, u32 *PayloadBuf, u3
 #if defined (__aarch64__) && (EL1_NONSECURE == 1)
 	/** - For AArch64 EL1 non-secure, use SMC call */
 	(void)InstancePtr; /**< Mark InstancePtr as unused to avoid compiler warning */
+	(void)Idx; /**< Mark Idx as unused to avoid compiler warning */
 
 	/** - Perform SMC call for EL1 non-secure AArch64 applications */
 	Status = XNvm_SmcCall(PayloadBuf, PayloadLen, ResponseBuf, ResponseLen);
@@ -89,14 +103,28 @@ int XNvm_SendRequest(const XNvm_ClientInstance *InstancePtr, u32 *PayloadBuf, u3
 	}
 
 	/** - Send request through IPI mailbox */
-	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, PayloadBuf, PayloadLen);
+	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, PayloadBuf, PayloadLen,
+				ResponseBuf);
+	/** On failure, return without shifting/mutating ResponseBuf. */
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
 
-	/**
-	 * Note: For mailbox path, response is not directly returned.
-	 *  The caller should handle response retrieval if needed.
+	/** Cap ResponseLen: the mailbox shift below consumes Response[0], leaving
+	 *  RESPONSE_ARG_CNT - 1 data slots reachable via ResponseBuf[Idx + 1U].
 	 */
-	(void)ResponseBuf; /* Unused in mailbox path */
-	(void)ResponseLen; /* Unused in mailbox path */
+	if (ResponseLen > ((u32)RESPONSE_ARG_CNT - 1U)) {
+		ResponseLen = (u32)RESPONSE_ARG_CNT - 1U;
+	}
+
+	/** Shift IPI response data in ResponseBuf to skip Response[0] (PLM exec status,
+	 *  returned via Status) so ResponseBuf[0] holds the first data word, matching
+	 *  the SMC path layout. XNvm_ProcessMailbox() writes RESPONSE_ARG_CNT words when
+	 *  ResponseBuf is non-NULL.
+	 */
+	for (Idx = 0U; Idx < ResponseLen; Idx++) {
+		ResponseBuf[Idx] = ResponseBuf[Idx + 1U];
+	}
 #endif
 
 END:

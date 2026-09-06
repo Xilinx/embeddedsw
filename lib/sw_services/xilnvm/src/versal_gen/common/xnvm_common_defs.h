@@ -24,6 +24,7 @@
 * 3.8   rpu  07/06/26 Clean up PPK hash length macros
 *       mkr  07/20/26 Moved XNVM_CL_MAX_COUNT_VAL definition from xnvm_bbram.c to xnvm_common_defs.h
                       to make it available for both client and server.
+*       tus  08/19/26 Added XilNvm capability bit enum
 *
 * </pre>
 *
@@ -95,6 +96,21 @@ extern "C" {
 #define XNVM_BBRAM_AES_KEY_SIZE_IN_WORDS (XNVM_BBRAM_AES_KEY_SIZE / sizeof(u32))
  /**< AES Key size in words */
 /** @} */
+
+/**
+ * XilNvm capability bits in Xil_LibInfo.Capability[0] returned in the
+ * Features-command library-info response. Each enumerator is a bit position.
+ * Do not reorder.
+ */
+enum {
+	XNVM_CAP_ACCESS_PUF_USER_DATA_BIT		= 0,	/**< XNVM_ACCESS_PUF_USER_DATA */
+	XNVM_CAP_EN_ADD_PPKS_BIT			= 1,	/**< XNVM_EN_ADD_PPKS */
+	XNVM_CAP_WRITE_SECURITY_CRITICAL_EFUSE_BIT	= 2,	/**< XNVM_WRITE_SECURITY_CRITICAL_EFUSE */
+	XNVM_CAP_WRITE_USER_EFUSE_BIT			= 3,	/**< XNVM_WRITE_USER_EFUSE */
+	XNVM_CAP_WRITE_KEY_MANAGEMENT_EFUSE_BIT		= 4,	/**< XNVM_WRITE_KEY_MANAGEMENT_EFUSE */
+	XNVM_CAP_SET_EFUSE_CLK_FREQUENCY_FROM_RTCA_BIT	= 5,	/**< XNVM_SET_EFUSE_CLK_FREQUENCY_FROM_RTCA */
+	XNVM_CAP_ENABLE_ENV_MONITOR_CHECKS_BIT		= 6	/**< XNVM_ENABLE_ENV_MONITOR_CHECKS */
+};
 
 /***************** Macros (Inline Functions) Definitions *********************/
 

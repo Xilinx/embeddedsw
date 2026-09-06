@@ -24,6 +24,7 @@
 *       skg  10/28/22 Added In body comments for APIs
 * 3.3   ng   11/22/23 Fixed doxygen grouping
 *       pre  10/03/25 Updated comment which says about IPI response timeout
+* 3.8   tus  08/20/26 Added optional IPI response argument to XNvm_ProcessMailbox
 *
 * </pre>
 *
@@ -54,19 +55,26 @@
  * @param	MailboxPtr	Pointer to mailbox instance
  * @param	MsgPtr		Pointer to the payload message
  * @param	MsgLen		Length of the message
+ * @param	Response	Pointer to store the IPI response. When non-NULL,
+ * 				the buffer must hold RESPONSE_ARG_CNT words. Word 0 is
+ * 				the IPI status and the following words are payload data.
  *
  * @return
  * 		- XST_SUCCESS  If the IPI send and receive is successful
  * 		- XST_FAILURE  If there is a failure
  *
- * @note	Payload  consists of API id and call arguments to be written
- * 		in IPI buffer
+ * @note	Payload consists of API id and call arguments to be written
+ * 		in IPI buffer.
  *
  ****************************************************************************/
-int XNvm_ProcessMailbox(XMailbox *MailboxPtr, u32 *MsgPtr, u32 MsgLen)
+int XNvm_ProcessMailbox(XMailbox *MailboxPtr, u32 *MsgPtr, u32 MsgLen, u32 *Response)
 {
 	int Status = XST_FAILURE;
-	u32 Response[RESPONSE_ARG_CNT];
+	u32 LocalResp[RESPONSE_ARG_CNT] = {0U};
+
+	if (Response == NULL) {
+		Response = LocalResp;
+	}
 
 	/**
 	 *  - Send IPI CDO to PLM.
