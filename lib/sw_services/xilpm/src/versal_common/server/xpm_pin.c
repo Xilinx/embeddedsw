@@ -575,7 +575,8 @@ XStatus XPmPin_GetPinGroups(u32 PinId, u32 Index, u16 *Groups)
 		goto done;
 	}
 
-	if (NULL == Pin) {
+	/* Bound Index before the unsigned remaining-count subtraction can wrap */
+	if ((NULL == Pin) || (Index > (u32)Pin->NumGroups)) {
 		Status = XST_INVALID_PARAM;
 		goto done;
 	} else {
