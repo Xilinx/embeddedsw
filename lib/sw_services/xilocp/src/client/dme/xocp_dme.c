@@ -17,6 +17,7 @@
 * ----- ---- -------- ------------------------------------------------------------------------------
 * 1.7   rpu  02/18/26 Initial release
 *       rpu  03/11/26 Validate input parameters
+* 1.8   tus  08/07/26 Passed optional IPI response argument to XOcp_ProcessMailbox
 * </pre>
 *
 * @note
@@ -81,7 +82,7 @@ int XOcp_GenDmeResp(XOcp_ClientInstance *InstancePtr, u64 NonceAddr,
 				DmeStructResAddr,
 				(DmeStructResAddr >> XOCP_ADDR_HIGH_SHIFT));
 
-	Status = XOcp_ProcessMailbox(InstancePtr->MailboxPtr, Payload, PAYLOAD_ARG_CNT);
+	Status = XOcp_ProcessMailbox(InstancePtr->MailboxPtr, Payload, PAYLOAD_ARG_CNT, NULL);
 
 END:
 	return Status;

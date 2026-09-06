@@ -24,6 +24,8 @@
 * 1.4   har  06/11/24 Added XOCP_API_ATTEST_WITH_KEYWRAP_DEVAK API ID
 * 	rmv  07/17/25 Added XOCP_API_OCP_SUBSYS_INPUT API ID
 * 1.7   rpu  02/18/26 Fixed Doxygen warnings
+* 1.8   tus  08/07/26 Added XilOcp capability bit-position enum for
+*                     library-info reporting via the Features command
 * </pre>
 * @note
 *
@@ -76,6 +78,18 @@ extern "C" {
 #define XOCP_DME_NONCE_SIZE_IN_BITS		(256U) /**< Nonce buffer size in bits */
 
 #define XOCP_ADDR_HIGH_SHIFT			(32U) /**< Shift to get higher address */
+
+/**
+ * XilOcp capability bits in Xil_LibInfo.Capability[0] returned by the
+ * library-info query. Each enumerator is a bit position. Do not reorder.
+ */
+enum {
+	XOCP_CAP_HW_PCR_BIT		= 0,	/**< PLM_HW_PCR */
+	XOCP_CAP_KEY_MGMT_BIT		= 1,	/**< PLM_OCP_KEY_MGMT */
+	XOCP_CAP_NATIVE_KEY_MGMT_BIT	= 2,	/**< PLM_OCP_NATIVE_KEY_MGMT */
+	XOCP_CAP_KEY_WRAP_BIT		= 3,	/**< PLM_OCP_KEY_WRAP */
+	XOCP_CAP_ASUFW_KEY_MGMT_BIT	= 4	/**< PLM_OCP_ASUFW_KEY_MGMT */
+};
 
 /***************************** Include Files *********************************/
 

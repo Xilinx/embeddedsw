@@ -17,6 +17,7 @@
 * ----- ---- -------- ------------------------------------------------------------------------------
 * 1.7   rpu  02/18/26 Initial release
 *       rpu  03/11/26 Validate input parameters
+* 1.8   tus  08/07/26 Passed optional IPI response argument to XOcp_ProcessMailbox
 * </pre>
 *
 * @note
@@ -85,7 +86,7 @@ int XOcp_ExtendSwPcr(XOcp_ClientInstance *InstancePtr, XOcp_SwPcrExtendParams *E
 	XOCP_PACK_PAYLOAD2(Payload, XOCP_API_EXTEND_SWPCR, ExtendParamsAddr,
 				(ExtendParamsAddr >> XOCP_ADDR_HIGH_SHIFT));
 
-	Status = XOcp_ProcessMailbox(InstancePtr->MailboxPtr, Payload, PAYLOAD_ARG_CNT);
+	Status = XOcp_ProcessMailbox(InstancePtr->MailboxPtr, Payload, PAYLOAD_ARG_CNT, NULL);
 
 END:
 	return Status;
@@ -134,7 +135,7 @@ int XOcp_GetSwPcr(XOcp_ClientInstance *InstancePtr, u32 PcrMask, u8 *PcrBuf,
 				(PcrBufAddr >> XOCP_ADDR_HIGH_SHIFT),
 				PcrBufSize);
 
-	Status = XOcp_ProcessMailbox(InstancePtr->MailboxPtr, Payload,	PAYLOAD_ARG_CNT);
+	Status = XOcp_ProcessMailbox(InstancePtr->MailboxPtr, Payload, PAYLOAD_ARG_CNT, NULL);
 
 END:
 	return Status;
@@ -174,7 +175,7 @@ int XOcp_GetSwPcrLog(XOcp_ClientInstance *InstancePtr, XOcp_SwPcrLogReadData *Lo
 	XOCP_PACK_PAYLOAD2(Payload, XOCP_API_GET_SWPCRLOG, LogBufAddr,
 				(LogBufAddr >> XOCP_ADDR_HIGH_SHIFT));
 
-	Status = XOcp_ProcessMailbox(InstancePtr->MailboxPtr, Payload, PAYLOAD_ARG_CNT);
+	Status = XOcp_ProcessMailbox(InstancePtr->MailboxPtr, Payload, PAYLOAD_ARG_CNT, NULL);
 
 END:
 	return Status;
@@ -215,7 +216,7 @@ int XOcp_GetSwPcrData(XOcp_ClientInstance *InstancePtr, XOcp_SwPcrReadData *Data
 	XOCP_PACK_PAYLOAD2(Payload, XOCP_API_GET_SWPCRDATA, DataBufAddr,
 				(DataBufAddr >> XOCP_ADDR_HIGH_SHIFT));
 
-	Status = XOcp_ProcessMailbox(InstancePtr->MailboxPtr, Payload, PAYLOAD_ARG_CNT);
+	Status = XOcp_ProcessMailbox(InstancePtr->MailboxPtr, Payload, PAYLOAD_ARG_CNT, NULL);
 
 END:
 	return Status;

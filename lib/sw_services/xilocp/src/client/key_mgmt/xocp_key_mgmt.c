@@ -17,6 +17,7 @@
 * ----- ---- -------- ------------------------------------------------------------------------------
 * 1.7   rpu  02/18/26 Initial release
 *       rpu  03/11/26 Validate input parameters
+* 1.8   tus  08/07/26 Passed optional IPI response argument to XOcp_ProcessMailbox
 * </pre>
 *
 * @note
@@ -74,7 +75,7 @@ int XOcp_GetX509Cert(XOcp_ClientInstance *InstancePtr, u64 GetX509CertAddr)
 	XOCP_PACK_PAYLOAD2(Payload, XOCP_API_GETX509CERT, GetX509CertAddr,
 				(GetX509CertAddr >> XOCP_ADDR_HIGH_SHIFT));
 
-	Status = XOcp_ProcessMailbox(InstancePtr->MailboxPtr, Payload, PAYLOAD_ARG_CNT);
+	Status = XOcp_ProcessMailbox(InstancePtr->MailboxPtr, Payload, PAYLOAD_ARG_CNT, NULL);
 
 END:
 	return Status;
@@ -112,7 +113,7 @@ int XOcp_ClientAttestWithDevAk(XOcp_ClientInstance *InstancePtr,
 	XOCP_PACK_PAYLOAD2(Payload, XOCP_API_ATTESTWITHDEVAK, AttestWithDevAk,
 				(AttestWithDevAk >> XOCP_ADDR_HIGH_SHIFT));
 
-	Status = XOcp_ProcessMailbox(InstancePtr->MailboxPtr, Payload, PAYLOAD_ARG_CNT);
+	Status = XOcp_ProcessMailbox(InstancePtr->MailboxPtr, Payload, PAYLOAD_ARG_CNT, NULL);
 
 END:
 	return Status;
@@ -157,7 +158,7 @@ int XOcp_ClientAttestWithKeyWrapDevAk(XOcp_ClientInstance *InstancePtr,
 			AttnPloadSize, PubKeyOffset,
 			SignatureAddr, (SignatureAddr >> XOCP_ADDR_HIGH_SHIFT));
 
-	Status = XOcp_ProcessMailbox(InstancePtr->MailboxPtr, Payload, PAYLOAD_ARG_CNT);
+	Status = XOcp_ProcessMailbox(InstancePtr->MailboxPtr, Payload, PAYLOAD_ARG_CNT, NULL);
 
 END:
 	return Status;
@@ -207,7 +208,7 @@ int XOcp_GenSharedSecretWithDevAk(XOcp_ClientInstance *InstancePtr, const u8* Pu
 				SharedSecretAddr,
 				(SharedSecretAddr >> XOCP_ADDR_HIGH_SHIFT));
 
-	Status = XOcp_ProcessMailbox(InstancePtr->MailboxPtr, Payload, PAYLOAD_ARG_CNT);
+	Status = XOcp_ProcessMailbox(InstancePtr->MailboxPtr, Payload, PAYLOAD_ARG_CNT, NULL);
 
 END:
 	return Status;

@@ -23,6 +23,8 @@
 *       kal  06/02/23 Added client side API for SW PCR
 * 1.7   rpu  02/18/26 Refactor OCP client library
 * 1.8   sri  08/24/26 Add DME and key mgmt client includes for Versal_2VP_P
+*       tus  08/07/26 Added XOcp_GetClientLibVersion and
+*                     XOcp_GetServerLibInfo
 * </pre>
 *
 * @note
@@ -38,6 +40,8 @@ extern "C" {
 
 /***************************** Include Files *********************************/
 #include "xil_types.h"
+#include "xil_util.h"
+#include "xil_cryptoalginfo.h"
 #include "xocp_mailbox.h"
 #include "xocp_def.h"
 #include "xocp_common.h"
@@ -64,6 +68,8 @@ extern "C" {
 
 /************************** Function Prototypes ******************************/
 int XOcp_ClientInit(XOcp_ClientInstance* const InstancePtr, XMailbox* const MailboxPtr);
+int XOcp_GetClientLibVersion(u32 *Version);
+int XOcp_GetServerLibInfo(XOcp_ClientInstance *InstancePtr, Xil_LibInfo *LibInfo);
 
 #ifdef __cplusplus
 }

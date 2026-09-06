@@ -19,6 +19,7 @@
 * 1.0   am   12/21/22 Initial release
 * 1.1   obs  02/18/25 Fixed IPI message length
 * 1.7   rpu  02/18/26 Fixed Doxygen warnings
+* 1.8   tus  08/07/26 Added optional IPI response argument to XOcp_ProcessMailbox
 * </pre>
 * @note
 *
@@ -112,7 +113,7 @@ static inline u32 OcpHeader(u32 Len, u32 ApiId)
 /************************** Variable Definitions *****************************/
 
 /************************** Function Prototypes *****************************/
-int XOcp_ProcessMailbox(XMailbox *MailboxPtr, u32 *MsgPtr, u32 MsgLen);
+int XOcp_ProcessMailbox(XMailbox *MailboxPtr, u32 *MsgPtr, u32 MsgLen, u32 *Response);
 
 #ifdef __cplusplus
 }

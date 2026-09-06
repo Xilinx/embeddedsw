@@ -29,6 +29,7 @@
 *       rmv  07/17/25 Added support to store OCP subsystem IDs for ASUFW
 *       tvp  05/15/25 XOcp_ShutdownHandler is not applicable for Versal_2vp
 * 1.7   rmv  01/30/26 Refactor xilocp library
+* 1.8   tus  08/07/26 Added the library version command with capability bits
 *
 * </pre>
 *
@@ -57,8 +58,45 @@
 #include "xocp_asufw.h"
 #endif
 #include "xocp_pcr.h"
+#include "xocp_ver.h"
+#include "xil_util.h"
+#include "xil_cryptoalginfo.h"
 
 /************************** Constant Definitions *****************************/
+#ifdef PLM_HW_PCR
+#define XOCP_CAP_HW_PCR			((u32)1U << XOCP_CAP_HW_PCR_BIT)	/**< HW PCR present */
+#else
+#define XOCP_CAP_HW_PCR			(0U)	/**< HW PCR excluded from the build */
+#endif
+#ifdef PLM_OCP_KEY_MGMT
+#define XOCP_CAP_KEY_MGMT		((u32)1U << XOCP_CAP_KEY_MGMT_BIT)	/**< OCP key management present */
+#else
+#define XOCP_CAP_KEY_MGMT		(0U)	/**< OCP key management excluded from the build */
+#endif
+#ifdef PLM_OCP_NATIVE_KEY_MGMT
+#define XOCP_CAP_NATIVE_KEY_MGMT	((u32)1U << XOCP_CAP_NATIVE_KEY_MGMT_BIT)	/**< Native key management present */
+#else
+#define XOCP_CAP_NATIVE_KEY_MGMT	(0U)	/**< Native key management excluded from the build */
+#endif
+#ifdef PLM_OCP_KEY_WRAP
+#define XOCP_CAP_KEY_WRAP		((u32)1U << XOCP_CAP_KEY_WRAP_BIT)	/**< Key wrap present */
+#else
+#define XOCP_CAP_KEY_WRAP		(0U)	/**< Key wrap excluded from the build */
+#endif
+#ifdef PLM_OCP_ASUFW_KEY_MGMT
+#define XOCP_CAP_ASUFW_KEY_MGMT		((u32)1U << XOCP_CAP_ASUFW_KEY_MGMT_BIT)	/**< ASUFW key management present */
+#else
+#define XOCP_CAP_ASUFW_KEY_MGMT		(0U)	/**< ASUFW key management excluded from the build */
+#endif
+
+/**
+ * Library-wide capability bitmap reported to the client.
+ */
+#define XOCP_LIB_CAPABILITIES	\
+	(XOCP_CAP_HW_PCR | XOCP_CAP_KEY_MGMT | \
+	 XOCP_CAP_NATIVE_KEY_MGMT | XOCP_CAP_KEY_WRAP | \
+	 XOCP_CAP_ASUFW_KEY_MGMT)
+			/**< Capabilities[0]: aggregate of enabled XilOcp features */
 
 /***************** Macros (Inline Functions) Definitions *********************/
 #define XOCP_CERT_USERIN_FIELD_MASK			(0x00FF0000U)
@@ -171,6 +209,17 @@ static int XOcp_ProcessCmd(XPlmi_Cmd *Cmd)
 	switch (Cmd->CmdId & XOCP_API_ID_MASK) {
 		case XOCP_API(XOCP_API_FEATURES):
 			Status = XOcp_FeaturesCmd(Pload[0]);
+			/*
+			 * Always report the library version/capability at fixed response
+			 * indices so the client can query them through the Features
+			 * command without a dedicated IPI command / api-id.
+			 * XIL_LIBINFO_VERSION_RESP_INDEX carries the packed version (Major
+			 * in the upper 16 bits, Minor in the lower 16 bits) and
+			 * XIL_LIBINFO_CAP0_RESP_INDEX carries capability word 0.
+			 */
+			Cmd->Response[XIL_LIBINFO_VERSION_RESP_INDEX] = ((u32)XOCP_MAJOR_VERSION << 16U) |
+					((u32)XOCP_MINOR_VERSION & 0xFFFFU);
+			Cmd->Response[XIL_LIBINFO_CAP0_RESP_INDEX] = XOCP_LIB_CAPABILITIES;
 			break;
 #ifdef PLM_HW_PCR
 		case XOCP_API(XOCP_API_EXTEND_HWPCR):

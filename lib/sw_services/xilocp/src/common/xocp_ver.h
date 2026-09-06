@@ -16,6 +16,7 @@
 * 1.3   mss     10/19/23 Initial Release
 * 1.5   vss     04/25/25 Updated minor version
 * 1.7   mb      04/28/26 Updated minor version to 1.7
+* 1.8   tus     08/07/26 Updated minor version to 1.8
 *
 * </pre>
 *
@@ -33,7 +34,7 @@ extern "C" {
 
 /**************************** Constant Definitions ****************************/
 #define XOCP_MAJOR_VERSION	1U /**< Major Version of XilOcp */
-#define XOCP_MINOR_VERSION	7U /**< Minor version of XilOcp */
+#define XOCP_MINOR_VERSION	8U /**< Minor version of XilOcp */
 
 /****************** Macros (Inline Functions) Definitions *********************/
 
