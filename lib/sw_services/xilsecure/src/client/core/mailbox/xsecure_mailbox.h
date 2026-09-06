@@ -35,6 +35,7 @@
 *       hj   10/03/24 Removed XSecure_InputSlrIndex function as it is duplicate of
 *                     XSecure_SetSlrIndex
 * 5.6   obs  02/18/25 Fixed IPI message length
+* 5.8   tus  08/21/26 Added optional Response argument to XSecure_ProcessMailbox
 *
 * </pre>
 *
@@ -161,7 +162,7 @@ static inline int XSecure_SetSlrIndex(XSecure_ClientInstance *InstancePtr, u32 S
 /************************** Variable Definitions *****************************/
 
 /************************** Function Definitions *****************************/
-int XSecure_ProcessMailbox(XMailbox *MailboxPtr, u32 *MsgPtr, u32 MsgLen);
+int XSecure_ProcessMailbox(XMailbox *MailboxPtr, u32 *MsgPtr, u32 MsgLen, u32 *Response);
 int XSecure_ClientInit(XSecure_ClientInstance* const InstancePtr, XMailbox* const MailboxPtr);
 
 /** @} */

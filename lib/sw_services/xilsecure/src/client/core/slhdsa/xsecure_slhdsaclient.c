@@ -16,6 +16,7 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- ----------------------------------------------------------------------------
 * 5.7   tvp  03/20/26 Initial release
+* 5.8   tus  08/21/26 Updated XSecure_ProcessMailbox call for the added response argument
 *
 * </pre>
 *
@@ -62,7 +63,7 @@ int XSecure_SlhdsaSignVerifyClient(XSecure_ClientInstance *InstancePtr, u64 Slhd
 	 * - Send an IPI request to the PLM by using the CDO command to call XSecure_SlhdsaVerify
 	 *   API and returns the status of the IPI response.
 	 */
-	Status = XSecure_ProcessMailbox(InstancePtr->MailboxPtr, Payload, PAYLOAD_ARG_CNT);
+	Status = XSecure_ProcessMailbox(InstancePtr->MailboxPtr, Payload, PAYLOAD_ARG_CNT, NULL);
 
 END:
 	return Status;

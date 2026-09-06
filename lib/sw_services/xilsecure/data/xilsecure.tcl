@@ -36,6 +36,10 @@
 #       kal  07/24/24 Code refactoring for versal_2ve_2vm platform
 #       kal  09/25/24 Remove deleting folders which are set in secure_drc
 #       pre  03/02/25 Deleting xsecure_resourcehandling files for client processor in server mode
+# 5.8   tus  09/06/26 Copy client/core/generic, client/core/smc and
+#                     client/core/utils sources so XSCT client BSPs include
+#                     XSecure_SendRequest, XSecure_SmcCall (aarch64 EL1) and the
+#                     library-info APIs (xsecure_libver)
 #
 ##############################################################################
 
@@ -243,6 +247,15 @@ proc secure_drc {libhandle} {
 				file copy -force $entry "./src"
 			}
 			foreach entry [glob -nocomplain -types f [file join "$client/core/mailbox" *]] {
+				file copy -force $entry "./src"
+			}
+			foreach entry [glob -nocomplain -types f [file join "$client/core/generic" *]] {
+				file copy -force $entry "./src"
+			}
+			foreach entry [glob -nocomplain -types f [file join "$client/core/smc" *]] {
+				file copy -force $entry "./src"
+			}
+			foreach entry [glob -nocomplain -types f [file join "$client/core/utils" *]] {
 				file copy -force $entry "./src"
 			}
 			if {($proc_type == "microblaze" && [llength $is_versal] > 0) ||

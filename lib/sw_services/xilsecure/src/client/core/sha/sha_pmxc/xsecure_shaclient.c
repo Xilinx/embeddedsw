@@ -18,6 +18,7 @@
 * ----- ---- -------- -------------------------------------------------------
 * 1.0   kal  03/23/21 Initial release
 *       kal  04/06/25 Updated SHA client API's
+* 5.8   tus  08/21/26 Updated XSecure_ProcessMailbox call for the added response argument
 *
 * </pre>
 *
@@ -79,7 +80,7 @@ int XSecure_Sha3Operation(XSecure_ClientInstance *InstancePtr, XSecure_ShaOpPara
 	 *   Wait for IPI response from PLM with a timeout.
 	 *   If the timeout exceeds then error is returned otherwise it returns the status of the IPI response
 	 */
-	Status = XSecure_ProcessMailbox(InstancePtr->MailboxPtr, Payload, PAYLOAD_ARG_CNT);
+	Status = XSecure_ProcessMailbox(InstancePtr->MailboxPtr, Payload, PAYLOAD_ARG_CNT, NULL);
 	if (Status != XST_SUCCESS) {
 		XSecure_Printf(XSECURE_DEBUG_GENERAL, "Sha3 Operation Failed \r\n");
 		goto END;
@@ -126,7 +127,7 @@ int XSecure_Sha2Operation(XSecure_ClientInstance *InstancePtr, XSecure_ShaOpPara
 	 *   Wait for IPI response from PLM with a timeout.
 	 *   If the timeout exceeds then error is returned otherwise it returns the status of the IPI response
 	 */
-	Status = XSecure_ProcessMailbox(InstancePtr->MailboxPtr, Payload, PAYLOAD_ARG_CNT);
+	Status = XSecure_ProcessMailbox(InstancePtr->MailboxPtr, Payload, PAYLOAD_ARG_CNT, NULL);
 	if (Status != XST_SUCCESS) {
 		XSecure_Printf(XSECURE_DEBUG_GENERAL, "Sha2 Operation Failed \r\n");
 		goto END;
@@ -166,7 +167,7 @@ int XSecure_Sha2Kat(XSecure_ClientInstance *InstancePtr)
 	 * - Send an IPI request to the PLM by using the CDO command to call XSecure_ShaKat
 	 *   API and returns the status of the IPI response.
 	 */
-	Status = XSecure_ProcessMailbox(InstancePtr->MailboxPtr, Payload, PAYLOAD_ARG_CNT);
+	Status = XSecure_ProcessMailbox(InstancePtr->MailboxPtr, Payload, PAYLOAD_ARG_CNT, NULL);
 
 END:
 	return Status;

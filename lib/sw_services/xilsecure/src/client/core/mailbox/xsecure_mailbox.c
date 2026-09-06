@@ -33,6 +33,7 @@
 *       pre  08/16/24 Added API to use SSIT support
 *       hj   10/03/24 Removed XSecure_InputSlrIndex function as it is duplicate of
 *                     XSecure_SetSlrIndex
+* 5.8   tus  08/21/26 Added optional Response argument to XSecure_ProcessMailbox
 *
 * </pre>
 *
@@ -63,20 +64,33 @@
  * @param	MailboxPtr	Pointer to XMailbox
  * @param	MsgPtr		Pointer to the payload message
  * @param	MsgLen		Length of the message
+ * @param	Response	Pointer to a buffer of RESPONSE_ARG_CNT words that
+ *				receives the full IPI response payload. May be NULL
+ *				when only the status word is needed.
  *
  * @return
  *		 - XST_SUCCESS  If the IPI send and receive is successful
  *		 - XST_FAILURE  If there is a failure
- *		 - Response received from server
+ *		 - Response status word received from the server
  *
- * @note	Payload  consists of API ID and call arguments to be written
- * 		in IPI buffer
+ * @note	Payload consists of API ID and call arguments to be written in the
+ *		IPI buffer. Response[0] carries the server status word; subsequent
+ *		words carry the command-specific payload. When Response is NULL a
+ *		local buffer is used so status-only callers need not allocate one.
  *
  ****************************************************************************/
-int XSecure_ProcessMailbox(XMailbox *MailboxPtr, u32 *MsgPtr, u32 MsgLen)
+int XSecure_ProcessMailbox(XMailbox *MailboxPtr, u32 *MsgPtr, u32 MsgLen, u32 *Response)
 {
 	int Status = XST_FAILURE;
-	u32 Response[RESPONSE_ARG_CNT];
+	u32 LocalResp[RESPONSE_ARG_CNT];
+	u32 *RespPtr = Response;
+
+	/**
+	 * - Status-only callers pass NULL; fall back to a local response buffer.
+	 */
+	if (RespPtr == NULL) {
+		RespPtr = LocalResp;
+	}
 
 	/**
 	 * - Send CDO to PLM through IPI. Return XST_FAILURE if sending data failed
@@ -91,13 +105,13 @@ int XSecure_ProcessMailbox(XMailbox *MailboxPtr, u32 *MsgPtr, u32 MsgLen)
 	 * - Wait for IPI response from PLM with a timeout.
 	 *   If the timeout exceeds then error is returned otherwise it returns the status of the IPI response
 	 */
-	Status = (int)XMailbox_Recv(MailboxPtr, XSECURE_TARGET_IPI_INT_MASK, Response, RESPONSE_ARG_CNT,
+	Status = (int)XMailbox_Recv(MailboxPtr, XSECURE_TARGET_IPI_INT_MASK, RespPtr, RESPONSE_ARG_CNT,
 				XILMBOX_MSG_TYPE_RESP);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
 
-	Status = (int)Response[0];
+	Status = (int)RespPtr[0];
 
 END:
 	return Status;

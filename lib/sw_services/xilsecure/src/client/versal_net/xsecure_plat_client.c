@@ -23,6 +23,7 @@
 * 5.3   kpt  12/13/23 Add RSA quiet mode support
 * 5.4   yog  04/29/24 Fixed doxygen warnings.
 *       kpt  06/13/24 Added XSecure_ReleaseRsaKey
+* 5.8   tus  08/21/26 Updated XSecure_ProcessMailbox call for the added response argument
 *
 * </pre>
 *
@@ -170,7 +171,7 @@ static int XSecure_UpdateCryptoStatus(XSecure_ClientInstance *InstancePtr, XSecu
 	 * - Send an IPI request to the PLM by using the CDO command to call XSecure_UpdateCryptoMask
 	 *   API and returns the status of the IPI response.
 	 */
-	Status = XSecure_ProcessMailbox(InstancePtr->MailboxPtr, Payload, PAYLOAD_ARG_CNT);
+	Status = XSecure_ProcessMailbox(InstancePtr->MailboxPtr, Payload, PAYLOAD_ARG_CNT, NULL);
 
 END:
 	return Status;
@@ -211,7 +212,7 @@ int XSecure_KeyUnwrap(XSecure_ClientInstance *InstancePtr, XSecure_KeyWrapData *
 	 * - Send an IPI request to the PLM by using the CDO command to call XSecure_KeyUnwrapIpi
 	 *   API and returns the status of the IPI response.
 	 */
-	Status = XSecure_ProcessMailbox(InstancePtr->MailboxPtr, Payload, PAYLOAD_ARG_CNT);
+	Status = XSecure_ProcessMailbox(InstancePtr->MailboxPtr, Payload, PAYLOAD_ARG_CNT, NULL);
 
 END:
 	return Status;
@@ -247,7 +248,7 @@ int XSecure_ReleaseRsaKey(XSecure_ClientInstance *InstancePtr)
 	 * - Send an IPI request to the PLM by using the CDO command to call XSecure_RsaDestroyKeyInUse
 	 *   API and returns the status of the IPI response.
 	 */
-	Status = XSecure_ProcessMailbox(InstancePtr->MailboxPtr, Payload, PAYLOAD_ARG_CNT);
+	Status = XSecure_ProcessMailbox(InstancePtr->MailboxPtr, Payload, PAYLOAD_ARG_CNT, NULL);
 
 END:
 	return Status;

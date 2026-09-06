@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -16,6 +16,7 @@
 * ----- ------  -------- ------------------------------------------------------
 * 5.2   mmd     07/04/23 Initial Release
 *	vss	09/21/23 Fixed doxygen warnings
+* 5.8   tus     08/29/26 Updated version and added library info reporting
 * </pre>
 *
 ******************************************************************************/
@@ -32,7 +33,7 @@ extern "C" {
 
 /**************************** Constant Definitions ****************************/
 #define XSECURE_MAJOR_VERSION	5 /**< Major version of Xilsecure */
-#define XSECURE_MINOR_VERSION	2 /**< Minor version of Xilsecure */
+#define XSECURE_MINOR_VERSION	8 /**< Minor version of Xilsecure */
 
 /****************** Macros (Inline Functions) Definitions *********************/
 

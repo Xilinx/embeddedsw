@@ -10243,6 +10243,7 @@ lib/sw_services/xilasu/src/common/xasu_lms_common.c
 lib/sw_services/xilasu/src/common/xasu_lms_common.h
 lib/sw_services/xilasu/src/common/xasu_lmsinfo.h
 lib/sw_services/xilasu/src/common/xasu_sharedmem.c
+lib/sw_services/xilloader/src/common/common/xloader_ver.h
 lib/sw_services/xilloader/src/common/server/xloader_kat.c
 lib/sw_services/xilloader/src/common/server/xloader_kat.h
 lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_ddr_fsm.c
@@ -10275,6 +10276,8 @@ lib/sw_services/xilsecure/src/client/core/trng/xsecure_trngalginfo.c
 lib/sw_services/xilsecure/src/client/core/trng/xsecure_trngalginfo.h
 lib/sw_services/xilsecure/src/client/core/utils/xsecure_alghelper.c
 lib/sw_services/xilsecure/src/client/core/utils/xsecure_alghelper.h
+lib/sw_services/xilsecure/src/client/core/utils/xsecure_libver.c
+lib/sw_services/xilsecure/src/client/core/utils/xsecure_libver.h
 lib/sw_services/xilsecure/src/client/versal_2vp/xsecure_plat_katclient.c
 lib/sw_services/xilsecure/src/client/versal_2vp/xsecure_plat_katclient.h
 lib/sw_services/xilsecure/src/client/versal_net/xsecure_keyunwrapalginfo.c
@@ -10283,6 +10286,7 @@ lib/sw_services/xilsecure/src/common/versal_2vp_p/xsecure_ellipticalginfo.h
 lib/sw_services/xilsecure/src/common/versal_2vp_p/xsecure_lmsalginfo.h
 lib/sw_services/xilsecure/src/common/versal_2vp_p/xsecure_rsaalginfo.h
 lib/sw_services/xilsecure/src/common/versal_2vp_p/xsecure_shaalginfo.h
+lib/sw_services/xilsecure/src/server/core/generic/xsecure_server_libcaps.h
 lib/sw_services/xilsecure/src/server/core/hmac/xsecure_hmac_ipihandler.c
 lib/sw_services/xilsecure/src/server/core/hmac/xsecure_hmac_ipihandler.h
 lib/sw_services/xilsecure/src/server/core/kdf/xsecure_kdf.h
@@ -12889,6 +12893,8 @@ XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_hdcp/xvidframe_crc.h
 lib/bsp/standalone/src/common/xil_stdarg.h
 lib/sw_services/xilloader/src/common/client/xloader_generic.c
 lib/sw_services/xilloader/src/common/client/xloader_generic.h
+lib/sw_services/xilnvm/src/versal_gen/common/client/xnvm_client.c
+lib/sw_services/xilnvm/src/versal_gen/common/client/xnvm_client.h
 lib/sw_services/xilnvm/src/versal_gen/common/client/xnvm_generic.c
 lib/sw_services/xilnvm/src/versal_gen/common/client/xnvm_generic.h
 lib/sw_services/xilplmi/examples/xilplmi_in_place_asu_update_client_example.c

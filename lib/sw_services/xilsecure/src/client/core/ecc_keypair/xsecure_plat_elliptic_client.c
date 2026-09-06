@@ -21,6 +21,7 @@
 * 5.4   yog  04/29/24 Fixed doxygen grouping.
 *       yog  03/18/25 Defined a structure and updated the ECDH input params to that structure.
 * 5.7   tvp  04/30/26 Added XSecure_EllipticPrivateKeyGenerate
+* 5.8   tus  08/21/26 Updated XSecure_ProcessMailbox call for the added response argument
 *
 * </pre>
 *
@@ -112,7 +113,7 @@ int XSecure_GenSharedSecret(XSecure_ClientInstance *InstancePtr, u32 CrvType, co
 	 * - Send an IPI request to the PLM by using the CDO command to call XSecure_GenSharedSecret
 	 *   API and returns the status of the IPI response.
 	 */
-	Status = XSecure_ProcessMailbox(InstancePtr->MailboxPtr, Payload, PAYLOAD_ARG_CNT);
+	Status = XSecure_ProcessMailbox(InstancePtr->MailboxPtr, Payload, PAYLOAD_ARG_CNT, NULL);
 
 END:
 	return Status;
@@ -151,7 +152,7 @@ int XSecure_EllipticPrivateKeyGenerate(XSecure_ClientInstance *InstancePtr,
 			(u32)sizeof(XSecure_EccPrivateKeyParams));
 
 	Status = XSecure_ProcessMailbox(InstancePtr->MailboxPtr, Payload,
-			PAYLOAD_ARG_CNT);
+			PAYLOAD_ARG_CNT, NULL);
 
 END:
 	return Status;

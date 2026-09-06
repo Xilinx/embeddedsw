@@ -24,6 +24,8 @@
 *       tvp  04/29/26 Added IPI for HMAC
 *       tvp  04/30/26 Routed XSECURE_API_ELLIPTIC_PRIVATE_KEY_GEN through
 *                     XSecure_PlatEllipticIpiHandler
+* 5.8   tus  08/20/26 Reported server library version and capability bitmap
+*                     in the Features command response
 *
 * </pre>
 *
@@ -49,6 +51,9 @@
 #include "xsecure_plat_ipihandler.h"
 #include "xsecure_hmac_ipihandler.h"
 #include "xsecure_cmd.h"
+#include "xsecure_ver.h"
+#include "xsecure_server_libcaps.h"
+#include "xil_util.h"
 #include "xplmi.h"
 #include "xplmi_tamper.h"
 #include "xsecure_cryptochk.h"
@@ -240,10 +245,23 @@ static int XSecure_FeaturesCmd(XPlmi_Cmd *Cmd)
 	}
 
 END:
-	/* Fill the version in the response buffer */
+	/* Fill the queried algorithm version/NIST status in the response buffer. */
 	if (Cmd != NULL) {
 		Cmd->Response[XSECURE_ALGO_VERSION_RESP_INDEX] = AlgoVersion;
 		Cmd->Response[XSECURE_NIST_STATUS_RESP_INDEX] = NistStatus;
+	}
+
+	/*
+	 * Always report the library version/capability at fixed response indices
+	 * so the client can query them through the Features command without a
+	 * dedicated IPI command / api-id. XIL_LIBINFO_VERSION_RESP_INDEX carries
+	 * the packed version (Major in the upper 16 bits, Minor in the lower 16
+	 * bits) and XIL_LIBINFO_CAP0_RESP_INDEX carries capability word 0.
+	 */
+	if (Cmd != NULL) {
+		Cmd->Response[XIL_LIBINFO_VERSION_RESP_INDEX] = ((u32)XSECURE_MAJOR_VERSION << 16U) |
+					((u32)XSECURE_MINOR_VERSION & 0xFFFFU);
+		Cmd->Response[XIL_LIBINFO_CAP0_RESP_INDEX] = XSECURE_LIB_CAPABILITIES;
 	}
 
 	return Status;

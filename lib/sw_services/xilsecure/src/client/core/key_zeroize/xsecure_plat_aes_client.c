@@ -20,6 +20,7 @@
 * 5.3   har  02/05/24 Initial release
 * 5.8   tbk  07/02/26 Validate parameter pointer and clear stale data-buffer
 *                     fields on GMAC path
+*       tus  08/21/26 Updated XSecure_ProcessMailbox call for the added response argument
 *
 * </pre>
 * @note
@@ -131,7 +132,7 @@ int XSecure_AesPerformOperationAndZeroizeKey(XSecure_ClientInstance *InstancePtr
 	 * - Send an IPI request to the PLM by using the CDO command to call XSecure_AesOpNZeroizeKey
 	 *   API and returns the status of the IPI response.
 	 */
-	Status = XSecure_ProcessMailbox(InstancePtr->MailboxPtr, Payload, PAYLOAD_ARG_CNT);
+	Status = XSecure_ProcessMailbox(InstancePtr->MailboxPtr, Payload, PAYLOAD_ARG_CNT, NULL);
 
 END:
 	return Status;

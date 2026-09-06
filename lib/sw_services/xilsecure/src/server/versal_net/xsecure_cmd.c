@@ -39,6 +39,8 @@
 *       pre  03/02/2025 Disabled XSecure_PlatAesIpiHandler for SECURE_EXCLUDE case
 * 5.7   tbk  04/09/2026 Added support for getting crypto algorithm's version
 *       tvp  04/29/2026 Added IPI for HMAC
+* 5.8   tus  08/20/2026 Reported server library version and capability bitmap
+*                       in the Features command response
 *
 * </pre>
 *
@@ -77,6 +79,9 @@
 #include "xtrngpsx_alginfo.h"
 #include "xsecure_server_keyunwrapalginfo.h"
 #include "xsecure_hmac_ipihandler.h"
+#include "xsecure_ver.h"
+#include "xsecure_server_libcaps.h"
+#include "xil_util.h"
 
 #ifdef SDT
 #include "xsecure_config.h"
@@ -265,17 +270,31 @@ static int XSecure_FeaturesCmd(XPlmi_Cmd *Cmd)
 	}
 
 END:
-	/* Fill the version in the response buffer */
+	/* Fill the queried algorithm version/NIST status in the response buffer. */
 	if (Cmd != NULL) {
 		Cmd->Response[XSECURE_ALGO_VERSION_RESP_INDEX] = AlgoVersion;
 		Cmd->Response[XSECURE_NIST_STATUS_RESP_INDEX] = NistStatus;
 	}
 
+	/*
+	 * Always report the library version/capability at fixed response indices
+	 * so the client can query them through the Features command without a
+	 * dedicated IPI command / api-id. XIL_LIBINFO_VERSION_RESP_INDEX carries
+	 * the packed version (Major in the upper 16 bits, Minor in the lower 16
+	 * bits) and XIL_LIBINFO_CAP0_RESP_INDEX carries capability word 0.
+	 */
+	if (Cmd != NULL) {
+		Cmd->Response[XIL_LIBINFO_VERSION_RESP_INDEX] = ((u32)XSECURE_MAJOR_VERSION << 16U) |
+					((u32)XSECURE_MINOR_VERSION & 0xFFFFU);
+		Cmd->Response[XIL_LIBINFO_CAP0_RESP_INDEX] = XSECURE_LIB_CAPABILITIES;
+	}
+
 	return Status;
 }
+
 /*****************************************************************************/
 /**
- * @brief	This function processes XilSecure IPI commands
+ * @brief	This function is the entry point for all XilSecure IPI commands.
  *
  * @param	Cmd	Pointer to the command structure
  *

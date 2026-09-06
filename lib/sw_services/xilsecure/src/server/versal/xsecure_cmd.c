@@ -34,6 +34,8 @@
 *       mb   07/31/2024 Added the check to validate Payload for NULL pointer
 * 5.7   mb   04/17/2026 Update XSecure_CryptoCheck API definitions
 *       tbk  04/09/2026 Added support for getting crypto algorithm's version
+* 5.8   tus  08/20/2026 Reported server library version and capability bitmap
+*                       in the Features command response
 *
 * </pre>
 *
@@ -64,13 +66,17 @@
 #include "xsecure_cmd.h"
 #include "xplmi_ssit.h"
 #include "xsecure_cryptochk.h"
+#include "xsecure_ver.h"
+#include "xil_util.h"
 
 #ifdef SDT
 #include "xsecure_config.h"
 #endif
 
-#ifdef XSECURE_CRYPTOALGINFO_ENABLED
+#include "xsecure_server_libcaps.h"
 #include "xil_cryptoalginfo.h"
+
+#ifdef XSECURE_CRYPTOALGINFO_ENABLED
 #include "xsecure_server_aesalginfo.h"
 #include "xsecure_server_rsaalginfo.h"
 #include "xsecure_server_ellipticalginfo.h"
@@ -251,12 +257,25 @@ static int XSecure_FeaturesCmd(XPlmi_Cmd *Cmd)
 
 END:
 #ifdef XSECURE_CRYPTOALGINFO_ENABLED
-	/* Fill the version in the response buffer */
+	/* Fill the queried algorithm version/NIST status in the response buffer. */
 	if (Cmd != NULL) {
 		Cmd->Response[XSECURE_ALGO_VERSION_RESP_INDEX] = AlgoVersion;
 		Cmd->Response[XSECURE_NIST_STATUS_RESP_INDEX] = NistStatus;
 	}
 #endif
+
+	/*
+	 * Always report the library version/capability at fixed response indices
+	 * so the client can query them through the Features command without a
+	 * dedicated IPI command / api-id. XIL_LIBINFO_VERSION_RESP_INDEX carries
+	 * the packed version (Major in the upper 16 bits, Minor in the lower 16
+	 * bits) and XIL_LIBINFO_CAP0_RESP_INDEX carries capability word 0.
+	 */
+	if (Cmd != NULL) {
+		Cmd->Response[XIL_LIBINFO_VERSION_RESP_INDEX] = ((u32)XSECURE_MAJOR_VERSION << 16U) |
+					((u32)XSECURE_MINOR_VERSION & 0xFFFFU);
+		Cmd->Response[XIL_LIBINFO_CAP0_RESP_INDEX] = XSECURE_LIB_CAPABILITIES;
+	}
 
 	return Status;
 }

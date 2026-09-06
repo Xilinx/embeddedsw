@@ -21,6 +21,7 @@
 * 5.2   am   04/01/23 Added XST_INVALID_PARAM error code for invalid parameters
 *       am   03/09/23 Replaced xsecure payload lengths with xmailbox payload lengths
 * 5.4   yog  04/29/24 Fixed doxygen warnings.
+* 5.8   tus  08/21/26 Updated XSecure_ProcessMailbox call for the added response argument
 *
 * </pre>
 *
@@ -75,7 +76,7 @@ int XSecure_TrngKat(XSecure_ClientInstance *InstancePtr)
 	 * - Send an IPI request to the PLM by using the CDO command to call XSecure_TrngKat
 	 *   API and returns the status of the IPI response.
 	 */
-	Status = XSecure_ProcessMailbox(InstancePtr->MailboxPtr, Payload, PAYLOAD_ARG_CNT);
+	Status = XSecure_ProcessMailbox(InstancePtr->MailboxPtr, Payload, PAYLOAD_ARG_CNT, NULL);
 
 END:
 	return Status;
@@ -251,7 +252,7 @@ static int XSecure_UpdateKatStatus(XSecure_ClientInstance *InstancePtr,
 	 * - Send an IPI request to the PLM by using the CDO command to update Kat status in
 	 *   XSecure_UpdateKatStatusIpiHandler API and returns the status of the IPI response.
 	 */
-	Status = XSecure_ProcessMailbox(InstancePtr->MailboxPtr, Payload, PAYLOAD_ARG_CNT);
+	Status = XSecure_ProcessMailbox(InstancePtr->MailboxPtr, Payload, PAYLOAD_ARG_CNT, NULL);
 END:
 	return Status;
 }

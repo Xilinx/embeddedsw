@@ -42,6 +42,9 @@
 *       tvp  02/19/26 Added XSecure_SlhdsaInputParams
 *       tvp  03/09/26 Added XSecure_MldsaSignGenParams
 *       tvp  03/17/26 Re-arrange Mldsa and Slhdsa Sign verify params
+* 5.8   tus  08/19/26 Added XSecure_LibCapBit capability bit-position registry for
+*                     the library-info query; library info uses the shared
+*                     Xil_LibInfo container (xil_cryptoalginfo.h)
 *
 * </pre>
 *
@@ -61,6 +64,7 @@ extern "C" {
 #include "xil_printf.h"
 #include "xil_types.h"
 #include "xil_cache.h"
+#include "xil_sutil.h"
 #include "xsecure_plat_defs.h"
 
 #ifdef SDT
@@ -273,6 +277,51 @@ typedef struct {
 	u32 PublicKeyLen;	/**< Length of public key in bytes */
 	u32 ContextLen;		/**< Length of context string in bytes */
 } XSecure_SlhdsaInputParams;
+
+/*
+ * ---------------------------------------------------------------------------
+ * XilSecure library information contract (Features-command library-info query)
+ * ---------------------------------------------------------------------------
+ * The definitions below form the shared, platform-agnostic contract used by
+ * both the client and the server to exchange the library version and the
+ * capability bitmap. They are common to every platform; whether a capability
+ * bit is actually SET at runtime is decided per platform by the server-side
+ * derivation (see server/core/generic/xsecure_server_libcaps.h).
+ */
+
+/**
+ * Number of 32-bit capability words carried in the library information response.
+ * Matches Xil_LibInfo.Capability[] (xil_cryptoalginfo.h). Append-only: never
+ * shrink or renumber existing bits.
+ */
+#define XSECURE_LIB_CAP_WORDS			(2U)	/**< Capability bitmap word count */
+#define XSECURE_LIB_CAP_BITS_PER_WORD		(32U)	/**< Number of capability bits per 32-bit word */
+
+/**
+ * XilSecure library capability bit positions (global registry).
+ *
+ * Each enumerator is a PERMANENT bit position within the capability bitmap that
+ * the server reports. The platform note in each comment states on which
+ * platforms the capability is defined/meaningful; whether a given bit is
+ * actually SET at runtime still depends on that platform's build configuration.
+ * Bits are packed contiguously and are never renumbered or reused - a new
+ * capability simply takes the next free position.
+ */
+typedef enum {
+	XSECURE_CAP_ECC_NIST_P192_BIT,		/**< NIST P-192 curve support      (Versal) */
+	XSECURE_CAP_ECC_NIST_P224_BIT,		/**< NIST P-224 curve support      (Versal) */
+	XSECURE_CAP_ECC_NIST_P256_BIT,		/**< NIST P-256 curve support      (Versal) */
+	XSECURE_CAP_ECC_NIST_P384_BIT,		/**< NIST P-384 curve support      (Versal) */
+	XSECURE_CAP_ECC_NIST_P521_BIT,		/**< NIST P-521 curve support      (Versal) */
+	XSECURE_CAP_ECDSA_BIT,			/**< ECDSA engine present          (Versal) */
+	XSECURE_CAP_ECC_BIG_ENDIAN_BIT,		/**< ECC APIs use big-endian data  (Versal) */
+	XSECURE_CAP_RSA_BIT,			/**< RSA engine present            (Versal) */
+	XSECURE_CAP_AES_BIT,			/**< AES engine present            (Versal) */
+	XSECURE_CAP_LIB_CRYPTOALGINFO_BIT,	/**< Crypto algorithm-info report  (Versal) */
+	XSECURE_CAP_ECDH_BIT,			/**< ECDH key agreement present    (VersalNet/Versal_2ve_2vm gated by PLM_ECDSA_EXCLUDE) */
+	XSECURE_CAP_TRNG_BIT,			/**< TRNG engine present           (VersalNet/Versal_2ve_2vm gated by PLM_SECURE_EXCLUDE) */
+	XSECURE_CAP_LMS_BIT			/**< LMS post-quantum sign-verify  (Versal_2ve_2vm) */
+} XSecure_LibCapBit;
 
 #ifdef __cplusplus
 }

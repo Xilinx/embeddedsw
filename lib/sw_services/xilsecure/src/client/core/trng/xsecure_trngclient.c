@@ -23,6 +23,7 @@
 *       am   03/09/23 Replaced xsecure payload lengths with xmailbox payload lengths
 *       am   07/31/23 Fixed typo for XSecure_TrngGenerareRandNum function
 * 5.4   yog  04/29/24 Fixed doxygen warnings.
+* 5.8   tus  08/21/26 Updated XSecure_ProcessMailbox call for the added response argument
 *
 * </pre>
 *
@@ -75,7 +76,7 @@ int XSecure_TrngGenerateRandNum(XSecure_ClientInstance *InstancePtr, u64 RandBuf
 	 * - Send an IPI request to the PLM by using the CDO command to call XSecure_TrngGenerateRandNum
 	 *   API and returns the status of the IPI response.
 	 */
-	Status = XSecure_ProcessMailbox(InstancePtr->MailboxPtr, Payload, PAYLOAD_ARG_CNT);
+	Status = XSecure_ProcessMailbox(InstancePtr->MailboxPtr, Payload, PAYLOAD_ARG_CNT, NULL);
 
 END:
 	return Status;

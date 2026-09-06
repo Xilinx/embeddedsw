@@ -16,6 +16,7 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- ----------------------------------------------------------------------------
 * 5.7   tvp  03/03/26 Initial release
+* 5.8   tus  08/21/26 Updated XSecure_ProcessMailbox call for the added response argument
 *
 * </pre>
 *
@@ -62,7 +63,7 @@ int XSecure_MldsaSignVerifyClient(XSecure_ClientInstance *InstancePtr, u64 Mldsa
 	 * - Send an IPI request to the PLM by using the CDO command to call XSecure_MldsaSignVerify
 	 *   API and returns the status of the IPI response.
 	 */
-	Status = XSecure_ProcessMailbox(InstancePtr->MailboxPtr, (u32 *)Payload, PAYLOAD_ARG_CNT);
+	Status = XSecure_ProcessMailbox(InstancePtr->MailboxPtr, (u32 *)Payload, PAYLOAD_ARG_CNT, NULL);
 
 END:
 	return Status;
@@ -103,7 +104,7 @@ int XSecure_MldsaSignGenerateClient(XSecure_ClientInstance *InstancePtr, u64 Mld
 	 * - Send an IPI request to the PLM by using the CDO command to call XSecure_MldsaSignGenerate
 	 *   API and returns the status of the IPI response.
 	 */
-	Status = XSecure_ProcessMailbox(InstancePtr->MailboxPtr, Payload, PAYLOAD_ARG_CNT);
+	Status = XSecure_ProcessMailbox(InstancePtr->MailboxPtr, Payload, PAYLOAD_ARG_CNT, NULL);
 
 END:
 	return Status;
