@@ -43,18 +43,173 @@
 #include "xstatus.h"
 #include "xnvm_efuse_error.h"
 #include "xnvm_efuse_hw.h"
+#include "xnvm_efuse_common_hw.h"
 
 /**************************** Type Definitions *******************************/
 
+/**
+ * Per-key-type descriptor for AES-class key write validation.
+ *
+ * Keys are not cache-readable, so emptiness is inferred by asking the
+ * controller to CRC the key and comparing against the CRC of an all-zero key.
+ */
+typedef struct {
+	XNvm_AesKeyType KeyType; /**< AES-class key described by this entry */
+	u32 CrcRegOffset; /**< Controller CRC data register offset */
+	u32 CrcDoneMask; /**< CRC status done bit */
+	u32 CrcPassMask; /**< CRC status pass bit */
+	u32 WrLkCacheOffset; /**< Cache register holding the write-lock bit */
+	u32 WrLkMask; /**< Write-lock bit for this key */
+	u32 ErrWrite; /**< Write error code for this key */
+	u32 ErrAlreadyPrgmd; /**< Already-programmed error code for this key */
+} XNvm_EfuseAesKeyValidateDesc;
+
 /************************** Function Prototypes ******************************/
 static int XNvm_EfuseValidateIV(const u32 *Iv, u32 IvOffset);
+static const XNvm_EfuseAesKeyValidateDesc *XNvm_EfuseGetAesKeyDesc(XNvm_AesKeyType KeyType);
 
 /************************** Constant Definitions *****************************/
 #define XNVM_EFUSE_CACHE_DME_FIPS_DME_MODE_MASK			(0x0000000FU) /**< DME mode mask*/
 
+/** AES-class key validation table. */
+static const XNvm_EfuseAesKeyValidateDesc XNvm_EfuseAesKeyValidateTbl[] = {
+	{
+		XNVM_EFUSE_AES_KEY,
+		XNVM_EFUSE_AES_CRC_REG_OFFSET,
+		XNVM_EFUSE_CTRL_STATUS_AES_CRC_DONE_MASK,
+		XNVM_EFUSE_CTRL_STATUS_AES_CRC_PASS_MASK,
+		XNVM_EFUSE_CACHE_SECURITY_CONTROL_OFFSET,
+		XNVM_EFUSE_CACHE_SECURITY_CONTROL_AES_WR_LK_MASK,
+		XNVM_EFUSE_ERR_WRITE_AES_KEY,
+		XNVM_EFUSE_ERR_AES_ALREADY_PRGMD,
+	},
+	{
+		XNVM_EFUSE_USER_KEY_0,
+		XNVM_EFUSE_AES_USR_KEY0_CRC_REG_OFFSET,
+		XNVM_EFUSE_CTRL_STATUS_AES_USER_KEY_0_CRC_DONE_MASK,
+		XNVM_EFUSE_CTRL_STATUS_AES_USER_KEY_0_CRC_PASS_MASK,
+		XNVM_EFUSE_CACHE_SECURITY_CONTROL_OFFSET,
+		XNVM_EFUSE_CACHE_SECURITY_CONTROL_USR_KEY_0_WR_LK_MASK,
+		XNVM_EFUSE_ERR_WRITE_USER_KEY0,
+		XNVM_EFUSE_ERR_USER_KEY0_ALREADY_PRGMD,
+	},
+	{
+		XNVM_EFUSE_USER_KEY_1,
+		XNVM_EFUSE_AES_USR_KEY1_CRC_REG_OFFSET,
+		XNVM_EFUSE_CTRL_STATUS_AES_USER_KEY_1_CRC_DONE_MASK,
+		XNVM_EFUSE_CTRL_STATUS_AES_USER_KEY_1_CRC_PASS_MASK,
+		XNVM_EFUSE_CACHE_SECURITY_CONTROL_OFFSET,
+		XNVM_EFUSE_CACHE_SECURITY_CONTROL_USR_KEY_1_WR_LK_MASK,
+		XNVM_EFUSE_ERR_WRITE_USER_KEY1,
+		XNVM_EFUSE_ERR_USER_KEY1_ALREADY_PRGMD,
+	},
+#ifdef XNVM_EFUSE_HAS_2ND_AES_KEYS
+	{
+		XNVM_EFUSE_AES_KEY_2ND,
+		XNVM_EFUSE_AES_KEY_0_2ND_CRC_REG_OFFSET,
+		XNVM_EFUSE_CTRL_STATUS_AES_KEY_0_2ND_CRC_DONE_MASK,
+		XNVM_EFUSE_CTRL_STATUS_AES_KEY_0_2ND_CRC_PASS_MASK,
+		XNVM_EFUSE_CACHE_SECURITY_CONTROL_2_OFFSET,
+		XNVM_EFUSE_CACHE_SECURITY_CONTROL_2_AES_KEY_0_2ND_WR_LK_MASK,
+		XNVM_EFUSE_ERR_WRITE_AES_KEY,
+		XNVM_EFUSE_ERR_AES_ALREADY_PRGMD,
+	},
+	{
+		XNVM_EFUSE_USER_KEY_0_2ND,
+		XNVM_EFUSE_USER_KEY_0_2ND_CRC_REG_OFFSET,
+		XNVM_EFUSE_CTRL_STATUS_USER_KEY_0_2ND_CRC_DONE_MASK,
+		XNVM_EFUSE_CTRL_STATUS_USER_KEY_0_2ND_CRC_PASS_MASK,
+		XNVM_EFUSE_CACHE_SECURITY_CONTROL_2_OFFSET,
+		XNVM_EFUSE_CACHE_SECURITY_CONTROL_2_USER_KEY_0_2ND_WR_LK_MASK,
+		XNVM_EFUSE_ERR_WRITE_USER_KEY0,
+		XNVM_EFUSE_ERR_USER_KEY0_ALREADY_PRGMD,
+	},
+	{
+		XNVM_EFUSE_USER_KEY_1_2ND,
+		XNVM_EFUSE_USER_KEY_1_2ND_CRC_REG_OFFSET,
+		XNVM_EFUSE_CTRL_STATUS_USER_KEY_1_2ND_CRC_DONE_MASK,
+		XNVM_EFUSE_CTRL_STATUS_USER_KEY_1_2ND_CRC_PASS_MASK,
+		XNVM_EFUSE_CACHE_SECURITY_CONTROL_2_OFFSET,
+		XNVM_EFUSE_CACHE_SECURITY_CONTROL_2_USER_KEY_1_2ND_WR_LK_MASK,
+		XNVM_EFUSE_ERR_WRITE_USER_KEY1,
+		XNVM_EFUSE_ERR_USER_KEY1_ALREADY_PRGMD,
+	},
+#endif
+};
+
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /************************** Function Definitions *****************************/
+
+/******************************************************************************/
+/**
+ * @brief	This function looks up the validation descriptor of an AES-class
+ *		key type.
+ *
+ * @param	KeyType - AES-class key type to look up.
+ *
+ * @return
+ *		- Pointer to the descriptor of the requested key type.
+ *		- NULL if the key type is not supported on this platform.
+ *
+ ******************************************************************************/
+static const XNvm_EfuseAesKeyValidateDesc *XNvm_EfuseGetAesKeyDesc(XNvm_AesKeyType KeyType)
+{
+	const XNvm_EfuseAesKeyValidateDesc *Desc = NULL;
+	u32 Index;
+
+	for (Index = 0U; Index < (sizeof(XNvm_EfuseAesKeyValidateTbl) /
+			sizeof(XNvm_EfuseAesKeyValidateTbl[0])); Index++) {
+		if (XNvm_EfuseAesKeyValidateTbl[Index].KeyType == KeyType) {
+			Desc = &XNvm_EfuseAesKeyValidateTbl[Index];
+			break;
+		}
+	}
+
+	return Desc;
+}
+
+/******************************************************************************/
+/**
+ * @brief	This function returns the eFUSE controller CRC registers of an
+ *		AES-class key type.
+ *
+ * @param	KeyType		AES-class key type.
+ * @param	CrcRegOffset	Filled with the CRC data register offset.
+ * @param	CrcDoneMask	Filled with the CRC status done bit.
+ * @param	CrcPassMask	Filled with the CRC status pass bit.
+ *
+ * @return
+ *		- XST_SUCCESS - if the key type is supported on this platform.
+ *		- XST_INVALID_PARAM - on NULL pointer or unsupported key type.
+ *
+ ******************************************************************************/
+int XNvm_EfuseGetAesKeyCrcRegs(XNvm_AesKeyType KeyType, u32 *CrcRegOffset,
+		u32 *CrcDoneMask, u32 *CrcPassMask)
+{
+	int Status = XST_FAILURE;
+	const XNvm_EfuseAesKeyValidateDesc *Desc = NULL;
+
+	if ((CrcRegOffset == NULL) || (CrcDoneMask == NULL) || (CrcPassMask == NULL)) {
+		Status = (int)XST_INVALID_PARAM;
+		goto END;
+	}
+
+	Desc = XNvm_EfuseGetAesKeyDesc(KeyType);
+	if (Desc == NULL) {
+		Status = (int)XST_INVALID_PARAM;
+		goto END;
+	}
+
+	*CrcRegOffset = Desc->CrcRegOffset;
+	*CrcDoneMask = Desc->CrcDoneMask;
+	*CrcPassMask = Desc->CrcPassMask;
+
+	Status = XST_SUCCESS;
+
+END:
+	return Status;
+}
 
 /******************************************************************************/
 /**
@@ -73,6 +228,8 @@ static int XNvm_EfuseValidateIV(const u32 *Iv, u32 IvOffset);
  * 		- XNVM_EFUSE_ERR_USER_KEY1_ALREADY_PRGMD - User key 1 is already
  * 							 	programmed.
  * 		- XNVM_EFUSE_ERR_FUSE_PROTECTED  - eFuse is write protected.
+ * 		- XNVM_EFUSE_ERR_AES_DISABLED ORed with the requested key's
+ * 		  write error (AES / User0 / User1).
  * 		- XNVM_EFUSE_ERR_WRITE_AES_KEY   - Error in writing Aes key.
  * 		- XNVM_EFUSE_ERR_WRITE_USER0_KEY - Error in writing User key 0.
  * 		- XNVM_EFUSE_ERR_WRITE_USER1_KEY - Error in writing User key 1.
@@ -81,43 +238,24 @@ static int XNvm_EfuseValidateIV(const u32 *Iv, u32 IvOffset);
 int XNvm_EfuseValidateAesKeyWriteReq(XNvm_AesKeyType KeyType)
 {
 	volatile int Status = XST_FAILURE;
+	const XNvm_EfuseAesKeyValidateDesc *Desc = NULL;
 	u32 SecCtrlBits = 0U;
-	u32 CrcRegOffset = 0U;
-	u32 CrcDoneMask = 0U;
-	u32 CrcPassMask = 0U;
-	u32 WrLkMask = 0U;
+	u32 WrLkReg = 0U;
+
+	/** - Look up the requested key type, rejecting types absent on this platform. */
+	Desc = XNvm_EfuseGetAesKeyDesc(KeyType);
+	if (Desc == NULL) {
+		Status = (int)XST_INVALID_PARAM;
+		goto END;
+	}
 
 	/**
-	 *  - Read the Security control eFUSE bits and check if the bit to disable AES engine is set.
-	 *  If set, return XNVM_EFUSE_ERR_AES_DISABLED.
+	 *  - Check if AES is disabled. If AES is disabled, reject the request.
 	 */
 	SecCtrlBits = XNvm_EfuseReadReg(XNVM_EFUSE_CACHE_BASEADDR,
 				XNVM_EFUSE_CACHE_SECURITY_CONTROL_OFFSET);
 	if ((SecCtrlBits & XNVM_EFUSE_CACHE_SECURITY_CONTROL_AES_DIS_MASK) != 0U) {
-		Status = XNVM_EFUSE_ERR_WRITE_AES_KEY | XNVM_EFUSE_ERR_AES_DISABLED;
-		goto END;
-	}
-
-	if (KeyType == XNVM_EFUSE_AES_KEY) {
-		CrcRegOffset = XNVM_EFUSE_AES_CRC_REG_OFFSET;
-		CrcDoneMask = XNVM_EFUSE_CTRL_STATUS_AES_CRC_DONE_MASK;
-		CrcPassMask = XNVM_EFUSE_CTRL_STATUS_AES_CRC_PASS_MASK;
-		WrLkMask = XNVM_EFUSE_CACHE_SECURITY_CONTROL_AES_WR_LK_MASK;
-	}
-	else if (KeyType == XNVM_EFUSE_USER_KEY_0) {
-		CrcRegOffset = XNVM_EFUSE_AES_USR_KEY0_CRC_REG_OFFSET;
-		CrcDoneMask = XNVM_EFUSE_CTRL_STATUS_AES_USER_KEY_0_CRC_DONE_MASK;
-		CrcPassMask = XNVM_EFUSE_CTRL_STATUS_AES_USER_KEY_0_CRC_PASS_MASK;
-		WrLkMask = XNVM_EFUSE_CACHE_SECURITY_CONTROL_USR_KEY_0_WR_LK_MASK;
-	}
-	else if (KeyType == XNVM_EFUSE_USER_KEY_1) {
-		CrcRegOffset = XNVM_EFUSE_AES_USR_KEY1_CRC_REG_OFFSET;
-		CrcDoneMask = XNVM_EFUSE_CTRL_STATUS_AES_USER_KEY_1_CRC_DONE_MASK;
-		CrcPassMask = XNVM_EFUSE_CTRL_STATUS_AES_USER_KEY_1_CRC_PASS_MASK;
-		WrLkMask = XNVM_EFUSE_CACHE_SECURITY_CONTROL_USR_KEY_1_WR_LK_MASK;
-	}
-	else {
-		Status = (int)XST_INVALID_PARAM;
+		Status = (int)(XNVM_EFUSE_ERR_AES_DISABLED | Desc->ErrWrite);
 		goto END;
 	}
 
@@ -125,21 +263,22 @@ int XNvm_EfuseValidateAesKeyWriteReq(XNvm_AesKeyType KeyType)
 	 *  - Check if write is locked for the requested key type. If locked then return
 	 *  XNVM_EFUSE_ERR_FUSE_PROTECTED.
 	 */
-	if ((SecCtrlBits & WrLkMask) != 0U) {
-		Status = (XNVM_EFUSE_ERR_FUSE_PROTECTED |
-			(XNVM_EFUSE_ERR_WRITE_AES_KEY + (KeyType << XNVM_EFUSE_ERROR_BYTE_SHIFT)));
+	WrLkReg = XNvm_EfuseReadReg(XNVM_EFUSE_CACHE_BASEADDR,
+			Desc->WrLkCacheOffset);
+	if ((WrLkReg & Desc->WrLkMask) != 0U) {
+		Status = (int)(XNVM_EFUSE_ERR_FUSE_PROTECTED | Desc->ErrWrite);
 		goto END;
 	}
 
 	/**
 	 *  - Check if CRC of the requested key type is zero. If non-zero then
-	 *  it implies that the key is already programmed and return XNVM_EFUSE_ERR_AES_ALREADY_PRGMD.
+	 *  it implies that the key is already programmed and return the
+	 *  already-programmed error code for that key.
 	 */
-	Status = XNvm_EfuseCheckAesKeyCrc(CrcRegOffset, CrcDoneMask,
-			CrcPassMask, XNVM_EFUSE_CRC_AES_ZEROS);
+	Status = XNvm_EfuseCheckAesKeyCrc(Desc->CrcRegOffset, Desc->CrcDoneMask,
+			Desc->CrcPassMask, XNVM_EFUSE_CRC_AES_ZEROS);
 	if (Status != XST_SUCCESS) {
-		Status = (int)XNVM_EFUSE_ERR_AES_ALREADY_PRGMD +
-			(KeyType << XNVM_EFUSE_ERROR_NIBBLE_SHIFT);
+		Status = (int)Desc->ErrAlreadyPrgmd;
 		goto END;
 	}
 
@@ -173,6 +312,11 @@ END:
 int XNvm_EfuseValidatePpkHashWriteReq(XNvm_PpkType PpkType)
 {
 	int Status = XST_FAILURE;
+#ifndef XNVM_EFUSE_CACHE_PPK0_HASH_0_OFFSET
+	(void)PpkType;
+	Status = (int)XNVM_EFUSE_ERR_INVALID_PARAM;
+	goto END;
+#else
 	u32 SecCtrlBits = 0U;
 	u32 PpkOffset = 0U;
 	u32 WrLkMask = 0U;
@@ -243,6 +387,7 @@ int XNvm_EfuseValidatePpkHashWriteReq(XNvm_PpkType PpkType)
 			(XNVM_EFUSE_ERR_WRITE_PPK0_HASH +
 			(PpkType << XNVM_EFUSE_ERROR_BYTE_SHIFT)));
 	}
+#endif
 
 END:
 	return Status;
@@ -630,13 +775,9 @@ int XNvm_EfuseValidatePufUserFuseAccess(void)
 	u32 RowDataVal = 0U;
 	u32 IsDecOnly = 0U;
 
-	/**
-	 *  - Read security control register to check PUF syndrome lock
-	 */
+	/** - Check for PUF helper-data write lock */
 	PufSecurityCtrlReg = XNvm_EfuseReadReg(XNVM_EFUSE_CACHE_BASEADDR,
 			XNVM_EFUSE_CACHE_SECURITY_CONTROL_OFFSET);
-
-	/** - Check for PUF syndrome lock status */
 	if ((PufSecurityCtrlReg & XNVM_EFUSE_CACHE_SECURITY_CONTROL_PUF_SYN_LK_MASK) != 0x0U) {
 		Status = XNVM_EFUSE_ERR_FUSE_PROTECTED | XNVM_EFUSE_ERR_PUF_SYN_ALREADY_PRGMD;
 		goto END;

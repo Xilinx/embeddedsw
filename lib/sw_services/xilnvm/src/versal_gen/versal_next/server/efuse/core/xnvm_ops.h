@@ -42,10 +42,13 @@ extern "C" {
 int XNvm_EfuseOpsValidateWriteField(const XNvm_EfuseDevice *Dev,
 		XNvm_EfuseFieldId FieldId, const u32 *Data, u32 NumWords);
 int XNvm_EfuseOpsValidateFieldWrLk(const XNvm_EfuseFieldDesc *Field);
+int XNvm_EfuseOpsAesKeyTypeToField(XNvm_AesKeyType KeyType,
+		XNvm_EfuseFieldId *FieldId);
 void XNvm_EfuseOpsBindHooks(void);
 int XNvm_EfuseOpsCacheOperations(void);
 int XNvm_EfuseOpsValidateCrc(void);
 int XNvm_EfuseOpsChangeEndianness(u8 *Dest, u8 *Src, u32 Size);
+u32 XNvm_EfuseOpsCrcCalc(const u32 *Data, u32 NumWords);
 #ifndef XNVM_ACCESS_PUF_USER_DATA
 int XNvm_EfuseOpsValidatePufHdAccess(void);
 #endif

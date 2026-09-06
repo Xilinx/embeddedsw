@@ -49,6 +49,11 @@ extern "C" {
 #include "xilnvm_bsp_config.h"
 #endif
 
+#if defined(VERSAL_2VE_2VM) && defined(VERSAL_2VP_P)
+#define XNVM_EFUSE_HAS_2ND_AES_KEYS
+			/**< Independent AES_KEY_0_2ND / USER_KEY_*_2ND slots */
+#endif
+
 /************************** Constant Definitions ****************************/
 #define XNVM_PUF_FORMATTED_SYN_DATA_LEN_IN_WORDS	(127U)	/**< PUF syndrome data formatted */
 #define XNVM_NUM_OF_REVOKE_ID_FUSES			(8U)	/**< Number of revocation ID eFuses */
@@ -133,11 +138,23 @@ typedef enum {
 	XNVM_EFUSE_PPK4		/**< 4U */
 } XNvm_PpkType;
 
-/** Enum for Aes key types */
+/**
+ * Enum for Aes key types
+ *
+ * Key types from XNVM_EFUSE_AES_KEY_2ND onwards address the independent
+ * secondary eFUSE slots of Versal_2Ve_2Vm and Versal_2Vp_P. The server routes
+ * every key type at or above that value to the platform layer, so these values
+ * must stay last.
+ */
 typedef enum {
-	XNVM_EFUSE_AES_KEY = 0,	/**< 0U */
-	XNVM_EFUSE_USER_KEY_0,	/**< 1U */
-	XNVM_EFUSE_USER_KEY_1,	/**< 2U */
+	XNVM_EFUSE_AES_KEY = 0,		/**< 0U */
+	XNVM_EFUSE_USER_KEY_0,		/**< 1U */
+	XNVM_EFUSE_USER_KEY_1,		/**< 2U */
+#ifdef XNVM_EFUSE_HAS_2ND_AES_KEYS
+	XNVM_EFUSE_AES_KEY_2ND,		/**< 3U Independent AES_KEY_0_2ND */
+	XNVM_EFUSE_USER_KEY_0_2ND,	/**< 4U Independent USER_KEY_0_2ND */
+	XNVM_EFUSE_USER_KEY_1_2ND,	/**< 5U Independent USER_KEY_1_2ND */
+#endif
 } XNvm_AesKeyType;
 
 /** Enum for Revocation IDs */

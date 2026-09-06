@@ -170,11 +170,23 @@ extern "C" {
 /** @} */
 
 /**
+ * @name CRC status register select
+ * @{
+ */
+#define XNVM_EFUSE_CRC_STATUS_OFFSET(CrcReg)		(XNVM_EFUSE_STATUS_REG_OFFSET)
+			/**< CRC done/pass live in STATUS */
+/** @} */
+
+/**
  * @name WR_UNLOCK Code
  * @{
  */
 #define XNVM_EFUSE_WR_UNLOCK_PASSCODE			(0xDF0DU)
 			/**< eFuse Write Unlock Passcode */
+#define XNVM_EFUSE_WR_UNLOCK_VAL			(XNVM_EFUSE_WR_UNLOCK_PASSCODE)
+			/**< Value written to WR_LOCK to unlock controller register access */
+#define XNVM_EFUSE_WR_LOCK_VAL				(~XNVM_EFUSE_WR_UNLOCK_PASSCODE)
+			/**< Value written to WR_LOCK to lock controller register access */
 /** @} */
 
 /**
@@ -197,6 +209,10 @@ extern "C" {
 #define XNVM_EFUSE_STATUS_TBIT_1			(0x01U << 1U) /**< eFUSE status TBIT 1 */
 #define XNVM_EFUSE_STATUS_TBIT_2			(0x01U << 2U) /**< eFUSE status TBIT 2 */
 #define XNVM_EFUSE_STATUS_CACHE_DONE			(0x01U << 5U) /**< eFUSE status cache done bit */
+#define XNVM_EFUSE_STATUS_TBIT_MASK			(XNVM_EFUSE_STATUS_TBIT_0 | \
+							 XNVM_EFUSE_STATUS_TBIT_1 | \
+							 XNVM_EFUSE_STATUS_TBIT_2)
+			/**< TBIT bits that must be set before programming */
 /** @} */
 
 /**

@@ -460,12 +460,8 @@ END:
 int XNvm_EfuseCheckForTBits(void)
 {
 	volatile int Status = XST_FAILURE;
-	volatile u32 ReadReg = ~(XNVM_EFUSE_STATUS_TBIT_0 |
-			XNVM_EFUSE_STATUS_TBIT_1 |
-			XNVM_EFUSE_STATUS_TBIT_2 );
-	u32 TbitMask = (XNVM_EFUSE_STATUS_TBIT_0 |
-			XNVM_EFUSE_STATUS_TBIT_1 |
-			XNVM_EFUSE_STATUS_TBIT_2 );
+	volatile u32 ReadReg = ~XNVM_EFUSE_STATUS_TBIT_MASK;
+	u32 TbitMask = XNVM_EFUSE_STATUS_TBIT_MASK;
 
         /**
 	 *  - Read EFUSE_STATUS_REG register.

@@ -72,6 +72,11 @@
 #include "xnvm_efuse_engine.h"
 #include "xnvm_efuse_error.h"
 #include "xnvm_efuse_common_field.h"
+#include "xnvm_defs.h"
+
+#ifdef XNVM_EFUSE_HAS_2ND_AES_KEYS
+#include "xnvm_efuse_plat.h"
+#endif
 
 /************************** Constant Definitions *****************************/
 #define XNVM_EFUSE_MAX_FIPS_MODE		(0xFFU)
@@ -93,15 +98,16 @@ static int XNvm_EfuseVerifyBit(u32 Page, u32 Row, u32 Col);
 
 /******************************************************************************/
 /**
- * @brief	Programs the AES key or user key 0/1 eFuses.
+ * @brief	Programs an AES-class key (AES key or user key 0/1) into eFuses.
  *
  * @param	EnvDisFlag - When TRUE, skip temperature and voltage checks.
- * @param	KeyType - AES key, user key 0, or user key 1 selector.
+ * @param	KeyType - AES-class key type to program.
  * @param	EfuseKey - Key words to program.
  *
  * @return
  *		- XST_SUCCESS on successful write.
- *		- XNVM_EFUSE_ERR_INVALID_PARAM on bad arguments.
+ *		- XNVM_EFUSE_ERR_INVALID_PARAM on bad arguments or a key type the
+ *		  platform does not provide.
  *		- XNVM_EFUSE_ERR_BEFORE_PROGRAMMING when validation fails.
  *		- XNVM_EFUSE_ERR_WRITE_AES_KEY on AES key program failure.
  *		- XNVM_EFUSE_ERR_WRITE_USER_KEY0 on user key 0 program failure.
@@ -113,17 +119,38 @@ int XNvm_EfuseWriteAesKey(u32 EnvDisFlag, XNvm_AesKeyType KeyType, XNvm_AesKey *
 	XNvm_EfuseFieldId FieldId;
 	int Status = (int)XNVM_EFUSE_ERR_INVALID_PARAM;
 
-	if ((KeyType != XNVM_EFUSE_AES_KEY) &&
-		(KeyType != XNVM_EFUSE_USER_KEY_0) &&
-		(KeyType != XNVM_EFUSE_USER_KEY_1)) {
-		goto END;
-	}
-
 	if (EfuseKey == NULL) {
 		goto END;
 	}
 
-	FieldId = XNVM_EFUSE_FIELD_AES_KEY + (XNvm_EfuseFieldId)KeyType;
+#ifdef XNVM_EFUSE_HAS_2ND_AES_KEYS
+	if ((KeyType >= XNVM_EFUSE_AES_KEY_2ND) &&
+			(KeyType <= XNVM_EFUSE_USER_KEY_1_2ND)) {
+		switch (KeyType) {
+		case XNVM_EFUSE_AES_KEY_2ND:
+			Status = XNvm_EfusePlatWriteAesKey2nd(EnvDisFlag,
+					EfuseKey);
+			break;
+		case XNVM_EFUSE_USER_KEY_0_2ND:
+			Status = XNvm_EfusePlatWriteUserKey0_2nd(EnvDisFlag,
+					EfuseKey);
+			break;
+		case XNVM_EFUSE_USER_KEY_1_2ND:
+			Status = XNvm_EfusePlatWriteUserKey1_2nd(EnvDisFlag,
+					EfuseKey);
+			break;
+		default:
+			Status = (int)XNVM_EFUSE_ERR_INVALID_PARAM;
+			break;
+		}
+		goto END;
+	}
+#endif
+
+	Status = XNvm_EfuseOpsAesKeyTypeToField(KeyType, &FieldId);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
 
 	Status = XNvm_EfuseEngineWriteField(&XNvm_EfuseDeviceDesc, FieldId,
 			EnvDisFlag, EfuseKey->Key, XNVM_EFUSE_AES_KEY_LEN_IN_WORDS);

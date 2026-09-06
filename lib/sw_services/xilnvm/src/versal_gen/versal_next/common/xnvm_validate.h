@@ -49,6 +49,8 @@ extern "C" {
 
 /************************** Function Prototypes ******************************/
 int XNvm_EfuseValidateAesKeyWriteReq(XNvm_AesKeyType KeyType);
+int XNvm_EfuseGetAesKeyCrcRegs(XNvm_AesKeyType KeyType, u32 *CrcRegOffset,
+		u32 *CrcDoneMask, u32 *CrcPassMask);
 int XNvm_EfuseValidatePpkHashWriteReq(XNvm_PpkType PpkType);
 int XNvm_EfuseValidateIvWriteReq(XNvm_IvType IvType, XNvm_Iv *EfuseIv);
 int XNvm_EfuseCheckZeros(u32 CacheOffset, u32 Count);

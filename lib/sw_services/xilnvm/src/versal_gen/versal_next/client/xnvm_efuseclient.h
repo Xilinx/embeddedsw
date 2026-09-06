@@ -62,7 +62,14 @@ int XNvm_EfuseWriteDmeMode(XNvm_ClientInstance *InstancePtr, u32 DmeMode, const 
 int XNvm_EfuseReadDmeMode(XNvm_ClientInstance *InstancePtr, const u64 DmeModeAddr);
 #endif
 int XNvm_EfuseWriteSecCtrlBits(XNvm_ClientInstance *InstancePtr, u32 SecCtrlBits, const u32 EnvDisFlag);
+#if !(defined(VERSAL_2VE_2VM) && defined(VERSAL_2VP_P))
 int XNvm_EfuseWritePufCtrlBits(XNvm_ClientInstance *InstancePtr, u32 PufCtrlBits, const u32 EnvDisFlag);
+#ifdef XNVM_ACCESS_PUF_USER_DATA
+int XNvm_EfuseWritePufAsUserFuses(XNvm_ClientInstance *InstancePtr, const u64 PufUserFuseAddr);
+#else
+int XNvm_EfuseWritePuf(XNvm_ClientInstance *InstancePtr, const u64 PufHdAddr);
+#endif
+#endif /* !(VERSAL_2VE_2VM && VERSAL_2VP_P) */
 int XNvm_EfuseWriteMiscCtrlBits(XNvm_ClientInstance *InstancePtr, u32 MiscCtrlBits, const u32 EnvDisFlag);
 int XNvm_EfuseWriteBootModeDis(XNvm_ClientInstance *InstancePtr, u32 BootModeDisBits, const u32 EnvDisFlag);
 int XNvm_EfuseWriteSecMisc1Bits(XNvm_ClientInstance *InstancePtr, u32 SecMisc1Bits, const u32 EnvDisFlag);
@@ -75,10 +82,8 @@ int XNvm_EfuseWriteFipsInfo(XNvm_ClientInstance *InstancePtr, const u16 FipsMode
 int XNvm_EfuseWriteRevocationId(XNvm_ClientInstance *InstancePtr, const u32 RevokeIdNum, const u32 EnvDisFlag);
 int XNvm_EfuseWriteOffChipRevocationId(XNvm_ClientInstance *InstancePtr, const u32 OffChipRevokeIdNum, const u32 EnvDisFlag);
 #ifdef XNVM_ACCESS_PUF_USER_DATA
-int XNvm_EfuseWritePufAsUserFuses(XNvm_ClientInstance *InstancePtr, const u64 PufUserFuseAddr);
 int XNvm_EfuseReadPufAsUserFuses(XNvm_ClientInstance *InstancePtr, const u64 PufUserFuseAddr);
 #else
-int XNvm_EfuseWritePuf(XNvm_ClientInstance *InstancePtr, const u64 PufHdAddr);
 int XNvm_EfuseReadPuf(XNvm_ClientInstance *InstancePtr, u64 PufHdAddr);
 #endif
 int XNvm_EfuseReadIv(XNvm_ClientInstance *InstancePtr, const u64 IvAddr, const XNvm_IvType IvType);

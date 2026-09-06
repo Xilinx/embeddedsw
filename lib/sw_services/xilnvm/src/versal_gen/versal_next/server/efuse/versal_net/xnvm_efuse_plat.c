@@ -46,6 +46,9 @@
 
 /************************** Constant Definitions *****************************/
 
+static int XNvm_EfusePlatCheckCacheNonZero(u32 StartOffset, u32 NumRows);
+
+#if !(defined(VERSAL_2VE_2VM) && defined(VERSAL_2VP_P))
 #define XNVM_EFUSE_PUF_SEC_CTRL_INVLD_MASK	(0xE0000000U)
 			/**< Mask for PUF control bits in PUF_ECC_PUF_CTRL register */
 
@@ -327,4 +330,218 @@ END:
 	return Status;
 }
 #endif /* XNVM_ACCESS_PUF_USER_DATA */
+#endif /* !(VERSAL_2VE_2VM && VERSAL_2VP_P) */
+
+/******************************************************************************/
+/**
+ * @brief	Returns XST_SUCCESS when the cache region has at least
+ *		one programmed (non-zero) row.
+ *
+ * @param	StartOffset - First cache byte offset in the region.
+ * @param	NumRows - Number of 32-bit rows to check.
+ *
+ * @return
+ *		- XST_SUCCESS when reads are consistent and at least one row is
+ *		  non-zero.
+ *		- XNVM_EFUSE_ERR_IN_PROTECTION_CHECK on read mismatch or if every
+ *		  row is zero.
+ *
+ * @note	Scans from StartOffset; stops at the first non-zero row.
+ *
+ ******************************************************************************/
+static int XNvm_EfusePlatCheckCacheNonZero(u32 StartOffset, u32 NumRows)
+{
+	volatile int Status = XST_FAILURE;
+	volatile u32 RowVal = XIL_UNSIGNED_ZERO;
+	volatile u32 RowValTmp = XIL_UNSIGNED_ZERO;
+	u32 Index = XIL_UNSIGNED_ZERO;
+	u32 Offset = XIL_UNSIGNED_ZERO;
+
+	for (Index = XIL_UNSIGNED_ZERO; Index < NumRows; Index++) {
+		Offset = StartOffset + (Index * XNVM_WORD_LEN);
+
+		RowVal = XNvm_EfuseReadReg(XNVM_EFUSE_CACHE_BASEADDR, Offset);
+		RowValTmp = XNvm_EfuseReadReg(XNVM_EFUSE_CACHE_BASEADDR, Offset);
+		if ((RowVal != RowValTmp) ||
+				((RowVal != XIL_UNSIGNED_ZERO) ||
+				 (RowValTmp != XIL_UNSIGNED_ZERO))) {
+			break;
+		}
+	}
+
+	if ((RowVal != RowValTmp) || (RowVal == XIL_UNSIGNED_ZERO)) {
+		Status = (int)XNVM_EFUSE_ERR_IN_PROTECTION_CHECK;
+		goto END;
+	}
+
+	Status = XST_SUCCESS;
+
+END:
+	return Status;
+}
+
+/******************************************************************************/
+/**
+ * @brief	Runs Versal Net protection checks after cache reload.
+ *
+ * Protection status bits live in TBITS0_SVD. Each active protection bit
+ * requires its protected fuse region to be programmed.
+ *
+ * @return
+ *		- XST_SUCCESS when all active protection rules pass.
+ *		- XNVM_EFUSE_ERR_ANCHOR_BIT_PATTERN on bad anchor pattern.
+ *		- XNVM_EFUSE_ERR_IN_PROTECTION_CHECK on protected-data mismatch.
+ *		- XNVM_EFUSE_XLNX_MANFAC_BITS_CRC_ERROR on CRC failure.
+ *
+ ******************************************************************************/
+int XNvm_EfusePlatProtectionChecks(void)
+{
+	volatile int Status = XST_FAILURE;
+	volatile u32 RegVal = XIL_UNSIGNED_ZERO;
+	volatile u32 RegValTmp = XIL_UNSIGNED_ZERO;
+	volatile u32 ProtVal = XIL_UNSIGNED_ZERO;
+	volatile u32 ProtValTmp = XIL_UNSIGNED_ZERO;
+	volatile u32 RowVal = XIL_UNSIGNED_ZERO;
+	volatile u32 RowValTmp = XIL_UNSIGNED_ZERO;
+
+	RegVal = XNvm_EfuseReadReg(XNVM_EFUSE_CACHE_BASEADDR,
+			XNVM_EFUSE_CACHE_TBITS0_SVD_OFFSET);
+	RegValTmp = XNvm_EfuseReadReg(XNVM_EFUSE_CACHE_BASEADDR,
+			XNVM_EFUSE_CACHE_TBITS0_SVD_OFFSET);
+
+	ProtVal = RegVal & (XNVM_EFUSE_CACHE_TBITS0_SVD_ANCHOR_3_MASK |
+				XNVM_EFUSE_CACHE_TBITS0_SVD_ANCHOR_2_MASK |
+				XNVM_EFUSE_CACHE_TBITS0_SVD_ANCHOR_1_MASK |
+				XNVM_EFUSE_CACHE_TBITS0_SVD_ANCHOR_0_MASK);
+	ProtValTmp = RegValTmp & (XNVM_EFUSE_CACHE_TBITS0_SVD_ANCHOR_3_MASK |
+				XNVM_EFUSE_CACHE_TBITS0_SVD_ANCHOR_2_MASK |
+				XNVM_EFUSE_CACHE_TBITS0_SVD_ANCHOR_1_MASK |
+				XNVM_EFUSE_CACHE_TBITS0_SVD_ANCHOR_0_MASK);
+
+	if ((ProtVal != (XNVM_EFUSE_CACHE_TBITS0_SVD_ANCHOR_3_MASK |
+			XNVM_EFUSE_CACHE_TBITS0_SVD_ANCHOR_1_MASK)) ||
+		(ProtValTmp != (XNVM_EFUSE_CACHE_TBITS0_SVD_ANCHOR_3_MASK |
+				XNVM_EFUSE_CACHE_TBITS0_SVD_ANCHOR_1_MASK))) {
+		Status = (int)XNVM_EFUSE_ERR_ANCHOR_BIT_PATTERN;
+		goto END;
+	}
+
+	ProtVal = RegVal & XNVM_EFUSE_CACHE_TBITS0_SVD_SEC_CTRL_PROT_MASK;
+	ProtValTmp = RegValTmp & XNVM_EFUSE_CACHE_TBITS0_SVD_SEC_CTRL_PROT_MASK;
+
+	if ((ProtVal != XIL_UNSIGNED_ZERO) || (ProtValTmp != XIL_UNSIGNED_ZERO)) {
+		RowVal = XNvm_EfuseReadReg(XNVM_EFUSE_CACHE_BASEADDR,
+				XNVM_EFUSE_CACHE_SECURITY_CONTROL_OFFSET);
+		RowValTmp = XNvm_EfuseReadReg(XNVM_EFUSE_CACHE_BASEADDR,
+				XNVM_EFUSE_CACHE_SECURITY_CONTROL_OFFSET);
+
+		if ((RowVal != RowValTmp) || (RowVal == XIL_UNSIGNED_ZERO)) {
+			Status = (int)XNVM_EFUSE_ERR_IN_PROTECTION_CHECK;
+			goto END;
+		}
+	}
+
+	ProtVal = RegVal & XNVM_EFUSE_CACHE_TBITS0_SVD_SEC_MISC0_PROT_MASK;
+	ProtValTmp = RegValTmp & XNVM_EFUSE_CACHE_TBITS0_SVD_SEC_MISC0_PROT_MASK;
+
+	if ((ProtVal != XIL_UNSIGNED_ZERO) || (ProtValTmp != XIL_UNSIGNED_ZERO)) {
+		RowVal = XNvm_EfuseReadReg(XNVM_EFUSE_CACHE_BASEADDR,
+			XNVM_EFUSE_CACHE_SECURITY_MISC_0_OFFSET) &
+			XNVM_EFUSE_CACHE_DEC_EFUSE_ONLY_MASK;
+		RowValTmp = XNvm_EfuseReadReg(XNVM_EFUSE_CACHE_BASEADDR,
+			XNVM_EFUSE_CACHE_SECURITY_MISC_0_OFFSET) &
+			XNVM_EFUSE_CACHE_DEC_EFUSE_ONLY_MASK;
+
+		if ((RowVal != RowValTmp) || (RowVal !=
+				XNVM_EFUSE_CACHE_DEC_EFUSE_ONLY_MASK)) {
+			Status = (int)XNVM_EFUSE_ERR_IN_PROTECTION_CHECK;
+			goto END;
+		}
+	}
+
+	ProtVal = RegVal & XNVM_EFUSE_CACHE_TBITS0_SVD_PPK_HASH_PROT_MASK;
+	ProtValTmp = RegValTmp & XNVM_EFUSE_CACHE_TBITS0_SVD_PPK_HASH_PROT_MASK;
+
+	if ((ProtVal != XIL_UNSIGNED_ZERO) || (ProtValTmp != XIL_UNSIGNED_ZERO)) {
+		Status = XNvm_EfusePlatCheckCacheNonZero(
+				XNVM_EFUSE_CACHE_PPK0_HASH_0_OFFSET,
+				XNVM_EFUSE_TOTAL_PPK_HASH_ROWS);
+		if (Status != XST_SUCCESS) {
+			goto END;
+		}
+	}
+
+	ProtVal = RegVal & XNVM_EFUSE_CACHE_TBITS0_SVD_META_HEADER_EXPORT_PROT_MASK;
+	ProtValTmp = RegValTmp &
+			XNVM_EFUSE_CACHE_TBITS0_SVD_META_HEADER_EXPORT_PROT_MASK;
+
+	if ((ProtVal != XIL_UNSIGNED_ZERO) || (ProtValTmp != XIL_UNSIGNED_ZERO)) {
+		Status = XNvm_EfusePlatCheckCacheNonZero(
+				XNVM_EFUSE_CACHE_METAHEADER_IV_RANGE_0_OFFSET,
+				XNVM_EFUSE_IV_NUM_OF_CACHE_ROWS);
+		if (Status != XST_SUCCESS) {
+			goto END;
+		}
+	}
+
+	ProtVal = RegVal & XNVM_EFUSE_CACHE_TBITS0_SVD_CRC_PROT_MASK;
+	ProtValTmp = RegValTmp & XNVM_EFUSE_CACHE_TBITS0_SVD_CRC_PROT_MASK;
+
+	if ((ProtVal != XIL_UNSIGNED_ZERO) || (ProtValTmp != XIL_UNSIGNED_ZERO)) {
+		RowVal = XNvm_EfuseReadReg(XNVM_EFUSE_CACHE_BASEADDR,
+				XNVM_EFUSE_CACHE_ME_ID_CODE_OFFSET) &
+				XNVM_EFUSE_CACHE_ME_ID_CODE_CRC_SALT_MASK;
+		RowValTmp = XNvm_EfuseReadReg(XNVM_EFUSE_CACHE_BASEADDR,
+				XNVM_EFUSE_CACHE_ME_ID_CODE_OFFSET) &
+				XNVM_EFUSE_CACHE_ME_ID_CODE_CRC_SALT_MASK;
+
+		if ((RowVal != XIL_UNSIGNED_ZERO) ||
+				(RowValTmp != XIL_UNSIGNED_ZERO)) {
+			Status = XNvm_EfuseOpsValidateCrc();
+			if (Status != XST_SUCCESS) {
+				Status = (int)XNVM_EFUSE_XLNX_MANFAC_BITS_CRC_ERROR;
+				goto END;
+			}
+		}
+	}
+
+	ProtVal = RegVal & XNVM_EFUSE_CACHE_TBITS0_SVD_PUF_CHASH_PROT_MASK;
+	ProtValTmp = RegValTmp & XNVM_EFUSE_CACHE_TBITS0_SVD_PUF_CHASH_PROT_MASK;
+
+	if ((ProtVal != XIL_UNSIGNED_ZERO) || (ProtValTmp != XIL_UNSIGNED_ZERO)) {
+		RowVal = XNvm_EfuseReadReg(XNVM_EFUSE_CACHE_BASEADDR,
+				XNVM_EFUSE_CACHE_PUF_CHASH_OFFSET);
+		RowValTmp = XNvm_EfuseReadReg(XNVM_EFUSE_CACHE_BASEADDR,
+				XNVM_EFUSE_CACHE_PUF_CHASH_OFFSET);
+
+		if ((RowVal != RowValTmp) || (RowVal == XIL_UNSIGNED_ZERO)) {
+			Status = (int)XNVM_EFUSE_ERR_IN_PROTECTION_CHECK;
+			goto END;
+		}
+	}
+
+	ProtVal = RegVal & XNVM_EFUSE_CACHE_TBITS0_SVD_SEC_MISC1_PROT_MASK;
+	ProtValTmp = RegValTmp & XNVM_EFUSE_CACHE_TBITS0_SVD_SEC_MISC1_PROT_MASK;
+
+	if ((ProtVal != XIL_UNSIGNED_ZERO) || (ProtValTmp != XIL_UNSIGNED_ZERO)) {
+		RowVal = XNvm_EfuseReadReg(XNVM_EFUSE_CACHE_BASEADDR,
+				XNVM_EFUSE_CACHE_SECURITY_MISC_1_OFFSET);
+		RowValTmp = XNvm_EfuseReadReg(XNVM_EFUSE_CACHE_BASEADDR,
+				XNVM_EFUSE_CACHE_SECURITY_MISC_1_OFFSET);
+
+		if ((RowVal != RowValTmp) ||
+			((RowVal & XNVM_EFUSE_SECURITY_MISC_1_PROT_MASK) ==
+				XIL_UNSIGNED_ZERO)) {
+			Status = (int)XNVM_EFUSE_ERR_IN_PROTECTION_CHECK;
+			goto END;
+		}
+	}
+
+	if ((ProtVal == ProtValTmp) && (RowVal == RowValTmp)) {
+		Status = XST_SUCCESS;
+	}
+
+END:
+	return Status;
+}
 /** @} */

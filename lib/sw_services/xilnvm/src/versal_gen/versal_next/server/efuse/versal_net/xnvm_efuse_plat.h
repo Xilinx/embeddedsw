@@ -56,12 +56,15 @@ typedef struct {
 
 /************************** Function Prototypes ******************************/
 
+#if !(defined(VERSAL_2VE_2VM) && defined(VERSAL_2VP_P))
 int XNvm_EfuseWritePufSecCtrl(u32 EnvDisFlag, u32 PufCtrlBits);
 #ifdef XNVM_ACCESS_PUF_USER_DATA
 int XNvm_EfuseWritePufAsUserFuses(const XNvm_EfusePufFuse *PufFuse);
 #else
 int XNvm_EfuseWritePuf(const XNvm_EfusePufHdAddr *PufHelperData);
 #endif
+#endif /* !(VERSAL_2VE_2VM && VERSAL_2VP_P) */
+int XNvm_EfusePlatProtectionChecks(void);
 
 #ifdef __cplusplus
 }

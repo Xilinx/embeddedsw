@@ -162,9 +162,12 @@ typedef enum {
  * eFuse Page
  */
 typedef enum {
-	XNVM_EFUSE_PAGE_0 = 0, /**< Efuse page 0*/
-	XNVM_EFUSE_PAGE_1, /**< Efuse page 1*/
-	XNVM_EFUSE_PAGE_2 /**< Efuse page 2*/
+	XNVM_EFUSE_PAGE_0 = 0, /**< Efuse page 0 */
+	XNVM_EFUSE_PAGE_1, /**< Efuse page 1 */
+	XNVM_EFUSE_PAGE_2, /**< Efuse page 2 */
+	XNVM_EFUSE_PAGE_3, /**< Efuse page 3 */
+	XNVM_EFUSE_PAGE_4, /**< Efuse page 4 */
+	XNVM_EFUSE_PAGE_5 /**< Efuse page 5 */
 } XNvm_EfuseType;
 
 /***************** Macros (Inline Functions) Definitions *********************/

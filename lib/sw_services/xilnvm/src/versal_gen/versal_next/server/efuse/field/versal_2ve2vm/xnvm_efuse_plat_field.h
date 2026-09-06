@@ -38,6 +38,7 @@
 #include "xnvm_defs.h"
 #include "xnvm_efuse_error.h"
 #include "xnvm_efuse_common_field.h"
+#include "xnvm_efuse_plat.h"
 
 
 /************************** Constant Definitions *****************************/
@@ -67,6 +68,7 @@
 /** @brief Default device ops; PostProgram is bound at engine open on PLM server. */
 static XNvm_EfuseDeviceOps XNvm_EfuseSwOps = {
 	.PostProgram = NULL,
+	.ProtectionChecks = XNvm_EfusePlatProtectionChecks,
 };
 
 
@@ -1241,6 +1243,7 @@ const XNvm_EfuseDevice XNvm_EfuseDeviceDesc = {
 	.Protection = XNvm_EfuseCommonProtection,
 	.NumProtection = (u32)(sizeof(XNvm_EfuseCommonProtection) /
 			sizeof(XNvm_EfuseCommonProtection[0])),
+	.Flags = XNVM_EFUSE_DEVICE_FLAG_NONE,
 	.Ops = &XNvm_EfuseSwOps,
 	.DmeRevoke = &XNvm_Efuse2Ve2VmDmeRevokeMap,
 	.FipsVersion = &XNvm_Efuse2Ve2VmFipsVersion,

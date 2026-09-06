@@ -45,6 +45,9 @@
 #include "xnvm_defs.h"
 #include "xnvm_bbram_cdohandler.h"
 #include "xnvm_efuse_cdohandler.h"
+#if defined(VERSAL_2VE_2VM) && defined(VERSAL_2VP_P)
+#include "xnvm_plat_cmd.h"
+#endif
 #include "xnvm_cmd.h"
 
 /************************** Function Prototypes ******************************/
@@ -88,12 +91,24 @@ static XPlmi_AccessPerm_t XNvm_AccessPermBuff[XNVM_API_MAX] =
 	XPLMI_ALL_IPI_FULL_ACCESS(XNVM_API_ID_EFUSE_WRITE_DME_MODE),
 	XPLMI_ALL_IPI_NO_ACCESS(XNVM_API_ID_EFUSE_WRITE_PUF_HD_FROM_PLOAD),
 #ifdef XNVM_ACCESS_PUF_USER_DATA
+#if defined(VERSAL_2VE_2VM) && defined(VERSAL_2VP_P)
+	XPLMI_ALL_IPI_NO_ACCESS(XNVM_API_ID_EFUSE_WRITE_PUF_USER_FUSE),
+#else
 	XPLMI_ALL_IPI_FULL_ACCESS(XNVM_API_ID_EFUSE_WRITE_PUF_USER_FUSE),
+#endif
+#else
+#if defined(VERSAL_2VE_2VM) && defined(VERSAL_2VP_P)
+	XPLMI_ALL_IPI_NO_ACCESS(XNVM_API_ID_EFUSE_WRITE_PUF),
 #else
 	XPLMI_ALL_IPI_FULL_ACCESS(XNVM_API_ID_EFUSE_WRITE_PUF),
 #endif
+#endif
 	XPLMI_ALL_IPI_FULL_ACCESS(XNVM_API_ID_EFUSE_WRITE_ROM_RSVD),
+#if defined(VERSAL_2VE_2VM) && defined(VERSAL_2VP_P)
+	XPLMI_ALL_IPI_NO_ACCESS(XNVM_API_ID_EFUSE_WRITE_PUF_CTRL_BITS),
+#else
 	XPLMI_ALL_IPI_FULL_ACCESS(XNVM_API_ID_EFUSE_WRITE_PUF_CTRL_BITS),
+#endif
 	XPLMI_ALL_IPI_FULL_ACCESS(XNVM_API_ID_EFUSE_WRITE_UDS),
 	XPLMI_ALL_IPI_FULL_ACCESS(XNVM_API_ID_EFUSE_WRITE_DME_KEY),
 	XPLMI_ALL_IPI_FULL_ACCESS(XNVM_API_ID_EFUSE_READ_CACHE),
@@ -191,7 +206,8 @@ static int XNvm_FeaturesCmd(u32 ApiId)
 	case XNVM_API(XNVM_API_ID_EFUSE_WRITE_DME_KEY):
 	case XNVM_API(XNVM_API_ID_EFUSE_WRITE_DME_REVOKE):
 	case XNVM_API(XNVM_API_ID_EFUSE_CHECK_AES_KEY_CRC):
-#ifdef XNVM_ACCESS_PUF_USER_DATA
+#if defined(XNVM_ACCESS_PUF_USER_DATA) && \
+		!(defined(VERSAL_2VE_2VM) && defined(VERSAL_2VP_P))
 	case XNVM_API_ID_EFUSE_WRITE_PUF_USER_FUSE:
 #endif
 		Status = XST_SUCCESS;
@@ -219,11 +235,23 @@ static int XNvm_ProcessCmd(XPlmi_Cmd *Cmd)
 {
 	int Status = XST_FAILURE;
 	u32 *Pload = Cmd->Payload;
+#if defined(VERSAL_2VE_2VM) && defined(VERSAL_2VP_P)
+	u32 IsPlatCmd = (u32)FALSE;
+#endif
 
 	if (Pload == NULL) {
 		Status = XST_INVALID_PARAM;
 		goto END;
 	}
+
+#if defined(VERSAL_2VE_2VM) && defined(VERSAL_2VP_P)
+	Status = XNvm_PlatCmdProcess(Cmd, &IsPlatCmd);
+	if (IsPlatCmd == (u32)TRUE) {
+		goto END;
+	}
+
+	Status = XST_FAILURE;
+#endif
 
 	switch (Cmd->CmdId & XNVM_API_ID_MASK) {
 	case XNVM_API(XNVM_API_FEATURES):
@@ -258,17 +286,21 @@ static int XNvm_ProcessCmd(XPlmi_Cmd *Cmd)
 	case XNVM_API(XNVM_API_ID_EFUSE_WRITE_PLM_UPDATE):
 	case XNVM_API(XNVM_API_ID_EFUSE_WRITE_BOOT_MODE_DISABLE):
 	case XNVM_API(XNVM_API_ID_EFUSE_RELOAD_N_PRGM_PROT_BITS):
+#if !(defined(VERSAL_2VE_2VM) && defined(VERSAL_2VP_P))
 	case XNVM_API(XNVM_API_ID_EFUSE_WRITE_PUF_HD_FROM_PLOAD):
+#endif
 	case XNVM_API(XNVM_API_ID_EFUSE_WRITE_AES_KEY):
 	case XNVM_API(XNVM_API_ID_EFUSE_WRITE_PPK_HASH):
 	case XNVM_API(XNVM_API_ID_EFUSE_WRITE_IV):
 	case XNVM_API(XNVM_API_ID_EFUSE_READ_CACHE):
+#if !(defined(VERSAL_2VE_2VM) && defined(VERSAL_2VP_P))
 #ifdef XNVM_ACCESS_PUF_USER_DATA
 	case XNVM_API(XNVM_API_ID_EFUSE_WRITE_PUF_USER_FUSE):
 #else
 	case XNVM_API(XNVM_API_ID_EFUSE_WRITE_PUF):
 #endif
 	case XNVM_API(XNVM_API_ID_EFUSE_WRITE_PUF_CTRL_BITS):
+#endif
 	case XNVM_API(XNVM_API_ID_EFUSE_WRITE_CRC):
 	case XNVM_API(XNVM_API_ID_EFUSE_WRITE_DME_MODE):
 	case XNVM_API(XNVM_API_ID_EFUSE_WRITE_ROM_RSVD):

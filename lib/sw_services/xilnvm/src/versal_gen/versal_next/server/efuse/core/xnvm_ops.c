@@ -45,6 +45,9 @@
 #include "xnvm_efuse_common_field.h"
 #include "xnvm_efuse_common_hw.h"
 #include "xnvm_efuse_common.h"
+#ifdef XNVM_EFUSE_HAS_2ND_AES_KEYS
+#include "xnvm_efuse_plat.h"
+#endif
 
 /************************** Constant Definitions *****************************/
 
@@ -79,9 +82,14 @@ typedef struct {
 	u32 CrcWordCount; /**< Number of data words included in CRC */
 } XNvm_EfusePostProgDesc;
 
+/** - Field identifier to AES-class key type mapping entry. */
+typedef struct {
+	XNvm_EfuseFieldId FieldId; /**< Band-engine field identifier */
+	XNvm_AesKeyType KeyType; /**< Matching AES-class key type */
+} XNvm_EfuseAesKeyFieldMap;
+
 /************************** Function Prototypes ******************************/
 static u32 XNvm_EfuseOpsCalculateCrc32(const u8 *Data, u32 Len);
-static u32 XNvm_EfuseOpsCrcCalc(const u32 *Data, u32 NumWords);
 static int XNvm_EfuseOpsProtectionChecks(void);
 static int XNvm_EfuseOpsCheckCacheNonZero(u32 StartOffset, u32 NumRows);
 static int XNvm_EfuseOpsPostProgram(XNvm_EfuseFieldId FieldId, const void *Data);
@@ -97,6 +105,8 @@ static int XNvm_EfuseOpsValidateFipsField(const XNvm_EfuseFieldDesc *Field,
 		const u32 *Data, u32 NumWords);
 static int XNvm_EfuseOpsValidateIvField(XNvm_EfuseFieldId FieldId,
 		const u32 *Data, u32 NumWords);
+static int XNvm_EfuseOpsFieldToAesKeyType(XNvm_EfuseFieldId FieldId,
+		XNvm_AesKeyType *KeyType);
 
 /************************** Variable Definitions *****************************/
 
@@ -113,6 +123,23 @@ static const u32 XNvm_EfuseCrcInputOffsets[XNVM_EFUSE_CRC_INPUT_COUNT] = {
 	0x000001C0U,
 	0x000001C4U, 0x000001C8U, 0x000001CCU,
 	0x000001F4U, 0x000001F8U, 0x000001FCU, 0x00000200U,
+};
+
+/**
+ * Field identifier to AES-class key type map.
+ *
+ * The two enumerations are deliberately not assumed to be parallel, so field
+ * identifiers can be appended without disturbing key type numbering.
+ */
+static const XNvm_EfuseAesKeyFieldMap XNvm_EfuseAesKeyFieldTbl[] = {
+	{ XNVM_EFUSE_FIELD_AES_KEY, XNVM_EFUSE_AES_KEY },
+	{ XNVM_EFUSE_FIELD_USER_KEY0, XNVM_EFUSE_USER_KEY_0 },
+	{ XNVM_EFUSE_FIELD_USER_KEY1, XNVM_EFUSE_USER_KEY_1 },
+#ifdef XNVM_EFUSE_FIELD_AES_KEY_2ND
+	{ XNVM_EFUSE_FIELD_AES_KEY_2ND, XNVM_EFUSE_AES_KEY_2ND },
+	{ XNVM_EFUSE_FIELD_USER_KEY0_2ND, XNVM_EFUSE_USER_KEY_0_2ND },
+	{ XNVM_EFUSE_FIELD_USER_KEY1_2ND, XNVM_EFUSE_USER_KEY_1_2ND },
+#endif
 };
 
 static const XNvm_EfusePostProgDesc XNvm_EfusePostProgTbl[] = {
@@ -140,6 +167,33 @@ static const XNvm_EfusePostProgDesc XNvm_EfusePostProgTbl[] = {
 		XNVM_EFUSE_ERR_WRITE_USER_KEY1,
 		XNVM_AES_KEY_SIZE_IN_WORDS,
 	},
+#if defined(XNVM_EFUSE_FIELD_AES_KEY_2ND) && \
+	defined(XNVM_EFUSE_AES_KEY_0_2ND_CRC_REG_OFFSET)
+	{
+		XNVM_EFUSE_FIELD_AES_KEY_2ND,
+		XNVM_EFUSE_AES_KEY_0_2ND_CRC_REG_OFFSET,
+		XNVM_EFUSE_CTRL_STATUS_AES_KEY_0_2ND_CRC_DONE_MASK,
+		XNVM_EFUSE_CTRL_STATUS_AES_KEY_0_2ND_CRC_PASS_MASK,
+		XNVM_EFUSE_ERR_WRITE_AES_KEY,
+		XNVM_AES_KEY_SIZE_IN_WORDS,
+	},
+	{
+		XNVM_EFUSE_FIELD_USER_KEY0_2ND,
+		XNVM_EFUSE_USER_KEY_0_2ND_CRC_REG_OFFSET,
+		XNVM_EFUSE_CTRL_STATUS_USER_KEY_0_2ND_CRC_DONE_MASK,
+		XNVM_EFUSE_CTRL_STATUS_USER_KEY_0_2ND_CRC_PASS_MASK,
+		XNVM_EFUSE_ERR_WRITE_USER_KEY0,
+		XNVM_AES_KEY_SIZE_IN_WORDS,
+	},
+	{
+		XNVM_EFUSE_FIELD_USER_KEY1_2ND,
+		XNVM_EFUSE_USER_KEY_1_2ND_CRC_REG_OFFSET,
+		XNVM_EFUSE_CTRL_STATUS_USER_KEY_1_2ND_CRC_DONE_MASK,
+		XNVM_EFUSE_CTRL_STATUS_USER_KEY_1_2ND_CRC_PASS_MASK,
+		XNVM_EFUSE_ERR_WRITE_USER_KEY1,
+		XNVM_AES_KEY_SIZE_IN_WORDS,
+	},
+#endif
 	{
 		XNVM_EFUSE_FIELD_UDS,
 		XNVM_EFUSE_CTRL_UDS_DICE_CRC_OFFSET,
@@ -152,6 +206,75 @@ static const XNvm_EfusePostProgDesc XNvm_EfusePostProgTbl[] = {
 
 /************************** Function Definitions *****************************/
 
+/******************************************************************************/
+/**
+ * @brief	Maps a band-engine field identifier to its AES-class key type.
+ *
+ * @param	FieldId - Field identifier to translate.
+ * @param	KeyType - Receives the matching AES-class key type.
+ *
+ * @return
+ *		- XST_SUCCESS when FieldId names an AES-class key.
+ *		- XNVM_EFUSE_ERR_INVALID_PARAM otherwise.
+ *
+ ******************************************************************************/
+static int XNvm_EfuseOpsFieldToAesKeyType(XNvm_EfuseFieldId FieldId,
+		XNvm_AesKeyType *KeyType)
+{
+	int Status = (int)XNVM_EFUSE_ERR_INVALID_PARAM;
+	u32 Index = XIL_UNSIGNED_ZERO;
+
+	if (KeyType == NULL) {
+		goto END;
+	}
+
+	for (Index = XIL_UNSIGNED_ZERO; Index < (sizeof(XNvm_EfuseAesKeyFieldTbl) /
+			sizeof(XNvm_EfuseAesKeyFieldTbl[0])); Index++) {
+		if (XNvm_EfuseAesKeyFieldTbl[Index].FieldId == FieldId) {
+			*KeyType = XNvm_EfuseAesKeyFieldTbl[Index].KeyType;
+			Status = XST_SUCCESS;
+			break;
+		}
+	}
+
+END:
+	return Status;
+}
+
+/******************************************************************************/
+/**
+ * @brief	Maps an AES-class key type to its band-engine field identifier.
+ *
+ * @param	KeyType - AES-class key type to translate.
+ * @param	FieldId - Receives the matching field identifier.
+ *
+ * @return
+ *		- XST_SUCCESS when KeyType names a supported AES-class key.
+ *		- XNVM_EFUSE_ERR_INVALID_PARAM otherwise.
+ *
+ ******************************************************************************/
+int XNvm_EfuseOpsAesKeyTypeToField(XNvm_AesKeyType KeyType,
+		XNvm_EfuseFieldId *FieldId)
+{
+	int Status = (int)XNVM_EFUSE_ERR_INVALID_PARAM;
+	u32 Index = XIL_UNSIGNED_ZERO;
+
+	if (FieldId == NULL) {
+		goto END;
+	}
+
+	for (Index = XIL_UNSIGNED_ZERO; Index < (sizeof(XNvm_EfuseAesKeyFieldTbl) /
+			sizeof(XNvm_EfuseAesKeyFieldTbl[0])); Index++) {
+		if (XNvm_EfuseAesKeyFieldTbl[Index].KeyType == KeyType) {
+			*FieldId = XNvm_EfuseAesKeyFieldTbl[Index].FieldId;
+			Status = XST_SUCCESS;
+			break;
+		}
+	}
+
+END:
+	return Status;
+}
 
 /******************************************************************************/
 /**
@@ -224,6 +347,13 @@ int XNvm_EfuseOpsValidateWriteField(const XNvm_EfuseDevice *Dev,
 		goto END;
 	}
 
+	if ((Dev->Ops != NULL) && (Dev->Ops->ValidateField != NULL)) {
+		Status = Dev->Ops->ValidateField(Field);
+		if (Status != XST_SUCCESS) {
+			goto END;
+		}
+	}
+
 	Status = XST_SUCCESS;
 
 	if (Field->ValidateFlags != XNVM_EFUSE_VALIDATE_NONE) {
@@ -235,8 +365,13 @@ int XNvm_EfuseOpsValidateWriteField(const XNvm_EfuseDevice *Dev,
 		}
 
 		if ((Field->ValidateFlags & XNVM_EFUSE_VALIDATE_AES_KEY) != XIL_UNSIGNED_ZERO) {
-			Status = XNvm_EfuseValidateAesKeyWriteReq(XNVM_EFUSE_AES_KEY +
-				(XNvm_AesKeyType)(FieldId - XNVM_EFUSE_FIELD_AES_KEY));
+			XNvm_AesKeyType AesKeyType;
+
+			Status = XNvm_EfuseOpsFieldToAesKeyType(FieldId, &AesKeyType);
+			if (Status != XST_SUCCESS) {
+				goto END;
+			}
+			Status = XNvm_EfuseValidateAesKeyWriteReq(AesKeyType);
 			if (Status != XST_SUCCESS) {
 				goto END;
 			}
@@ -397,7 +532,12 @@ int XNvm_EfuseOpsCacheOperations(void)
 	}
 
 	Status = XST_FAILURE;
-	Status = XNvm_EfuseOpsProtectionChecks();
+	if ((XNvm_EfuseDeviceDesc.Ops != NULL) &&
+			(XNvm_EfuseDeviceDesc.Ops->ProtectionChecks != NULL)) {
+		Status = XNvm_EfuseDeviceDesc.Ops->ProtectionChecks();
+	} else {
+		Status = XNvm_EfuseOpsProtectionChecks();
+	}
 
 END:
 	return Status;
@@ -741,7 +881,8 @@ static int XNvm_EfuseOpsGetCacheEmptyErr(u32 FieldId)
  * @param	Data - Pointer to programmed field data passed to WriteField.
  *
  * @return
- *		- XST_SUCCESS on success or for fields with no post-program step.
+ *		- XST_SUCCESS on success or for non-AES-class fields with no CRC step.
+ *		- XNVM_EFUSE_ERR_INVALID_PARAM if an AES-class key has no CRC descriptor.
  *		- Field-specific write error OR'd with CRC or protection failure.
  *
  ******************************************************************************/
@@ -750,6 +891,7 @@ static int XNvm_EfuseOpsPostProgram(XNvm_EfuseFieldId FieldId, const void *Data)
 	const u32 *PrgmData = (const u32 *)Data;
 	const XNvm_EfusePostProgDesc *Desc = NULL;
 	volatile int Status = XST_FAILURE;
+	XNvm_AesKeyType AesKeyType;
 	u32 Crc = XIL_UNSIGNED_ZERO;
 	u32 PostProgTblIdx = XIL_UNSIGNED_ZERO;
 
@@ -761,7 +903,16 @@ static int XNvm_EfuseOpsPostProgram(XNvm_EfuseFieldId FieldId, const void *Data)
 		}
 	}
 	if (Desc == NULL) {
-		Status = XST_SUCCESS;
+		/*
+		 * PPK/IV/etc. have no CRC step. An AES-class key without a
+		 * descriptor would skip cache reload and CRC; reject it.
+		 */
+		if (XNvm_EfuseOpsFieldToAesKeyType(FieldId, &AesKeyType) ==
+				XST_SUCCESS) {
+			Status = (int)XNVM_EFUSE_ERR_INVALID_PARAM;
+		} else {
+			Status = XST_SUCCESS;
+		}
 		goto END;
 	}
 
@@ -780,13 +931,7 @@ static int XNvm_EfuseOpsPostProgram(XNvm_EfuseFieldId FieldId, const void *Data)
 	Status = XNvm_EfuseCheckAesKeyCrc(Desc->CrcRegOffset, Desc->CrcDoneMask,
 			Desc->CrcPassMask, Crc);
 	if (Status != XST_SUCCESS) {
-		if (FieldId == XNVM_EFUSE_FIELD_UDS) {
-			Status = (Status | Desc->ErrWrite);
-		} else {
-			Status = (Status | (XNVM_EFUSE_ERR_WRITE_AES_KEY +
-				((FieldId - XNVM_EFUSE_FIELD_AES_KEY) <<
-				 XNVM_EFUSE_ERROR_BYTE_SHIFT)));
-		}
+		Status = (Status | Desc->ErrWrite);
 	}
 
 END:
@@ -920,18 +1065,6 @@ static int XNvm_EfuseOpsProtectionChecks(void)
 		}
 	}
 
-	ProtVal = RegVal & (XNVM_EFUSE_CACHE_TBITS0_SVD_PPK_HASH_PROT_MASK);
-	ProtValTmp = RegValTmp & (XNVM_EFUSE_CACHE_TBITS0_SVD_PPK_HASH_PROT_MASK);
-
-	if((ProtVal != XIL_UNSIGNED_ZERO) || (ProtValTmp != XIL_UNSIGNED_ZERO)) {
-		Status = XNvm_EfuseOpsCheckCacheNonZero(
-				XNVM_EFUSE_CACHE_PPK0_HASH_0_OFFSET,
-				XNVM_EFUSE_TOTAL_PPK_HASH_ROWS);
-		if (Status != XST_SUCCESS) {
-			goto END;
-		}
-	}
-
 	ProtVal = RegVal  & (XNVM_EFUSE_CACHE_TBITS0_SVD_META_HEADER_EXPORT_PROT_MASK);
 	ProtValTmp = RegValTmp & (XNVM_EFUSE_CACHE_TBITS0_SVD_META_HEADER_EXPORT_PROT_MASK);
 
@@ -1013,7 +1146,7 @@ END:
  * @return	32-bit CRC value.
  *
  ******************************************************************************/
-static u32 XNvm_EfuseOpsCrcCalc(const u32 *Data, u32 NumWords)
+u32 XNvm_EfuseOpsCrcCalc(const u32 *Data, u32 NumWords)
 {
 	u32 Crc = XIL_UNSIGNED_ZERO;
 	u32 Value;

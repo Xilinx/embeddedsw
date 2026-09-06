@@ -44,6 +44,9 @@
 #include "xil_util.h"
 #include "xnvm_efuseclient.h"
 #include "xnvm_efuseclient_hw.h"
+#if defined(VERSAL_2VE_2VM) && defined(VERSAL_2VP_P)
+#include "xnvm_efuse_plat_client.h"
+#endif
 #include "xnvm_mailbox.h"
 #include "xnvm_validate.h"
 #include "xnvm_defs.h"
@@ -98,7 +101,9 @@ static void XNvm_EfuseCreateWritePpkCmd(XNvm_PpkWriteCdo* PpkWrCdo, XNvm_PpkType
 static void XNvm_EfuseCreateWriteIvCmd(XNvm_IvWriteCdo* IvWrCdo, XNvm_IvType IvType, u32 AddrLow, u32 AddrHigh, u32 EnvMonDis);
 static void XNvm_EfuseCreateReadEfuseCacheCmd(XNvm_RdCacheCdo* RdCacheCdo, u16 StartOffset, u8 RegCount, u32 AddrLow, u32 AddrHigh);
 #ifndef XNVM_ACCESS_PUF_USER_DATA
+#if !(defined(VERSAL_2VE_2VM) && defined(VERSAL_2VP_P))
 static void XNvm_EfuseCreateWritePufCmd(XNvm_PufWriteCdo* PufWrCdo, u32 AddrLow, u32 AddrHigh);
+#endif
 #endif
 static int XNvm_EfuseValidateNdWriteAesKey(const XNvm_ClientInstance *InstancePtr, XNvm_AesKeyWriteCdo *KeyWrCdo,
 		XNvm_AesKeyType KeyType, u64 Addr, u32 EnvMonDis);
@@ -449,7 +454,7 @@ int XNvm_EfuseWriteDiceUds(XNvm_ClientInstance *InstancePtr, const u64 UdsAddr, 
 
 	UdsWriteCdo->CdoHdr = Header(0U, (u32)XNVM_API_ID_EFUSE_WRITE_UDS);
 	UdsWriteCdo->Pload.EnvDisFlag = (u16)EnvDisFlag;
-	UdsWriteCdo->Pload.Reserved = (u16)0x0U;
+	UdsWriteCdo->Pload.UdsSlot = (u16)0x0U;
 	UdsWriteCdo->Pload.AddrLow = (u32)UdsAddr;
 	UdsWriteCdo->Pload.AddrHigh = (u32)(UdsAddr >> XNVM_ADDR_HIGH_SHIFT);
 
@@ -811,7 +816,8 @@ END:
  * 		- XST_SUCCESS - If the programming is successful
  * 		- XST_INVALID_PARAM - On invalid input parameters
  *
- ******************************************************************************/
+ * *****************************************************************************/
+#if !(defined(VERSAL_2VE_2VM) && defined(VERSAL_2VP_P))
 int XNvm_EfuseWritePufCtrlBits(XNvm_ClientInstance *InstancePtr, u32 PufCtrlBits, const u32 EnvDisFlag)
 {
 	volatile int Status = XST_FAILURE;
@@ -856,6 +862,7 @@ int XNvm_EfuseWritePufCtrlBits(XNvm_ClientInstance *InstancePtr, u32 PufCtrlBits
 END:
 	return Status;
 }
+#endif
 
 /*****************************************************************************/
 /**
@@ -1541,6 +1548,7 @@ END:
  *		- XST_FAILURE  If there is a failure
  *
  ******************************************************************************/
+#if !(defined(VERSAL_2VE_2VM) && defined(VERSAL_2VP_P))
 int XNvm_EfuseWritePufAsUserFuses(XNvm_ClientInstance *InstancePtr, const u64 PufUserFuseAddr)
 {
 	volatile int Status = XST_FAILURE;
@@ -1570,6 +1578,7 @@ int XNvm_EfuseWritePufAsUserFuses(XNvm_ClientInstance *InstancePtr, const u64 Pu
 END:
 	return Status;
 }
+#endif
 
 /*****************************************************************************/
 /**
@@ -1648,6 +1657,7 @@ END:
  * 		- XST_INVALID_PARAM - On invalid input parameters
  *
  ******************************************************************************/
+#if !(defined(VERSAL_2VE_2VM) && defined(VERSAL_2VP_P))
 int XNvm_EfuseWritePuf(XNvm_ClientInstance *InstancePtr, const u64 PufHdAddr)
 {
 	volatile int Status = XST_FAILURE;
@@ -1700,6 +1710,7 @@ int XNvm_EfuseWritePuf(XNvm_ClientInstance *InstancePtr, const u64 PufHdAddr)
 END:
 	return Status;
 }
+#endif
 
 /*****************************************************************************/
 /**
@@ -3036,6 +3047,7 @@ END:
 	return Status;
 }
 #ifndef XNVM_ACCESS_PUF_USER_DATA
+#if !(defined(VERSAL_2VE_2VM) && defined(VERSAL_2VP_P))
 /*****************************************************************************/
 /**
  * @brief	This function creates payload for Write PUF CDO.
@@ -3051,6 +3063,7 @@ static void XNvm_EfuseCreateWritePufCmd(XNvm_PufWriteCdo* PufWrCdo, u32 AddrLow,
 	PufWrCdo->Pload.AddrLow = AddrLow;
 	PufWrCdo->Pload.AddrHigh = AddrHigh;
 }
+#endif
 #endif
 /*****************************************************************************/
 /**
@@ -3287,19 +3300,26 @@ END:
  * @param	AesKeyType	Type of AES key
  * 				Supported key types:
  * 				- XNVM_EFUSE_AES_KEY
- * 				- XNVM_EFUSE_USER_KEY0
- * 				- XNVM_EFUSE_USER_KEY1
+ * 				- XNVM_EFUSE_USER_KEY_0
+ * 				- XNVM_EFUSE_USER_KEY_1
  *
  * @return
  *		- XST_SUCCESS  If the CRC matches
  *		- XST_INVALID_PARAM  If there is a input validation failure
  *		- XNVM_EFUSE_ERR_CRC_VERIFICATION  If there is a CRC verification failure
  *
+ * @note	On the devices which have the independent secondary keys, the
+ * 		secondary key types are also supported and are served by the
+ * 		platform layer of the server.
+ *
  ******************************************************************************/
 int XNvm_EfuseAesKeyCrcCheck(const XNvm_ClientInstance *InstancePtr, const u32 AesKeyCrc, const XNvm_AesKeyType AesKeyType)
 {
 	int Status = XST_FAILURE;
 	u32 Payload[PAYLOAD_ARG_CNT];
+	u32 CrcRegOffset;
+	u32 CrcDoneMask;
+	u32 CrcPassMask;
 
         /**
 	 *  - Validate input parameters.
@@ -3308,6 +3328,15 @@ int XNvm_EfuseAesKeyCrcCheck(const XNvm_ClientInstance *InstancePtr, const u32 A
 	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
 		Status = XST_INVALID_PARAM;
 		goto END;
+	}
+
+	/** - Reject key types not supported on this platform. */
+	Status = XNvm_EfuseGetAesKeyCrcRegs(AesKeyType, &CrcRegOffset,
+			&CrcDoneMask, &CrcPassMask);
+	if (Status != XST_SUCCESS) {
+		if ((u32)AesKeyType <= (u32)XNVM_EFUSE_USER_KEY_1) {
+			goto END;
+		}
 	}
 
 	/** - Fill IPI Payload */

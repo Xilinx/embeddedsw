@@ -57,8 +57,10 @@
 #define XNVM_EFUSE_CACHE_BASEADDR		(0xF1250000U)	/**< Base address for eFUSE cache access */
 #define XNVM_EFUSE_CACHE_END_OFFSET		(0x00000BFCU)	/**< End offset for eFUSE cache access */
 
+#if !(defined(VERSAL_2VE_2VM) && defined(VERSAL_2VP_P))
 #ifdef XNVM_ACCESS_PUF_USER_DATA
 #define XNVM_EFUSE_NUM_OF_PUF_FUSES	(128U) /**< Total number of PUF fuses available */
+#endif
 #endif
 
 /************************** Function Prototypes *****************************/
@@ -86,17 +88,19 @@ static int XNvm_EfuseWriteDmeKeyFromPload(u32 EnvDisFlag, XNvm_DmeKeyType KeyTyp
 static int XNvm_EfuseWriteDmeRevokeBits(u32 EnvDisFlag, u32 DmeRevokeNum);
 static int XNvm_EfuseWritePlmUpdate(u32 EnvDisFlag);
 static int XNvm_EfuseWriteBootModeDis(u32 EnvDisFlag, u32 BootModeDisMask);
-static int XNvm_EfuseWritePufCtrlBitsFromPload(XNvm_PufCtrlDirectPload *PufSecCtrlBits);
 static int XNvm_EfuseWriteCrcVal(u32 EnvDisFlag, u32 Crc);
 static int XNvm_EfuseWriteDmeModeVal(u32 EnvDisFlag, u32 EfuseDmeMode);
 static int XNvm_EfuseWriteRomRsvd(u32 EnvDisFlag, u32 RomRsvdBits);
 static int XNvm_EfuseAesCheckCrc(u32 Crc, XNvm_AesKeyType AesKeyType);
 
+#if !(defined(VERSAL_2VE_2VM) && defined(VERSAL_2VP_P))
+static int XNvm_EfuseWritePufCtrlBitsFromPload(XNvm_PufCtrlDirectPload *PufSecCtrlBits);
 #ifdef XNVM_ACCESS_PUF_USER_DATA
 static int XNvm_EfusePufUserDataWrite(u32 SubsystemId, u32 AddrLow, u32 AddrHigh);
 #else
 static int XNvm_EfuseWritePufData(u32 SubsystemId, u32 AddrLow, u32 AddrHigh);
 static int XNvm_EfuseWritePufDataFromPload(XNvm_PufHDInfoDirectPload *PufData);
+#endif
 #endif
 /*************************** Function Definitions *****************************/
 
@@ -123,7 +127,9 @@ int XNvm_EfuseCdoHandler(XPlmi_Cmd *Cmd)
 	XNvm_PpkWritePload *PpkWrPload = NULL;
 	XNvm_IvWritePload *IvWrPload = NULL;
 	XNvm_RdCachePload *RdCachePload = NULL;
+#if !(defined(VERSAL_2VE_2VM) && defined(VERSAL_2VP_P))
 	XNvm_PufWritePload *WrPufPload = NULL;
+#endif
 	XNvm_GlitchConfig *GlitchConfig = NULL;
 	XNvm_DecOnly *DecOnly = NULL;
 	XNvm_RevodeId *RevokeId = NULL;
@@ -141,10 +147,12 @@ int XNvm_EfuseCdoHandler(XPlmi_Cmd *Cmd)
 	XNvm_Crc *Crc = NULL;
 	XNvm_DmeMode *DmeMode = NULL;
 	XNvm_RomRsvdBitsWritePload *RomRsvd = NULL;
+#if !(defined(VERSAL_2VE_2VM) && defined(VERSAL_2VP_P))
 #ifndef XNVM_ACCESS_PUF_USER_DATA
 	XNvm_PufHDInfoDirectPload *PufData = NULL;
 #endif
 	XNvm_PufCtrlDirectPload *PufSecData = NULL;
+#endif
 	XNvm_UdsWritePload *UdsWrPload = NULL;
 	XNvm_DmeKeyWritePload *DmeKeyWrPload = NULL;
 	static XNvm_CdoChunk CdoChunkData;
@@ -238,6 +246,7 @@ int XNvm_EfuseCdoHandler(XPlmi_Cmd *Cmd)
 		Status = XNvm_EfuseRead(Cmd->SubsystemId, RdCachePload->RegCount, RdCachePload->StartOffset, RdCachePload->AddrLow,
 			RdCachePload->AddrHigh);
 		break;
+#if !(defined(VERSAL_2VE_2VM) && defined(VERSAL_2VP_P))
 #ifdef XNVM_ACCESS_PUF_USER_DATA
 	case XNVM_API(XNVM_API_ID_EFUSE_WRITE_PUF_USER_FUSE):
 		WrPufPload = (XNvm_PufWritePload *)Cmd->Payload;
@@ -249,6 +258,7 @@ int XNvm_EfuseCdoHandler(XPlmi_Cmd *Cmd)
 		WrPufPload = (XNvm_PufWritePload *)Cmd->Payload;
 		Status = XNvm_EfuseWritePufData(Cmd->SubsystemId, WrPufPload->AddrLow, WrPufPload->AddrHigh);
 		break;
+#endif
 #endif
 	case XNVM_API(XNVM_API_ID_EFUSE_RELOAD_N_PRGM_PROT_BITS):
 		Status =  XNvm_EfuseCacheLoadNPrgmProtBits();
@@ -353,6 +363,7 @@ int XNvm_EfuseCdoHandler(XPlmi_Cmd *Cmd)
 		DmeMode = (XNvm_DmeMode *)Cmd->Payload;
 		Status = XNvm_EfuseWriteDmeModeVal((u32)DmeMode->EnvDisFlag, DmeMode->EfuseDmeMode);
 		break;
+#if !(defined(VERSAL_2VE_2VM) && defined(VERSAL_2VP_P))
 #ifndef XNVM_ACCESS_PUF_USER_DATA
 	case XNVM_API(XNVM_API_ID_EFUSE_WRITE_PUF_HD_FROM_PLOAD):
 		PloadLen = Cmd->PayloadLen * XNVM_WORD_LEN;
@@ -377,13 +388,14 @@ int XNvm_EfuseCdoHandler(XPlmi_Cmd *Cmd)
 		}
 		break;
 #endif
-	case XNVM_API(XNVM_API_ID_EFUSE_WRITE_ROM_RSVD):
-		RomRsvd = (XNvm_RomRsvdBitsWritePload *)Cmd->Payload;
-		Status = XNvm_EfuseWriteRomRsvd(RomRsvd->EnvMonitorDis, RomRsvd->RomRsvdBits);
-		break;
 	case XNVM_API(XNVM_API_ID_EFUSE_WRITE_PUF_CTRL_BITS):
 		PufSecData = (XNvm_PufCtrlDirectPload *)Cmd->Payload;
 		Status = XNvm_EfuseWritePufCtrlBitsFromPload(PufSecData);
+		break;
+#endif
+	case XNVM_API(XNVM_API_ID_EFUSE_WRITE_ROM_RSVD):
+		RomRsvd = (XNvm_RomRsvdBitsWritePload *)Cmd->Payload;
+		Status = XNvm_EfuseWriteRomRsvd(RomRsvd->EnvMonitorDis, RomRsvd->RomRsvdBits);
 		break;
 	case XNVM_API(XNVM_API_ID_EFUSE_WRITE_UDS):
 		UdsWrPload = (XNvm_UdsWritePload *)Cmd->Payload;
@@ -1124,6 +1136,7 @@ static int XNvm_EfuseWriteDmeModeVal(u32 EnvDisFlag, u32 EfuseDmeMode)
 
 	return Status;
 }
+#if !(defined(VERSAL_2VE_2VM) && defined(VERSAL_2VP_P))
 #ifndef XNVM_ACCESS_PUF_USER_DATA
 /*****************************************************************************/
 /**
@@ -1162,11 +1175,10 @@ static int XNvm_EfuseWritePufCtrlBitsFromPload(XNvm_PufCtrlDirectPload *PufSecCt
 	volatile int Status = XST_FAILURE;
 
 	/* Programming Puf SecCtrl bits */
-    Status = XNvm_EfuseWritePufSecCtrl(PufSecCtrlBits->EnvDisFlag,PufSecCtrlBits->PufCtrlBits);
+	Status = XNvm_EfuseWritePufSecCtrl(PufSecCtrlBits->EnvDisFlag, PufSecCtrlBits->PufCtrlBits);
 
 	return Status;
 }
-
 
 #ifdef XNVM_ACCESS_PUF_USER_DATA
 /*****************************************************************************/
@@ -1268,6 +1280,7 @@ END:
 	return Status;
 }
 #endif
+#endif /* !(VERSAL_2VE_2VM && VERSAL_2VP_P) */
 /*****************************************************************************/
 /**
  * @brief       This function programs ROM Rsvd eFuses
@@ -1296,13 +1309,11 @@ static int XNvm_EfuseWriteRomRsvd(u32 EnvDisFlag, u32 RomRsvdBits)
  * @brief       This function checks the CRC of the AES key.
  *
  * @param	Crc		CRC value of the AES key
- * @param	AesKeyType	Type of AES key
- *				Supported key types are:
- *				- XNVM_EFUSE_AES_KEY
- *				- XNVM_EFUSE_USER_KEY0
- *				- XNVM_EFUSE_USER_KEY1
+ * @param	AesKeyType	Type of AES key. Supported key types are AES_KEY,
+ *				USER_KEY_0 and USER_KEY_1.
  * @return
  * 		- XST_SUCCESS  If the CRC matches
+ *		- XNVM_EFUSE_ERR_INVALID_PARAM  If the key type is not supported
  *		- XNVM_EFUSE_ERR_CRC_VERIFICATION  If there is a CRC verification failure
  *
  ******************************************************************************/
@@ -1313,22 +1324,9 @@ static int XNvm_EfuseAesCheckCrc(u32 Crc, XNvm_AesKeyType AesKeyType)
 	u32 CrcDoneMask = 0U;
 	u32 CrcPassMask = 0U;
 
-	if (AesKeyType == XNVM_EFUSE_AES_KEY) {
-		CrcOffset = XNVM_EFUSE_AES_CRC_REG_OFFSET;
-		CrcDoneMask = XNVM_EFUSE_CTRL_STATUS_AES_CRC_DONE_MASK;
-		CrcPassMask = XNVM_EFUSE_CTRL_STATUS_AES_CRC_PASS_MASK;
-	}
-	else if (AesKeyType == XNVM_EFUSE_USER_KEY_0) {
-		CrcOffset = XNVM_EFUSE_AES_USR_KEY0_CRC_REG_OFFSET;
-		CrcDoneMask = XNVM_EFUSE_CTRL_STATUS_AES_USER_KEY_0_CRC_DONE_MASK;
-		CrcPassMask = XNVM_EFUSE_CTRL_STATUS_AES_USER_KEY_0_CRC_PASS_MASK;
-	}
-	else if (AesKeyType == XNVM_EFUSE_USER_KEY_1) {
-		CrcOffset = XNVM_EFUSE_AES_USR_KEY1_CRC_REG_OFFSET;
-		CrcDoneMask = XNVM_EFUSE_CTRL_STATUS_AES_USER_KEY_1_CRC_DONE_MASK;
-		CrcPassMask = XNVM_EFUSE_CTRL_STATUS_AES_USER_KEY_1_CRC_PASS_MASK;
-	}
-	else {
+	Status = XNvm_EfuseGetAesKeyCrcRegs(AesKeyType, &CrcOffset, &CrcDoneMask,
+			&CrcPassMask);
+	if (Status != XST_SUCCESS) {
 		Status = XNVM_EFUSE_ERR_INVALID_PARAM;
 		goto END;
 	}

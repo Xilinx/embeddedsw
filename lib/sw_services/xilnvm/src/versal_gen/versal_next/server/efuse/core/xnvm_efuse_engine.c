@@ -44,6 +44,7 @@
 #include "xnvm_ops.h"
 #include "xnvm_validate.h"
 #include "xnvm_utils.h"
+#include "xnvm_defs.h"
 
 /************************** Constant Definitions *****************************/
 /** - Number of bits in one byte (efuse bit indexing). */
@@ -193,8 +194,10 @@ END:
  * @param	Dev - Device table descriptor.
  *
  * @return
- *		- XST_SUCCESS on success.
- *		- XNVM_EFUSE_ERR_INVALID_PARAM if Dev or protection table is NULL.
+ *		- XST_SUCCESS on success, including an explicit empty table
+ *		  (NO_PROTECTION flag with Protection == NULL and NumProtection == 0).
+ *		- XNVM_EFUSE_ERR_INVALID_PARAM if Dev is NULL, the table pointer
+ *		  and count disagree, or the table is missing without NO_PROTECTION.
  *		- Protection-specific error on program failure.
  *
  ******************************************************************************/
@@ -206,8 +209,26 @@ int XNvm_EfuseEnginePrgmProtectionBits(const XNvm_EfuseDevice *Dev)
 	u32 ProtMask = XIL_UNSIGNED_ZERO;
 	const XNvm_EfuseProtEntry *Entry;
 
-	if ((Dev == NULL) || (Dev->Protection == NULL)) {
+	if (Dev == NULL) {
 		Status = (int)XNVM_EFUSE_ERR_INVALID_PARAM;
+		goto END;
+	}
+
+	if (((Dev->NumProtection == XIL_UNSIGNED_ZERO) && (Dev->Protection != NULL)) ||
+			((Dev->NumProtection != XIL_UNSIGNED_ZERO) &&
+			 (Dev->Protection == NULL))) {
+		Status = (int)XNVM_EFUSE_ERR_INVALID_PARAM;
+		goto END;
+	}
+
+	if (Dev->NumProtection == XIL_UNSIGNED_ZERO) {
+		if ((Dev->Flags & XNVM_EFUSE_DEVICE_FLAG_NO_PROTECTION) !=
+				XIL_UNSIGNED_ZERO) {
+			Status = XST_SUCCESS;
+		}
+		else {
+			Status = (int)XNVM_EFUSE_ERR_INVALID_PARAM;
+		}
 		goto END;
 	}
 

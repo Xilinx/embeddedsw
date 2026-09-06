@@ -87,10 +87,12 @@ extern "C" {
 #define XNVM_DME_REVOKE_MAX_VALUE	XNVM_EFUSE_DME_REVOKE_2 /** Maximum value for DME revoke */
 #endif
 
-#ifndef VERSAL_2VE_2VM
-#define XNVM_DME_USER_KEY_MAX_VALUE	XNVM_EFUSE_DME_USER_KEY_3 /** Maximum value for DME user key */
-#else
+#if defined(VERSAL_2VE_2VM) && defined(VERSAL_2VP_P)
+#define XNVM_DME_USER_KEY_MAX_VALUE	XNVM_EFUSE_DME_USER_KEY_3 /** UDE_USER_3 */
+#elif defined(VERSAL_2VE_2VM)
 #define XNVM_DME_USER_KEY_MAX_VALUE	XNVM_EFUSE_DME_USER_KEY_2 /** Maximum value for DME user key */
+#else
+#define XNVM_DME_USER_KEY_MAX_VALUE	XNVM_EFUSE_DME_USER_KEY_3 /** Maximum value for DME user key */
 #endif
 
 /************************** Variable Definitions *****************************/
@@ -172,7 +174,7 @@ typedef struct {
 /** Structure for IPI payload params for UDS write */
 typedef struct {
 	u16 EnvDisFlag;
-	u16 Reserved;
+	u16 UdsSlot;	/**< UDS slot to be programmed, 0 for the primary slot */
 	u32 AddrLow;
 	u32 AddrHigh;
 } XNvm_UdsWritePload;

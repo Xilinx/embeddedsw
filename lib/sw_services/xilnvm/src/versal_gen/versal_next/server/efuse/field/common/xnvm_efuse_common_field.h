@@ -66,6 +66,15 @@ extern "C" {
 /** - Field has a write-lock cache bit checked before programming. */
 #define XNVM_EFUSE_FIELD_FLAG_WR_LK		(XIL_UNSIGNED_ONE << XIL_UNSIGNED_ZERO)
 
+/** - No device-level flags set. */
+#define XNVM_EFUSE_DEVICE_FLAG_NONE		(XIL_UNSIGNED_ZERO)
+/**
+ * Platform has no engine protection table on purpose. XNvm_EfuseEnginePrgmProtectionBits
+ * may return success only when this flag is set together with Protection == NULL
+ * and NumProtection == 0.
+ */
+#define XNVM_EFUSE_DEVICE_FLAG_NO_PROTECTION	(XIL_UNSIGNED_ONE << XIL_UNSIGNED_ZERO)
+
 /** - Default source word offset within caller buffer for a band. */
 #define XNVM_EFUSE_BAND_SRC_WORD_OFFSET_DEFAULT	(XIL_UNSIGNED_ZERO)
 /** - Data mask selecting all bits in a band word. */
@@ -362,10 +371,22 @@ typedef int (*XNvm_EfuseFieldPostProgramFn)(XNvm_EfuseFieldId FieldId,
 		const void *Data);
 
 /** -
+ * This typedef defines a post-cache-reload protection-check callback.
+ */
+typedef int (*XNvm_EfuseProtectionChecksFn)(void);
+
+/** -
+ * This typedef defines an optional extra pre-program field check.
+ */
+typedef int (*XNvm_EfuseValidateFieldFn)(const XNvm_EfuseFieldDesc *Field);
+
+/** -
  * This structure defines platform device operation hooks.
  */
 typedef struct {
 	XNvm_EfuseFieldPostProgramFn PostProgram; /**< Optional post-program callback */
+	XNvm_EfuseProtectionChecksFn ProtectionChecks; /**< Optional post-reload checks; NULL uses default */
+	XNvm_EfuseValidateFieldFn ValidateField; /**< Optional extra pre-program checks; NULL skips */
 } XNvm_EfuseDeviceOps;
 
 /** -
@@ -378,6 +399,7 @@ struct XNvm_EfuseDevice {
 	u32 NumFields; /**< Number of platform field descriptors */
 	const XNvm_EfuseProtEntry *Protection; /**< Protection trigger table */
 	u32 NumProtection; /**< Number of protection entries */
+	u32 Flags; /**< Device flags (XNVM_EFUSE_DEVICE_FLAG_*) */
 	XNvm_EfuseDeviceOps *Ops; /**< Platform operation hooks */
 	const XNvm_EfuseDmeRevokeMap *DmeRevoke; /**< DME revoke coordinate table */
 	const XNvm_EfuseFipsVersionMap *FipsVersion; /**< FIPS version map */
