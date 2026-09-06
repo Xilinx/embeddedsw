@@ -154,6 +154,15 @@ static XStatus XPmRail_IdentifyVendor(XPm_Rail *Rail)
 					}
 
 					Bytes = Buffer[0];
+
+					/* Untrusted length; reject if the read would overflow */
+					if (((u32)Bytes + 1U) > (u32)sizeof(Buffer)) {
+						PmErr("Invalid IC_DEVICE_ID length %u\r\n",
+						      (u32)Bytes);
+						Status = XST_INVALID_PARAM;
+						goto done;
+					}
+
 					Buffer[0] = PMBUS_IC_DEVICE_ID;
 					Status = I2CRead(Iic, I2cAddress, Buffer, ((s32)Bytes + 1));
 					if (XST_SUCCESS != Status) {
