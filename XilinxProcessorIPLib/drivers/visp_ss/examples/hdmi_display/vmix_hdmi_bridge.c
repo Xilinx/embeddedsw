@@ -21,6 +21,13 @@
 #include "xv_frmbufwr_l2.h"
 #endif
 
+#if defined(XPAR_XVISP_SS_0_IMAGE_SPLITTER_STITCHER_ENABLE) && \
+	(XPAR_XVISP_SS_0_IMAGE_SPLITTER_STITCHER_ENABLE == 1)
+#define VMIX_SPLITTER_ENABLED 1
+#else
+#define VMIX_SPLITTER_ENABLED 0
+#endif
+
 /*
  * To enable HDMI TX output, define XPAR_XV_HDMITXSS1_NUM_INSTANCES and copy the
  * HDMI example files from HDMI_TEST/src/ into this project:
@@ -585,12 +592,30 @@ int VmixHdmiBridge_MapLayer(CamDevicePipeOutFmt_t outFormat, u8 InstanceID,
 		return -1;
 	}
 
+#if VMIX_SPLITTER_ENABLED
+	/* The splitter/stitcher combines four 1920x1080 ISP outputs into one
+	 * 3840x2160 frame before FBWR0. HDMI must therefore display only that
+	 * stitched FBWR output, not the individual ISP output paths. */
+	if (outputType == 0) {
+		return 0;
+	}
+	if ((hpId != 0) || (bufIo != CAMDEV_BUFCHAIN_MP)) {
+		return 0;
+	}
+	outFormat.outWidth = XPAR_XVISP_SS_0_IMAGE_SPLITTER_STITCHER_HRES;
+	outFormat.outHeight = XPAR_XVISP_SS_0_IMAGE_SPLITTER_STITCHER_VRES;
+#endif
+
 #ifdef XPAR_XV_FRMBUF_WR_NUM_INSTANCES
 	/* For FBWR (LO) path, compute fbwr_id */
 	if (outputType == 1) {
+	#if VMIX_SPLITTER_ENABLED
+		fbwr_id = 0;
+	#else
 		/* Each ISP has 2 FBWR slots: slot 0 for MP, slot 1 for SP (SP1 or SP2) */
 		int lo_slot = (bufIo == CAMDEV_BUFCHAIN_MP) ? 0 : 1;
 		fbwr_id = lo_slot + hpId * 2;
+	#endif
 		fbwr_enable[fbwr_id] = 1;
 	}
 #endif
@@ -655,16 +680,21 @@ int VmixHdmiBridge_MapLayer(CamDevicePipeOutFmt_t outFormat, u8 InstanceID,
 			/* Set layer window dimensions */
 			MixLayerConfig[layer_id - 1].Width = outFormat.outWidth;
 			MixLayerConfig[layer_id - 1].Height = outFormat.outHeight;
+			int coord_incremented = 0;
+	#if VMIX_SPLITTER_ENABLED
+			MixLayerConfig[layer_id - 1].StartX = 0;
+			MixLayerConfig[layer_id - 1].StartY = 0;
+	#else
 			MixLayerConfig[layer_id - 1].StartX = start_coords[coordinate_counter].StartX;
 			MixLayerConfig[layer_id - 1].StartY = start_coords[coordinate_counter].StartY;
 			/* coordinate_counter only tracks presets up to the last
 			 * start_coords[] entry; once saturated, keep reusing the
 			 * last preset instead of indexing past the array. */
-			int coord_incremented = 0;
 			if (coordinate_counter < (VMIX_BRIDGE_NUM_START_COORDS - 1)) {
 				coordinate_counter++;
 				coord_incremented = 1;
 			}
+	#endif
 
 			if (outputType == 0) {
 				/* MO path: assign layer to ISP instance */
@@ -674,7 +704,12 @@ int VmixHdmiBridge_MapLayer(CamDevicePipeOutFmt_t outFormat, u8 InstanceID,
 #ifdef XPAR_XV_FRMBUF_WR_NUM_INSTANCES
 				/* LO path (FBWR): assign layer to FBWR ID */
 				fbwr_layerID[fbwr_id] = layer_id;
+	#if VMIX_SPLITTER_ENABLED
+				/* Enable after FBWR0 supplies the first stitched frame. */
+				Layer_Handle[layer_id].IsEnabled = 0;
+	#else
 				Layer_Handle[layer_id].IsEnabled = 1;
+	#endif
 #endif
 			}
 

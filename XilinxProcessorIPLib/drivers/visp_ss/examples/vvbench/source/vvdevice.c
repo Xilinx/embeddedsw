@@ -1469,9 +1469,9 @@ int VsiVvdeviceExecuteCaseline
 					LOGI(" |  📥 To retrieve the image dump, use the following command:\r\n");
 #ifdef XPAR_XV_FRMBUF_WR_NUM_INSTANCES
 #if SPLITTER_ENABLED
-					if (caseCtx->instanceCfgCtx[idx].instancePath[CAMDEV_BUFCHAIN_MP].pathEnable) {
-							LOGI(" |  mrd -bin -file lilo_ISP%d_MP.rgb 0x%llx 0x17BC00\r\n\n",
-							     hpId, (unsigned long long)(uintptr_t)Frame_Array_p[0][0].aligned_addr);
+					if (caseCtx->instanceCfgCtx[0].instancePath[CAMDEV_BUFCHAIN_MP].pathEnable) {
+							LOGI(" |  mrd -bin -file splitter.rgb 0x%llx 0x17BC00\r\n\n",
+							     (unsigned long long)(uintptr_t)Frame_Array_p[0][0].aligned_addr);
 						}
 #else
 					for (int idx = 0; idx < totalInstance; idx++) {
