@@ -28,6 +28,8 @@
 *	vss  10/23/2024 Removed AES duplicate code
 *       pre  03/02/2025 Implemented task based event notification functionality for AES &
 *                       SHA IPI events
+* 5.8   tbk  09/02/2026 Modify handling of KAT mask update to XSecure_KatIpiHandler via
+*                       XSecure_UpdateKatMask helper and call KAT APIs directly
 *
 * </pre>
 *
@@ -50,24 +52,13 @@
 /************************** Constant Definitions *****************************/
 
 /************************** Function Prototypes *****************************/
-#ifndef PLM_SECURE_EXCLUDE
-static int XSecure_AesDecKat(void);
-static int XSecure_AesDecCmKat(void);
-static int XSecure_AesEncKat(void);
-#ifndef PLM_RSA_EXCLUDE
-static int XSecure_RsaPubEncKat(void);
-static int XSecure_RsaPrivateDecKat(void);
-#endif
-#ifndef PLM_ECDSA_EXCLUDE
-static int XSecure_EllipticSignGenKat(XSecure_EccCrvClass CurveClass);
-static int XSecure_EllipticSignVerifyKat(XSecure_EccCrvClass CurveClass);
-#endif
-#endif
-static int XSecure_ShaKat(void);
+static void XSecure_UpdateKatMask(volatile int Status, u32 KatMask);
 
 /*****************************************************************************/
 /**
  * @brief	This function calls respective IPI handler based on the API_ID
+ * 		and updates the RTCA KAT mask after the KAT runs. Event-handling
+ * 		failures do not change the previous KAT bit.
  *
  * @param 	Cmd	is a pointer to the command structure
  *
@@ -83,12 +74,13 @@ int XSecure_KatIpiHandler(XPlmi_Cmd *Cmd)
 	int SStatus = XST_FAILURE;
 	u32 *Pload = NULL;
 	u32 ApiId;
+	volatile u32 KatMask = 0U;
 	XSecure_Sha3 *XSecureSha3InstPtr = XSecure_GetSha3Instance(XSECURE_SHA_0_DEVICE_ID);
 #ifndef PLM_SECURE_EXCLUDE
 	XSecure_Aes *AesInstPtr = XSecure_GetAesInstance();
 #endif
 
-	if (NULL == Cmd) {
+	if ((Cmd == NULL) || (Cmd->Payload == NULL)) {
 		Status = XST_INVALID_PARAM;
 		goto END;
 	}
@@ -106,56 +98,67 @@ int XSecure_KatIpiHandler(XPlmi_Cmd *Cmd)
 	}
 #endif
 
+	Status = XST_FAILURE;
 	/** - Call the respective API handler according to API ID */
 	switch (ApiId) {
 #ifndef PLM_SECURE_EXCLUDE
 	case XSECURE_API(XSECURE_API_AES_DECRYPT_KAT):
-		/**   - XSecure_AesDecKat */
-		Status = XSecure_AesDecKat();
+		/**   - XSecure_AesDecryptKat */
+		KatMask = XPLMI_SECURE_AES_DEC_KAT_MASK;
+		Status = XSecure_AesDecryptKat(AesInstPtr);
 		break;
 	case XSECURE_API(XSECURE_API_AES_DECRYPT_CM_KAT):
-		/**   - XSecure_AesDecCmKat */
-		Status = XSecure_AesDecCmKat();
+		/**   - XSecure_AesDecryptCmKat */
+		KatMask = XPLMI_SECURE_AES_CMKAT_MASK;
+		Status = XSecure_AesDecryptCmKat(AesInstPtr);
 		break;
 	case XSECURE_API(XSECURE_API_AES_ENCRYPT_KAT):
-		/**   - XSecure_AesEncKat */
-		Status = XSecure_AesEncKat();
+		/**   - XSecure_AesEncryptKat */
+		KatMask = XPLMI_SECURE_AES_ENC_KAT_MASK;
+		Status = XSecure_AesEncryptKat(AesInstPtr);
 		break;
 #ifndef PLM_RSA_EXCLUDE
 	case XSECURE_API(XSECURE_API_RSA_PUB_ENC_KAT):
-		/**   - XSecure_RsaPubEncKat */
-		Status = XSecure_RsaPubEncKat();
+		/**   - XSecure_RsaPublicEncryptKat */
+		KatMask = XPLMI_SECURE_RSA_KAT_MASK;
+		Status = XSecure_RsaPublicEncryptKat();
 		break;
 	case XSECURE_API(XSECURE_API_RSA_PRIVATE_DEC_KAT):
-		/**   - XSecure_RsaPrivateDecKat */
-		Status = XSecure_RsaPrivateDecKat();
+		/**   - XSecure_RsaPrivateDecryptKat */
+		KatMask = XPLMI_SECURE_RSA_PRIVATE_DEC_KAT_MASK;
+		Status = XSecure_RsaPrivateDecryptKat();
 		break;
 #endif
 #ifndef PLM_ECDSA_EXCLUDE
 	case XSECURE_API(XSECURE_API_ELLIPTIC_SIGN_VERIFY_KAT):
-		/**   - XSecure_EllipticSignVerifyKat */
-		Status = XSecure_EllipticSignVerifyKat((XSecure_EccCrvClass)Pload[1U]);
+		/**   - XSecure_EllipticVerifySignKat */
+		KatMask = XPLMI_SECURE_ECC_SIGN_VERIFY_SHA3_384_KAT_MASK;
+		Status = XSecure_EllipticVerifySignKat((XSecure_EllipticCrvClass)Pload[1U]);
 		break;
 	case XSECURE_API(XSECURE_API_ELLIPTIC_SIGN_GEN_KAT):
-		/**   - XSecure_EllipticSignGenKat */
-		Status = XSecure_EllipticSignGenKat((XSecure_EccCrvClass)Pload[1U]);
+		/**   - XSecure_EllipticSignGenerateKat */
+		KatMask = XPLMI_SECURE_ECC_SIGN_GEN_SHA3_384_KAT_MASK;
+		Status = XSecure_EllipticSignGenerateKat((XSecure_EllipticCrvClass)Pload[1U]);
 		break;
 #endif
 #endif
 	case XSECURE_API(XSECURE_API_SHA3_KAT):
-		/**   - XSecure_ShaKat */
+		/**   - XSecure_Sha3Kat */
 		/** - SHA IPI event handling */
 		Status = XSecure_IpiEventHandling(Cmd, XPLMI_SHA3_CORE);
 		if (Status != XST_SUCCESS) {
 			goto END;
 		}
-		Status = XSecure_ShaKat();
+		KatMask = XPLMI_SECURE_SHA3_KAT_MASK;
+		Status = XSecure_Sha3Kat(XSecureSha3InstPtr);
 		break;
 	default:
 		XSecure_Printf(XSECURE_DEBUG_GENERAL, "CMD: INVALID PARAM\r\n");
 		Status = XST_INVALID_PARAM;
-		break;
+		goto END;
 	}
+
+	XSECURE_REDUNDANT_IMPL(XSecure_UpdateKatMask, Status, KatMask);
 
 END:
 #ifndef PLM_SECURE_EXCLUDE
@@ -175,227 +178,21 @@ END:
 	return Status;
 }
 
-#ifndef PLM_SECURE_EXCLUDE
-
 /*****************************************************************************/
 /**
- * @brief	This function handler calls XSecure_AesDecryptKat server API
- * 		and updates KAT status to XPLMI_RTCFG_PLM_KAT_ADDR address.
+ * @brief	This function updates the KAT mask based on the KAT status.
  *
- * @return
- *		 - XST_SUCCESS - If the KAT is successful
- *		 - XSECURE_AES_KAT_BUSY - If AES is busy
- *		 - XST_FAILURE - If there is a failure
+ * @param	Status	is the status returned by the KAT API
+ * @param	KatMask	is the KAT mask to set or clear
  *
  ******************************************************************************/
-static int XSecure_AesDecKat(void)
-{
-	volatile int Status = XST_FAILURE;
-	XSecure_Aes *XSecureAesInstPtr = XSecure_GetAesInstance();
+ static void XSecure_UpdateKatMask(volatile int Status, u32 KatMask)
+ {
+	 volatile int StatusTmp = Status;
+	 XSECURE_REDUNDANT_IMPL(XPlmi_ClearKatMask, KatMask);
+	 if ((Status == XST_SUCCESS) && (StatusTmp == XST_SUCCESS)) {
+		 XPlmi_SetKatMask(KatMask);
+	 }
+ }
 
-	Status = XSecure_AesDecryptKat(XSecureAesInstPtr);
-
-	/** - Update KAT status in to RTC area */
-	if (Status != XST_SUCCESS) {
-		XSECURE_REDUNDANT_IMPL(XPlmi_ClearKatMask, XPLMI_SECURE_AES_DEC_KAT_MASK);
-	}
-	else {
-		XPlmi_SetKatMask(XPLMI_SECURE_AES_DEC_KAT_MASK);
-	}
-	return Status;
-}
-
-/*****************************************************************************/
-/**
- * @brief	This function handler calls XSecure_AesDecryptCmKat server API
- * 		and updates KAT status to XPLMI_RTCFG_PLM_KAT_ADDR address.
- *
- * @return
- *		 - XST_SUCCESS - If the KAT is successful
- *		 - XSECURE_AES_KAT_BUSY - If AES is busy
- *		 - XST_FAILURE - If there is a failure
- *
- ******************************************************************************/
-static int XSecure_AesDecCmKat(void)
-{
-	volatile int Status = XST_FAILURE;
-	XSecure_Aes *XSecureAesInstPtr = XSecure_GetAesInstance();
-
-	Status = XSecure_AesDecryptCmKat(XSecureAesInstPtr);
-
-	/** - Update KAT status in to RTC area */
-	if (Status != XST_SUCCESS) {
-		XSECURE_REDUNDANT_IMPL(XPlmi_ClearKatMask, XPLMI_SECURE_AES_CMKAT_MASK);
-	}
-	else {
-		XPlmi_SetKatMask(XPLMI_SECURE_AES_CMKAT_MASK);
-	}
-	return Status;
-}
-
-/*****************************************************************************/
-/**
- * @brief	This function handler calls XSecure_AesEncryptKat server API
- * 		and updates KAT status to XPLMI_RTCFG_PLM_KAT_ADDR address.
- *
- * @return
- *		 - XST_SUCCESS - If the KAT is successful
- *		 - XSECURE_AES_KAT_BUSY - If AES is busy
- *		 - XST_FAILURE - If there is a failure
- *
- ******************************************************************************/
-static int XSecure_AesEncKat(void)
-{
-	volatile int Status = XST_FAILURE;
-	XSecure_Aes *XSecureAesInstPtr = XSecure_GetAesInstance();
-
-	Status = XSecure_AesEncryptKat(XSecureAesInstPtr);
-
-	/** - Update KAT status in to RTC area */
-	if (Status != XST_SUCCESS) {
-		XSECURE_REDUNDANT_IMPL(XPlmi_ClearKatMask, XPLMI_SECURE_AES_ENC_KAT_MASK);
-	}
-	else {
-		XPlmi_SetKatMask(XPLMI_SECURE_AES_ENC_KAT_MASK);
-	}
-	return Status;
-}
-
-#ifndef PLM_ECDSA_EXCLUDE
-/*****************************************************************************/
-/**
- * @brief	This function handler calls XSecure_EllipticSignVerifyKat server
- * 		API and updates KAT status to XPLMI_RTCFG_PLM_KAT_ADDR address.
- *
- * @param	CurveClass	Is a class of elliptic curve
- *
- * @return
- *		 - XST_SUCCESS - If the elliptic KAT is successful
- *		 - XST_FAILURE - If there is a failure
- *
- ******************************************************************************/
-static int XSecure_EllipticSignVerifyKat(XSecure_EccCrvClass CurveClass)
-{
-	volatile int Status = XST_FAILURE;
-
-	Status = XSecure_EllipticVerifySignKat((XSecure_EllipticCrvClass)CurveClass);
-	if (Status != XST_SUCCESS) {
-		XSECURE_REDUNDANT_IMPL(XPlmi_ClearKatMask, XPLMI_SECURE_ECC_SIGN_VERIFY_SHA3_384_KAT_MASK);
-	}
-	else {
-		XPlmi_SetKatMask(XPLMI_SECURE_ECC_SIGN_VERIFY_SHA3_384_KAT_MASK);
-	}
-	return Status;
-}
-
-/*****************************************************************************/
-/**
- * @brief	This function handler calls XSecure_EllipticSignGenerateKat
- * 		server API and updates KAT status to XPLMI_RTCFG_PLM_KAT_ADDR
- * 		address.
- *
- * @param	CurveClass	Is a class of elliptic curve
- *
- * @return
- *		 - XST_SUCCESS - If the elliptic KAT is successful
- *		 - XST_FAILURE - If there is a failure
- *
- ******************************************************************************/
-static int XSecure_EllipticSignGenKat(XSecure_EccCrvClass CurveClass)
-{
-	volatile int Status = XST_FAILURE;
-
-	Status = XSecure_EllipticSignGenerateKat((XSecure_EllipticCrvClass)CurveClass);
-
-	/** - Update KAT status in to RTC area */
-	if (Status != XST_SUCCESS) {
-		XSECURE_REDUNDANT_IMPL(XPlmi_ClearKatMask, XPLMI_SECURE_ECC_SIGN_GEN_SHA3_384_KAT_MASK);
-	}
-	else {
-		XPlmi_SetKatMask(XPLMI_SECURE_ECC_SIGN_GEN_SHA3_384_KAT_MASK);
-	}
-
-	return Status;
-}
-#endif
-
-#ifndef PLM_RSA_EXCLUDE
-/*****************************************************************************/
-/**
- * @brief	This function handler calls XSecure_RsaPublicEncryptKat server
- * 		API and updates KAT status to XPLMI_RTCFG_PLM_KAT_ADDR address.
- *
- * @return
- *		 - XST_SUCCESS - If the Rsa Kat is successful
- *		 - XST_FAILURE - If there is a failure
- *
- ******************************************************************************/
-static int XSecure_RsaPubEncKat(void)
-{
-	volatile int Status = XST_FAILURE;
-
-	Status = XSecure_RsaPublicEncryptKat();
-	if (Status != XST_SUCCESS) {
-		XSECURE_REDUNDANT_IMPL(XPlmi_ClearKatMask, XPLMI_SECURE_RSA_KAT_MASK);
-	}
-	else {
-		XPlmi_SetKatMask(XPLMI_SECURE_RSA_KAT_MASK);
-	}
-	return Status;
-}
-
-/*****************************************************************************/
-/**
- * @brief	This function handler calls XSecure_RsaPrivateDecryptKat server
- * 		API and updates KAT status to XPLMI_RTCFG_PLM_KAT_ADDR address.
- *
- * @return
- *		 - XST_SUCCESS - If the Rsa Kat is successful
- *		 - XST_FAILURE - If there is a failure
- *
- ******************************************************************************/
-static int XSecure_RsaPrivateDecKat(void)
-{
-	volatile int Status = XST_FAILURE;
-
-	Status = XSecure_RsaPrivateDecryptKat();
-	if (Status != XST_SUCCESS) {
-		XSECURE_REDUNDANT_IMPL(XPlmi_ClearKatMask, XPLMI_SECURE_RSA_PRIVATE_DEC_KAT_MASK);
-	}
-	else {
-		XPlmi_SetKatMask(XPLMI_SECURE_RSA_PRIVATE_DEC_KAT_MASK);
-	}
-	return Status;
-}
-#endif
-
-#endif
-
-/*****************************************************************************/
-/**
- * @brief	This function handler calls XSecure_ShaKat server API and
- * 		and updates KAT status to XPLMI_RTCFG_PLM_KAT_ADDR address.
- *
- * @return
- *		 - XST_SUCCESS - If the sha update/fnish is successful
- *		 - XSECURE_SHA3_KAT_BUSY - If SHA3 is busy
- *		 - XST_FAILURE - If there is a failure
- *
- ******************************************************************************/
-static int XSecure_ShaKat(void)
-{
-	volatile int Status = XST_FAILURE;
-	XSecure_Sha3 *ShaInstPtr = XSecure_GetSha3Instance(XSECURE_SHA_0_DEVICE_ID);
-
-	Status = XSecure_Sha3Kat(ShaInstPtr);
-
-	/** - Update KAT status in to RTC area */
-	if (Status != XST_SUCCESS) {
-		XSECURE_REDUNDANT_IMPL(XPlmi_ClearKatMask, XPLMI_SECURE_SHA3_KAT_MASK);
-	}
-	else {
-		XPlmi_SetKatMask(XPLMI_SECURE_SHA3_KAT_MASK);
-	}
-	return Status;
-}
 /** @} */
