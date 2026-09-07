@@ -21,7 +21,7 @@
  * 1.00  ssc  09/05/21 First release
  * 1.1   ssc  03/24/22 Updates based on Security best practices
  * 1.2   ssc  08/25/22 Enhanced KAT to include explicit Reseed and made a doxygen update
- *
+ * 1.9   rap  08/28/26 Fixed Doxygen warnings
  * </pre>
  *
  **************************************************************************************************/
@@ -38,10 +38,10 @@
 /**
  * Constant definitions for Health and KAT tests.
  */
-#define HEALTH_TEST_SEEDLIFE	10U
-#define HEALTH_TEST_DFLENMUL	7U
-#define KAT_SEEDLIFE	5U
-#define KAT_DFLENMUL	2U
+#define HEALTH_TEST_SEEDLIFE	10U	/**< Seed life for Health test */
+#define HEALTH_TEST_DFLENMUL	7U	/**< DF length multiplier for Health test */
+#define KAT_SEEDLIFE            5U	/**< Seed life for KAT */
+#define KAT_DFLENMUL            2U	/**< DF length multiplier for KAT */
 /** @} */
 
 /************************************** Type Definitions *****************************************/

@@ -75,6 +75,7 @@
  * 1.4   mmd  07/10/23 Included header file for crypto algorithm information
  *       ng   06/30/23 Added support for system device-tree flow
  * 1.8   bha  01/07/26 Fixed Doxygen warnings
+ * 1.9   rap  08/28/26 Fixed Doxygen warnings
  * </pre>
  *
  ******************************************************************************/
@@ -125,7 +126,9 @@ extern "C" {
 
 #define XTRNGPSV_SWAP_ENDIAN Xil_EndianSwap32	/**< Macro to swap endianness of 32 bit data */
 
-/* Error codes definition */
+/**
+ * This typedef contains enumeration of error codes of the TRNGPSV driver.
+ */
 typedef enum {
 	XTRNGPSV_ERROR_INVALID_PARAM = 0x10, /**< 0x10 - Invalid parameter passed to function */
 	XTRNGPSV_ERROR_INVALID_STATE, /**< 0x11 - Invalid driver state for requested operation */
@@ -180,7 +183,9 @@ typedef enum {
 
 /************************************** Type Definitions *****************************************/
 
-/* This typedef contains enumeration of different states of the TRNGPSV driver */
+/**
+ * This typedef contains enumeration of different states of the TRNGPSV driver.
+ */
 typedef enum {
 	XTRNGPSV_UNINITIALIZED = 0, /**< 0 - Driver is not in Initialized state */
 	XTRNGPSV_HEALTHY, /**< 1 - Driver is not in Healthy state */
@@ -188,7 +193,9 @@ typedef enum {
 	XTRNGPSV_CATASTROPHIC /**< 3 - Driver encountered catastrophic error */
 } XTrngpsv_State;
 
-/* This typedef contains modes of operation of the TRNGPSV driver */
+/**
+ * This typedef contains modes of operation of the TRNGPSV driver.
+ */
 typedef enum {
 	XTRNGPSV_HRNG = 0, /**< 0 - Hybrid RNG  */
 	XTRNGPSV_DRNG, /**< 1 - Deterministic RNG */
@@ -203,7 +210,7 @@ typedef struct {
 	u16 DeviceId;		/**< DeviceId is the unique ID of the
 					*  device */
 #else
-	char *Name;
+	char *Name;		/**< Compatible string / unique name of the device */
 #endif
 	UINTPTR BaseAddress;	/**< BaseAddress is the physical base address
 					*  of the device's registers */
@@ -273,7 +280,7 @@ typedef struct {
 } XTrngpsv;
 
 /************************************ Variable Definitions ***************************************/
-extern XTrngpsv_Config XTrngpsv_ConfigTable[];
+extern XTrngpsv_Config XTrngpsv_ConfigTable[]; /**< Configuration table of TRNGPSV devices */
 
 /*************************** Macros (Inline Functions) Definitions *******************************/
 

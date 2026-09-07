@@ -20,7 +20,7 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- ---------------------------------------------------------
 * 1.00  ssc  09/05/21 First release
-*
+* 1.9   rap  08/28/26 Fixed Doxygen warnings
 * </pre>
 *
 ******************************************************************************/
@@ -38,10 +38,9 @@
 
 /************************** Variable Prototypes ******************************/
 
-/*
-* The configuration table for devices
-*/
-
+/**
+ * The configuration table for devices
+ */
 XTrngpsv_Config XTrngpsv_ConfigTable[XPAR_XTRNGPSV_NUM_INSTANCES] =
 {
 	{

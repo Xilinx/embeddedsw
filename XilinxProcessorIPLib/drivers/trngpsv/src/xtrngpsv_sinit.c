@@ -20,7 +20,7 @@
  * ----- ---- -------- ----------------------------------------------------------------------------
  * 1.00  ssc  09/05/21 First release
  * 1.01  ng   06/30/23 Added support for system device-tree flow
- *
+ * 1.9   rap  08/28/26 Fixed Doxygen warnings
  * </pre>
  *
  **************************************************************************************************/
@@ -44,19 +44,19 @@
 
 /************************************ Function Definitions ***************************************/
 
+#ifndef SDT
 /*************************************************************************************************/
 /**
  * @brief
- * This function returns a reference to an XTrng_Config structure based on the DeviceId. The return
- * value will refer to an entry in the device configuration table defined in the xtrng_g.c file.
+ * This function returns a reference to an XTrngpsv_Config structure based on the DeviceId. The return
+ * value will refer to an entry in the device configuration table defined in the xtrngpsv_g.c file.
  *
  * @param	DeviceId is the unique device ID of the device being lookedup.
  *
- * @return	XTrng_LookupConfig returns a reference to a config record in the configuration
- * 		table (in xtrngpsv.c) corresponding to DeviceId, or NULL if no match is found.
+ * @return	XTrngpsv_LookupConfig returns a reference to a config record in the configuration
+ * 		table (in xtrngpsv_g.c) corresponding to DeviceId, or NULL if no match is found.
  *
  **************************************************************************************************/
-#ifndef SDT
 XTrngpsv_Config *XTrngpsv_LookupConfig(u16 DeviceId)
 {
 	XTrngpsv_Config *CfgPtr = NULL;
@@ -75,6 +75,19 @@ XTrngpsv_Config *XTrngpsv_LookupConfig(u16 DeviceId)
 	return CfgPtr;
 }
 #else
+/*************************************************************************************************/
+/**
+ * @brief
+ * This function returns a reference to an XTrngpsv_Config structure based on the BaseAddress. The
+ * return value will refer to an entry in the device configuration table defined in the xtrngpsv_g.c
+ * file.
+ *
+ * @param	BaseAddress is the base address of the device being lookedup.
+ *
+ * @return	XTrngpsv_LookupConfig returns a reference to a config record in the configuration
+ * 		table (in xtrngpsv_g.c) corresponding to BaseAddress, or NULL if no match is found.
+ *
+ **************************************************************************************************/
 XTrngpsv_Config *XTrngpsv_LookupConfig(UINTPTR BaseAddress)
 {
 	XTrngpsv_Config *CfgPtr = NULL;
