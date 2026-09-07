@@ -20,7 +20,7 @@
  * ----- ---- -------- ----------------------------------------------------------------------------
  * 1.00  kpt  01/04/23 First release
  * 1.01  ng   09/04/23 Added SDT support
- *
+ * 1.7   rap  08/28/26 Fixed Doxygen warnings
  * </pre>
  *
  **************************************************************************************************/
@@ -42,6 +42,7 @@
 
 /************************************ Function Definitions ***************************************/
 
+#ifndef SDT
 /*************************************************************************************************/
 /**
  * @brief
@@ -52,10 +53,9 @@
  *
  * @return
  *		- XTrngpsx_LookupConfig returns a reference to a config record in the configuration
- *		table (in xtrngpsx.c) corresponding to DeviceId, or NULL if no match is found.
+ *		table (in xtrngpsx_g.c) corresponding to DeviceId, or NULL if no match is found.
  *
  **************************************************************************************************/
-#ifndef SDT
 XTrngpsx_Config *XTrngpsx_LookupConfig(u16 DeviceId)
 {
 	XTrngpsx_Config *CfgPtr = NULL;
@@ -74,6 +74,20 @@ XTrngpsx_Config *XTrngpsx_LookupConfig(u16 DeviceId)
 	return CfgPtr;
 }
 #else
+/*************************************************************************************************/
+/**
+ * @brief
+ * This function returns a reference to an XTrngpsx_Config structure based on the BaseAddress. The
+ * return value will refer to an entry in the device configuration table defined in the
+ * xtrngpsx_g.c file.
+ *
+ * @param	BaseAddress is the base address of the device being lookedup.
+ *
+ * @return
+ *		- XTrngpsx_LookupConfig returns a reference to a config record in the configuration
+ *		table (in xtrngpsx_g.c) corresponding to BaseAddress, or NULL if no match is found.
+ *
+ **************************************************************************************************/
 XTrngpsx_Config *XTrngpsx_LookupConfig(UINTPTR BaseAddress)
 {
 	XTrngpsx_Config *CfgPtr = NULL;

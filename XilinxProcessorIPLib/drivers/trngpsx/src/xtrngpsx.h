@@ -30,10 +30,9 @@
 * 1.6   hae  01/06/26 Fixed doxygen warnings
 * 1.7   tus  07/30/26 Moved XTRNGPSX_INVALID_PARAM to a non-zero value as it
 *                     collided with XST_SUCCESS
-*
+*       rap  08/28/26 Fixed Doxygen warnings
 * </pre>
 *
-* @endcond
 ******************************************************************************/
 #ifndef XTRNGPSX_H
 #define XTRNGPSX_H
@@ -81,7 +80,7 @@ typedef struct {
 #ifndef SDT
 	u16 DeviceId;	/**< DeviceId is the unique ID of the device */
 #else
-	char *Name;
+	char *Name;	/**< Compatible string / unique name of the device */
 #endif
 	UINTPTR BaseAddress;	/**< BaseAddress is the physical base address of the device's registers */
 } XTrngpsx_Config;
@@ -128,6 +127,7 @@ typedef struct {
 	XTrngpsx_State State;   /**< TRNG driver state */
 } XTrngpsx_Instance;
 
+/** This typedef contains error codes related to TRNG */
 typedef enum {
 	XTRNGPSX_INVALID_MODE = 0x1,	/**< 0x1 - Error when TRNG operation mode is
 										invalid */
@@ -165,7 +165,7 @@ typedef enum {
 } XTrngpsx_ErrorCodes;
 
 /************************************ Variable Definitions ***************************************/
-extern XTrngpsx_Config XTrngpsx_ConfigTable[];
+extern XTrngpsx_Config XTrngpsx_ConfigTable[]; /**< TRNG configuration table */
 
 /************************** Function Prototypes ******************************/
 #ifndef SDT

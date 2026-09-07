@@ -33,10 +33,9 @@
 * 1.7   mkr  07/22/26 Added DRNG SeedLife check and perform HRNG auto-reseed
 *                     before collecting random data in XTrngpsx_Generate to
 *                     ensure prediction-resistant output and correct end state
-*
+*       rap  08/28/26 Fixed Doxygen warnings
 * </pre>
 *
-* @endcond
 ******************************************************************************/
 
 /***************************** Include Files *********************************/

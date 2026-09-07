@@ -24,10 +24,9 @@
 * 1.0   kpt  01/04/23 Initial release
 * 1.5   ank  09/26/25 Fixed MISRA-C Violations
 * 1.6   hae  01/06/26 Fixed doxygen warnings
-*
+* 1.7   rap  08/28/26 Fixed Doxygen warnings
 * </pre>
 *
-* @endcond
 ******************************************************************************/
 #ifndef __XTRNPSX_HW_H_
 #define __XTRNPSX_HW_H_
