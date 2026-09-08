@@ -1,8 +1,11 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
+
+#ifndef XCANPS_HW_H		/* prevent circular inclusions */
+#define XCANPS_HW_H
 
 /*****************************************************************************/
 /**
@@ -10,6 +13,7 @@
 * @file xcanps_hw.h
 * @addtogroup canps Overview
 * @{
+* @brief Provides hardware register definitions for the CAN PS driver.
 *
 * This header file contains the identifiers and basic driver functions (or
 * macros) that can be used to access the device. Other driver functions
@@ -35,12 +39,10 @@
 * 1.02a adk   08/08/13  Updated for including the function prototype
 * 3.00  kvn   02/13/15  Modified code for MISRA-C:2012 compliance.
 * 3.5	sne   07/01/20  Fixed MISRAC warnings.
+* 3.13  vn   09/08/26 Align Doxygen comments with AMD standards
 * </pre>
 *
 ******************************************************************************/
-
-#ifndef XCANPS_HW_H		/* prevent circular inclusions */
-#define XCANPS_HW_H		/**< by using protection macros */
 
 #ifdef __cplusplus
 extern "C" {
@@ -256,7 +258,7 @@ extern "C" {
 #define XCANPS_DW2R_DB4_MASK	0xFF000000U /**< Data Byte 4 */
 #define XCANPS_DW2R_DB4_SHIFT	24U	    /**< Shift Value for Data Byte 4 */
 #define XCANPS_DW2R_DB5_MASK	0x00FF0000U /**< Data Byte 5 */
-#define XCANPS_DW2R_DB5_SHIFT	16U	    /**< Shift Value for Data Bbyet 5 */
+#define XCANPS_DW2R_DB5_SHIFT	16U	    /**< Shift Value for Data Byte 5 */
 #define XCANPS_DW2R_DB6_MASK	0x0000FF00U /**< Data Byte 6 */
 #define XCANPS_DW2R_DB6_SHIFT	8U	    /**< Shift Value for Data Byte 6 */
 #define XCANPS_DW2R_DB7_MASK	0x000000FFU /**< Data Byte 7 */
@@ -273,7 +275,7 @@ extern "C" {
 					(u32)XCANPS_AFR_UAF3_MASK | \
 					(u32)XCANPS_AFR_UAF2_MASK | \
 					(u32)XCANPS_AFR_UAF1_MASK)
-					/**< Mask for Acceptance Filers */
+					/**< Mask for Acceptance Filters */
 /** @} */
 
 /** @name CAN frame length constants
@@ -292,9 +294,6 @@ extern "C" {
 #define XCANPS_RXWIR_OFFSET 	 XCANPS_WIR_OFFSET  /**< Watermark Interrupt Reg */
 #define XCANPS_IXR_RXFLL_MASK 	 XCANPS_IXR_RXFWMFLL_MASK /**< Rx FIFO Watermark Full */
 
-
-
-
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
@@ -302,14 +301,12 @@ extern "C" {
 /****************************************************************************/
 /**
 *
-* This macro reads the given register.
+* @brief Reads the given register.
 *
-* @param	BaseAddr is the base address of the device.
-* @param	RegOffset is the register offset to be read.
+* @param[in]   BaseAddr is the base address of the device.
+* @param[in]   RegOffset is the register offset to be read.
 *
-* @return	The 32-bit value of the register
-*
-* @note		None.
+* @return	The 32-bit value of the register.
 *
 *****************************************************************************/
 #define XCanPs_ReadReg(BaseAddr, RegOffset) \
@@ -319,29 +316,23 @@ extern "C" {
 /****************************************************************************/
 /**
 *
-* This macro writes the given register.
+* @brief Writes the given register.
 *
-* @param	BaseAddr is the base address of the device.
-* @param	RegOffset is the register offset to be written.
-* @param	Data is the 32-bit value to write to the register.
-*
-* @return	None.
-*
-* @note		None.
+* @param[in]   BaseAddr is the base address of the device.
+* @param[in]   RegOffset is the register offset to be written.
+* @param[in]   Data is the 32-bit value to write to the register.
 *
 *****************************************************************************/
 #define XCanPs_WriteReg(BaseAddr, RegOffset, Data) \
 		Xil_Out32((BaseAddr) + (u32)(RegOffset), (u32)(Data))
 
 /************************** Function Prototypes ******************************/
-/*
- * Perform reset operation to the CanPs interface
- */
+/** @brief Performs reset operation on the CAN PS interface. */
 void XCanPs_ResetHw(UINTPTR BaseAddr);
 
 #ifdef __cplusplus
 }
 #endif
 
-#endif /* end of protection macro */
 /** @} */
+#endif /* end of protection macro */

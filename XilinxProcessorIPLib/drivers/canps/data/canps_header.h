@@ -1,8 +1,13 @@
 /******************************************************************************
 * Copyright (C) 2011 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
+
+/**
+ * @file canps_header.h
+ * @brief Header file for CAN PS driver examples.
+ */
 
 #ifndef CANPS_HEADER_H		/* prevent circular inclusions */
 #define CANPS_HEADER_H		/* by using protection macros */

@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -10,9 +10,9 @@
 * @file xcanps_selftest.c
 * @addtogroup canps Overview
 * @{
+* @brief Implements the self-test diagnostic for the XCanPs CAN driver.
 *
 * This file contains a diagnostic self-test function for the XCanPs driver.
-*
 * Read xcanps.h file for more information.
 *
 * @note
@@ -31,6 +31,7 @@
 *						 SDK claims a 40kbps baud rate but it's not.
 * 3.00  kvn    02/13/15 Modified code for MISRA_C:2012 compliance.
 * 3.5	sne    07/01/20 Fixed MISRAC warnings.
+* 3.13  vn   09/08/26 Align Doxygen comments with AMD standards
 * </pre>
 *
 *****************************************************************************/
@@ -65,26 +66,24 @@ static u32 RxFrame[XCANPS_MAX_FRAME_SIZE_IN_WORDS]; /**< Rxframe buffer */
 /*****************************************************************************/
 /**
 *
-* This function runs a self-test on the CAN driver/device. The test resets
-* the device, sets up the Loop Back mode, sends a standard frame, receives the
-* frame, verifies the contents, and resets the device again.
+* @brief Runs a self-test on the CAN driver and device.
+*
+* The test resets the device, sets up the Loop Back mode, sends a standard
+* frame, receives the frame, verifies the contents, and resets the device again.
 *
 * Note that this is a destructive test in that resets of the device are
 * performed. Refer the device specification for the device status after
 * the reset operation.
 *
-*
-* @param	InstancePtr is a pointer to the XCanPs instance.
+* @param[in]   InstancePtr Pointer to the XCanPs instance.
 *
 * @return
-*		- XST_SUCCESS if the self-test passed. i.e., the frame
+*		- XST_SUCCESS if the self-test passed, that is, the frame
 *		  received via the internal loop back has the same contents as
 *		  the frame sent.
-* 		- XST_FAILURE   Otherwise.
+* 		- XST_FAILURE otherwise.
 *
-* @note
-*
-* If the CAN device does not work properly, this function may enter an
+* @note		If the CAN device does not work properly, this function may enter an
 * infinite loop and will never return to the caller.
 * <br><br>
 * If XST_FAILURE is returned, the device is not reset so that the caller could

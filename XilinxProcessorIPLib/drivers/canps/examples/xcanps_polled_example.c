@@ -9,12 +9,7 @@
 *
 * @file xcanps_polled_example.c
 *
-* Contains an example of how to use the XCanPs driver directly.
-* This example shows the using the driver/device in polled mode.
-*
-* @note
-*
-* None.
+* @brief Demonstrates XCanPs driver usage in polled mode.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -31,6 +26,7 @@
 * 				and example compilation failure in SDT flow
 * 3.12  vlt    12/17/25 Update Doxygen comments to include SDT flow details.
 * 3.13  vn     07/30/26 Fix Doxygen warnings
+* 3.13  vn   09/08/26 Align Doxygen comments with AMD standards
 * </pre>
 *
 ******************************************************************************/
@@ -122,14 +118,11 @@ static XCanPs Can;
 /****************************************************************************/
 /**
 *
-* This function is the main function of the Can polled example.
-*
+* @brief Runs the CAN polled mode example.
 *
 * @return
 *		- XST_SUCCESS if the example has completed successfully.
 *		- XST_FAILURE if the example has failed.
-*
-* @note		None
 *
 *****************************************************************************/
 #ifndef TESTAPP_GEN
@@ -161,15 +154,16 @@ int main(void)
 /*****************************************************************************/
 /**
 *
-* The entry point for showing the XCanPs driver in polled mode. The example
-* configures the device for internal loop back mode, then sends a Can
-* frame, receives the same Can frame, and verifies the frame contents.
+* @brief Demonstrates XCanPs driver operation in polled mode with loopback.
+*
+* The example configures the device for internal loop back mode, then sends a
+* CAN frame, receives the same CAN frame, and verifies the frame contents.
 *
 * @if SDT
-* @param	CanInstancePtr is a pointer to the XCanPs instance
-* @param	BaseAddress contains the base address of the device
+* @param[in]   CanInstancePtr is a pointer to the XCanPs instance
+* @param[in]   BaseAddress contains the base address of the device
 * @else
-* @param	DeviceId is the XPAR_<CANPS_instance>_DEVICE_ID value from
+* @param[in]   DeviceId is the XPAR_<CANPS_instance>_DEVICE_ID value from
 *		xparameters.h
 * @endif
 *
@@ -263,9 +257,9 @@ int CanPsPolledExample(XCanPs *CanInstancePtr, UINTPTR BaseAddress)
 /*****************************************************************************/
 /**
 *
-* Send a CAN frame.
+* @brief Sends a CAN frame.
 *
-* @param	InstancePtr is a pointer to the driver instance
+* @param[in]   InstancePtr is a pointer to the driver instance.
 *
 * @return	XST_SUCCESS if successful, a driver-specific return code if not.
 *
@@ -318,16 +312,16 @@ static int SendFrame(XCanPs *InstancePtr)
 /*****************************************************************************/
 /**
 *
-* This function receives a frame and verifies its contents.
+* @brief Receives a frame and verifies its contents.
 *
-* @param	InstancePtr is a pointer to the driver instance.
+* @param[in]   InstancePtr is a pointer to the driver instance.
 *
 * @return	XST_SUCCESS if successful, a driver-specific return code if not.
 *
 * @note
 *
-* This function waits until RX FIFO becomes not empty before reading a frame
-* from it. So this function may block if the hardware is not built
+* This function waits until RX FIFO becomes not empty before reading a
+* frame from it. So this function may block if the hardware is not built
 * correctly.
 *
 ******************************************************************************/

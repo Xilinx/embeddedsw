@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -10,6 +10,7 @@
 * @file xcanps_g.c
 * @addtogroup canps Overview
 * @{
+* @brief Provides the configuration table for CAN PS devices.
 *
 * This file contains a configuration table that specifies the configuration
 * of CAN devices in the system.
@@ -22,6 +23,7 @@
 * 1.00a xd/sv  01/12/10 First release
 * 2.00  hk   22/01/14 Added check for picking second instance
 * 3.00  kvn  02/13/15 Modified code for MISRA-C:2012 compliance.
+* 3.13  vn   09/08/26 Align Doxygen comments with AMD standards
 * </pre>
 *
 ******************************************************************************/
@@ -46,8 +48,7 @@
 /************************** Variable Prototypes ******************************/
 
 /**
- * This table contains configuration information for each CAN device
- * in the system.
+ * @brief Stores configuration information for each CAN device in the system.
  */
 XCanPs_Config XCanPs_ConfigTable[XPAR_XCANPS_NUM_INSTANCES] = {
 	{

@@ -9,8 +9,7 @@
 *
 * @file xcanps_intr_example.c
 *
-* Contains an example of how to use the XCanPs driver directly.
-* This example shows the usage of the driver/device in interrupt mode.
+* @brief Demonstrates XCanPs driver usage in interrupt mode.
 *
 * @note
 * The Baud Rate Prescaler Register (BRPR) and Bit Timing Register (BTR)
@@ -33,6 +32,7 @@
 * 3.8   rma    01/12/23 Update example code to fix compilation warnings.
 * 3.10  ht     12/13/24 Fix C++ compilation errors and warnings in SDT flow.
 * 3.12  vlt    12/17/25 Update Doxygen comments to include SDT flow details.
+* 3.13  vn   09/08/26 Align Doxygen comments with AMD standards
 * </pre>
 *
 ******************************************************************************/
@@ -165,14 +165,11 @@ static volatile int SendDone;		/* Frame was sent successfully */
 /****************************************************************************/
 /**
 *
-* This function is the main function of the Can interrupt example.
-*
+* @brief Runs the CAN interrupt example.
 *
 * @return
 *		- XST_SUCCESS if the example has completed successfully.
 *		- XST_FAILURE if the example has failed.
-*
-* @note		None.
 *
 *****************************************************************************/
 #ifndef TESTAPP_GEN
@@ -205,19 +202,20 @@ int main(void)
 /*****************************************************************************/
 /**
 *
-* The main entry point for showing the XCanPs driver in interrupt mode.
+* @brief Demonstrates XCanPs driver operation in interrupt mode with loopback.
+*
 * The example configures the device for internal loop back mode, then
 * sends a CAN frame and receives the same CAN frame.
 *
-* @param	CanInstPtr is a pointer to the instance of the CAN driver which
+* @param[in]   CanInstPtr is a pointer to the instance of the CAN driver which
 *		is going to be connected to the interrupt controller.
 * @if SDT
-* @param	BaseAddress contains the base address of the device
+* @param[in]   BaseAddress contains the base address of the device
 * @else
-* @param	IntcInstPtr is a pointer to the instance of the INTC driver.
-* @param	CanDeviceId is the device Id of the CAN device and is typically
+* @param[in]   IntcInstPtr is a pointer to the instance of the INTC driver.
+* @param[in]   CanDeviceId is the device Id of the CAN device and is typically
 *		XPAR_<CANPS_instance>_DEVICE_ID value from xparameters.h.
-* @param	CanIntrId is the interrupt Id and is typically
+* @param[in]   CanIntrId is the interrupt Id and is typically
 *		XPAR_<CANPS_instance>_INTR value from xparameters.h.
 * @endif
 *
@@ -340,12 +338,12 @@ int CanPsIntrExample(XCanPs *CanInstPtr, UINTPTR BaseAddress)
 /*****************************************************************************/
 /**
 *
-* This function configures CAN device. Baud Rate Prescaler Register (BRPR) and
-* Bit Timing Register (BTR) are set in this function.
+* @brief Configures the CAN device baud rate and timing parameters.
 *
-* @param	InstancePtr is a pointer to the driver instance.
+* Baud Rate Prescaler Register (BRPR) and Bit Timing Register (BTR) are set
+* in this function.
 *
-* @return	None.
+* @param[in]   InstancePtr is a pointer to the driver instance.
 *
 * @note		If the CAN device is not working correctly, this function may
 *		enter an infinite loop and will never return to the caller.
@@ -374,13 +372,9 @@ static void Config(XCanPs *InstancePtr)
 /*****************************************************************************/
 /**
 *
-* Send a CAN frame.
+* @brief Sends a CAN frame.
 *
-* @param	InstancePtr is a pointer to the driver instance.
-*
-* @return	None.
-*
-* @note		None.
+* @param[in]   InstancePtr is a pointer to the driver instance.
 *
 ******************************************************************************/
 static void SendFrame(XCanPs *InstancePtr)
@@ -424,13 +418,10 @@ static void SendFrame(XCanPs *InstancePtr)
 /*****************************************************************************/
 /**
 *
-* Callback function (called from interrupt handler) to handle confirmation of
-* transmit events when in interrupt mode.
+* @brief Handles transmit completion callbacks.
 *
-* @param	CallBackRef is the callback reference passed from the interrupt
+* @param[in]   CallBackRef is the callback reference passed from the interrupt
 *		handler, which in our case is a pointer to the driver instance.
-*
-* @return	None.
 *
 * @note		This function is called by the driver within interrupt context.
 *
@@ -448,14 +439,13 @@ static void SendHandler(void *CallBackRef)
 /*****************************************************************************/
 /**
 *
-* Callback function (called from interrupt handler) to handle frames received in
-* interrupt mode.  This function is called once per frame received.
+* @brief Handles frame reception callbacks.
+*
+* This function is called once per frame received.
 * The driver's receive function is called to read the frame from RX FIFO.
 *
-* @param	CallBackRef is the callback reference passed from the interrupt
+* @param[in]   CallBackRef is the callback reference passed from the interrupt
 *		handler, which in our case is a pointer to the device instance.
-*
-* @return	None.
 *
 * @note		This function is called by the driver within interrupt context.
 *
@@ -507,16 +497,15 @@ static void RecvHandler(void *CallBackRef)
 /*****************************************************************************/
 /**
 *
-* Callback function (called from interrupt handler) to handle error interrupt.
+* @brief Handles error interrupt callbacks.
+*
 * Error code read from Error Status register is passed into this function.
 *
-* @param	CallBackRef is the callback reference passed from the interrupt
+* @param[in]   CallBackRef is the callback reference passed from the interrupt
 *		handler, which in our case is a pointer to the driver instance.
-* @param	ErrorMask is a bit mask indicating the cause of the error.
+* @param[in]   ErrorMask is a bit mask indicating the cause of the error.
 *		Its value equals 'OR'ing one or more XCANPS_ESR_* defined in
 *		xcanps_hw.h.
-*
-* @return	None.
 *
 * @note		This function is called by the driver within interrupt context.
 *
@@ -566,8 +555,9 @@ static void ErrorHandler(void *CallBackRef, u32 ErrorMask)
 /*****************************************************************************/
 /**
 *
-* Callback function (called from interrupt handler) to handle the following
-* interrupts:
+* @brief Handles miscellaneous event interrupt callbacks.
+*
+* Handles the following interrupts:
 *   - XCANPS_IXR_BSOFF_MASK:	Bus Off Interrupt
 *   - XCANPS_IXR_RXOFLW_MASK:	RX FIFO Overflow Interrupt
 *   - XCANPS_IXR_RXUFLW_MASK:	RX FIFO Underflow Interrupt
@@ -577,15 +567,12 @@ static void ErrorHandler(void *CallBackRef, u32 ErrorMask)
 *   - XCANPS_IXR_SLP_MASK:	Sleep Interrupt
 *   - XCANPS_IXR_ARBLST_MASK:	Arbitration Lost Interrupt
 *
-*
-* @param	CallBackRef is the callback reference passed from the
+* @param[in]   CallBackRef is the callback reference passed from the
 *		interrupt Handler, which in our case is a pointer to the
 *		driver instance.
-* @param	IntrMask is a bit mask indicating pending interrupts.
+* @param[in]   IntrMask is a bit mask indicating pending interrupts.
 *		Its value equals 'OR'ing one or more of the XCANPS_IXR_*_MASK
 *		value(s) mentioned above.
-*
-* @return	None.
 *
 * @note		This function is called by the driver within interrupt context.
 * 		This function should be changed to meet specific application
@@ -657,22 +644,21 @@ static void EventHandler(void *CallBackRef, u32 IntrMask)
 /*****************************************************************************/
 /**
 *
-* This function sets up the interrupt system so interrupts can occur for the
-* CAN. This function is application-specific since the actual system may or
+* @brief Sets up the interrupt system for CAN.
+*
+* This function is application-specific since the actual system may or
 * may not have an interrupt controller. The CAN could be directly connected
 * to a processor without an interrupt controller. The user should modify this
 * function to fit the application.
 *
-* @param	IntcInstancePtr is a pointer to the instance of the ScuGic.
-* @param	CanInstancePtr contains a pointer to the instance of the CAN
+* @param[in]   IntcInstancePtr is a pointer to the instance of the ScuGic.
+* @param[in]   CanInstancePtr contains a pointer to the instance of the CAN
 *		which is going to be connected to the interrupt
 *		controller.
-* @param	CanIntrId is the interrupt Id and is typically
+* @param[in]   CanIntrId is the interrupt Id and is typically
 *		XPAR_<CANPS_instance>_INTR value from xparameters.h.
 *
 * @return	XST_SUCCESS if successful, otherwise XST_FAILURE.
-*
-* @note		None.
 *
 ****************************************************************************/
 static int SetupInterruptSystem(INTC *IntcInstancePtr,
@@ -723,7 +709,7 @@ static int SetupInterruptSystem(INTC *IntcInstancePtr,
 #endif
 #else
 #ifndef TESTAPP_GEN
-	XScuGic_Config *IntcConfig; /* Instance of the interrupt controller */
+	XScuGic_Config *IntcConfig; /**< Instance of the interrupt controller */
 
 	Xil_ExceptionInit();
 

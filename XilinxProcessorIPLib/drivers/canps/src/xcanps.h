@@ -3,6 +3,8 @@
 * Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
+#ifndef XCANPS_H			/* prevent circular inclusions */
+#define XCANPS_H
 
 /*****************************************************************************/
 /**
@@ -10,6 +12,7 @@
 * @file xcanps.h
 * @addtogroup canps Overview
 * @{
+* @brief Provides the main header file for the XCanPs CAN driver.
 * @details
 *
 * The Xilinx CAN driver component.  This component supports the Xilinx
@@ -39,7 +42,7 @@
 *
 * <b>Driver Description</b>
 *
-* The device driver enables higher layer software (e.g., an application) to
+* The device driver enables higher layer software (for example, an application) to
 * communicate to the CAN. The driver handles transmission and reception of
 * CAN frames, as well as configuration of the controller. The driver is simply a
 * pass-through mechanism between a protocol stack and the CAN. A single device
@@ -83,7 +86,6 @@
 *	 recessive bit stream on to the CAN Bus and does not participate
 *	 in normal bus communication but receives messages that are transmitted
 *	 by other CAN nodes. This mode is used for diagnostic purposes.
-*
 *
 * <b>Buffer Alignment</b>
 *
@@ -188,12 +190,11 @@
 * 3.7 ht      06/28/23  Added support for system device-tree flow.
 * 3.12  vlt   12/30/25  Update Doxygen comments to include SDT flow details.
 * 3.12  vlt   03/14/26  Updated BaseAddress type from u32 to UINTPTR to
+* 3.13  vn   09/08/26 Align Doxygen comments with AMD standards
 * 			 support 64-bit addressing.
 * </pre>
 *
 ******************************************************************************/
-#ifndef XCANPS_H			/* prevent circular inclusions */
-#define XCANPS_H			/**< by using protection macros */
 
 #ifdef __cplusplus
 extern "C" {
@@ -229,7 +230,7 @@ extern "C" {
 /**************************** Type Definitions *******************************/
 
 /**
- * This typedef contains configuration information for a device.
+ * @brief Stores configuration information for a CAN device.
  */
 typedef struct {
 #ifndef SDT
@@ -248,9 +249,9 @@ typedef struct {
 
 /******************************************************************************/
 /**
- * Callback type for frame sending and reception interrupts.
+ * @brief Defines the callback type for frame sending and reception interrupts.
  *
- * @param 	CallBackRef is a callback reference passed in by the upper layer
+ * @param[in]   CallBackRef is a callback reference passed in by the upper layer
  *		when setting the callback functions, and passed back to the
  *		upper layer when the callback is invoked.
 *******************************************************************************/
@@ -258,12 +259,12 @@ typedef void (*XCanPs_SendRecvHandler) (void *CallBackRef);
 
 /******************************************************************************/
 /**
- * Callback type for error interrupt.
+ * @brief Defines the callback type for error interrupts.
  *
- * @param	CallBackRef is a callback reference passed in by the upper layer
+ * @param[in]   CallBackRef is a callback reference passed in by the upper layer
  *		when setting the callback functions, and passed back to the
  *		upper layer when the callback is invoked.
- * @param	ErrorMask is a bit mask indicating the cause of the error. Its
+ * @param[in]   ErrorMask is a bit mask indicating the cause of the error. Its
  *		value equals 'OR'ing one or more XCANPS_ESR_* values defined in
  *		xcanps_hw.h
 *******************************************************************************/
@@ -271,21 +272,22 @@ typedef void (*XCanPs_ErrorHandler) (void *CallBackRef, u32 ErrorMask);
 
 /******************************************************************************/
 /**
- * Callback type for all kinds of interrupts except sending frame interrupt,
- * receiving frame interrupt, and error interrupt.
+* @brief Defines the callback type for non-send, non-receive, and non-error interrupts.
  *
- * @param	CallBackRef is a callback reference passed in by the upper layer
+ * @param[in]   CallBackRef is a callback reference passed in by the upper layer
  *		when setting the callback functions, and passed back to the
  *		upper layer when the callback is invoked.
- * @param	Mask is a bit mask indicating the pending interrupts. Its value
+ * @param[in]   Mask is a bit mask indicating the pending interrupts. Its value
  *		equals 'OR'ing one or more XCANPS_IXR_* defined in xcanps_hw.h
 *******************************************************************************/
 typedef void (*XCanPs_EventHandler) (void *CallBackRef, u32 Mask);
 
 /**
- * The XCanPs driver instance data. The user is required to allocate a
- * variable of this type for every CAN device in the system. A pointer
- * to a variable of this type is then passed to the driver API functions.
+ * @brief Stores the XCanPs driver instance data.
+ *
+ * The user is required to allocate a variable of this type for every CAN
+ * device in the system. A pointer to a variable of this type is then passed
+ * to the driver API functions.
  */
 typedef struct {
 	XCanPs_Config CanConfig; 	/**< Device configuration */
@@ -328,10 +330,9 @@ extern XCanPs_Config XCanPs_ConfigTable[];
 
 /****************************************************************************/
 /**
+* @brief Checks if the transmission is complete.
 *
-* This macro checks if the transmission is complete.
-*
-* @param	InstancePtr is a pointer to the XCanPs instance.
+* @param[in]   InstancePtr is a pointer to the XCanPs instance.
 *
 * @return
 *		- TRUE if the transmission is done.
@@ -348,10 +349,9 @@ extern XCanPs_Config XCanPs_ConfigTable[];
 
 /****************************************************************************/
 /**
+* @brief Checks if the transmission FIFO is full.
 *
-* This macro checks if the transmission FIFO is full.
-*
-* @param	InstancePtr is a pointer to the XCanPs instance.
+* @param[in]   InstancePtr is a pointer to the XCanPs instance.
 *
 * @return
 *		- TRUE if TX FIFO is full.
@@ -368,10 +368,9 @@ extern XCanPs_Config XCanPs_ConfigTable[];
 
 /****************************************************************************/
 /**
+* @brief Checks if the Transmission High Priority Buffer is full.
 *
-* This macro checks if the Transmission High Priority Buffer is full.
-*
-* @param	InstancePtr is a pointer to the XCanPs instance.
+* @param[in]   InstancePtr is a pointer to the XCanPs instance.
 *
 * @return
 *		- TRUE if the TX High Priority Buffer is full.
@@ -388,10 +387,9 @@ extern XCanPs_Config XCanPs_ConfigTable[];
 
 /****************************************************************************/
 /**
+* @brief Checks if the receive FIFO is empty.
 *
-* This macro checks if the receive FIFO is empty.
-*
-* @param	InstancePtr is a pointer to the XCanPs instance.
+* @param[in]   InstancePtr is a pointer to the XCanPs instance.
 *
 * @return
 *		- TRUE if RX FIFO is empty.
@@ -408,8 +406,7 @@ extern XCanPs_Config XCanPs_ConfigTable[];
 
 /****************************************************************************/
 /**
-*
-* This macro checks if the CAN device is ready for the driver to change
+* @brief Checks if the CAN device is ready for the driver to change
 * Acceptance Filter Identifier Registers (AFIR) and Acceptance Filter Mask
 * Registers (AFMR).
 *
@@ -419,7 +416,7 @@ extern XCanPs_Config XCanPs_ConfigTable[];
 *
 * Use the XCanPs_Accept_* functions for configuring the acceptance filters.
 *
-* @param	InstancePtr is a pointer to the XCanPs instance.
+* @param[in]   InstancePtr is a pointer to the XCanPs instance.
 *
 * @return
 *		- TRUE if the device is busy and NOT ready to accept writes to
@@ -438,16 +435,15 @@ extern XCanPs_Config XCanPs_ConfigTable[];
 
 /****************************************************************************/
 /**
-*
-* This macro calculates CAN message identifier value given identifier field
+* @brief Calculates CAN message identifier value given identifier field
 * values.
 *
-* @param	StandardId contains Standard Message ID value.
-* @param	SubRemoteTransReq contains Substitute Remote Transmission
+* @param[in]   StandardId contains Standard Message ID value.
+* @param[in]   SubRemoteTransReq contains Substitute Remote Transmission
 *		Request value.
-* @param	IdExtension contains Identifier Extension value.
-* @param	ExtendedId contains Extended Message ID value.
-* @param	RemoteTransReq contains Remote Transmission Request value.
+* @param[in]   IdExtension contains Identifier Extension value.
+* @param[in]   ExtendedId contains Extended Message ID value.
+* @param[in]   RemoteTransReq contains Remote Transmission Request value.
 *
 * @return	Message Identifier value.
 *
@@ -471,11 +467,10 @@ extern XCanPs_Config XCanPs_ConfigTable[];
 
 /****************************************************************************/
 /**
-*
-* This macro calculates value for Data Length Code register given Data
+* @brief Calculates value for Data Length Code register given Data
 * Length Code value.
 *
-* @param	DataLengCode indicates Data Length Code value.
+* @param[in]   DataLengCode indicates Data Length Code value.
 *
 * @return	Value that can be assigned to Data Length Code register.
 *
@@ -491,12 +486,9 @@ extern XCanPs_Config XCanPs_ConfigTable[];
 
 /****************************************************************************/
 /**
+* @brief Clears the timestamp in the Timestamp Control Register.
 *
-* This macro clears the timestamp in the Timestamp Control Register.
-*
-* @param	InstancePtr is a pointer to the XCanPs instance.
-*
-* @return	None.
+* @param[in]   InstancePtr is a pointer to the XCanPs instance.
 *
 * @note		C-Style signature:
 *		void XCanPs_ClearTimestamp(XCanPs *InstancePtr)
@@ -508,9 +500,7 @@ extern XCanPs_Config XCanPs_ConfigTable[];
 
 /************************** Function Prototypes ******************************/
 
-/*
- * Functions in xcanps.c
- */
+/** @brief Provides core driver functions from xcanps.c. */
 s32 XCanPs_CfgInitialize(XCanPs *InstancePtr, XCanPs_Config *ConfigPtr,
 			 UINTPTR EffectiveAddr);
 
@@ -545,14 +535,10 @@ u8 XCanPs_GetRxIntrWatermark(XCanPs *InstancePtr);
 s32 XCanPs_SetTxIntrWatermark(XCanPs *InstancePtr, u8 Threshold);
 u8 XCanPs_GetTxIntrWatermark(XCanPs *InstancePtr);
 
-/*
- * Diagnostic functions in xcanps_selftest.c
- */
+/** @brief Provides diagnostic self-test functions from xcanps_selftest.c. */
 s32 XCanPs_SelfTest(XCanPs *InstancePtr);
 
-/*
- * Functions in xcanps_intr.c
- */
+/** @brief Provides interrupt-related functions from xcanps_intr.c. */
 void XCanPs_IntrEnable(XCanPs *InstancePtr, u32 Mask);
 void XCanPs_IntrDisable(XCanPs *InstancePtr, u32 Mask);
 u32 XCanPs_IntrGetEnabled(XCanPs *InstancePtr);
@@ -562,9 +548,7 @@ void XCanPs_IntrHandler(void *InstancePtr);
 s32 XCanPs_SetHandler(XCanPs *InstancePtr, u32 HandlerType,
 		      void *CallBackFunc, void *CallBackRef);
 
-/*
- * Functions in xcanps_sinit.c
- */
+/** @brief Provides static initialization functions from xcanps_sinit.c. */
 #ifndef SDT
 XCanPs_Config *XCanPs_LookupConfig(u16 DeviceId);
 #else
@@ -575,5 +559,5 @@ XCanPs_Config *XCanPs_LookupConfig(UINTPTR BaseAddress);
 }
 #endif
 
-#endif /* end of protection macro */
 /** @} */
+#endif /* end of protection macro */
