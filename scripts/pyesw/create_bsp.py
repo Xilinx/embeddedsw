@@ -217,7 +217,7 @@ class Domain(Repo):
         utils.mkdir(self.lib_folder)
         utils.mkdir(self.libsrc_folder)
         utils.mkdir(self.sdt_folder)
-        utils.mkdir(self.build_metadata, silent_discard=False)
+        utils.mkdir(self.build_metadata)
         if (
             utils.is_dir(
                 os.path.join(utils.get_dir_path(self.sdt), "drivers"),
