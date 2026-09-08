@@ -71,20 +71,23 @@ extern "C" {
 
 /**< VER (Version Interface) peripheral register offsets */
 /**< The VER is the first peripheral on the local bus */
+/**< A standard IP version register block was added at the start of the
+ *   register space; all subsequent registers are shifted by four word
+ *   positions. */
 #define XV_HDMITX1_VER_BASE              (0*64)
-#define XV_HDMITX1_VER_ID_OFFSET         ((XV_HDMITX1_VER_BASE)+(0*4))/**<
+#define XV_HDMITX1_VER_VERSION_OFFSET    ((XV_HDMITX1_VER_BASE)+(0*4))/**<
+                                    * VER Version Register offset */
+#define XV_HDMITX1_VER_ID_OFFSET         ((XV_HDMITX1_VER_BASE)+(4*4))/**<
                                     * VER Identification *  Register offset */
-#define XV_HDMITX1_VER_VERSION_OFFSET    ((XV_HDMITX1_VER_BASE)+(1*4))/**<
-                                    * VER Version Register *  offset */
-#define XV_HDMITX1_BRDG_FIFO_LVL_OFFSET  ((XV_HDMITX1_VER_BASE)+(2*4))/**<
+#define XV_HDMITX1_BRDG_FIFO_LVL_OFFSET  ((XV_HDMITX1_VER_BASE)+(5*4))/**<
                                     * Bridge FIFO Level Register offset */
-#define XV_HDMITX1_VCKE_SYS_CNT_OFFSET   ((XV_HDMITX1_VER_BASE)+(3*4))/**<
+#define XV_HDMITX1_VCKE_SYS_CNT_OFFSET   ((XV_HDMITX1_VER_BASE)+(6*4))/**<
                                     * VCKE System Count Register offset */
-#define XV_HDMITX1_DBG_STS_OFFSET        ((XV_HDMITX1_VER_BASE)+(4*4))/**<
+#define XV_HDMITX1_DBG_STS_OFFSET        ((XV_HDMITX1_VER_BASE)+(7*4))/**<
                                     * Debug Status Register offset */
-#define XV_HDMITX1_ANLZ_HBP_HS_OFFSET    ((XV_HDMITX1_VER_BASE)+(5*4))/**<
+#define XV_HDMITX1_ANLZ_HBP_HS_OFFSET    ((XV_HDMITX1_VER_BASE)+(8*4))/**<
                                     * Analyzer HPB HS Register offset */
-#define XV_HDMITX1_ANLZ_LN_ACT_OFFSET    ((XV_HDMITX1_VER_BASE)+(6*4))/**<
+#define XV_HDMITX1_ANLZ_LN_ACT_OFFSET    ((XV_HDMITX1_VER_BASE)+(9*4))/**<
                                     * Analyzer LN ACT Register offset */
 
 #define XV_HDMITX1_BRDG_FIFO_LVL_MIN_MASK       0xFFFF     /**< FRL Control Lane 0
