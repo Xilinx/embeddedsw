@@ -3,6 +3,11 @@
 * Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
+/** @def XAXIPMON_HW_H
+ *  @brief Include guard for the AXI Performance Monitor hardware header.
+ */
+#ifndef XAXIPMON_HW_H /* Prevent circular inclusions */
+#define XAXIPMON_HW_H /* by using protection macros  */
 
 /****************************************************************************/
 /**
@@ -10,13 +15,12 @@
 * @file xaxipmon_hw.h
 * @addtogroup axipmon Overview
 * @{
+* @brief Hardware register definitions for the AXI Performance Monitor.
 *
 * This header file contains identifiers and basic driver functions (or
 * macros) that can be used to access the AXI Performance Monitor.
 *
 * Refer to the device specification for more information about this driver.
-*
-* @note	 None.
 *
 * <pre>
 *
@@ -55,11 +59,10 @@
 *
 * 6.3  kvn  07/02/15 Modified code according to MISRA-C:2012 guidelines.
 * 6.15 vn   07/30/26 Fix Doxygen warnings
+* 6.15  vn   09/08/26 Align Doxygen comments with AMD standards
 * </pre>
 *
-*****************************************************************************/
-#ifndef XAXIPMON_HW_H /* Prevent circular inclusions */
-#define XAXIPMON_HW_H /* by using protection macros  */
+****************************************************************************/
 
 #ifdef __cplusplus
 extern "C" {
@@ -74,7 +77,7 @@ extern "C" {
 /************************** Constant Definitions ****************************/
 
 
-/**@name Register offsets of AXIMONITOR in the Device Config
+/** @name Register offsets of AXIMONITOR in the Device Config
  *
  * The following constants provide access to each of the registers of the
  * AXI PERFORMANCE MONITOR device.
@@ -491,7 +494,7 @@ extern "C" {
 
 #define XAPM_MASKID_RID_MASK			0xFFFF0000U /**< Read ID Mask */
 
-#define XAPM_MASKID_WID_MASK			0x0000FFFFU /**< Write ID Mask*/
+#define XAPM_MASKID_WID_MASK			0x0000FFFFU /**< Write ID Mask */
 
 /** @} */
 
@@ -502,11 +505,13 @@ extern "C" {
 /*****************************************************************************/
 /**
 *
-* Read a register of the AXI Performance Monitor device. This macro provides
-* register access to all registers using the register offsets defined above.
+* @brief Reads a register of the AXI Performance Monitor device.
 *
-* @param	BaseAddress contains the base address of the device.
-* @param	RegOffset is the offset of the register to read.
+* Provides register access to all registers using the register offsets
+* defined above.
+*
+* @param[in]   BaseAddress contains the base address of the device.
+* @param[in]   RegOffset is the offset of the register to read.
 *
 * @return	The contents of the register.
 *
@@ -520,14 +525,14 @@ extern "C" {
 /*****************************************************************************/
 /**
 *
-* Write a register of the AXI Performance Monitor device. This macro provides
-* register access to all registers using the register offsets defined above.
+* @brief Writes a register of the AXI Performance Monitor device.
 *
-* @param	BaseAddress contains the base address of the device.
-* @param	RegOffset is the offset of the register to write.
-* @param	Data is the value to write to the register.
+* Provides register access to all registers using the register offsets
+* defined above.
 *
-* @return	None.
+* @param[in]   BaseAddress contains the base address of the device.
+* @param[in]   RegOffset is the offset of the register to write.
+* @param[in]   Data is the value to write to the register.
 *
 * @note 	C-style Signature:
 *		void XAxiPmon_WriteReg(u32 BaseAddress,
@@ -543,5 +548,5 @@ extern "C" {
 }
 #endif
 
-#endif  /* End of protection macro. */
+#endif  /* End of protection macro */
 /** @} */

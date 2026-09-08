@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2012 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -11,12 +11,11 @@
 * @addtogroup axipmon Overview
 * @{
 *
-* This file contains a configuration table that specifies the configuration
-* of AxiMon devices in the system.
+* @brief Configuration table for AXI Performance Monitor devices.
+*
+* Specifies the configuration of AxiMon devices in the system.
 *
 * See xaxipmon.h for more information about this driver.
-*
-* @note None.
 *
 * <pre>
 *
@@ -26,6 +25,7 @@
 * ----- -----  -------- -----------------------------------------------------
 * 1.00a bss    02/22/12 First release
 * 2.00a bss    06/23/12 Updated to support v2_00a version of IP.
+* 6.15  vn   09/08/26 Align Doxygen comments with AMD standards
 * </pre>
 *
 ******************************************************************************/

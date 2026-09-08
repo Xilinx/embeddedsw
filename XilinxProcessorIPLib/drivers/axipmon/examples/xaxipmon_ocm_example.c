@@ -31,6 +31,7 @@
 * 6.10  ht     06/23/23 Added support for system device-tree flow.
 * 6.14  vlt    01/27/26 Fixed codespell issues
 * 6.15  vn     07/30/26 Fix Doxygen warnings
+* 6.15  vn   09/08/26 Align Doxygen comments with AMD standards
 * </pre>
 *
 *****************************************************************************/
@@ -86,8 +87,6 @@ u32 MetricsBuffer[6];
 *		- XST_SUCCESS if the example has completed successfully.
 *		- XST_FAILURE if the example has failed.
 *
-* @note		None.
-*
 *****************************************************************************/
 int main(void)
 {
@@ -140,18 +139,16 @@ int main(void)
 *
 * Checks the metrics passed to this function are same as collected by APM.
 *
-* @param	BufferPtr is pointer to buffer containing captured metrics.
-* @param	Wtx is Write transaction count value to be checked.
-* @param	Wbc is Write byte count value to be checked.
-* @param	Rtx is Read transaction count value to be checked.
-* @param	Rbc is Read byte count value to be checked.
+* @param[in]   BufferPtr is pointer to buffer containing captured metrics.
+* @param[in]   Wtx is Write transaction count value to be checked.
+* @param[in]   Wbc is Write byte count value to be checked.
+* @param[in]   Rtx is Read transaction count value to be checked.
+* @param[in]   Rbc is Read byte count value to be checked.
 *
 * @return
 *		- XST_SUCCESS if metrics passed are equal to metrics collected by APM.
 *		- XST_FAILURE if any of the metrics passed is not equal to metrics
 *						collected by APM.
-*
-* @note		None.
 *
 *****************************************************************************/
 int ApmCheck(u32 *BufferPtr, u16 Wtx, u16 Wbc, u16 Rtx, u16 Rbc)
@@ -196,8 +193,6 @@ int ApmCheck(u32 *BufferPtr, u16 Wtx, u16 Wbc, u16 Rtx, u16 Rbc)
 * Generates write and read transcations to OCM and reads metrics captured
 * by APM.
 *
-* @note		None.
-*
 *****************************************************************************/
 void OcmTransaction()
 {
@@ -223,23 +218,21 @@ void OcmTransaction()
 /**
 * Sets Counter 0 and Counter 1 for collecting the passed metrics
 *
-* @param    InstancePtr is pointer to APM instance.
-* @param    slot is APM slot.
-* @param    Metric1 is Metric to be captured by Counter 1
-* @param    Metric2 is Metric to be captured by Counter 2
+* @param[in]   InstancePtr is pointer to APM instance.
+* @param[in]   slot is APM slot.
+* @param[in]   Metric1 is Metric to be captured by Counter 1
+* @param[in]   Metric2 is Metric to be captured by Counter 2
 *
 * @return
 *       - XST_SUCCESS on success.
 *       - XST_FAILURE on failure.
-*
-* @note     None.
 *
 *****************************************************************************/
 int ApmMetricConfig(XAxiPmon *InstancePtr, u8 slot, u8 Metric1, u8 Metric2)
 {
 	int Status;
 
-	/* reset Metric counter and Global counters */
+	/**< reset Metric counter and Global counters */
 	XAxiPmon_ResetMetricCounter(InstancePtr);
 	XAxiPmon_ResetGlobalClkCounter(InstancePtr);
 
@@ -268,12 +261,10 @@ int ApmMetricConfig(XAxiPmon *InstancePtr, u8 slot, u8 Metric1, u8 Metric2)
 *
 * Reads metrics from APM counters to buffer.
 *
-* @param    InstancePtr is pointer to APM instance.
-* @param    BufferPtr is pointer to buffer.
-* @param    Counter1 is counter number.
-* @param    Counter2 is counter number.
-*
-* @note     None.
+* @param[in]   InstancePtr is pointer to APM instance.
+* @param[in]   BufferPtr is pointer to buffer.
+* @param[in]   Counter1 is counter number.
+* @param[in]   Counter2 is counter number.
 *
 *****************************************************************************/
 void ReadMetrics(XAxiPmon *InstancePtr, u32 *BufferPtr, u8 Counter1,

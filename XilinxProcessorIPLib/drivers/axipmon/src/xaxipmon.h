@@ -3,6 +3,11 @@
 * Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
+/** @def XAXIPMON_H
+ *  @brief Include guard for the AXI Performance Monitor driver header.
+ */
+#ifndef XAXIPMON_H /* Prevent circular inclusions */
+#define XAXIPMON_H /* by using protection macros  */
 
 /****************************************************************************/
 /**
@@ -10,6 +15,7 @@
 * @file xaxipmon.h
 * @addtogroup axipmon Overview
 * @{
+* @brief AXI Performance Monitor driver header file.
 * @details
 *
 * The XAxiPmon driver supports the Xilinx AXI Performance Monitor device.
@@ -29,7 +35,7 @@
 *	Read Latency: It is defined as the time from the start of read address
 *       	      transaction to the beginning of the read data service.
 *	Write Latency: It is defined as the period needed a master completes
-*        	       write data transaction, i.e. from write address
+*        	       write data transaction, that is from write address
 *        	       transaction to write response from slave.
 *	Write Byte Count: Total number of bytes written by/to the agent.
 *        		  This metric is helpful when calculating the
@@ -63,8 +69,8 @@
 *	Packet Count: Total number of packets transferred.
 *
 * There are three modes : Advanced, Profile and Trace.
-* - Advanced mode has 10 Mertic Counters, Sampled Metric Counters, Incrementors
-*   and Sampled Incrementors.
+* - Advanced mode has 10 Metric Counters, Sampled Metric Counters, Incrementers
+*   and Sampled Incrementers.
 * - Profile mode has only 47 Metric Counters and Sampled Metric Counters.
 * - Trace mode has no Counters.
 * User should refer to the hardware device specification for detailed
@@ -73,28 +79,24 @@
 * This header file contains the prototypes of driver functions that can
 * be used to access the AXI Performance Monitor device.
 *
-*
 * <b> Initialization and Configuration </b>
 *
-* The device driver enables higher layer software (e.g., an application) to
+* The device driver enables higher layer software (for example, an application) to
 * communicate to the AXI Performance Monitor device.
 *
 * XAxiPmon_CfgInitialize() API is used to initialize the AXI Performance Monitor
-* device. The user needs to first call the XAxiPmon_LookupConfig() API which
+* device. First call the XAxiPmon_LookupConfig() API which
 * returns the Configuration structure pointer which is passed as a parameter to
 * the XAxiPmon_CfgInitialize() API.
-*
 *
 * <b>Interrupts</b>
 *
 * The AXI Performance Monitor does not support Interrupts
 *
-*
 * <b> Virtual Memory </b>
 *
 * This driver supports Virtual Memory. The RTOS is responsible for calculating
 * the correct device base address in Virtual Memory space.
-*
 *
 * <b> Threads </b>
 *
@@ -108,14 +110,12 @@
 * compile time, the NDEBUG identifier. By default, asserts are turned on and it
 * is recommended that users leave asserts on during development.
 *
-*
 * <b> Building the driver </b>
 *
-* The XAxiPmon driver is composed of several source files. This allows the user
-* to build and link only those parts of the driver that are necessary.
+* The XAxiPmon driver is composed of several source files. This allows
+* building and linking only those parts of the driver that are necessary.
 *
 * <b> Limitations of the driver </b>
-*
 *
 * <br><br>
 *
@@ -239,11 +239,10 @@
 * 6.10  ht   06/23/23 Added support for system device-tree flow.
 * 6.12  ht   12/01/24 Fix GCC warnings.
 * 6.14  vlt  12/17/25 Update Doxygen comments to include SDT flow details.
+* 6.15  vn   09/08/26 Align Doxygen comments with AMD standards
 * </pre>
 *
 *****************************************************************************/
-#ifndef XAXIPMON_H /* Prevent circular inclusions */
-#define XAXIPMON_H /* by using protection macros  */
 
 #ifdef __cplusplus
 extern "C" {
@@ -271,7 +270,7 @@ extern "C" {
 
 
 /**
- * @name Indices for Metric Counters and Sampled Metric Coounters used with
+ * @name Indices for Metric Counters and Sampled Metric Counters used with
  * 	 XAxiPmon_GetMetricCounter and XAxiPmon_GetSampledMetricCounter APIs
  * @{
  */
@@ -295,16 +294,16 @@ extern "C" {
  * @{
  */
 
-#define XAPM_INCREMENTER_0	0U /**< Metric Counter 0 Register Index */
-#define XAPM_INCREMENTER_1	1U /**< Metric Counter 0 Register Index */
-#define XAPM_INCREMENTER_2	2U /**< Metric Counter 0 Register Index */
-#define XAPM_INCREMENTER_3	3U /**< Metric Counter 0 Register Index */
-#define XAPM_INCREMENTER_4	4U /**< Metric Counter 0 Register Index */
-#define XAPM_INCREMENTER_5	5U /**< Metric Counter 0 Register Index */
-#define XAPM_INCREMENTER_6	6U /**< Metric Counter 0 Register Index */
-#define XAPM_INCREMENTER_7	7U /**< Metric Counter 0 Register Index */
-#define XAPM_INCREMENTER_8	8U /**< Metric Counter 0 Register Index */
-#define XAPM_INCREMENTER_9	9U /**< Metric Counter 0 Register Index */
+#define XAPM_INCREMENTER_0	0U /**< Incrementer 0 Register Index. */
+#define XAPM_INCREMENTER_1	1U /**< Incrementer 1 Register Index. */
+#define XAPM_INCREMENTER_2	2U /**< Incrementer 2 Register Index. */
+#define XAPM_INCREMENTER_3	3U /**< Incrementer 3 Register Index. */
+#define XAPM_INCREMENTER_4	4U /**< Incrementer 4 Register Index. */
+#define XAPM_INCREMENTER_5	5U /**< Incrementer 5 Register Index. */
+#define XAPM_INCREMENTER_6	6U /**< Incrementer 6 Register Index. */
+#define XAPM_INCREMENTER_7	7U /**< Incrementer 7 Register Index. */
+#define XAPM_INCREMENTER_8	8U /**< Incrementer 8 Register Index. */
+#define XAPM_INCREMENTER_9	9U /**< Incrementer 9 Register Index. */
 
 /** @} */
 
@@ -364,9 +363,9 @@ extern "C" {
 #define XAPM_FLAG_FIRSTRD	0x00000020 /**< First Read Flag */
 #define XAPM_FLAG_LASTRD	0x00000040 /**< Last Read Flag */
 #define XAPM_FLAG_SWDATA	0x00010000 /**< Software-written Data Flag */
-#define XAPM_FLAG_EVENT		0x00020000 /**< Last Read Flag */
-#define XAPM_FLAG_EVNTSTOP	0x00040000 /**< Last Read Flag */
-#define XAPM_FLAG_EVNTSTART	0x00080000 /**< Last Read Flag */
+#define XAPM_FLAG_EVENT		0x00020000 /**< Event Flag. */
+#define XAPM_FLAG_EVNTSTOP	0x00040000 /**< Event Stop Flag. */
+#define XAPM_FLAG_EVNTSTART	0x00080000 /**< Event Start Flag. */
 #define XAPM_FLAG_GCCOVF	0x00100000 /**< Global Clock Counter Overflow
 					     *  Flag */
 #define XAPM_FLAG_SCLAPSE	0x00200000 /**< Sample Counter Lapse Flag */
@@ -418,8 +417,7 @@ extern "C" {
 /**************************** Type Definitions *******************************/
 
 /**
- * This typedef contains configuration information for the AXI Performance
- * Monitor device.
+ * @brief Configuration structure for the AXI Performance Monitor device.
  */
 typedef struct {
 #ifndef SDT
@@ -455,9 +453,11 @@ typedef struct {
 
 
 /**
- * The driver's instance data. The user is required to allocate a variable
- * of this type for every AXI Performance Monitor device in system. A pointer
- * to a variable of this type is then passed to the driver API functions.
+ * @brief Driver instance data for the AXI Performance Monitor.
+ *
+ * Allocate a variable of this type for every AXI Performance Monitor device
+ * in the system. A pointer to a variable of this type is then passed to the
+ * driver API functions.
  */
 typedef struct {
 	XAxiPmon_Config Config;	/**< XAxiPmon_Config of current device */
@@ -471,11 +471,9 @@ typedef struct {
 /****************************************************************************/
 /**
 *
-* This routine enables the Global Interrupt.
+* @brief Enables the Global Interrupt.
 *
-* @param	InstancePtr is a pointer to the XAxiPmon instance.
-*
-* @return	None.
+* @param[in]   InstancePtr is a pointer to the XAxiPmon instance.
 *
 * @note		C-Style signature:
 *		void XAxiPmon_IntrGlobalEnable(XAxiPmon *InstancePtr)
@@ -489,11 +487,9 @@ typedef struct {
 /****************************************************************************/
 /**
 *
-* This routine disables the Global Interrupt.
+* @brief Disables the Global Interrupt.
 *
-* @param	InstancePtr is a pointer to the XAxiPmon instance.
-*
-* @return	None.
+* @param[in]   InstancePtr is a pointer to the XAxiPmon instance.
 *
 * @note		C-Style signature:
 *		void XAxiPmon_IntrGlobalDisable(XAxiPmon *InstancePtr)
@@ -507,15 +503,15 @@ typedef struct {
 /****************************************************************************/
 /**
 *
-* This routine enables interrupt(s). Use the XAPM_IXR_* constants defined in
+* @brief Enables interrupt(s).
+*
+* Use the XAPM_IXR_* constants defined in
 * xaxipmon_hw.h to create the bit-mask to enable interrupts.
 *
-* @param	InstancePtr is a pointer to the XAxiPmon instance.
-* @param	Mask is the mask to enable. Bit positions of 1 will be enabled.
+* @param[in]   InstancePtr is a pointer to the XAxiPmon instance.
+* @param[in]   Mask is the mask to enable. Bit positions of 1 will be enabled.
 *		Bit positions of 0 will keep the previous setting. This mask is
 *		formed by OR'ing XAPM_IXR__* bits defined in xaxipmon_hw.h.
-*
-* @return	None.
 *
 * @note		C-Style signature:
 *		void XAxiPmon_IntrEnable(XAxiPmon *InstancePtr, u32 Mask)
@@ -530,19 +526,19 @@ typedef struct {
 /****************************************************************************/
 /**
 *
-* This routine disable interrupt(s). Use the XAPM_IXR_* constants defined in
+* @brief Disables interrupt(s).
+*
+* Use the XAPM_IXR_* constants defined in
 * xaxipmon_hw.h to create the bit-mask to disable interrupts.
 *
-* @param	InstancePtr is a pointer to the XAxiPmon instance.
-* @param	Mask is the mask to disable. Bit positions of 1 will be
+* @param[in]   InstancePtr is a pointer to the XAxiPmon instance.
+* @param[in]   Mask is the mask to disable. Bit positions of 1 will be
 *		disabled. Bit positions of 0 will keep the previous setting.
 *		This mask is formed by OR'ing XAPM_IXR_* bits defined in
 *		xaxipmon_hw.h.
 *
-* @return	None.
-*
 * @note		C-Style signature:
-*		void XAxiPmon_IntrEnable(XAxiPmon *InstancePtr, u32 Mask)
+*		void XAxiPmon_IntrDisable(XAxiPmon *InstancePtr, u32 Mask)
 *
 *****************************************************************************/
 #define XAxiPmon_IntrDisable(InstancePtr, Mask)				     \
@@ -553,14 +549,12 @@ typedef struct {
 /****************************************************************************/
 /**
 *
-* This routine clears the specified interrupt(s).
+* @brief Clears the specified interrupt(s).
 *
-* @param	InstancePtr is a pointer to the XAxiPmon instance.
-* @param	Mask is the mask to clear. Bit positions of 1 will be cleared.
+* @param[in]   InstancePtr is a pointer to the XAxiPmon instance.
+* @param[in]   Mask is the mask to clear. Bit positions of 1 will be cleared.
 *		This mask is formed by OR'ing XAPM_IXR_* bits defined in
 *		xaxipmon_hw.h.
-*
-* @return	None.
 *
 * @note		C-Style signature:
 *		void XAxiPmon_IntrClear(XAxiPmon *InstancePtr, u32 Mask)
@@ -574,14 +568,14 @@ typedef struct {
 /****************************************************************************/
 /**
 *
-* This routine returns the Interrupt Status Register.
+* @brief Returns the Interrupt Status Register contents.
 *
-* @param	InstancePtr is a pointer to the XAxiPmon instance.
+* @param[in]   InstancePtr is a pointer to the XAxiPmon instance.
 *
 * @return	Interrupt Status Register contents
 *
 * @note		C-Style signature:
-*		void XAxiPmon_IntrClear(XAxiPmon *InstancePtr)
+*		void XAxiPmon_IntrGetStatus(XAxiPmon *InstancePtr)
 *
 *****************************************************************************/
 #define XAxiPmon_IntrGetStatus(InstancePtr)				     \
@@ -591,11 +585,9 @@ typedef struct {
 /****************************************************************************/
 /**
 *
-* This function enables the Global Clock Counter.
+* @brief Enables the Global Clock Counter.
 *
-* @param	InstancePtr is a pointer to the XAxiPmon instance.
-*
-* @return	None
+* @param[in]   InstancePtr is a pointer to the XAxiPmon instance.
 *
 * @note		C-Style signature:
 *		void XAxiPmon_EnableGlobalClkCounter(XAxiPmon *InstancePtr)
@@ -609,11 +601,9 @@ typedef struct {
 /****************************************************************************/
 /**
 *
-* This function disbles the Global Clock Counter.
+* @brief Disables the Global Clock Counter.
 *
-* @param	InstancePtr is a pointer to the XAxiPmon instance.
-*
-* @return	None
+* @param[in]   InstancePtr is a pointer to the XAxiPmon instance.
 *
 * @note		C-Style signature:
 *		void XAxiPmon_DisableGlobalClkCounter(XAxiPmon *InstancePtr)
@@ -627,12 +617,10 @@ typedef struct {
 /****************************************************************************/
 /**
 *
-* This function enables the specified flag in Flag Control Register.
+* @brief Enables the specified flag in the Flag Control Register.
 *
-* @param	InstancePtr is a pointer to the XAxiPmon instance.
-* @param 	Flag is one of the XAPM_FLAG_* masks defined in xaxipmon.h
-*
-* @return	None
+* @param[in]   InstancePtr is a pointer to the XAxiPmon instance.
+* @param[in]   Flag is one of the XAPM_FLAG_* masks defined in xaxipmon.h
 *
 * @note		C-Style signature:
 *		void XAxiPmon_EnableFlag(XAxiPmon *InstancePtr)
@@ -646,11 +634,10 @@ typedef struct {
 /****************************************************************************/
 /**
 *
-* This function disables the specified flag in Flag Control Register.
+* @brief Disables the specified flag in the Flag Control Register.
 *
-* @param	InstancePtr is a pointer to the XAxiPmon instance.
-* @param 	Flag is one of the XAPM_FLAG_* masks defined in xaxipmon.h*
-* @return	None
+* @param[in]   InstancePtr is a pointer to the XAxiPmon instance.
+* @param[in]   Flag is one of the XAPM_FLAG_* masks defined in xaxipmon.h
 *
 * @note		C-Style signature:
 *		void XAxiPmon_DisableFlag(XAxiPmon *InstancePtr)
@@ -664,12 +651,10 @@ typedef struct {
 /****************************************************************************/
 /**
 *
-* This function loads the sample interval register value into the sample
+* @brief Loads the sample interval register value into the sample
 * interval counter.
 *
-* @param	InstancePtr is a pointer to the XAxiPmon instance.
-*
-* @return	None
+* @param[in]   InstancePtr is a pointer to the XAxiPmon instance.
 *
 * @note		C-Style signature:
 *		void XAxiPmon_LoadSampleIntervalCounter(XAxiPmon *InstancePtr)
@@ -684,11 +669,9 @@ typedef struct {
 /****************************************************************************/
 /**
 *
-* This enables the down count of the sample interval counter.
+* @brief Enables the down count of the sample interval counter.
 *
-* @param	InstancePtr is a pointer to the XAxiPmon instance.
-*
-* @return	None
+* @param[in]   InstancePtr is a pointer to the XAxiPmon instance.
 *
 * @note		C-Style signature:
 *	   void XAxiPmon_EnableSampleIntervalCounter(XAxiPmon *InstancePtr)
@@ -702,11 +685,9 @@ typedef struct {
 /****************************************************************************/
 /**
 *
-* This disables the down count of the sample interval counter.
+* @brief Disables the down count of the sample interval counter.
 *
-* @param	InstancePtr is a pointer to the XAxiPmon instance.
-*
-* @return	None
+* @param[in]   InstancePtr is a pointer to the XAxiPmon instance.
 *
 * @note		C-Style signature:
 *	    void XAxiPmon_DisableSampleIntervalCounter(XAxiPmon *InstancePtr)
@@ -720,11 +701,9 @@ typedef struct {
 /****************************************************************************/
 /**
 *
-* This enables Reset of Metric Counters when Sample Interval Counter lapses.
+* @brief Enables reset of Metric Counters when Sample Interval Counter lapses.
 *
-* @param	InstancePtr is a pointer to the XAxiPmon instance.
-*
-* @return	None
+* @param[in]   InstancePtr is a pointer to the XAxiPmon instance.
 *
 * @note		C-Style signature:
 *		void XAxiPmon_EnableMetricCounterReset(XAxiPmon *InstancePtr)
@@ -737,11 +716,9 @@ typedef struct {
 /****************************************************************************/
 /**
 *
-* This disables the down count of the sample interval counter.
+* @brief Disables the Metric Counter reset.
 *
-* @param	InstancePtr is a pointer to the XAxiPmon instance.
-*
-* @return	None
+* @param[in]   InstancePtr is a pointer to the XAxiPmon instance.
 *
 * @note		C-Style signature:
 *		void XAxiPmon_DisableMetricCounterReset(XAxiPmon *InstancePtr)
@@ -755,11 +732,9 @@ typedef struct {
 /****************************************************************************/
 /**
 *
-* This function enables the ID Filter Masking.
+* @brief Enables the ID Filter masking.
 *
-* @param	InstancePtr is a pointer to the XAxiPmon instance.
-*
-* @return	None
+* @param[in]   InstancePtr is a pointer to the XAxiPmon instance.
 *
 * @note		C-Style signature:
 *		void XAxiPmon_EnableIDFilter(XAxiPmon *InstancePtr)
@@ -773,11 +748,9 @@ typedef struct {
 /****************************************************************************/
 /**
 *
-* This function disbles the ID Filter masking.
+* @brief Disables the ID Filter masking.
 *
-* @param	InstancePtr is a pointer to the XAxiPmon instance.
-*
-* @return	None
+* @param[in]   InstancePtr is a pointer to the XAxiPmon instance.
 *
 * @note		C-Style signature:
 *		void XAxiPmon_DisableIDFilter(XAxiPmon *InstancePtr)
@@ -791,13 +764,14 @@ typedef struct {
 /****************************************************************************/
 /**
 *
-* This function samples Metric Counters to Sampled Metric Counters by
-* reading Sample Register and also returns interval. i.e. the number of
+* @brief Samples Metric Counters to Sampled Metric Counters.
+*
+* Reads the Sample Register and also returns the interval, that is the number of
 * clocks in between previous read to the current read of sample register.
 *
-* @param	InstancePtr is a pointer to the XAxiPmon instance.
+* @param[in]   InstancePtr is a pointer to the XAxiPmon instance.
 *
-* @return	Interval. i.e. the number of clocks in between previous
+* @return	Interval, that is the number of clocks in between previous
 *		read to the current read of sample register.
 *
 * @note		C-Style signature:
@@ -811,7 +785,7 @@ typedef struct {
 /************************** Function Prototypes *****************************/
 
 /**
- * Functions in xaxipmon_sinit.c
+ * @brief Provides lookup and initialization functions from xaxipmon_sinit.c.
  */
 #ifndef SDT
 XAxiPmon_Config *XAxiPmon_LookupConfig(u16 DeviceId);
@@ -820,7 +794,7 @@ XAxiPmon_Config *XAxiPmon_LookupConfig(UINTPTR BaseAddress);
 #endif
 
 /**
- * Functions in xaxipmon.c
+ * @brief Provides core driver functions from xaxipmon.c.
  */
 s32 XAxiPmon_CfgInitialize(XAxiPmon *InstancePtr,
 			   XAxiPmon_Config *ConfigPtr, UINTPTR EffectiveAddr);
@@ -925,7 +899,7 @@ u32 XAxiPmon_GetReadIdMask(XAxiPmon *InstancePtr);
 
 
 /**
- * Functions in xaxipmon_selftest.c
+ * @brief Provides self-test functions from xaxipmon_selftest.c.
  */
 s32 XAxiPmon_SelfTest(XAxiPmon *InstancePtr);
 
@@ -933,5 +907,5 @@ s32 XAxiPmon_SelfTest(XAxiPmon *InstancePtr);
 }
 #endif
 
-#endif  /* End of protection macro. */
 /** @} */
+#endif  /* End of protection macro. */

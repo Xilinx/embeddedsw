@@ -11,10 +11,9 @@
 * @addtogroup axipmon Overview
 * @{
 *
-* This file contains the implementation of the XAxiPmon driver's static
-* initialization functionality.
+* @brief Static initialization functions for the XAxiPmon driver.
 *
-* @note	None.
+* Provides lookup functions to retrieve device configuration.
 *
 * <pre>
 *
@@ -27,6 +26,7 @@
 * 6.3   kvn  07/02/15 Modified code according to MISRA-C:2012 guidelines.
 * 6.10  ht   06/23/23 Added support for system device-tree flow.
 * 6.14  vlt  12/12/25 Update Doxygen comments to include SDT flow details.
+* 6.15  vn   09/08/26 Align Doxygen comments with AMD standards
 * </pre>
 *
 ******************************************************************************/
@@ -50,14 +50,15 @@ extern XAxiPmon_Config XAxiPmon_ConfigTable[];
 /*****************************************************************************/
 /**
 *
-* Looks up the device configuration based on the unique device ID/BaseAddress.
+* @brief Looks up the device configuration based on the unique
+*        device ID or BaseAddress.
 * The XAxiPmon_ConfigTable[] contains the configuration info for each device
 * in the system.
 *
 * @if SDT
-* @param	BaseAddress contains the base address of the device
+* @param[in]   BaseAddress contains the base address of the device
 * @else
-* @param	DeviceId contains the unique ID of the device
+* @param[in]   DeviceId contains the unique ID of the device
 * @endif
 *
 * @return       A pointer to the configuration found or NULL if the specified

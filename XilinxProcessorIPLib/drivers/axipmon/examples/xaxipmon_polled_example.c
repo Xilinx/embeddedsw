@@ -12,13 +12,11 @@
 * This file contains a design example showing how to use the driver APIs of the
 * AXI Performance Monitor driver in poll mode.
 *
-*
 * @note
 *
 * Global Clock Counter and Metric Counters are enabled. The Application
 * for which Metrics need to be computed should be run and then the Metrics
 * collected.
-*
 *
 * <pre>
 *
@@ -39,6 +37,7 @@
 * 6.14  vlt  12/12/25 Update Doxygen comments to include SDT flow details.
 *       vlt  01/27/26 Fixed codespell issues.
 * 6.15  vn   07/30/26 Fix Doxygen warnings
+* 6.15  vn   09/08/26 Align Doxygen comments with AMD standards
 * </pre>
 *
 *****************************************************************************/
@@ -79,7 +78,7 @@ int AxiPmonPolledExample(UINTPTR BaseAddress, u32 *Metrics, u32 *ClkCntHigh,
 
 /************************** Variable Definitions ****************************/
 
-static XAxiPmon AxiPmonInst;      /* System Monitor driver instance */
+static XAxiPmon AxiPmonInst;      /**< System Monitor driver instance */
 
 /****************************************************************************/
 /**
@@ -89,8 +88,6 @@ static XAxiPmon AxiPmonInst;      /* System Monitor driver instance */
 * @return
 *		- XST_SUCCESS if the example has completed successfully.
 *		- XST_FAILURE if the example has failed.
-*
-* @note		None
 *
 *****************************************************************************/
 int main(void)
@@ -140,16 +137,16 @@ int main(void)
 *	- Read Global Clock Counter and Metric Counter 0
 *
 * @if SDT
-* @param	BaseAddress contains the base address of the device
+* @param[in]   BaseAddress contains the base address of the device
 * @else
-* @param	AxiPmonDeviceId is the XPAR_<AXIPMON_instance>_DEVICE_ID value
+* @param[in]   AxiPmonDeviceId is the XPAR_<AXIPMON_instance>_DEVICE_ID value
 *		from xparameters.h.
 * @endif
-* @param	Metrics is an user reference variable in which computed metrics
+* @param[in]   Metrics is an user reference variable in which computed metrics
 *			will be filled
-* @param	ClkCntHigh is an user reference variable in which Higher 64 bits
+* @param[in]   ClkCntHigh is an user reference variable in which Higher 64 bits
 *			of Global Clock Counter are filled
-* @param	ClkCntLow is an user reference variable in which Lower 64 bits
+* @param[in]   ClkCntLow is an user reference variable in which Lower 64 bits
 *			of Global Clock Counter are filled
 *
 * @return

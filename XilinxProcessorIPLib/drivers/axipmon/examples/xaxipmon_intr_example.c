@@ -12,14 +12,12 @@
 * This file contains a design example showing how to use the driver APIs of the
 * AXI Performance Monitor driver in interrupt mode.
 *
-*
 * @note
 *
 * Metric Counters are enabled. The Application/design for which Metrics need
 * to be computed should be run and then the Metrics collected.
 * Sampled Metric Counter is read after Sample Metric Counter Interrupt
 * occurs.
-*
 *
 * <pre>
 *
@@ -43,6 +41,7 @@
 * 6.13  sd     07/10/25 Fix a gcc warning.
 * 6.14  vlt  12/17/25 Update Doxygen comments to include SDT flow details.
 * 6.15  vn   07/30/26 Fix Doxygen warnings
+* 6.15  vn   09/08/26 Align Doxygen comments with AMD standards
 * </pre>
 *
 *****************************************************************************/
@@ -108,7 +107,7 @@ static int AxiPmonSetupIntrSystem(INTC *IntcInstancePtr,
 
 /************************** Variable Definitions ****************************/
 
-static XAxiPmon AxiPmonInst;	/* AXI Performance Monitor driver instance */
+static XAxiPmon AxiPmonInst;	/**< AXI Performance Monitor driver instance */
 #ifndef SDT
 INTC Intc;	/* The Instance of the Interrupt Controller Driver */
 #endif
@@ -129,8 +128,6 @@ static volatile int SampleCounterIntr = FALSE;  /*
 * @return
 *		- XST_SUCCESS if the example has completed successfully.
 *		- XST_FAILURE if the example has failed.
-*
-* @note		None.
 *
 *****************************************************************************/
 int main(void)
@@ -181,12 +178,12 @@ int main(void)
 *	- Disables Metric Counters
 *
 * @if SDT
-* @param	BaseAddress contains the base address of the device
+* @param[in]   BaseAddress contains the base address of the device
 * @else
-* @param	AxiPmonDeviceId is the XPAR_<AXIPMON_instance>_DEVICE_ID value
+* @param[in]   AxiPmonDeviceId is the XPAR_<AXIPMON_instance>_DEVICE_ID value
 *		from xparameters.h.
 * @endif
-* @param	Metrics is an user reference variable in which computed metrics
+* @param[in]   Metrics is an user reference variable in which computed metrics
 *	        will be filled
 *
 * @return
@@ -343,11 +340,9 @@ int AxiPmonInterruptExample(UINTPTR BaseAddress, u32 *Metrics)
 * User of this code may need to modify the code to meet needs of the
 * application.
 *
-* @param	CallBackRef is the callback reference passed from the Interrupt
+* @param[in]   CallBackRef is the callback reference passed from the Interrupt
 *		controller driver, which in our case is a pointer to the
 *		driver instance.
-*
-* @return	None.
 *
 * @note		This function is called within interrupt context.
 *
@@ -387,17 +382,15 @@ static void AxiPmonInterruptHandler(void *CallBackRef)
 *
 * This function performs the AXI Performance Monitor set up for Interrupts
 *
-* @param	IntcInstancePtr is a reference to the Interrupt Controller
+* @param[in]   IntcInstancePtr is a reference to the Interrupt Controller
 *			driver Instance
-* @param	InstancePtr is a reference to the  XAxiPmon driver Instance
-* @param	IntrId is XPAR_<INTC_instance>_<AXIPMON_instance>_INTERRUPT_INTR
+* @param[in]   InstancePtr is a reference to the  XAxiPmon driver Instance
+* @param[in]   IntrId is XPAR_<INTC_instance>_<AXIPMON_instance>_INTERRUPT_INTR
 *			value from xparameters.h
 *
 * @return
 *		- XST_SUCCESS if the interrupt setup is successful.
 *		- XST_FAILURE if interrupt setup is not successful.
-*
-* @note		None.
 *
 ******************************************************************************/
 static int AxiPmonSetupIntrSystem(INTC *IntcInstancePtr, XAxiPmon *InstancePtr,
