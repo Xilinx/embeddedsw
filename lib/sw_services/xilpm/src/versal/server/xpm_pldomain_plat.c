@@ -44,6 +44,38 @@
 #define XPM_NODEIDX_DEV_DAC_MIN		XPM_NODEIDX_DEV_DAC_0
 #define XPM_NODEIDX_DEV_DAC_MAX		XPM_NODEIDX_DEV_DAC_3
 
+/** Number of UCIe AP main devices */
+#define XPM_UCIE_AP_COUNT		((u32)XPM_NODEIDX_DEV_UCIE_AP_MAIN_1 - \
+					 (u32)XPM_NODEIDX_DEV_UCIE_AP_MAIN_0 + 1U)
+/** Number of UCIe SP main devices */
+#define XPM_UCIE_SP_COUNT		((u32)XPM_NODEIDX_DEV_UCIE_SP_MAIN_1 - \
+					 (u32)XPM_NODEIDX_DEV_UCIE_SP_MAIN_0 + 1U)
+/** Total number of UCIe AP and SP main devices */
+#define XPM_UCIE_MAIN_COUNT		(XPM_UCIE_AP_COUNT + XPM_UCIE_SP_COUNT)
+
+/*
+ * UCIE_DID_V1.5 section 3.16.2: scan/mem clear waits are specified in NPI
+ * clock cycles. Convert at the minimum NPI frequency (230 MHz) so the delay
+ * is long enough across the 230-300 MHz range.
+ * SP scan clear: 650-700 cycles. AP scan clear is staggered (core then shim)
+ * so it takes twice as long. Mem clear: at least 262492 (~270000) cycles.
+ */
+/** Minimum NPI clock frequency in MHz */
+#define XPM_UCIE_NPI_CLK_MIN_MHZ		230U
+/** UCIe SP scan clear duration in NPI clock cycles */
+#define XPM_UCIE_SCAN_CLEAR_SP_CYCLES	700U
+/** UCIe AP scan clear duration in NPI clock cycles */
+#define XPM_UCIE_SCAN_CLEAR_AP_CYCLES	(XPM_UCIE_SCAN_CLEAR_SP_CYCLES * 2U)
+/** UCIe mem clear duration in NPI clock cycles */
+#define XPM_UCIE_MEM_CLEAR_CYCLES		270000U
+/** Convert NPI clock cycles to microseconds, rounding up */
+#define XPM_UCIE_CYCLES_TO_US(Cycles)	(((Cycles) + (XPM_UCIE_NPI_CLK_MIN_MHZ - 1U)) / \
+					 XPM_UCIE_NPI_CLK_MIN_MHZ)
+/** UCIe AP scan clear wait in microseconds */
+#define XPM_UCIE_SCAN_CLEAR_AP_WAIT_US	XPM_UCIE_CYCLES_TO_US(XPM_UCIE_SCAN_CLEAR_AP_CYCLES)
+/** UCIe mem clear wait in microseconds */
+#define XPM_UCIE_MEM_CLEAR_WAIT_US	XPM_UCIE_CYCLES_TO_US(XPM_UCIE_MEM_CLEAR_CYCLES)
+
 #define PLHCLEAN_EARLY_BOOT 0U
 #define PLHCLEAN_INIT_NODE  1U
 
@@ -1486,6 +1518,378 @@ done:
 	return Status;
 }
 
+/**
+ * @brief Populates the array with UCIe AP/SP main device handles under PLD power.
+ *
+ * @param UcieDevices Array to fill with device pointers
+ * @param ArrLen Length of the array
+ *
+ * @return XST_SUCCESS on success, error code otherwise
+ */
+static XStatus InitUcieAddrArr(const XPm_Device **UcieDevices, const u32 ArrLen)
+{
+	XStatus Status = XST_FAILURE;
+	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
+	const XPm_Device *Device;
+	u32 i;
+	u32 Idx = 0U;
+
+	if ((NULL == UcieDevices) || (XPM_UCIE_MAIN_COUNT > ArrLen)) {
+		DbgErr = XPM_INT_ERR_UCIE_INIT;
+		goto done;
+	}
+
+	for (i = (u32)XPM_NODEIDX_DEV_UCIE_AP_MAIN_0;
+	     i < (u32)XPM_NODEIDX_DEV_MAX; i++) {
+		Device = XPmDevice_GetByIndex(i);
+
+		if ((NULL == Device) ||
+		    (((u32)XPM_NODETYPE_DEV_UCIE_AP != NODETYPE(Device->Node.Id)) &&
+		     ((u32)XPM_NODETYPE_DEV_UCIE_SP != NODETYPE(Device->Node.Id)))) {
+			continue;
+		}
+
+		if ((NULL == Device->Power) ||
+		    ((u32)PM_POWER_PLD != Device->Power->Node.Id)) {
+			continue;
+		}
+
+		if (Idx >= ArrLen) {
+			DbgErr = XPM_INT_ERR_UCIE_INIT;
+			goto done;
+		}
+
+		UcieDevices[Idx] = Device;
+		Idx++;
+	}
+
+	Status = XST_SUCCESS;
+
+done:
+	XPm_PrintDbgErr(Status, DbgErr);
+	return Status;
+}
+
+/**
+ * @brief Triggers and verifies scan clear on all UCIe main blocks.
+ *
+ * @param UcieDevices UCIe device array
+ * @param ArrLen Array length
+ * @param PollTimeOut Poll timeout
+ *
+ * @return XST_SUCCESS on success, error code otherwise
+ */
+static XStatus UcieScanClear(const XPm_Device *const *UcieDevices,
+			    const u32 ArrLen, u32 PollTimeOut)
+{
+	XStatus Status = XST_FAILURE;
+	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
+	const XPm_Device *Device;
+	u32 BaseAddr;
+	u32 DoneMask;
+	u32 PassMask;
+	u32 i;
+
+	for (i = 0U; i < ArrLen; i++) {
+		if (NULL != UcieDevices[i]) {
+			XPm_UnlockPcsr(UcieDevices[i]->Node.BaseAddress);
+		}
+	}
+
+	/* Start scan clear on all UCIe main blocks in parallel. */
+	for (i = 0U; i < ArrLen; i++) {
+		if (NULL == UcieDevices[i]) {
+			continue;
+		}
+
+		Status = XPm_PcsrWrite(UcieDevices[i]->Node.BaseAddress,
+				      UCIE_NPI_PCSR_SCAN_CLEAR_TRIGGER_MASK,
+				      UCIE_NPI_PCSR_SCAN_CLEAR_TRIGGER_MASK);
+		if (XST_SUCCESS != Status) {
+			DbgErr = XPM_INT_ERR_SCAN_CLEAR_TRIGGER;
+			goto done;
+		}
+	}
+
+	/*
+	 * Fixed delay before sampling status: 650-700 NPI cycles for SP,
+	 * twice that for AP because core and SHIM are staggered.
+	 */
+	usleep(XPM_UCIE_SCAN_CLEAR_AP_WAIT_US);
+
+	for (i = 0U; i < ArrLen; i++) {
+		Device = UcieDevices[i];
+		if (NULL == Device) {
+			continue;
+		}
+
+		BaseAddr = Device->Node.BaseAddress;
+		DoneMask = UCIE_NPI_PCSR_STATUS_SCAN_CLEAR_DONE_MASK;
+		PassMask = UCIE_NPI_PCSR_STATUS_SCAN_CLEAR_PASS_MASK;
+		if ((u32)XPM_NODETYPE_DEV_UCIE_AP == NODETYPE(Device->Node.Id)) {
+			DoneMask |= UCIE_AP_NPI_PCSR_STATUS_SCAN_CLEAR_DONE_SHIM_MASK;
+			PassMask |= UCIE_AP_NPI_PCSR_STATUS_SCAN_CLEAR_PASS_SHIM_MASK;
+		}
+
+		Status = XPm_PollForMask(BaseAddr + NPI_PCSR_STATUS_OFFSET,
+					DoneMask, PollTimeOut);
+		if (XST_SUCCESS != Status) {
+			DbgErr = XPM_INT_ERR_SCAN_CLEAR_TIMEOUT;
+			goto done;
+		}
+
+		if (PassMask !=
+		    (XPm_In32(BaseAddr + NPI_PCSR_STATUS_OFFSET) & PassMask)) {
+			DbgErr = XPM_INT_ERR_SCAN_CLEAR_PASS;
+			Status = XST_FAILURE;
+			goto done;
+		}
+	}
+
+	Status = XST_SUCCESS;
+
+done:
+	for (i = 0U; i < ArrLen; i++) {
+		if (NULL == UcieDevices[i]) {
+			continue;
+		}
+
+		BaseAddr = UcieDevices[i]->Node.BaseAddress;
+		XPm_LockPcsr(BaseAddr);
+	}
+
+	XPm_PrintDbgErr(Status, DbgErr);
+	return Status;
+}
+
+/**
+ * @brief Triggers and verifies memory clear on all UCIe main blocks.
+ *
+ * @param UcieDevices UCIe device array
+ * @param ArrLen Array length
+ * @param PollTimeOut Poll timeout
+ *
+ * @return XST_SUCCESS on success, error code otherwise
+ */
+static XStatus UcieMemClear(const XPm_Device *const *UcieDevices,
+			   const u32 ArrLen, u32 PollTimeOut)
+{
+	XStatus Status = XST_FAILURE;
+	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
+	const XPm_Device *Device;
+	u32 BaseAddr;
+	u32 ClkGateOffset;
+	u32 i;
+
+	for (i = 0U; i < ArrLen; i++) {
+		if (NULL != UcieDevices[i]) {
+			XPm_UnlockPcsr(UcieDevices[i]->Node.BaseAddress);
+		}
+	}
+
+	/* Start memory clear on all UCIe main blocks in parallel. */
+	for (i = 0U; i < ArrLen; i++) {
+		Device = UcieDevices[i];
+		if (NULL == Device) {
+			continue;
+		}
+
+		BaseAddr = Device->Node.BaseAddress;
+		/*
+		 * Memory clear uses the BISR clock. Enable it only for the
+		 * duration of this operation.
+		 */
+		ClkGateOffset = ((u32)XPM_NODETYPE_DEV_UCIE_AP ==
+				 NODETYPE(Device->Node.Id)) ?
+				UCIE_AP_NPI_CLK_GATE_OFFSET :
+				UCIE_SP_NPI_CLK_GATE_OFFSET;
+		XPm_RMW32(BaseAddr + ClkGateOffset,
+			  UCIE_NPI_CLK_GATE_BISR_EN_MASK,
+			  UCIE_NPI_CLK_GATE_BISR_EN_MASK);
+		PmChkRegMask32(BaseAddr + ClkGateOffset,
+			      UCIE_NPI_CLK_GATE_BISR_EN_MASK,
+			      UCIE_NPI_CLK_GATE_BISR_EN_MASK, Status);
+		if (XPM_REG_WRITE_FAILED == Status) {
+			DbgErr = XPM_INT_ERR_UCIE_BISR_CLK;
+			goto done;
+		}
+
+		Status = XPm_PcsrWrite(BaseAddr,
+				      UCIE_NPI_PCSR_MEM_CLEAR_TRIGGER_MASK,
+				      UCIE_NPI_PCSR_MEM_CLEAR_TRIGGER_MASK);
+		if (XST_SUCCESS != Status) {
+			DbgErr = XPM_INT_ERR_MEM_CLEAR_TRIGGER;
+			goto done;
+		}
+	}
+
+	/* Wait ~270000 NPI cycles before polling mem-clear done/pass. */
+	usleep(XPM_UCIE_MEM_CLEAR_WAIT_US);
+
+	for (i = 0U; i < ArrLen; i++) {
+		if (NULL == UcieDevices[i]) {
+			continue;
+		}
+
+		BaseAddr = UcieDevices[i]->Node.BaseAddress;
+		Status = XPm_PollForMask(BaseAddr + NPI_PCSR_STATUS_OFFSET,
+					UCIE_NPI_PCSR_STATUS_MEM_CLEAR_DONE_MASK,
+					PollTimeOut);
+		if (XST_SUCCESS != Status) {
+			DbgErr = XPM_INT_ERR_MEM_CLEAR_DONE_TIMEOUT;
+			goto done;
+		}
+
+		if (UCIE_NPI_PCSR_STATUS_MEM_CLEAR_PASS_MASK !=
+		    (XPm_In32(BaseAddr + NPI_PCSR_STATUS_OFFSET) &
+		     UCIE_NPI_PCSR_STATUS_MEM_CLEAR_PASS_MASK)) {
+			DbgErr = XPM_INT_ERR_MEM_CLEAR_PASS;
+			Status = XST_FAILURE;
+			goto done;
+		}
+	}
+
+	Status = XST_SUCCESS;
+
+done:
+	for (i = 0U; i < ArrLen; i++) {
+		Device = UcieDevices[i];
+		if (NULL == Device) {
+			continue;
+		}
+
+		BaseAddr = Device->Node.BaseAddress;
+		ClkGateOffset = ((u32)XPM_NODETYPE_DEV_UCIE_AP ==
+				 NODETYPE(Device->Node.Id)) ?
+				UCIE_AP_NPI_CLK_GATE_OFFSET :
+				UCIE_SP_NPI_CLK_GATE_OFFSET;
+
+		/* Disable the BISR clock during normal operation. */
+		XPm_RMW32(BaseAddr + ClkGateOffset,
+			  UCIE_NPI_CLK_GATE_BISR_EN_MASK, 0U);
+		XPm_LockPcsr(BaseAddr);
+	}
+
+	XPm_PrintDbgErr(Status, DbgErr);
+	return Status;
+}
+
+/**
+ * @brief Deasserts PCSR INITSTATE and releases per-link soft resets.
+ *
+ * @param UcieDevices UCIe device array
+ * @param ArrLen Array length
+ *
+ * @return XST_SUCCESS on success, error code otherwise
+ */
+static XStatus UcieReleaseInitState(const XPm_Device *const *UcieDevices,
+				    const u32 ArrLen)
+{
+	XStatus Status = XST_FAILURE;
+	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
+	const XPm_Device *Device;
+	u32 BaseAddr;
+	u32 SoftRstMask;
+	u32 i;
+
+	for (i = 0U; i < ArrLen; i++) {
+		if (NULL != UcieDevices[i]) {
+			XPm_UnlockPcsr(UcieDevices[i]->Node.BaseAddress);
+		}
+	}
+
+	for (i = 0U; i < ArrLen; i++) {
+		Device = UcieDevices[i];
+		if (NULL == Device) {
+			continue;
+		}
+
+		BaseAddr = Device->Node.BaseAddress;
+
+		/* PCSR_INITSTATE = 0 */
+		Status = XPm_PcsrWrite(BaseAddr, UCIE_NPI_PCSR_INITSTATE_MASK, 0U);
+		if (XST_SUCCESS != Status) {
+			DbgErr = XPM_INT_ERR_UCIE_INITSTATE;
+			goto done;
+		}
+
+		/*
+		 * PCSR_L*_SOFT_RST_N = 1. AP has four links; SP has two.
+		 * Keep INITSTATE deasserted in the same masked write.
+		 */
+		SoftRstMask = ((u32)XPM_NODETYPE_DEV_UCIE_AP ==
+			       NODETYPE(Device->Node.Id)) ?
+			      UCIE_AP_NPI_PCSR_SOFT_RST_N_MASK :
+			      UCIE_SP_NPI_PCSR_SOFT_RST_N_MASK;
+		Status = XPm_PcsrWrite(BaseAddr,
+				      UCIE_NPI_PCSR_INITSTATE_MASK | SoftRstMask,
+				      SoftRstMask);
+		if (XST_SUCCESS != Status) {
+			DbgErr = XPM_INT_ERR_UCIE_INITSTATE;
+			goto done;
+		}
+	}
+
+	Status = XST_SUCCESS;
+
+done:
+	for (i = 0U; i < ArrLen; i++) {
+		if (NULL != UcieDevices[i]) {
+			XPm_LockPcsr(UcieDevices[i]->Node.BaseAddress);
+		}
+	}
+
+	XPm_PrintDbgErr(Status, DbgErr);
+	return Status;
+}
+
+/**
+ * @brief Runs the UCIe pre-config housecleaning sequence(scan clear, mem clear,
+ *        init state release).
+ *
+ * @param PollTimeOut Poll timeout
+ *
+ * @return XST_SUCCESS on success, error code otherwise
+ */
+static XStatus UcieHouseClean(u32 PollTimeOut)
+{
+	XStatus Status = XST_FAILURE;
+	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
+	const XPm_Device *UcieDevices[XPM_UCIE_MAIN_COUNT] = {NULL};
+
+	Status = InitUcieAddrArr(UcieDevices, ARRAY_SIZE(UcieDevices));
+	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_UCIE_INIT;
+		goto done;
+	}
+
+	Status = UcieScanClear(UcieDevices,
+			       ARRAY_SIZE(UcieDevices), PollTimeOut);
+	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_UCIE_SCAN_CLEAR;
+		goto done;
+	}
+
+	Status = UcieMemClear(UcieDevices,
+			      ARRAY_SIZE(UcieDevices), PollTimeOut);
+	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_UCIE_MEM_CLEAR;
+		goto done;
+	}
+
+	Status = UcieReleaseInitState(UcieDevices, ARRAY_SIZE(UcieDevices));
+	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_UCIE_INITSTATE;
+		goto done;
+	}
+
+	Status = XST_SUCCESS;
+
+done:
+	XPm_PrintDbgErr(Status, DbgErr);
+	return Status;
+}
+
 /*
  * The top 2 SLRs on xcvp1902 require Laguna housecleaning which initializes
  * type-6 CLR to all one.
@@ -2047,6 +2451,13 @@ static XStatus PldInitStart(XPm_PowerDomain *PwrDomain, const u32 *Args,
 	Status = AdcDacHouseClean(SecLockDownInfo, PollTimeOut);
 	if (XST_SUCCESS != Status) {
 		DbgErr = XPM_INT_ERR_ADC_DAC_HC;
+		goto fail;
+	}
+
+	/* Run scan clear and memory clear sequences for UCIe main blocks. */
+	Status = UcieHouseClean(PollTimeOut);
+	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_UCIE_HC;
 		goto fail;
 	}
 

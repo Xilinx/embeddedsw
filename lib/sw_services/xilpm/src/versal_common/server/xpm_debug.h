@@ -819,6 +819,21 @@ extern "C" {
 /* Error during releasing reset for MB */
 #define XPM_INT_ERR_REL_RST_UBLAZE		0x540CU
 
+/*************************** UCIe Specific Errors ****************************/
+/************************** (0x5500) - (0x55FF) ******************************/
+/** Error during UCIe device initialization */
+#define XPM_INT_ERR_UCIE_INIT			0x5500U
+/** Error running UCIe Scan Clear */
+#define XPM_INT_ERR_UCIE_SCAN_CLEAR		0x5501U
+/** Error running UCIe Mem Clear */
+#define XPM_INT_ERR_UCIE_MEM_CLEAR		0x5502U
+/** Error running UCIe houseclean */
+#define XPM_INT_ERR_UCIE_HC			0x5503U
+/** Error enabling the UCIe BISR clock */
+#define XPM_INT_ERR_UCIE_BISR_CLK		0x5504U
+/** Error releasing UCIe INITSTATE / per-link soft reset */
+#define XPM_INT_ERR_UCIE_INITSTATE		0x5505U
+
 /*************************** Undefined error *********************************/
 #define XPM_INT_ERR_UNDEFINED			0xFFFFU
 

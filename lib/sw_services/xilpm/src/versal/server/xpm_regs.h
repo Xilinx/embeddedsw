@@ -1360,21 +1360,80 @@ extern "C" {
 /**
  * VDU Registers
  */
+/** VDU PCSR scan clear trigger mask */
 #define VDU_NPI_PCSR_MASK_SCAN_CLEAR_TRIGGER_MASK	(0x00000800U)
+/** VDU PCSR status scan clear done mask */
 #define VDU_NPI_PCSR_STATUS_SCAN_CLEAR_DONE_MASK	(0x00000002U)
+/** VDU PCSR status scan clear pass mask */
 #define VDU_NPI_PCSR_STATUS_SCAN_CLEAR_PASS_MASK	(0x00000004U)
+/** VDU PCSR mem clear trigger mask */
 #define VDU_NPI_PCSR_MASK_MEM_CLEAR_TRIGGER_MASK	(0x00040000U)
+/** VDU PCSR status mem clear done mask */
 #define VDU_NPI_PCSR_STATUS_MEM_CLEAR_DONE_MASK		(0x00000040U)
+/** VDU PCSR status mem clear pass mask */
 #define VDU_NPI_PCSR_STATUS_MEM_CLEAR_PASS_MASK		(0x00000080U)
+/** VDU PCSR status power supply mask */
 #define VDU_NPI_PCSR_STATUS_VDU_PWR_SUPPLY_MASK		(0x00040000U)
+/** VDU PCSR initial power-on reset mask */
 #define VDU_NPI_PCSR_MASK_VDU_IPOR_MASK			(0x04000000U)
+/** VDU PCSR VDU to PL isolation mask */
 #define VDU_NPI_PCSR_MASK_ISO_2_VDU_PL_MASK		(0x00400000U)
+/** VDU NPI interrupt disable register 0 offset */
 #define VDU_NPI_REG_IDR0_OFFSET				(0x00000030U)
+/** VDU NPI interrupt disable register 1 offset */
 #define VDU_NPI_REG_IDR1_OFFSET				(0x0000003CU)
+/** VDU NPI interrupt disable register 2 offset */
 #define VDU_NPI_REG_IDR2_OFFSET				(0x00000048U)
+/** VDU NPI interrupt status register offset */
 #define VDU_NPI_REG_ISR_OFFSET				(0x00000024U)
+/** Mask covering all VDU interrupts */
 #define VDU_INTERRUPTS_ALL_MASK				(0x0000000FU)
+/** VDU PCSR INITSTATE mask */
 #define VDU_NPI_PCSR_MASK_INITSTATE			(0x00000040U)
+
+/**
+ * UCIe Registers
+ */
+/** UCIe PCSR scan clear trigger mask */
+#define UCIE_NPI_PCSR_SCAN_CLEAR_TRIGGER_MASK		(0x00000100U)
+/** UCIe PCSR status scan clear done mask */
+#define UCIE_NPI_PCSR_STATUS_SCAN_CLEAR_DONE_MASK	(0x00000002U)
+/** UCIe PCSR status scan clear pass mask */
+#define UCIE_NPI_PCSR_STATUS_SCAN_CLEAR_PASS_MASK	(0x00000004U)
+/** UCIe AP PCSR status scan clear done mask for the shim */
+#define UCIE_AP_NPI_PCSR_STATUS_SCAN_CLEAR_DONE_SHIM_MASK	(0x00000100U)
+/** UCIe AP PCSR status scan clear pass mask for the shim */
+#define UCIE_AP_NPI_PCSR_STATUS_SCAN_CLEAR_PASS_SHIM_MASK	(0x00000200U)
+/** UCIe PCSR mem clear trigger mask */
+#define UCIE_NPI_PCSR_MEM_CLEAR_TRIGGER_MASK		(0x00040000U)
+/** UCIe PCSR status mem clear done mask */
+#define UCIE_NPI_PCSR_STATUS_MEM_CLEAR_DONE_MASK		(0x00000040U)
+/** UCIe PCSR status mem clear pass mask */
+#define UCIE_NPI_PCSR_STATUS_MEM_CLEAR_PASS_MASK		(0x00000080U)
+/** UCIe AP NPI clock gate register offset */
+#define UCIE_AP_NPI_CLK_GATE_OFFSET			(0x00000254U)
+/** UCIe SP NPI clock gate register offset */
+#define UCIE_SP_NPI_CLK_GATE_OFFSET			(0x00000238U)
+/** UCIe NPI clock gate BISR clock enable mask */
+#define UCIE_NPI_CLK_GATE_BISR_EN_MASK			(0x00000001U)
+/** UCIe PCSR INITSTATE mask */
+#define UCIE_NPI_PCSR_INITSTATE_MASK			(0x00000040U)
+/** UCIe PCSR link 0 soft reset mask */
+#define UCIE_NPI_PCSR_L0_SOFT_RST_N_MASK		(0x00000800U)
+/** UCIe PCSR link 1 soft reset mask */
+#define UCIE_NPI_PCSR_L1_SOFT_RST_N_MASK		(0x00001000U)
+/** UCIe PCSR link 2 soft reset mask */
+#define UCIE_NPI_PCSR_L2_SOFT_RST_N_MASK		(0x00002000U)
+/** UCIe PCSR link 3 soft reset mask */
+#define UCIE_NPI_PCSR_L3_SOFT_RST_N_MASK		(0x00004000U)
+/** UCIe AP PCSR soft reset mask for all four links */
+#define UCIE_AP_NPI_PCSR_SOFT_RST_N_MASK		(UCIE_NPI_PCSR_L0_SOFT_RST_N_MASK | \
+						 UCIE_NPI_PCSR_L1_SOFT_RST_N_MASK | \
+						 UCIE_NPI_PCSR_L2_SOFT_RST_N_MASK | \
+						 UCIE_NPI_PCSR_L3_SOFT_RST_N_MASK)
+/** UCIe SP PCSR soft reset mask for both links */
+#define UCIE_SP_NPI_PCSR_SOFT_RST_N_MASK		(UCIE_NPI_PCSR_L0_SOFT_RST_N_MASK | \
+						 UCIE_NPI_PCSR_L1_SOFT_RST_N_MASK)
 
 /**
  * BFR-B Registers
