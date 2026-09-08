@@ -1,16 +1,22 @@
 /*******************************************************************
  * Copyright (C) 2015 - 2021 Xilinx, Inc. All rights reserved.
- * Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
- * SPDX-License-Identifier: MIT*
-*******************************************************************/
+ * Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
+ * SPDX-License-Identifier: MIT
+ *******************************************************************/
+
+/**
+ * @file xcanfd_g.c
+ * @brief Configuration table for XCanFd devices.
+ * @addtogroup canfd Overview
+ * @{
+ */
 
 #include "xparameters.h"
 #include "xcanfd.h"
 
-/*
-* The configuration table for devices
-*/
-
+/**
+ * @brief Configuration table for devices.
+ */
 XCanFd_Config XCanFd_ConfigTable[] =
 {
 	{
@@ -22,3 +28,4 @@ XCanFd_Config XCanFd_ConfigTable[] =
 		XPAR_CANFD_0_IS_PL
 	}
 };
+/** @} */

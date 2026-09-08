@@ -14,7 +14,6 @@
 *
 * @note
 *
-*
 * The Baud Rate Prescaler Register (BRPR) and Bit Timing Register (BTR)
 * are setup such that CAN baud rate equals 40Kbps, assuming that the
 * the CAN clock frequency is 24MHz. The user needs to modify these values
@@ -38,6 +37,7 @@
 * 2.8   gm     06/22/23 Call XCanFd_stop to release canfd node.
 * 2.10  ht     01/09/25 Fix C++ warning.
 * 2.12  vlt    12/12/25 Update Doxygen comments to include SDT flow details.
+* 2.13  vn   09/08/26 Align Doxygen comments with AMD standards
 * </pre>
 *
 ******************************************************************************/
@@ -129,12 +129,9 @@ static XCanFd CanFd;
 * Main function to call the example. This function is not included if the
 * example is generated from the TestAppGen test tool.
 *
-*
 * @return
 *		- XST_SUCCESS if the example has completed successfully.
 *		- XST_FAILURE if the example has failed.
-*
-* @note		None
 *
 ******************************************************************************/
 #ifndef TESTAPP_GEN
@@ -167,9 +164,9 @@ int main(void)
 * frame, receives the same Can frame, and verifies the frame contents.
 *
 * @if SDT
-* @param	BaseAddress contains the base address of the device
+* @param[in]	BaseAddress contains the base address of the device
 * @else
-* @param	DeviceId is the XPAR_CAN_<instance_num>_DEVICE_ID value from
+* @param[in]	DeviceId is the XPAR_CAN_<instance_num>_DEVICE_ID value from
 *		xparameters.h.
 * @endif
 *
@@ -195,7 +192,7 @@ int XCanFdPolledExample(UINTPTR BaseAddress)
 	u32 BuffNr;
 	u8 RxBuffers;
 
-	/* Initialize the Can device */
+	/**< Initialize the Can device */
 #ifndef SDT
 	ConfigPtr = XCanFd_LookupConfig(DeviceId);
 #else
@@ -298,7 +295,7 @@ int XCanFdPolledExample(UINTPTR BaseAddress)
 *
 * Send a CAN frame.
 *
-* @param	InstancePtr is a pointer to the driver instance
+* @param[in]	InstancePtr is a pointer to the driver instance
 *
 * @return	XST_SUCCESS if successful, a driver-specific return code if not.
 *
@@ -316,7 +313,7 @@ static int SendFrame(XCanFd *InstancePtr)
 	u32 Index;
 	u32 NofBytes;
 
-	/* Create correct values for Identifier and Data Length Code Register */
+	/**< Create correct values for Identifier and Data Length Code Register */
 	TxFrame[0] = XCanFd_CreateIdValue(TEST_MESSAGE_ID, 0, 0, 0, 0);
 	TxFrame[1] = XCanFd_Create_CanFD_Dlc_BrsValue(TESTMSG_DLC);
 
@@ -355,7 +352,7 @@ static int SendFrame(XCanFd *InstancePtr)
 *
 * This function receives a frame and verifies its contents.
 *
-* @param	InstancePtr is a pointer to the driver instance.
+* @param[in]	InstancePtr is a pointer to the driver instance.
 *
 * @return	XST_SUCCESS if successful, a driver-specific return code if not.
 *
@@ -371,7 +368,7 @@ static int RecvFrame(XCanFd *InstancePtr)
 	u8 *FramePtr;
 	u32 Index;
 
-	/* Receive a frame and verify its contents */
+	/**< Receive a frame and verify its contents */
 	if (XCANFD_GET_RX_MODE(InstancePtr) == 1) {
 		Status = XCanFd_Recv_Mailbox(InstancePtr, RxFrame);
 	} else {

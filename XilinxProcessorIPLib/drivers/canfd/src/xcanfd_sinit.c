@@ -10,11 +10,10 @@
 * @file xcanfd_sinit.c
 * @addtogroup canfd Overview
 * @{
+* @brief Static initialization functionality for the XCanFd driver.
 *
 * This file contains the implementation of the XCanFd driver's static
 * initialization functionality.
-*
-* @note		None.
 *
 * <pre>
 *
@@ -28,12 +27,11 @@
 * 2.8	ht     06/19/23 Added support for system device-tree flow
 * 2.12  vlt    11/05/25 Add 64-bit Addressing Support.
 * 2.12  vlt    12/12/25 Update Doxygen comments to include SDT flow details.
-
-
+* 2.13  vn   09/08/26 Align Doxygen comments with AMD standards
+*
 * </pre>
 *
 ******************************************************************************/
-
 /***************************** Include Files *********************************/
 
 #include "xcanfd.h"
@@ -52,23 +50,24 @@
 
 /*****************************************************************************/
 /**
+* @brief Looks up the device configuration based on the unique device
+*		ID or BaseAddress.
 *
-* Looks up the device configuration based on the unique device ID/BaseAddress.
 * The XCanFd_ConfigTable[] contains the configuration info for each device
 * in the system.
 *
 * @if SDT
-* @param	BaseAddress contains the base address of the device
+* @param[in]	BaseAddress contains the base address of the device.
 * @else
-* @param	DeviceId contains the unique ID of the device
+* @param[in]	DeviceId contains the unique ID of the device.
 * @endif
 *
-* @return       A pointer to the configuration found or NULL if the specified
-*               device ID/BaseAddress was not found. See xcanfd.h for the
-*               definition of XCanFd_Config.
+* @return	A pointer to the configuration found or NULL if the specified
+*		device ID/BaseAddress was not found. See xcanfd.h for the
+*		definition of XCanFd_Config.
 *
-* @note        In XSCT/classic flow, DeviceId is used to look up the device
-*              configuration.
+* @note		In XSCT/classic flow, DeviceId is used to look up the device
+*		configuration.
 *
 ******************************************************************************/
 #ifndef SDT

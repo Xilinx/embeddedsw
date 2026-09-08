@@ -4,6 +4,9 @@
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
+#ifndef XCANFD_HW_H		/* prevent circular inclusions */
+#define XCANFD_HW_H
+
 /*****************************************************************************/
 /**
 *
@@ -35,13 +38,11 @@
 *		      and CONTROL_STATUS_3.
 * 2.8   ht   06/19/23 Added support for system device-tree flow.
 * 2.12  vlt  01/27/26 Fixed codespell issues
+* 2.13  vn   09/08/26 Align Doxygen comments with AMD standards
 *
 * </pre>
 *
 ******************************************************************************/
-
-#ifndef XCANFD_HW_H		/* prevent circular inclusions */
-#define XCANFD_HW_H		/**< by using protection macros */
 
 #ifdef __cplusplus
 extern "C" {
@@ -240,10 +241,10 @@ extern "C" {
  *  @{
  */
 #if defined (CANFD_v1_0)
-#define XCANFD_AFMR_BASE_OFFSET	0x1A00U  /**<Acceptance Filter Mask Register */
+#define XCANFD_AFMR_BASE_OFFSET	0x1A00U  /**< Acceptance Filter Mask Register */
 #define XCANFD_AFIDR_BASE_OFFSET 0x1A04U  /**< Acceptance Filter ID Register */
 #else
-#define XCANFD_AFMR_BASE_OFFSET	0x0A00U  /**<Acceptance Filter Mask Register */
+#define XCANFD_AFMR_BASE_OFFSET	0x0A00U  /**< Acceptance Filter Mask Register */
 #define XCANFD_AFIDR_BASE_OFFSET 0x0A04U  /**< Acceptance Filter ID Register */
 #endif
 #define XCANFD_AFMR_NXT_OFFSET	8U	/**< Acceptance Filter Next Offset */
@@ -470,8 +471,7 @@ extern "C" {
 				 XCANFD_IXR_RXFOFLW_1_MASK   | \
 				 XCANFD_IXR_RXFWMFLL_1_MASK  | \
 				 XCANFD_IXR_TXEOFLW_MASK     | \
-				 XCANFD_IXR_TXEWMFLL_MASK)
-/**< Mask for Basic interrupts */
+				 XCANFD_IXR_TXEWMFLL_MASK) /**< Mask for basic interrupts. */
 #endif
 /** @} */
 
@@ -650,9 +650,8 @@ Mask/Acceptance Filter ID)
 							Request Mask */
 #define XCANFD_TXBUFFER31_RDY_RQT_MASK	0x80000000U	/**< TxBuffer31 Ready
 							Request Mask */
-#define XCANFD_TXBUFFER_ALL_RDY_RQT_MASK	0xFFFFFFFFU
-/**< TxBuffer Ready
-Request Mask for ALL */
+#define XCANFD_TXBUFFER_ALL_RDY_RQT_MASK	0xFFFFFFFFU /**< TxBuffer Ready
+							Request Mask for ALL */
 /** @} */
 
 /** @name CAN TxBuffer Cancel Request Served Interrupt Enable Register Masks
@@ -901,13 +900,12 @@ Request Mask for ALL */
 
 /****************************************************************************/
 /**
+* @brief Reads the given register.
 *
-* This macro reads the given register.
+* @param[in]	BaseAddress is the base address of the device.
+* @param[in]	RegOffset is the register offset to be read.
 *
-* @param	BaseAddress is the base address of the device
-* @param	RegOffset is the register offset to be read
-*
-* @return	The 32-bit value of the register
+* @return	The 32-bit value of the register.
 *
 * @note		C-Style signature:
 *		u32 XCanFd_ReadReg(u32 BaseAddress, u32 RegOffset);
@@ -918,14 +916,11 @@ Request Mask for ALL */
 
 /****************************************************************************/
 /**
+* @brief Writes the given register.
 *
-* This macro writes the given register.
-*
-* @param	BaseAddress is the base address of the device
-* @param	RegOffset is the register offset to be written
-* @param	Data is the 32-bit value to write to the register
-*
-* @return	None.
+* @param[in]	BaseAddress is the base address of the device.
+* @param[in]	RegOffset is the register offset to be written.
+* @param[in]	Data is the 32-bit value to write to the register.
 *
 * @note		C-Style signature:
 *		u32 XCanFd_WriteReg(u32 BaseAddress, u32 RegOffset, u32 Data);
@@ -940,5 +935,5 @@ Request Mask for ALL */
 }
 #endif
 
-#endif /* end of protection macro */
 /** @} */
+#endif /* end of protection macro */

@@ -10,10 +10,11 @@
 * @file xcanfd_selftest.c
 * @addtogroup canfd Overview
 * @{
+* @brief Diagnostic self-test function for the XCanFd driver.
 *
 * This file contains a diagnostic self-test function for the XCanFd driver.
 *
-* Please see xcanfd.h for more information.
+* See xcanfd.h for more information.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -28,6 +29,8 @@
 *                     Configuration regarding the Baud Rate and bit timing
 *                     for both Arbitration and Data Phase.
 * 2.12  vlt  01/27/26 Fixed codespell issues
+* 2.13  vn   09/08/26 Fix Doxygen comments to comply with AMD standards.
+* 2.13  vn   09/08/26 Align Doxygen comments with AMD standards
 *
 * </pre>
 *
@@ -76,22 +79,22 @@ static u32 RxFrame[XCANFD_MAX_FRAME_SIZE_IN_BYTES]; /**< RxFrame Buffer */
 #define TEST_FBTR_FIRST_TIMESEGMENT	15 /**< Time Segment 1 for Canfd */
 
 /**
+* @brief Runs a self-test on the CAN driver/device.
 *
-* This function runs a self-test on the CAN driver/device. The test resets
-* the device, sets up the Loop Back mode, sends a standard frame, receives the
-* frame, verifies the contents, and resets the device again.
+* The test resets the device, sets up the Loop Back mode, sends a standard
+* frame, receives the frame, verifies the contents, and resets the device
+* again.
 *
 * Note that this is a destructive test in that resets of the device are
 * performed. Refer to the device specification for the device status
 * after the reset operation.
 *
+* @param[in]	InstancePtr is a pointer to the XCanFd instance to be worked on.
 *
-* @param	InstancePtr is a pointer to the XCanFd instance to be worked on.
-*
-* @return	- XST_SUCCESS   if the self-test passed. i.e., the frame
+* @return	- XST_SUCCESS if the self-test passed, that is, the frame
 *		received via the internal loop back has the same contents as the
-* 		sent frame.
-* 		- XST_FAILURE   Otherwise.
+*		sent frame.
+*		- XST_FAILURE otherwise.
 *
 * @note		If the CAN device does not work properly, this function may enter an
 * 		infinite loop and will never return to the caller.
