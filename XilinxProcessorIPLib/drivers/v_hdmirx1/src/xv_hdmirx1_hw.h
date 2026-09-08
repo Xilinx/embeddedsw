@@ -39,15 +39,18 @@ extern "C" {
 /************************** Constant Definitions *****************************/
 
 /* VER (Version Interface) peripheral register offsets*/
+/* A standard IP version register block was added at the start of the
+ * register space; all subsequent registers are shifted by four word
+ * positions. */
 #define XV_HDMIRX1_VER_BASE                          (0*64)
-#define XV_HDMIRX1_VER_ID_OFFSET                     ((XV_HDMIRX1_VER_BASE)+(0*4))    /**< VER Identification Register offset */
-#define XV_HDMIRX1_VER_VERSION_OFFSET                ((XV_HDMIRX1_VER_BASE)+(1*4))    /**< VER Version Register offset */
-#define XV_HDMIRX1_VCKE_SYS_CNT_OFFSET               ((XV_HDMIRX1_VER_BASE)+(2*4))    /**< VCKE System Counts Register offset */
-#define XV_HDMIRX1_SR_SSB_ERR_CNT0_OFFSET            ((XV_HDMIRX1_VER_BASE)+(3*4))    /**< SR/SSB period error 0 counter register offset */
-#define XV_HDMIRX1_SR_SSB_ERR_CNT1_OFFSET            ((XV_HDMIRX1_VER_BASE)+(4*4))    /**< SR/SSB period error 1 counter register offset */
-#define XV_HDMIRX1_SR_SSB_ERR_CNT2_OFFSET            ((XV_HDMIRX1_VER_BASE)+(5*4))    /**< SR/SSB period error 2 counter register offset */
-#define XV_HDMIRX1_SR_SSB_ERR_CNT3_OFFSET            ((XV_HDMIRX1_VER_BASE)+(6*4))    /**< SR/SSB period error 3 counter register offset */
-#define XV_HDMIRX1_DBG_STA_OFFSET                     ((XV_HDMIRX1_VER_BASE)+(7*4))    /**< FRL word aligner tap select changed register offset */
+#define XV_HDMIRX1_VER_VERSION_OFFSET                ((XV_HDMIRX1_VER_BASE)+(0*4))    /**< VER Version Register offset */
+#define XV_HDMIRX1_VER_ID_OFFSET                     ((XV_HDMIRX1_VER_BASE)+(4*4))    /**< VER Identification Register offset */
+#define XV_HDMIRX1_VCKE_SYS_CNT_OFFSET               ((XV_HDMIRX1_VER_BASE)+(5*4))    /**< VCKE System Counts Register offset */
+#define XV_HDMIRX1_SR_SSB_ERR_CNT0_OFFSET            ((XV_HDMIRX1_VER_BASE)+(6*4))    /**< SR/SSB period error 0 counter register offset */
+#define XV_HDMIRX1_SR_SSB_ERR_CNT1_OFFSET            ((XV_HDMIRX1_VER_BASE)+(7*4))    /**< SR/SSB period error 1 counter register offset */
+#define XV_HDMIRX1_SR_SSB_ERR_CNT2_OFFSET            ((XV_HDMIRX1_VER_BASE)+(8*4))    /**< SR/SSB period error 2 counter register offset */
+#define XV_HDMIRX1_SR_SSB_ERR_CNT3_OFFSET            ((XV_HDMIRX1_VER_BASE)+(9*4))    /**< SR/SSB period error 3 counter register offset */
+#define XV_HDMIRX1_DBG_STA_OFFSET                     ((XV_HDMIRX1_VER_BASE)+(10*4))    /**< FRL word aligner tap select changed register offset */
 
 #ifdef XPAR_XV_HDMI_RX_FRL_ENABLE
 #define XV_HDMIRX1_SR_SSB_ERR1_SHIFT                 0         /**< FRL SR/SSB period error during training period shift */
