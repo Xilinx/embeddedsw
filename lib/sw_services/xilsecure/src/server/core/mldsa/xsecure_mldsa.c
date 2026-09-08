@@ -19,6 +19,7 @@
 *       tvp  03/09/26 Added XSecure_MldsaSignGenerate() for signature generation
 *       tvp  03/09/26 Update last word transfer logic during signature verification
 *       vns  07/29/26 Replaced XPlmi_MemCpy64 with CPU register access for PK/SK/signature
+* 5.8   ks   08/31/26 Used a local snapshot of the signature CT for hardware and comparison
 *
 * </pre>
 *
@@ -128,6 +129,8 @@ int XSecure_MldsaSignVerify(const XSecure_MldsaSignVerifyParams *MldsaParams)
 	u32 CtValue = XSECURE_ZERO;
 	u32 LastWord;
 	u32 AlignedLen;
+	u32 WordIdx;
+	u32 CtSnapshot[XSECURE_MLDSA_CT_LEN / XSECURE_WORD_SIZE] = {0U};
 
 	/** - Validate MLDSA instance pointer */
 	if (MldsaParams == NULL) {
@@ -147,11 +150,18 @@ int XSecure_MldsaSignVerify(const XSecure_MldsaSignVerifyParams *MldsaParams)
 		goto END;
 	}
 
-	/** - Check that first 64 bytes of signature are not all zeros (CT validation) */
+	/** - Take a local snapshot of the signature's CT component before starting hardware. */
 	for (Index = 0U; Index < (u32)XSECURE_MLDSA_CT_LEN; Index += XSECURE_WORD_SIZE) {
-		CtValue |= XSecure_In64(MldsaParams->SignAddr + Index);
+		WordIdx = Index / XSECURE_WORD_SIZE;
+		if (WordIdx >= (XSECURE_MLDSA_CT_LEN / XSECURE_WORD_SIZE)) {
+			Status = XSECURE_ERR_GLITCH_DETECTED;
+			goto END;
+		}
+		CtSnapshot[WordIdx] = XSecure_In64(MldsaParams->SignAddr + Index);
+		CtValue |= CtSnapshot[WordIdx];
 	}
 
+	/** - Check that first 64 bytes of signature are not all zeros (CT validation). */
 	if ((CtValue == XSECURE_ZERO) || (Index != (u32)XSECURE_MLDSA_CT_LEN)) {
 		Status = XSECURE_MLDSA_SIGN_CT_ZERO_ERROR;
 		goto END;
@@ -191,10 +201,29 @@ int XSecure_MldsaSignVerify(const XSecure_MldsaSignVerifyParams *MldsaParams)
 	XSecure_Printf(XSECURE_DEBUG_GENERAL, "MLDSA signature verification - "
 					      "Writing Signature\r\n");
 
-	/** - Transfer word-aligned portion (4624 bytes = 1156 words) */
 	AlignedLen = XSECURE_MLDSA_SIGN_LEN & ~(XSECURE_WORD_SIZE - XSECURE_VALUE_ONE);
-	Xil_MemCpyFrom64To32Addr((u32)(XSECURE_MLDSA_BASEADDR + XSECURE_MLDSA_SIGN_0_OFFSET),
-				 MldsaParams->SignAddr, AlignedLen);
+
+	/** - Transfer the CT component from the snapshot taken before hardware was started. */
+	for (Index = 0U; Index < (u32)XSECURE_MLDSA_CT_LEN; Index += XSECURE_WORD_SIZE) {
+		WordIdx = Index / XSECURE_WORD_SIZE;
+		if (WordIdx >= (XSECURE_MLDSA_CT_LEN / XSECURE_WORD_SIZE)) {
+			Status = XSECURE_ERR_GLITCH_DETECTED;
+			goto END;
+		}
+		XSecure_Out32((XSECURE_MLDSA_BASEADDR + XSECURE_MLDSA_SIGN_0_OFFSET + Index),
+			      CtSnapshot[WordIdx]);
+	}
+
+	if (Index != (u32)XSECURE_MLDSA_CT_LEN) {
+		Status = XSECURE_ERR_GLITCH_DETECTED;
+		goto END;
+	}
+
+	/** - Transfer remaining word-aligned portion (4560 bytes = 1140 words). */
+	Xil_MemCpyFrom64To32Addr((u32)(XSECURE_MLDSA_BASEADDR + XSECURE_MLDSA_SIGN_0_OFFSET +
+					XSECURE_MLDSA_CT_LEN),
+				 MldsaParams->SignAddr + XSECURE_MLDSA_CT_LEN,
+				 AlignedLen - (u32)XSECURE_MLDSA_CT_LEN);
 
 	/** - Handle last 3 bytes using intermediate word buffer */
 	LastWord = (u32)XSecure_InByte64(MldsaParams->SignAddr + AlignedLen);
@@ -239,10 +268,15 @@ int XSecure_MldsaSignVerify(const XSecure_MldsaSignVerifyParams *MldsaParams)
 
 	Status = XSECURE_MLDSA_SIGNATURE_MISMATCH;
 
-	/** - Compare generated result with expected signature's CT component */
+	/** - Compare generated result with the snapshot of expected signature's CT component. */
 	for (Index = 0U; Index < (u32)(XSECURE_MLDSA_CT_LEN); Index += XSECURE_WORD_SIZE) {
+		WordIdx = Index / XSECURE_WORD_SIZE;
+		if (WordIdx >= (XSECURE_MLDSA_CT_LEN / XSECURE_WORD_SIZE)) {
+			Status = XSECURE_ERR_GLITCH_DETECTED;
+			goto END;
+		}
 		if (XSecure_In64(XSECURE_MLDSA_BASEADDR + XSECURE_MLDSA_VERIF_RESULT_0_OFFSET +
-					Index) != XSecure_In64(MldsaParams->SignAddr + Index)) {
+					Index) != CtSnapshot[WordIdx]) {
 			Status = XSECURE_MLDSA_SIGNATURE_MISMATCH;
 			goto END;
 		}
