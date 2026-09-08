@@ -13,7 +13,7 @@
 * This example illustrates the extension and get PCR by requesting ROM services.
 * To build this application, xilmailbox library must be included in BSP and
 * xilocp must be in client mode.
-* This example is supported for Versal Net and Versal_2Ve_2Vm devices.
+* This example is supported for Versal Net, Versal_2VE_2VM and Versal_2VP_P devices.
 *
 * @note
 * Procedure to link and compile the example for the default ddr less designs
@@ -82,6 +82,7 @@
 * 1.2   kal    05/28/23 Adder SW PCR extend and logging functions
 * 1.3   ng     01/28/24 Added SDT support
 * 1.7   rpu    02/21/26 Pass the address of HwPcrLogInfo to Xil_DCacheInvalidateRange.
+* 1.8   tbk    09/01/26 Enable PCR client example for Versal_2VP_P
 * </pre>
 * @note
 *

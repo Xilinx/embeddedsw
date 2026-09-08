@@ -51,3 +51,6 @@ examples:
 
     if (platform == "VersalNet" and proc in versalnet_procs) or (platform == "Versal_2VE_2VM" and proc in versal_2ve_2vm_procs):
       examples += ["xilocp_client_pcr_example.c"]
+
+    if (platform == "Versal" and proc in versal_procs) and ("Versal_2VP_P" in variant):
+      examples += ["xilocp_client_pcr_example.c"]
