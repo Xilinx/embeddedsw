@@ -10,6 +10,7 @@
 * @file xcan.c
 * @addtogroup can Overview
 * @{
+* @brief Implements the core CAN driver functions.
 *
 * The XCan driver. Functions in this file are the minimum required functions
 * for this driver. See xcan.h for a detailed description of the driver.
@@ -31,6 +32,7 @@
 * 3.11  sp   13/01/25 Fix GCC warnings.
 * 3.12  vlt  12/12/25 Update Doxygen comments to include SDT flow details.
 * 3.13  vn   07/30/26 Fix Doxygen warnings
+* 3.13  vn   09/08/26 Align Doxygen comments with AMD standards
 * </pre>
 ******************************************************************************/
 
@@ -63,10 +65,11 @@ static void StubHandler(void);
 /*****************************************************************************/
 /**
 *
-* This routine initializes a specific XCan instance/driver. This function
-* should only be used when no Virtual Memory support is needed. To use virtual
-* memory, the caller should invoke XCan_VmInitialize(). See the description of
-* XCan_VmInitialize() for detailed information.
+* @brief Initializes a specific XCan instance/driver.
+*
+* This function should only be used when no Virtual Memory support is needed.
+* To use virtual memory, the caller should invoke XCan_VmInitialize().
+* See the description of XCan_VmInitialize() for detailed information.
 *
 * This initialization entails:
 * - Search for device configuration based on the unique device ID/BaseAddress.
@@ -75,11 +78,11 @@ static void StubHandler(void);
 * - Populate all other data fields in the XCan structure
 * - Reset the device.
 *
-* @param	InstancePtr is a pointer to the XCan instance to be worked on.
+* @param[in]	InstancePtr is a pointer to the XCan instance to be worked on.
 * @if SDT
-* @param	BaseAddress contains the base address of the device
+* @param[in]	BaseAddress contains the base address of the device
 * @else
-* @param	DeviceId is the unique ID of the device controlled by this XCan
+* @param[in]	DeviceId is the unique ID of the device controlled by this XCan
 *		instance.  Passing in a device ID associates the generic XCan
 *		instance to a specific device, as chosen by the caller or
 *		application developer.
@@ -139,10 +142,11 @@ int XCan_Initialize(XCan *InstancePtr, UINTPTR BaseAddress)
 /*****************************************************************************/
 /**
 *
-* This routine initializes of a specific XCan instance/driver. This function
-* should only be used if Virtual Memory support is necessary. The caller is
-* responsible for calculating the correct device base address in Virtual memory
-* address space and passing it into this function.
+* @brief Initializes a specific XCan instance/driver with Virtual Memory support.
+*
+* This function should only be used if Virtual Memory support is necessary.
+* The caller is responsible for calculating the correct device base address
+* in Virtual memory address space and passing it into this function.
 *
 * This initialization entails:
 * - Search for device configuration based on the unique device ID/BaseAddress.
@@ -151,16 +155,16 @@ int XCan_Initialize(XCan *InstancePtr, UINTPTR BaseAddress)
 * - Populate all other data fields in the XCan structure.
 * - Reset the device.
 *
-* @param 	InstancePtr is a pointer to the XCan instance to be worked on.
+* @param[in]	InstancePtr is a pointer to the XCan instance to be worked on.
 * @if SDT
-* @param	BaseAddress contains the base address of the device
+* @param[in]	BaseAddress contains the base address of the device
 * @else
-* @param 	DeviceId is the unique ID of the device controlled by this XCan
+* @param[in]	DeviceId is the unique ID of the device controlled by this XCan
 *		instance.  Passing in a device ID associates the generic XCan
 *		instance to a specific device, as chosen by the caller or
 *		application developer.
 * @endif
-* @param	VirtAddr is the device base address in the virtual memory
+* @param[in]	VirtAddr is the device base address in the virtual memory
 *		address space. The caller is responsible for keeping the address
 *		mapping from VirtAddr to the device physical base address
 *		unchanged once this function is invoked. Unexpected errors may
@@ -222,12 +226,13 @@ int XCan_VmInitialize(XCan *InstancePtr, UINTPTR BaseAddress, UINTPTR VirtAddr)
 /*****************************************************************************/
 /**
 *
-* This function resets the CAN device. Calling this function resets the device
-* immediately, and any pending transmission or reception is terminated at once.
-* Both Object Layer and Transfer Layer are reset. This function does not reset
-* the Physical Layer. All registers are reset to the default values, and no
-* previous status will be restored. TX FIFO, RX FIFO and TX High Priority
-* Buffer are also reset.
+* @brief Resets the CAN device.
+*
+* Calling this function resets the device immediately, and any pending
+* transmission or reception is terminated at once. Both Object Layer and
+* Transfer Layer are reset. This function does not reset the Physical Layer.
+* All registers are reset to the default values, and no previous status will
+* be restored. TX FIFO, RX FIFO and TX High Priority Buffer are also reset.
 *
 * When a reset is required due to an internal error, the driver notifies the
 * upper layer software of this need through the error status code or interrupts
@@ -237,9 +242,7 @@ int XCan_VmInitialize(XCan *InstancePtr, UINTPTR BaseAddress, UINTPTR VirtAddr)
 * The CAN device will be in Configuration Mode immediately after this function
 * returns.
 *
-* @param	InstancePtr is a pointer to the XCan instance to be worked on.
-*
-* @note		None.
+* @param[in]	InstancePtr is a pointer to the XCan instance to be worked on.
 *
 ******************************************************************************/
 void XCan_Reset(XCan *InstancePtr)
@@ -254,17 +257,15 @@ void XCan_Reset(XCan *InstancePtr)
 /****************************************************************************/
 /**
 *
-* This routine returns current operation mode the CAN device is in.
+* @brief Returns the current operation mode of the CAN device.
 *
-* @param	InstancePtr is a pointer to the XCan instance to be worked on.
+* @param[in]	InstancePtr is a pointer to the XCan instance to be worked on.
 *
 * @return
 * 		- XCAN_MODE_CONFIG if the device is in Configuration Mode.
 * 		- XCAN_MODE_SLEEP if the device is in Sleep Mode.
 * 		- XCAN_MODE_NORMAL if the device is in Normal Mode.
 * 		- XCAN_MODE_LOOPBACK if the device is in Loop Back Mode.
-*
-* @note		None.
 *
 *****************************************************************************/
 u8 XCan_GetMode(XCan *InstancePtr)
@@ -291,8 +292,9 @@ u8 XCan_GetMode(XCan *InstancePtr)
 /*****************************************************************************/
 /**
 *
-* This function allows the CAN device to enter one of the following operation
-* modes:
+* @brief Enters a specified CAN operation mode.
+*
+* Allows the CAN device to enter one of the following operation modes:
 *
 * - Configuration Mode: Pass in parameter XCAN_MODE_CONFIG
 * - Sleep Mode: Pass in parameter XCAN_MODE_SLEEP
@@ -302,8 +304,8 @@ u8 XCan_GetMode(XCan *InstancePtr)
 * Read xcan.h and device specification for detailed description of each
 * operation mode.
 *
-* @param	InstancePtr is a pointer to the XCan instance to be worked on.
-* @param	OperationMode specify which operation mode to enter. Valid value
+* @param[in]	InstancePtr is a pointer to the XCan instance to be worked on.
+* @param[in]	OperationMode specify which operation mode to enter. Valid value
 *		is any of XCAN_MODE_* defined in xcan.h. Please note no multiple
 * 		modes could be entered at the same time.
 *
@@ -422,14 +424,14 @@ void XCan_EnterMode(XCan *InstancePtr, u8 OperationMode)
 /*****************************************************************************/
 /**
 *
-* This function returns Status value from Status Register (SR). Use the
-* XCAN_SR_* constants defined in xcan_l.h to interpret the returned value.
+* @brief Returns the Status Register value.
 *
-* @param	InstancePtr is a pointer to the XCan instance to be worked on.
+* Use the XCAN_SR_* constants defined in xcan_l.h to interpret the returned
+* value.
+*
+* @param[in]	InstancePtr is a pointer to the XCan instance to be worked on.
 *
 * @return	The 32-bit value read from Status Register.
-*
-* @note		None.
 *
 ******************************************************************************/
 u32 XCan_GetStatus(XCan *InstancePtr)
@@ -447,15 +449,13 @@ u32 XCan_GetStatus(XCan *InstancePtr)
 /*****************************************************************************/
 /**
 *
-* This function reads Receive and Transmit error counters.
+* @brief Reads the receive and transmit error counters.
 *
-* @param	InstancePtr is a pointer to the XCan instance to be worked on.
-* @param	RxErrorCount will contain Receive Error Counter value after this
+* @param[in]	InstancePtr is a pointer to the XCan instance to be worked on.
+* @param[out]	RxErrorCount will contain Receive Error Counter value after this
 *		function returns.
-* @param	TxErrorCount will contain Transmit Error Counter value after
+* @param[out]	TxErrorCount will contain Transmit Error Counter value after
 *		this function returns.
-*
-* @note		None.
 *
 ******************************************************************************/
 void XCan_GetBusErrorCounter(XCan *InstancePtr, u8 *RxErrorCount,
@@ -476,15 +476,14 @@ void XCan_GetBusErrorCounter(XCan *InstancePtr, u8 *RxErrorCount,
 /*****************************************************************************/
 /**
 *
-* This function reads Error Status value from Error Status Register (ESR). Use
-* the XCAN_ESR_* constants defined in xcan_l.h to interpret the returned value.
+* @brief Reads the Error Status Register value.
 *
+* Use the XCAN_ESR_* constants defined in xcan_l.h to interpret the returned
+* value.
 *
-* @param	InstancePtr is a pointer to the XCan instance to be worked on.
+* @param[in]	InstancePtr is a pointer to the XCan instance to be worked on.
 *
 * @return	The 32-bit value read from Error Status Register.
-*
-* @note		None.
 *
 ******************************************************************************/
 u32 XCan_GetBusErrorStatus(XCan *InstancePtr)
@@ -502,19 +501,17 @@ u32 XCan_GetBusErrorStatus(XCan *InstancePtr)
 /*****************************************************************************/
 /**
 *
-* This function clears Error Status bit(s) previously set in Error
-* Status Register (ESR). Use the XCAN_ESR_* constants defined in xcan_l.h to
-* create the value to pass in. If a bit was cleared in Error Status Register
-* before this function is called, it will not be touched.
+* @brief Clears Error Status Register bits.
 *
+* Clears Error Status bit(s) previously set in Error Status Register (ESR).
+* Use the XCAN_ESR_* constants defined in xcan_l.h to create the value to
+* pass in. If a bit was cleared in Error Status Register before this function
+* is called, it will not be touched.
 *
-* @param	InstancePtr is a pointer to the XCan instance to be worked on.
-*
-* @param	Mask is he 32-bit mask used to clear bits in Error Status
+* @param[in]	InstancePtr is a pointer to the XCan instance to be worked on.
+* @param[in]	Mask is he 32-bit mask used to clear bits in Error Status
 *		Register. Multiple XCAN_ESR_* values could be 'OR'ed to clear
 *		multiple bits
-*
-* @note		None.
 *
 ******************************************************************************/
 void XCan_ClearBusErrorStatus(XCan *InstancePtr, u32 Mask)
@@ -528,14 +525,14 @@ void XCan_ClearBusErrorStatus(XCan *InstancePtr, u32 Mask)
 /*****************************************************************************/
 /**
 *
-* This function sends a CAN Frame. This function first checks if TX FIFO is
-* full. If not, it then writes the given frame into the TX FIFO;  otherwise,
-* it returns error code immediately. This function does not wait for the given
-* frame being sent to CAN bus.
+* @brief Sends a CAN frame.
 *
+* First checks if TX FIFO is full. If not, it then writes the given frame
+* into the TX FIFO; otherwise, it returns error code immediately. This
+* function does not wait for the given frame being sent to CAN bus.
 *
-* @param	InstancePtr is a pointer to the XCan instance to be worked on.
-* @param	FramePtr is a pointer to a 32-bit aligned buffer containing the
+* @param[in]	InstancePtr is a pointer to the XCan instance to be worked on.
+* @param[in]	FramePtr is a pointer to a 32-bit aligned buffer containing the
 *		CAN frame to be sent.
 *
 * @return
@@ -543,8 +540,6 @@ void XCan_ClearBusErrorStatus(XCan *InstancePtr, u32 Mask)
 *		written into the FIFO;
 *		- XST_FIFO_NO_ROOM if there is no room in the TX FIFO for the
 *		given frame
-*
-* @note		None.
 *
 ******************************************************************************/
 int XCan_Send(XCan *InstancePtr, u32 *FramePtr)
@@ -579,21 +574,20 @@ int XCan_Send(XCan *InstancePtr, u32 *FramePtr)
 /*****************************************************************************/
 /**
 *
-* This function receives a CAN Frame. This function first checks if RX FIFO is
-* empty, if not, it then reads a frame from the RX FIFO into the given buffer.
-* This function returns error code immediately if there is no frame in the RX
-* FIFO.
+* @brief Receives a CAN frame.
 *
-* @param	InstancePtr is a pointer to the XCan instance to be worked on.
-* @param	FramePtr is a pointer to a 32-bit aligned buffer where the CAN
+* First checks if RX FIFO is empty, if not, it then reads a frame from the
+* RX FIFO into the given buffer. Returns error code immediately if there is
+* no frame in the RX FIFO.
+*
+* @param[in]	InstancePtr is a pointer to the XCan instance to be worked on.
+* @param[out]	FramePtr is a pointer to a 32-bit aligned buffer where the CAN
 *		frame to be written.
 *
 * @return
 *		- XST_SUCCESS if RX FIFO was not empty and a frame was read from
 *		RX FIFO successfully and written into the given buffer;
 *		- XST_NO_DATA if there is no frame to be received from the FIFO
-*
-* @note		None.
 *
 ******************************************************************************/
 int XCan_Recv(XCan *InstancePtr, u32 *FramePtr)
@@ -637,13 +631,14 @@ int XCan_Recv(XCan *InstancePtr, u32 *FramePtr)
 /*****************************************************************************/
 /**
 *
-* This routine sends a CAN High Priority frame. This function first checks if
-* TX High Priority Buffer is empty. If yes, it then writes the given frame into
-* the Buffer. If not, This function returns immediately. This function does not
-* wait for the given frame being sent to CAN bus.
+* @brief Sends a CAN frame through the High Priority Buffer.
 *
-* @param	InstancePtr is a pointer to the XCan instance to be worked on.
-* @param	FramePtr is a pointer to a 32-bit aligned buffer containing the
+* First checks if TX High Priority Buffer is empty. If yes, it then writes
+* the given frame into the Buffer. If not, returns immediately. This function
+* does not wait for the given frame being sent to CAN bus.
+*
+* @param[in]	InstancePtr is a pointer to the XCan instance to be worked on.
+* @param[in]	FramePtr is a pointer to a 32-bit aligned buffer containing the
 *		CAN High Priority frame to be sent.
 *
 * @return
@@ -693,11 +688,12 @@ int XCan_SendHighPriority(XCan *InstancePtr, u32 *FramePtr)
 /*****************************************************************************/
 /**
 *
-* This routine enables individual acceptance filters. Up to 4 filters could
-* be enabled.
+* @brief Enables individual acceptance filters.
 *
-* @param	InstancePtr is a pointer to the XCan instance to be worked on.
-* @param	FilterIndexes specifies which filter(s) to enable. Use
+* Up to 4 filters could be enabled.
+*
+* @param[in]	InstancePtr is a pointer to the XCan instance to be worked on.
+* @param[in]	FilterIndexes specifies which filter(s) to enable. Use
 *		any XCAN_AFR_UAF*_MASK to enable one filter, and "Or" multiple
 *		XCAN_AFR_UAF*_MASK values if multiple filters need to be
 *		enabled. Any filter not specified in this parameter will keep
@@ -737,12 +733,13 @@ void XCan_AcceptFilterEnable(XCan *InstancePtr, u32 FilterIndexes)
 /*****************************************************************************/
 /**
 *
-* This routine disables individual acceptance filters. Up to 4 filters could
-* be disabled. If all acceptance filters are disabled then all received frames
-* are stored in the RX FIFO.
+* @brief Disables individual acceptance filters.
 *
-* @param	InstancePtr is a pointer to the XCan instance to be worked on.
-* @param	FilterIndexes specifies which filter(s) to disable. Use
+* Up to 4 filters could be disabled. If all acceptance filters are disabled
+* then all received frames are stored in the RX FIFO.
+*
+* @param[in]	InstancePtr is a pointer to the XCan instance to be worked on.
+* @param[in]	FilterIndexes specifies which filter(s) to disable. Use
 *		any XCAN_AFR_UAF*_MASK to disable one filter, and "Or" multiple
 *		XCAN_AFR_UAF*_MASK values if multiple filters need to be
 *		disabled. Any filter not specified in this parameter will keep
@@ -782,11 +779,13 @@ void XCan_AcceptFilterDisable(XCan *InstancePtr, u32 FilterIndexes)
 /*****************************************************************************/
 /**
 *
-* This function returns enabled acceptance filters. Use XCAN_AFR_UAF*_MASK
-* defined in xcan_l.h to interpret the returned value. If no acceptance filters
-* are enabled then all received frames are stored in the RX FIFO.
+* @brief Returns the enabled acceptance filters.
 *
-* @param	InstancePtr is a pointer to the XCan instance to be worked on.
+* Use XCAN_AFR_UAF*_MASK defined in xcan_l.h to interpret the returned value.
+* If no acceptance filters are enabled then all received frames are stored in
+* the RX FIFO.
+*
+* @param[in]	InstancePtr is a pointer to the XCan instance to be worked on.
 *
 * @return	The value stored in Acceptance Filter Register.
 *
@@ -813,22 +812,24 @@ u32 XCan_AcceptFilterGetEnabled(XCan *InstancePtr)
 /*****************************************************************************/
 /**
 *
-* This function sets values to the Acceptance Filter Mask Register (AFMR) and
-* Acceptance Filter ID Register (AFIR) for the specified Acceptance Filter.
-* Use XCAN_IDR_* defined in xcan_l.h to create the values to set the filter.
+* @brief Sets the Acceptance Filter Mask and ID Register values.
+*
+* Sets values to the Acceptance Filter Mask Register (AFMR) and Acceptance
+* Filter ID Register (AFIR) for the specified Acceptance Filter. Use
+* XCAN_IDR_* defined in xcan_l.h to create the values to set the filter.
 * Read xcan.h and device specification for details.
 *
 * This function should be called only after:
 *   - The given filter is disabled by calling XCan_AcceptFilterDisable();
-*   - And the CAN device is ready to accept writes to AFMR and AFIR, i.e.,
+*   - And the CAN device is ready to accept writes to AFMR and AFIR, that is,
 *	 XCan_IsAcceptFilterBusy() returns FALSE.
 *
-* @param	InstancePtr is a pointer to the XCan instance to be worked on.
-* @param	FilterIndex defines which Acceptance Filter Mask and ID Register
+* @param[in]	InstancePtr is a pointer to the XCan instance to be worked on.
+* @param[in]	FilterIndex defines which Acceptance Filter Mask and ID Register
 *		to set. Use any single XCAN_AFR_UAF*_MASK value.
-* @param	MaskValue is the value to write to the chosen Acceptance Filter
+* @param[in]	MaskValue is the value to write to the chosen Acceptance Filter
 *		Mask Register.
-* @param	IdValue is the value to write to the chosen Acceptance Filter
+* @param[in]	IdValue is the value to write to the chosen Acceptance Filter
 *		ID Register.
 *
 * @return
@@ -916,16 +917,18 @@ int XCan_AcceptFilterSet(XCan *InstancePtr, u32 FilterIndex,
 /*****************************************************************************/
 /**
 *
-* This function reads the values of the Acceptance Filter Mask and ID Register
-* for the specified Acceptance Filter. Use XCAN_IDR_* defined in xcan_l.h to
+* @brief Reads the Acceptance Filter Mask and ID Register values.
+*
+* Reads the values of the Acceptance Filter Mask and ID Register for the
+* specified Acceptance Filter. Use XCAN_IDR_* defined in xcan_l.h to
 * interpret the values. Read xcan.h and device specification for details.
 *
-* @param	InstancePtr is a pointer to the XCan instance to be worked on.
-* @param	FilterIndex defines which Acceptance Filter Mask Register to get
+* @param[in]	InstancePtr is a pointer to the XCan instance to be worked on.
+* @param[in]	FilterIndex defines which Acceptance Filter Mask Register to get
 *		Mask and ID from. Use any single XCAN_FILTER_* value.
-* @param	MaskValue will store the Mask value read from the chosen
+* @param[out]	MaskValue will store the Mask value read from the chosen
 *		Acceptance Filter Mask Register after this function returns.
-* @param	IdValue will store the ID value read from the chosen Acceptance
+* @param[out]	IdValue will store the ID value read from the chosen Acceptance
 *		Filter ID Register after this function returns.
 *
 * @note
@@ -993,14 +996,15 @@ void XCan_AcceptFilterGet(XCan *InstancePtr, u32 FilterIndex,
 /*****************************************************************************/
 /**
 *
-* Looks up the device configuration based on the unique device ID/BaseAddress.
+* @brief Looks up the device configuration based on the unique device ID or base address.
+*
 * The XCan_ConfigTable[] contains the configuration info for each device in
 * the system.
 *
 * @if SDT
-* @param	BaseAddress contains the base address of the device
+* @param[in]	BaseAddress contains the base address of the device
 * @else
-* @param	DeviceId contains the unique ID of the device
+* @param[in]	DeviceId contains the unique ID of the device
 * @endif
 *
 * @return       A pointer to the configuration found or NULL if the specified
@@ -1046,17 +1050,16 @@ XCan_Config *XCan_LookupConfig(UINTPTR BaseAddress)
 /*****************************************************************************/
 /**
 *
-* This function looks for the device configuration based on the device index.
+* @brief Looks up the device configuration based on the device index.
+*
 * The table XCan_ConfigTable[] contains the configuration information for each
 * device in the system.
 *
-* @param	InstanceIndex is a 0-based integer indexing all CAN devices in
+* @param[in]	InstanceIndex is a 0-based integer indexing all CAN devices in
 *		the system.
 *
 * @return	A pointer to the configuration table entry corresponding to the
 *		given device ID, or NULL if no match is found.
-*
-* @note		None.
 *
 ******************************************************************************/
 XCan_Config *XCan_GetConfig(unsigned int InstanceIndex)
@@ -1086,9 +1089,10 @@ XCan_Config *XCan_GetConfig(unsigned int InstanceIndex)
 /*****************************************************************************/
 /**
 *
-* This function initializes a XCan instance/driver.  This function is utilized
-* by XCan_Initialize() or XCan_VmInitialize(), depending on if Virtual Memory
-* support is wanted or not.
+* @brief Initializes a XCan instance/driver.
+*
+* Utilized by XCan_Initialize() or XCan_VmInitialize(), depending on if
+* Virtual Memory support is wanted or not.
 *
 * The initialization entails:
 * - Initialize all members of the XCan structure, except BaseAddress.
@@ -1097,13 +1101,9 @@ XCan_Config *XCan_GetConfig(unsigned int InstanceIndex)
 * - Reset the CAN device. The CAN device will enter Configuration Mode
 *   immediately after the reset is finished.
 *
-* @param	InstancePtr is a pointer to the XCan instance to be worked on.
-* @param	ConfigPtr points to the a configuration structure the XCan
+* @param[in]	InstancePtr is a pointer to the XCan instance to be worked on.
+* @param[in]	ConfigPtr points to the a configuration structure the XCan
 *		instance should be associated with.
-*
-* @return	None.
-*
-* @note		None.
 *
 ******************************************************************************/
 static void Initialize(XCan *InstancePtr, XCan_Config *ConfigPtr)
@@ -1128,7 +1128,7 @@ static void Initialize(XCan *InstancePtr, XCan_Config *ConfigPtr)
 	 * Indicate the component is now ready to use. Note that this is done
 	 * before we reset the device below, which may seem a bit odd. The
 	 * choice was made to move it here rather than remove the asserts in
-	 * various functions (e.g., Reset() and all functions that it calls).
+	 * various functions (for example, Reset() and all functions that it calls).
 	 * Applications that use multiple threads, one to initialize the XCan
 	 * driver and one waiting on the IsReady condition could have a problem
 	 * with this sequence.
@@ -1147,15 +1147,11 @@ static void Initialize(XCan *InstancePtr, XCan_Config *ConfigPtr)
 /******************************************************************************/
 /**
 *
-* This routine is a stub for the asynchronous callbacks. The stub is here in
-* case the upper layer forgot to set the handler(s). On initialization, all
-* handlers are set to this callback. It is considered an error for this handler
-* to be invoked.
+* @brief Stub handler for unset asynchronous callbacks.
 *
-*
-* @return	None.
-*
-* @note		None.
+* The stub is here in case the upper layer forgot to set the handler(s). On
+* initialization, all handlers are set to this callback. It is considered an
+* error for this handler to be invoked.
 *
 ******************************************************************************/
 static void StubHandler(void)
@@ -1165,13 +1161,13 @@ static void StubHandler(void)
 
 /*****************************************************************************/
 /**
-* This function resets the ECC counters. Calling this function resets all the
-* ECC counters immediately. The register is reset to default value, and no
-* previous status will be restored.
 *
-* @param        InstancePtr is a pointer to the XCan instance to be worked on.
+* @brief Resets the ECC counters.
 *
-* @note         None.
+* Calling this function resets all the ECC counters immediately. The register
+* is reset to default value, and no previous status will be restored.
+*
+* @param[in]	InstancePtr is a pointer to the XCan instance to be worked on.
 *
 ******************************************************************************/
 void XCan_ResetECC(XCan *InstancePtr)
@@ -1189,12 +1185,13 @@ void XCan_ResetECC(XCan *InstancePtr)
 
 /*****************************************************************************/
 /**
-* This function gets the count of ECC error count for one and two bit error in
-* TX_TL FIFO, TX_OL FIFO, RX FIFO.
 *
-* @param        InstancePtr is a pointer to the XCan instance to be worked on.
+* @brief Reads the ECC error counts for one-bit and two-bit errors.
 *
-* @note         None.
+* Gets the count of ECC errors for one and two bit errors in TX_TL FIFO,
+* TX_OL FIFO, RX FIFO.
+*
+* @param[in]	InstancePtr is a pointer to the XCan instance to be worked on.
 *
 ******************************************************************************/
 void XCan_GetECCCount(XCan *InstancePtr)

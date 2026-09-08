@@ -10,10 +10,11 @@
 * @file xcan_selftest.c
 * @addtogroup can Overview
 * @{
+* @brief Implements a diagnostic self-test function for the CAN driver.
 *
 * This file contains a diagnostic self-test function for the XCan driver.
 *
-* Please see xcan.h for more information.
+* See xcan.h for more information.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -26,6 +27,7 @@
 *		      The macros have been renamed to remove _m from the name.
 * 3.3   ask  08/01/18 Fixed Cppcheck and GCC warnings in can driver
 * 3.12  vlt  01/28/26 Fixed codespell issues.
+* 3.13  vn   09/08/26 Align Doxygen comments with AMD standards
 * </pre>
 *
 *****************************************************************************/
@@ -61,19 +63,19 @@ static u32 RxFrame[XCAN_MAX_FRAME_SIZE_IN_WORDS]; /**< RxFrame Buffer */
 /*****************************************************************************/
 /**
 *
-* This function runs a self-test on the CAN driver/device. The test resets
-* the device, sets up the Loop Back mode, sends a standard frame, receives the
+* @brief Runs a self-test on the CAN driver/device.
+*
+* The test resets the device, sets up the Loop Back mode, sends a standard frame, receives the
 * frame, verifies the contents, and resets the device again.
 *
 * Note that this is a destructive test in that resets of the device are
 * performed. Refer to the device specification for the device status
 * after the reset operation.
 *
-*
-* @param	InstancePtr is a pointer to the XCan instance to be worked on.
+* @param[in]	InstancePtr is a pointer to the XCan instance to be worked on.
 *
 * @return
-*		- XST_SUCCESS   if the self-test passed. i.e., the frame
+*		- XST_SUCCESS   if the self-test passed, that is, the frame
 *		received via the internal loop back has the same contents as the
 * 		sent frame.
 * 		- XST_FAILURE   Otherwise.

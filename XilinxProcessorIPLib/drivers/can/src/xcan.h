@@ -4,6 +4,9 @@
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
+#ifndef XCAN_H			/* prevent circular inclusions */
+#define XCAN_H			/* by using protection macros */
+
 /*****************************************************************************/
 /**
 *
@@ -35,7 +38,7 @@
 *
 * <b>Driver Description</b>
 *
-* The device driver enables higher layer software (e.g., an application) to
+* The device driver enables higher layer software (for example, an application) to
 * communicate to the CAN. The driver handles transmission and reception of
 * CAN frames, as well as configuration of the controller. The driver is simply a
 * pass-through mechanism between a protocol stack and the CAN. A single device
@@ -115,8 +118,7 @@
 *
 * <b>Threads</b>
 *
-* This driver is not thread safe.  Any needs for threads or thread mutual
-exclusion
+* This driver is not thread safe.  Any needs for threads or thread mutual exclusion
 * must be satisfied by the layer above this driver.
 *
 * <b>Device Reset</b>
@@ -177,12 +179,10 @@ exclusion
 * 3.7	ht   07/04/23 Added support for system device-tree flow.
 * 3.8   ht   12/13/23 Added support for ECC.
 * 3.12  vlt  12/30/25 Update Doxygen comments to include SDT flow details.
+* 3.13  vn   09/08/26 Align Doxygen comments with AMD standards
 * </pre>
 *
 ******************************************************************************/
-
-#ifndef XCAN_H			/* prevent circular inclusions */
-#define XCAN_H			/**< by using protection macros */
 
 #ifdef __cplusplus
 extern "C" {
@@ -216,6 +216,8 @@ extern "C" {
 /**************************** Type Definitions *******************************/
 
 /**
+ * @brief CAN device configuration structure.
+ *
  * This typedef contains configuration information for a device.
  */
 typedef struct {
@@ -235,42 +237,51 @@ typedef struct {
 
 /******************************************************************************/
 /**
-* Callback type for frame sending and reception interrupts.
 *
-* @param 	CallBackRef is a callback reference passed in by the upper layer
+* @brief Callback type for frame sending and reception interrupts.
+*
+* @param[in]	CallBackRef is a callback reference passed in by the upper layer
 *		when setting the callback functions, and passed back to the
 *		upper layer when the callback is invoked.
+*
 ******************************************************************************/
 typedef void (*XCan_SendRecvHandler) (void *CallBackRef);
 
 /******************************************************************************/
 /**
-* Callback type for error interrupt.
 *
-* @param	CallBackRef is a callback reference passed in by the upper layer
+* @brief Callback type for error interrupt.
+*
+* @param[in]	CallBackRef is a callback reference passed in by the upper layer
 *		when setting the callback functions, and passed back to the
 *		upper layer when the callback is invoked.
-* @param	ErrorMask is a bit mask indicating the cause of the error. Its
+* @param[in]	ErrorMask is a bit mask indicating the cause of the error. Its
 *		value equals 'OR'ing one or more XCAN_ESR_* values defined in
 *		xcan_l.h
+*
 ******************************************************************************/
 typedef void (*XCan_ErrorHandler) (void *CallBackRef, u32 ErrorMask);
 
 /******************************************************************************/
 /**
+*
+* @brief Callback type for all non-send, non-receive, non-error interrupts.
+*
 * Callback type for all kinds of interrupts except sending frame interrupt,
 * receiving frame interrupt, and error interrupt.
 *
-* @param	CallBackRef is a callback reference passed in by the upper layer
+* @param[in]	CallBackRef is a callback reference passed in by the upper layer
 *		when setting the callback functions, and passed back to the
 *		upper layer when the callback is invoked.
-* @param	Mask is a bit mask indicating the pending interrupts. Its value
+* @param[in]	Mask is a bit mask indicating the pending interrupts. Its value
 *		equals 'OR'ing one or more XCAN_IXR_* defined in xcan_l.h
+*
 ******************************************************************************/
 typedef void (*XCan_EventHandler) (void *CallBackRef, u32 Mask);
 
-
 /**
+ * @brief CAN driver instance data structure.
+ *
  * The XCan driver instance data. The user is required to allocate a
  * variable of this type for every CAN device in the system. A pointer
  * to a variable of this type is then passed to the driver API functions.
@@ -327,15 +338,14 @@ typedef struct {
 	u64 ecc_1bit_rxfifo_cnt;
 } XCan;
 
-
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /****************************************************************************/
 /**
 *
-* This macro checks if the transmission is complete.
+* @brief Checks if the transmission is complete.
 *
-* @param	InstancePtr is a pointer to the XCan instance to be worked on.
+* @param[in]	InstancePtr is a pointer to the XCan instance to be worked on.
 *
 * @return
 *		- TRUE if the transmission is done (completed).
@@ -353,9 +363,9 @@ typedef struct {
 /****************************************************************************/
 /**
 *
-* This macro checks if the transmission FIFO is full.
+* @brief Checks if the transmission FIFO is full.
 *
-* @param	InstancePtr is a pointer to the XCan instance to be worked on.
+* @param[in]	InstancePtr is a pointer to the XCan instance to be worked on.
 *
 * @return
 *		- TRUE if TX FIFO is full.
@@ -373,9 +383,9 @@ typedef struct {
 /****************************************************************************/
 /**
 *
-* This macro checks if the Transmission High Priority Buffer is full.
+* @brief Checks if the Transmission High Priority Buffer is full.
 *
-* @param	InstancePtr is a pointer to the XCan instance to be worked on.
+* @param[in]	InstancePtr is a pointer to the XCan instance to be worked on.
 *
 * @return
 *		- TRUE if TX High Priority Buffer is full.
@@ -393,9 +403,9 @@ typedef struct {
 /****************************************************************************/
 /**
 *
-* This macro checks if the receive FIFO is empty.
+* @brief Checks if the receive FIFO is empty.
 *
-* @param	InstancePtr is a pointer to the XCan instance to be worked on.
+* @param[in]	InstancePtr is a pointer to the XCan instance to be worked on.
 *
 * @return
 *		- TRUE if RX FIFO is empty.
@@ -413,14 +423,16 @@ typedef struct {
 /****************************************************************************/
 /**
 *
-* This macro checks if the CAN device is ready for the driver to change
+* @brief Checks if the CAN device is ready for acceptance filter changes.
+*
+* Checks if the CAN device is ready for the driver to change
 * Acceptance Filter Identifier Registers (AFIR) and Acceptance Filter Mask
 * Registers (AFMR).
 *
 * AFIR and AFMR for a filter are changeable only after the filter is disabled
 * and this routine returns FALSE.
 *
-* @param	InstancePtr is a pointer to the XCan instance to be worked on.
+* @param[in]	InstancePtr is a pointer to the XCan instance to be worked on.
 *
 * @return
 *		- TRUE if the device is busy and NOT ready to accept writes to
@@ -440,15 +452,14 @@ typedef struct {
 /****************************************************************************/
 /**
 *
-* This macro calculates CAN message identifier value given identifier field
-* values.
+* @brief Calculates CAN message identifier value given identifier field values.
 *
-* @param	StandardId contains Standard Message ID value.
-* @param	SubRemoteTransReq contains Substitute Remote Transmission
+* @param[in]	StandardId contains Standard Message ID value.
+* @param[in]	SubRemoteTransReq contains Substitute Remote Transmission
 *		Request value.
-* @param	IdExtension contains Identifier Extension value.
-* @param	ExtendedId contains Extended Message ID value.
-* @param	RemoteTransReq contains Remote Transmission Request value.
+* @param[in]	IdExtension contains Identifier Extension value.
+* @param[in]	ExtendedId contains Extended Message ID value.
+* @param[in]	RemoteTransReq contains Remote Transmission Request value.
 *
 * @return	Message Identifier value.
 *
@@ -471,10 +482,9 @@ typedef struct {
 /****************************************************************************/
 /**
 *
-* This macro calculates value for Data Length Code register given Data
-* Length Code value.
+* @brief Calculates value for Data Length Code register.
 *
-* @param	DataLengCode indicates Data Length Code value.
+* @param[in]	DataLengCode indicates Data Length Code value.
 *
 * @return	Value that can be assigned to Data Length Code register.
 *

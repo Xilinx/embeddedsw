@@ -10,6 +10,7 @@
 * @file xcan_config.c
 * @addtogroup can Overview
 * @{
+* @brief Implements CAN Configuration Register access functions.
 *
 * Functions in this file are CAN Configuration Register access related.
 *
@@ -23,6 +24,7 @@
 * 2.00a ktn  10/22/09 Updated to use the HAL APIs/macros.
 *		      The macros have been renamed to remove _m from the name.
 * 3.13  vn   07/30/26 Fix Doxygen warnings
+* 3.13  vn   09/08/26 Align Doxygen comments with AMD standards
 * </pre>
 ******************************************************************************/
 
@@ -44,7 +46,9 @@
 /*****************************************************************************/
 /**
 *
-* This routine sets Baud Rate Prescaler value. The system clock for the CAN
+* @brief Sets the Baud Rate Prescaler value.
+*
+* The system clock for the CAN
 * controller is divided by (Prescaler + 1) to generate the quantum clock
 * needed for sampling and synchronization. Read the device specification
 * for details.
@@ -53,15 +57,13 @@
 * Mode. So please call XCan_EnterMode() to enter Configuration Mode before
 * using this function.
 *
-* @param	InstancePtr is a pointer to the XCan instance to be worked on.
-* @param	Prescaler is the value to set. Valid values are from 0 to 255.
+* @param[in]	InstancePtr is a pointer to the XCan instance to be worked on.
+* @param[in]	Prescaler is the value to set. Valid values are from 0 to 255.
 *
 * @return
 *		- XST_SUCCESS if the Baud Rate Prescaler value is set
 *		successfully.
 *		- XST_FAILURE if CAN device is not in Configuration Mode.
-*
-* @note		None.
 *
 ******************************************************************************/
 int XCan_SetBaudRatePrescaler(XCan *InstancePtr, u8 Prescaler)
@@ -86,17 +88,17 @@ int XCan_SetBaudRatePrescaler(XCan *InstancePtr, u8 Prescaler)
 /*****************************************************************************/
 /**
 *
-* This routine gets Baud Rate Prescaler value. The system clock for the CAN
+* @brief Returns the Baud Rate Prescaler value.
+*
+* The system clock for the CAN
 * controller is divided by (Prescaler + 1) to generate the quantum clock
 * needed for sampling and synchronization. Read the device specification for
 * details.
 *
-* @param	InstancePtr is a pointer to the XCan instance to be worked on.
+* @param[in]	InstancePtr is a pointer to the XCan instance to be worked on.
 *
 * @return	Current used Baud Rate Prescaler value. The value's range is
 *		from 0 to 255.
-*
-* @note		None.
 *
 ******************************************************************************/
 u8 XCan_GetBaudRatePrescaler(XCan *InstancePtr)
@@ -114,7 +116,9 @@ u8 XCan_GetBaudRatePrescaler(XCan *InstancePtr)
 /*****************************************************************************/
 /**
 *
-* This routine sets Bit time. Time segment 1, Time segment 2 and
+* @brief Sets the Bit Timing Register values.
+*
+* Time segment 1, Time segment 2 and
 * Synchronization Jump Width are set in this function. Device specification
 * requires the values passed into this function be one less than the actual
 * values of these fields. Read the device specification for details.
@@ -123,12 +127,12 @@ u8 XCan_GetBaudRatePrescaler(XCan *InstancePtr)
 * Please call XCan_EnterMode() to enter Configuration Mode before using this
 * function.
 *
-* @param	InstancePtr is a pointer to the XCan instance to be worked on.
-* @param	SyncJumpWidth is the Synchronization Jump Width value to set.
+* @param[in]	InstancePtr is a pointer to the XCan instance to be worked on.
+* @param[in]	SyncJumpWidth is the Synchronization Jump Width value to set.
 *		Valid values are from 0 to 3.
-* @param	TimeSegment2 is the Time Segment 2 value to set. Valid values
+* @param[in]	TimeSegment2 is the Time Segment 2 value to set. Valid values
 *		are from 0 to 7.
-* @param	TimeSegment1 is the Time Segment 1 value to set. Valid values
+* @param[in]	TimeSegment1 is the Time Segment 1 value to set. Valid values
 *		are from 0 to 15.
 *
 * @return
@@ -136,8 +140,6 @@ u8 XCan_GetBaudRatePrescaler(XCan *InstancePtr)
 *		- XST_FAILURE if CAN device is not in Configuration Mode.
 * 		- XST_INVALID_PARAM if any value of SyncJumpWidth, TimeSegment2
 *		and TimeSegment1 is invalid.
-*
-* @note		None.
 *
 ******************************************************************************/
 int XCan_SetBitTiming(XCan *InstancePtr, u8 SyncJumpWidth,
@@ -170,20 +172,20 @@ int XCan_SetBitTiming(XCan *InstancePtr, u8 SyncJumpWidth,
 /*****************************************************************************/
 /**
 *
-* This routine gets Bit time. Time segment 1, Time segment 2 and
+* @brief Reads the Bit Timing Register values.
+*
+* Time segment 1, Time segment 2 and
 * Synchronization Jump Width values are read in this function. According to
 * device specification, the actual value of each of these fields is one
 * more than the value read. Read the device specification for details.
 *
-* @param	InstancePtr is a pointer to the XCan instance to be worked on.
-* @param	SyncJumpWidth will store the Synchronization Jump Width value
+* @param[in]	InstancePtr is a pointer to the XCan instance to be worked on.
+* @param[out]	SyncJumpWidth will store the Synchronization Jump Width value
 *		after this function returns. Its value ranges from 0 to 3.
-* @param	TimeSegment2 will store the Time Segment 2 value after this
+* @param[out]	TimeSegment2 will store the Time Segment 2 value after this
 *		function returns. Its value ranges from 0 to 7.
-* @param	TimeSegment1 will store the Time Segment 1 value after this
+* @param[out]	TimeSegment1 will store the Time Segment 1 value after this
 *		function returns. Its value ranges from 0 to 15.
-*
-* @note		None.
 *
 ******************************************************************************/
 void XCan_GetBitTiming(XCan *InstancePtr, u8 *SyncJumpWidth,

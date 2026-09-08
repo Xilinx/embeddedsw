@@ -1,8 +1,11 @@
 /******************************************************************************
 * Copyright (C) 2005 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
+
+#ifndef XCAN_L_H		/* prevent circular inclusions */
+#define XCAN_L_H		/* by using protection macros */
 
 /*****************************************************************************/
 /**
@@ -10,6 +13,7 @@
 * @file xcan_l.h
 * @addtogroup can Overview
 * @{
+* @brief Low-level CAN hardware register definitions and access macros.
 *
 * This header file contains the identifiers and basic driver functions (or
 * macros) that can be used to access the device. Other driver functions
@@ -25,13 +29,11 @@
 * 2.00a ktn  10/22/09 Updated to use the HAL APIs/macros.
 *		      The macros have been renamed to remove _m from the name.
 * 3.8   ht   12/13/23 Added support for ECC.
+* 3.13  vn   09/08/26 Align Doxygen comments with AMD standards
 *
 * </pre>
 *
 ******************************************************************************/
-
-#ifndef XCAN_L_H		/* prevent circular inclusions */
-#define XCAN_L_H		/**< by using protection macros */
 
 #ifdef __cplusplus
 extern "C" {
@@ -294,10 +296,12 @@ Mask/Acceptance Filter ID)
 /****************************************************************************/
 /**
 *
+* @brief Reads the given register.
+*
 * This macro reads the given register.
 *
-* @param	BaseAddress is the base address of the device
-* @param	RegOffset is the register offset to be read
+* @param[in] BaseAddress is the base address of the device
+* @param[in] RegOffset is the register offset to be read
 *
 * @return	The 32-bit value of the register
 *
@@ -312,13 +316,13 @@ Mask/Acceptance Filter ID)
 /****************************************************************************/
 /**
 *
+* @brief Writes the given register.
+*
 * This macro writes the given register.
 *
-* @param	BaseAddress is the base address of the device
-* @param	RegOffset is the register offset to be written
-* @param	Data is the 32-bit value to write to the register
-*
-* @return	None.
+* @param[in] BaseAddress is the base address of the device
+* @param[in] RegOffset is the register offset to be written
+* @param[in] Data is the 32-bit value to write to the register
 *
 * @note		C-Style signature:
 *		u32 XCan_WriteReg(u32 BaseAddress, u32 RegOffset, u32 Data);

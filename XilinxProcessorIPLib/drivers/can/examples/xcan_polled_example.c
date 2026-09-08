@@ -4,7 +4,7 @@
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
-/****************************************************************************/
+/*****************************************************************************/
 /**
 *
 * @file xcan_polled_example.c
@@ -13,7 +13,6 @@
 * shows using the driver/device in polled mode.
 *
 * @note
-*
 *
 * The Baud Rate Prescaler Register (BRPR) and Bit Timing Register (BTR)
 * are setup such that CAN baud rate equals 40Kbps, assuming that the
@@ -37,6 +36,7 @@
 * 3.11  sp     21/07/25 Fix GCC Warnings.
 * 3.12  vlt  12/12/25 Update Doxygen comments to include SDT flow details.
 * 3.13  vn   07/30/26 Fix Doxygen warnings
+* 3.13  vn   09/08/26 Align Doxygen comments with AMD standards
 * </pre>
 *
 ******************************************************************************/
@@ -120,15 +120,14 @@ static XCan Can;
 /*****************************************************************************/
 /**
 *
+* @brief Runs the CAN polled example.
+*
 * Main function to call the example. This function is not included if the
 * example is generated from the TestAppGen test tool.
-*
 *
 * @return
 *		- XST_SUCCESS if the example has completed successfully.
 *		- XST_FAILURE if the example has failed.
-*
-* @note		None
 *
 ******************************************************************************/
 #ifndef TESTAPP_GEN
@@ -156,19 +155,21 @@ int main(void)
 /*****************************************************************************/
 /**
 *
+* @brief Demonstrates the XCan driver in polled mode.
+*
 * The entry point for showing the XCan driver in polled mode. The example
 * configures the device for internal loopback mode, then sends a Can
 * frame, receives the same Can frame, and verifies the frame contents.
 *
 * @if SDT
-* @param	CanPtr is a pointer to the XCan instance
-* @param	BaseAddress contains the base address of the device
+* @param[in]	CanPtr is a pointer to the XCan instance.
+* @param[in]	BaseAddress contains the base address of the device.
 * @else
-* @param	DeviceId is the XPAR_CAN_<instance_num>_DEVICE_ID value from
+* @param[in]	DeviceId is the XPAR_CAN_<instance_num>_DEVICE_ID value from
 *		xparameters.h.
 * @endif
 *
-* @return       XST_SUCCESS if successful, otherwise driver-specific error code.
+* @return	XST_SUCCESS if successful, otherwise driver-specific error code.
 *
 * @note        - In XSCT/classic flow, DeviceId is used to look up the device
 *              configuration.
@@ -247,9 +248,9 @@ int XCanPolledExample(XCan *CanPtr, UINTPTR BaseAddress)
 /*****************************************************************************/
 /**
 *
-* Send a CAN frame.
+* @brief Sends a CAN frame.
 *
-* @param	InstancePtr is a pointer to the driver instance
+* @param[in]	InstancePtr is a pointer to the driver instance.
 *
 * @return	XST_SUCCESS if successful, a driver-specific return code if not.
 *
@@ -300,9 +301,9 @@ static int SendFrame(XCan *InstancePtr)
 /*****************************************************************************/
 /**
 *
-* This function receives a frame and verifies its contents.
+* @brief Receives a CAN frame and verifies its contents.
 *
-* @param	InstancePtr is a pointer to the driver instance
+* @param[in]	InstancePtr is a pointer to the driver instance.
 *
 * @return	XST_SUCCESS if successful, a driver-specific return code if not.
 *

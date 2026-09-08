@@ -10,6 +10,7 @@
 * @file xcan_intr.c
 * @addtogroup can Overview
 * @{
+* @brief Implements CAN interrupt handling functions.
 *
 * This file contains functions related to CAN interrupt handling.
 *
@@ -25,6 +26,7 @@
 * 3.8   ht   12/13/23 Modify XCan_InterruptEnable to enable the interrupts.
 * 3.8	ht   12/13/23 Added support for ECC.
 * 3.13  vn   07/30/26 Fix Doxygen warnings
+* 3.13  vn   09/08/26 Align Doxygen comments with AMD standards
 * </pre>
 *
 ******************************************************************************/
@@ -51,16 +53,15 @@
 /****************************************************************************/
 /**
 *
-* This routine enables interrupt(s). Use the XCAN_IXR_* constants defined in
+* @brief Enables the specified CAN interrupts.
+*
+* Use the XCAN_IXR_* constants defined in
 * xcan_l.h to create the bit-mask to enable interrupts.
 *
-*
-* @param	InstancePtr is a pointer to the XCan instance to be worked on.
-* @param	Mask is the mask to enable. Bit positions of 1 will be enabled.
+* @param[in]	InstancePtr is a pointer to the XCan instance to be worked on.
+* @param[in]	Mask is the mask to enable. Bit positions of 1 will be enabled.
 *		Bit positions of 0 will keep the previous setting. This mask is
 *		formed by OR'ing XCAN_IXR_* bits defined in xcan_l.h.
-*
-* @note		None.
 *
 *****************************************************************************/
 void XCan_InterruptEnable(XCan *InstancePtr, u32 Mask)
@@ -75,17 +76,16 @@ void XCan_InterruptEnable(XCan *InstancePtr, u32 Mask)
 /****************************************************************************/
 /**
 *
-* This routine disables interrupt(s). Use the XCAN_IXR_* constants defined in
+* @brief Disables the specified CAN interrupts.
+*
+* Use the XCAN_IXR_* constants defined in
 * xcan_l.h to create the bit-mask to disable interrupt(s).
 *
-*
-* @param	InstancePtr is a pointer to the XCan instance to be worked on.
-* @param	Mask is the mask to disable. Bit positions of 1 will be
+* @param[in]	InstancePtr is a pointer to the XCan instance to be worked on.
+* @param[in]	Mask is the mask to disable. Bit positions of 1 will be
 *		disabled. Bit positions of 0 will keep the previous setting.
 *		This mask is formed by OR'ing XCAN_IXR_* bits defined in
 *		xcan_l.h.
-*
-* @note		None.
 *
 *****************************************************************************/
 void XCan_InterruptDisable(XCan *InstancePtr, u32 Mask)
@@ -108,14 +108,14 @@ void XCan_InterruptDisable(XCan *InstancePtr, u32 Mask)
 /****************************************************************************/
 /**
 *
-* This routine returns enabled interrupt(s). Use the XCAN_IXR_* constants
+* @brief Returns the currently enabled CAN interrupts.
+*
+* Use the XCAN_IXR_* constants
 * defined in xcan_l.h to interpret the returned value.
 *
-* @param	InstancePtr is a pointer to the XCan instance to be worked on.
+* @param[in]	InstancePtr is a pointer to the XCan instance to be worked on.
 *
 * @return	Enabled interrupt(s) in a 32-bit format.
-*
-* @note		None.
 *
 *****************************************************************************/
 u32 XCan_InterruptGetEnabled(XCan *InstancePtr)
@@ -134,15 +134,14 @@ u32 XCan_InterruptGetEnabled(XCan *InstancePtr)
 /****************************************************************************/
 /**
 *
-* This routine returns interrupt status read from Interrupt Status Register.
+* @brief Returns the interrupt status from the Interrupt Status Register.
+*
 * Use the XCAN_IXR_* constants defined in xcan_l.h to interpret the returned
 * value.
 *
-* @param	InstancePtr is a pointer to the XCan instance to be worked on.
+* @param[in]	InstancePtr is a pointer to the XCan instance to be worked on.
 *
 * @return	The value stored in Interrupt Status Register.
-*
-* @note		None.
 *
 *****************************************************************************/
 u32 XCan_InterruptGetStatus(XCan *InstancePtr)
@@ -160,18 +159,18 @@ u32 XCan_InterruptGetStatus(XCan *InstancePtr)
 /****************************************************************************/
 /**
 *
-* This function clears interrupt(s). Every bit set in Interrupt Status
+* @brief Clears the specified pending CAN interrupts.
+*
+* Every bit set in Interrupt Status
 * Register indicates that a specific type of interrupt is occurring, and this
 * function clears one or more interrupts by writing a bit mask to Interrupt
 * Clear Register.
 *
-* @param	InstancePtr is a pointer to the XCan instance to be worked on.
-* @param	Mask is the mask to clear. Bit positions of 1 will be cleared.
+* @param[in]	InstancePtr is a pointer to the XCan instance to be worked on.
+* @param[in]	Mask is the mask to clear. Bit positions of 1 will be cleared.
 *		Bit positions of 0 will not change the previous interrupt
 *		status. This mask is formed by OR'ing XCAN_IXR_* bits defined in
 *		xcan_l.h.
-*
-* @note		None.
 *
 *****************************************************************************/
 void XCan_InterruptClear(XCan *InstancePtr, u32 Mask)
@@ -194,7 +193,7 @@ void XCan_InterruptClear(XCan *InstancePtr, u32 Mask)
 /*****************************************************************************/
 /**
 *
-* This routine is the interrupt handler for the CAN driver.
+* @brief Handles CAN interrupts.
 *
 * This handler reads the interrupt status from the ISR, determines the source of
 * the interrupts, calls according callbacks, and finally clears the interrupts.
@@ -204,10 +203,8 @@ void XCan_InterruptClear(XCan *InstancePtr, u32 Mask)
 * initialization phase. An example delivered with this driver demonstrates how
 * this could be done.
 *
-* @param	InstancePtr is a pointer to the XCan instance that just
+* @param[in]	InstancePtr is a pointer to the XCan instance that just
 *		interrupted.
-*
-* @note		None.
 *
 ******************************************************************************/
 void XCan_IntrHandler(void *InstancePtr)
@@ -303,8 +300,7 @@ void XCan_IntrHandler(void *InstancePtr)
 /*****************************************************************************/
 /**
 *
-* This routine installs an asynchronous callback function for the given
-* HandlerType:
+* @brief Installs an asynchronous callback function for the specified handler type.
 *
 * <pre>
 * HandlerType              Callback Function Type
@@ -327,10 +323,10 @@ void XCan_IntrHandler(void *InstancePtr)
 * XCAN_HANDLER_EVENT       Any other kind of interrupt is occurring.
 * </pre>
 *
-* @param	InstancePtr is a pointer to the XCan instance to be worked on.
-* @param	HandlerType specifies which handler is to be attached.
-* @param	CallBackFunc is the address of the callback function.
-* @param	CallBackRef is a user data item that will be passed to the
+* @param[in]	InstancePtr is a pointer to the XCan instance to be worked on.
+* @param[in]	HandlerType specifies which handler is to be attached.
+* @param[in]	CallBackFunc is the address of the callback function.
+* @param[in]	CallBackRef is a user data item that will be passed to the
 *		callback function when it is invoked.
 *
 * @return
