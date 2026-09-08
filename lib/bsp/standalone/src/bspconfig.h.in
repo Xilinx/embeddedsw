@@ -2,48 +2,290 @@
 * Copyright (c) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
+
+/**
+ * @file bspconfig.h
+ * @brief BSP configuration macros.
+ *
+ * This file is generated from bspconfig.h.in by CMake.
+ */
+
 #ifndef BSPCONFIG_H
 #define BSPCONFIG_H
 
 #include "xmem_config.h"
+
+/**
+* @brief Enables the Xilinx timer support.
+*
+* Always defined for standalone BSPs.
+*/
 #define XPAR_XILTIMER_ENABLED
+
+/**
+* @brief Includes the processor-system parameter definitions when required.
+*
+* The XPAR_PS_INCLUDE placeholder expands to an include directive for
+* xparameters_ps.h for supported processor systems and remains empty otherwise.
+*/
 @XPAR_PS_INCLUDE@
+/* End of xparameters_ps.h include. */
+
+
+/**
+* @brief Includes the FreeRTOS UART configuration header when required.
+*
+* The FREERTOS_UARTCONFIG_INCLUDE placeholder expands to an include
+* directive for FreeRTOSUARTConfig.h. This include is generated only for
+* FreeRTOS-targeted BSPs and remains empty otherwise.
+*/
 @FREERTOS_UARTCONFIG_INCLUDE@
+/* End of FreeRTOSUARTConfig.h include. */
 
 #if (defined (__aarch64__) || defined (ARMA53_32)) && !defined (FREERTOS_BSP)
+/**
+* @brief Indicates that the BSP is configured to run in EL3.
+*
+* The generated value is 1 when this mode is enabled.
+*/
 #cmakedefine01 EL3 @EL3@
+
+/**
+* @brief Indicates that the BSP is configured to run in EL1 non-secure mode.
+*
+* The generated value is 1 when this mode is enabled.
+*/
 #cmakedefine01 EL1_NONSECURE @EL1_NONSECURE@
+
+/**
+* @brief Indicates that the BSP is configured to run as a hypervisor guest.
+*
+* The generated value is 1 when this mode is enabled.
+*/
 #cmakedefine01 HYP_GUEST @HYP_GUEST@
 #endif
 
+/**
+* @brief Defines the Versal platform family.
+*
+* Defined for all platforms from the Versal family onwards, covers Versal
+* ACAP devices, Versal 2VP devices and their variants, Versal-Net devices,
+* and Versal 2VE and 2VM devices.
+*/
 #cmakedefine versal @versal@
+
+/**
+* @brief Defines the Versal platform family.
+*
+* This redundant definition is retained for backward compatibility because
+* some sources already use the uppercase VERSAL macro. It follows the all-caps
+* syntax used by the other platform definitions for consistency.
+*/
 #cmakedefine VERSAL @VERSAL@
+
+/**
+* @brief Defines platform families containing Cortex-A78 and Cortex-R52
+* processing cores.
+*
+* This macro is defined for Versal Net and Versal 2VE and 2VM devices and
+* helps distinguishing these devices from Versal ACAP devices.
+*/
 #cmakedefine VERSAL_NET @VERSAL_NET@
-#cmakedefine VERSAL_AIEPG2 @VERSAL_AIEPG2@
+
+/**
+* @brief Defines the Versal 2VE and 2VM platform family.
+*
+* Defined for Versal 2VE and 2VM devices.
+* Helps distinguish Versal 2VE and 2VM devices from Versal Net devices.
+*/
 #cmakedefine VERSAL_2VE_2VM @VERSAL_2VE_2VM@
+
+/**
+* @brief Defines the Versal 2VE and 2VM platform family.
+*
+* Defined for Versal 2VE and 2VM devices. This macro is redundant and
+* deprecated, and is retained here only for backward compatibility.
+*/
+#cmakedefine VERSAL_AIEPG2 @VERSAL_AIEPG2@
+
+/**
+* @brief Defines the SpartanUP platform family.
+*
+* Defined when the BSP targets the spartanuplus machine.
+*/
 #cmakedefine SPARTANUP @SPARTANUP@
-#cmakedefine PSU_PMU @PSU_PMU@
+
+/**
+* @brief Defines the Zynq UltraScale+ MPSoC platform family.
+*
+* Defined when the BSP targets a ZynqMP machine.
+*/
 #cmakedefine PLATFORM_ZYNQMP @PLATFORM_ZYNQMP@
-#cmakedefine XCLOCKING @XCLOCKING@
+
+/**
+* @brief Defines the Zynq-7000 platform family.
+*
+* Defined when the BSP targets a Zynq machine.
+*/
 #cmakedefine PLATFORM_ZYNQ @PLATFORM_ZYNQ@
-#cmakedefine VERSAL_PLM @VERSAL_PLM@
-#cmakedefine VERSALNET_PLM @VERSALNET_PLM@
+
+/**
+* @brief Defines the MicroBlaze platform family.
+*
+* Defined for the MicroBlaze processor.
+*/
 #cmakedefine PLATFORM_MB @PLATFORM_MB@
+
+/**
+* @brief Indicates that the BSP targets the ZynqMP platform management unit.
+*
+* Defined for the PMU MicroBlaze processor.
+*/
+#cmakedefine PSU_PMU @PSU_PMU@
+
+/**
+* @brief Indicates that the BSP targets the Versal platform loader and manager.
+*
+* Defined for the PLM MicroBlaze processor.
+*/
+#cmakedefine VERSAL_PLM @VERSAL_PLM@
+
+/**
+* @brief Indicates that the BSP targets the Versal Net platform loader and manager.
+*
+* Defined for the PLM MicroBlaze processor on a Versal Net machine.
+*/
+#cmakedefine VERSALNET_PLM @VERSALNET_PLM@
+
+/**
+* @brief Indicates that the ASUFW application template is selected for the
+* BSP.
+*
+* Defined when the ASUFW application template is selected.
+*/
 #cmakedefine ASUFW @ASUFW@
+
+/**
+* @brief Enables clocking support.
+*
+* Defined when clocking is enabled for a supported ZynqMP processor.
+*/
+#cmakedefine XCLOCKING @XCLOCKING@
+
+/**
+* @brief Identifies the processor core associated with the BSP.
+*/
 #define XPAR_CPU_ID ${CPU_ID_VAL}
+
+/**
+* @brief Indicates that Xilinx interrupt support is enabled.
+*
+* Defined when link-time optimization and Versal PSM MicroBlaze builds are
+* not being used.
+*/
 #cmakedefine XIL_INTERRUPT @XIL_INTERRUPT@
+
+/**
+* @brief Indicates that Xilinx power management support is enabled.
+*
+* Defined when XPM support is enabled for Versal and Versal onwards devices.
+*/
 #cmakedefine XPM_SUPPORT @XPM_SUPPORT@
+
+/**
+* @brief Enables a translation table limited to the initial 4 TB address space.
+*
+* Defined by default for Cortex-A78 BSPs. This reduces the translation table
+* size by approximately 1 MB and must be disabled when peripherals or
+* memory-mapped regions beyond 4 TB are required.
+*/
 #cmakedefine ENABLE_MINIMAL_XLAT_TBL
+
+/**
+* @brief Enables splitting the 2 MB memory block from 0xFFE00000 to
+* 0xFFFFFFFF into 4 KB pages.
+*
+* Defined only for Cortex-A53 BSPs targeting a ZynqMP machine and disabled by
+* default. When enabled, the linker script must reference the MMU entries
+* through a .mmu_tbl3 section.
+*/
 #cmakedefine ENABLE_4K_PAGES_OCM_TCM @ENABLE_4K_PAGES_OCM_TCM@
+
+/**
+* @brief Indicates that standard input is connected to a UART Lite device.
+*
+* Defined when the selected standard input device is a UART Lite instance.
+*/
 #cmakedefine XPAR_STDIN_IS_UARTLITE @XPAR_STDIN_IS_UARTLITE@
+
+/**
+* @brief Indicates that standard input is connected to a UART 16550 device.
+*
+* Defined when the selected standard input device is a UART 16550 instance.
+*/
 #cmakedefine XPAR_STDIN_IS_UARTNS550 @XPAR_STDIN_IS_UARTNS550@
+
+/**
+* @brief Indicates that standard input is connected to a UART PS device.
+*
+* Defined when the selected standard input device is a UART PS instance.
+*/
 #cmakedefine XPAR_STDIN_IS_UARTPS @XPAR_STDIN_IS_UARTPS@
+
+/**
+* @brief Indicates that standard input is connected to a UART PS device.
+*
+* Defined when the selected standard input device is a Versal UART PS
+* instance.
+*/
 #cmakedefine XPAR_STDIN_IS_UARTPSV @XPAR_STDIN_IS_UARTPSV@
+
+/**
+* @brief Indicates that standard input is connected to the CoreSight PS DCC.
+*
+* Defined when the selected standard input device is a CoreSight PS DCC
+* instance.
+*/
 #cmakedefine XPAR_STDIN_IS_CORESIGHTPS_DCC @XPAR_STDIN_IS_CORESIGHTPS_DCC@
+
+/**
+* @brief Indicates that standard input is connected to an I/O module.
+*
+* Defined when the selected standard input device is an I/O module instance.
+*/
 #cmakedefine XPAR_STDIN_IS_IOMODULE @XPAR_STDIN_IS_IOMODULE@
+
+/**
+* @brief Defines the base address used for standard input.
+*
+* Defined when a standard input device is selected.
+*/
 #cmakedefine STDIN_BASEADDRESS @STDIN_BASEADDRESS@
+
+/**
+* @brief Defines the base address used for standard output.
+*
+* Defined when a standard output device is selected.
+*/
 #cmakedefine STDOUT_BASEADDRESS @STDOUT_BASEADDRESS@
 
+/**
+* @brief Defines one or more macros for hardware platform variants.
+*
+* The following generated block may contain multiple definitions. Each macro
+* is generated from the variant property in the system device tree and
+* identifies a variant-specific hardware configuration.
+* For example,
+*   - SPARTANUPLUSAES1 is defined for a variant of the SPARTANUP family.
+*   - SPARTANUPLUS is defined as a redundant macro for the SPARTANUP family
+*     using the same variant property from the device tree for backward
+*     compatibility.
+*   - VERSAL_2VP is defined for the Versal 2VP family to help distinguish 2VP
+*     variants from Versal ACAP devices.
+*   - VERSAL_2VP_P is defined for a variant of the Versal 2VP family to help
+*     distinguish 2VP_P variants from 2VP variants.
+*/
 @VARIANT_DEFINES@
+/* End of variant-specific definitions. */
 
 #endif /* BSPCONFIG_H */
