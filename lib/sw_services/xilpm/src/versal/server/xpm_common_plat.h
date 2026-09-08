@@ -72,7 +72,8 @@ extern "C" {
 /**
  * Get a value at each bits to tell if skipping house cleaning function for given block
  * BLOCK are one of these(can be found under xpm_regs.h):
- *		LPD, FPD, NPD, AIE, CPM, PLD, VDU, GT, HNIC, DDRMC, BFR, SDFEC, ILKN, PMC.
+ *		LPD, FPD, NPD, AIE, CPM, PLD, VDU, GT, HNIC, DDRMC, BFR, SDFEC,
+ *		ILKN, PMC, DAC, ADC, UCIE.
  *
  */
 #define PM_DISABLE_HOUSECLEAN_GET(BLOCK)( \
@@ -83,7 +84,8 @@ extern "C" {
  * Note:  The condition is evaluated redundantly to avoid glitches from altering
  * branching decision.
  * BLOCK are one of these(can be found under xpm_regs.h):
- *		LPD, FPD, NPD, AIE, CPM, PLD, VDU, GT, HNIC, DDRMC, BFR, SDFEC, ILKN, PMC.
+ *		LPD, FPD, NPD, AIE, CPM, PLD, VDU, GT, HNIC, DDRMC, BFR, SDFEC,
+ *		ILKN, PMC, DAC, ADC, UCIE.
  * FUNC are one of these:
  *	SCAN, BISR, MBIST, LBIST, PLHC
  */

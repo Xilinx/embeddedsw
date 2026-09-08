@@ -1348,6 +1348,19 @@ extern "C" {
 							) \
 						)
 
+/** Register holding the UCIe housecleaning disable mask */
+#define PM_HOUSECLEAN_DISABLE_UCIE_BASEADDR	(PM_HOUSECLEAN_DISABLE_REG_3)
+/** Bit offset of the UCIe housecleaning disable mask */
+#define PM_HOUSECLEAN_DISABLE_UCIE_OFFSET	(4U)
+/** Bit width of the UCIe housecleaning disable mask */
+#define PM_HOUSECLEAN_DISABLE_UCIE_WIDTH	(3U)
+/** UCIe housecleaning disable mask */
+#define PM_HOUSECLEAN_DISABLE_UCIE_MASK		(BITNMASK( \
+							PM_HOUSECLEAN_DISABLE_UCIE_OFFSET, \
+							PM_HOUSECLEAN_DISABLE_UCIE_WIDTH \
+							) \
+						)
+
 #define HOUSECLEAN_DISABLE_DEFAULT_MASK			(0x00000000U)
 #define HOUSECLEAN_FUNC_DISABLE_SCAN_MASK		(0x1U)
 #define HOUSECLEAN_FUNC_DISABLE_BISR_MASK		(0x2U)

@@ -1863,18 +1863,24 @@ static XStatus UcieHouseClean(u32 PollTimeOut)
 		goto done;
 	}
 
-	Status = UcieScanClear(UcieDevices,
-			       ARRAY_SIZE(UcieDevices), PollTimeOut);
-	if (XST_SUCCESS != Status) {
-		DbgErr = XPM_INT_ERR_UCIE_SCAN_CLEAR;
-		goto done;
+	/* Run scan clear for each UCIE if houseclean disable mask not set */
+	if (PM_HOUSECLEAN_CHECK(UCIE, SCAN)) {
+		Status = UcieScanClear(UcieDevices,
+				       ARRAY_SIZE(UcieDevices), PollTimeOut);
+		if (XST_SUCCESS != Status) {
+			DbgErr = XPM_INT_ERR_UCIE_SCAN_CLEAR;
+			goto done;
+		}
 	}
 
-	Status = UcieMemClear(UcieDevices,
-			      ARRAY_SIZE(UcieDevices), PollTimeOut);
-	if (XST_SUCCESS != Status) {
-		DbgErr = XPM_INT_ERR_UCIE_MEM_CLEAR;
-		goto done;
+	/* Run mem clear for each UCIE if houseclean disable mask not set */
+	if (PM_HOUSECLEAN_CHECK(UCIE, MBIST)) {
+		Status = UcieMemClear(UcieDevices,
+				      ARRAY_SIZE(UcieDevices), PollTimeOut);
+		if (XST_SUCCESS != Status) {
+			DbgErr = XPM_INT_ERR_UCIE_MEM_CLEAR;
+			goto done;
+		}
 	}
 
 	Status = UcieReleaseInitState(UcieDevices, ARRAY_SIZE(UcieDevices));
