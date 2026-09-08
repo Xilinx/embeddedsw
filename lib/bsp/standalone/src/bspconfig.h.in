@@ -48,21 +48,21 @@
 *
 * The generated value is 1 when this mode is enabled.
 */
-#cmakedefine01 EL3 @EL3@
+#cmakedefine01 EL3
 
 /**
 * @brief Indicates that the BSP is configured to run in EL1 non-secure mode.
 *
 * The generated value is 1 when this mode is enabled.
 */
-#cmakedefine01 EL1_NONSECURE @EL1_NONSECURE@
+#cmakedefine01 EL1_NONSECURE
 
 /**
 * @brief Indicates that the BSP is configured to run as a hypervisor guest.
 *
 * The generated value is 1 when this mode is enabled.
 */
-#cmakedefine01 HYP_GUEST @HYP_GUEST@
+#cmakedefine01 HYP_GUEST
 #endif
 
 /**
