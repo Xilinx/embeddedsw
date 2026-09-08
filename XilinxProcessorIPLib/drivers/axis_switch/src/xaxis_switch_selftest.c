@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2015 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -11,8 +11,7 @@
 * @addtogroup axis_switch Overview
 * @{
 *
-* This file contains self test function for the AXI4-Stream Source Control
-* Router core.
+* @brief Self test function for the AXI4-Stream Switch Control Router core.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -20,6 +19,7 @@
 * Ver   Who Date     Changes
 * ----- --- -------- --------------------------------------------------
 * 1.00  sha 01/28/15 Initial release.
+* 1.9  vn   09/08/26 Align Doxygen comments with AMD standards
 * </pre>
 *
 ******************************************************************************/
@@ -47,16 +47,11 @@
 
 /*****************************************************************************/
 /**
+* @brief Performs self test on AXI4-Stream Switch core registers.
 *
-* This function performs self test on AXI4-Stream Switch core registers.
+* @param[in]	InstancePtr is a pointer to the XAxis_Switch core instance.
 *
-* @param	InstancePtr is a pointer to the XAxis_Switch core instance.
-*
-* @return
-*		- TRUE if self test passed.
-*		- FALSE if self test failed.
-*
-* @note		None.
+* @return	TRUE if self test passed, FALSE otherwise.
 *
 ******************************************************************************/
 s32 XAxisScr_SelfTest(XAxis_Switch *InstancePtr)

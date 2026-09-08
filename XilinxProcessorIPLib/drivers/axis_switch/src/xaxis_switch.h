@@ -3,6 +3,8 @@
 * Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
+#ifndef XAXIS_SWITCH_H_
+#define XAXIS_SWITCH_H_
 
 /*****************************************************************************/
 /**
@@ -10,10 +12,11 @@
 * @file xaxis_switch.h
 * @addtogroup axis_switch Overview
 * @{
+* @brief AXI4-Stream Switch Control Router driver header file.
 * @details
 *
-* This is the main header file for Xilinx AXI4-Stream Switch Control Router
-* core. It is used for routing streams where masters in the system do not know
+* Provides the main header for the AXI4-Stream Switch Control Router
+* core. Routes streams where masters in the system do not know the
 * final destination address.
 *
 * <b>Core Features </b>
@@ -23,8 +26,8 @@
 *
 * <b>Software Initialization & Configuration</b>
 *
-* The application needs to do following steps in order for preparing the
-* AXI4-Stream Switch Control Router core to be ready.
+* The application needs to do the following steps to prepare the
+* AXI4-Stream Switch Control Router core.
 *
 * - Call XAxisScr_LookupConfig using a device ID to find the core
 *   configuration.
@@ -50,12 +53,12 @@
 * Asserts are used within all Xilinx drivers to enforce constraints on argument
 * values. Asserts can be turned off on a system-wide basis by defining at
 * compile time, the NDEBUG identifier. By default, asserts are turned on and it
-* is recommended that users leave asserts on during development.
+* is recommended to leave asserts on during development.
 *
 * <b> Building the driver </b>
 *
 * The XAXI4-Stream Switch driver is composed of several source files. This
-* allows the user to build and link only those parts of the driver that are
+* allows building and linking only those parts of the driver that are
 * necessary.
 *
 * <pre>
@@ -73,13 +76,10 @@
 *                    generation.
 * 1.4   sd   02/09/20 Updated makefile for parallel execution.
 * 1.8  vlt  12/12/25 Update Doxygen comments to include SDT flow details.
+* 1.9  vn   09/08/26 Align Doxygen comments with AMD standards
 * </pre>
 *
 ******************************************************************************/
-#ifndef XAXIS_SWITCH_H_
-#define XAXIS_SWITCH_H_		/**< Prevent circular inclusions
-				  *  by using protection macros */
-
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -96,8 +96,9 @@ extern "C" {
 /**************************** Type Definitions *******************************/
 
 /**
-* This typedef contains configuration information for the AXI4-Stream Switch
-* core. Each AXI4-Stream Switch device should have a configuration structure
+* @brief Holds configuration information for the AXI4-Stream Switch core.
+*
+* Each AXI4-Stream Switch device should have a configuration structure
 * associated.
 */
 typedef struct {
@@ -114,8 +115,9 @@ typedef struct {
 } XAxis_Switch_Config;
 
 /**
-* The AXI4-Stream Switch driver instance data. An instance must be allocated
-* for each core in use.
+* @brief Stores the AXI4-Stream Switch driver instance data.
+*
+* An instance must be allocated for each core in use.
 */
 typedef struct {
 	XAxis_Switch_Config Config;	/**< Hardware Configuration */
@@ -127,12 +129,9 @@ typedef struct {
 
 /*****************************************************************************/
 /**
+* @brief Enables register updates.
 *
-* This macro enables register updates.
-*
-* @param	InstancePtr is a pointer to the XAxis_Switch core instance.
-*
-* @return	None.
+* @param[in]	InstancePtr is a pointer to the XAxis_Switch core instance.
 *
 * @note		C-style signature:
 *		void XAxisScr_RegUpdateEnable(XAxis_Switch *InstancePtr)
@@ -147,12 +146,9 @@ typedef struct {
 
 /*****************************************************************************/
 /**
+* @brief Disables register updates.
 *
-* This macro disables register updates.
-*
-* @param	InstancePtr is a pointer to the XAxis_Switch core instance.
-*
-* @return	None.
+* @param[in]	InstancePtr is a pointer to the XAxis_Switch core instance.
 *
 * @note		C-style signature:
 *		void XAxisScr_RegUpdateDisable(XAxis_Switch *InstancePtr)
@@ -196,5 +192,5 @@ s32 XAxisScr_SelfTest(XAxis_Switch *InstancePtr);
 }
 #endif
 
-#endif /* End of protection macro */
 /** @} */
+#endif /* End of protection macro */

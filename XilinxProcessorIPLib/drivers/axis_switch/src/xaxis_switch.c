@@ -11,8 +11,9 @@
 * @addtogroup axis_switch Overview
 * @{
 *
-* This is the main file for Xilinx AXI4-Stream Switch Control Router core.
-* Please see xaxis_switch.h for more details of the driver.
+* @brief Main file for the AXI4-Stream Switch Control Router core.
+*
+* See xaxis_switch.h for more details of the driver.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -30,6 +31,7 @@
 *                    API is called to check if the MI is configured for SI[3],
 *                    the API will return TRUE.
 * 1.9   vn  07/30/26 Fix Doxygen warnings
+* 1.9  vn   09/08/26 Align Doxygen comments with AMD standards
 * </pre>
 *
 ******************************************************************************/
@@ -58,22 +60,20 @@
 
 /*****************************************************************************/
 /**
+* @brief Initializes the AXI4-Stream Switch core.
 *
-* This function initializes the AXI4-Stream Switch core. This function must
-* be called prior to using the core. Initialization of the core includes
-* setting up the instance data and ensuring the hardware is in a quiescent
-* state.
+* Call this function prior to using the core. Sets up the instance data
+* and ensures the hardware is in a quiescent state.
 *
-* @param	InstancePtr is a pointer to the XAxis_Switch core instance.
-* @param	CfgPtr points to the configuration structure associated with
+* @param[in]	InstancePtr is a pointer to the XAxis_Switch core instance.
+* @param[in]	CfgPtr points to the configuration structure associated with
 *		the AXI4-Stream Switch core.
-* @param	EffectiveAddr is the base address of the device. If address
+* @param[in]	EffectiveAddr is the base address of the device. If address
 *		translation is being used, then this parameter must reflect the
 *		virtual base address. Otherwise, the physical address should be
 *		used.
 *
-* @return
-*		- XST_SUCCESS if XAxisScr_CfgInitialize was successful.
+* @return	XST_SUCCESS if initialization was successful.
 *
 * @note		Axis_Switch core connects up to 16 masters to 16 slaves.
 *
@@ -103,15 +103,14 @@ s32 XAxisScr_CfgInitialize(XAxis_Switch *InstancePtr,
 
 /*****************************************************************************/
 /**
+* @brief Enables the MUX port specified by a MI index and links it with
+*        the desired SI.
 *
-* This function enables the MUX port specified by a MI index and links with
-* desired SI, indicated by a SiIndex.
-*
-* @param	InstancePtr is a pointer to the XAxis_Switch core instance.
-* @param	MiIndex specifies an index that will be used for enabling MUX
-*		which is within the range [0 to 15].
-* @param	SiIndex specifies an index that will be used as a source to
-*		MUX. The range is [0 to 15].
+* @param[in]	InstancePtr is a pointer to the XAxis_Switch core instance.
+* @param[in]	MiIndex specifies an index for enabling the MUX.
+*		Range is [0 to 15].
+* @param[in]	SiIndex specifies an index used as a source to the MUX.
+*		Range is [0 to 15].
 *
 * @note		MUX[MiIndex] is sourced from SI[SiIndex]. Axis_Switch core
 *		connects up to 16 masters to 16 slaves.
@@ -136,13 +135,12 @@ void XAxisScr_MiPortEnable(XAxis_Switch *InstancePtr, u8 MiIndex, u8 SiIndex)
 
 /*****************************************************************************/
 /**
+* @brief Disables the MUX port specified by a MI index and unlinks the
+*        previously set SI.
 *
-* This function disables the MUX port specified by a MI index and un-link
-* SI, set previously.
-*
-* @param	InstancePtr is a pointer to the XAxis_Switch core instance.
-* @param	MiIndex specifies an index that will be used for disabling MUX
-*		which is within the range [0 to 15].
+* @param[in]	InstancePtr is a pointer to the XAxis_Switch core instance.
+* @param[in]	MiIndex specifies an index for disabling the MUX.
+*		Range is [0 to 15].
 *
 * @note		MUX[MiIndex] is removed for SI[SiIndex]. Axis_Switch core
 *		connects up to 16 masters to 16 slaves.
@@ -166,18 +164,15 @@ void XAxisScr_MiPortDisable(XAxis_Switch *InstancePtr, u8 MiIndex)
 
 /*****************************************************************************/
 /**
+* @brief Checks whether the MUX is sourced from the desired SI.
 *
-* This function returns the status of whether MUX is sourced from desired SI.
+* @param[in]	InstancePtr is a pointer to the XAxis_Switch core instance.
+* @param[in]	MiIndex specifies an index for addressing the MUX.
+*		Range is [0 to 15].
+* @param[in]	SiIndex specifies the SI index to check as the source.
+*		Range is [0 to 15].
 *
-* @param	InstancePtr is a pointer to the XAxis_Switch core instance.
-* @param	MiIndex specifies an index that will be used for addressing
-*		the MUX which is within the range [0 to 15].
-* @param	SiIndex specifies an index that will be used to identify,
-*		whether it is sourced. The range is [0 to 15].
-*
-* @return
-*		- TRUE, if MUX is sourced from SI.
-*		- FALSE, if MUX is not sourced from SI.
+* @return	TRUE if MUX is sourced from SI, FALSE otherwise.
 *
 * @note		Axis_Switch core connects up to 16 masters to 16 slaves.
 *
@@ -218,16 +213,13 @@ s32 XAxisScr_IsMiPortEnabled(XAxis_Switch *InstancePtr, u8 MiIndex,
 
 /*****************************************************************************/
 /**
+* @brief Checks whether the MUX port is disabled.
 *
-* This function returns the status of whether MUX is disabled.
+* @param[in]	InstancePtr is a pointer to the XAxis_Switch core instance.
+* @param[in]	MiIndex specifies an index for addressing the MUX.
+*		Range is [0 to 15].
 *
-* @param	InstancePtr is a pointer to the XAxis_Switch core instance.
-* @param	MiIndex specifies an index that will be used for addressing
-*		the MUX which is within the range [0 to 15].
-*
-* @return
-*		- TRUE, if MUX is disabled.
-*		- FALSE, if MUX is enabled.
+* @return	TRUE if MUX is disabled, FALSE otherwise.
 *
 * @note		Axis_Switch core connects up to 16 masters to 16 slaves.
 *
@@ -257,11 +249,9 @@ s32 XAxisScr_IsMiPortDisabled(XAxis_Switch *InstancePtr, u8 MiIndex)
 
 /*****************************************************************************/
 /**
+* @brief Disables all MUX ports and removes association with the SI.
 *
-* This function disables all the MUX port, in turn removes association with
-* desired SI.
-*
-* @param	InstancePtr is a pointer to the XAxis_Switch core instance.
+* @param[in]	InstancePtr is a pointer to the XAxis_Switch core instance.
 *
 * @note		Axis_Switch core connects up to 16 masters to 16 slaves.
 *

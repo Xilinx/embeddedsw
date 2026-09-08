@@ -9,7 +9,7 @@
 *
 * @file xaxis_switch_example.c
 *
-* This file demonstrates the use AXI4-Stream Switch Control Router driver.
+* @brief Demonstrates the use of the AXI4-Stream Switch Control Router driver.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -21,6 +21,7 @@
 * 1.8   sd  07/14/23 Change the Baseaddress macro.
 * 1.8  vlt  12/12/25 Update Doxygen comments to include SDT flow details.
 * 1.9  vn   07/30/26 Fix Doxygen warnings
+* 1.9  vn   09/08/26 Align Doxygen comments with AMD standards
 * </pre>
 *
 ******************************************************************************/
@@ -63,12 +64,10 @@ XAxis_Switch AxisSwitch;	/**< Instance of the AXI4-Stream Switch core */
 
 /*****************************************************************************/
 /**
+* @brief Runs the AXI4-Stream Switch example.
 *
-* This is the main function for AXI4-Stream Switch example.
-*
-* @return
-*		- XST_SUCCESS if AXI4-Stream Switch example ran successfully.
-*		- XST_FAILURE if AXI4-Stream Switch example failed.
+* @return	XST_SUCCESS if the example ran successfully,
+*		XST_FAILURE otherwise.
 *
 * @note		Axis_Switch core connects up to 16 masters to 16 slaves.
 *
@@ -95,21 +94,20 @@ int main()
 
 /*****************************************************************************/
 /**
-*
-* This function demonstrates the use of AXI-Stream Switch driver functions.
+* @brief Demonstrates the use of AXI4-Stream Switch driver functions.
 *
 * @if SDT
-* @param	BaseAddress contains the base address of the device
+* @param[in]	BaseAddress contains the base address of the device.
 * @else
-* @param	DeviceId is the unique device id of the AXI4-Stream Switch
+* @param[in]	DeviceId is the unique device id of the AXI4-Stream Switch
 *		core.
 * @endif
 *
-* @return
-*		- XST_SUCCESS if AXI4-Stream Switch example ran successfully.
-*		- XST_FAILURE if AXI4-Stream Switch example failed.
+* @return	XST_SUCCESS if the example ran successfully,
+*		XST_FAILURE otherwise.
 *
-* @note	In XSCT/classic flow, DeviceId is used to look up the device configuration.
+* @note		In XSCT/classic flow, DeviceId is used to look up the
+*		device configuration.
 *
 ****************************************************************************/
 #ifndef SDT

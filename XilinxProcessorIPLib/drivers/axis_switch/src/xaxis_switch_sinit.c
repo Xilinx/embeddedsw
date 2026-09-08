@@ -11,8 +11,8 @@
 * @addtogroup axis_switch Overview
 * @{
 *
-* This file contains static initialization method for Xilinx AXI4-Stream
-* Source Control Router core.
+* @brief Static initialization method for the AXI4-Stream Switch Control
+* Router core.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -24,6 +24,7 @@
 *                    defined in xparameters.h
 * 1.2   ms  02/20/17 Fixed compilation warning. This is a fix for CR-969126.
 * 1.8  vlt  12/12/25 Update Doxygen comments to include SDT flow details.
+* 1.9  vn   09/08/26 Align Doxygen comments with AMD standards
 *
 * </pre>
 *
@@ -58,23 +59,24 @@
 
 /*****************************************************************************/
 /**
+* @brief Looks up the device configuration based on the unique device
+*        ID or BaseAddress.
 *
-* Looks up the device configuration based on the unique device ID/BaseAddress.
 * The XAxis_Switch_ConfigTable[] contains the configuration info for each
 * device in the system.
 *
 * @if SDT
-* @param	BaseAddress contains the base address of the device
+* @param[in]	BaseAddress contains the base address of the device.
 * @else
-* @param	DeviceId contains the unique ID of the device
+* @param[in]	DeviceId contains the unique ID of the device.
 * @endif
 *
-* @return       A pointer to the configuration found or NULL if the
-*               specified device ID/BaseAddress was not found. See
-*               xaxis_switch.h for the definition of XAxis_Switch_Config.
+* @return	A pointer to the configuration found or NULL if the
+*		specified device ID/BaseAddress was not found. See
+*		xaxis_switch.h for the definition of XAxis_Switch_Config.
 *
-* @note        In XSCT/classic flow, DeviceId is used to look up the device
-*              configuration.
+* @note		In XSCT/classic flow, DeviceId is used to look up the
+*		device configuration.
 *
 ******************************************************************************/
 #ifndef SDT

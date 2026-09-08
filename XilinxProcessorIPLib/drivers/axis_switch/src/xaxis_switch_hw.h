@@ -3,6 +3,8 @@
 * Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
+#ifndef XAXIS_SWITCH_HW_H_
+#define XAXIS_SWITCH_HW_H_
 
 /*****************************************************************************/
 /**
@@ -11,9 +13,10 @@
 * @addtogroup axis_switch Overview
 * @{
 *
-* This header file contains identifiers and register-level core functions (or
-* macros) that can be used to access the Xilinx AXI4-Stream Switch Control
-* Router core.
+* @brief Hardware definition file for the AXI4-Stream Switch register interface.
+*
+* Contains identifiers and register-level core functions (or macros)
+* to access the Xilinx AXI4-Stream Switch Control Router core.
 *
 * For more information about the operation of this core see the hardware
 * specification and documentation in the higher level driver
@@ -26,12 +29,10 @@
 * ----- --- -------- --------------------------------------------------
 * 1.00  sha 01/28/15 Initial release.
 * 1.9   vn  07/30/26 Fix Doxygen warnings
+* 1.9  vn   09/08/26 Align Doxygen comments with AMD standards
 * </pre>
 *
-******************************************************************************/
-#ifndef XAXIS_SWITCH_HW_H_
-#define XAXIS_SWITCH_HW_H_	/**< Prevent circular inclusions
-				  *  by using protection macros */
+*****************************************************************************/
 
 #ifdef __cplusplus
 extern "C" {
@@ -62,9 +63,10 @@ extern "C" {
 						  *  mask */
 /** @} */
 
-/** @name MI MUX register mask
+/** @brief Defines MI MUX register masks.
+* @name MI MUX register mask
 *
-* It is applicable for MI[0...15] registers.
+* Applicable for MI[0...15] registers.
 * @{
 */
 #define XAXIS_SCR_MI_X_MUX_MASK		0x0F		/**< MI MUX mask */
@@ -77,7 +79,8 @@ extern "C" {
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
-/** @name Register access macro definition
+/** @brief Defines register access macros.
+* @name Register access macro definition
 * @{
 */
 #define XAxisScr_In32		Xil_In32	/**< Input Operations */
@@ -85,15 +88,15 @@ extern "C" {
 
 /*****************************************************************************/
 /**
+* @brief Reads a value from an AXI4-Stream Switch register.
 *
-* This macro reads a value from a AXI4-Stream Switch register. A 32 bit read
-* is performed. If the component is implemented in a smaller width, only the
-* least significant data is read from the register. The most significant data
-* will be read as 0.
+* Performs a 32-bit read. If the component is implemented in a smaller
+* width, only the least significant data is read from the register.
+* The most significant data reads as 0.
 *
-* @param	BaseAddress is the base address of the XAxis_Switch core
+* @param[in]	BaseAddress is the base address of the XAxis_Switch core
 *		instance.
-* @param	RegOffset is the register offset of the register (defined at
+* @param[in]	RegOffset is the register offset of the register (defined at
 *		the top of this file).
 *
 * @return	The 32-bit value of the register.
@@ -107,18 +110,16 @@ extern "C" {
 
 /*****************************************************************************/
 /**
+* @brief Writes a value to an AXI4-Stream Switch register.
 *
-* This macro writes a value to a AXI4-Stream Switch register. A 32 bit write
-* is performed. If the component is implemented in a smaller width, only the
-* least significant data is written.
+* Performs a 32-bit write. If the component is implemented in a smaller
+* width, only the least significant data is written.
 *
-* @param	BaseAddress is the base address of the XAxis_Switch core
+* @param[in]	BaseAddress is the base address of the XAxis_Switch core
 *		instance.
-* @param	RegOffset is the register offset of the register (defined at
+* @param[in]	RegOffset is the register offset of the register (defined at
 *		the top of this file) to be written.
-* @param	Data is the 32-bit value to write into the register.
-*
-* @return	None.
+* @param[in]	Data is the 32-bit value to write into the register.
 *
 * @note		C-style signature:
 *		void XAxisScr_WriteReg(u32 BaseAddress, u32 RegOffset,
@@ -139,5 +140,5 @@ extern "C" {
 }
 #endif
 
-#endif /* end of protection macro */
 /** @} */
+#endif /* end of protection macro */
