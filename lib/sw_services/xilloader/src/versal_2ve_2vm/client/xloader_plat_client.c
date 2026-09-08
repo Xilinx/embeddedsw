@@ -1325,7 +1325,7 @@ int XLoader_ConfigureGlitchDetector(XLoader_ClientInstance *InstancePtr, const u
 		break;
 	}
 
-	if (Status != XST_SUCCESS) {
+	if (Status == (int)XST_INVALID_PARAM) {
 		goto END;
 	}
 
