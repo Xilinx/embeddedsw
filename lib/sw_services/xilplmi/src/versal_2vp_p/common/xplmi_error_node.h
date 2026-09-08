@@ -19,6 +19,7 @@
 *       sd   08/20/26 Added PMC WWDT error node
 *       dc   09/01/26 Added XPLMI_ERROR_DEV_STATE_CHANGE
 *       pre  09/04/26 Added additional HBMON Error ID's
+* 2.5   tbk  09/01/26 Added XPLMI_ERROR_PCR_LOG_UPDATE software error event
 *
 * </pre>
 *
@@ -210,7 +211,11 @@ typedef enum {
  * XPLMI_ERROR_DEV_STATE_CHANGE 0xE5 / mask 0x20.
  */
 #define XPLMI_ERROR_DEV_STATE_CHANGE		(0x8EU)
-#define XPLMI_ERROR_SW_ERR_MAX			(0x8FU)
+
+/* OCP PCR log update SW Error. */
+#define XPLMI_ERROR_PCR_LOG_UPDATE		(0x8FU)
+
+#define XPLMI_ERROR_SW_ERR_MAX			(0x90U)
 
 #define XPLMI_ERROR_PSMERR_MAX			XPLMI_ERROR_PSMERR2_MAX
 #define XPLMI_ERROR_PMCERR_MAX			XPLMI_ERROR_PMCERR2_MAX

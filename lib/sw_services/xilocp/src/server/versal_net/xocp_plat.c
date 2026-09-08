@@ -29,7 +29,7 @@
 #ifdef PLM_OCP
 #include "xocp_generic.h"
 #include "xocp_plat.h"
-#include "xocp_hw.h"
+#include <xocp_hw.h>
 
 /************************************ Constant Definitions ****************************************/
 

@@ -24,6 +24,7 @@
 * ----- ---- -------- -----------------------------------------------------------------------------
 * 1.7   rmv  01/30/26 Refactor OCP library
 *       rmv  04/10/26 Added comprehensive API documentation
+* 1.8   tbk  09/01/26 Add Versal_2VP_P 9-PPK eFuse config for SW PCR
 *
 * </pre>
 *
@@ -98,12 +99,36 @@ typedef struct {
 	u32 Ppk0WrLk;		/**< PPK0 WR LK eFuse */
 	u32 Ppk1WrLk;		/**< PPK1 WR LK eFuse */
 	u32 Ppk2WrLk;		/**< PPK2 WR LK eFuse */
+#ifdef VERSAL_2VP_P
+	u32 Ppk3WrLk;		/**< PPK3 WR LK eFuse */
+	u32 Ppk4WrLk;		/**< PPK4 WR LK eFuse */
+	u32 Ppk5WrLk;		/**< PPK5 WR LK eFuse */
+	u32 Ppk6WrLk;		/**< PPK6 WR LK eFuse */
+	u32 Ppk7WrLk;		/**< PPK7 WR LK eFuse */
+	u32 Ppk8WrLk;		/**< PPK8 WR LK eFuse */
+#endif
 	u32 Ppk0Invld;		/**< PPK0 INVALID eFuse */
 	u32 Ppk1Invld;		/**< PPK1 INVALID eFuse */
 	u32 Ppk2Invld;		/**< PPK2 INVALID eFuse */
+#ifdef VERSAL_2VP_P
+	u32 Ppk3Invld;		/**< PPK3 INVALID eFuse */
+	u32 Ppk4Invld;		/**< PPK4 INVALID eFuse */
+	u32 Ppk5Invld;		/**< PPK5 INVALID eFuse */
+	u32 Ppk6Invld;		/**< PPK6 INVALID eFuse */
+	u32 Ppk7Invld;		/**< PPK7 INVALID eFuse */
+	u32 Ppk8Invld;		/**< PPK8 INVALID eFuse */
+#endif
 	u32 Ppk0Hash[XOCP_EFUSE_PPK_HASH_NO_OF_WORDS]; /**< PPK0 Hash eFuse */
 	u32 Ppk1Hash[XOCP_EFUSE_PPK_HASH_NO_OF_WORDS]; /**< PPK1 Hash eFuse */
 	u32 Ppk2Hash[XOCP_EFUSE_PPK_HASH_NO_OF_WORDS]; /**< PPK2 Hash eFuse */
+#ifdef VERSAL_2VP_P
+	u32 Ppk3Hash[XOCP_EFUSE_PPK_HASH_NO_OF_WORDS]; /**< PPK3 Hash eFuse */
+	u32 Ppk4Hash[XOCP_EFUSE_PPK_HASH_NO_OF_WORDS]; /**< PPK4 Hash eFuse */
+	u32 Ppk5Hash[XOCP_EFUSE_PPK_HASH_NO_OF_WORDS]; /**< PPK5 Hash eFuse */
+	u32 Ppk6Hash[XOCP_EFUSE_PPK_HASH_NO_OF_WORDS]; /**< PPK6 Hash eFuse */
+	u32 Ppk7Hash[XOCP_EFUSE_PPK_HASH_NO_OF_WORDS]; /**< PPK7 Hash eFuse */
+	u32 Ppk8Hash[XOCP_EFUSE_PPK_HASH_NO_OF_WORDS]; /**< PPK8 Hash eFuse */
+#endif
 } XOcp_PpkEfuseConfig;
 
 /**

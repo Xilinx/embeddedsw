@@ -18,6 +18,7 @@
 * 1.7   rmv  01/30/26 Refactor OCP library
 *       rpu  03/11/26 Validate input parameters
 * 1.8   rap  08/28/26 Fixed Doxygen Warnings
+*       tbk  09/01/26 Read 9 PPK hashes and locks on Versal_2VP_P
 * </pre>
 *
 **************************************************************************************************/
@@ -1801,7 +1802,8 @@ END:
 /*****************************************************************************/
 /**
  * @brief	This function reads PPK eFuse configuration such as
- * 		PPK Hash 0/1/2 , PPK_WR_LK 0/1/2 and PPK_INVALID 0/1/2.
+ * 		PPK Hash, PPK_WR_LK and PPK_INVALID. Versal_2VP_P has nine
+ * 		PPKs; other platforms have PPK0/1/2.
  *
  * @param 	PpkConfig Pointer to XOcp_PpkEfuseConfig
  *
@@ -1815,6 +1817,32 @@ static int XOcp_ReadPpkConfig(XOcp_PpkEfuseConfig* PpkConfig)
 	int Status = XST_FAILURE;
 	u32 SecureCtrl = Xil_In32(XOCP_EFUSE_CACHE_SECURITY_CONTROL);
 	u32 MiscCtrl = Xil_In32(XOCP_EFUSE_CACHE_MISC_CTRL);
+#ifdef VERSAL_2VP_P
+	u32 BootEnvCtrl = Xil_In32(XOCP_EFUSE_CACHE_BOOT_ENV_CTRL);
+	volatile u32 Index = 0U;
+	const u32 HashOff[XOCP_EFUSE_PPK_COUNT] = {
+		XOCP_EFUSE_PPK_0_HASH_START_OFFSET,
+		XOCP_EFUSE_PPK_1_HASH_START_OFFSET,
+		XOCP_EFUSE_PPK_2_HASH_START_OFFSET,
+		XOCP_EFUSE_PPK_3_HASH_START_OFFSET,
+		XOCP_EFUSE_PPK_4_HASH_START_OFFSET,
+		XOCP_EFUSE_PPK_5_HASH_START_OFFSET,
+		XOCP_EFUSE_PPK_6_HASH_START_OFFSET,
+		XOCP_EFUSE_PPK_7_HASH_START_OFFSET,
+		XOCP_EFUSE_PPK_8_HASH_START_OFFSET
+	};
+	u32 *const HashDest[XOCP_EFUSE_PPK_COUNT] = {
+		PpkConfig->Ppk0Hash,
+		PpkConfig->Ppk1Hash,
+		PpkConfig->Ppk2Hash,
+		PpkConfig->Ppk3Hash,
+		PpkConfig->Ppk4Hash,
+		PpkConfig->Ppk5Hash,
+		PpkConfig->Ppk6Hash,
+		PpkConfig->Ppk7Hash,
+		PpkConfig->Ppk8Hash
+	};
+#endif
 
 	PpkConfig->Ppk0WrLk = SecureCtrl & XOCP_EFUSE_PPK0_WR_LK_MASK;
 	PpkConfig->Ppk1WrLk = SecureCtrl & XOCP_EFUSE_PPK1_WR_LK_MASK;
@@ -1822,7 +1850,35 @@ static int XOcp_ReadPpkConfig(XOcp_PpkEfuseConfig* PpkConfig)
 	PpkConfig->Ppk0Invld = MiscCtrl & XOCP_EFUSE_PPK0_INVLD_1_0_MASK;
 	PpkConfig->Ppk1Invld = MiscCtrl & XOCP_EFUSE_PPK1_INVLD_1_0_MASK;
 	PpkConfig->Ppk2Invld = MiscCtrl & XOCP_EFUSE_PPK2_INVLD_1_0_MASK;
+#ifdef VERSAL_2VP_P
+	PpkConfig->Ppk3WrLk = BootEnvCtrl & XOCP_EFUSE_PPK3_WR_LK_MASK;
+	PpkConfig->Ppk4WrLk = BootEnvCtrl & XOCP_EFUSE_PPK4_WR_LK_MASK;
+	PpkConfig->Ppk5WrLk = BootEnvCtrl & XOCP_EFUSE_PPK5_WR_LK_MASK;
+	PpkConfig->Ppk6WrLk = BootEnvCtrl & XOCP_EFUSE_PPK6_WR_LK_MASK;
+	PpkConfig->Ppk7WrLk = BootEnvCtrl & XOCP_EFUSE_PPK7_WR_LK_MASK;
+	PpkConfig->Ppk8WrLk = BootEnvCtrl & XOCP_EFUSE_PPK8_WR_LK_MASK;
+	PpkConfig->Ppk3Invld = MiscCtrl & XOCP_EFUSE_PPK3_INVLD_1_0_MASK;
+	PpkConfig->Ppk4Invld = MiscCtrl & XOCP_EFUSE_PPK4_INVLD_1_0_MASK;
+	PpkConfig->Ppk5Invld = MiscCtrl & XOCP_EFUSE_PPK5_INVLD_1_0_MASK;
+	PpkConfig->Ppk6Invld = MiscCtrl & XOCP_EFUSE_PPK6_INVLD_1_0_MASK;
+	PpkConfig->Ppk7Invld = MiscCtrl & XOCP_EFUSE_PPK7_INVLD_1_0_MASK;
+	PpkConfig->Ppk8Invld = MiscCtrl & XOCP_EFUSE_PPK8_INVLD_1_0_MASK;
 
+	for (Index = 0U; Index < XOCP_EFUSE_PPK_COUNT; Index++) {
+		Status = Xil_SMemCpy((void *)(UINTPTR)HashDest[Index],
+				XOCP_EFUSE_PPK_NUM_OF_BYTES,
+				(const void *)(UINTPTR)HashOff[Index],
+				XOCP_EFUSE_PPK_NUM_OF_BYTES, XOCP_EFUSE_PPK_NUM_OF_BYTES);
+		if (Status != XST_SUCCESS) {
+			Status = (int)XOCP_ERR_IN_MEMCPY;
+			goto END;
+		}
+	}
+	if (Index != XOCP_EFUSE_PPK_COUNT) {
+		Status = (int)XST_GLITCH_ERROR;
+		goto END;
+	}
+#else
 	Status = Xil_SMemCpy((void *)(UINTPTR)PpkConfig->Ppk0Hash,
 			XOCP_EFUSE_PPK_NUM_OF_BYTES,
 			(const void *)(UINTPTR)XOCP_EFUSE_PPK_0_HASH_START_OFFSET,
@@ -1844,6 +1900,7 @@ static int XOcp_ReadPpkConfig(XOcp_PpkEfuseConfig* PpkConfig)
 			XOCP_EFUSE_PPK_NUM_OF_BYTES,
 			(const void *)(UINTPTR)XOCP_EFUSE_PPK_2_HASH_START_OFFSET,
 			XOCP_EFUSE_PPK_NUM_OF_BYTES, XOCP_EFUSE_PPK_NUM_OF_BYTES);
+#endif
 END:
 	return Status;
 }

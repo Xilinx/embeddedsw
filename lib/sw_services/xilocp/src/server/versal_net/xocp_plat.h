@@ -19,6 +19,7 @@
 *       tvp  09/13/25 Moved XOcp_ReadSecureConfig to platform file
 * 1.7   rmv  01/30/26 Refactor OCP library
 * 1.8   rap  08/28/26 Fixed Doxygen Warnings
+*       tbk  09/01/26 PPK hash is 48 bytes on Versal_2VP_P
 *
 * </pre>
 *
@@ -42,7 +43,11 @@ extern "C" {
  * @{
  */
 /** Efuse number of rows */
+#ifdef VERSAL_2VP_P
+#define XOCP_EFUSE_PPK_NUM_OF_BYTES			(48U)	/**< PPK Hash number of bytes */
+#else
 #define XOCP_EFUSE_PPK_NUM_OF_BYTES			(32U)	/**< PPK Hash number of bytes */
+#endif
 #define XOCP_EFUSE_PPK_HASH_NO_OF_WORDS			(XOCP_EFUSE_PPK_NUM_OF_BYTES / XOCP_WORD_LEN)
 								/**< PPK Hash number of words */
 #define XOCP_EFUSE_REVOCATION_NO_OF_WORDS		(8U)	/**< Revocation ID number of words */

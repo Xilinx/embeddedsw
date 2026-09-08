@@ -20,6 +20,7 @@
 *       sd  08/20/26 Added PMC WWDT SRST error action
 *       dc  09/01/26 Added DEV_STATE_CHANGE SW error table entry
 *       pre 09/04/26 Added additional HBMON Error ID's
+* 2.5   tbk 09/01/26 Added error table entry for XPLMI_ERROR_PCR_LOG_UPDATE
 *
 * </pre>
 *
@@ -317,6 +318,8 @@ static XPlmi_Error_t ErrorTable[XPLMI_ERROR_SW_ERR_MAX] = {
 				   .SubsystemId = 0U, },
 	[XPLMI_ERROR_DEV_STATE_CHANGE] = { .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE,
 					   .SubsystemId = 0U, },
+	[XPLMI_ERROR_PCR_LOG_UPDATE] = { .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE,
+					 .SubsystemId = 0U, },
 };
 
 /**************************************************************************************************/
