@@ -3,6 +3,9 @@
 * Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 ******************************************************************************/
 
+#ifndef XZDMA_HW_H_
+#define XZDMA_HW_H_
+
 /*****************************************************************************/
 /**
 *
@@ -10,7 +13,7 @@
 * @addtogroup zdma Overview
 * @{
 *
-* This header file contains identifiers and register-level driver functions (or
+* Defines identifiers and register-level driver functions (or
 * macros) that can be used to access the Xilinx ZDMA core.
 *
 * <pre>
@@ -23,9 +26,6 @@
 * </pre>
 *
 ******************************************************************************/
-#ifndef XZDMA_HW_H_
-#define XZDMA_HW_H_		/**< Prevent circular inclusions
-				  *  by using protection macros	*/
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -39,55 +39,55 @@ extern "C" {
 /** @name Registers offsets
  * @{
  */
-#define XZDMA_ERR_CTRL				(0x000U)
-#define XZDMA_CH_ECO				(0x004U)
-#define XZDMA_CH_ISR_OFFSET(InstancePtr)	((InstancePtr)->irq_offset + (0x100U))
-#define XZDMA_CH_IMR_OFFSET(InstancePtr)	((InstancePtr)->irq_offset + (0x104U))
-#define XZDMA_CH_IEN_OFFSET(InstancePtr)	((InstancePtr)->irq_offset + (0x108U))
-#define XZDMA_CH_IDS_OFFSET(InstancePtr)	((InstancePtr)->irq_offset + (0x10CU))
-#define XZDMA_CH_CTRL0_OFFSET			(0x110U)
-#define XZDMA_CH_CTRL1_OFFSET			(0x114U)
-#define XZDMA_CH_PERIF_OFFSET			(0x118U)
-#define XZDMA_CH_STS_OFFSET			(0x11CU)
-#define XZDMA_CH_DATA_ATTR_OFFSET		(0x120U)
-#define XZDMA_CH_DSCR_ATTR_OFFSET		(0x124U)
-#define XZDMA_CH_SRC_DSCR_WORD0_OFFSET		(0x128U)
-#define XZDMA_CH_SRC_DSCR_WORD1_OFFSET		(0x12CU)
-#define XZDMA_CH_SRC_DSCR_WORD2_OFFSET		(0x130U)
-#define XZDMA_CH_SRC_DSCR_WORD3_OFFSET		(0x134U)
-#define XZDMA_CH_DST_DSCR_WORD0_OFFSET		(0x138U)
-#define XZDMA_CH_DST_DSCR_WORD1_OFFSET		(0x13CU)
-#define XZDMA_CH_DST_DSCR_WORD2_OFFSET		(0x140U)
-#define XZDMA_CH_DST_DSCR_WORD3_OFFSET		(0x144U)
-#define XZDMA_CH_WR_ONLY_WORD0_OFFSET		(0x148U)
-#define XZDMA_CH_WR_ONLY_WORD1_OFFSET		(0x14CU)
-#define XZDMA_CH_WR_ONLY_WORD2_OFFSET		(0x150U)
-#define XZDMA_CH_WR_ONLY_WORD3_OFFSET		(0x154U)
-#define XZDMA_CH_SRC_START_LSB_OFFSET		(0x158U)
-#define XZDMA_CH_SRC_START_MSB_OFFSET		(0x15CU)
-#define XZDMA_CH_DST_START_LSB_OFFSET		(0x160U)
-#define XZDMA_CH_DST_START_MSB_OFFSET		(0x164U)
-#define XZDMA_CH_SRC_CUR_PYLD_LSB_OFFSET	(0x168U)
-#define XZDMA_CH_SRC_CUR_PYLD_MSB_OFFSET	(0x16CU)
-#define XZDMA_CH_DST_CUR_PYLD_LSB_OFFSET	(0x170U)
-#define XZDMA_CH_DST_CUR_PYLD_MSB_OFFSET	(0x174U)
-#define XZDMA_CH_SRC_CUR_DSCR_LSB_OFFSET	(0x178U)
-#define XZDMA_CH_SRC_CUR_DSCR_MSB_OFFSET	(0x17CU)
-#define XZDMA_CH_DST_CUR_DSCR_LSB_OFFSET	(0x180U)
-#define XZDMA_CH_DST_CUR_DSCR_MSB_OFFSET	(0x184U)
-#define XZDMA_CH_TOTAL_BYTE_OFFSET		(0x188U)
-#define XZDMA_CH_RATE_CNTL_OFFSET		(0x18CU)
-#define XZDMA_CH_IRQ_SRC_ACCT_OFFSET		(0x190U)
-#define XZDMA_CH_IRQ_DST_ACCT_OFFSET		(0x194U)
-#define XZDMA_CH_CTRL2_OFFSET			(0x200U)
+#define XZDMA_ERR_CTRL				(0x000U) /**< Error control register offset */
+#define XZDMA_CH_ECO				(0x004U) /**< Channel ECO register offset */
+#define XZDMA_CH_ISR_OFFSET(InstancePtr)	((InstancePtr)->irq_offset + (0x100U)) /**< ISR offset */
+#define XZDMA_CH_IMR_OFFSET(InstancePtr)	((InstancePtr)->irq_offset + (0x104U)) /**< IMR offset */
+#define XZDMA_CH_IEN_OFFSET(InstancePtr)	((InstancePtr)->irq_offset + (0x108U)) /**< IEN offset */
+#define XZDMA_CH_IDS_OFFSET(InstancePtr)	((InstancePtr)->irq_offset + (0x10CU)) /**< IDS offset */
+#define XZDMA_CH_CTRL0_OFFSET			(0x110U) /**< Control 0 register offset */
+#define XZDMA_CH_CTRL1_OFFSET			(0x114U) /**< Control 1 register offset */
+#define XZDMA_CH_PERIF_OFFSET			(0x118U) /**< Peripheral register offset */
+#define XZDMA_CH_STS_OFFSET			(0x11CU) /**< Status register offset */
+#define XZDMA_CH_DATA_ATTR_OFFSET		(0x120U) /**< Data attribute register offset */
+#define XZDMA_CH_DSCR_ATTR_OFFSET		(0x124U) /**< Descriptor attribute register offset */
+#define XZDMA_CH_SRC_DSCR_WORD0_OFFSET		(0x128U) /**< Source descriptor word 0 offset */
+#define XZDMA_CH_SRC_DSCR_WORD1_OFFSET		(0x12CU) /**< Source descriptor word 1 offset */
+#define XZDMA_CH_SRC_DSCR_WORD2_OFFSET		(0x130U) /**< Source descriptor word 2 offset */
+#define XZDMA_CH_SRC_DSCR_WORD3_OFFSET		(0x134U) /**< Source descriptor word 3 offset */
+#define XZDMA_CH_DST_DSCR_WORD0_OFFSET		(0x138U) /**< Destination descriptor word 0 offset */
+#define XZDMA_CH_DST_DSCR_WORD1_OFFSET		(0x13CU) /**< Destination descriptor word 1 offset */
+#define XZDMA_CH_DST_DSCR_WORD2_OFFSET		(0x140U) /**< Destination descriptor word 2 offset */
+#define XZDMA_CH_DST_DSCR_WORD3_OFFSET		(0x144U) /**< Destination descriptor word 3 offset */
+#define XZDMA_CH_WR_ONLY_WORD0_OFFSET		(0x148U) /**< Write-only word 0 offset */
+#define XZDMA_CH_WR_ONLY_WORD1_OFFSET		(0x14CU) /**< Write-only word 1 offset */
+#define XZDMA_CH_WR_ONLY_WORD2_OFFSET		(0x150U) /**< Write-only word 2 offset */
+#define XZDMA_CH_WR_ONLY_WORD3_OFFSET		(0x154U) /**< Write-only word 3 offset */
+#define XZDMA_CH_SRC_START_LSB_OFFSET		(0x158U) /**< Source start LSB offset */
+#define XZDMA_CH_SRC_START_MSB_OFFSET		(0x15CU) /**< Source start MSB offset */
+#define XZDMA_CH_DST_START_LSB_OFFSET		(0x160U) /**< Destination start LSB offset */
+#define XZDMA_CH_DST_START_MSB_OFFSET		(0x164U) /**< Destination start MSB offset */
+#define XZDMA_CH_SRC_CUR_PYLD_LSB_OFFSET	(0x168U) /**< Source current payload LSB offset */
+#define XZDMA_CH_SRC_CUR_PYLD_MSB_OFFSET	(0x16CU) /**< Source current payload MSB offset */
+#define XZDMA_CH_DST_CUR_PYLD_LSB_OFFSET	(0x170U) /**< Destination current payload LSB offset */
+#define XZDMA_CH_DST_CUR_PYLD_MSB_OFFSET	(0x174U) /**< Destination current payload MSB offset */
+#define XZDMA_CH_SRC_CUR_DSCR_LSB_OFFSET	(0x178U) /**< Source current descriptor LSB offset */
+#define XZDMA_CH_SRC_CUR_DSCR_MSB_OFFSET	(0x17CU) /**< Source current descriptor MSB offset */
+#define XZDMA_CH_DST_CUR_DSCR_LSB_OFFSET	(0x180U) /**< Destination current descriptor LSB offset */
+#define XZDMA_CH_DST_CUR_DSCR_MSB_OFFSET	(0x184U) /**< Destination current descriptor MSB offset */
+#define XZDMA_CH_TOTAL_BYTE_OFFSET		(0x188U) /**< Total byte count register offset */
+#define XZDMA_CH_RATE_CNTL_OFFSET		(0x18CU) /**< Rate control register offset */
+#define XZDMA_CH_IRQ_SRC_ACCT_OFFSET		(0x190U) /**< Source interrupt account offset */
+#define XZDMA_CH_IRQ_DST_ACCT_OFFSET		(0x194U) /**< Destination interrupt account offset */
+#define XZDMA_CH_CTRL2_OFFSET			(0x200U) /**< Control 2 register offset */
 
-/*@}*/
+/** @} */
 
 /** @name IRQ Register offset for Versal 2VE and 2VM devices
  * @{
  */
-#define XZDMA_IRQ_REG_OFFSET			(0x308U)
-/*@}*/
+#define XZDMA_IRQ_REG_OFFSET			(0x308U) /**< IRQ register offset for Versal */
+/** @} */
 
 /** @name Interrupt Enable/Disable/Mask/Status registers bit masks and shifts
  * @{
@@ -134,7 +134,7 @@ extern "C" {
   * XZDMA_IXR_BYTE_CNT_OVRFL_MASK,
   * XZDMA_IXR_SRC_ACCT_ERR_MASK,
   *  XZDMA_IXR_DST_ACCT_ERR_MASK */
-/*@}*/
+/** @} */
 
 /** @name Channel Control0 register bit masks and shifts
  * @{
@@ -154,14 +154,14 @@ extern "C" {
 #define XZDMA_CTRL0_MODE_SHIFT		(4U)	/**< Mode type shift */
 #define XZDMA_CTRL0_RESET_VALUE		(0x00000080U) /**< CTRL0 reset value */
 
-/*@}*/
+/** @} */
 
 /** @name Channel Control1 register bit masks and shifts
  * @{
  */
 #define XZDMA_CTRL1_SRC_ISSUE_MASK	(0x0000001FU) /**< Source issue mask */
 #define XZDMA_CTRL1_RESET_VALUE		(0x000003FFU) /**< CTRL1 reset value */
-/*@}*/
+/** @} */
 
 /** @name Channel Peripheral register bit masks and shifts
  * @{
@@ -172,7 +172,7 @@ extern "C" {
 							* the side mask */
 #define XZDMA_PERIF_EN_MASK		(0x00000001U) /**< Peripheral flow
 							* control mask */
-/*@}*/
+/** @} */
 
 /** @name Channel Status register bit masks and shifts
  * @{
@@ -185,7 +185,7 @@ extern "C" {
 #define XZDMA_STS_DONE_MASK	(0x00000000U) /**< ZDMA done mask */
 #define XZDMA_STS_ALL_MASK	(0x00000003U) /**< ZDMA status mask */
 
-/*@}*/
+/** @} */
 
 /** @name Channel Data Attribute register bit masks and shifts
  * @{
@@ -209,7 +209,7 @@ extern "C" {
 #define XZDMA_DATA_ATTR_RESET_VALUE	(0x0483D20FU) /**< Data Attributes
 							*  reset value */
 
-/*@}*/
+/** @} */
 
 /** @name Channel DSCR Attribute register bit masks and shifts
  * @{
@@ -226,26 +226,26 @@ extern "C" {
 #define XZDMA_DSCR_ATTR_RESET_VALUE	(0x00000000U) /**< Dscr Attributes
 							*  reset value */
 
-/*@}*/
+/** @} */
 
 /** @name Channel Source/Destination Word0 register bit mask
  * @{
  */
 #define XZDMA_WORD0_LSB_MASK	(0xFFFFFFFFU)	/**< LSB Address mask */
-/*@}*/
+/** @} */
 
 /** @name Channel Source/Destination Word1 register bit mask
  * @{
  */
 #define XZDMA_WORD1_MSB_MASK	(0x0001FFFFU)	/**< MSB Address mask */
 #define XZDMA_WORD1_MSB_SHIFT	(32U)		/**< MSB Address shift */
-/*@}*/
+/** @} */
 
 /** @name Channel Source/Destination Word2 register bit mask
  * @{
  */
 #define XZDMA_WORD2_SIZE_MASK	(0x3FFFFFFFU) /**< Size mask */
-/*@}*/
+/** @} */
 
 /** @name Channel Source/Destination Word3 register bit masks and shifts
  * @{
@@ -269,7 +269,7 @@ extern "C" {
 #define XZDMA_WORD3_TYPE_SHIFT		(1U)		/**< Type of Descriptor
 							  *  Shift */
 #define XZDMA_WORD3_COHRNT_MASK		(0x00000001U)	/**< Coherence mask */
-/*@}*/
+/** @} */
 
 /** @name Channel Source/Destination start address or current payload
  *  MSB register bit mask
@@ -277,28 +277,28 @@ extern "C" {
  */
 #define XZDMA_START_MSB_ADDR_MASK	(0x0001FFFFU)	/**< Start msb address
 							  *  mask */
-/*@}*/
+/** @} */
 
 /** @name Channel Rate control count register bit mask
  * @{
  */
 #define XZDMA_CH_RATE_CNTL_MASK		(0x00000FFFU) /**< Channel rate control
 							*  mask */
-/*@}*/
+/** @} */
 
 /** @name Channel Source/Destination Interrupt account count register bit mask
  * @{
  */
 #define XZDMA_CH_IRQ_ACCT_MASK		(0x000000FFU) /**< Interrupt count
 							*  mask */
-/*@}*/
+/** @} */
 
 /** @name Channel debug register 0/1 bit mask
  * @{
  */
 #define XZDMA_CH_DBG_CMN_BUF_MASK	(0x000001FFU) /**< Common buffer count
 							* mask */
-/*@}*/
+/** @} */
 
 /** @name Channel control2 register bit mask
  * @{
@@ -307,14 +307,14 @@ extern "C" {
 							*  mask */
 #define XZDMA_CH_CTRL2_DIS_MASK		(0x00000000U) /**< Channel disable
 							*  mask */
-/*@}*/
+/** @} */
 
 /** @name Channel control2 register bit mask
  * @{
  */
 #define XZDMA_WRITE_TO_CLEAR_MASK	(0x00000000U) /**< Write to clear
 							*  mask */
-/*@}*/
+/** @} */
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
@@ -326,8 +326,8 @@ extern "C" {
 *
 * This macro reads the given register.
 *
-* @param	BaseAddress is the Xilinx base address of the ZDMA core.
-* @param	RegOffset is the register offset of the register.
+* @param[in] BaseAddress is the Xilinx base address of the ZDMA core.
+* @param[in] RegOffset is the register offset of the register.
 *
 * @return	The 32-bit value of the register.
 *
@@ -343,11 +343,10 @@ extern "C" {
 *
 * This macro writes the value into the given register.
 *
-* @param	BaseAddress is the Xilinx base address of the ZDMA core.
-* @param	RegOffset is the register offset of the register.
-* @param	Data is the 32-bit value to write to the register.
+* @param[in] BaseAddress is the Xilinx base address of the ZDMA core.
+* @param[in] RegOffset is the register offset of the register.
+* @param[in] Data is the 32-bit value to write to the register.
 *
-* @return	None.
 *
 * @note		C-style signature:
 *		void XZDma_WriteReg(u32 BaseAddress, u32 RegOffset, u32 Data)
@@ -361,5 +360,5 @@ extern "C" {
 
 #endif
 
-#endif /* XZDMA_HW_H_ */
 /** @} */
+#endif /* XZDMA_HW_H_ */

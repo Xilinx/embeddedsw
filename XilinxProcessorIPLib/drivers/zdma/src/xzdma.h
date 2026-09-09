@@ -4,13 +4,15 @@
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
+#ifndef XZDMA_H_
+#define XZDMA_H_
+
 /*****************************************************************************/
 /**
 *
 * @file xzdma.h
 * @addtogroup zdma Overview
 * @{
-* @details
 *
 * ZDMA is a general purpose DMA designed to support memory to memory and memory
 * to IO buffer transfers. ZynqMP has two instance of general purpose ZDMA.
@@ -73,7 +75,7 @@
 * The XZDma driver is composed of several source files. This allows the user
 * to build and link only those parts of the driver that are necessary.
 *
-* This header file contains identifiers and register-level driver functions (or
+* Defines identifiers and register-level driver functions (or
 * macros), range macros, structure typedefs that can be used to access the
 * Xilinx ZDMA core instance.
 *
@@ -120,9 +122,6 @@
 * </pre>
 *
 ******************************************************************************/
-#ifndef XZDMA_H_
-#define XZDMA_H_
-
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -142,25 +141,23 @@ extern "C" {
 /**************************** Type Definitions *******************************/
 
 /**
- * This typedef contains ZDMA Handler Types.
+ * @brief Defines ZDMA handler types.
  */
 typedef enum {
 	XZDMA_HANDLER_DONE,	/**< For Done Handler */
 	XZDMA_HANDLER_ERROR,	/**< For Error Handler */
 } XZDma_Handler;
-/*@}*/
 
 /**
- * This typedef contains ZDMA Descriptors Types.
+ * @brief Defines ZDMA descriptor types.
  */
 typedef enum {
 	XZDMA_LINEAR,		/**< Linear descriptor */
 	XZDMA_LINKEDLIST,	/**< Linked list descriptor */
 } XZDma_DscrType;
-/*@}*/
 
 /**
- * This typedef contains ZDMA Operation modes.
+ * @brief Defines ZDMA operation modes.
  */
 typedef enum {
 	XZDMA_NORMAL_MODE,	/**< Normal transfer from source to
@@ -168,30 +165,27 @@ typedef enum {
 	XZDMA_WRONLY_MODE,	/**< Write only mode */
 	XZDMA_RDONLY_MODE	/**< Read only mode */
 } XZDma_Mode;
-/*@}*/
 
 /**
- * This typedef contains ZDMA state.
+ * @brief Defines ZDMA channel states.
  */
 typedef enum {
 	XZDMA_IDLE,		/**< ZDMA is in Idle state */
 	XZDMA_PAUSE,		/**< Paused state */
 	XZDMA_BUSY,		/**< Busy state */
 } XZDmaState;
-/*@}*/
 
 /**
- * This typedef contains ZDMA AXI Burst type definitions.
+ * @brief Defines ZDMA AXI burst types.
  */
 typedef enum {
 	XZDMA_FIXED_BURST = 0,	/**< Fixed burst type */
 	XZDMA_INCR_BURST	/**< Increment burst type */
 } XZDma_BurstType;
-/*@}*/
 
 /******************************************************************************/
 /**
- * This typedef contains scatter gather descriptor fields for ZDMA core.
+ * @brief Holds scatter-gather descriptor fields for the ZDMA core.
  */
 typedef struct {
 	void *SrcDscrPtr;	/**< Source Descriptor pointer */
@@ -203,7 +197,7 @@ typedef struct {
 
 /******************************************************************************/
 /**
-* This typedef contains scatter gather descriptor fields for ZDMA core.
+* @brief Holds scatter-gather descriptor fields for the ZDMA core.
 */
 #if defined (__ICCARM__)
 #pragma pack(push, 1)
@@ -223,7 +217,7 @@ __attribute__ ((packed)) XZDma_LlDscr;
 #endif
 /******************************************************************************/
 /**
-* This typedef contains Linear descriptor fields for ZDMA core.
+* @brief Holds linear descriptor fields for the ZDMA core.
 */
 #if defined (__ICCARM__)
 #pragma pack(push, 1)
@@ -241,7 +235,7 @@ typedef struct {
 /******************************************************************************/
 /**
 *
-* This typedef contains the data configurations of ZDMA core
+* @brief Holds data transfer configuration for the ZDMA core.
 */
 typedef struct {
 	u8 OverFetch;		/**< Enable Over fetch */
@@ -261,7 +255,7 @@ typedef struct {
 /******************************************************************************/
 /**
 *
-* This typedef contains the descriptor configurations of ZDMA core
+* @brief Holds descriptor fetch configuration for the ZDMA core.
 */
 typedef struct {
 	u8 AxCoherent;	/**< AXI transactions are coherent or non-coherent */
@@ -273,7 +267,7 @@ typedef struct {
 /**
 * Callback type for Completion of all data transfers.
 *
-* @param 	CallBackRef is a callback reference passed in by the upper layer
+* @param[in] CallBackRef is a callback reference passed in by the upper layer
 *		when setting the callback functions, and passed back to the
 *		upper layer when the callback is invoked.
 *******************************************************************************/
@@ -283,17 +277,17 @@ typedef void (*XZDma_DoneHandler) (void *CallBackRef);
 /**
 * Callback type for all error interrupts.
 *
-* @param 	CallBackRef is a callback reference passed in by the upper layer
+* @param[in] CallBackRef is a callback reference passed in by the upper layer
 *		when setting the callback functions, and passed back to the
 *		upper layer when the callback is invoked.
-* @param	ErrorMask is a bit mask indicating the cause of the error. Its
+* @param[in] ErrorMask is a bit mask indicating the cause of the error. Its
 *		value equals 'OR'ing one or more XZDMA_IXR_* values defined in
 *		xzdma_hw.h
 ****************************************************************************/
 typedef void (*XZDma_ErrorHandler) (void *CallBackRef, u32 ErrorMask);
 
 /**
-* This typedef contains configuration information for a ZDMA core
+* @brief Holds configuration information for a ZDMA core.
 * Each ZDMA core should have a configuration structure associated.
 */
 typedef struct {
@@ -355,7 +349,7 @@ typedef struct {
 /******************************************************************************/
 /**
 *
-* This typedef contains the fields for transfer of data.
+* @brief Holds fields for a ZDMA data transfer.
 */
 typedef struct {
 	UINTPTR SrcAddr;	/**< Source address */
@@ -376,7 +370,7 @@ typedef struct {
 * Use the XZDMA_IXR_DMA_*_MASK constants defined in xzdma_hw.h to interpret the
 * returned value.
 *
-* @param	InstancePtr is a pointer to the XZDma instance.
+* @param[in] InstancePtr is a pointer to the XZDma instance.
 *
 * @return	The pending interrupts of the ZDMA core.
 *		Use the masks specified in xzdma_hw.h to interpret
@@ -397,12 +391,11 @@ typedef struct {
 * function clears one or more interrupts by writing a bit mask to Interrupt
 * Clear Register.
 *
-* @param	InstancePtr is a pointer to the XZDma instance.
-* @param	Mask is the type of the interrupts to enable. Use OR'ing of
+* @param[in] InstancePtr is a pointer to the XZDma instance.
+* @param[in] Mask is the type of the interrupts to enable. Use OR'ing of
 *		XZDMA_IXR_DMA_*_MASK constants defined in xzdma_hw.h to create
 *		this parameter value.
 *
-* @return	None.
 *
 * @note
 * 		C-style signature:
@@ -419,7 +412,7 @@ typedef struct {
 * This function returns interrupt mask to know which interrupts are
 * enabled and which of them were disabled.
 *
-* @param	InstancePtr is a pointer to the XZDma instance.
+* @param[in] InstancePtr is a pointer to the XZDma instance.
 *
 * @return	The current interrupt mask. The mask indicates which interrupts
 *		are enabled/disabled.
@@ -441,12 +434,11 @@ typedef struct {
 * This function enables individual interrupts of the ZDMA core by updating
 * the Interrupt Enable register.
 *
-* @param	InstancePtr is a pointer to the XZDma instance.
-* @param	Mask is the type of the interrupts to enable. Use OR'ing of
+* @param[in] InstancePtr is a pointer to the XZDma instance.
+* @param[in] Mask is the type of the interrupts to enable. Use OR'ing of
 *		XZDMA_IXR_DMA_*_MASK constants defined in xzdma_hw.h to create
 *		this parameter value.
 *
-* @return	None.
 *
 * @note		The existing enabled interrupt(s) will remain enabled.
 * 		C-style signature:
@@ -462,12 +454,11 @@ typedef struct {
 * This function disables individual interrupts of the ZDMA core by updating
 * the Interrupt Disable register.
 *
-* @param	InstancePtr is a pointer to the XZDma instance.
-* @param	Mask is the type of the interrupts to disable. Use OR'ing of
+* @param[in] InstancePtr is a pointer to the XZDma instance.
+* @param[in] Mask is the type of the interrupts to disable. Use OR'ing of
 *		XZDMA_IXR_DMA_*_MASK constants defined in xzdma_hw.h to create
 *		this parameter value.
 *
-* @return	None.
 *
 * @note		The existing disabled interrupt(s) will remain disabled.
 * 		C-style signature:
@@ -486,9 +477,8 @@ typedef struct {
 * This function returns source current payload address under process
 * of ZDMA core.
 *
-* @param	InstancePtr is a pointer to the XZDma instance.
+* @param[in] InstancePtr is a pointer to the XZDma instance.
 *
-* @return	None.
 *
 * @note		This address may not be precise due to ZDMA pipeline structure
 *		C-style signature:
@@ -507,9 +497,8 @@ typedef struct {
 * This function returns destination current payload address under process
 * of ZDMA core.
 *
-* @param	InstancePtr is a pointer to the XZDma instance.
+* @param[in] InstancePtr is a pointer to the XZDma instance.
 *
-* @return	None.
 *
 * @note		This address may not be precise due to ZDMA pipeline structure
 *		C-style signature:
@@ -528,9 +517,8 @@ typedef struct {
 * This function returns source descriptor current payload address under
 * process of ZDMA core.
 *
-* @param	InstancePtr is a pointer to the XZDma instance.
+* @param[in] InstancePtr is a pointer to the XZDma instance.
 *
-* @return	None.
 *
 * @note		This address may not be precise due to ZDMA pipeline structure
 *		C-style signature:
@@ -550,9 +538,8 @@ typedef struct {
 * This function returns destination descriptor current payload address under
 * process of ZDMA core.
 *
-* @param	InstancePtr is a pointer to the XZDma instance.
+* @param[in] InstancePtr is a pointer to the XZDma instance.
 *
-* @return	None.
 *
 * @note		This address may not be precise due to ZDMA pipeline structure
 *		C-style signature:
@@ -571,9 +558,8 @@ typedef struct {
 * This function gets the count of total bytes transferred through core
 * since last clear in ZDMA core.
 *
-* @param	InstancePtr is a pointer to the XZDma instance.
+* @param[in] InstancePtr is a pointer to the XZDma instance.
 *
-* @return	None.
 *
 * @note
 *		C-style signature:
@@ -589,9 +575,8 @@ typedef struct {
 *
 * This function clears the count of total bytes transferred in ZDMA core.
 *
-* @param	InstancePtr is a pointer to the XZDma instance.
+* @param[in] InstancePtr is a pointer to the XZDma instance.
 *
-* @return	None.
 *
 * @note
 *		C-style signature:
@@ -610,9 +595,8 @@ typedef struct {
 * This function gets the total number of Interrupt count for source after last
 * call of this API.
 *
-* @param	InstancePtr is a pointer to the XZDma instance.
+* @param[in] InstancePtr is a pointer to the XZDma instance.
 *
-* @return	None.
 *
 * @note		Once this API is called then count will become zero.
 *		C-style signature:
@@ -629,9 +613,8 @@ typedef struct {
 * This function gets the total number of Interrupt count for destination
 * after last call of this API.
 *
-* @param	InstancePtr is a pointer to the XZDma instance.
+* @param[in] InstancePtr is a pointer to the XZDma instance.
 *
-* @return	None.
 *
 * @note		Once this API is called then count will become zero.
 *		C-style signature:
@@ -648,11 +631,9 @@ typedef struct {
 * This function Enable's the ZDMA core for initiating the data transfer once the
 * data transfer completes it will be automatically disabled.
 *
-* @param	InstancePtr is a pointer to the XZDma instance.
+* @param[in] InstancePtr is a pointer to the XZDma instance.
 *
-* @return	None.
 *
-* @note		None.
 *		C-style signature:
 *		void XZDma_EnableCh(XZDma *InstancePtr)
 *
@@ -666,11 +647,9 @@ typedef struct {
 *
 * This function Disable's the ZDMA core.
 *
-* @param	InstancePtr is a pointer to the XZDma instance.
+* @param[in] InstancePtr is a pointer to the XZDma instance.
 *
-* @return	None.
 *
-* @note		None.
 *		C-style signature:
 *		void XZDma_DisableCh(XZDma *InstancePtr)
 *
@@ -712,12 +691,10 @@ void XZDma_ScatterGather(XZDma *InstancePtr, XZDma_Transfer *Data,
 			 u32 Num);
 void XZDma_Enable(XZDma *InstancePtr);
 
-/*@}*/
-
 #ifdef __cplusplus
 }
 
 #endif
 
-#endif /* XZDMA_H_ */
 /** @} */
+#endif /* XZDMA_H_ */

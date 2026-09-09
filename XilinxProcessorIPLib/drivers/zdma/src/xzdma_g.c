@@ -1,21 +1,33 @@
-/*******************************************************************
+/******************************************************************************
 * Copyright (C) 2010 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
-*******************************************************************/
+******************************************************************************/
 
+/**
+*
+* @file xzdma_g.c
+* @addtogroup zdma Overview
+* @{
+*
+* Provide a template for user to define their own hardware settings.
+*
+* If using XPS, XPS will automatically generate this file.
+*
+* <pre>
+* MODIFICATION HISTORY:
+*
+* Ver   Who  Date     Changes
+* ----- ---- -------- -------------------------------------------------------
+* 1.0   vns  2/27/15  First release
+* </pre>
+*
+******************************************************************************/
 
 #include "xparameters.h"
 #include "xzdma.h"
 
-/*
-*@file xzdma.c
-*@addtogroup zdma Overview
-*
-*
-* The configuration table for devices
-*/
-
+/** Configuration table for each ZDMA instance in the system. */
 XZDma_Config XZDma_ConfigTable[] = {
 	{
 		XPAR_PSU_ADMA_CH0_DEVICE_ID,
@@ -98,3 +110,4 @@ XZDma_Config XZDma_ConfigTable[] = {
 		XPAR_PSU_GDMA_CH7_DMA_MODE
 	}
 };
+/** @} */

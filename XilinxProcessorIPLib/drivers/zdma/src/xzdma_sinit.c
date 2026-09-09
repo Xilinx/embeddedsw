@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2014 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -11,7 +11,7 @@
 * @addtogroup zdma Overview
 * @{
 *
-* This file contains static initialization methods for Xilinx ZDMA core.
+* Provides static initialization methods for the ZDMA core.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -53,9 +53,9 @@
 * A table contains the configuration info for each device in the system.
 *
 * @if SDT
-* @param        BaseAddress contains the base address of the device
+* @param[in] BaseAddress contains the base address of the device
 * @else
-* @param        DeviceId contains the unique ID of the device
+* @param[in] DeviceId contains the unique ID of the device
 * @endif
 *
 * @return

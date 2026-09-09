@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2014 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -8,9 +8,10 @@
 /**
 *
 * @file xzdma_selftest_example.c
+* @addtogroup zdma Overview
+* @{
 *
-* This file contains an example using the XZDma driver to do self test
-* on the device.
+* Demonstrates ZDMA self-test using the XZDma driver.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -64,7 +65,6 @@ XZDma ZDma;		/**<Instance of the ZDMA Device */
 *		- XST_SUCCESS if successful.
 *		- XST_FAILURE if failed.
 *
-* @note		None.
 *
 ******************************************************************************/
 int main(void)
@@ -93,9 +93,9 @@ int main(void)
 * This function does a minimal test on the ZDMA driver.
 *
 * @if SDT
-* @param	BaseAddress contains the base address of the ZDMA device
+* @param[in] BaseAddress contains the base address of the ZDMA device
 * @else
-* @param	DeviceId is the XPAR_<ZDMA Instance>_DEVICE_ID value from
+* @param[in] DeviceId is the XPAR_<ZDMA Instance>_DEVICE_ID value from
 *		xparameters.h.
 * @endif
 *
@@ -103,7 +103,6 @@ int main(void)
 *		- XST_SUCCESS if successful.
 *		- XST_FAILURE if failed.
 *
-* @note		None.
 *
 ******************************************************************************/
 #ifndef SDT
@@ -145,3 +144,5 @@ int XZDma_SelfTestExample(UINTPTR BaseAddress)
 
 	return XST_SUCCESS;
 }
+
+/** @} */

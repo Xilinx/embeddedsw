@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2014 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -11,7 +11,7 @@
 * @addtogroup zdma Overview
 * @{
 *
-* This file contains the self-test function for the ZDMA core.
+* Implements the self-test function for the ZDMA core.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -47,16 +47,14 @@
 /*****************************************************************************/
 /**
 *
-* This file contains a diagnostic self-test function for the ZDMA driver.
-* Refer to the header file xzdma.h for more detailed information.
+* Runs a diagnostic self-test for the ZDMA driver instance.
 *
-* @param	InstancePtr is a pointer to XZDma instance.
+* @param[in] InstancePtr is a pointer to XZDma instance.
 *
 * @return
 *		- XST_SUCCESS if the test is successful.
 *		- XST_FAILURE if the test is failed.
 *
-* @note		None.
 *
 ******************************************************************************/
 s32 XZDma_SelfTest(XZDma *InstancePtr)
