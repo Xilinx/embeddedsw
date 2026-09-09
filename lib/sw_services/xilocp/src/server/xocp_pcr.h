@@ -99,7 +99,7 @@ typedef struct {
 	u32 Ppk0WrLk;		/**< PPK0 WR LK eFuse */
 	u32 Ppk1WrLk;		/**< PPK1 WR LK eFuse */
 	u32 Ppk2WrLk;		/**< PPK2 WR LK eFuse */
-#ifdef VERSAL_2VP_P
+#if defined(VERSAL_2VP_P) && !defined(VERSAL_2VE_2VM)
 	u32 Ppk3WrLk;		/**< PPK3 WR LK eFuse */
 	u32 Ppk4WrLk;		/**< PPK4 WR LK eFuse */
 	u32 Ppk5WrLk;		/**< PPK5 WR LK eFuse */
@@ -110,7 +110,7 @@ typedef struct {
 	u32 Ppk0Invld;		/**< PPK0 INVALID eFuse */
 	u32 Ppk1Invld;		/**< PPK1 INVALID eFuse */
 	u32 Ppk2Invld;		/**< PPK2 INVALID eFuse */
-#ifdef VERSAL_2VP_P
+	#if defined(VERSAL_2VP_P) && !defined(VERSAL_2VE_2VM)
 	u32 Ppk3Invld;		/**< PPK3 INVALID eFuse */
 	u32 Ppk4Invld;		/**< PPK4 INVALID eFuse */
 	u32 Ppk5Invld;		/**< PPK5 INVALID eFuse */
@@ -121,7 +121,7 @@ typedef struct {
 	u32 Ppk0Hash[XOCP_EFUSE_PPK_HASH_NO_OF_WORDS]; /**< PPK0 Hash eFuse */
 	u32 Ppk1Hash[XOCP_EFUSE_PPK_HASH_NO_OF_WORDS]; /**< PPK1 Hash eFuse */
 	u32 Ppk2Hash[XOCP_EFUSE_PPK_HASH_NO_OF_WORDS]; /**< PPK2 Hash eFuse */
-#ifdef VERSAL_2VP_P
+#if defined(VERSAL_2VP_P) && !defined(VERSAL_2VE_2VM)
 	u32 Ppk3Hash[XOCP_EFUSE_PPK_HASH_NO_OF_WORDS]; /**< PPK3 Hash eFuse */
 	u32 Ppk4Hash[XOCP_EFUSE_PPK_HASH_NO_OF_WORDS]; /**< PPK4 Hash eFuse */
 	u32 Ppk5Hash[XOCP_EFUSE_PPK_HASH_NO_OF_WORDS]; /**< PPK5 Hash eFuse */

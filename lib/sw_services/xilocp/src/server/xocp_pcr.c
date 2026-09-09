@@ -1817,7 +1817,7 @@ static int XOcp_ReadPpkConfig(XOcp_PpkEfuseConfig* PpkConfig)
 	int Status = XST_FAILURE;
 	u32 SecureCtrl = Xil_In32(XOCP_EFUSE_CACHE_SECURITY_CONTROL);
 	u32 MiscCtrl = Xil_In32(XOCP_EFUSE_CACHE_MISC_CTRL);
-#ifdef VERSAL_2VP_P
+#if defined(VERSAL_2VP_P) && !defined(VERSAL_2VE_2VM)
 	u32 BootEnvCtrl = Xil_In32(XOCP_EFUSE_CACHE_BOOT_ENV_CTRL);
 	volatile u32 Index = 0U;
 	const u32 HashOff[XOCP_EFUSE_PPK_COUNT] = {
@@ -1850,7 +1850,7 @@ static int XOcp_ReadPpkConfig(XOcp_PpkEfuseConfig* PpkConfig)
 	PpkConfig->Ppk0Invld = MiscCtrl & XOCP_EFUSE_PPK0_INVLD_1_0_MASK;
 	PpkConfig->Ppk1Invld = MiscCtrl & XOCP_EFUSE_PPK1_INVLD_1_0_MASK;
 	PpkConfig->Ppk2Invld = MiscCtrl & XOCP_EFUSE_PPK2_INVLD_1_0_MASK;
-#ifdef VERSAL_2VP_P
+#if defined(VERSAL_2VP_P) && !defined(VERSAL_2VE_2VM)
 	PpkConfig->Ppk3WrLk = BootEnvCtrl & XOCP_EFUSE_PPK3_WR_LK_MASK;
 	PpkConfig->Ppk4WrLk = BootEnvCtrl & XOCP_EFUSE_PPK4_WR_LK_MASK;
 	PpkConfig->Ppk5WrLk = BootEnvCtrl & XOCP_EFUSE_PPK5_WR_LK_MASK;
