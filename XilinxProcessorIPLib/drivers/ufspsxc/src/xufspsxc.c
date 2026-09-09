@@ -65,11 +65,12 @@ void XUfsPsxc_CfgInitialize(XUfsPsxc *InstancePtr,
 	InstancePtr->Config.RefPadClk = ConfigPtr->RefPadClk;
 	InstancePtr->Config.IsCacheCoherent = ConfigPtr->IsCacheCoherent;
 	InstancePtr->TestUnitRdyLun = XUFSPSXC_INVALID_LUN_ID;
+	InstancePtr->NumOfLuns = 0U;
 	InstancePtr->RxCTLECompValL0 = 0U;
 	InstancePtr->RxCTLECompValL1 = 0U;
 	InstancePtr->RxATTCompValL0 = 0U;
 	InstancePtr->RxATTCompValL1 = 0U;
-	(void)memset(&InstancePtr->LUNInfo, (s32)0, sizeof(XUfsPsxc_BLUNInfo) * 32U);
+	(void)memset((void *)InstancePtr->LUNInfo, (s32)0, sizeof(InstancePtr->LUNInfo));
 	(void)memset(&InstancePtr->CmdDesc, (s32)0, sizeof(XUfsPsxc_Xfer_CmdDesc));
 	InstancePtr->IsReady = XIL_COMPONENT_IS_READY;
 	InstancePtr->DevBootEn = 0U;
@@ -235,6 +236,11 @@ u32 XUfsPsxc_CheckBootReq(XUfsPsxc *InstancePtr)
 		BLunId = InstancePtr->BLunBLunId;
 	}
 
+	if (!XUfsPsxc_IsValidLun(InstancePtr, BLunId)) {
+		Status = ((u32)XUFSPSXC_DEVICE_CFG_ERROR << 8U) | (u32)XUFSPSXC_INVALID_BLUN;
+		goto ERROR;
+	}
+
 	if (InstancePtr->LUNInfo[BLunId].BootLunID == 0U) {
 		Status = ((u32)XUFSPSXC_DEVICE_CFG_ERROR << 8U) | (u32)XUFSPSXC_MISMATCH_BLUNEN_BLUNID;
 		goto ERROR;
@@ -277,14 +283,16 @@ u32 XUfsPsxc_SwitchBootLUN(XUfsPsxc *InstancePtr)
 	if (InstancePtr->BootLunEn == XUFSPSXC_BLUN_A) {
 		ReqBootLUNID = XUFSPSXC_BLUN_B;
 		BLunId = InstancePtr->BLunBLunId;
-		if (InstancePtr->LUNInfo[InstancePtr->BLunBLunId].BootLunID != XUFSPSXC_BLUN_B) {
+		if ((!XUfsPsxc_IsValidLun(InstancePtr, BLunId)) ||
+				(InstancePtr->LUNInfo[BLunId].BootLunID != XUFSPSXC_BLUN_B)) {
 			Status = (XUFSPSXC_DEVICE_CFG_ERROR << 8U) | XUFSPSXC_BLUNID2_NOT_CONFIGURED;
 			goto ERROR;
 		}
 	} else {
 		ReqBootLUNID = XUFSPSXC_BLUN_A;
 		BLunId = InstancePtr->BLunALunId;
-		if (InstancePtr->LUNInfo[InstancePtr->BLunALunId].BootLunID != XUFSPSXC_BLUN_A) {
+		if ((!XUfsPsxc_IsValidLun(InstancePtr, BLunId)) ||
+				(InstancePtr->LUNInfo[BLunId].BootLunID != XUFSPSXC_BLUN_A)) {
 			Status = (XUFSPSXC_DEVICE_CFG_ERROR << 8U) | XUFSPSXC_BLUNID1_NOT_CONFIGURED;
 			goto ERROR;
 		}
@@ -364,7 +372,7 @@ u32 XUfsPsxc_ReadPolled(XUfsPsxc *InstancePtr, u32 Lun, u64 Address, u32 BlkCnt,
 		LunId = Lun;
 	}
 
-	if (LunId == XUFSPSXC_INVALID_LUN_ID) {
+	if (!XUfsPsxc_IsValidLun(InstancePtr, LunId)) {
 		Status = ((u32)XUFSPSXC_GENERAL_ERROR << 8U) | (u32)XUFSPSXC_INVALID_LUNID;
 		goto ERROR;
 	}
@@ -453,7 +461,7 @@ u32 XUfsPsxc_WritePolled(XUfsPsxc *InstancePtr, u32 Lun, u64 Address, u32 BlkCnt
 		LunId = Lun;
 	}
 
-	if (LunId == XUFSPSXC_INVALID_LUN_ID) {
+	if (!XUfsPsxc_IsValidLun(InstancePtr, LunId)) {
 		Status = ((u32)XUFSPSXC_GENERAL_ERROR << 8U) | (u32)XUFSPSXC_INVALID_LUNID;
 		goto ERROR;
 	}

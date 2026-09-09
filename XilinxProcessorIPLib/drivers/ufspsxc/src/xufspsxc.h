@@ -62,6 +62,8 @@ extern "C" {
 #define XUFSPSXC_PRDT_ENTRIES	4096U
 #endif
 
+#define XUFSPSXC_MAX_LUNS		32U		/**< Maximum number of logical units */
+
 /**
  * This typedef contains configuration information for the device.
  */
@@ -253,7 +255,7 @@ typedef struct {
 	u32 BLunBLunId;	/**< LUN ID mapped to Boot LUN B */
 	u32 PowerMode;	/**< Current power mode setting (PWM/HS with gear) */
 	u8 Config_Desc_Data[1024];	/**< Configuration descriptor data buffer */
-	XUfsPsxc_BLUNInfo LUNInfo[32] __attribute__ ((aligned(64)));	/**< Information for all supported LUNs */
+	XUfsPsxc_BLUNInfo LUNInfo[XUFSPSXC_MAX_LUNS] __attribute__ ((aligned(64)));	/**< Information for all supported LUNs */
 	XUfsPsxc_Config Config __attribute__ ((aligned(64)));	/**< Device configuration structure */
 	XUfsPsxc_Xfer_ReqDesc req_desc_baseaddr __attribute__ ((aligned(1024))); /**< Transfer request descriptor */
 	XUfsPsxc_Xfer_CmdDesc CmdDesc __attribute__ ((aligned(128))); /**< Command descriptor for transfers */
@@ -719,6 +721,21 @@ enum Task_Tag {
 #define XUFSPSXC_ATTR_VAL_REF_CLK_FREQ_52_MHZ	3U	/**< 52 MHz */
 #define XUFSPSXC_ATTR_VAL_REF_CLK_FREQ_INVAL	0xFFU	/**< Invalid frequency */
 /** @} */
+
+/*****************************************************************************/
+/**
+ * @brief	Check whether the given LUN identifier is valid for the connected device.
+ *
+ * @param	InstancePtr Pointer to the UFS controller instance.
+ * @param	LunId LUN identifier to validate.
+ *
+ * @return	TRUE if the LUN identifier is within the device's LUN count, else FALSE.
+ *
+ *****************************************************************************/
+static INLINE u32 XUfsPsxc_IsValidLun(const XUfsPsxc *InstancePtr, u32 LunId)
+{
+	return (u32)(LunId < InstancePtr->NumOfLuns);
+}
 
 /*****************************************************************************/
 /**

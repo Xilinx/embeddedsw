@@ -472,6 +472,11 @@ u32 XUfsPsxc_Set4KBlkSize(XUfsPsxc *InstancePtr, XUfsPsxc_Xfer_CmdDesc *CmdDescP
 		BLunId = InstancePtr->BLunBLunId;
 	}
 
+	if (!XUfsPsxc_IsValidLun(InstancePtr, BLunId)) {
+		Status = ((u32)XUFSPSXC_DEVICE_CFG_ERROR << 8U) | (u32)XUFSPSXC_INVALID_BLUN;
+		goto ERROR;
+	}
+
 	(void)memset((void *)CmdDescPtr, 0, sizeof(XUfsPsxc_Xfer_CmdDesc));
 
 	/* Update the Block Size to 4k */
@@ -492,6 +497,7 @@ u32 XUfsPsxc_Set4KBlkSize(XUfsPsxc *InstancePtr, XUfsPsxc_Xfer_CmdDesc *CmdDescP
 		InstancePtr->LUNInfo[BLunId].BlockSize = XUFSPSXC_LU_BLKSZ_4K;
 	}
 
+ERROR:
 	return Status;
 }
 
