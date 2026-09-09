@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2004 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -10,12 +10,7 @@
 * @addtogroup emaclite Overview
 * @{
 *
-* This header file contains internal identifiers, which are those shared
-* between the files of the driver. It is intended for internal use only.
-*
-* NOTES:
-*
-* None.
+* Defines internal identifiers shared between driver source files.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -40,7 +35,6 @@
 extern "C" {
 #endif
 
-
 /***************************** Include Files *********************************/
 
 #include "xemaclite.h"
@@ -61,7 +55,7 @@ extern "C" {
 * the handler is complete. This mimics the correct operation of the hardware
 * if it was possible to do this in hardware.
 *
-* @param	BaseAddress is the base address of the device
+* @param[in] BaseAddress is the base address of the device
 *
 * @return	Contents of active bit in register.
 *
@@ -82,10 +76,9 @@ extern "C" {
 * the handler is complete. This mimics the correct operation of the hardware
 * if it was possible to do this in hardware.
 *
-* @param	BaseAddress is the base address of the device
-* @param	Mask is the data to be written
+* @param[in] BaseAddress is the base address of the device
+* @param[in] Mask is the data to be written
 *
-* @return	None
 *
 * @note		C-Style signature:
 * 		void XEmacLite_SetTxActive(u32 BaseAddress, u32 Mask)

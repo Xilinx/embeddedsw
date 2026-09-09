@@ -7,9 +7,11 @@
 /*****************************************************************************/
 /**
 * @file xemaclite_polled_example.c
+* @addtogroup emaclite Overview
+* @{
 *
-* This file contains an example for using the EmacLite hardware and driver.
-* This file contains an polled mode example outlining the transmission/reception
+* Contains an example for using the EmacLite hardware and driver.
+* Contains an polled mode example outlining the transmission/reception
 * of an Ethernet frame of 1000 bytes of payload.
 *
 * If the MDIO interface is NOT configured in the EmacLite core then this example
@@ -68,9 +70,11 @@ int EmacLitePolledExample(UINTPTR BaseAddress);
 int EmacLitePolledExample(u16 DeviceId);
 #endif
 
+/** @cond INTERNAL */
 static int EmacLiteSendFrame(XEmacLite *InstancePtr, u32 PayloadSize);
 
 static int EmacLiteRecvFrame(u32 PayloadSize);
+/** @endcond */
 
 /************************** Variable Definitions *****************************/
 
@@ -88,13 +92,11 @@ static u8 RemoteAddress[XEL_MAC_ADDR_SIZE] = {
 /****************************************************************************/
 /**
 *
-* This function is the main function of the EmacLite polled example.
+* Main entry point of the EmacLite polled example.
 *
-* @param	None.
 *
 * @return	XST_SUCCESS to indicate success, otherwise XST_FAILURE .
 *
-* @note		None.
 *
 *****************************************************************************/
 #ifndef TESTAPP_GEN
@@ -126,22 +128,20 @@ int main()
 *
 * The main entry point for the EmacLite driver example in polled mode.
 *
-* This function will transmit/receive the Ethernet frames and verify the
+* transmit/receive the Ethernet frames and verify the
 * data in the received frame (if the MDIO interface is configured in the
 * EmacLite core).
-* This function simply transmits a frame if the MDIO interface is not
-* configured in the EmacLite core.
+* Transmits a frame only when the MDIO interface is not configured.
 *
 * @if SDT
-* @param	BaseAddress contains the base address of the EmacLite device
+* @param[in] BaseAddress contains the base address of the EmacLite device
 * @else
-* @param	DeviceId is device ID of the XEmacLite Device , typically
+* @param[in] DeviceId is device ID of the XEmacLite device, typically
 *		XPAR_<EMAC_instance>_DEVICE_ID value from xparameters.h.
 * @endif
 *
 * @return	XST_SUCCESS to indicate success, XST_FAILURE otherwise.
 *
-* @note		None.
 *
 *
 ******************************************************************************/
@@ -266,16 +266,15 @@ int EmacLitePolledExample(u16 DeviceId)
 /******************************************************************************/
 /**
 *
-* This function sends a frame of given size.
+* Sends a frame of given size.
 *
-* @param	XEmacInstancePtr is a pointer to the XEmacLite instance.
-* @param	PayloadSize is the size of the frame to create. The size only
+* @param[in] InstancePtr is a pointer to the XEmacLite instance.
+* @param[in] PayloadSize is the size of the frame to create. The size only
 *		reflects the payload size, it does not include the Ethernet
 *		header size (14 bytes) nor the Ethernet CRC size (4 bytes).
 *
 * @return	XST_SUCCESS if successful, else a driver-specific return code.
 *
-* @note		None.
 *
 ******************************************************************************/
 static int EmacLiteSendFrame(XEmacLite *InstancePtr, u32 PayloadSize)
@@ -345,17 +344,16 @@ static int EmacLiteSendFrame(XEmacLite *InstancePtr, u32 PayloadSize)
 /******************************************************************************/
 /**
 *
-* This function receives a frame of given size. This function assumes interrupt
+* Receives a frame of given size. Assumes interrupt
 * mode, receives the frame and verifies its contents.
 *
-* @param	PayloadSize is the size of the frame to receive.
+* @param[in] PayloadSize is the size of the frame to receive.
 *		The size only reflects the payload size, it does not include the
 *		Ethernet header size (14 bytes) nor the Ethernet CRC size (4
 *		bytes).
 *
 * @return	XST_SUCCESS if successful, a driver-specific return code if not.
 *
-* @note		None.
 *
 ******************************************************************************/
 static int EmacLiteRecvFrame(u32 PayloadSize)
@@ -391,3 +389,5 @@ static int EmacLiteRecvFrame(u32 PayloadSize)
 
 	return XST_SUCCESS;
 }
+
+/** @} */

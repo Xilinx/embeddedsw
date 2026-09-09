@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2009 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc.  All rights reserved
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -8,11 +8,13 @@
 /**
 *
 * @file xemaclite_example.h
+* @addtogroup emaclite Overview
+* @{
 *
 * Defines common data types, prototypes, and includes the proper headers
 * for use with the EmacLite example code residing in this directory.
 *
-* This file along with xemaclite_example_util.c are utilized with the specific
+* Works with xemaclite_example_util.c are utilized with the specific
 * example code in the other source code files provided.
 *
 * These examples are designed to be compiled and utilized within the EDK
@@ -111,3 +113,5 @@ extern volatile int TransmitComplete;	/* Flag to indicate that the
 #endif
 
 #endif /* XEMACLITE_EXAMPLE_H */
+
+/** @} */

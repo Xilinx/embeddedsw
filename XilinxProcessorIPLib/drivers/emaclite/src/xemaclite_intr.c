@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2004 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -54,19 +54,18 @@
 *
 * Enable the EmacLite Interrupts.
 *
-* This function must be called before other functions to send or receive data
+* Call this API before before other functions to send or receive data
 * in interrupt driven mode. The user should have connected the
 * interrupt handler of the driver to an interrupt source such as an interrupt
 * controller or the processor interrupt prior to this function being called.
 *
-* @param	InstancePtr is a pointer to the XEmacLite instance.
+* @param[in] InstancePtr is a pointer to the XEmacLite instance.
 *
 * @return
 * 		- XST_SUCCESS if the device interrupts were enabled
 *			successfully.
 *		- XST_NO_CALLBACK if the callbacks were not set.
 *
-* @note		None.
 *
 ******************************************************************************/
 int XEmacLite_EnableInterrupts(XEmacLite *InstancePtr)
@@ -124,11 +123,9 @@ int XEmacLite_EnableInterrupts(XEmacLite *InstancePtr)
 *
 * To start using the device again, _EnableInterrupts must be called.
 *
-* @param	InstancePtr is a pointer to the XEmacLite instance .
+* @param[in] InstancePtr is a pointer to the XEmacLite instance.
 *
-* @return	None.
 *
-* @note		None.
 *
 ******************************************************************************/
 void XEmacLite_DisableInterrupts(XEmacLite *InstancePtr)
@@ -180,12 +177,10 @@ void XEmacLite_DisableInterrupts(XEmacLite *InstancePtr)
 * 	of the interrupt.
 * 	- Call the appropriate handler based on the source of the interrupt.
 *
-* @param	InstancePtr contains a pointer to the EmacLite device instance
+* @param[in] InstancePtr contains a pointer to the EmacLite device instance
 *		for the interrupt.
 *
-* @return	None.
 *
-* @note		None.
 *
 *
 ******************************************************************************/
@@ -278,15 +273,13 @@ void XEmacLite_InterruptHandler(void *InstancePtr)
 * to do its job quickly. If there are other potentially slow operations
 * within the callback, these should be done at task-level.
 *
-* @param	InstancePtr is a pointer to the XEmacLite instance..
-* @param	CallBackRef is a reference pointer to be passed back to the
+* @param[in] InstancePtr is a pointer to the XEmacLite instance.
+* @param[in] CallBackRef is a reference pointer to be passed back to the
 *		application in the callback. This helps the application
 *		correlate the callback to a particular driver.
-* @param	FuncPtr is the pointer to the callback function.
+* @param[in] FuncPtr is the pointer to the callback function.
 *
-* @return	None.
 *
-* @note		None.
 *
 ******************************************************************************/
 void XEmacLite_SetRecvHandler(XEmacLite *InstancePtr, void *CallBackRef,
@@ -314,15 +307,13 @@ void XEmacLite_SetRecvHandler(XEmacLite *InstancePtr, void *CallBackRef,
 * to do its job quickly. If there are other potentially slow operations
 * within the callback, these should be done at task-level.
 *
-* @param	InstancePtr is a pointer to the XEmacLite instance.
-* @param	CallBackRef is a reference pointer to be passed back to the
+* @param[in] InstancePtr is a pointer to the XEmacLite instance.
+* @param[in] CallBackRef is a reference pointer to be passed back to the
 *		application in the callback. This helps the application
 *		correlate the callback to a particular driver.
-* @param	FuncPtr is the pointer to the callback function.
+* @param[in] FuncPtr is the pointer to the callback function.
 *
-* @return	None.
 *
-* @note		None.
 *
 ******************************************************************************/
 void XEmacLite_SetSendHandler(XEmacLite *InstancePtr, void *CallBackRef,

@@ -7,8 +7,10 @@
 /*****************************************************************************/
 /**
 * @file xemaclite_ping_reply_example.c
+* @addtogroup emaclite Overview
+* @{
 *
-* This file contains an EmacLite ping reply example in polled mode. This example
+* Contains an EmacLite ping reply example in polled mode. This example
 * will generate a ping reply when it receives a ping request packet from the
 * external world.
 *
@@ -129,6 +131,7 @@
 
 /************************** Function Prototypes ******************************/
 
+/** @cond INTERNAL */
 #ifdef SDT
 static int EmacLitePingReplyExample(UINTPTR BaseAddress);
 #else
@@ -138,6 +141,7 @@ static int EmacLitePingReplyExample(u16 DeviceId);
 static void ProcessRecvFrame(XEmacLite *InstancePtr);
 
 static u16 CheckSumCalculation(u16 *RxFramePtr, int StartLoc, int Length);
+/** @endcond */
 
 /************************** Variable Definitions *****************************/
 
@@ -179,15 +183,13 @@ u32 NumOfPingReplies;
 /****************************************************************************/
 /**
 *
-* This function is the main function of the Ping reply example in
+* Main entry point of the Ping reply example in
 * polled mode.
 *
-* @param	None.
 *
 * @return	XST_FAILURE to indicate failure, otherwise XST_SUCCESS
 *		is returned.
 *
-* @note		None.
 *
 *****************************************************************************/
 int main()
@@ -217,9 +219,9 @@ int main()
 * The entry point for the EmacLite Ping reply example in polled mode.
 *
 * @if SDT
-* @param	BaseAddress contains the base address of the EmacLite device
+* @param[in] BaseAddress contains the base address of the EmacLite device
 * @else
-* @param	DeviceId is device ID of the XEmacLite Device.
+* @param[in] DeviceId is device ID of the XEmacLite Device.
 * @endif
 *
 * @return	XST_FAILURE to indicate failure, otherwise XST_SUCCESS is
@@ -301,12 +303,11 @@ int EmacLitePingReplyExample(u16 DeviceId)
 /******************************************************************************/
 /**
 *
-* This function processes the received packet and generates the corresponding
+* Processes the received packet and generates the corresponding
 * reply packets.
 *
-* @param	InstancePtr is a pointer to the instance of the EmacLite.
+* @param[in] InstancePtr is a pointer to the instance of the EmacLite.
 *
-* @return	None.
 *
 * @note		This function assumes MAC does not strip padding or CRC.
 *
@@ -673,16 +674,16 @@ static void ProcessRecvFrame(XEmacLite *InstancePtr)
 /*****************************************************************************/
 /**
 *
-* This function calculates the checksum and returns a 16 bit result.
+* @brief Calculates the checksum and returns a 16-bit result.
 *
-* @param 	RxFramePtr is a 16 bit pointer for the data to which checksum
+* @param[in] RxFramePtr is a 16-bit pointer for the data to which checksum
 * 		is to be calculated.
-* @param	StartLoc is the starting location of the data from which the
+* @param[in] StartLoc is the starting location of the data from which the
 *		checksum has to be calculated.
-* @param	Length is the number of halfwords(16 bits) to which checksum is
+* @param[in] Length is the number of halfwords(16 bits) to which checksum is
 * 		to be calculated.
 *
-* @return	It returns a 16 bit checksum value.
+* @return	It returns a 16-bit checksum value.
 *
 * @note		This can also be used for calculating checksum. The ones
 * 		complement of this return value will give the final checksum.
@@ -711,3 +712,5 @@ static u16 CheckSumCalculation(u16 *RxFramePtr, int StartLoc, int Length)
 	CheckSum = Sum + CheckSum;
 	return CheckSum;
 }
+
+/** @} */

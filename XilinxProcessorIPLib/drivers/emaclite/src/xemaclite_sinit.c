@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2007 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -11,10 +11,9 @@
 * @addtogroup emaclite Overview
 * @{
 *
-* This file contains the implementation of the XEmacLite driver's static
+* Contains the implementation of the XEmacLite driver's static
 * initialization functionality.
 *
-* @note		None.
 *
 * <pre>
 *
@@ -53,9 +52,9 @@ extern XEmacLite_Config XEmacLite_ConfigTable[];
 * A table contains the configuration info for each device in the system.
 *
 * @if SDT
-* @param        BaseAddress contains the base address of the device
+* @param[in] BaseAddress contains the base address of the device
 * @else
-* @param        DeviceId contains the unique ID of the device
+* @param[in] DeviceId contains the unique ID of the device
 * @endif
 *
 * @return
@@ -107,11 +106,15 @@ XEmacLite_Config *XEmacLite_LookupConfig(u16 DeviceId)
 *
 * The driver defaults to polled mode operation.
 *
-* @param	InstancePtr is a pointer to the XEmacLite instance.
-* @param 	DeviceId is the unique id of the device controlled by this
-*		XEmacLite instance.  Passing in a device id associates the
+* @param[in] InstancePtr is a pointer to the XEmacLite instance.
+* @if SDT
+* @param[in] BaseAddress contains the base address of the device.
+* @else
+* @param[in] DeviceId is the unique id of the device controlled by this
+*		XEmacLite instance. Passing in a device id associates the
 *		generic XEmacLite instance to a specific device, as chosen by
 *		the caller or application developer.
+* @endif
 *
 * @return
 * 		- XST_SUCCESS if initialization was successful.
@@ -119,7 +122,6 @@ XEmacLite_Config *XEmacLite_LookupConfig(u16 DeviceId)
 *		information was not found for a device with the supplied
 *		device ID.
 *
-* @note		None
 *
 ******************************************************************************/
 #ifdef SDT

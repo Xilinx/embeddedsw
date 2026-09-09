@@ -10,10 +10,8 @@
 * @file xemaclite.h
 * @addtogroup emaclite Overview
 * @{
-* @details
 *
-* The Xilinx Ethernet Lite (EmacLite) driver. This driver supports the Xilinx
-* Ethernet Lite 10/100 MAC (EmacLite).
+* Driver API for the Xilinx Ethernet Lite 10/100 MAC (EmacLite).
 *
 * The Xilinx Ethernet Lite 10/100 MAC supports the following features:
 *   - Media Independent Interface (MII) for connection to external
@@ -189,6 +187,7 @@
 *
 *
 ******************************************************************************/
+
 #ifndef XEMACLITE_H		/* prevent circular inclusions */
 #define XEMACLITE_H		/* by using protection macros */
 
@@ -219,7 +218,7 @@ extern "C" {
 /**************************** Type Definitions *******************************/
 
 /**
- * This typedef contains configuration information for a device.
+ * Holds configuration information for a device.
  */
 typedef struct {
 #ifdef SDT
@@ -241,7 +240,7 @@ typedef struct {
 
 /*
  * Callback when data is sent or received .
- * @param 	CallBackRef is a callback reference passed in by the upper layer
+ * @param[in] CallBackRef is a callback reference passed in by the upper layer
  *		when setting the callback functions, and passed back to the
  *		upper layer when the callback is invoked.
  */
@@ -276,7 +275,7 @@ typedef struct {
 *
 * Return the next expected Transmit Buffer's address.
 *
-* @param	InstancePtr is the pointer to the instance of the driver to
+* @param[in] InstancePtr is the pointer to the instance of the driver to
 *		be worked on
 *
 * @note		C-Style signature:
@@ -295,7 +294,7 @@ typedef struct {
 *
 * Return the next expected Receive Buffer's address.
 *
-* @param	InstancePtr is the pointer to the instance of the driver to
+* @param[in] InstancePtr is the pointer to the instance of the driver to
 *		be worked on
 *
 * @note		C-Style signature:
@@ -314,7 +313,7 @@ typedef struct {
 *
 * This macro determines if the device is currently configured for MDIO.
 *
-* @param	InstancePtr is the pointer to the instance of the
+* @param[in] InstancePtr is the pointer to the instance of the
 *		EmacLite driver.
 *
 * @return
@@ -334,7 +333,7 @@ typedef struct {
 * This macro determines if the device is currently configured for internal
 * loopback.
 *
-* @param	InstancePtr is the pointer to the instance of the
+* @param[in] InstancePtr is the pointer to the instance of the
 *		EmacLite driver.
 *
 * @return

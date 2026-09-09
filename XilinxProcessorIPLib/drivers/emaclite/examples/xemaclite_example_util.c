@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2009 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc.  All rights reserved
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc.  All rights reserved
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -8,8 +8,10 @@
 /**
 *
 * @file xemaclite_example_util.c
+* @addtogroup emaclite Overview
+* @{
 *
-* This file implements the utility functions for the EmacLite example code.
+* Implements the utility functions for the EmacLite example code.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -59,7 +61,7 @@ volatile int TransmitComplete;	/* Flag to indicate that the Transmission
 /******************************************************************************/
 /**
 *
-* This function detects the PHY address by looking for successful MII status
+* Detects the PHY address by looking for successful MII status
 * register contents (PHY register 1). It looks for a PHY that supports
 * auto-negotiation and 10Mbps full-duplex and half-duplex. So, this code
 * won't work for PHYs that don't support those features, but it's a bit more
@@ -69,7 +71,7 @@ volatile int TransmitComplete;	/* Flag to indicate that the Transmission
 * properly respond to this query. But, since the default is 0 and assuming
 * no other address responds, then it seems to work OK.
 *
-* @param	InstancePtr is the pointer to the instance of EmacLite driver.
+* @param[in] InstancePtr is the pointer to the instance of EmacLite driver.
 *
 * @return	The address of the PHY device detected (returns 0 if not
 *		detected).
@@ -110,16 +112,15 @@ u32 EmacLitePhyDetect(XEmacLite *InstancePtr)
 /******************************************************************************/
 /**
 *
-* This function enables the MAC loopback on the PHY.
+* Enables the MAC loopback on the PHY.
 *
-* @param	InstancePtr is the pointer to the instance of EmacLite driver.
-* @param	PhyAddress is the address of the Phy device.
+* @param[in] InstancePtr is the pointer to the instance of EmacLite driver.
+* @param[in] PhyAddress is the address of the Phy device.
 *
 * @return
 *		- XST_SUCCESS if the loop back is enabled.
 *		- XST_FAILURE if the loop back was not enabled.
 *
-* @note		None.
 *
 ******************************************************************************/
 int EmacLiteEnablePhyLoopBack(XEmacLite *InstancePtr, u32 PhyAddress)
@@ -162,16 +163,15 @@ int EmacLiteEnablePhyLoopBack(XEmacLite *InstancePtr, u32 PhyAddress)
 /******************************************************************************/
 /**
 *
-* This function disables the MAC loopback on the PHY.
+* Disables the MAC loopback on the PHY.
 *
-* @param	InstancePtr is the pointer to the instance of EmacLite driver.
-* @param	PhyAddress is the address of the Phy device.
+* @param[in] InstancePtr is the pointer to the instance of EmacLite driver.
+* @param[in] PhyAddress is the address of the Phy device.
 *
 * @return
 *		- XST_SUCCESS if the loop back was disabled.
 *		- XST_FAILURE if the loop back was not disabled.
 *
-* @note		None.
 *
 ******************************************************************************/
 int EmacLiteDisablePhyLoopBack(XEmacLite *InstancePtr, u32 PhyAddress)
@@ -206,9 +206,7 @@ int EmacLiteDisablePhyLoopBack(XEmacLite *InstancePtr, u32 PhyAddress)
 * memory access time can make the delay vary.  Just keep in mind that after
 * resetting or updating the PHY modes, the PHY typically needs time to recover.
 *
-* @return   None
-*
-* @note     None
+* @param[in] Seconds Number of seconds to delay.
 *
 ******************************************************************************/
 void EmacLitePhyDelay(unsigned int Seconds)
@@ -246,3 +244,5 @@ void EmacLitePhyDelay(unsigned int Seconds)
 
 #endif
 }
+
+/** @} */

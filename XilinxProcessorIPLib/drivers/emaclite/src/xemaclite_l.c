@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2004 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -11,7 +11,7 @@
 * @addtogroup emaclite Overview
 * @{
 *
-* This file contains the minimal, polled functions to send and receive Ethernet
+* Contains the minimal, polled functions to send and receive Ethernet
 * frames.
 *
 * Refer to xemaclite.h for more details.
@@ -66,18 +66,16 @@ void XEmacLite_AlignedRead(UINTPTR *SrcPtr, void *DestPtr, unsigned ByteCount);
 /**
 *
 * Send an Ethernet frame. The size is the total frame size, including header.
-* This function blocks waiting for the frame to be transmitted.
+* Blocks until for the frame to be transmitted.
 *
-* @param 	BaseAddress is the base address of the device
-* @param 	FramePtr is a pointer to frame
-* @param 	ByteCount is the size, in bytes, of the frame
+* @param[in] BaseAddress is the base address of the device
+* @param[in] FramePtr is a pointer to frame
+* @param[in] ByteCount is the size, in bytes, of the frame
 *
-* @return	None.
 *
 * @note
 *
-* This function call is blocking in nature, i.e. it will wait until the
-* frame is transmitted. This function can hang and not exit if the
+* Blocks until the frame is transmitted. Can hang if the
 * hardware is not configured properly.
 *
 * If the ping buffer is the destination of the data, the argument should be
@@ -120,8 +118,8 @@ void XEmacLite_SendFrame(UINTPTR BaseAddress, u8 *FramePtr, unsigned ByteCount)
 *
 * Receive a frame. Wait for a frame to arrive.
 *
-* @param	BaseAddress is the base address of the device
-* @param	FramePtr is a pointer to a buffer where the frame will
+* @param[in] BaseAddress is the base address of the device
+* @param[in] FramePtr is a pointer to a buffer where the frame will
 *		be stored.
 *
 * @return
@@ -132,7 +130,7 @@ void XEmacLite_SendFrame(UINTPTR BaseAddress, u8 *FramePtr, unsigned ByteCount)
 *
 * @note
 *
-* This function call is blocking in nature, i.e. it will wait until a
+* Blocks until a
 * frame arrives.
 *
 * If the ping buffer is the source of the data, the argument should be
@@ -197,16 +195,14 @@ u16 XEmacLite_RecvFrame(UINTPTR BaseAddress, u8 *FramePtr)
 /******************************************************************************/
 /**
 *
-* This function aligns the incoming data and writes it out to a 32-bit
+* Aligns the incoming data and writes it out to a 32-bit
 * aligned destination address range.
 *
-* @param	SrcPtr is a pointer to incoming data of any alignment.
-* @param	DestPtr is a pointer to outgoing data of 32-bit alignment.
-* @param	ByteCount is the number of bytes to write.
+* @param[in] SrcPtr is a pointer to incoming data of any alignment.
+* @param[in] DestPtr is a pointer to outgoing data of 32-bit alignment.
+* @param[in] ByteCount is the number of bytes to write.
 *
-* @return	None.
 *
-* @note		None.
 *
 ******************************************************************************/
 void XEmacLite_AlignedWrite(void *SrcPtr, UINTPTR *DestPtr, unsigned ByteCount)
@@ -355,16 +351,14 @@ void XEmacLite_AlignedWrite(void *SrcPtr, UINTPTR *DestPtr, unsigned ByteCount)
 /******************************************************************************/
 /**
 *
-* This function reads from a 32-bit aligned source address range and aligns
+* Reads from a 32-bit aligned source address range and aligns
 * the writes to the provided destination pointer alignment.
 *
-* @param	SrcPtr is a pointer to incoming data of 32-bit alignment.
-* @param	DestPtr is a pointer to outgoing data of any alignment.
-* @param	ByteCount is the number of bytes to read.
+* @param[in] SrcPtr is a pointer to incoming data of 32-bit alignment.
+* @param[in] DestPtr is a pointer to outgoing data of any alignment.
+* @param[in] ByteCount is the number of bytes to read.
 *
-* @return	None.
 *
-* @note		None.
 *
 ******************************************************************************/
 void XEmacLite_AlignedRead(UINTPTR *SrcPtr, void *DestPtr, unsigned ByteCount)

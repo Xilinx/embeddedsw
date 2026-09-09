@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2004 - 2022 Xilinx, Inc.  All rights reserved
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved..
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -11,8 +11,7 @@
 * @addtogroup emaclite Overview
 * @{
 *
-* This header file contains identifiers and basic driver functions and macros
-* that can be used to access the Xilinx Ethernet Lite 10/100 MAC (EmacLite).
+* Defines identifiers and basic low-level driver functions and macros for EmacLite.
 *
 * Refer to xemaclite.h for more details.
 *
@@ -201,8 +200,8 @@ extern "C" {
 *
 * Read from the specified EmacLite device register.
 *
-* @param	BaseAddress contains the base address of the device.
-* @param	RegOffset contains the offset from the 1st register of the
+* @param[in] BaseAddress contains the base address of the device.
+* @param[in] RegOffset contains the offset from the 1st register of the
 *		device to select the specific register.
 *
 * @return	The value read from the register.
@@ -219,12 +218,11 @@ extern "C" {
 *
 * Write to the specified EmacLite device register.
 *
-* @param	BaseAddress contains the base address of the device.
-* @param	RegOffset contains the offset from the 1st register of the
+* @param[in] BaseAddress contains the base address of the device.
+* @param[in] RegOffset contains the offset from the 1st register of the
 *		device to select the specific register.
-* @param	RegisterValue is the value to be written to the register.
+* @param[in] RegisterValue is the value to be written to the register.
 *
-* @return	None.
 *
 * @note		C-Style signature:
 *		void XEmacLite_WriteReg(u32 BaseAddress, u32 RegOffset,
@@ -239,7 +237,7 @@ extern "C" {
 *
 * Get the Tx Status Register Contents.
 *
-* @param	BaseAddress is the base address of the device
+* @param[in] BaseAddress is the base address of the device
 *
 * @return	The contents of the Tx Status Register.
 *
@@ -256,10 +254,9 @@ extern "C" {
 *
 * Set the Tx Status Register Contents.
 *
-* @param	BaseAddress is the base address of the device
-* @param	Data is the value to be written to the Register.
+* @param[in] BaseAddress is the base address of the device
+* @param[in] Data is the value to be written to the Register.
 *
-* @return	None.
 *
 * @note		C-Style signature:
 * 		u32 XEmacLite_SetTxStatus(u32 BaseAddress, u32 Data)
@@ -274,7 +271,7 @@ extern "C" {
 *
 * Get the Rx Status Register Contents.
 *
-* @param	BaseAddress is the base address of the device
+* @param[in] BaseAddress is the base address of the device
 *
 * @return	The contents of the Rx Status Register.
 *
@@ -291,10 +288,9 @@ extern "C" {
 *
 * Set the Rx Status Register Contents.
 *
-* @param	BaseAddress is the base address of the device
-* @param	Data is the value to be written to the Register.
+* @param[in] BaseAddress is the base address of the device
+* @param[in] Data is the value to be written to the Register.
 *
-* @return	None.
 *
 * @note		C-Style signature:
 * 		u32 XEmacLite_SetRxStatus(u32 BaseAddress, u32 Data)
@@ -309,7 +305,7 @@ extern "C" {
 *
 * Check to see if the transmission is complete.
 *
-* @param	BaseAddress is the base address of the device
+* @param[in] BaseAddress is the base address of the device
 *
 * @return	TRUE if it is done, or FALSE if it is not.
 *
@@ -327,7 +323,7 @@ extern "C" {
 *
 * Check to see if the receive is empty.
 *
-* @param	BaseAddress is the base address of the device
+* @param[in] BaseAddress is the base address of the device
 *
 * @return	TRUE if it is empty, or FALSE if it is not.
 *

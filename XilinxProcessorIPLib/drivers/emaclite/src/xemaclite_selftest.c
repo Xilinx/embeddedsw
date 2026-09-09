@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2004 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -11,7 +11,7 @@
 * @addtogroup emaclite Overview
 * @{
 *
-* Function(s) in this file are the required functions for the EMAC Lite
+* Function(s) in this file are the required functions for the Ethernet MAC Lite
 * driver sefftest for the hardware.
 * See xemaclite.h for a detailed description of the driver.
 *
@@ -53,13 +53,12 @@
 *   - If configured, writes to the secondary RX buffer and reads back to verify.
 *
 *
-* @param	InstancePtr is a pointer to the XEmacLite instance .
+* @param[in] InstancePtr is a pointer to the XEmacLite instance.
 *
 * @return
 *		- XST_SUCCESS if the device Passed the Self Test.
 * 		- XST_FAILURE if any of the data read backs fail.
 *
-* @note		None.
 *
 ******************************************************************************/
 int XEmacLite_SelfTest(XEmacLite *InstancePtr)
@@ -81,8 +80,8 @@ int XEmacLite_SelfTest(XEmacLite *InstancePtr)
 		      XEL_TXBUFF_OFFSET;
 
 	/*
-	 * Write the TestString to the TX buffer in EMAC Lite then
-	 * back from the EMAC Lite and verify
+	 * Write the TestString to the TX buffer in Ethernet MAC Lite then
+	 * back from the Ethernet MAC Lite and verify
 	 */
 	XEmacLite_AlignedWrite(TestString, (UINTPTR *) BaseAddress,
 			       sizeof(TestString));
@@ -107,8 +106,8 @@ int XEmacLite_SelfTest(XEmacLite *InstancePtr)
 	if (InstancePtr->EmacLiteConfig.TxPingPong != 0) {
 		BaseAddress += XEL_BUFFER_OFFSET;
 		/*
-		 * Write the TestString to the optional TX buffer in EMAC Lite
-		 * then back from the EMAC Lite and verify
+		 * Write the TestString to the optional TX buffer in Ethernet MAC Lite
+		 * then back from the Ethernet MAC Lite and verify
 		 */
 		XEmacLite_AlignedWrite(TestString, (UINTPTR *) BaseAddress,
 				       sizeof(TestString));
@@ -135,8 +134,8 @@ int XEmacLite_SelfTest(XEmacLite *InstancePtr)
 		      XEL_RXBUFF_OFFSET;
 
 	/*
-	 * Write the TestString to the RX buffer in EMAC Lite then
-	 * back from the EMAC Lite and verify
+	 * Write the TestString to the RX buffer in Ethernet MAC Lite then
+	 * back from the Ethernet MAC Lite and verify
 	 */
 	XEmacLite_AlignedWrite(TestString, (UINTPTR *) (BaseAddress),
 			       sizeof(TestString));
@@ -161,8 +160,8 @@ int XEmacLite_SelfTest(XEmacLite *InstancePtr)
 	if (InstancePtr->EmacLiteConfig.RxPingPong != 0) {
 		BaseAddress += XEL_BUFFER_OFFSET;
 		/*
-		 * Write the TestString to the optional RX buffer in EMAC Lite
-		 * then back from the EMAC Lite and verify
+		 * Write the TestString to the optional RX buffer in Ethernet MAC Lite
+		 * then back from the Ethernet MAC Lite and verify
 		 */
 		XEmacLite_AlignedWrite(TestString, (UINTPTR *) BaseAddress,
 				       sizeof(TestString));

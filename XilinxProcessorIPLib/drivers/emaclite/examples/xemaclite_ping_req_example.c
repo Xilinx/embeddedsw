@@ -7,8 +7,10 @@
 /*****************************************************************************/
 /**
 * @file xemaclite_ping_req_example.c
+* @addtogroup emaclite Overview
+* @{
 *
-* This file contains a EmacLite Ping request example in polled mode. This
+* Contains a EmacLite Ping request example in polled mode. This
 * example will generate a ping request for the specified IP address.
 *
 * @note
@@ -130,6 +132,7 @@
 
 
 /************************** Function Prototypes ******************************/
+/** @cond INTERNAL */
 #ifdef SDT
 static int EmacLitePingReqExample(UINTPTR BaseAddress);
 #else
@@ -146,6 +149,7 @@ static u16 CheckSumCalculation(u16 *RxFramePtr16, int StartLoc, int Length);
 
 static int CompareData(u16 *LhsPtr, u16 *RhsPtr, int LhsLoc, int RhsLoc,
 		       int Count);
+/** @endcond */
 
 /************************** Variable Definitions *****************************/
 
@@ -222,15 +226,13 @@ static int ArpResolved = 0;
 /****************************************************************************/
 /**
 *
-* This function is the main function of the Ping Request example in polled mode.
+* Main entry point of the Ping Request example in polled mode.
 *
-* @param	None.
 *
 * @return	XST_FAILURE to indicate failure, otherwise it will return
 *		XST_SUCCESS after sending specified number of packets as
 *		defined in "NUM_OF_PING_REQ_PKTS" .
 *
-* @note		None.
 *
 *****************************************************************************/
 int main()
@@ -258,19 +260,18 @@ int main()
 /**
 *
 * The entry point for the EmacLite driver to ping request example in polled
-* mode. This function will generate specified number of request packets as
+* mode. generate specified number of request packets as
 * defined in "NUM_OF_PING_REQ_PKTS.
 *
 * @if SDT
-* @param	BaseAddress contains the base address of the EmacLite device
+* @param[in] BaseAddress contains the base address of the EmacLite device
 * @else
-* @param	DeviceId is device ID of the XEmacLite Device.
+* @param[in] DeviceId is device ID of the XEmacLite Device.
 * @endif
 *
 * @return	XST_FAILURE to indicate failure, otherwise it will return
 *		XST_SUCCESS.
 *
-* @note		None.
 ******************************************************************************/
 #ifdef SDT
 static int EmacLitePingReqExample(UINTPTR BaseAddress)
@@ -398,13 +399,11 @@ static int EmacLitePingReqExample(u16 DeviceId)
 /*****************************************************************************/
 /**
 *
-* This function will send a ARP request packet.
+* send a ARP request packet.
 *
-* @param	InstancePtr is a pointer to the instance of the EmacLite.
+* @param[in] InstancePtr is a pointer to the instance of the EmacLite.
 *
-* @return	None.
 *
-* @note		None.
 *
 ******************************************************************************/
 static void SendArpReqFrame(XEmacLite *InstancePtr)
@@ -502,13 +501,11 @@ static void SendArpReqFrame(XEmacLite *InstancePtr)
 /*****************************************************************************/
 /**
 *
-* This function will send a Echo request packet.
+* send a Echo request packet.
 *
-* @param	InstancePtr is a pointer to the instance of the EmacLite.
+* @param[in] InstancePtr is a pointer to the instance of the EmacLite.
 *
-* @return	None.
 *
-* @note		None.
 *
 ******************************************************************************/
 static void SendEchoReqFrame(XEmacLite *InstancePtr)
@@ -627,10 +624,10 @@ static void SendEchoReqFrame(XEmacLite *InstancePtr)
 /*****************************************************************************/
 /**
 *
-* This function will process the received packet. This function sends
+* Processes the received packet and sends
 * the echo request packet based on the ARP reply packet.
 *
-* @param	InstancePtr is a pointer to the instance of the EmacLite.
+* @param[in] InstancePtr is a pointer to the instance of the EmacLite.
 *
 * @return	XST_SUCCESS is returned when an echo reply is received.
 *		Otherwise, XST_FAILURE is returned.
@@ -747,16 +744,16 @@ static int ProcessRecvFrame(XEmacLite *InstancePtr __attribute__((unused)))
 /*****************************************************************************/
 /**
 *
-* This function calculates the checksum and returns a 16 bit result.
+* @brief Calculates the checksum and returns a 16-bit result.
 *
-* @param 	RxFramePtr is a 16 bit pointer for the data to which checksum
+* @param[in] RxFramePtr is a 16-bit pointer for the data to which checksum
 * 		is to be calculated.
-* @param	StartLoc is the starting location of the data from which the
+* @param[in] StartLoc is the starting location of the data from which the
 *		checksum has to be calculated.
-* @param	Length is the number of halfwords(16 bits) to which checksum is
+* @param[in] Length is the number of halfwords(16 bits) to which checksum is
 * 		to be calculated.
 *
-* @return	It returns a 16 bit checksum value.
+* @return	It returns a 16-bit checksum value.
 *
 * @note		This can also be used for calculating checksum. The ones
 * 		complement of this return value will give the final checksum.
@@ -788,18 +785,17 @@ static u16 CheckSumCalculation(u16 *RxFramePtr, int StartLoc, int Length)
 /*****************************************************************************/
 /**
 *
-* This function checks the match for the specified number of half words.
+* Checks the match for the specified number of half words.
 *
-* @param	LhsPtr is a LHS entity pointer.
-* @param 	RhsPtr is a RHS entity pointer.
-* @param	LhsLoc is a LHS entity location.
-* @param 	RhsLoc is a RHS entity location.
-* @param 	Count is the number of location which has to compared.
+* @param[in] LhsPtr is a LHS entity pointer.
+* @param[in] RhsPtr is a RHS entity pointer.
+* @param[in] LhsLoc is a LHS entity location.
+* @param[in] RhsLoc is a RHS entity location.
+* @param[in] Count is the number of location which has to compared.
 *
 * @return	XST_SUCCESS is returned when both the entities are same,
 *		otherwise XST_FAILURE is returned.
 *
-* @note		None.
 *
 ******************************************************************************/
 static int CompareData(u16 *LhsPtr, u16 *RhsPtr, int LhsLoc, int RhsLoc,
@@ -816,3 +812,5 @@ static int CompareData(u16 *LhsPtr, u16 *RhsPtr, int LhsLoc, int RhsLoc,
 	}
 	return Result;
 }
+
+/** @} */
