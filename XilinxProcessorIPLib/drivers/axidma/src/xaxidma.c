@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -89,14 +89,14 @@ static int XAxiDma_Started(XAxiDma *InstancePtr);
 
 /*****************************************************************************/
 /**
- * This function initializes a DMA engine.  This function must be called
- * prior to using a DMA engine. Initializing a engine includes setting
- * up the register base address, setting up the instance data, and ensuring the
- * hardware is in a quiescent state.
+ * @brief Initializes a DMA engine.
  *
- * @param	InstancePtr is a pointer to the DMA engine instance to be
+ * Sets up the register base address, instance data, and quiescent hardware
+ * state before the engine is used.
+ *
+ * @param[in] InstancePtr is a pointer to the DMA engine instance to be
  *		worked on.
- * @param	Config is a pointer to an XAxiDma_Config structure. It contains
+ * @param[in] Config is a pointer to an XAxiDma_Config structure. It contains
  *		the information about the hardware build, including base
  *		address,and whether status control stream (StsCntrlStrm), MM2S
  *		and S2MM are included in the build.
@@ -266,7 +266,7 @@ int XAxiDma_CfgInitialize(XAxiDma *InstancePtr, XAxiDma_Config *Config)
 
 /*****************************************************************************/
 /**
-* Reset both TX and RX channels of a DMA engine.
+* @brief Resets both TX and RX channels of a DMA engine.
 *
 * Reset one channel resets the whole AXI DMA engine.
 *
@@ -274,14 +274,12 @@ int XAxiDma_CfgInitialize(XAxiDma *InstancePtr, XAxiDma_Config *Config)
 * reset. Any other transactions that have been submitted to hardware will be
 * discarded by the hardware.
 *
-* @param	InstancePtr is a pointer to the DMA engine instance to be
+* @param[in] InstancePtr is a pointer to the DMA engine instance to be
 *		worked on.
 *
-* @return	None
 *
-* @note		After the reset:
-*		- All interrupts are disabled.
-*		- Engine is halted
+* @note		After the reset, all interrupts are disabled and the engine
+*		is halted.
 *
 ******************************************************************************/
 void XAxiDma_Reset(XAxiDma *InstancePtr)
@@ -340,16 +338,14 @@ void XAxiDma_Reset(XAxiDma *InstancePtr)
 /*****************************************************************************/
 /**
 *
-* Check whether reset is done
+* @brief Checks whether reset is done.
 *
-* @param	InstancePtr is a pointer to the DMA engine instance to be
+* @param[in] InstancePtr is a pointer to the DMA engine instance to be
 *		worked on.
 *
-* @return
-* 		- 1 if reset is done.
-*		- 0 if reset is not done
+* @retval 1 Reset is done.
+* @retval 0 Reset is not done.
 *
-* @note		None
 *
 ******************************************************************************/
 int XAxiDma_ResetIsDone(XAxiDma *InstancePtr)
@@ -392,12 +388,12 @@ int XAxiDma_ResetIsDone(XAxiDma *InstancePtr)
 	return 1;
 }
 /*****************************************************************************/
-/*
-* Start the DMA engine.
+/**
+* @brief Start the DMA engine.
 *
 * Start a halted engine. Processing of BDs is not started.
 *
-* @param	InstancePtr is a pointer to the DMA engine instance to be
+* @param[in] InstancePtr is a pointer to the DMA engine instance to be
 *		worked on.
 *
 * @return
@@ -405,7 +401,6 @@ int XAxiDma_ResetIsDone(XAxiDma *InstancePtr)
 * 		- XST_NOT_SGDMA if the driver instance has not been initialized
 * 		- XST_DMA_ERROR if starting the hardware channel fails
 *
-* @note		None
 *
 *****************************************************************************/
 static int XAxiDma_Start(XAxiDma *InstancePtr)
@@ -488,7 +483,7 @@ static int XAxiDma_Start(XAxiDma *InstancePtr)
 }
 /*****************************************************************************/
 /**
-* Pause DMA transactions on both channels.
+* @brief Pause DMA transactions on both channels.
 *
 * If the engine is running and doing transfers, this function does not stop
 * the DMA transactions immediately, because then hardware will throw away
@@ -496,14 +491,13 @@ static int XAxiDma_Start(XAxiDma *InstancePtr)
 * Transfers submitted after this function will not start until
 * XAxiDma_BdRingStart() or XAxiDma_Resume() is called.
 *
-* @param	InstancePtr is a pointer to the DMA engine instance to be
+* @param[in] InstancePtr is a pointer to the DMA engine instance to be
 *		worked on.
 *
 * @return
 * 		- XST_SUCCESS if successful
 * 		- XST_NOT_SGDMA, if the driver instance is not initialized
 *
-* @note		None
 *
 *****************************************************************************/
 int XAxiDma_Pause(XAxiDma *InstancePtr)
@@ -562,9 +556,9 @@ int XAxiDma_Pause(XAxiDma *InstancePtr)
 
 /*****************************************************************************/
 /**
-* Resume DMA transactions on both channels.
+* @brief Resume DMA transactions on both channels.
 *
-* @param	InstancePtr is a pointer to the DMA engine instance to be
+* @param[in] InstancePtr is a pointer to the DMA engine instance to be
 *		worked on.
 *
 * @return
@@ -572,7 +566,6 @@ int XAxiDma_Pause(XAxiDma *InstancePtr)
 *		- XST_NOT_SGDMA if the driver instance has not been initialized
 *		- XST_DMA_ERROR if one of the channels fails to start
 *
-* @note		None
 *
 *****************************************************************************/
 int XAxiDma_Resume(XAxiDma *InstancePtr)
@@ -644,17 +637,16 @@ int XAxiDma_Resume(XAxiDma *InstancePtr)
 }
 
 /*****************************************************************************/
-/*
-* Check whether the DMA engine is started.
+/**
+* @brief Checks whether the DMA engine is started.
 *
-* @param	InstancePtr is a pointer to the DMA engine instance to be
+* @param[in] InstancePtr is a pointer to the DMA engine instance to be
 *		worked on.
 *
 * @return
 *		- 1 if engine is started
 *		- 0 otherwise.
 *
-* @note		None
 *
 *****************************************************************************/
 static int XAxiDma_Started(XAxiDma *InstancePtr)
@@ -697,18 +689,17 @@ static int XAxiDma_Started(XAxiDma *InstancePtr)
 
 /*****************************************************************************/
 /**
- * This function checks whether specified DMA channel is busy
+ * Checks whether the specified DMA channel is busy
  *
- * @param	InstancePtr is the driver instance we are working on
+ * @param[in] InstancePtr is the driver instance we are working on
  *
- * @param	Direction is DMA transfer direction, valid values are
+ * @param[in] Direction is DMA transfer direction, valid values are
  *			- XAXIDMA_DMA_TO_DEVICE.
  *			- XAXIDMA_DEVICE_TO_DMA.
  *
  * @return	- TRUE if channel is busy
  *		- FALSE if channel is idle
  *
- * @note	None.
  *
  *****************************************************************************/
 u32 XAxiDma_Busy(XAxiDma *InstancePtr, int Direction)
@@ -723,18 +714,17 @@ u32 XAxiDma_Busy(XAxiDma *InstancePtr, int Direction)
 
 /*****************************************************************************/
 /**
- * This function Enable or Disable KeyHole Feature
+ * Enables or disables the KeyHole feature
  *
- * @param	InstancePtr is the driver instance we are working on
+ * @param[in] InstancePtr is the driver instance we are working on
  *
- * @param	Direction is DMA transfer direction, valid values are
+ * @param[in] Direction is DMA transfer direction, valid values are
  *			- XAXIDMA_DMA_TO_DEVICE.
  *			- XAXIDMA_DEVICE_TO_DMA.
- * @param	Select is the option to enable (TRUE) or disable (FALSE).
+ * @param[in] Select is the option to enable (TRUE) or disable (FALSE).
  *
  * @return	- XST_SUCCESS for success
  *
- * @note	None.
  *
  *****************************************************************************/
 int XAxiDma_SelectKeyHole(XAxiDma *InstancePtr, int Direction, int Select)
@@ -761,18 +751,17 @@ int XAxiDma_SelectKeyHole(XAxiDma *InstancePtr, int Direction, int Select)
 
 /*****************************************************************************/
 /**
- * This function Enable or Disable Cyclic Mode Feature
+ * Enables or disables cyclic mode
  *
- * @param	InstancePtr is the driver instance we are working on
+ * @param[in] InstancePtr is the driver instance we are working on
  *
- * @param	Direction is DMA transfer direction, valid values are
+ * @param[in] Direction is DMA transfer direction, valid values are
  *			- XAXIDMA_DMA_TO_DEVICE.
  *			- XAXIDMA_DEVICE_TO_DMA.
- * @param	Select is the option to enable (TRUE) or disable (FALSE).
+ * @param[in] Select is the option to enable (TRUE) or disable (FALSE).
  *
  * @return	- XST_SUCCESS for success
  *
- * @note	None.
  *
  *****************************************************************************/
 int XAxiDma_SelectCyclicMode(XAxiDma *InstancePtr, int Direction, int Select)
@@ -798,16 +787,16 @@ int XAxiDma_SelectCyclicMode(XAxiDma *InstancePtr, int Direction, int Select)
 
 /*****************************************************************************/
 /**
- * This function does one simple transfer submission
+ * Submits one simple DMA transfer
  *
  * It checks in the following sequence:
  *	- if engine is busy, cannot submit
  *	- if engine is in SG mode , cannot submit
  *
- * @param	InstancePtr is the pointer to the driver instance
- * @param	BuffAddr is the address of the source/destination buffer
- * @param	Length is the length of the transfer
- * @param	Direction is DMA transfer direction, valid values are
+ * @param[in] InstancePtr is the pointer to the driver instance
+ * @param[in] BuffAddr is the address of the source/destination buffer
+ * @param[in] Length is the length of the transfer
+ * @param[in] Direction is DMA transfer direction, valid values are
  *			- XAXIDMA_DMA_TO_DEVICE.
  *			- XAXIDMA_DEVICE_TO_DMA.
 
@@ -818,7 +807,7 @@ int XAxiDma_SelectCyclicMode(XAxiDma *InstancePtr, int Direction, int Select)
  *		- XST_INVALID_PARAM if:Length out of valid range [1:8M]
  *		Or, address not aligned when DRE is not built in
  *
- * @note	This function is used only when system is configured as
+ * @note	Usable only when the system is configured as
  *		Simple mode.
  *
  *****************************************************************************/

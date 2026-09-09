@@ -1,14 +1,18 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
+
+
+
+#ifndef XAXIDMA_HW_H_    /* prevent circular inclusions */
+#define XAXIDMA_HW_H_
 
 /*****************************************************************************/
 /**
  *  @file xaxidma_hw.h
  * @addtogroup AXIDMA Overview
- * @{
  *
  * Hardware definition file. It defines the register interface and Buffer
  * Descriptor (BD) definitions.
@@ -33,8 +37,6 @@
  *
  *****************************************************************************/
 
-#ifndef XAXIDMA_HW_H_    /* prevent circular inclusions */
-#define XAXIDMA_HW_H_
 
 #ifdef __cplusplus
 extern "C" {
@@ -50,7 +52,7 @@ extern "C" {
  */
 #define XAXIDMA_DMA_TO_DEVICE		0x00
 #define XAXIDMA_DEVICE_TO_DMA		0x01
-
+/** @} */
 
 /** @name Buffer Descriptor Alignment
  *  @{
@@ -59,7 +61,7 @@ extern "C" {
 						requirement for descriptors to
 						satisfy both hardware/software
 						needs */
-/*@}*/
+/** @} */
 
 /** @name Micro DMA Buffer Address Alignment
  *  @{
@@ -67,20 +69,20 @@ extern "C" {
 #define XAXIDMA_MICROMODE_MIN_BUF_ALIGN	0xFFF	/**< Minimum byte alignment
 						requirement for buffer address
 						in Micro DMA mode */
-/*@}*/
+/** @} */
 
 /** @name Maximum transfer length
- *	This is determined by hardware
+ *	@brief This is determined by hardware.
  * @{
  */
 #define XAXIDMA_MCHAN_MAX_TRANSFER_LEN	0x00FFFF  /* Max length MCDMA
 						     hw supports */
-/*@}*/
+/** @} */
 
 /* Register offset definitions. Register accesses are 32-bit.
  */
 /** @name Device registers
- *  Register sets on TX and RX channels are identical
+ * @brief Register sets on TX and RX channels are identical.
  *  @{
  */
 #define XAXIDMA_TX_OFFSET	0x00000000 /**< TX channel registers base
@@ -113,7 +115,7 @@ extern "C" {
 #define XAXIDMA_RX_TDESC0_OFFSET	0x00000048   /**< Rx Tail Descriptor 0 */
 #define XAXIDMA_RX_TDESC0_MSB_OFFSET	0x0000004C   /**< Rx Tail Descriptor 0 */
 #define XAXIDMA_RX_NDESC_OFFSET		0x00000020   /**< Rx Next Descriptor Offset */
-/*@}*/
+/** @} */
 
 /** @name Bitmasks of XAXIDMA_CR_OFFSET register
  * @{
@@ -122,12 +124,11 @@ extern "C" {
 #define XAXIDMA_CR_RESET_MASK	0x00000004 /**< Reset DMA engine */
 #define XAXIDMA_CR_KEYHOLE_MASK	0x00000008 /**< Keyhole feature */
 #define XAXIDMA_CR_CYCLIC_MASK	0x00000010 /**< Cyclic Mode */
-/*@}*/
+/** @} */
 
 /** @name Bitmasks of XAXIDMA_SR_OFFSET register
  *
- * This register reports status of a DMA channel, including
- * run/stop/idle state, errors, and interrupts (note that interrupt
+ * This register reports status of a DMA channel, including run/stop/idle state, errors, and interrupts (note that interrupt
  * masks are shared with XAXIDMA_CR_OFFSET register, and are defined
  * in the _IRQ_ section.
  *
@@ -147,21 +148,20 @@ extern "C" {
 #define XAXIDMA_ERR_SG_SLV_MASK		0x00000200  /**< SG slave err */
 #define XAXIDMA_ERR_SG_DEC_MASK		0x00000400  /**< SG decode err */
 #define XAXIDMA_ERR_ALL_MASK		0x00000770  /**< All errors */
+/** @} */
 
 /** @name Bitmask for interrupts
- * These masks are shared by XAXIDMA_CR_OFFSET register and
- * XAXIDMA_SR_OFFSET register
+ * These masks are shared by XAXIDMA_CR_OFFSET register and XAXIDMA_SR_OFFSET register
  * @{
  */
 #define XAXIDMA_IRQ_IOC_MASK		0x00001000 /**< Completion intr */
 #define XAXIDMA_IRQ_DELAY_MASK		0x00002000 /**< Delay interrupt */
 #define XAXIDMA_IRQ_ERROR_MASK		0x00004000 /**< Error interrupt */
 #define XAXIDMA_IRQ_ALL_MASK		0x00007000 /**< All interrupts */
-/*@}*/
+/** @} */
 
 /** @name Bitmask and shift for delay and coalesce
- * These masks are shared by XAXIDMA_CR_OFFSET register and
- * XAXIDMA_SR_OFFSET register
+ * These masks are shared by XAXIDMA_CR_OFFSET register and XAXIDMA_SR_OFFSET register
  * @{
  */
 #define XAXIDMA_DELAY_MASK		0xFF000000 /**< Delay timeout
@@ -170,16 +170,14 @@ extern "C" {
 
 #define XAXIDMA_DELAY_SHIFT		24
 #define XAXIDMA_COALESCE_SHIFT		16
-/*@}*/
+/** @} */
 
 
 /* Buffer Descriptor (BD) definitions
  */
 
 /** @name Buffer Descriptor offsets
- *  USR* fields are defined by higher level IP.
- *  setup for EMAC type devices. The first 13 words are used by hardware.
- *  All words after the 13rd word are for software use only.
+ * @brief USR* fields are defined by higher level IP setup for Ethernet MAC type devices. The first 13 words are used by hardware. All words after the 13th word are for software use only.
  *  @{
  */
 #define XAXIDMA_BD_NDESC_OFFSET		0x00  /**< Next descriptor pointer */
@@ -219,7 +217,7 @@ extern "C" {
  */
 #define XAXIDMA_LAST_APPWORD		4
 
-/*@}*/
+/** @} */
 #define XAXIDMA_DESC_LSB_MASK	(0xFFFFFFC0U)	/**< LSB Address mask */
 
 /** @name Bitmasks of XAXIDMA_BD_CTRL_OFFSET register
@@ -228,7 +226,7 @@ extern "C" {
 #define XAXIDMA_BD_CTRL_TXSOF_MASK	0x08000000 /**< First tx packet */
 #define XAXIDMA_BD_CTRL_TXEOF_MASK	0x04000000 /**< Last tx packet */
 #define XAXIDMA_BD_CTRL_ALL_MASK	0x0C000000 /**< All control bits */
-/*@}*/
+/** @} */
 
 /** @name Bitmasks of XAXIDMA_BD_STS_OFFSET register
  *  @{
@@ -241,7 +239,7 @@ extern "C" {
 #define XAXIDMA_BD_STS_RXSOF_MASK	0x08000000 /**< First rx pkt */
 #define XAXIDMA_BD_STS_RXEOF_MASK	0x04000000 /**< Last rx pkt */
 #define XAXIDMA_BD_STS_ALL_MASK		0xFC000000 /**< All status bits */
-/*@}*/
+/** @} */
 
 /** @name Bitmasks and shift values for XAXIDMA_BD_MCCTL_OFFSET register
  *  @{
@@ -257,7 +255,7 @@ extern "C" {
 #define XAXIDMA_BD_TUSER_FIELD_SHIFT	16
 #define XAXIDMA_BD_ARCACHE_FIELD_SHIFT	24
 #define XAXIDMA_BD_ARUSER_FIELD_SHIFT	28
-/*@}*/
+/** @} */
 
 /** @name Bitmasks and shift values for XAXIDMA_BD_STRIDE_VSIZE_OFFSET register
  *  @{
@@ -267,7 +265,7 @@ extern "C" {
 
 #define XAXIDMA_BD_STRIDE_FIELD_SHIFT	0
 #define XAXIDMA_BD_VSIZE_FIELD_SHIFT   	19
-/*@}*/
+/** @} */
 
 /**************************** Type Definitions *******************************/
 
@@ -279,10 +277,10 @@ extern "C" {
 /*****************************************************************************/
 /**
 *
-* Read the given register.
+* @brief Reads the given register.
 *
-* @param	BaseAddress is the base address of the device
-* @param	RegOffset is the register offset to be read
+* @param[in] BaseAddress is the base address of the device
+* @param[in] RegOffset is the register offset to be read
 *
 * @return	The 32-bit value of the register
 *
@@ -297,13 +295,12 @@ extern "C" {
 /*****************************************************************************/
 /**
 *
-* Write the given register.
+* @brief Writes the given register.
 *
-* @param	BaseAddress is the base address of the device
-* @param	RegOffset is the register offset to be written
-* @param	Data is the 32-bit value to write to the register
+* @param[in] BaseAddress is the base address of the device
+* @param[in] RegOffset is the register offset to be written
+* @param[in] Data is the 32-bit value to write to the register
 *
-* @return	None.
 *
 * @note
 *		C-style signature:
@@ -318,4 +315,3 @@ extern "C" {
 #endif
 
 #endif
-/** @} */

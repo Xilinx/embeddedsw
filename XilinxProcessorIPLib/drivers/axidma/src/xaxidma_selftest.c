@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2015 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -50,14 +50,10 @@
 * Runs a self-test on the driver/device. This test perform a
 * reset of the DMA device and checks the device is coming out of reset or not
 *
-* @param	InstancePtr is a pointer to the XAxiDma instance.
+* @param[in] InstancePtr is a pointer to the XAxiDma instance.
 *
-* @return
-* 		- XST_SUCCESS if self-test was successful
-*		- XST_FAILURE if the device is not coming out of reset.
-*
-* @note
-*     None.
+* @retval XST_SUCCESS Self-test passed.
+* @retval XST_FAILURE Self-test failed.
 *
 ******************************************************************************/
 int XAxiDma_Selftest(XAxiDma *InstancePtr)

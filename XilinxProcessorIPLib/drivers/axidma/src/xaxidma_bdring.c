@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -9,7 +9,6 @@
 *
 * @file xaxidma_bdring.c
 * @addtogroup AXIDMA Overview
-* @{
 *
 * This file implements buffer descriptor ring related functions. For more
 * information on how to manage the BD ring, please see xaxidma.h.
@@ -68,9 +67,9 @@
  */
 
 /******************************************************************************
- * Compute the physical address of a descriptor from its virtual address
+ * @brief Compute the physical address of a descriptor from its virtual address.
  *
- * @param	BdPtr is the virtual address of the BD
+ * @param[in] BdPtr is the virtual address of the BD
  *
  * @returns	Physical address of BdPtr
  *
@@ -89,14 +88,13 @@
  * the high address in the ring OR if the new BdPtr crosses the 0xFFFFFFFF
  * to 0 boundary.
  *
- * @param	RingPtr is the ring BdPtr appears in
- * @param	BdPtr on input is the starting BD position and on output is the
+ * @param[in] RingPtr is the ring BdPtr appears in
+ * @param[in,out] BdPtr on input is the starting BD position and on output is the
  *		final BD position
- * @param	NumBd is the number of BD spaces to increment
+ * @param[in] NumBd is the number of BD spaces to increment
  *
- * @returns	None
  *
- * @note	This function can be used only when DMA is in SG mode
+ * @note	Usable only when the DMA is in SG mode
  *
  *****************************************************************************/
 #define XAXIDMA_RING_SEEKAHEAD(RingPtr, BdPtr, NumBd)                \
@@ -119,14 +117,13 @@
  * the base address in the ring OR if the new BdPtr crosses the 0xFFFFFFFF
  * to 0 boundary.
  *
- * @param	RingPtr is the ring BdPtr appears in
- * @param	BdPtr on input is the starting BD position and on output is the
+ * @param[in] RingPtr is the ring BdPtr appears in
+ * @param[in,out] BdPtr on input is the starting BD position and on output is the
  *		final BD position
- * @param	NumBd is the number of BD spaces to increment
+ * @param[in] NumBd is the number of BD spaces to increment
  *
- * @returns	None
  *
- * @note	This function can be used only when DMA is in SG mode
+ * @note	Usable only when the DMA is in SG mode
  *
  *****************************************************************************/
 #define XAXIDMA_RING_SEEKBACK(RingPtr, BdPtr, NumBd)                  \
@@ -151,14 +148,14 @@
 /**
  * Update Current Descriptor
  *
- * @param	RingPtr is the Channel instance to be worked on
+ * @param[in] RingPtr is the Channel instance to be worked on.
  *
  * @return
  *		- XST_SUCCESS upon success
  *		- XST_DMA_ERROR if no valid BD available to put into current
  *		BD register
  *
- * @note	This function can be used only when DMA is in SG mode
+ * @note	Usable only when the DMA is in SG mode
  *
  *****************************************************************************/
 int XAxiDma_UpdateBdRingCDesc(XAxiDma_BdRing *RingPtr)
@@ -276,20 +273,19 @@ int XAxiDma_UpdateBdRingCDesc(XAxiDma_BdRing *RingPtr)
 
 /*****************************************************************************/
 /**
- * Using a memory segment allocated by the caller, This fundtion creates and
- * setup the BD ring.
+ * @brief Creates and sets up a BD ring using caller-allocated memory.
  *
- * @param	RingPtr is the BD ring instance to be worked on.
- * @param	PhysAddr is the physical base address of application memory
+ * @param[in] RingPtr is the BD ring instance to be worked on.
+ * @param[in] PhysAddr is the physical base address of application memory
  *		region.
- * @param	VirtAddr is the virtual base address of the application memory
+ * @param[in] VirtAddr is the virtual base address of the application memory
  *		region.If address translation is not being utilized, then
  *		VirtAddr should be equivalent to PhysAddr.
- * @param	Alignment governs the byte alignment of individual BDs. This
+ * @param[in] Alignment governs the byte alignment of individual BDs. This
  *		function will enforce a minimum alignment of
  *		XAXIDMA_BD_MINIMUM_ALIGNMENT bytes with no maximum as long as
  *		it is specified as a power of 2.
- * @param	BdCount is the number of BDs to setup in the application memory
+ * @param[in] BdCount is the number of BDs to setup in the application memory
  *		region. It is assumed the region is large enough to contain the
  *		BDs.Refer to the "SGDMA Ring Creation" section  in xaxidma.h
  *		for more information. The minimum valid value for this
@@ -311,7 +307,7 @@ int XAxiDma_UpdateBdRingCDesc(XAxiDma_BdRing *RingPtr)
  *		- XST_DMA_SG_LIST_ERROR if the memory segment containing the
  *		list spans over address 0x00000000 in virtual address space.
  *
- * @note	This function can be used only when DMA is in SG mode
+ * @note	Usable only when the DMA is in SG mode
  *
  *****************************************************************************/
 u32 XAxiDma_BdRingCreate(XAxiDma_BdRing *RingPtr, UINTPTR PhysAddr,
@@ -451,17 +447,14 @@ u32 XAxiDma_BdRingCreate(XAxiDma_BdRing *RingPtr, UINTPTR PhysAddr,
 
 /*****************************************************************************/
 /**
- * Clone the given BD into every BD in the ring. Only the fields offset from
- * XAXIDMA_BD_START_CLEAR are copied, for XAXIDMA_BD_BYTES_TO_CLEAR bytes.
- * This covers: BufferAddr, Control/Buffer length, status, APP words 0 - 4,
- * and software ID fields.
+ * @brief Clones the given BD into every BD in the ring. Only the fields offset from XAXIDMA_BD_START_CLEAR are copied for XAXIDMA_BD_BYTES_TO_CLEAR bytes. This covers BufferAddr, control/buffer length, status, APP words 0-4, and software ID fields.
  *
  * This function can be called only when all BDs are in the free group such as
  * immediately after creation of the ring. This prevents modification
  * of BDs while they are in use by hardware or the application.
  *
- * @param	RingPtr is the BD ring instance to be worked on.
- * @param	SrcBdPtr is the source BD template to be cloned into the list.
+ * @param[in] RingPtr is the BD ring instance to be worked on.
+ * @param[in] SrcBdPtr is the source BD template to be cloned into the list.
  *
  * @return
  *		- XST_SUCCESS if the list was modified.
@@ -470,7 +463,7 @@ u32 XAxiDma_BdRingCreate(XAxiDma_BdRing *RingPtr, UINTPTR PhysAddr,
  *		- XST_DMA_SG_LIST_ERROR if some of the BDs in this channel are
  *		under hardware or application control.
  *
- * @note	This function can be used only when DMA is in SG mode
+ * @note	Usable only when the DMA is in SG mode
  *
  *****************************************************************************/
 int XAxiDma_BdRingClone(XAxiDma_BdRing *RingPtr, XAxiDma_Bd *SrcBdPtr)
@@ -530,21 +523,19 @@ int XAxiDma_BdRingClone(XAxiDma_BdRing *RingPtr, XAxiDma_Bd *SrcBdPtr)
 
 /*****************************************************************************/
 /**
- * Start a DMA channel and
- * Allow DMA transactions to commence on a given channel if descriptors are
- * ready to be processed.
+ * @brief Starts a DMA channel and allows DMA transactions to commence when descriptors are ready to be processed.
  *
  * After a DMA channel is started, it is not halted, and it is idle (no active
  * DMA transfers).
  *
- * @param	RingPtr is the Channel instance to be worked on
+ * @param[in] RingPtr is the Channel instance to be worked on.
  *
  * @return
  *		- XST_SUCCESS upon success
  *		- XST_DMA_ERROR if no valid BD available to put into current
  *		BD register
  *
- * @note	This function can be used only when DMA is in SG mode
+ * @note	Usable only when the DMA is in SG mode
  *
  *****************************************************************************/
 int XAxiDma_StartBdRingHw(XAxiDma_BdRing *RingPtr)
@@ -621,21 +612,19 @@ int XAxiDma_StartBdRingHw(XAxiDma_BdRing *RingPtr)
 
 /*****************************************************************************/
 /**
- * Start a DMA channel, updates current descriptors and
- * Allow DMA transactions to commence on a given channel if descriptors are
- * ready to be processed.
+ * @brief Starts a DMA channel, updates current descriptors, and allows DMA transactions to commence when descriptors are ready to be processed.
  *
  * After a DMA channel is started, it is not halted, and it is idle (no active
  * DMA transfers).
  *
- * @param	RingPtr is the Channel instance to be worked on
+ * @param[in] RingPtr is the Channel instance to be worked on.
  *
  * @return
  *		- XST_SUCCESS upon success
  *		- XST_DMA_ERROR if no valid BD available to put into current
  *		BD register
  *
- * @note	This function can be used only when DMA is in SG mode
+ * @note	Usable only when the DMA is in SG mode
  *
  *****************************************************************************/
 int XAxiDma_BdRingStart(XAxiDma_BdRing *RingPtr)
@@ -663,23 +652,20 @@ int XAxiDma_BdRingStart(XAxiDma_BdRing *RingPtr)
 /**
  * Set interrupt coalescing parameters for the given descriptor ring channel.
  *
- * @param	RingPtr is a pointer to the descriptor ring instance to be
+ * @param[in] RingPtr is a pointer to the descriptor ring instance to be
  *		worked on.
- * @param	Counter sets the packet counter on the channel. Valid range is
- *		- 1..255.
- *		- XAXIDMA_NO_CHANGE to leave this setting unchanged.
- * @param	Timer sets the waitbound timer on the channel. Valid range is
- * 		- 0..255.
- *		- XAXIDMA_NO_CHANGE to leave this setting unchanged.
- *		Each unit depend on hardware building parameter
- *		C_DLYTMR_RESOLUTION,which is in the range from 0 to 100,000
- *		clock cycles. A value of 0 disables the delay interrupt.
+* @param[in] Counter sets the packet counter on the channel. Valid range is
+*		1 to 255, or XAXIDMA_NO_CHANGE to leave this setting unchanged.
+* @param[in] Timer sets the waitbound timer on the channel. Valid range is
+*		0 to 255, or XAXIDMA_NO_CHANGE to leave this setting unchanged.
+*		Each unit depend on hardware building parameter
+*		C_DLYTMR_RESOLUTION,which is in the range from 0 to 100,000
+*		clock cycles. A value of 0 disables the delay interrupt.
+*
+* @retval XST_SUCCESS Interrupt coalescing settings updated.
+* @retval XST_FAILURE Counter or Timer parameters are out of range.
  *
- * @return
- *		- XST_SUCCESS if interrupt coalescing settings updated
- *		- XST_FAILURE if Counter or Timer parameters are out of range
- *
- * @note	This function can be used only when DMA is in SG mode
+ * @note	Usable only when the DMA is in SG mode
  *
  *****************************************************************************/
 int XAxiDma_BdRingSetCoalesce(XAxiDma_BdRing *RingPtr, u32 Counter, u32 Timer)
@@ -719,20 +705,16 @@ int XAxiDma_BdRingSetCoalesce(XAxiDma_BdRing *RingPtr, u32 Counter, u32 Timer)
 }
 /*****************************************************************************/
 /**
- * Retrieve current interrupt coalescing parameters from the given descriptor
- * ring channel.
+ * @brief Reads interrupt coalescing parameters from a descriptor ring channel.
  *
- * @param	RingPtr is a pointer to the descriptor ring instance to be
+ * @param[in] RingPtr is a pointer to the descriptor ring instance to be
  *		worked on.
- * @param	CounterPtr points to a memory location where the current packet
+ * @param[out] CounterPtr points to a memory location where the current packet
  *		counter will be written.
- * @param	TimerPtr points to a memory location where the current
+ * @param[out] TimerPtr points to a memory location where the current
  *		waitbound timer will be written.
  *
- * @return	The passed in parameters, CounterPtr and TimerPtr, holds the
- *		references to the return values.
- *
- * @note	This function can be used only when DMA is in SG mode
+ * @note	Usable only when the DMA is in SG mode
  *
  *****************************************************************************/
 void XAxiDma_BdRingGetCoalesce(XAxiDma_BdRing *RingPtr,
@@ -798,10 +780,10 @@ void XAxiDma_BdRingGetCoalesce(XAxiDma_BdRing *RingPtr,
  * Use the API defined in xaxidmabd.h to modify individual BDs. Traversal of
  * the BD set can be done using XAxiDma_BdRingNext() and XAxiDma_BdRingPrev().
  *
- * @param	RingPtr is a pointer to the descriptor ring instance to be
+ * @param[in] RingPtr is a pointer to the descriptor ring instance to be
  *		worked on.
- * @param	NumBd is the number of BDs to allocate
- * @param	BdSetPtr is an output parameter, it points to the first BD
+ * @param[in] NumBd is the number of BDs to allocate
+ * @param[out] BdSetPtr is an output parameter, it points to the first BD
  *		available for modification.
  *
  * @return
@@ -819,7 +801,7 @@ void XAxiDma_BdRingGetCoalesce(XAxiDma_BdRing *RingPtr,
  *		parameter. Doing so will lead to data corruption and system
  *		instability.
  *
- *		This function can be used only when DMA is in SG mode
+ *		Usable only when the DMA is in SG mode
  *
  *****************************************************************************/
 int XAxiDma_BdRingAlloc(XAxiDma_BdRing *RingPtr, int NumBd,
@@ -855,7 +837,7 @@ int XAxiDma_BdRingAlloc(XAxiDma_BdRing *RingPtr, int NumBd,
  * function if all the BDs allocated by XAxiDma_BdRingAlloc() could not be
  * transferred to hardware with XAxiDma_BdRingToHw().
  *
- * This function releases the BDs after they have been allocated but before
+ * Releases allocated buffer descriptors before hardware submission but before
  * they have been given to hardware.
  *
  * This function is not the same as XAxiDma_BdRingFree(). The Free function
@@ -896,10 +878,10 @@ int XAxiDma_BdRingAlloc(XAxiDma_BdRing *RingPtr, int NumBd,
  *
  * A partial UnAlloc must include the last BD in the list that was Alloc'd.
  *
- * @param	RingPtr is a pointer to the descriptor ring instance to be
+ * @param[in] RingPtr is a pointer to the descriptor ring instance to be
  *		worked on.
- * @param	NumBd is the number of BDs to unallocate
- * @param	BdSetPtr points to the first of the BDs to be returned.
+ * @param[in] NumBd is the number of BDs to unallocate
+ * @param[out] BdSetPtr points to the first of the BDs to be returned.
  *
  * @return
  *		- XST_SUCCESS if the BDs were unallocated.
@@ -911,7 +893,7 @@ int XAxiDma_BdRingAlloc(XAxiDma_BdRing *RingPtr, int NumBd,
  *		function call that modifies the BD space. It is the caller's
  *		responsibility to provide a mutual exclusion mechanism.
  *
- *		This function can be used only when DMA is in SG mode
+ *		Usable only when the DMA is in SG mode
  *
  *****************************************************************************/
 int XAxiDma_BdRingUnAlloc(XAxiDma_BdRing *RingPtr, int NumBd,
@@ -958,18 +940,15 @@ int XAxiDma_BdRingUnAlloc(XAxiDma_BdRing *RingPtr, int NumBd,
 }
 /*****************************************************************************/
 /**
- * Enqueue a set of BDs to hardware that were previously allocated by
- * XAxiDma_BdRingAlloc(). Once this function returns, the argument BD set goes
- * under hardware control. Changes to these BDs should be held until they are
- * finished by hardware to avoid data corruption and system instability.
+ * @brief Enqueue a set of BDs to hardware that were previously allocated by XAxiDma_BdRingAlloc(). Once this function returns, the argument BD set goes under hardware control. Changes to these BDs should be held until they are finished by hardware to avoid data corruption and system instability.
  *
  * For transmit, the set will be rejected if the last BD of the set does not
  * mark the end of a packet or the first BD does not mark the start of a packet.
  *
- * @param	RingPtr is a pointer to the descriptor ring instance to be
+ * @param[in] RingPtr is a pointer to the descriptor ring instance to be
  *		worked on.
- * @param	NumBd is the number of BDs in the set.
- * @param	BdSetPtr is the first BD of the set to commit to hardware.
+ * @param[in] NumBd is the number of BDs in the set.
+ * @param[out] BdSetPtr is the first BD of the set to commit to hardware.
  *
  * @return
  *		- XST_SUCCESS if the set of BDs was accepted and enqueued to
@@ -986,7 +965,7 @@ int XAxiDma_BdRingUnAlloc(XAxiDma_BdRing *RingPtr, int NumBd,
  *		function call that modifies the BD space. It is the caller's
  *		responsibility to provide a mutual exclusion mechanism.
  *
- *		This function can be used only when DMA is in SG mode
+ *		Usable only when the DMA is in SG mode
  *
  *****************************************************************************/
 int XAxiDma_BdRingToHw(XAxiDma_BdRing *RingPtr, int NumBd,
@@ -1140,10 +1119,7 @@ int XAxiDma_BdRingToHw(XAxiDma_BdRing *RingPtr, int NumBd,
 
 /*****************************************************************************/
 /**
- * Returns a set of BD(s) that have been processed by hardware. The returned
- * BDs may be examined by the application to determine the outcome of the DMA
- * transactions. Once the BDs have been examined, the application must call
- * XAxiDma_BdRingFree() in the same order which they were retrieved here.
+ * @brief Returns a set of BD(s) that have been processed by hardware. The returned BDs may be examined by the application to determine the outcome of the DMA transactions. Once the BDs have been examined, the application must call XAxiDma_BdRingFree() in the same order which they were retrieved here.
  *
  * Example:
  *
@@ -1190,11 +1166,11 @@ int XAxiDma_BdRingToHw(XAxiDma_BdRing *RingPtr, int NumBd,
  * If hardware has partially completed a packet spanning multiple BDs, then
  * none of the BDs for that packet will be included in the results.
  *
- * @param	RingPtr is a pointer to the descriptor ring instance to be
+ * @param[in] RingPtr is a pointer to the descriptor ring instance to be
  *		worked on.
- * @param	BdLimit is the maximum number of BDs to return in the set. Use
+ * @param[out] BdLimit is the maximum number of BDs to return in the set. Use
  *		XAXIDMA_ALL_BDS to return all BDs that have been processed.
- * @param	BdSetPtr is an output parameter, it points to the first BD
+ * @param[out] BdSetPtr is an output parameter, it points to the first BD
  *		available for examination.
  *
  * @return	The number of BDs processed by hardware. A value of 0 indicates
@@ -1207,7 +1183,7 @@ int XAxiDma_BdRingToHw(XAxiDma_BdRing *RingPtr, int NumBd,
  *		function call that modifies the BD space. It is the caller's
  *		responsibility to provide a mutual exclusion mechanism.
  *
- *		This function can be used only when DMA is in SG mode
+ *		Usable only when the DMA is in SG mode
  *
  *****************************************************************************/
 int XAxiDma_BdRingFromHw(XAxiDma_BdRing *RingPtr, int BdLimit,
@@ -1314,13 +1290,12 @@ int XAxiDma_BdRingFromHw(XAxiDma_BdRing *RingPtr, int BdLimit,
 }
 /*****************************************************************************/
 /**
- * Frees a set of BDs that had been previously retrieved with
- * XAxiDma_BdRingFromHw().
+ * @brief Frees a set of BDs that had been previously retrieved with XAxiDma_BdRingFromHw().
  *
- * @param	RingPtr is a pointer to the descriptor ring instance to be
+ * @param[in] RingPtr is a pointer to the descriptor ring instance to be
  *		worked on.
- * @param	NumBd is the number of BDs to free.
- * @param	BdSetPtr is the head of a list of BDs returned by
+ * @param[in] NumBd is the number of BDs to free.
+ * @param[out] BdSetPtr is the head of a list of BDs returned by
  *		XAxiDma_BdRingFromHw().
  *
  * @return
@@ -1333,7 +1308,7 @@ int XAxiDma_BdRingFromHw(XAxiDma_BdRing *RingPtr, int BdLimit,
  *		function call that modifies the BD space. It is the caller's
  *		responsibility to ensure mutual exclusion.
  *
- *		This function can be used only when DMA is in SG mode
+ *		Usable only when the DMA is in SG mode
  *
  *****************************************************************************/
 int XAxiDma_BdRingFree(XAxiDma_BdRing *RingPtr, int NumBd,
@@ -1374,29 +1349,25 @@ int XAxiDma_BdRingFree(XAxiDma_BdRing *RingPtr, int NumBd,
 }
 /*****************************************************************************/
 /**
- * Check the internal data structures of the BD ring for the provided channel.
- * The following checks are made:
- *
- *	- The BD ring is linked correctly in physical address space.
- *	- The internal pointers point to BDs in the ring.
- *	- The internal counters add up.
+ * @brief Checks the internal data structures of the BD ring for the provided
+ * channel. The following checks are made: the BD ring is linked correctly in
+ * physical address space, the internal pointers point to BDs in the ring, and
+ * the internal counters add up.
  *
  * The channel should be stopped (through XAxiDma_Pause() or XAxiDma_Reset())
  * prior to calling this function.
  *
- * @param	RingPtr is a pointer to the descriptor ring to be worked on.
+ * @param[in] RingPtr is a pointer to the descriptor ring to be worked on.
  *
- * @return
- *		- XST_SUCCESS if no errors were found.
- *		- XST_DMA_SG_NO_LIST if the ring has not been created.
- *		- XST_IS_STARTED if the channel is not stopped.
- *		- XST_DMA_SG_LIST_ERROR if a problem is found with the internal
- *		data structures. If this value is returned, the channel should
- *		be reset,and the BD ring should be recreated through
- *		XAxiDma_BdRingCreate() to avoid data corruption or system
- *		instability.
+ * @retval XST_SUCCESS No errors were found.
+ * @retval XST_DMA_SG_NO_LIST The ring has not been created.
+ * @retval XST_IS_STARTED The channel is not stopped.
+ * @retval XST_DMA_SG_LIST_ERROR A problem was found with the internal data
+ * structures. If this value is returned, the channel should be reset, and the
+ * BD ring should be recreated through XAxiDma_BdRingCreate() to avoid data
+ * corruption or system instability.
  *
- * @note	This function can be used only when DMA is in SG mode
+ * @note	Usable only when the DMA is in SG mode
  *
  *****************************************************************************/
 int XAxiDma_BdRingCheck(XAxiDma_BdRing *RingPtr)
@@ -1545,13 +1516,12 @@ int XAxiDma_BdRingCheck(XAxiDma_BdRing *RingPtr)
 }
 /*****************************************************************************/
 /**
- * Dump the registers for a channel.
+ * @brief Dumps the registers for a channel.
  *
- * @param	RingPtr is a pointer to the descriptor ring to be worked on.
+ * @param[in] RingPtr is a pointer to the descriptor ring to be worked on.
  *
- * @return	None
  *
- * @note	This function can be used only when DMA is in SG mode
+ * @note	Usable only when the DMA is in SG mode
  *
  *****************************************************************************/
 void XAxiDma_BdRingDumpRegs(XAxiDma_BdRing *RingPtr)
@@ -1583,4 +1553,3 @@ void XAxiDma_BdRingDumpRegs(XAxiDma_BdRing *RingPtr)
 
 	xil_printf("\r\n");
 }
-/** @} */

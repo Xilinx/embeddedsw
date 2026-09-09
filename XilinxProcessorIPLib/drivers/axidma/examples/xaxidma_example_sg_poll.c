@@ -8,6 +8,8 @@
 /**
  *
  * @file xaxidma_example_sg_poll.c
+ * @addtogroup AXIDMA Overview
+ * @{
  *
  * This file demonstrates how to use the xaxidma driver on the Xilinx AXI
  * DMA core (AXIDMA) to transfer packets in polling mode when the AXIDMA
@@ -46,7 +48,7 @@
  * 9.3   ms   01/23/17 Modified xil_printf statement in main function to
  *                     ensure that "Successfully ran" and "Failed" strings are
  *                     available in all examples. This is a fix for CR-965028.
- * 9.9   rsp  01/21/19 Fix use of #elif check in deriving DDR_BASE_ADDR.
+ * 9.9   rsp  01/21/19 Fix use of else-if preprocessor check in deriving DDR_BASE_ADDR.
  * 9.10  rsp  09/17/19 Fix cache maintenance ops for source and dest buffer.
  * 9.14  sk   03/08/22 Delete DDR memory limits comments as they are not
  * 		       relevant to this driver version.
@@ -81,6 +83,7 @@ extern void xil_printf(const char *format, ...);
 /*
  * Device hardware build related constants.
  */
+
 #ifndef SDT
 #define DMA_DEV_ID		XPAR_AXIDMA_0_DEVICE_ID
 #endif
@@ -111,14 +114,19 @@ extern void xil_printf(const char *format, ...);
 
 /************************** Function Prototypes ******************************/
 #if defined(XPAR_UARTNS550_0_BASEADDR)
+/** @cond INTERNAL */
 static void Uart550_Setup(void);
+/** @endcond */
 #endif
 
+/** @cond INTERNAL */
 static int RxSetup(XAxiDma *AxiDmaInstPtr);
 static int TxSetup(XAxiDma *AxiDmaInstPtr);
 static int SendPacket(XAxiDma *AxiDmaInstPtr);
 static int CheckData(void);
 static int CheckDmaResult(XAxiDma *AxiDmaInstPtr);
+/** @endcond */
+
 
 /************************** Variable Definitions *****************************/
 /*
@@ -147,20 +155,17 @@ u32 *Packet;
 /*****************************************************************************/
 /**
 *
-* Main function
+* @brief Runs the example entry point.
 *
-* This function is the main entry of the tests on DMA core. It sets up
+* Runs the DMA core test. It sets up
 * DMA engine to be ready to receive and send packets, then a packet is
 * transmitted and will be verified after it is received via the DMA loopback
 * widget.
 *
-* @param	None
 *
-* @return
-*		- XST_SUCCESS if test passes
-*		- XST_FAILURE if test fails.
+* @retval XST_SUCCESS Test passed.
+* @retval XST_FAILURE Test failed.
 *
-* @note		None.
 *
 ******************************************************************************/
 int main(void)
@@ -258,13 +263,10 @@ int main(void)
 /*****************************************************************************/
 /*
 *
-* Uart16550 setup routine, need to set baudrate to 9600, and data bits to 8
+* @brief Sets up UART16550 with a baud rate of 9600 and 8 data bits.
 *
-* @param	None
 *
-* @return	None
 *
-* @note		None.
 *
 ******************************************************************************/
 static void Uart550_Setup(void)
@@ -284,14 +286,12 @@ static void Uart550_Setup(void)
 /*****************************************************************************/
 /**
 *
-* This function sets up RX channel of the DMA engine to be ready for packet
-* reception
+* @brief Sets up the RX channel of the DMA engine to be ready for packet reception.
 *
-* @param	AxiDmaInstPtr is the pointer to the instance of the DMA engine.
+* @param[in] AxiDmaInstPtr is the pointer to the instance of the DMA engine.
 *
 * @return	XST_SUCCESS if the setup is successful, XST_FAILURE otherwise.
 *
-* @note		None.
 *
 ******************************************************************************/
 static int RxSetup(XAxiDma *AxiDmaInstPtr)
@@ -412,14 +412,12 @@ static int RxSetup(XAxiDma *AxiDmaInstPtr)
 /*****************************************************************************/
 /**
 *
-* This function sets up the TX channel of a DMA engine to be ready for packet
-* transmission
+* @brief Sets up the TX channel of the DMA engine to be ready for packet transmission.
 *
-* @param	AxiDmaInstPtr is the instance pointer to the DMA engine.
+* @param[in] AxiDmaInstPtr is the instance pointer to the DMA engine.
 *
 * @return	XST_SUCCESS if the setup is successful, XST_FAILURE otherwise.
 *
-* @note		None.
 *
 ******************************************************************************/
 static int TxSetup(XAxiDma *AxiDmaInstPtr)
@@ -479,14 +477,13 @@ static int TxSetup(XAxiDma *AxiDmaInstPtr)
 /*****************************************************************************/
 /**
 *
-* This function transmits one packet non-blockingly through the DMA engine.
+* @brief Performs a non-blocking transmission of one packet through the DMA engine.
 *
-* @param	AxiDmaInstPtr points to the DMA engine instance
+* @param[in] AxiDmaInstPtr is a pointer to the DMA engine instance.
 *
 * @return	- XST_SUCCESS if the DMA accepts the packet successfully,
 *		- XST_FAILURE otherwise.
 *
-* @note     None.
 *
 ******************************************************************************/
 static int SendPacket(XAxiDma *AxiDmaInstPtr)
@@ -585,16 +582,14 @@ static int SendPacket(XAxiDma *AxiDmaInstPtr)
 }
 
 /*****************************************************************************/
-/*
+/**
 *
-* This function checks data buffer after the DMA transfer is finished.
+* @brief Checks the data buffer after the DMA transfer completes.
 *
-* @param	None
 *
 * @return	- XST_SUCCESS if validation is successful
 *		- XST_FAILURE if validation is failure.
 *
-* @note		None.
 *
 ******************************************************************************/
 static int CheckData(void)
@@ -629,15 +624,13 @@ static int CheckData(void)
 /*****************************************************************************/
 /**
 *
-* This function waits until the DMA transaction is finished, checks data,
-* and cleans up.
+* @brief Waits until the DMA transaction completes, checks data, and cleans up.
 *
-* @param	None
+* @param[in] AxiDmaInstPtr is a pointer to the DMA engine instance.
 *
-* @return	- XST_SUCCESS if DMA transfer is successful and data is correct,
-*		- XST_FAILURE if fails.
+* @retval XST_SUCCESS DMA transfer is successful and data is correct.
+* @retval XST_FAILURE DMA transfer failed.
 *
-* @note		None.
 *
 ******************************************************************************/
 static int CheckDmaResult(XAxiDma *AxiDmaInstPtr)
@@ -725,3 +718,5 @@ static int CheckDmaResult(XAxiDma *AxiDmaInstPtr)
 
 	return XST_SUCCESS;
 }
+
+/** @} */

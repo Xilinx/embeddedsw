@@ -8,6 +8,8 @@
 /**
  *
  * @file xaxidma_example_simple_poll.c
+ * @addtogroup AXIDMA Overview
+ * @{
  *
  * This file demonstrates how to use the xaxidma driver on the Xilinx AXI
  * DMA core (AXIDMA) to transfer packets in polling mode when the AXI DMA core
@@ -44,7 +46,7 @@
  *       ms   04/05/17 Modified Comment lines in functions to
  *                     recognize it as documentation block for doxygen
  *                     generation of examples.
- * 9.9   rsp  01/21/19 Fix use of #elif check in deriving DDR_BASE_ADDR.
+ * 9.9   rsp  01/21/19 Fix use of else-if preprocessor check in deriving DDR_BASE_ADDR.
  * 9.10  rsp  09/17/19 Fix cache maintenance ops for source and dest buffer.
  * 9.14  sk   03/08/22 Delete DDR memory limits comments as they are not
  * 		       relevant to this driver version.
@@ -100,7 +102,10 @@ int XAxiDma_SimplePollExample(u16 DeviceId);
 #else
 int XAxiDma_SimplePollExample(UINTPTR BaseAddress);
 #endif
+/** @cond INTERNAL */
 static int CheckData(void);
+/** @endcond */
+
 
 /************************** Variable Definitions *****************************/
 /*
@@ -116,16 +121,12 @@ static u8 RxBuffer[MAX_PKT_LEN] __attribute__ ((aligned(64)));
 
 /*****************************************************************************/
 /**
-* The entry point for this example. It invokes the example function,
-* and reports the execution status.
+* @brief Invokes the example function and reports the execution status.
 *
-* @param	None.
 *
-* @return
-*		- XST_SUCCESS if example finishes successfully
-*		- XST_FAILURE if example fails.
+* @retval XST_SUCCESS Example finished successfully.
+* @retval XST_FAILURE Example failed.
 *
-* @note		None.
 *
 ******************************************************************************/
 int main()
@@ -158,13 +159,10 @@ int main()
 /*****************************************************************************/
 /*
 *
-* Uart16550 setup routine, need to set baudrate to 9600, and data bits to 8
+* @brief Sets up UART16550 with a baud rate of 9600 and 8 data bits.
 *
-* @param	None.
 *
-* @return	None
 *
-* @note		None.
 *
 ******************************************************************************/
 static void Uart550_Setup(void)
@@ -181,28 +179,31 @@ static void Uart550_Setup(void)
 }
 #endif
 
+#ifndef SDT
 /*****************************************************************************/
 /**
-* The example to do the simple transfer through polling. The constant
-* NUMBER_OF_TRANSFERS defines how many times a simple transfer is repeated.
+* @brief Runs a simple polled transfer example.
 *
-* @if SDT
-* @param	BaseAddress contains the base address of the device
-* @else
-* @param	DeviceId is the Device Id of the XAxiDma instance
-* @endif
+* NUMBER_OF_TRANSFERS defines how many times the transfer repeats.
 *
-* @return
-*		- XST_SUCCESS if example finishes successfully
-*		- XST_FAILURE if error occurs
+* @param[in] DeviceId is the device ID of the XAxiDma instance
 *
-* @note		None
-*
+* @return XST_SUCCESS if the example finishes successfully, XST_FAILURE otherwise.
 *
 ******************************************************************************/
-#ifndef SDT
 int XAxiDma_SimplePollExample(u16 DeviceId)
 #else
+/*****************************************************************************/
+/**
+* @brief Runs a simple polled transfer example.
+*
+* NUMBER_OF_TRANSFERS defines how many times the transfer repeats.
+*
+* @param[in] BaseAddress contains the base address of the device
+*
+* @return XST_SUCCESS if the example finishes successfully, XST_FAILURE otherwise.
+*
+******************************************************************************/
 int XAxiDma_SimplePollExample(UINTPTR BaseAddress)
 #endif
 {
@@ -307,17 +308,14 @@ int XAxiDma_SimplePollExample(UINTPTR BaseAddress)
 
 
 /*****************************************************************************/
-/*
+/**
 *
-* This function checks data buffer after the DMA transfer is finished.
+* @brief Checks the data buffer after the DMA transfer completes.
 *
-* @param	None
 *
-* @return
-*		- XST_SUCCESS if validation is successful.
-*		- XST_FAILURE otherwise.
+* @retval XST_SUCCESS Validation is successful.
+* @retval XST_FAILURE Validation failed.
 *
-* @note		None.
 *
 ******************************************************************************/
 static int CheckData(void)
@@ -347,3 +345,5 @@ static int CheckData(void)
 
 	return XST_SUCCESS;
 }
+
+/** @} */

@@ -8,6 +8,8 @@
 /**
  *
  * @file xaxidma_example_sgcyclic_intr.c
+ * @addtogroup AXIDMA Overview
+ * @{
  *
  * This file demonstrates how to use the xaxidma driver on the Xilinx AXI
  * DMA core (AXIDMA) to transfer packets in interrupt mode when the AXIDMA
@@ -36,7 +38,7 @@
  *                     and typecasting buffer address(CR-992638).
  * 9.8   rsp  07/24/18 Set TX DMACR[Cyclic BD enable] before starting DMA
  *                     operation i.e. in TxSetup.
- * 9.9   rsp  01/21/19 Fix use of #elif check in deriving DDR_BASE_ADDR.
+ * 9.9   rsp  01/21/19 Fix use of else-if preprocessor check in deriving DDR_BASE_ADDR.
  *       rsp  02/05/19 For test completion wait for both TX and RX done counters.
  * 9.10  rsp  09/17/19 Fix cache maintenance ops for source and dest buffer.
  * 9.14  sk   03/08/22 Delete DDR memory limits comments as they are not
@@ -138,7 +140,7 @@ extern void xil_printf(const char *format, ...);
 /** @endcond */
 
 /* The interrupt coalescing threshold and delay timer threshold
- * Valid range is 1 to 255
+ * Valid range is 1 to 255.
  *
  * We set the coalescing threshold to be the total number of packets.
  * The receive side will only get one completion interrupt per cyclic transfer.
@@ -166,15 +168,17 @@ extern void xil_printf(const char *format, ...);
 
 /************************** Function Prototypes ******************************/
 #ifdef XPAR_UARTNS550_0_BASEADDR
+/** @cond INTERNAL */
 static void Uart550_Setup(void);
+/** @endcond */
 #endif
 
+/** @cond INTERNAL */
 static int CheckData(int Length, u8 StartValue);
 static void TxCallBack(XAxiDma_BdRing *TxRingPtr);
 static void TxIntrHandler(void *Callback);
 static void RxCallBack(XAxiDma_BdRing *RxRingPtr);
 static void RxIntrHandler(void *Callback);
-
 
 #ifndef SDT
 static int SetupIntrSystem(INTC *IntcInstancePtr,
@@ -186,6 +190,8 @@ static void DisableIntrSystem(INTC *IntcInstancePtr,
 static int RxSetup(XAxiDma *AxiDmaInstPtr);
 static int TxSetup(XAxiDma *AxiDmaInstPtr);
 static int SendPacket(XAxiDma *AxiDmaInstPtr);
+/** @endcond */
+
 
 /************************** Variable Definitions *****************************/
 /*
@@ -222,9 +228,9 @@ u32 *Packet;
 /*****************************************************************************/
 /**
 *
-* Main function
+* @brief Runs the example entry point.
 *
-* This function is the main entry of the interrupt test. It does the following:
+* Runs the interrupt example test. It does the following:
 *	- Set up the output terminal if UART16550 is in the hardware build
 *	- Initialize the DMA engine
 *	- Set up Tx and Rx channels
@@ -235,13 +241,10 @@ u32 *Packet;
 *	- Disable Tx and Rx interrupts
 *	- Print test status and exit
 *
-* @param	None
 *
-* @return
-*		- XST_SUCCESS if tests pass
-*		- XST_FAILURE if fails.
+* @retval XST_SUCCESS Test passed.
+* @retval XST_FAILURE Test failed.
 *
-* @note		None.
 *
 ******************************************************************************/
 int main(void)
@@ -417,13 +420,10 @@ Done:
 /*****************************************************************************/
 /*
 *
-* Uart16550 setup routine, need to set baudrate to 9600 and data bits to 8
+* @brief Sets up UART16550 with a baud rate of 9600 and 8 data bits.
 *
-* @param	None
 *
-* @return	None
 *
-* @note		None.
 *
 ******************************************************************************/
 static void Uart550_Setup(void)
@@ -438,19 +438,18 @@ static void Uart550_Setup(void)
 #endif
 
 /*****************************************************************************/
-/*
+/**
 *
-* This function checks data buffer after the DMA transfer is finished.
+* Checks the data buffer after the DMA transfer completes.
 *
 * We use the static tx/rx buffers.
 *
-* @param	Length is the length to check
-* @param	StartValue is the starting value of the first byte
+* @param[in] Length is the length to check
+* @param[in] StartValue is the starting value of the first byte
 *
 * @return	- XST_SUCCESS if validation is successful
 *		- XST_FAILURE if validation fails.
 *
-* @note		None.
 *
 ******************************************************************************/
 static int CheckData(int Length, u8 StartValue)
@@ -481,16 +480,13 @@ static int CheckData(int Length, u8 StartValue)
 }
 
 /*****************************************************************************/
-/*
+/**
 *
-* This is the DMA TX callback function to be called by TX interrupt handler.
-* This function handles BDs finished by hardware.
+* @brief Handles DMA TX completion in the TX interrupt callback by processing buffer descriptors completed by hardware.
 *
-* @param	TxRingPtr is a pointer to TX channel of the DMA engine.
+* @param[in] TxRingPtr is a pointer to TX channel of the DMA engine.
 *
-* @return	None.
 *
-* @note		None.
 *
 ******************************************************************************/
 static void TxCallBack(XAxiDma_BdRing *TxRingPtr)
@@ -513,19 +509,17 @@ static void TxCallBack(XAxiDma_BdRing *TxRingPtr)
 }
 
 /*****************************************************************************/
-/*
+/**
 *
-* This is the DMA TX Interrupt handler function.
+* @brief Handles DMA TX interrupts.
 *
 * It gets the interrupt status from the hardware, acknowledges it, and if any
 * error happens, it resets the hardware. Otherwise, if a completion interrupt
 * presents, then it calls the callback function.
 *
-* @param	Callback is a pointer to TX channel of the DMA engine.
+* @param[in] Callback is a pointer to TX channel of the DMA engine.
 *
-* @return	None.
 *
-* @note		None.
 *
 ******************************************************************************/
 static void TxIntrHandler(void *Callback)
@@ -586,17 +580,13 @@ static void TxIntrHandler(void *Callback)
 }
 
 /*****************************************************************************/
-/*
+/**
 *
-* This is the DMA RX callback function called by the RX interrupt handler.
-* This function handles finished BDs by hardware, attaches new buffers to those
-* BDs, and give them back to hardware to receive more incoming packets
+* @brief Handles DMA RX completion in the RX interrupt callback by processing buffer descriptors completed by hardware, attaching new buffers to those BDs, and giving them back to hardware to receive more incoming packets.
 *
-* @param	RxRingPtr is a pointer to RX channel of the DMA engine.
+* @param[in] RxRingPtr is a pointer to RX channel of the DMA engine.
 *
-* @return	None.
 *
-* @note		None.
 *
 ******************************************************************************/
 static void RxCallBack(XAxiDma_BdRing *RxRingPtr)
@@ -619,19 +609,17 @@ static void RxCallBack(XAxiDma_BdRing *RxRingPtr)
 }
 
 /*****************************************************************************/
-/*
+/**
 *
-* This is the DMA RX interrupt handler function
+* @brief Handles DMA RX interrupts.
 *
 * It gets the interrupt status from the hardware, acknowledges it, and if any
 * error happens, it resets the hardware. Otherwise, if a completion interrupt
 * presents, then it calls the callback function.
 *
-* @param	Callback is a pointer to RX channel of the DMA engine.
+* @param[in] Callback is a pointer to RX channel of the DMA engine.
 *
-* @return	None.
 *
-* @note		None.
 *
 ******************************************************************************/
 static void RxIntrHandler(void *Callback)
@@ -693,21 +681,19 @@ static void RxIntrHandler(void *Callback)
 }
 #ifndef SDT
 /*****************************************************************************/
-/*
+/**
 *
-* This function setups the interrupt system so interrupts can occur for the
-* DMA, it assumes INTC component exists in the hardware system.
+* @brief Sets up the interrupt system for the DMA, assuming an INTC component exists in the hardware system.
 *
-* @param	IntcInstancePtr is a pointer to the instance of the INTC.
-* @param	AxiDmaPtr is a pointer to the instance of the DMA engine
-* @param	TxIntrId is the TX channel Interrupt ID.
-* @param	RxIntrId is the RX channel Interrupt ID.
+* @param[in] IntcInstancePtr is a pointer to the instance of the INTC.
+* @param[in] AxiDmaPtr is a pointer to the instance of the DMA engine
+* @param[in] TxIntrId is the TX channel Interrupt ID.
+* @param[in] RxIntrId is the RX channel Interrupt ID.
 *
 * @return
 *		- XST_SUCCESS if successful,
 *		- XST_FAILURE.if not successful
 *
-* @note		None.
 *
 ******************************************************************************/
 
@@ -817,15 +803,13 @@ static int SetupIntrSystem(INTC *IntcInstancePtr,
 /*****************************************************************************/
 /**
 *
-* This function disables the interrupts for DMA engine.
+* @brief Disables interrupts for the DMA engine.
 *
-* @param	IntcInstancePtr is the pointer to the INTC component instance
-* @param	TxIntrId is interrupt ID associated w/ DMA TX channel
-* @param	RxIntrId is interrupt ID associated w/ DMA RX channel
+* @param[in] IntcInstancePtr is the pointer to the INTC component instance
+* @param[in] TxIntrId is the interrupt ID associated with the DMA TX channel
+* @param[in] RxIntrId is the interrupt ID associated with the DMA RX channel
 *
-* @return	None.
 *
-* @note		None.
 *
 ******************************************************************************/
 static void DisableIntrSystem(INTC *IntcInstancePtr,
@@ -842,17 +826,14 @@ static void DisableIntrSystem(INTC *IntcInstancePtr,
 }
 #endif
 /*****************************************************************************/
-/*
+/**
+* @brief Sets up the RX channel of the DMA engine to be ready for packet reception.
 *
-* This function sets up RX channel of the DMA engine to be ready for packet
-* reception
-*
-* @param	AxiDmaInstPtr is the pointer to the instance of the DMA engine.
+* @param[in] AxiDmaInstPtr is the pointer to the instance of the DMA engine.
 *
 * @return	- XST_SUCCESS if the setup is successful.
 *		- XST_FAILURE if fails.
 *
-* @note		None.
 *
 ******************************************************************************/
 static int RxSetup(XAxiDma *AxiDmaInstPtr)
@@ -973,17 +954,15 @@ static int RxSetup(XAxiDma *AxiDmaInstPtr)
 }
 
 /*****************************************************************************/
-/*
+/**
 *
-* This function sets up the TX channel of a DMA engine to be ready for packet
-* transmission.
+* @brief Sets up the TX channel of the DMA engine to be ready for packet transmission.
 *
-* @param	AxiDmaInstPtr is the pointer to the instance of the DMA engine.
+* @param[in] AxiDmaInstPtr is the pointer to the instance of the DMA engine.
 *
 * @return	- XST_SUCCESS if the setup is successful.
 *		- XST_FAILURE otherwise.
 *
-* @note		None.
 *
 ******************************************************************************/
 static int TxSetup(XAxiDma *AxiDmaInstPtr)
@@ -1051,17 +1030,16 @@ static int TxSetup(XAxiDma *AxiDmaInstPtr)
 }
 
 /*****************************************************************************/
-/*
+/**
 *
-* This function non-blockingly transmits all packets through the DMA engine.
+* @brief Performs a non-blocking transmission of all packets through the DMA engine.
 *
-* @param	AxiDmaInstPtr points to the DMA engine instance
+* @param[in] AxiDmaInstPtr is a pointer to the DMA engine instance.
 *
 * @return
 * 		- XST_SUCCESS if the DMA accepts all the packets successfully,
 * 		- XST_FAILURE if error occurs
 *
-* @note		None.
 *
 ******************************************************************************/
 static int SendPacket(XAxiDma *AxiDmaInstPtr)
@@ -1213,3 +1191,5 @@ static int SendPacket(XAxiDma *AxiDmaInstPtr)
 
 	return XST_SUCCESS;
 }
+
+/** @} */
