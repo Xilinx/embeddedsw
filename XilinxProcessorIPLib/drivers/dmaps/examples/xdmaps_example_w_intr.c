@@ -8,7 +8,10 @@
 /**
 *
 * @file xdmaps_example_w_intr.c
+* @addtogroup dmaps Overview
+* @{
 *
+* Example demonstrating DMA PS transfers with interrupt support.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -90,7 +93,9 @@
 
 #ifndef SDT
 int XDmaPs_Example_W_Intr(XScuGic *GicPtr, u16 DeviceId);
+/** @cond INTERNAL */
 int SetupInterruptSystem(XScuGic *GicPtr, XDmaPs *DmaPtr);
+/** @endcond */
 #else
 int XDmaPs_Example_W_Intr(XDmaPs *DmapsInstPtr, UINTPTR BaseAddress);
 #endif
@@ -121,13 +126,11 @@ XScuGic GicInstance;
 /****************************************************************************/
 /**
 *
-* This is the main function for the DmaPs interrupt example.
+* Main entry point for the DmaPs interrupt example.
 *
-* @param	None.
 *
 * @return	XST_SUCCESS to indicate success, otherwise XST_FAILURE.
 *
-* @note		None.
 *
 ****************************************************************************/
 #ifndef TESTAPP_GEN
@@ -158,16 +161,15 @@ int main(void)
  * Interrupt Example to test the DMA.
  *
  * @if SDT
- * @param	DmapsInstPtr is a pointer to the DMA PS instance.
- * @param	BaseAddress contains the base address of the DmaPs device
+ * @param[in] DmapsInstPtr is a pointer to the DMA PS instance.
+ * @param[in] BaseAddress contains the base address of the DmaPs device
  * @else
- * @param	GicPtr is a pointer to the interrupt controller instance.
- * @param	DeviceId is the Device ID of the DMA controller.
+ * @param[in] GicPtr is a pointer to the interrupt controller instance.
+ * @param[in] DeviceId is the Device ID of the DMA controller.
  * @endif
  *
  * @return	XST_SUCCESS to indicate success, otherwise XST_FAILURE.
  *
- * @note	None.
  *
  ****************************************************************************/
 #ifndef SDT
@@ -332,20 +334,19 @@ int XDmaPs_Example_W_Intr(XDmaPs *DmapsInstPtr, UINTPTR BaseAddress)
 }
 
 #ifndef SDT
+/** @cond INTERNAL */
 /******************************************************************************/
 /**
  *
- * This function connects the interrupt handler of the interrupt controller to
- * the processor.  This function is separate to allow it to be customized for
- * each application. Each processor or RTOS may require unique processing to
+ * Connects the interrupt handler of the interrupt controller to
+ * the processor. Separate from the example to allow per-application
+ * customization. Each processor or RTOS may require unique processing to
  * connect the interrupt handler.
  *
- * @param	GicPtr is the GIC instance pointer.
- * @param	DmaPtr is the DMA instance pointer.
+ * @param[in] GicPtr is the GIC instance pointer.
+ * @param[in] DmaPtr is the DMA instance pointer.
  *
- * @return	None.
- *
- * @note	None.
+ * @return XST_SUCCESS if successful, otherwise XST_FAILURE.
  *
  ****************************************************************************/
 int SetupInterruptSystem(XScuGic *GicPtr, XDmaPs *DmaPtr)
@@ -456,20 +457,17 @@ int SetupInterruptSystem(XScuGic *GicPtr, XDmaPs *DmaPtr)
 	return XST_SUCCESS;
 
 }
+/** @endcond */
 #endif
 
 /*****************************************************************************/
 /**
 *
-* DmaDoneHandler.
+* DMA done callback for the example.
 *
-* @param	Channel is the Channel number.
-* @param	DmaCmd is the Dma Command.
-* @param	CallbackRef is the callback reference data.
-*
-* @return	None.
-*
-* @note		None.
+* @param[in] Channel is the channel number.
+* @param[in] DmaCmd is the DMA command.
+* @param[in] CallbackRef is the callback reference data.
 *
 ******************************************************************************/
 void DmaDoneHandler(unsigned int Channel, XDmaPs_Cmd *DmaCmd, void *CallbackRef)
@@ -497,4 +495,4 @@ void DmaDoneHandler(unsigned int Channel, XDmaPs_Cmd *DmaCmd, void *CallbackRef)
 	Checked[Channel] = Status;
 }
 
-
+/** @} */

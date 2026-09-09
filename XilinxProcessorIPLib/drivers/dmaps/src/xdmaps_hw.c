@@ -41,7 +41,7 @@
 
 /*****************************************************************************/
 /**
-* This function perform the reset sequence to the given dmaps interface by
+* Resets the DMA PS interface to the given dmaps interface by
 * configuring the appropriate control bits in the dmaps specific registers
 * the dmaps reset sequence involves the following steps
 *	Disable all the interuupts
@@ -49,13 +49,10 @@
 *	Kill all the active channel threads
 *	Kill the manager thread
 *
-* @param   BaseAddress of the interface
+* @param[in] BaseAddress of the interface
 *
-* @return N/A
 *
-* @note
-* This function will not modify the slcr registers that are relevant for
-* dmaps controller
+* @note	Does not modify SLCR registers relevant to the DMA PS controller.
 ******************************************************************************/
 void XDmaPs_ResetHw(u32 BaseAddress)
 {

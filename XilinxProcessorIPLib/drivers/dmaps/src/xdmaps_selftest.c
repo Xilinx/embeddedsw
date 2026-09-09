@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2009 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -46,7 +46,7 @@
 /****************************************************************************/
 /**
 *
-* This function runs a self-test on the driver and hardware device. This self
+* Runs a self-test on the driver and hardware device. This self
 * test performs a local loopback and verifies data can be sent and received.
 *
 * The time for this test is proportional to the baud rate that has been set
@@ -54,16 +54,14 @@
 *
 * The mode and control registers are restored before return.
 *
-* @param	InstPtr is a pointer to the XDmaPs instance
+* @param[in] InstPtr is a pointer to the XDmaPs instance
 *
 * @return
 *
 *		- XST_SUCCESS if the test was successful
 *		- XST_FAILURE if the test failed
 *
-* @note
-*
-* This function can hang if the hardware is not functioning properly.
+* @note	Hardware malfunction can cause this function to hang.
 *
 ******************************************************************************/
 int XDmaPs_SelfTest(XDmaPs *InstPtr)

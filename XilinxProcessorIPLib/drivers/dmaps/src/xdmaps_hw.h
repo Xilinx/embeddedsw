@@ -11,7 +11,7 @@
 * @addtogroup dmaps Overview
 * @{
 *
-* This header file contains the hardware interface of an XDmaPs device.
+* Defines the hardware interface of an XDmaPs device.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -187,7 +187,7 @@ extern "C" {
 #define XDmaPs_DBGINST0(b1, b0, ch, dbg_th) \
 	(((b1) << 24) | ((b0) << 16) | (((ch) & 0x7) << 8) | ((dbg_th & 0x1)))
 
-/* @} */
+/** @} */
 
 /** @name Control Register
  *
@@ -195,8 +195,6 @@ extern "C" {
  *
  * Control Register Bit Definition
  */
-
-/* @}*/
 
 
 #define XDMAPS_CHANNELS_PER_DEV		8
@@ -212,7 +210,7 @@ extern "C" {
  * @{
  */
 
-/* @} */
+/** @} */
 
 
 /** @name Interrupt Registers
@@ -230,8 +228,9 @@ extern "C" {
  * @{
  */
 
-/* @} */
-#define XDMAPS_INTCLR_ALL_MASK		0xFF
+#define XDMAPS_INTCLR_ALL_MASK		0xFF /**< Mask to clear all interrupt bits. */
+
+/** @} */
 
 #define XDmaPs_ReadReg(BaseAddress, RegOffset) \
 	Xil_In32((BaseAddress) + (RegOffset))
@@ -240,11 +239,10 @@ extern "C" {
 /**
 * Write a DMAC register.
 *
-* @param    BaseAddress contains the base address of the device.
-* @param    RegOffset contains the offset from the base address of the device.
-* @param    RegisterValue is the value to be written to the register.
+* @param[in] BaseAddress contains the base address of the device.
+* @param[in] RegOffset contains the offset from the base address of the device.
+* @param[in] RegisterValue is the value to be written to the register.
 *
-* @return   None.
 *
 * @note
 * C-Style signature:

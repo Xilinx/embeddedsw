@@ -10,8 +10,8 @@
 * @file xdmaps.h
 * @addtogroup dmaps Overview
 * @{
-* @details
 *
+* Driver API for the DMA PS (PL330) engine.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -87,7 +87,7 @@ extern "C" {
 /**************************** Type Definitions ******************************/
 
 /**
- * This typedef contains configuration information for the device.
+ * Holds configuration information for the device.
  */
 typedef struct {
 #ifndef SDT
@@ -106,8 +106,7 @@ typedef struct {
 } XDmaPs_Config;
 
 
-/** DMA channel control structure. It's for AXI bus transaction.
- * This struct will be translated into a 32-bit channel control register value.
+/** Holds AXI channel control settings translated into a 32-bit CCR value.
  */
 typedef struct {
 	unsigned int EndianSwapSize;	/**< Endian swap size. */
@@ -179,14 +178,14 @@ typedef struct {
 } XDmaPs_Cmd;
 
 /**
- * It's the done handler a user can set for a channel
+ * Done handler callback type for a channel
  */
 typedef void (*XDmaPsDoneHandler) (unsigned int Channel,
 				   XDmaPs_Cmd *DmaCmd,
 				   void *CallbackRef);
 
 /**
- * It's the fault handler a user can set for a channel
+ * Fault handler callback type for a channel
  */
 typedef void (*XDmaPsFaultHandler) (unsigned int Channel,
 				    XDmaPs_Cmd *DmaCmd,
@@ -285,6 +284,7 @@ int XDmaPs_Instr_DMAWMB(char *DmaProg);
  * To avoid linkage error,modify all inline functions from extern
  * inline to static inline for IAR compiler
  */
+/** @cond INTERNAL */
 #ifdef __ICCARM__
 static INLINE int XDmaPs_Instr_DMAEND(char *DmaProg);
 static INLINE void XDmaPs_Memcpy4(char *Dst, char *Src);
@@ -301,6 +301,7 @@ static INLINE int XDmaPs_Instr_DMAST(char *DmaProg);
 static INLINE unsigned XDmaPs_ToEndianSwapSizeBits(unsigned int EndianSwapSize);
 static INLINE unsigned XDmaPs_ToBurstSizeBits(unsigned BurstSize);
 #endif
+/** @endcond */
 
 /**
  * Driver done interrupt service routines for the channels.
