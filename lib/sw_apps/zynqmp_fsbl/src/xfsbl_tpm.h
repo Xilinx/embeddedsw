@@ -21,6 +21,7 @@
 * 2.00  sd   04/25/25 Fix incorrect TPM initialization
 *       sd   01/08/25 Add PCR indices for partitions missing in the boot image
 *       pre  06/26/26 Added byte index macros for data size field in PCR event command
+*       sd   09/08/26 Add receive buffer capacities to TPM command APIs
 *
 * </pre>
 *
@@ -119,12 +120,13 @@ u32 XFsbl_TpmMeasureRom(void);
 u32 XFsbl_TpmMeasurePartition(u8 PcrIndex, u8* PartitionHash);
 u32 XFsbl_SpiInit(void);
 u32 XFsbl_TpmTransfer(u16 Address, u8 *TxBuf, u8 *RxBuf, u16 Length);
-u32 XFsbl_TpmDataTransfer(u8* TxBuf, u8* RxBuf, u16 Txlen);
+u32 XFsbl_TpmDataTransfer(u8* TxBuf, u8* RxBuf, u16 Txlen, u16 RxBufLen);
 u32 XFsbl_TpmStatusGet(u8* StatusPtr);
 u32 XFsbl_TpmStatusSet(u8 StatusVal);
 u32 XFsbl_TpmAccessGet(u8* AccessPtr);
 u32 XFsbl_TpmAccessSet(u8 Access);
-u32 XFsbl_TpmEvent(u32 PcrIndex, u16 Size, u8 *Data, u8 *Response);
+u32 XFsbl_TpmEvent(u32 PcrIndex, u16 Size, u8 *Data, u8 *Response,
+	u16 ResponseLen);
 void XFsbl_ReadAllTpmRegisters(void);
 
 #endif /* XFSBL_TPM */

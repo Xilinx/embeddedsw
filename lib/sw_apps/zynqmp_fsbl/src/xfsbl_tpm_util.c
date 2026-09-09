@@ -22,6 +22,7 @@
 *       pre  10/23/25 Fixed bug in TPM command transmission
 *       pre  06/26/26 Fixed RxLen variable size in XTpm_DataTransfer function
 *                     to avoid data loss
+*       sd   09/08/26 Validate TPM response length against receive buffer capacity
 *
 * </pre>
 *
@@ -227,15 +228,20 @@ END:
 * @param	TxBuf is pointer to transmit buffer
 * @param	RxBuf is pointer to receive buffer
 * @param	Txlen is data transfer length
+* @param	RxBufLen is receive buffer capacity in bytes
 *
 * @return	XFSBL_SUCCESS if successful, else error code.
 *
 ******************************************************************************/
-u32 XFsbl_TpmDataTransfer(u8* TxBuf, u8* RxBuf, u16 Txlen)
+u32 XFsbl_TpmDataTransfer(u8* TxBuf, u8* RxBuf, u16 Txlen, u16 RxBufLen)
 {
 	u32 Status = XFSBL_FAILURE;
 	u8 StatusVal = 0U;
 	u32 RxLen;
+
+	if ((RxBuf == NULL) || (RxBufLen < XFSBL_TPM_RX_HEAD_SIZE)) {
+		goto END;
+	}
 
 	/* Set command ready request */
 	Status = XFsbl_TpmStatusSet(XFSBL_TPM_STS_CMD_READY);
@@ -281,7 +287,8 @@ u32 XFsbl_TpmDataTransfer(u8* TxBuf, u8* RxBuf, u16 Txlen)
 
 	RxLen = ((u32)RxBuf[XFSBL_TPM_DATA_SIZE_BYTE0_INDEX] | ((u32)RxBuf[XFSBL_TPM_DATA_SIZE_BYTE1_INDEX] << 8U) |
 		((u32)RxBuf[XFSBL_TPM_DATA_SIZE_BYTE2_INDEX] << 16U) | ((u32)RxBuf[XFSBL_TPM_DATA_SIZE_BYTE3_INDEX] << 24U));
-	if (RxLen > XFSBL_TPM_RESP_MAX_SIZE) {
+	if ((RxLen < XFSBL_TPM_RX_HEAD_SIZE) || (RxLen > RxBufLen) ||
+		(RxLen > XFSBL_TPM_RESP_MAX_SIZE)) {
 		Status = XFSBL_FAILURE;
 		goto END;
 	}

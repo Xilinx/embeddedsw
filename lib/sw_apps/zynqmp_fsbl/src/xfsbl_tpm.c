@@ -20,6 +20,7 @@
 * 1.00  bsv  04/01/21 Initial release
 * 2.00  sd   04/25/25 Fix incorrect TPM initialization
 *       pre  06/26/26 Renamed macro 'XFSBL_TPM_DATA_SIZE_INDEX' to 'XFSBL_TPM_DATA_SIZE_BYTE0_INDEX'
+*       sd   09/08/26 Pass receive buffer capacities to TPM command APIs
 *
 * </pre>
 *
@@ -127,7 +128,7 @@ static u32 XFsbl_TpmStartUp(void)
 	};
 
 	Status = XFsbl_TpmDataTransfer(TpmStartup, TpmRespBuffer,
-		TpmStartup[XFSBL_TPM_DATA_SIZE_BYTE0_INDEX]);
+		TpmStartup[XFSBL_TPM_DATA_SIZE_BYTE0_INDEX], sizeof(TpmRespBuffer));
 
 	return Status;
 }
@@ -152,7 +153,7 @@ static u32 XFsbl_TpmSelfTest(void)
 	};
 
 	Status = XFsbl_TpmDataTransfer(TpmSelfTest, TpmRespBuffer,
-		TpmSelfTest[XFSBL_TPM_DATA_SIZE_BYTE0_INDEX]);
+		TpmSelfTest[XFSBL_TPM_DATA_SIZE_BYTE0_INDEX], sizeof(TpmRespBuffer));
 
 	return Status;
 }
@@ -178,7 +179,7 @@ static u32 XFsbl_TpmGetCap(void)
 	};
 
 	Status = XFsbl_TpmDataTransfer(TpmGetCap, TpmRespBuffer,
-		TpmGetCap[XFSBL_TPM_DATA_SIZE_BYTE0_INDEX]);
+		TpmGetCap[XFSBL_TPM_DATA_SIZE_BYTE0_INDEX], sizeof(TpmRespBuffer));
 
 	return Status;
 
@@ -254,7 +255,8 @@ u32 XFsbl_TpmMeasureRom(void)
 		XFSBL_TPM_DIGEST_SIZE);
 
 	XFsbl_PrintArray(DEBUG_INFO, (u8*)ShaData, XFSBL_HASH_TYPE_SHA3, "SHA3 ROM");
-	Status = XFsbl_TpmEvent(0, XFSBL_HASH_TYPE_SHA3, (u8 *)ShaData, TpmRespBuffer);
+	Status = XFsbl_TpmEvent(0, XFSBL_HASH_TYPE_SHA3, (u8 *)ShaData,
+		TpmRespBuffer, sizeof(TpmRespBuffer));
 	if (XFSBL_SUCCESS != Status) {
 		goto END;
 	}
@@ -304,7 +306,8 @@ u32 XFsbl_TpmMeasurePartition(u8 PcrIndex, u8* PartitionHash)
 		(void *)PartitionHash, XFSBL_TPM_DIGEST_SIZE);
 
 	XFsbl_PrintArray(DEBUG_INFO, (u8*)PartitionHash, XFSBL_HASH_TYPE_SHA3, "SHA3 PARTITION");
-	Status = XFsbl_TpmEvent(PcrIndex, XFSBL_HASH_TYPE_SHA3, (u8 *)PartitionHash, TpmRespBuffer);
+	Status = XFsbl_TpmEvent(PcrIndex, XFSBL_HASH_TYPE_SHA3, (u8 *)PartitionHash,
+		TpmRespBuffer, sizeof(TpmRespBuffer));
 	if (Status != XFSBL_SUCCESS) {
 		goto END;
 	}
@@ -327,11 +330,13 @@ END:
 * @param	Size is size of Event data being internally hashed by TPM
 * @param	Data is Event data being internally hashed by TPM
 * @param	Response is TPM response buffer
+* @param	ResponseLen is TPM response buffer capacity in bytes
 *
 * @return	XFSBL_SUCCESS if successful, else error code
 *
 ******************************************************************************/
-u32 XFsbl_TpmEvent(u32 PcrIndex, u16 Size, u8 *Data, u8 *Response)
+u32 XFsbl_TpmEvent(u32 PcrIndex, u16 Size, u8 *Data, u8 *Response,
+	u16 ResponseLen)
 {
 	u32 Status = XFSBL_FAILURE;
 	u32 Idx;
@@ -365,7 +370,8 @@ u32 XFsbl_TpmEvent(u32 PcrIndex, u16 Size, u8 *Data, u8 *Response)
 			}
 
 			/* Send the command */
-			Status = XFsbl_TpmDataTransfer(TpmPcrEvent, Response, XFSBL_TPM_PCR_EVENT_CMD_SIZE + Size);
+			Status = XFsbl_TpmDataTransfer(TpmPcrEvent, Response,
+				XFSBL_TPM_PCR_EVENT_CMD_SIZE + Size, ResponseLen);
 	}
 
 END:
@@ -428,7 +434,8 @@ static u32 XFsbl_TpmPcrReadIndex(u8 PcrIndex, u8 HashAlg)
 
 	TpmPcrRead[XFSBL_TPM_PCR_SELECT_OFFSET + (PcrIndex / XFSBL_TPM_DIVD_VAL)] = (1U << (PcrIndex % XFSBL_TPM_DIVD_VAL));
 
-	Status = XFsbl_TpmDataTransfer( TpmPcrRead, ResponseBuf, TpmPcrRead[XFSBL_TPM_DATA_SIZE_BYTE0_INDEX]);
+	Status = XFsbl_TpmDataTransfer(TpmPcrRead, ResponseBuf,
+		TpmPcrRead[XFSBL_TPM_DATA_SIZE_BYTE0_INDEX], sizeof(ResponseBuf));
 	if (Status != XFSBL_SUCCESS) {
 		goto END;
 	}
