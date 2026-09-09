@@ -135,6 +135,9 @@ static DSTATUS Stat[XSDPS_NUM_INSTANCES + 33U] =
 static DSTATUS Stat[XSDPS_NUM_INSTANCES] = {STA_NOINIT, STA_NOINIT};	/* Disk status */
 #endif
 
+/** Number of physical drive slots tracked by Stat[] */
+#define XFFS_NUM_DRIVES		((u32)(sizeof(Stat) / sizeof(Stat[0])))
+
 #ifdef FILE_SYSTEM_INTERFACE_SD
 #ifdef XPAR_XSDPS_NUM_INSTANCES
 static XSdPs SdInstance[XSDPS_NUM_INSTANCES];
@@ -178,7 +181,13 @@ DSTATUS disk_status (
 	BYTE pdrv	/* Drive number (0) */
 )
 {
-	DSTATUS s = Stat[pdrv];
+	DSTATUS s;
+
+	if ((u32)pdrv >= XFFS_NUM_DRIVES) {
+		return (DSTATUS)(STA_NOINIT | STA_NODISK);
+	}
+
+	s = Stat[pdrv];
 #ifdef FILE_SYSTEM_INTERFACE_SD
 #ifdef XPAR_XSDPS_NUM_INSTANCES
 	u32 StatusReg;
@@ -494,8 +503,17 @@ DRESULT disk_read (
 #endif
 
 #ifdef FILE_SYSTEM_INTERFACE_RAM
-	Xil_SMemCpy(buff, count * SECTORSIZE, dataramfs + (sector * SECTORSIZE),
-		    count * SECTORSIZE, count * SECTORSIZE);
+	/* Reject out-of-range access (subtraction form avoids offset wrap) */
+	if ((sector >= (LBA_t)SECTORCNT) || ((LBA_t)count > ((LBA_t)SECTORCNT - sector))) {
+		return RES_PARERR;
+	}
+
+	if (Xil_SMemCpy(buff, count * SECTORSIZE,
+			dataramfs + (sector * SECTORSIZE),
+			(u32)(RAMFS_SIZE - (sector * SECTORSIZE)),
+			count * SECTORSIZE) != (s32)XST_SUCCESS) {
+		return RES_ERROR;
+	}
 #endif
 
 #if !defined(FILE_SYSTEM_INTERFACE_SD) && !defined(FILE_SYSTEM_INTERFACE_RAM)
@@ -575,6 +593,10 @@ DRESULT disk_ioctl (
 					LunId = pdrv - XUFSPSXC_START_INDEX;
 				}
 
+				if (!XUfsPsxc_IsValidLun(&UfsInstance, LunId) || (UfsInstance.LUNInfo[LunId].BlockSize == 0U)) {
+					return RES_ERROR;
+				}
+
 				(*((DWORD *)(void *)LocBuff)) = (DWORD)((UfsInstance.LUNInfo[LunId].LUNSize * 1024U * 1024U) / UfsInstance.LUNInfo[LunId].BlockSize);
 #endif
 			}
@@ -618,6 +640,10 @@ DRESULT disk_ioctl (
 					LunId = pdrv - XUFSPSXC_START_INDEX;
 				}
 
+				if (!XUfsPsxc_IsValidLun(&UfsInstance, LunId) || (UfsInstance.LUNInfo[LunId].BlockSize == 0U)) {
+					return RES_ERROR;
+				}
+
 				(*((WORD*)((void *)buff))) = ((WORD)UfsInstance.LUNInfo[LunId].BlockSize);
 #endif
 			}
@@ -628,7 +654,7 @@ DRESULT disk_ioctl (
 		case (BYTE)XUFSPSXC_SWITCH_BLUN :
 			Status = XUfsPsxc_SwitchBootLUN(&UfsInstance);
 			if (Status != XST_SUCCESS) {
-				res = RES_OK;
+				res = RES_ERROR;
 				break;
 			}
 
@@ -658,7 +684,7 @@ DRESULT disk_ioctl (
 			res = RES_OK;
 			break;
 		case (BYTE)GET_BLOCK_SIZE:
-			*(WORD *)buff = BLOCKSIZE;
+			*(DWORD *)buff = BLOCKSIZE;
 			res = RES_OK;
 			break;
 		case (BYTE)GET_SECTOR_SIZE:
@@ -781,8 +807,17 @@ DRESULT disk_write (
 #endif
 
 #ifdef FILE_SYSTEM_INTERFACE_RAM
-	Xil_SMemCpy(dataramfs + (sector * SECTORSIZE), count * SECTORSIZE, buff,
-		    count * SECTORSIZE, count * SECTORSIZE);
+	/* Reject out-of-range access */
+	if ((sector >= (LBA_t)SECTORCNT) || ((LBA_t)count > ((LBA_t)SECTORCNT - sector))) {
+		return RES_PARERR;
+	}
+
+	if (Xil_SMemCpy(dataramfs + (sector * SECTORSIZE),
+			(u32)(RAMFS_SIZE - (sector * SECTORSIZE)),
+			buff, count * SECTORSIZE,
+			count * SECTORSIZE) != (s32)XST_SUCCESS) {
+		return RES_ERROR;
+	}
 #endif
 
 #if !defined(FILE_SYSTEM_INTERFACE_SD) && !defined(FILE_SYSTEM_INTERFACE_RAM)
