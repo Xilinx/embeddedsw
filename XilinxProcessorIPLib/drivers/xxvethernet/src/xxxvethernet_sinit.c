@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2018 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -10,7 +10,7 @@
 * @addtogroup xxvethernet Overview
 * @{
 *
-* This file contains static initialization functionality for XXV Ethernet driver.
+* Contains static initialization functionality for XXV Ethernet driver.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -31,38 +31,19 @@
 #endif
 #include "xxxvethernet.h"
 
-/************************** Constant Definitions *****************************/
-
-
-/**************************** Type Definitions *******************************/
-
-
-/***************** Macros (Inline Functions) Definitions *********************/
-
-
-/************************** Function Prototypes ******************************/
-
+#ifdef SDT
 /*****************************************************************************/
 /**
 *
-* Looks up the device configuration based on the unique device ID/BaseAddress.
+* Looks up the device configuration based on the base address.
 * A table contains the configuration info for each device in the system.
 *
-* @if SDT
-* @param        BaseAddress contains the base address of the device
-* @else
-* @param        DeviceId contains the unique ID of the device
-* @endif
+* @param[in]	BaseAddress contains the base address of the device
 *
 * @return
-*		A pointer to the configuration table entry corresponding to the given
-* 		device ID/BaseAddress, or NULL if no match is found.
-*
-* @note        In XSCT/classic flow, DeviceId is used to look up the device
-*              configuration.
+* Pointer to the matching configuration table entry, or NULL if no match exists.
 *
 ******************************************************************************/
-#ifdef SDT
 XXxvEthernet_Config *XXxvEthernet_LookupConfig(UINTPTR BaseAddress)
 {
 	extern XXxvEthernet_Config XXxvEthernet_ConfigTable[];
@@ -79,8 +60,23 @@ XXxvEthernet_Config *XXxvEthernet_LookupConfig(UINTPTR BaseAddress)
 
 	return (CfgPtr);
 }
-#else
 
+#else
+/*****************************************************************************/
+/**
+*
+* Looks up the device configuration based on the unique device ID.
+* A table contains the configuration info for each device in the system.
+*
+* @param[in]	DeviceId contains the unique ID of the device
+*
+* @return
+* Pointer to the matching configuration table entry, or NULL if no match exists.
+*
+* @note        In XSCT/classic flow, DeviceId is used to look up the device
+*              configuration.
+*
+******************************************************************************/
 XXxvEthernet_Config *XXxvEthernet_LookupConfig(u16 DeviceId)
 {
 	extern XXxvEthernet_Config XXxvEthernet_ConfigTable[];
@@ -96,21 +92,23 @@ XXxvEthernet_Config *XXxvEthernet_LookupConfig(u16 DeviceId)
 
 	return (CfgPtr);
 }
+
 #endif
 /*****************************************************************************/
 /**
-* XXxvEthernet_LookupConfigBaseAddr returns a reference to an
-* XXxvEthernet_Config structure based on base address. The return value
-* will refer to an entry in the device configuration table defined in the
-* xxxvethernet_g.c file.
+* Returns a reference to an XXxvEthernet_Config structure based on base address.
+* The return value refers to an entry in the device configuration table defined
+* in xxxvethernet_g.c.
 *
-* @param	 Baseaddr is the base address of the device to lookup for.
+* @if SDT
+* @param[in]	BaseAddress is the base address of the device to look up.
+* @else
+* @param[in]	Baseaddr is the base address of the device to look up.
+* @endif
 *
 * @return
-*		- Returns a reference to a config record in the
-*		  configuration table (in xxxvethernet_g.c) corresponding to
-*		  <i>Baseaddr</i>, or NULL
-*		- NULL if no match is found.
+* - Reference to the matching configuration table entry
+* - NULL if no match is found
 *
 ******************************************************************************/
 #ifdef SDT

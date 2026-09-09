@@ -4,12 +4,16 @@
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
+/** @cond INTERNAL */
+#ifndef XXXVETHERNET_H
+#define XXXVETHERNET_H
+/** @endcond */
+
 /**
 *
 * @file xxxvethernet.h
 * @addtogroup xxvethernet Overview
 * @{
-* @details
 *
 * The Xilinx XXV Ethernet MAC driver component. This driver supports both
 * XXV Ethernet core and USXGMII core on Zynq Ultrascale+ MPSoC.
@@ -119,9 +123,6 @@
 *
 ******************************************************************************/
 
-#ifndef XXXVETHERNET_H		/* prevent circular inclusions */
-#define XXXVETHERNET_H		/* by using protection macros */
-
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -180,7 +181,7 @@ extern "C" {
 /**< XXE_DEFAULT_OPTIONS specify the options set in XXxvEthernet_Reset() and
  *   XXxvEthernet_CfgInitialize()
  */
-/*@}*/
+/** @} */
 
 /*
  * The next few constants help upper layers determine the size of memory
@@ -202,20 +203,20 @@ extern "C" {
 #define XXE_MAX_JUMBO_FRAME_SIZE (XXE_JUMBO_MTU + XXE_HDR_SIZE + XXE_TRL_SIZE)
 
 
-#define XXE_RX				1 /* Receive direction  */
-#define XXE_TX				2 /* Transmit direction */
+#define XXE_RX				1 /**< Receive direction */
+#define XXE_TX				2 /**< Transmit direction */
 
-#define RATE_10M	10
-#define RATE_100M	100
-#define RATE_1G		1000
-#define RATE_2G5	2500
-#define RATE_10G	10000
+#define RATE_10M	10 /**< 10 Mbps line rate */
+#define RATE_100M	100 /**< 100 Mbps line rate */
+#define RATE_1G		1000 /**< 1 Gbps line rate */
+#define RATE_2G5	2500 /**< 2.5 Gbps line rate */
+#define RATE_10G	10000 /**< 10 Gbps line rate */
 
 /**************************** Type Definitions *******************************/
 
 
 /**
- * This typedef contains configuration information for a Xxv Ethernet device.
+ * @brief Holds configuration information for an Xxv Ethernet device.
  */
 typedef struct XXxvEthernet_Config {
 #ifdef SDT
@@ -248,8 +249,9 @@ typedef struct XXxvEthernet_Config {
 
 
 /**
- * struct XXxvEthernet is the type for Xxv Ethernet driver instance data.
- * The calling code is required to use a unique instance of this structure
+ * @brief Holds Xxv Ethernet driver instance data.
+ *
+ * The calling code must use a unique instance of this structure
  * for every Xxv Ethernet device used in the system. A reference to a structure
  * of this type is then passed to the driver API functions.
  */
@@ -273,7 +275,7 @@ typedef struct XXxvEthernet {
 * <i>XXxvEthernet_Stop</i> or <i>XXxvEthernet_CfgInitialize</i> function must
 * have been called.
 *
-* @param	InstancePtr is a pointer to the of Xxv Ethernet instance to be
+* @param[in]	InstancePtr is a pointer to the of Xxv Ethernet instance to be
 *		worked on.
 *
 * @return
@@ -292,10 +294,10 @@ typedef struct XXxvEthernet {
 *
 * XXxvEthernet_XxvDevBaseAddress reports the base address of the core connected
 * to the Xxv Ethernet's Axi4 Stream interface (expected to be MCDMA).
-* This function is currently not in use because of limitation in exporting
+* Reserved for future use because of a limitation in exporting
 * target MCDMA information.
 *
-* @param	InstancePtr is a pointer to the Xxv Ethernet instance to be
+* @param[in]	InstancePtr is a pointer to the Xxv Ethernet instance to be
 *		worked on.
 *
 * @return	The base address of the core connected to the Xxv Ethernet's
@@ -314,7 +316,7 @@ typedef struct XXxvEthernet {
 * XXxvEthernet_IsTxErr determines if there is any TX error reported by device.
 * The TX status register is read for this to be determined.
 *
-* @param	InstancePtr is a pointer to the Xxv Ethernet instance to be
+* @param[in]	InstancePtr is a pointer to the Xxv Ethernet instance to be
 *		worked on.
 *
 * @return
@@ -335,7 +337,7 @@ typedef struct XXxvEthernet {
 * XXxvEthernet_IsRxErr determines if there is any RX error reported by device.
 * The RX status register is read for this to be determined.
 *
-* @param	InstancePtr is a pointer to the Xxv Ethernet instance to be
+* @param[in]	InstancePtr is a pointer to the Xxv Ethernet instance to be
 *		worked on.
 *
 * @return
@@ -355,7 +357,7 @@ typedef struct XXxvEthernet {
 *
 * XXxvEthernet_GetStatus returns the contents of status register
 *
-* @param	InstancePtr is a pointer to the Xxv Ethernet instance to be
+* @param[in]	InstancePtr is a pointer to the Xxv Ethernet instance to be
 *		worked on.
 *
 * @return	Returns the status register.
@@ -373,7 +375,7 @@ typedef struct XXxvEthernet {
 * XXxvEthernet_IsStatsConfigured returns determines if Statistics gathering.
 * is configured in the hardware or not.
 *
-* @param	InstancePtr is a pointer to the Xxv Ethernet instance to be
+* @param[in]	InstancePtr is a pointer to the Xxv Ethernet instance to be
 *		worked on.
 *
 * @return
@@ -394,7 +396,7 @@ typedef struct XXxvEthernet {
 *
 * XXxvEthernet_UsxgmiiLinkSts returns the USXGMII link status
 *
-* @param	InstancePtr is a pointer to the Xxv Ethernet instance to be
+* @param[in]	InstancePtr is a pointer to the Xxv Ethernet instance to be
 *		worked on.
 *
 * @return
@@ -414,7 +416,7 @@ typedef struct XXxvEthernet {
 *
 * XXxvEthernet_SetUsxgmiiAnEnable enables USXGMII autonegotiation.
 *
-* @param	InstancePtr is a pointer to the Xxv Ethernet instance to be
+* @param[in]	InstancePtr is a pointer to the Xxv Ethernet instance to be
 *		worked on.
 *
 * @note 	C-style signature:
@@ -432,7 +434,7 @@ typedef struct XXxvEthernet {
 *
 * XXxvEthernet_SetUsxgmiiAnBypass bypasses USXGMII autonegotiation.
 *
-* @param	InstancePtr is a pointer to the Xxv Ethernet instance to be
+* @param[in]	InstancePtr is a pointer to the Xxv Ethernet instance to be
 *		worked on.
 *
 * @note 	C-style signature:
@@ -451,7 +453,7 @@ typedef struct XXxvEthernet {
 * XXxvEthernet_GetUsxgmiiAnSts returns the contents of USXGMII
 * autonegotiation status register
 *
-* @param	InstancePtr is a pointer to the Xxv Ethernet instance to be
+* @param[in]	InstancePtr is a pointer to the Xxv Ethernet instance to be
 *		worked on.
 *
 * @note 	C-style signature:
@@ -467,7 +469,7 @@ typedef struct XXxvEthernet {
 *
 * XXxvEthernet_IsMcDma reports if the device is currently connected to MCDMA.
 *
-* @param	InstancePtr is a pointer to the Xxv Ethernet instance to be
+* @param[in]	InstancePtr is a pointer to the Xxv Ethernet instance to be
 *		worked on.
 * @return
 *		- TRUE if the Xxv Ethernet device is connected MCDMA.
@@ -520,5 +522,7 @@ int XXxvEthernet_Initialize(XXxvEthernet *InstancePtr,
 }
 #endif
 
-#endif /* end of protection macro */
 /** @} */
+/** @cond INTERNAL */
+#endif /* end of protection macro */
+/** @endcond */

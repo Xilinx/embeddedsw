@@ -1,12 +1,14 @@
 /******************************************************************************
 * Copyright (C) 2018 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
 /**
 *
-* @file xxxvethernet_usxgmii_mcdma_intr_example.c
+* @file xxxvethernet_usxgmii_example_intr_mcdma.c
+* @addtogroup xxvethernet Overview
+* @{
 *
 * Implements examples that utilize USXGMII's interrupt driven MCDMA
 * packet transfer mode to send and receive frames.
@@ -137,8 +139,10 @@ XMcdma DmaInstance;
 /*
  * Aligned memory segments to be used for buffer descriptors
  */
+/** @cond INTERNAL */
 char RxBdSpace[RXBD_SPACE_BYTES] __attribute__ ((aligned(BD_ALIGNMENT)));
 char TxBdSpace[TXBD_SPACE_BYTES] __attribute__ ((aligned(BD_ALIGNMENT)));
+/** @endcond */
 char MacAddr[6];
 
 /*
@@ -178,6 +182,7 @@ int UsxgmiiSgDmaIntrExample(INTC *IntcInstancePtr,
 #endif
 int UsxgmiiSgDmaIntrSingleFrameExample(XXxvEthernet *XxvEthernetInstancePtr,
 				       XMcdma *DmaInstancePtr, u8 ChanId);
+/** @cond INTERNAL */
 static int RxBdSetup(XMcdma *McDmaInstPtr);
 static int TxBdSetup(XMcdma *McDmaInstPtr);
 static void DoneHandler(void *CallBackRef, u32 Chan_id);
@@ -186,9 +191,6 @@ static void TxDoneHandler(void *CallBackRef, u32 Chan_id);
 static void TxErrorHandler(void *CallBackRef, u32 Chan_id, u32 Mask);
 static inline int AxiEnetMapper(u8 ChanId);
 
-/*
- * Interrupt setup and Callbacks for examples
- */
 #ifndef SDT
 static int XxvEthernetSetupIntrSystem(INTC *IntcInstancePtr,
 				      XMcdma *DmaInstancePtr,
@@ -196,19 +198,19 @@ static int XxvEthernetSetupIntrSystem(INTC *IntcInstancePtr,
 				      u8 Direction);
 static int ChanIntr_Id(XMcdma_ChanCtrl *Chan, int ChanId);
 #endif
+/** @endcond */
 
 /*****************************************************************************/
 /**
 *
-* This is the main function for the USXGMII example. This function is not
-* included if the example is generated from the TestAppGen test  tool.
+* Main entry point of the USXGMII example.
 *
-* @param	None.
+* Excluded when the example is generated from TestAppGen.
+*
 *
 * @return	- XST_SUCCESS to indicate success.
 *		- XST_FAILURE to indicate failure
 *
-* @note		None.
 *
 ****************************************************************************/
 int main(void)
@@ -249,26 +251,25 @@ int main(void)
 /*****************************************************************************/
 /**
 *
-* This function demonstrates the usage usage of the USXGMII by sending
-* and receiving frames in interrupt driven MCDMA mode.
+* Demonstrates USXGMII send and receive in interrupt-driven MCDMA mode.
 *
 * @if SDT
-* @param	XxvEthernetInstancePtr is a pointer to the instance of the
+* @param[in]	XxvEthernetInstancePtr is a pointer to the instance of the
 *		XxvEthernet component.
-* @param	DmaInstancePtr is a pointer to the instance of the AXI MCDMA
+* @param[in]	DmaInstancePtr is a pointer to the instance of the AXI MCDMA
 *		component.
-* @param	XxvBaseAddress contains the base address of the XxvEthernet device
+* @param[in]	XxvBaseAddress contains the base address of the XxvEthernet device
 * @else
-* @param	IntcInstancePtr is a pointer to the instance of the Intc
+* @param[in]	IntcInstancePtr is a pointer to the instance of the Intc
 *		component.
-* @param	XxvEthernetInstancePtr is a pointer to the instance of the
+* @param[in]	XxvEthernetInstancePtr is a pointer to the instance of the
 *		XxvEthernet component.
-* @param	DmaInstancePtr is a pointer to the instance of the AXI MCDMA
+* @param[in]	DmaInstancePtr is a pointer to the instance of the AXI MCDMA
 *		component.
-* @param	XxvEthernetDeviceId is Device ID of the Xxv Ethernet Device ,
+* @param[in]	XxvEthernetDeviceId is Device ID of the Xxv Ethernet device,
 *		typically XPAR_<XXVETHERNET_instance>_DEVICE_ID value from
 *		xparameters.h.
-* @param	AxiMcDmaDeviceId is Device ID of the Axi MCDMA Device ,
+* @param[in]	AxiMcDmaDeviceId is Device ID of the Axi MCDMA device,
 *		typically XPAR_<AXIMCDMA_instance>_DEVICE_ID value from
 *		xparameters.h.
 * @endif
@@ -599,20 +600,19 @@ static void TxErrorHandler(void *CallBackRef, u32 Chan_id, u32 Mask)
 /*****************************************************************************/
 /**
 *
-* This function demonstrates the usage of the USXGMII by sending and
-* receiving a single frame in interrupt mode using MCDMA.
+* Sends and receives a single USXGMII frame in interrupt-driven MCDMA mode.
 * The source packet will be described by two descriptors. It will be received
 * into a buffer described by a single descriptor.
 *
-* @param	XxvEthernetInstancePtr is a pointer to the instance of the
+* @param[in]	XxvEthernetInstancePtr is a pointer to the instance of the
 *		Xxv Ethernet component.
-* @param	DmaInstancePtr   is a pointer to the instance of the Dma
+* @param[in]	DmaInstancePtr   is a pointer to the instance of the Dma
 *		component.
+* @param[in]	ChanId is the MCDMA channel ID to use for the transfer.
 *
 * @return	-XST_SUCCESS to indicate success
 *		-XST_FAILURE to indicate failure
 *
-* @note		None.
 *
 ******************************************************************************/
 int UsxgmiiSgDmaIntrSingleFrameExample(XXxvEthernet *XxvEthernetInstancePtr,
@@ -824,25 +824,16 @@ int UsxgmiiSgDmaIntrSingleFrameExample(XXxvEthernet *XxvEthernetInstancePtr,
 /*****************************************************************************/
 /**
 *
-* This function setups the interrupt system so interrupts can occur for the
-* Xxv Ethernet.  This function is application-specific since the actual system
-* may or may not have an interrupt controller.  The Xxv Ethernet could be
-* directly connected to a processor without an interrupt controller.  The user
-* should modify this function to fit the application.
+* Sets up the interrupt system for the USXGMII Xxv Ethernet example. The actual
+* system may or may not have an interrupt controller. Modify this function to
+* fit the application.
 *
-* @param	IntcInstancePtr is a pointer to the instance of the Intc
-*		component.
-* @param	DmaInstancePtr is a pointer to the instance of the AXIMCDMA
-*		component.
-* @param	DmaRxIntrId is the interrupt id for DMA Rx and is typically
-*		taken from XPAR_<XXVETHERNET_instance>_CONNECTED_DMARX_INTR
-* @param	DmaTxIntrId is the interrupt id for DMA Tx and is typically
-*		taken from XPAR_<XXVETHERNET_instance>_CONNECTED_DMATX_INTR
+* @param[in] IntcInstancePtr is a pointer to the instance of the INTC component.
+* @param[in] DmaInstancePtr is a pointer to the instance of the MCDMA component.
+* @param[in] McdmaIntrId is the MCDMA interrupt ID for the channel.
+* @param[in] Direction is the MCDMA channel direction.
 *
-* @return	-XST_SUCCESS to indicate success
-*		-XST_FAILURE to indicate failure
-*
-* @note		None.
+* @return XST_SUCCESS on success, or XST_FAILURE on failure.
 *
 ******************************************************************************/
 static int XxvEthernetSetupIntrSystem(INTC *IntcInstancePtr,
@@ -949,22 +940,19 @@ static int XxvEthernetSetupIntrSystem(INTC *IntcInstancePtr,
 }
 
 /*****************************************************************************/
-/*
- * This function maps the mcdma channel with the Corresponding interrupt id
- * Generated in the xparameters.h file.
+/**
+ * Maps the MCDMA channel to the corresponding interrupt ID from xparameters.h.
  *
- * @param	Chan is the MCDMA Channel instance to be worked on.
- * @param:	ChanId is the MCDMA channel id to be worked on
+ * @param[in] Chan is the MCDMA channel instance to be worked on.
+ * @param[in] ChanId is the MCDMA channel ID to be worked on.
  *
- * @return:
- *		- Corresponding interrupt ID on success.
- *		- XST_FAILURE if unable to find a valid interrupt id
- * 		  For a given MCDMA channel.
+ * @return
+ * - Corresponding interrupt ID on success
+ * - XST_FAILURE if no valid interrupt ID exists for the channel
  *
- * @note:	Make sure the XPAR_FABRIC_AXI_MCDMA_0_MM2S_CH1_INTROUT_INTR
- *		Checks in the API below are properly mapped for your design.
+ * @note
+ * Ensure XPAR_FABRIC MCDMA interrupt checks in this API match your design.
  */
-/*****************************************************************************/
 static int ChanIntr_Id(XMcdma_ChanCtrl *Chan, int ChanId)
 {
 
@@ -1137,3 +1125,4 @@ static int ChanIntr_Id(XMcdma_ChanCtrl *Chan, int ChanId)
 	return XST_FAILURE;
 }
 #endif
+/** @} */

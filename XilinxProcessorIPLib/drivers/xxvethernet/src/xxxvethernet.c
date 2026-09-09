@@ -10,8 +10,8 @@
 * @addtogroup xxvethernet Overview
 * @{
 *
-* This file implements all the XXV ethernet functions to initialize, start,
-* stop, reset and reconfigure the MAC.
+* Implements all XXV Ethernet functions to initialize, start,
+* stop, reset, and reconfigure the MAC.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -50,11 +50,11 @@ static void XXxvEthernet_InitHw(XXxvEthernet *InstancePtr);	/* HW reset */
 * XXxvEthernet_CfgInitialize initializes an XXV Ethernet device along with the
 * <i>InstancePtr</i> that references it.
 *
-* @param	InstancePtr references the memory instance to be associated
+* @param[in]	InstancePtr references the memory instance to be associated
 *		with the XXV Ethernet core instance upon initialization.
-* @param	CfgPtr references the structure holding the hardware
+* @param[in]	CfgPtr references the structure holding the hardware
 *		configuration for the Xxv Ethernet core to initialize.
-* @param	EffectiveAddress is the processor address used to access the
+* @param[in]	EffectiveAddress is the processor address used to access the
 *		base address of the XXV Ethernet instance. In systems with an
 *		MMU and virtual memory, <i>EffectiveAddress</i> is the
 *		virtual address mapped to the physical in
@@ -64,7 +64,6 @@ static void XXxvEthernet_InitHw(XXxvEthernet *InstancePtr);	/* HW reset */
 *
 * @return	XST_SUCCESS
 *
-* @note		None.
 *
 ******************************************************************************/
 int XXxvEthernet_CfgInitialize(XXxvEthernet *InstancePtr,
@@ -102,9 +101,9 @@ int XXxvEthernet_CfgInitialize(XXxvEthernet *InstancePtr,
 * The PHY is setup independently from the Ethernet core. Use the MII or
 * whatever other interface may be present for setup.
 *
-* @param	InstancePtr references the memory instance to be associated
+* @param[in]	InstancePtr references the memory instance to be associated
 *		with the AXI Ethernet core instance upon initialization.
-* @param	CfgPtr references the structure holding the hardware
+* @param[in]	CfgPtr references the structure holding the hardware
 *		configuration for the Axi Ethernet core to initialize.
 *
 * @return	XST_SUCCESS.
@@ -143,11 +142,10 @@ int XXxvEthernet_Initialize(XXxvEthernet *InstancePtr,
 *	- Upon enabling RX, check for RX BLOCK LOCK bit to make sure
 *         RX channel is ready.
 *
-* @param	InstancePtr is a pointer to the Xxv Ethernet instance to be
+* @param[in]	InstancePtr is a pointer to the Xxv Ethernet instance to be
 *		worked on.
 * @return	XST_FAILURE if RX is enabled and BLOCK LOCK is not set.
 *
-* @note		None
 *
 *
 ******************************************************************************/
@@ -228,11 +226,9 @@ int XXxvEthernet_Start(XXxvEthernet *InstancePtr)
 * Since the transmitter is not disabled, frames currently in internal buffers
 * or in process by a DMA engine are allowed to be transmitted.
 *
-* @param	InstancePtr is a pointer to the Xxv Ethernet instance to be
+* @param[in]	InstancePtr is a pointer to the Xxv Ethernet instance to be
 *		worked on.
-* @return	None
 *
-* @note		None.
 *
 *
 ******************************************************************************/
@@ -271,13 +267,12 @@ void XXxvEthernet_Stop(XXxvEthernet *InstancePtr)
 /**
 * XXxvEthernet_Reset does not perform a soft reset of the XxvEthernet core.
 * XxvEthernet hardware is reset by the device connected to the AXI4-Stream
-* interface i.e. MCDMA. This function simply disabled TX and RX.
-* This function inserts some delay before proceeding to stop the device.
+* interface (MCDMA). Disables TX and RX only.
+* Inserts a delay before stopping the device.
 *
-* @param	InstancePtr is a pointer to the Xxv Ethernet instance to be
+* @param[in]	InstancePtr is a pointer to the Xxv Ethernet instance to be
 *		worked on.
 *
-* @note		None
 *
 ******************************************************************************/
 void XXxvEthernet_Reset(XXxvEthernet *InstancePtr)
@@ -314,9 +309,8 @@ void XXxvEthernet_Reset(XXxvEthernet *InstancePtr)
 * Xxv Ethernet device. The setup performed here only need to occur once
 * after any reset.
 *
-* @param	InstancePtr is a pointer to the Xxv Ethernet instance to be
+* @param[in]	InstancePtr is a pointer to the Xxv Ethernet instance to be
 *		worked on.
-* @note		None.
 *
 *
 ******************************************************************************/
@@ -355,9 +349,9 @@ static void XXxvEthernet_InitHw(XXxvEthernet *InstancePtr)
 * Xxv Ethernet, specified by <i>InstancePtr</i>. Xxv Ethernet should be
 * stopped with XXxvEthernet_Stop() before changing options.
 *
-* @param	InstancePtr is a pointer to the Xxv Ethernet instance to be
+* @param[in]	InstancePtr is a pointer to the Xxv Ethernet instance to be
 *		worked on.
-* @param	Options is a bitmask of OR'd XXE_*_OPTION values for options to
+* @param[in]	Options is a bitmask of OR'd XXE_*_OPTION values for options to
 *		set. Options not specified are not affected.
 *
 * @return
@@ -460,9 +454,9 @@ int XXxvEthernet_SetOptions(XXxvEthernet *InstancePtr, u32 Options)
 * Xxv Ethernet, specified by <i>InstancePtr</i>. Xxv Ethernet should be stopped
 * with XXxvEthernet_Stop() before changing options.
 *
-* @param	InstancePtr is a pointer to the Xxv Ethernet instance to be
+* @param[in]	InstancePtr is a pointer to the Xxv Ethernet instance to be
 *		worked on.
-* @param	Options is a bitmask of OR'd XXE_*_OPTION values for options to
+* @param[in]	Options is a bitmask of OR'd XXE_*_OPTION values for options to
 *		clear. Options not specified are not affected.
 *
 * @return
@@ -563,7 +557,7 @@ int XXxvEthernet_ClearOptions(XXxvEthernet *InstancePtr, u32 Options)
 /**
 * XXxvEthernet_GetOptions returns the current option settings.
 *
-* @param	InstancePtr is a pointer to the Xxv Ethernet instance to be
+* @param[in]	InstancePtr is a pointer to the Xxv Ethernet instance to be
 *		worked on.
 *
 * @return	Returns a bitmask of XXE_*_OPTION constants,
@@ -586,17 +580,15 @@ u32 XXxvEthernet_GetOptions(XXxvEthernet *InstancePtr)
  * XXxvEthernet_SetUsxgmiiRateAndDuplex sets the speed and duplex ability in
  * USXGMII Autonegotiation register.
  *
- * @param	InstancePtr references the Xxv Ethernet on which to
+ * @param[in]	InstancePtr references the Xxv Ethernet on which to
  *		operate.
- * @param	Rate to be set - currently only 1G and 2.5G are tested.
- *		Pass RATE_1G or RATE_2G5 to the function.
- * @param	Set FD or HD - if 0 Half duplex is set, else Full duplex.
+ * @param[in]	Rate Line rate to set. Pass RATE_1G or RATE_2G5.
+ * @param[in]	SetFD Set to 0 for half duplex, or non-zero for full duplex.
  *
  * @return	- XST_SUCCESS on successful setting of speed.
  *		- XST_FAILURE, if the speed cannot be set for the present
  *		  hardware configuration.
  *
- * @note	None.
  *
  *
  ******************************************************************************/
@@ -656,7 +648,6 @@ int XXxvEthernet_SetUsxgmiiRateAndDuplex(XXxvEthernet *InstancePtr, u32 Rate, u3
 
 	return (XST_SUCCESS);
 }
-/** @} */
 
 /*****************************************************************************/
 /**
@@ -664,10 +655,9 @@ int XXxvEthernet_SetUsxgmiiRateAndDuplex(XXxvEthernet *InstancePtr, u32 Rate, u3
 * XXxvEthernet_UsxgmiiAnMainReset sets the USXGMII AN Main reset.
 * A delay is provided in between setting and clearing the main reset bit.
 *
-* @param	InstancePtr is a pointer to the Xxv Ethernet instance to be
+* @param[in]	InstancePtr is a pointer to the Xxv Ethernet instance to be
 *		worked on.
-* @return	None
-* @note 	This function is only supported for USXGMII Ethernet MAC
+* @note 	Supported only on USXGMII Ethernet MAC.
 *
 ******************************************************************************/
 void XXxvEthernet_UsxgmiiAnMainReset(XXxvEthernet *InstancePtr)
@@ -697,10 +687,9 @@ void XXxvEthernet_UsxgmiiAnMainReset(XXxvEthernet *InstancePtr)
 * A delay is provided in between setting and clearing this bit as it is
 * not self clearing.
 *
-* @param	InstancePtr is a pointer to the Xxv Ethernet instance to be
+* @param[in]	InstancePtr is a pointer to the Xxv Ethernet instance to be
 *		worked on.
-* @return	None
-* @note 	This function is only supported for USXGMII Ethernet MAC
+* @note 	Supported only on USXGMII Ethernet MAC.
 *
 ******************************************************************************/
 void XXxvEthernet_UsxgmiiAnMainRestart(XXxvEthernet *InstancePtr)
@@ -728,20 +717,19 @@ void XXxvEthernet_UsxgmiiAnMainRestart(XXxvEthernet *InstancePtr)
 			      XXE_USXGMII_AN_OFFSET,
 			      UsxgmiiAnReg & ~XXE_USXGMII_ANRESTART_MASK);
 }
-/** @} */
 
 /*****************************************************************************/
 /**
  * XXxvEthernet_GetAutoNegSpeed reports the speed (only 10G supported) from
  * the Autonegotiation status register.
  *
- * @param	InstancePtr is a pointer to the Xxv Ethernet instance to be
+ * @param[in]	InstancePtr is a pointer to the Xxv Ethernet instance to be
  *		worked on.
  *
  * @return	Returns the link speed in units of gigabits per second (10)
  *		Can return a value of 0, in case 10Gbps is not set.
  *
- * @note	This function is only supported for XXV Ethernet MAC
+ * @note	Supported only on XXV Ethernet MAC.
  *
  ******************************************************************************/
 u16 XXxvEthernet_GetAutoNegSpeed(XXxvEthernet *InstancePtr)
@@ -766,14 +754,14 @@ u16 XXxvEthernet_GetAutoNegSpeed(XXxvEthernet *InstancePtr)
  * XXxvEthernet_SetAutoNegSpeed sets the speed (only 10G supported) in
  * the Autonegotiation control register.
  *
- * @param	InstancePtr references the Xxv Ethernet on which to
+ * @param[in]	InstancePtr references the Xxv Ethernet on which to
  *		operate.
  *
  * @return	- XST_SUCCESS on successful setting of speed.
  *		- XST_FAILURE, if the speed cannot be set for the present
  *		  hardware configuration.
  *
- * @note	This function is only supported for XXV Ethernet MAC
+ * @note	Supported only on XXV Ethernet MAC.
  *
  *
  ******************************************************************************/

@@ -1,21 +1,34 @@
 /******************************************************************************
 * Copyright (C) 2018 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
+******************************************************************************/
+
+/*****************************************************************************/
+/**
+*
+* @file xxxvethernet_g.c
+* @addtogroup xxvethernet Overview
+* @{
+*
+* Provide a template for user to define their own hardware settings.
+*
+* If using XPS, XPS will automatically generate this file.
+*
+* <pre>
+* MODIFICATION HISTORY:
+*
+* Ver   Who  Date     Changes
+* ----- ---- -------- -------------------------------------------------------
+* 1.0   hk   6/16/17  First release
+* </pre>
+*
 ******************************************************************************/
 
 #include "xparameters.h"
 #include "xxxvethernet.h"
 
-/*
-*@file xxxvethernet_g.c
-*@addtogroup xxvethernet Overview
-*
-*
-*
-* The configuration table for devices
-*/
-
+/** Configuration table for each XXV Ethernet instance in the system. */
 XXxvEthernet_Config XXxvEthernet_ConfigTable[] = {
 	{
 		XPAR_XXVETHERNET_0_DEVICE_ID,
@@ -28,3 +41,4 @@ XXxvEthernet_Config XXxvEthernet_ConfigTable[] = {
 		0xFF
 	}
 };
+/** @} */

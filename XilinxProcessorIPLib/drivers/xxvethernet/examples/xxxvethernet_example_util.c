@@ -1,16 +1,16 @@
 /******************************************************************************
 * Copyright (C) 2018 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
 /**
 *
 * @file xxxvethernet_example_util.c
+* @addtogroup xxvethernet Overview
+* @{
 *
-* This file implements the utility functions for the Xxv Ethernet and USXGMII
-* example code. It contains functions to setup USXGMII autonegotiation at
-* desired settings and to bypass autonegotiation.
+* Implements utility functions for the Xxv Ethernet and USXGMII example code.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -47,12 +47,11 @@ char DestAddr[6] = { 0x00, 0x00, 0x53, 0x0e, 0x9f, 0xb0 };
 *
 * Set the MAC addresses in the frame.
 *
-* @param	FramePtr is the pointer to the frame.
-* @param	DestAddr is the Destination MAC address.
+* @param[in]	FramePtr is the pointer to the frame.
+* @param[in]	DestAddr is the Destination MAC address.
+* @param[in]	SrcAddr is the source MAC address.
 *
-* @return	None.
 *
-* @note		None.
 *
 ******************************************************************************/
 void XxvEthernetUtilFrameHdrFormatMAC(EthernetFrame *FramePtr, char *DestAddr, char *SrcAddr)
@@ -80,12 +79,10 @@ void XxvEthernetUtilFrameHdrFormatMAC(EthernetFrame *FramePtr, char *DestAddr, c
 *
 * Set the frame type for the specified frame.
 *
-* @param	FramePtr is the pointer to the frame.
-* @param	FrameType is the Type to set in frame.
+* @param[in]	FramePtr is the pointer to the frame.
+* @param[in]	FrameType is the Type to set in frame.
 *
-* @return	None.
 *
-* @note		None.
 *
 ******************************************************************************/
 void XxvEthernetUtilFrameHdrFormatType(EthernetFrame *FramePtr, u16 FrameType)
@@ -106,7 +103,7 @@ void XxvEthernetUtilFrameHdrFormatType(EthernetFrame *FramePtr, u16 FrameType)
 
 /******************************************************************************/
 /**
-* This function places a pattern in the payload section of a frame. The pattern
+* Places an incrementing pattern in the payload section of a frame. The pattern
 * is a  8 bit incrementing series of numbers starting with 0.
 * Once the pattern reaches 256, then the pattern changes to a 16 bit
 * incrementing pattern:
@@ -114,13 +111,11 @@ void XxvEthernetUtilFrameHdrFormatType(EthernetFrame *FramePtr, u16 FrameType)
 *   0, 1, 2, ... 254, 255, 00, 00, 00, 01, 00, 02, ...
 * </pre>
 *
-* @param	FramePtr is a pointer to the frame to change.
-* @param	PayloadSize is the number of bytes in the payload that will be
+* @param[in]	FramePtr is a pointer to the frame to change.
+* @param[in]	PayloadSize is the number of bytes in the payload that will be
 *		set.
 *
-* @return	None.
 *
-* @note		None.
 *
 ******************************************************************************/
 void XxvEthernetUtilFrameSetPayloadData(EthernetFrame *FramePtr,
@@ -160,21 +155,20 @@ void XxvEthernetUtilFrameSetPayloadData(EthernetFrame *FramePtr,
 
 /******************************************************************************/
 /**
-* This function verifies the frame data against a CheckFrame.
+* Verifies frame data against a CheckFrame.
 *
 * Validation occurs by comparing the ActualFrame to the header of the
 * CheckFrame. If the headers match, then the payload of ActualFrame is
 * verified for the same pattern Util_FrameSetPayloadData() generates.
 *
-* @param	CheckFrame is a pointer to a frame containing the 14 byte header
+* @param[in]	CheckFrame is a pointer to a frame containing the 14 byte header
 *		that should be present in the ActualFrame parameter.
-* @param	ActualFrame is a pointer to a frame to validate.
+* @param[in]	ActualFrame is a pointer to a frame to validate.
 *
 * @return
 *		- XST_SUCCESS if successful.
 *		- XST_FAILURE in case of failure.
 *
-* @note		None.
 *
 ******************************************************************************/
 int XxvEthernetUtilFrameVerify(EthernetFrame * CheckFrame,
@@ -260,13 +254,11 @@ int XxvEthernetUtilFrameVerify(EthernetFrame * CheckFrame,
 
 /******************************************************************************/
 /**
-* This function sets all bytes of a frame to 0.
+* Sets all bytes of a frame to 0.
 *
-* @param	FramePtr is a pointer to the frame itself.
+* @param[in]	FramePtr is a pointer to the frame itself.
 *
-* @return	None.
 *
-* @note		None.
 *
 ******************************************************************************/
 void XxvEthernetUtilFrameMemClear(EthernetFrame * FramePtr)
@@ -285,15 +277,14 @@ void XxvEthernetUtilFrameMemClear(EthernetFrame * FramePtr)
 /******************************************************************************/
 /**
 *
-* This function sets 10G ethernet in local loopback
+* Sets 10G Ethernet in local loopback mode.
 *
-* @param	XxvEthernetInstancePtr is a pointer to the instance of the
+* @param[in]	XxvEthernetInstancePtr is a pointer to the instance of the
 *		XxvEthernet component.
 *
 * @return	- XST_SUCCESS if successful.
 *		- XST_FAILURE, in case of failure..
 *
-* @note		None.
 *
 ******************************************************************************/
 int XxvEthernetUtilEnterLocalLoopback(XXxvEthernet *XxvEthernetInstancePtr)
@@ -315,22 +306,20 @@ int XxvEthernetUtilEnterLocalLoopback(XXxvEthernet *XxvEthernetInstancePtr)
 /******************************************************************************/
 /**
 *
-* This function sets up USXGMII at specified speed.
+* Sets up USXGMII at the specified speed with autonegotiation enabled.
 * Autonegotiation is enabled with the selected settings.
 * If autonegotiation fails, it is restarted after a timeout.
 * The function returns success after autonegotiation is completed.
-* This function enables RX and performs a GT reset first because
-* USXGMII requires the same.
+* Enables RX and performs a GT reset first because USXGMII requires the same.
 *
-* @param	XxvEthernetInstancePtr is a pointer to the instance of the
+* @param[in]	XxvEthernetInstancePtr is a pointer to the instance of the
 *		XxvEthernet component.
-* @param	Speed - can be 1G or 2.5G - use RATE_1G or RATE_2G5
-* @param	Duplex - 1 for full duplex, 0 for half duplex
+* @param[in]	Rate Line rate to set. Use RATE_1G or RATE_2G5.
+* @param[in]	Duplex Set to 1 for full duplex, or 0 for half duplex.
 *
 * @return	- XST_SUCCESS if successful.
 *		- XST_FAILURE, in case of failure..
 *
-* @note		None.
 *
 ******************************************************************************/
 int XxvEthernetUtilUsxgmiiSetup(XXxvEthernet *XxvEthernetInstancePtr, u32 Rate, u32 Duplex)
@@ -381,21 +370,19 @@ int XxvEthernetUtilUsxgmiiSetup(XXxvEthernet *XxvEthernetInstancePtr, u32 Rate, 
 /******************************************************************************/
 /**
 *
-* This function sets up USXGMII at specified speed.
+* Sets up USXGMII at the specified speed with autonegotiation bypassed.
 * Autonegotiation is bypassed and the status is checked for completion before
 * returning successfully.
-* This function enables RX and performs a GT reset first because
-* USXGMII requires the same.
+* Enables RX and performs a GT reset first because USXGMII requires the same.
 *
-* @param	XxvEthernetInstancePtr is a pointer to the instance of the
+* @param[in]	XxvEthernetInstancePtr is a pointer to the instance of the
 *		XxvEthernet component.
-* @param	Speed - can be 1G or 2.5G - use RATE_1G or RATE_2G5
-* @param	Duplex - 1 for full duplex, 0 for half duplex
+* @param[in]	Rate Line rate to set. Use RATE_1G or RATE_2G5.
+* @param[in]	Duplex Set to 1 for full duplex, or 0 for half duplex.
 *
 * @return	- XST_SUCCESS if successful.
 *		- XST_FAILURE, in case of failure..
 *
-* @note		None.
 *
 ******************************************************************************/
 int XxvEthernetUtilUsxgmiiSetupBypassAN(XXxvEthernet *XxvEthernetInstancePtr, u32 Rate, u32 Duplex)
@@ -445,15 +432,13 @@ int XxvEthernetUtilUsxgmiiSetupBypassAN(XXxvEthernet *XxvEthernetInstancePtr, u3
 
 /******************************************************************************/
 /**
-* This function is called by example code when an error is detected. It
+* Reports an error detected by example code. It
 * can be set as a breakpoint with a debugger or it can be used to print out the
 * given message if there is a UART or STDIO device.
 *
-* @param	Message is the text explaining the error
+* @param[in]	Message is the text explaining the error
 *
-* @return	None
 *
-* @note		None
 *
 ******************************************************************************/
 void XxvEthernetUtilErrorTrap(const char *Message)
@@ -466,3 +451,4 @@ void XxvEthernetUtilErrorTrap(const char *Message)
 	xil_printf("%s\r\n", Message);
 #endif
 }
+/** @} */
