@@ -32,6 +32,8 @@
 * 1.7   Nik  11/21/25 Removed UINTPTR typecast of 64 bit variable to avoid truncation risks
 *       rmv  01/30/26 Refactor xilocp library
 *       rpu  03/11/26 Validate input parameters
+* 1.8   dmi  09/09/26 Validate public key offset and remaining buffer size in
+*                     key wrap attestation handler
 * </pre>
 *
 * @note
@@ -435,7 +437,9 @@ static int XOcp_AttestWithKeyWrapDevAkIpi(u32 AttnPloadAddrLow, u32 AttnPloadAdd
 		goto END;
 	}
 
-	if (AttnPloadSize <= (XSECURE_RSA_KEY_GEN_SIZE_IN_BYTES + XSECURE_RSA_PUB_EXP_SIZE + PubKeyOffset)) {
+	/** - Check if the public key fits in the buffer */
+	if ((PubKeyOffset > AttnPloadSize) ||
+	    ((AttnPloadSize - PubKeyOffset) < (u32)sizeof(XSecure_RsaPubKey))) {
 		Status = (int)XOCP_ERR_INVALID_ATTEST_BUF_SIZE;
 		goto END;
 	}
@@ -447,7 +451,8 @@ static int XOcp_AttestWithKeyWrapDevAkIpi(u32 AttnPloadAddrLow, u32 AttnPloadAdd
 	}
 
 	/* Copy public key in local buffer */
-	Status = Xil_SMemCpy((void *)(UINTPTR)(AttnPloadBuf + PubKeyOffset), sizeof(XSecure_RsaPubKey),
+	Status = Xil_SMemCpy((void *)(UINTPTR)(AttnPloadBuf + PubKeyOffset),
+				     AttnPloadSize - PubKeyOffset,
 				     (const void *)(UINTPTR)RsaPubKey, sizeof(XSecure_RsaPubKey),
 				     sizeof(XSecure_RsaPubKey));
 	if (Status != XST_SUCCESS) {
