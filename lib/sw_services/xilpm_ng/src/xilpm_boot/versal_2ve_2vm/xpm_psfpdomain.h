@@ -14,6 +14,12 @@ extern "C" {
 #endif
 
 /**
+ * Minimum number of base addresses that must be supplied before the optional
+ * FPD SLCR SECURE base address can be read
+ */
+#define XPM_FPD_SECURE_BASE_ADDR_CNT	(2U)
+
+/**
  * The PS Full power domain node class.
  */
 typedef struct {

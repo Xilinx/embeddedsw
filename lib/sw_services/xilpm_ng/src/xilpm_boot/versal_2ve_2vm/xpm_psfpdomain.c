@@ -154,7 +154,10 @@ XStatus XPmPsFpDomain_Init(XPm_PsFpDomain *PsFpd, u32 Id, u32 BaseAddress,
 	/* Make sure enough base addresses are being passed */
 	if (1U <= OtherBaseAddressCnt) {
 		PsFpd->FpdSlcrBaseAddr = OtherBaseAddresses[0];
-		PsFpd->FpdSlcrSecureBaseAddr = OtherBaseAddresses[1];
+		/* Secure base address is optional; read it only when supplied */
+		if (XPM_FPD_SECURE_BASE_ADDR_CNT <= OtherBaseAddressCnt) {
+			PsFpd->FpdSlcrSecureBaseAddr = OtherBaseAddresses[1];
+		}
 		Status = XST_SUCCESS;
 	} else {
 		DbgErr = XPM_INT_ERR_INVALID_BASEADDR;
