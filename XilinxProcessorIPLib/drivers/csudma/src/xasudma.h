@@ -157,7 +157,7 @@ typedef XCsuDma_Channel		XAsuDma_Channel;
  */
 typedef XCsuDma_PauseType	XAsuDma_PauseType;
 /**
-* This typedef contains configuration information for a ASU_DMA core.
+* Holds configuration information for a ASU_DMA core.
 * Each ASU_DMA core should have a configuration structure associated.
 */
 typedef XCsuDma_Config 	XAsuDma_Config;
@@ -173,8 +173,8 @@ typedef XCsuDma XAsuDma;
 
 /******************************************************************************/
 /**
-* This typedef contains all the configuration fields which needs to be set
-* before the start of the data transfer. All these feilds of ASU_DMA can be
+* Holds channel configuration value fields which need to be set
+* before the start of the data transfer. All these fields of ASU_DMA can be
 * configured by using XAsuDma_SetConfig API.
 */
 typedef XCsuDma_Configure XAsuDma_Configure;
@@ -188,13 +188,11 @@ typedef XCsuDma_Configure XAsuDma_Configure;
 /*****************************************************************************/
 /**
 *
-* This function resets the ASU_DMA core.
+* Resets the ASU_DMA core.
 *
-* @param	Addr is the address of ASU DMA reset register (ASUDMA0 or ASUDMA1).
+* @param[in] Addr is the address of ASU DMA reset register (ASUDMA0 or ASUDMA1).
 *
-* @return	None.
 *
-* @note		None.
 *		C-style signature:
 *		void XAsuDma_AsuReset(u32 Addr)
 *
@@ -206,12 +204,11 @@ typedef XCsuDma_Configure XAsuDma_Configure;
 /*****************************************************************************/
 /**
 *
-* This function resets the ASU_DMA core.
+* Resets the ASU_DMA core.
 *
-* @param	DmaType is the type of DMA
+* @param[in] DmaType is the type of DMA
 *		XASUDMA_DMATYPEIS_DMA0 or XASUDMA_DMATYPEIS_DMA1).
 *
-* @return	None.
 *
 ******************************************************************************/
 static INLINE void XAsuDma_Reset(u32 DmaType)
@@ -225,17 +222,16 @@ static INLINE void XAsuDma_Reset(u32 DmaType)
 
 /*****************************************************************************/
 /**
-* This function will wait for DMA operation to complete
+* Polls until the DMA operation completes to complete
 *
-* @param	InstancePtr is a pointer to XAsuDma instance to be worked on.
-* @param	Channel represents the type of channel either it is Source or
+* @param[in] InstancePtr is a pointer to XAsuDma instance to be worked on.
+* @param[in] Channel represents the type of channel either it is Source or
 *		Destination.
 *		Source channel      - XASUDMA_SRC_CHANNEL
 *		Destination Channel - XASUDMA_DST_CHANNEL
 *
-* @return	None.
 *
-* @note		This function should be called after XAsuDma_Transfer in polled
+* @note		Call after XAsuDma_Transfer in polled
 *		mode to wait until the data gets transferred completely.
 *
 ******************************************************************************/
@@ -247,12 +243,10 @@ static INLINE int XAsuDma_WaitForDone(XAsuDma *InstancePtr, XAsuDma_Channel Chan
 
 /*****************************************************************************/
 /**
+ * @brief Reads the completed transfer count for SRC/DST DMA transfers that have not been acknowledged by software based on the channel selection.
 *
-* This function returns the number of completed SRC/DST DMA transfers that
-* have not been acknowledged by software based on the channel selection.
-*
-* @param	InstancePtr is a pointer to XAsuDma instance to be worked on.
-* @param	Channel represents the type of channel either it is Source or
+* @param[in] InstancePtr is a pointer to XAsuDma instance to be worked on.
+* @param[in] Channel represents the type of channel either it is Source or
 * 		Destination.
 *		Source channel      - XASUDMA_SRC_CHANNEL
 *		Destination Channel - XASUDMA_DST_CHANNEL
@@ -271,11 +265,9 @@ static INLINE u32 XAsuDma_GetDoneCount(XAsuDma *InstancePtr, XAsuDma_Channel Cha
 
 /*****************************************************************************/
 /**
-*
-* This function returns the current SRC/DST FIFO level in 32 bit words of the
-* selected channel
-* @param	InstancePtr is a pointer to XAsuDma instance to be worked on.
-* @param	Channel represents the type of channel either it is Source or
+ * @brief Reads the channel FIFO level in 32-bit words of the selected channel.
+* @param[in] InstancePtr is a pointer to XAsuDma instance to be worked on.
+* @param[in] Channel represents the type of channel either it is Source or
 * 		Destination.
 *		Source channel      - XASUDMA_SRC_CHANNEL
 *		Destination Channel - XASUDMA_DST_CHANNEL
@@ -293,11 +285,11 @@ static INLINE u32 XAsuDma_GetFIFOLevel(XAsuDma *InstancePtr, XAsuDma_Channel Cha
 /*****************************************************************************/
 /**
 *
-* This function returns the current number of read(src)/write(dst) outstanding
+* Reads the outstanding command count(src)/write(dst) outstanding
 * commands based on the type of channel selected.
 *
-* @param	InstancePtr is a pointer to XAsuDma instance to be worked on.
-* @param	Channel represents the type of channel either it is Source or
+* @param[in] InstancePtr is a pointer to XAsuDma instance to be worked on.
+* @param[in] Channel represents the type of channel either it is Source or
 * 		Destination.
 *		Source channel      - XASUDMA_SRC_CHANNEL
 *		Destination Channel - XASUDMA_DST_CHANNEL
@@ -314,10 +306,10 @@ static INLINE u32 XAsuDma_GetWROutstandCount(XAsuDma *InstancePtr,
 /*****************************************************************************/
 /**
 *
-* This function returns the status of Channel either it is busy or not.
+* Reads the channel busy status either it is busy or not.
 *
-* @param	InstancePtr is a pointer to XAsuDma instance to be worked on.
-* @param	Channel represents the type of channel either it is Source or
+* @param[in] InstancePtr is a pointer to XAsuDma instance to be worked on.
+* @param[in] Channel represents the type of channel either it is Source or
 * 		Destination.
 *		Source channel      - XASUDMA_SRC_CHANNEL
 *		Destination Channel - XASUDMA_DST_CHANNEL
@@ -340,7 +332,7 @@ static INLINE u32 XAsuDma_IsBusy(XAsuDma *InstancePtr, XAsuDma_Channel Channel)
 * to an entry in the device configuration table defined in the xcsudma_g.c
 * file.
 *
-* @param	DeviceId is the unique device ID of the device for the lookup
+* @param[in] DeviceId is the unique device ID of the device for the lookup
 *		operation.
 *
 * @return	CfgPtr is a reference to a config record in the configuration
@@ -363,14 +355,14 @@ static INLINE XAsuDma_Config *XAsuDma_LookupConfig(UINTPTR BaseAddress)
 /*****************************************************************************/
 /**
 *
-* This function initializes an ASU_DMA core. This function must be called
+* Initializes an ASU_DMA core. Call this API before any other driver function
 * prior to using an ASU_DMA core. Initialization of an ASU_DMA includes setting
 * up the instance data and ensuring the hardware is in a quiescent state.
 *
-* @param	InstancePtr is a pointer to the XAsuDma instance.
-* @param	CfgPtr is a reference to a structure containing information
+* @param[in] InstancePtr is a pointer to the XAsuDma instance.
+* @param[in] CfgPtr is a reference to a structure containing information
 *		about a specific XAsuDma instance.
-* @param	EffectiveAddr is the device base address in the virtual memory
+* @param[in] EffectiveAddr is the device base address in the virtual memory
 *		address space. The caller is responsible for keeping the
 *		address mapping from EffectiveAddr to the device physical
 *		base address unchanged once this function is invoked.
@@ -391,27 +383,26 @@ static INLINE s32 XAsuDma_CfgInitialize(XAsuDma *InstancePtr, XAsuDma_Config *Cf
 /*****************************************************************************/
 /**
 *
-* This function sets the starting address and amount(size) of the data to be
+* Sets the starting address and amount(size) of the data to be
 * transferred from/to the memory through the AXI interface.
 *
-* @param	InstancePtr is a pointer to XAsuDma instance to be worked on.
-* @param	Channel represents the type of channel either it is Source or
+* @param[in] InstancePtr is a pointer to XAsuDma instance to be worked on.
+* @param[in] Channel represents the type of channel either it is Source or
 * 		Destination.
 *		Source channel      - XASUDMA_SRC_CHANNEL
 *		Destination Channel - XASUDMA_DST_CHANNEL
-* @param	Addr is a 64 bit variable which holds the starting address of
+* @param[in] Addr is a 64-bit variable which holds the starting address of
 * 		data which needs to write into the memory(DST) (or read	from
 * 		the memory(SRC)).
-* @param	Size is a 32 bit variable which represents the number of 4 byte
+* @param[in] Size is a 32-bit variable which represents the number of 4 byte
 * 		words needs to be transferred from starting address.
-* @param	EnDataLast is to trigger an end of message. It will enable or
+* @param[in] EnDataLast is to trigger an end of message. It will enable or
 * 		disable data_inp_last signal to stream interface when current
 * 		command is completed. It is applicable only to source channel
 * 		and neglected for destination channel.
 * 		-	1 - Asserts data_inp_last signal.
 * 		-	0 - data_inp_last will not be asserted.
 *
-* @return	None.
 *
 * @note		Data_inp_last signal is asserted simultaneously with the
 * 		data_inp_valid signal associated with the final 32-bit word
@@ -427,32 +418,31 @@ static INLINE void XAsuDma_Transfer(XAsuDma *InstancePtr, XAsuDma_Channel Channe
 /*****************************************************************************/
 /**
 *
-* This function sets the starting address and amount(size) of the data to be
+* Sets the starting address and amount(size) of the data to be
 * transferred from/to the memory through the AXI interface.
-* This function is useful for ASU processor when it wishes to do
+* Sets up an ASU processor transfer when it wishes to do
 * a 64-bit DMA transfer.
 *
-* @param	InstancePtr is a pointer to XAsuDma instance to be worked on.
-* @param	Channel represents the type of channel either it is Source or
+* @param[in] InstancePtr is a pointer to XAsuDma instance to be worked on.
+* @param[in] Channel represents the type of channel either it is Source or
 * 		Destination.
 *		Source channel      - XASUDMA_SRC_CHANNEL
 *		Destination Channel - XASUDMA_DST_CHANNEL
-* @param	AddrLow is a 32 bit variable which holds the starting lower
+* @param[in] AddrLow is a 32-bit variable which holds the starting lower
 * 		address of data which needs to write into the memory(DST)
 * 		(or read from the memory(SRC)).
-* @param	AddrHigh is a 32 bit variable which holds the higher address of data
+* @param[in] AddrHigh is a 32-bit variable which holds the higher address of data
 * 		which needs to write into the memory(DST) (or read from
 * 		the memory(SRC)).
-* @param	Size is a 32 bit variable which represents the number of 4 byte
+* @param[in] Size is a 32-bit variable which represents the number of 4 byte
 * 		words needs to be transferred from starting address.
-* @param	EnDataLast is to trigger an end of message. It will enable or
+* @param[in] EnDataLast is to trigger an end of message. It will enable or
 * 		disable data_inp_last signal to stream interface when current
 * 		command is completed. It is applicable only to source channel
 * 		and neglected for destination channel.
 * 		-	1 - Asserts data_inp_last signal.
 * 		-	0 - data_inp_last will not be asserted.
 *
-* @return	None.
 *
 * @note		Data_inp_last signal is asserted simultaneously with the
 * 		data_inp_valid signal associated with the final 32-bit word
@@ -471,17 +461,17 @@ static INLINE void XAsuDma_64BitTransfer(XAsuDma *InstancePtr, XAsuDma_Channel C
 /*****************************************************************************/
 /**
 *
-* This function returns the current address location of the memory, from where
+* Reads the current address location of the memory, from where
 * it has to read the data(SRC) or the location where it has to write the data
 * (DST) based on the channel selection.
 *
-* @param	InstancePtr is a pointer to XAsuDma instance to be worked on.
-* @param	Channel represents the type of channel either it is Source or
+* @param[in] InstancePtr is a pointer to XAsuDma instance to be worked on.
+* @param[in] Channel represents the type of channel either it is Source or
 * 		Destination.
 *		Source channel      - XASUDMA_SRC_CHANNEL
 *		Destination Channel - XASUDMA_DST_CHANNEL
 *
-* @return	Address is a 64 bit variable which holds the current address.
+* @return	Address is a 64-bit variable which holds the current address.
 *		- From this location data has to be read(SRC)
 *		- At this location data has to be written(DST)
 *
@@ -494,11 +484,11 @@ static INLINE u64 XAsuDma_GetAddr(XAsuDma *InstancePtr, XAsuDma_Channel Channel)
 /*****************************************************************************/
 /**
 *
-* This function returns the size of the data yet to be transferred from memory
+* Reads the remaining transfer size yet to be transferred from memory
 * to ASU_DMA or ASU_DMA to memory based on the channel selection.
 *
-* @param	InstancePtr is a pointer to XAsuDma instance to be worked on.
-* @param	Channel represents the type of channel either it is Source or
+* @param[in] InstancePtr is a pointer to XAsuDma instance to be worked on.
+* @param[in] Channel represents the type of channel either it is Source or
 * 		Destination.
 *		Source channel      - XASUDMA_SRC_CHANNEL
 *		Destination Channel - XASUDMA_DST_CHANNEL
@@ -514,15 +504,15 @@ static INLINE u32 XAsuDma_GetSize(XAsuDma *InstancePtr, XAsuDma_Channel Channel)
 /*****************************************************************************/
 /**
 *
-* This function pause the Channel data transfer to/from memory or to/from stream
+* Pauses the channel data transfer to/from memory or to/from stream
 * based on pause type.
 *
-* @param	InstancePtr is a pointer to XAsuDma instance to be worked on.
-* @param	Channel represents the type of channel either it is Source or
+* @param[in] InstancePtr is a pointer to XAsuDma instance to be worked on.
+* @param[in] Channel represents the type of channel either it is Source or
 * 		Destination.
 *		Source channel      - XASUDMA_SRC_CHANNEL
 *		Destination Channel - XASUDMA_DST_CHANNEL
-* @param	Type is type of the pause to be enabled.
+* @param[in] Type is type of the pause to be enabled.
 *		- XASUDMA_PAUSE_MEMORY(0) - Pause memory
 *			- SRC Stops issuing of new read commands to memory.
 *			- DST Stops issuing of new write commands to memory.
@@ -530,7 +520,6 @@ static INLINE u32 XAsuDma_GetSize(XAsuDma *InstancePtr, XAsuDma_Channel Channel)
 *			- SRC Stops transfer of data from FIFO to Stream.
 *			- DST Stops transfer of data from stream to FIFO.
 *
-* @return	None.
 *
 ******************************************************************************/
 static INLINE void XAsuDma_Pause(XAsuDma *InstancePtr, XAsuDma_Channel Channel,
@@ -542,15 +531,15 @@ static INLINE void XAsuDma_Pause(XAsuDma *InstancePtr, XAsuDma_Channel Channel,
 /*****************************************************************************/
 /**
 *
-* This functions checks whether Channel's memory or stream is paused or not
+* Checks whether the channel's memory or stream is paused or not
 * based on the given pause type.
 *
-* @param	InstancePtr is a pointer to XAsuDma instance to be worked on.
-* @param	Channel represents the type of channel either it is Source or
+* @param[in] InstancePtr is a pointer to XAsuDma instance to be worked on.
+* @param[in] Channel represents the type of channel either it is Source or
 * 		Destination.
 *		Source channel      - XASUDMA_SRC_CHANNEL
 *		Destination Channel - XASUDMA_DST_CHANNEL
-* @param	Type is type of the pause which needs to be checked.
+* @param[in] Type is type of the pause which needs to be checked.
 *		- XASUDMA_PAUSE_MEMORY(0) - Pause memory
 *			- SRC Stops issuing of new read commands to memory.
 *			- DST Stops issuing of new write commands to memory.
@@ -572,16 +561,16 @@ static INLINE s32 XAsuDma_IsPaused(XAsuDma *InstancePtr, XAsuDma_Channel Channel
 /*****************************************************************************/
 /**
 *
-* This function resumes the channel if it is in paused state and continues
+* Resumes the channel if it is in paused state and continues
 * where it has left or no effect if it is not in paused state, based on the
 * type of pause.
 *
-* @param	InstancePtr is a pointer to XAsuDma instance to be worked on.
-* @param	Channel represents the type of channel either it is Source or
+* @param[in] InstancePtr is a pointer to XAsuDma instance to be worked on.
+* @param[in] Channel represents the type of channel either it is Source or
 * 		Destination.
 *		Source channel      - XASUDMA_SRC_CHANNEL
 *		Destination Channel - XASUDMA_DST_CHANNEL
-* @param	Type is type of the pause to be Resume if it is in pause
+* @param[in] Type is type of the pause to be Resume if it is in pause
 *		state.
 *		- XASUDMA_PAUSE_MEMORY(0) - Resume memory
 *			- SRC Resumes issuing of new read commands to memory.
@@ -590,7 +579,6 @@ static INLINE s32 XAsuDma_IsPaused(XAsuDma *InstancePtr, XAsuDma_Channel Channel
 *			- SRC Resumes transfer of data from FIFO to Stream.
 *			- DST Resumes transfer of data from stream to FIFO.
 *
-* @return	None.
 *
 ******************************************************************************/
 static INLINE void XAsuDma_Resume(XAsuDma *InstancePtr, XAsuDma_Channel Channel,
@@ -602,10 +590,10 @@ static INLINE void XAsuDma_Resume(XAsuDma *InstancePtr, XAsuDma_Channel Channel,
 /*****************************************************************************/
 /**
 *
-* This function returns the sum of all the data read from AXI memory. It is
+* Reads the checksum of read data read from AXI memory. It is
 * valid only one we use ASU_DMA source channel.
 *
-* @param	InstancePtr is a pointer to XAsuDma instance to be worked on.
+* @param[in] InstancePtr is a pointer to XAsuDma instance to be worked on.
 *
 * @return	Returns the sum of all the data read from memory.
 *
@@ -623,10 +611,10 @@ static INLINE u32 XAsuDma_GetCheckSum(XAsuDma *InstancePtr)
 /*****************************************************************************/
 /**
 *
-* This function clears the check sum of the data read from AXI memory. It is
+* Clears the read-data checksum of the data read from AXI memory. It is
 * valid only for ASU_DMA source channel.
 *
-* @param	InstancePtr is a pointer to XAsuDma instance to be worked on.
+* @param[in] InstancePtr is a pointer to XAsuDma instance to be worked on.
 *
 * @return	Returns the sum of all the data read from memory.
 *
@@ -642,15 +630,15 @@ static INLINE void XAsuDma_ClearCheckSum(XAsuDma *InstancePtr)
 
 /*****************************************************************************/
 /**
-* This function configures all the values of ASU_DMA's Channels with the values
+* Configures channel values of ASU_DMA's Channels with the values
 * of updated XAsuDma_Configure structure.
 *
-* @param	InstancePtr is a pointer to XAsuDma instance to be worked on.
-* @param	Channel represents the type of channel either it is Source or
+* @param[in] InstancePtr is a pointer to XAsuDma instance to be worked on.
+* @param[in] Channel represents the type of channel either it is Source or
 * 		Destination.
 *		Source channel      - XASUDMA_SRC_CHANNEL
 *		Destination Channel - XASUDMA_DST_CHANNEL
-* @param	ConfigurValues is a pointer to the structure XAsuDma_Configure
+* @param[out] ConfigurValues is a pointer to the structure XAsuDma_Configure
 *		whose values are used to configure ASU_DMA core.
 *		- SssFifoThesh   When the DST FIFO level >= this value,
 *		  the SSS interface signal, "data_out_fifo_level_hit" will be
@@ -709,7 +697,6 @@ static INLINE void XAsuDma_ClearCheckSum(XAsuDma *InstancePtr)
 *			  allowed) to 0x8 (Up to 9 Outstanding Read
 *			  command allowed)
 *
-* @return	None.
 *
 * @note		To use timers timeout value Timeout enable field should be
 *		enabled.
@@ -724,15 +711,15 @@ static INLINE void XAsuDma_SetConfig(XAsuDma *InstancePtr, XAsuDma_Channel Chann
 /*****************************************************************************/
 /**
 *
-* This function updates XAsuDma_Configure structure members with the configured
+* Reads channel configuration values structure members with the configured
 * values of ASU_DMA's Channel.
 *
-* @param	InstancePtr is a pointer to XAsuDma instance to be worked on.
-* @param	Channel represents the type of channel either it is Source or
+* @param[in] InstancePtr is a pointer to XAsuDma instance to be worked on.
+* @param[in] Channel represents the type of channel either it is Source or
 * 		Destination.
 *		Source channel      - XASUDMA_SRC_CHANNEL
 *		Destination Channel - XASUDMA_DST_CHANNEL
-* @param	ConfigurValues is a pointer to the structure XAsuDma_Configure
+* @param[out] ConfigurValues is a pointer to the structure XAsuDma_Configure
 *		whose members are updated with configurations of ASU_DMA core.
 *		- SssFifoThesh   When the DST FIFO level >= this value,
 *		  the SSS interface signal, "data_out_fifo_level_hit" will be
@@ -791,7 +778,6 @@ static INLINE void XAsuDma_SetConfig(XAsuDma *InstancePtr, XAsuDma_Channel Chann
 *			allowed) to 0x8 (Up to 9 Outstanding Read command
 *			allowed)
 *
-* @return	None.
 *
 ******************************************************************************/
 static INLINE void XAsuDma_GetConfig(XAsuDma *InstancePtr, XAsuDma_Channel Channel,
@@ -802,11 +788,10 @@ static INLINE void XAsuDma_GetConfig(XAsuDma *InstancePtr, XAsuDma_Channel Chann
 
 /*****************************************************************************/
 /**
-* @brief	This function will poll for completion of data transfer until
-* 			 DMA done bit set or till the timeout occurs
+* @brief Polls for transfer completion until the DMA done bit is set or a timeout occurs.
 *
-* @param	InstancePtr - Is a pointer to XAsuDma instance to be worked on
-* @param	Channel     - Represents the type of channel either it is Source or
+* @param[in] InstancePtr - Is a pointer to XAsuDma instance to be worked on.
+* @param[in] Channel - Represents the type of channel either it is Source or
 *						  Destination
 *							Source channel      - XASUDMA_SRC_CHANNEL
 *							Destination Channel - XASUDMA_DST_CHANNEL
@@ -826,12 +811,12 @@ static INLINE int XAsuDma_WaitForDoneTimeout(XAsuDma *InstancePtr,
 /*****************************************************************************/
 /**
 *
-* This function returns interrupt status read from Interrupt Status Register.
+* Reads interrupt status read from Interrupt Status Register.
 * Use the XASUDMA_IXR_*_MASK constants defined in xasudma.h to interpret the
 * returned value.
 *
-* @param	InstancePtr is a pointer to XAsuDma instance to be worked on.
-* @param	Channel represents the type of channel either it is Source or
+* @param[in] InstancePtr is a pointer to XAsuDma instance to be worked on.
+* @param[in] Channel represents the type of channel either it is Source or
 *		Destination.
 *		Source channel      - XASUDMA_SRC_CHANNEL
 *		Destination Channel - XASUDMA_DST_CHANNEL
@@ -850,12 +835,12 @@ static INLINE u32 XAsuDma_IntrGetStatus(XAsuDma *InstancePtr, XAsuDma_Channel Ch
 /*****************************************************************************/
 /**
 *
-* This function returns interrupt status read from Interrupt Status Register.
+* Reads interrupt status read from Interrupt Status Register.
 * Use the XASUDMA_IXR_*_MASK constants defined in xasudma.h to interpret the
 * returned value.
 *
-* @param	InstancePtr is a pointer to XAsuDma instance to be worked on.
-* @param	Channel represents the type of channel either it is Source or
+* @param[in] InstancePtr is a pointer to XAsuDma instance to be worked on.
+* @param[in] Channel represents the type of channel either it is Source or
 *		Destination.
 *		Source channel      - XASUDMA_SRC_CHANNEL
 *		Destination Channel - XASUDMA_DST_CHANNEL
@@ -875,20 +860,19 @@ static INLINE void XAsuDma_IntrClear(XAsuDma *InstancePtr, XAsuDma_Channel Chann
 /*****************************************************************************/
 /**
 *
-* This function enables the interrupt(s). Use the XASUDMA_IXR_*_MASK constants
+* Enables interrupts. Use the XASUDMA_IXR_*_MASK constants
 * defined in xasudma.h to create the bit-mask to enable interrupts.
 *
-* @param	InstancePtr is a pointer to XAsuDma instance to be worked on.
-* @param	Channel represents the type of channel either it is Source or
+* @param[in] InstancePtr is a pointer to XAsuDma instance to be worked on.
+* @param[in] Channel represents the type of channel either it is Source or
 *		Destination.
 *		Source channel      - XASUDMA_SRC_CHANNEL
 *		Destination Channel - XASUDMA_DST_CHANNEL
-* @param	Mask contains interrupts to be enabled.
+* @param[in] Mask contains interrupts to be enabled.
 *		- Bit positions of 1 will be enabled.
 *		This mask is formed by OR'ing XASUDMA_IXR_*_MASK bits defined
 *		in xasudma.h.
 *
-* @return	None.
 *
 ******************************************************************************/
 static INLINE void XAsuDma_EnableIntr(XAsuDma *InstancePtr, XAsuDma_Channel Channel,
@@ -900,20 +884,19 @@ static INLINE void XAsuDma_EnableIntr(XAsuDma *InstancePtr, XAsuDma_Channel Chan
 /*****************************************************************************/
 /**
 *
-* This function disables the interrupt(s). Use the XASUDMA_IXR_*_MASK constants
+* Disables interrupts. Use the XASUDMA_IXR_*_MASK constants
 * defined in xasudma.h to create the bit-mask to disable interrupts.
 *
-* @param	InstancePtr is a pointer to XAsuDma instance to be worked on.
-* @param	Channel represents the type of channel either it is Source or
+* @param[in] InstancePtr is a pointer to XAsuDma instance to be worked on.
+* @param[in] Channel represents the type of channel either it is Source or
 *		Destination.
 *		Source channel      - XASUDMA_SRC_CHANNEL
 *		Destination Channel - XASUDMA_DST_CHANNEL
-* @param	Mask contains interrupts to be disabled.
+* @param[in] Mask contains interrupts to be disabled.
 *		- Bit positions of 1 will be disabled.
 *		This mask is formed by OR'ing XASUDMA_IXR_*_MASK bits defined
 *		in xasudma.h.
 *
-* @return	None.
 *
 ******************************************************************************/
 static INLINE void XAsuDma_DisableIntr(XAsuDma *InstancePtr, XAsuDma_Channel Channel,
@@ -925,11 +908,11 @@ static INLINE void XAsuDma_DisableIntr(XAsuDma *InstancePtr, XAsuDma_Channel Cha
 /*****************************************************************************/
 /**
 *
-* This function returns the interrupt mask to know which interrupts are
+* Reads the interrupt mask to know which interrupts are
 * enabled and which of them were disabled.
 *
-* @param	InstancePtr is a pointer to XAsuDma instance to be worked on.
-* @param	Channel represents the type of channel either it is Source or
+* @param[in] InstancePtr is a pointer to XAsuDma instance to be worked on.
+* @param[in] Channel represents the type of channel either it is Source or
 *		Destination.
 *		Source channel      - XASUDMA_SRC_CHANNEL
 *		Destination Channel - XASUDMA_DST_CHANNEL
@@ -951,11 +934,11 @@ static INLINE u32 XAsuDma_GetIntrMask(XAsuDma *InstancePtr, XAsuDma_Channel Chan
 /*****************************************************************************/
 /**
 *
-* This function runs a self-test on the driver and hardware device. Performs
+* Performs a self test on the driver and hardware device. Performs
 * reset of both source and destination channels and checks if reset is working
 * properly or not.
 *
-* @param	InstancePtr is a pointer to the XAsuDma instance.
+* @param[in] InstancePtr is a pointer to the XAsuDma instance.
 *
 * @return
 *		- XST_SUCCESS if the self-test passed.
@@ -970,27 +953,26 @@ static INLINE s32 XAsuDma_SelfTest(XAsuDma *InstancePtr)
 /*****************************************************************************/
 /**
 *
-* This function sets the starting address and amount(size) of the data to be
+* Sets the starting address and amount(size) of the data to be
 * transferred from/to the memory through the AXI interface in VERSAL NET.
 *
-* @param	InstancePtr is a pointer to XAsuDma instance to be worked on.
-* @param	Channel represents the type of channel either it is Source or
+* @param[in] InstancePtr is a pointer to XAsuDma instance to be worked on.
+* @param[in] Channel represents the type of channel either it is Source or
 * 		Destination.
 *		Source channel      - XASUDMA_SRC_CHANNEL
 *		Destination Channel - XASUDMA_DST_CHANNEL
-* @param	Addr is a 64 bit variable which holds the starting address of
+* @param[in] Addr is a 64-bit variable which holds the starting address of
 * 		data which needs to write into the memory(DST) (or read	from
 * 		the memory(SRC)).
-* @param	Size is a 32 bit variable which represents the number of bytes
+* @param[in] Size is a 32-bit variable which represents the number of bytes
 * 		needs to be transferred from starting address.
-* @param	EnDataLast is to trigger an end of message. It will enable or
+* @param[in] EnDataLast is to trigger an end of message. It will enable or
 * 		disable data_inp_last signal to stream interface when current
 * 		command is completed. It is applicable only to source channel
 * 		and neglected for destination channel.
 * 		-	1 - Asserts data_inp_last signal.
 * 		-	0 - data_inp_last will not be asserted.
 *
-* @return	None.
 *
 * @note		Data_inp_last signal is asserted simultaneously with the
 * 		data_inp_valid signal associated with the final 32-bit word

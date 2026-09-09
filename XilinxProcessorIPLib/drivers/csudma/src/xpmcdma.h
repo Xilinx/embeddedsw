@@ -176,7 +176,7 @@ typedef XCsuDma_Channel		XPmcDma_Channel;
  */
 typedef XCsuDma_PauseType	XPmcDma_PauseType;
 /**
-* This typedef contains configuration information for a PMC_DMA core.
+* Holds configuration information for a PMC_DMA core.
 * Each PMC_DMA core should have a configuration structure associated.
 */
 typedef XCsuDma_Config 	XPmcDma_Config;
@@ -192,8 +192,8 @@ typedef XCsuDma XPmcDma;
 
 /******************************************************************************/
 /**
-* This typedef contains all the configuration fields which needs to be set
-* before the start of the data transfer. All these feilds of PMC_DMA can be
+* Holds channel configuration value fields which need to be set
+* before the start of the data transfer. All these fields of PMC_DMA can be
 * configured by using XPmcDma_SetConfig API.
 */
 typedef XCsuDma_Configure XPmcDma_Configure;
@@ -202,10 +202,8 @@ typedef XCsuDma_Configure XPmcDma_Configure;
 #ifdef SPARTANUP
 /*****************************************************************************/
 /**
+ * @brief Resets the PMC_DMA core.
 *
-* This function resets the PMC_DMA core.
-*
-* @return	None.
 *
 ******************************************************************************/
 static INLINE void XPmcDma_Reset(void)
@@ -217,12 +215,11 @@ static INLINE void XPmcDma_Reset(void)
 /*****************************************************************************/
 /**
 *
-* This function resets the PMC_DMA core.
+* Resets the PMC_DMA core.
 *
-* @param	DmaType is the type of DMA
+* @param[in] DmaType is the type of DMA
 *		XPMCDMA_DMATYPEIS_DMA0 or XPMCDMA_DMATYPEIS_DMA1).
 *
-* @return	None.
 *
 ******************************************************************************/
 static INLINE void XPmcDma_Reset(u32 DmaType)
@@ -235,14 +232,13 @@ static INLINE void XPmcDma_Reset(u32 DmaType)
 /**
 * Waits for DMA operation to complete
 *
-* @param	InstancePtr Pointer to XPmcDma instance to be worked on.
-* @param	Channel The type of channel.
+* @param[in] InstancePtr is a pointer to XPmcDma instance to be worked on.
+* @param[in] Channel The type of channel.
 *		Source channel      - XPMCDMA_SRC_CHANNEL
 *		Destination Channel - XPMCDMA_DST_CHANNEL
 *
-* @return	None.
 *
-* @note		This function should be called after XPmcDma_Transfer in polled
+* @note		Call after XPmcDma_Transfer in polled
 *		mode to wait until the data gets transferred completely.
 *
 ******************************************************************************/
@@ -258,8 +254,8 @@ static INLINE int XPmcDma_WaitForDone(XPmcDma *InstancePtr, XPmcDma_Channel Chan
 * Returns the number of completed SRC/DST DMA transfers that
 * have not been acknowledged by software based on the channel selection.
 *
-* @param	InstancePtr Pointer to XPmcDma instance to be worked on.
-* @param	Channel The type of channel
+* @param[in] InstancePtr is a pointer to XPmcDma instance to be worked on.
+* @param[in] Channel The type of channel
 *
 *		Source channel      - XPMCDMA_SRC_CHANNEL
 *		Destination Channel - XPMCDMA_DST_CHANNEL
@@ -279,10 +275,10 @@ static INLINE u32 XPmcDma_GetDoneCount(XPmcDma *InstancePtr, XPmcDma_Channel Cha
 /*****************************************************************************/
 /**
 *
-* Returns the current SRC/DST FIFO level in 32 bit words of the
+* Returns the current SRC/DST FIFO level in 32-bit words of the
 * selected channel
-* @param	InstancePtr Pointer to XPmcDma instance to be worked on.
-* @param	Channel Represents the type of channel
+* @param[in] InstancePtr is a pointer to XPmcDma instance to be worked on.
+* @param[in] Channel Represents the type of channel
 *
 *		Source channel      - XPMCDMA_SRC_CHANNEL
 *		Destination Channel - XPMCDMA_DST_CHANNEL
@@ -303,8 +299,8 @@ static INLINE u32 XPmcDma_GetFIFOLevel(XPmcDma *InstancePtr, XPmcDma_Channel Cha
 * Returns the current number of read(src)/write(dst) outstanding
 * commands based on the type of channel selected.
 *
-* @param	InstancePtr Pointer to XPmcDma instance to be worked on.
-* @param	Channel Represents the type of channel
+* @param[in] InstancePtr is a pointer to XPmcDma instance to be worked on.
+* @param[in] Channel Represents the type of channel
 *
 *		Source channel      - XPMCDMA_SRC_CHANNEL
 *		Destination Channel - XPMCDMA_DST_CHANNEL
@@ -323,8 +319,8 @@ static INLINE u32 XPmcDma_GetWROutstandCount(XPmcDma *InstancePtr,
 *
 * Returns the status of Channel either it is busy or not.
 *
-* @param	InstancePtr Pointer to XPmcDma instance to be worked on.
-* @param	Channel The type of channel
+* @param[in] InstancePtr is a pointer to XPmcDma instance to be worked on.
+* @param[in] Channel The type of channel
 *
 *		Source channel      - XPMCDMA_SRC_CHANNEL
 *		Destination Channel - XPMCDMA_DST_CHANNEL
@@ -347,7 +343,7 @@ static INLINE u32 XPmcDma_IsBusy(XPmcDma *InstancePtr, XPmcDma_Channel Channel)
 * to an entry in the device configuration table defined in the xcsudma_g.c
 * file.
 *
-* @param	DeviceId Unique device ID of the device for the lookup
+* @param[in] DeviceId Unique device ID of the device for the lookup
 *		operation.
 *
 * @return	CfgPtr Reference to a config record in the configuration
@@ -370,14 +366,14 @@ static INLINE XPmcDma_Config * XPmcDma_LookupConfig(UINTPTR BaseAddress)
 /*****************************************************************************/
 /**
 *
-* Initializes an PMC_DMA core. This function must be called
+* Initializes a PMC_DMA core. Call this API before any other driver function
 * prior to using an PMC_DMA core. Initialization of an PMC_DMA includes setting
 * up the instance data and ensuring the hardware is in a quiescent state.
 *
-* @param	InstancePtr Pointer to the XPmcDma instance.
-* @param	CfgPtr Reference to a structure containing information
+* @param[in] InstancePtr is a pointer to the XPmcDma instance.
+* @param[in] CfgPtr Reference to a structure containing information
 *		about a specific XPmcDma instance.
-* @param	EffectiveAddr Device base address in the virtual memory
+* @param[in] EffectiveAddr Device base address in the virtual memory
 *		address space. The caller is responsible for keeping the
 *		address mapping from EffectiveAddr to the device physical
 *		base address unchanged once this function is invoked.
@@ -401,24 +397,23 @@ static INLINE s32 XPmcDma_CfgInitialize(XPmcDma *InstancePtr, XPmcDma_Config *Cf
 * Sets the starting address and amount(size) of the data to be
 * transferred from/to the memory through the AXI interface.
 *
-* @param	InstancePtr Pointer to XPmcDma instance to be worked on.
-* @param	Channel Type of channel
+* @param[in] InstancePtr is a pointer to XPmcDma instance to be worked on.
+* @param[in] Channel Type of channel
 *
 *		Source channel      - XPMCDMA_SRC_CHANNEL
 *		Destination Channel - XPMCDMA_DST_CHANNEL
-* @param	Addr 64 bit variable which holds the starting address of
+* @param[in] Addr is a 64-bit variable which holds the starting address of
 * 		data which needs to write into the memory(DST) (or read	from
 * 		the memory(SRC)).
-* @param	Size 32 bit variable which represents the number of 4 byte
+* @param[in] Size is a 32-bit variable which represents the number of 4 byte
 * 		words needs to be transferred from starting address.
-* @param	EnDataLast Triggers an end of message. It will enable or
+* @param[in] EnDataLast Triggers an end of message. It will enable or
 * 		disable data_inp_last signal to stream interface when current
 * 		command is completed. It is applicable only to source channel
 * 		and neglected for destination channel.
 * 		-	1 - Asserts data_inp_last signal.
 * 		-	0 - data_inp_last will not be asserted.
 *
-* @return	None.
 *
 * @note		Data_inp_last signal is asserted simultaneously with the
 * 		data_inp_valid signal associated with the final 32-bit word
@@ -436,30 +431,29 @@ static INLINE void XPmcDma_Transfer(XPmcDma *InstancePtr, XPmcDma_Channel Channe
 *
 * Sets the starting address and amount(size) of the data to be
 * transferred from/to the memory through the AXI interface.
-* This function is useful for pmu processor when it wishes to do
+* Sets up a 64-bit PMU transfer when it wishes to do
 * a 64-bit DMA transfer.
 *
-* @param	InstancePtr Pointer to XPmcDma instance to be worked on.
-* @param	Channel Type of channel.
+* @param[in] InstancePtr is a pointer to XPmcDma instance to be worked on.
+* @param[in] Channel Type of channel.
 *
 *		Source channel      - XPMCDMA_SRC_CHANNEL
 *		Destination Channel - XPMCDMA_DST_CHANNEL
-* @param	AddrLow 32 bit variable which holds the starting lower
+* @param[in] AddrLow is a 32-bit variable which holds the starting lower
 * 		address of data which needs to write into the memory(DST)
 * 		(or read from the memory(SRC)).
-* @param	AddrHigh 32 bit variable which holds the higher address of data
+* @param[in] AddrHigh is a 32-bit variable which holds the higher address of data
 * 		which needs to write into the memory(DST) (or read from
 * 		the memory(SRC)).
-* @param	Size 32 bit variable which represents the number of 4 byte
+* @param[in] Size is a 32-bit variable which represents the number of 4 byte
 * 		words needs to be transferred from starting address.
-* @param	EnDataLast Triggers an end of message. It will enable or
+* @param[in] EnDataLast Triggers an end of message. It will enable or
 * 		disable data_inp_last signal to stream interface when current
 * 		command is completed. It is applicable only to source channel
 * 		and neglected for destination channel.
 * 		-	1 - Asserts data_inp_last signal.
 * 		-	0 - data_inp_last will not be asserted.
 *
-* @return	None.
 *
 * @note		Data_inp_last signal is asserted simultaneously with the
 * 		data_inp_valid signal associated with the final 32-bit word
@@ -482,13 +476,13 @@ static INLINE void XPmcDma_64BitTransfer(XPmcDma *InstancePtr, XPmcDma_Channel C
 * it has to read the data(SRC) or the location where it has to write the data
 * (DST) based on the channel selection.
 *
-* @param	InstancePtr Pointer to XPmcDma instance to be worked on.
-* @param	Channel Represents the type of channel
+* @param[in] InstancePtr is a pointer to XPmcDma instance to be worked on.
+* @param[in] Channel Represents the type of channel
 *
 *		Source channel      - XPMCDMA_SRC_CHANNEL
 *		Destination Channel - XPMCDMA_DST_CHANNEL
 *
-* @return	Address is a 64 bit variable which holds the current address.
+* @return	Address is a 64-bit variable which holds the current address.
 *		- From this location data has to be read(SRC)
 *		- At this location data has to be written(DST)
 *
@@ -504,8 +498,8 @@ static INLINE u64 XPmcDma_GetAddr(XPmcDma *InstancePtr, XPmcDma_Channel Channel)
 * Returns the size of the data yet to be transferred from memory
 * to PMC_DMA or PMC_DMA to memory based on the channel selection.
 *
-* @param	InstancePtr Pointer to XPmcDma instance to be worked on.
-* @param	Channel Represents the type of channel.
+* @param[in] InstancePtr is a pointer to XPmcDma instance to be worked on.
+* @param[in] Channel Represents the type of channel.
 *
 *		Source channel      - XPMCDMA_SRC_CHANNEL
 *		Destination Channel - XPMCDMA_DST_CHANNEL
@@ -524,12 +518,12 @@ static INLINE u32 XPmcDma_GetSize(XPmcDma *InstancePtr, XPmcDma_Channel Channel)
 * Pauses the Channel data transfer to/from memory or to/from stream
 * based on pause type.
 *
-* @param	InstancePtr Pointer to XPmcDma instance to be worked on.
-* @param	Channel Represents the type of channel.
+* @param[in] InstancePtr is a pointer to XPmcDma instance to be worked on.
+* @param[in] Channel Represents the type of channel.
 *
 *		Source channel      - XPMCDMA_SRC_CHANNEL
 *		Destination Channel - XPMCDMA_DST_CHANNEL
-* @param	Type is type of the pause to be enabled.
+* @param[in] Type is type of the pause to be enabled.
 *		- XPMCDMA_PAUSE_MEMORY(0) - Pause memory
 *			- SRC Stops issuing of new read commands to memory.
 *			- DST Stops issuing of new write commands to memory.
@@ -537,7 +531,6 @@ static INLINE u32 XPmcDma_GetSize(XPmcDma *InstancePtr, XPmcDma_Channel Channel)
 *			- SRC Stops transfer of data from FIFO to Stream.
 *			- DST Stops transfer of data from stream to FIFO.
 *
-* @return	None.
 *
 ******************************************************************************/
 static INLINE void XPmcDma_Pause(XPmcDma *InstancePtr, XPmcDma_Channel Channel,
@@ -552,12 +545,12 @@ static INLINE void XPmcDma_Pause(XPmcDma *InstancePtr, XPmcDma_Channel Channel,
 * Checks whether Channel's memory or stream is paused or not
 * based on the given pause type.
 *
-* @param	InstancePtr Pointer to XPmcDma instance to be worked on.
-* @param	Channel Represents the type of channel.
+* @param[in] InstancePtr is a pointer to XPmcDma instance to be worked on.
+* @param[in] Channel Represents the type of channel.
 *
 *		Source channel      - XPMCDMA_SRC_CHANNEL
 *		Destination Channel - XPMCDMA_DST_CHANNEL
-* @param	Type is type of the pause which needs to be checked.
+* @param[in] Type is type of the pause which needs to be checked.
 *		- XPMCDMA_PAUSE_MEMORY(0) - Pause memory
 *			- SRC Stops issuing of new read commands to memory.
 *			- DST Stops issuing of new write commands to memory.
@@ -583,12 +576,12 @@ static INLINE s32 XPmcDma_IsPaused(XPmcDma *InstancePtr, XPmcDma_Channel Channel
 * where it has left or no effect if it is not in paused state, based on the
 * type of pause.
 *
-* @param	InstancePtr Pointer to XPmcDma instance to be worked on.
-* @param	Channel Represents the type of channel.
+* @param[in] InstancePtr is a pointer to XPmcDma instance to be worked on.
+* @param[in] Channel Represents the type of channel.
 *
 *		Source channel      - XPMCDMA_SRC_CHANNEL
 *		Destination Channel - XPMCDMA_DST_CHANNEL
-* @param	Type is type of the pause to be Resume if it is in pause
+* @param[in] Type is type of the pause to be Resume if it is in pause
 *		state.
 *		- XPMCDMA_PAUSE_MEMORY(0) - Resume memory
 *			- SRC Resumes issuing of new read commands to memory.
@@ -597,7 +590,6 @@ static INLINE s32 XPmcDma_IsPaused(XPmcDma *InstancePtr, XPmcDma_Channel Channel
 *			- SRC Resumes transfer of data from FIFO to Stream.
 *			- DST Resumes transfer of data from stream to FIFO.
 *
-* @return	None.
 *
 ******************************************************************************/
 static INLINE void XPmcDma_Resume(XPmcDma *InstancePtr, XPmcDma_Channel Channel,
@@ -612,7 +604,7 @@ static INLINE void XPmcDma_Resume(XPmcDma *InstancePtr, XPmcDma_Channel Channel,
 * Returns the sum of all the data read from AXI memory. It is
 * valid only one we use PMC_DMA source channel.
 *
-* @param	InstancePtr Pointer to XPmcDma instance to be worked on.
+* @param[in] InstancePtr is a pointer to XPmcDma instance to be worked on.
 *
 * @return	Returns the sum of all the data read from memory.
 *
@@ -633,7 +625,7 @@ static INLINE u32 XPmcDma_GetCheckSum(XPmcDma *InstancePtr)
 * Clears the check sum of the data read from AXI memory. It is
 * valid only for PMC_DMA source channel.
 *
-* @param	InstancePtr Pointer to XPmcDma instance to be worked on.
+* @param[in] InstancePtr is a pointer to XPmcDma instance to be worked on.
 *
 * @return	Returns the sum of all the data read from memory.
 *
@@ -652,12 +644,12 @@ static INLINE void XPmcDma_ClearCheckSum(XPmcDma *InstancePtr)
 * Configures all the values of PMC_DMA's Channels with the values
 * of updated XPmcDma_Configure structure.
 *
-* @param	InstancePtr Pointer to XPmcDma instance to be worked on.
-* @param	Channel Represents the type of channel.
+* @param[in] InstancePtr is a pointer to XPmcDma instance to be worked on.
+* @param[in] Channel Represents the type of channel.
 *
 *		Source channel      - XPMCDMA_SRC_CHANNEL
 *		Destination Channel - XPMCDMA_DST_CHANNEL
-* @param	ConfigurValues is a pointer to the structure XPmcDma_Configure
+* @param[out] ConfigurValues is a pointer to the structure XPmcDma_Configure
 *		whose values are used to configure PMC_DMA core.
 *		- SssFifoThesh   When the DST FIFO level >= this value,
 *		  the SSS interface signal, "data_out_fifo_level_hit" will be
@@ -716,7 +708,6 @@ static INLINE void XPmcDma_ClearCheckSum(XPmcDma *InstancePtr)
 *			  allowed) to 0x8 (Up to 9 Outstanding Read
 *			  command allowed)
 *
-* @return	None.
 *
 * @note		To use timers timeout value Timeout enable field should be
 *		enabled.
@@ -734,12 +725,12 @@ static INLINE void XPmcDma_SetConfig(XPmcDma *InstancePtr, XPmcDma_Channel Chann
 * Updates XPmcDma_Configure structure members with the configured
 * values of PMC_DMA's Channel.
 *
-* @param	InstancePtr Pointer to XPmcDma instance to be worked on.
-* @param	Channel Represents the type of channel.
+* @param[in] InstancePtr is a pointer to XPmcDma instance to be worked on.
+* @param[in] Channel Represents the type of channel.
 *
 *		Source channel      - XPMCDMA_SRC_CHANNEL
 *		Destination Channel - XPMCDMA_DST_CHANNEL
-* @param	ConfigurValues is a pointer to the structure XPmcDma_Configure
+* @param[out] ConfigurValues is a pointer to the structure XPmcDma_Configure
 *		whose members are updated with configurations of PMC_DMA core.
 *		- SssFifoThesh   When the DST FIFO level >= this value,
 *		  the SSS interface signal, "data_out_fifo_level_hit" will be
@@ -798,7 +789,6 @@ static INLINE void XPmcDma_SetConfig(XPmcDma *InstancePtr, XPmcDma_Channel Chann
 *			allowed) to 0x8 (Up to 9 Outstanding Read command
 *			allowed)
 *
-* @return	None.
 *
 ******************************************************************************/
 static INLINE void XPmcDma_GetConfig(XPmcDma *InstancePtr, XPmcDma_Channel Channel,
@@ -809,11 +799,10 @@ static INLINE void XPmcDma_GetConfig(XPmcDma *InstancePtr, XPmcDma_Channel Chann
 
 /*****************************************************************************/
 /**
-* @brief	This function polls for completion of data transfer until
-* 			 DMA done bit set or till the timeout occurs
+* @brief Polls for transfer completion until the DMA done bit is set or a timeout occurs.
 *
-* @param	InstancePtr - Pointer to XPmcDma instance to be worked on
-* @param	Channel     - Represents the type of channel.
+* @param[in] InstancePtr is a pointer to XPmcDma instance to be worked on.
+* @param[in] Channel - Represents the type of channel.
 *
 *							Source channel      - XPMCDMA_SRC_CHANNEL
 *							Destination Channel - XPMCDMA_DST_CHANNEL
@@ -837,8 +826,8 @@ static INLINE int XPmcDma_WaitForDoneTimeout(XPmcDma *InstancePtr,
 * Use the XPMCDMA_IXR_*_MASK constants defined in xpmcdma.h to interpret the
 * returned value.
 *
-* @param	InstancePtr Pointer to XPmcDma instance to be worked on.
-* @param	Channel Represents the type of channel
+* @param[in] InstancePtr is a pointer to XPmcDma instance to be worked on.
+* @param[in] Channel Represents the type of channel
 *
 *		Source channel      - XPMCDMA_SRC_CHANNEL
 *		Destination Channel - XPMCDMA_DST_CHANNEL
@@ -861,8 +850,8 @@ static INLINE u32 XPmcDma_IntrGetStatus(XPmcDma *InstancePtr, XPmcDma_Channel Ch
 * Use the XPMCDMA_IXR_*_MASK constants defined in xpmcdma.h to interpret the
 * returned value.
 *
-* @param	InstancePtr Pointer to XPmcDma instance to be worked on.
-* @param	Channel Represents the type of channel.
+* @param[in] InstancePtr is a pointer to XPmcDma instance to be worked on.
+* @param[in] Channel Represents the type of channel.
 *
 *		Source channel      - XPMCDMA_SRC_CHANNEL
 *		Destination Channel - XPMCDMA_DST_CHANNEL
@@ -882,20 +871,19 @@ static INLINE void XPmcDma_IntrClear(XPmcDma *InstancePtr, XPmcDma_Channel Chann
 /*****************************************************************************/
 /**
 *
-* This function enables the interrupt(s). Use the XPMCDMA_IXR_*_MASK constants
+* Enables interrupts. Use the XPMCDMA_IXR_*_MASK constants
 * defined in xpmcdma.h to create the bit-mask to enable interrupts.
 *
-* @param	InstancePtr Pointer to XPmcDma instance to be worked on.
-* @param	Channel Represents the type of channel.
+* @param[in] InstancePtr is a pointer to XPmcDma instance to be worked on.
+* @param[in] Channel Represents the type of channel.
 *
 *		Source channel      - XPMCDMA_SRC_CHANNEL
 *		Destination Channel - XPMCDMA_DST_CHANNEL
-* @param	Mask contains interrupts to be enabled.
+* @param[in] Mask contains interrupts to be enabled.
 *		- Bit positions of 1 will be enabled.
 *		This mask is formed by OR'ing XPMCDMA_IXR_*_MASK bits defined
 *		in xpmcdma.h.
 *
-* @return	None.
 *
 ******************************************************************************/
 static INLINE void XPmcDma_EnableIntr(XPmcDma *InstancePtr, XPmcDma_Channel Channel,
@@ -910,17 +898,16 @@ static INLINE void XPmcDma_EnableIntr(XPmcDma *InstancePtr, XPmcDma_Channel Chan
 * Disables the interrupt(s). Use the XPMCDMA_IXR_*_MASK constants
 * defined in xpmcdma.h to create the bit-mask to disable interrupts.
 *
-* @param	InstancePtr Pointer to XPmcDma instance to be worked on.
-* @param	Channel Represents the type of channel.
+* @param[in] InstancePtr is a pointer to XPmcDma instance to be worked on.
+* @param[in] Channel Represents the type of channel.
 *
 *		Source channel      - XPMCDMA_SRC_CHANNEL
 *		Destination Channel - XPMCDMA_DST_CHANNEL
-* @param	Mask contains interrupts to be disabled.
+* @param[in] Mask contains interrupts to be disabled.
 *		- Bit positions of 1 will be disabled.
 *		This mask is formed by OR'ing XPMCDMA_IXR_*_MASK bits defined
 *		in xpmcdma.h.
 *
-* @return	None.
 *
 ******************************************************************************/
 static INLINE void XPmcDma_DisableIntr(XPmcDma *InstancePtr, XPmcDma_Channel Channel,
@@ -935,8 +922,8 @@ static INLINE void XPmcDma_DisableIntr(XPmcDma *InstancePtr, XPmcDma_Channel Cha
 * Returns the interrupt mask to know which interrupts are
 * enabled and which of them were disabled.
 *
-* @param	InstancePtr Pointer to XPmcDma instance to be worked on.
-* @param	Channel Represents the type of channel.
+* @param[in] InstancePtr is a pointer to XPmcDma instance to be worked on.
+* @param[in] Channel Represents the type of channel.
 *
 *		Source channel      - XPMCDMA_SRC_CHANNEL
 *		Destination Channel - XPMCDMA_DST_CHANNEL
@@ -962,7 +949,7 @@ static INLINE u32 XPmcDma_GetIntrMask(XPmcDma *InstancePtr, XPmcDma_Channel Chan
 * reset of both source and destination channels and checks if reset is working
 * properly or not.
 *
-* @param	InstancePtr Pointer to the XPmcDma instance.
+* @param[in] InstancePtr is a pointer to the XPmcDma instance.
 *
 * @return
 *		- XST_SUCCESS if the self-test passed.
@@ -981,24 +968,23 @@ static INLINE s32 XPmcDma_SelfTest(XPmcDma *InstancePtr)
 * Sets the starting address and amount(size) of the data to be
 * transferred from/to the memory through the AXI interface in VERSAL NET.
 *
-* @param	InstancePtr Pointer to XCsuDma instance to be worked on.
-* @param	Channel Represents the type of channel.
+* @param[in] InstancePtr is a pointer to XCsuDma instance to be worked on.
+* @param[in] Channel Represents the type of channel.
 *
 *		Source channel      - XCSUDMA_SRC_CHANNEL
 *		Destination Channel - XCSUDMA_DST_CHANNEL
-* @param	Addr 64 bit variable which holds the starting address of
+* @param[in] Addr is a 64-bit variable which holds the starting address of
 * 		data which needs to write into the memory(DST) (or read	from
 * 		the memory(SRC)).
-* @param	Size 32 bit variable which represents the number of bytes
+* @param[in] Size is a 32-bit variable which represents the number of bytes
 * 		needs to be transferred from starting address.
-* @param	EnDataLast Trigger an end of message. It will enable or
+* @param[in] EnDataLast Trigger an end of message. It will enable or
 * 		disable data_inp_last signal to stream interface when current
 * 		command is completed. It is applicable only to source channel
 * 		and neglected for destination channel.
 * 		-	1 - Asserts data_inp_last signal.
 * 		-	0 - data_inp_last will not be asserted.
 *
-* @return	None.
 *
 * @note		Data_inp_last signal is asserted simultaneously with the
 * 		data_inp_valid signal associated with the final 32-bit word

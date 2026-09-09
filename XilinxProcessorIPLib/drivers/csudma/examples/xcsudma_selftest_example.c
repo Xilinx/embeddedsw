@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2014 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -9,6 +9,8 @@
 /**
 *
 * @file xcsudma_selftest_example.c
+* @addtogroup csuma_api CSUDMA APIs
+* @{
 *
 * This file contains an example using the XCsudma driver to do self test
 * on the device.
@@ -40,9 +42,9 @@
  * change all the needed parameters in one place.
  */
 #ifndef SDT
-#define CSUDMA_DEVICE_ID  XPAR_XCSUDMA_0_DEVICE_ID /* CSU DMA device Id */
+#define CSUDMA_DEVICE_ID  XPAR_XCSUDMA_0_DEVICE_ID /**< CSU DMA device Id. */
 #else
-#define CSUDMA_BASEADDR	XPAR_XCSUDMA_0_BASEADDR /* CSU DMA base address */
+#define CSUDMA_BASEADDR	XPAR_XCSUDMA_0_BASEADDR /**< CSU DMA base address. */
 #endif
 
 /**************************** Type Definitions *******************************/
@@ -73,7 +75,6 @@ XCsuDma CsuDma;		/**<Instance of the Csu_Dma Device */
 *		- XST_SUCCESS if successful.
 *		- XST_FAILURE if failed.
 *
-* @note		None.
 *
 ******************************************************************************/
 int main(void)
@@ -99,13 +100,13 @@ int main(void)
 /*****************************************************************************/
 /**
 *
-* This function does a minimal test on the XCsudma driver.
+* Performs a minimal self test on the XCsudma driver.
 *
 *
 * @if SDT
-* @param	BaseAddress contains the base address of the device
+* @param[in] BaseAddress contains the base address of the device
 * @else
-* @param	DeviceId is the XPAR_<CSUDMA Instance>_DEVICE_ID value from
+* @param[in] DeviceId is the XPAR_<CSUDMA Instance>_DEVICE_ID value from
 *		xparameters.h.
 * @endif
 *
@@ -113,7 +114,6 @@ int main(void)
 *		- XST_SUCCESS if successful.
 *		- XST_FAILURE if failed.
 *
-* @note		None.
 *
 *
 ******************************************************************************/
@@ -156,3 +156,5 @@ int XCsuDma_SelfTestExample(UINTPTR BaseAddress)
 
 	return XST_SUCCESS;
 }
+
+/** @} */

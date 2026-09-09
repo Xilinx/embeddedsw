@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2014 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -9,6 +9,8 @@
 /**
 *
 * @file xcsudma_intr_example.c
+* @addtogroup csuma_api CSUDMA APIs
+* @{
 *
 * This file contains a design example using the XCsuDma driver in interrupt
 * mode. It sends data and expects to receive the same data through the device
@@ -77,7 +79,7 @@ int XCsuDma_IntrExample(XCsuDma *CsuDmaInstance, UINTPTR BaseAddress) {
 }
 #else
 #ifndef SDT
-#define CSUDMA_DEVICE_ID  XPAR_XCSUDMA_0_DEVICE_ID /* CSU DMA device Id */
+#define CSUDMA_DEVICE_ID  XPAR_XCSUDMA_0_DEVICE_ID /**< CSU DMA device Id. */
 #ifdef XPAR_INTC_0_DEVICE_ID
 #define INTC		XIntc
 #define INTG_INTC_DEVICE_ID	XPAR_INTC_0_DEVICE_ID
@@ -102,7 +104,7 @@ int XCsuDma_IntrExample(XCsuDma *CsuDmaInstance, UINTPTR BaseAddress) {
 #endif
 #endif
 #else
-#define CSUDMA_BASEADDR			XPAR_XCSUDMA_0_BASEADDR /* CSU DMA base address */
+#define CSUDMA_BASEADDR			XPAR_XCSUDMA_0_BASEADDR /**< CSU DMA base address. */
 #endif
 
 #define CSU_SSS_CONFIG_OFFSET	0x008		/**< CSU SSS_CFG Offset */
@@ -136,16 +138,20 @@ u32 SrcBuf[SIZE] __attribute__ ((aligned (64)));	/**< Source buffer */
 #ifndef SDT
 int XCsuDma_IntrExample(INTC *IntcInstancePtr, XCsuDma *CsuDmaInstance,
 			u16 DeviceId, u16 IntrId);
+/** @cond INTERNAL */
 static int SetupInterruptSystem(INTC *IntcInstancePtr,
 				XCsuDma *CsuDmaInstance,
 				u16 CsuDmaIntrId);
+/** @endcond */
 #else
 int XCsuDma_IntrExample(XCsuDma *CsuDmaInstance, UINTPTR BaseAddress);
 #endif
 void IntrHandler(void *CallBackRef);
 
+/** @cond INTERNAL */
 static void SrcHandler(u32 Event);
 static void DstHandler(u32 Event);
+/** @endcond */
 
 /************************** Variable Definitions *****************************/
 
@@ -167,7 +173,6 @@ volatile u32 DstDone = 0;
 *		- XST_SUCCESS if successful.
 *		- XST_FAILURE if failed.
 *
-* @note		None.
 *
 ******************************************************************************/
 int main(void)
@@ -194,19 +199,19 @@ int main(void)
 /*****************************************************************************/
 /**
 *
-* This function performs data transfer in loop back mode in interrupt mode
+* Performs a data transfer in loop back mode in interrupt mode
 * and verify the data.
 *
 * @if SDT
-* @param	CsuDmaInstance contains a pointer to the CSU DMA instance
+* @param[in] CsuDmaInstance contains a pointer to the CSU DMA instance
 * 		which is going to be connected to the interrupt controller.
-* @param	BaseAddress contains the base address of the CsuDma device
+* @param[in] BaseAddress contains the base address of the CsuDma device
 * @else
-* @param	IntcInstancePtr is a pointer to the instance of the INTC.
-* @param	CsuDmaInstance contains a pointer to the CSU DMA instance
+* @param[in] IntcInstancePtr is a pointer to the instance of the INTC.
+* @param[in] CsuDmaInstance contains a pointer to the CSU DMA instance
 * 		which is going to be connected to the interrupt controller.
-* @param	DeviceId is the XPAR_<CSUDMA Instance>_DEVICE_ID macro value.
-* @param	IntrId is the interrupt Id and is typically
+* @param[in] DeviceId is the XPAR_<CSUDMA Instance>_DEVICE_ID macro value.
+* @param[in] IntrId is the interrupt Id and is typically
 * 		XPAR_<CSUDMA_instance>_INTR macro value.
 * @endif
 *
@@ -214,7 +219,6 @@ int main(void)
 *		- XST_SUCCESS if successful.
 *		- XST_FAILURE if failed.
 *
-* @note		None.
 *
 ******************************************************************************/
 #ifndef SDT
@@ -354,25 +358,23 @@ int XCsuDma_IntrExample(XCsuDma *CsuDmaInstance, UINTPTR BaseAddress)
 	return XST_SUCCESS;
 }
 
+/** @cond INTERNAL */
 /*****************************************************************************/
 /**
-* This function sets up the interrupt system so interrupts can occur for the
-* CSU DMA. This function is application-specific. The user should modify this
+* Sets up the interrupt system so interrupts can occur for the CSU DMA.
+* This function is application-specific. The user should modify this
 * function to fit the application.
 *
-* @param	IntcInstancePtr is a pointer to the instance of the INTC.
-* @param	InstancePtr contains a pointer to the instance of the CSU DMA
+* @param[in] IntcInstancePtr is a pointer to the instance of the INTC.
+* @param[in] InstancePtr contains a pointer to the instance of the CSU DMA
 *		driver which is going to be connected to the interrupt
 *		controller.
-* @param	IntrId is the interrupt Id and is typically
+* @param[in] IntrId is the interrupt Id and is typically
 *		XPAR_<CSUDMA_instance>_INTR value from xparameters.h.
 *
 * @return
 *		- XST_SUCCESS if successful
 *		- XST_FAILURE if failed
-*
-* @note		None.
-
 *
 ****************************************************************************/
 #ifndef SDT
@@ -481,22 +483,21 @@ static int SetupInterruptSystem(INTC *IntcInstancePtr,
 }
 
 #endif
+/** @endcond */
 
 /*****************************************************************************/
 /**
 *
-* This function is the interrupt handler for the CSU_DMA driver.
+* Interrupt handler for the CSU_DMA driver.
 *
 * This handler reads the interrupt status from the Status register, determines
 * the source of the interrupts, calls according callbacks, and finally clears
 * the interrupts.
 *
-* @param	CallBackRef is the callback reference passed from the interrupt
+* @param[in] CallBackRef is the callback reference passed from the interrupt
 *		handler, which in our case is a pointer to the driver instance.
 *
-* @return	None.
 *
-* @note		None.
 *
 ******************************************************************************/
 void IntrHandler(void *CallBackRef)
@@ -528,17 +529,12 @@ void IntrHandler(void *CallBackRef)
 	}
 }
 
+/** @cond INTERNAL */
 /*****************************************************************************/
 /**
-* This is static function which handlers source channel interrupts.
+* Handles source channel interrupts.
 *
-* @param	CallBackRef is the callback reference passed from the interrupt
-*		handler, which in our case is a pointer to the driver instance.
-* @param	Event specifies which interrupts were occurred.
-*
-* @return	None.
-*
-* @note		None.
+* @param[in] Event Pending interrupt status for the source channel.
 *
 ******************************************************************************/
 static void SrcHandler(u32 Event)
@@ -586,15 +582,9 @@ static void SrcHandler(u32 Event)
 
 /*****************************************************************************/
 /**
-* This static function handles destination channel interrupts.
+* Handles destination channel interrupts.
 *
-* @param	CallBackRef is the callback reference passed from the interrupt
-*		handler, which in our case is a pointer to the driver instance.
-* @param	Event specifies which interrupts were occurred.
-*
-* @return	None.
-*
-* @note		None.
+* @param[in] Event Pending interrupt status for the destination channel.
 *
 ******************************************************************************/
 static void DstHandler(u32 Event)
@@ -637,4 +627,7 @@ static void DstHandler(u32 Event)
 		DstDone = 1;
 	}
 }
+/** @endcond */
 #endif
+
+/** @} */

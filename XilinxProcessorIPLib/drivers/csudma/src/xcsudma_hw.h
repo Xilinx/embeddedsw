@@ -4,6 +4,9 @@
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
+#ifndef XCSUDMA_HW_H_
+#define XCSUDMA_HW_H_
+
 /*****************************************************************************/
 /**
 *
@@ -32,9 +35,6 @@
 *
 ******************************************************************************/
 
-#ifndef XCSUDMA_HW_H_
-#define XCSUDMA_HW_H_	/**< Prevent circular inclusions
-			  *  by using protection macros	*/
 
 #ifdef __cplusplus
 extern "C" {
@@ -71,7 +71,7 @@ extern "C" {
 #define XCSUDMA_SAFETY_CHK_OFFSET 0xFF8U /**< Safety Check Field Offset */
 #define XCSUDMA_FUTURE_ECO_OFFSET 0xFFCU /**< Future potential ECO Offset */
 /** @endcond */
-/*@}*/
+/** @} */
 
 /** @cond INTERNAL */
 /** @name CSU Base address, CRP Base Address and CSU_DMA reset offset
@@ -84,7 +84,7 @@ extern "C" {
 #ifndef XPS_CRP_BASEADDRESS
 #define XPS_CRP_BASEADDRESS	0xF1260000U	/**< CRP Base Address */
 #endif
-/*@}*/
+/** @} */
 
 #if defined(SPARTANUP)
 /** @name PMCL DMA, base address, reset offset and reset set mask
@@ -94,7 +94,7 @@ extern "C" {
 #define PMC_GLOBAL_RST_DMA	(PMC_GLOBAL_BASEADDR + 0x00000054U)
 #define PMC_GLOBAL_RST_DMA_RESET_SET_MASK	(0x00000001U)
 #define PMC_GLOBAL_RST_DMA_RESET_UNSET_MASK	(0x00000000U)
-/*@}*/
+/** @} */
 #endif
 
 /** @name CRP PMC_DMA reset offset
@@ -102,13 +102,13 @@ extern "C" {
  */
 #define XCRP_PMCDMA_RESET_OFFSET 0x00000328U	/**< PMC_DMA Reset offset */
 
-/*@}*/
+/** @} */
 /** @name CSU_DMA Reset register bit masks
  * @{
  */
 #define XCSUDMA_RESET_SET_MASK		0x00000001U	/**< Reset set mask */
 #define XCSUDMA_RESET_UNSET_MASK	0x00000000U	/**< Reset unset mask*/
-/*@}*/
+/** @} */
 
 /** @name Offset difference for Source and destination
  * @{
@@ -116,7 +116,7 @@ extern "C" {
 #define XCSUDMA_OFFSET_DIFF	0x00000800U	/**< Offset difference for
 						  *  source and
 						  *  destination channels */
-/*@}*/
+/** @} */
 
 /** @name Address register bit masks
  * @{
@@ -128,7 +128,7 @@ extern "C" {
 #endif
 #define XCSUDMA_ADDR_LSB_MASK	0x00000003U	/**< Address alignment check
 						  *  mask */
-/*@}*/
+/** @} */
 /** @endcond */
 
 /** @name Size register bit masks and shifts
@@ -142,7 +142,7 @@ extern "C" {
 #define XCSUDMA_LAST_WORD_MASK	0x00000001U	/**< Last word check bit mask*/
 #define XCSUDMA_SIZE_SHIFT	2U		/**< Shift for size */
 #endif
-/*@}*/
+/** @} */
 
 /** @cond INTERNAL */
 /** @name Status register bit masks and shifts
@@ -162,7 +162,7 @@ extern "C" {
 							  *  outstanding
 							  *  read/write
 							  *  commands */
-/*@}*/
+/** @} */
 
 /** @name Control register bit masks and shifts
  * @{
@@ -193,7 +193,7 @@ extern "C" {
 							  *  shift */
 #define XCSUDMA_CTRL_FIFO_THRESH_SHIFT	2U		/**< FIFO thresh
 							  *  shift */
-/*@}*/
+/** @} */
 
 /** @name CheckSum register bit masks
  * @{
@@ -201,7 +201,7 @@ extern "C" {
 #define XCSUDMA_CRC_RESET_MASK		0x00000000U	/**< Mask to reset
 							  *  value of
 							  *  check sum */
-/*@}*/
+/** @} */
 /** @endcond */
 
 /** @name Interrupt Enable/Disable/Mask/Status registers bit masks
@@ -248,7 +248,7 @@ extern "C" {
 					(XCSUDMA_IXR_DONE_MASK)) */
 					/**< All interrupt mask
 					  *  for destination */
-/*@}*/
+/** @} */
 
 /** @cond INTERNAL */
 /** @name Control register 2 bit masks and shifts
@@ -272,7 +272,7 @@ extern "C" {
 							  *  enable field */
 #define XCSUDMA_CTRL2_TIMEOUT_PRE_SHIFT	4U		/**< Shift for Timeout
 							  *  pre field */
-/*@}*/
+/** @} */
 
 /** @name MSB Address register bit masks and shifts
  * @{
@@ -281,7 +281,7 @@ extern "C" {
 						  *  mask */
 #define XCSUDMA_MSB_ADDR_SHIFT	32U		/**< Shift for MSB bits of
 						  *  address */
-/*@}*/
+/** @} */
 /** @endcond */
 
 /** @name Software done timeout value
@@ -289,7 +289,7 @@ extern "C" {
  */
 #define XCSUDMA_DONE_TIMEOUT_VAL 300000000U	/**< SW timeout loop value
 						  *  for transfer completion */
-/*@}*/
+/** @} */
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
@@ -299,10 +299,10 @@ extern "C" {
 /*****************************************************************************/
 /**
 *
-* This macro reads the given register.
+* Reads a CSU DMA register.
 *
-* @param	BaseAddress Base address of the CSU_DMA core.
-* @param	RegOffset Register offset of the register.
+* @param[in] BaseAddress Base address of the CSU_DMA core.
+* @param[in] RegOffset Register offset of the register.
 *
 * @return	The 32-bit value of the register.
 *
@@ -316,13 +316,12 @@ extern "C" {
 /*****************************************************************************/
 /**
 *
-* This macro writes the value into the given register.
+* Writes a CSU DMA register.
 *
-* @param	BaseAddress Base address of the CSU_DMA core.
-* @param	RegOffset Register offset of the register.
-* @param	Data 32-bit value to write to the register.
+* @param[in] BaseAddress Base address of the CSU_DMA core.
+* @param[in] RegOffset Register offset of the register.
+* @param[in] Data 32-bit value to write to the register.
 *
-* @return	None.
 *
 * @note		C-style signature:
 *		void XCsuDma_WriteReg(u32 BaseAddress, u32 RegOffset, u32 Data)
@@ -338,5 +337,5 @@ extern "C" {
 #endif
 
 
-#endif /* End of protection macro */
 /** @} */
+#endif /* End of protection macro */

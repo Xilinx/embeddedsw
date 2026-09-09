@@ -52,17 +52,16 @@
 /*****************************************************************************/
 /**
 *
-* This function runs a self-test on the driver and hardware device. Performs
+* Performs a self test on the driver and hardware device. Performs
 * reset of both source and destination channels and checks if reset is working
 * properly or not.
 *
-* @param	InstancePtr Pointer to the XCsuDma instance.
+* @param[in] InstancePtr is a pointer to the XCsuDma instance.
 *
 * @return
 *		- XST_SUCCESS if the self-test passed.
 * 		- XST_FAILURE otherwise.
 *
-* @note		None.
 *
 ******************************************************************************/
 s32 XCsuDma_SelfTest(XCsuDma *InstancePtr)
