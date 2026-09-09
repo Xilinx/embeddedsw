@@ -24,13 +24,13 @@
 *		      64-bit changes.
 * 3.00 kvn  02/13/15 Modified code for MISRA-C:2012 compliance.
 * 3.0  hk   02/20/15 Added support for jumbo frames. Increase AHB burst.
-*                    Disable extended mode. Perform all 64 bit changes under
+*                    Disable extended mode. Perform all 64-bit changes under
 *                    check for arch64.
-* 3.1  hk   08/10/15 Update upper 32 bit tx and rx queue ptr registers
+* 3.1  hk   08/10/15 Update upper 32-bit tx and rx queue ptr registers
 * 3.5  hk   08/14/17 Update cache coherency information of the interface in
 *                    its config structure.
 * 3.8  hk   09/17/18 Cleanup stale comments.
-* 3.8  mus  11/05/18 Support 64 bit DMA addresses for Microblaze-X platform.
+* 3.8  mus  11/05/18 Support 64-bit DMA addresses for Microblaze-X platform.
 * 3.10 hk   05/16/19 Clear status registers properly in reset
 * 3.11 sd   02/14/20 Add clock support
 *
@@ -68,10 +68,10 @@ void XEmacPs_StubHandler(void);	/* Default handler routine */
 * The PHY is setup independently from the device. Use the MII or whatever other
 * interface may be present for setup.
 *
-* @param InstancePtr is a pointer to the instance to be worked on.
-* @param CfgPtr is the device configuration structure containing required
+* @param[in] InstancePtr is a pointer to the instance to be worked on.
+* @param[out] CfgPtr is the device configuration structure containing required
 *        hardware build data.
-* @param EffectiveAddress is the base address of the device. If address
+* @param[in] EffectiveAddress is the base address of the device. If address
 *        translation is not utilized, this parameter can be passed in using
 *        CfgPtr->Config.BaseAddress to specify the physical base address.
 *
@@ -141,22 +141,21 @@ LONG XEmacPs_CfgInitialize(XEmacPs *InstancePtr, XEmacPs_Config * CfgPtr,
 *   - Start the SG DMA send and receive channels and enable the device
 *     interrupt
 *
-* @param InstancePtr is a pointer to the instance to be worked on.
+* @param[in] InstancePtr is a pointer to the instance to be worked on.
 *
-* @return N/A
 *
 * @note
 * Hardware is configured with scatter-gather DMA, the driver expects to start
 * the scatter-gather channels and expects that the user has previously set up
 * the buffer descriptor lists.
 *
-* This function makes use of internal resources that are shared between the
+* Uses of internal resources that are shared between the
 * Start, Stop, and Set/ClearOptions functions. So if one task might be setting
 * device options while another is trying to start the device, the user is
 * required to provide protection of this shared data (typically using a
 * semaphore).
 *
-* This function must not be preempted by an interrupt that may service the
+* Must not be preempted by an interrupt that may service the
 * device.
 *
 ******************************************************************************/
@@ -246,13 +245,13 @@ void XEmacPs_Start(XEmacPs *InstancePtr)
 *
 * Device options currently in effect are not changed.
 *
-* This function will disable all interrupts. Default interrupts settings that
+* disable all interrupts. Default interrupts settings that
 * had been enabled will be restored when XEmacPs_Start() is called.
 *
-* @param InstancePtr is a pointer to the instance to be worked on.
+* @param[in] InstancePtr is a pointer to the instance to be worked on.
 *
 * @note
-* This function makes use of internal resources that are shared between the
+* Uses of internal resources that are shared between the
 * Start, Stop, SetOptions, and ClearOptions functions. So if one task might be
 * setting device options while another is trying to start the device, the user
 * is required to provide protection of this shared data (typically using a
@@ -318,7 +317,7 @@ void XEmacPs_Stop(XEmacPs *InstancePtr)
 * The upper layer software is responsible for calling this Reset function
 * and then re-configuring the device.
 *
-* @param InstancePtr is a pointer to the instance to be worked on.
+* @param[in] InstancePtr is a pointer to the instance to be worked on.
 *
 ******************************************************************************/
 void XEmacPs_Reset(XEmacPs *InstancePtr)
@@ -506,12 +505,12 @@ void XEmacPs_StubHandler(void)
 
 /*****************************************************************************/
 /**
-* This function sets the start address of the transmit/receive buffer queue.
+* Sets the start address of the transmit/receive buffer queue.
 *
-* @param	InstancePtr is a pointer to the instance to be worked on.
-* @param	QPtr is the address of the Queue to be written
-* @param	QueueNum is the Buffer Queue Index
-* @param	Direction indicates Transmit/Receive
+* @param[in] InstancePtr is a pointer to the instance to be worked on.
+* @param[in] QPtr is the address of the Queue to be written
+* @param[in] QueueNum is the Buffer Queue Index
+* @param[in] Direction indicates Transmit/Receive
 *
 * @note
 * The buffer queue addresses has to be set before starting the transfer, so

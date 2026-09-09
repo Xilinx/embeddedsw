@@ -8,8 +8,10 @@
 /**
 *
 * @file xemacps_example_util.c
+* @addtogroup emacps Overview
+* @{
 *
-* This file implements the utility functions for the XEmacPs example code.
+* Implements the utility functions for the XEmacPs example code.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -57,12 +59,10 @@ u32 Platform;
 *
 * Set the MAC addresses in the frame.
 *
-* @param    FramePtr is the pointer to the frame.
-* @param    DestAddr is the Destination MAC address.
+* @param[in] FramePtr is the pointer to the frame.
+* @param[in] DestAddr is the Destination MAC address.
 *
-* @return   None.
 *
-* @note     None.
 *
 *****************************************************************************/
 void EmacPsUtilFrameHdrFormatMAC(EthernetFrame *FramePtr, char *DestAddr)
@@ -87,12 +87,10 @@ void EmacPsUtilFrameHdrFormatMAC(EthernetFrame *FramePtr, char *DestAddr)
 *
 * Set the frame type for the specified frame.
 *
-* @param    FramePtr is the pointer to the frame.
-* @param    FrameType is the Type to set in frame.
+* @param[in] FramePtr is the pointer to the frame.
+* @param[in] FrameType is the Type to set in frame.
 *
-* @return   None.
 *
-* @note     None.
 *
 *****************************************************************************/
 void EmacPsUtilFrameHdrFormatType(EthernetFrame *FramePtr, u16 FrameType)
@@ -115,7 +113,7 @@ void EmacPsUtilFrameHdrFormatType(EthernetFrame *FramePtr, u16 FrameType)
 
 /****************************************************************************/
 /**
-* This function places a pattern in the payload section of a frame. The pattern
+* Places a pattern in the payload section of a frame. The pattern
 * is a  8 bit incrementing series of numbers starting with 0.
 * Once the pattern reaches 256, then the pattern changes to a 16 bit
 * incrementing pattern:
@@ -123,12 +121,10 @@ void EmacPsUtilFrameHdrFormatType(EthernetFrame *FramePtr, u16 FrameType)
 *   0, 1, 2, ... 254, 255, 00, 00, 00, 01, 00, 02, ...
 * </pre>
 *
-* @param    FramePtr is a pointer to the frame to change.
-* @param    PayloadSize is the number of bytes in the payload that will be set.
+* @param[in] FramePtr is a pointer to the frame to change.
+* @param[in] PayloadSize is the number of bytes in the payload that will be set.
 *
-* @return   None.
 *
-* @note     None.
 *
 *****************************************************************************/
 void EmacPsUtilFrameSetPayloadData(EthernetFrame *FramePtr, u32 PayloadSize)
@@ -168,19 +164,18 @@ void EmacPsUtilFrameSetPayloadData(EthernetFrame *FramePtr, u32 PayloadSize)
 
 /****************************************************************************/
 /**
-* This function verifies the frame data against a CheckFrame.
+* Verifies the frame data against a CheckFrame.
 *
 * Validation occurs by comparing the ActualFrame to the header of the
 * CheckFrame. If the headers match, then the payload of ActualFrame is
 * verified for the same pattern Util_FrameSetPayloadData() generates.
 *
-* @param    CheckFrame is a pointer to a frame containing the 14 byte header
+* @param[in] CheckFrame is a pointer to a frame containing the 14 byte header
 *           that should be present in the ActualFrame parameter.
-* @param    ActualFrame is a pointer to a frame to validate.
+* @param[in] ActualFrame is a pointer to a frame to validate.
 *
 * @return   XST_SUCCESS if successful, else XST_FAILURE.
 *
-* @note     None.
 *****************************************************************************/
 LONG EmacPsUtilFrameVerify(EthernetFrame *CheckFrame,
 			   EthernetFrame *ActualFrame)
@@ -250,13 +245,11 @@ LONG EmacPsUtilFrameVerify(EthernetFrame *CheckFrame,
 
 /****************************************************************************/
 /**
-* This function sets all bytes of a frame to 0.
+* Sets all bytes of a frame to 0.
 *
-* @param    FramePtr is a pointer to the frame itself.
+* @param[in] FramePtr is a pointer to the frame itself.
 *
-* @return   None.
 *
-* @note     None.
 *
 *****************************************************************************/
 void EmacPsUtilFrameMemClear(EthernetFrame *FramePtr)
@@ -274,15 +267,14 @@ void EmacPsUtilFrameMemClear(EthernetFrame *FramePtr)
 /****************************************************************************/
 /**
 *
-* This function copies data from source to destination for n bytes.
+* Copies data from source to destination for n bytes.
 *
-* @param    Destination is the targeted string to copy to.
-* @param    Source is the source string to copy from.
-* @param    n is number of bytes to be copied.
+* @param[in] Destination is the targeted string to copy to.
+* @param[in] Source is the source string to copy from.
+* @param[in] n is number of bytes to be copied.
 *
-* @note     This function is similar to strncpy(), however strncpy will
-*           stop either at null byte or n bytes is been copied.
-*           This function will copy n bytes without checking the content.
+* @note     Copies n bytes without checking for a null byte.
+*           Behaves like strncpy() but does not stop at a null terminator.
 *
 *****************************************************************************/
 void EmacPsUtilstrncpy(char *Destination, const char *Source, u32 n)
@@ -297,11 +289,10 @@ void EmacPsUtilstrncpy(char *Destination, const char *Source, u32 n)
 /****************************************************************************/
 /**
 *
-* This function sets the emacps to loopback mode.
+* Sets the emacps to loopback mode.
 *
-* @param    EmacPsInstancePtr is the XEmacPs driver instance.
+* @param[in] EmacPsInstancePtr is the XEmacPs driver instance.
 *
-* @note     None.
 *
 *****************************************************************************/
 void EmacPsUtilEnterLocalLoopback(XEmacPs *EmacPsInstancePtr)
@@ -319,14 +310,13 @@ void EmacPsUtilEnterLocalLoopback(XEmacPs *EmacPsInstancePtr)
 /****************************************************************************/
 /**
 *
-* This function detects the PHY address by looking for successful MII status
+* Detects the PHY address by looking for successful MII status
 * register contents.
 *
-* @param    The XEMACPS driver instance
+* @param[in] The XEMACPS driver instance
 *
 * @return   The address of the PHY (defaults to 32 if none detected)
 *
-* @note     None.
 *
 *****************************************************************************/
 #define PHY_DETECT_REG1 2
@@ -364,14 +354,13 @@ u32 XEmacPsDetectPHY(XEmacPs *EmacPsInstancePtr)
 /****************************************************************************/
 /**
 *
-* This function sets the PHY to loopback mode.
+* Sets the PHY to loopback mode.
 *
-* @param    The XEMACPS driver instance
-* @param    Speed is the loopback speed 10/100 Mbit.
+* @param[in] The XEMACPS driver instance
+* @param[in] Speed is the loopback speed 10/100 Mbit.
 *
 * @return   XST_SUCCESS if successful, else XST_FAILURE.
 *
-* @note     None.
 *
 *****************************************************************************/
 #define PHY_REG0_RESET    0x8000
@@ -642,11 +631,10 @@ LONG EmacPsUtilTiPhyLoopback(XEmacPs *EmacPsInstancePtr,
 /****************************************************************************/
 /**
 *
-* This function provides delays in seconds
+* Provides delays in seconds
 *
-* @param    delay in seconds
+* @param[in] delay in seconds
 *
-* @return   None.
 *
 * @note     for microblaze the delay is not accurate and it need to tuned.
 *
@@ -703,15 +691,13 @@ LONG EmacPsUtilEnterLoopback(XEmacPs *EmacPsInstancePtr, u32 Speed)
 /****************************************************************************/
 /**
 *
-* This function is called by example code when an error is detected. It
+* Called by example code when an error is detected. It
 * can be set as a breakpoint with a debugger or it can be used to print out
 * the given message if there is a UART or STDIO device.
 *
-* @param    Message is the text explaining the error
+* @param[in] Message is the text explaining the error
 *
-* @return   None
 *
-* @note     None
 *
 *****************************************************************************/
 void EmacPsUtilErrorTrap(const char *Message)
@@ -726,3 +712,5 @@ void EmacPsUtilErrorTrap(const char *Message)
 	(void) Message;
 #endif
 }
+
+/** @} */

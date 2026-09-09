@@ -8,6 +8,8 @@
 /**
 *
 * @file xemacps_example_intr_dma.c
+* @addtogroup emacps Overview
+* @{
 *
 * Implements examples that utilize the EmacPs's interrupt driven DMA
 * packet transfer mode to send and receive frames.
@@ -308,9 +310,7 @@ LONG EmacPsDmaIntrExample(INTC *IntcInstancePtr,
 #endif
 LONG EmacPsDmaSingleFrameIntrExample(XEmacPs *EmacPsInstancePtr, u32 packet);
 
-/*
- * Interrupt setup and Callbacks for examples
- */
+/** @cond INTERNAL */
 #ifndef SDT
 static LONG EmacPsSetupIntrSystem(INTC *IntcInstancePtr,
 				  XEmacPs *EmacPsInstancePtr,
@@ -323,21 +323,19 @@ static void XEmacPsSendHandler(void *Callback);
 static void XEmacPsRecvHandler(void *Callback);
 static void XEmacPsErrorHandler(void *Callback, u8 direction, u32 word);
 
-/*
- * Utility routines
- */
 static LONG EmacPsResetDevice(XEmacPs *EmacPsInstancePtr);
+/** @endcond */
 void XEmacPsClkSetup(XEmacPs *EmacPsInstancePtr, u16 EmacPsIntrId);
 void XEmacPs_SetMdioDivisor(XEmacPs *InstancePtr, XEmacPs_MdcDiv Divisor);
 /****************************************************************************/
 /**
 *
-* This is the main function for the EmacPs example. This function is not
-* included if the example is generated from the TestAppGen test tool.
+* Main entry point of the EmacPs interrupt DMA example.
 *
-* @return	XST_SUCCESS to indicate success, otherwise XST_FAILURE.
+* Excluded when the example is generated from the TestAppGen test tool.
 *
-* @note		None.
+* @return XST_SUCCESS to indicate success, otherwise XST_FAILURE.
+*
 *
 ****************************************************************************/
 #ifndef TESTAPP_GEN
@@ -381,25 +379,24 @@ int main(void)
 /****************************************************************************/
 /**
 *
-* This function demonstrates the usage of the EmacPs driver by sending by
+* Demonstrates the usage of the EmacPs driver by sending by
 * sending and receiving frames in interrupt driven DMA mode.
 *
 *
 * @if SDT
-* @param	EmacPsInstancePtr is a pointer to the instance of the EmacPs
+* @param[in] EmacPsInstancePtr is a pointer to the instance of the EmacPs
 *		driver.
-* @param	BaseAddress contains the base address of the device
+* @param[in] BaseAddress contains the base address of the device
 * @else
-* @param	IntcInstancePtr is a pointer to the instance of the Intc driver.
-* @param	EmacPsInstancePtr is a pointer to the instance of the EmacPs
+* @param[in] IntcInstancePtr is a pointer to the instance of the Intc driver.
+* @param[in] EmacPsInstancePtr is a pointer to the instance of the EmacPs
 *		driver.
-* @param	EmacPsDeviceId is Device ID of the EmacPs Device , typically
+* @param[in] EmacPsDeviceId is Device ID of the EmacPs device, typically
 *		XPAR_<EMACPS_instance>_DEVICE_ID value from xparameters.h.
 * @endif
 *
 * @return	XST_SUCCESS to indicate success, otherwise XST_FAILURE.
 *
-* @note		None.
 *
 *
 *****************************************************************************/
@@ -701,18 +698,17 @@ LONG EmacPsDmaIntrExample(INTC *IntcInstancePtr,
 /****************************************************************************/
 /**
 *
-* This function demonstrates the usage of the EMACPS by sending and
+* Demonstrates the usage of the EMACPS by sending and
 * receiving a single frame in DMA interrupt mode.
 * The source packet will be described by two descriptors. It will be
 * received into a buffer described by a single descriptor.
 *
-* @param	EmacPsInstancePtr is a pointer to the instance of the EmacPs
+* @param[in] EmacPsInstancePtr is a pointer to the instance of the EmacPs
 *		driver.
-* @param	packet is the count of current transmitted/received packet
+* @param[in] packet is the count of current transmitted/received packet
 *
 * @return	XST_SUCCESS to indicate success, otherwise XST_FAILURE.
 *
-* @note		None.
 *
 *****************************************************************************/
 LONG EmacPsDmaSingleFrameIntrExample(XEmacPs *EmacPsInstancePtr, u32 packet)
@@ -1038,7 +1034,7 @@ LONG EmacPsDmaSingleFrameIntrExample(XEmacPs *EmacPsInstancePtr, u32 packet)
 
 /****************************************************************************/
 /**
-* This function resets the device but preserves the options set by the user.
+* Resets the device but preserves the options set by the user.
 *
 * The descriptor list could be reinitialized with the same calls to
 * XEmacPs_BdRingClone() as used in main(). Doing this is a matter of
@@ -1047,12 +1043,11 @@ LONG EmacPsDmaSingleFrameIntrExample(XEmacPs *EmacPsInstancePtr, u32 packet)
 * Reinitializing in this case may bad for the OS since its resources may be
 * permanently lost.
 *
-* @param	EmacPsInstancePtr is a pointer to the instance of the EmacPs
+* @param[in] EmacPsInstancePtr is a pointer to the instance of the EmacPs
 *		driver.
 *
 * @return	XST_SUCCESS if successful, else XST_FAILURE.
 *
-* @note		None.
 *
 *****************************************************************************/
 static LONG EmacPsResetDevice(XEmacPs *EmacPsInstancePtr)
@@ -1191,23 +1186,22 @@ static LONG EmacPsResetDevice(XEmacPs *EmacPsInstancePtr)
 }
 
 
+#ifndef SDT
 /****************************************************************************/
 /**
 *
-* This function setups the interrupt system so interrupts can occur for the
+* Sets up the interrupt system so interrupts can occur for the
 * EMACPS.
-* @param	IntcInstancePtr is a pointer to the instance of the Intc driver.
-* @param	EmacPsInstancePtr is a pointer to the instance of the EmacPs
+* @param[in] IntcInstancePtr is a pointer to the instance of the Intc driver.
+* @param[in] EmacPsInstancePtr is a pointer to the instance of the EmacPs
 *		driver.
-* @param	EmacPsIntrId is the Interrupt ID and is typically
+* @param[in] EmacPsIntrId is the Interrupt ID and is typically
 *		XPAR_<EMACPS_instance>_INTR value from xparameters.h.
 *
 * @return	XST_SUCCESS if successful, otherwise XST_FAILURE.
 *
-* @note		None.
 *
 *****************************************************************************/
-#ifndef SDT
 static LONG EmacPsSetupIntrSystem(INTC *IntcInstancePtr,
 				  XEmacPs *EmacPsInstancePtr,
 				  u16 EmacPsIntrId)
@@ -1331,16 +1325,14 @@ static LONG EmacPsSetupIntrSystem(INTC *IntcInstancePtr,
 /****************************************************************************/
 /**
 *
-* This function disables the interrupts that occur for EmacPs.
+* Disables the interrupts that occur for EmacPs.
 *
-* @param	IntcInstancePtr is the pointer to the instance of the ScuGic
+* @param[in] IntcInstancePtr is the pointer to the instance of the ScuGic
 *		driver.
-* @param	EmacPsIntrId is interrupt ID and is typically
+* @param[in] EmacPsIntrId is interrupt ID and is typically
 *		XPAR_<EMACPS_instance>_INTR value from xparameters.h.
 *
-* @return	None.
 *
-* @note		None.
 *
 *****************************************************************************/
 static void EmacPsDisableIntrSystem(INTC *IntcInstancePtr,
@@ -1360,14 +1352,11 @@ static void EmacPsDisableIntrSystem(INTC *IntcInstancePtr,
 /****************************************************************************/
 /**
 *
-* This the Transmit handler callback function and will increment a shared
-* counter that can be shared by the main thread of operation.
+* Transmit handler callback that increments a shared counter for the main thread.
 *
-* @param	Callback is the pointer to the instance of the EmacPs device.
+* @param[in] Callback is the pointer to the instance of the EmacPs device.
 *
-* @return	None.
 *
-* @note		None.
 *
 *****************************************************************************/
 static void XEmacPsSendHandler(void *Callback)
@@ -1396,11 +1385,9 @@ static void XEmacPsSendHandler(void *Callback)
 * This is the Receive handler callback function and will increment a shared
 * counter that can be shared by the main thread of operation.
 *
-* @param	Callback is a pointer to the instance of the EmacPs device.
+* @param[in] Callback is a pointer to the instance of the EmacPs device.
 *
-* @return	None.
 *
-* @note		None.
 *
 *****************************************************************************/
 static void XEmacPsRecvHandler(void *Callback)
@@ -1444,15 +1431,13 @@ static void XEmacPsRecvHandler(void *Callback)
 * This is the Error handler callback function and this function increments
 * the error counter so that the main thread knows the number of errors.
 *
-* @param	Callback is the callback function for the driver. This
+* @param[in] Callback is the callback function for the driver. This
 *		parameter is not used in this example.
-* @param	Direction is passed in from the driver specifying which
+* @param[in] Direction is passed in from the driver specifying which
 *		direction error has occurred.
-* @param	ErrorWord is the status register value passed in.
+* @param[in] ErrorWord is the status register value passed in.
 *
-* @return	None.
 *
-* @note		None.
 *
 *****************************************************************************/
 static void XEmacPsErrorHandler(void *Callback, u8 Direction, u32 ErrorWord)
@@ -1511,15 +1496,15 @@ static void XEmacPsErrorHandler(void *Callback, u8 Direction, u32 ErrorWord)
 /****************************************************************************/
 /**
 *
-* This function sets up the clock divisors for 1000Mbps.
+* Sets up the clock divisors for 1000Mbps.
 *
-* @param	EmacPsInstancePtr is a pointer to the instance of the EmacPs
+* @fn void XEmacPsClkSetup(XEmacPs *EmacPsInstancePtr, u16 EmacPsIntrId)
+*
+* @param[in] EmacPsInstancePtr is a pointer to the instance of the EmacPs
 *			driver.
-* @param	EmacPsIntrId is the Interrupt ID and is typically
+* @param[in] EmacPsIntrId is the Interrupt ID and is typically
 *			XPAR_<EMACPS_instance>_INTR value from xparameters.h.
-* @return	None.
 *
-* @note		None.
 *
 *****************************************************************************/
 void XEmacPsClkSetup(XEmacPs *EmacPsInstancePtr, u16 EmacPsIntrId __attribute__((unused)))
@@ -1678,3 +1663,5 @@ void XEmacPsClkSetup(XEmacPs *EmacPsInstancePtr, u16 EmacPsIntrId __attribute__(
 #endif
 	}
 }
+
+/** @} */

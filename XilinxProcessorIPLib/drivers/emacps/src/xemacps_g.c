@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All rights reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -11,7 +11,7 @@
 * @addtogroup emacps Overview
 * @{
 *
-* This file contains a configuration table that specifies the configuration of
+* Contains a configuration table that specifies the configuration of
 * ethernet devices in the system.
 *
 * <pre>
@@ -24,12 +24,10 @@
 * 3.00  kvn  02/13/15 Modified code for MISRA-C:2012 compliance.
 * </pre>
 *
-* @internal
+* Contains a configuration table for each EMACPS instance in the system.
 *
-* This configuration table contains entries that are modified at runtime by the
-* driver. This table reflects only the hardware configuration of the device.
-* This emac configuration table contains software information in addition to
-* hardware configuration.
+* This table reflects only the hardware configuration of the device.
+* The driver may modify entries at runtime.
 *
 ******************************************************************************/
 
@@ -52,7 +50,7 @@
 /*
  * The configuration table for emacps device
  */
-
+/** Configuration table for each EMACPS instance in the system. */
 XEmacPs_Config XEmacPs_ConfigTable[XPAR_XEMACPS_NUM_INSTANCES] = {
 	{
 		(u16)XPAR_XEMACPS_0_DEVICE_ID,  /* Device ID */

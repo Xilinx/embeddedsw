@@ -1,13 +1,18 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc. All rights reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
+
+#ifndef XEMACPS_EXAMPLE_H
+#define XEMACPS_EXAMPLE_H
 
 /****************************************************************************/
 /**
 *
 * @file xemacps_example.h
+* @addtogroup emacps Overview
+* @{
 *
 * Defines common data types, prototypes, and includes the proper headers
 * for use with the EMACPS example code residing in this directory.
@@ -34,8 +39,6 @@
 * </pre>
 *
 *****************************************************************************/
-#ifndef XEMACPS_EXAMPLE_H
-#define XEMACPS_EXAMPLE_H
 
 #ifdef __cplusplus
 extern "C" {
@@ -111,7 +114,9 @@ __attribute__ ((aligned(64)));
 /*
  * Utility functions implemented in xemacps_example_util.c
  */
+/** @cond INTERNAL */
 void EmacPsUtilSetupUart(void);
+/** @endcond */
 void EmacPsUtilFrameHdrFormatMAC(EthernetFrame *FramePtr, char *DestAddr);
 void EmacPsUtilFrameHdrFormatType(EthernetFrame *FramePtr, u16 FrameType);
 void EmacPsUtilFrameSetPayloadData(EthernetFrame *FramePtr, u32 PayloadSize);
@@ -134,3 +139,5 @@ extern u32 Platform;
 #endif
 
 #endif /* XEMACPS_EXAMPLE_H */
+
+/** @} */

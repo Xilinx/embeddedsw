@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc. All rights reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -60,17 +60,17 @@
 /**
  * Install an asynchronous handler function for the given HandlerType:
  *
- * @param InstancePtr is a pointer to the instance to be worked on.
- * @param HandlerType indicates what interrupt handler type is.
+ * @param[in] InstancePtr is a pointer to the instance to be worked on.
+ * @param[in] HandlerType indicates what interrupt handler type is.
  *        XEMACPS_HANDLER_DMASEND, XEMACPS_HANDLER_DMARECV and
  *        XEMACPS_HANDLER_ERROR.
- * @param FuncPointer is the pointer to the callback function
- * @param CallBackRef is the upper layer callback reference passed back when
+ * @param[in] FuncPointer is the pointer to the callback function
+ * @param[in] CallBackRef is the upper layer callback reference passed back when
  *        when the callback function is invoked.
  *
  * @return
- *
- * None.
+ * - XST_SUCCESS if the handler type is valid
+ * - XST_INVALID_PARAM if HandlerType is invalid
  *
  * @note
  * There is no assert on the CallBackRef since the driver doesn't know what
@@ -110,13 +110,13 @@ LONG XEmacPs_SetHandler(XEmacPs *InstancePtr, u32 HandlerType,
 
 /*****************************************************************************/
 /**
-* Master interrupt handler for EMAC driver. This routine will query the
+* Master interrupt handler for Ethernet MAC driver. This routine will query the
 * status of the device, bump statistics, and invoke user callbacks.
 *
 * This routine must be connected to an interrupt controller using OS/BSP
 * specific methods.
 *
-* @param XEmacPsPtr is a pointer to the XEMACPS instance that has caused the
+* @param[in] XEmacPsPtr is a pointer to the XEMACPS instance that has caused the
 *        interrupt.
 *
 ******************************************************************************/

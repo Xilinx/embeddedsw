@@ -10,7 +10,6 @@
  * @file xemacps.h
 * @addtogroup emacps Overview
 * @{
-* @details
  *
  * The Xilinx Embedded Processor Block Ethernet driver.
  *
@@ -92,7 +91,7 @@
  * The API is designed to get BDs to and from the DMA engine in the most
  * efficient means possible. The first step is to establish a  memory region
  * to contain all BDs for a specific channel. This is done with
- * XEmacPs_BdRingCreate(). This function sets up a BD ring that hardware will
+ * XEmacPs_BdRingCreate(). Sets up a BD ring that hardware will
  * follow as BDs are processed. The ring will consist of a user defined number
  * of BDs which will all be partially initialized. For example on the transmit
  * channel, the driver will initialize all BDs' so that they are configured
@@ -284,12 +283,12 @@
  *		       test app tcl(CR:827686).
  * 3.0   kvn  02/13/15 Modified code for MISRA-C:2012 compliance.
  * 3.0   hk   03/18/15 Added support for jumbo frames. Increase AHB burst.
- *                     Disable extended mode. Perform all 64 bit changes under
+ *                     Disable extended mode. Perform all 64-bit changes under
  *                     check for arch64.
  *                     Remove "used bit set" from TX error interrupt masks.
  * 3.1   hk   07/27/15 Do not call error handler with '0' error code when
  *                     there is no error. CR# 869403
- *            08/10/15 Update upper 32 bit tx and rx queue ptr registers.
+ *            08/10/15 Update upper 32-bit tx and rx queue ptr registers.
  * 3.2   hk   02/22/16 Added SGMII support for Zynq Ultrascale+ MPSoC.
  * 3.4   ms   01/23/17 Modified xil_printf statement in main function for all
  *                     examples to ensure that "Successfully ran" and "Failed"
@@ -430,7 +429,7 @@ extern "C" {
 	 (u32)XEMACPS_TX_CHKSUM_ENABLE_OPTION)
 
 /**< Default options set when device is initialized or reset */
-/*@}*/
+/** @} */
 
 /** @name Callback identifiers
  *
@@ -440,7 +439,7 @@ extern "C" {
 #define XEMACPS_HANDLER_DMASEND 1U
 #define XEMACPS_HANDLER_DMARECV 2U
 #define XEMACPS_HANDLER_ERROR   3U
-/*@}*/
+/** @} */
 
 /* Constants to determine the configuration of the hardware device. They are
  * used to allow the driver to verify it can operate with the hardware.
@@ -486,7 +485,7 @@ extern "C" {
  * Callback invoked when frame(s) have been sent or received in interrupt
  * driven DMA mode. To set the send callback, invoke XEmacPs_SetHandler().
  *
- * @param CallBackRef is user data assigned when the callback was set.
+ * @param[in] CallBackRef is user data assigned when the callback was set.
  *
  * @note
  * See xemacps_hw.h for bitmasks definitions and the device hardware spec for
@@ -500,18 +499,18 @@ typedef void (*XEmacPs_Handler) (void *CallBackRef);
  * XEmacPs_SetHandler() with XEMACPS_HANDLER_ERROR in the HandlerType
  * parameter.
  *
- * @param CallBackRef is user data assigned when the callback was set.
- * @param Direction defines either receive or transmit error(s) has occurred.
- * @param ErrorWord definition varies with Direction
+ * @param[in] CallBackRef is user data assigned when the callback was set.
+ * @param[in] Direction defines either receive or transmit error(s) has occurred.
+ * @param[in] ErrorWord definition varies with Direction
  *
  */
 typedef void (*XEmacPs_ErrHandler) (void *CallBackRef, u8 Direction,
 				    u32 ErrorWord);
 
-/*@}*/
+/** @} */
 
 /**
- * This typedef contains configuration information for a device.
+ * Holds configuration information for a device.
  */
 typedef struct {
 #ifdef SDT
@@ -531,7 +530,7 @@ typedef struct {
 #endif
 #ifdef SDT
 	char *PhyType;     /**< PhyType indicates which type of PHY interface is
-			     *  used (MII, GMII, RGMII, etc.
+			     *  used (MII, GMII, RGMII, etc.)
 			     */
         u32 PhyAddr;	/**< PHY address for MDIO register access */
 	UINTPTR MdioProducerBaseAddr;	/**< GEM Base address of MDIO Master */
@@ -585,7 +584,7 @@ typedef struct XEmacPs_Instance {
 * Retrieve the Tx ring object. This object can be used in the various Ring
 * API functions.
 *
-* @param  InstancePtr is the DMA channel to operate on.
+* @param[in] InstancePtr is the DMA channel to operate on.
 *
 * @return TxBdRing attribute
 *
@@ -601,7 +600,7 @@ typedef struct XEmacPs_Instance {
 * Retrieve the Rx ring object. This object can be used in the various Ring
 * API functions.
 *
-* @param  InstancePtr is the DMA channel to operate on.
+* @param[in] InstancePtr is the DMA channel to operate on.
 *
 * @return RxBdRing attribute
 *
@@ -618,8 +617,8 @@ typedef struct XEmacPs_Instance {
 * Enable interrupts specified in <i>Mask</i>. The corresponding interrupt for
 * each bit set to 1 in <i>Mask</i>, will be enabled.
 *
-* @param InstancePtr is a pointer to the instance to be worked on.
-* @param Mask contains a bit mask of interrupts to enable. The mask can
+* @param[in] InstancePtr is a pointer to the instance to be worked on.
+* @param[in] Mask contains a bit mask of interrupts to enable. The mask can
 *        be formed using a set of bitwise or'd values.
 *
 * @note
@@ -639,8 +638,8 @@ typedef struct XEmacPs_Instance {
 * Disable interrupts specified in <i>Mask</i>. The corresponding interrupt for
 * each bit set to 1 in <i>Mask</i>, will be enabled.
 *
-* @param InstancePtr is a pointer to the instance to be worked on.
-* @param Mask contains a bit mask of interrupts to disable. The mask can
+* @param[in] InstancePtr is a pointer to the instance to be worked on.
+* @param[in] Mask contains a bit mask of interrupts to disable. The mask can
 *        be formed using a set of bitwise or'd values.
 *
 * @note
@@ -661,9 +660,9 @@ typedef struct XEmacPs_Instance {
 * The corresponding interrupt for each bit set to 1 in <i>Mask</i>,
 * will be enabled.
 *
-* @param InstancePtr is a pointer to the instance to be worked on.
-* @param Indx of Queue, it should be from 1.
-* @param Mask contains a bit mask of interrupts to enable. The mask can
+* @param[in] InstancePtr is a pointer to the instance to be worked on.
+* @param[in] Queue is the queue index. It should start from 1.
+* @param[in] Mask contains a bit mask of interrupts to enable. The mask can
 *        be formed using a set of bitwise or'd values.
 *
 * @note
@@ -682,11 +681,11 @@ typedef struct XEmacPs_Instance {
 *
 * Disable interrupts of queue <i>Queue</i> specified in <i>Mask</i>.
 * The corresponding interrupt for each bit set to 1 in <i>Mask</i>,
-* will be enabled.
+* will be disabled.
 *
-* @param InstancePtr is a pointer to the instance to be worked on.
-* @param Index of Queue, it should be from 1.
-* @param Mask contains a bit mask of interrupts to disable. The mask can
+* @param[in] InstancePtr is a pointer to the instance to be worked on.
+* @param[in] Queue is the queue index. It should start from 1.
+* @param[in] Mask contains a bit mask of interrupts to disable. The mask can
 *        be formed using a set of bitwise or'd values.
 *
 * @note
@@ -705,7 +704,7 @@ typedef struct XEmacPs_Instance {
 *
 * This macro triggers transmit circuit to send data currently in TX buffer(s).
 *
-* @param InstancePtr is a pointer to the XEmacPs instance to be worked on.
+* @param[in] InstancePtr is a pointer to the XEmacPs instance to be worked on.
 *
 * @return
 *
@@ -726,7 +725,7 @@ typedef struct XEmacPs_Instance {
 * This macro determines if the device is configured with checksum offloading
 * on the receive channel
 *
-* @param InstancePtr is a pointer to the XEmacPs instance to be worked on.
+* @param[in] InstancePtr is a pointer to the XEmacPs instance to be worked on.
 *
 * @return
 *
@@ -749,7 +748,7 @@ typedef struct XEmacPs_Instance {
 * This macro determines if the device is configured with checksum offloading
 * on the transmit channel
 *
-* @param InstancePtr is a pointer to the XEmacPs instance to be worked on.
+* @param[in] InstancePtr is a pointer to the XEmacPs instance to be worked on.
 *
 * @return
 *
@@ -773,14 +772,13 @@ typedef struct XEmacPs_Instance {
 *
 * This macro sets RX watermark register.
 *
-* @param InstancePtr is a pointer to the XEmacPs instance to be worked on.
-* @param High is the non-zero RX high watermark value. When SRAM fill level
+* @param[in] InstancePtr is a pointer to the XEmacPs instance to be worked on.
+* @param[in] High is the non-zero RX high watermark value. When SRAM fill level
 *	 is above this, a pause frame will be sent.
-* @param Low is the non-zero RX low watermark value. When SRAM fill level
+* @param[in] Low is the non-zero RX low watermark value. When SRAM fill level
 *	 is below this, a zero length pause frame will be sent IF the last
 *	 pause frame sent was non-zero.
 *
-* @return None
 *
 * @note
 *
@@ -799,7 +797,7 @@ typedef struct XEmacPs_Instance {
 *
 * This macro gets RX watermark register.
 *
-* @param InstancePtr is a pointer to the XEmacPs instance to be worked on.
+* @param[in] InstancePtr is a pointer to the XEmacPs instance to be worked on.
 *
 * @return RX watermark register value
 *
@@ -891,5 +889,5 @@ int XEmacPs_IsCommonMdioPresent(XEmacPs *InstancePtr);
 }
 #endif
 
-#endif /* end of protection macro */
 /** @} */
+#endif /* end of protection macro */
