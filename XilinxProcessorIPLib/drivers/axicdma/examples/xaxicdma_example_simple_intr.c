@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -8,6 +8,8 @@
 /**
  *
  * @file xaxicdma_example_simple_intr.c
+ * @addtogroup axicdma Overview
+ * @{
  *
  * This file demonstrates how to use the xaxicdma driver on the Xilinx AXI
  * CDMA core (AXICDMA) to transfer packets in simple transfer mode through
@@ -124,25 +126,30 @@
 extern void xil_printf(const char *format, ...);
 #endif
 
-
+/** @cond INTERNAL */
 static int DoSimpleTransfer(XAxiCdma *InstancePtr, int Length, int Retries);
 
 static void Example_CallBack(void *CallBackRef, u32 IrqMask, int *IgnorePtr);
+/** @endcond */
 
 #ifndef SDT
 #ifdef XPAR_INTC_0_DEVICE_ID
+/** @cond INTERNAL */
 static int SetupIntrSystem(XIntc *IntcInstancePtr, XAxiCdma *InstancePtr,
 			   u32 IntrId);
 
 static void DisableIntrSystem(XIntc *IntcInstancePtr, u32 IntrId);
+/** @endcond */
 
 int XAxiCdma_SimpleIntrExample(XIntc *IntcInstancePtr, XAxiCdma *InstancePtr,
 			       u16 DeviceId, u32 IntrId);
 #else
+/** @cond INTERNAL */
 static int SetupIntrSystem(XScuGic *IntcInstancePtr, XAxiCdma *InstancePtr,
 			   u32 IntrId);
 
 static void DisableIntrSystem(XScuGic *IntcInstancePtr, u32 IntrId);
+/** @endcond */
 
 int XAxiCdma_SimpleIntrExample(XScuGic *IntcInstancePtr, XAxiCdma *InstancePtr,
 			       u16 DeviceId, u32 IntrId);
@@ -178,16 +185,13 @@ static XScuGic IntcController;	/* Instance of the Interrupt Controller */
 
 /*****************************************************************************/
 /**
-* The entry point for this example. It invokes the example function,
-* and reports the execution status.
-*
-* @param	None.
+* @brief Runs the example entry point, invokes the example function, and
+* reports the execution status.
 *
 * @return
 *		- XST_SUCCESS if example finishes successfully
 *		- XST_FAILURE if example fails.
 *
-* @note		None
 *
 ******************************************************************************/
 #ifndef TESTAPP_GEN
@@ -221,16 +225,16 @@ int main()
 
 /*****************************************************************************/
 /**
-* The example to do the simple transfer through interrupt.
+* @brief Demonstrates simple transfer through interrupt.
 *
 * @if SDT
-* @param	InstancePtr is a pointer to the XAxiCdma instance
-* @param	BaseAddress contains the base address of the device
+* @param[in] InstancePtr is a pointer to the XAxiCdma instance
+* @param[in] BaseAddress contains the base address of the device
 * @else
-* @param	IntcInstancePtr is a pointer to the INTC instance
-* @param	InstancePtr is a pointer to the XAxiCdma instance
-* @param	DeviceId is the Device Id of the XAxiCdma instance
-* @param	IntrId is the interrupt Id for the XAxiCdma instance in build
+* @param[in] IntcInstancePtr is a pointer to the INTC instance
+* @param[in] InstancePtr is a pointer to the XAxiCdma instance
+* @param[in] DeviceId is the Device Id of the XAxiCdma instance
+* @param[in] IntrId is the interrupt Id for the XAxiCdma instance in build
 * @endif
 *
 * @return
@@ -319,20 +323,19 @@ int XAxiCdma_SimpleIntrExample(XAxiCdma *InstancePtr, UINTPTR BaseAddress)
 }
 
 /*****************************************************************************/
-/*
+/**
 *
-* This function does one simple transfer
+* @brief Performs one simple transfer.
 *
-* @param	InstancePtr is a pointer to the XAxiCdma instance
-* @param	Length is the transfer length
-* @param	Retries is how many times to retry on submission
+* @param[in] InstancePtr is a pointer to the XAxiCdma instance
+* @param[in] Length is the transfer length
+* @param[in] Retries is how many times to retry on submission
 *
 * @return
 *		- XST_SUCCESS if transfer is successful
 *		- XST_FAILURE if either the transfer fails or the data has
 *		  error
 *
-* @note		None
 *
 ******************************************************************************/
 static int DoSimpleTransfer(XAxiCdma *InstancePtr, int Length, int Retries)
@@ -418,21 +421,20 @@ static int DoSimpleTransfer(XAxiCdma *InstancePtr, int Length, int Retries)
 }
 #ifndef SDT
 /******************************************************************************/
-/*
-* Setup the interrupt system, including:
+/**
+* @brief Sets up the interrupt system, including:
 *  	- Initialize the interrupt controller,
 *  	- Register the XAxiCdma interrupt handler to the interrupt controller
 *  	- Enable interrupt
 *
-* @param	IntcInstancePtr is a pointer to the instance of the INTC
-* @param	InstancePtr is a pointer to the instance of the XAxiCdma
-* @param	IntrId is the interrupt Id for XAxiCdma
+* @param[in] IntcInstancePtr is a pointer to the instance of the INTC
+* @param[in] InstancePtr is a pointer to the instance of the XAxiCdma
+* @param[in] IntrId is the interrupt Id for XAxiCdma
 *
 * @return
 * 		- XST_SUCCESS if interrupt system setup successfully
 * 		- XST_FAILURE if error occurs
 *
-* @note		None
 *
 *******************************************************************************/
 #ifdef XPAR_INTC_0_DEVICE_ID
@@ -570,21 +572,17 @@ static int SetupIntrSystem(XScuGic *IntcInstancePtr, XAxiCdma *InstancePtr,
 #endif
 #endif
 /*****************************************************************************/
-/*
-* Callback function for the simple transfer. It is called by the driver's
-* interrupt handler.
+/**
+* @brief Handles the simple transfer callback from the driver interrupt handler.
 *
-* @param	CallBackRef is the reference pointer registered through
+* @param[in] CallBackRef is the reference pointer registered through
 *		transfer submission. In this case, it is the pointer to the
 * 		driver instance
-* @param	IrqMask is the interrupt mask the driver interrupt handler
+* @param[in] IrqMask is the interrupt mask the driver interrupt handler
 *		passes to the callback function.
-* @param	IgnorePtr is a pointer that is ignored by simple callback
-* 		function
+* @param[out] IgnorePtr Pointer unused by the simple transfer callback.
 *
-* @return	None
 *
-* @note		None
 *
 ******************************************************************************/
 static void Example_CallBack(void *CallBackRef, u32 IrqMask, int *IgnorePtr)
@@ -602,16 +600,14 @@ static void Example_CallBack(void *CallBackRef, u32 IrqMask, int *IgnorePtr)
 
 #ifndef SDT
 /*****************************************************************************/
-/*
+/**
 *
-* This function disables the interrupt for the XAxiCdma device
+* @brief Disables the interrupt for the XAxiCdma device.
 *
-* @param	IntcInstancePtr is the pointer to the instance of the INTC
-* @param	IntrId is the interrupt Id for the XAxiCdma instance
+* @param[in] IntcInstancePtr is the pointer to the instance of the INTC
+* @param[in] IntrId is the interrupt Id for the XAxiCdma instance
 *
-* @return	None.
 *
-* @note		None.
 *
 ******************************************************************************/
 #ifdef XPAR_INTC_0_DEVICE_ID
@@ -638,3 +634,4 @@ static void DisableIntrSystem(XScuGic *IntcInstancePtr, u32 IntrId)
 #endif
 #endif
 
+/** @} */

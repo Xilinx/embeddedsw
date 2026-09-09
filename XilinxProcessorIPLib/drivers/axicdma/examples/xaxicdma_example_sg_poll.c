@@ -8,6 +8,8 @@
 /**
  *
  * @file xaxicdma_example_sg_poll.c
+ * @addtogroup axicdma Overview
+ * @{
  *
  * This file demonstrates how to use the xaxicdma driver on the Xilinx AXI
  * CDMA core (AXICDMA) to transfer packets in scatter gather transfer mode
@@ -109,13 +111,17 @@ extern void xil_printf(const char *format, ...);
 
 /************************** Function Prototypes ******************************/
 #if defined(XPAR_UARTNS550_0_BASEADDR)
+/** @cond INTERNAL */
 static void Uart550_Setup(void);
+/** @endcond */
 #endif
 
+/** @cond INTERNAL */
 static int CheckCompletion(XAxiCdma *InstancePtr);
 static int SetupTransfer(XAxiCdma *InstancePtr);
 static int DoTransfer(XAxiCdma *InstancePtr);
 static int CheckData(u8 *SrcPtr, u8 *DestPtr, int Length);
+/** @endcond */
 #ifndef SDT
 int XAxiCdma_SgPollExample(u16 DeviceId);
 #else
@@ -144,6 +150,7 @@ static u8 BdSpace[BD_SPACE_SIZE] __attribute__ ((aligned (BD_SPACE_ALIGN)));
 /* Transmit and Receive buffers for scatter gather transfer.
  */
 #define SG_BUFFER_SIZE	(MAX_PKT_LEN * NUMBER_OF_BDS_TO_TRANSFER) /**< SG buffer size */
+
 /** @cond INTERNAL */
 static u8 SgTxBuffer[SG_BUFFER_SIZE] __attribute__ ((aligned (64)));
 static u8 SgRxBuffer[SG_BUFFER_SIZE] __attribute__ ((aligned (64)));
@@ -159,16 +166,13 @@ static u32 *ReceiveBufferPtr;
 
 /*****************************************************************************/
 /**
-* The entry point for this example. It sets up uart16550 if one is available,
-* invokes the example function, and reports the execution status.
-*
-* @param	None.
+* @brief Runs the example entry point, sets up UART16550 if available, invokes
+* the example function, and reports the execution status.
 *
 * @return
 *		- XST_SUCCESS if example finishes successfully
 *		- XST_FAILURE if example fails.
 *
-* @note		None.
 *
 ******************************************************************************/
 #ifndef TESTAPP_GEN
@@ -210,14 +214,11 @@ int main()
 
 #if defined(XPAR_UARTNS550_0_BASEADDR)
 /*****************************************************************************/
-/*
-* This function setup the baudrate to 9600 and data bits to 8 in Uart16550
+/**
+* @brief Sets up the baud rate to 9600 and 8 data bits in UART16550.
 *
-* @param	None
 *
-* @return	None
 *
-* @note		None
 *
 ******************************************************************************/
 static void Uart550_Setup(void)
@@ -233,17 +234,16 @@ static void Uart550_Setup(void)
 #endif
 
 /*****************************************************************************/
-/*
-* Check for transfer completion.
+/**
+* @brief Checks transfer completion.
 *
 * If the DMA engine has errors or any of the finished BDs has error bit set,
 * then the example should fail.
 *
-* @param	InstancePtr is pointer to the XAxiCdma instance.
+* @param[in] InstancePtr is a pointer to the XAxiCdma instance.
 *
 * @return	Number of Bds that have been completed by hardware.
 *
-* @note		None
 *
 ******************************************************************************/
 static int CheckCompletion(XAxiCdma *InstancePtr)
@@ -310,15 +310,14 @@ static int CheckCompletion(XAxiCdma *InstancePtr)
 /*****************************************************************************/
 /**
 *
-* This function sets up the DMA engine to be ready for scatter gather transfer
+* @brief Sets up the DMA engine to be ready for scatter gather transfer.
 *
-* @param	InstancePtr is pointer to the XAxiCdma instance.
+* @param[in] InstancePtr is a pointer to the XAxiCdma instance.
 *
 * @return
 *		- XST_SUCCESS if the setup is successful
 *		- XST_FAILURE if error occurs
 *
-* @note		None
 *
 ******************************************************************************/
 static int SetupTransfer(XAxiCdma *InstancePtr)
@@ -377,17 +376,16 @@ static int SetupTransfer(XAxiCdma *InstancePtr)
 }
 
 /*****************************************************************************/
-/*
+/**
 *
-* This function non-blockingly transmits all packets through the DMA engine.
+* @brief Performs a non-blocking transmission of all packets through the DMA engine.
 *
-* @param	InstancePtr points to the DMA engine instance
+* @param[in] InstancePtr Points to the DMA engine instance.
 *
 * @return
 *		- XST_SUCCESS if the DMA accepts all the packets successfully,
 *		- XST_FAILURE if error occurs
 *
-* @note		None
 *
 ******************************************************************************/
 static int DoTransfer(XAxiCdma *InstancePtr)
@@ -461,18 +459,17 @@ static int DoTransfer(XAxiCdma *InstancePtr)
 }
 
 /*****************************************************************************/
-/*
-* This function checks that two buffers have the same data
+/**
+* @brief Checks that two buffers have the same data.
 *
-* @param	SrcPtr is the source buffer
-* @param	DestPtr is the destination buffer
-* @param	Length is the length of the buffer to check
+* @param[in] SrcPtr is the source buffer
+* @param[in] DestPtr is the destination buffer
+* @param[in] Length is the length of the buffer to check
 *
 * @return
 *		- XST_SUCCESS if the two buffer matches
 *		- XST_FAILURE otherwise
 *
-* @note		None
 *
 ******************************************************************************/
 static int CheckData(u8 *SrcPtr, u8 *DestPtr, int Length)
@@ -499,20 +496,19 @@ static int CheckData(u8 *SrcPtr, u8 *DestPtr, int Length)
 
 /*****************************************************************************/
 /**
-* The example to do the scatter gather transfer through polling.
+* @brief Demonstrates scatter-gather transfer through polling.
 *
 * @if SDT
-* @param	InstancePtr is a pointer to the XAxiCdma instance
-* @param	BaseAddress contains the base address of the device
+* @param[in] InstancePtr is a pointer to the XAxiCdma instance
+* @param[in] BaseAddress contains the base address of the device
 * @else
-* @param	DeviceId is the Device Id of the XAxiCdma instance
+* @param[in] DeviceId is the Device Id of the XAxiCdma instance
 * @endif
 *
 * @return
 * 		- XST_SUCCESS if example finishes successfully
 * 		- XST_FAILURE if error occurs
 *
-* @note		None
 *
 *
 ******************************************************************************/
@@ -648,5 +644,5 @@ int XAxiCdma_SgPollExample(XAxiCdma *InstancePtr, UINTPTR BaseAddress)
 	return XST_SUCCESS;
 }
 
-
+/** @} */
 

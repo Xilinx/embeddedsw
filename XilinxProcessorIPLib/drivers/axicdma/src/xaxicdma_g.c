@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -32,6 +32,7 @@
 #include "xaxicdma.h"
 /************************** Constant Definitions *****************************/
 
+/** Configuration table for each CDMA instance in the system. */
 XAxiCdma_Config XAxiCdma_ConfigTable[] = {
 	{
 		XPAR_AXICDMA_0_DEVICE_ID,
@@ -43,4 +44,5 @@ XAxiCdma_Config XAxiCdma_ConfigTable[] = {
 		XPAR_AXICDMA_0_ADDR_WIDTH
 	}
 };
+
 /** @} */

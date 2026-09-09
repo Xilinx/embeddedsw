@@ -8,6 +8,8 @@
 /**
  *
  * @file xaxicdma_example_sg_intr.c
+ * @addtogroup axicdma Overview
+ * @{
  *
  * This file demonstrates how to use the xaxicdma driver on the Xilinx AXI
  * CDMA core (AXICDMA) to transfer packets in scatter gather transfer mode
@@ -146,29 +148,37 @@ extern void xil_printf(const char *format, ...);
 
 /************************** Function Prototypes ******************************/
 #if defined(XPAR_UARTNS550_0_BASEADDR)
+/** @cond INTERNAL */
 static void Uart550_Setup(void);
+/** @endcond */
 #endif
 
+/** @cond INTERNAL */
 static void Example_CallBack(void *CallBackRef, u32 IrqMask, int *NumBdPtr);
 
 
 static int SetupTransfer(XAxiCdma *InstancePtr);
 static int DoTransfer(XAxiCdma *InstancePtr);
 static int CheckData(u8 *SrcPtr, u8 *DestPtr, int Length);
+/** @endcond */
 
 #ifndef SDT
 #ifdef XPAR_INTC_0_DEVICE_ID
+/** @cond INTERNAL */
 static int SetupIntrSystem(XIntc *IntcInstancePtr, XAxiCdma *InstancePtr,
 			   u32 IntrId);
 static void DisableIntrSystem(XIntc *IntcInstancePtr, u32 IntrId);
+/** @endcond */
 
 int XAxiCdma_SgIntrExample(XIntc *IntcInstancePtr, XAxiCdma *InstancePtr,
 			   u16 DeviceId, u32 IntrId);
 
 #else
+/** @cond INTERNAL */
 static int SetupIntrSystem(XScuGic *IntcInstancePtr, XAxiCdma *InstancePtr,
 			   u32 IntrId);
 static void DisableIntrSystem(XScuGic *IntcInstancePtr, u32 IntrId);
+/** @endcond */
 
 int XAxiCdma_SgIntrExample(XScuGic *IntcInstancePtr, XAxiCdma *InstancePtr,
 			   u16 DeviceId, u32 IntrId);
@@ -210,6 +220,7 @@ static u8 BdSpace[BD_SPACE_SIZE] __attribute__ ((aligned (BD_SPACE_ALIGN)));
 /* Transmit and Receive buffers for scatter gather transfer.
  */
 #define SG_BUFFER_SIZE	(MAX_PKT_LEN * NUMBER_OF_BDS_TO_TRANSFER) /**< SG buffer size */
+
 /** @cond INTERNAL */
 static u8 SgTxBuffer[SG_BUFFER_SIZE] __attribute__ ((aligned (64)));
 static u8 SgRxBuffer[SG_BUFFER_SIZE] __attribute__ ((aligned (64)));
@@ -226,16 +237,13 @@ static u32 *ReceiveBufferPtr;
 
 /*****************************************************************************/
 /**
-* The entry point for this example. It sets up uart16550 if one is available,
-* invokes the example function, and reports the execution status.
-*
-* @param	None.
+* @brief Runs the example entry point, sets up UART16550 if available, invokes
+* the example function, and reports the execution status.
 *
 * @return
 * 		- XST_SUCCESS if example finishes successfully
 * 		- XST_FAILURE if example fails.
 *
-* @note		None.
 *
 ******************************************************************************/
 #ifndef TESTAPP_GEN
@@ -277,14 +285,11 @@ int main()
 
 #ifdef XPAR_UARTNS550_0_BASEADDR
 /*****************************************************************************/
-/*
-* This function setup the baudrate to 9600 and data bits to 8 in Uart16550
+/**
+* @brief Sets up the baud rate to 9600 and 8 data bits in UART16550.
 *
-* @param	None
 *
-* @return	None
 *
-* @note		None.
 *
 ******************************************************************************/
 static void Uart550_Setup(void)
@@ -299,20 +304,18 @@ static void Uart550_Setup(void)
 #endif
 
 /*****************************************************************************/
-/*
+/**
 * Callback function for the scatter gather transfer.
 * It is called by the driver's interrupt handler.
 *
-* @param	CallBackRef is the reference pointer registered through
+* @param[in] CallBackRef is the reference pointer registered through
 * 		transfer submission. In this case, it is the pointer to the
 * 		driver instance
-* @param	IrqMask is the interrupt mask the driver interrupt handler
+* @param[in] IrqMask is the interrupt mask the driver interrupt handler
 * 		passes to the callback function.
-* @param 	NumBdPtr is the pointer to number of BDs this handler handles
+* @param[out] NumBdPtr is the pointer to number of BDs this handler handles
 *
-* @return	None
 *
-* @note		None.
 *
 ******************************************************************************/
 static void Example_CallBack(void *CallBackRef, u32 IrqMask, int *NumBdPtr)
@@ -367,21 +370,20 @@ static void Example_CallBack(void *CallBackRef, u32 IrqMask, int *NumBdPtr)
 }
 #ifndef SDT
 /******************************************************************************/
-/*
-* Setup the interrupt system, including:
+/**
+* @brief Sets up the interrupt system, including:
 *	- Initialize the interrupt controller,
 *	- Register the XAxiCdma interrupt handler to the interrupt controller
 *	- Enable interrupt
 *
-* @param	IntcInstancePtr is a pointer to the instance of the INTC
-* @param	InstancePtr is a pointer to the instance of the XAxiCdma
-* @param	IntrId is the interrupt Id for XAxiCdma
+* @param[in] IntcInstancePtr is a pointer to the instance of the INTC
+* @param[in] InstancePtr is a pointer to the instance of the XAxiCdma
+* @param[in] IntrId is the interrupt Id for XAxiCdma
 *
 * @return
 * 		- XST_SUCCESS if interrupt system setup successfully
 * 		- XST_FAILURE if error occurs
 *
-* @note		None.
 *
 *******************************************************************************/
 #ifdef XPAR_INTC_0_DEVICE_ID
@@ -523,16 +525,14 @@ static int SetupIntrSystem(XScuGic *IntcInstancePtr, XAxiCdma *InstancePtr,
 #endif
 
 /*****************************************************************************/
-/*
+/**
 *
-* This function disables the interrupt for the XAxiCdma device
+* @brief Disables the interrupt for the XAxiCdma device.
 *
-* @param	IntcInstancePtr is the pointer to the instance of the INTC
-* @param	IntrId is the interrupt Id for the XAxiCdma instance
+* @param[in] IntcInstancePtr is the pointer to the instance of the INTC
+* @param[in] IntrId is the interrupt Id for the XAxiCdma instance
 *
-* @return	None.
 *
-* @note		None.
 *
 ******************************************************************************/
 #ifdef XPAR_INTC_0_DEVICE_ID
@@ -561,9 +561,9 @@ static void DisableIntrSystem(XScuGic *IntcInstancePtr, u32 IntrId)
 /*****************************************************************************/
 /**
 *
-* This function sets up the DMA engine to be ready for scatter gather transfer
+* @brief Sets up the DMA engine to be ready for scatter gather transfer.
 *
-* @param    InstancePtr is the pointer to the instance of the DMA engine.
+* @param[in] InstancePtr is the pointer to the instance of the DMA engine.
 *
 * @return
 * 		- XST_SUCCESS if the setup is successful
@@ -573,7 +573,6 @@ static void DisableIntrSystem(XScuGic *IntcInstancePtr, u32 IntrId)
 * 			BD ring clone failed
 * 			Set coalescing failed
 *
-* @note		None.
 *
 ******************************************************************************/
 static int SetupTransfer(XAxiCdma *InstancePtr)
@@ -648,11 +647,11 @@ static int SetupTransfer(XAxiCdma *InstancePtr)
 }
 
 /*****************************************************************************/
-/*
+/**
 *
-* This function non-blockingly transmits all packets through the DMA engine.
+* @brief Performs a non-blocking transmission of all packets through the DMA engine.
 *
-* @param	InstancePtr points to the DMA engine instance
+* @param[in] InstancePtr Points to the DMA engine instance.
 *
 * @return
 * 		- XST_SUCCESS if the DMA accepts all the packets successfully,
@@ -661,7 +660,6 @@ static int SetupTransfer(XAxiCdma *InstancePtr)
 * 			One of the buffer transfer length is invalid
 * 			Submission to hardware failed
 *
-* @note		None.
 *
 ******************************************************************************/
 static int DoTransfer(XAxiCdma *InstancePtr)
@@ -738,18 +736,17 @@ static int DoTransfer(XAxiCdma *InstancePtr)
 }
 
 /*****************************************************************************/
-/*
-* This function checks that two buffers have the same data
+/**
+* @brief Checks that two buffers have the same data.
 *
-* @param	SrcPtr is the source buffer
-* @param 	DestPtr is the destination buffer
-* @param	Length is the length of the buffer to check
+* @param[in] SrcPtr is the source buffer
+* @param[in] DestPtr is the destination buffer
+* @param[in] Length is the length of the buffer to check
 *
 * @return
 * 		- XST_SUCCESS if the two buffer matches
 * 		- XST_FAILURE otherwise
 *
-* @note		None.
 *
 ******************************************************************************/
 static int CheckData(u8 *SrcPtr, u8 *DestPtr, int Length)
@@ -777,16 +774,16 @@ static int CheckData(u8 *SrcPtr, u8 *DestPtr, int Length)
 
 /*****************************************************************************/
 /**
-* The example to do the scatter gather transfer through interrupt.
+* @brief Demonstrates scatter-gather transfer through interrupt.
 *
 * @if SDT
-* @param	InstancePtr is a pointer to the XAxiCdma instance
-* @param	BaseAddress contains the base address of the device
+* @param[in] InstancePtr is a pointer to the XAxiCdma instance
+* @param[in] BaseAddress contains the base address of the device
 * @else
-* @param	IntcInstancePtr is a pointer to the INTC instance
-* @param	InstancePtr is a pointer to the XAxiCdma instance
-* @param	DeviceId is the Device Id of the XAxiCdma instance
-* @param	IntrId is the interrupt Id for the XAxiCdma instance in build
+* @param[in] IntcInstancePtr is a pointer to the INTC instance
+* @param[in] InstancePtr is a pointer to the XAxiCdma instance
+* @param[in] DeviceId is the Device Id of the XAxiCdma instance
+* @param[in] IntrId is the interrupt Id for the XAxiCdma instance in build
 * @endif
 *
 * @return
@@ -949,4 +946,4 @@ int XAxiCdma_SgIntrExample(XAxiCdma *InstancePtr, UINTPTR BaseAddress)
 	return XST_SUCCESS;
 }
 
-
+/** @} */

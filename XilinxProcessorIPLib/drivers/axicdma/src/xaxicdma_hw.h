@@ -1,8 +1,11 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
+
+#ifndef XAXICDMA_HW_H_    /* prevent circular inclusions */
+#define XAXICDMA_HW_H_
 
 /*****************************************************************************/
 /**
@@ -26,8 +29,6 @@
  *
  *****************************************************************************/
 
-#ifndef XAXICDMA_HW_H_    /* prevent circular inclusions */
-#define XAXICDMA_HW_H_
 
 #ifdef __cplusplus
 extern "C" {
@@ -48,7 +49,7 @@ extern "C" {
                                                requirement for descriptors to
                                                satisfy both hardware/software
                                                needs */
-/*@}*/
+/** @} */
 #ifdef SDT
 /** @name Maximum transfer length
  *    This is determined by hardware
@@ -56,7 +57,7 @@ extern "C" {
  */
 #define XAXICDMA_MAX_TRANSFER_LEN	0x7FFFFF  /**< Max length hw supports */
 #define XAXICDMA_4_1_MAX_TRANSFER_LEN	0x3FFFFFF  /**< Max length hw supports */
-/*@}*/
+/** @} */
 #endif
 
 /** @name Register offset definitions
@@ -77,7 +78,7 @@ extern "C" {
 #define XAXICDMA_DSTADDR_MSB_OFFSET  0x00000024  /**< Destination address
 						register */
 #define XAXICDMA_BTT_OFFSET          0x00000028  /**< Bytes to transfer */
-/*@}*/
+/** @} */
 
 /** @name Bitmasks of XAXICDMA_CR_OFFSET register
  * @{
@@ -86,27 +87,7 @@ extern "C" {
 #define XAXICDMA_CR_SGMODE_MASK		0x00000008 /**< Scatter gather mode */
 #define XAXICDMA_CR_KHOLE_RD_MASK	0x00000010 /**< Keyhole Read */
 #define XAXICDMA_CR_KHOLE_WR_MASK	0x00000020 /**< Keyhole Write */
-/*@}*/
-
-/** @name Bitmasks of XAXICDMA_SR_OFFSET register
- * This register reports status of a DMA channel, including
- * idle state, errors, and interrupts
- * @{
- */
-#define XAXICDMA_SR_IDLE_MASK         0x00000002  /**< DMA channel idle */
-#define XAXICDMA_SR_SGINCLD_MASK      0x00000008  /**< Hybrid build */
-#define XAXICDMA_SR_ERR_INTERNAL_MASK 0x00000010  /**< Datamover internal err */
-#define XAXICDMA_BTT_OFFSET       0x00000028  /**< Bytes to transfer */
-/*@}*/
-
-/** @name Bitmasks of XAXICDMA_CR_OFFSET register
- * @{
- */
-#define XAXICDMA_CR_RESET_MASK		0x00000004 /**< Reset DMA engine */
-#define XAXICDMA_CR_SGMODE_MASK		0x00000008 /**< Scatter gather mode */
-#define XAXICDMA_CR_KHOLE_RD_MASK	0x00000010 /**< Keyhole Read */
-#define XAXICDMA_CR_KHOLE_WR_MASK	0x00000020 /**< Keyhole Write */
-/*@}*/
+/** @} */
 
 /** @name Bitmasks of XAXICDMA_SR_OFFSET register
  * This register reports status of a DMA channel, including
@@ -122,13 +103,13 @@ extern "C" {
 #define XAXICDMA_SR_ERR_SG_SLV_MASK   0x00000200  /**< SG slave err */
 #define XAXICDMA_SR_ERR_SG_DEC_MASK   0x00000400  /**< SG decode err */
 #define XAXICDMA_SR_ERR_ALL_MASK      0x00000770  /**< All errors */
-/*@}*/
+/** @} */
 
 /** @name Bitmask for descriptor
  * @{
  */
 #define XAXICDMA_DESC_LSB_MASK	(0xFFFFFFC0U)	/**< LSB Address mask */
-/*@}*/
+/** @} */
 
 
 /** @name Bitmask for interrupts
@@ -142,7 +123,7 @@ extern "C" {
 #define XAXICDMA_XR_IRQ_ALL_MASK	0x00007000 /**< All interrupts */
 #define XAXICDMA_XR_IRQ_SIMPLE_ALL_MASK	0x00005000 /**< All interrupts for
                                                         simple only mode */
-/*@}*/
+/** @} */
 
 /** @name Bitmask and shift for delay counter and coalescing counter
  * These masks are shared by XAXICDMA_CR_OFFSET register and
@@ -152,12 +133,12 @@ extern "C" {
 #define XAXICDMA_XR_DELAY_MASK    0xFF000000 /**< Delay timeout counter */
 #define XAXICDMA_XR_COALESCE_MASK 0x00FF0000 /**< Coalesce counter */
 
-#define XAXICDMA_DELAY_SHIFT    24
-#define XAXICDMA_COALESCE_SHIFT 16
+#define XAXICDMA_DELAY_SHIFT    24 /**< Shift for delay timeout counter. */
+#define XAXICDMA_COALESCE_SHIFT 16 /**< Shift for coalesce counter. */
 
 #define XAXICDMA_DELAY_MAX     0xFF    /**< Maximum delay counter value */
 #define XAXICDMA_COALESCE_MAX  0xFF    /**< Maximum coalescing counter value */
-/*@}*/
+/** @} */
 
 
 /* Buffer Descriptor (BD) definitions
@@ -190,14 +171,14 @@ extern "C" {
 #define XAXICDMA_BD_TO_CLEAR       24  /**< BD specific bytes to be cleared */
 #define XAXICDMA_BD_NUM_WORDS      16U  /**< Total number of words for one BD*/
 #define XAXICDMA_BD_HW_NUM_BYTES   32  /**< Number of bytes hw used */
-/*@}*/
+/** @} */
 
 
 /** @name Bitmasks of XAXICDMA_BD_CTRL_OFFSET register
  *  @{
  */
 #define XAXICDMA_BD_CTRL_LENGTH_MASK 0x007FFFFF /**< Requested len */
-/*@}*/
+/** @} */
 
 /** @name Bitmasks of XAXICDMA_BD_STS_OFFSET register
  *  @{
@@ -208,7 +189,7 @@ extern "C" {
 #define XAXICDMA_BD_STS_INT_ERR_MASK    0x10000000 /**< Internal err */
 #define XAXICDMA_BD_STS_ALL_ERR_MASK    0x70000000 /**< All errors */
 #define XAXICDMA_BD_STS_ALL_MASK        0xF0000000 /**< All status bits */
-/*@}*/
+/** @} */
 
 /**************************** Type Definitions *******************************/
 
@@ -219,11 +200,10 @@ extern "C" {
 
 /*****************************************************************************/
 /**
+* @brief Reads a device register.
 *
-* Read a given register.
-*
-* @param    BaseAddress is the base virtual address of the device
-* @param    RegOffset is the register offset to be read
+* @param[in] BaseAddress is the base virtual address of the device
+* @param[in] RegOffset is the register offset to be read
 *
 * @return   The 32-bit value of the register
 *
@@ -237,14 +217,12 @@ extern "C" {
 
 /*****************************************************************************/
 /**
+* @brief Writes a device register.
 *
-* Write to a given register.
+* @param[in] BaseAddress is the base virtual address of the device
+* @param[in] RegOffset is the register offset to be written
+* @param[in] Data is the 32-bit value to write to the register
 *
-* @param    BaseAddress is the base virtual address of the device
-* @param    RegOffset is the register offset to be written
-* @param    Data is the 32-bit value to write to the register
-*
-* @return   None.
 *
 * @note
 * C-style signature:
@@ -258,5 +236,5 @@ extern "C" {
 }
 #endif
 
-#endif
 /** @} */
+#endif    /* prevent circular inclusions */

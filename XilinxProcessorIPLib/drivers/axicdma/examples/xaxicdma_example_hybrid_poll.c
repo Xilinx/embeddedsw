@@ -8,6 +8,8 @@
 /**
  *
  * @file xaxicdma_example_hybrid_poll.c
+ * @addtogroup axicdma Overview
+ * @{
  *
  * This file demonstrates how to use xaxicdma driver on the Xilinx AXI
  * CDMA core (AXICDMA) to transfer packets in hybrid transfer mode without
@@ -119,15 +121,19 @@ extern void xil_printf(const char *format, ...);
 
 /************************** Function Prototypes ******************************/
 #if defined(XPAR_UARTNS550_0_BASEADDR)
+/** @cond INTERNAL */
 static void Uart550_Setup(void);
+/** @endcond */
 #endif
 
+/** @cond INTERNAL */
 static int SetupSgTransfer(XAxiCdma *InstancePtr);
 static int SubmitSgTransfer(XAxiCdma *InstancePtr);
 static int CheckSgCompletion(XAxiCdma *InstancePtr);
 static int CheckData(u8 *SrcPtr, u8 *DestPtr, int Length);
 static int DoSimplePollTransfer(XAxiCdma *InstancePtr, int Length, int Retries);
 static int DoSgPollTransfer(XAxiCdma *InstancePtr, int Length);
+/** @endcond */
 #ifndef SDT
 int XAxiCdma_HybridPollExample(u16 DeviceId);
 #else
@@ -180,16 +186,13 @@ volatile static u32 Error = 0;   /* Dma Error occurs */
 
 /*****************************************************************************/
 /**
-* The entry point for this example. It sets up uart16550 if one is available,
-* invokes the example function, and reports the execution status.
-*
-* @param	None.
+* @brief Runs the example entry point, sets up UART16550 if available, invokes
+* the example function, and reports the execution status.
 *
 * @return
 * 		- XST_SUCCESS if example finishes successfully
 * 		- XST_FAILURE if example fails.
 *
-* @note		None.
 *
 ******************************************************************************/
 #ifndef TESTAPP_GEN
@@ -232,14 +235,11 @@ int main()
 
 #if defined(XPAR_UARTNS550_0_BASEADDR)
 /*****************************************************************************/
-/*
-* This function setup the baudrate to 9600 and data bits to 8 in Uart16550
+/**
+* @brief Sets up the baud rate to 9600 and 8 data bits in UART16550.
 *
-* @param	None
 *
-* @return	None
 *
-* @note		None.
 *
 ******************************************************************************/
 static void Uart550_Setup(void)
@@ -256,16 +256,15 @@ static void Uart550_Setup(void)
 #endif
 
 /*****************************************************************************/
-/*
-* This function setup the driver for scatter gather transfer
+/**
+* @brief Sets up the driver for scatter-gather transfer.
 *
-* @param	InstancePtr is a pointer to the XAxiCdma instance
+* @param[in] InstancePtr is a pointer to the XAxiCdma instance
 *
 * @return
 * 		- XST_SUCCESS if setup successful
 * 		- XST_FAILURE if setup failed with error
 *
-* @note		None.
 *
 ******************************************************************************/
 static int SetupSgTransfer(XAxiCdma *InstancePtr)
@@ -321,16 +320,15 @@ static int SetupSgTransfer(XAxiCdma *InstancePtr)
 }
 
 /*****************************************************************************/
-/*
-* This function submit the scatter gather transfer to the hardware
+/**
+* @brief Submits the scatter-gather transfer to the hardware.
 *
-* @param 	InstancePtr is a pointer to the XAxiCdma instance
+* @param[in] InstancePtr is a pointer to the XAxiCdma instance
 *
 * @return
 * 		- XST_SUCCESS if submission successful
 * 		- XST_FAILURE if submission failed with error
 *
-* @note		None.
 *
 ******************************************************************************/
 static int SubmitSgTransfer(XAxiCdma *InstancePtr)
@@ -404,14 +402,13 @@ static int SubmitSgTransfer(XAxiCdma *InstancePtr)
 }
 
 /*****************************************************************************/
-/*
-* This function checks the completion of the scatter gather transfer
+/**
+* @brief Checks the completion of the scatter gather transfer.
 *
-* @param 	InstancePtr is a pointer to the XAxiCdma instance
+* @param[in] InstancePtr is a pointer to the XAxiCdma instance
 *
 * @return	Number of BDs that hardware has finished transfer
 *
-* @note		None.
 *
 ******************************************************************************/
 static int CheckSgCompletion(XAxiCdma *InstancePtr)
@@ -473,18 +470,17 @@ static int CheckSgCompletion(XAxiCdma *InstancePtr)
 }
 
 /*****************************************************************************/
-/*
-* This function checks that two buffers have the same data
+/**
+* @brief Checks that two buffers have the same data.
 *
-* @param	SrcPtr is the source buffer
-* @param	DestPtr is the destination buffer
-* @param	Length is the length of the buffer to check
+* @param[in] SrcPtr is the source buffer
+* @param[in] DestPtr is the destination buffer
+* @param[in] Length is the length of the buffer to check
 *
 * @return
 * 		- XST_SUCCESS if the two buffer matches
 * 		- XST_FAILURE otherwise
 *
-* @note		None.
 *
 ******************************************************************************/
 static int CheckData(u8 *SrcPtr, u8 *DestPtr, int Length)
@@ -511,18 +507,17 @@ static int CheckData(u8 *SrcPtr, u8 *DestPtr, int Length)
 }
 
 /*****************************************************************************/
-/*
-* This function does one simple transfer in polled mode
+/**
+* @brief Performs one simple transfer in polled mode.
 *
-* @param	InstancePtr is a pointer to the XAxiCdma instance
-* @param 	Length is the transfer length
-* @param 	Retries is how many times to retry on submission
+* @param[in] InstancePtr is a pointer to the XAxiCdma instance
+* @param[in] Length is the transfer length
+* @param[in] Retries is how many times to retry on submission
 *
 * @return
 * 		- XST_SUCCESS if transfer is successful
 * 		- XST_FAILURE if either the transfer fails or the data has error
 *
-* @note		None.
 *
 ******************************************************************************/
 static int DoSimplePollTransfer(XAxiCdma *InstancePtr, int Length, int Retries)
@@ -626,18 +621,17 @@ static int DoSimplePollTransfer(XAxiCdma *InstancePtr, int Length, int Retries)
 }
 
 /*****************************************************************************/
-/*
-* This function does one scatter gather transfer with 2 BDs in polled mode
+/**
+* @brief Performs one scatter-gather transfer with two BDs in polled mode.
 *
-* @param	InstancePtr is a pointer to the XAxiCdma instance
-* @param	Length is the transfer length
+* @param[in] InstancePtr is a pointer to the XAxiCdma instance
+* @param[in] Length is the transfer length
 *
 * @return
 * 		- XST_SUCCESS if transfer is successful
 * 		- XST_FAILURE if either the transfer fails or the data has
 *		  error
 *
-* @note		None.
 *
 ******************************************************************************/
 static int DoSgPollTransfer(XAxiCdma *InstancePtr, int Length)
@@ -702,15 +696,15 @@ static int DoSgPollTransfer(XAxiCdma *InstancePtr, int Length)
 
 /*****************************************************************************/
 /**
-* The example to do hybrid transfers through polling. The transfer sequence is:
+* @brief Demonstrates hybrid polled transfers with the following sequence:
 *	a simple polled transfer
 *	a scatter gather polled transfer with multiple BDs
 * 	a simple polled transfer
 *
 * @if SDT
-* @param	BaseAddress contains the base address of the device
+* @param[in] BaseAddress contains the base address of the device
 * @else
-* @param	DeviceId is the Device Id of the XAxiCdma instance
+* @param[in] DeviceId is the Device Id of the XAxiCdma instance
 * @endif
 *
 * @return
@@ -824,3 +818,5 @@ int XAxiCdma_HybridPollExample(UINTPTR BaseAddress)
 	 */
 	return XST_SUCCESS;
 }
+
+/** @} */

@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -34,15 +34,15 @@
 
 /*****************************************************************************/
 /**
-*
-* Looks up the device configuration based on the unique device ID/BaseAddress.
-* A table contains the configuration info for each device in the system.
-*
-* @if SDT
-* @param        BaseAddress contains the base address of the device
-* @else
-* @param        DeviceId contains the unique ID of the device
-* @endif
+ * @brief Looks up device configuration by device ID or base address.
+ *
+ * A table contains the configuration info for each device in the system.
+ *
+ * @if SDT
+ * @param[in] BaseAddress contains the base address of the device
+ * @else
+ * @param[in] DeviceId contains the unique ID of the device
+ * @endif
 *
 * @return
 *		A pointer to the configuration table entry corresponding to the given

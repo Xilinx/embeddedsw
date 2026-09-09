@@ -1,8 +1,11 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
+
+#ifndef XAXICDMA_H_    /* prevent circular inclusions */
+#define XAXICDMA_H_
 
 /*****************************************************************************/
 /**
@@ -283,7 +286,7 @@
  *    - Cross page boundary transfer. Each transfer must be restrictly inside
  *      one page; otherwise, slave error occurs.
  *    - Unaligned transfer.
- *    - Data width larger than 64 bit
+ *    - Data width larger than 64-bit
  *    - Maximum transfer length each time is limited to data_width * burst_len
  *
  * <pre>
@@ -322,8 +325,6 @@
  * </pre>
  *****************************************************************************/
 
-#ifndef XAXICDMA_H_    /* prevent circular inclusions */
-#define XAXICDMA_H_
 
 #ifdef __cplusplus
 extern "C" {
@@ -340,54 +341,48 @@ extern "C" {
 #endif
 
 /************************** Constant Definitions *****************************/
-#define XAXICDMA_COALESCE_NO_CHANGE  0xFFFFFFFF
-#define XAXICDMA_ALL_BDS             0x7FFFFFFF /* 2147 Million */
 
-/* Constants for engine mode: simple/SG
+/** @name Coalesce and buffer descriptor constants
+ * @{
  */
-#define XAXICDMA_SG_MODE        1
-#define XAXICDMA_SIMPLE_MODE    2
+#define XAXICDMA_COALESCE_NO_CHANGE  0xFFFFFFFF /**< Leaves coalesce unchanged. */
+#define XAXICDMA_ALL_BDS             0x7FFFFFFF /**< Maximum BD count value. */
+/** @} */
 
-/* Maximum active SG interrupt handler this driver can manage
- *
- * The limitation comes from the interrupt handler. It is now one interrupt
- * handler for one transfer. It is possible to simplify, as in most use cases,
- * to have one interrupt handler for all SG transfers
+/** @name Engine mode constants
+ * @{
  */
+#define XAXICDMA_SG_MODE        1 /**< Scatter gather mode. */
+#define XAXICDMA_SIMPLE_MODE    2 /**< Simple DMA mode. */
+/** @} */
+
+/** Maximum active SG interrupt handlers this driver manages. */
 #define XAXICDMA_MAXIMUM_MAX_HANDLER 20
 
-/* Constants of KeyHole feature selection: Write/Read
+/** @name KeyHole feature selection
+ * @{
  */
-#define XAXICDMA_KEYHOLE_READ	0
-#define XAXICDMA_KEYHOLE_WRITE	1
+#define XAXICDMA_KEYHOLE_READ	0 /**< KeyHole read direction. */
+#define XAXICDMA_KEYHOLE_WRITE	1 /**< KeyHole write direction. */
+/** @} */
 
 /**************************** Type Definitions *******************************/
 
 /**
- * @name Call Back function
+ * @brief Defines the callback function type for transfer completion notification.
  *
- * If interrupt is enabled, and the application wants to be notified about the
- * completion of a transfer, the application should register its call back
- * function to the driver.
+ * Register the callback through transfer submission when interrupts are
+ * enabled.
  *
- * The call back function is registered through the transfer submission.
- *
- * @param CallBackRef is the call back reference passed in by application. A
- *        NULL pointer is acceptable.
- *
- * @param IrqMask is the interrupt mask regarding this completion
- * @param NumBdPtr is the pointer to number of BDs this handler should handle,
- *        for simple transfer, it is ignored.
+ * @param[in] CallBackRef Callback reference passed in by the application.
+ * @param[in] IrqMask Interrupt mask for this completion.
+ * @param[out] NumBdPtr Pointer to the number of BDs this handler handles.
  */
 typedef void (*XAxiCdma_CallBackFn)(void *CallBackRef, u32 IrqMask,
 				    int *NumBdPtr);
 
 /**
- * @name XAxiCdma_IntrHandlerList
- *
- * Interrupt handler list for scatter gather transfers
- *
- * @{
+ * @brief Interrupt handler list entry for scatter gather transfers.
  */
 typedef struct {
 	XAxiCdma_CallBackFn CallBackFn; /**< Callback function */
@@ -396,12 +391,7 @@ typedef struct {
 } XAxiCdma_IntrHandlerList;
 
 /**
- * @name XAxiCdma_Config
- *
- * The hardware configuration structure, to be passed to the driver by the
- * user, or by tools if using XPS.
- *
- * @{
+ * @brief Hardware configuration structure for the CDMA engine.
  */
 typedef struct {
 #ifndef SDT
@@ -422,12 +412,7 @@ typedef struct {
 } XAxiCdma_Config;
 
 /**
- * @name XAxiCdma
- *
- * The structure to hold the driver instance data. An instance of this
- * structure corresponds to one DMA engine.
- *
- * @{
+ * @brief Driver instance data for one CDMA engine.
  */
 typedef struct {
 	UINTPTR BaseAddr;         /**< Virtual base address of the DMA engine */
@@ -474,17 +459,14 @@ typedef struct {
 	int AddrWidth;		  /**< Address Width */
 
 } XAxiCdma;
-/* @} */
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
-/*****************************************************************************/
-/*
- * Macros to flush and invalidate cache for BDs should they be
- * located in cached memory. These macros may NOPs if the underlying
- * XCACHE_FLUSH_DCACHE_RANGE and XCACHE_INVALIDATE_DCACHE_RANGE macros are not
- * implemented or they do nothing.
- *****************************************************************************/
+/**
+ * @brief Flushes and invalidates cache for buffer descriptors in cached memory.
+ *
+ * These macros may be NOPs when the underlying cache helpers are unavailable.
+ */
 #ifdef __aarch64__
 #define XAXICDMA_CACHE_FLUSH(BdPtr)
 #define XAXICDMA_CACHE_INVALIDATE(BdPtr)
@@ -573,5 +555,5 @@ void XAxiCdma_DumpRegisters(XAxiCdma *InstancePtr);
 }
 #endif
 
-#endif    /* prevent circular inclusions */
 /** @} */
+#endif    /* prevent circular inclusions */

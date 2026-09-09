@@ -1,8 +1,11 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
+
+#ifndef XAXICDMA_BD_H_    /* prevent circular inclusions */
+#define XAXICDMA_BD_H_
 
 /*****************************************************************************/
 /**
@@ -22,8 +25,6 @@
  *
  *****************************************************************************/
 
-#ifndef XAXICDMA_BD_H_    /* prevent circular inclusions */
-#define XAXICDMA_BD_H_
 
 #ifdef __cplusplus
 extern "C" {
@@ -38,76 +39,69 @@ extern "C" {
 
 /**************************** Type Definitions *******************************/
 /**
- * XAxiCdma_Bd
+ * @brief Buffer descriptor shared by hardware and software.
  *
- * Buffer descriptor, shared by hardware and software
- * The structure of the BD is as the following, however, the user never
- * directly accesses the fields in the BD. The following shows the fields
- * inside a BD:
- *
- *  u32 NextBdPtr;
- *  u32 NextBdPtrMsb;
- *  u32 SrcAddr;
- *  u32 SrcAddrMsb;
- *  u32 DstAddr;
- *  u32 DstAddrMsb;
- *  int Length;
- *  u32 Status;
- *  u32 PhysAddr;
- *  u32 IsLite;
- *  u32 HasDRE;
- *  u32 WordLen;
- *  u32 Addrlen;
+ * The user never directly accesses BD fields. The layout contains next
+ * descriptor pointers, source and destination addresses, length, status,
+ * and configuration metadata.
  */
 typedef UINTPTR XAxiCdma_Bd[XAXICDMA_BD_NUM_WORDS];
 
 /**************************** Macros (Inline Functions) Definitions **********/
 
-/*****************************************************************************/
-/* Macros to read a word from a BD
+/**
+ * @brief Reads a word from a buffer descriptor.
+ *
+ * @param[in] BdPtr BD to operate on.
+ * @param[in] Offset Byte offset of the word to read.
+ *
+ * @return The 32-bit value at the specified offset.
  *
  * @note
- * c-style signature:
+ * C-style signature:
  *   u32 XAxiCdma_BdRead(XAxiCdma_Bd* BdPtr, int Offset);
- *****************************************************************************/
+ */
 #define XAxiCdma_BdRead(BdPtr, Offset)   \
 	(*(u32 *)((UINTPTR)((void *)(BdPtr)) + (u32)(Offset)))
 
-/*****************************************************************************/
-/* Macros to write to a word in a BD
+/**
+ * @brief Writes a word to a buffer descriptor.
+ *
+ * @param[in] BdPtr BD to operate on.
+ * @param[in] Offset Byte offset of the word to write.
+ * @param[in] Value 32-bit value to write.
  *
  * @note
- * c-style signature:
+ * C-style signature:
  *    u32 XAxiCdma_BdWrite(XAxiCdma_Bd* BdPtr, int Offset, u32 Value )
- *****************************************************************************/
+ */
 #define XAxiCdma_BdWrite(BdPtr, Offset, Value)   \
 	(*(u32 *)((UINTPTR)(void *)(BdPtr) + (u32)(Offset))) = (u32)(Value)
 
-/*****************************************************************************/
-/* Set the Addrelen field of the BD.
+/**
+ * @brief Sets the address length field of a BD.
  *
- * @param  BdPtr is the BD to operate on
- * @param  Addrlen is the Address width of the CDMA
+ * @param[in] BdPtr BD to operate on.
+ * @param[in] AddrLen Address width of the CDMA.
  *
  * @note
- * 	C-style signature:
+ * C-style signature:
  *	u32 XAxiCdma_BdSetAddrLen(XAxiCdma_Bd* BdPtr, int AddrLen)
- *****************************************************************************/
+ */
 #define XAxiCdma_BdSetAddrLen(BdPtr, AddrLen)   \
 	XAxiCdma_BdWrite(BdPtr, XAXICDMA_BD_ADDRLEN_OFFSET, AddrLen);
 
-/*****************************************************************************/
-/* Get the BD's Address length
+/**
+ * @brief Reads the address length field of a BD.
  *
- * @param  BdPtr is the BD to operate on
+ * @param[in] BdPtr BD to operate on.
  *
- * @return None
+ * @return Address length stored in the BD.
  *
  * @note
- *	C-style signature:
+ * C-style signature:
  *	u32 XAxiCdma_BdGetAddrLength(XAxiCdma_Bd* BdPtr)
- *
- *****************************************************************************/
+ */
 #define XAxiCdma_BdGetAddrLength(BdPtr)   \
 	XAxiCdma_BdRead(BdPtr, XAXICDMA_BD_ADDRLEN_OFFSET);
 
@@ -139,5 +133,5 @@ void XAxiCdma_DumpBd(XAxiCdma_Bd *BdPtr);
 }
 #endif
 
-#endif    /* prevent circular inclusions */
 /** @} */
+#endif    /* prevent circular inclusions */

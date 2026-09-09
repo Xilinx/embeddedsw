@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -9,6 +9,8 @@
 /**
  *
  * @file xaxicdma_example_simple_poll.c
+ * @addtogroup axicdma Overview
+ * @{
  *
  * This file demonstrates how to use xaxicdma driver on the Xilinx AXI
  * CDMA core (AXICDMA) to transfer packets in simple transfer mode without
@@ -101,9 +103,11 @@ extern void xil_printf(const char *format, ...);
 
 
 /************************** Function Prototypes ******************************/
+/** @cond INTERNAL */
 static int DoSimplePollTransfer(XAxiCdma *InstancePtr, int Length, int Retries);
 
 static int CheckData(u8 *SrcPtr, u8 *DestPtr, int Length);
+/** @endcond */
 
 #ifndef SDT
 int XAxiCdma_SimplePollExample(u16 DeviceId);
@@ -128,16 +132,13 @@ static XAxiCdma AxiCdmaInstance;	/* Instance of the XAxiCdma */
 
 /*****************************************************************************/
 /**
-* The entry point for this example. It invokes the example function,
-* and reports the execution status.
-*
-* @param	None.
+* @brief Runs the example entry point, invokes the example function, and
+* reports the execution status.
 *
 * @return
 *		- XST_SUCCESS if example finishes successfully
 *		- XST_FAILURE if example fails.
 *
-* @note		None.
 *
 ******************************************************************************/
 #ifndef TESTAPP_GEN
@@ -170,14 +171,14 @@ int main()
 
 /*****************************************************************************/
 /**
-* The example to do the simple transfer through polling. The constant
-* NUMBER_OF_TRANSFERS defines how many times a simple transfer is repeated.
+* @brief Demonstrates simple transfer through polling.
+* The constant NUMBER_OF_TRANSFERS defines how many times a simple transfer is repeated.
 *
 * @if SDT
-* @param	InstancePtr is a pointer to the XAxiCdma instance
-* @param	BaseAddress contains the base address of the device
+* @param[in] InstancePtr is a pointer to the XAxiCdma instance
+* @param[in] BaseAddress contains the base address of the device
 * @else
-* @param	DeviceId is the Device Id of the XAxiCdma instance
+* @param[in] DeviceId is the Device Id of the XAxiCdma instance
 * @endif
 *
 * @return
@@ -237,19 +238,18 @@ int XAxiCdma_SimplePollExample(XAxiCdma *InstancePtr, UINTPTR BaseAddress)
 
 
 /*****************************************************************************/
-/*
-* This function does one simple transfer in polled mode
+/**
+* @brief Performs one simple transfer in polled mode.
 *
-* @param	InstancePtr is a pointer to the XAxiCdma instance
-* @param	Length is the transfer length
-* @param	Retries is how many times to retry on submission
+* @param[in] InstancePtr is a pointer to the XAxiCdma instance
+* @param[in] Length is the transfer length
+* @param[in] Retries is how many times to retry on submission
 *
 * @return
 *		- XST_SUCCESS if transfer is successful
 *		- XST_FAILURE if either the transfer fails or the data has
 *		  error
 *
-* @note		None
 *
 ******************************************************************************/
 static int DoSimplePollTransfer(XAxiCdma *InstancePtr, int Length, int Retries)
@@ -342,18 +342,17 @@ static int DoSimplePollTransfer(XAxiCdma *InstancePtr, int Length, int Retries)
 
 
 /*****************************************************************************/
-/*
-* This function checks that two buffers have the same data
+/**
+* @brief Checks that two buffers have the same data.
 *
-* @param	SrcPtr is the source buffer
-* @param	DestPtr is the destination buffer
-* @param	Length is the length of the buffer to check
+* @param[in] SrcPtr is the source buffer
+* @param[in] DestPtr is the destination buffer
+* @param[in] Length is the length of the buffer to check
 *
 * @return
 *		- XST_SUCCESS if the two buffer matches
 *		- XST_FAILURE otherwise
 *
-* @note		None.
 *
 ******************************************************************************/
 static int CheckData(u8 *SrcPtr, u8 *DestPtr, int Length)
@@ -376,3 +375,5 @@ static int CheckData(u8 *SrcPtr, u8 *DestPtr, int Length)
 
 	return XST_SUCCESS;
 }
+
+/** @} */

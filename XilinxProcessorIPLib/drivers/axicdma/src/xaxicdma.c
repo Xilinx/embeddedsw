@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -33,13 +33,12 @@
 
 /*****************************************************************************/
 /**
- * This function gets the status on error bits.
+ * @brief Reads error status bits from the hardware.
  *
- * @param	InstancePtr is the driver instance we are working on
+ * @param[in] InstancePtr is the driver instance we are working on
  *
  * @return	The error bits in the status register. Zero indicates no errors.
  *
- * @note	None.
  *
  *****************************************************************************/
 u32 XAxiCdma_GetError(XAxiCdma *InstancePtr)
@@ -51,16 +50,13 @@ u32 XAxiCdma_GetError(XAxiCdma *InstancePtr)
 
 /*****************************************************************************/
 /**
- * This function conducts hardware reset
+ * @brief Resets the hardware.
  *
  * Current transfer will finish gracefully. However, all queued SG transfers
  * that have not started will be flushed from the hardware.
  *
- * @param	InstancePtr is the driver instance we are working on
+ * @param[in] InstancePtr is the driver instance we are working on
  *
- * @return	None
- *
- * @note	None.
  *
  *****************************************************************************/
 void XAxiCdma_Reset(XAxiCdma *InstancePtr)
@@ -89,15 +85,14 @@ void XAxiCdma_Reset(XAxiCdma *InstancePtr)
 
 /*****************************************************************************/
 /**
- * This function checks whether the hardware reset is done
+ * @brief Checks whether hardware reset completed.
  *
- * @param	InstancePtr is the driver instance we are working on
+ * @param[in] InstancePtr is the driver instance we are working on
  *
  * @return
  *		- 1 if the reset has finished successfully
  *		- 0 if the reset is not done
  *
- * @note	None.
  *
  *****************************************************************************/
 int XAxiCdma_ResetIsDone(XAxiCdma *InstancePtr)
@@ -111,15 +106,14 @@ int XAxiCdma_ResetIsDone(XAxiCdma *InstancePtr)
 
 /*****************************************************************************/
 /**
- * This function initializes the driver. It should be called before any other
- * function calls to the driver.
+ * @brief Initializes the driver.
  *
- * It sets up the driver according to the hardware build. It resets the
- * hardware at the end.
+ * Call this function before any other driver function calls. It sets up the
+ * driver according to the hardware build and resets the hardware at the end.
  *
- * @param	InstancePtr is the driver instance that is working on
- * @param	CfgPtr is the pointer to the hardware configuration structure
- * @param	EffectiveAddr is the virtual address of the hardware instance.
+ * @param[in] InstancePtr is the driver instance that is working on
+ * @param[in] CfgPtr is the pointer to the hardware configuration structure
+ * @param[in] EffectiveAddr is the virtual address of the hardware instance.
  *		If address translation is not in use, please use the physical
  *		address
  *
@@ -128,7 +122,6 @@ int XAxiCdma_ResetIsDone(XAxiCdma *InstancePtr)
  *		- XST_INVALID_PARAM if word length is less than 4
  *		- XST_FAILURE for reset failure
  *
- * @note	None.
  *
  *****************************************************************************/
 u32 XAxiCdma_CfgInitialize(XAxiCdma *InstancePtr, XAxiCdma_Config *CfgPtr,
@@ -222,15 +215,14 @@ u32 XAxiCdma_CfgInitialize(XAxiCdma *InstancePtr, XAxiCdma_Config *CfgPtr,
 
 /*****************************************************************************/
 /**
- * This function checks whether the hardware is doing transfer
+ * @brief Checks whether the hardware is doing transfer.
  *
- * @param	InstancePtr is the driver instance we are working on
+ * @param[in] InstancePtr is the driver instance we are working on
  *
  * @return
  * 		- 1 if the hardware is doing a transfer
  * 		- 0 if the hardware is idle
  *
- * @note	None.
  *
  *****************************************************************************/
 int XAxiCdma_IsBusy(XAxiCdma *InstancePtr)
@@ -243,16 +235,15 @@ int XAxiCdma_IsBusy(XAxiCdma *InstancePtr)
 }
 
 /*****************************************************************************/
-/*
- * Check whether the hardware is in simple mode
+/**
+ * @brief Checks whether the hardware is in simple mode.
  *
- * @param	InstancePtr is the driver instance we are working on
+ * @param[in] InstancePtr is the driver instance we are working on
  *
  * @return
  *		- 1 if the hardware is in simple mode
  *		- 0 if the hardware is in SG mode
  *
- * @note	None.
  *
  *****************************************************************************/
 int XAxiCdma_IsSimpleMode(XAxiCdma *InstancePtr)
@@ -263,18 +254,17 @@ int XAxiCdma_IsSimpleMode(XAxiCdma *InstancePtr)
 
 /*****************************************************************************/
 /**
- * This function configures KeyHole Write/Read Feature
+ * @brief Configures the KeyHole read or write feature.
  *
- * @param	InstancePtr is the driver instance we are working on
+ * @param[in] InstancePtr is the driver instance we are working on
  *
- * @param	Direction is WRITE/READ
- * @Select	Select is the option to enable (TRUE) or disable (FALSE).
+ * @param[in] Direction is WRITE/READ
+ * @param[in] Select is the option to enable (TRUE) or disable (FALSE).
  *
  * @return	- XST_SUCCESS for success
  *		- XST_DEVICE_BUSY when transfer is in progress
  *		- XST_NO_FEATURE when not configured with feature
  *
- * @note	None.
  *
  *****************************************************************************/
 int XAxiCdma_SelectKeyHole(XAxiCdma *InstancePtr, u32 Direction, u32 Select)
@@ -321,14 +311,13 @@ int XAxiCdma_SelectKeyHole(XAxiCdma *InstancePtr, u32 Direction, u32 Select)
 }
 
 /*****************************************************************************/
-/*
- * Change the hardware mode
+/**
+ * @brief Switches the hardware between simple and scatter gather mode.
  *
- * If to switch to SG mode, check whether needs to setup the current BD
- * pointer register.
+ * If switching to SG mode, sets up the current BD pointer register when needed.
  *
- * @param	InstancePtr is the driver instance we are working on
- * @param	Mode is the mode to switch to.
+ * @param[in] InstancePtr is the driver instance we are working on
+ * @param[in] Mode is the mode to switch to.
  *
  * @return
  *		- XST_SUCCESS if mode switch is successful
@@ -337,7 +326,6 @@ int XAxiCdma_SelectKeyHole(XAxiCdma *InstancePtr, u32 Direction, u32 Select)
  *		- XST_FAILURE if:Hardware is simple mode only build
  *		Mode switch failed
  *
- * @note	None.
  *
  *****************************************************************************/
 int XAxiCdma_SwitchMode(XAxiCdma *InstancePtr, int Mode)
@@ -422,7 +410,7 @@ int XAxiCdma_SwitchMode(XAxiCdma *InstancePtr, int Mode)
 }
 /*****************************************************************************/
 /**
- * This function does one simple transfer submission
+ * @brief Performs one simple transfer submission.
  *
  * It checks in the following sequence:
  *	- if engine is busy, cannot submit
@@ -430,12 +418,12 @@ int XAxiCdma_SwitchMode(XAxiCdma *InstancePtr, int Mode)
  *		transfer, cannot submit
  *	- if engine is in SG mode and cannot switch to simple mode, cannot submit
  *
- * @param	InstancePtr is the pointer to the driver instance
- * @param	SrcAddr is the address of the source buffer
- * @param	DstAddr is the address of the destination buffer
- * @param	Length is the length of the transfer
- * @param	SimpleCallBack is the callback function for the simple transfer
- * @param	CallBackRef is the callback reference pointer
+ * @param[in] InstancePtr is the pointer to the driver instance
+ * @param[in] SrcAddr is the address of the source buffer
+ * @param[in] DstAddr is the address of the destination buffer
+ * @param[in] Length is the length of the transfer
+ * @param[in] SimpleCallBack is the callback function for the simple transfer
+ * @param[in] CallBackRef is the callback reference pointer
  *
  * @return
  *		- XST_SUCCESS for success of submission
@@ -543,14 +531,14 @@ u32 XAxiCdma_SimpleTransfer(XAxiCdma *InstancePtr, UINTPTR SrcAddr, UINTPTR DstA
 
 /*****************************************************************************/
 /**
- * This function tries to set the interrupt coalescing threshold counter and
- * the delay counter. If to set only one of the counters, set the value of
- * the other counter to be XAXICDMA_COALESCE_NO_CHANGE.
+ * @brief Sets the interrupt coalescing threshold and delay counters.
  *
- * @param 	InstancePtr is the driver instance we are working on
- * @param 	Counter is the coalescing threshold to set to, the valid range is
+ * To set only one counter, set the other to XAXICDMA_COALESCE_NO_CHANGE.
+ *
+ * @param[in] InstancePtr is the driver instance we are working on
+ * @param[in] Counter is the coalescing threshold to set to, the valid range is
  * 		1 to XAXICDMA_COALESCE_MAX.
- * @param 	Delay is the delay timeout counter to set to, the valid range is
+ * @param[in] Delay is the delay timeout counter to set to, the valid range is
  * 		0 to XAXICDMA_DELAY_MAX. Setting a value of 0 disables the delay
  * 		interrupt.
  *
@@ -561,7 +549,6 @@ u32 XAxiCdma_SimpleTransfer(XAxiCdma *InstancePtr, UINTPTR SrcAddr, UINTPTR DstA
  *		- XST_INVALID_PARAM if one of the counters is not in the
  *		valid range
  *
- * @note	None.
  *
  *****************************************************************************/
 int XAxiCdma_SetCoalesce(XAxiCdma *InstancePtr, u32 Counter, u32 Delay)
@@ -609,17 +596,15 @@ int XAxiCdma_SetCoalesce(XAxiCdma *InstancePtr, u32 Counter, u32 Delay)
 
 /*****************************************************************************/
 /**
- * This function gets the current setting of the interrupt coalescing threshold
- * counter and the delay counter.
+ * @brief Reads the interrupt coalescing threshold and delay counter settings.
  *
- * @param	InstancePtr is the driver instance we are working on
- * @param	CounterPtr is the return value for the coalescing counter
+ * @param[in] InstancePtr is the driver instance we are working on
+ * @param[out] CounterPtr is the return value for the coalescing counter
  *			setting
- * @param	DelayPtr is the return value for the delay counter setting
+ * @param[out] DelayPtr is the return value for the delay counter setting
  *
- * @return	A zero coalescing threshold indicates invalid results
+ * @note	A zero coalescing threshold indicates invalid results
  *
- * @note	None.
  *
  *****************************************************************************/
 void XAxiCdma_GetCoalesce(XAxiCdma *InstancePtr, u32 *CounterPtr,
@@ -650,13 +635,10 @@ void XAxiCdma_GetCoalesce(XAxiCdma *InstancePtr, u32 *CounterPtr,
 
 /*****************************************************************************/
 /**
- * This function dumps the registers of this DMA instance
+ * @brief Dumps the registers of this DMA instance.
  *
- * @param	InstancePtr is the driver instance we are working on
+ * @param[in] InstancePtr is the driver instance we are working on
  *
- * @return	None
- *
- * @note	None.
  *
  *****************************************************************************/
 void XAxiCdma_DumpRegisters(XAxiCdma *InstancePtr)
