@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2019 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All rights reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -16,6 +16,12 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
+
+/**
+ * Minimum number of base addresses that must be supplied before the optional
+ * FPD SLCR SECURE base address can be read
+ */
+#define XPM_FPD_SECURE_BASE_ADDR_CNT	(2U)
 
 /**
  * The PS Full power domain node class.
