@@ -55,6 +55,7 @@
  * Ver   Who  Date       Changes
  * ----- ---- ---------- --------------------------------------------------------------------------
  * 1.00  ng   08/17/2026 Initial release
+ * 1.01  ng   09/09/2026 Unlock writes to LPD GD registers via wprot0
  *
  * </pre>
  *
@@ -145,6 +146,8 @@
 #define ASU_GD_FABRIC_GL_EN_OFFSET	(0x10048U)
 
 /* LPD GD (lpd_slcr @ 0xEB430000); GD1 stride 0x28 */
+#define LPD_SLCR_WPROT0_ADDR		(0xEB410000U) /**< 0: writes enabled, 1: writes disabled */
+#define LPD_SLCR_WRITES_ENABLED		(0U)
 #define LPD_GD_BASE_ADDR		(0xEB430000U)
 #define LPD_GD_INSTANCE_STRIDE		(0x28U)
 #define LPD_GD_EN_GLITCH_DET_B_OFFSET	(0x4U)
@@ -243,13 +246,23 @@ static void GenerateAsuTestGlitch(void)
  *
  * @param	GdNum is 0 for LPD GD0 or 1 for LPD GD1 (instance stride 0x28).
  *
+ * @note	The GD registers sit in the lpd_slcr aperture, which is guarded by
+ *		lpd_slcr.wprot0. While wprot0 is set the writes below are dropped
+ *		silently, so it is cleared for the duration and restored afterwards.
+ *
  *************************************************************************************************/
 static void GenerateLpdTestGlitch(u8 GdNum)
 {
 	u32 Base = LPD_GD_BASE_ADDR +
 		   (LPD_GD_INSTANCE_STRIDE * (u32)GdNum);
+	u32 SavedWprot;
 
 	xil_printf("LPD GD%u test glitch via lpd_slcr @ 0x%08x\n\r", GdNum, Base);
+
+	/* Every lpd_slcr write below is gated by wprot0, so unlock it first */
+	SavedWprot = Xil_In32(LPD_SLCR_WPROT0_ADDR);
+	Xil_Out32(LPD_SLCR_WPROT0_ADDR, LPD_SLCR_WRITES_ENABLED);
+
 	Xil_Out32(Base + LPD_GD_FABRIC_GL_EN_OFFSET, GD_FABRIC_DISABLE);
 	Xil_Out32(Base + LPD_GD_EN_GLITCH_DET_B_OFFSET, GD_ENABLE_VAL);
 	Xil_Out32(Base + LPD_GD_GL_DET_TEST_MODE_OFFSET, GD_TEST_MODE_ON);
@@ -258,6 +271,9 @@ static void GenerateLpdTestGlitch(u8 GdNum)
 	Xil_Out32(Base + LPD_GD_TEST_GLITCH_GEN_OFFSET, GD_TEST_GLITCH_OFF);
 	Xil_Out32(Base + LPD_GD_GL_DET_TEST_MODE_OFFSET, GD_TEST_MODE_OFF);
 	Xil_Out32(Base + LPD_GD_TEST_GLITCH_SEL_OFFSET, 0U);
+
+	/* Put the write protection back the way the platform had it */
+	Xil_Out32(LPD_SLCR_WPROT0_ADDR, SavedWprot);
 }
 
 /*************************************************************************************************/
