@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2015 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -8,6 +8,9 @@
 /**
 *
 * @file xaxivdma_example_selftest.c
+ * @addtogroup axivdma Overview
+ * @{
+ *
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -61,23 +64,20 @@ int AxiVDMASelfTestExample(UINTPTR BaseAddress);
 
 /************************** Variable Definitions *****************************/
 /*
- * Device instance definitions
- */
+ * @brief Device instance definitions.
+  */
 XAxiVdma AxiVdma;
 
 
 /*****************************************************************************/
 /**
-* The entry point for this example. It invokes the example function,
-* and reports the execution status.
+* @brief Runs the example entry point, invokes the example function, and reports the execution status.
 *
-* @param	None.
 *
 * @return
 *		- XST_SUCCESS if example finishes successfully
 *		- XST_FAILURE if example fails.
 *
-* @note		None.
 *
 ******************************************************************************/
 #ifndef TESTAPP_GEN
@@ -111,20 +111,17 @@ int main()
 
 /*****************************************************************************/
 /**
-* This function performance a reset of the VDMA device and checks the device is
-* coming out of reset or not.
-*
+ * @brief Resets the VDMA device and checks that reset completes.
 * @if SDT
-* @param	BaseAddress contains the base address of the device
+* @param[in] BaseAddress contains the base address of the device
 * @else
-* @param	DeviceId is the DMA device id.
+* @param[in] DeviceId is the DMA device id.
 * @endif
 *
 * @return
 *		- XST_SUCCESS if channel reset is successful
 *		- XST_FAILURE if channel reset fails.
 *
-* @note		None.
 *
 *
 ******************************************************************************/
@@ -159,3 +156,5 @@ int AxiVDMASelfTestExample(UINTPTR BaseAddress)
 
 	return Status;
 }
+
+/** @} */

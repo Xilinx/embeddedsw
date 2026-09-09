@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2012 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -46,8 +46,6 @@
  * @param Direction is the DMA channel, use XAXIVDMA_READ or XAXIVDMA_WRITE
  * @param IntrType is the bit mask for the interrupts to be enabled
  *
- * @return
- *  None
  *
  * @note
  * If channel is invalid, then nothing is done
@@ -75,8 +73,6 @@ void XAxiVdma_IntrEnable(XAxiVdma *InstancePtr, u32 IntrType, u16 Direction)
  * @param IntrType is the bit mask for the interrupts to be disabled
  * @param Direction is the DMA channel, use XAXIVDMA_READ or XAXIVDMA_WRITE
  *
- * @return
- *  None
  *
  * @note
  * If channel is invalid, then nothing is done
@@ -98,11 +94,10 @@ void XAxiVdma_IntrDisable(XAxiVdma *InstancePtr, u32 IntrType, u16 Direction)
 /**
  * Get the pending interrupts of a channel
  *
- * @param InstancePtr is the pointer to the DMA engine to work on
- * @param Direction is the DMA channel, use XAXIVDMA_READ or XAXIVDMA_WRITE
+ * @param[in] InstancePtr is the pointer to the DMA engine to work on
+ * @param[in] Direction is the DMA channel, use XAXIVDMA_READ or XAXIVDMA_WRITE
  *
- * @return
- * The bit mask for the currently pending interrupts
+ * @return Returns the bit mask of pending interrupts, or 0 if direction or channel is invalid.
  *
  * @note
  * If Direction is invalid, return 0
@@ -139,8 +134,6 @@ u32 XAxiVdma_IntrGetPending(XAxiVdma *InstancePtr, u16 Direction)
  * @param Direction is the DMA channel, use XAXIVDMA_READ or XAXIVDMA_WRITE
  * @param IntrType is the bit mask for the interrupts to be cleared
  *
- * @return
- *  None
  *
  * @note
  * If channel is invalid, then nothing is done
@@ -208,8 +201,6 @@ int XAxiVdma_MaskS2MMErrIntr(XAxiVdma *InstancePtr, u32 ErrorMask,
  *
  * @param InstancePtr is the pointer to the DMA engine to work on
  *
- * @return
- *  None
  *
  * @note
  * If the channel is invalid, then no interrupt handling
@@ -270,8 +261,6 @@ void XAxiVdma_ReadIntrHandler(void *InstancePtr)
  *
  * @param InstancePtr is the pointer to the DMA engine to work on
  *
- * @return
- *  None
  *
  * @note
  * If the channel is invalid, then no interrupt handling
@@ -330,15 +319,13 @@ void XAxiVdma_WriteIntrHandler(void *InstancePtr)
 /**
  * Set call back function and call back reference pointer for one channel
  *
- * @param InstancePtr is the pointer to the DMA engine to work on
- * @param HandlerType is the interrupt type that this callback handles
- * @param CallBackFunc is the call back function pointer
- * @param CallBackRef is the call back reference pointer
- * @param Direction is the DMA channel, use XAXIVDMA_READ or XAXIVDMA_WRITE
+ * @param[in] InstancePtr is the pointer to the DMA engine to work on
+ * @param[in] HandlerType is the interrupt type that this callback handles
+ * @param[in] CallBackFunc is the call back function pointer
+ * @param[in] CallBackRef is the call back reference pointer
+ * @param[in] Direction is the DMA channel, use XAXIVDMA_READ or XAXIVDMA_WRITE
  *
- * @return
- * - XST_SUCCESS if everything is fine
- * - XST_INVALID_PARAM if the handler type or direction invalid
+ * @return Returns XST_SUCCESS on success, XST_INVALID_PARAM on invalid handler type or direction.
  *
  * @note
  * This function overwrites the existing interrupt handler and its reference

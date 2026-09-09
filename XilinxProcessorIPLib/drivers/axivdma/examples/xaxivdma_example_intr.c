@@ -8,6 +8,8 @@
 /**
  *
  * @file xaxivdma_example_intr.c
+ * @addtogroup axivdma Overview
+ * @{
  *
  * This example demonstrates how to use the AXI Video DMA in loopback mode
  * to do video frame transfers. This example reads video frames from memory,
@@ -253,7 +255,7 @@ static void WriteErrorCallBack(void *CallbackRef, u32 Mask);
 /*****************************************************************************/
 /*
 *
-* Uart16550 setup routine, need to set baudrate to 9600 and data bits to 8
+* @brief Sets up UART16550 with a baud rate of 9600 and 8 data bits.
 *
 *
 ******************************************************************************/
@@ -757,18 +759,12 @@ static int WriteSetup(XAxiVdma *InstancePtr)
 
 /*****************************************************************************/
 /**
-*
-* This function starts the DMA transfers. Since the DMA engine is operating
-* in circular buffer mode, video frames will be transferred continuously.
-*
-* @param	InstancePtr points to the DMA engine instance
-*
-* @return	XST_SUCCESS if both read and write start successfully
-*		XST_FAILURE if one or both directions cannot be started
-*
-* @note		None.
-*
-******************************************************************************/
+ * @brief Starts DMA transfers in circular buffer mode for read and write channels.
+ *
+ * @param[in] InstancePtr Pointer to the DMA engine instance.
+ *
+ * @return Returns XST_SUCCESS if both channels start, XST_FAILURE otherwise.
+ */
 static int StartTransfer(XAxiVdma *InstancePtr)
 {
 	int Status;
@@ -799,7 +795,7 @@ static int StartTransfer(XAxiVdma *InstancePtr)
 * This function setups the interrupt system so interrupts can occur for the
 * DMA.  This function assumes INTC component exists in the hardware system.
 *
-* @param	AxiDmaPtr is a pointer to the instance of the DMA engine
+ * @param[in] AxiVdmaPtr is a pointer to the instance of the DMA engine
 * @param	ReadIntrId is the read channel Interrupt ID.
 * @param	WriteIntrId is the write channel Interrupt ID.
 *
@@ -938,8 +934,8 @@ static int SetupIntrSystem(XAxiVdma *AxiVdmaPtr, u16 ReadIntrId,
 *
 * This function disables the interrupts
 *
-* @param	ReadIntrId is interrupt ID associated w/ DMA read channel
-* @param	WriteIntrId is interrupt ID associated w/ DMA write channel
+* @param	ReadIntrId is interrupt ID associated with DMA read channel
+* @param	WriteIntrId is interrupt ID associated with DMA write channel
 *
 * @return	None.
 *
@@ -1048,7 +1044,7 @@ static void WriteErrorCallBack(void *CallbackRef, u32 Mask)
 /**
  * Compare a range of data from one frame with data from another frame
  *
- * @param FrameIndex, frame index for read and write frames
+ * @param[in] FrameIndex Frame index for read and write frames.
  *
  * @return
  *      - XST_SUCCESS if frames are identical
@@ -1097,20 +1093,13 @@ static int CheckFrame(int FrameIndex)
 	return XST_SUCCESS;
 }
 
-/*****************************************************************************/
 /**
- * Buffer initialization
+ * @brief Initializes a buffer with an incrementing byte pattern.
  *
- * Initialize a buffer from a specified value. Value increases in the buffer,
- * and wraps around at 0xFF.
- *
- * @param BaseAddr, starting address for buffer
- * @param Length, length of the buffer in bytes
- * @param StartValue, value for first byte
- *
- * @return
- *      None
- ******************************************************************************/
+ * @param[in] BaseAddr Starting address for the buffer.
+ * @param[in] Length Length of the buffer in bytes.
+ * @param[in] StartValue Value for the first byte.
+ */
 static void BufferInit(UINTPTR BaseAddr, int Length, u8 StartValue)
 {
 	int Tmp;
@@ -1128,3 +1117,5 @@ static void BufferInit(UINTPTR BaseAddr, int Length, u8 StartValue)
 
 	return;
 }
+
+/** @} */

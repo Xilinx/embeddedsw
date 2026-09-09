@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2014 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -8,6 +8,9 @@
 /**
  *
  * @file vdma.c
+ * @addtogroup axivdma Overview
+ * @{
+ *
  *
  * This file comprises sample application to  usage of VDMA APi's in vdma_api.c.
  *  .
@@ -22,7 +25,7 @@
  *       ms   04/05/17 Modified Comment lines in functions to
  *                     recognize it as documentation block for doxygen
  *                     generation of examples.
- * 6.12  sa   08/12/22 Updated the example to use latest MIG cannoical define
+ * 6.12  sa   08/12/22 Updated the example to use latest MIG canonical macro
  * 		       i.e XPAR_MIG_0_C0_DDR4_MEMORY_MAP_BASEADDR.
  ****************************************************************************/
 
@@ -69,7 +72,6 @@ static int SetupIntrSystem(XAxiVdma *AxiVdmaPtr, u16 ReadIntrId,
 *
 * This is main entry point to demonstrate this example.
 *
-* @return	None
 *
 ******************************************************************************/
 int main(){
@@ -115,16 +117,15 @@ int main(){
 
 
 /*****************************************************************************/
-/*
+/**
  * Call back function for read channel
  *
  * The user can put his code that should get executed when this
  * call back happens.
  *
- * @param	CallbackRef is the call back reference pointer
- * @param	Mask is the interrupt mask passed in from the driver
+ * @param[in] CallbackRef is the call back reference pointer
+ * @param[in] Mask is the interrupt mask passed in from the driver
  *
- * @return	None
 *
 ******************************************************************************/
 static void ReadCallBack(void *CallbackRef, u32 Mask)
@@ -134,14 +135,13 @@ static void ReadCallBack(void *CallbackRef, u32 Mask)
 }
 
 /*****************************************************************************/
-/*
+/**
  * The user can put his code that should get executed when this
  * call back happens.
  *
- * @param	CallbackRef is the call back reference pointer
- * @param	Mask is the interrupt mask passed in from the driver
+ * @param[in] CallbackRef is the call back reference pointer
+ * @param[in] Mask is the interrupt mask passed in from the driver
  *
- * @return	None
 *
 ******************************************************************************/
 static void ReadErrorCallBack(void *CallbackRef, u32 Mask)
@@ -158,10 +158,9 @@ static void ReadErrorCallBack(void *CallbackRef, u32 Mask)
  *
  * This callback only clears the interrupts and updates the transfer status.
  *
- * @param	CallbackRef is the call back reference pointer
- * @param	Mask is the interrupt mask passed in from the driver
+ * @param[in] CallbackRef is the call back reference pointer
+ * @param[in] Mask is the interrupt mask passed in from the driver
  *
- * @return	None
 *
 ******************************************************************************/
 static void WriteCallBack(void *CallbackRef, u32 Mask)
@@ -172,14 +171,13 @@ static void WriteCallBack(void *CallbackRef, u32 Mask)
 }
 
 /*****************************************************************************/
-/*
+/**
 * The user can put his code that should get executed when this
 * call back happens.
 *
-* @param	CallbackRef is the call back reference pointer
-* @param	Mask is the interrupt mask passed in from the driver
+* @param[in] CallbackRef is the call back reference pointer
+* @param[in] Mask is the interrupt mask passed in from the driver
 *
-* @return	None
 *
 ******************************************************************************/
 static void WriteErrorCallBack(void *CallbackRef, u32 Mask)
@@ -191,18 +189,18 @@ static void WriteErrorCallBack(void *CallbackRef, u32 Mask)
 }
 
 /*****************************************************************************/
-/*
+/**
 *
-* This function setups the interrupt system so interrupts can occur for the
-* DMA.  This function assumes INTC component exists in the hardware system.
+* @brief Sets up the interrupt system for the DMA engine.
 *
-* @param	AxiDmaPtr is a pointer to the instance of the DMA engine
-* @param	ReadIntrId is the read channel Interrupt ID.
-* @param	WriteIntrId is the write channel Interrupt ID.
+* Assumes an INTC component exists in the hardware system.
+*
+* @param[in] AxiVdmaPtr is a pointer to the instance of the DMA engine
+* @param[in] ReadIntrId is the read channel Interrupt ID.
+* @param[in] WriteIntrId is the write channel Interrupt ID.
 *
 * @return	XST_SUCCESS if successful, otherwise XST_FAILURE.
 *
-* @note		None.
 *
 ******************************************************************************/
 static int SetupIntrSystem(XAxiVdma *AxiVdmaPtr, u16 ReadIntrId,
@@ -269,14 +267,12 @@ static int SetupIntrSystem(XAxiVdma *AxiVdmaPtr, u16 ReadIntrId,
 /*****************************************************************************/
 /**
 *
-* This function disables the interrupts
+* @brief Disables the interrupts.
 *
-* @param	ReadIntrId is interrupt ID associated w/ DMA read channel
-* @param	WriteIntrId is interrupt ID associated w/ DMA write channel
+* @param[in] ReadIntrId is interrupt ID associated with DMA read channel
+* @param[in] WriteIntrId is interrupt ID associated with DMA write channel
 *
-* @return	None.
 *
-* @note		None.
 *
 ******************************************************************************/
 static void DisableIntrSystem(u16 ReadIntrId, u16 WriteIntrId)
@@ -287,3 +283,5 @@ static void DisableIntrSystem(u16 ReadIntrId, u16 WriteIntrId)
 	XIntc_Disconnect(&Intc, WriteIntrId);
 
 }
+
+/** @} */

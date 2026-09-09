@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2012 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -67,11 +67,10 @@
 /**
  * Get a channel
  *
- * @param InstancePtr is the DMA engine to work on
- * @param Direction is the direction for the channel to get
+ * @param[in] InstancePtr is the DMA engine to work on
+ * @param[in] Direction is the direction for the channel to get
  *
- * @return
- * The pointer to the channel. Upon error, return NULL.
+ * @return Returns pointer to the channel, or NULL if Direction is invalid.
  *
  * @note
  * Since this function is internally used, we assume Direction is valid
@@ -106,13 +105,11 @@ static int XAxiVdma_Major(XAxiVdma *InstancePtr)
 /**
  * Initialize the driver with hardware configuration
  *
- * @param InstancePtr is the pointer to the DMA engine to work on
- * @param CfgPtr is the pointer to the hardware configuration structure
- * @param EffectiveAddr is the virtual address map for the device
+ * @param[in] InstancePtr is the pointer to the DMA engine to work on
+ * @param[in] CfgPtr is the pointer to the hardware configuration structure
+ * @param[in] EffectiveAddr is the virtual address map for the device
  *
- * @return
- *  - XST_SUCCESS if everything goes fine
- *  - XST_FAILURE if reset the hardware failed, need system reset to recover
+ * @return Returns XST_SUCCESS on success, XST_FAILURE if channel reset fails.
  *
  * @note
  * If channel fails reset,  then it will be set as invalid
@@ -336,8 +333,6 @@ int XAxiVdma_CfgInitialize(XAxiVdma *InstancePtr, XAxiVdma_Config *CfgPtr,
  * @param InstancePtr is the pointer to the DMA engine to work on
  * @param Direction is the channel to work on, use XAXIVDMA_READ/WRITE
  *
- * @return
- * None
  *
  * @note
  * Due to undeterminism of system delays, check the reset status through
@@ -364,12 +359,10 @@ void XAxiVdma_Reset(XAxiVdma *InstancePtr, u16 Direction)
 /**
  * This function checks one DMA channel for reset completion
  *
- * @param InstancePtr is the pointer to the DMA engine to work on
- * @param Direction is the channel to work on, use XAXIVDMA_READ/WRITE
+ * @param[in] InstancePtr is the pointer to the DMA engine to work on
+ * @param[in] Direction is the channel to work on, use XAXIVDMA_READ/WRITE
  *
- * @return
- *  - 0 if reset is done
- *  - 1 if reset is ongoing
+ * @return Returns 0 if reset is done, 1 if reset is ongoing or Direction is invalid.
  *
  * @note
  * We do not check for channel validity, because channel is marked as invalid
@@ -381,7 +374,7 @@ int XAxiVdma_ResetNotDone(XAxiVdma *InstancePtr, u16 Direction)
 
 	Channel = XAxiVdma_GetChannel(InstancePtr, Direction);
 
-	/* If dirction is invalid, reset is never done
+	/* If direction is invalid, reset is never done
 	 */
 	if (!Channel) {
 		return 1;
@@ -394,12 +387,10 @@ int XAxiVdma_ResetNotDone(XAxiVdma *InstancePtr, u16 Direction)
 /**
  * Check whether a DMA channel is busy
  *
- * @param InstancePtr is the pointer to the DMA engine to work on
- * @param Direction is the channel to work on, use XAXIVDMA_READ/WRITE
+ * @param[in] InstancePtr is the pointer to the DMA engine to work on
+ * @param[in] Direction is the channel to work on, use XAXIVDMA_READ/WRITE
  *
- * @return
- * - Non-zero if the channel is busy
- * - Zero if the channel is idle
+ * @return Returns non-zero if the channel is busy, 0 if idle or invalid.
  *
  *****************************************************************************/
 int XAxiVdma_IsBusy(XAxiVdma *InstancePtr, u16 Direction)
@@ -425,11 +416,10 @@ int XAxiVdma_IsBusy(XAxiVdma *InstancePtr, u16 Direction)
 /**
  * Get the current frame that hardware is working on
  *
- * @param InstancePtr is the pointer to the DMA engine to work on
- * @param Direction is the channel to work on, use XAXIVDMA_READ/WRITE
+ * @param[in] InstancePtr is the pointer to the DMA engine to work on
+ * @param[in] Direction is the channel to work on, use XAXIVDMA_READ/WRITE
  *
- * @return
- * The current frame that the hardware is working on
+ * @return Returns the current frame index, or 0xFFFFFFFF if Direction is invalid.
  *
  * @note
  * If returned frame number is out of range, then the channel is invalid
@@ -455,10 +445,9 @@ u32 XAxiVdma_CurrFrameStore(XAxiVdma *InstancePtr, u16 Direction)
 /**
  * Get the version of the hardware
  *
- * @param InstancePtr is the pointer to the DMA engine to work on
+ * @param[in] InstancePtr is the pointer to the DMA engine to work on
  *
- * @return
- * The version of the hardware
+ * @return Returns the hardware version register value.
  *
  *****************************************************************************/
 u32 XAxiVdma_GetVersion(XAxiVdma *InstancePtr)
@@ -470,11 +459,10 @@ u32 XAxiVdma_GetVersion(XAxiVdma *InstancePtr)
 /**
  * Get the status of a channel
  *
- * @param InstancePtr is the pointer to the DMA engine to work on
- * @param Direction is the channel to work on, use XAXIVDMA_READ/WRITE
+ * @param[in] InstancePtr is the pointer to the DMA engine to work on
+ * @param[in] Direction is the channel to work on, use XAXIVDMA_READ/WRITE
  *
- * @return
- * The status of the channel
+ * @return Returns the channel status register value, or 0xFFFFFFFF if invalid.
  *
  * @note
  * An invalid return value indicates that channel is invalid
@@ -500,14 +488,11 @@ u32 XAxiVdma_GetStatus(XAxiVdma *InstancePtr, u16 Direction)
 /**
  * Configure Line Buffer Threshold
  *
- * @param InstancePtr is the pointer to the DMA engine to work on
- * @param LineBufThreshold is the value to set threshold
- * @param Direction is the DMA channel to work on
+ * @param[in] InstancePtr is the pointer to the DMA engine to work on
+ * @param[in] LineBufThreshold is the value to set threshold
+ * @param[in] Direction is the DMA channel to work on
  *
- * @return
- * - XST_SUCCESS if successful
- * - XST_FAILURE otherwise
- * - XST_NO_FEATURE if access to Threshold register is disabled
+ * @return Returns XST_SUCCESS on success, XST_FAILURE on invalid threshold, XST_NO_FEATURE if threshold register is disabled.
  *****************************************************************************/
 int XAxiVdma_SetLineBufThreshold(XAxiVdma *InstancePtr, int LineBufThreshold,
 				 u16 Direction)
@@ -550,13 +535,11 @@ int XAxiVdma_SetLineBufThreshold(XAxiVdma *InstancePtr, int LineBufThreshold,
 /**
  * Configure Frame Sync Source and valid only when C_USE_FSYNC is enabled.
  *
- * @param InstancePtr is the pointer to the DMA engine to work on
- * @param Source is the value to set the source of Frame Sync
- * @param Direction is the DMA channel to work on
+ * @param[in] InstancePtr is the pointer to the DMA engine to work on
+ * @param[in] Source is the value to set the source of Frame Sync
+ * @param[in] Direction is the DMA channel to work on
  *
- * @return
- * - XST_SUCCESS if successful
- * - XST_FAILURE if C_USE_FSYNC is disabled.
+ * @return Returns XST_SUCCESS on success, XST_FAILURE if frame sync is disabled or source is invalid.
  *
  *****************************************************************************/
 int XAxiVdma_FsyncSrcSelect(XAxiVdma *InstancePtr, u32 Source,
@@ -617,14 +600,11 @@ int XAxiVdma_FsyncSrcSelect(XAxiVdma *InstancePtr, u32 Source,
 /**
  * Configure Gen Lock Source
  *
- * @param InstancePtr is the pointer to the DMA engine to work on
- * @param Source is the value to set the source of Gen Lock
- * @param Direction is the DMA channel to work on
+ * @param[in] InstancePtr is the pointer to the DMA engine to work on
+ * @param[in] Source is the value to set the source of Gen Lock
+ * @param[in] Direction is the DMA channel to work on
  *
- * @return
- * - XST_SUCCESS if successful
- * - XST_FAILURE if the channel is in GenLock Master Mode.
- *		 if C_INCLUDE_INTERNAL_GENLOCK is disabled.
+ * @return Returns XST_SUCCESS on success, XST_FAILURE if genlock configuration is invalid.
  *
  *****************************************************************************/
 int XAxiVdma_GenLockSourceSelect(XAxiVdma *InstancePtr, u32 Source,
@@ -681,16 +661,11 @@ int XAxiVdma_GenLockSourceSelect(XAxiVdma *InstancePtr, u32 Source,
 /**
  * Start parking mode on a certain frame
  *
- * @param InstancePtr is the pointer to the DMA engine to work on
- * @param FrameIndex is the frame to park on
- * @param Direction is the channel to work on, use XAXIVDMA_READ/WRITE
+ * @param[in] InstancePtr is the pointer to the DMA engine to work on
+ * @param[in] FrameIndex is the frame to park on
+ * @param[in] Direction is the channel to work on, use XAXIVDMA_READ/WRITE
  *
- * @return
- *  - XST_SUCCESS if everything is fine
- *  - XST_INVALID_PARAM if
- *    . channel is invalid
- *    . FrameIndex is invalid
- *    . Direction is invalid
+ * @return Returns XST_SUCCESS on success, XST_INVALID_PARAM on invalid parameter, XST_FAILURE if parking start fails.
  *****************************************************************************/
 int XAxiVdma_StartParking(XAxiVdma *InstancePtr, int FrameIndex,
 			  u16 Direction)
@@ -763,8 +738,6 @@ int XAxiVdma_StartParking(XAxiVdma *InstancePtr, int FrameIndex,
  * @param InstancePtr is the pointer to the DMA engine to work on
  * @param Direction is the channel to work on, use XAXIVDMA_READ/WRITE
  *
- * @return
- *   None
  *
  * @note
  * If channel is invalid, then do nothing
@@ -796,8 +769,6 @@ void XAxiVdma_StopParking(XAxiVdma *InstancePtr, u16 Direction)
  * @param InstancePtr is the pointer to the DMA engine to work on
  * @param Direction is the channel to work on, use XAXIVDMA_READ/WRITE
  *
- * @return
- *   None
  *
  *****************************************************************************/
 void XAxiVdma_StartFrmCntEnable(XAxiVdma *InstancePtr, u16 Direction)
@@ -818,21 +789,17 @@ void XAxiVdma_StartFrmCntEnable(XAxiVdma *InstancePtr, u16 Direction)
  * In some systems, it is convenient to put BDs into a certain region of the
  * memory. This function enables that.
  *
- * @param InstancePtr is the pointer to the DMA engine to work on
- * @param BdAddrPhys is the physical starting address for BDs
- * @param BdAddrVirt is the Virtual starting address for BDs. For systems that
+ * @param[in] InstancePtr is the pointer to the DMA engine to work on
+ * @param[in] BdAddrPhys is the physical starting address for BDs
+ * @param[in] BdAddrVirt is the Virtual starting address for BDs. For systems that
  *         do not use MMU, then virtual address is the same as physical address
- * @param NumBds is the number of BDs to setup with. This is required to be
+ * @param[in] NumBds is the number of BDs to setup with. This is required to be
  *        the same as the number of frame stores for that channel
- * @param Direction is the channel direction
+ * @param[in] Direction is the channel direction
  *
- * @return
- * - XST_SUCCESS for a successful setup
- * - XST_DEVICE_BUSY if the DMA channel is not idle, BDs are still being used
- * - XST_INVALID_PARAM if parameters not valid
- * - XST_DEVICE_NOT_FOUND if the channel is invalid
+ * @return Returns XST_SUCCESS on success, XST_INVALID_PARAM on invalid parameters, XST_DEVICE_NOT_FOUND if channel is invalid, or channel error code.
  *
- * @notes
+ * @note
  * We assume that the memory region starting from BdAddrPhys and BdAddrVirt are
  * large enough to hold all the BDs.
  *****************************************************************************/
@@ -868,14 +835,10 @@ int XAxiVdma_SetBdAddrs(XAxiVdma *InstancePtr, u32 BdAddrPhys, u32 BdAddrVirt,
  *
  * Write corresponds to send data from device to memory
  *
- * @param InstancePtr is the pointer to the DMA engine to work on
- * @param DmaConfigPtr is the pointer to the setup structure
+ * @param[in] InstancePtr is the pointer to the DMA engine to work on
+ * @param[in] DmaConfigPtr is the pointer to the setup structure
  *
- * @return
- * - XST_SUCCESS for a successful submission
- * - XST_DEVICE_BUSY if the DMA channel is not idle, BDs are still being used
- * - XST_INVAID_PARAM if parameters in config structure not valid
- * - XST_DEVICE_NOT_FOUND if the channel is invalid
+ * @return Returns XST_SUCCESS on success, XST_DEVICE_NOT_FOUND if channel is invalid, or channel error code.
  *
  *****************************************************************************/
 int XAxiVdma_StartWriteFrame(XAxiVdma *InstancePtr,
@@ -899,14 +862,10 @@ int XAxiVdma_StartWriteFrame(XAxiVdma *InstancePtr,
  *
  * Read corresponds to send data from memory to device
  *
- * @param InstancePtr is the pointer to the DMA engine to work on
- * @param DmaConfigPtr is the pointer to the setup structure
+ * @param[in] InstancePtr is the pointer to the DMA engine to work on
+ * @param[in] DmaConfigPtr is the pointer to the setup structure
  *
- * @return
- * - XST_SUCCESS for a successful submission
- * - XST_DEVICE_BUSY if the DMA channel is not idle, BDs are still being used
- * - XST_INVAID_PARAM if parameters in config structure not valid
- * - XST_DEVICE_NOT_FOUND if the channel is invalid
+ * @return Returns XST_SUCCESS on success, XST_DEVICE_NOT_FOUND if channel is invalid, or channel error code.
  *
  *****************************************************************************/
 int XAxiVdma_StartReadFrame(XAxiVdma *InstancePtr,
@@ -928,16 +887,11 @@ int XAxiVdma_StartReadFrame(XAxiVdma *InstancePtr,
 /**
  * Configure one DMA channel using the configuration structure
  *
- * @param InstancePtr is the pointer to the DMA engine to work on
- * @param Direction is the DMA channel to work on
- * @param DmaConfigPtr is the pointer to the setup structure
+ * @param[in] InstancePtr is the pointer to the DMA engine to work on
+ * @param[in] Direction is the DMA channel to work on
+ * @param[in] DmaConfigPtr is the pointer to the setup structure
  *
- * @return
- * - XST_SUCCESS if successful
- * - XST_DEVICE_BUSY if the DMA channel is not idle, BDs are still being used
- * - XST_INVAID_PARAM if buffer address not valid, for example, unaligned
- *   address with no DRE built in the hardware, or Direction invalid
- * - XST_DEVICE_NOT_FOUND if the channel is invalid
+ * @return Returns XST_SUCCESS on success, XST_INVALID_PARAM on invalid Direction, XST_DEVICE_NOT_FOUND if channel is invalid, or channel error code.
  *
  *****************************************************************************/
 int XAxiVdma_DmaConfig(XAxiVdma *InstancePtr, u16 Direction,
@@ -965,16 +919,11 @@ int XAxiVdma_DmaConfig(XAxiVdma *InstancePtr, u16 Direction,
 /**
  * Configure buffer addresses for one DMA channel
  *
- * @param InstancePtr is the pointer to the DMA engine to work on
- * @param Direction is the DMA channel to work on
- * @param BufferAddrSet is the set of addresses for the transfers
+ * @param[in] InstancePtr is the pointer to the DMA engine to work on
+ * @param[in] Direction is the DMA channel to work on
+ * @param[in] BufferAddrSet is the set of addresses for the transfers
  *
- * @return
- * - XST_SUCCESS if successful
- * - XST_DEVICE_BUSY if the DMA channel is not idle, BDs are still being used
- * - XST_INVAID_PARAM if buffer address not valid, for example, unaligned
- *   address with no DRE built in the hardware, or Direction invalid
- * - XST_DEVICE_NOT_FOUND if the channel is invalid
+ * @return Returns XST_SUCCESS on success, XST_INVALID_PARAM on invalid Direction, XST_DEVICE_NOT_FOUND if channel is invalid, or channel error code.
  *
  *****************************************************************************/
 int XAxiVdma_DmaSetBufferAddr(XAxiVdma *InstancePtr, u16 Direction,
@@ -1000,14 +949,10 @@ int XAxiVdma_DmaSetBufferAddr(XAxiVdma *InstancePtr, u16 Direction,
 /**
  * Start one DMA channel
  *
- * @param InstancePtr is the pointer to the DMA engine to work on
- * @param Direction is the DMA channel to work on
+ * @param[in] InstancePtr is the pointer to the DMA engine to work on
+ * @param[in] Direction is the DMA channel to work on
  *
- * @return
- * - XST_SUCCESS if channel started successfully
- * - XST_FAILURE otherwise
- * - XST_DEVICE_NOT_FOUND if the channel is invalid
- * - XST_INVALID_PARAM if Direction invalid
+ * @return Returns XST_SUCCESS on success, XST_INVALID_PARAM on invalid Direction, XST_DEVICE_NOT_FOUND if channel is invalid, or channel error code.
  *
  *****************************************************************************/
 int XAxiVdma_DmaStart(XAxiVdma *InstancePtr, u16 Direction)
@@ -1034,8 +979,6 @@ int XAxiVdma_DmaStart(XAxiVdma *InstancePtr, u16 Direction)
  * @param InstancePtr is the pointer to the DMA engine to work on
  * @param Direction is the DMA channel to work on
  *
- * @return
- *  None
  *
  * @note
  * If channel is invalid, then do nothing on that channel
@@ -1064,8 +1007,6 @@ void XAxiVdma_DmaStop(XAxiVdma *InstancePtr, u16 Direction)
  * @param InstancePtr is the pointer to the DMA engine to work on
  * @param Direction is the DMA channel to work on
  *
- * @return
- *  None
  *
  * @note
  * If channel is invalid, then do nothing on that channel
@@ -1091,13 +1032,10 @@ void XAxiVdma_DmaRegisterDump(XAxiVdma *InstancePtr, u16 Direction)
 /**
  * Set the frame counter and delay counter for both channels
  *
- * @param InstancePtr is the pointer to the DMA engine to work on
- * @param CfgPtr is the pointer to the configuration structure
+ * @param[in] InstancePtr is the pointer to the DMA engine to work on
+ * @param[in] CfgPtr is the pointer to the configuration structure
  *
- * @return
- *   - XST_SUCCESS if setup finishes successfully
- *   - XST_INVALID_PARAM if the configuration structure has invalid values
- *   - Others if setting channel frame counter fails
+ * @return Returns XST_SUCCESS on success, XST_INVALID_PARAM on invalid configuration, or channel error code.
  *
  * @note
  * If channel is invalid, then do nothing on that channel
@@ -1160,8 +1098,6 @@ int XAxiVdma_SetFrameCounter(XAxiVdma *InstancePtr,
  * @param InstancePtr is the pointer to the DMA engine to work on
  * @param CfgPtr is the configuration structure to contain return values
  *
- * @return
- *  None
  *
  * @note
  * If returned frame counter value is 0, then the channel is not valid
@@ -1262,13 +1198,9 @@ int XAxiVdma_SetFrmStore(XAxiVdma *InstancePtr, u8 FrmStoreNum, u16 Direction)
 /**
  * Get the number of frame store buffers to use.
  *
- * @param 	InstancePtr is the XAxiVdma instance to operate on
- * @param 	FrmStoreNum is the number of frame store buffers to use.
- * @param	Direction is the channel to work on, use XAXIVDMA_READ/WRITE
- *
- * @return	None
- *
- * @note	None
+ * @param[in]  InstancePtr is the XAxiVdma instance to operate on
+ * @param[out] FrmStoreNum is the number of frame store buffers to use.
+ * @param[in]  Direction is the channel to work on, use XAXIVDMA_READ/WRITE
  *
  *****************************************************************************/
 void XAxiVdma_GetFrmStore(XAxiVdma *InstancePtr, u8 *FrmStoreNum,

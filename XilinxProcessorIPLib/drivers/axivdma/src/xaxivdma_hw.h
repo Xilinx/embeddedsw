@@ -68,29 +68,26 @@ extern "C" {
 #define XAXIVDMA_BD_MINIMUM_ALIGNMENT_WD 0x8  /**< Minimum word alignment
                                                requirement for descriptors */
 /**
- * Maximum number of the frame store
+ * @brief Maximum number of the frame store.
  */
 #define XAXIVDMA_MAX_FRAMESTORE    32  /**< Maximum # of the frame store */
 
-#define XAXIVDMA_MAX_FRAMESTORE_64 16  /**< Maximum # of the frame store for 64 bit*/
+#define XAXIVDMA_MAX_FRAMESTORE_64 16  /**< Maximum # of the frame store for 64-bit*/
 
-/*@}*/
+/** @} */
 
 /** @name Maximum transfer length
- *    This is determined by hardware
+ * @brief This is determined by hardware.
  * @{
  */
 #define XAXIVDMA_MAX_VSIZE  0x1FFF  /* Max vertical size, 8K */
 #define XAXIVDMA_MAX_HSIZE  0xFFFF  /* Max horizontal size, 64K */
 #define XAXIVDMA_MAX_STRIDE 0xFFFF  /* Max stride size, 64K */
 #define XAXIVDMA_FRMDLY_MAX 0xF     /**< Maximum frame delay */
-/*@}*/
+/** @} */
 
 /**
- * Frame/Line Mismatch Error
- * This is a typical DMA Internal Error, which on detection does not require
- * a reset (as opposed to other errors). So a MSB bit is set to identify it,
- * from other DMA Internal Errors.
+ * @brief Frame/Line Mismatch Error This is a typical DMA Internal Error, which on detection does not require a reset (as opposed to other errors). So a MSB bit is set to identify it, from other DMA Internal Errors.
  *
  */
 #define XAXIVDMA_MISMATCH_ERROR 0x80000010
@@ -101,7 +98,7 @@ extern "C" {
 /* Register offset definitions. Register accesses are 32-bit.
  */
 /** @name Device registers
- *  Register sets on TX (Read) and RX (Write) channels are identical
+ * @brief Register sets on TX (Read) and RX (Write) channels are identical.
  *
  *  The version register is shared by both channels
  *  @{
@@ -129,13 +126,11 @@ extern "C" {
 /* This register is specific to S2MM channel
  */
 #define XAXIVDMA_S2MM_DMA_IRQ_MASK_OFFSET	0x0000003C /**< S2MM Err IRQ Mask*/
-/*@}*/
+/** @} */
 
 /** @name Start Addresses Register Array for a Channel
  *
- * Base offset is set in each channel
- * This set of registers are write only, they can be read when
- * C_ENABLE_VIDPRMTR_READS is 1.
+ * @brief Base offset is set in each channel This set of registers are write only, they can be read when C_ENABLE_VIDPRMTR_READS is 1.
  * @{
  */
 #define XAXIVDMA_VSIZE_OFFSET         0x00000000  /**< Vertical size */
@@ -145,7 +140,7 @@ extern "C" {
 #define XAXIVDMA_START_ADDR_LEN       0x00000004  /**< Each entry is 4 bytes */
 #define XAXIVDMA_START_ADDR_MSB_OFFSET 0x00000010  /**< Start of address */
 
-/*@}*/
+/** @} */
 
 /** @name Bitmasks of the XAXIVDMA_CR_OFFSET register
  * @{
@@ -162,11 +157,10 @@ extern "C" {
 #define XAXIVDMA_VFLIP_EN_MASK      0x00000001 /**< Vertical flip enable */
 
 #define XAXIVDMA_CR_RD_PTR_SHIFT    8   /**< Shift for read pointer number */
-/*@}*/
+/** @} */
 
 /** @name Bitmasks of the XAXIVDMA_SR_OFFSET register
- * This register reports status of a DMA channel, including
- * run/stop/idle state, errors, and interrupts
+ * This register reports status of a DMA channel, including run/stop/idle state, errors, and interrupts
  * @{
  */
 #define XAXIVDMA_SR_HALTED_MASK       0x00000001  /**< DMA channel halted */
@@ -180,10 +174,10 @@ extern "C" {
 #define XAXIVDMA_SR_ERR_SG_DEC_MASK   0x00000400  /**< SG decode err */
 #define XAXIVDMA_SR_ERR_FSZ_MORE_MASK 0x00000800  /**< FSize More Mismatch err */
 #define XAXIVDMA_SR_ERR_ALL_MASK      0x00000FF0  /**< All errors */
+/** @} */
 
 /** @name Bitmask for interrupts
- * These masks are shared by the XAXIVDMA_CR_OFFSET register and
- * the XAXIVDMA_SR_OFFSET register
+ * These masks are shared by the XAXIVDMA_CR_OFFSET register and the XAXIVDMA_SR_OFFSET register
  * @{
  */
 #define XAXIVDMA_IXR_FRMCNT_MASK      0x00001000 /**< Frame count intr */
@@ -191,11 +185,10 @@ extern "C" {
 #define XAXIVDMA_IXR_ERROR_MASK       0x00004000 /**< Error interrupt */
 #define XAXIVDMA_IXR_COMPLETION_MASK  0x00003000 /**< Completion interrupts */
 #define XAXIVDMA_IXR_ALL_MASK         0x00007000 /**< All interrupts */
-/*@}*/
+/** @} */
 
 /** @name Bitmask and shift for delay and coalesce
- * These masks are shared by the XAXIVDMA_CR_OFFSET register and
- * the XAXIVDMA_SR_OFFSET register
+ * These masks are shared by the XAXIVDMA_CR_OFFSET register and the XAXIVDMA_SR_OFFSET register
  * @{
  */
 #define XAXIVDMA_DELAY_MASK    0xFF000000 /**< Delay timeout counter */
@@ -204,25 +197,25 @@ extern "C" {
 
 #define XAXIVDMA_DELAY_SHIFT     24
 #define XAXIVDMA_FRMCNT_SHIFT    16
-/*@}*/
+/** @} */
 
 /** @name Bitmask for the XAXIVDMA_CDESC_OFFSET register
  * @{
  */
 #define XAXIVDMA_CDESC_CURBD_MASK     0xFFFFFFE0 /**< BD now working on */
-/*@}*/
+/** @} */
 
 /** @name Bitmask for XAXIVDMA_TDESC_OFFSET register
  * @{
  */
 #define XAXIVDMA_TDESC_CURBD_MASK        0xFFFFFFE0 /**< BD to stop on */
-/*@}*/
+/** @} */
 
 /** @name Bitmask for XAXIVDMA_FRMSTORE_OFFSET register
  * @{
  */
 #define XAXIVDMA_FRMSTORE_MASK        0x0000003F
-/*@}*/
+/** @} */
 /** @name Bitmask for XAXIVDMA_PARKPTR_OFFSET register
  * @{
  */
@@ -237,7 +230,7 @@ extern "C" {
 #define XAXIVDMA_WRTSTR_SHIFT         24
 
 #define XAXIVDMA_FRM_MAX              0xF       /**< At most 16 frames */
-/*@}*/
+/** @} */
 
 /** @name Bitmask for XAXIVDMA_VERSION_OFFSET register
  * @{
@@ -248,7 +241,7 @@ extern "C" {
 
 #define XAXIVDMA_VERSION_MAJOR_SHIFT 28
 #define XAXIVDMA_VERSION_MINOR_SHIFT 20
-/*@}*/
+/** @} */
 
 /** @name Bitmask for XAXIVDMA_S2MM_IRQ_MASK_OFFSET register
  * @{
@@ -267,7 +260,7 @@ extern "C" {
 							Late Error */
 #define XAXIVDMA_S2MM_IRQ_ERR_ALL_MASK		0x0000000F /**< Masks all
 							S2MM IRQ Errors */
-/*@}*/
+/** @} */
 
 /** @name Frame Delay shared by start address registers and BDs
  *
@@ -279,7 +272,7 @@ extern "C" {
 #define XAXIVDMA_FRMDLY_MASK      0x0F000000 /**< Frame delay */
 
 #define XAXIVDMA_FRMDLY_SHIFT     24     /**< Shift for frame delay */
-/*@}*/
+/** @} */
 
 /* Buffer Descriptor (BD) definitions
  */
@@ -297,12 +290,15 @@ extern "C" {
 #define XAXIVDMA_BD_NUM_WORDS      7   /**< Total number of words for one BD*/
 #define XAXIVDMA_BD_HW_NUM_BYTES   28  /**< Number of bytes hw used */
 #define XAXIVDMA_BD_BYTES_TO_CLEAR 20  /**< Skip next ptr when clearing */
-/*@}*/
+/** @} */
 
 
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
+/**@cond axivdma_internal
+ * @{
+ */
 
 #define XAxiVdma_In32  Xil_In32
 #define XAxiVdma_Out32 Xil_Out32
@@ -310,10 +306,10 @@ extern "C" {
 /*****************************************************************************/
 /**
 *
-* Read the given register.
+* @brief Reads the given register.
 *
-* @param    BaseAddress is the base address of the device
-* @param    RegOffset is the register offset to be read
+* @param[in] BaseAddress is the base address of the device
+* @param[in] RegOffset is the register offset to be read
 *
 * @return   The 32-bit value of the register
 *
@@ -328,13 +324,12 @@ extern "C" {
 /*****************************************************************************/
 /**
 *
-* Write the given register.
+* Writes the given register.
 *
-* @param    BaseAddress is the base address of the device
-* @param    RegOffset is the register offset to be written
-* @param    Data is the 32-bit value to write to the register
+* @param[in] BaseAddress is the base address of the device
+* @param[in] RegOffset is the register offset to be written
+* @param[in] Data is the 32-bit value to write to the register
 *
-* @return   None.
 *
 * @note
 * C-style signature:
@@ -343,6 +338,9 @@ extern "C" {
 ******************************************************************************/
 #define XAxiVdma_WriteReg(BaseAddress, RegOffset, Data)          \
 	XAxiVdma_Out32((BaseAddress) + (RegOffset), (Data))
+
+/** @} */
+/**@endcond */
 
 #ifdef __cplusplus
 }

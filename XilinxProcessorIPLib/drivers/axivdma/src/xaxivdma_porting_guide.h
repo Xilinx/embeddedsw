@@ -53,7 +53,7 @@
 *		        handlers.
 * </pre>
 *
-* <b>Overview</b>
+* \par Overview
 *
 * The API for xaxivdma driver is similar to xvdma driver. However, the prefix
 * for functions and structures is now XAxiVdma_. Due to hardware changes,
@@ -77,7 +77,7 @@
 * VDMA errors.  To support this, we have changed some APIs and added some new
 * APIs.
 *
-* <b>API That Only Have Prefix Changes</b>
+* \par API That Only Have Prefix Changes
 *
 * Note that API includes data structures and functions. For API functions that
 * use VDMA data structures or their pointers as arguments, the structures need
@@ -103,7 +103,7 @@
 *      XVDma_GetFrameCounter         | XAxiVdma_GetFrameCounter
 *      XVDma_LookupConfig            | XAxiVdma_LookupConfig
 *
-* <b>API Functions That Have Been Changed</b>
+* \par API Functions That Have Been Changed
 *
 * PLB VDMA only has one channel, while the AXI VDMA has two channels. This
 * change has caused some of the API functions to take an extra argument to
@@ -135,7 +135,7 @@
 *     void XVDma_DmaSetBufferAddr    | int XAxiVdma_DmaSetBufferAddr
 *     void XVDma_DmaStart            | int XAxiVdma_DmaStart
 *
-* <b>New API Functions</b>
+* \par New API Functions
 *
 * New core v5.02a has added new features, to support them these APIs are added
 *
@@ -196,20 +196,18 @@
 *
 * . void XAxiVdma_StartFrmCntEnable(XAxiVdma *InstancePtr, u16 Direction);
 *
-* This function is used to enable frame count enable. It is much simpler to
-* enable frame count enable this way than using the full configuration
-* structure.
+* Enables frame count enable with a simpler interface than the full
+* configuration structure.
 *
 * . int XAxiVdma_SetBdAddrs(XAxiVdma *InstancePtr, u32 BdAddrPhys,
 *      u32 BdAddrVirt, int NumBds, u16 Direction);
 *
-* This function provides the ability for the user application to re-assign
-* the BD addresses to wherever in the memory it wants. This is to aid the
-* situation that SG engine may have limited access to certain region of the
-* memory, comparing to the processor's ability. The default BD addresses are
-* inside the region that the processor can access.
+* Reassigns BD addresses to a caller-selected memory region. This aids systems
+* where the SG engine has limited access to certain memory regions relative to
+* the processor. The default BD addresses are inside the region that the
+* processor can access.
 *
-* <b>API Functions That Have Been Removed</b>
+* \par API Functions That Have Been Removed
 *
 * Due to hardware design change, some of the API functions are no longer
 * needed:

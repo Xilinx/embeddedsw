@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2014 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -8,6 +8,9 @@
 /**
  *
  * @file vdma_api.c
+ * @addtogroup axivdma Overview
+ * @{
+ *
  *
  * This file has high level API to configure and start the VDMA.The file assumes that:
  * The design has VDMA with both MM2S and S2MM path enable.
@@ -71,24 +74,24 @@ static int StartTransfer(XAxiVdma *InstancePtr);
 /*****************************************************************************/
 /**
 *
-* run_triple_frame_buffer API
+* @brief Runs the triple frame buffer API.
 *
 * This API is the interface between application and other API. When application will call
 * this API with right argument, This API will call rest of the API to configure the read
 * and write path of VDMA,based on ID. After that it will start both the read and write path
 * of VDMA
 *
-* @param	InstancePtr is the handle to XAxiVdma data structure.
-* @param	DeviceId is the device ID of current VDMA
-* @param	hsize is the horizontal size of the frame. It will be in Pixels.
+* @param[in] InstancePtr is the handle to XAxiVdma data structure.
+* @param[in] DeviceId is the device ID of current VDMA
+* @param[in] hsize is the horizontal size of the frame. It will be in Pixels.
 * 		The actual size of frame will be calculated by multiplying this
 * 		with tdata width.
-* @param 	vsize is the Vertical size of the frame.
-* @param	buf_base_addr is the buffer address where frames will be written
+* @param[in] vsize is the Vertical size of the frame.
+* @param[in] buf_base_addr is the buffer address where frames will be written
 *		and read by VDMA.
-* @param 	number_frame_count specifies after how many frames the interrupt
+* @param[in] number_frame_count specifies after how many frames the interrupt
 *		should come.
-* @param 	enable_frm_cnt_intr is for enabling frame count interrupt
+* @param[in] enable_frm_cnt_intr is for enabling frame count interrupt
 *		when set to 1.
 * @return
 *		- XST_SUCCESS if example finishes successfully
@@ -238,13 +241,12 @@ int run_triple_frame_buffer(XAxiVdma* InstancePtr, int DeviceId, int hsize,
 /*****************************************************************************/
 /**
 *
-* This function sets up the read channel
+* @brief Sets up the read channel.
 *
-* @param	vdma_context is the context pointer to the VDMA engine.
+* @param[in] vdma_context is the context pointer to the VDMA engine.
 *
 * @return	XST_SUCCESS if the setup is successful, XST_FAILURE otherwise.
 *
-* @note		None.
 *
 ******************************************************************************/
 static int ReadSetup(vdma_handle *vdma_context)
@@ -320,13 +322,12 @@ static int ReadSetup(vdma_handle *vdma_context)
 /*****************************************************************************/
 /**
 *
-* This function sets up the write channel
+* @brief Sets up the write channel.
 *
-* @param	dma_context is the context pointer to the VDMA engine..
+* @param[in] vdma_context is the context pointer to the VDMA engine.
 *
 * @return	XST_SUCCESS if the setup is successful, XST_FAILURE otherwise.
 *
-* @note		None.
 *
 ******************************************************************************/
 static int WriteSetup(vdma_handle *vdma_context)
@@ -405,16 +406,14 @@ static int WriteSetup(vdma_handle *vdma_context)
 /*****************************************************************************/
 /**
 *
-* This function starts the DMA transfers. Since the DMA engine is operating
-* in circular buffer mode, video frames will be transferred continuously.
+* @brief Starts DMA transfers while the engine operates in circular buffer mode and transfers video frames continuously.
 *
-* @param	InstancePtr points to the DMA engine instance
+* @param[out] InstancePtr points to the DMA engine instance
 *
 * @return
 *		- XST_SUCCESS if both read and write start successfully
 *		- XST_FAILURE if one or both directions cannot be started
 *
-* @note		None.
 *
 ******************************************************************************/
 static int StartTransfer(XAxiVdma *InstancePtr)
@@ -437,3 +436,5 @@ static int StartTransfer(XAxiVdma *InstancePtr)
 
 	return XST_SUCCESS;
 }
+
+/** @} */
