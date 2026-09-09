@@ -1,4 +1,4 @@
-/******************************************************************************
+/*****************************************************************************
 * Copyright (C) 2010 - 2022 Xilinx, Inc.  All rights reserved.
 * Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
@@ -7,6 +7,9 @@
 /**
 *
 * @file xaxiethernet_example_extmulticast.c
+* @addtogroup axiethernet Overview
+* @{
+*
 *
 * Implements examples that utilize the AXI Ethernet's interrupt driven DMA
 * packet transfer mode to send and receive multicast frames when
@@ -46,10 +49,12 @@
 *
 ******************************************************************************/
 
+#ifndef DOXYGEN
 #warning "This test requires at least 1MB space in RAM."
 #warning "Please make sure required resources are available."
+#endif
 
-/***************************** Include Files *********************************/
+/**************************** Include Files *********************************/
 
 #include "xparameters.h"
 #include "xaxiethernet_example.h"
@@ -76,7 +81,7 @@
 #define XAXIETHERNET_BASEADDRESS XPAR_XAXIETHERNET_0_BASEADDR
 #endif
 
-/*************************** Constant Definitions ****************************/
+/************************** Constant Definitions ****************************/
 
 /*
  * The following constants map to the XPAR parameters created in the
@@ -116,7 +121,7 @@
 #define TXBD_SPACE_BYTES XAxiDma_BdRingMemCalc(BD_ALIGNMENT, TXBD_CNT)
 
 
-/*************************** Variable Definitions ****************************/
+/************************** Variable Definitions ****************************/
 
 static EthernetFrame TxFrame;	/* Transmit buffer */
 static EthernetFrame RxFrame;	/* Receive buffer */
@@ -132,7 +137,7 @@ XAxiEthernet *AxiEthernetInstancePtr_Fast;
 XAxiDma_BdRing *TxRingPtr_Fast;
 XAxiDma_BdRing *RxRingPtr_Fast;
 
-/******  Fast Interrupt Handlers prototypes  ******/
+/*****  Fast Interrupt Handlers prototypes  ******/
 
 static void AxiEthernetErrorFastHandler(void) __attribute__ ((fast_interrupt));
 
@@ -154,10 +159,12 @@ static void TxIntrHandler(XAxiDma_BdRing *TxRingPtr);
 #endif
 
 /*
- * Aligned memory segments to be used for buffer descriptors
+ * Aligned memory segments to be used for buffer descriptors.
  */
+/** @cond INTERNAL */
 char RxBdSpace[RXBD_SPACE_BYTES] __attribute__ ((aligned(BD_ALIGNMENT)));
 char TxBdSpace[TXBD_SPACE_BYTES] __attribute__ ((aligned(BD_ALIGNMENT)));
+/** @endcond */
 
 /*
  * Counters to be incremented by callbacks
@@ -194,10 +201,10 @@ char MulticastMAC[6] = { 0x01, 0x00, 0x5E, 0x04, 0x05, 0x06 };
  */
 u32 McastAddressTable[(MAX_MULTICAST_ADDR>>3)/sizeof(u32)];
 
-/*************************** Function Prototypes *****************************/
+/************************** Function Prototypes *****************************/
 
 /*
- * Examples
+ * Examples.
  */
 #ifndef SDT
 int AxiEthernetMcastExample(INTC *IntcInstancePtr,
@@ -240,19 +247,13 @@ static int AxiEthernet_AddExtMulticast(void *AddressPtr);
 static int AxiEthernet_ClearExtMulticast(void *AddressPtr);
 static int AxiEthernet_GetExtMulticast(void *AddressPtr);
 
-/*****************************************************************************/
+/****************************************************************************/
 /**
 *
-* This is the main function for the Axi Ethernet example. This function is not
-* included if the example is generated from the TestAppGen test  tool.
+* @brief Main entry point for the Axi Ethernet example.
 *
-* @param	None.
+* This function is not included if the example is generated from the TestAppGen test tool.
 *
-* @return
-*		- XST_SUCCESS to indicate success.
-*		- XST_FAILURE to indicate failure
-*
-* @note		None.
 *
 ****************************************************************************/
 #ifndef TESTAPP_GEN
@@ -324,45 +325,39 @@ int main(void)
 }
 #endif
 
-/*****************************************************************************/
+/****************************************************************************/
 /**
 *
-* This function demonstrates the usage usage of the Axi Ethernet extended
+* @brief Demonstrates the usage of the Axi Ethernet extended.
 * multicast feature. It uses AXI DMA core in interrupt mode to transfer Ethernet
 * frames.
 *
 *
+* @param[in] AxiEthernetInstancePtr is a pointer to the instance of the
+*		AxiEthernet component.
+* @param[in] DmaInstancePtr is a pointer to the instance of the AXIDMA
+*		component.
 * @if SDT
-* @param	AxiEthernetInstancePtr is a pointer to the instance of the
-*		AxiEthernet component.
-* @param	DmaInstancePtr is a pointer to the instance of the AXIDMA
-*		component.
-* @param	AxiEthernetBaseAddress contains the base address of the AxiEthernet device
+* @param[in] AxiEthernetBaseAddress contains the base address of the AxiEthernet device.
 * @else
-* @param	IntcInstancePtr is a pointer to the instance of the Intc
+* @param[in] IntcInstancePtr is a pointer to the instance of the Intc
 *		component.
-* @param	AxiEthernetInstancePtr is a pointer to the instance of the
-*		AxiEthernet component.
-* @param	DmaInstancePtr is a pointer to the instance of the AXIDMA
-*		component.
-* @param	AxiEthernetDeviceId is Device ID of the Axi Ethernet Device ,
+* @param[in] AxiEthernetDeviceId is Device ID of the Axi Ethernet Device,
 *		typically XPAR_<AXIETHERNET_instance>_DEVICE_ID value from
 *		xparameters.h.
-* @param	AxiDmaDeviceId is Device ID of the Axi DMAA Device ,
+* @param[in] AxiDmaDeviceId is Device ID of the Axi DMA Device,
 *		typically XPAR_<AXIDMA_instance>_DEVICE_ID value from
 *		xparameters.h.
-* @param	AxiEthernetIntrId is the Interrupt ID and is typically
+* @param[in] AxiEthernetIntrId is the Interrupt ID and is typically
 *		XPAR_<INTC_instance>_<AXIETHERNET_instance>_VEC_ID
 *		value from xparameters.h.
-* @param	DmaRxIntrId is the interrupt id for DMA Rx and is typically
-*		taken from XPAR_<AXIETHERNET_instance>_CONNECTED_DMARX_INTR
-* @param	DmaTxIntrId is the interrupt id for DMA Tx and is typically
-*		taken from XPAR_<AXIETHERNET_instance>_CONNECTED_DMATX_INTR
+* @param[in] DmaRxIntrId is the interrupt id for DMA Rx and is typically
+*		taken from XPAR_<AXIETHERNET_instance>_CONNECTED_DMARX_INTR.
+* @param[in] DmaTxIntrId is the interrupt id for DMA Tx and is typically
+*		taken from XPAR_<AXIETHERNET_instance>_CONNECTED_DMATX_INTR.
 * @endif
 *
-* @return
-*		- XST_SUCCESS to indicate success.
-*		- XST_FAILURE.to indicate failure.
+* @return XST_SUCCESS on success, XST_FAILURE otherwise.
 *
 * @note		AxiDma hardware must be initialized before initializing
 *		AxiEthernet. Since AxiDma reset line is connected to the
@@ -398,9 +393,9 @@ int AxiEthernetMcastExample(XAxiEthernet *AxiEthernetInstancePtr,
 	UINTPTR AxiDmaBaseAddress;
 #endif
 
-	/*************************************/
+	/***********************************/
 	/* Setup device for first-time usage */
-	/*************************************/
+	/***********************************/
 
 	/*
 	 *  Get the configuration of AxiEthernet hardware.
@@ -591,9 +586,9 @@ int AxiEthernetMcastExample(XAxiEthernet *AxiEthernetInstancePtr,
 #endif
 
 
-	/****************************/
+	/**************************/
 	/* Run the example 	    */
-	/****************************/
+	/**************************/
 
 	/* Run the new multicast feature. Make sure HW has the capability */
 	if (XAxiEthernet_IsExtMcast(AxiEthernetInstancePtr)) {
@@ -605,7 +600,7 @@ int AxiEthernetMcastExample(XAxiEthernet *AxiEthernetInstancePtr,
 	}
 
 	/*
-	 * Disable the interrupts for the Axi Ethernet device
+	 * Disable the interrupts for the Axi Ethernet device.
 	 */
 #ifndef SDT
 	AxiEthernetDisableIntrSystem(IntcInstancePtr, AxiEthernetIntrId,
@@ -627,10 +622,10 @@ int AxiEthernetMcastExample(XAxiEthernet *AxiEthernetInstancePtr,
 }
 
 
-/*****************************************************************************/
+/****************************************************************************/
 /**
 *
-* This example sends and receives a single packet in loopback mode with
+* @brief This example sends and receives a single packet in loopback mode with.
 * extended multicast address support.
 *
 * The transmit frame will be addressed one of programmed multicast addresses.
@@ -638,16 +633,13 @@ int AxiEthernetMcastExample(XAxiEthernet *AxiEthernetInstancePtr,
 * On receive, HW should pass the frame to receive interrupt handler for further
 * address checking.
 *
-* @param	AxiEthernetInstancePtr is a pointer to the instance of the
+* @param[in] AxiEthernetInstancePtr is a pointer to the instance of the
 *		AxiEthernet component.
-* @param	DmaInstancePtr is a pointer to the instance of the AXI DMA
+* @param[in] DmaInstancePtr is a pointer to the instance of the AXI DMA
 *		component.
 *
-* @return
-*		- XST_SUCCESS to indicate success.
-*		- XST_FAILURE to indicate failure.
+* @return XST_SUCCESS on success, XST_FAILURE otherwise.
 *
-* @note     None.
 *
 ******************************************************************************/
 int AxiEthernetSgDmaIntrExtMulticastExample(XAxiEthernet *AxiEthernetInstancePtr
@@ -1003,9 +995,9 @@ int AxiEthernetSgDmaIntrExtMulticastExample(XAxiEthernet *AxiEthernetInstancePtr
 }
 
 
-/*****************************************************************************/
+/****************************************************************************/
 /**
-* AxiEthernet_AddExtMulticast adds the multicast Ethernet address table in
+* @brief AxiEthernet_AddExtMulticast adds the multicast Ethernet address table in.
 * DDR. This table is mainly for software driver to perform the final address
 * filtering.
 *
@@ -1014,13 +1006,11 @@ int AxiEthernetSgDmaIntrExtMulticastExample(XAxiEthernet *AxiEthernetInstancePtr
 * Axi Ethernet channel from receiving messages from an Ethernet address in the
 * DDR table is to clear it with AxiEthernet_ClearExtMulticast().
 *
-* @param	AddressPtr is a pointer to the 6-byte Ethernet address to set.
+* @param[out] AddressPtr is a pointer to the 6-byte Ethernet address to set.
 *
 * @return 	- XST_SUCCESS,on successful completion
 *		- XST_INVALID_PARAM, if input MAC address is not between
 *		01:00:5E:00:00:00 and 01:00:5E:7F:FF:FF, as per RFC1112.
-* @note
-*
 * This table is independent to BRAM table that is used for HW address
 * filtering. It is user's responsiblility to maintain these tables.
 *
@@ -1079,18 +1069,16 @@ static int AxiEthernet_AddExtMulticast(void *AddressPtr)
 }
 
 
-/*****************************************************************************/
+/****************************************************************************/
 /**
-* AxiEthernet_ClearExtMulticast clears the Ethernet address in multicast
+* @brief AxiEthernet_ClearExtMulticast clears the Ethernet address in multicast.
 * address table in DDR.
 *
-* @param AddressPtr is a pointer to the 6-byte Ethernet address to set.
+* @param[out] AddressPtr is a pointer to the 6-byte Ethernet address to set.
 *
 * @return 	- XST_SUCCESS,on successful completion
 *		- XST_INVALID_PARAM, if input MAC address is not between
 *		01:00:5E:00:00:00 and 01:00:5E:7F:FF:FF, as per RFC1112.
-*
-* @note
 *
 * Please reference AxiEthernet_AddExtMulticast for multicast ethernet address
 * index and bit value calculation.
@@ -1134,17 +1122,15 @@ static int AxiEthernet_ClearExtMulticast(void *AddressPtr)
 }
 
 
-/*****************************************************************************/
+/****************************************************************************/
 /**
-* AxiEthernet_GetExtMulticast verifies the Ethernet address in multicast
+* @brief AxiEthernet_GetExtMulticast verifies the Ethernet address in multicast.
 * address table in DDR.
 *
-* @param	AddressPtr is a pointer to the 6-byte Ethernet address to set.
+* @param[out] AddressPtr is a pointer to the 6-byte Ethernet address to set.
 *
 * @return	-TRUE, if AddressPtr is provisioned.
 *		-FALSE, if AddressPtr is not provisioned.
-* @note
-*
 * Please reference AxiEthernet_AddExtMulticast for multicast ethernet address
 * index and bit value calculation.
 *
@@ -1186,17 +1172,15 @@ static int AxiEthernet_GetExtMulticast(void *AddressPtr)
 }
 
 
-/*****************************************************************************/
+/****************************************************************************/
 /**
 *
-* This is the DMA TX callback function to be called by TX interrupt handler.
-* This function handles BDs finished by hardware.
+* @brief This is the DMA TX callback function to be called by TX interrupt handler.
+* Handles BDs finished by hardware.
 *
-* @param	TxRingPtr is a pointer to TX channel of the DMA engine.
+* @param[in] TxRingPtr is a pointer to TX channel of the DMA engine.
 *
-* @return	None.
 *
-* @note		None.
 *
 ******************************************************************************/
 static void TxCallBack(XAxiDma_BdRing *TxRingPtr)
@@ -1211,14 +1195,13 @@ static void TxCallBack(XAxiDma_BdRing *TxRingPtr)
 	FramesTx++;
 }
 
-/*****************************************************************************/
+/****************************************************************************/
 /**
 *
-* This is the DMA TX Interrupt handler function.
+* @brief This is the DMA TX Interrupt handler function.
 *
-* @param	TxRingPtr is a pointer to TX channel of the DMA engine.
+* @param[in] TxRingPtr is a pointer to TX channel of the DMA engine.
 *
-* @return	None.
 *
 * @note		This Interrupt handler MUST clear pending interrupts before
 *		handling them by calling the call back. Otherwise the following
@@ -1292,18 +1275,16 @@ static void TxIntrHandler(XAxiDma_BdRing *TxRingPtr)
 }
 
 
-/*****************************************************************************/
+/****************************************************************************/
 /**
 *
-* This is the DMA RX callback function to be called by RX interrupt handler.
-* This function handles finished BDs by hardware, attaches new buffers to those
+* @brief This is the DMA RX callback function to be called by RX interrupt handler.
+* Handles finished BDs by hardware, attaches new buffers to those
 * BDs, and give them back to hardware to receive more incoming packets
 *
-* @param	RxRingPtr is a pointer to RX channel of the DMA engine.
+* @param[in] RxRingPtr is a pointer to RX channel of the DMA engine.
 *
-* @return	None.
 *
-* @note		None.
 *
 ******************************************************************************/
 static void RxCallBack(XAxiDma_BdRing *RxRingPtr)
@@ -1320,17 +1301,15 @@ static void RxCallBack(XAxiDma_BdRing *RxRingPtr)
 }
 
 
-/*****************************************************************************/
+/****************************************************************************/
 /**
 *
-* This is the Receive handler function for examples 1 and 2.
+* @brief This is the Receive handler function for examples 1 and 2.
 * It will increment a shared  counter, receive and validate the frame.
 *
-* @param	RxRingPtr is a pointer to the DMA ring instance.
+* @param[in] RxRingPtr is a pointer to the DMA ring instance.
 *
-* @return	None.
 *
-* @note		None.
 *
 ******************************************************************************/
 static void RxIntrHandler(XAxiDma_BdRing *RxRingPtr)
@@ -1388,17 +1367,15 @@ static void RxIntrHandler(XAxiDma_BdRing *RxRingPtr)
 	}
 }
 
-/*****************************************************************************/
+/****************************************************************************/
 /**
 *
-* This is the Error handler callback function and this function increments the
+* @brief This is the Error handler callback function and this function increments the.
 * the error counter so that the main thread knows the number of errors.
 *
-* @param	AxiEthernet is a reference to the Axi Ethernet device instance.
+* @param[in] AxiEthernet is a reference to the Axi Ethernet device instance.
 *
-* @return	None.
 *
-* @note		None.
 *
 ******************************************************************************/
 static void AxiEthernetErrorHandler(XAxiEthernet *AxiEthernet)
@@ -1423,36 +1400,35 @@ static void AxiEthernetErrorHandler(XAxiEthernet *AxiEthernet)
 
 
 #ifndef SDT
-/*****************************************************************************/
+/****************************************************************************/
 /**
 *
-* This function setups the interrupt system so interrupts can occur for the
-* Axi Ethernet.  This function is application-specific since the actual system
+* @brief Sets up the interrupt system so interrupts can occur for the.
+* Axi Ethernet.  is application-specific since the actual system
 * may or may not have an interrupt controller.  The Axi Ethernet could be
 * directly connected to a processor without an interrupt controller.  The user
 * should modify this function to fit the application.
 *
-* @param	IntcInstancePtr is a pointer to the instance of the Intc
+* @param[in] IntcInstancePtr is a pointer to the instance of the Intc
 *		component.
-* @param	AxiEthernetInstancePtr is a pointer to the instance of the
+* @param[in] AxiEthernetInstancePtr is a pointer to the instance of the
 *		AxiEthernet component.
-* @param	DmaInstancePtr is a pointer to the instance of the AXI DMA
+* @param[in] DmaInstancePtr is a pointer to the instance of the AXI DMA
 *		component.
-* @param	AxiEthernetDeviceId is Device ID of the Axi Ethernet Device ,
+* @param[in] AxiEthernetDeviceId is Device ID of the Axi Ethernet Device ,
 *		typically XPAR_<AXIETHERNET_instance>_DEVICE_ID value from
 *		xparameters.h.
-* @param	AxiEthernetIntrId is the Interrupt ID and is typically
+* @param[in] AxiEthernetIntrId is the Interrupt ID and is typically
 *		XPAR_<INTC_instance>_<AXIETHERNET_instance>_VEC_ID
 *		value from xparameters.h.
-* @param	DmaRxIntrId is the interrupt id for DMA Rx and is typically
+* @param[in] DmaRxIntrId is the interrupt id for DMA Rx and is typically
 *		taken from XPAR_<AXIETHERNET_instance>_CONNECTED_DMARX_INTR
-* @param	DmaTxIntrId is the interrupt id for DMA Tx and is typically
+* @param[in] DmaTxIntrId is the interrupt id for DMA Tx and is typically
 *		taken from XPAR_<AXIETHERNET_instance>_CONNECTED_DMATX_INTR
 *
 * @return	- XST_SUCCESS, if successful.
 *		- XST_FAILURE, if failure condition.
 *
-* @note		None.
 *
 ******************************************************************************/
 static int AxiEthernetSetupIntrSystem(INTC *IntcInstancePtr,
@@ -1590,24 +1566,22 @@ static int AxiEthernetSetupIntrSystem(INTC *IntcInstancePtr,
 	return XST_SUCCESS;
 }
 
-/*****************************************************************************/
+/****************************************************************************/
 /**
 *
-* This function disables the interrupts that occur for Axi Ethernet.
+* @brief Disables the interrupts that occur for Axi Ethernet.
 *
-* @param	IntcInstancePtr is a pointer to the instance of the Intc
+* @param[in] IntcInstancePtr is a pointer to the instance of the Intc
 *		component.
-* @param	AxiEthernetIntrId is the Interrupt ID and is typically
+* @param[in] AxiEthernetIntrId is the Interrupt ID and is typically
 *		XPAR_<INTC_instance>_<AXIETHERNET_instance>_VEC_ID
 *		value from xparameters.h.
-* @param	DmaRxIntrId is the interrupt id for DMA Rx and is typically
+* @param[in] DmaRxIntrId is the interrupt id for DMA Rx and is typically
 *		taken from XPAR_<AXIETHERNET_instance>_CONNECTED_DMARX_INTR
-* @param	DmaTxIntrId is the interrupt id for DMA Tx and is typically
+* @param[in] DmaTxIntrId is the interrupt id for DMA Tx and is typically
 *		taken from XPAR_<AXIETHERNET_instance>_CONNECTED_DMATX_INTR
 *
-* @return	None.
 *
-* @note		None.
 *
 ******************************************************************************/
 static void AxiEthernetDisableIntrSystem(INTC *IntcInstancePtr,
@@ -1642,16 +1616,13 @@ static void AxiEthernetDisableIntrSystem(INTC *IntcInstancePtr,
 }
 
 #if XPAR_INTC_0_HAS_FAST == 1
-/*****************************************************************************/
+/****************************************************************************/
 /**
 *
-* Fast Error Handler which calls AxiEthernetErrorHandler.
+* @brief Fast Error Handler which calls AxiEthernetErrorHandler.
 *
-* @param	None
 *
-* @return	None.
 *
-* @note		None.
 *
 ******************************************************************************/
 void AxiEthernetErrorFastHandler(void)
@@ -1659,16 +1630,13 @@ void AxiEthernetErrorFastHandler(void)
 	AxiEthernetErrorHandler((XAxiEthernet *)AxiEthernetInstancePtr_Fast);
 }
 
-/*****************************************************************************/
+/****************************************************************************/
 /**
 *
-* Fast Transmit Handler which calls TxIntrHandler.
+* @brief Fast Transmit Handler which calls TxIntrHandler.
 *
-* @param	None
 *
-* @return	None.
 *
-* @note		None.
 *
 ******************************************************************************/
 void TxIntrFastHandler(void)
@@ -1676,16 +1644,13 @@ void TxIntrFastHandler(void)
 	TxIntrHandler((XAxiDma_BdRing *)TxRingPtr_Fast);
 }
 
-/*****************************************************************************/
+/****************************************************************************/
 /**
 *
-* Fast Receive Handler which calls RxIntrHandler.
+* @brief Fast Receive Handler which calls RxIntrHandler.
 *
-* @param	None
 *
-* @return	None.
 *
-* @note		None.
 *
 ******************************************************************************/
 void RxIntrFastHandler(void)
@@ -1695,3 +1660,5 @@ void RxIntrFastHandler(void)
 
 #endif
 #endif
+
+/** @} */

@@ -1,14 +1,17 @@
-/******************************************************************************
+/*****************************************************************************
 * Copyright (C) 2008 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
 
-/*****************************************************************************/
+/****************************************************************************/
 /**
 *
 * @file xavb_hw.c
+* @addtogroup axiethernet Overview
+* @{
+*
 *
 * The xavb_hw driver. Functions in this file are the minimum required functions
 * for this driver. See xavb_hw.h for a detailed description of the driver.
@@ -30,37 +33,36 @@
 *
 ******************************************************************************/
 
-/***************************** Include Files *********************************/
+/**************************** Include Files *********************************/
 
 #include "xil_types.h"
 #include "xil_io.h"
 #include "xavb_hw.h"
 
-/************************** Constant Definitions *****************************/
+/************************* Constant Definitions *****************************/
 
-/**************************** Type Definitions *******************************/
+/*************************** Type Definitions *******************************/
 
-/***************** Macros (Inline Functions) Definitions *********************/
+/**************** Macros (Inline Functions) Definitions *********************/
 
-/************************** Variable Definitions *****************************/
+/************************* Variable Definitions *****************************/
 
-/************************** Function Prototypes ******************************/
-
-/*****************************************************************************/
+/************************* Function Prototypes ******************************/
 
 /****************************************************************************/
+
+/***************************************************************************/
 /**
 *
-* This function reads the given Ethernet Statistic Register
+* @brief Reads the given Ethernet Statistic Register.
 *
-* @param  BaseAddress is the base address of the device
-* @param  CounterID is the Statistic Counter to be read
-* @param  Value a pointer to the read value of the 64-bit value of the counter
+* @param[in] BaseAddress is the base address of the device
+* @param[in] CounterId is the statistic counter to read.
+* @param[in] Value a pointer to the read value of the 64-bit value of the counter
 *         and it is updated by this function
 *
-* @return None.
 *
-* @note   The CounterID's defined here are the same as the Statistic Counter
+* @note   The CounterId values defined here are the same as the Statistic Counter
 *         Addresses as used with the TEMAC core.  Since each counter is 8-bytes
 *         wide, we must multiply these Counter ID's by 8 (or a left shift of 3)
 *         when mapping this into the PLB memory map.  The 64-bit counter value
@@ -76,17 +78,16 @@ void XAvbMac_ReadStats(u32 BaseAddress,
 }
 
 
-/****************************************************************************/
+/***************************************************************************/
 /**
 *
-* This function reads the current Real Time Counter (RTC) value
+* @brief Reads the current Real Time Counter (RTC) value.
 *
-* @param  BaseAddress is the base address of the device
-* @param  RtcValue is a pointer to a struct in which to store the value read
+* @param[in] BaseAddress is the base address of the device
+* @param[in] RtcValue is a pointer to a struct in which to store the value read
 *         from the RTC (The RTC 48-bit seconds field and the 32-bit ns field
 *         of this struct are updated).
 *
-* @return None
 *
 * @note   This is provided as a basic function since the ns field MUST be read
 *         before the seconds/epoch registers (reading the ns samples the entire
@@ -110,16 +111,15 @@ void XAvb_ReadRtc(u32 BaseAddress,
 }
 
 
-/****************************************************************************/
+/***************************************************************************/
 /**
 *
-* This function writes to the Real Time Counter (RTC) Offset Registers
+* @brief Writes to the Real Time Counter (RTC) Offset Registers.
 *
-* @param  BaseAddress is the base address of the device
-* @param  RtcValue is the nanoseconds and seconds offset values that should
+* @param[in] BaseAddress is the base address of the device
+* @param[in] RtcValue is the nanoseconds and seconds offset values that should
 *         be written to the RTC.
 *
-* @return None
 *
 * @note   This is provided as a basic function since the ns field MUST be
 *         written after the seconds/epoch offset registers (writing to the ns
@@ -137,3 +137,5 @@ void XAvb_WriteRtcOffset(u32 BaseAddress, XAvb_RtcFormat* RtcValue)
   Xil_Out32((BaseAddress + XAVB_RTC_NANOSEC_OFFSET),
             (RtcValue->NanoSeconds  & XAVB_RTC_NS_MASK));
 }
+
+/** @} */

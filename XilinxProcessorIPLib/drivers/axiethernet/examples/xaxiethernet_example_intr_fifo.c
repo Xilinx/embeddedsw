@@ -1,4 +1,4 @@
-/******************************************************************************
+/*****************************************************************************
 * Copyright (C) 2010 - 2022 Xilinx, Inc.  All rights reserved.
 * Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
@@ -7,6 +7,9 @@
 /**
 *
 * @file xaxiethernet_example_intr_fifo.c
+* @addtogroup axiethernet Overview
+* @{
+*
 *
 * Implements examples that utilize the Axi Ethernet's interrupt driven FIFO
 * direct packet transfer mode to send and receive frames.
@@ -52,14 +55,14 @@
 *                     available in all examples. This is a fix for CR-965028.
 *       ms   04/05/17 Added return tags in functions for proper documentation
 *                     while generating doxygen.
-* 5.6	adk  03/07/17 Fixed CR#979023 Example failed to compile.
+* 5.6	adk  03/07/17 Fixed CR979023 Example failed to compile.
 * 5.12	sk   27/04/21 Fix multiple definition errors reported when peripheral
 *		      tests are generated.
 * </pre>
 *
 ******************************************************************************/
 
-/***************************** Include Files *********************************/
+/**************************** Include Files *********************************/
 
 #include "xaxiethernet_example.h"
 #include "xllfifo.h"
@@ -84,7 +87,7 @@
 #endif
 #define XAXIETHERNET_BASEADDRESS XPAR_XAXIETHERNET_0_BASEADDR
 #endif
-/*************************** Constant Definitions ****************************/
+/************************** Constant Definitions ****************************/
 
 /*
  * The following constants map to the XPAR parameters created in the
@@ -108,14 +111,14 @@
 #endif
 
 #define PAYLOAD_SIZE		100	/* Payload size used in examples */
-/*************************** Variable Definitions ****************************/
+/************************** Variable Definitions ****************************/
 
 static EthernetFrame TxFrame;	/* Frame used to send with */
 static EthernetFrame RxFrame;	/* Frame used to receive data */
 volatile static int DeferRx = 0;
 
 /*
- * Counters setup to be incremented by callbacks
+ * Counters setup to be incremented by callbacks.
  */
 static volatile int FramesRx;		/* Number of received frames */
 static volatile int FramesRxInts;	/* Number of ints for received
@@ -157,7 +160,7 @@ static INTC IntcInstance;
 XAxiEthernet *AxiEthernetInstancePtr_Fast;
 XLlFifo *Fifo_Fast;
 
-/******  Fast Interrupt Handlers prototypes  ******/
+/*****  Fast Interrupt Handlers prototypes  ******/
 
 static void AxiEthernetErrorFastHandler(void) __attribute__ ((fast_interrupt));
 
@@ -175,10 +178,10 @@ static void FifoHandler(XLlFifo *Fifo);
 #endif
 
 
-/*************************** Function Prototypes *****************************/
+/************************** Function Prototypes *****************************/
 
 /*
- * The different examples given in this file
+ * The different examples given in this file.
  */
 #ifndef SDT
 int AxiEthernetFifoIntrExample(INTC *IntcInstancePtr,
@@ -221,18 +224,13 @@ static int AxiEthernetResetDevice(XAxiEthernet *AxiEthernetInstancePtr,
 					XLlFifo *FifoInstancePtr);
 
 
-/*****************************************************************************/
+/****************************************************************************/
 /**
 *
-* This is the main function for the Axi Ethernet example. This function is not
-* included if the example is generated from the TestAppGen test  tool.
+* @brief Main entry point for the Axi Ethernet example.
 *
-* @param	None.
+* This function is not included if the example is generated from the TestAppGen test tool.
 *
-* @return
-*		- XST_SUCCESS to indicate success.
-*		- XST_FAILURE.to indicate failure.
-* @note		None.
 *
 ****************************************************************************/
 #ifndef TESTAPP_GEN
@@ -294,33 +292,22 @@ int main(void)
 
 
 
-/*****************************************************************************/
+#ifndef SDT
+/****************************************************************************/
 /**
 *
-* This function demonstrates the usage usage of the Axi Ethernet by sending
-* and receiving frames in interrupt driven fifo mode.
+* @brief Demonstrates AXI Ethernet usage by sending and receiving frames in
+* interrupt-driven FIFO mode.
 *
+* @param[in] IntcInstancePtr is a pointer to the instance of the Intc component.
+* @param[in] AxiEthernetInstancePtr is a pointer to the AXI Ethernet instance.
+* @param[in] FifoInstancePtr is a pointer to the AXI FIFO instance.
+* @param[in] AxiEthernetDeviceId is the AXI Ethernet device ID from xparameters.h.
+* @param[in] FifoDeviceId is the AXI FIFO device ID from xparameters.h.
+* @param[in] AxiEthernetIntrId is the AXI Ethernet interrupt vector ID.
+* @param[in] FifoIntrId is the AXI FIFO interrupt vector ID.
 *
-* @param	IntcInstancePtr is a pointer to the instance of the Intc
-*		component.
-* @param	AxiEthernetInstancePtr is a pointer to the instance of the
-*		Axi Ethernet component.
-* @param	FifoInstancePtr is a pointer to the instance of the AXIFIFO
-*		component.
-* @param	AxiEthernetDeviceId is Device ID of the Axi Ethernet Device ,
-*		typically XPAR_<AXIETHERNET_instance>_DEVICE_ID value from
-*		xparameters.h.
-* @param	FifoDeviceId is the Interrupt ID and is typically
-*		XPAR_<INTC_instance>_<AXIETHERNET_instance>_VEC_ID
-*		value from xparameters.h.
-* @param	AxiEthernetIntrId is the Interrupt ID and is typically
-*		XPAR_<INTC_instance>_<AXIETHERNET_instance>_VEC_ID
-*		value from xparameters.h.
-* @param	FifoIntrId is the interrupt id for fifo.
-*
-* @return
-*		- XST_SUCCESS to indicate success.
-*		- XST_FAILURE.to indicate failure.
+* @return XST_SUCCESS on success, XST_FAILURE otherwise.
 *
 * @note		AxiFifo hardware must be initialized before initializing
 *		AxiEthernet. Since AxiFifo reset line is connected to the
@@ -328,6 +315,26 @@ int main(void)
 *		initialization would reset AxiEthernet.
 *
 ******************************************************************************/
+#else
+/****************************************************************************/
+/**
+*
+* @brief Demonstrates AXI Ethernet usage by sending and receiving frames in
+* interrupt-driven FIFO mode.
+*
+* @param[in] AxiEthernetInstancePtr is a pointer to the AXI Ethernet instance.
+* @param[in] FifoInstancePtr is a pointer to the AXI FIFO instance.
+* @param[in] AxiEthernetBaseAddress is the AXI Ethernet base address.
+*
+* @return XST_SUCCESS on success, XST_FAILURE otherwise.
+*
+* @note		AxiFifo hardware must be initialized before initializing
+*		AxiEthernet. Since AxiFifo reset line is connected to the
+*		AxiEthernet reset line, a reset of AxiFifo hardware during its
+*		initialization would reset AxiEthernet.
+*
+******************************************************************************/
+#endif
 #ifndef SDT
 int AxiEthernetFifoIntrExample(INTC *IntcInstancePtr,
 			 XAxiEthernet *AxiEthernetInstancePtr,
@@ -351,9 +358,9 @@ int AxiEthernetFifoIntrExample(XAxiEthernet *AxiEthernetInstancePtr,
 	UINTPTR FifoBaseAddress;
 	XLlFifo_Config *FifoConfig;
 #endif
-	/*************************************/
+	/***********************************/
 	/* Setup device for first-time usage */
-	/*************************************/
+	/***********************************/
 
 	/*
 	 *  Get the configuration of AxiEthernet hardware.
@@ -488,13 +495,13 @@ int AxiEthernetFifoIntrExample(XAxiEthernet *AxiEthernetInstancePtr,
 	}
 #endif
 
-	/****************************/
+	/**************************/
 	/* Run through the examples */
-	/****************************/
+	/**************************/
 
 
 	/*
-	 * Run the AxiEthernet Single Frame Interrupt example
+	 * Run the AxiEthernet Single Frame Interrupt example.
 	 */
 	Status = AxiEthernetSingleFrameIntrExample(AxiEthernetInstancePtr,
 							FifoInstancePtr);
@@ -550,22 +557,19 @@ int AxiEthernetFifoIntrExample(XAxiEthernet *AxiEthernetInstancePtr,
 }
 
 
-/*****************************************************************************/
+/****************************************************************************/
 /**
 *
-* This function demonstrates the usage of the Axi Ethernet by sending and
+* @brief Demonstrates the usage of the Axi Ethernet by sending and.
 * receiving a single frame in interrupt mode.
 *
-* @param	AxiEthernetInstancePtr is a pointer to the instance of the
+* @param[in] AxiEthernetInstancePtr is a pointer to the instance of the
 *		AxiEthernet component.
-* @param	FifoInstancePtr is a pointer to the instance of the Fifo
+* @param[in] FifoInstancePtr is a pointer to the instance of the Fifo
 *		component.
 *
-* @return
-*		- XST_SUCCESS to indicate success.
-*		- XST_FAILURE.to indicate failure.
+* @return XST_SUCCESS on success, XST_FAILURE otherwise.
 *
-* @note		None.
 *
 ******************************************************************************/
 int AxiEthernetSingleFrameIntrExample(XAxiEthernet *AxiEthernetInstancePtr,
@@ -601,12 +605,12 @@ int AxiEthernetSingleFrameIntrExample(XAxiEthernet *AxiEthernetInstancePtr,
 	 */
 	TxFrameLength = XAE_HDR_SIZE + PayloadSize;
 
-	/****************/
+	/**************/
 	/* Setup device */
-	/****************/
+	/**************/
 
 	/*
-	 * Start the device
+	 * Start the device.
 	 */
 	XAxiEthernet_Start(AxiEthernetInstancePtr);
 
@@ -618,12 +622,12 @@ int AxiEthernetSingleFrameIntrExample(XAxiEthernet *AxiEthernetInstancePtr,
 			   XAE_INT_RXRJECT_MASK | XAE_INT_RXFIFOOVR_MASK);
 
 
-		/*******************/
+		/*****************/
 		/* Send the packet */
-		/*******************/
+		/*****************/
 
 	/*
-	 * Find out how much room is in the FIFO
+	 * Find out how much room is in the FIFO.
 	 * Vacancy is a value in 32 bit words. Multiply by 4 to get bytes.
 	 */
 	FifoFreeBytes = XLlFifo_TxVacancy(FifoInstancePtr) * 4;
@@ -656,23 +660,20 @@ int AxiEthernetSingleFrameIntrExample(XAxiEthernet *AxiEthernetInstancePtr,
 }
 
 
-/*****************************************************************************/
+/****************************************************************************/
 /**
 *
-* This example sends a packet from non-contiguous memory locations. The header
+* @brief This example sends a packet from non-contiguous memory locations. The header.
 * is stored in one area. The payload data is calculated and written to the
 * packet  FIFO one byte at a time.
 *
-* @param	AxiEthernetInstancePtr is a pointer to the instance of the
+* @param[in] AxiEthernetInstancePtr is a pointer to the instance of the
 *		AxiEthernet component.
-* @param	FifoInstancePtr is a pointer to the instance of the Fifo
+* @param[in] FifoInstancePtr is a pointer to the instance of the Fifo
 *		component.
 *
-* @return
-*		- XST_SUCCESS to indicate success.
-*		- XST_FAILURE.to indicate failure.
+* @return XST_SUCCESS on success, XST_FAILURE otherwise.
 *
-* @note		None.
 *
 ******************************************************************************/
 int AxiEthernetSingleFrameNonContIntrExample(XAxiEthernet
@@ -709,12 +710,12 @@ int AxiEthernetSingleFrameNonContIntrExample(XAxiEthernet
 	 */
 	TxFrameLength = XAE_HDR_SIZE + PayloadSize;
 
-	/****************/
+	/**************/
 	/* Setup device */
-	/****************/
+	/**************/
 
 	/*
-	 * Start the device
+	 * Start the device.
 	 */
 	XAxiEthernet_Start(AxiEthernetInstancePtr);
 
@@ -723,12 +724,12 @@ int AxiEthernetSingleFrameNonContIntrExample(XAxiEthernet
 	 */
 	XLlFifo_IntEnable(FifoInstancePtr, XLLF_INT_ALL_MASK);
 
-	/*******************/
+	/*****************/
 	/* Send the packet */
-	/*******************/
+	/*****************/
 
 	/*
-	 * Make sure there is enough room for a full sized frame
+	 * Make sure there is enough room for a full sized frame.
 	 * Vacancy is a value in 32 bit words. Multiply by 4 to get bytes.
 	 */
 	FifoFreeBytes = XLlFifo_TxVacancy(FifoInstancePtr) * 4;
@@ -790,24 +791,21 @@ int AxiEthernetSingleFrameNonContIntrExample(XAxiEthernet
 }
 
 
-/*****************************************************************************/
+/****************************************************************************/
 /**
 *
-* This example sends and receives a batch of frames. Frame reception is handled
+* @brief This example sends and receives a batch of frames. Frame reception is handled.
 * in this function and not in the callback function.
 *
 * Use this method of reception when interrupt latency is important.
 *
-* @param	AxiEthernetInstancePtr is a pointer to the instance of the
+* @param[in] AxiEthernetInstancePtr is a pointer to the instance of the
 *		AxiEthernet component.
-* @param	FifoInstancePtr is a pointer to the instance of the Fifo
+* @param[in] FifoInstancePtr is a pointer to the instance of the Fifo
 *		component.
 *
-* @return
-*		- XST_SUCCESS to indicate success.
-*		- XST_FAILURE.to indicate failure.
+* @return XST_SUCCESS on success, XST_FAILURE otherwise.
 *
-* @note		None.
 *
 ******************************************************************************/
 int AxiEthernetMultipleFramesIntrExample(XAxiEthernet *AxiEthernetInstancePtr,
@@ -872,12 +870,12 @@ int AxiEthernetMultipleFramesIntrExample(XAxiEthernet *AxiEthernetInstancePtr,
 	 */
 	TxFrameLength = XAE_HDR_SIZE + PayloadSize;
 
-		/****************/
+		/**************/
 		/* Setup device */
-		/****************/
+		/**************/
 
 	/*
-	 * Start the device
+	 * Start the device.
 	 */
 	XAxiEthernet_Start(AxiEthernetInstancePtr);
 
@@ -887,9 +885,9 @@ int AxiEthernetMultipleFramesIntrExample(XAxiEthernet *AxiEthernetInstancePtr,
 	XLlFifo_IntEnable(FifoInstancePtr, XLLF_INT_ALL_MASK);
 
 
-	/****************/
+	/**************/
 	/* Send packets */
-	/****************/
+	/**************/
 
 	/*
 	 * Since we may be interested to see what happens when FIFOs overflow,
@@ -914,9 +912,9 @@ int AxiEthernetMultipleFramesIntrExample(XAxiEthernet *AxiEthernetInstancePtr,
 		XLlFifo_TxSetLen(FifoInstancePtr, TxFrameLength);
 	}
 
-	/*******************/
+	/*****************/
 	/* Receive packets */
-	/*******************/
+	/*****************/
 
 	/*
 	 * Now wait for frames to be received. When the callback is executed,
@@ -974,17 +972,15 @@ int AxiEthernetMultipleFramesIntrExample(XAxiEthernet *AxiEthernetInstancePtr,
 	return XST_SUCCESS;
 }
 
-/*****************************************************************************/
+/****************************************************************************/
 /**
 *
-* This is the Receive handler callback function for examples 1 and 2.
+* @brief This is the Receive handler callback function for examples 1 and 2.
 * It will increment a shared  counter, receive and validate the frame.
 *
-* @param	Fifo is a reference to the Fifo device instance.
+* @param[in] Fifo is a reference to the Fifo device instance.
 *
-* @return	None.
 *
-* @note		None.
 *
 ******************************************************************************/
 static void FifoRecvHandler(XLlFifo *Fifo)
@@ -1020,19 +1016,17 @@ static void FifoRecvHandler(XLlFifo *Fifo)
 	}
 }
 
-/*****************************************************************************/
+/****************************************************************************/
 /**
 *
-* This is the Error handler callback function and this function increments the
+* @brief This is the Error handler callback function and this function increments the.
 * the error counter so that the main thread knows the number of errors.
 *
-* @param	Fifo is a reference to the AxiEthernet device instance.
+* @param[in] Fifo is a reference to the AxiEthernet device instance.
 *
-* @param	Pending is a bitmask of the pending interrupts.
+* @param[in] Pending is a bitmask of the pending interrupts.
 *
-* @return	None.
 *
-* @note		None.
 *
 ******************************************************************************/
 static void FifoErrorHandler(XLlFifo *Fifo, u32 Pending)
@@ -1099,17 +1093,15 @@ static void FifoErrorHandler(XLlFifo *Fifo, u32 Pending)
 }
 
 
-/*****************************************************************************/
+/****************************************************************************/
 /**
 *
-* This is the Fifo handler function and  will increment a shared
+* @brief This is the Fifo handler function and  will increment a shared.
 * counter that can be tested by the main thread of operation.
 *
-* @param	Fifo is a reference to the Fifo instance.
+* @param[in] Fifo is a reference to the Fifo instance.
 *
-* @return	None.
 *
-* @note		None.
 *
 ******************************************************************************/
 static void FifoHandler(XLlFifo *Fifo)
@@ -1160,19 +1152,19 @@ static void FifoHandler(XLlFifo *Fifo)
 }
 
 
-/*****************************************************************************/
+/****************************************************************************/
+/** @cond INTERNAL */
 /**
 *
-* This is the Error handler callback function and this function increments the
+* @brief This is the Error handler callback function and this function increments the.
 * the error counter so that the main thread knows the number of errors.
 *
-* @param	AxiEthernet is a reference to the AxiEthernet device instance.
+* @param[in] AxiEthernet is a reference to the AxiEthernet device instance.
 *
-* @return	None.
 *
-* @note		None.
 *
 ******************************************************************************/
+/** @endcond */
 static void AxiEthernetErrorHandler(XAxiEthernet *AxiEthernet)
 {
 	u32 Pending = XAxiEthernet_IntPending(AxiEthernet);
@@ -1191,19 +1183,17 @@ static void AxiEthernetErrorHandler(XAxiEthernet *AxiEthernet)
 	DeviceErrors++;
 }
 
-/******************************************************************************/
+/*****************************************************************************/
 /**
-* This function resets the device but preserves the options set by the user.
+* @brief Resets the device but preserves the options set by the user.
 *
-* @param	AxiEthernetInstancePtr is a pointer to the instance of the
+* @param[in] AxiEthernetInstancePtr is a pointer to the instance of the
 *		AxiEthernet component.
-* @param	FifoInstancePtr is a pointer to the instance of the Fifo
+* @param[in] FifoInstancePtr is a pointer to the instance of the Fifo
 *		component.
 *
-* @return	- XST_SUCCESS to indicate success.
-*		- XST_FAILURE.to indicate failure.
+* @return XST_SUCCESS on success, XST_FAILURE otherwise.
 *
-* @note		None.
 *
 ******************************************************************************/
 static int AxiEthernetResetDevice(XAxiEthernet *AxiEthernetInstancePtr,
@@ -1255,32 +1245,30 @@ static int AxiEthernetResetDevice(XAxiEthernet *AxiEthernetInstancePtr,
 }
 
 #ifndef SDT
-/*****************************************************************************/
+/****************************************************************************/
 /**
 *
-* This function setups the interrupt system so interrupts can occur for the
-* Axi Ethernet.  This function is application-specific since the actual system
+* @brief Sets up the interrupt system so interrupts can occur for the.
+* Axi Ethernet.  is application-specific since the actual system
 * may or may not have an interrupt controller.  The Axi Ethernet could be
 * directly connected to a processor without an interrupt controller.  The user
 * should modify this function to fit the application.
 *
-* @param	IntcInstancePtr is a pointer to the instance of the Intc component.
-* @param	AxiEthernetInstancePtr is a pointer to the instance of the
+* @param[in] IntcInstancePtr is a pointer to the instance of the Intc component.
+* @param[in] AxiEthernetInstancePtr is a pointer to the instance of the
 *		AxiEthernet component.
-* @param	FifoInstancePtr is a pointer to the instance of the AXIFIFO
+* @param[in] FifoInstancePtr is a pointer to the instance of the AXIFIFO
 *		component.
-* @param	AxiEthernetDeviceId is Device ID of the Axi Ethernet Device ,
+* @param[in] AxiEthernetDeviceId is Device ID of the Axi Ethernet Device ,
 *		typically XPAR_<AXIETHERNET_instance>_DEVICE_ID value from
 *		xparameters.h.
-* @param	AxiEthernetIntrId is the Interrupt ID and is typically
+* @param[in] AxiEthernetIntrId is the Interrupt ID and is typically
 *		XPAR_<INTC_instance>_<AXIETHERNET_instance>_VEC_ID
 *		value from xparameters.h.
-* @param	FifoIntrId is the interrupt id fifo.
+* @param[in] FifoIntrId is the interrupt id fifo.
 *
-* @return	- XST_SUCCESS to indicate success.
-*		- XST_FAILURE.to indicate failure.
+* @return XST_SUCCESS on success, XST_FAILURE otherwise.
 *
-* @note		None.
 *
 ******************************************************************************/
 static int AxiEthernetSetupIntrSystem(INTC *IntcInstancePtr,
@@ -1401,21 +1389,19 @@ static int AxiEthernetSetupIntrSystem(INTC *IntcInstancePtr,
 #endif
 
 #ifndef SDT
-/*****************************************************************************/
+/****************************************************************************/
 /**
 *
-* This function disables the interrupts that occur for AxiEthernet.
+* @brief Disables the interrupts that occur for AxiEthernet.
 *
-* @param	IntcInstancePtr is a pointer to the instance of the Intc
+* @param[in] IntcInstancePtr is a pointer to the instance of the Intc
 *		component.
-* @param	AxiEthernetIntrId is the Interrupt ID and is typically
+* @param[in] AxiEthernetIntrId is the Interrupt ID and is typically
 *		XPAR_<INTC_instance>_<AXIETHERNET_instance>_VEC_ID
 *		value from xparameters.h.
-* @param	FifoIntrId is the interrupt id for fifo.
+* @param[in] FifoIntrId is the interrupt id for fifo.
 *
-* @return	None.
 *
-* @note		None.
 *
 ******************************************************************************/
 static void AxiEthernetDisableIntrSystem(INTC *IntcInstancePtr,
@@ -1446,32 +1432,26 @@ static void AxiEthernetDisableIntrSystem(INTC *IntcInstancePtr,
 
 #if XPAR_INTC_0_HAS_FAST == 1
 
-/*****************************************************************************/
+/****************************************************************************/
 /**
 *
-* Fast Error Handler which calls AxiEthernetErrorHandler.
+* @brief Fast Error Handler which calls AxiEthernetErrorHandler.
 *
-* @param	None
 *
-* @return	None.
 *
-* @note		None.
 *
 ******************************************************************************/
 void AxiEthernetErrorFastHandler(void)
 {
 	AxiEthernetErrorHandler((XAxiEthernet *)AxiEthernetInstancePtr_Fast);
 }
-/*****************************************************************************/
+/****************************************************************************/
 /**
 *
-* Fast FIFO Handler which calls FifoHandler.
+* @brief Fast FIFO Handler which calls FifoHandler.
 *
-* @param	None
 *
-* @return	None.
 *
-* @note		None.
 *
 ******************************************************************************/
 void FifoFastHandler(void)
@@ -1480,3 +1460,5 @@ void FifoFastHandler(void)
 }
 
 #endif
+
+/** @} */

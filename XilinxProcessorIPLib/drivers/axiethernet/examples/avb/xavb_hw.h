@@ -1,15 +1,17 @@
-/******************************************************************************
+/*****************************************************************************
 * Copyright (C) 2008 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
-/*****************************************************************************/
+/****************************************************************************/
 /**
 *
 * @file xavb_hw.h
+* @addtogroup axiethernet Overview
 *
-* This header file contains the identifiers and basic driver functions (or
+*
+* Defines the identifiers and basic driver functions (or
 * macros) that can be used to access the device. Other driver functions
 * are defined in xavb.h.
 *
@@ -41,12 +43,12 @@ extern "C" {
 #endif
 
 
-/***************************** Include Files *********************************/
+/**************************** Include Files *********************************/
 
 #include "xil_types.h"
 #include "xil_io.h"
 
-/************************** Constant Definitions *****************************/
+/************************* Constant Definitions *****************************/
 
 /** @name Register offsets for the Tri-Mode Ethernet MAC. Each register is 32
  *        bits.  The MAC is addressable through the Ethernet AVB Endpoint core.
@@ -58,10 +60,10 @@ extern "C" {
 #define XAVB_MAC_FC_REG_OFFSET   0x0000040c  /**< MAC Flow Control Register   */
 #define XAVB_MAC_SPD_REG_OFFSET  0x00000410  /**< MAC Speed Control Register  */
 //#define XAVB_MAC_MGMT_REG_OFFSET 0x0000050C  /**< MAC MDIO Management Register*/
-/* @} */
+/** @} */
 
 /** @name Register offsets for the Ethernet Audio Video Endpoint. Each register
- *        is 32 bits.
+ * is 32 bits.
  *  @{
  */
 #define XAVB_PTP_TX_CONTROL_OFFSET      0x00012000 /**< Tx PTP Control Reg    */
@@ -81,10 +83,10 @@ extern "C" {
 #define XAVB_RTC_CLEAR_INT_OFFSET       0x00012820 /**< RTC Interrupt Clear   */
 #define XAVB_RTC_8K_OFFSET_OFFSET       0x00012824 /**< RTC 8k phase offset   */
 #define XAVB_SW_RESET_OFFSET            0x00012828 /**< S/W Reset Reg         */
-/* @} */
+/** @} */
 
 /** @name Packet base address offsets for the Ethernet Audio Video Endpoint Tx
- *        Precise Timing Protocol (PTP) frame buffer.  Each PTP frames is
+ * Precise Timing Protocol (PTP) frame buffer.  Each PTP frames is.
  *        stored in 256-byte chunks of BRAM.  This BRAM can store 8 PTP frames
  *        of which only 6 are currently in use.
  *  @{
@@ -95,15 +97,15 @@ extern "C" {
 #define XAVB_PTP_TX_PDELAYRESP_OFFSET           0x00011300
 #define XAVB_PTP_TX_PDELAYRESP_FOLLOW_UP_OFFSET 0x00011400
 #define XAVB_PTP_TX_ANNOUNCE_OFFSET             0x00011500
-/* @} */
+/** @} */
 
 /** @name Base address offset for the Ethernet Audio Video Endpoint Rx
- *        Precise Timing Protocol (PTP) frame buffer.  These PTP frames are
+ * Precise Timing Protocol (PTP) frame buffer.  These PTP frames are.
  *        stored in 256-byte chunks of BRAM.  This BRAM can store 16 PTP frames.
  *  @{
  */
 #define XAVB_PTP_RX_BASE_OFFSET                 0x00010000
-/* @} */
+/** @} */
 
 /** @name AVB Tx PTP Control Register
  *  @{
@@ -127,14 +129,14 @@ extern "C" {
 #define XAVB_PTP_TX_WAIT_ALL_FRAMES_MASK                     0x0000FF00
 #define XAVB_PTP_TX_PACKET_FIELD_MASK                        0x00070000
 
-/* @} */
+/** @} */
 
 /** @name AVB Rx PTP Control Register
  *  @{
  */
 #define XAVB_PTP_RX_CLEAR_BIT_MASK                           0x00000001
 #define XAVB_PTP_RX_PACKET_FIELD_MASK                        0x00000F00
-/* @} */
+/** @} */
 
 /** @name AVB Rx Filter Control Register
  *  @{
@@ -145,31 +147,31 @@ extern "C" {
 #define XAVB_RX_AV_VLAN_PRIORITY_B_MASK                      0x00070000
 #define XAVB_RX_AV_VLAN_VID_B_MASK                           0x7FF80000
 #define XAVB_RX_LEGACY_PROMISCUOUS_MODE_MASK                 0x80000000
-/* @} */
+/** @} */
 
 /** @name AVB Tx rate control sendSlope
  *  @{
  */
 #define XAVB_TX_SENDSLOPE_MASK                               0X000FFFFF
-/* @} */
+/** @} */
 
 /** @name AVB Tx rate control idleSlope
  *  @{
  */
 #define XAVB_TX_IDLESLOPE_MASK                               0X000FFFFF
-/* @} */
+/** @} */
 
 /** @name AVB Tx rate control hiLimit
  *  @{
  */
 #define XAVB_TX_HILIMIT_MASK                                 0X01FFFFFF
-/* @} */
+/** @} */
 
 /** @name AVB Tx rate control loLimit
  *  @{
  */
 #define XAVB_TX_LOLIMIT_MASK                                 0X01FFFFFF
-/* @} */
+/** @} */
 
 /** @name RTC field Registers
  *  @{
@@ -177,7 +179,7 @@ extern "C" {
 #define XAVB_RTC_NS_MASK                                     0x3FFFFFFF
 #define XAVB_RTC_SEC_LOWER_MASK                              0xFFFFFFFF
 #define XAVB_RTC_SEC_UPPER_MASK                              0x0000FFFF
-/* @} */
+/** @} */
 
 /** @name RTC Increment Register
  *  @{
@@ -186,7 +188,7 @@ extern "C" {
 /** This value assumes a 125MHz rtc_clock */
 #define XAVB_RTC_INCREMENT_NOMINAL_RATE                      0x00800000
 /**  Add some rails so that recovery is possible after a
- *  string of bad pDelay values.  The RTC should be able to lock
+ * string of bad pDelay values.  The RTC should be able to lock.
  *  to within 100ppm of the slowest allowable clock (25 MHz).
  *  This equates to +/-4ps.  Let's arbitrarily set the rails to
  *  400ppm (+/-16ps) just in case someone decides to use a
@@ -194,47 +196,47 @@ extern "C" {
  *  NewIncrement are fractions of a nanosecond, which equates
  *  to +/- 0x04189 */
 #define XAVB_RTC_400PPM_OFFSET                               0x00004189
-/* @} */
+/** @} */
 
 /** @name RTC Interrupt Clear Register
  *  @{
  */
 #define XAVB_RTC_INCREMENT_VALUE_MASK                        0x03FFFFFF
-/* @} */
+/** @} */
 
 
 /** @name RTC Interrupt Clear Register
  *  @{
  */
 #define XAVB_RTC_CLEAR_INT_MASK                              0x00000000
-/* @} */
+/** @} */
 
 
 /** @name RTC 8k phase offset Register
  *  @{
  */
 #define XAVB_RTC_8K_PHASE_OFFSET_MASK                        0x3FFFFFFF
-/* @} */
+/** @} */
 
 /** @name S/W Reset  Register
  *  @{
  */
 #define XAVB_SW_RESET_TX_AND_RX_PATHS                        0x00000003
-/* @} */
+/** @} */
 
 
 /** @name AVB MAC MDIO register address space.
  *  @{
  */
 #define XAVB_MAC_MDIO_BASE_OFFSET                            0x00006000
-/* @} */
+/** @} */
 
 
 /** @name MDIO valid data mask (MDIO registers are all 16-bits).
  *  @{
  */
 #define XAVB_MAC_MDIO_DATA_MASK                              0x0000FFFF
-/* @} */
+/** @} */
 
 
 /** @name MAC Statistic Counter names and CounterID.
@@ -282,13 +284,13 @@ extern "C" {
 #define XAVB_STATS_EXCESS_DEFERRAL_FRAMES                    0x00000027
 #define XAVB_STATS_CARRIER_SENSE_ERRORS                      0x00000028
 #define XAVB_STATS_ALIGNMENT_ERRORS                          0x00000029
-/* @} */
+/** @} */
 
 
-/**************************** Type Definitions *******************************/
+/*************************** Type Definitions *******************************/
 
 /**
- * This typedef defines the format for the Real Time Clock (RTC).  The RTC
+ * Defines the format for the Real Time Clock (RTC).  The RTC.
  * contains a 48-bit seconds field (split into upper and lower sections) and
  * a 32-bit nano-seconds field.
  */
@@ -300,7 +302,7 @@ typedef struct
 } XAvb_RtcFormat;
 
 /**
- * This typedef describes a 64-bit un-signed integer in terms of 2 u32s
+ * Describes a 64-bit un-signed integer in terms of 2 u32s.
  */
 typedef struct
 {
@@ -308,76 +310,70 @@ typedef struct
   u32 Lower;        /**< Lower 32 bits */
 } XAvb_Uint64;
 
-/***************** Macros (Inline Functions) Definitions *********************/
+/**************** Macros (Inline Functions) Definitions *********************/
 
-/****************************************************************************/
+/***************************************************************************/
 /**
 *
-* This macro reads from the given AVB core register.
+* @brief Reads from the given AVB core register.
 *
-* @param  BaseAddress is the base address of the device
-* @param  RegOffset is the register offset to be read
+* @param[in] BaseAddress is the base address of the device
+* @param[in] RegOffset is the register offset to be read
 *
 * @return The 32-bit value of the register
 *
-* @note   None.
 *
 *****************************************************************************/
 #define XAvb_ReadReg(BaseAddress, RegOffset) \
       Xil_In32((BaseAddress) + (RegOffset))
 
 
-/****************************************************************************/
+/***************************************************************************/
 /**
 *
-* This macro writes to the given AVB core register.
+* @brief Writes to the given AVB core register.
 *
-* @param  BaseAddress is the base address of the device
-* @param  RegOffset is the register offset to be written
-* @param  Data is the 32-bit value to write to the register
+* @param[in] BaseAddress is the base address of the device
+* @param[in] RegOffset is the register offset to be written
+* @param[in] Data is the 32-bit value to write to the register
 *
-* @return None.
 *
-* @note   None.
 *
 *****************************************************************************/
 #define XAvb_WriteReg(BaseAddress, RegOffset, Data) \
       Xil_Out32((BaseAddress) + (RegOffset), (Data))
 
 
-/****************************************************************************/
+/***************************************************************************/
 /**
 *
-* This macro reads from the given PTP frame buffer.
+* @brief Reads from the given PTP frame buffer.
 *
-* @param  BaseAddress is the base address of the device
-* @param  PtpPacketBaseAddress is the base address of the frame in the PTP
+* @param[in] BaseAddress is the base address of the device
+* @param[in] PtpPacketBaseAddress is the base address of the frame in the PTP
 *         BRAM packet buffer
   @param  PtpPacketOffset is the offset address within the PTP frame
 *
 * @return The 32-bit value of the register
 *
-* @note   None.
 *
 *****************************************************************************/
 #define XAvb_ReadPtpBuffer(BaseAddress, PtpPacketBaseAddress, PtpPacketOffset)\
       Xil_In32(BaseAddress + PtpPacketBaseAddress + PtpPacketOffset)
 
 
-/****************************************************************************/
+/***************************************************************************/
 /**
 *
-* This macro writes to the given PTP frame buffer.
+* @brief Writes to the given PTP frame buffer.
 *
-* @param  BaseAddress is the base address of the device
-* @param  PtpPacketBaseAddress is the base address of the frame in the PTP
+* @param[in] BaseAddress is the base address of the device
+* @param[in] PtpPacketBaseAddress is the base address of the frame in the PTP
 *         packet buffer
   @param  PtpPacketOffset is the offset address within the PTP frame
-* @param  Data is the 32-bit value to write to the register
+* @param[in] Data is the 32-bit value to write to the register
 *
-* @return None.
 *
-* @note   None.
 *
 *****************************************************************************/
 #define XAvb_WritePtpBuffer(BaseAddress, PtpPacketBaseAddress, \
@@ -385,53 +381,49 @@ typedef struct
       Xil_Out32(BaseAddress + PtpPacketBaseAddress + PtpPacketOffset, (Data))
 
 
-/****************************************************************************/
+/***************************************************************************/
 /**
 *
-* This macro reads from the given TEMAC Configuration Register.
+* @brief Reads from the given TEMAC Configuration Register.
 *
-* @param  BaseAddress is the base address of the device
-* @param  RegOffset is the register offset to be read
+* @param[in] BaseAddress is the base address of the device
+* @param[in] RegOffset is the register offset to be read
 *
 * @return The 32-bit value of the register
 *
-* @note   None.
 *
 *****************************************************************************/
 #define XAvbMac_ReadConfig(BaseAddress, RegOffset) \
       Xil_In32((BaseAddress) + (RegOffset))
 
 
-/****************************************************************************/
+/***************************************************************************/
 /**
 *
-* This macro writes to the given TEMAC Configuration Register.
+* @brief Writes to the given TEMAC Configuration Register.
 *
-* @param  BaseAddress is the base address of the device
-* @param  RegOffset is the register offset to be written
-* @param  Data is the 32-bit value to write to the register
+* @param[in] BaseAddress is the base address of the device
+* @param[in] RegOffset is the register offset to be written
+* @param[in] Data is the 32-bit value to write to the register
 *
-* @return None.
 *
-* @note   None.
 *
 *****************************************************************************/
 #define XAvbMac_WriteConfig(BaseAddress, RegOffset, Data) \
       Xil_Out32((BaseAddress) + (RegOffset), (Data))
 
 
-/****************************************************************************/
+/***************************************************************************/
 /**
 *
-* This macro reads from the given MDIO Register using the TEMAC
+* @brief Reads from the given MDIO Register using the TEMAC.
 *
-* @param  BaseAddress is the base address of the device
-* @param  Phyad is the Physical Address of the PHY
-* @param  Regad is the Address of the MDIO register within the addressed PHY
+* @param[in] BaseAddress is the base address of the device
+* @param[in] Phyad is the Physical Address of the PHY
+* @param[in] Regad is the Address of the MDIO register within the addressed PHY
 *
 * @return The 32-bit value of the register (upper 16-bits will be all 0's)
 *
-* @note   None.
 *
 *****************************************************************************/
 #define XAvbMac_ReadMdio(BaseAddress, Phyad, Regad) \
@@ -440,19 +432,17 @@ typedef struct
                                   + (((Regad) & 0x1F) << 3))
 
 
-/****************************************************************************/
+/***************************************************************************/
 /**
 *
-* This macro writes to the given MDIO Register using the TEMAC
+* @brief Writes to the given MDIO Register using the TEMAC.
 *
-* @param  BaseAddress is the base address of the device
-* @param  Phyad is the Physical Address of the PHY
-* @param  Regad is the Address of the MDIO register within the addressed PHY
-* @param  Data is the 32-bit value to write
+* @param[in] BaseAddress is the base address of the device
+* @param[in] Phyad is the Physical Address of the PHY
+* @param[in] Regad is the Address of the MDIO register within the addressed PHY
+* @param[in] Data is the 32-bit value to write
 *
-* @return None.
 *
-* @note   None.
 *
 *****************************************************************************/
 #define XAvbMac_WriteMdio(BaseAddress, Phyad, Regad, Data) \
@@ -462,7 +452,7 @@ typedef struct
            (Data & XAVB_MAC_MDIO_DATA_MASK))
 
 
-/************************** Function Prototypes ******************************/
+/************************* Function Prototypes ******************************/
 
 /*
  * Functions in xavb_hw.c

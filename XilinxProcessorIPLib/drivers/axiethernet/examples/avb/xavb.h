@@ -1,15 +1,17 @@
-/******************************************************************************
+/*****************************************************************************
 * Copyright (C) 2008 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
-/*****************************************************************************/
+/****************************************************************************/
 /**
 *
 * @file xavb.h
+* @addtogroup axiethernet Overview
 *
-* This header file contains the identifiers and basic driver functions (or
+*
+* Defines the identifiers and basic driver functions (or
 * macros) that can be used to access the device. Other driver functions
 * are defined in xavb.h.
 *
@@ -41,16 +43,15 @@ extern "C" {
 #endif
 
 
-/***************************** Include Files *********************************/
+/**************************** Include Files *********************************/
 
 #include "xavb_hw.h"
 #include "xstatus.h"
 #include "stdio.h"
 
-/************************** Constant Definitions *****************************/
+/************************* Constant Definitions *****************************/
 
 /** @name Define the Debug Level Verbosity for print messages for this driver
- *  @{
  */
 #undef DEBUG_XAVB_LEVEL1  /* Basic messages and PTP frame reception messages */
 #undef DEBUG_XAVB_LEVEL2  /* PTP Calculation messages */
@@ -61,7 +62,7 @@ extern "C" {
  */
 #define XAVB_TX_MAC_LATENCY_IN_NS                            80
 #define XAVB_RX_MAC_LATENCY_IN_NS                            80
-/* @} */
+/** @} */
 
 
 /** @name PTP Buffer Storage Definitions
@@ -74,7 +75,7 @@ extern "C" {
 #define XAVB_PTP_TX_PDELAYRESP_FOLLOW_UP                     0x4
 #define XAVB_PTP_TX_ANNOUNCE                                 0x5
 #define XAVB_PTP_TX_SIGNALING                                0x6
-/* @} */
+/** @} */
 
 
 /** @name PTP Packet Message Type Definitions
@@ -87,14 +88,14 @@ extern "C" {
 #define XAVB_PTP_TYPE_PDELAYRESP_FOLLOW_UP                   0xA
 #define XAVB_PTP_TYPE_ANNOUNCE                               0xB
 #define XAVB_PTP_TYPE_SIGNALING                              0xC
-/* @} */
+/** @} */
 
 
 /** @name Common PTP Frame Structure Definitions.
  *  @{
  */
 #define XAVB_PTP_PKT_CAPTURED_TIMESTAMP_OFFSET               0x000000FC
-/* @} */
+/** @} */
 
 
 /** @name General Tx PTP Frame Structure Definitions.
@@ -114,7 +115,7 @@ extern "C" {
 #define XAVB_PTP_TX_PKT_REQ_PORTID_UPPER_OFFSET              0x00000040  /* lower 2 bytes */
 #define XAVB_PTP_TX_PKT_REQ_PORTID_MID_OFFSET                0x00000044
 #define XAVB_PTP_TX_PKT_REQ_PORTID_LOWER_OFFSET              0x00000048
-/* @} */
+/** @} */
 
 /** @name Tx Announce PTP Frame Structure Definitions.
  *  @{
@@ -125,16 +126,16 @@ extern "C" {
 #define XAVB_PTP_TX_PKT_ANNOUNCE_GMID_LOW_STEPSREMOVED_HI_OFFSET  0x00000050
 #define XAVB_PTP_TX_PKT_ANNOUNCE_STEPSREMOVED_LOW_TIMESRC_OFFSET  0x00000054
 #define XAVB_PTP_TX_PKT_ANNOUNCE_TLVLEN_PATHSEQ_START_OFFSET      0x00000058
-/* @} */
+/** @} */
 
 /** @name PTP frame constant definitions
  *  @{
  *
- *  Constant value for the control field and LogMeanMessageInterval field for
+ * Constant value for the control field and LogMeanMessageInterval field for.
  *  pDelayResp and pDelayRespFollowUp PTP frames (defined in IEEE802.1 AS)
  */
 #define XAVB_PDELAY_LOG_MEAN_MESSAGE_INT                     0x7F050000
-/* @} */
+/** @} */
 
 
 /** @name Default LogMeanInterval values
@@ -147,43 +148,43 @@ extern "C" {
 
 #define XAVB_MAX_SUPPORTED_LOG_MEAN_INTERVAL                 8         /** 32768/128 = 256 s */
 #define XAVB_MIN_SUPPORTED_LOG_MEAN_INTERVAL                 (-7)      /** 1/128 s */
-/* @} */
+/** @} */
 
 /** @name Announce / Sync Timeout values
 *   @{
 */
 /** XAVB_ANNOUNCE_RECEIPT_TIMEOUT is the number of announce
- *  intervals without the receipt of an Announce message from
+ * intervals without the receipt of an Announce message from.
  *  the GM that are allowed before the GM is assumed to be no
  *  longer present and BMCA should be run again
  */
 #define XAVB_ANNOUNCE_RECEIPT_TIMEOUT                        2
 
 /** XAVB_SYNC_RECEIPT_TIMEOUT is the number of sync intervals
- *  without the receipt of an Sync message from the GM that are
+ * without the receipt of an Sync message from the GM that are.
  *  allowed before the GM is assumed to be no longer present and
  *  BMCA should be run again
  */
 #define XAVB_SYNC_RECEIPT_TIMEOUT                            3
-/* @} */
+/** @} */
 
 
 /** @name AS Network Requirements
 *   @{
 */
 /** XAVB_NEIGHBOR_PROP_DELAY_THRESH is the maximum allowed delay (in nanosecs)
- *  across a full duplex link for which the AVB protocol is allowed to function.
+ * across a full duplex link for which the AVB protocol is allowed to function.
  *  Although this parameter is defined in the IEEE spec, no default is defined.
  */
 #define XAVB_NEIGHBOR_PROP_DELAY_THRESH                      5000
 
 /** XAVB_ALLOWED_LOST_RESPONSES is the number of Pdelay_Req
- *  messages for which a valid response is not received, above
+ * messages for which a valid response is not received, above.
  *  which the Peer should no longer be considered ASCapable
  */
 #define XAVB_ALLOWED_LOST_RESPONSES                          3
 
-/* @} */
+/** @} */
 
 
 /** @name General Rx PTP Frame Structure Definitions.
@@ -203,7 +204,7 @@ extern "C" {
 #define XAVB_PTP_RX_PKT_REQ_PORTID_UPPER_OFFSET              0x00000038  /* lower 2 bytes */
 #define XAVB_PTP_RX_PKT_REQ_PORTID_MID_OFFSET                0x0000003C
 #define XAVB_PTP_RX_PKT_REQ_PORTID_LOWER_OFFSET              0x00000040
-/* @} */
+/** @} */
 
 
 /** @name Rx Announce PTP Frame Structure Definitions.
@@ -214,21 +215,21 @@ extern "C" {
 #define XAVB_PTP_RX_PKT_ANNOUNCE_GMID_MID_OFFSET                  0x00000044
 #define XAVB_PTP_RX_PKT_ANNOUNCE_GMID_LOW_STEPSREMOVED_HI_OFFSET  0x00000048
 #define XAVB_PTP_RX_PKT_ANNOUNCE_STEPSREMOVED_LOW_TIMESRC_OFFSET  0x0000004C
-/* @} */
+/** @} */
 
 
 /** @name Rx Signalling PTP Frame Structure Definitions.
  *  @{
  */
 #define XAVB_PTP_RX_PKT_SIGNALING_DELAY_INTERVAL_OFFSET      0x00000044
-/* @} */
+/** @} */
 
 /** @name Standard PTP Frame Field Definitions (from IEEE802.1AS specification).
  *  @{
  */
 #define XAVB_PTP_ETHERTYPE                                   0x88F7
 #define XAVB_PTP_VERSION_PTP                                 2
-/* @} */
+/** @} */
 
 
 /** @name Real Time Clock Definitions.
@@ -236,30 +237,30 @@ extern "C" {
  */
 #define XAVB_ONE_SECOND            1000000000    /**< Value in ns */
 #define XAVB_PERIOD_8KHZ           125000        /**< Value in ns */
-/* @} */
+/** @} */
 
 /** @name Real Time Clock Locked Definitions.
  *  @{
- *  If the Slave error is > this threshold then define PTP to be
+ * If the Slave error is > this threshold then define PTP to be.
  *  unlocked and link not asCapable.
- *  @note: This threshold is not specified in IEEE 802.1as.
+* This threshold is not specified in IEEE 802.1as.
  */
 #define XAVB_CLOCK_LOCK_THRESHOLD  1000           /**< Value in ns */
-/* @} */
+/** @} */
 
 /** @name RTC Increment Value Update Definitions
  *  @{
- *  Define how often to re-calculate the RTC Increment This value
+ * Define how often to re-calculate the RTC Increment This value.
  *  indicates how many good Sync/FollowUp message pairs
  *  are received before the re-calculation is performed.
  */
 #define XAVB_NUM_SYNC_FU_PAIR_CALC_RTC_INCREMENT     2
-/* @} */
+/** @} */
 
-/**************************** Type Definitions *******************************/
+/*************************** Type Definitions *******************************/
 
 /**
- * Callback function.  The first argument is a callback reference passed in by
+ * Callback function.  The first argument is a callback reference passed in by.
  * the upper layer when setting the callback functions, and passed back to the
  * upper layer when the callback is invoked.
  * The second argument is a '1' if a Grandmaster Discontinuity event has occurred
@@ -268,7 +269,7 @@ extern "C" {
 typedef void (*XAvb_Handler)(void *CallBackRef, u32 TimestampsUncertain);
 
 /**
- * This typedef contains configuration information for a device.
+ * Holds configuration information for a device.
  */
 typedef struct {
   u16 DeviceId;       /**< Unique ID  of device */
@@ -277,7 +278,7 @@ typedef struct {
 
 
 /**
- * This typedef defines the format for a data structure which stores the Port
+ * Defines the format for a data structure which stores the Port.
  * Identity information from received Announce packets
  */
 typedef struct
@@ -288,7 +289,7 @@ typedef struct
 } XAvb_PortIdentity;
 
 /**
- * This typedef defines the format for a data structure which stores the Clock
+ * Defines the format for a data structure which stores the Clock.
  * Identity information from received Announce packets
  */
 typedef struct
@@ -298,7 +299,7 @@ typedef struct
 } XAvb_ClockIdentity;
 
 /**
- * This typedef defines the quality of a clock
+ * Defines the quality of a clock.
  */
 typedef struct
 {
@@ -308,7 +309,7 @@ typedef struct
 } XAvb_ClockQuality;
 
 /**
- * This typedef defines the format for a data structure which stores the relevant
+ * Defines the format for a data structure which stores the relevant.
  * fields which are captured from Announce Packets.
  */
 typedef struct
@@ -322,13 +323,14 @@ typedef struct
   u8                IAmTheRtcMaster;           /**< Boolean: 1 = grandmaster, 0 = slave*/
   u16               tlvLengthField;            /**< Announce message: lengthField (for TLV)*/
   char              logMessageInterval;        /**< Announce message: logMessageInterval.
-                                                *   NOTE: 8-bit signed integer */
+                                                * NOTE: 8-bit signed integer */.
+
   u16               AnnounceIntervalDuration;  /**< Announce Interval in units of 1/128 secs */
 } XAvb_BmcData;
 
 
 /**
- * This typedef defines the format for a data structure which stores information
+ * Defines the format for a data structure which stores information.
  * relating to the 1588 based PTP timing calculations
  */
 typedef struct
@@ -350,7 +352,7 @@ typedef struct
 
 
 /**
- * This typedef defines the format for a data structure which stores the last
+ * Defines the format for a data structure which stores the last.
  * used sequence ID for all of the PTP timing frames.
  */
 typedef struct
@@ -361,14 +363,16 @@ typedef struct
   u16 PDelayRespSequenceId;      /**< SequenceId of the latest RX'd PDelayResp message  */
   u16 PDelayFollowUpSequenceId;  /**< SequenceId of the latest RX'd PDelayRespFollowUp message  */
   u16 OldSyncSequenceId;         /**< SequenceId of the previous RX'd Sync message used
-                                  *   for XAvb_UpdateRtcIncrement() calculations */
+                                  * for XAvb_UpdateRtcIncrement() calculations */.
+
   u16 NewSyncSequenceId;         /**< SequenceId of the current RX'd Sync message used
-                                  * for XAvb_UpdateRtcIncrement() calculations */
+                                  * for XAvb_UpdateRtcIncrement() calculations */.
+
 } XAvb_SequenceIdStruct;
 
 
 /**
- * The Signalling frame defines the delays to be used between Sync Frames, Link
+ * The Signalling frame defines the delays to be used between Sync Frames, Link.
  * Delay measurements and Announce Frame events
  */
 typedef struct
@@ -380,7 +384,7 @@ typedef struct
 
 
 /**
- * This typedef defines the various counters which have to maintained for the
+ * Defines the various counters which have to maintained for the.
  * PTP operation.
  */
 typedef struct
@@ -394,7 +398,7 @@ typedef struct
 } XAvb_Counters;
 
 /** Keep track of state machine data to make sure we're fully
- *  compliant with the spec
+ * compliant with the spec.
  */
 typedef struct
 {
@@ -412,7 +416,7 @@ typedef struct
 typedef struct
 {
   /** The logMessageInterval is the value of the logMessageInterval of the time-synchronization
-   *  event message received by this port. It is the logSyncInterval of the upstream MasterPort
+   * event message received by this port. It is the logSyncInterval of the upstream MasterPort.
    *  that sent the event message.*/
   u8 logMessageInterval;
 
@@ -423,7 +427,7 @@ typedef struct
 
 
 /**
- * The XAvb driver instance data. The user is required to allocate a
+ * The XAvb driver instance data. The user is required to allocate a.
  * variable of this type for every AVB device in the system. A pointer
  * to a variable of this type is then passed to the driver API functions.
  */
@@ -478,12 +482,12 @@ typedef struct {
 } XAvb;
 
 
-/***************** Macros (Inline Functions) Definitions *********************/
+/**************** Macros (Inline Functions) Definitions *********************/
 
-/************************** Function Prototypes ******************************/
+/************************* Function Prototypes ******************************/
 
 /*
- * Functions in xavb.c
+ * Functions in xavb.c.
  */
 XStatus XAvb_CfgInitialize(XAvb *InstancePtr,      \
                            XAvb_Config *ConfigPtr, \
@@ -622,16 +626,63 @@ void XAvb_SetGMDiscontinuityHandler(XAvb *InstancePtr, \
 /*
  * Functions in xavb_rtc_sync.c
  */
+/****************************************************************************/
+/**
+*
+* @brief Captures the nanosecond timestamp field from a received PTP frame.
+*
+* @param[in] BaseAddress is the base address of the device.
+* @param[in] PtpFrameBaseAddr is the base address of the received PTP frame
+*		in the Rx PTP packet buffer.
+*
+* @return The nanoseconds timestamp field captured from an Rx PTP frame.
+*
+******************************************************************************/
 u32  XAvb_CaptureNanoSec(u32 BaseAddress, \
                          u32 PtpFrameBaseAddr);
 
+/****************************************************************************/
+/**
+*
+* @brief Measures the link delay of the local full-duplex Ethernet link.
+*
+* @param[in] InstancePtr is a pointer to the XAvb instance.
+*
+******************************************************************************/
 void XAvb_CalcDelay(XAvb * InstancePtr);
 
+/****************************************************************************/
+/**
+*
+* @brief Calculates the slave RTC offset from the grandmaster time.
+*
+* @param[in] InstancePtr is a pointer to the XAvb instance.
+* @param[in] PtpFrameBaseAddr is the base address of the received PTP frame
+*		in the Rx PTP packet buffer.
+*
+******************************************************************************/
 void XAvb_CalcRtcOffset(XAvb * InstancePtr, \
                         u32    PtpFrameBaseAddr);
 
+/****************************************************************************/
+/**
+*
+* @brief Updates the RTC increment rate based on measured sync timing error.
+*
+* @param[in] InstancePtr is a pointer to the XAvb instance.
+*
+******************************************************************************/
 void XAvb_UpdateRtcIncrement(XAvb * InstancePtr);
 
+/****************************************************************************/
+/**
+*
+* @brief Adjusts the 8 kHz clock phase offset.
+*
+* @param[in] BaseAddress is the base address of the device.
+* @param[in] NewOffset is the new phase offset value.
+*
+******************************************************************************/
 void XAvb_Adjust8kClock(u32 BaseAddress, \
                         u32 NewOffset);
 

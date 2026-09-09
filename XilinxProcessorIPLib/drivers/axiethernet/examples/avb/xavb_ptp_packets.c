@@ -1,13 +1,16 @@
-/******************************************************************************
+/****************************************************************************
 * Copyright (C) 2008 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
-/*****************************************************************************/
+/***************************************************************************/
 /**
 *
 * @file xavb_ptp_packets.c
+* @addtogroup axiethernet Overview
+* @{
+*
 *
 * The XAvb driver. Functions in this file all contain functions which decode the
 * received Precise Timing Protocol (PTP) frames, or to format and transmit PTP
@@ -30,37 +33,35 @@
 *
 ******************************************************************************/
 
-/***************************** Include Files *********************************/
+/*************************** Include Files *********************************/
 
 #include "xil_types.h"
 #include "xavb_hw.h"
 #include "xavb.h"
 #include "stdlib.h"
 
-/************************** Constant Definitions *****************************/
+/************************ Constant Definitions *****************************/
 
-/**************************** Type Definitions *******************************/
+/************************** Type Definitions *******************************/
 
-/***************** Macros (Inline Functions) Definitions *********************/
+/*************** Macros (Inline Functions) Definitions *********************/
 
-/************************** Variable Definitions *****************************/
+/************************ Variable Definitions *****************************/
 
-/************************** Function Prototypes ******************************/
+/************************ Function Prototypes ******************************/
 
-/*****************************************************************************/
+/***************************************************************************/
 
-/****************************************************************************/
-/**
+/**************************************************************************/
+/*
 *
-* A function to compare two ClockIdentity values.
+* @brief A function to compare two ClockIdentity values.
 *
-* @param  BaseAddress is the base address of the device
-* @param  Identity1 is the first ClockIdentity to be compared
-* @param  Identity2 is the second ClockIdentity to be compared
+* @param[in] BaseAddress is the base address of the device
+* @param[in] Identity1 is the first ClockIdentity to be compared
+* @param[in] Identity2 is the second ClockIdentity to be compared
 *
 * @return 1 if the two values are equal, 0 if not equal
-*
-* @note
 *
 *****************************************************************************/
 u32 XAvb_CompareClockIdentity(u32 BaseAddress,
@@ -80,22 +81,21 @@ u32 XAvb_CompareClockIdentity(u32 BaseAddress,
     return 0;
   }
 
-  /** values are equal */
+  /* values are equal */
   return 1;
 }
 
-/****************************************************************************/
-/**
+/**************************************************************************/
+/*
 *
-* A function to compare two PortIdentity values.
+* @brief A function to compare two PortIdentity values.
 *
-* @param  BaseAddress is the base address of the device
-* @param  Identity1 is the first sourcePortIdentity to be compared
-* @param  Identity2 is the second sourcePortIdentity to be compared
+* @param[in] BaseAddress is the base address of the device
+* @param[in] Identity1 is the first sourcePortIdentity to be compared
+* @param[in] Identity2 is the second sourcePortIdentity to be compared
 *
 * @return 1 if the two values are equal, 0 if not equal
 *
-* @note   None.
 *
 *****************************************************************************/
 u32 XAvb_ComparePortIdentity(u32 BaseAddress,
@@ -121,27 +121,26 @@ u32 XAvb_ComparePortIdentity(u32 BaseAddress,
     return 0;
   }
 
-  /** values are equal */
+  /* values are equal */
   return 1;
 }
 
-/****************************************************************************/
-/**
+/**************************************************************************/
+/*
 *
-* A function to extract portIdentity information from a received PTP frame.
+* @brief A function to extract portIdentity information from a received PTP frame.
 * This can be any portIdentity field (header portIdentity, requestingPortIdentity,
 * etc.)
 *
-* @param  BaseAddress is the base address of the device
-* @param  PtpFrameBaseAddr is the base address of the received Announce Packet
+* @param[in] BaseAddress is the base address of the device
+* @param[in] PtpFrameBaseAddr is the base address of the received Announce Packet
 *         in the Rx PTP Packet Buffer
-* @param  PortIdOffset is the packet offset of the first byte of the portIdentity
+* @param[in] PortIdOffset is the packet offset of the first byte of the portIdentity
 *         field to be parsed
-* @param  portID is the XAvb_PortIdentity struct that the data will be written to.
+* @param[in] portID is the XAvb_PortIdentity struct that the data will be written to.
 *
-* @return None, but portID will be updated with the portIdentity information
+* portID is updated with the portIdentity information.
 *
-* @note   None.
 *
 *****************************************************************************/
 void XAvb_GetPortIdentity(u32 BaseAddress, u32 PtpFrameBaseAddr,
@@ -165,25 +164,24 @@ void XAvb_GetPortIdentity(u32 BaseAddress, u32 PtpFrameBaseAddr,
 
 }
 
-/****************************************************************************/
-/**
+/**************************************************************************/
+/*
 *
-* A function to write common data (eg the Source Address) to all PTP frames
+* @brief A function to write common data (eg the Source Address) to all PTP frames.
 * stored in the Tx PTP Packet buffer
 *
-* @param  BaseAddress is the base address of the device
-* @param  PtpFieldAddress is the offset address of the relevant field in PTP
+* @param[in] BaseAddress is the base address of the device
+* @param[in] PtpFieldAddress is the offset address of the relevant field in PTP
 *         frames.
-* @param  Data is the common data to be written to all Tx PTP frame templates
-* @param  DataBitEnable allows only selected bits of the 32-bit Data word to
+* @param[in] Data is the common data to be written to all Tx PTP frame templates
+* @param[in] DataBitEnable allows only selected bits of the 32-bit Data word to
 *         be modified.
-* @param  BufferEnable allows the selected buffer to be selected: there are 8
+* @param[in] BufferEnable allows the selected buffer to be selected: there are 8
 *         PTP buffers - these are encoded as one-hot.  For example, 0x3F will
 *         write the selected data to the first 6 buffers only.
 *
-* @return None.  But the Tx PTP Packet Buffer is written to as requested
+* the Tx PTP Packet Buffer is written to as requested
 *
-* @note   None.
 *
 *****************************************************************************/
 void XAvb_WriteToMultipleTxPtpFrames(u32 BaseAddress,
@@ -195,23 +193,23 @@ void XAvb_WriteToMultipleTxPtpFrames(u32 BaseAddress,
   u32 LocalData        = 0;
   u32 LocalAddr        = 0;
 
-  /** Write to all 8 PTP frame templates */
+  /* Write to all 8 PTP frame templates */
   for (PtpBufferPointer= 0; PtpBufferPointer < 8; PtpBufferPointer++) {
 
-    /** Only write to selected buffers */
+    /* Only write to selected buffers */
     if ( ((BufferEnable >> PtpBufferPointer) & 0x1) == 0x1) {
 
       LocalAddr = (PtpBufferPointer<<8) + XAVB_PTP_TX_SYNC_OFFSET;
 
-      /** Read the current value */
+      /* Read the current value */
       LocalData = XAvb_ReadPtpBuffer(BaseAddress,
                                       LocalAddr,
                                       PtpFieldAddress);
 
-      /** Only change the selected data bits */
+      /* Only change the selected data bits */
       LocalData = LocalData | (Data & DataBitEnable);
 
-      /** Write the updated value */
+      /* Write the updated value */
       XAvb_WritePtpBuffer(BaseAddress,
                            LocalAddr,
                            PtpFieldAddress,
@@ -227,18 +225,17 @@ void XAvb_WriteToMultipleTxPtpFrames(u32 BaseAddress,
 }
 
 
-/****************************************************************************/
-/**
+/**************************************************************************/
+/*
 *
-* This function switches the bytes in a 4-byte word, swapping the MSB for the
+* @brief Switches the bytes in a 4-byte word, swapping the MSB for the.
 * LSB, and vice-versa.
 *
-* @param  Data is the 4-byte input data word
+* @param[in] Data is the 4-byte input data word
 *
 * @return The input data word with the bytes swapped (most significant down to
 *         least significant
 *
-* @note   None.
 *
 
 *****************************************************************************/
@@ -253,37 +250,34 @@ u32 XAvb_ReorderWord(u32 Data) {
 }
 
 
-/****************************************************************************/
-/**
+/**************************************************************************/
+/*
 *
-* A function to increment the sequenceId in a PTP frame template
+* @brief A function to increment the sequenceId in a PTP frame template.
 *
-* @param  BaseAddress is the base address of the device
-* @param  PtpFrameBaseAddress is the base address of the TX PTP Buffer whose
+* @param[in] BaseAddress is the base address of the device
+* @param[in] PtpFrameBaseAddress is the base address of the TX PTP Buffer whose
 *         SequenceID is to be incremented
 *
-* @return None.  But the relevant TX PTP Packet Buffer is written to with the
-*                updated SequenceID
-*
-* @note   None.
+* @return The updated sequence ID written to the TX PTP packet buffer.
 *
 *****************************************************************************/
 u32 XAvb_IncSequenceId(u32 BaseAddress, u32 PtpFrameBaseAddress) {
   u32 BufferWord = 0;
   u32 SequenceId = 0;
 
-  /** Read the 32-bit BufferWord containing the SequenceId from the PTP buffer */
+  /* Read the 32-bit BufferWord containing the SequenceId from the PTP buffer */
   BufferWord =  XAvb_ReadPtpBuffer(BaseAddress,
                                     PtpFrameBaseAddress,
                                     XAVB_PTP_TX_PKT_SEQUENCEID_OFFSET);
 
-  /** Swap byte order into correct binary and increment the SequenceId */
+  /* Swap byte order into correct binary and increment the SequenceId */
   SequenceId = XAvb_ReorderWord(BufferWord) + 0x10000;
 
-  /** Swap back the byte order into frame storage order */
+  /* Swap back the byte order into frame storage order */
   SequenceId = XAvb_ReorderWord(SequenceId);
 
-  /** Write the 32-bit BufferWord variable containing the updated SequenceId */
+  /* Write the 32-bit BufferWord variable containing the updated SequenceId */
   XAvb_WritePtpBuffer(BaseAddress,
                       PtpFrameBaseAddress,
                       XAVB_PTP_TX_PKT_SEQUENCEID_OFFSET,
@@ -294,18 +288,16 @@ u32 XAvb_IncSequenceId(u32 BaseAddress, u32 PtpFrameBaseAddress) {
 }
 
 
-/****************************************************************************/
-/**
+/**************************************************************************/
+/*
 *
-* The software drivers are kept simple by only requesting a single PTP frame to
-* be transmitted at a time.  This function checks (and if necessary waits)
+* @brief The software drivers are kept simple by only requesting a single PTP frame to.
+* be transmitted at a time.  Checks (and if necessary waits)
 * until the previously request PTP frame has been transmitted.
 *
-* @param  InstancePtr is a pointer to the XAvb instance to be worked on
+* @param[in] InstancePtr is a pointer to the XAvb instance to be worked on
 *
-* @return None.
 **
-* @note   None.
 *
 *****************************************************************************/
 void XAvb_WaitOnTxPtpQueue(XAvb * InstancePtr) {
@@ -313,8 +305,9 @@ void XAvb_WaitOnTxPtpQueue(XAvb * InstancePtr) {
 
   do {
 
-  /** Wait until any queued PTP frame has been transmitted.  This is a
-   * software safety feature, not a hardware restriction */
+  /* Wait until any queued PTP frame has been transmitted.  This is a
+   * software safety feature, not a hardware restriction */.
+
   TxPtpType = (XAvb_ReadReg(InstancePtr->Config.BaseAddress,
                              XAVB_PTP_TX_CONTROL_OFFSET)
                & XAVB_PTP_TX_WAIT_ALL_FRAMES_MASK);
@@ -324,28 +317,27 @@ void XAvb_WaitOnTxPtpQueue(XAvb * InstancePtr) {
 }
 
 
-/****************************************************************************/
-/**
+/**************************************************************************/
+/*
 *
-* A function to format then request the transmission of a PTP Announce Packet
+* @brief A function to format then request the transmission of a PTP Announce Packet.
 *
-* @param  InstancePtr is a pointer to the XAvb instance to be worked on
+* @param[in] InstancePtr is a pointer to the XAvb instance to be worked on
 *
-* @return None.  But the relevant Tx PTP Packet Buffer is written to with the
+* the relevant Tx PTP Packet Buffer is written to with the
 *                updated PTP fields, and then the Tx PTP Packet Buffer Control
 *                Register is written to request the frame transmission.
 *
-* @note   None.
 *
 *****************************************************************************/
 void XAvb_MasterSendAnnounce(XAvb * InstancePtr) {
   u32 Unused = 0;
 
 
-  /** Wait until there are no PTP frames to be transmitted */
+  /* Wait until there are no PTP frames to be transmitted */
   XAvb_WaitOnTxPtpQueue(InstancePtr);
 
-  /** Increment the sequenceId */
+  /* Increment the sequenceId */
   Unused = XAvb_IncSequenceId(InstancePtr->Config.BaseAddress,
                               XAVB_PTP_TX_ANNOUNCE_OFFSET);
 
@@ -361,25 +353,24 @@ void XAvb_MasterSendAnnounce(XAvb * InstancePtr) {
   xil_printf("\r\nSeconds %d", Unused);
 #endif
 
-  /** Send the Announce Frame! */
+  /* Send the Announce Frame! */
   XAvb_WriteReg(InstancePtr->Config.BaseAddress,
                  XAVB_PTP_TX_CONTROL_OFFSET,
                  XAVB_PTP_TX_SEND_ANNOUNCE_FRAME_MASK);
 }
 
 
-/****************************************************************************/
-/**
+/**************************************************************************/
+/*
 *
-* A function to format then request the transmission of a PTP Sync Packet
+* @brief A function to format then request the transmission of a PTP Sync Packet.
 *
-* @param  InstancePtr is a pointer to the XAvb instance to be worked on
+* @param[in] InstancePtr is a pointer to the XAvb instance to be worked on
 *
-* @return None.  But the relevant Tx PTP Packet Buffer is written to with the
+* the relevant Tx PTP Packet Buffer is written to with the
 *                updated PTP fields, and then the Tx PTP Packet Buffer Control
 *                Register is written to request the frame transmission.
 *
-* @note   None.
 *
 *****************************************************************************/
 void XAvb_MasterSendSync(XAvb * InstancePtr) {
@@ -388,14 +379,14 @@ void XAvb_MasterSendSync(XAvb * InstancePtr) {
   u32 SequenceId  = 0;
   u32 BufferWord  = 0;
 
-  /** Wait until there are no PTP frames to be transmitted */
+  /* Wait until there are no PTP frames to be transmitted */
   XAvb_WaitOnTxPtpQueue(InstancePtr);
 
-  /** Increment the sequenceId in the Sync frame */
+  /* Increment the sequenceId in the Sync frame */
   SequenceId = XAvb_IncSequenceId(InstancePtr->Config.BaseAddress,
                                   XAVB_PTP_TX_SYNC_OFFSET);
 
-  /** Read the current RTC Offset values */
+  /* Read the current RTC Offset values */
   InstancePtr->PtpRecords.Nanosec
       = XAvb_ReadReg(InstancePtr->Config.BaseAddress,
                       XAVB_RTC_NANOSEC_VALUE_OFFSET);
@@ -406,13 +397,13 @@ void XAvb_MasterSendSync(XAvb * InstancePtr) {
   Epoch  = XAvb_ReadReg(InstancePtr->Config.BaseAddress,
                          XAVB_RTC_SEC_UPPER_VALUE_OFFSET);
 
-  /** Send the Sync Frame! */
+  /* Send the Sync Frame! */
   XAvb_WriteReg(InstancePtr->Config.BaseAddress, XAVB_PTP_TX_CONTROL_OFFSET,
                  XAVB_PTP_TX_SEND_SYNC_FRAME_MASK);
 
 
-  /** Now some pre-work on the Follow-Up Frame
-   *-----------------------------------------
+  /* Now some pre-work on the Follow-Up Frame
+   *-@brief -----------------------------------------.
    *
    * Write the same sequenceId to the Follow-up frame */
   BufferWord =  XAvb_ReadPtpBuffer(InstancePtr->Config.BaseAddress,
@@ -427,8 +418,8 @@ void XAvb_MasterSendSync(XAvb * InstancePtr) {
                        BufferWord);
 
 
-  /** Format the Timestamp (RTC) into correct byte positioning.
-   * Note: this is how the Timestamp is stored in
+  /* Format the Timestamp (RTC) into correct byte positioning.
+   * Note: this is how the Timestamp is stored in.
    * the PTP frame itself (transmitted MSB of Epoch first):
    *
    * |----------------|----------------|----------------|----------------|
@@ -442,7 +433,7 @@ void XAvb_MasterSendSync(XAvb * InstancePtr) {
 
   BufferWord = XAvb_ReorderWord((Epoch<<16) | (Sec>>16));
 
-  /** Write the Timestamp (RTC) to the Follow-up frame */
+  /* Write the Timestamp (RTC) to the Follow-up frame */
   XAvb_WritePtpBuffer(InstancePtr->Config.BaseAddress,
                        XAVB_PTP_TX_FOLLOW_UP_OFFSET,
                        XAVB_PTP_TX_PKT_TIMESTAMP_UPPER_OFFSET,
@@ -479,18 +470,17 @@ void XAvb_MasterSendSync(XAvb * InstancePtr) {
 
 
 
-/****************************************************************************/
-/**
+/**************************************************************************/
+/*
 *
-* A function to format then request the transmission of a PTP Follow-Up Packet
+* @brief A function to format then request the transmission of a PTP Follow-Up Packet.
 *
-* @param  InstancePtr is a pointer to the XAvb instance to be worked on
+* @param[in] InstancePtr is a pointer to the XAvb instance to be worked on
 *
-* @return None.  But the relevant Tx PTP Packet Buffer is written to with the
+* the relevant Tx PTP Packet Buffer is written to with the
 *                updated PTP fields, and then the Tx PTP Packet Buffer Control
 *                Register is written to request the frame transmission.
 *
-* @note   None.
 *
 *****************************************************************************/
 void XAvb_MasterSendFollowUp(XAvb * InstancePtr) {
@@ -499,43 +489,43 @@ void XAvb_MasterSendFollowUp(XAvb * InstancePtr) {
   u32 CorrectionField  = 0;
   u32 BufferWord       = 0;
 
-  /** Wait until there are no PTP frames to be transmitted */
+  /* Wait until there are no PTP frames to be transmitted */
   XAvb_WaitOnTxPtpQueue(InstancePtr);
 
-  /** Read the current RTC offset */
+  /* Read the current RTC offset */
   NsOffset = XAvb_ReadReg(InstancePtr->Config.BaseAddress,
                            XAVB_RTC_NANOSEC_OFFSET);
 
-  /** Read the Timestamp and adjust it for the MAC transmit latency */
+  /* Read the Timestamp and adjust it for the MAC transmit latency */
   Timestamp = XAvb_ReadPtpBuffer(InstancePtr->Config.BaseAddress,
                                   XAVB_PTP_TX_SYNC_OFFSET,
                                   XAVB_PTP_PKT_CAPTURED_TIMESTAMP_OFFSET)
               + XAVB_TX_MAC_LATENCY_IN_NS;
 
-  /** Adjust the Timestamp with current RTC ns offset */
+  /* Adjust the Timestamp with current RTC ns offset */
   Timestamp = Timestamp + NsOffset;
   if (Timestamp >= XAVB_ONE_SECOND) {
     Timestamp = Timestamp - XAVB_ONE_SECOND;
   }
 
-  /** Calculate the Correction Field */
+  /* Calculate the Correction Field */
   CorrectionField = Timestamp - InstancePtr->PtpRecords.Nanosec;
   if (CorrectionField >= XAVB_ONE_SECOND) {
     CorrectionField = CorrectionField + XAVB_ONE_SECOND;
   }
 
-  /** Format the Correction Field into correct byte positioning for PTP frame
-   *  storage in the buffer
+  /* Format the Correction Field into correct byte positioning for PTP frame
+   * storage in the buffer.
    */
   BufferWord = XAvb_ReorderWord(CorrectionField);
 
-  /** Write the Correction Field to the Follow Up frame */
+  /* Write the Correction Field to the Follow Up frame */
   XAvb_WritePtpBuffer(InstancePtr->Config.BaseAddress,
                        XAVB_PTP_TX_FOLLOW_UP_OFFSET,
                        XAVB_PTP_TX_PKT_CORRECTION_FIELD_OFFSET,
                        BufferWord);
 
-  /** Send the Follow Up Frame! */
+  /* Send the Follow Up Frame! */
   XAvb_WriteReg(InstancePtr->Config.BaseAddress,
                  XAVB_PTP_TX_CONTROL_OFFSET,
                  XAVB_PTP_TX_SEND_FOLLOWUP_FRAME_MASK);
@@ -554,28 +544,27 @@ void XAvb_MasterSendFollowUp(XAvb * InstancePtr) {
 
 
 
-/****************************************************************************/
-/**
+/**************************************************************************/
+/*
 *
-* A function to format then request the transmission of a PTP PDelay Request
+* @brief A function to format then request the transmission of a PTP PDelay Request.
 * Packet
 *
-* @param  InstancePtr is a pointer to the XAvb instance to be worked on
+* @param[in] InstancePtr is a pointer to the XAvb instance to be worked on
 *
-* @return None.  But the relevant Tx PTP Packet Buffer is written to with the
+* the relevant Tx PTP Packet Buffer is written to with the
 *                updated PTP fields, and then the Tx PTP Packet Buffer Control
 *                Register is written to request the frame transmission.
 *
-* @note   None.
 *
 *****************************************************************************/
 void XAvb_SendPDelayReq(XAvb * InstancePtr) {
   u32 SequenceId;
 
-  /** Wait until there are no PTP frames to be transmitted */
+  /* Wait until there are no PTP frames to be transmitted */
   XAvb_WaitOnTxPtpQueue(InstancePtr);
 
-  /** Increment the SequenceId */
+  /* Increment the SequenceId */
   SequenceId = XAvb_IncSequenceId(InstancePtr->Config.BaseAddress,
                                   XAVB_PTP_TX_PDELAYREQ_OFFSET)
                & 0x0000FFFF;
@@ -587,23 +576,24 @@ void XAvb_SendPDelayReq(XAvb * InstancePtr) {
   xil_printf("\r\nsequenceId is %x", SequenceId);
 #endif
 
-  /** Send the PDelayReq Frame! */
+  /* Send the PDelayReq Frame! */
   XAvb_WriteReg(InstancePtr->Config.BaseAddress,
                  XAVB_PTP_TX_CONTROL_OFFSET,
                  XAVB_PTP_TX_SEND_PDELAYREQ_FRAME_MASK);
 
-  /** Wait for the frame to be transmitted */
+  /* Wait for the frame to be transmitted */
   XAvb_WaitOnTxPtpQueue(InstancePtr);
 
-  /** Capture the Timestamp for Tx of PDelayReq (t1) and adjust it for MAC
-   *  transmit latency */
+  /* Capture the Timestamp for Tx of PDelayReq (t1) and adjust it for MAC
+   * transmit latency */.
+
   InstancePtr->PtpRecords.PDelayTimestampT1
       = XAvb_ReadPtpBuffer(InstancePtr->Config.BaseAddress,
                             XAVB_PTP_TX_PDELAYREQ_OFFSET,
                             XAVB_PTP_PKT_CAPTURED_TIMESTAMP_OFFSET)
         + XAVB_TX_MAC_LATENCY_IN_NS;
 
-  /** Capture the SequenceID of the the PDelayReq */
+  /* Capture the SequenceID of the the PDelayReq */
   InstancePtr->SequenceIdRecords.PDelayReqSequenceId =
      XAvb_ReorderWord(XAvb_ReadPtpBuffer(InstancePtr->Config.BaseAddress,
                           XAVB_PTP_TX_PDELAYREQ_OFFSET,
@@ -611,21 +601,20 @@ void XAvb_SendPDelayReq(XAvb * InstancePtr) {
 }
 
 
-/****************************************************************************/
-/**
+/**************************************************************************/
+/*
 *
-* A function to format then request the transmission of a PTP PDelay Response
+* @brief A function to format then request the transmission of a PTP PDelay Response.
 * Packet
 *
-* @param  InstancePtr is a pointer to the XAvb instance to be worked on
-* @param  PtpFrameBaseAddr is the base address of the received Announce Packet
+* @param[in] InstancePtr is a pointer to the XAvb instance to be worked on
+* @param[in] PtpFrameBaseAddr is the base address of the received Announce Packet
 *         in the Rx PTP Packet Buffer
 *
-* @return None.  But the relevant Tx PTP Packet Buffer is written to with the
+* the relevant Tx PTP Packet Buffer is written to with the
 *                updated PTP fields, and then the Tx PTP Packet Buffer Control
 *                Register is written to request the frame transmission.
 *
-* @note   None.
 *
 *****************************************************************************/
 void XAvb_SendPDelayResp(XAvb * InstancePtr,
@@ -639,11 +628,11 @@ void XAvb_SendPDelayResp(XAvb * InstancePtr,
   u32 CopyPortId     = 0;
   u32 CopyPortId1    = 0;
 
-  /** Wait until there are no PTP frames to be transmitted */
+  /* Wait until there are no PTP frames to be transmitted */
   XAvb_WaitOnTxPtpQueue(InstancePtr);
 
-  /** Format the Timestamp
-   *---------------------
+  /* Format the Timestamp
+   *-@brief ---------------------.
    *
    * Capture the current Synchronised time */
   NanoSec  = XAvb_ReadReg(InstancePtr->Config.BaseAddress,
@@ -655,28 +644,30 @@ void XAvb_SendPDelayResp(XAvb * InstancePtr,
 
                            XAVB_RTC_SEC_UPPER_VALUE_OFFSET);
 
-  /** Read the current RTC offset */
+  /* Read the current RTC offset */
   InstancePtr->PtpRecords.NsOffsetForPDelayResp =
       XAvb_ReadReg(InstancePtr->Config.BaseAddress, XAVB_RTC_NANOSEC_OFFSET);
 
-  /** Read the TimestampT2 for PDelayReq reception and adjust it for MAC
-   *  receive latency */
+  /* Read the TimestampT2 for PDelayReq reception and adjust it for MAC
+   * receive latency */.
+
   TimestampT2 = XAvb_ReadPtpBuffer(InstancePtr->Config.BaseAddress,
                                     PtpFrameBaseAddr,
                                     XAVB_PTP_PKT_CAPTURED_TIMESTAMP_OFFSET)
                 - XAVB_RX_MAC_LATENCY_IN_NS;
 
-  /** The TimestampT2 was captured using syntonised ns time.  We need to
-   * convert this into synchronised time by adding on the current offset */
+  /* The TimestampT2 was captured using syntonised ns time.  We need to
+   * convert this into synchronised time by adding on the current offset */.
+
   TimestampT2 = TimestampT2 + InstancePtr->PtpRecords.NsOffsetForPDelayResp;
 
-  /** Check for ns wrap-around condition */
+  /* Check for ns wrap-around condition */
   if (TimestampT2 >= XAVB_ONE_SECOND) {
     TimestampT2   = TimestampT2 - XAVB_ONE_SECOND;
   }
 
-  /** Even though we read the RTC value at the beginning of this
-   * function, there would have been processing delay between the
+  /* Even though we read the RTC value at the beginning of this
+   * function, there would have been processing delay between the.
    * actual reception (and timestamping) of the PDelayReq frame and the
    * start of this function.  During this time, the RTC Seconds
    * field could have wrapped around.  We need to detect this and if it
@@ -684,16 +675,16 @@ void XAvb_SendPDelayResp(XAvb * InstancePtr,
    * it needs to be set back).
    */
   if (NanoSec < TimestampT2) {
-    /** NanoSec has wrapped since timestamp was taken so decrement the
-     * Seconds field */
+    /* NanoSec has wrapped since timestamp was taken so decrement the
+     * Seconds field */.
     if (Seconds == 0x00000000) {
       Epoch = Epoch   - 0x1;
     }
     Seconds = Seconds - 0x1;
   }
 
-  /** Format the Timestamp (t2) into correct byte positioning for PTP frame
-   *  storage, then write the Timestamp (t2) to the PDelayResp frame
+  /* Format the Timestamp (t2) into correct byte positioning for PTP frame
+   * storage, then write the Timestamp (t2) to the PDelayResp frame.
    */
   BufferWord = XAvb_ReorderWord((Epoch<<16) | (Seconds>>16));
 
@@ -718,8 +709,8 @@ void XAvb_SendPDelayResp(XAvb * InstancePtr,
                        BufferWord);
 
 
-  /** Format the SequenceId
-   *----------------------
+  /* Format the SequenceId
+   *-@brief ---------------------.
    *
    * Set the SequenceId in the PDelayResp and PDelayRespFollowUp frame to be
    * that of the received PDelayReq frame */
@@ -741,8 +732,8 @@ void XAvb_SendPDelayResp(XAvb * InstancePtr,
                        BufferWord);
 
 
-  /** Format the sourcePortIdentity
-   *------------------------------
+  /* Format the sourcePortIdentity
+   *-@brief ------------------------------.
    *
    * Copy the sourcePortIdentity field from the PDelayReq into the PDelayResp
    * and PDelayRespFollowUp frame
@@ -797,8 +788,8 @@ void XAvb_SendPDelayResp(XAvb * InstancePtr,
                        CopyPortId);
 
 
-  /** Send the PDelayResp Frame!
-   *---------------------------*/
+  /* Send the PDelayResp Frame!
+   *-@brief --------------------------*/.
 
   XAvb_WriteReg(InstancePtr->Config.BaseAddress,
                  XAVB_PTP_TX_CONTROL_OFFSET,
@@ -814,19 +805,18 @@ void XAvb_SendPDelayResp(XAvb * InstancePtr,
 }
 
 
-/****************************************************************************/
-/**
+/**************************************************************************/
+/*
 *
-* A function to format then request the transmission of a PTP PDelay Response
+* @brief A function to format then request the transmission of a PTP PDelay Response.
 * Follow-Up Packet
 *
-* @param  InstancePtr is a pointer to the XAvb instance to be worked on
+* @param[in] InstancePtr is a pointer to the XAvb instance to be worked on
 *
-* @return None.  But the relevant Tx PTP Packet Buffer is written to with the
+* the relevant Tx PTP Packet Buffer is written to with the
 *                updated PTP fields, and then the Tx PTP Packet Buffer Control
 *                Register is written to request the frame transmission.
 *
-* @note   None.
 *
 *****************************************************************************/
 void XAvb_SendPDelayRespFollowUp(XAvb * InstancePtr) {
@@ -835,38 +825,40 @@ void XAvb_SendPDelayRespFollowUp(XAvb * InstancePtr) {
   u32 BufferWordB = 0;
   XAvb_RtcFormat Rtc[1];
 
-  /** Wait until there are no PTP frames to be transmitted */
+  /* Wait until there are no PTP frames to be transmitted */
   XAvb_WaitOnTxPtpQueue(InstancePtr);
 
-  /** Format the Timestamp
-   *---------------------*/
+  /* Format the Timestamp
+   *-@brief ---------------------*/.
 
-  /** Capture the current Synchronised time */
+
+  /* Capture the current Synchronised time */
   XAvb_ReadRtc(InstancePtr->Config.BaseAddress, Rtc);
 
 
-  /** Read the TimestampT3 for PDelayResp transmission and adjust it for MAC
-   *  transmit latency */
+  /* Read the TimestampT3 for PDelayResp transmission and adjust it for MAC
+   * transmit latency */.
+
   TimestampT3 = XAvb_ReadPtpBuffer(InstancePtr->Config.BaseAddress,
                                     XAVB_PTP_TX_PDELAYRESP_OFFSET,
                                     XAVB_PTP_PKT_CAPTURED_TIMESTAMP_OFFSET)
                 + XAVB_TX_MAC_LATENCY_IN_NS;
 
-  /** The TimestampT3 was captured using syntonised ns time.  We need to
-   * convert this into synchronised time by adding on the ns offset.  We
+  /* The TimestampT3 was captured using syntonised ns time.  We need to
+   * convert this into synchronised time by adding on the ns offset.  We.
    * use the same offset here as for the PDelayResp frame since if a
    * ns offset change had been made between PDelayResp and ,
    * PDelayRespFollowUp, this would result in an error in the link delay
    * measurement. */
   TimestampT3 = TimestampT3 + InstancePtr->PtpRecords.NsOffsetForPDelayResp;
 
-  /** Check for ns wrap-around condition */
+  /* Check for ns wrap-around condition */
   if (TimestampT3 >= XAVB_ONE_SECOND) {
     TimestampT3   = TimestampT3 - XAVB_ONE_SECOND;
   }
 
-  /** Even though we read the RTC value at the beginning of this
-   * function, there would have been processing delay between the
+  /* Even though we read the RTC value at the beginning of this
+   * function, there would have been processing delay between the.
    * actual reception (and timestamping) of the PDelayReq frame and the
    * start of this function.  During this time, the RTC seconds
    * field could have wrapped around.  We need to detect this and if it
@@ -874,16 +866,16 @@ void XAvb_SendPDelayRespFollowUp(XAvb * InstancePtr) {
    * it needs to be set back).
    */
   if (Rtc->NanoSeconds < TimestampT3) {
-    /** nanosec has wrapped since timestamp was taken so decrement the
-     * seconds field */
+    /* nanosec has wrapped since timestamp was taken so decrement the
+     * seconds field */.
     if (Rtc->SecondsLower == 0x00000000) {
       Rtc->SecondsUpper = Rtc->SecondsUpper - 0x1;
     }
     Rtc->SecondsLower = Rtc->SecondsLower - 0x1;
   }
 
-  /** Format the Timestamp (t3) into correct byte positioning for PTP frame
-   *  storage, the write the Timestamp (t3) to the PDelayRespFollowUp frame
+  /* Format the Timestamp (t3) into correct byte positioning for PTP frame
+   * storage, the write the Timestamp (t3) to the PDelayRespFollowUp frame.
    */
   BufferWordA = XAvb_ReorderWord((Rtc->SecondsUpper<<16) |
                                  (Rtc->SecondsLower>>16));
@@ -913,8 +905,8 @@ void XAvb_SendPDelayRespFollowUp(XAvb * InstancePtr) {
                        BufferWordA);
 
 
-  /** Send the PDelayRespFollowUp Frame!
-   *----------------------------------- */
+  /* Send the PDelayRespFollowUp Frame!
+   *-@brief ---------------------------------- */.
 
   XAvb_WriteReg(InstancePtr->Config.BaseAddress,
                  XAVB_PTP_TX_CONTROL_OFFSET,
@@ -933,21 +925,20 @@ void XAvb_SendPDelayRespFollowUp(XAvb * InstancePtr) {
 }
 
 
-/****************************************************************************/
-/**
+/**************************************************************************/
+/*
 *
-* A function to check that various fields in the received frame contain the
+* @brief A function to check that various fields in the received frame contain the.
 * expected values which define it as a valid AVB PTP frame.  If this check does
 * not pass then the frame should not be decoded and used.
 *
-* @param  InstancePtr is a pointer to the XAvb instance to be worked on
-* @param  PtpFrameBaseAddr is the base address of the received Announce Packet
+* @param[in] InstancePtr is a pointer to the XAvb instance to be worked on
+* @param[in] PtpFrameBaseAddr is the base address of the received Announce Packet
 *         in the Rx PTP Packet Buffer
 *
 * @return An updated True/False decision as to whether this received frame
 *         really is a valid PTP type.
 *
-* @note   None.
 *
 *****************************************************************************/
 u32 XAvb_IsRxFramePTP(XAvb * InstancePtr,
@@ -955,17 +946,17 @@ u32 XAvb_IsRxFramePTP(XAvb * InstancePtr,
   u32 FrameIsPTP;
   u32 FrameField;
 
-  /** Start by assuming that it is a valid PTP frame */
+  /* Start by assuming that it is a valid PTP frame */
   FrameIsPTP = 1;
 
-  /** Perform a 32-bit read from the relevant position in the frame */
+  /* Perform a 32-bit read from the relevant position in the frame */
   FrameField = XAvb_ReadPtpBuffer(InstancePtr->Config.BaseAddress,
                                    PtpFrameBaseAddr,
                                    XAVB_PTP_RX_PKT_TYPE_OFFSET);
 
   FrameField = XAvb_ReorderWord(FrameField);
 
-  /** Check the Length/Type field for a valid Ethertype */
+  /* Check the Length/Type field for a valid Ethertype */
   if ((FrameField >>16) != XAVB_PTP_ETHERTYPE) {
     FrameIsPTP = 0;
 #ifdef DEBUG_XAVB_LEVEL1
@@ -973,7 +964,7 @@ u32 XAvb_IsRxFramePTP(XAvb * InstancePtr,
 #endif
   }
 
-  /** Check the versionPTP */
+  /* Check the versionPTP */
   if ((FrameField & 0xF) != XAVB_PTP_VERSION_PTP) {
     FrameIsPTP = 0;
 #ifdef DEBUG_XAVB_LEVEL1
@@ -986,18 +977,16 @@ u32 XAvb_IsRxFramePTP(XAvb * InstancePtr,
 }
 
 
-/****************************************************************************/
-/**
+/**************************************************************************/
+/*
 *
-* A function to decode a received PTP Sync Packet
+* @brief A function to decode a received PTP Sync Packet.
 *
-* @param  InstancePtr is a pointer to the XAvb instance to be worked on
-* @param  PtpFrameBaseAddr is the base address of the received Announce Packet
+* @param[in] InstancePtr is a pointer to the XAvb instance to be worked on
+* @param[in] PtpFrameBaseAddr is the base address of the received Announce Packet
 *         in the Rx PTP Packet Buffer
 *
-* @return None.
 *
-* @note   None.
 *
 *****************************************************************************/
 void XAvb_DecodeRxSync(XAvb * InstancePtr,
@@ -1006,42 +995,44 @@ void XAvb_DecodeRxSync(XAvb * InstancePtr,
   u32 ReadWord = 0;
   XAvb_PortIdentity syncPortID;
 
-  /** Read sourcePortIdentity from packet */
+  /* Read sourcePortIdentity from packet */
   XAvb_GetPortIdentity(InstancePtr->Config.BaseAddress, PtpFrameBaseAddr,
                        XAVB_PTP_RX_PKT_PORTID_UPPER_OFFSET, &syncPortID);
 
-  /** Only decode if configured for a slave and if SourcePortID is that of the
-   * RTC Clock Master */
+  /* Only decode if configured for a slave and if SourcePortID is that of the
+   * RTC Clock Master */.
+
   if ( (InstancePtr->CurrentBmc.IAmTheRtcMaster == 0) &&
         XAvb_ComparePortIdentity(InstancePtr->Config.BaseAddress,
                                  InstancePtr->CurrentBmc.SourcePortIdentity,
                                  syncPortID) ) {
 
-    /** Reset Sync Interval Counter as we have received a valid Sync */
+    /* Reset Sync Interval Counter as we have received a valid Sync */
     InstancePtr->PtpCounters.CounterSyncInterval = 0;
 
-    /** Capture the local Timestamp for receipt of this frame and adjust it for
-     *  MAC receive latency */
+    /* Capture the local Timestamp for receipt of this frame and adjust it for
+     * MAC receive latency */.
+
     InstancePtr->PtpRecords.SlaveSyncTimestamp
         = XAvb_ReadPtpBuffer(InstancePtr->Config.BaseAddress,
                               PtpFrameBaseAddr,
                               XAVB_PTP_PKT_CAPTURED_TIMESTAMP_OFFSET)
           - XAVB_RX_MAC_LATENCY_IN_NS;
 
-    /**  Capture the Sync SequenceID */
+    /*  Capture the Sync SequenceID */
     ReadWord = XAvb_ReorderWord(XAvb_ReadPtpBuffer(InstancePtr->Config.BaseAddress,
                                 PtpFrameBaseAddr,
                                 XAVB_PTP_RX_PKT_SEQUENCEID_OFFSET));
     InstancePtr->SequenceIdRecords.SyncSequenceId = (ReadWord >> 16);
 
-    /** Capture the logMeanMessageInterval and convert into a useful duration
-     * (NOTE: there is an implicit conversion from u32 to char here)
+    /* Capture the logMeanMessageInterval and convert into a useful duration
+     * (NOTE: there is an implicit conversion from u32 to char here).
      */
     InstancePtr->latestMDSyncReceive.logMessageInterval = ReadWord & 0x000000ff;
     InstancePtr->latestMDSyncReceive.SyncIntervalDuration =
                  XAvb_ConvertLogMeanToDuration(InstancePtr->latestMDSyncReceive.logMessageInterval);
 
-    /** We don't need to capture the correction field - unless we want to check that it is 0.*/
+    /* We don't need to capture the correction field - unless we want to check that it is 0.*/
 
   } else {
     xil_printf("\r\nXAvb_DecodeRxSync()");
@@ -1058,18 +1049,16 @@ void XAvb_DecodeRxSync(XAvb * InstancePtr,
 }
 
 
-/****************************************************************************/
-/**
+/**************************************************************************/
+/*
 *
-* A function to decode a received PTP Follow-up Packet
+* @brief A function to decode a received PTP Follow-up Packet.
 *
-* @param  InstancePtr is a pointer to the XAvb instance to be worked on
-* @param  PtpFrameBaseAddr is the base address of the received Announce Packet
+* @param[in] InstancePtr is a pointer to the XAvb instance to be worked on
+* @param[in] PtpFrameBaseAddr is the base address of the received Announce Packet
 *         in the Rx PTP Packet Buffer
 *
-* @return None.
 *
-* @note   None.
 *
 *****************************************************************************/
 void XAvb_DecodeRxFollowUp(XAvb * InstancePtr,
@@ -1077,49 +1066,53 @@ void XAvb_DecodeRxFollowUp(XAvb * InstancePtr,
 
   XAvb_PortIdentity followUpPortID;
 
-  /** Read sourcePortIdentity from packet */
+  /* Read sourcePortIdentity from packet */
   XAvb_GetPortIdentity(InstancePtr->Config.BaseAddress, PtpFrameBaseAddr,
                        XAVB_PTP_RX_PKT_PORTID_UPPER_OFFSET, &followUpPortID);
 
-  /** Only decode if configured for a slave and if SA is that of the RTC
-   * Clock Master */
+  /* Only decode if configured for a slave and if SA is that of the RTC
+   * Clock Master */.
+
   if ( (InstancePtr->CurrentBmc.IAmTheRtcMaster == 0) &&
         XAvb_ComparePortIdentity(InstancePtr->Config.BaseAddress,
                                  InstancePtr->CurrentBmc.SourcePortIdentity,
                                  followUpPortID) ) {
 
-    /** Capture the Follow Up SequenceID */
+    /* Capture the Follow Up SequenceID */
     InstancePtr->SequenceIdRecords.FollowUpSequenceId
        = XAvb_ReorderWord(XAvb_ReadPtpBuffer(InstancePtr->Config.BaseAddress,
                                               PtpFrameBaseAddr,
                                               XAVB_PTP_RX_PKT_SEQUENCEID_OFFSET))
          >> 16;
 
-    /** SequenceID in Follow Up Frame should always match that of the
-     * Sync Frame */
+    /* SequenceID in Follow Up Frame should always match that of the
+     * Sync Frame */.
+
     if (InstancePtr->SequenceIdRecords.FollowUpSequenceId
          == InstancePtr->SequenceIdRecords.SyncSequenceId) {
 
-      /** Capture the correction field from follow up frame */
+      /* Capture the correction field from follow up frame */
       InstancePtr->PtpRecords.MasterCorrectionField
          = XAvb_ReorderWord(XAvb_ReadPtpBuffer(InstancePtr->Config.BaseAddress,
                                                 PtpFrameBaseAddr,
                                                 XAVB_PTP_RX_PKT_CORRECTION_FIELD_OFFSET));
 
-      /** Perform the Course RTC Offset correction for every Sync /
-       * FollowUp pair */
+      /* Perform the Course RTC Offset correction for every Sync /
+       * FollowUp pair */.
+
       XAvb_CalcRtcOffset(InstancePtr,
                          PtpFrameBaseAddr);
 
-      /** Every n Sync / FollowUp pairs, we are going to calculate a
-       * corrected increment rate of RTC */
+      /* Every n Sync / FollowUp pairs, we are going to calculate a
+       * corrected increment rate of RTC */.
+
       if ((InstancePtr->PtpCounters.CounterSyncEvents & 0xF)
           == (XAVB_NUM_SYNC_FU_PAIR_CALC_RTC_INCREMENT - 1)) {
 
-        /** Reset the CounterSyncEvents Counter */
+        /* Reset the CounterSyncEvents Counter */
         InstancePtr->PtpCounters.CounterSyncEvents = 0x0;
 
-        /** Capture the Sequence ID of the Follow Up frame */
+        /* Capture the Sequence ID of the Follow Up frame */
         InstancePtr->SequenceIdRecords.NewSyncSequenceId
             = XAvb_ReadPtpBuffer(InstancePtr->Config.BaseAddress,
                                   PtpFrameBaseAddr,
@@ -1130,21 +1123,24 @@ void XAvb_DecodeRxFollowUp(XAvb * InstancePtr,
                    (InstancePtr->SequenceIdRecords.NewSyncSequenceId)
                ) >> 16;
 
-        /** Perform the RTC increment rate adjustment calculation */
+        /* Perform the RTC increment rate adjustment calculation */
         XAvb_UpdateRtcIncrement(InstancePtr);
 
-        /** Sample Sync Frame Time sent (as estimated by the slave) for
-         * comparison in ten more repetition's time */
+        /* Sample Sync Frame Time sent (as estimated by the slave) for
+         * comparison in ten more repetition's time */.
+
         InstancePtr->PtpRecords.OldSlaveTime
             = InstancePtr->PtpRecords.NewSlaveTime;
 
-        /** Sample Sync Frame Time sent (as calculated by the master)
-         * for comparison in ten more repetition's time */
+        /* Sample Sync Frame Time sent (as calculated by the master)
+         * for comparison in ten more repetition's time */.
+
         InstancePtr->PtpRecords.OldMasterTime
             = InstancePtr->PtpRecords.NewMasterTime;
 
-        /** Sample the current Follow Up Sequence ID for comparison in
-         * ten more repetition's time */
+        /* Sample the current Follow Up Sequence ID for comparison in
+         * ten more repetition's time */.
+
         InstancePtr->SequenceIdRecords.OldSyncSequenceId
             = InstancePtr->SequenceIdRecords.NewSyncSequenceId;
 
@@ -1162,37 +1158,36 @@ void XAvb_DecodeRxFollowUp(XAvb * InstancePtr,
 }
 
 
-/****************************************************************************/
-/**
+/**************************************************************************/
+/*
 *
-* A function to decode a received PDelayResp Packet
+* @brief A function to decode a received PDelayResp Packet.
 *
-* @param  InstancePtr is a pointer to the XAvb instance to be worked on
-* @param  PtpFrameBaseAddr is the base address of the received Announce Packet
+* @param[in] InstancePtr is a pointer to the XAvb instance to be worked on
+* @param[in] PtpFrameBaseAddr is the base address of the received Announce Packet
 *         in the Rx PTP Packet Buffer
 *
-* @return None.
 *
-* @note   None.
 *
 *****************************************************************************/
 void XAvb_DecodeRxPDelayResp(XAvb * InstancePtr,
                              u32    PtpFrameBaseAddr) {
 
-  /** Have we already seen a PDelayResp since the last
-   *  PDelayReq was sent? If so, ignore the packet */
+  /* Have we already seen a PDelayResp since the last
+   * PDelayReq was sent? If so, ignore the packet */.
+
   if( InstancePtr->StateMachineData.rcvdPDelayResp ) {
     xil_printf("Error: already saw a PDelayResp since the last PDelayReq was sent\r\n");
     return;
   }
 
-  /** Find the ClockIdentity of the Sender */
+  /* Find the ClockIdentity of the Sender */
   XAvb_GetPortIdentity(InstancePtr->Config.BaseAddress, PtpFrameBaseAddr,
                        XAVB_PTP_RX_PKT_PORTID_UPPER_OFFSET,
                        &InstancePtr->StateMachineData.respPortIdentity);
 
-  /** Is the PDelayResp message from ourself?  If so, the Peer
-   *  is most likely a dumb hub and should be considered not
+  /* Is the PDelayResp message from ourself?  If so, the Peer
+   * is most likely a dumb hub and should be considered not.
    *  ASCapable */
   if( XAvb_ComparePortIdentity(InstancePtr->Config.BaseAddress,
                                InstancePtr->portIdLocal,
@@ -1206,19 +1201,20 @@ void XAvb_DecodeRxPDelayResp(XAvb * InstancePtr,
 
   }
 
-  /** Capture the requestingPortIdentity */
+  /* Capture the requestingPortIdentity */
   XAvb_GetPortIdentity(InstancePtr->Config.BaseAddress, PtpFrameBaseAddr,
                        XAVB_PTP_RX_PKT_REQ_PORTID_UPPER_OFFSET,
                        &InstancePtr->StateMachineData.respReqPortIdentity);
 
-  /** Capture the PDelayResp SequenceID */
+  /* Capture the PDelayResp SequenceID */
   InstancePtr->SequenceIdRecords.PDelayRespSequenceId =
       XAvb_ReorderWord(XAvb_ReadPtpBuffer(InstancePtr->Config.BaseAddress,
                        PtpFrameBaseAddr,
                        XAVB_PTP_RX_PKT_SEQUENCEID_OFFSET)) >> 16;
 
-  /** Verify that the requestingPortIdentity matches our
-   *  portIdentity */
+  /* Verify that the requestingPortIdentity matches our
+   * portIdentity */.
+
   if( !XAvb_ComparePortIdentity(InstancePtr->Config.BaseAddress,
                            InstancePtr->portIdLocal,
                            InstancePtr->StateMachineData.respReqPortIdentity) ) {
@@ -1226,21 +1222,23 @@ void XAvb_DecodeRxPDelayResp(XAvb * InstancePtr,
     return;
   }
 
-  /** Only process if the received frame's sequenceId matches
-   *  the sequenceId sent in the last pDelay_Req packet */
+  /* Only process if the received frame's sequenceId matches
+   * the sequenceId sent in the last pDelay_Req packet */.
+
   if( (InstancePtr->SequenceIdRecords.PDelayReqSequenceId ==
        InstancePtr->SequenceIdRecords.PDelayRespSequenceId) ) {
 
-    /** Mark this as a valid PDelayResp packet */
+    /* Mark this as a valid PDelayResp packet */
     InstancePtr->StateMachineData.rcvdPDelayResp = 1;
 
-    /** Capture timestamp for receipt time of PDelayReq at Master (t2) */
+    /* Capture timestamp for receipt time of PDelayReq at Master (t2) */
     InstancePtr->PtpRecords.PDelayTimestampT2 =
         XAvb_CaptureNanoSec(InstancePtr->Config.BaseAddress,
                             PtpFrameBaseAddr);
 
-    /** Capture timestamp for receipt time of PDelayResp at Slave (t4) and adjust
-     *  it for MAC receive latency */
+    /* Capture timestamp for receipt time of PDelayResp at Slave (t4) and adjust
+     * it for MAC receive latency */.
+
     InstancePtr->PtpRecords.PDelayTimestampT4 =
         XAvb_ReadPtpBuffer(InstancePtr->Config.BaseAddress,
                             PtpFrameBaseAddr,
@@ -1252,18 +1250,16 @@ void XAvb_DecodeRxPDelayResp(XAvb * InstancePtr,
 }
 
 
-/****************************************************************************/
-/**
+/**************************************************************************/
+/*
 *
-* A function to decode a received PDelayRespFollowUp Packet
+* @brief A function to decode a received PDelayRespFollowUp Packet.
 *
-* @param  InstancePtr is a pointer to the XAvb instance to be worked on
-* @param  PtpFrameBaseAddr is the base address of the received Announce Packet
+* @param[in] InstancePtr is a pointer to the XAvb instance to be worked on
+* @param[in] PtpFrameBaseAddr is the base address of the received Announce Packet
 *         in the Rx PTP Packet Buffer
 *
-* @return None.
 *
-* @note   None.
 *
 *****************************************************************************/
 void XAvb_DecodeRxPDelayRespFollowUp(XAvb * InstancePtr,
@@ -1271,26 +1267,28 @@ void XAvb_DecodeRxPDelayRespFollowUp(XAvb * InstancePtr,
 
    XAvb_PortIdentity portId;
 
-  /** Has a valid PDelayResp packet been received since the
-   *  last PDelayReq packet was sent? */
+  /* Has a valid PDelayResp packet been received since the
+   * last PDelayReq packet was sent? */.
+
   if( !InstancePtr->StateMachineData.rcvdPDelayResp ) {
     /*xil_printf("Error: Received a PDelayRespFollowUp before receiving a PDelayResp\r\n");*/
     return;
   }
 
-  /** Capture the PDelayRespFollowUp SequenceID */
+  /* Capture the PDelayRespFollowUp SequenceID */
   InstancePtr->SequenceIdRecords.PDelayFollowUpSequenceId =
       XAvb_ReorderWord(XAvb_ReadPtpBuffer(InstancePtr->Config.BaseAddress,
                                            PtpFrameBaseAddr,
                                            XAVB_PTP_RX_PKT_SEQUENCEID_OFFSET)) >> 16;
 
-  /** Get the sourcePortIdentity of the sender */
+  /* Get the sourcePortIdentity of the sender */
   XAvb_GetPortIdentity(InstancePtr->Config.BaseAddress, PtpFrameBaseAddr,
                        XAVB_PTP_RX_PKT_PORTID_UPPER_OFFSET,
                        &portId);
 
-  /** The sourcePortIdentity of the PDelayRespFollowUp should
-   *  match that of the last PDelayResp packet received */
+  /* The sourcePortIdentity of the PDelayRespFollowUp should
+   * match that of the last PDelayResp packet received */.
+
   if( !XAvb_ComparePortIdentity(InstancePtr->Config.BaseAddress,
                                 portId,
                                 InstancePtr->StateMachineData.respPortIdentity) ) {
@@ -1298,13 +1296,14 @@ void XAvb_DecodeRxPDelayRespFollowUp(XAvb * InstancePtr,
     return;
   }
 
-  /** Get the requestingPortIdentity of the sender */
+  /* Get the requestingPortIdentity of the sender */
   XAvb_GetPortIdentity(InstancePtr->Config.BaseAddress, PtpFrameBaseAddr,
                        XAVB_PTP_RX_PKT_REQ_PORTID_UPPER_OFFSET,
                        &portId);
 
-  /** The requestingPortIdentity of the PDelayRespFollowUp should
-   *  match that of the last PDelayResp packet received */
+  /* The requestingPortIdentity of the PDelayRespFollowUp should
+   * match that of the last PDelayResp packet received */.
+
   if( !XAvb_ComparePortIdentity(InstancePtr->Config.BaseAddress,
                                 portId,
                                 InstancePtr->StateMachineData.respReqPortIdentity) ) {
@@ -1312,20 +1311,22 @@ void XAvb_DecodeRxPDelayRespFollowUp(XAvb * InstancePtr,
     return;
   }
 
-  /** SequenceID of PDelayRespFollowUp Frame should always match that of
-   * the PDelayResp Frame and the original PDelayReq Frame. */
+  /* SequenceID of PDelayRespFollowUp Frame should always match that of
+   * the PDelayResp Frame and the original PDelayReq Frame. */.
+
   if (InstancePtr->SequenceIdRecords.PDelayFollowUpSequenceId ==
       InstancePtr->SequenceIdRecords.PDelayRespSequenceId) {
 
-    /** Mark this as a valid PDelayRespFollowUp packet */
+    /* Mark this as a valid PDelayRespFollowUp packet */
     InstancePtr->StateMachineData.rcvdPDelayRespFollowUp = 1;
 
-    /** Capture the timestamp for transmit time of PDelayResp at Master
-     * (t3) */
+    /* Capture the timestamp for transmit time of PDelayResp at Master
+     * (t3) */.
+
     InstancePtr->PtpRecords.PDelayTimestampT3 =
         XAvb_CaptureNanoSec(InstancePtr->Config.BaseAddress, PtpFrameBaseAddr);
 
-    /** Now we know t1, t2, t3 and t4, calculate the link delay */
+    /* Now we know t1, t2, t3 and t4, calculate the link delay */
     XAvb_CalcDelay(InstancePtr);
 
   } else {
@@ -1333,19 +1334,17 @@ void XAvb_DecodeRxPDelayRespFollowUp(XAvb * InstancePtr,
   }
 }
 
-/****************************************************************************/
-/**
+/**************************************************************************/
+/*
 *
-* A function to decode a received Signalling Packet and modify the TX PTP
+* @brief A function to decode a received Signalling Packet and modify the TX PTP.
 * Buffers based on the requested values.
 *
-* @param  InstancePtr is a pointer to the XAvb instance to be worked on
-* @param  PtpFrameBaseAddr is the base address of the received Signaling Packet
+* @param[in] InstancePtr is a pointer to the XAvb instance to be worked on
+* @param[in] PtpFrameBaseAddr is the base address of the received Signaling Packet
 *         in the Rx PTP Packet Buffer
 *
-* @return None.
 *
-* @note   None.
 *
 *****************************************************************************/
 void XAvb_DecodeRxSignaling(XAvb * InstancePtr, u32 PtpFrameBaseAddr) {
@@ -1353,88 +1352,88 @@ void XAvb_DecodeRxSignaling(XAvb * InstancePtr, u32 PtpFrameBaseAddr) {
   u32 ReadData;
   char currentInterval;
 
-  /** Read the requested logMeanMessage durations from the Signalling frame */
+  /* Read the requested logMeanMessage durations from the Signalling frame */
   ReadData = XAvb_ReorderWord(XAvb_ReadPtpBuffer(InstancePtr->Config.BaseAddress,
                                                   PtpFrameBaseAddr,
                                                   XAVB_PTP_RX_PKT_SIGNALING_DELAY_INTERVAL_OFFSET));
 
-  /** update linkDelayInterval */
+  /* update linkDelayInterval */
   currentInterval = (ReadData >> 24);
   switch( currentInterval ) {
   case (-128):
-    /** don't change the interval */
+    /* don't change the interval */
     break;
-  /** currently only support the default value */
+  /* currently only support the default value */
   case XAVB_DEFAULT_LOG_MEAN_PDELAY_REQ_INTERVAL:
   case 126:
-    /** set the interval to initial value */
+    /* set the interval to initial value */
     InstancePtr->SignallingFrameData.LinkDelayIntervalDuration =
       XAvb_UpdateIntervalDuration(InstancePtr->SignallingFrameData.LinkDelayIntervalDuration,
                                   XAVB_DEFAULT_LOG_MEAN_PDELAY_REQ_INTERVAL);
 
-    /** Update logMeanMessageInterval in the pre-loaded TX PDELAYREQ message buffer */
+    /* Update logMeanMessageInterval in the pre-loaded TX PDELAYREQ message buffer */
     XAvb_UpdateLogMeanMessageInterval(InstancePtr->Config.BaseAddress,
                                       XAVB_PTP_TX_PDELAYREQ_OFFSET,
                                       InstancePtr->SignallingFrameData.LinkDelayIntervalDuration);
     break;
   case 127:
-    /** stop sending pDelay messages */
+    /* stop sending pDelay messages */
     InstancePtr->SignallingFrameData.LinkDelayIntervalDuration = XAVB_PKT_TYPE_DISABLED;
     break;
   default:
       xil_printf( "Got a signalling message with an interval (%d) I don't support!\r\n", currentInterval);
   }
 
-  /** update timeSyncInterval */
+  /* update timeSyncInterval */
   currentInterval = (ReadData >> 16);
   switch( currentInterval ) {
   case (-128):
-    /** don't change the interval */
+    /* don't change the interval */
     break;
   case XAVB_DEFAULT_LOG_MEAN_SYNC_INTERVAL:
   case 126:
-    /** set the interval to initial value */
+    /* set the interval to initial value */
     InstancePtr->SignallingFrameData.SyncIntervalDuration =
       XAvb_UpdateIntervalDuration(InstancePtr->SignallingFrameData.SyncIntervalDuration,
                                   XAVB_DEFAULT_LOG_MEAN_SYNC_INTERVAL);
 
-    /** Update logMeanMessageInterval in the pre-loaded TX SYNC message buffer */
+    /* Update logMeanMessageInterval in the pre-loaded TX SYNC message buffer */
     XAvb_UpdateLogMeanMessageInterval(InstancePtr->Config.BaseAddress,
                                       XAVB_PTP_TX_SYNC_OFFSET,
                                       InstancePtr->SignallingFrameData.SyncIntervalDuration);
-    /** Update logMeanMessageInterval in the pre-loaded TX FOLLOW_UP message buffer */
+    /* Update logMeanMessageInterval in the pre-loaded TX FOLLOW_UP message buffer */
     XAvb_UpdateLogMeanMessageInterval(InstancePtr->Config.BaseAddress,
                                     XAVB_PTP_TX_FOLLOW_UP_OFFSET,
                                     InstancePtr->SignallingFrameData.SyncIntervalDuration);
     break;
   case 127:
-    /** stop sending sync messages */
+    /* stop sending sync messages */
     InstancePtr->SignallingFrameData.SyncIntervalDuration = XAVB_PKT_TYPE_DISABLED;
     break;
   default:
       xil_printf( "Got a signalling message with an interval (%d) I don't support!\r\n", currentInterval);
   }
 
-  /** update announceInterval */
+  /* update announceInterval */
   currentInterval = (ReadData >> 8);
   switch( currentInterval ) {
   case (-128):
-    /** don't change the interval */
+    /* don't change the interval */
     break;
   case XAVB_DEFAULT_LOG_MEAN_ANNOUNCE_INTERVAL:
   case 126:
-    /** set the interval to initial value */
+    /* set the interval to initial value */
     InstancePtr->SignallingFrameData.AnnounceIntervalDuration =
       XAvb_UpdateIntervalDuration(InstancePtr->SignallingFrameData.AnnounceIntervalDuration,
                                   XAVB_DEFAULT_LOG_MEAN_ANNOUNCE_INTERVAL);
 
-    /** Update logMeanMessageInterval in the pre-loaded TX ANNOUNCE message buffer  */
+    /* Update logMeanMessageInterval in the pre-loaded TX ANNOUNCE message buffer  */
     XAvb_UpdateLogMeanMessageInterval(InstancePtr->Config.BaseAddress,
                                       XAVB_PTP_TX_ANNOUNCE_OFFSET,
                                       InstancePtr->SignallingFrameData.AnnounceIntervalDuration);
     break;
   case 127:
-    /** stop sending Announce messages */
+    /* stop sending Announce messages */
     InstancePtr->SignallingFrameData.AnnounceIntervalDuration = XAVB_PKT_TYPE_DISABLED;
     break;
   default:
@@ -1443,15 +1442,15 @@ void XAvb_DecodeRxSignaling(XAvb * InstancePtr, u32 PtpFrameBaseAddr) {
 }
 
 
-/****************************************************************************/
-/**
+/**************************************************************************/
+/*
 *
-* A function to update a PTP message Interval Duration (defined as a
+* @brief A function to update a PTP message Interval Duration (defined as a.
 * fraction of 128 seconds). If the endpoint cannot support a requested
 * logMeanVal then do not perform the conversion - return the current value.
 *
-* @param  currentIntervalDuration is the Interval Duration to be updated
-* @param  logMeanVal is the base2 value that is to be converted
+* @param[in] currentIntervalDuration is the Interval Duration to be updated
+* @param[in] logMeanVal is the base2 value that is to be converted
 *
 * @return logMeanVal represented as a fraction of 128
 *
@@ -1474,17 +1473,16 @@ u16 XAvb_UpdateIntervalDuration(u16   currentIntervalDuration,
 }
 
 
-/****************************************************************************/
-/**
+/**************************************************************************/
+/*
 *
-* A function to convert a logMean (power of 2) value into a fraction of 128
+* @brief A function to convert a logMean (power of 2) value into a fraction of 128.
 * that is compatible with Signalling data.
 *
-* @param  logMeanVal is the base2 value that is to be converted
+* @param[in] logMeanVal is the base2 value that is to be converted
 
 * @return logMeanVal represented as a fraction of 128
 *
-* @note   None.
 *
 *****************************************************************************/
 u16 XAvb_ConvertLogMeanToDuration(char logMeanVal) {
@@ -1500,17 +1498,16 @@ u16 XAvb_ConvertLogMeanToDuration(char logMeanVal) {
          128;
 }
 
-/****************************************************************************/
-/**
+/**************************************************************************/
+/*
 *
-* A function to convert a fraction of 128 value that is compatible with
+* @brief A function to convert a fraction of 128 value that is compatible with.
 * Signalling data into a logMean (power of 2) value;
 *
-* @param  fractionalVal is the Signalling data value that is to be converted
+* @param[in] fractionalVal is the Signalling data value that is to be converted
 
 * @return fractionalVal represented as logMean (power of 2) value
 *
-* @note   None.
 *
 *****************************************************************************/
 char XAvb_ConvertDurationToLogMean(u16 fractionalVal) {
@@ -1518,8 +1515,8 @@ char XAvb_ConvertDurationToLogMean(u16 fractionalVal) {
   char logMeanVal = 0;
   u8    numShifts = 0;
 
-  /** just in case fractionalVal is not a power of 2, we'll
-   *  only look at the most significant bit
+  /* just in case fractionalVal is not a power of 2, we'll
+   * only look at the most significant bit.
    *  Count how many shifts it takes for most significant set bit
    *  to be in the highest (16th) bit location
    */
@@ -1528,27 +1525,26 @@ char XAvb_ConvertDurationToLogMean(u16 fractionalVal) {
     numShifts++;
   }
 
-  /** logMeanVal = 0 = 2^0 = 128/128 would give us a numShifts
-   *  result of 8, so 8 will be our base
+  /* logMeanVal = 0 = 2^0 = 128/128 would give us a numShifts
+   * result of 8, so 8 will be our base.
    */
   logMeanVal = 8 - numShifts;
 
   return logMeanVal;
 }
 
-/****************************************************************************/
-/**
+/**************************************************************************/
+/*
 *
-* A function to update the logMeanMessageInterval field in a PTP packet
+* @brief A function to update the logMeanMessageInterval field in a PTP packet.
 *
-* @param  BaseAddress is the base address of the device
-* @param  PtpFrameBaseAddr is the base address of the TX PTP Buffer to be updated
-* @param  intervalDuration is the "fraction of 128" value of the data to be written
+* @param[in] BaseAddress is the base address of the device
+* @param[in] PtpFrameBaseAddr is the base address of the TX PTP Buffer to be updated
+* @param[in] intervalDuration is the "fraction of 128" value of the data to be written
 *
-* @return None.  But the relevant Tx PTP Packet Buffer is written to with the
+* the relevant Tx PTP Packet Buffer is written to with the
 *                updated logMeanMessageInterval
 *
-* @note   None.
 *
 *****************************************************************************/
 void XAvb_UpdateLogMeanMessageInterval(u32 BaseAddress,
@@ -1558,38 +1554,37 @@ void XAvb_UpdateLogMeanMessageInterval(u32 BaseAddress,
   u32 ReadVal;
   u8 logMean;
 
-  /** Convert intervalDuration to a logMean value */
+  /* Convert intervalDuration to a logMean value */
   logMean = (u8)XAvb_ConvertDurationToLogMean(intervalDuration);
 
-  /** Read the current fields */
+  /* Read the current fields */
   ReadVal = XAvb_ReadPtpBuffer(BaseAddress,
                                 PtpFrameBaseAddr,
                                 XAVB_PTP_TX_PKT_SEQUENCEID_OFFSET);
 
-  /** Update just the logMeanMessageInterval field */
+  /* Update just the logMeanMessageInterval field */
   ReadVal = (ReadVal & 0x00ffffff) | (logMean << 24);
 
-  /** Write back */
+  /* Write back */
   XAvb_WritePtpBuffer(BaseAddress,
                        PtpFrameBaseAddr,
                        XAVB_PTP_TX_PKT_SEQUENCEID_OFFSET,
                        ReadVal);
 }
 
-/****************************************************************************/
-/**
+/**************************************************************************/
+/*
 *
-* This function updates the portIdLocal local copy of the sourcePortIdentity
+* @brief Updates the portIdLocal local copy of the sourcePortIdentity.
 * and writes this value into the TX PTP frame buffer templates. The fields
 * that are written are:
 * o sourcePortIdentity for all default PTP frames
 * o Announce:: grandmasterIdentity
 * o Announce:: TLV clockIdentity
 *
-* @param  InstancePtr is a pointer to the XAvb instance to be worked on
-* @param  systemIdentity is the clockIdentity and portNumber for this endpoint
+* @param[in] InstancePtr is a pointer to the XAvb instance to be worked on
+* @param[in] systemIdentity is the clockIdentity and portNumber for this endpoint
 *
-* @return None.
 *
 * @note   Announce::TLV. By default the tlvType and length field are set
 *         up in the BRAM, assuming that N = 1.
@@ -1606,13 +1601,14 @@ void XAvb_SetupSourcePortIdentity(XAvb * InstancePtr,
   /* Set up our local copy of the sourcePortIdentity */
   InstancePtr->portIdLocal = systemIdentity;
 
-  /** Write the sourcePortIdentity into the header for all TX PTP buffers
-   *  except the empty default buffer AND write the GMID for TX announce AND
+  /* Write the sourcePortIdentity into the header for all TX PTP buffers
+   * except the empty default buffer AND write the GMID for TX announce AND.
    *  Write the ClockIdentity into the TX Announce TLV */
   BufferEnable =  0x7F;
 
-  /** (a) Write the upper 2 bytes of the ClockIdentityUpper
-   *   - REM: Swap back the byte order into frame storage order */
+  /* (a) Write the upper 2 bytes of the ClockIdentityUpper
+   * - REM: Swap back the byte order into frame storage order */.
+
   DataBitEnable = 0xFFFF0000;
   BufferWord = (systemIdentity.ClockIdentityUpper >> 16);
   BufferWord = XAvb_ReorderWord(BufferWord);
@@ -1634,8 +1630,8 @@ void XAvb_SetupSourcePortIdentity(XAvb * InstancePtr,
                        XAVB_PTP_TX_PKT_ANNOUNCE_TLVLEN_PATHSEQ_START_OFFSET,
                        BufferWord);
 
-  /** (b) Write the lower 2 bytes of the ClockIdentityUpper and upper
-   *   2 bytes of the ClockIdentityLower.
+  /* (b) Write the lower 2 bytes of the ClockIdentityUpper and upper
+   * 2 bytes of the ClockIdentityLower.
    *   - REM: Swap back the byte order into frame storage order*/
   BufferWord = ((systemIdentity.ClockIdentityUpper << 16) & 0xFFFF0000) | ((systemIdentity.ClockIdentityLower >> 16) & 0x0000FFFF);
   BufferWord = XAvb_ReorderWord(BufferWord);
@@ -1653,8 +1649,9 @@ void XAvb_SetupSourcePortIdentity(XAvb * InstancePtr,
                        (XAVB_PTP_TX_PKT_ANNOUNCE_TLVLEN_PATHSEQ_START_OFFSET + 4),
                        BufferWord);
 
-  /** (c) Write the lower 2 bytes of the ClockIdentityLower and the portNumber
-   *   - REM: Swap back the byte order into frame storage order*/
+  /* (c) Write the lower 2 bytes of the ClockIdentityLower and the portNumber
+   * - REM: Swap back the byte order into frame storage order*/.
+
   BufferWord = ((systemIdentity.ClockIdentityLower << 16) & 0xFFFF0000) | (systemIdentity.PortNumber & 0x0000FFFF);
   BufferWord = XAvb_ReorderWord(BufferWord);
 
@@ -1673,8 +1670,8 @@ void XAvb_SetupSourcePortIdentity(XAvb * InstancePtr,
 
 
 
-  /** Write the grandmasterIdentity into the header for the TX Announce PTP buffer */
-  /** (a) Write 1 byte of GMID (Upper)*/
+  /* Write the grandmasterIdentity into the header for the TX Announce PTP buffer */
+  /* (a) Write 1 byte of GMID (Upper)*/
   BufferWord = XAvb_ReadPtpBuffer(InstancePtr->Config.BaseAddress,
                                    XAVB_PTP_TX_ANNOUNCE_OFFSET,
                                    XAVB_PTP_TX_PKT_ANNOUNCE_QUAL_LOW_PRI2_GMID_HI_OFFSET);
@@ -1686,7 +1683,7 @@ void XAvb_SetupSourcePortIdentity(XAvb * InstancePtr,
                        XAVB_PTP_TX_PKT_ANNOUNCE_QUAL_LOW_PRI2_GMID_HI_OFFSET,
                        BufferWord);
 
-  /** (b) Write 3 bytes of GMID (Upper) and 1 byte of GMID (Lower)**/
+  /* (b) Write 3 bytes of GMID (Upper) and 1 byte of GMID (Lower)**/
   BufferWord =  (systemIdentity.ClockIdentityUpper << 8) | ((systemIdentity.ClockIdentityLower >> 24) & 0x000000FF);
   BufferWord = XAvb_ReorderWord(BufferWord);
   XAvb_WritePtpBuffer(InstancePtr->Config.BaseAddress,
@@ -1694,7 +1691,7 @@ void XAvb_SetupSourcePortIdentity(XAvb * InstancePtr,
                        XAVB_PTP_TX_PKT_ANNOUNCE_GMID_MID_OFFSET,
                        BufferWord);
 
-  /** (c) Write 3 bytes of GMID (Lower) */
+  /* (c) Write 3 bytes of GMID (Lower) */
   BufferWord = XAvb_ReadPtpBuffer(InstancePtr->Config.BaseAddress,
                                    XAVB_PTP_TX_ANNOUNCE_OFFSET,
                                    XAVB_PTP_TX_PKT_ANNOUNCE_GMID_LOW_STEPSREMOVED_HI_OFFSET);
@@ -1715,3 +1712,5 @@ void XAvb_SetupSourcePortIdentity(XAvb * InstancePtr,
                                  InstancePtr->portIdLocal.PortNumber);
 #endif
 }
+
+/** @} */

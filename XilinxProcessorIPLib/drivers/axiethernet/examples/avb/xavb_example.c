@@ -1,14 +1,17 @@
-/******************************************************************************
+/*****************************************************************************
 * Copyright (C) 2010 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
 /**
 *
 * @file xavb_example.c
+* @addtogroup axiethernet Overview
+* @{
 *
-* This file implements a simple example to show the usage of Audio Video
+*
+* Implements a simple example to show the usage of Audio Video
 * Bridging (AVB) functionality of Axi Ethernet IP in loopback mode.
 * The example uses the PTP Timer and the PTP Rx interrupts. A PDelay_Req packet
 * is sent and is received back (as we are in loopback mode). .
@@ -16,8 +19,6 @@
 * PDelay_RespFollowUp packets are  sent. These packets are also received.
 * Since the source port identity of the received packets matches with our
 * systems's own source port identity there is no further processing done.
-*
-* @note
 *
 * This code assumes the processor type is Microblaze, Xilinx interrupt
 * controller (XIntc) is used in the system , and that no operating
@@ -56,7 +57,7 @@
 * 3.00a asa	 04/10/12 Disabled enabling of promiscuous mode. This is
 *		          required for AxiEthernet cores with version v3_01_a
 *		          onwards because of a change in the AVB implementation.
-* 4.0   asa  03/06/14 Fix for CR 740863. Added a #warning message for
+* 4.0   asa  03/06/14 Fix for CR 740863. Added a preprocessor warning message for
 *				  users of this example to take note of the fact that
 *				  we have just used a typical value for XAVB_CLOCK_LOCK_THRESHOLD
 *                 and users may want to change it as per their requirements.
@@ -64,7 +65,7 @@
 * </pre>
 *******************************************************************************/
 
-/***************************** Include Files *********************************/
+/**************************** Include Files *********************************/
 
 #include "xparameters.h"
 #include "xil_types.h"
@@ -75,9 +76,9 @@
 #include "xil_cache.h"
 #include "xaxiethernet.h"	/* defines Axi Ethernet APIs */
 
-/************************** Constant Definitions *****************************/
+/************************* Constant Definitions *****************************/
 /**
- * The following constants map to the XPAR parameters created in the
+ * The following constants map to the XPAR parameters created in the.
  * xparameters.h file. They are defined here such that a user can easily
  * change all the needed parameters in one place.
  */
@@ -111,7 +112,8 @@
 #define ETH_SYSTEM_ADDRESS_EUI48_HIGH  0x000A35
 #define ETH_SYSTEM_ADDRESS_EUI48_LOW   0x010203
 
-/******************************************************************************/
+/*****************************************************************************/
+#ifndef DOXYGEN
 #warning The threshold or tolerance limit for slave error is currently set to \
 		 1000 ns. This can be configured through the macro 					  \
 		 XAVB_CLOCK_LOCK_THRESHOLD in xavb.h. Slave error is the difference   \
@@ -120,9 +122,10 @@
 		 threshold, the master and slave clocks are unlocked. For usage of the \
 		 macro XAVB_CLOCK_LOCK_THRESHOLD refer to the function 				  \
 		 XAvb_UpdateRtcIncrement in file xavb_rtc_sync.c
-/******************************************************************************/
+#endif
+/*****************************************************************************/
 
-/************************** Function Prototypes ******************************/
+/************************* Function Prototypes ******************************/
 
 static int AvbSetupInterruptSystem(XAvb *InstancePtr);
 static int AvbConfigHW(XAxiEthernet *AxiEthernetInstancePtr, XAvb *InstancePtr);
@@ -140,15 +143,11 @@ static XIntc InterruptController;	 /* Instance of INTC driver */
 static XAvb_Config AvbConfigStruct;
 volatile u8 EchoPTPFramesReceived = 0;
 
-/*****************************************************************************/
+/****************************************************************************/
 /**
 *
-* This is the main function for the AVB example.
+* @brief Main entry point for the AVB example.
 *
-* @param	None.
-*
-* @return	- XST_SUCCESS to indicate success.
-*		- XST_FAILURE to indicate failure
 *
 * @note		This example will be in a infinite loop if the HW is not working
 *		properly and if the interrupts are not received.
@@ -282,19 +281,17 @@ int main()
 	return XST_SUCCESS;
 }
 
-/*****************************************************************************/
+/****************************************************************************/
 /**
 *
-* This function configures Axi Ethernet core and AVB module.
+* @brief Configures Axi Ethernet core and AVB module.
 *
-* @param	AxiEthernetInstancePtr is a pointer to the Axi Ethernet driver
+* @param[in] AxiEthernetInstancePtr is a pointer to the Axi Ethernet driver
 *		instance
-* @param	AvbInstancePtr is a pointer to the AVB instance.
+* @param[in] AvbInstancePtr is a pointer to the AVB instance.
 *
-* @return	-XST_SUCCESS to indicate success
-*		-XST_FAILURE to indicate failure.
+* @return XST_SUCCESS on success, XST_FAILURE otherwise.
 *
-* @note		None.
 *
 ******************************************************************************/
 static int AvbConfigHW(XAxiEthernet *AxiEthernetInstancePtr, XAvb *AvbInstancePtr)
@@ -335,19 +332,18 @@ static int AvbConfigHW(XAxiEthernet *AxiEthernetInstancePtr, XAvb *AvbInstancePt
 	return Status;
 }
 
-/*****************************************************************************/
+/****************************************************************************/
 /**
 *
-* This function configures the GMII interface and Axi Ethernet registers for
+* @brief Configures the GMII interface and Axi Ethernet registers for.
 * 1000 Mbps speed configuration.
 *
-* @param	InstancePtr is a pointer to the Axi Ethernet driver instance
-* @param	AvbInstancePtr is a pointer to the AVB instance.
+* @param[in] InstancePtr is a pointer to the Axi Ethernet driver instance
+* @param[in] AvbInstancePtr is a pointer to the AVB instance.
 *
 * @return	- XST_SUCCESS if successful.
 *		- XST_FAILURE, in case of failure...
 *
-* @note		None.
 *
 ******************************************************************************/
 static int AvbConfigureGmii(XAxiEthernet *InstancePtr, XAvb *AvbInstancePtr)
@@ -385,19 +381,17 @@ static int AvbConfigureGmii(XAxiEthernet *InstancePtr, XAvb *AvbInstancePtr)
 
 }
 
-/******************************************************************************/
+/*****************************************************************************/
 /**
 *
-* This function sets the PHY to loopback mode. This works with the marvell PHY
+* @brief Sets the PHY to loopback mode. This works with the marvell PHY.
 * common on Xilinx evaluation boards. This sets the PHY speed to 1000 Mbps.
 *
-* @param	AxiEthernetInstancePtr is a pointer to the instance of the
-*		AxiEthernet component.
+* @param[in] InstancePtr is a pointer to the AXI Ethernet instance.
 *
 * @return	- XST_SUCCESS if successful.
 *		- XST_FAILURE, in case of failure..
 *
-* @note		None.
 *
 ******************************************************************************/
 static int AvbEnterPhyLoopBack(XAxiEthernet *InstancePtr)
@@ -439,20 +433,19 @@ static int AvbEnterPhyLoopBack(XAxiEthernet *InstancePtr)
 	return XST_SUCCESS;
 }
 
-/*****************************************************************************/
+/****************************************************************************/
 /**
 *
-* This function sets up the interrupt system so interrupts can occur for the
+* @brief Sets up the interrupt system so interrupts can occur for the.
 * AVB design.
 *
-* @param	InstancePtr contains a pointer to the instance of the AVB
+* @param[in] InstancePtr contains a pointer to the instance of the AVB
 *		component which is going to be connected to the interrupt
 *		controller.
 *
 * @return	- XST_SUCCESS if successful.
 *		- XST_FAILURE, in case of failure..
 *
-* @note		None.
 *
 ****************************************************************************/
 static int AvbSetupInterruptSystem(XAvb *InstancePtr)
@@ -513,17 +506,14 @@ static int AvbSetupInterruptSystem(XAvb *InstancePtr)
 	return XST_SUCCESS;
 }
 
-/*****************************************************************************/
+/****************************************************************************/
 /**
 *
-* This function enables the PTP Timer interrupt and PTP Rx interrupt in the
+* @brief Enables the PTP Timer interrupt and PTP Rx interrupt in the.
 * INTC module.
 *
-* @param	None
 *
-* @return	None
 *
-* @note		None.
 *
 ******************************************************************************/
 static void AvbEnablePTPInterrupts(void)
@@ -533,23 +523,22 @@ static void AvbEnablePTPInterrupts(void)
 	return;
 }
 
-/****************************************************************************/
+/***************************************************************************/
 /**
 *
-* This function is the handler which will be called if the PTP drivers
+* @brief is the handler which will be called if the PTP drivers.
 * identify a possible discontinuity in GrandMaster time.
 *
 * This handler provides an example of how to handle this situation -
 * but this function is application specific.
 *
 *
-* @param	CallBackRef contains a callback reference from the driver, in
+* @param[in] CallBackRef contains a callback reference from the driver, in
 *		this case it is the instance pointer for the AVB driver.
-* @param	TimestampsUncertain - a value of 1 indicates that there is a
+* @param[in] TimestampsUncertain - a value of 1 indicates that there is a
 *		possible discontinuity in GrandMaster time. A value of 0
 *		indicates that Timestamps are no longer uncertain.
 *
-* @return	None.
 *
 * @note		This Handler need to be defined otherwise the XAvb_StubHandler
 *		will generate an error
@@ -563,17 +552,15 @@ void AvbGMDiscontinuityHandler(void *CallBackRef, u32 TimestampsUncertain)
 
 }
 
-/******************************************************************************/
+/*****************************************************************************/
 /**
 *
-* For Microblaze we use an assembly loop that is roughly the same regardless of
+* @brief For Microblaze we use an assembly loop that is roughly the same regardless of.
 * optimization level, although caches and memory access time can make the delay
 * vary.  Just keep in mind that after resetting or updating the PHY modes,
 * the PHY typically needs time to recover.
 *
-* @return	None
 *
-* @note		None
 *
 ******************************************************************************/
 static void AvbUtilPhyDelay(unsigned int Seconds)
@@ -602,16 +589,14 @@ static void AvbUtilPhyDelay(unsigned int Seconds)
 
 }
 
-/******************************************************************************/
+/*****************************************************************************/
 /**
 *
-* This function is called by example code to display a console message
+* @brief Called by example code to display a console message.
 *
-* @param	Message is the text explaining the error
+* @param[in] Message is the text explaining the error
 *
-* @return	None
 *
-* @note		None
 *
 ******************************************************************************/
 static void AvbUtilPrintMessage(char *Message)
@@ -620,3 +605,5 @@ static void AvbUtilPrintMessage(char *Message)
 	xil_printf("%s\r\n", Message);
 #endif
 }
+
+/** @} */

@@ -1,12 +1,15 @@
-/******************************************************************************
+/*****************************************************************************
 * Copyright (C) 2010 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
 /**
 *
 * @file xaxiethernet_example.h
+* @addtogroup axiethernet Overview
+* @{
+*
 *
 * Defines common data types, prototypes, and includes the proper headers
 * for use with the Axi Ethernet example code residing in this directory.
@@ -36,13 +39,13 @@
 extern "C" {
 #endif
 
-/***************************** Include Files *********************************/
+/**************************** Include Files *********************************/
 
 #include "xparameters.h"	/* defines XPAR values */
 #include "xaxiethernet.h"	/* defines Axi Ethernet APIs */
 #include "stdio.h"		/* stdio */
 
-/************************** Constant Definitions ****************************/
+/************************* Constant Definitions ****************************/
 #define AXIETHERNET_LOOPBACK_SPEED	100	/* 100Mb/s for Mii */
 #define AXIETHERNET_LOOPBACK_SPEED_1G 	1000	/* 1000Mb/s for GMii */
 #define AXIETHERNET_LOOPBACK_SPEED_2p5G 2500	/* 2p5G for 2.5G MAC */
@@ -61,22 +64,24 @@ extern "C" {
 #define NUM_PACKETS  1
 #endif
 
-/***************** Macros (Inline Functions) Definitions *********************/
+/**************** Macros (Inline Functions) Definitions *********************/
 
 
-/**************************** Type Definitions ******************************/
+/*************************** Type Definitions ******************************/
 
 /*
- * Define an aligned data type for an ethernet frame. This declaration is
+ * Define an aligned data type for an ethernet frame. This declaration is.
  * specific to the GNU compiler
  */
+/** @cond INTERNAL */
 typedef unsigned char EthernetFrame[NUM_PACKETS * XAE_MAX_JUMBO_FRAME_SIZE] __attribute__ ((aligned(64)));
+/** @endcond */
 
 
-/************************** Function Prototypes *****************************/
+/************************* Function Prototypes *****************************/
 
 /*
- * Utility functions implemented in xaxiethernet_example_util.c
+ * Utility functions implemented in xaxiethernet_example_util.c.
  */
 void AxiEthernetUtilSetupUart(void);
 void AxiEthernetUtilFrameHdrFormatMAC(EthernetFrame * FramePtr,
@@ -103,7 +108,7 @@ int AxiEthernetUtilConfigureInternalPhy(XAxiEthernet *AxiEthernetInstancePtr,
 int AxiEtherentConfigureTIPhy(XAxiEthernet *AxiEthernetInstancePtr,
 			      u32 PhyAddr);
 
-/************************** Variable Definitions ****************************/
+/************************* Variable Definitions ****************************/
 
 extern char AxiEthernetMAC[];		/* Local MAC address */
 extern volatile int Padding;
@@ -114,3 +119,5 @@ extern volatile int ExternalLoopback;
 #endif
 
 #endif /* XAXIETHERNET_EXAMPLE_H */
+
+/** @} */

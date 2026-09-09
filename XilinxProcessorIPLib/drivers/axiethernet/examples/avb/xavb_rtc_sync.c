@@ -1,13 +1,16 @@
-/******************************************************************************
+/****************************************************************************
 * Copyright (C) 2008 - 2022 Xilinx, Inc.  All rights reserved.
 * Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
-/******************************************************************************/
-/***
+/****************************************************************************/
+/**
 *
 * @file xavb_rtc_sync.c
+* @addtogroup axiethernet Overview
+* @{
+*
 *
 * The XAvb driver. Functions in this file all contain calculations which are
 * essential for the AVB (1588 based) Real Time Clock (RTC) Synchronisation.  In
@@ -15,7 +18,7 @@
 * and correct the current RTC error (Slave); to measure and correct the current
 * RTC increment rate error.
 *
-* <pre>
+* @verbatim
 * MODIFICATION HISTORY:
 *
 * Ver   Who  Date     Changes
@@ -28,40 +31,39 @@
 *		      Fix for CR:572539. Updated bit map for Rx Filter
 *		      control reg.
 *
-* </pre>
+* @endverbatim
 *
 ******************************************************************************/
 
-/****************************** Include Files *********************************/
+/**************************** Include Files *********************************/
 
 #include "xil_types.h"
 #include "xavb_hw.h"
 #include "xavb.h"
 
-/*************************** Constant Definitions *****************************/
+/************************* Constant Definitions *****************************/
 
-/***************************** Type Definitions *******************************/
+/*************************** Type Definitions *******************************/
 
-/****************** Macros (Inline Functions) Definitions *********************/
+/**************** Macros (Inline Functions) Definitions *********************/
 
-/*************************** Variable Definitions *****************************/
+/************************* Variable Definitions *****************************/
 
-/*************************** Function Prototypes ******************************/
+/************************* Function Prototypes ******************************/
 
-/******************************************************************************/
+/****************************************************************************/
 
-/*****************************************************************************/
-/***
+/***************************************************************************/
+/**
 *
-* A function to capture the nanosecond timestamp field from a received PTP frame
+* @brief Captures the nanosecond timestamp field from a received PTP frame.
 *
-* @param  BaseAddress is the base address of the device
-* @param  PtpFrameBaseAddr is the base address of the received Announce Packet
+* @param[in] BaseAddress is the base address of the device
+* @param[in] PtpFrameBaseAddr is the base address of the received Announce Packet
 *         in the Rx PTP Packet Buffer
 *
 * @return The Nanoseconds Timestamp field, captured from an Rx PTP frame
 *
-* @note   None.
 *
 *****************************************************************************/
 u32 XAvb_CaptureNanoSec(u32 BaseAddress, u32 PtpFrameBaseAddr) {
@@ -69,8 +71,9 @@ u32 XAvb_CaptureNanoSec(u32 BaseAddress, u32 PtpFrameBaseAddr) {
   u32 BufferWordA = 0;
   u32 BufferWordB = 0;
 
-  /** The timestamp is located over several 32-bit Words of the PTP frame buffer
-   *  Read the relevant Words containing the ns timestamp: */
+  /* The timestamp is located over several 32-bit Words of the PTP frame buffer
+   * Read the relevant Words containing the ns timestamp: */.
+
   BufferWordA = XAvb_ReadPtpBuffer(BaseAddress,
                                     PtpFrameBaseAddr,
                                     XAVB_PTP_RX_PKT_TIMESTAMP_MID_OFFSET);
@@ -79,8 +82,9 @@ u32 XAvb_CaptureNanoSec(u32 BaseAddress, u32 PtpFrameBaseAddr) {
                                     PtpFrameBaseAddr,
                                     XAVB_PTP_RX_PKT_TIMESTAMP_LOWER_OFFSET);
 
-  /** Now re-arrange the data from the Words to obtain the required ns Timestamp
-   *  in binary format */
+  /* Now re-arrange the data from the Words to obtain the required ns Timestamp
+   * in binary format */.
+
   Timestamp = (XAvb_ReorderWord(BufferWordA)<<16) |
               (XAvb_ReorderWord(BufferWordB)>>16);
 
@@ -89,16 +93,14 @@ u32 XAvb_CaptureNanoSec(u32 BaseAddress, u32 PtpFrameBaseAddr) {
 }
 
 
-/*****************************************************************************/
-/***
+/***************************************************************************/
+/**
 *
-* A function to Measure the Link Delay of the local full-duplex Ethernet link
+* @brief Measures the link delay of the local full-duplex Ethernet link.
 *
-* @param  InstancePtr is a pointer to the XAvb instance to be worked on
+* @param[in] InstancePtr is a pointer to the XAvb instance to be worked on
 *
-* @return None.
 *
-* @note   None.
 *
 *****************************************************************************/
 void XAvb_CalcDelay(XAvb * InstancePtr) {
@@ -106,8 +108,8 @@ void XAvb_CalcDelay(XAvb * InstancePtr) {
   u32 T3MinusT2 = 0;
   u32 Delay     = 0;
 
-  /** Since we are only using the nanoseconds field here we need to account for
-   *  wrap.  So we add one second to the T4 and T3 terms to ensure that the
+  /* Since we are only using the nanoseconds field here we need to account for
+   * wrap.  So we add one second to the T4 and T3 terms to ensure that the.
    *  T4MinusT1 and T3MinusT2 results cannot be negative.  These two additional
    *  seconds then cancel each other out in the T4MinusT1 - T3MinusT2 equation.
    */
@@ -119,7 +121,7 @@ void XAvb_CalcDelay(XAvb * InstancePtr) {
     xil_printf("\r\nt4        %x ", InstancePtr->PtpRecords.PDelayTimestampT4);
 #endif
 
-  /** If the nanoseconds count has wrapped, add on 1 second to ensure we get the right answer*/
+  /* If the nanoseconds count has wrapped, add on 1 second to ensure we get the right answer*/
   if (InstancePtr->PtpRecords.PDelayTimestampT4 < InstancePtr->PtpRecords.PDelayTimestampT1) {
      T4MinusT1 = (InstancePtr->PtpRecords.PDelayTimestampT4 + XAVB_ONE_SECOND)
                 - InstancePtr->PtpRecords.PDelayTimestampT1;
@@ -127,7 +129,7 @@ void XAvb_CalcDelay(XAvb * InstancePtr) {
      T4MinusT1 = InstancePtr->PtpRecords.PDelayTimestampT4
                 - InstancePtr->PtpRecords.PDelayTimestampT1;
   }
-  /** If the nanoseconds count has wrapped, add on 1 second to ensure we get the right answer*/
+  /* If the nanoseconds count has wrapped, add on 1 second to ensure we get the right answer*/
   if (InstancePtr->PtpRecords.PDelayTimestampT3 < InstancePtr->PtpRecords.PDelayTimestampT2) {
     T3MinusT2 = (InstancePtr->PtpRecords.PDelayTimestampT3 + XAVB_ONE_SECOND)
                 - InstancePtr->PtpRecords.PDelayTimestampT2;
@@ -138,13 +140,13 @@ void XAvb_CalcDelay(XAvb * InstancePtr) {
 
   Delay       = (T4MinusT1 - T3MinusT2) >> 1;
 
-  /** For now we are simply going to throw out any absurdly large link delays.*/
+  /* For now we are simply going to throw out any absurdly large link delays.*/
   if (Delay < XAVB_NEIGHBOR_PROP_DELAY_THRESH ) {
 
     InstancePtr->PtpRecords.LinkDelay  = Delay;
 
-    /** The peer has responded to the pDelay_Req and the measured delay is
-    * within tolerance: the peer is deemed to be AS capable */
+    /* The peer has responded to the pDelay_Req and the measured delay is
+    * within tolerance: the peer is deemed to be AS capable */.
     XAvb_ChangePeerASCapability(InstancePtr, 1);
 
   } else {
@@ -161,19 +163,17 @@ void XAvb_CalcDelay(XAvb * InstancePtr) {
 }
 
 
-/*****************************************************************************/
-/***
+/***************************************************************************/
+/**
 *
-* A function to calculate the Slave Offset from the GrandMaster time
+* @brief Calculates the slave RTC offset from the grandmaster time.
 *
-* @param  InstancePtr is a pointer to the XAvb instance to be worked on
-* @param  PtpFrameBaseAddr is the base address of the received Announce Packet
-*         in the Rx PTP Packet Buffer
+* @param[in] InstancePtr is a pointer to the XAvb instance.
+* @param[in] PtpFrameBaseAddr is the base address of the received Announce packet
+*         in the Rx PTP packet buffer.
 *
-* @return The PtpRecords data structure is updated with the calculated RTC
-*         Offset value.
+* @note Updates the PtpRecords data structure with the calculated RTC offset.
 *
-* @note   None.
 *
 *****************************************************************************/
 void XAvb_CalcRtcOffset (XAvb * InstancePtr,
@@ -196,20 +196,21 @@ void XAvb_CalcRtcOffset (XAvb * InstancePtr,
   XAvb_RtcFormat SlaveRtc;
 
 
-  /** Capture the Slave Time
-   * ----------------------------
+  /* Capture the Slave Time
+   * ----------------------------.
    * We do this immediately to get the slave time ASAP (since processing
    * time is uncertain and the RTC does not stand still). */
   XAvb_ReadRtc(InstancePtr->Config.BaseAddress, &SlaveRtc);
 
 
-  /** Capture the Master Origin Timestamp (from received FollowUp Frame)
-   * ---------------------------- */
+  /* Capture the Master Origin Timestamp (from received FollowUp Frame)
+   * ---------------------------- */.
+
   MasterNanosec = XAvb_CaptureNanoSec(InstancePtr->Config.BaseAddress,
                                       PtpFrameBaseAddr);
 
-  /** read the Words from the PTP frame buffer containing the RTC seconds field
-   */
+  /* Read the words from the PTP frame buffer containing the RTC seconds field. */
+
   BufferWordA = XAvb_ReadPtpBuffer(InstancePtr->Config.BaseAddress,
                                PtpFrameBaseAddr,
                                XAVB_PTP_RX_PKT_TIMESTAMP_UPPER_OFFSET);
@@ -218,8 +219,8 @@ void XAvb_CalcRtcOffset (XAvb * InstancePtr,
                                PtpFrameBaseAddr,
                                XAVB_PTP_RX_PKT_TIMESTAMP_MID_OFFSET);
 
-  /** Now re-arrange the required data from the Words to obtain the required
-   *  seconds field timestamp in binary format */
+  /* Now re-arrange the required data from the Words to obtain the required
+   * seconds field timestamp in binary format */.
   MasterSeconds = (XAvb_ReorderWord(BufferWordA) << 16) |
                   (XAvb_ReorderWord(BufferWordB) >> 16);
 
@@ -227,8 +228,8 @@ void XAvb_CalcRtcOffset (XAvb * InstancePtr,
 
 
 
-  /** Correct the Nanoseconds
-   * ----------------------------
+  /* Correct the Nanoseconds
+   * ----------------------------.
    * NOTE: we are trying to compare the value of the slave RTC nano-
    * seconds field timestamp with the nano-seconds value of the Masters
    * RTC nanosecond field at exactly that time.
@@ -241,8 +242,8 @@ void XAvb_CalcRtcOffset (XAvb * InstancePtr,
    SyncRouteDelay = InstancePtr->PtpRecords.MasterCorrectionField
                     + InstancePtr->PtpRecords.LinkDelay;
 
-  /** MasterNsCorrected time here is the calculated time that the
-   * master will be at the point in time when the sync frame is received
+  /* MasterNsCorrected time here is the calculated time that the
+   * master will be at the point in time when the sync frame is received.
    * (and timestamped) at the slave.  This is calculated from the
    * originTimeStamp (from the FollowUpframe), plus the Sync Frame
    * routing delay.  A direct comparison can then be made between master
@@ -250,38 +251,38 @@ void XAvb_CalcRtcOffset (XAvb * InstancePtr,
    */
   MasterNsCorrected = MasterNanosec + SyncRouteDelay;
 
-  /** Check for ns wrap-around condition */
+  /* Check for ns wrap-around condition */
   if (MasterNsCorrected >= XAVB_ONE_SECOND) {
     MasterNsCorrected   = MasterNsCorrected - XAVB_ONE_SECOND;
     MasterNsHasWrapped  = 1;
   }
 
 
-  /** Make the Master and Slave comparison and discover the difference! */
+  /* Make the Master and Slave comparison and discover the difference! */
   RtcError.NanoSeconds = MasterNsCorrected
                          - InstancePtr->PtpRecords.SlaveSyncTimestamp;
 
-  /** Check for ns wrap-around condition */
+  /* Check for ns wrap-around condition */
   if (RtcError.NanoSeconds >= XAVB_ONE_SECOND) {
     RtcError.NanoSeconds = RtcError.NanoSeconds + XAVB_ONE_SECOND;
   }
 
 
-  /** Return these comparison figures in the form of a pointer (RTC
-   * increment rate adjust function also needs to know this information) */
+  /* Return these comparison figures in the form of a pointer (RTC
+   * increment rate adjust function also needs to know this information) */.
   InstancePtr->PtpRecords.NewSlaveTime
       = InstancePtr->PtpRecords.SlaveSyncTimestamp;
 
   InstancePtr->PtpRecords.NewMasterTime = MasterNsCorrected;
 
 
-  /** Adjust the 8k clock logic (if necessary) */
+  /* Adjust the 8k clock logic (if necessary) */
   XAvb_Adjust8kClock(InstancePtr->Config.BaseAddress, RtcError.NanoSeconds);
 
 
 
-  /** Correct the Seconds and Epoch
-   * -----------------------------
+  /* Correct the Seconds and Epoch
+   * -----------------------------.
    * NOTE: we are trying to compare the value of the slave RTC seconds
    * field at the exact time when the timestamp was taken with the
    * RTC seconds value of the Master at that time.
@@ -296,13 +297,13 @@ void XAvb_CalcRtcOffset (XAvb * InstancePtr,
                      + XAvb_ReadReg(InstancePtr->Config.BaseAddress,
                                      XAVB_RTC_NANOSEC_OFFSET);
 
-  /** Check for ns wrap-around condition */
+  /* Check for ns wrap-around condition */
   if (SlaveNsTimestamp >= XAVB_ONE_SECOND) {
     SlaveNsTimestamp = SlaveNsTimestamp - XAVB_ONE_SECOND;
   }
 
-  /** Even though we read the slave RTC value at the beginning of this
-   * function, there would have been processing delay between the
+  /* Even though we read the slave RTC value at the beginning of this
+   * function, there would have been processing delay between the.
    * actual reception (and timestamping) of the FollowUp frame and the
    * start of this function.  During this time, the slave RTC seconds
    * field could have wrapped around.  We need to detect this and if it
@@ -310,8 +311,8 @@ void XAvb_CalcRtcOffset (XAvb * InstancePtr,
    * it needs to be set back).
    */
   if (SlaveRtc.NanoSeconds < SlaveNsTimestamp) {
-    /** slave_nanosec has wrapped since timestamp so decrement the
-     * seconds field */
+    /* slave_nanosec has wrapped since timestamp so decrement the
+     * seconds field */.
     if (SlaveRtc.SecondsLower == 0x00000000) {
       SlaveRtc.SecondsUpper = SlaveRtc.SecondsUpper   - 0x1;
     }
@@ -319,7 +320,7 @@ void XAvb_CalcRtcOffset (XAvb * InstancePtr,
   }
 
 
-  /** If the Master nano seconds field wrapped during the Sync frame
+  /* If the Master nano seconds field wrapped during the Sync frame
    * routing delay, then we need to increment the seconds field.
    */
   if (MasterNsHasWrapped == 1) {
@@ -330,8 +331,8 @@ void XAvb_CalcRtcOffset (XAvb * InstancePtr,
   }
 
 
-  /** Calculate the slave RTC error: the master time minus the timestamp
-   * taken by this slave for Sync Frame reception. */
+  /* Calculate the slave RTC error: the master time minus the timestamp
+   * taken by this slave for Sync Frame reception. */.
   RtcError.SecondsLower =  MasterSeconds - SlaveRtc.SecondsLower;
   RtcError.SecondsUpper =  MasterEpoch   - SlaveRtc.SecondsUpper;
 
@@ -357,24 +358,23 @@ void XAvb_CalcRtcOffset (XAvb * InstancePtr,
 #endif
 
 
-  /** Write the results to the RTC Offset registers
-   * --------------------------------------------- */
+  /* Write the results to the RTC Offset registers
+   * --------------------------------------------- */.
+
   XAvb_WriteRtcOffset(InstancePtr->Config.BaseAddress, &RtcError);
 
 }
 
 
-/*****************************************************************************/
-/***
+/***************************************************************************/
+/**
 *
-* A function to Adjust the phase offset of the 8k clock
+* @brief Adjusts the phase offset of the 8 kHz clock.
 *
-* @param  InstancePtr->BaseAddress is the base address of the device
-* @param  NewOffset is the newly calculated RTC Offset value
+* @param[in] BaseAddress is the base address of the device
+* @param[in] NewOffset is the newly calculated RTC Offset value
 *
-* @return None. But the devices RTC Phase Adjustment Register is updated
 *
-* @note   None.
 *
 *****************************************************************************/
 void XAvb_Adjust8kClock (u32 BaseAddress, u32 NewOffset) {
@@ -386,10 +386,10 @@ void XAvb_Adjust8kClock (u32 BaseAddress, u32 NewOffset) {
   u32 Clock8kOffset       = 0;
 #endif
 
-  /** Read the previous offset */
+  /* Read the previous offset */
   PreviousOffset = XAvb_ReadReg(BaseAddress, XAVB_RTC_NANOSEC_OFFSET);
 
-  /** Calculate the change in the previous and current RTC ns offset */
+  /* Calculate the change in the previous and current RTC ns offset */
   if (PreviousOffset > NewOffset) {
     OffsetChange =  PreviousOffset - NewOffset;
   } else {
@@ -397,8 +397,9 @@ void XAvb_Adjust8kClock (u32 BaseAddress, u32 NewOffset) {
   }
 
 
-  /** Is the adjustment "large"? "large" is chosen here to be one 8k
-   * clock period which is a somewhat arbitrary figure */
+  /* Is the adjustment "large"? "large" is chosen here to be one 8k
+   * clock period which is a somewhat arbitrary figure */.
+
   if (OffsetChange > XAVB_PERIOD_8KHZ) {
 
 #ifdef DEBUG_XAVB_LEVEL2
@@ -409,8 +410,8 @@ void XAvb_Adjust8kClock (u32 BaseAddress, u32 NewOffset) {
 #endif
 
 
-    /** The value XAVB_PERIOD_8KHZ is one 8k clock period in ns.  We divide the
-     * RTC ns offset change by this to get the offset change in a
+    /* The value XAVB_PERIOD_8KHZ is one 8k clock period in ns.  We divide the
+     * RTC ns offset change by this to get the offset change in a.
      * multiple of 8k clock periods, the add 1 so that we always round
      * up.  Then multiply this by XAVB_PERIOD_8KHZ again so that we are always
      * phased aligned to the RTC master (only every adjust in a multiple
@@ -419,7 +420,7 @@ void XAvb_Adjust8kClock (u32 BaseAddress, u32 NewOffset) {
     ChangeIn8kPeriods = NewOffset / XAVB_PERIOD_8KHZ;
     OffsetChange = (ChangeIn8kPeriods + 1) * XAVB_PERIOD_8KHZ;
 
-    /** Write the results to the 8K clock logic Offset register */
+    /* Write the results to the 8K clock logic Offset register */
     XAvb_WriteReg(BaseAddress, XAVB_RTC_8K_OFFSET_OFFSET, OffsetChange);
 
 #ifdef DEBUG_XAVB_LEVEL2
@@ -432,14 +433,14 @@ void XAvb_Adjust8kClock (u32 BaseAddress, u32 NewOffset) {
 }
 
 
-/*****************************************************************************/
-/***
+/***************************************************************************/
+/**
 *
-* A function to calculate the RTC increment value based on the Slave Error
+* @brief Calculates the RTC increment value based on the slave error.
 *
-* @return None. But the devices RTC Increment Value Control Register is updated
+* @param[in] InstancePtr is a pointer to the XAvb instance.
 *
-* @note   None.
+* @note Updates the RTC increment registers in hardware.
 *
 *****************************************************************************/
 void XAvb_UpdateRtcIncrement(XAvb * InstancePtr) {
@@ -456,8 +457,8 @@ void XAvb_UpdateRtcIncrement(XAvb * InstancePtr) {
   u32 NewIncrement        = 0;
 
 
-  /** Sanity Check that Sync Frames were n apart.  This safeguards the
-   * calculation against the ethernet cable being pulled out and then
+  /* Sanity Check that Sync Frames were n apart.  This safeguards the
+   * calculation against the ethernet cable being pulled out and then.
    * replaced, etc. */
   if ( ((InstancePtr->SequenceIdRecords.OldSyncSequenceId +
          XAVB_NUM_SYNC_FU_PAIR_CALC_RTC_INCREMENT) & 0xFFFF) ==
@@ -471,8 +472,9 @@ void XAvb_UpdateRtcIncrement(XAvb * InstancePtr) {
     xil_printf("\r\nOldSlaveTime : %x, %d\r\n"  , InstancePtr->PtpRecords.OldSlaveTime,  InstancePtr->PtpRecords.OldSlaveTime);
 #endif
 
-    /** Measure the time duration, as measured by the RTC master of the
-     * M sync delay measurement period. */
+    /* Measure the time duration, as measured by the RTC master of the
+     * M sync delay measurement period. */.
+
     MasterTimeDuration = (InstancePtr->PtpRecords.NewMasterTime
                          - InstancePtr->PtpRecords.OldMasterTime);
 
@@ -480,8 +482,9 @@ void XAvb_UpdateRtcIncrement(XAvb * InstancePtr) {
       MasterTimeDuration = MasterTimeDuration + XAVB_ONE_SECOND;
     }
 
-    /** Measure the time duration, as measured by the RTC slave of the
-     * M sync delay measurement period. */
+    /* Measure the time duration, as measured by the RTC slave of the
+     * M sync delay measurement period. */.
+
     SlaveTimeDuration  = (InstancePtr->PtpRecords.NewSlaveTime
                          - InstancePtr->PtpRecords.OldSlaveTime);
 
@@ -489,16 +492,16 @@ void XAvb_UpdateRtcIncrement(XAvb * InstancePtr) {
       SlaveTimeDuration = SlaveTimeDuration + XAVB_ONE_SECOND;
     }
 
-    /** Therefore calculate the slave error (in ns) */
+    /* Therefore calculate the slave error (in ns) */
     SlaveError = MasterTimeDuration - SlaveTimeDuration;
 
-    /** If the slave error is zero, skip the remainder of function.
-     * (Note : a zero error would otherwise get stuck in the while loop
+    /* If the slave error is zero, skip the remainder of function.
+     * (Note : a zero error would otherwise get stuck in the while loop.
      *         further down this function). */
     if (SlaveError != 0) {
 
 
-       /** Analyse msb of error signal to see which clock is running fastest */
+       /* Analyse msb of error signal to see which clock is running fastest */
        if (SlaveError & 0x80000000) {
          SlaveIsFast = 1;
          SlaveError   = SlaveTimeDuration - MasterTimeDuration;
@@ -506,8 +509,8 @@ void XAvb_UpdateRtcIncrement(XAvb * InstancePtr) {
          SlaveIsFast = 0;
        }
 
-       /** This check is in addition to the checks described in IEEE802.1as.
-        *  If the SlaveError is unexpectedly large, then set asCapable to 0.
+       /* This check is in addition to the checks described in IEEE802.1as.
+        * If the SlaveError is unexpectedly large, then set asCapable to 0.
         */
        if (SlaveError < XAVB_CLOCK_LOCK_THRESHOLD) {
          XAvb_ChangePTPLockStatus(InstancePtr, 1);
@@ -515,11 +518,11 @@ void XAvb_UpdateRtcIncrement(XAvb * InstancePtr) {
          XAvb_ChangePTPLockStatus(InstancePtr, 0);
        }
 
-       /** SlaveError signal is 32-bits (ns).  This can indicate > 4 sec of
-        * error: this is too large for 100 ms measurement period.  So we
+       /* SlaveError signal is 32-bits (ns).  This can indicate > 4 sec of
+        * error: this is too large for 100 ms measurement period.  So we.
         * expect upper bits to be zero.
         *
-        * This function will shift the 1st none zero bit of SlaveError up
+        * shift the 1st none zero bit of SlaveError up
         * to bit 31, so that forthcoming calculation uses maximum accuracy.
         *
         * This shift is equivalent to a multiply (of the error signal). A
@@ -533,32 +536,33 @@ void XAvb_UpdateRtcIncrement(XAvb * InstancePtr) {
        ScaledError  = (SlaveError << LoopCount);
 
 
-       /** Calculate the relative error: can be thought of as a scaled ratio
-        * of error per time unit */
+       /* Calculate the relative error: can be thought of as a scaled ratio
+        * of error per time unit */.
+
        NormalisedError = ScaledError / MasterTimeDuration;
 
 
-       /** Obtain the current increment value */
+       /* Obtain the current increment value */
        OldIncrement = (XAvb_ReadReg(InstancePtr->Config.BaseAddress,
                                      XAVB_RTC_INCREMENT_OFFSET)
                        & XAVB_RTC_INCREMENT_VALUE_MASK);
 
 
-       /** Calculate the increment adjustment: multiply NormalisedError by
-        * the increment time unit.  Then shift back the other way to
+       /* Calculate the increment adjustment: multiply NormalisedError by
+        * the increment time unit.  Then shift back the other way to.
         * correct the calculation (restore to ns). */
        IncrementAdjust = (NormalisedError * OldIncrement) >> LoopCount;
 
 
-       /** Now calculate the new increment value */
+       /* Now calculate the new increment value */
        if (SlaveIsFast) {
          NewIncrement = OldIncrement - IncrementAdjust;
        } else {
          NewIncrement = OldIncrement + IncrementAdjust;
        }
 
-       /** Add some rails so that recovery is possible after a
-        *  string of bad pDelay values.  The RTC should be able to lock
+       /* Add some rails so that recovery is possible after a
+        * string of bad pDelay values.  The RTC should be able to lock.
         *  to within 100ppm of the slowest allowable clock (25 MHz).
         *  This equates to +/-4ps.  Let's arbitrarily set the rails to
         *  400ppm (+/-16ps) just in case someone decides to use a
@@ -575,7 +579,7 @@ void XAvb_UpdateRtcIncrement(XAvb * InstancePtr) {
          NewIncrement = XAVB_RTC_INCREMENT_NOMINAL_RATE - XAVB_RTC_400PPM_OFFSET;
        }
 
-       /** And write the new increment value! */
+       /* And write the new increment value! */
        XAvb_WriteReg(InstancePtr->Config.BaseAddress,
                       XAVB_RTC_INCREMENT_OFFSET,
                       NewIncrement);
@@ -613,3 +617,5 @@ void XAvb_UpdateRtcIncrement(XAvb * InstancePtr) {
 }
 
 }
+
+/** @} */

@@ -1,17 +1,18 @@
-/******************************************************************************
+/*****************************************************************************
 * Copyright (C) 2017 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
-/*****************************************************************************/
+/****************************************************************************/
 /**
 * @file xaxiethernet_mcdma_ping_req_example.c
+* @addtogroup axiethernet Overview
+* @{
 *
-* This file contains a Axi Ethernet MCDMA Ping request example in polled mode.
+*
+* Contains a Axi Ethernet MCDMA Ping request example in polled mode.
 * This example will generate a ping request for the specified IP address.
-*
-* @note
 *
 * The local IP address is set to 10.10.70.6. User needs to update
 * LocalIpAddr variable with a free IP address based on the network on which
@@ -37,7 +38,7 @@
 * - SendEchoReqFrame demonstrates the way to send the ICMP/ECHO request packets
 *   in the polling mode
 * - ProcessRecvFrame demonstrates the way to process the received packet.
-*   This function sends the echo request packet based on the ARP reply packet.
+*   Sends the echo request packet based on the ARP reply packet.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -48,7 +49,7 @@
 * </pre>
 *
 *****************************************************************************/
-/***************************** Include Files *********************************/
+/**************************** Include Files *********************************/
 
 #include "xparameters.h"
 #include "xstatus.h"
@@ -66,7 +67,7 @@
 #ifdef SDT
 #define XAXIETHERNET_BASEADDRESS XPAR_XAXIETHERNET_0_BASEADDR
 #endif
-/************************** Constant Definitions *****************************/
+/************************* Constant Definitions *****************************/
 
 /*
  * The following constants map to the XPAR parameters created in the
@@ -203,16 +204,16 @@
 #define TI_PHY_SGMIICLK_EN		0x4000
 #define TI_PHY_CR_DEVAD_EN		0x001F
 #define TI_PHY_CR_DEVAD_DATAEN		0x4000
-/**************************** Type Definitions *******************************/
+/*************************** Type Definitions *******************************/
 
 
-/***************** Macros (Inline Functions) Definitions *********************/
+/**************** Macros (Inline Functions) Definitions *********************/
 
 
-/************************** Function Prototypes ******************************/
+/************************* Function Prototypes ******************************/
 
 /*
- * Examples
+ * Examples.
  */
 #ifndef SDT
 int AxiEthernetPingReqExample(XAxiEthernet *AxiEthernetInstancePtr,
@@ -247,7 +248,7 @@ static u16 CheckSumCalculation(u16 *RxFramePtr16, int StartLoc, int Length);
 static int CompareData(u16 *LhsPtr, u16 *RhsPtr, int LhsLoc, int RhsLoc,
 			int Count);
 
-/************************** Variable Definitions *****************************/
+/************************* Variable Definitions *****************************/
 
 volatile int ExternalLoopback;
 /*
@@ -312,8 +313,10 @@ static u8 TxFrame[NUM_OF_PING_REQ_PKTS * XAE_JUMBO_MTU];
 static int RxBdSetup(XMcdma *McDmaInstPtr, XAxiEthernet *AxiEthernetInstancePtr);
 static int TxBdSetup(XMcdma *McDmaInstPtr, XAxiEthernet *AxiEthernetInstancePtr);
 
+/** @cond INTERNAL */
 char RxBdSpace[RXBD_SPACE_BYTES] __attribute__ ((aligned(BD_ALIGNMENT)));
 char TxBdSpace[TXBD_SPACE_BYTES] __attribute__ ((aligned(BD_ALIGNMENT)));
+/** @endcond */
 
 /*
  * Variable used to indicate the length of the received frame.
@@ -339,18 +342,11 @@ int NumOfPingReqPkts;
 /* MCDMA Channel to Operate on */
 int Mcdma_ChanId = 1;
 
-/****************************************************************************/
+/***************************************************************************/
 /**
 *
-* This function is the main function of the Ping Request example in polled mode.
+* @brief Main entry point of the Ping Request example in polled mode.
 *
-* @param	None.
-*
-* @return	XST_FAILURE to indicate failure, otherwise it will return
-*		XST_SUCCESS after sending specified number of packets as
-*		defined in "NUM_OF_PING_REQ_PKTS" .
-*
-* @note		None.
 *
 *****************************************************************************/
 int main()
@@ -379,28 +375,24 @@ int main()
 	return XST_SUCCESS;
 }
 
-/*****************************************************************************/
+/****************************************************************************/
 /**
 *
-* The entry point for the AxiEthernet driver to ping request example in polled
-* mode. This function will generate specified number of request packets as
+* @brief The entry point for the AxiEthernet driver to ping request example in polled.
+* mode. generate specified number of request packets as
 * defined in "NUM_OF_PING_REQ_PKTS.
 *
+* @param[in] AxiEthernetInstancePtr is a pointer to the instance of the
+*		AxiEthernet component.
+* @param[in] DmaInstancePtr is a pointer to the instance of the AXI MCDMA
+*		component.
 * @if SDT
-* @param	AxiEthernetInstancePtr is a pointer to the instance of the
-*		AxiEthernet component.
-* @param	DmaInstancePtr is a pointer to the instance of the AXI MCDMA
-*		component.
-* @param	AxiEthernetBaseAddress contains the base address of the AxiEthernet device
+* @param[in] AxiEthernetBaseAddress contains the base address of the AxiEthernet device.
 * @else
-* @param	AxiEthernetInstancePtr is a pointer to the instance of the
-*		AxiEthernet component.
-* @param	DmaInstancePtr is a pointer to the instance of the AXI MCDMA
-*		component.
-* @param	AxiEthernetDeviceId is Device ID of the Axi Ethernet Device ,
+* @param[in] AxiEthernetDeviceId is Device ID of the Axi Ethernet Device,
 *		typically XPAR_<AXIETHERNET_instance>_DEVICE_ID value from
 *		xparameters.h.
-* @param	AxiMcDmaDeviceId is Device ID of the Axi DMAA Device ,
+* @param[in] AxiMcDmaDeviceId is Device ID of the Axi MCDMA Device,
 *		typically XPAR_<AXIMCDMA_instance>_DEVICE_ID value from
 *		xparameters.h.
 * @endif
@@ -654,20 +646,21 @@ int PhySetup(XAxiEthernet *AxiEthernetInstancePtr)
 	return XST_SUCCESS;
 }
 
-/*****************************************************************************/
+/****************************************************************************/
+/** @cond INTERNAL */
 /**
 *
-* This function setup the buffer descriptor chain for the Ingress mcdma Channels
+* @brief Sets up the buffer descriptor chain for the Ingress mcdma Channels.
 *
-* @param	DmaInstancePtr   is a pointer to the instance of the Dma
-*		component.
-* @param	AxiEthernetInstancePtr is a pointer to the instance of the
-*		Axi Ethernet component.
+* @param[in] McDmaInstPtr is a pointer to the MCDMA instance.
+* @param[in] AxiEthernetInstancePtr is a pointer to the AXI Ethernet instance.
 *
-* @return	-XST_SUCCESS to indicate success
-*		-XST_FAILURE to indicate failure
+* @return XST_SUCCESS on success, XST_FAILURE otherwise.
+*
+* @note This function is specific to the ping request example.
 *
 ******************************************************************************/
+/** @endcond */
 static int RxBdSetup(XMcdma *McDmaInstPtr, XAxiEthernet *AxiEthernetInstancePtr)
 {
 	XMcdma_ChanCtrl *Rx_Chan;
@@ -701,20 +694,21 @@ static int RxBdSetup(XMcdma *McDmaInstPtr, XAxiEthernet *AxiEthernetInstancePtr)
 	return XST_SUCCESS;
 }
 
-/*****************************************************************************/
+/****************************************************************************/
+/** @cond INTERNAL */
 /**
 *
-* This function setup the buffer descriptor chain for the Egress Channels
+* @brief Sets up the buffer descriptor chain for the Egress Channels.
 *
-* @param	DmaInstancePtr   is a pointer to the instance of the Dma
-*		component.
-* @param	AxiEthernetInstancePtr is a pointer to the instance of the
-*		Axi Ethernet component.
+* @param[in] McDmaInstPtr is a pointer to the MCDMA instance.
+* @param[in] AxiEthernetInstancePtr is a pointer to the AXI Ethernet instance.
 *
-* @return	-XST_SUCCESS to indicate success
-*		-XST_FAILURE to indicate failure
+* @return XST_SUCCESS on success, XST_FAILURE otherwise.
+*
+* @note This function is specific to the ping request example.
 *
 ******************************************************************************/
+/** @endcond */
 static int TxBdSetup(XMcdma *McDmaInstPtr, XAxiEthernet *AxiEthernetInstancePtr)
 {
 	XMcdma_ChanCtrl  *Tx_Chan;
@@ -899,20 +893,18 @@ int GetRxBufAddr()
 	return RxBufPtr;
 }
 
-/*****************************************************************************/
+/****************************************************************************/
 /**
 *
-* This function will send a ARP request packet.
+* @brief send a ARP request packet.
 *
-* @param	AxiEthernetInstancePtr is a pointer to the instance of the
+* @param[in] AxiEthernetInstancePtr is a pointer to the instance of the
 *		Axi Ethernet component.
-* @param	DmaInstancePtr is a pointer to the instance of the Dma
+* @param[in] DmaInstancePtr is a pointer to the instance of the Dma
 *		component.
-* @param	ChanId is the MCDMA Channel number to be operate on.
+* @param[in] ChanId is the MCDMA Channel number to be operate on.
 *
-* @return	None.
 *
-* @note		None.
 *
 ******************************************************************************/
 void SendArpReqFrame(XAxiEthernet *AxiEthernetInstancePtr,
@@ -1015,20 +1007,18 @@ void SendArpReqFrame(XAxiEthernet *AxiEthernetInstancePtr,
 
 }
 
-/*****************************************************************************/
+/****************************************************************************/
 /**
 *
-* This function will send a Echo request packet.
+* @brief send a Echo request packet.
 *
-* @param	AxiEthernetInstancePtr is a pointer to the instance of the
+* @param[in] AxiEthernetInstancePtr is a pointer to the instance of the
 *		Axi Ethernet component.
-* @param	DmaInstancePtr is a pointer to the instance of the Dma
+* @param[in] DmaInstancePtr is a pointer to the instance of the Dma
 *		component.
-* @param	ChanId is the MCDMA Channel number to be operate on.
+* @param[in] ChanId is the MCDMA Channel number to be operate on.
 *
-* @return	None.
 *
-* @note		None.
 *
 ******************************************************************************/
 void SendEchoReqFrame(XAxiEthernet *AxiEthernetInstancePtr,
@@ -1148,17 +1138,17 @@ void SendEchoReqFrame(XAxiEthernet *AxiEthernetInstancePtr,
 	}
 }
 
-/*****************************************************************************/
+/****************************************************************************/
 /**
 *
-* This function will process the received packet. This function sends
+* @brief process the received packet. Sends.
 * the echo request packet based on the ARP reply packet.
 *
-* @param	AxiEthernetInstancePtr is a pointer to the instance of the
+* @param[in] AxiEthernetInstancePtr is a pointer to the instance of the
 *		Axi Ethernet component.
-* @param	DmaInstancePtr is a pointer to the instance of the Dma
+* @param[in] DmaInstancePtr is a pointer to the instance of the Dma
 *		component.
-* @param	ChanId is the MCDMA Channel number to be operate on.
+* @param[in] ChanId is the MCDMA Channel number to be operate on.
 *
 * @return	XST_SUCCESS is returned when an echo reply is received.
 *		Otherwise, XST_FAILURE is returned.
@@ -1276,16 +1266,16 @@ int ProcessRecvFrame(XAxiEthernet *AxiEthernetInstancePtr,
 	}
 	return XST_FAILURE;
 }
-/*****************************************************************************/
+/****************************************************************************/
 /**
 *
-* This function calculates the checksum and returns a 16 bit result.
+* @brief Calculates the checksum and returns a 16 bit result.
 *
-* @param 	RxFramePtr is a 16 bit pointer for the data to which checksum
+* @param[in] RxFramePtr is a 16 bit pointer for the data to which checksum
 * 		is to be calculated.
-* @param	StartLoc is the starting location of the data from which the
+* @param[in] StartLoc is the starting location of the data from which the
 *		checksum has to be calculated.
-* @param	Length is the number of halfwords(16 bits) to which checksum is
+* @param[in] Length is the number of halfwords(16 bits) to which checksum is
 * 		to be calculated.
 *
 * @return	It returns a 16 bit checksum value.
@@ -1317,21 +1307,20 @@ static u16 CheckSumCalculation(u16 *RxFramePtr, int StartLoc, int Length)
 	CheckSum = Sum + CheckSum;
 	return CheckSum;
 }
-/*****************************************************************************/
+/****************************************************************************/
 /**
 *
-* This function checks the match for the specified number of half words.
+* @brief Checks the match for the specified number of half words.
 *
-* @param	LhsPtr is a LHS entity pointer.
-* @param 	RhsPtr is a RHS entity pointer.
-* @param	LhsLoc is a LHS entity location.
-* @param 	RhsLoc is a RHS entity location.
-* @param 	Count is the number of location which has to compared.
+* @param[in] LhsPtr is a LHS entity pointer.
+* @param[in] RhsPtr is a RHS entity pointer.
+* @param[in] LhsLoc is a LHS entity location.
+* @param[in] RhsLoc is a RHS entity location.
+* @param[in] Count is the number of location which has to compared.
 *
 * @return	XST_SUCCESS is returned when both the entities are same,
 *		otherwise XST_FAILURE is returned.
 *
-* @note		None.
 *
 ******************************************************************************/
 static int CompareData(u16 *LhsPtr, u16 *RhsPtr, int LhsLoc, int RhsLoc,
@@ -1348,3 +1337,5 @@ static int CompareData(u16 *LhsPtr, u16 *RhsPtr, int LhsLoc, int RhsLoc,
 	}
 	return Result;
 }
+
+/** @} */

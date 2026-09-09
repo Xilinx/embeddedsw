@@ -1,12 +1,15 @@
-/******************************************************************************
+/*****************************************************************************
 * Copyright (C) 2010 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
 /**
 *
 * @file xaxiethernet_example_polled.c
+* @addtogroup axiethernet Overview
+* @{
+*
 *
 * Implements examples that utilize the Axi Ethernet's FIFO direct frame transfer
 * mode in a polled fashion to send and receive frames.
@@ -54,7 +57,7 @@
 *
 ******************************************************************************/
 
-/***************************** Include Files *********************************/
+/**************************** Include Files *********************************/
 
 #include "xaxiethernet_example.h"
 #include "xllfifo.h"
@@ -64,7 +67,7 @@
 #include "xuartns550_l.h"
 #endif
 
-/************************** Constant Definitions ****************************/
+/************************* Constant Definitions ****************************/
 
 /*
  * The following constants map to the XPAR parameters created in the
@@ -76,7 +79,7 @@
 #define FIFO_DEVICE_ID		XPAR_AXI_FIFO_0_DEVICE_ID
 #endif
 
-/************************** Variable Definitions ****************************/
+/************************* Variable Definitions ****************************/
 
 volatile int Padding;	/* For 1588 Packets we need to pad 8 bytes time stamp value */
 volatile int ExternalLoopback; /* Variable for External loopback */
@@ -86,7 +89,7 @@ EthernetFrame RxFrame;		/* Receive frame buffer */
 XAxiEthernet AxiEthernetInstance;
 XLlFifo FifoInstance;
 
-/************************** Function Prototypes *****************************/
+/************************* Function Prototypes *****************************/
 
 int AxiEthernetPolledExample(u16 AxiEthernetDeviceId, u16 FifoDeviceId);
 int AxiEthernetSingleFramePolledExample();
@@ -96,19 +99,13 @@ int AxiEthernetPollForTxStatus();
 int AxiEthernetPollForRxStatus();
 int AxiEthernetResetDevice();
 
-/*****************************************************************************/
+/****************************************************************************/
 /**
 *
-* This is the main function for the AxiEthernet example. This function is not
-* included if the example is generated from the TestAppGen test  tool.
+* @brief Main entry point for the Axi Ethernet example.
 *
-* @param	None.
+* This function is not included if the example is generated from the TestAppGen test tool.
 *
-* @return	-XST_SUCCESS to indicate success
-*		-XST_FAILURE to indicate failure
-*
-*
-* @note		None.
 *
 ****************************************************************************/
 #ifndef TESTAPP_GEN
@@ -149,21 +146,20 @@ int main(void)
 }
 #endif
 
-/*****************************************************************************/
+/****************************************************************************/
 /**
 *
-* This function demonstrates the usage of the Axi Ethernet by sending and
+* @brief Demonstrates the usage of the Axi Ethernet by sending and.
 * receiving frames in polled mode.
 *
 *
-* @param	AxiEthernetDeviceId is device ID of the AxiEthernet Device ,
+* @param[in] AxiEthernetDeviceId is device ID of the AxiEthernet Device ,
 *		typically XPAR_<AXIETHERNET_instance>_DEVICE_ID value from
 *		xparameters.h
-* @param	FifoDeviceId is device ID of the Fifo device taken from
+* @param[in] FifoDeviceId is device ID of the Fifo device taken from
 *		xparameters.h
 *
-* @return	-XST_SUCCESS to indicate success
-*		-XST_FAILURE to indicate failure
+* @return XST_SUCCESS on success, XST_FAILURE otherwise.
 *
 * @note		AxiFifo hardware must be initialized before initializing
 *		AxiEthernet. Since AxiFifo reset line is connected to the
@@ -177,9 +173,9 @@ int AxiEthernetPolledExample(u16 AxiEthernetDeviceId, u16 FifoDeviceId)
 	XAxiEthernet_Config *MacCfgPtr;
 	int LoopbackSpeed;
 
-	/*************************************/
+	/***********************************/
 	/* Setup device for first-time usage */
-	/*************************************/
+	/***********************************/
 
 	/*
 	 *  Get the configuration of AxiEthernet hardware.
@@ -257,12 +253,12 @@ int AxiEthernetPolledExample(u16 AxiEthernetDeviceId, u16 FifoDeviceId)
 	 */
 	AxiEthernetUtilPhyDelay(2);
 
-	/****************************/
+	/**************************/
 	/* Run through the examples */
-	/****************************/
+	/**************************/
 
 	/*
-	 * Run the Single Frame polled example
+	 * Run the Single Frame polled example.
 	 */
 	Status = AxiEthernetSingleFramePolledExample();
 	if (Status != XST_SUCCESS) {
@@ -283,18 +279,15 @@ int AxiEthernetPolledExample(u16 AxiEthernetDeviceId, u16 FifoDeviceId)
 }
 
 
-/*****************************************************************************/
+/****************************************************************************/
 /**
 *
-* This function demonstrates the usage of the Axi Ethernet by sending and
+* @brief Demonstrates the usage of the Axi Ethernet by sending and.
 * receiving a single frame in polled mode.
 *
-* @param	None.
 *
-* @return	-XST_SUCCESS to indicate success
-*		-XST_FAILURE to indicate failure
+* @return XST_SUCCESS on success, XST_FAILURE otherwise.
 *
-* @note		None.
 *
 ******************************************************************************/
 int AxiEthernetSingleFramePolledExample(void)
@@ -326,12 +319,12 @@ int AxiEthernetSingleFramePolledExample(void)
 	 */
 	TxFrameLength = XAE_HDR_SIZE + PayloadSize;
 
-	/*******************/
+	/*****************/
 	/* Send the packet */
-	/*******************/
+	/*****************/
 
 	/*
-	 * Wait for enough room in FIFO to become available
+	 * Wait for enough room in FIFO to become available.
 	 */
 	do {
 		FifoFreeBytes = XLlFifo_TxVacancy(&FifoInstance);
@@ -362,12 +355,12 @@ int AxiEthernetSingleFramePolledExample(void)
 		return XST_FAILURE;
 	}
 
-	/**********************/
+	/********************/
 	/* Receive the packet */
-	/**********************/
+	/********************/
 
 	/*
-	 * Wait for packet Rx
+	 * Wait for packet Rx.
 	 */
 	switch (AxiEthernetPollForRxStatus()) {
 	case XST_SUCCESS:/* Got a successful receive status */
@@ -417,19 +410,16 @@ int AxiEthernetSingleFramePolledExample(void)
 	return XST_SUCCESS;
 }
 
-/*****************************************************************************/
+/****************************************************************************/
 /**
 *
-* This example uses polled mode to queue up multiple frames in the packet
+* @brief This example uses polled mode to queue up multiple frames in the packet.
 * FIFOs before sending them in a single burst. Receive packets are handled in
 * a similar way.
 *
-* @param	None.
 *
-* @return	-XST_SUCCESS to indicate success
-*		-XST_FAILURE to indicate failure
+* @return XST_SUCCESS on success, XST_FAILURE otherwise.
 *
-* @note		None.
 *
 ******************************************************************************/
 int AxiEthernetMultipleFramesPolledExample(void)
@@ -491,9 +481,9 @@ int AxiEthernetMultipleFramesPolledExample(void)
 	AxiEthernetUtilFrameHdrFormatType(&TxFrame, PayloadSize);
 	AxiEthernetUtilFrameSetPayloadData(&TxFrame, PayloadSize);
 
-	/****************/
+	/**************/
 	/* Send packets */
-	/****************/
+	/**************/
 
 	/*
 	 * Since we may be interested to see what happens when FIFOs overflow,
@@ -529,12 +519,12 @@ int AxiEthernetMultipleFramesPolledExample(void)
 		}
 	}
 
-	/**********************/
+	/********************/
 	/* Receive the packet */
-	/**********************/
+	/********************/
 
 	/*
-	 * Wait for the packets to arrive
+	 * Wait for the packets to arrive.
 	 * The Fifo core only allows us to pull out one frame at a time.
 	 */
 	for (Index = 0; Index < FramesToLoopback; ) {
@@ -592,20 +582,17 @@ int AxiEthernetMultipleFramesPolledExample(void)
 }
 
 
-/******************************************************************************/
+/*****************************************************************************/
 /**
-* This functions polls the Tx status and waits for an indication that a frame
+* @brief Polls the Tx status and waits for an indication that a frame.
 * has been transmitted successfully or a transmit related error has occurred.
 * If an error is reported, it handles all the possible  error conditions.
 *
-* @param	None.
 *
-* @return
-*		- XST_SUCCESS, Tx has completed
-*		- XST_NO_DATA, Timeout. Tx failure.
-*		- XST_FIFO_ERROR, Error in the FIFO.
+* @retval XST_SUCCESS Tx has completed.
+* @retval XST_NO_DATA Timeout or Tx failure.
+* @retval XST_FIFO_ERROR Error in the FIFO.
 *
-* @note		None.
 *
 ******************************************************************************/
 int AxiEthernetPollForTxStatus(void)
@@ -654,21 +641,18 @@ int AxiEthernetPollForTxStatus(void)
 }
 
 
-/******************************************************************************/
+/*****************************************************************************/
 /**
-* This functions polls the Rx status and waits for an indication that a frame
+* @brief Polls the Rx status and waits for an indication that a frame.
 * has arrived or a receive related error has occurred. If an error is reported,
 * handle all the possible  error conditions.
 *
-* @param	None.
 *
-* @return
-*		- XST_SUCCESS, a frame has been received
-*		- XST_NO_DATA, Timeout. Rx failure.
-*		- XST_FIFO_ERROR, Error in the FIFO.
-*		- XST_DATA_LOST, a frame has been dropped
+* @retval XST_SUCCESS A frame has been received.
+* @retval XST_NO_DATA Timeout or Rx failure.
+* @retval XST_FIFO_ERROR Error in the FIFO.
+* @retval XST_DATA_LOST A frame has been dropped.
 *
-* @note     None.
 *
 ******************************************************************************/
 int AxiEthernetPollForRxStatus(void)
@@ -738,16 +722,13 @@ int AxiEthernetPollForRxStatus(void)
 }
 
 
-/******************************************************************************/
+/*****************************************************************************/
 /**
-* This function resets the device but preserves the options set by the user.
+* @brief Resets the device but preserves the options set by the user.
 *
-* @param	None.
 *
-* @return	-XST_SUCCESS if reset is successful
-*		-XST_FAILURE. if reset is not successful
+* @return XST_SUCCESS if reset is successful, XST_FAILURE otherwise.
 *
-* @note     None.
 *
 ******************************************************************************/
 int AxiEthernetResetDevice(void)
@@ -786,3 +767,5 @@ int AxiEthernetResetDevice(void)
 
 	return XST_SUCCESS;
 }
+
+/** @} */

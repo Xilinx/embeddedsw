@@ -1,4 +1,4 @@
-/******************************************************************************
+/*****************************************************************************
 * Copyright (C) 2010 - 2022 Xilinx, Inc.  All rights reserved.
 * Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
@@ -8,8 +8,6 @@
 *
 * @file xaxiethernet.h
 * @addtogroup axiethernet Overview
-* @{
-* @details
 *
 * The Xilinx AXI Ethernet MAC driver component. This driver supports hard
 * Ethernet core for Virtex-6(TM) devices and soft Ethernet core for
@@ -142,18 +140,18 @@
 * There are certain device options that will affect the checksum calculation
 * performed by hardware for Tx:
 *
-*   - FCS insertion disabled (XAE_FCS_INSERT_OPTION): software is required to
+*   - FCS insertion off (XAE_FCS_INSERT_OPTION): software is required to
 *     calculate and insert the FCS value at the end of the frame, but the
 *     checksum must be known ahead of time prior to calculating the FCS.
 *     Therefore checksum offloading cannot be used in this situation.
 *
 * And for Rx:
 *
-*   - FCS/PAD stripping disabled (XAE_FCS_STRIP_OPTION): The 4 byte FCS at the
+*   - FCS/PAD stripping off (XAE_FCS_STRIP_OPTION): The 4 byte FCS at the
 *     end of frame will be included in the hardware calculated checksum.
 *     software must subtract out this data.
 *
-*   - FCS/PAD stripping disabled (XAE_FCS_STRIP_OPTION): For frames smaller
+*   - FCS/PAD stripping off (XAE_FCS_STRIP_OPTION): For frames smaller
 *     than 64 bytes, padding will be included in the hardware calculated
 *     checksum.
 *     software must subtract out this data. It may be better to allow the
@@ -179,17 +177,17 @@
 * Refer to the Axi Ethernet hardware specification for more details.
 *
 *<h4>AXI4-Stream Control Word 0:</h4>
-*<pre>
+* @verbatim
 *	Bits  1-0  : Transmit Checksum Enable: 	01 - Partial checsum offload,
 *						10 - Full checksum offload
 *						00 - No checksum offloading
 *						11 - Not used, reserved
 *	Bits 27-2  : Reserved
 *	Bits 31-28 : Used for AXI4-Stream Control Mode flag
-*</pre>
+* @endverbatim
 *
 *<h4>AXI4-Stream Control Word 1:</h4>
-*<pre>
+* @verbatim
 *	Bits 31-16 (MSB): Transmit Checksum Calculation Starting Point: Offset
 *			  in the frame where checksum calculation should begin.
 *			  Relevant only for partial checksum offloading.
@@ -197,15 +195,15 @@
 *			  the computed checksum value is stored, which should be
 *			  in the TCP or UDP header.
 *			  Relevant only for partial checksum offloading.
-*   </pre>
+* @endverbatim
 *
 *<h4>AXI4-Stream Control Word 2:</h4>
-*<pre>
+* @verbatim
 *	Bits 31-16 (MSB): Reserved
 *	Bits  0-15 (LSB): Transmit Checksum Calculation Initial Value: Checksum
 *			  seed value.
 *			  Relevant only for partial checksum offloading.
-*</pre>
+* @endverbatim
 *
 * <h3>Receive Checksum Offloading</h3>
 *
@@ -222,19 +220,21 @@
 * Refer to the Axi Ethernet hardware specification for more details.
 *
 *<h4>AXI4-Stream Status Word 0:</h4>
-*<pre>
+* @verbatim
 *	Bits 31-28 (MSB): Always 0x5 to represent receive status frame
-*	Bits 27-16	: Undefined
+*	Bits 27-16	: Reserved
 *	Bits 15-0  (LSB): MCAST_ADR_U. Upper 16 bits of the multicast
 *			  destination address of the frame.
+* @endverbatim
 *
 *<h4>AXI4-Stream Status Word 1:</h4>
-*</pre>
+* @verbatim
 *	Bits 31-0	: MCAST_ADR_L. The lower 32 bits of the multicast
 *			  destination address.
+* @endverbatim
 *
 *<h4>AXI4-Stream Status Word 2:</h4>
-*</pre>
+* @verbatim
 *	Bits 5-3 	: Specifies the receive full checksum status. This
 *			  is relevant only for full checksum offloading.
 *			  000 -> Neither the IP header nor the TCP/UDP
@@ -255,17 +255,21 @@
 *			  111 -> The IP header checksum was checked and is
 *				 correct but the UDP checksum was checked and
 *				 was incorrect.
+* @endverbatim
 *
 *<h4>AXI4-Stream Status Word 3:</h4>
+* @verbatim
 *	Bits 31-16	: T_L_TPID. This is the value of 13th and 14th byte
 *			  of the frame.
 *	Bits 15-0 	: Receive Raw Checksum: Computed checksum value
+* @endverbatim
 *
-*<h4>AXI4-Stream Status Word 3:</h4>
+*<h4>AXI4-Stream Status Word 4:</h4>
+* @verbatim
 *	Bits 31-16	: VLAN_TAG. Value of 15th and 16th byte of the
 *			 frame.
 *	Bits 15-0 	: RX_BYTECNT. Received frame length.
-*
+* @endverbatim
 *
 * <h2>Extended multicast</h2>
 * (XAE_EXT_MULTICAST_OPTION): Allow and perform address filtering more than 4
@@ -324,8 +328,8 @@
 * <h2>Asserts</h2>
 *
 * Asserts are used within all Xilinx drivers to enforce constraints on argument
-* values. Asserts can be turned off on a system-wide basis by defining, at
-* compile time, the NDEBUG identifier. By default, asserts are turned on and it
+* values. Asserts can be turned off on a system-wide basis by supplying the
+* NDEBUG identifier at compile time. By default, asserts are turned on and it
 * is recommended that users leave asserts on during development. For deployment
 * use -DNDEBUG compiler switch to remove assert code.
 *
@@ -334,12 +338,10 @@
 *   - A dropped receive frame indication may be reported by the driver after
 *     calling XAxiEthernet_Stop() followed by XAxiEthernet_Start(). This can
 *     occur if a frame is arriving when stop is called.
-*   - On Rx with checksum offloading enabled and FCS/PAD stripping disabled,
+*   - On Rx with checksum offloading enabled and FCS/PAD stripping off,
 *     FCS and PAD data will be included in the checksum result.
-*   - On Tx with checksum offloading enabled and auto FCS insertion disabled,
+*   - On Tx with checksum offloading enabled and auto FCS insertion off,
 *     the user calculated FCS will be included in the checksum result.
-*
-* @note
 *
 * Xilinx drivers are typically composed of two components, one is the driver
 * and the other is the adapter.  The driver is independent of OS and processor
@@ -350,7 +352,7 @@
 * dynamic memory management, threads or thread mutual exclusion, or cache
 * control must be satisfied by the layer above this driver.
 *
-* <pre>
+* @verbatim
 * MODIFICATION HISTORY:
 *
 * Ver   Who  Date     Changes
@@ -378,9 +380,9 @@
 *		      axiethernet hardware).
 *		      Hence a new major version of axiethernet is being
 *		      released.
-*		      Added defines for Ability Reg, Identification Reg, Rx max
+*		      Added register maps for Ability Reg, Identification Reg, Rx max
 *		      Frame and Tx Max Frame registers.
-*		      Changed define for TEMAC RGMII/SGMII Config (PHYC) Reg.
+*		      Changed register map for TEMAC RGMII/SGMII Config (PHYC) Reg.
 *
 * 3.00a asa  4/10/12  A new major version of AxiEthernet is being released to
 *		      accommodate the change in AVB example. From AxiEthernet
@@ -398,39 +400,25 @@
 *		      of cores.
 *		      Hence a new major version of axiethernet is being
 *		      released.
-* 3.01a srt  02/03/13 - Added support for SGMII mode (CR 676793)
-*	     	      - Added support for IPI designs (CR 698249)
-*	     02/14/13 - Added support for Zynq (CR 681136)
-* 3.02a srt  04/13/13 - Removed Warnings (CR 704998).
-*            04/24/13 - Modified parameter *_SGMII_PHYADDR to *_PHYADDR, the
-*                       config parameter C_PHYADDR applies to SGMII/1000BaseX
-*	                modes of operation
-*	     04/24/13 - Added support for 1000BaseX mode in examples (_util.c)
-*		        (CR 704195)
-*	     04/24/13 - Added support for RGMII mode in examples (_util.c)
-* 3.02a srt  08/06/13 - Fixed CR 727634:
-*			  Modified FifoHandler() function logic of FIFO
-*			  interrupt example to reflect the bit changes in
-*			  the Interrupt Status Register as per the latest
-*			  AXI FIFO stream IP.
-*		      - Fixed CR 721141:
-*			  Added support to handle multiple instances of
-*			  AxiEthernet FIFO interface (CR 721141)
-*		      - Fixed CR 717949:
-*			  Configures external Marvel 88E1111 PHY based on the
-*			  AXI Ethernet physical interface type and allows to
-*			  operate in specific interface mode without changing
-*			  jumpers on the Microblaze boards. This change is in
-*			  example_util.c
+* 3.01a srt  02/03/13 Added support for SGMII mode (CR 676793).
+* 3.01a srt  02/03/13 Added support for IPI designs (CR 698249).
+* 3.01a srt  02/14/13 Added support for Zynq (CR 681136).
+* 3.02a srt  04/13/13 Removed compiler diagnostics (CR 704998).
+* 3.02a srt  04/24/13 Modified parameter *_SGMII_PHYADDR to *_PHYADDR.
+* 3.02a srt  04/24/13 Added support for 1000BaseX mode in examples (_util.c) (CR 704195).
+* 3.02a srt  04/24/13 Added support for RGMII mode in examples (_util.c).
+* 3.02a srt  08/06/13 Fixed CR 727634: Updated FifoHandler() in FIFO interrupt example.
+* 3.02a srt  08/06/13 Fixed CR 721141: Added multi-instance AxiEthernet FIFO support.
+* 3.02a srt  08/06/13 Fixed CR 717949: Configure Marvel PHY in example_util.c.
 * 3.02a adk 15/11/13 - Fixed CR 761035 removed dependency with fifo in MDD file
 * 4.0   adk 19/12/13 - Updated as per the New Tcl API's
-*		asa 30/01/14 - Added defines for 1588 registers and bit masks
+*		asa 30/01/14 - Added register maps for 1588 registers and bit masks
 *					   Added config parameter for SGMII over LVDS
 *
 * 4.1  adk 21/04/14 - Fixed CR:780537 Changes are Made in the file
 * 		      axiethernet test-app tcl
 * 4.2  adk 08/08/14 - Fixed CR:810643 SDK generated 'xparamters.h' erroneously
-*		      generated with errors due to part of '#define' misplaced
+*		      generated with errors due to part of a macro layout misplaced
 *		      changes are made in the driver tcl file.
 * 4.3 adk 29/10/14 -  Added support for generating parameters for SGMII/1000BaseX
 *		      modes When IP is configured with the PCS/PMA core.
@@ -441,22 +429,22 @@
 * 5.0  adk 13/06/15 - Updated the driver tcl for Hier IP(To support User parameters).
 * 5.0  adk 28/07/15 - Fixed CR:870631 AXI Ethernet with FIFO will fail to
 *		      Create the BSP if the interrupt pin on the FIFO is unconnected
-* 5.1  sk  11/10/15 Used UINTPTR instead of u32 for Baseaddress CR# 867425.
+* 5.1  sk  11/10/15 Used UINTPTR instead of u32 for Baseaddress CR867425.
 *                   Changed the prototype of XAxiEthernet_CfgInitialize API.
-* 5.1  adk 30/01/15  Fix compilation errors in case of zynqmp. CR#933825.
+* 5.1  adk 30/01/15  Fix compilation errors in case of zynqmp. CR933825.
 * 5.1  adk 02/11/16  Updated example to Support ZynqMp.
-* 5.2  adk 13/05/16  Fixed CR#951669 Fix compilation errors when axi dma
+* 5.2  adk 13/05/16  Fixed CR951669 Fix compilation errors when axi dma
 * 		     interrupts are not connected.
-* 5.3  adk 05/10/16  Fixed CR#961152 PMU template firmware fails to compile on
+* 5.3  adk 05/10/16  Fixed CR961152 PMU template firmware fails to compile on
 * 		     ZynqMP AXI-Ethernet designs.
 * 5.4  adk 07/12/16  Added Support for TI PHY DP83867 changes are made in the
 * 		     examples xaxiethernet_example_util.c file.
 *       ms 01/23/17 Modified xil_printf statement in main function for all
 *            examples to ensure that "Successfully ran" and "Failed" strings
 *            are available in all examples. This is a fix for CR-965028.
-*	adk 03/09/17 Fixed CR#971367 fix race condition in the tcl
-*		     for a multi mac design(AXI_CONNECTED_TYPE defined for
-*		     only one instance)
+*	adk 03/09/17 Fixed CR971367 fix race condition in the tcl
+*		     for a multi mac design with AXI_CONNECTED_TYPE set for
+*		     only one instance.
 *       ms 03/17/17 Modified text file in examples folder for doxygen
 *                   generation.
 *       ms 04/05/17 Added tabspace for return statements in functions
@@ -464,198 +452,86 @@
 *                   generating doxygen.
 * 5.5	adk 19/05/17 Increase Timeout value in the driver as per new h/w update
 * 		     i.e. Increase of transceiver initialization times in
-* 		     ultrascale+ devices (CR#976244).
-* 5.6  adk 03/07/17 Fixed issue lwip stops working as soon as something is
-*		    plugged to it`s AXI stream bus (CR#979634). Changes
-*		    are made in the driver tcl and test app tcl.
-* 5.6  adk 03/07/17 Fixed CR#979023 Intr fifo example failed to compile.
+* 		     ultrascale+ devices (CR976244).
+* 5.6  adk 03/07/17 Fixed CR979023 Intr fifo example failed to compile.
 *      ms  04/18/17 Modified tcl file to add suffix U for all macro
-*                   definitions of axiethernet in xparameters.h
-*      adk 08/08/17 Fixed CR#981893 Fix bsp compilation error for axiethernet
+*                   entries of axiethernet in xparameters.h
+*      adk 08/08/17 Fixed CR981893 Fix bsp compilation error for axiethernet
 *		    mcdma chiscope based designs.
-*      ms  08/16/17 Fixed compilation warnings in xaxiethernet_sinit.c
-*      adk 08/22/17 Fixed CR#983008 app generation errors for Specific IPI design.
-*      adk 08/28/17 Fixed CR#982877 couple of dsv_ced tests are failing in peripheral
+*      ms  08/16/17 Fixed compiler diagnostics in xaxiethernet_sinit.c
+*      adk 08/22/17 Fixed CR983008 app generation errors for Specific IPI design.
+*      adk 08/28/17 Fixed CR982877 couple of dsv_ced tests are failing in peripheral
 *		    app generation.
-*      adk 09/21/17 Fixed CR#985686 bsp generation error with specific design.
+*      adk 09/21/17 Fixed CR985686 bsp generation error with specific design.
 *		    Changes are made in the driver tcl.
 * 5.7  rsp 01/09/18 Add NumTableEntries member in XAxiEthernet_Config.
-*                   Instead of #define XAE_MULTI_MAT_ENTRIES derive multicast table
+*                   Instead of the XAE_MULTI_MAT_ENTRIES constant, derive multicast table
 *                   entries max count from ethernet config structure.
-*          01/11/18 Fixed CR#976392 Use UINTPTR for DMA base address.
+* 5.7  rsp 01/11/18 Fixed CR976392 Use UINTPTR for DMA base address.
 * 5.14 adk 31/01/22 Fix interrupt controller name in SMP designs, Changes are
 * 		    made in the interrupt app tcl file.
 * 5.16 sne 01/07/23 Updated axienet driver to SDT and non-SDT flows.
 *		    Updated phy related macros with opensource ""phy_interface_t"
 *		    enum macro values.
-* </pre>
+* @endverbatim
 *
 ******************************************************************************/
 
 #ifndef XAXIETHERNET_H		/* prevent circular inclusions */
 #define XAXIETHERNET_H		/* by using protection macros */
 
+/**
+ * @addtogroup axiethernet Overview
+ * @{
+ */
+
+
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-/***************************** Include Files *********************************/
+/**************************** Include Files *********************************/
 
 #include "xenv.h"
 #include "xstatus.h"
 #include "xil_assert.h"
-#include "xaxiethernet_hw.h"
 
-/************************** Constant Definitions *****************************/
+/************************* Constant Declarations *****************************/
 
 /** @name Configuration options
  *
- * The following are device configuration options. See the
- * <i>XAxiEthernet_SetOptions</i>, <i>XAxiEthernet_ClearOptions</i> and
- * <i>XAxiEthernet_GetOptions</i> routines for information on how to use
- * options.
+ * Device configuration options. See XAxiEthernet_SetOptions(),
+ * XAxiEthernet_ClearOptions(), and XAxiEthernet_GetOptions().
+ * The default state of each option is noted below.
  *
- * The default state of the options are also noted below.
- *
- * @{
+ * XAE_DEFAULT_OPTIONS is the bitmask applied by XAxiEthernet_Reset() and
+ * XAxiEthernet_CfgInitialize().
  */
 
-/**< XAE_PROMISC_OPTION specifies the Axi Ethernet device to accept all
- *   incoming packets.
- *   This driver sets this option to disabled (cleared) by default.
- */
-#define XAE_PROMISC_OPTION		0x00000001
+#define XAE_PROMISC_OPTION		0x00000001 /**< Accept all incoming packets; default off (cleared). */
+#define XAE_JUMBO_OPTION		0x00000002 /**< Accept jumbo frames for TX/RX; default off (cleared). */
+#define XAE_VLAN_OPTION			0x00000004 /**< Enable VLAN support for TX/RX; default off (cleared). */
+#define XAE_FLOW_CONTROL_OPTION		0x00000008 /**< Recognize received flow control frames; default on (set). */
+#define XAE_FCS_STRIP_OPTION		0x00000010 /**< Strip FCS and PAD from RX frames; default on (set). */
+#define XAE_FCS_INSERT_OPTION		0x00000020 /**< Insert FCS and PAD on TX frames; default on (set). */
+#define XAE_LENTYPE_ERR_OPTION		0x00000040 /**< Enable Length/Type error checking on RX; default on (set). */
+#define XAE_TRANSMITTER_ENABLE_OPTION	0x00000080 /**< Enable transmitter; default on (set). */
+#define XAE_RECEIVER_ENABLE_OPTION	0x00000100 /**< Enable receiver; default on (set). */
+#define XAE_BROADCAST_OPTION		0x00000200 /**< Receive broadcast frames; default on (set). */
+#define XAE_MULTICAST_OPTION		0x00000400 /**< Receive programmed multicast frames; default off (cleared). */
+#define XAE_EXT_MULTICAST_OPTION	0x00000800 /**< Extended multicast address table; default depends on HW. */
+#define XAE_EXT_TXVLAN_TRAN_OPTION	0x00001000 /**< TX VLAN translation; default depends on HW. */
+#define XAE_EXT_RXVLAN_TRAN_OPTION	0x00002000 /**< RX VLAN translation; default depends on HW. */
+#define XAE_EXT_TXVLAN_TAG_OPTION	0x00004000 /**< TX VLAN tagging; default depends on HW build. */
+#define XAE_EXT_RXVLAN_TAG_OPTION	0x00008000 /**< RX VLAN tagging; default depends on HW build. */
+#define XAE_EXT_TXVLAN_STRP_OPTION	0x00010000 /**< TX VLAN stripping; default depends on HW build. */
+#define XAE_EXT_RXVLAN_STRP_OPTION	0x00020000 /**< RX VLAN stripping; default depends on HW build. */
+#define XAE_DEFAULT_OPTIONS (XAE_FLOW_CONTROL_OPTION | XAE_BROADCAST_OPTION | XAE_FCS_INSERT_OPTION | XAE_FCS_STRIP_OPTION | XAE_LENTYPE_ERR_OPTION | XAE_TRANSMITTER_ENABLE_OPTION | XAE_RECEIVER_ENABLE_OPTION) /**< Options set in XAxiEthernet_Reset() and XAxiEthernet_CfgInitialize(). */
 
-/**< XAE_JUMBO_OPTION specifies the Axi Ethernet device to accept jumbo
- *   frames for transmit and receive.
- *   This driver sets this option to disabled (cleared) by default.
- */
-#define XAE_JUMBO_OPTION		0x00000002
-
-/**< XAE_VLAN_OPTION specifies the Axi Ethernet device to enable VLAN support
- *   for transmit and receive.
- *   This driver sets this option to disabled (cleared) by default.
- */
-#define XAE_VLAN_OPTION			0x00000004
-
-/**< XAE_FLOW_CONTROL_OPTION specifies the Axi Ethernet device to recognize
- *   received flow control frames.
- *   This driver sets this option to enabled (set) by default.
- */
-#define XAE_FLOW_CONTROL_OPTION		0x00000008
-
-/**< XAE_FCS_STRIP_OPTION specifies the Axi Ethernet device to strip FCS and
- *   PAD from received frames. Note that PAD from VLAN frames is not stripped.
- *   This driver sets this option to enabled (set) by default.
- */
-#define XAE_FCS_STRIP_OPTION		0x00000010
-
-/**< XAE_FCS_INSERT_OPTION specifies the Axi Ethernet device to generate the
- *   FCS field and add PAD automatically for outgoing frames.
- *   This driver sets this option to enabled (set) by default.
- */
-#define XAE_FCS_INSERT_OPTION		0x00000020
-
-/**< XAE_LENTYPE_ERR_OPTION specifies the Axi Ethernet device to enable
- *   Length/Type error checking (mismatched type/length field) for received
- *   frames.
- *   This driver sets this option to enabled (set) by default.
- */
-#define XAE_LENTYPE_ERR_OPTION		0x00000040
-
-/**< XAE_TRANSMITTER_ENABLE_OPTION specifies the Axi Ethernet device
- *   transmitter to be enabled.
- *   This driver sets this option to enabled (set) by default.
- */
-#define XAE_TRANSMITTER_ENABLE_OPTION	0x00000080
-
-/**< XAE_RECEIVER_ENABLE_OPTION specifies the Axi Ethernet device receiver to
- *   be enabled.
- *   This driver sets this option to enabled (set) by default.
- */
-#define XAE_RECEIVER_ENABLE_OPTION	0x00000100
-
-/**< XAE_BROADCAST_OPTION specifies the Axi Ethernet device to receive frames
- *   sent to the broadcast Ethernet address.
- *   This driver sets this option to enabled (set) by default.
- */
-#define XAE_BROADCAST_OPTION		0x00000200
-
-/**< XAE_MULTICAST_OPTION specifies the Axi Ethernet device to receive frames
- *   sent to Ethernet addresses that are programmed into the Multicast Address
- *   Table (MAT).
- *   This driver sets this option to disabled (cleared) by default.
- */
-#define XAE_MULTICAST_OPTION		0x00000400
-
-/**< XAE_EXT_MULTICAST_OPTION specifies the Axi Ethernet device to receive
- *   frames sent to Ethernet addresses that are programmed into the Multicast
- *   Address Table.
- *   This driver sets this option to be dependent on HW configuration
- *   by default.
- */
-#define XAE_EXT_MULTICAST_OPTION	0x00000800
-
-/**< XAE_EXT_TXVLAN_TRAN_OPTION specifies the Axi Ethernet device to enable
- *   transmit VLAN translation.
- *   This driver sets this option to be dependent on HW configuration
- *   by default.
- */
-#define XAE_EXT_TXVLAN_TRAN_OPTION	0x00001000
-
-/**< XAE_EXT_RXVLAN_TRAN_OPTION specifies the Axi Ethernet device to enable
- *   receive VLAN translation.
- *   This driver sets this option to be dependent on HW configuration
- *   by default.
- */
-#define XAE_EXT_RXVLAN_TRAN_OPTION	0x00002000
-
-/**< XAE_EXT_TXVLAN_TAG_OPTION specifies the Axi Ethernet device to enable
- *   transmit VLAN tagging.
- *   This driver sets this option to be dependent during HW build time
- *   by default.
- */
-#define XAE_EXT_TXVLAN_TAG_OPTION	0x00004000
-
-/**< XAE_EXT_RXVLAN_TAG_OPTION specifies the Axi Ethernet device to enable
- *   receive VLAN tagging.
- *   This driver sets this option to be dependent during HW build time
- *   by default.
- */
-#define XAE_EXT_RXVLAN_TAG_OPTION	0x00008000
-
-/**< XAE_EXT_TXVLAN_STRP_OPTION specifies the Axi Ethernet device to enable
- *   transmit VLAN stripping.
- *   This driver sets this option to be dependent during HW build time
- *   by default.
- */
-#define XAE_EXT_TXVLAN_STRP_OPTION	0x00010000
-
-/**< XAE_EXT_RXVLAN_STRP_OPTION specifies the Axi Ethernet device to enable
- *   receive VLAN stripping.
- *   This driver sets this option to be dependent during HW build time
- *   by default.
- */
-#define XAE_EXT_RXVLAN_STRP_OPTION	0x00020000
-
-
-#define XAE_DEFAULT_OPTIONS				\
-		(XAE_FLOW_CONTROL_OPTION |		\
-		 XAE_BROADCAST_OPTION |			\
-		 XAE_FCS_INSERT_OPTION |		\
-		 XAE_FCS_STRIP_OPTION |			\
-		 XAE_LENTYPE_ERR_OPTION |		\
-		 XAE_TRANSMITTER_ENABLE_OPTION | 	\
-		 XAE_RECEIVER_ENABLE_OPTION)
-/**< XAE_DEFAULT_OPTIONS specify the options set in XAxiEthernet_Reset() and
- *   XAxiEthernet_CfgInitialize()
- */
-/*@}*/
-
-#define XAE_MDIO_DIV_DFT	29	/**< Default MDIO clock divisor */
+#define XAE_MDIO_DIV_DFT		29 /**< Default MDIO clock divisor. */
 
 /*
- * The next few constants help upper layers determine the size of memory
+ * The next few constants help upper layers determine the size of memory.
  * pools used for Ethernet buffers and descriptor lists.
  */
 #define XAE_MAC_ADDR_SIZE		6	/* MAC addresses are 6 bytes */
@@ -693,31 +569,30 @@ extern "C" {
 #define XAE_PHY_TYPE_RGMII_2_0		XAE_PHY_TYPE_RGMII_RXID
 #define XAE_PHY_TYPE_1000BASE_X		21
 
-#define XAE_TPID_MAX_ENTRIES		4 /* Number of storable TPIDs in
-					   * Table
-					   */
+#define XAE_TPID_MAX_ENTRIES		4
+/**< Number of storable TPIDs in the VLAN table. */
 
 /*
- * Constant values pass into XAxiEthernet_SetV[tag|Strp]Mode() and returned by
+ * Constant values passed into XAxiEthernet_SetV[tag|Strp]Mode() and returned by
  * XAxiEthernet_GetV[tag|Strp]Mode().
  */
-#define XAE_VTAG_NONE			0	/* No tagging */
-#define XAE_VTAG_ALL			1	/* Tag all frames */
-#define XAE_VTAG_EXISTED		2	/* Tag already tagged frames */
-#define XAE_VTAG_SELECT		  	3	/*
-						 * Tag selected already tagged
-						 * frames
-						 */
+#define XAE_VTAG_NONE			0
+/**< No tagging. */
+#define XAE_VTAG_ALL			1
+/**< Tag all frames. */
+#define XAE_VTAG_EXISTED		2
+/**< Tag already tagged frames. */
+#define XAE_VTAG_SELECT		  	3
+/**< Tag selected already tagged frames. */
 #define XAE_DEFAULT_TXVTAG_MODE  	XAE_VTAG_ALL
 #define XAE_DEFAULT_RXVTAG_MODE  	XAE_VTAG_ALL
 
-#define XAE_VSTRP_NONE			0	/* No stripping */
-#define XAE_VSTRP_ALL			1	/* Strip one tag from all
-						 * frames
-						 */
-#define XAE_VSTRP_SELECT		3	/* Strip one tag from selected
-						 * frames
-						 */
+#define XAE_VSTRP_NONE			0
+/**< No stripping. */
+#define XAE_VSTRP_ALL			1
+/**< Strip one tag from all frames. */
+#define XAE_VSTRP_SELECT		3
+/**< Strip one tag from selected frames. */
 #define XAE_DEFAULT_TXVSTRP_MODE	XAE_VSTRP_ALL
 #define XAE_DEFAULT_RXVSTRP_MODE	XAE_VSTRP_ALL
 
@@ -728,7 +603,7 @@ extern "C" {
 #define XAE_SOFT_TEMAC_10_100_1000_MBPS	1
 #define XAE_HARD_TEMC			2
 
-#ifdef SDT
+#if defined(SDT)
 /* AxiEthernet TYPE Enumerations */
 #define XPAR_AXI_FIFO    1U
 #define XPAR_AXI_DMA     2U
@@ -739,40 +614,46 @@ extern "C" {
 #define XAE_AXIBASEADDR_MASK	0xFFFFFFFFFFFFFFF0
 #endif
 
-/**************************** Type Definitions *******************************/
+#ifndef __DOXYGEN__
+#include "xaxiethernet_hw.h"
+#endif
+
+/*************************** Type Declarations *******************************/
 
 
 /**
- * This typedef contains configuration information for a Axi Ethernet device.
+ * @brief Holds configuration information for an AXI Ethernet device.
  */
 typedef struct XAxiEthernet_Config {
-#ifndef SDT
+#if !defined(SDT)
 	u16 DeviceId;	/**< DeviceId is the unique ID  of the device */
-#else
+#endif
+#if defined(SDT)
 	char *Name;	/**< Unique name of the device */
 #endif
 	UINTPTR BaseAddress;/**< BaseAddress is the physical base address of the
-			  *  device's registers
+			  * device's registers.
 			  */
-#ifndef SDT
+#if !defined(SDT)
 	u8 TemacType;   /**< Temac Type can have 3 possible values. They are
-			  *  0 for SoftTemac at 10/100 Mbps, 1 for SoftTemac
+			  * 0 for SoftTemac at 10/100 Mbps, 1 for SoftTemac.
 			  *  at 10/100/1000 Mbps and 2 for Vitex6 Hard Temac
 			  */
 #endif
 	u8 TxCsum;	/**< TxCsum indicates that the device has checksum
-			  *  offload on the Tx channel or not.
+			  * offload on the Tx channel or not.
 			  */
 	u8 RxCsum;	/**< RxCsum indicates that the device has checksum
-			  *  offload on the Rx channel or not.
+			  * offload on the Rx channel or not.
 			  */
-#ifndef SDT
+#if !defined(SDT)
 	u8 PhyType;	/**< PhyType indicates which type of PHY interface is
-			  *  used (MII, GMII, RGMII, etc.
+			  * used (MII, GMII, RGMII, etc.
 			  */
-#else
+#endif
+#if defined(SDT)
 	char *PhyType;	/**< PhyType indicates which type of PHY interface is
-                          *  used (MII, GMII, RGMII, etc.
+                          * used (MII, GMII, RGMII, etc.
                           */
 #endif
 	u8 TxVlanTran;  /**< TX VLAN Translation indication */
@@ -788,24 +669,25 @@ typedef struct XAxiEthernet_Config {
 	u8 Enable_1588;	/**< Enable 1588 option */
 	u32 Speed;	/**< Tells whether MAC is 1G or 2p5G */
 	u8 NumTableEntries;	/**< Number of table entries */
-#ifdef SDT
+#if defined(SDT)
 	u32 PhyAddr;	/**< PHY address for MDIO register access */
 	u16 IntrId; /**< Bits[11:0] Interrupt-id Bits[15:12] trigger type and level flags */
 	UINTPTR IntrParent; /**< Bit[0] Interrupt parent type Bit[64/32:1] Parent base address */
 	UINTPTR AxiDevBaseAddress; /**< Bit[3:0] AxiDevType is the type of device attached to the
-				 * Axi Ethernet's AXI4-Stream interface
+				 * Axi Ethernet's AXI4-Stream interface.
 				 * Bit[64/32:4] AxiDevBaseAddress is the base address of
                                  *  the device attached to the Axi Ethernet's
                                  *  AXI4-Stream interface.
                                  */
-#else
+#endif
+#if !defined(SDT)
 	u8 TemacIntr;	/**< Axi Ethernet interrupt ID */
 
 	int AxiDevType;  /**< AxiDevType is the type of device attached to the
-			  *   Axi Ethernet's AXI4-Stream interface.
+			  * Axi Ethernet's AXI4-Stream interface.
 			  */
 	UINTPTR AxiDevBaseAddress; /**< AxiDevBaseAddress is the base address of
-				 *  the device attached to the Axi Ethernet's
+				 * the device attached to the Axi Ethernet's.
 				 *  AXI4-Stream interface.
 				 */
 	u8 AxiFifoIntr;	/**< AxiFifoIntr interrupt ID (unused if DMA) */
@@ -830,35 +712,38 @@ typedef struct XAxiEthernet {
 	u32 IsReady;		 /**< Device is initialized and ready */
 	u32 Options;		 /**< Current options word */
 	u32 Flags;		 /**< Internal driver flags */
-#ifdef SDT
+#if defined(SDT)
 	int AxiDevType;	/**< AxiDevType is the type of device attached to the
-			         *   Axi Ethernet's AXI4-Stream interface.
+			         * Axi Ethernet's AXI4-Stream interface.
 			         */
 	UINTPTR AxiDevBaseAddress;
 #endif
 	u8 PhyMode;		 /**< Phymode indicates which type of PHY interface
-				   *  is used(MII, GMII, RGMII, 1000BaseX, etc.
+				   * is used(MII, GMII, RGMII, 1000BaseX, etc.
 				   */
 } XAxiEthernet;
 
 
-/***************** Macros (Inline Functions) Definitions *********************/
+/**************** Macros (Inline Functions) *********************************/
 
-/*****************************************************************************/
+/**@cond axiethernet_internal
+ */
+
+/****************************************************************************/
 /**
 *
-* XAxiEthernet_IsStarted reports if the device is in the started or stopped
+* @brief XAxiEthernet_IsStarted reports if the device is in the started or stopped.
 * state. To be in the started state, the calling code must have made a
 * successful call to <i>XAxiEthernet_Start</i>. To be in the stopped state,
 * <i>XAxiEthernet_Stop</i> or <i>XAxiEthernet_CfgInitialize</i> function must
 * have been called.
 *
-* @param	InstancePtr is a pointer to the of Axi Ethernet instance to be
+* @param[in] InstancePtr is a pointer to the of Axi Ethernet instance to be
 *		worked on.
 *
 * @return
 *		- TRUE if the device has been started.
-*		- FALSE.if the device has not been started
+*		- FALSE if the device has not been started.
 *
 * @note 	C-style signature:
 * 		u32 XAxiEthernet_IsStarted(XAxiEthernet *InstancePtr)
@@ -867,35 +752,37 @@ typedef struct XAxiEthernet {
 #define XAxiEthernet_IsStarted(InstancePtr) \
 	(((InstancePtr)->IsStarted == XIL_COMPONENT_IS_STARTED) ? TRUE : FALSE)
 
-/*****************************************************************************/
+/****************************************************************************/
 /**
 *
-* XAxiEthernet_IsDma reports if the device is currently connected to DMA.
+* @brief XAxiEthernet_IsDma reports if the device is currently connected to DMA.
 *
-* @param	InstancePtr is a pointer to the Axi Ethernet instance to be
+* @param[in] InstancePtr is a pointer to the Axi Ethernet instance to be
 *		worked on.
+*
 * @return
-*		- TRUE if the Axi Ethernet device is connected DMA.
-*		- FALSE.if the Axi Ethernet device is NOT connected to DMA
+*		- TRUE if the Axi Ethernet device is connected to DMA.
+*		- FALSE if the Axi Ethernet device is NOT connected to DMA.
 *
 * @note 	C-style signature:
 * 		u32 XAxiEthernet_IsDma(XAxiEthernet *InstancePtr)
 *
 ******************************************************************************/
-#ifndef SDT
+#if !defined(SDT)
 #define XAxiEthernet_IsDma(InstancePtr) \
 	(((InstancePtr)->Config.AxiDevType == XPAR_AXI_DMA) ? TRUE: FALSE)
-#else
+#endif
+#if defined(SDT)
 #define XAxiEthernet_IsDma(InstancePtr) \
 	(((InstancePtr)->AxiDevType == XPAR_AXI_DMA) ? TRUE: FALSE)
 #endif
-/*****************************************************************************/
+/****************************************************************************/
 /**
 *
-* XAxiEthernet_IsFifo reports if the device is currently connected to a fifo
+* @brief XAxiEthernet_IsFifo reports if the device is currently connected to a fifo.
 * core.
 *
-* @param	InstancePtr is a pointer to the Axi Ethernet instance to be
+* @param[in] InstancePtr is a pointer to the Axi Ethernet instance to be
 *		worked on.
 *
 * @return
@@ -906,21 +793,21 @@ typedef struct XAxiEthernet {
 * 		u32 XAxiEthernet_IsFifo(XAxiEthernet *InstancePtr)
 *
 ******************************************************************************/
-#ifndef SDT
+#if !defined(SDT)
 #define XAxiEthernet_IsFifo(InstancePtr) \
 	(((InstancePtr)->Config.AxiDevType == XPAR_AXI_FIFO) ? TRUE: FALSE)
-#else
+#endif
+#if defined(SDT)
 #define XAxiEthernet_IsFifo(InstancePtr) \
 	(((InstancePtr)->AxiDevType == XPAR_AXI_FIFO) ? TRUE: FALSE)
 #endif
-/*****************************************************************************/
+/****************************************************************************/
 /**
 *
-* XAxiEthernet_IsMcDma reports if the device is currently connected to MCDMA.
+* @brief XAxiEthernet_IsMcDma reports if the device is currently connected to MCDMA.
 *
-* @param	InstancePtr is a pointer to the Axi Ethernet instance to be
+* @param[in] InstancePtr is a pointer to the Axi Ethernet instance to be
 *		worked on.
-* @return
 *		- TRUE if the Axi Ethernet device is connected MCDMA.
 *		- FALSE.if the Axi Ethernet device is NOT connected to MCDMA
 *
@@ -928,20 +815,21 @@ typedef struct XAxiEthernet {
 * 		u32 XAxiEthernet_IsMcDma(XAxiEthernet *InstancePtr)
 *
 ******************************************************************************/
-#ifndef SDT
+#if !defined(SDT)
 #define XAxiEthernet_IsMcDma(InstancePtr) \
 	(((InstancePtr)->Config.AxiDevType == XPAR_AXI_MCDMA) ? TRUE: FALSE)
-#else
+#endif
+#if defined(SDT)
 #define XAxiEthernet_IsMcDma(InstancePtr) \
 	(((InstancePtr)->AxiDevType == XPAR_AXI_MCDMA) ? TRUE: FALSE)
 #endif
-/*****************************************************************************/
+/****************************************************************************/
 /**
 *
-* XAxiEthernet_AxiDevBaseAddress reports the base address of the core connected
+* @brief XAxiEthernet_AxiDevBaseAddress reports the base address of the core connected.
 * to the Axi Ethernet's Axi4 Stream interface.
 *
-* @param	InstancePtr is a pointer to the Axi Ethernet instance to be
+* @param[in] InstancePtr is a pointer to the Axi Ethernet instance to be
 *		worked on.
 *
 * @return	The base address of the core connected to the Axi Ethernet's
@@ -954,14 +842,14 @@ typedef struct XAxiEthernet {
 #define XAxiEthernet_AxiDevBaseAddress(InstancePtr) \
 	((InstancePtr)->Config.AxiDevBaseAddress)
 
-/*****************************************************************************/
+/****************************************************************************/
 /**
 *
-* XAxiEthernet_IsRecvFrameDropped determines if the device thinks it has
+* @brief XAxiEthernet_IsRecvFrameDropped determines if the device thinks it has.
 * dropped a receive frame. The device interrupt status register is read to
 * determine this.
 *
-* @param	InstancePtr is a pointer to the Axi Ethernet instance to be
+* @param[in] InstancePtr is a pointer to the Axi Ethernet instance to be
 *		worked on.
 *
 * @return
@@ -976,15 +864,14 @@ typedef struct XAxiEthernet {
 	((XAxiEthernet_ReadReg((InstancePtr)->Config.BaseAddress,  \
 	XAE_IS_OFFSET) & XAE_INT_RXRJECT_MASK) ? TRUE : FALSE)
 
-/*****************************************************************************/
+/****************************************************************************/
 /**
 *
-* XAxiEthernet_IsRxPartialCsum determines if the device is configured with
+* @brief XAxiEthernet_IsRxPartialCsum determines if the device is configured with.
 * partial checksum offloading on the receive channel.
 *
-* @param	InstancePtr is a pointer to the Axi Ethernet instance to be
+* @param[in] InstancePtr is a pointer to the Axi Ethernet instance to be
 *		worked on.
-* @return
 *		- TRUE if the device is configured with partial checksum
 *		  offloading on the receive channel.
 *		- FALSE.if the device is not configured with partial checksum
@@ -997,13 +884,13 @@ typedef struct XAxiEthernet {
 #define XAxiEthernet_IsRxPartialCsum(InstancePtr)   \
 	((((InstancePtr)->Config.RxCsum) == 0x01) ? TRUE : FALSE)
 
-/*****************************************************************************/
+/****************************************************************************/
 /**
 *
-* XAxiEthernet_IsTxPartialCsum determines if the device is configured with
+* @brief XAxiEthernet_IsTxPartialCsum determines if the device is configured with.
 * partial checksum offloading on the transmit channel.
 *
-* @param	InstancePtr is a pointer to the Axi Ethernet instance to be
+* @param[in] InstancePtr is a pointer to the Axi Ethernet instance to be
 *		worked on.
 *
 * @return
@@ -1019,18 +906,19 @@ typedef struct XAxiEthernet {
 #define XAxiEthernet_IsTxPartialCsum(InstancePtr) \
 	((((InstancePtr)->Config.TxCsum) == 0x01) ? TRUE : FALSE)
 
-/*****************************************************************************/
+/****************************************************************************/
 /**
 *
-* XAxiEthernet_IsRxFullCsum determines if the device is configured with full
+* @brief XAxiEthernet_IsRxFullCsum determines if the device is configured with full.
 * checksum offloading on the receive channel.
 *
-* @param	InstancePtr is a pointer to the Axi Ethernet instance to be
+* @param[in] InstancePtr is a pointer to the Axi Ethernet instance to be
 *		worked on.
+*
 * @return
 *		- TRUE if the device is configured with full checksum
 *		  offloading on the receive channel.
-*		- FALSE.if the device is not configured with full checksum
+*		- FALSE if the device is not configured with full checksum
 *		  offloading on the receive side.
 *
 * @note 	C-style signature:
@@ -1040,19 +928,19 @@ typedef struct XAxiEthernet {
 #define XAxiEthernet_IsRxFullCsum(InstancePtr)   \
 	((((InstancePtr)->Config.RxCsum) == 0x02) ? TRUE : FALSE)
 
-/*****************************************************************************/
+/****************************************************************************/
 /**
 *
-* XAxiEthernet_IsTxFullCsum determines if the device is configured with full
+* @brief XAxiEthernet_IsTxFullCsum determines if the device is configured with full.
 * checksum offloading on the transmit channel.
 *
-* @param	InstancePtr is a pointer to the Axi Ethernet instance to be
+* @param[in] InstancePtr is a pointer to the Axi Ethernet instance to be
 *		worked on.
 *
 * @return
 *		- TRUE if the device is configured with full checksum
 *		  offloading on the transmit side.
-*		- FALSE.if the device is not configured with full checksum
+*		- FALSE if the device is not configured with full checksum
 *		  offloading on the transmit side.
 *
 * @note 	C-style signature:
@@ -1062,44 +950,55 @@ typedef struct XAxiEthernet {
 #define XAxiEthernet_IsTxFullCsum(InstancePtr) \
 	((((InstancePtr)->Config.TxCsum) == 0x02) ? TRUE : FALSE)
 
-/*****************************************************************************/
+#if !defined(SDT)
 /**
 *
-* XAxiEthernet_GetPhysicalInterface returns the type of PHY interface being
-* used by the given instance, specified by <i>InstancePtr</i>.
+* @brief Returns the type of PHY interface used by the given instance.
 *
-* @param	InstancePtr is a pointer to the Axi Ethernet instance to be
+* @param[in] InstancePtr is a pointer to the Axi Ethernet instance to be
 *		worked on.
 *
-* @return	The Physical Interface type which is one of XAE_PHY_TYPE_x
-*		where x is MII, GMII, RGMII_1_3, RGMII_2_0, SGMII, or
-*		1000BASE_X (defined in xaxiethernet.h).
+* @return The Physical Interface type, which is one of the XAE_PHY_TYPE_*
+*		constants in this header.
 *
-* @note 	C-style signature:
-* 		int XAxiEthernet_GetPhysicalInterface(XAxiEthernet
-*							*InstancePtr)
+* @note C-style signature:
+*		u8 XAxiEthernet_GetPhysicalInterface(XAxiEthernet *InstancePtr)
 *
 ******************************************************************************/
-#ifndef SDT
 #define XAxiEthernet_GetPhysicalInterface(InstancePtr)	   \
 	((InstancePtr)->Config.PhyType)
 
-#else
-u8 XAxiEthernet_Get_Phy_Interface(XAxiEthernet *InstancePtr);
 #endif
-/****************************************************************************/
+#if defined(SDT)
 /**
 *
-* XAxiEthernet_GetIntStatus returns a bit mask of the interrupt status
+* @brief Returns the type of PHY interface used by the given instance.
+*
+* @param[in] InstancePtr is a pointer to the Axi Ethernet instance to be
+*		worked on.
+*
+* @return The Physical Interface type, which is one of the XAE_PHY_TYPE_*
+*		constants in this header.
+*
+* @note C-style signature:
+*		u8 XAxiEthernet_Get_Phy_Interface(XAxiEthernet *InstancePtr)
+*
+******************************************************************************/
+u8 XAxiEthernet_Get_Phy_Interface(XAxiEthernet *InstancePtr);
+#endif
+/***************************************************************************/
+/**
+*
+* @brief XAxiEthernet_GetIntStatus returns a bit mask of the interrupt status.
 * register (ISR). XAxiEthernet_GetIntStatus can be used to query the status
 * without having to have interrupts enabled.
 *
-* @param	InstancePtr is a pointer to the Axi Ethernet instance to be
+* @param[in] InstancePtr is a pointer to the Axi Ethernet instance to be
 *		worked on.
 *
 * @return	Returns a bit mask of the interrupt status conditions. The
 *		mask will be a set of bit wise or'd values from the
-*		<code>XAE_INT_*_MASK</code> definitions in xaxitemac_hw.h file.
+*		<code>XAE_INT_*_MASK</code> maps in xaxitemac_hw.h file.
 *
 * @note		C-style signature:
 *		u32 XAxiEthernet_GetIntStatus(XAxiEthernet *InstancePtr)
@@ -1108,21 +1007,20 @@ u8 XAxiEthernet_Get_Phy_Interface(XAxiEthernet *InstancePtr);
 #define XAxiEthernet_GetIntStatus(InstancePtr) \
 	 XAxiEthernet_ReadReg((InstancePtr)->Config.BaseAddress, XAE_IS_OFFSET)
 
-/****************************************************************************/
+/***************************************************************************/
 /**
 *
-* XAxiEthernet_IntEnable enables the interrupts specified in <i>Mask</i>. The
+* @brief XAxiEthernet_IntEnable enables the interrupts specified in <i>Mask</i>. The.
 * corresponding interrupt for each bit set to 1 in <i>Mask</i>, will be
 * enabled.
 *
-* @param	InstancePtr is a pointer to the Axi Ethernet instance to be
+* @param[in] InstancePtr is a pointer to the Axi Ethernet instance to be
 *		worked on.
 *
-* @param	Mask contains a bit mask of the interrupts to enable. The mask
+* @param[in] Mask contains a bit mask of the interrupts to enable. The mask
 *		can be formed using a set of bit wise or'd values from the
-*		<code>XAE_INT_*_MASK</code> definitions in xaxitemac_hw.h file.
+*		<code>XAE_INT_*_MASK</code> maps in xaxitemac_hw.h file.
 *
-* @return	None.
 *
 * @note		C-style signature:
 *		void XAxiEthernet_IntEnable(XAxiEthernet *InstancePtr,
@@ -1135,21 +1033,20 @@ u8 XAxiEthernet_Get_Phy_Interface(XAxiEthernet *InstancePtr);
 		XAxiEthernet_ReadReg((InstancePtr)->Config.BaseAddress, \
 				XAE_IE_OFFSET) | ((Mask) & XAE_INT_ALL_MASK));
 
-/****************************************************************************/
+/***************************************************************************/
 /**
 *
-* XAxiEthernet_IntDisable disables the interrupts specified in <i>Mask</i>. The
+* @brief XAxiEthernet_IntDisable turns off the interrupts specified in <i>Mask</i>. The.
 * corresponding interrupt for each bit set to 1 in <i>Mask</i>, will be
-* disabled. In other words, XAxiEthernet_IntDisable uses the "set a bit to
+* turned off. In other words, XAxiEthernet_IntDisable uses the "set a bit to
 * clear it" scheme.
 *
-* @param	InstancePtr is a pointer to the Axi Ethernet instance to be
+* @param[in] InstancePtr is a pointer to the Axi Ethernet instance to be
 *		worked on.
-* @param	Mask contains a bit mask of the interrupts to disable. The mask
+* @param[in] Mask contains a bit mask of the interrupts to disable. The mask
 *		can be formed using a set of bit wise or'd values from the
-*		<code>XAE_INT_*_MASK</code> definitions in xaxitemac_hw.h file
+*		<code>XAE_INT_*_MASK</code> maps in xaxitemac_hw.h file
 *
-* @return	None.
 *
 * @note		C-style signature:
 *		void XAxiEthernet_IntDisable(XAxiEthernet *InstancePtr,
@@ -1162,18 +1059,18 @@ u8 XAxiEthernet_Get_Phy_Interface(XAxiEthernet *InstancePtr);
 		XAxiEthernet_ReadReg((InstancePtr)->Config.BaseAddress, \
 				XAE_IE_OFFSET) & ~((Mask) & XAE_INT_ALL_MASK));
 
-/****************************************************************************/
+/***************************************************************************/
 /**
 *
-* XAxiEthernet_IntPending returns a bit mask of the pending interrupts. Each
+* @brief XAxiEthernet_IntPending returns a bit mask of the pending interrupts. Each.
 * bit set to 1 in the return value represents a pending interrupt.
 *
-* @param	InstancePtr is a pointer to the Axi Ethernet instance to be
+* @param[in] InstancePtr is a pointer to the Axi Ethernet instance to be
 *		worked on.
 *
 * @return	Returns a bit mask of the interrupts that are pending. The mask
 *		will be a set of bit wise or'd values from the
-* 		<code>XAE_INT_*_MASK</code> definitions in xaxitemac_hw.h file.
+* 		<code>XAE_INT_*_MASK</code> maps in xaxitemac_hw.h file.
 *
 * @note		C-style signature:
 *		u32 XAxiEthernet_IntPending(XAxiEthernet *InstancePtr)
@@ -1182,19 +1079,19 @@ u8 XAxiEthernet_Get_Phy_Interface(XAxiEthernet *InstancePtr);
 #define XAxiEthernet_IntPending(InstancePtr) \
 	XAxiEthernet_ReadReg((InstancePtr)->Config.BaseAddress, XAE_IP_OFFSET)
 
-/****************************************************************************/
+/***************************************************************************/
 /**
 *
-* XAxiEthernet_IntClear clears pending interrupts specified in <i>Mask</i>.
+* @brief XAxiEthernet_IntClear clears pending interrupts specified in <i>Mask</i>.
 * The corresponding pending interrupt for each bit set to 1 in <i>Mask</i>,
 * will be cleared. In other words, XAxiEthernet_IntClear uses the "set a bit to
 * clear it" scheme.
 *
-* @param	InstancePtr is a pointer to the Axi Ethernet instance to be
+* @param[in] InstancePtr is a pointer to the Axi Ethernet instance to be
 *		worked on.
-* @param	Mask contains a bit mask of the pending interrupts to clear.
+* @param[in] Mask contains a bit mask of the pending interrupts to clear.
 *		The mask can be formed using a set of bit wise or'd values from
-*		the <code>XAE_INT_*_MASK</code> definitions in xaxitemac_hw.h
+*		the <code>XAE_INT_*_MASK</code> maps in xaxitemac_hw.h
 *		file.
 *
 * @note		C-style signature:
@@ -1206,19 +1103,19 @@ u8 XAxiEthernet_Get_Phy_Interface(XAxiEthernet *InstancePtr);
 	XAxiEthernet_WriteReg((InstancePtr)->Config.BaseAddress, \
 			XAE_IS_OFFSET, ((Mask) & XAE_INT_ALL_MASK))
 
-/*****************************************************************************/
+/****************************************************************************/
 /**
 *
-* XAxiEthernet_IsExtFuncCap determines if the device is capable of the
+* @brief XAxiEthernet_IsExtFuncCap determines if the device is capable of the.
 * new/extend VLAN and multicast features.
 *
-* @param	InstancePtr is a pointer to the Axi Ethernet instance to be
+* @param[in] InstancePtr is a pointer to the Axi Ethernet instance to be
 *		worked on.
 *
 * @return
 *		- TRUE if the device is capable and configured with extended
 *		  Multicast and VLAN Tagging/Stripping and Translation.
-*		- TRUE if the device is NOT capable and NOT configured with
+*		- FALSE if the device is NOT capable and NOT configured with
 *		  extended Multicast and VLAN Tagging/Stripping and
 *		  Translation.
 *
@@ -1231,24 +1128,24 @@ u8 XAxiEthernet_Get_Phy_Interface(XAxiEthernet *InstancePtr);
 			XAE_RAF_OFFSET) & XAE_RAF_NEWFNCENBL_MASK) ?  \
 				TRUE : FALSE)
 
-/*****************************************************************************/
+/****************************************************************************/
 /**
 *
-* XAxiEthernet_IsExtMcastEnable determines if the extended multicast features
+* @brief XAxiEthernet_IsExtMcastEnable determines if the extended multicast features.
 * is enabled.
 *
-* @param	InstancePtr is a pointer to the Axi Ethernet instance to be
+* @param[in] InstancePtr is a pointer to the Axi Ethernet instance to be
 *		worked on.
 *
 * @return
 *		- TRUE if the extended multicast features are enabled.
-*		- FALSE if the extended multicast features are NOT enabled
+*		- FALSE if the extended multicast features are NOT enabled.
 *
-* @note :	This function indicates when extended Multicast is enabled in
-*		HW, extended multicast mode in wrapper can be tested.
+* @note		Indicates when extended Multicast is enabled in HW; extended
+*		multicast mode in wrapper can be tested.
 *
-* C-style signature:
-*	 u32 XAxiEthernet_IsExtMcastEnable(XAxiEthernet *InstancePtr)
+* @note		C-style signature:
+*		u32 XAxiEthernet_IsExtMcastEnable(XAxiEthernet *InstancePtr)
 *
 *****************************************************************************/
 #define XAxiEthernet_IsExtMcastEnable(InstancePtr)			\
@@ -1256,13 +1153,13 @@ u8 XAxiEthernet_Get_Phy_Interface(XAxiEthernet *InstancePtr);
 			XAE_RAF_OFFSET) & XAE_RAF_EMULTIFLTRENBL_MASK) ? \
 				TRUE : FALSE)
 
-/*****************************************************************************/
+/****************************************************************************/
 /**
 *
-* XAxiEthernet_IsExtMcast determines if the device is built with new/extended
+* @brief XAxiEthernet_IsExtMcast determines if the device is built with new/extended.
 * multicast features.
 *
-* @param	InstancePtr is a pointer to the Axi Ethernet instance to be
+* @param[in] InstancePtr is a pointer to the Axi Ethernet instance to be
 *		worked on.
 *
 * @return
@@ -1270,23 +1167,23 @@ u8 XAxiEthernet_Get_Phy_Interface(XAxiEthernet *InstancePtr);
 *		- FALSE if the device is not built with the extended multicast
 *		  features.
 *
-* @note		This function indicates when hardware is built with extended
+* @note		indicates when hardware is built with extended
 * 		Multicast feature.
 *
-* C-style signature:
+* @note	C-style signature:
 *	 u32 XAxiEthernet_IsExtMcast(XAxiEthernet *InstancePtr)
 *
 *****************************************************************************/
 #define XAxiEthernet_IsExtMcast(InstancePtr)	\
 	(((InstancePtr)->Config.ExtMcast) ? TRUE : FALSE)
 
-/*****************************************************************************/
+/****************************************************************************/
 /**
 *
-* XAxiEthernet_IsTxVlanStrp determines if the device is configured with transmit
+* @brief XAxiEthernet_IsTxVlanStrp determines if the device is configured with transmit.
 * VLAN stripping on the transmit channel.
 *
-* @param	InstancePtr is a pointer to the Axi Ethernet instance to be
+* @param[in] InstancePtr is a pointer to the Axi Ethernet instance to be
 *		worked on.
 *
 * @return
@@ -1302,13 +1199,13 @@ u8 XAxiEthernet_Get_Phy_Interface(XAxiEthernet *InstancePtr);
 #define XAxiEthernet_IsTxVlanStrp(InstancePtr)	\
 	(((InstancePtr)->Config.TxVlanStrp) ? TRUE : FALSE)
 
-/*****************************************************************************/
+/****************************************************************************/
 /**
 *
-* XAxiEthernet_IsRxVlanStrp determines if the device is configured with receive
+* @brief XAxiEthernet_IsRxVlanStrp determines if the device is configured with receive.
 * VLAN stripping on the receive channel.
 *
-* @param	InstancePtr is a pointer to the Axi Ethernet instance to be
+* @param[in] InstancePtr is a pointer to the Axi Ethernet instance to be
 *		worked on.
 *
 * @return
@@ -1324,13 +1221,13 @@ u8 XAxiEthernet_Get_Phy_Interface(XAxiEthernet *InstancePtr);
 #define XAxiEthernet_IsRxVlanStrp(InstancePtr)	\
 	(((InstancePtr)->Config.RxVlanStrp) ? TRUE : FALSE)
 
-/*****************************************************************************/
+/****************************************************************************/
 /**
 *
-* XAxiEthernet_IsTxVlanTran determines if the device is configured with
+* @brief XAxiEthernet_IsTxVlanTran determines if the device is configured with.
 * transmit VLAN translation on the transmit channel.
 *
-* @param	InstancePtr is a pointer to the Axi Ethernet instance to be
+* @param[in] InstancePtr is a pointer to the Axi Ethernet instance to be
 *		worked on.
 *
 * @return
@@ -1346,13 +1243,13 @@ u8 XAxiEthernet_Get_Phy_Interface(XAxiEthernet *InstancePtr);
 #define XAxiEthernet_IsTxVlanTran(InstancePtr)	\
 	(((InstancePtr)->Config.TxVlanTran) ? TRUE : FALSE)
 
-/*****************************************************************************/
+/****************************************************************************/
 /**
 *
-* XAxiEthernet_IsRxVlanTran determines if the device is configured with receive
+* @brief XAxiEthernet_IsRxVlanTran determines if the device is configured with receive.
 * VLAN translation on the receive channel.
 *
-* @param	InstancePtr is a pointer to the Axi Ethernet instance to be
+* @param[in] InstancePtr is a pointer to the Axi Ethernet instance to be
 *		worked on.
 *
 * @return
@@ -1368,13 +1265,13 @@ u8 XAxiEthernet_Get_Phy_Interface(XAxiEthernet *InstancePtr);
 #define XAxiEthernet_IsRxVlanTran(InstancePtr)	\
 	(((InstancePtr)->Config.RxVlanTran) ? TRUE : FALSE)
 
-/*****************************************************************************/
+/****************************************************************************/
 /**
 *
-* XAxiEthernet_IsTxVlanTag determines if the device is configured with transmit
+* @brief XAxiEthernet_IsTxVlanTag determines if the device is configured with transmit.
 * VLAN tagging on the transmit channel.
 *
-* @param	InstancePtr is a pointer to the Axi Ethernet instance to be
+* @param[in] InstancePtr is a pointer to the Axi Ethernet instance to be
 *		worked on.
 *
 * @return
@@ -1390,13 +1287,13 @@ u8 XAxiEthernet_Get_Phy_Interface(XAxiEthernet *InstancePtr);
 #define XAxiEthernet_IsTxVlanTag(InstancePtr)	\
 	(((InstancePtr)->Config.TxVlanTag) ? TRUE : FALSE)
 
-/*****************************************************************************/
+/****************************************************************************/
 /**
 *
-* XAxiEthernet_IsRxVlanTag determines if the device is configured with receive
+* @brief XAxiEthernet_IsRxVlanTag determines if the device is configured with receive.
 * VLAN tagging on the receive channel.
 *
-* @param	InstancePtr is a pointer to the Axi Ethernet instance to be
+* @param[in] InstancePtr is a pointer to the Axi Ethernet instance to be
 *		worked on.
 *
 * @return
@@ -1412,15 +1309,14 @@ u8 XAxiEthernet_Get_Phy_Interface(XAxiEthernet *InstancePtr);
 #define XAxiEthernet_IsRxVlanTag(InstancePtr)	\
 	(((InstancePtr)->Config.RxVlanTag) ? TRUE : FALSE)
 
-/*****************************************************************************/
+/****************************************************************************/
 /**
 *
-* XAxiEthernet_GetTemacType returns the Axi Ethernet type of the core.
+* @brief XAxiEthernet_GetTemacType returns the Axi Ethernet type of the core.
 *
-* @param	InstancePtr is a pointer to the Axi Ethernet instance to be
+* @param[in] InstancePtr is a pointer to the Axi Ethernet instance to be
 *		worked on.
 *
-* @return
 *	 	- Returns the values of TemacType, which can be
 *		  XAE_SOFT_TEMAC_10_100_MBPS (0) for Soft Temac Core with
 *							speed 10/100 Mbps.
@@ -1435,13 +1331,13 @@ u8 XAxiEthernet_Get_Phy_Interface(XAxiEthernet *InstancePtr);
 #define XAxiEthernet_GetTemacType(InstancePtr)	\
 	((InstancePtr)->Config.TemacType)
 
-/*****************************************************************************/
+/****************************************************************************/
 /**
 *
-* XAxiEthernet_IsAvbConfigured returns determines if Ethernet AVB.is configured
+* @brief XAxiEthernet_IsAvbConfigured returns determines if Ethernet AVB.is configured.
 * in the hardware or not.
 *
-* @param	InstancePtr is a pointer to the Axi Ethernet instance to be
+* @param[in] InstancePtr is a pointer to the Axi Ethernet instance to be
 *		worked on.
 *
 * @return
@@ -1457,13 +1353,13 @@ u8 XAxiEthernet_Get_Phy_Interface(XAxiEthernet *InstancePtr);
 #define XAxiEthernet_IsAvbConfigured(InstancePtr)	\
 	(((InstancePtr)->Config.Avb) ? TRUE : FALSE)
 
-/*****************************************************************************/
+/****************************************************************************/
 /**
 *
-* XAxiEthernet_IsSgmiiOverLvdsEnabled determines if SGMII over LVDS is enabled
+* @brief XAxiEthernet_IsSgmiiOverLvdsEnabled determines if SGMII over LVDS is enabled.
 * in the hardware or not.
 *
-* @param	InstancePtr is a pointer to the Axi Ethernet instance to be
+* @param[in] InstancePtr is a pointer to the Axi Ethernet instance to be
 *		worked on.
 *
 * @return
@@ -1479,13 +1375,13 @@ u8 XAxiEthernet_Get_Phy_Interface(XAxiEthernet *InstancePtr);
 #define XAxiEthernet_IsSgmiiOverLvdsEnabled(InstancePtr)	\
 	(((InstancePtr)->Config.EnableSgmiiOverLvds) ? TRUE : FALSE)
 
-/*****************************************************************************/
+/****************************************************************************/
 /**
 *
-* XAxiEthernet_IsStatsConfigured returns determines if Statistics gathering.
+* @brief XAxiEthernet_IsStatsConfigured returns determines if Statistics gathering.
 * is configured in the hardware or not.
 *
-* @param	InstancePtr is a pointer to the Axi Ethernet instance to be
+* @param[in] InstancePtr is a pointer to the Axi Ethernet instance to be
 *		worked on.
 *
 * @return
@@ -1501,7 +1397,9 @@ u8 XAxiEthernet_Get_Phy_Interface(XAxiEthernet *InstancePtr);
 #define XAxiEthernet_IsStatsConfigured(InstancePtr)	\
 	(((InstancePtr)->Config.Stats) ? TRUE : FALSE)
 
-/************************** Function Prototypes ******************************/
+/** @endcond */
+
+/************************* Function Prototypes ******************************/
 
 /*
  * Initialization functions in xaxiethernet.c
@@ -1517,9 +1415,10 @@ void XAxiEthernet_Reset(XAxiEthernet *InstancePtr);
 /*
  * Initialization functions in xaxitemac_sinit.c
  */
-#ifndef SDT
+#if !defined(SDT)
 XAxiEthernet_Config *XAxiEthernet_LookupConfig(u16 DeviceId);
-#else
+#endif
+#if defined(SDT)
 XAxiEthernet_Config *XAxiEthernet_LookupConfig(UINTPTR BaseAddress);
 #endif
 
@@ -1595,5 +1494,6 @@ void XAxiEthernet_DumpExtMulticastGroup(XAxiEthernet *InstancePtr);
 }
 #endif
 
-#endif /* end of protection macro */
 /** @} */
+
+#endif /* end of protection macro */
