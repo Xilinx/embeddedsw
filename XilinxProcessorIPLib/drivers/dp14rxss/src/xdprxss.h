@@ -116,6 +116,9 @@ extern "C" {
 #include "xdprxss_dprx.h"
 #include "xdprxss_iic.h"
 #include "xdprxss_hdcp1x.h"
+#if (XPAR_XCLK_WIZ_NUM_INSTANCES > 0)
+#include "xclk_wiz.h"
+#endif
 #if (XPAR_XHDCP22_RX_DP_NUM_INSTANCES > 0)
 #include "xdprxss_hdcp22.h"
 #endif
@@ -538,6 +541,11 @@ typedef struct {
 	u8 *EdidDataPtr[XDP_MAX_NPORTS];/**< Pointer to EDID Data */
 	u16 EdidSize[XDP_MAX_NPORTS];	/**< Size of EDID Data */
 	UINTPTR clk_wiz_abs_addr;
+#if (XPAR_XCLK_WIZ_NUM_INSTANCES > 0)
+	XClk_Wiz ClkWiz;		/**< Clocking Wizard driver instance used
+					  *  to program the rx_dec_clk through the
+					  *  clk_wiz driver APIs */
+#endif
 } XDpRxSs;
 
 /***************** Macros (Inline Functions) Definitions *********************/

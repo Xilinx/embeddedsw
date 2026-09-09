@@ -84,130 +84,18 @@ extern u32 MCDP6000_IC_Rev;
 /** EDID IIC slave address */
 #define EDID_IIC_ADDRESS	0x50
 
-/** @name Clock Wizard register offsets and default values
+/** @name Clock Wizard software reset and lock polling
+ *
+ * Software reset is not defined by the clk_wiz driver header. Status offset
+ * is the same value the clk_wiz header uses, so it is defined here always.
  *  @{
  */
 #define XCLK_WIZ_SWRST_OFFSET	0x00000000 /**< Software reset offset */
 #define XCLK_WIZ_SWRST_VAL	0x0A /**< Software reset value */
 #define XCLK_WIZ_STATUS_OFFSET	0x00000004 /**< Status register offset */
-#define XCLK_WIZ_ISR_OFFSET	0x0000000C /**< Interrupt status register offset */
-#define XCLK_WIZ_IER_OFFSET	0x00000010 /**< Interrupt enable register offset */
-#define XCLK_WIZ_RECONFIG_OFFSET	0x00000014 /**< Reconfiguration register offset */
-#define XCLK_WIZ_RECONFIG_VAL	0x03 /**< Reconfiguration trigger value */
-#define XCLK_WIZ_REG1_OFFSET	0x00000330 /**< ClkOut0 register 1 offset */
-#define XCLK_WIZ_REG2_OFFSET	0x00000334 /**< ClkOut0 register 2 offset */
-#define XCLK_WIZ_REG3_OFFSET	0x00000338 /**< ClkOut0 register 3 offset */
-#define XCLK_WIZ_REG4_OFFSET	0x0000033C /**< ClkOut0 register 4 offset */
-#define XCLK_WIZ_REG12_OFFSET	0x00000380 /**< Divider register offset */
-#define XCLK_WIZ_REG13_OFFSET	0x00000384 /**< Divider register 2 offset */
-#define XCLK_WIZ_REG11_OFFSET	0x00000378 /**< ClkOut0 register 11 offset */
-#define XCLK_WIZ_REG11_VAL	0x2E /**< ClkOut0 register 11 default value */
-#define XCLK_WIZ_REG14_OFFSET	0x00000398 /**< Filter register offset */
-#define XCLK_WIZ_REG14_VAL	0xE80 /**< Filter register default value */
-#define XCLK_WIZ_REG15_OFFSET	0x0000039C /**< Lock register 1 offset */
-#define XCLK_WIZ_REG15_VAL	0x4271 /**< Lock register 1 default value */
-#define XCLK_WIZ_REG16_OFFSET	0x000003A0 /**< Lock register 2 offset */
-#define XCLK_WIZ_REG16_VAL	0x43E9 /**< Lock register 2 default value */
-#define XCLK_WIZ_REG17_OFFSET	0x000003A8 /**< Lock register 3 offset */
-#define XCLK_WIZ_REG17_VAL	0x1C /**< Lock register 3 default value */
-#define XCLK_WIZ_REG19_OFFSET	0x000003CC /**< Power register offset */
-#define XCLK_WIZ_REG25_OFFSET	0x000003F0 /**< FBout register offset */
-#define XCLK_WIZ_REG26_OFFSET	0x000003FC /**< FBout register 2 offset */
-#define XCLK_WIZ_REG26_VAL	0x01 /**< FBout register 2 default value */
-/** @} */
-
-/** Clock Wizard primary low offset */
-#define XCLK_WIZ_PRIM_L_OFFSET  0x000003B0
-/** Clock Wizard primary high offset */
-#define XCLK_WIZ_PRIM_H_OFFSET  0x000003B4
-/** Clock Wizard secondary low offset */
-#define XCLK_WIZ_SEC_L_OFFSET   0x000003B8
-/** Clock Wizard secondary high offset */
-#define XCLK_WIZ_SEC_H_OFFSET   0x000003BC
-
-/** @name CLKx5 Wizard per-link-rate configuration values
- *  @{
- */
-/** 8.1 Gbps configuration values */
-#define XCLK_WIZ_REG2_810GBPS_CFG_VAL           0x0E0E
-#define XCLK_WIZ_REG3_810GBPS_CFG_VAL           0xBB00 /**< Reg3 config for 8.1 Gbps */
-#define XCLK_WIZ_REG4_810GBPS_CFG_VAL           0x0101 /**< Reg4 config for 8.1 Gbps */
-#define XCLK_WIZ_REG11_810GBPS_CFG_VAL          0x002E /**< Reg11 config for 8.1 Gbps */
-#define XCLK_WIZ_REG15_810GBPS_CFG_VAL          0x420D /**< Reg15 config for 8.1 Gbps */
-#define XCLK_WIZ_REG17_810GBPS_CFG_VAL          0x0002 /**< Reg17 config for 8.1 Gbps */
-#define XCLK_WIZ_PRIM_L_810GBPS_CFG_VAL         0xB98A /**< Primary low config for 8.1 Gbps */
-#define XCLK_WIZ_PRIM_H_810GBPS_CFG_VAL         0x0007 /**< Primary high config for 8.1 Gbps */
-#define XCLK_WIZ_SEC_L_810GBPS_CFG_VAL          0xDCC5 /**< Secondary low config for 8.1 Gbps */
-#define XCLK_WIZ_SEC_H_810GBPS_CFG_VAL          0x0003 /**< Secondary high config for 8.1 Gbps */
-/** 5.4 Gbps configuration values */
-#define XCLK_WIZ_REG2_540GBPS_CFG_VAL           0x1616
-#define XCLK_WIZ_REG3_540GBPS_CFG_VAL           0xBB00 /**< Reg3 config for 5.4 Gbps */
-#define XCLK_WIZ_REG4_540GBPS_CFG_VAL           0x0202 /**< Reg4 config for 5.4 Gbps */
-#define XCLK_WIZ_REG11_540GBPS_CFG_VAL          0x002F /**< Reg11 config for 5.4 Gbps */
-#define XCLK_WIZ_REG15_540GBPS_CFG_VAL          0x412C /**< Reg15 config for 5.4 Gbps */
-#define XCLK_WIZ_REG17_540GBPS_CFG_VAL          0x000C /**< Reg17 config for 5.4 Gbps */
-#define XCLK_WIZ_PRIM_L_540GBPS_CFG_VAL         0x265C /**< Primary low config for 5.4 Gbps */
-#define XCLK_WIZ_PRIM_H_540GBPS_CFG_VAL         0x0005 /**< Primary high config for 5.4 Gbps */
-#define XCLK_WIZ_SEC_L_540GBPS_CFG_VAL          0x932E /**< Secondary low config for 5.4 Gbps */
-#define XCLK_WIZ_SEC_H_540GBPS_CFG_VAL          0x0002 /**< Secondary high config for 5.4 Gbps */
-/** 2.7 Gbps configuration values */
-#define XCLK_WIZ_REG2_270GBPS_CFG_VAL           0x2C2C
-#define XCLK_WIZ_REG3_270GBPS_CFG_VAL           0x1B00 /**< Reg3 config for 2.7 Gbps */
-#define XCLK_WIZ_REG4_270GBPS_CFG_VAL           0x0505 /**< Reg4 config for 2.7 Gbps */
-#define XCLK_WIZ_REG11_270GBPS_CFG_VAL          0x002E /**< Reg11 config for 2.7 Gbps */
-#define XCLK_WIZ_REG15_270GBPS_CFG_VAL          0x40FA /**< Reg15 config for 2.7 Gbps */
-#define XCLK_WIZ_REG17_270GBPS_CFG_VAL          0x0004 /**< Reg17 config for 2.7 Gbps */
-#define XCLK_WIZ_PRIM_L_270GBPS_CFG_VAL         0x932E /**< Primary low config for 2.7 Gbps */
-#define XCLK_WIZ_PRIM_H_270GBPS_CFG_VAL         0x0002 /**< Primary high config for 2.7 Gbps */
-#define XCLK_WIZ_SEC_L_270GBPS_CFG_VAL          0x86A0 /**< Secondary low config for 2.7 Gbps */
-#define XCLK_WIZ_SEC_H_270GBPS_CFG_VAL          0x0001 /**< Secondary high config for 2.7 Gbps */
-/** 1.62 Gbps configuration values */
-#define XCLK_WIZ_REG2_162GBPS_CFG_VAL           0x4A4A
-#define XCLK_WIZ_REG3_162GBPS_CFG_VAL           0xBA00 /**< Reg3 config for 1.62 Gbps */
-#define XCLK_WIZ_REG4_162GBPS_CFG_VAL           0x0909 /**< Reg4 config for 1.62 Gbps */
-#define XCLK_WIZ_REG11_162GBPS_CFG_VAL          0x002C /**< Reg11 config for 1.62 Gbps */
-#define XCLK_WIZ_REG15_162GBPS_CFG_VAL          0x40FA /**< Reg15 config for 1.62 Gbps */
-#define XCLK_WIZ_REG17_162GBPS_CFG_VAL          0x0008 /**< Reg17 config for 1.62 Gbps */
-#define XCLK_WIZ_PRIM_L_162GBPS_CFG_VAL         0x8B82 /**< Primary low config for 1.62 Gbps */
-#define XCLK_WIZ_PRIM_H_162GBPS_CFG_VAL         0x0001 /**< Primary high config for 1.62 Gbps */
-#define XCLK_WIZ_SEC_L_162GBPS_CFG_VAL          0x86A0 /**< Secondary low config for 1.62 Gbps */
-#define XCLK_WIZ_SEC_H_162GBPS_CFG_VAL          0x0001 /**< Secondary high config for 1.62 Gbps */
-/** @} */
-
-
-/** @name Clock Wizard control bit masks and shift values
- *  @{
- */
-#define XCLK_WIZ_LOCK			1 /**< Clock lock status bit */
-#define XCLK_WIZ_REG3_PREDIV2		(1 << 11) /**< ClkOut0 reg3 pre-divide by 2 */
-#define XCLK_WIZ_REG3_USED		(1 << 12) /**< ClkOut0 reg3 used bit */
-#define XCLK_WIZ_REG3_MX		(1 << 9) /**< ClkOut0 reg3 MX bit */
-#define XCLK_WIZ_REG1_PREDIV2		(1 << 12) /**< FBout reg1 pre-divide by 2 */
-#define XCLK_WIZ_REG1_EN		(1 << 9) /**< FBout enable bit */
-#define XCLK_WIZ_REG1_MX		(1 << 10) /**< FBout MX bit */
-#define XCLK_WIZ_RECONFIG_LOAD		1 /**< Reconfiguration load trigger */
-#define XCLK_WIZ_RECONFIG_SADDR		2 /**< Reconfiguration start address */
-#define XCLK_WIZ_REG1_EDGE_MASK		(1 << 8) /**< FBout reg1 edge mask */
-
-#define XCLK_WIZ_CLKOUT0_PREDIV2_SHIFT	11 /**< ClkOut0 pre-divide by 2 shift */
-#define XCLK_WIZ_CLKOUT0_MX_SHIFT	9 /**< ClkOut0 MX shift */
-#define XCLK_WIZ_CLKOUT0_P5EN_SHIFT	13 /**< ClkOut0 phase5 enable shift */
-#define XCLK_WIZ_CLKOUT0_P5FEDGE_SHIFT	15 /**< ClkOut0 phase5 falling edge shift */
-#define XCLK_WIZ_REG12_EDGE_SHIFT	10 /**< Divider edge shift */
-/** @} */
-
-/** @name MMCM multiplier and divider values
- *  @{
- */
-#define M_VAL_405	28 /**< MMCM multiplier for 405 MHz (8.1 Gbps link rate) */
-#define M_VAL_270	44 /**< MMCM multiplier for 270 MHz (5.4 Gbps link rate) */
-#define M_VAL_135	88 /**< MMCM multiplier for 135 MHz (2.7 Gbps link rate) */
-#define M_VAL_81	148 /**< MMCM multiplier for 81 MHz (1.62 Gbps link rate) */
-#define D_VAL_ALL	5 /**< MMCM divider value for all link rates */
-/** @} */
-
 #define XCLK_WIZ_STATUS_RETRY	10000 /**< Max retries for clock lock status */
 #define XCLK_WIZ_STATUS_WAIT	100 /**< Wait time in microseconds between retries */
+/** @} */
 
 /**************************** Type Definitions *******************************/
 
@@ -270,7 +158,9 @@ static int XDpRxSs_HdcpReset(XDpRxSs *InstancePtr);
 * @note		None.
 *
 ******************************************************************************/
+#if (XPAR_XCLK_WIZ_NUM_INSTANCES > 0)
 static void XDpRxSs_Set_Dec_Clk(XDpRxSs *InstancePtr);
+#endif
 
 /************************** Variable Definitions *****************************/
 
@@ -370,10 +260,32 @@ u32 XDpRxSs_CfgInitialize(XDpRxSs *InstancePtr, XDpRxSs_Config *CfgPtr,
 	/* Get included sub-cores in the DisplayPort RX Subsystem */
 	DpRxSs_GetIncludedSubCores(InstancePtr, InstancePtr->Config.BaseAddress);
 
-	if (InstancePtr->Config.IncludeClkWiz)
+#if (XPAR_XCLK_WIZ_NUM_INSTANCES > 0)
+	if (InstancePtr->Config.IncludeClkWiz) {
+		XClk_Wiz_Config ClkWizCfg;
+
 		InstancePtr->clk_wiz_abs_addr =
 			InstancePtr->Config.BaseAddress +
 			InstancePtr->Config.ClkWizSubCore.ClkWizConfig.BaseAddress;
+
+		/*
+		 * Initialize the Clocking Wizard driver instance so that the
+		 * rx_dec_clk can be reconfigured through the clk_wiz driver
+		 * APIs instead of direct register writes.
+		 */
+		(void)memset(&ClkWizCfg, 0, sizeof(ClkWizCfg));
+		ClkWizCfg.Name =
+			InstancePtr->Config.ClkWizSubCore.ClkWizConfig.Name;
+		ClkWizCfg.BaseAddr = InstancePtr->clk_wiz_abs_addr;
+		ClkWizCfg.NumClocks = 1;
+		Status = XClk_Wiz_CfgInitialize(&InstancePtr->ClkWiz,
+					       &ClkWizCfg,
+					       InstancePtr->clk_wiz_abs_addr);
+		if (Status != XST_SUCCESS) {
+			return XST_FAILURE;
+		}
+	}
+#endif
 
 	/* Check for IIC availability */
 #ifdef XPAR_XIIC_NUM_INSTANCES
@@ -2064,8 +1976,10 @@ static void StubTp1Callback(void *InstancePtr)
 
 	/* Link bandwidth callback */
 	if (DpRxSsPtr->LinkBwCallback) {
+#if (XPAR_XCLK_WIZ_NUM_INSTANCES > 0)
 		if (DpRxSsPtr->Config.IncludeClkWiz)
 			XDpRxSs_Set_Dec_Clk(DpRxSsPtr);
+#endif
 
 		DpRxSsPtr->LinkBwCallback(DpRxSsPtr->LinkBwRef);
 
@@ -2567,197 +2481,57 @@ int XDpRxSs_GetVtotal(XDpRxSs *InstancePtr, u8 Stream)
 	return VTotal;
 }
 
+#if (XPAR_XCLK_WIZ_NUM_INSTANCES > 0)
 static void XDpRxSs_Set_Dec_Clk(XDpRxSs *InstancePtr)
 {
-#ifdef XPAR_DP_RX_HIER_0_V_DP_RXSS1_0_CLK_WIZ_COMPATIBLE
-	if (strcmp(XPAR_DP_RX_HIER_0_V_DP_RXSS1_0_CLK_WIZ_COMPATIBLE,
-		   "xlnx,clkx5-wiz-1.0") == 0) {
-
-	u32 Reg2Val;
-	u32 Reg3Val;
-	u32 Reg4Val;
-	u32 Reg11Val;
-	u32 Reg15Val;
-	u32 Reg17Val;
-	u32 PrimLVal;
-	u32 PrimHVal;
-	u32 SecLVal;
-	u32 SecHVal;
-
-	switch (InstancePtr->UsrOpt.LinkRate) {
-		case XDP_LINK_BW_SET_810GBPS:
-			Reg2Val = XCLK_WIZ_REG2_810GBPS_CFG_VAL;
-			Reg3Val = XCLK_WIZ_REG3_810GBPS_CFG_VAL;
-			Reg4Val = XCLK_WIZ_REG4_810GBPS_CFG_VAL;
-			Reg11Val = XCLK_WIZ_REG11_810GBPS_CFG_VAL;
-			Reg15Val = XCLK_WIZ_REG15_810GBPS_CFG_VAL;
-			Reg17Val = XCLK_WIZ_REG17_810GBPS_CFG_VAL;
-			PrimLVal = XCLK_WIZ_PRIM_L_810GBPS_CFG_VAL;
-			PrimHVal = XCLK_WIZ_PRIM_H_810GBPS_CFG_VAL;
-			SecLVal = XCLK_WIZ_SEC_L_810GBPS_CFG_VAL;
-			SecHVal = XCLK_WIZ_SEC_H_810GBPS_CFG_VAL;
-			break;
-	        case XDP_LINK_BW_SET_540GBPS:
-			Reg2Val = XCLK_WIZ_REG2_540GBPS_CFG_VAL;
-			Reg3Val = XCLK_WIZ_REG3_540GBPS_CFG_VAL;
-			Reg4Val = XCLK_WIZ_REG4_540GBPS_CFG_VAL;
-			Reg11Val = XCLK_WIZ_REG11_540GBPS_CFG_VAL;
-			Reg15Val = XCLK_WIZ_REG15_540GBPS_CFG_VAL;
-			Reg17Val = XCLK_WIZ_REG17_540GBPS_CFG_VAL;
-			PrimLVal = XCLK_WIZ_PRIM_L_540GBPS_CFG_VAL;
-			PrimHVal = XCLK_WIZ_PRIM_H_540GBPS_CFG_VAL;
-			SecLVal = XCLK_WIZ_SEC_L_540GBPS_CFG_VAL;
-			SecHVal = XCLK_WIZ_SEC_H_540GBPS_CFG_VAL;
-			break;
-		case XDP_LINK_BW_SET_270GBPS:
-			Reg2Val = XCLK_WIZ_REG2_270GBPS_CFG_VAL;
-			Reg3Val = XCLK_WIZ_REG3_270GBPS_CFG_VAL;
-			Reg4Val = XCLK_WIZ_REG4_270GBPS_CFG_VAL;
-			Reg11Val = XCLK_WIZ_REG11_270GBPS_CFG_VAL;
-			Reg15Val = XCLK_WIZ_REG15_270GBPS_CFG_VAL;
-			Reg17Val = XCLK_WIZ_REG17_270GBPS_CFG_VAL;
-			PrimLVal = XCLK_WIZ_PRIM_L_270GBPS_CFG_VAL;
-			PrimHVal = XCLK_WIZ_PRIM_H_270GBPS_CFG_VAL;
-			SecLVal = XCLK_WIZ_SEC_L_270GBPS_CFG_VAL;
-			SecHVal = XCLK_WIZ_SEC_H_270GBPS_CFG_VAL;
-			break;
-	        default:
-			Reg2Val = XCLK_WIZ_REG2_162GBPS_CFG_VAL;
-			Reg3Val = XCLK_WIZ_REG3_162GBPS_CFG_VAL;
-			Reg4Val = XCLK_WIZ_REG4_162GBPS_CFG_VAL;
-			Reg11Val = XCLK_WIZ_REG11_162GBPS_CFG_VAL;
-			Reg15Val = XCLK_WIZ_REG15_162GBPS_CFG_VAL;
-			Reg17Val = XCLK_WIZ_REG17_162GBPS_CFG_VAL;
-			PrimLVal = XCLK_WIZ_PRIM_L_162GBPS_CFG_VAL;
-			PrimHVal = XCLK_WIZ_PRIM_H_162GBPS_CFG_VAL;
-			SecLVal = XCLK_WIZ_SEC_L_162GBPS_CFG_VAL;
-			SecHVal = XCLK_WIZ_SEC_H_162GBPS_CFG_VAL;
-			break;
-	}
-        XDpRxSs_WriteReg(InstancePtr->clk_wiz_abs_addr,
-                         XCLK_WIZ_REG2_OFFSET, Reg2Val);
-        XDpRxSs_WriteReg(InstancePtr->clk_wiz_abs_addr,
-                         XCLK_WIZ_REG3_OFFSET, Reg3Val);
-        XDpRxSs_WriteReg(InstancePtr->clk_wiz_abs_addr,
-                         XCLK_WIZ_REG4_OFFSET, Reg4Val);
-        XDpRxSs_WriteReg(InstancePtr->clk_wiz_abs_addr,
-                         XCLK_WIZ_REG11_OFFSET, Reg11Val);
-        XDpRxSs_WriteReg(InstancePtr->clk_wiz_abs_addr,
-                         XCLK_WIZ_REG15_OFFSET, Reg15Val);
-        XDpRxSs_WriteReg(InstancePtr->clk_wiz_abs_addr,
-                         XCLK_WIZ_REG17_OFFSET, Reg17Val);
-        XDpRxSs_WriteReg(InstancePtr->clk_wiz_abs_addr,
-                         XCLK_WIZ_PRIM_L_OFFSET, PrimLVal);
-        XDpRxSs_WriteReg(InstancePtr->clk_wiz_abs_addr,
-                         XCLK_WIZ_PRIM_H_OFFSET, PrimHVal);
-        XDpRxSs_WriteReg(InstancePtr->clk_wiz_abs_addr,
-                         XCLK_WIZ_SEC_L_OFFSET, SecLVal);
-        XDpRxSs_WriteReg(InstancePtr->clk_wiz_abs_addr,
-                         XCLK_WIZ_SEC_H_OFFSET, SecHVal);
-	} else
-#endif
-	{
-	u32 HighTime, DivEdge, Reg, P5Enable, P5fEdge;
-	u16 Oval, Dval, Mval;
+	u64 SetRateHz;
+	u64 InClkFreqHz;
 
 	/*
-	 * For each line rate, the M, D, Div values for MMCM are chosen such that
-	 * MMCM gives a /20 clock output for /16 clk input.
-	 *
-	 * GT ch0outclk (/16) --> MMCM --> /20 clock
-	 *
-	 * Thus:
+	 * Decode clock (rx_dec_clk) output frequency for the current link rate.
+	 * For every link rate the MMCM converts the /16 GT clock into a /20
+	 * clock (output = 0.8 * input), i.e:
 	 * 8.1G  : Input MMCM clock is 506.25, output is 405
-	 * 5.4G  : Input MMCM clock is 337.5, output is 270
+	 * 5.4G  : Input MMCM clock is 337.5,  output is 270
 	 * 2.7G  : Input MMCM clock is 168.75, output is 135
 	 * 1.62G : Input MMCM clock is 101.25, output is 81
 	 */
 	switch (InstancePtr->UsrOpt.LinkRate) {
 	case XDP_LINK_BW_SET_810GBPS:
-		Mval = M_VAL_405;
+		SetRateHz = 405000000ULL;
 		break;
 	case XDP_LINK_BW_SET_540GBPS:
-		Mval = M_VAL_270;
+		SetRateHz = 270000000ULL;
 		break;
 	case XDP_LINK_BW_SET_270GBPS:
-		Mval = M_VAL_135;
+		SetRateHz = 135000000ULL;
 		break;
 	default:
-		Mval = M_VAL_81;
+		SetRateHz = 81000000ULL;
 	}
-	Dval = D_VAL_ALL;
-	Oval = Mval / 4;
+
+	/* Wizard input clock = output / 0.8 = output * 5 / 4. */
+	InClkFreqHz = (SetRateHz * 5U) / 4U;
 
 	/*
-	 * MMCM is dynamically programmed for the respective rate
-	 * using the M, D, Div values
+	 * VEK385 uses clkx5, which takes its input frequency through the
+	 * PRIM/SEC registers, so the rate has to be pushed into hardware.
+	 * Other wizards have no such registers and only need the input rate
+	 * recorded for the M/D/O calculation.
 	 */
-	HighTime = (Oval / 4);
-	Reg =  XCLK_WIZ_REG3_PREDIV2 | XCLK_WIZ_REG3_USED | XCLK_WIZ_REG3_MX;
-	if (Oval % 4 <= 1) {
-		DivEdge = 0;
+	if (strncmp(InstancePtr->Config.ClkWizSubCore.ClkWizConfig.Name,
+		    "xlnx,clkx5-wiz-", 15U) == 0) {
+		XClk_Wiz_SetInputRate(&InstancePtr->ClkWiz,
+				      (double)InClkFreqHz);
 	} else {
-		DivEdge = 1;
+		InstancePtr->ClkWiz.Config.PrimInClkFreq = InClkFreqHz;
 	}
-	Reg |= (DivEdge << 8);
-	P5fEdge = Oval % 2;
-	P5Enable = Oval % 2;
-	Reg = Reg | P5Enable <<
-		(XCLK_WIZ_CLKOUT0_P5EN_SHIFT |
-		 P5fEdge << XCLK_WIZ_CLKOUT0_P5FEDGE_SHIFT);
-	XDpRxSs_WriteReg(InstancePtr->clk_wiz_abs_addr,
-			XCLK_WIZ_REG3_OFFSET, Reg);
-	Reg = HighTime | HighTime << 8;
-	XDpRxSs_WriteReg(InstancePtr->clk_wiz_abs_addr,
-			XCLK_WIZ_REG4_OFFSET, Reg);
 
-	/* Implement D */
-	HighTime = (Dval / 2);
-	Reg  = 0;
-	Reg = Reg & ~(1 << XCLK_WIZ_REG12_EDGE_SHIFT);
-	DivEdge = Dval % 2;
-	Reg = Reg | DivEdge << XCLK_WIZ_REG12_EDGE_SHIFT;
-	XDpRxSs_WriteReg(InstancePtr->clk_wiz_abs_addr,
-			XCLK_WIZ_REG12_OFFSET, Reg);
-	Reg = HighTime | HighTime << 8;
-	XDpRxSs_WriteReg(InstancePtr->clk_wiz_abs_addr,
-			XCLK_WIZ_REG13_OFFSET, Reg);
-
-	/* Implement M*/
-	XDpRxSs_WriteReg(InstancePtr->clk_wiz_abs_addr,
-			XCLK_WIZ_REG25_OFFSET, 0);
-
-	DivEdge = Mval % 2;
-	HighTime = Mval / 2;
-	Reg = HighTime | HighTime << 8;
-	XDpRxSs_WriteReg(InstancePtr->clk_wiz_abs_addr,
-			XCLK_WIZ_REG2_OFFSET, Reg);
-	Reg = XCLK_WIZ_REG1_PREDIV2 | XCLK_WIZ_REG1_EN | XCLK_WIZ_REG1_MX;
-
-	if (DivEdge) {
-		Reg = Reg | XCLK_WIZ_REG1_EDGE_MASK;
-	} else {
-		Reg = Reg & ~XCLK_WIZ_REG1_EDGE_MASK;
-	}
-	XDpRxSs_WriteReg(InstancePtr->clk_wiz_abs_addr,
-			XCLK_WIZ_REG1_OFFSET, Reg);
-	XDpRxSs_WriteReg(InstancePtr->clk_wiz_abs_addr, XCLK_WIZ_REG11_OFFSET,
-			XCLK_WIZ_REG11_VAL);
-	XDpRxSs_WriteReg(InstancePtr->clk_wiz_abs_addr, XCLK_WIZ_REG14_OFFSET,
-			XCLK_WIZ_REG14_VAL);
-	XDpRxSs_WriteReg(InstancePtr->clk_wiz_abs_addr, XCLK_WIZ_REG15_OFFSET,
-			XCLK_WIZ_REG15_VAL);
-	XDpRxSs_WriteReg(InstancePtr->clk_wiz_abs_addr, XCLK_WIZ_REG16_OFFSET,
-			XCLK_WIZ_REG16_VAL);
-	XDpRxSs_WriteReg(InstancePtr->clk_wiz_abs_addr, XCLK_WIZ_REG17_OFFSET,
-			XCLK_WIZ_REG17_VAL);
-	XDpRxSs_WriteReg(InstancePtr->clk_wiz_abs_addr, XCLK_WIZ_REG26_OFFSET,
-			XCLK_WIZ_REG26_VAL);
-	XDpRxSs_WriteReg(InstancePtr->clk_wiz_abs_addr,
-			XCLK_WIZ_RECONFIG_OFFSET,
-			(XCLK_WIZ_RECONFIG_LOAD | XCLK_WIZ_RECONFIG_SADDR));
-	}
+	/* XClk_Wiz_SetRateHz() computes, loads and applies the M/D/O values. */
+	XClk_Wiz_SetRateHz(&InstancePtr->ClkWiz, SetRateHz);
+	XClk_Wiz_WaitForLock(&InstancePtr->ClkWiz);
 }
+#endif
 
 /*****************************************************************************/
 /**
