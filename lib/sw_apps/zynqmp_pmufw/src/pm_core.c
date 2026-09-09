@@ -387,7 +387,7 @@ done:
  * @state   Desired power state
  *
  * If suspend has been successfully requested, the requested PU needs to
- * initiate its own self suspend. Remember to acknowledge to the requestor
+ * initiate its own self suspend. Remember to acknowledge to the requester
  * after:
  * 1. PU's last awake processor goes to sleep (self suspend completed),
  * 2. PU/processor aborts suspend,
@@ -1248,7 +1248,9 @@ static void PmSecureSha(const PmMaster *const master,
 				PM_NOTIFY_STL_NO_OP_EXIT);
 #endif
 
+#if defined(ENABLE_MEM_RANGE) && defined(ENABLE_MEM_RANGE_CRYPTO_REQUEST)
 END:
+#endif
 	IPI_RESPONSE1(master->ipiMask, (u32)Status);
 }
 
@@ -1295,7 +1297,9 @@ static void PmSecureRsa(const PmMaster *const master,
 				PM_NOTIFY_STL_NO_OP_EXIT);
 #endif
 
+#if defined(ENABLE_MEM_RANGE) && defined(ENABLE_MEM_RANGE_CRYPTO_REQUEST)
 END:
+#endif
 	IPI_RESPONSE1(master->ipiMask, (u32)Status);
 }
 
@@ -1464,7 +1468,9 @@ static void PmSecureImage(const PmMaster *const master,
 		 PmErr("Failed image loading  with error : %x\r\n", Status);
 	}
 
+#if defined(ENABLE_MEM_RANGE) && defined(ENABLE_MEM_RANGE_SECURE_IMAGE_LOAD)
 END:
+#endif
 	IPI_RESPONSE3(master->ipiMask, (u32)Status, Addr.AddrHigh, Addr.AddrLow);
 }
 #endif
@@ -1503,7 +1509,9 @@ static void PmEfuseAccess(const PmMaster *const master,
 	Status = XST_NOT_ENABLED;
 #endif
 
+#if defined(ENABLE_MEM_RANGE) && defined(ENABLE_MEM_RANGE_EFUSE_ACCESS) && defined(EFUSE_ACCESS)
 END:
+#endif
 	IPI_RESPONSE2(master->ipiMask, XST_SUCCESS, (u32)Status);
 }
 
