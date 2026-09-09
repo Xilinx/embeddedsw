@@ -1,22 +1,34 @@
-/*******************************************************************
+/******************************************************************************
 * Copyright (C) 2010 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
+******************************************************************************/
+
+/*****************************************************************************/
+/**
 *
-
-*******************************************************************************/*
-
+* @file xmcdma_g.c
+* @addtogroup mcdma Overview
+* @{
+*
+* Provide a template for user to define their own hardware settings.
+*
+* If using XPS, XPS will automatically generate this file.
+*
+* <pre>
+* MODIFICATION HISTORY:
+*
+* Ver   Who     Date     Changes
+* ----- ------  -------- ------------------------------------------------------
+* 1.0   adk     18/07/17 Initial version.
+* </pre>
+*
+******************************************************************************/
 
 #include "xparameters.h"
 #include "xmcdma.h"
 
-/*
- *@file xmcdma.c
-* @addtogroup mcdma_g Overview
- *
-* The configuration table for devices
-*/
-
+/** Configuration table for each MCDMA instance in the system. */
 XMcdma_Config XMcdma_ConfigTable[] = {
 	{
 		XPAR_AXI_MCDMA_0_DEVICE_ID,
@@ -35,3 +47,4 @@ XMcdma_Config XMcdma_ConfigTable[] = {
 		XPAR_AXI_MCDMA_0_SG_INCLUDE_STSCNTRL_STRM
 	}
 };
+/** @} */

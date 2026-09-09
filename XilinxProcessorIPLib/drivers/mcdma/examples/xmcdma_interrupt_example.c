@@ -8,8 +8,10 @@
 /**
  *
  * @file xmcdma_interrupt_example.c
+ * @addtogroup mcdma Overview
+ * @{
  *
- * This file demonstrates how to use the mcdma driver on the Xilinx AXI
+ * Demonstrates how to use the MCDMA driver on the Xilinx AXI
  * MCDMA core (AXI MCDMA) to transfer packets in interrupt mode.
  *
  * This examples shows how to do multiple packets and multiple BD's
@@ -132,6 +134,7 @@ static INTC Intc;	/* Instance of the Interrupt Controller */
 
 
 /************************** Function Prototypes ******************************/
+/** @cond INTERNAL */
 static int RxSetup(XMcdma *McDmaInstPtr);
 static int TxSetup(XMcdma *McDmaInstPtr);
 static int SendPacket(XMcdma *McDmaInstPtr);
@@ -146,6 +149,7 @@ static void ErrorHandler(void *CallBackRef, u32 Chan_id, u32 Mask);
 #ifndef SDT
 static int ChanIntr_Id(XMcdma_ChanCtrl *Chan, int ChanId);
 #endif
+/** @endcond */
 
 /************************** Variable Definitions *****************************/
 /*
@@ -197,17 +201,15 @@ static UINTPTR RxBdSpacePtr;
 *
 * Main function
 *
-* This function is the main entry of the tests on DMA core. It sets up
+* Main entry point of the MCDMA DMA core test. It sets up
 * DMA engine to be ready to receive and send packets, then a packet is
 * transmitted and will be verified after it is received via the DMA.
 *
-* @param	None
 *
 * @return
 *		- XST_SUCCESS if test passes
 *		- XST_FAILURE if test fails.
 *
-* @note		None.
 *
 ******************************************************************************/
 int main(void)
@@ -312,14 +314,13 @@ int main(void)
 /*****************************************************************************/
 /**
 *
-* This function sets up RX channel of the DMA engine to be ready for packet
+* Sets up the RX channel of the DMA engine to be ready for packet
 * reception
 *
-* @param	McDmaInstPtr is the pointer to the instance of the AXI MCDMA engine.
+* @param[in]	McDmaInstPtr is the pointer to the instance of the AXI MCDMA engine.
 *
 * @return	XST_SUCCESS if the setup is successful, XST_FAILURE otherwise.
 *
-* @note		None.
 *
 ******************************************************************************/
 static int RxSetup(XMcdma *McDmaInstPtr)
@@ -423,14 +424,13 @@ static int RxSetup(XMcdma *McDmaInstPtr)
 /*****************************************************************************/
 /**
 *
-* This function sets up the TX channel of a DMA engine to be ready for packet
+* Sets up the TX channel of a DMA engine to be ready for packet
 * transmission
 *
-* @param	McDmaInstPtr is the instance pointer to the AXI MCDMA engine.
+* @param[in]	McDmaInstPtr is the instance pointer to the AXI MCDMA engine.
 *
 * @return	XST_SUCCESS if the setup is successful, XST_FAILURE otherwise.
 *
-* @note		None.
 *
 ******************************************************************************/
 static int TxSetup(XMcdma *McDmaInstPtr)
@@ -516,15 +516,14 @@ static int TxSetup(XMcdma *McDmaInstPtr)
 /*****************************************************************************/
 /*
 *
-* This function checks data buffer after the DMA transfer is finished.
+* Checks the data buffer after the DMA transfer is finished.
 *
-* @param	RxPacket is the pointer to Rx packet.
-* @param	ByteCount is the length of RX packet.
+* @param[in]	RxPacket is the pointer to Rx packet.
+* @param[in]	ByteCount is the length of RX packet.
 *
 * @return	- XST_SUCCESS if validation is successful
 *		- XST_FAILURE if validation is failure.
 *
-* @note		None.
 *
 ******************************************************************************/
 static int CheckData(u8 *RxPacket, int ByteCount)
@@ -683,21 +682,19 @@ static void TxErrorHandler(void *CallBackRef, u32 Chan_id, u32 Mask)
 
 #ifndef SDT
 /*****************************************************************************/
-/*
+/**
 *
-* This function setups the interrupt system so interrupts can occur for the
-* DMA, it assumes INTC component exists in the hardware system.
+* Sets up the interrupt system so interrupts can occur for the
+* DMA. It assumes an INTC component exists in the hardware system.
 *
-* @param	IntcInstancePtr is a pointer to the instance of the INTC.
-* @param	McDmaInstPtr is a pointer to the instance of the MCDMA.
-* @param	InrId is the MCDMA Channel Interrupt Id.
-* @param	Direction is the MCDMA Channel S2MM or MM2S path.
+* @param[in]	IntcInstancePtr is a pointer to the instance of the INTC.
+* @param[in]	McDmaInstPtr is a pointer to the instance of the MCDMA.
+* @param[in]	IntrId is the MCDMA channel interrupt ID.
+* @param[in]	Direction is the MCDMA channel S2MM or MM2S path.
 *
 * @return
-*		- XST_SUCCESS if successful,
-*		- XST_FAILURE.if not successful
-*
-* @note		None.
+* - XST_SUCCESS if successful
+* - XST_FAILURE if not successful
 *
 ******************************************************************************/
 
@@ -784,22 +781,19 @@ static int SetupIntrSystem(INTC *IntcInstancePtr, XMcdma *McDmaInstPtr, u16 Intr
 }
 
 /*****************************************************************************/
-/*
- * This function maps the mcdma channel with the Corresponding interrupt id
- * Generated in the xparameters.h file.
+/**
+ * Maps the MCDMA channel to the corresponding interrupt ID from xparameters.h.
  *
- * @param	Chan is the MCDMA Channel instance to be worked on.
- * @param:	ChanId is the MCDMA channel id to be worked on
+ * @param[in]	Chan is the MCDMA channel instance to be worked on.
+ * @param[in]	ChanId is the MCDMA channel ID to be worked on.
  *
- * @return:
- *		- Corresponding interrupt ID on success.
- *		- XST_FAILURE if unable to find a valid interrupt id
- * 		  For a given MCDMA channel.
+ * @return
+ * - Corresponding interrupt ID on success
+ * - XST_FAILURE if no valid interrupt ID exists for the channel
  *
- * @note:	Make sure the XPAR_FABRIC_AXI_MCDMA_0_MM2S_CH1_INTROUT_INTR
- *		Checks in the API below are properly mapped for your design.
+ * @note
+ * Ensure XPAR_FABRIC MCDMA interrupt checks in this API match your design.
  */
-/*****************************************************************************/
 static int ChanIntr_Id(XMcdma_ChanCtrl *Chan, int ChanId)
 {
 
@@ -972,3 +966,5 @@ static int ChanIntr_Id(XMcdma_ChanCtrl *Chan, int ChanId)
 	return XST_FAILURE;
 }
 #endif
+
+/** @} */

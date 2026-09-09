@@ -8,8 +8,10 @@
 /**
  *
  * @file xmcdma_polled_example.c
+ * @addtogroup mcdma Overview
+ * @{
  *
- * This file demonstrates how to use the mcdma driver on the Xilinx AXI
+ * Demonstrates how to use the MCDMA driver on the Xilinx AXI
  * MCDMA core (AXI MCDMA) to transfer packets in polling mode.
  *
  * This examples shows how to do multiple packets and multiple BD's
@@ -149,12 +151,14 @@ int TestStartValue[] = {0xC, 0xB, 0x3, 0x55, 0x33, 0x20, 0x80, 0x66, 0x88};
 
 
 /************************** Function Prototypes ******************************/
+/** @cond INTERNAL */
 static int RxSetup(XMcdma *McDmaInstPtr);
 static int TxSetup(XMcdma *McDmaInstPtr);
 static int SendPacket(XMcdma *McDmaInstPtr);
 static int CheckData(u8 *RxPacket, int ByteCount, u32 ChanId);
 static int CheckDmaResult(XMcdma *McDmaInstPtr, u32 Chan_id);
 static int Mcdma_Poll(XMcdma *McDmaInstPtr);
+/** @endcond */
 
 /************************** Variable Definitions *****************************/
 /*
@@ -203,17 +207,15 @@ UINTPTR *Packet;
 *
 * Main function
 *
-* This function is the main entry of the tests on DMA core. It sets up
+* Main entry point of the MCDMA DMA core test. It sets up
 * DMA engine to be ready to receive and send packets, then a packet is
 * transmitted and will be verified after it is received via the DMA.
 *
-* @param	None
 *
 * @return
 *		- XST_SUCCESS if test passes
 *		- XST_FAILURE if test fails.
 *
-* @note		None.
 *
 ******************************************************************************/
 int main(void)
@@ -322,14 +324,13 @@ int main(void)
 /*****************************************************************************/
 /**
 *
-* This function sets up RX channel of the DMA engine to be ready for packet
+* Sets up the RX channel of the DMA engine to be ready for packet
 * reception
 *
-* @param	McDmaInstPtr is the pointer to the instance of the AXI MCDMA engine.
+* @param[in]	McDmaInstPtr is the pointer to the instance of the AXI MCDMA engine.
 *
 * @return	XST_SUCCESS if the setup is successful, XST_FAILURE otherwise.
 *
-* @note		None.
 *
 ******************************************************************************/
 static int RxSetup(XMcdma *McDmaInstPtr)
@@ -406,14 +407,13 @@ static int RxSetup(XMcdma *McDmaInstPtr)
 /*****************************************************************************/
 /**
 *
-* This function sets up the TX channel of a DMA engine to be ready for packet
+* Sets up the TX channel of a DMA engine to be ready for packet
 * transmission
 *
-* @param	McDmaInstPtr is the instance pointer to the AXI MCDMA engine.
+* @param[in]	McDmaInstPtr is the instance pointer to the AXI MCDMA engine.
 *
 * @return	XST_SUCCESS if the setup is successful, XST_FAILURE otherwise.
 *
-* @note		None.
 *
 ******************************************************************************/
 static int TxSetup(XMcdma *McDmaInstPtr)
@@ -475,16 +475,15 @@ static int TxSetup(XMcdma *McDmaInstPtr)
 /*****************************************************************************/
 /*
 *
-* This function checks data buffer after the DMA transfer is finished.
+* Checks the data buffer after the DMA transfer is finished.
 *
-* @param	RxPacket is the pointer to Rx packet.
-* @param	ByteCount is the length of Rx packet.
-* @param	ChanId is the MCDMA channel id to be worked on.
+* @param[in]	RxPacket is the pointer to Rx packet.
+* @param[in]	ByteCount is the length of Rx packet.
+* @param[in]	ChanId is the MCDMA channel ID to operate on.
 *
 * @return	- XST_SUCCESS if validation is successful
 *		- XST_FAILURE if validation is failure.
 *
-* @note		None.
 *
 ******************************************************************************/
 static int CheckData(u8 *RxPacket, int ByteCount, u32 ChanId)
@@ -513,16 +512,15 @@ static int CheckData(u8 *RxPacket, int ByteCount, u32 ChanId)
 /*****************************************************************************/
 /**
 *
-* This function waits until the DMA transaction is finished, checks data,
+* Waits until the DMA transaction is finished, checks data,
 * and cleans up.
 *
-* @param	McDmaInstPtr is the instance pointer to the AXI MCDMA engine.
-* @Chan_id	ChanId is the MCDMA channel id to be worked on.
+* @param[in]	McDmaInstPtr is the instance pointer to the AXI MCDMA engine.
+* @param[in]	Chan_id is the MCDMA channel ID to be worked on.
 *
 * @return	- XST_SUCCESS if DMA transfer is successful and data is correct,
 *		- XST_FAILURE if fails.
 *
-* @note		None.
 *
 ******************************************************************************/
 static int CheckDmaResult(XMcdma *McDmaInstPtr, u32 Chan_id)
@@ -646,3 +644,5 @@ static int SendPacket(XMcdma *McDmaInstPtr)
 
 	return XST_SUCCESS;
 }
+
+/** @} */

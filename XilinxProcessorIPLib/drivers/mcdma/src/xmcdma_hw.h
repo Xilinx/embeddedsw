@@ -1,26 +1,33 @@
 /******************************************************************************
 * Copyright (C) 2017 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
+
+#ifndef XMCDMA_HW_H_
+#define XMCDMA_HW_H_
 
 /*****************************************************************************/
 /**
 *
-*@file xmcdma_hw.c
-*@addtogroup mcdma Overview
+* @file xmcdma_hw.h
+* @addtogroup mcdma Overview
+* @{
 *
+* Hardware definition file for the MCDMA register interface.
+*
+* <pre>
 * MODIFICATION HISTORY:
 *
 * Ver   Who     Date     Changes
 * ----- ------  -------- ------------------------------------------------------
-* 1.0   adk 	18/07/17 Initial version.
+* 1.0   adk     18/07/17 Initial version.
 * 1.2   mj      05/03/18 Defined XMCDMA_BD_SW_ID_OFFSET
 * 1.2   rsp     08/17/18 Remove unused XMCDMA_BD_LEN_MASK
+* </pre>
+*
 ******************************************************************************/
-#ifndef XMCDMA_HW_H_
-#define XMCDMA_HW_H_		/**< Prevent circular inclusions
-				  *  by using protection macros	*/
+
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -127,6 +134,8 @@ extern "C" {
 #define XMCDMA_SGARCACHE_MASK		0x0000000F
 #define XMCDMA_SGAWCACHE_SHIFT		16
 
+/** @} */
+
 /** @name Buffer Descriptor offsets
  *  The first 13 words are used by hardware.
  *  All words after the 13rd word are for software use only.
@@ -150,7 +159,8 @@ extern "C" {
 #define XMCDMA_BD_HAS_CTRLSTS_OFFSET	0x38
 #define XMCDMA_BD_SW_ID_OFFSET		0x3C  /**< Sw ID */
 
-/*@}*/
+/** @} */
+
 #define XMCDMA_BD_CTRL_SBAND_OFFSET	0x18  /**< Status */
 
 #define XMCDMA_BD_CTRL_SOF_MASK		0x80000000
@@ -193,14 +203,15 @@ extern "C" {
 /*****************************************************************************/
 /**
 *
-* This macro reads the given register.
+* Reads the given register.
 *
-* @param	BaseAddress is the base address of the MCDMA core.
-* @param	RegOffset is the register offset of the register.
+* @param[in]	BaseAddress is the base address of the MCDMA core.
+* @param[in]	RegOffset is the register offset of the register.
 *
 * @return	The 32-bit value of the register.
 *
-* @note		C-style signature:
+* @note
+*		C-style signature:
 *		u32 XMcdma_ReadReg(u32 BaseAddress, u32 RegOffset)
 *
 ******************************************************************************/
@@ -210,15 +221,14 @@ extern "C" {
 /*****************************************************************************/
 /**
 *
-* This macro writes the value into the given register.
+* Writes the given register.
 *
-* @param	BaseAddress is the base address of the MCDMA core.
-* @param	RegOffset is the register offset of the register.
-* @param	Data is the 32-bit value to write to the register.
+* @param[in]	BaseAddress is the base address of the MCDMA core.
+* @param[in]	RegOffset is the register offset of the register.
+* @param[in]	Data is the 32-bit value to write to the register.
 *
-* @return	None.
-*
-* @note		C-style signature:
+* @note
+*		C-style signature:
 *		void XMcdma_WriteReg(u32 BaseAddress, u32 RegOffset, u32 Data)
 *
 ******************************************************************************/
@@ -229,5 +239,5 @@ extern "C" {
 }
 
 #endif
-#endif /* XMCDMA_HW_H_ */
 /** @} */
+#endif /* XMCDMA_HW_H_ */

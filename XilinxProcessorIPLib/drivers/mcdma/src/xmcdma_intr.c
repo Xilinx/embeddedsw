@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2017 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -44,7 +44,7 @@
 /*****************************************************************************/
 /**
 *
-* This function is the Per Channel interrupt handler for the MCDMA core.
+* Handles per-channel MCDMA interrupts for the MCDMA core.
 *
 * This handler reads the pending interrupt from Status register, determines the
 * source of the interrupts and calls the respective callbacks for the
@@ -56,9 +56,8 @@
 * callbacks to handle interrupts and installing the callbacks using
 * XMcdma_ChanSetCallBack() during initialization phase.
 *
-* @param	Instance is a pointer to the Channel instance to be worked on.
+* @param[in]	Instance is a pointer to the Channel instance to be worked on.
 *
-* @return	None.
 *
 * @note		To generate interrupt required interrupts should be enabled.
 *
@@ -107,10 +106,10 @@ void XMcdma_ChanIntrHandler(void *Instance)
 *
 * </pre>
 *
-* @param	Chan is the Channel instance to be worked on
-* @param	HandlerType specifies which callback is to be attached.
-* @param	CallBackFunc is the address of the callback function.
-* @param	CallBackRef is a user data item that will be passed to the
+* @param[in]	Chan is the Channel instance to be worked on.
+* @param[in]	HandlerType specifies which callback is to be attached.
+* @param[in]	CallBackFunc is the address of the callback function.
+* @param[in]	CallBackRef is a user data item that will be passed to the
 * 		callback function when it is invoked.
 *
 * @return
@@ -162,7 +161,7 @@ s32 XMcdma_ChanSetCallBack(XMcdma_ChanCtrl *Chan, XMcdma_ChanHandler HandlerType
 /*****************************************************************************/
 /**
 *
-* This function is the S2MM(RX) interrupt handler for the MCDMA core.
+* Handles S2MM (RX) MCDMA interrupts for the MCDMA core.
 *
 * This handler reads the pending interrupt from Status register, determines the
 * source of the interrupts and calls the respective callbacks for the
@@ -174,9 +173,8 @@ s32 XMcdma_ChanSetCallBack(XMcdma_ChanCtrl *Chan, XMcdma_ChanHandler HandlerType
 * callbacks to handle interrupts and installing the callbacks using
 * XMcdma_SetCallBack() during initialization phase.
 *
-* @param	Instance is a pointer to the XMcdma instance to be worked on.
+* @param[in]	Instance is a pointer to the XMcdma instance to be worked on.
 *
-* @return	None.
 *
 * @note		To generate interrupt required interrupts should be enabled.
 *
@@ -243,7 +241,7 @@ out:
 /*****************************************************************************/
 /**
 *
-* This function is the MM2S interrupt handler for the MCDMA core.
+* Handles MM2S MCDMA interrupts for the MCDMA core.
 *
 * This handler reads the pending interrupt from Status register, determines the
 * source of the interrupts and calls the respective callbacks for the
@@ -255,9 +253,8 @@ out:
 * callbacks to handle interrupts and installing the callbacks using
 * XMcdma_SetCallBack() during initialization phase.
 *
-* @param	Instance is a pointer to the XMcdma instance to be worked on.
+* @param[in]	Instance is a pointer to the XMcdma instance to be worked on.
 *
-* @return	None.
 *
 * @note		To generate interrupt required interrupts should be enabled.
 *
@@ -334,10 +331,10 @@ out:
 *
 * </pre>
 *
-* @param	InstancePtr is a pointer to the XMcdma instance to be worked on.
-* @param	HandlerType specifies which callback is to be attached.
-* @param	CallBackFunc is the address of the callback function.
-* @param	CallBackRef is a user data item that will be passed to the
+* @param[in]	InstancePtr is a pointer to the XMcdma instance to be worked on.
+* @param[in]	HandlerType specifies which callback is to be attached.
+* @param[in]	CallBackFunc is the address of the callback function.
+* @param[in]	CallBackRef is a user data item that will be passed to the
 * 		callback function when it is invoked.
 *
 * @return

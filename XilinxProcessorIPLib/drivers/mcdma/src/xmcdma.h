@@ -1,8 +1,11 @@
 /******************************************************************************
 * Copyright (C) 2017 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
+
+#ifndef XMCDMA_H_
+#define XMCDMA_H_
 
 /*****************************************************************************/
 /**
@@ -10,7 +13,6 @@
 * @file xmcdma.h
 * @addtogroup mcdma Overview
 * @{
-* @details
 *
 * AXI MultiChannel Direct Memory Access (AXI MDMA) IP provides high-bandwidth
 * Direct memory access between the AXI4 memory mapped and AXI4-Stream
@@ -116,7 +118,7 @@
 *			 driver tcl file.
 * 1.2   mj      05/03/18 Exported APIs XMcdma_BdChainFree() and
 *                        XMcDma_BdSetAppWord().
-* 1.2   mus     11/05/18 Support 64 bit DMA addresses for Microblaze-X platform.
+* 1.2   mus     11/05/18 Support 64-bit DMA addresses for Microblaze-X platform.
 * 1.3   rsp     02/12/19 Add HasRxLength field in config and channel structure.
 * 1.3   rsp     02/11/19 Add top level submit XMcDma_Chan_Sideband_Submit() API
 *                        to program BD control and sideband information.
@@ -125,9 +127,6 @@
 * 1.7   sa      08/12/22 Updated the examples to use latest MIG cannoical define
 * 		         i.e XPAR_MIG_0_C0_DDR4_MEMORY_MAP_BASEADDR.
 ******************************************************************************/
-#ifndef XMCDMA_H_
-#define XMCDMA_H_
-
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -157,6 +156,9 @@ extern "C" {
 
 /**************************** Type Definitions *******************************/
 
+/**
+ * @brief MCDMA instance-level interrupt handler types.
+ */
 typedef enum {
 	XMCDMA_TX_HANDLER_DONE,     /**< For Done Handler */
 	XMCDMA_TX_HANDLER_ERROR,    /**< For Error Handler */
@@ -165,6 +167,9 @@ typedef enum {
 	XMCDMA_HANDLER_PKTDROP,    /**< For Error Handler */
 } XMcdma_Handler;
 
+/**
+ * @brief MCDMA per-channel interrupt handler types.
+ */
 typedef enum {
 	XMCDMA_CHAN_HANDLER_DONE,     /**< For Done Handler */
 	XMCDMA_CHAN_HANDLER_ERROR,    /**< For Error Handler */
@@ -295,8 +300,8 @@ typedef struct {
 /**
 * Disable Particular Channel in the MCDMA Core.
 *
-* @param	Chan is the MCDMA Channel to be worked on.
-* @param	ChanId is the channel to disable.
+* @param[in]	Chan is the MCDMA Channel to be worked on.
+* @param[in]	ChanId is the channel to disable.
 *
 * @note		C-style signature:
 * 		XMcdma_DisableCh(XMcdma_ChanCtrl *Chan, u32 ChanId)
@@ -310,7 +315,7 @@ typedef struct {
 /**
 * Get Channel number that last Serviced.
 *
-* @param	Chan is the MCDMA Channel to be worked on.
+* @param[in]	Chan is the MCDMA Channel to be worked on.
 *
 * @return	Channel Number that last serviced.
 *
@@ -322,15 +327,14 @@ typedef struct {
 
 /*****************************************************************************/
 /**
-* This function checks whether DMA is Idle or not
+* Checks whether the DMA channel is idle or not
 *
-* @param	Chan is the MCDMA Channel to be worked on.
+* @param[in]	Chan is the MCDMA Channel to be worked on.
 *
 * @return
 *		- TRUE if MCDMA is idle
 *		- FALSE if MCDMA is not idle
 *
-* @note		None
 *
 *****************************************************************************/
 #define XMcdma_isidle(Chan) \
@@ -339,15 +343,13 @@ typedef struct {
 
 /*****************************************************************************/
 /**
- * This function enables interrupts specified by the Mask in specified
+ * Enables interrupts specified by the Mask in specified
  * direction, Interrupts that are not in the mask are not affected.
  *
- * @param	Chan is the MCDMA Channel to be worked on.
- * @param	Mask is the mask for the interrupts to be enabled
+ * @param[in]	Chan is the MCDMA Channel to be worked on.
+ * @param[in]	Mask is the mask for the interrupts to be enabled
  *
- * @return	None
  *
- * @note	None
  *
  *****************************************************************************/
 #define XMcdma_IntrEnable(Chan, Mask) 	\
@@ -359,15 +361,13 @@ typedef struct {
 
 /*****************************************************************************/
 /**
- * This function disables interrupts specified by the Mask. Interrupts that
+ * Disables interrupts specified by the Mask. Interrupts that
  * are not in the mask are not affected.
  *
- * @param	Chan is the MCDMA Channel to be worked on.
- * @param	Mask is the mask for the interrupts to be disabled
+ * @param[in]	Chan is the MCDMA Channel to be worked on.
+ * @param[in]	Mask is the mask for the interrupts to be disabled
  *
- * @return	None
  *
- * @note	None
  *
  *****************************************************************************/
 #define XMcdma_IntrDisable(Chan, Mask) 	\
@@ -381,7 +381,7 @@ typedef struct {
 /**
 * Gets global Packet drop Count
 *
-* @param	Chan is the MCDMA Channel to be worked on.
+* @param[in]	Chan is the MCDMA Channel to be worked on.
 *
 * @return	Packet Drop Count.
 *
@@ -395,9 +395,9 @@ typedef struct {
 /**
 * Gets the TX Channel Pointer
 *
-* @param	InstancePtr is a pointer to the DMA engine instance to be
+* @param[in]	InstancePtr is a pointer to the DMA engine instance to be
 *		worked on.
-* @param	ChanId is the channel to operate on
+* @param[in]	ChanId is the channel to operate on
 *
 * @return	Pointer to the Channel
 *
@@ -413,9 +413,9 @@ typedef struct {
 /**
 * Gets the RX Channel Pointer
 *
-* @param	InstancePtr is a pointer to the DMA engine instance to be
+* @param[in]	InstancePtr is a pointer to the DMA engine instance to be
 *		worked on.
-* @param	ChanId is the channel to operate on
+* @param[in]	ChanId is the channel to operate on
 *
 * @return	Pointer to the Channel
 *
@@ -431,7 +431,7 @@ typedef struct {
 /**
 * Gets the Channel BD Chain Current BD
 *
-* @param        Chan is the MCDMA Channel to Operate on.
+* @param[in]	Chan is the MCDMA Channel to Operate on.
 *
 * @return       Channel BD Chain current Buffer descriptor.
 *
@@ -442,9 +442,9 @@ typedef struct {
 
 /*****************************************************************************/
 /**
-* This functions gives the Buffer descriptor count processed by the h/w.
+* Returns the buffer descriptor count processed by the h/w.
 *
-* @param        Chan is the MCDMA Channel to Operate on.
+* @param[in]	Chan is the MCDMA Channel to Operate on.
 *
 * @return       Buffer descriptor count processed by the h/w.
 *
@@ -455,13 +455,12 @@ typedef struct {
 
 /*****************************************************************************/
 /**
- * This function gets the interrupts that are asserted.
+ * Returns asserted channel interrupts.
  *
- * @param       Chan is the MCDMA Channel to Operate on.
+ * @param[in]	Chan is the MCDMA Channel to Operate on.
  *
  * @return	The bit mask for the interrupts asserted.
  *
- * @note	None
  *
  *****************************************************************************/
 #define XMcdma_ChanGetIrq(Chan)				\
@@ -469,14 +468,12 @@ typedef struct {
 					 XMCDMA_SR_OFFSET)) & XMCDMA_IRQ_ALL_MASK)
 /*****************************************************************************/
 /**
- * This function acknowledges the interrupts that are specified in Mask
+ * Acknowledges the specified channel interrupts that are specified in Mask
  *
- * @param       Chan is the MCDMA Channel to Operate on.
- * @param	Mask is the mask for the interrupts to be acknowledge
+ * @param[in]	Chan is the MCDMA Channel to Operate on.
+ * @param[in]	Mask is the mask for the interrupts to be acknowledge
  *
- * @return	None
  *
- * @note	None.
  *
  *****************************************************************************/
 #define XMcdma_ChanAckIrq(Chan, Mask)		\
@@ -488,8 +485,8 @@ typedef struct {
 /**
 * Get Packet drop Count for the particular Channel
 *
-* @param	Chan is the MCDMA Channel to be worked on.
-* @param	ChanId is the Channel number to be worked on.
+* @param[in]	Chan is the MCDMA Channel to be worked on.
+* @param[in]	ChanId is the Channel number to be worked on.
 *
 * @return	Packet Drop Count.
 *
@@ -503,14 +500,12 @@ typedef struct {
 
 /*****************************************************************************/
 /**
- * This function sets the ARCACHE field with the user specified value
+ * Sets the ARCACHE field with the user specified value
  *
- * @param	InstancePtr is the driver instance we are working on
- * @param	Value is the ARCACHE value to be written.
+ * @param[in]	InstancePtr is the driver instance we are working on
+ * @param[in]	Value is the ARCACHE value to be written.
  *
- * @return	None
  *
- * @note	None.
  *
  *****************************************************************************/
 #define XMcdma_SetARCache(InstancePtr, Value)			     \
@@ -520,14 +515,12 @@ typedef struct {
 
 /*****************************************************************************/
 /**
- * This function sets the AWCACHE field with the user specified value
+ * Sets the AWCACHE field with the user specified value
  *
- * @param	InstancePtr is the driver instance we are working on
- * @param	Value is the AWCACHE value to be written.
+ * @param[in]	InstancePtr is the driver instance we are working on
+ * @param[in]	Value is the AWCACHE value to be written.
  *
- * @return	None
  *
- * @note	None.
  *
  *****************************************************************************/
 #define XMcdma_SetAWCache(InstancePtr, Value)			     \
@@ -539,8 +532,8 @@ typedef struct {
 /**
  * Get Egress Channel Observer contents
  *
- * @param	InstancePtr is the driver instance we are working on.
- * @param	ObsId is the Egress Channel observer number to be worked on.
+ * @param[in]	InstancePtr is the driver instance we are working on.
+ * @param[in]	ObsId is the Egress Channel observer number to be worked on.
  *
  * @return	Channel Observer register contents.
  *
@@ -556,8 +549,8 @@ typedef struct {
 /**
  * Get Ingress Channel Observer contents
  *
- * @param	InstancePtr is the driver instance we are working on.
- * @param	ObsId is the Ingress Channel observer number to be worked on.
+ * @param[in]	InstancePtr is the driver instance we are working on.
+ * @param[in]	ObsId is the Ingress Channel observer number to be worked on.
  *
  * @return	Channel Observer register contents.
  *
@@ -585,8 +578,6 @@ typedef struct {
 	(((~0UL) << (l)) & (~0UL >> (32 - 1 - (h))))
 #endif
 
-
-/*@}*/
 
 /************************ Prototypes of functions **************************/
 #ifndef SDT
@@ -644,4 +635,6 @@ s32 XMcdma_ChanSetCallBack(XMcdma_ChanCtrl *Chan, XMcdma_ChanHandler HandlerType
 }
 
 #endif
+
+/** @} */
 #endif /* XMCDMA_H_ */
