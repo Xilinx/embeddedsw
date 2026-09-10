@@ -513,6 +513,10 @@ static XStatus XPm_DispatchPwrCtrlHandler(u32 PwrCtrlStatus, u32 PwrCtrlMask)
 		    !(CHECK_BIT(PwrCtrlMask, RpuSleepHandlerTable[Index].Mask))) {
 			/* Call power down handler */
 			Status = XPmPower_RpuDirectPwrDwn(RpuSleepHandlerTable[Index].Args);
+			if (XST_SUCCESS != Status) {
+				PmErr("Failed to power down RPU core 0x%x: 0x%x\r\n",
+				      RpuSleepHandlerTable[Index].DeviceId, Status);
+			}
 
 			/* Ack the service */
 			XPm_Out32(PSXC_LPX_SLCR_POWER_DWN_IRQ_STATUS, RpuSleepHandlerTable[Index].Mask);
@@ -520,6 +524,12 @@ static XStatus XPm_DispatchPwrCtrlHandler(u32 PwrCtrlStatus, u32 PwrCtrlMask)
 
 			/* Get core data for setting the power state */
 			Core = (XPm_Core *)XPmDevice_GetById(RpuSleepHandlerTable[Index].DeviceId);
+			if (NULL == Core) {
+				PmErr("Missing core data for device ID 0x%x\r\n",
+				      RpuSleepHandlerTable[Index].DeviceId);
+				Status = XST_INVALID_PARAM;
+				goto done;
+			}
 			DISABLE_WFI(Core->SleepMask);
 
 			/* Call XPmCore_AfterDirectPwrDwn to set the core power state */

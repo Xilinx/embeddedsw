@@ -147,9 +147,26 @@ static XStatus XPmClock_Init(XPm_ClockNode *Clk, u32 Id, u32 ControlReg,
 				goto done;
 			}
 		} else {
-			OutClkPtr->Topology.Id = ClkTopologies[TopologyType-TOPOLOGY_GENERIC_MUX_DIV].Id;
-			OutClkPtr->Topology.NumNodes = ClkTopologies[TopologyType-TOPOLOGY_GENERIC_MUX_DIV].NumNodes;
-			OutClkPtr->Topology.Nodes = ClkTopologies[TopologyType-TOPOLOGY_GENERIC_MUX_DIV].Nodes;
+			/*
+			 * ClkTopologies holds one entry per GENERIC topology, from
+			 * TOPOLOGY_GENERIC_MUX_DIV upward.  MAX_TOPOLOGY also counts
+			 * TOPOLOGY_CUSTOM, which is handled above and has no entry of
+			 * its own, so MAX_TOPOLOGY is one larger than this array and
+			 * cannot be used as its bound.  Derive the bound from the
+			 * array so the two cannot drift apart.
+			 */
+			u32 TopologyIdx;
+			if (((u32)TOPOLOGY_GENERIC_MUX_DIV > (u32)TopologyType) ||
+			    ((u32)ARRAY_SIZE(ClkTopologies) <=
+			     ((u32)TopologyType - (u32)TOPOLOGY_GENERIC_MUX_DIV))) {
+				DbgErr = XPM_INT_ERR_INVALID_PARAM;
+				Status = XST_INVALID_PARAM;
+				goto done;
+			}
+			TopologyIdx = (u32)TopologyType - (u32)TOPOLOGY_GENERIC_MUX_DIV;
+			OutClkPtr->Topology.Id = ClkTopologies[TopologyIdx].Id;
+			OutClkPtr->Topology.NumNodes = ClkTopologies[TopologyIdx].NumNodes;
+			OutClkPtr->Topology.Nodes = ClkTopologies[TopologyIdx].Nodes;
 		}
 	} else {
 		DbgErr = XPM_INT_ERR_INVALID_SUBCLASS;
@@ -269,6 +286,17 @@ XStatus XPmClock_AddSubNode(u32 Id, u32 Type, u32 ControlReg, u8 Param1, u8 Para
 	if ((Type <= (u32)TYPE_INVALID) || (Type >= (u32)TYPE_MAX) ||
 	    (Type == (u32)TYPE_PLL)) {
 		DbgErr = XPM_INT_ERR_INVALID_CLK_TYPE;
+		Status = XST_INVALID_PARAM;
+		goto done;
+	}
+	/*
+	 * Topology.Nodes is allocated only for a custom topology and the
+	 * allocation can fail, so a registered clock can carry a NULL node
+	 * list.  XPmClock_AddNode already rejects that case; check it here too
+	 * so the guard dominates this walk of the list.
+	 */
+	if (NULL == OutClkPtr->Topology.Nodes) {
+		DbgErr = XPM_INT_ERR_INVALID_PARAM;
 		Status = XST_INVALID_PARAM;
 		goto done;
 	}
@@ -472,7 +500,12 @@ static struct XPm_ClkTopologyNode* XPmClock_GetTopologyNode(const XPm_OutClockNo
 	uint8_t NumNodes;
 	u32 i;
 
-	if (Clk == NULL) {
+	/*
+	 * A clock whose custom-topology allocation failed carries a NULL node
+	 * list with a non-zero node count, so both have to be checked before
+	 * the list is walked.  NULL is the documented "no such node" result.
+	 */
+	if ((NULL == Clk) || (NULL == Clk->Topology.Nodes)) {
 		goto done;
 	}
 
@@ -525,7 +558,7 @@ XStatus XPmClock_GetClockData(const XPm_OutClockNode *Clk, u32 Nodetype, u32 *Va
 	XStatus Status = XST_FAILURE;
 	u32 Mask;
 	const struct XPm_ClkTopologyNode *Ptr;
-	const XPm_Power *PowerDomain = Clk->ClkNode.PwrDomain;
+	const XPm_Power *PowerDomain;
 
 	Ptr = XPmClock_GetTopologyNode(Clk, Nodetype);
 	if (Ptr == NULL) {
@@ -533,7 +566,9 @@ XStatus XPmClock_GetClockData(const XPm_OutClockNode *Clk, u32 Nodetype, u32 *Va
 		goto done;
 	}
 
-	if ((u8)XPM_POWER_STATE_ON != PowerDomain->Node.State) {
+	PowerDomain = Clk->ClkNode.PwrDomain;
+	if ((NULL != PowerDomain) &&
+	    ((u8)XPM_POWER_STATE_ON != PowerDomain->Node.State)) {
 		Status = XST_NO_ACCESS;
 		goto done;
 	}

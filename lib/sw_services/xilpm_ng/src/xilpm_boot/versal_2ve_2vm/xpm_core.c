@@ -137,7 +137,9 @@ XStatus XPmCore_PwrDwn(XPm_Core *Core)
 	}
 
 	/* If parent is on, then only send sleep request */
-	if ((Core->Device.Power->Parent->Node.State == (u8)XPM_POWER_STATE_ON) &&
+	if ((NULL != Core->Device.Power) &&
+	    (NULL != Core->Device.Power->Parent) &&
+	    ((u8)XPM_POWER_STATE_ON == Core->Device.Power->Parent->Node.State) &&
 	    ((u32)XPM_NODETYPE_DEV_CORE_RPU != NODETYPE(Core->Device.Node.Id))) {
 		PmInfo("Going in --> Power down core 0x%x\r\n", Core->Device.Node.Id);
 		/* Power down the core */

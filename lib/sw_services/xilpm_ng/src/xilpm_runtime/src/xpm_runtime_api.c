@@ -266,12 +266,12 @@ static void XPm_FormatNodeName(char *Buf, u32 BufSize, const char *Prefix, u32 I
 	/* Write digits right-to-left directly into buffer */
 	Pos = i + NumDigits;
 	Buf[Pos] = '\0';
-	do {
+	while (Pos > i) {
 		u32 Ascii = (u32)'0' + (Val % 10U);
 		Pos--;
 		Buf[Pos] = (char)Ascii;
 		Val /= 10U;
-	} while (Pos > i);
+	}
 }
 
 /**
@@ -866,6 +866,10 @@ static XStatus XPm_ReleaseAllDevices(const u32 SubsystemId, const u32 DeviceId,
 			goto done;
 		}
 		Reqm = ReqmNode->Data;
+		if (NULL == Reqm->Device) {
+			Status = XST_FAILURE;
+			goto done;
+		}
 		ReqmDeviceId = Reqm->Device->Node.Id;
 
 		/*
@@ -1130,7 +1134,7 @@ done:
  */
 XStatus XPm_PmcReleaseDevice(u32 DeviceId)
 {
-	XStatus Status = XPM_ERR_DEVICE_RELEASE;
+	XStatus Status = XST_FAILURE;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 
 	XPm_Device *Device = XPmDevice_GetById(DeviceId);
@@ -1422,6 +1426,7 @@ XStatus XPm_AddDDRMemRegnForDefaultSubsystem(const XPm_MemCtrlrDevice *MCDev)
 	u32 SubsystemId = PM_SUBSYS_DEFAULT;
 	XPm_Subsystem *Subsystem;
 	u32 DeviceId;
+	XPm_Device *Device;
 	u64 Address;
 	u64 Size;
 
@@ -1451,7 +1456,12 @@ XStatus XPm_AddDDRMemRegnForDefaultSubsystem(const XPm_MemCtrlrDevice *MCDev)
 			goto done;
 		}
 
-		Status = XPmRequirement_Add(Subsystem, XPmDevice_GetById(DeviceId),
+		Device = XPmDevice_GetById(DeviceId);
+		if (NULL == Device) {
+			Status = XST_DEVICE_NOT_FOUND;
+			goto done;
+		}
+		Status = XPmRequirement_Add(Subsystem, Device,
 						(u32)REQUIREMENT_FLAGS(1U,
 						(u32)REQ_ACCESS_SECURE_NONSECURE,
 						(u32)REQ_NO_RESTRICTION),
@@ -1545,7 +1555,12 @@ static XStatus XPm_AddReqsDefaultSubsystem(XPm_Subsystem *Subsystem)
 				goto done;
 			}
 
-			Status = XPmRequirement_Add(Subsystem, XPmDevice_GetById(MemRegnDeviceId),
+			XPm_Device *MemRegnDevice = XPmDevice_GetById(MemRegnDeviceId);
+			if (NULL == MemRegnDevice) {
+				Status = XST_DEVICE_NOT_FOUND;
+				goto done;
+			}
+			Status = XPmRequirement_Add(Subsystem, MemRegnDevice,
 				REQUIREMENT_FLAGS(1U,
 				(u32)REQ_ACCESS_SECURE_NONSECURE,
 				(u32)REQ_NO_RESTRICTION),
@@ -2162,6 +2177,15 @@ static XStatus XPm_ForcePowerdown(u32 SubsystemId, const u32 NodeId, const u32 A
 		}
 	} else {
 		Status = XPmSubsystem_ForcePwrDwn(NodeId);
+		if (XST_SUCCESS != Status) {
+			/*
+			 * Checked here, as at the other three call sites, so the
+			 * failing subsystem is named.  The status still reaches the
+			 * acknowledge below and the common exit unchanged.
+			 */
+			PmErr("Force power down of subsystem 0x%x failed: 0x%x\r\n",
+			      NodeId, Status);
+		}
 	}
 
 done:
@@ -2193,8 +2217,14 @@ XStatus XPm_SubsystemIdleCores(const XPm_Subsystem *Subsystem)
 
 	LIST_FOREACH(Subsystem->Requirements, ReqmNode) {
 		const XPm_Requirement *Reqm = ReqmNode->Data;
-		u32 DeviceId = Reqm->Device->Node.Id;
+		u32 DeviceId;
 		u8 IsCoreIdleSupported = 0U;
+
+		if ((NULL == Reqm) || (NULL == Reqm->Device)) {
+			Status = XST_FAILURE;
+			goto done;
+		}
+		DeviceId = Reqm->Device->Node.Id;
 
 		/* Make sure core device is requested by the subsystem */
 		if ((1U != Reqm->Allocated) ||
@@ -4349,7 +4379,9 @@ XStatus XPm_HookAfterBootPdi(void)
 		if (NULL == Pin) {
 			continue;
 		}
-		(void)XPmPin_RuntimeOps_Init(Pin);
+		if (XST_SUCCESS != XPmPin_RuntimeOps_Init(Pin)) {
+			PmWarn("Pin RuntimeOps init failed for pin index %u\r\n", i);
+		}
 	}
 
 	/* Calculate rate for all clocks */

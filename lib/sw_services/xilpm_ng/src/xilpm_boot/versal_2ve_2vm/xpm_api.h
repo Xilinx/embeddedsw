@@ -37,9 +37,18 @@ extern int (*PmRestartCb)(u32 ImageId, u32 *FuncId);
 
 #ifdef XPLMI_IPI_DEVICE_ID
 /* Macros for IPI responses (return values and callbacks) */
+/*
+ * The buffer is sized to XPLMI_IPI_MAX_MSG_LEN - what the transport is allowed
+ * to read - rather than to XPLMI_CMD_RESP_SIZE, the number of words that carry
+ * meaning.  XPlmi_IpiWrite accepts any length up to the former and the driver
+ * behind it bounds its copy on the IPI message buffer, so a caller buffer sized
+ * only to its own payload is smaller than the contract permits to be read.
+ * XPLMI_CMD_RESP_SIZE words are still what is sent; the extra words are the
+ * zero padding the initialiser already supplied.
+ */
 #define IPI_RESPONSE1(Mask, Arg0)						\
 {										\
-	const u32 Response[XPLMI_CMD_RESP_SIZE] = {Arg0};			\
+	const u32 Response[XPLMI_IPI_MAX_MSG_LEN] = {Arg0};			\
 	if (XST_SUCCESS != XPlmi_IpiWrite(Mask, Response, XPLMI_CMD_RESP_SIZE,	\
 					  XIPIPSU_BUF_TYPE_RESP)) {		\
 		PmWarn("Error in IPI write response\r\n");			\
@@ -48,7 +57,7 @@ extern int (*PmRestartCb)(u32 ImageId, u32 *FuncId);
 
 #define IPI_MESSAGE4(Mask, Arg0, Arg1, Arg2, Arg3)				\
 {										\
-	const u32 Response[XPLMI_CMD_RESP_SIZE] = {Arg0, Arg1, Arg2, Arg3};	\
+	const u32 Response[XPLMI_IPI_MAX_MSG_LEN] = {Arg0, Arg1, Arg2, Arg3};	\
 	if (XST_SUCCESS != XPlmi_IpiWrite(Mask, Response, XPLMI_CMD_RESP_SIZE,	\
 					  XIPIPSU_BUF_TYPE_MSG)) {		\
 		PmWarn("Error in IPI write response\r\n");			\

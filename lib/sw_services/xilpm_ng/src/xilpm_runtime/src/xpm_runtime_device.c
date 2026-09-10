@@ -298,9 +298,14 @@ static XStatus SetSecurityAttr(XPm_Requirement *Reqm, u32 ReqCaps, u32 PrevState
 	u32 CurrSecState;
 	u32 Is_CapSecure = 0U;
 	u32 BaseAddr, Offset1, Mask1, Offset2, Mask2;
-	const XPm_DeviceAttr *DevAttr = Reqm->Device->DevAttr;
+	const XPm_DeviceAttr *DevAttr;
 	const XPm_PsLpDomain *Lpd = (XPm_PsLpDomain *)XPmPower_GetById(PM_POWER_LPD);
 	const XPm_PsFpDomain *Fpd = (XPm_PsFpDomain *)XPmPower_GetById(PM_POWER_FPD);
+
+	if ((NULL == Reqm) || (NULL == Reqm->Device)) {
+		goto done;
+	}
+	DevAttr = Reqm->Device->DevAttr;
 
 	/**
 	 * Skip if device does not have any security attributes.
@@ -405,13 +410,13 @@ static XStatus SetSecurityAttr(XPm_Requirement *Reqm, u32 ReqCaps, u32 PrevState
 
 	if (1U == Is_CapSecure) {
 		PmRmw32(BaseAddr + Offset1, Mask1, 0);
-		PmChkRegMask32(BaseAddr + Offset1, Mask1, 0, Status);
+		PmChkRegClear32(BaseAddr + Offset1, Mask1, Status);
 		if (XPM_REG_WRITE_FAILED == Status) {
 			goto done;
 		}
 		if (0U != Mask2) {
 			PmRmw32(BaseAddr + Offset2, Mask2, 0);
-			PmChkRegMask32(BaseAddr + Offset2, Mask2, 0, Status);
+			PmChkRegClear32(BaseAddr + Offset2, Mask2, Status);
 			if (XPM_REG_WRITE_FAILED == Status) {
 				goto done;
 			}
@@ -462,7 +467,12 @@ static XStatus SetDevCohVirtAttr(XPm_Requirement *Reqm, u32 ReqCaps,
 	u32 BaseAddr, Offset, Mask;
 	XPm_Power *FpdPower = NULL;
 	const XPm_Requirement *DevReqm = NULL;
-	const XPm_DeviceAttr *DevAttr = Reqm->Device->DevAttr;
+	const XPm_DeviceAttr *DevAttr;
+
+	if ((NULL == Reqm) || (NULL == Reqm->Device)) {
+		goto done;
+	}
+	DevAttr = Reqm->Device->DevAttr;
 
 	/* Skip if device does not have any attributes */
 	if (NULL == DevAttr) {
@@ -513,7 +523,7 @@ static XStatus SetDevCohVirtAttr(XPm_Requirement *Reqm, u32 ReqCaps,
 	}
 	LIST_FOREACH(DevOps->Requirements, ReqmNode){
 		DevReqm = ReqmNode->Data;
-		if (1U == DevReqm->Allocated) {
+		if ((NULL != DevReqm) && (1U == DevReqm->Allocated)) {
 			CurrCaps |= DevReqm->AttrCaps;
 		}
 	}
@@ -594,7 +604,9 @@ static u32 GetMaxCapabilities(const XPm_Device* const Device)
 	}
 	LIST_FOREACH(DevOps->Requirements, ReqmNode){
 		const XPm_Requirement* Reqm = ReqmNode->Data;
-		MaxCaps |= Reqm->Curr.Capabilities;
+		if (NULL != Reqm) {
+			MaxCaps |= Reqm->Curr.Capabilities;
+		}
 	}
 done:
 	return MaxCaps;
@@ -860,7 +872,7 @@ static XStatus DevRequest(XPm_Device *Device, XPm_Subsystem *Subsystem,
 		//Check if it already requested by other subsystem. If yes, return
 		LIST_FOREACH(DevOps->Requirements, ReqmNode){
 			const XPm_Requirement *NextReqm = ReqmNode->Data;
-			if (1U == NextReqm->Allocated) {
+			if ((NULL != NextReqm) && (1U == NextReqm->Allocated)) {
 				Status = XPM_PM_NODE_USED;
 				goto done;
 			}
@@ -1130,7 +1142,7 @@ static u32 GetMinRequestedLatency(const XPm_Device *const Device)
 	}
 	LIST_FOREACH(DevOps->Requirements, ReqmNode) {
 		const XPm_Requirement *NextReqm = ReqmNode->Data;
-		if ((1U == NextReqm->SetLatReq) &&
+		if ((NULL != NextReqm) && (1U == NextReqm->SetLatReq) &&
 		    (MinLatency > NextReqm->Next.Latency)) {
 			MinLatency = NextReqm->Next.Latency;
 		}
@@ -1382,7 +1394,8 @@ static XStatus UpdatePwrLatencyReq(const XPm_Device *const Device)
 	XStatus Status = XST_FAILURE;
 	XPm_Power* Power = Device->Power;
 
-	if ((u8)XPM_POWER_STATE_ON == Power->Node.State) {
+	if ((NULL == Power) ||
+	    ((u8)XPM_POWER_STATE_ON == Power->Node.State)) {
 		Status = XST_SUCCESS;
 		goto done;
 	}
@@ -1513,7 +1526,8 @@ XStatus XPmDevice_GetPermissions(const XPm_Device *Device, u32 *PermissionMask)
 	}
 	LIST_FOREACH(DevOps->Requirements, ReqmNode) {
 		const XPm_Requirement *Reqm = ReqmNode->Data;
-		if (1U == Reqm->Allocated) {
+		if ((NULL != Reqm) && (NULL != Reqm->Subsystem) &&
+		    (1U == Reqm->Allocated)) {
 			*PermissionMask |= ((u32)1U << NODEINDEX(Reqm->Subsystem->Id));
 		}
 	}
@@ -1546,7 +1560,7 @@ u32 XPmDevice_GetUsageStatus(const XPm_Subsystem *Subsystem, const XPm_Device *D
 	} else {
 		LIST_FOREACH(DevOps->Requirements, ReqmNode) {
 			const XPm_Requirement *Reqm = ReqmNode->Data;
-			if (1U == Reqm->Allocated){
+			if ((NULL != Reqm) && (1U == Reqm->Allocated)){
 				/* This subsystem is currently using this device */
 				if (Subsystem == Reqm->Subsystem) {
 					UsageStatus |= (u32)PM_USAGE_CURRENT_SUBSYSTEM;
@@ -1601,6 +1615,15 @@ XStatus XPmDevice_GetStatus(const XPm_Subsystem *Subsystem,
 	/* If RstStatus is invalid it returns current device state */
 	if(NODETYPE(Device->Node.Id) == (u32)XPM_NODETYPE_DEV_CORE_RPU){
 		Status = XPm_GetClockState(Device->ClkHandles->Clock->Node.Id, &ClkStatus);
+		if (XST_SUCCESS != Status) {
+			/* Deliberately not fatal: ClkStatus keeps its initial
+			 * XPM_CLK_STATE_INVALID, and the halt test below requires
+			 * 0x1U, so an unreadable clock is treated as "not enabled".
+			 * Reporting it stops the result being discarded silently.
+			 */
+			PmWarn("Clock state unreadable for 0x%x\r\n",
+			       Device->ClkHandles->Clock->Node.Id);
+		}
 		const XPm_ResetHandle *RstHandle = Device->RstHandles;
 		while (NULL != RstHandle) {
 			Status = XPmReset_GetStateById(RstHandle->Reset->Node.Id, &RstStatus);
@@ -1796,7 +1819,7 @@ u32 XPmDevice_GetSubsystemIdOfCore(const XPm_Device *Device)
 		IdxCheck++;
 	}
 
-	if ((SubsysIdx < Idx) || (SubsysIdx < IdxCheck)) {
+	if ((SubsysIdx < Idx) || (SubsysIdx < IdxCheck) || (NULL == Subsystem)) {
 		SubSystemId = INVALID_SUBSYSID;
 	} else {
 		SubSystemId = Subsystem->Id;

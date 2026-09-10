@@ -202,6 +202,11 @@ static void XPmClock_ReleaseInt(XPm_ClockNode *Clk)
 
 			/* Release the clock parent */
 			XPm_ClockNode *ParentClk = XPmClock_GetByIdx(Clk->ParentIdx);
+			if (NULL == ParentClk) {
+				PmWarn("Invalid parent clockIdx %d\r\n", Clk->ParentIdx);
+				goto done;
+			}
+
 			if (ISOUTCLK(ParentClk->Node.Id)) {
 				XPmClock_ReleaseInt(ParentClk);
 			} else if (ISPLL(ParentClk->Node.Id)) {

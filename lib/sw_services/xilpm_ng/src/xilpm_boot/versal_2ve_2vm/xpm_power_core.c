@@ -1866,8 +1866,14 @@ XStatus XPm_DirectPwrUp(const u32 DeviceId)
 	XStatus Status = XST_FAILURE;
 
 	XPm_Core *Core = (XPm_Core *)XPmDevice_GetById(DeviceId);
-	u64 ResumeAddr = Core->ResumeAddr;
+	u64 ResumeAddr;
 
+	if (NULL == Core) {
+		Status = XST_DEVICE_NOT_FOUND;
+		goto done;
+	}
+
+	ResumeAddr = Core->ResumeAddr;
 	if (Core->isCoreUp == 1U) {
 		PmDbg("Core 0x%x is already powered up\r\n", DeviceId);
 		Status = XST_SUCCESS;
@@ -1955,6 +1961,11 @@ XStatus XPm_DirectPwrDwn(const u32 DeviceId)
 	XStatus Status = XST_FAILURE;
 	XPm_Core *Core = (XPm_Core *)XPmDevice_GetById(DeviceId);
 
+	if (NULL == Core) {
+		Status = XST_DEVICE_NOT_FOUND;
+		goto done;
+	}
+
 	switch (DeviceId) {
 		case PM_DEV_ACPU_0_0:
 			Status = XPmPower_ACpuDirectPwrDwn(&Acpu0_Core0PwrCtrl);
@@ -2023,6 +2034,7 @@ XStatus XPm_DirectPwrDwn(const u32 DeviceId)
 	/* Call XPmCore_AfterDirectPwrDwn to set the core power state */
 	Status = XPmCore_AfterDirectPwrDwn(Core);
 
+done:
 	return Status;
 }
 

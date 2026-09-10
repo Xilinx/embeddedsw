@@ -46,7 +46,8 @@ done:
  * @return 1 if function is available on given pin else 0.
  *
  ****************************************************************************/
-static u8 ValidatePinFunc(const XPm_PinNode *Pin, const XPm_PinFunc *PinFunc)
+static u8 ValidatePinFunc(const XPmRuntime_PinOps *RuntimeOps,
+			  const XPm_PinFunc *PinFunc)
 {
 	u16 FGrpIdx, PGrpIdx;
 	const u16 *FunGrps;
@@ -54,9 +55,9 @@ static u8 ValidatePinFunc(const XPm_PinNode *Pin, const XPm_PinFunc *PinFunc)
 	u8 IsValid = 0;
 
 	FunGrps = PinFunc->Groups;
-	PinGrps = Pin->RuntimeOps->Groups;
+	PinGrps = RuntimeOps->Groups;
 
-	for (PGrpIdx = 0; PGrpIdx < Pin->RuntimeOps->NumGroups; PGrpIdx++) {
+	for (PGrpIdx = 0; PGrpIdx < RuntimeOps->NumGroups; PGrpIdx++) {
 		for (FGrpIdx = 0; FGrpIdx < PinFunc->NumGroups; FGrpIdx++) {
 			if (FunGrps[FGrpIdx] == PinGrps[PGrpIdx]) {
 				IsValid = 1;
@@ -93,9 +94,15 @@ XStatus XPmPin_SetPinFunction(u32 PinId, u32 FuncId)
 		Status = XST_INVALID_PARAM;
 		goto done;
 	}
+	if (NULL == Pin->RuntimeOps) {
+		PmErr("Pin RuntimeOps is NULL\n\r");
+		Status = XST_FAILURE;
+		goto done;
+	}
 
 	PinFunc = XPmPinFunc_GetById(FuncId);
-	if ((NULL == PinFunc) || (0U == ValidatePinFunc(Pin, PinFunc))) {
+	if ((NULL == PinFunc) ||
+	    (0U == ValidatePinFunc(Pin->RuntimeOps, PinFunc))) {
 		Status = XST_INVALID_PARAM;
 		goto done;
 	}
@@ -143,6 +150,9 @@ XStatus XPmPin_GetPinFunction(u32 PinId, u32 *FuncId)
 	if (NULL == Pin) {
 		Status = XST_INVALID_PARAM;
 		goto done;
+	} else if (NULL == Pin->RuntimeOps) {
+		PmErr("Pin RuntimeOps is NULL\n\r");
+		Status = XST_FAILURE;
 	} else if (NULL == XPmPinFunc_GetById(Pin->RuntimeOps->FuncId)) {
 		*FuncId = INVALID_FUNC_ID;
 		Status = XST_SUCCESS;
@@ -172,8 +182,8 @@ done:
 	return Status;
 }
 
-static XStatus XPmPin_ConfigBiasStatus(const XPm_PinNode *Pin, u32 BaseAddr,
-				       u32 BitMask, u32 Value)
+static XStatus XPmPin_ConfigBiasStatus(XPmRuntime_PinOps *RuntimeOps,
+				       u32 BaseAddr, u32 BitMask, u32 Value)
 {
 	XStatus Status = XST_FAILURE;
 	u32 RegPuAddr, RegPdAddr;
@@ -188,28 +198,28 @@ static XStatus XPmPin_ConfigBiasStatus(const XPm_PinNode *Pin, u32 BaseAddr,
 	}
 
 	if (((u32)PINCTRL_BIAS_ENABLE == Value) &&
-	    ((u32)PINCTRL_BIAS_DISABLE == Pin->RuntimeOps->BiasStatus)) {
-		if ((u32)PINCTRL_BIAS_PULL_UP == Pin->RuntimeOps->PullCtrl) {
+	    ((u32)PINCTRL_BIAS_DISABLE == RuntimeOps->BiasStatus)) {
+		if ((u32)PINCTRL_BIAS_PULL_UP == RuntimeOps->PullCtrl) {
 			PmRmw32(RegPuAddr, BitMask, BitMask);
 		} else {
 			PmRmw32(RegPdAddr, BitMask, BitMask);
 		}
 	} else if (((u32)PINCTRL_BIAS_DISABLE == Value) &&
-		   ((u32)PINCTRL_BIAS_ENABLE == Pin->RuntimeOps->BiasStatus)) {
+		   ((u32)PINCTRL_BIAS_ENABLE == RuntimeOps->BiasStatus)) {
 		PmRmw32(RegPdAddr, BitMask, 0);
 		PmRmw32(RegPuAddr, BitMask, 0);
 	} else {
 		/* Required by MISRA */
 	}
-	Pin->RuntimeOps->BiasStatus = (u8)(Value & BITMASK(PIN_NODE_BIASSTATUS_BIT_FIELD_SIZE));
+	RuntimeOps->BiasStatus = (u8)(Value & BITMASK(PIN_NODE_BIASSTATUS_BIT_FIELD_SIZE));
 	Status = XST_SUCCESS;
 
 done:
 	return Status;
 }
 
-static XStatus XPmPin_ConfigPullCtrl(const XPm_PinNode *Pin, u32 BaseAddr, u32 BitMask,
-				     u32 Value)
+static XStatus XPmPin_ConfigPullCtrl(XPmRuntime_PinOps *RuntimeOps, u32 BaseAddr,
+				     u32 BitMask, u32 Value)
 {
 	XStatus Status = XST_FAILURE;
 	u32 RegPuAddr, RegPdAddr;
@@ -217,7 +227,7 @@ static XStatus XPmPin_ConfigPullCtrl(const XPm_PinNode *Pin, u32 BaseAddr, u32 B
 	RegPuAddr = BaseAddr + EN_WK_PU;
 	RegPdAddr = BaseAddr + EN_WK_PD;
 
-	if ((u32)PINCTRL_BIAS_ENABLE == Pin->RuntimeOps->BiasStatus) {
+	if ((u32)PINCTRL_BIAS_ENABLE == RuntimeOps->BiasStatus) {
 		if ((u32)PINCTRL_BIAS_PULL_UP == Value) {
 			/* Disable weak pull-down */
 			PmRmw32(RegPdAddr, BitMask, 0);
@@ -233,7 +243,7 @@ static XStatus XPmPin_ConfigPullCtrl(const XPm_PinNode *Pin, u32 BaseAddr, u32 B
 			goto done;
 		}
 	}
-	Pin->RuntimeOps->PullCtrl = (u8)(Value & BITMASK(PIN_NODE_PULLCTRL_BIT_FIELD_SIZE));
+	RuntimeOps->PullCtrl = (u8)(Value & BITMASK(PIN_NODE_PULLCTRL_BIT_FIELD_SIZE));
 	Status = XST_SUCCESS;
 
 done:
@@ -283,7 +293,9 @@ done:
 	return Status;
 }
 
-static XStatus XPmPin_ConfigTriState(const XPm_PinNode *Pin, u32 BitMask, u32 Value)
+static XStatus XPmPin_ConfigTriState(const XPm_PinNode *Pin,
+				     XPmRuntime_PinOps *RuntimeOps,
+				     u32 BitMask, u32 Value)
 {
 	XStatus Status = XST_FAILURE;
 	u32 BaseAddr;
@@ -291,7 +303,7 @@ static XStatus XPmPin_ConfigTriState(const XPm_PinNode *Pin, u32 BitMask, u32 Va
 	if ((u32)XPM_NODETYPE_LPD_MIO == NODETYPE(Pin->Node.Id)) {
 		BaseAddr = Pin->Node.BaseAddress + TRI_STATE + 4U;
 	} else {
-		BaseAddr = Pin->Node.BaseAddress + TRI_STATE + ((Pin->RuntimeOps->Bank) * 4U);
+		BaseAddr = Pin->Node.BaseAddress + TRI_STATE + ((RuntimeOps->Bank) * 4U);
 	}
 
 	if ((u32)PINCTRL_TRI_STATE_ENABLE == Value) {
@@ -303,7 +315,7 @@ static XStatus XPmPin_ConfigTriState(const XPm_PinNode *Pin, u32 BitMask, u32 Va
 		Status = XST_INVALID_PARAM;
 		goto done;
 	}
-	Pin->RuntimeOps->TriState = (u8)(Value & BITMASK(PIN_NODE_TRISTATE_BIT_FIELD_SIZE));
+	RuntimeOps->TriState = (u8)(Value & BITMASK(PIN_NODE_TRISTATE_BIT_FIELD_SIZE));
 	Status = XST_SUCCESS;
 
 done:
@@ -332,6 +344,11 @@ XStatus XPmPin_SetPinConfig(u32 PinId, u32 Param, u32 ParamValue)
 		Status = XST_INVALID_PARAM;
 		goto done;
 	}
+	if (NULL == Pin->RuntimeOps) {
+		PmErr("Pin RuntimeOps is NULL\n\r");
+		Status = XST_FAILURE;
+		goto done;
+	}
 
 	BitMask = (u32)1U << (PINNUM(Pin->Node.Id) % PINS_PER_BANK);
 	BaseAddr = Pin->Node.BaseAddress + ((Pin->RuntimeOps->Bank) * ((u32)BNK_OFFSET));
@@ -341,10 +358,12 @@ XStatus XPmPin_SetPinConfig(u32 PinId, u32 Param, u32 ParamValue)
 		Status = XPmPin_ConfigSlewRate(BaseAddr, BitMask, Value);
 		break;
 	case (u32)PINCTRL_CONFIG_BIAS_STATUS:
-		Status = XPmPin_ConfigBiasStatus(Pin, BaseAddr, BitMask, Value);
+		Status = XPmPin_ConfigBiasStatus(Pin->RuntimeOps, BaseAddr,
+						BitMask, Value);
 		break;
 	case (u32)PINCTRL_CONFIG_PULL_CTRL:
-		Status = XPmPin_ConfigPullCtrl(Pin, BaseAddr, BitMask, Value);
+		Status = XPmPin_ConfigPullCtrl(Pin->RuntimeOps, BaseAddr,
+					      BitMask, Value);
 		break;
 	case (u32)PINCTRL_CONFIG_SCHMITT_CMOS:
 		Status = XPmPin_ConfigSchmittCmos(BaseAddr, BitMask, Value);
@@ -353,7 +372,7 @@ XStatus XPmPin_SetPinConfig(u32 PinId, u32 Param, u32 ParamValue)
 		Status = XPmPin_ConfigDriveStrength(Pin, BaseAddr, Value);
 		break;
 	case (u32)PINCTRL_CONFIG_TRI_STATE:
-		Status = XPmPin_ConfigTriState(Pin, BitMask, Value);
+		Status = XPmPin_ConfigTriState(Pin, Pin->RuntimeOps, BitMask, Value);
 		break;
 	default:
 		Status = XST_INVALID_PARAM;
@@ -395,6 +414,12 @@ XStatus XPmPin_GetPinConfig(u32 PinId, u32 Param, u32 *Value)
 		goto done;
 	} else {
 		/* Required by MISRA */
+	}
+
+	if (NULL == Pin->RuntimeOps) {
+		PmErr("Pin RuntimeOps is NULL\n\r");
+		Status = XST_FAILURE;
+		goto done;
 	}
 
 	BitMask = (u32)1U << (PINNUM(Pin->Node.Id) % PINS_PER_BANK);
@@ -490,6 +515,11 @@ XStatus XPmPin_GetPinGroups(u32 PinId, u32 Index, u16 *Groups)
 		Status = XST_INVALID_PARAM;
 		goto done;
 	}
+	if (NULL == Pin->RuntimeOps) {
+		PmErr("Pin RuntimeOps is NULL\n\r");
+		Status = XST_FAILURE;
+		goto done;
+	}
 
 	Status = (XStatus)(Xil_SMemSet(Groups, Size, (u8)END_OF_GRP, Size));
 	if (XST_SUCCESS != Status) {
@@ -534,8 +564,11 @@ XStatus XPmPin_QueryAttributes(const u32 PinIndex, u32 *Resp)
 		goto done;
 	}
 
-	/* Check for valid pin index */
-	if (PinIndex >= (u32)XPM_NODEIDX_STMIC_MAX) {
+	/* Check for valid pin index. The pin database is indexed below with
+	 * (PinIndex + 1U), so PinIndex must stay below
+	 * (XPM_NODEIDX_STMIC_MAX - 1U) to keep that access in bounds.
+	 */
+	if (((u32)XPM_NODEIDX_STMIC_MAX - 1U) <= PinIndex) {
 		Status = XST_INVALID_PARAM;
 		goto done;
 	}
@@ -662,6 +695,12 @@ XStatus XPmPin_CheckPerms(const u32 SubsystemId, const u32 PinId)
 		goto done;
 	}
 
+	if (NULL == Pin->RuntimeOps) {
+		PmErr("Pin RuntimeOps is NULL\n\r");
+		Status = XST_FAILURE;
+		goto done;
+	}
+
 	SubsysIdxTmp = Pin->RuntimeOps->SubsysIdx;
 	if ((Pin->RuntimeOps->SubsysIdx != NODEINDEX(SubsystemId)) || (SubsysIdxTmp != NODEINDEX(SubsystemId))){
 		Status = XPM_PM_NO_ACCESS;
@@ -678,7 +717,17 @@ XStatus XPmPin_RuntimeOps_Init(XPm_PinNode* Pin)
 {
 	XStatus Status = XST_FAILURE;
 	u32 PinIdx = NODEINDEX(Pin->Node.Id);
-	const XPm_PinGroup *Grp = XPmPin_GetGroupByIdx(PinIdx);
+	const XPm_PinGroup *Grp = NULL;
+
+	/* Pin index is derived from a topology supplied node ID; validate it
+	 * against the size of the pin group table before using it as an index.
+	 */
+	if ((u32)XPM_NODEIDX_STMIC_MAX <= PinIdx) {
+		Status = XST_INVALID_PARAM;
+		goto done;
+	}
+
+	Grp = XPmPin_GetGroupByIdx(PinIdx);
 	Pin->RuntimeOps = (XPmRuntime_PinOps*)XPm_AllocBytesDevOps(sizeof(XPmRuntime_PinOps));
 	if (NULL == Pin->RuntimeOps) {
 		Status = XST_BUFFER_TOO_SMALL;

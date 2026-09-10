@@ -296,7 +296,7 @@ const XPm_Fsm XPmGenericDeviceFsm = {
  *****************************************************************************/
 XStatus XPmDeviceFsm_Init(XPmRuntime_DeviceOps* const DevOps) {
 	XStatus Status = XST_FAILURE;
-	if (NULL == DevOps) {
+	if ((NULL == DevOps) || (NULL == DevOps->Device)) {
 		PmErr("Runtime Device Ops is not initialized.");
 		Status = XST_FAILURE;
 		goto done;

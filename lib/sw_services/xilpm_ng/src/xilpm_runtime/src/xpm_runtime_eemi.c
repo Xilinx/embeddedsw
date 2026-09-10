@@ -113,7 +113,7 @@ __attribute__((weak, noinline))
 XStatus XPmSubsystemOp_GetStatus(XPm_Subsystem *Subsystem,
 				      XPm_DeviceStatus *const DeviceStatus)
 {
-	XStatus Status = XPM_ERR_DEVICE_STATUS;
+	XStatus Status = XST_FAILURE;
 
 	if ((NULL == Subsystem)|| (NULL == DeviceStatus)) {
 		Status = XST_INVALID_PARAM;

@@ -150,6 +150,7 @@ static XStatus SendPowerDownReq(const XPm_Node *Node)
 		for (Idx = (u32)XPM_NODEIDX_CLK_MIN; Idx < (u32)XPM_NODEIDX_CLK_MAX; Idx++) {
 			Clk = XPmClock_GetByIdx(Idx);
 			if ((NULL != Clk) && (ISPLL(Clk->Node.Id)) &&
+			    (NULL != Clk->PwrDomain) &&
 			    (Node->Id == Clk->PwrDomain->Node.Id)) {
 				XPmClockPll_Suspend((XPm_PllClockNode *)Clk);
 			}
@@ -225,7 +226,8 @@ static XStatus XPmPower_PowerUpParentState(XPm_Node *Node, u32 Event, u16 *DbgEr
 
 	if ((u32)XPM_POWER_EVENT_TIMER == Event) {
 		Status = XST_SUCCESS;
-		if (Power->WfParentUseCnt == Power->Parent->UseCount) {
+		if ((NULL != Power->Parent) &&
+		    (Power->WfParentUseCnt == Power->Parent->UseCount)) {
 			Power->WfParentUseCnt = 0;
 			/* Write to PSM power up request register */
 			Status = SendPowerUpReq(Node);
@@ -374,7 +376,8 @@ static XStatus XPmPower_PowerDwnParentState(XPm_Node *Node, u32 Event)
 
 	if ((u32)XPM_POWER_EVENT_TIMER == Event) {
 		Status = XST_SUCCESS;
-		if (Power->WfParentUseCnt == Power->Parent->UseCount) {
+		if ((NULL != Power->Parent) &&
+		    (Power->WfParentUseCnt == Power->Parent->UseCount)) {
 			Node->State = (u8)XPM_POWER_STATE_OFF;
 			Power->WfParentUseCnt = 0;
 			ResetPowerDomainOpFlags(Power);

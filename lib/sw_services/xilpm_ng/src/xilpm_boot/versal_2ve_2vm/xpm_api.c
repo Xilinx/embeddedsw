@@ -766,6 +766,10 @@ static XStatus AddProcDevice(const u32 *Args, u32 PowerId)
 	case (u32)XPM_NODETYPE_DEV_CORE_ASU:
 	{
 		XPm_AsuCore *AsuCore = (XPm_AsuCore *)XPm_AllocBytes(sizeof(XPm_AsuCore));
+		if (NULL == AsuCore) {
+			Status = XST_BUFFER_TOO_SMALL;
+			goto done;
+		}
 		Status = XPmAsuCore_Init(AsuCore, DeviceId, Ipi, BaseAddr, Power, NULL, NULL);
 		/* @TODO Just allocate memory for ASU node for now and return SUCCESS */
 		Status = XST_SUCCESS;
@@ -1973,7 +1977,7 @@ u32 XPm_GetSubsystemId(u32 ImageId)
  ****************************************************************************/
 XStatus XPm_PmcGetDeviceState(u32 DeviceId, u32 *const DeviceState)
 {
-	XStatus Status = XPM_ERR_DEVICE_STATUS;
+	XStatus Status = XST_FAILURE;
 
 	switch(NODECLASS(DeviceId)) {
 	case (u32)XPM_NODECLASS_DEVICE:

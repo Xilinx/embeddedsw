@@ -469,50 +469,49 @@ XStatus __attribute__((weak, noinline)) XPmDevice_Reset(const XPm_Device *Device
 XPm_Device *XPmDevice_GetById(const u32 DeviceId)
 {
 	XPm_Device *Device = NULL;
-	XPm_Device * const *DevicesHandle = NULL;
+	const u32 NodeIndex = NODEINDEX(DeviceId);
 
 	if ((u32)XPM_NODECLASS_DEVICE != NODECLASS(DeviceId)) {
 		goto done;
 	}
 
+	/*
+	 * Each store is bounded and subscripted inside its own branch, against
+	 * the size of the array actually being indexed.  Selecting a handle
+	 * here and subscripting it once below the chain reads more tidily, but
+	 * it puts the bound and the array in different branches - which is how
+	 * an index checked against one store ends up applied to another - and
+	 * leaves no single check dominating the dereference.
+	 */
 	if ((u32)XPM_NODESUBCL_DEV_PL == NODESUBCLASS(DeviceId)) {
-		if ((u32)XPM_NODEIDX_DEV_PLD_MAX <= NODEINDEX(DeviceId)) {
-			goto done;
+		if ((u32)ARRAY_SIZE(PmPlDevices) > NodeIndex) {
+			Device = PmPlDevices[NodeIndex];
 		}
-		DevicesHandle = PmPlDevices;
-
 	} else if (((u32)XPM_NODETYPE_DEV_GGS == NODETYPE(DeviceId)) ||
 		   ((u32)XPM_NODETYPE_DEV_PGGS == NODETYPE(DeviceId))) {
-		if ((u32)XPM_NODEIDX_DEV_VIRT_MAX <= NODEINDEX(DeviceId)) {
-			goto done;
+		if ((u32)ARRAY_SIZE(PmVirtualDevices) > NodeIndex) {
+			Device = PmVirtualDevices[NodeIndex];
 		}
-		DevicesHandle = PmVirtualDevices;
 	} else if (((u32)XPM_NODESUBCL_DEV_PERIPH == NODESUBCLASS(DeviceId)) &&
 		   ((u32)XPM_NODETYPE_DEV_HB_MON == NODETYPE(DeviceId))) {
-		if ((u32)XPM_NODEIDX_DEV_HB_MON_MAX <= NODEINDEX(DeviceId)) {
-			goto done;
+		if ((u32)ARRAY_SIZE(PmHbMonDevices) > NodeIndex) {
+			Device = PmHbMonDevices[NodeIndex];
 		}
-		DevicesHandle = PmHbMonDevices;
 	} else if ((u32)XPM_NODESUBCL_DEV_AIE == NODESUBCLASS(DeviceId)) {
-		if ((u32)XPM_NODEIDX_DEV_AIE_MAX <= NODEINDEX(DeviceId)) {
-			goto done;
+		if ((u32)ARRAY_SIZE(PmAieDevices) > NodeIndex) {
+			Device = PmAieDevices[NodeIndex];
 		}
-		DevicesHandle = PmAieDevices;
 	} else if (((u32)XPM_NODESUBCL_DEV_MEM_REGN == NODESUBCLASS(DeviceId)) &&
 			((u32)XPM_NODETYPE_DEV_MEM_REGN == NODETYPE(DeviceId))) {
-		if ((u32)XPM_NODEIDX_DEV_MEM_REGN_MAX <= NODEINDEX(DeviceId)) {
-			goto done;
+		if ((u32)ARRAY_SIZE(PmMemRegnDevices) > NodeIndex) {
+			Device = PmMemRegnDevices[NodeIndex];
 		}
-		DevicesHandle = PmMemRegnDevices;
 	} else {
-		if ((u32)XPM_NODEIDX_DEV_MAX <= NODEINDEX(DeviceId)) {
-			goto done;
+		if ((u32)ARRAY_SIZE(PmDevices) > NodeIndex) {
+			Device = PmDevices[NodeIndex];
 		}
-		DevicesHandle = PmDevices;
 	}
 
-	/* Retrieve the device */
-	Device = DevicesHandle[NODEINDEX(DeviceId)];
 	/* Check that Device's ID is same as given ID or not. */
 	if ((NULL != Device) && (DeviceId != Device->Node.Id)) {
 		Device = NULL;
@@ -687,7 +686,7 @@ XStatus __attribute__((weak, noinline)) XPmDevice_Release(const u32 SubsystemId,
 XStatus XPmDevice_GetState(const u32 DeviceId,
 			u32 *const DeviceState)
 {
-	XStatus Status = XPM_ERR_DEVICE_STATUS;
+	XStatus Status = XST_FAILURE;
 
 	*DeviceState = (u32)XPM_DEVSTATE_UNUSED;
 	const XPm_Device* Device = XPmDevice_GetById(DeviceId);

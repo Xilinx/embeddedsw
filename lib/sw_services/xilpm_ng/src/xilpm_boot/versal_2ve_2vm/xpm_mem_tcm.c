@@ -147,9 +147,5 @@ XStatus XPm_GetRpuByTcmId(u32 TcmId, u32 *RpuId)
 		Status = XST_INVALID_PARAM;
 		break;
 	}
-	if (XST_SUCCESS != Status) {
-		goto done;
-	}
-done:
 	return Status;
 }

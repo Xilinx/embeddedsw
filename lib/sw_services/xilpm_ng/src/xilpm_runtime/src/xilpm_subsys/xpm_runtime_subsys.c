@@ -209,7 +209,9 @@ static XStatus XPmSubsystem_ForceDownCleanup(const XPm_Subsystem *Subsystem)
 {
 	XStatus Status = XST_FAILURE;
 
-	Status = XPmRequirement_Release(LIST_FIRST_DATA(Subsystem->Requirements), RELEASE_ALL);
+	Status = XPmRequirement_Release((NULL != Subsystem->Requirements) ?
+					 LIST_FIRST_DATA(Subsystem->Requirements) : NULL,
+					 RELEASE_ALL);
 		/* Todo: Cancel wakeup if scheduled
 		 * Should be included with wakeup support
 		XPm_WakeUpCancelScheduled(SubSysIdx);*/

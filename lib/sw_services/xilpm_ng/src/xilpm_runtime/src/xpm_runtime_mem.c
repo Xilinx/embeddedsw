@@ -118,15 +118,12 @@ static inline XStatus checkExclusionList(u64 RegionStartAddr, u64 RegionEndAddr,
 			continue;
 		}
 
-		AddrRangeStatus isRangeOverlapExclusion = ADDR_NOT_IN_RANGE;
-		AddrRangeStatus isExclusionInRange = ADDR_NOT_IN_RANGE;
-
 		/* whether the given address range overlaps the excluded range */
-		isRangeOverlapExclusion = checkRangeOverlapExclusion(RegionStartAddr, RegionEndAddr,
+		AddrRangeStatus isRangeOverlapExclusion = checkRangeOverlapExclusion(RegionStartAddr, RegionEndAddr,
 								excludedStartAddress, excludedEndAddress);
 
 		/* whether the entire excluded range falls within the given address range */
-		isExclusionInRange = checkAddrRangeContainment(&excludedStartAddress, &excludedSize,
+		AddrRangeStatus isExclusionInRange = checkAddrRangeContainment(&excludedStartAddress, &excludedSize,
 								RegionStartAddr, RegionEndAddr);
 
 		/* If there is any overlap of provided range and excluded range, not allowed to access! */
@@ -360,9 +357,6 @@ XStatus XPm_CheckMemDevRangeReachable(u64 RegionAddr, u64 RegionSize, u8 EnableL
 		if (IS_MEM_DEV_OCM(DeviceId) ||
 		    IS_MEM_DEV_TCM(DeviceId)) {
 			MemDevice = (const XPm_MemDevice *)Device;
-			if (NULL == MemDevice) {
-				continue;
-			}
 
 			u64 StartAddress = (u64)MemDevice->StartAddress;
 			u64 EndAddress = (u64)MemDevice->EndAddress;
@@ -410,9 +404,6 @@ XStatus XPm_CheckMemDevRangeReachable(u64 RegionAddr, u64 RegionSize, u8 EnableL
 		}
 		else if (IS_MEM_DEV_DDRMC(DeviceId)) {
 			MCDev = (const XPm_MemCtrlrDevice *)Device;
-			if (NULL == MCDev) {
-				continue;
-			}
 
 			/**
 			 * Save remaining chunks of region

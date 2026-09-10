@@ -33,7 +33,8 @@ XStatus XPmCore_SetCoreIdleSupport(XPm_Core* Core, const u32 Value) {
 		}
 	}
 	LIST_FOREACH(RuntimeCoreList, RuntimeCoreNode) {
-		if (RuntimeCoreNode->Data->Core == Core) {
+		if ((NULL != RuntimeCoreNode->Data) &&
+		    (RuntimeCoreNode->Data->Core == Core)) {
 			RuntimeCore = RuntimeCoreNode->Data;
 			break;
 		}
@@ -69,7 +70,8 @@ XStatus XPmCore_GetCoreIdleSupport(const XPm_Core* Core, u8 *IsCoreIdleSupported
 		goto done;
 	}
 	LIST_FOREACH(RuntimeCoreList, RuntimeCoreNode) {
-		if (RuntimeCoreNode->Data->Core == Core) {
+		if ((NULL != RuntimeCoreNode->Data) &&
+		    (RuntimeCoreNode->Data->Core == Core)) {
 			PmInfo("Core Idle support found for 0x%x\r\n", RuntimeCoreNode->Data->Core->Device.Node.Id);
 			RuntimeCore = RuntimeCoreNode->Data;
 			break;
@@ -110,7 +112,8 @@ maybe_unused static XStatus XPmCore_GetFrcPwrDwnReq(const XPm_Core* Core, struct
 		goto done;
 	}
 	LIST_FOREACH(RuntimeCoreList, RuntimeCoreNode) {
-		if (RuntimeCoreNode->Data->Core == Core) {
+		if ((NULL != RuntimeCoreNode->Data) &&
+		    (RuntimeCoreNode->Data->Core == Core)) {
 			RuntimeCore = RuntimeCoreNode->Data;
 			break;
 		}
@@ -154,7 +157,8 @@ maybe_unused static XStatus XPmCore_SetFrcPwrDwnReq(XPm_Core* Core, struct XPm_F
 		}
 	}
 	LIST_FOREACH(RuntimeCoreList, RuntimeCoreNode) {
-		if (RuntimeCoreNode->Data->Core == Core) {
+		if ((NULL != RuntimeCoreNode->Data) &&
+		    (RuntimeCoreNode->Data->Core == Core)) {
 			RuntimeCore = RuntimeCoreNode->Data;
 			break;
 		}
@@ -183,6 +187,11 @@ XStatus XPmCore_GetWakeupLatency(const u32 DeviceId, u32 *Latency)
 	const XPm_Power *Power;
 	u32 Lat = 0;
 	*Latency = 0;
+
+	if (NULL == Core) {
+		Status = XST_INVALID_PARAM;
+		goto done;
+	}
 
 	if ((u32)XPM_DEVSTATE_RUNNING == Core->Device.Node.State) {
 		goto done;
@@ -262,7 +271,8 @@ static XStatus XPmCore_ProcessPendingForcePwrDwn(XPm_Subsystem *Subsystem, const
 	/* Check any of core is pending power down in subsystem */
 	LIST_FOREACH(Subsystem->Requirements, ReqmNode) {
 		Reqm = ReqmNode->Data;
-		if ((1U == Reqm->Allocated) &&
+		if ((NULL != Reqm) && (NULL != Reqm->Device) &&
+		    (1U == Reqm->Allocated) &&
 		    ((u32)XPM_NODESUBCL_DEV_CORE == NODESUBCLASS(Reqm->Device->Node.Id)) &&
 		    ((u32)XPM_NODETYPE_DEV_CORE_APU == NODETYPE(Reqm->Device->Node.Id)) &&
 		     ((u8)XPM_DEVSTATE_PENDING_PWR_DWN == Reqm->Device->Node.State)) {

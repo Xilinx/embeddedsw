@@ -323,6 +323,7 @@ static void XPmNotifier_SendPendingNotifyEvent(const XPm_Subsystem *SubSystem)
 	u32 Event;
 	u32 Index = 0U;
 	u32 Idx = 0;
+	u8 Found = 0U;
 	XPmNotifier* Notifier = NULL;
 	u32 TempSubSystemId ;
 
@@ -334,16 +335,19 @@ static void XPmNotifier_SendPendingNotifyEvent(const XPm_Subsystem *SubSystem)
 		 */
 		while (Idx < PosEmptySpace) {
 			Index = ((u32)EventSeq[Idx] - 1U);
-			Notifier = &PmNotifiers[Index];
-			TempSubSystemId = Notifier->SubsystemId;
-			if ((SubSystem->Id == TempSubSystemId) &&
-			    (0U != Notifier->PendEventCnt)) {
-				break;
+			if ((u32)XPM_NOTIFIERS_COUNT > Index) {
+				Notifier = &PmNotifiers[Index];
+				TempSubSystemId = Notifier->SubsystemId;
+				if ((SubSystem->Id == TempSubSystemId) &&
+				    (0U != Notifier->PendEventCnt)) {
+					Found = 1U;
+					break;
+				}
 			}
 			Idx++;
 		}
 
-		if (Idx != PosEmptySpace) {
+		if (1U == Found) {
 			PendingEvent = (u32)PRESENT;
 			Status = XPmNotifier_GetNotifyCbData(Index, Payload);
 			if (XST_SUCCESS != Status) {
@@ -356,9 +360,10 @@ static void XPmNotifier_SendPendingNotifyEvent(const XPm_Subsystem *SubSystem)
 			NodeId = Payload[1];
 			Event = Payload[2];
 			const XPm_Subsystem* NotifierSubsystem = XPmSubsystem_GetById(Notifier->SubsystemId);
-			if (((u8)ONLINE ==NotifierSubsystem->State) ||
-			    ((u8)PENDING_POWER_OFF ==  NotifierSubsystem->State) ||
-			    ((u8)PENDING_RESTART == NotifierSubsystem->State) ||
+			if (((NULL != NotifierSubsystem) &&
+			     (((u8)ONLINE == NotifierSubsystem->State) ||
+			      ((u8)PENDING_POWER_OFF ==  NotifierSubsystem->State) ||
+			      ((u8)PENDING_RESTART == NotifierSubsystem->State))) ||
 			    (0U != (Event & Notifier->WakeMask))) {
 				/* Send Notification */
 				(*PmRequestCb)(Notifier->IpiMask,
@@ -695,12 +700,14 @@ XStatus XPmNotifier_RestoreEmActions(void)
 	XStatus Status = XST_FAILURE;
 	u32 Idx;
 
+	/* Sweep every notifier slot because the table has no live-count prefix */
 	for (Idx = 0U; Idx < ARRAY_SIZE(PmNotifiers); Idx++) {
 		if ((0U == PmNotifiers[Idx].SubsystemId) ||
 		    ((u32)XPM_NODECLASS_EVENT != NODECLASS(PmNotifiers[Idx].NodeId))) {
 			continue;
 		}
 
+		/* Re-arm the custom action for this preserved event notifier */
 		Status = XPlmi_EmSetAction(PmNotifiers[Idx].NodeId,
 					   PmNotifiers[Idx].EventMask,
 					   XPLMI_EM_ACTION_CUSTOM,
@@ -709,6 +716,7 @@ XStatus XPmNotifier_RestoreEmActions(void)
 		if (XST_SUCCESS != Status) {
 			PmWarn("EM restore failed: NodeId=0x%08x Mask=0x%08x Sts=%d\r\n",
 			       PmNotifiers[Idx].NodeId, PmNotifiers[Idx].EventMask, Status);
+			/* Return the first failure; later entries remain unrestored */
 			goto done;
 		}
 	}
@@ -847,7 +855,8 @@ void XPmNotifier_Event(const u32 NodeId, const u32 Event)
 		 * the event only if it requested to be woken up.
 		 */
 		const XPm_Subsystem* NotifierSubsystem = XPmSubsystem_GetById(Notifier->SubsystemId);
-		if (((u8)OFFLINE != NotifierSubsystem->State) ||
+		if (((NULL != NotifierSubsystem) &&
+		     ((u8)OFFLINE != NotifierSubsystem->State)) ||
 		    (0U != (Event & Notifier->WakeMask))) {
 			XPmNotifier_NotifyTarget(Notifier->IpiMask, Payload);
 		}

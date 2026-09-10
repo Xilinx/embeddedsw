@@ -134,6 +134,11 @@ static int HbMon_Scheduler(void *data)
 
 		if (HbMon_TimeoutList[Idx] <= HbMon_SchedFreq) {
 			Device = XPmDevice_GetHbMonDeviceByIndex(Idx);
+			if (NULL == Device) {
+				PmErr("Device is NULL - active HB Mon %d\r\n", Idx);
+				Status = XST_FAILURE;
+				goto done;
+			}
 			DevOps = XPm_GetDevOps_ById(Device->Node.Id);
 			if ((NULL == DevOps) || (NULL == DevOps->PendingReqm)) {
 				PmErr("DeviceOps/PendingReqm is NULL - active HB Mon %d\r\n", Idx);
@@ -233,6 +238,14 @@ static XStatus ActionStart(XPm_Device* const Device)
 
 	PmWarn("%s: HB Mon[%lu]\r\n", __func__, HbMon_Id);
 
+	/* Node index comes from a topology supplied node ID; validate it
+	 * against the size of the healthy boot monitor timeout list.
+	 */
+	if ((u32)XPM_NODEIDX_DEV_HB_MON_MAX <= HbMon_Id) {
+		PmErr("Invalid HB Mon index %lu\r\n", HbMon_Id);
+		goto done;
+	}
+
 	if ((NULL == DevOps) || (NULL == DevOps->PendingReqm)) {
 		PmErr("DeviceOps/PendingReqm is NULL - HB Mon\r\n");
 		goto done;
@@ -264,8 +277,8 @@ static XStatus ActionStart(XPm_Device* const Device)
 			(u32)1U << HbMon_Id,
 			DevOps->PendingReqm->Subsystem->Id);
 	/* Update use count. */
-	Device->WfPwrUseCnt = Device->Power->UseCount + 1U;
 	if (NULL != Device->Power) {
+		Device->WfPwrUseCnt = Device->Power->UseCount + 1U;
 		Status = Device->Power->HandleEvent(&Device->Power->Node,
 				(u32)XPM_POWER_EVENT_PWR_UP);
 		if (XST_SUCCESS != Status) {
@@ -284,6 +297,14 @@ static XStatus ActionStop(XPm_Device* const Device)
 	u32 HbMon_Id = NODEINDEX(Device->Node.Id);
 
 	PmWarn("%s: HB Mon[%lu]\r\n", __func__, HbMon_Id);
+
+	/* Node index comes from a topology supplied node ID; validate it
+	 * against the size of the healthy boot monitor timeout list.
+	 */
+	if ((u32)XPM_NODEIDX_DEV_HB_MON_MAX <= HbMon_Id) {
+		PmErr("Invalid HB Mon index %lu\r\n", HbMon_Id);
+		goto done;
+	}
 
 	HbMon_StopTimer(HbMon_Id);
 	/* Update use count. */

@@ -35,6 +35,12 @@ XStatus FpdInitStart(XPm_PowerDomain *PwrDomain, const u32 *Args,
 		goto done;
 	}
 
+	if (NULL == VccintPsfpRail) {
+		Status = XST_DEVICE_NOT_FOUND;
+		DbgErr = XPM_INT_ERR_POWER_SUPPLY;
+		goto done;
+	}
+
 	/* Perform VID adjustment with redundancy to mitigate fault injection */
 	XSECURE_REDUNDANT_CALL(Status, StatusTmp, XPmRail_AdjustVID,
 			       VccintPsfpRail);

@@ -53,7 +53,8 @@ XStatus XPmClockPll_GetMode(XPm_PllClockNode *Pll, u32 *Mode)
 	XStatus Status = XST_FAILURE;
 	const XPm_Power *PowerDomain = Pll->ClkNode.PwrDomain;
 
-	if ((u8)XPM_POWER_STATE_ON != PowerDomain->Node.State) {
+	if ((NULL != PowerDomain) &&
+	    ((u8)XPM_POWER_STATE_ON != PowerDomain->Node.State)) {
 		Status = XST_NO_ACCESS;
 		goto done;
 	}
@@ -156,7 +157,8 @@ XStatus XPmClockPll_GetParam(const XPm_PllClockNode *Pll, u32 Param, u32 *Val)
 	u32 Shift, Mask, Reg = 0;
 	const XPm_Power *PowerDomain = Pll->ClkNode.PwrDomain;
 
-	if ((u32)XPM_POWER_STATE_ON != PowerDomain->Node.State) {
+	if ((NULL != PowerDomain) &&
+	    ((u32)XPM_POWER_STATE_ON != PowerDomain->Node.State)) {
 		Status = XST_NO_ACCESS;
 		goto done;
 	}
@@ -249,10 +251,12 @@ XStatus XPmClockPll_GetWakeupLatency(const u32 Id, u32 *Latency)
 
 	*Latency += PM_PLL_LOCKING_TIME;
 
-	Status = XPmPower_GetWakeupLatency(Pll->ClkNode.PwrDomain->Node.Id,
-					   &Lat);
-	if (XST_SUCCESS == Status) {
-		*Latency += Lat;
+	if (NULL != Pll->ClkNode.PwrDomain) {
+		Status = XPmPower_GetWakeupLatency(Pll->ClkNode.PwrDomain->Node.Id,
+						   &Lat);
+		if (XST_SUCCESS == Status) {
+			*Latency += Lat;
+		}
 	}
 
 done:

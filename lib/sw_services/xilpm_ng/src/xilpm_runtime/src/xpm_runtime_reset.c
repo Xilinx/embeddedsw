@@ -456,7 +456,8 @@ static XStatus XPmReset_SetAllowedSubsystems(XPm_ResetNode *Reset, const u32 All
 		}
 	}
 	LIST_FOREACH(RuntimeResetList, RstNode) {
-		if (RstNode->Data->Device == Reset)
+		if ((NULL != RstNode->Data) &&
+		    (RstNode->Data->Device == Reset))
 		{
 			RuntimeReset = RstNode->Data;
 			break;
@@ -496,7 +497,8 @@ static XStatus XPmReset_GetAllowedSubsystems(const XPm_ResetNode *Reset, u32 *Al
 		goto done;
 	}
 	LIST_FOREACH(RuntimeResetList, RstNode) {
-		if (RstNode->Data->Device == Reset) {
+		if ((NULL != RstNode->Data) &&
+		    (RstNode->Data->Device == Reset)) {
 			RuntimeReset = RstNode->Data;
 			break;
 		}

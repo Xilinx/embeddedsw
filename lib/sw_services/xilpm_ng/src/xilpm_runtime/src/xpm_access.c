@@ -231,6 +231,12 @@ static XStatus XPmAccess_NSecSubsysHandler(u32 SubsystemId, pm_ioctl_id Op,
 
 	XSECURE_TEMPORAL_CHECK(done, Status, XPmAccess_BaseHandler, Op, AccessType);
 
+	/* A missing match entry cannot satisfy the subsystem requirement. */
+	if ((NULL == Match) || (NULL == Match->Entry)) {
+		Status = XPM_PM_NO_ACCESS;
+		goto done;
+	}
+
 	/* Check if caller subsystem has access to this entry */
 	XSECURE_TEMPORAL_CHECK(done, Status, XPmAccess_CheckRequirement, SubsystemId, Match->Entry->Id);
 done:
@@ -263,7 +269,13 @@ static XStatus XPmAccess_EnforcePolicy(u32 SubsystemId, pm_ioctl_id IoctlId,
 				       const XPm_NodeAccessMatch *const Match)
 {
 	XStatus Status = XPM_PM_NO_ACCESS;
-	XPm_NodeAccessTypes AccessType = (XPm_NodeAccessTypes) Match->Aper->Access;
+	XPm_NodeAccessTypes AccessType;
+
+	/* A missing aperture has no policy and must not grant access. */
+	if ((NULL == Match) || (NULL == Match->Aper)) {
+		goto done;
+	}
+	AccessType = (XPm_NodeAccessTypes) Match->Aper->Access;
 
 	/* Handlers for access policy checking */
 	static const struct {
@@ -304,6 +316,7 @@ static XStatus XPmAccess_EnforcePolicy(u32 SubsystemId, pm_ioctl_id IoctlId,
 		break;
 	}
 
+done:
 	return Status;
 }
 
@@ -326,6 +339,12 @@ static XStatus XPmAccess_IsAllowed(u32 SubsystemId, u32 DeviceId,
 	}
 
 	XSECURE_TEMPORAL_CHECK(done, Status, XPmAccess_LookupEntry, DeviceId, Offset, &Match);
+
+	/* A successful lookup must yield both the entry and its aperture */
+	if ((NULL == Match.Entry) || (NULL == Match.Aper)) {
+		Status = XPM_PM_NO_ACCESS;
+		goto done;
+	}
 
 	PmDbg("Matching Entry Found:\r\n");
 	PmDbg("    Id: 0x%08x\r\n", Match.Entry->Id);
@@ -358,7 +377,8 @@ static XStatus XPmAccess_CheckParent(u32 DeviceId, u32 *BaseAddress)
 			Status = XST_DEVICE_NOT_FOUND;
 			goto done;
 		}
-		if ((u32)XPM_POWER_STATE_ON != Device->Power->Node.State) {
+		if ((NULL == Device->Power) ||
+		    ((u32)XPM_POWER_STATE_ON != Device->Power->Node.State)) {
 			Status = XST_FAILURE;
 			goto done;
 		}

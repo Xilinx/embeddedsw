@@ -29,7 +29,8 @@ XStatus XPmRuntime_Periph_GetWakeProcId(const XPm_Periph * Device, u32 *WakeProc
 		goto done;
 	}
 	LIST_FOREACH(PeriphList, PeriphNode) {
-		if (PeriphNode->Data->Device == Device) {
+		if ((NULL != PeriphNode->Data) &&
+		    (PeriphNode->Data->Device == Device)) {
 			*WakeProcId = PeriphNode->Data->WakeProcId;
 			Status = XST_SUCCESS;
 			goto done;
@@ -55,7 +56,8 @@ XStatus XPmRuntime_Periph_SetWakeProcId(XPm_Periph * Device, u32 WakeProcId)
 		}
 	}
 	LIST_FOREACH(PeriphList, PeriphNode) {
-		if (PeriphNode->Data->Device == Device) {
+		if ((NULL != PeriphNode->Data) &&
+		    (PeriphNode->Data->Device == Device)) {
 			Periph = PeriphNode->Data;
 			break;
 		}
