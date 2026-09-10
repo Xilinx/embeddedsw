@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2011 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -59,7 +59,8 @@ void XAxiPcie_EnableGlobalInterrupt(XAxiPcie *InstancePtr)
 	Data = XAxiPcie_ReadReg(InstancePtr->Config.BaseAddress,
 							XAXIPCIE_BSC_OFFSET);
 
-	Data |= (XAXIPCIE_BSC_GI_MASK >> XAXIPCIE_BSC_GI_SHIFT);
+	/* Bit is Global Interrupt Disable; clear it to enable interrupts */
+	Data &= ~XAXIPCIE_BSC_GI_MASK;
 	XAxiPcie_WriteReg(InstancePtr->Config.BaseAddress,
 						XAXIPCIE_BSC_OFFSET, Data);
 
@@ -86,7 +87,8 @@ void XAxiPcie_DisableGlobalInterrupt(XAxiPcie *InstancePtr)
 	Data = XAxiPcie_ReadReg(InstancePtr->Config.BaseAddress,
 							XAXIPCIE_BSC_OFFSET);
 
-	Data &= ~(XAXIPCIE_BSC_GI_MASK >> XAXIPCIE_BSC_GI_SHIFT);
+	/* Bit is Global Interrupt Disable; set it to disable interrupts */
+	Data |= XAXIPCIE_BSC_GI_MASK;
 
 	XAxiPcie_WriteReg(InstancePtr->Config.BaseAddress,
 						XAXIPCIE_BSC_OFFSET, Data);
