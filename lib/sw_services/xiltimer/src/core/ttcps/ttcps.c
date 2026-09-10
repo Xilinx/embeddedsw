@@ -29,6 +29,8 @@
  * 2.4   bdk   13/11/25 Typecasted with proper datatypes to fix MISRA-C
  *			violation rules for 10.1 and 17.7
  * 2.4   vmt   08/20/26 Added weak sleep and tick timer instance variables.
+ * 2.4   vmt   09/01/26 Added XTimer_TtcTickIntervalHz() so TTC tick rates can
+ *			be programmed in Hz.
  *</pre>
  *
  *@note
@@ -85,6 +87,7 @@ static void XSleepTimer_TtcStop(XTimer *InstancePtr);
 #ifdef XTICKTIMER_IS_TTCPS
 void XTtc_CallbackHandler(void *CallBackRef, u32 StatusEvent);
 static void XTimer_TtcTickInterval(XTimer *InstancePtr, u32 Delay);
+static void XTimer_TtcTickIntervalHz(XTimer *InstancePtr, u32 FreqHz);
 static void XTimer_TtcSetIntrHandler(XTimer *InstancePtr, u8 Priority);
 static void XTickTimer_TtcStop(XTimer *InstancePtr);
 static void XTickTimer_ClearTtcInterrupt(XTimer *InstancePtr);
@@ -125,6 +128,7 @@ u32 XilTickTimer_Init(XTimer *InstancePtr)
 {
 	InstancePtr->XTimer_TickIntrHandler = XTimer_TtcSetIntrHandler;
 	InstancePtr->XTimer_TickInterval = XTimer_TtcTickInterval;
+	InstancePtr->XTimer_TickIntervalHz = XTimer_TtcTickIntervalHz;
 	InstancePtr->XTickTimer_Stop = XTickTimer_TtcStop;
 	InstancePtr->XTickTimer_ClearInterrupt = XTickTimer_ClearTtcInterrupt;
 #if defined  (XPM_SUPPORT)
@@ -190,35 +194,56 @@ void XTtc_CallbackHandler(void *CallBackRef, u32 StatusEvent)
 
 /*****************************************************************************/
 /**
- * This function configures the scutimer tick interval
+ * This function configures the ttcps tick interval from a frequency
  *
  * @param  InstancePtr is Pointer to the XTimer instance
- * @param  Delay is the delay interval
+ * @param  FreqHz is the required tick frequency in Hz
  *
- * @return	None
+ * @return None
+ *
+ * @note   The frequency is passed unchanged to XTtcPs_CalcIntervalFromFreq(),
+ *	   so rates that are not exact divisors of 1000 are programmed as
+ *	   accurately as the TTC input clock allows.
  *
  ****************************************************************************/
-static void XTimer_TtcTickInterval(XTimer *InstancePtr, u32 Delay)
+static void XTimer_TtcTickIntervalHz(XTimer *InstancePtr, u32 FreqHz)
 {
 	XTtcPs *TtcPsInstPtr = &InstancePtr->TtcPs_TickInst;
 	static XInterval Interval;
 	static u8 Prescaler;
-	u32 Freq;
 	static u32 IsTickTimerStarted = FALSE;
+
+	Xil_AssertVoid(FreqHz > 0U);
 
 	if (FALSE == IsTickTimerStarted) {
 		XTimer_TtcInit(XTickTimer_Instance,
 			       &InstancePtr->TtcPs_TickInst);
 		IsTickTimerStarted = TRUE;
 	}
-	Freq = XTIMER_DELAY_MSEC / Delay;
 	XTtcPs_SetOptions(TtcPsInstPtr, XTTCPS_OPTION_INTERVAL_MODE |
 			  XTTCPS_OPTION_WAVE_DISABLE);
-	XTtcPs_CalcIntervalFromFreq(TtcPsInstPtr, Freq, &Interval, &Prescaler);
+	XTtcPs_CalcIntervalFromFreq(TtcPsInstPtr, FreqHz, &Interval, &Prescaler);
 	XTtcPs_SetInterval(TtcPsInstPtr, Interval);
 	XTtcPs_SetPrescaler(TtcPsInstPtr, Prescaler);
 	XTtcPs_EnableInterrupts(TtcPsInstPtr, XTTCPS_IXR_INTERVAL_MASK);
 	XTtcPs_Start(TtcPsInstPtr);
+}
+
+/*****************************************************************************/
+/**
+ * This function configures the ttcps tick interval
+ *
+ * @param  InstancePtr is Pointer to the XTimer instance
+ * @param  Delay is the delay interval in milliseconds
+ *
+ * @return None
+ *
+ ****************************************************************************/
+static void XTimer_TtcTickInterval(XTimer *InstancePtr, u32 Delay)
+{
+	Xil_AssertVoid(Delay > 0U);
+
+	XTimer_TtcTickIntervalHz(InstancePtr, (u32)XTIMER_DELAY_MSEC / Delay);
 }
 
 /*****************************************************************************/

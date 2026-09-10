@@ -30,6 +30,8 @@
 *  2.0  ml      28/03/24 Added description to fix doxygen warnings.
 *  2.4  vmt     08/20/26 Added weak sleep and tick timer instance
 *                        variables.
+*  2.4  vmt     09/01/26 Added XTimer_SetIntervalHz() to configure the tick
+*                        interval from frequency.
 * </pre>
 ******************************************************************************/
 #ifndef XILTIMER_H
@@ -89,6 +91,7 @@ typedef void (*XTimer_TickHandler) (void *CallBackRef, u32 StatusEvent);
  * @param XTimer_ModifyInterval Modifies the timer interval
  * @param XTimer_TickIntrHandler Tick interrupt handler
  * @param XTimer_TickInterval Configures the tick interval
+ * @param XTimer_TickIntervalHz Configures the tick interval from a frequency
  * @param XSleepTimer_Stop Stops the sleep timer
  * @param XTickTimer_Stop Stops the tick timer
  * @param XTickTimer_ClearInterrupt Clears the Tick timer interrupt status
@@ -108,6 +111,9 @@ typedef struct XTimerTag {
                u8 Priority);                /**< Tick interrupt handler */
 	void (*XTimer_TickInterval)(struct XTimerTag *InstancePtr, u32 Delay);
                                             /**< Configures the tick interval */
+	void (*XTimer_TickIntervalHz)(struct XTimerTag *InstancePtr, u32 FreqHz);
+                                            /**< Configures the tick interval
+                                                 from a frequency in Hz */
 	void (*XSleepTimer_Stop)(struct XTimerTag *InstancePtr);
                                             /**< Stops the sleep timer */
 	void (*XTickTimer_Stop)(struct XTimerTag *InstancePtr);
@@ -202,6 +208,13 @@ u32 XilTickTimer_Init(XTimer *InstancePtr);
  */
 void XTime_GetTime(XTime *Xtime_Global);
 void XTimer_SetInterval(unsigned long delay);
+/**
+ * Sets the tick interval from a frequency in Hz.
+ * XTimer_SetInterval() uses whole milliseconds and cannot represent rates
+ * that are not exact divisors of 1000. The requested rate is preserved in Hz
+ * when the selected timer implements the Hz path.
+ */
+void XTimer_SetIntervalHz(u32 FreqHz);
 void XTimer_SetHandler(XTimer_TickHandler FuncPtr, void *CallBackRef,
 		       u8 Priority);
 void XTimer_ClearTickInterrupt( void );

@@ -30,6 +30,8 @@
 *                         fix doxygen warnings.
 *  2.4  vmt      08/20/26 Added weak definitions of sleep and tick
 *                         timer instance variables.
+*  2.4  vmt      09/01/26 Added XTimer_SetIntervalHz() to configure the tick
+*                         interval from frequency.
 * </pre>
 ******************************************************************************/
 
@@ -197,6 +199,36 @@ void XTimer_SetInterval(unsigned long delay)
 	InstancePtr = &TimerInst;
 	if (InstancePtr->XTimer_TickInterval)
 		InstancePtr->XTimer_TickInterval(InstancePtr, delay);
+}
+
+/****************************************************************************/
+/**
+*
+* This API configures the tick interval from a frequency in Hz, instead of
+* whole milliseconds.
+*
+* @param            FreqHz Required tick frequency in Hz
+*
+* @note             If XTimer_TickIntervalHz is not implemented (SCU timer,
+*                   AXI timer), this API uses Delay = 1000 / FreqHz with
+*                   integer truncation, so the programmed rate matches
+*                   FreqHz only when 1000 is an exact multiple of FreqHz.
+*
+*****************************************************************************/
+void XTimer_SetIntervalHz(u32 FreqHz)
+{
+	XTimer *InstancePtr;
+	u32 Delay;
+
+	Xil_AssertVoid(FreqHz > 0U);
+
+	InstancePtr = &TimerInst;
+	if (InstancePtr->XTimer_TickIntervalHz != NULL) {
+		InstancePtr->XTimer_TickIntervalHz(InstancePtr, FreqHz);
+	} else if (InstancePtr->XTimer_TickInterval != NULL) {
+		Delay = (u32)XTIMER_DELAY_MSEC / FreqHz;
+		InstancePtr->XTimer_TickInterval(InstancePtr, Delay);
+	}
 }
 
 /****************************************************************************/
