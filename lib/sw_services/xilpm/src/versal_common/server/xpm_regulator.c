@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2020 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -42,7 +42,8 @@ XStatus XPmRegulator_Init(XPm_Regulator *Regulator, u32 Id, const u32 *Args, u32
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 	u32 NodeIndex = NODEINDEX(Id);
 	u32 Method, ControllerId;
-	const u32 CopySize = 4U;
+	const u32 CopySize = sizeof(u32);
+	const u32 RegulatorArgCnt = 3U;
 
 	if ((u32)XPM_NODEIDX_POWER_REGULATOR_MAX <= NodeIndex) {
 		DbgErr = XPM_INT_ERR_INVALID_NODE_IDX;
@@ -61,6 +62,14 @@ XStatus XPmRegulator_Init(XPm_Regulator *Regulator, u32 Id, const u32 *Args, u32
 
 	switch (Method) {
 	case (u32)XPM_METHODTYPE_I2C:
+		/* Validate the payload size before writing the regulator configuration. */
+		if ((NumArgs - RegulatorArgCnt) >
+		    ((u32)MAX_I2C_COMMAND_LEN / CopySize)) {
+			DbgErr = XPM_INT_ERR_INVALID_ARGS;
+			Status = XST_INVALID_PARAM;
+			break;
+		}
+
 		Regulator->I2cAddress = (u16)((Args[1] >> 16) & 0xFFU);
 		Regulator->Cntrlr[XPM_I2C_CNTRLR] = XPmDevice_GetById(ControllerId);
 		if ((NULL == Regulator->Cntrlr[XPM_I2C_CNTRLR]) ||
@@ -72,9 +81,12 @@ XStatus XPmRegulator_Init(XPm_Regulator *Regulator, u32 Id, const u32 *Args, u32
 		}
 
 		Regulator->Config.CmdLen = (u8)((Args[1] >> 8) & 0xFFU);
-		for (u32 i = 3; i < NumArgs; i++) {
-			Status = Xil_SMemCpy((void *)&Regulator->Config.CmdArr[(i - 3U) * 4U],
-					     CopySize, (void *)&Args[i], CopySize, CopySize);
+		for (u32 i = RegulatorArgCnt; i < NumArgs; i++) {
+			u32 DestOffset = (i - RegulatorArgCnt) * CopySize;
+
+			Status = Xil_SMemCpy((void *)&Regulator->Config.CmdArr[DestOffset],
+					     (u32)MAX_I2C_COMMAND_LEN - DestOffset,
+					     (void *)&Args[i], CopySize, CopySize);
 			if (XST_SUCCESS != Status) {
 				goto done;
 			}
