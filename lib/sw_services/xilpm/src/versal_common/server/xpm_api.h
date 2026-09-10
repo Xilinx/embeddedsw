@@ -61,6 +61,12 @@ struct XPm_FrcPwrDwnReq {
 #define ARG_IDX_NODE_RST_PARENTS	3U
 #define NODE_RST_ARG_MAX_LEN		4U
 
+/**
+ * Number of words a PM_ADD_NODE power payload carries before the optional
+ * base addresses: node id, width/shift and parent id
+ */
+#define NODE_POWER_ARG_MIN_LEN		3U
+
 /** Index of the device-id argument in the PM_RELEASE_NODE IPI payload */
 #define ARG_IDX_PM_RELEASE_NODE_DEVID	(0U)
 /** Number of arguments expected in a well-formed PM_RELEASE_NODE IPI payload */

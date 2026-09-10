@@ -2558,6 +2558,7 @@ static XStatus XPm_AddNodePower(const u32 *Args, u32 NumArgs)
 	u8 Shift;
 	u32 BitMask;
 	u32 ParentId;
+	u32 OtherBaseAddressCnt = 0U;
 	XPm_Power *Power;
 	XPm_Power *PowerParent = NULL;
 	XPm_PsFpDomain *PsFpDomain;
@@ -2578,6 +2579,20 @@ static XStatus XPm_AddNodePower(const u32 *Args, u32 NumArgs)
 	Width = (u8)(Args[1] >> 8) & 0xFFU;
 	Shift = (u8)(Args[1] & 0xFFU);
 	ParentId = Args[2];
+
+	/*
+	 * Derive the base address count from a validated length. NumArgs comes
+	 * from the command payload and the count is unsigned, so a payload
+	 * shorter than the fixed header would wrap it and authorise the domain
+	 * initializers to read far past the payload instead of rejecting it. A
+	 * count of zero makes each of them fail through its existing
+	 * XPM_INT_ERR_INVALID_BASEADDR path.
+	 */
+	if (NODE_POWER_ARG_MIN_LEN <= NumArgs) {
+		OtherBaseAddressCnt = NumArgs - NODE_POWER_ARG_MIN_LEN;
+	} else {
+		/* Required by MISRA */
+	}
 
 	if ((NODEINDEX(PowerId) >= (u32)XPM_NODEIDX_POWER_MAX) &&
 	    ((u32)XPM_NODETYPE_POWER_REGULATOR != PowerType)) {
@@ -2647,7 +2662,7 @@ static XStatus XPm_AddNodePower(const u32 *Args, u32 NumArgs)
 			goto done;
 		}
 		Status = XPmPsFpDomain_Init(PsFpDomain, PowerId,
-					    BitMask, PowerParent, &Args[3], (NumArgs - 3U));
+					    BitMask, PowerParent, &Args[3], OtherBaseAddressCnt);
 		break;
 	case (u32)XPM_NODETYPE_POWER_DOMAIN_PS_LOW:
 		PsLpDomain =
@@ -2658,7 +2673,7 @@ static XStatus XPm_AddNodePower(const u32 *Args, u32 NumArgs)
 		}
 		Status = XPmPsLpDomain_Init(PsLpDomain, PowerId,
 					    BitMask, PowerParent,
-					    &Args[3], (NumArgs - 3U));
+					    &Args[3], OtherBaseAddressCnt);
 		break;
 	case (u32)XPM_NODETYPE_POWER_DOMAIN_NOC:
 		NpDomain = (XPm_NpDomain *)XPm_AllocBytes(sizeof(XPm_NpDomain));
@@ -2676,7 +2691,7 @@ static XStatus XPm_AddNodePower(const u32 *Args, u32 NumArgs)
 			goto done;
 		}
 		Status = XPmPlDomain_Init(PlDomain, PowerId, 0x00000000,
-					  PowerParent, &Args[3], (NumArgs - 3U));
+					  PowerParent, &Args[3], OtherBaseAddressCnt);
 		break;
 	case (u32)XPM_NODETYPE_POWER_DOMAIN_CPM:
 		CpmDomain = (XPm_CpmDomain *)XPm_AllocBytes(sizeof(XPm_CpmDomain));
@@ -2685,7 +2700,7 @@ static XStatus XPm_AddNodePower(const u32 *Args, u32 NumArgs)
 			goto done;
 		}
 		Status = XPmCpmDomain_Init(CpmDomain, PowerId, 0x00000000, PowerParent,
-					   &Args[3], (NumArgs - 3U));
+					   &Args[3], OtherBaseAddressCnt);
 		break;
 	case (u32)XPM_NODETYPE_POWER_RAIL:
 		Rail = (XPm_Rail *)XPmPower_GetById(PowerId);
