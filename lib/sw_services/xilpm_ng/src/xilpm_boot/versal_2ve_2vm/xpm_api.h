@@ -80,6 +80,12 @@ extern int (*PmRestartCb)(u32 ImageId, u32 *FuncId);
 #define MEM_REG_ARG_MAX_LEN		5U
 #define SHIFT_TO_HIGH_U32		32U
 
+/**
+ * Number of words a PM_ADD_NODE power payload carries before the optional
+ * base addresses: node id, width/shift and parent id
+ */
+#define NODE_POWER_ARG_MIN_LEN		3U
+
 /* Args positions for SetDevAttr handler*/
 #define ARG_IDX_DEVATTR_DEVICE_ID	0U
 #define ARG_IDX_DEVATTR_SEC_BASEADDR	6U
