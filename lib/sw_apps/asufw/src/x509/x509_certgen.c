@@ -66,7 +66,6 @@ static const u8 Oid_P384[] = {0x06U, 0x05U, 0x2BU, 0x81U, 0x04U, 0x00U, 0x22U};
 									uncompressed public key */
 #define X509_LOWER_NIBBLE_MASK					(0xFU)	/**< Mask to get lower
 									nibble */
-#define X509_NULL_VALUE						(0x00U)	/**< Value of NULL */
 #define X509_HASH_MAX_SIZE_IN_BYTES				(48U)	/**< Maximum length of
 									hash */
 #define X509_SIGNATURE_MAX_SIZE_IN_BYTES			(96U)	/**< Maximum length of
@@ -1253,15 +1252,17 @@ static inline s32 X509_GenVersionField(u8 Version)
  *			parameters		ANY DEFINED BY algorithm OPTIONAL
  *		}
  *
- *		This function supports only ECDSA with SHA-384 as
- *		 Signature Algorithm.
- *		The algorithm identifier for ECDSA with SHA-384 signature values is:
- *		ecdsa-with-SHA384 OBJECT IDENTIFIER ::= { iso(1) member-body(2)
- *		us(840) ansi-X9-62(10045) signatures(4) ecdsa-with-SHA2(3) 3 }
- *		The parameters field MUST be absent.
- *		Hence, the AlgorithmIdentifier shall be a SEQUENCE of
- *		one component: the OID ecdsa-with-SHA384.
- *		The parameter field must be replaced with NULL.
+ *		This function supports only ECDSA with SHA3-384 as Signature Algorithm.
+ *		The algorithm identifier for ECDSA with SHA3-384 signature values is:
+ *		id-ecdsa-with-sha3-384 OBJECT IDENTIFIER ::= { joint-iso-itu-t(2) country(16)
+ *		us(840) organization(1) gov(101) csor(3) nistAlgorithm(4) sigAlgs(3) 11 }
+ *		As per RFC 5758 section 3.2, the parameters field MUST be absent for the ECDSA
+ *		signature algorithms and the SHA-3 based ECDSA algorithm identifiers follow the
+ *		same convention. Encoding an explicit NULL makes the certificate non-conformant
+ *		and strict DER parsers reject it.
+ *
+ *		Hence, the AlgorithmIdentifier is a SEQUENCE of one component: the OID
+ *		id-ecdsa-with-sha3-384.
  *
  *************************************************************************************************/
 static s32 X509_GenSignAlgoField(void)
@@ -1293,14 +1294,6 @@ static s32 X509_GenSignAlgoField(void)
 			 SignOidList[InitData->SignType].SignLen));
 	if (Status != XASUFW_SUCCESS) {
 		Status = XASUFW_X509_CREATE_RAW_DATA_FIELD_FROM_ARRAY_FAIL;
-		goto END;
-	}
-
-	/** Add ASN.1 tag and NULL value fields. */
-	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-	Status = X509_ValidateAndAddTagByteFields(X509_ASN1_TAG_NULL, X509_NULL_VALUE);
-	if (Status != XASUFW_SUCCESS) {
-		Status = XASUFW_X509_VALIDATE_BUFFER_SPACE_FAIL;
 		goto END;
 	}
 
