@@ -22,6 +22,8 @@
 *       rmv  01/30/26 Refactor OCP library
 *       tvp  03/31/26 Use generic API to increment IV
 * 1.8   rap  08/28/26 Fixed Doxygen Warnings
+*       dmi  09/09/26 Use byte lengths for DICE measurements, which changes the DICE CDI seed
+*                     and DME measurement values
 *
 * </pre>
 *
@@ -270,22 +272,22 @@ static int XOcp_DigestHashCom(XSecure_Sha3Hash *HashAllPtr)
 
 	XSecure_Sha3Start(Sha3InstPtr);
 	Status = XSecure_Sha3Update(Sha3InstPtr, (UINTPTR)SecMeasureHashPtr->RomHash,
-				    XSECURE_SHA3_HASH_LENGTH_IN_WORDS);
+				    XOCP_PCR_HASH_SIZE_IN_BYTES);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
 	Status = XSecure_Sha3Update(Sha3InstPtr, (UINTPTR)SecMeasureHashPtr->PlmHash,
-				    XSECURE_SHA3_HASH_LENGTH_IN_WORDS);
+				    XOCP_PCR_HASH_SIZE_IN_BYTES);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
 	Status = XSecure_Sha3Update(Sha3InstPtr, (UINTPTR)SecMeasureHashPtr->SecureConfigHash,
-				    XSECURE_SHA3_HASH_LENGTH_IN_WORDS);
+				    XOCP_PCR_HASH_SIZE_IN_BYTES);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
 	Status = XSecure_Sha3Update(Sha3InstPtr, (UINTPTR)SecMeasureHashPtr->TapConfigHash,
-				    XSECURE_SHA3_HASH_LENGTH_IN_WORDS);
+				    XOCP_PCR_HASH_SIZE_IN_BYTES);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
@@ -388,7 +390,7 @@ static int XOcp_GenerateCdi(void)
 
 	/** - Generate KDF with UDS as key and Hash as context */
 	KdfInput.Context = (u8 *)&HashAll;
-	KdfInput.ContextLen = XSECURE_SHA3_HASH_LENGTH_IN_WORDS;
+	KdfInput.ContextLen = XOCP_PCR_HASH_SIZE_IN_BYTES;
 	KdfInput.Key = (u8 *)&DecUds;
 	KdfInput.KeyLen = XOCP_CDI_SIZE_IN_BYTES;
 	Status = XSecure_Hkdf(&KdfInput, (u8 *)&KdfOut, XOCP_CDI_SIZE_IN_BYTES);
@@ -424,7 +426,7 @@ RET:
 	if (ClrStatus != XST_SUCCESS) {
 		Status |= ClrStatus;
 	}
-	ClrStatus = Xil_SecureZeroize((u8 *)EncryptedZeros, XOCP_AES_OCP_DATA_LEN_IN_WORDS);
+	ClrStatus = Xil_SecureZeroize((u8 *)EncryptedZeros, XOCP_AES_OCP_DATA_LEN_IN_BYTES);
 	if (ClrStatus != XST_SUCCESS) {
 		Status |= ClrStatus;
 	}
@@ -623,6 +625,10 @@ static int XOcp_DmeDecryptPrivKey(u32 DecDmeKeyAddr)
 	Status = XSecure_AesEncryptData(AesInstance, (u64)(UINTPTR)AesBuffer,
 					(u64)(UINTPTR)EncryptedZeros, XOCP_AES_OCP_DATA_LEN_IN_BYTES,
 					(u64)(UINTPTR)GcmTag);
+	if (Status != XST_SUCCESS) {
+		Status = Status | XOCP_ERR_AES_ENC_DATA;
+		goto END;
+	}
 
 	/** - Decrypt DME private key */
 	for (Index = 0; Index < XOCP_AES_OCP_DATA_LEN_IN_WORDS; Index++) {
@@ -641,7 +647,7 @@ END:
 	if (ClrStatus != XST_SUCCESS) {
 		Status |= ClrStatus;
 	}
-	ClrStatus = Xil_SecureZeroize((u8 *)EncryptedZeros, XOCP_AES_OCP_DATA_LEN_IN_WORDS);
+	ClrStatus = Xil_SecureZeroize((u8 *)EncryptedZeros, XOCP_AES_OCP_DATA_LEN_IN_BYTES);
 	if (ClrStatus != XST_SUCCESS) {
 		Status |= ClrStatus;
 	}
