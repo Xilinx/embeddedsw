@@ -137,78 +137,90 @@ static void XPmRpuCore_AssignRegAddr(struct XPm_RpuCore *RpuCore, const u32 Id,
 
 	RpuCore->RpuBaseAddr = BaseAddress[0U];
 	RpuCore->ClusterBaseAddr = BaseAddress[1U];
-	if (PM_DEV_RPU_A_0 == Id) {
+	switch (Id) {
+	case PM_DEV_RPU_A_0:
 		RpuCore->ResumeCfg = RpuCore->RpuBaseAddr + RPU_0_CFG_OFFSET;
 		RpuCore->Core.SleepMask = PSXC_LPX_SLCR_RPU_A0_POWER_DWN_MASK;
 		RpuCore->Core.WakeUpMask = PSXC_LPX_SLCR_WAKEUP1_IRQ_RPUA_CORE0_MASK;
 		if (NULL != PsLpd) {
 			RpuCore->PcilIsr = PsLpd->LpdSlcrBaseAddr + PSXC_LPX_SLCR_RPU_PCIL_A0_ISR_OFFSET;
 		}
-	} else if (PM_DEV_RPU_A_1 == Id) {
+		break;
+	case PM_DEV_RPU_A_1:
 		RpuCore->ResumeCfg = RpuCore->RpuBaseAddr + RPU_1_CFG_OFFSET;
 		RpuCore->Core.SleepMask = PSXC_LPX_SLCR_RPU_A1_POWER_DWN_MASK;
 		RpuCore->Core.WakeUpMask = PSXC_LPX_SLCR_WAKEUP1_IRQ_RPUA_CORE1_MASK;
 		if (NULL != PsLpd) {
 			RpuCore->PcilIsr = PsLpd->LpdSlcrBaseAddr + PSXC_LPX_SLCR_RPU_PCIL_A1_ISR_OFFSET;
 		}
-	} else if (PM_DEV_RPU_B_0 == Id) {
+		break;
+	case PM_DEV_RPU_B_0:
 		RpuCore->ResumeCfg = RpuCore->RpuBaseAddr + RPU_0_CFG_OFFSET;
 		RpuCore->Core.SleepMask = PSXC_LPX_SLCR_RPU_B0_POWER_DWN_MASK;
 		RpuCore->Core.WakeUpMask = PSXC_LPX_SLCR_WAKEUP1_IRQ_RPUB_CORE0_MASK;
 		if (NULL != PsLpd) {
 			RpuCore->PcilIsr = PsLpd->LpdSlcrBaseAddr + PSXC_LPX_SLCR_RPU_PCIL_B0_ISR_OFFSET;
 		}
-	} else if (PM_DEV_RPU_B_1 == Id) {
+		break;
+	case PM_DEV_RPU_B_1:
 		RpuCore->ResumeCfg = RpuCore->RpuBaseAddr + RPU_1_CFG_OFFSET;
 		RpuCore->Core.SleepMask = PSXC_LPX_SLCR_RPU_B1_POWER_DWN_MASK;
 		RpuCore->Core.WakeUpMask = PSXC_LPX_SLCR_WAKEUP1_IRQ_RPUB_CORE1_MASK;
 		if (NULL != PsLpd) {
 			RpuCore->PcilIsr = PsLpd->LpdSlcrBaseAddr + PSXC_LPX_SLCR_RPU_PCIL_B1_ISR_OFFSET;
 		}
-	} else if (PM_DEV_RPU_C_0 == Id) {
+		break;
+	case PM_DEV_RPU_C_0:
 		RpuCore->ResumeCfg = RpuCore->RpuBaseAddr + RPU_0_CFG_OFFSET;
 		RpuCore->Core.SleepMask = PSXC_LPX_SLCR_RPU_C0_POWER_DWN_MASK;
 		RpuCore->Core.WakeUpMask = PSXC_LPX_SLCR_WAKEUP1_IRQ_RPUC_CORE0_MASK;
 		if (NULL != PsLpd) {
 			RpuCore->PcilIsr = PsLpd->LpdSlcrBaseAddr + PSXC_LPX_SLCR_RPU_PCIL_C0_ISR_OFFSET;
 		}
-	} else if (PM_DEV_RPU_C_1 == Id) {
+		break;
+	case PM_DEV_RPU_C_1:
 		RpuCore->ResumeCfg = RpuCore->RpuBaseAddr + RPU_1_CFG_OFFSET;
 		RpuCore->Core.SleepMask = PSXC_LPX_SLCR_RPU_C1_POWER_DWN_MASK;
 		RpuCore->Core.WakeUpMask = PSXC_LPX_SLCR_WAKEUP1_IRQ_RPUC_CORE1_MASK;
 		if (NULL != PsLpd) {
 			RpuCore->PcilIsr = PsLpd->LpdSlcrBaseAddr + PSXC_LPX_SLCR_RPU_PCIL_C1_ISR_OFFSET;
 		}
-	} else if (PM_DEV_RPU_D_0 == Id) {
+		break;
+	case PM_DEV_RPU_D_0:
 		RpuCore->ResumeCfg = RpuCore->RpuBaseAddr + RPU_0_CFG_OFFSET;
 		RpuCore->Core.SleepMask = PSXC_LPX_SLCR_RPU_D0_POWER_DWN_MASK;
 		RpuCore->Core.WakeUpMask = PSXC_LPX_SLCR_WAKEUP1_IRQ_RPUD_CORE0_MASK;
 		if (NULL != PsLpd) {
 			RpuCore->PcilIsr = PsLpd->LpdSlcrBaseAddr + PSXC_LPX_SLCR_RPU_PCIL_D0_ISR_OFFSET;
 		}
-	} else if (PM_DEV_RPU_D_1 == Id) {
+		break;
+	case PM_DEV_RPU_D_1:
 		RpuCore->ResumeCfg = RpuCore->RpuBaseAddr + RPU_1_CFG_OFFSET;
 		RpuCore->Core.SleepMask = PSXC_LPX_SLCR_RPU_D1_POWER_DWN_MASK;
 		RpuCore->Core.WakeUpMask = PSXC_LPX_SLCR_WAKEUP1_IRQ_RPUD_CORE1_MASK;
 		if (NULL != PsLpd) {
 			RpuCore->PcilIsr = PsLpd->LpdSlcrBaseAddr + PSXC_LPX_SLCR_RPU_PCIL_D1_ISR_OFFSET;
 		}
-	} else if (PM_DEV_RPU_E_0 == Id) {
+		break;
+	case PM_DEV_RPU_E_0:
 		RpuCore->ResumeCfg = RpuCore->RpuBaseAddr + RPU_0_CFG_OFFSET;
 		RpuCore->Core.SleepMask = PSXC_LPX_SLCR_RPU_E0_POWER_DWN_MASK;
 		RpuCore->Core.WakeUpMask = PSXC_LPX_SLCR_WAKEUP1_IRQ_RPUE_CORE0_MASK;
 		if (NULL != PsLpd) {
 			RpuCore->PcilIsr = PsLpd->LpdSlcrBaseAddr + PSXC_LPX_SLCR_RPU_PCIL_E0_ISR_OFFSET;
 		}
-	} else if (PM_DEV_RPU_E_1 == Id) {
+		break;
+	case PM_DEV_RPU_E_1:
 		RpuCore->ResumeCfg = RpuCore->RpuBaseAddr + RPU_1_CFG_OFFSET;
 		RpuCore->Core.SleepMask = PSXC_LPX_SLCR_RPU_E1_POWER_DWN_MASK;
 		RpuCore->Core.WakeUpMask = PSXC_LPX_SLCR_WAKEUP1_IRQ_RPUE_CORE1_MASK;
 		if (NULL != PsLpd) {
 			RpuCore->PcilIsr = PsLpd->LpdSlcrBaseAddr + PSXC_LPX_SLCR_RPU_PCIL_E1_ISR_OFFSET;
 		}
-	} else {
+		break;
+	default:
 		/* No action required for invalid RPU device ID */
+		break;
 	}
 }
 

@@ -842,31 +842,37 @@ const XPmFwGemPwrCtrl_t Gem1PwrCtrl = {
 
 /****************************************************************************/
 /**
- * @brief      Waits for P-Channel state to be stable for new request
+ * @brief      Wait for an APU core P-Channel interface to become stable.
  *
- * @param Args Node specific arguments
+ *             Polls the core's PREQ, PACCEPT, and PDENY fields in sequence
+ *             until each is zero or its timeout expires.
  *
- * @return     XST_SUCCESS if successful else XST_FAILURE or error code
+ * @param Args Power-control descriptor containing the core PCIL base address
+ *             and core identifier used in timeout diagnostics.
  *
- * @note       None
+ * @return     XST_SUCCESS when all three fields are zero, otherwise the error
+ *             returned by the first failed poll.
  *
  ****************************************************************************/
 static XStatus XPm_PCILWaitForPstable(const struct XPmFwPwrCtrl_t *Args)
 {
        XStatus Status = XST_FAILURE;
 
+       /* Wait for the outstanding power-state request to clear. */
        Status = XPm_PollForZero(Args->CorePcilAddr + APU_PCIL_CORE_PREQ_OFFSET, APU_PCIL_CORE_PREQ_MASK, ACPU_PACCEPT_TIMEOUT);
        if (XST_SUCCESS != Status) {
                XPlmi_Printf(DEBUG_PRINT_ALWAYS, "%s Waiting for PREQ to become zero failed for ACPU%d..\n", __func__, Args->Id);
                goto done;
        }
 
+       /* Confirm the shared PACTIVE register no longer reports acceptance. */
        Status = XPm_PollForZero(Args->CorePcilAddr + APU_PCIL_CORE_PACTIVE_OFFSET, APU_PCIL_CORE_PACCEPT_MASK, ACPU_PACCEPT_TIMEOUT);
        if (XST_SUCCESS != Status) {
                XPlmi_Printf(DEBUG_PRINT_ALWAYS, "%s Waiting for PACCEPT to become zero failed for ACPU%d..\n", __func__, Args->Id);
                goto done;
        }
 
+       /* Complete the stability check by waiting for denial to clear as well. */
        Status = XPm_PollForZero(Args->CorePcilAddr + APU_PCIL_CORE_PACTIVE_OFFSET, APU_PCIL_CORE_PDENY_MASK, ACPU_PACCEPT_TIMEOUT);
        if (XST_SUCCESS != Status) {
                XPlmi_Printf(DEBUG_PRINT_ALWAYS, "%s Waiting for PDENY to become zero failed for ACPU%d..\n", __func__, Args->Id);
@@ -1631,77 +1637,102 @@ XStatus XPmPower_ACpuReqPwrDwn(const struct XPmFwPwrCtrl_t *Args)
 done:
 	return Status;
 }
+/****************************************************************************/
+/**
+ * @brief Power an RPU core 1 when it is down and its cluster is in split mode.
+ *
+ * @param RegVal Current auxiliary power-state register value.
+ * @param PwrCtrl Power-control descriptor for the selected RPU core.
+ * @param ClusterCfg Cluster configuration register address.
+ *
+ * @return XST_SUCCESS when no request is needed or the request succeeds;
+ *         otherwise the status returned by XPmPower_RpuReqPwrUp().
+ ****************************************************************************/
+static XStatus XPmPower_TcmRpuCore1PwrUp(const u32 RegVal,
+					 const XPmFwPwrCtrl_t *PwrCtrl,
+					 const u32 ClusterCfg)
+{
+	XStatus Status = XST_SUCCESS;
+	u32 Mode;
+
+	/* A powered core needs no request; preserve the no-op success result. */
+	if (!CHECK_BIT(RegVal, PwrCtrl->PwrStateMask)) {
+		/* Core 1 can be powered independently only while the cluster is split. */
+		Mode = XPm_In32(ClusterCfg) & PSX_RPU_CLUSTER_CFG_SLSPLIT_MASK;
+		if (PSX_RPU_CLUSTER_CFG_SLSPLIT_MASK == Mode) {
+			Status = XPmPower_RpuReqPwrUp(PwrCtrl);
+		}
+	}
+
+	return Status;
+}
+
+/****************************************************************************/
+/**
+ * @brief Power the RPU core associated with a TCM bank when required.
+ *
+ * @param Args TCM power-control descriptor containing the bank ID.
+ *
+ * @return XST_SUCCESS when no request is needed or the request succeeds;
+ *         otherwise the status returned by XPmPower_RpuReqPwrUp().
+ ****************************************************************************/
 static XStatus XPmPower_TcmRpuPwrUp(const struct XPmTcmPwrCtrl_t *Args)
 {
 	XStatus Status = XST_FAILURE;
-	u32 Mode;
 	u32 RegVal;
 
-	/* Check if already power up */
+	/* Check whether the RPU core associated with the TCM is already powered. */
 	RegVal = XPm_In32(PMXC_GLOBAL_PMC_AUX_PWR_STATE_1);
 
-	if ((TCM_A_0 == Args->Id) &&
-	     !CHECK_BIT(RegVal, RpuA_Core0PwrCtrl.PwrStateMask)) {
-		Status = XPmPower_RpuReqPwrUp(&RpuA_Core0PwrCtrl);
-	} else if ((TCM_A_1 == Args->Id) &&
-		   !CHECK_BIT(RegVal, RpuA_Core1PwrCtrl.PwrStateMask)) {
-		/* Power up core 1 if RPU cluster A is in split mode */
-		Mode = XPm_In32(PSX_RPU_CLUSTER_A_CLUSTER_CFG) & PSX_RPU_CLUSTER_CFG_SLSPLIT_MASK;
-		if (PSX_RPU_CLUSTER_CFG_SLSPLIT_MASK == Mode) {
-			Status = XPmPower_RpuReqPwrUp(&RpuA_Core1PwrCtrl);
-		} else {
-			Status = XST_SUCCESS;
-		}
-	} else if ((TCM_B_0 == Args->Id) &&
-		   !CHECK_BIT(RegVal, RpuB_Core0PwrCtrl.PwrStateMask)) {
-		Status = XPmPower_RpuReqPwrUp(&RpuB_Core0PwrCtrl);
-	} else if ((TCM_B_1 == Args->Id) &&
-		   !CHECK_BIT(RegVal, RpuB_Core1PwrCtrl.PwrStateMask)) {
-		/* Power up core 1 if RPU cluster B is in split mode */
-		Mode = XPm_In32(PSX_RPU_CLUSTER_B_CLUSTER_CFG) & PSX_RPU_CLUSTER_CFG_SLSPLIT_MASK;
-		if (PSX_RPU_CLUSTER_CFG_SLSPLIT_MASK == Mode) {
-			Status = XPmPower_RpuReqPwrUp(&RpuB_Core1PwrCtrl);
-		} else {
-			Status = XST_SUCCESS;
-		}
-	} else if ((TCM_C_0 == Args->Id) &&
-		   !CHECK_BIT(RegVal, RpuC_Core0PwrCtrl.PwrStateMask)) {
-		Status = XPmPower_RpuReqPwrUp(&RpuC_Core0PwrCtrl);
-	} else if ((TCM_C_1 == Args->Id) &&
-                   !CHECK_BIT(RegVal, RpuC_Core1PwrCtrl.PwrStateMask)) {
-		/* Power up core 1 if RPU cluster C is in split mode */
-		Mode = XPm_In32(PSX_RPU_CLUSTER_C_CLUSTER_CFG) & PSX_RPU_CLUSTER_CFG_SLSPLIT_MASK;
-		if (PSX_RPU_CLUSTER_CFG_SLSPLIT_MASK == Mode) {
-			Status = XPmPower_RpuReqPwrUp(&RpuC_Core1PwrCtrl);
-		} else {
-			Status = XST_SUCCESS;
-		}
-	} else if ((TCM_D_0 == Args->Id) &&
-		   !CHECK_BIT(RegVal, RpuD_Core0PwrCtrl.PwrStateMask)) {
-		Status = XPmPower_RpuReqPwrUp(&RpuD_Core0PwrCtrl);
-        } else if ((TCM_D_1 == Args->Id) &&
-		   !CHECK_BIT(RegVal, RpuD_Core1PwrCtrl.PwrStateMask)) {
-		/* Power up core 1 if RPU cluster D is in split mode */
-		Mode = XPm_In32(PSX_RPU_CLUSTER_D_CLUSTER_CFG) & PSX_RPU_CLUSTER_CFG_SLSPLIT_MASK;
-		if (PSX_RPU_CLUSTER_CFG_SLSPLIT_MASK == Mode) {
-			Status = XPmPower_RpuReqPwrUp(&RpuD_Core1PwrCtrl);
-		} else {
-			Status = XST_SUCCESS;
-		}
-	} else if ((TCM_E_0 == Args->Id) &&
-		   !CHECK_BIT(RegVal, RpuE_Core0PwrCtrl.PwrStateMask)) {
-		Status = XPmPower_RpuReqPwrUp(&RpuE_Core0PwrCtrl);
-	} else if ((TCM_E_1 == Args->Id) &&
-		   !CHECK_BIT(RegVal, RpuE_Core1PwrCtrl.PwrStateMask)) {
-		/* Power up core 1 if RPU cluster E is in split mode */
-		Mode = XPm_In32(PSX_RPU_CLUSTER_E_CLUSTER_CFG) & PSX_RPU_CLUSTER_CFG_SLSPLIT_MASK;
-		if (PSX_RPU_CLUSTER_CFG_SLSPLIT_MASK == Mode) {
-			Status = XPmPower_RpuReqPwrUp(&RpuE_Core1PwrCtrl);
-		} else {
-			Status = XST_SUCCESS;
-		}
-	} else {
+	switch (Args->Id) {
+	/* Select either core in RPU cluster A. */
+	case TCM_A_0:
+		Status = CHECK_BIT(RegVal, RpuA_Core0PwrCtrl.PwrStateMask) ?
+			 XST_SUCCESS : XPmPower_RpuReqPwrUp(&RpuA_Core0PwrCtrl);
+		break;
+	case TCM_A_1:
+		Status = XPmPower_TcmRpuCore1PwrUp(RegVal, &RpuA_Core1PwrCtrl,
+						 PSX_RPU_CLUSTER_A_CLUSTER_CFG);
+		break;
+	/* Select either core in RPU cluster B. */
+	case TCM_B_0:
+		Status = CHECK_BIT(RegVal, RpuB_Core0PwrCtrl.PwrStateMask) ?
+			 XST_SUCCESS : XPmPower_RpuReqPwrUp(&RpuB_Core0PwrCtrl);
+		break;
+	case TCM_B_1:
+		Status = XPmPower_TcmRpuCore1PwrUp(RegVal, &RpuB_Core1PwrCtrl,
+						 PSX_RPU_CLUSTER_B_CLUSTER_CFG);
+		break;
+	/* Select either core in RPU cluster C. */
+	case TCM_C_0:
+		Status = CHECK_BIT(RegVal, RpuC_Core0PwrCtrl.PwrStateMask) ?
+			 XST_SUCCESS : XPmPower_RpuReqPwrUp(&RpuC_Core0PwrCtrl);
+		break;
+	case TCM_C_1:
+		Status = XPmPower_TcmRpuCore1PwrUp(RegVal, &RpuC_Core1PwrCtrl,
+						 PSX_RPU_CLUSTER_C_CLUSTER_CFG);
+		break;
+	/* Select either core in RPU cluster D. */
+	case TCM_D_0:
+		Status = CHECK_BIT(RegVal, RpuD_Core0PwrCtrl.PwrStateMask) ?
+			 XST_SUCCESS : XPmPower_RpuReqPwrUp(&RpuD_Core0PwrCtrl);
+		break;
+	case TCM_D_1:
+		Status = XPmPower_TcmRpuCore1PwrUp(RegVal, &RpuD_Core1PwrCtrl,
+						 PSX_RPU_CLUSTER_D_CLUSTER_CFG);
+		break;
+	/* Select either core in RPU cluster E. */
+	case TCM_E_0:
+		Status = CHECK_BIT(RegVal, RpuE_Core0PwrCtrl.PwrStateMask) ?
+			 XST_SUCCESS : XPmPower_RpuReqPwrUp(&RpuE_Core0PwrCtrl);
+		break;
+	case TCM_E_1:
+		Status = XPmPower_TcmRpuCore1PwrUp(RegVal, &RpuE_Core1PwrCtrl,
+						 PSX_RPU_CLUSTER_E_CLUSTER_CFG);
+		break;
+	default:
 		Status = XST_SUCCESS;
+		break;
 	}
 
 	return Status;

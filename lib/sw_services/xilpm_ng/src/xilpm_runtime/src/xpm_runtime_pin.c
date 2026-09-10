@@ -40,7 +40,7 @@ done:
 /**
  * @brief  This function validates PinFunction availability in given Pin.
  *
- * @param Pin		Pin Node.
+ * @param RuntimeOps	Runtime pin record containing the available groups.
  * @param PinFunc	Pin Function.
  *
  * @return 1 if function is available on given pin else 0.
@@ -182,6 +182,16 @@ done:
 	return Status;
 }
 
+/**
+ * @brief Enable or disable the pin bias using its stored pull direction.
+ *
+ * @param RuntimeOps Runtime pin record to update.
+ * @param BaseAddr Register bank base address.
+ * @param BitMask Pin bit in the pull-up and pull-down registers.
+ * @param Value Requested bias enable state.
+ *
+ * @return XST_SUCCESS on success, XST_INVALID_PARAM for an invalid state.
+ */
 static XStatus XPmPin_ConfigBiasStatus(XPmRuntime_PinOps *RuntimeOps,
 				       u32 BaseAddr, u32 BitMask, u32 Value)
 {
@@ -218,6 +228,17 @@ done:
 	return Status;
 }
 
+/**
+ * @brief Store the pull direction and apply it when pin bias is enabled.
+ *
+ * @param RuntimeOps Runtime pin record to update.
+ * @param BaseAddr Register bank base address.
+ * @param BitMask Pin bit in the pull-up and pull-down registers.
+ * @param Value Requested pull direction.
+ *
+ * @return XST_SUCCESS on success, or XST_INVALID_PARAM when an enabled
+ *         bias is given an unsupported pull direction.
+ */
 static XStatus XPmPin_ConfigPullCtrl(XPmRuntime_PinOps *RuntimeOps, u32 BaseAddr,
 				     u32 BitMask, u32 Value)
 {
@@ -293,6 +314,16 @@ done:
 	return Status;
 }
 
+/**
+ * @brief Configure the pin tri-state register and stored state.
+ *
+ * @param Pin Pin whose register bank is selected.
+ * @param RuntimeOps Runtime pin record to update.
+ * @param BitMask Pin bit in the tri-state register.
+ * @param Value Requested tri-state setting.
+ *
+ * @return XST_SUCCESS on success, XST_INVALID_PARAM for an invalid setting.
+ */
 static XStatus XPmPin_ConfigTriState(const XPm_PinNode *Pin,
 				     XPmRuntime_PinOps *RuntimeOps,
 				     u32 BitMask, u32 Value)

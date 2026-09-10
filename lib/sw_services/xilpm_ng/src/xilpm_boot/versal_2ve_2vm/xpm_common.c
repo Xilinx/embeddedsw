@@ -41,91 +41,135 @@ static u32 XPm_In64(u64 RegAddress)
 	(((Address) >= (BaseAddress)) && \
 	 ((Address) < ((BaseAddress) + (Size))))
 
+/**
+ * @brief Write a protected register and restore its write-protection state.
+ *
+ * @param RegAddress Register address to write.
+ * @param Value Register value to write.
+ * @param WprotAddress Write-protection register address.
+ */
+static void XPm_WriteProtected32(const u32 RegAddress, const u32 Value,
+				 const u32 WprotAddress)
+{
+	/* Save and disable write protection before updating the target register. */
+	u32 SavedWprot = Xil_In32(WprotAddress);
+	Xil_Out32(WprotAddress, 0x0U);
+	Xil_Out32(RegAddress, Value);
+
+	/* Restore the write-protection state after the target write completes. */
+	Xil_Out32(WprotAddress, SavedWprot);
+}
+
+/**
+ * @brief Write a register protected by two write-protection registers.
+ *
+ * Both protection values are saved before unlocking and restored after
+ * the write.
+ *
+ * @param RegAddress Register address to write.
+ * @param Value Register value to write.
+ * @param WprotSAddress First write-protection register address.
+ * @param WprotPAddress Second write-protection register address.
+ */
+static void XPm_WriteProtected32Dual(const u32 RegAddress, const u32 Value,
+				     const u32 WprotSAddress,
+				     const u32 WprotPAddress)
+{
+	/* Preserve both protection registers before disabling them in order. */
+	u32 SavedWprotS = Xil_In32(WprotSAddress);
+	u32 SavedWprotP = Xil_In32(WprotPAddress);
+	Xil_Out32(WprotSAddress, 0x0U);
+	Xil_Out32(WprotPAddress, 0x0U);
+
+	/* Perform the target write, then restore both registers in order. */
+	Xil_Out32(RegAddress, Value);
+	Xil_Out32(WprotSAddress, SavedWprotS);
+	Xil_Out32(WprotPAddress, SavedWprotP);
+}
+
 void XPm_Out32(u32 RegAddress, u32 l_Val)
 {
 	const XPm_Pmc *Pmc = (XPm_Pmc *)XPmDevice_GetById(PM_DEV_PMC_PROC);
 	const XPm_PsLpDomain *PsLpd = (XPm_PsLpDomain *)XPmPower_GetById(PM_POWER_LPD);
 	const XPm_PsFpDomain *PsFpd = (XPm_PsFpDomain *)XPmPower_GetById(PM_POWER_FPD);
-	u32 SavedWPROT = 0;
-	u32 SSavedWPROT = 0;
+	u32 Handled = 0U;
+
+	/* Test protected ranges in priority order and stop after the first match. */
 	if ((NULL != Pmc) && (IS_IN_RANGE(RegAddress, Pmc->PmcIouSlcrBaseAddr, PMC_IOU_SLCR_SIZE))) {
-		SavedWPROT = Xil_In32(Pmc->PmcIouSlcrBaseAddr + PMC_IOU_SLCR_WPROT0_OFFSET);
-		Xil_Out32(Pmc->PmcIouSlcrBaseAddr + PMC_IOU_SLCR_WPROT0_OFFSET, 0x0U);
-		Xil_Out32(RegAddress, l_Val);
-		Xil_Out32(Pmc->PmcIouSlcrBaseAddr + PMC_IOU_SLCR_WPROT0_OFFSET, SavedWPROT);
-	} else if ((NULL != PsLpd) && (IS_IN_RANGE(RegAddress, PsLpd->LpdIouSlcrBaseAddr, LPD_IOU_SLCR_SIZE))) {
-		SavedWPROT = Xil_In32(PsLpd->LpdIouSlcrBaseAddr + LPD_IOU_SLCR_WPROT0_OFFSET);
-		Xil_Out32(PsLpd->LpdIouSlcrBaseAddr + LPD_IOU_SLCR_WPROT0_OFFSET, 0x0U);
-		Xil_Out32(RegAddress, l_Val);
-		Xil_Out32(PsLpd->LpdIouSlcrBaseAddr + LPD_IOU_SLCR_WPROT0_OFFSET, SavedWPROT);
-	} else if ((NULL != PsLpd) && (IS_IN_RANGE(RegAddress, PsLpd->LpdSlcrBaseAddr, PSXC_LPX_SLCR_SIZE))) {
-		SavedWPROT = Xil_In32(PsLpd->LpdSlcrBaseAddr + LPD_SLCR_WPROT0_OFFSET);
-		Xil_Out32(PsLpd->LpdSlcrBaseAddr + LPD_SLCR_WPROT0_OFFSET, 0x0U);
-		Xil_Out32(RegAddress, l_Val);
-		Xil_Out32(PsLpd->LpdSlcrBaseAddr + LPD_SLCR_WPROT0_OFFSET, SavedWPROT);
-	 } else if ((NULL != PsFpd) && (IS_IN_RANGE(RegAddress, PsFpd->FpdSlcrBaseAddr, FPD_SLCR_SIZE))) {
-		SavedWPROT = Xil_In32(PsFpd->FpdSlcrBaseAddr + FPD_SLCR_WPROT0_OFFSET);
-		Xil_Out32(PsFpd->FpdSlcrBaseAddr + FPD_SLCR_WPROT0_OFFSET, 0x0U);
-		Xil_Out32(RegAddress, l_Val);
-		Xil_Out32(PsFpd->FpdSlcrBaseAddr + FPD_SLCR_WPROT0_OFFSET, SavedWPROT);
-	} else if (IS_IN_RANGE(RegAddress, PSX_CRL_BASEADDR, PSX_CRL_SIZE)) {
-		SavedWPROT = Xil_In32(PSX_CRL_BASEADDR + PSX_CRL_WPROT_OFFSET);
-		Xil_Out32(PSX_CRL_BASEADDR + PSX_CRL_WPROT_OFFSET, 0x0U);
-		Xil_Out32(RegAddress, l_Val);
-		Xil_Out32(PSX_CRL_BASEADDR + PSX_CRL_WPROT_OFFSET, SavedWPROT);
-	} else if (IS_IN_RANGE(RegAddress, PSXC_CRF_BASEADDR, (u32)PSXC_CRF_SIZE)) {
-		SavedWPROT = Xil_In32(PSXC_CRF_BASEADDR+ PSXC_CRF_WPROT_OFFSET);
-		Xil_Out32(PSXC_CRF_BASEADDR + PSXC_CRF_WPROT_OFFSET, 0x0U);
-		Xil_Out32(RegAddress, l_Val);
-		Xil_Out32(PSXC_CRF_BASEADDR + PSXC_CRF_WPROT_OFFSET, SavedWPROT);
-	} else if (IS_IN_RANGE(RegAddress, CRP_BASEADDR, CRP_SIZE)) {
-		SavedWPROT = Xil_In32(CRP_BASEADDR + CRP_WPROT_OFFSET);
-		Xil_Out32(CRP_BASEADDR + CRP_WPROT_OFFSET, 0x0U);
-		Xil_Out32(RegAddress, l_Val);
-		Xil_Out32(CRP_BASEADDR + CRP_WPROT_OFFSET, SavedWPROT);
-	} else if (IS_IN_RANGE(RegAddress, MMI_SLCR_BASEADDR, MMI_SLCR_SIZE)) {
-		SavedWPROT = Xil_In32(MMI_SLCR_BASEADDR + MMI_SLCR_WPROTS_OFFSET);
-		SSavedWPROT = Xil_In32(MMI_SLCR_BASEADDR + MMI_SLCR_WPROTP_OFFSET);
-		Xil_Out32(MMI_SLCR_BASEADDR + MMI_SLCR_WPROTS_OFFSET, 0x0U);
-		Xil_Out32(MMI_SLCR_BASEADDR + MMI_SLCR_WPROTP_OFFSET, 0x0U);
-		Xil_Out32(RegAddress, l_Val);
-		Xil_Out32(MMI_SLCR_BASEADDR + MMI_SLCR_WPROTS_OFFSET, SavedWPROT);
-		Xil_Out32(MMI_SLCR_BASEADDR + MMI_SLCR_WPROTP_OFFSET, SSavedWPROT);
-	} else if (IS_IN_RANGE(RegAddress, MMI_UDH_PLL_BASEADDR, MMI_UDH_PLL_SIZE)) {
-		SavedWPROT = Xil_In32(MMI_UDH_PLL_BASEADDR + MMI_UDH_PLL_WPROTS_OFFSET);
-		SSavedWPROT = Xil_In32(MMI_UDH_PLL_BASEADDR + MMI_UDH_PLL_WPROTP_OFFSET);
-		Xil_Out32(MMI_UDH_PLL_BASEADDR + MMI_UDH_PLL_WPROTS_OFFSET, 0x0U);
-		Xil_Out32(MMI_UDH_PLL_BASEADDR + MMI_UDH_PLL_WPROTP_OFFSET, 0x0U);
-		Xil_Out32(RegAddress, l_Val);
-		Xil_Out32(MMI_UDH_PLL_BASEADDR + MMI_UDH_PLL_WPROTS_OFFSET, SavedWPROT);
-		Xil_Out32(MMI_UDH_PLL_BASEADDR + MMI_UDH_PLL_WPROTP_OFFSET, SSavedWPROT);
-	} else if (IS_IN_RANGE(RegAddress, MMI_CRX_BASEADDR, MMI_CRX_SIZE)) {
-		SavedWPROT = Xil_In32(MMI_CRX_BASEADDR + MMI_CRX_WPROTS_OFFSET);
-		SSavedWPROT = Xil_In32(MMI_CRX_BASEADDR + MMI_CRX_WPROTP_OFFSET);
-		Xil_Out32(MMI_CRX_BASEADDR + MMI_CRX_WPROTS_OFFSET, 0x0U);
-		Xil_Out32(MMI_CRX_BASEADDR + MMI_CRX_WPROTP_OFFSET, 0x0U);
-		Xil_Out32(RegAddress, l_Val);
-		Xil_Out32(MMI_CRX_BASEADDR + MMI_CRX_WPROTS_OFFSET, SavedWPROT);
-		Xil_Out32(MMI_CRX_BASEADDR + MMI_CRX_WPROTP_OFFSET, SSavedWPROT);
-	} else if (IS_IN_RANGE(RegAddress, MMI_DC_BASEADDR, MMI_DC_SIZE)) {
-		SavedWPROT = Xil_In32(MMI_DC_BASEADDR + MMI_DC_WPROTS_OFFSET);
-		Xil_Out32(MMI_DC_BASEADDR + MMI_DC_WPROTS_OFFSET, 0x0U);
-		Xil_Out32(RegAddress, l_Val);
-		Xil_Out32(MMI_DC_BASEADDR + MMI_DC_WPROTS_OFFSET, SavedWPROT);
-	} else if (IS_IN_RANGE(RegAddress, MMI_UDH_SLCR_BASEADDR, MMI_UDH_SLCR_SIZE)) {
-		SavedWPROT = Xil_In32(MMI_UDH_SLCR_BASEADDR + MMI_UDH_SLCR_WPROTS_OFFSET);
-		SSavedWPROT = Xil_In32(MMI_UDH_SLCR_BASEADDR + MMI_UDH_SLCR_WPROTP_OFFSET);
-		Xil_Out32(MMI_UDH_SLCR_BASEADDR + MMI_UDH_SLCR_WPROTS_OFFSET, 0x0U);
-		Xil_Out32(MMI_UDH_SLCR_BASEADDR + MMI_UDH_SLCR_WPROTP_OFFSET, 0x0U);
-		Xil_Out32(RegAddress, l_Val);
-		Xil_Out32(MMI_UDH_SLCR_BASEADDR + MMI_UDH_SLCR_WPROTS_OFFSET, SavedWPROT);
-		Xil_Out32(MMI_UDH_SLCR_BASEADDR + MMI_UDH_SLCR_WPROTP_OFFSET, SSavedWPROT);
-	} else if (IS_IN_RANGE(RegAddress, EIO_CRS_BASEADDR, EIO_CRS_SIZE)) {
-		SavedWPROT = Xil_In32(EIO_CRS_BASEADDR + EIO_CRS_WPROT_OFFSET);
-		Xil_Out32(EIO_CRS_BASEADDR + EIO_CRS_WPROT_OFFSET, 0x0U);
-		Xil_Out32(RegAddress, l_Val);
-		Xil_Out32(EIO_CRS_BASEADDR + EIO_CRS_WPROT_OFFSET, SavedWPROT);
-	} else {
+		XPm_WriteProtected32(RegAddress, l_Val,
+			Pmc->PmcIouSlcrBaseAddr + PMC_IOU_SLCR_WPROT0_OFFSET);
+		Handled = 1U;
+	}
+	if ((0U == Handled) && (NULL != PsLpd) &&
+	    (IS_IN_RANGE(RegAddress, PsLpd->LpdIouSlcrBaseAddr, LPD_IOU_SLCR_SIZE))) {
+		XPm_WriteProtected32(RegAddress, l_Val,
+			PsLpd->LpdIouSlcrBaseAddr + LPD_IOU_SLCR_WPROT0_OFFSET);
+		Handled = 1U;
+	}
+	if ((0U == Handled) && (NULL != PsLpd) &&
+	    (IS_IN_RANGE(RegAddress, PsLpd->LpdSlcrBaseAddr, PSXC_LPX_SLCR_SIZE))) {
+		XPm_WriteProtected32(RegAddress, l_Val,
+			PsLpd->LpdSlcrBaseAddr + LPD_SLCR_WPROT0_OFFSET);
+		Handled = 1U;
+	}
+	if ((0U == Handled) && (NULL != PsFpd) &&
+	    (IS_IN_RANGE(RegAddress, PsFpd->FpdSlcrBaseAddr, FPD_SLCR_SIZE))) {
+		XPm_WriteProtected32(RegAddress, l_Val,
+			PsFpd->FpdSlcrBaseAddr + FPD_SLCR_WPROT0_OFFSET);
+		Handled = 1U;
+	}
+	if ((0U == Handled) && IS_IN_RANGE(RegAddress, PSX_CRL_BASEADDR, PSX_CRL_SIZE)) {
+		XPm_WriteProtected32(RegAddress, l_Val,
+			PSX_CRL_BASEADDR + PSX_CRL_WPROT_OFFSET);
+		Handled = 1U;
+	}
+	if ((0U == Handled) && IS_IN_RANGE(RegAddress, PSXC_CRF_BASEADDR, (u32)PSXC_CRF_SIZE)) {
+		XPm_WriteProtected32(RegAddress, l_Val,
+			PSXC_CRF_BASEADDR + PSXC_CRF_WPROT_OFFSET);
+		Handled = 1U;
+	}
+	if ((0U == Handled) && IS_IN_RANGE(RegAddress, CRP_BASEADDR, CRP_SIZE)) {
+		XPm_WriteProtected32(RegAddress, l_Val,
+			CRP_BASEADDR + CRP_WPROT_OFFSET);
+		Handled = 1U;
+	}
+	if ((0U == Handled) && IS_IN_RANGE(RegAddress, MMI_SLCR_BASEADDR, MMI_SLCR_SIZE)) {
+		XPm_WriteProtected32Dual(RegAddress, l_Val,
+			MMI_SLCR_BASEADDR + MMI_SLCR_WPROTS_OFFSET,
+			MMI_SLCR_BASEADDR + MMI_SLCR_WPROTP_OFFSET);
+		Handled = 1U;
+	}
+	if ((0U == Handled) && IS_IN_RANGE(RegAddress, MMI_UDH_PLL_BASEADDR, MMI_UDH_PLL_SIZE)) {
+		XPm_WriteProtected32Dual(RegAddress, l_Val,
+			MMI_UDH_PLL_BASEADDR + MMI_UDH_PLL_WPROTS_OFFSET,
+			MMI_UDH_PLL_BASEADDR + MMI_UDH_PLL_WPROTP_OFFSET);
+		Handled = 1U;
+	}
+	if ((0U == Handled) && IS_IN_RANGE(RegAddress, MMI_CRX_BASEADDR, MMI_CRX_SIZE)) {
+		XPm_WriteProtected32Dual(RegAddress, l_Val,
+			MMI_CRX_BASEADDR + MMI_CRX_WPROTS_OFFSET,
+			MMI_CRX_BASEADDR + MMI_CRX_WPROTP_OFFSET);
+		Handled = 1U;
+	}
+	if ((0U == Handled) && IS_IN_RANGE(RegAddress, MMI_DC_BASEADDR, MMI_DC_SIZE)) {
+		XPm_WriteProtected32(RegAddress, l_Val,
+			MMI_DC_BASEADDR + MMI_DC_WPROTS_OFFSET);
+		Handled = 1U;
+	}
+	if ((0U == Handled) && IS_IN_RANGE(RegAddress, MMI_UDH_SLCR_BASEADDR, MMI_UDH_SLCR_SIZE)) {
+		XPm_WriteProtected32Dual(RegAddress, l_Val,
+			MMI_UDH_SLCR_BASEADDR + MMI_UDH_SLCR_WPROTS_OFFSET,
+			MMI_UDH_SLCR_BASEADDR + MMI_UDH_SLCR_WPROTP_OFFSET);
+		Handled = 1U;
+	}
+	if ((0U == Handled) && IS_IN_RANGE(RegAddress, EIO_CRS_BASEADDR, EIO_CRS_SIZE)) {
+		XPm_WriteProtected32(RegAddress, l_Val,
+			EIO_CRS_BASEADDR + EIO_CRS_WPROT_OFFSET);
+		Handled = 1U;
+	}
+
+	/* Unprotected addresses are written directly after all ranges are rejected. */
+	if (0U == Handled) {
 		Xil_Out32(RegAddress, l_Val);
 	}
 }

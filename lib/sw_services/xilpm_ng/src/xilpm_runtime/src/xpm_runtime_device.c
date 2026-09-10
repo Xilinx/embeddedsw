@@ -100,25 +100,29 @@ maybe_unused static XStatus CheckSecurityAccess(const XPm_Requirement *Reqm, u32
 }
 
 /**
- * @brief  checks whether given device is present as a requirement for the subsystem
+ * @brief Check whether a device is allocated to a subsystem.
  *
- * @param  Subsystem 	Pointer to the Subsystem structure
- * @param  Device 	Pointer to the Device structure
- * @param  Reqm 	Pass by reference to the requirement pointer
+ * Redundantly checks the subsystem and located requirement pointers, then reads
+ * the requirement's Allocated flag twice for fault-injection resistance.
  *
- * @return XPM_SUCCESS if requirement is found and allocated ( XPM_FAILURE otherwise )
- * @note   This is a static inline function
+ * @param Subsystem Subsystem whose allocation is queried.
+ * @param Device Device whose allocation is queried.
+ *
+ * @return XPM_SUCCESS when the subsystem is non-NULL and the located
+ *         requirement is allocated; XPM_FAILURE otherwise.
  */
-static XStatus IsDevAllocatedToSubsys(const XPm_Subsystem *Subsystem, const XPm_Device *Device, const XPm_Requirement *Reqm) {
-	const XPm_Requirement *ReqmPtr = Reqm;
-
+static XStatus IsDevAllocatedToSubsys(const XPm_Subsystem *Subsystem, const XPm_Device *Device) {
 	volatile XStatus Status = XPM_FAILURE;
 	volatile const XPm_Subsystem *SubsysCheck = Subsystem;
 	volatile const XPm_Subsystem *SubsysCheckTmp = Subsystem;
+
+	/* Validate both redundant copies before looking up the requirement */
 	if ((NULL != SubsysCheck) && (NULL != SubsysCheckTmp)) {
-		ReqmPtr = FindReqm(Device, Subsystem);
+		const XPm_Requirement *ReqmPtr = FindReqm(Device, Subsystem);
 		volatile const XPm_Requirement *ReqmCheck = ReqmPtr;
 		volatile const XPm_Requirement *ReqmCheckTmp = ReqmPtr;
+
+		/* Confirm the lookup and allocation state through redundant reads */
 		if ((NULL != ReqmCheck) && (NULL != ReqmCheckTmp)) {
 			volatile u8 AllocCheck = ReqmPtr->Allocated;
 			volatile u8 AllocCheckTmp = ReqmPtr->Allocated;
@@ -147,6 +151,18 @@ static inline XStatus XPmRequirement_IsAllocated(const XPm_Requirement *Reqm)
 	return Status;
 }
 
+/****************************************************************************/
+/**
+ * @brief Determine whether a device is excluded from runtime requests.
+ *
+ * Tests the encoded node type, subclass, and index for infrastructure nodes,
+ * then checks a fixed list containing the PMC and ASU IPI channels, AIE, and
+ * PMC watchdog devices. No device or register state is read.
+ *
+ * @param NodeId Device node identifier to classify.
+ *
+ * @return 1 when the node is excluded, or 0 when it is not excluded.
+ ****************************************************************************/
 static u8 XPmDevice_IsExcluded(const u32 NodeId)
 {
 	u8 IsExcluded = 0U;
@@ -215,22 +231,62 @@ done:
 	return Requestable;
 }
 
+/****************************************************************************/
 /**
- * @brief Sets the device operations for a device based on its ID.
+ * @brief Allocate and publish a runtime operations record for a device.
  *
- * This function sets the device operations for a device identified by its ID.
- * If the device is not found or if the device operations are already set, the function does nothing.
- * If memory allocation for the device operations fails, an error message is printed and the function returns with NULL pointer
+ * @param Device Device associated with the new operations record.
+ * @param DevOps Pointer to receive the allocated operations record.
  *
- * @param DeviceId The ID of the device.
- * @return A pointer to the device operations structure on success, or NULL on failure.
+ * @return XST_SUCCESS on success, or XST_BUFFER_TOO_SMALL on allocation failure.
+ *
+ ****************************************************************************/
+static XStatus XPmDevice_CreateDevOps(XPm_Device *Device,
+				      XPmRuntime_DeviceOps **DevOps)
+{
+	XStatus Status = XST_FAILURE;
+
+	/* Allocate the record before publishing it through the global list. */
+	*DevOps = (XPmRuntime_DeviceOps *)XPm_AllocBytesDevOps(sizeof(XPmRuntime_DeviceOps));
+	if (NULL == *DevOps) {
+		/* Keep an incomplete record out of the published list. */
+		PmErr("Failed to allocate memory for DevOps\r\n");
+		Status = XST_BUFFER_TOO_SMALL;
+		goto done;
+	}
+	(*DevOps)->Device = Device;
+
+	/* Publish the initialized record after its device has been assigned. */
+	LIST_PREPEND(DevOpsList, *DevOps);
+	Status = XST_SUCCESS;
+
+done:
+	return Status;
+}
+
+/**
+ * @brief Find or allocate the runtime operations record for a device.
+ *
+ * Lazily creates the global operations list, resolves DeviceId, and returns an
+ * existing record when present. Otherwise it allocates a record, stores the
+ * device pointer, and prepends the record to the global list. Failures are
+ * logged.
+ *
+ * @param DeviceId Device node identifier associated with the operations record.
+ *
+ * @return Pointer to the existing or newly allocated operations record; NULL
+ *         if the device is absent or the record allocation fails.
  */
 XPmRuntime_DeviceOps * XPmDevice_SetDevOps_ById(u32 DeviceId)
 {
 	XStatus Status = XST_FAILURE;
+
+	/* Ensure the operations list exists before searching or inserting */
 	if (NULL == DevOpsList){
 		DevOpsList = Make_XPmRuntime_DeviceOpsList();
 	}
+
+	/* Resolve the device and any operations record already assigned to it */
 	XPm_Device *Device = XPmDevice_GetById(DeviceId);
 	XPmRuntime_DeviceOps *DevOps = XPm_GetDevOps_ById(DeviceId);
 	if (NULL == Device) {
@@ -243,16 +299,9 @@ XPmRuntime_DeviceOps * XPmDevice_SetDevOps_ById(u32 DeviceId)
 		Status = XST_SUCCESS;
 		goto done;
 	}
-	DevOps = (XPmRuntime_DeviceOps *)XPm_AllocBytesDevOps(sizeof(XPmRuntime_DeviceOps));
-	if (NULL == DevOps) {
-		PmErr("Failed to allocate memory for DevOps\r\n");
-		Status = XST_BUFFER_TOO_SMALL;
-		goto done;
-	}
-	DevOps->Device = Device;
 
-	LIST_PREPEND(DevOpsList, DevOps);
-	Status = XST_SUCCESS;
+	/* Create and publish the record only when lookup found no existing one. */
+	Status = XPmDevice_CreateDevOps(Device, &DevOps);
 
 done:
 	if (XST_SUCCESS != Status) {
@@ -264,14 +313,20 @@ done:
 }
 
 /**
- * @brief  Look up device operations structure by device ID
+ * @brief Look up a runtime operations record by device identifier.
  *
- * @param  DeviceId	ID of the device to look up
+ * Traverses the global operations list and compares the ID in each non-NULL
+ * record and device. The list and records are not modified.
  *
- * @return Pointer to the device operations structure, or NULL if not found
+ * @param DeviceId Device node identifier to find.
+ *
+ * @return Pointer to the first matching operations record, or NULL if the list
+ *         is absent or no matching valid record exists.
  */
 XPmRuntime_DeviceOps *XPm_GetDevOps_ById(u32 DeviceId) {
 	XPmRuntime_DeviceOps *Result = NULL;
+
+	/* Search valid records for the first device ID match */
 	LIST_FOREACH(DevOpsList, DevOpsNode){
 		if ((NULL != DevOpsNode->Data) &&
 		    (NULL != DevOpsNode->Data->Device) &&
@@ -1800,7 +1855,6 @@ done:
  ****************************************************************************/
 u32 XPmDevice_GetSubsystemIdOfCore(const XPm_Device *Device)
 {
-	const XPm_Requirement *Reqm = NULL;
 	const XPm_Subsystem *Subsystem = NULL;
 	u32 Idx, SubSystemId;
 	u32 SubsysIdx = XPmSubsystem_GetMaxSubsysIdx();
@@ -1810,7 +1864,7 @@ u32 XPmDevice_GetSubsystemIdOfCore(const XPm_Device *Device)
 	volatile u32 IdxCheck = 0U;
 	for (Idx = 0; Idx <= SubsysIdx; Idx++) {
 		Subsystem = XPmSubsystem_GetByIndex(Idx);
-		XSECURE_REDUNDANT_CALL(Status, StatusTmp, IsDevAllocatedToSubsys, Subsystem, Device, Reqm);
+		XSECURE_REDUNDANT_CALL(Status, StatusTmp, IsDevAllocatedToSubsys, Subsystem, Device);
 		if ((XPM_SUCCESS == Status) && (XPM_SUCCESS == StatusTmp)) {
 			break;
 		}

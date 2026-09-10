@@ -215,20 +215,43 @@ XStatus __attribute__((weak, noinline)) XPm_AddDDRMemRegnForDefaultSubsystem(con
 	return XST_SUCCESS;
 };
 
+/**
+ * @brief Boot implementation of notifier action restoration after PLM update.
+ *
+ * The boot library does not maintain runtime notifier actions, so this weak
+ * implementation has no side effects. The runtime library overrides it when
+ * notifier actions must be restored.
+ *
+ * @return XST_SUCCESS unconditionally.
+ */
 XStatus __attribute__((weak, noinline)) XPmUpdate_RestoreNotifierEmActions(void) {
 	return XST_SUCCESS;
 }
 
+/**
+ * @brief Map an IPI mask to the subsystem that owns its first asserted IPI.
+ *
+ * The least-significant asserted bit selects the subsystem. ASU and PMC masks
+ * map to their dedicated subsystem IDs; all other masks map by adding the bit
+ * index to PM_SUBSYS_DEFAULT.
+ *
+ * @param IpiMask IPI mask containing at least one asserted bit.
+ *
+ * @return The mapped subsystem ID, or PM_SUBSYS_INVALID when @p IpiMask is
+ * zero.
+ */
 static inline u32 XPmSubsystem_GetSubSysIdByIpiMask_Core(u32 IpiMask) {
 	u32 SubsystemId = PM_SUBSYS_INVALID;
 	s32 FirstSet = 0;
 
+	/* Reject an empty mask because it identifies no source IPI channel */
 	if (0U == IpiMask) {
 		/** This is the error case */
 		PmErr("Invalid IPI Mask: 0x%x\n\r", IpiMask);
 		goto done;
 	}
 
+	/* Use the lowest asserted bit as the source channel index */
 	FirstSet = __builtin_ffs((s32)IpiMask) - 1;
 	switch (BIT((u32)FirstSet)) {
 		case ASU_IPI_MASK:
@@ -771,6 +794,9 @@ static XStatus AddProcDevice(const u32 *Args, u32 PowerId)
 			goto done;
 		}
 		Status = XPmAsuCore_Init(AsuCore, DeviceId, Ipi, BaseAddr, Power, NULL, NULL);
+		if (XST_SUCCESS != Status) {
+			PmErr("ASU core 0x%x init failed: 0x%x\r\n", DeviceId, Status);
+		}
 		/* @TODO Just allocate memory for ASU node for now and return SUCCESS */
 		Status = XST_SUCCESS;
 		break;
@@ -1386,6 +1412,10 @@ static XStatus XPm_AddNodeClock(const u32 *Args, u32 NumArgs)
 		ClkFlags = (u8)((Args[2] >> 24U) & 0xFFU);
 		PowerDomainId = Args[3];
 		if (ISPLL(ClockId)) {
+			if (6U > NumArgs) {
+				Status = XST_INVALID_PARAM;
+				goto done;
+			}
 			const u16 *Offsets = (const u16 *)&Args[4];
 			Status = XPmClockPll_AddNode(ClockId, ControlReg,
 						     TopologyType, Offsets,
@@ -1941,44 +1971,31 @@ u32 XPm_GetSubsystemId(u32 ImageId)
 
 /****************************************************************************/
 /**
- * @brief  This function is used to obtain information about the current state
- * of a device. The caller must pass a pointer to an XPm_DeviceStatus
- * structure, which must be pre-allocated by the caller.
+ * @brief Read the current state of a device or power node.
  *
- * @param  DeviceId	Device ID
- * @param  DeviceStatus	Pointer to the device status
+ * Dispatches the query according to the class encoded in @p DeviceId. Device
+ * nodes are handled by XPmDevice_GetState(), while power nodes are handled by
+ * XPmPower_GetState(). On success, the selected handler writes the current
+ * node state to @p DeviceState.
  *
- * - Status - The current power state of the device
- *  - For CPU nodes:
- *   - 0 : if CPU is powered down,
- *   - 1 : if CPU is active (powered up),
- *   - 8 : if CPU is suspending (powered up)
- *  - For power islands and power domains:
- *   - 0 : if island is powered down,
- *   - 2 : if island is powered up
- *  - For slaves:
- *   - 0 : if slave is powered down,
- *   - 1 : if slave is powered up,
- *   - 9 : if slave is in retention
+ * @param DeviceId Device or power node ID to query.
+ * @param DeviceState Pointer that receives the current state: CPU nodes use 0
+ *                    for powered down, 1 for active, and 8 for suspending;
+ *                    power islands and domains use 0 for powered down and 2
+ *                    for powered up; slave devices use 0 for powered down, 1
+ *                    for powered up, and 9 for retention. It is not modified
+ *                    by this function when the node class is unsupported.
  *
- * - Requirement - Requirements placed on the device by the caller
- *
- * - Usage
- *  - 0 : node is not used by any PU,
- *  - 1 : node is used by caller exclusively,
- *  - 2 : node is used by other PU(s) only,
- *  - 3 : node is used by caller and by other PU(s)
- *
- * @return XST_SUCCESS if successful else XST_FAILURE or an error code
- * or a reason code
- *
- * @note   None
+ * @return XST_SUCCESS when the state was obtained; XST_INVALID_PARAM when the
+ * node class is neither device nor power; otherwise an error returned by the
+ * selected state query.
  *
  ****************************************************************************/
 XStatus XPm_PmcGetDeviceState(u32 DeviceId, u32 *const DeviceState)
 {
 	XStatus Status = XST_FAILURE;
 
+	/* Select the state store that owns this node class */
 	switch(NODECLASS(DeviceId)) {
 	case (u32)XPM_NODECLASS_DEVICE:
 		Status = XPmDevice_GetState(DeviceId, DeviceState);
@@ -1987,6 +2004,7 @@ XStatus XPm_PmcGetDeviceState(u32 DeviceId, u32 *const DeviceState)
 		Status = XPmPower_GetState(DeviceId, DeviceState);
 		break;
 	default:
+		/* Other node classes have no queryable device state here */
 		Status = XST_INVALID_PARAM;
 		break;
 	}
@@ -2026,12 +2044,20 @@ done:
 }
 
 /**
- * @brief PMC request wakeup of CPU core
-*/
+ * @brief Wake every configured APU and RPU core that is not running.
+ *
+ * Iterates the device table, ignores absent and non-CPU entries, and requests
+ * wakeup without changing the reset address. Processing stops at the first
+ * wakeup failure.
+ *
+ * @return XST_SUCCESS when every applicable core is already running or was
+ * woken successfully; otherwise the error returned by XPm_PmcWakeUpCore().
+ */
 maybe_unused static XStatus XPm_PmcWakeAllCores(void) {
 	XStatus Status = XST_FAILURE;
 	const XPm_Core *Core;
 	xil_printf("%s %d\n\r", __func__, __LINE__);
+	/* Sweep the device index range, which can contain unpopulated entries */
 	for (u32 Idx = (u32)XPM_NODEIDX_DEV_MIN + 1U;
 	     Idx < (u32)XPM_NODEIDX_DEV_MAX; Idx++) {
 		Core = (const XPm_Core *)XPmDevice_GetByIndex(Idx);
@@ -2045,10 +2071,12 @@ maybe_unused static XStatus XPm_PmcWakeAllCores(void) {
 			continue;
 		}
 		xil_printf("CoreId: 0x%x\n\r", Core->Device.Node.Id);
+		/* Preserve the reset address while waking cores that are not running */
 		if ((u32)XPM_DEVSTATE_RUNNING != Core->Device.Node.State) {
 			xil_printf("..Waking up the core above\n\r");
 			Status = XPm_PmcWakeUpCore(Core->Device.Node.Id, 0, 0);
 			if (XST_SUCCESS != Status) {
+				/* Stop at the first core that could not be woken */
 				goto done;
 			}
 		}
@@ -2059,18 +2087,32 @@ done:
 }
 
 /**
- * @brief PMC request wakeup of CPU core
-*/
+ * @brief Request wakeup of a processor core.
+ *
+ * Resolves @p CoreId and dispatches the request to the core-type-specific
+ * wakeup operation. Failures are logged before being returned.
+ *
+ * @param CoreId Node ID of the APU, RPU, or ASU core to wake.
+ * @param SetAddress Nonzero to program @p Address as the core reset address;
+ * zero to preserve the current reset address.
+ * @param Address Reset address used when @p SetAddress is nonzero.
+ *
+ * @return XST_DEVICE_NOT_FOUND when @p CoreId is unknown; XST_SUCCESS on a
+ * successful wakeup; otherwise an error returned by XPmCore_RequestWakeup().
+ */
 XStatus XPm_PmcWakeUpCore(u32 CoreId , u32 SetAddress, u64 Address) {
 		XStatus Status = XST_FAILURE;
+	/* Resolve the node ID before dispatching to the core-specific operation */
 	XPm_Core *Core = (XPm_Core*)XPmDevice_GetById(CoreId);
 	if (NULL == Core) {
 		Status = XST_DEVICE_NOT_FOUND;
 		goto done;
 	}
 
+	/* Dispatch the request using the resolved core type */
 	Status = XPmCore_RequestWakeup(Core, SetAddress, Address);
 done:
+	/* Report lookup and wakeup failures through the common exit path */
 	if (XST_SUCCESS != Status) {
 		PmErr("Failed to wake up core 0x%x. Status = 0x%x\n\r", CoreId, Status);
 	}
@@ -2207,17 +2249,21 @@ done:
 }
 /****************************************************************************/
 /**
- * @brief  This function allows to initialize the node.
+ * @brief Dispatch initialization for a supported power-domain or PL device.
  *
- * @param  NodeId	Supported power domain nodes, PLD
- * @param  Function	Function id
- * @param  Args		Arguments speicifc to function
- * @param  NumArgs  Number of arguments
+ * Valid power-domain nodes are passed to PwrDomainInitNode(), which may also
+ * initialize LPD services when finishing LPD initialization. Valid PL device
+ * nodes are passed to PldInitNode(). Unsupported node classes, subclasses, or
+ * indices are rejected. Internal debug information is emitted on failure.
  *
- * @return XST_SUCCESS if successful else XST_FAILURE or an error code
- * or a reason code
+ * @param NodeId Power-domain or PL device node ID to initialize.
+ * @param Function Initialization operation to perform.
+ * @param Args Function-specific argument words.
+ * @param NumArgs Number of words available in @p Args.
  *
- * @note   none
+ * @return XPM_PM_INVALID_NODE for an unsupported node ID; XST_SUCCESS when the
+ * requested initialization succeeds; otherwise an error returned by the
+ * selected node initializer.
  *
  ****************************************************************************/
 static XStatus XPm_InitNode(u32 NodeId, u32 Function, const u32 *Args, u32 NumArgs)
@@ -2242,6 +2288,17 @@ static XStatus XPm_InitNode(u32 NodeId, u32 Function, const u32 *Args, u32 NumAr
 	return Status;
 }
 
+/****************************************************************************/
+/**
+ * @brief Dispatch a PM_INIT_NODE command and return its status in the response.
+ *
+ * The command decoder guarantees the two-word node ID/function prefix; the
+ * remaining payload is forwarded unchanged as function-specific arguments.
+ *
+ * @param Cmd Decoded command whose payload contains the initialization request.
+ *
+ * @return Status returned by XPm_InitNode().
+ ****************************************************************************/
 static XStatus XPm_DoInitNode(XPlmi_Cmd *Cmd)
 {
 	XStatus Status = XST_FAILURE;
@@ -2600,17 +2657,103 @@ done:
 
 /*****************************************************************************/
 /**
- * @brief  Parse one 16-bit GPIO configuration half and register a GIC handler.
+ * @brief Map an RTCA GPIO controller selection to its pin and interrupt route.
  *
- * Stores the pin configuration in GpioProcCfg[], enables the GPIO
- * INT_EN and INT_ANY registers for the pin, and registers the shared
- * XPm_GpioProcHandler with the GIC if no handler has been registered
- * yet for this (GicId, GicSrc) pair.
+ * The selected controller determines the pin-node namespace, GIC source, and
+ * device node used later to resolve the GPIO register base address.
  *
- * @param  CfgHalf  16-bit configuration value (lower or upper half of
- *                   RTCA_GPIO_CFG_REG, already shifted to bits [15:0]).
+ * @param GpioController Controller selector decoded from the RTCA configuration.
+ * @param MioIdx One-based MIO index within the selected controller.
+ * @param PinId Pointer that receives the corresponding pin node ID.
+ * @param GicId Pointer that receives the GIC group ID.
+ * @param GicSrc Pointer that receives the GIC source ID.
+ * @param DevId Pointer that receives the GPIO controller device ID.
  *
- * @return XST_SUCCESS on success, error code otherwise.
+ * @return XST_SUCCESS for a supported controller; XST_INVALID_PARAM otherwise.
+ *****************************************************************************/
+static XStatus XPm_GpioMapController(u32 GpioController, u32 MioIdx,
+				     u32 *PinId, u8 *GicId, u8 *GicSrc,
+				     u32 *DevId)
+{
+	XStatus Status = XST_FAILURE;
+
+	/* Route LPD MIO pins through the PS GPIO device and its GICP0 source */
+	if ((u32)LPD_GPIO_CONTROLLER == GpioController) {
+		*PinId = PM_STMIC_LMIO_BASE + MioIdx;
+		*GicId = (u8)XPLMI_PMC_GIC_IRQ_GICP0;
+		*GicSrc = (u8)XPLMI_GICP0_SRC20;
+		*DevId = PM_DEV_GPIO;
+		Status = XST_SUCCESS;
+	/* Route PMC MIO pins through the PMC GPIO device and its GICP6 source */
+	} else if ((u32)PMC_GPIO_CONTROLLER == GpioController) {
+		*PinId = PM_STMIC_PMIO_BASE + MioIdx;
+		*GicId = (u8)XPLMI_PMC_GIC_IRQ_GICP6;
+		*GicSrc = (u8)XPLMI_GICP6_SRC10;
+		*DevId = PM_DEV_GPIO_PMC;
+		Status = XST_SUCCESS;
+	} else {
+		/* Leave every output untouched when the controller is unsupported */
+		Status = XST_INVALID_PARAM;
+	}
+
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * @brief Select interrupt register offsets for a GPIO bank.
+ *
+ * @param Bank GPIO bank decoded from the RTCA configuration.
+ * @param IntEnOff Pointer that receives the bank interrupt-enable offset.
+ * @param IntAnyOff Pointer that receives the bank any-edge offset.
+ *
+ * @return XST_SUCCESS for banks zero through two; XST_INVALID_PARAM otherwise.
+ *****************************************************************************/
+static XStatus XPm_GpioGetBankOffsets(u8 Bank, u32 *IntEnOff, u32 *IntAnyOff)
+{
+	XStatus Status = XST_FAILURE;
+
+	/* Bank zero uses the first interrupt-enable and any-edge register pair */
+	if (GPIO_BANK_0 == Bank) {
+		*IntEnOff = PMC_GPIO_INT_EN_0_OFFSET;
+		*IntAnyOff = PMC_GPIO_INT_ANY_0_OFFSET;
+		Status = XST_SUCCESS;
+	/* Bank one uses the second interrupt-enable and any-edge register pair */
+	} else if (GPIO_BANK_1 == Bank) {
+		*IntEnOff = PMC_GPIO_INT_EN_1_OFFSET;
+		*IntAnyOff = PMC_GPIO_INT_ANY_1_OFFSET;
+		Status = XST_SUCCESS;
+	/* Bank two uses the final supported interrupt register pair */
+	} else if (GPIO_BANK_2 == Bank) {
+		*IntEnOff = PMC_GPIO_INT_EN_2_OFFSET;
+		*IntAnyOff = PMC_GPIO_INT_ANY_2_OFFSET;
+		Status = XST_SUCCESS;
+	} else {
+		/* Preserve the caller's offsets when an unsupported bank is supplied */
+		Status = XST_INVALID_PARAM;
+	}
+
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * @brief Register one RTCA GPIO-to-procedure configuration.
+ *
+ * Decodes a 16-bit configuration containing the SLR, GPIO controller, bank,
+ * one-based MIO index, and procedure ID. The function rejects unsupported
+ * values and duplicate pins, caches the decoded entry in GpioProcCfg[], and
+ * registers the shared GPIO handler when the selected GIC source does not
+ * already have one. On success it enables the GIC source and the pin's GPIO
+ * interrupt and any-edge detection bits.
+ *
+ * @param CfgHalf Configuration value from either half of an RTCA GPIO
+ * procedure configuration register, shifted into bits [15:0].
+ *
+ * @return XST_SUCCESS when the pin was registered and enabled;
+ * XST_INVALID_PARAM for an invalid MIO index, bank, controller, or duplicate
+ * pin; XST_FAILURE when the registration table is full; otherwise an error
+ * from XPm_GetDeviceBaseAddr() or XPlmi_GicRegisterHandler().
  *
  *****************************************************************************/
 static XStatus XPm_GpioRegisterPin (u32 CfgHalf)
@@ -2625,6 +2768,7 @@ static XStatus XPm_GpioRegisterPin (u32 CfgHalf)
 	u8 GicRegistered = 0U;
 	XPm_GpioProcCfg *Cfg = NULL;
 
+	/* Reject new entries when the fixed registration table is full */
 	if (GpioProcCfgCount >= MAX_GPIO_PROCS) {
 		PmErr("Max registrations (%u) reached\r\n",
 		      MAX_GPIO_PROCS);
@@ -2632,6 +2776,7 @@ static XStatus XPm_GpioRegisterPin (u32 CfgHalf)
 		goto done;
 	}
 
+	/* Decode the routing and procedure fields from the RTCA half-register */
 	SlrId    = (u8)(CfgHalf & GPIO_CFG_SLRID_MASK);
 	GpioController = (CfgHalf & GPIO_CFG_TYPE_MASK) >> GPIO_CFG_TYPE_SHIFT;
 	Bank     = (u8)((CfgHalf & GPIO_CFG_BANK_MASK) >> GPIO_CFG_BANK_SHIFT);
@@ -2650,27 +2795,14 @@ static XStatus XPm_GpioRegisterPin (u32 CfgHalf)
 		Status = XST_INVALID_PARAM;
 		goto done;
 	}
-	/*
-	 * Map the GPIO Controller to the corresponding pin node ID, GIC interrupt
-	 * source, and base address:
-	 *   GpioController 0 - (LPD Controller) -> LPD_GPIO via GICP0/SRC20
-	 *   GpioController 1 - (PMC Controller) -> PMC_GPIO via GICP6/SRC10
-	 */
-	if (GpioController == (u32)LPD_GPIO_CONTROLLER) {
-		PinId        = PM_STMIC_LMIO_BASE + MioIdx;
-		GicId        = (u8)XPLMI_PMC_GIC_IRQ_GICP0;
-		GicSrc       = (u8)XPLMI_GICP0_SRC20;
-		DevId = PM_DEV_GPIO;
-	} else if (GpioController == (u32)PMC_GPIO_CONTROLLER) {
-		PinId        = PM_STMIC_PMIO_BASE + MioIdx;
-		GicId        = (u8)XPLMI_PMC_GIC_IRQ_GICP6;
-		GicSrc       = (u8)XPLMI_GICP6_SRC10;
-		DevId = PM_DEV_GPIO_PMC;
-	} else {
+	/* Map the controller to its pin namespace, interrupt source, and device */
+	Status = XPm_GpioMapController(GpioController, MioIdx, &PinId, &GicId,
+					     &GicSrc, &DevId);
+	if (XST_SUCCESS != Status) {
 		PmErr("Invalid GPIO Controller 0x%x\r\n", GpioController);
-		Status = XST_INVALID_PARAM;
 		goto done;
 	}
+	/* Resolve the selected GPIO controller through its device node */
 	Status = XPm_GetDeviceBaseAddr(DevId, &GpioBaseAddr);
 	if (Status != XST_SUCCESS) {
 		PmErr("Failed to get GPIO base address for dev 0x%x\r\n", DevId);
@@ -2688,21 +2820,13 @@ static XStatus XPm_GpioRegisterPin (u32 CfgHalf)
 
 	/* Convert 1-based RTCA MioIdx to 0-based MIO pin number for bit math */
 	MioNum  = (MioIdx - GPIO_CFG_MIO_IDX_BASE);
+	/* Select the pin bit within its 32-bit bank registers */
 	BitMask = BIT32((MioNum % GPIO_PINS_PER_BANK));
 
-	/* Select bank register offsets */
-	if (Bank == GPIO_BANK_0) {
-		IntEnOff  = PMC_GPIO_INT_EN_0_OFFSET;
-		IntAnyOff = PMC_GPIO_INT_ANY_0_OFFSET;
-	} else if (Bank == GPIO_BANK_1) {
-		IntEnOff  = PMC_GPIO_INT_EN_1_OFFSET;
-		IntAnyOff = PMC_GPIO_INT_ANY_1_OFFSET;
-	} else if (Bank == GPIO_BANK_2) {
-		IntEnOff  = PMC_GPIO_INT_EN_2_OFFSET;
-		IntAnyOff = PMC_GPIO_INT_ANY_2_OFFSET;
-	} else {
+	/* Resolve the selected bank's interrupt-enable and any-edge offsets */
+	Status = XPm_GpioGetBankOffsets(Bank, &IntEnOff, &IntAnyOff);
+	if (XST_SUCCESS != Status) {
 		PmErr("Invalid bank %u\r\n", Bank);
-		Status = XST_INVALID_PARAM;
 		goto done;
 	}
 
@@ -2740,6 +2864,7 @@ static XStatus XPm_GpioRegisterPin (u32 CfgHalf)
 		}
 	}
 
+	/* Commit after handler availability or required registration is established */
 	GpioProcCfgCount++;
 
 	/* Enable GIC interrupt for this source */
@@ -2757,27 +2882,19 @@ done:
 
 /*****************************************************************************/
 /**
- * @brief  Initialize GPIO interrupt handlers.
+ * @brief Initialize GPIO-triggered CDO procedure handlers from RTCA settings.
  *
- * Reads the specified GPIO configuration register (e.g. RTCA_GPIO_CFG_REG
- * at 0xF2014370 or RTCA_GPIO_CFG1_REG at 0xF2014374).  The 32-bit register
- * carries two independent 16-bit pin configurations (bits [15:0] and
- * [31:16]).  Each non-zero half is parsed and a GIC interrupt handler is
- * registered for the corresponding MIO pin.
+ * Reads all four RTCA GPIO procedure configuration registers and passes each
+ * nonzero 16-bit half to XPm_GpioRegisterPin(). After both halves of a
+ * register are accepted, clears that register so the configuration is not
+ * processed again. Empty registers are left unchanged. Processing stops on
+ * the first registration failure, leaving that register uncleared.
  *
- * 16-bit configuration field layout:
- *   [2:0]   / [18:16] : SLR ID
- *   [4:3]   / [20:19] : GPIO Controller — 0 = LPD GPIO Controller, 1 = PMC GPIO Controller
- *   [6:5]   / [22:21] : GPIO bank number
- *   [12:7]  / [28:23] : MIO pin index
- *   [15:13] / [31:29] : CDO Proc ID to execute on reset event
+ * Each half encodes the SLR in bits [2:0], controller in [4:3], bank in
+ * [6:5], one-based MIO index in [12:7], and CDO procedure ID in [15:13].
  *
- * GIC routing:
- *   LPD GPIO Controller -> GICP0 SRC20
- *   PMC GPIO Controller -> GICP6 SRC10
- *
- * @return XST_SUCCESS if all configured handlers were registered.
- *         Error code from XPm_GpioRegisterPin on first failure.
+ * @return XST_SUCCESS when every nonzero configuration was registered;
+ * otherwise the first error returned by XPm_GpioRegisterPin().
  *
  *****************************************************************************/
 XStatus XPm_GpioProcHandlerInit(void)
@@ -2785,6 +2902,7 @@ XStatus XPm_GpioProcHandlerInit(void)
 	XStatus Status = XST_FAILURE;
 	u32 CfgVal, HalfCfg, RegIdx, HalfIdx;
 
+	/* Each RTCA register contains two independent pin configurations */
 	static const u32 GpioProcCfgRegs[] = {
 		RTCA_GPIO_PROC_CFG0_REG,
 		RTCA_GPIO_PROC_CFG1_REG,
@@ -2792,12 +2910,14 @@ XStatus XPm_GpioProcHandlerInit(void)
 		RTCA_GPIO_PROC_CFG3_REG,
 	};
 
+	/* Walk every configuration register and skip empty ones */
 	for (RegIdx = 0U; RegIdx < ARRAY_SIZE(GpioProcCfgRegs); RegIdx++) {
 		CfgVal = XPm_In32(GpioProcCfgRegs[RegIdx]);
 		if (CfgVal == 0U) {
 			continue;
 		}
 
+		/* Process the lower and upper 16-bit configuration slots */
 		for (HalfIdx = 0U; HalfIdx < 2U; HalfIdx++) {
 			HalfCfg = (CfgVal >> (HalfIdx * GPIO_CFG_UPPER_SHIFT))
 				  & GPIO_CFG_HALF_MASK;
@@ -2806,11 +2926,13 @@ XStatus XPm_GpioProcHandlerInit(void)
 				if (Status != XST_SUCCESS) {
 					PmErr("Reg 0x%x half %u failed 0x%x\r\n",
 					      GpioProcCfgRegs[RegIdx], HalfIdx, Status);
+					/* Preserve the register when either half could not be registered */
 					goto done;
 				}
 			}
 		}
 
+		/* Clear a register only after both configuration slots are consumed */
 		XPm_Out32(GpioProcCfgRegs[RegIdx], 0U);
 	}
 

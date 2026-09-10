@@ -31,7 +31,8 @@
  */
 struct XPmAieOpsHandlers {
 	enum XPmAieOperations Ops;    /**< AIE operation identifier */
-	XStatus (*Handler)(u32 StartCol, u32 EndCol, const void *Buffer); /**< Handler for the operation */
+	XStatus (*Handler)(const XPm_AieDomain *AieDomain, u32 StartCol,
+			   u32 EndCol, const void *Buffer); /**< Handler for the operation */
 };
 
 static inline void AieRMW64(u64 addr, u32 Mask, u32 Value)
@@ -42,28 +43,29 @@ static inline void AieRMW64(u64 addr, u32 Mask, u32 Value)
 	AieWrite64(addr, l_val);
 }
 
-static XStatus Aie2ps_ColRst(u32 StartCol, u32 EndCol, const void *Buffer);
-static XStatus Aie2ps_ShimRst(u32 StartCol, u32 EndCol, const void* Buffer);
-static XStatus Aie2ps_EnbColClkBuff(u32 StartCol, u32 EndCol, const void *Buffer);
-static XStatus Aie2ps_UcZeroization(u32 StartCol, u32 EndCol, const void *Buffer);
-static XStatus Aie2ps_HandShake(u32 SubsystemId, u32 StartCol, u32 EndCol, const void *Buffer);
-static XStatus Aie2ps_IntcHwSts(u32 StartCol, u32 EndCol, const void *Buffer);
-static XStatus Aie2ps_Zeroization(u32 StartCol, u32 EndCol, const void *Buffer);
-static XStatus Aie2ps_EnbAxiMmIsolation(u32 StartCol, u32 EndCol, const void *Buffer);
-static XStatus Aie2ps_NmuConfig(u32 StartCol, u32 EndCol, const void *Buffer);
-static XStatus Aie2ps_DisMemPriv(u32 StartCol, u32 EndCol, const void *Buffer);
-static XStatus Aie2ps_DisMemInterleave(u32 StartCol, u32 EndCol, const void *Buffer);
-static XStatus Aie2ps_EnbUcDmaPause(u32 StartCol, u32 EndCol, const void *Buffer);
-static XStatus Aie2ps_EnbNocDmaPause(u32 StartCol, u32 EndCol, const void *Buffer);
-static XStatus Aie2ps_SetEccScrub(u32 StartCol, u32 EndCol, const void *Buffer);
-static XStatus Aie2ps_DisColClkBuff(u32 StartCol, u32 EndCol, const void *Buffer);
-static XStatus Aie2ps_HwErrInt(u32 StartCol, u32 EndCol, const void *Buffer);
-static XStatus Aie2ps_HwErrMask(u32 StartCol, u32 EndCol, const void *Buffer);
-static XStatus Aie2ps_EnbMemPriv(u32 StartCol, u32 EndCol, const void *Buffer);
-static XStatus Aie2ps_EnbAxiMmErrEvent(u32 StartCol, u32 EndCol, const void *Buffer);
-static XStatus Aie2ps_SetL2CtrlNpiIntr(u32 StartCol, u32 EndCol, const void *Buffer);
+static XStatus Aie2ps_ColRst(const XPm_AieDomain *AieDomain, u32 StartCol, u32 EndCol, const void *Buffer);
+static XStatus Aie2ps_ShimRst(const XPm_AieDomain *AieDomain, u32 StartCol, u32 EndCol, const void* Buffer);
+static XStatus Aie2ps_EnbColClkBuff(const XPm_AieDomain *AieDomain, u32 StartCol, u32 EndCol, const void *Buffer);
+static XStatus Aie2ps_UcZeroization(const XPm_AieDomain *AieDomain, u32 StartCol, u32 EndCol, const void *Buffer);
+static XStatus Aie2ps_HandShake(const XPm_AieDomain *AieDomain, u32 SubsystemId,
+				u32 StartCol, u32 EndCol, const void *Buffer);
+static XStatus Aie2ps_IntcHwSts(const XPm_AieDomain *AieDomain, u32 StartCol, u32 EndCol, const void *Buffer);
+static XStatus Aie2ps_Zeroization(const XPm_AieDomain *AieDomain, u32 StartCol, u32 EndCol, const void *Buffer);
+static XStatus Aie2ps_EnbAxiMmIsolation(const XPm_AieDomain *AieDomain, u32 StartCol, u32 EndCol, const void *Buffer);
+static XStatus Aie2ps_NmuConfig(const XPm_AieDomain *AieDomain, u32 StartCol, u32 EndCol, const void *Buffer);
+static XStatus Aie2ps_DisMemPriv(const XPm_AieDomain *AieDomain, u32 StartCol, u32 EndCol, const void *Buffer);
+static XStatus Aie2ps_DisMemInterleave(const XPm_AieDomain *AieDomain, u32 StartCol, u32 EndCol, const void *Buffer);
+static XStatus Aie2ps_EnbUcDmaPause(const XPm_AieDomain *AieDomain, u32 StartCol, u32 EndCol, const void *Buffer);
+static XStatus Aie2ps_EnbNocDmaPause(const XPm_AieDomain *AieDomain, u32 StartCol, u32 EndCol, const void *Buffer);
+static XStatus Aie2ps_SetEccScrub(const XPm_AieDomain *AieDomain, u32 StartCol, u32 EndCol, const void *Buffer);
+static XStatus Aie2ps_DisColClkBuff(const XPm_AieDomain *AieDomain, u32 StartCol, u32 EndCol, const void *Buffer);
+static XStatus Aie2ps_HwErrInt(const XPm_AieDomain *AieDomain, u32 StartCol, u32 EndCol, const void *Buffer);
+static XStatus Aie2ps_HwErrMask(const XPm_AieDomain *AieDomain, u32 StartCol, u32 EndCol, const void *Buffer);
+static XStatus Aie2ps_EnbMemPriv(const XPm_AieDomain *AieDomain, u32 StartCol, u32 EndCol, const void *Buffer);
+static XStatus Aie2ps_EnbAxiMmErrEvent(const XPm_AieDomain *AieDomain, u32 StartCol, u32 EndCol, const void *Buffer);
+static XStatus Aie2ps_SetL2CtrlNpiIntr(const XPm_AieDomain *AieDomain, u32 StartCol, u32 EndCol, const void *Buffer);
 static XStatus Aie2ps_StartNumCol(u32 *StartCol, u32 *EndCol, const void *Buffer);
-static XStatus Aie2ps_CtrlPktTlastErr(u32 StartCol, u32 EndCol, const void *Buffer);
+static XStatus Aie2ps_CtrlPktTlastErr(const XPm_AieDomain *AieDomain, u32 StartCol, u32 EndCol, const void *Buffer);
 
 static const struct XPmAieOpsHandlers AieOpsHandlers[] = {
 	{AIE_OPS_COL_RST,		&Aie2ps_ColRst},
@@ -136,19 +138,19 @@ done:
 /**
  * @brief This function zeroizes AIE2 data and/or program memory.
  *
+ * @param AieDomain AIE domain the handler operates on
  * @param StartCol 	Column start index for zeroization
  * @param EndCol 	Column end index for zeroization
  * @param Buffer	Ops buffer used to get OPS type
  *
  * @return XST_SUCCESS if zeroization successful, error code otherwise.
  *****************************************************************************/
-static XStatus Aie2ps_Zeroization(u32 StartCol, u32 EndCol, const void *Buffer)
+static XStatus Aie2ps_Zeroization(const XPm_AieDomain *AieDomain, u32 StartCol, u32 EndCol, const void *Buffer)
 {
 	XStatus Status = XST_FAILURE;
 	XStatus CoreZeroStatus = XST_FAILURE;
 	XStatus MemZeroStatus = XST_FAILURE;
 	XStatus MemTileZeroStatus = XST_FAILURE;
-	const XPm_AieDomain *AieDomain = (XPm_AieDomain *)XPmPower_GetById(PM_POWER_ME2);
 	const u64 NocAddress = AieDomain->Array.NocAddress;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 	u32 RowStart = AieDomain->Array.StartRow;
@@ -300,16 +302,16 @@ done:
 /**
  * @brief  Zeroize AIE2 microcontroller memory.
  *
+ * @param  AieDomain    AIE domain the handler operates on
  * @param  StartCol     Column start index
  * @param  EndCol       Column end index
  * @param  Buffer       Ops buffer containing zeroization flags
  *
  * @return XST_SUCCESS if zeroization successful, error code otherwise.
  ***************************************************************************/
-static XStatus Aie2ps_UcZeroization(u32 StartCol, u32 EndCol, const void *Buffer)
+static XStatus Aie2ps_UcZeroization(const XPm_AieDomain *AieDomain, u32 StartCol, u32 EndCol, const void *Buffer)
 {
 	XStatus Status = XST_FAILURE;
-	const XPm_AieDomain *AieDomain = (XPm_AieDomain*)XPmPower_GetById(PM_POWER_ME2);
 	const u64 NocAddress = AieDomain->Array.NocAddress;
 	u64 BaseAddress;
 	u32 Col;
@@ -360,15 +362,15 @@ done:
 /**
  * @brief  De-assert column reset for AIE2 columns.
  *
+ * @param  AieDomain    AIE domain the handler operates on
  * @param  StartCol     Column start index
  * @param  EndCol       Column end index
  * @param  Buffer       Ops buffer (unused)
  *
  * @return XST_SUCCESS on success.
  ***************************************************************************/
-static XStatus Aie2ps_ColRst(u32 StartCol, u32 EndCol, const void *Buffer)
+static XStatus Aie2ps_ColRst(const XPm_AieDomain *AieDomain, u32 StartCol, u32 EndCol, const void *Buffer)
 {
-	const XPm_AieDomain *AieDomain = (XPm_AieDomain*)XPmPower_GetById(PM_POWER_ME2);
 	const u64 NocAddress = AieDomain->Array.NocAddress;
 	u64 BaseAddress;
 	u32 Col;
@@ -400,17 +402,17 @@ static XStatus Aie2ps_ColRst(u32 StartCol, u32 EndCol, const void *Buffer)
 /**
  * @brief  Configure SHIM reset for AIE2 columns via NPI.
  *
+ * @param  AieDomain    AIE domain the handler operates on
  * @param  StartCol     Column start index
  * @param  EndCol       Column end index
  * @param  Buffer       Ops buffer (unused)
  *
  * @return XST_SUCCESS if successful else error code.
  ***************************************************************************/
-static XStatus Aie2ps_ShimRst(u32 StartCol, u32 EndCol, const void* Buffer)
+static XStatus Aie2ps_ShimRst(const XPm_AieDomain *AieDomain, u32 StartCol, u32 EndCol, const void* Buffer)
 {
 	XStatus Status = XST_FAILURE;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
-	const XPm_AieDomain *AieDomain = (XPm_AieDomain *)XPmPower_GetById(PM_POWER_ME2);
 	u32 NodeAddress = AieDomain->AieNpiAddress;
 	u32 ColData;
 
@@ -474,15 +476,15 @@ static XStatus Aie2ps_ShimRst(u32 StartCol, u32 EndCol, const void* Buffer)
 /**
  * @brief  Enable column clock buffer for AIE2 columns.
  *
+ * @param  AieDomain    AIE domain the handler operates on
  * @param  StartCol     Column start index
  * @param  EndCol       Column end index
  * @param  Buffer       Ops buffer (unused)
  *
  * @return XST_SUCCESS on success.
  ***************************************************************************/
-static XStatus Aie2ps_EnbColClkBuff(u32 StartCol, u32 EndCol, const void *Buffer)
+static XStatus Aie2ps_EnbColClkBuff(const XPm_AieDomain *AieDomain, u32 StartCol, u32 EndCol, const void *Buffer)
 {
-	const XPm_AieDomain *AieDomain = (XPm_AieDomain*)XPmPower_GetById(PM_POWER_ME2);
 	const u64 NocAddress = AieDomain->Array.NocAddress;
 	u64 BaseAddress;
 	u32 Col;
@@ -505,15 +507,15 @@ static XStatus Aie2ps_EnbColClkBuff(u32 StartCol, u32 EndCol, const void *Buffer
 /**
  * @brief  Disable column clock buffer for AIE2 columns.
  *
+ * @param  AieDomain    AIE domain the handler operates on
  * @param  StartCol     Column start index
  * @param  EndCol       Column end index
  * @param  Buffer       Ops buffer (unused)
  *
  * @return XST_SUCCESS on success.
  ***************************************************************************/
-static XStatus Aie2ps_DisColClkBuff(u32 StartCol, u32 EndCol, const void *Buffer)
+static XStatus Aie2ps_DisColClkBuff(const XPm_AieDomain *AieDomain, u32 StartCol, u32 EndCol, const void *Buffer)
 {
-	const XPm_AieDomain *AieDomain = (XPm_AieDomain*)XPmPower_GetById(PM_POWER_ME2);
 	const u64 NocAddress = AieDomain->Array.NocAddress;
 	u64 BaseAddress;
 	u32 Col;
@@ -536,15 +538,15 @@ static XStatus Aie2ps_DisColClkBuff(u32 StartCol, u32 EndCol, const void *Buffer
 /**
  * @brief  Enable AXI-MM decode and slave error events for AIE2 columns.
  *
+ * @param  AieDomain    AIE domain the handler operates on
  * @param  StartCol     Column start index
  * @param  EndCol       Column end index
  * @param  Buffer       Ops buffer (unused)
  *
  * @return XST_SUCCESS on success.
  ***************************************************************************/
-static XStatus Aie2ps_EnbAxiMmErrEvent(u32 StartCol, u32 EndCol, const void *Buffer)
+static XStatus Aie2ps_EnbAxiMmErrEvent(const XPm_AieDomain *AieDomain, u32 StartCol, u32 EndCol, const void *Buffer)
 {
-	const XPm_AieDomain *AieDomain = (XPm_AieDomain*)XPmPower_GetById(PM_POWER_ME2);
 	const u64 NocAddress = AieDomain->Array.NocAddress;
 	u64 BaseAddress;
 	u32 Col;
@@ -569,16 +571,16 @@ static XStatus Aie2ps_EnbAxiMmErrEvent(u32 StartCol, u32 EndCol, const void *Buf
 /**
  * @brief  Enable AXI-MM isolation for AIE2 columns.
  *
+ * @param  AieDomain    AIE domain the handler operates on
  * @param  StartCol     Column start index
  * @param  EndCol       Column end index
  * @param  Buffer       Ops buffer containing traffic type
  *
  * @return XST_SUCCESS if successful else error code.
  ***************************************************************************/
-static XStatus Aie2ps_EnbAxiMmIsolation(u32 StartCol, u32 EndCol, const void *Buffer)
+static XStatus Aie2ps_EnbAxiMmIsolation(const XPm_AieDomain *AieDomain, u32 StartCol, u32 EndCol, const void *Buffer)
 {
 	XStatus Status = XST_FAILURE;
-	const XPm_AieDomain *AieDomain = (XPm_AieDomain*)XPmPower_GetById(PM_POWER_ME2);
 	const u64 NocAddress = AieDomain->Array.NocAddress;
 	u64 BaseAddress;
 	u32 Col, Mask = 0U;
@@ -627,15 +629,15 @@ done:
 /**
  * @brief  Set L2 controller NPI interrupt for AIE2 columns.
  *
+ * @param  AieDomain    AIE domain the handler operates on
  * @param  StartCol     Column start index
  * @param  EndCol       Column end index
  * @param  Buffer       Ops buffer containing IRQ value
  *
  * @return XST_SUCCESS on success.
  ***************************************************************************/
-static XStatus Aie2ps_SetL2CtrlNpiIntr(u32 StartCol, u32 EndCol, const void *Buffer)
+static XStatus Aie2ps_SetL2CtrlNpiIntr(const XPm_AieDomain *AieDomain, u32 StartCol, u32 EndCol, const void *Buffer)
 {
-	const XPm_AieDomain *AieDomain = (XPm_AieDomain*)XPmPower_GetById(PM_POWER_ME2);
 	const u64 NocAddress = AieDomain->Array.NocAddress;
 	u64 BaseAddress;
 	u32 Col;
@@ -658,16 +660,16 @@ static XStatus Aie2ps_SetL2CtrlNpiIntr(u32 StartCol, u32 EndCol, const void *Buf
 /**
  * @brief  Configure NMU switch routing for AIE2 columns.
  *
+ * @param  AieDomain    AIE domain the handler operates on
  * @param  StartCol     Column start index
  * @param  EndCol       Column end index
  * @param  Buffer       Ops buffer containing route configuration
  *
  * @return XST_SUCCESS if successful else error code.
  ***************************************************************************/
-static XStatus Aie2ps_NmuConfig(u32 StartCol, u32 EndCol, const void *Buffer)
+static XStatus Aie2ps_NmuConfig(const XPm_AieDomain *AieDomain, u32 StartCol, u32 EndCol, const void *Buffer)
 {
 	XStatus Status = XST_FAILURE;
-	const XPm_AieDomain *AieDomain = (XPm_AieDomain*)XPmPower_GetById(PM_POWER_ME2);
 	const u64 NocAddress = AieDomain->Array.NocAddress;
 	u64 BaseAddress;
 	u32 Col;
@@ -704,15 +706,15 @@ done:
 /**
  * @brief  Configure hardware error interrupt output signal for AIE2 columns.
  *
+ * @param  AieDomain    AIE domain the handler operates on
  * @param  StartCol     Column start index
  * @param  EndCol       Column end index
  * @param  Buffer       Ops buffer containing error status value
  *
  * @return XST_SUCCESS on success.
  ***************************************************************************/
-static XStatus Aie2ps_HwErrInt(u32 StartCol, u32 EndCol, const void *Buffer)
+static XStatus Aie2ps_HwErrInt(const XPm_AieDomain *AieDomain, u32 StartCol, u32 EndCol, const void *Buffer)
 {
-	const XPm_AieDomain *AieDomain = (XPm_AieDomain*)XPmPower_GetById(PM_POWER_ME2);
 	const u64 NocAddress = AieDomain->Array.NocAddress;
 	u64 BaseAddress;
 	u32 Col;
@@ -733,15 +735,15 @@ static XStatus Aie2ps_HwErrInt(u32 StartCol, u32 EndCol, const void *Buffer)
 /**
  * @brief  Set hardware error mask for AIE2 columns.
  *
+ * @param  AieDomain    AIE domain the handler operates on
  * @param  StartCol     Column start index
  * @param  EndCol       Column end index
  * @param  Buffer       Ops buffer containing error mask value
  *
  * @return XST_SUCCESS on success.
  ***************************************************************************/
-static XStatus Aie2ps_HwErrMask(u32 StartCol, u32 EndCol, const void *Buffer)
+static XStatus Aie2ps_HwErrMask(const XPm_AieDomain *AieDomain, u32 StartCol, u32 EndCol, const void *Buffer)
 {
-	const XPm_AieDomain *AieDomain = (XPm_AieDomain*)XPmPower_GetById(PM_POWER_ME2);
 	const u64 NocAddress = AieDomain->Array.NocAddress;
 	u64 BaseAddress;
 	u32 Col;
@@ -764,15 +766,15 @@ static XStatus Aie2ps_HwErrMask(u32 StartCol, u32 EndCol, const void *Buffer)
 /**
  * @brief  Set ECC scrub period for AIE2 columns.
  *
+ * @param  AieDomain    AIE domain the handler operates on
  * @param  StartCol     Column start index
  * @param  EndCol       Column end index
  * @param  Buffer       Ops buffer containing scrub period
  *
  * @return XST_SUCCESS on success.
  ***************************************************************************/
-static XStatus Aie2ps_SetEccScrub(u32 StartCol, u32 EndCol, const void *Buffer)
+static XStatus Aie2ps_SetEccScrub(const XPm_AieDomain *AieDomain, u32 StartCol, u32 EndCol, const void *Buffer)
 {
-	const XPm_AieDomain *AieDomain = (XPm_AieDomain*)XPmPower_GetById(PM_POWER_ME2);
 	const u64 NocAddress = AieDomain->Array.NocAddress;
 	u64 BaseAddress;
 	u32 Col;
@@ -794,15 +796,15 @@ static XStatus Aie2ps_SetEccScrub(u32 StartCol, u32 EndCol, const void *Buffer)
 /**
  * @brief  Enable privileged memory access for AIE2 columns.
  *
+ * @param  AieDomain    AIE domain the handler operates on
  * @param  StartCol     Column start index
  * @param  EndCol       Column end index
  * @param  Buffer       Ops buffer (unused)
  *
  * @return XST_SUCCESS on success.
  ***************************************************************************/
-static XStatus Aie2ps_EnbMemPriv(u32 StartCol, u32 EndCol, const void *Buffer)
+static XStatus Aie2ps_EnbMemPriv(const XPm_AieDomain *AieDomain, u32 StartCol, u32 EndCol, const void *Buffer)
 {
-	const XPm_AieDomain *AieDomain = (XPm_AieDomain*)XPmPower_GetById(PM_POWER_ME2);
 	const u64 NocAddress = AieDomain->Array.NocAddress;
 	u64 BaseAddress;
 	u32 Col;
@@ -825,15 +827,15 @@ static XStatus Aie2ps_EnbMemPriv(u32 StartCol, u32 EndCol, const void *Buffer)
 /**
  * @brief  Disable privileged memory access for AIE2 columns.
  *
+ * @param  AieDomain    AIE domain the handler operates on
  * @param  StartCol     Column start index
  * @param  EndCol       Column end index
  * @param  Buffer       Ops buffer (unused)
  *
  * @return XST_SUCCESS on success.
  ***************************************************************************/
-static XStatus Aie2ps_DisMemPriv(u32 StartCol, u32 EndCol, const void *Buffer)
+static XStatus Aie2ps_DisMemPriv(const XPm_AieDomain *AieDomain, u32 StartCol, u32 EndCol, const void *Buffer)
 {
-	const XPm_AieDomain *AieDomain = (XPm_AieDomain*)XPmPower_GetById(PM_POWER_ME2);
 	const u64 NocAddress = AieDomain->Array.NocAddress;
 	u64 BaseAddress;
 	u32 Col;
@@ -856,15 +858,15 @@ static XStatus Aie2ps_DisMemPriv(u32 StartCol, u32 EndCol, const void *Buffer)
 /**
  * @brief  Pause NoC DMA transactions for AIE2 columns.
  *
+ * @param  AieDomain    AIE domain the handler operates on
  * @param  StartCol     Column start index
  * @param  EndCol       Column end index
  * @param  Buffer       Ops buffer (unused)
  *
  * @return XST_SUCCESS on success.
  ***************************************************************************/
-static XStatus Aie2ps_EnbNocDmaPause(u32 StartCol, u32 EndCol, const void *Buffer)
+static XStatus Aie2ps_EnbNocDmaPause(const XPm_AieDomain *AieDomain, u32 StartCol, u32 EndCol, const void *Buffer)
 {
-	const XPm_AieDomain *AieDomain = (XPm_AieDomain*)XPmPower_GetById(PM_POWER_ME2);
 	const u64 NocAddress = AieDomain->Array.NocAddress;
 	u64 BaseAddress;
 	u32 Col;
@@ -888,15 +890,15 @@ static XStatus Aie2ps_EnbNocDmaPause(u32 StartCol, u32 EndCol, const void *Buffe
 /**
  * @brief  Pause microcontroller DMA transactions for AIE2 columns.
  *
+ * @param  AieDomain    AIE domain the handler operates on
  * @param  StartCol     Column start index
  * @param  EndCol       Column end index
  * @param  Buffer       Ops buffer (unused)
  *
  * @return XST_SUCCESS on success.
  ***************************************************************************/
-static XStatus Aie2ps_EnbUcDmaPause(u32 StartCol, u32 EndCol, const void *Buffer)
+static XStatus Aie2ps_EnbUcDmaPause(const XPm_AieDomain *AieDomain, u32 StartCol, u32 EndCol, const void *Buffer)
 {
-	const XPm_AieDomain *AieDomain = (XPm_AieDomain*)XPmPower_GetById(PM_POWER_ME2);
 	const u64 NocAddress = AieDomain->Array.NocAddress;
 	u64 BaseAddress;
 	u32 Col;
@@ -919,15 +921,15 @@ static XStatus Aie2ps_EnbUcDmaPause(u32 StartCol, u32 EndCol, const void *Buffer
 /**
  * @brief  De-assert hardware error interrupt status for AIE2 columns.
  *
+ * @param  AieDomain    AIE domain the handler operates on
  * @param  StartCol     Column start index
  * @param  EndCol       Column end index
  * @param  Buffer       Ops buffer containing status value
  *
  * @return XST_SUCCESS on success.
  ***************************************************************************/
-static XStatus Aie2ps_IntcHwSts(u32 StartCol, u32 EndCol, const void *Buffer)
+static XStatus Aie2ps_IntcHwSts(const XPm_AieDomain *AieDomain, u32 StartCol, u32 EndCol, const void *Buffer)
 {
-	const XPm_AieDomain *AieDomain = (XPm_AieDomain*)XPmPower_GetById(PM_POWER_ME2);
 	const u64 NocAddress = AieDomain->Array.NocAddress;
 	u64 BaseAddress;
 	u32 Col;
@@ -948,15 +950,15 @@ static XStatus Aie2ps_IntcHwSts(u32 StartCol, u32 EndCol, const void *Buffer)
 /**
  * @brief  Disable memory interleaving for AIE2 columns.
  *
+ * @param  AieDomain    AIE domain the handler operates on
  * @param  StartCol     Column start index
  * @param  EndCol       Column end index
  * @param  Buffer       Ops buffer (unused)
  *
  * @return XST_SUCCESS on success.
  ***************************************************************************/
-static XStatus Aie2ps_DisMemInterleave(u32 StartCol, u32 EndCol, const void *Buffer)
+static XStatus Aie2ps_DisMemInterleave(const XPm_AieDomain *AieDomain, u32 StartCol, u32 EndCol, const void *Buffer)
 {
-	const XPm_AieDomain *AieDomain = (XPm_AieDomain*)XPmPower_GetById(PM_POWER_ME2);
 	const u64 NocAddress = AieDomain->Array.NocAddress;
 	u64 BaseAddress;
 	u32 Col, Row;
@@ -997,16 +999,19 @@ static XStatus Aie2ps_DisMemInterleave(u32 StartCol, u32 EndCol, const void *Buf
 /**
  * @brief  Perform handshake operation with AIE2 columns.
  *
+ * @param  AieDomain    AIE domain the handler operates on
+ * @param  SubsystemId  Requesting subsystem ID used to authorize the DDR
+ *                      source range
  * @param  StartCol     Column start index
  * @param  EndCol       Column end index
  * @param  Buffer       Ops buffer containing handshake parameters
  *
  * @return XST_SUCCESS if successful else error code.
  ***************************************************************************/
-static XStatus Aie2ps_HandShake(u32 SubsystemId, u32 StartCol, u32 EndCol, const void *Buffer)
+static XStatus Aie2ps_HandShake(const XPm_AieDomain *AieDomain, u32 SubsystemId,
+				u32 StartCol, u32 EndCol, const void *Buffer)
 {
 	XStatus Status = XST_FAILURE;
-	const XPm_AieDomain *AieDomain = (XPm_AieDomain*)XPmPower_GetById(PM_POWER_ME2);
 	const u64 NocAddress = AieDomain->Array.NocAddress;
 	u64 DestAddr, BaseAddress, DdrAddr;
 	u32 Len = ((const struct XPm_AieOpHandShake *)Buffer)->Len;
@@ -1051,15 +1056,15 @@ done:
 /**
  * @brief  Configure control packet TLAST error handling for AIE2 columns.
  *
+ * @param  AieDomain    AIE domain the handler operates on
  * @param  StartCol     Column start index
  * @param  EndCol       Column end index
  * @param  Buffer       Ops buffer containing error state
  *
  * @return XST_SUCCESS if successful else error code.
  ***************************************************************************/
-static XStatus Aie2ps_CtrlPktTlastErr(u32 StartCol, u32 EndCol, const void *Buffer)
+static XStatus Aie2ps_CtrlPktTlastErr(const XPm_AieDomain *AieDomain, u32 StartCol, u32 EndCol, const void *Buffer)
 {
-	const XPm_AieDomain *AieDomain = (XPm_AieDomain*)XPmPower_GetById(PM_POWER_ME2);
 	const u64 NocAddress = AieDomain->Array.NocAddress;
 	u32 Value = ((u32)(((const struct XPm_AieCtrlPktTlastErr *)Buffer)->State)) << AIE2PS_CTRL_PKT_TLAST_ERR_EN_SHIFT;
 	u32 RowStart = AieDomain->Array.StartRow;
@@ -1117,6 +1122,8 @@ static XStatus Aie2ps_CtrlPktTlastErr(u32 StartCol, u32 EndCol, const void *Buff
 /**
  * @brief  Perform AIE2PS operations.
  *
+ * @param  SubsystemId	Requesting subsystem ID used to authorize the DDR buffer
+ * @param  DeviceId	AIE device ID used for partition-bounds validation
  * @param  Size		Buffer size
  * @param  HighAddr	Upper 32 bits of the buffer
  * @param  LowAddr	Lower 32 bits of the buffer
@@ -1141,6 +1148,7 @@ static XStatus Aie2ps_Operation(u32 SubsystemId, u32 DeviceId, u32 Size, u32 Hig
 
 	/* Check if AIE domain node is present */
 	if (NULL == AieDomain) {
+		Status = XPM_INVALID_PWRDOMAIN;
 		DbgErr = XPM_INVALID_PWRDOMAIN;
 		goto done;
 	}
@@ -1195,7 +1203,7 @@ static XStatus Aie2ps_Operation(u32 SubsystemId, u32 DeviceId, u32 Size, u32 Hig
 		} else if ((u32)AIE_OPS_HANDSHAKE == OpTypeLen->Type) {
 			/* HandShake is dispatched directly because it needs
 			 * SubsystemId for caller-DDR range validation. */
-			Status = Aie2ps_HandShake(SubsystemId, StartCol, EndCol, Buf);
+			Status = Aie2ps_HandShake(AieDomain, SubsystemId, StartCol, EndCol, Buf);
 			if (XST_SUCCESS != Status) {
 				goto done;
 			}
@@ -1208,7 +1216,7 @@ static XStatus Aie2ps_Operation(u32 SubsystemId, u32 DeviceId, u32 Size, u32 Hig
 				if ((u32)AieOpsHandlers[Index].Ops == OpTypeLen->Type) {
 					if (NULL != AieOpsHandlers[Index].Handler) {
 						/* Perform AIE operation */
-						Status = AieOpsHandlers[Index].Handler(StartCol,
+						Status = AieOpsHandlers[Index].Handler(AieDomain, StartCol,
 										       EndCol, Buf);
 					}
 				}

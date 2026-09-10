@@ -116,12 +116,78 @@ done:
 	return Status;
 }
 
+/*****************************************************************************/
+/**
+ * @brief Power down the domain associated with a device.
+ *
+ * Records the power use count expected after shutdown, requests the power-down
+ * event, and clears the idle-complete flag only when that request succeeds.
+ * Devices without a power domain require no action and return success.
+ *
+ * @param Device Device whose power domain is to be shut down.
+ * @param DbgErr Pointer to the caller's debug error code.
+ *
+ * @return XST_SUCCESS when no power domain exists or power-down succeeds;
+ *         otherwise, the status returned by the power-domain event handler.
+ *
+ *****************************************************************************/
+static XStatus PowerDownDevice(XPm_Device * const Device, u32 *DbgErr)
+{
+	XStatus Status = XST_FAILURE;
+
+	/* A device without an associated power domain is already handled. */
+	if (NULL == Device->Power) {
+		Status = XST_SUCCESS;
+		goto done;
+	}
+
+	/*
+	 * Guard against underflow during cascading shutdown when shared power
+	 * domains have already reached a zero use count.
+	 */
+	if (0U < Device->Power->UseCount) {
+		Device->WfPwrUseCnt = Device->Power->UseCount - (u16)1U;
+	} else {
+		Device->WfPwrUseCnt = 0U;
+	}
+
+	/* Preserve the idle flag when the power-domain request fails. */
+	Status = Device->Power->HandleEvent(&Device->Power->Node,
+					    (u32)XPM_POWER_EVENT_PWR_DOWN);
+	if (XST_SUCCESS != Status) {
+		*DbgErr = XPM_INT_ERR_PWRDN;
+		goto done;
+	}
+	Device->Node.Flags &= (u8)(~NODE_IDLE_DONE);
+
+done:
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * @brief Shut down a device as part of a generic-device FSM transition.
+ *
+ * Powers down core devices through their core handler. Memory and IPI devices
+ * remain powered and return success. For other devices, asserts peripheral
+ * reset where applicable, releases their clocks, and requests power-domain
+ * shutdown while recording the expected power use count.
+ *
+ * @param Device Device being transitioned to the unused state. Must be non-NULL.
+ *
+ * @return XST_SUCCESS when shutdown completes or is intentionally skipped;
+ *         otherwise, the error returned by core power-down, reset, clock, or
+ *         power-domain handling. Also reports the corresponding debug error.
+ *
+ *****************************************************************************/
 static XStatus ActionShutdown(XPm_Device* const Device) {
 
 	XStatus Status = XST_FAILURE;
 	u32 DbgErr = XPM_INT_ERR_UNDEFINED;
 
 	PmInfo("Shutting down the device %x\n", Device->Node.Id);
+
+	/* Delegate core shutdown to the core-specific power handler. */
 	if (((u32)XPM_NODECLASS_DEVICE == NODECLASS(Device->Node.Id)) &&
 	((u32)XPM_NODESUBCL_DEV_CORE == NODESUBCLASS(Device->Node.Id))) {
 		/** Shutdown Core */
@@ -169,28 +235,7 @@ static XStatus ActionShutdown(XPm_Device* const Device) {
 		DbgErr = XPM_INT_ERR_CLK_DISABLE;
 		goto done;
 	}
-	if (NULL != Device->Power) {
-		/**
-		 * Power down the device
-		 *
-		 * Guard against underflow when UseCount is 0.
-		 * Can occur during cascading shutdown when multiple devices
-		 * share a power domain and last device triggers power-down.
-		 */
-		if (Device->Power->UseCount > 0U) {
-			Device->WfPwrUseCnt = Device->Power->UseCount - (u16)1U;
-		} else {
-			Device->WfPwrUseCnt = 0U;
-		}
-		Status = Device->Power->HandleEvent(&Device->Power->Node, (u32)XPM_POWER_EVENT_PWR_DOWN);
-		if (XST_SUCCESS != Status) {
-			DbgErr = XPM_INT_ERR_PWRDN;
-			goto done;
-		}
-		Device->Node.Flags &= (u8)(~NODE_IDLE_DONE);
-	}
-
-	Status = XST_SUCCESS;
+	Status = PowerDownDevice(Device, &DbgErr);
 
 done:
 	if (XST_SUCCESS != Status) {

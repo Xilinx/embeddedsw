@@ -17,30 +17,71 @@
 
 static XPmRuntime_CoreList *RuntimeCoreList XPM_INIT_DATA(RuntimeCoreList) = NULL;
 
-XStatus XPmCore_SetCoreIdleSupport(XPm_Core* Core, const u32 Value) {
-	XStatus Status = XST_SUCCESS;
-	XPmRuntime_Core *RuntimeCore = NULL;
+/****************************************************************************/
+/**
+ * @brief  Prepare the runtime core list and find an existing core entry.
+ *
+ * @param  Core         Core whose runtime entry is requested
+ * @param  RuntimeCore  Pointer to receive the matching entry, or NULL on a miss
+ *
+ * @return XST_SUCCESS when the list is available, or XST_BUFFER_TOO_SMALL when
+ *         the list cannot be allocated
+ *
+ ****************************************************************************/
+static XStatus XPmCore_FindRuntimeEntry(const XPm_Core *Core,
+					XPmRuntime_Core **RuntimeCore)
+{
+	XStatus Status = XST_FAILURE;
 
-	if (NULL == Core) {
-		Status = XST_INVALID_PARAM;
-		goto done;
-	}
+	/* Create the runtime list on its first use. */
 	if (NULL == RuntimeCoreList) {
 		RuntimeCoreList = (XPmRuntime_CoreList*)XPm_AllocBytesDevOps(sizeof(XPmRuntime_CoreList));
+		/* Report allocation failure before attempting list traversal. */
 		if (NULL == RuntimeCoreList) {
 			Status = XST_BUFFER_TOO_SMALL;
 			goto done;
 		}
 	}
+
+	/* Reuse the entry when this core was registered previously. */
 	LIST_FOREACH(RuntimeCoreList, RuntimeCoreNode) {
 		if ((NULL != RuntimeCoreNode->Data) &&
 		    (RuntimeCoreNode->Data->Core == Core)) {
-			RuntimeCore = RuntimeCoreNode->Data;
+			*RuntimeCore = RuntimeCoreNode->Data;
 			break;
 		}
 	}
+	Status = XST_SUCCESS;
+
+done:
+	return Status;
+}
+
+/****************************************************************************/
+/**
+ * @brief Store idle-notification support in a runtime core entry.
+ *
+ * @param Core Core whose runtime entry is updated.
+ * @param Value Idle-support value whose low 8 bits are stored.
+ *
+ * @return XST_SUCCESS on success, or XST_BUFFER_TOO_SMALL on allocation failure.
+ *
+ ****************************************************************************/
+static XStatus XPmCore_StoreIdleSupport(XPm_Core *Core, const u32 Value)
+{
+	XStatus Status = XST_FAILURE;
+	XPmRuntime_Core *RuntimeCore = NULL;
+
+	/* Locate an existing entry before allocating persistent storage. */
+	Status = XPmCore_FindRuntimeEntry(Core, &RuntimeCore);
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
+
+	/* Allocate and link storage only for a newly observed core. */
 	if (NULL == RuntimeCore) {
 		RuntimeCore = (XPmRuntime_Core*)XPm_AllocBytesDevOps(sizeof(XPmRuntime_Core));
+		/* Leave the list unchanged when entry allocation fails. */
 		if (NULL == RuntimeCore) {
 			Status = XST_BUFFER_TOO_SMALL;
 			goto done;
@@ -49,6 +90,7 @@ XStatus XPmCore_SetCoreIdleSupport(XPm_Core* Core, const u32 Value) {
 		RuntimeCore->IsCoreIdleSupported = (u8)Value;
 		LIST_PREPEND(RuntimeCoreList, RuntimeCore);
 	} else {
+		/* Update the value retained by the existing entry. */
 		RuntimeCore->IsCoreIdleSupported = (u8)Value;
 	}
 	PmInfo("Core Idle supported for 0x%x\r\n", Core->Device.Node.Id);
@@ -57,18 +99,61 @@ done:
 	return Status;
 }
 
+/****************************************************************************/
+/**
+ * @brief  Store whether the given core supports idle notifications.
+ *
+ * A runtime entry is allocated and added when the core has not been seen
+ * before; otherwise the existing entry is updated.
+ *
+ * @param  Core   Pointer to the core whose idle support is updated
+ * @param  Value  Idle-support value whose low 8 bits are stored
+ *
+ * @return XST_SUCCESS on success, XST_INVALID_PARAM for a NULL core, or
+ *         XST_BUFFER_TOO_SMALL if runtime storage cannot be allocated
+ *
+ ****************************************************************************/
+XStatus XPmCore_SetCoreIdleSupport(XPm_Core* Core, const u32 Value) {
+	XStatus Status = XST_SUCCESS;
+
+	/* Reject requests that cannot be associated with a core. */
+	if (NULL == Core) {
+		Status = XST_INVALID_PARAM;
+		goto done;
+	}
+	/* Store the value after validating the runtime entry key. */
+	Status = XPmCore_StoreIdleSupport(Core, Value);
+
+done:
+	return Status;
+}
+
+/****************************************************************************/
+/**
+ * @brief  Retrieve the stored idle-notification support for a core.
+ *
+ * @param  Core                 Pointer to the core to look up
+ * @param  IsCoreIdleSupported  Pointer to receive the stored support value
+ *
+ * @return XST_SUCCESS on success, XST_INVALID_PARAM for a NULL argument, or
+ *         XST_DEVICE_NOT_FOUND when no runtime entry exists for the core
+ *
+ ****************************************************************************/
 XStatus XPmCore_GetCoreIdleSupport(const XPm_Core* Core, u8 *IsCoreIdleSupported) {
 	XStatus Status = XST_SUCCESS;
 	const XPmRuntime_Core *RuntimeCore = NULL;
 
+	/* Validate both the lookup key and result destination. */
 	if ((NULL == Core) || (NULL == IsCoreIdleSupported)) {
 		Status = XST_INVALID_PARAM;
 		goto done;
 	}
+	/* An uninitialized list cannot contain a runtime record. */
 	if (NULL == RuntimeCoreList) {
 		Status = XST_DEVICE_NOT_FOUND;
 		goto done;
 	}
+	/* Locate the runtime record belonging to the requested core. */
 	LIST_FOREACH(RuntimeCoreList, RuntimeCoreNode) {
 		if ((NULL != RuntimeCoreNode->Data) &&
 		    (RuntimeCoreNode->Data->Core == Core)) {
@@ -78,10 +163,12 @@ XStatus XPmCore_GetCoreIdleSupport(const XPm_Core* Core, u8 *IsCoreIdleSupported
 		}
 	}
 
+	/* Report a miss without modifying the caller's output. */
 	if (NULL == RuntimeCore) {
 		Status = XST_DEVICE_NOT_FOUND;
 		goto done;
 	}
+	/* Return the value retained in the matching runtime record. */
 	*IsCoreIdleSupported = (u8)(RuntimeCore->IsCoreIdleSupported);
 
 done:
@@ -107,10 +194,12 @@ maybe_unused static XStatus XPmCore_GetFrcPwrDwnReq(const XPm_Core* Core, struct
 		Status = XST_INVALID_PARAM;
 		goto done;
 	}
+	/* An uninitialized list cannot contain a runtime record. */
 	if (NULL == RuntimeCoreList) {
 		Status = XST_DEVICE_NOT_FOUND;
 		goto done;
 	}
+	/* Locate the runtime record belonging to the requested core. */
 	LIST_FOREACH(RuntimeCoreList, RuntimeCoreNode) {
 		if ((NULL != RuntimeCoreNode->Data) &&
 		    (RuntimeCoreNode->Data->Core == Core)) {
@@ -119,11 +208,55 @@ maybe_unused static XStatus XPmCore_GetFrcPwrDwnReq(const XPm_Core* Core, struct
 		}
 	}
 
+	/* Report a miss without modifying the caller's output. */
 	if (NULL == RuntimeCore) {
 		Status = XST_DEVICE_NOT_FOUND;
 		goto done;
 	}
+	/* Return the value retained in the matching runtime record. */
 	*Req = RuntimeCore->FrcPwrDwnReq;
+
+done:
+	return Status;
+}
+
+/****************************************************************************/
+/**
+ * @brief Store a forced power-down request in a runtime core entry.
+ *
+ * @param Core Core whose runtime entry is updated.
+ * @param Req Forced power-down request to store.
+ *
+ * @return XST_SUCCESS on success, or XST_BUFFER_TOO_SMALL on allocation failure.
+ *
+ ****************************************************************************/
+static XStatus XPmCore_StoreFrcPwrDwnReq(XPm_Core *Core,
+					 struct XPm_FrcPwrDwnReq Req)
+{
+	XStatus Status = XST_FAILURE;
+	XPmRuntime_Core *RuntimeCore = NULL;
+
+	/* Locate an existing entry before allocating persistent storage. */
+	Status = XPmCore_FindRuntimeEntry(Core, &RuntimeCore);
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
+
+	/* Allocate and link storage only for a newly observed core. */
+	if (NULL == RuntimeCore) {
+		RuntimeCore = (XPmRuntime_Core*)XPm_AllocBytesDevOps(sizeof(XPmRuntime_Core));
+		/* Leave the list unchanged when entry allocation fails. */
+		if (NULL == RuntimeCore) {
+			Status = XST_BUFFER_TOO_SMALL;
+			goto done;
+		}
+		RuntimeCore->Core = Core;
+		RuntimeCore->FrcPwrDwnReq = Req;
+		LIST_PREPEND(RuntimeCoreList, RuntimeCore);
+	} else {
+		/* Update the request retained by the existing entry. */
+		RuntimeCore->FrcPwrDwnReq = Req;
+	}
 
 done:
 	return Status;
@@ -143,43 +276,34 @@ done:
 maybe_unused static XStatus XPmCore_SetFrcPwrDwnReq(XPm_Core* Core, struct XPm_FrcPwrDwnReq Req)
 {
 	XStatus Status = XST_SUCCESS;
-	XPmRuntime_Core *RuntimeCore = NULL;
 
+	/* Reject a request that has no core to associate with it. */
 	if (NULL == Core) {
 		Status = XST_INVALID_PARAM;
 		goto done;
 	}
-	if (NULL == RuntimeCoreList) {
-		RuntimeCoreList = (XPmRuntime_CoreList*)XPm_AllocBytesDevOps(sizeof(XPmRuntime_CoreList));
-		if (NULL == RuntimeCoreList) {
-			Status = XST_BUFFER_TOO_SMALL;
-			goto done;
-		}
-	}
-	LIST_FOREACH(RuntimeCoreList, RuntimeCoreNode) {
-		if ((NULL != RuntimeCoreNode->Data) &&
-		    (RuntimeCoreNode->Data->Core == Core)) {
-			RuntimeCore = RuntimeCoreNode->Data;
-			break;
-		}
-	}
-	if (NULL == RuntimeCore) {
-		RuntimeCore = (XPmRuntime_Core*)XPm_AllocBytesDevOps(sizeof(XPmRuntime_Core));
-		if (NULL == RuntimeCore) {
-			Status = XST_BUFFER_TOO_SMALL;
-			goto done;
-		}
-		RuntimeCore->Core = Core;
-		RuntimeCore->FrcPwrDwnReq = Req;
-		LIST_PREPEND(RuntimeCoreList, RuntimeCore);
-	} else {
-		RuntimeCore->FrcPwrDwnReq = Req;
-	}
+	/* Store the request after validating the runtime entry key. */
+	Status = XPmCore_StoreFrcPwrDwnReq(Core, Req);
 
 done:
 	return Status;
 }
 
+/****************************************************************************/
+/**
+ * @brief  Calculate the wake-up latency for a core device.
+ *
+ * A running core has zero latency. For a non-running core, the function adds
+ * the wake-up latency of its power node when one is present.
+ *
+ * @param  DeviceId  Core device node ID
+ * @param  Latency   Non-NULL pointer to receive the latency; initialized to zero
+ *
+ * @return XST_SUCCESS when the latency is available, XST_INVALID_PARAM when
+ *         no device exists for DeviceId, or an error from the power node
+ *         latency query
+ *
+ ****************************************************************************/
 XStatus XPmCore_GetWakeupLatency(const u32 DeviceId, u32 *Latency)
 {
 	XStatus Status = XST_SUCCESS;
@@ -327,6 +451,56 @@ static XStatus XPmCore_ProcessPendingForcePwrDwn(XPm_Subsystem *Subsystem, const
 	return Status;
 }
 
+/****************************************************************************/
+/**
+ * @brief Release a core and process its subsystem's pending transition.
+ *
+ * @param Core Core being released.
+ * @param SubsystemId Pointer to receive the owning subsystem identifier.
+ *
+ * @return XST_SUCCESS on success, or the first operation error encountered.
+ *
+ ****************************************************************************/
+static XStatus XPmCore_ReleaseAndProcessPending(const XPm_Core *Core,
+						u32 *SubsystemId)
+{
+	XStatus Status = XST_FAILURE;
+	XPm_Subsystem *Subsystem;
+
+	/* Resolve the core's owning subsystem before attempting its release. */
+	*SubsystemId = XPmDevice_GetSubsystemIdOfCore(&Core->Device);
+	Subsystem = XPmSubsystem_GetById(*SubsystemId);
+	if (NULL == Subsystem) {
+		Status = XPM_INVALID_SUBSYSID;
+		goto done;
+	}
+
+	/* Record both endpoint states before the release changes either one. */
+	PmInfo("Releasing core 0x%x (state: 0x%x) from subsystem 0x%x (state: 0x%x)\r\n",
+		Core->Device.Node.Id, Core->Device.Node.Id, *SubsystemId, Subsystem->State);
+
+	/* Release the subsystem's allocation of the core first. */
+	Status = XPmDevice_Release(*SubsystemId, Core->Device.Node.Id,
+					XPLMI_CMD_NON_SECURE);
+	if (XST_SUCCESS != Status) {
+		PmErr("Failed to release core 0x%x from subsystem 0x%x\r\n", Core->Device.Node.Id, *SubsystemId);
+		goto done;
+	}
+	PmInfo("Core 0x%x released from 0x%x, Core->isCoreUp = %d, Core->Device.Node.State = %d\r\n",
+		Core->Device.Node.Id, *SubsystemId,
+		Core->isCoreUp, Core->Device.Node.State);
+
+	/* Complete any subsystem transition waiting for its cores to stop. */
+	Status = XPmCore_ProcessPendingForcePwrDwn(Subsystem, Core);
+	if (XST_SUCCESS != Status) {
+		PmErr("Failed during process pending pwr done core 0x%x: 0x%x\n", Core->Device.Node.Id, Status);
+		goto done;
+	}
+	PmInfo("Success, Core 0x%x released from 0x%x\r\n", Core->Device.Node.Id, *SubsystemId);
+
+done:
+	return Status;
+}
 
 /****************************************************************************/
 /**
@@ -341,34 +515,12 @@ static XStatus XPmCore_ProcessPendingForcePwrDwn(XPm_Subsystem *Subsystem, const
 XStatus XPmCore_ReleaseFromSubsys(const XPm_Core *Core)
 {
 	XStatus Status = XST_FAILURE;
-	u32 SubsystemId = XPmDevice_GetSubsystemIdOfCore(&Core->Device);
-	XPm_Subsystem *Subsystem = XPmSubsystem_GetById(SubsystemId);
-	if (NULL == Subsystem) {
-		Status = XPM_INVALID_SUBSYSID;
-		goto done;
-	}
+	u32 SubsystemId;
 
-	PmInfo("Releasing core 0x%x (state: 0x%x) from subsystem 0x%x (state: 0x%x)\r\n",
-		Core->Device.Node.Id, Core->Device.Node.Id, SubsystemId, Subsystem->State);
+	/* Release the core only after resolving its owning subsystem. */
+	Status = XPmCore_ReleaseAndProcessPending(Core, &SubsystemId);
 
-	Status = XPmDevice_Release(SubsystemId, Core->Device.Node.Id,
-					XPLMI_CMD_NON_SECURE);
-	if (XST_SUCCESS != Status) {
-		PmErr("Failed to release core 0x%x from subsystem 0x%x\r\n", Core->Device.Node.Id, SubsystemId);
-		goto done;
-	}
-	PmInfo("Core 0x%x released from 0x%x, Core->isCoreUp = %d, Core->Device.Node.State = %d\r\n",
-		Core->Device.Node.Id, SubsystemId,
-		Core->isCoreUp, Core->Device.Node.State);
-
-	Status = XPmCore_ProcessPendingForcePwrDwn(Subsystem, Core);
-	if (XST_SUCCESS != Status) {
-		PmErr("Failed during process pending pwr done core 0x%x: 0x%x\n", Core->Device.Node.Id, Status);
-		goto done;
-	}
-	PmInfo("Success, Core 0x%x released from 0x%x\r\n", Core->Device.Node.Id, SubsystemId);
-
-done:
+	/* Preserve common failure reporting for every release stage. */
 	if (XST_SUCCESS != Status) {
 		PmErr("Failed during release, Subsys: 0x%x, Core: 0x%x, Status 0x%x\n\r",
 			SubsystemId, Core->Device.Node.Id, Status);
@@ -412,10 +564,13 @@ done:
 XStatus XPmCore_SetClock(u32 CoreId, u32 Enable) {
 	XStatus Status = XST_FAILURE;
 	const XPm_Device *DevCore= XPmDevice_GetById(CoreId);
+
+	/* Resolve the core before accessing its clock handles. */
 	if (NULL == DevCore) {
 		PmErr("CoreId 0x%x not found\n", CoreId);
 		goto done;
 	}
+	/* Apply the requested state to all clocks associated with the core. */
 	if (0U != Enable) {
 		Status = XPmClock_Request(DevCore->ClkHandles);
 	} else {

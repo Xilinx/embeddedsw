@@ -13,68 +13,6 @@
 #include "xpm_alloc.h"
 #include "xpm_update.h"
 
-/* Macros to initialize individual node types without creating temporaries */
-#define INIT_MUX_NODE(node, idx) \
-	(node)[(idx)].Type = (u8)TYPE_MUX; \
-	(node)[(idx)].Param1.Shift = PERIPH_MUX_SHIFT; \
-	(node)[(idx)].Param2.Width = PERIPH_MUX_WIDTH; \
-	(node)[(idx)].Clkflags = CLK_SET_RATE_NO_REPARENT; \
-	(node)[(idx)].Typeflags = NA_TYPE_FLAGS; \
-	(node)[(idx)].Reg = 0U;
-
-#define INIT_DIV_NODE(node, idx) \
-	(node)[(idx)].Type = (u8)TYPE_DIV1; \
-	(node)[(idx)].Param1.Shift = PERIPH_DIV_SHIFT; \
-	(node)[(idx)].Param2.Width = PERIPH_DIV_WIDTH; \
-	(node)[(idx)].Clkflags = CLK_SET_RATE_NO_REPARENT; \
-	(node)[(idx)].Typeflags = CLK_DIVIDER_ONE_BASED | CLK_DIVIDER_ALLOW_ZERO; \
-	(node)[(idx)].Reg = 0U;
-
-#define INIT_GATE_NODE(node, idx, gate_id) \
-	(node)[(idx)].Type = (u8)TYPE_GATE; \
-	(node)[(idx)].Param1.Shift = PERIPH_GATE##gate_id##_SHIFT; \
-	(node)[(idx)].Param2.Width = PERIPH_GATE_WIDTH; \
-	(node)[(idx)].Clkflags = CLK_SET_RATE_PARENT | CLK_SET_RATE_GATE; \
-	(node)[(idx)].Typeflags = NA_TYPE_FLAGS; \
-	(node)[(idx)].Reg = 0U;
-
-/* Macro to allocate and check for a topology */
-#define ALLOC_TOPOLOGY_NODES(num_nodes, alloc_var) \
-	(alloc_var) = (struct XPm_ClkTopologyNode *)XPm_AllocBytes( \
-		(num_nodes) * sizeof(struct XPm_ClkTopologyNode)); \
-	if (NULL == (alloc_var)) { \
-		DbgErr = XPM_INT_ERR_BUFFER_TOO_SMALL; \
-		Status = XST_BUFFER_TOO_SMALL; \
-		goto done; \
-	}
-
-/* Macro to set a topology in the array */
-#define SET_TOPOLOGY(topo_type, nodes_ptr, num) \
-	ClkTopologies[(topo_type) - TOPOLOGY_GENERIC_MUX_DIV].Nodes = \
-		(nodes_ptr); \
-	ClkTopologies[(topo_type) - TOPOLOGY_GENERIC_MUX_DIV].NumNodes = (num);
-
-/* Macro for 2-node topologies */
-#define INIT_TOPOLOGY_2(topo_type, node1_init, node2_init) do { \
-	ALLOC_TOPOLOGY_NODES(2U, AllocatedNodes); \
-	node1_init(AllocatedNodes, 0); \
-	node2_init(AllocatedNodes, 1); \
-	SET_TOPOLOGY((topo_type), AllocatedNodes, 2U); \
-} while (0U != 0U)
-
-/* Macro for 3-node topologies */
-#define INIT_TOPOLOGY_3(topo_type, node1_init, node2_init, node3_init) do { \
-	ALLOC_TOPOLOGY_NODES(3U, AllocatedNodes); \
-	node1_init(AllocatedNodes, 0); \
-	node2_init(AllocatedNodes, 1); \
-	node3_init(AllocatedNodes, 2); \
-	SET_TOPOLOGY((topo_type), AllocatedNodes, 3U); \
-} while (0U != 0U)
-
-/* Wrapper macros for GATE nodes with specific IDs */
-#define INIT_GATE1_NODE(node, idx) INIT_GATE_NODE(node, idx, 1)
-#define INIT_GATE2_NODE(node, idx) INIT_GATE_NODE(node, idx, 2)
-
 static XPm_ClkTopology ClkTopologies[] XPM_INIT_DATA(ClkTopologies)= {
 	 {NULL, TOPOLOGY_GENERIC_MUX_DIV, 0, {0}},
 	 {NULL, TOPOLOGY_GENERIC_MUX_GATE, 0, {0}},
@@ -83,19 +21,168 @@ static XPm_ClkTopology ClkTopologies[] XPM_INIT_DATA(ClkTopologies)= {
 	 {NULL, TOPOLOGY_GENERIC_MUX_DIV_GATE_2, 0, {0}},
 };
 
+/** Description of a shared generic clock topology. */
+struct XPmClock_GenericTopologyDesc {
+	u8 TopologyType; /**< Generic topology identifier. */
+	u8 NumNodes; /**< Number of entries used in NodeTypes. */
+	u8 NodeTypes[3U]; /**< Ordered mux, divider and gate node types. */
+	u8 GateId; /**< Gate field used when the topology includes a gate. */
+};
+
+/** Node layout and gate selection for each supported generic topology. */
+static const struct XPmClock_GenericTopologyDesc GenericTopologyDesc[] = {
+	{TOPOLOGY_GENERIC_MUX_DIV, 2U,
+		{(u8)TYPE_MUX, (u8)TYPE_DIV1, (u8)TYPE_MUX}, 1U},
+	{TOPOLOGY_GENERIC_MUX_GATE, 2U,
+		{(u8)TYPE_MUX, (u8)TYPE_GATE, (u8)TYPE_MUX}, 2U},
+	{TOPOLOGY_GENERIC_DIV_GATE, 2U,
+		{(u8)TYPE_DIV1, (u8)TYPE_GATE, (u8)TYPE_MUX}, 1U},
+	{TOPOLOGY_GENERIC_MUX_DIV_GATE_1, 3U,
+		{(u8)TYPE_MUX, (u8)TYPE_DIV1, (u8)TYPE_GATE}, 1U},
+	{TOPOLOGY_GENERIC_MUX_DIV_GATE_2, 3U,
+		{(u8)TYPE_MUX, (u8)TYPE_DIV1, (u8)TYPE_GATE}, 2U},
+};
+
+/**
+ * @brief Initialize one mux, divider or gate in a generic topology.
+ *
+ * @param Node Topology node to populate.
+ * @param Type Clock node type.
+ * @param GateId Gate field selection, used only for gate nodes.
+ *
+ * @return XST_SUCCESS on success, XST_FAILURE for an unsupported
+ *         node type or gate selection.
+ */
+static XStatus XPmClock_InitGenericNode(struct XPm_ClkTopologyNode *Node,
+					const u8 Type, const u8 GateId)
+{
+	XStatus Status = XST_FAILURE;
+
+	/* Fill only explicitly supported generic node types. */
+	switch (Type) {
+	case (u8)TYPE_MUX:
+		/* Configure the selector field and its rate-change policy. */
+		Node->Type = (u8)TYPE_MUX;
+		Node->Param1.Shift = PERIPH_MUX_SHIFT;
+		Node->Param2.Width = PERIPH_MUX_WIDTH;
+		Node->Clkflags = CLK_SET_RATE_NO_REPARENT;
+		Node->Typeflags = NA_TYPE_FLAGS;
+		Status = XST_SUCCESS;
+		break;
+	case (u8)TYPE_DIV1:
+		/* Configure the divider field and accepted encoded values. */
+		Node->Type = (u8)TYPE_DIV1;
+		Node->Param1.Shift = PERIPH_DIV_SHIFT;
+		Node->Param2.Width = PERIPH_DIV_WIDTH;
+		Node->Clkflags = CLK_SET_RATE_NO_REPARENT;
+		Node->Typeflags = CLK_DIVIDER_ONE_BASED | CLK_DIVIDER_ALLOW_ZERO;
+		Status = XST_SUCCESS;
+		break;
+	case (u8)TYPE_GATE:
+		/* Configure the gate field and its parent-rate propagation policy. */
+		Node->Type = (u8)TYPE_GATE;
+		/* Accept only the two gate positions used by generic topologies. */
+		switch (GateId) {
+		case 1U:
+			Node->Param1.Shift = PERIPH_GATE1_SHIFT;
+			Status = XST_SUCCESS;
+			break;
+		case 2U:
+			Node->Param1.Shift = PERIPH_GATE2_SHIFT;
+			Status = XST_SUCCESS;
+			break;
+		default:
+			/* Unsupported gate position: leave Status at failure. */
+			Status = XST_FAILURE;
+			break;
+		}
+		/* Only finish the gate node once a valid position was selected. */
+		if (XST_SUCCESS == Status) {
+			Node->Param2.Width = PERIPH_GATE_WIDTH;
+			Node->Clkflags = CLK_SET_RATE_PARENT | CLK_SET_RATE_GATE;
+			Node->Typeflags = NA_TYPE_FLAGS;
+		}
+		break;
+	default:
+		/* Unsupported node type: leave Status at failure. */
+		Status = XST_FAILURE;
+		break;
+	}
+
+	/* Generic nodes acquire their register address when attached to a clock. */
+	if (XST_SUCCESS == Status) {
+		Node->Reg = 0U;
+	}
+	return Status;
+}
+
+/**
+ * @brief Allocate and initialize the nodes for one generic topology.
+ *
+ * @param Desc Topology descriptor containing the ordered node types.
+ * @param DbgErr Receives the diagnostic reason on failure.
+ *
+ * @return XST_SUCCESS on success, or an allocation or node setup error.
+ */
+static XStatus XPmClock_InitGenericTopologyNodes(
+		const struct XPmClock_GenericTopologyDesc *Desc, u16 *DbgErr)
+{
+	XStatus Status = XST_FAILURE;
+	struct XPm_ClkTopologyNode *Nodes;
+	u32 Index;
+
+	/* Allocate the complete node sequence before publishing the topology. */
+	Nodes = (struct XPm_ClkTopologyNode *)XPm_AllocBytes(
+		(u32)Desc->NumNodes * sizeof(struct XPm_ClkTopologyNode));
+	if (NULL == Nodes) {
+		*DbgErr = XPM_INT_ERR_BUFFER_TOO_SMALL;
+		Status = XST_BUFFER_TOO_SMALL;
+		goto done;
+	}
+
+	/* Initialize nodes in their descriptor order and stop on invalid metadata. */
+	for (Index = 0U; Index < (u32)Desc->NumNodes; Index++) {
+		Status = XPmClock_InitGenericNode(&Nodes[Index],
+						  Desc->NodeTypes[Index], Desc->GateId);
+		if (XST_SUCCESS != Status) {
+			*DbgErr = XPM_INT_ERR_INVALID_PARAM;
+			goto done;
+		}
+	}
+
+	/* Publish only after every node in this topology has been initialized. */
+	ClkTopologies[Desc->TopologyType - TOPOLOGY_GENERIC_MUX_DIV].Nodes = Nodes;
+	ClkTopologies[Desc->TopologyType - TOPOLOGY_GENERIC_MUX_DIV].NumNodes =
+		Desc->NumNodes;
+done:
+	return Status;
+}
+
+/****************************************************************************/
+/**
+ * @brief Allocate and initialize the generic clock topology definitions.
+ *
+ * The allocated mux, divider, and gate node arrays are retained in the global
+ * topology table for subsequent output-clock initialization. Allocations made
+ * before an allocation failure are not rolled back.
+ *
+ * @return XST_SUCCESS if every topology was initialized, or
+ *         XST_BUFFER_TOO_SMALL if a topology-node allocation failed.
+ ****************************************************************************/
 XStatus XPmClock_InitGenericTopology(void)
 {
 	XStatus Status = XST_FAILURE;
-	struct XPm_ClkTopologyNode *AllocatedNodes;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
+	u32 Index;
 
-	INIT_TOPOLOGY_2(TOPOLOGY_GENERIC_MUX_DIV, INIT_MUX_NODE, INIT_DIV_NODE);
-	INIT_TOPOLOGY_2(TOPOLOGY_GENERIC_MUX_GATE, INIT_MUX_NODE, INIT_GATE2_NODE);
-	INIT_TOPOLOGY_2(TOPOLOGY_GENERIC_DIV_GATE, INIT_DIV_NODE, INIT_GATE1_NODE);
-	INIT_TOPOLOGY_3(TOPOLOGY_GENERIC_MUX_DIV_GATE_1, INIT_MUX_NODE, INIT_DIV_NODE, INIT_GATE1_NODE);
-	INIT_TOPOLOGY_3(TOPOLOGY_GENERIC_MUX_DIV_GATE_2, INIT_MUX_NODE, INIT_DIV_NODE, INIT_GATE2_NODE);
-
-	Status = XST_SUCCESS;
+	/* Build each topology in the exact order used by the topology table. */
+	for (Index = 0U; ARRAY_SIZE(GenericTopologyDesc) > Index; Index++) {
+		Status = XPmClock_InitGenericTopologyNodes(
+						&GenericTopologyDesc[Index], &DbgErr);
+		if (XST_SUCCESS != Status) {
+			goto done;
+		}
+	}
 
 done:
 	XPm_PrintDbgErr(Status, DbgErr);
@@ -105,11 +192,26 @@ done:
 static XPm_ClockNode *ClkNodeList[(u32)XPM_NODEIDX_CLK_MAX] XPM_INIT_DATA(ClkNodeList) = { NULL };
 static u32 MaxClkNodes XPM_INIT_DATA(MaxClkNodes) = 0U;
 
+/****************************************************************************/
+/**
+ * @brief Get the indexed clock-node registry.
+ *
+ * @return Pointer to the global clock-node pointer array. Entries are updated
+ *         as clock nodes are initialized and may be NULL when no clock is
+ *         registered at an index.
+ ****************************************************************************/
 XPm_ClockNode** XPmClock_GetClkList(void)
 {
 	return ClkNodeList;
 }
 
+/****************************************************************************/
+/**
+ * @brief Get the number of clock-node slots currently in use.
+ *
+ * @return Current maximum clock-node count recorded during clock
+ *         initialization. Returns zero before any clock nodes are registered.
+ ****************************************************************************/
 u32 XPmClock_GetMaxClkNodes(void)
 {
 	return MaxClkNodes;

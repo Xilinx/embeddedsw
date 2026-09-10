@@ -263,14 +263,29 @@ XStatus XPmReset_AssertbyId(u32 ResetId, const u32 Action)
 	return Status;
 }
 
+/****************************************************************************/
+/**
+ * @brief  Read the hardware assertion state of a reset node.
+ *
+ * @param  ResetId  Reset node ID
+ * @param  OutState Required non-NULL pointer to receive 1 when all reset bits
+ *                  are asserted, or 0 otherwise
+ *
+ * @return XST_SUCCESS on success, or XST_INVALID_PARAM when the reset node
+ *         does not exist
+ *
+ ****************************************************************************/
 XStatus XPmReset_GetStateById(u32 ResetId, u32* OutState)
 {
 	XStatus Status = XST_FAILURE;
+
+	/* Reject IDs that do not resolve to a reset node */
 	const XPm_ResetNode* Reset = XPmReset_GetById(ResetId);
 	if (NULL == Reset) {
 		Status = XST_INVALID_PARAM;
 		goto done;
 	}
+	/* Report assertion only when every hardware bit in the reset field is set */
 	u32 Mask = BITNMASK(Reset->Shift, Reset->Width);
 	if ((XPm_Read32(Reset->Node.BaseAddress) & Mask) == Mask) {
 		*OutState = 1U;
@@ -440,14 +455,61 @@ XStatus XPmReset_SystemReset(void)
 	return Status;
 }
 
+/**
+ * @brief Find the runtime permission entry associated with a reset node.
+ *
+ * Keep list traversal in one place so permission updates and queries use
+ * the same matching and NULL-entry handling.
+ *
+ * @param Reset Reset node to look up.
+ *
+ * @return Matching runtime entry, or NULL when none exists.
+ */
+static XPmRuntime_Reset *XPmReset_GetRuntimeReset(const XPm_ResetNode *Reset)
+{
+	XPmRuntime_Reset *RuntimeReset = NULL;
+
+	/* An uninitialized list has no reset entries to search. */
+	if (NULL != RuntimeResetList) {
+		LIST_FOREACH(RuntimeResetList, RstNode) {
+			/* Ignore empty list nodes and match entries by reset identity. */
+			if ((NULL != RstNode->Data) &&
+			    (RstNode->Data->Device == Reset)) {
+				RuntimeReset = RstNode->Data;
+				break;
+			}
+		}
+	}
+
+	return RuntimeReset;
+}
+
+/****************************************************************************/
+/**
+ * @brief  Add subsystem permission bits to a reset's runtime entry.
+ *
+ * A runtime list and entry are allocated when needed. Existing permissions
+ * are preserved and combined with AllowSubsystems.
+ *
+ * @param  Reset            Pointer to the reset node to update
+ * @param  AllowSubsystems  Permission bits to add
+ *
+ * @return XST_SUCCESS on success, XST_INVALID_PARAM for a NULL reset, or
+ *         XST_BUFFER_TOO_SMALL if runtime storage cannot be allocated
+ *
+ ****************************************************************************/
 static XStatus XPmReset_SetAllowedSubsystems(XPm_ResetNode *Reset, const u32 AllowSubsystems)
 {
 	XStatus Status = XST_FAILURE;
 	XPmRuntime_Reset *RuntimeReset = NULL;
+
+	/* Reject an update that has no reset node to identify its entry */
 	if (NULL == Reset) {
 		Status = XST_INVALID_PARAM;
 		goto done;
 	}
+
+	/* Create the shared runtime list on its first permission update */
 	if (NULL == RuntimeResetList) {
 		RuntimeResetList = Make_XPmRuntime_ResetList();
 		if (NULL == RuntimeResetList) {
@@ -455,14 +517,11 @@ static XStatus XPmReset_SetAllowedSubsystems(XPm_ResetNode *Reset, const u32 All
 			goto done;
 		}
 	}
-	LIST_FOREACH(RuntimeResetList, RstNode) {
-		if ((NULL != RstNode->Data) &&
-		    (RstNode->Data->Device == Reset))
-		{
-			RuntimeReset = RstNode->Data;
-			break;
-		}
-	}
+
+	/* Reuse an existing entry so its permission bits are preserved */
+	RuntimeReset = XPmReset_GetRuntimeReset(Reset);
+
+	/* Allocate and initialize storage only for a new reset entry */
 	if (NULL == RuntimeReset) {
 		RuntimeReset = (XPmRuntime_Reset* )XPm_AllocBytesDevOps(sizeof(XPmRuntime_Reset));
 		if (NULL == RuntimeReset) {
@@ -484,29 +543,42 @@ done:
 	return Status;
 }
 
+/****************************************************************************/
+/**
+ * @brief  Retrieve a reset node's stored subsystem permission bits.
+ *
+ * @param  Reset            Pointer to the reset node to look up
+ * @param  AllowSubsystems  Pointer to receive the permission bit mask
+ *
+ * @return XST_SUCCESS on success, XST_INVALID_PARAM for a NULL argument, or
+ *         XST_DEVICE_NOT_FOUND when no runtime entry exists for the reset
+ *
+ ****************************************************************************/
 static XStatus XPmReset_GetAllowedSubsystems(const XPm_ResetNode *Reset, u32 *AllowSubsystems)
 {
 	XStatus Status = XST_FAILURE;
 	const XPmRuntime_Reset *RuntimeReset = NULL;
+
+	/* Validate the lookup key and result destination together */
 	if ((NULL == Reset) || (NULL == AllowSubsystems)) {
 		Status = XST_INVALID_PARAM;
 		goto done;
 	}
+
+	/* An absent runtime list cannot contain permissions for this reset */
 	if (NULL == RuntimeResetList) {
 		Status = XST_DEVICE_NOT_FOUND;
 		goto done;
 	}
-	LIST_FOREACH(RuntimeResetList, RstNode) {
-		if ((NULL != RstNode->Data) &&
-		    (RstNode->Data->Device == Reset)) {
-			RuntimeReset = RstNode->Data;
-			break;
-		}
-	}
+
+	/* Locate the runtime entry associated with the reset node */
+	RuntimeReset = XPmReset_GetRuntimeReset(Reset);
 	if (NULL == RuntimeReset) {
 		Status = XST_DEVICE_NOT_FOUND;
 		goto done;
 	}
+
+	/* Return the complete permission mask stored for the matched entry */
 	*AllowSubsystems = RuntimeReset->AllowedSubsystems;
 	Status = XST_SUCCESS;
 done:
