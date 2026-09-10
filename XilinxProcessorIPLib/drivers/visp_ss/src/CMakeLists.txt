@@ -9,8 +9,6 @@ collector_create (PROJECT_LIB_HEADERS "${CMAKE_CURRENT_SOURCE_DIR}")
 collector_create (PROJECT_LIB_SOURCES "${CMAKE_CURRENT_SOURCE_DIR}")
 include_directories(${CMAKE_BINARY_DIR}/include)
 include(${CMAKE_CURRENT_SOURCE_DIR}/VISP_SSConfig.cmake)
-collect (PROJECT_LIB_HEADERS wdt_notifier.h)
-collect (PROJECT_LIB_SOURCES wdt_notifier.c)
 collect (PROJECT_LIB_HEADERS xvisp_ss.h)
 collect (PROJECT_LIB_SOURCES xvisp_ss_g.c)
 collect (PROJECT_LIB_SOURCES xvisp_ss_sinit.c)
@@ -39,7 +37,8 @@ if(NOT (r52 AND
 
     add_subdirectory(mailbox)
     add_subdirectory(visp_ss)
-
+    collect (PROJECT_LIB_HEADERS wdt_notifier.h)
+    collect (PROJECT_LIB_SOURCES wdt_notifier.c)
     check_symbol_exists(XPAR_I2C0_BASEADDR "xparameters.h" HAVE_XIICPS1)
     if(HAVE_XIICPS1)
         add_subdirectory(sensor)
