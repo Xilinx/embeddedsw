@@ -42,7 +42,7 @@
 
 /************************** Constant Definitions *****************************/
 /** MultiScaler software version */
-#define XMULTISCALER_SW_VER "v1.00"
+#define XMULTISCALER_SW_VER "v2.00"
 
 /** GPIO PS register offsets */
 /** GPIO PS register offset for masked data write of bank 3 */
@@ -74,15 +74,6 @@
 /** Destination buffer start address */
 #define DST_BUF_START_ADDR (DDR_BASEADDR + 0x20000000)
 
-/** Define GIC Device ID based on platform */
-#if defined XPAR_PSU_ACPU_GIC_DEVICE_ID
-#define PS_ACPU_GIC_DEVICE_ID XPAR_PSU_ACPU_GIC_DEVICE_ID
-#elif defined XPAR_SCUGIC_0_DEVICE_ID
-#define PS_ACPU_GIC_DEVICE_ID XPAR_SCUGIC_0_DEVICE_ID
-#else
-#warning No GIC Device ID found
-#endif
-
 /** GPIO base address */
 #if defined XPAR_XGPIO_NUM_INSTANCES
 #define GPIO_BASE XPAR_AXI_GPIO_0_BASEADDR
@@ -96,7 +87,7 @@
 
 /************************** Function Prototypes ******************************/
 void XV_Reset_MultiScaler(void);
-void *XVMultiScalerCallback(void *data);
+void XVMultiScalerCallback(void *data);
 static u32 CalcStride(u16 Cfmt, u16 AXIMMDataWidth, u32 width);
 
 /************************** Variable Definitions *****************************/
@@ -120,9 +111,9 @@ XV_multi_scaler_Video_Config useCase[USECASE_COUNT][XNUM_OUTPUTS] = {
 			{0, 0, 0, 0, 0}
 		},
 		{
-			1, (SRC_BUF_START_ADDR), (SRC_BUF_START_ADDR + 0x1000000), (SRC_BUF_START_ADDR + 0x2000000), 1280, 1920,
-			720, 720, XV_MULTI_SCALER_RGB8,	XV_MULTI_SCALER_RGB8, 0,
-			0, (DST_BUF_START_ADDR), (DST_BUF_START_ADDR + 0x1000000), (DST_BUF_START_ADDR + 0x2000000),
+			1, (SRC_BUF_START_ADDR + 0x3000000), (SRC_BUF_START_ADDR + 0x4000000), (SRC_BUF_START_ADDR + 0x5000000), 1280, 1920,
+			720, 720, XV_MULTI_SCALER_RGB8,	XV_MULTI_SCALER_RGB8, 0, 0,
+			(DST_BUF_START_ADDR + 0x3000000), (DST_BUF_START_ADDR + 0x4000000), (DST_BUF_START_ADDR + 0x5000000),
 			{800, 600, 0, 0, 1}
 		}
 	}
@@ -133,14 +124,14 @@ XV_multi_scaler_Video_Config useCase[USECASE_COUNT][XNUM_OUTPUTS] = {
 		{
 			0, (SRC_BUF_START_ADDR), (SRC_BUF_START_ADDR + 0x1000000), (SRC_BUF_START_ADDR + 0x2000000),
 			480, 1080, 640, 1920,
-			XV_MULTI_SCALER_Y_U_V8, XV_MULTI_SCALER_Y_U_V8, 0, 0,
+			XV_MULTI_SCALER_RGB8, XV_MULTI_SCALER_RGB8, 0, 0,
 			(DST_BUF_START_ADDR), (DST_BUF_START_ADDR + 0x1000000), (DST_BUF_START_ADDR + 0x2000000),
 			{0, 0, 0, 0, 0}
 		},
 		{
 			1, (SRC_BUF_START_ADDR + 0x3000000), (SRC_BUF_START_ADDR + 0x4000000), (SRC_BUF_START_ADDR + 0x5000000),
 			1280, 1920, 720, 720,
-			XV_MULTI_SCALER_Y_UV8,	XV_MULTI_SCALER_Y_UV8, 0, 0,
+			XV_MULTI_SCALER_RGB8,	XV_MULTI_SCALER_RGB8, 0, 0,
 			(DST_BUF_START_ADDR + 0x3000000), (DST_BUF_START_ADDR + 0x4000000), (DST_BUF_START_ADDR + 0x5000000),
 			{800, 600, 0, 0, 1}
 		}
@@ -269,7 +260,7 @@ void XV_Reset_MultiScaler(void)
  *         when the MultiScaler completes a frame processing operation.
  *
  *******************************************************************************/
-void *XVMultiScalerCallback(void *data)
+void XVMultiScalerCallback(void *data)
 {
 	(void)data;
 
@@ -308,6 +299,11 @@ static u32 CalcStride(u16 Cfmt, u16 AXIMMDataWidth, u32 width)
 	u8 bpp_denominator = 1;
 
 	switch (Cfmt) {
+		case XV_MULTI_SCALER_Y_U_V12:
+			bpp_numerator = 3;
+			bpp_denominator = 2;
+			break;
+		case XV_MULTI_SCALER_Y_U_V10:
 		case XV_MULTI_SCALER_Y_UV10:
 		case XV_MULTI_SCALER_Y_UV10_420:
 		case XV_MULTI_SCALER_Y10:
@@ -432,7 +428,7 @@ int main(void)
 			thisCase = &useCase[cnt][k];
 			thisCase->InStride = CalcStride(
 				thisCase->ColorFormatIn,
-				MultiScalerPtr->MaxDataWidth,
+				MultiScalerPtr->SamplesPerClock * 64,
 				thisCase->WidthIn);
 			if(MultiScalerPtr->Config.IsTileFormat) {
 				thisCase->OutStride = CalcPitch(
@@ -442,7 +438,7 @@ int main(void)
 			} else {
 				thisCase->OutStride = CalcStride(
 					thisCase->ColorFormatOut,
-					MultiScalerPtr->MaxDataWidth,
+					MultiScalerPtr->SamplesPerClock * 64,
 					thisCase->WidthOut);
 			}
 			memset((u32 *)thisCase->SrcImgBuf0, 0,
@@ -517,5 +513,5 @@ int main(void)
 	else
 		xil_printf("MultiScaler test failed. \r\n");
 
-	return 0;
+    return XST_SUCCESS;
 }
