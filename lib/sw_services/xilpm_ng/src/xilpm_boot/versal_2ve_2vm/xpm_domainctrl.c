@@ -104,7 +104,8 @@ XStatus XPmDomainCtrl_Init(XPm_DomainCtrl *DomainCtrl, u32 DomainCtrlId, const u
 	 *					    0x301 0x0040 0x100000 0x100000
 	*/
 	/* check whether GPIO Device Node is present in the system */
-	DomainCtrl->GpioNodeId = Args[++ArgIndex];
+	ArgIndex++;
+	DomainCtrl->GpioNodeId = Args[ArgIndex];
 	if (NULL == XPmDevice_GetById(DomainCtrl->GpioNodeId)) {
 		DbgErr = XPM_INT_ERR_DEVICE_INIT;
 		Status = XPM_ERR_DEVICE_INIT;
@@ -112,7 +113,8 @@ XStatus XPmDomainCtrl_Init(XPm_DomainCtrl *DomainCtrl, u32 DomainCtrlId, const u
 	}
 
 	/* max supported modes = 2 (ON/OFF) */
-	TotalModes = Args[++ArgIndex];
+	ArgIndex++;
+	TotalModes = Args[ArgIndex];
 	if (MAX_DOMAIN_CONTROL_MODES < TotalModes) {
 		DbgErr = XPM_INT_ERR_INVALID_PARAM;
 		Status = XST_INVALID_PARAM;
@@ -148,9 +150,12 @@ XStatus XPmDomainCtrl_Init(XPm_DomainCtrl *DomainCtrl, u32 DomainCtrlId, const u
 			goto done;
 		}
 
-		DomainCtrl->GpioCtrl[ModeId].Offset = (u16)Args[++ArgIndex];
-		DomainCtrl->GpioCtrl[ModeId].Mask = Args[++ArgIndex];
-		DomainCtrl->GpioCtrl[ModeId].Value = Args[++ArgIndex];
+		ArgIndex++;
+		DomainCtrl->GpioCtrl[ModeId].Offset = (u16)Args[ArgIndex];
+		ArgIndex++;
+		DomainCtrl->GpioCtrl[ModeId].Mask = Args[ArgIndex];
+		ArgIndex++;
+		DomainCtrl->GpioCtrl[ModeId].Value = Args[ArgIndex];
 	}
 
 	/* Find and store the Domain Control object in it's respective power domain struct */
@@ -164,7 +169,7 @@ XStatus XPmDomainCtrl_Init(XPm_DomainCtrl *DomainCtrl, u32 DomainCtrlId, const u
 	default:
 		DbgErr = XPM_INT_ERR_INVALID_NODE_IDX;
 		Status = XST_INVALID_PARAM;
-		goto done;
+		break;
 	}
 
 done:

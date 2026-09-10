@@ -1627,6 +1627,7 @@ static XStatus XPm_AddNodePower(const u32 *Args, u32 NumArgs)
 	}
 #if defined(XILPM_NG_DOMAIN_CONTROL_GPIO)
 	case (u32)XPM_NODETYPE_POWER_DOMAIN_CTRL:
+	{
 		XPm_DomainCtrl *DomainCtrl = (XPm_DomainCtrl *)XPm_AllocBytesBoard(sizeof(XPm_DomainCtrl));
 		if (NULL == DomainCtrl) {
 			Status = XST_BUFFER_TOO_SMALL;
@@ -1634,6 +1635,7 @@ static XStatus XPm_AddNodePower(const u32 *Args, u32 NumArgs)
 		}
 		Status = XPmDomainCtrl_Init(DomainCtrl, PowerId, Args, NumArgs);
 		break;
+	}
 #endif
 	default:
 		Status = XST_INVALID_PARAM;
