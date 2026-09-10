@@ -82,6 +82,7 @@
 *       vm   07/14/2026 Start ASUFW keep-alive monitor on ASU handoff
 *       pre  07/24/2026 Updated code to return error if extension to TPM PCR gets failed
 *       ng   08/22/2026 Added Configure Glitch Detector command handler
+*       pre  08/19/2026 Implemented DDRMC calibration skip flag clearing if PComplete is not set
 *
 * </pre>
 *
@@ -124,6 +125,9 @@
 #include "xil_sutil.h"
 #ifdef PLM_TPM
 #include "xtpm.h"
+#endif
+#ifdef XPAR_CALIBDATA_STORAGEDEVICE
+#include "xplmi_err_common.h"
 #endif
 
 /************************** Constant Definitions *****************************/
@@ -1137,6 +1141,17 @@ int XLoader_DumpDdrmcRegisters(void)
 			XPlmi_Printf(DEBUG_PRINT_ALWAYS,"CalibErrorPhyLoc%d: 0x%0x\n\r",LoopCount+1U,
 			XPlmi_In32(BaseAddr + DDRMC_OFFSET_CAL_ERROR_PHY_LOC_1 + (LoopCount * 0x4U)));
 		}
+
+		#ifdef XPAR_CALIBDATA_STORAGEDEVICE
+		Status = XLoader_CheckDdrMcCalibStatus(BaseAddr);
+		if (Status != XST_SUCCESS) {
+			if (XLoader_IsWarmBootFlagSet(BaseAddr) == (u32)TRUE) {
+				XPlmi_Printf(DEBUG_GENERAL,
+					"DDRMC_%u calibration failed during warm boot. Force a cold boot to recalibrate.\n\r",
+					Ub);
+			}
+		}
+		#endif
 	++Ub;
 	}
 

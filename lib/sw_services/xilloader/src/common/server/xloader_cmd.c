@@ -1,4 +1,4 @@
-/******************************************************************************
+﻿/******************************************************************************
 * Copyright (c) 2019 - 2022 Xilinx, Inc.  All rights reserved.
 * Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
@@ -104,6 +104,7 @@
 *       ng   08/17/2026 Added handler for Configure Glitch Detector command
 *       tus  08/19/2026 Added support for getting XilLoader library
 *                       version and capability bits
+*       pre  09/10/2026 Added handler for calibration data restore command
 *
 * </pre>
 *
@@ -1425,6 +1426,7 @@ static int XLoader_SetDdrAddrForImageRestart(XPlmi_Cmd *Cmd)
 	return Status;
 }
 
+
 /**
  * @cond xloader_internal
  */
@@ -1467,6 +1469,7 @@ static const XPlmi_ModuleCmd XLoader_Cmds[] =
 #else
 	XPLMI_MODULE_COMMAND(NULL),
 #endif
+	XPLMI_MODULE_COMMAND(XLoader_CalibDataRestore),
 };
 
 /*****************************************************************************/
@@ -1513,6 +1516,7 @@ static XPlmi_AccessPerm_t XLoader_AccessPermBuff[XPLMI_ARRAY_SIZE(XLoader_Cmds)]
 #else
 	XPLMI_ALL_IPI_NO_ACCESS(XLOADER_CMD_ID_CONFIG_GLITCH_DETECTOR),
 #endif
+	XPLMI_ALL_IPI_NO_ACCESS(XLOADER_CMD_ID_CALIBDATA_RESTORE),
 };
 
 #if (!defined(VERSAL_NET) && !defined(VERSAL_2VE_2VM))

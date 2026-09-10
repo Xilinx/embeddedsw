@@ -52,7 +52,7 @@ extern "C" {
 
 /***************************** Include Files *********************************/
 #include "xplmi_status.h"
-
+#include "xparameters.h"
 #if defined(XLOADER_SD_0) || defined(XLOADER_SD_1)
 #include "xsdps.h"
 #include "xplmi_debug.h"
@@ -79,6 +79,10 @@ int XLoader_SdRelease(void);
 int XLoader_RawInit(u32 DeviceFlags);
 int XLoader_RawCopy(u64 SrcAddress, u64 DestAddress, u32 Len, u32 Flags);
 int XLoader_RawRelease(void);
+#ifdef XPAR_CALIBDATA_STORAGEDEVICE
+int XLoader_SdReadDdrCalibData(const char *FileName, u32 DestAddr);
+int XLoader_SdCalibDataRelease(void);
+#endif
 
 /************************** Variable Definitions *****************************/
 

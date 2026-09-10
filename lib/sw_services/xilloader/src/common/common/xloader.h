@@ -136,7 +136,9 @@
 *       vm   03/30/2026 Moved PDI source mask from xloader_cmd.c
 *       ng   07/09/2026 Added XLoader_DdrPdiInfo, XLoader_DdrPdiAddrStatus and
 *                       XLoader_SetDdrPdiAddr for set DDR address for restart image
-* </pre>
+*       pre  08/19/2026 Added XLOADER_DDRMC_n index macros, DDRMC calib
+*                       size/offset/mask/record macros and XLOADER_INVALID_ADDR
+ * </pre>
 *
 ******************************************************************************/
 
@@ -265,6 +267,8 @@ extern "C" {
 
 #define XLOADER_IMG_INDEX_NOT_FOUND		(0xFFFFFFFFU)	/**< Image Index Not found */
 #define XLOADER_IMG_STORE_INVALID_ADDR		(0xFFFFFFFFFFFFFFFFUL)	/**< Invalid address in Image Store */
+#define XLOADER_INVALID_ADDR			(0xFFFFFFFFU) /**< Invalid address */
+	/**< Invalid address or filename pointer */
 #define XLOADER_IMG_STORE_INVALID_SIZE		(0x0U)	/**< Invalid size in Image Store */
 #define XLOADER_IMG_STORE_RESERVED_PDI_IDS_MASK	(0xFFFF0000U)	/**< Reserved Image Store PDI ID mask */
 
@@ -283,6 +287,44 @@ extern "C" {
 #define XLOADER_UFS_INDEX		(7U)
 #define XLOADER_INVALID_INDEX	(8U)
 /** @} */
+
+#ifdef XPAR_CALIBDATA_STORAGEDEVICE
+/**
+ * @name DDR MC indices
+ * @{
+ */
+/**< DDR MC indices (bare digits for token pasting with XPAR_/PM_DEV_DDRMC_) */
+#define XLOADER_DDRMC_0			0
+#define XLOADER_DDRMC_1			1
+#define XLOADER_DDRMC_2			2
+#define XLOADER_DDRMC_3			3
+#ifdef VERSAL_2VE_2VM
+#define XLOADER_DDRMC_4			4
+#elif defined(VERSAL_NET)
+#define XLOADER_DDRMC_4			4
+#define XLOADER_DDRMC_5			5
+#define XLOADER_DDRMC_6			6
+#define XLOADER_DDRMC_7			7
+#endif
+/** @} */
+
+/**
+ * @name DDR MC calibration data
+ * @{
+ */
+/**< Size of a calibration data record in words */
+#define XLOADER_CALIBDATA_SIZE			(0x402U)
+/**< Size of a calibration data record in bytes */
+#define XLOADER_CALIBDATA_SIZE_BYTES \
+	(XLOADER_CALIBDATA_SIZE * (u32)sizeof(u32))
+/**< Offset of the register holding the calibration skip flag of a DDR MC */
+#define XLOADER_DDRMC_CALIB_SKIP_OFFSET		(0x21CU)
+/**< Mask of the calibration skip flag, which is bit 7&8 of the register */
+#define XLOADER_DDRMC_CALIB_SKIP_MASK		(0x37E0U)
+/**< Offset from the base address of a DDR MC at which the calibration data is restored */
+#define XLOADER_DDRMC_CALIB_DATA_OFFSET		(0x37000U)
+/** @} */
+#endif /* XPAR_CALIBDATA_STORAGEDEVICE */
 
 #define PdiSrc_t			u32	/**< Alias for u32 */
 

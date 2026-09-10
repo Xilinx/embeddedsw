@@ -21,6 +21,7 @@
 *       sk  09/26/2025 Added drive number define for UFS
 *       sk  10/24/2025 Added ffs header for multi part define
 * 2.4   gnr 02/09/2026 Moved versal_2ve_2vm server files to dedicated server folder
+*       pre  08/18/2026 Added XLoader_UfsReadDdrCalibData for calib data restore
 *
 * </pre>
 *
@@ -36,6 +37,7 @@ extern "C" {
 
 /***************************** Include Files *********************************/
 #include "xplmi_status.h"
+#include "xparameters.h"
 #ifdef XLOADER_UFS
 #include "xufspsxc.h"
 #include "xplmi_debug.h"
@@ -70,6 +72,10 @@ extern "C" {
 int XLoader_UfsInit(u32 DeviceFlags);
 int XLoader_UfsCopy(u64 SrcAddr, u64 DestAddress, u32 Length, u32 Flags);
 int XLoader_UfsRelease(void);
+#ifdef XPAR_CALIBDATA_STORAGEDEVICE
+int XLoader_UfsReadDdrCalibData(const char *FileName, u32 DestAddr);
+int XLoader_UfsCalibDataRelease(void);
+#endif
 
 /************************** Variable Definitions *****************************/
 

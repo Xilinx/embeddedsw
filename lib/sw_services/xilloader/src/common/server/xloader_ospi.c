@@ -58,6 +58,7 @@
 *       gnr  08/25/2026 Fixed OSPI device reset for VERSAL_2VE_2VM devices to use
 *                       XOspiPsv_DeviceResetViaOspi instead of XOspiPsv_DeviceReset
 *       gnr  09/02/2026 Added PDI-based OSPI RX tuning pattern support
+*       pre  09/04/2026 Added support for OSPI calib data restore operation.
 *
 * </pre>
 *
@@ -92,7 +93,6 @@
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
-
 /************************** Function Prototypes ******************************/
 static int FlashReadID(XOspiPsv *OspiPsvPtr);
 static int XLoader_FlashEnterExit4BAddMode(XOspiPsv *OspiPsvPtr, u32 Enable);
@@ -112,6 +112,11 @@ static u8 OspiFlashMake;
 static u32 OspiFlashSize = 0U;
 static u8 OspiRxTuningReadBuffer[XLOADER_OSPI_RX_TUNING_PATTERN_SIZE]
 	__attribute__ ((aligned(64U)));
+#ifdef XPAR_CALIBDATA_STORAGEDEVICE
+static u8 CalibOspiInited = (u8)FALSE;
+static u8 OspiXferPending = (u8)FALSE;
+static u8 OspiPrefetchDrained = (u8)FALSE;
+#endif
 
 /*****************************************************************************/
 /**
@@ -834,6 +839,19 @@ int XLoader_OspiCopy(u64 SrcAddr, u64 DestAddr, u32 Length, u32 Flags)
 	 * - Verify that previous DMA copy is finished.
 	*/
 	if (Flags == XPLMI_DEVICE_COPY_STATE_WAIT_DONE) {
+#ifdef XPAR_CALIBDATA_STORAGEDEVICE
+		/**
+		 * The calibration data copy already completed this read to get the
+		 * controller free, and completing it cleared the DMA done status, so
+		 * polling for it here would never return.
+		 */
+		if (OspiPrefetchDrained == (u8)TRUE) {
+			OspiPrefetchDrained = (u8)FALSE;
+			Status = XST_SUCCESS;
+			goto END1;
+		}
+		OspiXferPending = (u8)FALSE;
+#endif
 		do {
 			Status = (int)XOspiPsv_CheckDmaDone(&OspiPsvInstance);
 		} while (Status != XST_SUCCESS);
@@ -970,6 +988,11 @@ int XLoader_OspiCopy(u64 SrcAddr, u64 DestAddr, u32 Length, u32 Flags)
 		if (Status != XST_SUCCESS) {
 			Status = XPlmi_UpdateStatus(XLOADER_ERR_OSPI_READ, Status);
 		}
+#ifdef XPAR_CALIBDATA_STORAGEDEVICE
+		else {
+			OspiXferPending = (u8)TRUE;
+		}
+#endif
 		goto END1;
 	}
 
@@ -1041,6 +1064,11 @@ int XLoader_OspiCopy(u64 SrcAddr, u64 DestAddr, u32 Length, u32 Flags)
 				if (Status != XST_SUCCESS) {
 					Status = XPlmi_UpdateStatus(XLOADER_ERR_OSPI_READ, Status);
 				}
+#ifdef XPAR_CALIBDATA_STORAGEDEVICE
+				else {
+					OspiXferPending = (u8)TRUE;
+				}
+#endif
 				goto END1;
 			}
 
@@ -1471,6 +1499,120 @@ int XLoader_OspiRelease(void)
 	return Status;
 }
 
+#ifdef XPAR_CALIBDATA_STORAGEDEVICE
+/*****************************************************************************/
+/**
+ * @brief	This function completes the non blocking read that the loader has
+ *		in flight, if any, so that the controller is free for the
+ *		calibration data copy.
+ *
+ *****************************************************************************/
+static void XLoader_OspiDrainPendingXfer(void)
+{
+	if (OspiXferPending == (u8)TRUE) {
+		while (XOspiPsv_CheckDmaDone(&OspiPsvInstance) != (u32)XST_SUCCESS) {
+			/* Wait for the read in flight to land */
+		}
+		OspiXferPending = (u8)FALSE;
+		OspiPrefetchDrained = (u8)TRUE;
+	}
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function copies calibration data from OSPI flash to the
+ *		destination address.
+ *
+ * @param	SrcAddr is the source address in OSPI flash
+ * @param	DestAddr is the 32-bit destination address to copy the data to
+ *
+ * @return
+ * 		- XST_SUCCESS on success.
+ * 		- XST_INVALID_PARAM if SrcAddr or PDI instance is NULL.
+ * 		- Error code on failure to init or copy from OSPI.
+ *
+ *****************************************************************************/
+int XLoader_OspiReadDdrCalibData(void *SrcAddr, u32 DestAddr)
+{
+	int Status = XST_FAILURE;
+	const XilPdi *PdiPtr = XLoader_GetPdiInstance();
+	u32 PrimBootMode = 0U;
+	u32 SecPdiSrc = 0U;
+	u32 DeviceFlags;
+
+	/** Verify input parameters */
+	if ((SrcAddr == NULL) || (PdiPtr == NULL)) {
+		Status = XST_INVALID_PARAM;
+		goto END;
+	}
+
+	/** Primary boot mode from PMC; secondary from current PDI source */
+	PrimBootMode = (u32)XLoader_GetBootMode() & XLOADER_PDISRC_FLAGS_MASK;
+	SecPdiSrc = PdiPtr->PdiSrc & XLOADER_PDISRC_FLAGS_MASK;
+
+	/**
+	 * Initialize OSPI on the first call only, and only when the current PDI
+	 * source is not the primary boot device. When they match, OSPI is already
+	 * initialized as boot device. The initialization reads the flash ID and
+	 * reconfigures the controller, so keeping it across the copies of all the
+	 * DDR MCs saves that work on every one of them.
+	 */
+	if ((SecPdiSrc != PrimBootMode) && (CalibOspiInited == (u8)FALSE)) {
+		DeviceFlags = PrimBootMode;
+		Status = XLoader_OspiInit(DeviceFlags);
+		if (Status != XST_SUCCESS) {
+			goto END;
+		}
+		CalibOspiInited = (u8)TRUE;
+	}
+
+	/** Free the controller from the read that the loader has in flight */
+	XLoader_OspiDrainPendingXfer();
+
+	/** Copy calibration data from OSPI flash to destination */
+	Status = XLoader_OspiCopy((u64)(UINTPTR)SrcAddr, (u64)DestAddr,
+			XLOADER_CALIBDATA_SIZE_BYTES, XPLMI_DEVICE_COPY_STATE_BLK);
+
+END:
+	/**
+	 * The copies of the remaining DDR MCs still need the controller, so it is
+	 * left initialized here on both paths. XLoader_OspiCalibDataRelease
+	 * releases it once the restore is over, on the error path as well.
+	 */
+	if (Status != XST_SUCCESS) {
+		XLoader_Printf(DEBUG_GENERAL, "OSPI calib data copy failed: 0x%x\n\r",
+				Status);
+	}
+
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function releases OSPI once the calibration data of all the
+ *		DDR MCs has been copied.
+ *
+ * @return
+ *		- XST_SUCCESS on success.
+ *		- Error code from XLoader_OspiRelease on failure.
+ *
+ *****************************************************************************/
+int XLoader_OspiCalibDataRelease(void)
+{
+	int Status = XST_FAILURE;
+
+	/** - Release only the initialization that the copies made. */
+	if (CalibOspiInited == (u8)TRUE) {
+		CalibOspiInited = (u8)FALSE;
+		Status = XLoader_OspiRelease();
+	}
+	else {
+		Status = XST_SUCCESS;
+	}
+
+	return Status;
+}
+#endif /* XPAR_CALIBDATA_STORAGEDEVICE */
 
 /*****************************************************************************/
 /**

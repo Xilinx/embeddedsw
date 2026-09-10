@@ -49,6 +49,7 @@
 * 2.4   rmv  01/30/2026 Renamed OCP keymanagment macro
 *       pre  08/05/2026 Added macro to calculate I2C device ID for I2C handshake feature
 *       pre  08/15/2026 Added XLOADER_STORE_PRTN_HASH to gate partition hash table store
+*       pre  08/17/2026 Added XLOADER_DDRMC_LIST, default XPAR calib params, and DDRMC calib accessor macros
 *
 * </pre>
 *
@@ -68,6 +69,76 @@ extern "C" {
 
 /************************** Constant Definitions *****************************/
 #define XLOADER_SECURE_CHUNK_SIZE	(0x8000U) /**< Secure chunk size 32K */
+
+#ifdef XPAR_CALIBDATA_STORAGEDEVICE
+/**
+ * Expands Param once per DDR MC for this platform (MAX_DEV_DDRMC = 4)
+ */
+#define XLOADER_DDRMC_LIST(Param)	\
+	Param(XLOADER_DDRMC_0), Param(XLOADER_DDRMC_1), \
+	Param(XLOADER_DDRMC_2), Param(XLOADER_DDRMC_3)
+
+/*
+ * xparameters.h defines the calibration data source parameters only for the DDR MCs
+ * present in the design. Default the remaining ones so that the lookup tables can be
+ * built for all the DDR MCs unconditionally.
+ */
+#ifndef XPAR_CALIBDATA_SRC_ADDR_AXI_NOC_0
+#define XPAR_CALIBDATA_SRC_ADDR_AXI_NOC_0	(XLOADER_INVALID_ADDR)
+#endif
+#ifndef XPAR_CALIBDATA_SRC_ADDR_AXI_NOC_1
+#define XPAR_CALIBDATA_SRC_ADDR_AXI_NOC_1	(XLOADER_INVALID_ADDR)
+#endif
+#ifndef XPAR_CALIBDATA_SRC_ADDR_AXI_NOC_2
+#define XPAR_CALIBDATA_SRC_ADDR_AXI_NOC_2	(XLOADER_INVALID_ADDR)
+#endif
+#ifndef XPAR_CALIBDATA_SRC_ADDR_AXI_NOC_3
+#define XPAR_CALIBDATA_SRC_ADDR_AXI_NOC_3	(XLOADER_INVALID_ADDR)
+#endif
+
+#ifndef XPAR_CALIBDATA_SRC_FILENAME_AXI_NOC_0
+#define XPAR_CALIBDATA_SRC_FILENAME_AXI_NOC_0	(XLOADER_INVALID_ADDR)
+#endif
+#ifndef XPAR_CALIBDATA_SRC_FILENAME_AXI_NOC_1
+#define XPAR_CALIBDATA_SRC_FILENAME_AXI_NOC_1	(XLOADER_INVALID_ADDR)
+#endif
+#ifndef XPAR_CALIBDATA_SRC_FILENAME_AXI_NOC_2
+#define XPAR_CALIBDATA_SRC_FILENAME_AXI_NOC_2	(XLOADER_INVALID_ADDR)
+#endif
+#ifndef XPAR_CALIBDATA_SRC_FILENAME_AXI_NOC_3
+#define XPAR_CALIBDATA_SRC_FILENAME_AXI_NOC_3	(XLOADER_INVALID_ADDR)
+#endif
+
+#ifndef XPAR_WARM_BOOT_AXI_NOC_0
+#define XPAR_WARM_BOOT_AXI_NOC_0	(FALSE)
+#endif
+#ifndef XPAR_WARM_BOOT_AXI_NOC_1
+#define XPAR_WARM_BOOT_AXI_NOC_1	(FALSE)
+#endif
+#ifndef XPAR_WARM_BOOT_AXI_NOC_2
+#define XPAR_WARM_BOOT_AXI_NOC_2	(FALSE)
+#endif
+#ifndef XPAR_WARM_BOOT_AXI_NOC_3
+#define XPAR_WARM_BOOT_AXI_NOC_3	(FALSE)
+#endif
+
+/** DDR MC token-paste helpers and calib/device accessors */
+#define XLOADER_DDRMC_CONCAT(A, B)		XLOADER_DDRMC_CONCAT_I(A, B)
+#define XLOADER_DDRMC_CONCAT_I(A, B)	A##B
+
+#define XLOADER_CALIBDATA_SRC_ADDR(Index)	\
+	((void *)(UINTPTR)XLOADER_DDRMC_CONCAT(XPAR_CALIBDATA_SRC_ADDR_AXI_NOC_, Index))
+		/**< Calibration data source address of the given DDR MC */
+#define XLOADER_CALIBDATA_SRC_FILENAME(Index)	\
+	((void *)(UINTPTR)XLOADER_DDRMC_CONCAT(XPAR_CALIBDATA_SRC_FILENAME_AXI_NOC_, Index))
+		/**< Calibration data source filename of the given DDR MC */
+#define XLOADER_WARM_BOOT_ENABLED(Index)	\
+	((u32)XLOADER_DDRMC_CONCAT(XPAR_WARM_BOOT_AXI_NOC_, Index))
+		/**< Warm boot enabled flag of the given DDR MC */
+#define XLOADER_DDRMC_DEVICE_ID(Index)	\
+	(XLOADER_DDRMC_CONCAT(PM_DEV_DDRMC_, Index))
+		/**< Device ID of the given DDR MC */
+#endif /* XPAR_CALIBDATA_STORAGEDEVICE */
 
 /* Boot Modes */
 #define XLOADER_PDI_SRC_JTAG		(0x0U) /**< PDI source JTAG */
@@ -291,6 +362,24 @@ enum {
 
 	/** 0x33 - Error when reserved Image Store PDI ID is used in IPI command */
 	XLOADER_ERR_PDI_IMG_STORE_RESERVED_PDI_ID,
+
+	/** 0x34 - Error when calibration data storage mode is invalid */
+	XLOADER_ERR_INVALID_CALIBDATA_STORAGE_MODE,
+
+	/** 0x35 - Error when non-volatile storage address is invalid */
+	XLOADER_ERR_INVALID_NVSTORAGE_ADDR,
+
+	/** 0x36 - Error when XRAM destination address is invalid */
+	XLOADER_ERR_INVALID_XRAM_ADDR,
+
+	/** 0x37 - Error while fetching calibration data */
+	XLOADER_ERR_CALIBDATA_FETCH,
+
+	/** 0x38 - Error while writing calibration data */
+	XLOADER_ERR_CALIBDATA_WRITE,
+
+	/** 0x39 - Error while setting calibration skip flag */
+	XLOADER_ERR_SET_CALIB_SKIP_FLAG,
 
 	/* Platform specific Minor Error Codes start from 0x100 */
 };

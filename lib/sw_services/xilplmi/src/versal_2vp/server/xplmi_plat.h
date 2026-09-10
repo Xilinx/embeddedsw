@@ -23,6 +23,8 @@
 *       tvp  09/13/25 Added KAT mask for DEVIK/DEVAK/HMAC
 * 2.4   sk   01/18/26 Added macros for LPD Domain Init Status
 *       sd   03/03/26 Updated XPlmi_GetSlrType to return SLR type as monolithic
+*       pre  09/02/26 Added XPLMI_RTCFG_DDRMC_WARM_BOOT_MASK_ADDR macro to store bit mask of
+*                       the DDRMCs for which warm boot is requested in RTCA
 * </pre>
 *
 * @note
@@ -93,6 +95,9 @@ extern "C" {
 							/**< SSIT temperature prop config */
 #define XPLMI_RTCFG_DDRMC_CALIB_CHECK_SKIP_ADDR	(XPLMI_RTCFG_BASEADDR + 0x300U)
 							/**< Skip DDRMC Calib Check */
+#define XPLMI_RTCFG_DDRMC_WARM_BOOT_MASK_ADDR	(XPLMI_RTCFG_BASEADDR + 0xCU)
+							/**< Bit mask of the DDRMCs for which
+							     warm boot is requested, where bit 'n' corresponds to DDRMC 'n' */
 #ifdef PLM_ENABLE_SECURE_PLM_TO_PLM_COMM
 #define XPLMI_RTCFG_SSLR1_IV_ADDR		(XPLMI_RTCFG_BASEADDR + 0x324U)
 							/**< Base address of IV of SSLR1 in master

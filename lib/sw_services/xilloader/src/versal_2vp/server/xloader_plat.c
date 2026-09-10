@@ -31,6 +31,7 @@
 *       pre  07/14/26 Removed XLoader_GetI2CDeviceID function definition
 * 2.5   tvp  08/03/26 Added Jtag DAP config support for Non-Secure debug
 *       pre  07/24/26 Enabled TPM feature for VERSAL_2VP devices
+*       pre  08/19/26 Implemented DDRMC calibration skip flag clearing if PComplete is not set
 *
 * </pre>
 *
@@ -67,6 +68,9 @@
 #include "xsecure_init.h"
 #include "xsecure_plat.h"
 #include "xtpm.h"
+#endif
+#ifdef XPAR_CALIBDATA_STORAGEDEVICE
+#include "xplmi_err_common.h"
 #endif
 
 /************************************ Constant Definitions ****************************************/
@@ -1762,6 +1766,17 @@ static int XLoader_DumpDdrmcRegisters(void)
 			XPlmi_Printf(DEBUG_PRINT_ALWAYS,"%s : 0x%x\n\r", DdrmcRegisters[LoopCount].RegStr,
 			XPlmi_In32(BaseAddr + DdrmcRegisters[LoopCount].Offset));
 		}
+
+#ifdef XPAR_CALIBDATA_STORAGEDEVICE
+		Status = XLoader_CheckDdrMcCalibStatus(BaseAddr);
+		if (Status != XST_SUCCESS) {
+			if (XLoader_IsWarmBootFlagSet(BaseAddr) == (u32)TRUE) {
+				XPlmi_Printf(DEBUG_GENERAL,
+					"DDRMC_%u calibration failed during warm boot. Force a cold boot to recalibrate.\n\r",
+					Ub);
+			}
+		}
+#endif
 
 		++Ub;
 	}

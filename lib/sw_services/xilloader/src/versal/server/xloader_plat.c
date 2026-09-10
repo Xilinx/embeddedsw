@@ -60,6 +60,7 @@
 *       pre  03/16/2026 Updated PCR Info validation logic in XLoader_DataMeasurement API
 *       pre  07/24/2026 Updated code to return error if LPD status pointer is NULL during
 *                       ROM and PLM hashes extension
+*       pre  08/19/2026 Implemented DDRMC calibration skip flag clearing if PComplete is not set
 *
 * </pre>
 *
@@ -91,6 +92,9 @@
 #include "xsecure_init.h"
 #include "xsecure_plat.h"
 #include "xtpm.h"
+#endif
+#ifdef XPAR_CALIBDATA_STORAGEDEVICE
+#include "xplmi_err_common.h"
 #endif
 
 /********************************* Constant Definitions **************************************/
@@ -1490,6 +1494,7 @@ static int XLoader_DumpDdrmcRegisters(void)
 			++Ub;
 			continue;
 		}
+
 		Status = XPm_GetDeviceBaseAddr(DevId, &BaseAddr);
 		if (XST_SUCCESS != Status) {
 			XPlmi_Printf(DEBUG_PRINT_ALWAYS,
@@ -1526,6 +1531,17 @@ static int XLoader_DumpDdrmcRegisters(void)
 			XPlmi_Printf(DEBUG_PRINT_ALWAYS,"%s : 0x%x\n\r", DdrmcRegisters[LoopCount].RegStr,
 			XPlmi_In32(BaseAddr + DdrmcRegisters[LoopCount].Offset));
 		}
+
+#ifdef XPAR_CALIBDATA_STORAGEDEVICE
+		Status = XLoader_CheckDdrMcCalibStatus(BaseAddr);
+		if (Status != XST_SUCCESS) {
+			if (XLoader_IsWarmBootFlagSet(BaseAddr) == (u32)TRUE) {
+				XPlmi_Printf(DEBUG_GENERAL,
+					"DDRMC_%u calibration failed during warm boot. Force a cold boot to recalibrate.\n\r",
+					Ub);
+			}
+		}
+#endif
 
 		++Ub;
 	}

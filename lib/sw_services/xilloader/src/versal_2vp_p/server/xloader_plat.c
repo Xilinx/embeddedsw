@@ -29,6 +29,7 @@
 *       sri 08/24/26 OCP: HW PCR extend, 2VP_P auth cert secure-config measurement,
 *                    CheckAndUpdateSecureState, ProcessElf fixes
 *       tvp 09/02/26 Fix build when PLM_SECURE_EXCLUDE is enabled with PLM_OCP
+*       pre 09/02/26 Implemented DDRMC calibration skip flag clearing if PComplete is not set
 *
 * </pre>
 *
@@ -60,6 +61,9 @@
 #endif
 #if (!defined(PLM_SECURE_EXCLUDE)) && (defined(PLM_OCP))
 #include "xocp_pcr.h"
+#endif
+#ifdef XPAR_CALIBDATA_STORAGEDEVICE
+#include "xplmi_err_common.h"
 #endif
 
 /************************************ Constant Definitions ****************************************/
@@ -1522,6 +1526,17 @@ static int XLoader_DumpDdrmcRegisters(void)
 			XPlmi_Printf(DEBUG_PRINT_ALWAYS,"%s : 0x%x\n\r", DdrmcRegisters[LoopCount].RegStr,
 			XPlmi_In32(BaseAddr + DdrmcRegisters[LoopCount].Offset));
 		}
+
+#ifdef XPAR_CALIBDATA_STORAGEDEVICE
+		Status = XLoader_CheckDdrMcCalibStatus(BaseAddr);
+		if (Status != XST_SUCCESS) {
+			if (XLoader_IsWarmBootFlagSet(BaseAddr) == (u32)TRUE) {
+				XPlmi_Printf(DEBUG_GENERAL,
+					"DDRMC_%u calibration failed during warm boot. Force a cold boot to recalibrate.\n\r",
+					Ub);
+			}
+		}
+#endif
 
 		++Ub;
 	}

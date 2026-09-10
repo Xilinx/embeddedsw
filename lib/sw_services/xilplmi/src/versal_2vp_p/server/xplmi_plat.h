@@ -24,6 +24,8 @@
 *       sd  08/07/26 Added declaration for XPlmi_SaveLpdEAMInfo
 *       sd  08/20/26 Included xplmi_wdt_hw.h for PMC WDT definitions
 *       sri 08/24/26 Declare XPlmi_RomISR for OCP DME ROM service (Versal Net reuse)
+*       pre 09/02/26 Added XPLMI_RTCFG_DDRMC_WARM_BOOT_MASK_ADDR macro to store bit mask of
+*                       the DDRMCs for which warm boot is requested in RTCA
 * </pre>
 *
 ***************************************************************************************************/
@@ -99,6 +101,9 @@ extern "C" {
 							/**< Size of DDR region reserved for PLM */
 #define XPLMI_RTCFG_DDRMC_CALIB_CHECK_SKIP_ADDR	(XPLMI_RTCFG_BASEADDR + 0x300U)
 							/**< Skip DDRMC Calib Check */
+#define XPLMI_RTCFG_DDRMC_WARM_BOOT_MASK_ADDR	(XPLMI_RTCFG_BASEADDR + 0xCU)
+							/**< Bit mask of the DDRMCs for which
+							     warm boot is requested, where bit 'n' corresponds to DDRMC 'n' */
 #ifdef PLM_ENABLE_SECURE_PLM_TO_PLM_COMM
 #define XPLMI_RTCFG_SSLR1_IV_ADDR		(XPLMI_RTCFG_BASEADDR + 0x324U)
 							/**< Base address of IV of SSLR1 in master

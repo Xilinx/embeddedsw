@@ -41,6 +41,7 @@
 *       aa   02/03/2026 Added Macro for Macronix flash
 * 2.5   aa   07/02/2026 Added timeout macro for OSPI 4B address mode polling
 *       gnr  09/02/2026 Added PDI-based OSPI RX tuning pattern support
+*       pre  08/18/2026 Added XLoader_OspiReadDdrCalibData for calib data restore
 *
 * </pre>
 *
@@ -55,6 +56,8 @@ extern "C" {
 #endif
 
 /***************************** Include Files *********************************/
+#include "xplmi_status.h"
+#include "xparameters.h"
 #ifdef XLOADER_OSPI
 #include "xilpdi.h"
 
@@ -170,8 +173,6 @@ extern "C" {
 #define FLASH_SECTOR_SIZE_256KB 	(0x40000U)
 #define FLASH_PAGE_SIZE_256		(256U)
 #define DDR_READ_CMD_4B_SPN		(0xEEU)
-#define WRITE_CMD_4B			(0x12U)
-#define READ_STATUS_CMD			(0x05U)
 
 #define SPANSION_ENABLE_2BIT_ECC
 
@@ -180,6 +181,10 @@ int XLoader_OspiInit(u32 DeviceFlags);
 int XLoader_OspiCopy(u64 SrcAddr, u64 DestAddress, u32 Length, u32 Flags);
 int XLoader_OspiRelease(void);
 int XLoader_FlashSetupRxTuningPattern(const XilPdi_MetaHdr *MetaHdrPtr);
+#ifdef XPAR_CALIBDATA_STORAGEDEVICE
+int XLoader_OspiReadDdrCalibData(void *SrcAddr, u32 DestAddr);
+int XLoader_OspiCalibDataRelease(void);
+#endif
 
 /************************** Variable Definitions *****************************/
 

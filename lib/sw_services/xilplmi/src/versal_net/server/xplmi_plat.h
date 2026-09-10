@@ -67,6 +67,8 @@
 * 2.4   sk   01/18/2026 Added macros for LPD Domain Init Status
 *       abh  11/21/2025 Fixed MISRAC Violations
 *       sd   08/20/2026 Included xplmi_wdt_hw.h for PMC WDT definitions
+*       pre  09/02/2026 Added XPLMI_RTCFG_DDRMC_WARM_BOOT_MASK_ADDR macro to store bit mask of
+*                       the DDRMCs for which warm boot is requested in RTCA
 *
 * </pre>
 *
@@ -126,6 +128,7 @@ extern "C" {
 #define XPLMI_RTCFG_INPLACE_UPDATE_IPI_RESP_BUFF		(XPLMI_RTCFG_BASEADDR + 0x2B8U) /**< RTCA Register to save response buffer address */
 #define XPLMI_RTCFG_INPLACE_UPDATE_ERR_IPOR_TIMEOUT		(XPLMI_RTCFG_BASEADDR + 0x2BCU) /**< RTCA Register to store timeout in milli seconds before IPOR */
 #define XPLMI_RTCFG_DDRMC_CALIB_CHECK_SKIP_ADDR			(XPLMI_RTCFG_BASEADDR + 0x300U) /**< Skip DDRMC Calib Check */
+#define XPLMI_RTCFG_DDRMC_WARM_BOOT_MASK_ADDR			(XPLMI_RTCFG_BASEADDR + 0xCU) /**< Bit mask of the DDRMCs for which warm boot is requested, where bit 'n' corresponds to DDRMC 'n' */
 #define XPLMI_INVALID_RESP_BUFF_ADDR				(0xFFFFFFFFU)  /**< Invalid Response Buffer Address */
 #define XPLMI_INVALID_IPI_MASK					(0x0U)  /**< Invalid IPI Mask */
 #define XPLMI_INVALID_PLM_RSVD_DDR_ADDR				(0x0U)	/**< Invalid reserved DDR address */

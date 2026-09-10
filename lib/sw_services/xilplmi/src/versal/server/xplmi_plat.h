@@ -65,6 +65,8 @@
 * 2.4   sk   01/18/2026 Added macros for LPD Domain Init Status
 * 		abh  10/14/2025 Fixed MISRAC Violations
 *       mb   03/25/2026 Add XPLMI_RTCFG_PSU_PSS_REF_CLK_FREQ_ADDR macro to store PS reference clock frequency in RTCA
+*       pre  09/02/2026 Added XPLMI_RTCFG_DDRMC_WARM_BOOT_MASK_ADDR macro to store bit mask of
+*                       the DDRMCs for which warm boot is requested in RTCA
 *
 * </pre>
 *
@@ -119,6 +121,7 @@ extern "C" {
 #define XPLMI_RTCFG_IMG_STORE_SIZE		(XPLMI_RTCFG_BASEADDR + 0x290U) /**< Image store size */
 #define XPLMI_RTCFG_SSIT_TEMP_PROPAGATION	(XPLMI_RTCFG_BASEADDR + 0x298U) /**< SSIT temperature prop config */
 #define XPLMI_RTCFG_DDRMC_CALIB_CHECK_SKIP_ADDR	(XPLMI_RTCFG_BASEADDR + 0x300U) /**< Skip DDRMC Calib Check */
+#define XPLMI_RTCFG_DDRMC_WARM_BOOT_MASK_ADDR	(XPLMI_RTCFG_BASEADDR + 0xCU) /**< Bit mask of the DDRMCs for which warm boot is requested, where bit 'n' corresponds to DDRMC 'n' */
 #define XPLMI_RTCFG_PSU_PSS_REF_CLK_FREQ_ADDR			(XPLMI_RTCFG_BASEADDR + 0x370U) /**< PS reference clock frequency address */
 #ifdef PLM_ENABLE_SECURE_PLM_TO_PLM_COMM
 #define XPLMI_RTCFG_SSLR1_IV_ADDR  (XPLMI_RTCFG_BASEADDR + 0x324U) /**< Base address of IV of SSLR1 in master for secure comm*/

@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2019 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024, Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -25,8 +25,10 @@
 *       bsv  10/13/2020 Code clean up
 * 1.04  bsv  08/26/2021 Code clean up
 *       dd   09/11/2023 MISRA-C violation Rule 17.8 fixed
-*
-* </pre>
+ *      pre  08/17/2026 Added DDR calibration data restore and status check APIs
+ *      pre  09/06/2026 Include xplmi_cmd.h for XPlmi_Cmd
+ *
+ * </pre>
 *
 * @note
 *
@@ -40,6 +42,7 @@ extern "C" {
 #endif
 
 /***************************** Include Files *********************************/
+#include "xplmi_cmd.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -51,6 +54,11 @@ extern "C" {
 int XLoader_DdrInit(u32 DeviceFlags);
 int XLoader_DdrCopy(u64 SrcAddr, u64 DestAddr, u32 Length, u32 FlagsVal);
 int XLoader_DdrRelease(void);
+int XLoader_CalibDataRestore(XPlmi_Cmd *Cmd);
+#ifdef XPAR_CALIBDATA_STORAGEDEVICE
+int XLoader_CheckDdrMcCalibStatus(u32 BaseAddr);
+u32 XLoader_IsWarmBootFlagSet(u32 BaseAddr);
+#endif
 
 /************************** Variable Definitions *****************************/
 

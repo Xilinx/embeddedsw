@@ -23,6 +23,7 @@
 *       sk  09/26/2025 Added UFS speed change config
 * 2.4   gnr 02/09/2026 Moved versal_2ve_2vm server files to dedicated server folder
 *       ias  03/26/2026 Handle XPM_PMC_BOOT_DEV_RETAINED in UFS release
+*       pre 09/04/2026 Added XLoader_UfsReadDdrCalibData for calib data restore
 *
 * </pre>
 *
@@ -65,9 +66,17 @@
 /************************** Function Prototypes ******************************/
 static int XLoader_MakeUFSFileName(u32 MultiBootOffsetVal, u32 BootFileIndex);
 static u8 XLoader_GetDrvNumUFS(u8 DeviceFlags);
+#ifdef XPAR_CALIBDATA_STORAGEDEVICE
+static void XLoader_UfsRetainForCalibData(void);
+#endif
 /************************** Variable Definitions *****************************/
 static FIL FFil;		/* File object */
 static char BootFile[XLOADER_BASE_FILE_NAME_LEN_UFS + 1U] = {'\0'};
+#ifdef XPAR_CALIBDATA_STORAGEDEVICE
+static u8 CalibUfsCopyComplete = (u8)FALSE;
+static u8 CalibUfsRetained = (u8)FALSE;
+static u8 CalibUfsRequested = (u8)FALSE;
+#endif
 
 /*****************************************************************************/
 /**
@@ -292,6 +301,86 @@ END:
 }
 
 
+#ifdef XPAR_CALIBDATA_STORAGEDEVICE
+/*****************************************************************************/
+/**
+ * @brief	This function makes the PMC retain UFS when the DDR calibration
+ *		data is stored on it.
+ *
+ *****************************************************************************/
+static void XLoader_UfsRetainForCalibData(void)
+{
+	u32 CalibDataSrc = (u32)XPAR_CALIBDATA_STORAGEDEVICE &
+				XLOADER_PDISRC_FLAGS_MASK;
+
+	if ((CalibDataSrc != (u32)XLOADER_PDI_SRC_UFS) ||
+		(CalibUfsCopyComplete == (u8)TRUE) || (CalibUfsRetained == (u8)TRUE)) {
+		goto END;
+	}
+
+	/**
+	 * A policy that the design configured itself is left alone, so that the
+	 * release at the end of the copies does not undo it.
+	 */
+	if ((XPlmi_In32(XPLMI_RTCFG_SKIP_BOOT_DEV_RELEASE) &
+		XPLMI_SKIP_BOOT_DEV_UFS_MASK) == 0U) {
+		XPlmi_UtilRMW(XPLMI_RTCFG_SKIP_BOOT_DEV_RELEASE,
+			XPLMI_SKIP_BOOT_DEV_UFS_MASK, XPLMI_SKIP_BOOT_DEV_UFS_MASK);
+		CalibUfsRetained = (u8)TRUE;
+	}
+
+END:
+	return;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function releases UFS once the calibration data of all the
+ *		DDR MCs has been copied.
+ *
+ * @return
+ *		- XST_SUCCESS on success.
+ *		- Error code from XPm_PmcReleaseDevice on failure.
+ *
+ *****************************************************************************/
+int XLoader_UfsCalibDataRelease(void)
+{
+	int Status = XST_FAILURE;
+
+	CalibUfsCopyComplete = (u8)TRUE;
+
+	if (CalibUfsRetained == (u8)TRUE) {
+		CalibUfsRetained = (u8)FALSE;
+		XPlmi_UtilRMW(XPLMI_RTCFG_SKIP_BOOT_DEV_RELEASE,
+			XPLMI_SKIP_BOOT_DEV_UFS_MASK, 0U);
+	}
+
+	/** - Release only the request that the copies made. */
+	if (CalibUfsRequested == (u8)TRUE) {
+		CalibUfsRequested = (u8)FALSE;
+		Status = XPm_PmcReleaseDevice(PM_DEV_UFS);
+		/**
+		 * The design can keep its own retain policy, in which case the PMC
+		 * holds the device on purpose. That is not an error.
+		 */
+		if (Status == (int)XPM_PMC_BOOT_DEV_RETAINED) {
+			Status = XST_SUCCESS;
+		}
+		else if (Status != XST_SUCCESS) {
+			Status = XPlmi_UpdateStatus(XLOADER_ERR_PM_DEV_UFS, Status);
+		}
+		else {
+			/* Status is already XST_SUCCESS */
+		}
+	}
+	else {
+		Status = XST_SUCCESS;
+	}
+
+	return Status;
+}
+#endif /* XPAR_CALIBDATA_STORAGEDEVICE */
+
 /*****************************************************************************/
 /**
  * @brief	This function is used to close the boot file and unmount the
@@ -308,6 +397,10 @@ END:
 	int Status = XST_FAILURE;
 	int PmStatus = XST_FAILURE;
 	FRESULT Rc;
+
+#ifdef XPAR_CALIBDATA_STORAGEDEVICE
+	XLoader_UfsRetainForCalibData();
+#endif
 
 	/** - Close PDI file. */
 	Rc = f_close(&FFil);
@@ -341,6 +434,162 @@ END:
 	}
 	return Status;
  }
+
+#ifdef XPAR_CALIBDATA_STORAGEDEVICE
+/*****************************************************************************/
+/**
+ * @brief	This function copies calibration data from a file on the UFS
+ *		filesystem to the destination address.
+ *
+ * @param	FileName is the calibration data file name on the UFS filesystem
+ * @param	DestAddr is the 32-bit destination address to copy the data to
+ *
+ * @return
+ * 		- XST_SUCCESS on success.
+ * 		- XST_INVALID_PARAM if FileName or PDI instance is NULL.
+ * 		- Error code on failure to mount, open, seek, read or close.
+ *
+ *****************************************************************************/
+int XLoader_UfsReadDdrCalibData(const char *FileName, u32 DestAddr)
+{
+	int Status = XST_FAILURE;
+	const XilPdi *PdiPtr = XLoader_GetPdiInstance();
+	u32 PrimBootMode = 0U;
+	u32 SecPdiSrc = 0U;
+	u8 DrvNum;
+	u8 DrvIndex = 0U;
+	u8 Index = 0U;
+	u8 Value;
+	char Path[XLOADER_BASE_FILE_NAME_LEN_UFS + 1U] = {'\0'};
+	char FilePath[XLOADER_BASE_FILE_NAME_LEN_UFS + 1U] = {'\0'};
+	char DrvTmpBuff[XLOADER_BASE_FILE_NAME_LEN_UFS + 1U] = {'\0'};
+	static FATFS CalibFatFs;
+	FIL CalibFil;
+	u8 FileOpened = (u8)FALSE;
+	FRESULT Rc;
+	UINT Br = 0U;
+
+	/** Verify input parameters */
+	if ((FileName == NULL) || (PdiPtr == NULL)) {
+		Status = XST_INVALID_PARAM;
+		goto END;
+	}
+
+	/** Primary boot mode from PMC; secondary from current PDI source */
+	PrimBootMode = (u32)XLoader_GetBootMode() & XLOADER_PDISRC_FLAGS_MASK;
+	SecPdiSrc = PdiPtr->PdiSrc & XLOADER_PDISRC_FLAGS_MASK;
+	DrvNum = XLoader_GetDrvNumUFS((u8)PrimBootMode);
+
+	/**
+	 * Request UFS on the first call only, and only when the current PDI source
+	 * is not the primary boot device. When they match, UFS is already requested
+	 * as boot device. Retaining it first keeps the request and the release from
+	 * resetting the controller and taking the link down.
+	 */
+	if ((SecPdiSrc != PrimBootMode) && (CalibUfsRequested == (u8)FALSE)) {
+		XLoader_UfsRetainForCalibData();
+		Status = XPm_PmcRequestDevice(PM_DEV_UFS);
+		if (Status != XST_SUCCESS) {
+			Status = XPlmi_UpdateStatus(XLOADER_ERR_PM_DEV_UFS, Status);
+			goto END;
+		}
+		CalibUfsRequested = (u8)TRUE;
+	}
+
+	/** Build mount path from drive number (e.g. "2:/" or "10:/") */
+	while (DrvNum > 0U) {
+		Value = (u8)(DrvNum % XLOADER_NUMERIC_TEN);
+		DrvNum /= XLOADER_NUMERIC_TEN;
+		DrvTmpBuff[Index] = (char)(Value + XLOADER_ASCII_ZERO_ENCODING);
+		Index++;
+	}
+	while (Index > 0U) {
+		Path[DrvIndex++] = DrvTmpBuff[Index - 1U];
+		Index--;
+	}
+	Path[DrvIndex++] = ':';
+	Path[DrvIndex] = '/';
+
+	/**
+	 * A path without a volume prefix is resolved against drive 0, so prefix the
+	 * file name with the drive number.
+	 */
+	Status = Xil_SStrCat((u8 *)FilePath, (u32)sizeof(FilePath), (const u8 *)Path,
+			(u32)sizeof(Path));
+	if (Status == XST_SUCCESS) {
+		Status = Xil_SStrCat((u8 *)FilePath, (u32)sizeof(FilePath),
+				(const u8 *)FileName, (u32)XLOADER_BASE_FILE_NAME_LEN_UFS);
+	}
+	if (Status != XST_SUCCESS) {
+		Status = XST_INVALID_PARAM;
+		goto END;
+	}
+
+	/**
+	 * XLoader_UfsInit already registered this volume and keeps the boot PDI file open on
+	 * it. Registering the volume again clears fs_type in the filesystem object that the
+	 * boot file handle belongs to, which makes every later access to that handle fail
+	 * with FR_INVALID_OBJECT. So mount only when the volume has no work area yet, which
+	 * also keeps the mount to the first of the per DDR MC copies.
+	 */
+	Rc = f_open(&CalibFil, FilePath, (BYTE)FA_READ);
+	if (Rc == FR_NOT_ENABLED) {
+		Rc = f_mount(&CalibFatFs, Path, 0U);
+		if (Rc != FR_OK) {
+			Status = XPlmi_UpdateStatus(XLOADER_ERR_UFS_INIT, (int)Rc);
+			XLoader_Printf(DEBUG_INFO, "UFS calib: f_mount failed %d\r\n", Rc);
+			goto END;
+		}
+		Rc = f_open(&CalibFil, FilePath, (BYTE)FA_READ);
+	}
+	if (Rc != FR_OK) {
+		Status = XPlmi_UpdateStatus(XLOADER_ERR_UFS_F_OPEN, (int)Rc);
+		XLoader_Printf(DEBUG_INFO, "UFS calib: Unable to open file %s: %d\n",
+				FilePath, Rc);
+		goto END;
+	}
+	FileOpened = (u8)TRUE;
+
+	/** Seek to beginning of file */
+	Rc = f_lseek(&CalibFil, 0U);
+	if (Rc != FR_OK) {
+		Status = XPlmi_UpdateStatus(XLOADER_ERR_UFS_F_LSEEK, (int)Rc);
+		XLoader_Printf(DEBUG_INFO, "UFS calib: f_lseek failed %d\r\n", Rc);
+		goto END;
+	}
+
+	/** Read calibration data from file into 32-bit destination address */
+	Rc = f_read(&CalibFil, (void *)(UINTPTR)DestAddr, XLOADER_CALIBDATA_SIZE_BYTES, &Br);
+	if (Rc != FR_OK) {
+		Status = XPlmi_UpdateStatus(XLOADER_ERR_UFS_F_READ, (int)Rc);
+		XLoader_Printf(DEBUG_INFO, "UFS calib: f_read failed %d\r\n", Rc);
+		goto END;
+	}
+	Status = XST_SUCCESS;
+
+END:
+	if (FileOpened == (u8)TRUE) {
+		Rc = f_close(&CalibFil);
+		if ((Status == XST_SUCCESS) && (Rc != FR_OK)) {
+			Status = XPlmi_UpdateStatus(XLOADER_ERR_UFS_F_CLOSE, (int)Rc);
+		}
+	}
+
+	/**
+	 * The copies of the remaining DDR MCs still need the device, so it is kept
+	 * requested here on both paths. XLoader_UfsCalibDataRelease releases it once
+	 * the restore is over, on the error path as well. Do not call
+	 * XLoader_UfsRelease; that closes the boot PDI file.
+	 */
+	if (Status != XST_SUCCESS) {
+		XLoader_Printf(DEBUG_GENERAL, "UFS calib data copy failed: 0x%x\n\r",
+				Status);
+	}
+
+	return Status;
+}
+
+#endif /* XPAR_CALIBDATA_STORAGEDEVICE */
 
 /*****************************************************************************/
 /**

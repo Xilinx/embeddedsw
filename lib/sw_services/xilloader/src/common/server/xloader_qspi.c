@@ -47,6 +47,7 @@
 *       ias  03/26/2026 Handle XPM_PMC_BOOT_DEV_RETAINED in QSPI release
 * 2.4   aa   04/14/2026 Added support for Infineon QSPI flash parts
 * 2.5   aa   07/29/2026 Added support for Macronix 256M flash parts
+*       pre  09/04/2026 Added support for QSPI calib data restore operation.
 *
 * </pre>
 *
@@ -90,6 +91,11 @@ static u32 ReadCommand = 0U;
 static u8 QspiMode;
 static PdiSrc_t QspiBootMode;
 static u8 QspiBusWidth;
+#ifdef XPAR_CALIBDATA_STORAGEDEVICE
+static u8 CalibQspiInited = (u8)FALSE;
+static u8 QspiXferPending = (u8)FALSE;
+static u8 QspiPrefetchDrained = (u8)FALSE;
+#endif
 
 /*****************************************************************************/
 /**
@@ -778,6 +784,19 @@ int XLoader_QspiCopy(u64 SrcAddr, u64 DestAddr, u32 Length, u32 Flags)
 
 	/* Just wait for the Data to be copied */
 	if (ParallelDmaFlags == XPLMI_DEVICE_COPY_STATE_WAIT_DONE) {
+#ifdef XPAR_CALIBDATA_STORAGEDEVICE
+		/**
+		 * The calibration data copy already completed this read to get the
+		 * controller free, and completing it cleared the DMA done status, so
+		 * polling for it here would never return.
+		 */
+		if (QspiPrefetchDrained == (u8)TRUE) {
+			QspiPrefetchDrained = (u8)FALSE;
+			Status = XST_SUCCESS;
+			goto END;
+		}
+		QspiXferPending = (u8)FALSE;
+#endif
 		do {
 			Status = XQspiPsu_CheckDmaDone(&QspiPsuInstance);
 		} while (Status != XST_SUCCESS);
@@ -947,6 +966,11 @@ int XLoader_QspiCopy(u64 SrcAddr, u64 DestAddr, u32 Length, u32 Flags)
 			if (Status != XST_SUCCESS) {
 				Status = XPlmi_UpdateStatus(XLOADER_ERR_QSPI_READ, Status);
 			}
+#ifdef XPAR_CALIBDATA_STORAGEDEVICE
+			else {
+				QspiXferPending = (u8)TRUE;
+			}
+#endif
 			goto END;
 		}
 
@@ -1011,6 +1035,121 @@ int XLoader_QspiRelease(void)
 
 	return Status;
 }
-#endif
 
+#ifdef XPAR_CALIBDATA_STORAGEDEVICE
+/*****************************************************************************/
+/**
+ * @brief	This function completes the non blocking read that the loader has
+ *		in flight, if any, so that the controller is free for the
+ *		calibration data copy.
+ *
+ *****************************************************************************/
+static void XLoader_QspiDrainPendingXfer(void)
+{
+	if (QspiXferPending == (u8)TRUE) {
+		while (XQspiPsu_CheckDmaDone(&QspiPsuInstance) != XST_SUCCESS) {
+			/* Wait for the read in flight to land */
+		}
+		QspiXferPending = (u8)FALSE;
+		QspiPrefetchDrained = (u8)TRUE;
+	}
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function copies calibration data from QSPI flash to the
+ *		destination address.
+ *
+ * @param	SrcAddr is the source address in QSPI flash
+ * @param	DestAddr is the 32-bit destination address to copy the data to
+ *
+ * @return
+ * 		- XST_SUCCESS on success.
+ * 		- XST_INVALID_PARAM if SrcAddr or PDI instance is NULL.
+ * 		- Error code on failure to init or copy from QSPI.
+ *
+ *****************************************************************************/
+int XLoader_QspiReadDdrCalibData(void *SrcAddr, u32 DestAddr)
+{
+	int Status = XST_FAILURE;
+	const XilPdi *PdiPtr = XLoader_GetPdiInstance();
+	u32 PrimBootMode = 0U;
+	u32 SecPdiSrc = 0U;
+	u32 DeviceFlags;
+
+	/** Verify input parameters */
+	if ((SrcAddr == NULL) || (PdiPtr == NULL)) {
+		Status = XST_INVALID_PARAM;
+		goto END;
+	}
+
+	/** Primary boot mode from PMC; secondary from current PDI source */
+	PrimBootMode = (u32)XLoader_GetBootMode() & XLOADER_PDISRC_FLAGS_MASK;
+	SecPdiSrc = PdiPtr->PdiSrc & XLOADER_PDISRC_FLAGS_MASK;
+
+	/**
+	 * Initialize QSPI on the first call only, and only when the current PDI
+	 * source is not the primary boot device. When they match, QSPI is already
+	 * initialized as boot device. The initialization reads the flash ID and
+	 * reconfigures the controller, so keeping it across the copies of all the
+	 * DDR MCs saves that work on every one of them.
+	 */
+	if ((SecPdiSrc != PrimBootMode) && (CalibQspiInited == (u8)FALSE)) {
+		DeviceFlags = PrimBootMode;
+		Status = XLoader_QspiInit(DeviceFlags);
+		if (Status != XST_SUCCESS) {
+			goto END;
+		}
+		CalibQspiInited = (u8)TRUE;
+	}
+
+	/** Free the controller from the read that the loader has in flight */
+	XLoader_QspiDrainPendingXfer();
+
+	/** Copy calibration data from QSPI flash to destination */
+	Status = XLoader_QspiCopy((u64)(UINTPTR)SrcAddr, (u64)DestAddr,
+			XLOADER_CALIBDATA_SIZE_BYTES, XPLMI_DEVICE_COPY_STATE_BLK);
+
+END:
+	/**
+	 * The copies of the remaining DDR MCs still need the controller, so it is
+	 * left initialized here on both paths. XLoader_QspiCalibDataRelease
+	 * releases it once the restore is over, on the error path as well.
+	 */
+	if (Status != XST_SUCCESS) {
+		XLoader_Printf(DEBUG_GENERAL, "QSPI calib data copy failed: 0x%x\n\r",
+				Status);
+	}
+
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function releases QSPI once the calibration data of all the
+ *		DDR MCs has been copied.
+ *
+ * @return
+ *		- XST_SUCCESS on success.
+ *		- Error code from XLoader_QspiRelease on failure.
+ *
+ *****************************************************************************/
+int XLoader_QspiCalibDataRelease(void)
+{
+	int Status = XST_FAILURE;
+
+	/** - Release only the initialization that the copies made. */
+	if (CalibQspiInited == (u8)TRUE) {
+		CalibQspiInited = (u8)FALSE;
+		Status = XLoader_QspiRelease();
+	}
+	else {
+		Status = XST_SUCCESS;
+	}
+
+	return Status;
+}
+
+#endif /* XPAR_CALIBDATA_STORAGEDEVICE */
+#endif
 /** @} end of xloader_qspi_apis group */
