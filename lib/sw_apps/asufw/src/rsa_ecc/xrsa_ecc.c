@@ -28,6 +28,7 @@
  *       kd   07/23/25 Fixed gcc warnings
  *       rmv  07/16/25 Update XRsa_EccGeneratePvtKey() function to add support for providing
  *                     random number as optional parameter
+ *       yog  09/10/26 Fix ECDSA ephemeral nonce for Brainpool curves.
  *
  * </pre>
  *
@@ -103,6 +104,8 @@ typedef struct {
 /************************************ Function Prototypes ****************************************/
 static s32 XRsa_EccEdHashCalc(XAsufw_Dma *DmaPtr, u32 CurveType, u64 DataAddr, u64 HashAddr,
 		u32 DataSize);
+static s32 XRsa_EccGenerateRandScalar(const EcdsaCrvInfo *CrvInfo, u32 CurveLen,
+		const u8 *InputRandBuf, u8 ReduceModOrder, u8 *Scalar);
 
 /************************************ Variable Definitions ***************************************/
 
@@ -417,7 +420,10 @@ END:
  *	- XASUFW_RSA_ECC_WRITE_DATA_FAIL, if write data through DMA fails.
  *	- XASUFW_RSA_ECC_READ_DATA_FAIL, if read data through DMA fails.
  *	- XASUFW_RSA_CHANGE_ENDIANNESS_ERROR, if endianness change fails.
- *	- XASUFW_ECC_EPHEMERAL_KEY_GEN_FAIL, if ephemeral key generation fails.
+ *	- XASUFW_RSA_ECC_EPHEMERAL_KEY_GEN_FAIL, if ephemeral key generation fails.
+ *	- XASUFW_RSA_ECC_TRNG_FAILED, if random number generation for the ephemeral key fails.
+ *	- XASUFW_RSA_ECC_MOD_ORDER_FAILED, if reducing the ephemeral key modulo the curve
+ *	order fails.
  *	- XASUFW_FAILURE, if sign generation fails due to other reasons.
  *	- XASUFW_RSA_ECC_GEN_SIGN_BAD_RAND_NUM, if bad signature is generated.
  *	- XASUFW_RSA_ECC_GEN_SIGN_INCORRECT_HASH_LEN, if invalid hash length is provided to the
@@ -450,8 +456,6 @@ s32 XRsa_EccGenerateSignature(XAsufw_Dma *DmaPtr, u32 CurveType, u32 CurveLen, u
 	EcdsaCrvInfo *Crv = NULL;
 	u64 HashBufAddr = 0U;
 	u32 HashBufLen = 0U;
-	u8* EKeyPtr = NULL;
-	u8 EphemeralKeyLen = 0U;
 	u32 HashPadLen = 0U;
 
 	/** Validate the input arguments. */
@@ -525,41 +529,31 @@ s32 XRsa_EccGenerateSignature(XAsufw_Dma *DmaPtr, u32 CurveType, u32 CurveLen, u
 			goto END_CLR;
 		}
 
-		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 		/**
-		 * Generate the ephemeral key using TRNG if input pointer is NULL
-		 * else copy the key to the local buffer and change the endianness of it.
+		 * Prepare the ephemeral key (nonce 'k'):
+		 * - If a key is provided (e.g., KAT/known vector), copy it to the local buffer
+		 *   and change its endianness to the little-endian order expected by the core.
+		 * - If no key is provided, the nonce is generated later (after the core reset is
+		 *   released) using XRsa_EccGenerateRandScalar(), which reduces a random value
+		 *   modulo the curve order 'n'. A raw curve-length draw must not be used directly,
+		 *   as it can exceed 'n' (a large fraction of the time for Brainpool curves, whose
+		 *   order is well below 2^bits), which the core rejects with an order error.
 		 */
-		if (EphemeralKeyPtr == NULL) {
-			/* For curve P-521, the required random number size for the ephemeral key
-			is 521 bits (equivalent to 65 bytes plus 1 bit). Since the provided curve
-			length is 66 bytes (528 bits), the most significant 7 bits must be cleared
-			to ensure the value is less than the curve order. To achieve this, a 65-byte
-			random number is generated and placed starting from the first index, ensuring
-			that the most significant byte is zero.
-			*/
-			if (Crv->CrvType == ECDSA_NIST_P521) {
-				EKeyPtr = (EphemeralKey + XASUFW_BUFFER_INDEX_ONE);
-				EphemeralKeyLen = (u8)(CurveLen - XASUFW_VALUE_ONE);
-			} else {
-				EKeyPtr = EphemeralKey ;
-				EphemeralKeyLen = (u8)CurveLen;
-			}
-			Status = XTrng_GetRandomNumbers(EKeyPtr, EphemeralKeyLen);
-		} else {
-			Status =  Xil_SMemCpy((u8 *)EphemeralKey, CurveLen,
+		if (EphemeralKeyPtr != NULL) {
+			ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+			Status = Xil_SMemCpy((u8 *)EphemeralKey, CurveLen,
 					(const u8 *)EphemeralKeyPtr, CurveLen, CurveLen);
-		}
-		if (Status != XASUFW_SUCCESS) {
-			Status = XASUFW_ECC_EPHEMERAL_KEY_GEN_FAIL;
-			goto END_CLR;
-		}
+			if (Status != XASUFW_SUCCESS) {
+				Status = XASUFW_RSA_ECC_EPHEMERAL_KEY_GEN_FAIL;
+				goto END_CLR;
+			}
 
-		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-		Status = XAsufw_ChangeEndianness(EphemeralKey, CurveLen);
-		if (Status != XASUFW_SUCCESS) {
-			Status = XASUFW_RSA_CHANGE_ENDIANNESS_ERROR;
-			goto END_CLR;
+			ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+			Status = XAsufw_ChangeEndianness(EphemeralKey, CurveLen);
+			if (Status != XASUFW_SUCCESS) {
+				Status = XASUFW_RSA_CHANGE_ENDIANNESS_ERROR;
+				goto END_CLR;
+			}
 		}
 	}
 	/** Release RSA core reset. */
@@ -569,6 +563,22 @@ s32 XRsa_EccGenerateSignature(XAsufw_Dma *DmaPtr, u32 CurveType, u32 CurveLen, u
 	Sign.s = (u8 *)(UINTPTR)(Signature + CurveLen);
 
 	if ((Crv->CrvType != ECDSA_ED25519) && (Crv->CrvType != ECDSA_ED448)) {
+		/**
+		 * For a TRNG-generated nonce, produce the ephemeral key in [1, n-1] by reducing
+		 * a fresh random value modulo the curve order. The result is little-endian, which
+		 * is the byte order the core expects for the nonce, so no reversal is needed. This
+		 * must run after the core reset is released, as Ecdsa_ModEccOrder() uses the core.
+		 */
+		if (EphemeralKeyPtr == NULL) {
+			ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+			Status = XRsa_EccGenerateRandScalar(Crv, CurveLen, NULL, (u8)XASU_TRUE,
+					EphemeralKey);
+			if (Status != XASUFW_SUCCESS) {
+				Status = XAsufw_UpdateErrorStatus(Status, XASUFW_RSA_ECC_EPHEMERAL_KEY_GEN_FAIL);
+				goto END_CLR;
+			}
+		}
+
 		/**
 		 * For curves other than Edward curves,
 		 * - Generate signature with provided inputs and curve type.
@@ -915,6 +925,105 @@ END:
 
 /*************************************************************************************************/
 /**
+ * @brief	This function generates an ECC scalar (private key or ephemeral nonce) from the
+ *		TRNG (or a caller-supplied random buffer) for use by the ECC operations. It is
+ *		the single place that draws the random value and maps a TRNG failure to
+ *		XASUFW_RSA_ECC_TRNG_FAILED. When ReduceModOrder is XASU_TRUE, it draws
+ *		(curve length + 64 bits) of data and reduces it modulo the curve order 'n' using
+ *		Ecdsa_ModEccOrder() so the scalar is in [1, n-1] and effectively unbiased (as
+ *		recommended by FIPS 186-4 section B.5.1). When ReduceModOrder is XASU_FALSE
+ *		(Edward/Montgomery curves), it draws CurveLen bytes and returns the raw value
+ *		without reduction.
+ *
+ * @param	CrvInfo		Pointer to the ECC curve information.
+ * @param	CurveLen	Length of the curve in bytes.
+ * @param	InputRandBuf	Optional pointer to a caller-supplied random buffer. If NULL, the
+ *				random value is generated using the TRNG.
+ * @param	ReduceModOrder	XASU_TRUE to reduce the random value modulo the curve order (scalar
+ *				in [1, n-1]); XASU_FALSE to return the raw random value.
+ * @param	Scalar		Pointer to store the generated scalar in little-endian byte order
+ *				(as emitted by Ecdsa_ModEccOrder()) when reduced.
+ *
+ * @return
+ *	-	XASUFW_SUCCESS, if the scalar is generated successfully.
+ *	-	XASUFW_RSA_ECC_TRNG_FAILED, if random number generation fails.
+ *	-	XASUFW_RSA_ECC_MOD_ORDER_FAILED, if Ecdsa_ModEccOrder() fails.
+ *	-	XASUFW_MEM_COPY_FAIL, if copying the raw random value to Scalar fails.
+ *	-	Error code from XAsufw_UpdateBufStatus, if local buffer zeroization fails.
+ *
+ * @note	When ReduceModOrder is XASU_TRUE, the RSA core reset must already be released by
+ *		the caller, as Ecdsa_ModEccOrder() uses the RSA core. The output is little-endian;
+ *		reverse it if a big-endian scalar is required.
+ *
+ *************************************************************************************************/
+static s32 XRsa_EccGenerateRandScalar(const EcdsaCrvInfo *CrvInfo, u32 CurveLen,
+		const u8 *InputRandBuf, u8 ReduceModOrder, u8 *Scalar)
+{
+	CREATE_VOLATILE(Status, XASUFW_FAILURE);
+	XFih_Var XFihEcc = XFih_VolatileAssignXfihVar(XFIH_FAILURE);
+	u8 RandBuf[XRSA_ECC_P521_RANDBUFLEN_IN_BYTES] = {0U};
+	const u8 *RandBufPtr = InputRandBuf;
+	u8 RandGenLen = (u8)CurveLen;
+
+	/**
+	 * When the value is to be reduced modulo the curve order, draw (CurveLen + 64-bit) so the
+	 * reduction is effectively unbiased (FIPS 186-4 section B.5.1), i.e.
+	 *  - (CurveLen + 7U) bytes for curve NIST P-521.
+	 *  - (CurveLen + 8U) bytes for all other curves.
+	 * Otherwise (raw value) draw exactly CurveLen bytes.
+	 */
+	if (ReduceModOrder == (u8)XASU_TRUE) {
+		if (CrvInfo->CrvType == ECDSA_NIST_P521) {
+			RandGenLen = (u8)(CurveLen + XRSA_ECC_P521_RAND_NUM_GEN_EXTRA_BYTES);
+		} else {
+			RandGenLen = (u8)(CurveLen + XRSA_ECC_GENERIC_RAND_NUM_GEN_EXTRA_BYTES);
+		}
+	}
+
+	/** Generate the random value using TRNG when no input buffer is provided. */
+	if (InputRandBuf == NULL) {
+		Status = XTrng_GetRandomNumbers(RandBuf, RandGenLen);
+		if (Status != XASUFW_SUCCESS) {
+			Status = XAsufw_UpdateErrorStatus(Status, XASUFW_RSA_ECC_TRNG_FAILED);
+			goto END;
+		}
+		RandBufPtr = RandBuf;
+	}
+
+	/** For Edward/Montgomery curves, return the raw random value without reduction. */
+	if (ReduceModOrder != (u8)XASU_TRUE) {
+		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+		Status = Xil_SecureMemCpy(Scalar, CurveLen, RandBufPtr, CurveLen);
+		if (Status != XASUFW_SUCCESS) {
+			Status = XASUFW_MEM_COPY_FAIL;
+		}
+		goto END;
+	}
+
+	/**
+	 * Reduce the random value modulo the curve order 'n' to obtain the scalar in little-endian
+	 * order. Ecdsa_ModEccOrder() never returns an all-zero output for the (CurveLen + 64 bits)
+	 * random input drawn here, so the resulting scalar is always in the range [1, n-1] and no
+	 * explicit zero check is required.
+	 */
+	XFIH_CALL(Ecdsa_ModEccOrder, XFihEcc, Status, CrvInfo, RandBufPtr, Scalar);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_RSA_ECC_MOD_ORDER_FAILED;
+		goto END;
+	}
+
+END:
+	/** Zeroize the local random buffer. */
+	if (InputRandBuf == NULL) {
+		Status = XAsufw_UpdateBufStatus(Status, Xil_SecureZeroize(RandBuf,
+					XRSA_ECC_P521_RANDBUFLEN_IN_BYTES));
+	}
+
+	return Status;
+}
+
+/*************************************************************************************************/
+/**
  * @brief	This function generates the private key using TRNG and applies ModEccOrder to
  * 		the generated random number.
  *
@@ -938,12 +1047,9 @@ s32 XRsa_EccGeneratePvtKey(u32 CurveType, u32 CurveLen, u8 *PvtKey, u8 *InputRan
 			   u32 InputRandBufLen)
 {
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
-	u8 RandBuf[XRSA_ECC_P521_RANDBUFLEN_IN_BYTES] = {0U};
-	u8 *RandBufPtr = InputRandBuf;
 	EcdsaCrvInfo *CrvInfo = NULL;
 	u32 CurveSize = 0U;
 	u8 RandBufLen = 0U;
-	u8 RandGenLen = 0U;
 
 	/** Validate input parameters. */
 	if (PvtKey == NULL) {
@@ -983,32 +1089,6 @@ s32 XRsa_EccGeneratePvtKey(u32 CurveType, u32 CurveLen, u8 *PvtKey, u8 *InputRan
 		goto END;
 	}
 
-	/** Generate random number for calculating private key. */
-	if (InputRandBuf == NULL) {
-		/**
-		 * Length should be CurveLen for Edward and Montgomery curves.
-		 * Length should be (CurveLen + 64-bit), so,
-		 *  - (CurveLen + 7U) bytes for curve NIST P-521.
-		 *  - (CurveLen + 8U) bytes for all other curves.
-		 */
-		if (CrvInfo->CrvType == ECDSA_NIST_P521) {
-			RandGenLen = (u8)(CurveLen + XRSA_ECC_P521_RAND_NUM_GEN_EXTRA_BYTES);
-		} else if ((CrvInfo->CrvType == ECDSA_ED25519) || (CrvInfo->CrvType == ECDSA_ED448) ||
-			   (CrvInfo->CrvType == ECDSA_CURVE25519) || (CrvInfo->CrvType == ECDSA_CURVE448)) {
-			RandGenLen = (u8)CurveLen;
-		}
-		else {
-			RandGenLen = (u8)(CurveLen + XRSA_ECC_GENERIC_RAND_NUM_GEN_EXTRA_BYTES);
-		}
-
-		Status = XTrng_GetRandomNumbers(RandBuf, RandGenLen);
-		if (Status != XASUFW_SUCCESS) {
-			Status = XAsufw_UpdateErrorStatus(Status, XASUFW_RSA_ECC_TRNG_FAILED);
-			goto END;
-		}
-		RandBufPtr = RandBuf;
-	}
-
 	/**
 	 * For curves other than Edward and Montgomery curves,
 	 * calculate the private key using third party code.
@@ -1019,13 +1099,13 @@ s32 XRsa_EccGeneratePvtKey(u32 CurveType, u32 CurveLen, u8 *PvtKey, u8 *InputRan
 		XAsufw_CryptoCoreReleaseReset(XRSA_BASEADDRESS, XRSA_RESET_OFFSET);
 
 		/**
-		 * - Calculate the private key with the random number generated by TRNG using
-		 * Ecdsa_ModEccOrder API.
+		 * - Generate the private key by reducing a random value (TRNG-generated when no
+		 * input buffer is provided) modulo the curve order. The result is little-endian.
 		 */
-		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-		Status = Ecdsa_ModEccOrder(CrvInfo, RandBufPtr, PvtKey);
+		Status = XRsa_EccGenerateRandScalar(CrvInfo, CurveLen, InputRandBuf,
+				(u8)XASU_TRUE, PvtKey);
 		if (Status != XASUFW_SUCCESS) {
-			Status = XASUFW_RSA_ECC_MOD_ORDER_FAILED;
+			Status = XAsufw_UpdateErrorStatus(Status, XASUFW_RSA_ECC_GEN_PVT_KEY_OPERATION_FAIL);
 			goto END;
 		}
 
@@ -1040,23 +1120,17 @@ s32 XRsa_EccGeneratePvtKey(u32 CurveType, u32 CurveLen, u8 *PvtKey, u8 *InputRan
 		}
 	} else {
 		/**
-		 * For edward and montgomery curves, copy the generated
-		 * random number to private key pointer.
+		 * For edward and montgomery curves, generate the raw random value (when no input
+		 * buffer is provided) and store it as the private key, without reduction.
 		 */
-		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-		Status = Xil_SecureMemCpy(PvtKey, CurveLen, RandBufPtr, CurveLen);
+		Status = XRsa_EccGenerateRandScalar(CrvInfo, CurveLen, InputRandBuf,
+				(u8)XASU_FALSE, PvtKey);
 		if (Status != XASUFW_SUCCESS) {
-			Status = XASUFW_MEM_COPY_FAIL;
+			Status = XAsufw_UpdateErrorStatus(Status, XASUFW_RSA_ECC_GEN_PVT_KEY_OPERATION_FAIL);
 		}
 	}
 
 END:
-	if (InputRandBuf == NULL) {
-		/** Zeroize the local buffer. */
-		Status = XAsufw_UpdateBufStatus(Status, Xil_SecureZeroize(RandBufPtr,
-						XRSA_ECC_P521_RANDBUFLEN_IN_BYTES));
-	}
-
 	/** Set RSA under reset. */
 	XAsufw_CryptoCoreSetReset(XRSA_BASEADDRESS, XRSA_RESET_OFFSET);
 
