@@ -13,6 +13,26 @@
 #define NUM_OF_BISR_CACHE_DATA_REGIONS		5U
 #define BISR_CACHE_SUB_SIZE			16U
 
+/****************************************************************************/
+/**
+ * @brief Load LPD BISR data from an eFUSE tag and run the repair operation.
+ *
+ * Reads the tag size from the first word at @p EfuseTagAddr, clears the LPD
+ * BISR cache, copies the tag payload into the cache, and triggers repair. The
+ * function then waits for every required repair engine to finish and verifies
+ * that all required pass bits are set.
+ *
+ * @param EfuseTagAddr Pointer to the tag header followed by its BISR payload.
+ * @param TagDataAddr Pointer updated with the post-copy BISR data cursor.
+ *
+ * @return XST_SUCCESS when all required repairs complete and pass;
+ *         ERRSTS_REPAIR_BAD_TAG_SIZE when the payload exceeds 16 words;
+ *         ERRSTS_REPAIR_TIMEOUT when completion polling times out; or
+ *         ERRSTS_REPAIR_FUNCTION_FAILED when a required pass bit is clear.
+ *
+ * @note Both pointers must be valid. Trigger and cache-register writes remain
+ *       effective if a later completion or pass check fails.
+ ****************************************************************************/
 XStatus XPmRepair_Lpd(u32 * EfuseTagAddr, u32 * TagDataAddr)
 {
 	XStatus Status = XST_FAILURE;

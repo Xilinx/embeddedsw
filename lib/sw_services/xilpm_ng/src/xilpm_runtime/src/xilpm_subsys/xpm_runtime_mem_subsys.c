@@ -24,7 +24,7 @@
 /**
  * @brief  Callback to flush given memory region using ABF
  *
- * @param  AddrRegn	Handle to memory region to be flushed
+ * @param  AddrRegion	Handle to memory region to be flushed
  *
  * @return XST_SUCCESS if successful, error code otherwise
  *
@@ -39,6 +39,7 @@ static XStatus AddrRegnCmnFlushCb(const XPm_AddrRegion *const AddrRegion)
 		POR_HNF_NODE_INFO_U_HNF_NID200_BASEADDR,
 	};
 
+	/* Validate the region before programming any HNF node */
 	if (NULL == AddrRegion) {
 		Status = XST_INVALID_PARAM;
 		goto done;
@@ -52,6 +53,7 @@ static XStatus AddrRegnCmnFlushCb(const XPm_AddrRegion *const AddrRegion)
 		(u32)(AddrRegion->Address >> 32U), (u32)(AddrRegion->Address),
 		(u32)(AddrRegion->Size >> 32U), (u32)(AddrRegion->Size));
 
+	/* Program and complete the address-based flush at each HNF node */
 	for (u32 Idx = 0U; Idx < ARRAY_SIZE(MemAddr); Idx++) {
 		XPm_Out32(MemAddr[Idx] + ABF_LO_ADDR_U_HNF_NID_OFFSET_0,
 			  (u32)(AddrRegion->Address));
@@ -65,6 +67,7 @@ static XStatus AddrRegnCmnFlushCb(const XPm_AddrRegion *const AddrRegion)
 		Status = XPm_PollForMask(MemAddr[Idx] + ABF_SR_U_HNF_NID_OFFSET, 0x1U,
 					 XPM_POLL_TIMEOUT);
 		if (XST_SUCCESS != Status) {
+			/* Stop before programming later HNF nodes after a timeout */
 			goto done;
 		}
 	}
@@ -93,6 +96,7 @@ static XStatus SubsystemCmnFlush(u32 SubsystemId,
 	const XPm_Subsystem *Subsystem;
 	XPm_AddrRegion AddrRegn = { 0U };
 
+	/* Resolve the requirement list owned by the requested subsystem */
 	Subsystem = XPmSubsystem_GetById(SubsystemId);
 	if (NULL == Subsystem) {
 		Status = XPM_INVALID_SUBSYSID;
@@ -106,6 +110,7 @@ static XStatus SubsystemCmnFlush(u32 SubsystemId,
 		u32 DeviceId = Reqm->Device->Node.Id;
 		u64 Address = 0U, Size = 0U;
 
+		/* Only memory-region requirements describe flushable address ranges */
 		if ((u32)XPM_NODESUBCL_DEV_MEM_REGN != NODESUBCLASS(DeviceId)) {
 			continue;
 		}
@@ -117,6 +122,7 @@ static XStatus SubsystemCmnFlush(u32 SubsystemId,
 			/* Zero-ing out upper flag bits[31:28] from 64bit size for PL */
 			Size &= ~PL_MEM_REGN_FLAGS_MASK_64;
 		}
+		/* Present the normalized address and size to the callback */
 		AddrRegn.Address = Address;
 		AddrRegn.Size = Size;
 

@@ -527,6 +527,7 @@ XStatus XPmPlDevice_InitFinish(XPm_PlDevice *PlDevice, const u32 *Args, u32 NumA
 	} else {
 		PlDevice->Device.Node.State = (u8)XPM_DEVSTATE_RUNNING;
 	}
+	/* Reconcile power-domain state with the rebuilt dependency bitmask */
 	Status = Pld_ManagePower(PlDevice);
 
 done:

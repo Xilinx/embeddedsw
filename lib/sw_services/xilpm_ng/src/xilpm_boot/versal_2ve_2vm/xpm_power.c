@@ -354,6 +354,16 @@ static XStatus XPmPower_PowerDwnSelfState(XPm_Node *Node, u32 Event)
 	return Status;
 }
 
+/****************************************************************************/
+/**
+ * @brief  Read the current software state of a power node.
+ *
+ * @param  DeviceId    Complete power node ID to look up.
+ * @param  DeviceState Non-NULL output pointer receiving the node state when
+ *                     found. It is left unchanged when the lookup fails.
+ *
+ * @return XST_SUCCESS when the power node is found, or XST_FAILURE otherwise.
+ ****************************************************************************/
 XStatus XPmPower_GetState(const u32 DeviceId, u32 *const DeviceState)
 {
 	XStatus Status = XST_FAILURE;

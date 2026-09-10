@@ -352,10 +352,12 @@ void XPm_MemTblOnPowerEvent(u32 NodeId)
  * Retained for future debugging - there are no callers, so the linker drops it
  * from the image. Reads the raw table at XPLMI_MEMTBL_ADDR and prints the
  * decoded header + each entry (base address included) so a boot log can be
- * cross-referenced with the source table. Uses PmDbg, which is disabled by
- * default; raise XPmLogLevel to XPM_DBG_VAL (or switch to PmWarn) to enable.
+ * cross-referenced with the source table. Corrupt entry counts are capped at
+ * the reservation's maximum before iteration. The routine reads but does not
+ * modify the table. Uses PmDbg, which is disabled by default; raise XPmLogLevel
+ * to XPM_DBG_VAL (or switch to PmWarn) to enable.
  *
- * @param  Label	Short tag identifying the dump call site.
+ * @param  Label	Non-NULL short tag identifying the dump call site.
  *
  * @return None.
  *
@@ -370,6 +372,7 @@ void XPm_MemTblDump(const char *Label)
 	u32 NumEnt;
 	u32 i;
 
+	/* Decode the packed table format and entry count from header word zero */
 	XPm_MemTblParseHdr0(Hdr0, &Version, &HdrSize, &EntSize, &NumEnt);
 
 	PmDbg("MemTbl[%s] @0x%08x Hdr0=0x%08x Ver=%u HdrSz=%u EntSz=%u NumEnt=%u UpdCnt=0x%08x Present=%u\r\n",
@@ -381,6 +384,7 @@ void XPm_MemTblDump(const char *Label)
 		NumEnt = XPM_MEMTBL_MAX_ENTRIES;
 	}
 
+	/* Decode each fixed-stride entry from the reserved table region */
 	for (i = 0U; i < NumEnt; i++) {
 		u32 EntryAddr = XPLMI_MEMTBL_ADDR + XPM_MEMTBL_ENTRY0_OFFSET +
 				(u32)(i * (u32)sizeof(XPm_MemTblEntry));
@@ -388,6 +392,7 @@ void XPm_MemTblDump(const char *Label)
 		u32 SizeUnits = XPm_In32(EntryAddr + XPM_MEMTBL_ENTRY_SIZE_OFFSET);
 		u32 AddrHigh = XPm_In32(EntryAddr + XPM_MEMTBL_ENTRY_ADDRHIGH_OFFSET);
 		u32 AddrLow = XPm_In32(EntryAddr + XPM_MEMTBL_ENTRY_ADDRLOW_OFFSET);
+		/* Split the packed attributes into state, flags, and permissions */
 		u32 State = (Attr & XPM_MEMTBL_ENTRY_STATE_MASK) >> XPM_MEMTBL_ENTRY_STATE_SHIFT;
 		u32 MemFlags = (Attr & XPM_MEMTBL_ENTRY_MEMFLAGS_MASK) >> XPM_MEMTBL_ENTRY_MEMFLAGS_SHIFT;
 		u32 AccPerm = Attr & XPM_MEMTBL_ENTRY_ACCPERM_MASK;

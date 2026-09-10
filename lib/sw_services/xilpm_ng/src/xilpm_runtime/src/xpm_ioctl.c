@@ -40,20 +40,27 @@
 
 /*****************************************************************************/
 /**
- * @brief  Internal validation function for device ID verification
+ * @brief Validate that a device identifier is legal for an IOCTL.
  *
- * @param  IoctlId	IOCTL ID to validate
- * @param  DeviceId	Device ID to validate
+ * Requires RPU-only operations to target an RPU core, APU mode operations to
+ * target an APU core, and SD DLL reset to target SDIO0. Invalid combinations
+ * are logged; no device or register state is changed.
  *
- * @return XST_SUCCESS if validation passes, error code otherwise
+ * @param IoctlId IOCTL operation whose target restrictions are checked.
+ * @param DeviceId Device node identifier supplied for the operation.
  *
- * @note   This is the internal implementation function. For usage requiring
- *         fault attack resistance, call XPm_ValidateDeviceId instead.
+ * @return XST_SUCCESS for a permitted combination, or XPM_INVALID_DEVICEID for
+ *         a restricted operation with an invalid target.
+ *
+ * @note Call XPm_ValidateDeviceId instead when fault-injection resistance is
+ *       required; it invokes this implementation redundantly and compares the
+ *       results.
  *****************************************************************************/
 static XStatus XPm_ValidateDeviceId_Int(const pm_ioctl_id IoctlId, const u32 DeviceId)
 {
 	XStatus Status = XST_FAILURE;
 
+	/* Restrict RPU mode and boot-address operations to RPU core nodes */
 	if (((IOCTL_GET_RPU_OPER_MODE == IoctlId) ||
 	    (IOCTL_SET_RPU_OPER_MODE == IoctlId) ||
 	    (IOCTL_RPU_BOOT_ADDR_CONFIG == IoctlId)) &&
@@ -62,6 +69,7 @@ static XStatus XPm_ValidateDeviceId_Int(const pm_ioctl_id IoctlId, const u32 Dev
 		goto done;
 	}
 
+	/* Restrict APU mode operations to APU core nodes */
 	if (((IOCTL_GET_APU_OPER_MODE == IoctlId) ||
 	    (IOCTL_SET_APU_OPER_MODE == IoctlId)) &&
 	    (!IS_DEV_APU(DeviceId))) {
@@ -76,6 +84,7 @@ static XStatus XPm_ValidateDeviceId_Int(const pm_ioctl_id IoctlId, const u32 Dev
 		goto done;
 	}
 
+	/* Allow IOCTLs that have no device-type restriction above */
 	Status = XST_SUCCESS;
 
 done:

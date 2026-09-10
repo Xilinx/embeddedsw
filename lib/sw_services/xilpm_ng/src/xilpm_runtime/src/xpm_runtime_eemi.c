@@ -44,6 +44,7 @@
 __attribute__((weak, noinline))
 XStatus XPmSubsystemOp_NotifyHealthyBoot(XPm_Subsystem *Subsystem)
 {
+	/* The strong subsystem implementation replaces this weak EEMI default. */
 	(void)Subsystem;
 	return XST_SUCCESS;
 }
@@ -64,6 +65,7 @@ XStatus XPmSubsystemOp_NotifyHealthyBoot(XPm_Subsystem *Subsystem)
 __attribute__((weak, noinline))
 XStatus XPmSubsystemOp_StartRecoveryTimer(XPm_Subsystem *Subsystem, u32 CmdType)
 {
+	/* The strong subsystem implementation replaces this weak EEMI default. */
 	(void)Subsystem;
 	(void)CmdType;
 	return XST_SUCCESS;
@@ -84,6 +86,7 @@ XStatus XPmSubsystemOp_StartRecoveryTimer(XPm_Subsystem *Subsystem, u32 CmdType)
 __attribute__((weak, noinline))
 XStatus XPmSubsystemOp_InitFinalize(XPm_Subsystem *Subsystem)
 {
+	/* The strong subsystem implementation replaces this weak EEMI default. */
 	(void)Subsystem;
 	return XST_SUCCESS;
 }
@@ -101,6 +104,7 @@ XStatus XPmSubsystemOp_InitFinalize(XPm_Subsystem *Subsystem)
 __attribute__((weak, noinline))
 XStatus XPmSubsystemOp_ShutDown(XPm_Subsystem *Subsystem)
 {
+	/* The strong subsystem implementation replaces this weak EEMI default. */
 	(void)Subsystem;
 	return XST_SUCCESS;
 }
@@ -120,6 +124,7 @@ XStatus XPmSubsystemOp_ShutDown(XPm_Subsystem *Subsystem)
 __attribute__((weak, noinline))
 XStatus XPmSubsystemOp_AddRequirement(XPm_Subsystem *Subsystem, u32 *Payload, u32 PayloadLen)
 {
+	/* The strong subsystem implementation replaces this weak EEMI default. */
 	(void)Subsystem;
 	(void)Payload;
 	(void)PayloadLen;
@@ -131,6 +136,7 @@ XStatus XPmSubsystemOp_AddRequirement(XPm_Subsystem *Subsystem, u32 *Payload, u3
 __attribute__((weak, noinline))
 XStatus XPmSubsystemOp_Idle(XPm_Subsystem *Subsystem)
 {
+	/* This hook is an intentional no-op in the current subsystem operation table. */
 	(void)Subsystem;
 	return XST_SUCCESS;
 }
@@ -140,6 +146,7 @@ XStatus XPmSubsystemOp_Idle(XPm_Subsystem *Subsystem)
 __attribute__((weak, noinline))
 XStatus XPmSubsystemOp_Suspend(XPm_Subsystem *Subsystem)
 {
+	/* This hook is an intentional no-op in the current subsystem operation table. */
 	(void)Subsystem;
 	return XST_SUCCESS;
 }
@@ -149,6 +156,7 @@ XStatus XPmSubsystemOp_Suspend(XPm_Subsystem *Subsystem)
 __attribute__((weak, noinline))
 XStatus XPmSubsystemOp_WakeUp(XPm_Subsystem *Subsystem)
 {
+	/* This hook is an intentional no-op in the current subsystem operation table. */
 	(void)Subsystem;
 	return XST_SUCCESS;
 }
@@ -311,11 +319,18 @@ XStatus XPmSubsystemOp_Activate(XPm_Subsystem *Subsystem)
 		goto done;
 	}
 
+	/* Device requests require an online owner, so restore the state before preallocation. */
 	/* Set subsystem to online if powered off */
 	if (Subsystem->State == (u16)POWERED_OFF) {
 		Subsystem->State = (u16)ONLINE;
 	}
 	PmDbg("Configuring Subsystem: 0x%x, reqlist\r\n", Subsystem->Id, Subsystem->Requirements);
+	/*
+	 * An empty requirement list is a legitimate configuration - a subsystem
+	 * that preallocates nothing - so it completes as SUCCESS rather than as
+	 * an error.  The diagnostic stays in this function because the helper
+	 * below never sees the empty case.
+	 */
 	/* Keep the NULL-list diagnostic in this function before delegating traversal. */
 	if (NULL == Subsystem->Requirements) {
 		PmErr("List is NULL\n");
@@ -374,10 +389,15 @@ static XStatus XPmSubsystem_CheckNodePermissions(XPm_Subsystem *Subsystem,
 		/* TODO: Check if an implementation is needed for this case */
 		break;
 	case (u32)XPM_NODECLASS_CLOCK:
+		/* Repeat each implemented permission check to detect transient disagreement. */
 		XSECURE_TEMPORAL_CHECK(done, Status,
 			XPmClock_CheckPermissions, NODEINDEX(Subsystem->Id), NodeId);
 		break;
 	case (u32)XPM_NODECLASS_RESET:
+		/*
+		 * Reset and device permissions are held per subsystem OBJECT, so
+		 * these two checkers take the pointer rather than an identifier.
+		 */
 		XSECURE_TEMPORAL_CHECK(done, Status,
 			XPmReset_CheckPermissions, Subsystem, NodeId);
 		break;
@@ -386,6 +406,12 @@ static XStatus XPmSubsystem_CheckNodePermissions(XPm_Subsystem *Subsystem,
 			XPmDevice_CheckPermissions, Subsystem, NodeId);
 		break;
 	case (u32)XPM_NODECLASS_STMIC:
+		/*
+		 * Pin permissions are keyed on the WHOLE subsystem ID, while the
+		 * clock checker above takes only NODEINDEX() of it.  The two are
+		 * not interchangeable; passing the wrong form silently checks
+		 * against the wrong subsystem.
+		 */
 		XSECURE_TEMPORAL_CHECK(done, Status,
 			XPmPin_CheckPerms, Subsystem->Id, NodeId);
 		break;
@@ -465,6 +491,7 @@ XStatus XPmSubsystemOp_IsAccessAllowed(XPm_Subsystem *Subsystem, u32 NodeId)
 	if (XST_SUCCESS == Status) {
 		goto done;
 	}
+	/* Stop on a disagreement before evaluating ordinary node permissions. */
 	if (XST_GLITCH_ERROR == Status) {
 		goto done;
 	}
@@ -511,6 +538,7 @@ __attribute__((weak, noinline))
 XStatus XPmSubsystem_IsOperationAllowed(const u32 HostId, const u32 TargetId,
 					const u32 Operation, const u32 CmdType)
 {
+	/* The strong subsystem implementation replaces this weak EEMI default. */
 	(void)HostId;
 	(void)TargetId;
 	(void)Operation;
@@ -536,6 +564,7 @@ XStatus XPmSubsystem_IsOperationAllowed(const u32 HostId, const u32 TargetId,
 __attribute__((weak, noinline))
 XStatus XPm_IsWakeAllowed(u32 SubsystemId, u32 NodeId, u32 CmdType)
 {
+	/* The strong subsystem implementation replaces this weak EEMI default. */
 	(void)SubsystemId;
 	(void)NodeId;
 	(void)CmdType;
@@ -560,6 +589,7 @@ XStatus XPm_IsWakeAllowed(u32 SubsystemId, u32 NodeId, u32 CmdType)
 __attribute__((weak, noinline))
 XStatus XPm_IsForcePowerDownAllowed(u32 SubsystemId, u32 NodeId, u32 CmdType)
 {
+	/* The strong subsystem implementation replaces this weak EEMI default. */
 	(void)SubsystemId;
 	(void)NodeId;
 	(void)CmdType;
@@ -583,6 +613,7 @@ XStatus XPm_IsForcePowerDownAllowed(u32 SubsystemId, u32 NodeId, u32 CmdType)
 __attribute__((weak, noinline))
 XStatus XPmSubsystem_CmnFlush(u32 SubsystemId)
 {
+	/* The strong memory-subsystem implementation replaces this weak EEMI default. */
 	(void)SubsystemId;
 	return XST_SUCCESS;
 }
@@ -603,6 +634,7 @@ XStatus XPmSubsystem_CmnFlush(u32 SubsystemId)
 __attribute__((weak, noinline))
 XPm_Fsm *XPmSubsystem_GetHbMonFsm(void)
 {
+	/* The strong healthy-boot monitor implementation replaces this weak default. */
 	PmWarn("Boot/recovery timer feature is not supported in EEMI\r\n");
 	return NULL;
 }

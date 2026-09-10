@@ -185,11 +185,16 @@ done:
 
 /****************************************************************************/
 /**
- * @brief Shutdown DDR device
+ * @brief Shut down a DDR device's power domain.
  *
- * @param Device DDR device pointer
+ * If the device has a power parent, sends it a power-down event and clears the
+ * device's NODE_IDLE_DONE flag after a successful transition. Any failure is
+ * reported through the internal debug-error logger.
  *
- * @return XST_SUCCESS on success, error code otherwise
+ * @param Device DDR device whose power parent and flags are updated.
+ *
+ * @return XST_SUCCESS when no power parent exists or power-down succeeds;
+ *         otherwise the status returned by the power parent's event handler.
  *
  ****************************************************************************/
 static XStatus ActionDDRShutdown(XPm_Device* const Device)
@@ -205,6 +210,7 @@ static XStatus ActionDDRShutdown(XPm_Device* const Device)
 			DbgErr = XPM_INT_ERR_PWRDN;
 			goto done;
 		}
+		/* Clear the idle-done marker once the domain is powered down. */
 		Device->Node.Flags &= (u8)(~NODE_IDLE_DONE);
 	}
 

@@ -230,6 +230,29 @@ done:
 }
 
 
+/****************************************************************************/
+/**
+ * @brief Start monitoring for a Healthy Boot Monitor device transition.
+ *
+ * Validates the monitor index and its pending requirement, starts the timeout
+ * using the requirement's current QoS, associates the corresponding software
+ * error with the requesting subsystem, records the pending power use count,
+ * and requests power-up from the device's power domain.
+ *
+ * The timer and error-subsystem association are established before the power
+ * event is issued and are not rolled back if that event fails.
+ *
+ * @param Device Pointer to the Healthy Boot Monitor device entering the running
+ *               state. The device and its power-domain association must be
+ *               valid.
+ *
+ * @return XST_SUCCESS if monitoring was started and any power-up event
+ *         completed successfully.
+ * @return XST_FAILURE if the monitor index or pending requirement is invalid.
+ * @return An error status returned while starting the timer or handling the
+ *         power-up event.
+ *
+ ****************************************************************************/
 static XStatus ActionStart(XPm_Device* const Device)
 {
 	XStatus Status = XST_FAILURE;
@@ -246,6 +269,7 @@ static XStatus ActionStart(XPm_Device* const Device)
 		goto done;
 	}
 
+	/* Require runtime operations and a requirement record before inspecting it */
 	if ((NULL == DevOps) || (NULL == DevOps->PendingReqm)) {
 		PmErr("DeviceOps/PendingReqm is NULL - HB Mon\r\n");
 		goto done;
@@ -263,6 +287,7 @@ static XStatus ActionStart(XPm_Device* const Device)
 	 */
 	u32 Timeout = DevOps->PendingReqm->Curr.QoS;
 
+	/* Arm the monitor before associating its error with the subsystem */
 	Status = HbMon_StartTimer(HbMon_Id, Timeout);
 
 	if (XST_SUCCESS != Status) {
@@ -291,6 +316,23 @@ done:
 	return Status;
 }
 
+/****************************************************************************/
+/**
+ * @brief Stop monitoring for a Healthy Boot Monitor device transition.
+ *
+ * Validates the monitor index, clears its timeout, and, when the device has an
+ * associated power domain, requests a power-down event. The cleared timeout is
+ * not restored if power-down fails.
+ *
+ * @param Device Pointer to the Healthy Boot Monitor device leaving the running
+ *               state. Must not be NULL.
+ *
+ * @return XST_SUCCESS if the timer was stopped and any power-down event
+ *         completed successfully.
+ * @return XST_FAILURE if the monitor index is outside the timeout table.
+ * @return An error status returned by the power-down event handler.
+ *
+ ****************************************************************************/
 static XStatus ActionStop(XPm_Device* const Device)
 {
 	XStatus Status = XST_FAILURE;

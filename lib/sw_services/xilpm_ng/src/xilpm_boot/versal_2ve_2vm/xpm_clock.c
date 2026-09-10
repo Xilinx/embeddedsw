@@ -13,6 +13,7 @@
 #include "xpm_alloc.h"
 #include "xpm_update.h"
 
+/** Shared generic clock topologies stored in initialization data. */
 static XPm_ClkTopology ClkTopologies[] XPM_INIT_DATA(ClkTopologies)= {
 	 {NULL, TOPOLOGY_GENERIC_MUX_DIV, 0, {0}},
 	 {NULL, TOPOLOGY_GENERIC_MUX_GATE, 0, {0}},
@@ -179,6 +180,7 @@ XStatus XPmClock_InitGenericTopology(void)
 	for (Index = 0U; ARRAY_SIZE(GenericTopologyDesc) > Index; Index++) {
 		Status = XPmClock_InitGenericTopologyNodes(
 						&GenericTopologyDesc[Index], &DbgErr);
+		/* Stop on failure so the table remains a successfully initialized prefix. */
 		if (XST_SUCCESS != Status) {
 			goto done;
 		}

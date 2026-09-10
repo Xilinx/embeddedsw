@@ -27,10 +27,17 @@ typedef struct {
 
 static XPm_NodeAccess *PmNodeAccessTable[XPM_NODE_ACCESS_TABLE_SIZE] XPM_INIT_DATA(PmNodeAccessTable) = { NULL };
 
+/****************************************************************************/
+/**
+ * @brief Find a node entry in the node access table.
+ */
+/****************************************************************************/
 static XPm_NodeAccess* XPmAccess_FindEntry(u32 NodeId)
 {
 	XPm_NodeAccess *Entry = PmNodeAccessTable[0];
 	XPm_NodeAccess *Result = NULL;
+
+	/* Walk the linked entries until the requested node is found. */
 	while (NULL != Entry) {
 		if (Entry->Id == NodeId) {
 			Result = Entry;
@@ -264,6 +271,16 @@ done:
 	return Status;
 }
 
+/**
+ * @brief Enforce the access policy of a matched node aperture.
+ *
+ * @param SubsystemId Identifier of the requesting subsystem.
+ * @param IoctlId Requested register access operation.
+ * @param CmdType Security type of the incoming command.
+ * @param Match Node and aperture matched to the requested address.
+ *
+ * @return XST_SUCCESS if access is allowed, otherwise an error status.
+ */
 static XStatus XPmAccess_EnforcePolicy(u32 SubsystemId, pm_ioctl_id IoctlId,
 				       u32 CmdType,
 				       const XPm_NodeAccessMatch *const Match)

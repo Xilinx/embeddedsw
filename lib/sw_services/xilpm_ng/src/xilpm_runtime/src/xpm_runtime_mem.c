@@ -34,6 +34,8 @@ struct XPm_ExclusionRegion {
 XStatus __attribute__((weak, noinline)) XPm_IsMemRegnAddressValid(u32 SubsystemId, u64 RegionAddr, u64 RegionSize, u8 *IsPLMem) {
 
 	XStatus Status = XPM_FAILURE;
+
+	/* This weak default validates only built-in callers; overrides use the range inputs. */
 	(void)(RegionAddr);
 	(void)(RegionSize);
 	(void)(IsPLMem);

@@ -14,6 +14,12 @@
 extern "C" {
 #endif
 typedef struct XPmRuntime_Core XPmRuntime_Core;
+/**
+ * @brief Declare the node, list, and allocator types for runtime core records.
+ *
+ * The generated list owns list nodes allocated from the runtime miscellaneous
+ * pool; each node references an XPmRuntime_Core supplied by the caller.
+ */
 CREATE_LIST(XPmRuntime_Core)
 struct XPmRuntime_Core {
 	XPm_Core * Core;

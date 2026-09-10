@@ -567,8 +567,15 @@ maybe_unused static inline XStatus XPm_PollForZero(u32 RegAddress, u32 Mask,
                 }                                                               \
         } while (XPM_FALSE_COND)                                                                \
 
-/*
- * Verify that every bit in MASK reads back CLEAR.  Equivalent to
+/**
+ * @brief Verify that every bit in MASK reads back clear.
+ *
+ * @param ADDR Register address to read.
+ * @param MASK Mask of bits expected to be clear.
+ * @param STATUS Set to XPM_REG_WRITE_FAILED if any masked bit is set;
+ *               otherwise left unchanged.
+ *
+ * Equivalent to
  * PmChkRegMask32(ADDR, MASK, 0, STATUS) -- (0 & MASK) != (In32 & MASK) is
  * exactly 0 != (In32 & MASK) -- but without instantiating the compare-against-
  * a-value macro with a constant value, which leaves a masked-off constant in

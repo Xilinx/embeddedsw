@@ -10,11 +10,12 @@
 
 /****************************************************************************/
 /**
- * @brief  This function returns total number of pins added.
+ * @brief  Read this module's runtime pin count, which remains zero because
+ *         its local counter is not incremented.
  *
- * @param NumPins	Number of pins.
+ * @param  NumPins  Pointer to receive the runtime pin count
  *
- * @return XST_SUCCESS.
+ * @return XST_SUCCESS on success, or XST_INVALID_PARAM when NumPins is NULL
  *
  ****************************************************************************/
 XStatus XPmPin_GetNumPins(u32 *NumPins)
@@ -27,6 +28,7 @@ XStatus XPmPin_GetNumPins(u32 *NumPins)
 		goto done;
 	}
 
+	/* Report the function-static count, which defaults to zero */
 	*NumPins = PmNumPins;
 	Status = XST_SUCCESS;
 
@@ -758,17 +760,21 @@ XStatus XPmPin_RuntimeOps_Init(XPm_PinNode* Pin)
 		goto done;
 	}
 
+	/* Resolve topology groups only after validating the array index */
 	Grp = XPmPin_GetGroupByIdx(PinIdx);
+	/* Allocate runtime state from the persistent device-operations pool */
 	Pin->RuntimeOps = (XPmRuntime_PinOps*)XPm_AllocBytesDevOps(sizeof(XPmRuntime_PinOps));
 	if (NULL == Pin->RuntimeOps) {
 		Status = XST_BUFFER_TOO_SMALL;
 		goto done;
 	}
+	/* Seed the pin's valid groups and leave it unassigned */
 	Pin->RuntimeOps->Groups = Grp->GroupList;
 	Pin->RuntimeOps->NumGroups = (u8)(Grp->GroupCount);
 	Pin->RuntimeOps->FuncId = (u8)MAX_FUNCTION;
 	Pin->RuntimeOps->SubsysIdx = (u16)NODEINDEX(INVALID_SUBSYSID);
 
+	/* Map the linear pin index into its hardware bank */
 	if (PinIdx <= PINS_PER_BANK) {
 		Pin->RuntimeOps->Bank = 0;
 	} else {
@@ -777,6 +783,7 @@ XStatus XPmPin_RuntimeOps_Init(XPm_PinNode* Pin)
 			BITMASK(PIN_NODE_BANK_BIT_FIELD_SIZE));
 	}
 
+	/* Apply the default electrical configuration */
 	Pin->RuntimeOps->BiasStatus = (u8)PINCTRL_BIAS_ENABLE;
 	Pin->RuntimeOps->PullCtrl = (u8)PINCTRL_BIAS_PULL_UP;
 	Pin->RuntimeOps->TriState = (u8)PINCTRL_TRI_STATE_ENABLE;

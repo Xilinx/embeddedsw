@@ -26,6 +26,7 @@
  *
  ******************************************************************/
 XStatus __attribute__((weak, noinline)) XPm_IsMemAddressValid(u32 SubsystemId, u64 RegionAddr, u64 RegionSize) {
+	/* xpm_runtime_mem.c replaces this weak boot default in runtime builds. */
 	volatile XStatus Status = XPM_FAILURE;
 	(void)SubsystemId;
 	(void)RegionAddr;

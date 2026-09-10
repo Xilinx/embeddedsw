@@ -446,6 +446,7 @@ done:
 
 XStatus __attribute__((weak, noinline)) XPmDevice_Reset(const XPm_Device *Device, const XPm_ResetActions Action)
 {
+	/* xpm_runtime_device.c replaces this weak boot default in runtime builds. */
 	(void)Device;
 	(void)Action;
 	PmWarn("XPmDevice_Reset is not implemented in XilPmBoot\r\n");
@@ -677,17 +678,34 @@ done:
 XStatus __attribute__((weak, noinline)) XPmDevice_Release(const u32 SubsystemId, const u32 DeviceId,
 			  const u32 CmdType)
 {
+	/* xpm_runtime_device.c replaces this weak boot default in runtime builds. */
 	(void)SubsystemId;
 	(void)DeviceId;
 	(void)CmdType;
 	return XST_SUCCESS;
 }
 
+/****************************************************************************/
+/**
+ * @brief  Read the current software state of a device node.
+ *
+ *         Initializes the output to XPM_DEVSTATE_UNUSED, looks up DeviceId in
+ *         the device database, and replaces the output with the node state
+ *         when the device exists. Lookup failures are also logged.
+ *
+ * @param  DeviceId    Complete device node ID to look up.
+ * @param  DeviceState Non-NULL output pointer receiving the device state, or
+ *                     XPM_DEVSTATE_UNUSED when the lookup fails.
+ *
+ * @return XST_SUCCESS when the device is found, or XPM_PM_INVALID_NODE when
+ *         DeviceId does not identify a registered device.
+ ****************************************************************************/
 XStatus XPmDevice_GetState(const u32 DeviceId,
 			u32 *const DeviceState)
 {
 	XStatus Status = XST_FAILURE;
 
+	/* Supply a defined state even when the device lookup fails. */
 	*DeviceState = (u32)XPM_DEVSTATE_UNUSED;
 	const XPm_Device* Device = XPmDevice_GetById(DeviceId);
 	if (NULL == Device) {
@@ -695,6 +713,7 @@ XStatus XPmDevice_GetState(const u32 DeviceId,
 		goto done;
 	}
 
+	/* Return the state recorded by the registered device node. */
 	*DeviceState = Device->Node.State;
 
 	Status = XST_SUCCESS;

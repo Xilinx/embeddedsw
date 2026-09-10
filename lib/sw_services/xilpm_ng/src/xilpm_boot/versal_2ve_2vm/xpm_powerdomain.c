@@ -70,6 +70,7 @@ typedef XStatus (*XPm_DomainAmsTrimOp)(const XPm_PowerDomain *PwrDomain, const u
  *
  ******************************************************************/
 XStatus __attribute__((weak, noinline)) XPmSubsystem_CmnFlushForCore(u32 PowerDomainId) {
+	/* The strong memory-subsystem implementation replaces this weak boot default. */
 	XStatus Status = XPM_FAILURE;
 	(void)PowerDomainId;
 
@@ -78,10 +79,21 @@ XStatus __attribute__((weak, noinline)) XPmSubsystem_CmnFlushForCore(u32 PowerDo
 }
 
 /* Dispatch functions */
+/****************************************************************************/
+/**
+ * @brief  Return the init-start operation handler for a power domain.
+ *
+ * @param  DomainId  Power domain node ID to look up
+ *
+ * @return Pointer to the matching init-start operation, or NULL when the
+ *         domain is unsupported
+ *
+ ****************************************************************************/
 static XPm_DomainInitStartOp XPmPowerDomain_GetInitStartOp(u32 DomainId)
 {
 	XPm_DomainInitStartOp InitStartOp = NULL;
 
+	/* Select the platform initialization entry point for this domain */
 	switch (DomainId) {
 	case PM_POWER_LPD:
 		InitStartOp = &LpdInitStart;
@@ -121,6 +133,7 @@ static XPm_DomainInitFinishOp XPmPowerDomain_GetInitFinishOp(u32 DomainId)
 {
 	XPm_DomainInitFinishOp InitFinishOp = NULL;
 
+	/* Select the platform completion entry point for this domain */
 	switch (DomainId) {
 	case PM_POWER_LPD:
 		InitFinishOp = &LpdInitFinish;
@@ -352,12 +365,14 @@ XStatus XPm_PowerUpFPD(const XPm_Node *Node)
 	 * 	only perform HW PowerUp
 	*/
 
+	/* Validate the caller-provided node before using its domain identifier */
 	if (NULL == Node) {
 		DbgErr = XPM_INT_ERR_INVALID_NODE;
 		Status = XST_FAILURE;
 		goto done;
 	}
 
+	/* Resolve the FPD object that owns the rail-control state */
 	FpDomain = (XPm_PsFpDomain *)XPmPower_GetById(Node->Id);
 	if (NULL == FpDomain) {
 		Status = XPM_INVALID_PWRDOMAIN;
@@ -365,6 +380,7 @@ XStatus XPm_PowerUpFPD(const XPm_Node *Node)
 		goto done;
 	}
 
+	/* Request the domain rail transition after all lookups have succeeded */
 	Status = XPmPower_UpdateDomainPower(&FpDomain->Domain, XPM_POWER_STATE_ON);
 	if (XST_SUCCESS != Status) {
 		DbgErr = XPM_INT_ERR_FPD_RAIL_CONTROL;

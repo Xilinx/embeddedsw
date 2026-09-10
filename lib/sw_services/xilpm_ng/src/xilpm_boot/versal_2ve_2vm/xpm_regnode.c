@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2024 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -8,6 +8,13 @@
 #include <stdlib.h>
 static XPm_RegNode *PmRegnodes XPM_INIT_DATA(XPm_RegNode) = NULL;
 
+/****************************************************************************/
+/**
+ * @brief  Return the head of the registered RegNode list.
+ *
+ * @return Pointer to the most recently registered XPm_RegNode, or NULL when
+ *         no register nodes have been initialized.
+ ****************************************************************************/
 XPm_RegNode* XPmRegNode_GetNodes(void)
 {
 	return PmRegnodes;

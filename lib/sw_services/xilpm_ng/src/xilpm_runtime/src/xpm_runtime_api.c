@@ -148,16 +148,21 @@ static XStatus XPm_DoDescribeClockRate(XPlmi_Cmd* Cmd);
 
 /* Defined in xilpm-boot */
 
+/****************************************************************************/
 /**
- * @brief Get Node ID by Index and Class if subclass is INDEXED
+ * @brief Resolve an indexed clock, reset, or device node ID.
  *
- * @param NodeId    Input NodeId to be resolved
- * @param ResolvedId Pointer to store the resolved NodeId
+ * Non-indexed and unsupported node classes are returned unchanged. Indexed
+ * nodes are resolved through their class-specific topology table.
  *
- * @return XST_SUCCESS         - node resolved successfully or subclass is not indexed
- *         XPM_PM_INVALID_NODE - node not found (not added from Topology)
- *         XST_INVALID_PARAM   - node index exceeds the maximum allowed
- */
+ * @param NodeId     Node ID to resolve.
+ * @param ResolvedId Pointer to receive the resolved or unchanged node ID.
+ *
+ * @return XST_SUCCESS when the ID is resolved or does not require resolution;
+ *         XPM_PM_INVALID_NODE for a NULL output or an indexed topology hole;
+ *         XST_INVALID_PARAM when an indexed node exceeds its class limit.
+ *
+ ****************************************************************************/
 static XStatus XPm_ResolveIndexedNodeId(const u32 NodeId, u32 *const ResolvedId)
 {
 	XStatus Status = XPM_PM_INVALID_NODE;
@@ -166,15 +171,19 @@ static XStatus XPm_ResolveIndexedNodeId(const u32 NodeId, u32 *const ResolvedId)
 	const XPm_ResetNode *Rst = NULL;
 	const XPm_Device *Device = NULL;
 
+	/* Reject requests that cannot receive the resolved identifier. */
 	if (NULL == ResolvedId) {
 		goto done;
 	}
 
+	/* Preserve non-indexed and unsupported identifiers by default. */
 	*ResolvedId = NodeId;
 	NodeIdx = NODEINDEX(NodeId);
 
+	/* Select the topology table associated with the node class. */
 	switch (NODECLASS(NodeId)) {
 	case (u32)XPM_NODECLASS_CLOCK:
+		/* Resolve only indexed clocks after validating the table index. */
 		if ((u32)XPM_NODESUBCL_CLOCK_INDEXED != NODESUBCLASS(NodeId)) {
 			break;
 		}
@@ -190,6 +199,7 @@ static XStatus XPm_ResolveIndexedNodeId(const u32 NodeId, u32 *const ResolvedId)
 		break;
 
 	case (u32)XPM_NODECLASS_RESET:
+		/* Resolve only indexed resets after validating the table index. */
 		if ((u32)XPM_NODESUBCL_RESET_INDEXED != NODESUBCLASS(NodeId)) {
 			break;
 		}
@@ -205,6 +215,7 @@ static XStatus XPm_ResolveIndexedNodeId(const u32 NodeId, u32 *const ResolvedId)
 		break;
 
 	case (u32)XPM_NODECLASS_DEVICE:
+		/* Resolve only indexed devices after validating the table index. */
 		if ((u32)XPM_NODESUBCL_DEV_INDEXED != NODESUBCLASS(NodeId)) {
 			break;
 		}
@@ -274,14 +285,23 @@ static void XPm_FormatNodeName(char *Buf, u32 BufSize, const char *Prefix, u32 I
 	}
 }
 
+/****************************************************************************/
 /**
- * @brief Query node name - returns name for Clock, Device, Reset Node
+ * @brief Return the name of a clock, device, or reset node.
  *
- * @param NodeId Node ID (Clock, Power Domain, or Reset)
- * @param Resp Response buffer to store name
+ * Clock names come from topology after indexed-ID resolution. Device and reset
+ * names are synthesized as "power_<index>" and "reset_<index>" respectively.
  *
- * @return XST_SUCCESS if successful else XST_FAILURE
- */
+ * @param NodeId Node ID whose name is requested.
+ * @param Resp   Response buffer of at least MAX_NAME_BYTES bytes.
+ *
+ * @return XST_SUCCESS for a supported node class, XST_INVALID_PARAM for an
+ *         unsupported class, or an error from a response-buffer operation.
+ *
+ * @note A failed clock ID resolution or lookup returns XST_SUCCESS with an
+ *       empty name.
+ *
+ ****************************************************************************/
 static XStatus XPm_GetNodeName(u32 NodeId, u32 *Resp)
 {
 	XStatus Status = XST_FAILURE;
@@ -289,6 +309,7 @@ static XStatus XPm_GetNodeName(u32 NodeId, u32 *Resp)
 	u32 ClockId;
 	const XPm_ClockNode *Clk = NULL;
 
+	/* Clear the full response so failed lookups return an empty name. */
 	Status = Xil_SMemSet(Resp, MAX_NAME_BYTES, 0U, MAX_NAME_BYTES);
 	if (XST_SUCCESS != Status) {
 		goto done;
@@ -297,8 +318,10 @@ static XStatus XPm_GetNodeName(u32 NodeId, u32 *Resp)
 	NodeClass = NODECLASS(NodeId);
 
 	u8 BadClass = 0U;
+	/* Obtain or construct the name according to the node class. */
 	switch (NodeClass) {
 	case (u32)XPM_NODECLASS_CLOCK:
+		/* Resolve indexed clocks before consulting the clock topology. */
 		Status = XPm_ResolveIndexedNodeId(NodeId, &ClockId);
 		if (XST_SUCCESS != Status) {
 			break;
@@ -309,6 +332,7 @@ static XStatus XPm_GetNodeName(u32 NodeId, u32 *Resp)
 			goto done;
 		}
 
+		/* Copy the topology-provided clock name into the response. */
 		Status = Xil_SMemCpy((char *)Resp, MAX_NAME_BYTES, &Clk->Name[0], MAX_NAME_BYTES, MAX_NAME_BYTES);
 		if (XST_SUCCESS != Status) {
 			goto done;
@@ -316,10 +340,12 @@ static XStatus XPm_GetNodeName(u32 NodeId, u32 *Resp)
 		break;
 
 	case (u32)XPM_NODECLASS_DEVICE:
+		/* Device names use their node index with the power prefix. */
 		XPm_FormatNodeName((char *)Resp, MAX_NAME_BYTES, "power_", NODEINDEX(NodeId));
 		break;
 
 	case (u32)XPM_NODECLASS_RESET:
+		/* Reset names use their node index with the reset prefix. */
 		XPm_FormatNodeName((char *)Resp, MAX_NAME_BYTES, "reset_", NODEINDEX(NodeId));
 		break;
 
@@ -375,11 +401,13 @@ static XStatus XPm_GetNodeCount(const u32 Class, u32 *Output)
 {
 	XStatus Status = XST_FAILURE;
 
+	/* Select the count source associated with the requested node class. */
 	switch (Class) {
 	case (u32)XPM_NODECLASS_CLOCK:
 		Status = XPmClock_GetNumClocks(Output);
 		break;
 	case (u32)XPM_NODECLASS_RESET:
+		/* Indexed reset and device classes use their fixed topology limits. */
 		*Output = (u32)XPM_NODEIDX_RST_MAX - 1U;
 		Status = XST_SUCCESS;
 		break;
@@ -388,6 +416,7 @@ static XStatus XPm_GetNodeCount(const u32 Class, u32 *Output)
 		Status = XST_SUCCESS;
 		break;
 	default:
+		/* Reject classes for which this interface has no count source. */
 		Status = XST_INVALID_PARAM;
 		break;
 	}
@@ -395,15 +424,18 @@ static XStatus XPm_GetNodeCount(const u32 Class, u32 *Output)
 	return Status;
 }
 
+/****************************************************************************/
 /**
- * @brief Initializes the Xilinx Power Management (XPM) runtime.
+ * @brief Initialize the XilPM runtime command interface.
  *
- * This function initializes the XPM runtime and performs any necessary setup
- * for power management operations. It should be called before any other XPM
- * runtime functions are used.
+ * Stores the multiboot value, installs runtime handlers in the PLM command
+ * table, initializes the subsystem module, and registers wake-up interrupts.
+ * It should be called before any other XPM runtime functions are used.
  *
- * @return XST_SUCCESS if initialization is successful, otherwise an error code.
- */
+ * @return XST_SUCCESS when subsystem and wake-up handler initialization
+ *         succeeds, otherwise the error returned by either initialization step.
+ *
+ ****************************************************************************/
 XStatus XPm_RuntimeInit(void)
 {
 	XStatus Status = XST_FAILURE;
@@ -415,8 +447,12 @@ XStatus XPm_RuntimeInit(void)
 
 	/* Initializing XPLmi_PmCmds array*/
 	XPlmi_ModuleCmd* XPlmi_PmCmds =  XPm_GetPmCmds();
+
+	/* Install handlers for interface discovery and status queries. */
 	XPlmi_PmCmds[PM_GET_API_VERSION].Handler = (XPlmi_CmdHandler)&XPm_DoGetApiVersion;
 	XPlmi_PmCmds[PM_GET_NODE_STATUS].Handler = (XPlmi_CmdHandler)&XPm_DoGetNodeStatus;
+
+	/* Install handlers for notification and power-state transitions. */
 	XPlmi_PmCmds[PM_REGISTER_NOTIFIER].Handler = (XPlmi_CmdHandler)&XPm_DoRegisterNotifier;
 	XPlmi_PmCmds[PM_SELF_SUSPEND].Handler = (XPlmi_CmdHandler)&XPm_DoSelfSuspend;
 	XPlmi_PmCmds[PM_FORCE_POWERDOWN].Handler = (XPlmi_CmdHandler)&XPm_DoForcePowerdown;
@@ -424,6 +460,8 @@ XStatus XPm_RuntimeInit(void)
 	XPlmi_PmCmds[PM_REQUEST_WAKEUP].Handler = (XPlmi_CmdHandler)&XPm_DoWakeUp;
 	XPlmi_PmCmds[PM_SET_WAKEUP_SOURCE].Handler = (XPlmi_CmdHandler)&XPm_DoSetWakeUpSource;
 	XPlmi_PmCmds[PM_SYSTEM_SHUTDOWN].Handler = (XPlmi_CmdHandler)&XPm_DoSystemShutdown;
+
+	/* Install handlers for device ownership and requirements. */
 	XPlmi_PmCmds[PM_REQUEST_NODE].Handler = (XPlmi_CmdHandler)&XPm_DoRequestDevice;
 	XPlmi_PmCmds[PM_RELEASE_NODE].Handler = (XPlmi_CmdHandler)&XPm_DoReleaseDevice;
 	XPlmi_PmCmds[PM_SET_REQUIREMENT].Handler = (XPlmi_CmdHandler)&XPm_DoSetRequirement;
@@ -432,18 +470,24 @@ XStatus XPm_RuntimeInit(void)
 	XPlmi_PmCmds[PM_RESET_GET_STATUS].Handler = (XPlmi_CmdHandler)&XPm_DoGetResetState;
 	XPlmi_PmCmds[PM_INIT_FINALIZE].Handler = (XPlmi_CmdHandler)&XPm_DoInitFinalize;
 	XPlmi_PmCmds[PM_GET_CHIPID].Handler = (XPlmi_CmdHandler)&XPm_DoGetChipID;
+
+	/* Install handlers for pin-control operations. */
 	XPlmi_PmCmds[PM_PINCTRL_REQUEST].Handler = (XPlmi_CmdHandler)&XPm_DoPinCtrlRequest;
 	XPlmi_PmCmds[PM_PINCTRL_RELEASE].Handler = (XPlmi_CmdHandler)&XPm_DoPinCtrlRelease;
 	XPlmi_PmCmds[PM_PINCTRL_GET_FUNCTION].Handler = (XPlmi_CmdHandler)&XPm_DoGetPinFunction;
 	XPlmi_PmCmds[PM_PINCTRL_SET_FUNCTION].Handler = (XPlmi_CmdHandler)&XPm_DoSetPinFunction;
 	XPlmi_PmCmds[PM_PINCTRL_CONFIG_PARAM_GET].Handler = (XPlmi_CmdHandler)&XPm_DoGetPinParameter;
 	XPlmi_PmCmds[PM_PINCTRL_CONFIG_PARAM_SET].Handler = (XPlmi_CmdHandler)&XPm_DoSetPinParameter;
+
+	/* Install handlers for PLL configuration. */
 	XPlmi_PmCmds[PM_PLL_SET_MODE].Handler = (XPlmi_CmdHandler)&XPm_DoSetPllMode;
 	XPlmi_PmCmds[PM_PLL_GET_MODE].Handler = (XPlmi_CmdHandler)&XPm_DoGetPllMode;
 	XPlmi_PmCmds[PM_PLL_SET_PARAMETER].Handler = (XPlmi_CmdHandler)&XPm_DoSetPllParameter;
 	XPlmi_PmCmds[PM_PLL_GET_PARAMETER].Handler = (XPlmi_CmdHandler)&XPm_DoGetPllParameter;
 	XPlmi_PmCmds[PM_IOCTL].Handler = (XPlmi_CmdHandler)&XPm_DoDevIoctl;
 	XPlmi_PmCmds[PM_QUERY_DATA].Handler = (XPlmi_CmdHandler)&XPm_DoQueryData;
+
+	/* Install handlers for clock control and inspection. */
 	XPlmi_PmCmds[PM_CLOCK_ENABLE].Handler = (XPlmi_CmdHandler)&XPm_DoClockEnable;
 	XPlmi_PmCmds[PM_CLOCK_DISABLE].Handler = (XPlmi_CmdHandler)&XPm_DoClockDisable;
 	XPlmi_PmCmds[PM_CLOCK_SETDIVIDER].Handler = (XPlmi_CmdHandler)&XPm_DoSetClockDivider;
@@ -451,6 +495,8 @@ XStatus XPm_RuntimeInit(void)
 	XPlmi_PmCmds[PM_CLOCK_SETPARENT].Handler = (XPlmi_CmdHandler)&XPm_DoSetClockParent;
 	XPlmi_PmCmds[PM_CLOCK_GETPARENT].Handler = (XPlmi_CmdHandler)&XPm_DoGetClockParent;
 	XPlmi_PmCmds[PM_CLOCK_GETSTATE].Handler = (XPlmi_CmdHandler)&XPm_DoGetClockState;
+
+	/* Install handlers for dynamic subsystem configuration. */
 	XPlmi_PmCmds[PM_ADD_SUBSYSTEM].Handler = (XPlmi_CmdHandler)&XPm_DoAddSubsystem;
 	XPlmi_PmCmds[PM_ADD_REQUIREMENT].Handler = (XPlmi_CmdHandler)&XPm_DoAddRequirement;
 	XPlmi_PmCmds[PM_ACTIVATE_SUBSYSTEM].Handler = (XPlmi_CmdHandler)&XPm_DoActivateSubsystem;
@@ -464,11 +510,14 @@ XStatus XPm_RuntimeInit(void)
 	XPlmi_PmCmds[PM_CLOCK_PROGRAM_RATE].Handler = (XPlmi_CmdHandler)&XPm_DoProgramClockRate;
 	XPlmi_PmCmds[PM_CLOCK_DESCRIBERATE].Handler = (XPlmi_CmdHandler)&XPm_DoDescribeClockRate;
 #endif /* XILPM_NG_ENABLE_CLK_SCMI */
+
+	/* Initialize subsystem state before accepting wake-up events. */
 	Status = XPmSubsystem_ModuleInit();
 	if (XST_SUCCESS != Status) {
 		goto done;
 	}
 
+	/* Connect platform wake sources after subsystem initialization. */
 	Status = XPm_RegisterWakeUpHandlers();
 
 done:
@@ -611,6 +660,11 @@ XStatus XPmPower_GetWakeupLatency(const u32 DeviceId, u32 *Latency)
 done:
 	return Status;
 }
+/****************************************************************************/
+/**
+ * @brief Handle a notifier registration command.
+ */
+/****************************************************************************/
 static XStatus XPm_DoRegisterNotifier(XPlmi_Cmd* Cmd)
 {
 	XStatus Status = XST_FAILURE;
@@ -625,6 +679,11 @@ static XStatus XPm_DoRegisterNotifier(XPlmi_Cmd* Cmd)
 	return Status;
 }
 
+/****************************************************************************/
+/**
+ * @brief Handle a feature-check command and return version data in Response[1].
+ */
+/****************************************************************************/
 static XStatus XPm_DoFeatureCheck(XPlmi_Cmd* Cmd)
 {
 	XStatus Status = XST_FAILURE;
@@ -634,14 +693,35 @@ static XStatus XPm_DoFeatureCheck(XPlmi_Cmd* Cmd)
 	Cmd->Response[0] = (u32)Status;
 	return Status;
 }
+/****************************************************************************/
+/**
+ * @brief Return PM_VERSION in Response[1].
+ */
+/****************************************************************************/
 static XStatus XPm_DoGetApiVersion(XPlmi_Cmd* Cmd)
 {
+	/* Return the interface version in the command response. */
 	PmInfo("XPm_DoGetApiVersion\n\r");
 	Cmd->Response[1] = PM_VERSION;
 	Cmd->Response[0] = XST_SUCCESS;
 	return XST_SUCCESS;
 }
 
+/****************************************************************************/
+/**
+ * @brief Handle a node-status query.
+ *
+ * Resolves an indexed node ID and returns its device status. A missing indexed
+ * node is reported in the first response word while the handler itself returns
+ * success; access denial is handled in the same way.
+ *
+ * @param Cmd Pointer to the command containing the node ID and requesting
+ *            subsystem, and the response buffer.
+ *
+ * @return XST_SUCCESS when the query completes or its result is reported in
+ *         the response; otherwise an indexed-ID resolution or query error.
+ *
+ ****************************************************************************/
 static XStatus XPm_DoGetNodeStatus(XPlmi_Cmd* Cmd)
 {
 	XStatus Status = XST_FAILURE;
@@ -676,6 +756,11 @@ static XStatus XPm_DoGetNodeStatus(XPlmi_Cmd* Cmd)
 done:
 	return Status;
 }
+/****************************************************************************/
+/**
+ * @brief Handle a wake-up source configuration command.
+ */
+/****************************************************************************/
 static XStatus XPm_DoSetWakeUpSource(XPlmi_Cmd* Cmd)
 {
 	XStatus Status = XST_FAILURE;
@@ -755,6 +840,20 @@ done:
 }
 
 
+/****************************************************************************/
+/**
+ * @brief Handle a device-requirement update command.
+ *
+ * Resolves the indexed device ID, verifies subsystem access, and updates the
+ * requested capabilities and quality of service.
+ *
+ * @param Cmd Pointer to the command containing device ID, capabilities, QoS,
+ *            requesting subsystem, and response buffer.
+ *
+ * @return XST_SUCCESS on success; XPM_PM_NO_ACCESS when access is denied;
+ *         otherwise an indexed-ID or requirement update error.
+ *
+ ****************************************************************************/
 static XStatus XPm_DoSetRequirement(XPlmi_Cmd* Cmd){
 	XStatus Status = XST_FAILURE;
 	u32 SubsystemId = Cmd->SubsystemId;
@@ -763,17 +862,20 @@ static XStatus XPm_DoSetRequirement(XPlmi_Cmd* Cmd){
 	u32 Capabilities = Cmd->Payload[1];
 	u32 QoS = Cmd->Payload[2];
 
+	/* Resolve the externally supplied index to its topology device ID. */
 	Status = XPm_ResolveIndexedNodeId(IndexedDeviceId, &DeviceId);
 	if (XST_SUCCESS != Status) {
 		goto done;
 	}
 
+	/* Enforce the subsystem's access policy before changing requirements. */
 	Status = XPm_IsAccessAllowed(SubsystemId, DeviceId);
 	if (XST_SUCCESS != Status) {
 		Status = XPM_PM_NO_ACCESS;
 		goto done;
 	}
 
+	/* Apply the requested capabilities and quality-of-service setting. */
 	Status = XPmDevice_SetRequirement(SubsystemId, DeviceId, Capabilities, QoS);
 
 done:
@@ -785,6 +887,19 @@ done:
 	return Status;
 }
 
+/****************************************************************************/
+/**
+ * @brief Handle a device request command.
+ *
+ * Resolves the indexed device ID and requests the device with the supplied
+ * capabilities, quality of service, and command security type.
+ *
+ * @param Cmd Pointer to the command payload, request metadata, and response.
+ *
+ * @return XST_SUCCESS on success, otherwise an indexed-ID resolution or device
+ *         request error. The status is also written to the response.
+ *
+ ****************************************************************************/
 static XStatus XPm_DoRequestDevice(XPlmi_Cmd* Cmd) {
 	XStatus Status = XST_FAILURE;
 	u32 SubsystemId = Cmd->SubsystemId;
@@ -794,12 +909,14 @@ static XStatus XPm_DoRequestDevice(XPlmi_Cmd* Cmd) {
 	u32 QoS = Cmd->Payload[2];
 	u32 CmdType = Cmd->IpiReqType;
 
+	/* Resolve the external device index before submitting the request. */
 	Status = XPm_ResolveIndexedNodeId(IndexedDeviceId, &DeviceId);
 	if (XST_SUCCESS != Status) {
 		Cmd->Response[0] = (u32)Status;
 		goto done;
 	}
 
+	/* Request ownership with the caller's capabilities and QoS. */
 	Status = XPmDevice_Request(SubsystemId, DeviceId, Capabilities,
 				   QoS, CmdType);
 	if (XST_SUCCESS != Status) {
@@ -908,6 +1025,24 @@ done:
 	return Status;
 }
 
+/****************************************************************************/
+/**
+ * @brief Handle a device release command.
+ *
+ * Resolves the indexed device ID, bulk-releases matching devices for the
+ * all-devices ID, or validates access and releases one device. A zero-user
+ * notification is emitted after the last user releases a single device.
+ *
+ * @param Cmd Pointer to the command payload, requesting subsystem and command
+ *            type, and response buffer.
+ *
+ * @return XST_SUCCESS on success, otherwise an ID resolution, access, or device
+ *         release error. The status is also written to the response.
+ *
+ * @note A failed subsystem lookup returns XST_SUCCESS in the response and does
+ *       not release the device.
+ *
+ ****************************************************************************/
 static XStatus XPm_DoReleaseDevice(XPlmi_Cmd* Cmd)
 {
 	XStatus Status = XST_FAILURE;
@@ -935,22 +1070,27 @@ static XStatus XPm_DoReleaseDevice(XPlmi_Cmd* Cmd)
 		goto done;
 	}
 
+	/* Resolve the requesting subsystem for usage accounting. */
 	Subsystem = XPmSubsystem_GetById(SubsystemId);
 	if (NULL == Subsystem) {
 		goto done;
 	}
 
+	/* Validate the resolved device before checking its access policy. */
 	Device = XPmDevice_GetById(DeviceId);
 	if (NULL == Device) {
 		Status = XPM_PM_INVALID_NODE;
 		goto done;
 	}
 
+	/* Require subsystem access before releasing the individual device. */
 	Status = XPm_IsAccessAllowed(SubsystemId, DeviceId);
 	if (XST_SUCCESS != Status) {
 		Status = XPM_PM_NO_ACCESS;
 		goto done;
 	}
+
+	/* Release ownership, then notify listeners if no users remain. */
 	Status = XPmDevice_Release(SubsystemId, DeviceId, CmdType);
 	if (XST_SUCCESS != Status) {
 		goto done;
@@ -968,27 +1108,33 @@ done:
 	return Status;
 }
 
+/****************************************************************************/
 /**
- * @brief Get the RTCA skip bit mask for a boot device.
+ * @brief Return the runtime-configuration skip mask for a boot device.
  *
- * @param DeviceId	Device node ID.
+ * @param DeviceId Device node ID to classify.
  *
- * @return Bit mask if DeviceId is a boot device, 0 otherwise.
- */
+ * @return The corresponding XPLMI_SKIP_BOOT_DEV_* mask for a supported QSPI,
+ *         SD, OSPI, USB, or UFS boot device; zero for any other device.
+ *
+ ****************************************************************************/
 static u32 XPm_GetBootDevSkipMask(u32 DeviceId)
 {
 	u32 Mask = 0U;
 
+	/* Map each supported boot device to its runtime policy bit. */
 	switch (DeviceId) {
 	case PM_DEV_QSPI:
 		Mask = XPLMI_SKIP_BOOT_DEV_QSPI_MASK;
 		break;
+	/* Distinguish the independently controlled SD boot interfaces. */
 	case PM_DEV_SDIO_0:
 		Mask = XPLMI_SKIP_BOOT_DEV_SD0_MASK;
 		break;
 	case PM_DEV_SDIO_1:
 		Mask = XPLMI_SKIP_BOOT_DEV_SD1_MASK;
 		break;
+	/* Map the remaining external boot interfaces to their policy bits. */
 	case PM_DEV_OSPI:
 		Mask = XPLMI_SKIP_BOOT_DEV_OSPI_MASK;
 		break;
@@ -1288,22 +1434,26 @@ static XStatus XPm_DoProgramClockRate(XPlmi_Cmd* Cmd)
 	u32 ClkRate = Cmd->Payload[1];
 	u32 Flags = Cmd->Payload[2];
 
+	/* Reject rates beyond the supported PLL operating range. */
 	if (ClkRate > PLL_VCO_MAX) {
 		Status = XST_INVALID_PARAM;
 		goto done;
 	}
 
+	/* Resolve the indexed clock before applying access policy. */
 	Status = XPm_ResolveIndexedNodeId(IndexedClockId, &ClockId);
 	if (XST_SUCCESS != Status) {
 		goto done;
 	}
 
+	/* Permit only subsystems authorized to control the clock. */
 	Status = XPm_IsAccessAllowed(SubsystemId, ClockId);
 	if (XST_SUCCESS != Status) {
 		Status = XPM_PM_NO_ACCESS;
 		goto done;
 	}
 
+	/* Program the validated rate and caller-provided flags. */
 	Status = XPmClock_ProgramRate(ClockId, ClkRate, Flags);
 
 done:
@@ -1607,18 +1757,24 @@ END:
 }
 
 
+/****************************************************************************/
 /**
- * @brief Add individual ADMA reset nodes
+ * @brief Add and link the individual ADMA reset nodes missing from topology.
  *
- * Add individual ADMA reset nodes (PM_RST_ADMA_0 through PM_RST_ADMA_7).
- * Base addresses are derived from existing ADMA device nodes. Nodes that
- * already exist (e.g. restored during In-Place Update) are skipped.
+ * Existing reset nodes (for example, nodes restored during In-Place Update)
+ * are skipped. Each new reset uses its ADMA device base address and receives a
+ * reset handle linking it to that device for permission checks.
  *
- * @return XST_SUCCESS if successful, error code otherwise
+ * @return XST_SUCCESS when all channels exist or are added;
+ *         XST_DEVICE_NOT_FOUND when an ADMA device is absent;
+ *         XST_BUFFER_TOO_SMALL when a reset handle cannot be allocated;
+ *         XST_FAILURE when an added reset cannot be retrieved;
+ *         otherwise an error returned by XPmReset_AddNode.
  *
- * @note TODO: This is a temporary workaround, Remove this function when
+ * @note TODO: This is a temporary workaround. Remove this function when
  *       individual ADMA reset nodes are added from topology.
- */
+ *
+ ****************************************************************************/
 static XStatus XPm_AddAdmaResetNodes(void)
 {
 	XStatus Status = XST_FAILURE;
@@ -1636,12 +1792,14 @@ static XStatus XPm_AddAdmaResetNodes(void)
 	};
 	const u32 NumAdmaChannels = (u32)ARRAY_SIZE(AdmaResetIds);
 
+	/* Populate only the ADMA reset nodes absent from the topology. */
 	for (i = 0U; i < NumAdmaChannels; i++) {
 		/* Skip if reset node already exists (e.g. restored during IPU) */
 		if (NULL != XPmReset_GetById(AdmaResetIds[i])) {
 			continue;
 		}
 
+		/* Resolve the channel device that supplies the reset base address. */
 		AdmaDevice = XPmDevice_GetById(AdmaDeviceIds[i]);
 		if (NULL == AdmaDevice) {
 			PmErr("ADMA device 0x%x not found\r\n", AdmaDeviceIds[i]);
@@ -1649,6 +1807,7 @@ static XStatus XPm_AddAdmaResetNodes(void)
 			goto done;
 		}
 
+		/* Create the channel reset using the associated device address. */
 		Status = XPmReset_AddNode(AdmaResetIds[i],
 					  AdmaDevice->Node.BaseAddress,
 					  0U, 1U, (u8)XPM_RSTOPS_CUSTOM, 0U, NULL);
@@ -1666,6 +1825,7 @@ static XStatus XPm_AddAdmaResetNodes(void)
 			goto done;
 		}
 
+		/* Allocate the link used for device-based permission checks. */
 		RstHandle = (XPm_ResetHandle *)XPm_AllocBytes(sizeof(XPm_ResetHandle));
 		if (NULL == RstHandle) {
 			PmErr("Failed to allocate RstHandle for ADMA reset 0x%x\r\n", AdmaResetIds[i]);
@@ -1673,6 +1833,7 @@ static XStatus XPm_AddAdmaResetNodes(void)
 			goto done;
 		}
 
+		/* Insert the device link at the head of the reset's handle list. */
 		RstHandle->Device = AdmaDevice;
 		RstHandle->NextDevice = Rst->RstHandles;
 		Rst->RstHandles = RstHandle;
@@ -1953,6 +2114,11 @@ done:
 	}
 	return Status;
 }
+/****************************************************************************/
+/**
+ * @brief Handle a processor self-suspend command.
+ */
+/****************************************************************************/
 static XStatus XPm_DoSelfSuspend(XPlmi_Cmd* Cmd)
 {
 	XStatus Status = XST_FAILURE;
@@ -2375,6 +2541,11 @@ done:
 	}
 	return Status;
 }
+/****************************************************************************/
+/**
+ * @brief Handle a suspend-abort command.
+ */
+/****************************************************************************/
 static XStatus XPm_DoAbortSuspend(XPlmi_Cmd* Cmd)
 {
 	XStatus Status = XST_FAILURE;
@@ -2620,18 +2791,34 @@ static XStatus XPm_RestartCbWrapper(const u32 SubsystemId)
 }
 
 
+/****************************************************************************/
+/**
+ * @brief Set the state of the subsystem that owns a processor core.
+ *
+ * @param Core  Pointer to the processor core.
+ * @param State Subsystem state to set.
+ *
+ * @return XST_SUCCESS on success, XST_DEVICE_NOT_FOUND for a NULL core,
+ *         XPM_ERR_SUBSYS_NOTFOUND when no owner is found, or an error returned
+ *         by XPmSubsystem_SetState.
+ *
+ ****************************************************************************/
 static XStatus SetSubsystemState_ByCore(const XPm_Core* Core, const u32 State){
 	XStatus Status = XST_FAILURE;
+	/* Require a valid core before resolving its owning subsystem. */
 	if (NULL == Core) {
 		Status = XST_DEVICE_NOT_FOUND;
 		goto done;
 	}
+
+	/* Resolve the subsystem currently associated with the core. */
 	u32 CoreSubsystemId = XPmDevice_GetSubsystemIdOfCore((const XPm_Device *)Core);
 	if (INVALID_SUBSYSID == CoreSubsystemId) {
 		PmErr("Invalid Subsystem Id for core %d\n\r", Core->Device.Node.Id);
 		Status = XPM_ERR_SUBSYS_NOTFOUND;
 		goto done;
 	}
+	/* Look up the owner and apply the requested subsystem state. */
 	XPm_Subsystem *Subsystem = XPmSubsystem_GetById(CoreSubsystemId);
 
 	Status = XPmSubsystem_SetState(Subsystem, State);
@@ -2664,12 +2851,14 @@ XStatus XPm_SystemShutdown(u32 SubsystemId, u32 Type, u32 SubType, u32 CmdType)
 	PmDbg("%s: SubsystemId=0x%x, Type=0x%x, SubType=0x%x\r\n",
 		SubsystemId, Type, SubType);
 
+	/* Accept only subsystem shutdown and reset operations. */
 	if ((PM_SHUTDOWN_TYPE_SHUTDOWN != Type) &&
 	    (PM_SHUTDOWN_TYPE_RESET != Type)) {
 		Status = XPM_INVALID_TYPEID;
 		goto done;
 	}
 
+	/* Resolve the caller before choosing the shutdown procedure. */
 	Subsystem = XPmSubsystem_GetById(SubsystemId);
 	if (NULL == Subsystem) {
 		Status = XPM_INVALID_SUBSYSID;
@@ -2679,6 +2868,7 @@ XStatus XPm_SystemShutdown(u32 SubsystemId, u32 Type, u32 SubType, u32 CmdType)
 	/* For shutdown type the subtype is irrelevant: shut the caller down */
 	if (PM_SHUTDOWN_TYPE_SHUTDOWN == Type) {
 		if (0U != (SUBSYSTEM_IDLE_SUPPORTED & Subsystem->Flags)) {
+			/* Defer shutdown until the subsystem's cores report idle. */
 			Status = XPmSubsystem_SetState(Subsystem, (u8)PENDING_POWER_OFF);
 			if (XST_SUCCESS != Status) {
 				goto done;
@@ -2688,6 +2878,7 @@ XStatus XPm_SystemShutdown(u32 SubsystemId, u32 Type, u32 SubType, u32 CmdType)
 				goto done;
 			}
 		} else {
+			/* Power down immediately and clean up shared system state. */
 			Status = XPmSubsystem_ForcePwrDwn(SubsystemId);
 			if (XST_SUCCESS != Status) {
 				goto done;
@@ -2707,6 +2898,7 @@ XStatus XPm_SystemShutdown(u32 SubsystemId, u32 Type, u32 SubType, u32 CmdType)
 		XPlmi_RestoreMultiboot();
 
 		if (0U != (SUBSYSTEM_IDLE_SUPPORTED & Subsystem->Flags)) {
+			/* Arm recovery monitoring before waiting for cores to idle. */
 			Status = XPmSubsystem_StartRecoveryTimer(Subsystem, CmdType);
 			if (XST_DEVICE_NOT_FOUND == Status) {
 				PmWarn("No recovery timer found, add runtime HB_MON node for recovery!\r\n");
@@ -2729,6 +2921,7 @@ XStatus XPm_SystemShutdown(u32 SubsystemId, u32 Type, u32 SubType, u32 CmdType)
 				goto done;
 			}
 		} else {
+			/* Power down immediately and clean up shared system state. */
 			Status = XPmSubsystem_ForcePwrDwn(SubsystemId);
 			if (XST_SUCCESS != Status) {
 				goto done;
@@ -2745,6 +2938,7 @@ XStatus XPm_SystemShutdown(u32 SubsystemId, u32 Type, u32 SubType, u32 CmdType)
 		break;
 	case PM_SHUTDOWN_SUBTYPE_RST_SYSTEM:
 		/*
+		 * Validate the caller against the reset used for system reset.
 		 * Caller subsystem may not be allowed to enact reset operation
 		 * upon PM_RST_PMC. XPmReset_SystemReset uses PM_RST_PMC.
 		 */
@@ -2773,6 +2967,11 @@ done:
 	return Status;
 }
 
+/****************************************************************************/
+/**
+ * @brief Handle a subsystem shutdown or reset command.
+ */
+/****************************************************************************/
 static XStatus XPm_DoSystemShutdown(XPlmi_Cmd* Cmd)
 {
 	XStatus Status = XST_FAILURE;
@@ -2781,6 +2980,7 @@ static XStatus XPm_DoSystemShutdown(XPlmi_Cmd* Cmd)
 	u32 SubType = Cmd->Payload[1];
 	u32 CmdType = Cmd->IpiReqType;
 	Status = XPm_SystemShutdown(SubsystemId, Type, SubType, CmdType);
+	/* Return the service status in-band even when command dispatch also fails. */
 	Cmd->Response[0] = (u32)Status;
 	if (XST_SUCCESS != Status) {
 		PmErr("Subsystem: 0x%x, Type: 0x%x, SubType: 0x%x, Status: 0x%x\n\r",
@@ -2788,6 +2988,11 @@ static XStatus XPm_DoSystemShutdown(XPlmi_Cmd* Cmd)
 	}
 	return Status;
 }
+/****************************************************************************/
+/**
+ * @brief Handle a maximum device-latency command.
+ */
+/****************************************************************************/
 static XStatus XPm_DoSetMaxLatency(XPlmi_Cmd* Cmd)
 {
 	XStatus Status = XST_FAILURE;
@@ -2835,6 +3040,19 @@ done:
 
 
 
+/****************************************************************************/
+/**
+ * @brief Handle a reset assert, release, or pulse command.
+ *
+ * Resolves the indexed reset ID and applies the requested reset action using
+ * the caller's subsystem and command security type.
+ *
+ * @param Cmd Pointer to the command payload, request metadata, and response.
+ *
+ * @return XST_SUCCESS on success, otherwise an indexed-ID resolution, access,
+ *         validation, or reset operation error.
+ *
+ ****************************************************************************/
 static XStatus XPm_DoResetAssert(XPlmi_Cmd* Cmd)
 {
 	XStatus Status = XST_FAILURE;
@@ -2844,12 +3062,14 @@ static XStatus XPm_DoResetAssert(XPlmi_Cmd* Cmd)
 	u32 CmdType = Cmd->IpiReqType;
 	u32 Action = Cmd->Payload[1];
 
+	/* Resolve the external reset index before dispatching the action. */
 	Status = XPm_ResolveIndexedNodeId(IndexedResetId, &ResetId);
 	if (XST_SUCCESS != Status) {
 		Cmd->Response[0] = (u32)Status;
 		goto done;
 	}
 
+	/* Apply the requested action under the caller's security context. */
 	Status = XPm_SetResetState(SubsystemId, ResetId, Action, CmdType);
 	Cmd->Response[0] = (u32)Status;
 done:
@@ -2932,6 +3152,11 @@ done:
 }
 
 
+/****************************************************************************/
+/**
+ * @brief Return the reset state in Response[1].
+ */
+/****************************************************************************/
 static XStatus XPm_DoGetResetState(XPlmi_Cmd* Cmd)
 {
 	XStatus Status = XST_FAILURE;
@@ -2990,6 +3215,11 @@ static XStatus XPm_GetChipID(u32* IDCode, u32 *Version)
 	return XST_SUCCESS;
 }
 
+/****************************************************************************/
+/**
+ * @brief Return the chip ID code and version in Response[1] and Response[2].
+ */
+/****************************************************************************/
 static XStatus XPm_DoGetChipID(XPlmi_Cmd *Cmd)
 {
 	XStatus Status = XST_FAILURE;
@@ -3002,6 +3232,11 @@ static XStatus XPm_DoGetChipID(XPlmi_Cmd *Cmd)
 	Cmd->Response[0] = (u32)Status;
 	return Status;
 }
+/****************************************************************************/
+/**
+ * @brief Handle a subsystem activation command.
+ */
+/****************************************************************************/
 static XStatus XPm_DoActivateSubsystem(XPlmi_Cmd *Cmd)
 {
 	XStatus Status = XST_FAILURE;
@@ -3011,6 +3246,11 @@ static XStatus XPm_DoActivateSubsystem(XPlmi_Cmd *Cmd)
 	Cmd->Response[0] = (u32)Status;
 	return Status;
 }
+/****************************************************************************/
+/**
+ * @brief Handle a pin-control request command.
+ */
+/****************************************************************************/
 static XStatus XPm_DoPinCtrlRequest(XPlmi_Cmd *Cmd)
 {
 	XStatus Status = XST_FAILURE;
@@ -3064,6 +3304,11 @@ static XStatus XPm_PinCtrlRelease(const u32 SubsystemId, const u32 PinId)
 	return Status;
 }
 
+/****************************************************************************/
+/**
+ * @brief Handle a pin-control release command.
+ */
+/****************************************************************************/
 static XStatus XPm_DoPinCtrlRelease(XPlmi_Cmd *Cmd)
 {
 	XStatus Status = XST_FAILURE;
@@ -3112,6 +3357,11 @@ static XStatus XPm_SetPinFunction(const u32 SubsystemId,
 done:
 	return Status;
 }
+/****************************************************************************/
+/**
+ * @brief Handle a pin-function selection command.
+ */
+/****************************************************************************/
 static XStatus XPm_DoSetPinFunction(XPlmi_Cmd *Cmd)
 {
 	XStatus Status = XST_FAILURE;
@@ -3143,6 +3393,11 @@ static XStatus XPm_GetPinFunction(const u32 PinId, u32 *const FunctionId)
 
 	return Status;
 }
+/****************************************************************************/
+/**
+ * @brief Return the pin function in Response[1].
+ */
+/****************************************************************************/
 static XStatus XPm_DoGetPinFunction(XPlmi_Cmd *Cmd)
 {
 	XStatus Status = XST_FAILURE;
@@ -3193,6 +3448,11 @@ done:
 	return Status;
 }
 
+/****************************************************************************/
+/**
+ * @brief Handle a pin-parameter configuration command.
+ */
+/****************************************************************************/
 static XStatus XPm_DoSetPinParameter(XPlmi_Cmd *Cmd)
 {
 	XStatus Status = XST_FAILURE;
@@ -3229,6 +3489,11 @@ static XStatus XPm_GetPinParameter(const u32 PinId,
 	return Status;
 }
 
+/****************************************************************************/
+/**
+ * @brief Return the pin parameter value in Response[1].
+ */
+/****************************************************************************/
 static XStatus XPm_DoGetPinParameter(XPlmi_Cmd * Cmd)
 {
 	XStatus Status = XST_FAILURE;
@@ -3366,6 +3631,11 @@ done:
 	return Status;
 }
 
+/****************************************************************************/
+/**
+ * @brief Handle a PLL mode configuration command.
+ */
+/****************************************************************************/
 static XStatus XPm_DoSetPllMode(XPlmi_Cmd *Cmd)
 {
 	XStatus Status = XST_FAILURE;
@@ -3412,6 +3682,11 @@ done:
 	return Status;
 }
 
+/****************************************************************************/
+/**
+ * @brief Return the PLL mode in Response[1].
+ */
+/****************************************************************************/
 static XStatus XPm_DoGetPllMode(XPlmi_Cmd *Cmd)
 {
 	XStatus Status = XST_FAILURE;
@@ -3468,6 +3743,11 @@ done:
 	return Status;
 }
 
+/****************************************************************************/
+/**
+ * @brief Handle a PLL parameter configuration command.
+ */
+/****************************************************************************/
 static XStatus XPm_DoSetPllParameter(XPlmi_Cmd *Cmd)
 {
 	XStatus Status = XST_FAILURE;
@@ -3518,6 +3798,11 @@ done:
 	return Status;
 }
 
+/****************************************************************************/
+/**
+ * @brief Return the PLL parameter value in Response[1].
+ */
+/****************************************************************************/
 static XStatus XPm_DoGetPllParameter(XPlmi_Cmd *Cmd)
 {
 	XStatus Status = XST_FAILURE;
@@ -3615,6 +3900,11 @@ static XStatus XPm_Query(const u32 Qid, const u32 Arg1, const u32 Arg2,
 	return Status;
 }
 
+/****************************************************************************/
+/**
+ * @brief Handle a platform data query and return its output from Response[1].
+ */
+/****************************************************************************/
 static XStatus XPm_DoQueryData(XPlmi_Cmd *Cmd)
 {
 	XStatus Status = XST_FAILURE;
@@ -3711,6 +4001,11 @@ bypass:
 done:
 	return Status;
 }
+/****************************************************************************/
+/**
+ * @brief Handle a clock-enable command.
+ */
+/****************************************************************************/
 static XStatus XPm_DoClockEnable(XPlmi_Cmd *Cmd)
 {
 	XStatus Status = XST_FAILURE;
@@ -3721,6 +4016,18 @@ static XStatus XPm_DoClockEnable(XPlmi_Cmd *Cmd)
 	return Status;
 }
 
+/****************************************************************************/
+/**
+ * @brief Handle a clock-disable command.
+ *
+ * @param Cmd Pointer to the command containing clock and subsystem IDs and the
+ *            response buffer.
+ *
+ * @return XST_SUCCESS on success, otherwise an access, validation, or clock
+ *         operation error. PLL disable requests currently return success
+ *         without changing the PLL. The status is also in the response.
+ *
+ ****************************************************************************/
 static XStatus XPm_DoClockDisable(XPlmi_Cmd *Cmd)
 {
 	XStatus Status = XST_FAILURE;
@@ -3910,6 +4217,11 @@ done:
 	return Status;
 }
 
+/****************************************************************************/
+/**
+ * @brief Return the clock divider in Response[1].
+ */
+/****************************************************************************/
 static XStatus XPm_DoGetClockDivider(XPlmi_Cmd* Cmd)
 {
 	XStatus Status = XST_FAILURE;
@@ -4020,6 +4332,11 @@ done:
 	}
 	return Status;
 }
+/****************************************************************************/
+/**
+ * @brief Return the clock parent index in Response[1].
+ */
+/****************************************************************************/
 static XStatus XPm_DoGetClockParent(XPlmi_Cmd *Cmd)
 {
 	XStatus Status = XST_FAILURE;

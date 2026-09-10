@@ -64,12 +64,14 @@ XStatus XPmAsuCore_Init(XPm_AsuCore *AsuCore, u32 Id, u32 Ipi, const u32 *BaseAd
 {
 	XStatus Status = XST_FAILURE;
 
+	/* Initialize the common core state before adding ASU-specific data */
 	Status = XPmCore_Init(&AsuCore->Core, Id, Power, Clock, Reset, (u8)Ipi);
 	if (XST_SUCCESS != Status) {
 		PmErr("Status: 0x%x\r\n", Status);
 		goto done;
 	}
 
+	/* Cache the ASU register base only after common initialization succeeds */
 	AsuCore->AsuBaseAddr = BaseAddress[XPM_ASU_BASEADDR_IDX];
 
 done:

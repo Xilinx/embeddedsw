@@ -24,43 +24,69 @@ CREATE_TABLE_RPU_WAKEUP_HANDLER(5, 2)
 CREATE_TABLE_APU_WAKEUP_HANDLER(4, 2)
 CREATE_TABLE_APU_SLEEP_HANDLER(4, 2)
 CREATE_TABLE_RPU_SLEEP_HANDLER(5, 2)
+/****************************************************************************/
+/**
+ * @brief Service APU and RPU power-up request interrupts.
+ *
+ * Reads both power-up status and interrupt-mask registers and dispatches each
+ * nonzero status value. Logs an error if the final dispatch attempted fails or
+ * if neither status register requests a dispatch.
+ *
+ * @return None.
+ ****************************************************************************/
 static void XPm_InterruptPwrUpHandler(void)
 {
 	XStatus Status = XST_FAILURE;
 	u32 PwrUp0Status, PwrUp0IntMask, PwrUp1Status, PwrUp1IntMask;
 
+	/* Snapshot the APU request bank and its interrupt mask */
 	PwrUp0Status = XPm_In32(PSXC_LPX_SLCR_REQ_PWRUP0_STATUS);
 	PwrUp0IntMask = XPm_In32(PSXC_LPX_SLCR_REQ_PWRUP0_INT_MASK);
 	if (0U != PwrUp0Status){
 		Status = XPm_DispatchApuPwrUpHandler(PwrUp0Status, PwrUp0IntMask);
 	}
 
+	/* Snapshot the RPU request bank and its interrupt mask */
 	PwrUp1Status = XPm_In32(PSXC_LPX_SLCR_REQ_PWRUP1_STATUS);
 	PwrUp1IntMask = XPm_In32(PSXC_LPX_SLCR_REQ_PWRUP1_INT_MASK);
 	if (0U != PwrUp1Status){
 		Status = XPm_DispatchRpuPwrUpHandler(PwrUp1Status, PwrUp1IntMask);
 	}
 
+	/* No request leaves the initial failure status unchanged */
 	if (XST_SUCCESS != Status) {
 		PmErr("Error in handling power up interrupt\r\n");
 	}
 }
 
+/****************************************************************************/
+/**
+ * @brief Service APU and RPU power-down request interrupts.
+ *
+ * Reads both power-down and power-up status and mask register sets and
+ * dispatches each nonzero power-down status. Logs an error if the final
+ * dispatch attempted fails or if neither power-down status requests a dispatch.
+ *
+ * @return None.
+ ****************************************************************************/
 static void XPm_InterruptPwrDwnHandler(void)
 {
 	XStatus Status = XST_FAILURE;
 	u32 PwrDwn0Status, PwrDwn0IntMask, PwrUp0Status, PwrUp0IntMask;
 	u32 PwrDwn1Status, PwrDwn1IntMask, PwrUp1Status, PwrUp1IntMask;
 
+	/* Snapshot both request directions for the APU bank */
 	PwrDwn0Status = XPm_In32(PSXC_LPX_SLCR_REQ_PWRDWN0_STATUS);
 	PwrDwn0IntMask = XPm_In32(PSXC_LPX_SLCR_REQ_PWRDWN0_INT_MASK);
 	PwrUp0Status = XPm_In32(PSXC_LPX_SLCR_REQ_PWRUP0_STATUS);
 	PwrUp0IntMask = XPm_In32(PSXC_LPX_SLCR_REQ_PWRUP0_INT_MASK);
+	/* Take the same paired snapshot for the RPU bank */
 	PwrDwn1Status = XPm_In32(PSXC_LPX_SLCR_REQ_PWRDWN1_STATUS);
 	PwrDwn1IntMask = XPm_In32(PSXC_LPX_SLCR_REQ_PWRDWN1_INT_MASK);
 	PwrUp1Status = XPm_In32(PSXC_LPX_SLCR_REQ_PWRUP1_STATUS);
 	PwrUp1IntMask = XPm_In32(PSXC_LPX_SLCR_REQ_PWRUP1_INT_MASK);
 
+	/* Dispatch only banks with a pending power-down request */
 	if (0U != PwrDwn0Status){
 		Status = XPm_DispatchApuPwrDwnHandler(PwrDwn0Status, PwrDwn0IntMask,
 						      PwrUp0Status, PwrUp0IntMask);
@@ -71,22 +97,35 @@ static void XPm_InterruptPwrDwnHandler(void)
 						      PwrUp1Status, PwrUp1IntMask);
 	}
 
+	/* No request leaves the initial failure status unchanged */
 	if (XST_SUCCESS != Status) {
 		PmErr("Error in handling power down interrupt\r\n");
 	}
 }
 
+/****************************************************************************/
+/**
+ * @brief Service APU and RPU wakeup request interrupts.
+ *
+ * Reads both wakeup status and mask registers and dispatches each nonzero
+ * status value. Logs an error if the final dispatch attempted fails or if
+ * neither status register requests a dispatch.
+ *
+ * @return None.
+ ****************************************************************************/
 static void XPm_InterruptWakeupHandler(void)
 {
 	XStatus Status = XST_FAILURE;
 	u32 WakeupStatus, WakeupIntMask;
 
+	/* Service the APU wakeup request bank first */
 	WakeupStatus = XPm_In32(PSXC_LPX_SLCR_WAKEUP0_IRQ_STATUS);
 	WakeupIntMask = XPm_In32(PSXC_LPX_SLCR_WAKEUP0_IRQ_MASK);
 	if (0U != WakeupStatus){
 		Status = XPm_DispatchApuWakeupHandler(WakeupStatus, WakeupIntMask);
 	}
 
+	/* Reuse the snapshot variables for the RPU wakeup bank */
 	WakeupStatus = XPm_In32(PSXC_LPX_SLCR_WAKEUP1_IRQ_STATUS);
 	WakeupIntMask = XPm_In32(PSXC_LPX_SLCR_WAKEUP1_IRQ_MASK);
 	if (0U != WakeupStatus){
@@ -98,10 +137,22 @@ static void XPm_InterruptWakeupHandler(void)
 	}
 }
 
+/****************************************************************************/
+/**
+ * @brief Service core power-control interrupts.
+ *
+ * Reads the power-down IRQ status and mask registers and dispatches them to the
+ * APU/RPU power-control handler, which powers down matching cores and
+ * acknowledges serviced bits. A dispatch failure is logged. Status remains
+ * XST_FAILURE when no bit matches, so an idle interrupt also logs an error.
+ *
+ * @return None.
+ ****************************************************************************/
 static void XPm_InterruptPwrCtrlHandler(void)
 {
 	XStatus Status = XST_FAILURE;
 	u32 PwrCtrlStatus, PwrCtrlMask;
+	/* The dispatcher performs the per-core match on this IRQ snapshot */
 	PwrCtrlStatus = XPm_In32(PSXC_LPX_SLCR_POWER_DWN_IRQ_STATUS);
 	PwrCtrlMask = XPm_In32(PSXC_LPX_SLCR_POWER_DWN_IRQ_MASK);
 	Status = XPm_DispatchPwrCtrlHandler(PwrCtrlStatus, PwrCtrlMask);
@@ -349,12 +400,17 @@ static XStatus XPm_DispatchRpuPwrDwnHandler(u32 PwrDwnStatus, u32 PwrDwnIntMask,
 
 /*****************************************************************************/
 /**
- * @brief APU wakeup interrupt handler
+ * @brief Dispatch unmasked APU wakeup requests.
  *
- * @param WakeupStatus	Interrupt status indicating a request to wakeup core.
- * @param WakeupIntMask	Interrupt mask
+ * For each requested and unmasked APU core, obtains the core's saved resume
+ * address, requests wakeup, then clears and disables the serviced IRQ bit.
  *
- * @return XST_SUCCESS on success, XST_FAILURE or error code during failure
+ * @param WakeupStatus Wakeup request status bits for APU cores.
+ * @param WakeupIntMask Wakeup interrupt mask bits; a clear bit is unmasked.
+ *
+ * @return Status from the last successful wakeup request, XST_INVALID_PARAM if
+ *         a requested core is absent, an error from XPmCore_RequestWakeup, or
+ *         XST_FAILURE if no unmasked request is handled.
  *****************************************************************************/
 static XStatus XPm_DispatchApuWakeupHandler(u32 WakeupStatus, u32 WakeupIntMask)
 {
@@ -370,6 +426,7 @@ static XStatus XPm_DispatchApuWakeupHandler(u32 WakeupStatus, u32 WakeupIntMask)
 		 */
 		if ((CHECK_BIT(WakeupStatus, ApuWakeupHandlerTable[Index].Mask)) &&
 		    !(CHECK_BIT(WakeupIntMask, ApuWakeupHandlerTable[Index].Mask))) {
+			/* Resolve the core represented by the matching table entry */
 			Core = (XPm_Core *)XPmDevice_GetById(ApuWakeupHandlerTable[Index].DeviceId);
 			if (NULL == Core) {
 				Status = XST_INVALID_PARAM;
@@ -478,6 +535,7 @@ static XStatus XPm_DispatchPwrCtrlHandler(u32 PwrCtrlStatus, u32 PwrCtrlMask)
 				if (XST_SUCCESS != Status) {
 					PmErr("Failed to release core 0x%x from subsystem!\r\n", Core->Device.Node.Id);
 				}
+				/* Defer the failure exit until the interrupt has been cleared and masked. */
 				/* Ack the service */
 				XPm_Out32(PSXC_LPX_SLCR_POWER_DWN_IRQ_STATUS, ApuSleepHandlerTable[Index].Mask);
 				XPm_Out32(PSXC_LPX_SLCR_POWER_DWN_IRQ_DIS, ApuSleepHandlerTable[Index].Mask);

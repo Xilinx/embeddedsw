@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2024 Advanced Micro Devices, Inc.  All rights reserve.
+* Copyright (c) 2024 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -70,6 +70,22 @@ done:
 	return Status;
 }
 
+/****************************************************************************/
+/**
+ * @brief Apply cached AMS trim data to the NPD system monitors.
+ *
+ * Iterates over all NPD system-monitor node indices. Existing monitors receive
+ * the trim data associated with the NOC power domain; absent monitors are
+ * skipped. Processing stops at the first trim-application error.
+ *
+ * @param PwrDomain Unused power-domain callback argument.
+ * @param Args Unused callback argument array.
+ * @param NumOfArgs Unused number of callback arguments.
+ *
+ * @return XST_SUCCESS when the last attempted trim succeeds;
+ *         XST_FAILURE if no trim operation establishes success; or the error
+ *         returned by XPm_ApplyAmsTrim() when applying trim data fails.
+ ****************************************************************************/
 XStatus NpdAmsTrim(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 		u32 NumOfArgs) {
 	XStatus Status = XST_FAILURE;
@@ -78,6 +94,8 @@ XStatus NpdAmsTrim(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 	(void)PwrDomain;
 	(void)Args;
 	(void)NumOfArgs;
+
+	/* Visit each NPD system monitor that may hold trim data. */
 	/* Copy sysmon data */
 	for (u32 i = (u32)XPM_NODEIDX_MONITOR_SYSMON_NPD_MIN; i < (u32)XPM_NODEIDX_MONITOR_SYSMON_NPD_MAX; i++) {
 		/* Copy_trim< AMS_SAT_N> */

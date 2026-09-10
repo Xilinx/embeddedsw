@@ -221,6 +221,7 @@ static XStatus ActionShutdown(XPm_Device* const Device) {
 
 	PmDbg("Periph reset/clock dev 0x%x\r\n", Device->Node.Id);
 	/* FIXME: Following reset and clock handling to be tweaked to handle device sharing between subsystems */
+	/* Quiesce peripheral logic before removing its clocks and power resources. */
 	/* Assert reset for peripheral devices */
 	if ((u32)XPM_NODESUBCL_DEV_PERIPH == NODESUBCLASS(Device->Node.Id)) {
 		Status = XPmDevice_Reset(Device, PM_RESET_ACTION_ASSERT);

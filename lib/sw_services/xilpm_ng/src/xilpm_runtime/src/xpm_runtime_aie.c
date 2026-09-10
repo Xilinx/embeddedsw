@@ -111,6 +111,7 @@ static XStatus Aie2ps_StartNumCol(u32 *StartCol, u32 *EndCol, const void *Buffer
 	const XPm_AieDomain *AieDomain = (XPm_AieDomain*)XPmPower_GetById(PM_POWER_ME2);
 	const XPm_AieArray *Array;
 
+	/* Resolve the AIE domain before accessing its array metadata */
 	if (NULL == AieDomain) {
 		Status = XPM_INVALID_PWRDOMAIN;
 		goto done;
@@ -118,6 +119,7 @@ static XStatus Aie2ps_StartNumCol(u32 *StartCol, u32 *EndCol, const void *Buffer
 
 	Array = &AieDomain->Array;
 
+	/* Decode the requested start and inclusive end columns */
 	*StartCol = ((const struct XPm_AieOpStartNumCol *)Buffer)->StartCol;
 	*EndCol = ((const struct XPm_AieOpStartNumCol *)Buffer)->NumCol + *StartCol - 1U;
 
@@ -316,11 +318,13 @@ static XStatus Aie2ps_UcZeroization(const XPm_AieDomain *AieDomain, u32 StartCol
 	u64 BaseAddress;
 	u32 Col;
 	u32 AieZeroizationTime = 0U;
+	/* The request mask is also used to detect when every selected trigger clears. */
 	u32 Value = ((const struct XPm_AieOpUcZeroisation *)Buffer)->Flag;
 	u32 Platform = XPm_GetPlatform();
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 	XStatus UcZeroStatus = XST_FAILURE;
 
+	/* Trigger microcontroller-memory zeroization in each requested column */
 	for (Col = StartCol; Col <= EndCol; Col++) {
 		BaseAddress = AIE2PS_TILE_BADDR(NocAddress, Col, 0U);
 
@@ -336,7 +340,7 @@ static XStatus Aie2ps_UcZeroization(const XPm_AieDomain *AieDomain, u32 StartCol
 		}
 	}
 
-	/* Poll the last cell for uc zeroization complete */
+	/* Poll the last cell for uc zeroization complete within the iteration limit */
 	while(XST_SUCCESS != UcZeroStatus) {
 		if (0U == ((AieRead64(AIE2PS_TILE_BADDR(NocAddress, EndCol, 0U) +
 				      AIE2PS_UC_MODULE_MEM_ZERO_OFFSET)) & Value)) {
@@ -1022,6 +1026,7 @@ static XStatus Aie2ps_HandShake(const XPm_AieDomain *AieDomain, u32 SubsystemId,
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 
 
+	/* Reassemble the DDR source address and isolate the payload length */
 	DdrAddr = LowAddr | ((u64)HighAddr << 32U);
 	Len = (Len - sizeof(struct XPm_AieOpHandShake));
 
@@ -1037,12 +1042,14 @@ static XStatus Aie2ps_HandShake(const XPm_AieDomain *AieDomain, u32 SubsystemId,
 	 * per-column AIE UC Core Private Data Memory via PMC DMA. */
 	XPLMI_VERIFY_ADDR_RANGE(SubsystemId, DdrAddr, (u64)Len, Status, XPM_PM_NO_ACCESS, done);
 
+	/* Copy the authorized payload into each column's private data memory */
 	for (Col = StartCol; Col <= EndCol; Col++) {
 		BaseAddress = AIE2PS_TILE_BADDR(NocAddress, Col, 0U);
 		DestAddr = BaseAddress + AIE2PS_UC_MODULE_CORE_PRIVATE_DATA_MEM + Offset;
 
 		Status = XPlmi_DmaXfr(DdrAddr, DestAddr, Len/4U, XPLMI_PMCDMA_0);
 		if (XST_SUCCESS != Status) {
+			/* Abort before copying the payload to later columns */
 			goto done;
 		}
 	}
@@ -1153,6 +1160,7 @@ static XStatus Aie2ps_Operation(u32 SubsystemId, u32 DeviceId, u32 Size, u32 Hig
 		goto done;
 	}
 
+	/* Keep the caller's operation list within the local parsing buffer */
 	if ((AIE_OPS_MAX_BUF_SIZE < Size) ||
 	    (sizeof(struct XPm_AieTypeLen) > Size)) {
 		PmErr("Invalid AIE ops buffer size %u (must be %u..%u)\r\n",

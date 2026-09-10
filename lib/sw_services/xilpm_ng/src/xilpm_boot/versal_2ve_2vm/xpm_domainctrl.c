@@ -49,18 +49,26 @@ done:
 
 /****************************************************************************/
 /**
- * @brief  Initialize domainctrl node base class
+ * @brief Initialize a GPIO domain-control object from topology arguments.
  *
- * @param  DomainCtrl: Pointer to power domainctrl struct
- * @param  DomainCtrlId: Node Id assigned to a Power DomainCtrl node
- * @param  Args: Arguments for power domain control
- * @param  NumArgs: Number of arguments for power domain
+ * Validates the domain-control node and its GPIO device, decodes the supported
+ * mode commands into @p DomainCtrl, and attaches the object to the FPD or PLD
+ * power-domain object selected by @p DomainCtrlId.
  *
- * @return XST_SUCCESS if successful else XST_FAILURE or error code
+ * @param DomainCtrl Pointer to the domain-control object to populate.
+ * @param DomainCtrlId Domain-control node ID that selects the owning domain.
+ * @param Args Topology argument array containing the control type, GPIO node,
+ *             mode count, and GPIO register commands.
+ * @param NumArgs Number of words available in @p Args.
  *
- * @note Args is dependent on the domainctrl type. Passed arguments will be
- *		 different for mode type.
+ * @return XST_SUCCESS when the object is decoded and attached;
+ *         XST_INVALID_PARAM for malformed arguments, an unsupported node or
+ *         mode, or an invalid node index; XPM_ERR_DEVICE_INIT when the GPIO
+ *         device is absent; or XPM_INVALID_PWRDOMAIN when the owning power
+ *         domain is absent.
  *
+ * @note @p DomainCtrl and @p Args must point to writable object storage and a
+ *       readable argument array, respectively.
  ****************************************************************************/
 XStatus XPmDomainCtrl_Init(XPm_DomainCtrl *DomainCtrl, u32 DomainCtrlId, const u32 *Args, u32 NumArgs) {
 	XStatus Status = XST_FAILURE;
@@ -121,6 +129,10 @@ XStatus XPmDomainCtrl_Init(XPm_DomainCtrl *DomainCtrl, u32 DomainCtrlId, const u
 		goto done;
 	}
 
+	/*
+	 * ArgIndex remains on the preceding field after each mode, so the first
+	 * increment in the loop advances directly to the next command header.
+	 */
 	/* extract and store GPIO HW information ( for each mode ) */
 	for (Mode = 0U; Mode < TotalModes; Mode++) {
 		/** check whether argument count is correct:
@@ -136,6 +148,7 @@ XStatus XPmDomainCtrl_Init(XPm_DomainCtrl *DomainCtrl, u32 DomainCtrlId, const u
 			goto done;
 		}
 
+		/* Decode and validate the command header for this mode */
 		ArgIndex++;
 		CmdLen = (u8)((Args[ArgIndex] >> GPIO_DOMAIN_CTRL_CMDLEN_SHIFT) & GPIO_DOMAIN_CTRL_MODE_MASK);
 		if (MAX_GPIO_CTRL_CMD_LEN != CmdLen) {
@@ -150,6 +163,7 @@ XStatus XPmDomainCtrl_Init(XPm_DomainCtrl *DomainCtrl, u32 DomainCtrlId, const u
 			goto done;
 		}
 
+		/* Store the register command under its decoded mode ID */
 		ArgIndex++;
 		DomainCtrl->GpioCtrl[ModeId].Offset = (u16)Args[ArgIndex];
 		ArgIndex++;
@@ -179,13 +193,24 @@ done:
 
 /****************************************************************************/
 /**
- * @brief  DomainCtrl control
+ * @brief Request an external GPIO-controlled power-domain transition.
  *
- * @param  DomainCtrlId: Domain Control ID
- * @param  State: Domain power state
+ * Resolves the GPIO controller associated with @p PwrDomain, selects its ON or
+ * OFF command from @p State, writes the configured register field, and waits a
+ * fixed interval for the external hardware sequencer. The function does not
+ * poll the rail to verify that the requested state was reached.
  *
- * @return XST_SUCCESS if successful else XST_FAILURE or error code
+ * @param PwrDomain Pointer to the power domain whose control object supplies
+ *                  the GPIO device and mode commands.
+ * @param State Requested XPM_POWER_STATE_ON or XPM_POWER_STATE_OFF state.
  *
+ * @return XST_SUCCESS after issuing a valid GPIO command; XPM_INVALID_PWRDOMAIN
+ *         when @p PwrDomain is NULL; XST_INVALID_PARAM when no control object
+ *         is attached or @p State is unsupported; or an error returned by
+ *         XPm_GetDeviceBaseAddr() when the GPIO base address cannot be found.
+ *
+ * @note A successful return means the command was issued, not that the rail
+ *       transition was measured as complete.
  ****************************************************************************/
 XStatus XPmDomainCtrl_Control(const XPm_PowerDomain *PwrDomain, u32 State) {
 	XStatus Status = XST_FAILURE;
@@ -201,6 +226,7 @@ XStatus XPmDomainCtrl_Control(const XPm_PowerDomain *PwrDomain, u32 State) {
 	}
 	DomainCtrl = PwrDomain->DomainCtrl;
 
+	/* A power domain without a control object cannot issue GPIO commands */
 	if (NULL == PwrDomain->DomainCtrl) {
 		DbgErr = XPM_INT_ERR_INVALID_PWR_DOMAIN;
 		Status = XST_INVALID_PARAM;

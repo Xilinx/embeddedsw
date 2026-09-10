@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2024 Advanced Micro Devices, Inc.  All rights reserve.
+* Copyright (c) 2024 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -47,6 +47,20 @@ XStatus LpdInitFinish(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 	return Status;
 }
 
+/****************************************************************************/
+/**
+ * @brief  Apply AMS trim data to the LPD system monitor.
+ *
+ * A missing LPD system monitor is treated as a successful no-op.
+ *
+ * @param  PwrDomain  Pointer to the LPD power domain; unused
+ * @param  Args       Initialization arguments; unused
+ * @param  NumOfArgs  Number of initialization arguments; unused
+ *
+ * @return XST_SUCCESS when trimming succeeds or no LPD system monitor exists,
+ *         otherwise the error returned by XPm_ApplyAmsTrim()
+ *
+ ****************************************************************************/
 XStatus LpdAmsTrim(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 		u32 NumOfArgs){
 
@@ -60,6 +74,7 @@ XStatus LpdAmsTrim(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 
 	/* Copy LPD sysmon data */
 	SysmonAddr = XPm_GetSysmonByIndex((u32)XPM_NODEIDX_MONITOR_SYSMON_LPD);
+	/* Treat an absent LPD system monitor as a successful no-op */
 	if (0U == SysmonAddr) {
 		DbgErr = XPM_INT_ERR_INVALID_DEVICE;
 		PmWarn("Warning Device XPM_NODEIDX_MONITOR_SYSMON_PS_LPD doest not exist\n\r");
@@ -67,6 +82,7 @@ XStatus LpdAmsTrim(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 		goto done;
 	}
 
+	/* Apply the stored AMS trim values to the resolved LPD monitor */
 	Status = XPm_ApplyAmsTrim(SysmonAddr, PM_POWER_LPD, 0);
 	if (XST_SUCCESS != Status) {
 		DbgErr = XPM_INT_ERR_AMS_TRIM;

@@ -137,27 +137,38 @@ void XPmRequirement_Clear(XPm_Requirement* Reqm)
 
 /****************************************************************************/
 /**
- * @brief	Releases the given device from every subsystem that currently
- *		has it allocated.
+ * @brief Release a device from every subsystem that has it allocated.
  *
- * @param	Device	Device whose allocations are to be released
+ * Looks up the device's runtime requirement list and calls XPmDevice_Release
+ * with a secure command for each allocated entry, stopping at the first error.
+ * Successful releases clear the corresponding allocation and requirements via
+ * the normal device-release path.
  *
- * @return	XST_SUCCESS if successful else XST_FAILURE or an error code
+ * @param Device Device whose allocated requirements are released.
+ *
+ * @return XST_INVALID_PARAM if Device is NULL, XST_FAILURE if its runtime
+ *         operations record is absent, or the status of the last attempted
+ *         XPmDevice_Release call. If no entry is allocated, returns XST_FAILURE.
  *
  ****************************************************************************/
 XStatus XPmRequirement_ReleaseFromAllSubsystem(const XPm_Device* Device)
 {
 	XStatus Status = XST_FAILURE;
+
+	/* Validate the device before resolving its runtime requirement list. */
 	if (NULL == Device) {
 		Status = XST_INVALID_PARAM;
 		goto done;
 	}
+
+	/* Resolve the per-device list shared by all subsystem requirements. */
 	const XPmRuntime_DeviceOps* DevOps = XPm_GetDevOps_ById(Device->Node.Id);
 	if (NULL == DevOps) {
 		PmErr("DeviceOps is NULL\r\n");
 		Status = XST_FAILURE;
 		goto done;
 	}
+	/* Release only requirements that currently hold an allocation. */
 	LIST_FOREACH(DevOps->Requirements, ReqmNode){
 		if ((NULL == ReqmNode->Data) ||
 		    (NULL == ReqmNode->Data->Subsystem) ||
@@ -168,6 +179,7 @@ XStatus XPmRequirement_ReleaseFromAllSubsystem(const XPm_Device* Device)
 		if (1U != ReqmNode->Data->Allocated) {
 			continue;
 		}
+		/* Use secure command context for PM-internal cleanup of recorded allocations. */
 		Status = XPmDevice_Release(ReqmNode->Data->Subsystem->Id, ReqmNode->Data->Device->Node.Id,
 					   XPLMI_CMD_SECURE);
 		if (XST_SUCCESS != Status) {

@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2024 Advanced Micro Devices, Inc. All rights reserved.
+* Copyright (c) 2024 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 #include "xpm_runtime_alloc.h"
@@ -38,18 +38,23 @@ static XPm_AllocablePool_t OtherPoolMem XPM_INIT_DATA(OtherPoolMem)= {
 	.FreeMem = OtherPoolMemBuffer
 };
 
+/****************************************************************************/
 /**
- * @brief Allocates a block of memory from the SubSystemPoolMem.
+ * @brief Allocate zero-initialized storage from the subsystem pool.
  *
- * This function allocates a block of memory of the specified size from the SubSystemPoolMem.
- * If the allocation fails, an error message is printed and the memory usage is dumped.
+ * Advances the subsystem pool through XPm_AllocPool(). On failure, logs the
+ * requested size and dumps usage information for all runtime memory pools.
  *
- * @param SizeInBytes The size of the memory block to allocate, in bytes.
- * @return A pointer to the allocated memory block, or NULL if the allocation fails.
- */
+ * @param SizeInBytes Number of bytes requested.
+ *
+ * @return Pointer to the allocated region on success; NULL on failure.
+ *
+ ****************************************************************************/
 void *XPm_AllocBytesSubsys(u32 SizeInBytes)
 {
 	void* ret =  XPm_AllocPool(SizeInBytes, &SubSystemPoolMem);
+
+	/* Report pool exhaustion together with the full runtime memory usage */
 	if (NULL == ret) {
 		PmErr("Failed to allocate %u bytes from SubSystemPoolMem\n\r", SizeInBytes);
 		XPm_DumpMemUsage();
@@ -57,18 +62,23 @@ void *XPm_AllocBytesSubsys(u32 SizeInBytes)
 	return ret;
 }
 
+/****************************************************************************/
 /**
- * @brief Allocates a block of memory from the ReqmPoolMem.
+ * @brief Allocate zero-initialized storage from the requirement pool.
  *
- * This function allocates a block of memory of the specified size from the ReqmPoolMem.
- * If the allocation fails, an error message is printed and the memory usage is dumped.
+ * Advances the requirement pool through XPm_AllocPool(). On failure, logs the
+ * requested size and dumps usage information for all runtime memory pools.
  *
- * @param SizeInBytes The size of the memory block to allocate, in bytes.
- * @return A pointer to the allocated memory block, or NULL if the allocation fails.
- */
+ * @param SizeInBytes Number of bytes requested.
+ *
+ * @return Pointer to the allocated region on success; NULL on failure.
+ *
+ ****************************************************************************/
 void *XPm_AllocBytesReqm(u32 SizeInBytes)
 {
 	void* ret =  XPm_AllocPool(SizeInBytes, &ReqmPoolMem);
+
+	/* Report pool exhaustion together with the full runtime memory usage */
 	if (NULL == ret) {
 		PmErr("Failed to allocate %u bytes from ReqmPoolMem\n\r", SizeInBytes);
 		XPm_DumpMemUsage();
@@ -94,6 +104,18 @@ void *XPm_AllocBytesOthers(u32 SizeInBytes)
 	return ret;
 }
 
+/****************************************************************************/
+/**
+ * @brief Allocate zero-initialized storage from the device-operations pool.
+ *
+ * Advances the device-operations pool through XPm_AllocPool(). If allocation
+ * fails, logs the requested size without dumping the other pools.
+ *
+ * @param SizeInBytes Number of bytes requested.
+ *
+ * @return Pointer to the allocated region on success; NULL on failure.
+ *
+ ****************************************************************************/
 void *XPm_AllocBytesDevOps(u32 SizeInBytes)
 {
 	void* ret =  XPm_AllocPool(SizeInBytes, &DevOpsPoolMem);

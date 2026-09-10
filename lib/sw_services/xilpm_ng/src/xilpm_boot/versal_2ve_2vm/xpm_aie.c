@@ -192,12 +192,20 @@ done:
 
 /****************************************************************************/
 /**
- * @brief  Add AIE periph node
+ * @brief  Allocate and initialize an AIE peripheral device node.
  *
- * @param  PowerId	Power domain ID of node.
- * @param  Args		Node specific data.
+ *         Reads the device ID from Args[0] and base address from Args[2],
+ *         resolves its parent power domain, and allocates and initializes the
+ *         supported AIE device type.
  *
- * @return XST_SUCCESS if successful else XST_FAILURE or an error code
+ * @param  Args		Non-NULL node-data array of at least three words, with
+ *			the device ID at index 0 and base address at index 2.
+ * @param  PowerId	Power domain ID of the node's parent.
+ *
+ * @return XST_SUCCESS when the device is initialized; XST_DEVICE_NOT_FOUND if
+ *         the parent power node is absent; XST_BUFFER_TOO_SMALL if allocation
+ *         fails; XST_INVALID_PARAM for an unsupported AIE device index; or an
+ *         error returned by XPmDevice_Init().
  ****************************************************************************/
 XStatus XPmAie_AddPeriphNode(const u32 *Args, u32 PowerId)
 {
@@ -208,16 +216,19 @@ XStatus XPmAie_AddPeriphNode(const u32 *Args, u32 PowerId)
 	XPm_AieNode *AieDevice;
 	XPm_Power *Power;
 
+	/* Decode the device identity and register base from topology data. */
 	DeviceId = Args[0];
 	BaseAddr = Args[2];
 	Index = NODEINDEX(DeviceId);
 
+	/* Resolve the power dependency before allocating the device object. */
 	Power = XPmPower_GetById(PowerId);
 	if (NULL == Power) {
 		Status = XST_DEVICE_NOT_FOUND;
 		goto done;
 	}
 
+	/* Allocate only the AIE peripheral type supported by this domain. */
 	switch (Index) {
 	case (u32)XPM_NODEIDX_DEV_AIE:
 		AieDevice = (XPm_AieNode *)XPm_AllocBytes(sizeof(XPm_AieNode));

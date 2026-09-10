@@ -10,18 +10,20 @@
 #include "xpm_mem_tcm.h"
 #include "xplmi_dma.h"
 
+/****************************************************************************/
 /**
- * XPmMem_TcmResetRelease - Release reset and ECC initialize TCM.
+ * @brief  Release the associated RPU reset and initialize TCM ECC.
  *
- * @Device: Pointer to the TCM device.
+ * The owning RPU is reset and halted, its reset is released, and the complete
+ * TCM address range is passed to the ECC initialization routine.
  *
- * This function releases the reset for the specified TCM and then
- * ECC initializes the TCM memory.
+ * @param  Device  Pointer to the TCM memory device
  *
- * Return:
- * XST_SUCCESS if successful, otherwise an error code.
- */
-
+ * @return XST_SUCCESS on success, XST_INVALID_PARAM for a NULL device or an
+ *         unknown TCM ID, or an error from the RPU reset or ECC initialization
+ *         operation
+ *
+ ****************************************************************************/
 XStatus XPmMem_TcmResetRelease(const XPm_Device *Device)
 {
 	XStatus Status = XST_FAILURE;
@@ -29,6 +31,7 @@ XStatus XPmMem_TcmResetRelease(const XPm_Device *Device)
 	const XPm_MemDevice *Tcm = NULL;
 	u32 Size = 0U;
 
+	/* Validate the device before interpreting it as TCM memory. */
 	if (NULL == Device) {
 		Status = XST_INVALID_PARAM;
 		goto done;
@@ -36,16 +39,19 @@ XStatus XPmMem_TcmResetRelease(const XPm_Device *Device)
 
 	Tcm = (const XPm_MemDevice *)Device;
 
+	/* Resolve the RPU core that owns the supplied TCM bank. */
 	Status = XPm_GetRpuByTcmId(Device->Node.Id, &RpuId);
 	if (XST_SUCCESS != Status) {
 		PmErr("Failed to get RPU ID for TCM ID: 0x%x\n", Device->Node.Id);
 		goto done;
 	}
+	/* Quiesce the owning core before making its TCM accessible. */
 	Status = XPmRpuCore_ResetAndHalt(RpuId);
 	if (XST_SUCCESS != Status) {
 		PmErr("Failed to halt RPU ID: 0x%x\n", RpuId);
 		goto done;
 	}
+	/* Release reset so the TCM address range can be initialized. */
 	Status = XPmRpuCore_ReleaseReset(RpuId);
 	if (XST_SUCCESS != Status) {
 		PmErr("Failed to release reset for RPU ID: 0x%x\n", RpuId);
@@ -54,6 +60,7 @@ XStatus XPmMem_TcmResetRelease(const XPm_Device *Device)
 
 	/* TCM is now accessible -- ECC initialize the memory */
 	Size = Tcm->EndAddress - Tcm->StartAddress + 1U;
+	/* Initialize ECC only when the inclusive address range is nonempty. */
 	if (0U != Size) {
 		Status = XPlmi_EccInit((u64)Tcm->StartAddress, Size);
 		if (XST_SUCCESS != Status) {
@@ -66,22 +73,28 @@ done:
 	return Status;
 }
 
+/****************************************************************************/
 /**
- * XPm_GetRpuByTcmId - Get the RPU ID for the given TCM ID.
+ * @brief  Map a TCM device node ID to its owning RPU core node ID.
  *
- * @TcmId: The ID of the TCM to get the RPU ID for.
- * @RpuId: Pointer to store the RPU ID.
+ * @param  TcmId  TCM device node ID
+ * @param  RpuId  Non-NULL pointer to receive the owning RPU core node ID
  *
- * This function maps the TCM ID to the corresponding RPU ID.
+ * @return XST_SUCCESS for a recognized TCM ID, or XST_INVALID_PARAM when
+ *         TcmId is not recognized
  *
- * Return:
- * XST_SUCCESS if successful, otherwise an error code.
- */
+ ****************************************************************************/
 XStatus XPm_GetRpuByTcmId(u32 TcmId, u32 *RpuId)
 {
 	XStatus Status = XST_FAILURE;
+	/* Map each TCM bank group to its owning RPU instance. */
 	switch (TcmId)
 	{
+	/*
+	 * Every core owns three banks, distinguished by the trailing A/B/C in
+	 * the node name; the digit before it selects the core within the
+	 * cluster.  That is why three labels share one target in each group.
+	 */
 	case PM_DEV_TCM_A_0A:
 	case PM_DEV_TCM_A_0B:
 	case PM_DEV_TCM_A_0C:
@@ -94,6 +107,7 @@ XStatus XPm_GetRpuByTcmId(u32 TcmId, u32 *RpuId)
 		*RpuId = PM_DEV_RPU_A_1;
 		Status = XST_SUCCESS;
 		break;
+	/* Select one of the B-cluster RPU cores. */
 	case PM_DEV_TCM_B_0A:
 	case PM_DEV_TCM_B_0B:
 	case PM_DEV_TCM_B_0C:
@@ -106,6 +120,7 @@ XStatus XPm_GetRpuByTcmId(u32 TcmId, u32 *RpuId)
 		*RpuId = PM_DEV_RPU_B_1;
 		Status = XST_SUCCESS;
 		break;
+	/* Select one of the C-cluster RPU cores. */
 	case PM_DEV_TCM_C_0A:
 	case PM_DEV_TCM_C_0B:
 	case PM_DEV_TCM_C_0C:
@@ -118,6 +133,7 @@ XStatus XPm_GetRpuByTcmId(u32 TcmId, u32 *RpuId)
 		*RpuId = PM_DEV_RPU_C_1;
 		Status = XST_SUCCESS;
 		break;
+	/* Select one of the D-cluster RPU cores. */
 	case PM_DEV_TCM_D_0A:
 	case PM_DEV_TCM_D_0B:
 	case PM_DEV_TCM_D_0C:
@@ -130,6 +146,7 @@ XStatus XPm_GetRpuByTcmId(u32 TcmId, u32 *RpuId)
 		*RpuId = PM_DEV_RPU_D_1;
 		Status = XST_SUCCESS;
 		break;
+	/* Select one of the E-cluster RPU cores. */
 	case PM_DEV_TCM_E_0A:
 	case PM_DEV_TCM_E_0B:
 	case PM_DEV_TCM_E_0C:
@@ -143,6 +160,7 @@ XStatus XPm_GetRpuByTcmId(u32 TcmId, u32 *RpuId)
 		Status = XST_SUCCESS;
 		break;
 	default:
+		/* Reject IDs that do not identify a TCM bank. */
 		PmErr("Invalid TCM ID: 0x%x\n", TcmId);
 		Status = XST_INVALID_PARAM;
 		break;

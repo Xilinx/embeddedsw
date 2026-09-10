@@ -119,24 +119,33 @@ XStatus XPmSubsystemOp_StartRecoveryTimer(XPm_Subsystem *Subsystem, u32 CmdType)
 
 /****************************************************************************/
 /**
- * @brief  Grant the Host subsystem the requested permissions over the Target
+ * @brief Grant subsystem operation permissions to a host.
  *
- * @param Host          Pointer to the host subsystem requesting permissions
- * @param TargetId      Subsystem ID of the target subsystem
- * @param Operations    Bitmask of operations to permit (wakeup/powerdown)
+ * Resolves @p TargetId and adds the secure and non-secure wake and power-down
+ * permission bits selected by @p Operations for @p Host. Permissions involving
+ * the PMC or ASU subsystem are not modified.
  *
- * @return XST_SUCCESS on success, error code on failure
+ * @param Host Pointer to the subsystem receiving permission. Must not be NULL.
+ * @param TargetId ID of the subsystem whose permission masks are updated.
+ * @param Operations Bitmask selecting the subsystem operations to grant.
+ *
+ * @return XST_SUCCESS if the permission masks were updated.
+ * @return XPM_INVALID_SUBSYSID if @p TargetId does not identify a subsystem.
+ * @return XST_FAILURE if either subsystem is PMC or ASU, or @p Host is NULL.
  *
  ****************************************************************************/
 static XStatus XPm_AddSubsysPermissions(const XPm_Subsystem *Host, u32 TargetId, u32 Operations)
 {
 	XStatus Status = XST_FAILURE;
 	XPm_Subsystem *Target = XPmSubsystem_GetById(TargetId);
+
+	/* Resolve the subsystem whose permission masks will be extended. */
 	if (NULL == Target) {
 		Status = XPM_INVALID_SUBSYSID;
 		goto done;
 	}
 
+	/* Exclude absent hosts and the subsystems whose permissions are immutable here. */
 	if ((NULL == Target) || (NULL == Host) ||
 	    (PM_SUBSYS_PMC == Host->Id) || (PM_SUBSYS_PMC == Target->Id) ||
 	    (PM_SUBSYS_ASU == Host->Id) || (PM_SUBSYS_ASU == Target->Id)) {
@@ -231,15 +240,21 @@ done:
 
 /****************************************************************************/
 /**
- * @brief  Shutdown subsystem by idling cores, releasing resources, and powering down
+ * @brief Shut down a subsystem and release its runtime resources.
  *
- * @param Subsystem     Pointer to subsystem object
+ * An already powered-off subsystem is accepted without further action.
+ * Otherwise this function idles its cores, clears its configured and idle-
+ * callback flags, releases all requirements, unregisters all notifiers, clears
+ * the pending callback reason, and changes the state to POWERED_OFF. Processing
+ * stops at the first failed step, so effects completed before that failure
+ * remain in place.
  *
- * @return XST_SUCCESS on success, error code on failure
+ * @param Subsystem Pointer to the subsystem to shut down. Must not be NULL.
  *
- * @note   Strong symbol override - full implementation for subsystem builds.
- *         Performs complete shutdown sequence: idle subsystem, release all
- *         requirements and notifiers, clear flags, and set state to POWERED_OFF.
+ * @return XST_SUCCESS if the subsystem was already off or shutdown completed.
+ * @return An error status returned by the idle, cleanup, or state-change step.
+ *
+ * @note Strong symbol override - full implementation for subsystem builds.
  *
  ****************************************************************************/
 XStatus XPmSubsystemOp_ShutDown(XPm_Subsystem *Subsystem)
@@ -248,6 +263,7 @@ XStatus XPmSubsystemOp_ShutDown(XPm_Subsystem *Subsystem)
 
 	PmInfo("%s: Shutdown 0x%x (state: 0x%x)\r\n", __func__, Subsystem->Id, Subsystem->State);
 
+	/* Treat an already stopped subsystem as a completed shutdown. */
 	if ((u32)POWERED_OFF == Subsystem->State) {
 		Status = XST_SUCCESS;
 		goto done;
@@ -258,6 +274,7 @@ XStatus XPmSubsystemOp_ShutDown(XPm_Subsystem *Subsystem)
 	if(XST_SUCCESS != Status) {
 		goto done;
 	}
+	/* Clear lifecycle flags once all cores have been idled. */
 	Subsystem->Flags &= (u8)(~SUBSYSTEM_IS_CONFIGURED);
 	Subsystem->Flags &= (u8)(~SUBSYSTEM_IDLE_CB_IS_SENT);
 
@@ -269,6 +286,7 @@ XStatus XPmSubsystemOp_ShutDown(XPm_Subsystem *Subsystem)
 	/* Clear the pending suspend cb reason */
 	Subsystem->PendCb.Reason = 0U;
 
+	/* Publish the powered-off state after resource cleanup completes. */
 	Status = XPmSubsystem_SetState(Subsystem, (u32)POWERED_OFF);
 	if (XST_SUCCESS != Status) {
 		goto done;
@@ -409,17 +427,26 @@ done:
 
 /****************************************************************************/
 /**
- * @brief  Add requirement (device/reset/subsystem/regnode) to subsystem
+ * @brief Add a node-class-specific requirement to a subsystem.
  *
- * @param Subsystem     Pointer to subsystem object
- * @param Payload       Requirement payload containing node-specific arguments
- * @param PayloadLen    Length of payload array
+ * Dispatches the request using the class of the node ID in @p Payload[1]. A
+ * device request adds a device requirement, a reset request grants reset
+ * permission, a subsystem request grants operation permissions, and a register
+ * node request adds register-node access.
  *
- * @return XST_SUCCESS on success, error code on failure
+ * @param Subsystem Pointer to the subsystem receiving the requirement. Must not
+ *                  be NULL.
+ * @param Payload Command payload whose second word contains the node ID. Must
+ *                contain at least two words; class-specific handlers can
+ *                require additional words.
+ * @param PayloadLen Number of words available in @p Payload.
  *
- * @note   Strong symbol override - full implementation for subsystem builds.
- *         Supports adding requirements for devices, resets, subsystems, and
- *         register nodes based on node class in payload.
+ * @return XST_SUCCESS if the selected requirement was added.
+ * @return XST_INVALID_PARAM for an unsupported node class or a malformed
+ *         class-specific payload.
+ * @return An error status returned by the selected requirement handler.
+ *
+ * @note Strong symbol override - full implementation for subsystem builds.
  *
  ****************************************************************************/
 XStatus XPmSubsystemOp_AddRequirement(XPm_Subsystem *Subsystem, u32 *Payload, u32 PayloadLen)
@@ -427,20 +454,26 @@ XStatus XPmSubsystemOp_AddRequirement(XPm_Subsystem *Subsystem, u32 *Payload, u3
 	XStatus Status = XST_FAILURE;
 	u32 NodeId = Payload[1];
 
+	/* Dispatch to the requirement handler selected by the node class. */
 	switch (NODECLASS(NodeId)) {
 	case (u32)XPM_NODECLASS_DEVICE:
+		/* Add a resource requirement for a device node. */
 		Status = XPm_AddDevRequirement(Subsystem, Payload, PayloadLen);
 		break;
 	case (u32)XPM_NODECLASS_RESET:
+		/* Add the subsystem's permissions for a reset node. */
 		Status = XPm_AddRstRequirement(Subsystem, Payload, PayloadLen);
 		break;
 	case (u32)XPM_NODECLASS_SUBSYSTEM:
+		/* Extend permissions between the host and target subsystems. */
 		Status = XPm_AddSubsysRequirement(Subsystem, Payload, PayloadLen);
 		break;
 	case (u32)XPM_NODECLASS_REGNODE:
+		/* Add register-node access directly for the host subsystem. */
 		Status = XPmAccess_AddRegnodeRequirement(Subsystem->Id, NodeId);
 		break;
 	default:
+		/* Reject node classes that have no requirement representation. */
 		Status = XST_INVALID_PARAM;
 		break;
 	}
@@ -479,14 +512,29 @@ static XStatus CheckTargetToHostPerm(const u32 CmdType, const u32 HostId, u32 Pe
 	return Status;
 }
 
+/****************************************************************************/
 /**
- * @brief  Checks whether given Target Subsystem has required Permission Mask
- */
+ * @brief Select a target subsystem permission mask for an operation.
+ *
+ * @param Operation Operation selector: SUB_PERM_WAKE_MASK or
+ *                  SUB_PERM_PWRDWN_MASK.
+ * @param TargetSubsystem Pointer to the subsystem whose permissions are read.
+ *                        Must not be NULL.
+ * @param PermissionMask Output location for the selected permission mask. It is
+ *                       written only for a supported operation.
+ * @param DbgErr Debug error output. It is set to XPM_INT_ERR_INVALID_PARAM when
+ *               @p Operation is unsupported and is otherwise unchanged.
+ *
+ * @return XST_SUCCESS if a permission mask was selected.
+ * @return XST_INVALID_PARAM if @p Operation is unsupported.
+ *
+ ****************************************************************************/
 static XStatus CheckTargetPermMask(const u32 Operation, const XPm_Subsystem *TargetSubsystem,
 						u32 *PermissionMask, u16 *DbgErr)
 {
 	volatile XStatus Status = XST_FAILURE;
 
+	/* Select the target mask corresponding to the requested operation. */
 	switch (Operation)
 	{
 		case SUB_PERM_WAKE_MASK:
@@ -498,6 +546,12 @@ static XStatus CheckTargetPermMask(const u32 Operation, const XPm_Subsystem *Tar
 			Status = XST_SUCCESS;
 			break;
 		default:
+			/*
+			 * PermissionMask is deliberately left untouched for an
+			 * unsupported operation: there is no safe mask to publish,
+			 * so the caller must treat a non-success return as "no
+			 * mask" rather than reading the output.
+			 */
 			*DbgErr = XPM_INT_ERR_INVALID_PARAM;
 			Status = XST_INVALID_PARAM;
 			break;

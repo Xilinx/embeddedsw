@@ -11,22 +11,26 @@
 
 /****************************************************************************/
 /**
- * @brief  Initialize AIE Device node base class
+ * @brief Initialize an AIE device and its partition bounds.
  *
- * @param  AieDevice: Pointer to an uninitialized AieDevice struct
- * @param  NodeId: Node Id assigned to an AieDevice node
- * @param  BaseAddress: Baseaddress that is passed from topology
- * @param  Power: Power Node dependency
- * @param  Clock: Clocks that AieDevice is dependent on
- * @param  Reset: AieDevice reset dependency
- * @param  StartCol: Partition start column (inclusive), 0 if unconstrained
- * @param  EndCol: Partition end column (inclusive), 0 if unconstrained
- * @param  IsPartitioned: 1 if partition info was provided, 0 otherwise
+ * Initializes the embedded generic device with its power, clock, and reset
+ * dependencies. On success, clears the AIE parent link and records the column
+ * range and partition flag supplied by the topology.
  *
- * @return XST_SUCCESS if successful else XST_FAILURE or error code
+ * @param AieDevice Pointer to the AIE device object to initialize.
+ * @param NodeId Node ID assigned to the AIE device.
+ * @param BaseAddress Device register base address supplied by the topology.
+ * @param Power Pointer to the device's power dependency.
+ * @param Clock Pointer to the device's clock dependency.
+ * @param Reset Pointer to the device's reset dependency.
+ * @param StartCol Inclusive first column of the partition, or 0 if unconstrained.
+ * @param EndCol Inclusive last column of the partition, or 0 if unconstrained.
+ * @param IsPartitioned Nonzero when the supplied column bounds constrain the
+ *                      device, and zero when the device is unconstrained.
  *
- * @note None
- *
+ * @return XST_SUCCESS when the generic device and partition data are
+ *         initialized, or the error returned by XPmDevice_Init(). Partition
+ *         fields are not updated when generic device initialization fails.
  ****************************************************************************/
 XStatus XPmAieDevice_Init(XPm_AieDevice *AieDevice, u32 NodeId,
 			  u32 BaseAddress, XPm_Power *Power,
@@ -35,11 +39,13 @@ XStatus XPmAieDevice_Init(XPm_AieDevice *AieDevice, u32 NodeId,
 {
 	XStatus Status = XST_FAILURE;
 
+	/* Initialize the generic device dependencies before AIE-specific state. */
 	Status = XPmDevice_Init(&AieDevice->Device, NodeId, BaseAddress, Power, Clock, Reset);
 	if (XST_SUCCESS != Status) {
 		goto done;
 	}
 
+	/* Record the partition relationship and topology bounds. */
 	AieDevice->Parent = NULL;
 	AieDevice->StartCol = StartCol;
 	AieDevice->EndCol = EndCol;

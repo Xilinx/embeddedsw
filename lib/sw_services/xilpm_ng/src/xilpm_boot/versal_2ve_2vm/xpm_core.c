@@ -189,6 +189,11 @@ void DisableWake(const struct XPm_Core *Core)
 		/* Required for MISRA */
 	}
 }
+/****************************************************************************/
+/**
+ * @brief Store a resume address in a core object.
+ */
+/****************************************************************************/
 static XStatus SetResumeAddr(XPm_Core *Core, u64 Address)
 {
 	Core->ResumeAddr = Address;
@@ -272,18 +277,38 @@ maybe_unused static XStatus XPmCore_GetCPUIdleFlag(const XPm_Core *Core, const u
 	return XST_SUCCESS;
 }
 
+/****************************************************************************/
+/**
+ * @brief Provide a boot-only core-clock control stub that performs no operation.
+ */
+/****************************************************************************/
 XStatus __attribute__((weak,noinline)) XPmCore_SetClock(u32 CoreId, u32 Enable)
 {
+	/* xpm_runtime_core.c replaces this weak boot default in runtime builds. */
 	(void)CoreId;
 	(void)Enable;
 	return XST_SUCCESS;
 }
 
+/****************************************************************************/
+/**
+ * @brief  Dispatch a core wake-up request to the core-type implementation.
+ *
+ * @param  Core        Pointer to the core to wake
+ * @param  SetAddress  1 to program Address as the resume address; other values
+ *                     do not request address programming
+ * @param  Address     Resume address supplied to the core-specific handler
+ *
+ * @return Status from the APU, RPU, or ASU wake-up handler, or XST_NO_FEATURE
+ *         when the core type is unsupported
+ *
+ ****************************************************************************/
 XStatus XPmCore_RequestWakeup(XPm_Core *Core, u32 SetAddress, u64 Address)
 {
 	XStatus Status = XST_FAILURE;
 	u32 CoreType = NODETYPE(Core->Device.Node.Id);
 
+	/* Delegate the wake sequence to the implementation for this core type */
 	switch (CoreType) {
 	case (u32)XPM_NODETYPE_DEV_CORE_APU:
 		Status = XPmApuCore_WakeUp(Core, SetAddress, Address);
@@ -295,6 +320,7 @@ XStatus XPmCore_RequestWakeup(XPm_Core *Core, u32 SetAddress, u64 Address)
 		Status = XPmAsuCore_WakeUp(Core, SetAddress, Address);
 		break;
 	default:
+		/* Reject core types without a platform wake-up implementation */
 		Status = XST_NO_FEATURE;
 		break;
 	}
@@ -302,11 +328,22 @@ XStatus XPmCore_RequestWakeup(XPm_Core *Core, u32 SetAddress, u64 Address)
 	return Status;
 }
 
+/****************************************************************************/
+/**
+ * @brief  Dispatch a core power-down request to the core-type implementation.
+ *
+ * @param  Core  Pointer to the core to power down
+ *
+ * @return Status from the APU, RPU, or ASU power-down handler, or
+ *         XST_NO_FEATURE when the core type is unsupported
+ *
+ ****************************************************************************/
 XStatus XPmCore_PowerDown(XPm_Core *Core)
 {
 	XStatus Status = XST_FAILURE;
 	u32 CoreType = NODETYPE(Core->Device.Node.Id);
 
+	/* Delegate the power-down sequence to the implementation for this core type */
 	switch (CoreType) {
 	case (u32)XPM_NODETYPE_DEV_CORE_APU:
 		Status = XPmApuCore_PwrDwn(Core);
@@ -318,6 +355,7 @@ XStatus XPmCore_PowerDown(XPm_Core *Core)
 		Status = XPmAsuCore_PwrDwn(Core);
 		break;
 	default:
+		/* Reject core types without a platform power-down implementation */
 		Status = XST_NO_FEATURE;
 		break;
 	}

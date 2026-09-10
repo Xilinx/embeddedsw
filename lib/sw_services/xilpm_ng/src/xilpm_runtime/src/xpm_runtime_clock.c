@@ -194,6 +194,7 @@ static void XPmClock_ReleaseInt(XPm_ClockNode *Clk)
 		/* Decrease the use count of clock */
 		PmDecrementClk(Clk->Node.Id, Clk->Name, Clk->UseCount);
 
+		/* Tear down the gate and parent only after the final consumer releases the clock. */
 		if (0U == Clk->UseCount) {
 			/* Clear the requested bit of clock */
 			Clk->Node.State &= (u8)(~(XPM_CLK_STATE_REQUESTED));
@@ -792,12 +793,19 @@ done:
 }
 
 /**
- * @brief  Compute the clock rate for a single node given its parent's rate.
+ * @brief Compute one clock node's rate from its parent rate.
  *
- * @param  ClkNode	Pointer to the clock node
- * @param  ParentRate	Parent clock rate in Hz
+ * Reference clocks inherit ParentRate. PLL nodes read FBDIV and multiply the
+ * parent rate. Output clocks read DIV1 topology and register data, then apply
+ * the configured linear or power-of-two divider. No clock state is changed.
  *
- * @return Computed clock rate in Hz, or 0 on failure
+ * @param ClkNode Clock node whose rate is computed.
+ * @param ParentRate Parent clock rate in Hz.
+ *
+ * @return Computed rate in Hz. Returns ParentRate for reference clocks,
+ *         unrecognized clock types, output clocks without DIV1, and output
+ *         clocks whose zero divider is allowed. Returns 0 for invalid input, a
+ *         failed parameter read, or a zero divider that is not allowed.
  *
  ****************************************************************************/
 static u32 XPmClock_ComputeNodeRate(const XPm_ClockNode *ClkNode, u32 ParentRate)
@@ -807,13 +815,16 @@ static u32 XPmClock_ComputeNodeRate(const XPm_ClockNode *ClkNode, u32 ParentRate
 	u32 Div = 0U;
 	const struct XPm_ClkTopologyNode *DivNode = NULL;
 
+	/* Reject inputs that cannot produce a valid derived rate. */
 	if ((ClkNode == NULL) || (ParentRate == 0U)) {
 		goto done;
 	}
 
+	/* Apply the rate rule associated with the clock node type. */
 	if (ISREFCLK(ClkNode->Node.Id)) {
 		Rate = ParentRate;
 	} else if (ISPLL(ClkNode->Node.Id)) {
+		/* Derive a PLL rate from its configured feedback divider. */
 		Status = XPmClockPll_GetParam((const XPm_PllClockNode *)ClkNode,
 					      (u32)PM_PLL_PARAM_ID_FBDIV, &Div);
 		if ((Status != XST_SUCCESS) || (Div == 0U)) {
@@ -821,6 +832,7 @@ static u32 XPmClock_ComputeNodeRate(const XPm_ClockNode *ClkNode, u32 ParentRate
 		}
 		Rate = ParentRate * Div;
 	} else if (ISOUTCLK(ClkNode->Node.Id)) {
+		/* Resolve and read the output clock's first-stage divider. */
 		DivNode = XPmClock_GetTopologyNode((const XPm_OutClockNode *)ClkNode,
 						   (u32)TYPE_DIV1);
 		if (NULL == DivNode) {
@@ -834,6 +846,7 @@ static u32 XPmClock_ComputeNodeRate(const XPm_ClockNode *ClkNode, u32 ParentRate
 			goto done;
 		}
 
+		/* Interpret a zero divider according to the topology flags. */
 		if (Div == 0U) {
 			if (0U != (DivNode->Typeflags & CLK_DIVIDER_ALLOW_ZERO)) {
 				Rate = ParentRate;
@@ -1200,27 +1213,32 @@ done:
 
 /****************************************************************************/
 /**
- * @brief  This function sets the rate of the clock.
+ * @brief Program the requested rate for a rate-changeable output clock.
  *
- * @param ClockId	Clock node ID
- * @param ClkRate	Clock rate
- * @param Flags		Flags for setting clock rate
+ * Verifies that rate changes are allowed, resolves the clock, and delegates
+ * output-clock programming to XPmClockOut_SetRate().
  *
- * @return XST_SUCCESS if successful else XST_FAILURE or an error code
- * or a reason code
+ * @param ClockId Clock node identifier to program.
+ * @param Rate Requested rate in Hz.
+ * @param Flags Rate-programming flags passed to the output-clock operation.
  *
- * @note   None
+ * @return XST_SUCCESS when output-clock programming succeeds,
+ *         XPM_PM_NO_ACCESS when rate changes are disallowed, XPM_INVALID_CLKID
+ *         when the clock is absent, XST_FAILURE when ClockId is not an output
+ *         clock, or an error returned by XPmClockOut_SetRate().
  *
  ****************************************************************************/
 XStatus XPmClock_ProgramRate(u32 ClockId, u32 Rate, u32 Flags)
 {
 	XStatus Status = XST_FAILURE;
 
+	/* Reject clocks whose topology does not permit rate programming. */
 	if (!IS_RATE_CHANGE_ALLOWED(ClockId)) {
 		Status = XPM_PM_NO_ACCESS;
 		goto done;
 	}
 
+	/* Resolve the requested clock before dispatching by clock type. */
 	XPm_ClockNode *Clk = XPmClock_GetById(ClockId);
 	if (NULL == Clk) {
 		Status = XPM_INVALID_CLKID;

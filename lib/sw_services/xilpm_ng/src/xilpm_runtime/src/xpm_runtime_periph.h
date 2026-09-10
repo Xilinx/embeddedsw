@@ -11,6 +11,11 @@ extern "C" {
 #include "xpm_periph.h"
 #include "xpm_list.h"
 typedef struct XPmRuntime_Periph XPmRuntime_Periph;
+/*
+ * CREATE_LIST() declares the peripheral node and list types and generates an
+ * allocator that obtains storage through XPm_AllocBytesOthers() and initializes
+ * the list root to NULL.
+ */
 CREATE_LIST(XPmRuntime_Periph)
 struct XPmRuntime_Periph {
         XPm_Periph * Device;

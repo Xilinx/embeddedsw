@@ -785,20 +785,22 @@ done:
 }
 
 /**
- * @brief  Redundant wrapper around XPmRail_ComputeAdjustVIDIndexRaw().
+ * @brief  Resolve and redundantly verify a rail's VID performance index.
  *
- *         Invokes the pure helper twice with two SEPARATE volatile
- *         out-locals so a single fault in either invocation cannot
- *         silently steer the rail to the wrong Performance[] entry,
- *         then compares both return statuses AND both index values
- *         before publishing a single Index/Status pair to the caller.
+ *         Calls XPmRail_ComputeAdjustVIDIndexRaw() twice. Each call reads the
+ *         runtime VID override and, when no override is present, the eFuse
+ *         cache VID register. The two calls use separate volatile outputs;
+ *         this function publishes the index only when both statuses and index
+ *         values agree.
  *
- * @param  VIDAdj  Pointer to the rail's VIDAdj record.
- * @param  Index   Out: the agreed-upon Performance[] entry index, set
- *                 only on XST_SUCCESS.
+ * @param  VIDAdj  Pointer to the rail's VID adjustment record containing its
+ *                 performance thresholds.
+ * @param  Index   Output pointer receiving the agreed performance-table index,
+ *                 including -1 when no adjustment is required. Set only on
+ *                 XST_SUCCESS.
  *
- * @return XST_SUCCESS    when both invocations agree.
- *         XST_GLITCH_ERROR on any disagreement (status or value).
+ * @return XST_SUCCESS when both calculations succeed and agree, or
+ *         XST_GLITCH_ERROR if either calculation fails or the indices differ.
  */
 static XStatus XPmRail_ComputeAdjustVIDIndex(const XPmRail_VIDAdj *VIDAdj,
 					     s32 *Index)
@@ -809,9 +811,11 @@ static XStatus XPmRail_ComputeAdjustVIDIndex(const XPmRail_VIDAdj *VIDAdj,
 	volatile s32 LocalIndex1 = -1;
 	volatile s32 LocalIndex2 = -1;
 
+	/* Compute the target independently so both results can be cross-checked. */
 	Status1 = XPmRail_ComputeAdjustVIDIndexRaw(VIDAdj, &LocalIndex1);
 	Status2 = XPmRail_ComputeAdjustVIDIndexRaw(VIDAdj, &LocalIndex2);
 
+	/* Reject a failed calculation or disagreement between the two passes. */
 	if ((XST_SUCCESS != Status1) || (XST_SUCCESS != Status2) ||
 	    (LocalIndex1 != LocalIndex2)) {
 		Status = XST_GLITCH_ERROR;
@@ -832,15 +836,17 @@ done:
  *
  *         Reads the VID source (RTCA override or eFuse cache) via the
  *         redundant XPmRail_ComputeAdjustVIDIndex() helper, then issues
- *         a redundant XPmRail_Control() to switch the rail. Sets the
- *         per-rail VIDAdjusted latch on success so subsequent calls are
- *         a no-op.
+ *         a redundant XPmRail_Control() to switch the rail. After a successful
+ *         transition, sets the per-rail VIDAdjusted latch so subsequent calls
+ *         are a no-op.
  *
- * @param  Rail  Pointer to the rail to adjust. Must have a non-NULL
- *               VIDAdj record.
+ * @param  Rail  Pointer to the rail to adjust. A NULL VIDAdj record means no
+ *               voltage adjustment is required.
  *
  * @return XST_SUCCESS on success or when no adjustment is required;
- *         XPM_INT_ERR_INVALID_VID or downstream error code on failure.
+ *         XST_GLITCH_ERROR if either VID calculation fails or their indices
+ *         differ; or XST_FAILURE if the redundant rail transitions do not both
+ *         succeed.
  */
 XStatus XPmRail_AdjustVID(XPm_Rail *Rail)
 {
@@ -850,6 +856,7 @@ XStatus XPmRail_AdjustVID(XPm_Rail *Rail)
 	XPmRail_VIDAdj *VIDAdj;
 	s32 Index = -1;
 
+	/* Leave rails without a VID adjustment table unchanged. */
 	if (NULL == Rail->VIDAdj) {
 		Status = XST_SUCCESS;
 		goto done;
@@ -1217,6 +1224,25 @@ done:
 	return Status;
 }
 
+/****************************************************************************/
+/**
+ * @brief  Initialize the VID adjustment data for a power rail.
+ *
+ *         Validates the CDO argument count, rail ID and VID rail type. For a
+ *         matching VID-qualified speed grade, it copies the supplied
+ *         performance thresholds into a persistent table through a redundant
+ *         helper call and attaches the selected table entry to the rail.
+ *         Non-VID-qualified or nonmatching speed grades require no update.
+ *
+ * @param  Args    CDO arguments containing rail ID, rail type, entry count,
+ *                 speed-grade selector, and performance thresholds.
+ * @param  NumArgs Number of words available in Args.
+ *
+ * @return XST_SUCCESS when the table is attached or no update applies;
+ *         XST_INVALID_PARAM for malformed arguments, an unknown rail, or an
+ *         invalid rail type; XST_FAILURE if either redundant table-population
+ *         call fails.
+ ****************************************************************************/
 static XStatus XPmRail_InitVID(const u32 *Args, u32 NumArgs)
 {
 	volatile XStatus Status = XST_FAILURE;
@@ -1228,12 +1254,14 @@ static XStatus XPmRail_InitVID(const u32 *Args, u32 NumArgs)
 	u8 Entries;
 	static XPmRail_VIDAdj VID_Rails[MAX_VID_RAILS];
 
+	/* Validate the fixed portion of the VID configuration record. */
 	if (NumArgs < XPM_VID_INIT_MIN_NUMARGS) {
 		DbgErr = XPM_INT_ERR_INVALID_ARGS;
 		Status = XST_INVALID_PARAM;
 		goto done;
 	}
 
+	/* Resolve the rail named by the configuration record. */
 	Rail = (XPm_Rail *)XPmPower_GetById(Args[XPM_VID_ARG_RAIL_ID]);
 	if (NULL == Rail) {
 		DbgErr = XPM_INT_ERR_INVALID_ARGS;
@@ -1241,6 +1269,7 @@ static XStatus XPmRail_InitVID(const u32 *Args, u32 NumArgs)
 		goto done;
 	}
 
+	/* Accept only records that describe VID-controlled rails. */
 	if ((u32)XPM_RAILTYPE_VID !=
 	    (Args[XPM_VID_ARG_RAIL_TYPE] & XPM_VID_RAILTYPE_BYTE_MASK)) {
 		DbgErr = XPM_INT_ERR_INVALID_ARGS;
@@ -1248,6 +1277,7 @@ static XStatus XPmRail_InitVID(const u32 *Args, u32 NumArgs)
 		goto done;
 	}
 
+	/* Bound the variable performance table against both storage and input. */
 	Entries = (u8)((Args[XPM_VID_ARG_ENTRIES_SPGD] >>
 			XPM_VID_ENTRIES_SHIFT) & XPM_VID_ENTRIES_MASK);
 	if ((Entries > MAX_MODES) ||
@@ -1257,6 +1287,7 @@ static XStatus XPmRail_InitVID(const u32 *Args, u32 NumArgs)
 		goto done;
 	}
 
+	/* Select the build-time speed grade used to filter applicable records. */
 #if defined (VID_SPGD_INDEX)
 	SPGD_Index = VID_SPGD_INDEX;
 #endif
@@ -1283,6 +1314,7 @@ static XStatus XPmRail_InitVID(const u32 *Args, u32 NumArgs)
 		goto done;
 	}
 
+	/* Populate the persistent slot redundantly before publishing it to the rail. */
 	XSECURE_REDUNDANT_CALL(Status, StatusTmp, XPmRail_InitVID_FillEntry,
 			       &VID_Rails[Index], Args, Entries);
 	if ((XST_SUCCESS != Status) || (XST_SUCCESS != StatusTmp)) {
@@ -1291,6 +1323,7 @@ static XStatus XPmRail_InitVID(const u32 *Args, u32 NumArgs)
 		goto done;
 	}
 
+	/* Attach the static slot only after both population passes succeed. */
 	Rail->VIDAdj = &VID_Rails[Index];
 	Status = XST_SUCCESS;
 

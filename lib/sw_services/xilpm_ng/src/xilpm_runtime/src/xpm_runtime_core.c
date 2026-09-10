@@ -499,6 +499,12 @@ static XStatus XPmCore_ReleaseAndProcessPending(const XPm_Core *Core,
 	PmInfo("Success, Core 0x%x released from 0x%x\r\n", Core->Device.Node.Id, *SubsystemId);
 
 done:
+	/*
+	 * Single exit carrying the FIRST failure: later stages are skipped once
+	 * one fails, so the returned status identifies the stage that stopped
+	 * the release.  SubsystemId is written before the first failure point,
+	 * so the caller can still name the subsystem in its own diagnostic.
+	 */
 	return Status;
 }
 
@@ -570,13 +576,23 @@ XStatus XPmCore_SetClock(u32 CoreId, u32 Enable) {
 		PmErr("CoreId 0x%x not found\n", CoreId);
 		goto done;
 	}
-	/* Apply the requested state to all clocks associated with the core. */
+	/*
+	 * ClkHandles is the core's whole clock list, so one call covers every
+	 * clock the core depends on.  Request and Release are reference
+	 * counted rather than absolute: a clock shared with another active
+	 * device stays on after the release below.
+	 */
 	if (0U != Enable) {
 		Status = XPmClock_Request(DevCore->ClkHandles);
 	} else {
 		Status = XPmClock_Release(DevCore->ClkHandles);
 	}
 done:
+	/*
+	 * Report the core and the direction here.  The clock layer names the
+	 * individual clock that failed, and this function's callers pass on
+	 * neither piece of information.
+	 */
 	if (XST_SUCCESS != Status) {
 		PmErr("CoreId 0x%x Enable = %d Status 0x%x\n", CoreId, Enable, Status);
 	}

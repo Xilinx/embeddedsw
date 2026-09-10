@@ -200,17 +200,20 @@ static XPlmi_Module XPlmi_Pm =
  * We need to define this function here to avoid linking error in case
  */
 XStatus __attribute__((weak, noinline)) XPm_RuntimeInit(void) {
+	/* xpm_runtime_api.c replaces this weak boot default in runtime builds. */
 	PmInfo("No XilPm Runtime Library.\n\r");
 	return XST_SUCCESS;
 };
 
 XStatus __attribute__((weak, noinline)) XPm_HookAfterPlmCdo(void)
 {
+	/* xpm_runtime_api.c replaces this weak boot default in runtime builds. */
 	XStatus Status = XST_SUCCESS;
 	return Status;
 }
 
 XStatus __attribute__((weak, noinline)) XPm_AddDDRMemRegnForDefaultSubsystem(const XPm_MemCtrlrDevice *MCDev) {
+	/* xpm_runtime_api.c replaces this weak boot default in runtime builds. */
 	(void)(MCDev);
 	return XST_SUCCESS;
 };
@@ -225,6 +228,7 @@ XStatus __attribute__((weak, noinline)) XPm_AddDDRMemRegnForDefaultSubsystem(con
  * @return XST_SUCCESS unconditionally.
  */
 XStatus __attribute__((weak, noinline)) XPmUpdate_RestoreNotifierEmActions(void) {
+	/* xpm_runtime_api.c replaces this weak boot default in runtime builds. */
 	return XST_SUCCESS;
 }
 
@@ -270,6 +274,7 @@ done:
 }
 
 u32 __attribute__((weak, noinline)) XPmSubsystem_GetSubSysIdByIpiMask(u32 IpiMask) {
+	/* xpm_subsystem.c replaces this weak boot implementation in runtime builds. */
 	volatile u32 SubsystemId = PM_SUBSYS_INVALID;
 	volatile u32 SubsystemIdTmp = PM_SUBSYS_INVALID;
 
@@ -284,6 +289,7 @@ u32 __attribute__((weak, noinline)) XPmSubsystem_GetSubSysIdByIpiMask(u32 IpiMas
 
 XStatus __attribute__((weak, noinline)) XPm_SystemShutdown(u32 SubsystemId, u32 Type, u32 SubType, u32 CmdType)
 {
+	/* xpm_runtime_api.c replaces this weak boot default in runtime builds. */
 	(void)SubsystemId;
 	(void)Type;
 	(void)SubType;
@@ -304,11 +310,13 @@ XStatus __attribute__((weak, noinline)) XPm_PmcActivateSubsystem(u32 SubsystemId
 }
 
 XStatus __attribute__((weak, noinline)) XPm_AddSubsystem(XPlmi_Cmd* Cmd) {
+	/* xpm_runtime_api.c replaces this weak boot default in runtime builds. */
 	PmWarn("Ignoring CMD: PM_ADD_SUBSYSTEM. SubsystemId=0x%x\n\r", Cmd->Payload[0]);
 	return XST_SUCCESS;
 }
 
 XStatus __attribute__((weak, noinline)) XPm_AddRequirement(XPlmi_Cmd* Cmd) {
+	/* xpm_runtime_api.c replaces this weak boot default in runtime builds. */
 	PmWarn("Ignoring CMD: PM_ADD_REQUIREMENT. SubsystemId=0x%x DeviceId=0x%x\n\r",
 	Cmd->Payload[0], Cmd->Payload[1]);
 	return XST_SUCCESS;
@@ -2305,6 +2313,7 @@ static XStatus XPm_DoInitNode(XPlmi_Cmd *Cmd)
 	const u32 *Args = Cmd->Payload;
 	u32 NumArgs = Cmd->Len;
 	Status = XPm_InitNode(Args[0U], Args[1U], &Args[2U], NumArgs - 2U);
+	/* Mirror the result in the response while returning it to the command dispatcher. */
 	Cmd->Response[0U] = (u32)Status;
 	if (XST_SUCCESS != Status) {
 		PmErr("PM_INIT_NODE 0x%x 0x%x Failure, Err: 0x%x\r\n", Args[0U], Args[1U], Status);

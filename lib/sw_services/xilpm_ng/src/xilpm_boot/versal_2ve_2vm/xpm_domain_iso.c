@@ -70,24 +70,33 @@ static void XPmDomainIso_AfifmControl(const XPm_Iso *IsoNode, u32 Value)
 
 /****************************************************************************/
 /**
- * @brief	Write the given value to the isolation node control register
+ * @brief	Write an isolation node's control value.
  *
- * @param IsoNode	Pointer to the isolation node
- * @param Value		Value to write to the isolation control register
+ *		AFI FM nodes update masked fields in both read-control and
+ *		write-control registers. All other non-PSM formats update the masked
+ *		field at the node base address. PSM isolation formats are rejected.
  *
- * @return	XST_SUCCESS or error code
+ * @param IsoNode	Pointer to the isolation node containing the register
+ *			address, mask, and format.
+ * @param Value		Value applied to the node's masked control field.
+ *
+ * @return	XST_SUCCESS after the register update, or XST_INVALID_PARAM
+ *			for a PSM isolation format.
  *
  ****************************************************************************/
 static XStatus XPmDomainIso_SetValue(const XPm_Iso* IsoNode, u32 Value){
 	XStatus Status = XST_FAILURE;
 
+	/* PSM-format isolation nodes are not controlled through this path */
 	if (0U != IS_PSM_ISO(IsoNode)) {
 		PmErr("Not expecting a PSM iso node!\r\n");
 		Status = XST_INVALID_PARAM;
 	} else if ((u32)PM_ISO_FORMAT_AFI_FM == IsoNode->Format) {
+		/* AFI FM isolation uses paired read- and write-control registers */
 		XPmDomainIso_AfifmControl(IsoNode, Value);
 		Status = XST_SUCCESS;
 	} else {
+		/* Other formats update one masked field at the node base address */
 		XPm_RMW32(IsoNode->Node.BaseAddress, IsoNode->Mask, Value);
 		Status = XST_SUCCESS;
 	}
@@ -142,17 +151,23 @@ done:
 
 /****************************************************************************/
 /**
- * @brief	Isolation Node initializing function
- * @param NodeId	Node unique identification number
- * @param Mask		Mask of bits field that control isolation
- * @param Format	Isolation control format
- * @param Dependencies	List of power domain node id that this isolation control
- * 			depends on.
- * @param NumDependencies	Number of dependencies.
+ * @brief	Allocate, initialize, and register an isolation node.
  *
- * @return	XST_SUCCESS or error code.
+ *		Initializes the node in the isolation-on state, stores its format and
+ *		mask, copies the dependency IDs, and publishes it in the isolation
+ *		node table at the index encoded by NodeId.
  *
- * @note	None
+ * @param NodeId	Unique isolation node ID.
+ * @param BaseAddress	Base address of the isolation control register.
+ * @param Mask		Bit mask controlling isolation.
+ * @param Format	Isolation control format.
+ * @param Dependencies	Array of dependency node IDs to copy into the node;
+ *			must be non-NULL when NumDependencies is nonzero.
+ * @param NumDependencies	Number of IDs in Dependencies; must not exceed
+ *			PM_ISO_MAX_NUM_DEPENDENCIES.
+ *
+ * @return	XST_SUCCESS after the node is registered, or XST_FAILURE if
+ *			the node index is out of range or allocation fails.
  *
  ****************************************************************************/
 
@@ -161,6 +176,7 @@ XStatus XPmDomainIso_NodeInit(u32 NodeId, u32 BaseAddress, u32 Mask, u32 Format,
 {
 	XStatus Status = XST_FAILURE;
 	u32 NodeIdx = NODEINDEX(NodeId);
+	/* Validate the table slot encoded in the isolation node ID */
 	if (NodeIdx >= (u32)XPM_NODEIDX_ISO_MAX) {
 		goto done;
 	}
@@ -170,15 +186,18 @@ XStatus XPmDomainIso_NodeInit(u32 NodeId, u32 BaseAddress, u32 Mask, u32 Format,
 		goto done;
 	}
 
+	/* Initialize the software state with isolation asserted */
 	XPmNode_Init(&IsoNode->Node, NodeId, (u8)PM_ISOLATION_ON, BaseAddress);
 	IsoNode->Format = Format;
 	IsoNode->Mask = Mask;
 	IsoNode->NumDependencies = NumDependencies;
 
+	/* Copy the dependency IDs supplied by the topology parser */
 	for (u32 i =0; i < NumDependencies; i++) {
 		IsoNode->Dependencies[i] = Dependencies[i];
 	}
 
+	/* Publish the initialized node in its indexed lookup slot */
 	XPmDomainIso_List[NodeIdx] = IsoNode;
 	Status = XST_SUCCESS;
 

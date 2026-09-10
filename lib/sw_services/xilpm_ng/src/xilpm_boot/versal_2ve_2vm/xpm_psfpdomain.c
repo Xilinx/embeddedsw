@@ -103,6 +103,24 @@ XStatus FpdInitFinish(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 	return Status;
 }
 
+/****************************************************************************/
+/**
+ * @brief Apply cached AMS trim data to the FPD system monitors.
+ *
+ * Walks the four FPD system-monitor indices and applies the trim data for the
+ * FPD power domain. A missing monitor is reported as a warning and skipped;
+ * an error from trim application stops the walk. The final loop-index check
+ * detects an abnormal loop termination.
+ *
+ * @param PwrDomain Unused power-domain callback argument.
+ * @param Args Unused callback argument array.
+ * @param NumOfArgs Unused number of callback arguments.
+ *
+ * @return XST_SUCCESS after all present monitors are processed (including
+ *         when monitors are absent); an error returned by
+ *         XPm_ApplyAmsTrim(); or XST_GLITCH_ERROR if the loop does not reach
+ *         its expected terminal index.
+ ****************************************************************************/
 XStatus FpdAmsTrim(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 		u32 NumOfArgs)
 {
@@ -110,6 +128,8 @@ XStatus FpdAmsTrim(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 	u32 SysmonAddr;
 	u32 i;
+
+	/* This platform callback always processes the fixed FPD monitor range */
 	(void)PwrDomain;
 	(void)Args;
 	(void)NumOfArgs;
@@ -117,6 +137,8 @@ XStatus FpdAmsTrim(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 	/* Copy FPD sysmon data */
 	for(i = (u32)XPM_NODEIDX_MONITOR_SYSMON_FPD_0; i<= (u32)XPM_NODEIDX_MONITOR_SYSMON_FPD_3; i++){
 		SysmonAddr = XPm_GetSysmonByIndex(i);
+
+		/* Missing topology entries are nonfatal; continue with later monitors */
 		if (0U == SysmonAddr) {
 			DbgErr = XPM_INT_ERR_INVALID_DEVICE;
 			PmWarn("Warning Device XPM_NODEIDX_MONITOR_SYSMON_PS_FPD doest not exist at index 0x%x\n\r", i);

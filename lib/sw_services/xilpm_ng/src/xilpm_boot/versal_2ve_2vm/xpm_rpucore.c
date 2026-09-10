@@ -289,6 +289,21 @@ maybe_unused static void XPm_GetCoreId(u32 *Rpu0, u32 *Rpu1, const u32 DeviceId)
 	}
 }
 
+/****************************************************************************/
+/**
+ * @brief  Configure the TCM boot bit for an RPU core.
+ *
+ *         Looks up the RPU core by device ID. When TCM boot is requested, it
+ *         resets and halts the core, releases its reset, and then sets the
+ *         TCMBOOT field. Otherwise, it clears the TCMBOOT field directly.
+ *
+ * @param  DeviceId    Device ID of the RPU core to configure.
+ * @param  TcmBootFlag Set to 1U to enable TCM boot; any other value disables
+ *                     TCM boot.
+ *
+ * @return None. If the core lookup or a reset operation fails, the function
+ *         returns without modifying the TCMBOOT field.
+ ****************************************************************************/
 void XPmRpuCore_SetTcmBoot(const u32 DeviceId, const u8 TcmBootFlag){
 	const XPm_RpuCore *RpuCore = (XPm_RpuCore *)XPmDevice_GetById(DeviceId);
 	XStatus Status = XST_FAILURE;
@@ -356,6 +371,20 @@ static XStatus XPm_PlatRpucoreHalt(u32 CoreId) {
 done:
 	return Status;
 }
+/****************************************************************************/
+/**
+ * @brief  Set all reset controls attached to an RPU core.
+ *
+ *         Walks the core's reset-handle list and writes each reset node's
+ *         register field. A zero value clears each field; a nonzero value sets
+ *         each field. Processing stops if a reset handle has no reset node.
+ *
+ * @param  Core  Pointer to the RPU core whose reset controls are updated.
+ * @param  Value Zero to clear the reset fields, nonzero to set them.
+ *
+ * @return XST_SUCCESS after all reset controls are written; XST_FAILURE if
+ *         Core is NULL or a reset handle contains a NULL reset node.
+ ****************************************************************************/
 static XStatus SetResetState(const XPm_RpuCore *Core, u32 Value)
 {
 	XStatus Status = XST_FAILURE;
@@ -366,6 +395,7 @@ static XStatus SetResetState(const XPm_RpuCore *Core, u32 Value)
 		goto done;
 	}
 	const XPm_ResetHandle *CurHandle = Device->RstHandles;
+	/* Apply the requested state to every attached reset control */
 	while(NULL != CurHandle) {
 		const XPm_ResetNode *Reset = CurHandle->Reset;
 		if (NULL == Reset) {
@@ -399,6 +429,7 @@ static XStatus SetResetState(const XPm_RpuCore *Core, u32 Value)
 			}
 		}
 
+		/* Derive the register field described by this reset node */
 		u32 RpuRstAddr = Reset->Node.BaseAddress;
 		u32 Mask = BITNMASK(Reset->Shift, Reset->Width);
 		if (0U == Value) {
@@ -415,25 +446,24 @@ done:
 	return Status;
 }
 
+/****************************************************************************/
 /**
- * XPmRpuCore_ResetAndHalt - Resets and halts the specified RPU core.
+ * @brief  Assert all resets for an RPU core and place the core in halt state.
  *
- * @CoreId: The ID of the RPU core to reset and halt.
+ *         Retrieves and validates the RPU core, sets every reset field linked
+ *         through its reset handles, and writes the core's resume
+ *         configuration to halt execution.
  *
- * This function performs the following steps:
- * 1. Retrieves the RPU core object using the provided CoreId.
- * 2. Checks if the retrieved object is valid and of the correct type.
- * 3. Asserts the reset state for the RPU core.
- * 4. Halts the RPU core.
+ * @param  CoreId Device ID of the RPU core to reset and halt.
  *
- * Return:
- * XST_SUCCESS if the operation is successful.
- * XST_FAILURE if the RPU core object could not be retrieved.
- * XST_INVALID_PARAM if the provided CoreId is not of the RPU core type.
- */
+ * @return XST_SUCCESS when all reset fields are asserted and the core is
+ *         halted; XST_INVALID_PARAM when a registered node is not an RPU core;
+ *         or XST_FAILURE when the core or one of its reset nodes is absent.
+ ****************************************************************************/
 XStatus XPmRpuCore_ResetAndHalt(u32 CoreId)
 {
 	XStatus Status = XST_FAILURE;
+	/* Resolve and validate the requested RPU core */
 	const XPm_RpuCore *RpuCore = (XPm_RpuCore *)XPmDevice_GetById(CoreId);
 	if (NULL == RpuCore) {
 		PmErr("Unable to get RPU Core for Id: 0x%x\n\r", CoreId);
@@ -444,11 +474,13 @@ XStatus XPmRpuCore_ResetAndHalt(u32 CoreId)
 		PmErr("Expecting RPUCore but get 0x%x\r\n", CoreId);
 		goto done;
 	}
+	/* Assert every reset field before halting execution */
 	Status = SetResetState(RpuCore, 1U);
 	if (XST_SUCCESS != Status) {
 		PmErr("Error while asserting reset\r\n");
 		goto done;
 	}
+	/* Program the resume configuration to leave the core halted */
 	XPM_RPU_CORE_HALT(RpuCore->ResumeCfg);
 
 	Status = XST_SUCCESS;
@@ -456,27 +488,23 @@ done:
 	return Status;
 }
 
+/****************************************************************************/
 /**
- * XPmRpuCore_ReleaseReset - Release the reset state of an RPU core.
+ * @brief  Release all reset controls attached to an RPU core.
  *
- * @CoreId: The ID of the RPU core to be released from reset.
+ *         Retrieves and validates the RPU core, then clears every reset field
+ *         linked through its reset handles.
  *
- * This function releases the reset state of the specified RPU core.
- * It first retrieves the RPU core object using the provided CoreId.
- * If the core object is not found, it logs an error and returns failure.
- * It then checks if the node type of the core is RPU. If not, it logs an error
- * and returns an invalid parameter status.
- * Finally, it attempts to release the reset state of the core. If successful,
- * it returns success; otherwise, it logs an error and returns failure.
+ * @param  CoreId Device ID of the RPU core to release from reset.
  *
- * Return: XST_SUCCESS if the reset state is successfully released,
- *         XST_FAILURE if the core object is not found,
- *         XST_INVALID_PARAM if the node type is not RPU,
- *         or an error status if releasing the reset state fails.
- */
+ * @return XST_SUCCESS when all reset fields are cleared; XST_INVALID_PARAM
+ *         when a registered node is not an RPU core; or XST_FAILURE when the
+ *         core or one of its reset nodes is absent.
+ ****************************************************************************/
 XStatus XPmRpuCore_ReleaseReset(u32 CoreId)
 {
 	XStatus Status = XST_FAILURE;
+	/* Resolve the requested core before checking its node type */
 	const XPm_RpuCore *Core = (XPm_RpuCore *)XPmDevice_GetById(CoreId);
 	if (NULL == Core) {
 		PmErr("Unable to get RPU Core for Id: 0x%x\n\r", CoreId);
@@ -490,6 +518,7 @@ XStatus XPmRpuCore_ReleaseReset(u32 CoreId)
 		goto done;
 	}
 
+	/* Clear every reset field attached to the validated core */
 	Status = SetResetState(Core, 0U);
 	if (XST_SUCCESS != Status) {
 		PmErr("Error while releasing reset of RpuCore 0x%x\r\n", CoreId);
