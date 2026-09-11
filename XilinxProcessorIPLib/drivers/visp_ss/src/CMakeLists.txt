@@ -17,9 +17,9 @@ string(REGEX MATCH "cortex-r52" r52 "${CMAKE_CXX_FLAGS}")
 
 # Exclude for R52 cores 6,7,8,9
 
-#if (NOT ${YOCTO})
-file(READ "${CMAKE_SOURCE_DIR}/include/bspconfig.h" BSP_CONTENT)
-#endif
+if (NOT ${YOCTO})
+file(COPY ${CMAKE_BINARY_DIR}/include/bspconfig.h DESTINATION ${CMAKE_INCLUDE_PATH}/)
+endif()
 
 string(REGEX MATCH "#define[ \t]+XPAR_CPU_ID[ \t]+([0-9]+)"
        _match "${BSP_CONTENT}")
