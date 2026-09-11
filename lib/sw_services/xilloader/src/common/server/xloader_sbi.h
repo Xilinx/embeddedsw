@@ -27,6 +27,8 @@
 * 1.04  bsv  08/31/2021 Code clean up
 * 1.05  bsv  11/08/2021 Move XLoader_IsJtagSbiMode to Xilloader
 * 2.5   gnr  08/19/2026 Added XLoader_SbiSyncWordReArm prototype
+*       gnr  09/11/2026 Added PDI source argument to
+*                       XLoader_SbiSyncWordReArm
 *
 * </pre>
 *
@@ -54,7 +56,7 @@ extern "C" {
 int XLoader_SbiInit(u32 DeviceFlags);
 int XLoader_SbiCopy(u64 SrcAddr, u64 DestAddr, u32 Length, u32 Flags);
 int XLoader_SbiRecovery(void);
-int XLoader_SbiSyncWordReArm(void);
+int XLoader_SbiSyncWordReArm(u32 PdiSrc);
 u8 XLoader_IsJtagSbiMode(void);
 
 /************************** Variable Definitions *****************************/

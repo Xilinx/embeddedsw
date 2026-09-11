@@ -59,6 +59,8 @@
 * 2.4	abh  11/01/2025 Fixed MISRA-C violations
 * 2.5   gnr  08/19/2026 Re-arm SMAP sync word detection and drain SBI FIFO
 *                       between PDIs on both success and failure paths
+*       gnr  09/11/2026 Pass PDI source while re-arming SMAP sync word
+*                       detection
 *
 * </pre>
 *
@@ -282,7 +284,7 @@ END:
 			 *   that data for the next PDI is not lost. No-op for
 			 *   non-SMAP interfaces.
 			 */
-			(void)XLoader_SbiSyncWordReArm();
+			(void)XLoader_SbiSyncWordReArm(PdiSrc);
 		}
 		XPlmi_SetPlmLiveStatus();
 		usleep(XLOADER_SBI_DELAY_IN_MICROSEC);

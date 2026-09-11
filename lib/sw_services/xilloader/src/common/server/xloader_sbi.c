@@ -39,6 +39,7 @@
 * 2.1   mb   08/20/2024 Masked JCONFIG bit when bootmode is SBI JTAG
 * 2.5   gnr  08/19/2026 Added XLoader_SbiSyncWordReArm to re-enable SMAP sync
 *                       word detection and drain the SBI FIFO between PDIs
+*       gnr  09/11/2026 Added PDI source check in XLoader_SbiSyncWordReArm
 *
 * </pre>
 *
@@ -236,21 +237,24 @@ END:
  *		drain, and finally the SBI is re-enabled to re-arm sync word
  *		detection. It is a no-op when the active SBI interface is not SMAP.
  *
+ * @param	PdiSrc is the source of the PDI that was just loaded.
+ *
  * @return
  *		- XST_SUCCESS on success (or when interface is not SMAP).
  *		- XST_FAILURE if the SBI FIFO fails to drain within the timeout.
  *
  *****************************************************************************/
-int XLoader_SbiSyncWordReArm(void)
+int XLoader_SbiSyncWordReArm(u32 PdiSrc)
 {
 	int Status = XST_FAILURE;
 
 	/**
 	 * - This logic applies only to the SMAP interface. For any other
-	 *   interface (JTAG/PCIe/SBI) there is nothing to do.
+	 *   PDI source there is nothing to do. The SBI control interface field
+	 *   cannot be used for this check because the SMAP encoding is 0x0,
+	 *   which is also the reset value on non-SBI boot modes.
 	 */
-	if ((XPlmi_In32(SLAVE_BOOT_SBI_CTRL) & SLAVE_BOOT_SBI_CTRL_INTERFACE_MASK)
-			!= XLOADER_SBI_CTRL_INTERFACE_SMAP) {
+	if ((PdiSrc & XLOADER_PDISRC_FLAGS_MASK) != XLOADER_PDI_SRC_SMAP) {
 		Status = XST_SUCCESS;
 		goto END;
 	}

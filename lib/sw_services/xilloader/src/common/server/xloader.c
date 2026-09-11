@@ -222,6 +222,8 @@
 *                      setting the DONE pin after PDI load
 *       dc   09/01/2026 Enable DAP device state change scheduler for VERSAL_2VP_P
 *       gnr  09/02/2026 Configure OSPI RX tuning after reading PDI optional data
+*       gnr  09/11/2026 Pass PDI source while re-arming SMAP sync word
+*                       detection
 *
 * </pre>
 *
@@ -1263,7 +1265,7 @@ static int XLoader_LoadAndStartSubSystemPdi(XilPdi *PdiPtr)
 	 * is a no-op when the boot interface is not SMAP. A drain failure is only
 	 * a warning and must not overwrite the load status.
 	 */
-	if (XLoader_SbiSyncWordReArm() != XST_SUCCESS) {
+	if (XLoader_SbiSyncWordReArm(PdiPtr->PdiSrc) != XST_SUCCESS) {
 		XPlmi_Printf(DEBUG_PRINT_ALWAYS,
 			"Warning: SBI sync word re-arm/FIFO drain failed\r\n");
 	}
