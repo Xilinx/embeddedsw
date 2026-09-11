@@ -327,8 +327,9 @@ static s32 XAsufw_PlExtKeyZeroize(void)
 
 /*************************************************************************************************/
 /**
- * @brief	This function writes the key to the AES key vault, routes it to the PL and
- * 		configures the PL crypto block.
+ * @brief	This function writes the key to the AES key vault, routes it to the PL,
+ * 		configures the PL crypto block and leaves SSS in DMA loopback. The caller
+ * 		must configure SSS after it returns.
  *
  * @param	DmaPtr		Pointer to the ASU DMA instance.
  * @param	ParamsPtr	Pointer to XAsu_AesParams structure which holds the parameters of PL
@@ -491,16 +492,19 @@ static s32 XAsufw_PlExtOperation(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 		goto END;
 	}
 
-	/** Configure SSS to route the DMA to and from the PL interface. */
-	Status = XAsufw_SssDmaToPli(DmaPtr->SssDmaCfg);
-	if (Status != XASUFW_SUCCESS) {
-		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_SSS_CFG_CHECK_FAIL);
-		goto END;
-	}
-
 	/** Write the key and configure the PL crypto block. */
 	Status = XAsufw_PlExtConfigure(DmaPtr, ParamsPtr);
 	if (Status != XASUFW_SUCCESS) {
+		goto END;
+	}
+
+	/**
+	 * Configure SSS to route the DMA to and from the PL interface. This is done after
+	 * XAsufw_PlExtConfigure() because XAsufw_DmaXfr() sets SSS to DMA loopback.
+	 */
+	Status = XAsufw_SssDmaToPli(DmaPtr->SssDmaCfg);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_SSS_CFG_CHECK_FAIL);
 		goto END;
 	}
 
