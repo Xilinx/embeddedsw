@@ -181,6 +181,13 @@ XStatus XPmDomainIso_NodeInit(u32 NodeId, u32 BaseAddress, u32 Mask, u32 Format,
 		goto done;
 	}
 
+	/* Bound the CDO supplied count before it drives the copy loop below */
+	if (NumDependencies > PM_ISO_MAX_NUM_DEPENDENCIES) {
+		PmErr("Invalid isolation dependency count 0x%x\r\n", NumDependencies);
+		Status = XST_INVALID_PARAM;
+		goto done;
+	}
+
 	XPm_Iso *IsoNode = (XPm_Iso*)XPm_AllocBytes(sizeof(XPm_Iso));
 	if (IsoNode == NULL) {
 		goto done;
