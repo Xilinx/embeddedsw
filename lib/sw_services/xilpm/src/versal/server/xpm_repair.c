@@ -297,7 +297,7 @@ XStatus XPmRepair_Vdu(u32 EfuseTagAddr, u32 TagSize,
 
 done:
 	/* Lock PCSR */
-	XPm_LockPcsr(BaseAddr);
+	(void)XPm_LockPcsr(BaseAddr);
 	return Status;
 }
 
@@ -346,7 +346,7 @@ XStatus XPmRepair_Bfrb(u32 EfuseTagAddr, u32 TagSize,
 
 done:
 	/* Lock PCSR */
-	XPm_LockPcsr(BaseAddr);
+	(void)XPm_LockPcsr(BaseAddr);
 	return Status;
 }
 
@@ -659,7 +659,7 @@ XStatus XPmRepair_Gtmpw(u32 EfuseTagAddr, u32 TagSize, u32 TagOptional, u32 *Tag
 	Status = XST_SUCCESS;
 done:
 	/* Lock PCSR */
-	XPm_LockPcsr(BaseAddr);
+	(void)XPm_LockPcsr(BaseAddr);
 	return Status;
 }
 

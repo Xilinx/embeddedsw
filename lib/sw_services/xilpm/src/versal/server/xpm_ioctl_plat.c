@@ -54,7 +54,7 @@ XStatus XPm_AieISRClear(u32 Value)
 		XPm_Out32(AieDomain->AieNpiAddress + ME_NPI_ME_ISR_OFFSET, IntrClear);
 
 		/* Re-lock the AIE PCSR register for protection */
-		XPm_LockPcsr(AieDomain->AieNpiAddress);
+		(void)XPm_LockPcsr(AieDomain->AieNpiAddress);
 	}
 
 	Status = XST_SUCCESS;

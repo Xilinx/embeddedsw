@@ -187,7 +187,7 @@ static void UbInitStateDeassert(void)
 			PmOut32(BaseAddress + NPI_PCSR_MASK_OFFSET,
 				NPI_DDRMC_PSCR_CONTROL_UB_INITSTATE_MASK);
 			PmOut32(BaseAddress + NPI_PCSR_CONTROL_OFFSET, 0);
-			XPm_LockPcsr(BaseAddress);
+			(void)XPm_LockPcsr(BaseAddress);
 
 			/* Only UB0 for non sillicon platforms */
 			if (PLATFORM_VERSION_SILICON != XPm_GetPlatform()) {
@@ -260,7 +260,7 @@ static XStatus NpdInitFinish(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 				NPI_PCSR_CONTROL_ODISABLE_NPP_MASK);
 			PmOut32(MemIcAddr + NPI_PCSR_CONTROL_OFFSET,
 				NPI_PCSR_CONTROL_ODISABLE_NPP_MASK);
-			XPm_LockPcsr(MemIcAddr);
+			(void)XPm_LockPcsr(MemIcAddr);
 	}
 
 	if (1U != IsCrypto) {
@@ -295,7 +295,7 @@ static XStatus NpdInitFinish(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 			NPI_PCSR_CONTROL_PCOMPLETE_MASK);
 
 		/*Lock PCSR Register */
-		XPm_LockPcsr(NPI_BASEADDR + NPI_NIR_0_OFFSET);
+		(void)XPm_LockPcsr(NPI_BASEADDR + NPI_NIR_0_OFFSET);
 	}
 
 	if (PM_HOUSECLEAN_CHECK(NPD, NPD_EFUSE)) {
@@ -356,7 +356,7 @@ static void Clear_ScanClearErr(void){
 			/* to avoid MISRA violation */
 		}
 		/*lock pcsr*/
-		XPm_LockPcsr(MemIcAddr);
+		(void)XPm_LockPcsr(MemIcAddr);
 	}
 
 	/* clear reg_isr in ddrmc main*/
@@ -371,7 +371,7 @@ static void Clear_ScanClearErr(void){
 			XPm_UnlockPcsr(BaseAddr);
 			PmRmw32(BaseAddr + DDRMC_MAIN_DDRMC_ISR_OFFSET,
 				DDRMC_MAIN_DDRMC_ISR_SCAN_CLEAR_FAIL_MASK, DDRMC_MAIN_DDRMC_ISR_SCAN_CLEAR_FAIL_MASK);
-			XPm_LockPcsr(BaseAddr);
+			(void)XPm_LockPcsr(BaseAddr);
 		}
 	}
 
@@ -704,7 +704,7 @@ static void AssertPcsrLockMem(const u32 *DdrMcAddresses, const u32 DdrMcAddrLeng
 			continue;
 		}
 
-		XPm_LockPcsr(NpdMemIcAddresses[i] | NPD_MEMIC_NODETYPE_MASK);
+		(void)XPm_LockPcsr(NpdMemIcAddresses[i] | NPD_MEMIC_NODETYPE_MASK);
 	}
 
 	for (i = 0U; i < DdrMcAddrLength; i++) {
@@ -712,7 +712,7 @@ static void AssertPcsrLockMem(const u32 *DdrMcAddresses, const u32 DdrMcAddrLeng
 			continue;
 		}
 
-		XPm_LockPcsr(DdrMcAddresses[i]);
+		(void)XPm_LockPcsr(DdrMcAddresses[i]);
 	}
 }
 
@@ -880,7 +880,7 @@ static XStatus NpdBisr(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 				NOC_DDRMC_UB_CLK_GATE_BISR_EN_MASK,
 				NOC_DDRMC_UB_CLK_GATE_BISR_EN_MASK);
 			/* Lock writes */
-			XPm_LockPcsr(DdrMcAddresses[i]);
+			(void)XPm_LockPcsr(DdrMcAddresses[i]);
 		}
 
 		/* Run BISR */
@@ -917,7 +917,7 @@ static XStatus NpdBisr(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 					continue;
 				}
 				/* Lock writes */
-				XPm_LockPcsr(DdrMcAddresses[i]);
+				(void)XPm_LockPcsr(DdrMcAddresses[i]);
 			}
 		}
 
@@ -932,7 +932,7 @@ static XStatus NpdBisr(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 			PmRmw32(DdrMcAddresses[i] + NOC_DDRMC_UB_CLK_GATE_OFFSET,
 				NOC_DDRMC_UB_CLK_GATE_BISR_EN_MASK, 0);
 			/* Lock writes */
-			XPm_LockPcsr(DdrMcAddresses[i]);
+			(void)XPm_LockPcsr(DdrMcAddresses[i]);
 		}
 
 		/* NIDB Lane Repair */
@@ -953,7 +953,7 @@ fail:
 			continue;
 		}
 		/* Lock writes */
-		XPm_LockPcsr(DdrMcAddresses[i]);
+		(void)XPm_LockPcsr(DdrMcAddresses[i]);
 	}
 
 done:
@@ -1274,7 +1274,7 @@ XStatus XPmNpDomain_ClockGate(const XPm_Node *Node, u8 State)
 	}
 
 	/* Lock NOC_NPS_0 */
-	XPm_LockPcsr(BaseAddress);
+	(void)XPm_LockPcsr(BaseAddress);
 
 done:
 	XPm_PrintDbgErr(Status, DbgErr);

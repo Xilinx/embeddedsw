@@ -513,7 +513,7 @@ static XStatus XPmBisr_RepairDdrMc(u32 EfuseTagAddr, u32 TagSize, u32 TagOptiona
 
 fail:
 	/* Lock PCSR */
-	XPm_LockPcsr(BaseAddr);
+	(void)XPm_LockPcsr(BaseAddr);
 
 	XPm_PrintDbgErr(Status, DbgErr);
 	return Status;
@@ -769,7 +769,7 @@ static XStatus XPmBisr_RepairXram(u32 EfuseTagAddr, u32 TagSize, u32 *TagDataAdd
 done:
 	if (INVALID_ADDRESS != BaseAddr) {
 		/* Write lock code to PCSR_LOCK register */
-		XPm_LockPcsr(BaseAddr);
+		(void)XPm_LockPcsr(BaseAddr);
 	}
 
 	XPm_PrintDbgErr(Status, DbgErr);
@@ -1369,7 +1369,7 @@ static XStatus XPmBisr_NidbRepairLane(u32 RepairLeftMostNIDBOnly)
 		XPm_Out32(NidbAddr + NIDB_REG_PCSR_MASK_OFFSET,
 			NIDB_REG_PCSR_MASK_ODISABLE_MASK);
 		XPm_Out32(NidbAddr + NIDB_REG_PCSR_CONTROL_OFFSET, 0x0U);
-		XPm_LockPcsr(NidbAddr);
+		(void)XPm_LockPcsr(NidbAddr);
 	}
 	Status = XST_SUCCESS;
 

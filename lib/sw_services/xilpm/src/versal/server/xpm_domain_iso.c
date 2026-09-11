@@ -864,7 +864,7 @@ done:
 	if ((IsoIdx <= (u32)XPM_NODEIDX_ISO_XRAM_PL_FABRIC) &&
 		(IsoIdx >= (u32)XPM_NODEIDX_ISO_XRAM_PL_AXI0)) {
 		if(NULL != Device) {
-			XPm_LockPcsr(Device->Node.BaseAddress);
+			(void)XPm_LockPcsr(Device->Node.BaseAddress);
 		}
 	}
 

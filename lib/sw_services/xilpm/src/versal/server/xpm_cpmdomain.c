@@ -96,7 +96,7 @@ static XStatus CpmInitStart(XPm_PowerDomain *PwrDomain, const u32 *Args,
 		right now, so hard coded for now */
 		XPm_UnlockPcsr(Cpm->CpmPcsrBaseAddr);
 		PmOut32(Cpm->CpmPcsrBaseAddr + CPM_PCSR_ECO_OFFSET, 0);
-		XPm_LockPcsr(Cpm->CpmPcsrBaseAddr);
+		(void)XPm_LockPcsr(Cpm->CpmPcsrBaseAddr);
 	}
 
 done:
@@ -412,7 +412,7 @@ static XStatus Cpm5ScanClear(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 
 done:
 	/* Lock PCSR */
-	XPm_LockPcsr(Cpm->CpmPcsrBaseAddr);
+	(void)XPm_LockPcsr(Cpm->CpmPcsrBaseAddr);
 
 	XPm_PrintDbgErr(Status, DbgErr);
 	return Status;
@@ -509,7 +509,7 @@ static XStatus Cpm6ScanClear(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 
 done:
 	/* Lock PCSR */
-	XPm_LockPcsr(Cpm->CpmPcsrBaseAddr);
+	(void)XPm_LockPcsr(Cpm->CpmPcsrBaseAddr);
 
 	XPm_PrintDbgErr(Status, DbgErr);
 	return Status;
@@ -601,7 +601,7 @@ static XStatus Cpm5Bisr(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 		PmOut32(GtyAddresses[i] + GTY_PCSR_MASK_OFFSET,
 			GTY_PCSR_INITCTRL_MASK);
 		PmOut32(GtyAddresses[i] + GTY_PCSR_CONTROL_OFFSET, 0U);
-		XPm_LockPcsr(GtyAddresses[i]);
+		(void)XPm_LockPcsr(GtyAddresses[i]);
 	}
 
 	if (PM_HOUSECLEAN_CHECK(CPM, BISR)){
@@ -670,7 +670,7 @@ static XStatus Cpm6Bisr(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 			/* De-assert InitCtrl */
 			XPm_UnlockPcsr(GtmpwAddresses[i]);
 			Status = XPm_PcsrWrite(GtmpwAddresses[i], GTMPW_PCSR_INITCTRL_MASK, 0U);
-			XPm_LockPcsr(GtmpwAddresses[i]);
+			(void)XPm_LockPcsr(GtmpwAddresses[i]);
 
 			if (XST_SUCCESS != Status) {
 				DbgErr = XPM_INT_ERR_BISR_REPAIR;
@@ -845,9 +845,9 @@ static XStatus Cpm5GtypMbist(u32 BaseAddress, u32 PollTimeOut)
 
 done:
 	/* Lock PCSR */
-	XPm_LockPcsr(BaseAddress);
+	(void)XPm_LockPcsr(BaseAddress);
 	/* Lock PCSR Redundancy */
-	XPm_LockPcsr(BaseAddress);
+	(void)XPm_LockPcsr(BaseAddress);
 
 	XPm_PrintDbgErr(Status, DbgErr);
 	return Status;
@@ -994,9 +994,9 @@ done:
 	/* Lock PCSR only if it is not XC2VP3602 device due to PCSR access issue */
 	#if !defined(XC2VP3602)
 		/* Lock PCSR */
-		XPm_LockPcsr(BaseAddress);
+		(void)XPm_LockPcsr(BaseAddress);
 		/* Lock PCSR Redundancy */
-		XPm_LockPcsr(BaseAddress);
+		(void)XPm_LockPcsr(BaseAddress);
 	#endif
 
 	XPm_PrintDbgErr(Status, DbgErr);

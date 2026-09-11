@@ -216,7 +216,7 @@ static XStatus AieResetAssert(const XPm_ResetNode *Rst)
 	usleep(1U);
 
 	/* Re-lock the AIE PCSR registers for protection */
-	XPm_LockPcsr(AieDomain->AieNpiAddress);
+	(void)XPm_LockPcsr(AieDomain->AieNpiAddress);
 
 	Status = XST_SUCCESS;
 
@@ -249,7 +249,7 @@ static XStatus AieResetRelease(const XPm_ResetNode *Rst)
 	usleep(1U);
 
 	/* Re-lock the AIE PCSR registers for protection */
-	XPm_LockPcsr(AieDomain->AieNpiAddress);
+	(void)XPm_LockPcsr(AieDomain->AieNpiAddress);
 
 	Status = XST_SUCCESS;
 
@@ -304,7 +304,7 @@ static XStatus CpmResetSetState(const u32 State)
 			PmRmw32(CpmPcsrReg, CPM_POR_MASK, CPM_POR_MASK);
 		}
 
-		XPm_LockPcsr(Cpm->CpmPcsrBaseAddr);
+		(void)XPm_LockPcsr(Cpm->CpmPcsrBaseAddr);
 	}
 
 	Status = XST_SUCCESS;
@@ -461,7 +461,7 @@ static u32 GetCpmPorResetStatus(void)
 			ResetStatus = XPM_RST_STATE_ASSERTED;
 		}
 
-		XPm_LockPcsr(Cpm->CpmPcsrBaseAddr);
+		(void)XPm_LockPcsr(Cpm->CpmPcsrBaseAddr);
 	}
 
 done:

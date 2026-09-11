@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2024, Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2024 - 2026, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -187,7 +187,7 @@ XStatus XPm_ApplyAmsTrim(u32 DestAddress, u32 PowerDomainId, u32 SateliteIdx)
 
 fail:
 	/* Lock writes */
-	XPm_LockPcsr(DestAddress);
+	(void)XPm_LockPcsr(DestAddress);
 
 done:
 	XPm_PrintDbgErr(Status, DbgErr);

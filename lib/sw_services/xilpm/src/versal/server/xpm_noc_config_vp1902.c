@@ -75,8 +75,8 @@ done:
 	 * REG_PCSR_LOCK
 	 * instead of blind writes, writing twice
 	 */
-	XPm_LockPcsr(NpsBaseAddress);
-	XPm_LockPcsr(NpsBaseAddress);
+	(void)XPm_LockPcsr(NpsBaseAddress);
+	(void)XPm_LockPcsr(NpsBaseAddress);
 
 	return Status;
 }
@@ -146,8 +146,8 @@ done:
 	 * PCSR Lock
 	 * instead of blind writes, writing twice
 	 */
-	XPm_LockPcsr(NOC_NSU_1_BASEADDR);
-	XPm_LockPcsr(NOC_NSU_1_BASEADDR);
+	(void)XPm_LockPcsr(NOC_NSU_1_BASEADDR);
+	(void)XPm_LockPcsr(NOC_NSU_1_BASEADDR);
 	return Status;
 }
 
@@ -380,8 +380,8 @@ done:
 	/**
 	 * Lock PCSR. instead of blind writes, writing twice
 	 */
-	XPm_LockPcsr(NidbAddress);
-	XPm_LockPcsr(NidbAddress);
+	(void)XPm_LockPcsr(NidbAddress);
+	(void)XPm_LockPcsr(NidbAddress);
 	return Status;
 }
 #endif

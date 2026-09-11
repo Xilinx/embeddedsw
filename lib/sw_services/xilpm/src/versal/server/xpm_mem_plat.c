@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2019 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2025, Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -76,7 +76,7 @@ done:
 	*TempData = (TempVal & HBM_PHY_MS_CFG66_DATA_MASK);
 
 	/* Lock PCSR */
-	XPm_LockPcsr(BaseAddress);
+	(void)XPm_LockPcsr(BaseAddress);
 
 	return Status;
 }
@@ -323,7 +323,7 @@ static XStatus XPmDDRDevice_EnterSelfRefresh(void)
 					XPM_POLL_TIMEOUT);
 		if (XST_SUCCESS != Status) {
 			/* Lock PCSR */
-			XPm_LockPcsr(BaseAddress);
+			(void)XPm_LockPcsr(BaseAddress);
 			goto done;
 		}
 		XPm_Out32(Reg, 0);
@@ -333,13 +333,13 @@ static XStatus XPmDDRDevice_EnterSelfRefresh(void)
 					XPM_POLL_TIMEOUT);
 		if (XST_SUCCESS != Status) {
 			/* Lock PCSR */
-			XPm_LockPcsr(BaseAddress);
+			(void)XPm_LockPcsr(BaseAddress);
 			goto done;
 		}
 		XPm_Out32(Reg, 0);
 
 		/* Lock PCSR */
-		XPm_LockPcsr(BaseAddress);
+		(void)XPm_LockPcsr(BaseAddress);
 	}
 
 	Device = XPmDevice_GetById(DDRMC_DEVID((u32)XPM_NODEIDX_DEV_DDRMC_MIN));
@@ -405,7 +405,7 @@ static XStatus XPmDDRDevice_ExitSelfRefresh(void)
 					XPM_POLL_TIMEOUT);
 		if (XST_SUCCESS != Status) {
 			/* Lock PCSR */
-			XPm_LockPcsr(BaseAddress);
+			(void)XPm_LockPcsr(BaseAddress);
 			goto done;
 		}
 		XPm_Out32(Reg, 0);
@@ -415,13 +415,13 @@ static XStatus XPmDDRDevice_ExitSelfRefresh(void)
 					XPM_POLL_TIMEOUT);
 		if (XST_SUCCESS != Status) {
 			/* Lock PCSR */
-			XPm_LockPcsr(BaseAddress);
+			(void)XPm_LockPcsr(BaseAddress);
 			goto done;
 		}
 		XPm_Out32(Reg, 0);
 
 		/* Lock PCSR */
-		XPm_LockPcsr(BaseAddress);
+		(void)XPm_LockPcsr(BaseAddress);
 	}
 
 done:

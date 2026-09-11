@@ -332,7 +332,7 @@ XStatus XPmAieDevice_UpdateClockDiv(const u32 Divider)
 	XPm_RMW32(AieDomain->AieNpiAddress + ME_CORE_REF_CTRL_OFFSET, AIE_DIVISOR0_MASK, Divider << AIE_DIVISOR0_SHIFT);
 
 	/* Lock NPI space */
-	XPm_LockPcsr(AieDomain->AieNpiAddress);
+	(void)XPm_LockPcsr(AieDomain->AieNpiAddress);
 
 	Status = XST_SUCCESS;
 

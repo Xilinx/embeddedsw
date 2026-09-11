@@ -229,7 +229,7 @@ XStatus XPm_PowerDwnLPD(void)
 		AMS_ROOT_TOKEN_MNGR_BYPASS_LPD_MASK);
 
 	/* Lock configuration and system registers */
-	XPm_LockPcsr(AmsRoot->Node.BaseAddress);
+	(void)XPm_LockPcsr(AmsRoot->Node.BaseAddress);
 
 	/**
 	 * Isolate LPD <-> PL interface and mark the isolations pending for removal
@@ -383,7 +383,7 @@ XStatus XPm_PowerDwnFPD(const XPm_Node *Node)
 		AMS_ROOT_TOKEN_MNGR_BYPASS_FPD_MASK);
 
 	/* Lock configuration and system registers */
-	XPm_LockPcsr(AmsRoot->Node.BaseAddress);
+	(void)XPm_LockPcsr(AmsRoot->Node.BaseAddress);
 
 	/* Isolate FPD-NoC */
 	Status = XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_FPD_SOC, TRUE_VALUE);
@@ -704,7 +704,7 @@ XStatus XPm_PowerDwnCPM5(const XPm_Node *Node)
 	/* Assert lpd_cpm_por_n reset to CPM5. (Write 1 to CRL.RST_OCM2.POR) */
 	PmRmw32(CRL_RST_OCM2_CTRL, CRL_RST_OCM2_CTRL_POR_MASK, 0x1);
 	/* Lock PCSR*/
-	XPm_LockPcsr(Cpm->CpmPcsrBaseAddr);
+	(void)XPm_LockPcsr(Cpm->CpmPcsrBaseAddr);
 
 	/** Turn on isolation **/
 	/* Isolate PL-CPM5 */
@@ -860,7 +860,7 @@ XStatus XPm_PowerDwnNoC(void)
 		AMS_ROOT_TOKEN_MNGR_BYPASS_PL_MASK);
 
 	/* Lock configuration and system registers */
-	XPm_LockPcsr(AmsRoot->Node.BaseAddress);
+	(void)XPm_LockPcsr(AmsRoot->Node.BaseAddress);
 
 	/* Isolate FPD-NoC domain */
 	Status = XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_FPD_SOC, TRUE_VALUE);
@@ -1044,7 +1044,7 @@ static XStatus XPmPower_SysmonCheckPower(const XPm_Rail *Rail)
 	PmOut32(NewDataFlagReg, BIT32(Offset));
 
 	/* Lock Root SysMon registers */
-	XPm_LockPcsr(PMC_SYSMON_BASEADDR);
+	(void)XPm_LockPcsr(PMC_SYSMON_BASEADDR);
 
 done:
 	if (XST_SUCCESS != Status) {
@@ -1643,7 +1643,7 @@ deassert_start_bit:
 
 lock:
 	/* Lock configuration and system registers */
-	XPm_LockPcsr(AmsRoot->Node.BaseAddress);
+	(void)XPm_LockPcsr(AmsRoot->Node.BaseAddress);
 
 done:
 	XPm_PrintDbgErr(Status, DbgErr);

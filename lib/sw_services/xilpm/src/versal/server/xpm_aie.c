@@ -454,7 +454,7 @@ static XStatus AieInitStart(XPm_PowerDomain *PwrDomain, const u32 *Args,
 
 done:
 	/* Lock ME PCSR */
-	XPm_LockPcsr(BaseAddress);
+	(void)XPm_LockPcsr(BaseAddress);
 
 bypass:
 	XPm_PrintDbgErr(Status, DbgErr);
@@ -523,7 +523,7 @@ static XStatus Aie2InitStart(XPm_PowerDomain *PwrDomain, const u32 *Args,
 
 done:
 	/* Lock ME PCSR */
-	XPm_LockPcsr(BaseAddress);
+	(void)XPm_LockPcsr(BaseAddress);
 
 bypass:
 	XPm_PrintDbgErr(Status, DbgErr);
@@ -565,7 +565,7 @@ static XStatus AieInitFinish(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 
 done:
 	/* Lock ME PCSR */
-	XPm_LockPcsr(BaseAddress);
+	(void)XPm_LockPcsr(BaseAddress);
 
 	XPm_PrintDbgErr(Status, DbgErr);
 	return Status;
@@ -609,7 +609,7 @@ static XStatus Aie2InitFinish(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 
 done:
 	/* Lock AIE PCSR */
-	XPm_LockPcsr(BaseAddress);
+	(void)XPm_LockPcsr(BaseAddress);
 
 	XPm_PrintDbgErr(Status, DbgErr);
 	return Status;
@@ -706,7 +706,7 @@ static XStatus AieScanClear(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 
 done:
 	/* Lock AIE PCSR */
-	XPm_LockPcsr(BaseAddress);
+	(void)XPm_LockPcsr(BaseAddress);
 
 	XPm_PrintDbgErr(Status, DbgErr);
 	return Status;
@@ -806,7 +806,7 @@ static XStatus AieBisr(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 
 done:
 	/* Lock AIE PCSR */
-	XPm_LockPcsr(BaseAddress);
+	(void)XPm_LockPcsr(BaseAddress);
 
 	XPm_PrintDbgErr(Status, DbgErr);
 	return Status;
@@ -903,7 +903,7 @@ static XStatus Aie2Bisr(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 
 done:
 	/* Lock AIE PCSR */
-	XPm_LockPcsr(BaseAddress);
+	(void)XPm_LockPcsr(BaseAddress);
 
 	XPm_PrintDbgErr(Status, DbgErr);
 	return Status;
@@ -1043,7 +1043,7 @@ static XStatus AieMbistClear(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 
 done:
 	/* Lock AIE PCSR */
-	XPm_LockPcsr(BaseAddress);
+	(void)XPm_LockPcsr(BaseAddress);
 
 	XPm_PrintDbgErr(Status, DbgErr);
 	return Status;
@@ -1149,7 +1149,7 @@ static XStatus Aie2MbistClear(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 
 done:
 	/* Lock AIE PCSR */
-	XPm_LockPcsr(BaseAddress);
+	(void)XPm_LockPcsr(BaseAddress);
 
 	XPm_PrintDbgErr(Status, DbgErr);
 	return Status;
@@ -1200,7 +1200,7 @@ static XStatus AieMemInit(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 
 done:
 	/* Lock AIE PCSR */
-	XPm_LockPcsr(BaseAddress);
+	(void)XPm_LockPcsr(BaseAddress);
 
 	XPm_PrintDbgErr(Status, DbgErr);
 	return Status;
@@ -1231,7 +1231,7 @@ static XStatus Aie2MemInit(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 	}
 
 	/* Lock AIE PCSR */
-	XPm_LockPcsr(BaseAddress);
+	(void)XPm_LockPcsr(BaseAddress);
 
 	XPm_PrintDbgErr(Status, DbgErr);
 	return Status;
@@ -2196,7 +2196,7 @@ static XStatus Aie1_Operation(u32 Part, u32 Ops)
 
 done:
 	/* Lock AIE1 PCSR */
-	XPm_LockPcsr(NodeAddress);
+	(void)XPm_LockPcsr(NodeAddress);
 
 	return Status;
 }
@@ -2280,7 +2280,7 @@ static XStatus Aie2_Operation(u32 Part, u32 Ops)
 
 done:
 	/* Lock AIE2 PCSR */
-	XPm_LockPcsr(NodeAddress);
+	(void)XPm_LockPcsr(NodeAddress);
 
 	return Status;
 }

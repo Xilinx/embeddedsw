@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -400,7 +400,7 @@ static int XPmPeriph_TempPropTask(void *data)
 	 */
 	if (XPM_RTCA_SSIT_TEMP_PROP_SYSMON_UNLOCK_MASK != (XPm_In32(XPLMI_RTCFG_SSIT_TEMP_PROPAGATION) &
 		   XPM_RTCA_SSIT_TEMP_PROP_SYSMON_UNLOCK_MASK)) {
-		XPm_LockPcsr(PMC_SYSMON_BASEADDR);
+		(void)XPm_LockPcsr(PMC_SYSMON_BASEADDR);
 	}
 
 	/* Check if max temperatures have exceeded device upper threshold */

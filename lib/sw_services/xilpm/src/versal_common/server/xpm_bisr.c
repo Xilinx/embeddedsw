@@ -149,7 +149,7 @@ XStatus XPmBisr_RepairGty(u32 EfuseTagAddr, u32 TagSize, u32 TagOptional, u32 *T
 
 fail:
 	/* Lock PCSR */
-	XPm_LockPcsr(BaseAddr);
+	(void)XPm_LockPcsr(BaseAddr);
 
 done:
 	XPm_PrintDbgErr(Status, DbgErr);

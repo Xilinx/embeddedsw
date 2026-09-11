@@ -249,7 +249,7 @@ static XStatus VduInit(u32 BaseAddress)
 
 done:
 	/* Lock PCSR */
-	XPm_LockPcsr(BaseAddress);
+	(void)XPm_LockPcsr(BaseAddress);
 
 	XPm_PrintDbgErr(Status, DbgErr);
 	return Status;
@@ -289,7 +289,7 @@ static XStatus VduScanClear(u32 BaseAddress, u32 PollTimeOut)
 
 done:
 	/* Lock PCSR */
-	XPm_LockPcsr(BaseAddress);
+	(void)XPm_LockPcsr(BaseAddress);
 
 	XPm_PrintDbgErr(Status, DbgErr);
 	return Status;
@@ -328,7 +328,7 @@ static XStatus VduMbist(u32 BaseAddress, u32 PollTimeOut)
 
 done:
 	/* Lock PCSR */
-	XPm_LockPcsr(BaseAddress);
+	(void)XPm_LockPcsr(BaseAddress);
 
 	XPm_PrintDbgErr(Status, DbgErr);
 	return Status;
@@ -358,7 +358,7 @@ static void VduClearInterrupts(u32 BaseAddress)
 	XPm_Out32((PMC_GLOBAL_BASEADDR + PMC_GLOBAL_ERR1_STATUS_OFFSET), PMC_GLOBAL_ERR1_STATUS_NPI_ALL_MASK);
 
 	/* Lock PCSR */
-	XPm_LockPcsr(BaseAddress);
+	(void)XPm_LockPcsr(BaseAddress);
 }
 
 static XStatus VduHouseClean(u32 PollTimeOut)
@@ -726,7 +726,7 @@ static XStatus GtyHouseClean(const XPm_PlDomain *Pld, u32 PollTimeOut)
 		PmOut32(GtyAddrs[i] + GTY_PCSR_MASK_OFFSET,
 			GTY_PCSR_INITCTRL_MASK);
 		PmOut32(GtyAddrs[i] + GTY_PCSR_CONTROL_OFFSET, 0);
-		XPm_LockPcsr(GtyAddrs[i]);
+		(void)XPm_LockPcsr(GtyAddrs[i]);
 	}
 
 	u32 LocalPlpdHCBypass = PlpdHouseCleanBypassTmp; /* Copy volatile to local to avoid MISRA */
@@ -772,7 +772,7 @@ static XStatus GtyHouseClean(const XPm_PlDomain *Pld, u32 PollTimeOut)
 					Just print message and return not to break execution */
 					PmErr("ERROR: GT Mem clear Failed for 0x%x\r\n", GtyAddrs[i]);
 				}
-				XPm_LockPcsr(GtyAddrs[i]);
+				(void)XPm_LockPcsr(GtyAddrs[i]);
 			}
 
 			if (i != ARRAY_SIZE(GtyAddrs)) {
@@ -843,7 +843,7 @@ done:
 		}
 
 		/* Lock PCSR */
-		XPm_LockPcsr(BfrbAddresses[i]);
+		(void)XPm_LockPcsr(BfrbAddresses[i]);
 	}
 
 	XPm_PrintDbgErr(Status, DbgErr);
@@ -907,7 +907,7 @@ done:
 		}
 
 		/* Lock PCSR */
-		XPm_LockPcsr(BfrbAddresses[i]);
+		(void)XPm_LockPcsr(BfrbAddresses[i]);
 	}
 
 	XPm_PrintDbgErr(Status, DbgErr);
@@ -971,7 +971,7 @@ done:
 		}
 
 		/* Lock PCSR */
-		XPm_LockPcsr(BfrbAddresses[i]);
+		(void)XPm_LockPcsr(BfrbAddresses[i]);
 	}
 
 	XPm_PrintDbgErr(Status, DbgErr);
@@ -1017,7 +1017,7 @@ done:
 		}
 
 		/* Lock PCSR */
-		XPm_LockPcsr(BfrbAddresses[i]);
+		(void)XPm_LockPcsr(BfrbAddresses[i]);
 	}
 
 	XPm_PrintDbgErr(Status, DbgErr);
@@ -1180,7 +1180,7 @@ done:
 		}
 
 		/* Lock PCSR */
-		XPm_LockPcsr(DacAddresses[i]);
+		(void)XPm_LockPcsr(DacAddresses[i]);
 	}
 
 	XPm_PrintDbgErr(Status, DbgErr);
@@ -1259,7 +1259,7 @@ done:
 		}
 
 		/* Lock PCSR */
-		XPm_LockPcsr(DacAddresses[i]);
+		(void)XPm_LockPcsr(DacAddresses[i]);
 	}
 
 	XPm_PrintDbgErr(Status, DbgErr);
@@ -1337,7 +1337,7 @@ done:
 		}
 
 		/* Lock PCSR */
-		XPm_LockPcsr(AdcAddresses[i]);
+		(void)XPm_LockPcsr(AdcAddresses[i]);
 	}
 
 	XPm_PrintDbgErr(Status, DbgErr);
@@ -1449,7 +1449,7 @@ done:
 		}
 
 		/* Lock PCSR */
-		XPm_LockPcsr(DacAddresses[i]);
+		(void)XPm_LockPcsr(DacAddresses[i]);
 	}
 
 	XPm_PrintDbgErr(Status, DbgErr);
@@ -1655,7 +1655,7 @@ done:
 		}
 
 		BaseAddr = UcieDevices[i]->Node.BaseAddress;
-		XPm_LockPcsr(BaseAddr);
+		(void)XPm_LockPcsr(BaseAddr);
 	}
 
 	XPm_PrintDbgErr(Status, DbgErr);
@@ -1767,7 +1767,7 @@ done:
 		/* Disable the BISR clock during normal operation. */
 		XPm_RMW32(BaseAddr + ClkGateOffset,
 			  UCIE_NPI_CLK_GATE_BISR_EN_MASK, 0U);
-		XPm_LockPcsr(BaseAddr);
+		(void)XPm_LockPcsr(BaseAddr);
 	}
 
 	XPm_PrintDbgErr(Status, DbgErr);
@@ -1835,7 +1835,7 @@ static XStatus UcieReleaseInitState(const XPm_Device *const *UcieDevices,
 done:
 	for (i = 0U; i < ArrLen; i++) {
 		if (NULL != UcieDevices[i]) {
-			XPm_LockPcsr(UcieDevices[i]->Node.BaseAddress);
+			(void)XPm_LockPcsr(UcieDevices[i]->Node.BaseAddress);
 		}
 	}
 

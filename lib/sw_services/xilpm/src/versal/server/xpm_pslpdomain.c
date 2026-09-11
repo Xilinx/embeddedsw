@@ -545,7 +545,7 @@ static XStatus XramMbist(u32 PollTimeOut)
 
 fail:
 	/* Lock PCSR */
-	XPm_LockPcsr(BaseAddr);
+	(void)XPm_LockPcsr(BaseAddr);
 
 done:
 	XPm_PrintDbgErr(Status, DbgErr);
