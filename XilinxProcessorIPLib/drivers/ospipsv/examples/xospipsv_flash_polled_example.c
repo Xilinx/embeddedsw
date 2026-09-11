@@ -272,7 +272,7 @@ int OspiPsvPolledFlashExample(XOspiPsv *OspiPsvInstancePtr, UINTPTR BaseAddress)
 		return XST_FAILURE;
 	}
 
-#if defined (versal) && !defined (VERSAL_NET)
+#if defined (versal) && !defined (VERSAL_2VE_2VM)
 	Status = XOspiPsv_DeviceReset(XOSPIPSV_HWPIN_RESET);
 #else
 	Status = XOspiPsv_DeviceResetViaOspi(OspiPsvInstancePtr, XOSPIPSV_HWPIN_RESET);

@@ -282,7 +282,7 @@ u32 XSfl_OspiTransferDmaDone(u8 Index){
 u32 XSfl_OspiDeviceRest(u8 Type) {
 	u32 Status;
 
-#if defined (versal) && !defined (VERSAL_NET)
+#if defined (versal) && !defined (VERSAL_2VE_2VM)
 	Status = XOspiPsv_DeviceReset(Type);
 #else
 	Status = XOspiPsv_DeviceResetViaOspi(&OspiInstance, Type);
@@ -327,7 +327,7 @@ u32 XSfl_OspiInit(XSfl_Interface *Ptr, const XSfl_UserConfig *UserConfig) {
 		return XST_FAILURE;
 	}
 
-#if defined (versal) && !defined (VERSAL_NET)
+#if defined (versal) && !defined (VERSAL_2VE_2VM)
 	Status = XOspiPsv_DeviceReset(XOSPIPSV_HWPIN_RESET);
 #else
 	Status = XOspiPsv_DeviceResetViaOspi(&OspiInstance,
