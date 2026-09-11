@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc.  All rights reserve.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc.  All rights reserve.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -166,6 +166,13 @@ XStatus XPmDomainIso_NodeInit(u32 NodeId, u32 BaseAddress, u32 Mask, u32 Format,
 	XStatus Status = XST_FAILURE;
 	u32 NodeIdx = NODEINDEX(NodeId);
 	if (NodeIdx >= (u32)XPM_NODEIDX_ISO_MAX) {
+		goto done;
+	}
+
+	/* Bound the CDO supplied count before it drives the copy loop below */
+	if (NumDependencies > PM_ISO_MAX_NUM_DEPENDENCIES) {
+		PmErr("Invalid isolation dependency count 0x%x\r\n", NumDependencies);
+		Status = XST_INVALID_PARAM;
 		goto done;
 	}
 
