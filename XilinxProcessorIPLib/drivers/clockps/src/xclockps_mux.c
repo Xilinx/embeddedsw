@@ -20,6 +20,7 @@
 * 1.00  cjp    02/09/18 First release
 * 1.2   sd     02/13/20 Rename ARRAY_SIZE
 * 1.7   vlt    01/27/26 Fixed codespell issues
+* 1.8   ss     09/10/26 Fix invalid parent handling in MuxFetchParent
 * </pre>
 *
 ******************************************************************************/
@@ -989,13 +990,31 @@ static XStatus XClock_MuxFetchIdx(XClock_OutputClks ClockId, u8 *MuxIndex)
 static XStatus XClock_MuxFetchParent(XClock_Types *NodeType, u8 *MuxIndex)
 {
 	u16 Parent;
+	u8  ActiveParent;
 
 	/* Validate Args */
 	XCLOCK_VALIDATE_PTR(NodeType);
 	XCLOCK_VALIDATE_PTR(MuxIndex);
 	XCLOCK_VALIDATE_INDEX(MUX, *MuxIndex);
 
-	Parent = Muxes[*MuxIndex].Parent[Muxes[*MuxIndex].ActiveParent];
+	/* Fall back to default parent if active parent was never set */
+	ActiveParent = Muxes[*MuxIndex].ActiveParent;
+	if (((u8)XCLOCK_INVALID_PARENT) == ActiveParent) {
+		ActiveParent = Muxes[*MuxIndex].DefaultParent;
+	}
+
+	/* Validate parent index before using it to index Parent[] */
+	if (ActiveParent >= Muxes[*MuxIndex].NumParents) {
+		return XST_INVALID_PARAM;
+	}
+
+	Parent = Muxes[*MuxIndex].Parent[ActiveParent];
+
+	/* Reject sentinel encodings; they do not decode to a real node */
+	if ((XCLOCK_PARENT_EXTERNAL == Parent) ||
+	    (XCLOCK_INVALID_PARENT == Parent)) {
+		return XST_INVALID_PARAM;
+	}
 
 	*NodeType = (XClock_Types)XCLOCK_FETCH_PARENT_TYPE(Parent);
 	*MuxIndex = XCLOCK_FETCH_PARENT_INDEX(Parent);
