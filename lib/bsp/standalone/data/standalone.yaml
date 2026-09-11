@@ -1,4 +1,4 @@
-# Copyright (c) 2023 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+# Copyright (c) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 # SPDX-License-Identifier: MIT
 %YAML 1.2
 ---
@@ -10,6 +10,26 @@ maintainers:
 type: os
 
 version: 9.0
+
+supported_processors:
+  - cortexa78
+  - psx_cortexa78
+  - psv_cortexa72
+  - psu_cortexa53
+  - ps7_cortexa9
+  - cortexr52
+  - psx_cortexr52
+  - psv_cortexr5
+  - psu_cortexr5
+  - pmc
+  - psx_pmc
+  - psv_pmc
+  - psx_psm
+  - psv_psm
+  - psu_pmu
+  - asu
+  - microblaze
+  - microblaze_riscv
 
 depends:
     uartlite:
