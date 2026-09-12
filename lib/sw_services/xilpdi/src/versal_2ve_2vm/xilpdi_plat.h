@@ -19,6 +19,7 @@
 * 1.11  sk   03/05/2025 Added ASU destination CPU attribute
 *       sk   03/17/2025 Updated Header attributes for RPU clusters
 * 1.15  vm   08/22/2026 Added ASU data structure information optional data Id
+*       ng   09/09/2026 Added XIH_PH_ATTRB_PRTN_TYPE_TLBIN partition type
 *
 * </pre>
 *
@@ -93,6 +94,7 @@ extern "C" {
 #define XIH_PH_ATTRB_PRTN_TYPE_RSVD		(0x0000000U)
 #define XIH_PH_ATTRB_PRTN_TYPE_ELF		(0x1000000U)
 #define XIH_PH_ATTRB_PRTN_TYPE_CDO		(0x2000000U)
+#define XIH_PH_ATTRB_PRTN_TYPE_TLBIN		(0x6000000U) /**< Partition type for tlbin */
 #define XIH_PH_ATTRB_PRTN_TYPE_CFI_GSC_UNMASK	(0x7000000U)
 
 #define XIH_PH_ATTRB_PRTN_OWNER_PLM				(0x00000U)

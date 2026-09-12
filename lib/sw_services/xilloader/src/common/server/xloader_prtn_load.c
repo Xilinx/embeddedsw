@@ -117,6 +117,8 @@
 *       obs  08/26/2025 Added support for address range checks
 * 2.4   pre  04/17/2026 Made updates to process optee partition as ELF.
 *       ng   07/13/2026 Reduced debug print levels on error paths
+*       ng   09/09/2026 Store tlbin partition load address for ATF IPI on
+*                       versal_2ve_2vm
 *
 * </pre>
 *
@@ -162,8 +164,14 @@ static int XLoader_PrtnHdrValidation(const XilPdi_PrtnHdr* PrtnHdr, u32 PrtnNum)
 static int XLoader_ProcessCdo (const XilPdi* PdiPtr, XLoader_DeviceCopy* DeviceCopy,
 	XLoader_SecureParams* SecureParams);
 static int XLoader_ProcessPrtn(XilPdi* PdiPtr);
+#if defined(VERSAL_2VE_2VM) && !defined(VERSAL_2VP_P)
+static void XLoader_StoreTlbinLoadAddr(u64 LoadAddr);
+#endif
 
 /************************** Variable Definitions *****************************/
+#if defined(VERSAL_2VE_2VM) && !defined(VERSAL_2VP_P)
+static XLoader_TlbinInfo TlbinInfo = {0U, XLOADER_TLBIN_ADDR_INVALID};
+#endif
 
 /*****************************************************************************/
 /**
@@ -818,13 +826,74 @@ static int XLoader_ProcessPrtn(XilPdi* PdiPtr)
 		Status = XLoader_ProcessElf(PdiPtr, (const XilPdi_PrtnHdr *)PrtnHdr, &PrtnParams, &SecureParams);
 	}
 	else {
-		XPlmi_Printf(DEBUG_INFO, "Copying data partition\n\r");
 		/* Partition Copy */
 		Status = XLoader_PrtnCopy(PdiPtr, &PrtnParams.DeviceCopy, &SecureParams);
+#if defined(VERSAL_2VE_2VM) && !defined(VERSAL_2VP_P)
+		/**
+		 * Cache the destination load address of a tlbin partition
+		 * so ATF/TF-A can query it later through the loader IPI command.
+		 */
+		if ((Status == XST_SUCCESS) &&
+		    (PrtnType == XIH_PH_ATTRB_PRTN_TYPE_TLBIN)) {
+			XLoader_StoreTlbinLoadAddr(PrtnParams.DeviceCopy.DestAddr);
+		}
+#endif
 	}
 
 END:
 	return Status;
 }
+
+#if defined(VERSAL_2VE_2VM) && !defined(VERSAL_2VP_P)
+/*****************************************************************************/
+/**
+ * @brief	This function stores the destination load address of a tlbin
+ *		partition (partition type 0x06000000).
+ *
+ * @param	LoadAddr is the 64-bit destination address from the partition header
+ *
+ *****************************************************************************/
+static void XLoader_StoreTlbinLoadAddr(u64 LoadAddr)
+{
+	TlbinInfo.TlbinLoadAddr = LoadAddr;
+	TlbinInfo.IsTlbinAddrValid = XLOADER_TLBIN_ADDR_VALID;
+	XPlmi_Printf(DEBUG_INFO, "tlbin partition load address: 0x%08x%08x\n\r",
+		(u32)(LoadAddr >> 32U), (u32)LoadAddr);
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function returns the cached destination load address of the
+ *		tlbin partition, if one was loaded.
+ *
+ * @param	LoadAddr is a pointer to store the 64-bit destination address
+ *
+ * @return
+ *		- XST_SUCCESS if a tlbin partition was loaded.
+ *		- XST_INVALID_PARAM if LoadAddr is NULL.
+ *		- XLOADER_ERR_NO_VALID_TLBIN if no valid TL bin has been loaded.
+ *
+ *****************************************************************************/
+int XLoader_GetTlbinLoadAddr(u64 *LoadAddr)
+{
+	int Status = (int)XST_FAILURE;
+
+	if (LoadAddr == NULL) {
+		Status = (int)XST_INVALID_PARAM;
+		goto END;
+	}
+
+	if (TlbinInfo.IsTlbinAddrValid != XLOADER_TLBIN_ADDR_VALID) {
+		Status = (int)XLOADER_ERR_NO_VALID_TLBIN;
+		goto END;
+	}
+
+	*LoadAddr = TlbinInfo.TlbinLoadAddr;
+	Status = (int)XST_SUCCESS;
+
+END:
+	return Status;
+}
+#endif
 
 /** @} end of xloader_server_apis group */

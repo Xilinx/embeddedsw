@@ -19,6 +19,7 @@
  * 2.40  sri  03/26/26 Added client API to validate authenticated PDI
  * 2.5   ng   08/17/26 Removed XLOADER_PDI_SRC_DDR and XLOADER_PDI_SRC_IS macros
  *       ng   08/23/26 Added XLoader_ConfigureGlitchDetector client API
+ *       ng   09/10/26 Added XLoader_GetTlbinLoadAddr client API
  *
  * </pre>
  *
@@ -87,6 +88,7 @@ int XLoader_ReadDdrCryptoPerfCounters(XLoader_ClientInstance *InstancePtr, u32 N
 int XLoader_ValidatePdiAuth(XLoader_ClientInstance *InstancePtr, const u64 PdiAddr, const u32 PdiType);
 int XLoader_ConfigureGlitchDetector(XLoader_ClientInstance *InstancePtr, const u32 *GdCfgWords,
 				    u32 NumWords);
+int XLoader_GetTlbinLoadAddr(XLoader_ClientInstance *InstancePtr, u64 *LoadAddr);
 
 /************************************ Variable Definitions ***************************************/
 

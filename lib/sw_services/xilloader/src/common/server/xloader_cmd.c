@@ -105,6 +105,8 @@
 *       tus  08/19/2026 Added support for getting XilLoader library
 *                       version and capability bits
 *       pre  09/10/2026 Added handler for calibration data restore command
+*       ng   09/09/2026 Added handler for Get tlbin Load Address command
+*                       for versal_2ve_2vm
 *
 * </pre>
 *
@@ -190,6 +192,10 @@ static XPlmi_Module XPlmi_Loader;
 #define XLOADER_RESP_CMD_GET_IMG_INFO_LIST_NUM_ENTRIES_INDEX	(1U)
 #define XLOADER_RESP_CMD_EXTRACT_METAHDR_SIZE_INDEX	(1U)
 #define XLOADER_RESP_CMD_GET_HANDOFF_PARAM_SIZE_INDEX	(1U)
+#if defined(VERSAL_2VE_2VM) && !defined(VERSAL_2VP_P)
+#define XLOADER_RESP_CMD_TLBIN_LOAD_ADDR_HIGH_INDEX	(1U)
+#define XLOADER_RESP_CMD_TLBIN_LOAD_ADDR_LOW_INDEX	(2U)
+#endif
 #define XLOADER_CMD_MULTIBOOT_PDISRC_MASK		(0xFF00U)
 #define XLOADER_CMD_MULTIBOOT_FLASHTYPE_MASK		(0xFU)
 #define XLOADER_CMD_MULTIBOOT_PDISRC_SHIFT		(8U)
@@ -1426,6 +1432,43 @@ static int XLoader_SetDdrAddrForImageRestart(XPlmi_Cmd *Cmd)
 	return Status;
 }
 
+#if defined(VERSAL_2VE_2VM) && !defined(VERSAL_2VP_P)
+/*****************************************************************************/
+/**
+ * @brief	This function returns the destination load address of the tlbin
+ *		partition (partition type 0x06000000) that was cached during
+ *		PDI load. ATF/TF-A uses this IPI command to obtain the address.
+ *
+ *  Command Response parameters are:
+ *	- High 32-bit destination load address
+ *	- Low 32-bit destination load address
+ *
+ * @param	Cmd is pointer to the command structure
+ *
+ * @return
+ *		- XST_SUCCESS on success.
+ *		- XLOADER_ERR_NO_VALID_TLBIN if no valid TL bin has been loaded.
+ *
+ *****************************************************************************/
+static int XLoader_GetTlbinLoadAddrCmd(XPlmi_Cmd *Cmd)
+{
+	int Status = (int)XST_FAILURE;
+	u64 LoadAddr = 0U;
+
+	XPLMI_EXPORT_CMD(XLOADER_CMD_ID_GET_TLBIN_LOAD_ADDR, XPLMI_MODULE_LOADER_ID,
+		XPLMI_CMD_ARG_CNT_ZERO, XPLMI_CMD_ARG_CNT_ZERO);
+
+	Status = XLoader_GetTlbinLoadAddr(&LoadAddr);
+
+	Cmd->Response[XLOADER_RESP_CMD_TLBIN_LOAD_ADDR_HIGH_INDEX] =
+			(u32)(LoadAddr >> XLOADER_ADDR_HIGH_SHIFT);
+	Cmd->Response[XLOADER_RESP_CMD_TLBIN_LOAD_ADDR_LOW_INDEX] =
+			(u32)LoadAddr;
+	Cmd->Response[XLOADER_RESP_CMD_EXEC_STATUS_INDEX] = (u32)Status;
+
+	return Status;
+}
+#endif
 
 /**
  * @cond xloader_internal
@@ -1470,6 +1513,11 @@ static const XPlmi_ModuleCmd XLoader_Cmds[] =
 	XPLMI_MODULE_COMMAND(NULL),
 #endif
 	XPLMI_MODULE_COMMAND(XLoader_CalibDataRestore),
+#if defined(VERSAL_2VE_2VM) && !defined(VERSAL_2VP_P)
+	XPLMI_MODULE_COMMAND(XLoader_GetTlbinLoadAddrCmd),
+#else
+	XPLMI_MODULE_COMMAND(NULL),
+#endif
 };
 
 /*****************************************************************************/
@@ -1517,6 +1565,11 @@ static XPlmi_AccessPerm_t XLoader_AccessPermBuff[XPLMI_ARRAY_SIZE(XLoader_Cmds)]
 	XPLMI_ALL_IPI_NO_ACCESS(XLOADER_CMD_ID_CONFIG_GLITCH_DETECTOR),
 #endif
 	XPLMI_ALL_IPI_NO_ACCESS(XLOADER_CMD_ID_CALIBDATA_RESTORE),
+#if defined(VERSAL_2VE_2VM) && !defined(VERSAL_2VP_P)
+	XPLMI_ALL_IPI_FULL_ACCESS(XLOADER_CMD_ID_GET_TLBIN_LOAD_ADDR),
+#else
+	XPLMI_ALL_IPI_NO_ACCESS(XLOADER_CMD_ID_GET_TLBIN_LOAD_ADDR),
+#endif
 };
 
 #if (!defined(VERSAL_NET) && !defined(VERSAL_2VE_2VM))

@@ -64,6 +64,7 @@
 *       pre  08/05/2026 Removed unused error code
 *       ng   08/21/2026 Added prototype for XLoader_ConfigureGlitchDetector function
 *       pre  08/17/2026 Added XLOADER_DDRMC_LIST, default XPAR calib params, and DDRMC calib accessor macros
+*       ng   09/11/2026 Added XLOADER_ERR_NO_VALID_TLBIN error code
 *
 * </pre>
 *
@@ -515,6 +516,9 @@ enum {
 
 	/** 0x114 - LPD glitch detector SPARE_SEL write failed */
 	XLOADER_ERR_LPD_GD_SPARE_SEL_WRITE_FAILED,
+
+	/** 0x115 - Error when no valid TL bin partition has been loaded */
+	XLOADER_ERR_NO_VALID_TLBIN,
 
 };
 

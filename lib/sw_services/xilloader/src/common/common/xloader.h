@@ -138,7 +138,9 @@
 *                       XLoader_SetDdrPdiAddr for set DDR address for restart image
 *       pre  08/19/2026 Added XLOADER_DDRMC_n index macros, DDRMC calib
 *                       size/offset/mask/record macros and XLOADER_INVALID_ADDR
- * </pre>
+*       ng   09/09/2026 Added XLoader_TlbinInfo, XLoader_TlbinAddrStatus and
+*                       XLoader_GetTlbinLoadAddr for versal_2ve_2vm
+* </pre>
 *
 ******************************************************************************/
 
@@ -515,6 +517,24 @@ typedef struct {
 	XLoader_DdrPdiAddrStatus IsDdrAddrValid; /**< Flag to indicate if DDR PDI address is valid or not */
 } XLoader_DdrPdiInfo;
 
+#if defined(VERSAL_2VE_2VM) && !defined(VERSAL_2VP_P)
+/**
+ * Enum to indicate validity of tlbin load address
+ */
+typedef enum {
+	XLOADER_TLBIN_ADDR_INVALID = 0, /**< Invalid tlbin load address */
+	XLOADER_TLBIN_ADDR_VALID = 1 /**< Valid tlbin load address */
+} XLoader_TlbinAddrStatus;
+
+/**
+ * Structure to hold tlbin partition load address information
+ */
+typedef struct {
+	u64 TlbinLoadAddr; /**< Destination load address of tlbin partition */
+	XLoader_TlbinAddrStatus IsTlbinAddrValid; /**< Flag to indicate if tlbin load address is valid or not */
+} XLoader_TlbinInfo;
+#endif
+
 /***************** Macros (Inline Functions) Definitions *********************/
 /*****************************************************************************/
 /**
@@ -564,6 +584,9 @@ int XLoader_MbPmcI2cHandshake(XPlmi_Cmd *Cmd);
 int XLoader_LoadImagePrtns(XilPdi* PdiPtr);
 int XLoader_PrtnCopy(const XilPdi* PdiPtr, const XLoader_DeviceCopy* DeviceCopy,
 	void* SecureParamsPtr);
+#if defined(VERSAL_2VE_2VM) && !defined(VERSAL_2VP_P)
+int XLoader_GetTlbinLoadAddr(u64 *LoadAddr);
+#endif
 
 /* Functions defined in xloader_cmds.c */
 void XLoader_CmdsInit(void);

@@ -22,8 +22,9 @@
  * 2.4   gnr  02/06/26 Removed conditional inclusion for XLOADER_CMD_ID_DATA_AUTH
  * 2.5   ng   07/09/26 Added XLOADER_SET_DDR_ADDR_FOR_RESTART_IMAGE_ID command id
  *       ng   08/22/26 Added macros for glitch detector configuration
- *       ng   07/09/26 Added XLOADER_SET_DDR_ADDR_FOR_RESTART_IMAGE_ID command id
- * 2.5   pre  08/12/26 Added XLOADER_CMD_ID_CALIBDATA_RESTORE command id
+ *       pre  08/12/26 Added XLOADER_CMD_ID_CALIBDATA_RESTORE command id
+ *       ng   09/09/26 Added XLOADER_CMD_ID_GET_TLBIN_LOAD_ADDR command id
+ *                     for versal_2ve_2vm
  *
  * </pre>
  *
@@ -71,6 +72,9 @@ extern "C" {
 #define XLOADER_CMD_ID_CONFIG_GLITCH_DETECTOR (20U) /**< command id for glitch detector config */
 #define XLOADER_CMD_ID_CALIBDATA_RESTORE	(21U) /**< command id for DDR calibration
 							 * data restore */
+
+/** command id for get tlbin partition load address */
+#define XLOADER_CMD_ID_GET_TLBIN_LOAD_ADDR (22U)
 
 #define XLOADER_HEADER_LEN_1			(1U) /**< Header length 1 */
 #define XLOADER_HEADER_LEN_2			(2U) /**< Header length 2 */

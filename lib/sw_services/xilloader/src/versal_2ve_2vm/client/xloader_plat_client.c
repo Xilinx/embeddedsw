@@ -22,6 +22,7 @@
  * 2.4   sms  04/16/26 Updated the Payload and Response buffer length parameters in the function
  *       sri  07/21/26 Added RevokeID verification by reading eFuse cache directly
  * 2.5   ng   08/17/26 Added XLoader_ConfigureGlitchDetector client API
+ *       ng   09/10/26 Added XLoader_GetTlbinLoadAddr client API
  *
  * </pre>
  *
@@ -1331,6 +1332,47 @@ int XLoader_ConfigureGlitchDetector(XLoader_ClientInstance *InstancePtr, const u
 
 	/** Send request using generic API */
 	Status = XLoader_SendRequest(InstancePtr, Payload, (u32)PAYLOAD_ARG_CNT, NULL, 0U);
+
+END:
+	return Status;
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	This function sends an IPI request to get the destination load
+ *		address of the tlbin partition (partition type 0x06000000)
+ *		cached by the PLM during PDI load. ATF/TF-A uses this command.
+ *
+ * @param	InstancePtr	Pointer to the client instance.
+ * @param	LoadAddr	Pointer to store the 64-bit destination load address.
+ *
+ * @return
+ *		 - XST_SUCCESS on success.
+ *		 - XST_INVALID_PARAM if parameters are invalid.
+ *		 - XLOADER_ERR_NO_VALID_TLBIN from the PLM if no valid TL bin
+ *		   has been loaded.
+ *
+ **************************************************************************************************/
+int XLoader_GetTlbinLoadAddr(XLoader_ClientInstance *InstancePtr, u64 *LoadAddr)
+{
+	volatile int Status = (int)XST_FAILURE;
+	u32 Payload[PAYLOAD_ARG_CNT] = {0U};
+	u32 Response[RESPONSE_ARG_CNT] = {0U};
+
+	if ((InstancePtr == NULL) || (LoadAddr == NULL)) {
+		Status = (int)XST_INVALID_PARAM;
+		goto END;
+	}
+
+	XLOADER_PACK_PAYLOAD0(Payload, (u32)XLOADER_CMD_ID_GET_TLBIN_LOAD_ADDR);
+
+	Status = XLoader_SendRequest(InstancePtr, Payload, (u32)PAYLOAD_ARG_CNT,
+			Response, (u32)RESPONSE_ARG_CNT);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	*LoadAddr = (((u64)Response[0U] << XLOADER_ADDR_HIGH_SHIFT) | (u64)Response[1U]);
 
 END:
 	return Status;
