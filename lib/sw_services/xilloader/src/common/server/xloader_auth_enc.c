@@ -181,6 +181,7 @@
 *       pre  07/24/2026 Enabled TPM feature for VERSAL_2VP devices
 *       sri  08/14/2026 Refactored HashBlock authentication to XLoader_AuthNCopyHashBlock
 *                       for shared server and Versal_2Ve_2Vm client paths
+*       vss  09/09/2026 Added ECDSA P-521 to XLoader_GetKeySizeSignPadding for VERSAL_2VP_P
 *
 * </pre>
 *
@@ -3613,6 +3614,10 @@ static int XLoader_GetKeySizeSignPadding(u32 AuthType,
 		TotalKeySize = XLOADER_ECDSA_P384_KEY_SIZE_IN_BYTES;
 		ActualKeySize = XLOADER_ECDSA_P384_KEY_SIZE_IN_BYTES;
 		LocalSignPaddingSize = XLOADER_ECDSA_SIGN_PADDING;
+	} else if (AuthType == XLOADER_PUB_STRENGTH_ECDSA_P521) {
+		TotalKeySize = XLOADER_ECDSA_P521_TOTAL_KEY_SIZE_IN_BYTES;
+		ActualKeySize = XLOADER_ECDSA_P521_KEY_SIZE_IN_BYTES;
+		LocalSignPaddingSize = XLOADER_ECDSA_P521_SIGN_PADDING;
 	} else if (AuthType == XLOADER_PUB_STRENGTH_LMS_HSS) {
 		TotalKeySize = XLOADER_LMS_HSS_TOTAL_KEY_SIZE_IN_BYTES;
 		ActualKeySize = XLOADER_LMS_HSS_KEY_SIZE_IN_BYTES;

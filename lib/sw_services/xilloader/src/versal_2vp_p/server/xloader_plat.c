@@ -30,6 +30,7 @@
 *                    CheckAndUpdateSecureState, ProcessElf fixes
 *       tvp 09/02/26 Fix build when PLM_SECURE_EXCLUDE is enabled with PLM_OCP
 *       pre 09/02/26 Implemented DDRMC calibration skip flag clearing if PComplete is not set
+*       vss 09/09/26 Added ECDSA P-521 to XLoader_SpkMeasurement
 *
 * </pre>
 *
@@ -417,6 +418,8 @@ static int XLoader_SpkMeasurement(XLoader_SecureParams* SecurePtr,
 		SpkLen = XLOADER_RSA_KEY_SIZE_IN_BYTES;
 	} else if (AuthType == XLOADER_PUB_STRENGTH_ECDSA_P384) {
 		SpkLen = XLOADER_ECDSA_P384_KEY_SIZE_IN_BYTES;
+	} else if (AuthType == XLOADER_PUB_STRENGTH_ECDSA_P521) {
+		SpkLen = XLOADER_ECDSA_P521_KEY_SIZE_IN_BYTES;
 	} else if (AuthType == XLOADER_PUB_STRENGTH_LMS_HSS) {
 		SpkLen = XLOADER_LMS_HSS_KEY_SIZE_IN_BYTES;
 	} else if (AuthType == XLOADER_PUB_STRENGTH_LMS) {

@@ -83,6 +83,7 @@
 *       pre  07/24/2026 Updated code to return error if extension to TPM PCR gets failed
 *       ng   08/22/2026 Added Configure Glitch Detector command handler
 *       pre  08/19/2026 Implemented DDRMC calibration skip flag clearing if PComplete is not set
+*       vss  09/09/2026 Added ECDSA P-521 to XLoader_SpkMeasurement for VERSAL_2VP_P
 *
 * </pre>
 *
@@ -1664,6 +1665,8 @@ static int XLoader_SpkMeasurement(XLoader_SecureParams* SecurePtr,
 		SpkLen = XLOADER_RSA_KEY_SIZE_IN_BYTES;
 	} else if (AuthType == XLOADER_PUB_STRENGTH_ECDSA_P384) {
 		SpkLen = XLOADER_ECDSA_P384_KEY_SIZE_IN_BYTES;
+	} else if (AuthType == XLOADER_PUB_STRENGTH_ECDSA_P521) {
+		SpkLen = XLOADER_ECDSA_P521_KEY_SIZE_IN_BYTES;
 	} else if (AuthType == XLOADER_PUB_STRENGTH_LMS_HSS) {
 		SpkLen = XLOADER_LMS_HSS_KEY_SIZE_IN_BYTES;
 	} else if (AuthType == XLOADER_PUB_STRENGTH_LMS) {

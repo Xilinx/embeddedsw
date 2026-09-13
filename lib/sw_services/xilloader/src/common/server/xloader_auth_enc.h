@@ -75,6 +75,7 @@
 *       sri  03/26/26 Added new IPI API for verifying Hash block requested by Versal 2Ve 2Vm client
 *       sri  04/24/26 Changed LMS KAT and SignVerify APIs from static to global scope to support authenticated JTAG functionality
 *       sri  08/14/26 Exported XLoader_AuthNCopyHashBlock and updated CopyHashBlock for Versal_2Ve_2Vm client HashBlock validation
+*       vss  09/09/26 Added ECDSA P-521 HashBlock key size for VERSAL_2VP_P
 *
 * </pre>
 *
@@ -508,8 +509,14 @@ extern "C" {
 
 #define XLOADER_ECDSA_P384_KEY_SIZE_IN_BYTES	(96U)
 	/**< ECDSA P-384 key size in bytes */
+#define XLOADER_ECDSA_P521_KEY_SIZE_IN_BYTES	(132U)
+	/**< ECDSA P-521 actual key size in bytes */
+#define XLOADER_ECDSA_P521_TOTAL_KEY_SIZE_IN_BYTES	(144U)
+	/**< ECDSA P-521 total key size in bytes including 16-byte alignment padding */
 #define XLOADER_ECDSA_SIGN_PADDING		(0U)
-	/**< ECDSA signature padding size in bytes */
+	/**< ECDSA P-384 signature padding size in bytes */
+#define XLOADER_ECDSA_P521_SIGN_PADDING		(12U)
+	/**< ECDSA P-521 signature padding size in bytes (132 actual + 12 pad = 144) */
 
 #define XLOADER_LMS_HSS_KEY_SIZE_IN_BYTES	(60U)
 	/**< LMS-HSS key size in bytes */
