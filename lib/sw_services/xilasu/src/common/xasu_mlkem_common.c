@@ -81,8 +81,11 @@ s32 XAsu_MlkemValidateParams(const XAsu_MlkemEncapsDecapsParams *MlkemParamsPtr)
 		goto END;
 	}
 
-	/** Validate that exactly one of KeyAddr or KeyId is provided. */
-	if (XAsu_KmValidateKeyAddrNdKeyId(MlkemParamsPtr->KeyAddr,
+	/**
+	 * Validate that exactly one of KeyAddr or KeyId is provided, and that a vault sourced key
+	 * carries no length.
+	 */
+	if (XAsu_KmValidateKeyAddrNdKeyId(MlkemParamsPtr->KeyAddr, MlkemParamsPtr->KeyLen,
 					  MlkemParamsPtr->KeyId) != XST_SUCCESS) {
 		goto END;
 	}

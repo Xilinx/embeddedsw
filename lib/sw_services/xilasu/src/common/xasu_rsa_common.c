@@ -63,7 +63,7 @@ s32 XAsu_RsaValidateInputParams(const XAsu_RsaParams *RsaParamsPtr)
 		goto END;
 	}
 
-	Status = XAsu_KmValidateKeyAddrNdKeyId(RsaParamsPtr->KeyCompAddr, RsaParamsPtr->KeyId);
+	Status = XAsu_KmValidateKeyAddrNdKeyId(RsaParamsPtr->KeyCompAddr, 0U, RsaParamsPtr->KeyId);
 
 END:
 	return Status;

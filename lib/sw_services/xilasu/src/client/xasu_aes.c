@@ -205,8 +205,12 @@ s32 XAsu_AesOperation(XAsu_ClientParams *ClientParamPtr, XAsu_AesParams *AesClie
 	     (((AesClientParamPtr->OperationFlags & XASU_UPDATE) == XASU_UPDATE) &&
 	      (AesClientParamPtr->EngineMode == XASU_AES_CCM_MODE))) {
 
-		/** Validate that exactly one of IvAddr or IvId is provided. */
+		/**
+		 * Validate that exactly one of IvAddr or IvId is provided, and that a vault
+		 * sourced IV carries no length.
+		 */
 		Status = XAsu_KmValidateKeyAddrNdKeyId(AesClientParamPtr->IvObj.IvAddr,
+						       AesClientParamPtr->IvObj.IvLen,
 						       AesClientParamPtr->IvObj.IvId);
 		if (Status != XST_SUCCESS) {
 			Status = XASU_INVALID_ARGUMENT;
@@ -403,7 +407,7 @@ static s32 XAsu_AesValidateKeyObjectParams(const XAsu_AesKeyObject *KeyObjectPtr
 	}
 
 	/** Validate that exactly one of KeyAddress or KeyId is provided. */
-	if (XAsu_KmValidateKeyAddrNdKeyId(KeyObjectPtr->KeyAddress,
+	if (XAsu_KmValidateKeyAddrNdKeyId(KeyObjectPtr->KeyAddress, 0U,
 					  KeyObjectPtr->KeyId) != XST_SUCCESS) {
 		goto END;
 	}

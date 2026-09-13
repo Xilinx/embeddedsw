@@ -91,8 +91,11 @@ s32 XAsu_MldsaValidateParams(const XAsu_MldsaSignVerifyParams *MldsaParamsPtr)
 		goto END;
 	}
 
-	/** Validate that exactly one of KeyAddr or KeyId is provided. */
-	if (XAsu_KmValidateKeyAddrNdKeyId(MldsaParamsPtr->KeyAddr,
+	/**
+	 * Validate that exactly one of KeyAddr or KeyId is provided, and that a vault sourced key
+	 * carries no length.
+	 */
+	if (XAsu_KmValidateKeyAddrNdKeyId(MldsaParamsPtr->KeyAddr, MldsaParamsPtr->KeyLen,
 					  MldsaParamsPtr->KeyId) != XST_SUCCESS) {
 		goto END;
 	}

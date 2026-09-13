@@ -334,8 +334,12 @@ static s32 XAsu_ValidateHmacParameters(const XAsu_HmacParams *HmacParamsPtr)
 			goto END;
 		}
 
-		/** Validate that exactly one of KeyInAddr or KeyId is provided. */
+		/**
+		 * Validate that exactly one of KeyInAddr or KeyId is provided, and that a vault
+		 * sourced key carries no length.
+		 */
 		if (XAsu_KmValidateKeyAddrNdKeyId(HmacParamsPtr->KeyObject.KeyInAddr,
+						  HmacParamsPtr->KeyObject.KeyInLen,
 						  HmacParamsPtr->KeyObject.KeyId) != XST_SUCCESS) {
 			goto END;
 		}

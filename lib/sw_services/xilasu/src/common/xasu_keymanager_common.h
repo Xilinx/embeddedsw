@@ -79,7 +79,7 @@ s32 XAsu_KmValidateMlkemKeyGenParams(const XAsu_KeyManagerPqcKeyGenParams *PqcPa
 				u32 *PubKeyLenPtr, u32 *PrivKeyLenPtr);
 s32 XAsu_KmValidateSlhdsaKeyGenParams(const XAsu_SlhdsaKeyGenParams *KeyGenParamsPtr,
 				u32 *PubKeyLenPtr, u32 *PrivKeyLenPtr);
-s32 XAsu_KmValidateKeyAddrNdKeyId(u64 KeyCompAddr, u32 KeyId);
+s32 XAsu_KmValidateKeyAddrNdKeyId(u64 KeyCompAddr, u32 KeyCompLen, u32 KeyId);
 s32 XAsu_KmValidateVaultCreateParams(const XAsu_KeyManagerSubVaultParams *ParamsPtr);
 s32 XAsu_KmValidateXorKeyParams(const XAsu_KmXorKeyParams *ParamsPtr);
 

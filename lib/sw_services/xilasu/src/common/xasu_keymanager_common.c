@@ -69,7 +69,7 @@ s32 XAsu_KmValidateVaultParams(const XAsu_KeyManagerParams *KmParamsPtr)
 	}
 
 	/** Validate at least one output destination is provided. */
-	Status = XAsu_KmValidateKeyAddrNdKeyId(KmParamsPtr->KeyObjectAddr,
+	Status = XAsu_KmValidateKeyAddrNdKeyId(KmParamsPtr->KeyObjectAddr, 0U,
 				(u32)(KmParamsPtr->KeyIdAddr));
 	if (Status != XST_SUCCESS) {
 		goto END;
@@ -541,23 +541,40 @@ END:
 
 /*************************************************************************************************/
 /**
- * @brief	This function validates that exactly one of KeyCompAddr or KeyId is provided.
+ * @brief	This function validates that exactly one of KeyCompAddr or KeyId is provided, and
+ * 		that a vault sourced component carries no length. It applies to anything the key
+ * 		vault holds, a key or an IV.
  *
- * @param	KeyCompAddr	Address of the key component structure.
- * @param	KeyId		Composite key identifier for vault-based key retrieval.
+ * @param	KeyCompAddr	Address of the key or IV component, 0 when it is taken from the
+ * 				key vault.
+ * @param	KeyCompLen	Length of the key or IV component buffer in bytes. A component
+ * 				whose length the caller does not supply passes 0.
+ * @param	KeyId		Composite identifier for vault-based key or IV retrieval.
  *
  * @return
- * 	- XST_SUCCESS, if exactly one of (KeyCompAddr, KeyId) is non-zero.
- * 	- XST_FAILURE, if both are zero (no source) or both are non-zero (ambiguous source).
+ * 	- XST_SUCCESS, if exactly one of (KeyCompAddr, KeyId) is non-zero and a vault sourced
+ * 	  component carries a zero length.
+ * 	- XST_FAILURE, if both are zero (no source) or both are non-zero (ambiguous source), or if
+ * 	  a vault sourced component carries a non-zero length.
  *
  *************************************************************************************************/
-s32 XAsu_KmValidateKeyAddrNdKeyId(u64 KeyCompAddr, u32 KeyId)
+s32 XAsu_KmValidateKeyAddrNdKeyId(u64 KeyCompAddr, u32 KeyCompLen, u32 KeyId)
 {
 	s32 Status = XST_FAILURE;
 
 	/** Reject if both are zero (no source) or both are non-zero (ambiguous source). */
 	if (((KeyCompAddr == 0U) && (KeyId == 0U)) ||
 	    ((KeyCompAddr != 0U) && (KeyId != 0U))) {
+		goto END;
+	}
+
+	/**
+	 * A component held in the key vault is not passed by the caller and the firmware takes
+	 * its length from the stored metadata, so the request must leave the length at zero.
+	 * Reject a left over length here, where the caller learns it supplied an invalid
+	 * parameter, rather than letting the server range check a buffer at address zero.
+	 */
+	if ((KeyCompAddr == 0U) && (KeyCompLen != 0U)) {
 		goto END;
 	}
 

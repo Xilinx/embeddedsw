@@ -123,7 +123,8 @@ typedef struct {
 typedef struct {
 	u64 IvAddr; /**< AES Iv/Nonce address; 0 when the IV is taken from the key vault via IvId */
 	u32 IvLen; /**< AES Iv/Nonce length; must be 0 when IvAddr is 0, as the firmware takes the
-			length of a vault sourced IV from the stored metadata. */
+			length of a vault sourced IV from the stored metadata. A non-zero length
+			with a zero address is rejected as an invalid parameter. */
 	u32 IvId; /**< AES IV ID, if the IV is used from ASU key vault; 0 when the IV is supplied
 			through IvAddr */
 } XAsu_AesIvObject;

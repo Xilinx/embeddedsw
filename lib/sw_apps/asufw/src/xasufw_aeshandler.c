@@ -285,8 +285,12 @@ static s32 XAsufw_AesOperation(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	if (((AesParamsPtr->OperationFlags & XASU_INIT) == XASU_INIT) &&
 	      (AesParamsPtr->EngineMode != XASU_AES_CMAC_MODE) &&
 	      (AesParamsPtr->EngineMode != XASU_AES_ECB_MODE)) {
-		/** Validate that exactly one of IvAddr or IvId is provided. */
+		/**
+		 * Validate that exactly one of IvAddr or IvId is provided, and that a vault
+		 * sourced IV carries no length.
+		 */
 		Status = XAsu_KmValidateKeyAddrNdKeyId(AesParamsPtr->IvObj.IvAddr,
+						       AesParamsPtr->IvObj.IvLen,
 						       AesParamsPtr->IvObj.IvId);
 		if (Status != XST_SUCCESS) {
 			Status = XASUFW_AES_INVALID_PARAM;
@@ -332,7 +336,7 @@ static s32 XAsufw_AesOperation(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 		}
 
 		/** Validate that exactly one of KeyAddress or KeyId is provided. */
-		Status = XAsu_KmValidateKeyAddrNdKeyId(KeyObject.KeyAddress, KeyObject.KeyId);
+		Status = XAsu_KmValidateKeyAddrNdKeyId(KeyObject.KeyAddress, 0U, KeyObject.KeyId);
 		if (Status != XST_SUCCESS) {
 			Status = XASUFW_AES_INVALID_PARAM;
 			goto END;

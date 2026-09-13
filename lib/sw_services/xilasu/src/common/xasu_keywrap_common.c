@@ -91,7 +91,7 @@ s32 XAsu_KeyWrapUnwrapValidateInputParams(const XAsu_KeyWrapParams *KwpunwpParam
 
 	if (OperationType == XASU_KEYWRAP_AES_RSA_KWPUNWP) {
 		/** Validate that exactly one of KeyCompAddr or RsaKeyId is provided. */
-		if (XAsu_KmValidateKeyAddrNdKeyId(KwpunwpParamsPtr->KeyCompAddr,
+		if (XAsu_KmValidateKeyAddrNdKeyId(KwpunwpParamsPtr->KeyCompAddr, 0U,
 						  KwpunwpParamsPtr->RsaKeyId) != XST_SUCCESS) {
 			goto END;
 		}

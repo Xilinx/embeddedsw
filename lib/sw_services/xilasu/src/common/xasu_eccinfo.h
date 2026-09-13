@@ -106,7 +106,8 @@ typedef struct {
 	u32 KeyId;       /**< Key identifier from key management (used if KeyAddr == 0) */
 	u32 KeyLen;      /**< Length of the key in bytes (curve length); must be 0 when KeyAddr is
 				0, as the firmware takes the length of a vault sourced key from the
-				stored metadata. */
+				stored metadata. A non-zero length with a zero address is rejected
+				as an invalid parameter. */
 	u32 CurveType;   /**< Type of curve */
 	u8 Reserved[4]; /**< Explicit padding to ensure consistent struct size across architectures */
 } XAsu_EccKeyObject;

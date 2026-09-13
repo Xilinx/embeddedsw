@@ -84,8 +84,12 @@ s32 XAsu_LmsValidateParams(const XAsu_LmsHssSignVerifyParams *LmsParamsPtr)
 		goto END;
 	}
 
-	/** Validate that exactly one of PubKeyAddr or PubKeyId is provided. */
+	/**
+	 * Validate that exactly one of PubKeyAddr or PubKeyId is provided, and that a vault
+	 * sourced public key carries no length.
+	 */
 	if (XAsu_KmValidateKeyAddrNdKeyId(LmsParamsPtr->LmsHssKeyObj.PubKeyAddr,
+					  LmsParamsPtr->LmsHssKeyObj.PubKeyLen,
 					  LmsParamsPtr->LmsHssKeyObj.PubKeyId) != XST_SUCCESS) {
 		goto END;
 	}

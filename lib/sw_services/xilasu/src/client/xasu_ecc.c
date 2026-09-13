@@ -460,8 +460,11 @@ static s32 XAsu_ValidateEccParameters(XAsu_EccParams *EccParamsPtr)
 		goto END;
 	}
 
-	/** Validate that exactly one of KeyAddr or KeyId is provided. */
-	if (XAsu_KmValidateKeyAddrNdKeyId(EccParamsPtr->Key.KeyAddr,
+	/**
+	 * Validate that exactly one of KeyAddr or KeyId is provided, and that a vault sourced key
+	 * carries no length.
+	 */
+	if (XAsu_KmValidateKeyAddrNdKeyId(EccParamsPtr->Key.KeyAddr, EccParamsPtr->Key.KeyLen,
 					  EccParamsPtr->Key.KeyId) != XST_SUCCESS) {
 		goto END;
 	}
@@ -523,8 +526,12 @@ static s32 XAsu_ValidateEccKeyParameters(const XAsu_EccKeyParams *EccKeyParamsPt
 		goto END;
 	}
 
-	/** Validate that exactly one of PvtKey.KeyAddr or PvtKey.KeyId is provided. */
+	/**
+	 * Validate that exactly one of PvtKey.KeyAddr or PvtKey.KeyId is provided, and that a
+	 * vault sourced key carries no length.
+	 */
 	if (XAsu_KmValidateKeyAddrNdKeyId(EccKeyParamsPtr->PvtKey.KeyAddr,
+					  EccKeyParamsPtr->PvtKey.KeyLen,
 					  EccKeyParamsPtr->PvtKey.KeyId) != XST_SUCCESS) {
 		goto END;
 	}
@@ -577,14 +584,22 @@ static s32 XAsu_ValidateEcdhParameters(const XAsu_EcdhParams *EcdhParamsPtr)
 		goto END;
 	}
 
-	/** Validate that exactly one of PvtKey.KeyAddr or PvtKey.KeyId is provided. */
+	/**
+	 * Validate that exactly one of PvtKey.KeyAddr or PvtKey.KeyId is provided, and that a
+	 * vault sourced key carries no length.
+	 */
 	if (XAsu_KmValidateKeyAddrNdKeyId(EcdhParamsPtr->PvtKey.KeyAddr,
+					  EcdhParamsPtr->PvtKey.KeyLen,
 					  EcdhParamsPtr->PvtKey.KeyId) != XST_SUCCESS) {
 		goto END;
 	}
 
-	/** Validate that exactly one of PubKey.KeyAddr or PubKey.KeyId is provided. */
+	/**
+	 * Validate that exactly one of PubKey.KeyAddr or PubKey.KeyId is provided, and that a
+	 * vault sourced key carries no length.
+	 */
 	if (XAsu_KmValidateKeyAddrNdKeyId(EcdhParamsPtr->PubKey.KeyAddr,
+					  EcdhParamsPtr->PubKey.KeyLen,
 					  EcdhParamsPtr->PubKey.KeyId) != XST_SUCCESS) {
 		goto END;
 	}

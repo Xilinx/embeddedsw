@@ -71,8 +71,12 @@ s32 XAsu_ValidateKdfParameters(const XAsu_KdfParams *KdfParamsPtr)
 		goto END;
 	}
 
-	/** Validate that exactly one of KeyInAddr or KeyId is provided. */
+	/**
+	 * Validate that exactly one of KeyInAddr or KeyId is provided, and that a vault sourced
+	 * key carries no length.
+	 */
 	if (XAsu_KmValidateKeyAddrNdKeyId(KdfParamsPtr->KeyObject.KeyInAddr,
+					  KdfParamsPtr->KeyObject.KeyInLen,
 					  KdfParamsPtr->KeyObject.KeyId) != XST_SUCCESS) {
 		goto END;
 	}
