@@ -18,6 +18,7 @@
  * ----- ---- -------- ----------------------------------------------------------------------------
  * 1.0   ss   11/30/25 Initial release
  *       kp   08/22/26 Added vault ID validation and composite key ID handling.
+ *       vm   09/15/26 Accepted the full exportable range in key vault restrictions
  *
  * </pre>
  *
@@ -603,8 +604,8 @@ s32 XAsu_KmValidateVaultCreateParams(const XAsu_KeyManagerSubVaultParams *Params
 		goto END;
 	}
 
-	if ((ParamsPtr->Restrictions != XASU_KEYMANAGER_NON_EXPORTABLE_VAULT) &&
-		(ParamsPtr->Restrictions != XASU_KEYMANAGER_EXPORTABLE_VAULT)) {
+	/** Reject the restriction values that are reserved. */
+	if (ParamsPtr->Restrictions > XASU_KEYMANAGER_EXPORTABLE_VAULT_MAX) {
 		goto END;
 	}
 

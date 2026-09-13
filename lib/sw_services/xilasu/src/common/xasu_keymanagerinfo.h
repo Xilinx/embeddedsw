@@ -19,6 +19,8 @@
  * 1.0   ss   11/25/25 Initial release
  *       yog  01/28/26 Added RSA key pair generation command and structure definitions.
  *       kp   08/22/26 Added composite key ID and user-requested vault ID definitions.
+ *       vm   09/15/26 Added key vault export result and transfer structures and AEKV signed
+ *                     region, signature and header size definitions
  *
  * </pre>
  *
@@ -75,8 +77,40 @@ extern "C" {
 							supported by KeyManager module */
 
 #define XASU_KM_OUTPUT_ID_SIZE_IN_BYTES		(4U) /**< Key vault output id size */
-#define XASU_KM_EXPORT_SIZE_IN_BYTES		(4U) /**< Size in bytes of the field storing actual
-							exported keyvault data size */
+
+/**
+ * AEKV blob header fields a caller may read to identify a stored blob and tell two of them apart.
+ * The rest of the header, including the signed region and the signature the device UDE key wrote,
+ * is consumed by the server, which checks the tag, the version and the signature on import.
+ */
+#define XASU_KM_AEKV_TAG			(0x41454B56U) /**< AEKV blob tag ("AEKV") */
+#define XASU_KM_AEKV_VERSION_1			(1U) /**< AEKV blob format version 1, the version
+							  an export writes and an import
+							  accepts */
+#define XASU_KM_AEKV_HDR_OFFSET_TAG		(0U) /**< Byte offset of the blob tag */
+#define XASU_KM_AEKV_HDR_OFFSET_VERSION		(4U) /**< Byte offset of the blob version */
+#define XASU_KM_AEKV_HDR_OFFSET_REV_COUNTER	(8U) /**< Byte offset of the revocation eFuse
+							  number */
+#define XASU_KM_AEKV_HDR_OFFSET_KV_SIZE		(12U) /**< Byte offset of the plaintext key vault
+							   size */
+
+#define XASU_KM_KV_CONTEXT_SIZE_IN_BYTES	(32U) /**< Size of the key vault export and
+							   import context */
+
+#define XASU_KM_KV_REVOKE_EFUSE_COUNT		(256U) /**< Off-chip revocation eFuses a key
+							    vault blob can be bound to */
+
+/**
+ * Values the export reports for the modified flag. They sit at a hamming distance of 29 from each
+ * other and at least 15 from an all-zero and an all-one word, so a corrupted flag does not read as
+ * the other state.
+ */
+#define XASU_KM_EXPORT_NOT_MODIFIED		(0x39C6A5B4U) /**< Key vault was not modified
+								   since the previous export */
+#define XASU_KM_EXPORT_MODIFIED			(0xC63A5B4BU) /**< Key vault was modified since
+								   the previous export, so the blob
+								   the caller holds is out of
+								   date */
 
 #define XASU_KM_USAGE_COUNT_NON_DEPLETING_VALUE	(0xFFFFFFFFU) /**< Marker for keys that
 									never expire */
@@ -319,9 +353,19 @@ typedef struct {
 /** This structure contains info for exporting and importing key vault. */
 typedef struct {
 	u64 DataAddr;		/**< Address for vault data (export destination or import source). */
-	u64 ActualSizeAddr;	/**< Address where actual vault size will be stored (used only for export). */
+	u64 ExportResultAddr;	/**< Address of the export result block (export only). Must point
+					to an XAsu_KeyVaultExportResult, which the client library
+					fills from the command response with the blob size and the
+					modified flag. */
 	u32 BufSize;		/**< Buffer size for export or actual data size for import. */
-	u8 Reserved[4]; /**< Explicit padding to ensure consistent struct size across architectures */
+	u32 RevokeEfuseNum;	/**< Off-chip revocation eFuse number the blob is bound to
+					(export only). Blowing that eFuse is what retires the
+					blob, and an import refuses a blob whose eFuse is
+					blown. */
+	u8 Context[XASU_KM_KV_CONTEXT_SIZE_IN_BYTES];	/**< Context the key vault keys are
+								derived from. An import only
+								recovers a blob when given the
+								same context the export used. */
 } XAsu_KeyVaultTransferParams;
 
 /** This structure contains info for combining two AES key splits using XOR. */
@@ -340,6 +384,13 @@ typedef struct {
 	u32 SplitKeyId2; /**< Key ID of the second input AES key split. */
 } XAsu_KmXorKeyParams;
 
+/** This structure holds the result returned to the caller on key vault export. */
+typedef struct {
+	u32 ActualSize;		/**< Actual size in bytes of the exported AEKV blob. */
+	u32 Modified;		/**< XASU_KM_EXPORT_MODIFIED if the vault changed since the previous
+					export, XASU_KM_EXPORT_NOT_MODIFIED otherwise. */
+} XAsu_KeyVaultExportResult;
+
 /*************************** Macros (Inline Functions) Definitions *******************************/
 #define XASU_KM_COMPOSE_KEY_ID(VaultId, KeyType, KeyIndex) \
 	(((((u32)(VaultId)) << XASU_KM_VAULT_ID_SHIFT) & XASU_KM_VAULT_ID_MASK) | \
@@ -355,6 +406,9 @@ typedef struct {
 					/**< Extract key type, wrapped-key bit included */
 #define XASU_KM_GET_KEY_INDEX(KeyId)	((u16)(((u32)(KeyId)) & XASU_KM_KEY_INDEX_MASK))
 					/**< Extract key index, 0 if auto-assign requested */
+
+/** Size in bytes of the export result block returned to the caller. */
+#define XASU_KM_EXPORT_SIZE_IN_BYTES		((u32)sizeof(XAsu_KeyVaultExportResult))
 
 /************************************ Function Prototypes ****************************************/
 

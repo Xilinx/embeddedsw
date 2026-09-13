@@ -17,6 +17,7 @@
  * Ver   Who  Date     Changes
  * ----- ---- -------- ----------------------------------------------------------------------------
  * 1.0   ss   11/30/25 Initial release
+ *       vm   09/15/26 Added highest exportable key vault restriction value
  *
  * </pre>
  *
@@ -46,8 +47,14 @@ extern "C" {
 #define XASU_KM_ACCESS_RIGHTS_LOWER_BYTE_MASK	(0xFFU) /**< Mask to extract lower byte of AccessRights */
 #define XASU_KM_ACCESS_RIGHTS_UPPER_BYTE_SHIFT	(8U) /**< Shift to extract upper byte of AccessRights */
 
-#define XASU_KEYMANAGER_NON_EXPORTABLE_VAULT		(0x00U) /**< Non-exportable vault value */
-#define XASU_KEYMANAGER_EXPORTABLE_VAULT		(0x01U) /**< Exportable vault value */
+/**
+ * Values the Restrictions field of a key vault takes. Zero keeps the vault inside the device and
+ * every value from XASU_KEYMANAGER_EXPORTABLE_VAULT to XASU_KEYMANAGER_EXPORTABLE_VAULT_MAX marks
+ * it exportable, so 0x01, 0x02 and 0x03 all grant export.
+ */
+#define XASU_KEYMANAGER_NON_EXPORTABLE_VAULT		(0x00U)	/**< Vault stays in the device */
+#define XASU_KEYMANAGER_EXPORTABLE_VAULT		(0x01U)	/**< Lowest exportable value */
+#define XASU_KEYMANAGER_EXPORTABLE_VAULT_MAX		(0x03U)	/**< Highest exportable value */
 /************************************** Type Definitions *****************************************/
 
 /*************************** Macros (Inline Functions) Definitions *******************************/

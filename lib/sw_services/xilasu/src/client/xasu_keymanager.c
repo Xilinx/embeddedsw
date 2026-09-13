@@ -19,6 +19,7 @@
  * 1.0   ss   11/25/25 Initial release
  *       yog  01/28/26 Added RSA key pair generation client API.
  *       kp   08/22/26 Used composite key ID in key metadata.
+ *       vm   09/15/26 Added key vault export and import client APIs
  *
  * </pre>
  *
@@ -36,6 +37,7 @@
 #include "xasu_mlkeminfo.h"
 #include "xasu_def.h"
 #include "xasu_ecies_common.h"
+#include "xasu_generic.h"
 
 /************************************ Constant Definitions ***************************************/
 
@@ -1068,14 +1070,22 @@ s32 XAsu_KmExportKeyVault(XAsu_ClientParams *ClientParamPtr,
 	}
 
 	if ((ExportParams == NULL) || (ExportParams->DataAddr == 0U) ||
-	    (ExportParams->BufSize == 0U) || (ExportParams->ActualSizeAddr == 0U)) {
+	    (ExportParams->BufSize == 0U) || (ExportParams->ExportResultAddr == 0U) ||
+	    (ExportParams->RevokeEfuseNum >= XASU_KM_KV_REVOKE_EFUSE_COUNT)) {
+		Status = XASU_INVALID_ARGUMENT;
+		goto END;
+	}
+
+	/** The context is what an import has to repeat, so an empty one is refused here. */
+	if (XAsu_IsBufferNonZero(ExportParams->Context, XASU_KM_KV_CONTEXT_SIZE_IN_BYTES) !=
+	    XST_SUCCESS) {
 		Status = XASU_INVALID_ARGUMENT;
 		goto END;
 	}
 
 	/** Generate a unique ID and register the callback function. */
 	UniqueId = XAsu_RegCallBackNGetUniqueId(ClientParamPtr,
-						(u8 *)(UINTPTR)ExportParams->ActualSizeAddr,
+						(u8 *)(UINTPTR)ExportParams->ExportResultAddr,
 						XASU_KM_EXPORT_SIZE_IN_BYTES, XASU_TRUE);
 	if (UniqueId >= XASU_UNIQUE_ID_MAX) {
 		Status = XASU_INVALID_UNIQUE_ID;
@@ -1127,6 +1137,13 @@ s32 XAsu_KmImportKeyVault(XAsu_ClientParams *ClientParamPtr,
 
 	if ((ImportParams == NULL) || (ImportParams->DataAddr == 0U) ||
 	    (ImportParams->BufSize == 0U)) {
+		Status = XASU_INVALID_ARGUMENT;
+		goto END;
+	}
+
+	/** Only the context the blob was exported under recovers it, so it must be supplied. */
+	if (XAsu_IsBufferNonZero(ImportParams->Context, XASU_KM_KV_CONTEXT_SIZE_IN_BYTES) !=
+	    XST_SUCCESS) {
 		Status = XASU_INVALID_ARGUMENT;
 		goto END;
 	}
