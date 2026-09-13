@@ -48,15 +48,21 @@
  *         the result is compared against the original plaintext (the GCM tag also verifies the
  *         vaulted DEK is byte-identical to the original). The DEK plaintext never reaches long-term
  *         storage - only its wrapped form does - which is the reason key wrapping exists.
- *     14. Export the whole populated vault into a single AES-GCM-encrypted, authenticated blob
- *         (ExportKeyVault), reporting the actual blob size the server produced. This is the secure
- *         off-chip backup of the vault; the key bytes never leave the ASU in the clear.
- *     15. Import the vault back from that blob (ImportKeyVault), which clears the user-vault region
- *         and rebuilds it - preserving VaultIds and KeyIds. The round-trip is then self-checked on
- *         content: the step-13 ciphertext is decrypted with the imported DEK by KeyId and the
- *         plaintext is confirmed to match (the GCM tag check plus the byte-for-byte compare prove
- *         the actual key bytes survived, not just the vault layout). Import's own AES-GCM
- *         authentication already guarantees the blob was restored intact; this check is an extra
+ *     14. Export the whole populated vault into a single signed and encrypted AEKV blob
+ *         (ExportKeyVault), reporting the blob size the server produced and whether the vault
+ *         changed since the previous export. The blob is built as chunks of encrypted blocks
+ *         chained by their digests and signed with the device UDE key, its keys are derived from
+ *         a context the caller supplies, and it is bound to an off-chip revocation eFuse, so
+ *         blowing that eFuse is what retires it. This is the secure off-chip backup of the vault;
+ *         the key bytes never leave the ASU in the clear.
+ *     15. Import the vault back from that blob (ImportKeyVault), handing back the same context the
+ *         export used. Import restores into an empty region and never discards a key vault on the
+ *         caller's behalf, so the vault is deleted first; the blob then rebuilds it - preserving
+ *         VaultIds and KeyIds. The round-trip is then self-checked on content: the step-13
+ *         ciphertext is decrypted with the imported DEK by KeyId and the plaintext is confirmed to
+ *         match (the GCM tag check plus the byte-for-byte compare prove the actual key bytes
+ *         survived, not just the vault layout). The signature and chunk digest checks import
+ *         performs already guarantee the blob was restored intact; this check is an extra
  *         end-to-end confirmation that the key is usable under its original KeyId.
  *     16. Delete the stored ECC key (DeleteKey).
  *     17. Delete the key vault (DeleteKeyVault), releasing the DDR space it occupied. Deleting
@@ -119,6 +125,7 @@
  * ----- ---- -------- ----------------------------------------------------------------------------
  * 1.0   pks  07/22/26 Initial release
  *       kp   08/22/26 Used composite key ID in key metadata.
+ *       vm   09/15/26 Updated key vault export and import steps for the AEKV blob format
  *
  * </pre>
  *
@@ -278,18 +285,28 @@
 #define XASU_KM_EXAMPLE_KDF_CONTEXT_LEN_IN_BYTES	(32U) /**< KDF fixed-input/context length */
 #define XASU_KM_EXAMPLE_KDF_OUT_LEN_IN_BYTES	(32U) /**< KDF derived keying-material length */
 
-/* Key-vault export/import demo. ExportKeyVault serialises the whole user-vault region into a single
- * AES-GCM-encrypted, authenticated blob: a 16-byte IV, the encrypted vault image and a 16-byte GCM
- * tag. The server writes the blob into a client-supplied buffer and reports the actual byte count.
- * ImportKeyVault reverses this: it clears the user-vault, decrypts/authenticates the blob and
- * rebuilds the vault(s) - preserving VaultIds and KeyIds - so a vault can be backed up off-chip and
- * later restored. Export/import operate on the whole vault and do not consume key usage counts.
+/* Key-vault export/import demo. ExportKeyVault serialises the whole user-vault region into a
+ * single signed and encrypted AEKV blob and reports its actual byte count. ImportKeyVault
+ * reverses this: it verifies and decrypts the blob and rebuilds the vault(s) - preserving
+ * VaultIds and KeyIds - so a vault can be backed up off-chip and later restored. Export and
+ * import operate on the whole vault and do not consume key usage counts.
  *
- * The buffer is sized generously (as in the unit tests) so the whole populated vault fits;
- * the minimum is the IV + GCM tag + the 12-byte vault main header that every export carries. */
-#define XASU_KM_EXAMPLE_EXPORT_BUF_SIZE		(10000U) /**< Export/import scratch-buffer capacity */
-#define XASU_KM_EXAMPLE_EXPORT_MIN_SIZE		(44U)    /**< IV(16) + GCM tag(16) + main header(12) */
+ * A blob is the AEKV header followed by whole chunks. A chunk carries fifteen 528-byte data
+ * blocks and a trailer of the chunk secrets and the digest of the chunk after it, so it is
+ * larger on the wire than the plaintext it holds, and a vault is never smaller than one chunk.
+ * The buffer holds two chunks, which is more than the vault this example populates needs. */
+#define XASU_KM_EXAMPLE_AEKV_HDR_SIZE		(704U) /**< AEKV V1 header size */
+#define XASU_KM_EXAMPLE_AEKV_CHUNK_SIZE		(8496U) /**< Chunk size on the wire */
+#define XASU_KM_EXAMPLE_EXPORT_BUF_SIZE		(XASU_KM_EXAMPLE_AEKV_HDR_SIZE + \
+						(2U * XASU_KM_EXAMPLE_AEKV_CHUNK_SIZE))
+					/**< Export/import scratch-buffer capacity */
+#define XASU_KM_EXAMPLE_EXPORT_MIN_SIZE		(XASU_KM_EXAMPLE_AEKV_HDR_SIZE + \
+						XASU_KM_EXAMPLE_AEKV_CHUNK_SIZE)
+					/**< Header plus the one chunk every blob carries */
 #define XASU_KM_EXAMPLE_EXPORT_PREVIEW_LEN	(64U)    /**< Blob bytes logged for inspection */
+
+/** Off-chip revocation eFuse the blob is bound to. Blowing it is what retires the blob. */
+#define XASU_KM_EXAMPLE_REVOKE_EFUSE		(1U)
 
 /************************************ Function Prototypes ****************************************/
 static s32 XAsu_KeyManagerExample(void);
@@ -580,6 +597,20 @@ static u32 KmWrapOutLen __attribute__ ((section (".data.KmWrapOutLen")));
 static u8 KmExportBuffer[XASU_KM_EXAMPLE_EXPORT_BUF_SIZE] __attribute__ ((aligned(64),
 		section (".data.KmExportBuffer")));
 static u32 KmExportSize __attribute__ ((section (".data.KmExportSize")));
+
+/* Result block an export writes back, carrying the blob size and the modified flag. The client
+ * library fills it from the command response. */
+static XAsu_KeyVaultExportResult KmExportResult __attribute__ ((aligned(64),
+		section (".data.KmExportResult")));
+
+/* Context the key vault keys are derived from. The import below hands back the same one, which
+ * is what lets it recover the blob this export produced. */
+static const u8 KmExportContext[XASU_KM_KV_CONTEXT_SIZE_IN_BYTES] = {
+	0x4BU, 0x4DU, 0x5FU, 0x45U, 0x58U, 0x41U, 0x4DU, 0x50U,
+	0x4CU, 0x45U, 0x5FU, 0x56U, 0x41U, 0x55U, 0x4CU, 0x54U,
+	0x5FU, 0x43U, 0x4FU, 0x4EU, 0x54U, 0x45U, 0x58U, 0x54U,
+	0x00U, 0x00U, 0x00U, 0x00U, 0x00U, 0x00U, 0x00U, 0x00U
+};
 
 /* Digest signed/verified by the ECC sign/verify step. Shared so the ASU server can read it. */
 static u8 KmEccDigest[XASU_KM_EXAMPLE_ECC_DIGEST_LEN_IN_BYTES] __attribute__ ((
@@ -2497,18 +2528,27 @@ static s32 XAsu_KmDemo_ExportKeyVault(void)
 
 	XAsu_KmDemo_InitClientParams(&ClientParams);
 
-	/* DataAddr is the destination buffer, BufSize its capacity, ActualSizeAddr receives the
-	 * server-written blob size. */
+	/* DataAddr is the destination buffer and BufSize its capacity. ExportResultAddr points at
+	 * the result block the blob size and the modified flag come back in, RevokeEfuseNum is the
+	 * eFuse the blob is bound to, and Context is what its keys are derived from. */
 	ExportParams.DataAddr = (u64)(UINTPTR)KmExportBuffer;
 	ExportParams.BufSize = XASU_KM_EXAMPLE_EXPORT_BUF_SIZE;
-	ExportParams.ActualSizeAddr = (u64)(UINTPTR)&KmExportSize;
+	ExportParams.ExportResultAddr = (u64)(UINTPTR)&KmExportResult;
+	ExportParams.RevokeEfuseNum = XASU_KM_EXAMPLE_REVOKE_EFUSE;
+
+	Status = Xil_SMemCpy(ExportParams.Context, sizeof(ExportParams.Context), KmExportContext,
+			sizeof(KmExportContext), sizeof(KmExportContext));
+	if (Status != XST_SUCCESS) {
+		XilAsu_Printf("ExportKeyVault could not set the context: %08x \r\n", Status);
+		goto END;
+	}
 
 	KmExportSize = 0U;
 
 #ifndef XASU_CACHE_DISABLE
-	/* Clean the size slot and invalidate the export buffer up front so no dirty line clobbers
-	 * the size/blob the server DMAs back. */
-	Xil_DCacheFlushRange((UINTPTR)&KmExportSize, sizeof(KmExportSize));
+	/* Invalidate the export buffer up front so no dirty line clobbers the blob the server
+	 * DMAs back. The result block is not invalidated: the client library copies it out of the
+	 * response buffer with the CPU, so it is already coherent. */
 	Xil_DCacheInvalidateRange((UINTPTR)KmExportBuffer, XASU_KM_EXAMPLE_EXPORT_BUF_SIZE);
 #endif
 
@@ -2527,12 +2567,9 @@ static s32 XAsu_KmDemo_ExportKeyVault(void)
 		goto END;
 	}
 
-#ifndef XASU_CACHE_DISABLE
-	/* Invalidate so the CPU reads the actual exported size the server wrote. */
-	Xil_DCacheInvalidateRange((UINTPTR)&KmExportSize, sizeof(KmExportSize));
-#endif
+	KmExportSize = KmExportResult.ActualSize;
 
-	/* A valid blob is at least IV + GCM tag + the vault main header, and must fit the buffer the
+	/* A valid blob is at least the AEKV header plus one chunk, and must fit the buffer the
 	 * server was given. */
 	if ((KmExportSize < XASU_KM_EXAMPLE_EXPORT_MIN_SIZE) ||
 	(KmExportSize > XASU_KM_EXAMPLE_EXPORT_BUF_SIZE)) {
@@ -2547,11 +2584,24 @@ static s32 XAsu_KmDemo_ExportKeyVault(void)
 	Xil_DCacheInvalidateRange((UINTPTR)KmExportBuffer, KmExportSize);
 #endif
 
+	/* The blob opens with the AEKV tag, so a buffer the server never wrote is caught here. */
+	if (Xil_In32((UINTPTR)KmExportBuffer) != XASU_KM_AEKV_TAG) {
+		XilAsu_Printf("ExportKeyVault produced a blob with tag %08x \r\n",
+					Xil_In32((UINTPTR)KmExportBuffer));
+		Status = XST_FAILURE;
+		goto END;
+	}
+
 	/* Never read past the bytes the server actually wrote: cap the preview at the blob size. */
 	PreviewLen = (KmExportSize < XASU_KM_EXAMPLE_EXPORT_PREVIEW_LEN) ?
 			KmExportSize : XASU_KM_EXAMPLE_EXPORT_PREVIEW_LEN;
 
-	xil_printf("\r\n Exported vault, size = %u bytes \r\n", KmExportSize);
+	/* Modified tells whether the vault changed since the export before this one, which is what
+	 * a backup scheme uses to decide it has to keep the new blob. */
+	xil_printf("\r\n Exported vault, size = %u bytes, key vault size = %u bytes, "
+			"modified = %u \r\n", KmExportSize,
+			Xil_In32((UINTPTR)KmExportBuffer + XASU_KM_AEKV_HDR_OFFSET_KV_SIZE),
+			KmExportResult.Modified);
 	XAsu_KmDemo_PrintBuffer("Exported vault (preview)", KmExportBuffer, PreviewLen);
 
 END:
@@ -2562,10 +2612,14 @@ END:
 /**
  * @brief	Imports a key vault from a previously exported blob, then verifies the round-trip.
  *
- *		ImportKeyVault clears the user-vault region, decrypts and authenticates the AES-GCM blob
- *		produced by ExportKeyVault, and rebuilds the vault(s) it contains - preserving VaultIds
- *		and KeyIds - so the keys provisioned earlier remain usable under their original IDs (the
- *		teardown deletes the stored ECC key and the vault by those same IDs after this step).
+ *		ImportKeyVault verifies and decrypts the blob produced by ExportKeyVault and
+ *		rebuilds the vault(s) it contains - preserving VaultIds and KeyIds - so the keys
+ *		provisioned earlier remain usable under their original IDs (the teardown deletes
+ *		the stored ECC key and the vault by those same IDs after this step).
+ *
+ *		Import restores into an empty region and never discards a key vault on the
+ *		caller's behalf, so the vault this example created is deleted first. Importing
+ *		over it would be refused with XASUFW_KEYMANAGER_AEKV_VAULT_PRESENT.
  *
  *		The round-trip is self-checked on content: a vaulted key is exercised through its preserved
  *		KeyId - KmDekCiphertext (produced in step 13) is decrypted with the imported DEK (KmDekId)
@@ -2595,11 +2649,27 @@ static s32 XAsu_KmDemo_ImportKeyVault(void)
 
 	XAsu_KmDemo_InitClientParams(&ClientParams);
 
-	/* On import, DataAddr is the source blob and BufSize its actual length; ActualSizeAddr is
-	 * unused. */
+	/* On import, DataAddr is the source blob and BufSize its actual length. ExportResultAddr
+	 * is unused, and Context has to be the one the export ran with or the blob does not
+	 * decrypt. */
 	ImportParams.DataAddr = (u64)(UINTPTR)KmExportBuffer;
 	ImportParams.BufSize = KmExportSize;
-	ImportParams.ActualSizeAddr = 0U;
+	ImportParams.ExportResultAddr = 0U;
+
+	Status = Xil_SMemCpy(ImportParams.Context, sizeof(ImportParams.Context), KmExportContext,
+			sizeof(KmExportContext), sizeof(KmExportContext));
+	if (Status != XST_SUCCESS) {
+		XilAsu_Printf("ImportKeyVault could not set the context: %08x \r\n", Status);
+		goto END;
+	}
+
+	/* Free the region the import restores into. The blob rebuilds this vault under the same
+	 * VaultId, so the teardown still deletes it by KmVaultId afterwards. */
+	Status = XAsu_KmDemo_DeleteVault(KmVaultId);
+	if (Status != XST_SUCCESS) {
+		XilAsu_Printf("ImportKeyVault could not free the vault region: %08x \r\n", Status);
+		goto END;
+	}
 
 #ifndef XASU_CACHE_DISABLE
 	/* Flush the vault blob the server reads to import it. */
