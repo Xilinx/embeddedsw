@@ -57,6 +57,7 @@
  *       vm   08/22/26 Added error code for an incompatible data structure version during restore
  *       kp   08/22/26 Added error codes for user-addressable vault ID and key slot
  *       kk   08/29/26 Added error codes for SLH-DSA functionality
+ *       vm   09/15/26 Added error codes for the UDE private and public key fetch failures
  *
  * </pre>
  *
@@ -576,8 +577,10 @@ enum {
 	XASUFW_OCP_NONCE_UPDATE_FAIL, /**< 0x186U - Error when nonce update is failed */
 	XASUFW_OCP_MEASUREMENT_UPDATE_FAIL, /**< 0x187U - Error when measurement update is failed */
 	XASUFW_OCP_UDE_SIGNATURE_GEN_FAIL, /**< 0x188U - Error when UDE signature generation is failed */
-	XASUFW_ERR_RESERVED_189, /**< 0x189U - Reserved */
-	XASUFW_ERR_RESERVED_18A, /**< 0x18AU - Reserved */
+	XASUFW_OCP_UDE_PVT_KEY_FETCH_FAIL, /**< 0x189U - Error when the active UDE private key
+						cannot be recovered for a signature */
+	XASUFW_OCP_UDE_PUB_KEY_FETCH_FAIL, /**< 0x18AU - Error when the active UDE public key
+						cannot be fetched for a signature verification */
 	XASUFW_OCP_UDE_KEY_DECRYPT_FAIL, /**< 0x18BU - Error when UDE key decryption is failed */
 	XASUFW_OCP_UDE_PVT_KEY_GEN_FAIL, /**< 0x18CU - Error when UDE private key generation fails */
 	XASUFW_CRYPTO_DISABLED, /**< 0x18DU - Error when crypto is disabled via eFuse */

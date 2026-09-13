@@ -20,6 +20,8 @@
 *       yog  04/17/26 Updated code to zeroize UDE KEK immediately after use to avoid exposure in memory.
 *       yog  08/24/26 Encrypt/decrypt UDE private keys directly with the PUF KEK,
 *                     removing the derived UDE KEK (CMAC-KDF from eFUSE-0).
+*       vm   09/15/26 Added UDE private key recovery helper, the UDE data sign and verify APIs
+*                     and the cached UDE public key with the invalidation provisioning calls
 *
 * </pre>
 *
@@ -80,6 +82,11 @@
 /************************************ Type Definitions *******************************************/
 
 /********************************** Variable Definitions *****************************************/
+static u8 UdePubKeyCache[XASU_ECC_P384_PUB_KEY_SIZE_IN_BYTES];
+					/**< UDE public key of the slot the cache was filled from */
+static u32 UdePubKeyCacheAddr;		/**< Encrypted key address naming that slot. It is an eFUSE
+					     cache register of the selected slot, so it is never zero
+					     and zero marks the cache as empty. */
 
 /************************************ Function Prototypes ****************************************/
 static s32 XOcp_AesCompute(XAsufw_Dma *DmaPtr, u64 IvAddr, u64 InAddr, u64 OutAddr);
@@ -89,12 +96,18 @@ static s32 XOcp_GenerateUdeSelfSignedCert(XAsufw_Dma *DmaPtr, const u8 *PubKey, 
 					  u64 CertBufAddr, u32 CertBufMaxSize, u32 *CertSize);
 static s32 XOcp_DecryptPvtKey(XAsufw_Dma *DmaPtr, u32 UdeUserKeyAddr, u8* Iv, u8* UdeDecPvtKey);
 static s32 XOcp_GetActiveUdeKeyInfo(u32 *UdeUserKeyPtr, u8 *IvIncValPtr);
+static s32 XOcp_ResolveUdeUserKeyAddr(u32 *UdeUserKeyPtr, u8 *IvIncValPtr);
 static s32 XOcp_BuildUdeResponseData(XAsufw_Dma *DmaPtr, const u8 *UdeDecPvtKey,
 				     XAsu_OcpUdeResponse *OcpUdeResp,
 				     const XAsu_OcpUdeParams *OcpUdeParamsPtr);
 static s32 XOcp_PrepareUdeDecKey(XAsufw_Dma *DmaPtr, u8 *UdeKekIv, u8 *UdeDecPvtKey);
+static s32 XOcp_GetUdePvtKey(XAsufw_Dma *DmaPtr, u8 *UdeDecPvtKey);
+static s32 XOcp_GetUdePubKey(XAsufw_Dma *DmaPtr, u8 *UdePubKey);
 static s32 XOcp_ProcessUdeResponse(XAsufw_Dma *DmaPtr, XAsu_OcpUdeResponse *OcpUdeResp,
 				   const XAsu_OcpUdeParams *OcpUdeParamsPtr);
+static s32 XOcp_UdeHashData(XAsufw_Dma *DmaPtr, const u8 *Data, u32 DataLen, u8 *HashBuf);
+static s32 XOcp_UdeSignDataWithKey(XAsufw_Dma *DmaPtr, const u8 *UdeDecPvtKey, const u8 *Data,
+				   u32 DataLen, u8 *SignatureOut);
 
 /*************************************************************************************************/
 /**
@@ -147,7 +160,7 @@ s32 XOcp_EncryptUdeKeys(XAsufw_Dma *DmaPtr, u32 UdeKeyId, u8 *EncPvtKey, u64 Cer
 	Status = XRsa_EccGeneratePvtKey(XASU_ECC_NIST_P384, XASU_ECC_P384_PVT_KEY_SIZE_IN_BYTES,
 				PvtKey, NULL, 0U);
 	if (Status != XASUFW_SUCCESS) {
-		Status = XASUFW_OCP_UDE_PVT_KEY_GEN_FAIL;
+		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_OCP_UDE_PVT_KEY_GEN_FAIL);
 		goto END_CLR;
 	}
 
@@ -733,6 +746,284 @@ END:
 }
 
 /*************************************************************************************************/
+/**
+ * @brief	This function resolves the active UDE encrypted private key address from the
+ *		eFUSE cache.
+ *
+ * @param	UdeUserKeyPtr	Pointer to the UDE encrypted key address. It may be NULL for a
+ *				caller that only asks whether a key is available.
+ * @param	IvIncValPtr	Pointer to the IV increment value for the active key. It may be
+ *				NULL on the same terms.
+ *
+ * @return
+ *	- XASUFW_SUCCESS, if an active UDE key slot is found and it holds a key.
+ *	- XASUFW_OCP_UDE_KEY_NOT_PROGRAMMED, if the active slot is blank and no key is staged.
+ *	- Error codes from XOcp_GetActiveUdeKeyInfo(), otherwise.
+ *
+ * @note	An un-revoked slot is not the same as a programmed one, so the slot contents are
+ *		checked here rather than in the decrypt that would otherwise be the first caller
+ *		to notice a blank slot.
+ *
+ *************************************************************************************************/
+static s32 XOcp_ResolveUdeUserKeyAddr(u32 *UdeUserKeyPtr, u8 *IvIncValPtr)
+{
+	CREATE_VOLATILE(Status, XASUFW_FAILURE);
+	u32 UdeUserKeyAddr = 0U;
+	u8 IvIncVal = 0U;
+
+	Status = XOcp_GetActiveUdeKeyInfo(&UdeUserKeyAddr, &IvIncVal);
+	if (XASUFW_SUCCESS != Status) {
+		goto END;
+	}
+
+	/** The slot the revoke bits select still has to hold a key. */
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	Status = XAsu_IsBufferNonZero((u8 *)(UINTPTR)UdeUserKeyAddr,
+				      XASU_OCP_UDE_KEY_SIZE_IN_BYTES);
+	if (XASUFW_SUCCESS != Status) {
+		Status = XASUFW_OCP_UDE_KEY_NOT_PROGRAMMED;
+		goto END;
+	}
+
+	if (UdeUserKeyPtr != NULL) {
+		*UdeUserKeyPtr = UdeUserKeyAddr;
+	}
+
+	if (IvIncValPtr != NULL) {
+		*IvIncValPtr = IvIncVal;
+	}
+
+END:
+	return Status;
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	This function computes the SHA-384 digest over the data covered by a UDE signature.
+ *
+ * @param	DmaPtr			Pointer to the XAsufw_Dma instance.
+ * @param	Data			Pointer to the data covered by the signature.
+ * @param	DataLen			Length of the data in bytes.
+ * @param	HashBuf			Pointer to the buffer the digest is written to.
+ *
+ * @return
+ *		- XASUFW_SUCCESS, if the digest is computed.
+ *		- XASUFW_OCP_INVALID_PARAM, if the data does not fit the blocking DMA window.
+ *		- Error codes from XSha_Digest(), if the digest fails.
+ *
+ * @note	The digest is fixed at SHA-384 to match the P-384 curve used by the UDE key.
+ *		The caller names the failure, since the digest a sign covers and the digest a
+ *		verify covers fail for different reasons.
+ *
+ *************************************************************************************************/
+static s32 XOcp_UdeHashData(XAsufw_Dma *DmaPtr, const u8 *Data, u32 DataLen, u8 *HashBuf)
+{
+	XSha *ShaInstancePtr = XSha_GetInstance(XASU_XSHA_0_DEVICE_ID);
+	XAsu_ShaOperationCmd ShaCmd = {0U};
+
+	/**
+	 * Hold the digest to the blocking DMA window. Above it XSha_Digest streams the data
+	 * non-blocking and returns XASUFW_CMD_IN_PROGRESS, leaving its command stage waiting for
+	 * a re-dispatch that these callers have no resume point for.
+	 */
+	if (DataLen > XASUFW_DMA_BLOCKING_SIZE) {
+		return XASUFW_OCP_INVALID_PARAM;
+	}
+
+	ShaCmd.ShaMode = XASU_SHA_MODE_384;
+	ShaCmd.DataAddr = (u64)(UINTPTR)Data;
+	ShaCmd.DataSize = DataLen;
+	ShaCmd.HashAddr = (u64)(UINTPTR)HashBuf;
+	ShaCmd.HashBufSize = XASU_SHA_384_HASH_LEN;
+
+	return XSha_Digest(ShaInstancePtr, DmaPtr, &ShaCmd);
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	This function signs data using a UDE private key supplied by the caller.
+ *
+ * @param	DmaPtr			Pointer to the XAsufw_Dma instance.
+ * @param	UdeDecPvtKey		Pointer to the decrypted UDE private key.
+ * @param	Data			Pointer to the data covered by the signature.
+ * @param	DataLen			Length of the data in bytes.
+ * @param	SignatureOut		Output buffer for the 96-byte P-384 signature.
+ *
+ * @return
+ *		- XASUFW_SUCCESS, if signing is successful.
+ *		- XASUFW_OCP_SHA_DIGEST_FAIL, if the data digest fails.
+ *		- XASUFW_OCP_UDE_SIGNATURE_GEN_FAIL, if signature generation fails.
+ *		- Error code from XAsufw_UpdateBufStatus, if local buffer zeroization fails.
+ *
+ * @note	The private key buffer stays owned by the caller, which lets a flow that has
+ *		already recovered the key sign without recovering it again.
+ *
+ *************************************************************************************************/
+static s32 XOcp_UdeSignDataWithKey(XAsufw_Dma *DmaPtr, const u8 *UdeDecPvtKey, const u8 *Data,
+				   u32 DataLen, u8 *SignatureOut)
+{
+	CREATE_VOLATILE(Status, XASUFW_FAILURE);
+	CREATE_VOLATILE(ClearStatus, XASUFW_FAILURE);
+	XFih_Var XFihUde = XFih_VolatileAssignXfihVar(XFIH_FAILURE);
+	XEcc *EccInstancePtr = XEcc_GetInstance(XASU_XECC_0_DEVICE_ID);
+	u8 HashBuf[XASU_SHA_384_HASH_LEN] = {0U};
+
+	/** Sign the digest of the data rather than the data, whatever its length. */
+	Status = XOcp_UdeHashData(DmaPtr, Data, DataLen, HashBuf);
+	if (XASUFW_SUCCESS != Status) {
+		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_OCP_SHA_DIGEST_FAIL);
+		goto END;
+	}
+
+	/** Sign the digest with the caller's decrypted UDE private key. */
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	XFIH_CALL(XEcc_GenerateSignature, XFihUde, Status, EccInstancePtr, DmaPtr,
+		  XASU_ECC_NIST_P384, XASU_ECC_P384_PVT_KEY_SIZE_IN_BYTES,
+		  (u64)(UINTPTR)UdeDecPvtKey, NULL, (u64)(UINTPTR)HashBuf,
+		  XASU_SHA_384_HASH_LEN, (u64)(UINTPTR)SignatureOut);
+	if (XASUFW_SUCCESS != Status) {
+		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_OCP_UDE_SIGNATURE_GEN_FAIL);
+	}
+
+END:
+	ClearStatus = Xil_SecureZeroize(HashBuf, XASU_SHA_384_HASH_LEN);
+	Status = XAsufw_UpdateBufStatus(Status, ClearStatus);
+
+	return Status;
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	This function signs data using the active UDE private key.
+ *
+ * @param	DmaPtr			Pointer to the XAsufw_Dma instance.
+ * @param	Data			Pointer to the data covered by the signature.
+ * @param	DataLen			Length of the data in bytes.
+ * @param	SignatureOut		Output buffer for the 96-byte P-384 signature.
+ *
+ * @return
+ *		- XASUFW_SUCCESS, if signing is successful.
+ *		- XASUFW_OCP_INVALID_PARAM, if any pointer is NULL, the length is zero or the
+ *		  length is above XASUFW_DMA_BLOCKING_SIZE.
+ *		- XASUFW_OCP_UDE_PVT_KEY_FETCH_FAIL, with the recovery error embedded, if the
+ *		  active UDE private key cannot be recovered.
+ *		- XASUFW_OCP_SHA_DIGEST_FAIL, if the data digest fails.
+ *		- XASUFW_OCP_UDE_SIGNATURE_GEN_FAIL, if signature generation fails.
+ *
+ * @note	The UDE key is the device endorsement key, so this signs on behalf of the device.
+ *		It is restricted to firmware-constructed payloads and must not be reachable from
+ *		a client command with caller-supplied data. The ECC work it drives lives in the
+ *		overlay window, so the caller must already hold the overlay resource with the
+ *		RSA-ECC image active.
+ *
+ *************************************************************************************************/
+s32 XOcp_UdeSignData(XAsufw_Dma *DmaPtr, const u8 *Data, u32 DataLen, u8 *SignatureOut)
+{
+	CREATE_VOLATILE(Status, XASUFW_FAILURE);
+	CREATE_VOLATILE(ClearStatus, XASUFW_FAILURE);
+	XFih_Var XFihUde = XFih_VolatileAssignXfihVar(XFIH_FAILURE);
+	u8 UdeDecPvtKey[XASU_ECC_P384_PVT_KEY_SIZE_IN_BYTES] = {0U};
+
+	/** Validate input parameters. */
+	if ((DmaPtr == NULL) || (Data == NULL) || (SignatureOut == NULL) || (DataLen == 0U) ||
+	    (DataLen > XASUFW_DMA_BLOCKING_SIZE)) {
+		Status = XASUFW_OCP_INVALID_PARAM;
+		goto END;
+	}
+
+	/** Recover the private key of the active UDE slot. */
+	Status = XOcp_GetUdePvtKey(DmaPtr, UdeDecPvtKey);
+	if (XASUFW_SUCCESS != Status) {
+		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_OCP_UDE_PVT_KEY_FETCH_FAIL);
+		goto END;
+	}
+
+	/** Sign the data with the recovered key. */
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	Status = XOcp_UdeSignDataWithKey(DmaPtr, UdeDecPvtKey, Data, DataLen, SignatureOut);
+
+END:
+	/** Zeroize the local private key buffer. */
+	XFIH_CALL(Xil_SecureZeroize, XFihUde, ClearStatus, UdeDecPvtKey,
+		  XASU_ECC_P384_PVT_KEY_SIZE_IN_BYTES);
+	Status = XAsufw_UpdateBufStatus(Status, ClearStatus);
+
+	return Status;
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	This function verifies a UDE signature over data using the UDE public key.
+ *
+ * @param	DmaPtr			Pointer to the XAsufw_Dma instance.
+ * @param	Data			Pointer to the data covered by the signature.
+ * @param	DataLen			Length of the data in bytes.
+ * @param	Signature		Pointer to the 96-byte P-384 signature.
+ *
+ * @return
+ *		- XASUFW_SUCCESS, if signature verification succeeds.
+ *		- XASUFW_OCP_INVALID_PARAM, if any pointer is NULL, the length is zero or the
+ *		  length is above XASUFW_DMA_BLOCKING_SIZE.
+ *		- XASUFW_OCP_UDE_PUB_KEY_FETCH_FAIL, with the fetch error embedded, if the active
+ *		  UDE public key cannot be fetched.
+ *		- XASUFW_OCP_SHA_DIGEST_FAIL, if the data digest fails.
+ *		- Error codes from signature verification, if the signature does not match.
+ *
+ * @note	The device keeps no stored public key, so the first verification of a boot derives
+ *		it from the private key and every one after that is served from the cache. A
+ *		caller feeding the firmware signatures it knows will fail therefore cannot make it
+ *		recover the private key more than once per key slot. The ECC work it drives lives
+ *		in the overlay window, so the caller must already hold the overlay resource with
+ *		the RSA-ECC image active.
+ *
+ *************************************************************************************************/
+s32 XOcp_UdeVerifyData(XAsufw_Dma *DmaPtr, const u8 *Data, u32 DataLen, const u8 *Signature)
+{
+	CREATE_VOLATILE(Status, XASUFW_FAILURE);
+	CREATE_VOLATILE(ClearStatus, XASUFW_FAILURE);
+	XFih_Var XFihUde = XFih_VolatileAssignXfihVar(XFIH_FAILURE);
+	XEcc *EccInstancePtr = XEcc_GetInstance(XASU_XECC_0_DEVICE_ID);
+	u8 UdePubKey[XASU_ECC_P384_PUB_KEY_SIZE_IN_BYTES] = {0U};
+	u8 HashBuf[XASU_SHA_384_HASH_LEN] = {0U};
+
+	/** Validate input parameters. */
+	if ((DmaPtr == NULL) || (Data == NULL) || (Signature == NULL) || (DataLen == 0U) ||
+	    (DataLen > XASUFW_DMA_BLOCKING_SIZE)) {
+		Status = XASUFW_OCP_INVALID_PARAM;
+		goto END;
+	}
+
+	/** Fetch the public key of the active UDE slot. */
+	Status = XOcp_GetUdePubKey(DmaPtr, UdePubKey);
+	if (XASUFW_SUCCESS != Status) {
+		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_OCP_UDE_PUB_KEY_FETCH_FAIL);
+		goto END;
+	}
+
+	/** Compute the digest the signature covers. */
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	Status = XOcp_UdeHashData(DmaPtr, Data, DataLen, HashBuf);
+	if (XASUFW_SUCCESS != Status) {
+		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_OCP_SHA_DIGEST_FAIL);
+		goto END;
+	}
+
+	/** Verify the signature over that digest. */
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	XFIH_CALL(XEcc_VerifySignature, XFihUde, Status, EccInstancePtr, DmaPtr,
+		  XASU_ECC_NIST_P384, XASU_ECC_P384_PVT_KEY_SIZE_IN_BYTES,
+		  (u64)(UINTPTR)UdePubKey, (u64)(UINTPTR)HashBuf,
+		  XASU_SHA_384_HASH_LEN, (u64)(UINTPTR)Signature);
+
+END:
+	/** Zeroize the local digest buffer. */
+	ClearStatus = Xil_SecureZeroize(HashBuf, XASU_SHA_384_HASH_LEN);
+	Status = XAsufw_UpdateBufStatus(Status, ClearStatus);
+
+	return Status;
+}
+
+/*************************************************************************************************/
  /**
  * @brief	This function populates the UDE response fields (Device ID, Nonce, Measurement),
  *		calculates the hash over them, and generates the UDE signature.
@@ -759,13 +1050,10 @@ static s32 XOcp_BuildUdeResponseData(XAsufw_Dma *DmaPtr, const u8 *UdeDecPvtKey,
 				     const XAsu_OcpUdeParams *OcpUdeParamsPtr)
 {
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
-	CREATE_VOLATILE(ClearStatus, XASUFW_FAILURE);
-	XEcc *EccInstancePtr = XEcc_GetInstance(XASU_XECC_0_DEVICE_ID);
 	XSha *ShaInstancePtr = XSha_GetInstance(XASU_XSHA_0_DEVICE_ID);
 	XAsu_ShaOperationCmd ShaCmd;
 	const XOcp_DeviceKeys *DevIkDataPtr = NULL;
 	const u8 *DevIkPubKey = NULL;
-	u8 HashBuf[XASU_SHA_384_HASH_LEN] = {0U};
 
 	/** Get the DevIk structure pointer. */
 	DevIkDataPtr = XOcp_GetDevIk();
@@ -818,34 +1106,17 @@ static s32 XOcp_BuildUdeResponseData(XAsufw_Dma *DmaPtr, const u8 *UdeDecPvtKey,
 		goto END;
 	}
 
-	/** Calculate hash of the fields DeviceId, Nonce and Measurement using SHA2-384. */
-	ShaCmd.ShaMode = XASU_SHA_MODE_384;
-	ShaCmd.DataAddr = (u64)(UINTPTR)OcpUdeResp->Ude.DeviceId;
-	ShaCmd.DataSize = sizeof(XAsu_OcpUde);
-	ShaCmd.HashAddr = (u64)(UINTPTR)HashBuf;
-	ShaCmd.HashBufSize = XASU_SHA_384_HASH_LEN;
+	/**
+	 * Hash the fields DeviceId, Nonce and Measurement using SHA2-384 and sign the digest with
+	 * the UDE private key already recovered by the caller.
+	 */
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-	Status = XSha_Digest(ShaInstancePtr, DmaPtr, &ShaCmd);
-	if (Status != XASUFW_SUCCESS) {
-		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_OCP_SHA_DIGEST_FAIL);
-		goto END;
-	}
-
-	/** Generate signature for UDE. */
-	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-	Status = XEcc_GenerateSignature(EccInstancePtr, DmaPtr, XASU_ECC_NIST_P384,
-			XASU_ECC_P384_PVT_KEY_SIZE_IN_BYTES, (u64)(UINTPTR)UdeDecPvtKey,
-			NULL, (u64)(UINTPTR)HashBuf, XASU_SHA_384_HASH_LEN,
-			(u64)(UINTPTR)OcpUdeResp->UdeSignatureR);
-	if (Status != XASUFW_SUCCESS) {
-		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_OCP_UDE_SIGNATURE_GEN_FAIL);
-	}
+	Status = XOcp_UdeSignDataWithKey(DmaPtr, UdeDecPvtKey,
+					 (const u8 *)OcpUdeResp->Ude.DeviceId,
+					 (u32)sizeof(XAsu_OcpUde),
+					 (u8 *)OcpUdeResp->UdeSignatureR);
 
 END:
-	/** Zeroize the local hash buffer. */
-	ClearStatus = Xil_SecureZeroize(HashBuf, XASU_SHA_384_HASH_LEN);
-	Status = XAsufw_UpdateBufStatus(Status, ClearStatus);
-
 	return Status;
 }
 
@@ -862,6 +1133,8 @@ END:
  *	- XASUFW_SUCCESS, if UDE key preparation is successful.
  *	- XASUFW_OCP_UDE_ALL_PVT_KEYS_REVOKED, if all UDE private keys are revoked.
  *	- XASUFW_OCP_UDE_KEY_NOT_PROGRAMMED, if UDE key is not programmed into eFUSEs.
+ *	- Error codes from XOcp_ResolveUdeUserKeyAddr(), if the active key address cannot be
+ *	  resolved for another reason.
  *	- XASUFW_OCP_UDE_KEY_DECRYPT_FAIL, with the XOcp_DecryptPvtKey error embedded, if UDE
  *	  private key decryption fails.
  *
@@ -872,18 +1145,12 @@ static s32 XOcp_PrepareUdeDecKey(XAsufw_Dma *DmaPtr, u8 *UdeKekIv, u8 *UdeDecPvt
 	u32 UdeUserKeyAddr = 0U;
 	u8 IvIncVal = 0U;
 
-	/** Check UDE key revocation status and get the key address and Iv increment value. */
-	Status = XOcp_GetActiveUdeKeyInfo(&UdeUserKeyAddr, &IvIncVal);
+	/**
+	 * Resolve the active UDE encrypted key address from the eFUSE cache. The resolve already
+	 * separates a revoked slot from a blank one, so its status is returned as it stands.
+	 */
+	Status = XOcp_ResolveUdeUserKeyAddr(&UdeUserKeyAddr, &IvIncVal);
 	if (Status != XASUFW_SUCCESS) {
-		Status = XASUFW_OCP_UDE_ALL_PVT_KEYS_REVOKED;
-		goto END;
-	}
-
-	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-	/** Return error if UDE encrypted key is not programmed into eFUSEs. */
-	Status = XAsu_IsBufferNonZero((u8 *)(UINTPTR)UdeUserKeyAddr, XASU_OCP_UDE_KEY_SIZE_IN_BYTES);
-	if (Status != XASUFW_SUCCESS) {
-		Status = XASUFW_OCP_UDE_KEY_NOT_PROGRAMMED;
 		goto END;
 	}
 
@@ -895,6 +1162,55 @@ static s32 XOcp_PrepareUdeDecKey(XAsufw_Dma *DmaPtr, u8 *UdeKekIv, u8 *UdeDecPvt
 	Status = XOcp_DecryptPvtKey(DmaPtr, UdeUserKeyAddr, UdeKekIv, UdeDecPvtKey);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_OCP_UDE_KEY_DECRYPT_FAIL);
+	}
+
+END:
+	return Status;
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	This function stages the eFUSE-0 KEK IV and recovers the active UDE private key.
+ *
+ * @param	DmaPtr		Pointer to the XAsufw_Dma instance.
+ * @param	UdeDecPvtKey	Pointer to the buffer the decrypted private key is written to.
+ *
+ * @return
+ *		- XASUFW_SUCCESS, if the UDE private key is recovered.
+ *		- XASUFW_MEM_COPY_FAIL, if the IV copy fails.
+ *		- XASUFW_OCP_UDE_IV_IS_ZERO, if the eFUSE-0 KEK IV is not programmed.
+ *		- XASUFW_OCP_UDE_PREPARE_DEC_KEY_FAIL, if the UDE private key cannot be prepared.
+ *
+ * @note	The KEK is derived on demand inside the decrypt and never outlives it, so the
+ *		caller owns nothing but the private key and has to zeroize it.
+ *
+ *************************************************************************************************/
+static s32 XOcp_GetUdePvtKey(XAsufw_Dma *DmaPtr, u8 *UdeDecPvtKey)
+{
+	CREATE_VOLATILE(Status, XASUFW_FAILURE);
+	XFih_Var XFihUde = XFih_VolatileAssignXfihVar(XFIH_FAILURE);
+	u8 UdeKekIv[XASU_OCP_UDE_IV_SIZE_IN_BYTES] = {0U};
+	const u8 *IvPtr = (const u8*)(UINTPTR)XASUFW_PLM_RTCA_EFUSE_0_IV_ADDR;
+
+	/** Copy the eFUSE-0 KEK IV from RTCA to the local buffer. */
+	Status = Xil_SMemCpy(UdeKekIv, XASU_OCP_UDE_IV_SIZE_IN_BYTES, IvPtr,
+			     XASU_OCP_UDE_IV_SIZE_IN_BYTES, XASU_OCP_UDE_IV_SIZE_IN_BYTES);
+	if (XASUFW_SUCCESS != Status) {
+		Status = XASUFW_MEM_COPY_FAIL;
+		goto END;
+	}
+
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	Status = XAsu_IsBufferNonZero(UdeKekIv, XASU_OCP_UDE_IV_SIZE_IN_BYTES);
+	if (XASUFW_SUCCESS != Status) {
+		Status = XASUFW_OCP_UDE_IV_IS_ZERO;
+		goto END;
+	}
+
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	XFIH_CALL(XOcp_PrepareUdeDecKey, XFihUde, Status, DmaPtr, UdeKekIv, UdeDecPvtKey);
+	if (XASUFW_SUCCESS != Status) {
+		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_OCP_UDE_PREPARE_DEC_KEY_FAIL);
 	}
 
 END:
@@ -928,30 +1244,11 @@ static s32 XOcp_ProcessUdeResponse(XAsufw_Dma *DmaPtr, XAsu_OcpUdeResponse *OcpU
 	XFih_Var XFihUde = XFih_VolatileAssignXfihVar(XFIH_FAILURE);
 	CREATE_VOLATILE(ClearStatus, XASUFW_FAILURE);
 	u8 UdeDecPvtKey[XASU_ECC_P384_PVT_KEY_SIZE_IN_BYTES] = {0U};
-	u8 UdeKekIv[XASU_OCP_UDE_IV_SIZE_IN_BYTES] = {0U};
-	const u8 *IvPtr = (const u8*)(UINTPTR)XASUFW_PLM_RTCA_EFUSE_0_IV_ADDR;
 	XEcc *EccInstancePtr = XEcc_GetInstance(XASU_XECC_0_DEVICE_ID);
 
-	/** Copy IV from RTCA to local buffer. */
-	Status = Xil_SMemCpy(UdeKekIv, XASU_OCP_UDE_IV_SIZE_IN_BYTES, IvPtr,
-			XASU_OCP_UDE_IV_SIZE_IN_BYTES, XASU_OCP_UDE_IV_SIZE_IN_BYTES);
+	/** Stage the eFUSE-0 KEK IV and recover the UDE private key. */
+	Status = XOcp_GetUdePvtKey(DmaPtr, UdeDecPvtKey);
 	if (Status != XASUFW_SUCCESS) {
-		Status = XASUFW_MEM_COPY_FAIL;
-		goto END;
-	}
-
-	/** Check if IV is non-zero. */
-	Status = XAsu_IsBufferNonZero(UdeKekIv, XASU_OCP_UDE_IV_SIZE_IN_BYTES);
-	if (Status != XASUFW_SUCCESS) {
-		Status = XASUFW_OCP_UDE_IV_IS_ZERO;
-		goto END;
-	}
-
-	/** Prepare the decrypted UDE private key. */
-	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-	Status = XOcp_PrepareUdeDecKey(DmaPtr, UdeKekIv, UdeDecPvtKey);
-	if (Status != XASUFW_SUCCESS) {
-		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_OCP_UDE_PREPARE_DEC_KEY_FAIL);
 		goto END;
 	}
 
@@ -976,6 +1273,129 @@ END:
 	Status = XAsufw_UpdateBufStatus(Status, ClearStatus);
 
 	return Status;
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	This function checks whether an active UDE private key is available.
+ *
+ * @return
+ *		- XASUFW_SUCCESS, if an un-revoked UDE key slot holds a key.
+ *		- XASUFW_OCP_UDE_KEY_NOT_PROGRAMMED, if the active slot is blank.
+ *		- Error codes from UDE key lookup, if no slot is available.
+ *
+ *************************************************************************************************/
+s32 XOcp_IsUdeAvailable(void)
+{
+	/** Resolve the active UDE key slot, which is what tells whether a key is available. */
+	return XOcp_ResolveUdeUserKeyAddr(NULL, NULL);
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	This function returns the public key of the active UDE key slot.
+ *
+ * @param	DmaPtr		Pointer to the XAsufw_Dma instance.
+ * @param	UdePubKey	Output buffer for the 96-byte P-384 public key.
+ *
+ * @return
+ *		- XASUFW_SUCCESS, if the public key is returned.
+ *		- XASUFW_OCP_INVALID_PARAM, if any pointer is NULL.
+ *		- XASUFW_OCP_UDE_PVT_KEY_FETCH_FAIL, with the recovery error embedded, if the
+ *		  private key the derivation needs cannot be fetched.
+ *		- XASUFW_OCP_UDE_PREPARE_DEC_KEY_FAIL, if the UDE private key cannot be prepared.
+ *		- XASUFW_OCP_UDE_PUBLIC_KEY_GEN_FAIL, if public key generation fails.
+ *		- XASUFW_MEM_COPY_FAIL, if the copy out of the cache fails.
+ *
+ * @note	The device stores no public key, so the first caller of a boot recovers the private
+ *		key to derive it and every caller after that is served from the cache. A path that
+ *		only checks a signature therefore recovers the private key at most once per key
+ *		slot, so a caller feeding the firmware signatures it knows will fail cannot make it
+ *		do so repeatedly. The cache is keyed on the encrypted key address, so a slot the
+ *		revoke bits move to is derived again rather than answered from the previous slot.
+ *		A slot written in the same boot keeps its address, so provisioning drops the cache
+ *		through XOcp_InvalidateUdePubKeyCache() instead.
+ *
+ *************************************************************************************************/
+static s32 XOcp_GetUdePubKey(XAsufw_Dma *DmaPtr, u8 *UdePubKey)
+{
+	CREATE_VOLATILE(Status, XASUFW_FAILURE);
+	CREATE_VOLATILE(ClearStatus, XASUFW_FAILURE);
+	XFih_Var XFihUde = XFih_VolatileAssignXfihVar(XFIH_FAILURE);
+	XEcc *EccInstancePtr = XEcc_GetInstance(XASU_XECC_0_DEVICE_ID);
+	u8 UdeDecPvtKey[XASU_ECC_P384_PVT_KEY_SIZE_IN_BYTES] = {0U};
+	u32 UdeUserKeyAddr = 0U;
+	u8 IvIncVal = 0U;
+
+	if ((DmaPtr == NULL) || (UdePubKey == NULL)) {
+		Status = XASUFW_OCP_INVALID_PARAM;
+		goto END;
+	}
+
+	/** The slot the revoke bits select names the key the cache may answer for. */
+	Status = XOcp_ResolveUdeUserKeyAddr(&UdeUserKeyAddr, &IvIncVal);
+	if (XASUFW_SUCCESS != Status) {
+		goto END;
+	}
+
+	if (UdePubKeyCacheAddr != UdeUserKeyAddr) {
+		/**
+		 * The tag is dropped before the cache is written, so a failure part way through
+		 * the derivation cannot leave a tag naming a slot the contents no longer match.
+		 */
+		UdePubKeyCacheAddr = 0U;
+
+		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+		Status = XOcp_GetUdePvtKey(DmaPtr, UdeDecPvtKey);
+		if (XASUFW_SUCCESS != Status) {
+			Status = XAsufw_UpdateErrorStatus(Status,
+							  XASUFW_OCP_UDE_PVT_KEY_FETCH_FAIL);
+			goto END;
+		}
+
+		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+		Status = XEcc_GeneratePublicKey(EccInstancePtr, DmaPtr, XASU_ECC_NIST_P384,
+						XASU_ECC_P384_PVT_KEY_SIZE_IN_BYTES,
+						(u64)(UINTPTR)UdeDecPvtKey,
+						(u64)(UINTPTR)UdePubKeyCache);
+		if (XASUFW_SUCCESS != Status) {
+			Status = XAsufw_UpdateErrorStatus(Status,
+							  XASUFW_OCP_UDE_PUBLIC_KEY_GEN_FAIL);
+			goto END;
+		}
+
+		UdePubKeyCacheAddr = UdeUserKeyAddr;
+	}
+
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	Status = Xil_SMemCpy(UdePubKey, XASU_ECC_P384_PUB_KEY_SIZE_IN_BYTES, UdePubKeyCache,
+			     XASU_ECC_P384_PUB_KEY_SIZE_IN_BYTES,
+			     XASU_ECC_P384_PUB_KEY_SIZE_IN_BYTES);
+	if (XASUFW_SUCCESS != Status) {
+		Status = XASUFW_MEM_COPY_FAIL;
+	}
+
+END:
+	XFIH_CALL(Xil_SecureZeroize, XFihUde, ClearStatus, UdeDecPvtKey,
+		  XASU_ECC_P384_PVT_KEY_SIZE_IN_BYTES);
+	Status = XAsufw_UpdateBufStatus(Status, ClearStatus);
+
+	return Status;
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	This function empties the UDE public key cache, so the next caller derives the
+ *		public key again from the key its slot holds.
+ *
+ * @note	The cache is keyed on the address of the encrypted key, and that address stays the
+ *		same when provisioning programs the slot it names. Provisioning calls this after a
+ *		slot write so a key cached earlier in the boot is never served for the new key.
+ *
+ *************************************************************************************************/
+void XOcp_InvalidateUdePubKeyCache(void)
+{
+	UdePubKeyCacheAddr = 0U;
 }
 
 #endif /* XASU_OCP_ENABLE */

@@ -20,6 +20,7 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- ----------------------------------------------------------------------------
 * 1.0   kp   06/27/26 Initial release
+*       vm   09/15/26 Dropped the UDE public key cache after a UDE slot write
 *
 * </pre>
 *
@@ -620,6 +621,15 @@ s32 XProvision_Ude(XAsufw_Dma *DmaPtr, const XAsu_ProvisionUdeParams *ParamsPtr)
 	if (Status != XASUFW_SUCCESS) {
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_PROVISION_UDE_EFUSE_WRITE_FAIL);
 	}
+
+#ifdef XASU_OCP_ENABLE
+	/**
+	 * The UDE public key cache names the slot by the address of its encrypted key, and the
+	 * write leaves that address unchanged, so drop the cache to keep a key derived earlier in
+	 * this boot from being served for the key just programmed.
+	 */
+	XOcp_InvalidateUdePubKeyCache();
+#endif /* XASU_OCP_ENABLE */
 
 END_CLR:
 	/** Zeroize the local encrypted key buffer. */
