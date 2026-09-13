@@ -29,6 +29,7 @@
  *       rmv  09/09/25 Bring TRNG mode check together in XTrng_Reseed()
  *       rmv  09/09/25 Moved XTrng_ErrorState enum from header to source file
  *       rmv  08/21/26 Moved block length and DF length macros to the header
+ *       vm   09/15/26 Added XTrng_FisherYatesShuffle() function
  *
  * </pre>
  *
@@ -71,6 +72,13 @@
 #define XTRNG_MAX_RANDOM_BYTES_ALLOWED		510U /**< Maximum random bytes can be requested */
 #define XTRNG_GET_RANDOM_BYTES_TIMEOUT_VAL	40000U /**< Maximum loop count waiting for TRNG
 							random number to be available in FIFO */
+
+#define XTRNG_RAND_BYTE_RANGE				256U /**< Value range of one random byte */
+#define XTRNG_RAND_BYTE_MAX_RETRIES			32U /**< Rejection sampling draw limit per swap */
+
+/** One random byte selects a swap partner, so the array cannot be longer than its value range. */
+_Static_assert(XTRNG_SHUFFLE_MAX_ELEMENTS <= XTRNG_RAND_BYTE_RANGE,
+	       "Shuffle element cap must fit the value range of one random byte");
 
 /************************************** Type Definitions *****************************************/
 /** This typedef is used to update the state of TRNG. */
@@ -955,6 +963,100 @@ END:
 	(void)RandomBuf;
 	(void)Size;
 #endif /* XASUFW_TRNG_ENABLE_PTRNG_MODE */
+	return Status;
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	This function shuffles an array of indices in place using the Fisher-Yates
+ * algorithm driven by TRNG randomness.
+ *
+ * @param	OrderPtr	Array of ElementCount entries, initialized by the caller with the
+ *				values to be shuffled.
+ * @param	ElementCount	Number of entries to shuffle.
+ *
+ * @return
+ *		- XASUFW_SUCCESS, if the shuffle is successful.
+ *		- XASUFW_TRNG_INVALID_PARAM, if OrderPtr is NULL, ElementCount is zero, or
+ *			ElementCount is greater than XTRNG_SHUFFLE_MAX_ELEMENTS.
+ *		- XASUFW_TRNG_RETRY_EXHAUSTED, if no in-range random byte is drawn within
+ *			XTRNG_RAND_BYTE_MAX_RETRIES attempts.
+ *		- Error codes from XTrng_GetRandomNumbers(), if random byte generation fails.
+ *		- Error code from XAsufw_UpdateBufStatus, if the local buffer zeroization fails.
+ *
+ * @note	The array is only permuted, never rewritten, so it holds the same values after the
+ *		call as before it. One random byte drives each swap, so the element count cannot
+ *		exceed the value range of a single byte. A draw returns a whole security strength
+ *		block whatever is asked of it, so one block is drawn and spent a byte at a time
+ *		rather than one block per swap.
+ *
+ *************************************************************************************************/
+s32 XTrng_FisherYatesShuffle(u8 *OrderPtr, u32 ElementCount)
+{
+	CREATE_VOLATILE(Status, XASUFW_FAILURE);
+	CREATE_VOLATILE(ClearStatus, XASUFW_FAILURE);
+	XFih_Var XFihVar = XFih_VolatileAssignXfihVar(XFIH_FAILURE);
+	u32 Index;
+	u32 Limit;
+	u32 SwapIdx;
+	u32 Retry;
+	u8 RandBuf[XTRNG_SEC_STRENGTH_IN_BYTES] = {0U};
+	u32 RandBufIdx = XTRNG_SEC_STRENGTH_IN_BYTES;
+	u8 RandByte = 0U;
+	u8 SwapVal;
+
+	if ((OrderPtr == NULL) || (ElementCount == 0U) ||
+	    (ElementCount > XTRNG_SHUFFLE_MAX_ELEMENTS)) {
+		Status = XASUFW_TRNG_INVALID_PARAM;
+		goto END;
+	}
+
+	for (Index = ElementCount; Index > 1U; Index--) {
+		/**
+		 * A plain modulo of a random byte favours the low indices whenever Index is
+		 * not a power of two. Draw again while the byte falls in the short tail so
+		 * every position stays equally likely. The retries are capped so a TRNG that
+		 * keeps returning a tail value cannot hold the command forever.
+		 */
+		Limit = XTRNG_RAND_BYTE_RANGE - (XTRNG_RAND_BYTE_RANGE % Index);
+		for (Retry = 0U; Retry < XTRNG_RAND_BYTE_MAX_RETRIES; Retry++) {
+			/** Refill only once the block drawn for the earlier swaps is spent. */
+			if (RandBufIdx >= XTRNG_SEC_STRENGTH_IN_BYTES) {
+				ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+				Status = XTrng_GetRandomNumbers(RandBuf,
+								XTRNG_SEC_STRENGTH_IN_BYTES);
+				if (XASUFW_SUCCESS != Status) {
+					goto END;
+				}
+				RandBufIdx = 0U;
+			}
+
+			RandByte = RandBuf[RandBufIdx];
+			RandBufIdx++;
+
+			if ((u32)RandByte < Limit) {
+				break;
+			}
+		}
+
+		if (Retry >= XTRNG_RAND_BYTE_MAX_RETRIES) {
+			Status = XASUFW_TRNG_RETRY_EXHAUSTED;
+			goto END;
+		}
+
+		SwapIdx = (u32)RandByte % Index;
+		SwapVal = OrderPtr[SwapIdx];
+		OrderPtr[SwapIdx] = OrderPtr[Index - 1U];
+		OrderPtr[Index - 1U] = SwapVal;
+	}
+
+	Status = XASUFW_SUCCESS;
+
+END:
+	/** Zeroize the local random buffer. */
+	XFIH_CALL(Xil_SecureZeroize, XFihVar, ClearStatus, RandBuf, XTRNG_SEC_STRENGTH_IN_BYTES);
+	Status = XAsufw_UpdateBufStatus(Status, ClearStatus);
+
 	return Status;
 }
 

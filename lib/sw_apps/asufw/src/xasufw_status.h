@@ -57,7 +57,8 @@
  *       vm   08/22/26 Added error code for an incompatible data structure version during restore
  *       kp   08/22/26 Added error codes for user-addressable vault ID and key slot
  *       kk   08/29/26 Added error codes for SLH-DSA functionality
- *       vm   09/15/26 Added error codes for the UDE private and public key fetch failures
+ *       vm   09/15/26 Added error codes for the UDE key fetch failures and for random byte
+ *                     rejection sampling retry exhaustion
  *
  * </pre>
  *
@@ -947,6 +948,8 @@ enum {
 	XASUFW_KEYMANAGER_INVALID_PROVISIONING_USE_CASE, /**< 0x282U - Error when the requested
 						provisioning key use case is not one of the
 						supported provisioning use cases. */
+	XASUFW_TRNG_RETRY_EXHAUSTED, /**< 0x283U - Rejection sampling could not obtain an in-range
+					  random byte within the retry limit */
 
 	/* Additional status success codes */
 	XASUFW_SLHDSA_SIGNATURE_VERIFIED = 0x3F5U, /**< 0x3F5U - SLH-DSA signature verification

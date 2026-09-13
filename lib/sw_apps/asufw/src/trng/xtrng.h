@@ -22,6 +22,8 @@
  *       rmv  08/01/25 Added API to set TRNG to default mode
  *       rmv  09/09/25 Moved XTrng_ErrorState enum from header to source file
  *       rmv  08/21/26 Added block length and DF length macros
+ *       vm   09/15/26 Added XTrng_FisherYatesShuffle() prototype and the shuffle element count
+ *                     macro
  *
  * </pre>
  *
@@ -53,6 +55,9 @@ extern "C" {
 #define XTRNG_USER_CFG_DF_LENGTH			7U /**< User config DF Length */
 #define XTRNG_USER_CFG_ADAPT_TEST_CUTOFF	612U /**< Cut off value for adaptive count test */
 #define XTRNG_USER_CFG_REP_TEST_CUTOFF		33U /**< Cut off value for repetitive count test */
+#define XTRNG_SHUFFLE_MAX_ELEMENTS			256U /**< Largest array
+							XTrng_FisherYatesShuffle() accepts,
+							bounded by the range of one random byte */
 
 /************************************** Type Definitions *****************************************/
 typedef struct _XTrng XTrng; /**< This typedef is to create alias name for _XTrng. */
@@ -95,6 +100,7 @@ s32 XTrng_IsRandomNumAvailable(const XTrng *InstancePtr);
 s32 XTrng_DisableAutoProcMode(XTrng *InstancePtr);
 s32 XTrng_EnableDefaultMode(XTrng *InstancePtr);
 s32 XTrng_GetRandomNumbers(u8 *RandomBuf, u32 Size);
+s32 XTrng_FisherYatesShuffle(u8 *OrderPtr, u32 ElementCount);
 
 /************************************ Variable Definitions ***************************************/
 
