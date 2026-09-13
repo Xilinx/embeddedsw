@@ -45,6 +45,7 @@
 #include "xasufw_kat.h"
 #include "xfih.h"
 #include "xasu_aes_common.h"
+#include "xasu_keymanager_common.h"
 #include "xkeymanager.h"
 #include "xasu_sharedmem.h"
 #include "xasufw_memory.h"
@@ -185,12 +186,24 @@ END:
  *
  * @return
  * 	- XASUFW_SUCCESS, if encryption/decryption operation is successful.
+ * 	- XASUFW_CMD_IN_PROGRESS, if a non-blocking DMA transfer of the update has been started.
+ * 	- XASUFW_INVALID_PARAM, if the command length does not match the parameter structure.
  * 	- XASUFW_INVALID_SUBSYSTEM_ID, if subsystem id is not retrieved.
+ * 	- XASUFW_AES_CCM_INVALID_OPERATION_FLAGS, if CCM mode is requested with INIT and UPDATE
+ * 	  but without FINISH.
+ * 	- XASUFW_AES_INVALID_OPERATION_TYPE, if the operation type is neither encrypt nor decrypt.
+ * 	- XASUFW_AES_INVALID_PARAM, if the key or IV source is ambiguous or absent, or if a vault
+ * 	  sourced IV carries a non-zero length.
+ * 	- XASUFW_DMA_COPY_FAIL, if the copy of the key object from the client fails.
+ * 	- XASUFW_KEYMANAGER_GET_KEYOBJ_FAILED, if retrieval of the key or IV from the vault fails.
  * 	- XASUFW_AES_WRITE_KEY_FAILED, if Key write to AES USER key register fails.
  * 	- XASUFW_AES_INIT_FAILED, if initialization of AES engine fails.
+ * 	- XASUFW_AES_CCM_AAD_FORMATTING_FAILED, if the CCM B0 header cannot be transmitted.
+ * 	- XASUFW_AES_INVALID_ENGINE_MODE, if the initialized engine mode cannot be read back.
  * 	- XASUFW_AES_UPDATE_FAILED, if update of data to AES engine fails.
  * 	- XASUFW_AES_FINAL_FAILED, if completion of final AES operation fails.
  * 	- XASUFW_RESOURCE_RELEASE_NOT_ALLOWED, upon illegal resource release.
+ * 	- An error code from XAsufw_ValidateMemRegnAccess, if a client buffer is not accessible.
  *
  *************************************************************************************************/
 static s32 XAsufw_AesOperation(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
@@ -204,7 +217,6 @@ static s32 XAsufw_AesOperation(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	u8 KeyUsecase = 0U;
 	u64 LocalIvAddr = 0U;
 	u32 LocalIvLen = 0U;
-	u32 LocalKeyLen = 0U;
 	u32 SubsystemId = 0U;
 	u32 IpiMask = ReqId >> XASUFW_IPI_BITMASK_SHIFT;
 	XAsu_AesKeyObject KeyObject;
@@ -273,6 +285,14 @@ static s32 XAsufw_AesOperation(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	if (((AesParamsPtr->OperationFlags & XASU_INIT) == XASU_INIT) &&
 	      (AesParamsPtr->EngineMode != XASU_AES_CMAC_MODE) &&
 	      (AesParamsPtr->EngineMode != XASU_AES_ECB_MODE)) {
+		/** Validate that exactly one of IvAddr or IvId is provided. */
+		Status = XAsu_KmValidateKeyAddrNdKeyId(AesParamsPtr->IvObj.IvAddr,
+						       AesParamsPtr->IvObj.IvId);
+		if (Status != XST_SUCCESS) {
+			Status = XASUFW_AES_INVALID_PARAM;
+			goto END;
+		}
+
 		LocalIvAddr = AesParamsPtr->IvObj.IvAddr;
 		LocalIvLen = AesParamsPtr->IvObj.IvLen;
 
@@ -311,13 +331,20 @@ static s32 XAsufw_AesOperation(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 			goto END;
 		}
 
-		LocalKeyLen = (KeyObject.KeySize == XASU_AES_KEY_SIZE_128_BITS) ?
-				XASU_AES_KEY_SIZE_128BIT_IN_BYTES :
-				XASU_AES_KEY_SIZE_256BIT_IN_BYTES;
+		/** Validate that exactly one of KeyAddress or KeyId is provided. */
+		Status = XAsu_KmValidateKeyAddrNdKeyId(KeyObject.KeyAddress, KeyObject.KeyId);
+		if (Status != XST_SUCCESS) {
+			Status = XASUFW_AES_INVALID_PARAM;
+			goto END;
+		}
 
-		/** Validate the client provided key buffer. */
-		XASUFW_VALIDATE_MEM_ACCESS(END, Status, SubsystemId, KeyObject.KeyAddress,
-					   LocalKeyLen);
+		/** Validate the client provided key buffer, absent for a vault sourced key. */
+		XASUFW_VALIDATE_OPTIONAL_MEM_ACCESS(END, Status, SubsystemId,
+						    KeyObject.KeyAddress,
+						    (KeyObject.KeySize ==
+						     XASU_AES_KEY_SIZE_128_BITS) ?
+						    XASU_AES_KEY_SIZE_128BIT_IN_BYTES :
+						    XASU_AES_KEY_SIZE_256BIT_IN_BYTES);
 
 #ifdef XASU_KEYMANAGER_ENABLE
 		if (KeyObject.KeyId != 0U) {

@@ -110,18 +110,22 @@ extern "C" {
 /************************************ Type Definitions *******************************************/
 /** This structure contains AES key object information. */
 typedef struct {
-	u64 KeyAddress; /**< AES Key pointer */
+	u64 KeyAddress; /**< AES Key pointer; 0 when the key is taken from the key vault via
+				KeyId */
 	u32 KeySize; /**< AES key size */
 	u32 KeySrc; /**< AES key source */
-	u32 KeyId; /**< AES key ID, if the key to be used from ASU key vault */
+	u32 KeyId; /**< AES key ID, if the key to be used from ASU key vault; 0 when the key is
+			supplied through KeyAddress */
 	u8 Reserved[4]; /**< Explicit padding to ensure consistent struct size across architectures */
 } XAsu_AesKeyObject;
 
 /** This structure contains AES IV object information. */
 typedef struct {
-	u64 IvAddr; /**< AES Iv/Nonce address */
-	u32 IvLen; /**< AES Iv/Nonce length */
-	u32 IvId; /**< AES IV ID, if the IV is used from ASU key vault */
+	u64 IvAddr; /**< AES Iv/Nonce address; 0 when the IV is taken from the key vault via IvId */
+	u32 IvLen; /**< AES Iv/Nonce length; must be 0 when IvAddr is 0, as the firmware takes the
+			length of a vault sourced IV from the stored metadata. */
+	u32 IvId; /**< AES IV ID, if the IV is used from ASU key vault; 0 when the IV is supplied
+			through IvAddr */
 } XAsu_AesIvObject;
 
 /**

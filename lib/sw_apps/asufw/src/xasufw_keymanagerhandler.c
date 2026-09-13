@@ -671,10 +671,12 @@ END:
  *
  * @return
  * 	- XASUFW_SUCCESS, if key/IV generation is successful.
- * 	- XASUFW_KEYMANAGER_KEY_GEN_ERROR, if AES key generation operation fails.
- * 	- XASUFW_KEYMANAGER_IV_GEN_ERROR, if AES IV generation operation fails.
- * 	- XASUFW_RESOURCE_RELEASE_NOT_ALLOWED, if illegal resource release is requested.
+ * 	- XASUFW_INVALID_PARAM, if the command length does not match the parameter structure.
  * 	- XASUFW_INVALID_SUBSYSTEM_ID, if the subsystem ID cannot be derived from the IPI mask.
+ * 	- XASUFW_KEYMANAGER_KEY_OBJ_GEN_ERROR, if the key/IV generation operation fails.
+ * 	- XASUFW_RESOURCE_RELEASE_NOT_ALLOWED, if illegal resource release is requested.
+ * 	- An error code from XAsufw_ValidateMemRegnAccess, if the client key object buffer is not
+ * 	  accessible.
  *
  *************************************************************************************************/
 static s32 XAsufw_KeyManagerGenKeyIv(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
@@ -701,10 +703,11 @@ static s32 XAsufw_KeyManagerGenKeyIv(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 
 	/**
 	 * Validate the client provided key buffer, which is used only when the generated key is
-	 * returned to the caller instead of being stored in the key vault.
+	 * returned to the caller instead of being stored in the key vault. A key generated into
+	 * the vault carries no address, so there is no range to validate.
 	 */
-	XASUFW_VALIDATE_MEM_ACCESS(END, Status, SubsystemId, Cmd->KeyObjectAddr,
-				   Cmd->KeyMetadata.Length);
+	XASUFW_VALIDATE_OPTIONAL_MEM_ACCESS(END, Status, SubsystemId, Cmd->KeyObjectAddr,
+					    Cmd->KeyMetadata.Length);
 
 	/** Perform Key/IV generation operation. */
 	Status = XKeyManager_GenerateKeyIv(XAsufw_KeyManagerModule.AsuDmaPtr, Cmd, OutIdAddr,
@@ -778,9 +781,12 @@ END:
  *
  * @return
  * 	- XASUFW_SUCCESS, if RSA key pair generation operation is successful.
+ * 	- XASUFW_INVALID_PARAM, if the command length does not match the parameter structure.
  * 	- XASUFW_RESOURCE_RELEASE_NOT_ALLOWED, if illegal resource release is requested.
  * 	- XASUFW_KEYMANAGER_KEY_OBJ_GEN_ERROR, if RSA key pair generation operation fails.
  * 	- XASUFW_INVALID_SUBSYSTEM_ID, if invalid subsystem ID is provided.
+ * 	- An error code from XAsufw_ValidateMemRegnAccess, if the client key object buffer is not
+ * 	  accessible.
  *
  *************************************************************************************************/
 static s32 XAsufw_KeyManagerRsaKeyPairGen(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
@@ -805,10 +811,11 @@ static s32 XAsufw_KeyManagerRsaKeyPairGen(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 
 	/**
 	 * Validate the client provided key buffer, which is used only when the generated key pair
-	 * is returned to the caller instead of being stored in the key vault.
+	 * is returned to the caller instead of being stored in the key vault. A key pair generated
+	 * into the vault carries no address, so there is no range to validate.
 	 */
-	XASUFW_VALIDATE_MEM_ACCESS(END, Status, SubsystemId, Cmd->KeyObjectAddr,
-				   sizeof(XAsu_RsaKeyPairObject));
+	XASUFW_VALIDATE_OPTIONAL_MEM_ACCESS(END, Status, SubsystemId, Cmd->KeyObjectAddr,
+					    sizeof(XAsu_RsaKeyPairObject));
 
 	/** Perform RSA key pair generation operation. */
 	Status = XKeyManager_GenerateRsaKeyPair(XAsufw_KeyManagerModule.AsuDmaPtr, Cmd, OutId,
@@ -835,10 +842,13 @@ END:
  * @param	ReqId	Request Unique ID.
  *
  * @return
- * 	- XASUFW_SUCCESS, if RSA key pair generation operation is successful.
+ * 	- XASUFW_SUCCESS, if ECC key pair generation operation is successful.
+ * 	- XASUFW_INVALID_PARAM, if the command length does not match the parameter structure.
  * 	- XASUFW_RESOURCE_RELEASE_NOT_ALLOWED, if illegal resource release is requested.
- * 	- XASUFW_KEYMANAGER_KEY_OBJ_GEN_ERROR, if RSA key pair generation operation fails.
+ * 	- XASUFW_KEYMANAGER_KEY_OBJ_GEN_ERROR, if ECC key pair generation operation fails.
  * 	- XASUFW_INVALID_SUBSYSTEM_ID, if invalid subsystem ID is provided.
+ * 	- An error code from XAsufw_ValidateMemRegnAccess, if the client key object buffer is not
+ * 	  accessible.
  *
  *************************************************************************************************/
 static s32 XAsufw_KeyManagerEccKeyPairGen(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
@@ -863,10 +873,11 @@ static s32 XAsufw_KeyManagerEccKeyPairGen(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 
 	/**
 	 * Validate the client provided key buffer, which is used only when the generated key pair
-	 * is returned to the caller instead of being stored in the key vault.
+	 * is returned to the caller instead of being stored in the key vault. A key pair generated
+	 * into the vault carries no address, so there is no range to validate.
 	 */
-	XASUFW_VALIDATE_MEM_ACCESS(END, Status, SubsystemId, Cmd->KeyObjectAddr,
-				   sizeof(XAsu_EccKeyPairObject));
+	XASUFW_VALIDATE_OPTIONAL_MEM_ACCESS(END, Status, SubsystemId, Cmd->KeyObjectAddr,
+					    sizeof(XAsu_EccKeyPairObject));
 
 	/** Perform ECC key pair generation operation. */
 	Status = XKeyManager_GenerateEccKeyPair(XAsufw_KeyManagerModule.AsuDmaPtr, Cmd, OutId,
@@ -1331,12 +1342,17 @@ static s32 XAsufw_KeyManagerStoreKey(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 			XASU_KM_KEYTYPE_WRAPPED_BIT_MASK) == XASU_KM_KEYTYPE_WRAPPED_BIT_MASK) {
 		XASUFW_VALIDATE_MEM_ACCESS(END, Status, SubsystemId, Cmd->KeyObjectAddr,
 					   Cmd->WrappedInputLen);
-		/** The unwrapping AES key comes from the key vault when no address is given. */
-		XASUFW_VALIDATE_MEM_ACCESS(END, Status, SubsystemId,
-			Cmd->AesKeyObj.KeyAddress,
-			(Cmd->AesKeyObj.KeySize == XASU_AES_KEY_SIZE_128_BITS) ?
-			XASU_AES_KEY_SIZE_128BIT_IN_BYTES :
-			XASU_AES_KEY_SIZE_256BIT_IN_BYTES);
+		/**
+		 * Validate the client provided unwrapping AES key buffer. The unwrapping key
+		 * comes from the key vault when no address is given, in which case there is no
+		 * client buffer to check.
+		 */
+		XASUFW_VALIDATE_OPTIONAL_MEM_ACCESS(END, Status, SubsystemId,
+						    Cmd->AesKeyObj.KeyAddress,
+						    (Cmd->AesKeyObj.KeySize ==
+						     XASU_AES_KEY_SIZE_128_BITS) ?
+						    XASU_AES_KEY_SIZE_128BIT_IN_BYTES :
+						    XASU_AES_KEY_SIZE_256BIT_IN_BYTES);
 	} else {
 		XASUFW_VALIDATE_MEM_ACCESS(END, Status, SubsystemId, Cmd->KeyObjectAddr,
 					   Cmd->KeyMetadata.Length);

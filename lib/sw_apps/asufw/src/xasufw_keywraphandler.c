@@ -242,13 +242,16 @@ static s32 XAsufw_KeyWrapValidateBuffers(u32 SubsystemId,
 	XASUFW_VALIDATE_MEM_ACCESS(END, Status, SubsystemId, KeyWrapParams->OptionalLabelAddr,
 				   KeyWrapParams->OptionalLabelSize);
 
-	/** Validate the client provided pre-calculated exponentiation values. */
-	XASUFW_VALIDATE_MEM_ACCESS(END, Status, SubsystemId, KeyWrapParams->ExpoCompAddr,
-				   ExpoCompSize);
+	/**
+	 * Validate the client provided pre-calculated exponentiation values, which are optional
+	 * and absent when no address is given.
+	 */
+	XASUFW_VALIDATE_OPTIONAL_MEM_ACCESS(END, Status, SubsystemId, KeyWrapParams->ExpoCompAddr,
+					    ExpoCompSize);
 
-	/** Validate the client provided RSA key buffer. */
-	XASUFW_VALIDATE_MEM_ACCESS(END, Status, SubsystemId, KeyWrapParams->KeyCompAddr,
-				   KeyCompSize);
+	/** Validate the client provided RSA key buffer, absent for a vault sourced key. */
+	XASUFW_VALIDATE_OPTIONAL_MEM_ACCESS(END, Status, SubsystemId, KeyWrapParams->KeyCompAddr,
+					    KeyCompSize);
 
 	Status = XASUFW_SUCCESS;
 

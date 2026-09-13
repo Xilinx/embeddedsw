@@ -101,9 +101,12 @@ extern "C" {
 /************************************** Type Definitions *****************************************/
 /** Common key object structure used by all ECC operations. */
 typedef struct {
-	u64 KeyAddr;     /**< Address of the key data (private or public) */
+	u64 KeyAddr;     /**< Address of the key data (private or public); 0 when the key is taken
+				from the key vault via KeyId */
 	u32 KeyId;       /**< Key identifier from key management (used if KeyAddr == 0) */
-	u32 KeyLen;      /**< Length of the key in bytes (curve length) */
+	u32 KeyLen;      /**< Length of the key in bytes (curve length); must be 0 when KeyAddr is
+				0, as the firmware takes the length of a vault sourced key from the
+				stored metadata. */
 	u32 CurveType;   /**< Type of curve */
 	u8 Reserved[4]; /**< Explicit padding to ensure consistent struct size across architectures */
 } XAsu_EccKeyObject;

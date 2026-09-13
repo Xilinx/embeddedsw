@@ -75,6 +75,18 @@ typedef struct {
 			       (SubsystemId), (u64)(Addr), (u64)(Size)); \
 	} while (0)
 
+/**
+ * Macro to validate a client provided buffer of the given size, and to skip the check when the
+ * caller gives no address. A request leaves the address out for an optional input and for a key
+ * held in the key vault, and an absent buffer has no range to validate.
+ */
+#define XASUFW_VALIDATE_OPTIONAL_MEM_ACCESS(Label, Status, SubsystemId, Addr, Size) \
+	do { \
+		u64 XAsufwOptionalMemAddr = (u64)(Addr); \
+		XASUFW_VALIDATE_MEM_ACCESS(Label, Status, SubsystemId, XAsufwOptionalMemAddr, \
+					   (XAsufwOptionalMemAddr == 0U) ? 0U : (u64)(Size)); \
+	} while (0)
+
 /************************************ Function Prototypes ****************************************/
 s32 XAsufw_ValidateMemRegnAccess(u32 SubsystemId, u64 Address, u64 Size);
 

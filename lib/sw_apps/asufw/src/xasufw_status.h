@@ -812,10 +812,16 @@ enum {
 	XASUFW_MEM_REGN_TABLE_SYNC_FAIL, /**< 0x23AU - Error when table is not synchronized between
 						PLM and ASUFW. */
 	XASUFW_MEM_REGN_ACCESS_DENIED, /**< 0x23BU - Error when the requested address range is not
-						accessible. */
+						accessible to the requesting subsystem. */
 	XASUFW_MEM_REGN_REGION_INACTIVE, /**< 0x23CU - Error when the region is inactive. */
 	XASUFW_MEM_REGN_INVALID_ACCESS_BIT, /**< 0x23DU - Error when the access bit index is invalid. */
-	XASUFW_SEARCH_MEM_REGN_FAILED, /**< 0x23EU - Error when the search operation fails. */
+	XASUFW_SEARCH_MEM_REGN_FAILED, /**< 0x23EU - Error when no active region covers the
+						requested range. A command that range checks a
+						caller supplied length reaches this case when the
+						request pairs a zero address with a non-zero
+						length, which is the usual sign that a key or IV
+						taken from the key vault carried a length that
+						should have been zero. */
 	XASUFW_VALIDATE_BUFFERS_FAILED, /**< 0x23FU - Error when validation of the client provided
 						buffers of a command fails. */
 	XASUFW_DS_VERSION_INCOMPATIBLE, /**< 0x240U - Error when the version of a backed up data

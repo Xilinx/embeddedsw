@@ -294,13 +294,16 @@ static s32 XAsufw_RsaValidateBuffers(u32 SubsystemId, const XAsu_RsaParams *RsaP
 				   RsaParams->Len);
 	XASUFW_VALIDATE_MEM_ACCESS(END, Status, SubsystemId, SecondBufAddr, SecondBufLen);
 
-	/** Validate the client provided pre-calculated exponentiation values. */
-	XASUFW_VALIDATE_MEM_ACCESS(END, Status, SubsystemId, RsaParams->ExpoCompAddr,
-				   ExpoCompSize);
+	/**
+	 * Validate the client provided pre-calculated exponentiation values, which are optional
+	 * and absent when no address is given.
+	 */
+	XASUFW_VALIDATE_OPTIONAL_MEM_ACCESS(END, Status, SubsystemId, RsaParams->ExpoCompAddr,
+					    ExpoCompSize);
 
-	/** Validate the client provided key component buffer. */
-	XASUFW_VALIDATE_MEM_ACCESS(END, Status, SubsystemId, RsaParams->KeyCompAddr,
-				   KeyCompSize);
+	/** Validate the client provided key component buffer, absent for a vault sourced key. */
+	XASUFW_VALIDATE_OPTIONAL_MEM_ACCESS(END, Status, SubsystemId, RsaParams->KeyCompAddr,
+					    KeyCompSize);
 
 	/** Report the key component buffer as the key parameter address when the caller supplies it. */
 	if (RsaParams->KeyCompAddr != 0U) {

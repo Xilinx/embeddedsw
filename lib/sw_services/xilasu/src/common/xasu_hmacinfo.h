@@ -51,9 +51,11 @@ extern "C" {
 /************************************** Type Definitions *****************************************/
 /** This structure contains KDF/HMAC key object for vault resolution. */
 typedef struct {
-	u64 KeyInAddr; /**< Key address */
-	u32 KeyInLen; /**< Key length */
-	u32 KeyId; /**< Key identifier for key vault resolution */
+	u64 KeyInAddr; /**< Key address; 0 when the key is taken from the key vault via KeyId */
+	u32 KeyInLen; /**< Key length; must be 0 when KeyInAddr is 0, as the firmware takes the
+			length of a vault sourced key from the stored metadata. */
+	u32 KeyId; /**< Key identifier for key vault resolution; 0 when the key is supplied
+			through KeyInAddr */
 } XAsu_KdfHmacKeyObject;
 
 /** This structure contains HMAC params info. */
