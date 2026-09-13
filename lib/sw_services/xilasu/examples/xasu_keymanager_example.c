@@ -1358,7 +1358,7 @@ static s32 XAsu_KmDemo_AesGcmOp(u8 OperationType, u64 KeyAddr, u32 KeyId, u64 In
 	 * legs of the key-wrap workflow (step 13), so the same vaulted IV backs every AES-GCM op. */
 	AesParams.IvObj.IvAddr = 0U;
 	AesParams.IvObj.IvId = KmGenAesIvId;
-	AesParams.IvObj.IvLen = XASU_KM_EXAMPLE_AES_IV_LEN_IN_BYTES;
+	AesParams.IvObj.IvLen = 0U;
 	AesParams.DataLen = Len;
 	AesParams.AadAddr = (u64)(UINTPTR)KmAesAad;
 	AesParams.AadLen = XASU_KM_EXAMPLE_AES_AAD_LEN_IN_BYTES;
@@ -1907,7 +1907,7 @@ static s32 XAsu_KmDemo_EccSignOp(u32 PvtKeyId)
 	/* Reference the vaulted private key by KeyId; KeyAddr = 0 selects vault resolution. */
 	EccParams.Key.KeyAddr = 0U;
 	EccParams.Key.KeyId = PvtKeyId;
-	EccParams.Key.KeyLen = XASU_KM_EXAMPLE_ECC_KEY_LEN_IN_BYTES;
+	EccParams.Key.KeyLen = 0U;
 	EccParams.DigestAddr = (u64)(UINTPTR)KmEccDigest;
 	EccParams.SignAddr = (u64)(UINTPTR)KmEccSignature;
 	EccParams.Key.CurveType = XASU_KM_EXAMPLE_ECC_CURVE;
@@ -1965,7 +1965,7 @@ static s32 XAsu_KmDemo_EccVerifyOp(u32 PubKeyId)
 	/* Reference the vaulted public key by KeyId; KeyAddr = 0 selects vault resolution. */
 	EccParams.Key.KeyAddr = 0U;
 	EccParams.Key.KeyId = PubKeyId;
-	EccParams.Key.KeyLen = XASU_KM_EXAMPLE_ECC_KEY_LEN_IN_BYTES;
+	EccParams.Key.KeyLen = 0U;
 	EccParams.DigestAddr = (u64)(UINTPTR)KmEccDigest;
 	EccParams.SignAddr = (u64)(UINTPTR)KmEccSignature;
 	EccParams.Key.CurveType = XASU_KM_EXAMPLE_ECC_CURVE;
@@ -2080,11 +2080,11 @@ static s32 XAsu_KmDemo_EcdhOp(u32 PvtKeyId, u32 PeerPubKeyId, u64 SharedSecretAd
 	/* Local private key, resolved from the vault by KeyId. */
 	EcdhParams.PvtKey.KeyAddr = 0U;
 	EcdhParams.PvtKey.KeyId = PvtKeyId;
-	EcdhParams.PvtKey.KeyLen = XASU_KM_EXAMPLE_ECC_KEY_LEN_IN_BYTES;
+	EcdhParams.PvtKey.KeyLen = 0U;
 	/* Peer public key, resolved from the vault by KeyId. */
 	EcdhParams.PubKey.KeyAddr = 0U;
 	EcdhParams.PubKey.KeyId = PeerPubKeyId;
-	EcdhParams.PubKey.KeyLen = XASU_KM_EXAMPLE_ECC_KEY_LEN_IN_BYTES;
+	EcdhParams.PubKey.KeyLen = 0U;
 	EcdhParams.SharedSecretAddr = SharedSecretAddr;
 	EcdhParams.SharedSecretObjIdAddr = 0U;
 	EcdhParams.PvtKey.CurveType = XASU_KM_EXAMPLE_ECC_CURVE;
