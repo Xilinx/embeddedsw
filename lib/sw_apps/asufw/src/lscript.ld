@@ -42,13 +42,15 @@ _ASUFW_UPDATE_MNG_SIZE = DEFINED(_ASUFW_UPDATE_MNG_SIZE) ? _ASUFW_UPDATE_MNG_SIZ
  * Reserved region at the base of the crypto data block, addressed directly as
  * XASUFW_CRYPTO_ALGO_DATA_BLOCK rather than through a placed section, and reused by every
  * algorithm that stages data there: RSA, RSA padding, key wrap and the key manager key pair
- * generation work from the base, while ML-DSA and ML-KEM each carve a scratch out of it, in
- * xmldsa.h and xmlkem.h, for marshalling client buffers and for holding a generated key pair until
- * the caller has stored it, with the known-answer tests taking their output buffers from the space
- * just above. Every user overwrites what the previous one left, which is safe because each of them
- * holds XASUFW_OVERLAY for the whole command, including across a non-blocking suspend, so no two
- * can be in flight together. The size is therefore the largest single carve rather than their sum,
- * which is ML-DSA-87's.
+ * generation work from the base, the key manager also lays XKeyManager_SharedStorage over it for a
+ * key vault export or import session and for the scratch buffer provisioning works in, while
+ * ML-DSA and ML-KEM each carve a scratch out of it, in xmldsa.h and xmlkem.h, for marshalling
+ * client buffers and for holding a generated key pair until the caller has stored it, with the
+ * known-answer tests taking their output buffers from the space just above. Every user overwrites
+ * what the previous one left, which is safe because each of them holds XASUFW_OVERLAY for the
+ * whole command, including across a non-blocking suspend, so no two can be in flight together. The
+ * size is therefore the largest single carve rather than their sum, which is the provisioning
+ * scratch arm of XKeyManager_SharedStorage, ahead of ML-DSA-87's.
  *
  * Every address in this block is computed in C from XASUFW_CRYPTO_ALGO_DATA_BLOCK and
  * XASUFW_CRYPTO_SHARED_POOL_SIZE in xasufw_memory.h, and each user asserts its own footprint
@@ -57,7 +59,7 @@ _ASUFW_UPDATE_MNG_SIZE = DEFINED(_ASUFW_UPDATE_MNG_SIZE) ? _ASUFW_UPDATE_MNG_SIZ
  * tunable: overriding it would move the reservation while leaving every C address where it was,
  * which is why it is not wrapped in DEFINED().
  */
-_CRYPTO_SHARED_POOL_SIZE = 0x3900;
+_CRYPTO_SHARED_POOL_SIZE = 0x3D00;
 /*
  * Buffer following it, addressed directly as XASUFW_CRYPTO_AUX_BUF_ADDR, for the two commands that
  * stage data in the block without holding XASUFW_OVERLAY: the AES counter-measure KAT and the key
@@ -92,9 +94,9 @@ MEMORY
    tmr_ram_data_ipi_shared_Mem : ORIGIN = 0xEBE41000, LENGTH = 0x8000
    tmr_ram_data_log_buf_Mem : ORIGIN = 0xEBE49000, LENGTH = _LOG_BUF_SIZE
    tmr_ram_data_ocp_Mem : ORIGIN = 0xEBE4A000, LENGTH = 0x2800
-   tmr_ram_crypto_data_block_Mem : ORIGIN = 0xEBE4C800, LENGTH = 0x3C00
-   update_mgr_Mem : ORIGIN = 0xEBE50400, LENGTH = _ASUFW_UPDATE_MNG_SIZE
-   tmr_ram_overlay_data_Mem : ORIGIN = 0xEBE50600, LENGTH = 0xFA00
+   tmr_ram_crypto_data_block_Mem : ORIGIN = 0xEBE4C800, LENGTH = 0x4000
+   update_mgr_Mem : ORIGIN = 0xEBE50800, LENGTH = _ASUFW_UPDATE_MNG_SIZE
+   tmr_ram_overlay_data_Mem : ORIGIN = 0xEBE50A00, LENGTH = 0xF600
 
    ddr_overlay_store_Mem : ORIGIN = _OVERLAY_DDR_BASE, LENGTH = _OVERLAY_STORE_SIZE
 }
@@ -181,6 +183,28 @@ OVERLAY __overlay_window_start : NOCROSSREFS AT (ORIGIN(ddr_overlay_store_Mem))
    }
 
    /*
+    * The key vault blob layers: the AEKV blob format, the chunk walk and the AES-CBC, SHA-384
+    * and IV primitives both are built from. All three are pure code over buffers the caller
+    * owns in the crypto shared pool, so none carries file scope data and this image has no data
+    * half to reload.
+    *
+    * These are named by object rather than by directory, unlike the algorithms above, because
+    * they sit among resident key manager sources that must not follow them into the window. The
+    * sequencers in xkeymanager.c stay resident: they call the UDE sign and verify paths and the
+    * ECC known answer test, all of which run out of the RSA-ECC image, and NOCROSSREFS forbids
+    * one overlay from referencing another. A resident caller reaching either image is fine,
+    * which is why the split falls there.
+    */
+   .overlay_keyvault
+   {
+      KEEP(*(.overlay_keyvault.header))
+      "*xkeymanager_aekv*.o*"(.text .text.*)
+      "*xkeymanager_chunk*.o*"(.text .text.*)
+      "*xkeymanager_crypto*.o*"(.text .text.*)
+      . = ALIGN(_OVERLAY_IMG_ALIGN);
+   }
+
+   /*
     * Add other algorithms above this block. The combined RSA-ECC image must
     * remain the last algorithm because its LOADADDR + SIZEOF defines the end
     * of the text overlay store LMA (__overlay_store_text_window_end). Adding an
@@ -205,11 +229,12 @@ __overlay_lms_txt_size = SIZEOF(.overlay_lms);
 __overlay_mldsa_txt_size = SIZEOF(.overlay_mldsa);
 __overlay_mlkem_txt_size = SIZEOF(.overlay_mlkem);
 __overlay_slhdsa_txt_size = SIZEOF(.overlay_slhdsa);
+__overlay_keyvault_txt_size = SIZEOF(.overlay_keyvault);
 __overlay_rsa_ecc_txt_size = SIZEOF(.overlay_rsa_ecc);
 
-__overlay_window_size = MAX(MAX(MAX(MAX(__overlay_rsa_ecc_txt_size, __overlay_lms_txt_size),
+__overlay_window_size = MAX(MAX(MAX(MAX(MAX(__overlay_rsa_ecc_txt_size, __overlay_lms_txt_size),
                             __overlay_mldsa_txt_size), __overlay_mlkem_txt_size),
-                            __overlay_slhdsa_txt_size);
+                            __overlay_slhdsa_txt_size), __overlay_keyvault_txt_size);
 
 __overlay_store_text_window_end = LOADADDR(.overlay_rsa_ecc) + SIZEOF(.overlay_rsa_ecc);
 
@@ -548,10 +573,21 @@ __overlay_slhdsa_data_size = SIZEOF(.overlay_slhdsa_data);
 __overlay_slhdsa_img_size = SIZEOF(.overlay_slhdsa) + SIZEOF(.overlay_slhdsa_data);
 __overlay_rsa_ecc_data_size = SIZEOF(.overlay_rsa_ecc_data);
 __overlay_rsa_ecc_img_size = SIZEOF(.overlay_rsa_ecc) + SIZEOF(.overlay_rsa_ecc_data);
+/*
+ * The key vault image is text only. Its three translation units hold no file scope data and no
+ * constant tables, so a .overlay_keyvault_data output section would be empty, and the linker
+ * discards an empty output section, leaving LOADADDR and the load start symbol unresolvable.
+ * The size is therefore stated here rather than taken from SIZEOF, and the catalog entry in
+ * xoverlay.c pairs it with a null data LMA. XOverlay_Switch() skips the data copy on a zero
+ * data size, and still zeroizes the data window so the previous image leaves nothing behind.
+ */
+__overlay_keyvault_data_size = 0;
+__overlay_keyvault_img_size = SIZEOF(.overlay_keyvault);
 
-__overlay_data_window_size = MAX(MAX(MAX(MAX(__overlay_rsa_ecc_data_size, __overlay_lms_data_size),
-                             __overlay_mldsa_data_size), __overlay_mlkem_data_size),
-                             __overlay_slhdsa_data_size);
+__overlay_data_window_size = MAX(MAX(MAX(MAX(MAX(__overlay_rsa_ecc_data_size,
+                             __overlay_lms_data_size), __overlay_mldsa_data_size),
+                             __overlay_mlkem_data_size), __overlay_slhdsa_data_size),
+                             __overlay_keyvault_data_size);
 __overlay_store_data_window_end = LOADADDR(.overlay_rsa_ecc_data) + SIZEOF(.overlay_rsa_ecc_data);
 
 /*
@@ -583,6 +619,8 @@ ASSERT(__overlay_mlkem_txt_size <= LENGTH(tmr_ram_overlay_win_Mem),
       "overlay mlkem code window does not fit in instruction RAM")
 ASSERT(__overlay_slhdsa_txt_size <= LENGTH(tmr_ram_overlay_win_Mem),
       "overlay slhdsa code window does not fit in instruction RAM")
+ASSERT(__overlay_keyvault_txt_size <= LENGTH(tmr_ram_overlay_win_Mem),
+      "overlay keyvault code window does not fit in instruction RAM")
 ASSERT(__overlay_rsa_ecc_data_size <= LENGTH(tmr_ram_overlay_data_Mem),
       "overlay rsa_ecc data window does not fit in ASU data memory")
 ASSERT(__overlay_lms_data_size <= LENGTH(tmr_ram_overlay_data_Mem),
@@ -593,6 +631,8 @@ ASSERT(__overlay_mlkem_data_size <= LENGTH(tmr_ram_overlay_data_Mem),
       "overlay mlkem data window does not fit in ASU data memory")
 ASSERT(__overlay_slhdsa_data_size <= LENGTH(tmr_ram_overlay_data_Mem),
       "overlay slhdsa data window does not fit in ASU data memory")
+ASSERT(__overlay_keyvault_data_size <= LENGTH(tmr_ram_overlay_data_Mem),
+      "overlay keyvault data window does not fit in ASU data memory")
 
 ASSERT(__crypto_aux_buf_end <=
       ORIGIN(tmr_ram_crypto_data_block_Mem) + LENGTH(tmr_ram_crypto_data_block_Mem),
@@ -627,6 +667,9 @@ ASSERT(SIZEOF(.overlay_mlkem) == 0 ||
 ASSERT(SIZEOF(.overlay_slhdsa) == 0 ||
        __overlay_store_text_window_end >= LOADADDR(.overlay_slhdsa) + SIZEOF(.overlay_slhdsa),
        "overlay text store truncated by .overlay_slhdsa; RSA-ECC text must remain last")
+ASSERT(SIZEOF(.overlay_keyvault) == 0 ||
+       __overlay_store_text_window_end >= LOADADDR(.overlay_keyvault) + SIZEOF(.overlay_keyvault),
+       "overlay text store truncated by .overlay_keyvault; RSA-ECC text must remain last")
 ASSERT(SIZEOF(.overlay_lms_data) == 0 ||
        __overlay_store_data_window_end >= LOADADDR(.overlay_lms_data) + SIZEOF(.overlay_lms_data),
        "overlay data store truncated by .overlay_lms_data; RSA-ECC data must remain last")

@@ -16,8 +16,8 @@
  * Ver   Who  Date       Changes
  * ----- ---- -------- ----------------------------------------------------------------------------
  * 1.0   yog  08/21/25 Initial release
- *       vm   09/15/26 Added UDE data sign and verify APIs and the UDE public key cache
- *                     invalidation used by provisioning
+ *       vm   09/15/26 Added UDE data sign and verify APIs, the UDE key availability query and
+ *                     the UDE public key cache invalidation used by provisioning
  *
  * </pre>
  *
@@ -52,6 +52,7 @@ s32 XOcp_EncryptUdeKeys(XAsufw_Dma *DmaPtr, u32 UdeKeyId, u8 *EncPvtKey, u64 Cer
 s32 XOcp_GetUdeSlotInfo(u32 UdeKeyId, u32 *UdeUserKeyAddrPtr, u8 *IvIncValPtr);
 s32 XOcp_UdeSignData(XAsufw_Dma *DmaPtr, const u8 *Data, u32 DataLen, u8 *SignatureOut);
 s32 XOcp_UdeVerifyData(XAsufw_Dma *DmaPtr, const u8 *Data, u32 DataLen, const u8 *Signature);
+s32 XOcp_IsUdeAvailable(void);
 void XOcp_InvalidateUdePubKeyCache(void);
 
 /************************************ Variable Definitions ***************************************/

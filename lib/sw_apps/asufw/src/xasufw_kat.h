@@ -29,6 +29,7 @@
  *       ma   01/15/25 Added KDF KAT
  *       yog  02/21/25 Added ECIES KAT
  *       kk   07/10/26 Added SLH-DSA KAT function prototype
+ *       vm   09/15/26 Added the CMAC based key derivation known answer test prototype
  *
  * </pre>
  *
@@ -103,6 +104,7 @@ s32 XAsufw_HmacOperationKat(XAsufw_Dma *AsuDmaPtr);
 #endif
 #ifdef XASU_KDF_ENABLE
 s32 XAsufw_KdfOperationKat(XAsufw_Dma *AsuDmaPtr);
+s32 XAsufw_CmacKdfOperationKat(XAsufw_Dma *AsuDmaPtr);
 #endif
 #ifdef XASU_ECIES_ENABLE
 s32 XAsufw_EciesOperationKat(XAsufw_Dma *AsuDmaPtr);

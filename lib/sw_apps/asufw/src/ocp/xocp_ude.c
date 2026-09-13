@@ -20,8 +20,9 @@
 *       yog  04/17/26 Updated code to zeroize UDE KEK immediately after use to avoid exposure in memory.
 *       yog  08/24/26 Encrypt/decrypt UDE private keys directly with the PUF KEK,
 *                     removing the derived UDE KEK (CMAC-KDF from eFUSE-0).
-*       vm   09/15/26 Added UDE private key recovery helper, the UDE data sign and verify APIs
-*                     and the cached UDE public key with the invalidation provisioning calls
+*       vm   09/15/26 Added UDE private key recovery helper, the UDE data sign and verify APIs,
+*                     the cached UDE public key with the invalidation provisioning calls and the
+*                     query for UDE key availability
 *
 * </pre>
 *
@@ -160,7 +161,7 @@ s32 XOcp_EncryptUdeKeys(XAsufw_Dma *DmaPtr, u32 UdeKeyId, u8 *EncPvtKey, u64 Cer
 	Status = XRsa_EccGeneratePvtKey(XASU_ECC_NIST_P384, XASU_ECC_P384_PVT_KEY_SIZE_IN_BYTES,
 				PvtKey, NULL, 0U);
 	if (Status != XASUFW_SUCCESS) {
-		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_OCP_UDE_PVT_KEY_GEN_FAIL);
+		Status = XASUFW_OCP_UDE_PVT_KEY_GEN_FAIL;
 		goto END_CLR;
 	}
 

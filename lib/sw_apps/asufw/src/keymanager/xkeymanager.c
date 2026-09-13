@@ -26,6 +26,11 @@
  *       ss   03/18/26 Added vault store and fetch APIs for scheduler-based RSA key generation.
  *       yog  04/23/26 Added support for LMS key management.
  *       kp   08/22/26 Added user-addressable key vaults and key slots.
+ *       vm   09/15/26 Added the vault side of key vault export and import, carried the vault
+ *                     registry and the dirty flag across in-place update, added the ASU
+ *                     internal exportable vault behind which the user vaults now start, and
+ *                     added the resident export and import sequencers that phase the key vault
+ *                     and RSA-ECC overlay images and hold the header signing and verification
  *
  * </pre>
  *
@@ -58,6 +63,17 @@
 #include "xmldsa.h"
 #include "xmlkem.h"
 #include "xslhdsa.h"
+#include "xkeymanager_aekv.h"
+#include "xasufw_update.h"
+#include "xasufw_update_ds.h"
+#include "xasufw_kat.h"
+#include "xasu_generic.h"
+#include "xoverlay.h"
+#include "xsha_hw.h"
+#include "xil_sutil.h"
+#ifdef XASU_OCP_ENABLE
+#include "xocp_ude.h"
+#endif
 
 #ifdef XASU_KEYMANAGER_ENABLE
 /************************************ Constant Definitions ***************************************/
@@ -91,6 +107,12 @@ _Static_assert((XRSA_PUBEXP_SIZE_IN_BYTES + XRSA_MAX_KEY_SIZE_IN_BYTES) <=
 	       XASUFW_CRYPTO_AUX_BUF_SIZE,
 	       "packed RSA public key overruns the crypto auxiliary buffer");
 
+/** Operation tag recorded in key vault export audit-log entries. */
+#define XKEYMANAGER_AUDIT_OP_EXPORT	"EXPORT"
+
+/** Operation tag recorded in key vault import audit-log entries. */
+#define XKEYMANAGER_AUDIT_OP_IMPORT	"IMPORT"
+
 #define XKEYMANAGER_IS_BIT_SET(Value, Index) (((Value) & ((u16)1U << (Index))) != 0U) /**< Check if a bit is set */
 
 #define XKEYMANAGER_ASYM_KEY_TYPE_COUNT	(2U)	/**< Number of asymmetric key types (private and public) */
@@ -103,10 +125,6 @@ _Static_assert((XRSA_PUBEXP_SIZE_IN_BYTES + XRSA_MAX_KEY_SIZE_IN_BYTES) <=
 #define XKEYMANAGER_AES_TAG_LEN_IN_BYTES		(16U)	/**< GCM tag length in bytes */
 #define XKEYMANAGER_AES_KEK_LEN_IN_BYTES		(32U)	/**< KEK length in bytes */
 #define XKEYMANAGER_AES_IV_LEN_IN_BYTES			(16U)	/**< AES IV length in bytes */
-#define XKEYMANAGER_KV_KEK_CONTEXT			"KEY_VAULT_ENCRYPTION_KEY"
-								/**< KV KEK context */
-#define XKEYMANAGER_KV_KEK_CONTEXT_LEN			(24U)	/**< KV KEK context length */
-#define XKEYMANAGER_KV_KEK_IV_INC_VAL			(0x06U)	/**< KV KEK IV increment value */
 #define XKEYMANAGER_AES_BLOCK_SIZE			(16U)	/**< AES block size in bytes */
 #define XKEYMANAGER_AES_CMD_STAGE_INIT			(0x0U) /**< AES command stage value for AES
 								operation initialization */
@@ -114,11 +132,57 @@ _Static_assert((XRSA_PUBEXP_SIZE_IN_BYTES + XRSA_MAX_KEY_SIZE_IN_BYTES) <=
 								update in progress */
 #define XKEYMANAGER_VAULT_DIRTY_VALUE			(0xE2U) /**< Dirty vault flag */
 #define XKEYMANAGER_VAULT_CLEAN_VALUE			(0x1EU) /**< Clean vault flag */
-#define XKEYMANAGER_USER_VAULT_START_INDEX		(1U)	/**< Start index for user vaults */
+#define XKEYMANAGER_USER_VAULT_START_INDEX		(XKEYMANAGER_ASU_EXPORTABLE_VAULT_ID + 1U)
+							/**< Start index for user vaults, the
+							first index above the ASU owned
+							vaults */
+#define XKEYMANAGER_RESTORABLE_VAULT_START_INDEX	(XKEYMANAGER_ASU_EXPORTABLE_VAULT_ID)
+								/**< First vault an export packs and
+								an import restores. The ASU internal
+								exportable vault travels in the blob
+								with the user vaults, while the ASU
+								internal non-exportable vault below
+								it stays in the device */
 
-#define XKEYMANAGER_MAX_REVOKE_REG_INDEX		(7U)	/**< Maximum revoke register
-								index */
 #define XKEYMANAGER_UDE_ALL_KEY_SLOTS_UNPROGRAMMED	(0xFFU) /**< All key slots unprogrammed */
+
+/**
+ * Plaintext bytes the ASU internal exportable vault occupies. The vault holds
+ * XKEYMANAGER_ASU_EXPORTABLE_ECC_KEY_CAPACITY ECC key pairs, so the accounting the vault
+ * creation does is repeated here to size the snapshot buffer at build time.
+ */
+#define XKEYMANAGER_ASU_EXPORTABLE_VAULT_BODY_SIZE \
+	(XKEYMANAGER_HEADER_SIZE + \
+	 (XKEYMANAGER_MAX_SUB_VAULTS * XKEYMANAGER_SUB_VAULT_HEADER_SIZE) + \
+	 (XKEYMANAGER_ASU_EXPORTABLE_ECC_KEY_CAPACITY * sizeof(XKeyManager_EccPvtKeyObject)) + \
+	 (XKEYMANAGER_ASU_EXPORTABLE_ECC_KEY_CAPACITY * sizeof(XKeyManager_EccPubKeyObject)))
+
+/**
+ * Bytes the snapshot of that vault reserves. The creation rounds the vault up to a whole AES
+ * block, so a block is added here rather than the rounding being repeated, which keeps the
+ * buffer at or above the size the creation hands out.
+ */
+#define XKEYMANAGER_ASU_EXPORTABLE_VAULT_SNAPSHOT_SIZE \
+	(XKEYMANAGER_ASU_EXPORTABLE_VAULT_BODY_SIZE + XKEYMANAGER_AES_BLOCK_SIZE)
+
+#define XKEYMANAGER_VAULT_REGISTRY_DS_ID		(0x1U)	/**< Data structure ID of the vault
+								registry */
+#define XKEYMANAGER_VAULT_REGISTRY_DS_VERSION		(0x1U)	/**< Vault registry data structure
+								version */
+#define XKEYMANAGER_VAULT_REGISTRY_DS_LCVERSION		(0x1U)	/**< Vault registry lowest
+								compatible version */
+#define XKEYMANAGER_VAULT_DIRTY_DS_ID			(0x2U)	/**< Data structure ID of the vault
+								dirty flag */
+#define XKEYMANAGER_VAULT_DIRTY_DS_VERSION		(0x1U)	/**< Vault dirty flag data structure
+								version */
+#define XKEYMANAGER_VAULT_DIRTY_DS_LCVERSION		(0x1U)	/**< Vault dirty flag lowest
+								compatible version */
+#define XKEYMANAGER_EPOCH_TIME_DS_ID			(0x3U)	/**< Data structure ID of the
+								current epoch time */
+#define XKEYMANAGER_EPOCH_TIME_DS_VERSION		(0x1U)	/**< Epoch time data structure
+								version */
+#define XKEYMANAGER_EPOCH_TIME_DS_LCVERSION		(0x1U)	/**< Epoch time lowest compatible
+								version */
 
 /************************************** Type Definitions *****************************************/
 
@@ -127,8 +191,12 @@ _Static_assert((XRSA_PUBEXP_SIZE_IN_BYTES + XRSA_MAX_KEY_SIZE_IN_BYTES) <=
 								/**< Get vault base address pointer from RTCA register */
 
 #define XKEYMANAGER_IS_VAULT_EXPORTABLE(Restrictions) \
-	(((Restrictions) & XASU_KEYMANAGER_EXPORTABLE_VAULT) == XASU_KEYMANAGER_EXPORTABLE_VAULT)
-				/**< Check if vault is exportable based on restrictions field */
+	(((Restrictions) >= XASU_KEYMANAGER_EXPORTABLE_VAULT) && \
+	 ((Restrictions) <= XASU_KEYMANAGER_EXPORTABLE_VAULT_MAX))
+				/**< Check if vault is exportable based on restrictions field.
+				     Every value from the lowest to the highest exportable encoding
+				     grants export. Zero keeps the vault inside the device and the
+				     reserved values above the range stay non-exportable. */
 
 /************************************ Function Prototypes ****************************************/
 static s32 XKeyManager_UpdateKeyVault(XAsufw_Dma *DmaPtr, XAsu_KeyManagerSubVaultType KeyType,
@@ -178,17 +246,97 @@ static s32 XKeyManager_UpdateMlkemPvtKeyObjectFromVault(u64 KeyObjectAddr, u32 S
 static s32 XKeyManager_UpdateMlkemPubKeyObjectFromVault(u64 KeyObjectAddr, u32 SubSystemId,
 	u8 KeyUsecase, u32 KeyId);
 #endif /* XASU_MLKEM_ENABLE */
-static inline u8 XKeyManager_GetRevokeId(void);
-static s32 XKeyManager_GenerateAndWriteAesKey(XAsufw_Dma *DmaPtr, XAes *AesInstancePtr);
 static s32 XKeyManager_GetProvisioningKeySlot(u32 SubSystemId, u16 *SlotPtr, u8 KeyUseCase);
 static s32 XKeyManager_GetProvisioningKeyId(u16 KeySlot, u32 *KeyIdPtr, u8 KeyUseCase);
 static s32 XKeyManager_RollbackKeyPair(u32 *KeyIdPtr, u32 SubSystemId, s32 Status);
+static s32 XKeyManager_ClearRestorableVaultRegion(void);
+static s32 XKeyManager_ClearImportRecord(void);
+static s32 XKeyManager_IsRestoredRegistryUsable(void);
+
+static void XKeyManager_MarkVaultDirty(u32 VaultId, u8 Restrictions);
+
+/** Resident stages of a key vault blob export or import. */
+static s32 XKeyManager_ExportSessionReset(void);
+static s32 XKeyManager_ImportSessionReset(void);
+static s32 XKeyManager_RunCryptoKats(void);
+static s32 XKeyManager_ActivateSignatureImage(XAsufw_Dma *DmaPtr);
+static s32 XKeyManager_AekvSignHeader(XAsufw_Dma *DmaPtr, XKeyManager_ExportCtx *CtxPtr,
+				      u64 ExportAddr);
+static s32 XKeyManager_AekvLoadHeader(XAsufw_Dma *DmaPtr, XKeyManager_ImportCtx *CtxPtr,
+				      u64 ImportAddr);
+static s32 XKeyManager_AekvValidateStructure(const XKeyManager_HeaderV1 *HeaderPtr,
+					     u32 ImportSize);
+static s32 XKeyManager_AekvVerifyHeader(XAsufw_Dma *DmaPtr, const XKeyManager_ImportCtx *CtxPtr);
+static void XKeyManager_ExportPublishResult(u64 ResultAddr, u32 BlobSize, u32 ModifiedValue);
 
 /************************************ Variable Definitions ***************************************/
 static XKeyManager_VaultRegistry VaultManager; /**< Vault info which contains info for each vault of a
 					subsystem and also total and remaining vault size */
-static u8 IsKeyVaultDirty;	/**< Flag indicating if the key vault is dirty */
+static u32 IsKeyVaultDirty;	/**< Flag indicating if the key vault is dirty. It is word sized
+				     because the update database carries data structures in whole
+				     words. */
 static u32 CurrentEpochTime = 0U;	/**< Current epoch time */
+static u8 *ImportRestoreBasePtr;	/**< User vault restore base during AEKV import */
+static u32 ImportRestoreRegionLen;	/**< Writable length at the import restore base */
+static u8 ImportSavedMainHeader[XKEYMANAGER_VAULT_MAIN_HEADER_SIZE];
+					/**< Main vault header as it stood before the import */
+static u8 ImportSavedAsuVault[XKEYMANAGER_ASU_EXPORTABLE_VAULT_SNAPSHOT_SIZE];
+					/**< ASU internal exportable vault as it stood before the
+					     import, which the revert path puts back */
+static u32 ImportSavedAsuVaultLen;	/**< Bytes of that vault the snapshot holds */
+static volatile u32 CmacKdfKatStatus = XASU_STATUS_FAIL;
+					/**< Result of the CMAC based key derivation known answer
+					     test this boot. The RTCA area has a status slot per
+					     module and CMAC has none, so the pass is recorded
+					     here. */
+
+/**
+ * @cond xkeymanager_internal
+ * EXPORT_ASUFW_DS expands to variable definitions, but Doxygen reads the call itself as an
+ * undocumented function, so the two entries below are kept out of the generated documentation.
+ */
+
+/*
+ * Vault registry entry of the update database.
+ *
+ * The key vaults live in DDR, which the in-place ASU update leaves untouched, while the registry
+ * that describes them lives in ASU RAM, which the new firmware image overwrites. Exporting the
+ * registry to the update database keeps the vaults reachable across the update. The vault base
+ * pointers it holds stay valid because the DDR region is fixed by RTCA and is not re-initialized
+ * on the update path.
+ *
+ * The restore path matches only the module ID and the data structure ID, hence the data structure
+ * ID has to be changed whenever the layout or the meaning of these structures changes.
+ */
+EXPORT_ASUFW_DS(VaultManager, XASU_MODULE_KEYMANAGER_ID, XKEYMANAGER_VAULT_REGISTRY_DS_ID,
+		XKEYMANAGER_VAULT_REGISTRY_DS_VERSION, XKEYMANAGER_VAULT_REGISTRY_DS_LCVERSION,
+		sizeof(VaultManager), (u32)(UINTPTR)&VaultManager);
+
+/*
+ * Key vault dirty flag entry of the update database.
+ *
+ * The dirty flag tells a caller whether the key vault holds changes its blob does not have yet.
+ * Without carrying it across the update, the flag would come up as neither dirty nor clean and
+ * the first export after an update would report an out of date blob as current.
+ */
+EXPORT_ASUFW_DS(IsKeyVaultDirty, XASU_MODULE_KEYMANAGER_ID, XKEYMANAGER_VAULT_DIRTY_DS_ID,
+		XKEYMANAGER_VAULT_DIRTY_DS_VERSION, XKEYMANAGER_VAULT_DIRTY_DS_LCVERSION,
+		sizeof(IsKeyVaultDirty), (u32)(UINTPTR)&IsKeyVaultDirty);
+
+/*
+ * Epoch time entry of the update database.
+ *
+ * The registry carries the key metadata across the update, and the expiry of a key is its
+ * EpochTime held against this value. A new image that started from zero here would hold every
+ * expired key against an epoch that had gone backwards and hand it back as usable, so the epoch
+ * travels with the registry that is checked against it.
+ */
+EXPORT_ASUFW_DS(CurrentEpochTime, XASU_MODULE_KEYMANAGER_ID, XKEYMANAGER_EPOCH_TIME_DS_ID,
+		XKEYMANAGER_EPOCH_TIME_DS_VERSION, XKEYMANAGER_EPOCH_TIME_DS_LCVERSION,
+		sizeof(CurrentEpochTime), (u32)(UINTPTR)&CurrentEpochTime);
+
+/** @endcond */
+
 /**< Lookup table for key object sizes based on key type */
 static const u32 XKeyManager_KeyObjectSizeLookup[XKEYMANAGER_MAX_SUB_VAULTS] = {
 	[XASU_AES_SUBVAULT_ID] = sizeof(XKeyManager_AesKeyObject),
@@ -205,6 +353,209 @@ static const u32 XKeyManager_KeyObjectSizeLookup[XKEYMANAGER_MAX_SUB_VAULTS] = {
 	[XASU_MLKEM_PVT_SUBVAULT_ID] = sizeof(XKeyManager_MlkemPvtKeyObject),
 	[XASU_MLKEM_PUB_SUBVAULT_ID] = sizeof(XKeyManager_MlkemPubKeyObject)
 };
+
+/*************************************************************************************************/
+/**
+ * @brief	This function tells whether the vault registry restored from the update database
+ *		can be used as it stands. It is only usable on a boot which follows an in-place
+ *		update, and only when it still agrees with the vault region RTCA reports in both
+ *		size and placement, as a registry describing a region that moved or changed size
+ *		would point outside the vaults.
+ *
+ * @return
+ *		- XASUFW_SUCCESS, if the restored registry describes the vaults in DDR.
+ *		- XASUFW_FAILURE, if the registry has to be built afresh.
+ *
+ *************************************************************************************************/
+static s32 XKeyManager_IsRestoredRegistryUsable(void)
+{
+	CREATE_VOLATILE(Status, XASUFW_FAILURE);
+	XFih_Var UpdateStateFih = XFIH_FAILURE;
+	XFih_Var UpdateDoneFih = XFIH_FAILURE;
+	XFih_Var VaultSizeFih = XFIH_FAILURE;
+	XFih_Var RtcaVaultSizeFih = XFIH_FAILURE;
+	u32 AllocatedDdrSize;
+	u32 KeyVaultAddr;
+	u64 VaultRegionStart;
+	u64 VaultRegionEnd;
+	u64 VaultStart;
+	u32 Index;
+
+	/**
+	 * Only a boot which follows an in-place update leaves a registry worth keeping, so the
+	 * state is compared redundantly, as a glitch past it would keep a registry no update
+	 * restored.
+	 */
+	UpdateStateFih = XFih_VolatileAssignU32((u32)XAsufw_GetUpdateState());
+	UpdateDoneFih = XFih_VolatileAssignU32((u32)XASUFW_UPDATE_STATE_LOAD_ELF_DONE);
+
+	XFIH_IF_FAILIN_NEQ(UpdateStateFih, UpdateDoneFih) {
+		XFIH_GOTO(END);
+	}
+
+	AllocatedDdrSize = XAsufw_ReadReg(XASU_RTCA_DDR_SIZE_ADDR);
+	if (AllocatedDdrSize <= XASUFW_DDR_RSVD_SIZE) {
+		goto END;
+	}
+
+	/**
+	 * A registry describing a differently sized region would point outside the vaults, so the
+	 * size it carries is compared redundantly against the space RTCA reports.
+	 */
+	VaultSizeFih = XFih_VolatileAssignU32(VaultManager.TotalVaultSize);
+	RtcaVaultSizeFih = XFih_VolatileAssignU32(AllocatedDdrSize - XASUFW_DDR_RSVD_SIZE);
+
+	XFIH_IF_FAILIN_NEQ(VaultSizeFih, RtcaVaultSizeFih) {
+		XFIH_GOTO(END);
+	}
+
+	/**
+	 * The size alone does not place the region, so the bound the fresh path applies is
+	 * applied here too. A region reaching past the encrypted DDR window is not one the
+	 * restored registry may describe.
+	 */
+	KeyVaultAddr = XAsufw_ReadReg(XASU_RTCA_DDR_BASEADDR_LOW);
+	if (((u64)KeyVaultAddr + ((u64)AllocatedDdrSize - 1U)) > (u64)XASUFW_2GB_END_ADDR) {
+		goto END;
+	}
+
+	/**
+	 * The registry holds absolute vault pointers, so a base address that moved between the
+	 * two firmwares would leave every one of them aimed outside the vault region while the
+	 * size still matched. Each populated entry is held against the region RTCA reports now.
+	 */
+	VaultRegionStart = (u64)(UINTPTR)XKEYMANAGER_GET_VAULT_BASE_PTR();
+	VaultRegionEnd = VaultRegionStart + (u64)VaultManager.TotalVaultSize;
+
+	for (Index = 0U; Index < XASU_KM_MAX_VAULTS; Index++) {
+		if (VaultManager.VaultInfo[Index].VaultSize == 0U) {
+			continue;
+		}
+
+		VaultStart = (u64)(UINTPTR)VaultManager.VaultInfo[Index].VaultBasePtr;
+		if ((VaultStart < VaultRegionStart) ||
+		    ((VaultStart + (u64)VaultManager.VaultInfo[Index].VaultSize) >
+		     VaultRegionEnd)) {
+			goto END;
+		}
+	}
+
+	Status = XASUFW_SUCCESS;
+
+END:
+	return Status;
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	This function tells whether the given vault is already present in the vault
+ *		registry, which is the case on a boot that restored the registry of the firmware
+ *		it replaced.
+ *
+ * @param	VaultId	Registry slot the caller asks about.
+ *
+ * @return
+ *		- XASU_STATUS_PASS, if the vault is present.
+ *		- XASU_STATUS_FAIL, if it has to be created or the identifier is out of range.
+ *
+ *************************************************************************************************/
+u32 XKeyManager_IsVaultInRegistry(u32 VaultId)
+{
+	volatile u32 Present = (u32)XASU_STATUS_FAIL;
+	XFih_Var VaultSizeFih = XFIH_FAILURE;
+	XFih_Var EmptyVaultFih = XFIH_FAILURE;
+
+	if (VaultId >= XASU_KM_MAX_VAULTS) {
+		goto END;
+	}
+
+	/**
+	 * Reporting a vault which is not there would leave the caller using a vault that was
+	 * never created, so the size the registry holds for that vault has to read non zero on
+	 * both comparisons.
+	 */
+	VaultSizeFih = XFih_VolatileAssignU32(VaultManager.VaultInfo[VaultId].VaultSize);
+	EmptyVaultFih = XFih_VolatileAssignU32(0U);
+
+	XFIH_IF_FAILOUT_NEQ(VaultSizeFih, EmptyVaultFih) {
+		Present = (u32)XASU_STATUS_PASS;
+	}
+
+END:
+	return Present;
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	This function creates the ASU internal exportable vault, which holds the
+ *		provisioning keys ASU owns and which an export carries in the blob. The vault is
+ *		created only when its registry slot is free, so a boot that restored the registry
+ *		of the firmware it replaced, and an import that restored the vault from a blob,
+ *		both keep the vault they already have.
+ *
+ * @return
+ *		- XASUFW_SUCCESS, if the vault is created or is already present.
+ *		- XASUFW_KEYMANAGER_INVALID_VAULT_ID, if the vault was not created at the
+ *		identifier reserved for it.
+ *		- XASUFW_KEYMANAGER_ASU_EXPORTABLE_VAULT_CREATION_FAILED, if the vault cannot be
+ *		created, with the cause from the key vault creation packed into the status.
+ *
+ *************************************************************************************************/
+s32 XKeyManager_CreateAsuExportableVault(void)
+{
+	CREATE_VOLATILE(Status, XASUFW_FAILURE);
+	XAsu_KeyManagerSubVaultParams SubVaultParams = {0U};
+	u32 VaultId = 0U;
+
+	/**
+	 * A glitch on this check would skip the creation and leave ASU without the vault its
+	 * provisioning keys live in, so the registry lookup is the glitch hardened one.
+	 */
+	if (XKeyManager_IsVaultInRegistry(XKEYMANAGER_ASU_EXPORTABLE_VAULT_ID) ==
+	    (u32)XASU_STATUS_PASS) {
+		Status = XASUFW_SUCCESS;
+		goto END;
+	}
+
+	/**
+	 * The identifier is requested rather than left to the allocator, as the vault has to sit
+	 * at the head of the region an import restores and ahead of every user vault.
+	 */
+	SubVaultParams.VaultId = (u8)XKEYMANAGER_ASU_EXPORTABLE_VAULT_ID;
+	SubVaultParams.ECCPvtKeyVaultCapacity = XKEYMANAGER_ASU_EXPORTABLE_ECC_KEY_CAPACITY;
+	SubVaultParams.ECCPubKeyVaultCapacity = XKEYMANAGER_ASU_EXPORTABLE_ECC_KEY_CAPACITY;
+	SubVaultParams.AccessRights = 0U;
+	SubVaultParams.Restrictions = XASU_KEYMANAGER_EXPORTABLE_VAULT;
+
+	Status = XKeyManager_CreateKeyVault(&SubVaultParams, XKEYMANAGER_ASU_SUBSYSTEM_ID, 0U,
+					    &VaultId);
+	if (XASUFW_SUCCESS != Status) {
+		Status = XAsufw_UpdateErrorStatus(Status,
+			XASUFW_KEYMANAGER_ASU_EXPORTABLE_VAULT_CREATION_FAILED);
+		goto END;
+	}
+
+	if (VaultId != XKEYMANAGER_ASU_EXPORTABLE_VAULT_ID) {
+		Status = XASUFW_KEYMANAGER_INVALID_VAULT_ID;
+		goto END;
+	}
+
+	/**
+	 * The snapshot buffer an import keeps of this vault is sized at build time from the same
+	 * capacities, so the size the allocator handed out is held against it here. Catching a
+	 * drift at boot keeps it from surfacing as an import that cannot prepare its region.
+	 */
+	if (VaultManager.VaultInfo[VaultId].VaultSize >
+	    XKEYMANAGER_ASU_EXPORTABLE_VAULT_SNAPSHOT_SIZE) {
+		Status = XASUFW_KEYMANAGER_ASU_EXPORTABLE_VAULT_CREATION_FAILED;
+		goto END;
+	}
+
+	Status = XASUFW_SUCCESS;
+
+END:
+	return Status;
+}
 
 /*************************************************************************************************/
 /**
@@ -232,6 +583,23 @@ s32 XKeyManager_CfgInitialize(void)
 		Status = XASUFW_KEYMANAGER_INVALID_DDR_ADDRESS;
 		goto END;
 	}
+
+	/**
+	 * Keep the key vaults across an in-place update. The registry restored from the update
+	 * database already describes the vaults held in DDR, which the update leaves in place, so
+	 * clearing the registry and rewriting the vault main header here would lose them.
+	 */
+	if (XKeyManager_IsRestoredRegistryUsable() == XASUFW_SUCCESS) {
+		Status = XASUFW_SUCCESS;
+		goto END;
+	}
+
+	/**
+	 * The registry is built afresh below, so the record of unretrieved changes restored
+	 * beside it is dropped as well. Holding on to it would describe a vault built from
+	 * scratch with the state of the one the replaced firmware left behind.
+	 */
+	IsKeyVaultDirty = XKEYMANAGER_VAULT_CLEAN_VALUE;
 
 	Status = Xil_SMemSet(&VaultManager, sizeof(XKeyManager_VaultRegistry), 0U,
 			sizeof(XKeyManager_VaultRegistry));
@@ -363,6 +731,12 @@ s32 XKeyManager_UpdateUdeKeyType(u8 UdeSlot, u8 UdeKeyType)
 		VaultHeaderPtr->UdeKeyType |=
 			(u8)((UdeKeyType & XKEYMANAGER_UDE_KEY_TYPE_SLOT_MASK) << ShiftCount);
 	}
+
+	/**
+	 * The key type travels in the exported plaintext, so a vault whose type changed is no
+	 * longer the vault an earlier blob carried and the next export has to say so.
+	 */
+	IsKeyVaultDirty = XKEYMANAGER_VAULT_DIRTY_VALUE;
 
 	Status = XASUFW_SUCCESS;
 
@@ -639,10 +1013,8 @@ s32 XKeyManager_CreateKeyVault(const XAsu_KeyManagerSubVaultParams *ParamsPtr, u
 		}
 	}
 
-	/** Mark key vault as dirty if it is not the ASU vault. */
-	if (VaultId != XKEYMANAGER_ASU_VAULT_ID) {
-		IsKeyVaultDirty = XKEYMANAGER_VAULT_DIRTY_VALUE;
-	}
+	/** Record the change when it is one an export would carry. */
+	XKeyManager_MarkVaultDirty(VaultId, KeyVaultPtr->Header.Restrictions);
 
 	/**
 	 * Measure and print the performance time for the key vault creation operation, if
@@ -689,6 +1061,7 @@ s32 XKeyManager_DeleteKeyVault(u32 SubsystemId, u32 VaultId)
 	u8 Index = 0U;
 	u32 DelVaultSize = 0U;
 	u32 *DelVaultBasePtr = NULL;
+	u8 DelVaultRestrictions = 0U;
 	u8 *ResidualDataPtr = NULL;
 	const u8 *ShiftSrcPtr = NULL;
 	u32 ShiftSize = 0U;
@@ -716,6 +1089,12 @@ s32 XKeyManager_DeleteKeyVault(u32 SubsystemId, u32 VaultId)
 	/** Store vault information before deletion. */
 	DelVaultSize = VaultManager.VaultInfo[VaultId].VaultSize;
 	DelVaultBasePtr = VaultManager.VaultInfo[VaultId].VaultBasePtr;
+
+	/**
+	 * Whether this deletion is one an export would carry is read here, while the vault
+	 * header still holds its restrictions. The region is zeroized further down.
+	 */
+	DelVaultRestrictions = ((const XKeyManager *)DelVaultBasePtr)->Header.Restrictions;
 
 	/** Calculate vault memory region boundaries, past the internal reserved DDR memory. */
 	VaultBaseAddr = XKEYMANAGER_GET_VAULT_BASE_PTR();
@@ -773,10 +1152,8 @@ s32 XKeyManager_DeleteKeyVault(u32 SubsystemId, u32 VaultId)
 		XFIH_GOTO(END);
 	}
 
-	/** Mark key vault as dirty if it is not the ASU vault. */
-	if (VaultId != XKEYMANAGER_ASU_VAULT_ID) {
-		IsKeyVaultDirty = XKEYMANAGER_VAULT_DIRTY_VALUE;
-	}
+	/** Record the change when it is one an export would carry. */
+	XKeyManager_MarkVaultDirty(VaultId, DelVaultRestrictions);
 
 	/**
 	 * Measure and print the performance time for the key vault deletion operation, if
@@ -885,10 +1262,8 @@ s32 XKeyManager_DeleteKey(u32 KeyId, u32 SubSystemId)
 		XFIH_GOTO(END);
 	}
 
-	/** Mark key vault as dirty if it is not the ASU vault. */
-	if (VaultId != XKEYMANAGER_ASU_VAULT_ID) {
-		IsKeyVaultDirty = XKEYMANAGER_VAULT_DIRTY_VALUE;
-	}
+	/** Record the change when it is one an export would carry. */
+	XKeyManager_MarkVaultDirty(VaultId, KeyVaultPtr->Header.Restrictions);
 
 	/**
 	 * Measure and print the performance time for the key deletion operation, if
@@ -3957,10 +4332,8 @@ static s32 XKeyManager_UpdateKeyVault(XAsufw_Dma *DmaPtr, XAsu_KeyManagerSubVaul
 
 	*KeyIdPtr = KeyMetadataPtr->CompositeKeyId;
 
-	/** Mark key vault as dirty if it is not the ASU vault. */
-	if (VaultId != XKEYMANAGER_ASU_VAULT_ID) {
-		IsKeyVaultDirty = XKEYMANAGER_VAULT_DIRTY_VALUE;
-	}
+	/** Record the change when it is one an export would carry. */
+	XKeyManager_MarkVaultDirty(VaultId, KeyVaultPtr->Header.Restrictions);
 
 END:
 	return Status;
@@ -4348,324 +4721,976 @@ END:
 
 /*************************************************************************************************/
 /**
- * @brief	Export the exportable key vault to a user-provided address.
- *
- * @param	DmaPtr			Pointer to the XAsufw_Dma instance.
- * @param	AesInstancePtr		Pointer to the XAes instance.
- * @param	ExportAddr		Address where the entire key vault should be exported.
- * @param	ExportBufSize		Size of the buffer at ExportAddr to prevent overflow.
- * @param	ActualVaultSizeAddr	Address where the actual size of exported vault data will
- *					be stored.
- *
- * @return
- *	- XASUFW_SUCCESS, if key vault export is successful.
- *	- XASUFW_CMD_IN_PROGRESS, if DMA transfer is in progress (non-blocking mode).
- *	- XASUFW_KEYMANAGER_INVALID_PARAM, if any input parameter is invalid.
- *	- XASUFW_KEYMANAGER_INVALID_BUF_SIZE, if export buffer is too small.
- *	- XASUFW_KEYMANAGER_AES_KEY_SETUP_FAIL, if AES key setup fails.
- *	- XASUFW_RAND_GEN_ERROR, if TRNG random number generation fails.
- *	- XASUFW_DMA_COPY_FAIL, if DMA transfer fails.
- *	- XASUFW_AES_INIT_FAILED, if AES initialization fails.
- *	- XASUFW_AES_UPDATE_FAILED, if AES update fails.
- *	- XASUFW_AES_FINAL_FAILED, if AES finalization fails.
- *
- *************************************************************************************************/
-s32 XKeyManager_ExportKeyVault(XAsufw_Dma *DmaPtr, XAes *AesInstancePtr, u64 ExportAddr,
-			       u32 ExportBufSize, u32 ActualVaultSizeAddr)
-{
-	/**
-	 * Capture the start time of the key vault export operation, if performance
-	 * measurement is enabled.
-	 */
-	XASUFW_MEASURE_PERF_START(XASU_MODULE_KEYMANAGER_ID);
-
-	CREATE_VOLATILE(Status, XASUFW_FAILURE);
-	CREATE_VOLATILE(ClearStatus, XASUFW_FAILURE);
-	u8 *VaultBaseAddr = XKEYMANAGER_GET_VAULT_BASE_PTR();
-	u32 *ActualSizePtr = NULL;
-	const XKeyManager *KeyVaultPtr = NULL;
-	XAsu_AesParams AesParams;
-	XAsu_AesKeyObject KeyObject;
-	XKeyManager_VaultMainHeader* VaultHeaderPtr = NULL;
-	XFih_Var XFihKeyManager = XFih_VolatileAssignXfihVar(XFIH_FAILURE);
-	static u8 VaultIndex = XKEYMANAGER_USER_VAULT_START_INDEX;
-	static u32 CurrentOutputOffset = 0U;
-	static u8 TagBuf[XKEYMANAGER_AES_TAG_LEN_IN_BYTES];
-	static u8 KeyIv[XKEYMANAGER_AES_IV_LEN_IN_BYTES];
-	static u32 CmdStage = XKEYMANAGER_AES_CMD_STAGE_INIT;
-	static u32 RevokeId = 0U;
-
-	/** Validate input parameters. */
-	if ((DmaPtr == NULL) || (AesInstancePtr == NULL) || (ExportAddr == 0U) ||
-	    (ExportBufSize < XKEYMANAGER_AES_IV_LEN_IN_BYTES) || (ActualVaultSizeAddr == 0U)) {
-		Status = XASUFW_KEYMANAGER_INVALID_PARAM;
-		goto END;
-	}
-
-	if (VaultBaseAddr == NULL) {
-		Status = XASUFW_KEYMANAGER_INVALID_DDR_ADDRESS;
-		goto END;
-	}
-
-	/** Get vault header Address. */
-	VaultHeaderPtr = (XKeyManager_VaultMainHeader *)VaultBaseAddr;
-
-	switch (CmdStage) {
-	case XKEYMANAGER_AES_CMD_STAGE_INIT:
-		/** Store and increment the revoke ID for the vault header. */
-		if (IsKeyVaultDirty == XKEYMANAGER_VAULT_DIRTY_VALUE) {
-			RevokeId = VaultHeaderPtr->RevokeId;
-			VaultHeaderPtr->RevokeId++;
-		}
-
-		/** Generate KV KEK and write to AES engine for key vault encryption. */
-		Status = XKeyManager_GenerateAndWriteAesKey(DmaPtr, AesInstancePtr);
-		if (Status != XASUFW_SUCCESS) {
-			Status = XAsufw_UpdateErrorStatus(Status,
-							  XASUFW_KEYMANAGER_AES_KEY_SETUP_FAIL);
-			goto END;
-		}
-
-		/** Generate ephemeral Key/IV using TRNG. */
-		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-		Status = XTrng_GetRandomNumbers(KeyIv, XKEYMANAGER_AES_IV_LEN_IN_BYTES);
-		if (Status != XASUFW_SUCCESS) {
-			Status = XASUFW_RAND_GEN_ERROR;
-			goto END_CLR;
-		}
-
-		/** Copy IV to export buffer before encryption. */
-		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-		Status = XAsufw_DmaXfr(DmaPtr, (u64)(UINTPTR)KeyIv, ExportAddr,
-				       XKEYMANAGER_AES_IV_LEN_IN_BYTES, 0U);
-		if (Status != XASUFW_SUCCESS) {
-			Status = XASUFW_DMA_COPY_FAIL;
-			goto END_CLR;
-		}
-
-		/** Initialize AES parameters. */
-		AesParams.EngineMode = (u8)XASU_AES_GCM_MODE;
-		AesParams.OperationType = XASU_AES_ENCRYPT_OPERATION;
-		AesParams.KeyObjectAddr = (u64)(UINTPTR)&KeyObject;
-		AesParams.IvObj.IvAddr = (u64)(UINTPTR)KeyIv;
-		AesParams.IvObj.IvLen = XKEYMANAGER_AES_IV_LEN_IN_BYTES;
-		AesParams.AadAddr = (u64)(UINTPTR)KeyIv;
-		AesParams.AadLen = XKEYMANAGER_AES_IV_LEN_IN_BYTES;
-		AesParams.TagAddr = (u64)(UINTPTR)TagBuf;
-		AesParams.TagLen = XKEYMANAGER_AES_TAG_LEN_IN_BYTES;
-
-		/** Initialize the AES engine for the given AES operation. */
-		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-		Status = XAes_Init(AesInstancePtr, DmaPtr, AesParams.IvObj.IvAddr,
-				   AesParams.IvObj.IvLen, AesParams.EngineMode,
-				   AesParams.OperationType);
-		if (Status != XASUFW_SUCCESS) {
-			Status = XAsufw_UpdateErrorStatus(Status, XASUFW_AES_INIT_FAILED);
-			goto END_CLR;
-		}
-
-		/** Update AAD. */
-		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-		Status = XAes_Update(AesInstancePtr, DmaPtr, AesParams.AadAddr, 0U,
-				     AesParams.AadLen, XASU_FALSE);
-		if (Status != XASUFW_SUCCESS) {
-			Status = XAsufw_UpdateErrorStatus(Status, XASUFW_AES_UPDATE_FAILED);
-			goto END_CLR;
-		}
-
-		/** Move data offsets to the keyvault data. */
-		CurrentOutputOffset = XKEYMANAGER_AES_IV_LEN_IN_BYTES +
-					XKEYMANAGER_VAULT_MAIN_HEADER_SIZE;
-
-		/* fall through */
-	case XKEYMANAGER_AES_CMD_STAGE_UPDATE_INPROGRESS:
-		/** Encrypt each individual vault except ASU vault (index 0). */
-		for (; VaultIndex < XASU_KM_MAX_VAULTS; VaultIndex++) {
-			KeyVaultPtr = (XKeyManager *)VaultManager.VaultInfo[VaultIndex].VaultBasePtr;
-			if ((VaultManager.VaultInfo[VaultIndex].VaultSize == 0U) ||
-			    (!XKEYMANAGER_IS_VAULT_EXPORTABLE(KeyVaultPtr->Header.Restrictions))) {
-				/** Skip non-exportable or empty vaults. */
-				continue;
-			}
-
-			/** Check if the export buffer has enough space for the current vault. */
-			if (ExportBufSize < (CurrentOutputOffset + VaultManager.VaultInfo[VaultIndex].VaultSize)) {
-				Status = XASUFW_KEYMANAGER_INVALID_BUF_SIZE;
-				goto END_CLR;
-			}
-
-			/** Encrypt this vault's data. */
-			Status = XAes_Update(AesInstancePtr, DmaPtr,
-					     (u64)(UINTPTR)KeyVaultPtr,
-					     ExportAddr + CurrentOutputOffset,
-					     VaultManager.VaultInfo[VaultIndex].VaultSize,
-					     XASU_FALSE);
-
-			/** Update offsets after successful synchronous encryption. */
-			CurrentOutputOffset += VaultManager.VaultInfo[VaultIndex].VaultSize;
-
-			if (Status == XASUFW_CMD_IN_PROGRESS) {
-				/**
-				 * DMA transfer is in progress for current vault.
-				 * Update offsets and increment VaultIndex for the next iteration.
-				 */
-				CmdStage = XKEYMANAGER_AES_CMD_STAGE_UPDATE_INPROGRESS;
-				VaultIndex++;
-				goto END;
-			} else if (Status != XASUFW_SUCCESS) {
-				Status = XAsufw_UpdateErrorStatus(Status, XASUFW_AES_UPDATE_FAILED);
-				goto END_CLR;
-			} else {
-				/* Do nothing. */
-			}
-		}
-
-		/** Encrypt main vault header. */
-		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-		Status = XAes_Update(AesInstancePtr, DmaPtr, (u64)(UINTPTR)VaultBaseAddr,
-				     ExportAddr + XKEYMANAGER_AES_IV_LEN_IN_BYTES,
-				     XKEYMANAGER_VAULT_MAIN_HEADER_SIZE,
-				     XASU_TRUE);
-		if (Status != XASUFW_SUCCESS) {
-			Status = XAsufw_UpdateErrorStatus(Status, XASUFW_AES_UPDATE_FAILED);
-			goto END_CLR;
-		}
-
-		/** Finalize AES operation and generate tag. */
-		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-		Status = XAes_Final(AesInstancePtr, DmaPtr, (u64)(UINTPTR)TagBuf,
-				    XKEYMANAGER_AES_TAG_LEN_IN_BYTES);
-		if (Status != XASUFW_SUCCESS) {
-			Status = XAsufw_UpdateErrorStatus(Status, XASUFW_AES_FINAL_FAILED);
-			goto END_CLR;
-		}
-
-		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-		/** Check if the export buffer has enough space for the tag. */
-		if (ExportBufSize < (CurrentOutputOffset + XKEYMANAGER_AES_TAG_LEN_IN_BYTES)) {
-			Status = XASUFW_KEYMANAGER_INVALID_BUF_SIZE;
-			goto END_CLR;
-		}
-
-		/** Copy the generated tag to the export buffer after encrypted data. */
-		Status = XAsufw_DmaXfr(DmaPtr, (u64)(UINTPTR)TagBuf,
-				       ExportAddr + CurrentOutputOffset,
-				       XKEYMANAGER_AES_TAG_LEN_IN_BYTES, 0U);
-		if (Status != XASUFW_SUCCESS) {
-			Status = XASUFW_DMA_COPY_FAIL;
-			goto END_CLR;
-		}
-
-		/** Write actual vault size (IV + encrypted data + GCM tag) to output parameter. */
-		ActualSizePtr = (u32 *)(UINTPTR)ActualVaultSizeAddr;
-		*ActualSizePtr = CurrentOutputOffset + XKEYMANAGER_AES_TAG_LEN_IN_BYTES;
-
-		/** Mark the key vault as clean after successful export. */
-		IsKeyVaultDirty = XKEYMANAGER_VAULT_CLEAN_VALUE;
-
-		break;
-	default:
-		Status = XASUFW_KEYMANAGER_INVALID_PARAM;
-		break;
-	}
-
-	/**
-	 * Measure and print the performance time for the key vault export operation, if
-	 * performance measurement is enabled.
-	 */
-	XASUFW_MEASURE_PERF_STOP(XASU_MODULE_KEYMANAGER_ID);
-
-END_CLR:
-	/** Zeroize the IV buffer. */
-	ClearStatus = Xil_SecureZeroize(KeyIv, XKEYMANAGER_AES_IV_LEN_IN_BYTES);
-	Status = XAsufw_UpdateErrorStatus(Status, ClearStatus);
-
-	/** Clear the key written to the XASU_AES_USER_KEY_7 key source. */
-	XFIH_CALL(XAes_KeyClear, XFihKeyManager, ClearStatus, AesInstancePtr, XASU_AES_USER_KEY_7);
-	Status = XAsufw_UpdateErrorStatus(Status, ClearStatus);
-
-	/** Zeroize the key object. */
-	ClearStatus = Xil_SecureZeroize((u8 *)(UINTPTR)&KeyObject, sizeof(XAsu_AesKeyObject));
-	Status = XAsufw_UpdateBufStatus(Status, ClearStatus);
-
-	/** Zeroize the local tag buffer. */
-	ClearStatus = Xil_SecureZeroize((u8 *)(UINTPTR)TagBuf, XKEYMANAGER_AES_TAG_LEN_IN_BYTES);
-	Status = XAsufw_UpdateBufStatus(Status, ClearStatus);
-
-	/** Reset vault index and offsets after operation. */
-	VaultIndex = XKEYMANAGER_USER_VAULT_START_INDEX;
-	CurrentOutputOffset = 0U;
-	CmdStage = XKEYMANAGER_AES_CMD_STAGE_INIT;
-
-END:
-	/** Restore revoke ID in case of failure in key vault export. */
-	if ((Status != XASUFW_SUCCESS) && (Status != XASUFW_CMD_IN_PROGRESS) &&
-	    (IsKeyVaultDirty == XKEYMANAGER_VAULT_DIRTY_VALUE) && (VaultHeaderPtr != NULL)) {
-		VaultHeaderPtr->RevokeId = RevokeId;
-	}
-	return Status;
-}
-
-/*************************************************************************************************/
-/**
- * @brief	Import the entire key vault from a user-provided address.
+ * @brief	This function exports the key vault as a signed blob.
  *
  * @param	DmaPtr		Pointer to the XAsufw_Dma instance.
  * @param	AesInstancePtr	Pointer to the XAes instance.
- * @param	ImportAddr	Address where the encrypted vault data is located.
- * @param	ImportSize	Total size of the import data (including IV and GCM tag).
+ * @param	ShaInstancePtr	Pointer to the XSha instance the body digests the blob with.
+ * @param	ParamsPtr	Pointer to caller-supplied export inputs.
  *
  * @return
- *	- XASUFW_SUCCESS, if key vault import is successful.
- *	- XASUFW_CMD_IN_PROGRESS, if DMA transfer is in progress (non-blocking mode).
- *	- XASUFW_KEYMANAGER_INVALID_PARAM, if any input parameter is invalid.
- *	- XASUFW_ZEROIZE_MEMSET_FAIL, if memory zeroization fails.
- *	- XASUFW_DMA_COPY_FAIL, if DMA transfer fails.
- *	- XASUFW_KEYMANAGER_AES_KEY_SETUP_FAIL, if AES key setup fails.
- *	- XASUFW_AES_INIT_FAILED, if AES initialization fails.
- *	- XASUFW_AES_UPDATE_FAILED, if AES update fails.
- *	- XASUFW_AES_FINAL_FAILED, if AES finalization fails.
- *	- XASUFW_KEYMANAGER_INVALID_ID_STRING, if imported vault header contains invalid ID string.
- *	- XASUFW_KEYMANAGER_INVALID_VAULT_VERSION, if imported vault header contains unsupported
- *	version.
- *	- XASUFW_KEYMANAGER_INVALID_VAULT_ID, if imported vault header contains invalid vault ID.
+ *		- XASUFW_SUCCESS, if export is successful.
+ *		- XASUFW_KEYMANAGER_INVALID_PARAM, if a required pointer is NULL.
+ *		- XASUFW_KEYMANAGER_OCP_NOT_ENABLED, if the build has no OCP.
+ *		- Error codes from the UDE key lookup, if no UDE slot is available.
+ *		- XASUFW_OVERLAY_ACTIVATE_FAIL, if either overlay image cannot be loaded.
+ *		- An error code from the body build or from the signature otherwise.
  *
  *************************************************************************************************/
-s32 XKeyManager_ImportKeyVault(XAsufw_Dma *DmaPtr, XAes *AesInstancePtr, u64 ImportAddr,
-			       u32 ImportSize)
+s32 XKeyManager_ExportKeyVault(XAsufw_Dma *DmaPtr, XAes *AesInstancePtr, XSha *ShaInstancePtr,
+			       const XKeyManager_AekvExportParams *ParamsPtr)
 {
-	/**
-	 * Capture the start time of the key vault import operation, if performance
-	 * measurement is enabled.
-	 */
-	XASUFW_MEASURE_PERF_START(XASU_MODULE_KEYMANAGER_ID);
-
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
 	CREATE_VOLATILE(ClearStatus, XASUFW_FAILURE);
-	u8 *VaultBaseAddr = XKEYMANAGER_GET_VAULT_BASE_PTR();
-	u8 *ActualDataPtr = NULL;
-	u8 Index = 0U;
-	u8 RevokeId = 0U;
-	u8 VaultMainHeader[XKEYMANAGER_VAULT_MAIN_HEADER_SIZE] = {0U};
-	u32 VaultId = 0U;
-	u32 ImportDataOffset = 0U;
-	u32 EncryptedDataSize = 0U;
-	XAsu_AesParams AesParams;
-	XAsu_AesKeyObject KeyObject;
-	XKeyManager *ImportedVaultPtr = NULL;
-	XKeyManager_VaultMainHeader *VaultHeaderPtr = NULL;
-	const XKeyManager_VaultMainHeader *ImportedVaultHeaderPtr = NULL;
-	XFih_Var XFihKeyManager = XFih_VolatileAssignXfihVar(XFIH_FAILURE);
-	static u8 KeyIv[XKEYMANAGER_AES_IV_LEN_IN_BYTES];
-	static u8 TagBuf[XKEYMANAGER_AES_TAG_LEN_IN_BYTES];
-	static u32 CmdStage = XKEYMANAGER_AES_CMD_STAGE_INIT;
-	u32 UserVaultLen = 0U;
+	XKeyManager_ExportCtx *CtxPtr = &XKEYMANAGER_SESSION->Export.Ctx;
+	u64 PublishResultAddr = 0U;
+	u32 PublishBlobSize = 0U;
+	u32 PublishModified = 0U;
+
+	XASUFW_MEASURE_PERF_START(XASU_MODULE_KEYMANAGER_ID);
+
+	/**
+	 * Clear the session before anything reads it. Nothing clears the shared crypto pool
+	 * before main(), and every algorithm that ran there earlier left its own working state
+	 * behind, so the session starts out holding arbitrary bytes. This runs ahead of the
+	 * parameter checks because the audit line at the end reports session fields on every
+	 * exit, including those rejections.
+	 */
+	Status = XKeyManager_ExportSessionReset();
+	if (XASUFW_SUCCESS != Status) {
+		goto END;
+	}
+
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	if ((DmaPtr == NULL) || (AesInstancePtr == NULL) || (ShaInstancePtr == NULL) ||
+	    (ParamsPtr == NULL)) {
+		Status = XASUFW_KEYMANAGER_INVALID_PARAM;
+		goto END;
+	}
+
+	XKEYMANAGER_SESSION->Export.ShaInstancePtr = ShaInstancePtr;
+
+	/** The audit line names the caller on every exit, including the rejects below. */
+	XKEYMANAGER_SESSION->Export.SubsystemId = ParamsPtr->SubsystemId;
+
+	/**
+	 * The UDE key signs the header, and a build without OCP or without an active UDE slot can
+	 * never do that, so it is settled before any engine, as the import does.
+	 */
+#ifdef XASU_OCP_ENABLE
+	Status = XOcp_IsUdeAvailable();
+	if (XASUFW_SUCCESS != Status) {
+		goto END;
+	}
+#else
+	Status = XASUFW_KEYMANAGER_OCP_NOT_ENABLED;
+	goto END;
+#endif
+
+	/** Both engines the body drives are proven before either image is loaded. */
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	Status = XKeyManager_RunCryptoKats();
+	if (XASUFW_SUCCESS != Status) {
+		goto END;
+	}
+
+	/**
+	 * The signature engine is proven here, ahead of any key material being touched, as the
+	 * import does. An engine that only failed its KAT after the body was built would leave
+	 * the vault already wrapped into a blob that can never be signed.
+	 */
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	Status = XKeyManager_ActivateSignatureImage(DmaPtr);
+	if (XASUFW_SUCCESS != Status) {
+		goto END;
+	}
+
+	/**
+	 * Build the body and every header field except the signature. The chunk-0 digest the
+	 * header carries is produced by the body build, so this has to complete first.
+	 */
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	Status = XOverlay_Activate(XOVERLAY_ALGO_KEYVAULT, DmaPtr);
+	if (XASUFW_SUCCESS != Status) {
+		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_OVERLAY_ACTIVATE_FAIL);
+		goto END;
+	}
+
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	Status = XKeyManager_AekvExportBody(DmaPtr, AesInstancePtr, ParamsPtr);
+	if (XASUFW_SUCCESS != Status) {
+		goto END;
+	}
+
+	/**
+	 * The body ran under the key-vault image, so the image the ECC core is linked into is
+	 * brought back before the header is signed. Its KAT passed above and is not repeated.
+	 */
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	Status = XKeyManager_ActivateSignatureImage(DmaPtr);
+	if (XASUFW_SUCCESS != Status) {
+		goto END;
+	}
+
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	Status = XKeyManager_AekvSignHeader(DmaPtr, CtxPtr, ParamsPtr->ExportAddr);
+	if (XASUFW_SUCCESS != Status) {
+		goto END;
+	}
+
+	/**
+	 * What the result will say is taken here, while the session still holds it, but it is
+	 * not published until the session has been torn down. Publishing first would hand the
+	 * caller a finished export and mark the vault clean, and a failure in the wipe below
+	 * would then return an error against an export that had already been accepted.
+	 */
+	PublishResultAddr = XKEYMANAGER_SESSION->Export.ExportResultAddr;
+	PublishBlobSize = CtxPtr->BlobSize;
+	PublishModified = CtxPtr->ModifiedValue;
+	Status = XASUFW_SUCCESS;
+
+END:
+	XAsufw_Printf(DEBUG_PRINT_ALWAYS,
+		      "AUDIT: KeyVault %s | RevokeEfuse=%u | Caller=0x%08x | Result=0x%x\r\n",
+		      XKEYMANAGER_AUDIT_OP_EXPORT, CtxPtr->RevokeEfuseNum,
+		      XKEYMANAGER_SESSION->Export.SubsystemId, (u32)Status);
+
+	/**
+	 * Wipe the key material before releasing the pool. The next user of these bytes need not
+	 * be an algorithm that keeps them private: XOcp_GetX509Cert builds a certificate at this
+	 * same base and hands it back to its caller, so anything left here could leave the device.
+	 */
+	ClearStatus = XKeyManager_ExportSessionReset();
+	Status = XAsufw_UpdateBufStatus(Status, ClearStatus);
+
+	/** Only a wholly successful export, cleanup included, is reported to the caller. */
+	if ((XASUFW_SUCCESS == Status) && (PublishResultAddr != 0U)) {
+		XKeyManager_ExportPublishResult(PublishResultAddr, PublishBlobSize,
+						PublishModified);
+	}
+
+	XASUFW_MEASURE_PERF_STOP(XASU_MODULE_KEYMANAGER_ID);
+
+	return Status;
+}
+/*************************************************************************************************/
+/**
+ * @brief	This function imports a key vault from a signed blob.
+ *
+ * @param	DmaPtr		Pointer to the XAsufw_Dma instance.
+ * @param	AesInstancePtr	Pointer to the XAes instance.
+ * @param	ShaInstancePtr	Pointer to the XSha instance the body digests the blob with.
+ * @param	ParamsPtr	Pointer to caller-supplied import inputs.
+ *
+ * @return
+ *		- XASUFW_SUCCESS, if import is successful.
+ *		- XASUFW_KEYMANAGER_INVALID_PARAM, if a required pointer is NULL or the blob is
+ *		  too small to hold a header.
+ *		- XASUFW_KEYMANAGER_AEKV_INVALID_CONTEXT, if the caller's KDF context is all zeros.
+ *		- XASUFW_MEM_COPY_FAIL, if the caller's KDF context cannot be copied into the
+ *		  session.
+ *		- XASUFW_KEYMANAGER_OCP_NOT_ENABLED, if the build has no OCP.
+ *		- Error codes from the UDE key lookup, if no UDE slot is available.
+ *		- XASUFW_OVERLAY_ACTIVATE_FAIL, if either overlay image cannot be loaded.
+ *		- An error code from the structure check, the signature or the body otherwise.
+ *
+ *************************************************************************************************/
+s32 XKeyManager_ImportKeyVault(XAsufw_Dma *DmaPtr, XAes *AesInstancePtr, XSha *ShaInstancePtr,
+			       const XKeyManager_AekvImportParams *ParamsPtr)
+{
+	CREATE_VOLATILE(Status, XASUFW_FAILURE);
+	CREATE_VOLATILE(ClearStatus, XASUFW_FAILURE);
+	XKeyManager_ImportCtx *CtxPtr = &XKEYMANAGER_SESSION->Import.Ctx;
+
+	XASUFW_MEASURE_PERF_START(XASU_MODULE_KEYMANAGER_ID);
+
+	/**
+	 * Clear the session before anything reads it, for the same reason the export does, and
+	 * before the header is staged into it.
+	 */
+	Status = XKeyManager_ImportSessionReset();
+	if (XASUFW_SUCCESS != Status) {
+		goto END;
+	}
+
+	/** The blob has to hold at least the oldest header before it is worth reading. */
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	if ((DmaPtr == NULL) || (AesInstancePtr == NULL) || (ShaInstancePtr == NULL) ||
+	    (ParamsPtr == NULL) ||
+	    (ParamsPtr->ImportSize < XKeyManager_GetHeaderSize(XKEYMANAGER_IMPORT_MIN_VERSION))) {
+		Status = XASUFW_KEYMANAGER_INVALID_PARAM;
+		goto END;
+	}
+
+	XKEYMANAGER_SESSION->Import.ShaInstancePtr = ShaInstancePtr;
+
+	/** The audit line names the caller on every exit, including the rejects below. */
+	XKEYMANAGER_SESSION->Import.SubsystemId = ParamsPtr->SubsystemId;
+
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	Status = XKeyManager_ValidateClientBuffer(ParamsPtr->ImportAddr, ParamsPtr->ImportSize);
+	if (XASUFW_SUCCESS != Status) {
+		goto END;
+	}
+
+	CtxPtr->ImportAddr = ParamsPtr->ImportAddr;
+	CtxPtr->ImportSize = ParamsPtr->ImportSize;
+	CtxPtr->PlaintextBytesRestored = 0U;
+
+	/**
+	 * Stage the header and check its structure before any engine is touched. Both work on
+	 * plaintext fields of the staged copy, so a blob that is not AEKV at all, or names a
+	 * format this firmware does not read, is rejected without running a known answer test
+	 * or loading an overlay image.
+	 */
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	Status = XKeyManager_AekvLoadHeader(DmaPtr, CtxPtr, ParamsPtr->ImportAddr);
+	if (XASUFW_SUCCESS != Status) {
+		goto END;
+	}
+
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	Status = XKeyManager_AekvValidateStructure(&CtxPtr->Header, ParamsPtr->ImportSize);
+	if (XASUFW_SUCCESS != Status) {
+		goto END;
+	}
+
+	/**
+	 * The UDE key verifies the header, and a build without OCP or without an active UDE slot
+	 * can never do that, so it is settled before any engine, as the export does.
+	 */
+#ifdef XASU_OCP_ENABLE
+	Status = XOcp_IsUdeAvailable();
+	if (XASUFW_SUCCESS != Status) {
+		goto END;
+	}
+#else
+	Status = XASUFW_KEYMANAGER_OCP_NOT_ENABLED;
+	goto END;
+#endif
+
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	Status = XKeyManager_RunCryptoKats();
+	if (XASUFW_SUCCESS != Status) {
+		goto END;
+	}
+
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	Status = XAsu_IsBufferNonZero((u8 *)(UINTPTR)ParamsPtr->Context,
+				      XASU_KM_KV_CONTEXT_SIZE_IN_BYTES);
+	if (XASUFW_SUCCESS != Status) {
+		Status = XASUFW_KEYMANAGER_AEKV_INVALID_CONTEXT;
+		goto END;
+	}
+
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	Status = Xil_SMemCpy(CtxPtr->Context, XASU_KM_KV_CONTEXT_SIZE_IN_BYTES, ParamsPtr->Context,
+			     XASU_KM_KV_CONTEXT_SIZE_IN_BYTES, XASU_KM_KV_CONTEXT_SIZE_IN_BYTES);
+	if (XASUFW_SUCCESS != Status) {
+		Status = XASUFW_MEM_COPY_FAIL;
+		goto END;
+	}
+
+	/**
+	 * Authenticate the staged header before anything else reads the blob. The structure
+	 * check above bounds what the signature is computed over, and neither touches the vault.
+	 */
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	Status = XKeyManager_ActivateSignatureImage(DmaPtr);
+	if (XASUFW_SUCCESS != Status) {
+		goto END;
+	}
+
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	Status = XKeyManager_AekvVerifyHeader(DmaPtr, CtxPtr);
+	if (XASUFW_SUCCESS != Status) {
+		goto END;
+	}
+
+	/** The blob is authentic, so the body can be unwrapped into the vault. */
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	Status = XOverlay_Activate(XOVERLAY_ALGO_KEYVAULT, DmaPtr);
+	if (XASUFW_SUCCESS != Status) {
+		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_OVERLAY_ACTIVATE_FAIL);
+		goto END;
+	}
+
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	Status = XKeyManager_AekvImportBody(DmaPtr, AesInstancePtr, ParamsPtr);
+
+END:
+	XAsufw_Printf(DEBUG_PRINT_ALWAYS,
+		      "AUDIT: KeyVault %s | RevokeEfuse=%u | Caller=0x%08x | Result=0x%x\r\n",
+		      XKEYMANAGER_AUDIT_OP_IMPORT, CtxPtr->Header.RevocationCounter,
+		      XKEYMANAGER_SESSION->Import.SubsystemId, (u32)Status);
+
+	/**
+	 * Wipe the key material before releasing the pool, for the same reason the export does.
+	 */
+	ClearStatus = XKeyManager_ImportSessionReset();
+	Status = XAsufw_UpdateBufStatus(Status, ClearStatus);
+
+	/**
+	 * Only a wholly successful import, cleanup included, leaves the vault marked clean. A
+	 * teardown that failed is reported to the caller, and the vault stays marked as holding
+	 * changes no blob carries, so the next export says so rather than reporting a checkpoint
+	 * this command never completed.
+	 */
+	if (XASUFW_SUCCESS == Status) {
+		XKeyManager_MarkVaultClean();
+	}
+
+	XASUFW_MEASURE_PERF_STOP(XASU_MODULE_KEYMANAGER_ID);
+
+	return Status;
+}
+/*************************************************************************************************/
+/**
+ * @brief	This function checks whether at least one exportable vault exists, that is the ASU
+ *		internal exportable vault or a user vault tagged exportable.
+ *
+ * @return
+ *		- XASUFW_SUCCESS, if an exportable vault is present.
+ *		- XASUFW_KEYMANAGER_VAULT_NOT_FOUND, if none are exportable or a sized registry
+ *		  entry has no base address.
+ *
+ *************************************************************************************************/
+s32 XKeyManager_HasExportableVault(void)
+{
+	CREATE_VOLATILE(Status, XASUFW_FAILURE);
+	u32 VaultIndex;
+	const XKeyManager *KeyVaultPtr = NULL;
+
+	/**
+	 * The export covers the restorable region, so only the vaults living in it are looked
+	 * at, and one exportable vault anywhere in that region is enough.
+	 */
+	for (VaultIndex = XKEYMANAGER_RESTORABLE_VAULT_START_INDEX;
+	     VaultIndex < XASU_KM_MAX_VAULTS; VaultIndex++) {
+		if (VaultManager.VaultInfo[VaultIndex].VaultSize == 0U) {
+			continue;
+		}
+
+		KeyVaultPtr = (XKeyManager *)VaultManager.VaultInfo[VaultIndex].VaultBasePtr;
+		if (KeyVaultPtr == NULL) {
+			Status = XASUFW_KEYMANAGER_VAULT_NOT_FOUND;
+			goto END;
+		}
+
+		if (XKEYMANAGER_IS_VAULT_EXPORTABLE(KeyVaultPtr->Header.Restrictions)) {
+			Status = XASUFW_SUCCESS;
+			goto END;
+		}
+	}
+
+	Status = XASUFW_KEYMANAGER_VAULT_NOT_FOUND;
+
+END:
+	return Status;
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	This function checks that no user key vault occupies the import region. Import
+ *		restores a whole key vault image, so the caller has to delete any key vault it
+ *		still needs before requesting one. The ASU internal exportable vault is left out
+ *		of the check, as ASU owns it and no caller can delete it, and the blob carries
+ *		the image which replaces it.
+ *
+ * @return
+ *		- XASUFW_SUCCESS, if no user key vault is present.
+ *		- XASUFW_KEYMANAGER_AEKV_VAULT_PRESENT, if a user key vault is still present.
+ *
+ *************************************************************************************************/
+s32 XKeyManager_IsImportRegionEmpty(void)
+{
+	CREATE_VOLATILE(Status, XASUFW_FAILURE);
+	u32 VaultIndex;
+
+	/**
+	 * The walk starts past the ASU internal vault, which no caller can delete and which the
+	 * imported image replaces anyway.
+	 */
+	for (VaultIndex = XKEYMANAGER_USER_VAULT_START_INDEX; VaultIndex < XASU_KM_MAX_VAULTS;
+	     VaultIndex++) {
+		if (VaultManager.VaultInfo[VaultIndex].VaultSize != 0U) {
+			Status = XASUFW_KEYMANAGER_AEKV_VAULT_PRESENT;
+			goto END;
+		}
+	}
+
+	Status = XASUFW_SUCCESS;
+
+END:
+	return Status;
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	This function computes the size of the packed exportable plaintext. It is the
+ *		vault table header plus every registered vault the restrictions mark as
+ *		exportable, and it sizes the body an export has to build.
+ *
+ * @param	SizePtr		Pointer to output size in bytes.
+ *
+ * @return
+ *		- XASUFW_SUCCESS, if size computation is successful.
+ *		- XASUFW_KEYMANAGER_INVALID_PARAM, if SizePtr is NULL.
+ *		- XASUFW_KEYMANAGER_VAULT_NOT_FOUND, if a registered vault has no base address.
+ *
+ *************************************************************************************************/
+s32 XKeyManager_GetExportablePlaintextSize(u32 *SizePtr)
+{
+	CREATE_VOLATILE(Status, XASUFW_FAILURE);
+	u32 VaultIndex;
+	u32 TotalSize = XKEYMANAGER_VAULT_MAIN_HEADER_SIZE;
+	const XKeyManager *KeyVaultPtr = NULL;
+
+	if (SizePtr == NULL) {
+		Status = XASUFW_KEYMANAGER_INVALID_PARAM;
+		goto END;
+	}
+
+	for (VaultIndex = XKEYMANAGER_RESTORABLE_VAULT_START_INDEX;
+	     VaultIndex < XASU_KM_MAX_VAULTS; VaultIndex++) {
+		if (VaultManager.VaultInfo[VaultIndex].VaultSize == 0U) {
+			continue;
+		}
+
+		/**
+		 * A registry entry carries a size and a base together, so a sized entry
+		 * without a base means the registry is inconsistent. Stop rather than skip
+		 * the vault, as skipping would export a blob that silently omits keys.
+		 */
+		KeyVaultPtr = (XKeyManager *)VaultManager.VaultInfo[VaultIndex].VaultBasePtr;
+		if (KeyVaultPtr == NULL) {
+			Status = XASUFW_KEYMANAGER_VAULT_NOT_FOUND;
+			goto END;
+		}
+
+		if (!XKEYMANAGER_IS_VAULT_EXPORTABLE(KeyVaultPtr->Header.Restrictions)) {
+			continue;
+		}
+
+		TotalSize += VaultManager.VaultInfo[VaultIndex].VaultSize;
+	}
+
+	*SizePtr = TotalSize;
+	Status = XASUFW_SUCCESS;
+
+END:
+	return Status;
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	This function copies packed export plaintext bytes at the given offset. It is the
+ *		source callback the chunk layer draws from, and it presents the vault table
+ *		header followed by the exportable vaults as one flat byte range.
+ *
+ * @param	Offset		Byte offset in packed plaintext.
+ * @param	Buf		Output buffer.
+ * @param	Len		Number of bytes to copy.
+ *
+ * @return
+ *		- XASUFW_SUCCESS, if copy is successful.
+ *		- XASUFW_KEYMANAGER_INVALID_PARAM, if inputs are invalid.
+ *		- XASUFW_KEYMANAGER_INVALID_DDR_ADDRESS, if the vault region has no base address.
+ *		- XASUFW_KEYMANAGER_VAULT_NOT_FOUND, if a registered vault has no base address.
+ *		- XASUFW_MEM_COPY_FAIL, if a copy out of the vault table header or a vault fails.
+ *
+ *************************************************************************************************/
+s32 XKeyManager_ReadExportPlaintext(u32 Offset, u8 *Buf, u32 Len)
+{
+	CREATE_VOLATILE(Status, XASUFW_FAILURE);
+	const u8 *VaultBaseAddr = XKEYMANAGER_GET_VAULT_BASE_PTR();
+	u32 TotalSize = 0U;
+	u32 Copied = 0U;
+	u32 VaultIndex;
+	u32 DataOffset = 0U;
+	u32 SpanLen;
+	u32 VaultSize;
+	const XKeyManager *KeyVaultPtr = NULL;
+
 
 	/** Validate input parameters. */
-	if ((DmaPtr == NULL) || (AesInstancePtr == NULL) || (ImportAddr == 0U) ||
-	    (ImportSize < (XKEYMANAGER_AES_IV_LEN_IN_BYTES + XKEYMANAGER_AES_TAG_LEN_IN_BYTES +
-			   XKEYMANAGER_VAULT_MAIN_HEADER_SIZE))) {
+	if ((Buf == NULL) || (Len == 0U)) {
 		Status = XASUFW_KEYMANAGER_INVALID_PARAM;
+		goto END;
+	}
+
+	/** The vault region is read below, so its base is settled with the other inputs. */
+	if (VaultBaseAddr == NULL) {
+		Status = XASUFW_KEYMANAGER_INVALID_DDR_ADDRESS;
+		goto END;
+	}
+
+	/** Get the size of the packed plaintext the export presents. */
+	Status = XKeyManager_GetExportablePlaintextSize(&TotalSize);
+	if (XASUFW_SUCCESS != Status) {
+		goto END;
+	}
+
+	/** Reject a window that starts past the plaintext or runs off its end. */
+	if ((Offset >= TotalSize) || (Len > (TotalSize - Offset))) {
+		Status = XASUFW_KEYMANAGER_INVALID_PARAM;
+		goto END;
+	}
+
+	/**
+	 * Copy the part of the window that falls in the vault table header, which comes first in
+	 * the packed layout and is contiguous. A window that starts past the header instead
+	 * carries its offset into the vault data as DataOffset.
+	 */
+	if (Offset < XKEYMANAGER_VAULT_MAIN_HEADER_SIZE) {
+		SpanLen = XKEYMANAGER_VAULT_MAIN_HEADER_SIZE - Offset;
+		if (SpanLen > Len) {
+			SpanLen = Len;
+		}
+
+		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+		Status = Xil_SMemCpy(Buf, Len, &VaultBaseAddr[Offset], SpanLen, SpanLen);
+		if (XASUFW_SUCCESS != Status) {
+			Status = XASUFW_MEM_COPY_FAIL;
+			goto END;
+		}
+
+		Copied = SpanLen;
+	} else {
+		DataOffset = Offset - XKEYMANAGER_VAULT_MAIN_HEADER_SIZE;
+	}
+
+	/**
+	 * The exportable vaults are packed back to back after the header. Copy whole spans
+	 * rather than single bytes so the vault table is walked once per call.
+	 */
+	for (VaultIndex = XKEYMANAGER_RESTORABLE_VAULT_START_INDEX;
+	     (VaultIndex < XASU_KM_MAX_VAULTS) && (Copied < Len); VaultIndex++) {
+		VaultSize = VaultManager.VaultInfo[VaultIndex].VaultSize;
+		if (VaultSize == 0U) {
+			continue;
+		}
+
+		KeyVaultPtr = (XKeyManager *)VaultManager.VaultInfo[VaultIndex].VaultBasePtr;
+		if (KeyVaultPtr == NULL) {
+			Status = XASUFW_KEYMANAGER_VAULT_NOT_FOUND;
+			goto END;
+		}
+
+		/** Skip a vault the export does not carry, so it takes no space in the layout. */
+		if (!XKEYMANAGER_IS_VAULT_EXPORTABLE(KeyVaultPtr->Header.Restrictions)) {
+			continue;
+		}
+
+		/** Skip a vault that ends before the window starts, counting it off the offset. */
+		if (DataOffset >= VaultSize) {
+			DataOffset -= VaultSize;
+			continue;
+		}
+
+		/** Copy the part of this vault that falls inside the window. */
+		SpanLen = VaultSize - DataOffset;
+		if (SpanLen > (Len - Copied)) {
+			SpanLen = Len - Copied;
+		}
+
+		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+		Status = Xil_SMemCpy(&Buf[Copied], Len - Copied,
+				     ((const u8 *)KeyVaultPtr) + DataOffset, SpanLen, SpanLen);
+		if (XASUFW_SUCCESS != Status) {
+			Status = XASUFW_MEM_COPY_FAIL;
+			goto END;
+		}
+
+		Copied += SpanLen;
+		DataOffset = 0U;
+	}
+
+	/**
+	 * A window the size check accepted has to be filled by the walk above. Anything short
+	 * means the registry and the packed size disagree, so the caller gets no partial data.
+	 */
+	if (Copied != Len) {
+		Status = XASUFW_KEYMANAGER_INVALID_PARAM;
+		goto END;
+	}
+
+	Status = XASUFW_SUCCESS;
+
+END:
+	return Status;
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	This function writes packed import plaintext at the given offset. It is the sink
+ *		callback the chunk layer hands decrypted blocks to, and it places them into the
+ *		restorable vault region, rejecting any range that falls outside it.
+ *
+ * @param	Offset		Byte offset in packed plaintext.
+ * @param	Buf		Input buffer.
+ * @param	Len		Number of bytes to write.
+ *
+ * @return
+ *		- XASUFW_SUCCESS, if write is successful.
+ *		- XASUFW_KEYMANAGER_INVALID_PARAM, if inputs are invalid or the requested range
+ *		lies outside the restorable vault region.
+ *		- XASUFW_KEYMANAGER_INVALID_DDR_ADDRESS, if the vault region has no base address.
+ *		- XASUFW_MEM_COPY_FAIL, if the copy to the vault region fails.
+ *
+ *************************************************************************************************/
+s32 XKeyManager_WriteImportPlaintext(u32 Offset, const u8 *Buf, u32 Len)
+{
+	CREATE_VOLATILE(Status, XASUFW_FAILURE);
+	u8 *VaultBaseAddr = XKEYMANAGER_GET_VAULT_BASE_PTR();
+	u32 Copied = 0U;
+	u32 DataOffset = 0U;
+	u32 SpanLen;
+	u32 RestorableSize;
+
+
+	if ((Buf == NULL) || (Len == 0U) || (ImportRestoreBasePtr == NULL)) {
+		Status = XASUFW_KEYMANAGER_INVALID_PARAM;
+		goto END;
+	}
+
+	/** The vault region is written below, so its base is settled with the other inputs. */
+	if (VaultBaseAddr == NULL) {
+		Status = XASUFW_KEYMANAGER_INVALID_DDR_ADDRESS;
+		goto END;
+	}
+
+	/**
+	 * The blob dictates how many chunks are written, so bound the destination range
+	 * against the vault region before any byte is stored.
+	 */
+	RestorableSize = XKEYMANAGER_VAULT_MAIN_HEADER_SIZE + ImportRestoreRegionLen;
+	if ((Offset >= RestorableSize) || (Len > (RestorableSize - Offset))) {
+		Status = XASUFW_KEYMANAGER_INVALID_PARAM;
+		goto END;
+	}
+
+	/**
+	 * The vault table header comes first in the packed layout and the restore region
+	 * follows it, so a write spans at most those two areas. Copy whole spans rather than
+	 * single bytes, as the import walks the entire region one block at a time.
+	 */
+	if (Offset < XKEYMANAGER_VAULT_MAIN_HEADER_SIZE) {
+		SpanLen = XKEYMANAGER_VAULT_MAIN_HEADER_SIZE - Offset;
+		if (SpanLen > Len) {
+			SpanLen = Len;
+		}
+
+		Status = Xil_SMemCpy(&VaultBaseAddr[Offset],
+				     XKEYMANAGER_VAULT_MAIN_HEADER_SIZE - Offset, Buf, SpanLen,
+				     SpanLen);
+		if (XASUFW_SUCCESS != Status) {
+			Status = XASUFW_MEM_COPY_FAIL;
+			goto END;
+		}
+
+		Copied = SpanLen;
+	} else {
+		DataOffset = Offset - XKEYMANAGER_VAULT_MAIN_HEADER_SIZE;
+	}
+
+	if (Copied < Len) {
+		SpanLen = Len - Copied;
+		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+		Status = Xil_SMemCpy(&ImportRestoreBasePtr[DataOffset],
+				     ImportRestoreRegionLen - DataOffset, &Buf[Copied], SpanLen,
+				     SpanLen);
+		if (XASUFW_SUCCESS != Status) {
+			Status = XASUFW_MEM_COPY_FAIL;
+			goto END;
+		}
+	}
+
+	Status = XASUFW_SUCCESS;
+
+END:
+	return Status;
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	This function records that a vault changed, when that change is one an export
+ *		would carry.
+ *
+ * @param	VaultId		Identifier of the vault that changed.
+ * @param	Restrictions	Restrictions field of that vault, read while it is still valid.
+ *
+ * @note	The flag answers whether the vault differs from the one the last blob carried,
+ *		so only a vault the blob holds can move it. The ASU vault travels on its own
+ *		terms, and a vault whose restrictions keep it out of the blob leaves nothing for
+ *		an export to report, so neither marks the vault dirty.
+ *
+ *************************************************************************************************/
+static void XKeyManager_MarkVaultDirty(u32 VaultId, u8 Restrictions)
+{
+	if ((VaultId != XKEYMANAGER_ASU_VAULT_ID) &&
+	    XKEYMANAGER_IS_VAULT_EXPORTABLE(Restrictions)) {
+		IsKeyVaultDirty = XKEYMANAGER_VAULT_DIRTY_VALUE;
+	}
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	This function marks the key vault as clean after a successful export. The dirty
+ *		flag is what tells a later export that the vault holds changes no blob carries
+ *		yet.
+ *
+ *************************************************************************************************/
+void XKeyManager_MarkVaultClean(void)
+{
+	IsKeyVaultDirty = XKEYMANAGER_VAULT_CLEAN_VALUE;
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	This function returns the DDR key vault base pointer, which is where the vault
+ *		main header and the vaults behind it live.
+ *
+ * @return
+ *		- Pointer to the vault main header in DDR.
+ *
+ *************************************************************************************************/
+u8 *XKeyManager_GetVaultBasePtr(void)
+{
+	u8 *BasePtr = XKEYMANAGER_GET_VAULT_BASE_PTR();
+
+	return BasePtr;
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	This function lends the shared session storage to a caller that needs a large
+ *		scratch buffer only while it runs. The caller decides what the bytes mean and
+ *		wipes what it used before it returns, and it may only borrow the storage while no
+ *		key vault export or import is running.
+ *
+ * @param	SizePtr		Pointer to the scratch size output, in bytes.
+ *
+ * @return
+ *		- Pointer to the shared scratch, of the size reported through SizePtr.
+ *		- NULL, if SizePtr is NULL.
+ *
+ * @note	This lives with the resident sequencers rather than beside the export and import
+ *		it shares its storage with, whose text is in the key vault overlay image. A
+ *		borrower runs while that image is not loaded.
+ *
+ *************************************************************************************************/
+u8 *XKeyManager_GetSharedScratch(u32 *SizePtr)
+{
+	u8 *ScratchPtr = NULL;
+
+	if (SizePtr != NULL) {
+		*SizePtr = XKEYMANAGER_SHARED_SCRATCH_SIZE;
+		ScratchPtr = ((XKeyManager_SharedStorage *)(UINTPTR)
+			      XASUFW_CRYPTO_ALGO_DATA_BLOCK)->Scratch;
+	}
+
+	return ScratchPtr;
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	This function returns whether the key vault has modifications no export has
+ *		carried out yet. An export records the answer in the blob header, so a caller
+ *		can tell whether the blob it holds is current.
+ *
+ * @return
+ *		- 1U, if the vault is dirty.
+ *		- 0U, if the vault is clean.
+ *
+ *************************************************************************************************/
+u8 XKeyManager_IsKeyVaultDirty(void)
+{
+	u8 Dirty = 0U;
+
+	if (IsKeyVaultDirty == XKEYMANAGER_VAULT_DIRTY_VALUE) {
+		Dirty = 1U;
+	}
+
+	return Dirty;
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	This function returns the byte count an import may restore, that is the main vault
+ *		header plus the region left after the ASU internal non-exportable vault, which
+ *		holds the ASU internal exportable vault and the user vaults.
+ *
+ * @param	SizePtr		Pointer to the restorable size output.
+ *
+ * @return
+ *		- XASUFW_SUCCESS, if the size is returned.
+ *		- XASUFW_KEYMANAGER_INVALID_PARAM, if SizePtr is NULL.
+ *		- XASUFW_KEYMANAGER_NO_SPACE, if the ASU internal vault does not fit in the vault
+ *		region.
+ *
+ *************************************************************************************************/
+s32 XKeyManager_GetImportRestorableSize(u32 *SizePtr)
+{
+	CREATE_VOLATILE(Status, XASUFW_FAILURE);
+	u32 AsuVaultSize = VaultManager.VaultInfo[XKEYMANAGER_ASU_VAULT_ID].VaultSize;
+
+	if (SizePtr == NULL) {
+		Status = XASUFW_KEYMANAGER_INVALID_PARAM;
+		goto END;
+	}
+
+	/**
+	 * The sizes are unsigned and this one bounds the vault size the blob may declare, so a
+	 * region which does not hold the ASU internal vault is rejected rather than subtracted
+	 * into a byte count larger than the vault.
+	 */
+	if (VaultManager.TotalVaultSize <= AsuVaultSize) {
+		Status = XASUFW_KEYMANAGER_NO_SPACE;
+		goto END;
+	}
+
+	/**
+	 * The total size already covers the main header, so only the ASU internal vault is
+	 * taken out. Adding the header on top would report a byte count the write path
+	 * rejects, and the import would fail after part of the region was overwritten.
+	 */
+	*SizePtr = VaultManager.TotalVaultSize - AsuVaultSize;
+
+	Status = XASUFW_SUCCESS;
+
+END:
+	return Status;
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	This function validates a caller-supplied AEKV blob or result buffer. The address
+ *		and length arrive from the client, so the range is bound to the encrypted DDR
+ *		window and kept clear of the key vault itself.
+ *
+ * @param	Addr	Start address of the caller buffer.
+ * @param	Len	Buffer length in bytes.
+ *
+ * @return
+ *		- XASUFW_SUCCESS, if the buffer is usable.
+ *		- XASUFW_KEYMANAGER_INVALID_PARAM, if the address or length is zero.
+ *		- XASUFW_KEYMANAGER_INVALID_DDR_ADDRESS, if the buffer leaves the DDR window or
+ *			overlaps the key vault region.
+ *
+ *************************************************************************************************/
+s32 XKeyManager_ValidateClientBuffer(u64 Addr, u32 Len)
+{
+	CREATE_VOLATILE(Status, XASUFW_FAILURE);
+	u64 EndAddr;
+	u64 VaultStartAddr;
+	u64 VaultEndAddr;
+
+	if ((Addr == 0U) || (Len == 0U)) {
+		Status = XASUFW_KEYMANAGER_INVALID_PARAM;
+		goto END;
+	}
+
+	/**
+	 * Key material may only cross the same encrypted DDR window the vault is limited to,
+	 * so a buffer that ends above it, or that wraps, is rejected.
+	 */
+	EndAddr = Addr + (u64)Len - 1U;
+	if ((EndAddr < Addr) || (EndAddr > (u64)XASUFW_2GB_END_ADDR)) {
+		Status = XASUFW_KEYMANAGER_INVALID_DDR_ADDRESS;
+		goto END;
+	}
+
+	/** A buffer overlapping the vault would let a caller read or overwrite it directly. */
+	if (VaultManager.TotalVaultSize != 0U) {
+		VaultStartAddr = (u64)(UINTPTR)XKEYMANAGER_GET_VAULT_BASE_PTR();
+		VaultEndAddr = VaultStartAddr + (u64)VaultManager.TotalVaultSize - 1U;
+		if ((Addr <= VaultEndAddr) && (EndAddr >= VaultStartAddr)) {
+			Status = XASUFW_KEYMANAGER_INVALID_DDR_ADDRESS;
+			goto END;
+		}
+	}
+
+	Status = XASUFW_SUCCESS;
+
+END:
+	return Status;
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	This function drops the record of an import and wipes both snapshots taken while
+ *		preparing it, the ASU internal exportable vault and the main vault header, so no
+ *		key material and no stale vault layout outlives the import in ASU RAM.
+ *
+ * @return
+ *		- XASUFW_SUCCESS, if the record is dropped.
+ *		- XASUFW_ZEROIZE_MEMSET_FAIL, if the copy cannot be wiped.
+ *
+ *************************************************************************************************/
+static s32 XKeyManager_ClearImportRecord(void)
+{
+	CREATE_VOLATILE(Status, XASUFW_FAILURE);
+	XFih_Var XFihImportRecord = XFih_VolatileAssignXfihVar(XFIH_FAILURE);
+
+	/**
+	 * The record is what a revert works from, so it is dropped only once the import can no
+	 * longer be undone. The snapshot carries the provisioning keys of the ASU internal
+	 * exportable vault, so both copies are zeroized the way key material is, not memset.
+	 */
+	ImportRestoreBasePtr = NULL;
+	ImportRestoreRegionLen = 0U;
+	ImportSavedAsuVaultLen = 0U;
+
+	XFIH_CALL(Xil_SecureZeroize, XFihImportRecord, Status, ImportSavedAsuVault,
+		  (u32)sizeof(ImportSavedAsuVault));
+	if (XASUFW_SUCCESS != Status) {
+		Status = XASUFW_ZEROIZE_MEMSET_FAIL;
+		goto END;
+	}
+
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	XFIH_CALL(Xil_SecureZeroize, XFihImportRecord, Status, ImportSavedMainHeader,
+		  (u32)sizeof(ImportSavedMainHeader));
+	if (XASUFW_SUCCESS != Status) {
+		Status = XASUFW_ZEROIZE_MEMSET_FAIL;
+	}
+
+END:
+	return Status;
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	This function reverts a failed import. An import that fails after
+ *		XKeyManager_PrepareImportRegion() has already written decrypted key material for
+ *		the chunks that passed and has overwritten the main vault header with the one
+ *		carried by the blob, so the header is put back, the restorable region is wiped
+ *		and the ASU internal exportable vault is restored from the copy taken before the
+ *		import started.
+ *
+ * @return
+ *		- XASUFW_SUCCESS, if the vault is reverted or the import was never prepared.
+ *		- XASUFW_MEM_COPY_FAIL, if the header or vault restore fails.
+ *		- XASUFW_ZEROIZE_MEMSET_FAIL, if the wipe fails.
+ *		- XASUFW_KEYMANAGER_INVALID_DDR_ADDRESS, if vault base is invalid.
+ *		- Error codes from the ASU internal exportable vault creation, when there was no
+ *		vault to restore.
+ *
+ * @note	Every restore step is attempted even after one of them fails, and the first error
+ *		is the one returned. The import record and the snapshot it points at are dropped
+ *		only on a clean revert, so a revert that failed part way can be retried.
+ *
+ *************************************************************************************************/
+s32 XKeyManager_RevertImportRegion(void)
+{
+	CREATE_VOLATILE(Status, XASUFW_FAILURE);
+	CREATE_VOLATILE(ClearStatus, XASUFW_FAILURE);
+	CREATE_VOLATILE(RevertStatus, XASUFW_SUCCESS);
+	u8 *VaultBaseAddr = XKEYMANAGER_GET_VAULT_BASE_PTR();
+
+	if ((ImportRestoreBasePtr == NULL) || (ImportRestoreRegionLen == 0U)) {
+		Status = XASUFW_SUCCESS;
 		goto END;
 	}
 
@@ -4674,253 +5699,195 @@ s32 XKeyManager_ImportKeyVault(XAsufw_Dma *DmaPtr, XAes *AesInstancePtr, u64 Imp
 		goto END;
 	}
 
-	/** Get vault header Address. */
-	VaultHeaderPtr = (XKeyManager_VaultMainHeader *)VaultBaseAddr;
+	/**
+	 * Each step below undoes a different part of the import, so a failure in one does not
+	 * excuse skipping the rest: leaving the region wiped but the vault unrestored is worse
+	 * than the failure that caused it. The first error is kept and every step is attempted.
+	 */
+	Status = Xil_SMemCpy(VaultBaseAddr, XKEYMANAGER_VAULT_MAIN_HEADER_SIZE,
+			     ImportSavedMainHeader, XKEYMANAGER_VAULT_MAIN_HEADER_SIZE,
+			     XKEYMANAGER_VAULT_MAIN_HEADER_SIZE);
+	if (XASUFW_SUCCESS != Status) {
+		RevertStatus = XASUFW_MEM_COPY_FAIL;
+	}
 
-	/** Calculate encrypted data size (excluding IV and GCM tag). */
-	EncryptedDataSize = (ImportSize - XKEYMANAGER_AES_IV_LEN_IN_BYTES -
-				XKEYMANAGER_AES_TAG_LEN_IN_BYTES);
-	UserVaultLen = VaultManager.TotalVaultSize - XKEYMANAGER_VAULT_MAIN_HEADER_SIZE -
-			VaultManager.VaultInfo[XKEYMANAGER_ASU_VAULT_ID].VaultSize ;
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	Status = XKeyManager_ClearRestorableVaultRegion();
+	if ((XASUFW_SUCCESS != Status) && (XASUFW_SUCCESS == RevertStatus)) {
+		RevertStatus = Status;
+	}
 
-	/** Validate sufficient space is available for decrypted data. */
-	if (EncryptedDataSize > (UserVaultLen + XKEYMANAGER_VAULT_MAIN_HEADER_SIZE)) {
+	/**
+	 * The wipe above takes the ASU internal exportable vault with it, and the blob which was
+	 * to replace it did not make it in, so the vault is put back exactly as it stood.
+	 * Recreating it empty instead would cost ASU its provisioning keys over an import it
+	 * never completed.
+	 */
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	if (ImportSavedAsuVaultLen != 0U) {
+		Status = Xil_SMemCpy(ImportRestoreBasePtr, ImportRestoreRegionLen,
+				     ImportSavedAsuVault, ImportSavedAsuVaultLen,
+				     ImportSavedAsuVaultLen);
+		if (XASUFW_SUCCESS != Status) {
+			if (XASUFW_SUCCESS == RevertStatus) {
+				RevertStatus = XASUFW_MEM_COPY_FAIL;
+			}
+		} else {
+			VaultManager.VaultInfo[XKEYMANAGER_ASU_EXPORTABLE_VAULT_ID].VaultBasePtr =
+				(u32 *)ImportRestoreBasePtr;
+			VaultManager.VaultInfo[XKEYMANAGER_ASU_EXPORTABLE_VAULT_ID].VaultSize =
+				ImportSavedAsuVaultLen;
+			VaultManager.VaultInfo[XKEYMANAGER_ASU_EXPORTABLE_VAULT_ID].SubSystemId =
+				XKEYMANAGER_ASU_SUBSYSTEM_ID;
+			VaultManager.RemainingVaultSize =
+				ImportRestoreRegionLen - ImportSavedAsuVaultLen;
+		}
+	} else {
+		/** A firmware that had no such vault yet is given one rather than left without. */
+		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+		Status = XKeyManager_CreateAsuExportableVault();
+		if ((XASUFW_SUCCESS != Status) && (XASUFW_SUCCESS == RevertStatus)) {
+			RevertStatus = Status;
+		}
+	}
+
+	Status = RevertStatus;
+
+END:
+	/**
+	 * The record is what a retry would work from, so it is dropped only once the revert has
+	 * put the vault back. A revert that failed part way keeps it, and with it the snapshot,
+	 * so the caller can try again rather than be left with a half restored vault and no way
+	 * back to it.
+	 */
+	if (XASUFW_SUCCESS == Status) {
+		ClearStatus = XKeyManager_ClearImportRecord();
+		Status = XAsufw_UpdateBufStatus(Status, ClearStatus);
+	}
+
+	return Status;
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	This function rebuilds the vault registry from the imported user vault data. It
+ *		walks the restored region vault by vault and publishes each one into the
+ *		registry slot its own header names, so the imported keys become reachable.
+ *
+ * @return
+ *		- XASUFW_SUCCESS, if registry rebuild is successful.
+ *		- XASUFW_KEYMANAGER_INVALID_PARAM, if the import restore base is unset.
+ *		- XASUFW_KEYMANAGER_INVALID_VAULT_ID, if vault ID is invalid or the blob carries
+ *		more vaults than the registry holds.
+ *		- XASUFW_KEYMANAGER_AEKV_IMPORT_VAULT_SIZE_INVALID, if a vault size is invalid.
+ *		- XASUFW_ZEROIZE_MEMSET_FAIL, if the import copy cannot be wiped.
+ *		- Error codes from the ASU internal exportable vault creation.
+ *
+ *************************************************************************************************/
+s32 XKeyManager_RebuildVaultRegistryFromImport(void)
+{
+	CREATE_VOLATILE(Status, XASUFW_FAILURE);
+	XKeyManager *ImportedVaultPtr = NULL;
+	u32 VaultId;
+	u32 VaultSize;
+	u32 ConsumedSize = 0U;
+	u32 Index;
+
+	if (ImportRestoreBasePtr == NULL) {
 		Status = XASUFW_KEYMANAGER_INVALID_PARAM;
 		goto END;
 	}
 
-	/** Skip ASU key vault to avoid override. */
-	ActualDataPtr = VaultBaseAddr + XKEYMANAGER_VAULT_MAIN_HEADER_SIZE +
-				VaultManager.VaultInfo[XKEYMANAGER_ASU_VAULT_ID].VaultSize;
+	ImportedVaultPtr = (XKeyManager *)ImportRestoreBasePtr;
 
-	switch (CmdStage) {
-	case XKEYMANAGER_AES_CMD_STAGE_INIT:
-		/** Clear entire user vault region (excluding ASU vault and main header). */
-		Status = Xil_SMemSet(ActualDataPtr, UserVaultLen, 0U, UserVaultLen);
-		if (Status != XASUFW_SUCCESS) {
-			Status = XASUFW_ZEROIZE_MEMSET_FAIL;
-			goto END;
+	for (Index = XKEYMANAGER_RESTORABLE_VAULT_START_INDEX; Index < XASU_KM_MAX_VAULTS;
+	     Index++) {
+		/** Stop once the remaining region cannot hold another vault header. */
+		if ((ImportRestoreRegionLen - ConsumedSize) < (u32)sizeof(XKeyManager)) {
+			break;
 		}
 
-		/** Clear existing vault registry except ASU vault (index 0). */
-		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-		Status = Xil_SMemSet(&VaultManager.VaultInfo[XKEYMANAGER_USER_VAULT_START_INDEX],
-				     (XASU_KM_MAX_VAULTS - XKEYMANAGER_USER_VAULT_START_INDEX) *
-				     sizeof(XKeyManager_VaultInfo), 0U,
-				     (XASU_KM_MAX_VAULTS - XKEYMANAGER_USER_VAULT_START_INDEX) *
-				     sizeof(XKeyManager_VaultInfo));
-		if (Status != XASUFW_SUCCESS) {
-			Status = XASUFW_ZEROIZE_MEMSET_FAIL;
-			goto END;
+		if (ImportedVaultPtr->Header.VaultSize == 0U) {
+			break;
 		}
-		VaultManager.RemainingVaultSize = VaultManager.TotalVaultSize -
-					XKEYMANAGER_VAULT_MAIN_HEADER_SIZE -
-					VaultManager.VaultInfo[XKEYMANAGER_ASU_VAULT_ID].VaultSize;
-
-		/** Generate KV KEK and write to AES engine for key vault decryption. */
-		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-		Status = XKeyManager_GenerateAndWriteAesKey(DmaPtr, AesInstancePtr);
-		if (Status != XASUFW_SUCCESS) {
-			Status = XAsufw_UpdateErrorStatus(Status,
-							  XASUFW_KEYMANAGER_AES_KEY_SETUP_FAIL);
-			goto END;
-		}
-
-		/** Read IV from the beginning of import buffer. */
-		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-		Status = XAsufw_DmaXfr(DmaPtr, ImportAddr, (u64)(UINTPTR)KeyIv,
-				       XKEYMANAGER_AES_IV_LEN_IN_BYTES, 0U);
-		if (Status != XASUFW_SUCCESS) {
-			Status = XASUFW_DMA_COPY_FAIL;
-			goto END_CLR;
-		}
-
-		/** Read GCM tag from the end of import buffer. */
-		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-		Status = XAsufw_DmaXfr(DmaPtr,
-				       ImportAddr + ImportSize - XKEYMANAGER_AES_TAG_LEN_IN_BYTES,
-				       (u64)(UINTPTR)TagBuf, XKEYMANAGER_AES_TAG_LEN_IN_BYTES, 0U);
-		if (Status != XASUFW_SUCCESS) {
-			Status = XASUFW_DMA_COPY_FAIL;
-			goto END_CLR;
-		}
-
-		/** Initialize AES parameters for decryption. */
-		AesParams.EngineMode = (u8)XASU_AES_GCM_MODE;
-		AesParams.OperationType = XASU_AES_DECRYPT_OPERATION;
-		AesParams.KeyObjectAddr = (u64)(UINTPTR)&KeyObject;
-		AesParams.IvObj.IvAddr = (u64)(UINTPTR)KeyIv;
-		AesParams.IvObj.IvLen = XKEYMANAGER_AES_IV_LEN_IN_BYTES;
-		AesParams.AadAddr = (u64)(UINTPTR)KeyIv;
-		AesParams.AadLen = XKEYMANAGER_AES_IV_LEN_IN_BYTES;
-		AesParams.TagAddr = (u64)(UINTPTR)TagBuf;
-		AesParams.TagLen = XKEYMANAGER_AES_TAG_LEN_IN_BYTES;
-
-		/** Initialize the AES engine for decryption. */
-		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-		Status = XAes_Init(AesInstancePtr, DmaPtr, AesParams.IvObj.IvAddr,
-				   AesParams.IvObj.IvLen, AesParams.EngineMode,
-				   AesParams.OperationType);
-		if (Status != XASUFW_SUCCESS) {
-			Status = XAsufw_UpdateErrorStatus(Status, XASUFW_AES_INIT_FAILED);
-			goto END_CLR;
-		}
-
-		/** Update AAD with IV for ensuring authenticity and integrity. */
-		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-		Status = XAes_Update(AesInstancePtr, DmaPtr, AesParams.AadAddr, 0U,
-				     AesParams.AadLen, XASU_FALSE);
-		if (Status != XASUFW_SUCCESS) {
-			Status = XAsufw_UpdateErrorStatus(Status, XASUFW_AES_UPDATE_FAILED);
-			goto END_CLR;
-		}
-
-		if (EncryptedDataSize > XKEYMANAGER_VAULT_MAIN_HEADER_SIZE) {
-			ImportDataOffset = XKEYMANAGER_AES_IV_LEN_IN_BYTES +
-						XKEYMANAGER_VAULT_MAIN_HEADER_SIZE;
-			/** Decrypt the vault data (excluding IV at start and GCM tag at end). */
-			ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-			Status = XAes_Update(AesInstancePtr, DmaPtr, ImportAddr + ImportDataOffset,
-					     (u64)(UINTPTR)ActualDataPtr,
-					     EncryptedDataSize - XKEYMANAGER_VAULT_MAIN_HEADER_SIZE,
-					     XASU_FALSE);
-			if (Status == XASUFW_CMD_IN_PROGRESS) {
-				CmdStage = XKEYMANAGER_AES_CMD_STAGE_UPDATE_INPROGRESS;
-				goto END;
-			} else if (Status != XASUFW_SUCCESS) {
-				Status = XAsufw_UpdateErrorStatus(Status, XASUFW_AES_UPDATE_FAILED);
-				goto END_CLR;
-			} else {
-				/* Do nothing. */
-			}
-		}
-
-		/* fall through */
-	case XKEYMANAGER_AES_CMD_STAGE_UPDATE_INPROGRESS:
-		/** Decrypt main vault header. */
-		Status = XAes_Update(AesInstancePtr, DmaPtr,
-				     ImportAddr + XKEYMANAGER_AES_IV_LEN_IN_BYTES,
-				     (u64)(UINTPTR)VaultMainHeader,
-				     XKEYMANAGER_VAULT_MAIN_HEADER_SIZE, XASU_TRUE);
-		if (Status != XASUFW_SUCCESS) {
-			Status = XAsufw_UpdateErrorStatus(Status, XASUFW_AES_UPDATE_FAILED);
-			goto END_CLR;
-		}
-
-		/** Finalize AES operation and validate GCM tag. */
-		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-		Status = XAes_Final(AesInstancePtr, DmaPtr, (u64)(UINTPTR)TagBuf,
-				    XKEYMANAGER_AES_TAG_LEN_IN_BYTES);
-		if (Status != XASUFW_SUCCESS) {
-			Status = XAsufw_UpdateErrorStatus(Status, XASUFW_AES_FINAL_FAILED);
-			goto END_CLR;
-		}
-
-		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-		/** Map decrypted main header to the vault header structure. */
-		ImportedVaultHeaderPtr = (XKeyManager_VaultMainHeader *)VaultMainHeader;
-
-		/** Validate key vault identification string. */
-		if (ImportedVaultHeaderPtr->KeyVaultHeader != XKEYMANAGER_IDENTIFICATION_STRING) {
-			Status = XASUFW_KEYMANAGER_INVALID_ID_STRING;
-			goto END_CLR;
-		}
-
-		/** Validate major and minor version. */
-		if ((ImportedVaultHeaderPtr->MajorVersion != XKEYMANAGER_MAJOR_VERSION) ||
-		    (ImportedVaultHeaderPtr->MinorVersion != XKEYMANAGER_MINOR_VERSION)) {
-			Status = XASUFW_KEYMANAGER_INVALID_VAULT_VERSION;
-			goto END_CLR;
-		}
-
-		/** Reconstruct vault main header. */
-		VaultHeaderPtr->KeyVaultHeader = ImportedVaultHeaderPtr->KeyVaultHeader;
-		VaultHeaderPtr->MajorVersion = ImportedVaultHeaderPtr->MajorVersion;
-		VaultHeaderPtr->MinorVersion = ImportedVaultHeaderPtr->MinorVersion;
-		VaultHeaderPtr->RevokeId= ImportedVaultHeaderPtr->RevokeId;
 
 		/**
-		 * Validate revoke ID to detect importing older vault versions that should have been
-		 * revoked. The revoke ID in the vault header is incremented whenever key vault is
-		 * exported after updation. User is expected to revoke earlier version of key vault by
-		 * programmatically burning OFFCHIP_REVOKE eFuse bits before importing newer version of
-		 * key vault. If the revoke ID in the imported vault is less than the current
-		 * revoke ID, it indicates that this vault version has been revoked and should not
-		 * be imported.
+		 * The ID comes from the imported blob and selects the registry slot the vault is
+		 * published in. Only the ASU internal exportable vault and the user vaults are
+		 * restorable, so an ID naming the ASU internal non-exportable vault or one already
+		 * taken by a vault restored from this same blob is rejected rather than allowed to
+		 * repoint an existing entry.
 		 */
-		RevokeId = XKeyManager_GetRevokeId();
-		if (ImportedVaultHeaderPtr->RevokeId <= RevokeId) {
-			Status = XASUFW_KEYMANAGER_VAULT_REVOKE_ID_MISMATCH;
-			goto END_CLR;
+		VaultId = ImportedVaultPtr->Header.KeyVaultId;
+		if ((VaultId < XKEYMANAGER_RESTORABLE_VAULT_START_INDEX) ||
+		    (VaultId >= XASU_KM_MAX_VAULTS) ||
+		    (VaultManager.VaultInfo[VaultId].VaultSize != 0U)) {
+			Status = XASUFW_KEYMANAGER_INVALID_VAULT_ID;
+			goto END;
 		}
-
-		/** Update remaining vault size after clearing existing vaults. */
-		VaultManager.RemainingVaultSize = VaultManager.TotalVaultSize -
-					VaultManager.VaultInfo[XKEYMANAGER_ASU_VAULT_ID].VaultSize -
-					EncryptedDataSize;
 
 		/**
-		 * Scan through decrypted vault to rebuild vault info.
-		 * First vault starts after the main header, subsequent vaults are contiguous.
+		 * The size comes from the imported blob, so a vault that claims to run past
+		 * the restore region is rejected before its base is registered.
 		 */
-		ImportedVaultPtr = (XKeyManager *)ActualDataPtr;
-
-		for (Index = XKEYMANAGER_USER_VAULT_START_INDEX; (Index < XASU_KM_MAX_VAULTS);
-		     Index++) {
-			/** Check if the current vault is empty. */
-			if (ImportedVaultPtr->Header.VaultSize == 0U) {
-				break;
-			}
-
-			/** Get the vault ID from the imported vault header. */
-			VaultId = ImportedVaultPtr->Header.KeyVaultId;
-			if (VaultId >= XASU_KM_MAX_VAULTS) {
-				Status = XASUFW_KEYMANAGER_INVALID_VAULT_ID;
-				goto END_CLR;
-			}
-
-			/** Reconstruct vault info from imported vault header. */
-			VaultManager.VaultInfo[VaultId].VaultBasePtr = (u32 *)ImportedVaultPtr;
-			VaultManager.VaultInfo[VaultId].VaultSize = ImportedVaultPtr->Header.VaultSize;
-			VaultManager.VaultInfo[VaultId].SubSystemId = ImportedVaultPtr->Header.SubSystemId;
-
-			/** Move to next vault. */
-			ImportedVaultPtr = (XKeyManager *)((u8 *)ImportedVaultPtr +
-					   ImportedVaultPtr->Header.VaultSize);
+		VaultSize = ImportedVaultPtr->Header.VaultSize;
+		if ((VaultSize < (u32)sizeof(XKeyManager)) ||
+		    (VaultSize > (ImportRestoreRegionLen - ConsumedSize))) {
+			Status = XASUFW_KEYMANAGER_AEKV_IMPORT_VAULT_SIZE_INVALID;
+			goto END;
 		}
 
-		Status = XASUFW_SUCCESS;
-		break;
-	default:
-		Status = XASUFW_KEYMANAGER_INVALID_PARAM;
-		break;
+		/**
+		 * An import snapshots the ASU internal exportable vault into a build-time buffer
+		 * before it wipes the region, so a blob registering one larger than that buffer
+		 * would take here and then refuse every import after it, with no way to delete an
+		 * ASU owned vault to recover. It is rejected while the region can still revert.
+		 */
+		if ((VaultId == XKEYMANAGER_ASU_EXPORTABLE_VAULT_ID) &&
+		    (VaultSize > (u32)sizeof(ImportSavedAsuVault))) {
+			Status = XASUFW_KEYMANAGER_AEKV_IMPORT_VAULT_SIZE_INVALID;
+			goto END;
+		}
+
+		VaultManager.VaultInfo[VaultId].VaultBasePtr = (u32 *)ImportedVaultPtr;
+		VaultManager.VaultInfo[VaultId].VaultSize = VaultSize;
+		VaultManager.VaultInfo[VaultId].SubSystemId = ImportedVaultPtr->Header.SubSystemId;
+
+		ConsumedSize += VaultSize;
+		ImportedVaultPtr = (XKeyManager *)((u8 *)ImportedVaultPtr + VaultSize);
 	}
 
 	/**
-	 * Measure and print the performance time for the key vault import operation, if
-	 * performance measurement is enabled.
+	 * The loop above stops at the last registry slot, so a blob carrying more vaults than
+	 * the registry holds would leave the tail unregistered while its bytes still count as
+	 * consumed. That tail is rejected rather than dropped, as an unregistered vault would be
+	 * overwritten by the next allocation while the caller believes it was restored.
 	 */
-	XASUFW_MEASURE_PERF_STOP(XASU_MODULE_KEYMANAGER_ID);
+	if (((ImportRestoreRegionLen - ConsumedSize) >= (u32)sizeof(XKeyManager)) &&
+	    (ImportedVaultPtr->Header.VaultSize != 0U)) {
+		Status = XASUFW_KEYMANAGER_INVALID_VAULT_ID;
+		goto END;
+	}
 
-END_CLR:
-	/** Zeroize the IV buffer. */
-	ClearStatus = Xil_SecureZeroize(KeyIv, XKEYMANAGER_AES_IV_LEN_IN_BYTES);
-	Status = XAsufw_UpdateErrorStatus(Status, ClearStatus);
+	/**
+	 * The allocator places the next vault at TotalVaultSize - RemainingVaultSize, so the
+	 * space the restored vaults occupy has to come off the free count. Leaving it at the
+	 * whole region would place the next CreateKeyVault on top of the imported data.
+	 */
+	VaultManager.RemainingVaultSize = ImportRestoreRegionLen - ConsumedSize;
 
-	/** Clear the key written to the XASU_AES_USER_KEY_7 key source. */
-	XFIH_CALL(XAes_KeyClear, XFihKeyManager, ClearStatus, AesInstancePtr, XASU_AES_USER_KEY_7);
-	Status = XAsufw_UpdateErrorStatus(Status, ClearStatus);
+	/**
+	 * A blob exported by a firmware which had no ASU internal exportable vault leaves that
+	 * slot free, so the vault is created here rather than left missing until the next boot.
+	 */
+	Status = XKeyManager_CreateAsuExportableVault();
+	if (XASUFW_SUCCESS != Status) {
+		goto END;
+	}
 
-	/** Zeroize the key object. */
-	ClearStatus = Xil_SecureZeroize((u8 *)(UINTPTR)&KeyObject, sizeof(XAsu_AesKeyObject));
-	Status = XAsufw_UpdateBufStatus(Status, ClearStatus);
-
-	/** Zeroize the local tag buffer. */
-	ClearStatus = Xil_SecureZeroize((u8 *)(UINTPTR)TagBuf, XKEYMANAGER_AES_TAG_LEN_IN_BYTES);
-	Status = XAsufw_UpdateBufStatus(Status, ClearStatus);
-
-	/** Reset command stage after decryption is complete. */
-	CmdStage = XKEYMANAGER_AES_CMD_STAGE_INIT;
+	/** The import has taken, so nothing is left to revert and the copy is wiped. */
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	Status = XKeyManager_ClearImportRecord();
 
 END:
 	return Status;
@@ -4928,90 +5895,261 @@ END:
 
 /*************************************************************************************************/
 /**
- * @brief	Read the offchip revoke efuse registers to determine the current revoke ID,
- *		which is represented by the index of the last bit set across the 8 revoke registers.
+ * @brief	This function validates the per-key metadata in the imported vault plaintext. It
+ *		walks every occupied key slot of every restored vault and checks that the
+ *		composite key ID agrees with the slot, the vault and the sub-vault it sits in,
+ *		and that no vault or sub-vault span runs past the restore region.
  *
  * @return
- *	- Return revoke ID as the index of the last efuse bit set.
- *	- If no bits are set, returns 0.
+ *		- XASUFW_SUCCESS, if all occupied key slots have consistent metadata.
+ *		- XASUFW_KEYMANAGER_INVALID_PARAM, if import restore base is unset.
+ *		- XASUFW_KEYMANAGER_KEY_NOT_FOUND, if the composite key ID mismatches the slot,
+ *			the vault or the sub-vault it sits in.
+ *		- XASUFW_KEYMANAGER_INVALID_VAULT_ID, if vault ID is invalid.
+ *		- XASUFW_KEYMANAGER_AEKV_IMPORT_VAULT_SIZE_INVALID, if a vault is smaller than its
+ *		  own header or a vault or sub-vault span runs past the restore region.
  *
  *************************************************************************************************/
-static inline u8 XKeyManager_GetRevokeId(void)
+s32 XKeyManager_ValidateImportedKeyObjects(void)
 {
-	u32 RegValue;
-	u8 LastBitIndex = 0U;
-	s8 RegIdx;
-	s8 BitIdx;
+	CREATE_VOLATILE(Status, XASUFW_FAILURE);
+	XKeyManager *ImportedVaultPtr = NULL;
+	u32 KeyType;
+	u32 SlotIndex;
+	u16 ExpectedKeyId;
+	u32 KeyObjectSize = 0U;
+	u32 SubVaultOffset;
+	u64 SubVaultSpan;
+	u32 VaultSize;
+	u32 ConsumedSize = 0U;
+	u16 Capacity = 0U;
+	u8 *SubVaultBase = NULL;
+	XAsu_KeyManagerKeyMetadata *MetaPtr = NULL;
 
-	/**
-	 * Scan through all 8 registers (32 bytes = 256 bits total) starting from the
-	 * last register and MSB to find the index of the last (highest) bit that is set.
-	 */
-	for (RegIdx = XKEYMANAGER_MAX_REVOKE_REG_INDEX; RegIdx >= 0; RegIdx--) {
-		RegValue = XAsufw_ReadReg(EFUSE_CACHE_OFFCHIP_REVOKE_0_ADDR + ((u32)RegIdx *
-					  XASUFW_WORD_LEN_IN_BYTES));
+	if (ImportRestoreBasePtr == NULL) {
+		Status = XASUFW_KEYMANAGER_INVALID_PARAM;
+		goto END;
+	}
 
-		/** Check each bit in the current register from MSB to LSB. */
-		if (RegValue != 0U) {
-			for (BitIdx = XASUFW_MAX_BIT_INDEX_IN_WORD; BitIdx >= 0; BitIdx--) {
-				if ((RegValue & ((u32)1U << (u8)BitIdx)) != 0U) {
-					LastBitIndex = ((u8)RegIdx * XASUFW_BITS_IN_WORD) + (u8)BitIdx;
+	ImportedVaultPtr = (XKeyManager *)ImportRestoreBasePtr;
+
+	while ((ImportRestoreRegionLen - ConsumedSize) >= (u32)sizeof(XKeyManager)) {
+		if (ImportedVaultPtr->Header.VaultSize == 0U) {
+			break;
+		}
+
+		if ((ImportedVaultPtr->Header.KeyVaultId <
+		     XKEYMANAGER_RESTORABLE_VAULT_START_INDEX) ||
+		    (ImportedVaultPtr->Header.KeyVaultId >= XASU_KM_MAX_VAULTS)) {
+			Status = XASUFW_KEYMANAGER_INVALID_VAULT_ID;
+			goto END;
+		}
+
+		/** Every offset and capacity below is blob-supplied, so bound the vault first. */
+		VaultSize = ImportedVaultPtr->Header.VaultSize;
+		if ((VaultSize < (u32)sizeof(XKeyManager)) ||
+		    (VaultSize > (ImportRestoreRegionLen - ConsumedSize))) {
+			Status = XASUFW_KEYMANAGER_AEKV_IMPORT_VAULT_SIZE_INVALID;
+			goto END;
+		}
+
+		for (KeyType = 0U; KeyType < XKEYMANAGER_MAX_SUB_VAULTS; KeyType++) {
+			KeyObjectSize = XKeyManager_KeyObjectSizeLookup[KeyType];
+			if (KeyObjectSize == 0U) {
+				continue;
+			}
+
+			Capacity = ImportedVaultPtr->SubVaultHeaders[KeyType].Capacity;
+			SubVaultOffset = ImportedVaultPtr->SubVaultHeaders[KeyType].Offset;
+
+			/**
+			 * Reject a sub-vault whose slots would run past the vault it belongs
+			 * to before the first metadata word is read.
+			 */
+			SubVaultSpan = (u64)Capacity * (u64)KeyObjectSize;
+			if ((SubVaultOffset > VaultSize) ||
+			    (SubVaultSpan > (u64)(VaultSize - SubVaultOffset))) {
+				Status = XASUFW_KEYMANAGER_AEKV_IMPORT_VAULT_SIZE_INVALID;
+				goto END;
+			}
+
+			SubVaultBase = (u8 *)ImportedVaultPtr + SubVaultOffset;
+
+			for (SlotIndex = 0U; SlotIndex < Capacity; SlotIndex++) {
+				ExpectedKeyId = (u16)(SlotIndex +
+						      XKEYMANAGER_KEY_INDEX_OFFSET);
+				MetaPtr = (XAsu_KeyManagerKeyMetadata *)(SubVaultBase +
+						(KeyObjectSize * SlotIndex));
+
+				if (XASU_KM_GET_KEY_INDEX(MetaPtr->CompositeKeyId) == 0U) {
+					continue;
+				}
+
+				if ((XASU_KM_GET_KEY_INDEX(MetaPtr->CompositeKeyId) !=
+				     ExpectedKeyId) ||
+				    (XASU_KM_GET_VAULT_ID(MetaPtr->CompositeKeyId) !=
+				     ImportedVaultPtr->Header.KeyVaultId) ||
+				    (XASU_KM_GET_KEY_TYPE(MetaPtr->CompositeKeyId) !=
+				     (u8)KeyType)) {
+					Status = XASUFW_KEYMANAGER_KEY_NOT_FOUND;
 					goto END;
 				}
 			}
 		}
+
+		ConsumedSize += VaultSize;
+		ImportedVaultPtr = (XKeyManager *)((u8 *)ImportedVaultPtr + VaultSize);
 	}
 
+	Status = XASUFW_SUCCESS;
+
 END:
-	return LastBitIndex;
+	return Status;
 }
 
 /*************************************************************************************************/
 /**
- * @brief	This function generates a KEK (Key Encryption Key) from efuse black key 0 and
- *		writes it to the AES engine for key vault encryption/decryption.
- *
- * @param	DmaPtr		Pointer to the XAsufw_Dma instance.
- * @param	AesInstancePtr	Pointer to the XAes instance.
+ * @brief	This function clears the restorable vault DDR and registry for AEKV import, that is
+ *		the ASU internal exportable vault and the user vaults which follow it. The main
+ *		vault header and the ASU internal exportable vault are copied aside first, so a
+ *		failed import can put both back.
  *
  * @return
- *	- XASUFW_SUCCESS, if KEK generation and write is successful.
- *	- XASUFW_KEYMANAGER_KV_KEK_GEN_FAIL, if KEK generation fails.
+ *		- XASUFW_SUCCESS, if preparation is successful.
+ *		- XASUFW_KEYMANAGER_INVALID_DDR_ADDRESS, if vault base is invalid.
+ *		- XASUFW_KEYMANAGER_NO_SPACE, if the main header and the ASU internal
+ *		non-exportable vault do not fit in the vault region, or the ASU internal
+ *		exportable vault is larger than the buffer reserved for its copy.
+ *		- XASUFW_MEM_COPY_FAIL, if either copy fails.
+ *		- XASUFW_ZEROIZE_MEMSET_FAIL, if memory clear fails.
  *
  *************************************************************************************************/
-static s32 XKeyManager_GenerateAndWriteAesKey(XAsufw_Dma *DmaPtr, XAes *AesInstancePtr)
+s32 XKeyManager_PrepareImportRegion(void)
 {
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
-	CREATE_VOLATILE(ClearStatus, XASUFW_FAILURE);
-	XFih_Var XFihKeyManager = XFih_VolatileAssignXfihVar(XFIH_FAILURE);
-	u8 KeyVaultKek[XKEYMANAGER_AES_KEK_LEN_IN_BYTES] = {0U};
-	XAsu_AesKeyObject KeyObject;
-	const char *CtxStr = XKEYMANAGER_KV_KEK_CONTEXT;
-	const u8 *Context = (const u8 *)CtxStr;
+	u8 *VaultBaseAddr = XKEYMANAGER_GET_VAULT_BASE_PTR();
+	u8 *RestoreVaultPtr = NULL;
+	u32 AsuVaultSize = VaultManager.VaultInfo[XKEYMANAGER_ASU_VAULT_ID].VaultSize;
+	u32 AsuExportableVaultSize = 0U;
+	u32 RestoreVaultLen = 0U;
 
-	/** Generate KEK from efuse black key 0 using predefined constants. */
-	Status = XKdf_GenerateKekFromEfuse0(DmaPtr, AesInstancePtr, Context,
-					    XKEYMANAGER_KV_KEK_CONTEXT_LEN,
-					    XKEYMANAGER_KV_KEK_IV_INC_VAL,
-					    XKEYMANAGER_AES_KEK_LEN_IN_BYTES, KeyVaultKek);
-	if (Status != XASUFW_SUCCESS) {
-		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_KEYMANAGER_KV_KEK_GEN_FAIL);
+	/**
+	 * A revert acts on the region this function records, so the record of an earlier import
+	 * is dropped before this one is prepared. A failure below then leaves nothing for the
+	 * revert to act on.
+	 */
+	ImportRestoreBasePtr = NULL;
+	ImportRestoreRegionLen = 0U;
+
+	if (VaultBaseAddr == NULL) {
+		Status = XASUFW_KEYMANAGER_INVALID_DDR_ADDRESS;
 		goto END;
 	}
 
-	/** Setup AES key object for writing the generated KEK. */
-	KeyObject.KeySize = (u32)XASU_AES_KEY_SIZE_256_BITS;
-	KeyObject.KeySrc = XASU_AES_USER_KEY_7;
-	KeyObject.KeyAddress = (u64)(UINTPTR)KeyVaultKek;
-	KeyObject.KeyId = 0U;
+	/**
+	 * The sizes are unsigned, so a region which does not hold the main header and the ASU
+	 * internal non-exportable vault is rejected rather than subtracted into a length which
+	 * would carry the clear below past the end of the vault region.
+	 */
+	if (VaultManager.TotalVaultSize <= (XKEYMANAGER_VAULT_MAIN_HEADER_SIZE + AsuVaultSize)) {
+		Status = XASUFW_KEYMANAGER_NO_SPACE;
+		goto END;
+	}
 
-	/** Write the generated KEK to the AES USER_KEY_7 register. */
+	RestoreVaultLen = VaultManager.TotalVaultSize - XKEYMANAGER_VAULT_MAIN_HEADER_SIZE -
+			AsuVaultSize;
+	RestoreVaultPtr = VaultBaseAddr + XKEYMANAGER_VAULT_MAIN_HEADER_SIZE + AsuVaultSize;
+
+	/**
+	 * The first chunk of the blob overwrites the main vault header, so keep a copy of the
+	 * live header to put back if the import fails part way through.
+	 */
+	Status = Xil_SMemCpy(ImportSavedMainHeader, XKEYMANAGER_VAULT_MAIN_HEADER_SIZE,
+			     VaultBaseAddr, XKEYMANAGER_VAULT_MAIN_HEADER_SIZE,
+			     XKEYMANAGER_VAULT_MAIN_HEADER_SIZE);
+	if (XASUFW_SUCCESS != Status) {
+		Status = XASUFW_MEM_COPY_FAIL;
+		goto END;
+	}
+
+	/**
+	 * The ASU internal exportable vault sits at the head of the region the clear below wipes,
+	 * but the import precondition asks the caller to delete only the user vaults above it, so
+	 * its provisioning keys are the one thing in the region the caller did not agree to give
+	 * up. A copy is kept so that a failed import puts the keys back rather than leaving ASU
+	 * with an empty vault.
+	 */
+	AsuExportableVaultSize =
+		VaultManager.VaultInfo[XKEYMANAGER_ASU_EXPORTABLE_VAULT_ID].VaultSize;
+	if (AsuExportableVaultSize > sizeof(ImportSavedAsuVault)) {
+		Status = XASUFW_KEYMANAGER_NO_SPACE;
+		goto END;
+	}
+
+	if (AsuExportableVaultSize != 0U) {
+		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+		Status = Xil_SMemCpy(ImportSavedAsuVault, sizeof(ImportSavedAsuVault),
+				     RestoreVaultPtr, AsuExportableVaultSize,
+				     AsuExportableVaultSize);
+		if (XASUFW_SUCCESS != Status) {
+			Status = XASUFW_MEM_COPY_FAIL;
+			goto END;
+		}
+	}
+
+	ImportSavedAsuVaultLen = AsuExportableVaultSize;
+
+	/**
+	 * The region is recorded only now, so the revert path puts the header back and wipes the
+	 * region exactly when the clear below has started on it.
+	 */
+	ImportRestoreBasePtr = RestoreVaultPtr;
+	ImportRestoreRegionLen = RestoreVaultLen;
+
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-	Status = XAes_WriteKey(AesInstancePtr, DmaPtr, &KeyObject);
+	Status = XKeyManager_ClearRestorableVaultRegion();
 
-	/** Securely zeroize the KEK buffer. */
-	XFIH_CALL(Xil_SecureZeroize, XFihKeyManager, ClearStatus, KeyVaultKek, XKEYMANAGER_AES_KEK_LEN_IN_BYTES);
-	Status = XAsufw_UpdateBufStatus(Status, ClearStatus);
+END:
+	return Status;
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	This function clears the restorable vault region and the registry entries which
+ *		describe it, leaving the vault with neither user key vaults nor the ASU internal
+ *		exportable vault.
+ *
+ * @return
+ *		- XASUFW_SUCCESS, if the region and registry are cleared.
+ *		- XASUFW_ZEROIZE_MEMSET_FAIL, if memory clear fails.
+ *
+ *************************************************************************************************/
+static s32 XKeyManager_ClearRestorableVaultRegion(void)
+{
+	CREATE_VOLATILE(Status, XASUFW_FAILURE);
+
+	/** Wipe the key vault content the region holds. */
+	Status = Xil_SMemSet(ImportRestoreBasePtr, ImportRestoreRegionLen, 0U,
+			     ImportRestoreRegionLen);
+	if (XASUFW_SUCCESS != Status) {
+		Status = XASUFW_ZEROIZE_MEMSET_FAIL;
+		goto END;
+	}
+
+	/** Drop the entries that described those vaults, so none of them is reachable. */
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	Status = Xil_SMemSet(&VaultManager.VaultInfo[XKEYMANAGER_RESTORABLE_VAULT_START_INDEX],
+			     (XASU_KM_MAX_VAULTS - XKEYMANAGER_RESTORABLE_VAULT_START_INDEX) *
+			     sizeof(XKeyManager_VaultInfo), 0U,
+			     (XASU_KM_MAX_VAULTS - XKEYMANAGER_RESTORABLE_VAULT_START_INDEX) *
+			     sizeof(XKeyManager_VaultInfo));
+	if (XASUFW_SUCCESS != Status) {
+		Status = XASUFW_ZEROIZE_MEMSET_FAIL;
+		goto END;
+	}
+
+	/** The whole region is free again, which is what the import then fills. */
+	VaultManager.RemainingVaultSize = ImportRestoreRegionLen;
 
 END:
 	return Status;
@@ -5575,5 +6713,440 @@ static s32 XKeyManager_RollbackKeyPair(u32 *KeyIdPtr, u32 SubSystemId, s32 Statu
 
 	return RollbackStatus;
 }
+
+/*************************************************************************************************/
+/* Key vault blob export and import. The format and chunk walk live in the key vault overlay, so  */
+/* the sequencers below stay resident: an image switch overwrites the window a caller inside it   */
+/* would return to. NOCROSSREFS on the overlay block keeps the signature phase here too.          */
+/*************************************************************************************************/
+/*************************************************************************************************/
+/**
+ * @brief	This function clears the key vault export session state and its key material.
+ *
+ * @return
+ *		- XASUFW_SUCCESS, if the session context is cleared.
+ *		- XASUFW_KEYMANAGER_AEKV_ZEROIZE_FAILED, if the context wipe fails.
+ *
+ *************************************************************************************************/
+static s32 XKeyManager_ExportSessionReset(void)
+{
+	CREATE_VOLATILE(Status, XASUFW_FAILURE);
+	XFih_Var XFihSession = XFih_VolatileAssignXfihVar(XFIH_FAILURE);
+
+	/** The context holds the KEKs and the plaintext staged for the blob. */
+	XFIH_CALL(Xil_SecureZeroize, XFihSession, Status, (u8 *)&XKEYMANAGER_SESSION->Export.Ctx,
+		  (u32)sizeof(XKEYMANAGER_SESSION->Export.Ctx));
+
+	XKEYMANAGER_SESSION->Export.ExportResultAddr = 0U;
+	XKEYMANAGER_SESSION->Export.SubsystemId = 0U;
+	XKEYMANAGER_SESSION->Export.ShaInstancePtr = NULL;
+
+	if (XASUFW_SUCCESS != Status) {
+		Status = XASUFW_KEYMANAGER_AEKV_ZEROIZE_FAILED;
+	}
+
+	return Status;
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	This function clears the key vault import session state and its key material.
+ *
+ * @return
+ *		- XASUFW_SUCCESS, if the session context is cleared.
+ *		- XASUFW_KEYMANAGER_AEKV_ZEROIZE_FAILED, if the context wipe fails.
+ *
+ *************************************************************************************************/
+static s32 XKeyManager_ImportSessionReset(void)
+{
+	CREATE_VOLATILE(Status, XASUFW_FAILURE);
+	XFih_Var XFihSession = XFih_VolatileAssignXfihVar(XFIH_FAILURE);
+
+	/** The context holds the KEKs recovered from the blob and the plaintext they opened. */
+	XFIH_CALL(Xil_SecureZeroize, XFihSession, Status, (u8 *)&XKEYMANAGER_SESSION->Import.Ctx,
+		  (u32)sizeof(XKEYMANAGER_SESSION->Import.Ctx));
+
+	XKEYMANAGER_SESSION->Import.SubsystemId = 0U;
+	XKEYMANAGER_SESSION->Import.ShaInstancePtr = NULL;
+
+	if (XASUFW_SUCCESS != Status) {
+		Status = XASUFW_KEYMANAGER_AEKV_ZEROIZE_FAILED;
+	}
+
+	return Status;
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	This function checks the known answer tests that the blob body depends on. It
+ *		runs the CMAC based key derivation test that covers the KEK derivation and
+ *		confirms the tests of both SHA engines the blob uses have passed, so all three
+ *		are proven before any key material is derived.
+ *
+ * @return
+ *		- XASUFW_SUCCESS, if every KAT has passed.
+ *		- XASUFW_KEYMANAGER_INVALID_PARAM, if the DMA or a SHA instance is not available.
+ *		- XASUFW_ERR_KDF_NOT_ENABLED, if the build has no KDF support.
+ *		- XASUFW_KEYMANAGER_KAT_FAILED, if a KAT has not passed.
+ *
+ * @note	The blob uses both SHA engines: the chunk digests run on SHA3-384 and the header
+ *		digest the signature covers runs on SHA2-384. Each engine is tested at the mode
+ *		XAsufw_ShaKat() carries vectors for rather than the mode the blob uses, since a
+ *		mode it has no vector for is rejected and disables the resource. This runs ahead
+ *		of the signature phase on both paths rather than alongside the body, and sets the
+ *		same module wide KAT flags the boot sequence sets, so an engine already proven
+ *		this boot is not tested again.
+ *
+ *		The CMAC based derivation that produces the key encryption keys has no status
+ *		slot of its own in the RTCA area, so its result is kept in CmacKdfKatStatus and
+ *		the test runs once a boot the way the others do. A replacement firmware starts
+ *		with that status cleared, so an in place update runs the test again.
+ *
+ *************************************************************************************************/
+static s32 XKeyManager_RunCryptoKats(void)
+{
+	CREATE_VOLATILE(Status, XASUFW_FAILURE);
+	XAsufw_Dma *DmaPtr = XAsufw_GetDmaInstance(ASUDMA_0_DEVICE_ID);
+	XSha *Sha2InstancePtr = XSha_GetInstance(XASU_XSHA_0_DEVICE_ID);
+	XSha *Sha3InstancePtr = XSha_GetInstance(XASU_XSHA_1_DEVICE_ID);
+
+	if ((DmaPtr == NULL) || (Sha2InstancePtr == NULL) || (Sha3InstancePtr == NULL)) {
+		Status = XASUFW_KEYMANAGER_INVALID_PARAM;
+		goto END;
+	}
+
+#ifndef XASU_KDF_ENABLE
+	/**
+	 * A build without the KDF cannot derive the keys the blob needs, so the missing feature
+	 * is reported before any known answer test runs rather than after.
+	 */
+	Status = XASUFW_ERR_KDF_NOT_ENABLED;
+#else
+	/**
+	 * Run the CMAC based key derivation known answer test, which covers the KEK derivation,
+	 * unless it already passed this boot. The RTCA area has no status slot for CMAC and the
+	 * boot sequence does not run this test, so it is run here rather than looked up.
+	 */
+	if (CmacKdfKatStatus != XASU_STATUS_PASS) {
+		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+		Status = XAsufw_CmacKdfOperationKat(DmaPtr);
+		if (XASUFW_SUCCESS != Status) {
+			Status = XASUFW_KEYMANAGER_KAT_FAILED;
+			goto END;
+		}
+		CmacKdfKatStatus = XASU_STATUS_PASS;
+	}
+
+	/** Run the key derivation known answer test, unless it already passed this boot. */
+	if (XASUFW_IS_KAT_PASSED(XASU_MODULE_KDF_ID) == FALSE) {
+		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+		Status = XAsufw_KdfOperationKat(DmaPtr);
+		if (XASUFW_SUCCESS != Status) {
+			Status = XASUFW_KEYMANAGER_KAT_FAILED;
+			goto END;
+		}
+		XASUFW_SET_KAT_PASSED(XASU_MODULE_KDF_ID);
+	}
+
+	/** Run the SHA-2 known answer test, which proves the engine the header digest runs on. */
+	if (XASUFW_IS_KAT_PASSED(XASU_MODULE_SHA2_ID) == FALSE) {
+		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+		Status = XAsufw_ShaKat(Sha2InstancePtr, DmaPtr, XASUFW_SHA2, XASU_SHA_MODE_512);
+		if (XASUFW_SUCCESS != Status) {
+			Status = XASUFW_KEYMANAGER_KAT_FAILED;
+			goto END;
+		}
+		XASUFW_SET_KAT_PASSED(XASU_MODULE_SHA2_ID);
+	}
+
+	/** Run the SHA-3 known answer test, which proves the engine the chunk digests run on. */
+	if (XASUFW_IS_KAT_PASSED(XASU_MODULE_SHA3_ID) == FALSE) {
+		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+		Status = XAsufw_ShaKat(Sha3InstancePtr, DmaPtr, XASUFW_SHA3, XASU_SHA_MODE_256);
+		if (XASUFW_SUCCESS != Status) {
+			Status = XASUFW_KEYMANAGER_KAT_FAILED;
+			goto END;
+		}
+		XASUFW_SET_KAT_PASSED(XASU_MODULE_SHA3_ID);
+	}
+
+	Status = XASUFW_SUCCESS;
+#endif
+
+END:
+	return Status;
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	This function loads the RSA-ECC overlay image and confirms the signature engine
+ *		is proven.
+ *
+ * @param	DmaPtr	Pointer to the XAsufw_Dma instance.
+ *
+ * @return
+ *		- XASUFW_SUCCESS, if the image is active and the KAT has passed.
+ *		- XASUFW_OVERLAY_ACTIVATE_FAIL, if the image cannot be loaded.
+ *		- XASUFW_KEYMANAGER_KAT_FAILED, if the KAT has not passed.
+ *
+ * @note	The KAT reaches the ECC core, which lives in this image, so it can only run once
+ *		the image is active.
+ *
+ *************************************************************************************************/
+static s32 XKeyManager_ActivateSignatureImage(XAsufw_Dma *DmaPtr)
+{
+	CREATE_VOLATILE(Status, XASUFW_FAILURE);
+
+	/** ECC lives in an overlay image, so it has to be resident before a signature is made. */
+	Status = XOverlay_Activate(XOVERLAY_ALGO_RSA_ECC, DmaPtr);
+	if (XASUFW_SUCCESS != Status) {
+		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_OVERLAY_ACTIVATE_FAIL);
+		goto END;
+	}
+
+	/** The image is new to this boot, so its KAT is run once before it is trusted. */
+	if (XASUFW_IS_KAT_PASSED(XASU_MODULE_ECC_ID) == FALSE) {
+		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+		Status = XAsufw_EccCoreKat(DmaPtr);
+		if (XASUFW_SUCCESS != Status) {
+			Status = XASUFW_KEYMANAGER_KAT_FAILED;
+			goto END;
+		}
+		XASUFW_SET_KAT_PASSED(XASU_MODULE_ECC_ID);
+	}
+
+	Status = XASUFW_SUCCESS;
+
+END:
+	return Status;
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	This function signs the assembled header and writes it to the export buffer.
+ *
+ * @param	DmaPtr		Pointer to the XAsufw_Dma instance.
+ * @param	CtxPtr		Pointer to export context.
+ * @param	ExportAddr	Destination export buffer address.
+ *
+ * @return
+ *		- XASUFW_SUCCESS, if the header is signed and written.
+ *		- Error codes from the UDE signing path, if the UDE key cannot sign the header.
+ *		  Each of its steps already names itself, so the status is passed on as it is.
+ *		- XASUFW_KEYMANAGER_OCP_NOT_ENABLED, if the build has no OCP.
+ *		- XASUFW_DMA_COPY_FAIL, if the header cannot be written to the export buffer.
+ *
+ * @note	The signature covers every field ahead of it, so the whole header travels in one
+ *		copy once the signature is in place.
+ *
+ *************************************************************************************************/
+static s32 XKeyManager_AekvSignHeader(XAsufw_Dma *DmaPtr, XKeyManager_ExportCtx *CtxPtr,
+				      u64 ExportAddr)
+{
+	CREATE_VOLATILE(Status, XASUFW_FAILURE);
+
+#ifdef XASU_OCP_ENABLE
+	Status = XOcp_UdeSignData(DmaPtr, (const u8 *)&CtxPtr->Header,
+				  XKEYMANAGER_HEADER_SIGN_LEN, CtxPtr->Header.Signature);
+	if (XASUFW_SUCCESS != Status) {
+		goto END;
+	}
+#else
+	Status = XASUFW_KEYMANAGER_OCP_NOT_ENABLED;
+	goto END;
+#endif
+
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	Status = XAsufw_DmaXfr(DmaPtr, (u64)(UINTPTR)&CtxPtr->Header, ExportAddr,
+			       XKEYMANAGER_HEADER_V1_SIZE, 0U);
+	if (XASUFW_SUCCESS != Status) {
+		Status = XASUFW_DMA_COPY_FAIL;
+	}
+
+END:
+	return Status;
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	This function stages the blob header from the import buffer. The version is not
+ *		known until the header is read, so it copies the span of the oldest header the
+ *		import accepts, which holds every field the structure check reads.
+ *
+ * @param	DmaPtr		Pointer to the XAsufw_Dma instance.
+ * @param	CtxPtr		Pointer to import context.
+ * @param	ImportAddr	Source blob address.
+ *
+ * @return
+ *		- XASUFW_SUCCESS, if the header is staged.
+ *		- XASUFW_DMA_COPY_FAIL, if the header copy fails.
+ *
+ *************************************************************************************************/
+static s32 XKeyManager_AekvLoadHeader(XAsufw_Dma *DmaPtr, XKeyManager_ImportCtx *CtxPtr,
+				      u64 ImportAddr)
+{
+	CREATE_VOLATILE(Status, XASUFW_FAILURE);
+
+	/**
+	 * Version is not known until the header is read, so this stages the oldest header the
+	 * import accepts. Every field the structure check reads sits inside that span, and the
+	 * check re-reads the size from the version before anything past the header is used.
+	 */
+	Status = XAsufw_DmaXfr(DmaPtr, ImportAddr, (u64)(UINTPTR)&CtxPtr->Header,
+			       XKeyManager_GetHeaderSize(XKEYMANAGER_IMPORT_MIN_VERSION), 0U);
+	if (XASUFW_SUCCESS != Status) {
+		Status = XASUFW_DMA_COPY_FAIL;
+	}
+
+	return Status;
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	This function validates the structural fields of a staged blob header. It checks
+ *		the tag, the version, the declared vault size against what the region can
+ *		restore, and the total blob size against the header size that the blob's own
+ *		version fixes.
+ *
+ * @param	HeaderPtr	Pointer to staged blob header.
+ * @param	ImportSize	Total import blob size in bytes.
+ *
+ * @return
+ *		- XASUFW_SUCCESS, if structure is valid.
+ *		- XASUFW_KEYMANAGER_AEKV_INVALID_TAG, if the tag is not the blob tag.
+ *		- XASUFW_KEYMANAGER_AEKV_INVALID_VERSION, if the version is unsupported.
+ *		- XASUFW_KEYMANAGER_AEKV_INVALID_KV_SIZE, if the declared vault size is unusable.
+ *		- XASUFW_KEYMANAGER_AEKV_SIZE_MISMATCH, if the blob size does not match the header.
+ *
+ *************************************************************************************************/
+static s32 XKeyManager_AekvValidateStructure(const XKeyManager_HeaderV1 *HeaderPtr, u32 ImportSize)
+{
+	CREATE_VOLATILE(Status, XASUFW_FAILURE);
+	u32 RestorableSize = 0U;
+	u32 BodySize;
+	u32 HeaderSize;
+
+	if (HeaderPtr->Tag != XASU_KM_AEKV_TAG) {
+		Status = XASUFW_KEYMANAGER_AEKV_INVALID_TAG;
+		goto END;
+	}
+
+	if ((HeaderPtr->Version < XKEYMANAGER_IMPORT_MIN_VERSION) ||
+	    (HeaderPtr->Version > XKEYMANAGER_EXPORT_VERSION)) {
+		Status = XASUFW_KEYMANAGER_AEKV_INVALID_VERSION;
+		goto END;
+	}
+
+	Status = XKeyManager_GetImportRestorableSize(&RestorableSize);
+	if (XASUFW_SUCCESS != Status) {
+		goto END;
+	}
+
+	if ((HeaderPtr->KvSize == 0U) || (HeaderPtr->KvSize > RestorableSize)) {
+		Status = XASUFW_KEYMANAGER_AEKV_INVALID_KV_SIZE;
+		goto END;
+	}
+
+	/** The blob's own version fixes its header size, so the size check follows that version. */
+	HeaderSize = XKeyManager_GetHeaderSize(HeaderPtr->Version);
+
+	/**
+	 * The body is a whole number of chunks by construction, so one that is not says the
+	 * declared size is wrong rather than that the blob was truncated, and it is named that
+	 * way before the two sizes are compared.
+	 */
+	if ((ImportSize <= HeaderSize) ||
+	    (((ImportSize - HeaderSize) % XKEYMANAGER_CHUNK_SIZE) != 0U)) {
+		Status = XASUFW_KEYMANAGER_AEKV_INVALID_KV_SIZE;
+		goto END;
+	}
+
+	BodySize = XKeyManager_CalcBodySize(HeaderPtr->KvSize);
+	if (ImportSize != (HeaderSize + BodySize)) {
+		Status = XASUFW_KEYMANAGER_AEKV_SIZE_MISMATCH;
+		goto END;
+	}
+
+	Status = XASUFW_SUCCESS;
+
+END:
+	return Status;
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	This function verifies the UDE signature over the staged header. The header
+ *		carries the chunk-0 digest, so a verified header is what the authenticity of
+ *		the whole body rests on.
+ *
+ * @param	DmaPtr	Pointer to the XAsufw_Dma instance.
+ * @param	CtxPtr	Pointer to import context.
+ *
+ * @return
+ *		- XASUFW_SUCCESS, if signature verification succeeds.
+ *		- XASUFW_KEYMANAGER_AEKV_SIGNATURE_FAIL, if the signature does not verify.
+ *		- XASUFW_KEYMANAGER_OCP_NOT_ENABLED, if the build has no OCP.
+ *
+ * @note	This runs before any key is derived and before the vault is touched, so a blob
+ *		from another device fails here. The verification is done twice and both results
+ *		have to agree: a single glitch on the branch that acts on the result would
+ *		otherwise turn a failed check into a pass, and this check is what the whole body
+ *		rests on.
+ *
+ *************************************************************************************************/
+static s32 XKeyManager_AekvVerifyHeader(XAsufw_Dma *DmaPtr, const XKeyManager_ImportCtx *CtxPtr)
+{
+	CREATE_VOLATILE(Status, XASUFW_FAILURE);
+	CREATE_VOLATILE(StatusTmp, XASUFW_FAILURE);
+
+#ifdef XASU_OCP_ENABLE
+	Status = XOcp_UdeVerifyData(DmaPtr, (const u8 *)&CtxPtr->Header,
+				    XKeyManager_GetHeaderSignLen(CtxPtr->Header.Version),
+				    CtxPtr->Header.Signature);
+
+	/**
+	 * The second verification is a separate call over the same staged header, so a fault
+	 * that carried the first one past a bad signature has to be repeated exactly to carry
+	 * this one too. Both results are then required to be success.
+	 */
+	StatusTmp = XOcp_UdeVerifyData(DmaPtr, (const u8 *)&CtxPtr->Header,
+				       XKeyManager_GetHeaderSignLen(CtxPtr->Header.Version),
+				       CtxPtr->Header.Signature);
+
+	if ((XASUFW_SUCCESS != Status) || (XASUFW_SUCCESS != StatusTmp)) {
+		if (XASUFW_SUCCESS == Status) {
+			Status = StatusTmp;
+		}
+		Status = XAsufw_UpdateErrorStatus(Status,
+						  XASUFW_KEYMANAGER_AEKV_SIGNATURE_FAIL);
+	}
+#else
+	(void)StatusTmp;
+	Status = XASUFW_KEYMANAGER_OCP_NOT_ENABLED;
+#endif
+
+	return Status;
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	This function publishes the export result to the caller and marks the vault
+ *		clean. The result reports the size the blob actually occupies and whether the
+ *		vault had changes no earlier blob carried.
+ *
+ * @param	CtxPtr	Pointer to export context.
+ *
+ *************************************************************************************************/
+static void XKeyManager_ExportPublishResult(u64 ResultAddr, u32 BlobSize, u32 ModifiedValue)
+{
+	XAsu_KeyVaultExportResult *ResultPtr = NULL;
+
+	ResultPtr = (XAsu_KeyVaultExportResult *)(UINTPTR)ResultAddr;
+	ResultPtr->ActualSize = BlobSize;
+	ResultPtr->Modified = ModifiedValue;
+	XKeyManager_MarkVaultClean();
+}
+
+
 #endif  /* XASU_KEYMANAGER_ENABLE */
 /** @} */

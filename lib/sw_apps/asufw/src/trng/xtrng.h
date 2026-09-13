@@ -22,8 +22,8 @@
  *       rmv  08/01/25 Added API to set TRNG to default mode
  *       rmv  09/09/25 Moved XTrng_ErrorState enum from header to source file
  *       rmv  08/21/26 Added block length and DF length macros
- *       vm   09/15/26 Added XTrng_FisherYatesShuffle() prototype and the shuffle element count
- *                     macro
+ *       vm   09/15/26 Added XTrng_FisherYatesShuffle() prototype with the shuffle element count
+ *                     macro, and the API to report the TRNG health state
  *
  * </pre>
  *
@@ -91,6 +91,7 @@ s32 XTrng_Instantiate(XTrng *InstancePtr, const u8 *Seed, u32 SeedLength, const 
 s32 XTrng_Reseed(XTrng *InstancePtr, const u8 *Seed, u8 DLen);
 s32 XTrng_Generate(XTrng *InstancePtr, u8 *RandBuf, u32 RandBufSize, u8 PredResistance);
 s32 XTrng_Uninstantiate(XTrng *InstancePtr);
+s32 XTrng_IsHealthy(const XTrng *InstancePtr);
 s32 XTrng_InitNCfgTrngMode(XTrng *InstancePtr, XTrng_Mode Mode);
 s32 XTrng_DrbgKat(XTrng *InstancePtr);
 s32 XTrng_PreOperationalSelfTests(XTrng *InstancePtr);

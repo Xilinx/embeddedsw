@@ -19,6 +19,9 @@
  *       yog  09/26/24 Added doxygen groupings and fixed doxygen comments.
  *       rmv  09/12/25 Added shared memory related macros
  *       rmv  08/21/26 Added memory region access table address and size macros
+ *       vm   09/15/26 Added the storage shared by the key vault session and the provisioning
+ *                     scratch to the users of the shared crypto pool, and grew the crypto
+ *                     algorithm data block and the pool to fit it
  *
  * </pre>
  *
@@ -46,11 +49,11 @@ extern "C" {
  * 0xEBE41000 - 0xEBE48FFF : IPI Shared Memory		(32KB)
  * 0xEBE49000 - 0xEBE49FFF : Debug Log Buffer		(4KB)
  * 0xEBE4A000 - 0xEBE4C7FF : OCP Memory			(10KB)
- * 0xEBE4C800 - 0xEBE503FF : Crypto Algorithm Data Block	(15KB)
- *   0xEBE4C800 - 0xEBE500FF : Shared pool, reused by every overlay serialized algorithm
- *   0xEBE50100 - 0xEBE5030F : Auxiliary buffer for the two commands outside that serialization
- * 0xEBE50400 - 0xEBE505FF : Update Manager		(512B)
- * 0xEBE50600 - 0xEBE5FFFF : Overlay Data Window	(62.5KB)
+ * 0xEBE4C800 - 0xEBE507FF : Crypto Algorithm Data Block	(16KB)
+ *   0xEBE4C800 - 0xEBE504FF : Shared pool, reused by every overlay serialized algorithm
+ *   0xEBE50500 - 0xEBE5070F : Auxiliary buffer for the two commands outside that serialization
+ * 0xEBE50800 - 0xEBE509FF : Update Manager		(512B)
+ * 0xEBE50A00 - 0xEBE5FFFF : Overlay Data Window	(61.5KB)
  */
 
 /*  ASUFW Data Ram Start and end address related defines */
@@ -104,19 +107,23 @@ extern "C" {
 #define XASUFW_CRYPTO_ALGO_DATA_BLOCK		(0xEBE4C800U)	/**< Base address of the crypto
 								algorithm data block in data RAM */
 
-#define XASUFW_CRYPTO_ALGO_DATA_BLOCK_SIZE	(0x3C00U)	/**< Size of the crypto algorithm
-								data block in bytes (15KB) */
+#define XASUFW_CRYPTO_ALGO_DATA_BLOCK_SIZE	(0x4000U)	/**< Size of the crypto algorithm
+								data block in bytes (16KB) */
 
 /*
  * Region at the base of the block, addressed directly as XASUFW_CRYPTO_ALGO_DATA_BLOCK and reused
  * by every algorithm that stages data here: RSA and key wrap work from the base, the key manager
- * stages a generated RSA key pair there, and ML-DSA and ML-KEM each carve a scratch region out of
- * it to suit themselves, in xmldsa.h and xmlkem.h, with the known-answer tests taking their output
- * buffers from the space just above whichever scratch is in use. Reusing the same bytes is safe
- * because every command that reaches this pool holds XASUFW_OVERLAY for its whole duration,
- * including across a non-blocking suspend, so no two of them are ever in flight together. The size
- * covers the largest single user, which is ML-DSA-87's carve; each user asserts its own footprint
- * against it.
+ * stages a generated RSA key pair there and lays XKeyManager_SharedStorage over the base, holding
+ * either a key vault export or import session or the scratch buffer provisioning stages its
+ * working data in, and ML-DSA and ML-KEM each carve a scratch region out of it to suit themselves,
+ * in xmldsa.h and xmlkem.h, with the known-answer tests taking their output buffers from the space
+ * just above whichever scratch is in use. Reusing the same bytes is safe because every command
+ * that reaches this pool holds XASUFW_OVERLAY for its whole duration, including across a
+ * non-blocking suspend, so no two of them are ever in flight together. Each user asserts its own
+ * footprint against this size: the largest algorithm carve is ML-DSA-87's scratch plus the
+ * known-answer test buffer above it, asserted in xasufw_kat.c, and the size here is set by the
+ * provisioning scratch arm of XKeyManager_SharedStorage in xkeymanager_aekv.h, which is larger
+ * still and which the key vault session shares rather than reserving RAM of its own.
  *
  * This macro, not the linker script, decides where every user of the block lands: the auxiliary
  * buffer below starts at the block base plus this size, and lscript.ld only mirrors the value to
@@ -124,7 +131,7 @@ extern "C" {
  * size plus the auxiliary buffer stays inside the block, asserted in xasufw_kat.c. Divergence from
  * the mirror in lscript.ld therefore misleads a reader rather than moving any address.
  */
-#define XASUFW_CRYPTO_SHARED_POOL_SIZE		(0x3900U)	/**< Size of the shared pool at the
+#define XASUFW_CRYPTO_SHARED_POOL_SIZE		(0x3D00U)	/**< Size of the shared pool at the
 								base of the block in bytes;
 								mirrored by _CRYPTO_SHARED_POOL_SIZE
 								in lscript.ld */

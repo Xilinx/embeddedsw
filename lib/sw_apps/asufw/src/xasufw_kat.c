@@ -38,6 +38,7 @@
  *       LP   04/07/25 Added HKDF KAT
  *       yog  01/28/26 Updated RSA padding KAT calls with KeyParamAddr parameter.
  *       kk   07/10/26 Added SLH-DSA keyGen KAT
+ *       vm   09/15/26 Added the known answer test for the CMAC based key derivation
  *
  * </pre>
  *
@@ -107,6 +108,8 @@ static s32 XAsufw_PqcSha256Digest(XAsufw_Dma *AsuDmaPtr, const u8 *Segment1Ptr, 
 #define XASUFW_AES_IV_LEN_IN_BYTES			(12U)	/**< AES KAT IV length in bytes */
 #define XASUFW_AES_AAD_LEN_IN_BYTES			(16U)	/**< AES KAT AAD length in bytes */
 #define XASUFW_AES_TAG_LEN_IN_BYTES			(16U)	/**< AES KAT Tag length in bytes */
+#define XASUFW_CMAC_KDF_KEY_OUT_LEN_IN_BYTES		(32U)	/**< CMAC based KDF KAT keying
+									material length in bytes */
 #define XASUFW_DOUBLE_P256_SIZE_IN_BYTES		(64U)	/**< Double the size of P256 curve
 									length */
 #define XASUFW_DOUBLE_P448_SIZE_IN_BYTES		(114U)	/**< Double the size of P448 curve
@@ -196,7 +199,6 @@ static const u8 ExpSha3_256Hash[XASU_SHA_SHAKE_256_HASH_LEN] = {
 	0x3EU, 0x6DU, 0xE8U, 0x6AU, 0x15U, 0xDFU, 0x6CU, 0xF3U,
 	0xA5U, 0xD1U, 0xB4U, 0x31U, 0xC0U, 0x67U, 0x5CU, 0xDDU
 };
-
 #ifdef XASU_HMAC_ENABLE
 static const u8 ExpHmacOutput[XASU_SHA_SHAKE_256_HASH_LEN] = {
 	0x72U, 0xC5U, 0x39U, 0x7DU, 0x23U, 0x49U, 0x3EU, 0xFFU,
@@ -214,6 +216,14 @@ static const u8 ExpKdfOutput[XASU_SHA_SHAKE_256_HASH_LEN] = {
 	0xD2U, 0xE4U, 0x70U, 0x4EU, 0x75U, 0xD0U, 0x3AU, 0x77U
 };
 #endif
+
+/* Expected keying material of the CMAC based KDF KAT, derived from AesKey over KatMessage */
+static const u8 ExpCmacKdfOutput[XASUFW_CMAC_KDF_KEY_OUT_LEN_IN_BYTES] = {
+	0xF2U, 0xA2U, 0x63U, 0x2CU, 0x5DU, 0x67U, 0xFFU, 0xEEU,
+	0xAEU, 0x73U, 0x9FU, 0x04U, 0xB2U, 0x1FU, 0x42U, 0xF5U,
+	0x88U, 0x4FU, 0x62U, 0xA1U, 0x9BU, 0x2BU, 0x3BU, 0x12U,
+	0x9DU, 0xD3U, 0xE0U, 0xEBU, 0xCFU, 0x06U, 0xC6U, 0x27U
+};
 
 #if defined(XASU_RSA_PADDING_ENABLE) || defined(XASU_ECIES_ENABLE)
 static const XASUFW_KAT_RSAECC_DATA u8 RsaData[XASUFW_RSA_INPUT_LEN_IN_BYTES] = {
@@ -2463,6 +2473,79 @@ END:
 		/**
 		 * On KDF KAT failure, mark KDF module KAT as failed in RTCA area and disable
 		 * the KDF resource.
+		 */
+		XASUFW_MARK_KAT_FAILED(XASU_MODULE_KDF_ID);
+		XAsufw_DisableResource(XASUFW_KDF);
+	}
+
+	return Status;
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	This function runs the known answer test of the CMAC based KDF, the derivation the
+ *		key vault uses for its key encryption keys.
+ *
+ * @param	AsuDmaPtr	ASU DMA instance pointer.
+ *
+ * @return
+ *	- XASUFW_SUCCESS, if the derived keying material matches the expected output.
+ *	- XASUFW_KDF_KAT_COMPARISON_FAILED, if the comparison fails.
+ *	- XASUFW_KDF_KAT_FAILED, if the derivation itself fails.
+ *
+ * @note	The keying material spans two CMAC iterations, so the counter the derivation runs
+ *		in counter mode is covered as well as the pseudorandom function. A failure is
+ *		recorded against the KDF module and disables the KDF resource, the way the other
+ *		key derivation known answer test does.
+ *
+ *************************************************************************************************/
+s32 XAsufw_CmacKdfOperationKat(XAsufw_Dma *AsuDmaPtr)
+{
+	s32 Status = XASUFW_FAILURE;
+	s32 SStatus = XASUFW_FAILURE;
+	XAes *AesInstancePtr = XAes_GetInstance(XASU_XAES_0_DEVICE_ID);
+	u8 KdfOutput[XASUFW_CMAC_KDF_KEY_OUT_LEN_IN_BYTES] = {0U};
+	XAsu_KdfParams Params = {0U};
+
+	Params.KeyObject.KeyInAddr = (u64)(UINTPTR)AesKey;
+	Params.KeyObject.KeyInLen = XASU_AES_KEY_SIZE_256_BITS;
+	Params.KeyObject.KeyId = 0U;
+	Params.ContextAddr = (u64)(UINTPTR)KatMessage;
+	Params.ContextLen = XASUFW_KAT_MSG_LENGTH_IN_BYTES;
+	Params.KeyOutAddr = (u64)(UINTPTR)KdfOutput;
+	Params.KeyOutLen = XASUFW_CMAC_KDF_KEY_OUT_LEN_IN_BYTES;
+
+	/** Derive keying material from a known key and context with CMAC as the pseudorandom
+	 * function. */
+	Status = XKdf_CmacGenerate(AsuDmaPtr, AesInstancePtr, &Params, XASU_AES_USER_KEY_7);
+	if (Status != XASUFW_SUCCESS) {
+		goto END;
+	}
+
+	/** Compare the derived keying material with the expected output. */
+	Status = Xil_SMemCmp(KdfOutput, XASUFW_CMAC_KDF_KEY_OUT_LEN_IN_BYTES, ExpCmacKdfOutput,
+			     XASUFW_CMAC_KDF_KEY_OUT_LEN_IN_BYTES,
+			     XASUFW_CMAC_KDF_KEY_OUT_LEN_IN_BYTES);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_KDF_KAT_COMPARISON_FAILED;
+	}
+
+END:
+	/** Clear the key the test loaded and zeroize the local keying material. */
+	SStatus = XAes_KeyClear(AesInstancePtr, XASU_AES_USER_KEY_7);
+	Status = XAsufw_UpdateBufStatus(Status, SStatus);
+
+	/** The buffer holds derived keying material, so it is zeroized rather than memset. */
+	SStatus = Xil_SecureZeroize(&KdfOutput[0U], XASUFW_CMAC_KDF_KEY_OUT_LEN_IN_BYTES);
+	Status = XAsufw_UpdateBufStatus(Status, SStatus);
+
+	if (Status != XASUFW_SUCCESS) {
+		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_KDF_KAT_FAILED);
+		/**
+		 * What this test proves is the derivation, so a failure is recorded against KDF
+		 * and disables the KDF resource. AES is left alone: it carries the pseudorandom
+		 * function here but has a known answer test of its own, and a failure in the
+		 * derivation is not evidence the engine underneath it is broken.
 		 */
 		XASUFW_MARK_KAT_FAILED(XASU_MODULE_KDF_ID);
 		XAsufw_DisableResource(XASUFW_KDF);

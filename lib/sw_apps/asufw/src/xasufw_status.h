@@ -57,8 +57,9 @@
  *       vm   08/22/26 Added error code for an incompatible data structure version during restore
  *       kp   08/22/26 Added error codes for user-addressable vault ID and key slot
  *       kk   08/29/26 Added error codes for SLH-DSA functionality
- *       vm   09/15/26 Added error codes for the UDE key fetch failures and for random byte
- *                     rejection sampling retry exhaustion
+ *       vm   09/15/26 Added error codes for the UDE key fetch failures, for key vault export
+ *                     and import, for random byte rejection sampling retry exhaustion and for
+ *                     ASU internal exportable vault creation failure
  *
  * </pre>
  *
@@ -950,6 +951,37 @@ enum {
 						supported provisioning use cases. */
 	XASUFW_TRNG_RETRY_EXHAUSTED, /**< 0x283U - Rejection sampling could not obtain an in-range
 					  random byte within the retry limit */
+
+	/* Key vault export and import error codes */
+	XASUFW_KEYMANAGER_AEKV_INVALID_TAG, /**< 0x284U - AEKV blob tag is invalid */
+	XASUFW_KEYMANAGER_AEKV_INVALID_VERSION, /**< 0x285U - AEKV version is out of range */
+	XASUFW_KEYMANAGER_AEKV_INVALID_KV_SIZE, /**< 0x286U - AEKV KV_SIZE is invalid */
+	XASUFW_KEYMANAGER_AEKV_SIGNATURE_FAIL, /**< 0x287U - AEKV header signature verify failed */
+	XASUFW_KEYMANAGER_AEKV_EPOCH_REVOKED, /**< 0x288U - AEKV epoch is revoked in eFuse */
+	XASUFW_KEYMANAGER_AEKV_EFUSE_READ_MISMATCH, /**< 0x289U - Redundant eFuse reads disagree */
+	XASUFW_KEYMANAGER_AEKV_CHUNK_HASH_FAIL, /**< 0x28AU - AEKV chunk authentication failed */
+	XASUFW_KEYMANAGER_AEKV_WEAK_KEY_MATERIAL, /**< 0x28BU - AEKV key or IV material is all zeros
+						       or all ones */
+	XASUFW_KEYMANAGER_AEKV_FINAL_TAIL_INVALID, /**< 0x28CU - AEKV final chunk tail non-zero */
+	XASUFW_KEYMANAGER_AEKV_SIZE_MISMATCH, /**< 0x28DU - AEKV decrypted size mismatch */
+	XASUFW_KEYMANAGER_AEKV_BUF_TOO_SMALL, /**< 0x28EU - AEKV export buffer too small */
+	XASUFW_KEYMANAGER_AEKV_IMPORT_VAULT_SIZE_INVALID, /**< 0x28FU - Imported vault or sub-vault
+								size runs past the restore region */
+	XASUFW_KEYMANAGER_AEKV_ZEROIZE_FAILED, /**< 0x290U - AEKV session context wipe failed */
+	XASUFW_KEYMANAGER_AEKV_VAULT_PRESENT, /**< 0x291U - A user key vault is already present, it
+						   must be deleted before import */
+	XASUFW_KEYMANAGER_OCP_NOT_ENABLED, /**< 0x292U - Header signing and verification need the
+						     OCP feature */
+	XASUFW_ERR_KDF_NOT_ENABLED, /**< 0x293U - Error when KDF feature is not enabled. */
+	XASUFW_KEYMANAGER_KAT_FAILED, /**< 0x294U - A KAT the key manager depends on has not
+						passed */
+	XASUFW_KEYMANAGER_AEKV_INVALID_CONTEXT, /**< 0x295U - AEKV KDF context is missing or
+						     degenerate */
+	XASUFW_KEYMANAGER_ASU_EXPORTABLE_VAULT_CREATION_FAILED, /**< 0x296U - Error when the ASU
+								     internal exportable vault
+								     creation fails */
+	XASUFW_KEYMANAGER_AEKV_INVALID_BLOCK_ORDER, /**< 0x297U - AEKV randomized block order is
+							 not a permutation of the chunk blocks */
 
 	/* Additional status success codes */
 	XASUFW_SLHDSA_SIGNATURE_VERIFIED = 0x3F5U, /**< 0x3F5U - SLH-DSA signature verification

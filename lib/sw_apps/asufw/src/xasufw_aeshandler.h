@@ -17,6 +17,7 @@
  * Ver   Who  Date     Changes
  * ----- ---- -------- ----------------------------------------------------------------------------
  * 1.0   am   08/01/24 Initial release
+ *       vm   09/15/26 Added the prototype of the API that hands out the AES instance
  *
  * </pre>
  *
@@ -35,6 +36,7 @@ extern "C" {
 /*************************************** Include Files *******************************************/
 #include "xil_types.h"
 #include "xasufw_cmd.h"
+#include "xaes.h"
 
 /************************************ Constant Definitions ***************************************/
 
@@ -44,6 +46,7 @@ extern "C" {
 
 /************************************ Function Prototypes ****************************************/
 s32 XAsufw_AesInit(void);
+XAes *XAsufw_GetAesInstance(void);
 s32 XAsufw_AesCheckAndSaveContext(u32 ReqId);
 u32 XAsufw_IsAesContextSaveSupported(void);
 

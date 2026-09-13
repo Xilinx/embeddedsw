@@ -17,6 +17,7 @@
 * ----- ---- -------- ----------------------------------------------------------------------------
 * 1.0   rmv  06/11/26 Initial release
 *       kk   08/25/26 Added SLH-DSA overlay catalog entry
+*       vm   09/15/26 Added the text only key vault image to the overlay catalog
 *
 * </pre>
 *
@@ -80,6 +81,18 @@ extern char __load_start_overlay_mlkem_data[];	/**< LMA of the ML-KEM overlay da
 extern char __overlay_mlkem_img_size[];		/**< Size of the ML-KEM overlay image */
 extern char __overlay_mlkem_txt_size[];		/**< Size of the ML-KEM overlay text image */
 extern char __overlay_mlkem_data_size[];	/**< Size of the ML-KEM overlay data image */
+#endif
+
+/*
+ * The key vault image is text only: the blob format, the chunk walk and their crypto helpers keep
+ * every buffer in the caller session, so none of the three objects reports data or bss. There is
+ * therefore no data image and no LMA to name, only a size the linker sets to zero.
+ */
+#ifdef XASU_KEYMANAGER_ENABLE
+extern char __load_start_overlay_keyvault[];	/**< LMA of the key vault overlay image */
+extern char __overlay_keyvault_img_size[];	/**< Size of the key vault overlay image */
+extern char __overlay_keyvault_txt_size[];	/**< Size of the key vault overlay text image */
+extern char __overlay_keyvault_data_size[];	/**< Size of the key vault overlay data image */
 #endif
 
 extern char __overlay_window_start[];		/**< Start address of the IRAM overlay window */
@@ -146,6 +159,17 @@ static const XOverlay_CatalogEntry Catalog[] = {
 		.ImgSize = (u32)(UINTPTR)__overlay_slhdsa_img_size,
 		.TxtSize = (u32)(UINTPTR)__overlay_slhdsa_txt_size,
 		.DataSize = (u32)(UINTPTR)__overlay_slhdsa_data_size,
+		.OnLoad = NULL,
+	},
+#endif
+#ifdef XASU_KEYMANAGER_ENABLE
+	{
+		.AlgoId = XOVERLAY_ALGO_KEYVAULT,
+		.ImgLma = (const void *)(UINTPTR)__load_start_overlay_keyvault,
+		.DataLma = NULL,
+		.ImgSize = (u32)(UINTPTR)__overlay_keyvault_img_size,
+		.TxtSize = (u32)(UINTPTR)__overlay_keyvault_txt_size,
+		.DataSize = (u32)(UINTPTR)__overlay_keyvault_data_size,
 		.OnLoad = NULL,
 	},
 #endif

@@ -186,8 +186,10 @@ string(APPEND CMAKE_CXX_FLAGS ${ASUFW_COMPILE_OPTIONS})
 string(APPEND CMAKE_C_LINK_FLAGS ${ASUFW_LINK_OPTIONS})
 string(APPEND CMAKE_CXX_LINK_FLAGS ${ASUFW_LINK_OPTIONS})
 
-# These driver translation units are relocated into the DDR-backed overlay
-# sections by the OVERLAY blocks in lscript.ld.
+# These translation units are relocated into the DDR-backed overlay sections by
+# the OVERLAY blocks in lscript.ld: the RSA, ECC, ECIES and LMS drivers, and the
+# key vault blob layers, which the resident key manager calls into once it has
+# activated their image.
 # Compile them with:
 #   -fno-lto : keep each a distinct object with real, linker-selectable
 #              machine-code sections. LTO would merge them into the combined
@@ -212,6 +214,9 @@ set(ASUFW_OVERLAY_SOURCES
 	${CMAKE_CURRENT_SOURCE_DIR}/slhdsa/xslhdsa.c
 	${CMAKE_CURRENT_SOURCE_DIR}/slhdsa/xslhdsa_core.c
 	${CMAKE_CURRENT_SOURCE_DIR}/slhdsa/xslhdsa_hash.c
+	${CMAKE_CURRENT_SOURCE_DIR}/keymanager/xkeymanager_aekv.c
+	${CMAKE_CURRENT_SOURCE_DIR}/keymanager/xkeymanager_chunk.c
+	${CMAKE_CURRENT_SOURCE_DIR}/keymanager/xkeymanager_crypto.c
 	${CMAKE_CURRENT_SOURCE_DIR}/overlay/xoverlay_sections.c)
 set_source_files_properties(${ASUFW_OVERLAY_SOURCES} PROPERTIES COMPILE_OPTIONS "-fno-lto;-msmall-data-limit=0")
 

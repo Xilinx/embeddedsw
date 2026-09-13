@@ -17,6 +17,7 @@
 * ----- ---- -------- ----------------------------------------------------------------------------
 * 1.0   rmv  06/11/26 Initial release
 *       kk   08/25/26 Added SLH-DSA overlay section definitions
+*       vm   09/15/26 Added the key vault overlay image header
 *
 * </pre>
 *
@@ -55,6 +56,11 @@
 #define XOVERLAY_SLHDSA_HDR	OVERLAY_SECTION(".overlay_slhdsa.header")	/**< SLH-DSA overlay
 										header section */
 #endif
+#ifdef XASU_KEYMANAGER_ENABLE
+#define XOVERLAY_KEYVAULT_HDR	OVERLAY_SECTION(".overlay_keyvault.header")	/**< Key vault
+										overlay header
+										section */
+#endif
 
 /********************************** Variable Definitions *****************************************/
 extern char __overlay_rsa_ecc_img_size[];	/**< Size of the RSA-ECC overlay image */
@@ -82,6 +88,12 @@ extern char __overlay_mldsa_data_size[];	/**< Size of the ML-DSA overlay data im
 extern char __overlay_mlkem_img_size[];		/**< Size of the ML-KEM overlay image */
 extern char __overlay_mlkem_txt_size[];		/**< Size of the ML-KEM overlay text image */
 extern char __overlay_mlkem_data_size[];	/**< Size of the ML-KEM overlay data image */
+#endif
+
+#ifdef XASU_KEYMANAGER_ENABLE
+extern char __overlay_keyvault_img_size[];	/**< Size of the key vault overlay image */
+extern char __overlay_keyvault_txt_size[];	/**< Size of the key vault overlay text image */
+extern char __overlay_keyvault_data_size[];	/**< Size of the key vault overlay data image */
 #endif
 
 /**< RSA-ECC overlay header */
@@ -146,4 +158,17 @@ const XOverlay_Header XSlhdsa_OverlayHeader = {
 	.DataSize = (u32)(UINTPTR)__overlay_slhdsa_data_size,
 };
 #endif /* XASU_SLHDSA_ENABLE */
+
+#ifdef XASU_KEYMANAGER_ENABLE
+/**< Key vault overlay header */
+XOVERLAY_KEYVAULT_HDR
+const XOverlay_Header XKeyVault_OverlayHeader = {
+	.Magic = XOVERLAY_MAGIC,
+	.AlgoId = XOVERLAY_ALGO_KEYVAULT,
+	.Version = XOVERLAY_HEADER_VERSION,
+	.ImgSize = (u32)(UINTPTR)__overlay_keyvault_img_size,
+	.TxtSize = (u32)(UINTPTR)__overlay_keyvault_txt_size,
+	.DataSize = (u32)(UINTPTR)__overlay_keyvault_data_size,
+};
+#endif /* XASU_KEYMANAGER_ENABLE */
 /** @} */

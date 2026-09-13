@@ -23,6 +23,7 @@
  *       yog  03/25/25 Added support for public key generation.
  *       yog  07/11/25 Updated code related to curve type value updation.
  *       rmv  08/17/26 Added validation of client provided buffers
+ *       vm   09/15/26 Allocated the ECC core for key manager commands
  *
  * </pre>
  *
@@ -753,6 +754,8 @@ static s32 XAsufw_EcdhKat(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
  * For XASU_ECC_KAT_CMD_ID, both RSA and ECC cores are required. So, XASUFW_ECC_RESOURCE_MASK
  * checks for the availability of ECC core and XASUFW_RSA_RESOURCE_MASK checks for the
  * availability of RSA core.
+ * OCP and key manager commands drive the ECC core through the P-384 device identity key, so
+ * XASUFW_ECC_RESOURCE_MASK checks for the availability of the ECC core for those modules.
  *
  * @param	ReqBuf	Pointer to the request buffer.
  *
@@ -787,7 +790,8 @@ XAsufw_Resource XAsufw_GetEccMaskResourceId(const XAsu_ReqBuf *ReqBuf)
 		} else {
 			Resource = XASUFW_RSA;
 		}
-	} else if ((ModuleId == XASU_MODULE_OCP_ID) || (ModuleId == XASU_MODULE_PROVISION_ID)) {
+	} else if ((ModuleId == XASU_MODULE_OCP_ID) || (ModuleId == XASU_MODULE_PROVISION_ID) ||
+		   (ModuleId == XASU_MODULE_KEYMANAGER_ID)) {
 		Resource = XASUFW_ECC;
 	} else {
 		Resource = XASUFW_INVALID;

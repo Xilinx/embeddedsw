@@ -10,6 +10,9 @@
  *
  * This file contains the function prototypes, defines and macros for the key manager functionality.
  *
+ * AEKV stands for Authenticated Encrypted Key Vault, the portable blob a key vault export
+ * produces and a key vault import consumes.
+ *
  * <pre>
  * MODIFICATION HISTORY:
  *
@@ -20,6 +23,9 @@
  *       ss   03/18/26 Added vault query, store, and fetch APIs for scheduler-based RSA key gen.
  *       kp   03/24/26 Moved KDF/HMAC key info structure to xasu_kdfinfo.h
  *       yog  04/23/26 Added support for LMS key management.
+ *       vm   09/15/26 Added the vault side interfaces of key vault export and import, the ASU
+ *                     internal exportable vault identifier, its key capacity and creation
+ *                     interface, and the resident key vault export and import sequencers
  *
  * </pre>
  *
@@ -50,6 +56,7 @@ extern "C" {
 #include "xasu_mlkeminfo.h"
 #include "xasu_slhdsainfo.h"
 #include "xsha.h"
+#include "xkeymanager_aekv.h"
 
 #ifdef XASU_KEYMANAGER_ENABLE
 /************************************ Constant Definitions ***************************************/
@@ -71,6 +78,14 @@ extern "C" {
 
 #define XKEYMANAGER_ASU_RSA_KEY_VAULT_CAPACITY	(2U)	/**< Number of RSA key pairs that can be
 								 stored in ASU vault */
+#define XKEYMANAGER_ASU_EXPORTABLE_ECC_KEY_CAPACITY	(2U * XASU_MAX_CHANNELS_SUPPORTED)
+						/**< Number of ECC key pairs the ASU internal
+						     exportable vault holds. The boot creates
+						     that vault and the import recreates it for
+						     a blob which carries none, so both use this
+						     capacity: a vault of another size would not
+						     fit the snapshot the import keeps of it. */
+
 /*
  * UDE key type encoding in the key vault main header. Each UDE slot occupies two bits, so the byte
  * holds up to XKEYMANAGER_UDE_MAX_SLOTS slots (UDE_0 in bits 1 and 0, up to UDE_2 in bits 5 and 4).
@@ -272,14 +287,48 @@ s32 XKeyManager_UpdateKeyObjFromVault(XAsufw_Dma *DmaPtr, u32 KeyId, u64 KeyObje
 				      u32 SubSystemId, u8 KeyUsecase,
 				      XKeyManager_RsaOpType RsaOpType,
 				      XAsu_KeyManagerSubVaultType ExpectedKeyType);
-s32 XKeyManager_ExportKeyVault(XAsufw_Dma *DmaPtr, XAes *AesInstancePtr, u64 ExportAddr,
-			       u32 ExportBufSize, u32 ActualVaultSizeAddr);
-s32 XKeyManager_ImportKeyVault(XAsufw_Dma *DmaPtr, XAes *AesInstancePtr, u64 ImportAddr,
-			       u32 ImportSize);
 s32 XKeyManager_SetEpochTime(u32 NewEpochTime);
 u8 XKeyManager_GetEccPubKeyUseCase(u32 KeyUsage);
 s32 XKeyManager_CombineKeysXor(XAsufw_Dma *DmaPtr, u32 SubSystemId,
 	const XAsu_KmXorKeyParams *ParamsPtr, u32 *KeyIdPtr);
+u32 XKeyManager_IsVaultInRegistry(u32 VaultId);
+s32 XKeyManager_CreateAsuExportableVault(void);
+
+/**
+ * Vault side of a blob export or import. A blob format reads and writes the vault only through
+ * these, so it never reaches into the registry itself.
+ */
+s32 XKeyManager_GetExportablePlaintextSize(u32 *SizePtr);
+s32 XKeyManager_HasExportableVault(void);
+s32 XKeyManager_IsImportRegionEmpty(void);
+s32 XKeyManager_ReadExportPlaintext(u32 Offset, u8 *Buf, u32 Len);
+s32 XKeyManager_WriteImportPlaintext(u32 Offset, const u8 *Buf, u32 Len);
+void XKeyManager_MarkVaultClean(void);
+u8 XKeyManager_IsKeyVaultDirty(void);
+s32 XKeyManager_RebuildVaultRegistryFromImport(void);
+s32 XKeyManager_ValidateImportedKeyObjects(void);
+s32 XKeyManager_PrepareImportRegion(void);
+s32 XKeyManager_GetImportRestorableSize(u32 *SizePtr);
+s32 XKeyManager_RevertImportRegion(void);
+s32 XKeyManager_ValidateClientBuffer(u64 Addr, u32 Len);
+u8 *XKeyManager_GetVaultBasePtr(void);
+
+/**
+ * Storage the key vault export and import sessions share, lent out as raw scratch to a caller
+ * that runs while neither of them does. It is declared here rather than beside the blob format
+ * so a borrower does not have to include the blob format header to reach it.
+ */
+u8 *XKeyManager_GetSharedScratch(u32 *SizePtr);
+
+/**
+ * One whole key vault export or import, the entry points the key manager handler calls. These
+ * phase the overlay images the blob format and the signature engine are linked into, so they
+ * stay resident and the format layer never switches images itself.
+ */
+s32 XKeyManager_ExportKeyVault(XAsufw_Dma *DmaPtr, XAes *AesInstancePtr, XSha *ShaInstancePtr,
+			       const XKeyManager_AekvExportParams *ParamsPtr);
+s32 XKeyManager_ImportKeyVault(XAsufw_Dma *DmaPtr, XAes *AesInstancePtr, XSha *ShaInstancePtr,
+			       const XKeyManager_AekvImportParams *ParamsPtr);
 #endif /* XASU_KEYMANAGER_ENABLE */
 
 /************************************ Variable Definitions ***************************************/

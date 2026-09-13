@@ -24,6 +24,7 @@
  *       am   07/18/25 Added core reset support for single glitch recovery
  *       rmv  08/17/26 Added validation of client provided buffers
  * 1.3	 kp   08/21/26 Release the preempted owner's hold on AES after parking its context
+ *       vm   09/15/26 Added the API that hands out the AES instance the firmware drives
  *
  * </pre>
  *
@@ -535,6 +536,22 @@ static s32 XAsufw_AesKat(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	XAsufw_AesModule.AsuDmaPtr = NULL;
 
 	return Status;
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	This function returns the AES instance the ASU firmware drives.
+ *
+ * @return
+ * 	- Pointer to the XAes instance of the single AES device.
+ *
+ * @note	This lets a handler of another module take the instance from the AES module rather
+ *		than reach into the AES driver itself.
+ *
+ *************************************************************************************************/
+XAes *XAsufw_GetAesInstance(void)
+{
+	return XAes_GetInstance(XASU_XAES_0_DEVICE_ID);
 }
 
 /*************************************************************************************************/

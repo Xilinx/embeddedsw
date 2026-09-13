@@ -17,6 +17,7 @@
 * ----- ---- -------- ----------------------------------------------------------------------------
 * 1.0   rmv  06/11/26 Initial release
 *       kk   08/25/26 Added SLH-DSA overlay algorithm ID
+*       vm   09/15/26 Added the key vault overlay algorithm identifier
 *
 * </pre>
 *
@@ -51,6 +52,7 @@ extern "C" {
 #define XOVERLAY_ALGO_MLDSA		(3U)		/**< ML-DSA overlay algorithm ID */
 #define XOVERLAY_ALGO_MLKEM		(4U)		/**< ML-KEM overlay algorithm ID */
 #define XOVERLAY_ALGO_SLHDSA		(5U)		/**< SLH-DSA overlay algorithm ID */
+#define XOVERLAY_ALGO_KEYVAULT		(6U)		/**< Key vault overlay algorithm ID */
 
 /************************************** Type Definitions *****************************************/
 /**

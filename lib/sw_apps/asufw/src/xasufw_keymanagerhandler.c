@@ -20,6 +20,9 @@
  *       vm   08/19/26 Removed unreachable resource allocation skip for set epoch time
  *       rmv  08/17/26 Added validation of client provided buffers
  *       kp   08/22/26 Used composite key ID in key metadata.
+ *       vm   09/15/26 Added key vault export and import command handlers that call the resident
+ *                     sequencers, kept the ASU internal vault restored by an in-place update and
+ *                     added creation of the ASU internal exportable vault at initialization
  *
  * </pre>
  *
@@ -33,6 +36,7 @@
 #include "xasu_keymanagerinfo.h"
 #include "xasu_keymanager_common.h"
 #include "xkeymanager.h"
+#include "xkeymanager_aekv.h"
 #include "xasufw_modules.h"
 #include "xasufw_resourcemanager.h"
 #include "xasufw_cmd.h"
@@ -64,8 +68,8 @@
 #define XASUFW_KEYMANAGER_ASU_KEYVAULT_OCP_ECC_KEY_CAPACITY	(0U)
 #endif
 
-#define XASUFW_KEYMANAGER_ASU_KEYVAULT_ECC_KEY_CAPACITY	 (2U * XASU_MAX_CHANNELS_SUPPORTED)
-								/**< ECC private and public key
+#define XASUFW_KEYMANAGER_ASU_KEYVAULT_ECC_KEY_CAPACITY	\
+	(XKEYMANAGER_ASU_EXPORTABLE_ECC_KEY_CAPACITY)		/**< ECC private and public key
 								pairs capacity for the ASU-owned
 								exportable vault, holding two key
 								pairs per channel: the ECIES
@@ -78,6 +82,18 @@
 								that. */
 
 /************************************** Type Definitions *****************************************/
+
+/**
+ * The export result is published straight into the response buffer, so it has to fit in the
+ * response arguments left after the data offset.
+ */
+_Static_assert(XASU_KM_EXPORT_SIZE_IN_BYTES <=
+	       ((XASU_COMMAND_RESP_ARGS - XASUFW_RESP_DATA_OFFSET) * sizeof(u32)),
+	       "Key vault export result must fit in the response buffer arguments");
+
+/** The export and import parameters travel in the command arguments, so they have to fit them. */
+_Static_assert(sizeof(XAsu_KeyVaultTransferParams) <= (XASU_COMMAND_REQ_ARGS * sizeof(u32)),
+	       "Key vault transfer parameters must fit in the command buffer arguments");
 
 /*************************** Macros (Inline Functions) Definitions *******************************/
 
@@ -120,8 +136,11 @@ static u32 AsuVaultCreatedFlag = XASU_STATUS_FAIL; /**< Flag indicating ASU vaul
  * 	- XASUFW_KEYMANAGER_MODULE_REGISTRATION_FAILED, if Keymanager module registration fails.
  * 	- XASUFW_KEYMANAGER_KEY_VAULT_DDR_INIT_FAILED, if key vault DDR initialization fails.
  * 	- XASUFW_KEYMANAGER_ASU_VAULT_CREATION_FAILED, if the ASU-internal key vault creation
- * 	  fails. A failure to create the ASU-owned exportable vault does not fail this function:
- * 	  the boot continues with wrapped-key provisioning unavailable.
+ * 	  fails.
+ * 	- XASUFW_KEYMANAGER_INVALID_VAULT_ID, if the ASU-owned exportable vault was not created
+ * 	  at the identifier reserved for it.
+ * 	- XASUFW_KEYMANAGER_ASU_EXPORTABLE_VAULT_CREATION_FAILED, if the ASU-owned exportable
+ * 	  vault cannot be created.
  *
  *************************************************************************************************/
 s32 XAsufw_KeyManagerInit(void)
@@ -188,9 +207,16 @@ s32 XAsufw_KeyManagerInit(void)
 		XASUFW_DMA_RESOURCE_MASK | XASUFW_AES_RESOURCE_MASK,
 		[XASU_KM_EXPORT_KEYVAULT_CMD_ID] = XASUFW_KEYMANAGER_RESOURCE_MASK |
 		XASUFW_DMA_RESOURCE_MASK | XASUFW_TRNG_RESOURCE_MASK |
-		XASUFW_TRNG_RANDOM_BYTES_MASK | XASUFW_KDF_RESOURCE_MASK |XASUFW_AES_RESOURCE_MASK,
+		XASUFW_TRNG_RANDOM_BYTES_MASK | XASUFW_KDF_RESOURCE_MASK |
+		XASUFW_AES_RESOURCE_MASK | XASUFW_SHA2_RESOURCE_MASK |
+		XASUFW_SHA3_RESOURCE_MASK | XASUFW_ECC_RESOURCE_MASK |
+		XASUFW_OVERLAY_RESOURCE_MASK,
 		[XASU_KM_IMPORT_KEYVAULT_CMD_ID] = XASUFW_KEYMANAGER_RESOURCE_MASK |
-		XASUFW_DMA_RESOURCE_MASK | XASUFW_KDF_RESOURCE_MASK |XASUFW_AES_RESOURCE_MASK,
+		XASUFW_DMA_RESOURCE_MASK | XASUFW_TRNG_RESOURCE_MASK |
+		XASUFW_TRNG_RANDOM_BYTES_MASK | XASUFW_KDF_RESOURCE_MASK |
+		XASUFW_AES_RESOURCE_MASK | XASUFW_SHA2_RESOURCE_MASK |
+		XASUFW_SHA3_RESOURCE_MASK | XASUFW_ECC_RESOURCE_MASK |
+		XASUFW_OVERLAY_RESOURCE_MASK,
 		[XASU_KM_SET_EPOCH_TIME_CMD_ID] = 0,
 #ifdef XASU_MLDSA_ENABLE
 		/*
@@ -304,12 +330,30 @@ s32 XAsufw_KeyManagerInit(void)
 
 	/** Create and initialize ASU subsystem vault only if key vault DDR space is configured. */
 	if (XAsufw_ReadReg(XASU_RTCA_DDR_SIZE_ADDR) > XASUFW_DDR_RSVD_SIZE) {
-		Status = XAsufw_CreateAsuKeyVault();
-		if (Status != XASUFW_SUCCESS) {
-			Status = XAsufw_UpdateErrorStatus(Status, XASUFW_KEYMANAGER_ASU_VAULT_CREATION_FAILED);
-		} else {
-			AsuVaultCreatedFlag = XASU_STATUS_PASS;
+		/**
+		 * A boot which restored the vault registry of the firmware it replaced already
+		 * has the ASU vault in DDR, so creating it again would allocate a second one.
+		 */
+		if (XKeyManager_IsVaultInRegistry(XKEYMANAGER_ASU_VAULT_ID) != XASU_STATUS_PASS) {
+			Status = XAsufw_CreateAsuKeyVault();
+			if (Status != XASUFW_SUCCESS) {
+				Status = XAsufw_UpdateErrorStatus(Status,
+						XASUFW_KEYMANAGER_ASU_VAULT_CREATION_FAILED);
+				goto END;
+			}
 		}
+
+		/**
+		 * The ASU internal exportable vault holds the provisioning keys ASU owns and is
+		 * created right behind the non-exportable one, so it heads the region an import
+		 * restores. It skips creation on its own when it is already in the registry.
+		 */
+		Status = XKeyManager_CreateAsuExportableVault();
+		if (Status != XASUFW_SUCCESS) {
+			goto END;
+		}
+
+		AsuVaultCreatedFlag = XASU_STATUS_PASS;
 	}
 
 END:
@@ -381,6 +425,7 @@ static s32 XAsufw_KeyManagerResourceHandler(const XAsu_ReqBuf *ReqBuf, u32 ReqId
 	    (CmdId == XASU_KM_GEN_RAW_KEY_CMD_ID) || (CmdId == XASU_KM_GEN_RSA_KEY_PAIR_CMD_ID) ||
 	    (CmdId == XASU_KM_GEN_ECC_KEY_PAIR_CMD_ID) ||
 	    (CmdId == XASU_KM_EXPORT_KEYVAULT_CMD_ID) ||
+	    (CmdId == XASU_KM_IMPORT_KEYVAULT_CMD_ID) ||
 	    (CmdId == XASU_KM_GEN_MLDSA_KEY_PAIR_CMD_ID) ||
 	    (CmdId == XASU_KM_GEN_MLKEM_KEY_PAIR_CMD_ID) ||
 	    (CmdId == XASU_KM_GEN_SLHDSA_KEY_PAIR_CMD_ID) ||
@@ -395,7 +440,10 @@ static s32 XAsufw_KeyManagerResourceHandler(const XAsu_ReqBuf *ReqBuf, u32 ReqId
 		/** Allocate RSA resource. */
 		XAsufw_AllocateResource(XASUFW_RSA, XASUFW_KEYMANAGER, ReqId);
 
-		/** Allocate shared overlay window resource for RSA and ECC key pair generation. */
+		/**
+		 * The ECC core code is linked into the shared overlay window, so every command
+		 * that reaches ECC has to own the window and load the RSA-ECC image before use.
+		 */
 		XAsufw_AllocateResource(XASUFW_OVERLAY, XASUFW_KEYMANAGER, ReqId);
 
 		/** Activate RSA-ECC overlay. */
@@ -407,6 +455,17 @@ static s32 XAsufw_KeyManagerResourceHandler(const XAsu_ReqBuf *ReqBuf, u32 ReqId
 			}
 			goto END;
 		}
+	}
+
+	/**
+	 * Export and import each run under two overlay images in turn, the key vault image for
+	 * the blob body and the RSA-ECC image for the header signature, so they own the window
+	 * for the whole command and load the images themselves as they go.
+	 */
+	if ((CmdId == XASU_KM_EXPORT_KEYVAULT_CMD_ID) ||
+	    (CmdId == XASU_KM_IMPORT_KEYVAULT_CMD_ID)) {
+		/** Allocate shared overlay window resource. */
+		XAsufw_AllocateResource(XASUFW_OVERLAY, XASUFW_KEYMANAGER, ReqId);
 	}
 
 	if (CmdId == XASU_KM_GEN_MLDSA_KEY_PAIR_CMD_ID) {
@@ -484,12 +543,21 @@ static s32 XAsufw_KeyManagerResourceHandler(const XAsu_ReqBuf *ReqBuf, u32 ReqId
 	    (CmdId == XASU_KM_IMPORT_KEYVAULT_CMD_ID)) {
 		/** Allocate AES resource. */
 		XAsufw_AllocateResource(XASUFW_AES, XASUFW_KEYMANAGER, ReqId);
-		XAsufw_KeyManagerModule.AesPtr = XAes_GetInstance(XASU_XAES_0_DEVICE_ID);
+		XAsufw_KeyManagerModule.AesPtr = XAsufw_GetAesInstance();
 	}
 
 	if ((CmdId == XASU_KM_EXPORT_KEYVAULT_CMD_ID) || (CmdId == XASU_KM_IMPORT_KEYVAULT_CMD_ID)) {
-		/** Allocate KDF resource. */
+		/**
+		 * Allocate KDF, SHA2, SHA3 and ECC resources. ECC signs and verifies the blob
+		 * header over a SHA3-384 digest, and SHA2 is held for the known answer test the
+		 * sequencers run before the body.
+		 */
 		XAsufw_AllocateResource(XASUFW_KDF, XASUFW_KEYMANAGER, ReqId);
+		XAsufw_AllocateResource(XASUFW_SHA2, XASUFW_KEYMANAGER, ReqId);
+		XAsufw_AllocateResource(XASUFW_SHA3, XASUFW_KEYMANAGER, ReqId);
+		XAsufw_AllocateResource(XASUFW_ECC, XASUFW_KEYMANAGER, ReqId);
+		/** The chunk digests run on SHA3, which the blob layers take from the module. */
+		XAsufw_KeyManagerModule.ShaPtr = XSha_GetInstance(XASU_XSHA_1_DEVICE_ID);
 	}
 
 	Status = XASUFW_SUCCESS;
@@ -1185,16 +1253,13 @@ END:
 
 /*************************************************************************************************/
 /**
- * @brief	Create the ASU subsystem key vaults with predefined capacities: the ASU-internal
- * 		vault which holds the AES, RSA and OCP ECC keys, and the ASU-owned exportable
- * 		vault which holds the wrapped-key provisioning key pairs.
+ * @brief	Create the ASU-internal key vault with predefined capacities, which holds the AES,
+ * 		RSA and OCP ECC keys. The ASU-owned exportable vault that follows it is created by
+ * 		XKeyManager_CreateAsuExportableVault(), which is its only creator.
  *
  * @return
- * 	- XASUFW_SUCCESS, if the ASU-internal vault is created. The exportable vault is created on
- * 	  a best-effort basis and a failure to create it is not reported, so provisioning may be
- * 	  unavailable even when this function succeeds.
- * 	- The status of XKeyManager_CreateKeyVault(), unchanged, if the ASU-internal vault cannot
- * 	  be created.
+ * 	- XASUFW_SUCCESS, if the ASU-internal vault is created.
+ * 	- The status of XKeyManager_CreateKeyVault(), unchanged, if the vault cannot be created.
  *
  *************************************************************************************************/
 static s32 XAsufw_CreateAsuKeyVault(void)
@@ -1217,32 +1282,6 @@ static s32 XAsufw_CreateAsuKeyVault(void)
 	if (Status != XASUFW_SUCCESS) {
 		goto END;
 	}
-
-	/**
-	 * Create a second ASU-owned exportable vault. It is marked exportable so the keys can be
-	 * persisted across reboots via the key-vault export/import path. Its ID is requested
-	 * explicitly because the provisioning private key IDs are derived from it.
-	 *
-	 * Status already holds the success of the ASU-internal vault and is deliberately left
-	 * alone here. This vault serves only wrapped-key provisioning, so failing to create it
-	 * must not fail the key manager init and stop the boot, and must not withhold the vault
-	 * created flag which gates the background RSA key pair generation that needs the
-	 * ASU-internal vault alone. A provisioning request which arrives without this vault is
-	 * refused by the vault access check in XKeyManager_GenerateEccKeyPair() with
-	 * XASUFW_KEYMANAGER_INVALID_VAULT_ACCESS, before any key material is generated, so the
-	 * failure surfaces at command time instead.
-	 */
-	SubVaultParams.RSAPubKeyVaultCapacity = 0U;
-	SubVaultParams.RSAPvtKeyVaultCapacity = 0U;
-	SubVaultParams.AESKeyVaultCapacity = 0U;
-	SubVaultParams.ECCPvtKeyVaultCapacity = XASUFW_KEYMANAGER_ASU_KEYVAULT_ECC_KEY_CAPACITY;
-	SubVaultParams.ECCPubKeyVaultCapacity = XASUFW_KEYMANAGER_ASU_KEYVAULT_ECC_KEY_CAPACITY;
-	SubVaultParams.AccessRights = 0U;
-	SubVaultParams.Restrictions = XASU_KEYMANAGER_EXPORTABLE_VAULT;
-	SubVaultParams.VaultId = XKEYMANAGER_ASU_EXPORTABLE_VAULT_ID;
-
-	(void)XKeyManager_CreateKeyVault(&SubVaultParams, XKEYMANAGER_ASU_SUBSYSTEM_ID,
-						0U, &VaultId);
 
 END:
 	return Status;
@@ -1331,7 +1370,6 @@ END:
  *
  * @return
  *	- XASUFW_SUCCESS, if vault export operation is successful.
- *	- XASUFW_CMD_IN_PROGRESS, if DMA transfer is in progress (non-blocking mode).
  *	- XASUFW_KEYMANAGER_EXPORT_VAULT_ERROR, if vault export operation fails.
  *	- XASUFW_RESOURCE_RELEASE_NOT_ALLOWED, if illegal resource release is requested.
  *	- XASUFW_INVALID_SUBSYSTEM_ID, if invalid subsystem ID is provided.
@@ -1341,14 +1379,15 @@ static s32 XAsufw_KeyManagerExportVault(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 {
 	s32 Status = XASUFW_FAILURE;
 	const XAsu_KeyVaultTransferParams *Cmd = (const XAsu_KeyVaultTransferParams *)ReqBuf->Arg;
-	u32 *ActualSizeAddr;
+	XKeyManager_AekvExportParams ExportParams = {0U};
+	u32 *ExportResultAddr;
 	u32 SubsystemId = 0U;
 	u32 IpiMask = ReqId >> XASUFW_IPI_BITMASK_SHIFT;
 
 	/** Verify command length. */
 	XASUFW_VERIFY_CMD_LEN(END, Status, ReqBuf, XAsu_KeyVaultTransferParams);
 
-	ActualSizeAddr = (u32 *)XAsufw_GetRespBuf(ReqBuf, XAsu_ChannelQueueBuf, RespBuf) +
+	ExportResultAddr = (u32 *)XAsufw_GetRespBuf(ReqBuf, XAsu_ChannelQueueBuf, RespBuf) +
 						  XASUFW_RESP_DATA_OFFSET;
 
 	/** Get subsystem ID from IPI mask. */
@@ -1358,23 +1397,34 @@ static s32 XAsufw_KeyManagerExportVault(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 		goto END;
 	}
 
+	/**
+	 * The request buffer stays writable by the caller for as long as the command runs, and
+	 * an export suspends, so the parameters are taken out of it once and everything past
+	 * this point works on that copy.
+	 */
+	ExportParams.ExportAddr = Cmd->DataAddr;
+	ExportParams.ExportBufSize = Cmd->BufSize;
+	ExportParams.ExportResultAddr = (u32)(UINTPTR)ExportResultAddr;
+	ExportParams.RevokeEfuseNum = Cmd->RevokeEfuseNum;
+	ExportParams.SubsystemId = SubsystemId;
+
+	Status = Xil_SMemCpy(ExportParams.Context, sizeof(ExportParams.Context), Cmd->Context,
+			     XASU_KM_KV_CONTEXT_SIZE_IN_BYTES, XASU_KM_KV_CONTEXT_SIZE_IN_BYTES);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_MEM_COPY_FAIL;
+		goto END;
+	}
+
 	/** Validate the client provided vault destination buffer. */
-	XASUFW_VALIDATE_MEM_ACCESS(END, Status, SubsystemId, Cmd->DataAddr, Cmd->BufSize);
+	XASUFW_VALIDATE_MEM_ACCESS(END, Status, SubsystemId, ExportParams.ExportAddr,
+				   ExportParams.ExportBufSize);
 
 	/** Export the entire key vault. */
 	Status = XKeyManager_ExportKeyVault(XAsufw_KeyManagerModule.AsuDmaPtr,
-					    XAsufw_KeyManagerModule.AesPtr, Cmd->DataAddr,
-					    Cmd->BufSize, (u32)(UINTPTR)ActualSizeAddr);
-	if (Status == XASUFW_CMD_IN_PROGRESS) {
-		/** Configure DMA for non-blocking wait and return in-progress status. */
-		XAsufw_DmaCfgNonBlocking(XAsufw_KeyManagerModule.AsuDmaPtr,
-					 XASUDMA_DST_CHANNEL, ReqBuf, ReqId,
-					 XASUFW_BLOCK_DMA);
-		goto DONE;
-	} else if (Status != XASUFW_SUCCESS) {
+					XAsufw_KeyManagerModule.AesPtr,
+					XAsufw_KeyManagerModule.ShaPtr, &ExportParams);
+	if (Status != XASUFW_SUCCESS) {
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_KEYMANAGER_EXPORT_VAULT_ERROR);
-	} else {
-		/* Do nothing.*/
 	}
 
 END:
@@ -1384,22 +1434,20 @@ END:
 	}
 	XAsufw_KeyManagerModule.AsuDmaPtr = NULL;
 	XAsufw_KeyManagerModule.AesPtr = NULL;
+	XAsufw_KeyManagerModule.ShaPtr = NULL;
 
-DONE:
 	return Status;
 }
 
 /*************************************************************************************************/
 /**
  * @brief	This function is a handler for key vault import operation command.
- *		Supports non-blocking DMA operations for large vault transfers.
  *
  * @param	ReqBuf	Pointer to the request buffer.
  * @param	ReqId	Request Unique ID.
  *
  * @return
  *	- XASUFW_SUCCESS, if vault import operation is successful.
- *	- XASUFW_CMD_IN_PROGRESS, if DMA transfer is in progress (non-blocking mode).
  *	- XASUFW_KEYMANAGER_IMPORT_VAULT_ERROR, if vault import operation fails.
  *	- XASUFW_RESOURCE_RELEASE_NOT_ALLOWED, if illegal resource release is requested.
  *	- XASUFW_INVALID_SUBSYSTEM_ID, if invalid subsystem ID is provided.
@@ -1409,6 +1457,7 @@ static s32 XAsufw_KeyManagerImportVault(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 {
 	s32 Status = XASUFW_FAILURE;
 	const XAsu_KeyVaultTransferParams *Cmd = (const XAsu_KeyVaultTransferParams *)ReqBuf->Arg;
+	XKeyManager_AekvImportParams ImportParams = {0U};
 	u32 SubsystemId = 0U;
 	u32 IpiMask = ReqId >> XASUFW_IPI_BITMASK_SHIFT;
 
@@ -1422,23 +1471,28 @@ static s32 XAsufw_KeyManagerImportVault(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 		goto END;
 	}
 
+	/** The request buffer stays writable by the caller, so the parameters are copied once. */
+	ImportParams.ImportAddr = Cmd->DataAddr;
+	ImportParams.ImportSize = Cmd->BufSize;
+	ImportParams.SubsystemId = SubsystemId;
+
+	Status = Xil_SMemCpy(ImportParams.Context, sizeof(ImportParams.Context), Cmd->Context,
+			     XASU_KM_KV_CONTEXT_SIZE_IN_BYTES, XASU_KM_KV_CONTEXT_SIZE_IN_BYTES);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_MEM_COPY_FAIL;
+		goto END;
+	}
+
 	/** Validate the client provided vault source buffer. */
-	XASUFW_VALIDATE_MEM_ACCESS(END, Status, SubsystemId, Cmd->DataAddr, Cmd->BufSize);
+	XASUFW_VALIDATE_MEM_ACCESS(END, Status, SubsystemId, ImportParams.ImportAddr,
+				   ImportParams.ImportSize);
 
 	/** Import the entire key vault. */
 	Status = XKeyManager_ImportKeyVault(XAsufw_KeyManagerModule.AsuDmaPtr,
-					    XAsufw_KeyManagerModule.AesPtr, Cmd->DataAddr,
-					    Cmd->BufSize);
-	if (Status == XASUFW_CMD_IN_PROGRESS) {
-		/** Configure DMA for non-blocking wait and return in-progress status. */
-		XAsufw_DmaCfgNonBlocking(XAsufw_KeyManagerModule.AsuDmaPtr,
-					 XASUDMA_DST_CHANNEL, ReqBuf, ReqId,
-					 XASUFW_BLOCK_DMA);
-		goto DONE;
-	} else if (Status != XASUFW_SUCCESS) {
+					XAsufw_KeyManagerModule.AesPtr,
+					XAsufw_KeyManagerModule.ShaPtr, &ImportParams);
+	if (Status != XASUFW_SUCCESS) {
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_KEYMANAGER_IMPORT_VAULT_ERROR);
-	} else {
-		/* Do nothing. */
 	}
 
 END:
@@ -1448,8 +1502,8 @@ END:
 	}
 	XAsufw_KeyManagerModule.AsuDmaPtr = NULL;
 	XAsufw_KeyManagerModule.AesPtr = NULL;
+	XAsufw_KeyManagerModule.ShaPtr = NULL;
 
-DONE:
 	return Status;
 }
 

@@ -29,7 +29,8 @@
  *       rmv  09/09/25 Bring TRNG mode check together in XTrng_Reseed()
  *       rmv  09/09/25 Moved XTrng_ErrorState enum from header to source file
  *       rmv  08/21/26 Moved block length and DF length macros to the header
- *       vm   09/15/26 Added XTrng_FisherYatesShuffle() function
+ *       vm   09/15/26 Added XTrng_FisherYatesShuffle() and the API to report the TRNG health
+ *                     state
  *
  * </pre>
  *
@@ -828,6 +829,62 @@ s32 XTrng_Uninstantiate(XTrng *InstancePtr)
 
 	InstancePtr->State = XTRNG_UNINITIALIZED_STATE;
 	InstancePtr->ErrorState = XTRNG_STARTUP_TEST;
+
+END:
+	return Status;
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	This function reports whether the TRNG core is passing its continuous health
+ * 		tests. The repetition count and adaptive proportion tests run in hardware and
+ * 		report a failure through the CERTF status bit, which the driver latches into the
+ * 		core error state. Callers use this before generating key material so that a core
+ * 		that has already failed is not used as an entropy source.
+ *
+ * @param	InstancePtr	Pointer to the TRNG instance.
+ *
+ * @return
+ * 	- XASUFW_SUCCESS, if the TRNG core is healthy.
+ * 	- XASUFW_TRNG_INVALID_PARAM, if InstancePtr is NULL.
+ * 	- XASUFW_TRNG_INVALID_STATE, if the TRNG core is not instantiated.
+ * 	- XASUFW_TRNG_UNHEALTHY_STATE, if a health test has failed.
+ *
+ *************************************************************************************************/
+s32 XTrng_IsHealthy(const XTrng *InstancePtr)
+{
+	CREATE_VOLATILE(Status, XASUFW_FAILURE);
+
+	/** Validate input parameters. */
+	if (InstancePtr == NULL) {
+		Status = XASUFW_TRNG_INVALID_PARAM;
+		goto END;
+	}
+
+	if (InstancePtr->State == XTRNG_UNINITIALIZED_STATE) {
+		Status = XASUFW_TRNG_INVALID_STATE;
+		goto END;
+	}
+
+	if ((InstancePtr->ErrorState != XTRNG_HEALTHY) &&
+	    (InstancePtr->ErrorState != XTRNG_STARTUP_TEST)) {
+		Status = XASUFW_TRNG_UNHEALTHY_STATE;
+		goto END;
+	}
+
+	/**
+	 * Read the live status bit as well, so a health test that failed since the last
+	 * generate call is caught even before the driver latches the error state.
+	 */
+	if (XASUFW_PLATFORM != PMC_TAP_VERSION_PLATFORM_PROTIUM) {
+		if ((XAsufw_ReadReg(InstancePtr->BaseAddress + XASU_TRNG_STATUS_OFFSET) &
+		     XASU_TRNG_STATUS_CERTF_MASK) == XASU_TRNG_STATUS_CERTF_MASK) {
+			Status = XASUFW_TRNG_UNHEALTHY_STATE;
+			goto END;
+		}
+	}
+
+	Status = XASUFW_SUCCESS;
 
 END:
 	return Status;
