@@ -24,6 +24,8 @@
 * 5.0   sd       02/02/26 Add DDR boundary check to prevent USB boot image
 *                         overflow
 *       sd       03/10/26 Remove redundant guard XFSBL_PS_DDR_END_ADDRESS
+*       sd       09/14/26 Clamp DFU_GETSTATUS reply length to DfuReply buffer
+*                         size to prevent USB host-controlled memory disclosure
 *
 * </pre>
 *
@@ -604,6 +606,7 @@ void XFsbl_DfuClassReq(struct Usb_DevData* InstancePtr, SetupPacket *SetupData)
 {
 	int Result = XST_FAILURE;
 	u32 RxBytesLeft;
+	u32 ReplyLen;
 	static u8 DfuReply[DFU_STATUS_SIZE] = {0,};
 	u64 DfuBaseAddr;
 	u64 WriteEndAddr;
@@ -694,10 +697,15 @@ void XFsbl_DfuClassReq(struct Usb_DevData* InstancePtr, SetupPacket *SetupData)
 			}
 			DfuReply[0] = DfuObj.CurrStatus;
 			DfuReply[4] = DfuObj.CurrState;
-			if (SetupData->wLength > 0U) {
+			/* Clamp reply length to DfuReply buffer size to prevent
+			 * host-controlled wLength from over-reading FSBL memory
+			 */
+			ReplyLen = (SetupData->wLength < DFU_STATUS_SIZE) ?
+				(u32)SetupData->wLength : (u32)DFU_STATUS_SIZE;
+			if (ReplyLen > 0U) {
 				Result = XUsbPsu_EpBufferSend(
 				(struct XUsbPsu*)InstancePtr->PrivateData,
-				0U, DfuReply, (u32)SetupData->wLength);
+				0U, DfuReply, ReplyLen);
 				if (Result != XST_SUCCESS) {
 					goto END;
 				}
