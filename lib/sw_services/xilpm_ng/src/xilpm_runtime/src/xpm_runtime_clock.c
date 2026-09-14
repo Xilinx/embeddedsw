@@ -73,35 +73,19 @@
 		} \
 	} while (0)
 
-static struct XPm_ClkTopologyNode* XPmClock_GetTopologyNode(const XPm_OutClockNode *Clk, u32 Type)
-{
-	struct XPm_ClkTopologyNode *SubNodes;
-	struct XPm_ClkTopologyNode *ClkSubNodes = NULL;
-	uint8_t NumNodes;
-	u32 i;
-
-	if (Clk == NULL) {
-		goto done;
-	}
-
-	SubNodes = Clk->Topology.Nodes;
-	NumNodes = Clk->Topology.NumNodes;
-
-	for (i = 0; i < NumNodes; i++) {
-		if (SubNodes[i].Type == Type) {
-			/* For custom topology, nodes have correct control address but
-			 * for other topologies, there's no separate node memory to fill
-			 * register each time */
-			if (Clk->Topology.Id != TOPOLOGY_CUSTOM) {
-				SubNodes[i].Reg = Clk->ClkNode.Node.BaseAddress;
-			}
-			ClkSubNodes = &SubNodes[i];
-			break;
-		}
-	}
-done:
-	return ClkSubNodes;
-}
+/*****************************************************************************/
+/**
+ * @brief Request a clock and maintain its use count.
+ *
+ * On the first request, initialize the parent selection if needed, request the
+ * parent clock or PLL, mark the clock as requested, and attempt to enable its
+ * gate. Increment the use count when execution reaches the count update,
+ * unless the count is already at its maximum.
+ *
+ * @param Clk Clock node to request. A NULL pointer is ignored.
+ *
+ * @return None.
+ *****************************************************************************/
 static void XPmClock_RequestInt(XPm_ClockNode *Clk)
 {
 	XStatus Status;

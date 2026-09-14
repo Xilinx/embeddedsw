@@ -597,7 +597,17 @@ XStatus XPmClock_SetById(u32 ClockId, XPm_ClockNode *Clk)
 	return Status;
 }
 
-static struct XPm_ClkTopologyNode* XPmClock_GetTopologyNode(const XPm_OutClockNode *Clk, u32 Type)
+/**
+ * @brief Find the first node of a requested type in a clock topology.
+ *
+ * @param Clk Output clock whose topology is searched.
+ * @param Type Requested topology node type.
+ *
+ * @return Matching node, or NULL for an absent clock, node array or type.
+ *         Generic nodes receive the clock control address before return.
+ */
+struct XPm_ClkTopologyNode *XPmClock_GetTopologyNode(const XPm_OutClockNode *Clk,
+						  u32 Type)
 {
 	struct XPm_ClkTopologyNode *SubNodes;
 	struct XPm_ClkTopologyNode *ClkSubNodes = NULL;
@@ -616,6 +626,7 @@ static struct XPm_ClkTopologyNode* XPmClock_GetTopologyNode(const XPm_OutClockNo
 	SubNodes = Clk->Topology.Nodes;
 	NumNodes = Clk->Topology.NumNodes;
 
+	/* Use the first matching node, preserving custom register addresses. */
 	for (i = 0; i < NumNodes; i++) {
 		if (SubNodes[i].Type == Type) {
 			/* For custom topology, nodes have correct control address but
