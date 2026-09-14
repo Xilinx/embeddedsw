@@ -18,6 +18,7 @@
  * ----- ---- -------- ----------------------------------------------------------------------------
  * 1.0   kp   06/27/26 Initial release
  *       rmv  08/21/26 Added validation of client provided buffers
+ *       rmv  09/03/26 Reserved RSA core instead of ECC core for UDE provisioning.
  *
  * </pre>
  *
@@ -83,8 +84,7 @@ s32 XAsufw_ProvisionInit(void)
 			XASUFW_DMA_RESOURCE_MASK | XASUFW_AES_RESOURCE_MASK |
 			XASUFW_TRNG_RESOURCE_MASK | XASUFW_TRNG_RANDOM_BYTES_MASK |
 			XASUFW_SHA3_RESOURCE_MASK | XASUFW_RSA_RESOURCE_MASK |
-			XASUFW_ECC_RESOURCE_MASK | XASUFW_KEYMANAGER_RESOURCE_MASK |
-			XASUFW_OVERLAY_RESOURCE_MASK,
+			XASUFW_KEYMANAGER_RESOURCE_MASK | XASUFW_OVERLAY_RESOURCE_MASK,
 	};
 
 	/** XAsufw_ProvisionAccessPermBuf holds the IPI access permissions per command. */
@@ -173,13 +173,12 @@ static s32 XAsufw_ProvisionResourceHandler(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 
 	/**
 	 * The UDE command additionally generates an ECC P-384 key pair and a self-signed X.509
-	 * certificate, which need the ECC and SHA3 engines and the RSA-ECC overlay.
+	 * certificate, which need the RSA and SHA3 engines and the RSA-ECC overlay.
 	 */
 	if (CmdId == XASU_PROVISION_UDE_CMD_ID) {
 		XAsufw_AllocateResource(XASUFW_OVERLAY, XASUFW_PROVISION, ReqId);
 		XAsufw_AllocateResource(XASUFW_SHA3, XASUFW_PROVISION, ReqId);
 		XAsufw_AllocateResource(XASUFW_RSA, XASUFW_PROVISION, ReqId);
-		XAsufw_AllocateResource(XASUFW_ECC, XASUFW_PROVISION, ReqId);
 
 		/** Activate the RSA-ECC overlay before any ECC operation. */
 		Status = XOverlay_Activate(XOVERLAY_ALGO_RSA_ECC,

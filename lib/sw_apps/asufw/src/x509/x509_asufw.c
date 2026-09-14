@@ -18,6 +18,7 @@
 * ----- ---- -------- ---------------------------------------------------------------------------
 * 1.0   rmv  05/19/25 Initial release
 *       rmv  09/08/25 Add missing parameter validation
+*       rmv  09/03/26 Used RSA core ECC APIs for certificate signing.
 *
 * </pre>
 *
@@ -34,8 +35,8 @@
 #include "xasufw_status.h"
 #include "xasufw_trnghandler.h"
 #include "xasufw_util.h"
-#include "xecc.h"
 #include "xil_types.h"
+#include "xrsa_ecc.h"
 #include "xsha.h"
 #include "xsha_hw.h"
 #include "xasu_def.h"
@@ -45,7 +46,7 @@
 /************************************** Type Definitions *****************************************/
 
 /*************************** Macros (Inline Functions) Definitions *******************************/
-#define X509_XECC_CURVE_TYPE		XECC_CURVE_TYPE_NIST_P384	/**< ECC mode used for
+#define X509_ECC_CURVE_TYPE		XASU_ECC_NIST_P384		/**< ECC curve used for
 									X.509 certificate signing */
 #define X509_ECC_SIGN_SIZE_IN_BYTES	XASU_ECC_P384_PVT_KEY_SIZE_IN_BYTES	/**< ECC Signature
 										size in bytes */
@@ -112,7 +113,6 @@ static s32 X509_GenerateSignEcc(const u8 *Hash, u32 HashLen, const u8 *Sign, u32
 				u32 *SignActualLen, const u8 *PvtKey, const void *PlatformData)
 {
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
-	XEcc *EccInstance = XEcc_GetInstance(XASU_XECC_0_DEVICE_ID);
 	const X509_PlatData *PlatData = (X509_PlatData *)PlatformData;
 	u32 SignatureSize = XAsu_DoubleCurveLength(X509_ECC_SIGN_SIZE_IN_BYTES);
 
@@ -130,9 +130,9 @@ static s32 X509_GenerateSignEcc(const u8 *Hash, u32 HashLen, const u8 *Sign, u32
 	}
 
 	/* Generate signature on the hash data. */
-	Status = XEcc_GenerateSignature(EccInstance, PlatData->DmaPtr, X509_XECC_CURVE_TYPE,
-					X509_ECC_SIGN_SIZE_IN_BYTES, (u64)(UINTPTR)PvtKey,
-					NULL, (u64)(UINTPTR)Hash, HashLen, (u64)(UINTPTR)Sign);
+	Status = XRsa_EccGenerateSignature(PlatData->DmaPtr, X509_ECC_CURVE_TYPE,
+					   X509_ECC_SIGN_SIZE_IN_BYTES, (u64)(UINTPTR)PvtKey,
+					   NULL, (u64)(UINTPTR)Hash, HashLen, (u64)(UINTPTR)Sign);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_X509_GEN_SIGN_ECC_FAIL);
 		goto END;

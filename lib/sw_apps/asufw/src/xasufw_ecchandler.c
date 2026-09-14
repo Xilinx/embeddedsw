@@ -23,7 +23,7 @@
  *       yog  03/25/25 Added support for public key generation.
  *       yog  07/11/25 Updated code related to curve type value updation.
  *       rmv  08/17/26 Added validation of client provided buffers
- *       vm   09/15/26 Allocated the ECC core for key manager commands
+ *       rmv  09/03/26 Resolved the ECC resource mask only for the ECC module.
  *
  * </pre>
  *
@@ -754,13 +754,15 @@ static s32 XAsufw_EcdhKat(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
  * For XASU_ECC_KAT_CMD_ID, both RSA and ECC cores are required. So, XASUFW_ECC_RESOURCE_MASK
  * checks for the availability of ECC core and XASUFW_RSA_RESOURCE_MASK checks for the
  * availability of RSA core.
- * OCP and key manager commands drive the ECC core through the P-384 device identity key, so
- * XASUFW_ECC_RESOURCE_MASK checks for the availability of the ECC core for those modules.
+ * Only the ECC module needs this resolution, because only its commands pick the core from the
+ * requested curve. Every other module runs its curve operations on the RSA core and names
+ * XASUFW_RSA_RESOURCE_MASK directly.
  *
  * @param	ReqBuf	Pointer to the request buffer.
  *
  * @return
- *	- ECC or RSA resource ID.
+ *	- ECC or RSA resource ID, for a command of the ECC module.
+ *	- XASUFW_INVALID, for a command of any other module.
  *
  *************************************************************************************************/
 XAsufw_Resource XAsufw_GetEccMaskResourceId(const XAsu_ReqBuf *ReqBuf)
@@ -770,14 +772,15 @@ XAsufw_Resource XAsufw_GetEccMaskResourceId(const XAsu_ReqBuf *ReqBuf)
 	u32 CurveType;
 	XAsufw_Resource Resource = XASUFW_INVALID;
 
-	/** Get CurveType based on command ID. */
-	if ((CmdId == XASU_ECC_GEN_PUBKEY_CMD_ID) || (CmdId == XASU_ECC_VAL_PUBKEY_CMD_ID)) {
-		CurveType = ((const XAsu_EccKeyParams *)ReqBuf->Arg)->PvtKey.CurveType;
-	} else {
-		CurveType = ((const XAsu_EccParams *)ReqBuf->Arg)->Key.CurveType;
-	}
-
 	if (ModuleId == XASU_MODULE_ECC_ID) {
+		/** Get CurveType based on command ID. */
+		if ((CmdId == XASU_ECC_GEN_PUBKEY_CMD_ID) ||
+		    (CmdId == XASU_ECC_VAL_PUBKEY_CMD_ID)) {
+			CurveType = ((const XAsu_EccKeyParams *)ReqBuf->Arg)->PvtKey.CurveType;
+		} else {
+			CurveType = ((const XAsu_EccParams *)ReqBuf->Arg)->Key.CurveType;
+		}
+
 		if (((CmdId == XASU_ECC_GEN_SIGNATURE_CMD_ID) ||
 		    (CmdId == XASU_ECC_VERIFY_SIGNATURE_CMD_ID) ||
 		    (CmdId == XASU_ECC_GEN_PUBKEY_CMD_ID) ||
@@ -790,9 +793,6 @@ XAsufw_Resource XAsufw_GetEccMaskResourceId(const XAsu_ReqBuf *ReqBuf)
 		} else {
 			Resource = XASUFW_RSA;
 		}
-	} else if ((ModuleId == XASU_MODULE_OCP_ID) || (ModuleId == XASU_MODULE_PROVISION_ID) ||
-		   (ModuleId == XASU_MODULE_KEYMANAGER_ID)) {
-		Resource = XASUFW_ECC;
 	} else {
 		Resource = XASUFW_INVALID;
 	}

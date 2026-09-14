@@ -17,6 +17,7 @@
  * ----- ---- -------- ----------------------------------------------------------------------------
  * 1.0   rmv  07/16/25 Initial release
  *       rmv  08/17/26 Added validation of client provided buffers
+ *       rmv  09/03/26 Reserved RSA core instead of ECC core for OCP commands.
  *
  * </pre>
  *
@@ -44,7 +45,7 @@
 #include "xocp_ude.h"
 #include "xoverlay.h"
 #include "xkeymanager.h"
-#include "xecc.h"
+#include "xrsa_ecc.h"
 #include "xil_util.h"
 
 #ifdef XASU_OCP_ENABLE
@@ -110,30 +111,30 @@ s32 XAsufw_OcpInit(void)
 		[XASU_OCP_GET_DEVIK_X509_CERT_CMD_ID] = XASUFW_DMA_RESOURCE_MASK |
 			XASUFW_OCP_RESOURCE_MASK | XASUFW_TRNG_RESOURCE_MASK |
 			XASUFW_TRNG_RANDOM_BYTES_MASK | XASUFW_SHA3_RESOURCE_MASK |
-			XASUFW_ECC_RESOURCE_MASK | XASUFW_OVERLAY_RESOURCE_MASK,
+			XASUFW_RSA_RESOURCE_MASK | XASUFW_OVERLAY_RESOURCE_MASK,
 		[XASU_OCP_GET_DEVAK_X509_CERT_CMD_ID] = XASUFW_DMA_RESOURCE_MASK |
 			XASUFW_OCP_RESOURCE_MASK | XASUFW_TRNG_RESOURCE_MASK |
 			XASUFW_TRNG_RANDOM_BYTES_MASK |	XASUFW_SHA3_RESOURCE_MASK |
-			XASUFW_ECC_RESOURCE_MASK | XASUFW_OVERLAY_RESOURCE_MASK,
+			XASUFW_RSA_RESOURCE_MASK | XASUFW_OVERLAY_RESOURCE_MASK,
 		[XASU_OCP_GET_DEVIK_CSR_X509_CERT_CMD_ID] = XASUFW_DMA_RESOURCE_MASK |
 			XASUFW_OCP_RESOURCE_MASK | XASUFW_TRNG_RESOURCE_MASK |
 			XASUFW_TRNG_RANDOM_BYTES_MASK | XASUFW_SHA3_RESOURCE_MASK |
-			XASUFW_ECC_RESOURCE_MASK | XASUFW_OVERLAY_RESOURCE_MASK,
+			XASUFW_RSA_RESOURCE_MASK | XASUFW_OVERLAY_RESOURCE_MASK,
 		[XASU_OCP_DEVAK_ATTESTATION_CMD_ID] = XASUFW_DMA_RESOURCE_MASK |
 			XASUFW_OCP_RESOURCE_MASK | XASUFW_TRNG_RESOURCE_MASK |
-			XASUFW_TRNG_RANDOM_BYTES_MASK | XASUFW_ECC_RESOURCE_MASK |
+			XASUFW_TRNG_RANDOM_BYTES_MASK | XASUFW_RSA_RESOURCE_MASK |
 			XASUFW_OVERLAY_RESOURCE_MASK,
 		[XASU_OCP_UDE_CHALLENGE_REQ_CMD_ID] = XASUFW_DMA_RESOURCE_MASK |
 			XASUFW_OCP_RESOURCE_MASK | XASUFW_TRNG_RESOURCE_MASK |
 			XASUFW_TRNG_RANDOM_BYTES_MASK | XASUFW_AES_RESOURCE_MASK |
-			XASUFW_SHA2_RESOURCE_MASK | XASUFW_ECC_RESOURCE_MASK |
+			XASUFW_SHA2_RESOURCE_MASK | XASUFW_RSA_RESOURCE_MASK |
 			XASUFW_OVERLAY_RESOURCE_MASK,
 		[XASU_OCP_RESERVED_CMD_ID] = 0U,
 		[XASU_OCP_GET_HUK_CMD_ID] = XASUFW_OCP_RESOURCE_MASK,
 		[XASU_OCP_GET_USER_X509_CERT_CMD_ID] = XASUFW_DMA_RESOURCE_MASK |
 			XASUFW_OCP_RESOURCE_MASK | XASUFW_TRNG_RESOURCE_MASK |
 			XASUFW_TRNG_RANDOM_BYTES_MASK | XASUFW_SHA3_RESOURCE_MASK |
-			XASUFW_ECC_RESOURCE_MASK | XASUFW_KEYMANAGER_RESOURCE_MASK |
+			XASUFW_RSA_RESOURCE_MASK | XASUFW_KEYMANAGER_RESOURCE_MASK |
 			XASUFW_OVERLAY_RESOURCE_MASK,
 	};
 
@@ -464,10 +465,9 @@ static s32 XAsufw_OcpUserX509CertGen(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 
 	/** Verify the issuer public and private keys are a key pair. */
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-	XFIH_CALL(XEcc_Pwct, XFihOcp, Status, XEcc_GetInstance(XASU_XECC_0_DEVICE_ID),
-		  PlatData.DmaPtr, CertData->IssuerPvtKeyObj.CurveType,
-		  CertData->IssuerPvtKeyObj.KeyLen, CertData->IssuerPvtKeyObj.KeyAddr,
-		  CertData->IssuerPubKeyObj.KeyAddr);
+	XFIH_CALL(XRsa_EccPwct, XFihOcp, Status, PlatData.DmaPtr,
+		  CertData->IssuerPvtKeyObj.CurveType, CertData->IssuerPvtKeyObj.KeyLen,
+		  CertData->IssuerPvtKeyObj.KeyAddr, CertData->IssuerPubKeyObj.KeyAddr);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_OCP_ISSUER_KEY_PAIR_MISMATCH);
 		goto END;
@@ -713,8 +713,8 @@ static s32 XAsufw_OcpResourceHandler(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	/** Allocate TRNG resource which are dependent on TRNG HW. */
 	XAsufw_AllocateResource(XASUFW_TRNG, XASUFW_OCP, ReqId);
 
-	/** Allocate ECC resource. */
-	XAsufw_AllocateResource(XASUFW_ECC, XASUFW_OCP, ReqId);
+	/** Allocate RSA resource. */
+	XAsufw_AllocateResource(XASUFW_RSA, XASUFW_OCP, ReqId);
 
 	/** Allocate key manager resource for user certificate generation. */
 	if (CmdId == XASU_OCP_GET_USER_X509_CERT_CMD_ID) {

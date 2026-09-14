@@ -20,6 +20,7 @@
 *       yog  04/17/26 Updated code to zeroize UDE KEK immediately after use to avoid exposure in memory.
 *       yog  08/24/26 Encrypt/decrypt UDE private keys directly with the PUF KEK,
 *                     removing the derived UDE KEK (CMAC-KDF from eFUSE-0).
+*       rmv  09/03/26 Used RSA core ECC APIs for ECC operations.
 *       vm   09/15/26 Added UDE private key recovery helper, the UDE data sign and verify APIs,
 *                     the cached UDE public key with the invalidation provisioning calls and the
 *                     query for UDE key availability
@@ -36,7 +37,6 @@
 #include "xasufw_status.h"
 #include "xasufw_trnghandler.h"
 #include "xasufw_util.h"
-#include "xecc.h"
 #include "xocp_ude.h"
 #include "xocp.h"
 #include "xaes.h"
@@ -866,7 +866,6 @@ static s32 XOcp_UdeSignDataWithKey(XAsufw_Dma *DmaPtr, const u8 *UdeDecPvtKey, c
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
 	CREATE_VOLATILE(ClearStatus, XASUFW_FAILURE);
 	XFih_Var XFihUde = XFih_VolatileAssignXfihVar(XFIH_FAILURE);
-	XEcc *EccInstancePtr = XEcc_GetInstance(XASU_XECC_0_DEVICE_ID);
 	u8 HashBuf[XASU_SHA_384_HASH_LEN] = {0U};
 
 	/** Sign the digest of the data rather than the data, whatever its length. */
@@ -878,7 +877,7 @@ static s32 XOcp_UdeSignDataWithKey(XAsufw_Dma *DmaPtr, const u8 *UdeDecPvtKey, c
 
 	/** Sign the digest with the caller's decrypted UDE private key. */
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-	XFIH_CALL(XEcc_GenerateSignature, XFihUde, Status, EccInstancePtr, DmaPtr,
+	XFIH_CALL(XRsa_EccGenerateSignature, XFihUde, Status, DmaPtr,
 		  XASU_ECC_NIST_P384, XASU_ECC_P384_PVT_KEY_SIZE_IN_BYTES,
 		  (u64)(UINTPTR)UdeDecPvtKey, NULL, (u64)(UINTPTR)HashBuf,
 		  XASU_SHA_384_HASH_LEN, (u64)(UINTPTR)SignatureOut);
@@ -983,7 +982,6 @@ s32 XOcp_UdeVerifyData(XAsufw_Dma *DmaPtr, const u8 *Data, u32 DataLen, const u8
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
 	CREATE_VOLATILE(ClearStatus, XASUFW_FAILURE);
 	XFih_Var XFihUde = XFih_VolatileAssignXfihVar(XFIH_FAILURE);
-	XEcc *EccInstancePtr = XEcc_GetInstance(XASU_XECC_0_DEVICE_ID);
 	u8 UdePubKey[XASU_ECC_P384_PUB_KEY_SIZE_IN_BYTES] = {0U};
 	u8 HashBuf[XASU_SHA_384_HASH_LEN] = {0U};
 
@@ -1011,7 +1009,7 @@ s32 XOcp_UdeVerifyData(XAsufw_Dma *DmaPtr, const u8 *Data, u32 DataLen, const u8
 
 	/** Verify the signature over that digest. */
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-	XFIH_CALL(XEcc_VerifySignature, XFihUde, Status, EccInstancePtr, DmaPtr,
+	XFIH_CALL(XRsa_EccVerifySignature, XFihUde, Status, DmaPtr,
 		  XASU_ECC_NIST_P384, XASU_ECC_P384_PVT_KEY_SIZE_IN_BYTES,
 		  (u64)(UINTPTR)UdePubKey, (u64)(UINTPTR)HashBuf,
 		  XASU_SHA_384_HASH_LEN, (u64)(UINTPTR)Signature);
@@ -1245,7 +1243,6 @@ static s32 XOcp_ProcessUdeResponse(XAsufw_Dma *DmaPtr, XAsu_OcpUdeResponse *OcpU
 	XFih_Var XFihUde = XFih_VolatileAssignXfihVar(XFIH_FAILURE);
 	CREATE_VOLATILE(ClearStatus, XASUFW_FAILURE);
 	u8 UdeDecPvtKey[XASU_ECC_P384_PVT_KEY_SIZE_IN_BYTES] = {0U};
-	XEcc *EccInstancePtr = XEcc_GetInstance(XASU_XECC_0_DEVICE_ID);
 
 	/** Stage the eFUSE-0 KEK IV and recover the UDE private key. */
 	Status = XOcp_GetUdePvtKey(DmaPtr, UdeDecPvtKey);
@@ -1255,7 +1252,7 @@ static s32 XOcp_ProcessUdeResponse(XAsufw_Dma *DmaPtr, XAsu_OcpUdeResponse *OcpU
 
 	/** Generate the UDE public key. */
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-	Status = XEcc_GeneratePublicKey(EccInstancePtr, DmaPtr, XASU_ECC_NIST_P384,
+	Status = XRsa_EccGeneratePubKey(DmaPtr, XASU_ECC_NIST_P384,
 			XASU_ECC_P384_PVT_KEY_SIZE_IN_BYTES, (u64)(UINTPTR)UdeDecPvtKey,
 			(u64)(UINTPTR)OcpUdeResp->UdePublicKeyX);
 	if (Status != XASUFW_SUCCESS) {
@@ -1323,7 +1320,6 @@ static s32 XOcp_GetUdePubKey(XAsufw_Dma *DmaPtr, u8 *UdePubKey)
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
 	CREATE_VOLATILE(ClearStatus, XASUFW_FAILURE);
 	XFih_Var XFihUde = XFih_VolatileAssignXfihVar(XFIH_FAILURE);
-	XEcc *EccInstancePtr = XEcc_GetInstance(XASU_XECC_0_DEVICE_ID);
 	u8 UdeDecPvtKey[XASU_ECC_P384_PVT_KEY_SIZE_IN_BYTES] = {0U};
 	u32 UdeUserKeyAddr = 0U;
 	u8 IvIncVal = 0U;
@@ -1355,7 +1351,7 @@ static s32 XOcp_GetUdePubKey(XAsufw_Dma *DmaPtr, u8 *UdePubKey)
 		}
 
 		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-		Status = XEcc_GeneratePublicKey(EccInstancePtr, DmaPtr, XASU_ECC_NIST_P384,
+		Status = XRsa_EccGeneratePubKey(DmaPtr, XASU_ECC_NIST_P384,
 						XASU_ECC_P384_PVT_KEY_SIZE_IN_BYTES,
 						(u64)(UINTPTR)UdeDecPvtKey,
 						(u64)(UINTPTR)UdePubKeyCache);

@@ -17,6 +17,7 @@
 * ----- ---- -------- ---------------------------------------------------------------------------
 * 1.0   rmv  07/16/25 Initial release
 *       kp   08/22/26 Used composite key ID for device key vault storage.
+*       rmv  09/03/26 Used RSA core ECC APIs for ECC operations.
 *
 * </pre>
 *
@@ -35,7 +36,6 @@
 #include "xasufw_status.h"
 #include "xasufw_trnghandler.h"
 #include "xasufw_util.h"
-#include "xecc.h"
 #include "xhmac.h"
 #include "xil_types.h"
 #include "xil_util.h"
@@ -239,7 +239,6 @@ s32 XOcp_AttestWithDevAk(XAsufw_Dma *DmaPtr, const XAsu_OcpDevAkAttest *OcpAttes
 	XASUFW_MEASURE_PERF_START(XASU_MODULE_OCP_ID);
 
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
-	XEcc *EccInstance = XEcc_GetInstance(XASU_XECC_0_DEVICE_ID);
 	u32 SubsysIdx = 0U;
 	const u8 *DevAkPvtKey = NULL;
 
@@ -280,11 +279,13 @@ s32 XOcp_AttestWithDevAk(XAsufw_Dma *DmaPtr, const XAsu_OcpDevAkAttest *OcpAttes
 
 	/* Generate the signature using DevAk private key. */
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-	Status = XEcc_GenerateSignature(EccInstance, DmaPtr, XASU_ECC_NIST_P384,
-					XASU_ECC_P384_PVT_KEY_SIZE_IN_BYTES,
-					(u64)(UINTPTR)DevAkPvtKey,
-					NULL, OcpAttestParam->DataAddr,
-					OcpAttestParam->DataLen, OcpAttestParam->SignatureAddr);
+	Status = XRsa_EccGenerateSignature(DmaPtr, XASU_ECC_NIST_P384,
+					   XASU_ECC_P384_PVT_KEY_SIZE_IN_BYTES,
+					   (u64)(UINTPTR)DevAkPvtKey,
+					   NULL,
+					   OcpAttestParam->DataAddr,
+					   OcpAttestParam->DataLen,
+					   OcpAttestParam->SignatureAddr);
 
 	/**
 	 * Measure and print the performance time for the OCP attestation operation, if
