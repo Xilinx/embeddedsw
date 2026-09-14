@@ -214,8 +214,8 @@ SECTIONS
 .bss (NOLOAD) : {
    . = ALIGN(4);
    __bss_start = .;
-   *(.bss)
-   *(.bss.*)
+   /* Pack highly aligned buffers first to avoid padding between BSS inputs. */
+   *(SORT_BY_ALIGNMENT(.bss*))
    *(.gnu.linkonce.b.*)
    *(COMMON)
    . = ALIGN(4);
@@ -284,6 +284,8 @@ _SDA2_BASE_ = __sdata2_start + ((__sbss2_end - __sdata2_start) / 2 );
 __xpm_init_data_size = __xpm_init_data_end - __xpm_init_data_start;
 ASSERT((__xpm_init_data_size & 0x3) == 0,
        "xpm_init_data section size must be 4-byte aligned for IPU save/restore")
+ASSERT(__xpm_init_data_end <= XILPM_BSS_BASE,
+       "PLM code/data exceeds the fixed XilPM BSS base")
 
 /******************************************************************************************
  * @brief xpm_bss_data XilPm Uninitialized Data Section
