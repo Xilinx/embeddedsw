@@ -8,8 +8,10 @@
 #define XPM_TOPOLOGY_DS_ID 0x1
 #define XPM_ALLOC_TOPO_MEM_DS_ID 0x2
 #define XPM_DEVICETABLE_DS_ID 0x3
-#define XPM_TOPOLOGY_DS_VERSION 0x1
-#define XPM_TOPOLOGY_DS_LCVERSION 0x1
+/** @brief Topology layout version for the enlarged, relocated pool. */
+#define XPM_TOPOLOGY_DS_VERSION 0x2
+/** @brief Reject saved pointers from the previous topology pool layout. */
+#define XPM_TOPOLOGY_DS_LCVERSION 0x2
 
 #define XPM_SUBSYSTEMPOOL_DS_ID 0x4
 #define XPM_SUBSYSTEMPOOL_DS_VERSION 0x1
