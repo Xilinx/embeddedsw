@@ -158,8 +158,8 @@ s32 XOcp_EncryptUdeKeys(XAsufw_Dma *DmaPtr, u32 UdeKeyId, u8 *EncPvtKey, u64 Cer
 	}
 
 	/** Generate the UDE private key inside the ASU. */
-	Status = XRsa_EccGeneratePvtKey(XASU_ECC_NIST_P384, XASU_ECC_P384_PVT_KEY_SIZE_IN_BYTES,
-				PvtKey, NULL, 0U);
+	Status = XRsa_EccGeneratePvtKey(DmaPtr, XASU_ECC_NIST_P384,
+				XASU_ECC_P384_PVT_KEY_SIZE_IN_BYTES, PvtKey, NULL, 0U);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XASUFW_OCP_UDE_PVT_KEY_GEN_FAIL;
 		goto END_CLR;

@@ -828,7 +828,6 @@ enum {
 	XASUFW_DS_VERSION_INCOMPATIBLE, /**< 0x240U - Error when the version of a backed up data
 						structure is not supported by the running
 						firmware */
-
 	/* User-addressable key vault/slot error codes */
 	XASUFW_KEYMANAGER_VAULT_ID_IN_USE, /**< 0x241U - Error when requested vault ID is
 						occupied. */
@@ -989,6 +988,7 @@ enum {
 								     creation fails */
 	XASUFW_KEYMANAGER_AEKV_INVALID_BLOCK_ORDER, /**< 0x297U - AEKV randomized block order is
 							 not a permutation of the chunk blocks */
+	XASUFW_DMA_SCRUB_FAIL, /**< 0x298U - Error when DMA secret-path scrub fails. */
 
 	/* Additional status success codes */
 	XASUFW_SLHDSA_SIGNATURE_VERIFIED = 0x3F5U, /**< 0x3F5U - SLH-DSA signature verification

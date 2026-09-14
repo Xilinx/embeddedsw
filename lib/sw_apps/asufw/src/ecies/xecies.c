@@ -119,7 +119,7 @@ s32 XEcies_Encrypt(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr, XAes *AesInstancePt
 
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	/** Generate the private key. */
-	Status = XRsa_EccGeneratePvtKey(EciesParams->EccCurveType, EciesParams->EccKeyLength,
+	Status = XRsa_EccGeneratePvtKey(DmaPtr, EciesParams->EccCurveType, EciesParams->EccKeyLength,
 					PrivKey, NULL, 0U);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_ECIES_PVT_KEY_GEN_FAILURE);

@@ -53,6 +53,9 @@
 #define XASUFW_ENDIANNESS_SWAP_OFFSET			(1U) /**< Position offset for swapping */
 #define XASUFW_ENDIANNESS_SWAP_MIN_LENGTH		(2U) /**< Minimum length to make a swap */
 
+/** Word-aligned scratch size for largest ECC length (P-521 66 -> 68) */
+#define XASUFW_ECC_MAX_ALIGNED_LEN			(68U)
+
 #define XASUFW_MAX_DECIMAL_DIGITS	(9U) /**< Max ASCII digits for u32 conversion */
 #define XASUFW_DECIMAL_BASE		(10U) /**< Base of the decimal number system */
 
@@ -175,6 +178,313 @@ s32 XAsufw_ChangeEndianness(u8 *Buffer, u32 Length)
 
 	Status = XAsufw_UpdateBufStatus(Status, Xil_SecureZeroize((u8 *)(UINTPTR)&TempVar,
 					sizeof(u8)));
+
+	return Status;
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	This function reverses the order of the 32-bit words in a buffer, in place, at word
+ * granularity (no per-byte data dependence). Combined with the DMA per-word byte reversal, it
+ * produces a full byte reversal without a byte-serial CPU swap.
+ *
+ * @param	Buffer	Pointer to the buffer.
+ * @param	Length	Length of the buffer in bytes.
+ *
+ * @note	Buffer must be 4-byte aligned and Length must be a multiple of 4. Callers are the
+ *		reverse helpers in this file, which enforce both preconditions.
+ *
+ *************************************************************************************************/
+static void XAsufw_WordOrderReverse(u8 *Buffer, u32 Length)
+{
+	u32 *Words = (u32 *)(void *)Buffer;
+	u32 NumWords = Length / XASUFW_WORD_LEN_IN_BYTES;
+	u32 Index;
+	u32 Temp;
+
+	for (Index = 0U; Index < (NumWords / XASUFW_EVEN_MODULUS); Index++) {
+		Temp = Words[Index];
+		Words[Index] = Words[NumWords - Index - XASUFW_VALUE_ONE];
+		Words[NumWords - Index - XASUFW_VALUE_ONE] = Temp;
+	}
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	This function copies data from a caller source address into a local buffer while
+ * reversing its byte order. The per-word byte reversal rides the copy DMA (hardware), the CPU
+ * only reverses word order.
+ *
+ * @param	DmaPtr		Pointer to the DMA instance.
+ * @param	SrcAddr		Address of the source buffer.
+ * @param	LocalBuf	Pointer to the local destination buffer. A 4-byte aligned
+ *				buffer takes the faster in-place path; an unaligned buffer
+ *				is handled via scratch.
+ * @param	Length		Length of the data in bytes.
+ *
+ * @return
+ *	-	XASUFW_SUCCESS, if the reversed copy is successful.
+ *	-	XASUFW_INVALID_PARAM, if an input parameter is invalid.
+ *	-	XASUFW_DMA_COPY_FAIL, if the DMA transfer fails.
+ *	-	XASUFW_ZEROIZE_MEMSET_FAIL, if memset zeroization fails.
+ *	-	XASUFW_FAILURE, if zeroization fails.
+ *
+ *************************************************************************************************/
+s32 XAsufw_DmaXfrInReverse(XAsufw_Dma *DmaPtr, u64 SrcAddr, u8 *LocalBuf, u32 Length)
+{
+	CREATE_VOLATILE(Status, XASUFW_FAILURE);
+	u8 Staging[XASUFW_ECC_MAX_ALIGNED_LEN] __attribute__((aligned(4)));
+	u8 Swapped[XASUFW_ECC_MAX_ALIGNED_LEN] __attribute__((aligned(4)));
+	u32 AlignedLen;
+	u32 PadLen;
+
+	if ((DmaPtr == NULL) || (LocalBuf == NULL) || (Length == 0U) ||
+			(Length > XASUFW_ECC_MAX_ALIGNED_LEN)) {
+		Status = XASUFW_INVALID_PARAM;
+		goto END;
+	}
+
+	if (((Length % XASUFW_WORD_LEN_IN_BYTES) == 0U) &&
+			(((UINTPTR)LocalBuf & (XASUFW_WORD_LEN_IN_BYTES - XASUFW_VALUE_ONE)) == 0U)) {
+		/** Aligned fast path: endian DMA into the local buffer, then reverse word order. */
+		Status = XAsufw_DmaXfr(DmaPtr, SrcAddr, (u64)(UINTPTR)LocalBuf, Length,
+				       XASUFW_DMA_ENDIAN_SWAP);
+		if (Status != XASUFW_SUCCESS) {
+			Status = XASUFW_DMA_COPY_FAIL;
+			goto END;
+		}
+		XAsufw_WordOrderReverse(LocalBuf, Length);
+	} else {
+		/**
+		 * Scratch path (unaligned buffer or non-word-multiple length, e.g. P-521): left-pad to
+		 * a word multiple in a 4-byte aligned scratch buffer and reverse there.
+		 */
+		AlignedLen = ((Length + XASUFW_WORD_LEN_IN_BYTES - XASUFW_VALUE_ONE) /
+			      XASUFW_WORD_LEN_IN_BYTES) * XASUFW_WORD_LEN_IN_BYTES;
+		PadLen = AlignedLen - Length;
+		if (PadLen != 0U) {
+			Status = XAsufw_SMemSet(Staging, PadLen);
+			if (Status != XASUFW_SUCCESS) {
+				Status = XASUFW_ZEROIZE_MEMSET_FAIL;
+				goto END;
+			}
+		}
+		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+		Status = XAsufw_DmaXfr(DmaPtr, SrcAddr, (u64)(UINTPTR)(Staging + PadLen), Length, 0U);
+		if (Status != XASUFW_SUCCESS) {
+			Status = XASUFW_DMA_COPY_FAIL;
+			goto END;
+		}
+		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+		Status = XAsufw_DmaXfr(DmaPtr, (u64)(UINTPTR)Staging, (u64)(UINTPTR)Swapped,
+				       AlignedLen, XASUFW_DMA_ENDIAN_SWAP);
+		if (Status != XASUFW_SUCCESS) {
+			Status = XASUFW_DMA_COPY_FAIL;
+			goto END;
+		}
+		XAsufw_WordOrderReverse(Swapped, AlignedLen);
+		/** DMA the result back (HW move; no CPU byte-store of the secret). */
+		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+		Status = XAsufw_DmaXfr(DmaPtr, (u64)(UINTPTR)Swapped, (u64)(UINTPTR)LocalBuf, Length, 0U);
+		if (Status != XASUFW_SUCCESS) {
+			Status = XASUFW_DMA_COPY_FAIL;
+		}
+	}
+
+END:
+	Status = XAsufw_UpdateBufStatus(Status, XAsufw_SMemSet(Staging, XASUFW_ECC_MAX_ALIGNED_LEN));
+	Status = XAsufw_UpdateBufStatus(Status, XAsufw_SMemSet(Swapped, XASUFW_ECC_MAX_ALIGNED_LEN));
+
+	return Status;
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	This function copies data from a local buffer to a caller destination address while
+ * reversing its byte order. The CPU reverses word order, the per-word byte reversal rides the
+ * copy DMA (hardware). On the aligned fast path the word-order reverse is done in place in
+ * LocalBuf and is not restored.
+ *
+ * @param	DmaPtr		Pointer to the DMA instance.
+ * @param	LocalBuf	Pointer to the local source buffer. A 4-byte aligned buffer
+ *				takes the faster in-place path, which reverses the word
+ *				order of LocalBuf and does not put it back; an unaligned
+ *				buffer is handled via scratch and LocalBuf is left unchanged.
+ * @param	DstAddr		Address of the destination buffer.
+ * @param	Length		Length of the data in bytes.
+ *
+ * @return
+ *	-	XASUFW_SUCCESS, if the reversed copy is successful.
+ *	-	XASUFW_INVALID_PARAM, if an input parameter is invalid.
+ *	-	XASUFW_DMA_COPY_FAIL, if the DMA transfer fails.
+ *	-	XASUFW_ZEROIZE_MEMSET_FAIL, if memset zeroization fails.
+ *	-	XASUFW_FAILURE, if zeroization fails.
+ *
+ *************************************************************************************************/
+s32 XAsufw_DmaXfrOutReverse(XAsufw_Dma *DmaPtr, u8 *LocalBuf, u64 DstAddr, u32 Length)
+{
+	CREATE_VOLATILE(Status, XASUFW_FAILURE);
+	u8 Staging[XASUFW_ECC_MAX_ALIGNED_LEN] __attribute__((aligned(4)));
+	u8 Swapped[XASUFW_ECC_MAX_ALIGNED_LEN] __attribute__((aligned(4)));
+	u32 AlignedLen;
+	u32 PadLen;
+
+	if ((DmaPtr == NULL) || (LocalBuf == NULL) || (Length == 0U) ||
+			(Length > XASUFW_ECC_MAX_ALIGNED_LEN)) {
+		Status = XASUFW_INVALID_PARAM;
+		goto END;
+	}
+
+	if (((Length % XASUFW_WORD_LEN_IN_BYTES) == 0U) &&
+			(((UINTPTR)LocalBuf & (XASUFW_WORD_LEN_IN_BYTES - XASUFW_VALUE_ONE)) == 0U)) {
+		/**
+		 * Aligned fast path: reverse word order in LocalBuf (not restored), then
+		 * endian DMA out.
+		 */
+		XAsufw_WordOrderReverse(LocalBuf, Length);
+		Status = XAsufw_DmaXfr(DmaPtr, (u64)(UINTPTR)LocalBuf, DstAddr, Length,
+				       XASUFW_DMA_ENDIAN_SWAP);
+		if (Status != XASUFW_SUCCESS) {
+			Status = XASUFW_DMA_COPY_FAIL;
+			goto END;
+		}
+	} else {
+		/**
+		 * Scratch path (unaligned buffer or non-word-multiple length, e.g. P-521): left-pad to
+		 * a word multiple in a 4-byte aligned scratch buffer and reverse there.
+		 */
+		AlignedLen = ((Length + XASUFW_WORD_LEN_IN_BYTES - XASUFW_VALUE_ONE) /
+			      XASUFW_WORD_LEN_IN_BYTES) * XASUFW_WORD_LEN_IN_BYTES;
+		PadLen = AlignedLen - Length;
+		if (PadLen != 0U) {
+			Status = XAsufw_SMemSet(Staging, PadLen);
+			if (Status != XASUFW_SUCCESS) {
+				Status = XASUFW_ZEROIZE_MEMSET_FAIL;
+				goto END;
+			}
+		}
+		/** DMA the secret into the padded slot (HW move; no CPU byte-load of the secret). */
+		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+		Status = XAsufw_DmaXfr(DmaPtr, (u64)(UINTPTR)LocalBuf, (u64)(UINTPTR)(Staging + PadLen),
+				       Length, 0U);
+		if (Status != XASUFW_SUCCESS) {
+			Status = XASUFW_DMA_COPY_FAIL;
+			goto END;
+		}
+		XAsufw_WordOrderReverse(Staging, AlignedLen);
+		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+		Status = XAsufw_DmaXfr(DmaPtr, (u64)(UINTPTR)Staging, (u64)(UINTPTR)Swapped,
+				       AlignedLen, XASUFW_DMA_ENDIAN_SWAP);
+		if (Status != XASUFW_SUCCESS) {
+			Status = XASUFW_DMA_COPY_FAIL;
+			goto END;
+		}
+		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+		Status = XAsufw_DmaXfr(DmaPtr, (u64)(UINTPTR)Swapped, DstAddr, Length, 0U);
+		if (Status != XASUFW_SUCCESS) {
+			Status = XASUFW_DMA_COPY_FAIL;
+		}
+	}
+
+END:
+	Status = XAsufw_UpdateBufStatus(Status, XAsufw_SMemSet(Staging, XASUFW_ECC_MAX_ALIGNED_LEN));
+	Status = XAsufw_UpdateBufStatus(Status, XAsufw_SMemSet(Swapped, XASUFW_ECC_MAX_ALIGNED_LEN));
+
+	return Status;
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	This function reverses the byte order of an already-populated local buffer in place.
+ * It is used at sites that have no copy DMA to ride (data arrives via TRNG, memcpy or a crypto
+ * core). The per-word byte reversal rides a scratch DMA, the CPU reverses word order.
+ *
+ * @param	DmaPtr	Pointer to the DMA instance.
+ * @param	Buffer	Pointer to the buffer to reverse in place. A 4-byte aligned
+ *			buffer takes the faster path; an unaligned buffer is handled
+ *			via scratch.
+ * @param	Length	Length of the data in bytes.
+ *
+ * @return
+ *	-	XASUFW_SUCCESS, if the reversal is successful.
+ *	-	XASUFW_INVALID_PARAM, if an input parameter is invalid.
+ *	-	XASUFW_DMA_COPY_FAIL, if the DMA transfer fails.
+ *	-	XASUFW_ZEROIZE_MEMSET_FAIL, if memset zeroization fails.
+ *	-	XASUFW_FAILURE, if zeroization fails.
+ *
+ *************************************************************************************************/
+s32 XAsufw_ReverseInPlace(XAsufw_Dma *DmaPtr, u8 *Buffer, u32 Length)
+{
+	CREATE_VOLATILE(Status, XASUFW_FAILURE);
+	u8 Staging[XASUFW_ECC_MAX_ALIGNED_LEN] __attribute__((aligned(4)));
+	u8 Swapped[XASUFW_ECC_MAX_ALIGNED_LEN] __attribute__((aligned(4)));
+	u32 AlignedLen;
+	u32 PadLen;
+
+	if ((DmaPtr == NULL) || (Buffer == NULL) || (Length == 0U) ||
+			(Length > XASUFW_ECC_MAX_ALIGNED_LEN)) {
+		Status = XASUFW_INVALID_PARAM;
+		goto END;
+	}
+
+	if (((Length % XASUFW_WORD_LEN_IN_BYTES) == 0U) &&
+			(((UINTPTR)Buffer & (XASUFW_WORD_LEN_IN_BYTES - XASUFW_VALUE_ONE)) == 0U)) {
+		/** Aligned fast path: endian DMA to scratch, reverse word order, DMA back. */
+		Status = XAsufw_DmaXfr(DmaPtr, (u64)(UINTPTR)Buffer, (u64)(UINTPTR)Swapped, Length,
+				       XASUFW_DMA_ENDIAN_SWAP);
+		if (Status != XASUFW_SUCCESS) {
+			Status = XASUFW_DMA_COPY_FAIL;
+			goto END;
+		}
+		XAsufw_WordOrderReverse(Swapped, Length);
+		/** DMA the result back (HW move; no CPU byte-store of the secret). */
+		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+		Status = XAsufw_DmaXfr(DmaPtr, (u64)(UINTPTR)Swapped, (u64)(UINTPTR)Buffer, Length, 0U);
+		if (Status != XASUFW_SUCCESS) {
+			Status = XASUFW_DMA_COPY_FAIL;
+		}
+	} else {
+		/**
+		 * Scratch path (unaligned buffer or non-word-multiple length, e.g. P-521): left-pad to
+		 * a word multiple in a 4-byte aligned scratch buffer and reverse there.
+		 */
+		AlignedLen = ((Length + XASUFW_WORD_LEN_IN_BYTES - XASUFW_VALUE_ONE) /
+			      XASUFW_WORD_LEN_IN_BYTES) * XASUFW_WORD_LEN_IN_BYTES;
+		PadLen = AlignedLen - Length;
+		if (PadLen != 0U) {
+			Status = XAsufw_SMemSet(Staging, PadLen);
+			if (Status != XASUFW_SUCCESS) {
+				Status = XASUFW_ZEROIZE_MEMSET_FAIL;
+				goto END;
+			}
+		}
+		/** DMA the secret into the padded slot (HW move; no CPU byte-load of the secret). */
+		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+		Status = XAsufw_DmaXfr(DmaPtr, (u64)(UINTPTR)Buffer, (u64)(UINTPTR)(Staging + PadLen),
+				       Length, 0U);
+		if (Status != XASUFW_SUCCESS) {
+			Status = XASUFW_DMA_COPY_FAIL;
+			goto END;
+		}
+		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+		Status = XAsufw_DmaXfr(DmaPtr, (u64)(UINTPTR)Staging, (u64)(UINTPTR)Swapped,
+				       AlignedLen, XASUFW_DMA_ENDIAN_SWAP);
+		if (Status != XASUFW_SUCCESS) {
+			Status = XASUFW_DMA_COPY_FAIL;
+			goto END;
+		}
+		XAsufw_WordOrderReverse(Swapped, AlignedLen);
+		/** DMA the result back (HW move; no CPU byte-store of the secret). */
+		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+		Status = XAsufw_DmaXfr(DmaPtr, (u64)(UINTPTR)Swapped, (u64)(UINTPTR)Buffer, Length, 0U);
+		if (Status != XASUFW_SUCCESS) {
+			Status = XASUFW_DMA_COPY_FAIL;
+		}
+	}
+
+END:
+	Status = XAsufw_UpdateBufStatus(Status, XAsufw_SMemSet(Staging, XASUFW_ECC_MAX_ALIGNED_LEN));
+	Status = XAsufw_UpdateBufStatus(Status, XAsufw_SMemSet(Swapped, XASUFW_ECC_MAX_ALIGNED_LEN));
 
 	return Status;
 }

@@ -81,7 +81,7 @@ static XOcp_DeviceKeys DevAkData[XOCP_MAX_USER_OCP_SUBSYS];	/**< Device attestat
 static u8 AsuCdiValid = (u8)XASU_STATUS_FAIL;	/**< ASU CDI validation flag */
 
 /************************************ Function Prototypes ****************************************/
-static s32 XOcp_GenerateDevIkAkPvtKey(const XOcp_PrivateKeyGen *PvtKeyInfo);
+static s32 XOcp_GenerateDevIkAkPvtKey(XAsufw_Dma *DmaPtr, const XOcp_PrivateKeyGen *PvtKeyInfo);
 static s32 XOcp_GenerateSwCdi(u32 SubsystemId, XAsufw_Dma *DmaPtr, u8 *SwCdi, u32 CdiLen);
 static s32 XOcp_GetAsuCdiAddr(u32 *AsuCdiAddr);
 static s32 XOcp_GenerateDevIk(XAsufw_Dma *DmaPtr);
@@ -366,7 +366,7 @@ static s32 XOcp_GenerateDevIk(XAsufw_Dma *DmaPtr)
 	PvtKeyInfo.CdiLength = XOCP_DICE_CDI_SIZE_IN_BYTES;
 	PvtKeyInfo.PerStringAddr = (u32)(UINTPTR)PersonalString;
 	PvtKeyInfo.PvtKeyAddr = (u32)(UINTPTR)PvtKey;
-	Status = XOcp_GenerateDevIkAkPvtKey(&PvtKeyInfo);
+	Status = XOcp_GenerateDevIkAkPvtKey(DmaPtr, &PvtKeyInfo);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_OCP_GEN_DEVIK_PVT_KEY_FAIL);
 		goto END_CLR;
@@ -480,7 +480,7 @@ static s32 XOcp_GenerateDevAk(u32 SubsysIdx, XAsufw_Dma *DmaPtr)
 	PvtKeyInfo.CdiLength = XOCP_DICE_CDI_SIZE_IN_BYTES;
 	PvtKeyInfo.PerStringAddr = (u32)(UINTPTR)PersStr;
 	PvtKeyInfo.PvtKeyAddr = (u32)(UINTPTR)PvtKey;
-	Status = XOcp_GenerateDevIkAkPvtKey(&PvtKeyInfo);
+	Status = XOcp_GenerateDevIkAkPvtKey(DmaPtr, &PvtKeyInfo);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_OCP_GEN_DEVAK_PVT_KEY_FAIL);
 		goto END_CLR;
@@ -531,6 +531,7 @@ END:
 /**
  * @brief	This function generates ECC DevIk/Ak private key for specified elliptical curve.
  *
+ * @param	DmaPtr		Pointer to the DMA instance.
  * @param	PvtKeyInfo	Pointer to structure containing information to generate ECC private
  *				key.
  *
@@ -545,7 +546,7 @@ END:
  *	- Error code from XAsufw_UpdateBufStatus, if local buffer zeroization fails.
  *
  *************************************************************************************************/
-static s32 XOcp_GenerateDevIkAkPvtKey(const XOcp_PrivateKeyGen *PvtKeyInfo)
+static s32 XOcp_GenerateDevIkAkPvtKey(XAsufw_Dma *DmaPtr, const XOcp_PrivateKeyGen *PvtKeyInfo)
 {
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
 	CREATE_VOLATILE(ClearStatus, XASUFW_FAILURE);
@@ -602,7 +603,8 @@ static s32 XOcp_GenerateDevIkAkPvtKey(const XOcp_PrivateKeyGen *PvtKeyInfo)
 
 	/** Generate private key using RSA ECC engine. */
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-	Status = XRsa_EccGeneratePvtKey(XASU_ECC_NIST_P384, XASU_ECC_P384_PVT_KEY_SIZE_IN_BYTES,
+	Status = XRsa_EccGeneratePvtKey(DmaPtr, XASU_ECC_NIST_P384,
+					XASU_ECC_P384_PVT_KEY_SIZE_IN_BYTES,
 					(u8 *)(UINTPTR)PvtKeyInfo->PvtKeyAddr,
 					RandBuf, XOCP_DEV_KEY_RANDOM_BUF_SIZE);
 	if (Status != XASUFW_SUCCESS) {
@@ -770,7 +772,7 @@ END:
  *************************************************************************************************/
 static s32 XOcp_GetDeviceKeyPvtKeyPtr(const XOcp_DeviceKeys *DevKey, const u8 **PvtKeyPtr)
 {
-	CREATE_VOLATILE(Status, XASUFW_FAILURE);
+	CREATE_VOLATILE(Status, XASUFW_KEYMANAGER_GET_KEYOBJ_FAILED);
 	const XKeyManager_EccPvtKeyObject *PvtKeyObj = NULL;
 
 	/** Fetch the private key object from the ASU vault for a signature-generation use case. */

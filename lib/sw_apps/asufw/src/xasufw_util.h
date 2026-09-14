@@ -56,6 +56,7 @@ extern "C" {
 #include "xasufw_debug.h"
 #include "xfih.h"
 #include "xasu_sharedmem.h"
+#include "xasufw_dma.h"
 
 /************************************ Constant Definitions ***************************************/
 
@@ -264,6 +265,9 @@ void XAsufw_CryptoCoreReleaseReset(u32 BaseAddress, u32 Offset);
 void XAsufw_CryptoCoreSetReset(u32 BaseAddress, u32 Offset);
 void XAsufw_U64ToBeBytes(u64 Val, u32 Len, u8 *Out);
 s32 XAsufw_ChangeEndianness(u8 *Buffer, u32 Length);
+s32 XAsufw_DmaXfrInReverse(XAsufw_Dma *DmaPtr, u64 SrcAddr, u8 *LocalBuf, u32 Length);
+s32 XAsufw_DmaXfrOutReverse(XAsufw_Dma *DmaPtr, u8 *LocalBuf, u64 DstAddr, u32 Length);
+s32 XAsufw_ReverseInPlace(XAsufw_Dma *DmaPtr, u8 *Buffer, u32 Length);
 s32 XAsufw_NvmEfuseWriteOffChipRevokeId(const u32 OffChipRevokeIdNum);
 s32 XAsufw_SMemSet(void *Dest, const u32 DestSize);
 s32 XAsufw_WriteDataToRegsWithEndianSwap(u32 BaseAddress, u32 RegOffset, const u32 *DataArray,

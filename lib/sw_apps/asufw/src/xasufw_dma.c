@@ -46,8 +46,15 @@
 #define XASUFW_DMA_NOT_LAST_INPUT			(0x0U) /**< DMA not last input. */
 #define XASUFW_DMA_INCR_BURST_TYPE			(0U) /**< DMA incremental burst type. */
 #define XASUFW_DMA_FIXED_BURST_TYPE			(1U) /**< DMA fixed burst type. */
+#define XASUFW_DMA_ENDIAN_DISABLE			(0U) /**< DMA endianness swap disabled. */
+#define XASUFW_DMA_ENDIAN_ENABLE			(1U) /**< DMA endianness swap enabled. */
 #define XASUFW_DMA_FIXED_TRANSFER_SIZE		(16U) /**< DMA fixed transfer source size in bytes */
 
+/**
+ * 2 x word-aligned P-521 (136). B-Fix-6: 2*max CurveLen so src_ram,
+ * both regslices, datafifo_pipe and src_crc_sts are overwritten.
+ */
+#define XASUFW_DMA_SCRUB_BUF_SIZE			(136U)
 /************************************** Type Definitions *****************************************/
 
 /*************************** Macros (Inline Functions) Definitions *******************************/
@@ -211,11 +218,12 @@ s32 XAsufw_WaitForDmaDone(XAsufw_Dma *DmaPtr, XAsuDma_Channel Channel)
 	/** To acknowledge the transfer has completed, clear the given channel done interrupt bits. */
 	XAsuDma_IntrClear(&DmaPtr->AsuDma, Channel, XASUDMA_IXR_DONE_MASK);
 
-	/** Reconfigure the given DMA channel. */
+END:
+	/** Reconfigure the given DMA channel to default configuration. */
 	DmaCtrl.AxiBurstType = XASUFW_DMA_INCR_BURST_TYPE;
+	DmaCtrl.EndianType = XASUFW_DMA_ENDIAN_DISABLE;
 	XAsuDma_SetConfig(&DmaPtr->AsuDma, Channel, &DmaCtrl);
 
-END:
 	return Status;
 }
 
@@ -370,8 +378,22 @@ s32 XAsufw_StartDmaXfr(XAsufw_Dma *DmaPtr, u64 SrcAddr, u64 DestAddr, u32 Len, u
 	/** Set ASU_DMA in AXI Burst mode for source and destination channels based on the flags. */
 	if ((Flags & XASUFW_SRC_CH_AXI_FIXED) == XASUFW_SRC_CH_AXI_FIXED) {
 		DmaCtrl.AxiBurstType = XASUFW_DMA_FIXED_BURST_TYPE;
-		XAsuDma_SetConfig(&DmaPtr->AsuDma, XASUDMA_SRC_CHANNEL, &DmaCtrl);
+	} else {
+		DmaCtrl.AxiBurstType = XASUFW_DMA_INCR_BURST_TYPE;
 	}
+
+	/**
+	 * Enable per-32-bit-word byte reversal on the source channel, before the destination config
+	 * so the source channel is not left with the destination burst type. Cleared on the
+	 * post-transfer channel reconfigure.
+	 */
+	if ((Flags & XASUFW_DMA_ENDIAN_SWAP) == XASUFW_DMA_ENDIAN_SWAP) {
+		DmaCtrl.EndianType = XASUFW_DMA_ENDIAN_ENABLE;
+	}
+
+	XAsuDma_SetConfig(&DmaPtr->AsuDma, XASUDMA_SRC_CHANNEL, &DmaCtrl);
+	DmaCtrl.EndianType = XASUFW_DMA_ENDIAN_DISABLE;
+
 	if ((Flags & XASUFW_DST_CH_AXI_FIXED) == XASUFW_DST_CH_AXI_FIXED) {
 		DmaCtrl.AxiBurstType = XASUFW_DMA_FIXED_BURST_TYPE;
 		XAsuDma_SetConfig(&DmaPtr->AsuDma, XASUDMA_DST_CHANNEL, &DmaCtrl);
@@ -426,6 +448,41 @@ s32 XAsufw_DmaXfr(XAsufw_Dma *AsuDmaPtr, u64 SrcAddr, u64 DstAddr, const u32 Siz
 
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	Status = XAsufw_WaitForDmaDone(AsuDmaPtr, XCSUDMA_DST_CHANNEL);
+
+END:
+	return Status;
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	This function scrubs the ASU DMA secret datapath by transferring a constant zero
+ * buffer through it, overwriting the last-transferred secret payload that otherwise persists for
+ * the whole in-core window. Call after the last secret DMA and before releasing the crypto core.
+ * The transfer is always 2 x word-aligned P-521 (B-Fix-6: 2*max CurveLen covers src_ram,
+ * both regslices, datafifo_pipe and src_crc_sts).
+ *
+ * @param	AsuDmaPtr	Pointer to the DMA instance.
+ *
+ * @return
+ *	-	XASUFW_SUCCESS, if the scrub transfer is successful.
+ *	-	XASUFW_DMA_SCRUB_FAIL, if the scrub transfer fails or DMA instance is NULL.
+ *
+ *************************************************************************************************/
+s32 XAsufw_DmaScrubSecretPath(XAsufw_Dma *AsuDmaPtr)
+{
+	CREATE_VOLATILE(Status, XASUFW_DMA_SCRUB_FAIL);
+	static const u8 ZeroBuf[XASUFW_DMA_SCRUB_BUF_SIZE] = {0U};
+	u8 ScrubDst[XASUFW_DMA_SCRUB_BUF_SIZE];
+
+	if (AsuDmaPtr == NULL) {
+		goto END;
+	}
+
+	Status = XAsufw_DmaXfr(AsuDmaPtr, (u64)(UINTPTR)ZeroBuf, (u64)(UINTPTR)ScrubDst,
+			       XASUFW_DMA_SCRUB_BUF_SIZE, 0U);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_DMA_SCRUB_FAIL;
+	}
 
 END:
 	return Status;

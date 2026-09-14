@@ -91,6 +91,9 @@
 							/**< Error from third-party library if hash length is incorrect */
 #define XRSA_ECC_GEN_POINT_INVALID		(0x01)	/**< Error from third-party library
 							 * if generated point is invalid */
+/** Aligned Qy, Sign.s component offset for ECC key buffers */
+#define XRSA_ECC_ALIGNED_COMPONENT_OFFSET	(XASU_ECC_P521_PVT_KEY_SIZE_IN_BYTES + \
+						 XASUFW_VALUE_TWO)
 
 /************************************** Type Definitions *****************************************/
 /** This structure contains curve type and curve class for indexing. */
@@ -130,8 +133,8 @@ static s32 XRsa_EccGenerateRandScalar(const EcdsaCrvInfo *CrvInfo, u32 CurveLen,
  *	- XASUFW_RSA_ECC_READ_DATA_FAIL, if read data through DMA fails
  *	- XASUFW_RSA_ECC_PWCT_SIGN_GEN_FAIL, if sign generation fails in PWCT.
  *	- XASUFW_RSA_ECC_PWCT_SIGN_VER_FAIL, if sign verification fails in PWCT.
- *	- XASUFW_RSA_CHANGE_ENDIANNESS_ERROR, if endianness change fails.
  *	- XASUFW_ZEROIZE_MEMSET_FAIL, if memset fails while zeroizing local buffers.
+ *	- XASUFW_DMA_SCRUB_FAIL, if the DMA secret-path scrub fails.
  *	- XASUFW_RSA_ECC_INCORRECT_CURVE, if input curvetype or curvelen is incorrect.
  *
  *************************************************************************************************/
@@ -148,8 +151,10 @@ s32 XRsa_EccGeneratePubKey(XAsufw_Dma *DmaPtr, u32 CurveType, u32 CurveLen, u64 
 	XFih_Var XFihEcc = XFih_VolatileAssignXfihVar(XFIH_FAILURE);
 	CREATE_VOLATILE(ClearStatus, XASUFW_FAILURE);
 	u32 CurveSize = 0U;
-	u8 PrivKey[XASU_ECC_P521_PVT_KEY_SIZE_IN_BYTES];
-	u8 PubKey[XASU_ECC_P521_PVT_KEY_SIZE_IN_BYTES + XASU_ECC_P521_PVT_KEY_SIZE_IN_BYTES];
+	u8 PrivKey[XASU_ECC_P521_PVT_KEY_SIZE_IN_BYTES] __attribute__((aligned(4))) = {0U};
+	u8 PubKey[XASU_ECC_P521_PVT_KEY_SIZE_IN_BYTES
+			+ XASUFW_VALUE_TWO + XASU_ECC_P521_PVT_KEY_SIZE_IN_BYTES]
+		__attribute__((aligned(4))) = {0U};
 	EcdsaKey Key;
 	EcdsaCrvInfo *Crv = NULL;
 
@@ -187,26 +192,32 @@ s32 XRsa_EccGeneratePubKey(XAsufw_Dma *DmaPtr, u32 CurveType, u32 CurveLen, u64 
 		goto END;
 	}
 
-	/** Copy private key to local address using DMA and change endianness of the data. */
+	/**
+	 * Copy the private key to the local buffer. For Weierstrass curves the byte-order reversal
+	 * rides the copy DMA; Edward/Montgomery curves take a plain copy.
+	 */
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-	Status = XAsufw_DmaXfr(DmaPtr, PrivKeyAddr, (u64)(UINTPTR)PrivKey, CurveLen, 0U);
+	if ((Crv->CrvType != ECDSA_ED25519) && (Crv->CrvType != ECDSA_ED448) &&
+	    (Crv->CrvType != ECDSA_CURVE25519) && (Crv->CrvType != ECDSA_CURVE448)) {
+		Status = XAsufw_DmaXfrInReverse(DmaPtr, PrivKeyAddr, PrivKey, CurveLen);
+	} else {
+		Status = XAsufw_DmaXfr(DmaPtr, PrivKeyAddr, (u64)(UINTPTR)PrivKey, CurveLen, 0U);
+	}
 	if (Status != XASUFW_SUCCESS) {
 		Status = XASUFW_RSA_ECC_WRITE_DATA_FAIL;
 		goto END_CLR;
 	}
 
-	if ((Crv->CrvType != ECDSA_ED25519) && (Crv->CrvType != ECDSA_ED448) &&
-	    (Crv->CrvType != ECDSA_CURVE25519) && (Crv->CrvType != ECDSA_CURVE448)) {
-		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-		Status = XAsufw_ChangeEndianness(PrivKey, CurveLen);
-		if (Status != XASUFW_SUCCESS) {
-			Status = XASUFW_RSA_CHANGE_ENDIANNESS_ERROR;
-			goto END_CLR;
-		}
-	}
-
 	Key.Qx = (u8 *)(UINTPTR)PubKey;
-	Key.Qy = (u8 *)(UINTPTR)(PubKey + CurveLen);
+	Key.Qy = (u8 *)(UINTPTR)(PubKey + XRSA_ECC_ALIGNED_COMPONENT_OFFSET);
+
+	/** Scrub the DMA secret datapath before releasing the core. */
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	Status = XAsufw_DmaScrubSecretPath(DmaPtr);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_DMA_SCRUB_FAIL;
+		goto END_CLR;
+	}
 
 	/** Release RSA core reset. */
 	XAsufw_CryptoCoreReleaseReset(XRSA_BASEADDRESS, XRSA_RESET_OFFSET);
@@ -216,28 +227,32 @@ s32 XRsa_EccGeneratePubKey(XAsufw_Dma *DmaPtr, u32 CurveType, u32 CurveLen, u64 
 					   XASUFW_RSA_ECC_GEN_PUB_KEY_OPERATION_FAIL, XFihEcc, Status, END_CLR,
 					   Crv, PrivKey, (EcdsaKey *)&Key, DmaPtr);
 	/**
-	 * Change endianness of the generated public key and copy it to destination address
-	 * using DMA for all curves except Ed25519 and Ed448.
+	 * Copy the generated public key to the destination address with byte-order reversal
+	 * (endianness swap rides the copy DMA) for all curves except Ed25519 and Ed448.
 	 */
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	if ((Crv->CrvType != ECDSA_ED25519) && (Crv->CrvType != ECDSA_ED448) &&
 	    (Crv->CrvType != ECDSA_CURVE25519) && (Crv->CrvType != ECDSA_CURVE448)) {
-		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-		Status = XAsufw_ChangeEndianness(PubKey, CurveLen);
-		if (Status != XASUFW_SUCCESS) {
-			Status = XASUFW_RSA_CHANGE_ENDIANNESS_ERROR;
-			goto END_CLR;
-		}
-
-		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-		Status = XAsufw_ChangeEndianness(PubKey + CurveLen, CurveLen);
-		if (Status != XASUFW_SUCCESS) {
-			Status = XASUFW_RSA_CHANGE_ENDIANNESS_ERROR;
-			goto END_CLR;
-		}
+		/** Weierstrass: reversal of Qx and Qy rides the copy-out DMA (per component). */
+		Status = XAsufw_DmaXfrOutReverse(DmaPtr, PubKey, PubKeyAddr, CurveLen);
+	} else {
+		Status = XAsufw_DmaXfr(DmaPtr, (u64)(UINTPTR)PubKey, PubKeyAddr, CurveLen, 0U);
 	}
+	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_RSA_ECC_READ_DATA_FAIL;
+		goto END_CLR;
+	}
+
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-	Status = XAsufw_DmaXfr(DmaPtr, (u64)(UINTPTR)PubKey, PubKeyAddr,
-					XAsu_DoubleCurveLength(CurveLen), 0U);
+	if ((Crv->CrvType != ECDSA_ED25519) && (Crv->CrvType != ECDSA_ED448) &&
+	    (Crv->CrvType != ECDSA_CURVE25519) && (Crv->CrvType != ECDSA_CURVE448)) {
+		Status = XAsufw_DmaXfrOutReverse(DmaPtr, PubKey + XRSA_ECC_ALIGNED_COMPONENT_OFFSET,
+						 PubKeyAddr + CurveLen, CurveLen);
+	} else {
+		Status = XAsufw_DmaXfr(DmaPtr,
+				       (u64)(UINTPTR)(PubKey + XRSA_ECC_ALIGNED_COMPONENT_OFFSET),
+				       PubKeyAddr + CurveLen, CurveLen, 0U);
+	}
 	if (Status != XASUFW_SUCCESS) {
 		Status = XASUFW_RSA_ECC_READ_DATA_FAIL;
 		goto END_CLR;
@@ -269,8 +284,7 @@ END_CLR:
 					XASU_ECC_P521_PVT_KEY_SIZE_IN_BYTES);
 	Status = XAsufw_UpdateBufStatus(Status, ClearStatus);
 
-	ClearStatus = Xil_SecureZeroize((u8 *)(UINTPTR)PubKey,
-			XAsu_DoubleCurveLength(XASU_ECC_P521_PVT_KEY_SIZE_IN_BYTES));
+	ClearStatus = Xil_SecureZeroize((u8 *)(UINTPTR)PubKey, sizeof(PubKey));
 	Status = XAsufw_UpdateBufStatus(Status, ClearStatus);
 
 	/** Set RSA under reset. */
@@ -300,7 +314,6 @@ END:
  *	- XASUFW_RSA_ECC_PUBLIC_KEY_WRONG_ORDER, if public key is in wrong order.
  *	- XASUFW_RSA_ECC_PUBLIC_KEY_NOT_ON_CRV, if public key is not on curve.
  *	- XASUFW_FAILURE, if validation fails due to other reasons.
- *	- XASUFW_RSA_CHANGE_ENDIANNESS_ERROR, if endianness change fails.
  *	- XASUFW_RSA_ECC_INCORRECT_CURVE, if input curvetype or curvelen is incorrect.
  *	- XASUFW_RSA_ECC_VALIDATE_PUB_KEY_FAIL, if public key validation fails.
  *
@@ -311,7 +324,9 @@ s32 XRsa_EccValidatePubKey(XAsufw_Dma *DmaPtr, u32 CurveType, u32 CurveLen, u64 
 	XFih_Var XFihEcc = XFih_VolatileAssignXfihVar(XFIH_FAILURE);
 	u32 CurveSize = 0U;
 	CREATE_VOLATILE(ClearStatus, XASUFW_FAILURE);
-	u8 PubKey[XASU_ECC_P521_PVT_KEY_SIZE_IN_BYTES + XASU_ECC_P521_PVT_KEY_SIZE_IN_BYTES];
+	u8 PubKey[XASU_ECC_P521_PVT_KEY_SIZE_IN_BYTES
+			+ XASUFW_VALUE_TWO + XASU_ECC_P521_PVT_KEY_SIZE_IN_BYTES]
+		__attribute__((aligned(4))) = {0U};
 	EcdsaKey Key;
 	EcdsaCrvInfo *Crv = NULL;
 
@@ -339,33 +354,36 @@ s32 XRsa_EccValidatePubKey(XAsufw_Dma *DmaPtr, u32 CurveType, u32 CurveLen, u64 
 		goto END;
 	}
 
-	/** Copy public key to local address using DMA and change endianness of the data. */
-	Status = XAsufw_DmaXfr(DmaPtr, PubKeyAddr, (u64)(UINTPTR)PubKey,
-			       XAsu_DoubleCurveLength(CurveLen), 0U);
+	/** Copy the public key in; Weierstrass Qx/Qy reversal rides the DMA, others plain-copy. */
+	if ((Crv->CrvType != ECDSA_ED25519) && (Crv->CrvType != ECDSA_ED448) &&
+	    (Crv->CrvType != ECDSA_CURVE25519) && (Crv->CrvType != ECDSA_CURVE448)) {
+		Status = XAsufw_DmaXfrInReverse(DmaPtr, PubKeyAddr, PubKey, CurveLen);
+	} else {
+		Status = XAsufw_DmaXfr(DmaPtr, PubKeyAddr, (u64)(UINTPTR)PubKey, CurveLen, 0U);
+	}
 	if (Status != XASUFW_SUCCESS) {
 		Status = XASUFW_RSA_ECC_WRITE_DATA_FAIL;
 		goto END_CLR;
 	}
 
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	if ((Crv->CrvType != ECDSA_ED25519) && (Crv->CrvType != ECDSA_ED448) &&
 	    (Crv->CrvType != ECDSA_CURVE25519) && (Crv->CrvType != ECDSA_CURVE448)) {
-		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-		Status = XAsufw_ChangeEndianness(PubKey, CurveLen);
-		if (Status != XASUFW_SUCCESS) {
-			Status = XASUFW_RSA_CHANGE_ENDIANNESS_ERROR;
-			goto END_CLR;
-		}
-
-		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-		Status = XAsufw_ChangeEndianness(PubKey + CurveLen, CurveLen);
-		if (Status != XASUFW_SUCCESS) {
-			Status = XASUFW_RSA_CHANGE_ENDIANNESS_ERROR;
-			goto END_CLR;
-		}
+		Status = XAsufw_DmaXfrInReverse(DmaPtr, PubKeyAddr + CurveLen,
+						PubKey + XRSA_ECC_ALIGNED_COMPONENT_OFFSET,
+						CurveLen);
+	} else {
+		Status = XAsufw_DmaXfr(DmaPtr, PubKeyAddr + CurveLen,
+				       (u64)(UINTPTR)(PubKey + XRSA_ECC_ALIGNED_COMPONENT_OFFSET),
+				       CurveLen, 0U);
+	}
+	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_RSA_ECC_WRITE_DATA_FAIL;
+		goto END_CLR;
 	}
 
 	Key.Qx = (u8 *)(UINTPTR)PubKey;
-	Key.Qy = (u8 *)(UINTPTR)(PubKey + CurveLen);
+	Key.Qy = (u8 *)(UINTPTR)(PubKey + XRSA_ECC_ALIGNED_COMPONENT_OFFSET);
 
 	/** Release RSA core reset. */
 	XAsufw_CryptoCoreReleaseReset(XRSA_BASEADDRESS, XRSA_RESET_OFFSET);
@@ -386,8 +404,7 @@ s32 XRsa_EccValidatePubKey(XAsufw_Dma *DmaPtr, u32 CurveType, u32 CurveLen, u64 
 
 END_CLR:
 	/** Zeroize local buffers. */
-	ClearStatus = Xil_SecureZeroize((u8 *)(UINTPTR)PubKey,
-			XAsu_DoubleCurveLength(XASU_ECC_P521_PVT_KEY_SIZE_IN_BYTES));
+	ClearStatus = Xil_SecureZeroize((u8 *)(UINTPTR)PubKey, sizeof(PubKey));
 	Status = XAsufw_UpdateBufStatus(Status, ClearStatus);
 
 	/** Set RSA under reset. */
@@ -431,6 +448,8 @@ END:
  *	third party code.
  *	- XASUFW_RSA_ECC_HASH_CALC_FAIL, if hash calculation fails in case of Ed25519ph or Ed448ph.
  *	- XASUFW_RSA_ECC_INCORRECT_CURVE, if input curvetype or curvelen is incorrect.
+ *	- XASUFW_ZEROIZE_MEMSET_FAIL, if memset fails while zeroizing local buffers.
+ *	- XASUFW_DMA_SCRUB_FAIL, if the DMA secret-path scrub fails.
  *	- Error code from XAsufw_UpdateBufStatus, if local buffer zeroization fails.
  *	- XASUFW_RSA_ECC_GEN_SIGN_FAIL, if signature generation fails in the third party code.
  *
@@ -448,11 +467,15 @@ s32 XRsa_EccGenerateSignature(XAsufw_Dma *DmaPtr, u32 CurveType, u32 CurveLen, u
 	XFih_Var XFihEcc = XFih_VolatileAssignXfihVar(XFIH_FAILURE);
 	CREATE_VOLATILE(ClearStatus, XASUFW_FAILURE);
 	u32 CurveSize = 0U;
-	u8 PrivKey[XASU_ECC_P521_PVT_KEY_SIZE_IN_BYTES];
-	u8 Signature[XASU_ECC_P521_PVT_KEY_SIZE_IN_BYTES + XASU_ECC_P521_PVT_KEY_SIZE_IN_BYTES];
-	u8 Hash[XASU_ECC_P521_PVT_KEY_SIZE_IN_BYTES];
-	u8 EphemeralKey[XASU_ECC_P521_PVT_KEY_SIZE_IN_BYTES] = {0U};
-	u8 PubKey[XASU_ECC_P521_PVT_KEY_SIZE_IN_BYTES + XASU_ECC_P521_PVT_KEY_SIZE_IN_BYTES];
+	u8 PrivKey[XASU_ECC_P521_PVT_KEY_SIZE_IN_BYTES] __attribute__((aligned(4))) = {0U};
+	u8 Signature[XASU_ECC_P521_PVT_KEY_SIZE_IN_BYTES
+			+ XASUFW_VALUE_TWO + XASU_ECC_P521_PVT_KEY_SIZE_IN_BYTES]
+		__attribute__((aligned(4))) = {0U};
+	u8 Hash[XASU_ECC_P521_PVT_KEY_SIZE_IN_BYTES] __attribute__((aligned(4))) = {0U};
+	u8 EphemeralKey[XASU_ECC_P521_PVT_KEY_SIZE_IN_BYTES] __attribute__((aligned(4))) = {0U};
+	u8 PubKey[XASU_ECC_P521_PVT_KEY_SIZE_IN_BYTES
+			+ XASUFW_VALUE_TWO + XASU_ECC_P521_PVT_KEY_SIZE_IN_BYTES]
+		__attribute__((aligned(4))) = {0U};
 	EcdsaSign Sign;
 	EcdsaKey Key;
 	EcdsaCrvInfo *Crv = NULL;
@@ -466,7 +489,10 @@ s32 XRsa_EccGenerateSignature(XAsufw_Dma *DmaPtr, u32 CurveType, u32 CurveLen, u
 		goto END;
 	}
 
-	/** Error out if curve type is Curve25519 or Curve448 as they don't support signature operations. */
+	/**
+	 * Error out if curve type is Curve25519 or Curve448 as they don't support
+	 * signature operations.
+	 */
 	if ((CurveType == XASU_ECC_CURVE25519) || (CurveType == XASU_ECC_CURVE448)) {
 		Status = XASUFW_RSA_ECC_INCORRECT_CURVE;
 		goto END;
@@ -506,9 +532,13 @@ s32 XRsa_EccGenerateSignature(XAsufw_Dma *DmaPtr, u32 CurveType, u32 CurveLen, u
 		}
 	}
 
-	/** Copy private key to local address using DMA. */
+	/** Copy the private key in; Weierstrass reversal rides the DMA, Edward curves plain-copy. */
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-	Status = XAsufw_DmaXfr(DmaPtr, PrivKeyAddr, (u64)(UINTPTR)PrivKey, CurveLen, 0U);
+	if ((Crv->CrvType != ECDSA_ED25519) && (Crv->CrvType != ECDSA_ED448)) {
+		Status = XAsufw_DmaXfrInReverse(DmaPtr, PrivKeyAddr, PrivKey, CurveLen);
+	} else {
+		Status = XAsufw_DmaXfr(DmaPtr, PrivKeyAddr, (u64)(UINTPTR)PrivKey, CurveLen, 0U);
+	}
 	if (Status != XASUFW_SUCCESS) {
 		Status = XASUFW_RSA_ECC_WRITE_DATA_FAIL;
 		goto END_CLR;
@@ -516,16 +546,12 @@ s32 XRsa_EccGenerateSignature(XAsufw_Dma *DmaPtr, u32 CurveType, u32 CurveLen, u
 
 	/** For curves other than Edward curves, */
 	if ((Crv->CrvType != ECDSA_ED25519) && (Crv->CrvType != ECDSA_ED448)) {
-		/** - Change endianness of the hash and private key. */
+		/**
+		 * Reverse the hash byte order in place. The copy-in DMA above wrote HashLen bytes at an
+		 * offset, so it cannot be ridden; the reversal over CurveSize is decoupled.
+		 */
 		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-		Status = XAsufw_ChangeEndianness(PrivKey, CurveLen);
-		if (Status != XASUFW_SUCCESS) {
-			Status = XASUFW_RSA_CHANGE_ENDIANNESS_ERROR;
-			goto END_CLR;
-		}
-
-		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-		Status = XAsufw_ChangeEndianness(Hash, CurveSize);
+		Status = XAsufw_ReverseInPlace(DmaPtr, Hash, CurveSize);
 		if (Status != XASUFW_SUCCESS) {
 			Status = XASUFW_RSA_CHANGE_ENDIANNESS_ERROR;
 			goto END_CLR;
@@ -551,18 +577,27 @@ s32 XRsa_EccGenerateSignature(XAsufw_Dma *DmaPtr, u32 CurveType, u32 CurveLen, u
 			}
 
 			ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-			Status = XAsufw_ChangeEndianness(EphemeralKey, CurveLen);
+			Status = XAsufw_ReverseInPlace(DmaPtr, EphemeralKey, CurveLen);
 			if (Status != XASUFW_SUCCESS) {
 				Status = XASUFW_RSA_CHANGE_ENDIANNESS_ERROR;
 				goto END_CLR;
 			}
 		}
 	}
+
+	/** Scrub the DMA secret datapath before releasing the core. */
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	Status = XAsufw_DmaScrubSecretPath(DmaPtr);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_DMA_SCRUB_FAIL;
+		goto END_CLR;
+	}
+
 	/** Release RSA core reset. */
 	XAsufw_CryptoCoreReleaseReset(XRSA_BASEADDRESS, XRSA_RESET_OFFSET);
 
 	Sign.r = (u8 *)(UINTPTR)Signature;
-	Sign.s = (u8 *)(UINTPTR)(Signature + CurveLen);
+	Sign.s = (u8 *)(UINTPTR)(Signature + XRSA_ECC_ALIGNED_COMPONENT_OFFSET);
 
 	if ((Crv->CrvType != ECDSA_ED25519) && (Crv->CrvType != ECDSA_ED448)) {
 		/**
@@ -593,7 +628,7 @@ s32 XRsa_EccGenerateSignature(XAsufw_Dma *DmaPtr, u32 CurveType, u32 CurveLen, u
 		 * - Generate the public key using the provided private key.
 		 */
 		Key.Qx = (u8 *)(UINTPTR)PubKey;
-		Key.Qy = (u8 *)(UINTPTR)(PubKey + CurveLen);
+		Key.Qy = (u8 *)(UINTPTR)(PubKey + XRSA_ECC_ALIGNED_COMPONENT_OFFSET);
 
 		XFIH_CALL_GOTO_WITH_SPECIFIC_ERROR(Ecdsa_GeneratePublicKey,
 				XASUFW_RSA_ECC_GEN_PUB_KEY_OPERATION_FAIL, XFihEcc, Status, END_CLR,
@@ -629,29 +664,38 @@ s32 XRsa_EccGenerateSignature(XAsufw_Dma *DmaPtr, u32 CurveType, u32 CurveLen, u
 		Status = XASUFW_RSA_ECC_GEN_SIGN_FAIL;
 	} else {
 		/**
-		 *  Change endianness of the generated signature and copy it to destination address
-		 *  using DMA if the curve type provided is other than Edward curve.
+		 *  Copy the generated signature to the destination address with byte-order reversal
+		 *  (endianness swap rides the copy DMA) if the curve type is other than Edward curve.
 		 */
 		if ((Crv->CrvType != ECDSA_ED25519) && (Crv->CrvType != ECDSA_ED448)) {
+			/** Weierstrass: reversal of r and s rides the copy-out DMA (per component). */
 			ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-			Status = XAsufw_ChangeEndianness(Signature, CurveLen);
-			if (Status != XASUFW_SUCCESS) {
-				Status = XASUFW_RSA_CHANGE_ENDIANNESS_ERROR;
-				goto END_CLR;
-			}
+			Status = XAsufw_DmaXfrOutReverse(DmaPtr, Signature, SignAddr, CurveLen);
+		} else {
+			/** Edward: r and s are little-endian, copied out per component (no reversal). */
 			ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-			Status = XAsufw_ChangeEndianness(Signature + CurveLen, CurveLen);
-			if (Status != XASUFW_SUCCESS) {
-				Status = XASUFW_RSA_CHANGE_ENDIANNESS_ERROR;
-				goto END_CLR;
-			}
+			Status = XAsufw_DmaXfr(DmaPtr, (u64)(UINTPTR)Signature, SignAddr,
+							CurveLen, 0U);
+		}
+		if (Status != XASUFW_SUCCESS) {
+			Status = XASUFW_RSA_ECC_READ_DATA_FAIL;
+			goto END_CLR;
 		}
 
 		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-		Status = XAsufw_DmaXfr(DmaPtr, (u64)(UINTPTR)Signature, SignAddr,
-						XAsu_DoubleCurveLength(CurveLen), 0U);
+		if ((Crv->CrvType != ECDSA_ED25519) && (Crv->CrvType != ECDSA_ED448)) {
+			Status = XAsufw_DmaXfrOutReverse(DmaPtr,
+							 Signature
+							 + XRSA_ECC_ALIGNED_COMPONENT_OFFSET,
+							 SignAddr + CurveLen, CurveLen);
+		} else {
+			Status = XAsufw_DmaXfr(DmaPtr,
+					       (u64)(UINTPTR)(Signature + XRSA_ECC_ALIGNED_COMPONENT_OFFSET),
+					       SignAddr + CurveLen, CurveLen, 0U);
+		}
 		if (Status != XASUFW_SUCCESS) {
 			Status = XASUFW_RSA_ECC_READ_DATA_FAIL;
+			goto END_CLR;
 		}
 	}
 
@@ -667,8 +711,7 @@ END_CLR:
 					XASU_ECC_P521_PVT_KEY_SIZE_IN_BYTES);
 	Status = XAsufw_UpdateBufStatus(Status, ClearStatus);
 
-	ClearStatus = Xil_SecureZeroize((u8 *)(UINTPTR)Signature,
-					XAsu_DoubleCurveLength(XASU_ECC_P521_PVT_KEY_SIZE_IN_BYTES));
+	ClearStatus = Xil_SecureZeroize((u8 *)(UINTPTR)Signature, sizeof(Signature));
 	Status = XAsufw_UpdateBufStatus(Status, ClearStatus);
 
 	ClearStatus = Xil_SecureZeroize((u8 *)(UINTPTR)Hash, XASU_SHA_512_HASH_LEN);
@@ -678,8 +721,7 @@ END_CLR:
 					XASU_ECC_P521_PVT_KEY_SIZE_IN_BYTES);
 	Status = XAsufw_UpdateBufStatus(Status, ClearStatus);
 
-	ClearStatus = Xil_SecureZeroize((u8 *)(UINTPTR)PubKey,
-					XAsu_DoubleCurveLength(XASU_ECC_P521_PVT_KEY_SIZE_IN_BYTES));
+	ClearStatus = Xil_SecureZeroize((u8 *)(UINTPTR)PubKey, sizeof(PubKey));
 	Status = XAsufw_UpdateBufStatus(Status, ClearStatus);
 
 	/** Set RSA under reset. */
@@ -715,9 +757,11 @@ END:
  *	-	XASUFW_RSA_ECC_VER_SIGN_S_ZERO, if provided S is zero.
  *	-	XASUFW_RSA_ECC_VER_SIGN_R_ORDER_ERROR, if R is not within ECC order.
  *	-	XASUFW_RSA_ECC_VER_SIGN_S_ORDER_ERROR, if S is not within ECC order.
- *	-	XASUFW_RSA_CHANGE_ENDIANNESS_ERROR, if endianness change fails.
  *	-	XASUFW_FAILURE, if operation fails due to any other reasons.
  *	-	XASUFW_RSA_ECC_INCORRECT_CURVE, if input curvetype or curvelen is incorrect.
+ *	-	XASUFW_RSA_ECC_HASH_CALC_FAIL, if hash calculation fails in case of
+ *						Ed25519ph or Ed448ph.
+ *	-	XASUFW_ZEROIZE_MEMSET_FAIL, if memset fails while zeroizing local buffers.
  *	-	Error code from XAsufw_UpdateBufStatus, if local buffer zeroization fails.
  *	-	XASUFW_RSA_ECC_VER_SIGN_FAIL, if signature verification fails in the third party code.
  *
@@ -735,9 +779,13 @@ s32 XRsa_EccVerifySignature(XAsufw_Dma *DmaPtr, u32 CurveType, u32 CurveLen, u64
 	XFih_Var XFihEcc = XFih_VolatileAssignXfihVar(XFIH_FAILURE);
 	CREATE_VOLATILE(ClearStatus, XASUFW_FAILURE);
 	u32 CurveSize = 0U;
-	u8 PubKey[XASU_ECC_P521_PVT_KEY_SIZE_IN_BYTES + XASU_ECC_P521_PVT_KEY_SIZE_IN_BYTES];
-	u8 Signature[XASU_ECC_P521_PVT_KEY_SIZE_IN_BYTES + XASU_ECC_P521_PVT_KEY_SIZE_IN_BYTES];
-	u8 Hash[XASU_ECC_P521_PVT_KEY_SIZE_IN_BYTES];
+	u8 PubKey[XASU_ECC_P521_PVT_KEY_SIZE_IN_BYTES
+			+ XASUFW_VALUE_TWO + XASU_ECC_P521_PVT_KEY_SIZE_IN_BYTES]
+		__attribute__((aligned(4))) = {0U};
+	u8 Signature[XASU_ECC_P521_PVT_KEY_SIZE_IN_BYTES
+			+ XASUFW_VALUE_TWO + XASU_ECC_P521_PVT_KEY_SIZE_IN_BYTES]
+		__attribute__((aligned(4))) = {0U};
+	u8 Hash[XASU_ECC_P521_PVT_KEY_SIZE_IN_BYTES] __attribute__((aligned(4))) = {0U};
 	EcdsaSign Sign;
 	EcdsaKey Key;
 	EcdsaCrvInfo *Crv = NULL;
@@ -751,7 +799,10 @@ s32 XRsa_EccVerifySignature(XAsufw_Dma *DmaPtr, u32 CurveType, u32 CurveLen, u64
 		goto END;
 	}
 
-	/** Error out if curve type is Curve25519 or Curve448 as they don't support signature operations. */
+	/**
+	 * Error out if curve type is Curve25519 or Curve448 as they don't support
+	 * signature operations.
+	 */
 	if ((CurveType == XASU_ECC_CURVE25519) || (CurveType == XASU_ECC_CURVE448)) {
 		Status = XASUFW_RSA_ECC_INCORRECT_CURVE;
 		goto END;
@@ -791,67 +842,87 @@ s32 XRsa_EccVerifySignature(XAsufw_Dma *DmaPtr, u32 CurveType, u32 CurveLen, u64
 		}
 	}
 
-	/** Copy signature and public key to local address using DMA. */
-	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-	Status = XAsufw_DmaXfr(DmaPtr, PubKeyAddr, (u64)(UINTPTR)PubKey,
-			       XAsu_DoubleCurveLength(CurveLen), 0U);
-	if (Status != XASUFW_SUCCESS) {
-		Status = XASUFW_RSA_ECC_WRITE_DATA_FAIL;
-		goto END_CLR;
-	}
-
-	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-	Status = XAsufw_DmaXfr(DmaPtr, SignAddr, (u64)(UINTPTR)Signature,
-			       XAsu_DoubleCurveLength(CurveLen), 0U);
-	if (Status != XASUFW_SUCCESS) {
-		Status = XASUFW_RSA_ECC_WRITE_DATA_FAIL;
-		goto END_CLR;
-	}
-
-	/** For the curves other than Edward curves, */
+	/**
+	 * Copy the public key and signature in. Weierstrass: each component (Qx, Qy, r, s) reversal
+	 * rides its DMA, hash reversed in place; Edward curves take plain combined copies.
+	 */
 	if ((Crv->CrvType != ECDSA_ED25519) && (Crv->CrvType != ECDSA_ED448)) {
-		/** - Change endianness of the hash, public key and the signature. */
 		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-		Status = XAsufw_ChangeEndianness(Hash, CurveSize);
+		Status = XAsufw_DmaXfrInReverse(DmaPtr, PubKeyAddr, PubKey, CurveLen);
 		if (Status != XASUFW_SUCCESS) {
-			Status = XASUFW_RSA_CHANGE_ENDIANNESS_ERROR;
+			Status = XASUFW_RSA_ECC_WRITE_DATA_FAIL;
 			goto END_CLR;
 		}
 
 		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-		Status = XAsufw_ChangeEndianness(PubKey, CurveLen);
+		Status = XAsufw_DmaXfrInReverse(DmaPtr, PubKeyAddr + CurveLen,
+						PubKey + XRSA_ECC_ALIGNED_COMPONENT_OFFSET,
+						CurveLen);
 		if (Status != XASUFW_SUCCESS) {
-			Status = XASUFW_RSA_CHANGE_ENDIANNESS_ERROR;
+			Status = XASUFW_RSA_ECC_WRITE_DATA_FAIL;
 			goto END_CLR;
 		}
 
 		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-		Status = XAsufw_ChangeEndianness(PubKey + CurveLen, CurveLen);
+		Status = XAsufw_DmaXfrInReverse(DmaPtr, SignAddr, Signature, CurveLen);
 		if (Status != XASUFW_SUCCESS) {
-			Status = XASUFW_RSA_CHANGE_ENDIANNESS_ERROR;
+			Status = XASUFW_RSA_ECC_WRITE_DATA_FAIL;
 			goto END_CLR;
 		}
 
 		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-		Status = XAsufw_ChangeEndianness(Signature, CurveLen);
+		Status = XAsufw_DmaXfrInReverse(DmaPtr, SignAddr + CurveLen,
+						Signature + XRSA_ECC_ALIGNED_COMPONENT_OFFSET, CurveLen);
 		if (Status != XASUFW_SUCCESS) {
-			Status = XASUFW_RSA_CHANGE_ENDIANNESS_ERROR;
+			Status = XASUFW_RSA_ECC_WRITE_DATA_FAIL;
 			goto END_CLR;
 		}
 
 		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-		Status = XAsufw_ChangeEndianness(Signature + CurveLen, CurveLen);
+		Status = XAsufw_ReverseInPlace(DmaPtr, Hash, CurveSize);
 		if (Status != XASUFW_SUCCESS) {
-			Status = XASUFW_RSA_CHANGE_ENDIANNESS_ERROR;
+			Status = XASUFW_RSA_ECC_WRITE_DATA_FAIL;
+			goto END_CLR;
+		}
+	} else {
+		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+		Status = XAsufw_DmaXfr(DmaPtr, PubKeyAddr, (u64)(UINTPTR)PubKey, CurveLen, 0U);
+		if (Status != XASUFW_SUCCESS) {
+			Status = XASUFW_RSA_ECC_WRITE_DATA_FAIL;
+			goto END_CLR;
+		}
+
+		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+		Status = XAsufw_DmaXfr(DmaPtr, PubKeyAddr + CurveLen,
+				       (u64)(UINTPTR)(PubKey + XRSA_ECC_ALIGNED_COMPONENT_OFFSET),
+				       CurveLen, 0U);
+		if (Status != XASUFW_SUCCESS) {
+			Status = XASUFW_RSA_ECC_WRITE_DATA_FAIL;
+			goto END_CLR;
+		}
+
+		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+		Status = XAsufw_DmaXfr(DmaPtr, SignAddr, (u64)(UINTPTR)Signature, CurveLen, 0U);
+		if (Status != XASUFW_SUCCESS) {
+			Status = XASUFW_RSA_ECC_WRITE_DATA_FAIL;
+			goto END_CLR;
+		}
+
+		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+		Status = XAsufw_DmaXfr(DmaPtr, SignAddr + CurveLen,
+				       (u64)(UINTPTR)(Signature + XRSA_ECC_ALIGNED_COMPONENT_OFFSET),
+				       CurveLen, 0U);
+		if (Status != XASUFW_SUCCESS) {
+			Status = XASUFW_RSA_ECC_WRITE_DATA_FAIL;
 			goto END_CLR;
 		}
 	}
 
 	Key.Qx = (u8 *)(UINTPTR)PubKey;
-	Key.Qy = (u8 *)(UINTPTR)(PubKey + CurveLen);
+	Key.Qy = (u8 *)(UINTPTR)(PubKey + XRSA_ECC_ALIGNED_COMPONENT_OFFSET);
 
 	Sign.r = (u8 *)(UINTPTR)Signature;
-	Sign.s = (u8 *)(UINTPTR)(Signature + CurveLen);
+	Sign.s = (u8 *)(UINTPTR)(Signature + XRSA_ECC_ALIGNED_COMPONENT_OFFSET);
 
 	/** Release RSA core reset. */
 	XAsufw_CryptoCoreReleaseReset(XRSA_BASEADDRESS, XRSA_RESET_OFFSET);
@@ -908,12 +979,10 @@ s32 XRsa_EccVerifySignature(XAsufw_Dma *DmaPtr, u32 CurveType, u32 CurveLen, u64
 
 END_CLR:
 	/** Zeroize local buffers. */
-	ClearStatus = Xil_SecureZeroize((u8 *)(UINTPTR)PubKey,
-					XAsu_DoubleCurveLength(XASU_ECC_P521_PVT_KEY_SIZE_IN_BYTES));
+	ClearStatus = Xil_SecureZeroize((u8 *)(UINTPTR)PubKey, sizeof(PubKey));
 	Status = XAsufw_UpdateBufStatus(Status, ClearStatus);
 
-	ClearStatus = Xil_SecureZeroize((u8 *)(UINTPTR)Signature,
-					XAsu_DoubleCurveLength(XASU_ECC_P521_PVT_KEY_SIZE_IN_BYTES));
+	ClearStatus = Xil_SecureZeroize((u8 *)(UINTPTR)Signature, sizeof(Signature));
 	Status = XAsufw_UpdateBufStatus(Status, ClearStatus);
 
 	ClearStatus = Xil_SecureZeroize((u8 *)(UINTPTR)Hash, XASU_ECC_P521_PVT_KEY_SIZE_IN_BYTES);
@@ -1030,6 +1099,7 @@ END:
  * @brief	This function generates the private key using TRNG and applies ModEccOrder to
  * 		the generated random number.
  *
+ * @param	DmaPtr		Pointer to the DMA instance.
  * @param	CurveType	ECC Curve type.
  * @param	CurveLen	Length of the curve in bytes.
  * @param	PvtKey		Pointer to store the generated private key.
@@ -1041,13 +1111,16 @@ END:
  *	-	XASUFW_RSA_ECC_INVALID_PARAM, if any of the input parameter is invalid.
  *	-	XASUFW_RSA_ECC_INCORRECT_CURVE, if input curvetype or curvelen is incorrect.
  *	-	XASUFW_RSA_ECC_TRNG_FAILED, if random number generation fails.
- *	-	XASUFW_RSA_CHANGE_ENDIANNESS_ERROR, if changing endianness fails.
  *	-	XASUFW_RSA_ECC_MOD_ORDER_FAILED, if ModEccOrder fails.
  *	-	XASUFW_MEM_COPY_FAIL, if copying random number to PvtKey pointer fails.
+ *	-	XASUFW_RSA_ECC_GEN_PVT_KEY_OPERATION_FAIL, if private key generation operation
+ *						fails.
+ *	-	XASUFW_RSA_CHANGE_ENDIANNESS_ERROR, if changing endianness fails.
+ *	-	XASUFW_DMA_SCRUB_FAIL, if the DMA secret-path scrub fails.
  *
  *************************************************************************************************/
-s32 XRsa_EccGeneratePvtKey(u32 CurveType, u32 CurveLen, u8 *PvtKey, u8 *InputRandBuf,
-			   u32 InputRandBufLen)
+s32 XRsa_EccGeneratePvtKey(XAsufw_Dma *DmaPtr, u32 CurveType, u32 CurveLen, u8 *PvtKey,
+			   u8 *InputRandBuf, u32 InputRandBufLen)
 {
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
 	EcdsaCrvInfo *CrvInfo = NULL;
@@ -1055,7 +1128,7 @@ s32 XRsa_EccGeneratePvtKey(u32 CurveType, u32 CurveLen, u8 *PvtKey, u8 *InputRan
 	u8 RandBufLen = 0U;
 
 	/** Validate input parameters. */
-	if (PvtKey == NULL) {
+	if ((PvtKey == NULL) || (DmaPtr == NULL)) {
 		Status = XASUFW_RSA_ECC_INVALID_PARAM;
 		goto END;
 	}
@@ -1112,19 +1185,21 @@ s32 XRsa_EccGeneratePvtKey(u32 CurveType, u32 CurveLen, u8 *PvtKey, u8 *InputRan
 			goto END;
 		}
 
-		/**
-		 * - Since the third party API gives the key in little endian form, change
-		 * the endianness of the key.
-		 */
+		/** Third party API returns little-endian; reverse the byte order in place. */
 		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-		Status = XAsufw_ChangeEndianness(PvtKey, CurveLen);
+		Status = XAsufw_ReverseInPlace(DmaPtr, PvtKey, CurveLen);
 		if (Status != XASUFW_SUCCESS) {
 			Status = XASUFW_RSA_CHANGE_ENDIANNESS_ERROR;
 		}
+
+		/** Scrub the DMA secret datapath */
+		Status = XAsufw_UpdateBufStatus(Status,
+				XAsufw_DmaScrubSecretPath(DmaPtr));
 	} else {
 		/**
 		 * For edward and montgomery curves, generate the raw random value (when no input
-		 * buffer is provided) and store it as the private key, without reduction.
+		 * buffer is provided) and store it as the private key, without reduction. The key
+		 * never transits the DMA datapath (CPU copy), so no DMA secret-path scrub is needed here.
 		 */
 		Status = XRsa_EccGenerateRandScalar(CrvInfo, CurveLen, InputRandBuf,
 				(u8)XASU_FALSE, PvtKey);
@@ -1173,7 +1248,8 @@ s32 XRsa_EccGenKeyPair(XAsufw_Dma *DmaPtr, u32 CurveType, u32 CurveLen, u64 PvtK
 	}
 
 	/** Generate private key. */
-	Status = XRsa_EccGeneratePvtKey(CurveType, CurveLen, (u8*)(UINTPTR)PvtKeyAddr, NULL, 0U);
+	Status = XRsa_EccGeneratePvtKey(DmaPtr, CurveType, CurveLen, (u8*)(UINTPTR)PvtKeyAddr, NULL,
+					0U);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_RSA_ECC_GEN_PVT_KEY_OPERATION_FAIL);
 		goto END;
@@ -1295,9 +1371,12 @@ u32 XRsa_EccValidateAndGetCrvInfo(u32 CurveType, EcdsaCrvInfo **Crv)
  *	-	XASUFW_RSA_ECC_READ_DATA_FAIL, if read data through DMA fails.
  *	-	XASUFW_ECDH_OTHER_ERROR, if operation fails due to any other error from
  *		third-party code.
- *	-	XASUFW_RSA_CHANGE_ENDIANNESS_ERROR, if endianness change fails.
  *	-	XASUFW_FAILURE, if operation fails due to any other reasons.
  *	-	XASUFW_RSA_ECC_INCORRECT_CURVE, if input curvetype or curvelen is incorrect.
+ *	-	XASUFW_ECDH_RAND_GEN_ERROR, if random number generation fails in the
+ *		third-party shared secret computation.
+ *	-	XASUFW_ZEROIZE_MEMSET_FAIL, if memset fails while zeroizing local buffers.
+ *	-	XASUFW_DMA_SCRUB_FAIL, if the DMA secret-path scrub fails.
  *	-	Error code from XAsufw_UpdateBufStatus, if local buffer zeroization fails.
  *
  *************************************************************************************************/
@@ -1313,9 +1392,11 @@ s32 XRsa_EcdhGenSharedSecret(XAsufw_Dma *DmaPtr, u32 CurveType, u32 CurveLen, u6
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
 	XFih_Var XFihEcdh;
 	CREATE_VOLATILE(ClearStatus, XASUFW_FAILURE);
-	u8 SharedSecret[XASU_ECC_P521_PVT_KEY_SIZE_IN_BYTES];
-	u8 PrivKey[XASU_ECC_P521_PVT_KEY_SIZE_IN_BYTES];
-	u8 PubKey[XASU_ECC_P521_PVT_KEY_SIZE_IN_BYTES + XASU_ECC_P521_PVT_KEY_SIZE_IN_BYTES];
+	u8 SharedSecret[XASU_ECC_P521_PVT_KEY_SIZE_IN_BYTES] __attribute__((aligned(4))) = {0U};
+	u8 PrivKey[XASU_ECC_P521_PVT_KEY_SIZE_IN_BYTES] __attribute__((aligned(4))) = {0U};
+	u8 PubKey[XASU_ECC_P521_PVT_KEY_SIZE_IN_BYTES
+			+ XASUFW_VALUE_TWO + XASU_ECC_P521_PVT_KEY_SIZE_IN_BYTES]
+		__attribute__((aligned(4))) = {0U};
 	u8 SharedSecretObjId[XECDH_SHARED_SEC_OBJ_ID_SIZE];
 	EcdsaCrvInfo *Crv = NULL;
 	EcdsaKey Key;
@@ -1356,31 +1437,37 @@ s32 XRsa_EcdhGenSharedSecret(XAsufw_Dma *DmaPtr, u32 CurveType, u32 CurveLen, u6
 		goto END;
 	}
 
-	/** Copy public key to local address using DMA and change endianness of the data. */
-	Status = XAsufw_DmaXfr(DmaPtr, PubKeyAddr, (u64)(UINTPTR)PubKey,
-			       XAsu_DoubleCurveLength(CurveLen), 0U);
+	/**
+	 * Copy the public key to the local buffer. For Weierstrass curves the byte-order reversal of
+	 * Qx and Qy rides the copy-in DMA (per component); Montgomery curves take a plain copy.
+	 */
+	if ((Crv->CrvType != ECDSA_CURVE25519) && (Crv->CrvType != ECDSA_CURVE448)) {
+		Status = XAsufw_DmaXfrInReverse(DmaPtr, PubKeyAddr, PubKey, CurveLen);
+	} else {
+		Status = XAsufw_DmaXfr(DmaPtr, PubKeyAddr, (u64)(UINTPTR)PubKey, CurveLen, 0U);
+	}
 	if (Status != XASUFW_SUCCESS) {
 		Status = XASUFW_RSA_ECC_WRITE_DATA_FAIL;
 		goto END_CLR;
 	}
 
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	if ((Crv->CrvType != ECDSA_CURVE25519) && (Crv->CrvType != ECDSA_CURVE448)) {
-		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-		Status = XAsufw_ChangeEndianness(PubKey, CurveLen);
-		if (Status != XASUFW_SUCCESS) {
-			Status = XASUFW_RSA_CHANGE_ENDIANNESS_ERROR;
-			goto END_CLR;
-		}
-		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-		Status = XAsufw_ChangeEndianness((PubKey + CurveLen), CurveLen);
-		if (Status != XASUFW_SUCCESS) {
-			Status = XASUFW_RSA_CHANGE_ENDIANNESS_ERROR;
-			goto END_CLR;
-		}
+		Status = XAsufw_DmaXfrInReverse(DmaPtr, PubKeyAddr + CurveLen,
+						PubKey + XRSA_ECC_ALIGNED_COMPONENT_OFFSET,
+						CurveLen);
+	} else {
+		Status = XAsufw_DmaXfr(DmaPtr, PubKeyAddr + CurveLen,
+				       (u64)(UINTPTR)(PubKey + XRSA_ECC_ALIGNED_COMPONENT_OFFSET),
+				       CurveLen, 0U);
+	}
+	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_RSA_ECC_WRITE_DATA_FAIL;
+		goto END_CLR;
 	}
 
 	Key.Qx = (u8 *)(UINTPTR)PubKey;
-	Key.Qy = (u8 *)(UINTPTR)(PubKey + CurveLen);
+	Key.Qy = (u8 *)(UINTPTR)(PubKey + XRSA_ECC_ALIGNED_COMPONENT_OFFSET);
 
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	/**
@@ -1393,21 +1480,27 @@ s32 XRsa_EcdhGenSharedSecret(XAsufw_Dma *DmaPtr, u32 CurveType, u32 CurveLen, u6
 		goto END_CLR;
 	}
 
-	/** Copy private key to local address using DMA and change endianness of the data. */
+	/**
+	 * Copy the private key to the local buffer. For Weierstrass curves the byte-order reversal
+	 * rides the copy DMA; Montgomery curves take a plain copy.
+	 */
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-	Status = XAsufw_DmaXfr(DmaPtr, PrivKeyAddr, (u64)(UINTPTR)PrivKey, CurveLen, 0U);
+	if ((Crv->CrvType != ECDSA_CURVE25519) && (Crv->CrvType != ECDSA_CURVE448)) {
+		Status = XAsufw_DmaXfrInReverse(DmaPtr, PrivKeyAddr, PrivKey, CurveLen);
+	} else {
+		Status = XAsufw_DmaXfr(DmaPtr, PrivKeyAddr, (u64)(UINTPTR)PrivKey, CurveLen, 0U);
+	}
 	if (Status != XASUFW_SUCCESS) {
 		Status = XASUFW_RSA_ECC_WRITE_DATA_FAIL;
 		goto END_CLR;
 	}
 
-	if ((Crv->CrvType != ECDSA_CURVE25519) && (Crv->CrvType != ECDSA_CURVE448)) {
-		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-		Status = XAsufw_ChangeEndianness(PrivKey, CurveLen);
-		if (Status != XASUFW_SUCCESS) {
-			Status = XASUFW_RSA_CHANGE_ENDIANNESS_ERROR;
-			goto END_CLR;
-		}
+	/** Scrub the DMA secret datapath before releasing the core. */
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	Status = XAsufw_DmaScrubSecretPath(DmaPtr);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_DMA_SCRUB_FAIL;
+		goto END_CLR;
 	}
 
 	/** Release RSA core reset. */
@@ -1432,24 +1525,14 @@ s32 XRsa_EcdhGenSharedSecret(XAsufw_Dma *DmaPtr, u32 CurveType, u32 CurveLen, u6
 		Status = XASUFW_ECDH_OTHER_ERROR;
 		goto END_CLR;
 	}
-	/**
-	 * Copy shared secret to destination address if not null using DMA and
-	 * change endianness of the data.
-	 */
-	if ((Crv->CrvType != ECDSA_CURVE25519) && (Crv->CrvType != ECDSA_CURVE448)) {
-		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-		Status = XAsufw_ChangeEndianness(SharedSecret, CurveLen);
-		if (Status != XASUFW_SUCCESS) {
-			Status = XASUFW_RSA_CHANGE_ENDIANNESS_ERROR;
-			goto END_CLR;
-		}
-	}
-
+	/** Copy the shared secret out if provided; Weierstrass reversal rides the copy-out DMA. */
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	if (SharedSecretAddr == 0U) {
 		/* TODO: Store shared secret in keyvault and update SharedSecretObjId */
 		Status = XAsufw_DmaXfr(DmaPtr, (u64)(UINTPTR)SharedSecretObjId,
 					SharedSecretObjIdAddr, XECDH_SHARED_SEC_OBJ_ID_SIZE, 0U);
+	} else if ((Crv->CrvType != ECDSA_CURVE25519) && (Crv->CrvType != ECDSA_CURVE448)) {
+		Status = XAsufw_DmaXfrOutReverse(DmaPtr, SharedSecret, SharedSecretAddr, CurveLen);
 	} else {
 		Status = XAsufw_DmaXfr(DmaPtr, (u64)(UINTPTR)SharedSecret, SharedSecretAddr,
 					CurveLen, 0U);
@@ -1458,6 +1541,12 @@ s32 XRsa_EcdhGenSharedSecret(XAsufw_Dma *DmaPtr, u32 CurveType, u32 CurveLen, u6
 		Status = XASUFW_RSA_ECC_READ_DATA_FAIL;
 	} else {
 		ReturnStatus = XASUFW_RSA_ECDH_SUCCESS;
+	}
+
+	/** Scrub the DMA secret datapath after the shared secret has been copied out. */
+	if (SharedSecretAddr != 0U) {
+		Status = XAsufw_UpdateBufStatus(Status,
+				XAsufw_DmaScrubSecretPath(DmaPtr));
 	}
 
 	/**
@@ -1473,8 +1562,7 @@ END_CLR:
 					XASU_ECC_P521_PVT_KEY_SIZE_IN_BYTES);
 	Status = XAsufw_UpdateBufStatus(Status, ClearStatus);
 
-	ClearStatus = Xil_SecureZeroize((u8 *)(UINTPTR)PubKey,
-					XAsu_DoubleCurveLength(XASU_ECC_P521_PVT_KEY_SIZE_IN_BYTES));
+	ClearStatus = Xil_SecureZeroize((u8 *)(UINTPTR)PubKey, sizeof(PubKey));
 	Status = XAsufw_UpdateBufStatus(Status, ClearStatus);
 
 	ClearStatus = Xil_SecureZeroize((u8 *)(UINTPTR)SharedSecretObjId, XECDH_SHARED_SEC_OBJ_ID_SIZE);
@@ -1513,7 +1601,7 @@ s32 XRsa_EccPwct(XAsufw_Dma *DmaPtr, u32 CurveType, u32 CurveLen, u64 PrivKeyAdd
 	u64 PubKeyAddr)
 {
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
-	u8 Signature[XASU_ECC_P521_PVT_KEY_SIZE_IN_BYTES + XASU_ECC_P521_PVT_KEY_SIZE_IN_BYTES];
+	u8 Signature[XASU_ECC_P521_PVT_KEY_SIZE_IN_BYTES + XASU_ECC_P521_PVT_KEY_SIZE_IN_BYTES] = {0U};
 	const u8 Hash[XASU_ECC_P256_PVT_KEY_SIZE_IN_BYTES] = {
 		0x8FU, 0xDFU, 0x4CU, 0x12U, 0x9AU, 0x90U, 0xBCU, 0x76U,
 		0x38U, 0xA5U, 0x5BU, 0x22U, 0x9BU, 0xD4U, 0xAEU, 0x1BU,
@@ -1531,7 +1619,6 @@ s32 XRsa_EccPwct(XAsufw_Dma *DmaPtr, u32 CurveType, u32 CurveLen, u64 PrivKeyAdd
 		goto END;
 	}
 
-	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	Status = XRsa_EccGenerateSignature(DmaPtr, CurveType, CurveLen, PrivKeyAddr,
 		 NULL, (u64)(UINTPTR)Hash, XASU_ECC_P256_PVT_KEY_SIZE_IN_BYTES,
 		 (u64)(UINTPTR)Signature);

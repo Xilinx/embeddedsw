@@ -44,6 +44,8 @@ extern "C" {
 /************************************ Constant Definitions ***************************************/
 #define XASUFW_SRC_CH_AXI_FIXED		(0x1U) /**< DMA XFER flags for source channel */
 #define XASUFW_DST_CH_AXI_FIXED		((u32)0x1U << 16U) /**< DMA XFER flags for destination channel */
+/** DMA XFER flag: enable per-32-bit-word byte reversal on the source channel */
+#define XASUFW_DMA_ENDIAN_SWAP		((u32)0x1U << 1U)
 #define XASUFW_DMA_BLOCKING_SIZE	(4096U) /**< DMA blocking size. If the SHA/AES update contains
 	data size more than this size, DMA transfer will happen in non-blocking mode */
 
@@ -77,6 +79,7 @@ s32 XAsufw_DmaInit(void);
 XAsufw_Dma *XAsufw_GetDmaInstance(u32 BaseAddress);
 s32 XAsufw_StartDmaXfr(XAsufw_Dma *DmaPtr, u64 SrcAddr, u64 DestAddr, u32 Len, u32 Flags);
 s32 XAsufw_DmaXfr(XAsufw_Dma *AsuDmaPtr, u64 SrcAddr, u64 DstAddr, const u32 Size, u32 Flags);
+s32 XAsufw_DmaScrubSecretPath(XAsufw_Dma *AsuDmaPtr);
 void XAsufw_DmaCfgNonBlocking(XAsufw_Dma *DmaPtr, XAsuDma_Channel Channel,
 			      const XAsu_ReqBuf *ReqBuf, u32 ReqId, XAsufw_DmaState DmaState);
 s32 XAsufw_WaitForDmaDone(XAsufw_Dma *DmaPtr, XAsuDma_Channel Channel);
