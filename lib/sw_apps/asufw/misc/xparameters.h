@@ -52,7 +52,7 @@
 #define XPAR_MICROBLAZE_ENDIANNESS 1
 #define XPAR_MICROBLAZE_FAULT_TOLERANT 1
 #define XPAR_MICROBLAZE_FPU_EXCEPTION 0
-#define XPAR_MICROBLAZE_FREQ 320000000
+#define XPAR_MICROBLAZE_FREQ 399996002 /**< Processor clock frequency in Hz */
 #define XPAR_MICROBLAZE_FSL_EXCEPTION 0
 #define XPAR_MICROBLAZE_FSL_LINKS 0
 #define XPAR_MICROBLAZE_IADDR_SIZE 32
@@ -226,6 +226,7 @@
 /******************************************************************/
 
 #define XPAR_CPU_CORE_CLOCK_FREQ_HZ XPAR_MICROBLAZE_FREQ
+#define XPAR_ASU_TIMEBASE_FREQUENCY 399996002 /**< Timebase frequency in Hz */
 
 /******************************************************************/
 

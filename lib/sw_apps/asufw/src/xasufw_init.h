@@ -42,17 +42,12 @@ extern "C" {
 #include "xil_types.h"
 
 /************************************ Constant Definitions ***************************************/
-/** ASU IRO frequency in Hz (500 MHz). Shared by PIT setup, perf timing, and SLH-DSA keep-alive. */
-#define XASUFW_ASU_IRO_FREQ_IN_HZ	(500000000U)
-/** Hertz per megahertz; used to convert IRO frequency for microsecond timing. */
-#define XASUFW_MEGA			(1000000U)
-
 /** @cond xasufw_init_internal */
 /************************************** Type Definitions *****************************************/
 /** This structure contains the parameters required for performance measurement. */
 typedef struct {
 	u64 TPerfUs; /**< Whole part of time in microseconds. */
-	u64 TPerfUsFrac; /**< Fractional part of time in microseconds. */
+	u64 TPerfUsFrac; /**< Fractional part of time, in millionths of a microsecond. */
 } XAsufw_PerfTime;
 
 /** @endcond */

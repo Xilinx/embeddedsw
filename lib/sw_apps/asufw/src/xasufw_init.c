@@ -77,7 +77,8 @@
 #define XASUFW_PIT1			(0U) /**< ASUFW PIT1 */
 #define XASUFW_PIT2			(1U) /**< ASUFW PIT2 */
 #define XASUFW_PIT3			(2U) /**< ASUFW PIT3 */
-#define XASUFW_PIT_FREQ_DIVISOR		(100U) /**< ASUFW PIT frequency divisor */
+#define XASUFW_MSEC_PER_SEC		(1000U) /**< Number of milliseconds per second */
+#define XASUFW_MEGA			(1000000U) /**< Hertz per megahertz */
 #define XASUFW_WORD_SIZE_IN_BITS	(32U) /**< Word size in bits */
 
 /**
@@ -136,6 +137,8 @@ static u64 XAsufw_GetPitElapsedTicks(u64 TimerValStart, u64 TimerValEnd);
 #ifdef XASUFW_RAM_ECC_ENABLE
 static void XAsufw_RamEccIntrHandler(void *CallbackRef);
 #endif
+static void XAsufw_ConvertPitTicksToTime(u64 ElapsedTicks, XAsufw_PerfTime *PerfTime,
+					u32 ComputeFrac);
 
 /************************************ Variable Definitions ***************************************/
 static XIOModule IOModule; /**< Instance of the IO Module */
@@ -378,7 +381,8 @@ s32 XAsufw_StartTimer(void)
 	s32 Status = XASUFW_FAILURE;
 	u32 Pit1ResetValue = XASUFW_PIT1_RESET_VALUE;
 	u32 Pit2ResetValue = XASUFW_PIT2_RESET_VALUE;
-	u32 Pit3ResetValue = XASUFW_ASU_IRO_FREQ_IN_HZ / XASUFW_PIT_FREQ_DIVISOR;
+	u32 Pit3ResetValue = (u32)(((u64)XPAR_ASU_TIMEBASE_FREQUENCY * XASUFW_PIT3_TIMER_TICK) /
+				   XASUFW_MSEC_PER_SEC);
 
 	/**
 	 * Initialize the IO Module so that it's ready to use, specify the device ID that is
@@ -579,9 +583,12 @@ static u64 XAsufw_GetPitElapsedTicks(u64 TimerValStart, u64 TimerValEnd)
  *************************************************************************************************/
 u64 XAsufw_GetElapsedTimeUs(u64 TimerValStart, u64 TimerValEnd)
 {
-	u32 AsuIroFreqMHz = XASUFW_ASU_IRO_FREQ_IN_HZ / XASUFW_MEGA;
+	XAsufw_PerfTime PerfTime = {0U};
 
-	return XAsufw_GetPitElapsedTicks(TimerValStart, TimerValEnd) / AsuIroFreqMHz;
+	XAsufw_ConvertPitTicksToTime(XAsufw_GetPitElapsedTicks(TimerValStart, TimerValEnd),
+				     &PerfTime, XASU_FALSE);
+
+	return PerfTime.TPerfUs;
 }
 
 /*************************************************************************************************/
@@ -600,7 +607,10 @@ void XAsufw_MeasurePerfTime(u64 TimerValStart, XAsufw_PerfTime *PerfTime)
 {
 	u64 TimerValEnd;
 	u64 TDiff;
-	u32 AsuIroFreqMHz = XASUFW_ASU_IRO_FREQ_IN_HZ / XASUFW_MEGA;
+
+	if (PerfTime == NULL) {
+		return;
+	}
 
 	/** Capture the timer value at the end of the measured interval. */
 	TimerValEnd = XAsufw_GetTimerValue();
@@ -608,11 +618,8 @@ void XAsufw_MeasurePerfTime(u64 TimerValStart, XAsufw_PerfTime *PerfTime)
 	/** Capture elapsed time. */
 	TDiff = XAsufw_GetPitElapsedTicks(TimerValStart, TimerValEnd);
 
-	/** Calculate whole microseconds. */
-	PerfTime->TPerfUs = TDiff / AsuIroFreqMHz;
-
-	/** Calculate the fractional part in microseconds. */
-	PerfTime->TPerfUsFrac = TDiff % AsuIroFreqMHz;
+	/** Convert elapsed ticks into microseconds. */
+	XAsufw_ConvertPitTicksToTime(TDiff, PerfTime, XASU_TRUE);
 }
 
 /*************************************************************************************************/
@@ -752,6 +759,36 @@ static s32 XAsufw_RegisterNotifier(u32 EventErrMask, u32 Enable)
 
 END:
 	return Status;
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	This function converts elapsed PIT ticks into microseconds using the timebase
+ * 		frequency in Hz.
+ *
+ * @param	ElapsedTicks	Elapsed PIT tick count.
+ * @param	PerfTime	Pointer to the structure that receives the elapsed time.
+ * @param	ComputeFrac	XASU_TRUE to also fill TPerfUsFrac, XASU_FALSE for whole microseconds
+ * 				only.
+ *
+ * @note	The conversion uses Hz so the design clock is not truncated to whole megahertz.
+ * 		The remainder is taken before scaling so ticks * 1000000 cannot overflow 64 bits.
+ * 		TPerfUsFrac is in millionths of a microsecond, so it prints directly with %06llu.
+ *
+ *************************************************************************************************/
+static void XAsufw_ConvertPitTicksToTime(u64 ElapsedTicks, XAsufw_PerfTime *PerfTime,
+					u32 ComputeFrac)
+{
+	u64 ScaledRemainder = (ElapsedTicks % XPAR_ASU_TIMEBASE_FREQUENCY) * XASUFW_MEGA;
+
+	PerfTime->TPerfUs = ((ElapsedTicks / XPAR_ASU_TIMEBASE_FREQUENCY) * XASUFW_MEGA) +
+			    (ScaledRemainder / XPAR_ASU_TIMEBASE_FREQUENCY);
+	if (ComputeFrac == XASU_TRUE) {
+		PerfTime->TPerfUsFrac = ((ScaledRemainder % XPAR_ASU_TIMEBASE_FREQUENCY) * XASUFW_MEGA) /
+					XPAR_ASU_TIMEBASE_FREQUENCY;
+	} else {
+		PerfTime->TPerfUsFrac = 0U;
+	}
 }
 
 /*************************************************************************************************/
