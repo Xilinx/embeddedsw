@@ -13,7 +13,8 @@
 #include "xpm_device_fsm.h"
 
 static XStatus XPmRequirement_Init(XPm_Requirement *Reqm, XPm_Subsystem *Subsystem,
-				XPm_Device *Device, u32 Flags,
+				XPm_Device *Device,
+				const XPmRuntime_DeviceOps *DevOps, u32 Flags,
 				u32 PreallocCaps, u32 PreallocQoS)
 {
 	XStatus Status = XST_FAILURE;
@@ -33,10 +34,8 @@ static XStatus XPmRequirement_Init(XPm_Requirement *Reqm, XPm_Subsystem *Subsyst
 	Reqm->Next.QoS = XPM_MAX_QOS;
 	Reqm->IsPending = 0;
 	/*
-	 * XPmRequirement_Add creates both lists before calling in, but it holds
-	 * a DIFFERENT DeviceOps pointer than the one resolved below, so neither
-	 * head is provably non-NULL at this point.  Fail closed rather than
-	 * prepend through a NULL head.
+	 * Use the same operations record whose requirement list the caller
+	 * prepared. Keep list validation next to the prepend operations.
 	 */
 	if (NULL == Subsystem->Requirements) {
 		PmErr("Subsystem 0x%x requirement list is NULL\r\n", Subsystem->Id);
@@ -47,7 +46,6 @@ static XStatus XPmRequirement_Init(XPm_Requirement *Reqm, XPm_Subsystem *Subsyst
 	LIST_PREPEND(Subsystem->Requirements, Reqm);
 
 	/* Prepend Reqm to RuntimeOps->Requirements */
-	const XPmRuntime_DeviceOps* DevOps = XPm_GetDevOps_ById(Device->Node.Id);
 	if (NULL == DevOps) {
 		PmErr("DeviceOps is NULL\r\n");
 		Status = XST_FAILURE;
@@ -103,7 +101,8 @@ XStatus XPmRequirement_Add(XPm_Subsystem *Subsystem, XPm_Device *Device,
 		goto done;
 	}
 
-	Status = XPmRequirement_Init(Reqm, Subsystem, Device, Flags, PreallocCaps, PreallocQoS);
+	Status = XPmRequirement_Init(Reqm, Subsystem, Device, DevOps, Flags,
+				     PreallocCaps, PreallocQoS);
 
 done:
 	return Status;
