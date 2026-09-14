@@ -198,8 +198,13 @@ s32 XAsufw_KeyManagerInit(void)
 		[XASU_KM_GEN_RAW_KEY_CMD_ID] = XASUFW_KEYMANAGER_RESOURCE_MASK |
 		XASUFW_DMA_RESOURCE_MASK | XASUFW_TRNG_RESOURCE_MASK | XASUFW_TRNG_RANDOM_BYTES_MASK,
 		[XASU_KM_GEN_RSA_KEY_PAIR_CMD_ID] = XASUFW_KEYMANAGER_RESOURCE_MASK |
-		XASUFW_DMA_RESOURCE_MASK | XASUFW_RSA_RESOURCE_MASK | XASUFW_TRNG_RESOURCE_MASK |
-		XASUFW_TRNG_RANDOM_BYTES_MASK | XASUFW_OVERLAY_RESOURCE_MASK,
+		XASUFW_DMA_RESOURCE_MASK | XASUFW_TRNG_RESOURCE_MASK |
+		XASUFW_TRNG_RANDOM_BYTES_MASK,
+		/*
+		 * The key pair is generated on the RSA core, so the RSA resource is what arbitrates
+		 * the hardware, while the curve code it runs lives in the ECC overlay image, so the
+		 * window is reserved as well.
+		 */
 		[XASU_KM_GEN_ECC_KEY_PAIR_CMD_ID] = XASUFW_KEYMANAGER_RESOURCE_MASK |
 		XASUFW_DMA_RESOURCE_MASK | XASUFW_RSA_RESOURCE_MASK | XASUFW_TRNG_RESOURCE_MASK |
 		XASUFW_TRNG_RANDOM_BYTES_MASK | XASUFW_OVERLAY_RESOURCE_MASK,
@@ -254,6 +259,7 @@ s32 XAsufw_KeyManagerInit(void)
 #else
 		[XASU_KM_GEN_SLHDSA_KEY_PAIR_CMD_ID] = 0U,
 #endif
+		/* Provisioning key pairs are generated through the ECC key pair path above. */
 		[XASU_KM_GEN_PROV_KEY_PAIR_CMD_ID] = XASUFW_KEYMANAGER_RESOURCE_MASK |
 		XASUFW_DMA_RESOURCE_MASK | XASUFW_RSA_RESOURCE_MASK | XASUFW_TRNG_RESOURCE_MASK |
 		XASUFW_TRNG_RANDOM_BYTES_MASK | XASUFW_OVERLAY_RESOURCE_MASK,
@@ -434,20 +440,16 @@ static s32 XAsufw_KeyManagerResourceHandler(const XAsu_ReqBuf *ReqBuf, u32 ReqId
 		XAsufw_AllocateResource(XASUFW_TRNG, XASUFW_KEYMANAGER, ReqId);
 	}
 
-	if ((CmdId == XASU_KM_GEN_RSA_KEY_PAIR_CMD_ID) ||
-	    (CmdId == XASU_KM_GEN_ECC_KEY_PAIR_CMD_ID) ||
+	if ((CmdId == XASU_KM_GEN_ECC_KEY_PAIR_CMD_ID) ||
 	    (CmdId == XASU_KM_GEN_PROV_KEY_PAIR_CMD_ID)) {
 		/** Allocate RSA resource. */
 		XAsufw_AllocateResource(XASUFW_RSA, XASUFW_KEYMANAGER, ReqId);
 
-		/**
-		 * The ECC core code is linked into the shared overlay window, so every command
-		 * that reaches ECC has to own the window and load the RSA-ECC image before use.
-		 */
+		/** Allocate shared overlay window resource for ECC and provisioning key pairs. */
 		XAsufw_AllocateResource(XASUFW_OVERLAY, XASUFW_KEYMANAGER, ReqId);
 
-		/** Activate RSA-ECC overlay. */
-		Status = XOverlay_Activate(XOVERLAY_ALGO_RSA_ECC, XAsufw_KeyManagerModule.AsuDmaPtr);
+		/** Activate ECC overlay. */
+		Status = XOverlay_Activate(XOVERLAY_ALGO_ECC, XAsufw_KeyManagerModule.AsuDmaPtr);
 		if (Status != XASUFW_SUCCESS) {
 			Status = XAsufw_UpdateErrorStatus(Status, XASUFW_OVERLAY_ACTIVATE_FAIL);
 			if (XAsufw_ReleaseResource(XASUFW_KEYMANAGER, ReqId) != XASUFW_SUCCESS) {
@@ -459,7 +461,7 @@ static s32 XAsufw_KeyManagerResourceHandler(const XAsu_ReqBuf *ReqBuf, u32 ReqId
 
 	/**
 	 * Export and import each run under two overlay images in turn, the key vault image for
-	 * the blob body and the RSA-ECC image for the header signature, so they own the window
+	 * the blob body and the ECC image for the header signature, so they own the window
 	 * for the whole command and load the images themselves as they go.
 	 */
 	if ((CmdId == XASU_KM_EXPORT_KEYVAULT_CMD_ID) ||

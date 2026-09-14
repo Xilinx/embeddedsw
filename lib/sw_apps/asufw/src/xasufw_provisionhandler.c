@@ -127,7 +127,7 @@ s32 XAsufw_ProvisionInit(void)
  *	  re-queues the request.
  *	- XASUFW_AES_CONTEXT_SAVE_FAIL, if saving the AES context fails.
  *	- XASUFW_DMA_RESOURCE_ALLOCATION_FAILED, if DMA resource allocation fails.
- *	- XASUFW_OVERLAY_ACTIVATE_FAIL, if activating the RSA-ECC overlay fails.
+ *	- XASUFW_OVERLAY_ACTIVATE_FAIL, if activating the ECC overlay fails.
  *	- XASUFW_RESOURCE_RELEASE_NOT_ALLOWED, if releasing the resources after a failed
  *		allocation is not allowed.
  *
@@ -173,15 +173,15 @@ static s32 XAsufw_ProvisionResourceHandler(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 
 	/**
 	 * The UDE command additionally generates an ECC P-384 key pair and a self-signed X.509
-	 * certificate, which need the RSA and SHA3 engines and the RSA-ECC overlay.
+	 * certificate, which need the RSA and SHA3 engines and the ECC overlay.
 	 */
 	if (CmdId == XASU_PROVISION_UDE_CMD_ID) {
 		XAsufw_AllocateResource(XASUFW_OVERLAY, XASUFW_PROVISION, ReqId);
 		XAsufw_AllocateResource(XASUFW_SHA3, XASUFW_PROVISION, ReqId);
 		XAsufw_AllocateResource(XASUFW_RSA, XASUFW_PROVISION, ReqId);
 
-		/** Activate the RSA-ECC overlay before any ECC operation. */
-		Status = XOverlay_Activate(XOVERLAY_ALGO_RSA_ECC,
+		/** Activate the ECC overlay before any ECC operation. */
+		Status = XOverlay_Activate(XOVERLAY_ALGO_ECC,
 					   XAsufw_ProvisionModule.AsuDmaPtr);
 		if (Status != XASUFW_SUCCESS) {
 			Status = XAsufw_UpdateErrorStatus(Status, XASUFW_OVERLAY_ACTIVATE_FAIL);

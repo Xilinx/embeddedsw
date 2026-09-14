@@ -721,8 +721,8 @@ static s32 XAsufw_OcpResourceHandler(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 		XAsufw_AllocateResource(XASUFW_KEYMANAGER, XASUFW_OCP, ReqId);
 	}
 
-	/** Activate RSA-ECC overlay. */
-	Status = XOverlay_Activate(XOVERLAY_ALGO_RSA_ECC, XAsufw_OcpModule.AsuDmaPtr);
+	/** Activate ECC overlay. */
+	Status = XOverlay_Activate(XOVERLAY_ALGO_ECC, XAsufw_OcpModule.AsuDmaPtr);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_OVERLAY_ACTIVATE_FAIL);
 		if (XAsufw_ReleaseResource(XASUFW_OCP, ReqId) != XASUFW_SUCCESS) {

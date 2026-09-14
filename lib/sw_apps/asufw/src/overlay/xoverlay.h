@@ -46,13 +46,22 @@ extern "C" {
 #define XOVERLAY_MAGIC			(0x594C564FU)	/**< Overlay image sentinel */
 #define XOVERLAY_HEADER_VERSION		(1U)		/**< Overlay header format version */
 
+/*
+ * Images are grouped by functionality rather than by the core the work runs on, so the image a
+ * command needs is independent of the resource it allocates. Every curve operation lives in the
+ * ECC image, whether it runs on the dedicated ECC core or on the RSA core, which is why a command
+ * doing curve work on the RSA core allocates XASUFW_RSA and still activates XOVERLAY_ALGO_ECC.
+ * The RSA image holds the RSA primitives, padding and key pair generation. A command that only
+ * moves key material needs no image at all.
+ */
 #define XOVERLAY_ALGO_INVALID		(0U)		/**< Invalid overlay algorithm ID */
-#define XOVERLAY_ALGO_RSA_ECC		(1U)		/**< Combined RSA and ECC overlay algorithm ID */
-#define XOVERLAY_ALGO_LMS		(2U)		/**< LMS overlay algorithm ID */
-#define XOVERLAY_ALGO_MLDSA		(3U)		/**< ML-DSA overlay algorithm ID */
-#define XOVERLAY_ALGO_MLKEM		(4U)		/**< ML-KEM overlay algorithm ID */
-#define XOVERLAY_ALGO_SLHDSA		(5U)		/**< SLH-DSA overlay algorithm ID */
-#define XOVERLAY_ALGO_KEYVAULT		(6U)		/**< Key vault overlay algorithm ID */
+#define XOVERLAY_ALGO_ECC		(1U)		/**< ECC overlay algorithm ID */
+#define XOVERLAY_ALGO_RSA		(2U)		/**< RSA overlay algorithm ID */
+#define XOVERLAY_ALGO_LMS		(3U)		/**< LMS overlay algorithm ID */
+#define XOVERLAY_ALGO_MLDSA		(4U)		/**< ML-DSA overlay algorithm ID */
+#define XOVERLAY_ALGO_MLKEM		(5U)		/**< ML-KEM overlay algorithm ID */
+#define XOVERLAY_ALGO_SLHDSA		(6U)		/**< SLH-DSA overlay algorithm ID */
+#define XOVERLAY_ALGO_KEYVAULT		(7U)		/**< Key vault overlay algorithm ID */
 
 /************************************** Type Definitions *****************************************/
 /**

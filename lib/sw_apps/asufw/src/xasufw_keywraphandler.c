@@ -199,8 +199,8 @@ static s32 XAsufw_KeyWrapResourceHandler(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 		/* Do nothing */
 	}
 
-	/** Activate RSA-ECC overlay. */
-	Status = XOverlay_Activate(XOVERLAY_ALGO_RSA_ECC, XAsufw_KeyWrapModule.AsuDmaPtr);
+	/** Activate RSA overlay. */
+	Status = XOverlay_Activate(XOVERLAY_ALGO_RSA, XAsufw_KeyWrapModule.AsuDmaPtr);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_OVERLAY_ACTIVATE_FAIL);
 		if (XAsufw_ReleaseResource(XASUFW_KEYWRAP, ReqId) != XASUFW_SUCCESS) {

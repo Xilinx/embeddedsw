@@ -38,7 +38,9 @@
 #define OVERLAY_SECTION(name)	__attribute__((section(name)))	/**< Place a symbol into the named
 								linker section */
 
-#define XOVERLAY_RSA_ECC_HDR	OVERLAY_SECTION(".overlay_rsa_ecc.header")	/**< RSA-ECC overlay
+#define XOVERLAY_ECC_HDR	OVERLAY_SECTION(".overlay_ecc.header")		/**< ECC overlay
+										header section */
+#define XOVERLAY_RSA_HDR	OVERLAY_SECTION(".overlay_rsa.header")		/**< RSA overlay
 										header section */
 #ifdef XASU_LMS_ENABLE
 #define XOVERLAY_LMS_HDR	OVERLAY_SECTION(".overlay_lms.header")		/**< LMS overlay
@@ -63,9 +65,13 @@
 #endif
 
 /********************************** Variable Definitions *****************************************/
-extern char __overlay_rsa_ecc_img_size[];	/**< Size of the RSA-ECC overlay image */
-extern char __overlay_rsa_ecc_txt_size[];	/**< Size of the RSA-ECC overlay text image */
-extern char __overlay_rsa_ecc_data_size[];	/**< Size of the RSA-ECC overlay data image */
+extern char __overlay_ecc_img_size[];	/**< Size of the ECC overlay image */
+extern char __overlay_ecc_txt_size[];	/**< Size of the ECC overlay text image */
+extern char __overlay_ecc_data_size[];	/**< Size of the ECC overlay data image */
+
+extern char __overlay_rsa_img_size[];	/**< Size of the RSA overlay image */
+extern char __overlay_rsa_txt_size[];	/**< Size of the RSA overlay text image */
+extern char __overlay_rsa_data_size[];	/**< Size of the RSA overlay data image */
 
 #ifdef XASU_LMS_ENABLE
 extern char __overlay_lms_img_size[];	/**< Size of the LMS overlay image */
@@ -96,15 +102,26 @@ extern char __overlay_keyvault_txt_size[];	/**< Size of the key vault overlay te
 extern char __overlay_keyvault_data_size[];	/**< Size of the key vault overlay data image */
 #endif
 
-/**< RSA-ECC overlay header */
-XOVERLAY_RSA_ECC_HDR
-const XOverlay_Header XRsaEcc_OverlayHeader = {
+/**< ECC overlay header */
+XOVERLAY_ECC_HDR
+const XOverlay_Header XEcc_OverlayHeader = {
 	.Magic = XOVERLAY_MAGIC,
-	.AlgoId = XOVERLAY_ALGO_RSA_ECC,
+	.AlgoId = XOVERLAY_ALGO_ECC,
 	.Version = XOVERLAY_HEADER_VERSION,
-	.ImgSize = (u32)(UINTPTR)__overlay_rsa_ecc_img_size,
-	.TxtSize = (u32)(UINTPTR)__overlay_rsa_ecc_txt_size,
-	.DataSize = (u32)(UINTPTR)__overlay_rsa_ecc_data_size,
+	.ImgSize = (u32)(UINTPTR)__overlay_ecc_img_size,
+	.TxtSize = (u32)(UINTPTR)__overlay_ecc_txt_size,
+	.DataSize = (u32)(UINTPTR)__overlay_ecc_data_size,
+};
+
+/**< RSA overlay header */
+XOVERLAY_RSA_HDR
+const XOverlay_Header XRsa_OverlayHeader = {
+	.Magic = XOVERLAY_MAGIC,
+	.AlgoId = XOVERLAY_ALGO_RSA,
+	.Version = XOVERLAY_HEADER_VERSION,
+	.ImgSize = (u32)(UINTPTR)__overlay_rsa_img_size,
+	.TxtSize = (u32)(UINTPTR)__overlay_rsa_txt_size,
+	.DataSize = (u32)(UINTPTR)__overlay_rsa_data_size,
 };
 
 #ifdef XASU_LMS_ENABLE

@@ -203,8 +203,8 @@ static s32 XAsufw_EccResourceHandler(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 		XAsufw_AllocateResource(XASUFW_RSA, ResourceId, ReqId);
 	}
 
-	/** Activate RSA-ECC overlay. */
-	Status = XOverlay_Activate(XOVERLAY_ALGO_RSA_ECC, XAsufw_EccModule.AsuDmaPtr);
+	/** Activate ECC overlay. */
+	Status = XOverlay_Activate(XOVERLAY_ALGO_ECC, XAsufw_EccModule.AsuDmaPtr);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_OVERLAY_ACTIVATE_FAIL);
 		if (XAsufw_ReleaseResource(ResourceId, ReqId) != XASUFW_SUCCESS) {
@@ -685,7 +685,6 @@ END:
  * 	- XASUFW_SUCCESS, if KAT is successful.
  * 	- XASUFW_RESOURCE_RELEASE_NOT_ALLOWED, if illegal release resource is requested.
  * 	- Error code from XAsufw_EccCoreKat or XAsufw_RsaEccKat, if any failure occurs.
-
  *
  *************************************************************************************************/
 static s32 XAsufw_EccKat(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
@@ -701,7 +700,7 @@ static s32 XAsufw_EccKat(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 		goto END;
 	}
 
-	/** Perform KAT on P-256 curve using RSA core. */
+	/** Perform KAT on the requested curve using RSA core. */
 	Status = XAsufw_RsaEccKat(XAsufw_EccModule.AsuDmaPtr, (u8)CurveType);
 
 END:

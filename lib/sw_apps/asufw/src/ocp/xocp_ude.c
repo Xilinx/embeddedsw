@@ -914,7 +914,7 @@ END:
  *		It is restricted to firmware-constructed payloads and must not be reachable from
  *		a client command with caller-supplied data. The ECC work it drives lives in the
  *		overlay window, so the caller must already hold the overlay resource with the
- *		RSA-ECC image active.
+ *		ECC image active.
  *
  *************************************************************************************************/
 s32 XOcp_UdeSignData(XAsufw_Dma *DmaPtr, const u8 *Data, u32 DataLen, u8 *SignatureOut)
@@ -974,7 +974,7 @@ END:
  *		caller feeding the firmware signatures it knows will fail therefore cannot make it
  *		recover the private key more than once per key slot. The ECC work it drives lives
  *		in the overlay window, so the caller must already hold the overlay resource with
- *		the RSA-ECC image active.
+ *		the ECC image active.
  *
  *************************************************************************************************/
 s32 XOcp_UdeVerifyData(XAsufw_Dma *DmaPtr, const u8 *Data, u32 DataLen, const u8 *Signature)

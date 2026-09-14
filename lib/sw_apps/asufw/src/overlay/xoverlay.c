@@ -40,11 +40,17 @@
 /************************************ Type Definitions *******************************************/
 
 /********************************** Variable Definitions *****************************************/
-extern char __load_start_overlay_rsa_ecc[];		/**< LMA of the RSA-ECC overlay image */
-extern char __load_start_overlay_rsa_ecc_data[];	/**< LMA of the RSA-ECC overlay data image */
-extern char __overlay_rsa_ecc_img_size[];		/**< Size of the RSA-ECC overlay image */
-extern char __overlay_rsa_ecc_txt_size[];		/**< Size of the RSA-ECC overlay text image */
-extern char __overlay_rsa_ecc_data_size[];		/**< Size of the RSA-ECC overlay data image */
+extern char __load_start_overlay_ecc[];		/**< LMA of the ECC overlay image */
+extern char __load_start_overlay_ecc_data[];	/**< LMA of the ECC overlay data image */
+extern char __overlay_ecc_img_size[];		/**< Size of the ECC overlay image */
+extern char __overlay_ecc_txt_size[];		/**< Size of the ECC overlay text image */
+extern char __overlay_ecc_data_size[];		/**< Size of the ECC overlay data image */
+
+extern char __load_start_overlay_rsa[];		/**< LMA of the RSA overlay image */
+extern char __load_start_overlay_rsa_data[];	/**< LMA of the RSA overlay data image */
+extern char __overlay_rsa_img_size[];		/**< Size of the RSA overlay image */
+extern char __overlay_rsa_txt_size[];		/**< Size of the RSA overlay text image */
+extern char __overlay_rsa_data_size[];		/**< Size of the RSA overlay data image */
 
 #ifdef XASU_LMS_ENABLE
 extern char __load_start_overlay_lms[];		/**< LMA of the LMS overlay image */
@@ -104,19 +110,28 @@ extern char __overlay_data_window_size[];	/**< Size of the data overlay window *
 static u32 ActiveAlgoId = XOVERLAY_ALGO_INVALID;	/**< Currently loaded overlay algorithm */
 
 /************************************ Function Prototypes ****************************************/
-static s32 XOverlay_RsaEccOnLoad(void);
+static s32 XOverlay_EccOnLoad(void);
 
 /********************************** Constant Definitions *****************************************/
 /** Overlay image catalog, one entry per supported algorithm. */
 static const XOverlay_CatalogEntry Catalog[] = {
 	{
-		.AlgoId = XOVERLAY_ALGO_RSA_ECC,
-		.ImgLma = (const void *)(UINTPTR)__load_start_overlay_rsa_ecc,
-		.DataLma = (const void *)(UINTPTR)__load_start_overlay_rsa_ecc_data,
-		.ImgSize = (u32)(UINTPTR)__overlay_rsa_ecc_img_size,
-		.TxtSize = (u32)(UINTPTR)__overlay_rsa_ecc_txt_size,
-		.DataSize = (u32)(UINTPTR)__overlay_rsa_ecc_data_size,
-		.OnLoad = XOverlay_RsaEccOnLoad,
+		.AlgoId = XOVERLAY_ALGO_ECC,
+		.ImgLma = (const void *)(UINTPTR)__load_start_overlay_ecc,
+		.DataLma = (const void *)(UINTPTR)__load_start_overlay_ecc_data,
+		.ImgSize = (u32)(UINTPTR)__overlay_ecc_img_size,
+		.TxtSize = (u32)(UINTPTR)__overlay_ecc_txt_size,
+		.DataSize = (u32)(UINTPTR)__overlay_ecc_data_size,
+		.OnLoad = XOverlay_EccOnLoad,
+	},
+	{
+		.AlgoId = XOVERLAY_ALGO_RSA,
+		.ImgLma = (const void *)(UINTPTR)__load_start_overlay_rsa,
+		.DataLma = (const void *)(UINTPTR)__load_start_overlay_rsa_data,
+		.ImgSize = (u32)(UINTPTR)__overlay_rsa_img_size,
+		.TxtSize = (u32)(UINTPTR)__overlay_rsa_txt_size,
+		.DataSize = (u32)(UINTPTR)__overlay_rsa_data_size,
+		.OnLoad = NULL,
 	},
 #ifdef XASU_LMS_ENABLE
 	{
@@ -340,7 +355,7 @@ END:
 
 /*************************************************************************************************/
 /**
- * @brief	This function is the RSA-ECC overlay on-load hook. It re-initializes the ECC core
+ * @brief	This function is the ECC overlay on-load hook. It re-initializes the ECC core
  *		instance after each fresh overlay load, since the instance state is reset on
  *		an overlay switch.
  *
@@ -349,7 +364,7 @@ END:
  *	- Error code from the ECC initialize routine, otherwise.
  *
  *************************************************************************************************/
-static s32 XOverlay_RsaEccOnLoad(void)
+static s32 XOverlay_EccOnLoad(void)
 {
 	CREATE_VOLATILE(Status, XASUFW_INVALID_PARAM);
 

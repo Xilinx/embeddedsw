@@ -6879,7 +6879,7 @@ END:
 
 /*************************************************************************************************/
 /**
- * @brief	This function loads the RSA-ECC overlay image and confirms the signature engine
+ * @brief	This function loads the ECC overlay image and confirms the signature engine
  *		is proven.
  *
  * @param	DmaPtr	Pointer to the XAsufw_Dma instance.
@@ -6898,7 +6898,7 @@ static s32 XKeyManager_ActivateSignatureImage(XAsufw_Dma *DmaPtr)
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
 
 	/** ECC lives in an overlay image, so it has to be resident before a signature is made. */
-	Status = XOverlay_Activate(XOVERLAY_ALGO_RSA_ECC, DmaPtr);
+	Status = XOverlay_Activate(XOVERLAY_ALGO_ECC, DmaPtr);
 	if (XASUFW_SUCCESS != Status) {
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_OVERLAY_ACTIVATE_FAIL);
 		goto END;

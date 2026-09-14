@@ -247,8 +247,8 @@ static s32 XAsufw_RsaResourceHandler(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 			XAsufw_AllocateResource(XASUFW_TRNG, XASUFW_RSA, ReqId);
 	}
 
-	/** Activate RSA-ECC overlay. */
-	Status = XOverlay_Activate(XOVERLAY_ALGO_RSA_ECC, XAsufw_RsaModule.AsuDmaPtr);
+	/** Activate RSA overlay. */
+	Status = XOverlay_Activate(XOVERLAY_ALGO_RSA, XAsufw_RsaModule.AsuDmaPtr);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_OVERLAY_ACTIVATE_FAIL);
 		if (XAsufw_ReleaseResource(XASUFW_RSA, ReqId) != XASUFW_SUCCESS) {
@@ -1051,7 +1051,7 @@ static s32 XAsufw_RsaPssSignGenAndVerifKat(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
  *		- XASUFW_CMD_IN_PROGRESS, if resources are busy or an intermediate
  *		  key generation step is still in progress.
  *		- XASUFW_DMA_RESOURCE_ALLOCATION_FAILED, if DMA allocation fails.
- *		- XASUFW_OVERLAY_ACTIVATE_FAIL, if RSA-ECC overlay activation fails.
+ *		- XASUFW_OVERLAY_ACTIVATE_FAIL, if RSA overlay activation fails.
  *		- Error code, on failure during key generation.
  *
  *************************************************************************************************/
@@ -1099,7 +1099,7 @@ static s32 XAsufw_RsaKeyGenTask(void *Arg)
 	XAsufw_AllocateResource(XASUFW_OVERLAY, XASUFW_RSA, XASUFW_REQUEST_ID_RSA_KEYGEN);
 
 	/** Activate the overlay. */
-	Status = XOverlay_Activate(XOVERLAY_ALGO_RSA_ECC, AsuDmaPtr);
+	Status = XOverlay_Activate(XOVERLAY_ALGO_RSA, AsuDmaPtr);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_OVERLAY_ACTIVATE_FAIL);
 		goto RELEASE_RESOURCE;

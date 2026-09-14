@@ -538,9 +538,9 @@ static s32 XAsufw_RunOcpKeyGeneration(void)
 		goto END;
 	}
 
-	/** Activate RSA-ECC overlay. */
+	/** Activate ECC overlay. */
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-	Status = XOverlay_Activate(XOVERLAY_ALGO_RSA_ECC, XOcpAsuDmaPtr);
+	Status = XOverlay_Activate(XOVERLAY_ALGO_ECC, XOcpAsuDmaPtr);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_OVERLAY_ACTIVATE_FAIL);
 		goto END;

@@ -160,9 +160,11 @@ static s32 XAsufw_PqcSha256Digest(XAsufw_Dma *AsuDmaPtr, const u8 *Segment1Ptr, 
 #define XASUFW_KAT_LMS_DATA	__attribute__((section(".overlay_lms_data")))
 					/**< Place a vector in the LMS overlay data image */
 #define XASUFW_KAT_SLHDSA_DATA	__attribute__((section(".overlay_slhdsa_data")))
-					/**< Place a vector in the SLH-DSA overlay data image */
-#define XASUFW_KAT_RSAECC_DATA	__attribute__((section(".overlay_rsa_ecc_data")))
-					/**< Place a vector in the RSA-ECC overlay data image */
+				/**< Place a vector in the SLH-DSA overlay data image */
+#define XASUFW_KAT_RSA_DATA	__attribute__((section(".overlay_rsa_data")))
+				/**< Place a vector in the RSA overlay data image */
+#define XASUFW_KAT_ECC_DATA	__attribute__((section(".overlay_ecc_data")))
+				/**< Place a vector in the ECC overlay data image */
 
 /* KAT message */
 static const u8 KatMessage[XASUFW_KAT_MSG_LENGTH_IN_BYTES] = {
@@ -225,8 +227,13 @@ static const u8 ExpCmacKdfOutput[XASUFW_CMAC_KDF_KEY_OUT_LEN_IN_BYTES] = {
 	0x9DU, 0xD3U, 0xE0U, 0xEBU, 0xCFU, 0x06U, 0xC6U, 0x27U
 };
 
+/*
+ * RsaData is the padding input for the RSA padding KATs and the context blob for the ECIES KAT,
+ * which run under different overlays. It is therefore resident: a copy placed in either overlay
+ * data image would be overwritten by whichever image is loaded into the shared window.
+ */
 #if defined(XASU_RSA_PADDING_ENABLE) || defined(XASU_ECIES_ENABLE)
-static const XASUFW_KAT_RSAECC_DATA u8 RsaData[XASUFW_RSA_INPUT_LEN_IN_BYTES] = {
+static const u8 RsaData[XASUFW_RSA_INPUT_LEN_IN_BYTES] = {
 	0x05U, 0x95U, 0x87U, 0x3FU, 0xA5U, 0x76U, 0x50U, 0xBFU, 0x76U, 0x6FU, 0x2CU, 0xB3U, 0x97U, 0x80U,
 	0x8BU, 0x7BU, 0x99U, 0xE8U, 0x56U, 0x2FU, 0x4BU, 0xCDU, 0x66U, 0x25U, 0x6FU, 0xA9U, 0x51U, 0x7CU,
 	0x42U, 0x57U, 0x95U, 0x95U, 0x6AU, 0xF0U, 0xF8U
@@ -234,7 +241,7 @@ static const XASUFW_KAT_RSAECC_DATA u8 RsaData[XASUFW_RSA_INPUT_LEN_IN_BYTES] = 
 #endif
 
 #if defined(XASU_RSA_PADDING_ENABLE) || defined(XASU_KEYWRAP_ENABLE)
-static const XASUFW_KAT_RSAECC_DATA u8 RsaModulus[XASUFW_RSA_KAT_KEY_LENGTH_IN_BYTES] = {
+static const XASUFW_KAT_RSA_DATA u8 RsaModulus[XASUFW_RSA_KAT_KEY_LENGTH_IN_BYTES] = {
 	0xAEU, 0xFEU, 0xC6U, 0x93U, 0xF1U, 0x06U, 0x01U, 0x47U, 0x17U, 0x28U, 0xA2U, 0x49U,
 	0x6FU, 0xA3U, 0x1DU, 0x8CU, 0xDBU, 0xF9U, 0xB3U, 0x57U, 0x67U, 0xEFU, 0x31U, 0xCDU,
 	0xACU, 0x13U, 0x1CU, 0x20U, 0xE0U, 0x9DU, 0x55U, 0x55U, 0xFDU, 0x0CU, 0x30U, 0xB7U,
@@ -259,7 +266,7 @@ static const XASUFW_KAT_RSAECC_DATA u8 RsaModulus[XASUFW_RSA_KAT_KEY_LENGTH_IN_B
 	0xD1U, 0x05U, 0xD2U, 0x23U
 };
 
-static const XASUFW_KAT_RSAECC_DATA u8 RsaPvtExp[XASUFW_RSA_KAT_KEY_LENGTH_IN_BYTES] = {
+static const XASUFW_KAT_RSA_DATA u8 RsaPvtExp[XASUFW_RSA_KAT_KEY_LENGTH_IN_BYTES] = {
 	0x0AU, 0xA8U, 0x1BU, 0x41U, 0xB1U, 0x20U, 0xD3U, 0x7DU, 0x17U, 0xCCU, 0xF2U, 0xADU,
 	0x14U, 0x2EU, 0x53U, 0xC3U, 0x5BU, 0x36U, 0x06U, 0x94U, 0xE1U, 0x10U, 0x70U, 0xF0U,
 	0xFCU, 0x74U, 0xA1U, 0x76U, 0xE3U, 0x16U, 0xD1U, 0xB6U, 0x8DU, 0xD5U, 0x6BU, 0x36U,
@@ -284,9 +291,9 @@ static const XASUFW_KAT_RSAECC_DATA u8 RsaPvtExp[XASUFW_RSA_KAT_KEY_LENGTH_IN_BY
 	0x28U, 0x32U, 0x44U, 0xD1U
 };
 
-static const XASUFW_KAT_RSAECC_DATA u32 RsaPublicExp = 0x1000100U;
+static const XASUFW_KAT_RSA_DATA u32 RsaPublicExp = 0x1000100U;
 
-static const XASUFW_KAT_RSAECC_DATA char RsaOpt[XASUFW_RSA_OPTIONAL_DATA_SIZE_IN_BYTES + 1U] =
+static const XASUFW_KAT_RSA_DATA char RsaOpt[XASUFW_RSA_OPTIONAL_DATA_SIZE_IN_BYTES + 1U] =
 	"ASUFW";
 
 static u8 OutputVal[XASUFW_KEYWRAP_OUTPUT_SIZE_IN_BYTES]; /* Key wrap unwrap and RSA padding
@@ -300,14 +307,14 @@ static const u8 EccPrivKey[XASU_ECC_P256_PVT_KEY_SIZE_IN_BYTES] = {
 	0x99U, 0x21U, 0x7CU, 0x5FU, 0x6AU, 0xB8U, 0x09U, 0xDFU
 };
 
-static const XASUFW_KAT_RSAECC_DATA u8 EccPrivKey25519[XASU_ECC_P256_PVT_KEY_SIZE_IN_BYTES] = {
+static const XASUFW_KAT_ECC_DATA u8 EccPrivKey25519[XASU_ECC_P256_PVT_KEY_SIZE_IN_BYTES] = {
 	0x9DU, 0x61U, 0xB1U, 0x9DU, 0xEFU, 0xFDU, 0x5AU, 0x60U,
 	0xBAU, 0x84U, 0x4AU, 0xF4U, 0x92U, 0xECU, 0x2CU, 0xC4U,
 	0x44U, 0x49U, 0xC5U, 0x69U, 0x7BU, 0x32U, 0x69U, 0x19U,
 	0x70U, 0x3BU, 0xACU, 0x03U, 0x1CU, 0xAEU, 0x7FU, 0x60U
 };
 
-static const XASUFW_KAT_RSAECC_DATA u8 EccPrivKey448[XASU_ECC_ED448_PVT_KEY_SIZE_IN_BYTES] = {
+static const XASUFW_KAT_ECC_DATA u8 EccPrivKey448[XASU_ECC_ED448_PVT_KEY_SIZE_IN_BYTES] = {
 	0x6CU, 0x82U, 0xA5U, 0x62U, 0xCBU, 0x80U, 0x8DU, 0x10U,
 	0xD6U, 0x32U, 0xBEU, 0x89U, 0xC8U, 0x51U, 0x3EU, 0xBFU,
 	0x6CU, 0x92U, 0x9FU, 0x34U, 0xDDU, 0xFAU, 0x8CU, 0x9FU,
@@ -317,21 +324,21 @@ static const XASUFW_KAT_RSAECC_DATA u8 EccPrivKey448[XASU_ECC_ED448_PVT_KEY_SIZE
 	0x03U, 0x2EU, 0x75U, 0x49U, 0xA2U, 0x00U, 0x98U, 0xF9U, 0x5BU
 };
 
-static const XASUFW_KAT_RSAECC_DATA u8 EccHash[XASU_ECC_P256_PVT_KEY_SIZE_IN_BYTES] = {
+static const XASUFW_KAT_ECC_DATA u8 EccHash[XASU_ECC_P256_PVT_KEY_SIZE_IN_BYTES] = {
 	0x02U, 0xBFU, 0x58U, 0x5CU, 0x72U, 0x89U, 0x45U, 0x9CU,
 	0xDDU, 0x20U, 0x61U, 0xD1U, 0x67U, 0xE5U, 0x40U, 0xC0U,
 	0x1EU, 0x40U, 0x56U, 0xB4U, 0x65U, 0xCAU, 0xE1U, 0x5FU,
 	0xA3U, 0x45U, 0xEDU, 0xADU, 0x93U, 0x88U, 0x54U, 0x6DU
 };
 
-static const XASUFW_KAT_RSAECC_DATA u8 EccEphemeralKey[XASU_ECC_P256_PVT_KEY_SIZE_IN_BYTES] = {
+static const XASUFW_KAT_ECC_DATA u8 EccEphemeralKey[XASU_ECC_P256_PVT_KEY_SIZE_IN_BYTES] = {
 	0xBFU, 0xD6U, 0x31U, 0xA2U, 0xA6U, 0x47U, 0x31U, 0x70U,
 	0xB8U, 0x16U, 0x6DU, 0x33U, 0x25U, 0x06U, 0xBEU, 0x62U,
 	0xE5U, 0x48U, 0x5AU, 0xD0U, 0xBEU, 0x76U, 0xBAU, 0x74U,
 	0xA1U, 0x09U, 0x7CU, 0x59U, 0x5FU, 0x57U, 0x70U, 0xCDU
 };
 
-static const XASUFW_KAT_RSAECC_DATA u8 EccExpPubKeyP256[XASUFW_DOUBLE_P256_SIZE_IN_BYTES] = {
+static const XASUFW_KAT_ECC_DATA u8 EccExpPubKeyP256[XASUFW_DOUBLE_P256_SIZE_IN_BYTES] = {
 	0x36U, 0x77U, 0xFBU, 0xF9U, 0xBBU, 0x2DU, 0x96U, 0xA3U,
 	0x1BU, 0x01U, 0x11U, 0x08U, 0x57U, 0x93U, 0x8CU, 0xC4U,
 	0x9DU, 0x9AU, 0x30U, 0xA4U, 0xE0U, 0x0EU, 0x9CU, 0xD4U,
@@ -342,7 +349,7 @@ static const XASUFW_KAT_RSAECC_DATA u8 EccExpPubKeyP256[XASUFW_DOUBLE_P256_SIZE_
 	0xD8U, 0x25U, 0x5DU, 0x21U, 0x33U, 0xD5U, 0xCAU, 0x38U
 };
 
-static const XASUFW_KAT_RSAECC_DATA u8 EccExpPubKey25519[XASUFW_DOUBLE_P256_SIZE_IN_BYTES] = {
+static const XASUFW_KAT_ECC_DATA u8 EccExpPubKey25519[XASUFW_DOUBLE_P256_SIZE_IN_BYTES] = {
 	0x00U, 0x00U, 0x00U, 0x00U, 0x00U, 0x00U, 0x00U, 0x00U,
 	0x00U, 0x00U, 0x00U, 0x00U, 0x00U, 0x00U, 0x00U, 0x00U,
 	0x00U, 0x00U, 0x00U, 0x00U, 0x00U, 0x00U, 0x00U, 0x00U,
@@ -353,7 +360,7 @@ static const XASUFW_KAT_RSAECC_DATA u8 EccExpPubKey25519[XASUFW_DOUBLE_P256_SIZE
 	0xAFU, 0x02U, 0x1AU, 0x68U, 0xF7U, 0x07U, 0x51U, 0x1AU
 };
 
-static const XASUFW_KAT_RSAECC_DATA u8 EccExpPubKeyP448[XASUFW_DOUBLE_P448_SIZE_IN_BYTES] = {
+static const XASUFW_KAT_ECC_DATA u8 EccExpPubKeyP448[XASUFW_DOUBLE_P448_SIZE_IN_BYTES] = {
 	0x00U, 0x00U, 0x00U, 0x00U, 0x00U, 0x00U, 0x00U, 0x00U,
 	0x00U, 0x00U, 0x00U, 0x00U, 0x00U, 0x00U, 0x00U, 0x00U,
 	0x00U, 0x00U, 0x00U, 0x00U, 0x00U, 0x00U, 0x00U, 0x00U,
@@ -468,12 +475,12 @@ static const u32 AesCmExpCt[XASUFW_AES_CM_LEN_IN_WORDS] = {0xCF0DC96EU, 0x41B85C
 static const u32 AesCmExpTag[XASUFW_AES_CM_LEN_IN_WORDS] = {0x32CD3334U, 0xE1C616FDU, 0x2132E1BAU, 0xD92045DFU};
 #endif
 
-static const XASUFW_KAT_RSAECC_DATA u8 EcdhPrivKey[XASU_ECC_P256_PVT_KEY_SIZE_IN_BYTES] = {
+static const XASUFW_KAT_ECC_DATA u8 EcdhPrivKey[XASU_ECC_P256_PVT_KEY_SIZE_IN_BYTES] = {
 	0xC9U, 0x80U, 0x68U, 0x98U, 0xA0U, 0x33U, 0x49U, 0x16U, 0xC8U, 0x60U, 0x74U, 0x88U, 0x80U,
 	0xA5U, 0x41U, 0xF0U, 0x93U, 0xB5U, 0x79U, 0xA9U, 0xB1U, 0xF3U, 0x29U, 0x34U, 0xD8U, 0x6CU,
 	0x36U, 0x3CU, 0x39U, 0x80U, 0x03U, 0x57U
 };
-static const XASUFW_KAT_RSAECC_DATA u8 EcdhPubKey1[XASUFW_DOUBLE_P256_SIZE_IN_BYTES] = {
+static const XASUFW_KAT_ECC_DATA u8 EcdhPubKey1[XASUFW_DOUBLE_P256_SIZE_IN_BYTES] = {
 	0XF6U, 0X83U, 0X6AU, 0X8AU, 0XDDU, 0X91U, 0XCBU, 0X18U, 0X2DU, 0X8DU, 0X25U, 0X8DU, 0XDAU,
 	0X66U, 0X80U, 0X69U, 0X0EU, 0XB7U, 0X24U, 0XA6U, 0X6DU, 0XC3U, 0XBBU, 0X60U, 0XD2U, 0X32U,
 	0X25U, 0X65U, 0XC3U, 0X9EU, 0X4AU, 0XB9U, 0X1FU, 0X83U, 0X7AU, 0XA3U, 0X28U, 0X64U, 0X87U,
@@ -481,14 +488,14 @@ static const XASUFW_KAT_RSAECC_DATA u8 EcdhPubKey1[XASUFW_DOUBLE_P256_SIZE_IN_BY
 	0X4BU, 0XB7U, 0XADU, 0X72U, 0XC1U, 0X73U, 0XADU, 0X97U, 0X4BU, 0X28U, 0X9DU, 0XC2U
 };
 
-static const XASUFW_KAT_RSAECC_DATA u8 EcdhExpSharedSecret[XASU_ECC_P256_PVT_KEY_SIZE_IN_BYTES] = {
+static const XASUFW_KAT_ECC_DATA u8 EcdhExpSharedSecret[XASU_ECC_P256_PVT_KEY_SIZE_IN_BYTES] = {
 	0x1DU, 0xB8U, 0x09U, 0xC2U, 0x76U, 0xF2U, 0x16U, 0x10U, 0x79U, 0x11U, 0x68U, 0x52U, 0x8EU,
 	0xFAU, 0x01U, 0x85U, 0x11U, 0x2EU, 0x78U, 0x65U, 0x50U, 0x36U, 0xAEU, 0xEDU, 0x87U, 0xC7U,
 	0x15U, 0xA2U, 0x90U, 0x45U, 0xFDU, 0xFCU
 };
 
 #ifdef XASU_ECIES_ENABLE
-static const XASUFW_KAT_RSAECC_DATA u8 EciesRxPrivKey[XASU_ECC_P384_PVT_KEY_SIZE_IN_BYTES] = {
+static const XASUFW_KAT_ECC_DATA u8 EciesRxPrivKey[XASU_ECC_P384_PVT_KEY_SIZE_IN_BYTES] = {
 	0x02U, 0x87U, 0xF6U, 0x2AU, 0x5AU, 0xA8U, 0x43U, 0x2FU,
 	0xF5U, 0xE9U, 0x56U, 0x18U, 0xECU, 0x8FU, 0x9CU, 0xCAU,
 	0xA8U, 0x70U, 0xDDU, 0xE9U, 0x9CU, 0x30U, 0xB5U, 0x1BU,
@@ -497,7 +504,7 @@ static const XASUFW_KAT_RSAECC_DATA u8 EciesRxPrivKey[XASU_ECC_P384_PVT_KEY_SIZE
 	0x9AU, 0xBBU, 0x74U, 0x7BU, 0x6AU, 0xD6U, 0x38U, 0xB9U
 };
 
-static const XASUFW_KAT_RSAECC_DATA u8 EciesRxPubKey[XASUFW_DOUBLE_P384_SIZE_IN_BYTES] = {
+static const XASUFW_KAT_ECC_DATA u8 EciesRxPubKey[XASUFW_DOUBLE_P384_SIZE_IN_BYTES] = {
 	0xB3U, 0x64U, 0x18U, 0xA3U, 0x01U, 0x40U, 0x74U, 0xECU,
 	0x9BU, 0xBCU, 0xC6U, 0xA4U, 0xB2U, 0x36U, 0x7AU, 0x4FU,
 	0xB4U, 0x64U, 0xCCU, 0xA7U, 0xECU, 0x0AU, 0x32U, 0x4CU,
@@ -512,14 +519,14 @@ static const XASUFW_KAT_RSAECC_DATA u8 EciesRxPubKey[XASUFW_DOUBLE_P384_SIZE_IN_
 	0xAFU, 0x29U, 0xD2U, 0x26U, 0x7BU, 0xA8U, 0x4EU, 0xF2U
 };
 
-static const XASUFW_KAT_RSAECC_DATA u8 EciesIv[XASU_AES_IV_SIZE_96BIT_IN_BYTES] = {
+static const XASUFW_KAT_ECC_DATA u8 EciesIv[XASU_AES_IV_SIZE_96BIT_IN_BYTES] = {
 	0x99U, 0xD1U, 0x58U, 0x32U, 0xCCU, 0x65U, 0xF6U, 0xB4U,
 	0xC5U, 0xC5U, 0xC3U, 0x4FU
 };
 #endif
 
 #ifdef XASU_KEYWRAP_ENABLE
-static const XASUFW_KAT_RSAECC_DATA u8 KeyWrapInput[XASUFW_KEYWRAP_INPUT_SIZE_IN_BYTES] = {
+static const XASUFW_KAT_RSA_DATA u8 KeyWrapInput[XASUFW_KEYWRAP_INPUT_SIZE_IN_BYTES] = {
 	0xffU, 0xe9U, 0x52U, 0x60U, 0x48U, 0x34U, 0xbfU, 0xf8U, 0x99U, 0xe6U, 0x36U, 0x58U, 0xf3U,
 	0x42U, 0x46U, 0x81U, 0x5cU, 0x91U, 0x59U, 0x7eU, 0xb4U, 0x0aU, 0x21U, 0x72U, 0x9eU, 0x0aU,
 	0x8aU, 0x95U, 0x9bU, 0x61U, 0xf2U
@@ -1396,29 +1403,46 @@ void XAsufw_RunCryptoKats(void)
 
 	XAsufw_RunTrngKats(XAsufw_TrngPtr);
 
-	/** Activate the RSA-ECC overlay once for the RSA KAT. */
-	Status = XOverlay_Activate(XOVERLAY_ALGO_RSA_ECC, AsuDmaPtr);
+	/**
+	 * Activate the RSA overlay. It is run ahead of the ECC overlay because the curve KATs on the
+	 * RSA core only run once the RSA padding KATs have passed.
+	 */
+	Status = XOverlay_Activate(XOVERLAY_ALGO_RSA, AsuDmaPtr);
 	if (Status != XASUFW_SUCCESS) {
 		/**
-		 * On overlay activation failure, mark RSA, ECC and KEYWRAP module KATs as failed in
-		 * RTCA area and disable the RSA, ECC and KEYWRAP resources.
+		 * On overlay activation failure, mark RSA and KEYWRAP module KATs as failed in RTCA
+		 * area and disable the resources that cannot serve any command without this image,
+		 * which is how RSA and KEYWRAP are placed here: their resource handlers activate it
+		 * unconditionally. A module that needs it for only some of its commands is left
+		 * enabled, and its own XOverlay_Activate reports the failure on those commands.
 		 */
 		XASUFW_MARK_KAT_FAILED(XASU_MODULE_RSA_ID);
 		XAsufw_DisableResource(XASUFW_RSA);
-		XASUFW_MARK_KAT_FAILED(XASU_MODULE_ECC_ID);
-		XAsufw_DisableResource(XASUFW_ECC);
 		XASUFW_MARK_KAT_FAILED(XASU_MODULE_KEYWRAP_ID);
 		XAsufw_DisableResource(XASUFW_KEYWRAP);
-		XAsufw_DisableResource(XASUFW_OCP);
-		XAsufw_DisableResource(XASUFW_ECIES);
-	}
-	else {
+	} else {
 #ifdef XASU_RSA_PADDING_ENABLE
 		XAsufw_RunRsaKats(AsuDmaPtr);
 #endif /* XASU_RSA_PADDING_ENABLE */
 
 		XAsufw_RunKeywrapKats();
+	}
 
+	/** Activate ECC overlay. */
+	Status = XOverlay_Activate(XOVERLAY_ALGO_ECC, AsuDmaPtr);
+	if (Status != XASUFW_SUCCESS) {
+		/**
+		 * On overlay activation failure, mark ECC module KAT as failed in RTCA area and
+		 * disable the resources that cannot serve any command without this image: ECC,
+		 * ECIES and OCP, whose resource handlers all activate it unconditionally. The key
+		 * manager and provisioning need it for only some of their commands and so are left
+		 * enabled, with their own XOverlay_Activate reporting the failure on those commands.
+		 */
+		XASUFW_MARK_KAT_FAILED(XASU_MODULE_ECC_ID);
+		XAsufw_DisableResource(XASUFW_ECC);
+		XAsufw_DisableResource(XASUFW_ECIES);
+		XAsufw_DisableResource(XASUFW_OCP);
+	} else {
 		XAsufw_RunEccKats(AsuDmaPtr);
 	}
 

@@ -35,8 +35,6 @@
 #include "xasu_eccinfo.h"
 #include "xhkdf.h"
 #include "xhmac.h"
-#include "xecc.h"
-#include "xrsa_ecc.h"
 #include "xasufw_status.h"
 #include "xasufw_util.h"
 #include "xfih.h"

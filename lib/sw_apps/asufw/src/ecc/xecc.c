@@ -43,7 +43,6 @@
 #include "xasu_eccinfo.h"
 #include "xfih.h"
 #include "xtrng.h"
-#include "xrsa_ecc.h"
 #include "xasu_shainfo.h"
 #include "xasufw_perf.h"
 
