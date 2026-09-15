@@ -6,7 +6,7 @@
 /*****************************************************************************/
 /**
 * @file xnvm_efuse.c
-* This file contains the eFUSE API's of spartan ultrascale plus to program/read the
+* This file contains the eFUSE API's of Spartan UltraScale+ to program/read the
 * eFUSE array.
 *
 * @note	None.
@@ -46,6 +46,7 @@
 * 3.7   hae   02/27/2026 Support XILINX_CTRL OSPI_RESET_RECOVERY_DELAY_CTRL
 *                        and ROM_RSVD_OSPI_DEV_RESET_CHOICE
 *                        and ROM_OSPI_CMD_SEQ_CTRL eFuse bit programming
+* 3.8   mb    09/06/2026 Fix RTF review comments
 *
 * </pre>
 *
@@ -109,7 +110,7 @@ static int XNvm_EfusePrgmBootModeDisBits(const XNvm_EfuseBootModeDis *BootModeDi
 /************************** Function Definitions *****************************/
 /***************************************************************************/
 /**
-* @brief 	This function is used to program the eFUSE of spartan ultrascale plus, based on user
+* @brief 	This function is used to program the eFUSE of Spartan UltraScale+, based on user
 * 		inputs
 *
 * @param	EfuseData	Pointer to the XNvm_EfuseData.
@@ -158,7 +159,10 @@ int XNvm_EfuseWrite(XNvm_EfuseData *EfuseData)
 		goto END;
 	}
 
-	/** - Perform temperature and voltage checks before programming */
+	/**
+	 * - If environmental monitor checks are enabled, perform temperature
+	 *   and voltage checks before programming
+	 */
 #ifdef XNVM_ENABLE_ENV_MONITOR_CHECKS
 	Status = XNvm_EfuseTempAndVoltChecks(EfuseData->SysMonInstPtr);
 	if (Status != XST_SUCCESS) {
@@ -419,6 +423,11 @@ int XNvm_EfuseReadPpkHash(XNvm_EfusePpkType PpkType, u32 *PpkData, u32 PpkSize)
 	u32 OffsetCnt = 0U;
 
 	/** - Validate input parameters before reading PPK hash from eFUSE cache */
+	if (PpkType > XNVM_EFUSE_PPK_END) {
+		Status = XNVM_EFUSE_ERR_INVALID_PARAM;
+		goto END;
+	}
+
 	if (PpkData ==  NULL) {
 		Status = XNVM_EFUSE_ERR_INVALID_PARAM;
 		goto END;

@@ -36,6 +36,7 @@
 * 3.7   hae  02/27/2026 Support XILINX_CTRL OSPI_RESET_RECOVERY_DELAY_CTRL
 *                       and ROM_RSVD_OSPI_DEV_RESET_CHOICE
 *                       and ROM_OSPI_CMD_SEQ_CTRL eFuse bit programming
+* 3.8   mb   09/06/2026 Fix RTF review comments
 *
 * </pre>
 *
@@ -322,12 +323,12 @@ typedef struct {
 typedef enum {
 	XNVM_EFUSE_PPK0, /**< eFuse PPK 0 */
 	XNVM_EFUSE_PPK1, /**< eFuse PPK 1 */
-	XNVM_EFUSE_PPK2 /**< eFuse PPK 2 */
+	XNVM_EFUSE_PPK2 /**< eFuse PPK 2 - not a programmable PPK on SPARTANUPLUSAES1 */
 } XNvm_EfusePpkType;
 
 
 /**
- * Structure defines sub structures of Spartan Ultrascale plus eFuses to be blown
+ * Structure defines sub structures of Spartan UltraScale+ eFuses to be blown
  */
 typedef struct {
 	XNvm_EfuseAesKeys *AesKeys; /**< Pointer to Aes keys*/
@@ -400,13 +401,13 @@ enum {
 	XNVM_EFUSE_ERR_WRITE_PPK1_INVLD_1 = 0x9500, /**< 0x9500 - Error write PPK1 invalid1 */
 	XNVM_EFUSE_ERR_WRITE_PPK2_INVLD_0 = 0x9600, /**< 0x9600 - Error write PPK2 invalid0 */
 	XNVM_EFUSE_ERR_WRITE_PPK2_INVLD_1 = 0x9700, /**< 0x9700 - Error write PPK2 invalid1 */
-	XNVM_EFUSE_ERR_WRITE_PUF_TEST2_DIS = 0x9800, /**< 0x9800 - Error write PPK2 invalid1 */
+	XNVM_EFUSE_ERR_WRITE_PUF_TEST2_DIS = 0x9800, /**< 0x9800 - Error write PUF_TEST2 disable */
 	XNVM_EFUSE_ERR_WRITE_RMA_ENABLE_0 = 0x9900, /**< 0x9900 - Error write rma enable0 */
 	XNVM_EFUSE_ERR_WRITE_RMA_ENABLE_1 = 0x9A00, /**< 0x9A00 - Error write rma enable1 */
-	XNVM_EFUSE_ERR_WRITE_DFT_DIS_0 = 0x9B00, /**< 0x9B00 - Error write DFT disable10 */
-	XNVM_EFUSE_ERR_WRITE_DFT_DIS_1 = 0x9C00, /**< 0x9C00 - Error write DFT disable1 */
+	XNVM_EFUSE_ERR_WRITE_DFT_DIS_0 = 0x9B00, /**< 0x9B00 - Error write DFT disable 0 */
+	XNVM_EFUSE_ERR_WRITE_DFT_DIS_1 = 0x9C00, /**< 0x9C00 - Error write DFT disable 1 */
 	XNVM_EFUSE_ERR_WRITE_CRC_EN = 0x9D00, /**< 0x9D00 - Error write CRC enable */
-	XNVM_EFUSE_ERR_WRITE_MCAP_DIS = 0x9E00, /**< 0x9E00 - Error write MACP disable */
+	XNVM_EFUSE_ERR_WRITE_MCAP_DIS = 0x9E00, /**< 0x9E00 - Error write MCAP disable */
 	XNVM_EFUSE_ERR_WRITE_ICAP_DIS = 0x9F00, /**< 0x9F00 - Error write ICAP disable */
 	XNVM_EFUSE_ERR_WRITE_MDM_DIS_0 = 0xA000, /**< 0xA000 - Error write MDM disable 0 */
 	XNVM_EFUSE_ERR_WRITE_MDM_DIS_1 = 0xA100, /**< 0xA100 - Error write MDM disable 1 */
@@ -423,7 +424,7 @@ enum {
 	XNVM_EFUSE_ERR_WRITE_OSPI_RESET_RECOVERY_DELAY_CTRL = 0xAC00, /**< 0xAC00 - Error write OSPI Reset Recovery Delay Control */
 	XNVM_EFUSE_ERR_WRITE_ROM_RSVD_OSPI_DEV_RESET_CHOICE = 0xAD00, /**< 0xAD00 - Error write ROM RSVD OSPI Device Reset Choice */
 	XNVM_EFUSE_ERR_WRITE_ROM_OSPI_CMD_SEQ_CTRL = 0xAE00, /**< 0xAE00 - Error write ROM OSPI Cmd Seq Ctrl */
-	XNVM_EFUSE_ERR_WRITE_SCAN_CLEAR_EN = 0xAF00, /**< - Error write SCAN_CLEAR_EN */
+	XNVM_EFUSE_ERR_WRITE_SCAN_CLEAR_EN = 0xAF00, /**< 0xAF00 - Error write SCAN_CLEAR_EN */
 	XNVM_EFUSE_ERR_RD_SEC_CTRL_BITS = 0xC000, /**< 0xC000 - Error read secure control bits */
 	XNVM_EFUSE_ERR_INVALID_CLK_FREQUENCY = 0xD000, /**< 0xD000 - Error Invalid Clock Frequency */
 	XNVM_EFUSE_ERR_RD_CACHE_BOOT_MODE_DIS_BITS = 0xB000, /**< 0xB000 - Error read Boot mode disable bits from cache */

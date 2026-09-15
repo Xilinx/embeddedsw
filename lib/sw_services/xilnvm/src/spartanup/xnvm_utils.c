@@ -22,7 +22,8 @@
 *       aa   07/24/2025 Typecast to essential datatypes to avoid implicit conversions
 *       mb   20/08/2025 Update Timer calculate API's by passing Frequency value to macros
 * 3.7   mb   03/18/2026 Add support for temperature and voltage before efuse programming
-*       mb    03/25/2026 Use VCCAUX channel to read voltage for efuse programming checks
+*       mb   03/25/2026 Use VCCAUX channel to read voltage for efuse programming checks
+* 3.8   mb   09/06/2026 Fix RTF review comments
 *
 * </pre>
 *
@@ -540,7 +541,7 @@ END:
 
 /******************************************************************************/
 /**
- * @brief	This function performs the CRC check of AES key/User0 key/User1 key
+ * @brief	This function performs the CRC check of AES key
  *
  * @param	CrcRegOffSet - Register offset of respective CRC register
  * @param	CrcDoneMask - Respective CRC done mask in status register
