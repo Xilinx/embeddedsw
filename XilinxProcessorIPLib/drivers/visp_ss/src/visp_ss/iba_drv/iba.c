@@ -337,6 +337,13 @@ iba_inst_t *iba_LookupConfig(iba_isp_instance_t isp_no, iba_id_t iba_no)
 {
 
 	iba_inst_t *ConfigPtr = NULL;
+
+    if (isp_no >= XPAR_IBA_ISP_INSTANCE || iba_no >= XPAR_IBA_INSTANCES) {
+		LOGE("ERROR: %s: isp_no=%d or iba_no=%d out of range (max ISP=%d, IBA=%d)\n",
+		     __func__, isp_no, iba_no, XPAR_IBA_ISP_INSTANCE - 1, XPAR_IBA_INSTANCES - 1);
+		return NULL;
+	}
+
 	ConfigPtr = &IBA_ConfigTable[isp_no][iba_no];
 	return ConfigPtr;
 }
@@ -382,6 +389,12 @@ RESULT IBA_init_send_command
 		}
 		port_no = caseCtx->portId - 1;
 
+        if (caseCtx->hpId >= XPAR_IBA_ISP_INSTANCE) {
+			LOGE("ERROR: hpId = %d exceeds maximum ISP instance %d\n",
+			     caseCtx->hpId, XPAR_IBA_ISP_INSTANCE - 1);
+			return -1;
+		}
+
 		if (caseCtx->hpId == ISP0 || caseCtx->hpId == ISP2 || caseCtx->hpId == ISP4) {
 			if (port_no > 3) {
 				LOGE("ERROR: port_no = %d is invalid. Valid range-> [0,1,2,3] \n", port_no);
@@ -397,7 +410,19 @@ RESULT IBA_init_send_command
 			return -1;
 		}
 
+        if (port_no >= XPAR_IBA_INSTANCES) {
+			LOGE("ERROR: port_no = %d exceeds XPAR_IBA_INSTANCES = %d\n",
+			     port_no, XPAR_IBA_INSTANCES);
+			return -1;
+		}
+
 		ConfigPtr = iba_LookupConfig(caseCtx->hpId, port_no);
+
+        if (ConfigPtr == NULL) {
+			LOGE("ERROR: iba_LookupConfig returned NULL for hpId=%d, port_no=%d\n",
+			     caseCtx->hpId, port_no);
+			return -1;
+		}
 
 		ConfigPtr->iba_is_enabled = IBA_ENABLED;
 		ConfigPtr->vres = caseCtx->sensorHeight;

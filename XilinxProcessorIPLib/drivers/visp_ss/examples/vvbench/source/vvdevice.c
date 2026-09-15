@@ -304,6 +304,60 @@ struct resizer {
 	int sp1_enable;
 	int sp1_format;
 };
+
+static void VsiVvdeviceUnwindCaseLine
+(
+	VvbenchInstance_t *pVvbenchInstance,
+	VvbenchVvdev_t *caseCtx,
+	int totalInstance
+)
+{
+	for (int index = totalInstance - 1; index >= 0; index--) {
+		CamDeviceBufChainId_t bufIoArray[CAMDEV_BUFCHAIN_MAX];
+		int bufIoArrayCount = 0;
+
+		if (caseCtx->instanceCfgCtx[index].instanceEnable == 0 ||
+		    pVvbenchInstance->hCamDevice[index] == NULL)
+			continue;
+
+#ifdef APU_CORE
+		if (selectDestinationCore(caseCtx->instanceCfgCtx[index].hpId) != XST_SUCCESS)
+			LOGE("selectDestinationCore failed while unwinding ISP %d",
+			     caseCtx->instanceCfgCtx[index].hpId);
+#endif
+
+		for (int pathIndex = 0; pathIndex < CAMDEV_BUFCHAIN_MAX; pathIndex++) {
+			if (caseCtx->instanceCfgCtx[index].instancePath[pathIndex].pathState == ENABLE)
+				bufIoArray[bufIoArrayCount++] =
+					caseCtx->instanceCfgCtx[index].instancePath[pathIndex].path;
+		}
+
+		for (int pathIndex = 0; pathIndex < bufIoArrayCount; pathIndex++)
+			(void)VsiVvdevicePathDisable(pVvbenchInstance, caseCtx, index,
+						     bufIoArray + pathIndex, 1);
+
+		(void)VsiVvbenchUnRegister3ALib(pVvbenchInstance->hCamDevice[index], caseCtx, index);
+		(void)VsiCamDeviceDisconnectCamera(pVvbenchInstance->hCamDevice[index]);
+
+		if (caseCtx->instanceCfgCtx[index].inputType == CAMDEV_INPUT_TYPE_SENSOR) {
+			(void)VsiCamDeviceSensorClose(pVvbenchInstance->hCamDevice[index]);
+			(void)VsiCamDeviceSensorDrvHandleUnRegister(pVvbenchInstance->hCamDevice[index]);
+		}
+
+		for (int pathIndex = 0; pathIndex < CAMDEV_BUFCHAIN_MAX; pathIndex++) {
+			if (caseCtx->instanceCfgCtx[index].instancePath[pathIndex].pathState != UN_INIT) {
+				CamDeviceBufChainId_t bufIo =
+					caseCtx->instanceCfgCtx[index].instancePath[pathIndex].path;
+				(void)VsiVvdevicePathRelease(pVvbenchInstance, caseCtx, index, bufIo);
+			}
+		}
+
+		(void)VsiCamDeviceDestroy(pVvbenchInstance->hCamDevice[index]);
+		pVvbenchInstance->hCamDevice[index] = NULL;
+		(void)VsiCamCommonDestroy(&caseCtx->instanceCfgCtx[index].hCamCommon);
+	}
+}
+
 //class vvinstance_dev mdev;
 int VsiVvdeviceExecuteCaseline
 (
@@ -859,6 +913,16 @@ int VsiVvdeviceExecuteCaseline
 
 	vvbench_vdev_iba_t *iba_vdev = mm_malloc(sizeof(vvbench_vdev_iba_t));
 	vvbench_vdev_oba_t *oba_vdev = mm_malloc(sizeof(vvbench_vdev_oba_t));
+	if (iba_vdev == NULL || oba_vdev == NULL) {
+		LOGE("failed to allocate IBA/OBA configuration");
+		VsiVvdeviceUnwindCaseLine(pVvbenchInstance, caseCtx, totalInstance);
+		if (iba_vdev != NULL)
+			mm_free(iba_vdev);
+		if (oba_vdev != NULL)
+			mm_free(oba_vdev);
+		mm_free(pVvbenchInstance);
+		return -1;
+	}
 	for (int index = 0; index < totalInstance; index++) {
 		///////////////////////////// IBA //////////////////////////////
 		MEMSET(iba_vdev, 0, sizeof(vvbench_vdev_iba_t));
@@ -883,7 +947,15 @@ int VsiVvdeviceExecuteCaseline
 		else if(iba_vdev->hpId%2 == 1) {
 			iba_vdev->ppc = VispSsInst[index].Config.Iba4Ppc;
 		}
-		IBA_init_send_command(pVvbenchInstance->hCamDevice[index], iba_vdev, index);
+		result = IBA_init_send_command(pVvbenchInstance->hCamDevice[index], iba_vdev, index);
+		if (result != RET_SUCCESS) {
+			LOGE("IBA_init_send_command failed!");
+			VsiVvdeviceUnwindCaseLine(pVvbenchInstance, caseCtx, totalInstance);
+			mm_free(iba_vdev);
+			mm_free(oba_vdev);
+			mm_free(pVvbenchInstance);
+			return -1;
+		}
 
 		///////////////////////////////////////////////////////////////////
 		CamDeviceContext_t *hcmdv = pVvbenchInstance->hCamDevice[index];
