@@ -246,13 +246,28 @@ static RESULT Ox08b40_IsiCreateIss(IsiSensorInstanceConfig_t *pConfig, IsiSensor
 	*pHandle = (IsiSensorHandle_t) pOx08b40Ctx;
 
 	desId = MAPPING_INPIPE_TO_DES_ID(pipeId);
+	if (desId >= DS_MAX) {
+		result = RET_OUTOFRANGE;
+		goto fail;
+	}
 
-	init_iic_access(pOx08b40Ctx->i2cId, pipeId);
+	result = init_iic_access(pOx08b40Ctx->i2cId, pipeId);
+	if (result != RET_SUCCESS)
+		goto fail;
 	init_des(desId);
-	init_sensor(pipeId, desId);
+	result = init_sensor(pipeId, desId);
+	if (result != RET_SUCCESS)
+		goto fail_iic;
 
 	xil_printf("%s (exit)\n", __func__);
 	return (result);
+
+fail_iic:
+	release_iic_access(pipeId);
+fail:
+	osFree(pOx08b40Ctx);
+	*pHandle = NULL;
+	return result;
 }
 
 static RESULT Ox08b40_AecSetModeParameters(IsiSensorHandle_t handle)

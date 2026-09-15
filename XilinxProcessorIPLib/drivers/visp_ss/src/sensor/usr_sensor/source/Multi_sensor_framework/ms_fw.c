@@ -144,23 +144,47 @@ int access_iic_write(u8 i2cBusId, u8 slave_addr, uint16_t addr, uint8_t regWidth
 }
 
 
-void init_iic_access(u8 i2cBusId, int in_pipe)
+int init_iic_access(u8 i2cBusId, int in_pipe)
 {
+	struct accessIIC *access_iic;
+
 	xil_printf("enter init_iic_access \r\n");
-	accessiic_handle[in_pipe] = (struct accessIIC *)osMalloc(sizeof(struct accessIIC));
-	if (accessiic_handle[in_pipe] == NULL)
+	if (in_pipe < 0 || in_pipe > IN_PIPE_LAST)
+		return RET_OUTOFRANGE;
+
+	access_iic = (struct accessIIC *)osMalloc(sizeof(struct accessIIC));
+	if (access_iic == NULL) {
 		DCT_ASSERT(0);
-	g_fmc_single.accessiic_array[in_pipe] = accessiic_handle[in_pipe];
+		return RET_OUTOFMEM;
+	}
 
-	g_fmc_single.accessiic_array[in_pipe]->i2cBusId = i2cBusId;
-	g_fmc_single.accessiic_array[in_pipe]->readIIC = access_iic_read;
-	g_fmc_single.accessiic_array[in_pipe]->writeIIC = access_iic_write;
-
+	access_iic->i2cBusId = i2cBusId;
+	access_iic->readIIC = access_iic_read;
+	access_iic->writeIIC = access_iic_write;
+	accessiic_handle[in_pipe] = access_iic;
+	g_fmc_single.accessiic_array[in_pipe] = access_iic;
+	return RET_SUCCESS;
 }
 
-void init_sensor(int in_pipe, int des_index)
+void release_iic_access(int in_pipe)
 {
+	if (in_pipe < 0 || in_pipe > IN_PIPE_LAST)
+		return;
+
+	osFree(g_fmc_single.accessiic_array[in_pipe]);
+	g_fmc_single.accessiic_array[in_pipe] = NULL;
+	accessiic_handle[in_pipe] = NULL;
+}
+
+int init_sensor(int in_pipe, int des_index)
+{
+	struct sensor_driver *sensor;
+
 	xil_printf("enter init_sensor \r\n");
+	if (in_pipe < 0 || in_pipe > IN_PIPE_LAST ||
+	    des_index < 0 || des_index >= DS_MAX)
+		return RET_OUTOFRANGE;
+
 	/*
 	 * Select the type of sensor,update that structure
 	 * Todo :
@@ -171,39 +195,49 @@ void init_sensor(int in_pipe, int des_index)
 	if (Sensor_dev[in_pipe].Sensortype == SENSOR_3MP) {
 		xil_printf("3MP Sensor Selected \r\n");
 
-		sensor_handle[in_pipe] = (struct sensor_driver *)osMalloc(sizeof(struct sensor_driver));
-		if (sensor_handle[in_pipe] == NULL)
+		sensor = (struct sensor_driver *)osMalloc(sizeof(struct sensor_driver));
+		if (sensor == NULL) {
 			DCT_ASSERT(0);
+			return RET_OUTOFMEM;
+		}
 		//	memcpy(sensor_handle[in_pipe],&ox3f10_driver,sizeof(struct sensor_driver));  //wait for driver
 
-		g_fmc_single.sensor_array[in_pipe] = sensor_handle[in_pipe];
+		sensor_handle[in_pipe] = sensor;
+		g_fmc_single.sensor_array[in_pipe] = sensor;
 		g_fmc_single.sensor_array[in_pipe]->pipe_no = in_pipe;
 
 	} else if (Sensor_dev[in_pipe].Sensortype == SENSOR_5MP) {
 		xil_printf("5MP Sensor Selected \r\n");
 
-		sensor_handle[in_pipe] = (struct sensor_driver *)osMalloc(sizeof(struct sensor_driver));
-		if (sensor_handle[in_pipe] == NULL)
+		sensor = (struct sensor_driver *)osMalloc(sizeof(struct sensor_driver));
+		if (sensor == NULL) {
 			DCT_ASSERT(0);
+			return RET_OUTOFMEM;
+		}
 		//	memcpy(sensor_handle[in_pipe],&ox3f10_driver,sizeof(struct sensor_driver));  //wait for driver
 
-		g_fmc_single.sensor_array[in_pipe] = sensor_handle[in_pipe];
+		sensor_handle[in_pipe] = sensor;
+		g_fmc_single.sensor_array[in_pipe] = sensor;
 		g_fmc_single.sensor_array[in_pipe]->pipe_no = in_pipe;
 	} else if (Sensor_dev[in_pipe].Sensortype == SENSOR_8MP) {
 
 		xil_printf("8MP Sensor Selected \r\n");
 
-		sensor_handle[in_pipe] = (struct sensor_driver *)osMalloc(sizeof(struct sensor_driver));
-		if (sensor_handle[in_pipe] == NULL)
+		sensor = (struct sensor_driver *)osMalloc(sizeof(struct sensor_driver));
+		if (sensor == NULL) {
 			DCT_ASSERT(0);
+			return RET_OUTOFMEM;
+		}
 		// memcpy(sensor_handle[in_pipe],&ox08b40_driver,sizeof(struct sensor_driver));  //wait for driver
 
-		g_fmc_single.sensor_array[in_pipe] = sensor_handle[in_pipe];
+		sensor_handle[in_pipe] = sensor;
+		g_fmc_single.sensor_array[in_pipe] = sensor;
 		g_fmc_single.sensor_array[in_pipe]->pipe_no = in_pipe;
 
 	} else {
 		xil_printf("Not Supported Sensor \r\n");
 		DCT_ASSERT(0);
+		return RET_UNSUPPORT_ID;
 	}
 
 	if ((des_arr[des_index].link_type == NO_LINK))
@@ -267,6 +301,7 @@ void init_sensor(int in_pipe, int des_index)
 
 		}
 	}
+	return RET_SUCCESS;
 }
 
 

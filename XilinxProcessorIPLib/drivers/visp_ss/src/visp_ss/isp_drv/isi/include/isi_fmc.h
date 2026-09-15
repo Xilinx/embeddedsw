@@ -228,6 +228,10 @@ struct sensor_driver {
 	transition_state sensor_state;
 };
 
+int init_iic_access(u8 i2cBusId, int in_pipe);
+void release_iic_access(int in_pipe);
+int init_sensor(int in_pipe, int des_index);
+
 
 typedef struct Sensor_device_t {
 	u32 SensorCfg_Enabled;

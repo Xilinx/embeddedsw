@@ -264,15 +264,30 @@ static RESULT Ox03f10_IsiCreateIss(IsiSensorInstanceConfig_t *pConfig, IsiSensor
 #endif
 
 	desId = MAPPING_INPIPE_TO_DES_ID(pipeId);
+	if (desId >= DS_MAX) {
+		result = RET_OUTOFRANGE;
+		goto fail;
+	}
 
 	xil_printf("\r\n desId %d pipeId:%d\r\n", desId, pipeId);
 
-	init_iic_access(pOx03f10Ctx->i2cId, pipeId);
+	result = init_iic_access(pOx03f10Ctx->i2cId, pipeId);
+	if (result != RET_SUCCESS)
+		goto fail;
 	init_des(desId);
-	init_sensor(pipeId, desId);
+	result = init_sensor(pipeId, desId);
+	if (result != RET_SUCCESS)
+		goto fail_iic;
 
 	xil_printf("%s (exit)\n", __func__);
 	return (result);
+
+fail_iic:
+	release_iic_access(pipeId);
+fail:
+	osFree(pOx03f10Ctx);
+	*pHandle = NULL;
+	return result;
 }
 
 static RESULT Ox03f10_AecSetModeParameters(IsiSensorHandle_t handle, Ox03f10_Context_t *pOx03f10Ctx)

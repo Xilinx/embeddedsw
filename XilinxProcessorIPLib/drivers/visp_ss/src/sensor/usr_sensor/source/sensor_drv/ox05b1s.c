@@ -308,19 +308,34 @@ static RESULT Ox05b1s_IsiCreateIss(IsiSensorInstanceConfig_t *pConfig, IsiSensor
 	*pHandle = (IsiSensorHandle_t) pOx05b1sCtx;
 
 	desId = MAPPING_INPIPE_TO_DES_ID(pipeId);
+	if (desId >= DS_MAX) {
+		result = RET_OUTOFRANGE;
+		goto fail;
+	}
 
-	init_iic_access(pOx05b1sCtx->i2cId, pipeId);
+	result = init_iic_access(pOx05b1sCtx->i2cId, pipeId);
+	if (result != RET_SUCCESS)
+		goto fail;
 
 	static int8_t mcmABmode_initCount = 0;
 
 	if (mcmABmode_initCount <= 0) {
 		init_des(desId);
-		init_sensor(pipeId, desId);
+		result = init_sensor(pipeId, desId);
+		if (result != RET_SUCCESS)
+			goto fail_iic;
 	}
 	mcmABmode_initCount ++;
 
 	xil_printf("%s (exit)\n", __func__);
 	return (result);
+
+fail_iic:
+	release_iic_access(pipeId);
+fail:
+	osFree(pOx05b1sCtx);
+	*pHandle = NULL;
+	return result;
 }
 
 static RESULT Ox05b1s_AecSetModeParameters(IsiSensorHandle_t handle, Ox05b1s_Context_t *pOx05b1sCtx)
