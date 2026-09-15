@@ -312,6 +312,7 @@ END:
  * 	- XASUFW_KEYMANAGER_GET_KEYOBJ_FAILED, if fetching LMS public key object from vault fails.
  * 	- XASUFW_HSS_SIGN_VERIFY_FAILED, if HSS signature verification fails.
  * 	- XASUFW_RESOURCE_RELEASE_NOT_ALLOWED, if illegal resource release is requested.
+ * 	- XASUFW_INVALID_CMD_STAGE, if an invalid command stage is encountered.
  *
  *************************************************************************************************/
 static s32 XAsufw_HssSignVerify(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
@@ -440,7 +441,7 @@ static s32 XAsufw_HssSignVerify(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 		break;
 
 	default:
-		Status = XASUFW_FAILURE;
+		Status = XASUFW_INVALID_CMD_STAGE;
 		break;
 	}
 

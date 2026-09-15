@@ -303,7 +303,8 @@ s32 XAsufw_ShaKatOperation(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 
 END:
 	/** Release resources. */
-	if (XAsufw_ReleaseResource(ResourceId, ReqId) != XASUFW_SUCCESS) {
+	if (((ResourceId == XASUFW_SHA2) || (ResourceId == XASUFW_SHA3)) &&
+		(XAsufw_ReleaseResource(ResourceId, ReqId) != XASUFW_SUCCESS)) {
 		Status = XAsufw_UpdateErrorStatus(Status,
 				XASUFW_RESOURCE_RELEASE_NOT_ALLOWED);
 	}

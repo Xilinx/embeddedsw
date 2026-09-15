@@ -644,9 +644,6 @@ static s32 XAsufw_OcpGetHuk(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 
 	/** Generate and return HUK in response buffer. */
 	Status = XOcp_GetHuk(HukBuf);
-	if (Status != XASUFW_SUCCESS) {
-		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_OCP_INVALID_PARAM);
-	}
 
 	if (XAsufw_ReleaseResource(XASUFW_OCP, ReqId) != XASUFW_SUCCESS) {
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_RESOURCE_RELEASE_NOT_ALLOWED);

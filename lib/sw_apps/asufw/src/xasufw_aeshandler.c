@@ -121,6 +121,7 @@ s32 XAsufw_AesInit(void)
 	Status = XAes_CfgInitialize(XAsufw_Aes);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_AES_INIT_FAILED);
+		goto END;
 	}
 
 	/** Check if AES context can be saved successfully. */

@@ -187,16 +187,17 @@ enum {
 	XASUFW_SHA2_MODULE_REGISTRATION_FAILED, /**< 0x5CU - Module registration failed for SHA2
 						module */
 	XASUFW_SHA2_INIT_FAILED, /**< 0x5DU - SHA2 initialization failed */
-	XASUFW_ERR_RESERVED_5E, /**< 0x5EU - Reserved */
-	XASUFW_ERR_RESERVED_5F, /**< 0x5FU - Reserved */
-	XASUFW_ERR_RESERVED_60, /**< 0x60U - Reserved */
+	XASUFW_RSA_ECC_VER_SIGN_FAIL, /**< 0x5EU - Error when ECDSA signature verification fails */
+	XASUFW_RSA_ECC_VALIDATE_PUB_KEY_FAIL, /**< 0x5FU - When ECDSA public key validation fails */
+	XASUFW_RSA_ECC_GEN_SIGN_FAIL, /**< 0x60U - Error when ECDSA signature generation fails */
 	XASUFW_SHA2_HASH_COMPARISON_FAILED, /**< 0x61U - SHA2 hash comparison failed */
 	XASUFW_SHA3_MODULE_REGISTRATION_FAILED, /**< 0x62U - Module registration failed for SHA3
 						module */
 	XASUFW_SHA3_INIT_FAILED, /**< 0x63U - SHA3 initialization failed */
-	XASUFW_ERR_RESERVED_64, /**< 0x64U - Reserved */
-	XASUFW_ERR_RESERVED_65, /**< 0x65U - Reserved */
-	XASUFW_ERR_RESERVED_66, /**< 0x66U - Reserved */
+	XASUFW_TRNG_PERS_STRING_WRITE_ERROR, /**< 0x64U - Error when TRNG personalization string
+						write fails */
+	XASUFW_TRNG_WRITE_SEED_MISMATCH_ERROR, /**< 0x65U - Error when TRNG write seed mismatches */
+	XASUFW_TRNG_SET_ERROR, /**< 0x66U - Error when TRNG set operation fails */
 	XASUFW_SHA3_HASH_COMPARISON_FAILED, /**< 0x67U - SHA3 hash comparison failed */
 	XASUFW_TRNG_MODULE_REGISTRATION_FAILED, /**< 0x68U - TRNG module registration failed */
 	XASUFW_TRNG_INVALID_PARAM, /**< 0x69U - TRNG invalid input parameters received */

@@ -1030,7 +1030,7 @@ END:
  *	- XASUFW_X509_BOOLEAN_TAG_NOT_FOUND, if boolean tag is not found.
  *	- XASUFW_X509_PARSER_TAG_VALIDATION_FAILED, if tag validation is failed.
  *	- XASUFW_X509_PARSER_EXT_KEY_USAGE_FAIL, if key usage extension parsing is failed.
- *	- XASUFW_X509_UNSUPPORTED_EXTN, if extension is unsupported.
+ *	- XASUFW_X509_UNSUPPORTED_EXTN, if a critical extension is unsupported.
  *	- XASUFW_X509_PARSER_GET_EXTN_OID_FAIL, if get extension OID is failed.
  *	- Error code received from called functions in case of other failure from the called
  *	  function.
@@ -1105,7 +1105,11 @@ static s32 X509_GetExtensions(u32 Len, X509_CertInfo *CertInfo)
 		case X509_EXTN_BASIC_CONSTRAINTS:
 		case X509_EXTN_EXTD_KEY_USAGE:
 		default:
-			Status = XASUFW_X509_UNSUPPORTED_EXTN;
+			/** Per RFC 5280, reject an unsupported extension only when it is marked critical. */
+			if (IsCritical == (u8)XASU_TRUE) {
+				Status = XASUFW_X509_UNSUPPORTED_EXTN;
+				goto END;
+			}
 			break;
 		}
 

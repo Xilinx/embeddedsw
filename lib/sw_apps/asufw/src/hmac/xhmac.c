@@ -147,6 +147,9 @@ END:
  * 	- XASUFW_HMAC_INVALID_KEY_LENGTH, if key length input is invalid.
  * 	- XASUFW_HMAC_STATE_MISMATCH_ERROR, if HMAC state is mismatched.
  * 	- XASUFW_HMAC_INVALID_HASHLEN, if input hash length is invalid.
+ * 	- XASUFW_SHA_INVALID_SHA_MODE, if input SHA mode is invalid.
+ * 	- XASUFW_HMAC_KEY_PROCESS_ERROR, if key processing fails.
+ * 	- XASUFW_HMAC_ERROR, if a SHA start/update fails.
  *
  *************************************************************************************************/
 s32 XHmac_Init(XHmac *InstancePtr, XAsufw_Dma *AsuDmaPtr, XSha *ShaInstancePtr, u64 KeyAddr,
@@ -310,6 +313,7 @@ s32 XHmac_Update(XHmac *InstancePtr, XAsufw_Dma *AsuDmaPtr, u64 DataAddr, u32 Da
 			HmacUpdateStage = XHMAC_NON_BLOCKING_CMD_STAGE_UPDATE_IN_PROGRESS;
 			break;
 		} else if (Status != XASUFW_SUCCESS) {
+			Status = XAsufw_UpdateErrorStatus(Status, XASUFW_HMAC_ERROR);
 			goto END;
 		} else {
 			/* Do nothing */
@@ -338,6 +342,11 @@ s32 XHmac_Update(XHmac *InstancePtr, XAsufw_Dma *AsuDmaPtr, u64 DataAddr, u32 Da
 			 * XHMAC_UPDATE_IN_PROGRESS.
 			 */
 			InstancePtr->HmacState = XHMAC_UPDATE_IN_PROGRESS;
+			/**
+			 * The intermediate data chunk is fully absorbed by the SHA engine at this
+			 * point, so mark this non-final update as successful.
+			 */
+			ASSIGN_VOLATILE(Status, XASUFW_SUCCESS);
 		}
 		break;
 	default:

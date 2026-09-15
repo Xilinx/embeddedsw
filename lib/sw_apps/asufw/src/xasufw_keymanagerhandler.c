@@ -44,6 +44,7 @@
 #include "xasufw_status.h"
 #include "xasufw_util.h"
 #include "xasufw_memvalidation.h"
+#include "xasufw_debug.h"
 #include "xoverlay.h"
 #include "xasufw_aeshandler.h"
 #include "xasufw_memory.h"
@@ -360,6 +361,9 @@ s32 XAsufw_KeyManagerInit(void)
 		}
 
 		AsuVaultCreatedFlag = XASU_STATUS_PASS;
+	} else {
+		/** No DDR key vault is a supported state, so continue without failing init. */
+		XAsufw_Printf(DEBUG_GENERAL, "KeyManager: DDR not configured, ASU vault not created\r\n");
 	}
 
 END:

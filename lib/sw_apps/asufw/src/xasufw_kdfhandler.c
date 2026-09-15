@@ -337,7 +337,7 @@ static s32 XAsufw_KdfKat(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
  * @return
  * 	- XASUFW_SUCCESS, if KDF operation is successful.
  * 	- XASUFW_RESOURCE_RELEASE_NOT_ALLOWED, if illegal resource release is requested.
- * 	- XASUFW_INVALID_PARAM, if any argument is invalid.
+ * 	- XASUFW_INVALID_PARAM, if any input parameters are invalid.
  * 	- Error codes from XKdf_CmacGenerate API, if any failure occurs.
  * 	- XASUFW_INVALID_SUBSYSTEM_ID, if the subsystem ID cannot be derived from the IPI mask.
  *
@@ -396,7 +396,7 @@ END:
  * @return
  * 	- XASUFW_SUCCESS, if KDF operation is successful.
  * 	- XASUFW_RESOURCE_RELEASE_NOT_ALLOWED, if illegal resource release is requested.
- * 	- XASUFW_INVALID_PARAM, if any argument is invalid.
+ * 	- XASUFW_INVALID_PARAM, if any input parameters are invalid.
  * 	- Error codes from XHkdf_Generate API, if any failure occurs.
  * 	- XASUFW_INVALID_SUBSYSTEM_ID, if the subsystem ID cannot be derived from the IPI mask.
  *

@@ -240,7 +240,7 @@ static s32 XOcp_EncryptUdePvtKey(XAsufw_Dma *DmaPtr, u32 UdeKeyId, const u8 *Pvt
 	/** Copy IV from RTCA to local buffer. */
 	Status = Xil_SMemCpy(UdeKekIv, XASU_OCP_UDE_IV_SIZE_IN_BYTES, IvPtr,
 			XASU_OCP_UDE_IV_SIZE_IN_BYTES, XASU_OCP_UDE_IV_SIZE_IN_BYTES);
-	if (Status != XST_SUCCESS) {
+	if (Status != XASUFW_SUCCESS) {
 		Status = XASUFW_MEM_COPY_FAIL;
 		goto END;
 	}

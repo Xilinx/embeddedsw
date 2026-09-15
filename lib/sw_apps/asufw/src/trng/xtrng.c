@@ -466,8 +466,8 @@ static inline s32 XTrng_CfgDIT(const XTrng *InstancePtr, u8 DITValue)
  * 	- XASUFW_TRNG_INVALID_ADAPTPROPTEST_CUTOFF_VALUE, if invalid cutoff value is provided.
  * 	- XASUFW_TRNG_INVALID_REPCOUNTTEST_CUTOFF_VALUE, if invalid repetitive test cutoff
  * 		value is provided.
- * 	- XASUFW_TRNG_USER_CFG_COPY_ERROR, if error occurred during copy of XTrng_UserConfig
- * 		structure.
+ * 	- XASUFW_MEM_COPY_FAIL, if memory copy fails.
+ * 	- XASUFW_TRNG_SET_ERROR, if TRNG core set fails.
  * 	- XASUFW_FAILURE, if unexpected failure occurs.
  *
  *************************************************************************************************/
@@ -553,6 +553,7 @@ s32 XTrng_Instantiate(XTrng *InstancePtr, const u8 *Seed, u32 SeedLength, const 
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	Status = XTrng_Set(InstancePtr);
 	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_TRNG_SET_ERROR;
 		goto END;
 	}
 
@@ -1131,6 +1132,7 @@ END:
  * 	- XASUFW_OSCILLATOR_ENABLE_FAILED, if oscillator reseed source enable is failed.
  * 	- XASUFW_ENABLE_PRNG_FOR_RESEED_FAILED, if enabling PRNG for reseed failed.
  * 	- XASUFW_START_RESEED_FAILED, if reseed operation failed.
+ * 	- XASUFW_TRNG_PERS_STRING_WRITE_ERROR, if writing personalization string fails.
  *
  *************************************************************************************************/
 static s32 XTrng_ReseedInternal(XTrng *InstancePtr, const u8 *Seed, u8 DLen, const u8 *PerStr)
@@ -1151,6 +1153,7 @@ static s32 XTrng_ReseedInternal(XTrng *InstancePtr, const u8 *Seed, u8 DLen, con
 		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 		Status = XTrng_WritePersString(InstancePtr, PerStr);
 		if (Status != XASUFW_SUCCESS) {
+			Status = XASUFW_TRNG_PERS_STRING_WRITE_ERROR;
 			goto END;
 		}
 		PersMask = XASU_TRNG_CTRL_PERSODISABLE_DEFVAL;
@@ -1340,6 +1343,7 @@ END:
  *
  * @return
  * 	- XASUFW_SUCCESS, if writing seed is successful.
+ * 	- XASUFW_TRNG_WRITE_SEED_MISMATCH_ERROR, if written seed is not matching with the input seed.
  * 	- XASUFW_FAILURE, if writing seed fails.
  *
  *************************************************************************************************/
@@ -1360,6 +1364,7 @@ static s32 XTrng_WriteSeed(const XTrng *InstancePtr, const u8 *Seed, u8 DLen)
 			SeedConstruct = (u8)((SeedConstruct << 1U) | (u8)Bit);
 		}
 		if (SeedConstruct != Seed[Idx]) {
+			Status = XASUFW_TRNG_WRITE_SEED_MISMATCH_ERROR;
 			goto END;
 		}
 		usleep(XTRNG_DF_2CLKS_WAIT);

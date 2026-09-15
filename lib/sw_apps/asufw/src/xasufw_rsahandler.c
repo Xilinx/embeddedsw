@@ -51,8 +51,8 @@
 
 /************************************ Constant Definitions ***************************************/
 #ifdef XASU_KEYMANAGER_ENABLE
-#define XRSA_KEY_GEN_POLL_INTERVAL	(500U)	/**< Key pair generation scheduler task poll interval in ms */
-#define XRSA_KEY_GEN_TASK_PRIORITY	(XTASK_PRIORITIES - 1U)	/**< Key generation scheduler task priority (lowest) */
+#define XRSA_KEY_GEN_POLL_INTERVAL	(100U)	/**< Key gen task poll interval in ms */
+#define XRSA_KEY_GEN_TASK_PRIORITY	(XTASK_PRIORITIES - 1U)	/**< Key gen task priority (lowest) */
 #endif /* XASU_KEYMANAGER_ENABLE */
 
 /************************************** Type Definitions *****************************************/

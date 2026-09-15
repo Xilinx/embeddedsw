@@ -1040,6 +1040,8 @@ END:
  *		  the caller should invoke the function again to continue.
  *		- XASUFW_RSA_INVALID_PARAM, if OutBuf is NULL, too small, or its address
  *		  changes while generation is in progress.
+ *		- XASUFW_ZEROIZE_MEMSET_FAIL, if zeroize memset fails.
+ *		- XASUFW_RSA_CHANGE_ENDIANNESS_ERROR, if endianness change error occurs.
  *		- Error code, on failure during key generation.
  *
  *************************************************************************************************/
@@ -1103,6 +1105,7 @@ s32 XRsa_GenerateKeyPair(u8 *OutBuf, u32 OutBufSize)
 					sizeof(RsaKeyGenPubExpBuf));
 		if (Status != XASUFW_SUCCESS) {
 			KeyGenState = XRSA_KEY_GEN_INIT_STATE;
+			Status = XASUFW_ZEROIZE_MEMSET_FAIL;
 			goto END;
 		}
 
@@ -1240,6 +1243,7 @@ s32 XRsa_GenerateKeyPair(u8 *OutBuf, u32 OutBufSize)
 		Status = XAsufw_ChangeEndianness(PvtExpPtr, XRSA_KEY_GEN_DEFAULT_SIZE);
 		if (Status != XASUFW_SUCCESS) {
 			KeyGenState = XRSA_KEY_GEN_INIT_STATE;
+			Status = XASUFW_RSA_CHANGE_ENDIANNESS_ERROR;
 			goto END;
 		}
 
@@ -1247,6 +1251,7 @@ s32 XRsa_GenerateKeyPair(u8 *OutBuf, u32 OutBufSize)
 		Status = XAsufw_ChangeEndianness(PrimePPtr, XRSA_HALF_LEN(XRSA_KEY_GEN_DEFAULT_SIZE));
 		if (Status != XASUFW_SUCCESS) {
 			KeyGenState = XRSA_KEY_GEN_INIT_STATE;
+			Status = XASUFW_RSA_CHANGE_ENDIANNESS_ERROR;
 			goto END;
 		}
 
@@ -1254,6 +1259,7 @@ s32 XRsa_GenerateKeyPair(u8 *OutBuf, u32 OutBufSize)
 		Status = XAsufw_ChangeEndianness(PrimeQPtr, XRSA_HALF_LEN(XRSA_KEY_GEN_DEFAULT_SIZE));
 		if (Status != XASUFW_SUCCESS) {
 			KeyGenState = XRSA_KEY_GEN_INIT_STATE;
+			Status = XASUFW_RSA_CHANGE_ENDIANNESS_ERROR;
 			goto END;
 		}
 
@@ -1261,6 +1267,7 @@ s32 XRsa_GenerateKeyPair(u8 *OutBuf, u32 OutBufSize)
 		Status = XAsufw_ChangeEndianness(DPPtr, XRSA_HALF_LEN(XRSA_KEY_GEN_DEFAULT_SIZE));
 		if (Status != XASUFW_SUCCESS) {
 			KeyGenState = XRSA_KEY_GEN_INIT_STATE;
+			Status = XASUFW_RSA_CHANGE_ENDIANNESS_ERROR;
 			goto END;
 		}
 
@@ -1268,6 +1275,7 @@ s32 XRsa_GenerateKeyPair(u8 *OutBuf, u32 OutBufSize)
 		Status = XAsufw_ChangeEndianness(DQPtr, XRSA_HALF_LEN(XRSA_KEY_GEN_DEFAULT_SIZE));
 		if (Status != XASUFW_SUCCESS) {
 			KeyGenState = XRSA_KEY_GEN_INIT_STATE;
+			Status = XASUFW_RSA_CHANGE_ENDIANNESS_ERROR;
 			goto END;
 		}
 
@@ -1275,6 +1283,7 @@ s32 XRsa_GenerateKeyPair(u8 *OutBuf, u32 OutBufSize)
 		Status = XAsufw_ChangeEndianness(QInvPtr, XRSA_HALF_LEN(XRSA_KEY_GEN_DEFAULT_SIZE));
 		if (Status != XASUFW_SUCCESS) {
 			KeyGenState = XRSA_KEY_GEN_INIT_STATE;
+			Status = XASUFW_RSA_CHANGE_ENDIANNESS_ERROR;
 			goto END;
 		}
 
@@ -1282,6 +1291,7 @@ s32 XRsa_GenerateKeyPair(u8 *OutBuf, u32 OutBufSize)
 		Status = XAsufw_ChangeEndianness(PubExpPtr, XRSA_PUBEXP_SIZE_IN_BYTES);
 		if (Status != XASUFW_SUCCESS) {
 			KeyGenState = XRSA_KEY_GEN_INIT_STATE;
+			Status = XASUFW_RSA_CHANGE_ENDIANNESS_ERROR;
 			goto END;
 		}
 

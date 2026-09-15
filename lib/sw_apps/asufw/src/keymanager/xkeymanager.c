@@ -3365,6 +3365,7 @@ END:
  *	- XASUFW_KEYMANAGER_INVALID_PARAM, if input parameter is invalid.
  *	- XASUFW_KEYMANAGER_KEY_NOT_FOUND, if no active RSA key is available in the vault.
  *	- XASUFW_DMA_COPY_FAIL, if DMA transfer fails.
+ *	- XASUFW_KEYMANAGER_VAULT_NOT_FOUND, if the specified vault is not found.
  *
  *************************************************************************************************/
 s32 XKeyManager_FetchRsaKeyPairFromAsuVault(XAsufw_Dma *DmaPtr, u8 *DestBuf, u8 VaultId, u64 KeyAddr)
@@ -3397,7 +3398,7 @@ s32 XKeyManager_FetchRsaKeyPairFromAsuVault(XAsufw_Dma *DmaPtr, u8 *DestBuf, u8 
 
 	KeyVaultPtr = (XKeyManager *)VaultManager.VaultInfo[VaultId].VaultBasePtr;
 	if (KeyVaultPtr == NULL) {
-		Status = XASUFW_FAILURE;
+		Status = XASUFW_KEYMANAGER_VAULT_NOT_FOUND;
 		goto END;
 	}
 

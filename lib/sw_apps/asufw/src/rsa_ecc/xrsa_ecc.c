@@ -302,6 +302,7 @@ END:
  *	- XASUFW_FAILURE, if validation fails due to other reasons.
  *	- XASUFW_RSA_CHANGE_ENDIANNESS_ERROR, if endianness change fails.
  *	- XASUFW_RSA_ECC_INCORRECT_CURVE, if input curvetype or curvelen is incorrect.
+ *	- XASUFW_RSA_ECC_VALIDATE_PUB_KEY_FAIL, if public key validation fails.
  *
  *************************************************************************************************/
 s32 XRsa_EccValidatePubKey(XAsufw_Dma *DmaPtr, u32 CurveType, u32 CurveLen, u64 PubKeyAddr)
@@ -378,7 +379,7 @@ s32 XRsa_EccValidatePubKey(XAsufw_Dma *DmaPtr, u32 CurveType, u32 CurveLen, u64 
 	} else if (Status == XRSA_ECC_KEY_NOT_ON_CRV) {
 		Status = XASUFW_RSA_ECC_PUBLIC_KEY_NOT_ON_CRV;
 	} else if (Status != XRSA_ECC_SUCCESS) {
-		Status = XASUFW_FAILURE;
+		Status = XASUFW_RSA_ECC_VALIDATE_PUB_KEY_FAIL;
 	} else {
 		Status = XASUFW_SUCCESS;
 	}
@@ -431,6 +432,7 @@ END:
  *	- XASUFW_RSA_ECC_HASH_CALC_FAIL, if hash calculation fails in case of Ed25519ph or Ed448ph.
  *	- XASUFW_RSA_ECC_INCORRECT_CURVE, if input curvetype or curvelen is incorrect.
  *	- Error code from XAsufw_UpdateBufStatus, if local buffer zeroization fails.
+ *	- XASUFW_RSA_ECC_GEN_SIGN_FAIL, if signature generation fails in the third party code.
  *
  *************************************************************************************************/
 s32 XRsa_EccGenerateSignature(XAsufw_Dma *DmaPtr, u32 CurveType, u32 CurveLen, u64 PrivKeyAddr,
@@ -624,7 +626,7 @@ s32 XRsa_EccGenerateSignature(XAsufw_Dma *DmaPtr, u32 CurveType, u32 CurveLen, u
 	} else if ((Status == XRSA_ECC_GEN_SIGN_INCORRECT_HASH_LEN)) {
 		Status = XASUFW_RSA_ECC_GEN_SIGN_INCORRECT_HASH_LEN;
 	} else if ((Status != XRSA_ECC_SUCCESS)) {
-		Status = XASUFW_FAILURE;
+		Status = XASUFW_RSA_ECC_GEN_SIGN_FAIL;
 	} else {
 		/**
 		 *  Change endianness of the generated signature and copy it to destination address
@@ -717,6 +719,7 @@ END:
  *	-	XASUFW_FAILURE, if operation fails due to any other reasons.
  *	-	XASUFW_RSA_ECC_INCORRECT_CURVE, if input curvetype or curvelen is incorrect.
  *	-	Error code from XAsufw_UpdateBufStatus, if local buffer zeroization fails.
+ *	-	XASUFW_RSA_ECC_VER_SIGN_FAIL, if signature verification fails in the third party code.
  *
  *************************************************************************************************/
 s32 XRsa_EccVerifySignature(XAsufw_Dma *DmaPtr, u32 CurveType, u32 CurveLen, u64 PubKeyAddr,
@@ -891,7 +894,7 @@ s32 XRsa_EccVerifySignature(XAsufw_Dma *DmaPtr, u32 CurveType, u32 CurveLen, u64
 	} else if ((XRSA_ECC_VER_SIGN_S_ORDER_ERROR == Status)) {
 		Status = XASUFW_RSA_ECC_VER_SIGN_S_ORDER_ERROR;
 	} else if ((XRSA_ECC_SUCCESS != Status)) {
-		Status = XASUFW_FAILURE;
+		Status = XASUFW_RSA_ECC_VER_SIGN_FAIL;
 	} else {
 		Status = XASUFW_SUCCESS;
 		ReturnStatus = XASUFW_ECC_SIGNATURE_VERIFIED;
@@ -1427,6 +1430,7 @@ s32 XRsa_EcdhGenSharedSecret(XAsufw_Dma *DmaPtr, u32 CurveType, u32 CurveLen, u6
 		Status = XASUFW_SUCCESS;
 	} else{
 		Status = XASUFW_ECDH_OTHER_ERROR;
+		goto END_CLR;
 	}
 	/**
 	 * Copy shared secret to destination address if not null using DMA and

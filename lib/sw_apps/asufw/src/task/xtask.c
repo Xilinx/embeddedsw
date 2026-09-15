@@ -253,7 +253,7 @@ END:
 s32 XTask_TriggerOnEvent(const XTask_TaskNode *Task, XTask_TaskEvent *Event)
 {
 	s32 Status = XASUFW_FAILURE;
-	u32 Idx = (u32)(Task - TaskList);
+	u32 Idx = 0U;
 
 	/** Validate input parameters */
 	if ((Task == NULL) || (Event == NULL)) {
@@ -261,6 +261,7 @@ s32 XTask_TriggerOnEvent(const XTask_TaskNode *Task, XTask_TaskEvent *Event)
 		goto END;
 	}
 
+	Idx = (u32)(Task - TaskList);
 	/** Validate task handler. */
 	if (Task->TaskHandler == NULL) {
 		Status = XASUFW_TASK_INVALID_HANDLER;

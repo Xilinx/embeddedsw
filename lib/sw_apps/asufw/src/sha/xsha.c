@@ -321,6 +321,7 @@ END:
  * 	- XASUFW_SHA_INVALID_PARAM, if any input parameters are invalid.
  * 	- XASUFW_SHA_INIT_NOT_DONE, if SHA component is not ready.
  * 	- XASUFW_SHA_STATE_MISMATCH_ERROR, if SHA is not in started or updated state.
+ * 	- XASUFW_DMA_WAIT_FOR_DONE_TIMED_OUT, if DMA wait for done times out.
  * 	- XASUFW_FAILURE, if there is any other failure.
  *
  *************************************************************************************************/
@@ -391,7 +392,7 @@ s32 XSha_Update(XSha *InstancePtr, XAsufw_Dma *DmaPtr, u64 InDataAddr, u32 Size,
 		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 		Status = XAsuDma_WaitForDoneTimeout(&DmaPtr->AsuDma, XASUDMA_SRC_CHANNEL);
 		if (Status != XASUFW_SUCCESS) {
-			Status = XASUFW_FAILURE;
+			Status = XASUFW_DMA_WAIT_FOR_DONE_TIMED_OUT;
 			goto END;
 		}
 
@@ -889,6 +890,8 @@ void XSha_Reset(XSha *InstancePtr)
  * @return
  *		- XASUFW_SUCCESS, if SHA NIST padding is successful.
  *		- XASUFW_FAILURE, if SHA NIST padding fails.
+ *		- XASUFW_ZEROIZE_MEMSET_FAIL, if zeroizing the padding buffer fails.
+ *		- XASUFW_SHA_INVALID_PARAM, if input parameter validation fails.
  *
  *************************************************************************************************/
 static s32 XSha_NistPadd(const XSha *InstancePtr, u8 *Buf, u32 PadLen)
@@ -899,12 +902,14 @@ static s32 XSha_NistPadd(const XSha *InstancePtr, u8 *Buf, u32 PadLen)
 
 	/** Validates the input arguments. */
 	if (PadLen == 0U) {
+		Status = XASUFW_SHA_INVALID_PARAM;
 		goto END;
 	}
 
 	/** Zeroize the padding buffer memory. */
 	Status = Xil_SMemSet(Buf, PadLen, 0U, PadLen);
 	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_ZEROIZE_MEMSET_FAIL;
 		goto END;
 	}
 
