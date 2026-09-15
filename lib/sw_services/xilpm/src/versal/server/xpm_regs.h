@@ -172,9 +172,16 @@ extern "C" {
 #define EFUSE_CACHE_TRIM_CRAM_OFFSET				(0x000001C0U)
 #define EFUSE_CACHE_TRIM_BRAM_OFFSET				(0x00000098U)
 #define EFUSE_CACHE_TRIM_URAM_OFFSET				(0x0000009CU)
-#define EFUSE_CACHE_BISR_RSVD_0_OFFSET				(0x00000300U)
-#define EFUSE_CACHE_TBITS1_BISR_RSVD_OFFSET			(0x00000400U)
-#define EFUSE_CACHE_TBITS2_BISR_RSVD_OFFSET			(0x00000800U)
+/* xc2vp3202 uses different BISR reserved eFuse cache offsets than other devices */
+#if defined(XC2VP3202)
+#define EFUSE_CACHE_BISR_RSVD_0_OFFSET				(0x00000504U) /**< eFuse cache offset of the first BISR reserved data word */
+#define EFUSE_CACHE_TBITS1_BISR_RSVD_OFFSET			(0x00000500U) /**< eFuse cache offset of the first BISR TBITS row to skip */
+#define EFUSE_CACHE_TBITS2_BISR_RSVD_OFFSET			(0x00000BFCU) /**< eFuse cache offset of the second BISR TBITS row to skip */
+#else
+#define EFUSE_CACHE_BISR_RSVD_0_OFFSET				(0x00000300U) /**< eFuse cache offset of the first BISR reserved data word */
+#define EFUSE_CACHE_TBITS1_BISR_RSVD_OFFSET			(0x00000400U) /**< eFuse cache offset of the first BISR TBITS row to skip */
+#define EFUSE_CACHE_TBITS2_BISR_RSVD_OFFSET			(0x00000800U) /**< eFuse cache offset of the second BISR TBITS row to skip */
+#endif
 #define EFUSE_CACHE_TRIM_AMS_3_OFFSET				(0X00000200U)
 #define EFUSE_CACHE_TRIM_AMS_3_TSENS_SLOPE_5_0_SHIFT		(9U)
 #define EFUSE_CACHE_TRIM_AMS_3_TSENS_SLOPE_5_0_MASK		(0X00007E00U)
@@ -257,8 +264,13 @@ extern "C" {
 #define EFUSE_CACHE_NIDB_2_NPI_BASE_3_WIDTH			(6U)
 #define EFUSE_CACHE_NIDB_2_NPI_BASE_3_MASK			(0x0000003FU)
 
-#define EFUSE_CACHE_TBITS1_BISR_RSVD 			(0xF1250400U)
-#define EFUSE_CACHE_TBITS2_BISR_RSVD 			(0xF1250800U)
+#if defined(XC2VP3202)
+#define EFUSE_CACHE_TBITS1_BISR_RSVD 			(0xF1250500U) /**< eFuse cache address of the first BISR TBITS row to skip */
+#define EFUSE_CACHE_TBITS2_BISR_RSVD 			(0xF1250BFCU) /**< eFuse cache address of the second BISR TBITS row to skip */
+#else
+#define EFUSE_CACHE_TBITS1_BISR_RSVD 			(0xF1250400U) /**< eFuse cache address of the first BISR TBITS row to skip */
+#define EFUSE_CACHE_TBITS2_BISR_RSVD 			(0xF1250800U) /**< eFuse cache address of the second BISR TBITS row to skip */
+#endif
 
 #define EFUSE_CONFIG0_OFFSET					(0x180U)
 #define EFUSE_CONFIG0_OFFSET_MASK				(0x3fU)
