@@ -112,6 +112,10 @@ static RESULT Ox03f10_IsiReadRegIss(IsiSensorHandle_t handle, const uint16_t add
 
 	if (pOx03f10Ctx->sensorDevId >= MAX_SENSOR_COUNT)
 		return RET_OUTOFRANGE;
+	if (pValue == NULL || g_fmc_single.sensor_array[pOx03f10Ctx->sensorDevId] == NULL ||
+	    g_fmc_single.accessiic_array[pOx03f10Ctx->sensorDevId] == NULL ||
+	    g_fmc_single.accessiic_array[pOx03f10Ctx->sensorDevId]->readIIC == NULL)
+		return RET_NULL_POINTER;
 
 	u8 slave_addr = (g_fmc_single.sensor_array[pOx03f10Ctx->sensorDevId]->sensor_alias_addr) >> 1;
 	result = g_fmc_single.accessiic_array[pOx03f10Ctx->sensorDevId]->readIIC(pOx03f10Ctx->i2cId,
@@ -135,6 +139,10 @@ static RESULT Ox03f10_IsiWriteRegIss(IsiSensorHandle_t handle, const uint16_t ad
 
 	if (pOx03f10Ctx->sensorDevId >= MAX_SENSOR_COUNT)
 		return RET_OUTOFRANGE;
+	if (g_fmc_single.sensor_array[pOx03f10Ctx->sensorDevId] == NULL ||
+	    g_fmc_single.accessiic_array[pOx03f10Ctx->sensorDevId] == NULL ||
+	    g_fmc_single.accessiic_array[pOx03f10Ctx->sensorDevId]->writeIIC == NULL)
+		return RET_NULL_POINTER;
 
 	u8 slave_addr = (g_fmc_single.sensor_array[pOx03f10Ctx->sensorDevId]->sensor_alias_addr) >> 1;
 	result = g_fmc_single.accessiic_array[pOx03f10Ctx->sensorDevId]->writeIIC(pOx03f10Ctx->i2cId,
@@ -223,6 +231,11 @@ static RESULT Ox03f10_IsiCreateIss(IsiSensorInstanceConfig_t *pConfig, IsiSensor
 	RESULT result = RET_SUCCESS;
 	uint32_t desId = 0, pipeId = 0;
 	xil_printf("%s (enter)\n", __func__);
+	if (pConfig == NULL || pHandle == NULL)
+		return RET_NULL_POINTER;
+	*pHandle = NULL;
+	if (pConfig->cameraDevId >= IN_PIPE_LAST)
+		return RET_UNSUPPORT_ID;
 
 	Ox03f10_Context_t *pOx03f10Ctx = (Ox03f10_Context_t *) osMalloc(sizeof(Ox03f10_Context_t));
 	if (!pOx03f10Ctx) {

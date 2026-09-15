@@ -100,11 +100,21 @@ static RESULT Ox08b40_IsiReadRegIss(IsiSensorHandle_t handle, const uint16_t add
 	xil_printf("%s (enter)\n", __func__);
 
 	Ox08b40_Context_t *pOx08b40Ctx = (Ox08b40_Context_t *) handle;
+
 	if (pOx08b40Ctx == NULL)
 		return RET_NULL_POINTER;
+
+	if (pOx08b40Ctx->sensorDevId >= MAX_SENSOR_COUNT)
+		return RET_OUTOFRANGE;
+	if (pValue == NULL || g_fmc_single.sensor_array[pOx08b40Ctx->sensorDevId] == NULL ||
+	    g_fmc_single.accessiic_array[pOx08b40Ctx->sensorDevId] == NULL ||
+	    g_fmc_single.accessiic_array[pOx08b40Ctx->sensorDevId]->readIIC == NULL)
+		return RET_NULL_POINTER;
+
 	u8 slave_addr = (g_fmc_single.sensor_array[pOx08b40Ctx->sensorDevId]->sensor_alias_addr) >> 1;
 	result = g_fmc_single.accessiic_array[pOx08b40Ctx->sensorDevId]->readIIC(pOx08b40Ctx->i2cId,
 		 slave_addr, addr, 0x2, pValue, 1);
+
 	if (result != RET_SUCCESS) {
 		xil_printf("%s: hal read sensor register error!\n", __func__);
 		return (RET_FAILURE);
@@ -121,13 +131,22 @@ static RESULT Ox08b40_IsiWriteRegIss(IsiSensorHandle_t handle, const uint16_t ad
 	xil_printf("%s (enter)\n", __func__);
 
 	Ox08b40_Context_t *pOx08b40Ctx = (Ox08b40_Context_t *) handle;
+
 	if (pOx08b40Ctx == NULL)
+		return RET_NULL_POINTER;
+
+	if (pOx08b40Ctx->sensorDevId >= MAX_SENSOR_COUNT)
+		return RET_OUTOFRANGE;
+	if (g_fmc_single.sensor_array[pOx08b40Ctx->sensorDevId] == NULL ||
+	    g_fmc_single.accessiic_array[pOx08b40Ctx->sensorDevId] == NULL ||
+	    g_fmc_single.accessiic_array[pOx08b40Ctx->sensorDevId]->writeIIC == NULL)
 		return RET_NULL_POINTER;
 
 	u8 slave_addr = (g_fmc_single.sensor_array[pOx08b40Ctx->sensorDevId]->sensor_alias_addr) >> 1;
 	result = g_fmc_single.accessiic_array[pOx08b40Ctx->sensorDevId]->writeIIC(pOx08b40Ctx->i2cId,
 		 slave_addr, addr, 0x2, value, 1);
-	if (result != RET_SUCCESS) {
+
+    if (result != RET_SUCCESS) {
 		xil_printf("%s: hal write sensor register error!\n", __func__);
 		return (RET_FAILURE);
 	}
@@ -212,6 +231,11 @@ static RESULT Ox08b40_IsiCreateIss(IsiSensorInstanceConfig_t *pConfig, IsiSensor
 	RESULT result = RET_SUCCESS;
 	uint32_t desId = 0, pipeId = 0;
 	xil_printf("%s (enter)\n", __func__);
+	if (pConfig == NULL || pHandle == NULL)
+		return RET_NULL_POINTER;
+	*pHandle = NULL;
+	if (pConfig->cameraDevId >= IN_PIPE_LAST)
+		return RET_UNSUPPORT_ID;
 
 	Ox08b40_Context_t *pOx08b40Ctx = (Ox08b40_Context_t *) osMalloc(sizeof(Ox08b40_Context_t));
 	if (!pOx08b40Ctx) {

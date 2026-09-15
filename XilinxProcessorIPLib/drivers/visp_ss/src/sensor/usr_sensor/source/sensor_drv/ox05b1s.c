@@ -120,7 +120,12 @@ void enable_IR_power(IsiSensorHandle_t handle)
 {
 	Ox05b1s_Context_t *pOx05b1sCtx = (Ox05b1s_Context_t *) handle;
 	if (pOx05b1sCtx == NULL)
-		return RET_NULL_POINTER;
+		return;
+
+	if (pOx05b1sCtx->sensorDevId >= MAX_SENSOR_COUNT ||
+	    g_fmc_single.accessiic_array[pOx05b1sCtx->sensorDevId] == NULL ||
+	    g_fmc_single.accessiic_array[pOx05b1sCtx->sensorDevId]->writeIIC == NULL)
+		return;
 
 	uint32_t register_addr = 0x04;
 	uint8_t wr_data[2];
@@ -160,6 +165,13 @@ static RESULT Ox05b1s_IsiReadRegIss(IsiSensorHandle_t handle, const uint16_t add
 	if (pOx05b1sCtx == NULL)
 		return RET_NULL_POINTER;
 
+	if (pOx05b1sCtx->sensorDevId >= MAX_SENSOR_COUNT)
+		return RET_OUTOFRANGE;
+	if (pValue == NULL || g_fmc_single.sensor_array[pOx05b1sCtx->sensorDevId] == NULL ||
+	    g_fmc_single.accessiic_array[pOx05b1sCtx->sensorDevId] == NULL ||
+	    g_fmc_single.accessiic_array[pOx05b1sCtx->sensorDevId]->readIIC == NULL)
+		return RET_NULL_POINTER;
+
 	u8 slave_addr = (g_fmc_single.sensor_array[pOx05b1sCtx->sensorDevId]->sensor_alias_addr) >> 1;
 	result = g_fmc_single.accessiic_array[pOx05b1sCtx->sensorDevId]->readIIC(pOx05b1sCtx->i2cId,
 		 slave_addr, addr, 0x2, pValue, 1);
@@ -180,6 +192,13 @@ static RESULT Ox05b1s_IsiWriteRegIss(IsiSensorHandle_t handle, const uint16_t ad
 
 	Ox05b1s_Context_t *pOx05b1sCtx = (Ox05b1s_Context_t *) handle;
 	if (pOx05b1sCtx == NULL)
+		return RET_NULL_POINTER;
+
+	if (pOx05b1sCtx->sensorDevId >= MAX_SENSOR_COUNT)
+		return RET_OUTOFRANGE;
+	if (g_fmc_single.sensor_array[pOx05b1sCtx->sensorDevId] == NULL ||
+	    g_fmc_single.accessiic_array[pOx05b1sCtx->sensorDevId] == NULL ||
+	    g_fmc_single.accessiic_array[pOx05b1sCtx->sensorDevId]->writeIIC == NULL)
 		return RET_NULL_POINTER;
 
 	u8 slave_addr = (g_fmc_single.sensor_array[pOx05b1sCtx->sensorDevId]->sensor_alias_addr) >> 1;
@@ -269,6 +288,11 @@ static RESULT Ox05b1s_IsiCreateIss(IsiSensorInstanceConfig_t *pConfig, IsiSensor
 	RESULT result = RET_SUCCESS;
 	uint32_t desId = 0, pipeId = 0;
 	xil_printf("%s (enter)\n", __func__);
+	if (pConfig == NULL || pHandle == NULL)
+		return RET_NULL_POINTER;
+	*pHandle = NULL;
+	if (pConfig->cameraDevId >= MAX_SENSOR_COUNT)
+		return RET_UNSUPPORT_ID;
 
 	Ox05b1s_Context_t *pOx05b1sCtx = (Ox05b1s_Context_t *) osMalloc(sizeof(Ox05b1s_Context_t));
 	if (!pOx05b1sCtx) {
