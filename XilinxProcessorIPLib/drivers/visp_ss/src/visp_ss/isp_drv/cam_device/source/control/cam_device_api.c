@@ -1335,7 +1335,7 @@ RESULT VsiCamDeviceConfigMetadata
 	memcpy(p_data, &pCamDevCtx->instanceId, sizeof(uint32_t));
 	packet.payload_size += sizeof(uint32_t);
 	p_data += sizeof(uint32_t);
-	memcpy(p_data, &pMetadata, sizeof(CamDeviceMetadataConfig_t));
+	memcpy(p_data, pMetadata, sizeof(CamDeviceMetadataConfig_t));
 	p_data += sizeof(CamDeviceMetadataConfig_t);
 	packet.payload_size += sizeof(CamDeviceMetadataConfig_t);
 
