@@ -140,6 +140,8 @@
 *                       size/offset/mask/record macros and XLOADER_INVALID_ADDR
 *       ng   09/09/2026 Added XLoader_TlbinInfo, XLoader_TlbinAddrStatus and
 *                       XLoader_GetTlbinLoadAddr for versal_2ve_2vm
+*       aa   09/15/2026 Added XLoader_SetIdCodeBypassFlag and
+*                       XLoader_ClearIdCodeBypassFlag prototypes
 * </pre>
 *
 ******************************************************************************/
@@ -600,6 +602,8 @@ void Xloader_SaveBootPdiInfo(XilPdi *BootPdiPtr);
 int XLoader_EnableJtag(u32 CfgState);
 int XLoader_DisableJtag(void);
 int XLoader_InitPdiInstanceForExtractMHAndOptData(XPlmi_Cmd* Cmd, XilPdi* PdiPtr, u64 SrcAddr, u64 DestAddr, u32 DestSize);
+void XLoader_SetIdCodeBypassFlag(void);
+void XLoader_ClearIdCodeBypassFlag(void);
 XSecure_PartialPdiEventParams *XLoader_PpdiEventParamsPtr(void);
 int XLoader_PpdiEventHandling(PdiSrc_t PdiSrc, u64 PdiAddr, u32 IpiMask);
 

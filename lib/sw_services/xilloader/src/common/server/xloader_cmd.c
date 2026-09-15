@@ -107,6 +107,7 @@
 *       pre  09/10/2026 Added handler for calibration data restore command
 *       ng   09/09/2026 Added handler for Get tlbin Load Address command
 *                       for versal_2ve_2vm
+*       aa   09/15/2026 Added IDCODE bypass flag handling in Extract Metaheader
 *
 * </pre>
 *
@@ -1164,6 +1165,16 @@ static int XLoader_ExtractMetaheader(XPlmi_Cmd *Cmd)
 	u32 TotalDataSize = 0U;
 	u32 Index;
 
+	/*
+	 * The DATAID_PDISRC payload word encodes the PDI source in its low bits
+	 * along with the XLOADER_GET_OPT_DATA_FLAG and XLOADER_IDCODE_BYPASS_FLAG
+	 * flags. Enable the IDCODE bypass when its flag bit is set.
+	 */
+	if ((Cmd->Payload[XLOADER_CMD_EXTRACT_METAHDR_DATAID_PDISRC_INDEX] &
+		XLOADER_IDCODE_BYPASS_FLAG) != 0U) {
+		XLoader_SetIdCodeBypassFlag();
+	}
+
 	if((Cmd->Payload[XLOADER_CMD_EXTRACT_METAHDR_DATAID_PDISRC_INDEX] &
 		XLOADER_GET_OPT_DATA_FLAG) != XLOADER_GET_OPT_DATA_FLAG) {
 		SrcAddr = ((u64)Cmd->Payload[XLOADER_CMD_EXTRACT_METAHDR_PDIADDR_LOW_INDEX]) |
@@ -1235,6 +1246,8 @@ static int XLoader_ExtractMetaheader(XPlmi_Cmd *Cmd)
 #endif
 
 END:
+	/* Clear IDcode bypass flag to avoid stale state on error paths */
+	XLoader_ClearIdCodeBypassFlag();
 	Cmd->Response[XLOADER_RESP_CMD_EXEC_STATUS_INDEX] = (u32)Status;
 	Cmd->Response[XLOADER_RESP_CMD_EXTRACT_METAHDR_SIZE_INDEX] = TotalDataSize;
 

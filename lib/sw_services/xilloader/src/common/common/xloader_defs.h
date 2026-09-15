@@ -25,6 +25,7 @@
  *       pre  08/12/26 Added XLOADER_CMD_ID_CALIBDATA_RESTORE command id
  *       ng   09/09/26 Added XLOADER_CMD_ID_GET_TLBIN_LOAD_ADDR command id
  *                     for versal_2ve_2vm
+ *       aa   09/15/26 Added XLOADER_IDCODE_BYPASS_FLAG macro
  *
  * </pre>
  *
@@ -100,6 +101,8 @@ extern "C" {
 #define XLOADER_ADDR_HIGH_SHIFT 		(32U) /**< Shift value to get higher 32 bit address */
 #define XLOADER_GET_OPT_DATA_FLAG		(0x80U)
 	/**< Flag to indicate that Extract Metaheader request is to extract optional data only */
+#define XLOADER_IDCODE_BYPASS_FLAG		(0x100U)
+	/**< Flag to bypass IDcode check during Extract Metaheader */
 #define XLOADER_DATA_ID_SHIFT			(16U)
 	/**< Shift to get data ID from the payload of Extract metaheader command */
 

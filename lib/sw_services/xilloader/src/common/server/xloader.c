@@ -224,6 +224,7 @@
 *       gnr  09/02/2026 Configure OSPI RX tuning after reading PDI optional data
 *       gnr  09/11/2026 Pass PDI source while re-arming SMAP sync word
 *                       detection
+*       aa   09/15/2026 Added support to skip IDCODE check during Extract Metaheader
 *
 * </pre>
 *
@@ -279,6 +280,8 @@
 #define XLOADER_IMAGE_INFO_TBL_MAX_NUM	(XPLMI_IMAGE_INFO_TBL_BUFFER_LEN / \
 		sizeof(XLoader_ImageInfo)) /**< Maximum number of image info
 					     tables in the available buffer */
+#define XLOADER_IDCODE_BYPASS_ACTIVE	(0xA5A5A5A5U) /**< IDcode bypass enabled */
+#define XLOADER_IDCODE_BYPASS_INACTIVE	(0x5A5A5A5AU) /**< IDcode bypass disabled */
 
 #ifdef PLM_OCP_NATIVE_KEY_MGMT
 #define XLOADER_PMC_SUBSYSTEM_ID			(0x1C000001U)
@@ -346,6 +349,29 @@ static const XLoader_DeviceOps DeviceOps[] =
 };
 
 /** @endcond */
+
+/** Holds IDcode bypass state */
+static u32 IdCodeBypassFlag = XLOADER_IDCODE_BYPASS_INACTIVE;
+
+/*****************************************************************************/
+/**
+ * @brief	This function sets the IDcode bypass flag.
+ *
+ *****************************************************************************/
+void XLoader_SetIdCodeBypassFlag(void)
+{
+	IdCodeBypassFlag = XLOADER_IDCODE_BYPASS_ACTIVE;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function clears the IDcode bypass flag.
+ *
+ *****************************************************************************/
+void XLoader_ClearIdCodeBypassFlag(void)
+{
+	IdCodeBypassFlag = XLOADER_IDCODE_BYPASS_INACTIVE;
+}
 
 /*****************************************************************************/
 /**
@@ -595,6 +621,8 @@ END1:
 		PdiPtr->PdiSrc);
 	Status = XPlmi_UpdateStatus(XLOADER_UNSUPPORTED_BOOT_MODE, XIL_SIGNED_ZERO);
 END:
+	/* Clear IDCODE bypass request*/
+	XLoader_ClearIdCodeBypassFlag();
 	XPlmi_MeasurePerfTime(PdiInitTime, &PerfTime);
 	XPlmi_Printf(DEBUG_PRINT_PERF,
 		"%u.%03u ms: PDI initialization time\n\r",
@@ -922,12 +950,16 @@ static int XLoader_ReadAndValidateHdrs(XilPdi* PdiPtr, u32 RegValue, u64 PdiAddr
 	 * Perform IDCODE and Extended IDCODE checks
 	 */
 	if(XPLMI_PLATFORM == PMC_TAP_VERSION_SILICON) {
-		Status = XLoader_IdCodeCheck(&(PdiPtr->MetaHdr->ImgHdrTbl));
-		if (XST_SUCCESS != Status) {
-			XPlmi_Printf(DEBUG_GENERAL, "IDCODE Checks failed\n\r");
-			Status = XPlmi_UpdateStatus(XLOADER_ERR_GEN_IDCODE,
-						Status);
-			goto END;
+		if (IdCodeBypassFlag != XLOADER_IDCODE_BYPASS_ACTIVE) {
+			Status = XLoader_IdCodeCheck(&(PdiPtr->MetaHdr->ImgHdrTbl));
+			if (XST_SUCCESS != Status) {
+				XPlmi_Printf(DEBUG_GENERAL, "IDCODE Checks failed\n\r");
+				Status = XPlmi_UpdateStatus(XLOADER_ERR_GEN_IDCODE,
+							Status);
+				goto END;
+			}
+		} else {
+			XPlmi_Printf(DEBUG_INFO, "Warning: IDCODE Check bypassed\n\r");
 		}
 	}
 #endif
@@ -1011,6 +1043,8 @@ static int XLoader_ReadAndValidateHdrs(XilPdi* PdiPtr, u32 RegValue, u64 PdiAddr
 
 
 END:
+	/* Clear IDCODE bypass flag */
+	XLoader_ClearIdCodeBypassFlag();
 	return Status;
 }
 
