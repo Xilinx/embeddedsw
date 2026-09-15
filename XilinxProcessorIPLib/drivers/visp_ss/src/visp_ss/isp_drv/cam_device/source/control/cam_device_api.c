@@ -115,16 +115,8 @@ RESULT VsiCamDeviceCreate
 		return RET_NULL_POINTER;
 	uint32_t hwId = pCamConfig->ispHwId;
 
-	/*
-	 * AMD : Multi-Core Changes
-	 * Verifying Multi-core
-	 */
-
-#ifdef DEBUG_FLAG
-#else
-	if (hwId > CAMDEV_HARDWARE_ID_MAX)
+	if (hwId >= CAMDEV_HARDWARE_ID_MAX)
 		return RET_OUTOFRANGE;
-#endif
 
 	CamDeviceIspcoreInit();
 
@@ -1134,7 +1126,7 @@ RESULT VsiCamDeviceGetHardwareId
 		//TRACE(CAM_DEV_API_ERR, " %s: invalid null pointer!\n", __func__);
 		return RET_NULL_POINTER;
 	}
-	if (pCamDevCtx->ispHwId > CAMDEV_HARDWARE_ID_MAX)
+	if (pCamDevCtx->ispHwId >= CAMDEV_HARDWARE_ID_MAX)
 		return RET_OUTOFRANGE;
 
 	else {

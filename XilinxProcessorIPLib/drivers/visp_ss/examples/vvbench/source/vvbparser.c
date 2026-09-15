@@ -932,7 +932,7 @@ int VsiVvbenchParseCase
 		while (instanceCfg) {
 			uint32_t instanceEnable = cJSON_GetObjectItem(instanceCfg, "instanceEnable")->valueint;
 			uint32_t hpId = cJSON_GetObjectItem(instanceCfg, "hpId")->valueint;
-			if (CAMDEV_HARDWARE_ID_MAX < hpId) {
+			if (hpId >= CAMDEV_HARDWARE_ID_MAX) {
 				LOGW("case list hpId parser error");
 				cJSON_Delete(root);
 				return -1;

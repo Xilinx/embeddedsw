@@ -22,7 +22,7 @@ void CamDeviceIspcoreInit()
 	static bool_t init = BOOL_FALSE;
 
 	if (init == BOOL_FALSE) {
-		for (uint32_t hwId = 0; hwId <= CAMDEV_HARDWARE_ID_MAX; hwId++) {
+		for (uint32_t hwId = 0; hwId < CAMDEV_HARDWARE_ID_MAX; hwId++) {
 			for (uint32_t vtId = 0; vtId < CAMDEV_VIRTUAL_ID_MAX; vtId++)
 				gCamDevIspcore.hCamDevSet[hwId][vtId] = NULL;
 		}
@@ -40,7 +40,7 @@ RESULT CamDeviceRequestInstance
 {
 	uint32_t index = 0;
 
-	if (hwId > CAMDEV_HARDWARE_ID_MAX)
+	if (hwId >= CAMDEV_HARDWARE_ID_MAX)
 		return RET_OUTOFRANGE;
 	for (; index < CAMDEV_VIRTUAL_ID_MAX; index ++) {
 		if (NULL == gCamDevIspcore.hCamDevSet[hwId][index])
@@ -64,7 +64,7 @@ RESULT CamDeviceFreeInstance
 )
 {
 	uint32_t index = 0;
-	if (hwId > CAMDEV_HARDWARE_ID_MAX)
+	if (hwId >= CAMDEV_HARDWARE_ID_MAX)
 		return RET_OUTOFRANGE;
 	for (; index < CAMDEV_VIRTUAL_ID_MAX; index++) {
 		if (camDevhandle == gCamDevIspcore.hCamDevSet[hwId][index])
@@ -106,7 +106,7 @@ RESULT CamDeviceInstanceIdMapping
 	if (NULL == pInstanceId)
 		return RET_NULL_POINTER;
 
-	if (hwId > CAMDEV_HARDWARE_ID_MAX)
+	if (hwId >= CAMDEV_HARDWARE_ID_MAX)
 		return RET_UNSUPPORT_ID;
 
 	if (vtId >= CAMDEV_VIRTUAL_ID_MAX)
