@@ -298,27 +298,39 @@ void osFclose(osFile* pVsiFile)
 
 size_t osFread(void* ptr, size_t size, size_t count, osFile* pVsiFile)
 {
-	if (pVsiFile == NULL) {
-		printf("%s: pVsiFile is NULL\n", __func__);
-		return -1;
+	if (ptr == NULL || pVsiFile == NULL) {
+		if (ptr == NULL)
+			printf("%s: ptr is NULL\n", __func__);
+		else
+			printf("%s: pVsiFile is NULL\n", __func__);
+		return 0;
 	}
 
-	unsigned int bytesRead;
-	void *tempBuffer;
-	tempBuffer = osMalloc(size * count);
+	if (size == 0 || count > OS_MAX_BLOCK_SIZE / size) {
+		printf("%s: invalid read size or count\n", __func__);
+		return 0;
+	}
+
+	if (count == 0)
+		return 0;
+
+	uint32_t readSize = (uint32_t)(size * count);
+	unsigned int bytesRead = 0;
+	void *tempBuffer = osMalloc(readSize);
 	if (tempBuffer == NULL) {
 		printf("%s: tempBuffer allocate memory is failed\n", __func__);
-		return -1;
+		return 0;
 	}
 
-	FRESULT res = f_read(&(pVsiFile->file), tempBuffer, size * count, &bytesRead);
-	memcpy(ptr, tempBuffer, size * count);
-	osFree(tempBuffer);
+	FRESULT res = f_read(&(pVsiFile->file), tempBuffer, readSize, &bytesRead);
 	if (res != FR_OK) {
 		printf("%s: f_read is failed %d \n", __func__, res);
-		return -1;
+		osFree(tempBuffer);
+		return 0;
 	}
 
+	memcpy(ptr, tempBuffer, bytesRead);
+	osFree(tempBuffer);
 	return bytesRead / size;
 }
 
