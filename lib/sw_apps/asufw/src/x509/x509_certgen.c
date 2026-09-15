@@ -56,6 +56,11 @@ static const u8 Oid_P384[] = {0x06U, 0x05U, 0x2BU, 0x81U, 0x04U, 0x00U, 0x22U};
 									number field */
 #define X509_SERIAL_FIELD_LEN					(22U)	/**< Length of Serial
 									Field */
+#define X509_SERIAL_FIRST_BYTE_FALLBACK				(0x40U)	/**< Non-zero, MSB-clear
+									fallback for the first
+									serial byte */
+#define X509_SERIAL_FIRST_BYTE_INDEX				(0U)	/**< Index of the first
+									byte of the serial value */
 #define X509_AUTH_KEY_ID_VAL_LEN				(20U)	/**< Length of value of
 									Authority Key ID */
 #define X509_SUB_KEY_ID_VAL_LEN					(20U)	/**< Length of value of
@@ -2368,50 +2373,104 @@ END:
  *	- XASUFW_SUCCESS, if successfully generated Serial field.
  *	- XASUFW_FAILURE, in case of failure.
  *	- XASUFW_MEM_COPY_FAIL, if memory copy is failed.
+ *	- XASUFW_X509_INVALID_FIELD_LEN, if the reserved slot size does not match the expected
+ *	  encoding, or if the encoded serial does not fill X509_SERIAL_FIELD_LEN. It is packed
+ *	  on top of the encoder status, so an integer-creation failure is reported together
+ *	  with it.
  *	- Error code received from called functions in case of other failure from the called
  *	  function.
  *
  * @note	CertificateSerialNumber ::= INTEGER
- *		The length of the serial must not be more than 20 bytes.
+ *		The length of the serial must not be more than X509_SERIAL_VAL_LEN bytes.
  *		The value of the serial is determined by calculating the
- *		SHA2 hash of the fields in the TBS certificate except the Version
- *		and Serial Number fields. 20 bytes from LSB of the calculated
- *		hash is updated as the Serial Number.
+ *		hash of the fields in the TBS certificate except the Version
+ *		and Serial Number fields. The first X509_SERIAL_VAL_LEN bytes of the
+ *		calculated hash are used as the Serial Number.
+ *		To keep the value a fixed X509_SERIAL_VAL_LEN bytes so the DER-encoded
+ *		INTEGER field is exactly X509_SERIAL_FIELD_LEN bytes (one tag byte, one
+ *		length byte and X509_SERIAL_VAL_LEN value bytes) and matches the reserved
+ *		slot, the MSB of the first byte is cleared to prevent a
+ *		0x00 prepend, and if that first byte becomes zero it is replaced
+ *		with a non-zero, MSB-clear byte taken from the remaining hash so
+ *		it is not stripped during encoding.
  *
  *************************************************************************************************/
 static s32 X509_GenSerialField(const u8 *DataHash)
 {
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
-	u32 LenToBeCopied = 0U;
 	u8 Serial[X509_SERIAL_VAL_LEN] = {0U};
 	u32 Offset;
+	u32 Index;
 
 	/** Temporary move offset to serial number to store serial number. */
 	Offset = CertInstance.Offset;
 	CertInstance.Offset = CertInstance.SerialOffset;
 
 	/**
-	 * The value of serial field must be 20 bytes. If the most significant
-	 * bit in the first byte of Serial is set, then the value shall be
-	 * prepended with 0x00 after DER encoding.
-	 * So if MSB is set then 00 followed by 19 bytes of hash will be the serial
-	 * value. If not set then 20 bytes of hash will be used as serial value.
+	 * The serial is derived from the certificate hash, and X.509 caps it at
+	 * X509_SERIAL_VAL_LEN bytes, so the leading bytes of the digest are taken as its
+	 * value. The first byte is conditioned below so the value always DER-encodes to a
+	 * fixed width that fills the reserved slot.
 	 */
-	if ((*DataHash & X509_ASN1_BIT7_MASK) == X509_ASN1_BIT7_MASK) {
-		LenToBeCopied = X509_SERIAL_VAL_LEN - 1U;
-	} else {
-		LenToBeCopied = X509_SERIAL_VAL_LEN;
-	}
-
 	Status = Xil_SMemCpy(Serial, X509_SERIAL_VAL_LEN, DataHash,
-			     X509_SERIAL_VAL_LEN, LenToBeCopied);
+			     X509_SERIAL_VAL_LEN, X509_SERIAL_VAL_LEN);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XASUFW_MEM_COPY_FAIL;
 		goto END;
 	}
 
+	/** Clear the MSB of the first byte to avoid a 0x00 prepend during DER encoding. */
+	Serial[X509_SERIAL_FIRST_BYTE_INDEX] = Serial[X509_SERIAL_FIRST_BYTE_INDEX] &
+					       (u8)(~X509_ASN1_BIT7_MASK);
+
+	/**
+	 * A zero first byte would be stripped during DER encoding, shortening the serial.
+	 * Replace it with the first non-zero, MSB-clear byte from the rest of the digest so
+	 * the value stays hash-derived and encodes to the full X509_SERIAL_FIELD_LEN.
+	 */
+	if (Serial[X509_SERIAL_FIRST_BYTE_INDEX] == 0U) {
+		for (Index = X509_SERIAL_VAL_LEN; Index < X509_HASH_MAX_SIZE_IN_BYTES;
+		     Index++) {
+			if ((DataHash[Index] != 0U) &&
+			    ((DataHash[Index] & X509_ASN1_BIT7_MASK) == 0U)) {
+				Serial[X509_SERIAL_FIRST_BYTE_INDEX] = DataHash[Index];
+				break;
+			}
+		}
+		/**
+		 * If the loop above found no usable byte (every remaining digest byte
+		 * was either zero or had its MSB set), Serial[0] is still zero. This is
+		 * extremely unlikely for the configured digest, but to be safe a fixed value
+		 * (X509_SERIAL_FIRST_BYTE_FALLBACK) that is non-zero and has its MSB clear is
+		 * used, so the serial value stays X509_SERIAL_VAL_LEN bytes and always encodes
+		 * to exactly X509_SERIAL_FIELD_LEN bytes.
+		 */
+		if (Serial[X509_SERIAL_FIRST_BYTE_INDEX] == 0U) {
+			Serial[X509_SERIAL_FIRST_BYTE_INDEX] = X509_SERIAL_FIRST_BYTE_FALLBACK;
+		}
+	}
+
+	/**
+	 * Verify the reserved slot equals the header plus value size the encoder will
+	 * produce, before anything is written, so a mismatch cannot overrun into the
+	 * following signatureAlgorithm field.
+	 */
+	if (X509_SERIAL_FIELD_LEN != (X509_TAG_BYTE_FIELD_SIZE + X509_SERIAL_VAL_LEN)) {
+		Status = XASUFW_X509_INVALID_FIELD_LEN;
+		goto END;
+	}
+
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-	Status = X509_Asn1CreateInteger(Serial, LenToBeCopied);
+	Status = X509_Asn1CreateInteger(Serial, X509_SERIAL_VAL_LEN);
+
+	/**
+	 * Confirm the serial exactly filled its reserved slot. On mismatch,
+	 * XASUFW_X509_INVALID_FIELD_LEN is packed on top of the current status so a failure
+	 * is reported without discarding any error already set by the encoder.
+	 */
+	if ((CertInstance.Offset - CertInstance.SerialOffset) != X509_SERIAL_FIELD_LEN) {
+		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_X509_INVALID_FIELD_LEN);
+	}
 
 END:
 	/** Restore offset. */
