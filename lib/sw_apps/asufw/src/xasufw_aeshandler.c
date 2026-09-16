@@ -24,6 +24,8 @@
  *       am   07/18/25 Added core reset support for single glitch recovery
  *       rmv  08/17/26 Added validation of client provided buffers
  * 1.3	 kp   08/21/26 Release the preempted owner's hold on AES after parking its context
+ *       kp   09/09/26 Use eFUSE User Key 1 for general AES encrypt/decrypt; stage internally
+ *                     and clear red key 1 on END
  *       vm   09/15/26 Added the API that hands out the AES instance the firmware drives
  *
  * </pre>
@@ -193,11 +195,16 @@ END:
  * 	- XASUFW_AES_CCM_INVALID_OPERATION_FLAGS, if CCM mode is requested with INIT and UPDATE
  * 	  but without FINISH.
  * 	- XASUFW_AES_INVALID_OPERATION_TYPE, if the operation type is neither encrypt nor decrypt.
- * 	- XASUFW_AES_INVALID_PARAM, if the key or IV source is ambiguous or absent, or if a vault
- * 	  sourced IV carries a non-zero length.
+ * 	- XASUFW_AES_INVALID_PARAM, if the key or IV source is ambiguous or absent, if a vault
+ * 	  sourced IV carries a non-zero length, or if the key object of an eFUSE User Key 1
+ * 	  request provides a key vault identifier, a key address, or a key size other than
+ * 	  256-bit.
  * 	- XASUFW_DMA_COPY_FAIL, if the copy of the key object from the client fails.
  * 	- XASUFW_KEYMANAGER_GET_KEYOBJ_FAILED, if retrieval of the key or IV from the vault fails.
  * 	- XASUFW_AES_WRITE_KEY_FAILED, if Key write to AES USER key register fails.
+ * 	- XASUFW_AES_EFUSE_USER_KEY_1_STAGE_FAILED, if staging eFUSE User Key 1 fails.
+ * 	- XASUFW_PUF_KEK_GEN_FAIL, if PMC key transfer or PUF KEK generation fails.
+ * 	- XASUFW_DECRYPT_BLACK_KEY_1_FAIL, if eFUSE black Key 1 decryption fails.
  * 	- XASUFW_AES_INIT_FAILED, if initialization of AES engine fails.
  * 	- XASUFW_AES_CCM_AAD_FORMATTING_FAILED, if the CCM B0 header cannot be transmitted.
  * 	- XASUFW_AES_INVALID_ENGINE_MODE, if the initialized engine mode cannot be read back.
@@ -205,11 +212,19 @@ END:
  * 	- XASUFW_AES_FINAL_FAILED, if completion of final AES operation fails.
  * 	- XASUFW_RESOURCE_RELEASE_NOT_ALLOWED, upon illegal resource release.
  * 	- An error code from XAsufw_ValidateMemRegnAccess, if a client buffer is not accessible.
+ * 	- XASUFW_AES_KEY_CLEAR_ERROR, if zeroizing eFUSE red key 1 or the expanded keys fails.
+ *
+ * @note	The PMC-transferred keys other than eFUSE red key 1 are zeroized by the staging
+ * 		itself, and eFUSE red key 1 is zeroized on failure or XASU_FINISH. There is no
+ * 		client API to clear these keys. Streaming INIT|UPDATE without FINISH retains
+ * 		eFUSE red key 1 in the vault for the remainder of the operation.
  *
  *************************************************************************************************/
 static s32 XAsufw_AesOperation(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 {
 	s32 Status = XASUFW_FAILURE;
+	s32 VaultClearStatus = XASUFW_FAILURE;
+	XFih_Var XFihVar = XFih_VolatileAssignXfihVar(XFIH_FAILURE);
 	XAes *XAsufw_Aes = XAes_GetInstance(XASU_XAES_0_DEVICE_ID);
 	const XAsu_AesParams *AesParamsPtr = (const XAsu_AesParams *)ReqBuf->Arg;
 	u8 EngineMode = XASUFW_AES_INVALID_ENGINE_MODE;
@@ -336,20 +351,34 @@ static s32 XAsufw_AesOperation(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 			goto END;
 		}
 
-		/** Validate that exactly one of KeyAddress or KeyId is provided. */
-		Status = XAsu_KmValidateKeyAddrNdKeyId(KeyObject.KeyAddress, 0U, KeyObject.KeyId);
-		if (Status != XST_SUCCESS) {
-			Status = XASUFW_AES_INVALID_PARAM;
-			goto END;
-		}
+		/**
+		 * eFUSE User Key 1 is staged in the vault, hence it carries neither key bytes
+		 * nor a key vault identifier, and only a 256-bit key is programmed. Reject a
+		 * conflicting key object before the key manager resolves an unrelated key.
+		 */
+		if (KeyObject.KeySrc == XASU_AES_EFUSE_KEY_RED_1) {
+			if ((KeyObject.KeyId != 0U) || (KeyObject.KeyAddress != 0U) ||
+			    (KeyObject.KeySize != XASU_AES_KEY_SIZE_256_BITS)) {
+				Status = XASUFW_AES_INVALID_PARAM;
+				goto END;
+			}
+		} else {
+			/** Validate that exactly one of KeyAddress or KeyId is provided. */
+			Status = XAsu_KmValidateKeyAddrNdKeyId(KeyObject.KeyAddress, 0U,
+							       KeyObject.KeyId);
+			if (Status != XST_SUCCESS) {
+				Status = XASUFW_AES_INVALID_PARAM;
+				goto END;
+			}
 
-		/** Validate the client provided key buffer, absent for a vault sourced key. */
-		XASUFW_VALIDATE_OPTIONAL_MEM_ACCESS(END, Status, SubsystemId,
-						    KeyObject.KeyAddress,
-						    (KeyObject.KeySize ==
-						     XASU_AES_KEY_SIZE_128_BITS) ?
-						    XASU_AES_KEY_SIZE_128BIT_IN_BYTES :
-						    XASU_AES_KEY_SIZE_256BIT_IN_BYTES);
+			/** Validate the client provided key buffer, absent for a vault sourced key. */
+			XASUFW_VALIDATE_OPTIONAL_MEM_ACCESS(END, Status, SubsystemId,
+							    KeyObject.KeyAddress,
+							    (KeyObject.KeySize ==
+							     XASU_AES_KEY_SIZE_128_BITS) ?
+							    XASU_AES_KEY_SIZE_128BIT_IN_BYTES :
+							    XASU_AES_KEY_SIZE_256BIT_IN_BYTES);
+		}
 
 #ifdef XASU_KEYMANAGER_ENABLE
 		if (KeyObject.KeyId != 0U) {
@@ -365,7 +394,18 @@ static s32 XAsufw_AesOperation(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 		}
 #endif /* XASU_KEYMANAGER_ENABLE */
 
-		/** Write the given user key to the specified AES USER KEY register. */
+		if (KeyObject.KeySrc == XASU_AES_EFUSE_KEY_RED_1) {
+			ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+			Status = XAes_FetchAndStageEfuseUserKey1(XAsufw_Aes,
+					XAsufw_AesModule.AsuDmaPtr);
+			if (Status != XASUFW_SUCCESS) {
+				Status = XAsufw_UpdateErrorStatus(Status,
+					XASUFW_AES_EFUSE_USER_KEY_1_STAGE_FAILED);
+				goto END;
+			}
+		}
+
+		/** Write/select the key for the AES operation. */
 		Status = XAes_WriteKey(XAsufw_Aes, XAsufw_AesModule.AsuDmaPtr, &KeyObject);
 		if (Status != XASUFW_SUCCESS) {
 			Status = XAsufw_UpdateErrorStatus(Status, XASUFW_AES_WRITE_KEY_FAILED);
@@ -518,6 +558,15 @@ END:
 			Status = XAsufw_UpdateErrorStatus(Status, XASUFW_RESOURCE_RELEASE_NOT_ALLOWED);
 		}
 		XAes_SetReset(XAsufw_Aes);
+
+		/**
+		 * Zeroize eFUSE Red Key 1, the only key which XAes_FetchAndStageEfuseUserKey1
+		 * retains in the vault. The remaining transferred keys are already zeroized by
+		 * the staging itself, on both success and failure.
+		 */
+		XFIH_CALL(XAes_KeyClear, XFihVar, VaultClearStatus, XAsufw_Aes,
+			XASU_AES_EFUSE_KEY_RED_1);
+		Status = XAsufw_UpdateErrorStatus(Status, VaultClearStatus);
 		Status = XAsufw_UpdateErrorStatus(Status,
 			XAes_KeyClear(XAsufw_Aes, XASU_AES_EXPANDED_KEYS));
 		XAsufw_AesModule.AsuDmaPtr = NULL;

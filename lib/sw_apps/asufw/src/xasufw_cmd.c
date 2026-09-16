@@ -25,9 +25,10 @@
  *       ma   02/28/25 Move IPI triggering to remote processor to xasufw_queuescheduler.c
  *       rmv  09/09/25 Added bound checks for command ID and handler in XAsufw_CommandQueueHandler()
  *       vm   07/13/26 Skip resource handler when a command does not need any resource
- * 1.2	 kp   08/21/26 Derive AES context restore trigger from resource ownership instead of
- *		     relying solely on XAes_Final; recover parked context on resource-handler
- *		     allocation failure too
+ * 1.2   kp   08/21/26 Derive AES context restore trigger from resource ownership instead of
+ *                     relying solely on XAes_Final; recover parked context on resource-handler
+ *                     allocation failure too
+ *       kp   09/09/26 Restore re-stages eFUSE User Key 1; release DMA before AES ownership
  *
  * </pre>
  *
@@ -382,20 +383,41 @@ static void XAsufw_CheckAndRestoreAesContext(void)
 	XAes_ContextInfo *Ctx = NULL;
 	XAes *AesInstancePtr = XAes_GetInstance(XASU_XAES_0_DEVICE_ID);
 	u32 ReqId = 0U;
+	XAsufw_Dma *DmaPtr = NULL;
 
 	if (XAes_GetContextDdrPtr(&Ctx) == XASUFW_SUCCESS) {
 		/** Restore as soon as AES is free and not disabled. */
 		if ((Ctx->IsContextSaved == XASU_TRUE) &&
 				(XAsufw_IsResourceFree(XASUFW_AES) == XASU_TRUE)) {
 			ReqId = Ctx->ReqId;
-			Status = XAes_RestoreContext(AesInstancePtr);
-			if (Status != XASUFW_SUCCESS) {
-				XAsufw_Printf(DEBUG_PRINT_ALWAYS, "AES context restore failed: 0x%x\r\n", Status);
-			} else {
-				/** Update the resource owner to the restored context. */
-				XAsufw_UpdateResourceOwner(XASUFW_AES, ReqId);
+			if (Ctx->KeyObject.KeySrc == XASU_AES_EFUSE_KEY_RED_1) {
+				DmaPtr = XAsufw_AllocateDmaResource(XASUFW_AES, ReqId);
+				if (DmaPtr == NULL) {
+					Status = XASUFW_DMA_RESOURCE_ALLOCATION_FAILED;
+					goto END;
+				}
 			}
+			Status = XAes_RestoreContext(AesInstancePtr, DmaPtr);
+			if (DmaPtr != NULL) {
+				Status = XAsufw_UpdateErrorStatus(Status,
+					XAsufw_ReleaseDmaResource(DmaPtr, ReqId));
+			}
+			if (Status != XASUFW_SUCCESS) {
+				goto END;
+			}
+
+			/** Update the resource owner to the restored context. */
+			XAsufw_UpdateResourceOwner(XASUFW_AES, ReqId);
 		}
 	}
+
+	Status = XASUFW_SUCCESS;
+
+END:
+	if (Status != XASUFW_SUCCESS) {
+		XAsufw_Printf(DEBUG_PRINT_ALWAYS, "AES context restore failed: 0x%x\r\n", Status);
+	}
+
+	return;
 }
 /** @} */

@@ -33,6 +33,7 @@
  *       vm   07/13/26 Added check for resources reserved by client requests
  *	 kk   07/10/26 Added SLH-DSA to the resources list
  * 	 kp   08/21/26 Added XAsufw_IsResourceFree() to query free resource state
+ *       kp   09/09/26 Mark the resource allocated in XAsufw_UpdateResourceOwner()
  *
  * </pre>
  *
@@ -533,7 +534,8 @@ s32 XAsufw_IsResourceBusy(XAsufw_Resource Resource, u32 ReqId)
 
 /*************************************************************************************************/
 /**
- * @brief	This function updates resource owner Id and state to idle.
+ * @brief	This function updates resource owner Id, marks the resource allocated, and
+ *		sets its state to idle.
  *
  * @param	Resource	The resource identifier to update.
  * @param	ReqId		The unique ID of the request to assign ownership to.
@@ -541,8 +543,10 @@ s32 XAsufw_IsResourceBusy(XAsufw_Resource Resource, u32 ReqId)
  *************************************************************************************************/
 void XAsufw_UpdateResourceOwner(XAsufw_Resource Resource, u32 ReqId)
 {
-    ResourceManager[Resource].OwnerId = ReqId;
-    ResourceManager[Resource].State = XASUFW_RESOURCE_IS_IDLE;
+	ResourceManager[Resource].OwnerId = ReqId;
+	ResourceManager[Resource].State = XASUFW_RESOURCE_IS_IDLE;
+	XASUFW_MARK_RESOURCE_ALLOCATED(ResourceManager[Resource].AllocatedResources,
+				       Resource);
 }
 
 /*************************************************************************************************/

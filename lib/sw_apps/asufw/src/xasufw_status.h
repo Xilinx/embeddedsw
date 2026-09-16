@@ -57,6 +57,8 @@
  *       vm   08/22/26 Added error code for an incompatible data structure version during restore
  *       kp   08/22/26 Added error codes for user-addressable vault ID and key slot
  *       kk   08/29/26 Added error codes for SLH-DSA functionality
+ *       kp   09/09/26 Added XASUFW_DECRYPT_BLACK_KEY_1_FAIL and
+ *                     XASUFW_AES_EFUSE_USER_KEY_1_STAGE_FAILED error codes
  *       vm   09/15/26 Added error codes for the UDE key fetch failures, for key vault export
  *                     and import, for random byte rejection sampling retry exhaustion and for
  *                     ASU internal exportable vault creation failure
@@ -989,6 +991,10 @@ enum {
 	XASUFW_KEYMANAGER_AEKV_INVALID_BLOCK_ORDER, /**< 0x297U - AEKV randomized block order is
 							 not a permutation of the chunk blocks */
 	XASUFW_DMA_SCRUB_FAIL, /**< 0x298U - Error when DMA secret-path scrub fails. */
+	XASUFW_DECRYPT_BLACK_KEY_1_FAIL, /**< 0x299U - Error when black key 1
+						decryption fails */
+	XASUFW_AES_EFUSE_USER_KEY_1_STAGE_FAILED, /**< 0x29AU - Error when staging eFUSE User Key 1
+						into Red Key 1 fails */
 
 	/* Additional status success codes */
 	XASUFW_SLHDSA_SIGNATURE_VERIFIED = 0x3F5U, /**< 0x3F5U - SLH-DSA signature verification

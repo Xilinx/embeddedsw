@@ -24,6 +24,7 @@
  *       yog  07/10/25 Added support for priority based multiple request and context verification
  *       kd   07/23/25 Fixed gcc warnings
  *       kp   02/25/26 Added client-side AES CBC/CCM encrypt/decrypt KATs
+ *       kp   09/09/26 Allow addressless 256-bit KeyObject for eFUSE Red Key 1
  *
  * </pre>
  *
@@ -406,22 +407,36 @@ static s32 XAsu_AesValidateKeyObjectParams(const XAsu_AesKeyObject *KeyObjectPtr
 		goto END;
 	}
 
-	/** Validate that exactly one of KeyAddress or KeyId is provided. */
-	if (XAsu_KmValidateKeyAddrNdKeyId(KeyObjectPtr->KeyAddress, 0U,
-					  KeyObjectPtr->KeyId) != XST_SUCCESS) {
-		goto END;
-	}
+	/**
+	 * eFUSE Red Key 1 is selected from the AES vault after the server stages it, so
+	 * neither a client key buffer nor a vault KeyId is used. Only a 256-bit key is
+	 * programmed into the eFUSE, hence any other key size is invalid.
+	 */
+	if (KeyObjectPtr->KeySrc == XASU_AES_EFUSE_KEY_RED_1) {
+		if ((KeyObjectPtr->KeyAddress != 0U) || (KeyObjectPtr->KeyId != 0U)) {
+			goto END;
+		}
+		if (KeyObjectPtr->KeySize != XASU_AES_KEY_SIZE_256_BITS) {
+			goto END;
+		}
+	} else {
+		/** Validate that exactly one of KeyAddress or KeyId is provided. */
+		if (XAsu_KmValidateKeyAddrNdKeyId(KeyObjectPtr->KeyAddress, 0U,
+						  KeyObjectPtr->KeyId) != XST_SUCCESS) {
+			goto END;
+		}
 
-	if ((KeyObjectPtr->KeyAddress != 0U) &&
-		(KeyObjectPtr->KeySize != XASU_AES_KEY_SIZE_128_BITS) &&
-		(KeyObjectPtr->KeySize != XASU_AES_KEY_SIZE_256_BITS)) {
-		goto END;
-	}
+		if ((KeyObjectPtr->KeyAddress != 0U) &&
+			(KeyObjectPtr->KeySize != XASU_AES_KEY_SIZE_128_BITS) &&
+			(KeyObjectPtr->KeySize != XASU_AES_KEY_SIZE_256_BITS)) {
+			goto END;
+		}
 
-	if ((KeyObjectPtr->KeySrc >= XASU_AES_MAX_KEY_SOURCES) ||
-		(KeyObjectPtr->KeySrc == XASU_AES_EFUSE_KEY_0) ||
-		(KeyObjectPtr->KeySrc == XASU_AES_EFUSE_KEY_1)){
-		goto END;
+		if ((KeyObjectPtr->KeySrc >= XASU_AES_MAX_KEY_SOURCES) ||
+			(KeyObjectPtr->KeySrc == XASU_AES_EFUSE_KEY_0) ||
+			(KeyObjectPtr->KeySrc == XASU_AES_EFUSE_KEY_1)) {
+			goto END;
+		}
 	}
 
 	Status = XST_SUCCESS;

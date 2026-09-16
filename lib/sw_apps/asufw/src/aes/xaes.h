@@ -36,7 +36,8 @@
  *       am   04/14/25 Added macros related to non-blocking update stages.
  * 1.2   am   05/18/25 Moved non-blocking update stages macros to aes handler
  *       am   07/18/25 Modified XAes_SetReset() visibility from static to non-static
- * 1.3	 kp   08/21/26 Removed IsContextRestoreReq from XAes_ContextInfo
+ * 1.3   kp   08/21/26 Removed IsContextRestoreReq from XAes_ContextInfo
+ *       kp   09/09/26 Added XAes_FetchAndStageEfuseUserKey1() prototype
  *
  * </pre>
  *
@@ -138,6 +139,7 @@ s32 XAes_DpaCmOperation(XAes *InstancePtr, XAsufw_Dma *DmaPtr, u32 InputDataAddr
 	u8 OperationType, u32 SplitMask);
 s32 XAes_DecryptEfuseBlackKey(XAes *InstancePtr, XAsufw_Dma *DmaPtr, u32 DecKeySel, u8 DecKeySize,
 	u64 IvAddr, u32 IvLen);
+s32 XAes_FetchAndStageEfuseUserKey1(XAes *InstancePtr, XAsufw_Dma *DmaPtr);
 s32 XAes_EncryptRedKey(XAes *InstancePtr, XAsufw_Dma *DmaPtr, XAsu_AesParams *AesParams);
 s32 XAes_Compute(XAes *InstancePtr, XAsufw_Dma *AsuDmaPtr, XAsu_AesParams *AesParams);
 u8 XAes_GetEngineMode(const XAes *InstancePtr);
@@ -146,7 +148,7 @@ void XAes_SetReset(XAes *InstancePtr);
 u8 XAes_GetAndValidateInternalState(const XAes *InstancePtr);
 s32 XAes_GetContextDdrPtr(XAes_ContextInfo **CtxPtrPtr);
 s32 XAes_SaveContext(XAes *InstancePtr);
-s32 XAes_RestoreContext(XAes *InstancePtr);
+s32 XAes_RestoreContext(XAes *InstancePtr, XAsufw_Dma *DmaPtr);
 s32 XAes_PostNbDmaRoutine(XAes *InstancePtr, XAsufw_Dma *DmaPtr);
 
 #ifdef __cplusplus

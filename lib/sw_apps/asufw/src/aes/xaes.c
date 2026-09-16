@@ -33,10 +33,12 @@
  *       am   07/18/25 Modified XAes_SetReset() visibility from static to non-static
  *       kd   07/23/25 Fixed gcc warnings
  *       am   07/23/25 Replaced runtime AesCmConfig checks with compile-time macro
- * 1.3	 kp   08/21/26 Skip the engine OUT snapshot when nothing was processed since the
- *		     last context load, scrub inapplicable context fields, harden the
- *		     finalized-MAC save/restore path, and clear the DDR context once no
- *		     request is owed it
+ * 1.3   kp   08/21/26 Skip the engine OUT snapshot when nothing was processed since the
+ *                     last context load, scrub inapplicable context fields, harden the
+ *                     finalized-MAC save/restore path, and clear the DDR context once no
+ *                     request is owed it
+ *       kp   09/09/26 Load eFUSE User Key 1 for general AES operations and restore via
+ *                     XAes_FetchAndStageEfuseUserKey1()
  *
  * </pre>
  *
@@ -54,6 +56,8 @@
 #include "xfih.h"
 #include "xasufw_memory.h"
 #include "xasufw_perf.h"
+#include "xasufw_keytransfer.h"
+#include "xasu_generic.h"
 
 /************************** Constant Definitions *************************************************/
 /** The context occupies a fixed slice of the reserved area, ahead of the key vault. */
@@ -445,33 +449,29 @@ END:
 
 /*************************************************************************************************/
 /**
- * @brief	This function writes the provided user key into specified AES USER key registers.
+ * @brief	This function writes a user key into AES USER key registers, or selects
+ * 		eFUSE Red Key 1 after it has been decrypted into the vault.
  *
  * @param	InstancePtr	Pointer to the XAes instance.
  * @param	DmaPtr		Pointer to the AsuDma instance.
  * @param	KeyObjectPtr	Pointer to AES key object structure, which contains
- *				- KeyAddress is address of user key.
+ *				- KeyAddress is address of user key (must be 0 for
+ *				  XASU_AES_EFUSE_KEY_RED_1).
  *				- KeySize is size of the user key.
  *			  	  - XASUFW_AES_KEY_SIZE_128 for 128-bit key size
  *				  - XASUFW_AES_KEY_SIZE_256 for 256-bit key size
- *				- KeySrc which indicates which hardware user key to be used to
- * 				  store the user key.
- *			  	  - XASU_AES_USER_KEY_0
- *				  - XASU_AES_USER_KEY_1
- *				  - XASU_AES_USER_KEY_2
- *				  - XASU_AES_USER_KEY_3
- *				  - XASU_AES_USER_KEY_4
- *				  - XASU_AES_USER_KEY_5
- *				  - XASU_AES_USER_KEY_6
- *				  - XASU_AES_USER_KEY_7
+ *				- KeySrc which indicates which hardware key to use:
+ *			  	  - XASU_AES_USER_KEY_0 to XASU_AES_USER_KEY_7
+ *			  	  - XASU_AES_EFUSE_KEY_RED_1 (vault key; no client key bytes)
  *
  * @return
  *		- XASUFW_SUCCESS, if key write is successful.
  *		- XASUFW_AES_INVALID_PARAM, if InstancePtr or KeyObjectPtr or DmaPtr is NULL
  *		  or ASU DMA is not ready.
  *		- XASUFW_AES_INVALID_KEY_SRC, if key source is invalid.
- *		- XASUFW_AES_INVALID_KEY_SIZE, if key size is invalid.
- *		- XASUFW_AES_INVALID_KEY_ADDRESS, if key address is zero.
+ *		- XASUFW_AES_INVALID_KEY_SIZE, if key size is invalid, including a 128-bit
+ *		  XASU_AES_EFUSE_KEY_RED_1 request.
+ *		- XASUFW_AES_INVALID_KEY_ADDRESS, if key address is zero for a user key.
  *		- XASUFW_DMA_COPY_FAIL, if ASU DMA transfer fails.
  *		- XASUFW_AES_WRITE_KEY_FAILED, if key write to AES key registers fails.
  *		- XASUFW_AES_KEY_ZEROED, if the key is zeroed.
@@ -508,17 +508,14 @@ s32 XAes_WriteKey(XAes *InstancePtr, XAsufw_Dma *DmaPtr, XAsu_AesKeyObject *KeyO
 	/** Initialize the AES instance with ASU DMA pointer. */
 	InstancePtr->AsuDmaPtr = DmaPtr;
 
-	if (KeyObjectPtr->KeyAddress == 0U) {
-		Status = XASUFW_AES_INVALID_KEY_ADDRESS;
-		goto END_CLR;
-	}
-
-	if (KeyObjectPtr->KeySrc > XASU_AES_USER_KEY_7) {
+	if ((KeyObjectPtr->KeySrc > XASU_AES_USER_KEY_7) &&
+			(KeyObjectPtr->KeySrc != XASU_AES_EFUSE_KEY_RED_1)) {
 		Status = XASUFW_AES_INVALID_KEY_SRC;
 		goto END_CLR;
 	}
 
-	if (KeyObjectPtr->KeySize == XASU_AES_KEY_SIZE_128_BITS) {
+	if ((KeyObjectPtr->KeySize == XASU_AES_KEY_SIZE_128_BITS) &&
+			(KeyObjectPtr->KeySrc != XASU_AES_EFUSE_KEY_RED_1)) {
 		KeySizeInWords = XASU_AES_KEY_SIZE_128BIT_IN_WORDS;
 	}
 	else if (KeyObjectPtr->KeySize == XASU_AES_KEY_SIZE_256_BITS) {
@@ -529,33 +526,41 @@ s32 XAes_WriteKey(XAes *InstancePtr, XAsufw_Dma *DmaPtr, XAsu_AesKeyObject *KeyO
 		goto END_CLR;
 	}
 
-	Offset = AesKeyLookupTbl[KeyObjectPtr->KeySrc].RegOffset;
-	if (Offset == XAES_INVALID_CFG) {
-		Status = XASUFW_AES_INVALID_KEY_SRC;
-		goto END_CLR;
-	}
+	if (KeyObjectPtr->KeySrc != XASU_AES_EFUSE_KEY_RED_1) {
+		if (KeyObjectPtr->KeyAddress == 0U) {
+			Status = XASUFW_AES_INVALID_KEY_ADDRESS;
+			goto END_CLR;
+		}
 
-	/** Copy Key from 64-bit address space to local array using ASU DMA. */
-	Status = XAsufw_DmaXfr(InstancePtr->AsuDmaPtr, KeyObjectPtr->KeyAddress,
-			(u64)(UINTPTR)Key, (KeySizeInWords * XASUFW_WORD_LEN_IN_BYTES), 0U);
-	if (Status != XASUFW_SUCCESS) {
-		Status = XASUFW_DMA_COPY_FAIL;
-		goto END_CLR;
-	}
+		Offset = AesKeyLookupTbl[KeyObjectPtr->KeySrc].RegOffset;
+		if (Offset == XAES_INVALID_CFG) {
+			Status = XASUFW_AES_INVALID_KEY_SRC;
+			goto END_CLR;
+		}
 
-	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-	/**
-	 * Traverse to Offset of last word of respective USER key register
-	 * (i.e., XAES_USER_KEY_X_7), where X = 0 to 7 USER key.
-	 * Write the key to the respective key source registers by changing the endianness.
-	 */
-	Offset = Offset + (KeySizeInWords * XASUFW_WORD_LEN_IN_BYTES) - XASUFW_WORD_LEN_IN_BYTES;
+		/** Copy Key from 64-bit address space to local array using ASU DMA. */
+		Status = XAsufw_DmaXfr(InstancePtr->AsuDmaPtr, KeyObjectPtr->KeyAddress,
+				(u64)(UINTPTR)Key, (KeySizeInWords * XASUFW_WORD_LEN_IN_BYTES), 0U);
+		if (Status != XASUFW_SUCCESS) {
+			Status = XASUFW_DMA_COPY_FAIL;
+			goto END_CLR;
+		}
 
-	/** Write user key to the respective user key registers by changing the endianness. */
-	Status = XAsufw_WriteDataToRegsWithEndianSwap(InstancePtr->KeyBaseAddress, Offset, Key, KeySizeInWords);
-	if (Status != XASUFW_SUCCESS) {
-		Status = XASUFW_AES_WRITE_KEY_FAILED;
-		goto END_CLR;
+		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+		/**
+		 * Traverse to Offset of last word of respective USER key register
+		 * (i.e., XAES_USER_KEY_X_7), where X = 0 to 7 USER key.
+		 * Write the key to the respective key source registers by changing the endianness.
+		 */
+		Offset = Offset + (KeySizeInWords * XASUFW_WORD_LEN_IN_BYTES) - XASUFW_WORD_LEN_IN_BYTES;
+
+		/** Write user key to the respective user key registers by changing the endianness. */
+		Status = XAsufw_WriteDataToRegsWithEndianSwap(InstancePtr->KeyBaseAddress, Offset, Key,
+				KeySizeInWords);
+		if (Status != XASUFW_SUCCESS) {
+			Status = XASUFW_AES_WRITE_KEY_FAILED;
+			goto END_CLR;
+		}
 	}
 
 	/** Save key information in DDR context for context switching. */
@@ -563,7 +568,8 @@ s32 XAes_WriteKey(XAes *InstancePtr, XAsufw_Dma *DmaPtr, XAsu_AesKeyObject *KeyO
 		if (CtxPtr->IsContextSaved != XASU_TRUE) {
 			/**
 			 * Copy KeyObject structure from 64-bit address space to DDR context
-			 * using ASU DMA.
+			 * using ASU DMA. For eFUSE Red Key 1 only metadata is saved; the
+			 * red key itself is never copied into DDR.
 			 */
 			ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 			Status = XAsufw_DmaXfr(InstancePtr->AsuDmaPtr, (u64)(UINTPTR)KeyObjectPtr,
@@ -573,15 +579,17 @@ s32 XAes_WriteKey(XAes *InstancePtr, XAsufw_Dma *DmaPtr, XAsu_AesKeyObject *KeyO
 				goto END_CLR;
 			}
 
-			/** Copy user key to DDR context for restore. */
-			ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-			Status = XAsufw_DmaXfr(InstancePtr->AsuDmaPtr,
-				(u64)KeyObjectPtr->KeyAddress,
-				(u64)(UINTPTR)CtxPtr->Key,
-				(KeySizeInWords * XASUFW_WORD_LEN_IN_BYTES), 0U);
-			if (Status != XASUFW_SUCCESS) {
-				Status = XASUFW_DMA_COPY_FAIL;
-				goto END_CLR;
+			if (KeyObjectPtr->KeySrc != XASU_AES_EFUSE_KEY_RED_1) {
+				/** Copy user key to DDR context for restore. */
+				ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+				Status = XAsufw_DmaXfr(InstancePtr->AsuDmaPtr,
+					(u64)KeyObjectPtr->KeyAddress,
+					(u64)(UINTPTR)CtxPtr->Key,
+					(KeySizeInWords * XASUFW_WORD_LEN_IN_BYTES), 0U);
+				if (Status != XASUFW_SUCCESS) {
+					Status = XASUFW_DMA_COPY_FAIL;
+					goto END_CLR;
+				}
 			}
 		}
 	}
@@ -1408,6 +1416,104 @@ END:
 
 /*************************************************************************************************/
 /**
+ * @brief	This function transfers eFUSE and PUF keys from the PMC and stages eFUSE User
+ *		Key 1 into the AES Red Key 1 vault registers. For a black key configuration the
+ *		transferred black key is decrypted into Red Key 1, whereas for a red key
+ *		configuration the transfer itself stages Red Key 1. eFUSE User Key 1 is always
+ *		256-bit, irrespective of the key size requested by the client.
+ *
+ * @param	InstancePtr	Pointer to the XAes instance.
+ * @param	DmaPtr		Pointer to the AsuDma instance.
+ *
+ * @return
+ *		- XASUFW_SUCCESS, if staging of eFUSE User Key 1 is successful.
+ *		- XASUFW_AES_INVALID_PARAM, if InstancePtr or DmaPtr is NULL or DMA is not ready.
+ *		- XASUFW_PUF_KEK_GEN_FAIL, if PMC key transfer or PUF KEK generation fails.
+ *		- XASUFW_MEM_COPY_FAIL, if copying the eFUSE 1 IV from RTCA fails.
+ *		- XASUFW_KEK_IV_IS_ZERO, if the eFUSE 1 IV is zero.
+ *		- XASUFW_DECRYPT_BLACK_KEY_1_FAIL, if black-key decryption fails.
+ *		- XASUFW_AES_KEY_CLEAR_ERROR, if zeroizing the keys not needed further fails.
+ *
+ *************************************************************************************************/
+s32 XAes_FetchAndStageEfuseUserKey1(XAes *InstancePtr, XAsufw_Dma *DmaPtr)
+{
+	CREATE_VOLATILE(Status, XASUFW_FAILURE);
+	s32 ClearStatus = XASUFW_FAILURE;
+	u32 PmcKeyXfrStatus = XASUFW_FAILURE;
+	u32 KeysToClear = XAES_KEY_CLEAR_MULTI_KEY_FLAG |
+		XAES_KEY_SRC_TO_CLEAR_MASK(XASU_AES_EFUSE_KEY_0) |
+		XAES_KEY_SRC_TO_CLEAR_MASK(XASU_AES_EFUSE_KEY_RED_0) |
+		XAES_KEY_SRC_TO_CLEAR_MASK(XASU_AES_PUF_KEY) |
+		XAES_KEY_SRC_TO_CLEAR_MASK(XASU_AES_EFUSE_KEY_1);
+	XFih_Var XFihVar = XFih_VolatileAssignXfihVar(XFIH_FAILURE);
+	XFih_Var XFihKeyClear;
+#if (XASUFW_PMXC_EFUSE_USER_KEY_1 == XASUFW_EFUSE_BLACK_KEY)
+	u8 IvBuf[XASU_AES_IV_SIZE_96BIT_IN_BYTES] = {0U};
+	const u8 *IvPtr = (const u8 *)(UINTPTR)XASUFW_PLM_RTCA_EFUSE_1_IV_ADDR;
+#endif
+
+	if ((InstancePtr == NULL) || (DmaPtr == NULL) ||
+			(DmaPtr->AsuDma.IsReady != XIL_COMPONENT_IS_READY)) {
+		Status = XASUFW_AES_INVALID_PARAM;
+		goto RET;
+	}
+
+	/**
+	 * Transfer eFUSE and PUF keys from the PMC. Transfer is not selective; a re-transfer
+	 * overwrites previously loaded vault keys.
+	 */
+	XFIH_CALL_GOTO(XAsufw_PmcKeyTransfer, XFihVar, Status, END, &PmcKeyXfrStatus);
+	if (PmcKeyXfrStatus != (u32)XASUFW_SUCCESS) {
+		Status = XASUFW_PUF_KEK_GEN_FAIL;
+		goto END;
+	}
+
+#if (XASUFW_PMXC_EFUSE_USER_KEY_1 == XASUFW_EFUSE_BLACK_KEY)
+	/** Copy the eFUSE 1 KEK IV from PLM RTCA and ensure it is non-zero. */
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	Status = Xil_SMemCpy(IvBuf, XASU_AES_IV_SIZE_96BIT_IN_BYTES, IvPtr,
+			     XASU_AES_IV_SIZE_96BIT_IN_BYTES, XASU_AES_IV_SIZE_96BIT_IN_BYTES);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_MEM_COPY_FAIL;
+		goto END;
+	}
+
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	Status = XAsu_IsBufferNonZero(IvBuf, XASU_AES_IV_SIZE_96BIT_IN_BYTES);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_KEK_IV_IS_ZERO;
+		goto END;
+	}
+
+	/** Decrypt the transferred black key into Red Key 1. */
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	Status = XAes_DecryptEfuseBlackKey(InstancePtr, DmaPtr,
+					   XAES_KEY_TO_BE_DEC_SEL_EFUSE_KEY_1_VALUE,
+					   (u8)XASU_AES_KEY_SIZE_256_BITS, (u64)(UINTPTR)IvBuf,
+					   XASU_AES_IV_SIZE_96BIT_IN_BYTES);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_DECRYPT_BLACK_KEY_1_FAIL;
+	}
+#endif
+
+END:
+	/**
+	 * Retain only Red Key 1, so the PUF KEK and the transferred keys unrelated to this
+	 * operation do not stay live in the vault. Nothing is staged upon failure, hence
+	 * Red Key 1 is zeroized as well.
+	 */
+	if (Status != XASUFW_SUCCESS) {
+		KeysToClear |= XAES_KEY_SRC_TO_CLEAR_MASK(XASU_AES_EFUSE_KEY_RED_1);
+	}
+	XFIH_CALL(XAes_KeyClear, XFihKeyClear, ClearStatus, InstancePtr, KeysToClear);
+	Status = XAsufw_UpdateErrorStatus(Status, ClearStatus);
+
+RET:
+	return Status;
+}
+
+/*************************************************************************************************/
+/**
  * @brief	This function encrypts a red (plaintext) key with the PUF KEK to produce a black
  * 		(encrypted) key. The PUF KEK is selected as the AES key source and an AES-GCM
  * 		encrypt operation is run, mirroring the key-source selection done in
@@ -1753,6 +1859,9 @@ END:
  * 		  or a finalized auth-only session did not stage its tag.
  * 		- XASUFW_AES_KEY_CLEAR_ERROR, if clearing the expanded key fails. The key is
  * 		  cleared on every exit, so this can surface even after a successful save.
+ * 		- Error code from XAes_KeyClear, if zeroizing eFUSE Red Key 1 of a parked eFUSE
+ * 		  User Key 1 session fails. The saved context is then dropped, as the parked
+ * 		  owner must not resume while its key is still live in the vault.
  *
  *************************************************************************************************/
 s32 XAes_SaveContext(XAes *InstancePtr)
@@ -1763,6 +1872,7 @@ s32 XAes_SaveContext(XAes *InstancePtr)
 	XFih_Var AesSavedState = XFIH_FAILURE;
 	u8 UseCachedTag = XASU_TRUE;
 	XFih_Var XFihAesReset;
+	XFih_Var XFihVaultClear;
 	XAes_ContextInfo *CtxPtr = NULL;
 
 	/** Validate the input arguments.*/
@@ -1889,6 +1999,16 @@ s32 XAes_SaveContext(XAes *InstancePtr)
 	}
 
 END:
+	/**
+	 * Zeroize the PMC-transferred vault keys when the parked session used eFUSE Red Key 1,
+	 * so the key does not stay live in the vault while another request owns AES.
+	 */
+	if (CtxPtr->KeyObject.KeySrc == XASU_AES_EFUSE_KEY_RED_1) {
+		XFIH_CALL(XAes_KeyClear, XFihVaultClear, ClearStatus, InstancePtr,
+			XASU_AES_EFUSE_KEY_RED_1);
+		Status = XAsufw_UpdateErrorStatus(Status, ClearStatus);
+	}
+
 	if (Status != XASUFW_SUCCESS) {
 		/** Clear the partially saved context in DDR, as it holds key, IV and MAC state. */
 		ClearStatus = Xil_SecureZeroize((u8 *)(UINTPTR)CtxPtr, sizeof(XAes_ContextInfo));
@@ -1911,6 +2031,9 @@ RET:
  * 		saved context.
  *
  * @param	InstancePtr	Pointer to the XAes instance.
+ * @param	DmaPtr		Pointer to the AsuDma instance. Required when the saved key
+ *				source is XASU_AES_EFUSE_KEY_RED_1 so eFUSE User Key 1 can be
+ *				staged back into the vault; NULL for user keys.
  *
  * @return
  * 		- XASUFW_SUCCESS, if context was successfully restored.
@@ -1926,15 +2049,18 @@ RET:
  * 		- XASUFW_AES_ERR_CTX_RESTORE_GLITCH, if the restore loop did not complete, or a
  * 		  finalized auth-only session did not arm the MAC replay.
  * 		- XASUFW_MEM_COPY_FAIL, if copying the CCM AAD residue or the saved MAC fails.
- * 		- XASUFW_AES_CONTEXT_RESTORE_FAIL, if restoring the AES engine context fails.
- * 		- XASUFW_AES_KEY_CLEAR_ERROR, if clearing the expanded key fails.
+ * 		- XASUFW_AES_CONTEXT_RESTORE_FAIL, if restoring the AES engine context fails, or
+ * 		  if re-staging eFUSE User Key 1 fails.
+ * 		- XASUFW_AES_KEY_CLEAR_ERROR, if clearing the expanded key or Red Key 1
+ * 		  on a failed restore fails.
  *
  *************************************************************************************************/
-s32 XAes_RestoreContext(XAes *InstancePtr)
+s32 XAes_RestoreContext(XAes *InstancePtr, XAsufw_Dma *DmaPtr)
 {
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
 	s32 ClearStatus = XASUFW_FAILURE;
 	XFih_Var XFihAesCtxClear;
+	XFih_Var XFihVaultClear;
 	XAes_ContextInfo *CtxPtr = NULL;
 
 	/** Validate the input arguments.*/
@@ -1955,6 +2081,23 @@ s32 XAes_RestoreContext(XAes *InstancePtr)
 	if (CtxPtr->IsContextSaved != XASU_TRUE) {
 		Status = XASUFW_AES_INVALID_PARAM;
 		goto END;
+	}
+
+	/**
+	 * Re-stage eFUSE User Key 1 into the vault. A preemptor may have overwritten or
+	 * cleared the vault; user-key bytes are restored from DDR instead.
+	 */
+	if (CtxPtr->KeyObject.KeySrc == XASU_AES_EFUSE_KEY_RED_1) {
+		if (DmaPtr == NULL) {
+			Status = XASUFW_AES_INVALID_PARAM;
+			goto END;
+		}
+		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+		Status = XAes_FetchAndStageEfuseUserKey1(InstancePtr, DmaPtr);
+		if (Status != XASUFW_SUCCESS) {
+			Status = XAsufw_UpdateErrorStatus(Status, XASUFW_AES_CONTEXT_RESTORE_FAIL);
+			goto END;
+		}
 	}
 
 	/** Release reset of AES engine. */
@@ -2080,8 +2223,19 @@ END:
 		/**
 		 * Side Effects / Error Handling:
 		 *   - Set AES under reset upon any failure.
+		 *   - Zeroize Red Key 1 if the saved key source is eFUSE Red Key 1.
 		 */
 		Status = XAsufw_UpdateErrorStatus(Status, XAes_ResetAndClearKey(InstancePtr, XASU_AES_EXPANDED_KEYS));
+		if ((CtxPtr != NULL) &&
+				(CtxPtr->KeyObject.KeySrc == XASU_AES_EFUSE_KEY_RED_1)) {
+			XFIH_CALL(XAes_KeyClear, XFihVaultClear, ClearStatus, InstancePtr,
+				XASU_AES_EFUSE_KEY_RED_1);
+			Status = XAsufw_UpdateErrorStatus(Status, ClearStatus);
+		}
+	}
+
+	if (InstancePtr != NULL) {
+		InstancePtr->AsuDmaPtr = NULL;
 	}
 
 	return Status;
@@ -2150,7 +2304,7 @@ static s32 XAes_SaveEngineContext(const XAes *InstancePtr, XAes_ContextInfo *Ctx
 			(InstancePtr->EngineMode == XASU_AES_CCM_MODE)) ? XASU_TRUE : XASU_FALSE;
 	}
 
-	/** The snapshot loop must run iff a chunk was processed since the last load. */
+	/** The snapshot loop must run if a chunk was processed since the last load. */
 	if (Index != ((XAes_HasProcessedSinceLoad != XASU_FALSE) ? XASUFW_BUFFER_INDEX_FOUR : 0U)) {
 		Status = XASUFW_AES_ERR_CTX_SAVED_GLITCH;
 	} else {
@@ -3305,7 +3459,8 @@ END:
 /*************************************************************************************************/
 /**
  * @brief	This function checks and restores the keys to the register if the provided
- * 		key source is a user key.
+ * 		key source is a user key. eFUSE Red Key 1 is vault-populated by
+ * 		XAes_FetchAndStageEfuseUserKey1() and is not rewritten from DDR.
  *
  * @param	InstancePtr	Pointer to the XAes instance.
  * @param	CtxPtr		Pointer to the AES context info structure.
