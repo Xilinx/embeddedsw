@@ -50,5 +50,9 @@ examples:
         - reg
     xpm_counter_arm_example.c:
         - reg
+    riscv_modeswitch_guest.c:
+        - reg
+    riscv_modeswitch_monitor.c:
+        - reg
 
 ...
