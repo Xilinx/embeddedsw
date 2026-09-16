@@ -30,6 +30,8 @@
 *                     hash output
 *       tvp  04/15/26 Add SHA mode validation in XSecure_ExtendedShaFinish
 * 5.8   tvp  07/17/26 Add SHAKE256 XOF feature support
+*       tbk  09/15/26 Reset SHA after Start fails post-release; restore
+*                     INITIALIZED
 *
 * </pre>
 *
@@ -274,6 +276,8 @@ int XSecure_ShaStart(XSecure_Sha* const InstancePtr, XSecure_ShaMode ShaMode)
 				  (u32)InstancePtr->StartIdx);
 		} else {
 			Status = (int)XSECURE_SHA_INVALID_PARAM;
+			XSecure_SetReset((UINTPTR)InstancePtr->BaseAddress, XSECURE_SHA_RESET_OFFSET);
+			InstancePtr->ShaState = XSECURE_SHA_INITIALIZED;
 			goto END;
 		}
 	}
