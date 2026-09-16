@@ -1216,6 +1216,12 @@ XStatus XPm_PlatAddNodePeriph(const u32 *Args, u32 PowerId)
 		 * in topology to get the AIE baseaddress. Save the base address
 		 * to AIE power domain so it can be used for housecleaning & AIE OPS
 		 */
+		/* Only an ME power domain is allocated as XPm_AieDomain; reject
+		 * any other power node to avoid an out-of-bounds downcast write. */
+		if ((u32)XPM_NODETYPE_POWER_DOMAIN_ME != NODETYPE(Power->Node.Id)) {
+			Status = XST_INVALID_PARAM;
+			break;
+		}
 		AieDomain = (XPm_AieDomain *)Power;
 		AieDomain->AieNpiAddress = BaseAddr;
 		Status = XST_SUCCESS;
