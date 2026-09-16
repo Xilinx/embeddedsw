@@ -101,6 +101,8 @@
 #define FDRO_BASEADDR		   (0xF12C2000U)
 #define FSR_TILE_END		   (95U)
 #define HALF_FSR_START		   (48U)
+/** Number of 32-bit words in one Laguna CFRAME frame */
+#define LAGUNA_FRAME_NUM_WORDS	   (100U)
 #endif
 
 /**
@@ -781,7 +783,7 @@ static void LagunaRmwOneFrame(const XPm_PlDomain *Pld, u32 RowIndex,
 		u32 FrameAddr, u32 LowerTile, u32 UpperTile, u32 RepairWord)
 {
 	u32 CFrameAddr;
-	u32 FrameData[100U];
+	u32 FrameData[LAGUNA_FRAME_NUM_WORDS];
 	u32 FdriAddr;
 	u32 current_fdro;
 	u32 i;
@@ -840,7 +842,7 @@ static void LagunaRmwOneFrame(const XPm_PlDomain *Pld, u32 RowIndex,
 	}
 
 	/* Modify frame data with repair value */
-	for (i = LowerTile; i <= UpperTile; i++) {
+	for (i = LowerTile; (i <= UpperTile) && (i < LAGUNA_FRAME_NUM_WORDS); i++) {
 		if ((i < HALF_TILE_NUM_PER_FRAME) || (i >= (HALF_TILE_NUM_PER_FRAME + RCLK_TILES_NUM_IN_FRAME))) {
 			FrameData[i] |= RepairWord;
 		}
@@ -864,7 +866,7 @@ static void LagunaRmwOneFrame(const XPm_PlDomain *Pld, u32 RowIndex,
 	FdriAddr = CFRAME0_FDRI_BASEADDR + (XCFRAME_FRAME_OFFSET * (u32)RowIndex);
 
 	/* Write 100 words of Frame data */
-	for (i = 0U; i < 100U; i++) {
+	for (i = 0U; i < LAGUNA_FRAME_NUM_WORDS; i++) {
 		XPm_Out32(FdriAddr, FrameData[i]);
 		FdriAddr += 0x4U;
 	}
