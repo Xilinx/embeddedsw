@@ -1776,6 +1776,15 @@ XStatus XPm_NocClockEnable(u32 NodeId, const u32 *Args, u32 NumArgs)
 	XStatus Status = XST_FAILURE;
 	XPm_PlDevice *PlDevice;
 
+	/* Only PL devices are allocated as XPm_PlDevice; reject other nodes to
+	 * avoid an out-of-bounds write through the downcast */
+	if (((u32)XPM_NODECLASS_DEVICE != NODECLASS(NodeId)) ||
+	    ((u32)XPM_NODESUBCL_DEV_PL != NODESUBCLASS(NodeId)) ||
+	    ((u32)XPM_NODEIDX_DEV_PLD_MAX <= NODEINDEX(NodeId))) {
+		Status = XPM_PM_INVALID_NODE;
+		goto done;
+	}
+
 	PlDevice = (XPm_PlDevice *)XPmDevice_GetById(NodeId);
 	if (NULL == PlDevice) {
 		Status = XST_DEVICE_NOT_FOUND;
