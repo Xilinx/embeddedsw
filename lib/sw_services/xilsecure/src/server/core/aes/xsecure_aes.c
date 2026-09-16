@@ -121,6 +121,8 @@
 *                       call site) for memory footprint reduction
 * 5.8   tvp  06/23/2026 Skip AAD size quad-word check for Versal_2VP_P
 *       tvp  09/01/2026 Fix KEK IV endianness on DMA byte-swap platforms
+*       tbk  09/15/2026 Skip AES reset on KekDecrypt param/state errors and
+*                       bound DstKeySrc before AesKeyLookupTbl access
 * </pre>
 *
 ******************************************************************************/
@@ -600,30 +602,31 @@ int XSecure_AesKekDecrypt(const XSecure_Aes *InstancePtr,
 
 	if (IvAddr == 0x00U) {
 		Status = (int)XSECURE_AES_INVALID_PARAM;
-		goto END_RST;
+		goto END;
 	}
 
-	if (DecKeySrc >= XSECURE_MAX_KEY_SOURCES) {
+	if ((DecKeySrc >= XSECURE_MAX_KEY_SOURCES) ||
+	    (DstKeySrc >= XSECURE_MAX_KEY_SOURCES)) {
 		Status = (int)XSECURE_AES_INVALID_PARAM;
-		goto END_RST;
+		goto END;
 	}
 
 	if ((XSECURE_AES_KEY_SIZE_128 != KeySize) &&
 		 (XSECURE_AES_KEY_SIZE_256 != KeySize)) {
 		Status = (int)XSECURE_AES_INVALID_PARAM;
-		goto END_RST;
+		goto END;
 	}
 
 	if ((AesKeyLookupTbl[DecKeySrc].KeyDecSrcAllowed != (u8)TRUE) ||
 	    (AesKeyLookupTbl[DstKeySrc].KeyDecSrcSelVal ==
 				XSECURE_AES_INVALID_CFG)) {
 		Status = (int)XSECURE_AES_INVALID_PARAM;
-		goto END_RST;
+		goto END;
 	}
 
 	if ((InstancePtr->AesState != XSECURE_AES_INITIALIZED)) {
 		Status = (int)XSECURE_AES_STATE_MISMATCH_ERROR;
-		goto END_RST;
+		goto END;
 	}
 
 	XSecure_ReleaseReset(InstancePtr->BaseAddress,
