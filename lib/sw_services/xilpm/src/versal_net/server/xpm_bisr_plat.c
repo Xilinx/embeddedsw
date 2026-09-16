@@ -145,13 +145,26 @@ static XStatus XPmBisr_RepairME(u32 EfuseTagAddr, u32 TagId,u32 TagSize,u32 TagO
 	return Status;
 }
 
-static XStatus XPmBisr_RepairHardBlock(u32 EfuseTagAddr, u32 TagSize)
+/****************************************************************************/
+/**
+ * @brief	Repair hard-block (CFRM_HB) BISR entries from eFuse data.
+ *
+ * @param	EfuseTagAddr	eFuse address of the current BISR tag
+ * @param	TagSize		Number of repair pairs in this tag
+ *
+ * @return	Address of the next eFuse tag on success, ~0U on failure
+ *
+ * @note	Not implemented; always reports failure.
+ *
+ *****************************************************************************/
+static u32 XPmBisr_RepairHardBlock(u32 EfuseTagAddr, u32 TagSize)
 {
-	XStatus Status = XPM_ERR_BISR;
+	/* Return ~0U so the caller treats this as a failed repair, not an address */
+	u32 EfuseNextAddr = ~0U;
 	(void)EfuseTagAddr;
 	(void)TagSize;
 	PmErr("Not implemented");
-	return Status;
+	return EfuseNextAddr;
 }
 
 static XStatus XPmBisr_RepairXram(u32 EfuseTagAddr, u32 TagSize, u32 *TagDataAddr)
@@ -164,13 +177,26 @@ static XStatus XPmBisr_RepairXram(u32 EfuseTagAddr, u32 TagSize, u32 *TagDataAdd
 	return Status;
 }
 
-static XStatus XPmBisr_RepairLaguna(u32 EfuseTagAddr, u32 TagSize)
+/****************************************************************************/
+/**
+ * @brief	Repair Laguna BISR entries from eFuse data.
+ *
+ * @param	EfuseTagAddr	eFuse address of the current BISR tag
+ * @param	TagSize		Number of repair pairs in this tag
+ *
+ * @return	Address of the next eFuse tag on success, ~0U on failure
+ *
+ * @note	Not implemented; always reports failure.
+ *
+ *****************************************************************************/
+static u32 XPmBisr_RepairLaguna(u32 EfuseTagAddr, u32 TagSize)
 {
-	XStatus Status = XPM_ERR_BISR;
+	/* Return ~0U so the caller treats this as a failed repair, not an address */
+	u32 EfuseNextAddr = ~0U;
 	(void)EfuseTagAddr;
 	(void)TagSize;
 	PmErr("Not implemented");
-	return Status;
+	return EfuseNextAddr;
 }
 
 XStatus XPmBisr_Repair(u32 TagId)
