@@ -182,6 +182,7 @@
 *       sri  08/14/2026 Refactored HashBlock authentication to XLoader_AuthNCopyHashBlock
 *                       for shared server and Versal_2Ve_2Vm client paths
 *       vss  09/09/2026 Added ECDSA P-521 to XLoader_GetKeySizeSignPadding for VERSAL_2VP_P
+*       mkr  09/08/2026 Fixed discarded-qualifiers GCC warnings
 *
 * </pre>
 *
@@ -4794,8 +4795,8 @@ static int XLoader_CheckAndCompareHashFromIHTOptionalData(XilPdi *PdiPtr, u8 *Ha
 {
 	volatile int Status = XST_FAILURE;
 	volatile int StatusTmp = XST_FAILURE;
-	XilPdi_PrtnHashInfo* PrtnHashData = NULL;
-	XilPdi_PrtnHashInfo* PrtnHashDataTmp = NULL;
+	const XilPdi_PrtnHashInfo* PrtnHashData = NULL;
+	const XilPdi_PrtnHashInfo* PrtnHashDataTmp = NULL;
 
 	if (PdiPtr->MetaHdr->IsAuthOptimized == (u32)TRUE) {
 		XSECURE_REDUNDANT_CALL(PrtnHashData, PrtnHashDataTmp, XilPdi_IsPrtnHashPresent,
