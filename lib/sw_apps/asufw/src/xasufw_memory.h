@@ -22,6 +22,7 @@
  *       vm   09/15/26 Added the storage shared by the key vault session and the provisioning
  *                     scratch to the users of the shared crypto pool, and grew the crypto
  *                     algorithm data block and the pool to fit it
+ *       dm   09/02/26 Added PMC RAM and PPU RAM start and end address macros
  *
  * </pre>
  *
@@ -163,6 +164,27 @@ extern "C" {
 
 #define XASUFW_OCP_CDO_DATA_SIZE		(0x2800U)	/**< Size of the OCP CDO data block
 								in bytes (10KB) */
+
+/*
+ * PMC RAM start and end address macros. The start mirrors XPLMI_PMCRAM_BASEADDR and the end is
+ * that base plus XPLMI_PMCRAM_LEN - 1, both in
+ * lib/sw_services/xilplmi/src/versal_2ve_2vm/server/xplmi_hw.h; keep them in sync when the PMC
+ * RAM map changes there.
+ */
+#define XASUFW_PMC_RAM_START_ADDR	(0xF2000000U)	/**< Start address of PMC RAM */
+
+#define XASUFW_PMC_RAM_END_ADDR		(0xF201FFFFU)	/**< End address of PMC RAM */
+
+/*
+ * PPU RAM start and end address macros. A single range spans both the instruction and data RAM,
+ * including the unused words between them. The start mirrors PPU_RAM_INSTR_CNTLR_BASEADDR and the
+ * end mirrors PPU_RAM_DATA_CNTLR_HIGHADDR in
+ * lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_regs.h; keep them in sync when the
+ * PPU RAM map changes there.
+ */
+#define XASUFW_PPU_RAM_START_ADDR	(0xF0200000U)	/**< Start address of PPU RAM */
+
+#define XASUFW_PPU_RAM_END_ADDR		(0xF029FFFFU)	/**< End address of PPU RAM */
 
 /* PLM RunTime Configuration Area Base Address */
 #define XASUFW_PLMI_RTCFG_BASEADDR	(0xF2014000U) /**< PLM runtime configuration base address */

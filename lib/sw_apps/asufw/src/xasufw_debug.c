@@ -17,6 +17,7 @@
  * Ver   Who  Date     Changes
  * ----- ---- -------- ----------------------------------------------------------------------------
  * 1.0   ss   07/14/25 Initial release
+ *       dm   09/15/26 Reject debug log buffer in PMC or PPU RAM and log using validated values
  *
  * </pre>
  *
@@ -69,6 +70,9 @@ static XAsufw_LogInfo *const DebugLog = (XAsufw_LogInfo *)(UINTPTR)XASU_RTCA_DBG
 static u8 LogBufValidation = XASU_STATUS_FAIL; /**< Variable to indicate if log buffer information is
 						valid or not. */
 
+static u32 LogBufAddr;	/**< Validated start address of the debug log buffer. */
+static u32 LogBufLen;	/**< Validated length of the debug log buffer in bytes. */
+
 /*************************************************************************************************/
 /**
  * @brief	This function prints a character to UART if enabled and logs it to the debug log
@@ -79,40 +83,75 @@ static u8 LogBufValidation = XASU_STATUS_FAIL; /**< Variable to indicate if log 
  *************************************************************************************************/
 void outbyte(char Data)
 {
-	u32 CurrentAddr;
+	u32 LogBufOffset;
 	/** If UART is enabled, send the byte to UART. */
 #if (XPAR_XUARTPSV_NUM_INSTANCES > 0U)
 	XUartPsv_SendByte(STDOUT_BASEADDRESS, (u8)Data);
 #endif
 	if (LogBufValidation == XASU_STATUS_PASS) {
 		/** Store the bytes to log buffer. */
-		CurrentAddr = DebugLog->LogBuffer.StartAddr +
-				(DebugLog->LogBuffer.OffsetAndBufStatus & XASUFW_LOG_OFFSET_MASK);
+		LogBufOffset = DebugLog->LogBuffer.OffsetAndBufStatus & XASUFW_LOG_OFFSET_MASK;
 
 		/** If the log buffer is full, reset the offset to 0 and set IsBufferFull flag. */
-		if (CurrentAddr >= (DebugLog->LogBuffer.StartAddr + DebugLog->LogBuffer.Len)) {
+		if (LogBufOffset >= LogBufLen) {
 			DebugLog->LogBuffer.OffsetAndBufStatus = XASUFW_LOG_BUFFER_FULL_MASK;
-			CurrentAddr = DebugLog->LogBuffer.StartAddr;
+			LogBufOffset = 0U;
 		}
-		Xil_Out8((UINTPTR)CurrentAddr, (u8)Data);
+		Xil_Out8((UINTPTR)(LogBufAddr + LogBufOffset), (u8)Data);
 		++DebugLog->LogBuffer.OffsetAndBufStatus;
 	}
 }
 
 /*************************************************************************************************/
 /**
- * @brief	This function validates the debug log buffer information stored.
+ * @brief	This function validates the debug log buffer information stored and, on successful
+ * 		validation, holds the validated address and length for logging to use.
  *
  *
  *************************************************************************************************/
 void XAsufw_ValidateDebugLogBufferInfo(void)
 {
-	if ((DebugLog->LogBuffer.StartAddr >= XASUFW_RAM_START_ADDR) &&
-		(DebugLog->LogBuffer.StartAddr <= XASUFW_RAM_END_ADDR) &&
-		((DebugLog->LogBuffer.StartAddr != XASUFW_DEBUG_LOG_BUFFER_ADDR) ||
-		(DebugLog->LogBuffer.Len != XASUFW_DEBUG_LOG_BUFFER_SIZE))) {
+	u32 LogBufStartAddr = DebugLog->LogBuffer.StartAddr;
+	u32 LogBufSize = DebugLog->LogBuffer.Len;
+	u32 LogBufEndAddr = (LogBufStartAddr + LogBufSize) - 1U;
+	u32 IsLogBufInvalid = (u32)XASU_FALSE;
+
+	/**
+	 * A zero or wrapping length leaves the end address below the start address, which the
+	 * region checks below cannot bound.
+	 */
+	if (LogBufEndAddr < LogBufStartAddr) {
+		IsLogBufInvalid = (u32)XASU_TRUE;
+	}
+
+	/** Within ASU RAM, only the reserved debug log buffer is allowed. */
+	if ((LogBufStartAddr <= XASUFW_RAM_END_ADDR) &&
+		(LogBufEndAddr >= XASUFW_RAM_START_ADDR) &&
+		((LogBufStartAddr != XASUFW_DEBUG_LOG_BUFFER_ADDR) ||
+		(LogBufSize != XASUFW_DEBUG_LOG_BUFFER_SIZE))) {
+		IsLogBufInvalid = (u32)XASU_TRUE;
+	}
+
+	/**
+	 * PMC RAM holds PLM code and data and PPU RAM holds the PMC processor RAM, so ASU log
+	 * data must never land in either.
+	 */
+	if ((LogBufStartAddr <= XASUFW_PMC_RAM_END_ADDR) &&
+		(LogBufEndAddr >= XASUFW_PMC_RAM_START_ADDR)) {
+		IsLogBufInvalid = (u32)XASU_TRUE;
+	}
+
+	if ((LogBufStartAddr <= XASUFW_PPU_RAM_END_ADDR) &&
+		(LogBufEndAddr >= XASUFW_PPU_RAM_START_ADDR)) {
+		IsLogBufInvalid = (u32)XASU_TRUE;
+	}
+
+	if (IsLogBufInvalid == (u32)XASU_TRUE) {
 		XAsufw_Printf(DEBUG_PRINT_ALWAYS, "\r\nNot logging data to debug log buffer as buffer log info validation failed\r\n");
 	} else {
+		/** Hold the validated values, as the descriptor can be written after this. */
+		LogBufAddr = LogBufStartAddr;
+		LogBufLen = LogBufSize;
 		LogBufValidation = XASU_STATUS_PASS;
 	}
 }
