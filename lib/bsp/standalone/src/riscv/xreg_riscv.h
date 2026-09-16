@@ -436,12 +436,38 @@ extern "C" {
 #define XREG_MWFI                              0x7C4
 #define XREG_STREAM                            0x8C0
 
-/* MSTATUS bits */
+/** @name MSTATUS MPP field
+ *
+ * MPP (bits 12:11) encodes the privilege mode mret restores control to.
+ * @{
+ */
+#define XREG_MSTATUS_MPP_SHIFT                  (11U)         /**< Bit position of the MPP field. */
+#define XREG_MSTATUS_MPP_MASK                   (0x00001800U) /**< Mask for the MPP field. */
+#define XREG_MSTATUS_MPP_U                      (0x00000000U) /**< MPP value: mret restores U-mode. */
+#define XREG_MSTATUS_MPP_M                      (0x00001800U) /**< MPP value: mret restores M-mode. */
+/** @} */
 #define XREG_MSTATUS_MSS_MASK                   (0x00001800U)
 #define XREG_MSTATUS_MPIE_BIT                   (7U)
 #define XREG_MSTATUS_MPIE_MASK                  (0x00000001U << XREG_MSTATUS_MPIE_BIT)
 #define XREG_MSTATUS_MIE_BIT                    (3U)
 #define XREG_MSTATUS_MIE_MASK                   (0x00000001U << XREG_MSTATUS_MIE_BIT)
+
+/** @name PMPCFG bits
+ *
+ * Per-entry PMP configuration byte: permission bits and the address-matching
+ * mode (A) field.
+ * @{
+ */
+#define XREG_PMPCFG_R_MASK                      (0x00000001U) /**< Read permission. */
+#define XREG_PMPCFG_W_MASK                      (0x00000002U) /**< Write permission. */
+#define XREG_PMPCFG_X_MASK                      (0x00000004U) /**< Execute permission. */
+#define XREG_PMPCFG_A_BIT                       (3U)          /**< Bit position of the A field. */
+#define XREG_PMPCFG_A_MASK                      (0x00000003U << XREG_PMPCFG_A_BIT) /**< Mask for the A field. */
+#define XREG_PMPCFG_A_TOR                       (0x00000001U << XREG_PMPCFG_A_BIT) /**< A field: top-of-range. */
+#define XREG_PMPCFG_A_NA4                       (0x00000002U << XREG_PMPCFG_A_BIT) /**< A field: naturally-aligned 4-byte region. */
+#define XREG_PMPCFG_A_NAPOT                     (0x00000003U << XREG_PMPCFG_A_BIT) /**< A field: naturally-aligned power-of-two region. */
+#define XREG_PMPCFG_L_MASK                      (0x00000080U) /**< Lock bit: entry stays locked until reset. */
+/** @} */
 
 /* MIE bits */
 #define XREG_MIE_MEBE_BIT                       (16U)
