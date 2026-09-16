@@ -572,6 +572,11 @@ typedef struct VvbenchThreadContext_s {
 	CamDeviceBufChainId_t bufferIO;
 } VvbenchThreadContext_t;
 
+#if defined(__aarch64__)
+/* Call once at main entry; independent of the periodically reset FPS timer. */
+void VsiVvdeviceStartFirstFrameTimer(void);
+#endif
+
 void VsiVvdeviceDelay
 (
 	int delayInterval

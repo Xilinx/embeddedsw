@@ -45,6 +45,10 @@
 #include <isi_iss.h>
 #include "hal_i2c.h"
 #include "xvisp_ss.h"
+#include "xil_printf.h"
+#if defined(__aarch64__)
+#include "xiltimer.h"
+#endif
 #if ARMR52
 #include "trace.h"
 #include "cpu_info.h"
@@ -209,6 +213,48 @@ volatile uint32_t apuBufferInform[CAMDEV_VIRTUAL_ID_MAX *
 #define ALIGN_16BYTE(width)         (((width) + (0xF)) & (~(0xF)))
 
 uint64_t start, now;
+
+#if defined(__aarch64__)
+/* One measurement per application run, not per FPS interval or output path. */
+static uint64_t firstFrameStartTicks;
+static bool firstFrameTimerStarted = false;
+static bool firstFrameReported = false;
+
+void VsiVvdeviceStartFirstFrameTimer(void)
+{
+	XTime ticks;
+
+	/* The BSP enables a disabled generic timer without resetting a running one. */
+	XTime_GetTime(&ticks);
+	firstFrameStartTicks = ticks;
+	firstFrameTimerStarted = true;
+	firstFrameReported = false;
+}
+
+static void VsiVvdeviceReportFirstFrame(uint64_t entryTicks)
+{
+	uint64_t counterFrequency;
+	uint64_t elapsedTicks;
+	uint64_t elapsedUs;
+
+	firstFrameReported = true;
+	asm volatile("mrs %0, cntfrq_el0" : "=r"(counterFrequency));
+	if (!firstFrameTimerStarted || counterFrequency == 0 ||
+	    entryTicks <= firstFrameStartTicks) {
+		xil_printf("[FIRST_FRAME] ShowBuffer entry: timing unavailable "
+			   "(missing baseline, zero frequency, or non-advancing counter)\r\n");
+		return;
+	}
+
+	elapsedTicks = entryTicks - firstFrameStartTicks;
+	/* Split the conversion to avoid multiplying the full tick count by 1e6. */
+	elapsedUs = (elapsedTicks / counterFrequency) * 1000000ULL +
+		    ((elapsedTicks % counterFrequency) * 1000000ULL) / counterFrequency;
+	xil_printf("[FIRST_FRAME] main -> VsiVvdeviceShowBuffer entry: %llu.%03llu ms\r\n",
+		   (unsigned long long)(elapsedUs / 1000ULL),
+		   (unsigned long long)(elapsedUs % 1000ULL));
+}
+#endif
 
 // Timer variables for VsiCamDeviceDeQueBuffer counter (every second)
 int dequeue_call_count = 0;
@@ -2878,9 +2924,24 @@ void VsiVvdeviceShowBuffer
 	CamDeviceBufChainId_t bufferIO
 )
 {
+#if defined(__aarch64__)
+	uint64_t firstEntryTicks = 0;
+
+	/* Capture at entry, before validation, allocation, conversion or display work. */
+	if (!firstFrameReported) {
+		asm volatile("isb\n\tmrs %0, cntpct_el0"
+			     : "=r"(firstEntryTicks) : : "memory");
+	}
+#endif
 	if (NULL == pVvInstance || NULL == pBuffer) {
 		return ;
 	}
+#if defined(__aarch64__)
+	/* Invalid calls must not consume the first-frame measurement. */
+	if (!firstFrameReported && showChannel >= 0 && showChannel < MAX_CAM_NUM) {
+		VsiVvdeviceReportFirstFrame(firstEntryTicks);
+	}
+#endif
 	uint8_t bufferNum = 1;
 
 	for (int iBuf = 0; iBuf < bufferNum; ++iBuf) {

@@ -22,6 +22,7 @@
 
 #include "memory_manager.h"     /* Must come before xvisp_ss_example.h for struct aligned_buf */
 #include <xvisp_ss_example.h>
+#include "vvdevice.h"
 #include <xil_types.h>
 #include "xparameters.h"        /* Contains hardware platform parameters */
 #include "xscugic.h"           /* Generic Interrupt Controller driver */
@@ -226,6 +227,10 @@ int main()
 
 	RESULT ret = RET_SUCCESS;
 	u32 Status;
+
+#if defined(__aarch64__)
+	VsiVvdeviceStartFirstFrameTimer();
+#endif
 
 #if ARMR52
 	reset_pmu_counter();
