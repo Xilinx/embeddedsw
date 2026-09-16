@@ -1871,6 +1871,16 @@ XStatus XPm_ForceHouseClean(u32 NodeId)
 		goto done;
 	}
 
+	/*
+	 * Reject non-power-domain nodes whose smaller allocation would make
+	 * the XPm_PowerDomain downcast read out of bounds
+	 */
+	if ((u32)XPM_NODESUBCL_POWER_DOMAIN != NODESUBCLASS(NodeId)) {
+		PmErr("Node Id is not a Power Domain\n\r");
+		Status = XPM_PM_INVALID_NODE;
+		goto done;
+	}
+
 	/* If domain initialization not done, skip secure lock down */
 	if ((NULL == PwrDomainNode->DomainOps) ||
 		(PwrDomainNode->InitFlag != PwrDomainNode->DomainOps->InitMask)) {
