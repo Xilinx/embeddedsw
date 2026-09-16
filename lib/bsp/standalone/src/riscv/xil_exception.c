@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2023 - 2025 Advanced Micro Devices, Inc. All rights reserved.
+* Copyright (c) 2023 - 2026 Advanced Micro Devices, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -69,12 +69,27 @@ static void Xil_ExceptionNullHandler(void *Data)
 *****************************************************************************/
 void Xil_ExceptionInit(void)
 {
+#ifdef RISCV_USER_APP
+	/*
+	 * Guest (U-mode) build: mtvec/mie/mstatus are M-only CSRs. The guest never
+	 * owns a trap vector or interrupt-enable state - all of that lives in the
+	 * monitor, which services the guest's traps/interrupts/ECALLs via the
+	 * shared _trap_handler. No-op here.
+	 */
+	return;
+#else
+	/*
+	 * mtvec always points at the shared _trap_handler, mode-switch monitor
+	 * builds included - it never diverges to a separate U-mode vector, so
+	 * there is nothing session-dependent to handle here.
+	 */
 	csrwi(XREG_MIE, 0);
 #if XPAR_MICROBLAZE_RISCV_USE_MMU > 1
 	csrwi(XREG_MEDELEG, 0);
 	csrwi(XREG_MIDELEG, 0);
 #endif
 	csrw(XREG_MTVEC, &_trap_handler);
+#endif
 }
 
 /****************************************************************************/
@@ -88,7 +103,9 @@ void Xil_ExceptionInit(void)
 *****************************************************************************/
 void __attribute__ ((constructor)) Xil_RegMtvecInit(void)
 {
+#ifndef RISCV_USER_APP
         csrw(XREG_MTVEC, &_trap_handler);
+#endif
 }
 
 /****************************************************************************/
@@ -100,8 +117,10 @@ void __attribute__ ((constructor)) Xil_RegMtvecInit(void)
 ******************************************************************************/
 void Xil_ExceptionEnable(void)
 {
+#ifndef RISCV_USER_APP
 	csrw(XREG_MIE, XREG_MIE_MEIE_MASK | XREG_MIE_MTIE_MASK | XREG_MIE_MSIE_MASK);
 	csrsi(XREG_MSTATUS, XREG_MSTATUS_MIE_MASK);
+#endif
 }
 
 /****************************************************************************/
@@ -113,8 +132,10 @@ void Xil_ExceptionEnable(void)
 ******************************************************************************/
 void Xil_ExceptionDisable(void)
 {
+#ifndef RISCV_USER_APP
 	csrwi(XREG_MIE, 0);
 	csrci(XREG_MSTATUS, XREG_MSTATUS_MIE_MASK);
+#endif
 }
 
 /*****************************************************************************/
@@ -135,6 +156,10 @@ void Xil_ExceptionDisable(void)
 void Xil_ExceptionRegisterHandler(u32 Exception_id, Xil_ExceptionHandler Handler,
 				  void *Data)
 {
+	/* Reject NULL only; XNullHandler is a valid public no-op stub. */
+	if (Handler == NULL) {
+		return;
+	}
 	if (Exception_id >= XIL_INTERRUPT_ID_FIRST && Exception_id <= XIL_INTERRUPT_ID_LAST) {
 		RISCV_InterruptVectorTable[Exception_id - XIL_INTERRUPT_ID_FIRST].
 		Handler = Handler;

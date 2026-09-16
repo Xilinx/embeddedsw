@@ -191,6 +191,8 @@
 * Defined when XPM support is enabled for Versal and Versal onwards devices.
 */
 #cmakedefine XPM_SUPPORT @XPM_SUPPORT@
+#cmakedefine RISCV_MODE_SWITCH @RISCV_MODE_SWITCH@
+#cmakedefine RISCV_USER_APP @RISCV_USER_APP@
 
 /**
 * @brief Enables a translation table limited to the initial 4 TB address space.

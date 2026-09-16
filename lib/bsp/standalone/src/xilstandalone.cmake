@@ -123,6 +123,28 @@ elseif(("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "plm_microblaze"))
     set(VERSAL_PLM " ")
 elseif(("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "microblaze"))
     set(PLATFORM_MB " ")
+elseif("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "microblaze_riscv")
+	option(standalone_riscv_mode_switch
+		"Enable RISC-V M/U privilege mode switch (Xil_EnterUserMode/Xil_ResumeUserSession, trap demux, PMP init)"
+		OFF)
+	if(standalone_riscv_mode_switch)
+		set(RISCV_MODE_SWITCH 1)
+		add_compile_definitions(RISCV_MODE_SWITCH=1)
+	endif()
+
+	option(standalone_riscv_user_app
+		"Build as the guest (U-mode) app of an RISC-V mode-switch pair: skip M-only CSR setup in boot.S/xil_exception.c"
+		OFF)
+	if(standalone_riscv_user_app)
+		set(RISCV_USER_APP 1)
+		add_compile_definitions(RISCV_USER_APP=1)
+	endif()
+
+	if(standalone_riscv_mode_switch AND standalone_riscv_user_app)
+		message(FATAL_ERROR
+			"standalone_riscv_mode_switch and standalone_riscv_user_app are mutually exclusive: "
+			"enable mode_switch on the monitor BSP and user_app on the guest BSP only.")
+	endif()
 endif()
 
 if(("${CMAKE_MACHINE}" STREQUAL "VersalNet") AND
