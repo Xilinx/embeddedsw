@@ -37,6 +37,7 @@
 *       kpt  11/19/2024 Add UTF8 encoding support for version field
 * 1.6   rmv  01/30/2026 Renamed OCP keymanagement macro
 *       tbk  05/03/2026 Add validation for xcert remaining buffer before writing field
+* 1.7   dmi  09/09/2026 Updated PLM version string buffer size
 *
 * </pre>
 * @note
@@ -93,16 +94,19 @@
 #define XCERT_SMALLEST_2_DIGIT_VAL                                       (10U)
 					/**< Smallest two digit value */
 
-#define XCERT_MAX_VER_LEN                                                (15U)
-					/**< Maximum version length */
-
 #define XCERT_PLM_VER_START_IDX                                          (2U)
 					/**< PLM version start index */
+
+#define XCERT_MAX_VER_NUM_LEN                                            (15U)
+					/**< Maximum length of PLM version number string */
+
+#define XCERT_MAX_VER_LEN                          (XCERT_MAX_VER_NUM_LEN + XCERT_PLM_VER_START_IDX)
+					/**< Maximum version length */
 
 #define XCERT_PLM_VER_DEF_MSB_VAL                                        "20"
 					/**< PLM version default MSB value */
 
-#define XCERT_PLM_VER_LEN_INIT_VAL                                       (2U)
+#define XCERT_PLM_VER_LEN_INIT_VAL                                       XCERT_PLM_VER_START_IDX
 					/**< PLM version initial value */
 
 #define XCERT_ZERO_ASCII_VAL                                             (0x30U)
