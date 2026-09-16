@@ -61,6 +61,7 @@
 
 _boot:
 
+#ifndef RISCV_USER_APP
 /* Disable Machine interrupts globally */
 	li t0, 0x8  /* MIE bit is 1<<3 */
 	csrc mstatus, t0
@@ -71,6 +72,7 @@ _boot:
 /* FIXME: Initialize mtvec CSR to _trap_handler */
 	la	t0, _trap_handler
 	csrw	mtvec, t0
+#endif /* RISCV_USER_APP */
 
 /* Initialize processor registers to 0 */
 	addi	x1,x0,0
