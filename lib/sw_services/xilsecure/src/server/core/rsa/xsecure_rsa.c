@@ -56,6 +56,7 @@
 *       kal  07/24/24 Code refactoring for versal_2ve_2vm, separated xsecure_rsa
 *                     for zynqmp and versal_gen.
 * 5.6   mb   11/05/25 Move XSecure_IsNonZeroBuffer check under XSecure_RsaOperation
+* 5.8   tbk  09/15/26 Remove dead versal ifdef after ZynqMP/Versal RSA split
 *
 * </pre>
 *
@@ -124,15 +125,9 @@ int XSecure_RsaInitialize_64Bit(XSecure_Rsa *InstancePtr, u64 Mod, u64 ModExt,
 	InstancePtr->SizeInWords = XSECURE_RSA_4096_SIZE_WORDS;
 	InstancePtr->RsaState = XSECURE_RSA_INITIALIZED;
 
-#ifdef versal
 	InstancePtr->ModAddr = Mod;
 	InstancePtr->ModExtAddr = ModExt;
 	InstancePtr->ModExpoAddr = ModExpo;
-#else
-	InstancePtr->Mod = (u8 *)(UINTPTR)Mod;
-	InstancePtr->ModExt = (u8 *)(UINTPTR)ModExt;
-	InstancePtr->ModExpo = (u8 *)(UINTPTR)ModExpo;
-#endif
 
 	Status = XST_SUCCESS;
 
@@ -326,13 +321,8 @@ int XSecure_RsaPublicEncrypt_64Bit(XSecure_Rsa *InstancePtr, u64 Input,
 		goto END;
 	}
 
-#ifdef versal
 	Status = XSecure_RsaOperation(InstancePtr, Input, Result,
 			XSECURE_RSA_SIGN_ENC, Size);
-#else
-	Status = (int)XSecure_RsaOperation(InstancePtr, (u8 *)(UINTPTR)Input,
-			(u8 *)(UINTPTR)Result, XSECURE_RSA_SIGN_ENC, Size);
-#endif
 
 
 END:
@@ -417,26 +407,14 @@ int XSecure_RsaPrivateDecrypt_64Bit(XSecure_Rsa *InstancePtr, u64 Input,
 		goto END;
 	}
 
-#ifdef versal
 	ModAddr = InstancePtr->ModAddr;
-#else
-	ModAddr = (u64)(UINTPTR)(InstancePtr->Mod);
-#endif
 	Status = XST_FAILURE;
 	for (Idx = 0U; Idx < Size; Idx++) {
 		ModData = XSecure_InByte64((ModAddr + Idx));
 		InputData = XSecure_InByte64((Input + Idx));
 		if (ModData > InputData) {
-#ifdef versal
 			Status = XSecure_RsaOperation(InstancePtr, Input,
 					Result, XSECURE_RSA_SIGN_DEC, Size);
-#else
-			Status = (int)XSecure_RsaOperation(InstancePtr,
-					(u8 *)(UINTPTR)Input,
-					(u8 *)(UINTPTR)Result,
-					XSECURE_RSA_SIGN_DEC,
-					Size);
-#endif
 			break;
 		}
 
