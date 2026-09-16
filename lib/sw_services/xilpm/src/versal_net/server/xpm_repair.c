@@ -1,6 +1,6 @@
 /******************************************************************************
  * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
- * Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc.  All rights reserve.
+ * Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc.  All rights reserve.
  * SPDX-License-Identifier: MIT
  *****************************************************************************/
 #include "xpm_repair.h"
@@ -92,11 +92,17 @@ XStatus XPmRepair_Fpx(u32 EfuseTagAddr, u32 TagSize,
 								 (u64)FPD_SLCR_BISR_CACHE_DATA_48,
 								 (u64)FPD_SLCR_BISR_CACHE_DATA_64 };
 
+	/* Reject oversized tags that would index past the destination array */
+	if (TagSize > (NUM_OF_BISR_CACHE_DATA_REGIONS * BISR_CACHE_SUB_SIZE)) {
+		Status = XST_INVALID_PARAM;
+		goto done;
+	}
+
 	XPm_RMW32(FPD_SLCR_BISR_CACHE_CTRL_0, FPD_SLCR_BISR_CACHE_CTRL_0_CLR_MASK, FPD_SLCR_BISR_CACHE_CTRL_0_CLR_MASK);
 	XPm_RMW32(FPD_SLCR_BISR_CACHE_CTRL_0, FPD_SLCR_BISR_CACHE_CTRL_0_CLR_MASK, 0U);
 
 	/* Copy maximum 16 words to the non-continuous BISR_CACHE register space*/
-	while (0U < TagSize)
+	while ((0U < TagSize) && (i < NUM_OF_BISR_CACHE_DATA_REGIONS))
 	{
 		TempTagSize = (BISR_CACHE_SUB_SIZE <= TagSize) ? BISR_CACHE_SUB_SIZE : TagSize;
 		*TagDataAddr = XPmBisr_CopyStandard((u32)EfuseTagAddr, TempTagSize, BisrDataDestAddr[i]);
