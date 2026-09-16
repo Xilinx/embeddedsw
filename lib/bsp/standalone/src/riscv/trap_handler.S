@@ -106,6 +106,10 @@
 #define T4_TO_STACK(regnum)		STORE t4, REG_OFFSET(regnum)(sp)
 #define T4_FROM_STACK(regnum)		LOAD  t4, REG_OFFSET(regnum)(sp)
 
+#ifdef RISCV_MODE_SWITCH
+/* Synchronous ecall raised by user mode (RISC-V standard mcause encoding). */
+#define EXCEPTION_ECALL_UMODE		8
+#endif
 #define T4_TO_REG_Z(regnum)	   \
 	.align 2;		   \
 	nop;			   \
@@ -138,6 +142,10 @@
 
 /* Extern declarations */
 .extern XNullHandler
+#ifdef RISCV_MODE_SWITCH
+.extern Xil_ModeSwitchDispatchFromUser
+.extern Xil_ModeSwitchAbort
+#endif
 
 
 #ifndef RISCV_TRAPS_DISABLED				/* If traps are disabled in the processor */
@@ -154,9 +162,40 @@
 .align 2
 .type _trap_handler, @function
 _trap_handler:
+#ifdef RISCV_MODE_SWITCH
+	/*
+	 * Only swap to the M-side scratch anchor for a trap that actually
+	 * interrupted U-mode (MPP == U). mscratch is only kept valid while a
+	 * session is genuinely active (Enter/Resume set it fresh right before
+	 * mret); it is never refreshed while the monitor's own M-mode code
+	 * runs afterward. A trap from M's own code - the monitor between
+	 * sessions, or a fault inside a registered ISR while U-dispatch is
+	 * already running on the anchor - must use its own live sp directly,
+	 * exactly like an ordinary (non-mode-switch) build. Swapping
+	 * unconditionally here would silently corrupt live M-mode stack
+	 * frames once the M SP has drifted since the anchor was last set, or
+	 * double-use the same anchor for a nested M-mode fault.
+	 * t0 is not yet saved anywhere - safe to use since M-only builds never
+	 * reach this block, and a genuine U-mode trap has not touched any GPR
+	 * yet either.
+	 */
+	csrr	t0, mstatus
+	srli	t0, t0, 11
+	andi	t0, t0, 3
+	bnez	t0, 1f
+	csrrw	sp, mscratch, sp
+1:
+#endif
 	addi		sp, sp, -(HANDLER_STACK_SIZE)	/* Create stack frame */
 	PUSH_REG(6)					/* Save t1 = x6 */
 	PUSH_REG(7)					/* Save t2 = x7 */
+#ifdef RISCV_MODE_SWITCH
+	/* t0 (MPP check from entry) survives PUSH_REG - neither touches x5/t0. */
+	bnez	t0, ms_skip_x2_save
+	csrr	t2, mscratch			/* U-mode trap: recover interrupted sp */
+	STORE	t2, REG_OFFSET(2)(sp)
+ms_skip_x2_save:
+#endif
 	/*
 	 * Save the three scratch registers used by the misalign handlers.
 	 *
@@ -178,6 +217,23 @@ _trap_handler:
 	PUSH_REG(30)					/* Save t5 = x30 */
 #endif
 	csrr		t1, mcause
+#ifdef RISCV_MODE_SWITCH
+	/*
+	 * A misaligned load/store taken while the interrupted context was in
+	 * U-mode is not emulated (v1 policy) - abort the guest session instead
+	 * of running the legacy fixup below against guest-controlled state.
+	 * t0 still holds the MPP check from entry (PUSH_REG(28/29/30) don't
+	 * touch x5/t0 either); zero means the trap arrived from U.
+	 */
+	li		t2, 6				/* Store address misaligned */
+	bne		t1, t2, ms_check_load_misalign
+	beqz	t0, ms_abort_u_fault
+ms_check_load_misalign:
+	li		t2, 4				/* Load address misaligned */
+	bne		t1, t2, ms_no_misalign
+	beqz	t0, ms_abort_u_fault
+ms_no_misalign:
+#endif
 	li		t2, 6				/* Store address misaligned */
 	beq		t1, t2, handle_store_misalign
 	li		t2, 4				/* Load address misaligned */
@@ -254,6 +310,10 @@ _trap_handler:
 	csrr		t2, fcsr			/* Save fcsr */
 	sw		t2, FPREG_OFFSET(32)(sp)
 #endif
+#ifdef RISCV_MODE_SWITCH
+	li		t2, EXCEPTION_ECALL_UMODE
+	beq		t1, t2, handle_ecall_umode
+#endif
 	la		t2, RISCV_InterruptVectorTable	/* Load interrupt vector table base address */
 	bltz		t1, is_interrupt
 	la		t2, RISCV_ExceptionVectorTable	/* Load exception vector table base address */
@@ -263,6 +323,9 @@ is_interrupt:
 	LOAD		a0, REGSIZE(t2)			/* Load argument to handler from vector */
 	LOAD		t2, 0(t2)			/* Load vector itself from vector */
 	jalr		t2				/* Jump to handler: ra = x1 = link address */
+.global trap_restore
+.type trap_restore, @function
+trap_restore:
 #if defined(XPAR_MICROBLAZE_RISCV_USE_FPU) && (XPAR_MICROBLAZE_RISCV_USE_FPU > 0)
 	lw		t2, FPREG_OFFSET(32)(sp)	/* Restore fcsr */
 	csrw		fcsr, t2
@@ -329,6 +392,22 @@ is_interrupt:
 	POP_REG(3)
 	POP_REG(1)
 misalign_done:
+#ifdef RISCV_MODE_SWITCH
+	/*
+	 * Re-derive the entry-time MPP check fresh - t0 does not reliably
+	 * survive a registered handler/dispatch call in between, unlike the
+	 * earlier reuses which only cross PUSH_REG (which never clobbers it).
+	 * A U-mode trap swapped at entry and must swap back; an M-mode trap
+	 * never swapped and must not swap back either.
+	 */
+	csrr	t0, mstatus
+	srli	t0, t0, 11
+	andi	t0, t0, 3
+	bnez	t0, ms_epilogue_no_recover
+	LOAD	t1, REG_OFFSET(2)(sp)			/* Recover interrupted sp = x2 */
+	csrw	mscratch, t1
+ms_epilogue_no_recover:
+#endif
 	/*
 	 * Restore the three scratch registers saved at entry.
 	 * RV32I:  t5=x30, t4=x29, t3=x28
@@ -346,7 +425,33 @@ misalign_done:
 	POP_REG(7)					/* Restore t2 = x7 */
 	POP_REG(6)					/* Restore t1 = x6 */
 	addi		sp, sp, (HANDLER_STACK_SIZE)	/* Restore stack frame */
+#ifdef RISCV_MODE_SWITCH
+	bnez	t0, ms_epilogue_no_swapback
+	csrrw	sp, mscratch, sp			/* Restore application stack */
+ms_epilogue_no_swapback:
+#endif
 	mret
+
+#ifdef RISCV_MODE_SWITCH
+/*
+ * Unhandled synchronous fault (illegal instruction, access fault, or a
+ * misaligned load/store per the ms_no_misalign check above) taken from
+ * U-mode: abort the guest session and return to the M-mode caller instead
+ * of falling through to the ordinary vector-table dispatch. mcause/mepc/
+ * mtval are still live CSRs at this point - nothing has overwritten them.
+ */
+ms_abort_u_fault:
+	mv	a0, t1
+	csrr	a1, mepc
+	csrr	a2, mtval
+	call	Xil_ModeSwitchAbort
+1:	j	1b				/* Xil_ModeSwitchAbort is noreturn */
+
+handle_ecall_umode:
+	mv		a0, sp			/* a0 points to the saved x0-x31 GPR frame */
+	call	Xil_ModeSwitchDispatchFromUser
+	j	trap_restore
+#endif
 
 /*
  * Load address misalign exception handler
@@ -482,7 +587,7 @@ load_half_size_unsigned:
 	sb	t4, data_1, t5
 	lhu	t4, data_0				/* Load unsigned halfword */
 load_tail:
-	la	t2, load_table				/* Form load table offset (load_table + register * 8 or 4) */
+	la	t2, load_table
 	add	t2, t2, t3
 	jr	t2
 	.align 2
@@ -605,7 +710,7 @@ store_continue:
 	srli	t2, t2, 12				/* Extract transfer size */
 	andi	t2, t2, 7
 #endif /* __riscv_compressed */
-	la	t4, store_table				/* Form store table offset (store_table + register * 8 or 4) */
+	la	t4, store_table
 	add	t4, t4, t3
 	jr	t4
 store_tail:
