@@ -121,15 +121,15 @@ extern "C" {
 #include "xv_mix.h"
 
 /************************** Constant Definitions *****************************/
-#define XVMIX_MAX_SUPPORTED_LAYERS       (16)
+#define XVMIX_MAX_SUPPORTED_LAYERS       (XV_MIX_MAX_MEMORY_LAYERS + 1) /**< Maximum number of supported layers */
 #define XVMIX_ALPHA_MIN                  (0)
 #define XVMIX_ALPHA_MAX                  (256)
 
-#define XVMIX_IRQ_DONE_MASK              (0x01)
+#define XVMIX_IRQ_DONE_MASK              (0x01) /**< Interrupt done mask */
 #define XVMIX_IRQ_READY_MASK             (0x02)
 
 #define XVMIX_CSC_COEFF_FRACTIONAL_BITS	(12)
-#define XVMIX_CSC_COEFF_DIVISOR	(10000)
+#define XVMIX_CSC_COEFF_DIVISOR	(10000) /**< CSC coefficient divisor */
 #define XVMIX_CSC_MAX_ROWS		(3)
 #define XVMIX_CSC_MAX_COLS		(3)
 #define XVMIX_CSC_MATRIX_SIZE	(XVMIX_CSC_MAX_ROWS * XVMIX_CSC_MAX_COLS)
