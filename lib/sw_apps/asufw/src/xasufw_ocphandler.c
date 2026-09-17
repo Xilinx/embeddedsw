@@ -489,12 +489,22 @@ static s32 XAsufw_OcpUserX509CertGen(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	CertGenParams.IsSelfSigned = (u32)XASU_FALSE;
 	CertGenParams.IsCaCert = (u32)XASU_FALSE;
 
-	/** Generate the user certificate for the public key owned by the requesting subsystem. */
+	/**
+	 * Generate the user certificate for the public key owned by the requesting subsystem.
+	 * ReturnStatus is the redundant success indicator set by the generator: verify it in
+	 * addition to Status so a glitched Status cannot pass a certificate that was not
+	 * generated, then reset it so the handler re-sets it below only after the size copy
+	 * also succeeds.
+	 */
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	Status = XOcp_GetUserX509Cert(&CertGenParams, &CertSize, (void *)(UINTPTR)&PlatData);
-	if (Status != XASUFW_SUCCESS) {
+	if ((Status != XASUFW_SUCCESS) ||
+	    (ReturnStatus != XASUFW_OCP_CERT_GENERATION_SUCCESS)) {
+		Status = XAsufw_UpdateBufStatus(Status, XASUFW_OCP_USER_X509_CERT_GEN_FAIL);
+		ReturnStatus = XASUFW_FAILURE;
 		goto END;
 	}
+	ReturnStatus = XASUFW_FAILURE;
 
 	/** Copy the actual size of the generated certificate to the destination using DMA. */
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);

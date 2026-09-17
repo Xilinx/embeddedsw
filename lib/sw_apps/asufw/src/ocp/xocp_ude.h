@@ -36,6 +36,7 @@ extern "C" {
 /*************************************** Include Files *******************************************/
 #include "xasu_ocpinfo.h"
 #include "xasufw_dma.h"
+#include "xsha.h"
 #include "xil_types.h"
 
 #ifdef XASU_OCP_ENABLE
@@ -47,13 +48,17 @@ extern "C" {
 
 /************************************ Function Prototypes ****************************************/
 s32 XOcp_GenerateUdeResponse(XAsufw_Dma *DmaPtr, const XAsu_OcpUdeParams *OcpUdeParamsPtr);
-s32 XOcp_EncryptUdeKeys(XAsufw_Dma *DmaPtr, u32 UdeKeyId, u8 *EncPvtKey, u64 CertBufAddr,
-			u32 CertBufMaxSize, u32 *CertSize);
+s32 XOcp_EncryptUdeKeys(XAsufw_Dma *DmaPtr, XSha *ShaPtr, u32 UdeKeyId, u8 *EncPvtKey,
+			u64 CertBufAddr, u32 CertBufMaxSize, u32 *CertSize);
 s32 XOcp_GetUdeSlotInfo(u32 UdeKeyId, u32 *UdeUserKeyAddrPtr, u8 *IvIncValPtr);
 s32 XOcp_UdeSignData(XAsufw_Dma *DmaPtr, const u8 *Data, u32 DataLen, u8 *SignatureOut);
 s32 XOcp_UdeVerifyData(XAsufw_Dma *DmaPtr, const u8 *Data, u32 DataLen, const u8 *Signature);
 s32 XOcp_IsUdeAvailable(void);
 void XOcp_InvalidateUdePubKeyCache(void);
+s32 XOcp_GetActiveUdeKeyPair(XAsufw_Dma *DmaPtr, u8 *UdeDecPvtKey, u8 *UdePubKey);
+s32 XOcp_GenerateUdeSignedKeyCert(XAsufw_Dma *DmaPtr, XSha *ShaPtr, const u8 *SubjectPubKey,
+				  u8 IsForSigning, const u8 *UdePubKey, const u8 *UdePvtKey,
+				  u64 CertBufAddr, u32 CertBufMaxSize, u32 *CertSize);
 
 /************************************ Variable Definitions ***************************************/
 

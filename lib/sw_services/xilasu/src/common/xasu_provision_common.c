@@ -153,4 +153,40 @@ s32 XAsu_ProvisionValidateUdeParams(const XAsu_ProvisionUdeParams *ParamsPtr)
 END:
 	return Status;
 }
+
+/*************************************************************************************************/
+/**
+ * @brief	This function validates the Get Device Provisioning Certificate (DPC) parameters.
+ *
+ * @param	ParamsPtr	Pointer to the XAsu_DevProvisionCertParams structure which holds the
+ *				DPC generation input arguments.
+ *
+ * @return
+ *	- XST_SUCCESS, if the parameters are validated successfully.
+ *	- XST_FAILURE, if the parameters validation fails.
+ *
+ *************************************************************************************************/
+s32 XAsu_ProvisionValidateDpcParams(const XAsu_DevProvisionCertParams *ParamsPtr)
+{
+	volatile s32 Status = XST_FAILURE;
+
+	if (ParamsPtr == NULL) {
+		goto END;
+	}
+
+	/** Validate the DPC output buffer address and its actual-size output address. */
+	if ((ParamsPtr->DpcBufAddr == 0U) || (ParamsPtr->DpcActualSizeAddr == 0U)) {
+		goto END;
+	}
+
+	/** Validate the DPC output buffer size. */
+	if (ParamsPtr->DpcBufSize == 0U) {
+		goto END;
+	}
+
+	Status = XST_SUCCESS;
+
+END:
+	return Status;
+}
 /** @} */

@@ -99,7 +99,8 @@ extern "C" {
 #define XKEYMANAGER_KEY_PAIR_ID_COUNT	(2U) /**< Number of key IDs written by a key pair
 							generation: public key ID followed by
 							private key ID */
-#define XKEYMANAGER_ASYM_KEY_TYPE_COUNT	(2U)	/**< Number of asymmetric key types (private and public) */
+#define XKEYMANAGER_ASYM_KEY_TYPE_COUNT	(2U)	/**< Number of asymmetric key types
+                                                        (private and public) */
 
 /************************************** Type Definitions *****************************************/
 /** This enum contains RSA operation types for private key retrieval. */

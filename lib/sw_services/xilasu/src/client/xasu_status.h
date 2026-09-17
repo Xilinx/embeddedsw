@@ -73,6 +73,8 @@ enum {
  * functionalities and these codes should not be used for failures in client
  */
 enum {
+	XASU_PROVISION_DPC_SUCCESS = 0x3F4U, /**< 0x3F4U - Device Provisioning Certificate
+							generated successfully */
 	XASU_SLHDSA_SIGNATURE_VERIFIED = 0x3F5U, /**< 0x3F5U - SLH-DSA signature verification
 							is successful */
 	XASU_MLDSA_SIGNATURE_VERIFIED = 0x3F6U, /**< 0x3F6U - Successfully verified ML-DSA

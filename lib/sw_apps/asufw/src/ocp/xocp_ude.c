@@ -93,8 +93,13 @@ static u32 UdePubKeyCacheAddr;		/**< Encrypted key address naming that slot. It 
 static s32 XOcp_AesCompute(XAsufw_Dma *DmaPtr, u64 IvAddr, u64 InAddr, u64 OutAddr);
 static s32 XOcp_EncryptUdePvtKey(XAsufw_Dma *DmaPtr, u32 UdeKeyId, const u8 *PvtKey,
 				 u64 EncPvtKeyAddr);
-static s32 XOcp_GenerateUdeSelfSignedCert(XAsufw_Dma *DmaPtr, const u8 *PubKey, const u8 *PvtKey,
-					  u64 CertBufAddr, u32 CertBufMaxSize, u32 *CertSize);
+static s32 XOcp_GenerateUdeSelfSignedCert(XAsufw_Dma *DmaPtr, XSha *ShaPtr, const u8 *PubKey,
+					  const u8 *PvtKey, u64 CertBufAddr, u32 CertBufMaxSize,
+					  u32 *CertSize);
+static s32 XOcp_BuildUdeX509Cert(XAsufw_Dma *DmaPtr, XSha *ShaPtr, const u8 *SubjectPubKey,
+				 const u8 *IssuerPubKey, const u8 *IssuerPvtKey, u32 KeyUsage,
+				 u32 IsSelfSigned, u32 IsCaCert, u64 CertBufAddr,
+				 u32 CertBufMaxSize, u32 *CertSize);
 static s32 XOcp_DecryptPvtKey(XAsufw_Dma *DmaPtr, u32 UdeUserKeyAddr, u8* Iv, u8* UdeDecPvtKey);
 static s32 XOcp_GetActiveUdeKeyInfo(u32 *UdeUserKeyPtr, u8 *IvIncValPtr);
 static s32 XOcp_ResolveUdeUserKeyAddr(u32 *UdeUserKeyPtr, u8 *IvIncValPtr);
@@ -118,6 +123,7 @@ static s32 XOcp_UdeSignDataWithKey(XAsufw_Dma *DmaPtr, const u8 *UdeDecPvtKey, c
  *		and to sign the certificate, and is zeroized before returning; it never leaves the ASU.
  *
  * @param	DmaPtr		Pointer to the XAsufw_Dma instance.
+ * @param	ShaPtr		Pointer to the SHA3 (XSHA_1) instance used to hash the certificate.
  * @param	UdeKeyId	UDE key ID (XASU_OCP_UDE_USER_KEY_0/1/2_ID) that selects the PUF KEK
  *				IV increment value used for encryption.
  * @param	EncPvtKey	Pointer to the buffer that receives the encrypted UDE private key
@@ -141,8 +147,8 @@ static s32 XOcp_UdeSignDataWithKey(XAsufw_Dma *DmaPtr, const u8 *UdeDecPvtKey, c
  *	- Error code from XAsufw_UpdateBufStatus, if local buffer zeroization fails.
  *
  *************************************************************************************************/
-s32 XOcp_EncryptUdeKeys(XAsufw_Dma *DmaPtr, u32 UdeKeyId, u8 *EncPvtKey, u64 CertBufAddr,
-			u32 CertBufMaxSize, u32 *CertSize)
+s32 XOcp_EncryptUdeKeys(XAsufw_Dma *DmaPtr, XSha *ShaPtr, u32 UdeKeyId, u8 *EncPvtKey,
+			u64 CertBufAddr, u32 CertBufMaxSize, u32 *CertSize)
 {
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
 	XFih_Var XFihUde = XFih_VolatileAssignXfihVar(XFIH_FAILURE);
@@ -151,8 +157,8 @@ s32 XOcp_EncryptUdeKeys(XAsufw_Dma *DmaPtr, u32 UdeKeyId, u8 *EncPvtKey, u64 Cer
 	u8 PubKey[XASU_OCP_UDE_PUB_KEY_SIZE_IN_BYTES] = {0U};
 
 	/** Validate input parameters. */
-	if ((DmaPtr == NULL) || (EncPvtKey == NULL) || (CertBufAddr == 0U) || (CertSize == NULL) ||
-	    (UdeKeyId > XASU_OCP_UDE_USER_KEY_2_ID)) {
+	if ((DmaPtr == NULL) || (ShaPtr == NULL) || (EncPvtKey == NULL) || (CertBufAddr == 0U) ||
+	    (CertSize == NULL) || (UdeKeyId > XASU_OCP_UDE_USER_KEY_2_ID)) {
 		Status = XASUFW_OCP_INVALID_PARAM;
 		goto END;
 	}
@@ -188,7 +194,7 @@ s32 XOcp_EncryptUdeKeys(XAsufw_Dma *DmaPtr, u32 UdeKeyId, u8 *EncPvtKey, u64 Cer
 	 * private key signs the certificate while it is still available in the local buffer.
 	 */
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-	Status = XOcp_GenerateUdeSelfSignedCert(DmaPtr, PubKey, PvtKey, CertBufAddr,
+	Status = XOcp_GenerateUdeSelfSignedCert(DmaPtr, ShaPtr, PubKey, PvtKey, CertBufAddr,
 						CertBufMaxSize, CertSize);
 
 
@@ -277,19 +283,26 @@ END:
 
 /*************************************************************************************************/
 /**
- * @brief	This function generates a self-signed X.509 certificate over the supplied UDE public
- *		key, signed with the supplied UDE private key. The certificate follows the provisioning
- *		certificate specification: version v3, SHA-384 signature hash, issuer and
- *		subject distinguished name with organization "AMD" and common name set to the Device
- *		DNA hex string, a fixed validity period (as there is no RTC), the generated public key,
- *		the BasicConstraints (CA=TRUE, pathLenConstraint=0) extension, and the digitalSignature
- *		and keyCertSign key usages. The serial number, subject key identifier and authority key
- *		identifier are derived from SHA-384 hashes by the X.509 generation layer.
+ * @brief	This function performs the certificate-field setup shared by the UDE self-signed
+ *		certificate and the UDE-signed provisioning key certificates and generates the
+ *		certificate through the shared X.509 generator. It builds the subject distinguished
+ *		name (organization "AMD" and common name set to the Device DNA hex string), copies
+ *		the subject name to the issuer name, sets the fixed validity period and the supplied
+ *		key usage, populates the certificate generation parameters with the supplied subject
+ *		and issuer keys and the self-signed/CA flags, and zeroizes the working data before
+ *		return.
  *
  * @param	DmaPtr		Pointer to the XAsufw_Dma instance.
- * @param	PubKey		Pointer to the UDE public key (XASU_OCP_UDE_PUB_KEY_SIZE_IN_BYTES
- *				bytes, X || Y). Used as both the subject and issuer public key.
- * @param	PvtKey		Pointer to the UDE private key used to sign the certificate.
+ * @param	ShaPtr		Pointer to the SHA3 (XSHA_1) instance used to hash the certificate.
+ * @param	SubjectPubKey	Uncompressed (X || Y) subject public key
+ *				(XASU_OCP_UDE_PUB_KEY_SIZE_IN_BYTES bytes).
+ * @param	IssuerPubKey	Uncompressed (X || Y) issuer public key
+ *				(XASU_OCP_UDE_PUB_KEY_SIZE_IN_BYTES bytes).
+ * @param	IssuerPvtKey	Issuer private key that signs the certificate.
+ * @param	KeyUsage	X.509 key usage bit mask placed in the certificate.
+ * @param	IsSelfSigned	XASU_TRUE if the certificate is self-signed, XASU_FALSE otherwise.
+ * @param	IsCaCert	XASU_TRUE to emit the BasicConstraints (CA) extension, XASU_FALSE
+ *				otherwise.
  * @param	CertBufAddr	64-bit address of the buffer that receives the DER encoded
  *				certificate.
  * @param	CertBufMaxSize	Size in bytes of the buffer at CertBufAddr.
@@ -301,12 +314,14 @@ END:
  *	- XASUFW_OCP_INVALID_PARAM, if any input param is invalid.
  *	- XASUFW_ZEROIZE_MEMSET_FAIL, if clearing the certificate fields fails.
  *	- XASUFW_MEM_COPY_FAIL, if copying the subject name to the issuer name fails.
- *	- Error codes from XOcp_GetUserX509Cert, if certificate generation fails.
+ *	- XASUFW_OCP_USER_X509_CERT_GEN_FAIL, if certificate generation fails.
  *	- Error code from XAsufw_UpdateBufStatus, if certificate working data zeroization fails.
  *
  *************************************************************************************************/
-static s32 XOcp_GenerateUdeSelfSignedCert(XAsufw_Dma *DmaPtr, const u8 *PubKey, const u8 *PvtKey,
-					  u64 CertBufAddr, u32 CertBufMaxSize, u32 *CertSize)
+static s32 XOcp_BuildUdeX509Cert(XAsufw_Dma *DmaPtr, XSha *ShaPtr, const u8 *SubjectPubKey,
+				 const u8 *IssuerPubKey, const u8 *IssuerPvtKey, u32 KeyUsage,
+				 u32 IsSelfSigned, u32 IsCaCert, u64 CertBufAddr,
+				 u32 CertBufMaxSize, u32 *CertSize)
 {
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
 	CREATE_VOLATILE(ClearStatus, XASUFW_FAILURE);
@@ -320,7 +335,8 @@ static s32 XOcp_GenerateUdeSelfSignedCert(XAsufw_Dma *DmaPtr, const u8 *PubKey, 
 	u32 Index;
 
 	/** Validate input parameters. */
-	if ((DmaPtr == NULL) || (PubKey == NULL) || (PvtKey == NULL) || (CertBufAddr == 0U) ||
+	if ((DmaPtr == NULL) || (ShaPtr == NULL) || (SubjectPubKey == NULL) ||
+	    (IssuerPubKey == NULL) || (IssuerPvtKey == NULL) || (CertBufAddr == 0U) ||
 	    (CertSize == NULL)) {
 		Status = XASUFW_OCP_INVALID_PARAM;
 		goto END;
@@ -349,7 +365,7 @@ static s32 XOcp_GenerateUdeSelfSignedCert(XAsufw_Dma *DmaPtr, const u8 *PubKey, 
 	}
 	CertFields->Subject.CommonNameLen = XOCP_UDE_CERT_DNA_STR_LEN;
 
-	/** For a self-signed certificate the issuer name is identical to the subject name. */
+	/** The issuer distinguished name uses the same AMD/DNA name as the subject. */
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	Status = Xil_SMemCpy(&CertFields->Issuer, sizeof(CertFields->Issuer),
 			     &CertFields->Subject, sizeof(CertFields->Subject),
@@ -373,28 +389,26 @@ static s32 XOcp_GenerateUdeSelfSignedCert(XAsufw_Dma *DmaPtr, const u8 *PubKey, 
 	CertFields->Validity.NotAfter.Minute = XOCP_UDE_CERT_MIN_LAST;
 	CertFields->Validity.NotAfter.Second = XOCP_UDE_CERT_SEC_LAST;
 
-	/** UDE certificate key usage: digitalSignature and keyCertSign. */
-	CertFields->KeyUsage = XASU_X509_KEY_USAGE_DIGITAL_SIGNATURE |
-			       XASU_X509_KEY_USAGE_KEY_CERT_SIGN;
+	/** Set the caller supplied key usage. */
+	CertFields->KeyUsage = KeyUsage;
 
 	/**
-	 * Generate the self-signed UDE CA certificate through the shared certificate generator.
-	 * The generated UDE public key is both the subject and the issuer public key (self-signed)
-	 * and the UDE private key signs the certificate. IsSelfSigned and IsCaCert are TRUE so the
-	 * BasicConstraints (CA=TRUE, pathLenConstraint=0) extension is emitted.
+	 * Generate the certificate through the shared X.509 generator using the supplied subject
+	 * key, issuer key pair and self-signed/CA flags. ReturnStatus is the redundant success
+	 * indicator set by the generator; it is checked and then reset.
 	 */
-	PlatData.ShaPtr = XSha_GetInstance(XASU_XSHA_1_DEVICE_ID);
+	PlatData.ShaPtr = ShaPtr;
 	PlatData.DmaPtr = DmaPtr;
 	CertGenParams.CertFields = CertFields;
-	CertGenParams.SubjectPubKey = PubKey;
+	CertGenParams.SubjectPubKey = SubjectPubKey;
 	CertGenParams.SubjectPubKeyLen = XASU_OCP_UDE_PUB_KEY_SIZE_IN_BYTES;
-	CertGenParams.IssuerPubKey = PubKey;
+	CertGenParams.IssuerPubKey = IssuerPubKey;
 	CertGenParams.IssuerPubKeyLen = XASU_OCP_UDE_PUB_KEY_SIZE_IN_BYTES;
-	CertGenParams.IssuerPvtKey = PvtKey;
+	CertGenParams.IssuerPvtKey = IssuerPvtKey;
 	CertGenParams.CertBufAddr = CertBufAddr;
 	CertGenParams.CertBufMaxSize = CertBufMaxSize;
-	CertGenParams.IsSelfSigned = (u32)XASU_TRUE;
-	CertGenParams.IsCaCert = (u32)XASU_TRUE;
+	CertGenParams.IsSelfSigned = IsSelfSigned;
+	CertGenParams.IsCaCert = IsCaCert;
 
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	Status = XOcp_GetUserX509Cert(&CertGenParams, CertSize, (void *)(UINTPTR)&PlatData);
@@ -410,6 +424,55 @@ END_CLR:
 	Status = XAsufw_UpdateBufStatus(Status, ClearStatus);
 
 END:
+	return Status;
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	This function generates a self-signed X.509 certificate over the supplied UDE public
+ *		key, signed with the supplied UDE private key. The certificate follows the provisioning
+ *		certificate specification: version v3, SHA-384 signature hash, issuer and
+ *		subject distinguished name with organization "AMD" and common name set to the Device
+ *		DNA hex string, a fixed validity period (as there is no RTC), the generated public key,
+ *		the BasicConstraints (CA=TRUE, pathLenConstraint=0) extension, and the digitalSignature
+ *		and keyCertSign key usages. The serial number, subject key identifier and authority key
+ *		identifier are derived from SHA-384 hashes by the X.509 generation layer.
+ *
+ * @param	DmaPtr		Pointer to the XAsufw_Dma instance.
+ * @param	ShaPtr		Pointer to the SHA3 (XSHA_1) instance used to hash the certificate.
+ * @param	PubKey		Pointer to the UDE public key (XASU_OCP_UDE_PUB_KEY_SIZE_IN_BYTES
+ *				bytes, X || Y). Used as both the subject and issuer public key.
+ * @param	PvtKey		Pointer to the UDE private key used to sign the certificate.
+ * @param	CertBufAddr	64-bit address of the buffer that receives the DER encoded
+ *				certificate.
+ * @param	CertBufMaxSize	Size in bytes of the buffer at CertBufAddr.
+ * @param	CertSize	Pointer to a variable that receives the actual size in bytes of the
+ *				generated certificate.
+ *
+ * @return
+ *	- XASUFW_SUCCESS, if the certificate is generated and copied successfully.
+ *	- XASUFW_OCP_INVALID_PARAM, if any input param is invalid.
+ *	- XASUFW_ZEROIZE_MEMSET_FAIL, if clearing the certificate fields fails.
+ *	- XASUFW_MEM_COPY_FAIL, if copying the subject name to the issuer name fails.
+ *	- XASUFW_OCP_USER_X509_CERT_GEN_FAIL, if certificate generation fails.
+ *	- Error code from XAsufw_UpdateBufStatus, if certificate working data zeroization fails.
+ *
+ *************************************************************************************************/
+static s32 XOcp_GenerateUdeSelfSignedCert(XAsufw_Dma *DmaPtr, XSha *ShaPtr, const u8 *PubKey,
+					  const u8 *PvtKey, u64 CertBufAddr, u32 CertBufMaxSize,
+					  u32 *CertSize)
+{
+	CREATE_VOLATILE(Status, XASUFW_FAILURE);
+
+	/**
+	 * A self-signed UDE CA certificate uses the same UDE key pair as both subject and issuer,
+	 * the digitalSignature and keyCertSign key usages, and IsSelfSigned/IsCaCert set to TRUE
+	 * so the BasicConstraints (CA=TRUE, pathLenConstraint=0) extension is emitted.
+	 */
+	Status = XOcp_BuildUdeX509Cert(DmaPtr, ShaPtr, PubKey, PubKey, PvtKey,
+			XASU_X509_KEY_USAGE_DIGITAL_SIGNATURE | XASU_X509_KEY_USAGE_KEY_CERT_SIGN,
+			(u32)XASU_TRUE, (u32)XASU_TRUE, CertBufAddr, CertBufMaxSize, CertSize);
+
 	return Status;
 }
 
@@ -1393,6 +1456,126 @@ END:
 void XOcp_InvalidateUdePubKeyCache(void)
 {
 	UdePubKeyCacheAddr = 0U;
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	This function returns the active (non-revoked) UDE key pair: the decrypted UDE
+ *		private key and the ECC NIST P-384 public key derived from it. The private key is
+ *		decrypted with the PUF KEK inside the ASU and returned to the caller for signing;
+ *		the caller must zeroize it as soon as it is no longer needed. This is used by the
+ *		Device Provisioning Certificate flow to sign the provisioning certificates and the
+ *		DPC container with the UDE identity.
+ *
+ * @param	DmaPtr		Pointer to the XAsufw_Dma instance.
+ * @param	UdeDecPvtKey	Buffer that receives the decrypted UDE private key
+ *				(XASU_ECC_P384_PVT_KEY_SIZE_IN_BYTES bytes). Caller zeroizes it.
+ * @param	UdePubKey	Buffer that receives the uncompressed (X || Y) UDE public key
+ *				(XASU_OCP_UDE_PUB_KEY_SIZE_IN_BYTES bytes).
+ *
+ * @return
+ *	- XASUFW_SUCCESS, if the active UDE key pair is returned successfully.
+ *	- XASUFW_OCP_INVALID_PARAM, if any input parameter is invalid.
+ *	- XASUFW_MEM_COPY_FAIL, if copying the IV from RTCA fails.
+ *	- XASUFW_OCP_UDE_IV_IS_ZERO, if the IV read from RTCA is all zeros.
+ *	- XASUFW_OCP_UDE_PREPARE_DEC_KEY_FAIL, with the XOcp_PrepareUdeDecKey error embedded, if
+ *	  the UDE private key could not be prepared.
+ *	- XASUFW_OCP_UDE_PUBLIC_KEY_GEN_FAIL, if UDE public key generation fails.
+ *
+ *************************************************************************************************/
+s32 XOcp_GetActiveUdeKeyPair(XAsufw_Dma *DmaPtr, u8 *UdeDecPvtKey, u8 *UdePubKey)
+{
+	CREATE_VOLATILE(Status, XASUFW_FAILURE);
+
+	/** Validate input parameters. */
+	if ((DmaPtr == NULL) || (UdeDecPvtKey == NULL) || (UdePubKey == NULL)) {
+		Status = XASUFW_OCP_INVALID_PARAM;
+		goto END;
+	}
+
+	/**
+	 * Decrypt the active UDE private key from eFUSEs. XOcp_GetUdePvtKey copies the KEK IV
+	 * from RTCA, checks it is non-zero, and decrypts the key through XFIH_CALL so the key
+	 * decrypt stays glitch protected.
+	 */
+	Status = XOcp_GetUdePvtKey(DmaPtr, UdeDecPvtKey);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_OCP_UDE_PVT_KEY_FETCH_FAIL);
+		goto END;
+	}
+
+	/** Derive the UDE public key from the decrypted private key. */
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	Status = XRsa_EccGeneratePubKey(DmaPtr, XASU_ECC_NIST_P384,
+			XASU_ECC_P384_PVT_KEY_SIZE_IN_BYTES, (u64)(UINTPTR)UdeDecPvtKey,
+			(u64)(UINTPTR)UdePubKey);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_OCP_UDE_PUBLIC_KEY_GEN_FAIL);
+	}
+
+END:
+	return Status;
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	This function generates a UDE-signed X.509 certificate over a provisioning public
+ *		key. The certificate is issued (signed) by the UDE identity: the issuer public key
+ *		and issuer private key are the active UDE key pair, and the subject public key is the
+ *		provisioning authentication or wrapping public key. The certificate is neither
+ *		self-signed nor a CA certificate, so no BasicConstraints extension is emitted.
+ *
+ * @param	DmaPtr		Pointer to the XAsufw_Dma instance.
+ * @param	ShaPtr		Pointer to the SHA3 (XSHA_1) instance used to hash the certificate.
+ * @param	SubjectPubKey	Uncompressed (X || Y) provisioning public key that is certified
+ *				(XASU_OCP_UDE_PUB_KEY_SIZE_IN_BYTES bytes).
+ * @param	IsForSigning	XASU_TRUE for the authentication (signing) key certificate,
+ *				XASU_FALSE for the wrapping (ECIES key agreement) key certificate.
+ * @param	UdePubKey	Uncompressed (X || Y) active UDE public key (issuer).
+ * @param	UdePvtKey	Active UDE private key that signs the certificate (issuer).
+ * @param	CertBufAddr	64-bit address of the buffer that receives the DER encoded
+ *				certificate.
+ * @param	CertBufMaxSize	Size in bytes of the buffer at CertBufAddr.
+ * @param	CertSize	Pointer to a variable that receives the actual size in bytes of the
+ *				generated certificate.
+ *
+ * @return
+ *	- XASUFW_SUCCESS, if the certificate is generated and copied successfully.
+ *	- XASUFW_OCP_INVALID_PARAM, if any input param is invalid.
+ *	- XASUFW_ZEROIZE_MEMSET_FAIL, if clearing the certificate fields fails.
+ *	- XASUFW_MEM_COPY_FAIL, if copying the subject name to the issuer name fails.
+ *	- XASUFW_OCP_USER_X509_CERT_GEN_FAIL, if certificate generation fails.
+ *	- Error code from XAsufw_UpdateBufStatus, if certificate working data zeroization fails.
+ *
+ *************************************************************************************************/
+s32 XOcp_GenerateUdeSignedKeyCert(XAsufw_Dma *DmaPtr, XSha *ShaPtr, const u8 *SubjectPubKey,
+				  u8 IsForSigning, const u8 *UdePubKey, const u8 *UdePvtKey,
+				  u64 CertBufAddr, u32 CertBufMaxSize, u32 *CertSize)
+{
+	CREATE_VOLATILE(Status, XASUFW_FAILURE);
+	u32 KeyUsage;
+
+	/**
+	 * Key usage depends on the provisioning key role: the authentication key certifies a
+	 * signing key (digitalSignature); the wrapping key certifies an ECIES key agreement key
+	 * (keyAgreement and dataEncipherment).
+	 */
+	if (IsForSigning == (u8)XASU_TRUE) {
+		KeyUsage = XASU_X509_KEY_USAGE_DIGITAL_SIGNATURE;
+	} else {
+		KeyUsage = XASU_X509_KEY_USAGE_KEY_AGREEMENT |
+			   XASU_X509_KEY_USAGE_DATA_ENCIPHERMENT;
+	}
+
+	/**
+	 * A UDE-signed leaf certificate uses the provisioning key as the subject and the active
+	 * UDE key pair as the issuer, with IsSelfSigned/IsCaCert set to FALSE so no
+	 * BasicConstraints extension is emitted.
+	 */
+	Status = XOcp_BuildUdeX509Cert(DmaPtr, ShaPtr, SubjectPubKey, UdePubKey, UdePvtKey, KeyUsage,
+			(u32)XASU_FALSE, (u32)XASU_FALSE, CertBufAddr, CertBufMaxSize, CertSize);
+
+	return Status;
 }
 
 #endif /* XASU_OCP_ENABLE */

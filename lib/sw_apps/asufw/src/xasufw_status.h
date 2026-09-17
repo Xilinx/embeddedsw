@@ -944,8 +944,7 @@ enum {
 						PLM fails */
 	XASUFW_PROVISION_UDE_KEY_TYPE_UPDATE_FAIL, /**< 0x27CU - Error when updating the UDE key type
 						in the key vault header during provisioning fails */
-	XASUFW_PROVISION_UDE_CERT_COPY_FAIL, /**< 0x27DU - Error when copying the UDE certificate size
-						to the caller fails */
+	XASUFW_ERR_RESERVED_27DU, /**< 0x27DU - Reserved for future use */
 	XASUFW_PROVISION_PLM_IPI_FAIL, /**< 0x27EU - Error when the IPI request/response to PLM fails
 						during UDE provisioning */
 	XASUFW_PROVISION_PLM_ERROR, /**< 0x27FU - Error reported by PLM for the UDE eFUSE write */
@@ -996,7 +995,27 @@ enum {
 	XASUFW_AES_EFUSE_USER_KEY_1_STAGE_FAILED, /**< 0x29AU - Error when staging eFUSE User Key 1
 						into Red Key 1 fails */
 
+	/* Device Provisioning Certificate (DPC) error codes */
+	XASUFW_PROVISION_DPC_INVALID_PARAM, /**< 0x29BU - Error when a DPC input parameter is
+						invalid */
+	XASUFW_PROVISION_DPC_KEY_FETCH_FAIL, /**< 0x29CU - Error when obtaining or generating a
+						provisioning authentication/wrapping key pair fails */
+	XASUFW_PROVISION_DPC_UDE_KEY_FAIL, /**< 0x29DU - Error when obtaining the active UDE key pair
+						for signing the DPC fails */
+	XASUFW_PROVISION_DPC_CERT_GEN_FAIL, /**< 0x29EU - Error when generating a UDE-signed X.509
+						certificate for a provisioning public key fails */
+	XASUFW_PROVISION_DPC_ASSEMBLE_FAIL, /**< 0x29FU - Error when assembling the DPC container
+						fails */
+	XASUFW_PROVISION_DPC_SIGN_FAIL, /**< 0x2A0U - Error when generating the UDE signature over
+						the DPC container fails */
+	XASUFW_PROVISION_DPC_COPY_FAIL, /**< 0x2A1U - Error when copying the DPC or its size to the
+						caller fails */
+	XASUFW_PROVISION_DPC_DELETE_FAIL, /**< 0x2A2U - Error when deleting the provisioning key
+						pairs fails */
+
 	/* Additional status success codes */
+	XASUFW_PROVISION_DPC_SUCCESS = 0x3F4U, /**< 0x3F4U - Device Provisioning Certificate
+							generated successfully */
 	XASUFW_SLHDSA_SIGNATURE_VERIFIED = 0x3F5U, /**< 0x3F5U - SLH-DSA signature verification
 							is successful */
 	XASUFW_MLDSA_SIGNATURE_VERIFIED = 0x3F6U, /**< 0x3F6U - Successfully verified ML-DSA

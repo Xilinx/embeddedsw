@@ -47,6 +47,9 @@ extern "C" {
 s32 XAsu_ProvisionUserEfuse(XAsu_ClientParams *ClientParamPtr,
 			    XAsu_ProvisionUserEfuseParams *ParamsPtr);
 s32 XAsu_ProvisionUde(XAsu_ClientParams *ClientParamPtr, XAsu_ProvisionUdeParams *ParamsPtr);
+s32 XAsu_GetDevProvisionCert(XAsu_ClientParams *ClientParamPtr,
+			     XAsu_DevProvisionCertParams *ParamsPtr);
+s32 XAsu_DeleteDevProvisionCert(XAsu_ClientParams *ClientParamPtr);
 
 /************************************ Variable Definitions ***************************************/
 #ifdef __cplusplus

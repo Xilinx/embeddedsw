@@ -50,7 +50,11 @@ extern "C" {
 								provisioning */
 #define XASU_PROVISION_UDE_CMD_ID		(1U) /**< Command ID for Unique Device Endorsement
 								(UDE) key provisioning */
-#define XASU_PROVISION_MAX_CMDS			(2U) /**< Maximum number of commands supported by
+#define XASU_PROVISION_GET_DPC_CMD_ID		(2U) /**< Command ID for generating and returning the
+								Device Provisioning Certificate (DPC) */
+#define XASU_PROVISION_DELETE_DPC_CMD_ID	(3U) /**< Command ID for deleting the provisioning
+								key pairs backing the DPC */
+#define XASU_PROVISION_MAX_CMDS			(4U) /**< Maximum number of commands supported by
 								the Provisioning module */
 
 #define XASU_PROVISION_USER_EFUSE_KEY_SIZE_IN_BYTES	(32U) /**< USER eFUSE key size in bytes
@@ -70,6 +74,10 @@ extern "C" {
  * release.
  */
 #define XASU_PROVISION_UDE_KEY_TYPE_ECC_P384	(0U) /**< UDE key type ECC NIST P-384. */
+
+#define XASU_PROVISION_DPC_ACTUAL_SIZE_IN_BYTES	(4U) /**< Size in bytes of the DPC actual-size
+								value returned through the response
+								buffer. */
 
 /* USER eFUSE key identifier (which eFUSE user key to program). */
 #define XASU_PROVISION_EFUSE_USER_KEY_0		(1U) /**< Program USER_EFUSE_KEY_0 */
@@ -127,6 +135,24 @@ typedef struct {
 	u8 UdeKeyType;	/**< UDE key type (XASU_PROVISION_UDE_KEY_TYPE_ECC_P384). */
 	u16 Reserved;	/**< Reserved for alignment. */
 } XAsu_ProvisionUdeParams;
+
+/**
+ * This structure contains the parameters for the Get Device Provisioning Certificate command
+ * (SAS section 12.16.2). The ASU checks the internal exportable key vault for the calling
+ * subsystem's provisioning authentication key pair (ECC NIST P-384) and provisioning wrapping key
+ * pair (ECIES over NIST P-384); any pair that is missing is generated with the TRNG and stored in
+ * the exportable vault. A UDE-signed X.509 certificate is generated over each public key, the DPC
+ * container (Device DNA, both certificates and a UDE signature over them) is assembled and returned
+ * to the caller at DpcBufAddr, and its actual size is written to DpcActualSizeAddr.
+ */
+typedef struct {
+	u64 DpcBufAddr;		/**< Address of the caller buffer that receives the assembled DPC
+					(DER encoded X.509 certificates inside the container). */
+	u64 DpcActualSizeAddr;	/**< Address of the caller u32 that receives the actual size in
+					bytes of the assembled DPC. */
+	u32 DpcBufSize;		/**< Size in bytes of the caller DPC buffer at DpcBufAddr. */
+	u32 Reserved;		/**< Reserved for alignment. */
+} XAsu_DevProvisionCertParams;
 
 /*************************** Macros (Inline Functions) Definitions *******************************/
 

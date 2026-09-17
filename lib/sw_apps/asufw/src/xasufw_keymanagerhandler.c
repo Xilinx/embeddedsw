@@ -1140,9 +1140,9 @@ END:
 
 /*************************************************************************************************/
 /**
- * @brief	Create the ASU subsystem key vaults with predefined capacities: the ASU-internal
- * 		vault which holds the AES, RSA and OCP ECC keys, and the ASU-owned exportable
- * 		vault which holds the wrapped-key provisioning key pairs.
+ * @brief	Create the ASU-internal key vault with predefined capacities, which holds the AES,
+ * 		RSA and OCP ECC keys. The ASU-owned exportable vault that follows it is created by
+ * 		XKeyManager_CreateAsuExportableVault(), which is its only creator.
  *
  * @return
  * 	- XASUFW_SUCCESS, if the ASU-internal vault is created.

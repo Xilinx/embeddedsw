@@ -184,4 +184,132 @@ s32 XAsu_ProvisionUde(XAsu_ClientParams *ClientParamPtr, XAsu_ProvisionUdeParams
 END:
 	return Status;
 }
+
+/*************************************************************************************************/
+/**
+ * @brief	This function sends a command to ASUFW to generate and return the Device Provisioning
+ *		Certificate (DPC) for the calling subsystem (SAS section 12.16.2).
+ *
+ *		The ASU checks the internal exportable key vault for the subsystem's provisioning
+ *		authentication key pair (ECC NIST P-384) and provisioning wrapping key pair (ECIES
+ *		over NIST P-384). Any pair that is missing is generated with the TRNG and stored in
+ *		the exportable vault. A UDE-signed X.509 certificate is generated over each public
+ *		key, the DPC container (Device DNA, both certificates and a UDE signature over them)
+ *		is assembled and returned to the caller at ParamsPtr->DpcBufAddr with its actual size
+ *		at ParamsPtr->DpcActualSizeAddr.
+ *
+ * @param	ClientParamPtr	Pointer to the XAsu_ClientParams structure which holds the client
+ *				input parameters.
+ * @param	ParamsPtr	Pointer to the XAsu_DevProvisionCertParams structure which holds the
+ *				DPC generation input arguments.
+ *
+ * @return
+ *	- XST_SUCCESS, if the IPI request to ASUFW is sent successfully.
+ *	- XASU_INVALID_ARGUMENT, if any argument is invalid.
+ *	- XASU_INVALID_UNIQUE_ID, if the received Queue ID is invalid.
+ *
+ *************************************************************************************************/
+s32 XAsu_GetDevProvisionCert(XAsu_ClientParams *ClientParamPtr,
+			     XAsu_DevProvisionCertParams *ParamsPtr)
+{
+	s32 Status = XST_FAILURE;
+	u32 Header;
+	u8 UniqueId;
+
+	/** Validate the provisioning input parameter pointer. */
+	if (ParamsPtr == NULL) {
+		Status = XASU_INVALID_ARGUMENT;
+		goto END;
+	}
+
+	/** Validate client parameters. */
+	Status = XAsu_ValidateClientParameters(ClientParamPtr);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	/** Validate the DPC generation input parameters. */
+	Status = XAsu_ProvisionValidateDpcParams(ParamsPtr);
+	if (Status != XST_SUCCESS) {
+		Status = XASU_INVALID_ARGUMENT;
+		goto END;
+	}
+
+	/**
+	 * Generate a unique ID and register the callback function, providing the caller's
+	 * DpcActualSizeAddr as the response buffer so the DPC size returned by the server is
+	 * copied there during the callback.
+	 */
+	UniqueId = XAsu_RegCallBackNGetUniqueId(ClientParamPtr,
+						(u8 *)(UINTPTR)ParamsPtr->DpcActualSizeAddr,
+						XASU_PROVISION_DPC_ACTUAL_SIZE_IN_BYTES,
+						XASU_TRUE);
+	if (UniqueId >= XASU_UNIQUE_ID_MAX) {
+		Status = XASU_INVALID_UNIQUE_ID;
+		goto END;
+	}
+
+	/** Create command header. */
+	Header = XAsu_CreateHeader(XASU_PROVISION_GET_DPC_CMD_ID, UniqueId,
+				   XASU_MODULE_PROVISION_ID,
+				   (u8)(sizeof(XAsu_DevProvisionCertParams) /
+					XASU_WORD_LEN_IN_BYTES),
+				   ClientParamPtr->SecureFlag);
+
+	/** Update request buffer and send an IPI request to ASUFW. */
+	Status = XAsu_SendCmdToAsu(ClientParamPtr, ParamsPtr,
+				   (u32)(sizeof(XAsu_DevProvisionCertParams)), Header);
+
+END:
+	return Status;
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	This function sends a command to ASUFW to delete the calling subsystem's
+ *		provisioning key pairs backing the Device Provisioning Certificate (SAS section
+ *		12.16.3).
+ *
+ *		The provisioning authentication and wrapping key pairs are removed from the internal
+ *		exportable key vault so that the next XAsu_GetDevProvisionCert call regenerates them.
+ *
+ * @param	ClientParamPtr	Pointer to the XAsu_ClientParams structure which holds the client
+ *				input parameters.
+ *
+ * @return
+ *	- XST_SUCCESS, if the IPI request to ASUFW is sent successfully.
+ *	- XASU_INVALID_UNIQUE_ID, if the received Queue ID is invalid.
+ *
+ *************************************************************************************************/
+s32 XAsu_DeleteDevProvisionCert(XAsu_ClientParams *ClientParamPtr)
+{
+	s32 Status = XST_FAILURE;
+	u32 Header;
+	u8 UniqueId;
+
+	/** Validate client parameters. */
+	Status = XAsu_ValidateClientParameters(ClientParamPtr);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	/** Generate a unique ID and register the callback function. */
+	UniqueId = XAsu_RegCallBackNGetUniqueId(ClientParamPtr, NULL, 0U, XASU_TRUE);
+	if (UniqueId >= XASU_UNIQUE_ID_MAX) {
+		Status = XASU_INVALID_UNIQUE_ID;
+		goto END;
+	}
+
+	/** Create command header. */
+	Header = XAsu_CreateHeader(XASU_PROVISION_DELETE_DPC_CMD_ID, UniqueId,
+				   XASU_MODULE_PROVISION_ID, 0U,
+				   ClientParamPtr->SecureFlag);
+
+	/** Send an IPI request to ASUFW. */
+	Status = XAsu_SendCmdToAsu(ClientParamPtr, NULL, 0U, Header);
+
+END:
+	return Status;
+}
+
 /** @} */

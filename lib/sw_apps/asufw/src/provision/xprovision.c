@@ -42,9 +42,15 @@
 #include "xasufw_ipi.h"
 #include "xaes.h"
 #include "xtrng.h"
+#include "xrsa_ecc.h"
+#include "xsha.h"
+#include "xsha_hw.h"
 #include "xkeymanager.h"
 #include "xasu_sharedmem.h"
 #include "xasu_aesinfo.h"
+#include "xasu_eccinfo.h"
+#include "xasu_shainfo.h"
+#include "xasu_def.h"
 #include "xasu_generic.h"
 #include "xocp_ude.h"
 #include "xfih.h"
@@ -77,6 +83,19 @@
 								caller certificate buffer during
 								provisioning rollback */
 
+/*
+ * Device Provisioning Certificate (DPC) container layout (SAS Table 18): Device DNA, followed by
+ * the length-prefixed UDE-signed authentication key certificate, the length-prefixed UDE-signed
+ * wrapping key certificate, and a UDE signature over all of the preceding bytes.
+ */
+#define XPROVISION_DPC_DNA_SIZE_IN_BYTES	(EFUSE_CACHE_DNA_SIZE)	/**< Device DNA size in
+									bytes. */
+#define XPROVISION_DPC_LEN_FIELD_SIZE_IN_BYTES	(4U)	/**< Size of each certificate length prefix
+								(one u32) in bytes. */
+#define XPROVISION_DPC_SIG_SIZE_IN_BYTES	(XASU_ECC_P384_PVT_KEY_SIZE_IN_BYTES * 2U)
+							/**< UDE signature size in bytes (R || S over
+							NIST P-384). */
+
 /************************************ Type Definitions *******************************************/
 
 /********************************** Variable Definitions *****************************************/
@@ -93,6 +112,7 @@ static s32 XProvision_IsUdeSlotFree(u8 UdeSlot);
 static s32 XProvision_WriteUdeKeyToEfuse(u32 UdeSlot, const u32 *KeyData);
 static s32 XProvision_GetKeySlot(u32 SubSystemId, u16 *SlotPtr, u8 KeyUseCase);
 static s32 XProvision_GetKeyId(u16 KeySlot, u32 *KeyIdPtr, u8 KeyUseCase);
+static s32 XProvision_GetPubKey(u32 SubSystemId, u8 KeyUseCase, u8 *PubKeyBuf);
 
 /*************************************************************************************************/
 /**
@@ -515,6 +535,8 @@ END:
  *		public key is returned to the caller along with its actual size.
  *
  * @param	DmaPtr			Pointer to the XAsufw_Dma instance.
+ * @param	ShaPtr			Pointer to the SHA3 (XSHA_1) instance used to hash the
+ *					self-signed certificate.
  * @param	ParamsPtr		Pointer to the XAsu_ProvisionUdeParams structure.
  * @param	CertActualSizePtr	Pointer to the response buffer location that receives the
  *					actual size in bytes of the generated certificate. The client
@@ -532,7 +554,7 @@ END:
  *	- XASUFW_OCP_DISABLED, if OCP is disabled.
  *
  *************************************************************************************************/
-s32 XProvision_Ude(XAsufw_Dma *DmaPtr, const XAsu_ProvisionUdeParams *ParamsPtr,
+s32 XProvision_Ude(XAsufw_Dma *DmaPtr, XSha *ShaPtr, const XAsu_ProvisionUdeParams *ParamsPtr,
 		   u32 *CertActualSizePtr)
 {
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
@@ -543,7 +565,7 @@ s32 XProvision_Ude(XAsufw_Dma *DmaPtr, const XAsu_ProvisionUdeParams *ParamsPtr,
 	u8 UdeKeyTypeCode;
 
 	/** Validate input parameters. */
-	if ((DmaPtr == NULL) || (CertActualSizePtr == NULL)) {
+	if ((DmaPtr == NULL) || (ShaPtr == NULL) || (CertActualSizePtr == NULL)) {
 		Status = XASUFW_PROVISION_INVALID_PARAM;
 		goto END;
 	}
@@ -579,7 +601,7 @@ s32 XProvision_Ude(XAsufw_Dma *DmaPtr, const XAsu_ProvisionUdeParams *ParamsPtr,
 	 */
 #ifdef XASU_OCP_ENABLE
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-	Status = XOcp_EncryptUdeKeys(DmaPtr, (u32)ParamsPtr->UdeSlot, (u8 *)EncPvtKey,
+	Status = XOcp_EncryptUdeKeys(DmaPtr, ShaPtr, (u32)ParamsPtr->UdeSlot, (u8 *)EncPvtKey,
 						ParamsPtr->CertBufAddr, ParamsPtr->CertBufSize,
 						&CertSize);
 	if (Status != XASUFW_SUCCESS) {
@@ -1144,6 +1166,410 @@ static s32 XProvision_GetKeyId(u16 KeySlot, u32 *KeyIdPtr, u8 KeyUseCase)
 	}
 
 	*KeyIdPtr = KeyId;
+
+END:
+	return Status;
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	This function returns the public key of a subsystem's provisioning ECC NIST P-384
+ *		key pair held in the ASU-owned exportable key vault, without generating it. The use
+ *		case selects which of the two reserved slot bands the pair lives in: the
+ *		provisioning-material unwrap use case (ECIES) resolves to the wrapping pair and the
+ *		provisioning authenticated-encryption use case resolves to the authentication pair.
+ *		Both halves of a provisioning pair are stored with the same use-case value, so the
+ *		private use case also matches the stored public half. Neither half nor either key ID
+ *		is otherwise exposed: only the public key bytes are copied out for the Device
+ *		Provisioning Certificate.
+ *
+ * @param	SubSystemId	Subsystem whose provisioning public key is requested. Together with
+ *				the use case it selects the reserved slot within the exportable vault.
+ * @param	KeyUseCase	Provisioning use case whose public key is requested, either
+ *				XASU_KEYMANAGER_ECC_PVT_PROV_UNWRAP_USE_CASE (wrapping/ECIES) or
+ *				XASU_KEYMANAGER_ECC_PVT_KEY_AUTH_ENC_USE_CASE (authentication). It
+ *				must be the use case the pair was generated for, because it selects
+ *				the reserved slot range.
+ * @param	PubKeyBuf	Buffer that receives the uncompressed (X || Y) public key
+ *				(XASU_ECC_P384_PUB_KEY_SIZE_IN_BYTES bytes).
+ *
+ * @return
+ *	- XASUFW_SUCCESS, if the public key is returned successfully.
+ *	- XASUFW_KEYMANAGER_INVALID_PARAM, if PubKeyBuf is NULL.
+ *	- XASUFW_KEYMANAGER_GET_PROVISIONING_KEY_SLOT_FAILED, if no slot is reserved for the
+ *		subsystem and use case, with the underlying cause packed into the status.
+ *	- XASUFW_KEYMANAGER_KEY_NOT_FOUND, if the reserved slot holds no public key for that use
+ *		case, i.e. the key pair does not exist in the exportable vault.
+ *	- Error code from Xil_SMemCpy, if copying the public key fails.
+ *
+ *************************************************************************************************/
+static s32 XProvision_GetPubKey(u32 SubSystemId, u8 KeyUseCase, u8 *PubKeyBuf)
+{
+	CREATE_VOLATILE(Status, XASUFW_FAILURE);
+	const XKeyManager_EccPubKeyObject *PubKeyObj = NULL;
+	u16 KeySlot = 0U;
+	u32 PubKeyId = 0U;
+
+	/** Validate input parameters. */
+	if (PubKeyBuf == NULL) {
+		Status = XASUFW_KEYMANAGER_INVALID_PARAM;
+		goto END;
+	}
+
+	/**
+	 * Map the subsystem and the requested use case to their reserved slot in the exportable
+	 * vault. The unwrap use case resolves to the wrapping band and the authenticated-encryption
+	 * use case to the authentication band, so the same lookup serves both provisioning pairs.
+	 */
+	Status = XProvision_GetKeySlot(SubSystemId, &KeySlot, KeyUseCase);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XAsufw_UpdateErrorStatus(Status,
+				XASUFW_KEYMANAGER_GET_PROVISIONING_KEY_SLOT_FAILED);
+		goto END;
+	}
+
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	PubKeyId = XASU_KM_COMPOSE_KEY_ID(XKEYMANAGER_ASU_EXPORTABLE_VAULT_ID,
+					  XASU_ECC_PUB_SUBVAULT_ID, KeySlot);
+
+	/**
+	 * Resolve the public half in the reserved slot without consuming a use of the key. Both
+	 * halves of a provisioning pair carry the same use-case value, so the private use case
+	 * requested here is a subset of the stored public half's use case and the lookup matches.
+	 */
+	PubKeyObj = (const XKeyManager_EccPubKeyObject *)(void *)XKeyManager_GetKeyObjectPtr(
+			PubKeyId, XKEYMANAGER_ASU_SUBSYSTEM_ID, KeyUseCase, (u8)FALSE);
+	if (PubKeyObj == NULL) {
+		Status = XASUFW_KEYMANAGER_KEY_NOT_FOUND;
+		goto END;
+	}
+
+	/** Copy the uncompressed public key to the caller buffer. */
+	Status = Xil_SMemCpy(PubKeyBuf, XASU_ECC_P384_PUB_KEY_SIZE_IN_BYTES,
+			     PubKeyObj->PublicKey, XASU_ECC_P384_PUB_KEY_SIZE_IN_BYTES,
+			     XASU_ECC_P384_PUB_KEY_SIZE_IN_BYTES);
+
+END:
+	return Status;
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	This function generates and returns the Device Provisioning Certificate (DPC) for the
+ *		requesting subsystem (SAS section 12.16.2).
+ *
+ *		The provisioning authentication key pair (ECC NIST P-384) and provisioning wrapping
+ *		key pair (ECIES over NIST P-384) are looked up in the ASU-owned exportable key vault
+ *		and generated with the TRNG if absent. A UDE-signed X.509 certificate is generated
+ *		over each public key, and the DPC container is assembled directly in the caller
+ *		buffer as: Device DNA, the length-prefixed authentication certificate, the
+ *		length-prefixed wrapping certificate, and a UDE signature (ECC P-384) over all the
+ *		preceding bytes. The active UDE key pair signs both the certificates and the
+ *		container; its private key is decrypted inside the ASU and zeroized before returning.
+ *
+ * @param	DmaPtr		Pointer to the XAsufw_Dma instance.
+ * @param	ShaPtr		Pointer to the SHA instance used to hash the DPC container. The Get
+ *				DPC command reserves the SHA3 engine, so this is the SHA3 (XSHA_1)
+ *				instance allocated by the resource handler.
+ * @param	ParamsPtr	Pointer to the XAsu_DevProvisionCertParams structure.
+ * @param	SubsystemId	Subsystem ID of the requesting subsystem (selects the exportable
+ *				vault slots that hold its provisioning key pairs).
+ * @param	DpcActualSizePtr	Pointer to the response buffer location that receives the
+ *					actual DPC size in bytes. The client copies this value to
+ *					ParamsPtr->DpcActualSizeAddr during the callback.
+ *
+ * @return
+ *	- XASUFW_SUCCESS, if the DPC is generated successfully.
+ *	- XASUFW_PROVISION_DPC_INVALID_PARAM, if any input parameter is invalid.
+ *	- XASUFW_PROVISION_DPC_UDE_KEY_FAIL, if the active UDE key pair cannot be obtained.
+ *	- XASUFW_PROVISION_DPC_KEY_FETCH_FAIL, if a provisioning key pair cannot be obtained or
+ *		generated.
+ *	- XASUFW_PROVISION_DPC_CERT_GEN_FAIL, if a UDE-signed certificate cannot be generated.
+ *	- XASUFW_PROVISION_DPC_ASSEMBLE_FAIL, if a DPC field cannot be written to the caller buffer.
+ *	- XASUFW_PROVISION_DPC_SIGN_FAIL, if the UDE signature over the container cannot be computed.
+ *	- XASUFW_PROVISION_DPC_COPY_FAIL, if the signature cannot be copied to the caller.
+ *	- XASUFW_OCP_DISABLED, if the OCP module is not enabled in the build.
+ *
+ *************************************************************************************************/
+s32 XProvision_GetDevProvisionCert(XAsufw_Dma *DmaPtr, XSha *ShaPtr,
+				   const XAsu_DevProvisionCertParams *ParamsPtr, u32 SubsystemId,
+				   u32 *DpcActualSizePtr)
+{
+	CREATE_VOLATILE(Status, XASUFW_FAILURE);
+	s32 ClearStatus = XASUFW_FAILURE;
+	XFih_Var XFihDpc = XFih_VolatileAssignXfihVar(XFIH_FAILURE);
+	u8 UdePvtKey[XASU_ECC_P384_PVT_KEY_SIZE_IN_BYTES] = {0U};
+	u8 HashBuf[XASU_SHA_384_HASH_LEN] = {0U};
+	u8 SignBuf[XPROVISION_DPC_SIG_SIZE_IN_BYTES] = {0U};
+#ifdef XASU_OCP_ENABLE
+	XAsu_ShaOperationCmd ShaCmd;
+	u8 UdePubKey[XASU_ECC_P384_PUB_KEY_SIZE_IN_BYTES] = {0U};
+	u8 AuthPubKey[XASU_ECC_P384_PUB_KEY_SIZE_IN_BYTES] = {0U};
+	u8 WrapPubKey[XASU_ECC_P384_PUB_KEY_SIZE_IN_BYTES] = {0U};
+	u64 DpcBufAddr;
+	u32 LenField;
+	u32 Offset = 0U;
+	u32 AuthCertSize = 0U;
+	u32 WrapCertSize = 0U;
+	u32 TotalSize = 0U;
+#endif /* XASU_OCP_ENABLE */
+
+	/** Validate input parameters. */
+	if ((DmaPtr == NULL) || (ShaPtr == NULL) || (DpcActualSizePtr == NULL)) {
+		Status = XASUFW_PROVISION_DPC_INVALID_PARAM;
+		goto END;
+	}
+
+	Status = XAsu_ProvisionValidateDpcParams(ParamsPtr);
+	if (Status != XST_SUCCESS) {
+		Status = XASUFW_PROVISION_DPC_INVALID_PARAM;
+		goto END;
+	}
+
+#ifdef XASU_OCP_ENABLE
+	DpcBufAddr = ParamsPtr->DpcBufAddr;
+
+	/** Obtain the active (non-revoked) UDE key pair that signs the DPC. */
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	Status = XOcp_GetActiveUdeKeyPair(DmaPtr, UdePvtKey, UdePubKey);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_PROVISION_DPC_UDE_KEY_FAIL);
+		goto END_CLR;
+	}
+
+	/**
+	 * Generate the provisioning authentication (ECC P-384) key pair if it does not already
+	 * exist, then fetch its public key. An already-existing pair is reused rather than treated
+	 * as an error, so a repeated DPC request rebuilds the certificate over the same key that
+	 * was already handed out (SAS section 8.4). The pair lives in the authentication slot band,
+	 * selected by the authenticated-encryption provisioning use case.
+	 */
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	Status = XProvision_GenerateKeyPair(DmaPtr, SubsystemId,
+			XASU_KEYMANAGER_ECC_PVT_KEY_AUTH_ENC_USE_CASE);
+	if ((Status != XASUFW_SUCCESS) &&
+	    (Status != XASUFW_KEYMANAGER_PROVISIONING_KEY_ALREADY_EXISTS)) {
+		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_PROVISION_DPC_KEY_FETCH_FAIL);
+		goto END_CLR;
+	}
+
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	Status = XProvision_GetPubKey(SubsystemId,
+			XASU_KEYMANAGER_ECC_PVT_KEY_AUTH_ENC_USE_CASE, AuthPubKey);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_PROVISION_DPC_KEY_FETCH_FAIL);
+		goto END_CLR;
+	}
+
+	/**
+	 * Generate the provisioning wrapping (ECIES P-384) key pair if it does not already exist,
+	 * reusing the common provisioning key pair generator, then fetch its public key. An
+	 * already-existing pair is not an error here. The pair lives in the wrapping slot band,
+	 * selected by the provisioning-material unwrap (ECIES) use case.
+	 */
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	Status = XProvision_GenerateKeyPair(DmaPtr, SubsystemId,
+			XASU_KEYMANAGER_ECC_PVT_PROV_UNWRAP_USE_CASE);
+	if ((Status != XASUFW_SUCCESS) &&
+	    (Status != XASUFW_KEYMANAGER_PROVISIONING_KEY_ALREADY_EXISTS)) {
+		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_PROVISION_DPC_KEY_FETCH_FAIL);
+		goto END_CLR;
+	}
+
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	Status = XProvision_GetPubKey(SubsystemId,
+			XASU_KEYMANAGER_ECC_PVT_PROV_UNWRAP_USE_CASE, WrapPubKey);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_PROVISION_DPC_KEY_FETCH_FAIL);
+		goto END_CLR;
+	}
+
+	/** DPC field 1: Device DNA. Ensure the caller buffer can hold the DNA field. */
+	if ((ParamsPtr->DpcBufSize < Offset) ||
+	    ((ParamsPtr->DpcBufSize - Offset) < XPROVISION_DPC_DNA_SIZE_IN_BYTES)) {
+		Status = XASUFW_PROVISION_DPC_ASSEMBLE_FAIL;
+		goto END_CLR;
+	}
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	Status = XAsufw_DmaXfr(DmaPtr, (u64)(UINTPTR)EFUSE_CACHE_DNA_0, DpcBufAddr + Offset,
+			       XPROVISION_DPC_DNA_SIZE_IN_BYTES, 0U);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_PROVISION_DPC_ASSEMBLE_FAIL);
+		goto END_CLR;
+	}
+	Offset += XPROVISION_DPC_DNA_SIZE_IN_BYTES;
+
+	/**
+	 * DPC field 2: length-prefixed UDE-signed authentication key certificate. The certificate
+	 * is generated directly into the caller buffer, after its 4-byte length prefix, then the
+	 * length is written back.
+	 */
+	if ((ParamsPtr->DpcBufSize < Offset) ||
+	    ((ParamsPtr->DpcBufSize - Offset) < XPROVISION_DPC_LEN_FIELD_SIZE_IN_BYTES)) {
+		Status = XASUFW_PROVISION_DPC_ASSEMBLE_FAIL;
+		goto END_CLR;
+	}
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	Status = XOcp_GenerateUdeSignedKeyCert(DmaPtr, ShaPtr, AuthPubKey, (u8)XASU_TRUE, UdePubKey,
+			UdePvtKey, DpcBufAddr + Offset + XPROVISION_DPC_LEN_FIELD_SIZE_IN_BYTES,
+			ParamsPtr->DpcBufSize - (Offset + XPROVISION_DPC_LEN_FIELD_SIZE_IN_BYTES),
+			&AuthCertSize);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_PROVISION_DPC_CERT_GEN_FAIL);
+		goto END_CLR;
+	}
+	/** The certificate length prefix is stored in big-endian (network) byte order. */
+	LenField = Xil_Htonl(AuthCertSize);
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	Status = XAsufw_DmaXfr(DmaPtr, (u64)(UINTPTR)&LenField, DpcBufAddr + Offset,
+			       XPROVISION_DPC_LEN_FIELD_SIZE_IN_BYTES, 0U);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_PROVISION_DPC_ASSEMBLE_FAIL);
+		goto END_CLR;
+	}
+	Offset += XPROVISION_DPC_LEN_FIELD_SIZE_IN_BYTES + AuthCertSize;
+
+	/** DPC field 3: length-prefixed UDE-signed wrapping key certificate. */
+	if ((ParamsPtr->DpcBufSize < Offset) ||
+	    ((ParamsPtr->DpcBufSize - Offset) < XPROVISION_DPC_LEN_FIELD_SIZE_IN_BYTES)) {
+		Status = XASUFW_PROVISION_DPC_ASSEMBLE_FAIL;
+		goto END_CLR;
+	}
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	Status = XOcp_GenerateUdeSignedKeyCert(DmaPtr, ShaPtr, WrapPubKey, (u8)XASU_FALSE, UdePubKey,
+			UdePvtKey, DpcBufAddr + Offset + XPROVISION_DPC_LEN_FIELD_SIZE_IN_BYTES,
+			ParamsPtr->DpcBufSize - (Offset + XPROVISION_DPC_LEN_FIELD_SIZE_IN_BYTES),
+			&WrapCertSize);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_PROVISION_DPC_CERT_GEN_FAIL);
+		goto END_CLR;
+	}
+	/** The certificate length prefix is stored in big-endian (network) byte order. */
+	LenField = Xil_Htonl(WrapCertSize);
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	Status = XAsufw_DmaXfr(DmaPtr, (u64)(UINTPTR)&LenField, DpcBufAddr + Offset,
+			       XPROVISION_DPC_LEN_FIELD_SIZE_IN_BYTES, 0U);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_PROVISION_DPC_ASSEMBLE_FAIL);
+		goto END_CLR;
+	}
+	Offset += XPROVISION_DPC_LEN_FIELD_SIZE_IN_BYTES + WrapCertSize;
+
+	/** Ensure the caller buffer can hold the UDE signature field before writing it. */
+	if ((ParamsPtr->DpcBufSize < Offset) ||
+	    ((ParamsPtr->DpcBufSize - Offset) < XPROVISION_DPC_SIG_SIZE_IN_BYTES)) {
+		Status = XASUFW_PROVISION_DPC_ASSEMBLE_FAIL;
+		goto END_CLR;
+	}
+	/**
+	 * DPC field 4: UDE signature over all preceding bytes. Compute the SHA-384 digest of the
+	 * assembled fields (on the SHA3 engine) and sign it with the active UDE private key
+	 * (ECC NIST P-384).
+	 */
+	ShaCmd.ShaMode = XASU_SHA_MODE_384;
+	ShaCmd.DataAddr = DpcBufAddr;
+	ShaCmd.DataSize = Offset;
+	ShaCmd.HashAddr = (u64)(UINTPTR)HashBuf;
+	ShaCmd.HashBufSize = XASU_SHA_384_HASH_LEN;
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	Status = XSha_Digest(ShaPtr, DmaPtr, &ShaCmd);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_PROVISION_DPC_SIGN_FAIL);
+		goto END_CLR;
+	}
+
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	Status = XRsa_EccGenerateSignature(DmaPtr, XASU_ECC_NIST_P384,
+			XASU_ECC_P384_PVT_KEY_SIZE_IN_BYTES, (u64)(UINTPTR)UdePvtKey, NULL,
+			(u64)(UINTPTR)HashBuf, XASU_SHA_384_HASH_LEN, (u64)(UINTPTR)SignBuf);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_PROVISION_DPC_SIGN_FAIL);
+		goto END_CLR;
+	}
+
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	Status = XAsufw_DmaXfr(DmaPtr, (u64)(UINTPTR)SignBuf, DpcBufAddr + Offset,
+			       XPROVISION_DPC_SIG_SIZE_IN_BYTES, 0U);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_PROVISION_DPC_COPY_FAIL);
+		goto END_CLR;
+	}
+	Offset += XPROVISION_DPC_SIG_SIZE_IN_BYTES;
+	TotalSize = Offset;
+
+	/**
+	 * Return the actual size of the assembled DPC to the caller through the response buffer.
+	 * The client copies this value from the response buffer to ParamsPtr->DpcActualSizeAddr
+	 * during the callback.
+	 */
+	*DpcActualSizePtr = TotalSize;
+
+	/**
+	 * Record the DPC-specific success sentinel in the global redundant ReturnStatus. The command
+	 * layer copies it into the response AdditionalStatus, where the client redundantly confirms
+	 * the DPC was generated successfully, hardening the result against a glitched Status.
+	 */
+	ReturnStatus = XASUFW_PROVISION_DPC_SUCCESS;
+#else
+	ASSIGN_VOLATILE(Status, XASUFW_OCP_DISABLED);
+#endif /* XASU_OCP_ENABLE */
+
+END_CLR:
+	/** Zeroize the decrypted UDE private key and the local hash/signature working buffers. */
+	XFIH_CALL(Xil_SecureZeroize, XFihDpc, ClearStatus, UdePvtKey,
+		  XASU_ECC_P384_PVT_KEY_SIZE_IN_BYTES);
+	Status = XAsufw_UpdateBufStatus(Status, ClearStatus);
+	ClearStatus = Xil_SecureZeroize(HashBuf, XASU_SHA_384_HASH_LEN);
+	Status = XAsufw_UpdateBufStatus(Status, ClearStatus);
+	ClearStatus = Xil_SecureZeroize(SignBuf, XPROVISION_DPC_SIG_SIZE_IN_BYTES);
+	Status = XAsufw_UpdateBufStatus(Status, ClearStatus);
+
+END:
+	return Status;
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	This function deletes the requesting subsystem's provisioning authentication and
+ *		wrapping key pairs from the ASU-owned exportable key vault (SAS section 12.16.3), so
+ *		that the next Get Device Provisioning Certificate request regenerates them.
+ *
+ * @param	SubsystemId	Subsystem ID of the requesting subsystem (selects the exportable
+ *				vault slots that hold its provisioning key pairs).
+ *
+ * @return
+ *	- XASUFW_SUCCESS, if the provisioning key pairs are deleted successfully.
+ *	- XASUFW_PROVISION_DPC_DELETE_FAIL, with the KeyManager error embedded, if the deletion
+ *		fails.
+ *
+ *************************************************************************************************/
+s32 XProvision_DeleteDevProvisionCert(u32 SubsystemId)
+{
+	CREATE_VOLATILE(Status, XASUFW_FAILURE);
+
+	/**
+	 * Delete the provisioning authentication key pair from its reserved slot band. A slot that
+	 * holds no key pair is not an error here: the goal is that the next Get Device Provisioning
+	 * Certificate request regenerates the keys, so a missing pair already satisfies that.
+	 */
+	Status = XProvision_DeleteKeyPair(SubsystemId,
+			XASU_KEYMANAGER_ECC_PVT_KEY_AUTH_ENC_USE_CASE);
+	if ((Status != XASUFW_SUCCESS) && (Status != XASUFW_KEYMANAGER_KEY_NOT_FOUND)) {
+		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_PROVISION_DPC_DELETE_FAIL);
+		goto END;
+	}
+
+	/** Delete the provisioning wrapping (ECIES) key pair from its reserved slot band. */
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	Status = XProvision_DeleteKeyPair(SubsystemId,
+			XASU_KEYMANAGER_ECC_PVT_PROV_UNWRAP_USE_CASE);
+	if ((Status != XASUFW_SUCCESS) && (Status != XASUFW_KEYMANAGER_KEY_NOT_FOUND)) {
+		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_PROVISION_DPC_DELETE_FAIL);
+		goto END;
+	}
+
+	Status = XASUFW_SUCCESS;
+
 END:
 	return Status;
 }
