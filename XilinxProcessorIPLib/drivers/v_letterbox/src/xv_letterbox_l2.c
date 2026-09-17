@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2015 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -173,8 +173,12 @@ void XV_LboxSetBackgroundColor(XV_Lbox_l2    *InstancePtr,
    * Assert validates the input arguments
    */
   Xil_AssertVoid(InstancePtr != NULL);
+  Xil_AssertVoid((ColorId < XLBOX_BKGND_LAST));
   Xil_AssertVoid((bpc >= XVIDC_BPC_8) &&
                  (bpc <= InstancePtr->Lbox.Config.MaxDataWidth))
+
+  if (ColorId >= XLBOX_BKGND_LAST)
+    return;
 
   if(cfmt == XVIDC_CSF_RGB)
   {
