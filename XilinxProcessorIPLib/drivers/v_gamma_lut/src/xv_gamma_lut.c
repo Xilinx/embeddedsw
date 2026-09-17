@@ -12,6 +12,30 @@
 /***************************** Include Files *********************************/
 #include "xv_gamma_lut.h"
 
+/************************** Function Prototypes ******************************/
+static u32 XV_gamma_lut_LutRangeOk(u32 Offset, u32 Length, u32 Size, u32 Unit);
+
+/*****************************************************************************/
+/**
+ * Check LUT offset/length against the aperture without wrapping the sum.
+ * Unit is 4 for word accessors and 1 for byte accessors.
+ *****************************************************************************/
+static u32 XV_gamma_lut_LutRangeOk(u32 Offset, u32 Length, u32 Size, u32 Unit)
+{
+	u32 Count;
+
+	if ((Length == 0) || (Unit == 0))
+		return 0;
+
+	Count = Size / Unit;
+	if (Offset >= Count)
+		return 0;
+	if (Length > (Count - Offset))
+		return 0;
+
+	return 1;
+}
+
 /************************** Variable Definitions *****************************/
 
 #ifndef __linux__
@@ -437,13 +461,15 @@ u32 XV_gamma_lut_Get_HwReg_gamma_lut_0_Depth(XV_gamma_lut *InstancePtr) {
  * @note None
  *
  *******************************************************************************/
-u32 XV_gamma_lut_Write_HwReg_gamma_lut_0_Words(XV_gamma_lut *InstancePtr, int offset, int *data, int length) {
+u32 XV_gamma_lut_Write_HwReg_gamma_lut_0_Words(XV_gamma_lut *InstancePtr, u32 offset, int *data, u32 length) {
     Xil_AssertNonvoid(InstancePtr != NULL);
     Xil_AssertNonvoid(InstancePtr -> IsReady == XIL_COMPONENT_IS_READY);
 
-    int i;
+    u32 i;
 
-    if ((offset + length)*4 > (XV_GAMMA_LUT_CTRL_ADDR_HWREG_GAMMA_LUT_0_HIGH - XV_GAMMA_LUT_CTRL_ADDR_HWREG_GAMMA_LUT_0_BASE + 1))
+    if (!XV_gamma_lut_LutRangeOk(offset, length,
+            (XV_GAMMA_LUT_CTRL_ADDR_HWREG_GAMMA_LUT_0_HIGH -
+             XV_GAMMA_LUT_CTRL_ADDR_HWREG_GAMMA_LUT_0_BASE + 1), 4))
         return 0;
 
     for (i = 0; i < length; i++) {
@@ -469,13 +495,15 @@ u32 XV_gamma_lut_Write_HwReg_gamma_lut_0_Words(XV_gamma_lut *InstancePtr, int of
  * @note None
  *
  *******************************************************************************/
-u32 XV_gamma_lut_Read_HwReg_gamma_lut_0_Words(XV_gamma_lut *InstancePtr, int offset, int *data, int length) {
+u32 XV_gamma_lut_Read_HwReg_gamma_lut_0_Words(XV_gamma_lut *InstancePtr, u32 offset, int *data, u32 length) {
     Xil_AssertNonvoid(InstancePtr != NULL);
     Xil_AssertNonvoid(InstancePtr -> IsReady == XIL_COMPONENT_IS_READY);
 
-    int i;
+    u32 i;
 
-    if ((offset + length)*4 > (XV_GAMMA_LUT_CTRL_ADDR_HWREG_GAMMA_LUT_0_HIGH - XV_GAMMA_LUT_CTRL_ADDR_HWREG_GAMMA_LUT_0_BASE + 1))
+    if (!XV_gamma_lut_LutRangeOk(offset, length,
+            (XV_GAMMA_LUT_CTRL_ADDR_HWREG_GAMMA_LUT_0_HIGH -
+             XV_GAMMA_LUT_CTRL_ADDR_HWREG_GAMMA_LUT_0_BASE + 1), 4))
         return 0;
 
     for (i = 0; i < length; i++) {
@@ -501,13 +529,15 @@ u32 XV_gamma_lut_Read_HwReg_gamma_lut_0_Words(XV_gamma_lut *InstancePtr, int off
  * @note None
  *
  *******************************************************************************/
-u32 XV_gamma_lut_Write_HwReg_gamma_lut_0_Bytes(XV_gamma_lut *InstancePtr, int offset, char *data, int length) {
+u32 XV_gamma_lut_Write_HwReg_gamma_lut_0_Bytes(XV_gamma_lut *InstancePtr, u32 offset, char *data, u32 length) {
     Xil_AssertNonvoid(InstancePtr != NULL);
     Xil_AssertNonvoid(InstancePtr -> IsReady == XIL_COMPONENT_IS_READY);
 
-    int i;
+    u32 i;
 
-    if ((offset + length) > (XV_GAMMA_LUT_CTRL_ADDR_HWREG_GAMMA_LUT_0_HIGH - XV_GAMMA_LUT_CTRL_ADDR_HWREG_GAMMA_LUT_0_BASE + 1))
+    if (!XV_gamma_lut_LutRangeOk(offset, length,
+            (XV_GAMMA_LUT_CTRL_ADDR_HWREG_GAMMA_LUT_0_HIGH -
+             XV_GAMMA_LUT_CTRL_ADDR_HWREG_GAMMA_LUT_0_BASE + 1), 1))
         return 0;
 
     for (i = 0; i < length; i++) {
@@ -533,13 +563,15 @@ u32 XV_gamma_lut_Write_HwReg_gamma_lut_0_Bytes(XV_gamma_lut *InstancePtr, int of
  * @note None
  *
  *******************************************************************************/
-u32 XV_gamma_lut_Read_HwReg_gamma_lut_0_Bytes(XV_gamma_lut *InstancePtr, int offset, char *data, int length) {
+u32 XV_gamma_lut_Read_HwReg_gamma_lut_0_Bytes(XV_gamma_lut *InstancePtr, u32 offset, char *data, u32 length) {
     Xil_AssertNonvoid(InstancePtr != NULL);
     Xil_AssertNonvoid(InstancePtr -> IsReady == XIL_COMPONENT_IS_READY);
 
-    int i;
+    u32 i;
 
-    if ((offset + length) > (XV_GAMMA_LUT_CTRL_ADDR_HWREG_GAMMA_LUT_0_HIGH - XV_GAMMA_LUT_CTRL_ADDR_HWREG_GAMMA_LUT_0_BASE + 1))
+    if (!XV_gamma_lut_LutRangeOk(offset, length,
+            (XV_GAMMA_LUT_CTRL_ADDR_HWREG_GAMMA_LUT_0_HIGH -
+             XV_GAMMA_LUT_CTRL_ADDR_HWREG_GAMMA_LUT_0_BASE + 1), 1))
         return 0;
 
     for (i = 0; i < length; i++) {
@@ -665,13 +697,15 @@ u32 XV_gamma_lut_Get_HwReg_gamma_lut_1_Depth(XV_gamma_lut *InstancePtr) {
  * @note None
  *
  *******************************************************************************/
-u32 XV_gamma_lut_Write_HwReg_gamma_lut_1_Words(XV_gamma_lut *InstancePtr, int offset, int *data, int length) {
+u32 XV_gamma_lut_Write_HwReg_gamma_lut_1_Words(XV_gamma_lut *InstancePtr, u32 offset, int *data, u32 length) {
     Xil_AssertNonvoid(InstancePtr != NULL);
     Xil_AssertNonvoid(InstancePtr -> IsReady == XIL_COMPONENT_IS_READY);
 
-    int i;
+    u32 i;
 
-    if ((offset + length)*4 > (XV_GAMMA_LUT_CTRL_ADDR_HWREG_GAMMA_LUT_1_HIGH - XV_GAMMA_LUT_CTRL_ADDR_HWREG_GAMMA_LUT_1_BASE + 1))
+    if (!XV_gamma_lut_LutRangeOk(offset, length,
+            (XV_GAMMA_LUT_CTRL_ADDR_HWREG_GAMMA_LUT_1_HIGH -
+             XV_GAMMA_LUT_CTRL_ADDR_HWREG_GAMMA_LUT_1_BASE + 1), 4))
         return 0;
 
     for (i = 0; i < length; i++) {
@@ -697,13 +731,15 @@ u32 XV_gamma_lut_Write_HwReg_gamma_lut_1_Words(XV_gamma_lut *InstancePtr, int of
  * @note None
  *
  *******************************************************************************/
-u32 XV_gamma_lut_Read_HwReg_gamma_lut_1_Words(XV_gamma_lut *InstancePtr, int offset, int *data, int length) {
+u32 XV_gamma_lut_Read_HwReg_gamma_lut_1_Words(XV_gamma_lut *InstancePtr, u32 offset, int *data, u32 length) {
     Xil_AssertNonvoid(InstancePtr != NULL);
     Xil_AssertNonvoid(InstancePtr -> IsReady == XIL_COMPONENT_IS_READY);
 
-    int i;
+    u32 i;
 
-    if ((offset + length)*4 > (XV_GAMMA_LUT_CTRL_ADDR_HWREG_GAMMA_LUT_1_HIGH - XV_GAMMA_LUT_CTRL_ADDR_HWREG_GAMMA_LUT_1_BASE + 1))
+    if (!XV_gamma_lut_LutRangeOk(offset, length,
+            (XV_GAMMA_LUT_CTRL_ADDR_HWREG_GAMMA_LUT_1_HIGH -
+             XV_GAMMA_LUT_CTRL_ADDR_HWREG_GAMMA_LUT_1_BASE + 1), 4))
         return 0;
 
     for (i = 0; i < length; i++) {
@@ -729,13 +765,15 @@ u32 XV_gamma_lut_Read_HwReg_gamma_lut_1_Words(XV_gamma_lut *InstancePtr, int off
  * @note None
  *
  *******************************************************************************/
-u32 XV_gamma_lut_Write_HwReg_gamma_lut_1_Bytes(XV_gamma_lut *InstancePtr, int offset, char *data, int length) {
+u32 XV_gamma_lut_Write_HwReg_gamma_lut_1_Bytes(XV_gamma_lut *InstancePtr, u32 offset, char *data, u32 length) {
     Xil_AssertNonvoid(InstancePtr != NULL);
     Xil_AssertNonvoid(InstancePtr -> IsReady == XIL_COMPONENT_IS_READY);
 
-    int i;
+    u32 i;
 
-    if ((offset + length) > (XV_GAMMA_LUT_CTRL_ADDR_HWREG_GAMMA_LUT_1_HIGH - XV_GAMMA_LUT_CTRL_ADDR_HWREG_GAMMA_LUT_1_BASE + 1))
+    if (!XV_gamma_lut_LutRangeOk(offset, length,
+            (XV_GAMMA_LUT_CTRL_ADDR_HWREG_GAMMA_LUT_1_HIGH -
+             XV_GAMMA_LUT_CTRL_ADDR_HWREG_GAMMA_LUT_1_BASE + 1), 1))
         return 0;
 
     for (i = 0; i < length; i++) {
@@ -761,13 +799,15 @@ u32 XV_gamma_lut_Write_HwReg_gamma_lut_1_Bytes(XV_gamma_lut *InstancePtr, int of
  * @note None
  *
  *******************************************************************************/
-u32 XV_gamma_lut_Read_HwReg_gamma_lut_1_Bytes(XV_gamma_lut *InstancePtr, int offset, char *data, int length) {
+u32 XV_gamma_lut_Read_HwReg_gamma_lut_1_Bytes(XV_gamma_lut *InstancePtr, u32 offset, char *data, u32 length) {
     Xil_AssertNonvoid(InstancePtr != NULL);
     Xil_AssertNonvoid(InstancePtr -> IsReady == XIL_COMPONENT_IS_READY);
 
-    int i;
+    u32 i;
 
-    if ((offset + length) > (XV_GAMMA_LUT_CTRL_ADDR_HWREG_GAMMA_LUT_1_HIGH - XV_GAMMA_LUT_CTRL_ADDR_HWREG_GAMMA_LUT_1_BASE + 1))
+    if (!XV_gamma_lut_LutRangeOk(offset, length,
+            (XV_GAMMA_LUT_CTRL_ADDR_HWREG_GAMMA_LUT_1_HIGH -
+             XV_GAMMA_LUT_CTRL_ADDR_HWREG_GAMMA_LUT_1_BASE + 1), 1))
         return 0;
 
     for (i = 0; i < length; i++) {
@@ -893,13 +933,15 @@ u32 XV_gamma_lut_Get_HwReg_gamma_lut_2_Depth(XV_gamma_lut *InstancePtr) {
  * @note None
  *
  *******************************************************************************/
-u32 XV_gamma_lut_Write_HwReg_gamma_lut_2_Words(XV_gamma_lut *InstancePtr, int offset, int *data, int length) {
+u32 XV_gamma_lut_Write_HwReg_gamma_lut_2_Words(XV_gamma_lut *InstancePtr, u32 offset, int *data, u32 length) {
     Xil_AssertNonvoid(InstancePtr != NULL);
     Xil_AssertNonvoid(InstancePtr -> IsReady == XIL_COMPONENT_IS_READY);
 
-    int i;
+    u32 i;
 
-    if ((offset + length)*4 > (XV_GAMMA_LUT_CTRL_ADDR_HWREG_GAMMA_LUT_2_HIGH - XV_GAMMA_LUT_CTRL_ADDR_HWREG_GAMMA_LUT_2_BASE + 1))
+    if (!XV_gamma_lut_LutRangeOk(offset, length,
+            (XV_GAMMA_LUT_CTRL_ADDR_HWREG_GAMMA_LUT_2_HIGH -
+             XV_GAMMA_LUT_CTRL_ADDR_HWREG_GAMMA_LUT_2_BASE + 1), 4))
         return 0;
 
     for (i = 0; i < length; i++) {
@@ -925,13 +967,15 @@ u32 XV_gamma_lut_Write_HwReg_gamma_lut_2_Words(XV_gamma_lut *InstancePtr, int of
  * @note None
  *
  *******************************************************************************/
-u32 XV_gamma_lut_Read_HwReg_gamma_lut_2_Words(XV_gamma_lut *InstancePtr, int offset, int *data, int length) {
+u32 XV_gamma_lut_Read_HwReg_gamma_lut_2_Words(XV_gamma_lut *InstancePtr, u32 offset, int *data, u32 length) {
     Xil_AssertNonvoid(InstancePtr != NULL);
     Xil_AssertNonvoid(InstancePtr -> IsReady == XIL_COMPONENT_IS_READY);
 
-    int i;
+    u32 i;
 
-    if ((offset + length)*4 > (XV_GAMMA_LUT_CTRL_ADDR_HWREG_GAMMA_LUT_2_HIGH - XV_GAMMA_LUT_CTRL_ADDR_HWREG_GAMMA_LUT_2_BASE + 1))
+    if (!XV_gamma_lut_LutRangeOk(offset, length,
+            (XV_GAMMA_LUT_CTRL_ADDR_HWREG_GAMMA_LUT_2_HIGH -
+             XV_GAMMA_LUT_CTRL_ADDR_HWREG_GAMMA_LUT_2_BASE + 1), 4))
         return 0;
 
     for (i = 0; i < length; i++) {
@@ -957,13 +1001,15 @@ u32 XV_gamma_lut_Read_HwReg_gamma_lut_2_Words(XV_gamma_lut *InstancePtr, int off
  * @note None
  *
  *******************************************************************************/
-u32 XV_gamma_lut_Write_HwReg_gamma_lut_2_Bytes(XV_gamma_lut *InstancePtr, int offset, char *data, int length) {
+u32 XV_gamma_lut_Write_HwReg_gamma_lut_2_Bytes(XV_gamma_lut *InstancePtr, u32 offset, char *data, u32 length) {
     Xil_AssertNonvoid(InstancePtr != NULL);
     Xil_AssertNonvoid(InstancePtr -> IsReady == XIL_COMPONENT_IS_READY);
 
-    int i;
+    u32 i;
 
-    if ((offset + length) > (XV_GAMMA_LUT_CTRL_ADDR_HWREG_GAMMA_LUT_2_HIGH - XV_GAMMA_LUT_CTRL_ADDR_HWREG_GAMMA_LUT_2_BASE + 1))
+    if (!XV_gamma_lut_LutRangeOk(offset, length,
+            (XV_GAMMA_LUT_CTRL_ADDR_HWREG_GAMMA_LUT_2_HIGH -
+             XV_GAMMA_LUT_CTRL_ADDR_HWREG_GAMMA_LUT_2_BASE + 1), 1))
         return 0;
 
     for (i = 0; i < length; i++) {
@@ -989,13 +1035,15 @@ u32 XV_gamma_lut_Write_HwReg_gamma_lut_2_Bytes(XV_gamma_lut *InstancePtr, int of
  * @note None
  *
  *******************************************************************************/
-u32 XV_gamma_lut_Read_HwReg_gamma_lut_2_Bytes(XV_gamma_lut *InstancePtr, int offset, char *data, int length) {
+u32 XV_gamma_lut_Read_HwReg_gamma_lut_2_Bytes(XV_gamma_lut *InstancePtr, u32 offset, char *data, u32 length) {
     Xil_AssertNonvoid(InstancePtr != NULL);
     Xil_AssertNonvoid(InstancePtr -> IsReady == XIL_COMPONENT_IS_READY);
 
-    int i;
+    u32 i;
 
-    if ((offset + length) > (XV_GAMMA_LUT_CTRL_ADDR_HWREG_GAMMA_LUT_2_HIGH - XV_GAMMA_LUT_CTRL_ADDR_HWREG_GAMMA_LUT_2_BASE + 1))
+    if (!XV_gamma_lut_LutRangeOk(offset, length,
+            (XV_GAMMA_LUT_CTRL_ADDR_HWREG_GAMMA_LUT_2_HIGH -
+             XV_GAMMA_LUT_CTRL_ADDR_HWREG_GAMMA_LUT_2_BASE + 1), 1))
         return 0;
 
     for (i = 0; i < length; i++) {
