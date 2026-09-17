@@ -846,16 +846,31 @@ int XVprocSs_SetStreamResolution(XVidC_VideoStream *StreamPtr,
 ******************************************************************************/
 void XVprocSs_UpdateZoomPipWindow(XVprocSs *InstancePtr)
 {
+  int Status;
+
   /* Verify arguments */
   Xil_AssertVoid(InstancePtr != NULL);
 
   if(XVprocSs_IsConfigModeMax(InstancePtr))
   {
-    /* send Vdma update window to IP */
     if(XVprocSs_IsPipModeOn(InstancePtr)) {
+      Status = validateWindowSize(&InstancePtr->CtxtData.WrWindow,
+                          InstancePtr->VidOut.Timing.HActive,
+                          InstancePtr->VidOut.Timing.VActive);
+      if(Status != XST_SUCCESS) {
+        XVprocSs_LogWrite(InstancePtr, XVPROCSS_EVT_UPDATE_ZPWIN, XVPROCSS_EDAT_FAILURE);
+        return;
+      }
       XVprocSs_VdmaSetWinToDnScaleMode(InstancePtr, XVPROCSS_VDMA_UPDATE_WR_CH);
     }
     else {
+      Status = validateWindowSize(&InstancePtr->CtxtData.RdWindow,
+                          InstancePtr->VidIn.Timing.HActive,
+                          InstancePtr->VidIn.Timing.VActive);
+      if(Status != XST_SUCCESS) {
+        XVprocSs_LogWrite(InstancePtr, XVPROCSS_EVT_UPDATE_ZPWIN, XVPROCSS_EDAT_FAILURE);
+        return;
+      }
       XVprocSs_VdmaSetWinToUpScaleMode(InstancePtr, XVPROCSS_VDMA_UPDATE_RD_CH);
     }
 
@@ -897,6 +912,8 @@ void XVprocSs_SetZoomPipWindow(XVprocSs *InstancePtr,
                                XVprocSs_Win   mode,
                                XVidC_VideoWindow *win)
 {
+  int Status;
+
   /* Verify arguments */
   Xil_AssertVoid(InstancePtr != NULL);
   Xil_AssertVoid(win != NULL);
@@ -916,6 +933,13 @@ void XVprocSs_SetZoomPipWindow(XVprocSs *InstancePtr,
 
         win->StartX = ((win->StartX + AlignStartX - 1)/AlignStartX)*AlignStartX;
         win->Width  = ((win->Width  + AlignWidth  - 1)/AlignWidth)*AlignWidth;
+      }
+      Status = validateWindowSize(win,
+                          InstancePtr->VidIn.Timing.HActive,
+                          InstancePtr->VidIn.Timing.VActive);
+      if(Status != XST_SUCCESS) {
+        XVprocSs_LogWrite(InstancePtr, XVPROCSS_EVT_SET_ZOOMWIN, XVPROCSS_EDAT_FAILURE);
+        return;
       }
       //VDMA RD Client
       InstancePtr->CtxtData.RdWindow.StartX = win->StartX;
@@ -938,6 +962,13 @@ void XVprocSs_SetZoomPipWindow(XVprocSs *InstancePtr,
 
         win->StartX = ((win->StartX + AlignStartX - 1)/AlignStartX)*AlignStartX;
         win->Width  = ((win->Width  + AlignWidth  - 1)/AlignWidth)*AlignWidth;
+      }
+      Status = validateWindowSize(win,
+                          InstancePtr->VidOut.Timing.HActive,
+                          InstancePtr->VidOut.Timing.VActive);
+      if(Status != XST_SUCCESS) {
+        XVprocSs_LogWrite(InstancePtr, XVPROCSS_EVT_SET_PIPWIN, XVPROCSS_EDAT_FAILURE);
+        return;
       }
       //VDMA WR Client
       InstancePtr->CtxtData.WrWindow.StartX = win->StartX;

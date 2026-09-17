@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2015 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -36,6 +36,9 @@ extern "C" {
 /************************** Constant Definitions *****************************/
 
 /************************** Function Prototypes ******************************/
+int validateWindowSize(const XVidC_VideoWindow *win,
+                                const u32 HActive,
+                                const u32 VActive);
 int XVprocSs_BuildRoutingTable(XVprocSs *XVprocSsPtr);
 void XVprocSs_ProgRouterMux(XVprocSs *XVprocSsPtr);
 void XVprocSs_SetupRouterDataFlow(XVprocSs *XVprocSsPtr);
