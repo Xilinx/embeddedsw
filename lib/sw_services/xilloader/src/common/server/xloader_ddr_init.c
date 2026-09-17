@@ -28,6 +28,7 @@
  *       pre  05/25/2026 For VersalGen2, updated I2C handshake with user defined I2C controller
  *       pre  07/14/2026 Made changes to get I2C device ID based on changed params in SDT
  *       pre  08/05/2026 Enabled I2C Handshake feature for all platforms
+ *       pre  09/17/2026 Reset I2C instance state after release on all platforms
  * </pre>
  *
  *
@@ -213,9 +214,6 @@ END:
 #else
 	SStatus = XPm_PmcReleaseDevice(PM_DEV_I2C_PMC);
 #endif
-	if (NULL != IicInstance) {
-		IicInstance->IsReady = 0U;
-	}
 #else
 #ifdef DDRMC5_I2C_MASTER
 	SStatus = XPm_ReleaseDevice(PM_SUBSYS_PMC, XLOADER_GET_I2C_DEVICE_ID(DDRMC5_I2C_MASTER),
@@ -224,6 +222,9 @@ END:
 	SStatus = XPm_ReleaseDevice(PM_SUBSYS_PMC, PM_DEV_I2C_PMC, XPLMI_CMD_SECURE);
 #endif
 #endif
+	if (NULL != IicInstance) {
+		IicInstance->IsReady = 0U;
+	}
 	if ((Status == XST_SUCCESS) && (SStatus != XST_SUCCESS)) {
 		Status = XLOADER_ERR_I2C_DEV_RELEASE;
 	}
