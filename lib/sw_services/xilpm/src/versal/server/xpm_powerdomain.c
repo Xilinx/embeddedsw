@@ -1661,6 +1661,12 @@ XStatus XPmPowerDomain_InitDomain(XPm_PowerDomain *PwrDomain, u32 Function,
 	const u32 PldPwrNodeDependency[NUM_PLD0_PWR_DOMAIN_DEPENDENCY] = {PM_POWER_PLD};
 	const XPm_PlDevice *PlDevice;
 
+	/* Reject Function before indexing PmInitFunctions[] */
+	if ((u32)FUNC_MAX_COUNT_PMINIT <= Function) {
+		Status = XST_INVALID_PARAM;
+		goto done;
+	}
+
 	PmDbg("%s for PwrDomain 0x%x Start\r\n", PmInitFunctions[Function],
 						  PwrDomain->Power.Node.Id);
 
