@@ -18,6 +18,7 @@
 * 5.5   tvp  05/13/25 Initial release
 * 5.7   tbk  03/27/26 Add fault injection protection for HKDF loop counter
 *       tbk  03/27/26 Set error code before goto on Hmac operations
+* 5.8   ks   08/20/26 Zeroize local HMAC buffers and validate context
 *
 * </pre>
 *
@@ -59,6 +60,8 @@
 int XSecure_Hkdf(XSecure_KdfParams *InDataPtr, u8 *KdfOut, u32 KdfOutLen)
 {
 	volatile int Status = XST_FAILURE;
+	volatile int ClrStatus = XST_FAILURE;
+	volatile int ClrStatusTmp = XST_FAILURE;
 	XSecure_Sha3 *Sha3InstPtr = XSecure_GetSha3Instance(XSECURE_SHA_0_DEVICE_ID);
 	XSecure_Hmac HmacInstance;
 	u32 KdfValue = 0U;
@@ -68,6 +71,13 @@ int XSecure_Hkdf(XSecure_KdfParams *InDataPtr, u8 *KdfOut, u32 KdfOutLen)
 
 	/** - Validate input parameters. */
 	if (InDataPtr == NULL) {
+		Status = XSECURE_ERR_HKDF_INVALID_PARAM;
+		goto END;
+	}
+
+	/** - Validate the context, as it is updated to HMAC on every iteration. */
+	if ((InDataPtr->Context == NULL) || (InDataPtr->ContextLen == 0U) ||
+			(InDataPtr->ContextLen > XSECURE_HKDF_MAX_CONTEXT_LEN)) {
 		Status = XSECURE_ERR_HKDF_INVALID_PARAM;
 		goto END;
 	}
@@ -148,6 +158,10 @@ int XSecure_Hkdf(XSecure_KdfParams *InDataPtr, u8 *KdfOut, u32 KdfOutLen)
 					XSECURE_SHA_384_HASH_SIZE_IN_BYTES,
 					XSECURE_SHA_384_HASH_SIZE_IN_BYTES);
 		}
+		if (Status != XST_SUCCESS) {
+			XSECURE_STATUS_CHK_GLITCH_DETECT(Status);
+			goto END;
+		}
 
 	}
 
@@ -157,6 +171,24 @@ int XSecure_Hkdf(XSecure_KdfParams *InDataPtr, u8 *KdfOut, u32 KdfOutLen)
 	}
 
 END:
+	/** - Zeroize the key derived pads present in the local HMAC instance. */
+	XSECURE_TEMPORAL_IMPL(ClrStatus, ClrStatusTmp, Xil_SecureZeroize, (u8 *)&HmacInstance,
+			sizeof(HmacInstance));
+	if ((ClrStatus != XST_SUCCESS) || (ClrStatusTmp != XST_SUCCESS)) {
+		if (Status == XST_SUCCESS) {
+			Status = (ClrStatus | ClrStatusTmp);
+		}
+	}
+
+	/** - Zeroize the derived key present in the local HMAC result buffer. */
+	XSECURE_TEMPORAL_IMPL(ClrStatus, ClrStatusTmp, Xil_SecureZeroize, (u8 *)&Hmac,
+			sizeof(Hmac));
+	if ((ClrStatus != XST_SUCCESS) || (ClrStatusTmp != XST_SUCCESS)) {
+		if (Status == XST_SUCCESS) {
+			Status = (ClrStatus | ClrStatusTmp);
+		}
+	}
+
 	return Status;
 }
 /** @} */
