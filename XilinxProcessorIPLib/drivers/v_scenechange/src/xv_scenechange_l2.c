@@ -246,12 +246,14 @@ int XV_scenechange_Layer_config(XV_scenechange *InstancePtr, u8 layerid)
 			InstancePtr->ScdConfig->NumStreams)
 		return XST_FAILURE;
 
-	if (InstancePtr->LayerConfig[layerid].Width >
-			InstancePtr->ScdConfig->Cols)
+	if ((InstancePtr->LayerConfig[layerid].Width == 0) ||
+	    (InstancePtr->LayerConfig[layerid].Width >
+			InstancePtr->ScdConfig->Cols))
 		return XST_FAILURE;
 
-	if (InstancePtr->LayerConfig[layerid].Height >
-			InstancePtr->ScdConfig->Rows)
+	if ((InstancePtr->LayerConfig[layerid].Height == 0) ||
+	    (InstancePtr->LayerConfig[layerid].Height >
+			InstancePtr->ScdConfig->Rows))
 		return XST_FAILURE;
 
 	if (!((InstancePtr->ScdConfig->EnableY8 &&

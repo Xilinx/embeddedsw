@@ -11,6 +11,7 @@
 
 /***************************** Include Files *********************************/
 #include "xv_scenechange.h"
+#include <string.h>
 
 
 
@@ -35,6 +36,9 @@
 int XV_scenechange_CfgInitialize(XV_scenechange *InstancePtr, XV_scenechange_Config *ConfigPtr) {
     Xil_AssertNonvoid(InstancePtr != NULL);
     Xil_AssertNonvoid(ConfigPtr != NULL);
+
+    /* Zero layer state only; ScdConfig is already assigned by Initialize() */
+    memset(InstancePtr->LayerConfig, 0, sizeof(InstancePtr->LayerConfig));
 
     InstancePtr->Ctrl_BaseAddress = ConfigPtr->Ctrl_BaseAddress;
     InstancePtr->IsReady = XIL_COMPONENT_IS_READY;

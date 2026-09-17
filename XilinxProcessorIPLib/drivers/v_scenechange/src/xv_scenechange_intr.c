@@ -91,6 +91,10 @@ static void XV_scenechange_handler(XV_scenechange *ScdPtr)
 
 	for (index = 0; index < ScdPtr->ScdConfig->NumStreams; index++) {
 		if (Data & (1 << index)) {
+			if ((ScdPtr->LayerConfig[index].Height == 0) ||
+			    (ScdPtr->LayerConfig[index].Width == 0))
+				continue;
+
 			SAD = XV_scenechange_get_sad(ScdPtr, index);
 			SADTF = ((SAD * ScdPtr->LayerConfig[index].SubSample) /
 					(ScdPtr->LayerConfig[index].Height *
