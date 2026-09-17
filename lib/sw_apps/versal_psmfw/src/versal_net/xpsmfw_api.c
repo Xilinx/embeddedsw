@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2019 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
  ******************************************************************************/
 
@@ -66,10 +66,27 @@ static XStatus XPsmFw_ProcessCdo(u32 CdoStartAddr, u32 Length)
 		while (0U != Len) {
 			CmdHeader.Value = CmdPtr[0];
 			if (XPSMFW_CDO_MAX_LENGTH == CmdHeader.Length) {
-				/* This is the case of long command that beyond 255 words */
+				/* Long command beyond 255 words; ensure length word is present before reading CmdPtr[1] */
+				if (Len < XPSMFW_CDO_LONG_CMD_MIN_LEN) {
+					XPsmFw_Printf(DEBUG_ERROR, "%s: Invalid long command length\r\n", __func__);
+					Status = XST_INVALID_PARAM;
+					break;
+				}
 				CmdLength = CmdPtr[1];
+				/* Reject invalid long-command length before using it */
+				if (XPSMFW_CDO_INVALID_CMD_LENGTH == CmdLength) {
+					XPsmFw_Printf(DEBUG_ERROR, "%s: Invalid command length\r\n", __func__);
+					Status = XST_INVALID_PARAM;
+					break;
+				}
 			} else {
 				CmdLength = CmdHeader.Length;
+			}
+			/* Ensure full command fits in remaining proc buffer before reading operands */
+			if (Len < (CmdLength + 1U)) {
+				XPsmFw_Printf(DEBUG_ERROR, "%s: Truncated CDO command\r\n", __func__);
+				Status = XST_INVALID_PARAM;
+				break;
 			}
 			if (XPSMFW_PM_HANDLER_ID != CmdHeader.HandlerId) {
 				Status = XST_FAILURE;
@@ -120,7 +137,8 @@ static XStatus XPsmFw_ProcessCdo(u32 CdoStartAddr, u32 Length)
 				Len = 0U;
 				break;
 			}
-			if (Len < (CmdLength + 1U)) {
+			/* Command handlers clear Len to stop the loop; do not wrap it */
+			if (0U == Len) {
 				break;
 			}
 			Len -= (CmdLength + 1U);

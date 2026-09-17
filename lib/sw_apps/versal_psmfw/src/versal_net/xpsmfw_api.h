@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2019 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
  ******************************************************************************/
 
@@ -176,6 +176,8 @@ extern "C" {
  * PSMFW CDO handler
  */
 #define XPSMFW_CDO_MAX_LENGTH		(0xFFU)
+#define XPSMFW_CDO_LONG_CMD_MIN_LEN	(2U) /**< Min words for a long command */
+#define XPSMFW_CDO_INVALID_CMD_LENGTH	(MASK32_ALL_HIGH) /**< Invalid long command length */
 #define XPSMFW_PM_HANDLER_ID		(0x01U)
 #define XPSMFW_PROC_MASK_POLL		(0x01U)
 #define XPSMFW_PROC_MASK_WRITE		(0x02U)
