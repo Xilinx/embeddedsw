@@ -132,7 +132,7 @@ s32 XAsu_ProvisionValidateUdeParams(const XAsu_ProvisionUdeParams *ParamsPtr)
 	}
 
 	/** Validate the certificate output buffer size. */
-	if (ParamsPtr->CertBufMaxSize == 0U) {
+	if (ParamsPtr->CertBufSize == 0U) {
 		goto END;
 	}
 

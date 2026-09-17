@@ -157,8 +157,15 @@ s32 XAsu_ProvisionUde(XAsu_ClientParams *ClientParamPtr, XAsu_ProvisionUdeParams
 		goto END;
 	}
 
-	/** Generate a unique ID and register the callback function. */
-	UniqueId = XAsu_RegCallBackNGetUniqueId(ClientParamPtr, NULL, 0U, XASU_TRUE);
+	/**
+	 * Generate a unique ID and register the callback function, providing the caller's
+	 * CertActualSizeAddr as the response buffer so the certificate size returned by the server
+	 * is copied there during the callback.
+	 */
+	UniqueId = XAsu_RegCallBackNGetUniqueId(ClientParamPtr,
+						(u8 *)(UINTPTR)ParamsPtr->CertActualSizeAddr,
+						XASU_PROVISION_UDE_CERT_ACTUAL_SIZE_IN_BYTES,
+						XASU_TRUE);
 	if (UniqueId >= XASU_UNIQUE_ID_MAX) {
 		Status = XASU_INVALID_UNIQUE_ID;
 		goto END;

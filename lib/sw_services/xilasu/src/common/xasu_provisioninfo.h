@@ -61,6 +61,9 @@ extern "C" {
 								(ECC P-384). */
 #define XASU_PROVISION_UDE_CERT_MAX_SIZE_IN_BYTES	(2000U) /**< Maximum size in bytes of the
 								UDE self-signed X.509 certificate. */
+#define XASU_PROVISION_UDE_CERT_ACTUAL_SIZE_IN_BYTES	(4U) /**< Size in bytes of the UDE
+								certificate actual-size value returned
+								through the response buffer. */
 
 /*
  * UDE key type. Only ECC NIST P-384 is supported currently; ML-DSA support is deferred to a later
@@ -114,8 +117,10 @@ typedef struct {
 	u64 CertBufAddr;	/**< Address of the caller buffer that receives the generated UDE
 					self-signed X.509 certificate (DER encoded). */
 	u64 CertActualSizeAddr;	/**< Address of the caller u32 that receives the actual size in
-					bytes of the generated certificate. */
-	u32 CertBufMaxSize;	/**< Size in bytes of the caller certificate buffer at CertBufAddr.
+					bytes of the generated certificate. The server returns the
+					size through the response buffer and the client copies it to
+					this address during the callback. */
+	u32 CertBufSize;	/**< Size in bytes of the caller certificate buffer at CertBufAddr.
 					Must be able to hold up to
 					XASU_PROVISION_UDE_CERT_MAX_SIZE_IN_BYTES bytes. */
 	u8 UdeSlot;	/**< Target UDE eFUSE slot to program (XASU_OCP_UDE_USER_KEY_0/1/2_ID). */

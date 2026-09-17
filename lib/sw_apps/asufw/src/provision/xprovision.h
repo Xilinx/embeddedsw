@@ -48,7 +48,8 @@ extern "C" {
 /************************************ Function Prototypes ****************************************/
 s32 XProvision_UserEfuse(XAsufw_Dma *DmaPtr, XAes *AesInstancePtr,
 			 const XAsu_ProvisionUserEfuseParams *ParamsPtr, u32 SubsystemId);
-s32 XProvision_Ude(XAsufw_Dma *DmaPtr, const XAsu_ProvisionUdeParams *ParamsPtr);
+s32 XProvision_Ude(XAsufw_Dma *DmaPtr, const XAsu_ProvisionUdeParams *ParamsPtr,
+		   u32 *CertActualSizePtr);
 #endif /* XASU_PROVISION_ENABLE */
 
 /************************************ Variable Definitions ***************************************/

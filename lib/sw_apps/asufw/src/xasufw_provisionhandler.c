@@ -35,6 +35,7 @@
 #include "xasufw_status.h"
 #include "xasufw_aeshandler.h"
 #include "xasufw_memvalidation.h"
+#include "xasu_sharedmem.h"
 #include "xaes.h"
 #include "xoverlay.h"
 
@@ -284,6 +285,12 @@ static s32 XAsufw_ProvisionUde(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	const XAsu_ProvisionUdeParams *Cmd = (const XAsu_ProvisionUdeParams *)ReqBuf->Arg;
 	u32 SubsystemId = 0U;
 	u32 IpiMask = ReqId >> XASUFW_IPI_BITMASK_SHIFT;
+	/**
+	 * Location in the response buffer where the driver writes the actual certificate size. The
+	 * client copies it from here to Cmd->CertActualSizeAddr during the callback.
+	 */
+	u32 *CertActualSizePtr = (u32 *)XAsufw_GetRespBuf(ReqBuf, XAsu_ChannelQueueBuf, RespBuf) +
+				 XASUFW_RESP_DATA_OFFSET;
 
 	/** Verify command length. */
 	XASUFW_VERIFY_CMD_LEN(END, Status, ReqBuf, XAsu_ProvisionUdeParams);
@@ -295,13 +302,11 @@ static s32 XAsufw_ProvisionUde(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 		goto END;
 	}
 
-	/** Validate that the client provided certificate output buffers are accessible. */
-	XASUFW_VALIDATE_MEM_ACCESS(END, Status, SubsystemId, Cmd->CertBufAddr, Cmd->CertBufMaxSize);
-	XASUFW_VALIDATE_MEM_ACCESS(END, Status, SubsystemId, Cmd->CertActualSizeAddr,
-				   (u32)sizeof(u32));
+	/** Validate that the client provided certificate output buffer is accessible. */
+	XASUFW_VALIDATE_MEM_ACCESS(END, Status, SubsystemId, Cmd->CertBufAddr, Cmd->CertBufSize);
 
 	/** Provision the requested UDE key pair. */
-	Status = XProvision_Ude(XAsufw_ProvisionModule.AsuDmaPtr, Cmd);
+	Status = XProvision_Ude(XAsufw_ProvisionModule.AsuDmaPtr, Cmd, CertActualSizePtr);
 
 END:
 	/** Release resources. */

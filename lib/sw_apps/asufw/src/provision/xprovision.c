@@ -511,8 +511,12 @@ END:
  *		slot via the PLM (XilNVM), and a self-signed X.509 certificate over the generated
  *		public key is returned to the caller along with its actual size.
  *
- * @param	DmaPtr		Pointer to the XAsufw_Dma instance.
- * @param	ParamsPtr	Pointer to the XAsu_ProvisionUdeParams structure.
+ * @param	DmaPtr			Pointer to the XAsufw_Dma instance.
+ * @param	ParamsPtr		Pointer to the XAsu_ProvisionUdeParams structure.
+ * @param	CertActualSizePtr	Pointer to the response buffer location that receives the
+ *					actual size in bytes of the generated certificate. The client
+ *					copies this value to ParamsPtr->CertActualSizeAddr during the
+ *					callback.
  *
  * @return
  *	- XASUFW_SUCCESS, if the UDE key pair is provisioned successfully.
@@ -522,11 +526,11 @@ END:
  *	  certificate generation fails.
  *	- XASUFW_PROVISION_UDE_EFUSE_WRITE_FAIL, if the eFUSE write request to the PLM fails.
  *	- XASUFW_PROVISION_UDE_KEY_TYPE_UPDATE_FAIL, if updating the key vault header fails.
- *	- XASUFW_PROVISION_UDE_CERT_COPY_FAIL, if copying the certificate size to the caller fails.
  *	- XASUFW_OCP_DISABLED, if OCP is disabled.
  *
  *************************************************************************************************/
-s32 XProvision_Ude(XAsufw_Dma *DmaPtr, const XAsu_ProvisionUdeParams *ParamsPtr)
+s32 XProvision_Ude(XAsufw_Dma *DmaPtr, const XAsu_ProvisionUdeParams *ParamsPtr,
+		   u32 *CertActualSizePtr)
 {
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
 	s32 ClearStatus = XASUFW_FAILURE;
@@ -536,7 +540,7 @@ s32 XProvision_Ude(XAsufw_Dma *DmaPtr, const XAsu_ProvisionUdeParams *ParamsPtr)
 	u8 UdeKeyTypeCode;
 
 	/** Validate input parameters. */
-	if (DmaPtr == NULL) {
+	if ((DmaPtr == NULL) || (CertActualSizePtr == NULL)) {
 		Status = XASUFW_PROVISION_INVALID_PARAM;
 		goto END;
 	}
@@ -573,7 +577,7 @@ s32 XProvision_Ude(XAsufw_Dma *DmaPtr, const XAsu_ProvisionUdeParams *ParamsPtr)
 #ifdef XASU_OCP_ENABLE
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	Status = XOcp_EncryptUdeKeys(DmaPtr, (u32)ParamsPtr->UdeSlot, (u8 *)EncPvtKey,
-						ParamsPtr->CertBufAddr, ParamsPtr->CertBufMaxSize,
+						ParamsPtr->CertBufAddr, ParamsPtr->CertBufSize,
 						&CertSize);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_PROVISION_UDE_ENCRYPT_FAIL);
@@ -604,16 +608,12 @@ s32 XProvision_Ude(XAsufw_Dma *DmaPtr, const XAsu_ProvisionUdeParams *ParamsPtr)
 	}
 
 	/**
-	 * Return the actual size of the generated UDE certificate to the caller. The certificate
-	 * itself was already copied to the caller's buffer by XOcp_EncryptUdeKeys.
+	 * Return the actual size of the generated UDE certificate to the caller through the
+	 * response buffer. The client copies this value from the response buffer to
+	 * ParamsPtr->CertActualSizeAddr during the callback. The certificate itself was already
+	 * copied to the caller's buffer by XOcp_EncryptUdeKeys.
 	 */
-	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-	Status = XAsufw_DmaXfr(DmaPtr, (u64)(UINTPTR)&CertSize, ParamsPtr->CertActualSizeAddr,
-			       (u32)sizeof(CertSize), 0U);
-	if (Status != XASUFW_SUCCESS) {
-		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_PROVISION_UDE_CERT_COPY_FAIL);
-		goto END_CLR;
-	}
+	*CertActualSizePtr = CertSize;
 
 	/** Program the encrypted UDE private key into the requested eFUSE slot via the PLM. */
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);

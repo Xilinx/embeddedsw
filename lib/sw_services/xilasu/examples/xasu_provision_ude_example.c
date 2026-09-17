@@ -176,7 +176,7 @@ static s32 XAsu_ProvUdeKey(XAsu_ClientParams *ClientParamPtr, u8 ProvFlag, u8 Ud
 	CertSizeOut = 0U;
 	UdeParams.CertBufAddr = (u64)(UINTPTR)CertOut;
 	UdeParams.CertActualSizeAddr = (u64)(UINTPTR)&CertSizeOut;
-	UdeParams.CertBufMaxSize = XASU_PROVISION_UDE_CERT_MAX_SIZE_IN_BYTES;
+	UdeParams.CertBufSize = XASU_PROVISION_UDE_CERT_MAX_SIZE_IN_BYTES;
 	UdeParams.UdeSlot = UdeSlot;
 	UdeParams.UdeKeyType = XASU_PROVISION_UDE_KEY_TYPE;
 
