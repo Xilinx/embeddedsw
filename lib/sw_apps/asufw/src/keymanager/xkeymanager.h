@@ -95,6 +95,12 @@ extern "C" {
 #define XKEYMANAGER_UDE_KEY_TYPE_SLOT_MASK	(0x3U)	/**< 2-bit mask for a single UDE slot */
 #define XKEYMANAGER_UDE_MAX_SLOTS		(3U)	/**< Maximum number of UDE slots in the byte */
 
+#define XKEYMANAGER_KEY_INDEX_OFFSET		(1U) /**< Offset for key index */
+#define XKEYMANAGER_KEY_PAIR_ID_COUNT	(2U) /**< Number of key IDs written by a key pair
+							generation: public key ID followed by
+							private key ID */
+#define XKEYMANAGER_ASYM_KEY_TYPE_COUNT	(2U)	/**< Number of asymmetric key types (private and public) */
+
 /************************************** Type Definitions *****************************************/
 /** This enum contains RSA operation types for private key retrieval. */
 typedef enum {
@@ -278,8 +284,6 @@ s32 XKeyManager_DeleteKey(u32 KeyId, u32 SubSystemId);
 u16 XKeyManager_GetAsuRsaActiveKeyCount(XAsu_KeyManagerSubVaultType KeyType);
 s32 XKeyManager_StoreRsaKeyPairInAsuVault(const u8 *KeyData, u32 KeyLen, u8 VaultId);
 s32 XKeyManager_StoreKeyInAsuVault(const XAsu_KeyManagerParams *ParamsPtr, u32 *KeyIdPtr);
-s32 XKeyManager_GenerateProvisioningKeyPair(XAsufw_Dma *DmaPtr, u32 SubSystemId, u8 KeyUseCase);
-s32 XKeyManager_DeleteProvisioningKeyPair(u32 SubSystemId, u8 KeyUseCase);
 s32 XKeyManager_FetchRsaKeyPairFromAsuVault(XAsufw_Dma *DmaPtr, u8 *DestBuf, u8 VaultId, u64 KeyAddr);
 s32 XKeyManager_StoreKeyInVault(XAsufw_Dma *DmaPtr,  XAes *AesInstancePtr, const XAsu_KeyManagerParams *KeyParams,
 				u32 *KeyIdPtr, u32 SubSystemId);

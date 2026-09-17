@@ -115,8 +115,6 @@ static s32 XAsufw_KeyManagerMlkemKeyPairGen(const XAsu_ReqBuf *ReqBuf, u32 ReqId
 #ifdef XASU_SLHDSA_ENABLE
 static s32 XAsufw_KeyManagerSlhdsaKeyPairGen(const XAsu_ReqBuf *ReqBuf, u32 ReqId);
 #endif
-static s32 XAsufw_KeyManagerGenProvisioningKeyPair(const XAsu_ReqBuf *ReqBuf, u32 ReqId);
-static s32 XAsufw_KeyManagerDeleteProvisioningKeyPair(const XAsu_ReqBuf *ReqBuf, u32 ReqId);
 static s32 XAsufw_CreateAsuKeyVault(void);
 static s32 XAsufw_KeyManagerStoreKey(const XAsu_ReqBuf *ReqBuf, u32 ReqId);
 static s32 XAsufw_KeyManagerExportVault(const XAsu_ReqBuf *ReqBuf, u32 ReqId);
@@ -181,10 +179,6 @@ s32 XAsufw_KeyManagerInit(void)
 #else
 		[XASU_KM_GEN_SLHDSA_KEY_PAIR_CMD_ID] = XASUFW_MODULE_COMMAND(NULL),
 #endif
-		[XASU_KM_GEN_PROV_KEY_PAIR_CMD_ID] =
-			XASUFW_MODULE_COMMAND(XAsufw_KeyManagerGenProvisioningKeyPair),
-		[XASU_KM_DELETE_PROV_KEY_PAIR_CMD_ID] =
-			XASUFW_MODULE_COMMAND(XAsufw_KeyManagerDeleteProvisioningKeyPair),
 	};
 
 	/** The XAsufw_KeyManagerResourcesBuf contains the required resources for each supported command. */
@@ -260,12 +254,6 @@ s32 XAsufw_KeyManagerInit(void)
 #else
 		[XASU_KM_GEN_SLHDSA_KEY_PAIR_CMD_ID] = 0U,
 #endif
-		/* Provisioning key pairs are generated through the ECC key pair path above. */
-		[XASU_KM_GEN_PROV_KEY_PAIR_CMD_ID] = XASUFW_KEYMANAGER_RESOURCE_MASK |
-		XASUFW_DMA_RESOURCE_MASK | XASUFW_RSA_RESOURCE_MASK | XASUFW_TRNG_RESOURCE_MASK |
-		XASUFW_TRNG_RANDOM_BYTES_MASK | XASUFW_OVERLAY_RESOURCE_MASK,
-		/* Key pair deletion only touches the vault, so no DMA, RSA or TRNG is needed. */
-		[XASU_KM_DELETE_PROV_KEY_PAIR_CMD_ID] = XASUFW_KEYMANAGER_RESOURCE_MASK,
 	};
 
 	/** The XAsufw_KeyManagerAccessPermBuf contains the IPI access permissions for each supported command. */
@@ -305,10 +293,6 @@ s32 XAsufw_KeyManagerInit(void)
 		[XASU_KM_GEN_SLHDSA_KEY_PAIR_CMD_ID] =
 			XASUFW_ALL_IPI_NO_ACCESS(XASU_KM_GEN_SLHDSA_KEY_PAIR_CMD_ID),
 #endif
-		[XASU_KM_GEN_PROV_KEY_PAIR_CMD_ID] =
-			XASUFW_ALL_IPI_FULL_ACCESS(XASU_KM_GEN_PROV_KEY_PAIR_CMD_ID),
-		[XASU_KM_DELETE_PROV_KEY_PAIR_CMD_ID] =
-			XASUFW_ALL_IPI_FULL_ACCESS(XASU_KM_DELETE_PROV_KEY_PAIR_CMD_ID),
 	};
 
 	XAsufw_KeyManagerModule.Id = XASU_MODULE_KEYMANAGER_ID;
@@ -419,8 +403,7 @@ static s32 XAsufw_KeyManagerResourceHandler(const XAsu_ReqBuf *ReqBuf, u32 ReqId
 	    (CmdId == XASU_KM_GEN_MLDSA_KEY_PAIR_CMD_ID) ||
 	    (CmdId == XASU_KM_GEN_MLKEM_KEY_PAIR_CMD_ID) ||
 	    (CmdId == XASU_KM_XOR_KEY_CMD_ID) ||
-	    (CmdId == XASU_KM_GEN_SLHDSA_KEY_PAIR_CMD_ID) ||
-	    (CmdId == XASU_KM_GEN_PROV_KEY_PAIR_CMD_ID)) {
+	    (CmdId == XASU_KM_GEN_SLHDSA_KEY_PAIR_CMD_ID)) {
 		/** Allocate DMA resource. */
 		XAsufw_KeyManagerModule.AsuDmaPtr = XAsufw_AllocateDmaResource(XASUFW_KEYMANAGER, ReqId);
 		if (XAsufw_KeyManagerModule.AsuDmaPtr == NULL) {
@@ -438,14 +421,13 @@ static s32 XAsufw_KeyManagerResourceHandler(const XAsu_ReqBuf *ReqBuf, u32 ReqId
 	    (CmdId == XASU_KM_IMPORT_KEYVAULT_CMD_ID) ||
 	    (CmdId == XASU_KM_GEN_MLDSA_KEY_PAIR_CMD_ID) ||
 	    (CmdId == XASU_KM_GEN_MLKEM_KEY_PAIR_CMD_ID) ||
-	    (CmdId == XASU_KM_GEN_SLHDSA_KEY_PAIR_CMD_ID) ||
-	    (CmdId == XASU_KM_GEN_PROV_KEY_PAIR_CMD_ID)) {
+	    (CmdId == XASU_KM_GEN_SLHDSA_KEY_PAIR_CMD_ID)) {
 		/** Allocate TRNG resource. */
 		XAsufw_AllocateResource(XASUFW_TRNG, XASUFW_KEYMANAGER, ReqId);
 	}
 
-	if ((CmdId == XASU_KM_GEN_ECC_KEY_PAIR_CMD_ID) ||
-	    (CmdId == XASU_KM_GEN_PROV_KEY_PAIR_CMD_ID)) {
+	if ((CmdId == XASU_KM_GEN_RSA_KEY_PAIR_CMD_ID) ||
+	    (CmdId == XASU_KM_GEN_ECC_KEY_PAIR_CMD_ID)) {
 		/** Allocate RSA resource. */
 		XAsufw_AllocateResource(XASUFW_RSA, XASUFW_KEYMANAGER, ReqId);
 
@@ -1158,121 +1140,9 @@ END:
 
 /*************************************************************************************************/
 /**
- * @brief	This function is a handler for the provisioning (ECIES) ECC key pair generation
- *		command. It generates an ECC key pair and stores it in the ASU-owned exportable
- *		vault with the private key restricted to the provisioning-material unwrap use case.
- *		The command takes no payload and returns no key material or key IDs: both halves
- *		of the pair stay inside the vault. A subsystem that already holds a provisioning
- *		key pair is refused.
- *
- * @param	ReqBuf	Pointer to the request buffer.
- * @param	ReqId	Request Unique ID.
- *
- * @return
- *	- XASUFW_SUCCESS, if the provisioning key pair generation operation is successful.
- *	- XASUFW_RESOURCE_RELEASE_NOT_ALLOWED, if illegal resource release is requested.
- *	- XASUFW_KEYMANAGER_KEY_OBJ_GEN_ERROR, if the key pair generation operation fails, which
- *		includes the case of a subsystem which already holds a provisioning key pair. The
- *		key manager status stays in the first error code field of the returned value.
- *	- XASUFW_INVALID_SUBSYSTEM_ID, if invalid subsystem ID is provided.
- *
- *************************************************************************************************/
-static s32 XAsufw_KeyManagerGenProvisioningKeyPair(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
-{
-	s32 Status = XASUFW_FAILURE;
-	u32 SubsystemId = 0U;
-	u32 IpiMask = ReqId >> XASUFW_IPI_BITMASK_SHIFT;
-
-	(void)ReqBuf;
-
-	/** Get subsystem ID from IPI mask. */
-	SubsystemId = XAsu_GetSubsysIdFromIpiMask(IpiMask);
-	if (SubsystemId == XASUFW_INVALID_SUBSYS_ID) {
-		Status = XASUFW_INVALID_SUBSYSTEM_ID;
-		goto END;
-	}
-
-	/**
-	 * Generate the ECIES provisioning key pair into the ASU-owned exportable vault. Nothing is
-	 * returned to the caller; a repeated request for a subsystem that already holds a key pair
-	 * fails with XASUFW_KEYMANAGER_PROVISIONING_KEY_ALREADY_EXISTS.
-	 */
-	Status = XKeyManager_GenerateProvisioningKeyPair(XAsufw_KeyManagerModule.AsuDmaPtr,
-			SubsystemId, XASU_KEYMANAGER_ECC_PVT_PROV_UNWRAP_USE_CASE);
-	if (Status != XASUFW_SUCCESS) {
-		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_KEYMANAGER_KEY_OBJ_GEN_ERROR);
-	}
-
-END:
-	/** Release resources. */
-	if (XAsufw_ReleaseResource(XASUFW_KEYMANAGER, ReqId) != XASUFW_SUCCESS) {
-		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_RESOURCE_RELEASE_NOT_ALLOWED);
-	}
-	XAsufw_KeyManagerModule.AsuDmaPtr = NULL;
-
-	return Status;
-}
-
-/*************************************************************************************************/
-/**
- * @brief	This function is a handler for the provisioning (ECIES) ECC key pair deletion
- *		command. It deletes both halves of the key pair held in the requesting subsystem's
- *		reserved slot of the ASU-owned exportable vault, which a client cannot do itself
- *		because that vault is ASU-owned. The command takes no payload and returns status
- *		only. It is the counterpart of the key pair generation command: a subsystem which
- *		already holds a pair deletes it first and then generates a fresh one.
- *
- * @param	ReqBuf	Pointer to the request buffer.
- * @param	ReqId	Request Unique ID.
- *
- * @return
- *	- XASUFW_SUCCESS, if the provisioning key pair deletion operation is successful.
- *	- XASUFW_RESOURCE_RELEASE_NOT_ALLOWED, if illegal resource release is requested.
- *	- XASUFW_KEYMANAGER_KEY_DELETE_ERROR, if the key pair deletion operation fails.
- *	- XASUFW_INVALID_SUBSYSTEM_ID, if invalid subsystem ID is provided.
- *
- *************************************************************************************************/
-static s32 XAsufw_KeyManagerDeleteProvisioningKeyPair(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
-{
-	s32 Status = XASUFW_FAILURE;
-	u32 SubsystemId = 0U;
-	u32 IpiMask = ReqId >> XASUFW_IPI_BITMASK_SHIFT;
-
-	(void)ReqBuf;
-
-	/** Get subsystem ID from IPI mask. */
-	SubsystemId = XAsu_GetSubsysIdFromIpiMask(IpiMask);
-	if (SubsystemId == XASUFW_INVALID_SUBSYS_ID) {
-		Status = XASUFW_INVALID_SUBSYSTEM_ID;
-		goto END;
-	}
-
-	/**
-	 * Delete the subsystem's ECIES provisioning key pair from the ASU-owned exportable vault.
-	 * A subsystem which holds no key pair fails with XASUFW_KEYMANAGER_KEY_NOT_FOUND.
-	 * The use case is not taken from the command payload yet, so only the unwrap pair is
-	 * reachable through this command.
-	 */
-	Status = XKeyManager_DeleteProvisioningKeyPair(SubsystemId,
-			XASU_KEYMANAGER_ECC_PVT_PROV_UNWRAP_USE_CASE);
-	if (Status != XASUFW_SUCCESS) {
-		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_KEYMANAGER_KEY_DELETE_ERROR);
-	}
-
-END:
-	/** Release resources. */
-	if (XAsufw_ReleaseResource(XASUFW_KEYMANAGER, ReqId) != XASUFW_SUCCESS) {
-		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_RESOURCE_RELEASE_NOT_ALLOWED);
-	}
-
-	return Status;
-}
-
-/*************************************************************************************************/
-/**
- * @brief	Create the ASU-internal key vault with predefined capacities, which holds the AES,
- * 		RSA and OCP ECC keys. The ASU-owned exportable vault that follows it is created by
- * 		XKeyManager_CreateAsuExportableVault(), which is its only creator.
+ * @brief	Create the ASU subsystem key vaults with predefined capacities: the ASU-internal
+ * 		vault which holds the AES, RSA and OCP ECC keys, and the ASU-owned exportable
+ * 		vault which holds the wrapped-key provisioning key pairs.
  *
  * @return
  * 	- XASUFW_SUCCESS, if the ASU-internal vault is created.

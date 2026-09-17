@@ -69,11 +69,7 @@ extern "C" {
 #define XASU_KM_GEN_SLHDSA_KEY_PAIR_CMD_ID	(15U) /**< Command ID for SLH-DSA key pair
 							generation */
 
-#define XASU_KM_GEN_PROV_KEY_PAIR_CMD_ID	(16U) /**< Command ID for provisioning (ECIES) ECC key
-							pair generation into the ASU exportable vault */
-#define XASU_KM_DELETE_PROV_KEY_PAIR_CMD_ID	(17U) /**< Command ID for provisioning (ECIES) ECC key
-							pair deletion from the ASU exportable vault */
-#define XASU_KM_MAX_CMDS			(18U) /**< Maximum number of commands
+#define XASU_KM_MAX_CMDS			(16U) /**< Maximum number of commands
 							supported by KeyManager module */
 
 #define XASU_KM_OUTPUT_ID_SIZE_IN_BYTES		(4U) /**< Key vault output id size */

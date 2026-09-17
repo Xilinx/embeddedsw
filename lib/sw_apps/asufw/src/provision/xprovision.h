@@ -50,6 +50,8 @@ s32 XProvision_UserEfuse(XAsufw_Dma *DmaPtr, XAes *AesInstancePtr,
 			 const XAsu_ProvisionUserEfuseParams *ParamsPtr, u32 SubsystemId);
 s32 XProvision_Ude(XAsufw_Dma *DmaPtr, const XAsu_ProvisionUdeParams *ParamsPtr,
 		   u32 *CertActualSizePtr);
+s32 XProvision_GenerateKeyPair(XAsufw_Dma *DmaPtr, u32 SubSystemId, u8 KeyUseCase);
+s32 XProvision_DeleteKeyPair(u32 SubSystemId, u8 KeyUseCase);
 #endif /* XASU_PROVISION_ENABLE */
 
 /************************************ Variable Definitions ***************************************/

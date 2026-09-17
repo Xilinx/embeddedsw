@@ -43,6 +43,7 @@
 #include "xaes.h"
 #include "xtrng.h"
 #include "xkeymanager.h"
+#include "xasu_sharedmem.h"
 #include "xasu_aesinfo.h"
 #include "xasu_generic.h"
 #include "xocp_ude.h"
@@ -90,6 +91,8 @@ static s32 XProvision_WriteUserKeyToEfuse(u32 EfuseKeyId, const u32 *KeyData);
 static s32 XProvision_CheckEfuseKeyBlank(u32 EfuseKeyId);
 static s32 XProvision_IsUdeSlotFree(u8 UdeSlot);
 static s32 XProvision_WriteUdeKeyToEfuse(u32 UdeSlot, const u32 *KeyData);
+static s32 XProvision_GetKeySlot(u32 SubSystemId, u16 *SlotPtr, u8 KeyUseCase);
+static s32 XProvision_GetKeyId(u16 KeySlot, u32 *KeyIdPtr, u8 KeyUseCase);
 
 /*************************************************************************************************/
 /**
@@ -782,6 +785,365 @@ static s32 XProvision_WriteUdeKeyToEfuse(u32 UdeSlot, const u32 *KeyData)
 		/* Do nothing. */
 	}
 
+END:
+	return Status;
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	This function generates an ECC key pair for the wrapped-provisioning
+ *		feature and stores it in the ASU-owned exportable key vault. The private key is
+ *		restricted to the requested provisioning use case only, and neither
+ *		half of the pair nor either key ID is returned to the caller: both halves stay in
+ *		the vault and the unwrap path locates the private key internally. Each subsystem
+ *		may hold one provisioning key pair per use case, so a request whose reserved slot is
+ *		already populated is rejected instead of replacing the key: a repeated request
+ *		cannot invalidate a public half which has already been handed out. Replacing a pair
+ *		remains possible, but only as a deliberate act of the subsystem which owns it,
+ *		which has to delete the pair first with XProvision_DeleteKeyPair(). No
+ *		other subsystem can do it on its behalf, because the slot is derived from the
+ *		requesting subsystem rather than taken from the request.
+ *
+ * @param	DmaPtr		Pointer to the XAsufw_Dma instance.
+ * @param	SubSystemId	Subsystem requesting the provisioning key pair. Together with the
+ *				use case it selects the reserved key slot within the exportable
+ *				vault.
+ * @param	KeyUseCase	Provisioning use case the key pair is generated for, either the
+ *				provisioning-material unwrap use case (ECIES) or the provisioning
+ *				authenticated-encryption use case. It selects the reserved slot
+ *				range and is stored as the private key's use case. Nothing else is
+ *				caller-supplied: the vault id (ASU-owned exportable vault), curve
+ *				(P-384), key length, epoch time and non-depleting usage count are
+ *				all set internally.
+ *
+ * @return
+ *	- XASUFW_SUCCESS, if the key pair is generated and both halves are stored.
+ *	- XASUFW_KEYMANAGER_INVALID_PARAM, if DmaPtr is NULL.
+ *	- XASUFW_KEYMANAGER_GET_PROVISIONING_KEY_SLOT_FAILED, if no slot is reserved for the
+ *		subsystem and use case, which is the case when the use case is not a supported
+ *		provisioning use case or the subsystem is not assigned to any channel. The
+ *		underlying cause is packed into the status. The key pair delete path reports a
+ *		slot lookup failure with the same code.
+ *	- XASUFW_KEYMANAGER_PROVISIONING_KEY_ALREADY_EXISTS, if the reserved slot already holds a
+ *		provisioning private key for that use case, or the slot lookup did not confirm the
+ *		slot is free.
+ *	- Any other status comes through unchanged from XKeyManager_GenerateEccKeyPair(), which
+ *		performs the generation and the vault store; see that function for the codes it
+ *		returns. XASUFW_KEYMANAGER_KEY_SLOT_IN_USE arrives this way when the reserved slot
+ *		is occupied, because the already-exists guard above inspects only the private half
+ *		and a slot left holding a stranded public half reaches the store.
+ *
+ *************************************************************************************************/
+s32 XProvision_GenerateKeyPair(XAsufw_Dma *DmaPtr, u32 SubSystemId, u8 KeyUseCase)
+{
+	CREATE_VOLATILE(Status, XASUFW_FAILURE);
+	u32 PvtKeyId = 0U;
+	u16 KeySlot = 0U;
+	u32 KeyIds[XKEYMANAGER_KEY_PAIR_ID_COUNT] = {0U};
+	XAsu_KeyManagerParams KmParams = {0};
+
+	/** Validate input parameters. */
+	if (DmaPtr == NULL) {
+		Status = XASUFW_KEYMANAGER_INVALID_PARAM;
+		goto END;
+	}
+
+	/**
+	 * Map the subsystem and the requested use case to their reserved slot in the exportable
+	 * vault. Status holds the cause from the lookup, an unsupported use case or a subsystem
+	 * with no channel, so it is retained rather than replaced.
+	 */
+	Status = XProvision_GetKeySlot(SubSystemId, &KeySlot, KeyUseCase);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XAsufw_UpdateErrorStatus(Status,
+				XASUFW_KEYMANAGER_GET_PROVISIONING_KEY_SLOT_FAILED);
+		goto END;
+	}
+
+	/**
+	 * A subsystem gets one provisioning key pair per use case. The slot is fixed for that
+	 * pairing, so a populated slot means a key pair whose public half may already be held
+	 * elsewhere: refuse, so that a repeated request cannot invalidate that copy by accident.
+	 * This is not a guarantee that the pair cannot be replaced. The owning subsystem can
+	 * delete it and generate a new one, which is a deliberate act of the party which handed
+	 * the public half out, and no other subsystem can do it on its behalf.
+	 * Only an explicit XASUFW_KEYMANAGER_KEY_NOT_FOUND lets the request through, so a lookup
+	 * which is skipped or whose result is disturbed refuses the request instead of overwriting
+	 * the key.
+	 */
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	Status = XProvision_GetKeyId(KeySlot, &PvtKeyId, KeyUseCase);
+	if (Status != XASUFW_KEYMANAGER_KEY_NOT_FOUND) {
+		Status = XASUFW_KEYMANAGER_PROVISIONING_KEY_ALREADY_EXISTS;
+		goto END;
+	}
+
+	/**
+	 * The provisioning key pair profile is fixed and never taken from the caller: it is always
+	 * generated on the NIST P-384 curve, stored only in the ASU-owned exportable vault, and
+	 * restricted to the provisioning (ECIES) use cases, one per half. The private key is kept as a
+	 * non-depleting key so it can service repeated unwrap requests. The slot is reserved per
+	 * subsystem so the KeyId stays derivable after an export/import cycle. Populate the metadata
+	 * internally so the caller cannot alter the profile.
+	 */
+	KmParams.KeyMetadata.CompositeKeyId = PvtKeyId;
+	KmParams.KeyMetadata.KeyUseCase = KeyUseCase;
+	KmParams.KeyMetadata.KeyAttributes = (u8)XASU_ECC_NIST_P384;
+	KmParams.KeyMetadata.Length = (u16)XASU_ECC_P384_PVT_KEY_SIZE_IN_BYTES;
+	KmParams.KeyMetadata.EpochTime = 0U;
+	KmParams.KeyMetadata.UsageCount = XASU_KM_USAGE_COUNT_NON_DEPLETING_VALUE;
+	/**
+	 * The key pair goes to the vault, not to a caller buffer, so KeyObjectAddr stays zero.
+	 * The vault path requires exactly one of KeyObjectAddr and KeyIdAddr to be set, so
+	 * KeyIdAddr points at the local Key IDs; the assigned IDs are written through the KeyIds
+	 * argument and never travel outside the ASU.
+	 */
+	KmParams.KeyObjectAddr = 0U;
+	KmParams.KeyIdAddr = (u64)(UINTPTR)&KeyIds[0U];
+
+	/**
+	 * Generate and store the key pair through the common ECC key pair path, as the ASU: the
+	 * exportable vault is ASU-owned, so its vault access check also rejects the case where an
+	 * imported blob has handed vault 1 to another subsystem. Both halves land in the reserved
+	 * slot of their sub-vault and the assigned Key IDs stay ASU-internal (not returned to the
+	 * caller) so they cannot be reused as handles for other operations.
+	 */
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	Status = XKeyManager_GenerateEccKeyPair(DmaPtr, &KmParams, KeyIds,
+						XKEYMANAGER_ASU_SUBSYSTEM_ID);
+
+END:
+	return Status;
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	This function deletes the wrapped-provisioning ECC key pair held in a
+ *		subsystem's reserved slot of the ASU-owned exportable key vault, so that the
+ *		subsystem can generate a fresh pair. Both halves are deleted as the ASU, because
+ *		the exportable vault is ASU-owned and a client cannot delete from it directly.
+ *		A slot holding only one half still has that half cleaned up, but the operation
+ *		reports XASUFW_KEYMANAGER_KEY_NOT_FOUND because there was no complete key pair to
+ *		delete; success is reported only when both halves are deleted. Each provisioning
+ *		use case owns its own reserved slot, so only the pair held for the requested use
+ *		case is deleted and the other use case's pair is left untouched.
+ *
+ * @param	SubSystemId	Subsystem whose provisioning key pair is deleted. Together with the
+ *				use case it selects the reserved key slot within the exportable
+ *				vault.
+ * @param	KeyUseCase	Provisioning use case whose key pair is deleted, either the
+ *				provisioning-material unwrap use case (ECIES) or the provisioning
+ *				authenticated-encryption use case. It must be the use case the pair
+ *				was generated for, because it selects the reserved slot range.
+ *				Nothing else is caller-supplied: the vault id and the sub-vaults are
+ *				fixed internally.
+ *
+ * @return
+ *	- XASUFW_SUCCESS, only if both halves of the key pair are deleted.
+ *	- XASUFW_KEYMANAGER_GET_PROVISIONING_KEY_SLOT_FAILED, if no slot is reserved for the
+ *		subsystem and use case, which is the case when the use case is not a supported
+ *		provisioning use case or the subsystem is not assigned to any channel. The
+ *		underlying cause is packed into the status. The key pair generation path reports a
+ *		slot lookup failure with the same code.
+ *	- XASUFW_KEYMANAGER_KEY_NOT_FOUND, if the reserved slot did not hold both halves (neither
+ *		half, or only one), so there was no complete key pair to delete.
+ *	- The delete failure reported by XKeyManager_DeleteKey() packed with
+ *		XASUFW_KEYMANAGER_KEY_DELETE_ERROR, if deleting a half which is present fails. The
+ *		cause, such as a missing vault, a vault no longer owned by the ASU or a failed
+ *		zeroization, is kept in the first error field rather than discarded, so the value
+ *		does not compare equal to XASUFW_KEYMANAGER_KEY_DELETE_ERROR on its own.
+ *
+ *************************************************************************************************/
+s32 XProvision_DeleteKeyPair(u32 SubSystemId, u8 KeyUseCase)
+{
+	CREATE_VOLATILE(Status, XASUFW_FAILURE);
+	static const XAsu_KeyManagerSubVaultType SubVaults[XKEYMANAGER_ASYM_KEY_TYPE_COUNT] = {
+		XASU_ECC_PUB_SUBVAULT_ID, XASU_ECC_PVT_SUBVAULT_ID
+	};
+	u16 KeySlot = 0U;
+	u32 KeyId = 0U;
+	u32 TypeIdx = 0U;
+	volatile u32 DeletedCount = 0U;
+
+	/**
+	 * Map the subsystem and the requested use case to their reserved slot in the exportable
+	 * vault. The lookup failure is reported with the same code as the key pair generation path,
+	 * so one cause does not reach the caller as two different codes depending on which command
+	 * was issued.
+	 */
+	Status = XProvision_GetKeySlot(SubSystemId, &KeySlot, KeyUseCase);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XAsufw_UpdateErrorStatus(Status,
+				XASUFW_KEYMANAGER_GET_PROVISIONING_KEY_SLOT_FAILED);
+		goto END;
+	}
+
+	/**
+	 * Delete both halves from the reserved slot as the ASU, public half first. The private half
+	 * is what XProvision_GetKeyId() looks at, so it is the marker the key pair
+	 * generation guard tests. Removing it last keeps that marker truthful: if
+	 * the second delete fails, the pair is still usable and the generation guard still refuses
+	 * cleanly, and re-issuing this operation clears the slot. Deleting it first would leave a
+	 * public half that no path reports, yet which still occupies the reserved slot and makes the
+	 * next generation fail inside the store.
+	 * A half which is already absent is not an error: the goal is an empty slot, and stopping
+	 * there would leave the other half behind and keep blocking a fresh key pair. Only an
+	 * absent key is tolerated, not an unusable sub-vault: a vault 1 whose ECC public sub-vault
+	 * has no capacity for the reserved slot, as an imported pre-public-half blob would give,
+	 * is reported rather than silently half-deleted.
+	 */
+	for (TypeIdx = 0U; TypeIdx < XKEYMANAGER_ASYM_KEY_TYPE_COUNT; TypeIdx++) {
+		KeyId = XASU_KM_COMPOSE_KEY_ID(XKEYMANAGER_ASU_EXPORTABLE_VAULT_ID,
+						SubVaults[TypeIdx], KeySlot);
+
+		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+		Status = XKeyManager_DeleteKey(KeyId, XKEYMANAGER_ASU_SUBSYSTEM_ID);
+		if (Status == XASUFW_SUCCESS) {
+			DeletedCount++;
+		} else if (Status != XASUFW_KEYMANAGER_KEY_NOT_FOUND) {
+			/* Status holds the cause from XKeyManager_DeleteKey, retain it. */
+			Status = XAsufw_UpdateErrorStatus(Status,
+					XASUFW_KEYMANAGER_KEY_DELETE_ERROR);
+			goto END;
+		} else {
+			/* This sub-vault holds nothing for the subsystem, continue. */
+		}
+	}
+
+	/**
+	 * Report success only when both halves of the key pair were deleted. If the slot held
+	 * neither half or only one of them (an incomplete pair), there was no complete key pair to
+	 * delete, so report key not found.
+	 */
+	if (DeletedCount == XKEYMANAGER_ASYM_KEY_TYPE_COUNT) {
+		Status = XASUFW_SUCCESS;
+	} else {
+		Status = XASUFW_KEYMANAGER_KEY_NOT_FOUND;
+	}
+
+END:
+	return Status;
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	Map a subsystem and a provisioning use case to the ECC key slot reserved for that
+ *		pairing in the ASU-owned exportable vault. Each use case owns a disjoint range of
+ *		XASU_MAX_CHANNELS_SUPPORTED slots and the slot within a range is the subsystem's
+ *		channel index plus one, so the unwrap use case occupies slots
+ *		1..XASU_MAX_CHANNELS_SUPPORTED and the authenticated-encryption use case occupies
+ *		the range above it. A subsystem can therefore hold one key pair per use case
+ *		without the two ever resolving to the same slot.
+ *
+ * @param	SubSystemId	Subsystem whose reserved slot is requested.
+ * @param	SlotPtr		Pointer that receives the 1-based slot on success.
+ * @param	KeyUseCase	Provisioning use case the slot is requested for. Selects the range.
+ *
+ * @return
+ *	- XASUFW_SUCCESS, if the use case is supported and the subsystem maps to a channel.
+ *	- XASUFW_KEYMANAGER_INVALID_PARAM, if SlotPtr is NULL or the subsystem is not assigned to
+ *		any channel.
+ *	- XASUFW_KEYMANAGER_INVALID_PROVISIONING_USE_CASE, if the use case is not exactly one of
+ *		the supported provisioning use cases.
+ *
+ *************************************************************************************************/
+static s32 XProvision_GetKeySlot(u32 SubSystemId, u16 *SlotPtr, u8 KeyUseCase)
+{
+	CREATE_VOLATILE(Status, XASUFW_FAILURE);
+	volatile u32 Index = 0U;
+	u16 SlotBase = 0U;
+
+	if (SlotPtr == NULL) {
+		Status = XASUFW_KEYMANAGER_INVALID_PARAM;
+		goto END;
+	}
+
+	/**
+	 * Select the reserved range for the use case. The comparison is an exact match rather than
+	 * a bit test, so a value carrying more than one use case is refused: a provisioning key
+	 * pair holds exactly one. An unrecognised use case is refused rather than defaulted to a
+	 * range, so a caller can never land on the slot of another use case.
+	 */
+	if (KeyUseCase == XASU_KEYMANAGER_ECC_PVT_PROV_UNWRAP_USE_CASE) {
+		SlotBase = 0U;
+	} else if (KeyUseCase == XASU_KEYMANAGER_ECC_PVT_KEY_AUTH_ENC_USE_CASE) {
+		SlotBase = (u16)XASU_MAX_CHANNELS_SUPPORTED;
+	} else {
+		Status = XASUFW_KEYMANAGER_INVALID_PROVISIONING_USE_CASE;
+		goto END;
+	}
+
+	for (Index = 0U; Index < XASU_MAX_CHANNELS_SUPPORTED; Index++) {
+		if (SubSystemId == XAsu_GetSubsysIdFromIpiMask(XAsu_GetIpiMask(Index))) {
+			*SlotPtr = (u16)(Index + XKEYMANAGER_KEY_INDEX_OFFSET + SlotBase);
+			Status = XASUFW_SUCCESS;
+			break;
+		}
+	}
+
+	/** The subsystem holds no channel, so no slot is reserved for it. */
+	if (Index == XASU_MAX_CHANNELS_SUPPORTED) {
+		Status = XASUFW_KEYMANAGER_INVALID_PARAM;
+	}
+
+END:
+	return Status;
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	Derive the provisioning private key ID for a reserved slot in the ASU-owned
+ *		exportable vault and confirm the slot is occupied by a key that carries the
+ *		requested provisioning use case. Lets the key pair generation guard test the slot
+ *		without the caller ever holding the KeyId. Because the ID is derived rather than
+ *		remembered, it also resolves after the vault has been exported and imported again.
+ *		The caller resolves the slot first with XProvision_GetKeySlot(), so the
+ *		mapping is not repeated here.
+ *
+ * @param	KeySlot		Reserved slot of the subsystem whose private key ID is requested.
+ * @param	KeyIdPtr	Pointer that receives the private key ID on success.
+ * @param	KeyUseCase	Provisioning use case the slot must carry. Must be the same use case
+ *				the slot was resolved for, so the guard tests the key pair which
+ *				would actually be replaced.
+ *
+ * @return
+ *	- XASUFW_SUCCESS, if the slot holds a key carrying the requested use case.
+ *	- XASUFW_KEYMANAGER_INVALID_PARAM, if KeyIdPtr is NULL.
+ *	- XASUFW_KEYMANAGER_KEY_NOT_FOUND, if the vault or the slot cannot be resolved, or the slot
+ *	  does not carry that use case. Reported only from the branch which observed the slot to
+ *	  be empty, because it is the value the key pair generation guard treats as permissive.
+ *	- XASUFW_FAILURE, if the lookup did not run to a decision.
+ *
+ *************************************************************************************************/
+static s32 XProvision_GetKeyId(u16 KeySlot, u32 *KeyIdPtr, u8 KeyUseCase)
+{
+	CREATE_VOLATILE(Status, XASUFW_FAILURE);
+	u32 KeyId = 0U;
+
+	if (KeyIdPtr == NULL) {
+		Status = XASUFW_KEYMANAGER_INVALID_PARAM;
+		goto END;
+	}
+
+	KeyId = XASU_KM_COMPOSE_KEY_ID(XKEYMANAGER_ASU_EXPORTABLE_VAULT_ID,
+					XASU_ECC_PVT_SUBVAULT_ID, KeySlot);
+
+	/**
+	 * Validate the slot without consuming a use of the key: the caller fetches the key object
+	 * itself when it is actually used.
+	 * XASUFW_KEYMANAGER_KEY_NOT_FOUND is the one value which lets the key pair generation
+	 * guard replace the slot contents, so it is reported only from the branch which observed
+	 * the slot to be empty. It is deliberately not the initial value: a lookup whose result is
+	 * disturbed leaves the initial failure and the guard refuses.
+	 */
+	if (XKeyManager_GetKeyObjectPtr(KeyId, XKEYMANAGER_ASU_SUBSYSTEM_ID, KeyUseCase,
+			(u8)FALSE) != NULL) {
+		Status = XASUFW_SUCCESS;
+	} else {
+		Status = XASUFW_KEYMANAGER_KEY_NOT_FOUND;
+	}
+
+	*KeyIdPtr = KeyId;
 END:
 	return Status;
 }
