@@ -59,6 +59,11 @@ if(XILASU_IS_ASU)
     set(XASU_KEYMANAGER_ENABLE " ")
   endif()
 
+  if((XILASU_ocp_support) AND NOT ((XILASU_ecc_p384_support)))
+    set(XILASU_ecc_p384_support TRUE CACHE BOOL "ECC P-384 is enabled as OCP depends on ECC P-384" FORCE)
+    set(XASU_ECC_SUPPORT_NIST_P384 " ")
+  endif()
+
   if((XILASU_provision_support) AND NOT ((XILASU_keymanager_support)))
     set(XILASU_keymanager_support TRUE CACHE BOOL "Key Manager is enabled as Provisioning depends on Key Manager" FORCE)
     set(XASU_KEYMANAGER_ENABLE " ")
