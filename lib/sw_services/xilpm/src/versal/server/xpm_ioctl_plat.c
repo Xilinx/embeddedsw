@@ -95,8 +95,11 @@ XStatus XPm_AieOperation(u32 SubsystemId, u32 Id, pm_ioctl_id IoctlId, u32 Part,
 		goto done;
 	}
 
-	/* Validate that the device ID is a valid AIE device node */
-	if (!IS_DEV_AIE(Id)) {
+	/* Validate that the device ID is a valid AIE device node.
+	 * 0x18224072 is the deprecated PM_DEV_AIE node, still accepted for
+	 * backwards compatibility with older Linux versions.
+	 */
+	if (!IS_DEV_AIE(Id) && (0x18224072U != Id)) {
 		Status = XST_INVALID_PARAM;
 		goto done;
 	}

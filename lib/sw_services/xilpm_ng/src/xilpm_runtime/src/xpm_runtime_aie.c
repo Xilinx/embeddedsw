@@ -119,6 +119,12 @@ static XStatus Aie2ps_StartNumCol(u32 *StartCol, u32 *EndCol, const void *Buffer
 
 	Array = &AieDomain->Array;
 
+	/* NumCol must be non-zero to form a valid column range */
+	if (0U == ((const struct XPm_AieOpStartNumCol *)Buffer)->NumCol) {
+		Status = XST_INVALID_PARAM;
+		goto done;
+	}
+
 	/* Decode the requested start and inclusive end columns */
 	*StartCol = ((const struct XPm_AieOpStartNumCol *)Buffer)->StartCol;
 	*EndCol = ((const struct XPm_AieOpStartNumCol *)Buffer)->NumCol + *StartCol - 1U;
