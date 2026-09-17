@@ -1,4 +1,4 @@
-# Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+# Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 # SPDX-License-Identifier: MIT
 cmake_minimum_required(VERSION 3.14.7)
 project(v_scenechange)
@@ -12,7 +12,6 @@ collect (PROJECT_LIB_SOURCES xv_scenechange_g.c)
 collect (PROJECT_LIB_SOURCES xv_scenechange_l2.c)
 collect (PROJECT_LIB_HEADERS xv_scenechange_hw.h)
 collect (PROJECT_LIB_SOURCES xv_scenechange.c)
-collect (PROJECT_LIB_SOURCES xv_scenechange_linux.c)
 collect (PROJECT_LIB_SOURCES xv_scenechange_intr.c)
 collect (PROJECT_LIB_HEADERS xv_scenechange.h)
 collector_list (_sources PROJECT_LIB_SOURCES)
