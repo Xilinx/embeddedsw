@@ -363,7 +363,8 @@ static void CalculatePhases(XV_Hscaler_l2 *HscPtr,
     int MaxPhases = (1<<HscPtr->Hsc.Config.PhaseShift);
     loopWidth = ((WidthIn > WidthOut) ? WidthIn + (HscPtr->Hsc.Config.PixPerClk-1)
                                       : WidthOut  +(HscPtr->Hsc.Config.PixPerClk-1))/HscPtr->Hsc.Config.PixPerClk;
-
+    if (loopWidth > XV_HSCALER_MAX_LINE_WIDTH)
+        loopWidth = XV_HSCALER_MAX_LINE_WIDTH;
 
     arrayIdx = 0;
     for (x=0; x<loopWidth; x++)
@@ -608,6 +609,7 @@ int XV_HScalerSetup(XV_Hscaler_l2  *InstancePtr,
                      u32 ColorFormatOut)
 {
   u32 PixelRate;
+  u32 MaxSwWidth;
 
   /*
    * Assert validates the input arguments
@@ -618,6 +620,11 @@ int XV_HScalerSetup(XV_Hscaler_l2  *InstancePtr,
   Xil_AssertNonvoid((WidthOut>0) && (WidthOut<=InstancePtr->Hsc.Config.MaxWidth));
   Xil_AssertNonvoid((InstancePtr->Hsc.Config.PixPerClk >= XVIDC_PPC_1) &&
 		  (InstancePtr->Hsc.Config.PixPerClk <= XVIDC_PPC_8));
+
+  MaxSwWidth = XV_HSCALER_MAX_LINE_WIDTH * InstancePtr->Hsc.Config.PixPerClk;
+  if ((WidthIn > MaxSwWidth) || (WidthOut > MaxSwWidth)) {
+    return XST_FAILURE;
+  }
 
   if(!XV_HScalerValidateConfig(InstancePtr, ColorFormatIn, ColorFormatOut))
   {
