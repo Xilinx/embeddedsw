@@ -78,10 +78,10 @@ static int validateWindowSize(const XVidC_VideoWindow *win,
   }
 
   //Check if window is within the Resolution being programmed
-  if(((win->StartX > HActive)) ||
-	 ((win->StartY > VActive)) ||
-     ((win->StartX + win->Width) > HActive)   ||
-     ((win->StartY + win->Height) > VActive))
+  if((win->StartX > HActive) ||
+	 (win->StartY > VActive) ||
+     (win->Width > (HActive - win->StartX)) ||
+     (win->Height > (VActive - win->StartY)))
   {
     return(XST_FAILURE);
   }
