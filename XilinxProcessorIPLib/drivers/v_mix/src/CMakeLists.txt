@@ -1,4 +1,4 @@
-# Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+# Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 # SPDX-License-Identifier: MIT
 cmake_minimum_required(VERSION 3.14.7)
 project(v_mix)
@@ -12,7 +12,6 @@ collect (PROJECT_LIB_SOURCES xv_mix_l2_intr.c)
 collect (PROJECT_LIB_SOURCES xv_mix_l2.c)
 collect (PROJECT_LIB_HEADERS xv_mix_l2.h)
 collect (PROJECT_LIB_HEADERS xv_mix.h)
-collect (PROJECT_LIB_SOURCES xv_mix_linux.c)
 collect (PROJECT_LIB_SOURCES xv_mix_g.c)
 collect (PROJECT_LIB_HEADERS xv_mix_hw.h)
 collect (PROJECT_LIB_SOURCES xv_mix.c)
