@@ -180,8 +180,18 @@ XStatus XPm_PcsrWrite(u32 BaseAddress, u32 Mask, u32 Value)
 {
 	XStatus Status = XST_FAILURE;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
+	u32 Platform = XPm_GetPlatform();
+	/* NPI PCSR does not read back on QEMU/COSIM; blind-write verify false-fails. */
+	u32 SkipBlindChk = ((PLATFORM_VERSION_QEMU == Platform) ||
+			    (PLATFORM_VERSION_COSIM == Platform)) ? 1U : 0U;
 
 	XPm_Out32((BaseAddress + NPI_PCSR_MASK_OFFSET), Mask);
+	if (1U == SkipBlindChk) {
+		XPm_Out32((BaseAddress + NPI_PCSR_CONTROL_OFFSET), Value);
+		Status = XST_SUCCESS;
+		goto done;
+	}
+
 	/* Blind write check */
 	PmChkRegOut32((BaseAddress + NPI_PCSR_MASK_OFFSET), Mask, Status);
 	if (XPM_REG_WRITE_FAILED == Status) {
