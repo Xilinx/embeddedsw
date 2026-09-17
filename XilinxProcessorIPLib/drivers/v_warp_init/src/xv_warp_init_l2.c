@@ -168,7 +168,7 @@ void XVWarpInit_ClearNumOfDescriptors(XV_warp_init *InstancePtr)
 int XVWarpInit_ProgramDescriptor(XV_warp_init *InstancePtr,
 		u32 Descnum, XVWarpInit_InputConfigs *ConfigPtr)
 {
-	XVWarpInitVector_Hw desc;
+	XVWarpInitVector_Hw desc = {0};
 	XVWarpInit_ArbParam arbit_param;
 	XVWarpInitVector_Hw_Aligned *descptr;
 
