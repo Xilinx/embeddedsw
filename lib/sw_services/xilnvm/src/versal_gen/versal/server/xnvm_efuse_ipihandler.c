@@ -37,7 +37,7 @@
 * 3.7   mb   12/31/2025 Added IPI support for AES key CRC check
 *       ng   02/10/2026 Fixed undefined END label usage in XNvm_EfuseRead
 *       obs  03/26/2026 Replaced XSysMonPsv casts with XNvm_SysmonPsv
-*
+* 3.8	rpu  08/17/2026 Fixed user fuse write to use XNvm_EfuseUserDataAddr
 * </pre>
 *
 ******************************************************************************/
@@ -1725,20 +1725,35 @@ END:
 static int XNvm_EfuseUserFuseWriteAccess(u32 SubsystemId, u64 Addr, u8 EnvMonitorDis)
 {
 	int Status = XST_FAILURE;
-	XNvm_EfuseUserData UserFuses = {0U};
+	XNvm_EfuseUserDataAddr UserFusesAddr __attribute__ ((aligned (32U))) = {0U};
+	XNvm_EfuseUserData UserData __attribute__ ((aligned (32U))) = {0U};
 	XNvm_EfuseData EfuseData = {0U};
+	u32 UserFuseArr[XNVM_NUM_OF_USER_FUSES] __attribute__ ((aligned (32U))) = {0U};
 
-	XPLMI_VERIFY_ADDR_RANGE(SubsystemId, Addr, sizeof(UserFuses), Status, XNVM_EFUSE_ERROR_INVALID_ADDR_RANGE, END);
+	XPLMI_VERIFY_ADDR_RANGE(SubsystemId, Addr, sizeof(XNvm_EfuseUserDataAddr),
+		Status, XNVM_EFUSE_ERROR_INVALID_ADDR_RANGE, END);
 
 	EfuseData.EnvMonitorDis = EnvMonitorDis;
 	if (EfuseData.EnvMonitorDis == FALSE) {
 		EfuseData.SysMonInstPtr = XPlmi_GetSysmonInst();
 	}
 
-	Xil_MemCpyFrom64To32Addr((u32)(UINTPTR)&UserFuses, Addr,
-			sizeof(UserFuses));
+	Xil_MemCpyFrom64To32Addr((u32)(UINTPTR)&UserFusesAddr, Addr,
+			sizeof(XNvm_EfuseUserDataAddr));
 
-	EfuseData.UserFuses = &UserFuses;
+	UserData.StartUserFuseNum = UserFusesAddr.StartUserFuseNum;
+	UserData.NumOfUserFuses = UserFusesAddr.NumOfUserFuses;
+
+	XPLMI_VERIFY_ADDR_RANGE(SubsystemId, UserFusesAddr.UserFuseDataAddr,
+		UserData.NumOfUserFuses * XNVM_WORD_LEN,
+		Status, XNVM_EFUSE_ERROR_INVALID_ADDR_RANGE, END);
+
+	Xil_MemCpyFrom64To32Addr((u32)(UINTPTR)UserFuseArr,
+			UserFusesAddr.UserFuseDataAddr,
+			UserData.NumOfUserFuses * XNVM_WORD_LEN);
+
+	UserData.UserFuseData = UserFuseArr;
+	EfuseData.UserFuses = &UserData;
 	Status = XNvm_EfuseWrite(&EfuseData);
 
 END:
