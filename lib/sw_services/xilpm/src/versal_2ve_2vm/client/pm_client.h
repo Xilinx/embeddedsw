@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2025-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -56,7 +56,12 @@ extern struct XPm_Proc *PrimaryProc;
 #if defined (__aarch64__)
 #define XPm_Print(MSG, ...)		xil_printf("APU: "MSG, ##__VA_ARGS__)
 #elif defined (__arm__)
-extern char ProcName[7];
+/**
+ * Size of the processor name buffer, large enough for the longest split mode
+ * name ("RPU_X_Y") along with its NULL terminator
+ */
+#define XPM_PROC_NAME_SIZE		(8U)
+extern char ProcName[XPM_PROC_NAME_SIZE];
 #define XPm_Print(MSG, ...)		xil_printf("%s: "MSG, ProcName, ##__VA_ARGS__)
 #elif defined (__microblaze__)
 #define XPm_Print(MSG, ...)		xil_printf("MicroBlaze: "MSG, ##__VA_ARGS__)

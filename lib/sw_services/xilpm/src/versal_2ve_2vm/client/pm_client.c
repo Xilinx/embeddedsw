@@ -150,7 +150,7 @@ static struct XPm_Proc *const ProcList[] = {
 
 struct XPm_Proc *PrimaryProc = &Proc_RPU_A_0;
 
-char ProcName[7] = "RPU";
+char ProcName[XPM_PROC_NAME_SIZE] = "RPU";
 #endif
 
 void XPm_RMW32(u32 RegAddress, u32 Mask, u32 Value)
@@ -189,15 +189,19 @@ XStatus XPm_SetPrimaryProc(void)
 	if (0U == (XPm_Read(PSX_RPU_CLUSTER_##cluster_name##_BASEADDR + CLUSTER_CFG_OFFSET) & RPU_GLBL_CNTL_SLSPLIT_MASK)) { \
 		ProcId = 0U; \
 		TempProcName = RPU_LS_##cluster_name; \
+		TempProcNameSize = (u32)sizeof(RPU_LS_##cluster_name); \
 		XPm_Dbg("Running in lock-step mode\r\n"); \
 	} else { \
 		if(0U == ProcId) { \
 			TempProcName = RPU_##cluster_name##_0; \
+			TempProcNameSize = (u32)sizeof(RPU_##cluster_name##_0); \
 		} else { \
 			TempProcName = RPU_##cluster_name##_1; \
+			TempProcNameSize = (u32)sizeof(RPU_##cluster_name##_1); \
 		} \
 	}
 	const char *TempProcName = NULL;
+	u32 TempProcNameSize = 0U;
 
 	DEFINE_RPU_NAMES(A)
 	DEFINE_RPU_NAMES(B)
@@ -233,7 +237,11 @@ XStatus XPm_SetPrimaryProc(void)
 		goto done;
 	}
 
-	Status = Xil_SMemCpy(ProcName, sizeof(ProcName), TempProcName, sizeof(ProcName), sizeof(ProcName));
+	/* Copy the selected name along with its NULL terminator, so that the
+	 * printed string stays terminated and no byte is read past the source
+	 */
+	Status = Xil_SMemCpy(ProcName, sizeof(ProcName), TempProcName, TempProcNameSize,
+			     TempProcNameSize);
 	if (XST_SUCCESS != Status) {
 		goto done;
 	}
