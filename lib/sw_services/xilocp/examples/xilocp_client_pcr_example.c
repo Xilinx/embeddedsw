@@ -13,7 +13,8 @@
 * This example illustrates the extension and get PCR by requesting ROM services.
 * To build this application, xilmailbox library must be included in BSP and
 * xilocp must be in client mode.
-* This example is supported for Versal Net, Versal_2VE_2VM and Versal_2VP_P devices.
+* This example is supported for Versal Net, Versal_2VE_2VM, Versal_2VP (SW PCR
+* only) and Versal_2VP_P devices.
 *
 * @note
 * Procedure to link and compile the example for the default ddr less designs
@@ -83,6 +84,7 @@
 * 1.3   ng     01/28/24 Added SDT support
 * 1.7   rpu    02/21/26 Pass the address of HwPcrLogInfo to Xil_DCacheInvalidateRange.
 * 1.8   tbk    09/01/26 Enable PCR client example for Versal_2VP_P
+*       rpu    09/17/26 Disable HW PCR path for Versal_2VP, It supports SW PCR only.
 * </pre>
 * @note
 *
@@ -113,13 +115,17 @@
 
 /************************** Function Prototypes ******************************/
 static void XOcp_PrintData(const u8 *Data, u32 size);
+#ifndef VERSAL_2VP
 static int XOcp_HwPcrExample(XOcp_ClientInstance *ClientInstancePtr);
+#endif
 static int XOcp_SwPcrExample(XOcp_ClientInstance *ClientInstancePtr);
 
 /************************** Variable Definitions *****************************/
 static u8 PcrBuf[XOCP_PCR_SIZE_BYTES] __attribute__ ((section (".data.PcrBuf")));
+#ifndef VERSAL_2VP
 static XOcp_HwPcrEvent   HwPcrEvents[XOCP_READ_NUM_OF_LOG_ENTRIES] __attribute__ ((section (".data.HwPcrEvents")));
 static XOcp_HwPcrLogInfo HwPcrLogInfo __attribute__ ((section (".data.HwPcrLogInfo")));
+#endif
 static XOcp_PcrMeasurement SwPcrMeasurement[XOCP_NUM_SW_PCR_LOG_EVENTS] __attribute__ ((section (".data.SwPcrMeasurement")));
 static u8 ExtendHash[XOCP_EXTENDED_HASH_SIZE_IN_BYTES]__attribute__ ((section (".data.ExtendHash")))=
 						{0x70,0x69,0x77,0x35,0x0b,0x93,
@@ -169,16 +175,20 @@ int main(void)
 #ifndef XOCP_CACHE_DISABLE
 	Xil_DCacheInvalidateRange((UINTPTR)ExtendHash, XOCP_EXTENDED_HASH_SIZE_IN_BYTES);
 	Xil_DCacheInvalidateRange((UINTPTR)PcrBuf, XOCP_PCR_SIZE_BYTES);
+#ifndef VERSAL_2VP
 	Xil_DCacheInvalidateRange((UINTPTR)HwPcrEvents, sizeof(HwPcrEvents));
 	Xil_DCacheInvalidateRange((UINTPTR)&HwPcrLogInfo, sizeof(HwPcrLogInfo));
+#endif
 	Xil_DCacheInvalidateRange((UINTPTR)SwPcrMeasurement, sizeof(SwPcrMeasurement));
 #endif
 
+#ifndef VERSAL_2VP
 	Status = XOcp_HwPcrExample(&OcpClientInstance);
 	if (Status != XST_SUCCESS) {
 		xil_printf("HW PCR example failed with Status:%08x \r\n", Status);
 		goto END;
 	}
+#endif
 
 	Status = XOcp_SwPcrExample(&OcpClientInstance);
 	if (Status != XST_SUCCESS) {
@@ -202,6 +212,7 @@ END:
 * 	   ErrorCode 	Upon Failure
 *
 ****************************************************************************/
+#ifndef VERSAL_2VP
 static int XOcp_HwPcrExample(XOcp_ClientInstance *ClientInstancePtr)
 {
 	int Status = XST_FAILURE;
@@ -255,6 +266,7 @@ static int XOcp_HwPcrExample(XOcp_ClientInstance *ClientInstancePtr)
 END:
 	return Status;
 }
+#endif
 
 /****************************************************************************/
 /**

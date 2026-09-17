@@ -26,6 +26,7 @@
 *       tus  08/07/26 Added XOcp_GetClientLibVersion and
 *                     XOcp_GetServerLibInfo
 *       tbk  09/01/26 Include HW PCR and SW PCR headers for Versal_2VP_P
+*       rpu  09/10/26 Include SW PCR, DME and key mgmt headers for Versal_2VP
 * </pre>
 *
 * @note
@@ -52,6 +53,10 @@ extern "C" {
 #elif defined(VERSAL_NET) || defined(VERSAL_2VP_P)
 #include "xocp_swpcr.h"
 #include "xocp_hwpcr.h"
+#include "xocp_dme.h"
+#include "xocp_key_mgmt.h"
+#elif defined(VERSAL_2VP)
+#include "xocp_swpcr.h"
 #include "xocp_dme.h"
 #include "xocp_key_mgmt.h"
 #endif

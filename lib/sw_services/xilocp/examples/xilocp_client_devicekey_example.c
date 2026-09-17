@@ -15,7 +15,7 @@
 * key.
 * To build this application, xilmailbox library must be included in BSP and
 * xilocp must be in client mode.
-* This example is supported for Versal Net devices.
+* This example is supported for Versal Net, Versal_2VP and Versal_2VP_P devices.
 *
 * @note
 * Procedure to link and compile the example for the default ddr less designs
