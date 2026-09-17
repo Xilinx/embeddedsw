@@ -38,6 +38,7 @@
 *       ng   02/10/2026 Fixed undefined END label usage in XNvm_EfuseRead
 *       obs  03/26/2026 Replaced XSysMonPsv casts with XNvm_SysmonPsv
 * 3.8	rpu  08/17/2026 Fixed user fuse write to use XNvm_EfuseUserDataAddr
+*       rpu  08/26/2026 Added parameter validation for user fuse IPI write
 * </pre>
 *
 ******************************************************************************/
@@ -236,6 +237,8 @@ END:
  *
  * @return
  * 		- XST_SUCCESS - If the programming is successful
+ * 		- XNVM_EFUSE_ERR_INVALID_PARAM - On invalid parameter
+ * 		- XNVM_EFUSE_ERROR_INVALID_ADDR_RANGE - On invalid address range
  * 		- XST_FAILURE - On memory copy or data clearing failure
  *
  ******************************************************************************/
@@ -260,7 +263,7 @@ static int XNvm_EfuseDataWrite(u32 SubsystemId, u32 AddrLow, u32 AddrHigh)
 	XNvm_EfuseUserData UserData __attribute__ ((aligned (32U)));
 	XNvm_EfuseData EfuseData __attribute__ ((aligned (32U)));
 	XNvm_EfuseDataAddr EfuseDataAddr __attribute__ ((aligned (32U)));
-	u32 UserFuseArr[XNVM_NUM_OF_USER_FUSES]	__attribute__ ((aligned (32U)));
+	u32 UserFuseArr[XNVM_NUM_OF_USER_FUSES]	__attribute__ ((aligned (32U))) = {0U};
 #ifdef XNVM_EN_ADD_PPKS
 	XNvm_EfuseAdditionalPpkHash AdditionalPpkHash __attribute__ ((aligned (32U)));
 #endif
@@ -385,8 +388,27 @@ static int XNvm_EfuseDataWrite(u32 SubsystemId, u32 AddrLow, u32 AddrHigh)
 		Xil_MemCpyFrom64To32Addr((u32)(UINTPTR)&UserFusesAddr,
 				EfuseDataAddr.UserFuseAddr,
 				sizeof(UserFusesAddr));
+
 		UserData.StartUserFuseNum = UserFusesAddr.StartUserFuseNum;
 		UserData.NumOfUserFuses = UserFusesAddr.NumOfUserFuses;
+
+		/**
+		 * - Bound the user fuse count before it is used as a copy length,
+		 * as UserFuseArr can hold at most XNVM_NUM_OF_USER_FUSES words.
+		 * Reject a zero count here; XNvm_EfusePgmAndVerifyRows() fails on
+		 * RowCount == 0 and a combined XNvm_EfuseDataWrite may have already
+		 * programmed other eFuses.
+		 */
+		if ((UserData.NumOfUserFuses == 0U) ||
+			(UserData.NumOfUserFuses > XNVM_NUM_OF_USER_FUSES)) {
+			Status = (int)XNVM_EFUSE_ERR_INVALID_PARAM;
+			goto END;
+		}
+
+		if (UserFusesAddr.UserFuseDataAddr == 0U) {
+			Status = (int)XNVM_EFUSE_ERR_INVALID_PARAM;
+			goto END;
+		}
 
 		/**
 		 * - Validate internal address field for user fuse data
@@ -1718,6 +1740,7 @@ END:
  *
  * @return
  * 		- XST_SUCCESS - If the write is successful
+ * 		- XNVM_EFUSE_ERR_INVALID_PARAM - On invalid parameter
  * 		- XNVM_EFUSE_ERROR_INVALID_ADDR_RANGE - On invalid address range
  * 		- XST_FAILURE - On memory copy failure
  *
@@ -1740,6 +1763,29 @@ static int XNvm_EfuseUserFuseWriteAccess(u32 SubsystemId, u64 Addr, u8 EnvMonito
 
 	Xil_MemCpyFrom64To32Addr((u32)(UINTPTR)&UserFusesAddr, Addr,
 			sizeof(XNvm_EfuseUserDataAddr));
+
+	if ((UserFusesAddr.StartUserFuseNum < XNVM_USER_FUSE_START_NUM) ||
+		(UserFusesAddr.StartUserFuseNum > XNVM_USER_FUSE_END_NUM)) {
+		Status = (int)XNVM_EFUSE_ERR_INVALID_PARAM;
+		goto END;
+	}
+
+	if ((UserFusesAddr.NumOfUserFuses == 0U) ||
+		(UserFusesAddr.NumOfUserFuses > XNVM_NUM_OF_USER_FUSES)) {
+		Status = (int)XNVM_EFUSE_ERR_INVALID_PARAM;
+		goto END;
+	}
+
+	if (((UserFusesAddr.StartUserFuseNum - 1U) + UserFusesAddr.NumOfUserFuses) >
+		XNVM_USER_FUSE_END_NUM) {
+		Status = (int)XNVM_EFUSE_ERR_INVALID_PARAM;
+		goto END;
+	}
+
+	if (UserFusesAddr.UserFuseDataAddr == 0U) {
+		Status = (int)XNVM_EFUSE_ERR_INVALID_PARAM;
+		goto END;
+	}
 
 	UserData.StartUserFuseNum = UserFusesAddr.StartUserFuseNum;
 	UserData.NumOfUserFuses = UserFusesAddr.NumOfUserFuses;
