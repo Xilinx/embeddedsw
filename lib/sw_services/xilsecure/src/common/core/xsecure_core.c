@@ -23,6 +23,7 @@
 *                       KeyClearBitPos referencing renamed
 *                       XSECURE_AES_KEY_CLEAR_*_BIT_POS macros) for memory
 *                       footprint reduction
+* 5.8   tvp   09/15/26  Guard AES key lookup table definition
 *
 * </pre>
 *
@@ -41,6 +42,7 @@
 
 /************************** Variable Definitions *****************************/
 
+#if !(defined(VERSAL_2VE_2VM) && defined(VERSAL_2VP_P))
 /** This lookup table array defines properties of Key sources.*/
 const XSecure_AesKeyLookup AesKeyLookupTbl [XSECURE_MAX_KEY_SOURCES] =
 {
@@ -224,6 +226,7 @@ const XSecure_AesKeyLookup AesKeyLookupTbl [XSECURE_MAX_KEY_SOURCES] =
 	  .KeyClearBitPos = XSECURE_AES_KEY_CLEAR_USER_KEY_7_BIT_POS
 	}
 };
+#endif
 /***************** Macros (Inline Functions) Definitions **********************/
 
 /************************** Function Prototypes ******************************/
