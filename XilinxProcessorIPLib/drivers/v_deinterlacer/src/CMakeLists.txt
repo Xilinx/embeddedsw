@@ -1,4 +1,4 @@
-# Copyright (C) 2023 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (C) 2023-2026 Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 cmake_minimum_required(VERSION 3.14.7)
 
@@ -13,7 +13,6 @@ collect (PROJECT_LIB_SOURCES xv_deinterlacer_g.c)
 collect (PROJECT_LIB_HEADERS xv_deinterlacer_hw.h)
 collect (PROJECT_LIB_SOURCES xv_deinterlacer_l2.c)
 collect (PROJECT_LIB_HEADERS xv_deinterlacer_l2.h)
-collect (PROJECT_LIB_SOURCES xv_deinterlacer_linux.c)
 collect (PROJECT_LIB_HEADERS xv_deinterlacer.h)
 collect (PROJECT_LIB_SOURCES xv_deinterlacer_sinit.c)
 collector_list (_sources PROJECT_LIB_SOURCES)
