@@ -26,6 +26,8 @@
 *                      XSECURE_AES_KEY_CLEAR_*_BIT_POS for use from
 *                      AesKeyLookupTbl[].KeyClearBitPos, and add
 *                      XSECURE_AES_KEY_CLEAR_BIT_POS_TO_MASK helper
+* 5.8   ank   09/01/26 Move debug macros and crypto status stub here from
+*                      xsecure_utils.h
 *
 * </pre>
 *
@@ -52,6 +54,23 @@ extern "C" {
 #endif
 
 /************************** Constant Definitions ****************************/
+/**
+ * @name  Debug related macros
+ * @{
+ */
+/**< Enable printfs by setting XSECURE_DEBUG to 1 */
+#define XSECURE_DEBUG	(0U)
+
+#if (XSECURE_DEBUG)
+#define XSECURE_DEBUG_GENERAL (1U)	/**< Enable general debug prints */
+#else
+#define XSECURE_DEBUG_GENERAL (0U)	/**< Disable general debug prints */
+#endif
+/** @} */
+
+#define XSecure_Printf(DebugType, ...)	\
+	if ((DebugType) == 1U) {xil_printf (__VA_ARGS__);}
+				/**< For prints in XilSecure library */
 
 #define XSECURE_AES_BASEADDR		(0x040F0000U)	/**< AES base address */
 
@@ -260,6 +279,22 @@ typedef enum {
       XSECURE_ECC_NIST_P384 = 4,			/**< NIST P-384 curve value in Ecdsa.h */
       XSECURE_ECC_NIST_P521 = 5				/**< NIST P-521 curve value in Ecdsa.h */
 } XSecure_EllipticCrvTyp;
+
+/***************** Macros (Inline Functions) Definitions *********************/
+/*****************************************************************************/
+/**
+ * @brief	This function is not applicable for Spartan Ultrascale Plus
+ *
+ * @param	BaseAddress	Base address of the core
+ * @param	Op		To set or clear the bit
+ *
+ ******************************************************************************/
+static inline void XSecure_UpdateCryptoStatus(UINTPTR BaseAddress, u32 Op)
+{
+	/* Not applicable for Spartan Ultrascale Plus */
+	(void)BaseAddress;
+	(void)Op;
+}
 
 /***************************** Function Prototypes ***************************/
 /**

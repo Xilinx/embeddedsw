@@ -3,6 +3,9 @@
 
 add_subdirectory(aes)
 add_subdirectory(sha)
+if(("${CMAKE_MACHINE}" STREQUAL "spartanuplus"))
+  add_subdirectory(util)
+endif()
 if("spartanuplusaes1" IN_LIST VARIANT)
   add_subdirectory(trng)
   add_subdirectory(ecdsa)
