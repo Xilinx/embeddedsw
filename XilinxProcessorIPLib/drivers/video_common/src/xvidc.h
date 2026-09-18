@@ -705,6 +705,12 @@ XVidC_VideoMode XVidC_GetVideoModeIdRb(u32 Width, u32 Height, u32 FrameRate,
 		                               u8 IsInterlaced, u8 RbN);
 XVidC_VideoMode XVidC_GetVideoModeIdWBlanking(const XVidC_VideoTiming *Timing,
 		                                      u32 FrameRate, u8 IsInterlaced);
+XVidC_VideoMode XVidC_GetVideoModeId_DeepSearch(XVidC_VideoTiming Timing,
+						u32 FrameRate);
+XVidC_ColorFormat XVidC_GetColorFormatForBandwidth(u8 LinkRate, u8 LaneCount,
+						   XVidC_VideoTiming Timing,
+						   u32 FrameRate,
+						   XVidC_ColorDepth Bpc);
 
 /******************* Macros (Inline Functions) Definitions ********************/
 

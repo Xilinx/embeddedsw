@@ -51,8 +51,42 @@
 
 /************************** Variable Definitions *****************************/
 
+/** VtcSetup callback function pointer and reference (initially NULL). */
+static XDpTxSs_VtcSetupCallback VtcSetupCallbackFunc = NULL;
+static void *VtcSetupCallbackRef = NULL;
 
 /************************** Function Definitions *****************************/
+
+/*****************************************************************************/
+/**
+*
+* This function registers a callback that is invoked at the start of every
+* XDpTxSs_VtcSetup call, before the VTC generator is programmed.
+*
+* In asynchronous clock mode the DisplayPort TX core derives MVID/NVID from
+* the ratio of the video clock to the link clock, so the video clock must
+* already match the new mode when the VTC starts generating its timing.
+* Since the main stream attributes for the new mode are only calculated
+* inside XDpTxSs_Start, this callback is the point at which the application
+* can generate that clock: the attributes are known, and video timing has
+* not started yet.
+*
+* @param	CallbackFunc is the function to call. Use NULL to unregister.
+* @param	CallbackRef is a user pointer passed to the callback.
+*
+* @return	None.
+*
+* @note		The callback is also invoked from XDpTxSs_CfgInitialize, where
+*		the main stream attributes are still zero. Callbacks that act
+*		on the mode should ignore that call.
+*
+******************************************************************************/
+void XDpTxSs_SetVtcSetupCallback(XDpTxSs_VtcSetupCallback CallbackFunc,
+			void *CallbackRef)
+{
+	VtcSetupCallbackFunc = CallbackFunc;
+	VtcSetupCallbackRef = CallbackRef;
+}
 
 /*****************************************************************************/
 /**
@@ -80,6 +114,13 @@ u32 XDpTxSs_VtcSetup(XVtc *InstancePtr, XDp_TxMainStreamAttributes *MsaConfig,
 	/* Verify arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(MsaConfig != NULL);
+
+	/* Give the application a chance to generate the video clock for this
+	 * mode before the generator is programmed. */
+	if (VtcSetupCallbackFunc != NULL) {
+		VtcSetupCallbackFunc(InstancePtr, MsaConfig, VtcAdjustBs,
+					VtcSetupCallbackRef);
+	}
 
 	/* Polarity configuration */
 	XVtc_Polarity Polarity;

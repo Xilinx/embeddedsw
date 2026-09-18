@@ -43,6 +43,14 @@ extern "C" {
 
 /**************************** Type Definitions *******************************/
 
+/**
+* Callback type invoked at the start of XDpTxSs_VtcSetup, before the VTC
+* generator is programmed. MsaConfig holds the attributes of the mode that
+* is about to be set up.
+*/
+typedef void (*XDpTxSs_VtcSetupCallback)(XVtc *InstancePtr,
+			XDp_TxMainStreamAttributes *MsaConfig, u8 VtcAdjustBs,
+			void *CallbackRef);
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
@@ -51,6 +59,8 @@ extern "C" {
 
 u32 XDpTxSs_VtcSetup(XVtc *InstancePtr, XDp_TxMainStreamAttributes *MsaConfig,
 			u8 VtcAdjustBs);
+void XDpTxSs_SetVtcSetupCallback(XDpTxSs_VtcSetupCallback CallbackFunc,
+			void *CallbackRef);
 void XDpTxSs_VtcAdaptiveSyncSetup(XVtc *InstancePtr, XVtc_AdaptiveSyncMode Mode,
 					u32 StretchLimit);
 void XDpTxSs_VtcDisableAdaptiveSync(XVtc *InstancePtr);

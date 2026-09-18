@@ -724,6 +724,17 @@ u32 XDp_TxGetRxCapabilities(XDp *InstancePtr)
 			(RxMaxLinkRate > ConfigPtr->MaxLinkRate) ? ConfigPtr->MaxLinkRate :
 			 RxMaxLinkRate;
 
+	/*
+	 * A sink that does not support 128b/132b channel coding cannot operate
+	 * above HBR3 (8.10 Gbps). If such a sink advertised a reserved/non-standard
+	 * MAX_LINK_RATE (e.g. 0x26), the value above defaults MaxLinkRate to the TX
+	 * core maximum, which may be a UHBR SW rate (encoded above 0x1E).
+	 */
+	if (!LinkConfig->Downstream2xSupported &&
+	    LinkConfig->MaxLinkRate > XDP_TX_LINK_BW_SET_810GBPS) {
+		LinkConfig->MaxLinkRate = XDP_TX_LINK_BW_SET_810GBPS;
+	}
+
 	LinkConfig->MaxLaneCount = (RxMaxLaneCount > ConfigPtr->MaxLaneCount) ?
 		ConfigPtr->MaxLaneCount : RxMaxLaneCount;
 	if (!XDp_IsLaneCountValid(InstancePtr, LinkConfig->MaxLaneCount)) {

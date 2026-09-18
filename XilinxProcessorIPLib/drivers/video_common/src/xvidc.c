@@ -595,6 +595,223 @@ XVidC_VideoMode XVidC_GetVideoModeIdExtensive(XVidC_VideoTiming *Timing,
 
 /******************************************************************************/
 /**
+ * This function performs a deep search over all known timing modes (built-in and
+ * custom) and returns the Video Mode ID whose timing structure and frame rate
+ * match exactly all fields of the provided timing structure and frame rate.
+ *
+ * @param	Timing is the timing structure to match against the table.
+ * @param	FrameRate specifies the refresh rate in Hz to match.
+ *
+ * @return	ID of a supported video mode if an exact timing and frame rate
+ *		match is found, otherwise XVIDC_VM_NOT_SUPPORTED.
+ *
+ * @note	This API compares every field in XVidC_VideoTiming, including sync
+ *		polarities and, when interlaced, all Field 1 parameters, as well as
+ *		the frame rate from XVidC_VideoTimingMode.
+ *
+*******************************************************************************/
+XVidC_VideoMode XVidC_GetVideoModeId_DeepSearch(XVidC_VideoTiming Timing,
+						u32 FrameRate)
+{
+	u16 Index;
+
+	/* First, attempt a linear search on the custom video timing table. */
+	if (XVidC_CustomTimingModes) {
+		for (Index = 0; Index < XVidC_NumCustomModes; Index++) {
+			const XVidC_VideoTiming *T = &XVidC_CustomTimingModes[Index].Timing;
+			if (T->HActive        == Timing.HActive        &&
+			    T->HFrontPorch    == Timing.HFrontPorch    &&
+			    T->HSyncWidth     == Timing.HSyncWidth     &&
+			    T->HBackPorch     == Timing.HBackPorch     &&
+			    T->HTotal         == Timing.HTotal         &&
+			    T->HSyncPolarity  == Timing.HSyncPolarity  &&
+			    T->VActive        == Timing.VActive        &&
+			    T->F0PVFrontPorch == Timing.F0PVFrontPorch &&
+			    T->F0PVSyncWidth  == Timing.F0PVSyncWidth  &&
+			    T->F0PVBackPorch  == Timing.F0PVBackPorch  &&
+			    T->F0PVTotal      == Timing.F0PVTotal      &&
+			    T->F1VFrontPorch  == Timing.F1VFrontPorch  &&
+			    T->F1VSyncWidth   == Timing.F1VSyncWidth   &&
+			    T->F1VBackPorch   == Timing.F1VBackPorch   &&
+			    T->F1VTotal       == Timing.F1VTotal       &&
+			    T->VSyncPolarity  == Timing.VSyncPolarity  &&
+			    XVidC_CustomTimingModes[Index].FrameRate == FrameRate) {
+				return XVidC_CustomTimingModes[Index].VmId;
+			}
+		}
+	}
+
+	/* Next, search built-in timing table. Limit search range based on
+	 * whether the input timing represents an interlaced or progressive mode. */
+	{
+		XVidC_VideoMode Vm;
+		u32 Low, High;
+		u8 InputIsInterlaced = (Timing.F1VTotal != 0U);
+
+		if (InputIsInterlaced) {
+			Low = XVIDC_VM_INTL_START;
+			High = XVIDC_VM_INTL_END;
+		} else {
+			Low = XVIDC_VM_PROG_START;
+			High = XVIDC_VM_PROG_END;
+		}
+
+		for (Vm = (XVidC_VideoMode)Low; Vm <= (XVidC_VideoMode)High;
+		     Vm = (XVidC_VideoMode)((int)Vm + 1)) {
+			const XVidC_VideoTiming *T = &XVidC_VideoTimingModes[Vm].Timing;
+			if (T->HActive        == Timing.HActive        &&
+			    T->HFrontPorch    == Timing.HFrontPorch    &&
+			    T->HSyncWidth     == Timing.HSyncWidth     &&
+			    T->HBackPorch     == Timing.HBackPorch     &&
+			    T->HTotal         == Timing.HTotal         &&
+			    T->HSyncPolarity  == Timing.HSyncPolarity  &&
+			    T->VActive        == Timing.VActive        &&
+			    T->F0PVFrontPorch == Timing.F0PVFrontPorch &&
+			    T->F0PVSyncWidth  == Timing.F0PVSyncWidth  &&
+			    T->F0PVBackPorch  == Timing.F0PVBackPorch  &&
+			    T->F0PVTotal      == Timing.F0PVTotal      &&
+			    T->F1VFrontPorch  == Timing.F1VFrontPorch  &&
+			    T->F1VSyncWidth   == Timing.F1VSyncWidth   &&
+			    T->F1VBackPorch   == Timing.F1VBackPorch   &&
+			    T->F1VTotal       == Timing.F1VTotal       &&
+			    T->VSyncPolarity  == Timing.VSyncPolarity  &&
+			    XVidC_VideoTimingModes[Vm].FrameRate == FrameRate) {
+				return Vm;
+			}
+		}
+	}
+
+	return XVIDC_VM_NOT_SUPPORTED;
+}
+
+/******************************************************************************/
+/**
+ * This function calculates the available DisplayPort main link bandwidth from
+ * the supplied link rate and lane count, computes the bandwidth required by the
+ * given video timing and frame rate, and returns the richest color format (from
+ * XVidC_ColorFormat) that fits within the available link bandwidth.
+ *
+ * The color formats are evaluated from the highest bandwidth requirement to the
+ * lowest, so the returned format is the best quality format that can be
+ * transported over the link:
+ *		RGB / YCbCr 4:4:4 (3   * Bpc bits/pixel) ->
+ *		YCbCr 4:2:2       (2   * Bpc bits/pixel) ->
+ *		YCbCr 4:2:0       (1.5 * Bpc bits/pixel)
+ *
+ * @param	LinkRate is the DisplayPort main link rate, encoded using the
+ *		XDP_TX_LINK_BW_SET_* values:
+ *		- 0x06 = 1.62 Gbps (RBR)
+ *		- 0x0A = 2.70 Gbps (HBR)
+ *		- 0x14 = 5.40 Gbps (HBR2)
+ *		- 0x1E = 8.10 Gbps (HBR3)
+ *		- 0x01 = 10.0 Gbps (UHBR10)
+ *		- 0x04 = 13.5 Gbps (UHBR13.5)
+ *		- 0x02 = 20.0 Gbps (UHBR20)
+ * @param	LaneCount is the number of active main link lanes (1, 2 or 4).
+ * @param	Timing is the video timing to be transported.
+ * @param	FrameRate specifies the refresh rate in Hz.
+ * @param	Bpc is the color depth (bits per color component), e.g. 8/10/12.
+ *
+ * @return	The best fitting color format:
+ *		- XVIDC_CSF_RGB       if RGB / 4:4:4 fits,
+ *		- XVIDC_CSF_YCRCB_422 if only 4:2:2 (or lower) fits,
+ *		- XVIDC_CSF_YCRCB_420 if only 4:2:0 fits,
+ *		- XVIDC_CSF_UNKNOWN   if even 4:2:0 does not fit or an input is
+ *		  invalid.
+ *
+ * @note	The available bandwidth accounts for the line-code overhead:
+ *		8b/10b (80%) for RBR/HBR/HBR2/HBR3 and 128b/132b (~96.97%) for the
+ *		UHBR rates.
+ *
+*******************************************************************************/
+XVidC_ColorFormat XVidC_GetColorFormatForBandwidth(u8 LinkRate, u8 LaneCount,
+						   XVidC_VideoTiming Timing,
+						   u32 FrameRate,
+						   XVidC_ColorDepth Bpc)
+{
+	u64 LinkRateMbps;
+	u64 AvailableBps;
+	u64 PixelRate;
+	u64 VTotal;
+	u64 ReqRgbBps;
+	u64 Req422Bps;
+	u64 Req420Bps;
+	u8 Is128b132b;
+
+	/* Map the DisplayPort link rate code to a per-lane rate in Mbps and
+	 * remember which line-code applies. */
+	switch (LinkRate) {
+	case 0x06:	/* XDP_TX_LINK_BW_SET_162GBPS */
+		LinkRateMbps = 1620U;
+		Is128b132b = 0U;
+		break;
+	case 0x0A:	/* XDP_TX_LINK_BW_SET_270GBPS */
+		LinkRateMbps = 2700U;
+		Is128b132b = 0U;
+		break;
+	case 0x14:	/* XDP_TX_LINK_BW_SET_540GBPS */
+		LinkRateMbps = 5400U;
+		Is128b132b = 0U;
+		break;
+	case 0x1E:	/* XDP_TX_LINK_BW_SET_810GBPS */
+		LinkRateMbps = 8100U;
+		Is128b132b = 0U;
+		break;
+	case 0x01:	/* XDP_TX_LINK_BW_SET_UHBR10 */
+		LinkRateMbps = 10000U;
+		Is128b132b = 1U;
+		break;
+	case 0x04:	/* XDP_TX_LINK_BW_SET_UHBR135 */
+		LinkRateMbps = 13500U;
+		Is128b132b = 1U;
+		break;
+	case 0x02:	/* XDP_TX_LINK_BW_SET_UHBR20 */
+		LinkRateMbps = 20000U;
+		Is128b132b = 1U;
+		break;
+	default:
+		return XVIDC_CSF_UNKNOWN;
+	}
+
+	if ((LaneCount == 0U) || ((u32)Bpc == 0U) || (FrameRate == 0U)) {
+		return XVIDC_CSF_UNKNOWN;
+	}
+
+	/* Raw link bit rate in bits/sec across all active lanes. */
+	AvailableBps = LinkRateMbps * 1000000U * (u64)LaneCount;
+
+	/* Apply the line-code efficiency to get the usable payload bandwidth:
+	 * 128b/132b (~96.97%) for the UHBR rates and 8b/10b (80%) otherwise. */
+	if (Is128b132b) {
+		AvailableBps = (AvailableBps * 128U) / 132U;
+	} else {
+		AvailableBps = (AvailableBps * 8U) / 10U;
+	}
+
+	/* Total lines per frame (progressive uses F0PVTotal; interlaced adds
+	 * the Field 1 total). Pixel rate is in pixels/sec. */
+	VTotal = (u64)Timing.F0PVTotal + (u64)Timing.F1VTotal;
+	PixelRate = (u64)Timing.HTotal * VTotal * (u64)FrameRate;
+
+	/* Bandwidth required per color format (bits/sec). RGB and YCbCr 4:4:4
+	 * both use 3 samples/pixel, 4:2:2 uses 2 and 4:2:0 uses 1.5. */
+	ReqRgbBps = PixelRate * 3U * (u64)Bpc;
+	Req422Bps = PixelRate * 2U * (u64)Bpc;
+	Req420Bps = (PixelRate * 3U * (u64)Bpc) / 2U;
+
+	if (ReqRgbBps <= AvailableBps) {
+		return XVIDC_CSF_RGB;
+	} else if (Req422Bps <= AvailableBps) {
+		return XVIDC_CSF_YCRCB_422;
+	} else if (Req420Bps <= AvailableBps) {
+		return XVIDC_CSF_YCRCB_420;
+	}
+
+	return XVIDC_CSF_UNKNOWN;
+}
+
+/******************************************************************************/
+/**
  * This function returns the video mode ID that matches the detected input
  * width, height, frame rate, interlaced or progressive, and reduced blanking.
  *

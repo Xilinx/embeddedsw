@@ -122,13 +122,16 @@ int XDpTxSs_get_full_edid(XDpTxSs *InstancePtr, XDpTxSs_Sink_AV_Capabilities *AV
 					BlockIndex);
 			return XST_FAILURE;
 		}
+#if EDID_DEBUG
 		xil_printf(".");
+#endif
 	}
 
 	AVCaps->extensions_count = ExtensionCount;
-
+#if EDID_DEBUG
 	xil_printf("\r\nEDID read complete: %d bytes (%d extension blocks)\r\n",
 			(1 + ExtensionCount) * 128, ExtensionCount);
+#endif
 
 	return XST_SUCCESS;
 }
@@ -189,7 +192,9 @@ int XDpTxSs_get_sink_AV_Capabilities(XDpTxSs_Sink_AV_Capabilities *AVCaps)
 	XDpTxSs_ParseResult TotalResult = {0, 0};
 
 	if (AVCaps == NULL) {
+#if EDID_DEBUG
 		xil_printf("XDpTxSs_get_sink_AV_Capabilities: Invalid structure pointer\r\n");
+#endif
 		return XST_FAILURE;
 	}
 
@@ -212,7 +217,9 @@ int XDpTxSs_get_sink_AV_Capabilities(XDpTxSs_Sink_AV_Capabilities *AVCaps)
 		case 5: AVCaps->MaxBpc = 14; break;
 		case 6: AVCaps->MaxBpc = 16; break;
 		default:
+#if EDID_DEBUG
 			xil_printf("Unsupported BPC in EDID\r\n");
+#endif
 			AVCaps->MaxBpc = 0;
 			break;
 	}
@@ -228,10 +235,17 @@ int XDpTxSs_get_sink_AV_Capabilities(XDpTxSs_Sink_AV_Capabilities *AVCaps)
 	ExtensionCount = AVCaps->extensions_count;
 
 	if (ExtensionCount == 0) {
+#if EDID_DEBUG
 		xil_printf("No EDID extension blocks found \r\n");
-		return XST_SUCCESS;  /* Success: Extension blocks are optional */
+#endif
+		/* Do NOT return here. Extension blocks are optional, but the base
+		 * EDID block still carries the preferred timing (DTD #1), standard
+		 * timings and established timings. Fall through so the CTA parse
+		 * loop below (a no-op when ExtensionCount == 0) is skipped and
+		 * XDpTxSs_GetVideoTimingsFromEdid() still populates
+		 * AVCaps->TimingList[] from the base block.
+		 */
 	}
-
 
 	for (BlockIndex = 1; BlockIndex <= ExtensionCount; BlockIndex++) {
 		BlockPtr = EdidBuffer + (BlockIndex * 128);
@@ -242,10 +256,14 @@ int XDpTxSs_get_sink_AV_Capabilities(XDpTxSs_Sink_AV_Capabilities *AVCaps)
 		}
 
 		CtaResult.TotalBlockCount++;
+#if EDID_DEBUG
 		xil_printf("\r\nFound CTA-861 block %d (EDID block %d)\r\n", CtaResult.TotalBlockCount, BlockIndex);
+#endif
 
 		if (!xvidc_edid_verify_checksum(BlockPtr)) {
+#if EDID_DEBUG
 			xil_printf("  Checksum FAILED - skipping block\r\n");
+#endif
 			CtaResult.InvalidBlockCount++;
 			continue;
 		}
@@ -269,19 +287,25 @@ int XDpTxSs_get_sink_AV_Capabilities(XDpTxSs_Sink_AV_Capabilities *AVCaps)
 			BlockLength = TagLength & 0x1F;
 
 			if (DataBlockOffset + 1 + BlockLength > 127) {
+#if EDID_DEBUG
 				xil_printf("  Warning: Data block exceeds boundary, stopping parse\r\n");
+#endif
 				break;
 			}
 
 			if (TagCode == CTA861_AUDIO_DATA_BLOCK) {
 				u8 SadCount = BlockLength / 3;
+#if EDID_DEBUG
 				xil_printf("  Audio data block found: %d bytes, %d SAD(s)\r\n",
 						BlockLength, SadCount);
+#endif
 
 				for (SadIndex = 0; SadIndex < SadCount; SadIndex++) {
 					if (TotalSadIndex >= MAX_SAD_COUNT) {
+#if EDID_DEBUG
 						xil_printf("  Warning: SAD array full (%d), additional SADs ignored\r\n",
 								MAX_SAD_COUNT);
+#endif
 						break;
 					}
 
@@ -323,8 +347,10 @@ int XDpTxSs_get_sink_AV_Capabilities(XDpTxSs_Sink_AV_Capabilities *AVCaps)
 			else if (TagCode == CTA861_SPKR_ALLOC_DATA_BLOCK && BlockLength > 0) {
 				SpeakerAlloc = BlockPtr[DataBlockOffset + 1];
 				AVCaps->SinkAudioCfg.Speaker_channel_allocation |= SpeakerAlloc;
+#if EDID_DEBUG
 				xil_printf("  Speaker Allocation Data Block found: ChannelAlloc=0x%02X (cumulative=0x%02X)\r\n",
 						SpeakerAlloc, AVCaps->SinkAudioCfg.Speaker_channel_allocation);
+#endif
 			}
 
 			DataBlockOffset += (BlockLength + 1);
@@ -347,6 +373,7 @@ int XDpTxSs_get_sink_AV_Capabilities(XDpTxSs_Sink_AV_Capabilities *AVCaps)
 
 	AVCaps->checksum_failures = TotalResult.InvalidBlockCount;
 
+#if EDID_DEBUG
 	xil_printf("\r\n=== A/V Capabilities Parse Summary ===\r\n");
 	xil_printf("  Total Blocks: %d (%d valid, %d invalid)\r\n",
 		TotalResult.TotalBlockCount, ValidBlocks, TotalResult.InvalidBlockCount);
@@ -358,6 +385,7 @@ int XDpTxSs_get_sink_AV_Capabilities(XDpTxSs_Sink_AV_Capabilities *AVCaps)
 	xil_printf("  Color Formats: 0x%02X\r\n", AVCaps->SupportedColorFormats);
 	xil_printf("  Video Timings: %d\r\n", AVCaps->TimingCount);
 	xil_printf("======================================\r\n\r\n");
+#endif
 
 	if (TotalResult.InvalidBlockCount > 0) {
 		return XST_FAILURE;  /* Any invalid blocks = failure */
@@ -874,10 +902,11 @@ XDpTxSs_ParseResult XDpTxSs_GetVideoTimingsFromEdid(XDpTxSs_Sink_AV_Capabilities
 		XDpTxSs_FillEstablishedTiming(&AVCaps->TimingList[AVCaps->TimingCount++], 1152, 870, 75);
 	}
 
-
+#if EDID_DEBUG
 	xil_printf("EDID Parse Summary: %d timings from %d DisplayID blocks (%d valid, %d invalid)\r\n",
 			AVCaps->TimingCount, Result.TotalBlockCount,
 			ValidDisplayIdBlocks, Result.InvalidBlockCount);
+#endif
 
 	return Result;
 }
@@ -893,6 +922,7 @@ XDpTxSs_ParseResult XDpTxSs_GetVideoTimingsFromEdid(XDpTxSs_Sink_AV_Capabilities
  ******************************************************************************/
 void XDpTxSs_PrintVideoTiming(const XDpTxSs_VideoTimingParam *Timing, u8 Index)
 {
+#if EDID_DEBUG
 	xil_printf("Timing[%d]: %dx%d ", Index,
 			Timing->HActive, Timing->VActive);
 	xil_printf("PixClk=%llu Hz ", Timing->PixelClockHz);
@@ -906,5 +936,6 @@ void XDpTxSs_PrintVideoTiming(const XDpTxSs_VideoTimingParam *Timing, u8 Index)
 			Timing->HSyncPolarity, Timing->VSyncPolarity);
 	xil_printf("Src=%d AR=%d RR=%d\r\n",
 			Timing->TimingSource, Timing->AspectRatio, Timing->RefreshRate);
+#endif
 }
 /** @} */
