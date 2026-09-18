@@ -117,10 +117,6 @@ domains:
         cpumask: 0x1
         mode:
           secure: true
-        # cluster_cpu is required for RPU domains. Lopper uses it to auto-generate
-        # cpu_config_str, rpu_pd_val, core_num and cluster_cpu properties in the
-        # output DTS. Without it, remoteproc nodes will not be generated.
-        cluster_cpu: psv_cortexr5_0
     os,type: freertos
     sram:
       - dev: rproc0@9800000
@@ -148,14 +144,10 @@ domains:
     compatible: openamp,domain-v1
     cpus:
       - cluster: cpus_r5_1
-        cpumask: 0x2
+        cpumask: 0x1
         mode:
           secure: true
           el: 0x3
-        # cluster_cpu is required for RPU domains. Lopper uses it to auto-generate
-        # cpu_config_str, rpu_pd_val, core_num and cluster_cpu properties in the
-        # output DTS. Without it, remoteproc nodes will not be generated.
-        cluster_cpu: psv_cortexr5_1
     os,type: baremetal
     domain-to-domain:
       compatible: openamp,domain-to-domain-v1
@@ -165,7 +157,7 @@ domains:
           host: APU_Linux
           carveouts: [ libmetal_uio_desc0@99c8000, libmetal_uio_desc1@99cc000, libmetal_uio_data@99d0000 ]
           mbox: ipi_2_to_ipi_5 #IPI2 Libmetal example app (RPU)
-          timer: [ ttc2, ttc3 ]
+          timer: ttc2
           elfload: [ libmetal_elf@9968000 ]
 
     sram:
