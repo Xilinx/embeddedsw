@@ -116,6 +116,8 @@ XIntc InterruptController;                                   /* AXI Interrupt Co
 
 /* Frame buffer arrays using aligned_buf structure defined in header */
 struct aligned_buf Frame_Array_p[NUM_FBWR][Buffer_Count];
+/* Requested bytes per buffer, used only by the LILO mrd diagnostic prints. */
+u64 fbwr_bufsize[NUM_FBWR] = {0};
 
 /*
  * Frame-buffer-writer base address and its AXI interrupt-controller base,
@@ -1117,6 +1119,8 @@ int init_fbwr(u8 hpId, CamDeviceBufChainId_t bufIo, CamDevicePipeOutFmt_t outFor
 		xil_printf("FBWR[%d] Buffer[%d]: allocated %llu bytes, aligned_addr=%p\n",
 			   fbwr_id, i, bufsize, aligned_ptr);
 	}
+	/* Capture after any splitter adjustment; do not include allocator overhead. */
+	fbwr_bufsize[fbwr_id] = bufsize;
 
 	/* Determine output format based on input format specification */
 	if (outFormat.outFormat == CAMDEV_PIX_FMT_YUV422SP) {

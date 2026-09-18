@@ -200,6 +200,7 @@ int isp_instance_idx;
 #ifdef XPAR_XV_FRMBUF_WR_NUM_INSTANCES
 	extern int noOfFrmbufInstances;
 	extern struct aligned_buf Frame_Array_p[XPAR_XV_FRMBUF_WR_NUM_INSTANCES][3];
+	extern u64 fbwr_bufsize[XPAR_XV_FRMBUF_WR_NUM_INSTANCES];
 #endif
 
 volatile uint32_t apuBufferInform[CAMDEV_VIRTUAL_ID_MAX *
@@ -1588,19 +1589,22 @@ int VsiVvdeviceExecuteCaseline
 #ifdef XPAR_XV_FRMBUF_WR_NUM_INSTANCES
 #if SPLITTER_ENABLED
 					if (caseCtx->instanceCfgCtx[0].instancePath[CAMDEV_BUFCHAIN_MP].pathEnable) {
-							LOGI(" |  mrd -bin -file splitter.rgb 0x%llx 0x17BC00\r\n\n",
-							     (unsigned long long)(uintptr_t)Frame_Array_p[0][0].aligned_addr);
+							LOGI(" |  mrd -bin -file splitter.rgb 0x%llx 0x%llx\r\n\n",
+							     (unsigned long long)(uintptr_t)Frame_Array_p[0][0].aligned_addr,
+							     (unsigned long long)(fbwr_bufsize[0] / 4));
 						}
 #else
 					for (int idx = 0; idx < totalInstance; idx++) {
 						int hpId = caseCtx->instanceCfgCtx[idx].hpId;
 						if (caseCtx->instanceCfgCtx[idx].instancePath[CAMDEV_BUFCHAIN_MP].pathEnable) {
-							LOGI(" |  mrd -bin -file lilo_ISP%d_MP.rgb 0x%llx 0x17BC00\r\n\n",
-							     hpId, (unsigned long long)(uintptr_t)Frame_Array_p[hpId * 2][0].aligned_addr);
+							LOGI(" |  mrd -bin -file lilo_ISP%d_MP.rgb 0x%llx 0x%llx\r\n\n",
+							     hpId, (unsigned long long)(uintptr_t)Frame_Array_p[hpId * 2][0].aligned_addr,
+							     (unsigned long long)(fbwr_bufsize[hpId * 2] / 4));
 						}
 						if (caseCtx->instanceCfgCtx[idx].instancePath[CAMDEV_BUFCHAIN_SP1].pathEnable) {
-							LOGI(" |  mrd -bin -file lilo_ISP%d_SP.rgb 0x%llx 0x17BC00\r\n\n",
-							     hpId, (unsigned long long)(uintptr_t)Frame_Array_p[hpId * 2 + 1][0].aligned_addr);
+							LOGI(" |  mrd -bin -file lilo_ISP%d_SP.rgb 0x%llx 0x%llx\r\n\n",
+							     hpId, (unsigned long long)(uintptr_t)Frame_Array_p[hpId * 2 + 1][0].aligned_addr,
+							     (unsigned long long)(fbwr_bufsize[hpId * 2 + 1] / 4));
 						}
 					}
 #endif
