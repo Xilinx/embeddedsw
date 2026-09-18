@@ -49,6 +49,7 @@
 *       sk   08/28/2023 Added EAM error's check after processing
 *                       of PMC cdo
 * 1.11  ng   04/30/2024 Fixed doxygen grouping
+* 1.12  mkr  10/09/2026 Moved CL pre-boot check to XPlm_PreBootTasks
 *
 * </pre>
 *
@@ -69,6 +70,7 @@
 #include "xplmi_task.h"
 #include "xplm_plat.h"
 #include "xplmi_err_common.h"
+#include "xloader_secure.h"
 #ifdef XPLM_SEM
 #include "xplm_sem_init.h"
 #endif
@@ -239,6 +241,20 @@ static int XPlm_PreBootTasks(void* Arg)
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
+
+#ifndef PLM_SECURE_EXCLUDE
+#ifdef PLM_CFG_LIMITER_EN
+	/*
+	 * Run the configuration limiter pre-boot check after the PMC CDO has
+	 * been processed so the secure lockdown proc is available, and before
+	 * the boot PDI is loaded.
+	 */
+	Status = XLoader_CheckAndUpdateCfgLimit(XLOADER_CL_BEFORE_BOOT);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+#endif /* PLM_CFG_LIMITER_EN */
+#endif /* PLM_SECURE_EXCLUDE */
 
 	/* Check for any EAM errors after Processing PMC CDO*/
 	(void)XPlmi_ErrorTaskHandler(NULL);

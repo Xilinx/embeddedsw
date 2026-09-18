@@ -39,6 +39,8 @@
 * 2.3   rpu  09/05/2025 Added PLM_CFG_LIMITER_EN macro
 *       har  10/16/2025 Updated code to extract CL mode
 * 2.4   gnr  02/09/2026 Moved versal_2ve_2vm server files to dedicated server folder
+* 2.5   mkr  10/09/2026 Triggered CL secure lockdown immediately instead of as a
+*                       task, so it completes before the boot PDI is loaded
 * </pre>
 *
 ******************************************************************************/
@@ -535,7 +537,7 @@ int XLoader_CheckAndUpdateCfgLimit(u32 BootPhase)
 
 			/** - Initiate Secure lockdown */
 			XPlmi_Printf(DEBUG_GENERAL, "CL: Triggering Secure Lockdown\n\r");
-			XPlmi_TriggerSLDOnHaltBoot(XPLMI_TRIGGER_TAMPER_TASK);
+			XPlmi_TriggerSLDOnHaltBoot(XPLMI_TRIGGER_TAMPER_IMMEDIATE);
 			goto END;
 		}
 	}
@@ -609,7 +611,7 @@ int XLoader_UpdateCfgLimitCount(u32 UpdateFlag)
 						Status);
 					XPlmi_UtilRMW(PMC_GLOBAL_PMC_FW_ERR, PMC_GLOBAL_PMC_FW_ERR_DATA_MASK,
 						(u32)Status);
-					XPlmi_TriggerSLDOnHaltBoot(XPLMI_TRIGGER_TAMPER_TASK);
+					XPlmi_TriggerSLDOnHaltBoot(XPLMI_TRIGGER_TAMPER_IMMEDIATE);
 					goto END;
 				}
 				MaxConfigsCnt--;

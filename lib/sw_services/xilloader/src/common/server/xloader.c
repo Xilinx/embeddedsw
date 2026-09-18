@@ -225,6 +225,7 @@
 *       gnr  09/11/2026 Pass PDI source while re-arming SMAP sync word
 *                       detection
 *       aa   09/15/2026 Added support to skip IDCODE check during Extract Metaheader
+*       mkr  10/09/2026 Moved CL pre-boot check out of XLoader_Init
 *
 * </pre>
 *
@@ -406,13 +407,6 @@ int XLoader_Init(void)
 	XSECURE_TEMPORAL_CHECK(END, Status, XLoader_SetSecureState);
 
 #ifndef PLM_SECURE_EXCLUDE
-#ifdef PLM_CFG_LIMITER_EN
-	Status = XLoader_CheckAndUpdateCfgLimit(XLOADER_CL_BEFORE_BOOT);
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
-#endif /* PLM_CFG_LIMITER_EN */
-
 #ifdef PLM_AUTH_JTAG
 	/** - Add task to the scheduler to handle Authenticated JTAG message */
 	Status = XLoader_AddAuthJtagToScheduler();
