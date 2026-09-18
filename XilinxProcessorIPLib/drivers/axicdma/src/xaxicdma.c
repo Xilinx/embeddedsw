@@ -431,7 +431,7 @@ int XAxiCdma_SwitchMode(XAxiCdma *InstancePtr, int Mode)
  *			Another simple transfer is still going
  *   . 		Another SG transfer is still going
  *		- XST_INVALID_PARAM if:
- *		Length out of valid range [1: XAXICDMA_MAX_TRANSFER_LEN]
+*		Length out of valid range [1: InstancePtr->MaxTransLen]
  *		Or, address not aligned when DRE is not built in
  *
  * @note	Only set the callback function if using interrupt to signal
@@ -444,7 +444,7 @@ u32 XAxiCdma_SimpleTransfer(XAxiCdma *InstancePtr, UINTPTR SrcAddr, UINTPTR DstA
 {
 	u32 WordBits;
 
-	if ((Length < 1) || (Length > XAXICDMA_MAX_TRANSFER_LEN)) {
+	if ((Length < 1) || (Length > (int)InstancePtr->MaxTransLen)) {
 		return XST_INVALID_PARAM;
 	}
 
