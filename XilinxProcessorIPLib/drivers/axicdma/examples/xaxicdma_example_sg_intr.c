@@ -221,10 +221,12 @@ static u8 BdSpace[BD_SPACE_SIZE] __attribute__ ((aligned (BD_SPACE_ALIGN)));
  */
 #define SG_BUFFER_SIZE	(MAX_PKT_LEN * NUMBER_OF_BDS_TO_TRANSFER) /**< SG buffer size */
 
+#ifndef TESTAPP_GEN
 /** @cond INTERNAL */
 static u8 SgTxBuffer[SG_BUFFER_SIZE] __attribute__ ((aligned (64)));
 static u8 SgRxBuffer[SG_BUFFER_SIZE] __attribute__ ((aligned (64)));
 /** @endcond */
+#endif
 
 static u32 *TransmitBufferPtr;
 static u32 *ReceiveBufferPtr;
