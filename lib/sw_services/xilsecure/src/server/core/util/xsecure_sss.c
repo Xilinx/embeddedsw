@@ -31,6 +31,7 @@
 * 5.0   bm      07/06/22 Refactor versal and versal_net code
 *       am      08/18/22 Added volatile keyword and reset the Status variable
 *                        to failure before reuse
+* 5.8   ank     09/01/26 Gate DMA1 validation on spartanup, which has DMA0 only
 *
 * </pre>
 *
@@ -45,6 +46,19 @@
 #include "xsecure_error.h"
 
 /************************** Constant Definitions *****************************/
+#ifdef SPARTANUP
+#define XSecure_SssIsDmaSrc(Src)	((Src) == XSECURE_SSS_DMA0)
+					/**< Checks for a valid SSS DMA source */
+#define XSecure_SssIsDmaId(Id)		((Id) == (u16)XSECURE_SSS_DMA0)
+					/**< Checks for a valid DMA device ID */
+#else
+#define XSecure_SssIsDmaSrc(Src)	(((Src) == XSECURE_SSS_DMA0) || \
+					 ((Src) == XSECURE_SSS_DMA1))
+					/**< Checks for a valid SSS DMA source */
+#define XSecure_SssIsDmaId(Id)		(((Id) == (u16)XSECURE_SSS_DMA0) || \
+					 ((Id) == (u16)XSECURE_SSS_DMA1))
+					/**< Checks for a valid DMA device ID */
+#endif
 
 /************************** Function Prototypes ******************************/
 static int XSecure_SssDmaSrc(u16 DmaId, XSecure_SssSrc *Resource);
@@ -111,14 +125,12 @@ int XSecure_SssAes(const XSecure_Sss *InstancePtr,
 		goto END;
 	}
 
-	if ((InputSrc != XSECURE_SSS_DMA0) &&
-		(InputSrc != XSECURE_SSS_DMA1)) {
+	if (!XSecure_SssIsDmaSrc(InputSrc)) {
 		Status = (int)XSECURE_SSS_INVALID_PARAM;
 		goto END;
 	}
 
-	if ((OutputSrc != XSECURE_SSS_DMA0) &&
-		(OutputSrc != XSECURE_SSS_DMA1)) {
+	if (!XSecure_SssIsDmaSrc(OutputSrc)) {
 		Status = (int)XSECURE_SSS_INVALID_PARAM;
 		goto END;
 	}
@@ -165,9 +177,7 @@ int XSecure_SssSha(const XSecure_Sss *InstancePtr, u16 DmaId,
 	u32 RegVal;
 
 	/** - Validate the input arguments */
-	if ((InstancePtr == NULL) ||
-		((DmaId != (u16)XSECURE_SSS_DMA0) &&
-			(DmaId != (u16)XSECURE_SSS_DMA1))) {
+	if ((InstancePtr == NULL) || (!XSecure_SssIsDmaId(DmaId))) {
 		Status = (int)XSECURE_SSS_INVALID_PARAM;
 		goto END;
 	}
@@ -215,9 +225,7 @@ int XSecure_SssDmaLoopBack(const XSecure_Sss *InstancePtr, u16 DmaId)
 	XSecure_SssSrc Resource = XSECURE_SSS_INVALID;
 
 	/** - Validate the input arguments */
-	if ((InstancePtr == NULL) ||
-		((DmaId != (u16)XSECURE_SSS_DMA0) &&
-			(DmaId != (u16)XSECURE_SSS_DMA1))) {
+	if ((InstancePtr == NULL) || (!XSecure_SssIsDmaId(DmaId))) {
 		Status = (int)XSECURE_SSS_INVALID_PARAM;
 		goto END;
 	}
@@ -255,16 +263,18 @@ static int XSecure_SssDmaSrc(u16 DmaId, XSecure_SssSrc *Resource)
 
 	/** - Assert validates the input arguments */
 	XSecure_AssertNonvoid(Resource != NULL);
-	XSecure_AssertNonvoid((DmaId == 0U) || (DmaId == 1U));
+	XSecure_AssertNonvoid(XSecure_SssIsDmaId(DmaId));
 
-	if (DmaId == 0U) {
+	if (DmaId == (u16)XSECURE_SSS_DMA0) {
 		*Resource = XSECURE_SSS_DMA0;
 		Status = XST_SUCCESS;
 	}
+#ifndef SPARTANUP
 	else {
 		*Resource = XSECURE_SSS_DMA1;
 		Status = XST_SUCCESS;
 	}
+#endif
 
 	return Status;
 }
