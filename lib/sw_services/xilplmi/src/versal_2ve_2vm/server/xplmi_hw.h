@@ -72,6 +72,7 @@
 *       ng   08/23/2026 Added register definitions for slave error handlers
 *       pre  08/25/2026 Added DDRMC_PCSR_STATUS_INCAL_MASK, DDRMC_PCSR_STATUS_CALDONE_MASK
 *                       and DDRMC_PCSR_STATUS_CALERROR_MASK macros
+*       abh  09/13/2026 Added register definitions for ISP XMPU FuSa error handling
 *
 * </pre>
 *
@@ -1309,6 +1310,11 @@ static inline void XPlmi_OutByte64(u64 Addr, u8 Data)
 
 
 
+/* ISP Tile XMPUs */
+#define ISP0_XMPU_BASEADDR		(0xE85A0000U)
+#define ISP1_XMPU_BASEADDR		(0xE86A0000U)
+#define ISP2_XMPU_BASEADDR		(0xE87A0000U)
+
 /* LPD OCM0 XMPU */
 #define LPD_XMPU_BASEADDR		(0xEB980000U)
 #define FPD_XMPU_BASEADDR		(0xEC810000U)
@@ -1329,6 +1335,15 @@ static inline void XPlmi_OutByte64(u64 Addr, u8 Data)
 #define XMPU_ERR_STATUS2		(0x0000000CU)
 #define XMPU_ISR			(0x00000010U)
 #define XMPU_IEN			(0x00000018U)
+
+/*
+ * ISP XMPU FuSa Register Offset
+ * ISP FW writes 0xDEAFCAFE into this register when the interrupt line
+ * is connected from ISP_XMPU to EAM. PLM reads this register and
+ * verifies the signature to confirm the interrupt originated from ISP_XMPU.
+ */
+#define ISP_XMPU_FUSA_REG		(0x000001F0U)
+#define ISP_XMPU_FUSA_SIGNATURE	(0xDEAFCAFEU)
 
 /*
  * XPPUs

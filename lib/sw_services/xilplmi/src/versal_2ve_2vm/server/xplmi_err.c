@@ -34,6 +34,7 @@
 *       gnr  04/07/2026 Added redundancy on checking the errors and carrying out the actions
 *       gnr  05/17/2026 Default error action of IPI_ERR changed to XPLMI_EM_ACTION_SRST
 *       ias  08/07/2026 Added error link table for DDR EDAC source tracing
+*       abh  09/13/2026 Added ISP XMPU FuSa error handling via EAM
 *
 * </pre>
 *
@@ -74,6 +75,23 @@
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
+/****************************************************************************/
+/**
+ * @brief    This function prints the EAM error information.
+ *
+ * @param    ErrorNodeId is the node ID for the error event
+ * @param    RegMask is the register mask of the error received
+ * @param    ErrorId is the error ID
+ *
+ ****************************************************************************/
+ static inline void XPlmi_EamErrPrint(u32 ErrorNodeId, u32 RegMask, u32 ErrorId)
+ {
+	 /* Print NodeId, Mask and Error ID information */
+	 XPlmi_Printf(DEBUG_PRINT_ALWAYS, "Received EAM error. ErrorNodeId: 0x%x,"
+		      " Register Mask: 0x%x. The corresponding Error ID: 0x%x\r\n",
+		      ErrorNodeId, RegMask, ErrorId);
+ }
+
 /************************** Function Prototypes ******************************/
 static void XPlmi_HandleLPDSlcrError(u32 ErrorNodeId, u32 RegMask);
 static void XPlmi_ErrLPDSlcrIntrHandler(u32 ErrorNodeId, u32 RegMask);
@@ -81,6 +99,8 @@ static void XPlmi_PcieErrHandler(u32 ErrorNodeId, u32 RegMask);
 static void XPlmi_HandleLinkDownError(u32 DeviceIrStatusReg, u32 GenralStsReg, u32 ProcId);
 static void XPlmi_XppuErrHandler(u32 BaseAddr, const char *ProtUnitStr);
 static void XPlmi_XmpuErrHandler(u32 BaseAddr, const char *ProtUnitStr);
+static void XPlmi_PLGenericErrHandler(u32 ErrorNodeId, u32 RegMask);
+
 /************************** Variable Definitions *****************************/
 /*
  * Structure to define error action type and handler if error to be handled
@@ -136,13 +156,13 @@ static XPlmi_Error_t ErrorTable[XPLMI_ERROR_SW_ERR_MAX] = {
 	[XPLMI_ERROR_PLSMON_NCR] =
 	{ .Handler = XPlmi_ErrPrintToLog, .Action = XPLMI_EM_ACTION_PRINT_TO_LOG, .SubsystemId = 0U, },
 	[XPLMI_ERROR_PL0] =
-	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, .SubsystemId = 0U, },
+	{ .Handler = XPlmi_PLGenericErrHandler, .Action = XPLMI_EM_ACTION_CUSTOM, .SubsystemId = 0U, },
 	[XPLMI_ERROR_PL1] =
-	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, .SubsystemId = 0U, },
+	{ .Handler = XPlmi_PLGenericErrHandler, .Action = XPLMI_EM_ACTION_CUSTOM, .SubsystemId = 0U, },
 	[XPLMI_ERROR_PL2] =
-	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, .SubsystemId = 0U, },
+	{ .Handler = XPlmi_PLGenericErrHandler, .Action = XPLMI_EM_ACTION_CUSTOM, .SubsystemId = 0U, },
 	[XPLMI_ERROR_PL3] =
-	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, .SubsystemId = 0U, },
+	{ .Handler = XPlmi_PLGenericErrHandler, .Action = XPLMI_EM_ACTION_CUSTOM, .SubsystemId = 0U, },
 	[XPLMI_ERROR_NPIROOT] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, .SubsystemId = 0U, },
 	[XPLMI_ERROR_SSIT3] =
@@ -626,7 +646,7 @@ u32 *XPlmi_GetErrLinkPool(void)
  * reorder). Repeated links for the same {EventNodeId, Mask} append after the
  * previous run. NODE_ALL is rejected by the caller (command handler). The
  * linkage is keyed by the same ErrorId space as ErrorTable[]; an entry is
- * considered "linked" iff its Count is non-zero, so the zero-initialised
+ * considered "linked" if its Count is non-zero, so the zero-initialised
  * (BSS / persistent-reset) state is naturally "empty" without pre-init.
  *
  * @param	EventNodeId is the error event node ID (e.g. PMC_ERR1).
@@ -1047,6 +1067,77 @@ static void XPlmi_XmpuErrHandler(u32 BaseAddr, const char *ProtUnitStr)
 
 /****************************************************************************/
 /**
+ * @brief    This function handles the PL0/1/2/3 EAM errors. It prints the EAM
+ *           error information. For PL0/1/2, if the corresponding ISP XMPU FuSa
+ *           signature is valid, it prints the XMPU error details, clears the
+ *           ISP XMPU ISR, and re-enables the custom EAM error action so the
+ *           interrupt can fire again. PL3 is print-only.
+ *
+ * @param    ErrorNodeId is the node ID for the error event
+ * @param    RegMask is the register mask of the error received
+ *
+ ****************************************************************************/
+static void XPlmi_PLGenericErrHandler(u32 ErrorNodeId, u32 RegMask)
+{
+	u32 ErrorId = XPlmi_GetErrorId(ErrorNodeId, RegMask);
+	u32 BaseAddr = 0U;
+	u32 IspXmpuIsr;
+	const char *ProtUnitStr = "";
+	int Status = (int)XST_FAILURE;
+	u32 IspFusaSignature = 0U;
+
+	XPlmi_EamErrPrint(ErrorNodeId, RegMask, ErrorId);
+
+	switch (ErrorId) {
+	case XPLMI_ERROR_PL0:
+		BaseAddr = ISP0_XMPU_BASEADDR;
+		ProtUnitStr = "ISP0_XMPU";
+		break;
+	case XPLMI_ERROR_PL1:
+		BaseAddr = ISP1_XMPU_BASEADDR;
+		ProtUnitStr = "ISP1_XMPU";
+		break;
+	case XPLMI_ERROR_PL2:
+		BaseAddr = ISP2_XMPU_BASEADDR;
+		ProtUnitStr = "ISP2_XMPU";
+		break;
+	case XPLMI_ERROR_PL3:
+		/* Do nothing */
+		break;
+	default:
+		/* Do nothing */
+		break;
+	}
+
+	/* If the base address is not 0 and the FUSA signature is correct, print the error and clear the ISR */
+	if (BaseAddr != 0U) {
+		IspFusaSignature = XPlmi_In32(BaseAddr + ISP_XMPU_FUSA_REG);
+		if (ISP_XMPU_FUSA_SIGNATURE == IspFusaSignature) {
+			XPlmi_XmpuErrHandler(BaseAddr, ProtUnitStr);
+
+			/* Clear ISP_XMPU ISR (write-1-to-clear) */
+			IspXmpuIsr = XPlmi_In32(BaseAddr + XMPU_ISR);
+			XPlmi_Out32(BaseAddr + XMPU_ISR, IspXmpuIsr);
+
+			/* Re-arm EAM error mask so PL0/1/2 can fire again
+			* (framework calls EmDisable before handler, EmConfig
+			*  re-enables it via EmEnableAction) */
+			Status = XPlmi_EmConfig(
+				(XPlmi_EventType)XPlmi_EventNodeType(ErrorNodeId),
+				ErrorId, XPLMI_EM_ACTION_CUSTOM,
+				XPlmi_PLGenericErrHandler, 0U);
+			if (Status != XST_SUCCESS) {
+				XPlmi_Printf(DEBUG_GENERAL,
+					"Warning: Failed to re-arm EAM error: 0x%x\n\r",
+					ErrorId);
+			}
+		}
+	}
+}
+
+
+/****************************************************************************/
+/**
 * @brief    This function is the interrupt handler for Error action "Print
 *           to Log". This function prints detailed information if the error is
 *           due to XMPU/XPPU protection units.
@@ -1060,10 +1151,8 @@ void XPlmi_ErrPrintToLog(u32 ErrorNodeId, u32 RegMask)
 	u32 ErrorId = XPlmi_GetErrorId(ErrorNodeId, RegMask);
 	u32 RegVal;
 
-	/** Print NodeId, Mask and Error ID information */
-	XPlmi_Printf(DEBUG_PRINT_ALWAYS, "Received EAM error. ErrorNodeId: 0x%x,"
-				" Register Mask: 0x%x. The corresponding Error ID: 0x%x\r\n",
-				ErrorNodeId, RegMask, ErrorId);
+	/* Print the EAM error information */
+	XPlmi_EamErrPrint(ErrorNodeId, RegMask, ErrorId);
 
 	/*
 	 * The nature of XPPU/XMPU errors is such that they often occur consecutively
