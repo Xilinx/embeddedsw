@@ -274,6 +274,7 @@ u32 XMcDma_ChanSubmit(XMcdma_ChanCtrl *Chan, UINTPTR BufAddr, u32 len)
 	XMcdma_Bd *BdCurPtr = Chan->BdRestart;
 	u32 i;
 	u32 Bdlen = len;
+	u32 Status;
 
 	/* Calculate the Number of BD's required for transferring user
 	 * requested Data */
@@ -292,7 +293,10 @@ u32 XMcDma_ChanSubmit(XMcdma_ChanCtrl *Chan, UINTPTR BufAddr, u32 len)
 	for (i = 0; i < BdCount; i++) {
 		XMcdma_BdClear(BdCurPtr);
 
-		XMcdma_BdSetBufAddr(BdCurPtr, BufAddr);
+		Status = XMcdma_BdSetBufAddr(BdCurPtr, BufAddr);
+		if (Status != XST_SUCCESS) {
+			return XST_FAILURE;
+		}
 
 		if (len < Chan->MaxTransferLen) {
 			Bdlen = len;
@@ -345,6 +349,7 @@ u32 XMcDma_Chan_Sideband_Submit(XMcdma_ChanCtrl *ChanPtr, UINTPTR BufAddr,
 	u32 i;
 	u32 k;
 	u32 Bdlen = Len;
+	u32 Status;
 
 	/* Calculate the Number of BD's required for transferring user
 	 * requested Data */
@@ -364,7 +369,10 @@ u32 XMcDma_Chan_Sideband_Submit(XMcdma_ChanCtrl *ChanPtr, UINTPTR BufAddr,
 	for (i = 0; i < BdCount; i++) {
 		XMcdma_BdClear(BdCurPtr);
 
-		XMcdma_BdSetBufAddr(BdCurPtr, BufAddr);
+		Status = XMcdma_BdSetBufAddr(BdCurPtr, BufAddr);
+		if (Status != XST_SUCCESS) {
+			return XST_FAILURE;
+		}
 
 		if (Len < ChanPtr->MaxTransferLen) {
 			Bdlen = Len;
