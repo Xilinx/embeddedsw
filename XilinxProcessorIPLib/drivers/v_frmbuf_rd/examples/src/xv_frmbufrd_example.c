@@ -44,16 +44,12 @@
 #include "xvtc.h"
 #include "xgpio.h"
 
-#if defined(__MICROBLAZE__)
-  #define DDR_BASEADDR XPAR_MIG_0_BASEADDRESS
-#elif defined(__riscv)
-  #if defined (XPS_BOARD_SCU200)
-  #define DDR_BASEADDR XPAR_LPDDRMC_0_BASEADDR
-  #else
-  #define DDR_BASEADDR XPAR_MIG_0_BASEADDRESS
-  #endif
+#if defined(XPS_BOARD_SCU200)
+#define DDR_BASEADDR XPAR_LPDDRMC_0_BASEADDR
+#elif defined(XPS_BOARD_KC705)
+#define DDR_BASEADDR XPAR_MIG_0_BASEADDRESS
 #else
-  #define DDR_BASEADDR XPAR_DDR_MEM_BASEADDR
+#define DDR_BASEADDR XPAR_DDR_MEM_BASEADDR
 #endif
 
 #define XVFRMBUFRD_BUFFER_BASEADDR (DDR_BASEADDR + (0x20000000))
