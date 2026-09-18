@@ -32,6 +32,8 @@
 *                      KeyClearBitPos referencing renamed
 *                      XSECURE_AES_KEY_CLEAR_*_BIT_POS macros) for memory
 *                      footprint reduction
+* 5.8   ank   09/01/26 Copy SHA residue with Xil_MemCpy to keep Xil_MemCpy64
+*                      out of the image
 *
 * </pre>
 *
@@ -521,9 +523,7 @@ int XSecure_ShaDmaXfer(void *InstancePtr, u64 DataAddr, u32 Size, u8 IsLastUpdat
 	u32 DmableDataLen;
 	u32 RemainingDataLen;
 	u32 BlockLen;
-	u32 Idx;
 	u8 IsLastForDma;
-	const u8 *Src;
 	const XSecure_ShaPlatConfig *ShaPlatConfig;
 
 	if (InstancePtr == NULL) {
@@ -563,10 +563,9 @@ int XSecure_ShaDmaXfer(void *InstancePtr, u64 DataAddr, u32 Size, u8 IsLastUpdat
 		}
 
 		/** Stash 0..3 byte tail in PartialData[] for next call. **/
-		Src = (const u8 *)(UINTPTR)(InDataAddr + DmableDataLen);
-		for (Idx = 0U; Idx < RemainingDataLen; Idx++) {
-			PartialData[Idx] = Src[Idx];
-		}
+		Xil_MemCpy((void *)PartialData,
+			   (const void *)(UINTPTR)(InDataAddr + DmableDataLen),
+			   RemainingDataLen);
 
 		PrevPartialLen = RemainingDataLen;
 	}
@@ -585,13 +584,14 @@ int XSecure_ShaDmaXfer(void *InstancePtr, u64 DataAddr, u32 Size, u8 IsLastUpdat
 		while (RemainingDataLen >= BlockLen) {
 			if (PrevPartialLen != 0U) {
 				/** Top up PartialData[] to a full BlockLen. **/
-				XSecure_MemCpy64((u64)(UINTPTR)&PartialData[PrevPartialLen],
-						 InDataAddr, BlockLen - PrevPartialLen);
+				Xil_MemCpy((void *)&PartialData[PrevPartialLen],
+					   (const void *)(UINTPTR)InDataAddr,
+					   BlockLen - PrevPartialLen);
 				InDataAddr += (BlockLen - PrevPartialLen);
 			} else {
 				/** Copy a full BlockLen from caller into PartialData[]. **/
-				XSecure_MemCpy64((u64)(UINTPTR)PartialData,
-						 InDataAddr, BlockLen);
+				Xil_MemCpy((void *)PartialData,
+					   (const void *)(UINTPTR)InDataAddr, BlockLen);
 				InDataAddr += (u64)BlockLen;
 			}
 
@@ -619,9 +619,9 @@ int XSecure_ShaDmaXfer(void *InstancePtr, u64 DataAddr, u32 Size, u8 IsLastUpdat
 
 		/** Stash trailing < BlockLen bytes for next ShaUpdate or SW NIST padding. **/
 		if (RemainingDataLen > 0U) {
-			XSecure_MemCpy64((u64)(UINTPTR)&PartialData[PrevPartialLen],
-					 InDataAddr,
-					 RemainingDataLen - PrevPartialLen);
+			Xil_MemCpy((void *)&PartialData[PrevPartialLen],
+				   (const void *)(UINTPTR)InDataAddr,
+				   RemainingDataLen - PrevPartialLen);
 		}
 		PrevPartialLen = RemainingDataLen;
 	}
