@@ -47,6 +47,7 @@
 *       obs  03/26/2026 Replaced XSysMonPsv types with XNvm_SysmonPsv
 * 3.8   vss  08/20/2026 Redesigned efuse programming flow.
 *       vss  08/22/2026 Inlined DME revoke programming in XNvm_EfuseWriteDmeRevoke.
+*       mb   09/13/2026 Clear ISR RD_DONE after row read wait to avoid stale row data.
 * </pre>
 *
 * @note
@@ -1216,16 +1217,24 @@ static int XNvm_EfuseReadRow(u32 Page, u32 Row, u32 *RegData)
 		&EventMask);
 	if (XST_TIMEOUT == Status) {
 		Status = (int)XNVM_EFUSE_ERR_RD_TIMEOUT;
-		goto END;
-	}
-
-	if ((EventMask & XNVM_EFUSE_ISR_RD_DONE) == XNVM_EFUSE_ISR_RD_DONE) {
+	} else if ((EventMask & XNVM_EFUSE_ISR_RD_DONE) ==
+			XNVM_EFUSE_ISR_RD_DONE) {
 		*RegData = XNvm_EfuseReadReg(XNVM_EFUSE_CTRL_BASEADDR,
 				XNVM_EFUSE_RD_DATA_REG_OFFSET);
 		Status = XST_SUCCESS;
+	} else {
+		/** - Do Nothing */
 	}
 
-END:
+	/*
+	 * RD_DONE is sticky and write-1-to-clear. Leaving it set would satisfy
+	 * the wait in the next row read before that read completes, sampling
+	 * RD_DATA while it still holds this row. Clear after wait and RD_DATA
+	 * latch so wait and clear stay in the same function.
+	 */
+	XNvm_EfuseWriteReg(XNVM_EFUSE_CTRL_BASEADDR,
+			XNVM_EFUSE_ISR_REG_OFFSET, XNVM_EFUSE_ISR_RD_DONE);
+
 	return Status;
 }
 
