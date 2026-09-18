@@ -2327,12 +2327,20 @@ static XStatus XPm_DoInitNode(XPlmi_Cmd *Cmd)
 	XStatus Status = XST_FAILURE;
 	const u32 *Args = Cmd->Payload;
 	u32 NumArgs = Cmd->Len;
-	Status = XPm_InitNode(Args[0U], Args[1U], &Args[2U], NumArgs - 2U);
+
+	/* Node id and function words must be present before NumArgs underflows */
+	if (XPLMI_CMD_ARG_CNT_TWO > NumArgs) {
+		Status = XST_INVALID_PARAM;
+	} else {
+		Status = XPm_InitNode(Args[0U], Args[1U], &Args[2U],
+				      NumArgs - XPLMI_CMD_ARG_CNT_TWO);
+		if (XST_SUCCESS != Status) {
+			PmErr("PM_INIT_NODE 0x%x 0x%x Failure, Err: 0x%x\r\n", Args[0U], Args[1U], Status);
+		}
+	}
+
 	/* Mirror the result in the response while returning it to the command dispatcher. */
 	Cmd->Response[0U] = (u32)Status;
-	if (XST_SUCCESS != Status) {
-		PmErr("PM_INIT_NODE 0x%x 0x%x Failure, Err: 0x%x\r\n", Args[0U], Args[1U], Status);
-	}
 	return Status;
 }
 
