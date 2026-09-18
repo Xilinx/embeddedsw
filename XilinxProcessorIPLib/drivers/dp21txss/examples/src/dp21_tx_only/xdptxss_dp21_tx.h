@@ -231,7 +231,7 @@ typedef struct
 
 
 /************************** Function Prototypes ******************************/
-void DpTxSs_HpdCon(XDpTxSs *InstancePtr, u8 Edid_org[128], u16 res_update);
+void DpTxSs_HpdCon(XDpTxSs *InstancePtr, u8 Edid_org[128]);
 void DpTxSs_HpdPulseCon(XDpTxSs *InstancePtr);
 char xil_getc(u32 timeout_ms);
 void Vpg_Audio_start(void);
