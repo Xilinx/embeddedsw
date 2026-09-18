@@ -66,6 +66,10 @@
 
 #include "xsysmonpsu.h"
 #include "xbasic_types.h"
+
+#if defined (__aarch64__)
+#include "xil_smc.h"
+#endif
 /************************** Constant Definitions ****************************/
 
 #define XSYSMONPSU_CLOCK_DIV_CODE_ZERO 0x0U
@@ -214,8 +218,19 @@ void XSysMonPsu_Reset(XSysMonPsu *InstancePtr)
 			XSYSMONPSU_VP_VN_OFFSET, XSYSMONPSU_VP_VN_MASK);
 
 	/* Check for PL is under reset or not */
+#if defined (__aarch64__) && (EL1_NONSECURE == 1)
+	XSmc_OutVar RegValue;
+	RegValue = Xil_Smc(MMIO_READ_SMC_FID, (u64)(XSYSMONPSU_CSU_BASEADDR + PCAP_STATUS_OFFSET),
+			   0, 0, 0, 0, 0, 0);
+	if (0x00 == (RegValue.Arg0 & 0xFFFFFFFF)) {
+		u32 Value = RegValue.Arg0 >> 32;
+		IsPlReset = (u8)(Value & PL_CFG_RESET_MASK) >> PL_CFG_RESET_SHIFT;
+	}
+#else
 	IsPlReset = (u8)(XSysmonPsu_ReadReg(XSYSMONPSU_CSU_BASEADDR + PCAP_STATUS_OFFSET) &
 						PL_CFG_RESET_MASK) >> PL_CFG_RESET_SHIFT;
+#endif
+
 	if (IsPlReset != 0U) {
 		/* RESET the PL SYSMON */
 		XSysmonPsu_WriteReg(InstancePtr->Config.BaseAddress + XPL_BA_OFFSET +
