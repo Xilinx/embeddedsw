@@ -1067,37 +1067,6 @@ done:
 
 /****************************************************************************/
 /**
- * @brief  This function reads the per-die VID (Voltage ID) eFuse value.
- *
- * @param  VidValue            Pointer to store the raw 32-bit VID eFuse word
- *
- * @return XST_SUCCESS if successful else XST_FAILURE or an error code
- * or a reason code
- *
- * @note The raw 32-bit VID word is returned unchanged; decoding it
- * (control bits, MP_MAP) is left to the caller. Applicable to Versal
- * Gen 2 only.
- *
- ****************************************************************************/
-XStatus XPm_ReadVIDEfuse(u32 *const VidValue)
-{
-	XStatus Status = (s32)XST_FAILURE;
-	const u32 Payload[3] = {PM_VID_EFUSE_OFFSET, 1U, 0U};
-
-	if (NULL == VidValue) {
-		XPm_Err("Passing NULL pointer to %s\r\n", __func__);
-		Status = (s32)XST_INVALID_PARAM;
-		goto done;
-	}
-
-	Status = XPm_DevIoctl2(PM_REG_EFUSE_CACHE, IOCTL_READ_REG, Payload,
-			       3U, VidValue, 1U);
-done:
-	return Status;
-}
-
-/****************************************************************************/
-/**
  * @brief  This function is used to enable the specified clock
  *
  * @param  ClockId		Clock ID
