@@ -28,6 +28,7 @@
 #include "xpm_runtime_reset.h"
 #include "xpm_runtime_clock.h"
 #include "xpm_runtime_api.h"
+#include "xpm_rail.h"
 #include "xpm_runtime_pin.h"
 #include "xpm_runtime_pll.h"
 #include "xpm_runtime_core.h"
@@ -3891,6 +3892,10 @@ static XStatus XPm_Query(const u32 Qid, const u32 Arg1, const u32 Arg2,
 	case (u32)XPM_QID_GET_NODE_COUNT:
 		/* Arg1 specifies the node type: Clock, Reset, or Device */
 		Status = XPm_GetNodeCount(Arg1, Output);
+		break;
+	case (u32)XPM_QID_GET_VID_POWER_STATE:
+		/* Arg1 is the rail node id. Reply is the rail mode. */
+		Status = XPmRail_GetVidPowerState(Arg1, Output);
 		break;
 	default:
 		Status = XST_INVALID_PARAM;

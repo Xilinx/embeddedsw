@@ -26,11 +26,11 @@ extern "C" {
 
 /**
  * @def XPM_RAIL_PERF_MODE_STATE_OFFSET
- * @brief Offset added to a Performance[] index to produce the
- *        XPmRail_Control() power-state argument. Performance-mode
- *        index 0 maps to power-state value 2 because
- *        XPM_POWER_STATE_OFF (0) and XPM_POWER_STATE_ON (1) are
- *        reserved.
+ * @brief Added to a Performance[] index to get the XPmRail_Control() mode.
+ *
+ *        Mode 0 turns the rail off and mode 1 turns it on, so the first
+ *        performance entry starts at mode 2. These mode numbers are not
+ *        XPM_POWER_STATE_* values.
  */
 #define XPM_RAIL_PERF_MODE_STATE_OFFSET		(2U)
 
@@ -118,6 +118,7 @@ typedef struct {
 	u32 RailId;
 	u32 Performance[MAX_MODES];
 	u8 VIDAdjusted;
+	u8 PowerState;		/**< Rail mode VID picked, 0xFF if none */
 } XPmRail_VIDAdj;
 
 typedef struct {
@@ -141,6 +142,7 @@ typedef struct {
 /************************** Function Prototypes ******************************/
 XStatus XPmRail_Init(XPm_Rail *Rail, u32 RailId, const u32 *Args, u32 NumArgs);
 XStatus XPmRail_AdjustVID(XPm_Rail *Rail);
+XStatus XPmRail_GetVidPowerState(const u32 RailId, u32 *const PowerState);
 #if defined (XPAR_XIICPS_0_DEVICE_ID) || defined (XPAR_XIICPS_1_DEVICE_ID) || \
     defined (XPAR_XIICPS_2_DEVICE_ID) || defined (XPAR_XIICPS_0_BASEADDR)  || \
     defined (XPAR_XIICPS_1_BASEADDR)  || defined (XPAR_XIICPS_2_BASEADDR)

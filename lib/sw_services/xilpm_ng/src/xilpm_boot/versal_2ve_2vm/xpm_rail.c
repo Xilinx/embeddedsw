@@ -713,7 +713,7 @@ done:
  *         the returned Index.
  *
  * @param  VIDAdj  Pointer to the rail's VIDAdj record (RailId, Performance
- *                 table, VIDAdjusted latch).
+ *                 table, VID status).
  * @param  Index   Out: matching Performance[] entry index, or < 0 if no
  *                 adjustment is required (no override, override disabled,
  *                 eFuse 0, or no matching entry).
@@ -734,6 +734,7 @@ static XStatus XPmRail_ComputeAdjustVIDIndexRaw(const XPmRail_VIDAdj *VIDAdj,
 	/* A non-zero value in RTCA location indicates an override value */
 	VID = XPm_In32(XPLMI_RTCFG_VID_OVERRIDE);
 	if (0U != VID) {
+		/* Control field 0 means the override is off. */
 		if ((0U == ((VID >> VID_CNTRL_OFFSET) & VID_CNTRL_MASK))) {
 			Status = XST_SUCCESS;
 			goto done;
@@ -836,9 +837,11 @@ done:
  *
  *         Reads the VID source (RTCA override or eFuse cache) via the
  *         redundant XPmRail_ComputeAdjustVIDIndex() helper, then issues
- *         a redundant XPmRail_Control() to switch the rail. After a successful
- *         transition, sets the per-rail VIDAdjusted latch so subsequent calls
- *         are a no-op.
+ *         a redundant XPmRail_Control() to switch the rail. On success the
+ *         chosen mode is saved in PowerState and VIDAdjusted is set, which
+ *         also latches the rail so a later call does nothing. PowerState is
+ *         written only on that success path; InitVID already left it
+ *         INVALID for every other case.
  *
  * @param  Rail  Pointer to the rail to adjust. A NULL VIDAdj record means no
  *               voltage adjustment is required.
@@ -855,6 +858,7 @@ XStatus XPmRail_AdjustVID(XPm_Rail *Rail)
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 	XPmRail_VIDAdj *VIDAdj;
 	s32 Index = -1;
+	u8 PowerState;
 
 	/* Leave rails without a VID adjustment table unchanged. */
 	if (NULL == Rail->VIDAdj) {
@@ -882,7 +886,7 @@ XStatus XPmRail_AdjustVID(XPm_Rail *Rail)
 		goto done;
 	}
 
-	/* Negative index means no adjustment is needed. */
+	/* Nothing to change, so leave the rail at the voltage it came up at. */
 	if (Index < 0) {
 		Status = XST_SUCCESS;
 		goto done;
@@ -894,12 +898,13 @@ XStatus XPmRail_AdjustVID(XPm_Rail *Rail)
 	 * power-state values 0 (OFF) and 1 (ON) being reserved, so
 	 * performance-mode entry 0 maps to power-state value 2.
 	 */
+	PowerState = (u8)((u32)Index + XPM_RAIL_PERF_MODE_STATE_OFFSET);
+
 	XSECURE_REDUNDANT_CALL(Status, StatusTmp, XPmRail_Control,
-			       Rail, (u8)XPM_POWER_STATE_ON,
-			       (u8)((u32)Index +
-				    XPM_RAIL_PERF_MODE_STATE_OFFSET));
+			       Rail, (u8)XPM_POWER_STATE_ON, PowerState);
 	if ((XST_SUCCESS == Status) && (XST_SUCCESS == StatusTmp)) {
 		VIDAdj->VIDAdjusted = 1;
+		VIDAdj->PowerState = PowerState;
 	} else {
 		Status = XST_FAILURE;
 		DbgErr = XPM_INT_ERR_RAIL_VID;
@@ -908,6 +913,58 @@ XStatus XPmRail_AdjustVID(XPm_Rail *Rail)
 
 done:
 	XPm_PrintDbgErr(Status, DbgErr);
+	return Status;
+}
+
+/**
+ * @brief  Return the rail mode VID picked.
+ *
+ *         Only XST_SUCCESS means the rail was adjusted and the power state
+ *         is good. XPM_NO_VID_ADJUST means VID left this rail alone, so the
+ *         caller should use the rail default. That covers a rail with no VID
+ *         record, a part with no VID in eFuse, VID switched off through the
+ *         RTCA override, and an eFuse value that matched no performance
+ *         entry. PowerState is written only on success; the client defaults
+ *         it to XPM_VID_POWER_STATE_INVALID for all other cases.
+ *
+ * @param  RailId     Power-rail node id.
+ * @param  PowerState Out: rail mode VID picked.
+ *
+ * @return XST_SUCCESS when the rail was adjusted; XPM_NO_VID_ADJUST when VID
+ *         left it alone; XST_INVALID_PARAM on bad arguments.
+ */
+XStatus XPmRail_GetVidPowerState(const u32 RailId, u32 *const PowerState)
+{
+	XStatus Status = XPM_NO_VID_ADJUST;
+	const XPm_Rail *Rail;
+
+	if (NULL == PowerState) {
+		Status = XST_INVALID_PARAM;
+		goto done;
+	}
+
+	/* Only power rails can have a VID record. */
+	if (((u32)XPM_NODECLASS_POWER != NODECLASS(RailId)) ||
+	    ((u32)XPM_NODESUBCL_POWER_RAIL != NODESUBCLASS(RailId))) {
+		Status = XST_INVALID_PARAM;
+		goto done;
+	}
+
+	Rail = (const XPm_Rail *)XPmPower_GetById(RailId);
+	if (NULL == Rail) {
+		Status = XST_INVALID_PARAM;
+		goto done;
+	}
+
+	/* Publish PowerState only when VID adjusted this rail with a valid mode. */
+	if ((NULL != Rail->VIDAdj) &&
+	    (1U == Rail->VIDAdj->VIDAdjusted) &&
+	    (XPM_VID_POWER_STATE_INVALID != Rail->VIDAdj->PowerState)) {
+		*PowerState = (u32)Rail->VIDAdj->PowerState;
+		Status = XST_SUCCESS;
+	}
+
+done:
 	return Status;
 }
 
@@ -1202,6 +1259,16 @@ static XStatus XPmRail_InitVID_FillEntry(XPmRail_VIDAdj *Slot,
 {
 	volatile XStatus Status = XST_FAILURE;
 	volatile u8 j = 0U;
+
+	/*
+	 * Only set up a new slot. If the same rail is added twice, keep the
+	 * old latch. Otherwise a rail that was already changed would look
+	 * "not changed".
+	 */
+	if (0U == Slot->RailId) {
+		Slot->VIDAdjusted = 0U;
+		Slot->PowerState = (u8)XPM_VID_POWER_STATE_INVALID;
+	}
 
 	Slot->RailId = Args[XPM_VID_ARG_RAIL_ID];
 	for (j = 0U; j < Entries; j++) {
