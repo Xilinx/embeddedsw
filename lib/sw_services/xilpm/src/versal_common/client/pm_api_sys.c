@@ -553,6 +553,45 @@ done:
 
 /****************************************************************************/
 /**
+ * @brief  Ask the PLM for a rail's VID power state.
+ *
+ *         Only XST_SUCCESS means the state is good, so map it to a voltage
+ *         using the table in the application note. XPM_NO_VID_ADJUST means
+ *         VID left the rail alone, so use the rail default voltage instead.
+ *         Applicable to Versal Gen 2 only.
+ *
+ * @param  RailId      Power-rail node id to query.
+ * @param  PowerState  Returns the rail mode VID picked.
+ *
+ * @return XST_SUCCESS if successful else XST_FAILURE or an error code
+ * or a reason code
+ *
+ ****************************************************************************/
+XStatus XPm_GetVidPowerState(const u32 RailId, u32 *PowerState)
+{
+	XStatus Status = (s32)XST_FAILURE;
+	u32 Data = 0U;
+
+	if (NULL == PowerState) {
+		XPm_Err("Passing NULL pointer to %s\r\n", __func__);
+		Status = (s32)XST_INVALID_PARAM;
+		goto done;
+	}
+
+	Status = XPm_Query((u32)XPM_QID_GET_VID_POWER_STATE, RailId, 0U, 0U,
+			   &Data);
+	if (XST_SUCCESS == Status) {
+		*PowerState = Data;
+	} else {
+		*PowerState = XPM_VID_POWER_STATE_INVALID;
+	}
+
+done:
+	return Status;
+}
+
+/****************************************************************************/
+/**
  * @brief  This function is used to request the version number of the API
  * running on the platform management controller.
  *
@@ -1700,6 +1739,13 @@ XStatus XPm_Query(const u32 QueryId, const u32 Arg1, const u32 Arg2,
 			Data[0] = RetPayload[0];
 			Data[1] = RetPayload[1];
 			Data[2] = RetPayload[2];
+		}
+		break;
+
+	case (u32)XPM_QID_GET_VID_POWER_STATE:
+		/* One-word reply: the rail mode VID picked. */
+		if (XST_SUCCESS == Status) {
+			Data[0] = RetPayload[0];
 		}
 		break;
 

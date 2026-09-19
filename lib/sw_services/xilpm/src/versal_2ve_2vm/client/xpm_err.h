@@ -143,6 +143,7 @@ extern "C" {
 #define XPM_INVALID_DEV_VOLTAGE_GRADE            (2110L) /**< Invalid device voltage grade */
 #define XPM_ERR_NEW_DATA_FLAG_TIMEOUT            (2111L) /**< Sysmon new data flag timeout */
 #define XPM_ERR_RAIL_VOLTAGE                     (2112L) /**< Power rail not ramped up */
+#define XPM_NO_VID_ADJUST                        (2113L) /**< VID did not adjust this rail */
 
 /**************************** AIE ERRORS ******************************/
 /************************** (2120L) - (2139L) ****************************/

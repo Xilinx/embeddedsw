@@ -195,7 +195,16 @@ enum pm_query_id {
 	XPM_QID_PINCTRL_GET_ATTRIBUTES,			/**< Get pin attributes */
 	XPM_QID_GET_NODE_NAME,				/**< Get node name */
 	XPM_QID_GET_NODE_COUNT,				/**< Get node count */
+	XPM_QID_GET_VID_POWER_STATE,			/**< Get the rail mode VID picked */
 };
+
+/**
+ * Invalid VID power state
+ *
+ * The power state is a rail mode number, not an XPM_POWER_STATE_* value.
+ * Modes 0 and 1 already mean OFF and ON, so 0xFF means "none".
+ */
+#define XPM_VID_POWER_STATE_INVALID		(0xFFU)
 
 /*
  * This is an automatically generated enum from script.

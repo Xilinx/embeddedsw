@@ -94,6 +94,7 @@ extern struct pm_acknowledge pm_ack;
 XStatus XPm_InitXilpm(XIpiPsu *IpiInst);
 enum XPmBootStatus XPm_GetBootStatus(void);
 XStatus XPm_GetChipID(u32* IDCode, u32 *Version);
+XStatus XPm_GetVidPowerState(const u32 RailId, u32 *PowerState);
 XStatus XPm_GetApiVersion(u32 *Version);
 XStatus XPm_RequestNode(const u32 DeviceId, const u32 Capabilities,
 			const u32 QoS, const u32 Ack);
