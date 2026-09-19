@@ -120,8 +120,7 @@ XStatus XPm_DevIoctl(const u32 DeviceId, const pm_ioctl_id IoctlId, const u32 Ar
 XStatus XPm_DevIoctl2(u32 DeviceId, pm_ioctl_id IoctlId,
 		      const u32 *Payload, u32 PayloadSize,
 		      u32 *const Response, u32 ResponseSize);
-XStatus XPm_ReadSecureReg(const u32 RegNodeId, const u32 Offset,
-			  u32 *const Response);
+XStatus XPm_ReadVIDEfuse(u32 *const VidValue);
 XStatus XPm_ClockEnable(const u32 ClockId);
 XStatus XPm_ClockDisable(const u32 ClockId);
 XStatus XPm_ClockGetStatus(const u32 ClockId, u32 *const State);
