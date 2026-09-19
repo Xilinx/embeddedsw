@@ -62,6 +62,7 @@
 *       sk  09/26/2025 Removed unused IRO Freq define
 * 2.4   abh 10/10/2025 Fixed MISRA-C violations
 *       ias  08/19/2026 Added XPlmi_MemTblInit
+*       pre  09/19/2026 Fixed IPI serving logic
 *
 * </pre>
 *
@@ -514,7 +515,9 @@ void XPlmi_IpiIntrHandler(void *CallbackRef)
 	u16 IpiIntrVal;
 	u16 IpiMaskVal;
 	u16 IpiIndexMask;
-	u8 IpiIndex;
+	u32 IpiIndex;
+	u32 Index;
+	const XIpiPsu *IpiInstPtr = XPlmi_GetIpiInstance();
 
 	XPlmi_PlmIntrClear(XPLMI_IOMODULE_PMC_IPI);
 	IpiIntrVal = (u16)Xil_In32(IPI_PMC_ISR);
@@ -525,8 +528,9 @@ void XPlmi_IpiIntrHandler(void *CallbackRef)
 	 * Check IPI source channel and add channel specific task to
 	 * task queue according to the channel priority
 	 */
-	for (IpiIndex = 0U; IpiIndex < (u8)XPLMI_IPI_MASK_COUNT; ++IpiIndex) {
-		IpiIndexMask = (u16)1U << IpiIndex;
+	for (Index = 0U; Index < (u32)XPLMI_IPI_MASK_COUNT; ++Index) {
+		IpiIndexMask = (u16)IpiInstPtr->Config.TargetList[Index].Mask;
+		IpiIndex = IpiInstPtr->Config.TargetList[Index].BufferIndex;
 		if (((IpiIntrVal & IpiIndexMask) != 0U) &&
 			((IpiMaskVal & IpiIndexMask) == 0U)) {
 			Task = XPlmi_GetTaskInstance(NULL, NULL,

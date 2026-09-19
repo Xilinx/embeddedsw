@@ -46,6 +46,7 @@
 * 2.3   obs  08/26/2025 Removed XPlmi_VerifyAddrRange function
 *       sd   03/03/2026 Replaced XPlmi_GetRawVoltage inline function with macro
 *       mb   03/25/2026 Add support to read pss ref clock freq from RTCA for PL-Microblaze
+*       pre  09/19/2026 Fixed IPI serving logic
 *
 * </pre>
 *
@@ -490,8 +491,10 @@ void XPlmi_GicAddTask(u32 PlmIntrId)
 #ifdef XPLMI_IPI_DEVICE_ID
 	u32 IpiIntrVal;
 	u32 IpiMaskVal;
-	u32 IpiIndex;
+	u32 Index;
 	u32 IpiIndexMask;
+	u32 IpiIndex;
+	const XIpiPsu *IpiInstPtr = XPlmi_GetIpiInstance();
 
 	/* Check if the received interrupt is IPI */
 	if (PlmIntrId == XPLMI_IPI_INTR_ID) {
@@ -502,8 +505,9 @@ void XPlmi_GicAddTask(u32 PlmIntrId)
 		 * Check IPI source channel and add channel specific task to
 		 * task queue according to the channel priority
 		 */
-		for (IpiIndex = 0U; IpiIndex < XPLMI_IPI_MASK_COUNT; ++IpiIndex) {
-			IpiIndexMask = (u32)1U << IpiIndex;
+		for (Index = 0U; Index < (u32)XPLMI_IPI_MASK_COUNT; ++Index) {
+			IpiIndexMask = IpiInstPtr->Config.TargetList[Index].Mask;
+			IpiIndex = IpiInstPtr->Config.TargetList[Index].BufferIndex;
 			if (((IpiIntrVal & IpiIndexMask) != 0U) &&
 				((IpiMaskVal & IpiIndexMask) == 0U)) {
 				XPlmi_GicIntrAddTask(XPlmi_GetIpiIntrId(IpiIndex));
