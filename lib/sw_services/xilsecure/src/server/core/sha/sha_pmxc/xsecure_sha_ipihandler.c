@@ -26,6 +26,9 @@
 * 5.7   sri  03/27/26 Added check to validate the operation flags for SHA IPI handler
 * 5.8   tvp  07/17/26 Route SHAKE256 finish to XSecure_ExtendedShaFinish for
 *                     variable-length XOF digest using HashBufSize as output size
+*       tus  09/17/26 Skip data addr check for zero-size UPDATE; range-check
+*                     used buffers before SHA start so resource is released on
+*                     invalid HashBufSize
 *
 * </pre>
 *
@@ -154,17 +157,24 @@ static int XSecure_ShaOperation(u32 SubsystemId, XSecure_Sha *XSecureShaInstPtr,
 
 	Xil_MemCpyFrom64To32Addr((u32)(UINTPTR)&ShaParams, ShaParamsAddr, sizeof(ShaParams));
 
-	/**
-	 * - Validate internal address fields in the copied structure
-	 */
-	XPLMI_VERIFY_ADDR_RANGE(SubsystemId, ShaParams.DataAddr, ShaParams.DataSize, Status, XSECURE_ERR_INVALID_ADDR_RANGE, END);
-	XPLMI_VERIFY_ADDR_RANGE(SubsystemId, ShaParams.HashAddr, ShaParams.HashBufSize, Status, XSECURE_ERR_INVALID_ADDR_RANGE, END);
-
 	/** - Validate Operation Flags */
 	if (((ShaParams.OperationFlags & XSECURE_SHA_VALID_OP_FLAGS) == XSECURE_SHA_NONE) ||
 		((ShaParams.OperationFlags & ~XSECURE_SHA_VALID_OP_FLAGS) != XSECURE_SHA_NONE)) {
 		Status = XST_INVALID_PARAM;
 		goto END;
+	}
+
+	/**
+	 * Range-check only buffers this IPI will use, before any SHA state
+	 * change, so MakeResFree still runs on failure. DataSize == 0 is a
+	 * valid no-op update (no DMA).
+	 */
+	if (((ShaParams.OperationFlags & XSECURE_SHA_UPDATE) == XSECURE_SHA_UPDATE) &&
+		(ShaParams.DataSize != 0U)) {
+		XPLMI_VERIFY_ADDR_RANGE(SubsystemId, ShaParams.DataAddr, ShaParams.DataSize, Status, XSECURE_ERR_INVALID_ADDR_RANGE, END);
+	}
+	if ((ShaParams.OperationFlags & XSECURE_SHA_FINISH) == XSECURE_SHA_FINISH) {
+		XPLMI_VERIFY_ADDR_RANGE(SubsystemId, ShaParams.HashAddr, ShaParams.HashBufSize, Status, XSECURE_ERR_INVALID_ADDR_RANGE, END);
 	}
 
 	if ((ShaParams.OperationFlags & XSECURE_SHA_START) == XSECURE_SHA_START) {
