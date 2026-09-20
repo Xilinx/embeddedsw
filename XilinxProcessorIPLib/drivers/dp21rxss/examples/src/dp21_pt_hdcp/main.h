@@ -40,7 +40,7 @@ extern "C" {
 #include <xstatus.h>
 #include <xtmrctr.h>
 
-#ifdef PLATFORM_MB
+#if defined (PLATFORM_MB) || defined (__riscv)
 #include <xuartlite_l.h>
 #include "xintc.h"
 #else
@@ -235,7 +235,7 @@ extern XHdcp22_Repeater     Hdcp22Repeater;
 
 #define AUXFIFOSIZE 4
 
-#ifdef PLATFORM_MB
+#if defined (PLATFORM_MB) || defined (__riscv)
 #define AXIMMWIDTH 512
 #else
 #define AXIMMWIDTH 256

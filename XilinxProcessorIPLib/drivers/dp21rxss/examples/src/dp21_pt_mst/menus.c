@@ -299,7 +299,8 @@ char Dp21RxSs_PtMst_Getc(u32 timeout_ms)
 		XTmrCtr_Start(&TmrCtr, 0);
 	}
 
-#ifndef PLATFORM_MB
+
+#if !defined (PLATFORM_MB) && !defined (__riscv)
 	while ((!XUartPs_IsReceiveData(STDIN_BASEADDRESS)) && (timeout == 0)) {
 #else
 	while (XUartLite_IsReceiveEmpty(STDIN_BASEADDRESS) && (timeout == 0)) {
@@ -319,7 +320,8 @@ char Dp21RxSs_PtMst_Getc(u32 timeout_ms)
 	if (timeout == 1) {
 		c = 0;
 	} else {
-#ifndef PLATFORM_MB
+
+#if !defined (PLATFORM_MB) && !defined (__riscv)
 		c = XUartPs_RecvByte_NonBlocking();
 #else
 		c = XUartLite_RecvByte(STDIN_BASEADDRESS);

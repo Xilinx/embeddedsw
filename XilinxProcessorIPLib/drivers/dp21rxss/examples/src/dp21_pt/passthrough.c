@@ -32,7 +32,7 @@ extern volatile int tx_is_reconnected;	/**< This variable to keep track of the s
 extern XV_tpg TpgInst;
 extern XVphy VPhyInst;	/**< The DPRX Subsystem instance.*/
 
-#ifdef PLATFORM_MB
+#if defined (PLATFORM_MB) || defined (__riscv)
 extern XIntc IntcInst;
 #endif
 

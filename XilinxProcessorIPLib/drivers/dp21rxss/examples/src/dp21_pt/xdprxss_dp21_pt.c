@@ -64,7 +64,7 @@
 #endif
 
 
-#ifdef PLATFORM_MB
+#if defined (PLATFORM_MB) || defined (__riscv)
 #define 			XINTC XIntc
 XINTC IntcInst; 	/**< The interrupt controller instance. */
 #endif
@@ -96,7 +96,7 @@ extern u8 use_vsc;	/**< 1 when stream carries colorimetry via VSC SDP */
 /*
  * DDR Addresses of Frame Buffer
  */
-#ifndef PLATFORM_MB
+#if !defined (PLATFORM_MB) && !defined (__riscv)
 #define ADDR1 0x10000000
 #define ADDR2 0x20000000
 #define ADDR3 0x30000000
@@ -244,7 +244,7 @@ XVphy_ChannelId VPHY_RX_CHANNEL_TYPE = XVPHY_CHANNEL_ID_CMN1;
 /*
  * These are the REFCLK sources for VCU118 and ZCU102
  */
-#ifdef PLATFORM_MB //VCU118 (270Mhz on REFCLK0, 400Mhz on REFCLK1)
+#if defined (PLATFORM_MB) || defined (__riscv) //VCU118 (270Mhz on REFCLK0, 400Mhz on REFCLK1)
 XVphy_PllRefClkSelType VPHY_REFCLK_SEL_270 = XVPHY_REF_CLK_SEL_XPLL_GTREFCLK0;
 XVphy_PllRefClkSelType VPHY_REFCLK_SEL_400 = XVPHY_REF_CLK_SEL_XPLL_GTREFCLK1;
 #else
@@ -252,7 +252,7 @@ XVphy_PllRefClkSelType VPHY_REFCLK_SEL_270 = XVPHY_REF_CLK_SEL_XPLL_GTREFCLK0;
 XVphy_PllRefClkSelType VPHY_REFCLK_SEL_400 = XVPHY_REF_CLK_SEL_XPLL_GTNORTHREFCLK0;
 #endif
 
-#ifndef PLATFORM_MB
+#if !defined (PLATFORM_MB) && !defined (__riscv)
 XIicPs Ps_Iic1;
 XIicPs_Config *XIic1Ps_ConfigPtr;
 #define PS_IIC_CLK 100000
@@ -339,7 +339,7 @@ int Dp21RxSs_Pt_VideoFMC_Init(void)
 	/*
 	 * Set the I2C Mux to select the HPC FMC
 	 */
-#ifndef PLATFORM_MB
+#if !defined (PLATFORM_MB) && !defined (__riscv)
 	Buffer[0] = 0x01;
 #else
 	Buffer[0] = 0x02;
@@ -718,7 +718,7 @@ static int Dp21RxSs_Pt_Init(void)
 	 * Even though CPLL can be used in limited case,
 	 * using QPLL is recommended for more coverage.
 	 */
-#ifdef PLATFORM_MB
+#if defined (PLATFORM_MB) || defined (__riscv)
 	Status = Dp21RxSs_Pt_PhyConfig(&VPhyInst, XDP_TX_LINK_BW_SET_UHBR20, VPHY_TX_PLL_TYPE, VPHY_TX_CHANNEL_TYPE, XVPHY_DIR_TX);
 #else
 	Status = Dp21RxSs_Pt_PhyConfig(&VPhyInst, XDP_TX_LINK_BW_SET_UHBR10, VPHY_TX_PLL_TYPE, VPHY_TX_CHANNEL_TYPE, XVPHY_DIR_TX);
@@ -742,7 +742,7 @@ static int Dp21RxSs_Pt_ConfigTxAudioClock(u32 AudioClkHz)
 {
 #if ENABLE_AUDIO
 	u32 ReadVal;
-#ifdef PLATFORM_MB
+#if defined (PLATFORM_MB) || defined (__riscv)
 	u8 ByteCount;
 	u8 Buffer[2];
 
@@ -1031,7 +1031,7 @@ u32 Dp21RxSs_Pt_PhyConfig(XVphy *InstancePtr, int LineRate, XVphy_PllType Pll,
 		return Status;
 	}
 
-#ifndef PLATFORM_MB
+#if !defined (PLATFORM_MB) && !defined (__riscv)
 	/*
 	 * GTHE4 cannot support 20G
 	 */
@@ -1187,7 +1187,7 @@ u32 Dp21RxSs_Pt_PlatformInit(void)
 	XTmrCtr_SetResetValue(&TmrCtr, XTC_TIMER_0, TIMER_RESET_VALUE);
 	XTmrCtr_Start(&TmrCtr, XTC_TIMER_0);
 
-#ifndef PLATFORM_MB
+#if !defined (PLATFORM_MB) && !defined (__riscv)
 	XIic1Ps_ConfigPtr = XIicPs_LookupConfig(XPAR_XIICPS_1_BASEADDR);
 	if (NULL == XIic1Ps_ConfigPtr) {
 		return XST_FAILURE;
@@ -2023,7 +2023,7 @@ int Dp21RxSs_Pt_DetectResolution(XDpRxSs *InstancePtr)
 extern u8 tx_after_rx;
 #endif
 
-#ifndef PLATFORM_MB
+#if !defined (PLATFORM_MB) && !defined (__riscv)
 int Dp21RxSs_Pt_I2cMuxPs(u8 Data)
 {
 	u8 Buffer;

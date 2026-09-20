@@ -67,7 +67,7 @@
 
 
 
-#ifdef PLATFORM_MB
+#if defined (PLATFORM_MB) || defined (__riscv)
 #define 			XINTC XIntc
 XINTC IntcInst; 	/* The interrupt controller instance. */
 #endif
@@ -99,7 +99,7 @@ extern XDp_MainStreamAttributes* Msa_Pt;
 
 
 //DDR Addresses of Frame Buffer
-#ifndef PLATFORM_MB
+#if !defined (PLATFORM_MB) && !defined (__riscv)
 #define ADDR1 0x10000000
 #define ADDR2 0x20000000
 #define ADDR3 0x30000000
@@ -230,7 +230,7 @@ XVphy_ChannelId VPHY_RX_CHANNEL_TYPE = XVPHY_CHANNEL_ID_CMN1;
 
 
 //These are the REFCLK sources for VCU118 and ZCU102
-#ifdef PLATFORM_MB //VCU118 (270 MHz on REFCLK0, 400 MHz on REFCLK1)
+#if defined (PLATFORM_MB) || defined (__riscv) //VCU118 (270 MHz on REFCLK0, 400 MHz on REFCLK1)
 XVphy_PllRefClkSelType VPHY_REFCLK_SEL_270 = XVPHY_REF_CLK_SEL_XPLL_GTREFCLK0;
 XVphy_PllRefClkSelType VPHY_REFCLK_SEL_400 = XVPHY_REF_CLK_SEL_XPLL_GTREFCLK1;
 #else
@@ -238,7 +238,7 @@ XVphy_PllRefClkSelType VPHY_REFCLK_SEL_270 = XVPHY_REF_CLK_SEL_XPLL_GTREFCLK0;
 XVphy_PllRefClkSelType VPHY_REFCLK_SEL_400 = XVPHY_REF_CLK_SEL_XPLL_GTNORTHREFCLK0;
 #endif
 
-#ifndef PLATFORM_MB
+#if !defined (PLATFORM_MB) && !defined (__riscv)
 XIicPs Ps_Iic1;
 // XIicPs_Config *XIic1Ps_ConfigPtr;
 XIicPs_Config *XIic1Ps_ConfigPtr;
@@ -322,7 +322,7 @@ int VideoFMC_Init(void)
 	XIic_Reset(&IicInstance);
 
 	/* Set the I2C Mux to select the HPC FMC */
-#ifndef PLATFORM_MB
+#if !defined (PLATFORM_MB) && !defined (__riscv)
 	Buffer[0] = 0x01;
 #else
 	Buffer[0] = 0x02;
@@ -772,7 +772,7 @@ u32 DpSs_Main(void)
 	// This configures the vid_phy for line rate to start with
 	//Even though CPLL can be used in limited case,
 	//using QPLL is recommended for more coverage.
-#ifdef PLATFORM_MB
+#if defined (PLATFORM_MB) || defined (__riscv)
 	Status = config_phy(&VPhyInst, XDP_TX_LINK_BW_SET_UHBR20, VPHY_TX_PLL_TYPE, VPHY_TX_CHANNEL_TYPE, XVPHY_DIR_TX);
 #else
 	Status = config_phy(&VPhyInst, XDP_TX_LINK_BW_SET_UHBR10, VPHY_TX_PLL_TYPE, VPHY_TX_CHANNEL_TYPE, XVPHY_DIR_TX);
@@ -800,7 +800,7 @@ u32 ReadVal;
 u8 ByteCount;
 u8 Buffer[2];
 
-#ifdef PLATFORM_MB
+#if defined (PLATFORM_MB) || defined (__riscv)
 // IIC_BASE_ADDR
     //Closing Mux 0x75
     // Buffer[0] = 0x0;
@@ -1021,7 +1021,7 @@ u32 config_phy (XVphy *InstancePtr, int LineRate, XVphy_PllType Pll,
 		return Status;
 	 }
 
-#ifndef PLATFORM_MB
+#if !defined (PLATFORM_MB) && !defined (__riscv)
 	//GTHE4 cannot support 20G
 	if(LineRate == XDP_TX_LINK_BW_SET_UHBR20) {
 		xil_printf ("GTHE4 does not support 20G... skipping\r\n");
@@ -1194,7 +1194,7 @@ u32 DpSs_PlatformInit(void)
 	XTmrCtr_SetResetValue(&TmrCtr, 0, TIMER_RESET_VALUE);
 	XTmrCtr_Start(&TmrCtr, 0);
 
-#ifndef PLATFORM_MB
+#if !defined (PLATFORM_MB) && !defined (__riscv)
         XIic1Ps_ConfigPtr = XIicPs_LookupConfig(XPAR_XIICPS_1_BASEADDR);
         if (NULL == XIic1Ps_ConfigPtr) {
                 return XST_FAILURE;
@@ -2052,7 +2052,7 @@ int Dppt_DetectColor(void *InstancePtr,
 }
 #endif
 
-#ifndef PLATFORM_MB
+#if !defined (PLATFORM_MB) && !defined (__riscv)
 int I2cMux_Ps(u8 Data)
 {
         u8 Buffer;

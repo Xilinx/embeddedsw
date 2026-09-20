@@ -26,7 +26,7 @@ extern "C" {
 #include "xil_exception.h"
 #include "keymgmt.h"
 
-#ifdef PLATFORM_MB
+#if defined (PLATFORM_MB) || defined (__riscv)
  #include "xintc.h"
 #else
  #include "xscugic.h"

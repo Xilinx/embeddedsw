@@ -161,7 +161,7 @@ XVphy_ChannelId VPHY_RX_CHANNEL_TYPE = XVPHY_CHANNEL_ID_CMN1;
 /*
  * These are the REFCLK sources for VCU118 and ZCU102
  */
-#ifdef PLATFORM_MB	/**< VCU118 (270Mhz on REFCLK0, 400Mhz on REFCLK1) */
+#if defined (PLATFORM_MB) || defined (__riscv)	/**< VCU118 (270Mhz on REFCLK0, 400Mhz on REFCLK1) */
 XVphy_PllRefClkSelType VPHY_REFCLK_SEL_270 = XVPHY_REF_CLK_SEL_XPLL_GTREFCLK0;
 XVphy_PllRefClkSelType VPHY_REFCLK_SEL_400 = XVPHY_REF_CLK_SEL_XPLL_GTREFCLK1;
 #else
@@ -252,7 +252,8 @@ int Dp21RxSs_PtMst_VideoFMC_Init(void)
 	/*
 	 * Set the I2C Mux to select the HPC FMC
 	 */
-#ifndef PLATFORM_MB
+
+#if !defined (PLATFORM_MB) && !defined (__riscv)
 	Buffer[0] = 0x01;
 #else
 	Buffer[0] = 0x02;

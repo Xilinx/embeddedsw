@@ -21,7 +21,7 @@
 
 #include "xparameters.h"
 #include "bspconfig.h"
-#ifndef PLATFORM_MB
+#if !defined (PLATFORM_MB) && !defined (__riscv)
 #include "xiicps.h"
 #include "sleep.h"
 #include "clk_set.h"

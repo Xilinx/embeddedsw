@@ -226,7 +226,7 @@ examples:
             - src/dp21_pt/xvid_clk_gen.c
             - src/dp21_pt/xvidframe_crc.c
             - src/dp21_pt/xvidframe_crc.h
-            - src/platforms/vcu_mb/lscript.ld
+            - src/platforms/vcu_risc/lscript.ld
         - xlnx,examplemodes: 1
         - xlnx,hdcp-enable: 0
         - xlnx,num-streams: 1
@@ -246,7 +246,7 @@ examples:
             - src/dp21_pt_mst/xvidframe_crc.h
             - src/dp21_pt_mst/xvid_pat_gen.c
             - src/dp21_pt_mst/xvid_pat_gen.h
-            - src/platforms/vcu_mb/lscript.ld
+            - src/platforms/vcu_risc/lscript.ld
         - xlnx,examplemodes: 1
         - xlnx,hdcp-enable: 0
         - xlnx,num-streams: 4
@@ -291,7 +291,7 @@ examples:
             - src/dp21_pt_hdcp/xvid_clk_gen.c
             - src/dp21_pt_hdcp/xvidframe_crc.c
             - src/dp21_pt_hdcp/xvidframe_crc.h
-            - src/platforms/vcu_mb/lscript.ld
+            - src/platforms/vcu_risc/lscript.ld
         - xlnx,examplemodes: 1
         - xlnx,hdcp-enable: 1
         - xlnx,num-streams: 1

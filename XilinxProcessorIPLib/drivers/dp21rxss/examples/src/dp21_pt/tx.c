@@ -1034,8 +1034,8 @@ u32 Dp21RxSs_Pt_StartTx(u8 line_rate, u8 lane_count, user_config_struct user_con
 	 * range / colorimetry are extracted by the driver from the packet
 	 * contents. This carries the colorimetry needed for static-HDR content.
 	 */
-	XDpTxss_EnableVscColorimetry(&DpTxSsInst, use_vsc);
-	XDpTxSs_SetVscExtendedPacket(&DpTxSsInst, ExtFrame_tx_vsc);
+	XDpTxss_EnableVscColorimetry(&DpTxSsInst, XDP_TX_STREAM_ID1, use_vsc);
+	XDpTxSs_SetVscExtendedPacket(&DpTxSsInst, XDP_TX_STREAM_ID1, ExtFrame_tx_vsc);
 
 	xil_printf("\r\nTraining TX with: Link rate %x, Lane %d, BPC %d, (VSC %d)\r\n",
 		   line_rate,lane_count, bpc, use_vsc);

@@ -119,7 +119,7 @@ void Dp21RxSs_Pt_HelpMenu(void)
 char Dp21RxSs_Pt_InByteLocal(void)
 {
 	char c=0;
-#ifdef PLATFORM_MB
+#if defined (PLATFORM_MB) || defined (__riscv)
 	c = XUartLite_RecvByte(STDIN_BASEADDRESS);
 #else
 	c = xil_getc(0);
@@ -163,7 +163,7 @@ u32 xil_gethex(u8 num_chars)
 	return data;
 }
 
-#ifndef PLATFORM_MB
+#if !defined (PLATFORM_MB) && !defined (__riscv)
 /*****************************************************************************/
 /**
 *
@@ -212,7 +212,7 @@ char xil_getc(u32 timeout_ms)
 		XTmrCtr_Start(&TmrCtr, 0);
 	}
 
-#ifndef PLATFORM_MB
+#if !defined (PLATFORM_MB) && !defined (__riscv)
 	while((!XUartPs_IsReceiveData(STDIN_BASEADDRESS)) && (timeout == 0)) {
 #else
 	while(XUartLite_IsReceiveEmpty(STDIN_BASEADDRESS) && (timeout == 0)) {
@@ -231,7 +231,7 @@ char xil_getc(u32 timeout_ms)
 	if (timeout == 1) {
 		c = 0;
 	} else {
-#ifndef PLATFORM_MB
+#if !defined (PLATFORM_MB) && !defined (__riscv)
 		c = XUartPs_RecvByte_NonBlocking();
 #else
 		c = XUartLite_RecvByte(STDIN_BASEADDRESS);

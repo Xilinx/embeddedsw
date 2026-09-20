@@ -42,7 +42,7 @@ extern "C" {
 #include <xstatus.h>
 #include <xtmrctr.h>
 
-#ifdef PLATFORM_MB
+#if defined (PLATFORM_MB) || defined (__riscv)
 #include <xuartlite_l.h>
 #include "xintc.h"
 #else
@@ -86,6 +86,10 @@ extern "C" {
 #include "xgpio.h"
 #include "xv_tpg.h"
 
+#define XPAR_DPTXSS_0_HDCP_ENABLE	0
+#define XPAR_DPTXSS_0_HDCP22_ENABLE	0
+#define XPAR_DPRXSS_0_HDCP_ENABLE	0
+#define XPAR_DPRXSS_0_HDCP22_ENABLE	0
 
 #define USE_EEPROM_HDCP_KEYS
 #define ENABLE_HDCP_IN_DESIGN		(XPAR_DPTXSS_0_HDCP_ENABLE | XPAR_DPRXSS_0_HDCP_ENABLE | \
@@ -233,7 +237,7 @@ extern XHdcp22_Repeater     Hdcp22Repeater;
 
 #define AUXFIFOSIZE 4
 
-#ifdef PLATFORM_MB
+#if defined (PLATFORM_MB) || defined (__riscv)
 #define AXIMMWIDTH 512
 #else
 #define AXIMMWIDTH 256

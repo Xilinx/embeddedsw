@@ -80,7 +80,7 @@ void ComputeMandD(u32 VidFreq){
 	u32 DVal = 0;
 	u32 DivVal = 0;
 	u32 rdata=0;
-#ifdef PLATFORM_MB
+#if defined (PLATFORM_MB) || defined (__riscv)
 	RefFreq = 200000;
 #else
 	RefFreq = 100000;

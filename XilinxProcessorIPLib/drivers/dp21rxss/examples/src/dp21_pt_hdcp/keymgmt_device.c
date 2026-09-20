@@ -19,7 +19,7 @@
 #include <string.h>
 #include "xil_io.h"
 #include "xparameters.h"
-#ifdef PLATFORM_MB
+#if defined (PLATFORM_MB) || defined (__riscv)
 #include "xiic.h"
 #else
 #include "xscugic.h"
