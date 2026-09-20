@@ -35,6 +35,6 @@ BEGIN LIBRARY xilsem
   OPTION SUPPORTED_PERIPHERALS = (psu_pmc psv_pmc psxl_pmc psx_pmc psv_cortexr5 psxl_cortexr52 psx_cortexr52 psu_cortexa72 psv_cortexa72 microblaze psx_cortexa78 );
   OPTION APP_LINKER_FLAGS = "-Wl,--start-group,-lxilsem,-lxil,-lgcc,-lc,--end-group";
   OPTION desc = "Xilinx Versal Soft Error Mitigation Library";
-  OPTION VERSION = 1.13;
+  OPTION VERSION = 1.14;
   OPTION NAME = xilsem;
 END LIBRARY
