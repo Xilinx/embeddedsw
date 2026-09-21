@@ -35,6 +35,24 @@
 #include "stdlib.h"
 #include "xil_types.h"
 
+/************************** Function Prototypes *****************************/
+static void AesZeroize(void *Buf, u32 Len);
+
+/*****************************************************************************/
+/**
+ * Overwrite a buffer with zeros using volatile word stores so the wipe is not
+ * removed by the compiler.
+ *****************************************************************************/
+static void AesZeroize(void *Buf, u32 Len)
+{
+	volatile u32 *Ptr = (volatile u32 *)Buf;
+	u32 Idx;
+	u32 Words = Len / 4U;
+
+	for (Idx = 0; Idx < Words; Idx++)
+		Ptr[Idx] = 0U;
+}
+
 /************************** Constant Definitions *****************************/
 /* This is the specified AES SBox. To look up a substitution value, put the first
    nibble in the first index (row) and the second nibble in the second index (column). */
@@ -263,6 +281,7 @@ void XHdcp22Cmn_Aes128Encrypt(const u8 *Data, const u8 *Key, u8 *Output)
 	AesKeySetup(Key, KeySchedule, 128);
 	/* Encrypt 128-bits*/
 	AesEncrypt(Data, Output, KeySchedule, 128);
+	AesZeroize(KeySchedule, sizeof(KeySchedule));
 }
 
 /*****************************************************************************/
@@ -285,6 +304,7 @@ void XHdcp22Cmn_Aes128Decrypt(const u8 *Data, const u8 *Key, u8 *Output)
 	AesKeySetup(Key, KeySchedule, 128);
 	/* Decrypt 128-bits*/
 	AesDecrypt(Data, Output, KeySchedule, 128);
+	AesZeroize(KeySchedule, sizeof(KeySchedule));
 }
 
 #ifdef AES_CIPHER_CTR_MODE
@@ -921,6 +941,7 @@ static void AesEncrypt(const u8 In[], u8 Out[], const u32 Key[], int KeySize)
 	Out[13] = State[1][3];
 	Out[14] = State[2][3];
 	Out[15] = State[3][3];
+	AesZeroize(State, sizeof(State));
 }
 
 /*****************************************************************************/
@@ -1020,6 +1041,7 @@ static void AesDecrypt(const u8 In[], u8 Out[], const u32 Key[], int KeySize)
 	Out[13] = State[1][3];
 	Out[14] = State[2][3];
 	Out[15] = State[3][3];
+	AesZeroize(State, sizeof(State));
 }
 
 
