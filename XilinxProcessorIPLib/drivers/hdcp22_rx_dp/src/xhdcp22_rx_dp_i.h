@@ -449,7 +449,7 @@ void XHdcp22Rx_GenerateRandom(XHdcp22_Rx_Dp *InstancePtr, int NumOctets, u8* Ran
 int  XHdcp22Rx_RsaesOaepEncrypt(const XHdcp22_Rx_KpubRx *KpubRx, const u8 *Message,
 			const u32 MessageLen, const u8 *MaskingSeed, u8 *EncryptedMessage);
 int  XHdcp22Rx_RsaesOaepDecrypt(XHdcp22_Rx_Dp *InstancePtr, const XHdcp22_Rx_KprivRx *KprivRx,
-			 u8 *EncryptedMessage, u8 *Message, int *MessageLen);
+			 u8 *EncryptedMessage, u8 *Message, int MessageMaxLen, int *MessageLen);
 void XHdcp22Rx_ComputeHPrime(const u8* Rrx, const u8 *RxCaps, const u8* Rtx,
 	     const u8 *TxCaps, const u8 *Km, u8 *HPrime);
 void XHdcp22Rx_ComputeEkh(const u8 *KprivRx, const u8 *Km, const u8 *M, u8 *Ekh);

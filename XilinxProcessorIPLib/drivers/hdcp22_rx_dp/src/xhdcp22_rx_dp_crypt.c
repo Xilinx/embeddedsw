@@ -53,7 +53,8 @@ static int  XHdcp22Rx_Pkcs1Rsadp(XHdcp22_Rx_Dp *InstancePtr, const XHdcp22_Rx_Kp
 static int  XHdcp22Rx_Pkcs1Mgf1(const u8 *seed, const u32 seedlen, u8  *mask, u32 masklen);
 static int  XHdcp22Rx_Pkcs1EmeOaepEncode(const u8 *Message, const u32 MessageLen,
 	            const u8 *MaskingSeed, u8 *EncodedMessage);
-static int  XHdcp22Rx_Pkcs1EmeOaepDecode(u8 *EncodedMessage, u8 *Message, int *MessageLen);
+static int  XHdcp22Rx_Pkcs1EmeOaepDecode(u8 *EncodedMessage, u8 *Message,
+	            int MessageMaxLen, int *MessageLen);
 static void XHdcp22Rx_Pkcs1MontMultFiosInit(XHdcp22_Rx_Dp *InstancePtr, u32 *N,
 	            const u32 *NPrime, int NDigits);
 #ifndef _XHDCP22_RX_SW_MMULT_
@@ -223,6 +224,7 @@ int XHdcp22Rx_RsaesOaepEncrypt(const XHdcp22_Rx_KpubRx *KpubRx, const u8 *Messag
 * @param	KprivRx is the RSA private key structure containing the quintuple.
 * @param	EncryptedMessage is the 128 byte octet string to be decrypted.
 * @param	Message is the octet string after decryption.
+* @param	MessageMaxLen is the capacity of the Message buffer in bytes.
 * @param	MessageLen is the length of the message octet string after decryption.
 *
 * @return	XST_SUCCESS or XST_FAILURE.
@@ -230,13 +232,14 @@ int XHdcp22Rx_RsaesOaepEncrypt(const XHdcp22_Rx_KpubRx *KpubRx, const u8 *Messag
 * @note		None.
 *****************************************************************************/
 int  XHdcp22Rx_RsaesOaepDecrypt(XHdcp22_Rx_Dp *InstancePtr, const XHdcp22_Rx_KprivRx *KprivRx,
-	u8 *EncryptedMessage, u8 *Message, int *MessageLen)
+	u8 *EncryptedMessage, u8 *Message, int MessageMaxLen, int *MessageLen)
 {
 	/* Verify arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(KprivRx != NULL);
 	Xil_AssertNonvoid(EncryptedMessage != NULL);
 	Xil_AssertNonvoid(Message != NULL);
+	Xil_AssertNonvoid(MessageMaxLen > 0);
 
 	u8  em[XHDCP22_RX_N_SIZE];
 	u32 Status;
@@ -252,7 +255,7 @@ int  XHdcp22Rx_RsaesOaepDecrypt(XHdcp22_Rx_Dp *InstancePtr, const XHdcp22_Rx_Kpr
 	}
 
 	/* Step 3: EME-OAEP decoding */
-	Status = XHdcp22Rx_Pkcs1EmeOaepDecode(em, Message, MessageLen);
+	Status = XHdcp22Rx_Pkcs1EmeOaepDecode(em, Message, MessageMaxLen, MessageLen);
 	if(Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
@@ -548,17 +551,20 @@ static int XHdcp22Rx_Pkcs1EmeOaepEncode(const u8 *Message, const u32 MessageLen,
 *
 * @param	EncodedMessage is the 128 byte encoded octet string.
 * @param	Message is decoded octet string.
+* @param	MessageMaxLen is the capacity of the Message buffer in bytes.
 * @param	MessageLen is the length of the decoded octet string.
 *
 * @return	XST_SUCCESS or XST_FAILURE.
 *
 * @note		None.
 *****************************************************************************/
-static int XHdcp22Rx_Pkcs1EmeOaepDecode(u8 *EncodedMessage, u8 *Message, int *MessageLen)
+static int XHdcp22Rx_Pkcs1EmeOaepDecode(u8 *EncodedMessage, u8 *Message,
+	int MessageMaxLen, int *MessageLen)
 {
 	/* Verify arguments */
 	Xil_AssertNonvoid(EncodedMessage != NULL);
 	Xil_AssertNonvoid(Message != NULL);
+	Xil_AssertNonvoid(MessageMaxLen > 0);
 	Xil_AssertNonvoid(MessageLen != NULL);
 
 	u8  lHash[XHDCP22_RX_HASH_SIZE];
@@ -568,6 +574,7 @@ static int XHdcp22Rx_Pkcs1EmeOaepDecode(u8 *EncodedMessage, u8 *Message, int *Me
 	u8  DB[XHDCP22_RX_N_SIZE-XHDCP22_RX_HASH_SIZE-1];
 	u32 Offset = XHDCP22_RX_HASH_SIZE;
 	u32 Status;
+	int DecodedLen;
 
 	/* Step 3a: L is the empty string */
 	XHdcp22Cmn_Sha256Hash(NULL,0,lHash);
@@ -637,8 +644,13 @@ static int XHdcp22Rx_Pkcs1EmeOaepDecode(u8 *EncodedMessage, u8 *Message, int *Me
 	}
 
 	/* Extract M */
-	*MessageLen = (XHDCP22_RX_N_SIZE-XHDCP22_RX_HASH_SIZE-1) - (Offset + 1);
-	memcpy(Message, DB+Offset+1, *MessageLen);
+	DecodedLen = (int)(XHDCP22_RX_N_SIZE - XHDCP22_RX_HASH_SIZE - 1) -
+			((int)Offset + 1);
+	if ((DecodedLen < 0) || (DecodedLen > MessageMaxLen)) {
+		return XST_FAILURE;
+	}
+	memcpy(Message, DB+Offset+1, DecodedLen);
+	*MessageLen = DecodedLen;
 
 	return XST_SUCCESS;
 }
