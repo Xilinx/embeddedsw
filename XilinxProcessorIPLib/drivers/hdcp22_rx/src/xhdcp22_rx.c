@@ -1759,6 +1759,7 @@ static int XHdcp22Rx_PollMessage(XHdcp22_Rx *InstancePtr)
 
 	u32 Size = 0;
 	u32 Offset = 0;
+	u32 CopySize;
 
 	/* Get message */
 	if(XHdcp22Rx_IsWriteMessageAvailable(InstancePtr) == TRUE)
@@ -1767,10 +1768,22 @@ static int XHdcp22Rx_PollMessage(XHdcp22_Rx *InstancePtr)
 
 		InstancePtr->Handles.DdcSetAddressCallback(InstancePtr->Handles.DdcSetAddressCallbackRef, XHDCP22_RX_DDC_WRITE_REG);
 
-		for(Offset = 0; Offset < Size; Offset++)
+		CopySize = Size;
+		if(CopySize > XHDCP22_RX_MAX_MESSAGE_SIZE) {
+			CopySize = XHDCP22_RX_MAX_MESSAGE_SIZE;
+		}
+
+		for(Offset = 0; Offset < CopySize; Offset++)
 		{
 			InstancePtr->MessageBuffer[Offset] = InstancePtr->Handles.DdcGetDataCallback(InstancePtr->Handles.DdcGetDataCallbackRef);
 		}
+
+		for(; Offset < Size; Offset++)
+		{
+			InstancePtr->Handles.DdcGetDataCallback(InstancePtr->Handles.DdcGetDataCallbackRef);
+		}
+
+		Size = CopySize;
 	}
 
 	return Size;
