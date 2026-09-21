@@ -42,7 +42,7 @@
 #include "xzdma.h"
 #include <string.h>
 #if defined  (XPM_SUPPORT)
-#include "pm_defs.h"
+#include "xpm_defs.h"
 #include "pm_api_sys.h"
 #include "pm_client.h"
 #include "xstatus.h"
@@ -104,14 +104,14 @@ s32 XZDma_CfgInitialize(XZDma *InstancePtr, XZDma_Config *CfgPtr,
 	Xil_AssertNonvoid(EffectiveAddr != ((u32)0x00));
 
 #if defined  (XPM_SUPPORT)
-	Status = XPm_RequestNode(XpmGetNodeId((u64)EffectiveAddr), PM_CAP_ACCESS, MAX_QOS, REQUEST_ACK_BLOCKING);
+	Status = XPm_RequestNode(XpmGetNodeId((u64)EffectiveAddr), PM_CAP_ACCESS, XPM_MAX_QOS, REQUEST_ACK_BLOCKING);
 
 	if (XST_SUCCESS != Status) {
 		xil_printf("ZDMA: XPm_RequestNode failed \r\n");
 		return Status;
 	}
 
-	Status = XPm_ResetAssert(XpmGetResetId((u64)EffectiveAddr), XILPM_RESET_ACTION_PULSE);
+	Status = XPm_ResetAssert(XpmGetResetId((u64)EffectiveAddr), PM_RESET_ACTION_PULSE);
 	if (XST_SUCCESS != Status) {
 		xil_printf("ZDMA: XPm_ResetAssert() ERROR=0x%x \r\n", Status);
 		return Status;
