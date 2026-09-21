@@ -125,6 +125,14 @@ XStatus XPmReset_AddNode(u32 Id, u32 ControlReg, u8 Shift, u8 Width, u8 ResetTyp
 		goto done;
 	}
 
+	/* ResetType indexes ResetOps[]; only GENERIC and CUSTOM are valid */
+	if (((u8)XPM_RSTOPS_GENRERIC != ResetType) &&
+	    ((u8)XPM_RSTOPS_CUSTOM != ResetType)) {
+		DbgErr = XPM_INT_ERR_INVALID_PARAM;
+		Status = XST_INVALID_PARAM;
+		goto done;
+	}
+
 	Rst = XPm_AllocBytes(sizeof(XPm_ResetNode));
 	if (Rst == NULL) {
 		DbgErr = XPM_INT_ERR_BUFFER_TOO_SMALL;
