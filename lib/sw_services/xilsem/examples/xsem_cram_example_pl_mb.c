@@ -31,11 +31,14 @@
  * 0.6   gam     03/26/2026  Fix Correctable Error count check in detect only
  *                           configuration
  * 0.7   anv     08/28/2026  Corrected runtime print messages.
+ * 0.8   anv     09/19/2026  Added XSem_PrintSwCalibErrDetails function to
+ *                           print decoded SWECC calibration failure details.
  *
  * </pre>
  *
  *****************************************************************************/
 #include "xil_printf.h"
+#include "xil_io.h"
 #include "sleep.h"
 #include "xsem_client_api.h"
 #include "xintc.h"
@@ -89,7 +92,8 @@ static XIntc InterruptController;
 XSem_Notifier Notifier = {
         .Module = XSEM_NOTIFY_CRAM,
         .Event = XSEM_EVENT_CRAM_UNCOR_ECC_ERR | XSEM_EVENT_CRAM_CRC_ERR | \
-		 XSEM_EVENT_CRAM_INT_ERR | XSEM_EVENT_CRAM_COR_ECC_ERR,
+		 XSEM_EVENT_CRAM_INT_ERR | XSEM_EVENT_CRAM_COR_ECC_ERR | \
+		 XSEM_EVENT_CRAM_CALIB_ERR,
 	.Flag = 1U,
 };
 
@@ -98,6 +102,94 @@ u8 EventCnt_UnCorEcc = 0U;
 u8 EventCnt_Crc = 0U;
 u8 EventCnt_CorEcc = 0U;
 u8 EventCnt_IntErr = 0U;
+u8 EventCnt_CalibErr = 0U;
+
+/****************************************************************************
+ * @brief	Print SWECC calibration error details saved in PMC RAM.
+ *
+ * This function reads reused SEM_CRAMERR registers and prints decoded
+ * ECC/CRC details reported during SWECC calibration failure.
+ *
+ * @return	None.
+ *
+ ****************************************************************************/
+static void XSem_PrintSwCalibErrDetails(void)
+{
+	u32 CramStatus = 0U;
+	u32 Low = 0U;
+	u32 High = 0U;
+	u32 EccType = 0U;
+	u32 Qword = 0U;
+	u32 Bit = 0U;
+	u32 Efar = 0U;
+	u32 ErrRow = 0U;
+	u32 Index = 0U;
+	u32 CalibDetailFound = 0U;
+
+	CramStatus = Xil_In32(PMC_RAM_SEM_CRAM_STATUS);
+	if ((CramStatus & XSEM_CFR_ERRCODE_MASK) != XSEM_ERR_CFR_SWECC_ERR) {
+		return;
+	}
+
+	xil_printf("SWECC calibration error occurred.\n\r");
+	xil_printf("Decoded SWECC calibration error details:\n\r");
+	for (Index = 0U; Index < XSEM_CFR_SW_CALIB_MAX_DETAILS; Index++) {
+		Low = Xil_In32(PMC_RAM_SEM_CRAMERR_ADDRL0 + (Index * 8U));
+		High = Xil_In32(PMC_RAM_SEM_CRAMERR_ADDRH0 + (Index * 8U));
+
+		if ((Low & XSEM_CFR_SW_CALIB_VALID_MASK) ==
+			XSEM_CFR_SW_CALIB_VALID) {
+			EccType = (Low >> XSEM_CFR_SW_CALIB_ECC_TYPE_SHIFT) & \
+				XSEM_CFR_SW_CALIB_ECC_TYPE_MASK;
+			CalibDetailFound = 1U;
+
+			if (EccType == XSEM_CFR_SW_CALIB_ECC_TYPE_CE) {
+				ErrRow = (High >> XSEM_CFR_SW_CALIB_ROW_SHIFT);
+				Efar = (High & XSEM_CFR_SW_CALIB_EFAR_MASK);
+				Qword = (Low >> XSEM_CFR_SW_CALIB_QWORD_SHIFT);
+				Bit = ((Low >> XSEM_CFR_SW_CALIB_BIT_SHIFT) & \
+					XSEM_CFR_SW_CALIB_BIT_MASK);
+				xil_printf("Error %u Row %u CE: EFAR=0x%08x "
+					"Qword=%u Bit=%u\n\r", Index, ErrRow, Efar,
+					Qword, Bit);
+			} else if (EccType == XSEM_CFR_SW_CALIB_ECC_TYPE_UE) {
+				ErrRow = (High >> XSEM_CFR_SW_CALIB_ROW_SHIFT);
+				Efar = (High & XSEM_CFR_SW_CALIB_EFAR_MASK);
+				xil_printf("Error %u Row %u UE: EFAR=0x%08x\n\r",
+					Index, ErrRow, Efar);
+			} else if (EccType == XSEM_CFR_SW_CALIB_ECC_TYPE_CRC) {
+				xil_printf("Error %u type CRC is not expected in ECC pair.\n\r",
+					Index);
+			} else {
+				xil_printf("Error %u type unknown: LOW=0x%08x "
+					"HIGH=0x%08x\n\r", Index, Low, High);
+			}
+		}
+	}
+
+	for (Index = 0U; Index < XSEM_CFR_SW_CALIB_CRC_ROW_MAX_DETAILS; Index++) {
+		Low = Xil_In32(PMC_RAM_SEM_CRAMERR_ADDRL0 +
+			XSEM_CFR_SW_CALIB_CRC_ROW_OFFSET +
+			(Index * XSEM_CFR_SW_CALIB_CRC_ROW_REG_SIZE));
+		if ((Low & XSEM_CFR_SW_CALIB_VALID_MASK) ==
+			XSEM_CFR_SW_CALIB_VALID) {
+			EccType = (Low >> XSEM_CFR_SW_CALIB_ECC_TYPE_SHIFT) & \
+				XSEM_CFR_SW_CALIB_ECC_TYPE_MASK;
+			CalibDetailFound = 1U;
+			if (EccType == XSEM_CFR_SW_CALIB_ECC_TYPE_CRC) {
+				ErrRow = (Low >> XSEM_CFR_SW_CALIB_ROW_SHIFT);
+				xil_printf("Error %u Row %u CRC\n\r", Index, ErrRow);
+			} else {
+				xil_printf("CRC Error %u type unknown: WORD=0x%08x\n\r",
+					Index, Low);
+			}
+		}
+	}
+
+	if (CalibDetailFound == 0U) {
+		xil_printf("No SWECC calibration detail entry found.\n\r");
+	}
+}
 
 /*****************************************************************************
  *
@@ -564,6 +656,11 @@ void XSem_IpiCallback(void)
 		} else if (XSEM_EVENT_CRAM_COR_ECC_ERR == Payload[2]) {
 			xil_printf("Received CRAM Correctable error event \n");
 			EventCnt_CorEcc = 1U;
+		} else if (XSEM_EVENT_CRAM_CALIB_ERR == Payload[2]) {
+			xil_printf("[ALERT] Received CRAM SW calibration error" \
+				" event notification from XilSEM\n\r");
+			EventCnt_CalibErr = 1U;
+			XSem_PrintSwCalibErrDetails();
 		} else {
 			xil_printf("%s Some other callback received: %d:%d:%d\n",
 					__func__, Payload[0], \
@@ -735,6 +832,14 @@ int main(void)
 		goto END;
 	}
 
+	/* Enable notifications before CRAM init to catch calibration failures. */
+	Status = Xsem_CfrEventRegisterNotifier(1U);
+	if (XST_SUCCESS != Status) {
+		xil_printf("CRAM event notification registration failed\n\r");
+		FailCnt++;
+		goto END;
+	}
+
 	/**
 	 * Initialize CRAM scan if not initialized
 	 * This is applicable when CRAM Scan is set for deferred start up.
@@ -745,6 +850,12 @@ int main(void)
 		Status = XSem_CfrApiInitCram();
 		if (XST_SUCCESS != Status) {
 			xil_printf("CRAM Initialization failed\n\r");
+			if (EventCnt_CalibErr == 0U) {
+				if ((Xil_In32(PMC_RAM_SEM_CRAM_STATUS) &
+					XSEM_CFR_ERRCODE_MASK) == XSEM_ERR_CFR_SWECC_ERR) {
+					XSem_PrintSwCalibErrDetails();
+				}
+			}
 			FailCnt++;
 			goto END;
 		} else {
@@ -758,12 +869,6 @@ int main(void)
 	/* Capture Initial error count */
 	IntialCorErrCnt = CfrStatusInfo.ErrCorCnt;
 #endif /* End of XILSEM_ERRINJ_ENABLE */
-
-	/**
-	 * Enable event Notifications to receive notifications from PLM
-	 * upon detection of any error in CFRAME
-	 */
-	Xsem_CfrEventRegisterNotifier(1U);
 
 	/* Read Frame ECC values of a particular frame over IPI */
 	Status = XSem_CmdCfrReadFrameEcc(&IpiInst, \

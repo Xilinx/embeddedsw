@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2021 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 /*****************************************************************************/
@@ -53,6 +53,8 @@
 * 2.7   anv  01/27/2025   Modified ErrAddrL & ErrAddrH in XSemSatatus structure
 *                         to be in sync with Xilsem server update.
 * 2.8   rama 08/22/2025   Added SMC IDs for EL1_Non secure smc calls
+* 2.9   anv  09/19/2026   Added macros to support SWECC calibration error
+*                         details decode.
 * </pre>
 *
 * @note
@@ -141,6 +143,49 @@ extern "C" {
 
 /** PMC_RAM_SEM_CRAM_COR_BITCNT */
 #define PMC_RAM_SEM_CRAM_COR_BITCNT	(PMC_RAM_BASEADDR + 0X000000C0U)
+
+/** CRAM status error code mask */
+#define XSEM_CFR_ERRCODE_MASK		(0X01F00000U)
+
+/** ECC/CRC error detected during SWECC calibration */
+#define XSEM_ERR_CFR_SWECC_ERR		(0X01000000U)
+
+/** SWECC calibration error register layout */
+
+/** Maximum CRAM ECC error for software calibration */
+#define XSEM_CFR_SW_CALIB_MAX_DETAILS		(4U)
+/** Maximum CRAM CRC error software calibration */
+#define XSEM_CFR_SW_CALIB_CRC_ROW_MAX_DETAILS	(4U)
+/** SWECC calibration CRC row offset */
+#define XSEM_CFR_SW_CALIB_CRC_ROW_OFFSET	(32U)
+/** SWECC calibration CRC row register size */
+#define XSEM_CFR_SW_CALIB_CRC_ROW_REG_SIZE	(4U)
+
+/** SWECC calibration ECC LOW/HIGH bit fields */
+/** SWECC calibration valid field mask */
+#define XSEM_CFR_SW_CALIB_VALID_MASK		(0X00000003U)
+/** SWECC calibration valid field value */
+#define XSEM_CFR_SW_CALIB_VALID			(0X00000003U)
+/** SWECC calibration error type shift */
+#define XSEM_CFR_SW_CALIB_ECC_TYPE_SHIFT	(8U)
+/** SWECC calibration error type mask */
+#define XSEM_CFR_SW_CALIB_ECC_TYPE_MASK		(0X00000003U)
+/** SWECC calibration correctable error type */
+#define XSEM_CFR_SW_CALIB_ECC_TYPE_CE		(1U)
+/** SWECC calibration uncorrectable error type */
+#define XSEM_CFR_SW_CALIB_ECC_TYPE_UE		(2U)
+/** SWECC calibration CRC error type */
+#define XSEM_CFR_SW_CALIB_ECC_TYPE_CRC		(3U)
+/** SWECC calibration bit field shift */
+#define XSEM_CFR_SW_CALIB_BIT_SHIFT		(16U)
+/** SWECC calibration bit field mask */
+#define XSEM_CFR_SW_CALIB_BIT_MASK		(0X0000007FU)
+/** SWECC calibration qword field shift */
+#define XSEM_CFR_SW_CALIB_QWORD_SHIFT		(23U)
+/** SWECC calibration row field shift */
+#define XSEM_CFR_SW_CALIB_ROW_SHIFT		(23U)
+/** SWECC calibration EFAR field mask */
+#define XSEM_CFR_SW_CALIB_EFAR_MASK		(0X007FFFFFU)
 
 /* CRAM Commands ID */
 /** Command ID for CRAM initialization */
@@ -379,7 +424,9 @@ information: Contains descriptor attributes and golden SHA value */
 #define XSEM_EVENT_CRAM_INT_ERR		(0x3U)
 /** SEM Correctable ECC Error Event, detected when correction is disabled */
 #define XSEM_EVENT_CRAM_COR_ECC_ERR	(0x4U)
-
+/** SEM CRAM SW calibration Error Event, ECC/CRC error detected while SWECC
+ * calibration is in progress */
+#define XSEM_EVENT_CRAM_CALIB_ERR	(0x5U)
 /* NPI Errors Event Type */
 /** SEM NPI Uncorrectable CRC Error Event  */
 #define XSEM_EVENT_NPI_CRC_ERR		(0x1U)
