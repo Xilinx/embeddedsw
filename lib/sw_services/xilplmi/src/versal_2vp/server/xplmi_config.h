@@ -148,6 +148,10 @@ extern "C" {
 #endif /* PLM_OCP_KEY_MGMT */
 #endif /* PLM_OCP */
 
+#if (!defined(PLM_SECURE_EXCLUDE)) && (!defined(PLM_AUTH_JTAG_EXCLUDE))
+#define PLM_AUTH_JTAG
+#endif
+
 /**
  * @name PLM DEBUG MODE options
  *
