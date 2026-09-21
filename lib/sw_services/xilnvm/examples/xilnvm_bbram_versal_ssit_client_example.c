@@ -25,6 +25,7 @@
 *   	pre     09/11/24 First release
 * 3.8   mkr     07/20/26 Removed duplicate XNvm_ValidateAesKey definition
 *                        as it is available in xnvm_utils.c
+*       mb      09/17/26 Removed unused local AES key length macros.
 *
 * </pre>
 *
@@ -135,13 +136,6 @@
 
 #define XNVM_BBRAM_AES_KEY_STR_LEN	(XNVM_BBRAM_AES_KEY_LEN_IN_BITS / 4U)
 					/**< String length of Key */
-
-#define XNVM_256_BITS_AES_KEY_LEN_IN_BYTES (256U / XIL_SIZE_OF_BYTE_IN_BITS)
-#define XNVM_256_BITS_AES_KEY_LEN_IN_CHARS (XNVM_256_BITS_AES_KEY_LEN_IN_BYTES * 2U)
-#define XNVM_128_BITS_AES_KEY_LEN_IN_BYTES (128U / XIL_SIZE_OF_BYTE_IN_BITS)
-#define XNVM_128_BITS_AES_KEY_LEN_IN_CHARS (XNVM_128_BITS_AES_KEY_LEN_IN_BYTES * 2U)
-
-#define XNVM_MAX_AES_KEY_LEN_IN_CHARS	XNVM_256_BITS_AES_KEY_LEN_IN_CHARS
 
 #define XNVM_CACHE_LINE_LEN		(64U)
 

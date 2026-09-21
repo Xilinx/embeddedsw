@@ -42,6 +42,7 @@
  *       mb    04/18/2026 Initialize the AesRevokeId structure only when user intends to program revoke IDs
  *       mb    05/13/2026 Removed shared memory section details from header comments as it is not required for efuse programming.
  * 3.8   rpu   07/06/2026 Fix GCC warnings
+ *       mb    09/17/2026 Drop local AES key length macros; use xnvm_utils.h.
  * </pre>
  *
  ******************************************************************************/
@@ -58,17 +59,7 @@
 #define XNVM_EFUSE_ROW_STRING_LEN		(8U) /**< eFuse Row string length in bytes */
 #define XNVM_EFUSE_IV_LEN_IN_BITS               (96U) /**< IV length in bits */
 #define XNVM_EFUSE_AES_KEY_LEN_IN_BITS          (256U) /**< AES Key length in bits */
-#define XNVM_256_BITS_AES_KEY_LEN_IN_BYTES (256U / XIL_SIZE_OF_BYTE_IN_BITS)
-					/**< 256-bit AES Key length in bytes */
-#define XNVM_256_BITS_AES_KEY_LEN_IN_CHARS (\
-	XNVM_256_BITS_AES_KEY_LEN_IN_BYTES * 2U) /**< 256-bit AES Key length in characters */
-#define XNVM_128_BITS_AES_KEY_LEN_IN_BYTES (128U / XIL_SIZE_OF_BYTE_IN_BITS)
-					/**< 128-bit AES Key length in bytes */
-#define XNVM_128_BITS_AES_KEY_LEN_IN_CHARS (\
-	XNVM_128_BITS_AES_KEY_LEN_IN_BYTES * 2U) /**< 128-bit AES Key length in characters */
 #define XNVM_IV_STRING_LEN			(24U) /**< IV string length in bytes */
-#define XNVM_MAX_AES_KEY_LEN_IN_CHARS	XNVM_256_BITS_AES_KEY_LEN_IN_CHARS
-					/**< Max AES Key length in characters */
 #define XNVM_EFUSE_PPK_HASH_STRING_LEN \
 	(XNVM_EFUSE_PPK_HASH_SIZE_IN_BYTES * 2U)	/**< PPK hash string length */
 /**************************** Type Definitions *******************************/

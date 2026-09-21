@@ -63,6 +63,7 @@
  * 3.8    rpu  07/06/2026 Clean up PPK hash length macros.
  *        mkr  07/20/2026 Removed duplicate XNvm_ValidateAesKey definition
  *                        as it is available in xnvm_utils.c
+ *        mb   09/17/2026 Removed unused local AES key length macros.
  *
  * </pre>
  *
@@ -85,12 +86,6 @@
 #define XNVM_EFUSE_TEMP_VOLT_LIMIT_MAX			(3U)
 #define XNVM_EFUSE_VOLT_SOC_LIMIT			(1U)
 
-#define XNVM_256_BITS_AES_KEY_LEN_IN_BYTES (256U / XIL_SIZE_OF_BYTE_IN_BITS)
-#define XNVM_256_BITS_AES_KEY_LEN_IN_CHARS (\
-					XNVM_256_BITS_AES_KEY_LEN_IN_BYTES * 2U)
-#define XNVM_128_BITS_AES_KEY_LEN_IN_BYTES (128U / XIL_SIZE_OF_BYTE_IN_BITS)
-#define XNVM_128_BITS_AES_KEY_LEN_IN_CHARS (\
-					XNVM_128_BITS_AES_KEY_LEN_IN_BYTES * 2U)
 #define MAX(a, b) ((a) > (b) ? (a) : (b))
 #define MAX4(a, b, c, d) MAX(MAX(a, b), MAX(c, d))
 #define XNVM_MAX_NO_USER_FUSES MAX4(XNVM_EFUSE_SLR_0_NUM_OF_USER_FUSES,	\
@@ -99,7 +94,6 @@
 				 XNVM_EFUSE_SLR_3_NUM_OF_USER_FUSES)
 
 #define XNVM_USER_FUSES_MAX_SIZE_IN_BYTES (XNVM_MAX_NO_USER_FUSES * sizeof(u32))
-#define XNVM_MAX_AES_KEY_LEN_IN_CHARS	XNVM_256_BITS_AES_KEY_LEN_IN_CHARS
 #define XNVM_CACHE_LINE_LEN		(64U)
 #define XNVM_CACHE_ALIGNED_LEN		(XNVM_CACHE_LINE_LEN * 2U)
 #define Align(Size)		(Size + (XNVM_WORD_LEN - ((Size % 4 == 0U)?XNVM_WORD_LEN: (Size % XNVM_WORD_LEN))))
