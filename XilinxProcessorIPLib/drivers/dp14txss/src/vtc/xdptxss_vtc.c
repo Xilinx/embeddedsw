@@ -198,7 +198,7 @@ u32 XDpTxSs_VtcSetup(XVtc *InstancePtr, XDp_TxMainStreamAttributes *MsaConfig,
 	/* Check for interlaced mode */
 	VideoTiming.Interlaced =
 		(MsaConfig->Vtm.VmId == XVIDC_VM_CUSTOM ||
-		 !XVidC_GetVideoModeData(MsaConfig->Vtm.VmId)->Timing.F1VTotal) ?
+		 !XVidC_IsInterlaced(MsaConfig->Vtm.VmId)) ?
 		0 : 1;
 
 	/* Set timing */
