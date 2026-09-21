@@ -214,7 +214,7 @@ int XI2s_Rx_SetChMux(XI2s_Rx *InstancePtr, XI2s_Rx_ChannelId ChID,
 {
 	Xil_AssertNonvoid(InstancePtr != NULL);
 
-	if (ChID > XI2S_RX_NUM_CHANNELS)
+	if ((u32)ChID >= (u32)XI2S_RX_NUM_CHANNELS)
 		return XST_FAILURE;
 
 	int RegValue = 0;
