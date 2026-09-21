@@ -1,6 +1,6 @@
 /*******************************************************************************
 * Copyright (C) 2015 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -37,6 +37,7 @@
  * 6.0   aad  09/05/17 Reverted to enable end of line reset for RB resolutions.
  * 6.0   tu   09/06/17 Added Set UserPixelWidth support on tx side
  * 7.4   rg   09/26/20 Added support for YUV420 color format.
+ * 8.0   pam  09/21/26 Fixed vulnerability warnings
  * </pre>
  *
 *******************************************************************************/
@@ -430,6 +431,19 @@ void XDp_TxCfgMsaUseEdidPreferredTiming(XDp *InstancePtr, u8 Stream, u8 *Edid)
 					MsaConfig->Vtm.Timing.F0PVFrontPorch +
 					MsaConfig->Vtm.Timing.VActive +
 					MsaConfig->Vtm.Timing.F0PVBackPorch);
+
+	if ((MsaConfig->Vtm.Timing.HTotal == 0) ||
+			(MsaConfig->Vtm.Timing.F0PVTotal == 0)) {
+		/* Malformed/zeroed EDID PTM would divide by zero; fall back to
+		 * a safe default video mode instead. */
+		memcpy(&MsaConfig->Vtm,
+			XVidC_GetVideoModeData(XVIDC_VM_640x480_60_P),
+			sizeof(XVidC_VideoTimingMode));
+		MsaConfig->PixelClockHz =
+				XVidC_GetPixelClockHzByVmId(MsaConfig->Vtm.VmId);
+		XDp_TxCfgMsaRecalculate(InstancePtr, Stream);
+		return;
+	}
 
 	MsaConfig->Vtm.FrameRate = MsaConfig->PixelClockHz /
 					(MsaConfig->Vtm.Timing.HTotal *
