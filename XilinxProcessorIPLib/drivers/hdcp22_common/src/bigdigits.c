@@ -1101,11 +1101,11 @@ u32 mpSetZero(u32 a[], size_t ndigits)
 {	/* Sets a = 0 */
 
 	/* Prevent optimiser ignoring this */
-	u32 optdummy;
-	u32 *p = a;
+	volatile u32 optdummy;
+	volatile u32 *p = a;
 
 	while (ndigits--)
-		a[ndigits] = 0;
+		p[ndigits] = 0;
 
 	optdummy = *p;
 	return optdummy;
