@@ -126,7 +126,7 @@ void XSdiAud_IntrHandler(void *InstancePtr)
 		XSdiAud_IntrClr(SdiAudPtr, XSDIAUD_INT_ST_AUD_STAT_UPDATE_MASK);
 
 		/* Call the status change Detected Handler */
-		if (SdiAudPtr->StatChangeDetHandlerRef)
+		if (SdiAudPtr->StatChangeDetHandler)
 			SdiAudPtr->StatChangeDetHandler
 				(SdiAudPtr->StatChangeDetHandlerRef);
 	}
