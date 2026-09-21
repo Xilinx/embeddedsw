@@ -50,6 +50,7 @@
 void XI2s_Rx_LogWrite(XI2s_Rx *InstancePtr, XI2s_Rx_LogEvt Event, u8 Data)
 {
 	u16 LogBufSize = 0;
+	u16 NextHead;
 
 	/* Verify arguments */
 	Xil_AssertVoid(InstancePtr != NULL);
@@ -57,24 +58,22 @@ void XI2s_Rx_LogWrite(XI2s_Rx *InstancePtr, XI2s_Rx_LogEvt Event, u8 Data)
 
 	if (!InstancePtr->Log.IsEnabled)
 		return;
+
+	LogBufSize = sizeof(InstancePtr->Log.Items)/sizeof(XI2s_Rx_LogItem);
+	NextHead = InstancePtr->Log.Head + 1;
+	if (NextHead >= LogBufSize)
+		NextHead = 0;
+	if (NextHead == InstancePtr->Log.Tail)
+		return;
+
 	/* Write data and event into log buffer */
 	InstancePtr->Log.Items[InstancePtr->Log.Head].Data = Data;
 	InstancePtr->Log.Items[InstancePtr->Log.Head].Event = Event;
 
 	/* Update head pointer */
-	LogBufSize = sizeof(InstancePtr->Log.Items)/sizeof(XI2s_Rx_LogItem);
 	InstancePtr->Log.Head++;
-	if (InstancePtr->Log.Head == LogBufSize)
+	if (InstancePtr->Log.Head >= LogBufSize)
 		InstancePtr->Log.Head = 0;
-	/* Check tail pointer. When the two pointer are equal, then the buffer
-	 * is full. In this case then increment the tail pointer as well to
-	 * remove the oldest entry from the buffer.
-	 */
-	if (InstancePtr->Log.Tail == InstancePtr->Log.Head) {
-		InstancePtr->Log.Tail++;
-		if (InstancePtr->Log.Tail == LogBufSize)
-			InstancePtr->Log.Tail = 0;
-	}
 }
 
 /*****************************************************************************/
@@ -98,11 +97,15 @@ XI2s_Rx_LogItem* XI2s_Rx_LogRead(XI2s_Rx *InstancePtr)
 	/* Check if there is any data in the log buffer */
 	if (InstancePtr->Log.Tail == InstancePtr->Log.Head)
 		return NULL;
+
+	LogBufSize = sizeof(InstancePtr->Log.Items)/sizeof(XI2s_Rx_LogItem);
+	if (InstancePtr->Log.Tail >= LogBufSize)
+		InstancePtr->Log.Tail = 0;
+
 	LogPtr = &InstancePtr->Log.Items[InstancePtr->Log.Tail];
 
 	/* Increment tail pointer */
-	LogBufSize = sizeof(InstancePtr->Log.Items)/sizeof(XI2s_Rx_LogItem);
-	if (InstancePtr->Log.Tail == (LogBufSize - 1))
+	if (InstancePtr->Log.Tail >= (LogBufSize - 1))
 		InstancePtr->Log.Tail = 0;
 	else
 		InstancePtr->Log.Tail++;
