@@ -134,6 +134,7 @@ cp -r $SERVICES_DIR/xilcert/src/* $BSP_DIR/libsrc/xilcert/src/
 
 mkdir -p $BSP_DIR/libsrc/xilsecure/src
 cp -r $SERVICES_DIR/xilsecure/src/Makefile $BSP_DIR/libsrc/xilsecure/src
+cp $SERVICES_DIR/xilsecure/src/*.h $BSP_DIR/libsrc/xilsecure/src/
 cp -r $SERVICES_DIR/xilsecure/src/common/core/* $BSP_DIR/libsrc/xilsecure/src/
 cp -r $SERVICES_DIR/xilsecure/src/server/core/aes/* $BSP_DIR/libsrc/xilsecure/src/
 cp -r $SERVICES_DIR/xilsecure/src/server/core/rsa/* $BSP_DIR/libsrc/xilsecure/src/
