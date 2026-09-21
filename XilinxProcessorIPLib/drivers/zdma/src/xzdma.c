@@ -787,8 +787,8 @@ XZDmaState XZDma_ChannelState(XZDma *InstancePtr)
 *		- For simple mode Num should be equal to 1
 *		- For Scatter gather mode (either linear or linked list) Num
 *		  can be any choice. (But based on which memory should be
-*		  allocated by Application) It should be less than the return
-*		  value of XZDma_CreateBDList.
+*		  allocated by Application) It should be less than or equal to
+*		  the return value of XZDma_CreateBDList.
 *
 * @return
 *		- XST_SUCCESS - if ZDMA initiated the transfer.
@@ -814,8 +814,9 @@ s32 XZDma_Start(XZDma *InstancePtr, XZDma_Transfer *Data, u32 Num)
 	Xil_AssertNonvoid(Data != NULL);
 	Xil_AssertNonvoid(Num != 0x00U);
 
-	if ((InstancePtr->ChannelState == XZDMA_BUSY) &&
-	    (Num >= InstancePtr->Descriptor.DscrCount)) {
+	if ((InstancePtr->ChannelState == XZDMA_BUSY) ||
+	    ((InstancePtr->IsSgDma == TRUE) &&
+	     (Num > InstancePtr->Descriptor.DscrCount))) {
 		Status = XST_FAILURE;
 	} else {
 		if (InstancePtr->IsSgDma != TRUE) {
