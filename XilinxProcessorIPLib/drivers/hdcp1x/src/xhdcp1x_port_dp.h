@@ -87,7 +87,7 @@ extern "C" {
 #define XHDCP1X_PORT_SIZE_KSVFIFO	(0x0Fu)   /**< KSV FIFO Size      */
 #define XHDCP1X_PORT_SIZE_AINFO		(0x01u)   /**< Ainfo Offset       */
 #define XHDCP1X_PORT_SIZE_DBG		(0x40u)   /**< Debug Space Size   */
-#define XHDCP1X_PORT_SIZE_HDCP_RESET_KSV (0x40u)   /**< KSV FIFO pointer
+#define XHDCP1X_PORT_SIZE_HDCP_RESET_KSV (0x04u)   /**< KSV FIFO pointer
 						     *  reset Size   */
 
 /**
