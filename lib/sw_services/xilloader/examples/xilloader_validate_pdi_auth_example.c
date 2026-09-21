@@ -25,8 +25,26 @@
 * 1.00  har  12/11/23 Initial release
 *       kpt  10/04/24 Added support to validate authentication enabled partial PDI
 * 2.40  sri  03/26/26 Included common client header file for cache disable option
+* 2.50  sri  09/18/26 Added PDI_SRC_SIZE_IN_BYTES macro for the user to input the size
+*                     of the PDI downloaded into DDR and used it as the D-cache
+*                     invalidate length instead of sizeof of the address variable
 *
 * </pre>
+*
+* Procedure to run the example
+* -------------------------------------------------------------------------------------------------
+* 1. Update the example defines below for the PDI that will be downloaded into DDR:
+*		PDI_SRC_ADDR          - Address in DDR where the authenticated PDI is placed
+*		PDI_SRC_SIZE_IN_BYTES - Size in bytes of the PDI to be downloaded to run this
+*		                        example. It is used as the D-cache invalidate length
+*		                        when cache is enabled, so it must cover the complete
+*		                        PDI downloaded into DDR
+*		PDI_TYPE              - XLOADER_PDI_TYPE_FULL for full PDI or
+*		                        XLOADER_PDI_TYPE_PARTIAL for partial PDI
+* 2. Load the Boot PDI.
+* 3. Download the authenticated PDI of PDI_SRC_SIZE_IN_BYTES bytes into DDR at
+*    PDI_SRC_ADDR (for example, xsdb: dow -data -force pdi.bin PDI_SRC_ADDR).
+* 4. Select the target, download this example ELF and run it.
 *
 * Procedure to link and compile the example for the default ddr less designs
 * -------------------------------------------------------------------------------------------------
@@ -73,6 +91,9 @@
 /************************************ Constant Definitions ***************************************/
 /* Example defines below, update with required values*/
 #define PDI_SRC_ADDR		(0x1000000U) /**< Address where authenticated PDI is available */
+#define PDI_SRC_SIZE_IN_BYTES	(0x100000U) /**< Size in bytes of the PDI to be downloaded
+						at PDI_SRC_ADDR to run this example. Update with
+						the size of the PDI downloaded into DDR */
 #define PDI_TYPE		(XLOADER_PDI_TYPE_FULL) /**< XLOADER_PDI_TYPE_FULL for full PDI
 						XLOADER_PDI_TYPE_PARTIAL for partial PDI */
 
@@ -158,13 +179,13 @@ static int ValidateAuthPdi(XLoader_ClientInstance *InstancePtr)
 	u64 PdiAddr = PDI_SRC_ADDR;
 
 #ifndef XLOADER_CACHE_DISABLE
-	Xil_DCacheInvalidateRange((UINTPTR)PdiAddr, sizeof(PdiAddr));
+	Xil_DCacheInvalidateRange((UINTPTR)PdiAddr, PDI_SRC_SIZE_IN_BYTES);
 #endif
 
 	Status = XLoader_ValidatePdiAuth(InstancePtr, PdiAddr, PDI_TYPE);
 
 #ifndef XLOADER_CACHE_DISABLE
-	Xil_DCacheInvalidateRange((UINTPTR)PdiAddr, sizeof(PdiAddr));
+	Xil_DCacheInvalidateRange((UINTPTR)PdiAddr, PDI_SRC_SIZE_IN_BYTES);
 #endif
 
 	return Status;
