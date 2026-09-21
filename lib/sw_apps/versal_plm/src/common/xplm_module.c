@@ -69,6 +69,10 @@
 *                       weak XPmUpdate_RestoreNotifierEmActions()
 *       tus  04/23/2026 Store the value returned by XNvm_Init in Status
 *                       and check for success.
+*       vid  08/18/2026 Passed XTpm_ModuleInit (or NULL) via XPlmi_Init()'s
+*                       TpmModuleInitHandler parameter instead of xilplmi
+*                       calling XTpm_ModuleInit() directly, to break a
+*                       circular xilplmi-xiltpm BitBake dependency
 *
 * </pre>
 *
@@ -118,6 +122,9 @@
 #ifdef VERSAL_2VE_2VM
 #include "xplmi_asu_cmd.h"
 #endif
+#ifdef PLM_TPM
+#include "xtpm.h"
+#endif
 
 /************************** Constant Definitions *****************************/
 
@@ -164,7 +171,12 @@ int XPlm_ModuleInit(void *Arg)
 	 *   - TPM (only for Versal)
 	 */
 
-	Status = XPlmi_Init(XPm_IsMemAddressValid);
+#ifdef PLM_TPM
+	Status = XPlmi_Init(XPm_IsMemAddressValid, XTpm_ModuleInit);
+#else
+	Status = XPlmi_Init(XPm_IsMemAddressValid, NULL);
+#endif
+
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}

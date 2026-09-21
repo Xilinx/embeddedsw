@@ -73,6 +73,10 @@
 *       tvp  24/12/2025 Added RTCA define for JTAG enablement for secondary PDI
 *       ias  03/26/2026 Added RTCA register and masks for boot device release policy
 * 2.5   am   06/24/2026 Updated SDK release version
+*       vid  08/18/2026 Added XPlmi_TpmModuleInit_t and a
+*                       TpmModuleInitHandler parameter to XPlmi_Init() to
+*                       decouple TPM module init from xilplmi, avoiding a
+*                       circular BitBake dependency with xiltpm
 * </pre>
 *
 * @note
@@ -287,7 +291,15 @@ static inline u8 XPlmi_IsUartPrintInitialized(void)
 #define XPLMI_PMC_CDO_MAX_WORD_LEN	(XPLMI_PMC_CDO_MAX_LEN / XPLMI_WORD_LEN)
 
 /************************** Function Prototypes ******************************/
-int XPlmi_Init(XPlmi_IsAddrRangeValid_t IsAddrRangeValidHandler);
+/**
+ * Callback type for TPM module initialization. Used so that xilplmi does not
+ * need to directly depend on xiltpm headers (avoids circular BitBake deps).
+ * The app (e.g. versal_plm) passes its handler (or NULL) via XPlmi_Init()'s
+ * TpmModuleInitHandler parameter.
+ */
+typedef u32 (*XPlmi_TpmModuleInit_t)(void);
+
+int XPlmi_Init(XPlmi_IsAddrRangeValid_t IsAddrRangeValidHandler, XPlmi_TpmModuleInit_t TpmModuleInitHandler);
 void XPlmi_LpdInit(void);
 void XPlmi_ResetLpdInitialized(void);
 void XPlmi_PrintPlmBanner(void);

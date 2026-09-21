@@ -69,6 +69,13 @@
 *       pre  09/08/2025 Added logic to avoid flooding of log buffer with repeated error messages
 *       pre  03/16/2026 Added client support for TPM module
 *       pre  07/24/2026 Enabled TPM feature for VERSAL_2VP devices
+*       vid  08/18/2026 Decoupled TPM module init from xiltpm using a
+*                       TpmModuleInitHandler parameter to XPlmi_Init(),
+*                       stored in a static callback, instead of calling
+*                       XTpm_ModuleInit() directly, to break a circular
+*                       xilplmi-xiltpm BitBake dependency. Validate the
+*                       handler in XPlmi_Init() itself (fail fast) so
+*                       XPlmi_LpdInit() can call it directly
 *
 * </pre>
 *
@@ -92,9 +99,6 @@
 #include "xplmi_wdt.h"
 #include "xil_util.h"
 #include "xplmi_err.h"
-#ifdef PLM_TPM
-#include "xtpm.h"
-#endif
 
 /************************** Constant Definitions *****************************/
 
@@ -110,6 +114,13 @@ static void XPlmi_PrintEarlyLog(void);
 /**< Global address range validation handler */
 XPlmi_IsAddrRangeValid_t XPlmi_IsAddrRangeValid = NULL;
 
+/**< TPM module init handler, assigned via XPlmi_Init()'s TpmModuleInitHandler
+ *   parameter to avoid a direct/circular dependency between xilplmi and
+ *   xiltpm. Only used within this file, so kept static. */
+#if ((defined(versal) || defined(VERSAL_2VE_2VM) || defined(VERSAL_2VP)) && defined(PLM_TPM))
+static XPlmi_TpmModuleInit_t XPlmi_TpmModuleInitHandler = NULL;
+#endif
+
 /******************************************************************************/
 /**
  * @brief	This function will initialize the PLMI module.
@@ -117,14 +128,19 @@ XPlmi_IsAddrRangeValid_t XPlmi_IsAddrRangeValid = NULL;
  * @param	IsAddrRangeValidHandler - Function pointer to address range
  *			validation handler that validates if a given address range
  *			is accessible by the specified subsystem.
+ * @param	TpmModuleInitHandler - Function pointer to the TPM module init
+ *			function, applicable only for Versal, Versal_2VP and
+ *			Versal_2VE_2VM when PLM_TPM is enabled. Pass NULL otherwise.
  *
  * @return
  *			- XST_SUCCESS on success.
  *			- XPLMI_ERR_PRE_INIT if pre initialization fails.
  *			- XPLMI_ERR_REGISTER_VERIFY_ADDR_RANGE_HANDLER if handler is NULL.
+ *			- XPLMI_ERR_TPM_INIT if TpmModuleInitHandler is NULL when
+ *			  required.
  *
  ****************************************************************************/
-int XPlmi_Init(XPlmi_IsAddrRangeValid_t IsAddrRangeValidHandler)
+int XPlmi_Init(XPlmi_IsAddrRangeValid_t IsAddrRangeValidHandler, XPlmi_TpmModuleInit_t TpmModuleInitHandler)
 {
 	int Status = XST_FAILURE;
 
@@ -147,6 +163,16 @@ int XPlmi_Init(XPlmi_IsAddrRangeValid_t IsAddrRangeValidHandler)
 	}
 	XPlmi_GenericInit();
 	Xil_RegisterPlmHandler(XPlmi_SetPlmLiveStatus);
+
+#if ((defined(versal) || defined(VERSAL_2VE_2VM) || defined(VERSAL_2VP)) && defined(PLM_TPM))
+	if (TpmModuleInitHandler == NULL) {
+		Status = XPlmi_UpdateStatus(XPLMI_ERR_TPM_INIT, (int)XST_FAILURE);
+		goto END;
+	}
+	XPlmi_TpmModuleInitHandler = TpmModuleInitHandler;
+#else
+	(void)TpmModuleInitHandler;
+#endif
 
 END:
 	return Status;
@@ -262,7 +288,7 @@ void XPlmi_LpdInit(void)
 		}
 	#if ((defined(versal) || defined(VERSAL_2VE_2VM) || defined(VERSAL_2VP)) && defined(PLM_TPM))
 		/* TPM module is applicable for Versal, Versal_2VP and Versal_2VE_2VM only */
-		Status = (int)XTpm_ModuleInit();
+		Status = (int)XPlmi_TpmModuleInitHandler();
 		if (Status != XST_SUCCESS) {
 			goto END;
 		}
