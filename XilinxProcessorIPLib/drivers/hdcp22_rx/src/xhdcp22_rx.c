@@ -3039,7 +3039,8 @@ static int XHdcp22Rx_ProcessMessageAKENoStoredKm(XHdcp22_Rx *InstancePtr)
 	/* Compute Km, Perform RSA decryption */
 	XHdcp22Rx_LogWr(InstancePtr, XHDCP22_RX_LOG_EVT_DEBUG, XHDCP22_RX_LOG_DEBUG_COMPUTE_KM);
 	Status = XHdcp22Rx_RsaesOaepDecrypt(InstancePtr, (XHdcp22_Rx_KprivRx *)(InstancePtr->PrivateKeyPtr),
-										MsgPtr->AKENoStoredKm.EKpubKm, InstancePtr->Params.Km, &Size);
+										MsgPtr->AKENoStoredKm.EKpubKm, InstancePtr->Params.Km,
+										sizeof(InstancePtr->Params.Km), &Size);
 	XHdcp22Rx_LogWr(InstancePtr, XHDCP22_RX_LOG_EVT_DEBUG, XHDCP22_RX_LOG_DEBUG_COMPUTE_KM_DONE);
 
 	return (Status == XST_SUCCESS && Size == XHDCP22_RX_KM_SIZE) ? XST_SUCCESS : XST_FAILURE;
