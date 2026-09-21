@@ -24,10 +24,40 @@
 
 /************************** Constant Definitions *****************************/
 #define XAUD_CHSTAT_NUMBER_OF_BYTES  24
-/************************** Function Prototypes ******************************/
-
+/************************** Function Prototypes *****************************/
+static u32 XAudioFormatter_GetChanOffset(XAudioFormatter_ChannelId ChannelId,
+	u32 *Offset);
 
 /************************** Function Definitions *****************************/
+/*****************************************************************************/
+/**
+*
+* This function maps ChannelId to the S2MM or MM2S register-bank offset.
+*
+* @param	ChannelId is the DMA channel selector.
+* @param	Offset is a pointer to receive the register-bank offset.
+*
+* @return
+*		- XST_SUCCESS if ChannelId is S2MM or MM2S.
+*		- XST_FAILURE if ChannelId is unknown.
+*
+* @note		None.
+*
+******************************************************************************/
+static u32 XAudioFormatter_GetChanOffset(XAudioFormatter_ChannelId ChannelId,
+	u32 *Offset)
+{
+	if (ChannelId == XAudioFormatter_S2MM) {
+		*Offset = XAUD_FORMATTER_S2MM_OFFSET;
+		return XST_SUCCESS;
+	} else if (ChannelId == XAudioFormatter_MM2S) {
+		*Offset = XAUD_FORMATTER_MM2S_OFFSET;
+		return XST_SUCCESS;
+	}
+
+	return XST_FAILURE;
+}
+
 /*****************************************************************************/
 /**
 *
@@ -43,11 +73,10 @@ void XAudioFormatterDMAReset(XAudioFormatter *InstancePtr)
 	u32 offset;
 	u32 val;
 
-	if (InstancePtr->ChannelId == XAudioFormatter_S2MM) {
-		offset = XAUD_FORMATTER_S2MM_OFFSET;
-	}
-	if (InstancePtr->ChannelId == XAudioFormatter_MM2S) {
-		offset = XAUD_FORMATTER_MM2S_OFFSET;
+	if (XAudioFormatter_GetChanOffset(InstancePtr->ChannelId, &offset) !=
+			XST_SUCCESS) {
+		Xil_AssertVoid(FALSE);
+		return;
 	}
 	val = XAudioFormatter_ReadReg(InstancePtr->BaseAddress,
 		XAUD_FORMATTER_CTRL + offset);
@@ -121,11 +150,10 @@ void XAudioFormatter_InterruptClear(XAudioFormatter *InstancePtr, u32 mask)
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-	if (InstancePtr->ChannelId == XAudioFormatter_S2MM) {
-		offset = XAUD_FORMATTER_S2MM_OFFSET;
-	}
-	if (InstancePtr->ChannelId == XAudioFormatter_MM2S) {
-		offset = XAUD_FORMATTER_MM2S_OFFSET;
+	if (XAudioFormatter_GetChanOffset(InstancePtr->ChannelId, &offset) !=
+			XST_SUCCESS) {
+		Xil_AssertVoid(FALSE);
+		return;
 	}
 	val = XAudioFormatter_ReadReg(InstancePtr->BaseAddress,
 		XAUD_FORMATTER_STS + offset);
@@ -153,11 +181,10 @@ void XAudioFormatter_InterruptEnable(XAudioFormatter *InstancePtr, u32 Mask)
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-	if (InstancePtr->ChannelId == XAudioFormatter_S2MM) {
-		offset = XAUD_FORMATTER_S2MM_OFFSET;
-	}
-	if (InstancePtr->ChannelId == XAudioFormatter_MM2S) {
-		offset = XAUD_FORMATTER_MM2S_OFFSET;
+	if (XAudioFormatter_GetChanOffset(InstancePtr->ChannelId, &offset) !=
+			XST_SUCCESS) {
+		Xil_AssertVoid(FALSE);
+		return;
 	}
 	val = XAudioFormatter_ReadReg(InstancePtr->BaseAddress,
 		XAUD_FORMATTER_CTRL + offset);
@@ -186,11 +213,10 @@ void XAudioFormatter_InterruptDisable(XAudioFormatter *InstancePtr, u32 Mask)
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-	if (InstancePtr->ChannelId == XAudioFormatter_S2MM) {
-		offset = XAUD_FORMATTER_S2MM_OFFSET;
-	}
-	if (InstancePtr->ChannelId == XAudioFormatter_MM2S) {
-		offset = XAUD_FORMATTER_MM2S_OFFSET;
+	if (XAudioFormatter_GetChanOffset(InstancePtr->ChannelId, &offset) !=
+			XST_SUCCESS) {
+		Xil_AssertVoid(FALSE);
+		return;
 	}
 	val = XAudioFormatter_ReadReg(InstancePtr->BaseAddress,
 		XAUD_FORMATTER_CTRL + offset);
@@ -217,11 +243,10 @@ void XAudioFormatterDMAStart(XAudioFormatter *InstancePtr)
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-	if (InstancePtr->ChannelId == XAudioFormatter_S2MM) {
-		offset = XAUD_FORMATTER_S2MM_OFFSET;
-	}
-	if (InstancePtr->ChannelId == XAudioFormatter_MM2S) {
-		offset = XAUD_FORMATTER_MM2S_OFFSET;
+	if (XAudioFormatter_GetChanOffset(InstancePtr->ChannelId, &offset) !=
+			XST_SUCCESS) {
+		Xil_AssertVoid(FALSE);
+		return;
 	}
 	val = XAudioFormatter_ReadReg(InstancePtr->BaseAddress,
 		XAUD_FORMATTER_CTRL + offset);
@@ -248,11 +273,10 @@ void XAudioFormatterDMAStop(XAudioFormatter *InstancePtr)
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-	if (InstancePtr->ChannelId == XAudioFormatter_S2MM) {
-		offset = XAUD_FORMATTER_S2MM_OFFSET;
-	}
-	if (InstancePtr->ChannelId == XAudioFormatter_MM2S) {
-		offset = XAUD_FORMATTER_MM2S_OFFSET;
+	if (XAudioFormatter_GetChanOffset(InstancePtr->ChannelId, &offset) !=
+			XST_SUCCESS) {
+		Xil_AssertVoid(FALSE);
+		return;
 	}
 	val = XAudioFormatter_ReadReg(InstancePtr->BaseAddress,
 		XAUD_FORMATTER_CTRL + offset);
@@ -280,6 +304,7 @@ void XAudioFormatterSetHwParams(XAudioFormatter *InstancePtr,
 	u32 val;
 	u32 offset;
 	u32 bytes_per_ch;
+	XAudioFormatter_ChannelId ChannelId;
 
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
@@ -289,17 +314,19 @@ void XAudioFormatterSetHwParams(XAudioFormatter *InstancePtr,
 			hw_params->periods <= XAUD_PERIODS_MAX);
 	Xil_AssertVoid(hw_params->bytes_per_period >= XAUD_PERIOD_BYTES_MIN &&
 			hw_params->bytes_per_period <= XAUD_PERIOD_BYTES_MAX);
-	if (InstancePtr->ChannelId == XAudioFormatter_S2MM) {
+	ChannelId = InstancePtr->ChannelId;
+	if (ChannelId == XAudioFormatter_S2MM) {
 		Xil_AssertVoid(hw_params->active_ch >= XAUD_CHANNELS_MIN &&
 			hw_params->active_ch <=
 			InstancePtr->Config.MaxChannelsS2MM);
-		offset = XAUD_FORMATTER_S2MM_OFFSET;
-	}
-	if (InstancePtr->ChannelId == XAudioFormatter_MM2S) {
+	} else if (ChannelId == XAudioFormatter_MM2S) {
 		Xil_AssertVoid(hw_params->active_ch >= XAUD_CHANNELS_MIN &&
 			hw_params->active_ch <=
 			InstancePtr->Config.MaxChannelsMM2S);
-		offset = XAUD_FORMATTER_MM2S_OFFSET;
+	}
+	if (XAudioFormatter_GetChanOffset(ChannelId, &offset) != XST_SUCCESS) {
+		Xil_AssertVoid(FALSE);
+		return;
 	}
 	XAudioFormatter_WriteReg(InstancePtr->BaseAddress,
 		XAUD_FORMATTER_BUFF_ADDR_LSB + offset,
@@ -359,11 +386,10 @@ u32 XAudioFormatterGetDMATransferCount(XAudioFormatter *InstancePtr)
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-	if (InstancePtr->ChannelId == XAudioFormatter_S2MM) {
-		offset = XAUD_FORMATTER_S2MM_OFFSET;
-	}
-	if (InstancePtr->ChannelId == XAudioFormatter_MM2S) {
-		offset = XAUD_FORMATTER_MM2S_OFFSET;
+	if (XAudioFormatter_GetChanOffset(InstancePtr->ChannelId, &offset) !=
+			XST_SUCCESS) {
+		Xil_AssertNonvoid(FALSE);
+		return 0;
 	}
 	val = XAudioFormatter_ReadReg(InstancePtr->BaseAddress,
 		XAUD_FORMATTER_XFER_COUNT + offset);
@@ -429,11 +455,10 @@ void XSdiAud_GetChStat(XAudioFormatter *InstancePtr, u8 *ChStatBuf)
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(ChStatBuf != NULL);
 
-	if (InstancePtr->ChannelId == XAudioFormatter_S2MM) {
-		offset = XAUD_FORMATTER_S2MM_OFFSET;
-	}
-	if (InstancePtr->ChannelId == XAudioFormatter_MM2S) {
-		offset = XAUD_FORMATTER_MM2S_OFFSET;
+	if (XAudioFormatter_GetChanOffset(InstancePtr->ChannelId, &offset) !=
+			XST_SUCCESS) {
+		Xil_AssertVoid(FALSE);
+		return;
 	}
 	RegOffset = XAUD_FORMATTER_CH_STS_START + offset;
 	for (int i = 0; i < NumBytes; i += 4) {
