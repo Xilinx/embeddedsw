@@ -726,6 +726,13 @@ u32 XDp_TxFindAccessibleDpDevices(XDp *InstancePtr, u8 LinkCountTotal,
 	 * this branch device. */
 	LinkCountTotal++;
 
+	/* DisplayPort limits a chain to 15 links; refuse to go deeper to avoid
+	 * writing past the 15-byte RAD buffer and unbounded recursion driven
+	 * by a malicious branch device. */
+	if (LinkCountTotal > 15) {
+		return XST_FAILURE;
+	}
+
 	u8 DownBranchesDownPorts[DeviceInfo.NumPorts];
 	for (Index = 0; Index < DeviceInfo.NumPorts &&
 			Topology->NodeTotal < (sizeof(Topology->NodeTable) /
