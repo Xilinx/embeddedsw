@@ -47,12 +47,12 @@
 * 4.15  bdk  12/08/25 Updated comments to support SDT flow for Doxygen
 *                     documentation.
 * 4.15  ml   02/03/26 Fix codespell warnings
+* 4.16  ml   16/09/26 Fixed doxygen 1.15.0 and compliance checker warnings.
 * </pre>
 *
 ******************************************************************************/
 
 /***************************** Include Files *********************************/
-
 #include "xstatus.h"
 #ifndef SDT
 #include "xparameters.h"
@@ -62,32 +62,27 @@
 
 /************************** Constant Definitions *****************************/
 
-
 /**************************** Type Definitions *******************************/
-
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
-
 /************************** Function Prototypes ******************************/
-
 static void XTmrCtr_StubCallback(void *CallBackRef, u8 TmrCtrNumber);
 
 /************************** Variable Definitions *****************************/
 
 /*****************************************************************************/
 /**
-* This function populates the timer counter's configuration structure and sets
+*
+* @brief This function populates the timer counter's configuration structure and sets
 * some configurations defaults.
 *
-* @param	InstancePtr is a pointer to the XTmrCtr instance.
-* @param	ConfigPtr is a pointer to the configuration structure that will
+* @param[in]	InstancePtr is a pointer to the XTmrCtr instance.
+* @param[in]	ConfigPtr is a pointer to the configuration structure that will
 *		be used to copy the settings from.
-* @param	EffectiveAddr is the device base address in the virtual memory
+* @param[in]	EffectiveAddr is the device base address in the virtual memory
 *		space. If the address translation is not used, then the physical
 *		address is passed.
-*
-* @return	None.
 *
 * @note		Unexpected errors may occur if the address mapping is changed
 *		after this function is invoked.
@@ -97,7 +92,7 @@ void XTmrCtr_CfgInitialize(XTmrCtr *InstancePtr, XTmrCtr_Config *ConfigPtr,
 			   UINTPTR EffectiveAddr)
 {
 	u32 WasReady;
-	/* Verify arguments. */
+	// Verify arguments.
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(ConfigPtr != NULL);
 	Xil_AssertVoid(EffectiveAddr != 0x0);
@@ -125,15 +120,13 @@ void XTmrCtr_CfgInitialize(XTmrCtr *InstancePtr, XTmrCtr_Config *ConfigPtr,
 
 /*****************************************************************************/
 /**
-* (Re-)initializes all timer counters which aren't started already.
 *
-* @param	InstancePtr is a pointer to the XTmrCtr instance.
+* @brief (Re-)initializes all timer counters which aren't started already.
 *
-* @return
-*		- XST_SUCCESS if at least one timer counter is stopped.
+* @param[in]	InstancePtr is a pointer to the XTmrCtr instance.
+*
+* @return	- XST_SUCCESS if at least one timer counter is stopped.
 *		- XST_DEVICE_IS_STARTED otherwise.
-*
-* @note		None.
 *
 ******************************************************************************/
 int XTmrCtr_InitHw(XTmrCtr *InstancePtr)
@@ -142,7 +135,7 @@ int XTmrCtr_InitHw(XTmrCtr *InstancePtr)
 	u8 TmrIndex;
 	u32 TmrCtrStarted[XTC_DEVICE_TIMER_COUNT];
 
-	/* Verify arguments. */
+	// Verify arguments.
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
@@ -151,11 +144,10 @@ int XTmrCtr_InitHw(XTmrCtr *InstancePtr)
 
 	for (TmrIndex = 0; TmrIndex < XTC_DEVICE_TIMER_COUNT; TmrIndex++) {
 		/* Only initialize timers counters which aren't started. */
-		if (TmrCtrStarted[TmrIndex] == XIL_COMPONENT_IS_STARTED) {
+		if (TmrCtrStarted[TmrIndex] == XIL_COMPONENT_IS_STARTED)
 			continue;
-		}
 
-		/* Set the compare register to 0. */
+		/**< Set the compare register to 0. */
 		XTmrCtr_WriteReg(InstancePtr->BaseAddress, TmrIndex,
 				 XTC_TLR_OFFSET, 0);
 		/* Reset the timer and the interrupt. */
@@ -176,23 +168,22 @@ int XTmrCtr_InitHw(XTmrCtr *InstancePtr)
 
 /*****************************************************************************/
 /**
-* Initializes a specific timer/counter instance/driver. Initialize fields of
+*
+* @brief Initializes a specific timer/counter instance/driver. Initialize fields of
 * the XTmrCtr structure, then reset the timer/counter.If a timer is already
 * running then it is not initialized.
 *
-*
-* @param	InstancePtr is a pointer to the XTmrCtr instance.
+* @param[in]	InstancePtr is a pointer to the XTmrCtr instance.
 * @if SDT
-* @param	BaseAddr is the base address of the device
+* @param[in]	BaseAddr is the base address of the device
 * @else
-* @param	DeviceId is the unique id of the device controlled by this
+* @param[in]	DeviceId is the unique id of the device controlled by this
 *		XTmrCtr component.  Passing in a device id associates the
 *		generic XTmrCtr component to a specific device, as chosen by
 *		the caller or application developer.
 * @endif
 *
-* @return
-*		- XST_SUCCESS if initialization was successful
+* @return	- XST_SUCCESS if initialization was successful
 *		- XST_DEVICE_IS_STARTED if the device has already been started
 *		- XST_DEVICE_NOT_FOUND if the device doesn't exist
 *
@@ -201,9 +192,9 @@ int XTmrCtr_InitHw(XTmrCtr *InstancePtr)
 *
 ******************************************************************************/
 #ifndef SDT
-int XTmrCtr_Initialize(XTmrCtr *InstancePtr, u16 DeviceId)
+	int XTmrCtr_Initialize(XTmrCtr *InstancePtr, u16 DeviceId)
 #else
-int XTmrCtr_Initialize(XTmrCtr *InstancePtr, UINTPTR BaseAddr)
+	int XTmrCtr_Initialize(XTmrCtr *InstancePtr, UINTPTR BaseAddr)
 #endif
 {
 	XTmrCtr_Config *ConfigPtr;
@@ -213,19 +204,17 @@ int XTmrCtr_Initialize(XTmrCtr *InstancePtr, UINTPTR BaseAddr)
 	/* In case all timer counters are already started, don't proceed with
 	 * re-initialization. */
 	if ((InstancePtr->IsStartedTmrCtr0 == XIL_COMPONENT_IS_STARTED) &&
-	    (InstancePtr->IsStartedTmrCtr1 == XIL_COMPONENT_IS_STARTED)) {
+	    (InstancePtr->IsStartedTmrCtr1 == XIL_COMPONENT_IS_STARTED))
 		return XST_DEVICE_IS_STARTED;
-	}
 
-	/* Retrieve configuration of timer counter core with matching ID. */
+	/**< Retrieve configuration of timer counter core with matching ID. */
 #ifndef SDT
 	ConfigPtr = XTmrCtr_LookupConfig(DeviceId);
 #else
 	ConfigPtr = XTmrCtr_LookupConfig(BaseAddr);
 #endif
-	if (!ConfigPtr) {
+	if (!ConfigPtr)
 		return XST_DEVICE_NOT_FOUND;
-	}
 
 	XTmrCtr_CfgInitialize(InstancePtr, ConfigPtr, ConfigPtr->BaseAddress);
 
@@ -235,7 +224,7 @@ int XTmrCtr_Initialize(XTmrCtr *InstancePtr, UINTPTR BaseAddr)
 /*****************************************************************************/
 /**
 *
-* Starts the specified timer counter of the device such that it starts running.
+* @brief Starts the specified timer counter of the device such that it starts running.
 * The timer counter is reset before it is started and the reset value is
 * loaded into the timer counter.
 *
@@ -244,15 +233,11 @@ int XTmrCtr_Initialize(XTmrCtr *InstancePtr, UINTPTR BaseAddr)
 * typically an interrupt controller, and enable the interrupt within the
 * interrupt controller.
 *
-* @param	InstancePtr is a pointer to the XTmrCtr instance.
-* @param	TmrCtrNumber is the timer counter of the device to operate on.
+* @param[in]	InstancePtr is a pointer to the XTmrCtr instance.
+* @param[in]	TmrCtrNumber is the timer counter of the device to operate on.
 *		Each device may contain multiple timer counters. The timer
 *		number is a zero based number with a range of
 *		0 - (XTC_DEVICE_TIMER_COUNT - 1).
-*
-* @return	None.
-*
-* @note		None.
 *
 ******************************************************************************/
 void XTmrCtr_Start(XTmrCtr *InstancePtr, u8 TmrCtrNumber)
@@ -280,15 +265,14 @@ void XTmrCtr_Start(XTmrCtr *InstancePtr, u8 TmrCtrNumber)
 			 XTC_CSR_LOAD_MASK);
 
 
-
 	/*
 	 * Indicate that the timer is started before enabling it
 	 */
-	if (TmrCtrNumber == 0) {
+	if (TmrCtrNumber == 0)
 		InstancePtr->IsStartedTmrCtr0 = XIL_COMPONENT_IS_STARTED;
-	} else {
+
+	else
 		InstancePtr->IsStartedTmrCtr1 = XIL_COMPONENT_IS_STARTED;
-	}
 
 
 	/*
@@ -303,21 +287,17 @@ void XTmrCtr_Start(XTmrCtr *InstancePtr, u8 TmrCtrNumber)
 /*****************************************************************************/
 /**
 *
-* Stops the timer counter by disabling it.
+* @brief Stops the timer counter by disabling it.
 *
 * It is the callers' responsibility to disconnect the interrupt handler of the
 * timer_counter from the interrupt source, typically an interrupt controller,
 * and disable the interrupt within the interrupt controller.
 *
-* @param	InstancePtr is a pointer to the XTmrCtr instance.
-* @param	TmrCtrNumber is the timer counter of the device to operate on.
+* @param[in]	InstancePtr is a pointer to the XTmrCtr instance.
+* @param[in]	TmrCtrNumber is the timer counter of the device to operate on.
 *		Each device may contain multiple timer counters. The timer
 *		number is a zero based number with a range of
 *		0 - (XTC_DEVICE_TIMER_COUNT - 1).
-*
-* @return	None.
-*
-* @note		None.
 *
 ******************************************************************************/
 void XTmrCtr_Stop(XTmrCtr *InstancePtr, u8 TmrCtrNumber)
@@ -347,29 +327,27 @@ void XTmrCtr_Stop(XTmrCtr *InstancePtr, u8 TmrCtrNumber)
 	/*
 	 * Indicate that the timer is stopped
 	 */
-	if (TmrCtrNumber == 0) {
+	if (TmrCtrNumber == 0)
 		InstancePtr->IsStartedTmrCtr0 = 0;
-	} else {
+
+	else
 		InstancePtr->IsStartedTmrCtr1 = 0;
-	}
 }
 
 /*****************************************************************************/
 /**
 *
-* Get the current value of the specified timer counter.  The timer counter
+* @brief Get the current value of the specified timer counter.  The timer counter
 * may be either incrementing or decrementing based upon the current mode of
 * operation.
 *
-* @param	InstancePtr is a pointer to the XTmrCtr instance.
-* @param	TmrCtrNumber is the timer counter of the device to operate on.
+* @param[in]	InstancePtr is a pointer to the XTmrCtr instance.
+* @param[in]	TmrCtrNumber is the timer counter of the device to operate on.
 *		Each device may contain multiple timer counters. The timer
 *		number is a zero based number  with a range of
 *		0 - (XTC_DEVICE_TIMER_COUNT - 1).
 *
 * @return	The current value for the timer counter.
-*
-* @note		None.
 *
 ******************************************************************************/
 u32 XTmrCtr_GetValue(XTmrCtr *InstancePtr, u8 TmrCtrNumber)
@@ -386,21 +364,17 @@ u32 XTmrCtr_GetValue(XTmrCtr *InstancePtr, u8 TmrCtrNumber)
 /*****************************************************************************/
 /**
 *
-* Set the reset value for the specified timer counter. This is the value
+* @brief Set the reset value for the specified timer counter. This is the value
 * that is loaded into the timer counter when it is reset. This value is also
 * loaded when the timer counter is started.
 *
-* @param	InstancePtr is a pointer to the XTmrCtr instance.
-* @param	TmrCtrNumber is the timer counter of the device to operate on.
+* @param[in]	InstancePtr is a pointer to the XTmrCtr instance.
+* @param[in]	TmrCtrNumber is the timer counter of the device to operate on.
 *		Each device may contain multiple timer counters. The timer
 *		number is a zero based number  with a range of
 *		0 - (XTC_DEVICE_TIMER_COUNT - 1).
-* @param	ResetValue contains the value to be used to reset the timer
+* @param[in]	ResetValue contains the value to be used to reset the timer
 *		counter.
-*
-* @return	None.
-*
-* @note		None.
 *
 ******************************************************************************/
 void XTmrCtr_SetResetValue(XTmrCtr *InstancePtr, u8 TmrCtrNumber,
@@ -418,18 +392,16 @@ void XTmrCtr_SetResetValue(XTmrCtr *InstancePtr, u8 TmrCtrNumber,
 /*****************************************************************************/
 /**
 *
-* Returns the timer counter value that was captured the last time the external
+* @brief Returns the timer counter value that was captured the last time the external
 * capture input was asserted.
 *
-* @param	InstancePtr is a pointer to the XTmrCtr instance.
-* @param	TmrCtrNumber is the timer counter of the device to operate on.
+* @param[in]	InstancePtr is a pointer to the XTmrCtr instance.
+* @param[in]	TmrCtrNumber is the timer counter of the device to operate on.
 *		Each device may contain multiple timer counters. The timer
 *		number is a zero based number  with a range of
 *		0 - (XTC_DEVICE_TIMER_COUNT - 1).
 *
 * @return	The current capture value for the indicated timer counter.
-*
-* @note		None.
 *
 *******************************************************************************/
 u32 XTmrCtr_GetCaptureValue(XTmrCtr *InstancePtr, u8 TmrCtrNumber)
@@ -446,18 +418,14 @@ u32 XTmrCtr_GetCaptureValue(XTmrCtr *InstancePtr, u8 TmrCtrNumber)
 /*****************************************************************************/
 /**
 *
-* Resets the specified timer counter of the device. A reset causes the timer
+* @brief Resets the specified timer counter of the device. A reset causes the timer
 * counter to set it's value to the reset value.
 *
-* @param	InstancePtr is a pointer to the XTmrCtr instance.
-* @param	TmrCtrNumber is the timer counter of the device to operate on.
+* @param[in]	InstancePtr is a pointer to the XTmrCtr instance.
+* @param[in]	TmrCtrNumber is the timer counter of the device to operate on.
 *		Each device may contain multiple timer counters. The timer
 *		number is a zero based number  with a range of
 *		0 - (XTC_DEVICE_TIMER_COUNT - 1).
-*
-* @return	None.
-*
-* @note		None.
 *
 ******************************************************************************/
 void XTmrCtr_Reset(XTmrCtr *InstancePtr, u8 TmrCtrNumber)
@@ -487,22 +455,20 @@ void XTmrCtr_Reset(XTmrCtr *InstancePtr, u8 TmrCtrNumber)
 /*****************************************************************************/
 /**
 *
-* Checks if the specified timer counter of the device has expired. In capture
+* @brief Checks if the specified timer counter of the device has expired. In capture
 * mode, expired is defined as a capture occurred. In compare mode, expired is
 * defined as the timer counter rolled over/under for up/down counting.
 *
 * When interrupts are enabled, the expiration causes an interrupt. This function
 * is typically used to poll a timer counter to determine when it has expired.
 *
-* @param	InstancePtr is a pointer to the XTmrCtr instance.
-* @param	TmrCtrNumber is the timer counter of the device to operate on.
+* @param[in]	InstancePtr is a pointer to the XTmrCtr instance.
+* @param[in]	TmrCtrNumber is the timer counter of the device to operate on.
 *		Each device may contain multiple timer counters. The timer
 *		number is a zero based number  with a range of
 *		0 - (XTC_DEVICE_TIMER_COUNT - 1).
 *
 * @return	TRUE if the timer has expired, and FALSE otherwise.
-*
-* @note		None.
 *
 ******************************************************************************/
 int XTmrCtr_IsExpired(XTmrCtr *InstancePtr, u8 TmrCtrNumber)
@@ -526,11 +492,11 @@ int XTmrCtr_IsExpired(XTmrCtr *InstancePtr, u8 TmrCtrNumber)
 /*****************************************************************************/
 /**
 *
-* Configures timers to generate PWM output.
+* @brief Configures timers to generate PWM output.
 *
-* @param	InstancePtr is a pointer to the XTmrCtr instance.
-* @param	PwmPeriod is the period of pwm signal in nano seconds.
-* @param	PwmHighTime is the high time of pwm signal in nano seconds.
+* @param[in]	InstancePtr is a pointer to the XTmrCtr instance.
+* @param[in]	PwmPeriod is the period of pwm signal in nano seconds.
+* @param[in]	PwmHighTime is the high time of pwm signal in nano seconds.
 *
 * @return	the duty cycle that will possibly be achieved.
 *
@@ -550,12 +516,10 @@ u8 XTmrCtr_PwmConfigure(XTmrCtr *InstancePtr, u32 PwmPeriod, u32 PwmHighTime)
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
 	/* Stop the timers if they are running */
-	if (InstancePtr->IsStartedTmrCtr0 == XIL_COMPONENT_IS_STARTED) {
+	if (InstancePtr->IsStartedTmrCtr0 == XIL_COMPONENT_IS_STARTED)
 		XTmrCtr_Stop(InstancePtr, XTC_TIMER_0);
-	}
-	if (InstancePtr->IsStartedTmrCtr1 == XIL_COMPONENT_IS_STARTED) {
+	if (InstancePtr->IsStartedTmrCtr1 == XIL_COMPONENT_IS_STARTED)
 		XTmrCtr_Stop(InstancePtr, XTC_TIMER_1);
-	}
 
 	/* Configure timers modes to be used for PWM */
 	CounterControlReg = XTmrCtr_ReadReg(InstancePtr->BaseAddress,
@@ -578,15 +542,13 @@ u8 XTmrCtr_PwmConfigure(XTmrCtr *InstancePtr, u32 PwmPeriod, u32 PwmHighTime)
 	SysClkPeriod = XTC_HZ_TO_NS(InstancePtr->Config.SysClockFreqHz);
 	if (PwmPeriod < PwmHighTime ||
 	    PwmPeriod < (2 * SysClkPeriod) ||
-	    PwmHighTime < (2 * SysClkPeriod)) {
+	    PwmHighTime < (2 * SysClkPeriod))
 		return XST_INVALID_PARAM;
-	}
 
 	Period = XTC_ROUND_DIV(PwmPeriod, SysClkPeriod) - 2;
 	High = XTC_ROUND_DIV(PwmHighTime, SysClkPeriod) - 2;
-	if (Period > XTC_MAX_LOAD_VALUE) {
+	if (Period > XTC_MAX_LOAD_VALUE)
 		return XST_INVALID_PARAM;
-	}
 
 	XTmrCtr_WriteReg(InstancePtr->BaseAddress, XTC_TIMER_0,
 			 XTC_TLR_OFFSET, (u32)Period);
@@ -611,13 +573,9 @@ u8 XTmrCtr_PwmConfigure(XTmrCtr *InstancePtr, u32 PwmPeriod, u32 PwmHighTime)
 /*****************************************************************************/
 /**
 *
-* Enables the PWM output as per configurations set by XTmrCtr_PwmConfigure.
+* @brief Enables the PWM output as per configurations set by XTmrCtr_PwmConfigure.
 *
-* @param	InstancePtr is a pointer to the XTmrCtr instance.
-*
-* @return	none.
-*
-* @note		none.
+* @param[in]	InstancePtr is a pointer to the XTmrCtr instance.
 *
 ******************************************************************************/
 void XTmrCtr_PwmEnable(XTmrCtr *InstancePtr)
@@ -627,11 +585,10 @@ void XTmrCtr_PwmEnable(XTmrCtr *InstancePtr)
 	Xil_AssertVoid(InstancePtr != NULL);
 
 	/* PWM already running */
-	if (InstancePtr->IsPwmEnabled) {
+	if (InstancePtr->IsPwmEnabled)
 		return;
-	}
 
-	/* Enable PWM, Generate Out */
+	/**< Enable PWM, Generate Out */
 	CounterControlReg = XTmrCtr_ReadReg(InstancePtr->BaseAddress,
 					    XTC_TIMER_0, XTC_TCSR_OFFSET);
 	CounterControlReg |=
@@ -663,11 +620,9 @@ void XTmrCtr_PwmEnable(XTmrCtr *InstancePtr)
 /*****************************************************************************/
 /**
 *
-* Disables the PWM output.
+* @brief Disables the PWM output.
 *
-* @param	InstancePtr is a pointer to the XTmrCtr instance.
-*
-* @return	none.
+* @param[in]	InstancePtr is a pointer to the XTmrCtr instance.
 *
 * @note		Call to this function disables only the PWM output and do not
 *		alter any configuration. PWM output can again be enabled by
@@ -681,11 +636,10 @@ void XTmrCtr_PwmDisable(XTmrCtr *InstancePtr)
 	Xil_AssertVoid(InstancePtr != NULL);
 
 	/* PWM already disabled */
-	if (!InstancePtr->IsPwmEnabled) {
+	if (!InstancePtr->IsPwmEnabled)
 		return;
-	}
 
-	/* Disable timers */
+	/**< Disable timers */
 	XTmrCtr_Stop(InstancePtr, XTC_TIMER_0);
 	XTmrCtr_Stop(InstancePtr, XTC_TIMER_1);
 
@@ -713,16 +667,13 @@ void XTmrCtr_PwmDisable(XTmrCtr *InstancePtr)
 
 /*****************************************************************************/
 /**
-* Default callback for the driver does nothing. It matches the signature of the
+*
+* @brief Default callback for the driver does nothing. It matches the signature of the
 * XTmrCtr_Handler type.
 *
-* @param	CallBackRef is a pointer to the callback's data.
-* @param	TmrCtrNumber is the ID of the timer counter which a user-defined
+* @param[in]	CallBackRef is a pointer to the callback's data.
+* @param[in]	TmrCtrNumber is the ID of the timer counter which a user-defined
 *		callback would normally operate on.
-*
-* @return	None.
-*
-* @note		None.
 *
 ******************************************************************************/
 static void XTmrCtr_StubCallback(void *CallBackRef, u8 TmrCtrNumber)

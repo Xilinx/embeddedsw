@@ -27,46 +27,37 @@
 * 4.8   dp   02/12/21 Fix compilation errors that arise when -Werror=conversion
 *                     is enabled in compilation flags.
 * 4.15  ml   02/03/26 Fix codespell warnings
+* 4.16  ml   16/09/26 Fixed doxygen 1.15.0 and compliance checker warnings.
 * </pre>
 *
 ******************************************************************************/
 
 /***************************** Include Files *********************************/
-
 #include "xtmrctr.h"
 
 
 /************************** Constant Definitions *****************************/
 
-
 /**************************** Type Definitions *******************************/
-
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
-
 /************************** Function Prototypes ******************************/
 
-
 /************************** Variable Definitions *****************************/
-
 
 /*****************************************************************************/
 /**
 *
-* Sets the timer callback function, which the driver calls when the specified
+* @brief Sets the timer callback function, which the driver calls when the specified
 * timer times out.
 *
-* @param	InstancePtr is a pointer to the XTmrCtr instance .
-* @param	CallBackRef is the upper layer callback reference passed back
+* @param[in]	InstancePtr is a pointer to the XTmrCtr instance .
+* @param[in]	CallBackRef is the upper layer callback reference passed back
 *		when the callback function is invoked.
-* @param	FuncPtr is the pointer to the callback function.
+* @param[in]	FuncPtr is the pointer to the callback function.
 *
-* @return	None.
-*
-* @note
-*
-* The handler is called within interrupt context so the function that is
+* @note		The handler is called within interrupt context so the function that is
 * called should either be short or pass the more extensive processing off
 * to another task to allow the interrupt to return and normal processing
 * to continue.
@@ -86,15 +77,11 @@ void XTmrCtr_SetHandler(XTmrCtr *InstancePtr, XTmrCtr_Handler FuncPtr,
 /*****************************************************************************/
 /**
 *
-* Interrupt Service Routine (ISR) for the driver.  This function only performs
+* @brief Interrupt Service Routine (ISR) for the driver.  This function only performs
 * processing for the device and does not save and restore the interrupt context.
 *
-* @param	InstancePtr contains a pointer to the timer/counter instance for
+* @param[in]	InstancePtr contains a pointer to the timer/counter instance for
 *		the interrupt.
-*
-* @return	None.
-*
-* @note		None.
 *
 ******************************************************************************/
 void XTmrCtr_InterruptHandler(void *InstancePtr)
@@ -115,7 +102,7 @@ void XTmrCtr_InterruptHandler(void *InstancePtr)
 	TmrCtrPtr = (XTmrCtr *) InstancePtr;
 
 	/*
-	 * Loop thru each timer counter in the device and call the callback
+	 * Loop through each timer counter in the device and call the callback
 	 * function for each timer which has caused an interrupt
 	 */
 	for (TmrCtrNumber = 0;

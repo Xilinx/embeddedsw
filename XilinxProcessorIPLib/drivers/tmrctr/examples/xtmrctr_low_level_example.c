@@ -1,19 +1,16 @@
 /******************************************************************************
 * Copyright (C) 2002 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
 /*****************************************************************************/
 /**
+*
 * @file  xtmrctr_low_level_example.c
 *
 * This file contains a design example using the Timer Counter (XTmrCtr)
 * low level driver and hardware device in a polled mode.
-*
-* @note
-*
-* None
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -29,11 +26,11 @@
 *                     ensure that "Successfully ran" and "Failed" strings
 *                     are available in all examples. This is a fix for
 *                     CR-965028.
+* 4.16  ml   16/09/26 Fixed doxygen 1.15.0 and compliance checker warnings.
 *</pre>
 ******************************************************************************/
 
 /***************************** Include Files *********************************/
-
 #include "xstatus.h"
 #include "xtmrctr_l.h"
 #include "xil_printf.h"
@@ -49,7 +46,7 @@
 #ifndef SDT
 #define TMRCTR_BASEADDR		XPAR_TMRCTR_0_BASEADDR
 #else
-#define TMRCTR_BASEADDR		XPAR_XTMRCTR_0_BASEADDR
+#define TMRCTR_BASEADDR		XPAR_XTMRCTR_0_BASEADDR			/**< Base address of the device. */
 #endif
 
 /*
@@ -60,28 +57,20 @@
 
 /**************************** Type Definitions *******************************/
 
-
 /***************** Macros (Inline Functions) Definitions *********************/
 
-
 /************************** Function Prototypes ******************************/
-
 int TmrCtrLowLevelExample(UINTPTR TmrCtrBaseAddress, u8 TimerCounter);
 
 /************************** Variable Definitions *****************************/
 
-
 /*****************************************************************************/
 /**
-* This function is the main function of the Tmrctr low level example.
 *
-* @param	None.
+* This function is the main function of the Tmrctr low level example.
 *
 * @return	XST_SUCCESS to indicate success, else XST_FAILURE to indicate
 *		a Failure.
-*
-* @note		None.
-*
 *
 *****************************************************************************/
 int main(void)
@@ -104,13 +93,13 @@ int main(void)
 
 /*****************************************************************************/
 /**
+*
 * This function does a minimal test on the timer counter device and
 * the low level driver as a design example.  The purpose of this function is
 * to illustrate how to use the XTmrCtr low level driver.
 *
-*
-* @param	TmrCtrBaseAddress is the base address of the device.
-* @param	TmrCtrNumber is the timer counter of the device to operate on.
+* @param[in]	TmrCtrBaseAddress is the base address of the device.
+* @param[in]	TmrCtrNumber is the timer counter of the device to operate on.
 *		Each device may contain multiple timer counters.
 *		The timer number is a zero based number with a range of
 *		0 - (XTC_DEVICE_TIMER_COUNT - 1).
@@ -118,9 +107,7 @@ int main(void)
 * @return	XST_SUCCESS to indicate success, else XST_FAILURE to indicate
 *		a Failure.
 *
-* @note
-*
-* This function contains a loop which waits for the value of a timer counter
+* @note		This function contains a loop which waits for the value of a timer counter
 * to change.  If the hardware is not working correctly, this function may not
 * return.
 *
@@ -171,9 +158,8 @@ int TmrCtrLowLevelExample(UINTPTR TmrCtrBaseAddress, u8 TmrCtrNumber)
 	while (1) {
 		Value2 = XTmrCtr_GetTimerCounterReg(TmrCtrBaseAddress, TmrCtrNumber);
 
-		if (Value1 != Value2) {
+		if (Value1 != Value2)
 			break;
-		}
 	}
 
 	/*

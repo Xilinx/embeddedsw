@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2015 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -13,8 +13,6 @@
 *
 * This file contains static initialization methods for the XTmrCtr driver.
 *
-* @note	None.
-*
 * <pre>
 * MODIFICATION HISTORY:
 *
@@ -25,20 +23,20 @@
 * 4.13  ml   09/19/24 Fix compilation warning by removing unused variable.
 * 4.15  bdk  12/08/25 Updated comments to support SDT flow for Doxygen
 *                     documentation.
+* 4.16  ml   16/09/26 Fixed doxygen 1.15.0 and compliance checker warnings.
 * </pre>
 *
 ******************************************************************************/
 
 /******************************* Include Files *******************************/
-
 #include "xtmrctr.h"
 #ifndef SDT
 #include "xparameters.h"
 #endif
 
 /************************** Constant Definitions *****************************/
-
 #ifndef XPAR_XTMRCTR_NUM_INSTANCES
+	/** @brief Number of timer counter instances in the system (default 0 for SDT). */
 #define XPAR_XTMRCTR_NUM_INSTANCES	0
 #endif
 
@@ -47,23 +45,24 @@
 /* A table of configuration structures containing the configuration information
  * for each timer core in the system. */
 #ifndef SDT
-extern XTmrCtr_Config XTmrCtr_ConfigTable[XPAR_XTMRCTR_NUM_INSTANCES];
+	extern XTmrCtr_Config XTmrCtr_ConfigTable[XPAR_XTMRCTR_NUM_INSTANCES];
 #else
-extern XTmrCtr_Config XTmrCtr_ConfigTable[];
+	extern XTmrCtr_Config XTmrCtr_ConfigTable[];
 #endif
 
 /**************************** Function Definitions ***************************/
 
 /*****************************************************************************/
 /**
+*
 * Looks up the device configuration based on the unique device ID/BaseAddress.
 * The table TmrCtr_ConfigTable contains the configuration info for each device
 * in the system.
 *
 * @if SDT
-* @param	BaseAddress contains the base address of the device
+* @param[in]	BaseAddress contains the base address of the device
 * @else
-* @param	DeviceId is the unique device ID to search for in the config
+* @param[in]	DeviceId is the unique device ID to search for in the config
 *		table.
 * @endif
 *
@@ -104,7 +103,7 @@ XTmrCtr_Config *XTmrCtr_LookupConfig(UINTPTR BaseAddress)
 		 * instance of AXI timer.
 		 */
 		if ((XTmrCtr_ConfigTable[Index].BaseAddress == BaseAddress) ||
-		    !BaseAddress)  {
+		    !BaseAddress) {
 			CfgPtr = &XTmrCtr_ConfigTable[Index];
 			break;
 		}

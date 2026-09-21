@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2002 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -23,33 +23,29 @@
 * 1.00a ecm  08/16/01 First release
 * 1.00b jhl  02/21/02 Repartitioned the driver for smaller files
 * 1.10b mta  03/21/07 Updated to new coding style
+* 4.16  ml   16/09/26 Fixed doxygen 1.15.0 and compliance checker warnings.
 * </pre>
 *
 ******************************************************************************/
 
 /***************************** Include Files *********************************/
-
 #include "xtmrctr.h"
 #include "xparameters.h"
 
 /************************** Constant Definitions *****************************/
 
-
 /**************************** Type Definitions *******************************/
-
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
-
 /************************** Function Prototypes ******************************/
-
 
 /************************** Variable Prototypes ******************************/
 
 /**
  * The timer/counter configuration table, sized by the number of instances
  * defined in xparameters.h.
- */
+*/
 XTmrCtr_Config XTmrCtr_ConfigTable[] = {
 #if defined(XPAR_XTMRCTR_NUM_INSTANCES) && (XPAR_XTMRCTR_NUM_INSTANCES > 0)
 	{

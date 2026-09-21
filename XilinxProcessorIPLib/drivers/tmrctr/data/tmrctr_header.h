@@ -1,12 +1,14 @@
+/**
+ * @file tmrctr_header.h
+ * @brief Declarations for Timer Counter driver example functions.
+*/
 /******************************************************************************
 * Copyright (C) 2005 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
-
 #ifndef TMRCTR_HEADER_H		/* prevent circular inclusions */
 #define TMRCTR_HEADER_H		/* by using protection macros */
-
 #ifdef __cplusplus
 extern "C" {
 #endif

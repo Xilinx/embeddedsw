@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2002 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -22,50 +22,42 @@
 * 1.10b mta  03/21/07 Updated to new coding style
 * 2.00a ktn  10/30/09 Updated to use HAL API's. _m is removed from all the macro
 *		      definitions.
+* 4.16  ml   16/09/26 Fixed doxygen 1.15.0 and compliance checker warnings.
 * </pre>
 *
 ******************************************************************************/
 
 /***************************** Include Files *********************************/
-
 #include "xil_io.h"
 #include "xtmrctr.h"
 #include "xtmrctr_i.h"
 
 /************************** Constant Definitions *****************************/
 
-
 /**************************** Type Definitions *******************************/
-
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
-
 /************************** Function Prototypes ******************************/
 
-
 /************************** Variable Definitions *****************************/
-
 
 /*****************************************************************************/
 /**
 *
-* Runs a self-test on the driver/device. This test verifies that the specified
+* @brief Runs a self-test on the driver/device. This test verifies that the specified
 * timer counter of the device can be enabled and increments.
 *
-* @param	InstancePtr is a pointer to the XTmrCtr instance.
-* @param	TmrCtrNumber is the timer counter of the device to operate on.
+* @param[in]	InstancePtr is a pointer to the XTmrCtr instance.
+* @param[in]	TmrCtrNumber is the timer counter of the device to operate on.
 *		Each device may contain multiple timer counters. The timer
 *		number is a  zero based number with a range of
 *		0 - (XTC_DEVICE_TIMER_COUNT - 1).
 *
-* @return
-* 		- XST_SUCCESS if self-test was successful
+* @return	- XST_SUCCESS if self-test was successful
 *		- XST_FAILURE if the timer is not incrementing.
 *
-* @note
-*
-* This is a destructive test using the provided timer. The current settings
+* @note		This is a destructive test using the provided timer. The current settings
 * of the timer are returned to the initialized values and all settings at the
 * time this function is called are overwritten.
 *
@@ -130,10 +122,10 @@ int XTmrCtr_SelfTest(XTmrCtr *InstancePtr, u8 TmrCtrNumber)
 	XTmrCtr_WriteReg(InstancePtr->BaseAddress, TmrCtrNumber,
 			 XTC_TCSR_OFFSET, 0);
 
-	if (TimerCount1 == TimerCount2) {
+	if (TimerCount1 == TimerCount2)
 		return XST_FAILURE;
-	} else {
+
+	else
 		return XST_SUCCESS;
-	}
 }
 /** @} */

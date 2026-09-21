@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2002 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -23,26 +23,22 @@
 * 2.00a ktn  10/30/09 Updated to use HAL API's. _m is removed from all the macro
 *		      definitions.
 * 2.04a sdm  07/12/11 Added support for the cascade mode operation.
+* 4.16  ml   16/09/26 Fixed doxygen 1.15.0 and compliance checker warnings.
 * </pre>
 *
 ******************************************************************************/
 
 /***************************** Include Files *********************************/
-
 #include "xtmrctr.h"
 #include "xtmrctr_i.h"
 
 /************************** Constant Definitions *****************************/
 
-
 /**************************** Type Definitions *******************************/
-
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
-
 /************************** Function Prototypes ******************************/
-
 
 /************************** Variable Definitions *****************************/
 
@@ -51,8 +47,8 @@
  * and setting the options may be table driven.
  */
 typedef struct {
-	u32 Option;
-	u32 Mask;
+	u32 Option;	/**< Timer counter option flag value. */
+	u32 Mask;	/**< Register mask corresponding to the option flag. */
 } Mapping;
 
 /*
@@ -74,32 +70,27 @@ static Mapping OptionsTable[] = {
 };
 
 /* Create a constant for the number of entries in the table */
-
-#define XTC_NUM_OPTIONS   (sizeof(OptionsTable) / sizeof(Mapping))
+#define XTC_NUM_OPTIONS   (sizeof(OptionsTable) / sizeof(Mapping))	/**< Number of entries in the timer options table. */
 
 /*****************************************************************************/
 /**
 *
-* Enables the specified options for the specified timer counter. This function
+* @brief Enables the specified options for the specified timer counter. This function
 * sets the options without regard to the current options of the driver. To
 * prevent a loss of the current options, the user should call
 * XTmrCtr_GetOptions() prior to this function and modify the retrieved options
 * to pass into this function to prevent loss of the current options.
 *
-* @param	InstancePtr is a pointer to the XTmrCtr instance.
-* @param	TmrCtrNumber is the timer counter of the device to operate on.
+* @param[in]	InstancePtr is a pointer to the XTmrCtr instance.
+* @param[in]	TmrCtrNumber is the timer counter of the device to operate on.
 *		Each device may contain multiple timer counters. The timer
 *		number is a zero based number with a range of
 *		0 - (XTC_DEVICE_TIMER_COUNT - 1).
-* @param	Options contains the desired options to be set or cleared.
+* @param[in]	Options contains the desired options to be set or cleared.
 *		Setting the option to '1' enables the option, clearing the to
 *		'0' disables the option. The options are bit masks such that
 *		multiple options may be set or cleared. The options are
 *		described in xtmrctr.h.
-*
-* @return	None.
-*
-* @note		None.
 *
 ******************************************************************************/
 void XTmrCtr_SetOptions(XTmrCtr *InstancePtr, u8 TmrCtrNumber, u32 Options)
@@ -141,21 +132,17 @@ void XTmrCtr_SetOptions(XTmrCtr *InstancePtr, u8 TmrCtrNumber, u32 Options)
 /*****************************************************************************/
 /**
 *
-* Get the options for the specified timer counter.
+* @brief Get the options for the specified timer counter.
 *
-* @param	InstancePtr is a pointer to the XTmrCtr instance.
-* @param	TmrCtrNumber is the timer counter of the device to operate on
+* @param[in]	InstancePtr is a pointer to the XTmrCtr instance.
+* @param[in]	TmrCtrNumber is the timer counter of the device to operate on
 *		Each device may contain multiple timer counters. The timer
 *		number is a zero based number with a range of
 *		0 - (XTC_DEVICE_TIMER_COUNT - 1).
 *
-* @return
-*
-* The currently set options. An option which is set to a '1' is enabled and
+* @return	The currently set options. An option which is set to a '1' is enabled and
 * set to a '0' is disabled. The options are bit masks such that multiple
 * options may be set or cleared. The options are described in xtmrctr.h.
-*
-* @note		None.
 *
 ******************************************************************************/
 u32 XTmrCtr_GetOptions(XTmrCtr *InstancePtr, u8 TmrCtrNumber)

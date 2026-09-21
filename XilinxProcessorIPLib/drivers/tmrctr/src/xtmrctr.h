@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2002 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -64,8 +64,7 @@
 * its callback functions during initialization. The driver requires callback
 * functions for timers.
 *
-* @note
-* The default settings for the timers are:
+* @note		The default settings for the timers are:
 *   - Interrupt generation disabled
 *   - Count up mode
 *   - Compare mode
@@ -147,19 +146,18 @@
 *                     is enabled in compilation flags.
 * 4.10  adk  27/12/22 Updated addtogroup tag.
 * 4.11  adk  04/14/23 Added support for system device-tree flow.
+* 4.16  ml   16/09/26 Fixed doxygen 1.15.0 and compliance checker warnings.
 * </pre>
 *
 ******************************************************************************/
-
 #ifndef XTMRCTR_H		/* prevent circular inclusions */
+/** @brief Include guard to prevent multiple inclusions of xtmrctr.h. */
 #define XTMRCTR_H		/* by using protection macros */
-
 #ifdef __cplusplus
 extern "C" {
 #endif
 
 /***************************** Include Files *********************************/
-
 #include "xil_types.h"
 #include "xil_assert.h"
 #include "xstatus.h"
@@ -171,7 +169,7 @@ extern "C" {
  * @name Configuration options
  * These options are used in XTmrCtr_SetOptions() and XTmrCtr_GetOptions()
  * @{
- */
+*/
 /**
  * Used to configure the timer counter device.
  * <pre>
@@ -194,21 +192,21 @@ extern "C" {
  *				recognized.
  * XTC_EXT_COMPARE_OPTION	Enables the external compare output signal.
  * </pre>
- */
+*/
 #define XTC_CASCADE_MODE_OPTION		0x00000080UL
-#define XTC_ENABLE_ALL_OPTION		0x00000040UL
-#define XTC_DOWN_COUNT_OPTION		0x00000020UL
-#define XTC_CAPTURE_MODE_OPTION		0x00000010UL
-#define XTC_INT_MODE_OPTION		0x00000008UL
-#define XTC_AUTO_RELOAD_OPTION		0x00000004UL
-#define XTC_EXT_COMPARE_OPTION		0x00000002UL
-/*@}*/
+#define XTC_ENABLE_ALL_OPTION		0x00000040UL			/**< Option flag to enable all timer counters simultaneously. */
+#define XTC_DOWN_COUNT_OPTION		0x00000020UL			/**< Option flag to configure timer counter for down counting. */
+#define XTC_CAPTURE_MODE_OPTION		0x00000010UL			/**< Option flag for XTC_CAPTURE_MODE_OPTION. */
+#define XTC_INT_MODE_OPTION		0x00000008UL			/**< Option flag for XTC_INT_MODE_OPTION. */
+#define XTC_AUTO_RELOAD_OPTION		0x00000004UL			/**< Option flag for XTC_AUTO_RELOAD_OPTION. */
+#define XTC_EXT_COMPARE_OPTION		0x00000002UL			/**< Option flag for XTC_EXT_COMPARE_OPTION. */
+/** @} */
 
 /* Round division  */
-#define XTC_ROUND_DIV(a, b)		((a + (b / 2)) / b)
+#define XTC_ROUND_DIV(a, b)		((a + (b / 2)) / b)	/**< Round integer division of a by b to nearest integer. */
 
 /* Convert clock frequency in hertz to period in nano seconds */
-#define XTC_HZ_TO_NS(Hz)		XTC_ROUND_DIV(1000000000, Hz)
+#define XTC_HZ_TO_NS(Hz)		XTC_ROUND_DIV(1000000000, Hz)	/**< Convert clock frequency in Hz to period in nanoseconds. */
 
 /**************************** Type Definitions *******************************/
 
@@ -217,26 +215,26 @@ extern "C" {
  */
 typedef struct {
 #ifndef SDT
-	u16 DeviceId;		/**< Unique ID  of device */
+	u16 DeviceId;		/**< Unique ID  of device. */
 #else
-	char *Name;
+	char *Name;			/**< Unique name of the device instance. */
 #endif
-	UINTPTR BaseAddress;	/**< Register base address */
-	u32 SysClockFreqHz;	/**< The AXI bus clock frequency */
+	UINTPTR BaseAddress;	/**< Register base address. */
+	u32 SysClockFreqHz;	/**< The AXI bus clock frequency. */
 #if defined(XIL_INTERRUPT) || defined(SDT)
-	u32 IntrId;
-	UINTPTR IntrParent;		/** Bit[0] Interrupt parent type Bit[64/32:1] Parent base address */
+	u32 IntrId;			/**< Interrupt ID of the timer counter device. */
+	UINTPTR IntrParent;		/**< Bit[0] interrupt parent type; Bit[64/32:1] parent base address. */
 #endif
 } XTmrCtr_Config;
 
 /**
  * Signature for the callback function.
  *
- * @param	CallBackRef is a callback reference passed in by the upper layer
+ * @param[in]	CallBackRef is a callback reference passed in by the upper layer
  *		when setting the callback functions, and passed back to the
  *		upper layer when the callback is invoked. Its type is
  *		 unimportant to the driver, so it is a void pointer.
- * @param 	TmrCtrNumber is the number of the timer/counter within the
+ * @param[in]	TmrCtrNumber is the number of the timer/counter within the
  *		device. The device typically contains at least two
  *		timer/counters. The timer number is a zero based number with a
  *		range of 0 to (XTC_DEVICE_TIMER_COUNT - 1).
@@ -246,9 +244,9 @@ typedef void (*XTmrCtr_Handler) (void *CallBackRef, u8 TmrCtrNumber);
 
 /**
  * Timer/Counter statistics
- */
+*/
 typedef struct {
-	u32 Interrupts;	 /**< The number of interrupts that have occurred */
+	u32 Interrupts;	 /**< The number of interrupts that have occurred. */
 } XTmrCtrStats;
 
 /**
@@ -256,23 +254,22 @@ typedef struct {
  * variable of this type for every timer/counter device in the system. A
  * pointer to a variable of this type is then passed to the driver API
  * functions.
- */
+*/
 typedef struct {
 	XTmrCtr_Config Config;   /**< Core configuration. */
-	XTmrCtrStats Stats;	 /**< Component Statistics */
-	UINTPTR BaseAddress;	 /**< Base address of registers */
-	u32 IsReady;		 /**< Device is initialized and ready */
-	u32 IsStartedTmrCtr0;	 /**< Is Timer Counter 0 started */
-	u32 IsStartedTmrCtr1;	 /**< Is Timer Counter 1 started */
-	u32 IsPwmEnabled;        /**< Is PWM Enabled */
+	XTmrCtrStats Stats;	 /**< Component Statistics. */
+	UINTPTR BaseAddress;	 /**< Base address of registers. */
+	u32 IsReady;		 /**< Device is initialized and ready. */
+	u32 IsStartedTmrCtr0;	 /**< Is Timer Counter 0 started. */
+	u32 IsStartedTmrCtr1;	 /**< Is Timer Counter 1 started. */
+	u32 IsPwmEnabled;        /**< Is PWM Enabled. */
 
-	XTmrCtr_Handler Handler; /**< Callback function */
-	void *CallBackRef;	 /**< Callback reference for handler */
+	XTmrCtr_Handler Handler; /**< Callback function. */
+	void *CallBackRef;	 /**< Callback reference for handler. */
 } XTmrCtr;
 
 
 /***************** Macros (Inline Functions) Definitions *********************/
-
 
 /************************** Function Prototypes ******************************/
 
@@ -294,18 +291,34 @@ u32 XTmrCtr_GetCaptureValue(XTmrCtr *InstancePtr, u8 TmrCtrNumber);
 int XTmrCtr_IsExpired(XTmrCtr *InstancePtr, u8 TmrCtrNumber);
 void XTmrCtr_Reset(XTmrCtr *InstancePtr, u8 TmrCtrNumber);
 u8 XTmrCtr_PwmConfigure(XTmrCtr *InstancePtr, u32 PwmPeriod, u32 PwmHighTime);
+/**
+*
+* @brief Enables the PWM output.
+ */
 void XTmrCtr_PwmEnable(XTmrCtr *InstancePtr);
+/**
+*
+* @brief Disables the PWM output.
+*/
 void XTmrCtr_PwmDisable(XTmrCtr *InstancePtr);
 
 /* Lookup configuration in xtmrctr_sinit.c */
 #ifndef SDT
 XTmrCtr_Config *XTmrCtr_LookupConfig(u16 DeviceId);
 #else
-XTmrCtr_Config *XTmrCtr_LookupConfig(UINTPTR  BaseAddress);
+XTmrCtr_Config *XTmrCtr_LookupConfig(UINTPTR BaseAddress);
 #endif
 
 /* Functions for options, in file xtmrctr_options.c */
+/**
+*
+* @brief Sets options for the specified timer counter.
+ */
 void XTmrCtr_SetOptions(XTmrCtr *InstancePtr, u8 TmrCtrNumber, u32 Options);
+/**
+*
+* @brief Returns the options for the specified timer counter.
+ */
 u32 XTmrCtr_GetOptions(XTmrCtr *InstancePtr, u8 TmrCtrNumber);
 
 /* Functions for statistics, in file xtmrctr_stats.c */

@@ -1,11 +1,12 @@
 /******************************************************************************
 * Copyright (C) 2002 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
 /*****************************************************************************/
 /**
+*
 * @file  xtmrctr_intr_example.c
 *
 * This file contains a design example using the timer counter driver
@@ -14,8 +15,6 @@
 *
 * This file can be used as a standalone example or by the TestAppGen utility
 * to include a test for Timer interrupts.
-*
-*
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -52,11 +51,11 @@
 * 4.12  mus  03/25/24 Update RESET_VALUE to reduce extecution time to 1 seconds.
 * 4.15  bdk  12/08/25 Updated comments to support SDT flow for Doxygen
 *                     documentation.
+* 4.16  ml   16/09/26 Fixed doxygen 1.15.0 and compliance checker warnings.
 *</pre>
 ******************************************************************************/
 
 /***************************** Include Files *********************************/
-
 #include "xtmrctr.h"
 #include "xil_exception.h"
 #include "xil_printf.h"
@@ -75,19 +74,19 @@
 
 /************************** Constant Definitions *****************************/
 #ifndef TESTAPP_GEN
-/*
- * The following constants map to the XPAR parameters created in the
- * xparameters.h file. They are only defined here such that a user can easily
- * change all the needed parameters in one place.
- */
+	/*
+	* The following constants map to the XPAR parameters created in the
+	* xparameters.h file. They are only defined here such that a user can easily
+	* change all the needed parameters in one place.
+	*/
 #ifndef SDT
 #define TMRCTR_DEVICE_ID	XPAR_TMRCTR_0_DEVICE_ID
 #define TMRCTR_INTERRUPT_ID	XPAR_INTC_0_TMRCTR_0_VEC_ID
 
 #ifdef XPAR_INTC_0_DEVICE_ID
-#define INTC_DEVICE_ID		XPAR_INTC_0_DEVICE_ID
+#define INTC_DEVICE_ID		XPAR_INTC_0_DEVICE_ID			/**< Device ID value. */
 #else
-#define INTC_DEVICE_ID		XPAR_SCUGIC_SINGLE_DEVICE_ID
+#define INTC_DEVICE_ID		XPAR_SCUGIC_SINGLE_DEVICE_ID			/**< Device ID value. */
 #endif /* XPAR_INTC_0_DEVICE_ID */
 #else
 #define XTMRCTR_BASEADDRESS	XPAR_XTMRCTR_0_BASEADDR
@@ -103,11 +102,11 @@
 
 #ifndef SDT
 #ifdef XPAR_INTC_0_DEVICE_ID
-#define INTC		XIntc
-#define INTC_HANDLER	XIntc_InterruptHandler
+#define INTC		XIntc			/**< Value for INTC. */
+#define INTC_HANDLER	XIntc_InterruptHandler			/**< Interrupt handler reference. */
 #else
-#define INTC		XScuGic
-#define INTC_HANDLER	XScuGic_InterruptHandler
+#define INTC		XScuGic			/**< Value for INTC. */
+#define INTC_HANDLER	XScuGic_InterruptHandler			/**< Interrupt handler reference. */
 #endif /* XPAR_INTC_0_DEVICE_ID */
 #endif
 
@@ -137,10 +136,10 @@ static int TmrCtrSetupIntrSystem(INTC *IntcInstancePtr,
 
 static void TmrCtrDisableIntr(INTC *IntcInstancePtr, u16 IntrId);
 #else
-int TmrCtrIntrExample(XTmrCtr *InstancePtr,
+int TmrCtrIntrExample(XTmrCtr *TmrCtrInstancePtr,
 		      UINTPTR BaseAddr);
 
-static void TmrCtrDisableIntr( u16 IntrId, UINTPTR IntrParent);
+static void TmrCtrDisableIntr(u16 IntrId, UINTPTR IntrParent);
 #endif
 
 static void TimerCounterHandler(void *CallBackRef, u8 TmrCtrNumber);
@@ -148,9 +147,9 @@ static void TimerCounterHandler(void *CallBackRef, u8 TmrCtrNumber);
 /************************** Variable Definitions *****************************/
 #ifndef TESTAPP_GEN
 #ifndef SDT
-INTC InterruptController;  /* The instance of the Interrupt Controller */
+		INTC InterruptController;  /**< The instance of the Interrupt Controller */
 #endif
-XTmrCtr TimerCounterInst;   /* The instance of the Timer Counter */
+	XTmrCtr TimerCounterInst;   /**< The instance of the Timer Counter */
 #endif
 /*
  * The following variables are shared between non-interrupt processing and
@@ -160,14 +159,11 @@ static volatile int TimerExpired;
 
 /*****************************************************************************/
 /**
-* This function is the main function of the Tmrctr example using Interrupts.
 *
-* @param	None.
+* This function is the main function of the Tmrctr example using Interrupts.
 *
 * @return	XST_SUCCESS to indicate success, else XST_FAILURE to indicate a
 *		Failure.
-*
-* @note		None.
 *
 ******************************************************************************/
 #ifndef TESTAPP_GEN
@@ -201,6 +197,7 @@ int main(void)
 
 /*****************************************************************************/
 /**
+*
 * This function does a minimal test on the timer counter device and driver as a
 * design example.  The purpose of this function is to illustrate how to use the
 * XTmrCtr component.  It initializes a timer counter and then sets it up in
@@ -209,15 +206,15 @@ int main(void)
 * This function uses interrupt driven mode of the timer counter.
 *
 * @if SDT
-* @param	TmrCtrInstancePtr is a pointer to the XTmrCtr driver Instance
-* @param	BaseAddr is the base address of the XTmrCtr device.
+* @param[in]	TmrCtrInstancePtr is a pointer to the XTmrCtr driver Instance
+* @param[in]	BaseAddr is the base address of the XTmrCtr device.
 * @else
-* @param	IntcInstancePtr is a pointer to the Interrupt Controller
+* @param[in]	IntcInstancePtr is a pointer to the Interrupt Controller
 *		driver Instance
-* @param	TmrCtrInstancePtr is a pointer to the XTmrCtr driver Instance
-* @param	DeviceId is the XPAR_<TmrCtr_instance>_DEVICE_ID value from
+* @param[in]	TmrCtrInstancePtr is a pointer to the XTmrCtr driver Instance
+* @param[in]	DeviceId is the XPAR_<TmrCtr_instance>_DEVICE_ID value from
 *		xparameters.h
-* @param	IntrId is XPAR_<INTC_instance>_<TmrCtr_instance>_INTERRUPT_INTR
+* @param[in]	IntrId is XPAR_<INTC_instance>_<TmrCtr_instance>_INTERRUPT_INTR
 *		value from xparameters.h
 * @endif
 *
@@ -251,18 +248,16 @@ int TmrCtrIntrExample(XTmrCtr *TmrCtrInstancePtr,
 #else
 	Status = XTmrCtr_Initialize(TmrCtrInstancePtr, BaseAddr);
 #endif
-	if (Status != XST_SUCCESS) {
+	if (Status != XST_SUCCESS)
 		return XST_FAILURE;
-	}
 
 	/*
 	 * Perform a self-test to ensure that the hardware was built
 	 * correctly, use the 1st timer in the device (0)
 	 */
 	Status = XTmrCtr_SelfTest(TmrCtrInstancePtr, TmrCtrNumber);
-	if (Status != XST_SUCCESS) {
+	if (Status != XST_SUCCESS)
 		return XST_FAILURE;
-	}
 
 	/*
 	 * Connect the timer counter to the interrupt subsystem such that
@@ -280,9 +275,8 @@ int TmrCtrIntrExample(XTmrCtr *TmrCtrInstancePtr,
 				       XINTERRUPT_DEFAULT_PRIORITY);
 #endif
 
-	if (Status != XST_SUCCESS) {
+	if (Status != XST_SUCCESS)
 		return XST_FAILURE;
-	}
 
 	/*
 	 * Setup the handler for the timer counter that will be called from the
@@ -304,7 +298,7 @@ int TmrCtrIntrExample(XTmrCtr *TmrCtrInstancePtr,
 
 	/*
 	 * Set a reset value for the timer counter such that it will expire
-	 * eariler than letting it roll over from 0, the reset value is loaded
+	 * earlier than letting it roll over from 0, the reset value is loaded
 	 * into the timer counter when it is started
 	 */
 	XTmrCtr_SetResetValue(TmrCtrInstancePtr, TmrCtrNumber, RESET_VALUE);
@@ -347,21 +341,19 @@ int TmrCtrIntrExample(XTmrCtr *TmrCtrInstancePtr,
 
 /*****************************************************************************/
 /**
+*
+* @brief Handles interrupts for the timer counter.
+*
 * This function is the handler which performs processing for the timer counter.
-* It is called from an interrupt context such that the amount of processing
-* performed should be minimized.  It is called when the timer counter expires
-* if interrupts are enabled.
+* It is called from an interrupt context. It is called when the timer counter
+* expires if interrupts are enabled.
 *
 * This handler provides an example of how to handle timer counter interrupts
 * but is application specific.
 *
-* @param	CallBackRef is a pointer to the callback function
-* @param	TmrCtrNumber is the number of the timer to which this
+* @param[in]	CallBackRef is a pointer to the callback reference.
+* @param[in]	TmrCtrNumber is the number of the timer to which this
 *		handler is associated with.
-*
-* @return	None.
-*
-* @note		None.
 *
 ******************************************************************************/
 void TimerCounterHandler(void *CallBackRef, u8 TmrCtrNumber)
@@ -377,29 +369,29 @@ void TimerCounterHandler(void *CallBackRef, u8 TmrCtrNumber)
 	 */
 	if (XTmrCtr_IsExpired(InstancePtr, TmrCtrNumber)) {
 		TimerExpired++;
-		if (TimerExpired == 3) {
+		if (TimerExpired == 3)
 			XTmrCtr_SetOptions(InstancePtr, TmrCtrNumber, 0);
-		}
 	}
 }
 
 #ifndef SDT
 /*****************************************************************************/
 /**
+*
 * This function setups the interrupt system such that interrupts can occur
 * for the timer counter. This function is application specific since the actual
 * system may or may not have an interrupt controller.  The timer counter could
 * be directly connected to a processor without an interrupt controller.  The
 * user should modify this function to fit the application.
 *
-* @param	IntcInstancePtr is a pointer to the Interrupt Controller
+* @param[in]	IntcInstancePtr is a pointer to the Interrupt Controller
 *		driver Instance.
-* @param	TmrCtrInstancePtr is a pointer to the XTmrCtr driver Instance.
-* @param	DeviceId is the XPAR_<TmrCtr_instance>_DEVICE_ID value from
+* @param[in]	TmrCtrInstancePtr is a pointer to the XTmrCtr driver Instance.
+* @param[in]	DeviceId is the XPAR_<TmrCtr_instance>_DEVICE_ID value from
 *		xparameters.h.
-* @param	IntrId is XPAR_<INTC_instance>_<TmrCtr_instance>_VEC_ID
+* @param[in]	IntrId is XPAR_<INTC_instance>_<TmrCtr_instance>_VEC_ID
 *		value from xparameters.h.
-* @param	TmrCtrNumber is the number of the timer to which this
+* @param[in]	TmrCtrNumber is the number of the timer to which this
 *		handler is associated with.
 *
 * @return	XST_SUCCESS if the Test is successful, otherwise XST_FAILURE.
@@ -424,9 +416,8 @@ static int TmrCtrSetupIntrSystem(INTC *IntcInstancePtr,
 	 * xparameters.h
 	 */
 	Status = XIntc_Initialize(IntcInstancePtr, INTC_DEVICE_ID);
-	if (Status != XST_SUCCESS) {
+	if (Status != XST_SUCCESS)
 		return XST_FAILURE;
-	}
 #endif
 	/*
 	 * Connect a device driver handler that will be called when an interrupt
@@ -436,9 +427,8 @@ static int TmrCtrSetupIntrSystem(INTC *IntcInstancePtr,
 	Status = XIntc_Connect(IntcInstancePtr, IntrId,
 			       (XInterruptHandler)XTmrCtr_InterruptHandler,
 			       (void *)TmrCtrInstancePtr);
-	if (Status != XST_SUCCESS) {
+	if (Status != XST_SUCCESS)
 		return XST_FAILURE;
-	}
 
 #ifndef TESTAPP_GEN
 	/*
@@ -447,9 +437,8 @@ static int TmrCtrSetupIntrSystem(INTC *IntcInstancePtr,
 	 * the timer counter can cause interrupts through the interrupt controller.
 	 */
 	Status = XIntc_Start(IntcInstancePtr, XIN_REAL_MODE);
-	if (Status != XST_SUCCESS) {
+	if (Status != XST_SUCCESS)
 		return XST_FAILURE;
-	}
 #endif
 
 	/*
@@ -467,15 +456,13 @@ static int TmrCtrSetupIntrSystem(INTC *IntcInstancePtr,
 	 * use.
 	 */
 	IntcConfig = XScuGic_LookupConfig(INTC_DEVICE_ID);
-	if (NULL == IntcConfig) {
+	if (NULL == IntcConfig)
 		return XST_FAILURE;
-	}
 
 	Status = XScuGic_CfgInitialize(IntcInstancePtr, IntcConfig,
 				       IntcConfig->CpuBaseAddress);
-	if (Status != XST_SUCCESS) {
+	if (Status != XST_SUCCESS)
 		return XST_FAILURE;
-	}
 #endif /* TESTAPP_GEN */
 
 	XScuGic_SetPriorityTriggerType(IntcInstancePtr, IntrId,
@@ -488,16 +475,14 @@ static int TmrCtrSetupIntrSystem(INTC *IntcInstancePtr,
 	Status = XScuGic_Connect(IntcInstancePtr, IntrId,
 				 (Xil_ExceptionHandler)XTmrCtr_InterruptHandler,
 				 TmrCtrInstancePtr);
-	if (Status != XST_SUCCESS) {
+	if (Status != XST_SUCCESS)
 		return Status;
-	}
 
 	/*
 	 * Enable the interrupt for the Timer device.
 	 */
 	XScuGic_Enable(IntcInstancePtr, IntrId);
 #endif /* XPAR_INTC_0_DEVICE_ID */
-
 #ifndef TESTAPP_GEN
 	/*
 	 * Initialize the exception table.
@@ -525,27 +510,23 @@ static int TmrCtrSetupIntrSystem(INTC *IntcInstancePtr,
 /******************************************************************************/
 /**
 *
-* This function disables the interrupts for the Timer.
+* @brief Disables the interrupts for the Timer.
 *
 * @if SDT
-* @param	IntrId is the interrupt ID of the Timer.
-* @param	IntrParent is the parent interrupt controller.
+* @param[in]	IntrId is the interrupt ID of the Timer.
+* @param[in]	IntrParent is the parent interrupt controller.
 * @else
-* @param	IntcInstancePtr is a reference to the Interrupt Controller
+* @param[in]	IntcInstancePtr is a reference to the Interrupt Controller
 *		driver Instance.
-* @param	IntrId is XPAR_<INTC_instance>_<Timer_instance>_VEC_ID
+* @param[in]	IntrId is XPAR_<INTC_instance>_<Timer_instance>_VEC_ID
 *		value from xparameters.h.
 * @endif
 *
-* @return	None.
-*
-* @note		None.
-*
 ******************************************************************************/
 #ifndef SDT
-void TmrCtrDisableIntr(INTC *IntcInstancePtr, u16 IntrId)
+	void TmrCtrDisableIntr(INTC *IntcInstancePtr, u16 IntrId)
 #else
-void TmrCtrDisableIntr( u16 IntrId, UINTPTR IntrParent)
+	void TmrCtrDisableIntr(u16 IntrId, UINTPTR IntrParent)
 #endif
 {
 #ifndef SDT
@@ -560,6 +541,6 @@ void TmrCtrDisableIntr( u16 IntrId, UINTPTR IntrParent)
 	XScuGic_Disconnect(IntcInstancePtr, IntrId);
 #endif
 #else
-	XDisableIntrId( IntrId, IntrParent);
+	XDisableIntrId(IntrId, IntrParent);
 #endif
 }

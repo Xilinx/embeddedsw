@@ -1,19 +1,16 @@
 /******************************************************************************
 * Copyright (C) 2002 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
 /*****************************************************************************/
 /**
+*
 * @file  xtmrctr_polled_example.c
 *
 * This file contains a design example using the Timer Counter driver (XTmrCtr)
 * and hardware device in a polled mode.
-*
-* @note
-*
-* None.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -29,11 +26,11 @@
 *                     CR-965028.
 * 4.15  bdk  12/08/25 Updated comments to support SDT flow for Doxygen
 *                     documentation.
+* 4.16  ml   16/09/26 Fixed doxygen 1.15.0 and compliance checker warnings.
 *</pre>
 ******************************************************************************/
 
 /***************************** Include Files *********************************/
-
 #include "xparameters.h"
 #include "xtmrctr.h"
 #include "xil_printf.h"
@@ -48,7 +45,7 @@
 #ifndef SDT
 #define TMRCTR_DEVICE_ID	XPAR_TMRCTR_0_DEVICE_ID
 #else
-#define XTMRCTR_BASEADDRESS	XPAR_XTMRCTR_0_BASEADDR
+#define XTMRCTR_BASEADDRESS	XPAR_XTMRCTR_0_BASEADDR			/**< Base address of the device. */
 #endif
 
 
@@ -61,31 +58,25 @@
 
 /**************************** Type Definitions *******************************/
 
-
 /***************** Macros (Inline Functions) Definitions *********************/
-
 
 /************************** Function Prototypes ******************************/
 #ifndef SDT
-int TmrCtrPolledExample(u16 DeviceId, u8 TmrCtrNumber);
+	int TmrCtrPolledExample(u16 DeviceId, u8 TmrCtrNumber);
 #else
-int TmrCtrPolledExample(UINTPTR BaseAddr, u8 TmrCtrNumber);
+	int TmrCtrPolledExample(UINTPTR BaseAddr, u8 TmrCtrNumber);
 #endif
 /************************** Variable Definitions *****************************/
 
-XTmrCtr TimerCounter; /* The instance of the Tmrctr Device */
-
+XTmrCtr TimerCounter; /**< The instance of the Tmrctr Device. */
 
 /*****************************************************************************/
 /**
-* Main function to call the polled example.
 *
-* @param	None.
+* Main function to call the polled example.
 *
 * @return	XST_SUCCESS to indicate success, else XST_FAILURE to indicate
 *		a Failure.
-*
-* @note		None.
 *
 ******************************************************************************/
 int main(void)
@@ -115,17 +106,18 @@ int main(void)
 
 /*****************************************************************************/
 /**
+*
 * This function does a minimal test on the timer counter device and
 * driver as a design example. The purpose of this function is to illustrate
 * how to use the XTmrCtr component in a polled mode.
 *
 * @if SDT
-* @param	BaseAddr is the base address of the device
+* @param[in]	BaseAddr is the base address of the device
 * @else
-* @param	DeviceId is the XPAR_<TMRCTR_instance>_DEVICE_ID value from
+* @param[in]	DeviceId is the XPAR_<TMRCTR_instance>_DEVICE_ID value from
 *		xparameters.h
 * @endif
-* @param	TmrCtrNumber is the timer counter of the device to operate on.
+* @param[in]	TmrCtrNumber is the timer counter of the device to operate on.
 *		 Each device may contain multiple timer counters.
 *		The timer number is a zero based number with a range of
 *		0 - (XTC_DEVICE_TIMER_COUNT - 1).
@@ -140,9 +132,9 @@ int main(void)
 *
 *****************************************************************************/
 #ifndef SDT
-int TmrCtrPolledExample(u16 DeviceId, u8 TmrCtrNumber)
+	int TmrCtrPolledExample(u16 DeviceId, u8 TmrCtrNumber)
 #else
-int TmrCtrPolledExample(UINTPTR BaseAddr, u8 TmrCtrNumber)
+	int TmrCtrPolledExample(UINTPTR BaseAddr, u8 TmrCtrNumber)
 #endif
 {
 	int Status;
@@ -159,18 +151,16 @@ int TmrCtrPolledExample(UINTPTR BaseAddr, u8 TmrCtrNumber)
 #else
 	Status = XTmrCtr_Initialize(TmrCtrInstancePtr, BaseAddr);
 #endif
-	if (Status != XST_SUCCESS) {
+	if (Status != XST_SUCCESS)
 		return XST_FAILURE;
-	}
 
 	/*
 	 * Perform a self-test to ensure that the hardware was built
 	 * correctly, use the 1st timer in the device (0)
 	 */
 	Status = XTmrCtr_SelfTest(TmrCtrInstancePtr, TmrCtrNumber);
-	if (Status != XST_SUCCESS) {
+	if (Status != XST_SUCCESS)
 		return XST_FAILURE;
-	}
 
 
 	/*
@@ -198,9 +188,8 @@ int TmrCtrPolledExample(UINTPTR BaseAddr, u8 TmrCtrNumber)
 	 */
 	while (1) {
 		Value2 = XTmrCtr_GetValue(TmrCtrInstancePtr, TmrCtrNumber);
-		if (Value1 != Value2) {
+		if (Value1 != Value2)
 			break;
-		}
 	}
 
 	/*

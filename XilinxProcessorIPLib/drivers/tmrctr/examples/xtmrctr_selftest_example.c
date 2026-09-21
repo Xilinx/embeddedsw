@@ -1,19 +1,16 @@
 /******************************************************************************
 * Copyright (C) 2002 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
 /*****************************************************************************/
 /**
+*
 * @file xtmrctr_selftest_example.c
 *
 * This file contains a example for  using the Timer Counter hardware and
 * driver
-*
-* @note
-*
-* None
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -28,6 +25,7 @@
 *                     CR-965028.
 * 4.15  bdk  12/08/25 Updated comments to support SDT flow for Doxygen
 *                     documentation.
+* 4.16  ml   16/09/26 Fixed doxygen 1.15.0 and compliance checker warnings.
 * </pre>
 *
 *****************************************************************************/
@@ -47,7 +45,7 @@
 #ifndef SDT
 #define TMRCTR_DEVICE_ID  XPAR_TMRCTR_0_DEVICE_ID
 #else
-#define XTMRCTR_BASEADDRESS XPAR_XTMRCTR_0_BASEADDR
+#define XTMRCTR_BASEADDRESS XPAR_XTMRCTR_0_BASEADDR			/**< Base address of the device. */
 #endif
 
 /*
@@ -58,33 +56,27 @@
 
 /**************************** Type Definitions ******************************/
 
-
 /***************** Macros (Inline Functions) Definitions *******************/
-
 
 /************************** Function Prototypes ****************************/
 #ifndef SDT
-int TmrCtrSelfTestExample(u16 DeviceId);
+	int TmrCtrSelfTestExample(u16 DeviceId);
 #else
-int TmrCtrSelfTestExample(UINTPTR BaseAddr);
+	int TmrCtrSelfTestExample(UINTPTR BaseAddr);
 #endif
 
 /************************** Variable Definitions **************************/
 
-XTmrCtr TimerCounter; /* The instance of the timer counter */
-
+XTmrCtr TimerCounter; /**< The instance of the timer counter. */
 
 /*****************************************************************************/
 /**
+*
 * Main function to call the example. This function is not included if the
 * example is generated from the TestAppGen test tool.
 *
-* @param	None
-*
-* @return   XST_SUCCESS to indicate success, else XST_FAILURE to indicate
+* @return	XST_SUCCESS to indicate success, else XST_FAILURE to indicate
 *		   a Failure.
-*
-* @note	 None
 *
 ******************************************************************************/
 #ifndef TESTAPP_GEN
@@ -110,20 +102,16 @@ int main(void)
 /*****************************************************************************/
 /**
 *
-* This function does a minimal test on the TmrCtr device and driver as a
-* design example. The purpose of this function is to illustrate
-* how to use the XTmrCtr component.
+* @brief Performs a minimal self-test on the TmrCtr device and driver.
 *
+* The purpose of this function is to illustrate how to use the XTmrCtr
+* component.
 * @if SDT
-* @param	BaseAddr is the base address of the device
+* @param[in]	BaseAddr is the base address of the device
 * @else
-* @param	DeviceId is the XPAR_<TMRCTR_instance>_DEVICE_ID value from
+* @param[in]	DeviceId is the XPAR_<TMRCTR_instance>_DEVICE_ID value from
 *		xparameters.h
 * @endif
-* @param	TmrCtrNumber is the timer counter of the device to operate on.
-*		Each device may contain multiple timer counters.
-*		The timer number is a zero based number with a range of
-*		0 - (XTC_DEVICE_TIMER_COUNT - 1).
 *
 * @return	XST_SUCCESS if successful, XST_FAILURE if unsuccessful
 *
@@ -132,9 +120,9 @@ int main(void)
 *
 ****************************************************************************/
 #ifndef SDT
-int TmrCtrSelfTestExample(u16 DeviceId)
+	int TmrCtrSelfTestExample(u16 DeviceId)
 #else
-int TmrCtrSelfTestExample(UINTPTR BaseAddr)
+	int TmrCtrSelfTestExample(UINTPTR BaseAddr)
 #endif
 {
 	int Status;
@@ -149,18 +137,16 @@ int TmrCtrSelfTestExample(UINTPTR BaseAddr)
 #else
 	Status = XTmrCtr_Initialize(TmrCtrInstancePtr, BaseAddr);
 #endif
-	if (Status != XST_SUCCESS) {
+	if (Status != XST_SUCCESS)
 		return XST_FAILURE;
-	}
 
 	/*
 	 * Perform a self-test to ensure that the hardware was built
 	 * correctly, use the 1st timer in the device (0)
 	 */
 	Status = XTmrCtr_SelfTest(TmrCtrInstancePtr, TmrCtrNumber);
-	if (Status != XST_SUCCESS) {
+	if (Status != XST_SUCCESS)
 		return XST_FAILURE;
-	}
 
 	return XST_SUCCESS;
 }
