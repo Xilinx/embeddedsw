@@ -20,6 +20,8 @@
 *       tvp  03/09/26 Update last word transfer logic during signature verification
 *       vns  07/29/26 Replaced XPlmi_MemCpy64 with CPU register access for PK/SK/signature
 * 5.8   ks   08/31/26 Used a local snapshot of the signature CT for hardware and comparison
+*       har  09/08/26 Added END_RST label to skip control register access when the
+*                     core is still in reset
 *
 * </pre>
 *
@@ -208,7 +210,7 @@ int XSecure_MldsaSignVerify(const XSecure_MldsaSignVerifyParams *MldsaParams)
 		WordIdx = Index / XSECURE_WORD_SIZE;
 		if (WordIdx >= (XSECURE_MLDSA_CT_LEN / XSECURE_WORD_SIZE)) {
 			Status = XSECURE_ERR_GLITCH_DETECTED;
-			goto END;
+			goto END_RST;
 		}
 		XSecure_Out32((XSECURE_MLDSA_BASEADDR + XSECURE_MLDSA_SIGN_0_OFFSET + Index),
 			      CtSnapshot[WordIdx]);
@@ -216,7 +218,7 @@ int XSecure_MldsaSignVerify(const XSecure_MldsaSignVerifyParams *MldsaParams)
 
 	if (Index != (u32)XSECURE_MLDSA_CT_LEN) {
 		Status = XSECURE_ERR_GLITCH_DETECTED;
-		goto END;
+		goto END_RST;
 	}
 
 	/** - Transfer remaining word-aligned portion (4560 bytes = 1140 words). */
@@ -250,7 +252,7 @@ int XSecure_MldsaSignVerify(const XSecure_MldsaSignVerifyParams *MldsaParams)
 				  XSECURE_MLDSA_TIMEOUT_MAX);
 	if (Status != XST_SUCCESS) {
 		Status = XSECURE_MLDSA_MSG_STREAM_ERROR;
-		goto END;
+		goto END_RST;
 	}
 
 	/** - Transfer message/data to hardware registers */
@@ -263,7 +265,7 @@ int XSecure_MldsaSignVerify(const XSecure_MldsaSignVerifyParams *MldsaParams)
 				  XSECURE_MLDSA_TIMEOUT_MAX);
 	if (Status != XST_SUCCESS) {
 		Status = XSECURE_MLDSA_SIGN_TIMEOUT_ERROR;
-		goto END;
+		goto END_RST;
 	}
 
 	Status = XSECURE_MLDSA_SIGNATURE_MISMATCH;
@@ -273,25 +275,25 @@ int XSecure_MldsaSignVerify(const XSecure_MldsaSignVerifyParams *MldsaParams)
 		WordIdx = Index / XSECURE_WORD_SIZE;
 		if (WordIdx >= (XSECURE_MLDSA_CT_LEN / XSECURE_WORD_SIZE)) {
 			Status = XSECURE_ERR_GLITCH_DETECTED;
-			goto END;
+			goto END_RST;
 		}
 		if (XSecure_In64(XSECURE_MLDSA_BASEADDR + XSECURE_MLDSA_VERIF_RESULT_0_OFFSET +
 					Index) != CtSnapshot[WordIdx]) {
 			Status = XSECURE_MLDSA_SIGNATURE_MISMATCH;
-			goto END;
+			goto END_RST;
 		}
 	}
 
 	if (Index != (u32)(XSECURE_MLDSA_CT_LEN)) {
 		Status = XSECURE_ERR_GLITCH_DETECTED;
-		goto END;
+		goto END_RST;
 	}
 
 	Status = XST_SUCCESS;
 
 	XSecure_Printf(XSECURE_DEBUG_GENERAL, "MLDSA signature verification success\r\n");
 
-END:
+END_RST:
 	/**
 	 * - Clear ML-DSA control registers (using ZEROIZE command) to remove sensitive data from
 	 *   hardware for security
@@ -303,10 +305,14 @@ END:
 	ClrStatus = (int)Xil_WaitForEvent((XSECURE_MLDSA_BASEADDR + XSECURE_MLDSA_STATUS_OFFSET),
 				     XSECURE_MLDSA_STATUS_READY_MASK,
 				     XSECURE_MLDSA_STATUS_READY_MASK, XSECURE_MLDSA_TIMEOUT_MAX);
+	if (ClrStatus != XST_SUCCESS) {
+		ClrStatus = (int)XSECURE_MLDSA_REG_ZEROIZE_FAIL_ERROR;
+	}
 	if (Status == XST_SUCCESS) {
 		Status = ClrStatus;
 	}
 
+END:
 	/** - Put MLDSA into reset state */
 	XSecure_SetReset(XSECURE_MLDSA_BASEADDR, XSECURE_MLDSA_RESET_OFFSET);
 
@@ -396,7 +402,7 @@ int XSecure_MldsaSignGenerate(XSecure_MldsaSignGenParams *MldsaParams)
 			XSECURE_MLDSA_SIGN_RND_LEN);
 	if (Status != XST_SUCCESS) {
 		XSECURE_STATUS_CHK_GLITCH_DETECT(Status);
-		goto END;
+		goto END_RST;
 	}
 
 	/** - Transfer entropy to hardware registers (512 bits = 64 bytes) */
@@ -406,7 +412,7 @@ int XSecure_MldsaSignGenerate(XSecure_MldsaSignGenParams *MldsaParams)
 			XSECURE_MLDSA_ENTROPY_LEN);
 	if (Status != XST_SUCCESS) {
 		XSECURE_STATUS_CHK_GLITCH_DETECT(Status);
-		goto END;
+		goto END_RST;
 	}
 
 	/** - Trigger the core for performing Signing (STATUS flag will be changed to 2'b00) */
@@ -425,7 +431,7 @@ int XSecure_MldsaSignGenerate(XSecure_MldsaSignGenParams *MldsaParams)
 				  XSECURE_MLDSA_TIMEOUT_MAX);
 	if (Status != XST_SUCCESS) {
 		Status = XSECURE_MLDSA_MSG_STREAM_ERROR;
-		goto END;
+		goto END_RST;
 	}
 
 	/** - Transfer message/data to hardware registers */
@@ -439,7 +445,7 @@ int XSecure_MldsaSignGenerate(XSecure_MldsaSignGenParams *MldsaParams)
 			XSECURE_MLDSA_TIMEOUT_MAX);
 	if (Status != XST_SUCCESS) {
 		Status = XSECURE_MLDSA_SIGN_TIMEOUT_ERROR;
-		goto END;
+		goto END_RST;
 	}
 
 	/** - Read the generated signature from hardware registers */
@@ -468,7 +474,7 @@ int XSecure_MldsaSignGenerate(XSecure_MldsaSignGenParams *MldsaParams)
 
 	XSecure_Printf(XSECURE_DEBUG_GENERAL, "MLDSA signature generation success\r\n");
 
-END:
+END_RST:
 	/**
 	 * - Clear ML-DSA control registers (using ZEROIZE command) to remove sensitive data from
 	 *   hardware for security
@@ -478,12 +484,16 @@ END:
 
 	/** - Wait for zeroize operation to complete */
 	ClrStatus = (int)Xil_WaitForEvent((XSECURE_MLDSA_BASEADDR + XSECURE_MLDSA_STATUS_OFFSET),
-				     XSECURE_MLDSA_STATUS_READY_MASK,
-				     XSECURE_MLDSA_STATUS_READY_MASK, XSECURE_MLDSA_TIMEOUT_MAX);
+					XSECURE_MLDSA_STATUS_READY_MASK,
+					XSECURE_MLDSA_STATUS_READY_MASK, XSECURE_MLDSA_TIMEOUT_MAX);
+	if (ClrStatus != XST_SUCCESS) {
+		ClrStatus = (int)XSECURE_MLDSA_REG_ZEROIZE_FAIL_ERROR;
+	}
 	if (Status == XST_SUCCESS) {
 		Status = ClrStatus;
 	}
 
+END:
 	ClrStatus = Xil_SecureZeroize((u8 *)&SignRnd, XSECURE_MLDSA_SIGN_RND_LEN);
 	if (Status == XST_SUCCESS) {
 		Status = ClrStatus;
