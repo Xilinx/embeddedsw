@@ -3365,18 +3365,26 @@ static void XDp_TxIssueGuid(XDp *InstancePtr, u8 LinkCountTotal,
 		u8 *RelativeAddress, XDp_TxTopology *Topology, u8 *Guid)
 {
 	u8 GuidIndex;
+	u8 GuidTableIndex;
 
 	for (GuidIndex = 0; GuidIndex < XDP_GUID_NBYTES; GuidIndex++) {
 		if (Guid[GuidIndex]) {
 			return;
 		}
 	}
+
+	/* Clamp against the fixed-size GUID table to avoid an OOB read. */
+	GuidTableIndex = Topology->NodeTotal;
+	if (GuidTableIndex >= (sizeof(GuidTable) / sizeof(GuidTable[0]))) {
+		GuidTableIndex = (sizeof(GuidTable) / sizeof(GuidTable[0])) - 1;
+	}
+
 	/* The current GUID is all 0's; issue a GUID to the device. */
 	XDp_TxWriteGuid(InstancePtr, LinkCountTotal, RelativeAddress,
-						GuidTable[Topology->NodeTotal]);
+					GuidTable[GuidTableIndex]);
 
 	for (GuidIndex = 0; GuidIndex < XDP_GUID_NBYTES; GuidIndex++) {
-		Guid[GuidIndex] = GuidTable[Topology->NodeTotal][GuidIndex];
+		Guid[GuidIndex] = GuidTable[GuidTableIndex][GuidIndex];
 	}
 }
 
