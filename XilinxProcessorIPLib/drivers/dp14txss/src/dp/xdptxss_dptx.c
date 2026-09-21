@@ -249,6 +249,11 @@ u32 XDpTxSs_DpTxStart(XDp *InstancePtr, u8 TransportMode, u8 Bpc,
 			"EDID...\n\r");
 
 		/* Read EDID of first sink */
+		if (InstancePtr->TxInstance.Topology.SinkTotal == 0) {
+			xdbg_printf(XDBG_DEBUG_GENERAL,"SS ERR:MST:No sink found "
+				"in topology.\n\r");
+			return XST_FAILURE;
+		}
 		Sink1 = InstancePtr->TxInstance.Topology.SinkList[0];
 		Status = XDp_TxGetRemoteEdid(InstancePtr, Sink1->LinkCountTotal,
 				Sink1->RelativeAddress, Edid);
