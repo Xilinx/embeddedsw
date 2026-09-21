@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2002 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -31,46 +31,39 @@
 * 3.19  adk  08/05/24 In SDT flow inorder to loop over config table use the
 * 		      XPAR_INTC_NUM_DRV_INSTANCES define instead of config table
 * 		      to reduce the size.
+* 3.23 ml   16/09/26 Fixed doxygen 1.15.0 and compliance checker warnings.
 * </pre>
 *
 ******************************************************************************/
 
 /***************************** Include Files *********************************/
-
 #include "xil_types.h"
 #include "xil_assert.h"
 #include "xintc.h"
 
 /************************** Constant Definitions *****************************/
 
-
 /**************************** Type Definitions *******************************/
-
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
-
 /************************** Function Prototypes ******************************/
 
-
 /************************** Variable Definitions *****************************/
-
 
 /*****************************************************************************/
 /**
 *
+* @brief Sets options for the XIntc instance.
 * Set the options for the interrupt controller driver. In Cascade mode same
 * Option is set to Slave controllers.
 *
-* @param	InstancePtr is a pointer to the XIntc instance to be worked on.
-* @param	Options to be set. The available options are described in
+* @param[in]	InstancePtr is a pointer to the XIntc instance to be worked on.
+* @param[in]	Options to be set. The available options are described in
 *		xintc.h.
 *
-* @return
-* 		- XST_SUCCESS if the options were set successfully
+* @return	- XST_SUCCESS if the options were set successfully
 * 		- XST_INVALID_PARAM if the specified option was not valid
-*
-* @note		None.
 *
 ****************************************************************************/
 int XIntc_SetOptions(XIntc *InstancePtr, u32 Options)
@@ -104,21 +97,19 @@ int XIntc_SetOptions(XIntc *InstancePtr, u32 Options)
 #endif
 		}
 		return XST_SUCCESS;
-	} else {
+	} else
 		return XST_INVALID_PARAM;
-	}
 }
 
 /*****************************************************************************/
 /**
 *
+* @brief Returns the current options for the XIntc instance.
 * Return the currently set options.
 *
-* @param	InstancePtr is a pointer to the XIntc instance to be worked on.
+* @param[in]	InstancePtr is a pointer to the XIntc instance to be worked on.
 *
 * @return	The currently set options. The options are described in xintc.h.
-*
-* @note		None.
 *
 ****************************************************************************/
 u32 XIntc_GetOptions(XIntc *InstancePtr)

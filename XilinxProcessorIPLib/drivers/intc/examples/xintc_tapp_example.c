@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2002 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -20,10 +20,6 @@
 * The TestApp Gen utility uses this file to perform the self test and setup
 * of Intc for interrupts.
 *
-* @note
-*
-* None
-*
 * <pre>
 *
 * MODIFICATION HISTORY:
@@ -40,11 +36,11 @@
 *                      CR-965028.
 * 3.22  bdk  12/08/25  Updated comments to support SDT flow for Doxygen
 *                      documentation.
+* 3.23 ml   16/09/26 Fixed doxygen 1.15.0 and compliance checker warnings.
 * </pre>
 ******************************************************************************/
 
 /***************************** Include Files *********************************/
-
 #include "xparameters.h"
 #include "xstatus.h"
 #include "xintc.h"
@@ -64,28 +60,24 @@
 #ifndef SDT
 #define INTC_DEVICE_ID		  XPAR_INTC_0_DEVICE_ID
 #else
-#define INTC_BASEADDR	XPAR_XINTC_0_BASEADDR
+#define INTC_BASEADDR	XPAR_XINTC_0_BASEADDR /**< Base address of the interrupt controller. */
 #endif
 #endif
 
 /**************************** Type Definitions *******************************/
 
-
 /***************** Macros (Inline Functions) Definitions *********************/
-
 
 /************************** Function Prototypes ******************************/
 #ifndef SDT
-int IntcSelfTestExample(u16 DeviceId);
-int IntcInterruptSetup(XIntc *IntcInstancePtr, u16 DeviceId);
+	int IntcSelfTestExample(u16 DeviceId);
+	int IntcInterruptSetup(XIntc *IntcInstancePtr, u16 DeviceId);
 #else
-int IntcSelfTestExample(UINTPTR BaseAddr);
-int IntcInterruptSetup(XIntc *IntcInstancePtr, UINTPTR BaseAddr);
+	int IntcSelfTestExample(UINTPTR BaseAddr);
+	int IntcInterruptSetup(XIntc *IntcInstancePtr, UINTPTR BaseAddr);
 #endif
 /************************** Variable Definitions *****************************/
-
-static XIntc InterruptController; /* Instance of the Interrupt Controller */
-
+static XIntc InterruptController; /**< Instance of the Interrupt Controller. */
 
 /*****************************************************************************/
 /**
@@ -94,11 +86,7 @@ static XIntc InterruptController; /* Instance of the Interrupt Controller */
 * function is not included if the example is generated from the TestAppGen test
 * tool.
 *
-* @param	None.
-*
 * @return	XST_SUCCESS to indicate success, otherwise XST_FAILURE.
-*
-* @note		None.
 *
 ******************************************************************************/
 #ifndef TESTAPP_GEN
@@ -129,21 +117,20 @@ int main(void)
 /*****************************************************************************/
 /**
 *
-* This function runs a self-test on the driver/device. This is a destructive
-* test. This function is an example of how to use the interrupt controller
-* driver component (XIntc) and the hardware device.  This function is designed
-* to work without any hardware devices to cause interrupts.  It may not return
-* if the interrupt controller is not properly connected to the processor in
-* either software or hardware.
+* @brief Runs a self-test on the driver/device.
 *
-* This function relies on the fact that the interrupt controller hardware
-* has come out of the reset state such that it will allow interrupts to be
-* simulated by the software.
-*
+* This is a destructive test. This function is an example of how to use the
+* interrupt controller driver component (XIntc) and the hardware device. This
+* function is designed to work without any hardware devices to cause
+* interrupts. It may not return if the interrupt controller is not properly
+* connected to the processor in either software or hardware. This function
+* relies on the fact that the interrupt controller hardware has come out of the
+* reset state such that it will allow interrupts to be simulated by the
+* software.
 * @if SDT
-* @param	BaseAddr is the base address of the device
+* @param[in]	BaseAddr is the base address of the device
 * @else
-* @param	DeviceId is device ID of the Interrupt Controller Device,
+* @param[in]	DeviceId is device ID of the Interrupt Controller Device,
 *		typically XPAR_<INTC_instance>_DEVICE_ID value from
 *		xparameters.h.
 * @endif
@@ -155,9 +142,9 @@ int main(void)
 *
 ******************************************************************************/
 #ifndef SDT
-int IntcSelfTestExample(u16 DeviceId)
+	int IntcSelfTestExample(u16 DeviceId)
 #else
-int IntcSelfTestExample(UINTPTR BaseAddr)
+	int IntcSelfTestExample(UINTPTR BaseAddr)
 #endif
 {
 	int Status;
@@ -170,18 +157,16 @@ int IntcSelfTestExample(UINTPTR BaseAddr)
 #else
 	Status = XIntc_Initialize(&InterruptController, BaseAddr);
 #endif
-	if (Status != XST_SUCCESS) {
+	if (Status != XST_SUCCESS)
 		return XST_FAILURE;
-	}
 
 
 	/*
 	 * Perform a self-test to ensure that the hardware was built correctly.
 	 */
 	Status = XIntc_SelfTest(&InterruptController);
-	if (Status != XST_SUCCESS) {
+	if (Status != XST_SUCCESS)
 		return XST_FAILURE;
-	}
 
 	return XST_SUCCESS;
 
@@ -191,15 +176,13 @@ int IntcSelfTestExample(UINTPTR BaseAddr)
 /*****************************************************************************/
 /**
 *
-* This function is used by the TestAppGen generated application to setup
-* the interrupt controller.
-*
-* @param	IntcInstancePtr is the reference to the Interrupt Controller
+* @brief Sets up the interrupt system for the TestAppGen application.
+* @param[in]	IntcInstancePtr is the reference to the Interrupt Controller
 *		instance.
 * @if SDT
-* @param	BaseAddr is the base address of the Interrupt Controller device.
+* @param[in]	BaseAddr is the base address of the Interrupt Controller device.
 * @else
-* @param	DeviceId is device ID of the Interrupt Controller Device,
+* @param[in]	DeviceId is device ID of the Interrupt Controller Device,
 *		typically XPAR_<INTC_instance>_DEVICE_ID value from
 *		xparameters.h.
 * @endif
@@ -211,9 +194,9 @@ int IntcSelfTestExample(UINTPTR BaseAddr)
 *
 ******************************************************************************/
 #ifndef SDT
-int IntcInterruptSetup(XIntc *IntcInstancePtr, u16 DeviceId)
+	int IntcInterruptSetup(XIntc *IntcInstancePtr, u16 DeviceId)
 #else
-int IntcInterruptSetup(XIntc *IntcInstancePtr, UINTPTR BaseAddr)
+	int IntcInterruptSetup(XIntc *IntcInstancePtr, UINTPTR BaseAddr)
 #endif
 {
 
@@ -228,17 +211,15 @@ int IntcInterruptSetup(XIntc *IntcInstancePtr, UINTPTR BaseAddr)
 #else
 	Status = XIntc_Initialize(IntcInstancePtr, BaseAddr);
 #endif
-	if (Status != XST_SUCCESS) {
+	if (Status != XST_SUCCESS)
 		return XST_FAILURE;
-	}
 
 	/*
 	 * Perform a self-test to ensure that the hardware was built  correctly.
 	 */
 	Status = XIntc_SelfTest(IntcInstancePtr);
-	if (Status != XST_SUCCESS) {
+	if (Status != XST_SUCCESS)
 		return XST_FAILURE;
-	}
 
 	/*
 	 * Initialize the exception table.
@@ -262,9 +243,8 @@ int IntcInterruptSetup(XIntc *IntcInstancePtr, UINTPTR BaseAddr)
 	 * all devices that cause interrupts.
 	 */
 	Status = XIntc_Start(IntcInstancePtr, XIN_REAL_MODE);
-	if (Status != XST_SUCCESS) {
+	if (Status != XST_SUCCESS)
 		return XST_FAILURE;
-	}
 
 	return XST_SUCCESS;
 

@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2002 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -15,8 +15,7 @@
 * This example shows the use of the Interrupt Controller both with a PowerPC
 * and a MicroBlaze processor.
 *
-* @note
-*		This example can also be used for Cascade mode interrupt
+* @note		This example can also be used for Cascade mode interrupt
 *		controllers by using the interrupt IDs generated in
 *		xparameters.h. For Cascade mode, Interrupt IDs are generated
 *		in xparameters.h as shown below:
@@ -39,7 +38,6 @@
 *		User must not use Interrupt source/ID  31 of Primary and
 *		Secondary controllers to call driver functions.
 *
-*
 * <pre>
 *
 * MODIFICATION HISTORY:
@@ -60,11 +58,11 @@
 *                     appropriate typecasts
 * 3.21  ml   09/13/25 Updated example to run with GIC-based interrupt routing
 *                     under SDT
+* 3.23 ml   16/09/26 Fixed doxygen 1.15.0 and compliance checker warnings.
 * </pre>
 ******************************************************************************/
 
 /***************************** Include Files *********************************/
-
 #include "xparameters.h"
 #include "xstatus.h"
 #include "xintc_l.h"
@@ -89,22 +87,19 @@
 #ifndef SDT
 #define INTC_BASEADDR		XPAR_INTC_0_BASEADDR
 #define INTC_DEVICE_ID		XPAR_INTC_0_DEVICE_ID
-#define INTC_DEVICE_INTR_ID	XPAR_INTC_0_UARTLITE_0_VEC_ID
-#define INTC_DEVICE_INT_MASK	XPAR_RS232_UART_1_INTERRUPT_MASK
+#define INTC_DEVICE_INTR_ID	XPAR_INTC_0_UARTLITE_0_VEC_ID /**< Interrupt vector ID (non-SDT). */
+#define INTC_DEVICE_INT_MASK	XPAR_RS232_UART_1_INTERRUPT_MASK /**< Interrupt mask for RS232 UART 1 (non-SDT). */
 #else
-#define INTC_BASEADDR		XPAR_XINTC_0_BASEADDR
-#define INTC_DEVICE_INTR_ID	0x0U
-#define INTC_DEVICE_INT_MASK	0x1U
+#define INTC_BASEADDR		XPAR_XINTC_0_BASEADDR /**< Base address of the interrupt controller. */
+#define INTC_DEVICE_INTR_ID	0x0U /**< Interrupt vector ID (SDT default). */
+#define INTC_DEVICE_INT_MASK	0x1U /**< Interrupt mask bit (SDT default). */
 #endif
 
 /**************************** Type Definitions *******************************/
 
-
 /***************** Macros (Inline Functions) Definitions *********************/
 
-
 /************************** Function Prototypes ******************************/
-
 int IntcLowLevelExample(u32 IntcBaseAddress);
 
 void SetupInterruptSystem();
@@ -122,19 +117,15 @@ static volatile int InterruptProcessed = FALSE;
 static XIntc_Config *CfgPtr;
 
 #if defined(XPAR_SCUGIC)
-XScuGic InterruptController;
-static XScuGic_Config *GicConfig;
+	XScuGic InterruptController;
+	static XScuGic_Config *GicConfig;
 #endif
 /*****************************************************************************/
 /**
 *
 * This is the main function for the Interrupt Controller Low Level example.
 *
-* @param	None.
-*
 * @return	XST_SUCCESS to indicate success, otherwise XST_FAILURE.
-*
-* @note		None.
 *
 ******************************************************************************/
 int main(void)
@@ -159,22 +150,18 @@ int main(void)
 /*****************************************************************************/
 /**
 *
-* This function is an example of how to use the interrupt controller driver
-* component (XIntc) and the hardware device.  This function is designed to
-* work without any hardware devices to cause interrupts. It may not return
-* if the interrupt controller is not properly connected to the processor in
-* either software or hardware.
+* @brief Demonstrates use of the XIntc interrupt controller driver.
 *
-* This function relies on the fact that the interrupt controller hardware
-* has come out of the reset state such that it will allow interrupts to be
-* simulated by the software.
-*
-* @param	IntcBaseAddress is Base Address of the the Interrupt Controller
+* This function is designed to work without any hardware devices to cause
+* interrupts. It may not return if the interrupt controller is not properly
+* connected to the processor in either software or hardware. This function
+* relies on the fact that the interrupt controller hardware has come out of the
+* reset state such that it will allow interrupts to be simulated by the
+* software.
+* @param[in]	IntcBaseAddress is the base address of the Interrupt Controller.
 *		Device.
 *
 * @return	XST_SUCCESS to indicate success, otherwise XST_FAILURE.
-*
-* @note		None.
 *
 ******************************************************************************/
 int IntcLowLevelExample(u32 IntcBaseAddress)
@@ -205,23 +192,23 @@ int IntcLowLevelExample(u32 IntcBaseAddress)
 	 */
 	XIntc_Out32(IntcBaseAddress + XIN_MER_OFFSET, XIN_INT_MASTER_ENABLE_MASK);
 
-	#ifdef __riscv
-                vector_base = csrr(XREG_MTVEC);
-	#else
-                vector_base = 0x10;
-	#endif
+#ifdef __riscv
+	vector_base = csrr(XREG_MTVEC);
+#else
+	vector_base = 0x10;
+#endif
 
 	CfgPtr = LookupConfigByBaseAddress(IntcBaseAddress);
 	if (CfgPtr->VectorAddrWidth >
-                    XINTC_STANDARD_VECTOR_ADDRESS_WIDTH) {
+	    XINTC_STANDARD_VECTOR_ADDRESS_WIDTH) {
 		for (Id = 0; Id < 32 ; Id++) {
 			XIntc_Out64(IntcBaseAddress + XIN_IVEAR_OFFSET
-                                            + (Id * 8), vector_base);
+				    + (Id * 8), vector_base);
 		}
 	} else {
 		for (Id = 0; Id < 32 ; Id++) {
 			XIntc_Out32(IntcBaseAddress + XIN_IVAR_OFFSET
-                                            + (Id * 4), vector_base);
+				    + (Id * 4), vector_base);
 		}
 	}
 
@@ -250,9 +237,8 @@ int IntcLowLevelExample(u32 IntcBaseAddress)
 		 * variable which is set in the device driver handler, then
 		 * stop waiting.
 		 */
-		if (InterruptProcessed) {
+		if (InterruptProcessed)
 			break;
-		}
 	}
 
 
@@ -262,17 +248,11 @@ int IntcLowLevelExample(u32 IntcBaseAddress)
 /*****************************************************************************/
 /**
 *
-* This function connects the interrupt handler of the interrupt controller to
-* the processor. This function is separate to allow it to be customized for
-* each application. Each processor or RTOS may require unique processing to
-* connect the interrupt handler.
+* @brief Connects the interrupt controller handler to the processor.
 *
-* @param	None.
-*
-* @return	None.
-*
-* @note		None.
-*
+* This function is separate to allow it to be customized for each application.
+* Each processor or RTOS may require unique processing to connect the interrupt
+* handler.
 ******************************************************************************/
 void SetupInterruptSystem()
 {
@@ -281,7 +261,7 @@ void SetupInterruptSystem()
 	GicConfig = XScuGic_LookupConfig(CfgPtr->IntrParent);
 
 	XScuGic_CfgInitialize(&InterruptController, GicConfig,
-				       GicConfig->CpuBaseAddress);
+			      GicConfig->CpuBaseAddress);
 
 #endif
 
@@ -300,16 +280,16 @@ void SetupInterruptSystem()
 #else
 	if (XGet_IntcType(CfgPtr->IntrParent) == XINTC_TYPE_IS_INTC) {
 		Xil_ExceptionRegisterHandler(XIL_EXCEPTION_ID_INT,
-				     (Xil_ExceptionHandler)XIntc_DeviceInterruptHandler,
-				     (void *)INTC_BASEADDR);
+					     (Xil_ExceptionHandler)XIntc_DeviceInterruptHandler,
+					     (void *)INTC_BASEADDR);
 	} else {
 #if defined(XPAR_SCUGIC)
 		Xil_ExceptionRegisterHandler(XIL_EXCEPTION_ID_INT,
-				     (Xil_ExceptionHandler)XScuGic_InterruptHandler,
-				     (void *)&InterruptController);
+					     (Xil_ExceptionHandler)XScuGic_InterruptHandler,
+					     (void *)&InterruptController);
 		XScuGic_Connect(&InterruptController, IntrId,
-				 (Xil_ExceptionHandler)XIntc_DeviceInterruptHandler,
-				 (void *)INTC_BASEADDR);
+				(Xil_ExceptionHandler)XIntc_DeviceInterruptHandler,
+				(void *)INTC_BASEADDR);
 		XScuGic_Enable(&InterruptController, IntrId);
 #endif
 	}
@@ -322,28 +302,18 @@ void SetupInterruptSystem()
 }
 
 
-
 /*****************************************************************************/
 /**
+* @brief Handles a device driver interrupt.
 *
 * This function is designed to look like an interrupt handler in a device
-* driver. This is typically a 2nd level handler that is called from the
-* interrupt controller interrupt handler.  This handler would typically
-* perform device specific processing such as reading and writing the registers
-* of the device to clear the interrupt condition and pass any data to an
-* application using the device driver.
+* driver. This is typically a 2nd level handler called from the interrupt
+* controller interrupt handler. This handler would typically perform device
+* specific processing such as reading and writing the registers of the device
+* to clear the interrupt condition and pass any data to an application.
 *
-* @param	CallbackRef is passed back to the device driver's interrupt
-*		handler by the XIntc driver.  It was given to the XIntc driver
-*		in the XIntc_Connect() function call. It is typically a pointer
-*		to the device driver instance variable if using the Xilinx Level
-*		1 device drivers. In this example, we do not care about the
-*		callback reference, so we passed it a 0 when connecting the
-*		handler to the XIntc driver and we make no use of it here.
-*
-* @return	None.
-*
-* @note		None.
+* @param[in]	CallbackRef is passed back to the device driver's interrupt
+*		handler by the XIntc driver.
 *
 ******************************************************************************/
 void DeviceDriverHandler(void *CallbackRef)

@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2002 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -14,7 +14,6 @@
 * This header file contains identifiers and low-level driver functions (or
 * macros) that can be used to access the device.  The user should refer to the
 * hardware device specification for more details of the device operation.
-*
 *
 * Note that users of the driver interface given in this file can register
 * an interrupt handler dynamically (at run-time) using the
@@ -59,19 +58,18 @@
 * 3.16  mus  10/04/22 Fixed warnings reported with "-Wundef" compiler flag.
 *                     It fixes CR#1142085.
 *
+* 3.23 ml   16/09/26 Fixed doxygen 1.15.0 and compliance checker warnings.
 * </pre>
 *
 ******************************************************************************/
-
 #ifndef XINTC_L_H		/* prevent circular inclusions */
+/** @brief Include guard to prevent multiple inclusions of xintc_l.h. */
 #define XINTC_L_H		/* by using protection macros */
-
 #ifdef __cplusplus
 extern "C" {
 #endif
 
 /***************************** Include Files *********************************/
-
 #include "xil_types.h"
 #include "xil_assert.h"
 #include "xstatus.h"
@@ -85,7 +83,7 @@ extern "C" {
  * XPAR_XINTC_USE_DCR_BRIDGE has to be set to 1 if the Intc device will be
  * accessed through a DCR bus connected to a bridge.
  */
-#define XPAR_XINTC_USE_DCR_BRIDGE 0
+#define XPAR_XINTC_USE_DCR_BRIDGE 0	/**< Set to 1 if Intc device uses a DCR bus bridge. */
 
 #if ((defined (XPAR_XINTC_USE_DCR) && XPAR_XINTC_USE_DCR != 0) || (XPAR_XINTC_USE_DCR_BRIDGE != 0))
 #include "xio_dcr.h"
@@ -98,7 +96,7 @@ extern "C" {
  */
 #if ((defined (XPAR_XINTC_USE_DCR) && XPAR_XINTC_USE_DCR != 0) || (XPAR_XINTC_USE_DCR_BRIDGE != 0))
 
-#define XIN_ISR_OFFSET      0	/* Interrupt Status Register */
+#define XIN_ISR_OFFSET      0	/**< Offset of the Interrupt Status Register. */
 #define XIN_IPR_OFFSET      1	/* Interrupt Pending Register */
 #define XIN_IER_OFFSET      2	/* Interrupt Enable Register */
 #define XIN_IAR_OFFSET      3	/* Interrupt Acknowledge Register */
@@ -111,33 +109,24 @@ extern "C" {
 #define XIN_IVAR_OFFSET     64  /* Interrupt Vector Address Register
 				 * Interrupt 0 Offset, this is present
 				 * only for Fast Interrupt */
-
 #else /* ((XPAR_XINTC_USE_DCR != 0) || (XPAR_XINTC_USE_DCR_BRIDGE != 0)) */
-
-#define XIN_ISR_OFFSET      0	/* Interrupt Status Register */
-#define XIN_IPR_OFFSET      4	/* Interrupt Pending Register */
-#define XIN_IER_OFFSET      8	/* Interrupt Enable Register */
-#define XIN_IAR_OFFSET      12	/* Interrupt Acknowledge Register */
-#define XIN_SIE_OFFSET      16	/* Set Interrupt Enable Register */
-#define XIN_CIE_OFFSET      20	/* Clear Interrupt Enable Register */
-#define XIN_IVR_OFFSET      24	/* Interrupt Vector Register */
-#define XIN_MER_OFFSET      28	/* Master Enable Register */
-#define XIN_IMR_OFFSET      32	/* Interrupt Mode Register , this is present
-				 *  only for Fast Interrupt */
-#define XIN_ILR_OFFSET      36  /* Interrupt level register */
-#define XIN_IVAR_OFFSET     0x100 /* Interrupt Vector Address Register
-				   * Interrupt 0 Offset, this is present
-				   * only for Fast Interrupt */
-#define XIN_IVEAR_OFFSET     0x200 /* Interrupt Vector Extended Address
-					Register */
-
-
+#define XIN_ISR_OFFSET      0	/**< Offset of the Interrupt Status Register. */
+#define XIN_IPR_OFFSET      4	/**< Offset of the Interrupt Pending Register. */
+#define XIN_IER_OFFSET      8	/**< Offset of the Interrupt Enable Register. */
+#define XIN_IAR_OFFSET      12	/**< Offset of the Interrupt Acknowledge Register. */
+#define XIN_SIE_OFFSET      16	/**< Offset of the Set Interrupt Enable Register. */
+#define XIN_CIE_OFFSET      20	/**< Offset of the Clear Interrupt Enable Register. */
+#define XIN_IVR_OFFSET      24	/**< Offset of the Interrupt Vector Register. */
+#define XIN_MER_OFFSET      28	/**< Offset of the Master Enable Register. */
+#define XIN_IMR_OFFSET      32	/**< Offset of the Interrupt Mode Register (fast interrupt only). */
+#define XIN_ILR_OFFSET      36	/**< Offset of the Interrupt Level Register. */
+#define XIN_IVAR_OFFSET     0x100	/**< Offset of the Interrupt Vector Address Register (Interrupt 0, fast interrupt only). */
+#define XIN_IVEAR_OFFSET    0x200	/**< Offset of the Interrupt Vector Extended Address Register. */
 #endif /* ((XPAR_XINTC_USE_DCR != 0) || (XPAR_XINTC_USE_DCR_BRIDGE != 0)) */
 
 /* Bit definitions for the bits of the MER register */
-
-#define XIN_INT_MASTER_ENABLE_MASK      0x1UL
-#define XIN_INT_HARDWARE_ENABLE_MASK    0x2UL	/* once set cannot be cleared */
+#define XIN_INT_MASTER_ENABLE_MASK      0x1UL	/**< Master interrupt enable mask; enables all interrupts. */
+#define XIN_INT_HARDWARE_ENABLE_MASK    0x2UL	/**< Hardware interrupt enable mask; once set cannot be cleared. */
 
 /**************************** Type Definitions *******************************/
 
@@ -147,8 +136,8 @@ extern "C" {
  * driver interface given in xintc.h file.
  */
 typedef struct {
-	XInterruptHandler Handler;
-	void *CallBackRef;
+	XInterruptHandler Handler;	/**< Interrupt handler function pointer. */
+	void *CallBackRef;		/**< Callback reference passed to the handler. */
 } XIntc_VectorTableEntry;
 
 typedef void (*XFastInterruptHandler) (void);
@@ -160,29 +149,27 @@ typedef void (*XFastInterruptHandler) (void);
  */
 #if ((defined (XPAR_XINTC_USE_DCR) && XPAR_XINTC_USE_DCR != 0) || (XPAR_XINTC_USE_DCR_BRIDGE != 0))
 
-#define XIntc_In32  XIo_DcrIn
-#define XIntc_Out32 XIo_DcrOut
+#define XIntc_In32  XIo_DcrIn	/**< Read a 32-bit value from an interrupt controller register (DCR mode). */
+#define XIntc_Out32 XIo_DcrOut	/**< Write a 32-bit value to an interrupt controller register (DCR mode). */
 
 #else
 
-#define XIntc_In32  Xil_In32
-#define XIntc_Out32 Xil_Out32
-#define XIntc_Out64 Xil_Out64
+#define XIntc_In32  Xil_In32	/**< Read a 32-bit value from an interrupt controller register. */
+#define XIntc_Out32 Xil_Out32	/**< Write a 32-bit value to an interrupt controller register. */
+#define XIntc_Out64 Xil_Out64	/**< Write a 64-bit value to an interrupt controller register. */
 
 #endif
 
 /****************************************************************************/
 /**
 *
-* Enable all interrupts in the Master Enable register of the interrupt
+* @brief Enable all interrupts in the Master Enable register of the interrupt
 * controller.  The interrupt controller defaults to all interrupts disabled
 * from reset such that this macro must be used to enable interrupts.
 *
-* @param	BaseAddress is the base address of the device.
+* @param[in]	BaseAddress is the base address of the device.
 *
-* @return	None.
-*
-* @note		C-style signature:
+* @note		C-Style signature:
 *		void XIntc_MasterEnable(u32 BaseAddress);
 *
 *****************************************************************************/
@@ -193,14 +180,12 @@ typedef void (*XFastInterruptHandler) (void);
 /****************************************************************************/
 /**
 *
-* Disable all interrupts in the Master Enable register of the interrupt
+* @brief Disable all interrupts in the Master Enable register of the interrupt
 * controller.
 *
-* @param	BaseAddress is the base address of the device.
+* @param[in]	BaseAddress is the base address of the device.
 *
-* @return	None.
-*
-* @note		C-style signature:
+* @note		C-Style signature:
 *		void XIntc_MasterDisable(u32 BaseAddress);
 *
 *****************************************************************************/
@@ -210,17 +195,15 @@ typedef void (*XFastInterruptHandler) (void);
 /****************************************************************************/
 /**
 *
-* Enable specific interrupt(s) in the interrupt controller.
+* @brief Enable specific interrupt(s) in the interrupt controller.
 *
-* @param	BaseAddress is the base address of the device
-* @param	EnableMask is the 32-bit value to write to the enable register.
+* @param[in]	BaseAddress is the base address of the device
+* @param[in]	EnableMask is the 32-bit value to write to the enable register.
 *		Each bit of the mask corresponds to an interrupt input signal
 *		that is connected to the interrupt controller (INT0 = LSB).
 *		Only the bits which are set in the mask will enable interrupts.
 *
-* @return	None.
-*
-* @note		C-style signature:
+* @note		C-Style signature:
 *		void XIntc_EnableIntr(u32 BaseAddress, u32 EnableMask);
 *
 *****************************************************************************/
@@ -230,17 +213,15 @@ typedef void (*XFastInterruptHandler) (void);
 /****************************************************************************/
 /**
 *
-* Disable specific interrupt(s) in the interrupt controller.
+* @brief Disable specific interrupt(s) in the interrupt controller.
 *
-* @param	BaseAddress is the base address of the device
-* @param	DisableMask is the 32-bit value to write to the enable register.
+* @param[in]	BaseAddress is the base address of the device
+* @param[in]	DisableMask is the 32-bit value to write to the enable register.
 *		Each bit of the mask corresponds to an interrupt input signal
 *		that is connected to the interrupt controller (INT0 = LSB).
 *		Only the bits which are set in the mask will disable interrupts.
 *
-* @return	None.
-*
-* @note		C-style signature:
+* @note		C-Style signature:
 *		void XIntc_DisableIntr(u32 BaseAddress, u32 DisableMask);
 *
 *****************************************************************************/
@@ -250,18 +231,16 @@ typedef void (*XFastInterruptHandler) (void);
 /****************************************************************************/
 /**
 *
-* Acknowledge specific interrupt(s) in the interrupt controller.
+* @brief Acknowledge specific interrupt(s) in the interrupt controller.
 *
-* @param	BaseAddress is the base address of the device
-* @param	AckMask is the 32-bit value to write to the acknowledge
+* @param[in]	BaseAddress is the base address of the device
+* @param[in]	AckMask is the 32-bit value to write to the acknowledge
 *		register. Each bit of the mask corresponds to an interrupt input
 *		signal that is connected to the interrupt controller (INT0 =
 *		LSB).  Only the bits which are set in the mask will acknowledge
 *		interrupts.
 *
-* @return	None.
-*
-* @note		C-style signature:
+* @note		C-Style signature:
 *		void XIntc_AckIntr(u32 BaseAddress, u32 AckMask);
 *
 *****************************************************************************/
@@ -271,17 +250,17 @@ typedef void (*XFastInterruptHandler) (void);
 /****************************************************************************/
 /**
 *
-* Get the interrupt status from the interrupt controller which indicates
+* @brief Get the interrupt status from the interrupt controller which indicates
 * which interrupts are active and enabled.
 *
-* @param	BaseAddress is the base address of the device
+* @param[in]	BaseAddress is the base address of the device
 *
 * @return	The 32-bit contents of the interrupt status register. Each bit
 *		corresponds to an interrupt input signal that is connected to
 *		the interrupt controller (INT0 = LSB). Bits which are set
 *		indicate an active interrupt which is also enabled.
 *
-* @note		C-style signature:
+* @note		C-Style signature:
 *		u32 XIntc_GetIntrStatus(u32 BaseAddress);
 *
 *****************************************************************************/
@@ -294,6 +273,12 @@ typedef void (*XFastInterruptHandler) (void);
 /*
  * Interrupt controller handlers, to be connected to processor exception
  * handling code.
+ */
+/**
+ * @brief Low-level interrupt handler for the interrupt controller.
+ *
+ * This handler is connected to the processor exception handling code and
+ * dispatches interrupts to registered interrupt service routines.
  */
 void XIntc_LowLevelInterruptHandler(void);
 void XIntc_DeviceInterruptHandler(void *DeviceId);
@@ -308,8 +293,6 @@ void XIntc_RegisterFastHandler(UINTPTR BaseAddress, u8 Id,
 			       XFastInterruptHandler FastHandler);
 
 /************************** Variable Definitions *****************************/
-
-
 #ifdef __cplusplus
 }
 #endif

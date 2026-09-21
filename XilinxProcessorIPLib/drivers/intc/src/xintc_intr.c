@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2002 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -21,7 +21,7 @@
 * user must select the appropriate handler for the application.  The first
 * interrupt handler, XIntc_VoidInterruptHandler, is provided for systems
 * which use only a single interrupt controller or for systems that cannot
-* otherwise provide an argument to the XIntc interrupt handler (e.g., the RTOS
+* otherwise provide an argument to the XIntc interrupt handler (for example, the RTOS
 * interrupt vector handler may not provide such a facility).  The constant
 * XPAR_INTC_SINGLE_DEVICE_ID must be defined for this handler to be included in
 * the driver.  The second interrupt handler, XIntc_InterruptHandler, uses an
@@ -57,6 +57,7 @@
 * 3.14  mus  11/25/21 Updated XIntc_InterruptHandler function to fix
 *                     compilation warning. CR#1116127
 *
+* 3.23 ml   16/09/26 Fixed doxygen 1.15.0 and compliance checker warnings.
 * </pre>
 *
 * @internal
@@ -71,7 +72,6 @@
 ******************************************************************************/
 
 /***************************** Include Files *********************************/
-
 #include "xil_types.h"
 #include "xil_assert.h"
 #include "xintc.h"
@@ -81,22 +81,18 @@
 
 /************************** Constant Definitions *****************************/
 
-
-
 /**************************** Type Definitions *******************************/
-
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
-
 /************************** Function Prototypes ******************************/
-
 
 /************************** Variable Definitions *****************************/
 
-
 /*****************************************************************************/
 /**
+*
+* @brief Handles a void (spurious) interrupt with no action.
 *
 * Interrupt handler for the driver used when there can be no argument passed
 * to the handler.  This function is provided mostly for backward compatibility.
@@ -106,11 +102,7 @@
 * The user must connect this function to the interrupt system such that it is
 * called whenever the devices which are connected to it cause an interrupt.
 *
-* @return	None.
-*
-* @note
-*
-* The constant XPAR_INTC_SINGLE_DEVICE_ID must be defined for this handler
+* @note		The constant XPAR_INTC_SINGLE_DEVICE_ID must be defined for this handler
 * to be included in the driver compilation.
 *
 ******************************************************************************/
@@ -125,6 +117,7 @@ void XIntc_VoidInterruptHandler(void)
 /*****************************************************************************/
 /**
 *
+* @brief Top-level interrupt handler for the XIntc driver.
 * The interrupt handler for the driver. This function is provided mostly for
 * backward compatibility.  The user should use XIntc_DeviceInterruptHandler(),
 * defined in xintc_l.c when possible and pass the device ID of the interrupt
@@ -133,11 +126,7 @@ void XIntc_VoidInterruptHandler(void)
 * The user must connect this function to the interrupt system such that it is
 * called whenever the devices which are connected to it cause an interrupt.
 *
-* @param	InstancePtr is a pointer to the XIntc instance to be worked on.
-*
-* @return	None.
-*
-* @note		None.
+* @param[in]	InstancePtr is a pointer to the XIntc instance to be worked on.
 *
 ******************************************************************************/
 void XIntc_InterruptHandler(XIntc *InstancePtr)
@@ -151,10 +140,10 @@ void XIntc_InterruptHandler(XIntc *InstancePtr)
 	 */
 #ifndef SDT
 	XIntc_DeviceInterruptHandler((void *)
-				     ((UINTPTR) (InstancePtr->CfgPtr->DeviceId)));
+				     ((UINTPTR)(InstancePtr->CfgPtr->DeviceId)));
 #else
 	XIntc_DeviceInterruptHandler((void *)
-				     ((UINTPTR) (InstancePtr->CfgPtr->BaseAddress)));
+				     ((UINTPTR)(InstancePtr->CfgPtr->BaseAddress)));
 #endif
 }
 /** @} */

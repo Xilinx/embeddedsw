@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2002 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -25,37 +25,31 @@
 *                     pointer.
 * 1.10c mta  03/21/07 Updated to new coding style
 * 2.00a ktn  10/20/09 Updated to use HAL Processor APIs.
+* 3.23 ml   16/09/26 Fixed doxygen 1.15.0 and compliance checker warnings.
 * </pre>
 *
 ******************************************************************************/
-
 #ifndef XINTC_I_H		/* prevent circular inclusions */
+/** @brief Include guard to prevent multiple inclusions of xintc_i.h. */
 #define XINTC_I_H		/* by using protection macros */
-
 #ifdef __cplusplus
 extern "C" {
 #endif
 
 /***************************** Include Files *********************************/
-
 #include "xil_types.h"
 #include "xil_assert.h"
 #include "xintc.h"
 
 /************************** Constant Definitions *****************************/
 
-
 /**************************** Type Definitions *******************************/
-
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
-
 /************************** Function Prototypes ******************************/
 
-
 /************************** Variable Definitions *****************************/
-
 extern u32 XIntc_BitPosMask[];
 
 extern XIntc_Config XIntc_ConfigTable[];

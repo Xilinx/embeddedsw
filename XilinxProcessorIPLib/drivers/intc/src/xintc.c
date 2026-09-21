@@ -76,12 +76,12 @@
 *                    cascade pin using IntrId[4:0]. XIntc_Enable: replace
 *                    hardcoded bit-31 cascade mask with IntrId[4:0]-derived
 *                    pin for SDT multi-root topologies.
+* 3.23 ml   16/09/26 Fixed doxygen 1.15.0 and compliance checker warnings.
 * </pre>
 *
 ******************************************************************************/
 
 /***************************** Include Files *********************************/
-
 #include "xil_types.h"
 #include "xil_assert.h"
 #include "xintc.h"
@@ -90,12 +90,9 @@
 
 /************************** Constant Definitions *****************************/
 
-
 /**************************** Type Definitions *******************************/
 
-
 /***************** Macros (Inline Functions) Definitions *********************/
-
 
 /************************** Variable Definitions *****************************/
 
@@ -108,26 +105,27 @@
 u32 XIntc_BitPosMask[XIN_CONTROLLER_MAX_INTRS];
 
 /************************** Function Prototypes ******************************/
-
 static void StubHandler(void *CallBackRef);
 static void XIntc_InitializeSlaves(XIntc *InstancePtr);
 
 #ifdef SDT
-static XIntc_Config* XIntc_FindControllerByAddr(UINTPTR BaseAddr);
-XIntc_Config *XIntc_GetChainRoot(UINTPTR IntcParent);
+	static XIntc_Config *XIntc_FindControllerByAddr(UINTPTR BaseAddr);
+	XIntc_Config *XIntc_GetChainRoot(UINTPTR IntcParent);
 #endif
-static XIntc_Config* XIntc_FindControllerForId(u8 Id, u8 *LocalId);
+static XIntc_Config *XIntc_FindControllerForId(u8 Id, u8 *LocalId);
 
 /************************** Helper Function Implementations ******************/
 
 /*****************************************************************************/
 /**
+*
+* @brief Returns the primary (root) interrupt controller configuration.
 * Find the PRIMARY controller in the config table.
 *
-* @return   Pointer to primary controller config, or NULL if not found
+* @return	Pointer to primary controller config, or NULL if not found
 *
 ******************************************************************************/
-XIntc_Config* XIntc_GetPrimaryController(void)
+XIntc_Config *XIntc_GetPrimaryController(void)
 {
 	u32 i;
 	u32 Count;
@@ -139,9 +137,8 @@ XIntc_Config* XIntc_GetPrimaryController(void)
 #endif
 
 	for (i = 0; i < Count; i++) {
-		if (XIntc_ConfigTable[i].IntcType == XIN_INTC_PRIMARY) {
+		if (XIntc_ConfigTable[i].IntcType == XIN_INTC_PRIMARY)
 			return &XIntc_ConfigTable[i];
-		}
 	}
 	return NULL;
 }
@@ -149,34 +146,36 @@ XIntc_Config* XIntc_GetPrimaryController(void)
 #ifdef SDT
 /*****************************************************************************/
 /**
+*
 * Find controller by base address (used for parent lookup in SDT cascade mode).
 *
-* @param    BaseAddr Base address to search for (LSB may be set for encoding)
+* @param[in]	BaseAddr Base address to search for (LSB may be set for encoding)
 *
-* @return   Pointer to controller config, or NULL if not found
+* @return	Pointer to controller config, or NULL if not found
 *
 ******************************************************************************/
-static XIntc_Config* XIntc_FindControllerByAddr(UINTPTR BaseAddr)
+static XIntc_Config *XIntc_FindControllerByAddr(UINTPTR BaseAddr)
 {
 	u32 i;
 
 	BaseAddr = BaseAddr & XINTC_INTR_PARENT_MASK;
 
 	for (i = 0; i < XPAR_INTC_NUM_DRV_INSTANCES; i++) {
-		if (XIntc_ConfigTable[i].BaseAddress == BaseAddr) {
+		if (XIntc_ConfigTable[i].BaseAddress == BaseAddr)
 			return &XIntc_ConfigTable[i];
-		}
 	}
 	return NULL;
 }
 
 /*****************************************************************************/
 /**
+*
+* @brief Walks the IntrParent chain to find the root interrupt controller.
 * Walks the IntrParent chain upward to find the root INTC controller for
 * the given cascade chain. Stops when the parent is the CPU
 * (IntrParent == XINTC_NO_PARENT) or a GIC SPI (IntrParent LSB == 0).
 *
-* @param	IntcParent  Encoded interrupt-parent of any node in the chain.
+* @param[in]	IntcParent  Encoded interrupt-parent of any node in the chain.
 *                           Bit[0]: 1 = INTC parent, 0 = GIC parent.
 *                           Bits[63:1]: parent base address.
 *
@@ -200,30 +199,31 @@ XIntc_Config *XIntc_GetChainRoot(UINTPTR IntcParent)
 		if (CfgPtr == NULL)
 			return NULL;
 
-		/* Root: parent is CPU (MicroBlaze) or GIC (LSB == 0) */
+		// Root: parent is CPU (MicroBlaze) or GIC (LSB == 0).
 		if (CfgPtr->IntrParent == XINTC_NO_PARENT ||
 		    !(CfgPtr->IntrParent & 1U))
 			return CfgPtr;
 
 		CurBase = CfgPtr->IntrParent & XINTC_INTR_PARENT_MASK;
 	}
-	return NULL; /* Cycle or depth exceeded */
+	return NULL; // Cycle or depth exceeded.
 }
 #endif
 
 /*****************************************************************************/
 /**
+*
 * Find the controller that owns an interrupt ID and return local interrupt number.
 * In SDT mode, builds cascade chain via BFS using interrupt-parent links.
 * In non-SDT mode, uses sequential config table order.
 *
-* @param    Id Global interrupt ID (0-N across all controllers)
-* @param    LocalId Output parameter for local interrupt ID (0-31) on found controller
+* @param[in]	Id Global interrupt ID (0-N across all controllers)
+* @param[out]	LocalId Output parameter for local interrupt ID (0-31) on found controller
 *
-* @return   Pointer to controller config that owns this interrupt, or NULL if not found
+* @return	Pointer to controller config that owns this interrupt, or NULL if not found
 *
 ******************************************************************************/
-static XIntc_Config* XIntc_FindControllerForId(u8 Id, u8 *LocalId)
+static XIntc_Config *XIntc_FindControllerForId(u8 Id, u8 *LocalId)
 {
 	u32 i;
 	u32 Count;
@@ -253,9 +253,8 @@ static XIntc_Config* XIntc_FindControllerForId(u8 Id, u8 *LocalId)
 	Count = XPAR_INTC_NUM_DRV_INSTANCES;
 
 	PrimaryCfg = XIntc_GetPrimaryController();
-	if (PrimaryCfg == NULL) {
+	if (PrimaryCfg == NULL)
 		return NULL;
-	}
 
 	/*
 	 * BFS: discover chain starting from PRIMARY.
@@ -273,9 +272,8 @@ static XIntc_Config* XIntc_FindControllerForId(u8 Id, u8 *LocalId)
 		for (i = 0; i < Count; i++) {
 			ParentAddr = XIntc_ConfigTable[i].IntrParent &
 				     XINTC_INTR_PARENT_MASK;
-			if (ParentAddr != CascadeChain[Head]->BaseAddress) {
+			if (ParentAddr != CascadeChain[Head]->BaseAddress)
 				continue;
-			}
 			AlreadyInChain = 0;
 			for (j = 0; j < ChainLength; j++) {
 				if (CascadeChain[j] == &XIntc_ConfigTable[i]) {
@@ -293,9 +291,8 @@ static XIntc_Config* XIntc_FindControllerForId(u8 Id, u8 *LocalId)
 	}
 
 	ControllerIdx = RemainingId / XIN_CONTROLLER_MAX_INTRS;
-	if (ControllerIdx >= ChainLength) {
+	if (ControllerIdx >= ChainLength)
 		return NULL;
-	}
 
 	*LocalId = (u8)(RemainingId % XIN_CONTROLLER_MAX_INTRS);
 	return CascadeChain[ControllerIdx];
@@ -305,6 +302,8 @@ static XIntc_Config* XIntc_FindControllerForId(u8 Id, u8 *LocalId)
 /*****************************************************************************/
 /**
 *
+* @brief Initializes a specific XIntc instance so the driver is ready to use.
+*
 * Initialize a specific interrupt controller instance/driver. The
 * initialization entails:
 *
@@ -313,18 +312,17 @@ static XIntc_Config* XIntc_FindControllerForId(u8 Id, u8 *LocalId)
 *	- All interrupt sources are disabled
 *	- Interrupt output is disabled
 *
-* @param	InstancePtr is a pointer to the XIntc instance to be worked on.
+* @param[in]	InstancePtr is a pointer to the XIntc instance to be worked on.
 * @if SDT
-* @param	BaseAddr is the base address of the device
+* @param[in]	BaseAddr is the base address of the device
 * @else
-* @param	DeviceId is the unique id of the device controlled by this XIntc
+* @param[in]	DeviceId is the unique id of the device controlled by this XIntc
 *		instance.  Passing in a device id associates the generic XIntc
 *		instance to a specific device, as chosen by the caller or
 *		application developer.
 * @endif
 *
-* @return
-*		- XST_SUCCESS if initialization was successful
+* @return	- XST_SUCCESS if initialization was successful
 *		- XST_DEVICE_IS_STARTED if the device has already been started
 *		- XST_DEVICE_NOT_FOUND if device configuration information was
 *		not found for a device with the supplied device ID/BaseAddress.
@@ -335,9 +333,9 @@ static XIntc_Config* XIntc_FindControllerForId(u8 Id, u8 *LocalId)
 *
 ******************************************************************************/
 #ifndef SDT
-int XIntc_Initialize(XIntc *InstancePtr, u16 DeviceId)
+	int XIntc_Initialize(XIntc *InstancePtr, u16 DeviceId)
 #else
-int XIntc_Initialize(XIntc *InstancePtr, UINTPTR BaseAddr)
+	int XIntc_Initialize(XIntc *InstancePtr, UINTPTR BaseAddr)
 #endif
 {
 	u8 Id;
@@ -354,9 +352,8 @@ int XIntc_Initialize(XIntc *InstancePtr, UINTPTR BaseAddr)
 	 * indicating it is started.  This allows the user to stop the device
 	 * and reinitialize, but prevents a user from inadvertently initializing
 	 */
-	if (InstancePtr->IsStarted == XIL_COMPONENT_IS_STARTED) {
+	if (InstancePtr->IsStarted == XIL_COMPONENT_IS_STARTED)
 		return XST_DEVICE_IS_STARTED;
-	}
 
 	/*
 	 * Lookup the device configuration in the CROM table. Use this
@@ -367,9 +364,8 @@ int XIntc_Initialize(XIntc *InstancePtr, UINTPTR BaseAddr)
 #else
 	CfgPtr = XIntc_LookupConfig(BaseAddr);
 #endif
-	if (CfgPtr == NULL) {
+	if (CfgPtr == NULL)
 		return XST_DEVICE_NOT_FOUND;
-	}
 
 	/*
 	 * Set some default values
@@ -477,9 +473,8 @@ int XIntc_Initialize(XIntc *InstancePtr, UINTPTR BaseAddr)
 	}
 
 	/* Initialize slaves in Cascade mode*/
-	if (InstancePtr->CfgPtr->IntcType != XIN_INTC_NOCASCADE) {
+	if (InstancePtr->CfgPtr->IntcType != XIN_INTC_NOCASCADE)
 		XIntc_InitializeSlaves(InstancePtr);
-	}
 
 	/*
 	 * Indicate the instance is now ready to use, successfully initialized
@@ -492,6 +487,7 @@ int XIntc_Initialize(XIntc *InstancePtr, UINTPTR BaseAddr)
 /*****************************************************************************/
 /**
 *
+* @brief Starts the interrupt controller.
 * Starts the interrupt controller by enabling the output from the controller
 * to the processor. Interrupts may be generated by the interrupt controller
 * after this function is called.
@@ -500,8 +496,8 @@ int XIntc_Initialize(XIntc *InstancePtr, UINTPTR BaseAddr)
 * component to the proper interrupt source. This function also starts Slave
 * controllers in Cascade mode.
 *
-* @param	InstancePtr is a pointer to the XIntc instance to be worked on.
-* @param	Mode determines if software is allowed to simulate interrupts or
+* @param[in]	InstancePtr is a pointer to the XIntc instance to be worked on.
+* @param[in]	Mode determines if software is allowed to simulate interrupts or
 *		real interrupts are allowed to occur. Note that these modes are
 *		mutually exclusive. The interrupt controller hardware resets in
 *		a mode that allows software to simulate interrupts until this
@@ -511,8 +507,7 @@ int XIntc_Initialize(XIntc *InstancePtr, UINTPTR BaseAddr)
 *		- XIN_SIMULATION_MODE enables simulation of interrupts only
 *		- XIN_REAL_MODE enables hardware interrupts only
 *
-* @return
-* 		- XST_SUCCESS if the device was started successfully
+* @return	- XST_SUCCESS if the device was started successfully
 * 		- XST_FAILURE if simulation mode was specified and it could not
 *		be set because real mode has already been entered.
 *
@@ -536,9 +531,8 @@ int XIntc_Start(XIntc *InstancePtr, u8 Mode)
 	/*
 	 * Check for simulation mode
 	 */
-	if (Mode == XIN_REAL_MODE) {
+	if (Mode == XIN_REAL_MODE)
 		MasterEnable |= XIN_INT_HARDWARE_ENABLE_MASK;
-	}
 
 	/*
 	 * Indicate the instance is ready to be used and is started before we
@@ -580,14 +574,11 @@ int XIntc_Start(XIntc *InstancePtr, u8 Mode)
 /*****************************************************************************/
 /**
 *
+* @brief Stops the interrupt controller.
 * Stops the interrupt controller by disabling the output from the controller
 * so that no interrupts will be caused by the interrupt controller.
 *
-* @param	InstancePtr is a pointer to the XIntc instance to be worked on.
-*
-* @return	None.
-*
-* @note		None.
+* @param[in]	InstancePtr is a pointer to the XIntc instance to be worked on.
 *
 ******************************************************************************/
 void XIntc_Stop(XIntc *InstancePtr)
@@ -610,27 +601,24 @@ void XIntc_Stop(XIntc *InstancePtr)
 /*****************************************************************************/
 /**
 *
+* @brief Connects a handler function to a specific interrupt ID.
 * Makes the connection between the Id of the interrupt source and the
 * associated handler that is to run when the interrupt is recognized. The
 * argument provided in this call as the Callbackref is used as the argument
 * for the handler when it is called. In Cascade mode, connects handler to
 * Slave controller handler table depending on the interrupt Id.
 *
-* @param	InstancePtr is a pointer to the XIntc instance to be worked on.
-* @param	Id contains the ID of the interrupt source and should be in the
+* @param[in]	InstancePtr is a pointer to the XIntc instance to be worked on.
+* @param[in]	Id contains the ID of the interrupt source and should be in the
 *		range of 0 to XPAR_INTC_MAX_NUM_INTR_INPUTS - 1 with 0 being
 *   		the highest priority interrupt.
-* @param	Handler to the handler for that interrupt.
-* @param	CallBackRef is the callback reference, usually the instance
+* @param[in]	Handler to the handler for that interrupt.
+* @param[in]	CallBackRef is the callback reference, usually the instance
 *		pointer of the connecting driver.
 *
-* @return
+* @return	- XST_SUCCESS if the handler was connected correctly.
 *
-* 		- XST_SUCCESS if the handler was connected correctly.
-*
-* @note
-*
-* WARNING: The handler provided as an argument will overwrite any handler
+* @note		WARNING: The handler provided as an argument will overwrite any handler
 * that was previously connected.
 *
 ****************************************************************************/
@@ -649,11 +637,10 @@ int XIntc_Connect(XIntc *InstancePtr, u8 Id,
 
 	/* Connect Handlers for Slave controllers in Cascade Mode */
 	if (Id > 31) {
-		/* Find the correct controller based on cascade chain topology */
+		// Find the correct controller based on cascade chain topology.
 		CfgPtr = XIntc_FindControllerForId(Id, &LocalId);
-		if (CfgPtr == NULL) {
+		if (CfgPtr == NULL)
 			return XST_FAILURE;
-		}
 
 		CfgPtr->HandlerTable[LocalId].Handler = Handler;
 		CfgPtr->HandlerTable[LocalId].CallBackRef = CallBackRef;
@@ -675,20 +662,17 @@ int XIntc_Connect(XIntc *InstancePtr, u8 Id,
 /*****************************************************************************/
 /**
 *
+* @brief Disconnects the handler from the specified interrupt ID.
 * Updates the interrupt table with the Null Handler and NULL arguments at the
 * location pointed at by the Id. This effectively disconnects that interrupt
 * source from any handler. The interrupt is disabled also. In Cascade mode,
 * disconnects handler from Slave controller handler table depending on the
 * interrupt Id.
 *
-* @param	InstancePtr is a pointer to the XIntc instance to be worked on.
-* @param	Id contains the ID of the interrupt source and should be in the
+* @param[in]	InstancePtr is a pointer to the XIntc instance to be worked on.
+* @param[in]	Id contains the ID of the interrupt source and should be in the
 *		range of 0 to XPAR_INTC_MAX_NUM_INTR_INPUTS - 1 with 0 being
 *		the highest priority interrupt.
-*
-* @return	None.
-*
-* @note		None.
 *
 ****************************************************************************/
 void XIntc_Disconnect(XIntc *InstancePtr, u8 Id)
@@ -713,11 +697,10 @@ void XIntc_Disconnect(XIntc *InstancePtr, u8 Id)
 	/* Disconnect Handlers for Slave controllers in Cascade Mode */
 	if (Id > 31) {
 		u8 LocalId;
-		/* Find the correct controller based on cascade chain topology */
+		// Find the correct controller based on cascade chain topology.
 		CfgPtr = XIntc_FindControllerForId(Id, &LocalId);
-		if (CfgPtr == NULL) {
+		if (CfgPtr == NULL)
 			return;
-		}
 
 		CurrentIER = XIntc_In32(CfgPtr->BaseAddress + XIN_IER_OFFSET);
 
@@ -755,19 +738,16 @@ void XIntc_Disconnect(XIntc *InstancePtr, u8 Id)
 /*****************************************************************************/
 /**
 *
+* @brief Enables the specified interrupt source.
 * Enables the interrupt source provided as the argument Id. Any pending
 * interrupt condition for the specified Id will occur after this function is
 * called. In Cascade mode, enables corresponding interrupt of Slave controllers
 * depending on the Id.
 *
-* @param	InstancePtr is a pointer to the XIntc instance to be worked on.
-* @param	Id contains the ID of the interrupt source and should be in the
+* @param[in]	InstancePtr is a pointer to the XIntc instance to be worked on.
+* @param[in]	Id contains the ID of the interrupt source and should be in the
 *		range of 0 to XPAR_INTC_MAX_NUM_INTR_INPUTS - 1 with 0 being
 *		the highest priority interrupt.
-*
-* @return	None.
-*
-* @note		None.
 *
 ****************************************************************************/
 void XIntc_Enable(XIntc *InstancePtr, u8 Id)
@@ -790,9 +770,8 @@ void XIntc_Enable(XIntc *InstancePtr, u8 Id)
 
 	if (Id > 31) {
 		CfgPtr = XIntc_FindControllerForId(Id, &LocalId);
-		if (CfgPtr == NULL) {
+		if (CfgPtr == NULL)
 			return;
-		}
 
 		CurrentIER = XIntc_In32(CfgPtr->BaseAddress + XIN_IER_OFFSET);
 		Mask = XIntc_BitPosMask[LocalId];
@@ -809,11 +788,10 @@ void XIntc_Enable(XIntc *InstancePtr, u8 Id)
 						 (XIN_CONTROLLER_MAX_INTRS - 1U);
 
 				ParentCfg = XIntc_FindControllerByAddr(
-						CfgPtr->IntrParent &
-						XINTC_INTR_PARENT_MASK);
-				if (ParentCfg == NULL) {
+						    CfgPtr->IntrParent &
+						    XINTC_INTR_PARENT_MASK);
+				if (ParentCfg == NULL)
 					break;
-				}
 				CurrentIER = XIntc_In32(ParentCfg->BaseAddress +
 							XIN_IER_OFFSET);
 				XIntc_Out32(ParentCfg->BaseAddress +
@@ -846,20 +824,17 @@ void XIntc_Enable(XIntc *InstancePtr, u8 Id)
 /*****************************************************************************/
 /**
 *
+* @brief Disables the specified interrupt source.
 * Disables the interrupt source provided as the argument Id such that the
 * interrupt controller will not cause interrupts for the specified Id. The
 * interrupt controller will continue to hold an interrupt condition for the
 * Id, but will not cause an interrupt.In Cascade mode, disables corresponding
 * interrupt of Slave controllers depending on the Id.
 *
-* @param	InstancePtr is a pointer to the XIntc instance to be worked on.
-* @param	Id contains the ID of the interrupt source and should be in the
+* @param[in]	InstancePtr is a pointer to the XIntc instance to be worked on.
+* @param[in]	Id contains the ID of the interrupt source and should be in the
 *		range of 0 to XPAR_INTC_MAX_NUM_INTR_INPUTS - 1 with 0 being the
 *		highest priority interrupt.
-*
-* @return	None.
-*
-* @note		None.
 *
 ****************************************************************************/
 void XIntc_Disable(XIntc *InstancePtr, u8 Id)
@@ -913,19 +888,16 @@ void XIntc_Disable(XIntc *InstancePtr, u8 Id)
 /*****************************************************************************/
 /**
 *
+* @brief Acknowledges the specified interrupt.
 * Acknowledges the interrupt source provided as the argument Id. When the
 * interrupt is acknowledged, it causes the interrupt controller to clear its
 * interrupt condition.In Cascade mode, acknowledges corresponding interrupt
 * source of Slave controllers depending on the Id.
 *
-* @param	InstancePtr is a pointer to the XIntc instance to be worked on.
-* @param	Id contains the ID of the interrupt source and should be in the
+* @param[in]	InstancePtr is a pointer to the XIntc instance to be worked on.
+* @param[in]	Id contains the ID of the interrupt source and should be in the
 *		range of 0 to XPAR_INTC_MAX_NUM_INTR_INPUTS - 1 with 0 being
 *    		the highest priority interrupt.
-*
-* @return	None.
-*
-* @note		None.
 *
 ****************************************************************************/
 void XIntc_Acknowledge(XIntc *InstancePtr, u8 Id)
@@ -942,7 +914,7 @@ void XIntc_Acknowledge(XIntc *InstancePtr, u8 Id)
 
 	if (Id > 31) {
 		u8 LocalId;
-		/* Find the correct controller based on cascade chain topology */
+		// Find the correct controller based on cascade chain topology.
 		CfgPtr = XIntc_FindControllerForId(Id, &LocalId);
 		if (CfgPtr == NULL) {
 			/* Invalid interrupt ID or cascade chain misconfiguration */
@@ -975,11 +947,7 @@ void XIntc_Acknowledge(XIntc *InstancePtr, u8 Id)
 * A stub for the asynchronous callback. The stub is here in case the upper
 * layers forget to set the handler.
 *
-* @param	CallBackRef is a pointer to the upper layer callback reference
-*
-* @return	None.
-*
-* @note		None.
+* @param[in]	CallBackRef is a pointer to the upper layer callback reference
 *
 ******************************************************************************/
 static void StubHandler(void *CallBackRef)
@@ -998,13 +966,15 @@ static void StubHandler(void *CallBackRef)
 /*****************************************************************************/
 /**
 *
+* @brief Returns the configuration for the specified device ID or base address.
+*
 * Looks up the device configuration based on the unique device ID/BaseAddress.
 * A table contains the configuration info for each device in the system.
 *
 * @if SDT
-* @param	BaseAddr contains the base address of the device
+* @param[in]	BaseAddr contains the base address of the device
 * @else
-* @param	DeviceId is the unique identifier for a device.
+* @param[in]	DeviceId is the unique identifier for a device.
 * @endif
 *
 * @return	A pointer to the XIntc configuration structure for the specified
@@ -1023,9 +993,8 @@ XIntc_Config *XIntc_LookupConfig(u16 DeviceId)
 	for (Index = 0; Index < XPAR_XINTC_NUM_INSTANCES; Index++) {
 		if (XIntc_ConfigTable[Index].DeviceId == DeviceId) {
 			CfgPtr = &XIntc_ConfigTable[Index];
-			if (CfgPtr == NULL) {
+			if (CfgPtr == NULL)
 				return NULL;
-			}
 			break;
 		}
 	}
@@ -1038,7 +1007,7 @@ XIntc_Config *XIntc_LookupConfig(UINTPTR BaseAddr)
 	XIntc_Config *CfgPtr = NULL;
 	int Index;
 
-	for (Index = 0;  Index < XPAR_INTC_NUM_DRV_INSTANCES; Index++) {
+	for (Index = 0; Index < XPAR_INTC_NUM_DRV_INSTANCES; Index++) {
 		/*
 		 * If BaseAddress is 0, return Configuration for 0th instance of
 		 * AXI INTC device.
@@ -1049,9 +1018,8 @@ XIntc_Config *XIntc_LookupConfig(UINTPTR BaseAddr)
 		if ((XIntc_ConfigTable[Index].BaseAddress == BaseAddr) ||
 		    !BaseAddr) {
 			CfgPtr = &XIntc_ConfigTable[Index];
-			if (CfgPtr == NULL) {
+			if (CfgPtr == NULL)
 				return NULL;
-			}
 			break;
 		}
 	}
@@ -1062,25 +1030,24 @@ XIntc_Config *XIntc_LookupConfig(UINTPTR BaseAddr)
 /*****************************************************************************/
 /**
 *
+* @brief Connects a fast interrupt handler to the specified interrupt ID.
 * Makes the connection between the Id of the interrupt source and the
 * associated handler that is to run when the interrupt is recognized.In Cascade
 * mode, connects handler to corresponding Slave controller IVAR/IVEAR register
 * depending on the Id and sets all interrupt sources of the Slave controller as
 * fast interrupts.
 *
-* @param	InstancePtr is a pointer to the XIntc instance to be worked on.
-* @param	Id contains the ID of the interrupt source and should be in the
+* @param[in]	InstancePtr is a pointer to the XIntc instance to be worked on.
+* @param[in]	Id contains the ID of the interrupt source and should be in the
 *		range of 0 to XPAR_INTC_MAX_NUM_INTR_INPUTS - 1 with 0 being
 *		the highest priority interrupt.
-* @param	Handler for specified interrupt id. It must be declared with
+* @param[in]	Handler for specified interrupt id. It must be declared with
 *           "fast_interrupt" attribute.
-*           e.g. static void MyHandler(void) __attribute__ ((fast_interrupt));
+*           for example static void MyHandler(void) __attribute__ ((fast_interrupt));
 *
-* @return
-*		- XST_SUCCESS
+* @return	- XST_SUCCESS
 *
-* @note
-* 		Slave controllers in Cascade Mode should have all as Fast
+* @note		Slave controllers in Cascade Mode should have all as Fast
 * 		interrupts or Normal interrupts, mixed interrupts are not
 *		supported
 *
@@ -1109,20 +1076,17 @@ int XIntc_ConnectFastHandler(XIntc *InstancePtr, u8 Id,
 
 	if (Id > 31) {
 		CfgPtr = XIntc_FindControllerForId(Id, &LocalId);
-		if (CfgPtr == NULL) {
+		if (CfgPtr == NULL)
 			return XST_FAILURE;
-		}
 
-		if (CfgPtr->FastIntr != TRUE) {
+		if (CfgPtr->FastIntr != TRUE)
 			return XST_FAILURE;
-		}
 
 		CurrentIER = XIntc_In32(CfgPtr->BaseAddress + XIN_IER_OFFSET);
 		Mask = XIntc_BitPosMask[LocalId];
 
-		if (CurrentIER & Mask) {
+		if (CurrentIER & Mask)
 			XIntc_Disable(InstancePtr, Id);
-		}
 
 		if (CfgPtr->VectorAddrWidth >
 		    XINTC_STANDARD_VECTOR_ADDRESS_WIDTH) {
@@ -1135,9 +1099,8 @@ int XIntc_ConnectFastHandler(XIntc *InstancePtr, u8 Id,
 
 		XIntc_Out32(CfgPtr->BaseAddress + XIN_IMR_OFFSET, 0xFFFFFFFF);
 
-		if (CurrentIER & Mask) {
+		if (CurrentIER & Mask)
 			XIntc_Enable(InstancePtr, Id);
-		}
 	} else {
 		/* Get the Enabled Interrupts */
 		CurrentIER = XIntc_In32(InstancePtr->BaseAddress +
@@ -1148,9 +1111,8 @@ int XIntc_ConnectFastHandler(XIntc *InstancePtr, u8 Id,
 		/* Disable the Interrupt if it was enabled before calling
 		 * this function
 		 */
-		if (CurrentIER & Mask) {
+		if (CurrentIER & Mask)
 			XIntc_Disable(InstancePtr, Id);
-		}
 
 		if (InstancePtr->CfgPtr->VectorAddrWidth >
 		    XINTC_STANDARD_VECTOR_ADDRESS_WIDTH) {
@@ -1168,9 +1130,8 @@ int XIntc_ConnectFastHandler(XIntc *InstancePtr, u8 Id,
 		/* Enable the Interrupt if it was enabled before
 		 * calling this function
 		 */
-		if (CurrentIER & Mask) {
+		if (CurrentIER & Mask)
 			XIntc_Enable(InstancePtr, Id);
-		}
 
 	}
 
@@ -1181,20 +1142,18 @@ int XIntc_ConnectFastHandler(XIntc *InstancePtr, u8 Id,
 /*****************************************************************************/
 /**
 *
+* @brief Restores the specified interrupt to normal (non-fast) mode.
 * Sets the normal interrupt mode for the specified interrupt in the Interrupt
 * Mode Register. In Cascade mode disconnects handler from corresponding Slave
 * controller IVAR/IVEAR register depending on the Id and sets all interrupt
 * sources of the Slave controller as normal interrupts.
 *
-* @param	InstancePtr is a pointer to the XIntc instance to be worked on.
-* @param	Id contains the ID of the interrupt source and should be in the
+* @param[in]	InstancePtr is a pointer to the XIntc instance to be worked on.
+* @param[in]	Id contains the ID of the interrupt source and should be in the
 *		range of 0 to XPAR_INTC_MAX_NUM_INTR_INPUTS - 1 with 0 being the
 *		highest priority interrupt.
 *
-* @return	None.
-*
-* @note
-*		Slave controllers in Cascade Mode should have all as Fast
+* @note		Slave controllers in Cascade Mode should have all as Fast
 * 		interrupts or Normal interrupts, mixed interrupts are not
 *		supported
 *
@@ -1220,11 +1179,10 @@ void XIntc_SetNormalIntrMode(XIntc *InstancePtr, u8 Id)
 	if (Id > 31) {
 		/* Enable user required Id in Slave controller */
 		CfgPtr = XIntc_FindControllerForId(Id, &LocalId);
-		if (CfgPtr == NULL) {
+		if (CfgPtr == NULL)
 			return;
-		}
 
-		/* Get the Enabled Interrupts */
+		/**< Get the Enabled Interrupts */
 		CurrentIER = XIntc_In32(CfgPtr->BaseAddress + XIN_IER_OFFSET);
 
 		/* Convert from integer id to bit mask */
@@ -1233,9 +1191,8 @@ void XIntc_SetNormalIntrMode(XIntc *InstancePtr, u8 Id)
 		/* Disable the Interrupt if it was enabled before calling
 		 * this function
 		 */
-		if (CurrentIER & Mask) {
+		if (CurrentIER & Mask)
 			XIntc_Disable(InstancePtr, OriginalId);
-		}
 
 		/* Slave controllers in Cascade Mode should have all as Fast
 		 * interrupts or Normal interrupts, mixed interrupts are not
@@ -1276,9 +1233,8 @@ void XIntc_SetNormalIntrMode(XIntc *InstancePtr, u8 Id)
 		/* Enable the Interrupt if it was enabled before calling this
 		 * function
 		 */
-		if (CurrentIER & Mask) {
+		if (CurrentIER & Mask)
 			XIntc_Enable(InstancePtr, OriginalId);
-		}
 
 	} else {
 
@@ -1291,9 +1247,8 @@ void XIntc_SetNormalIntrMode(XIntc *InstancePtr, u8 Id)
 		/* Disable the Interrupt if it was enabled before
 		 * calling this function
 		 */
-		if (CurrentIER & Mask) {
+		if (CurrentIER & Mask)
 			XIntc_Disable(InstancePtr, OriginalId);
-		}
 
 		/*
 		 * Disable the selected interrupt as Fast Interrupt by reading the
@@ -1336,9 +1291,8 @@ void XIntc_SetNormalIntrMode(XIntc *InstancePtr, u8 Id)
 		/* Enable the Interrupt if it was enabled before
 		 * calling this function
 		 */
-		if (CurrentIER & Mask) {
+		if (CurrentIER & Mask)
 			XIntc_Enable(InstancePtr, OriginalId);
-		}
 	}
 }
 
@@ -1352,11 +1306,7 @@ void XIntc_SetNormalIntrMode(XIntc *InstancePtr, u8 Id)
 *	  primary and secondary controllers
 *	- Interrupt outputs are disabled
 *
-* @param	InstancePtr is a pointer to the XIntc instance to be worked on.
-*
-* @return	None
-*
-* @note		None.
+* @param[in]	InstancePtr is a pointer to the XIntc instance to be worked on.
 *
 ******************************************************************************/
 static void XIntc_InitializeSlaves(XIntc *InstancePtr)
@@ -1434,7 +1384,7 @@ static void XIntc_InitializeSlaves(XIntc *InstancePtr)
 		if (XIntc_GetChainRoot(CfgPtr->IntrParent) != InstancePtr->CfgPtr)
 			continue;
 
-		PinNum     = CfgPtr->IntrId & (XIN_CONTROLLER_MAX_INTRS - 1U);
+		PinNum = CfgPtr->IntrId & (XIN_CONTROLLER_MAX_INTRS - 1U);
 		ParentBase = CfgPtr->IntrParent & XINTC_INTR_PARENT_MASK;
 		XIntc_Out32(ParentBase + XIN_IER_OFFSET,
 			    XIntc_In32(ParentBase + XIN_IER_OFFSET) | (1U << PinNum));
@@ -1449,9 +1399,8 @@ static void XIntc_InitializeSlaves(XIntc *InstancePtr)
 
 	for (Index = 1; Index <= XPAR_XINTC_NUM_INSTANCES - 1; Index++) {
 		CfgPtr = XIntc_LookupConfig(Index);
-		if (CfgPtr == NULL) {
+		if (CfgPtr == NULL)
 			return;
-		}
 
 		XIntc_Out32(CfgPtr->BaseAddress + XIN_IAR_OFFSET,
 			    0xFFFFFFFF);
@@ -1462,9 +1411,8 @@ static void XIntc_InitializeSlaves(XIntc *InstancePtr)
 			 */
 			XIntc_Out32(CfgPtr->BaseAddress + XIN_IER_OFFSET,
 				    Mask);
-		} else {
+		} else
 			XIntc_Out32(CfgPtr->BaseAddress + XIN_IER_OFFSET, 0x0);
-		}
 
 		/* Disable Interrupt output */
 		XIntc_Out32(CfgPtr->BaseAddress + XIN_MER_OFFSET, 0);
@@ -1523,9 +1471,8 @@ static void XIntc_InitializeSlaves(XIntc *InstancePtr)
 			 */
 			if ((CfgPtr->HandlerTable[Id].Handler == 0) ||
 			    (CfgPtr->HandlerTable[Id].Handler ==
-			     XNullHandler)) {
+			     XNullHandler))
 				CfgPtr->HandlerTable[Id].Handler = StubHandler;
-			}
 			CfgPtr->HandlerTable[Id].CallBackRef = InstancePtr;
 		}
 	}
@@ -1535,15 +1482,15 @@ static void XIntc_InitializeSlaves(XIntc *InstancePtr)
 /*****************************************************************************/
 /**
 *
+* @brief Triggers a software interrupt for the specified interrupt ID.
 * Allows software to trigger software interrupt.
 * This function will only be successful when the interrupt controller has been
 * configured with software interrupt in HW design
 *
-* @param	InstancePtr is a pointer to the XIntc instance to be worked on.
-* @param	Id is the interrupt ID to be triggered
+* @param[in]	InstancePtr is a pointer to the XIntc instance to be worked on.
+* @param[in]	Id is the interrupt ID to be triggered
 *
-* @return
-* 		- XST_SUCCESS if successful
+* @return	- XST_SUCCESS if successful
 *		- XST_FAILURE if the instance pointer is invalid
 *					  if interrupt id does not belongs to software interrupt
 *
@@ -1562,23 +1509,19 @@ int XIntc_TriggerSwIntr(XIntc *InstancePtr, u8 Id)
 	 * Check the parameters and driver status
 	 */
 	Xil_AssertNonvoid(InstancePtr != NULL);
-	if (InstancePtr == NULL) {
+	if (InstancePtr == NULL)
 		return XST_FAILURE;
-	}
 
-	if (InstancePtr->IsReady != XIL_COMPONENT_IS_READY) {
+	if (InstancePtr->IsReady != XIL_COMPONENT_IS_READY)
 		return XST_FAILURE;
-	}
 
 	if (Id > 31) {
 		CfgPtr = XIntc_FindControllerForId(Id, &LocalId);
-		if (CfgPtr == NULL) {
+		if (CfgPtr == NULL)
 			return XST_FAILURE;
-		}
-		/* Check if interrupt id belongs to software interrupts */
-		if (LocalId < CfgPtr->NumberofIntrs) {
+		/**< Check if interrupt id belongs to software interrupts */
+		if (LocalId < CfgPtr->NumberofIntrs)
 			return XST_FAILURE;
-		}
 
 		Mask = XIntc_BitPosMask[LocalId];
 		XIntc_Out32(CfgPtr->BaseAddress + XIN_ISR_OFFSET, Mask);

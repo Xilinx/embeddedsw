@@ -143,8 +143,7 @@
 *		       to consider external interrupt source pin connected to
 *		       slice use case.
 *
-* @note
-*		For Cascade mode, Interrupt IDs are generated in xparameters.h
+* Note: For Cascade mode, Interrupt IDs are generated in xparameters.h
 *		as shown below:
 *
 *	    Master/Primary INTC
@@ -212,20 +211,19 @@
 * 3.22   ml   20/08/26 Add XIntc_GetChainRoot() declaration for SDT multi-root
 *                      cascade support. Remove XINTC_MAX_CASCADE_CONTROLLERS;
 *                      replaced by XPAR_INTC_NUM_DRV_INSTANCES throughout.
+* 3.23 ml   16/09/26 Fixed doxygen 1.15.0 and compliance checker warnings.
 * </pre>
 *
 ******************************************************************************/
-
 #ifndef XINTC_H			/* prevent circular inclusions */
+/** @brief Include guard to prevent multiple inclusions of xintc.h. */
 #define XINTC_H			/* by using protection macros */
-
 #ifdef __cplusplus
 extern "C" {
 #endif
 
 
 /***************************** Include Files *********************************/
-
 #include "xil_types.h"
 #include "xil_assert.h"
 #include "xstatus.h"
@@ -242,7 +240,7 @@ extern "C" {
  * @name Configuration options
  * These options are used in XIntc_SetOptions() to configure the device.
  * @{
- */
+*/
 /**
  * <pre>
  * XIN_SVC_SGL_ISR_OPTION	Service the highest priority pending interrupt
@@ -250,79 +248,77 @@ extern "C" {
  * XIN_SVC_ALL_ISRS_OPTION	Service all of the pending interrupts and then
  *				return.
  * </pre>
- */
-#define XIN_SVC_SGL_ISR_OPTION  1UL
-#define XIN_SVC_ALL_ISRS_OPTION 2UL
-/*@}*/
+*/
+#define XIN_SVC_SGL_ISR_OPTION  1UL		/**< Service only the highest-priority pending interrupt. */
+#define XIN_SVC_ALL_ISRS_OPTION 2UL		/**< Service all pending interrupts before returning. */
+/** @} */
 
 /**
  * @name Start modes
  * One of these values is passed to XIntc_Start() to start the device.
  * @{
- */
+*/
 /** Simulation only mode, no hardware interrupts recognized */
 #define XIN_SIMULATION_MODE     0
 /** Real mode, no simulation allowed, hardware interrupts recognized */
 #define XIN_REAL_MODE           1
-/*@}*/
+/** @} */
 
 /**
  * @name Masks to specify Interrupt Controller Mode
  * @{
- */
-#define XIN_INTC_NOCASCADE     	0	/* Normal - No Cascade Mode */
-#define XIN_INTC_PRIMARY     	1	/* Master/Primary controller */
-#define XIN_INTC_SECONDARY     	2	/* Secondary Slave Controllers */
-#define XIN_INTC_LAST     	3	/* Last Slave Controller */
+*/
+#define XIN_INTC_NOCASCADE     	0	/**< Normal mode, no cascade. */
+#define XIN_INTC_PRIMARY     	1	/**< Master/primary controller. */
+#define XIN_INTC_SECONDARY     	2	/**< Secondary/slave controller. */
+#define XIN_INTC_LAST     	3	/**< Last slave controller in cascade. */
 
-/*@}*/
+/** @} */
 
 /**
  * @name Mask to specify maximum number of interrupt sources per controller
  * @{
- */
-#define XIN_CONTROLLER_MAX_INTRS	32  /* Each Controller has 32
-					       interrupt pins */
-
-#define XINTC_STANDARD_VECTOR_ADDRESS_WIDTH	32U
+*/
+#define XIN_CONTROLLER_MAX_INTRS	32	/**< Maximum number of interrupt sources per controller. */
+#define XINTC_STANDARD_VECTOR_ADDRESS_WIDTH	32U	/**< Standard vector address width in bits. */
 
 /**
  * Bitmask for the cascade interrupt input (bit 31) used by PRIMARY and
  * SECONDARY controllers to chain to the next controller in cascade mode.
- */
+*/
 #define XIN_CASCADE_IRQ_MASK		0x80000000U
 
 /**
  * Mask used to extract the parent controller base address from IntrParent
  * by clearing the LSB which encodes the parent type (GIC vs INTC).
- */
+*/
 #define XINTC_INTR_PARENT_MASK		(~(UINTPTR)1U)
 
 /**
  * Sentinel value indicating that an interrupt controller has no parent
- * controller (i.e. it is the root of the interrupt hierarchy).
- */
+ * controller (that is it is the root of the interrupt hierarchy).
+*/
 #define XINTC_NO_PARENT			((UINTPTR)0xFFFF)
-/*@}*/
+/** @} */
 
 /**************************** Type Definitions *******************************/
 
 /**
  * This typedef contains configuration information for the device.
- */
+*/
 typedef struct {
 #ifndef SDT
-	u16 DeviceId;		/**< Unique ID  of device */
+	u16 DeviceId;		/**< Unique ID of device. */
 #else
-	char *Name;
+	char *Name;		/**< Unique name for device (SDT mode). */
 #endif
-	UINTPTR BaseAddress;	/**< Register base address */
+	UINTPTR BaseAddress;	/**< Register base address. */
 	u32 AckBeforeService;	/**< 0 - Interrupt would be acked before service through primary interrupt handler
 								 1 - Interrupt would be acked after service through primary interrupt handler */
-	int FastIntr;		/**< Fast Interrupt enabled */
-	u32 IntVectorAddr;	/**< Interrupt Vector Address */
-	int NumberofIntrs;      /**< Number of HW Interrupt sources */
-	u8 VectorAddrWidth;		/**< Width of vector address */
+	int FastIntr;		/**< Fast Interrupt enabled. */
+	u32 IntVectorAddr;	/**< Interrupt Vector Address. */
+	int NumberofIntrs;      /**< Number of HW Interrupt sources. */
+	u8 VectorAddrWidth;		/**< Width of vector address. */
 	u32 Options;		/**< Device option
 							 XIN_SVC_SGL_ISR_OPTION - Primary interrupt handler services the highest priority pending interrupt and return
 							 XIN_SVC_ALL_ISRS_OPTION  - Primary interrupt handler services all of the pending interrupts and then return */
@@ -333,7 +329,7 @@ typedef struct {
 
 	/** Static vector table of interrupt handlers */
 	XIntc_VectorTableEntry HandlerTable[XPAR_INTC_MAX_NUM_INTR_INPUTS];
-	int NumberofSwIntrs;      /**< Number of SW interrupts */
+	int NumberofSwIntrs;      /**< Number of SW interrupts. */
 #if defined(SDT)
 	u32 IntrId;		/**< Interrupt ID used to register this controller
 				     with the parent interrupt controller or GIC */
@@ -347,13 +343,13 @@ typedef struct {
  * The XIntc driver instance data. The user is required to allocate a
  * variable of this type for every intc device in the system. A pointer
  * to a variable of this type is then passed to the driver API functions.
- */
+*/
 typedef struct {
-	UINTPTR BaseAddress;	 /**< Base address of registers */
-	u32 IsReady;		 /**< Device is initialized and ready */
-	u32 IsStarted;		 /**< Device has been started */
-	u32 UnhandledInterrupts; /**< Intc Statistics */
-	XIntc_Config *CfgPtr;	 /**< Pointer to instance config entry */
+	UINTPTR BaseAddress;	 /**< Base address of registers. */
+	u32 IsReady;		 /**< Device is initialized and ready. */
+	u32 IsStarted;		 /**< Device has been started. */
+	u32 UnhandledInterrupts; /**< Intc Statistics. */
+	XIntc_Config *CfgPtr;	 /**< Pointer to instance config entry. */
 
 } XIntc;
 
@@ -403,6 +399,14 @@ int XIntc_TriggerSwIntr(XIntc *InstancePtr, u8 Id);
 /*
  * Interrupt functions in xintr_intr.c
  */
+/**
+*
+* @brief Handles a void (spurious) interrupt with no action.
+*
+* This function is used as a default handler for unregistered interrupt
+* sources. It performs no action and simply returns.
+*
+******************************************************************************/
 void XIntc_VoidInterruptHandler(void);
 void XIntc_InterruptHandler(XIntc *InstancePtr);
 
@@ -422,5 +426,5 @@ int XIntc_SimulateIntr(XIntc *InstancePtr, u8 Id);
 }
 #endif
 
-#endif /* end of protection macro */
 /** @} */
+#endif /* end of protection macro */

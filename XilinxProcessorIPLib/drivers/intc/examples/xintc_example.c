@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2002 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -17,8 +17,7 @@
 * This example shows the use of the Interrupt Controller both with a PowerPC
 * and MicroBlaze processor.
 *
-* @note
-*		This example can also be used for Cascade mode interrupt
+* @note		This example can also be used for Cascade mode interrupt
 *		controllers by using the interrupt IDs generated in
 *		xparameters.h. For Cascade mode, Interrupt IDs are generated
 *		in xparameters.h as shown below:
@@ -60,11 +59,11 @@
 *                     under SDT.
 * 3.22  bdk  12/08/25 Updated comments to support SDT flow for Doxygen
 *                     documentation.
+* 3.23 ml   16/09/26 Fixed doxygen 1.15.0 and compliance checker warnings.
 * </pre>
 ******************************************************************************/
 
 /***************************** Include Files *********************************/
-
 #include "xparameters.h"
 #include "xstatus.h"
 #include "xintc.h"
@@ -75,36 +74,33 @@
 #endif
 
 /************************** Constant Definitions *****************************/
-
 #ifndef SDT
-/*
- * The following constants map to the XPAR parameters created in the
- * xparameters.h file. They are defined here such that a user can easily
- * change all the needed parameters in one place.
- */
+	/*
+	* The following constants map to the XPAR parameters created in the
+	* xparameters.h file. They are defined here such that a user can easily
+	* change all the needed parameters in one place.
+	*/
 #define INTC_DEVICE_ID		  XPAR_INTC_0_DEVICE_ID
 
-/*
- *  This is the Interrupt Number of the Device whose Interrupt Output is
- *  connected to the Input of the Interrupt Controller
- */
-#define INTC_DEVICE_INT_ID	  XPAR_INTC_0_UARTLITE_0_VEC_ID
+	/*
+	*  This is the Interrupt Number of the Device whose Interrupt Output is
+	*  connected to the Input of the Interrupt Controller
+	*/
+#define INTC_DEVICE_INT_ID	  XPAR_INTC_0_UARTLITE_0_VEC_ID /**< Interrupt vector ID for UART Lite 0. */
 #else
-#define INTC_DEVICE_INT_ID	  0x0U
-#define INTC_BASEADDR    XPAR_XINTC_0_BASEADDR
+#define INTC_DEVICE_INT_ID	  0x0U /**< Default interrupt vector ID (SDT). */
+#define INTC_BASEADDR    XPAR_XINTC_0_BASEADDR /**< Base address of the interrupt controller. */
 #endif
 
 /**************************** Type Definitions *******************************/
 
-
 /***************** Macros (Inline Functions) Definitions *********************/
-
 
 /************************** Function Prototypes ******************************/
 #ifndef SDT
-int IntcExample(u16 DeviceId);
+	int IntcExample(u16 DeviceId);
 #else
-int IntcExample(UINTPTR BaseAddr);
+	int IntcExample(UINTPTR BaseAddr);
 #endif
 
 int SetUpInterruptSystem(XIntc *XIntcInstancePtr);
@@ -113,8 +109,7 @@ void DeviceDriverHandler(void *CallbackRef);
 
 
 /************************** Variable Definitions *****************************/
-
-static XIntc InterruptController; /* Instance of the Interrupt Controller */
+static XIntc InterruptController; /**< Instance of the Interrupt Controller. */
 
 /*
  * Create a shared variable to be used by the main thread of processing and
@@ -127,11 +122,7 @@ static volatile int InterruptProcessed = FALSE;
 *
 * This is the main function for the Interrupt Controller example.
 *
-* @param	None.
-*
 * @return	XST_SUCCESS to indicate success, otherwise XST_FAILURE.
-*
-* @note		None.
 *
 ****************************************************************************/
 int main(void)
@@ -161,20 +152,18 @@ int main(void)
 /*****************************************************************************/
 /**
 *
-* This function is an example of how to use the interrupt controller driver
-* component (XIntc) and the hardware device.  This function is designed to
-* work without any hardware devices to cause interrupts.  It may not return
-* if the interrupt controller is not properly connected to the processor in
-* either software or hardware.
+* @brief Demonstrates use of the XIntc interrupt controller driver.
 *
-* This function relies on the fact that the interrupt controller hardware
-* has come out of the reset state such that it will allow interrupts to be
-* simulated by the software.
-*
+* This function is designed to work without any hardware devices to cause
+* interrupts. It may not return if the interrupt controller is not properly
+* connected to the processor in either software or hardware. This function
+* relies on the fact that the interrupt controller hardware has come out of the
+* reset state such that it will allow interrupts to be simulated by the
+* software.
 * @if SDT
-* @param	BaseAddr is the base address of the Interrupt Controller device
+* @param[in]	BaseAddr is the base address of the Interrupt Controller device
 * @else
-* @param	DeviceId is Device ID of the Interrupt Controller Device,
+* @param[in]	DeviceId is Device ID of the Interrupt Controller Device,
 *		typically XPAR_<INTC_instance>_DEVICE_ID value from
 *		xparameters.h.
 * @endif
@@ -186,9 +175,9 @@ int main(void)
 *
 ******************************************************************************/
 #ifndef SDT
-int IntcExample(u16 DeviceId)
+	int IntcExample(u16 DeviceId)
 #else
-int IntcExample(UINTPTR BaseAddr)
+	int IntcExample(UINTPTR BaseAddr)
 #endif
 {
 	int Status;
@@ -202,9 +191,8 @@ int IntcExample(UINTPTR BaseAddr)
 #else
 	Status = XIntc_Initialize(&InterruptController, BaseAddr);
 #endif
-	if (Status != XST_SUCCESS) {
+	if (Status != XST_SUCCESS)
 		return XST_FAILURE;
-	}
 
 
 	/*
@@ -212,26 +200,23 @@ int IntcExample(UINTPTR BaseAddr)
 	 * correctly.
 	 */
 	Status = XIntc_SelfTest(&InterruptController);
-	if (Status != XST_SUCCESS) {
+	if (Status != XST_SUCCESS)
 		return XST_FAILURE;
-	}
 
 
 	/*
 	 * Setup the Interrupt System.
 	 */
 	Status = SetUpInterruptSystem(&InterruptController);
-	if (Status != XST_SUCCESS) {
+	if (Status != XST_SUCCESS)
 		return XST_FAILURE;
-	}
 
 	/*
 	 *  Simulate the Interrupt.
 	 */
 	Status = XIntc_SimulateIntr(&InterruptController, INTC_DEVICE_INT_ID);
-	if (Status != XST_SUCCESS) {
+	if (Status != XST_SUCCESS)
 		return XST_FAILURE;
-	}
 
 
 	/*
@@ -244,9 +229,8 @@ int IntcExample(UINTPTR BaseAddr)
 		 * variable which is set in the device driver handler, then
 		 * stop waiting.
 		 */
-		if (InterruptProcessed) {
+		if (InterruptProcessed)
 			break;
-		}
 	}
 
 	return XST_SUCCESS;
@@ -256,16 +240,14 @@ int IntcExample(UINTPTR BaseAddr)
 /******************************************************************************/
 /**
 *
-* This function connects the interrupt handler of the interrupt controller to
-* the processor.  This function is separate to allow it to be customized for
-* each application.  Each processor or RTOS may require unique processing to
-* connect the interrupt handler.
+* @brief Connects the interrupt controller handler to the processor.
 *
-* @param	None.
+* This function is separate to allow it to be customized for each application.
+* Each processor or RTOS may require unique processing to connect the interrupt
+* handler.
+* @param[in]	XIntcInstancePtr is a pointer to the instance of XIntc driver.
 *
-* @return	None.
-*
-* @note		None.
+* @return	XST_SUCCESS if successful, otherwise XST_FAILURE.
 *
 ****************************************************************************/
 int SetUpInterruptSystem(XIntc *XIntcInstancePtr)
@@ -281,9 +263,8 @@ int SetUpInterruptSystem(XIntc *XIntcInstancePtr)
 	Status = XIntc_Connect(XIntcInstancePtr, INTC_DEVICE_INT_ID,
 			       (XInterruptHandler)DeviceDriverHandler,
 			       (void *)0);
-	if (Status != XST_SUCCESS) {
+	if (Status != XST_SUCCESS)
 		return XST_FAILURE;
-	}
 
 
 	/*
@@ -293,9 +274,8 @@ int SetUpInterruptSystem(XIntc *XIntcInstancePtr)
 	 * interrupt.
 	 */
 	Status = XIntc_Start(XIntcInstancePtr, XIN_SIMULATION_MODE);
-	if (Status != XST_SUCCESS) {
+	if (Status != XST_SUCCESS)
 		return XST_FAILURE;
-	}
 
 	/*
 	 * Enable the interrupt for the device and then cause (simulate) an
@@ -321,12 +301,11 @@ int SetUpInterruptSystem(XIntc *XIntcInstancePtr)
 	 */
 	Xil_ExceptionEnable();
 #else
-	Status = XSetupInterruptSystem(XIntcInstancePtr,(Xil_ExceptionHandler)XIntc_InterruptHandler,
-			XIntcInstancePtr->CfgPtr->IntrId, XIntcInstancePtr->CfgPtr->IntrParent,
-			XINTERRUPT_DEFAULT_PRIORITY);
-	if (Status != XST_SUCCESS) {
+	Status = XSetupInterruptSystem(XIntcInstancePtr, (Xil_ExceptionHandler)XIntc_InterruptHandler,
+				       XIntcInstancePtr->CfgPtr->IntrId, XIntcInstancePtr->CfgPtr->IntrParent,
+				       XINTERRUPT_DEFAULT_PRIORITY);
+	if (Status != XST_SUCCESS)
 		return XST_FAILURE;
-	}
 
 #endif
 	return XST_SUCCESS;
@@ -336,25 +315,14 @@ int SetUpInterruptSystem(XIntc *XIntcInstancePtr)
 /******************************************************************************/
 /**
 *
-* This function is designed to look like an interrupt handler in a device
-* driver. This is typically a 2nd level handler that is called from the
-* interrupt controller interrupt handler.  This handler would typically
-* perform device specific processing such as reading and writing the registers
-* of the device to clear the interrupt condition and pass any data to an
-* application using the device driver.  Many drivers already provide this
-* handler and the user is not required to create it.
+* @brief Simulates a device driver interrupt handler for the example.
 *
-* @param	CallbackRef is passed back to the device driver's interrupt
-*		handler by the XIntc driver.  It was given to the XIntc driver
-*		in the XIntc_Connect() function call.  It is typically a pointer
-*		to the device driver instance variable if using the Xilinx
-*		Level 1 device drivers.  In this example, we do not care about
-*		the callback reference, so we passed it a 0 when connecting the
-*		handler to the XIntc driver and we make no use of it here.
-*
-* @return	None.
-*
-* @note		None.
+* This is typically a 2nd level handler that is called from the interrupt
+* controller interrupt handler. This handler would typically perform device
+* specific processing such as reading and writing the registers of the device
+* to clear the interrupt condition and pass any data to an application using
+* the device driver. Many drivers already provide this handler and the user is
+* not required to create it.
 *
 ****************************************************************************/
 void DeviceDriverHandler(void *CallbackRef)

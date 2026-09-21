@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2002 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -25,6 +25,7 @@
 * 1.00c rpm  10/17/03 New release. Support the static vector table created
 *                     in the xintc_g.c configuration table.
 * 1.10c mta  03/21/07 Updated to new coding style
+* 3.23 ml   16/09/26 Fixed doxygen 1.15.0 and compliance checker warnings.
 * </pre>
 *
 * @internal
@@ -43,21 +44,16 @@
 ******************************************************************************/
 
 /***************************** Include Files *********************************/
-
 #include "xintc.h"
 #include "xparameters.h"
 
 /************************** Constant Definitions *****************************/
 
-
 /**************************** Type Definitions *******************************/
-
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
-
 /************************** Function Prototypes ******************************/
-
 
 /************************** Variable Prototypes ******************************/
 
@@ -71,20 +67,20 @@
  *
  * Refer to the XIntc_Config data structure in xintc.h for details on how this
  * table should be initialized.
- */
+*/
 XIntc_Config XIntc_ConfigTable[XPAR_XINTC_NUM_INSTANCES] = {
 	{
-	 XPAR_INTC_0_DEVICE_ID,	/* Unique ID  of device */
-	 XPAR_INTC_0_BASEADDR,	/* Register base address */
-	 XPAR_INTC_0_ACK_BEFORE,	/* Ack before or after service */
-	 0			/* Device options */
-	 }
+		XPAR_INTC_0_DEVICE_ID,	/* Unique ID  of device */
+		XPAR_INTC_0_BASEADDR,	/* Register base address */
+		XPAR_INTC_0_ACK_BEFORE,	/* Ack before or after service */
+		0			/* Device options */
+	}
 	,
 	{
-	 XPAR_INTC_1_DEVICE_ID,	/* Unique ID  of device */
-	 XPAR_INTC_1_BASEADDR,	/* Register base address */
-	 XPAR_INTC_1_ACK_BEFORE,	/* Ack before or after service */
-	 0			/* Device options */
-	 }
+		XPAR_INTC_1_DEVICE_ID,	/* Unique ID  of device */
+		XPAR_INTC_1_BASEADDR,	/* Register base address */
+		XPAR_INTC_1_ACK_BEFORE,	/* Ack before or after service */
+		0			/* Device options */
+	}
 };
 /** @} */

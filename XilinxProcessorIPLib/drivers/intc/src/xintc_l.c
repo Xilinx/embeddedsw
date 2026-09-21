@@ -74,13 +74,12 @@
 *                     by parent base address and cascade pin number. Update
 *                     XIntc_CascadeHandler to scan all 32 bits in SDT mode
 *                     and dispatch cascade interrupts via pin-number matching.
+* 3.23 ml   16/09/26 Fixed doxygen 1.15.0 and compliance checker warnings.
 * </pre>
 *
 ******************************************************************************/
 
-
 /***************************** Include Files *********************************/
-
 #include "xil_types.h"
 #include "xil_assert.h"
 #include "xintc.h"
@@ -93,18 +92,14 @@
 
 /**************************** Type Definitions *******************************/
 
-
 /***************** Macros (Inline Functions) Definitions *********************/
 
-
 /************************** Function Prototypes ******************************/
-
 #if defined(SDT) || (defined(XPAR_INTC_0_INTC_TYPE) && (XPAR_INTC_0_INTC_TYPE != XIN_INTC_NOCASCADE))
-static void XIntc_CascadeHandler(void *DeviceId);
+	static void XIntc_CascadeHandler(void *DeviceId);
 #endif
 
 /************************** Variable Definitions *****************************/
-
 #ifdef XPAR_INTC_SINGLE_DEVICE_ID
 /*****************************************************************************/
 /**
@@ -121,11 +116,7 @@ static void XIntc_CascadeHandler(void *DeviceId);
 * The user must connect this function to the interrupt system such that it is
 * called whenever the devices which are connected to it cause an interrupt.
 *
-* @return	None.
-*
-* @note
-*
-* The constant XPAR_INTC_SINGLE_DEVICE_ID must be defined for this handler
+* @note		The constant XPAR_INTC_SINGLE_DEVICE_ID must be defined for this handler
 * to be included in the driver compilation.
 *
 ******************************************************************************/
@@ -144,29 +135,27 @@ void XIntc_LowLevelInterruptHandler(void)
 /*****************************************************************************/
 /**
 *
-* This function is the primary interrupt handler for the driver. It must be
-* connected to the interrupt source such that is called when an interrupt of
-* the interrupt controller is active. It will resolve which interrupts are
-* active and enabled and call the appropriate interrupt handler. It uses
-* the AckBeforeService flag in the configuration data to determine when to
-* acknowledge the interrupt. Highest priority interrupts are serviced first.
+* @brief Serves as the primary interrupt handler for the XIntc driver.
+*
+* It must be connected to the interrupt source such that is called when an
+* interrupt of the interrupt controller is active. It will resolve which
+* interrupts are active and enabled and call the appropriate interrupt handler.
+* It uses the AckBeforeService flag in the configuration data to determine when
+* to acknowledge the interrupt. Highest priority interrupts are serviced first.
 * This function assumes that an interrupt vector table has been previously
 * initialized.It does not verify that entries in the table are valid before
 * calling an interrupt handler. In Cascade mode this function calls
 * XIntc_CascadeHandler to handle interrupts of Master and Slave controllers.
-* This functions also handles interrupts nesting by  saving and restoring link
+* This functions also handles interrupts nesting by saving and restoring link
 * register of Microblaze and Interrupt Level register of interrupt controller
 * properly.
-
-* @param	DeviceId is the zero-based device ID defined in xparameters.h
+* @param[in]	DeviceId is the zero-based device ID defined in xparameters.h
 *		of the interrupting interrupt controller. It is used as a direct
 *		index into the configuration data, which contains the vector
 *		table for the interrupt controller. Note that even though the
 *		argument is a void pointer, the value is not a pointer but the
 *		actual device ID.  The void pointer type is necessary to meet
 *		the XInterruptHandler typedef for interrupt handlers.
-*
-* @return	None.
 *
 * @note		For nested interrupts, this function saves microblaze r14
 *		register on entry and restores on exit. This is required since
@@ -196,20 +185,20 @@ void XIntc_DeviceInterruptHandler(void *DeviceId)
 #endif
 
 #if defined(SDT) || (defined(XPAR_INTC_0_INTC_TYPE) && (XPAR_INTC_0_INTC_TYPE != XIN_INTC_NOCASCADE))
-	if (CfgPtr->IntcType != XIN_INTC_NOCASCADE) {
+	if (CfgPtr->IntcType != XIN_INTC_NOCASCADE)
 		XIntc_CascadeHandler(DeviceId);
-	} else
+
+	else
 #endif
 	{ /* This extra brace is required for compilation in Cascade Mode */
-
 #if defined (XPAR_XINTC_HAS_ILR) &&  (XPAR_XINTC_HAS_ILR == TRUE)
 #ifdef __MICROBLAZE__
 		volatile u32 R14_register;
-		/* Save r14 register */
+		// Save r14 register.
 		R14_register = mfgpr(r14);
 #endif
 		volatile u32 ILR_reg;
-		/* Save ILR register */
+		// Save ILR register.
 		ILR_reg = Xil_In32(CfgPtr->BaseAddress + XIN_ILR_OFFSET);
 #endif
 		/* Get the interrupts that are waiting to be serviced */
@@ -218,7 +207,7 @@ void XIntc_DeviceInterruptHandler(void *DeviceId)
 		/* Mask the Fast Interrupts */
 		if (CfgPtr->FastIntr == TRUE) {
 			Imr = XIntc_In32(CfgPtr->BaseAddress + XIN_IMR_OFFSET);
-			IntrStatus &=  ~Imr;
+			IntrStatus &= ~Imr;
 		}
 
 		/* Service each interrupt that is active and enabled by
@@ -233,14 +222,14 @@ void XIntc_DeviceInterruptHandler(void *DeviceId)
 #if defined (XPAR_XINTC_HAS_ILR) && (XPAR_XINTC_HAS_ILR == TRUE)
 				/* Write to ILR the current interrupt
 				* number
-				*/
+				 */
 				Xil_Out32(CfgPtr->BaseAddress +
 					  XIN_ILR_OFFSET, IntrNumber);
 
 				/* Read back ILR to ensure the value
 				* has been updated and it is safe to
 				* enable interrupts
-				*/
+				 */
 
 				Xil_In32(CfgPtr->BaseAddress +
 					 XIN_ILR_OFFSET);
@@ -319,9 +308,8 @@ void XIntc_DeviceInterruptHandler(void *DeviceId)
 			/* If there are no other bits set indicating that all
 			 * interrupts have been serviced, then exit the loop
 			 */
-			if (IntrStatus == 0) {
+			if (IntrStatus == 0)
 				break;
-			}
 		}
 #if defined (XPAR_XINTC_HAS_ILR) && (XPAR_XINTC_HAS_ILR == TRUE)
 #ifdef __MICROBLAZE__
@@ -343,17 +331,13 @@ void XIntc_DeviceInterruptHandler(void *DeviceId)
 * interface given in this file is to service all outstanding interrupts when an
 * interrupt occurs. In Cascade mode same Option is set to Slave controllers.
 *
-* @param	BaseAddress is the unique identifier for a device.
-* @param 	Option is XIN_SVC_SGL_ISR_OPTION if you want only a single
+* @param[in]	BaseAddress is the unique identifier for a device.
+* @param[in]	Option is XIN_SVC_SGL_ISR_OPTION if you want only a single
 *		interrupt serviced when an interrupt occurs, or
 *		XIN_SVC_ALL_ISRS_OPTION if you want all pending interrupts
 *		serviced when an interrupt occurs.
 *
-* @return	None.
-*
-* @note
-*
-* Note that this function has no effect if the input base address is invalid.
+* @note		Note that this function has no effect if the input base address is invalid.
 *
 ******************************************************************************/
 void XIntc_SetIntrSvcOption(UINTPTR BaseAddress, int Option)
@@ -373,7 +357,7 @@ void XIntc_SetIntrSvcOption(UINTPTR BaseAddress, int Option)
 				CfgPtr->Options = Option;
 			}
 #else
-			for (Index = 1;  Index <= XPAR_INTC_NUM_DRV_INSTANCES - 1;
+			for (Index = 1; Index <= XPAR_INTC_NUM_DRV_INSTANCES - 1;
 			     Index++) {
 				CfgPtr = XIntc_LookupConfig(XIntc_ConfigTable[Index].BaseAddress);
 				CfgPtr->Options = Option;
@@ -397,20 +381,16 @@ void XIntc_SetIntrSvcOption(UINTPTR BaseAddress, int Option)
 * In Cascade mode Interrupt Id is used to set Handler for corresponding Slave
 * Controller
 *
-* @param 	BaseAddress is the base address of the interrupt controller
+* @param[in]	BaseAddress is the base address of the interrupt controller
 *		whose vector table will be modified.
-* @param 	InterruptId is the interrupt ID to be associated with the input
+* @param[in]	InterruptId is the interrupt ID to be associated with the input
 *		handler.
-* @param 	Handler is the function pointer that will be added to
+* @param[in]	Handler is the function pointer that will be added to
 *		the vector table for the given interrupt ID.
-* @param	CallBackRef is the argument that will be passed to the new
+* @param[in]	CallBackRef is the argument that will be passed to the new
 *		handler function when it is called. This is user-specific.
 *
-* @return	None.
-*
-* @note
-*
-* This function has no effect if the input base address is invalid.
+* @note		This function has no effect if the input base address is invalid.
 * Following fields in XIntc_Config impacts interrupt handling,
 * 		1. AckBeforeService: If 1, primary interrupt handler acks
 * 							 interrupt before servicing it, else it would
@@ -434,9 +414,8 @@ void XIntc_RegisterHandler(UINTPTR BaseAddress, int InterruptId,
 
 		if (InterruptId > 31) {
 			CfgPtr = XIntc_LookupConfig(InterruptId / 32);
-			if (CfgPtr == NULL) {
+			if (CfgPtr == NULL)
 				return;
-			}
 			CfgPtr->HandlerTable[InterruptId % 32].Handler = Handler;
 			CfgPtr->HandlerTable[InterruptId % 32].CallBackRef =
 				CallBackRef;
@@ -455,14 +434,10 @@ void XIntc_RegisterHandler(UINTPTR BaseAddress, int InterruptId,
 * Looks up the device configuration based on the base address of the device.
 * A table contains the configuration info for each device in the system.
 *
-* @param	BaseAddress is the unique identifier for a device.
+* @param[in]	BaseAddress is the unique identifier for a device.
 *
-* @return
-*
-* A pointer to the configuration structure for the specified device, or
+* @return	A pointer to the configuration structure for the specified device, or
 * NULL if the device was not found.
-*
-* @note		None.
 *
 ******************************************************************************/
 XIntc_Config *LookupConfigByBaseAddress(UINTPTR BaseAddress)
@@ -477,9 +452,8 @@ XIntc_Config *LookupConfigByBaseAddress(UINTPTR BaseAddress)
 #endif
 		if (XIntc_ConfigTable[Index].BaseAddress == BaseAddress) {
 			CfgPtr = &XIntc_ConfigTable[Index];
-			if (CfgPtr == NULL) {
+			if (CfgPtr == NULL)
 				return NULL;
-			}
 			break;
 		}
 	}
@@ -495,18 +469,14 @@ XIntc_Config *LookupConfigByBaseAddress(UINTPTR BaseAddress)
 * In Cascade mode Interrupt Id is used to set Handler for corresponding Slave
 * Controller
 *
-* @param 	BaseAddress is the base address of the interrupt controller
+* @param[in]	BaseAddress is the base address of the interrupt controller
 *		whose vector table will be modified.
-* @param 	InterruptId is the interrupt ID to be associated with the input
+* @param[in]	Id is the interrupt ID to be associated with the input
 *		handler.
-* @param 	FastHandler is the function pointer that will be called when
+* @param[in]	FastHandler is the function pointer that will be called when
 *   		interrupt occurs
 *
-* @return	None.
-*
-* @note
-*
-* Note that this function has no effect if the input base address is invalid.
+* @note		Note that this function has no effect if the input base address is invalid.
 *
 ******************************************************************************/
 void XIntc_RegisterFastHandler(UINTPTR BaseAddress, u8 Id,
@@ -521,11 +491,10 @@ void XIntc_RegisterFastHandler(UINTPTR BaseAddress, u8 Id,
 	if (Id > 31) {
 		/* Enable user required Id in Slave controller */
 		CfgPtr = XIntc_LookupConfig(Id / 32);
-		if (CfgPtr == NULL) {
+		if (CfgPtr == NULL)
 			return;
-		}
 
-		/* Get the Enabled Interrupts */
+		/**< Get the Enabled Interrupts */
 		CurrentIER = XIntc_In32(CfgPtr->BaseAddress + XIN_IER_OFFSET);
 
 		/* Convert from integer id to bit mask */
@@ -575,9 +544,8 @@ void XIntc_RegisterFastHandler(UINTPTR BaseAddress, u8 Id,
 		}
 
 		CfgPtr = XIntc_LookupConfig(Id / 32);
-		if (CfgPtr == NULL) {
+		if (CfgPtr == NULL)
 			return;
-		}
 		if (CfgPtr->VectorAddrWidth >
 		    XINTC_STANDARD_VECTOR_ADDRESS_WIDTH) {
 			XIntc_Out64(BaseAddress + XIN_IVEAR_OFFSET +
@@ -609,15 +577,13 @@ void XIntc_RegisterFastHandler(UINTPTR BaseAddress, u8 Id,
 * Returns the base address of the child INTC controller wired to a specific
 * pin on the given parent. Unlike XIntc_GetChildBaseAddress which matched
 * only on parent address, this also checks the pin number so that multi-child
-* topologies (e.g. two independent cascade chains) dispatch to the correct
+* topologies (for example two independent cascade chains) dispatch to the correct
 * child controller.
 *
-* @param	ParentBaseAddr is the base address of the parent INTC controller.
-* @param	Pin is the cascade pin number (IntrId[4:0]) to match.
+* @param[in]	ParentBaseAddr is the base address of the parent INTC controller.
+* @param[in]	Pin is the cascade pin number (IntrId[4:0]) to match.
 *
 * @return	Base address of the matching child controller, or 0 if not found.
-*
-* @note		None.
 *
 ******************************************************************************/
 #ifdef SDT
@@ -632,11 +598,10 @@ static UINTPTR XIntc_GetChildForPin(UINTPTR ParentBaseAddr, u32 Pin)
 		    XIntc_ConfigTable[i].IntrParent == XINTC_NO_PARENT)
 			continue;
 		ParentAddr = XIntc_ConfigTable[i].IntrParent &
-			XINTC_INTR_PARENT_MASK;
+			     XINTC_INTR_PARENT_MASK;
 		if (ParentAddr == ParentBaseAddr &&
-				(XIntc_ConfigTable[i].IntrId & (XIN_CONTROLLER_MAX_INTRS - 1U)) == Pin) {
+		    (XIntc_ConfigTable[i].IntrId & (XIN_CONTROLLER_MAX_INTRS - 1U)) == Pin)
 			return XIntc_ConfigTable[i].BaseAddress;
-		}
 	}
 	return 0;
 }
@@ -645,24 +610,19 @@ static UINTPTR XIntc_GetChildForPin(UINTPTR ParentBaseAddr, u32 Pin)
 /*****************************************************************************/
 /**
 *
-* This function is called by primary interrupt handler for the driver to handle
-* all Controllers in Cascade mode.It will resolve which interrupts are active
-* and enabled and call the appropriate interrupt handler. It uses the
-* AckBeforeService flag in the configuration data to determine when to
-* acknowledge the interrupt. Highest priority interrupts are serviced first.
-* This function assumes that an interrupt vector table has been previously
-* initialized.  It does not verify that entries in the table are valid before
-* calling an interrupt handler.This function calls itself recursively to handle
-* all interrupt controllers.
+* @brief Handles all controllers in cascade mode.
 *
-* @param	DeviceId is the zero-based device ID defined in xparameters.h
+* It will resolve which interrupts are active and enabled and call the
+* appropriate interrupt handler. It uses the AckBeforeService flag in the
+* configuration data to determine when to acknowledge the interrupt. Highest
+* priority interrupts are serviced first. This function assumes that an
+* interrupt vector table has been previously initialized. It does not verify
+* that entries in the table are valid before calling an interrupt handler.This
+* function calls itself recursively to handle all interrupt controllers.
+* @param[in]	DeviceId is the zero-based device ID defined in xparameters.h
 *		of the interrupting interrupt controller. It is used as a direct
 *		index into the configuration data, which contains the vector
 *		table for the interrupt controller.
-*
-* @return	None.
-*
-* @note		None.
 *
 ******************************************************************************/
 static void XIntc_CascadeHandler(void *DeviceId)
@@ -684,17 +644,16 @@ static void XIntc_CascadeHandler(void *DeviceId)
 	CfgPtr = LookupConfigByBaseAddress((UINTPTR)DeviceId);
 #endif
 
-	if (CfgPtr == NULL) {
+	if (CfgPtr == NULL)
 		return;
-	}
 
-	/* Get the interrupts that are waiting to be serviced */
+	/**< Get the interrupts that are waiting to be serviced */
 	IntrStatus = XIntc_GetIntrStatus(CfgPtr->BaseAddress);
 
 	/* Mask the Fast Interrupts */
 	if (CfgPtr->FastIntr == TRUE) {
 		Imr = XIntc_In32(CfgPtr->BaseAddress + XIN_IMR_OFFSET);
-		IntrStatus &=  ~Imr;
+		IntrStatus &= ~Imr;
 	}
 
 	/*
@@ -710,9 +669,8 @@ static void XIntc_CascadeHandler(void *DeviceId)
 #else
 	if (CfgPtr->IntcType != XIN_INTC_NOCASCADE &&
 	    CfgPtr->IntcType != XIN_INTC_LAST &&
-	    LoopBound < XIN_CONTROLLER_MAX_INTRS) {
+	    LoopBound < XIN_CONTROLLER_MAX_INTRS)
 		LoopBound = XIN_CONTROLLER_MAX_INTRS;
-	}
 #endif
 
 	/* Service each interrupt that is active and enabled by
@@ -731,25 +689,23 @@ static void XIntc_CascadeHandler(void *DeviceId)
 			{
 				/* SDT: any pin can cascade; cache result for handler guard. */
 				UINTPTR ChildBaseAddr = XIntc_GetChildForPin(
-						CfgPtr->BaseAddress, IntrNumber);
-				if (ChildBaseAddr != 0) {
+								CfgPtr->BaseAddress, IntrNumber);
+				if (ChildBaseAddr != 0)
 					XIntc_CascadeHandler((void *)ChildBaseAddr);
-				}
 
 				/* If the interrupt has been setup to
 				 * acknowledge it before servicing the
 				 * interrupt, then ack it */
-				if (CfgPtr->AckBeforeService & IntrMask) {
+				if (CfgPtr->AckBeforeService & IntrMask)
 					XIntc_AckIntr(CfgPtr->BaseAddress, IntrMask);
-				}
 
 				/* Handler of cascade pin has to be called only
 				 * for Last controller in cascade Mode. Reuse the
 				 * cached ChildBaseAddr — no second lookup needed.
 				 */
 				if (ChildBaseAddr == 0 &&
-					    IntrNumber < (u32)(CfgPtr->NumberofIntrs +
-							       CfgPtr->NumberofSwIntrs)) {
+				    IntrNumber < (u32)(CfgPtr->NumberofIntrs +
+						       CfgPtr->NumberofSwIntrs)) {
 					/* The interrupt is active and enabled, call
 					 * the interrupt handler that was setup with
 					 * the specified parameter
@@ -770,17 +726,15 @@ static void XIntc_CascadeHandler(void *DeviceId)
 			/* If the interrupt has been setup to
 			 * acknowledge it before servicing the
 			 * interrupt, then ack it */
-			if (CfgPtr->AckBeforeService & IntrMask) {
+			if (CfgPtr->AckBeforeService & IntrMask)
 				XIntc_AckIntr(CfgPtr->BaseAddress, IntrMask);
-			}
 
 			/* Handler of cascade pin has to be called only
 			 * for Last controller in cascade Mode
 			 */
 			if (!((IntrNumber == 31) &&
 			      (CfgPtr->IntcType != XIN_INTC_LAST) &&
-			      (CfgPtr->IntcType != XIN_INTC_NOCASCADE)))
-			{
+			      (CfgPtr->IntcType != XIN_INTC_NOCASCADE))) {
 
 				/* The interrupt is active and enabled, call
 				 * the interrupt handler that was setup with
@@ -793,9 +747,8 @@ static void XIntc_CascadeHandler(void *DeviceId)
 			/* If the interrupt has been setup to acknowledge it
 			 * after it has been serviced then ack it
 			 */
-			if ((CfgPtr->AckBeforeService & IntrMask) == 0) {
+			if ((CfgPtr->AckBeforeService & IntrMask) == 0)
 				XIntc_AckIntr(CfgPtr->BaseAddress, IntrMask);
-			}
 
 			/*
 			 * Read the ISR again to handle architectures with
@@ -808,9 +761,8 @@ static void XIntc_CascadeHandler(void *DeviceId)
 			 * serviced, exit loop and return after servicing
 			 * the interrupt
 			 */
-			if (CfgPtr->Options == XIN_SVC_SGL_ISR_OPTION) {
+			if (CfgPtr->Options == XIN_SVC_SGL_ISR_OPTION)
 				return;
-			}
 		}
 
 		/* Move	 to the next interrupt to check */
@@ -820,9 +772,8 @@ static void XIntc_CascadeHandler(void *DeviceId)
 		/* If there are no other bits set indicating that all interrupts
 		 * have been serviced, then exit the loop
 		 */
-		if (IntrStatus == 0) {
+		if (IntrStatus == 0)
 			break;
-		}
 	}
 }
 #endif

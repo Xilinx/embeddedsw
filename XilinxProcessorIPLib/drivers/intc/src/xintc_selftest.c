@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2002 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -28,36 +28,32 @@
 *		      Modified XIntc_SimulateIntr API.
 * 3.22  ml   11/12/25 Updated XIntc_SelfTest API to avoid false failures
 *                     during repeated test executions
+* 3.23 ml   16/09/26 Fixed doxygen 1.15.0 and compliance checker warnings.
 * </pre>
 *
 ******************************************************************************/
 
 /***************************** Include Files *********************************/
-
 #include "xil_types.h"
 #include "xil_assert.h"
 #include "xintc.h"
 #include "xintc_i.h"
 
 /************************** Constant Definitions *****************************/
-
-#define XIN_TEST_MASK 1
+#define XIN_TEST_MASK 1		/**< Mask used to test the interrupt controller registers. */
 
 /**************************** Type Definitions *******************************/
 
-
 /***************** Macros (Inline Functions) Definitions *********************/
-
 
 /************************** Function Prototypes ******************************/
 
-
 /************************** Variable Definitions *****************************/
-
 
 /*****************************************************************************/
 /**
 *
+* @brief Runs a self-test on the XIntc driver/device.
 * Run a self-test on the driver/device. This is a destructive test.
 *
 * This involves forcing interrupts into the controller and verifying that they
@@ -65,15 +61,12 @@
 * interrupt controller has been started in real mode such that interrupts
 * cannot be forced.
 *
-* @param	InstancePtr is a pointer to the XIntc instance to be worked on.
+* @param[in]	InstancePtr is a pointer to the XIntc instance to be worked on.
 *
-* @return
-* 		- XST_SUCCESS if self-test is successful.
+* @return	- XST_SUCCESS if self-test is successful.
 * 		- XST_INTC_FAIL_SELFTEST if the Interrupt controller fails the
 *		self-test. It will fail the self test if the device has
 *		previously been started in real mode.
-*
-* @note		None.
 *
 ******************************************************************************/
 int XIntc_SelfTest(XIntc *InstancePtr)
@@ -117,9 +110,8 @@ int XIntc_SelfTest(XIntc *InstancePtr)
 	/*
 	 * ISR should be zero after all interrupts are acknowledged
 	 */
-	if (CurrentISR != 0) {
+	if (CurrentISR != 0)
 		return XST_INTC_FAIL_SELFTEST;
-	}
 
 	/*
 	 * Set a bit in the ISR which simulates an interrupt
@@ -131,9 +123,8 @@ int XIntc_SelfTest(XIntc *InstancePtr)
 	 */
 	CurrentISR = XIntc_In32(InstancePtr->BaseAddress + XIN_ISR_OFFSET);
 
-	if (CurrentISR != XIN_TEST_MASK) {
+	if (CurrentISR != XIN_TEST_MASK)
 		return XST_INTC_FAIL_SELFTEST;
-	}
 
 	/*
 	 * Acknowledge the interrupt
@@ -145,9 +136,8 @@ int XIntc_SelfTest(XIntc *InstancePtr)
 	 */
 	CurrentISR = XIntc_In32(InstancePtr->BaseAddress + XIN_ISR_OFFSET);
 
-	if (CurrentISR != 0) {
+	if (CurrentISR != 0)
 		return XST_INTC_FAIL_SELFTEST;
-	}
 
 	return XST_SUCCESS;
 }
@@ -155,6 +145,7 @@ int XIntc_SelfTest(XIntc *InstancePtr)
 /*****************************************************************************/
 /**
 *
+* @brief Simulates an interrupt for the specified interrupt ID.
 * Allows software to simulate an interrupt in the interrupt controller. This
 * function will only be successful when the interrupt controller has been
 * started in simulation mode. Once it has been started in real mode,
@@ -163,16 +154,13 @@ int XIntc_SelfTest(XIntc *InstancePtr)
 * signal into it. In Cascade mode writes to ISR of appropriate Slave
 * controller depending on Id.
 *
-* @param	InstancePtr is a pointer to the XIntc instance to be worked on.
-* @param	Id is the interrupt ID for which to simulate an interrupt.
+* @param[in]	InstancePtr is a pointer to the XIntc instance to be worked on.
+* @param[in]	Id is the interrupt ID for which to simulate an interrupt.
 *
-* @return
-* 		- XST_SUCCESS if successful
+* @return	- XST_SUCCESS if successful
 *		- XST_FAILURE if the interrupt could not be
 * 		simulated because the interrupt controller is or
 *		has previously been in real mode.
-*
-* @note		None.
 *
 ******************************************************************************/
 int XIntc_SimulateIntr(XIntc *InstancePtr, u8 Id)
@@ -197,9 +185,8 @@ int XIntc_SimulateIntr(XIntc *InstancePtr, u8 Id)
 	 * the ISR register is no longer writable by software
 	 */
 	MasterEnable = XIntc_In32(InstancePtr->BaseAddress + XIN_MER_OFFSET);
-	if (MasterEnable & XIN_INT_HARDWARE_ENABLE_MASK) {
+	if (MasterEnable & XIN_INT_HARDWARE_ENABLE_MASK)
 		return XST_FAILURE;
-	}
 
 
 	if (Id > 31) {
@@ -207,9 +194,8 @@ int XIntc_SimulateIntr(XIntc *InstancePtr, u8 Id)
 		DeviceId = Id / 32;
 
 		CfgPtr = XIntc_LookupConfig(Id / 32);
-		if (CfgPtr == NULL) {
+		if (CfgPtr == NULL)
 			return XST_FAILURE;
-		}
 
 		Mask = XIntc_BitPosMask[Id % 32];
 		XIntc_Out32(CfgPtr->BaseAddress + XIN_ISR_OFFSET, Mask);
@@ -221,9 +207,8 @@ int XIntc_SimulateIntr(XIntc *InstancePtr, u8 Id)
 		Mask = XIntc_BitPosMask[31];
 		for (Index = DeviceId - 1; Index >= 0; Index--) {
 			CfgPtr = XIntc_LookupConfig(Index);
-			if (CfgPtr == NULL) {
+			if (CfgPtr == NULL)
 				return XST_FAILURE;
-			}
 			XIntc_Out32(CfgPtr->BaseAddress + XIN_ISR_OFFSET,
 				    Mask);
 		}
