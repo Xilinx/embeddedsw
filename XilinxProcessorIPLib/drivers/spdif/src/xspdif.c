@@ -231,9 +231,16 @@ void XSpdif_SetClkConfig(XSpdif *InstancePtr, u8 Clk_DivNum)
 u32 XSpdif_GetFs(XSpdif *InstancePtr, u32 AudClk)
 {
 	u32 Fs;
-	u32 RegValue = XSpdif_ReadReg(InstancePtr->Config.BaseAddress,
+	u32 RegValue;
+
+	Xil_AssertNonvoid(InstancePtr != NULL);
+
+	RegValue = XSpdif_ReadReg(InstancePtr->Config.BaseAddress,
 			XSPDIF_STATUS_REGISTER_OFFSET);
 	RegValue &= XSPDIF_SAMPLE_CLOCK_COUNT_MASK;
+	if (RegValue == 0) {
+		return 0;
+	}
 	Fs = AudClk/(RegValue*64);
 	return Fs;
 }
