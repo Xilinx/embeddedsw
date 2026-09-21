@@ -228,6 +228,7 @@
 * 25.2   aa  06/19/25   Updated SDK release version
 * 26.1   aa  03/11/25   Updated SDK release version
 * 26.2   am  06/24/26   Updated SDK release version
+* 26.3   sd  09/21/26   Add IMAGE_WORD_SIZE macro for header reads
 *
 * </pre>
 *
@@ -502,6 +503,7 @@ extern "C" {
 #define SlcrLock()		Xil_Out32(XPS_SYS_CTRL_BASEADDR + 0x04, 0x767B767B)
 
 #define IMAGE_HEADER_CHECKSUM_COUNT 10
+#define IMAGE_WORD_SIZE 4U	/**< Header read word size in bytes */
 
 /* Boot ROM Image defines */
 #define IMAGE_WIDTH_CHECK_OFFSET        (0x020)	/**< 0xaa995566 Width Detection word */

@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2012 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -41,6 +41,7 @@
 * 21.1  ng 07/13/23  Add SDT support
 * 21.2  ng 07/25/23  Updated QSPI address support in SDT flow
 * 21.4   ng  10/03/24   Fix change in macro name for QSPI linear flash
+* 21.5   sd 09/12/26   Bound QSPI reads and propagate transfer failures
 * </pre>
 *
 * @note
@@ -537,12 +538,12 @@ u32 FlashReadID(void)
 * @param	Address contains the address to read data from in the FLASH.
 * @param	ByteCount contains the number of bytes to read.
 *
-* @return	None.
+* @return	XST_SUCCESS if the read succeeds, otherwise XST_FAILURE.
 *
 * @note		None.
 *
 ******************************************************************************/
-void FlashRead(u32 Address, u32 ByteCount)
+u32 FlashRead(u32 Address, u32 ByteCount)
 {
 	/*
 	 * Setup the write command with the specified address and data for the
@@ -550,6 +551,10 @@ void FlashRead(u32 Address, u32 ByteCount)
 	 */
 	u32 LqspiCrReg;
 	u8  ReadCommand;
+
+	if (ByteCount > DATA_SIZE) {
+		return XST_FAILURE;
+	}
 
 	LqspiCrReg = XQspiPs_GetLqspiConfigReg(QspiInstancePtr);
 	ReadCommand = (u8) (LqspiCrReg & XQSPIPS_LQSPI_CR_INST_MASK);
@@ -565,7 +570,7 @@ void FlashRead(u32 Address, u32 ByteCount)
 	 * of bytes from the FLASH, send the read command and address and
 	 * receive the specified number of bytes of data in the data buffer
 	 */
-	XQspiPs_PolledTransfer(QspiInstancePtr, WriteBuffer, ReadBuffer,
+	return XQspiPs_PolledTransfer(QspiInstancePtr, WriteBuffer, ReadBuffer,
 				ByteCount + OVERHEAD_SIZE);
 }
 
@@ -580,8 +585,8 @@ void FlashRead(u32 Address, u32 ByteCount)
 * @param	LengthBytes is the length of the data in Bytes
 *
 * @return
-*		- XST_SUCCESS if the write completes correctly
-*		- XST_FAILURE if the write fails to completes correctly
+*		- XST_SUCCESS if the read completes correctly
+*		- XST_FAILURE if the range is invalid or the read fails
 *
 * @note	none.
 *
@@ -593,7 +598,17 @@ u32 QspiAccess( u32 SourceAddress, u32 DestinationAddress, u32 LengthBytes)
 	u32 BankSel = 0;
 	u32 LqspiCrReg;
 	u32 Status;
+	u32 TransferStatus = XST_SUCCESS;
 	u8 BankSwitchFlag = 1;
+
+	if ((SourceAddress > QspiFlashSize) ||
+		(LengthBytes > (QspiFlashSize - SourceAddress))) {
+		return XST_FAILURE;
+	}
+
+	if (LengthBytes == 0U) {
+		return XST_SUCCESS;
+	}
 
 	/*
 	 * Linear access check
@@ -603,6 +618,10 @@ u32 QspiAccess( u32 SourceAddress, u32 DestinationAddress, u32 LengthBytes)
 		 * Check for non-word tail, add bytes to cover the end
 		 */
 		if ((LengthBytes%4) != 0){
+			if ((4U - (LengthBytes & 0x00000003U)) >
+				(QspiFlashSize - SourceAddress - LengthBytes)) {
+				return XST_FAILURE;
+			}
 			LengthBytes += (4 - (LengthBytes & 0x00000003));
 		}
 
@@ -676,7 +695,8 @@ u32 QspiAccess( u32 SourceAddress, u32 DestinationAddress, u32 LengthBytes)
 				Status = SendBankSelect(BankSel);
 				if (Status != XST_SUCCESS) {
 					fsbl_printf(DEBUG_INFO, "Bank Selection Failed\n\r");
-					return XST_FAILURE;
+					TransferStatus = XST_FAILURE;
+					break;
 				}
 
 				BankSwitchFlag = 0;
@@ -712,7 +732,11 @@ u32 QspiAccess( u32 SourceAddress, u32 DestinationAddress, u32 LengthBytes)
 			/*
 			 * Copying the image to local buffer
 			 */
-			FlashRead(SourceAddress, Length);
+			Status = FlashRead(SourceAddress, Length);
+			if (Status != XST_SUCCESS) {
+				TransferStatus = XST_FAILURE;
+				break;
+			}
 
 			/*
 			 * Moving the data from local buffer to DDR destination address
@@ -762,7 +786,7 @@ u32 QspiAccess( u32 SourceAddress, u32 DestinationAddress, u32 LengthBytes)
 		}
 	}
 
-	return XST_SUCCESS;
+	return TransferStatus;
 }
 
 

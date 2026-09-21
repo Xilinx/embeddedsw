@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2012 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -20,6 +21,7 @@
 * 5.00a sgd	05/17/13 Added Flash Size > 128Mbit support
 * 					 Dual Stack support
 * 6.00a bsv	09/04/20 Added support for 2Gb flash parts
+* 7.00a sd	09/12/26 Preserve all upper address bits in the bank mask
 * </pre>
 *
 * @note
@@ -45,7 +47,7 @@ extern "C" {
 /*
  * Bank mask
  */
-#define BANKMASK 0xF000000
+#define BANKMASK 0xFF000000U
 
 /*
  * Identification of Flash

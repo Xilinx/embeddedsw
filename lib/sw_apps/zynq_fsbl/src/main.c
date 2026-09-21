@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2012 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -87,6 +87,7 @@
 * 21.2   ng  07/25/23   Fixed DDR, WDT, NAND and QSPI addresses support in SDT
 * 21.3   ng  03/09/24   Fix format specifier for 32 bit variables
 * 21.4   ng  10/03/24   Fix change in macro name for QSPI linear flash
+* 21.5   sd  09/12/26   Reject boot-image probes when header reads fail
 *
 * </pre>
 *
@@ -1331,8 +1332,8 @@ void GetSiliconVersion(void)
 * @param 	FlashOffsetAddress Flash offset address
 *
 * @return
-*		- XST_SUCCESS if ID matches
-*		- XST_FAILURE if ID mismatches
+*		- XST_SUCCESS if the checksum matches
+*		- XST_FAILURE if a read fails or the checksum mismatches
 *
 * @note		None
 *
@@ -1340,13 +1341,18 @@ void GetSiliconVersion(void)
 u32 HeaderChecksum(u32 FlashOffsetAddress){
 	u32 Checksum = 0;
 	u32 Count;
+	u32 Status;
 	u32 TempValue = 0;
 
 	for (Count = 0; Count < IMAGE_HEADER_CHECKSUM_COUNT; Count++) {
 		/*
 		 * Read the word from the header
 		 */
-		MoveImage(FlashOffsetAddress + IMAGE_WIDTH_CHECK_OFFSET + (Count*4), (u32)&TempValue, 4);
+		Status = MoveImage(FlashOffsetAddress + IMAGE_WIDTH_CHECK_OFFSET +
+			(Count * IMAGE_WORD_SIZE), (u32)&TempValue, IMAGE_WORD_SIZE);
+		if (Status != XST_SUCCESS) {
+			return XST_FAILURE;
+		}
 
 		/*
 		 * Update checksum
@@ -1358,7 +1364,11 @@ u32 HeaderChecksum(u32 FlashOffsetAddress){
 	 * Invert checksum, last bit of error checking
 	 */
 	Checksum ^= 0xFFFFFFFF;
-	MoveImage(FlashOffsetAddress + IMAGE_CHECKSUM_OFFSET, (u32)&TempValue, 4);
+	Status = MoveImage(FlashOffsetAddress + IMAGE_CHECKSUM_OFFSET,
+			(u32)&TempValue, IMAGE_WORD_SIZE);
+	if (Status != XST_SUCCESS) {
+		return XST_FAILURE;
+	}
 
 	/*
 	 * Validate the checksum
@@ -1380,18 +1390,22 @@ u32 HeaderChecksum(u32 FlashOffsetAddress){
 *
 * @return
 *		- XST_SUCCESS if ID matches
-*		- XST_FAILURE if ID mismatches
+*		- XST_FAILURE if a read fails or ID mismatches
 *
 * @note		None
 *
 *******************************************************************************/
 u32 ImageCheckID(u32 FlashOffsetAddress){
 	u32 ID;
+	u32 Status;
 
 	/*
 	 * Read in the header info
 	 */
-	MoveImage(FlashOffsetAddress + IMAGE_IDENT_OFFSET, (u32)&ID, 4);
+	Status = MoveImage(FlashOffsetAddress + IMAGE_IDENT_OFFSET, (u32)&ID, IMAGE_WORD_SIZE);
+	if (Status != XST_SUCCESS) {
+		return XST_FAILURE;
+	}
 
 	/*
 	 * Check the ID, make sure image is XLNX format
