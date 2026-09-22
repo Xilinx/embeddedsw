@@ -23,6 +23,7 @@
  * 1.1   ma   12/12/24 Updated hash buffer address to the response buffer of the callback function
  *       lp   07/10/25 Added support for priority based multiple request and context verification
  *       kd   07/23/25 Fixed gcc warnings
+ *       ks   09/13/26 Kept the context of a SHAKE256 XOF sequence for its whole length
  *
  * </pre>
  *
@@ -53,7 +54,11 @@
  * 		on every FINISH except the last (FALSE ends the XOF and releases the engine). The
  * 		caller must wait for each block's response before sending the next, and must reuse
  * 		the same client priority so the same context and SHA3 engine are retained. Getting
- * 		either wrong can leave the SHA engine locked.
+ * 		either wrong can leave the SHA engine locked. The context slot of the priority stays
+ * 		allocated for the whole sequence, so a second multi-part request at that priority is
+ * 		refused with XASU_REQUEST_INPROGRESS. The SHA3 engine stays reserved for this
+ * 		sequence between blocks, so any other request for it waits in the queue until the
+ * 		XOF ends: blocking on such a request before sending the next block deadlocks.
  *
  * @param	ClientParamPtr		Pointer to the XAsu_ClientParams structure which holds
  * 					client input arguments.
@@ -66,6 +71,7 @@
  * 		- XST_FAILURE, if sending an IPI request to ASU fails.
  * 		- XASU_REQUEST_INPROGRESS, if split request already in progress.
  * 		- XASU_CLIENT_CTX_NOT_CREATED, if client context is not created.
+ * 		- XASU_INVALID_CLIENT_CTX, if the client context does not belong to this request.
  * 		- XASU_INVALID_UNIQUE_ID, if received Queue ID is invalid.
  * 		- XASU_FAIL_SAVE_CTX, if saving context fails.
  * 		- XASU_FREE_CTX_FAIL, if freeing context fails.
@@ -75,6 +81,7 @@ s32 XAsu_Sha3Operation(XAsu_ClientParams *ClientParamPtr, XAsu_ShaOperationCmd *
 {
 	s32 Status = XST_FAILURE;
 	u32 Header;
+	u32 OperationFlags;
 	u8 UniqueId;
 	static void *P0Sha3Ctx = NULL;
 	static void *P1Sha3Ctx = NULL;
@@ -145,21 +152,26 @@ s32 XAsu_Sha3Operation(XAsu_ClientParams *ClientParamPtr, XAsu_ShaOperationCmd *
 		goto END;
 	}
 
+	/**
+	 * An XOF block with XofEnableFlag set does not finish the operation, so it must not be
+	 * served as a single-shot request, which would leave the following blocks without a
+	 * context.
+	 */
+	OperationFlags = ShaClientParamPtr->OperationFlags;
+	if ((ShaClientParamPtr->ShaMode == XASU_SHA_MODE_SHAKE256) &&
+	    (ShaClientParamPtr->XofEnableFlag == XASU_TRUE)) {
+		OperationFlags &= ~(u32)XASU_FINISH;
+	}
+
 	/** Handle context operation. */
 	Status = XAsu_HandleContextOperation(ClientParamPtr, &P0Sha3Ctx, &P1Sha3Ctx,
-				     ShaClientParamPtr->OperationFlags, &UniqueId);
+				     OperationFlags, &UniqueId);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
 
-	/**
-	 * Cleanup on the final FINISH only. A SHAKE256 XOF continuation
-	 * (XofEnableFlag set) must retain the context so subsequent FINISH calls
-	 * reuse the same unique ID.
-	 */
-	if (((ShaClientParamPtr->OperationFlags & XASU_FINISH) == XASU_FINISH) &&
-	    ((ShaClientParamPtr->ShaMode != XASU_SHA_MODE_SHAKE256) ||
-	     (ShaClientParamPtr->XofEnableFlag != XASU_TRUE))) {
+	/** Cleanup once the operation is complete. */
+	if ((OperationFlags & XASU_FINISH) == XASU_FINISH) {
 		Status = XAsu_CleanupFinishOperation(ClientParamPtr, &P0Sha3Ctx, &P1Sha3Ctx,
 					     UniqueId, NULL, 0U);
 		if (Status != XST_SUCCESS) {

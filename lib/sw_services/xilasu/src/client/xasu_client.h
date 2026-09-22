@@ -23,6 +23,7 @@
  *       am   03/05/25 Added include for performance measurement header
  * 1.1   kd   07/23/25 Fixed gcc warnings
  *       rmv  09/15/25 Updated XAsu_UpdateCallBackDetails() prototype to return status value
+ *       ks   09/13/26 Removed XAsu_VerifyNGetUniqueIdCtx() prototype as it is file local now
  *
  * </pre>
  *
@@ -65,7 +66,12 @@ typedef struct {
 	u16 Reserved2;  /**< Reserved */
 	XAsuClient_ResponseHandler CallBackFuncPtr;  /**< Callback function pointer */
 	void *CallBackRefPtr;   /**< Callback reference pointer */
-	void *ClientCtx; /**< Reserved for user operation */
+	void *ClientCtx; /**< Context of the multi-part operation, owned by the client library.
+		A multi-part operation is tracked through this structure, so every call of one
+		operation must be issued with the same XAsu_ClientParams instance, and one
+		instance can track only one multi-part operation at a time. Starting a second
+		one replaces the context of the first, which can then be neither continued nor
+		finished and holds its priority for the lifetime of the program. */
 	u32 AdditionalStatus; /**< Additional status to detect glitches only for security
 		critical functions */
 } XAsu_ClientParams;
@@ -130,7 +136,6 @@ u8 XAsu_RegCallBackNGetUniqueId(XAsu_ClientParams *ClientParamPtr, u8 *RespBuffe
 	u32 Size, u8 IsFinalCall);
 s32 XAsu_UpdateCallBackDetails(u8 UniqueId, u8 *RespBufferPtr, u32 Size, u8 IsFinalCall);
 void *XAsu_UpdateNGetCtx(u8 UniqueId);
-s32 XAsu_VerifyNGetUniqueIdCtx(const void *Context, u8 *UniqueId);
 s32 XAsu_FreeCtx(void *Context);
 s32 XAsu_GetModuleInfo(XAsu_CryptoAlgInfo *AlginfoPtr, u32 ModuleId);
 s32 XAsu_CheckFwCompatibility(void);

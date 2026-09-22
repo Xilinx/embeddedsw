@@ -34,6 +34,7 @@
  *       rmv  09/20/25 Updated memory copy logic to store Xil_SecureMemCpy return value in local
  *                     variable to improve readability.
  *       rmv  09/21/25 Used unique id as an index for AsuContext
+ *       ks   09/13/26 Validated client context ownership before accepting or releasing it
  *
  * </pre>
  *
@@ -101,6 +102,9 @@ static void XAsu_DoorBellToClient(void *CallBackRef);
 static s32 XAsu_CheckAsufwPrsntBit(void);
 static u8 XAsu_GenerateUniqueId(void);
 static u8 XAsu_GetFreeIndex(u8 Priority);
+static u8 XAsu_IsCtxOfRequest(const void *Context, u8 UniqueId);
+static u8 XAsu_GetUniqueIdOfCtx(const void *Context, u8 *UniqueId);
+static s32 XAsu_VerifyNGetUniqueIdCtx(const XAsu_ClientParams *ClientParamPtr, u8 *UniqueId);
 
 /************************************ Variable Definitions ***************************************/
 static XAsu_RefToCallBack AsuCallBackRef[XASU_UNIQUE_ID_MAX]; /**< Entry of callback info */
@@ -109,6 +113,14 @@ static XAsu_ClientCtx AsuContext[XASU_NO_OF_CONTEXTS] = {[0 ... (XASU_NO_OF_CONT
 							 {.UniqueId = XASU_INVALID_UNIQUE_ID_VAL}};
 	/**< ASU Context with initial UniqueId value as XASU_INVALID_UNIQUE_ID_VAL
 	for all contexts */
+
+/*
+ * A context is addressed by the unique ID of the request that owns it, so a unique ID validated
+ * against one array is used to index the other. Both arrays must therefore hold one entry per
+ * unique ID.
+ */
+_Static_assert(XASU_NO_OF_CONTEXTS == XASU_UNIQUE_ID_MAX,
+	       "Context array must have one entry per unique ID");
 
 /*************************************************************************************************/
 /**
@@ -686,12 +698,20 @@ static u8 XAsu_GetFreeIndex(u8 Priority)
  *
  * @return
  * 		- XST_SUCCESS, if the context is freed successfully.
+ * 		- XASU_INVALID_ARGUMENT, if the context pointer is NULL.
  * 		- XASU_FREE_CTX_FAIL, if freeing the context fails.
  *
  *************************************************************************************************/
 s32 XAsu_FreeCtx(void *Context)
 {
 	s32 Status = XST_FAILURE;
+
+	/** Validate the context pointer. */
+	if (Context == NULL) {
+		Status = XASU_INVALID_ARGUMENT;
+		goto END;
+	}
+
 	/* Clear context buffer */
 	Status = Xil_SMemSet(Context, sizeof(XAsu_ClientCtx), 0U, sizeof(XAsu_ClientCtx));
 	if (Status != XST_SUCCESS) {
@@ -705,6 +725,75 @@ s32 XAsu_FreeCtx(void *Context)
 
 END:
 	return Status;
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	Checks whether the given context is the context allocated for the given request.
+ *
+ * @param	Context		Pointer to the XAsu_ClientCtx supplied by the client.
+ * @param	UniqueId	Unique ID associated with the request.
+ *
+ * @return
+ * 		- XASU_TRUE, if the context is the one allocated for the request.
+ * 		- XASU_FALSE, otherwise.
+ *
+ *************************************************************************************************/
+static u8 XAsu_IsCtxOfRequest(const void *Context, u8 UniqueId)
+{
+	u8 IsCtxOfRequest = XASU_FALSE;
+
+	/**
+	 * A free slot carries XASU_INVALID_UNIQUE_ID_VAL, so requiring the slot to record its own
+	 * index keeps a pointer to a slot that was never handed out, or that has since been
+	 * released, from passing as a live context.
+	 */
+	if ((Context != NULL) && (UniqueId < XASU_NO_OF_CONTEXTS) &&
+	    (Context == (const void *)&AsuContext[UniqueId]) &&
+	    (AsuContext[UniqueId].UniqueId == UniqueId)) {
+		IsCtxOfRequest = XASU_TRUE;
+	}
+
+	return IsCtxOfRequest;
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	Looks up the unique ID of the allocated context the given pointer refers to.
+ *
+ * @param	Context		Pointer to the XAsu_ClientCtx supplied by the client.
+ * @param	UniqueId	Pointer to the buffer where the unique ID owning the context will be
+ *				stored.
+ *
+ * @return
+ * 		- XASU_TRUE, if the pointer refers to an allocated context.
+ * 		- XASU_FALSE, otherwise.
+ *
+ *************************************************************************************************/
+static u8 XAsu_GetUniqueIdOfCtx(const void *Context, u8 *UniqueId)
+{
+	u8 IsCtxAllocated = XASU_FALSE;
+	u8 Index;
+
+	/** Validate the output parameter. */
+	if (UniqueId == NULL) {
+		goto END;
+	}
+
+	/**
+	 * The position of the context in AsuContext is the unique ID that owns it, so matching the
+	 * pointer against every slot yields the unique ID without reading client supplied memory.
+	 */
+	for (Index = 0U; Index < XASU_NO_OF_CONTEXTS; Index++) {
+		if (XAsu_IsCtxOfRequest(Context, Index) == XASU_TRUE) {
+			*UniqueId = Index;
+			IsCtxAllocated = XASU_TRUE;
+			break;
+		}
+	}
+
+END:
+	return IsCtxAllocated;
 }
 
 /*************************************************************************************************/
@@ -735,36 +824,44 @@ END:
 
 /*************************************************************************************************/
 /**
- * @brief	Validates the provided context by comparing it with stored contexts to determine
- *          the appropriate multi-update calls.
+ * @brief	Validates the context carried by the client parameters and returns the unique ID
+ *		of the request that owns it.
  *
- * @param	Context		Pointer to the XAsu_ClientCtx reference context.
+ * @param	ClientParamPtr	Pointer to the XAsu_ClientParams holding the reference context.
  * @param	UniqueId	Pointer to the buffer where the corresponding Unique ID will be stored.
  *
  * @return
  * 		- XST_SUCCESS if validation is successful.
- * 		- XASU_INVALID_CLIENT_CTX if the provided context is not found.
+ * 		- XASU_INVALID_ARGUMENT if ClientParamPtr, the context it carries or UniqueId is NULL.
+ * 		- XASU_INVALID_CLIENT_CTX if the context is not the one allocated to this request.
  *
  *************************************************************************************************/
-s32 XAsu_VerifyNGetUniqueIdCtx(const void *Context, u8 *UniqueId)
+static s32 XAsu_VerifyNGetUniqueIdCtx(const XAsu_ClientParams *ClientParamPtr, u8 *UniqueId)
 {
 	volatile s32 Status = XASU_INVALID_CLIENT_CTX;
-	u8 Index = 0U;
-	const XAsu_ClientCtx *ClientCtx = (const XAsu_ClientCtx *)Context;
+	u8 CtxUniqueId = 0U;
 
-	do {
-		if (AsuContext[Index].UniqueId == ClientCtx->UniqueId) {
-			*UniqueId = AsuContext[Index].UniqueId;
-			Status = XST_SUCCESS;
-			break;
-		}
-		Index++;
-	} while (Index < XASU_NO_OF_CONTEXTS);
-
-	if (Status == XST_SUCCESS) {
-		AsuCallBackRef[*UniqueId].PendingMultiUpdates++;
+	/** Validate input parameters. */
+	if ((ClientParamPtr == NULL) || (ClientParamPtr->ClientCtx == NULL) || (UniqueId == NULL)) {
+		Status = XASU_INVALID_ARGUMENT;
+		goto END;
 	}
 
+	/**
+	 * Accept the context only when the client pointer refers to an allocated context and that
+	 * allocation still belongs to this request. The unique ID is taken from the position of
+	 * the context in AsuContext rather than from the client supplied memory it points at, so
+	 * a foreign pointer can neither fault this read nor charge a multi-update to the slot of
+	 * another request and leave that slot reserved for good.
+	 */
+	if ((XAsu_GetUniqueIdOfCtx(ClientParamPtr->ClientCtx, &CtxUniqueId) == XASU_TRUE) &&
+	    (AsuCallBackRef[CtxUniqueId].ClientParams == ClientParamPtr)) {
+		*UniqueId = CtxUniqueId;
+		AsuCallBackRef[CtxUniqueId].PendingMultiUpdates++;
+		Status = XST_SUCCESS;
+	}
+
+END:
 	return Status;
 }
 
@@ -772,21 +869,37 @@ s32 XAsu_VerifyNGetUniqueIdCtx(const void *Context, u8 *UniqueId)
 /**
  * @brief	Handles INIT or UPDATE/FINAL operations for multi-part cryptographic
  *		operations with priority-based context management.
+ *		The context created on INIT is tied to the XAsu_ClientParams instance it was
+ *		created with, so every UPDATE and FINAL call of one multi-part operation must be
+ *		issued with that same instance. A different instance is rejected with
+ *		XASU_INVALID_CLIENT_CTX even when it carries a copy of the context pointer.
+ *		An instance holds a single context, so it can track only one multi-part
+ *		operation at a time. Starting a second one replaces the context of the first,
+ *		which can then be neither continued nor finished and holds its priority for
+ *		the lifetime of the program.
  *
  * @param	ClientParamPtr		Pointer to XAsu_ClientParams structure with priority information.
  * @param	P0CtxPtr		Pointer to HIGH priority (P0) context.
  * @param	P1CtxPtr		Pointer to LOW priority (P1) context.
  * @param	OperationFlags		Current operation flags (combination of XASU_INIT, XASU_UPDATE,
- *					XASU_FINISH) from the client request.
+ *					XASU_FINISH) from the client request. XASU_INIT creates a
+ *					context, and XASU_FINISH alongside it marks a request that
+ *					completes within this call and therefore needs none.
+ *					XASU_FINISH on its own is not examined: every request
+ *					without XASU_INIT continues the operation that owns the
+ *					context.
  * @param	UniqueIdPtr		Pointer to store the generated or retrieved Unique ID.
  *
  * @return
  *		- XST_SUCCESS, if operation is successful.
+ *		- XASU_INVALID_ARGUMENT, if ClientParamPtr, P0CtxPtr, P1CtxPtr or UniqueIdPtr is
+ *		  NULL.
  *		- XASU_INVALID_PRIORITY, if the priority in ClientParamPtr is invalid.
  *		- XASU_INVALID_UNIQUE_ID, if generated Unique ID is invalid.
  *		- XASU_REQUEST_INPROGRESS, if a multi-part request is already in progress.
  *		- XASU_FAIL_SAVE_CTX, if context save fails.
  *		- XASU_CLIENT_CTX_NOT_CREATED, if client context does not exist.
+ *		- XASU_INVALID_CLIENT_CTX, if the context does not belong to this request.
  *
  *************************************************************************************************/
 s32 XAsu_HandleContextOperation(XAsu_ClientParams *ClientParamPtr, void **P0CtxPtr,
@@ -795,21 +908,28 @@ s32 XAsu_HandleContextOperation(XAsu_ClientParams *ClientParamPtr, void **P0CtxP
 	s32 Status = XST_FAILURE;
 	void **CurrentCtxPtr;
 
+	/** Validate input parameters. */
+	if ((ClientParamPtr == NULL) || (P0CtxPtr == NULL) || (P1CtxPtr == NULL) ||
+	    (UniqueIdPtr == NULL)) {
+		Status = XASU_INVALID_ARGUMENT;
+		goto END;
+	}
+
+	/** Determine context pointer based on priority. */
+	if (ClientParamPtr->Priority == XASU_PRIORITY_HIGH) {
+		CurrentCtxPtr = P0CtxPtr;
+	} else if (ClientParamPtr->Priority == XASU_PRIORITY_LOW) {
+		CurrentCtxPtr = P1CtxPtr;
+	} else {
+		Status = XASU_INVALID_PRIORITY;
+		goto END;
+	}
+
 	/** Check if this is an INIT operation. */
 	if ((OperationFlags & XASU_INIT) == XASU_INIT) {
-		/** Determine context pointer based on priority. */
-		if (ClientParamPtr->Priority == XASU_PRIORITY_HIGH) {
-			CurrentCtxPtr = P0CtxPtr;
-		} else if (ClientParamPtr->Priority == XASU_PRIORITY_LOW) {
-			CurrentCtxPtr = P1CtxPtr;
-		} else {
-			Status = XASU_INVALID_PRIORITY;
-			goto END;
-		}
-
 		/** Check if context already exists for this priority level. */
 		if (*CurrentCtxPtr != NULL) {
-			/** Allow only single-shot operation when context already exists. */
+			/** A request that finishes here needs no context of its own. */
 			if ((OperationFlags & XASU_FINISH) == XASU_FINISH) {
 				*UniqueIdPtr = XAsu_RegCallBackNGetUniqueId(ClientParamPtr, NULL, 0U,
 								XASU_TRUE);
@@ -841,13 +961,24 @@ s32 XAsu_HandleContextOperation(XAsu_ClientParams *ClientParamPtr, void **P0CtxP
 		}
 	} else {
 		/** Handle UPDATE/FINAL operation - verify that context exists. */
-		if (ClientParamPtr->ClientCtx != NULL) {
-			Status = XAsu_VerifyNGetUniqueIdCtx(ClientParamPtr->ClientCtx, UniqueIdPtr);
-			if (Status != XST_SUCCESS) {
-				goto END;
-			}
-		} else {
+		if (ClientParamPtr->ClientCtx == NULL) {
 			Status = XASU_CLIENT_CTX_NOT_CREATED;
+			goto END;
+		}
+
+		/**
+		 * The context must be the one this priority handed out. Starting a second
+		 * operation through the same client parameters instance replaces the context of
+		 * the first, and without this check the first one would carry on under the
+		 * unique ID of the second.
+		 */
+		if (ClientParamPtr->ClientCtx != *CurrentCtxPtr) {
+			Status = XASU_INVALID_CLIENT_CTX;
+			goto END;
+		}
+
+		Status = XAsu_VerifyNGetUniqueIdCtx(ClientParamPtr, UniqueIdPtr);
+		if (Status != XST_SUCCESS) {
 			goto END;
 		}
 	}
@@ -871,6 +1002,9 @@ END:
  *
  * @return
  *		- XST_SUCCESS, if cleanup is successful.
+ *		- XASU_INVALID_ARGUMENT, if ClientParamPtr, P0CtxPtr or P1CtxPtr is NULL.
+ *		- XASU_INVALID_CLIENT_CTX, if the context belongs to neither priority of this
+ *		  operation.
  *		- Error code from callback update or context free.
  *
  *************************************************************************************************/
@@ -880,17 +1014,39 @@ s32 XAsu_CleanupFinishOperation(XAsu_ClientParams *ClientParamPtr, void **P0CtxP
 {
 	s32 Status = XST_FAILURE;
 
+	/** Validate input parameters. */
+	if ((ClientParamPtr == NULL) || (P0CtxPtr == NULL) || (P1CtxPtr == NULL)) {
+		Status = XASU_INVALID_ARGUMENT;
+		goto END;
+	}
+
 	Status = XAsu_UpdateCallBackDetails(UniqueId, ResponseBuffer, ResponseSize, XASU_TRUE);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
 
+	/**
+	 * A request that owns no context has nothing to release. That is the single-shot request
+	 * served while a multi-part operation holds the context of its priority. The unique ID is
+	 * the one the library issued for this request rather than a value taken from the client,
+	 * so matching the address of its context slot is ownership enough here.
+	 */
+	if (XAsu_IsCtxOfRequest(ClientParamPtr->ClientCtx, UniqueId) == XASU_FALSE) {
+		goto END;
+	}
+
+	/**
+	 * Release only the context this operation was given for its priority. A continuation is
+	 * bound to that slot by XAsu_HandleContextOperation() before it gets here, so this guards
+	 * against a caller pairing a context with the priority slots of a different operation.
+	 */
 	if (ClientParamPtr->ClientCtx == *P0CtxPtr) {
 		*P0CtxPtr = NULL;
 	} else if (ClientParamPtr->ClientCtx == *P1CtxPtr) {
 		*P1CtxPtr = NULL;
 	} else {
-		/* Do Nothing */
+		Status = XASU_INVALID_CLIENT_CTX;
+		goto END;
 	}
 
 	Status = XAsu_FreeCtx(ClientParamPtr->ClientCtx);

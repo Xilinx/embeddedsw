@@ -158,6 +158,7 @@ static const u8 AesKatCcmTag[XASU_AES_KAT_CCM_TAG_LEN_IN_BYTES] = {
  * 		- XASU_QUEUE_FULL, if Queue buffer is full.
  * 		- XST_FAILURE, if sending an IPI request to ASU fails.
  * 		- XASU_CLIENT_CTX_NOT_CREATED, if client context is not created.
+ * 		- XASU_INVALID_CLIENT_CTX, if the client context does not belong to this request.
  * 		- XASU_REQUEST_INPROGRESS, if split request already in progress.
  *  		- XASU_FAIL_SAVE_CTX, if saving context fails.
  * 		- XASU_INVALID_UNIQUE_ID, if received Queue ID is invalid.

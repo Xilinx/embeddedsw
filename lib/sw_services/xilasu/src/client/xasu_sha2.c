@@ -60,6 +60,7 @@
  * 		- XST_FAILURE, if sending an IPI request to ASU fails.
  * 		- XASU_REQUEST_INPROGRESS, if split request already in progress.
  * 		- XASU_CLIENT_CTX_NOT_CREATED, if client context is not created.
+ * 		- XASU_INVALID_CLIENT_CTX, if the client context does not belong to this request.
  * 		- XASU_INVALID_UNIQUE_ID, if received Queue ID is invalid.
  * 		- XASU_FAIL_SAVE_CTX, if saving context fails.
  * 		- XASU_FREE_CTX_FAIL, if freeing context fails.
