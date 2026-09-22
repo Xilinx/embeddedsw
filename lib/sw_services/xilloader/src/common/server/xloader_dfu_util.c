@@ -29,6 +29,8 @@
 * 2.4    aa  04/01/2026 Added DDR address range validation during USB DFU
 *                      download to prevent buffer overflow
 *        aa  04/10/2026 Update DDR overflow check for USB DFU
+*        obs 08/21/2026 Clamped the DFU GETSTATUS reply length to the size of
+*                       the reply buffer
 *
 * </pre>
 *
@@ -745,6 +747,7 @@ static void XLoader_DfuClassReq(const struct Usb_DevData* InstancePtr, const Set
 {
 	int Result;
 	u32 RxBytesLeft;
+	u32 ReplyLen;
 	static u8 DfuReply[XLOADER_DFU_STATUS_SIZE] = {0U,};
 	u64 DfuBaseAddr;
 	u64 WriteEndAddr;
@@ -834,10 +837,25 @@ static void XLoader_DfuClassReq(const struct Usb_DevData* InstancePtr, const Set
 			}
 			DfuReply[0U] = DfuObj.CurrStatus;
 			DfuReply[4U] = DfuObj.CurrState;
-			if (SetupData->wLength > 0U) {
+			/*
+			 * wLength is chosen by the USB host while DfuReply is a
+			 * fixed size buffer, so the reply is clamped to the size
+			 * of the buffer instead of the length that was asked
+			 * for. The standard request path guards its own reply
+			 * buffer at the point of dispatch, but by dropping an
+			 * oversized request rather than clamping it. Clamping is
+			 * used here because GETSTATUS is mandatory and a short
+			 * packet is a valid way to end a control transfer, so
+			 * dropping it would break compliant hosts.
+			 */
+			ReplyLen = (u32)SetupData->wLength;
+			if (ReplyLen > XLOADER_DFU_STATUS_SIZE) {
+				ReplyLen = XLOADER_DFU_STATUS_SIZE;
+			}
+			if (ReplyLen > 0U) {
 				Result = XUsbPsu_EpBufferSend(
 				(struct XUsbPsu*)InstancePtr->PrivateData,
-				0U, DfuReply, (u32)SetupData->wLength);
+				0U, DfuReply, ReplyLen);
 			}
 			break;
 		default:
