@@ -299,6 +299,19 @@ set(proc_compiler ${compiler} CACHE STRING "Compiler used to compile both BSP/li
 set(proc_compiler_flags ${TOOLCHAIN_C_FLAGS} "-c" CACHE STRING "Compiler Flags used in BSP and library generation.'-c'flag stands for 'compile and assemble, but do not link'.Without this flag, gcc tries to link the code, which will fail because there is no application involved during libgen.'-O2' can be overwritten by extra compile flags.")
 set(proc_extra_compiler_flags ${TOOLCHAIN_EXTRA_C_FLAGS} CACHE STRING "Extra Compiler Flags used in BSP and library generation")
 
+if("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "cortexa9")
+    set(FPU_HARD_FLOAT_ABI_ENABLED 0)
+    set(_fpu_flags "${proc_compiler_flags};${proc_extra_compiler_flags}")
+    set(_fpu_abi_matches "")
+    string(REGEX MATCHALL "-mfloat-abi=[^; ]+" _fpu_abi_matches "${_fpu_flags}")
+    if(_fpu_abi_matches)
+        list(GET _fpu_abi_matches -1 _fpu_abi_last)
+        if("${_fpu_abi_last}" STREQUAL "-mfloat-abi=hard")
+            set(FPU_HARD_FLOAT_ABI_ENABLED 1)
+        endif()
+    endif()
+endif()
+
 # If the PG flag is present, remove any references to it as BSP doesn't support the mcount API.
 remove_pg()
 configure_file(${CMAKE_CURRENT_SOURCE_DIR}/bspconfig.h.in ${CMAKE_BINARY_DIR}/include/bspconfig.h)

@@ -130,6 +130,17 @@
 #cmakedefine PLATFORM_ZYNQ @PLATFORM_ZYNQ@
 
 /**
+* @brief Indicates whether the Cortex-A9 BSP is built with the hard-float ABI.
+*
+* Defined for Cortex-A9 standalone BSPs when the effective -mfloat-abi option
+* derived from proc_compiler_flags and proc_extra_compiler_flags is hard.
+* The generated value is 1 for hard-float builds and 0 for soft-float or
+* softfp configurations. When set to 1, asm_vectors.S saves and restores
+* VFP register context in IRQ and FIQ handlers.
+*/
+#cmakedefine FPU_HARD_FLOAT_ABI_ENABLED @FPU_HARD_FLOAT_ABI_ENABLED@
+
+/**
 * @brief Defines the MicroBlaze platform family.
 *
 * Defined for the MicroBlaze processor.
