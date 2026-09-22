@@ -12,6 +12,7 @@
  * @note	None.
  *
  *
+ * <pre>
  * MODIFICATION HISTORY:
  *
 * Ver   Who  	Date     Changes
@@ -209,19 +210,17 @@ END:
 
 }
 
+#ifdef XSK_ZYNQ_ULTRA_MP_PLATFORM
 /***************************************************************************/
 /**
 * This function reads current value of the temperature from sysmon.
 *
 * @param	XAdcInstancePtr Pointer to the XSKEfusePs_XAdc.
 *
-* @return	None
-*
 * @note		Read temperature will be stored in XSKEfusePS_XAdc pointer's
 *		temperature
 *
 ****************************************************************************/
-#ifdef XSK_ZYNQ_ULTRA_MP_PLATFORM
 static INLINE void XilSKey_ZynqMP_EfusePs_ReadSysmonTemp(
 					XSKEfusePs_XAdc *XAdcInstancePtr)
 {
@@ -250,15 +249,11 @@ END:
 * This function reads current value of the specified voltage from sysmon.
 *
 * @param	XAdcInstancePtr Pointer to the XSKEfusePs_XAdc.
-*		Voltage typ should be specified in XAdcInstancePtr's
-*		structure member VType.
-*		XSK_EFUSEPS_VPAUX - Reads PS VCC Auxiliary voltage
-*		XSK_EFUSEPS_VPINT - Reads VCC INT LP voltage
 *
-* @return	None
-*
-* @note		Read voltage will be stored in XSKEfusePS_XAdc pointer's
-*		voltage
+* @note		Voltage type should be specified in XAdcInstancePtr's VType.
+*		XSK_EFUSEPS_VPAUX reads PS VCC Auxiliary voltage.
+*		XSK_EFUSEPS_VPINT reads VCC INT LP voltage.
+*		Read voltage will be stored in XSKEfusePS_XAdc pointer's voltage.
 *
 ****************************************************************************/
 static INLINE void XilSKey_ZynqMP_EfusePs_ReadSysmonVol(
@@ -301,18 +296,11 @@ END:
 * This function is used to copy the min, max and current value of the
 * temperature and voltage which are read from XADC.
 *
-* @param XAdcInstancePtr Pointer to the XSKEfusePs_XAdc. User has to
-* 		 fill the VType to specify the type of voltage. Valid values
-* 		 for VType are
-* 		 	- XSK_EFUSEPS_VPINT
-* 		 	- XSK_EFUSEPS_VPDRO
-* 		 	- XSK_EFUSEPS_VPAUX
-*                       - XSK_EFUSEPS_VINT
-*                       - XSK_EFUSEPS_VAUX
+* @param	XAdcInstancePtr Pointer to the XSKEfusePs_XAdc structure.
 *
-* @return none
-*
-* TDD Cases:
+* @note	User must set VType before reading voltage. Valid VType values are
+*		XSK_EFUSEPS_VPINT, XSK_EFUSEPS_VPDRO, XSK_EFUSEPS_VPAUX,
+*		XSK_EFUSEPS_VINT, and XSK_EFUSEPS_VAUX.
 *
 ****************************************************************************/
 void XilSKey_EfusePs_XAdcReadTemperatureAndVoltage(
@@ -462,10 +450,6 @@ END:
 * Initializes the global timer & starts it.
 * Calculates the timer ticks for 1us.
 *
-* @return
-*
-*	None
-*
 * @note		None.
 *
 *****************************************************************************/
@@ -538,10 +522,6 @@ u64 XilSKey_Efuse_GetTime(void)
 *
 * @param	t  - timer ticks to wait to set the timeout
 * @param	us - Timeout period in us
-*
-*
-* @return
-*	None.
 *
 * @note		None.
 *
@@ -630,21 +610,22 @@ END:
  *		- XST_FAILURE an error when input parameters are not valid
  *		- an error when input buffer has invalid values
  *
- *	TDD Test Cases:
-	---Initialization---
-	Len is odd
-	Len is zero
-	Str is NULL
-	Buf is NULL
-	---Functionality---
-	Str input with only numbers
-	Str input with All values in A-F
-	Str input with All values in a-f
-	Str input with values in a-f, 0-9, A-F
-	Str input with values in a-z, 0-9, A-Z
-	Boundary Cases
-	Memory Bounds of buffer checking
-  ****************************************************************************/
+ * @note	TDD test cases:
+ *		---Initialization---
+ *		Len is odd
+ *		Len is zero
+ *		Str is NULL
+ *		Buf is NULL
+ *		---Functionality---
+ *		Str input with only numbers
+ *		Str input with All values in A-F
+ *		Str input with All values in a-f
+ *		Str input with values in a-f, 0-9, A-F
+ *		Str input with values in a-z, 0-9, A-Z
+ *		Boundary Cases
+ *		Memory Bounds of buffer checking
+ *
+ ****************************************************************************/
 u32 XilSKey_Efuse_ConvertStringToHexBE(const char * Str, u8 * Buf, u32 Len)
 {
 	u32 Status = (u32)XST_FAILURE;
@@ -738,21 +719,22 @@ END:
  *		- XST_FAILURE an error when input parameters are not valid
  *		- an error when input buffer has invalid values
  *
- *	TDD Test Cases:
-	---Initialization---
-	Len is odd
-	Len is zero
-	Str is NULL
-	Buf is NULL
-	---Functionality---
-	Str input with only numbers
-	Str input with All values in A-F
-	Str input with All values in a-f
-	Str input with values in a-f, 0-9, A-F
-	Str input with values in a-z, 0-9, A-Z
-	Boundary Cases
-	Memory Bounds of buffer checking
-  ****************************************************************************/
+ * @note	TDD test cases:
+ *		---Initialization---
+ *		Len is odd
+ *		Len is zero
+ *		Str is NULL
+ *		Buf is NULL
+ *		---Functionality---
+ *		Str input with only numbers
+ *		Str input with All values in A-F
+ *		Str input with All values in a-f
+ *		Str input with values in a-f, 0-9, A-F
+ *		Str input with values in a-z, 0-9, A-Z
+ *		Boundary Cases
+ *		Memory Bounds of buffer checking
+ *
+ ****************************************************************************/
 u32 XilSKey_Efuse_ConvertStringToHexLE(const char * Str, u8 * Buf, u32 Len)
 {
 	u32 Status = (u32)XST_FAILURE;
@@ -837,13 +819,9 @@ END:
 * Little Endian Byte data
 * For ex: 1234567890abcdef -> 78563412efcdab90
 *
-* @param Be Big endian data
-* @param Le Little endian data
-* @param Len Length of data to be converted and it should be in number of
-* 	 words (multiple of 4 bytes)
-* @return	None.
-*
-* TDD Test Cases:
+* @param	Be Big endian data
+* @param	Le Little endian data
+* @param	Len Length of data to be converted in words (multiple of 4 bytes)
 *
 ****************************************************************************/
 void XilSKey_EfusePs_ConvertBytesBeToLe(const u8 *Be, u8 *Le, u32 Len)
@@ -871,18 +849,19 @@ END:
  * Convert the Bits to Bytes in Little Endian format
  *       Ex: 0x5C -> {0, 0, 1, 1, 1, 0, 1, 0}
  *
- * @param       Bits Input Buffer.
- * @param       Bytes is Output buffer.
- * @param       Len of the input buffer in bits
- * @return		None
-  Test Cases:
-	Input with All Zeroes
-	Input with All Ones
-	Input Little Endian (General Cases )
-	Input Check Big Endian - False case
-	Check for Len not a multiple of 8
-	Check for Len 0
-	Memory Bounds of buffer checking
+ * @param	Bits Input buffer.
+ * @param	Bytes Output buffer.
+ * @param	Len Length of the input buffer in bits.
+ *
+ * @note	Test cases:
+ *		Input with All Zeroes
+ *		Input with All Ones
+ *		Input Little Endian (General Cases )
+ *		Input Check Big Endian - False case
+ *		Check for Len not a multiple of 8
+ *		Check for Len 0
+ *		Memory Bounds of buffer checking
+ *
  ****************************************************************************/
 void XilSKey_Efuse_ConvertBitsToBytes(const u8 * Bits, u8 * Bytes, u32 Len)
 {
@@ -932,18 +911,19 @@ END:
  * 0th byte is LSB, 7th byte is MSB
  *       Ex: {0, 0, 1, 1, 1, 0, 1, 0} -> 0x5C
  *
- * @param        Bytes Input Buffer.
- * @param        Bits is Output buffer.
- * @param        Len of the input buffer.
- * @return       None
-  Test Cases:
-	Input with All Zeroes
-	Input with All Ones
-	Input Little Endian (General Cases )
-	Input Check Big Endian - False case
-	Check for Len not a multiple of 8
-	Check for Len 0
-	Memory Bounds of buffer checking
+ * @param	Bytes Input buffer.
+ * @param	Bits Output buffer.
+ * @param	Len Length of the input buffer in bits.
+ *
+ * @note	Test cases:
+ *		Input with All Zeroes
+ *		Input with All Ones
+ *		Input Little Endian (General Cases )
+ *		Input Check Big Endian - False case
+ *		Check for Len not a multiple of 8
+ *		Check for Len 0
+ *		Memory Bounds of buffer checking
+ *
  ****************************************************************************/
 void XilSKey_EfusePs_ConvertBytesToBits(const u8 * Bytes, u8 * Bits , u32 Len)
 {
@@ -1163,7 +1143,7 @@ u32 XilSKey_Timer_Intialise(void)
  * 		word whereas in ZynqMp Ultrascale's PS eFuse from 0th word to
  * 		8th word
  * @}
- @endcond
+ * @endcond
  *
  ****************************************************************************/
 u32 XilSKey_CrcCalculation(const u8 *Key)
@@ -1376,7 +1356,7 @@ u32 XilSKey_Efuse_ReverseHex(u32 Input)
  * 		word whereas in ZynqMp Ultrascale's PS eFuse from 0th word to
  * 		8th word
  * @}
- @endcond
+ * @endcond
  *		To calculate CRC on the AES key in string format please use
  *		XilSKey_CrcCalculation.
  *
@@ -1559,11 +1539,10 @@ END:
 * This function provides correct SLR number to be accessed for corresponding
 * config order index.
 *
+* @param	MasterSlrNum	Master SLR number of the target device (SLR0 or SLR1).
 * @param	ConfigOrderIndex	provide config order index of SLR
 * @param	SlrNum		Pointer to SLR number, where this API updates with
 * 			corresponding SLR number.
-*
-* @return	None.
 *
 * @note	If master SLR of target device is SLR0 then both config order index
 * 		and SLR number are same in order.
