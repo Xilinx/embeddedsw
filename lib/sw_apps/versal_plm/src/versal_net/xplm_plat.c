@@ -31,6 +31,7 @@
 * 1.12  kd   08/22/2025 Added psm firmware presence check for In-Place PLM Update
 * 1.13  rmv  01/30/2026 Renamed OCP header files and keymanagment macro
 * 2.0   sd   07/01/2026 Updated logic to handle zero-length optional-data
+*       obs  09/02/2026 Added overflow-safe optional-data range validation
 *
 * </pre>
 *
@@ -382,8 +383,27 @@ int XPlm_CheckPsmPresenceInOD(u32 PdiAddr)
 	u32 OptionalDataEndAddr;
 	u32 OptDataAddr;
 	u32 OptionalDataLen;
-	/* Calculate optional data address range */
-    u32 IhtAddr = PdiAddr + (u32)XPlmi_In32(PdiAddr + XIH_BH_META_HDR_OFFSET);
+	u32 IhtAddr;
+	u32 MetaHdrOffset;
+	u64 DerivedAddr;
+
+	/* Validate every derived address before its first read. */
+	if ((PdiAddr > XPLMI_2GB_END_ADDR) ||
+		((u64)PdiAddr + XIH_BH_META_HDR_OFFSET + XPLMI_WORD_LEN >
+			((u64)XPLMI_2GB_END_ADDR + 1U))) {
+		Status = XPLMI_ERR_INPLACE_INVALID_OPTIONAL_DATA_LEN;
+		goto END;
+	}
+
+	MetaHdrOffset = XPlmi_In32(PdiAddr + XIH_BH_META_HDR_OFFSET);
+	DerivedAddr = (u64)PdiAddr + MetaHdrOffset;
+	if ((DerivedAddr > XPLMI_2GB_END_ADDR) ||
+		(DerivedAddr + XIH_OPTIONAL_DATA_LEN_OFFSET + XPLMI_WORD_LEN >
+			((u64)XPLMI_2GB_END_ADDR + 1U))) {
+		Status = XPLMI_ERR_INPLACE_INVALID_OPTIONAL_DATA_LEN;
+		goto END;
+	}
+	IhtAddr = (u32)DerivedAddr;
 	OptionalDataLen = XPlmi_In32(IhtAddr + XIH_OPTIONAL_DATA_LEN_OFFSET);
 
 	/* Check if optional data length is 0 */
@@ -393,9 +413,20 @@ int XPlm_CheckPsmPresenceInOD(u32 PdiAddr)
 		goto END;
 	}
 
-    OptionalDataStartAddr = IhtAddr + XIH_IHT_LEN;
-	OptionalDataEndAddr = OptionalDataStartAddr +
-		(u32)(OptionalDataLen * XPLMI_WORD_LEN);
+	DerivedAddr = (u64)IhtAddr + XIH_IHT_LEN;
+	if (DerivedAddr > XPLMI_2GB_END_ADDR) {
+		Status = XPLMI_ERR_INPLACE_INVALID_OPTIONAL_DATA_LEN;
+		goto END;
+	}
+	OptionalDataStartAddr = (u32)DerivedAddr;
+
+	DerivedAddr += ((u64)OptionalDataLen * XPLMI_WORD_LEN);
+	if ((DerivedAddr <= OptionalDataStartAddr) ||
+		(DerivedAddr > ((u64)XPLMI_2GB_END_ADDR + 1U))) {
+		Status = XPLMI_ERR_INPLACE_INVALID_OPTIONAL_DATA_LEN;
+		goto END;
+	}
+	OptionalDataEndAddr = (u32)DerivedAddr;
 
 	/* Search for PSM firmware in optional data */
 	OptDataAddr = XilPdi_SearchOptionalData(OptionalDataStartAddr, OptionalDataEndAddr,

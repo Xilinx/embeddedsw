@@ -46,6 +46,8 @@
 *       sk   08/25/2025 Update in-place update print for versal 2VE and 2VM Devices
 *       kd   09/02/2025 Added psm firmware presence check for In-Place PLM Update
 * 2.4   abh  10/14/2025 Fixed MISRA-C Violations
+* 2.5   obs  09/02/2026 Run compatibility check before optional-data parse
+*       obs  09/15/2026 Clarified the registered compatibility handler ordering
 * </pre>
 *
 ******************************************************************************/
@@ -686,6 +688,16 @@ int XPlmi_PlmUpdate(XPlmi_Cmd *Cmd)
 		/* Update from DDR location */
 		UpdatePdiAddr = Cmd->Payload[INDEX_ONE];
 	}
+
+	/*
+	 * Run the registered compatibility handler before any optional-data
+	 * parser dereferences addresses derived from the update PDI.
+	 */
+	Status = XPlmi_CompatibilityCheck(UpdatePdiAddr);
+	if (Status != XST_SUCCESS) {
+		XPlmi_Printf(DEBUG_GENERAL, "Compatibility Check Failed\n\r");
+		goto END;
+	}
 #ifdef VERSAL_2VE_2VM
 	XPlmi_Printf(DEBUG_GENERAL, "In-Place Firmware Update started with new PLM "
 			"from PDI Address: 0x%x\n\r", UpdatePdiAddr);
@@ -709,13 +721,6 @@ int XPlmi_PlmUpdate(XPlmi_Cmd *Cmd)
 		(RomRsvdTmp == EFUSE_PLM_UPDATE_MASK)) {
 		XPlmi_Printf(DEBUG_GENERAL, "Update Disabled\n\r");
 		Status = XPLMI_ERR_INPLACE_UPDATE_DISABLED;
-		goto END;
-	}
-
-	/* Check version compatibility */
-	Status = XPlmi_CompatibilityCheck(UpdatePdiAddr);
-	if (Status != XST_SUCCESS) {
-		XPlmi_Printf(DEBUG_GENERAL, "Compatibility Check Failed\n\r");
 		goto END;
 	}
 
