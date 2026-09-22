@@ -4308,7 +4308,9 @@ static int XNvm_EfuseValidateUserFusesWriteReq(
 		Status = (int)XNVM_EFUSE_ERR_INVALID_PARAM;
 		goto END;
 	}
+	/* Count 0 is not a no-op. */
 	if ((WriteUserFuses->UserFuseData == NULL) ||
+		(WriteUserFuses->NumOfUserFuses == 0U) ||
 		(WriteUserFuses->NumOfUserFuses > XNVM_NUM_OF_USER_FUSES)) {
 		Status = (int)XNVM_EFUSE_ERR_INVALID_PARAM;
 		goto END;

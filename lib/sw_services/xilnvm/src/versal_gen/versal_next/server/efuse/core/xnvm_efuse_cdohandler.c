@@ -55,7 +55,7 @@
 /************************** Constant Definitions *****************************/
 #define XNVM_EFUSE_LOWER_DOUBLE_BYTE_MASK 	(0x0000FFFFU)	/**< Mask for lower double byte */
 #define XNVM_EFUSE_CACHE_BASEADDR		(0xF1250000U)	/**< Base address for eFUSE cache access */
-#define XNVM_EFUSE_CACHE_END_OFFSET		(0x00000BFCU)	/**< End offset for eFUSE cache access */
+#define XNVM_EFUSE_CACHE_END_OFFSET		(0x00000BFCU)	/**< Inclusive last valid eFUSE cache word offset */
 
 #if !(defined(VERSAL_2VE_2VM) && defined(VERSAL_2VP_P))
 #ifdef XNVM_ACCESS_PUF_USER_DATA
@@ -948,6 +948,9 @@ static int XNvm_EfuseWriteDiceUdsFromPload(u32 EnvDisFlag, XNvm_Uds *Uds)
  *
  * @return
  *		- XST_SUCCESS - If reading eFUSEs is successful
+ *		- XST_INVALID_PARAM - If count is 0, StartOffset is unaligned,
+ *		  or the range is outside the cache
+ *		- XNVM_EFUSE_ERROR_INVALID_ADDR_RANGE - On invalid address range
  * 		- XST_FAILURE - If there is a failure
  *
  ******************************************************************************/
@@ -956,10 +959,23 @@ static int XNvm_EfuseWriteDiceUdsFromPload(u32 EnvDisFlag, XNvm_Uds *Uds)
 	volatile int Status = XST_FAILURE;
 	u64 OutputBuffer = ((u64)AddrHigh << 32U) | (u64)AddrLow;
 	u32 RegData;
-	u32 EndOffset = StartOffset + (RegCount * XNVM_WORD_LEN);
+	u32 EndOffset;
 	u32 Offset = StartOffset;
 
-	if ((StartOffset > XNVM_EFUSE_CACHE_END_OFFSET) || (EndOffset > XNVM_EFUSE_CACHE_END_OFFSET)){
+	/**
+	 * EndOffset is exclusive (loop reads while Offset < EndOffset).
+	 * XNVM_EFUSE_CACHE_END_OFFSET is the last valid inclusive word.
+	 * A one-word read at 0xBFC yields EndOffset 0xC00, which must pass.
+	 */
+	if ((RegCount == 0U) ||
+	    ((StartOffset % XNVM_WORD_LEN) != 0U) ||
+	    (StartOffset > XNVM_EFUSE_CACHE_END_OFFSET)) {
+		Status = XST_INVALID_PARAM;
+		goto END;
+	}
+
+	EndOffset = (u32)StartOffset + ((u32)RegCount * XNVM_WORD_LEN);
+	if (EndOffset > (XNVM_EFUSE_CACHE_END_OFFSET + XNVM_WORD_LEN)) {
 		Status = XST_INVALID_PARAM;
 		goto END;
 	}

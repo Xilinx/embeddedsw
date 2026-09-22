@@ -393,14 +393,23 @@ static int XNvm_EfuseDataWrite(u32 SubsystemId, u32 AddrLow, u32 AddrHigh)
 		UserData.NumOfUserFuses = UserFusesAddr.NumOfUserFuses;
 
 		/**
-		 * - Bound the user fuse count before it is used as a copy length,
-		 * as UserFuseArr can hold at most XNVM_NUM_OF_USER_FUSES words.
-		 * Reject a zero count here; XNvm_EfusePgmAndVerifyRows() fails on
-		 * RowCount == 0 and a combined XNvm_EfuseDataWrite may have already
-		 * programmed other eFuses.
+		 * - Reject invalid range/count and a NULL data address before attach.
+		 * Count 0 is not a no-op.
 		 */
+		if ((UserData.StartUserFuseNum < XNVM_USER_FUSE_START_NUM) ||
+			(UserData.StartUserFuseNum > XNVM_USER_FUSE_END_NUM)) {
+			Status = (int)XNVM_EFUSE_ERR_INVALID_PARAM;
+			goto END;
+		}
+
 		if ((UserData.NumOfUserFuses == 0U) ||
 			(UserData.NumOfUserFuses > XNVM_NUM_OF_USER_FUSES)) {
+			Status = (int)XNVM_EFUSE_ERR_INVALID_PARAM;
+			goto END;
+		}
+
+		if (((UserData.StartUserFuseNum - 1U) + UserData.NumOfUserFuses) >
+			XNVM_USER_FUSE_END_NUM) {
 			Status = (int)XNVM_EFUSE_ERR_INVALID_PARAM;
 			goto END;
 		}
