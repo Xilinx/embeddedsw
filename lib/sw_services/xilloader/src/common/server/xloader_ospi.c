@@ -59,6 +59,8 @@
 *                       XOspiPsv_DeviceResetViaOspi instead of XOspiPsv_DeviceReset
 *       gnr  09/02/2026 Added PDI-based OSPI RX tuning pattern support
 *       pre  09/04/2026 Added support for OSPI calib data restore operation.
+*       obs  09/16/2026 Sized the 4B address mode flag status buffer, used the
+*                       SDR byte count, and assigned DDR dummy cycles
 *
 * </pre>
 *
@@ -1115,7 +1117,8 @@ static int XLoader_FlashEnterExit4BAddMode(XOspiPsv *OspiPsvPtr, u32 Enable)
 {
 	int Status = XST_FAILURE;
 	u8 Command;
-	u8 FlashStatus = 0U;
+	/** Sized to the largest flag-status read performed by this function. */
+	u8 FlashStatus[XLOADER_OSPI_DDR_MODE_BYTE_CNT] __attribute__ ((aligned(4U))) = {0U};
 	u32 *PmcIroFreq = XPlmi_GetPmcIroFreq();
 	u64 TStart,TEnd;
 	XOspiPsv_Msg FlashMsg = {0U};
@@ -1170,7 +1173,7 @@ static int XLoader_FlashEnterExit4BAddMode(XOspiPsv *OspiPsvPtr, u32 Enable)
 	FlashMsg.Opcode = READ_FLAG_STATUS_CMD;
 	FlashMsg.Addrvalid = (u8)FALSE;
 	FlashMsg.TxBfrPtr = NULL;
-	FlashMsg.RxBfrPtr = &FlashStatus;
+	FlashMsg.RxBfrPtr = FlashStatus;
 	FlashMsg.Flags = XOSPIPSV_MSG_FLAG_RX;
 	FlashMsg.Addrsize = XLOADER_OSPI_READ_FLAG_STATUS_CMD_ADDR_SIZE;
 	FlashMsg.IsDDROpCode = (u8)FALSE;
@@ -1180,7 +1183,7 @@ static int XLoader_FlashEnterExit4BAddMode(XOspiPsv *OspiPsvPtr, u32 Enable)
 	}
 	else {
 		FlashMsg.Dummy = OspiPsvPtr->Extra_DummyCycle;
-		FlashMsg.ByteCount = XLOADER_OSPI_DDR_MODE_BYTE_CNT;
+		FlashMsg.ByteCount = XLOADER_OSPI_SDR_MODE_BYTE_CNT;
 		FlashMsg.Proto = XOSPIPSV_READ_1_1_1;
 	}
 
@@ -1191,7 +1194,7 @@ static int XLoader_FlashEnterExit4BAddMode(XOspiPsv *OspiPsvPtr, u32 Enable)
 
 	while (1U) {
 		if (OspiPsvPtr->SdrDdrMode == XOSPIPSV_EDGE_MODE_DDR_PHY) {
-			FlashMsg.Dummy += XLOADER_OSPI_SDR_DUMMY_CYCLES;
+			FlashMsg.Dummy = XLOADER_OSPI_SDR_DUMMY_CYCLES;
 		}
 
 		Status = (int)XOspiPsv_PollTransfer(OspiPsvPtr, &FlashMsg);
@@ -1200,7 +1203,7 @@ static int XLoader_FlashEnterExit4BAddMode(XOspiPsv *OspiPsvPtr, u32 Enable)
 						Status);
 			goto END;
 		}
-		if ((FlashStatus & XLOADER_OSPI_WRITE_DONE_MASK) ==
+		if ((FlashStatus[0U] & XLOADER_OSPI_WRITE_DONE_MASK) ==
 			XLOADER_OSPI_WRITE_DONE_MASK) {
 			break;
 		}
