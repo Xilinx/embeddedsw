@@ -25,6 +25,10 @@
 *       sd   03/03/26 Updated XPlmi_GetSlrType to return SLR type as monolithic
 *       pre  09/02/26 Added XPLMI_RTCFG_DDRMC_WARM_BOOT_MASK_ADDR macro to store bit mask of
 *                       the DDRMCs for which warm boot is requested in RTCA
+*       rama 09/16/26  Removed static inline XPlmi_GetSlrIndex stub to
+*                      fix conflicts with the non-static
+*                      XPlmi_GetSlrIndex definition in xplmi_plat.c
+*
 * </pre>
 *
 * @note
@@ -786,20 +790,6 @@ static inline void XPlmi_NotifySldSlaveSlrs(void)
 {
 	/* Not Applicable for Versal_2vp */
 	return;
-}
-
-/**************************************************************************************************/
-/**
- * @brief	This is not applicable for Versal_2vp.
- *
- * @return
- * 		- XST_SUCCESS always.
- *
- **************************************************************************************************/
-static inline u8 XPlmi_GetSlrIndex(void)
-{
-	/* Not Applicable for Versal_2vp */
-	return (u8)XST_SUCCESS;
 }
 
 #ifdef PLM_ENABLE_PLM_TO_PLM_COMM
