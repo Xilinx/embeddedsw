@@ -1960,7 +1960,7 @@ XV_VidC_parse_edid_extension(const u8 * const data,
 	const struct xvidc_edid_extension *extensions =
 		(const struct xvidc_edid_extension *)data;
 	const struct xvidc_edid_extension *extension =
-		&extensions[i * XVIDC_EDID_BLOCK_SIZE];
+		&extensions[i];
 
 	XV_VidC_handle_extension(extension, EdidCtrlParam, VerboseEn);
     }
