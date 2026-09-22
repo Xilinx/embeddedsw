@@ -21,6 +21,7 @@
  *       vns  08/22/24 Updated sha command structure
  *       am   10/22/24 Added macros for hash lengths.
  *       yog  01/02/25 Added macros for SHA type.
+ *       dmi  09/08/26 Added XAsu_ShaGetHashLen() API
  *
  * </pre>
  *
@@ -151,6 +152,49 @@ static inline s32 XAsu_ShaValidateHashLen(u8 ShaMode, u32 HashLen)
 	}
 
 	Status = XST_SUCCESS;
+
+END:
+	return Status;
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	This function gets the hash length of the specified SHA mode.
+ *
+ * @param	ShaMode	The SHA mode to get the hash length for.
+ * @param	HashLen	Pointer to the variable which holds the hash length on success.
+ *
+ * @return
+ * 	- XST_SUCCESS, if the hash length is updated.
+ * 	- XST_FAILURE, if the SHA mode is invalid.
+ *************************************************************************************************/
+static inline s32 XAsu_ShaGetHashLen(u8 ShaMode, u32 *HashLen)
+{
+	volatile s32 Status = XST_FAILURE;
+
+	if (HashLen == NULL) {
+		goto END;
+	}
+
+	*HashLen = 0U;
+	switch (ShaMode) {
+		case XASU_SHA_MODE_SHAKE256:
+		case XASU_SHA_MODE_256:
+			*HashLen = XASU_SHA_SHAKE_256_HASH_LEN;
+			Status = XST_SUCCESS;
+			break;
+		case XASU_SHA_MODE_384:
+			*HashLen = XASU_SHA_384_HASH_LEN;
+			Status = XST_SUCCESS;
+			break;
+		case XASU_SHA_MODE_512:
+			*HashLen = XASU_SHA_512_HASH_LEN;
+			Status = XST_SUCCESS;
+			break;
+		default:
+			Status = XST_FAILURE;
+			break;
+	}
 
 END:
 	return Status;

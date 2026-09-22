@@ -124,7 +124,7 @@ END:
  * @return
  * 	- XASUFW_SUCCESS, if HKDF extract operation was successful.
  * 	- XASUFW_HKDF_INVALID_PARAM, if input parameters are invalid.
- * 	- XASUFW_HKDF_GET_HASHLEN_FAILED, if XSha_GetHashLen operation fails.
+ * 	- XASUFW_HKDF_GET_HASHLEN_FAILED, if XAsu_ShaGetHashLen operation fails.
  * 	- XASUFW_ZEROIZE_MEMSET_FAIL, if Xil_SMemSet operation fails.
  * 	- XASUFW_MEM_COPY_FAIL, if Xil_SMemCpy operation fails.
  * 	- XASUFW_HKDF_HMAC_INIT_FAILED, if XHmac_Init operation fails.
@@ -148,9 +148,10 @@ static s32 XHkdf_Extract(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr,
 	}
 
 	/** Get SHA hash length based on SHA Mode. */
-	Status = XSha_GetHashLen(HkdfParams->KdfParams.ShaMode, &HashLen);
+	Status = XAsu_ShaGetHashLen(HkdfParams->KdfParams.ShaMode, &HashLen);
 	if (Status != XASUFW_SUCCESS) {
-		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_HKDF_GET_HASHLEN_FAILED);
+		Status = XAsufw_UpdateErrorStatus(XASUFW_SHA_INVALID_SHA_MODE,
+						  XASUFW_HKDF_GET_HASHLEN_FAILED);
 		goto END;
 	}
 
@@ -208,7 +209,7 @@ END:
  * @return
  * 	- XASUFW_SUCCESS, if HKDF expand operation is successful.
  * 	- XASUFW_HKDF_INVALID_PARAM, if input parameters are invalid.
- * 	- XASUFW_HKDF_GET_HASHLEN_FAILED, if XSha_GetHashLen operation fails.
+ * 	- XASUFW_HKDF_GET_HASHLEN_FAILED, if XAsu_ShaGetHashLen operation fails.
  * 	- XASUFW_MEM_COPY_FAIL, if Xil_SMemCpy operation fails.
  * 	- XASUFW_HKDF_HMAC_INIT_FAILED, if XHmac_Init operation fails.
  * 	- XASUFW_HKDF_HMAC_UPDATE_FAILED, if XHmac_Update operation fails.
@@ -236,9 +237,10 @@ static s32 XHkdf_Expand(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr,
 	}
 
 	/** Get SHA hash length based on SHA Mode. */
-	Status = XSha_GetHashLen(HkdfParams->KdfParams.ShaMode, &HashLen);
+	Status = XAsu_ShaGetHashLen(HkdfParams->KdfParams.ShaMode, &HashLen);
 	if (Status != XASUFW_SUCCESS) {
-		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_HKDF_GET_HASHLEN_FAILED);
+		Status = XAsufw_UpdateErrorStatus(XASUFW_SHA_INVALID_SHA_MODE,
+						  XASUFW_HKDF_GET_HASHLEN_FAILED);
 		goto END;
 	}
 

@@ -28,6 +28,7 @@
  *       ss   02/04/25 Added XSha_Digest() API
  * 1.2   am   05/18/25 Fixed implicit conversion of operands
  *       kd   07/23/25 Fixed gcc warnings
+ *       dmi  09/08/26 Removed XSha_GetHashLen API, replaced by XAsu_ShaGetHashLen()
  *
  * </pre>
  *
@@ -577,58 +578,6 @@ END:
 		}
 	}
 
-	return Status;
-}
-
-/*************************************************************************************************/
-/**
- * @brief	This function gives hash length for provided sha mode.
- *
- * @param	ShaMode	SHA mode selection.
- * @param	HashLen	The length which is to be returned.
- *
- * @return
- *		- XASUFW_SUCCESS, if SHA mode is valid.
- *		- XASUFW_SHA_INVALID_SHA_MODE, if SHA mode is invalid.
- *
- *************************************************************************************************/
-s32 XSha_GetHashLen(u8 ShaMode, u32 *HashLen)
-{
-	CREATE_VOLATILE(Status, XASUFW_FAILURE);
-
-	/** Validate input parameters. */
-	if (HashLen == NULL) {
-		Status = XASUFW_SHA_INVALID_PARAM;
-		goto END;
-	}
-
-	/** Update HashLen */
-	*HashLen = 0U;
-	switch (ShaMode) {
-		/* SHAKE-256 Mode */
-		case XASU_SHA_MODE_SHAKE256:
-		/* SHA2-256 Mode */
-		case XASU_SHA_MODE_256:
-			*HashLen = XASU_SHA_SHAKE_256_HASH_LEN;
-			Status = XASUFW_SUCCESS;
-			break;
-		/* SHA2-384 Mode */
-		case XASU_SHA_MODE_384:
-			*HashLen = XASU_SHA_384_HASH_LEN;
-			Status = XASUFW_SUCCESS;
-			break;
-		/* SHA2-512 Mode */
-		case XASU_SHA_MODE_512:
-			*HashLen = XASU_SHA_512_HASH_LEN;
-			Status = XASUFW_SUCCESS;
-			break;
-		/* Invalid Mode */
-		default:
-			Status = XASUFW_SHA_INVALID_SHA_MODE;
-			break;
-	}
-
-END:
 	return Status;
 }
 

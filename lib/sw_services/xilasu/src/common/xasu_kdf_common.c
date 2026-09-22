@@ -60,6 +60,7 @@
 s32 XAsu_ValidateKdfParameters(const XAsu_KdfParams *KdfParamsPtr)
 {
 	s32 Status = XST_FAILURE;
+	u32 HashLen = 0U;
 
 	if (KdfParamsPtr == NULL) {
 		goto END;
@@ -68,6 +69,11 @@ s32 XAsu_ValidateKdfParameters(const XAsu_KdfParams *KdfParamsPtr)
 	/** Validate SHA Mode and SHA Type. */
 	if (XAsu_ShaValidateModeAndType(KdfParamsPtr->ShaType, KdfParamsPtr->ShaMode) !=
 	    XST_SUCCESS) {
+		goto END;
+	}
+
+	/** Get the hash length, which bounds the key output length below. */
+	if (XAsu_ShaGetHashLen(KdfParamsPtr->ShaMode, &HashLen) != XST_SUCCESS) {
 		goto END;
 	}
 
@@ -86,7 +92,8 @@ s32 XAsu_ValidateKdfParameters(const XAsu_KdfParams *KdfParamsPtr)
 		(KdfParamsPtr->KeyObject.KeyInLen > XASU_KDF_MAX_KEY_LENGTH))) ||
 		(KdfParamsPtr->ContextAddr == 0U) || (KdfParamsPtr->ContextLen == 0U) ||
 		(KdfParamsPtr->ContextLen > XASU_KDF_MAX_CONTEXT_LEN) ||
-		(KdfParamsPtr->KeyOutAddr == 0U) || (KdfParamsPtr->KeyOutLen == 0U)) {
+		(KdfParamsPtr->KeyOutAddr == 0U) || (KdfParamsPtr->KeyOutLen == 0U) ||
+		(KdfParamsPtr->KeyOutLen > (HashLen * XASU_KDF_MAX_ITERATIONS))) {
 		goto END;
 	}
 

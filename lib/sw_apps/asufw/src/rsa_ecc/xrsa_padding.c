@@ -332,7 +332,7 @@ s32 XRsa_PssSignGenerate(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr,
 
 	/** Get hash length based on SHA mode. */
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-	Status = XSha_GetHashLen(PaddingParamsPtr->ShaMode, &HashLen);
+	Status = XAsu_ShaGetHashLen(PaddingParamsPtr->ShaMode, &HashLen);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XASUFW_SHA_INVALID_SHA_MODE;
 		goto END;
@@ -650,7 +650,7 @@ s32 XRsa_PssSignVerify(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr,
 	}
 
 	/** Get hash length based on SHA mode. */
-	Status = XSha_GetHashLen(PaddingParamsPtr->ShaMode, &HashLen);
+	Status = XAsu_ShaGetHashLen(PaddingParamsPtr->ShaMode, &HashLen);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XASUFW_SHA_INVALID_SHA_MODE;
 		goto END;
@@ -928,7 +928,7 @@ static s32 XRsa_MaskGenFunc(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr, u8 ShaMode
 	}
 
 	/** Get hash length based on SHA mode. */
-	Status = XSha_GetHashLen(ShaMode, &HashLen);
+	Status = XAsu_ShaGetHashLen(ShaMode, &HashLen);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XASUFW_SHA_INVALID_SHA_MODE;
 		goto END;
@@ -1067,7 +1067,7 @@ static s32 XRsa_OaepEncDecCommon(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr,
 
 	/** Get hash length based on SHA mode. */
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-	Status = XSha_GetHashLen(PaddingParamsPtr->ShaMode, HashLen);
+	Status = XAsu_ShaGetHashLen(PaddingParamsPtr->ShaMode, HashLen);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XASUFW_SHA_INVALID_SHA_MODE;
 		goto END;
@@ -1179,7 +1179,7 @@ static s32 XRsa_OaepEncrypt(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr, u8 *DataBl
 	}
 
 	/** Get hash length based on SHA mode. */
-	Status = XSha_GetHashLen(PaddingParamsPtr->ShaMode, &HashLen);
+	Status = XAsu_ShaGetHashLen(PaddingParamsPtr->ShaMode, &HashLen);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XASUFW_SHA_INVALID_SHA_MODE;
 		goto END;
@@ -1353,7 +1353,7 @@ static s32 XRsa_OaepProcessDecryptedData(XAsufw_Dma *DmaPtr, XSha *ShaInstancePt
 	XAsufw_MgfInput MgfInput;
 
 	/** Get hash length based on SHA mode. */
-	Status = XSha_GetHashLen(PaddingParamsPtr->ShaMode, &HashLen);
+	Status = XAsu_ShaGetHashLen(PaddingParamsPtr->ShaMode, &HashLen);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XASUFW_SHA_INVALID_SHA_MODE;
 		goto END;

@@ -424,7 +424,9 @@ static s32 XAsu_ValidateCmacKdfParameters(const XAsu_CmacKdfParams *CmacKdfParam
 	/** Validate CMAC KDF parameters. */
 	if ((CmacKdfParamsPtr->KdfParams.KeyObject.KeyInAddr == 0U) || (CmacKdfParamsPtr->KdfParams.ContextAddr == 0U) ||
 	    (CmacKdfParamsPtr->KdfParams.ContextLen == 0U) || (CmacKdfParamsPtr->KdfParams.ContextLen > XASU_KDF_MAX_CONTEXT_LEN) ||
-	    (CmacKdfParamsPtr->KdfParams.KeyOutAddr == 0U) || (CmacKdfParamsPtr->KdfParams.KeyOutLen == 0U)) {
+	    (CmacKdfParamsPtr->KdfParams.KeyOutAddr == 0U) || (CmacKdfParamsPtr->KdfParams.KeyOutLen == 0U) ||
+	    (CmacKdfParamsPtr->KdfParams.KeyOutLen >
+	     (XASU_AES_MAX_TAG_LENGTH_IN_BYTES * XASU_KDF_MAX_ITERATIONS))) {
 		goto END;
 	}
 

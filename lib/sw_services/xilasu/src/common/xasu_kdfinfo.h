@@ -53,6 +53,7 @@ extern "C" {
 
 #define XASU_KDF_MAX_CONTEXT_LEN		(1024U) /**< Maximum context length */
 #define XASU_KDF_MAX_KEY_LENGTH			(1024U) /**< Maximum key length for KDF */
+#define XASU_KDF_MAX_ITERATIONS			(0xFFU) /**< Maximum iterations for KDF */
 
 /** @} */
 /************************************** Type Definitions *****************************************/
@@ -62,7 +63,8 @@ typedef struct {
 	u64 ContextAddr; /**< Address of the buffer holding the fixed input data */
 	u64 KeyOutAddr; /**< Address of the buffer to hold the keying material output from KDF */
 	u32 ContextLen; /**< Length of the Context */
-	u32 KeyOutLen; /**< Length of the keying material output to be generated from KDF */
+	u32 KeyOutLen; /**< Length of the keying material output to be generated from KDF.
+		* Limited to XASU_KDF_MAX_ITERATIONS PRF output blocks */
 	u8 ShaType; /**< Hash family type (XASU_SHA2_TYPE / XASU_SHA3_TYPE) */
 	u8 ShaMode; /**< SHA Mode, where XASU_SHA_MODE_SHAKE256 is valid only for SHA3 Type
 		* (XASU_SHA_MODE_256 / XASU_SHA_MODE_384 / XASU_SHA_MODE_512 /

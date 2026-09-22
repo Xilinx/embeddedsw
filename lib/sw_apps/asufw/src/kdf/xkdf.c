@@ -105,20 +105,30 @@ s32 XKdf_Generate(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr, const XAsu_KdfParams
 
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	/** Get SHA hash length based on SHA Mode. */
-	Status = XSha_GetHashLen(KdfParams->ShaMode, &HashLen);
+	Status = XAsu_ShaGetHashLen(KdfParams->ShaMode, &HashLen);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XASUFW_SHA_INVALID_SHA_MODE;
+		goto END;
+	}
+
+	/** Validate that the requested key output length is within the supported range. */
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	if (KdfParams->KeyOutLen > (HashLen * XASU_KDF_MAX_ITERATIONS)) {
+		Status = XASUFW_KDF_INVALID_PARAM;
 		goto END;
 	}
 
 	/**
 	 * Calculate number of iterations based on KDF output key length and SHA algorithm hash length.
 	 * According to algorithm, maximum iterations should not exceed (2^(counter size in bits) - 1).
-	 * As in ASU, we are considering the counter size as 32-bits and taking only 32-bit Iterations
-	 * variable, checking for maximum iterations is not required as this variable always holds
-	 * only in range numbers.
+	 * ASU limits the iterations to XASU_KDF_MAX_ITERATIONS, which the check below enforces.
 	 */
 	Iterations = XIL_SCEILDIV(u32, KdfParams->KeyOutLen, HashLen);
+	/** Recheck the loop bound to catch a corrupted Iterations value. */
+	if (Iterations > XASU_KDF_MAX_ITERATIONS) {
+		Status = XASUFW_KDF_INVALID_PARAM;
+		goto END;
+	}
 
 	/**
 	 * Use HMAC as a pseudorandom function, run the below steps in iterations until requested bytes
@@ -256,7 +266,9 @@ s32 XKdf_CmacGenerate(XAsufw_Dma *DmaPtr, XAes *AesInstancePtr, const XAsu_KdfPa
 
 	if ((KdfParams->ContextAddr == 0U) || (KdfParams->ContextLen == 0U) ||
 	    (KdfParams->ContextLen > XASU_KDF_MAX_CONTEXT_LEN) || (KdfParams->KeyOutAddr == 0U) ||
-	    (KdfParams->KeyOutLen == 0U)) {
+	    (KdfParams->KeyOutLen == 0U) ||
+	    (KdfParams->KeyOutLen >
+	     (XASU_AES_MAX_TAG_LENGTH_IN_BYTES * XASU_KDF_MAX_ITERATIONS))) {
 		Status = XASUFW_KDF_INVALID_PARAM;
 		goto END;
 	}
@@ -264,13 +276,18 @@ s32 XKdf_CmacGenerate(XAsufw_Dma *DmaPtr, XAes *AesInstancePtr, const XAsu_KdfPa
 	/**
 	 * Calculate number of iterations based on KDF output key length and MAC output length.
 	 * According to algorithm, maximum iterations should not exceed (2^(counter size in bits) - 1).
-	 * As in ASU, we are considering the counter size as 32-bits and taking only 32-bit Iterations
-	 * variable, checking for maximum iterations is not required as this variable always holds
-	 * only in range numbers.
+	 * The requested key output length is bounded above to XASU_KDF_MAX_ITERATIONS blocks of
+	 * MAC output length, so the iteration count derived here always stays in range.
 	 */
 	Iterations = KdfParams->KeyOutLen / XASU_AES_MAX_TAG_LENGTH_IN_BYTES;
 	if ((KdfParams->KeyOutLen % XASU_AES_MAX_TAG_LENGTH_IN_BYTES) != 0x0U) {
 		++Iterations;
+	}
+
+	/** Recheck the loop bound to catch a corrupted Iterations value. */
+	if (Iterations > XASU_KDF_MAX_ITERATIONS) {
+		Status = XASUFW_KDF_INVALID_PARAM;
+		goto END;
 	}
 
 	KeyObject.KeySize = KdfParams->KeyObject.KeyInLen;

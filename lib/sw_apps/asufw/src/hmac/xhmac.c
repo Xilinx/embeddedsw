@@ -185,7 +185,7 @@ s32 XHmac_Init(XHmac *InstancePtr, XAsufw_Dma *AsuDmaPtr, XSha *ShaInstancePtr, 
 		goto END;
 	}
 	/** Get hash length based on the SHA mode to validate the input hash length. */
-	Status = XSha_GetHashLen((u8)ShaMode, &ExpHashLen);
+	Status = XAsu_ShaGetHashLen((u8)ShaMode, &ExpHashLen);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XASUFW_SHA_INVALID_SHA_MODE;
 		goto END;
