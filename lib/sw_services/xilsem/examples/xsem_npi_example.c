@@ -1,7 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2021 - 2022 Xilinx, Inc.  All rights reserved.
-* (c) Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
-* Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 /**
@@ -34,6 +33,8 @@
  * 1.1   anv   08/28/2026  Added XilPM event notification support for EL1
  *                         non-secure SMC flow and corrected runtime print
  *                         messages.
+ * 1.2   gayu  09/21/2026  Updated to restore NPI golden SHA after error
+ *                         injection.
  * </pre>
  *
  *****************************************************************************/
@@ -751,6 +752,20 @@ END:
 
 #ifdef XILSEM_ERRINJ_ENABLE
 	PrintErrReport();
+
+		/* Restart NPI scan to clear injected error */
+	Status = XSem_CmdNpiStartScan(&IpiInst, &IpiResp);
+	if ((XST_SUCCESS == Status) &&
+			(CMD_ACK_NPI_STARTSCAN == IpiResp.RespMsg1) &&
+			(XST_SUCCESS == IpiResp.RespMsg2)) {
+		xil_printf("[%s] Success: Start\n\r", __func__);
+	} else {
+		xil_printf("[%s] Error: Start Status 0x%x Ack 0x%x, Ret 0x%x\n\r", \
+				__func__, Status, IpiResp.RespMsg1, IpiResp.RespMsg2);
+		Status = XST_FAILURE;
+		FailCnt++;
+	}
+
 #endif /* End of XILSEM_ERRINJ_ENABLE */
 
 	xil_printf("\n\r-------------- Test Report --------------\n\r");

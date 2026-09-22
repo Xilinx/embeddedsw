@@ -44,6 +44,8 @@
  *                           for SDT support.
  * 0.5   anv     02/11/2026  Cleared IPI interrupts after calling the
  *                           IPI interrupt handler
+ * 0.6   gam     09/21/2026  Updated to restore NPI golden SHA after error
+ *                           injection.
  *
  * </pre>
  *
@@ -823,6 +825,20 @@ int main(void)
 END:
 #ifdef XILSEM_ERRINJ_ENABLE
 	PrintErrReport();
+
+	/* Restart NPI scan to clear injected error */
+	Status = XSem_CmdNpiStartScan(&IpiInst, &IpiResp);
+	if ((XST_SUCCESS == Status) &&
+			(CMD_ACK_NPI_STARTSCAN == IpiResp.RespMsg1) &&
+			(XST_SUCCESS == IpiResp.RespMsg2)) {
+		xil_printf("[%s] Success: Start\n\r", __func__);
+	} else {
+		xil_printf("[%s] Error: Start Status 0x%x Ack 0x%x, Ret 0x%x\n\r", \
+				__func__, Status, IpiResp.RespMsg1, IpiResp.RespMsg2);
+		Status = XST_FAILURE;
+		FailCnt++;
+	}
+
 #endif /* End of XILSEM_ERRINJ_ENABLE */
 	xil_printf("\n\r-------------- Test Report --------------\n\r");
 	xil_printf("Failed Command Count : %d\n\r", FailCnt);

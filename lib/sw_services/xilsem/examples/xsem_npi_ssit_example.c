@@ -24,6 +24,8 @@
  *                         Feature usage and Updated to get
  *                         XilSEM NPI status prints of all SLRs separately
  * 0.5   gayu  09/08/2025  Fixed Gcc warnings.
+ * 0.6   gayu  09/21/2026  Updated to restore NPI golden SHA after error
+ *                         injection.
  * </pre>
  *
  *****************************************************************************/
@@ -629,6 +631,15 @@ int main(void)
 					SlrCnt);
 		}
 	}
+
+		/* Restart NPI scan for errors to be detected */
+	Status = XSem_ApiNpiStartScan_Broadcast(&IpiInst, &IpiResp);
+	if (Status != XST_SUCCESS) {
+		xil_printf("[%s] Failed to start NPI scan with status 0x%x\n\r", \
+				__func__, Status);
+		++FailCnt;
+	}
+
 #endif /* End of XILSEM_ERRINJ_ENABLE */
 
 END:
