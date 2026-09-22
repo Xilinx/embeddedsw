@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2017 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2026, Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -75,7 +75,10 @@
 * 1.13  pre  04/17/2026 Added APIs to get EL and TZ attributes from partition header
 * 1.14  pre  07/14/2026 Return type of XilPdi_IsPrtnHashPresent function is changed to
 *                       const pointer to prevent caller from modifying digest table in PMC RAM.
+*       obs  08/21/2026 Added XILPDI_ERR_IMG_NO_OF_PRTNS error code
 *       gnr  09/02/2026 Reserved optional data ID for OSPI RX tuning pattern
+*       obs  09/12/2026 Documented XILPDI_ERR_IMG_NO_OF_PRTNS for Doxygen
+*       obs  09/15/2026 Normalized the AMD copyright format
 *
 * </pre>
 *
@@ -200,6 +203,7 @@ extern "C" {
 #define XILPDI_ERR_TOTAL_LENGTH		(0x5)
 #define XILPDI_ERR_PRTN_TYPE		(0x6)
 #define XILPDI_ERR_NO_OF_IMGS		(0x7)
+#define XILPDI_ERR_IMG_NO_OF_PRTNS	(0x8) /**< Invalid number of partitions in an image */
 #define XILPDI_ERR_IH_CHECKSUM		(0x40)
 #define XILPDI_ERR_PH_CHECKSUM		(0x80)
 #define XILPDI_ERR_OPTIONAL_DATA_CHECKSUM_FAILED	(0x70)

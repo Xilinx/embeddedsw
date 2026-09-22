@@ -117,8 +117,10 @@
 *       obs  08/26/2025 Added support for address range checks
 * 2.4   pre  04/17/2026 Made updates to process optee partition as ELF.
 *       ng   07/13/2026 Reduced debug print levels on error paths
+*       obs  08/21/2026 Bounded partition index in XLoader_LoadImagePrtns
 *       ng   09/09/2026 Store tlbin partition load address for ATF IPI on
 *                       versal_2ve_2vm
+*       obs  09/20/2026 Reduced partition count validation code size
 *
 * </pre>
 *
@@ -181,6 +183,8 @@ static XLoader_TlbinInfo TlbinInfo = {0U, XLOADER_TLBIN_ADDR_INVALID};
  *
  * @return
  * 			- XST_SUCCESS on success.
+ * 			- XLOADER_ERR_IMGHDR if the partitions of the image cannot be
+ * 			indexed within the partition header array.
  * 			- XLOADER_SLD_DETECTED_SKIP_PRTN_PROCESS on secure lockdown.
  * 			- XPLMI_NPI_ERR on NPI errors.
  *
@@ -193,6 +197,14 @@ int XLoader_LoadImagePrtns(XilPdi* PdiPtr)
 	XPlmi_PerfTime PerfTime;
 	u32 DDRMCCalibCheck;
 	u8  Ub;
+	u32 NoOfPrtns;
+
+	if ((u32)PdiPtr->ImageNum >= XIH_MAX_IMGS) {
+		Status = XPlmi_UpdateStatus(XLOADER_ERR_IMGHDR,
+				XILPDI_ERR_NO_OF_IMGS);
+		goto END;
+	}
+	NoOfPrtns = PdiPtr->MetaHdr->ImgHdr[PdiPtr->ImageNum].NoOfPrtns;
 
 	if (PdiPtr->DelayLoad == (u8)FALSE) {
 		XPlmi_Printf(DEBUG_PRINT_ALWAYS,
@@ -212,11 +224,21 @@ int XLoader_LoadImagePrtns(XilPdi* PdiPtr)
 	XPlmi_Printf(DEBUG_INFO, "------------------------------------\r\n");
 
 	/**
+	 * - Validate the number of partitions in the image against the size of
+	 * the partition header array. PrtnNum is a count that runs across all
+	 * the images of the PDI, so it has to be accounted for as well.
+	 */
+	if ((NoOfPrtns > XIH_MAX_PRTNS) ||
+		((u32)PdiPtr->PrtnNum > (XIH_MAX_PRTNS - NoOfPrtns))) {
+		Status = XPlmi_UpdateStatus(XLOADER_ERR_IMGHDR,
+				XILPDI_ERR_IMG_NO_OF_PRTNS);
+		goto END;
+	}
+
+	/**
 	 * - Validate and load the image partitions.
 	 */
-	for (PrtnIndex = 0U;
-		PrtnIndex < PdiPtr->MetaHdr->ImgHdr[PdiPtr->ImageNum].NoOfPrtns;
-		++PrtnIndex) {
+	for (PrtnIndex = 0U; PrtnIndex < NoOfPrtns; ++PrtnIndex) {
 		/**
 		 * - Clear NPI errors before loading each partition.
 		 */

@@ -69,6 +69,9 @@
 * 1.15  sd   07/23/2026 Fixed infinite loop in XilPdi_SearchOptionalData on
 *                       zero length optional data header.
 *       vm   08/22/2026 Skip SMAP bus width in optional data of partial ASU update PDI
+*       obs  08/21/2026 Bounded per image partition count in
+*                       XilPdi_VerifyImgHdrs
+*       obs  09/20/2026 Reduced partition count validation code size
 *
 * </pre>
 *
@@ -753,12 +756,21 @@ END:
 * @return
 *		- XST_SUCCESS on successful image validation.
 *		- XILPDI_ERR_IH_CHECKSUM on checksum fail.
+*		- XILPDI_ERR_IMG_NO_OF_PRTNS if the number of partitions in an
+*		image is more than XIH_MAX_PRTNS or if the partitions of all
+*		images do not add up to the count in the Image Header Table.
 *
 *****************************************************************************/
 int XilPdi_VerifyImgHdrs(const XilPdi_MetaHdr * MetaHdrPtr)
 {
 	int Status = XST_FAILURE;
 	u32 ImgIndex;
+	u32 TotalPrtns = 0U;
+
+	if (MetaHdrPtr->ImgHdrTbl.NoOfImgs > XIH_MAX_IMGS) {
+		Status = XILPDI_ERR_NO_OF_IMGS;
+		goto END;
+	}
 
 	/**
 	 * - Verify checksum of all image Headers. If verification is passed,
@@ -772,6 +784,30 @@ int XilPdi_VerifyImgHdrs(const XilPdi_MetaHdr * MetaHdrPtr)
 			Status = XILPDI_ERR_IH_CHECKSUM;
 			goto END;
 		}
+
+		/**
+		 * - Verify the number of partitions in the image is not more than
+		 * the size of the Partition Header array. Otherwise, return
+		 * XILPDI_ERR_IMG_NO_OF_PRTNS error.
+		 */
+		if (MetaHdrPtr->ImgHdr[ImgIndex].NoOfPrtns >
+			(XIH_MAX_PRTNS - TotalPrtns)) {
+			Status = XILPDI_ERR_IMG_NO_OF_PRTNS;
+			goto END;
+		}
+		TotalPrtns += MetaHdrPtr->ImgHdr[ImgIndex].NoOfPrtns;
+	}
+
+	/**
+	 * - Verify the partitions of all the images add up to the number of
+	 * partitions in the Image Header Table. Partition Headers are indexed
+	 * by a count that runs across images, so a mismatch here would let that
+	 * count walk past the end of the array. Otherwise, return
+	 * XILPDI_ERR_IMG_NO_OF_PRTNS error.
+	 */
+	if (TotalPrtns != MetaHdrPtr->ImgHdrTbl.NoOfPrtns) {
+		Status = XILPDI_ERR_IMG_NO_OF_PRTNS;
+		goto END;
 	}
 
 	Status = XST_SUCCESS;

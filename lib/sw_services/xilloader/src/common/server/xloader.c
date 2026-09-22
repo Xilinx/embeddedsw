@@ -225,7 +225,10 @@
 *       gnr  09/11/2026 Pass PDI source while re-arming SMAP sync word
 *                       detection
 *       aa   09/15/2026 Added support to skip IDCODE check during Extract Metaheader
-*       mkr  10/09/2026 Moved CL pre-boot check out of XLoader_Init
+*       obs 09/16/2026 Bounded running partition count in
+*                      XLoader_GetImageAndPrtnInfo
+*       obs 09/20/2026 Reduced partition count validation code size
+ *       mkr  10/09/2026 Moved CL pre-boot check out of XLoader_Init
 *
 * </pre>
 *
@@ -2743,7 +2746,12 @@ int XLoader_GetImageAndPrtnInfo(XilPdi *PdiPtr, u32 ImageId)
 {
 	int Status = XST_FAILURE;
 	u32 PrtnNum = 0U;
+	u32 NoOfPrtns;
 	u32 Index;
+
+	if (PdiPtr->MetaHdr->ImgHdrTbl.NoOfImgs > XIH_MAX_IMGS) {
+		goto END;
+	}
 
 	/** Check if the given ImageId matches with any Images present in PDI. */
 	for (Index = 0U; Index < PdiPtr->MetaHdr->ImgHdrTbl.NoOfImgs; ++Index) {
@@ -2752,7 +2760,15 @@ int XLoader_GetImageAndPrtnInfo(XilPdi *PdiPtr, u32 ImageId)
 			PdiPtr->PrtnNum = (u8)PrtnNum;
 			break;
 		}
-		PrtnNum += PdiPtr->MetaHdr->ImgHdr[Index].NoOfPrtns;
+		/**
+		 * Return error if the running partition count of the skipped images
+		 * cannot be indexed within the partition header array.
+		 */
+		NoOfPrtns = PdiPtr->MetaHdr->ImgHdr[Index].NoOfPrtns;
+		if (NoOfPrtns > (XIH_MAX_PRTNS - PrtnNum)) {
+			goto END;
+		}
+		PrtnNum += NoOfPrtns;
 	}
 
 	/** If not matched return error, else success. */
@@ -2762,6 +2778,7 @@ int XLoader_GetImageAndPrtnInfo(XilPdi *PdiPtr, u32 ImageId)
 		Status = XST_SUCCESS;
 	}
 
+END:
 	return Status;
 }
 
