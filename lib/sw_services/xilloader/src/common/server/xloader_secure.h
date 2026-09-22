@@ -63,6 +63,7 @@
 * 2.4   tvp  02/04/26 Define register addresses for efuse ppk hash only for
 *                     platforms other than Versal_2vp_p
 *       sri  08/14/26 Updated XLoader_CopyHashBlock to add destination HashBlock parameter
+* 2.5   tbk  09/07/26 Added XLoader_ValidateHashBlockSize
 *
 * </pre>
 *
@@ -158,6 +159,7 @@ int XLoader_VerifyHashNUpdateNext(XLoader_SecureParams *SecurePtr,
 int XLoader_ValidateMHHashBlockIntegrity(XLoader_SecureParams *SecurePtr);
 int XLoader_ValidateMetaHdrIntegrity(XLoader_SecureParams *SecurePtr);
 XLoader_HashBlock* XLoader_GetHashBlockInstance(void);
+int XLoader_ValidateHashBlockSize(u32 HashBlockSizeInWords);
 int XLoader_CopyHashBlock(u32 TotalHBSize, XilPdi_HashBlock *SrcHB, XLoader_HashBlock *DestHB);
 #endif
 

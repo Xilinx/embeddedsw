@@ -144,6 +144,7 @@
 *       pre  07/31/26 Enabled TPM feature for VERSAL_2VP devices
 *       sri  08/14/26 Updated XLoader_CopyHashBlock to support caller-supplied
 *                     destination HashBlock for client auth PDI validation
+*       tbk  09/07/26 Bound HashBlockSize before DeviceCopy
 *
 * </pre>
 *
@@ -1219,6 +1220,35 @@ XLoader_SecureTempParams* XLoader_GetTempParams(void) {
 #if defined(VERSAL_2VE_2VM) || defined(VERSAL_2VP_P)
 /*****************************************************************************/
 /**
+ * @brief	This function validates the HashBlock size field from the IHT.
+ *
+ * @param	HashBlockSizeInWords	HashBlockSize field in words
+ *
+ * @return
+ *		- XST_SUCCESS if HashBlockSize is non-zero and fits in the HashBlock buffer.
+ *		- XLOADER_ERR_HASH_BLOCK_COPY_FAIL if the size is zero or too large.
+ *
+ ******************************************************************************/
+int XLoader_ValidateHashBlockSize(u32 HashBlockSizeInWords)
+{
+	volatile int Status = XST_FAILURE;
+
+	if ((HashBlockSizeInWords == 0U) ||
+			(HashBlockSizeInWords >
+			((u32)sizeof(XilPdi_HashBlock) / XIH_PRTN_WORD_LEN))) {
+		Status = XPlmi_UpdateStatus(XLOADER_ERR_HASH_BLOCK_COPY_FAIL,
+				XST_INVALID_PARAM);
+		goto END;
+	}
+
+	Status = XST_SUCCESS;
+
+END:
+	return Status;
+}
+
+/*****************************************************************************/
+/**
 * @brief	This function copies authenticated HashBlock entries from source
 * 			to destination HashBlock. Each entry is stored at the index	corresponding
 *			to its partition number for use during partition loading.
@@ -1312,11 +1342,18 @@ int XLoader_ValidateMHHashBlockIntegrity(XLoader_SecureParams *SecurePtr)
 	XSecure_Sha *ShaInstPtr = XSecure_GetSha3Instance(XSECURE_SHA_0_DEVICE_ID);
 	XilPdi_MetaHdr *MetaHdrPtr = SecurePtr->PdiPtr->MetaHdr;
 	u32 ReadOffset = MetaHdrPtr->ImgHdrTbl.HashBlockOffset * XIH_PRTN_WORD_LEN;
-	u32 HashBlockSize = MetaHdrPtr->ImgHdrTbl.HashBlockSize * XIH_PRTN_WORD_LEN;
+	u32 HashBlockSizeInWords = MetaHdrPtr->ImgHdrTbl.HashBlockSize;
+	u32 HashBlockSize = 0U;
 	XLoader_HashBlock *DestHBPtr = XLoader_GetHashBlockInstance();
 
 	XPlmi_Printf(DEBUG_INFO, "HashBlock1 integrity validation \n\r");
 
+	Status = XLoader_ValidateHashBlockSize(HashBlockSizeInWords);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	HashBlockSize = HashBlockSizeInWords * XIH_PRTN_WORD_LEN;
 	/** - Copy HashBlock data from the HashBlock offset provided in IHT */
 	Status = MetaHdrPtr->DeviceCopy(MetaHdrPtr->FlashOfstAddr + ReadOffset,
                         (u64)(UINTPTR)MetaHdrPtr->HashBlock.HashData,

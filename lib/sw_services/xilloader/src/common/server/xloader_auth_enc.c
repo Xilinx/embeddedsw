@@ -183,6 +183,8 @@
 *                       for shared server and Versal_2Ve_2Vm client paths
 *       vss  09/09/2026 Added ECDSA P-521 to XLoader_GetKeySizeSignPadding for VERSAL_2VP_P
 *       mkr  09/08/2026 Fixed discarded-qualifiers GCC warnings
+*       tbk  09/07/26 Bound IHT and partition HashBlockSize in words, PPK and
+*                       HB signature Total/Actual sizes, and reject zero copy lengths
 *
 * </pre>
 *
@@ -322,6 +324,7 @@ static int XLoader_AuthHashBlockNDecHdrs(XLoader_SecureParams *SecurePtr,
         XLoader_HBSignParams *HBSignParams, u64 BufferAddr);
 static int XLoader_AuthHdrsWithHashBlock(XLoader_SecureParams *SecurePtr,
         XLoader_HBSignParams *HBSignParams);
+static int XLoader_ValidateHBSignParams(const XLoader_HBSignParams *HBSignParams);
 static int XLoader_ValidateHashBlockAAD(XLoader_SecureParams *SecurePtr,
                                 XLoader_HBAesParams *HBParams);
 #ifdef VERSAL_2VP_P
@@ -410,6 +413,10 @@ int XLoader_SecureAuthInit(XLoader_SecureParams *SecurePtr,
 		SecurePtr->ProcessedLen = XLOADER_AUTH_CERT_MIN_SIZE;
 
 #else
+		Status = XLoader_ValidateHashBlockSize(PrtnHdr->HashBlockSize);
+		if (Status != XST_SUCCESS) {
+			goto END;
+		}
 #if defined(VERSAL_2VE_2VM) && !defined(VERSAL_2VP_P)
 		HBSignParams.ReadOffset = PrtnHdr->AuthCertificateOfst * XIH_PRTN_WORD_LEN;
 		HBSignParams.TotalPpkSize = PrtnHdr->TotalPpkSize;
@@ -886,6 +893,13 @@ int XLoader_ReadAndVerifySecureHdrs(XLoader_SecureParams *SecurePtr,
 		Status = XPlmi_UpdateStatus(XLOADER_ERR_IMGHDR_TBL, XIL_SIGNED_ZERO);
 		goto ERR_END;
 	}
+
+#if defined(VERSAL_2VE_2VM) || defined(VERSAL_2VP_P)
+	Status = XLoader_ValidateHashBlockSize(MetaHdr->ImgHdrTbl.HashBlockSize);
+	if (Status != XST_SUCCESS) {
+		goto ERR_END;
+	}
+#endif
 
 #if defined(VERSAL_2VE_2VM) && !defined(VERSAL_2VP_P)
 	HBSignParams.ReadOffset = MetaHdr->ImgHdrTbl.AcOffset * XIH_PRTN_WORD_LEN;
@@ -3119,6 +3133,62 @@ static int XLoader_CopyFromSrc(XilPdi_MetaHdr *MetaHdrPtr, XLoader_HashBlock *De
 
 	return Status;
 }
+
+/******************************************************************************/
+/**
+ * @brief	This function validates HashBlock copy lengths in HBSignParams.
+ *
+ * @param	HBSignParams	Pointer to the HashBlock sign parameters
+ *
+ * @return
+ *		- XST_SUCCESS if copy lengths fit in their destinations.
+ *		- Error code if HBSize, Total/Actual PpkSize or
+ *		  Total/Actual HBSignSize is out of range.
+ *
+ ******************************************************************************/
+static int XLoader_ValidateHBSignParams(const XLoader_HBSignParams *HBSignParams)
+{
+	volatile int Status = XST_FAILURE;
+
+	if ((HBSignParams->HBSize == 0U) ||
+			(HBSignParams->HBSize > (u32)sizeof(XilPdi_HashBlock))) {
+		Status = XPlmi_UpdateStatus(XLOADER_ERR_HASH_BLOCK_COPY_FAIL,
+				XST_INVALID_PARAM);
+		goto END;
+	}
+#if defined(VERSAL_2VE_2VM) && !defined(VERSAL_2VP_P)
+	if ((HBSignParams->TotalPpkSize == 0U) ||
+			(HBSignParams->TotalPpkSize > XLOADER_MAX_TOTAL_KEY_SIZE)) {
+		Status = XPlmi_UpdateStatus(XLOADER_ERR_PPK_COPY_FAIL,
+				XST_INVALID_PARAM);
+		goto END;
+	}
+	if ((HBSignParams->ActualPpkSize > XLOADER_MAX_TOTAL_KEY_SIZE) ||
+			(HBSignParams->ActualPpkSize > HBSignParams->TotalPpkSize)) {
+		Status = XPlmi_UpdateStatus(XLOADER_ERR_PPK_COPY_FAIL,
+				XST_INVALID_PARAM);
+		goto END;
+	}
+	if ((HBSignParams->TotalHBSignSize < XLOADER_MIN_TOTAL_SIGN_SIZE) ||
+			(HBSignParams->TotalHBSignSize > XLOADER_MAX_TOTAL_SIGN_SIZE)) {
+		Status = XPlmi_UpdateStatus(XLOADER_ERR_HASH_BLOCK_SIGN_COPY_FAIL,
+				XST_INVALID_PARAM);
+		goto END;
+	}
+	if ((HBSignParams->ActualHBSignSize > XLOADER_MAX_TOTAL_SIGN_SIZE) ||
+			(HBSignParams->ActualHBSignSize > HBSignParams->TotalHBSignSize)) {
+		Status = XPlmi_UpdateStatus(XLOADER_ERR_HASH_BLOCK_SIGN_COPY_FAIL,
+				XST_INVALID_PARAM);
+		goto END;
+	}
+#endif
+
+	Status = XST_SUCCESS;
+
+END:
+	return Status;
+}
+
 /******************************************************************************/
 /**
 * @brief	This function will Calculate Digest for Input Data
@@ -3413,6 +3483,11 @@ int XLoader_AuthNCopyHashBlock(XLoader_SecureParams *SecurePtr,
 	XLoader_HashBlock *TmpDestHBPtr = XLoader_GetHashBlockInstance();
 
 	XPlmi_Printf(DEBUG_INFO, "Authentication of HashBlock started...\r\n");
+
+	Status = XLoader_ValidateHBSignParams(HBSignParams);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
 
 	/** - Read PDI Meta Header if request is not IPI based NoLoad authentication */
 	if ((DestHBPtr == TmpDestHBPtr) &&
@@ -4197,6 +4272,11 @@ int XLoader_AuthNCopyHashBlock(XLoader_SecureParams *SecurePtr,
 	}
 
 	XPlmi_Printf(DEBUG_INFO, "Authentication of HashBlock\n\r");
+
+	Status = XLoader_ValidateHBSignParams(HBSignParams);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
 
 	SecurePtr->AcPtr = AuthCert;
 	/**
