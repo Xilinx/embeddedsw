@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2017 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -100,7 +101,7 @@ void XFsbl_DfuSetState(struct Usb_DevData* InstancePtr, u32 DfuState);
 u32 XFsbl_UsbInit(u32 DeviceFlags);
 u32 XFsbl_UsbCopy(u32 SrcAddress, PTRSIZE DestAddress, u32 Length);
 u32 XFsbl_UsbRelease(void);
-u32 XFsbl_CheckTempDfuMemory(u32 Offset);
+u32 XFsbl_CheckTempDfuMemory(u32 Offset, u32 Length);
 
 #endif/*XFSBL_USB*/
 #ifdef __cplusplus

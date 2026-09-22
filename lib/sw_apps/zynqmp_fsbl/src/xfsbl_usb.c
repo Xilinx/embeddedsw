@@ -29,6 +29,8 @@
 *                         waiting during PDI download operations
 * 6.4   sd       05/20/26 Add DCache invalidation after CSU DMA transfer in
 *                         XFsbl_UsbCopy to fix authenticated USB boot failure
+* 6.5   sd       09/01/26 Harden XFsbl_UsbCopy: 64-bit bounds check, bound
+*                         copy to downloaded bytes, 64-bit CSU DMA source
 *
 * </pre>
 *
@@ -92,7 +94,7 @@ u32 XFsbl_UsbInit(u32 DeviceFlags)
 	XUsbPsu_Config *UsbConfigPtr;
 	u32 TimeoutCounter = 0U;
 
-	Status = XFsbl_CheckTempDfuMemory(0);
+	Status = XFsbl_CheckTempDfuMemory(0U, 0U);
 	if(Status == XFSBL_FAILURE){
 		goto END;
 	}
@@ -193,10 +195,22 @@ END:
 u32 XFsbl_UsbCopy(u32 SrcAddress, PTRSIZE DestAddress, u32 Length)
 {
 	u32 Status;
-	Status = XFsbl_CheckTempDfuMemory(SrcAddress + Length);
-	if(Status == XFSBL_FAILURE){
+	u64 SrcAddr;
+
+	/* Helper sums Offset and Length in 64-bit so the range check cannot wrap */
+	Status = XFsbl_CheckTempDfuMemory(SrcAddress, Length);
+	if (Status == XFSBL_FAILURE) {
 		goto END;
 	}
+
+	/* Bound the copy to the bytes actually downloaded over DFU */
+	if (((u64)SrcAddress + Length) > (u64)DfuObj.TotalBytesDnloaded) {
+		Status = XFSBL_FAILURE;
+		goto END;
+	}
+
+	/* Compute the source in 64-bit so the CSU DMA address cannot wrap */
+	SrcAddr = (u64)(PTRSIZE)DfuVirtFlash + SrcAddress;
 
 	/* Setup the  SSS for DMA */
 	XFsbl_Out32(CSU_CSU_SSS_CFG, XFSBL_CSU_SSS_SRC_DEST_DMA);
@@ -205,7 +219,7 @@ u32 XFsbl_UsbCopy(u32 SrcAddress, PTRSIZE DestAddress, u32 Length)
 	XCsuDma_Transfer(&CsuDma, XCSUDMA_DST_CHANNEL, DestAddress, Length/4U, 0);
 
 	/* Setup the source DMA channel */
-	XCsuDma_Transfer(&CsuDma, XCSUDMA_SRC_CHANNEL, (PTRSIZE) DfuVirtFlash + SrcAddress, Length/4U, 0);
+	XCsuDma_Transfer(&CsuDma, XCSUDMA_SRC_CHANNEL, SrcAddr, Length/4U, 0);
 
 	/* wait for the DMA transfer to finish */
 	XCsuDma_WaitForDone(&CsuDma, XCSUDMA_DST_CHANNEL){}
@@ -511,7 +525,8 @@ END:
 /*****************************************************************************
 * This function verifies whether the address range is valid or not.
 *
-* @param	Range from the Starting address of DDR memory.
+* @param	Offset from the starting address of DDR memory.
+* @param	Length is the number of bytes at Offset.
 *
 * @return	XFSBL_SUCCESS or XFSBL_FAILURE
 *
@@ -519,16 +534,23 @@ END:
 *
 ******************************************************************************/
 
-u32 XFsbl_CheckTempDfuMemory(u32 Offset)
+u32 XFsbl_CheckTempDfuMemory(u32 Offset, u32 Length)
 {
-	u32 Status;
-	if((DfuVirtFlash != NULL) && (((PTRSIZE)DfuVirtFlash + Offset) <= XFSBL_PS_DDR_END_ADDRESS)){
-		Status = XFSBL_SUCCESS;
+	u32 Status = XFSBL_FAILURE;
+	u64 LastByte;
+
+	if (DfuVirtFlash != NULL) {
+		/* Zero length validates the start byte; else the inclusive last byte */
+		LastByte = (u64)(PTRSIZE)DfuVirtFlash + (u64)Offset + (u64)Length;
+		if (Length != 0U) {
+			/* XFSBL_PS_DDR_END_ADDRESS is the last valid byte */
+			LastByte -= DDR_LAST_BYTE_OFFSET;
+		}
+		if (LastByte <= (u64)XFSBL_PS_DDR_END_ADDRESS) {
+			Status = XFSBL_SUCCESS;
+		}
 	}
-	else
-	{
-		Status = XFSBL_FAILURE;
-	}
+
 	return Status;
 }
 #endif
