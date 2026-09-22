@@ -44,6 +44,8 @@
  * format or GPR restore sequence is duplicated here.
  */
 
+#ifdef RISCV_MODE_SWITCH
+
 #include "xparameters.h"
 #include "mode_switch_frame.h"
 
@@ -254,3 +256,5 @@ ms_return_halt:
 1:	j	1b				/* local label 1: spin if no cont. frame */
 
 .size Xil_ReturnToMMode, .-Xil_ReturnToMMode
+
+#endif /* RISCV_MODE_SWITCH */

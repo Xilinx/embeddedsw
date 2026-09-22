@@ -12,6 +12,8 @@
  * to handlers registered before Xil_ModeSwitchInit() when no U session is active.
  */
 
+#ifdef RISCV_MODE_SWITCH
+
 #include "xil_mode_switch.h"
 #include "xreg_riscv.h"
 #include "xpseudo_asm.h"
@@ -427,3 +429,5 @@ static void Xil_HaltForever(void)
 		asm volatile("nop");
 	}
 }
+
+#endif /* RISCV_MODE_SWITCH */
