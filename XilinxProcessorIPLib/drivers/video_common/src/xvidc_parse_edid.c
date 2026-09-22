@@ -1872,6 +1872,17 @@ static const struct xvidc_edid_extension_handler {
 	[XVIDC_EDID_EXTENSION_DDDB]           = { NULL },
 };
 
+/*****************************************************************************/
+/**
+*
+* This function parses a complete EDID, the base block followed by every
+* extension block it advertises, into the EDID control parameters.
+*
+* @param    data is a pointer to the raw EDID data.
+* @param    EdidCtrlParam is a pointer to the EDID Control parameter
+* @param    VerboseEn is the verbosity enable flag for debug output.
+*
+******************************************************************************/
 void
 XV_VidC_parse_edid(const u8 * const data,
                   XV_VidC_EdidCntrlParam *EdidCtrlParam,
@@ -1962,6 +1973,22 @@ xvidc_store_base_edid_identity(const u8 * const base_edid,
     EdidCtrlParam->ManufactureYear = base_edid[17] + 1990;
 }
 
+/*****************************************************************************/
+/**
+*
+* This function parses one segment of an EDID read over DDC into the EDID
+* control parameters.
+*
+* @param    data is a pointer to the EDID segment data.
+* @param    EdidCtrlParam is a pointer to the EDID Control parameter
+* @param    VerboseEn is the verbosity enable flag for debug output.
+* @param    SegmentNum is the segment number the data was read from.
+*
+* @note   Segment 0 holds the base block and the first extension block, so
+*         the control parameters are initialised there. Each later segment
+*         holds two extension blocks and adds to that state.
+*
+******************************************************************************/
 void
 XV_VidC_parse_edid_extension(const u8 * const data,
                   XV_VidC_EdidCntrlParam *EdidCtrlParam,
