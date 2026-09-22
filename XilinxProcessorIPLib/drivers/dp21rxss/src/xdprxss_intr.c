@@ -671,6 +671,77 @@ u32 XDpRxSs_SetCallBack(XDpRxSs *InstancePtr, u32 HandlerType,
 			Status = XST_SUCCESS;
 			break;
 
+		case XDPRXSS_HANDLER_ACCESS_LANE_SET_EVENT:
+			XDp_RxSetCallback(InstancePtr->DpPtr,
+				XDP_RX_HANDLER_ACCESS_LANE_SET,
+				CallbackFunc, CallbackRef);
+			Status = XST_SUCCESS;
+			break;
+
+		case XDPRXSS_HANDLER_ACCESS_LINK_QUAL_EVENT:
+			XDp_RxSetCallback(InstancePtr->DpPtr,
+				XDP_RX_HANDLER_ACCESS_LINK_QUAL,
+				CallbackFunc, CallbackRef);
+			Status = XST_SUCCESS;
+			break;
+
+		case XDPRXSS_HANDLER_ACCESS_ERROR_COUNTER_EVENT:
+			XDp_RxSetCallback(InstancePtr->DpPtr,
+				XDP_RX_HANDLER_ACCESS_ERR_COUNTER,
+				CallbackFunc, CallbackRef);
+			Status = XST_SUCCESS;
+			break;
+
+		case XDPRXSS_HANDLER_DP_ADAPTIVESYNC_SDP_STREAM_1_EVENT:
+			XDp_RxSetCallback(InstancePtr->DpPtr,
+				XDP_RX_HANDLER_ADAPTIVE_SYNC_SDP,
+				CallbackFunc, CallbackRef);
+			Status = XST_SUCCESS;
+			break;
+		case XDPRXSS_HANDLER_DP_ADAPTIVESYNC_SDP_STREAM_2_EVENT:
+			XDp_RxSetCallback(InstancePtr->DpPtr,
+				XDP_RX_HANDLER_ADAPTIVE_SYNC_SDP_STREAM_2,
+				CallbackFunc, CallbackRef);
+			Status = XST_SUCCESS;
+			break;
+		case XDPRXSS_HANDLER_DP_ADAPTIVESYNC_SDP_STREAM_3_EVENT:
+			XDp_RxSetCallback(InstancePtr->DpPtr,
+				XDP_RX_HANDLER_ADAPTIVE_SYNC_SDP_STREAM_3,
+				CallbackFunc, CallbackRef);
+				Status = XST_SUCCESS;
+			break;
+		case XDPRXSS_HANDLER_DP_ADAPTIVESYNC_SDP_STREAM_4_EVENT:
+			XDp_RxSetCallback(InstancePtr->DpPtr,
+				XDP_RX_HANDLER_ADAPTIVE_SYNC_SDP_STREAM_4,
+				CallbackFunc, CallbackRef);
+				Status = XST_SUCCESS;
+			break;
+		case XDPRXSS_HANDLER_DP_ADAPTIVESYNC_VBLANK_STREAM_1_EVENT:
+			XDp_RxSetCallback(InstancePtr->DpPtr,
+				XDP_RX_HANDLER_ADAPTIVE_SYNC_VBLANK,
+				CallbackFunc, CallbackRef);
+				Status = XST_SUCCESS;
+			break;
+		case XDPRXSS_HANDLER_DP_ADAPTIVESYNC_VBLANK_STREAM_2_EVENT:
+			XDp_RxSetCallback(InstancePtr->DpPtr,
+				XDP_RX_HANDLER_ADAPTIVE_SYNC_VBLANK_STREAM_2,
+				CallbackFunc, CallbackRef);
+				Status = XST_SUCCESS;
+			break;
+		case XDPRXSS_HANDLER_DP_ADAPTIVESYNC_VBLANK_STREAM_3_EVENT:
+			XDp_RxSetCallback(InstancePtr->DpPtr,
+				XDP_RX_HANDLER_ADAPTIVE_SYNC_VBLANK_STREAM_3,
+				CallbackFunc, CallbackRef);
+				Status = XST_SUCCESS;
+			break;
+		case XDPRXSS_HANDLER_DP_ADAPTIVESYNC_VBLANK_STREAM_4_EVENT:
+			XDp_RxSetCallback(InstancePtr->DpPtr,
+				XDP_RX_HANDLER_ADAPTIVE_SYNC_VBLANK_STREAM_4,
+				CallbackFunc, CallbackRef);
+				Status = XST_SUCCESS;
+			break;
+
+		/* End of setting Access Lane/Link Qual and Adaptive Sync callback(s) */
 		default:
 			Status = XST_INVALID_PARAM;
 			break;
