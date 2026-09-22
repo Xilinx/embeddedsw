@@ -1,5 +1,5 @@
 /**************************************************************************************************
-* Copyright (c) 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2025 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 /*************************************************************************************************/
@@ -49,9 +49,9 @@ extern "C" {
 
 /************************************ Function Prototypes ****************************************/
 s32 XEcies_Encrypt(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr, XAes *AesInstancePtr,
-		   const XAsu_EciesParams *EciesParams);
+		   const XAsu_EciesParams *EciesParams, u32 IsCmacKdf);
 s32 XEcies_Decrypt(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr, XAes *AesInstancePtr,
-		   const XAsu_EciesParams *EciesParams);
+		   const XAsu_EciesParams *EciesParams, u32 IsCmacKdf);
 #endif /* XASU_ECIES_ENABLE */
 
 #ifdef __cplusplus

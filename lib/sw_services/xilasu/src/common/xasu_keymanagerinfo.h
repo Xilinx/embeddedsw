@@ -113,6 +113,7 @@ extern "C" {
 
 #define XASU_KM_KEYTYPE_WRAPPED_BIT_MASK	(0x80U) /**< Bit mask for wrapped key type */
 
+#define XASU_KM_USER_VAULT_START_ID		(2U) /**< First vault ID available to users */
 #define XASU_KM_MAX_VAULTS			(64U) /**< Maximum number of key vaults supported */
 
 /*

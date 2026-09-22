@@ -81,7 +81,7 @@ extern "C" {
  * rather than the session. Provisioning stages its working data there, and asks for more room
  * than an export or an import needs, so the arm is stated here rather than derived.
  */
-#define XKEYMANAGER_SHARED_SCRATCH_SIZE		(15192U)
+#define XKEYMANAGER_SHARED_SCRATCH_SIZE		(18368U)
 
 /************************************** Type Definitions *****************************************/
 /** Caller-supplied inputs of one AEKV export. */

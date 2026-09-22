@@ -50,11 +50,11 @@ extern "C" {
  * 0xEBE41000 - 0xEBE48FFF : IPI Shared Memory		(32KB)
  * 0xEBE49000 - 0xEBE49FFF : Debug Log Buffer		(4KB)
  * 0xEBE4A000 - 0xEBE4C7FF : OCP Memory			(10KB)
- * 0xEBE4C800 - 0xEBE507FF : Crypto Algorithm Data Block	(16KB)
- *   0xEBE4C800 - 0xEBE504FF : Shared pool, reused by every overlay serialized algorithm
- *   0xEBE50500 - 0xEBE5070F : Auxiliary buffer for the two commands outside that serialization
- * 0xEBE50800 - 0xEBE509FF : Update Manager		(512B)
- * 0xEBE50A00 - 0xEBE5FFFF : Overlay Data Window	(61.5KB)
+ * 0xEBE4C800 - 0xEBE511FF : Crypto Algorithm Data Block	(18.5KB)
+ *   0xEBE4C800 - 0xEBE50FBF : Shared pool, reused by every overlay serialized algorithm
+ *   0xEBE50FC0 - 0xEBE511CF : Auxiliary buffer for the two commands outside that serialization
+ * 0xEBE51200 - 0xEBE513FF : Update Manager		(512B)
+ * 0xEBE51400 - 0xEBE5FFFF : Overlay Data Window	(59KB)
  */
 
 /*  ASUFW Data Ram Start and end address related defines */
@@ -108,8 +108,8 @@ extern "C" {
 #define XASUFW_CRYPTO_ALGO_DATA_BLOCK		(0xEBE4C800U)	/**< Base address of the crypto
 								algorithm data block in data RAM */
 
-#define XASUFW_CRYPTO_ALGO_DATA_BLOCK_SIZE	(0x4000U)	/**< Size of the crypto algorithm
-								data block in bytes (16KB) */
+#define XASUFW_CRYPTO_ALGO_DATA_BLOCK_SIZE	(0x4A00U)	/**< Size of the crypto algorithm
+								data block in bytes */
 
 /*
  * Region at the base of the block, addressed directly as XASUFW_CRYPTO_ALGO_DATA_BLOCK and reused
@@ -132,7 +132,7 @@ extern "C" {
  * size plus the auxiliary buffer stays inside the block, asserted in xasufw_kat.c. Divergence from
  * the mirror in lscript.ld therefore misleads a reader rather than moving any address.
  */
-#define XASUFW_CRYPTO_SHARED_POOL_SIZE		(0x3D00U)	/**< Size of the shared pool at the
+#define XASUFW_CRYPTO_SHARED_POOL_SIZE		(0x47C0U)	/**< Size of the shared pool at the
 								base of the block in bytes;
 								mirrored by _CRYPTO_SHARED_POOL_SIZE
 								in lscript.ld */

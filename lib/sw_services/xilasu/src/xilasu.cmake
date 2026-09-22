@@ -166,7 +166,9 @@ if(XILASU_IS_ASU)
         set(XASU_KEYMANAGER_ENABLE " ")
     endif()
 
-    option(XILASU_provision_support "Enables/Disables Provisioning module in ASUFW which depends on KeyManager." ON)
+    option(XILASU_provision_support
+      "Enables/Disables Provisioning module in ASUFW which depends on KeyManager, ECIES and ECC P-384."
+      ON)
     if(XILASU_provision_support)
         set(XASU_PROVISION_ENABLE " ")
     endif()

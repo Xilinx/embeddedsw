@@ -34,7 +34,9 @@ extern "C" {
 
 /*************************************** Include Files *******************************************/
 #include "xasu_client.h"
+#include "xasu_provision_common.h"
 #include "xasu_provisioninfo.h"
+#include "xasu_keymanagerinfo.h"
 #include "xil_types.h"
 
 /************************************ Constant Definitions ***************************************/
@@ -50,6 +52,18 @@ s32 XAsu_ProvisionUde(XAsu_ClientParams *ClientParamPtr, XAsu_ProvisionUdeParams
 s32 XAsu_GetDevProvisionCert(XAsu_ClientParams *ClientParamPtr,
 			     XAsu_DevProvisionCertParams *ParamsPtr);
 s32 XAsu_DeleteDevProvisionCert(XAsu_ClientParams *ClientParamPtr);
+s32 XAsu_ProvisionEncodeCreateKeyVault(const XAsu_KeyManagerSubVaultParams *ParamsPtr,
+				       u64 BufAddr, u32 BufSize,
+				       u32 *RecordLenPtr);
+s32 XAsu_ProvisionEncodeStoreKey(const XAsu_KeyManagerParams *ParamsPtr,
+				 u64 BufAddr, u32 BufSize, u32 *RecordLenPtr);
+s32 XAsu_ProvisionEncodeXorKeys(u64 BufAddr, u32 BufSize,
+				const XAsu_KmXorKeyParams *ParamsPtr,
+				u32 *RecordLenPtr);
+s32 XAsu_WrapProvisionInstructions(XAsu_ClientParams *ClientParamPtr,
+				   XAsu_WrapProvisionInstructionsParams *ParamsPtr);
+s32 XAsu_UnwrapProvisionInstructions(XAsu_ClientParams *ClientParamPtr,
+				     XAsu_UnwrapProvisionInstructionsParams *ParamsPtr);
 
 /************************************ Variable Definitions ***************************************/
 #ifdef __cplusplus

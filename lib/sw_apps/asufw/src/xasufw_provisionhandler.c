@@ -40,6 +40,7 @@
 #include "xsha.h"
 #include "xsha_hw.h"
 #include "xoverlay.h"
+#include "xasu_keymanagerinfo.h"
 
 #ifdef XASU_PROVISION_ENABLE
 /************************************ Constant Definitions ***************************************/
@@ -54,6 +55,10 @@ static s32 XAsufw_ProvisionUserEfuse(const XAsu_ReqBuf *ReqBuf, u32 ReqId);
 static s32 XAsufw_ProvisionUde(const XAsu_ReqBuf *ReqBuf, u32 ReqId);
 static s32 XAsufw_ProvisionGetDevProvisionCert(const XAsu_ReqBuf *ReqBuf, u32 ReqId);
 static s32 XAsufw_ProvisionDeleteDevProvisionCert(const XAsu_ReqBuf *ReqBuf, u32 ReqId);
+#ifdef XASU_ECIES_ENABLE
+static s32 XAsufw_ProvisionWrapInstructions(const XAsu_ReqBuf *ReqBuf, u32 ReqId);
+static s32 XAsufw_ProvisionUnwrapInstructions(const XAsu_ReqBuf *ReqBuf, u32 ReqId);
+#endif
 
 /************************************ Variable Definitions ***************************************/
 static XAsufw_Module XAsufw_ProvisionModule; /**< ASUFW Provisioning Module ID and commands array */
@@ -81,6 +86,12 @@ s32 XAsufw_ProvisionInit(void)
 			XASUFW_MODULE_COMMAND(XAsufw_ProvisionGetDevProvisionCert),
 		[XASU_PROVISION_DELETE_DPC_CMD_ID] =
 			XASUFW_MODULE_COMMAND(XAsufw_ProvisionDeleteDevProvisionCert),
+#ifdef XASU_ECIES_ENABLE
+		[XASU_PROVISION_WRAP_INSTR_CMD_ID] =
+			XASUFW_MODULE_COMMAND(XAsufw_ProvisionWrapInstructions),
+		[XASU_PROVISION_UNWRAP_INSTR_CMD_ID] =
+			XASUFW_MODULE_COMMAND(XAsufw_ProvisionUnwrapInstructions),
+#endif
 	};
 
 	/** The XAsufw_ProvisionResourcesBuf contains the required resources for each command. */
@@ -101,6 +112,20 @@ s32 XAsufw_ProvisionInit(void)
 			XASUFW_KEYMANAGER_RESOURCE_MASK | XASUFW_OVERLAY_RESOURCE_MASK,
 		[XASU_PROVISION_DELETE_DPC_CMD_ID] = XASUFW_PROVISION_RESOURCE_MASK |
 			XASUFW_KEYMANAGER_RESOURCE_MASK,
+#ifdef XASU_ECIES_ENABLE
+		[XASU_PROVISION_WRAP_INSTR_CMD_ID] = XASUFW_PROVISION_RESOURCE_MASK |
+			XASUFW_DMA_RESOURCE_MASK | XASUFW_AES_RESOURCE_MASK |
+			XASUFW_TRNG_RESOURCE_MASK | XASUFW_TRNG_RANDOM_BYTES_MASK |
+			XASUFW_KEYMANAGER_RESOURCE_MASK | XASUFW_SHA2_RESOURCE_MASK |
+			XASUFW_RSA_RESOURCE_MASK | XASUFW_ECIES_RESOURCE_MASK |
+			XASUFW_OVERLAY_RESOURCE_MASK | XASUFW_KDF_RESOURCE_MASK,
+		[XASU_PROVISION_UNWRAP_INSTR_CMD_ID] = XASUFW_PROVISION_RESOURCE_MASK |
+			XASUFW_DMA_RESOURCE_MASK | XASUFW_AES_RESOURCE_MASK |
+			XASUFW_TRNG_RESOURCE_MASK | XASUFW_TRNG_RANDOM_BYTES_MASK |
+			XASUFW_KEYMANAGER_RESOURCE_MASK | XASUFW_SHA2_RESOURCE_MASK |
+			XASUFW_RSA_RESOURCE_MASK | XASUFW_ECIES_RESOURCE_MASK |
+			XASUFW_OVERLAY_RESOURCE_MASK | XASUFW_KDF_RESOURCE_MASK,
+#endif
 	};
 
 	/** XAsufw_ProvisionAccessPermBuf holds the IPI access permissions per command. */
@@ -113,6 +138,12 @@ s32 XAsufw_ProvisionInit(void)
 			XASUFW_ALL_IPI_FULL_ACCESS(XASU_PROVISION_GET_DPC_CMD_ID),
 		[XASU_PROVISION_DELETE_DPC_CMD_ID] =
 			XASUFW_ALL_IPI_FULL_ACCESS(XASU_PROVISION_DELETE_DPC_CMD_ID),
+#ifdef XASU_ECIES_ENABLE
+		[XASU_PROVISION_WRAP_INSTR_CMD_ID] =
+			XASUFW_ALL_IPI_FULL_ACCESS(XASU_PROVISION_WRAP_INSTR_CMD_ID),
+		[XASU_PROVISION_UNWRAP_INSTR_CMD_ID] =
+			XASUFW_ALL_IPI_FULL_ACCESS(XASU_PROVISION_UNWRAP_INSTR_CMD_ID),
+#endif
 	};
 
 	XAsufw_ProvisionModule.Id = XASU_MODULE_PROVISION_ID;
@@ -178,9 +209,9 @@ static s32 XAsufw_ProvisionResourceHandler(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	 * The Delete DPC command only clears the requesting subsystem's provisioning key pairs from
 	 * the KeyManager vault, an in-memory operation that touches no caller buffer, red key
 	 * material or internal randomness. So it needs neither the DMA, AES nor TRNG engines. Every
-	 * other provisioning command transfers caller memory (DMA), encrypts red key material (AES)
-	 * and draws internal randomness (TRNG), so allocate those engines for all commands except
-	 * Delete DPC.
+	 * other provisioning command transfers caller memory (DMA), uses AES and draws internal
+	 * randomness (TRNG), so allocate those engines for all commands except Delete DPC. Unwrap
+	 * uses TRNG to randomize secrets-piece and chunk-block processing order.
 	 */
 	if (CmdId != XASU_PROVISION_DELETE_DPC_CMD_ID) {
 		/** Allocate the DMA resource. */
@@ -194,7 +225,7 @@ static s32 XAsufw_ProvisionResourceHandler(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 		XAsufw_AllocateResource(XASUFW_AES, XASUFW_PROVISION, ReqId);
 		XAsufw_ProvisionModule.AesPtr = XAes_GetInstance(XASU_XAES_0_DEVICE_ID);
 
-		/** Allocate the TRNG resource (used for internal key generation). */
+		/** Allocate the TRNG resource for random generation or processing-order shuffling. */
 		XAsufw_AllocateResource(XASUFW_TRNG, XASUFW_PROVISION, ReqId);
 	}
 
@@ -203,14 +234,13 @@ static s32 XAsufw_ProvisionResourceHandler(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 
 	/**
 	 * The UDE command additionally generates an ECC P-384 key pair and a self-signed X.509
-	 * certificate, and the Get DPC command generates ECC P-384 provisioning key pairs and two
-	 * UDE-signed X.509 certificates. All of this curve work runs on the RSA core, so both
+	 * certificate, while the Get DPC command generates ECC P-384 provisioning key pairs and
+	 * two UDE-signed X.509 certificates. All of this curve work runs on the RSA core, so these
 	 * commands allocate only the XASUFW_RSA engine (no dedicated ECC engine). Both commands
-	 * hash on the SHA3 engine and publish that SHA3 instance to the driver: the UDE command
-	 * uses it to hash the self-signed certificate and the Get DPC command uses it to hash the
-	 * generated certificates and the assembled DPC container.
+	 * hash on the SHA3 engine.
 	 */
-	if ((CmdId == XASU_PROVISION_UDE_CMD_ID) || (CmdId == XASU_PROVISION_GET_DPC_CMD_ID)) {
+	if ((CmdId == XASU_PROVISION_UDE_CMD_ID) ||
+	    (CmdId == XASU_PROVISION_GET_DPC_CMD_ID)) {
 		XAsufw_AllocateResource(XASUFW_OVERLAY, XASUFW_PROVISION, ReqId);
 		XAsufw_AllocateResource(XASUFW_SHA3, XASUFW_PROVISION, ReqId);
 		XAsufw_ProvisionModule.ShaPtr = XSha_GetInstance(XASU_XSHA_1_DEVICE_ID);
@@ -227,6 +257,23 @@ static s32 XAsufw_ProvisionResourceHandler(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 			goto RELEASE_RESOURCE;
 		}
 	}
+
+#ifdef XASU_ECIES_ENABLE
+	/**
+	 * Wrapped provisioning owns ECIES and its SHA2 and RSA child resources, plus KDF for both
+	 * ECIES key derivation and the secrets schedule. The provisioning operation activates each
+	 * overlay at the point where it is first needed and switches it as the operation advances.
+	 */
+	if ((CmdId == XASU_PROVISION_WRAP_INSTR_CMD_ID) ||
+	    (CmdId == XASU_PROVISION_UNWRAP_INSTR_CMD_ID)) {
+		XAsufw_AllocateResource(XASUFW_SHA2, XASUFW_PROVISION, ReqId);
+		XAsufw_ProvisionModule.ShaPtr = XSha_GetInstance(XASU_XSHA_0_DEVICE_ID);
+		XAsufw_AllocateResource(XASUFW_KDF, XASUFW_PROVISION, ReqId);
+		XAsufw_AllocateResource(XASUFW_ECIES, XASUFW_PROVISION, ReqId);
+		XAsufw_AllocateResource(XASUFW_RSA, XASUFW_PROVISION, ReqId);
+		XAsufw_AllocateResource(XASUFW_OVERLAY, XASUFW_PROVISION, ReqId);
+	}
+#endif /* XASU_ECIES_ENABLE */
 
 	Status = XASUFW_SUCCESS;
 	goto END;
@@ -482,6 +529,112 @@ END:
 
 	return Status;
 }
+
+#ifdef XASU_ECIES_ENABLE
+/*************************************************************************************************/
+/**
+ * @brief	Build an authenticated encrypted provisioning image atomically inside the ASU.
+ *
+ * @param	ReqBuf	Pointer to the request buffer.
+ * @param	ReqId	Request unique ID.
+ *
+ * @return
+ *	- XASUFW_SUCCESS, if the AEPI image is built successfully.
+ *	- XASUFW_INVALID_PARAM, if the command length is invalid.
+ *	- XASUFW_INVALID_SUBSYSTEM_ID, if the requesting subsystem is invalid.
+ *	- Error code from XProvision_WrapInstructions, if image construction fails.
+ *	- XASUFW_RESOURCE_RELEASE_NOT_ALLOWED, if resource release is not allowed.
+ *
+ *************************************************************************************************/
+static s32 XAsufw_ProvisionWrapInstructions(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
+{
+	s32 Status = XASUFW_FAILURE;
+	const XAsu_WrapProvisionInstructionsParams *Cmd =
+		(const XAsu_WrapProvisionInstructionsParams *)ReqBuf->Arg;
+	u32 SubsystemId = 0U;
+	u32 IpiMask = ReqId >> XASUFW_IPI_BITMASK_SHIFT;
+
+	/** Verify the complete command before using caller-owned addresses. */
+	XASUFW_VERIFY_CMD_LEN(END, Status, ReqBuf, XAsu_WrapProvisionInstructionsParams);
+
+	/** Resolve the requesting subsystem and validate both caller buffers. */
+	SubsystemId = XAsu_GetSubsysIdFromIpiMask(IpiMask);
+	if (SubsystemId == XASUFW_INVALID_SUBSYS_ID) {
+		Status = XASUFW_INVALID_SUBSYSTEM_ID;
+		goto END;
+	}
+
+	XASUFW_VALIDATE_MEM_ACCESS(END, Status, SubsystemId, Cmd->RecordBlobAddr,
+				   Cmd->RecordBlobLen);
+	XASUFW_VALIDATE_MEM_ACCESS(END, Status, SubsystemId, Cmd->ImageAddr,
+				   Cmd->ImageBufSize);
+
+	/** Build the image with keys resolved internally for this subsystem. */
+	Status = XProvision_WrapInstructions(XAsufw_ProvisionModule.AsuDmaPtr,
+			XAsufw_ProvisionModule.ShaPtr, XAsufw_ProvisionModule.AesPtr,
+			SubsystemId, Cmd);
+
+END:
+	/** Release every resource allocated to the atomic operation. */
+	if (XAsufw_ReleaseResource(XASUFW_PROVISION, ReqId) != XASUFW_SUCCESS) {
+		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_RESOURCE_RELEASE_NOT_ALLOWED);
+	}
+	XAsufw_ProvisionModule.AsuDmaPtr = NULL;
+	XAsufw_ProvisionModule.ShaPtr = NULL;
+	XAsufw_ProvisionModule.AesPtr = NULL;
+
+	return Status;
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	Process an authenticated encrypted provisioning image entirely inside the ASU.
+ *
+ * @param	ReqBuf	Pointer to the request buffer.
+ * @param	ReqId	Request unique ID.
+ *
+ * @return
+ *	- XASUFW_SUCCESS, if the AEPI image is processed successfully.
+ *	- XASUFW_INVALID_PARAM, if the command length is invalid.
+ *	- XASUFW_INVALID_SUBSYSTEM_ID, if the requesting subsystem is invalid.
+ *	- Error code from XAsufw_ValidateMemRegnAccess, if image-buffer access validation fails.
+ *	- Error code from XProvision_UnwrapInstructions, if image processing fails.
+ *	- XASUFW_RESOURCE_RELEASE_NOT_ALLOWED, if resource release is not allowed.
+ *
+ *************************************************************************************************/
+static s32 XAsufw_ProvisionUnwrapInstructions(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
+{
+	s32 Status = XASUFW_FAILURE;
+	const XAsu_UnwrapProvisionInstructionsParams *Cmd =
+		(const XAsu_UnwrapProvisionInstructionsParams *)ReqBuf->Arg;
+	u32 SubsystemId = 0U;
+	u32 IpiMask = ReqId >> XASUFW_IPI_BITMASK_SHIFT;
+
+	XASUFW_VERIFY_CMD_LEN(END, Status, ReqBuf, XAsu_UnwrapProvisionInstructionsParams);
+
+	SubsystemId = XAsu_GetSubsysIdFromIpiMask(IpiMask);
+	if (SubsystemId == XASUFW_INVALID_SUBSYS_ID) {
+		Status = XASUFW_INVALID_SUBSYSTEM_ID;
+		goto END;
+	}
+
+	XASUFW_VALIDATE_MEM_ACCESS(END, Status, SubsystemId, Cmd->ImageAddr, Cmd->TotalLen);
+
+	Status = XProvision_UnwrapInstructions(XAsufw_ProvisionModule.AsuDmaPtr,
+			XAsufw_ProvisionModule.ShaPtr, XAsufw_ProvisionModule.AesPtr, SubsystemId,
+			IpiMask, Cmd);
+
+END:
+	if (XAsufw_ReleaseResource(XASUFW_PROVISION, ReqId) != XASUFW_SUCCESS) {
+		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_RESOURCE_RELEASE_NOT_ALLOWED);
+	}
+	XAsufw_ProvisionModule.AsuDmaPtr = NULL;
+	XAsufw_ProvisionModule.ShaPtr = NULL;
+	XAsufw_ProvisionModule.AesPtr = NULL;
+
+	return Status;
+}
+#endif /* XASU_ECIES_ENABLE */
 
 #endif /* XASU_PROVISION_ENABLE */
 /** @} */

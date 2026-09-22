@@ -41,6 +41,7 @@
 #include "xasufw_perf.h"
 #include "xasu_ecies_common.h"
 #include "xasu_def.h"
+#include "xkdf.h"
 
 #ifdef XASU_ECIES_ENABLE
 /************************************** Type Definitions *****************************************/
@@ -48,14 +49,71 @@
 /************************************ Variable Definitions ***************************************/
 
 /************************************ Function Prototypes ****************************************/
+static s32 XEcies_ValidateParameters(const XAsu_EciesParams *EciesParams,
+				     u32 IsCmacKdf);
 static s32 XEcies_HkdfGenerate(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr,
 		const XAsu_EciesParams *EciesParams, const u8* SharedSecretPtr, const u8* KOutPtr);
+static s32 XEcies_CmacKdfGenerate(XAsufw_Dma *DmaPtr, XAes *AesInstancePtr,
+		const XAsu_EciesParams *EciesParams, const u8 *SharedSecretPtr, u8 *KOutPtr);
 static s32 XEcies_AesCompute(XAes *AesInstancePtr, XAsufw_Dma *DmaPtr,
 		const XAsu_EciesParams *EciesParams, const u8 *Key, u8 OperationType);
 
 /************************************** Macros Definitions ***************************************/
+#define XECIES_CMAC_CONTEXT_OFFSET	(XASU_AES_KEY_SIZE_256BIT_IN_BYTES)
+						/**< Offset of the CMAC context in the P-384
+							shared secret. */
+#define XECIES_CMAC_CONTEXT_LEN		(XASU_ECC_P384_PVT_KEY_SIZE_IN_BYTES - \
+					 XECIES_CMAC_CONTEXT_OFFSET)
+						/**< Length of the CMAC context in bytes. */
 
 /************************************** Function Definitions *************************************/
+
+/*************************************************************************************************/
+/**
+ * @brief	This function validates ECIES parameters for the selected KDF profile.
+ *
+ * @param	EciesParams	Pointer to the XAsu_EciesParams structure.
+ * @param	IsCmacKdf	Flag indicating whether the AEPI CMAC-KDF profile is selected.
+ *
+ * @return
+ * 	- XASUFW_SUCCESS, if ECIES parameters are valid for the selected KDF.
+ * 	- XASUFW_FAILURE, if ECIES parameters or the KDF flag are invalid.
+ *
+ *************************************************************************************************/
+static s32 XEcies_ValidateParameters(const XAsu_EciesParams *EciesParams,
+				     u32 IsCmacKdf)
+{
+	s32 Status = XASUFW_FAILURE;
+
+	if (IsCmacKdf == XASU_FALSE) {
+		if (XAsu_ValidateEciesParameters(EciesParams) == XST_SUCCESS) {
+			Status = XASUFW_SUCCESS;
+		}
+	} else if (IsCmacKdf == XASU_TRUE) {
+		/**
+		 * SHA, salt, and caller context fields are not used by this profile. The CMAC
+		 * context is taken directly from bytes 32 through 47 of the P-384 ECDH result.
+		 */
+		if ((EciesParams == NULL) ||
+		    ((EciesParams->AesKeySize != XASU_AES_KEY_SIZE_128_BITS) &&
+		     (EciesParams->AesKeySize != XASU_AES_KEY_SIZE_256_BITS)) ||
+		    (EciesParams->IvLength != XASU_AES_IV_SIZE_96BIT_IN_BYTES) ||
+		    (EciesParams->MacLength != XASU_AES_MAX_TAG_LENGTH_IN_BYTES) ||
+		    (EciesParams->DataLength == 0U) ||
+		    (EciesParams->DataLength > XASU_ASU_DMA_MAX_TRANSFER_LENGTH) ||
+		    (EciesParams->EccCurveType != XASU_ECC_NIST_P384) ||
+		    (EciesParams->EccKeyLength != XASU_ECC_P384_PVT_KEY_SIZE_IN_BYTES) ||
+		    (EciesParams->InDataAddr == 0U) || (EciesParams->IvAddr == 0U) ||
+		    (EciesParams->MacAddr == 0U) || (EciesParams->OutDataAddr == 0U) ||
+		    (EciesParams->TxKeyAddr == 0U) || (EciesParams->RxKeyAddr == 0U)) {
+			Status = XASUFW_FAILURE;
+		} else {
+			Status = XASUFW_SUCCESS;
+		}
+	}
+
+	return Status;
+}
 
 /*************************************************************************************************/
 /**
@@ -66,6 +124,7 @@ static s32 XEcies_AesCompute(XAes *AesInstancePtr, XAsufw_Dma *DmaPtr,
  * @param	ShaInstancePtr	Pointer to the XSha instance.
  * @param	AesInstancePtr	Pointer to the XAes instance.
  * @param	EciesParams	Pointer to the XAsu_EciesParams structure.
+ * @param	IsCmacKdf	Flag indicating whether the AEPI CMAC-KDF profile is selected.
  *
  * @return
  * 	- XASUFW_SUCCESS, if ECIES encryption is successful.
@@ -75,12 +134,13 @@ static s32 XEcies_AesCompute(XAes *AesInstancePtr, XAsufw_Dma *DmaPtr,
  * 	- XASUFW_ECIES_PUB_KEY_GEN_FAILURE, if public key generation fails.
  * 	- XASUFW_ECIES_ECDH_FAILURE, if ECDH operation fails.
  * 	- XASUFW_ECIES_HKDF_FAILURE, if HKDF operation fails.
+ * 	- XASUFW_ECIES_CMAC_KDF_FAILURE, if CMAC-KDF operation fails.
  * 	- XASUFW_ECIES_AES_FAILURE, if AES operation fails.
  * 	- Error code from XAsufw_UpdateBufStatus, if local buffer zeroization fails.
  *
  *************************************************************************************************/
 s32 XEcies_Encrypt(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr, XAes *AesInstancePtr,
-		   const XAsu_EciesParams *EciesParams)
+		   const XAsu_EciesParams *EciesParams, u32 IsCmacKdf)
 {
 	/**
 	 * Capture the start time of the ECIES encryption operation, if performance
@@ -96,14 +156,15 @@ s32 XEcies_Encrypt(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr, XAes *AesInstancePt
 	u8 PrivKey[XASU_ECC_P521_PVT_KEY_SIZE_IN_BYTES] = {0U};
 
 	/** Validate the input parameters. */
-	if ((DmaPtr == NULL) || (ShaInstancePtr == NULL) || (AesInstancePtr == NULL)) {
+	if ((DmaPtr == NULL) || (AesInstancePtr == NULL) ||
+	    ((IsCmacKdf == XASU_FALSE) && (ShaInstancePtr == NULL))) {
 		Status = XASUFW_ECIES_INVALID_PARAM;
 		goto END;
 	}
 
 	/** Validate ECIES parameters. */
-	Status = XAsu_ValidateEciesParameters(EciesParams);
-	if (Status != XST_SUCCESS) {
+	Status = XEcies_ValidateParameters(EciesParams, IsCmacKdf);
+	if (Status != XASUFW_SUCCESS) {
 		Status = XASUFW_ECIES_INVALID_PARAM;
 		goto END;
 	}
@@ -160,9 +221,18 @@ s32 XEcies_Encrypt(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr, XAes *AesInstancePt
 
 	/** Generate the encryption key from the shared secret using KDF.  */
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-	Status = XEcies_HkdfGenerate(DmaPtr, ShaInstancePtr, EciesParams, SharedSecret, KOut);
-	if (Status != XASUFW_SUCCESS) {
-		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_ECIES_HKDF_FAILURE);
+	if (IsCmacKdf == XASU_FALSE) {
+		Status = XEcies_HkdfGenerate(DmaPtr, ShaInstancePtr, EciesParams,
+					     SharedSecret, KOut);
+		if (Status != XASUFW_SUCCESS) {
+			Status = XAsufw_UpdateErrorStatus(Status, XASUFW_ECIES_HKDF_FAILURE);
+		}
+	} else {
+		Status = XEcies_CmacKdfGenerate(DmaPtr, AesInstancePtr, EciesParams,
+					       SharedSecret, KOut);
+		if (Status != XASUFW_SUCCESS) {
+			Status = XAsufw_UpdateErrorStatus(Status, XASUFW_ECIES_CMAC_KDF_FAILURE);
+		}
 	}
 
 	/** Zeroize the shared secret immediately after use. */
@@ -223,6 +293,7 @@ END:
  * @param	ShaInstancePtr	Pointer to the XSha instance.
  * @param	AesInstancePtr	Pointer to the XAes instance.
  * @param	EciesParams	Pointer to the XAsu_EciesParams structure.
+ * @param	IsCmacKdf	Flag indicating whether the AEPI CMAC-KDF profile is selected.
  *
  * @return
  * 	- XASUFW_SUCCESS, if ECIES decryption is successful.
@@ -230,12 +301,13 @@ END:
  * 	- XASUFW_ECIES_PUB_KEY_VALIDATE_FAILURE, if Tx public key validation fails.
  * 	- XASUFW_ECIES_ECDH_FAILURE, if ECDH operation fails.
  * 	- XASUFW_ECIES_HKDF_FAILURE, if HKDF operation fails.
+ * 	- XASUFW_ECIES_CMAC_KDF_FAILURE, if CMAC-KDF operation fails.
  * 	- XASUFW_ECIES_AES_FAILURE, if AES operation fails.
  * 	- Error code from XAsufw_UpdateBufStatus, if local buffer zeroization fails.
  *
  *************************************************************************************************/
 s32 XEcies_Decrypt(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr, XAes *AesInstancePtr,
-		   const XAsu_EciesParams *EciesParams)
+		   const XAsu_EciesParams *EciesParams, u32 IsCmacKdf)
 {
 	/**
 	 * Capture the start time of the ECIES decryption operation, if performance
@@ -250,13 +322,14 @@ s32 XEcies_Decrypt(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr, XAes *AesInstancePt
 	u8 KOut[XASU_AES_KEY_SIZE_256BIT_IN_BYTES] = {0U};
 
 	/** Validate the input parameters. */
-	if ((DmaPtr == NULL) || (ShaInstancePtr == NULL) || (AesInstancePtr == NULL)) {
+	if ((DmaPtr == NULL) || (AesInstancePtr == NULL) ||
+	    ((IsCmacKdf == XASU_FALSE) && (ShaInstancePtr == NULL))) {
 		Status = XASUFW_ECIES_INVALID_PARAM;
 		goto END;
 	}
 
 	/** Validate ECIES parameters. */
-	Status = XAsu_ValidateEciesParameters(EciesParams);
+	Status = XEcies_ValidateParameters(EciesParams, IsCmacKdf);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XASUFW_ECIES_INVALID_PARAM;
 		goto END;
@@ -283,9 +356,18 @@ s32 XEcies_Decrypt(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr, XAes *AesInstancePt
 
 	/** Generate the decryption key from the shared secret using KDF.  */
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-	Status = XEcies_HkdfGenerate(DmaPtr, ShaInstancePtr, EciesParams, SharedSecret, KOut);
-	if (Status != XASUFW_SUCCESS) {
-		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_ECIES_HKDF_FAILURE);
+	if (IsCmacKdf == XASU_FALSE) {
+		Status = XEcies_HkdfGenerate(DmaPtr, ShaInstancePtr, EciesParams,
+					     SharedSecret, KOut);
+		if (Status != XASUFW_SUCCESS) {
+			Status = XAsufw_UpdateErrorStatus(Status, XASUFW_ECIES_HKDF_FAILURE);
+		}
+	} else {
+		Status = XEcies_CmacKdfGenerate(DmaPtr, AesInstancePtr, EciesParams,
+					       SharedSecret, KOut);
+		if (Status != XASUFW_SUCCESS) {
+			Status = XAsufw_UpdateErrorStatus(Status, XASUFW_ECIES_CMAC_KDF_FAILURE);
+		}
 	}
 
 	/** Zeroize the shared secret immediately after use. */
@@ -335,6 +417,67 @@ END:
 	 * not remain SUCCESS and be reused by a later ECDH or other operation.
 	 */
 	ReturnStatus = XASUFW_FAILURE;
+
+	return Status;
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	This function derives the ECIES AES key using the AEPI CMAC-KDF profile.
+ *
+ * @param	DmaPtr			Pointer to the XAsufw_Dma instance.
+ * @param	AesInstancePtr		Pointer to the AES instance.
+ * @param	EciesParams		Pointer to the ECIES parameters.
+ * @param	SharedSecretPtr	Pointer to the 48-byte P-384 shared secret.
+ * @param	KOutPtr			Pointer to the derived key output buffer.
+ *
+ * @return
+ * 	- XASUFW_SUCCESS, if CMAC-KDF generation and key clearing are successful.
+ * 	- XASUFW_ECIES_INVALID_PARAM, if an input parameter is invalid.
+ * 	- Error codes from XKdf_CmacGenerate, if CMAC-KDF generation fails.
+ * 	- Error codes from XAes_KeyClear, if clearing the CMAC input key fails.
+ *
+ *************************************************************************************************/
+static s32 XEcies_CmacKdfGenerate(XAsufw_Dma *DmaPtr, XAes *AesInstancePtr,
+		const XAsu_EciesParams *EciesParams, const u8 *SharedSecretPtr, u8 *KOutPtr)
+{
+	CREATE_VOLATILE(Status, XASUFW_FAILURE);
+	CREATE_VOLATILE(ClearStatus, XASUFW_FAILURE);
+	XAsu_KdfParams KdfParams = {0U};
+
+	if ((DmaPtr == NULL) || (AesInstancePtr == NULL) || (EciesParams == NULL) ||
+	    (SharedSecretPtr == NULL) || (KOutPtr == NULL)) {
+		ASSIGN_VOLATILE(Status, XASUFW_ECIES_INVALID_PARAM);
+		goto END;
+	}
+
+	/** Use the first 32 bytes of Z as the AES-256 CMAC key. */
+	KdfParams.KeyObject.KeyInAddr = (u64)(UINTPTR)SharedSecretPtr;
+	KdfParams.KeyObject.KeyInLen = XASU_AES_KEY_SIZE_256_BITS;
+	KdfParams.KeyOutAddr = (u64)(UINTPTR)KOutPtr;
+	if (EciesParams->AesKeySize == XASU_AES_KEY_SIZE_128_BITS) {
+		KdfParams.KeyOutLen = XASU_AES_KEY_SIZE_128BIT_IN_BYTES;
+	} else {
+		KdfParams.KeyOutLen = XASU_AES_KEY_SIZE_256BIT_IN_BYTES;
+	}
+
+	/** Use the remaining 16 bytes of Z as the complete counter-mode context. */
+	KdfParams.ContextAddr =
+		(u64)(UINTPTR)&SharedSecretPtr[XECIES_CMAC_CONTEXT_OFFSET];
+	KdfParams.ContextLen = XECIES_CMAC_CONTEXT_LEN;
+
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	Status = XKdf_CmacGenerate(DmaPtr, AesInstancePtr, &KdfParams, XASU_AES_USER_KEY_7);
+
+END:
+	/** Clear the shared-secret portion written to USER_KEY_7 on every exit. */
+	if (AesInstancePtr != NULL) {
+		ASSIGN_VOLATILE(ClearStatus, XASUFW_FAILURE);
+		ClearStatus = XAes_KeyClear(AesInstancePtr, XASU_AES_USER_KEY_7);
+		if (ClearStatus != XASUFW_SUCCESS) {
+			Status = XAsufw_UpdateErrorStatus(Status, ClearStatus);
+		}
+	}
 
 	return Status;
 }

@@ -34,6 +34,7 @@ extern "C" {
 
 /*************************************** Include Files *******************************************/
 #include "xil_types.h"
+#include "xasu_keymanagerinfo.h"
 #include "xasu_provisioninfo.h"
 
 /*********************************** Constant Definitions ****************************************/
@@ -46,7 +47,22 @@ extern "C" {
 s32 XAsu_ProvisionValidateUserEfuseParams(const XAsu_ProvisionUserEfuseParams *ParamsPtr);
 s32 XAsu_ProvisionValidateUdeParams(const XAsu_ProvisionUdeParams *ParamsPtr);
 s32 XAsu_ProvisionValidateDpcParams(const XAsu_DevProvisionCertParams *ParamsPtr);
-
+u16 XAsu_ProvisionReadU16Le(const u8 *Ptr);
+u32 XAsu_ProvisionReadU32Le(const u8 *Ptr);
+void XAsu_ProvisionWriteU16Le(u8 *Ptr, u16 Value);
+void XAsu_ProvisionWriteU32Le(u8 *Ptr, u32 Value);
+s32 XAsu_ProvisionValidateUserVaultId(u32 VaultId);
+s32 XAsu_ProvisionValidateUserKeyId(u32 KeyId);
+s32 XAsu_ProvisionGetStoreKeyDataLen(u32 CompositeKeyId, u16 KeyLen, u32 *DataLenPtr);
+s32 XAsu_ProvisionGetImageSize(u32 RecordBlobLen, u32 *ImageSizePtr);
+s32 XAsu_ProvisionValidateWrapParams(const XAsu_WrapProvisionInstructionsParams *ParamsPtr);
+s32 XAsu_ProvisionValidateUnwrapParams(
+	const XAsu_UnwrapProvisionInstructionsParams *ParamsPtr);
+s32 XAsu_ProvisionValidateCreateKeyVaultParams(
+	const XAsu_KeyManagerSubVaultParams *ParamsPtr);
+s32 XAsu_ProvisionValidateStoreKeyMetadata(
+	const XAsu_KeyManagerKeyMetadata *MetadataPtr, u32 *DataLenPtr);
+s32 XAsu_ProvisionValidateXorParams(const XAsu_KmXorKeyParams *ParamsPtr);
 /************************************ Variable Definitions ***************************************/
 
 #ifdef __cplusplus

@@ -2625,7 +2625,7 @@ s32 XAsufw_EciesOperationKat(XAsufw_Dma *AsuDmaPtr)
 	Params.SaltLen = 0U;
 
 	/** Perform ECIES encryption with known inputs. */
-	Status = XEcies_Encrypt(AsuDmaPtr, Sha2Ptr, AesInstancePtr, &Params);
+	Status = XEcies_Encrypt(AsuDmaPtr, Sha2Ptr, AesInstancePtr, &Params, XASU_FALSE);
 	if (Status != XASUFW_SUCCESS) {
 		goto END;
 	}
@@ -2635,7 +2635,7 @@ s32 XAsufw_EciesOperationKat(XAsufw_Dma *AsuDmaPtr)
 	Params.RxKeyAddr = (u64)(UINTPTR)EciesRxPrivKey;
 
 	/** Perform ECIES decryption with known inputs. */
-	Status = XEcies_Decrypt(AsuDmaPtr, Sha2Ptr, AesInstancePtr, &Params);
+	Status = XEcies_Decrypt(AsuDmaPtr, Sha2Ptr, AesInstancePtr, &Params, XASU_FALSE);
 	if (Status != XASUFW_SUCCESS) {
 		goto END;
 	}

@@ -33,6 +33,7 @@
 #include "xprovision.h"
 #include "xasu_provision_common.h"
 #include "xasufw_hw.h"
+#include "xasufw_dma.h"
 #include "xasufw_memory.h"
 #include "xasufw_status.h"
 #include "xasufw_util.h"
@@ -46,14 +47,22 @@
 #include "xsha.h"
 #include "xsha_hw.h"
 #include "xkeymanager.h"
+#include "xkeymanager_aekv.h"
+#include "xkeymanager_chunk.h"
+#include "xkeymanager_crypto.h"
 #include "xasu_sharedmem.h"
 #include "xasu_aesinfo.h"
 #include "xasu_eccinfo.h"
+#include "xasu_kdfinfo.h"
+#include "xasu_keymanagerinfo.h"
 #include "xasu_shainfo.h"
 #include "xasu_def.h"
 #include "xasu_generic.h"
 #include "xocp_ude.h"
+#include "xecies.h"
+#include "xkdf.h"
 #include "xfih.h"
+#include "xoverlay.h"
 #include "xil_sutil.h"
 
 #ifdef XASU_PROVISION_ENABLE
@@ -96,10 +105,213 @@
 							/**< UDE signature size in bytes (R || S over
 							NIST P-384). */
 
+#ifdef XASU_ECIES_ENABLE
+#define XPROVISION_MAX_PI_SIZE		(XASU_PROVISION_IMAGE_MAX_RECORD_BLOB_LEN)
+						/**< Largest PI_SIZE whose expanded AEPI image fits
+							in the u32 image-length fields. */
+
+/*
+ * Wrapped provisioning IMAGE HEADER layout (byte offsets from the image base) and the fixed crypto
+ * profile used by XProvision_UnwrapInstructions. All values must match the sender/host.
+ */
+#define XPROVISION_HDR_TAG_OFFSET		(0U)	/**< 'AEPI' tag offset */
+#define XPROVISION_HDR_TAG_BYTE_0_OFFSET	(XPROVISION_HDR_TAG_OFFSET) /**< Tag byte 0 offset */
+#define XPROVISION_HDR_TAG_BYTE_1_OFFSET	(XPROVISION_HDR_TAG_BYTE_0_OFFSET + 1U)
+							/**< Tag byte 1 offset */
+#define XPROVISION_HDR_TAG_BYTE_2_OFFSET	(XPROVISION_HDR_TAG_BYTE_1_OFFSET + 1U)
+							/**< Tag byte 2 offset */
+#define XPROVISION_HDR_TAG_BYTE_3_OFFSET	(XPROVISION_HDR_TAG_BYTE_2_OFFSET + 1U)
+							/**< Tag byte 3 offset */
+#define XPROVISION_HDR_TAG_LEN			(4U)	/**< Tag length in bytes */
+#define XPROVISION_HDR_VERSION_OFFSET		(XPROVISION_HDR_TAG_OFFSET + \
+						 XPROVISION_HDR_TAG_LEN) /**< Version (u32) offset */
+#define XPROVISION_HDR_ALGTYPE_OFFSET		(8U)	/**< ALG_TYPE (u32) offset */
+#define XPROVISION_HDR_ECIES_PUB_OFFSET		(12U)	/**< ECIES P-384 Tx public key offset */
+#define XPROVISION_HDR_ECIES_TAG_OFFSET		(108U)	/**< ECIES MAC/tag offset */
+#define XPROVISION_HDR_CIPHERTEXT_OFFSET	(124U)	/**< ECIES ciphertext (wrapped seed) */
+#define XPROVISION_HDR_PI_SIZE_OFFSET		(156U)	/**< PI blob size (u32) offset */
+#define XPROVISION_HDR_IV_OFFSET		(160U)	/**< AES-CBC IV offset (16 bytes) */
+#define XPROVISION_HDR_KEKS_OFFSET		(176U)	/**< CHUNK_0_IV_KEKS offset */
+#define XPROVISION_HDR_KEKS_LEN			(528U)	/**< CHUNK_0_IV_KEKS length (16B inner
+							IV + 16 x 32B keys) */
+#define XPROVISION_HDR_CHUNK0_HASH_OFFSET	(704U)	/**< Chunk-0 hash offset */
+#define XPROVISION_HDR_CHUNK0_HASH_LEN		(XASU_SHA_384_HASH_LEN)
+							/**< Chunk-0 hash length (SHA2-384) */
+#define XPROVISION_HDR_SIGNATURE_OFFSET		(752U)	/**< Signature offset */
+
+#define XPROVISION_HDR_VERSION_EXPECTED		(0x00000001U)	/**< Only accepted header version */
+#define XPROVISION_HDR_ALGTYPE_ECIES		(0x0U)	/**< ALG_TYPE value denoting ECIES
+							(the only algorithm accepted now).
+							TODO: add ML-KEM branch later. */
+#define XPROVISION_HDR_SIG_LEN_P384		(96U)	/**< ECC P-384 signature length (R||S) */
+#define XPROVISION_HDR_MIN_TOTAL_LEN		(XPROVISION_HDR_SIGNATURE_OFFSET + \
+						 XPROVISION_HDR_SIG_LEN_P384)
+							/**< Minimum image length through the signature. */
+#define XPROVISION_HDR_SEED_LEN			(32U)	/**< ECIES-recovered seed length */
+#define XPROVISION_HDR_HASH_LEN			(XASU_SHA_384_HASH_LEN)
+						/**< SHA2-384 header digest length */
+
+_Static_assert(XPROVISION_HDR_SIGNATURE_OFFSET <= XASUFW_DMA_BLOCKING_SIZE,
+	       "AEPI header digest requires non-blocking SHA handling");
+_Static_assert((XPROVISION_HDR_CIPHERTEXT_OFFSET + XPROVISION_HDR_SEED_LEN) ==
+	       XPROVISION_HDR_PI_SIZE_OFFSET, "wrapped seed does not fill the ciphertext field");
+#define XPROVISION_HDR_AES_IV_LEN_IN_BYTES	(16U)	/**< AES-CBC IV length in bytes */
+
+/* CMAC-KDF context for the header path. */
+#define XPROVISION_HDR_KDF_CONTEXT	"Authenticated Encrypted Provisioning Instructions"
+#define XPROVISION_HDR_KDF_CONTEXT_LEN		(49U)	/**< CMAC-KDF header context length */
+
+/* Provisioning instruction record layout and instruction command IDs (see command formats CSV). */
+#define XPROVISION_INSTR_HDR_LEN		(8U)	/**< Per-instruction record header length */
+#define XPROVISION_INSTR_MODULE_OFFSET		(0U)	/**< Module ID byte offset in a record */
+#define XPROVISION_INSTR_CMDID_OFFSET		(1U)	/**< Command ID byte offset in a record */
+#define XPROVISION_INSTR_SIZE_OFFSET		(4U)	/**< Payload size (u16 LE) offset */
+#define XPROVISION_INSTR_STORE_META_LEN		(16U)	/**< STORE_KEY metadata size */
+#define XPROVISION_INSTR_STORE_DATA_OFFSET	(24U)	/**< STORE_KEY key-data offset */
+#define XPROVISION_INSTR_STORE_META_OFFSET	(8U)	/**< STORE_KEY metadata offset */
+#define XPROVISION_INSTR_XOR_PAYLOAD_LEN	(24U)	/**< XOR payload size */
+
+/*
+ * XOR field offsets, counted from the start of the record (its 8-byte header). The three key IDs
+ * are 4-byte composite key IDs here, unlike the 2-byte slot STORE_KEY carries.
+ */
+#define XPROVISION_XOR_KEYID1_OFFSET		(8U)	/**< Input key split 1 ID (u32 LE) */
+#define XPROVISION_XOR_KEYID2_OFFSET		(12U)	/**< Input key split 2 ID (u32 LE) */
+#define XPROVISION_XOR_OUT_KEYID_OFFSET		(16U)	/**< Combined key ID (u32 LE) */
+#define XPROVISION_XOR_USECASE_OFFSET		(20U)	/**< Combined key use case (u8) */
+#define XPROVISION_XOR_ATTRIBUTES_OFFSET	(21U)	/**< Combined key attributes (u8) */
+#define XPROVISION_XOR_LENGTH_OFFSET		(22U)	/**< Combined key length (u16 LE) */
+#define XPROVISION_XOR_EPOCHTIME_OFFSET		(24U)	/**< Combined key epoch time (u32 LE) */
+#define XPROVISION_XOR_USAGECOUNT_OFFSET	(28U)	/**< Combined key usage count (u32 LE) */
+
+/**
+ * Record window: the largest single provisioning instruction record, which is STORE_KEY of an
+ * ML-DSA-87 private key. Records are assembled one at a time, so this bounds the plaintext that
+ * is resident at any instant and is also the hard bound a declared record length is checked
+ * against.
+ */
+#define XPROVISION_RECBUF_LEN			(XASU_PROVISION_MAX_RECORD_SIZE)
+
+_Static_assert(XPROVISION_RECBUF_LEN == XASU_PROVISION_MAX_RECORD_SIZE,
+	       "client and server provisioning record windows disagree");
+_Static_assert((XPROVISION_INSTR_HDR_LEN + XPROVISION_INSTR_STORE_META_LEN +
+		XASU_MLDSA_MAX_PRIV_KEY_LEN) <= XPROVISION_RECBUF_LEN,
+	       "STORE_KEY record exceeds the provisioning record window");
+
+/*
+ * Layout of the two ASU-internal working buffers this path needs inside the key manager's shared
+ * session storage: the chunk import working set followed by the record window. They are borrowed
+ * rather than reserved here because a key vault export or import never runs while a provisioning
+ * image is being processed, so the uses cannot overlap, and the borrow keeps both buffers out of
+ * the resident data region.
+ */
+#define XPROVISION_SCRATCH_LEN			(sizeof(XKeyManager_WorkBuf) + \
+						XPROVISION_RECBUF_LEN) /**< Scratch bytes this
+									path needs */
+
+_Static_assert(XPROVISION_SCRATCH_LEN <= XKEYMANAGER_SHARED_SCRATCH_SIZE,
+	       "provisioning import working set exceeds the shared scratch region");
+_Static_assert(XPROVISION_HDR_MIN_TOTAL_LEN <= XPROVISION_RECBUF_LEN,
+	       "AEPI header exceeds the reusable record window");
+
+/*
+ * The header carries the chunk-0 secrets and digest straight into the import working set, so the
+ * two wire fields must be exactly what the chunk layer expects to find there.
+ */
+_Static_assert(XPROVISION_HDR_KEKS_LEN == XKEYMANAGER_CHUNK_SECRETS_SIZE,
+	       "Header CHUNK_0_IV_KEKS must be one chunk secrets block");
+_Static_assert(XPROVISION_HDR_CHUNK0_HASH_LEN == XKEYMANAGER_HASH_SIZE,
+	       "Header chunk-0 hash must be one chunk digest");
+_Static_assert(XPROVISION_HDR_AES_IV_LEN_IN_BYTES == XKEYMANAGER_AES_IV_SIZE,
+	       "Header IV must be the base IV the secrets piece walk advances");
+_Static_assert(XPROVISION_HDR_MIN_TOTAL_LEN == XASU_PROVISION_IMAGE_HEADER_SIZE,
+	       "server and client AEPI header sizes disagree");
+_Static_assert(XKEYMANAGER_CHUNK_SIZE == XASU_PROVISION_IMAGE_CHUNK_SIZE,
+	       "server and client AEPI chunk sizes disagree");
+_Static_assert((XKEYMANAGER_DATA_BLOCKS_PER_CHUNK * XKEYMANAGER_BLOCK_SIZE) ==
+	       XASU_PROVISION_IMAGE_CHUNK_DATA_SIZE,
+	       "server and client AEPI chunk payload sizes disagree");
+_Static_assert(XPROVISION_MAX_PI_SIZE == XASU_PROVISION_IMAGE_MAX_RECORD_BLOB_LEN,
+	       "server and client AEPI plaintext limits disagree");
+#endif /* XASU_ECIES_ENABLE */
+
 /************************************ Type Definitions *******************************************/
 
+#ifdef XASU_ECIES_ENABLE
+/**
+ * State the chunk secrets unwrap needs. The KDF derives one key per secrets piece, so that key
+ * material travels here with the AES plumbing and base IV; no key persists in a key register.
+ */
+typedef struct {
+	XAsufw_Dma *DmaPtr;			/**< DMA instance used by the CBC operation. */
+	XAes *AesInstancePtr;			/**< AES instance used by the CBC operation. */
+	const u8 *KeyMaterial;			/**< Derived keys, one per secrets piece. */
+	u64 BaseIvAddr;				/**< Header IV, which every piece IV derives from. */
+} XProvision_SecretsCtx;
+
+/** Caller record stream published for the span of one chunk export. */
+typedef struct {
+	XAsufw_Dma *DmaPtr;	/**< DMA instance used to read the caller's record stream. */
+	u64 RecordBlobAddr;	/**< Address of the caller's plaintext record stream. */
+	u32 RecordBlobLen;	/**< Number of bytes the source may expose. */
+} XProvision_SourceCtx;
+
+/** Transient wrap material borrowed from the key manager shared scratch region. */
+typedef struct {
+	XKeyManager_ExportWorkBuf Work;				/**< Chunk export working set. */
+	u8 Chunk0Secrets[XKEYMANAGER_CHUNK_SECRETS_SIZE];	/**< Plain chunk-0 secrets. */
+	u8 KeyMaterial[XKEYMANAGER_SECRETS_KEY_MATERIAL_SIZE];	/**< CMAC-KDF output. */
+	u8 Seed[XPROVISION_HDR_SEED_LEN];			/**< ECIES plaintext seed. */
+	u8 WrapPubKey[XASU_ECC_P384_PUB_KEY_SIZE_IN_BYTES];	/**< ECIES recipient key. */
+	u8 BaseIv[XPROVISION_HDR_AES_IV_LEN_IN_BYTES];		/**< Chunk-secrets base IV. */
+	u8 HeaderHash[XPROVISION_HDR_HASH_LEN];			/**< Header SHA2-384 digest. */
+} XProvision_WrapScratch;
+
+_Static_assert(sizeof(XProvision_WrapScratch) <= XKEYMANAGER_SHARED_SCRATCH_SIZE,
+	       "AEPI wrap working set exceeds the shared scratch region");
+_Static_assert(XPROVISION_HDR_MIN_TOTAL_LEN <=
+	       sizeof(((XProvision_WrapScratch *)0)->Work.ChunkBuf),
+	       "AEPI header exceeds the reusable chunk buffer");
+
+/**
+ * State the streaming record executor carries between sink calls. One record is buffered at a
+ * time; a record executes the moment its last byte arrives.
+ */
+typedef struct {
+	XAsufw_Dma *DmaPtr;		/**< DMA instance handed to the record executors. */
+	XAes *AesInstancePtr;		/**< AES instance handed to the record executors. */
+	u8 *RecBuf;			/**< Record window, XPROVISION_RECBUF_LEN bytes. */
+	u32 SubSystemId;		/**< Subsystem that owns created vaults and keys. */
+	u32 IpiMask;			/**< IPI mask of the requesting channel. */
+	u32 Consumed;			/**< Plaintext bytes accepted so far. */
+	u32 RecFill;			/**< Bytes currently held in RecBuf. */
+	u32 RecLen;			/**< Full record length once the header is parsed, else 0. */
+	u32 Executed;			/**< Records executed, for the terminal check. */
+} XProvision_SinkCtx;
+#endif /* XASU_ECIES_ENABLE */
 /********************************** Variable Definitions *****************************************/
 
+#ifdef XASU_ECIES_ENABLE
+/*
+ * Fixed 12-byte (96-bit) ECIES IV for the provisioning header path. No ECIES IV is transmitted in
+ * the header; a fixed IV is cryptographically safe because the ECIES key is unique per ephemeral
+ * ECDH exchange. Must match the sender/host constant.
+ */
+static const u8 ProvHdrEciesIv[XASU_AES_IV_SIZE_96BIT_IN_BYTES] = {
+	0xA7U, 0x3FU, 0xE1U, 0x90U, 0x5CU, 0x2BU, 0xD4U, 0x68U, 0xF1U, 0x0AU, 0x9CU, 0x57U
+};
+/* Context string for the seed-to-piece-key CMAC-KDF. */
+static const u8 ProvHdrKdfContext[] = XPROVISION_HDR_KDF_CONTEXT;
+
+/*
+ * The chunk layer hands a decrypted block to the sink without a context argument, so the record
+ * assembler's state is published here for the span of one import. XProvision_UnwrapImage sets it
+ * before the walk and clears it on every exit, so a sink call outside a walk finds no state and
+ * refuses rather than writing through a stale pointer.
+ */
+static XProvision_SinkCtx *ProvActiveSinkCtx = NULL;
+static XProvision_SourceCtx *ProvActiveSourceCtx = NULL;
+#endif /* XASU_ECIES_ENABLE */
 /************************************ Function Prototypes ****************************************/
 static s32 XProvision_AcquireKey(XAsufw_Dma *DmaPtr,
 				 const XAsu_ProvisionUserEfuseParams *ParamsPtr,
@@ -113,6 +325,19 @@ static s32 XProvision_WriteUdeKeyToEfuse(u32 UdeSlot, const u32 *KeyData);
 static s32 XProvision_GetKeySlot(u32 SubSystemId, u16 *SlotPtr, u8 KeyUseCase);
 static s32 XProvision_GetKeyId(u16 KeySlot, u32 *KeyIdPtr, u8 KeyUseCase);
 static s32 XProvision_GetPubKey(u32 SubSystemId, u8 KeyUseCase, u8 *PubKeyBuf);
+#ifdef XASU_ECIES_ENABLE
+static s32 XProvision_ExecRecord(const XProvision_SinkCtx *Ctx);
+static s32 XProvision_ExecCreateKeyVault(const u8 *RecPtr, u32 Size, u32 SubSystemId, u32 IpiMask);
+static s32 XProvision_ExecStoreKey(XAsufw_Dma *DmaPtr, XAes *AesInstancePtr, const u8 *RecPtr,
+		u32 Size, u32 SubSystemId);
+static s32 XProvision_ExecXorKeys(XAsufw_Dma *DmaPtr, const u8 *RecPtr, u32 Size, u32 SubSystemId);
+static s32 XProvision_ChunkSecretsWrap(void *ArgPtr, u32 ChunkIndex, const u8 *InPtr, u8 *OutPtr);
+static s32 XProvision_ChunkSecretsUnwrap(void *ArgPtr, u32 ChunkIndex, const u8 *InPtr, u8 *OutPtr);
+static s32 XProvision_BlobBlockSource(u32 Offset, u8 *BlockPtr, u32 Len);
+static s32 XProvision_BlobBlockSink(u32 Offset, const u8 *BlockPtr, u32 Len);
+static s32 XProvision_GetScratch(XKeyManager_WorkBuf **WorkPtr, u8 **RecBufPtr);
+static s32 XProvision_GetWrapScratch(XProvision_WrapScratch **ScratchPtr);
+#endif /* XASU_ECIES_ENABLE */
 
 /*************************************************************************************************/
 /**
@@ -1573,6 +1798,1420 @@ s32 XProvision_DeleteDevProvisionCert(u32 SubsystemId)
 END:
 	return Status;
 }
+
+#ifdef XASU_ECIES_ENABLE
+/*************************************************************************************************/
+/**
+ * @brief	This function decodes one CREATE_KEY_VAULT provisioning instruction record and
+ *		creates the requested key vault. Wire capacities are mapped to the sub-vault params
+ *		by name. Record byte 8 must explicitly select a user vault from 2 through 63.
+ *		The ML-DSA and ML-KEM capacities are mapped like every other sub-vault; a non-zero
+ *		SLH-DSA capacity is rejected because no SLH-DSA sub-vault exists to honour it.
+ *
+ * @param	RecPtr		Pointer to the start of the instruction record (its 8-byte header).
+ * @param	Size		Payload size of the record (bytes after the 8-byte header).
+ * @param	SubSystemId	Subsystem that owns the created vault.
+ * @param	IpiMask		IPI mask of the requesting channel.
+ *
+ * @return
+ *	- XASUFW_SUCCESS, if the vault is created.
+ *	- XASUFW_PROVISION_INSTR_PROCESS_FAIL, if the payload size is not exact, an SLH-DSA
+ *	  capacity is requested, the requested vault ID is out of range or already in use, or
+ *	  vault creation fails.
+ *
+ *************************************************************************************************/
+static s32 XProvision_ExecCreateKeyVault(const u8 *RecPtr, u32 Size, u32 SubSystemId, u32 IpiMask)
+{
+	CREATE_VOLATILE(Status, XASUFW_FAILURE);
+	XAsu_KeyManagerSubVaultParams SubVaultParams = {0U};
+	u16 Caps[XASU_PROVISION_CREATE_CAP_COUNT];
+	u32 VaultId = 0U;
+	u32 Index;
+
+	/** Require the complete CREATE_KEY_VAULT payload. */
+	if (Size != XASU_PROVISION_CREATE_VAULT_PAYLOAD_SIZE) {
+		Status = XASUFW_PROVISION_INSTR_PROCESS_FAIL;
+		goto END;
+	}
+
+	/** Read the 15 contiguous capacities in wire order. */
+	for (Index = 0U; Index < XASU_PROVISION_CREATE_CAP_COUNT; Index++) {
+		Caps[Index] = XAsu_ProvisionReadU16Le(
+				&RecPtr[XASU_PROVISION_CREATE_CAP_OFFSET(Index)]);
+	}
+
+	/*
+	 * SLH-DSA has no sub-vault and no member in XAsu_KeyManagerSubVaultParams, so a non-zero
+	 * capacity cannot be honoured. Rejecting is what stops a host believing it provisioned
+	 * capacity it did not get.
+	 */
+	/* TODO: Support SLH-DSA sub-vaults once they exist. */
+	if ((Caps[XASU_PROVISION_CREATE_CAP_IDX_SLHDSA_PVT] != 0U) ||
+			(Caps[XASU_PROVISION_CREATE_CAP_IDX_SLHDSA_PUB] != 0U)) {
+		Status = XASUFW_PROVISION_INSTR_PROCESS_FAIL;
+		goto END;
+	}
+
+	/**
+	 * Take the explicit user Key Vault ID and map the capacities by name. Wire order and struct
+	 * order differ, so every capacity is mapped individually rather than copied as a block.
+	 */
+	SubVaultParams.VaultId = RecPtr[XASU_PROVISION_CREATE_VAULT_ID_OFFSET];
+	SubVaultParams.AESKeyVaultCapacity = Caps[XASU_PROVISION_CREATE_CAP_IDX_AES];
+	SubVaultParams.IVVaultCapacity = Caps[XASU_PROVISION_CREATE_CAP_IDX_IV];
+	SubVaultParams.KDFHmacKeyVaultCapacity = Caps[XASU_PROVISION_CREATE_CAP_IDX_KDF_HMAC];
+	SubVaultParams.RSAPvtKeyVaultCapacity = Caps[XASU_PROVISION_CREATE_CAP_IDX_RSA_PVT];
+	SubVaultParams.RSAPubKeyVaultCapacity = Caps[XASU_PROVISION_CREATE_CAP_IDX_RSA_PUB];
+	SubVaultParams.ECCPvtKeyVaultCapacity = Caps[XASU_PROVISION_CREATE_CAP_IDX_ECC_PVT];
+	SubVaultParams.ECCPubKeyVaultCapacity = Caps[XASU_PROVISION_CREATE_CAP_IDX_ECC_PUB];
+	SubVaultParams.LMSKeyVaultCapacity = Caps[XASU_PROVISION_CREATE_CAP_IDX_LMS];
+	SubVaultParams.MldsaPvtKeyVaultCapacity = Caps[XASU_PROVISION_CREATE_CAP_IDX_MLDSA_PVT];
+	SubVaultParams.MldsaPubKeyVaultCapacity = Caps[XASU_PROVISION_CREATE_CAP_IDX_MLDSA_PUB];
+	SubVaultParams.MlkemPvtKeyVaultCapacity = Caps[XASU_PROVISION_CREATE_CAP_IDX_MLKEM_PVT];
+	SubVaultParams.MlkemPubKeyVaultCapacity = Caps[XASU_PROVISION_CREATE_CAP_IDX_MLKEM_PUB];
+	SubVaultParams.X509KeyVaultCapacity = Caps[XASU_PROVISION_CREATE_CAP_IDX_X509];
+	SubVaultParams.AccessRights =
+		XAsu_ProvisionReadU16Le(&RecPtr[XASU_PROVISION_CREATE_ACCESS_OFFSET]);
+	SubVaultParams.Restrictions = RecPtr[XASU_PROVISION_CREATE_RESTRICTIONS_OFFSET];
+
+	Status = XAsu_ProvisionValidateCreateKeyVaultParams(&SubVaultParams);
+	if (Status != XST_SUCCESS) {
+		Status = XASUFW_PROVISION_INSTR_PROCESS_FAIL;
+		goto END;
+	}
+
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	Status = XKeyManager_CreateKeyVault(&SubVaultParams, SubSystemId, IpiMask, &VaultId,
+			(u8)XASU_FALSE);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_PROVISION_INSTR_PROCESS_FAIL);
+	}
+
+END:
+	return Status;
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	This function decodes one STORE_KEY provisioning instruction record and stores the
+ *		key into a vault. Record bytes 8..23 are laid out exactly like
+ *		XAsu_KeyManagerKeyMetadata and are taken as one copy; the key data follows at
+ *		record offset 24 and is stored verbatim. The requested Key ID must explicitly select
+ *		a 1-based slot in a user-owned vault; auto-assignment and ASU-owned vaults are rejected.
+ *
+ * @param	DmaPtr		Pointer to the XAsufw_Dma instance.
+ * @param	AesInstancePtr	Pointer to the XAes instance.
+ * @param	RecPtr		Pointer to the start of the instruction record (its 8-byte header).
+ * @param	Size		Payload size of the record (bytes after the 8-byte header).
+ * @param	SubSystemId	Subsystem that owns the stored key.
+ *
+ * @return
+ *	- XASUFW_SUCCESS, if the key is stored.
+ *	- XASUFW_PROVISION_INSTR_PROCESS_FAIL, if the payload does not exactly contain the metadata
+ *	  and declared key, the requested key slot is unusable, or the store fails.
+ *
+ *************************************************************************************************/
+static s32 XProvision_ExecStoreKey(XAsufw_Dma *DmaPtr, XAes *AesInstancePtr, const u8 *RecPtr,
+		u32 Size, u32 SubSystemId)
+{
+	CREATE_VOLATILE(Status, XASUFW_FAILURE);
+	XAsu_KeyManagerParams KmParams = {0U};
+	u32 DataLen = 0U;
+	u32 KeyId = 0U;
+
+	/** The payload must hold at least the 16-byte metadata (plus the L-byte key data). */
+	if (Size < XPROVISION_INSTR_STORE_META_LEN) {
+		Status = XASUFW_PROVISION_INSTR_PROCESS_FAIL;
+		goto END;
+	}
+
+	/**
+	 * Record bytes 8..23 are laid out exactly like XAsu_KeyManagerKeyMetadata (16 bytes, no
+	 * padding, little-endian scalars on this target), so the metadata is taken as one copy.
+	 * Any change to the wire layout or to the struct members must keep the two in step.
+	 * KeyId is the requested 1-based slot within a user-owned sub-vault and is honoured by the
+	 * store.
+	 */
+	Status = Xil_SMemCpy((void *)&KmParams.KeyMetadata, XPROVISION_INSTR_STORE_META_LEN,
+			(const void *)&RecPtr[XPROVISION_INSTR_STORE_META_OFFSET],
+			XPROVISION_INSTR_STORE_META_LEN, XPROVISION_INSTR_STORE_META_LEN);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_PROVISION_INSTR_PROCESS_FAIL;
+		goto END;
+	}
+
+	/**
+	 * Validate the wire metadata and resolve the serialized object size. RSA key objects and
+	 * ECC public keys carry more bytes than the key length retained in their metadata.
+	 */
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	Status = XAsu_ProvisionValidateStoreKeyMetadata(&KmParams.KeyMetadata, &DataLen);
+	if (Status != XST_SUCCESS) {
+		Status = XASUFW_PROVISION_INSTR_PROCESS_FAIL;
+		goto END;
+	}
+
+	/** The payload must end exactly after the complete serialized key object. */
+	if (DataLen != (Size - XPROVISION_INSTR_STORE_META_LEN)) {
+		Status = XASUFW_PROVISION_INSTR_PROCESS_FAIL;
+		goto END;
+	}
+
+	/** The complete key object is copied verbatim from record offset 24 by the store operation. */
+	KmParams.KeyObjectAddr = (u64)(UINTPTR)&RecPtr[XPROVISION_INSTR_STORE_DATA_OFFSET];
+	/**
+	 * KeyIdAddr is the client-side address the assigned Key ID is returned to. The store only
+	 * checks it is non-zero and never dereferences it, so the local Id is used here.
+	 */
+	KmParams.KeyIdAddr = (u64)(UINTPTR)&KeyId;
+	KmParams.WrappedInputLen = 0U;
+
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	Status = XKeyManager_StoreKeyInVault(DmaPtr, AesInstancePtr, &KmParams, &KeyId, SubSystemId);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_PROVISION_INSTR_PROCESS_FAIL);
+	}
+
+END:
+	return Status;
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	This function executes one XOR provisioning instruction record, combining the two
+ *		AES key splits named by the record into a single key held in the destination key
+ *		vault slot. The splits are read in place from the vault and combined inside the ASU,
+ *		so no key material crosses the record window. The output key ID on the wire is a
+ *		full composite key ID, so it explicitly selects the destination user vault, the AES
+ *		sub-vault and a non-zero slot within it.
+ *
+ * @param	DmaPtr		Pointer to the XAsufw_Dma instance.
+ * @param	RecPtr		Pointer to the start of the instruction record (its 8-byte header).
+ * @param	Size		Payload size of the record (bytes after the 8-byte header).
+ * @param	SubSystemId	Subsystem that owns the input key splits and the combined key.
+ *
+ * @return
+ *	- XASUFW_SUCCESS, if the combined key is stored.
+ *	- XASUFW_PROVISION_INSTR_PROCESS_FAIL, if the payload is invalid or the combine fails.
+ *
+ *************************************************************************************************/
+static s32 XProvision_ExecXorKeys(XAsufw_Dma *DmaPtr, const u8 *RecPtr, u32 Size, u32 SubSystemId)
+{
+	CREATE_VOLATILE(Status, XASUFW_FAILURE);
+	XAsu_KmXorKeyParams XorParams = {0U};
+	u32 KeyId = 0U;
+
+	/** The XOR payload is exactly 24 bytes. */
+	if (Size != XPROVISION_INSTR_XOR_PAYLOAD_LEN) {
+		Status = XASUFW_PROVISION_INSTR_PROCESS_FAIL;
+		goto END;
+	}
+
+	XorParams.SplitKeyId1 = XAsu_ProvisionReadU32Le(&RecPtr[XPROVISION_XOR_KEYID1_OFFSET]);
+	XorParams.SplitKeyId2 = XAsu_ProvisionReadU32Le(&RecPtr[XPROVISION_XOR_KEYID2_OFFSET]);
+	XorParams.OutKeyMetadata.CompositeKeyId =
+		XAsu_ProvisionReadU32Le(&RecPtr[XPROVISION_XOR_OUT_KEYID_OFFSET]);
+	XorParams.OutKeyMetadata.KeyUseCase = RecPtr[XPROVISION_XOR_USECASE_OFFSET];
+	XorParams.OutKeyMetadata.KeyAttributes = RecPtr[XPROVISION_XOR_ATTRIBUTES_OFFSET];
+	XorParams.OutKeyMetadata.Length =
+		XAsu_ProvisionReadU16Le(&RecPtr[XPROVISION_XOR_LENGTH_OFFSET]);
+	XorParams.OutKeyMetadata.EpochTime =
+		XAsu_ProvisionReadU32Le(&RecPtr[XPROVISION_XOR_EPOCHTIME_OFFSET]);
+	XorParams.OutKeyMetadata.UsageCount =
+		XAsu_ProvisionReadU32Le(&RecPtr[XPROVISION_XOR_USAGECOUNT_OFFSET]);
+
+	Status = XAsu_ProvisionValidateXorParams(&XorParams);
+	if (Status != XST_SUCCESS) {
+		Status = XASUFW_PROVISION_INSTR_PROCESS_FAIL;
+		goto END;
+	}
+
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	Status = XKeyManager_CombineKeysXor(DmaPtr, SubSystemId, &XorParams, &KeyId);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_PROVISION_INSTR_PROCESS_FAIL);
+	}
+
+END:
+	return Status;
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	This function executes one complete provisioning instruction record held in the
+ *		record window. Implemented commands are dispatched to their executors. Every other
+ *		command ID is rejected. The module ID was checked by the assembler when the record
+ *		header completed.
+ *
+ * @param	Ctx	Pointer to the streaming record executor state, holding the record window
+ *			and everything the executors need.
+ *
+ * @return
+ *	- XASUFW_SUCCESS, if the record is executed or deliberately skipped.
+ *	- XASUFW_PROVISION_INVALID_PARAM, if the state or any instance pointer is invalid.
+ *	- XASUFW_PROVISION_INSTR_PROCESS_FAIL, if the record is malformed or its execution fails.
+ *
+ *************************************************************************************************/
+static s32 XProvision_ExecRecord(const XProvision_SinkCtx *Ctx)
+{
+	CREATE_VOLATILE(Status, XASUFW_FAILURE);
+	const u8 *Rec = NULL;
+	u8 CmdId = 0U;
+	u32 Size = 0U;
+
+	/** Validate input parameters. */
+	if ((Ctx == NULL) || (Ctx->RecBuf == NULL) || (Ctx->DmaPtr == NULL) ||
+			(Ctx->AesInstancePtr == NULL)) {
+		Status = XASUFW_PROVISION_INVALID_PARAM;
+		goto END;
+	}
+
+	Rec = Ctx->RecBuf;
+	CmdId = Rec[XPROVISION_INSTR_CMDID_OFFSET];
+	Size = (u32)XAsu_ProvisionReadU16Le(&Rec[XPROVISION_INSTR_SIZE_OFFSET]);
+
+	switch (CmdId) {
+		case XASU_KM_CREATE_KEYVAULT_CMD_ID:
+			Status = XProvision_ExecCreateKeyVault(Rec, Size, Ctx->SubSystemId,
+					Ctx->IpiMask);
+			break;
+		case XASU_KM_STORE_KEY_CMD_ID:
+			Status = XProvision_ExecStoreKey(Ctx->DmaPtr, Ctx->AesInstancePtr, Rec,
+					Size, Ctx->SubSystemId);
+			break;
+		case XASU_KM_XOR_KEY_CMD_ID:
+			Status = XProvision_ExecXorKeys(Ctx->DmaPtr, Rec, Size, Ctx->SubSystemId);
+			break;
+		default:
+			Status = XASUFW_PROVISION_INSTR_PROCESS_FAIL;
+			break;
+	}
+
+END:
+	return Status;
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	This function returns the shared working region used by the atomic AEPI wrap path.
+ *
+ * @param	ScratchPtr	Pointer that receives the wrap working-set address.
+ *
+ * @return
+ *	- XASUFW_SUCCESS, if the working region is available and large enough.
+ *	- XASUFW_PROVISION_INVALID_PARAM, if ScratchPtr is NULL or shared storage is unavailable.
+ *	- XASUFW_PROVISION_SCRATCH_TOO_SMALL, if the shared storage cannot hold the working set.
+ *
+ *************************************************************************************************/
+static s32 XProvision_GetWrapScratch(XProvision_WrapScratch **ScratchPtr)
+{
+	CREATE_VOLATILE(Status, XASUFW_FAILURE);
+	u32 ScratchLen = 0U;
+	u8 *SharedPtr = NULL;
+
+	if (ScratchPtr == NULL) {
+		Status = XASUFW_PROVISION_INVALID_PARAM;
+		goto END;
+	}
+
+	SharedPtr = XKeyManager_GetSharedScratch(&ScratchLen);
+	if (SharedPtr == NULL) {
+		Status = XASUFW_PROVISION_INVALID_PARAM;
+		goto END;
+	}
+
+	if (ScratchLen < (u32)sizeof(XProvision_WrapScratch)) {
+		Status = XASUFW_PROVISION_SCRATCH_TOO_SMALL;
+		goto END;
+	}
+
+	*ScratchPtr = (XProvision_WrapScratch *)(void *)SharedPtr;
+	Status = XASUFW_SUCCESS;
+
+END:
+	return Status;
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	This function supplies one span of the caller's plaintext instruction stream to the
+ *		chunk export layer.
+ *
+ * @param	Offset	Offset within the instruction stream.
+ * @param	BlockPtr	Destination buffer for the requested bytes.
+ * @param	Len	Number of bytes requested.
+ *
+ * @return
+ *	- XASUFW_SUCCESS, if the requested bytes are copied.
+ *	- XASUFW_PROVISION_INVALID_PARAM, if no source is active, a pointer is NULL or the span is
+ *	  outside the caller's record stream.
+ *	- XASUFW_PROVISION_INSTR_PROCESS_FAIL, if the copy fails.
+ *
+ *************************************************************************************************/
+static s32 XProvision_BlobBlockSource(u32 Offset, u8 *BlockPtr, u32 Len)
+{
+	CREATE_VOLATILE(Status, XASUFW_FAILURE);
+	const XProvision_SourceCtx *Ctx = ProvActiveSourceCtx;
+
+	if ((Ctx == NULL) || (Ctx->DmaPtr == NULL) || (BlockPtr == NULL) || (Len == 0U) ||
+	    (Offset > Ctx->RecordBlobLen) || (Len > (Ctx->RecordBlobLen - Offset))) {
+		Status = XASUFW_PROVISION_INVALID_PARAM;
+		goto END;
+	}
+
+	Status = XAsufw_DmaXfr(Ctx->DmaPtr, Ctx->RecordBlobAddr + (u64)Offset,
+			       (u64)(UINTPTR)BlockPtr, Len, 0U);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_PROVISION_INSTR_PROCESS_FAIL;
+	}
+
+END:
+	return Status;
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	This function wraps one chunk-secrets block with the provisioning key schedule.
+ *
+ * @param	ArgPtr		Pointer to the XProvision_SecretsCtx state.
+ * @param	ChunkIndex	Index of the chunk whose secrets are being wrapped.
+ * @param	InPtr		Pointer to the plaintext secrets.
+ * @param	OutPtr		Pointer that receives the wrapped secrets.
+ *
+ * @return
+ *	- XASUFW_SUCCESS, if the secrets are wrapped.
+ *	- XASUFW_PROVISION_INVALID_PARAM, if the state or a required pointer is invalid.
+ *	- XASUFW_PROVISION_KEKS_ENCRYPT_FAIL, if the piece-wise wrap fails.
+ *
+ *************************************************************************************************/
+static s32 XProvision_ChunkSecretsWrap(void *ArgPtr, u32 ChunkIndex, const u8 *InPtr, u8 *OutPtr)
+{
+	CREATE_VOLATILE(Status, XASUFW_FAILURE);
+	const XProvision_SecretsCtx *Ctx = (const XProvision_SecretsCtx *)ArgPtr;
+	XKeyManager_SecretsParams SecretsParams = {0U};
+
+	if ((Ctx == NULL) || (InPtr == NULL) || (OutPtr == NULL) || (Ctx->DmaPtr == NULL) ||
+	    (Ctx->AesInstancePtr == NULL) || (Ctx->KeyMaterial == NULL) ||
+	    (Ctx->BaseIvAddr == 0U)) {
+		Status = XASUFW_PROVISION_INVALID_PARAM;
+		goto END;
+	}
+
+	SecretsParams.KeyMaterial = Ctx->KeyMaterial;
+	SecretsParams.BaseIv = (const u8 *)(UINTPTR)Ctx->BaseIvAddr;
+	SecretsParams.Input = InPtr;
+	SecretsParams.Output = OutPtr;
+	SecretsParams.ChunkIndex = ChunkIndex;
+
+	Status = XKeyManager_WrapSecrets(Ctx->DmaPtr, Ctx->AesInstancePtr, &SecretsParams);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_PROVISION_KEKS_ENCRYPT_FAIL);
+	}
+
+END:
+	return Status;
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	This function lays the two ASU-internal working buffers this path needs over the key
+ *		manager's shared session storage and hands back a pointer to each: the chunk import
+ *		working set and the record window. The storage is only lent out while no key vault
+ *		export or import is running, which a provisioning image never overlaps, so neither
+ *		buffer is reserved for the life of the firmware. Both hold recovered plaintext and
+ *		key material and are zeroized by the caller.
+ *
+ * @param	WorkPtr		Output: the chunk import working set. May be NULL when the caller
+ *				only wants the other buffer.
+ * @param	RecBufPtr	Output: start of the record window. May be NULL when the caller only
+ *				wants the other buffer.
+ *
+ * @return
+ *	- XASUFW_SUCCESS, if every requested pointer is handed back.
+ *	- XASUFW_PROVISION_INVALID_PARAM, if both output pointers are NULL or the storage is
+ *	  unavailable.
+ *	- XASUFW_PROVISION_SCRATCH_TOO_SMALL, if the storage no longer hosts both buffers.
+ *
+ * @note	XKeyManager_WorkBuf is a struct of u8 arrays, so it has an alignment of one and the
+ *		cast makes no alignment assumption about the storage base.
+ *
+ *************************************************************************************************/
+static s32 XProvision_GetScratch(XKeyManager_WorkBuf **WorkPtr, u8 **RecBufPtr)
+{
+	CREATE_VOLATILE(Status, XASUFW_FAILURE);
+	u32 ScratchLen = 0U;
+	u8 *ScratchPtr = NULL;
+
+	if ((WorkPtr == NULL) && (RecBufPtr == NULL)) {
+		Status = XASUFW_PROVISION_INVALID_PARAM;
+		goto END;
+	}
+
+	ScratchPtr = XKeyManager_GetSharedScratch(&ScratchLen);
+	if (ScratchPtr == NULL) {
+		Status = XASUFW_PROVISION_INVALID_PARAM;
+		goto END;
+	}
+
+	/**
+	 * The storage is sized by the key vault sessions that own it, so confirm it still hosts both
+	 * buffers rather than trusting the two sizes to stay in step.
+	 */
+	if (ScratchLen < (u32)XPROVISION_SCRATCH_LEN) {
+		Status = XASUFW_PROVISION_SCRATCH_TOO_SMALL;
+		goto END;
+	}
+
+	if (WorkPtr != NULL) {
+		*WorkPtr = (XKeyManager_WorkBuf *)(void *)ScratchPtr;
+	}
+	if (RecBufPtr != NULL) {
+		*RecBufPtr = &ScratchPtr[sizeof(XKeyManager_WorkBuf)];
+	}
+	Status = XASUFW_SUCCESS;
+
+END:
+	return Status;
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	This function unwraps the 528-byte secrets (inner IV + 16 KEKs) of one chunk by
+ *		handing them to the key vault's secrets piece walk, so the provisioning image and
+ *		an exported key vault blob are unwrapped by one implementation. It serves both
+ *		places the secrets travel: the chunk-0 secrets carried in the image header, and the
+ *		secrets of chunk k carried in the trailer of chunk k-1, where the chunk import layer
+ *		calls it back.
+ *
+ * @param	ArgPtr		Pointer to the XProvision_SecretsCtx state.
+ * @param	ChunkIndex	Zero-based index of the chunk the secrets describe.
+ * @param	InPtr		Pointer to the wrapped secrets.
+ * @param	OutPtr		Pointer to the buffer that receives the plaintext secrets.
+ *
+ * @return
+ *	- XASUFW_SUCCESS, if the secrets are unwrapped.
+ *	- XASUFW_PROVISION_INVALID_PARAM, if the state or any pointer is invalid.
+ *	- XASUFW_PROVISION_KEKS_DECRYPT_FAIL, if the piece walk fails.
+ *
+ * @note	The piece walk derives each piece IV from the header IV itself, spacing chunk k
+ *		past every piece the earlier chunks consumed, and loads and clears the piece key
+ *		for each of its own AES calls. Nothing of the key schedule is set up here.
+ *
+ *************************************************************************************************/
+static s32 XProvision_ChunkSecretsUnwrap(void *ArgPtr, u32 ChunkIndex, const u8 *InPtr, u8 *OutPtr)
+{
+	CREATE_VOLATILE(Status, XASUFW_FAILURE);
+	const XProvision_SecretsCtx *Ctx = (const XProvision_SecretsCtx *)ArgPtr;
+	XKeyManager_SecretsParams SecretsParams = {0U};
+
+	/** Validate input parameters. */
+	if ((Ctx == NULL) || (InPtr == NULL) || (OutPtr == NULL) || (Ctx->DmaPtr == NULL) ||
+			(Ctx->AesInstancePtr == NULL) || (Ctx->KeyMaterial == NULL) ||
+			(Ctx->BaseIvAddr == 0U)) {
+		Status = XASUFW_PROVISION_INVALID_PARAM;
+		goto END;
+	}
+
+	/**
+	 * The header IV is covered by the signature verified before this point, so it is passed
+	 * by address and left untouched; the piece walk copies it before advancing it.
+	 */
+	SecretsParams.KeyMaterial = Ctx->KeyMaterial;
+	SecretsParams.BaseIv = (const u8 *)(UINTPTR)Ctx->BaseIvAddr;
+	SecretsParams.Input = InPtr;
+	SecretsParams.Output = OutPtr;
+	SecretsParams.ChunkIndex = ChunkIndex;
+
+	Status = XKeyManager_UnwrapSecrets(Ctx->DmaPtr, Ctx->AesInstancePtr, &SecretsParams);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_PROVISION_KEKS_DECRYPT_FAIL);
+	}
+
+END:
+	return Status;
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	This function receives one decrypted data block from the chunk import layer and
+ *		assembles the provisioning instruction records out of it. The blocks form a byte
+ *		stream of records, each an 8-byte header followed by Size payload bytes, so one
+ *		record is buffered in the record window at a time and executed the moment its last
+ *		byte arrives. Nothing larger than one record is ever resident, which is why the whole
+ *		instruction stream never has to be materialised.
+ *
+ * @param	Offset		Offset of this block within the plaintext instruction stream.
+ * @param	BlockPtr	Pointer to the decrypted block.
+ * @param	Len		Number of valid bytes in the block.
+ *
+ * @return
+ *	- XASUFW_SUCCESS, if the block is consumed and every record it completed was executed.
+ *	- XASUFW_PROVISION_INVALID_PARAM, if the state or the block is invalid.
+ *	- XASUFW_PROVISION_INSTR_PROCESS_FAIL, if the stream is out of order, a record carries a
+ *	  foreign module ID, a record does not fit the window, or a record fails to execute.
+ *
+ * @note	The chunk layer's sink signature carries no context argument, so the assembler
+ *		state comes from ProvActiveSinkCtx, which only holds a value while
+ *		XProvision_UnwrapImage is driving a walk.
+ *
+ *************************************************************************************************/
+static s32 XProvision_BlobBlockSink(u32 Offset, const u8 *BlockPtr, u32 Len)
+{
+	CREATE_VOLATILE(Status, XASUFW_FAILURE);
+	XProvision_SinkCtx *Ctx = ProvActiveSinkCtx;
+	u32 Pos = 0U;
+	u32 CopyLen = 0U;
+	u32 Size = 0U;
+
+	/** Validate input parameters. */
+	if ((Ctx == NULL) || (BlockPtr == NULL) || (Len == 0U) || (Ctx->RecBuf == NULL)) {
+		Status = XASUFW_PROVISION_INVALID_PARAM;
+		goto END;
+	}
+
+	/**
+	 * The assembler treats the blocks as one byte stream, so a block that does not continue
+	 * where the previous one ended must stop the walk rather than be spliced into a record the
+	 * host never sent.
+	 */
+	if (Offset != Ctx->Consumed) {
+		Status = XASUFW_PROVISION_INSTR_PROCESS_FAIL;
+		goto END;
+	}
+
+	while (Pos < Len) {
+		if (Ctx->RecFill < XPROVISION_INSTR_HDR_LEN) {
+			/** Complete the record header before anything can be known about it. */
+			CopyLen = XPROVISION_INSTR_HDR_LEN - Ctx->RecFill;
+		} else {
+			/**
+			 * A record is executed and the window reset the moment RecFill reaches
+			 * RecLen, so a partially filled record always has room left.
+			 */
+			if (Ctx->RecLen <= Ctx->RecFill) {
+				Status = XASUFW_PROVISION_INSTR_PROCESS_FAIL;
+				goto END;
+			}
+			CopyLen = Ctx->RecLen - Ctx->RecFill;
+		}
+		if (CopyLen > (Len - Pos)) {
+			CopyLen = Len - Pos;
+		}
+
+		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+		Status = Xil_SMemCpy(&Ctx->RecBuf[Ctx->RecFill],
+				XPROVISION_RECBUF_LEN - Ctx->RecFill, &BlockPtr[Pos], CopyLen,
+				CopyLen);
+		if (Status != XASUFW_SUCCESS) {
+			Status = XASUFW_PROVISION_INSTR_PROCESS_FAIL;
+			goto END;
+		}
+		Ctx->RecFill += CopyLen;
+		Pos += CopyLen;
+
+		/** Parse the header as soon as it is complete, which fixes the record length. */
+		if ((Ctx->RecLen == 0U) && (Ctx->RecFill == XPROVISION_INSTR_HDR_LEN)) {
+			/** Every provisioning instruction is a KeyManager-module command. */
+			if (Ctx->RecBuf[XPROVISION_INSTR_MODULE_OFFSET] !=
+					XASU_MODULE_KEYMANAGER_ID) {
+				Status = XASUFW_PROVISION_INSTR_PROCESS_FAIL;
+				goto END;
+			}
+			Size = (u32)XAsu_ProvisionReadU16Le(
+					&Ctx->RecBuf[XPROVISION_INSTR_SIZE_OFFSET]);
+			Ctx->RecLen = XPROVISION_INSTR_HDR_LEN + Size;
+
+			/**
+			 * A record is executed out of the window, so one that does not fit cannot
+			 * be held at all. This is the bound that keeps the assembler inside the
+			 * borrowed storage.
+			 */
+			if (Ctx->RecLen > XPROVISION_RECBUF_LEN) {
+				Status = XASUFW_PROVISION_INSTR_PROCESS_FAIL;
+				goto END;
+			}
+		}
+
+		/** Execute as soon as the record is whole, so a zero-payload record does not wait. */
+		if ((Ctx->RecLen != 0U) && (Ctx->RecFill == Ctx->RecLen)) {
+			ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+			Status = XProvision_ExecRecord(Ctx);
+			if (Status != XASUFW_SUCCESS) {
+				goto END;
+			}
+			Ctx->Executed++;
+			Ctx->RecFill = 0U;
+			Ctx->RecLen = 0U;
+		}
+	}
+
+	Ctx->Consumed += Len;
+	Status = XASUFW_SUCCESS;
+
+END:
+	return Status;
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	This function atomically builds an authenticated encrypted provisioning image. It
+ *		encrypts the caller's plaintext instruction stream into the chunk chain, ECIES-wraps
+ *		the seed to the requesting subsystem's provisioning wrapping public key and signs
+ *		the completed header with that subsystem's provisioning authentication private key.
+ *
+ * @param	DmaPtr		Pointer to the XAsufw_Dma instance.
+ * @param	ShaInstancePtr	Pointer to the SHA2 instance used for ECIES and SHA2-384.
+ * @param	AesInstancePtr	Pointer to the XAes instance.
+ * @param	SubSystemId	Requesting subsystem whose provisioning key pairs are used.
+ * @param	ParamsPtr	Pointer to the caller's record-stream and output-buffer parameters.
+ *
+ * @return
+ *	- XASUFW_SUCCESS, if the complete AEPI image is built and signed.
+ *	- XASUFW_PROVISION_INVALID_PARAM, if an input is invalid, the buffers overlap or the output
+ *	  buffer is too small, or shared scratch storage is unavailable.
+ *	- XASUFW_PROVISION_SCRATCH_TOO_SMALL, if shared storage cannot hold the working set.
+ *	- XASUFW_PROVISION_KEY_NOT_FOUND, if either provisioning key pair is unavailable.
+ *	- XASUFW_OVERLAY_ACTIVATE_FAIL, if the initial key-vault overlay activation fails.
+ *	- XASUFW_PROVISION_KEY_WRAP_FAIL, if wrap setup, random generation or ECIES seed wrapping
+ *	  fails.
+ *	- XASUFW_PROVISION_KDF_FAIL, if CMAC-KDF, its key-register clear or derived-key validation
+ *	  fails.
+ *	- XASUFW_PROVISION_KEKS_ENCRYPT_FAIL, if the secrets of any chunk cannot be wrapped.
+ *	- XASUFW_PROVISION_INSTR_PROCESS_FAIL, if chunk-chain construction, record copying or header
+ *	  publication fails.
+ *	- XASUFW_PROVISION_HDR_SIGN_FAIL, if the header cannot be hashed or signed.
+ *	- XASUFW_ZEROIZE_MEMSET_FAIL, if clearing the working region fails.
+ *	- Error code from XAes_KeyClear, if final key-register cleanup fails, even after image
+ *	  construction succeeded.
+ *
+ * @note	On failure the output buffer may contain an incomplete image and must be ignored.
+ *
+ *************************************************************************************************/
+s32 XProvision_WrapInstructions(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr,
+				 XAes *AesInstancePtr, u32 SubSystemId,
+				 const XAsu_WrapProvisionInstructionsParams *ParamsPtr)
+{
+	CREATE_VOLATILE(Status, XASUFW_FAILURE);
+	CREATE_VOLATILE(ClearStatus, XASUFW_FAILURE);
+	XFih_Var XFihProv = XFih_VolatileAssignXfihVar(XFIH_FAILURE);
+	XProvision_WrapScratch *ScratchPtr = NULL;
+	XAsu_EccKeyObject AuthPvtKey = {0U};
+	u8 *HdrPtr = NULL;
+	u32 BodySize = 0U;
+	u32 AuthPvtKeyId = 0U;
+	volatile u32 KeyIndex = 0U;
+	u16 AuthPvtKeySlot = 0U;
+	u64 RecordEnd = 0U;
+	u64 ImageEnd = 0U;
+	XAsu_EciesParams EciesParams = {0U};
+	XAsu_KdfParams KdfParams = {0U};
+	XAsu_ShaOperationCmd ShaCmd = {0U};
+	XKeyManager_ExportParams ExportParams = {0U};
+	XProvision_SecretsCtx SecretsCtx = {0U};
+	XProvision_SourceCtx SourceCtx = {0U};
+
+	/** Validate resources and caller parameters before resolving any key material. */
+	if ((DmaPtr == NULL) || (ShaInstancePtr == NULL) || (AesInstancePtr == NULL) ||
+	    (ParamsPtr == NULL) ||
+	    (XAsu_ProvisionValidateWrapParams(ParamsPtr) != XST_SUCCESS)) {
+		Status = XASUFW_PROVISION_INVALID_PARAM;
+		goto END;
+	}
+
+	BodySize = XKeyManager_CalcBodySize(ParamsPtr->RecordBlobLen);
+
+	/** Reject arithmetic wrap and overlapping input/output ranges. */
+	RecordEnd = ParamsPtr->RecordBlobAddr + (u64)ParamsPtr->RecordBlobLen;
+	ImageEnd = ParamsPtr->ImageAddr + (u64)XPROVISION_HDR_MIN_TOTAL_LEN + (u64)BodySize;
+	if ((RecordEnd < ParamsPtr->RecordBlobAddr) || (ImageEnd < ParamsPtr->ImageAddr) ||
+	    ((ParamsPtr->RecordBlobAddr < ImageEnd) && (ParamsPtr->ImageAddr < RecordEnd))) {
+		Status = XASUFW_PROVISION_INVALID_PARAM;
+		goto END;
+	}
+
+	/** Borrow and clear the shared working region before placing secrets in it. */
+	Status = XProvision_GetWrapScratch(&ScratchPtr);
+	if (Status != XASUFW_SUCCESS) {
+		goto END;
+	}
+
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	XFIH_CALL(Xil_SecureZeroize, XFihProv, Status, (u8 *)ScratchPtr,
+		  (u32)sizeof(XProvision_WrapScratch));
+	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_ZEROIZE_MEMSET_FAIL;
+		goto END_CLR;
+	}
+
+	/**
+	 * Resolve both key pairs before writing output. Get DPC creates these pairs; wrap does not
+	 * generate replacements when either one is absent.
+	 */
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	Status = XProvision_GetPubKey(SubSystemId,
+			XASU_KEYMANAGER_ECC_PVT_PROV_UNWRAP_USE_CASE, ScratchPtr->WrapPubKey);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_PROVISION_KEY_NOT_FOUND;
+		goto END_CLR;
+	}
+
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	Status = XProvision_GetKeySlot(SubSystemId, &AuthPvtKeySlot,
+			XASU_KEYMANAGER_ECC_PVT_KEY_AUTH_ENC_USE_CASE);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_PROVISION_KEY_NOT_FOUND;
+		goto END_CLR;
+	}
+
+	AuthPvtKeyId = XASU_KM_COMPOSE_KEY_ID(XKEYMANAGER_ASU_EXPORTABLE_VAULT_ID,
+					XASU_ECC_PVT_SUBVAULT_ID, AuthPvtKeySlot);
+	AuthPvtKey.CurveType = XASU_ECC_NIST_P384;
+
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	Status = XKeyManager_UpdateKeyObjFromVault(DmaPtr, AuthPvtKeyId,
+			(u64)(UINTPTR)&AuthPvtKey, XKEYMANAGER_ASU_SUBSYSTEM_ID,
+			XASU_KEYMANAGER_ECC_PVT_KEY_AUTH_ENC_USE_CASE,
+			XKEYMANAGER_RSA_OP_NONE, XASU_ECC_PVT_SUBVAULT_ID);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_PROVISION_KEY_NOT_FOUND;
+		goto END_CLR;
+	}
+
+	/** Load the key-vault overlay before using its strong-random generator. */
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	Status = XOverlay_Activate(XOVERLAY_ALGO_KEYVAULT, DmaPtr);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_OVERLAY_ACTIVATE_FAIL);
+		goto END_CLR;
+	}
+
+	/** Draw the transient seed and the base IV used by every chunk-secrets piece. */
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	Status = XKeyManager_GenerateStrongRandom(ScratchPtr->Seed, XPROVISION_HDR_SEED_LEN);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_PROVISION_KEY_WRAP_FAIL);
+		goto END_CLR;
+	}
+
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	Status = XKeyManager_GenerateStrongRandom(ScratchPtr->BaseIv,
+			XPROVISION_HDR_AES_IV_LEN_IN_BYTES);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_PROVISION_KEY_WRAP_FAIL);
+		goto END_CLR;
+	}
+
+	/** Derive one AES-256 key for each piece of a chunk-secrets block. */
+	KdfParams.KeyObject.KeyInAddr = (u64)(UINTPTR)ScratchPtr->Seed;
+	KdfParams.KeyObject.KeyInLen = (u32)XASU_AES_KEY_SIZE_256_BITS;
+	KdfParams.KeyOutAddr = (u64)(UINTPTR)ScratchPtr->KeyMaterial;
+	KdfParams.KeyOutLen = XKEYMANAGER_SECRETS_KEY_MATERIAL_SIZE;
+	KdfParams.ContextAddr = (u64)(UINTPTR)ProvHdrKdfContext;
+	KdfParams.ContextLen = XPROVISION_HDR_KDF_CONTEXT_LEN;
+
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	Status = XKdf_CmacGenerate(DmaPtr, AesInstancePtr, &KdfParams, XASU_AES_USER_KEY_7);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_PROVISION_KDF_FAIL);
+		goto END_CLR;
+	}
+
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	XFIH_CALL(XAes_KeyClear, XFihProv, Status, AesInstancePtr, XASU_AES_USER_KEY_7);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_PROVISION_KDF_FAIL);
+		goto END_CLR;
+	}
+	for (KeyIndex = 0U; KeyIndex < XKEYMANAGER_SECRETS_PIECE_COUNT; KeyIndex++) {
+		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+		Status = XKeyManager_RejectWeakKey(
+				&ScratchPtr->KeyMaterial[KeyIndex * XKEYMANAGER_AES_KEY_SIZE],
+				XKEYMANAGER_AES_KEY_SIZE);
+		if (Status != XASUFW_SUCCESS) {
+			Status = XAsufw_UpdateErrorStatus(Status, XASUFW_PROVISION_KDF_FAIL);
+			goto END_CLR;
+		}
+	}
+	if (KeyIndex != XKEYMANAGER_SECRETS_PIECE_COUNT) {
+		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+		Status = XAsufw_UpdateErrorStatus(XASUFW_LOOP_INDEX_CMP_ERROR,
+				XASUFW_PROVISION_KDF_FAIL);
+		goto END_CLR;
+	}
+
+	/** Build the encrypted body last-to-first, publishing the caller source only for the walk. */
+	SecretsCtx.DmaPtr = DmaPtr;
+	SecretsCtx.AesInstancePtr = AesInstancePtr;
+	SecretsCtx.KeyMaterial = ScratchPtr->KeyMaterial;
+	SecretsCtx.BaseIvAddr = (u64)(UINTPTR)ScratchPtr->BaseIv;
+	SourceCtx.DmaPtr = DmaPtr;
+	SourceCtx.RecordBlobAddr = ParamsPtr->RecordBlobAddr;
+	SourceCtx.RecordBlobLen = ParamsPtr->RecordBlobLen;
+	ProvActiveSourceCtx = &SourceCtx;
+
+	ExportParams.BodyAddr = ParamsPtr->ImageAddr + XPROVISION_HDR_MIN_TOTAL_LEN;
+	ExportParams.BodySize = BodySize;
+	ExportParams.PlaintextSize = ParamsPtr->RecordBlobLen;
+	ExportParams.SourceFn = XProvision_BlobBlockSource;
+	ExportParams.SecretsWrapFn = XProvision_ChunkSecretsWrap;
+	ExportParams.SecretsArgPtr = &SecretsCtx;
+	ExportParams.WorkPtr = &ScratchPtr->Work;
+	ExportParams.Chunk0SecretsPtr = ScratchPtr->Chunk0Secrets;
+	ExportParams.Chunk0HashPtr = ScratchPtr->HeaderHash;
+
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	Status = XKeyManager_ChunkBlobExport(DmaPtr, AesInstancePtr, ShaInstancePtr, &ExportParams);
+	ProvActiveSourceCtx = NULL;
+	if (Status != XASUFW_SUCCESS) {
+		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_PROVISION_INSTR_PROCESS_FAIL);
+		goto END_CLR;
+	}
+
+	/**
+	 * The chunk export no longer needs Work.ChunkBuf. Reuse it to assemble the complete header
+	 * in ASU-owned memory, preserving only the IV and chunk-0 hash that crossed the export.
+	 */
+	HdrPtr = ScratchPtr->Work.ChunkBuf;
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	Status = Xil_SMemSet(HdrPtr, XPROVISION_HDR_MIN_TOTAL_LEN, 0U,
+			     XPROVISION_HDR_MIN_TOTAL_LEN);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_PROVISION_INSTR_PROCESS_FAIL;
+		goto END_CLR;
+	}
+	HdrPtr[XPROVISION_HDR_TAG_BYTE_0_OFFSET] = (u8)'A';
+	HdrPtr[XPROVISION_HDR_TAG_BYTE_1_OFFSET] = (u8)'E';
+	HdrPtr[XPROVISION_HDR_TAG_BYTE_2_OFFSET] = (u8)'P';
+	HdrPtr[XPROVISION_HDR_TAG_BYTE_3_OFFSET] = (u8)'I';
+	XAsu_ProvisionWriteU32Le(&HdrPtr[XPROVISION_HDR_VERSION_OFFSET],
+			      XPROVISION_HDR_VERSION_EXPECTED);
+	XAsu_ProvisionWriteU32Le(&HdrPtr[XPROVISION_HDR_ALGTYPE_OFFSET],
+			      XPROVISION_HDR_ALGTYPE_ECIES);
+	XAsu_ProvisionWriteU32Le(&HdrPtr[XPROVISION_HDR_PI_SIZE_OFFSET],
+			      ParamsPtr->RecordBlobLen);
+
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	Status = Xil_SMemCpy(&HdrPtr[XPROVISION_HDR_IV_OFFSET],
+			XPROVISION_HDR_AES_IV_LEN_IN_BYTES, ScratchPtr->BaseIv,
+			XPROVISION_HDR_AES_IV_LEN_IN_BYTES, XPROVISION_HDR_AES_IV_LEN_IN_BYTES);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_PROVISION_INSTR_PROCESS_FAIL;
+		goto END_CLR;
+	}
+
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	Status = Xil_SMemCpy(&HdrPtr[XPROVISION_HDR_CHUNK0_HASH_OFFSET],
+			XPROVISION_HDR_CHUNK0_HASH_LEN, ScratchPtr->HeaderHash,
+			XPROVISION_HDR_HASH_LEN, XPROVISION_HDR_CHUNK0_HASH_LEN);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_PROVISION_INSTR_PROCESS_FAIL;
+		goto END_CLR;
+	}
+
+	/** Wrap chunk 0 secrets into the header after the body has handed them back. */
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	Status = XProvision_ChunkSecretsWrap(&SecretsCtx, 0U, ScratchPtr->Chunk0Secrets,
+			&HdrPtr[XPROVISION_HDR_KEKS_OFFSET]);
+	if (Status != XASUFW_SUCCESS) {
+		goto END_CLR;
+	}
+
+	/** Prepare to ECIES-encrypt the seed into the ASU-owned header. */
+	EciesParams.RxKeyAddr = (u64)(UINTPTR)ScratchPtr->WrapPubKey;
+	EciesParams.TxKeyAddr = (u64)(UINTPTR)&HdrPtr[XPROVISION_HDR_ECIES_PUB_OFFSET];
+	EciesParams.InDataAddr = (u64)(UINTPTR)ScratchPtr->Seed;
+	EciesParams.IvAddr = (u64)(UINTPTR)ProvHdrEciesIv;
+	EciesParams.OutDataAddr = (u64)(UINTPTR)&HdrPtr[XPROVISION_HDR_CIPHERTEXT_OFFSET];
+	EciesParams.MacAddr = (u64)(UINTPTR)&HdrPtr[XPROVISION_HDR_ECIES_TAG_OFFSET];
+	EciesParams.DataLength = XPROVISION_HDR_SEED_LEN;
+	EciesParams.EccCurveType = (u8)XASU_ECC_NIST_P384;
+	EciesParams.AesKeySize = (u8)XASU_AES_KEY_SIZE_256_BITS;
+	EciesParams.EccKeyLength = (u8)XASU_ECC_P384_PVT_KEY_SIZE_IN_BYTES;
+	EciesParams.IvLength = (u8)XASU_AES_IV_SIZE_96BIT_IN_BYTES;
+	EciesParams.MacLength = (u8)XASU_AES_MAX_TAG_LENGTH_IN_BYTES;
+
+	/** Load ECC once for both ECIES encryption and the final header signature. */
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	Status = XOverlay_Activate(XOVERLAY_ALGO_ECC, DmaPtr);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_OVERLAY_ACTIVATE_FAIL);
+		goto END_CLR;
+	}
+
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	Status = XEcies_Encrypt(DmaPtr, ShaInstancePtr, AesInstancePtr, &EciesParams,
+				XASU_TRUE);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_PROVISION_KEY_WRAP_FAIL);
+		goto END_CLR;
+	}
+
+	/** Hash bytes 0 through 751 and sign that digest with KEY_AUTH_ENC. */
+	ShaCmd.ShaMode = XASU_SHA_MODE_384;
+	ShaCmd.DataAddr = (u64)(UINTPTR)HdrPtr;
+	ShaCmd.DataSize = XPROVISION_HDR_SIGNATURE_OFFSET;
+	ShaCmd.HashAddr = (u64)(UINTPTR)ScratchPtr->HeaderHash;
+	ShaCmd.HashBufSize = XPROVISION_HDR_HASH_LEN;
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	Status = XSha_Digest(ShaInstancePtr, DmaPtr, &ShaCmd);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_PROVISION_HDR_SIGN_FAIL);
+		goto END_CLR;
+	}
+
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	Status = XRsa_EccGenerateSignature(DmaPtr, XASU_ECC_NIST_P384,
+			XASU_ECC_P384_PVT_KEY_SIZE_IN_BYTES,
+			AuthPvtKey.KeyAddr, NULL,
+			(u64)(UINTPTR)ScratchPtr->HeaderHash, XPROVISION_HDR_HASH_LEN,
+			(u64)(UINTPTR)&HdrPtr[XPROVISION_HDR_SIGNATURE_OFFSET]);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_PROVISION_HDR_SIGN_FAIL);
+		goto END_CLR;
+	}
+
+	/** Publish the complete signed header only after all authenticated bytes are immutable. */
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	Status = XAsufw_DmaXfr(DmaPtr, (u64)(UINTPTR)HdrPtr, ParamsPtr->ImageAddr,
+			       XPROVISION_HDR_MIN_TOTAL_LEN, 0U);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_PROVISION_INSTR_PROCESS_FAIL;
+		goto END_CLR;
+	}
+
+	Status = XASUFW_SUCCESS;
+
+END_CLR:
+	ProvActiveSourceCtx = NULL;
+	XFIH_CALL(XAes_KeyClear, XFihProv, ClearStatus, AesInstancePtr, XASU_AES_USER_KEY_7);
+	Status = XAsufw_UpdateBufStatus(Status, ClearStatus);
+	if (ScratchPtr != NULL) {
+		ASSIGN_VOLATILE(ClearStatus, XASUFW_FAILURE);
+		XFIH_CALL(Xil_SecureZeroize, XFihProv, ClearStatus, (u8 *)ScratchPtr,
+			  (u32)sizeof(XProvision_WrapScratch));
+		Status = XAsufw_UpdateBufStatus(Status, ClearStatus);
+	}
+
+END:
+	return Status;
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	This function processes a wrapped provisioning image header entirely inside the ASU:
+ *		it validates the header (tag/version/algorithm), verifies the ECC P-384 signature over
+ *		the header using the subsystem's provisioning authentication public key from the
+ *		ASU exportable vault, ECIES-decrypts the wrapped seed with the subsystem's provisioning
+ *		private key, derives one AES-256 key per secrets piece via CMAC-KDF, and drives the
+ *		chunk import.
+ *
+ * @param	DmaPtr		Pointer to the XAsufw_Dma instance.
+ * @param	ShaInstancePtr	Pointer to the SHA2 XSha instance (SHA2-384).
+ * @param	AesInstancePtr	Pointer to the XAes instance.
+ * @param	SubSystemId	Requesting subsystem. Selects which provisioning private key is used
+ *				and owns the vaults and keys created by the instruction records.
+ * @param	IpiMask		IPI mask of the requesting channel.
+ * @param	ParamsPtr	Caller-supplied provisioning-header parameters.
+ *
+ * @return
+ *	- XASUFW_SUCCESS, if the header is processed and every instruction record executed.
+ *	- XASUFW_PROVISION_INVALID_PARAM, if a resource or request field is invalid, shared scratch
+ *	  is unavailable, or the signed image geometry is inconsistent.
+ *	- XASUFW_PROVISION_SCRATCH_TOO_SMALL, if shared storage cannot hold the working buffers.
+ *	- XASUFW_PROVISION_HDR_VERIFY_FAIL, if the tag, version or algorithm is invalid, or header
+ *	  hashing or signature verification fails.
+ *	- XASUFW_PROVISION_KEY_NOT_FOUND, if a required authentication or unwrap key is missing.
+ *	- XASUFW_OVERLAY_ACTIVATE_FAIL, if the initial ECC overlay activation fails.
+ *	- XASUFW_PROVISION_KEY_UNWRAP_FAIL, if the ECIES decrypt of the seed fails.
+ *	- XASUFW_PROVISION_KDF_FAIL, if CMAC-KDF, its key-register clear or derived-key validation
+ *	  fails.
+ *	- XASUFW_PROVISION_KEKS_DECRYPT_FAIL, if the secrets of any chunk cannot be unwrapped.
+ *	- XASUFW_PROVISION_INSTR_PROCESS_FAIL, if a caller copy, chunk import, record or completeness
+ *	  check fails.
+ *	- XASUFW_ZEROIZE_MEMSET_FAIL, if transient key material or working storage cannot be wiped.
+ *	- Error code from XAes_KeyClear, if final key-register cleanup fails, even after every
+ *	  instruction executed successfully.
+ *
+ * @note	A partially provisioned image is left in place on failure: every record commits as
+ *		it runs and the stream stops at the first failure.
+ *
+ *************************************************************************************************/
+s32 XProvision_UnwrapInstructions(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr, XAes *AesInstancePtr,
+		u32 SubSystemId, u32 IpiMask, const XAsu_UnwrapProvisionInstructionsParams *ParamsPtr)
+{
+	CREATE_VOLATILE(Status, XASUFW_FAILURE);
+	XFih_Var XFihProv = XFih_VolatileAssignXfihVar(XFIH_FAILURE);
+	CREATE_VOLATILE(ClearStatus, XASUFW_FAILURE);
+	u64 ImageAddr = 0U;
+	const u8 *HdrPtr = NULL;
+	XKeyManager_WorkBuf *WorkPtr = NULL;
+	u8 *RecBuf = NULL;
+	u32 PiSize = 0U;
+	u32 BodySize = 0U;
+	u32 TotalLen = 0U;
+	u32 PlaintextBytes = 0U;
+	u32 EccPvtKeyId = 0U;
+	volatile u32 KeyIndex = 0U;
+	u16 EccPvtKeySlot = 0U;
+	XKeyManager_ImportParams ImportParams = {0U};
+	XProvision_SecretsCtx SecretsCtx = {0U};
+	XProvision_SinkCtx SinkCtx = {0U};
+	XAsu_EccKeyObject EccPvtKey = {0U};
+	XAsu_EciesParams EciesParams = {0U};
+	XAsu_KdfParams KdfParams = {0U};
+	XAsu_ShaOperationCmd ShaCmd = {0U};
+	u8 Seed[XPROVISION_HDR_SEED_LEN] = {0U};
+	u8 KeyMaterial[XKEYMANAGER_SECRETS_KEY_MATERIAL_SIZE] = {0U};
+	u8 HeaderHash[XPROVISION_HDR_HASH_LEN] = {0U};
+	u8 BaseIv[XPROVISION_HDR_AES_IV_LEN_IN_BYTES] = {0U};
+
+	/** Validate the input parameters. */
+	if ((DmaPtr == NULL) || (ShaInstancePtr == NULL) || (AesInstancePtr == NULL) ||
+	    (XAsu_ProvisionValidateUnwrapParams(ParamsPtr) != XST_SUCCESS)) {
+		Status = XASUFW_PROVISION_INVALID_PARAM;
+		goto END;
+	}
+
+	ImageAddr = ParamsPtr->ImageAddr;
+	TotalLen = ParamsPtr->TotalLen;
+	/**
+	 * Lay the working buffers over the key manager's shared session storage before any key
+	 * material exists, so every cleanup path below has the pointer it must zeroize.
+	 */
+	Status = XProvision_GetScratch(&WorkPtr, &RecBuf);
+	if (Status != XASUFW_SUCCESS) {
+		goto END;
+	}
+
+	/** Snapshot the complete header once and use only ASU-owned bytes from this point onward. */
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	Status = XAsufw_DmaXfr(DmaPtr, ImageAddr, (u64)(UINTPTR)RecBuf,
+			       XPROVISION_HDR_MIN_TOTAL_LEN, 0U);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_PROVISION_INSTR_PROCESS_FAIL;
+		goto END;
+	}
+	HdrPtr = RecBuf;
+
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	/** Step 1a: validate the 'AEPI' tag (four ASCII bytes at offset 0). */
+	if ((HdrPtr[XPROVISION_HDR_TAG_BYTE_0_OFFSET] != (u8)'A') ||
+	    (HdrPtr[XPROVISION_HDR_TAG_BYTE_1_OFFSET] != (u8)'E') ||
+	    (HdrPtr[XPROVISION_HDR_TAG_BYTE_2_OFFSET] != (u8)'P') ||
+	    (HdrPtr[XPROVISION_HDR_TAG_BYTE_3_OFFSET] != (u8)'I')) {
+		Status = XASUFW_PROVISION_HDR_VERIFY_FAIL;
+		goto END;
+	}
+
+	/** Step 1b: only header version 1 is accepted. */
+	if (XAsu_ProvisionReadU32Le(&HdrPtr[XPROVISION_HDR_VERSION_OFFSET]) !=
+			XPROVISION_HDR_VERSION_EXPECTED) {
+		Status = XASUFW_PROVISION_HDR_VERIFY_FAIL;
+		goto END;
+	}
+
+	/** Only the ECIES algorithm type is supported for now. */
+	if (XAsu_ProvisionReadU32Le(&HdrPtr[XPROVISION_HDR_ALGTYPE_OFFSET]) !=
+			XPROVISION_HDR_ALGTYPE_ECIES) {
+		Status = XASUFW_PROVISION_HDR_VERIFY_FAIL;
+		goto END;
+	}
+
+	/** Resolve the trusted authentication public key for this subsystem into scratch. */
+	Status = XProvision_GetPubKey(SubSystemId,
+			XASU_KEYMANAGER_ECC_PVT_KEY_AUTH_ENC_USE_CASE, WorkPtr->ChunkBuf);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_PROVISION_KEY_NOT_FOUND;
+		goto END;
+	}
+
+	/**
+	 * Step 1c: SHA2-384 over the header (bytes 0 up to the signature offset), then verify the
+	 * ECC P-384 signature using the internally resolved provisioning authentication public key.
+	 */
+	ShaCmd.ShaMode = XASU_SHA_MODE_384;
+	ShaCmd.DataAddr = (u64)(UINTPTR)HdrPtr;
+	ShaCmd.DataSize = XPROVISION_HDR_SIGNATURE_OFFSET;
+	ShaCmd.HashAddr = (u64)(UINTPTR)HeaderHash;
+	ShaCmd.HashBufSize = XPROVISION_HDR_HASH_LEN;
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	Status = XSha_Digest(ShaInstancePtr, DmaPtr, &ShaCmd);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_PROVISION_HDR_VERIFY_FAIL);
+		goto END;
+	}
+
+	/** Load ECC once for both header signature verification and ECIES seed decryption. */
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	Status = XOverlay_Activate(XOVERLAY_ALGO_ECC, DmaPtr);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_OVERLAY_ACTIVATE_FAIL);
+		goto END;
+	}
+
+	/*
+	 * TODO: Add the matching SLH-DSA header-verification branch when the AEPI wire format
+	 * identifies the signature algorithm and carries the corresponding signature.
+	 */
+	ReturnStatus = XASUFW_FAILURE;
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	Status = XRsa_EccVerifySignature(DmaPtr, XASU_ECC_NIST_P384,
+			XASU_ECC_P384_PVT_KEY_SIZE_IN_BYTES,
+			(u64)(UINTPTR)WorkPtr->ChunkBuf,
+			(u64)(UINTPTR)HeaderHash, XPROVISION_HDR_HASH_LEN,
+			(u64)(UINTPTR)&HdrPtr[XPROVISION_HDR_SIGNATURE_OFFSET]);
+	if ((Status != XASUFW_SUCCESS) ||
+	    (ReturnStatus != XASUFW_ECC_SIGNATURE_VERIFIED)) {
+		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_PROVISION_HDR_VERIFY_FAIL);
+	}
+	ReturnStatus = XASUFW_FAILURE;
+	if (Status != XASUFW_SUCCESS) {
+		goto END;
+	}
+
+	/**
+	 * Locate this subsystem's provisioning ECC private key in the ASU-owned exportable vault.
+	 * The key is fetched with the provisioning-unwrap use case and used in place; it never
+	 * leaves the ASU.
+	 */
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	Status = XProvision_GetKeySlot(SubSystemId, &EccPvtKeySlot,
+			XASU_KEYMANAGER_ECC_PVT_PROV_UNWRAP_USE_CASE);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_PROVISION_KEY_NOT_FOUND;
+		goto END;
+	}
+
+	EccPvtKeyId = XASU_KM_COMPOSE_KEY_ID(XKEYMANAGER_ASU_EXPORTABLE_VAULT_ID,
+					XASU_ECC_PVT_SUBVAULT_ID, EccPvtKeySlot);
+	EccPvtKey.CurveType = XASU_ECC_NIST_P384;
+
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	Status = XKeyManager_UpdateKeyObjFromVault(DmaPtr, EccPvtKeyId,
+			(u64)(UINTPTR)&EccPvtKey, XKEYMANAGER_ASU_SUBSYSTEM_ID,
+			XASU_KEYMANAGER_ECC_PVT_PROV_UNWRAP_USE_CASE,
+			XKEYMANAGER_RSA_OP_NONE, XASU_ECC_PVT_SUBVAULT_ID);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_PROVISION_KEY_NOT_FOUND;
+		goto END;
+	}
+
+	/**
+	 * Step 2: ECIES-decrypt the wrapped seed into an on-chip transient buffer. The crypto
+	 * profile is fixed (P-384 / direct CMAC-KDF / AES-256 / fixed 12-byte IV / 16-byte MAC).
+	 * The ECIES IV is an ASU-internal constant, so the recovered seed never leaves the ASU.
+	 */
+	EciesParams.RxKeyAddr = EccPvtKey.KeyAddr;
+	EciesParams.TxKeyAddr = (u64)(UINTPTR)&HdrPtr[XPROVISION_HDR_ECIES_PUB_OFFSET];
+	EciesParams.InDataAddr = (u64)(UINTPTR)&HdrPtr[XPROVISION_HDR_CIPHERTEXT_OFFSET];
+	EciesParams.IvAddr = (u64)(UINTPTR)ProvHdrEciesIv;
+	EciesParams.OutDataAddr = (u64)(UINTPTR)Seed;
+	EciesParams.MacAddr = (u64)(UINTPTR)&HdrPtr[XPROVISION_HDR_ECIES_TAG_OFFSET];
+	EciesParams.DataLength = XPROVISION_HDR_SEED_LEN;
+	EciesParams.EccCurveType = (u8)XASU_ECC_NIST_P384;
+	EciesParams.AesKeySize = (u8)XASU_AES_KEY_SIZE_256_BITS;
+	EciesParams.EccKeyLength = (u8)XASU_ECC_P384_PVT_KEY_SIZE_IN_BYTES;
+	EciesParams.IvLength = (u8)XASU_AES_IV_SIZE_96BIT_IN_BYTES;
+	EciesParams.MacLength = (u8)XASU_AES_MAX_TAG_LENGTH_IN_BYTES;
+
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	Status = XEcies_Decrypt(DmaPtr, ShaInstancePtr, AesInstancePtr, &EciesParams,
+				XASU_TRUE);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_PROVISION_KEY_UNWRAP_FAIL);
+		goto END_CLR;
+	}
+
+	/**
+	 * Step 3: derive the secrets key material from the seed using CMAC-KDF (AES-CMAC PRF,
+	 * counter mode). The secrets of a chunk are wrapped piece by piece, each piece under a key
+	 * of its own, so the KDF is asked for one AES-256 key per piece in a single call rather
+	 * than for one key reused across the whole buffer. The seed is written to USER_KEY_7 by
+	 * the KDF; KeyInLen carries the AES key-size selector.
+	 */
+	KdfParams.KeyObject.KeyInAddr = (u64)(UINTPTR)Seed;
+	KdfParams.KeyObject.KeyInLen = (u32)XASU_AES_KEY_SIZE_256_BITS;
+	KdfParams.KeyOutAddr = (u64)(UINTPTR)KeyMaterial;
+	KdfParams.KeyOutLen = XKEYMANAGER_SECRETS_KEY_MATERIAL_SIZE;
+	KdfParams.ContextAddr = (u64)(UINTPTR)ProvHdrKdfContext;
+	KdfParams.ContextLen = XPROVISION_HDR_KDF_CONTEXT_LEN;
+
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	Status = XKdf_CmacGenerate(DmaPtr, AesInstancePtr, &KdfParams, XASU_AES_USER_KEY_7);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_PROVISION_KDF_FAIL);
+		goto END_CLR;
+	}
+
+	/**
+	 * Step 4: drop the seed out of USER_KEY_7. The secrets unwrap loads each piece key into
+	 * that same user key register for the one call that uses it and clears it again, so no
+	 * part of the schedule is written here; the seed the KDF left behind would otherwise
+	 * outlive its use in a key register.
+	 */
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	XFIH_CALL(XAes_KeyClear, XFihProv, Status, AesInstancePtr, XASU_AES_USER_KEY_7);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_PROVISION_KDF_FAIL);
+		goto END_CLR;
+	}
+
+	/** Load the key-vault overlay before calling its key checks and chunk importer. */
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	Status = XOverlay_Activate(XOVERLAY_ALGO_KEYVAULT, DmaPtr);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_OVERLAY_ACTIVATE_FAIL);
+		goto END_CLR;
+	}
+
+	/**
+	 * A derived key of all zeros or all ones means the seed or the KDF is broken. The piece
+	 * wrap does not test the keys it is handed, so each one is checked here, before any of
+	 * them decrypts image material.
+	 */
+	for (KeyIndex = 0U; KeyIndex < XKEYMANAGER_SECRETS_PIECE_COUNT; KeyIndex++) {
+		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+		Status = XKeyManager_RejectWeakKey(&KeyMaterial[KeyIndex * XKEYMANAGER_AES_KEY_SIZE],
+				XKEYMANAGER_AES_KEY_SIZE);
+		if (Status != XASUFW_SUCCESS) {
+			Status = XAsufw_UpdateErrorStatus(Status, XASUFW_PROVISION_KDF_FAIL);
+			goto END_CLR;
+		}
+	}
+	if (KeyIndex != XKEYMANAGER_SECRETS_PIECE_COUNT) {
+		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+		Status = XAsufw_UpdateErrorStatus(XASUFW_LOOP_INDEX_CMP_ERROR,
+				XASUFW_PROVISION_KDF_FAIL);
+		goto END_CLR;
+	}
+
+	/**
+	 * Step 5: read PI_SIZE and derive the chunk body geometry from it. PI_SIZE is covered by the
+	 * signature verified above, and the body it implies must exactly consume the image the
+	 * caller supplied. This both keeps the chunk walk within the request and rejects trailing
+	 * bytes that are not authenticated as part of the AEPI image.
+	 */
+	PiSize = XAsu_ProvisionReadU32Le(&HdrPtr[XPROVISION_HDR_PI_SIZE_OFFSET]);
+	if ((PiSize == 0U) || (PiSize > XPROVISION_MAX_PI_SIZE)) {
+		Status = XASUFW_PROVISION_INVALID_PARAM;
+		goto END_CLR;
+	}
+
+	BodySize = XKeyManager_CalcBodySize(PiSize);
+	if ((BodySize == 0U) ||
+			(BodySize != (TotalLen - XPROVISION_HDR_MIN_TOTAL_LEN))) {
+		Status = XASUFW_PROVISION_INVALID_PARAM;
+		goto END_CLR;
+	}
+
+	/**
+	 * Step 6: seed the chunk chain. The chunk-0 secrets are unwrapped straight into the import
+	 * working set, and the chunk-0 digest is copied from the header, where it travels in the
+	 * clear under the signature. From here the chain carries itself: the trailer of each chunk
+	 * holds the secrets and digest of the next.
+	 */
+	SecretsCtx.DmaPtr = DmaPtr;
+	SecretsCtx.AesInstancePtr = AesInstancePtr;
+	SecretsCtx.KeyMaterial = KeyMaterial;
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	Status = Xil_SMemCpy(BaseIv, XPROVISION_HDR_AES_IV_LEN_IN_BYTES,
+			&HdrPtr[XPROVISION_HDR_IV_OFFSET], XPROVISION_HDR_AES_IV_LEN_IN_BYTES,
+			XPROVISION_HDR_AES_IV_LEN_IN_BYTES);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_PROVISION_INSTR_PROCESS_FAIL;
+		goto END_CLR;
+	}
+	SecretsCtx.BaseIvAddr = (u64)(UINTPTR)BaseIv;
+
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	Status = XProvision_ChunkSecretsUnwrap(&SecretsCtx, 0U,
+			&HdrPtr[XPROVISION_HDR_KEKS_OFFSET],
+			WorkPtr->ChunkSecrets);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_PROVISION_INSTR_PROCESS_FAIL);
+		goto END_CLR;
+	}
+
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	Status = Xil_SMemCpy(WorkPtr->ExpectedHash, XPROVISION_HDR_CHUNK0_HASH_LEN,
+			&HdrPtr[XPROVISION_HDR_CHUNK0_HASH_OFFSET],
+			XPROVISION_HDR_CHUNK0_HASH_LEN, XPROVISION_HDR_CHUNK0_HASH_LEN);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_PROVISION_INSTR_PROCESS_FAIL;
+		goto END_CLR;
+	}
+
+	/**
+	 * Step 7: drive the chunk import. Each decrypted block is handed to the record assembler,
+	 * which executes every record it completes, and each trailer's secrets come back through the
+	 * same unwrap that seeded chunk 0. Nothing but one record is resident at any instant.
+	 */
+	SinkCtx.DmaPtr = DmaPtr;
+	SinkCtx.AesInstancePtr = AesInstancePtr;
+	SinkCtx.RecBuf = RecBuf;
+	SinkCtx.SubSystemId = SubSystemId;
+	SinkCtx.IpiMask = IpiMask;
+
+	/** Publish the assembler state for the walk, as the sink signature carries no argument. */
+	ProvActiveSinkCtx = &SinkCtx;
+
+	ImportParams.BodyAddr = ImageAddr + XPROVISION_HDR_MIN_TOTAL_LEN;
+	ImportParams.BodySize = BodySize;
+	ImportParams.MaxPlaintextSize = PiSize;
+	ImportParams.SinkFn = XProvision_BlobBlockSink;
+	ImportParams.SecretsUnwrapFn = XProvision_ChunkSecretsUnwrap;
+	ImportParams.SecretsArgPtr = &SecretsCtx;
+	ImportParams.WorkPtr = WorkPtr;
+
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	Status = XKeyManager_ChunkBlobImport(DmaPtr, AesInstancePtr, ShaInstancePtr, &ImportParams,
+			&PlaintextBytes);
+	if (Status != XASUFW_SUCCESS) {
+		goto END_CLR;
+	}
+
+	/**
+	 * The whole plaintext must have reached the assembler and the last record must have ended
+	 * on the last byte; a part-filled window is a trailing partial record. PI_SIZE is non-zero,
+	 * so at least one complete record must also have executed.
+	 */
+	if ((PlaintextBytes != PiSize) || (SinkCtx.Consumed != PiSize) ||
+	    (SinkCtx.RecFill != 0U) || (SinkCtx.Executed == 0U)) {
+		Status = XASUFW_PROVISION_INSTR_PROCESS_FAIL;
+	}
+
+END_CLR:
+	/** Withdraw the assembler state so no later sink call can reach this frame. */
+	ProvActiveSinkCtx = NULL;
+
+	/** Clear the AES key written to the AES user key source. */
+	XFIH_CALL(XAes_KeyClear, XFihProv, ClearStatus, AesInstancePtr, XASU_AES_USER_KEY_7);
+	Status = XAsufw_UpdateBufStatus(Status, ClearStatus);
+
+	/** Zeroize all transient key material and the borrowed working buffers. */
+	ASSIGN_VOLATILE(ClearStatus, XASUFW_FAILURE);
+	XFIH_CALL(Xil_SecureZeroize, XFihProv, ClearStatus, Seed, XPROVISION_HDR_SEED_LEN);
+	Status = XAsufw_UpdateBufStatus(Status, ClearStatus);
+
+	ASSIGN_VOLATILE(ClearStatus, XASUFW_FAILURE);
+	XFIH_CALL(Xil_SecureZeroize, XFihProv, ClearStatus, KeyMaterial,
+			XKEYMANAGER_SECRETS_KEY_MATERIAL_SIZE);
+	Status = XAsufw_UpdateBufStatus(Status, ClearStatus);
+
+END:
+	/*
+	 * Wipe the whole borrow on every exit. It holds the header snapshot before import and the
+	 * chunk-0 KEKs once processing begins.
+	 */
+	if (WorkPtr != NULL) {
+		ASSIGN_VOLATILE(ClearStatus, XASUFW_FAILURE);
+		XFIH_CALL(Xil_SecureZeroize, XFihProv, ClearStatus, (u8 *)WorkPtr,
+				(u32)XPROVISION_SCRATCH_LEN);
+		Status = XAsufw_UpdateBufStatus(Status, ClearStatus);
+	}
+	return Status;
+}
+#endif /* XASU_ECIES_ENABLE */
 
 #endif /* XASU_PROVISION_ENABLE */
 /** @} */

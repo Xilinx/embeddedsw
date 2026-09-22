@@ -187,7 +187,8 @@ _Static_assert((XKEYMANAGER_TRAILER_SIZE % XASU_AES_BLOCK_SIZE_IN_BYTES) == 0U,
  * must be unsigned, and Denominator must not be zero.
  */
 #define XKEYMANAGER_CEIL_DIV(Numerator, Denominator) \
-	(((Numerator) + (Denominator) - 1U) / (Denominator))
+	(((Numerator) / (Denominator)) + \
+	 ((((Numerator) % (Denominator)) != 0U) ? 1U : 0U))
 
 /************************************** Type Definitions *****************************************/
 /**

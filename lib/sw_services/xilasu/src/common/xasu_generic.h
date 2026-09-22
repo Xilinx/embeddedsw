@@ -45,6 +45,7 @@ extern "C" {
 
 /************************************ Function Prototypes ****************************************/
 s32 XAsu_IsBufferNonZero(u8 *Buffer, u32 Length);
+u8 XAsu_IsRangeOverlap(u64 FirstAddr, u32 FirstLen, u64 SecondAddr, u32 SecondLen);
 
 #ifdef __cplusplus
 }

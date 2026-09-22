@@ -59,7 +59,7 @@ _ASUFW_UPDATE_MNG_SIZE = DEFINED(_ASUFW_UPDATE_MNG_SIZE) ? _ASUFW_UPDATE_MNG_SIZ
  * tunable: overriding it would move the reservation while leaving every C address where it was,
  * which is why it is not wrapped in DEFINED().
  */
-_CRYPTO_SHARED_POOL_SIZE = 0x3D00;
+_CRYPTO_SHARED_POOL_SIZE = 0x47C0;
 /*
  * Buffer following it, addressed directly as XASUFW_CRYPTO_AUX_BUF_ADDR, for the two commands that
  * stage data in the block without holding XASUFW_OVERLAY: the AES counter-measure KAT and the key
@@ -95,9 +95,9 @@ MEMORY
    tmr_ram_data_ipi_shared_Mem : ORIGIN = 0xEBE41000, LENGTH = 0x8000
    tmr_ram_data_log_buf_Mem : ORIGIN = 0xEBE49000, LENGTH = _LOG_BUF_SIZE
    tmr_ram_data_ocp_Mem : ORIGIN = 0xEBE4A000, LENGTH = 0x2800
-   tmr_ram_crypto_data_block_Mem : ORIGIN = 0xEBE4C800, LENGTH = 0x4000
-   update_mgr_Mem : ORIGIN = 0xEBE50800, LENGTH = _ASUFW_UPDATE_MNG_SIZE
-   tmr_ram_overlay_data_Mem : ORIGIN = 0xEBE50A00, LENGTH = 0xF600
+   tmr_ram_crypto_data_block_Mem : ORIGIN = 0xEBE4C800, LENGTH = 0x4A00
+   update_mgr_Mem : ORIGIN = 0xEBE51200, LENGTH = _ASUFW_UPDATE_MNG_SIZE
+   tmr_ram_overlay_data_Mem : ORIGIN = 0xEBE51400, LENGTH = 0xEC00
 
    ddr_overlay_store_Mem : ORIGIN = _OVERLAY_DDR_BASE, LENGTH = _OVERLAY_STORE_SIZE
 }

@@ -1013,6 +1013,32 @@ enum {
 	XASUFW_PROVISION_DPC_DELETE_FAIL, /**< 0x2A2U - Error when deleting the provisioning key
 						pairs fails */
 
+	/* Wrapped-key provisioning error codes */
+	XASUFW_PROVISION_KEY_NOT_FOUND, /**< 0x2A3U - Error when a required subsystem
+						provisioning key is not found. */
+	XASUFW_PROVISION_KEY_UNWRAP_FAIL, /**< 0x2A4U - Error when ECIES unwrap of the provisioning
+						seed fails. */
+	XASUFW_PROVISION_INSTR_PROCESS_FAIL, /**< 0x2A5U - Error when building or importing the
+						chunk chain, or processing an instruction fails. */
+	XASUFW_PROVISION_HDR_VERIFY_FAIL, /**< 0x2A6U - Error when provisioning image header
+						validation (tag/version/alg) or signature
+						verification fails. */
+	XASUFW_PROVISION_KDF_FAIL, /**< 0x2A7U - Error when deriving or validating secrets key
+						material, or clearing the KDF key register fails. */
+	XASUFW_PROVISION_KEKS_DECRYPT_FAIL, /**< 0x2A8U - Error when unwrapping the secrets of any
+						chunk fails. */
+	XASUFW_PROVISION_SCRATCH_TOO_SMALL, /**< 0x2A9U - Error when the shared key vault session
+						storage cannot host the provisioning plaintext
+						buffers. */
+	XASUFW_PROVISION_KEY_WRAP_FAIL, /**< 0x2AAU - Error when preparing wrap resources or random
+						material, or ECIES-wrapping the seed fails. */
+	XASUFW_PROVISION_HDR_SIGN_FAIL, /**< 0x2ABU - Error when hashing or signing the provisioning
+						image header fails. */
+	XASUFW_PROVISION_KEKS_ENCRYPT_FAIL, /**< 0x2ACU - Error when wrapping the secrets of any
+						chunk fails. */
+	XASUFW_ECIES_CMAC_KDF_FAILURE = 0x2ADU, /**< 0x2ADU - Error when ECIES CMAC-KDF
+							operation fails. */
+
 	/* Additional status success codes */
 	XASUFW_PROVISION_DPC_SUCCESS = 0x3F4U, /**< 0x3F4U - Device Provisioning Certificate
 							generated successfully */

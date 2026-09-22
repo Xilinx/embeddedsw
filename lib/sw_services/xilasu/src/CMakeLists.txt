@@ -69,6 +69,18 @@ if(XILASU_IS_ASU)
     set(XASU_KEYMANAGER_ENABLE " ")
   endif()
 
+  if((XILASU_provision_support) AND NOT ((XILASU_ecies_support)))
+    set(XILASU_ecies_support TRUE CACHE BOOL
+      "ECIES is enabled as Provisioning depends on ECIES" FORCE)
+    set(XASU_ECIES_ENABLE " ")
+  endif()
+
+  if((XILASU_provision_support) AND NOT ((XILASU_ecc_p384_support)))
+    set(XILASU_ecc_p384_support TRUE CACHE BOOL
+      "ECC P-384 is enabled as Provisioning depends on ECC P-384" FORCE)
+    set(XASU_ECC_SUPPORT_NIST_P384 " ")
+  endif()
+
   if((XILASU_ecies_support) AND NOT ((XILASU_hmac_support)))
     set(XILASU_hmac_support TRUE CACHE BOOL "HMAC is enabled as ECIES depends on HMAC " FORCE)
     set(XASU_HMAC_ENABLE " ")

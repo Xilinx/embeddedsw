@@ -254,7 +254,8 @@ static s32 XAsufw_EciesEncrypt(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 
 	/** Perform ECIES encryption. */
 	Status = XEcies_Encrypt(XAsufw_EciesModule.AsuDmaPtr, XAsufw_EciesModule.ShaPtr,
-				XAsufw_EciesModule.AesPtr, EciesParamsPtr);
+				XAsufw_EciesModule.AesPtr, EciesParamsPtr,
+				XASU_FALSE);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_ECIES_ENCRYPT_FAILED);
 	}
@@ -325,7 +326,8 @@ static s32 XAsufw_EciesDecrypt(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 
 	/** Perform ECIES decryption. */
 	Status = XEcies_Decrypt(XAsufw_EciesModule.AsuDmaPtr, XAsufw_EciesModule.ShaPtr,
-				XAsufw_EciesModule.AesPtr, EciesParamsPtr);
+				XAsufw_EciesModule.AesPtr, EciesParamsPtr,
+				XASU_FALSE);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_ECIES_DECRYPT_FAILED);
 	}

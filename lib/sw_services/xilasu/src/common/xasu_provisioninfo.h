@@ -40,6 +40,8 @@ extern "C" {
 /*************************************** Include Files *******************************************/
 #include "xil_types.h"
 #include "xil_util.h"
+#include "xasu_keymanagerinfo.h"
+#include "xasu_mldsainfo.h"
 #ifdef SDT
 #include "xasu_bsp_config.h"
 #endif
@@ -54,7 +56,11 @@ extern "C" {
 								Device Provisioning Certificate (DPC) */
 #define XASU_PROVISION_DELETE_DPC_CMD_ID	(3U) /**< Command ID for deleting the provisioning
 								key pairs backing the DPC */
-#define XASU_PROVISION_MAX_CMDS			(4U) /**< Maximum number of commands supported by
+#define XASU_PROVISION_WRAP_INSTR_CMD_ID	(4U) /**< Command ID for wrapping
+								provisioning instructions */
+#define XASU_PROVISION_UNWRAP_INSTR_CMD_ID	(5U) /**< Command ID for unwrapping
+								provisioning instructions */
+#define XASU_PROVISION_MAX_CMDS			(6U) /**< Maximum number of commands supported by
 								the Provisioning module */
 
 #define XASU_PROVISION_USER_EFUSE_KEY_SIZE_IN_BYTES	(32U) /**< USER eFUSE key size in bytes
@@ -73,11 +79,60 @@ extern "C" {
  * UDE key type. Only ECC NIST P-384 is supported currently; ML-DSA support is deferred to a later
  * release.
  */
+/* TODO: Add the SLH-DSA UDE key type when the UDE and DPC formats support SLH-DSA keys. */
 #define XASU_PROVISION_UDE_KEY_TYPE_ECC_P384	(0U) /**< UDE key type ECC NIST P-384. */
 
 #define XASU_PROVISION_DPC_ACTUAL_SIZE_IN_BYTES	(4U) /**< Size in bytes of the DPC actual-size
 								value returned through the response
 								buffer. */
+
+/* Authenticated Encrypted Provisioning Instructions (AEPI) version 1 geometry. */
+#define XASU_PROVISION_RECORD_HEADER_SIZE	(8U) /**< Instruction-record header size. */
+#define XASU_PROVISION_STORE_KEY_METADATA_SIZE	(16U) /**< STORE_KEY metadata size. */
+#define XASU_PROVISION_MAX_RECORD_SIZE		\
+	(XASU_PROVISION_RECORD_HEADER_SIZE + XASU_PROVISION_STORE_KEY_METADATA_SIZE + \
+	 XASU_MLDSA_MAX_PRIV_KEY_LEN) /**< Largest record: STORE_KEY of an ML-DSA-87 private key. */
+#define XASU_PROVISION_MAX_STORE_KEY_DATA_SIZE	\
+	(XASU_PROVISION_MAX_RECORD_SIZE - XASU_PROVISION_RECORD_HEADER_SIZE - \
+	 XASU_PROVISION_STORE_KEY_METADATA_SIZE) /**< Largest STORE_KEY object that fits the
+							record window. */
+#define XASU_PROVISION_IMAGE_HEADER_SIZE		(848U) /**< AEPI header size in bytes. */
+#define XASU_PROVISION_IMAGE_CHUNK_DATA_SIZE	(7920U) /**< Plaintext bytes carried per chunk. */
+#define XASU_PROVISION_IMAGE_CHUNK_SIZE		(8496U) /**< Encrypted chunk size in bytes. */
+#define XASU_PROVISION_IMAGE_MAX_SIZE		(0xFFFFFFFFU) /**< Largest image represented by
+								the u32 buffer-length fields. */
+#define XASU_PROVISION_IMAGE_MAX_CHUNKS		\
+	((XASU_PROVISION_IMAGE_MAX_SIZE - XASU_PROVISION_IMAGE_HEADER_SIZE) / \
+	 XASU_PROVISION_IMAGE_CHUNK_SIZE)		/**< Maximum whole chunks in a u32 image. */
+#define XASU_PROVISION_IMAGE_MAX_RECORD_BLOB_LEN	\
+	(XASU_PROVISION_IMAGE_MAX_CHUNKS * XASU_PROVISION_IMAGE_CHUNK_DATA_SIZE)
+							/**< Largest instruction stream whose expanded
+								image fits in a u32 buffer length. */
+
+/* CREATE_KEY_VAULT instruction layout, counted from the start of the record. */
+#define XASU_PROVISION_CREATE_VAULT_ID_FIELD_SIZE (1U) /**< Vault-ID field width in bytes. */
+#define XASU_PROVISION_CREATE_CAP_FIELD_SIZE	(2U) /**< Capacity-field width in bytes. */
+#define XASU_PROVISION_CREATE_ACCESS_FIELD_SIZE	(2U) /**< Access-rights field width in bytes. */
+#define XASU_PROVISION_CREATE_RESTRICTIONS_FIELD_SIZE (1U) /**< Restrictions field width. */
+#define XASU_PROVISION_CREATE_VAULT_ID_OFFSET	(XASU_PROVISION_RECORD_HEADER_SIZE)
+							/**< Requested vault ID offset. */
+#define XASU_PROVISION_CREATE_CAPS_OFFSET	\
+	(XASU_PROVISION_CREATE_VAULT_ID_OFFSET + XASU_PROVISION_CREATE_VAULT_ID_FIELD_SIZE)
+							/**< First capacity-field offset. */
+#define XASU_PROVISION_CREATE_CAP_OFFSET(Index)	\
+	(XASU_PROVISION_CREATE_CAPS_OFFSET + \
+	 ((u32)(Index) * XASU_PROVISION_CREATE_CAP_FIELD_SIZE)) /**< Named capacity byte offset. */
+#define XASU_PROVISION_CREATE_ACCESS_OFFSET	\
+	XASU_PROVISION_CREATE_CAP_OFFSET(XASU_PROVISION_CREATE_CAP_COUNT)
+							/**< Access-rights field offset. */
+#define XASU_PROVISION_CREATE_RESTRICTIONS_OFFSET \
+	(XASU_PROVISION_CREATE_ACCESS_OFFSET + XASU_PROVISION_CREATE_ACCESS_FIELD_SIZE)
+							/**< Restrictions field offset. */
+#define XASU_PROVISION_CREATE_VAULT_PAYLOAD_SIZE	\
+	(XASU_PROVISION_CREATE_VAULT_ID_FIELD_SIZE + \
+	 ((u32)XASU_PROVISION_CREATE_CAP_COUNT * XASU_PROVISION_CREATE_CAP_FIELD_SIZE) + \
+	 XASU_PROVISION_CREATE_ACCESS_FIELD_SIZE + XASU_PROVISION_CREATE_RESTRICTIONS_FIELD_SIZE)
+							/**< CREATE_KEY_VAULT payload size. */
 
 /* USER eFUSE key identifier (which eFUSE user key to program). */
 #define XASU_PROVISION_EFUSE_USER_KEY_0		(1U) /**< Program USER_EFUSE_KEY_0 */
@@ -90,6 +145,27 @@ extern "C" {
 #define XASU_PROVISION_KEY_SOURCE_USER_BUFFER	(2U) /**< Key supplied by the client via KeyAddr. */
 
 /************************************** Type Definitions *****************************************/
+/** CREATE_KEY_VAULT capacity-field indices in wire order. */
+typedef enum {
+	XASU_PROVISION_CREATE_CAP_IDX_AES = 0,	/**< AES key capacity. */
+	XASU_PROVISION_CREATE_CAP_IDX_IV,	/**< IV capacity. */
+	XASU_PROVISION_CREATE_CAP_IDX_KDF_HMAC,	/**< KDF/HMAC key capacity. */
+	XASU_PROVISION_CREATE_CAP_IDX_RSA_PVT,	/**< RSA private-key capacity. */
+	XASU_PROVISION_CREATE_CAP_IDX_RSA_PUB,	/**< RSA public-key capacity. */
+	XASU_PROVISION_CREATE_CAP_IDX_ECC_PVT,	/**< ECC private-key capacity. */
+	XASU_PROVISION_CREATE_CAP_IDX_ECC_PUB,	/**< ECC public-key capacity. */
+	XASU_PROVISION_CREATE_CAP_IDX_LMS,	/**< LMS key capacity. */
+	/* TODO: Activate these fields when KeyManager provides SLH-DSA private/public sub-vaults. */
+	XASU_PROVISION_CREATE_CAP_IDX_SLHDSA_PVT, /**< Reserved SLH-DSA private-key position. */
+	XASU_PROVISION_CREATE_CAP_IDX_SLHDSA_PUB, /**< Reserved SLH-DSA public-key position. */
+	XASU_PROVISION_CREATE_CAP_IDX_MLDSA_PVT,	/**< ML-DSA private-key capacity. */
+	XASU_PROVISION_CREATE_CAP_IDX_MLDSA_PUB,	/**< ML-DSA public-key capacity. */
+	XASU_PROVISION_CREATE_CAP_IDX_MLKEM_PVT,	/**< ML-KEM private-key capacity. */
+	XASU_PROVISION_CREATE_CAP_IDX_MLKEM_PUB,	/**< ML-KEM public-key capacity. */
+	XASU_PROVISION_CREATE_CAP_IDX_X509,	/**< X.509 certificate capacity. */
+	XASU_PROVISION_CREATE_CAP_COUNT		/**< Number of capacity fields on the wire. */
+} XAsu_ProvisionCreateCapIndex;
+
 /**
  * This structure contains the parameters for the USER eFUSE key provisioning command.
  * The key is always programmed in black form (PUF KEK encrypted). The key source is selected
@@ -153,6 +229,30 @@ typedef struct {
 	u32 DpcBufSize;		/**< Size in bytes of the caller DPC buffer at DpcBufAddr. */
 	u32 Reserved;		/**< Reserved for alignment. */
 } XAsu_DevProvisionCertParams;
+
+/**
+ * This structure contains the parameters for atomically building an AEPI image in ASUFW. The
+ * caller supplies a plaintext provisioning-instruction stream and an output buffer. ASUFW
+ * resolves the requesting subsystem's provisioning wrapping public key and authentication
+ * private key internally, encrypts the chunk chain and signs the header.
+ */
+typedef struct {
+	u64 RecordBlobAddr;	/**< Address of the plaintext instruction-record stream. */
+	u64 ImageAddr;		/**< Address of the output buffer that receives the AEPI image. */
+	u32 ImageBufSize;	/**< Capacity of the output buffer in bytes. */
+	u32 RecordBlobLen;	/**< Instruction stream size in bytes (PI_SIZE). */
+} XAsu_WrapProvisionInstructionsParams;
+
+/*
+ * Caller parameters for processing one complete wrapped provisioning image. The ASU resolves both
+ * the P-384 signature-verification public key and the ECIES receive private key from the requesting
+ * subsystem's reserved provisioning slots in the ASU exportable vault.
+ */
+typedef struct {
+	u64 ImageAddr;		/**< Base address of the whole provisioning image (header @ 0). */
+	u32 TotalLen;		/**< Total image/buffer length in bytes. */
+	u32 Reserved;		/**< Reserved; must be zero. */
+} XAsu_UnwrapProvisionInstructionsParams;
 
 /*************************** Macros (Inline Functions) Definitions *******************************/
 

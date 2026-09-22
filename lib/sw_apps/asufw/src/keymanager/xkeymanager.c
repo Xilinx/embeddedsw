@@ -125,7 +125,7 @@ _Static_assert((XRSA_PUBEXP_SIZE_IN_BYTES + XRSA_MAX_KEY_SIZE_IN_BYTES) <=
 								update in progress */
 #define XKEYMANAGER_VAULT_DIRTY_VALUE			(0xE2U) /**< Dirty vault flag */
 #define XKEYMANAGER_VAULT_CLEAN_VALUE			(0x1EU) /**< Clean vault flag */
-#define XKEYMANAGER_USER_VAULT_START_INDEX		(XKEYMANAGER_ASU_EXPORTABLE_VAULT_ID + 1U)
+#define XKEYMANAGER_USER_VAULT_START_INDEX		(XASU_KM_USER_VAULT_START_ID)
 							/**< Start index for user vaults, the
 							first index above the ASU owned
 							vaults */
@@ -328,6 +328,13 @@ EXPORT_ASUFW_DS(CurrentEpochTime, XASU_MODULE_KEYMANAGER_ID, XKEYMANAGER_EPOCH_T
 
 /** @endcond */
 
+_Static_assert(XKEYMANAGER_MAX_SUB_VAULTS == (u32)XASU_INVALID_SUBVAULT_ID,
+	       "sub-vault count must match the shared sub-vault identifiers");
+_Static_assert(offsetof(XAsu_KeyManagerSubVaultParams, MlkemPubKeyVaultCapacity) ==
+	       (offsetof(XAsu_KeyManagerSubVaultParams, AESKeyVaultCapacity) +
+		((XKEYMANAGER_MAX_SUB_VAULTS - 1U) * sizeof(u16))),
+	       "sub-vault capacities must remain contiguous and in identifier order");
+
 /**< Lookup table for key object sizes based on key type */
 static const u32 XKeyManager_KeyObjectSizeLookup[XKEYMANAGER_MAX_SUB_VAULTS] = {
 	[XASU_AES_SUBVAULT_ID] = sizeof(XKeyManager_AesKeyObject),
@@ -519,7 +526,7 @@ s32 XKeyManager_CreateAsuExportableVault(void)
 	SubVaultParams.Restrictions = XASU_KEYMANAGER_EXPORTABLE_VAULT;
 
 	Status = XKeyManager_CreateKeyVault(&SubVaultParams, XKEYMANAGER_ASU_SUBSYSTEM_ID, 0U,
-					    &VaultId);
+					    &VaultId, (u8)XASU_FALSE);
 	if (XASUFW_SUCCESS != Status) {
 		Status = XAsufw_UpdateErrorStatus(Status,
 			XASUFW_KEYMANAGER_ASU_EXPORTABLE_VAULT_CREATION_FAILED);
@@ -811,6 +818,7 @@ END:
  * @param	SubsystemId	Subsystem ID for which the vault is being created.
  * @param	IpiMask		IPI mask to identify the channel for this vault.
  * @param	VaultIdPtr	Pointer to store the created vault ID.
+ * @param	IsProvisioning	Must be XASU_FALSE.
  *
  * @return
  * 	- XASUFW_SUCCESS, if key vault creation is successful.
@@ -824,7 +832,7 @@ END:
  *
  *************************************************************************************************/
 s32 XKeyManager_CreateKeyVault(const XAsu_KeyManagerSubVaultParams *ParamsPtr, u32 SubsystemId,
-				u32 IpiMask, u32 *VaultIdPtr)
+				u32 IpiMask, u32 *VaultIdPtr, u8 IsProvisioning)
 {
 	/**
 	 * Capture the start time of the key vault creation operation, if performance
@@ -847,7 +855,8 @@ s32 XKeyManager_CreateKeyVault(const XAsu_KeyManagerSubVaultParams *ParamsPtr, u
 	u8 VaultIdx = 0U;
 
 	/** Validate the input parameters. */
-	if ((ParamsPtr == NULL) || (VaultIdPtr == NULL)) {
+	if ((ParamsPtr == NULL) || (VaultIdPtr == NULL) ||
+	    (IsProvisioning != (u8)XASU_FALSE)) {
 		Status = XASUFW_KEYMANAGER_INVALID_PARAM;
 		goto END;
 	}

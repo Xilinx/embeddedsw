@@ -26,6 +26,7 @@
 */
 
 /***************************** Include Files *****************************************************/
+#include "xasu_def.h"
 #include "xasu_generic.h"
 #include "xstatus.h"
 
@@ -70,6 +71,36 @@ s32 XAsu_IsBufferNonZero(u8 *Buffer, u32 Length)
 	}
 
 	return Status;
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	This function checks whether two non-empty address ranges overlap or either range
+ *		wraps.
+ *
+ * @param	FirstAddr	Start address of the first range.
+ * @param	FirstLen	Length of the first range.
+ * @param	SecondAddr	Start address of the second range.
+ * @param	SecondLen	Length of the second range.
+ *
+ * @return
+ *	- XASU_TRUE, if either range wraps or the ranges overlap.
+ *	- XASU_FALSE, if either range is empty or the ranges are representable and disjoint.
+ *
+ *************************************************************************************************/
+u8 XAsu_IsRangeOverlap(u64 FirstAddr, u32 FirstLen, u64 SecondAddr, u32 SecondLen)
+{
+	u64 FirstEnd = FirstAddr + (u64)FirstLen;
+	u64 SecondEnd = SecondAddr + (u64)SecondLen;
+	u8 Overlap = XASU_FALSE;
+
+	if ((FirstLen != 0U) && (SecondLen != 0U) &&
+	    ((FirstEnd < FirstAddr) || (SecondEnd < SecondAddr) ||
+	     ((FirstAddr < SecondEnd) && (SecondAddr < FirstEnd)))) {
+		Overlap = XASU_TRUE;
+	}
+
+	return Overlap;
 }
 
 /** @} */

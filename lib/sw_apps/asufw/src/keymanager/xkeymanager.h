@@ -257,7 +257,7 @@ typedef struct {
 s32 XKeyManager_CfgInitialize(void);
 s32 XKeyManager_UpdateUdeKeyType(u8 UdeSlot, u8 UdeKeyType);
 s32 XKeyManager_CreateKeyVault(const XAsu_KeyManagerSubVaultParams *ParamsPtr, u32 SubsystemId,
-						u32 IpiMask, u32 *VaultIdPtr);
+			u32 IpiMask, u32 *VaultIdPtr, u8 IsProvisioning);
 s32 XKeyManager_DeleteKeyVault(u32 SubsystemId, u32 VaultId);
 s32 XKeyManager_GenerateKeyIv(XAsufw_Dma *DmaPtr,
 			const XAsu_KeyManagerParams *ParamsPtr, u32 *KeyIdPtr, u32 SubSystemId,

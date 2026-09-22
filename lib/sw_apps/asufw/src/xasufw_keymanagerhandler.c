@@ -563,6 +563,7 @@ END:
  *
  * @return
  * 	- XASUFW_SUCCESS, if vault creation operation is successful.
+ * 	- XASUFW_INVALID_PARAM, if the command length is invalid.
  * 	- XASUFW_KEYMANAGER_VAULT_GEN_ERROR, if generation operation fails.
  * 	- XASUFW_RESOURCE_RELEASE_NOT_ALLOWED, if illegal resource release is requested.
  * 	- XASUFW_INVALID_SUBSYSTEM_ID, if the subsystem ID cannot be derived from the IPI mask.
@@ -590,7 +591,8 @@ static s32 XAsufw_KeyManagerCreateKeyVault(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	}
 
 	/** Create a key vault for the requesting subsystem. */
-	Status = XKeyManager_CreateKeyVault(Cmd, SubsystemId, IpiMask, OutIdAddr);
+	Status = XKeyManager_CreateKeyVault(Cmd, SubsystemId, IpiMask, OutIdAddr,
+			(u8)XASU_FALSE);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_KEYMANAGER_VAULT_GEN_ERROR);
 	}
@@ -1165,7 +1167,7 @@ static s32 XAsufw_CreateAsuKeyVault(void)
 	SubVaultParams.Restrictions = XASU_KEYMANAGER_NON_EXPORTABLE_VAULT;
 
 	Status = XKeyManager_CreateKeyVault(&SubVaultParams, XKEYMANAGER_ASU_SUBSYSTEM_ID,
-						0U, &VaultId);
+						0U, &VaultId, (u8)XASU_FALSE);
 	if (Status != XASUFW_SUCCESS) {
 		goto END;
 	}
