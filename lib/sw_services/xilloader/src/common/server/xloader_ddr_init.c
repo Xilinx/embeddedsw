@@ -28,6 +28,8 @@
  *       pre  05/25/2026 For VersalGen2, updated I2C handshake with user defined I2C controller
  *       pre  07/14/2026 Made changes to get I2C device ID based on changed params in SDT
  *       pre  08/05/2026 Enabled I2C Handshake feature for all platforms
+ *       obs  08/21/2026 Bounded the MicroBlaze supplied data buffer offset to
+ *                       the DDRMC exchange window
  *       pre  09/17/2026 Reset I2C instance state after release on all platforms
  * </pre>
  *
@@ -88,6 +90,16 @@ static u64 TimeoutNs;
 #define XPLMI_REQ_BIT_CLEAR                  0X00000000U
 #define XPLMI_DATA_OFFSET_INDEX              4U
 #define XPLMI_MAX_DATA_SIZE                  30U
+/*
+ * Extent of the register window belonging to a single DDRMC UB, used to bound
+ * the exchange buffer offset supplied by the memory controller MicroBlaze.
+ *
+ * Platform DDRMC block-stride definitions place the NOC block 0x10000 below
+ * the UB block and the MAIN block 0x30000 below it. Together with the 64KB
+ * alignment of every UB base, this confirms 64KB as the UB aperture bound.
+ * The in-tree UB register offsets used by firmware are all below 0x1000.
+ */
+#define XLOADER_DDRMC_UB_WINDOW_SIZE         0x10000U
 #define XPLMI_BIT_LEN                        1U
 #define XPLMI_SHORT_WORD_LEN                 2U
 #define XPLMI_BYTE                           0xFFU
@@ -252,11 +264,32 @@ static int XLoader_MbPmcI2cHandshakeProcess(XIicPs *Iic, u32 BaseAddress,
 	u32 Index = 0U;
 	u8 DataBuff[XPLMI_MAX_DATA_SIZE] = { 0 };
 	u32 RecvData = 0U;
+	u32 TransferLen;
 
 	/* Size validation  */
 	if (((CtrlReg & XPLMI_SIZE_MASK) >> XPLMI_SIZE_SHIFT) < (u32)XPLMI_MAX_DATA_SIZE) {
 		/* Read the data buffer offset */
 		DataBufAddr = XPlmi_In32(DataBuffOffset);
+
+		/*
+		 * DataBufAddr is written by the memory controller MicroBlaze, which
+		 * sits outside the PLM trust boundary, and it is added to BaseAddress
+		 * to form the address of the PMC privileged accesses below. Constrain
+		 * it, and the extent reached from it, to the exchange window of the
+		 * controller so a chosen value cannot redirect those accesses at some
+		 * other part of the PMC address space.
+		 */
+		TransferLen = ((CtrlReg & XPLMI_SIZE_MASK) >> XPLMI_SIZE_SHIFT) *
+			      XPLMI_WORD_LEN;
+		if (((DataBufAddr % XPLMI_WORD_LEN) != 0U) ||
+		    (DataBufAddr >= XLOADER_DDRMC_UB_WINDOW_SIZE) ||
+		    (TransferLen > (XLOADER_DDRMC_UB_WINDOW_SIZE - DataBufAddr)) ||
+		    (((u64)BaseAddress + (u64)DataBufAddr + (u64)TransferLen) >
+		     ((u64)1U << 32U))) {
+			Status = XLOADER_ERR_I2C_TRANSACTION;
+			goto END;
+		}
+
 		for (Index = 0;
 		     Index < ((CtrlReg & XPLMI_SIZE_MASK) >> XPLMI_SIZE_SHIFT);
 		     Index++) {
