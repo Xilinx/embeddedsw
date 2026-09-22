@@ -300,18 +300,20 @@ static XStatus NpdInitFinish(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 
 	if (PM_HOUSECLEAN_CHECK(NPD, NPD_EFUSE)) {
 		/*
-		 * In xc2vp3602 device LPD_CPM6_DFX isolation must be removed
-		 * to enable CPM6 SSC bypass before running NPD secure efuse
-		 * transfer.
+		 * On devices with CPM6, LPD_CPM6_DFX isolation must be removed to
+		 * enable CPM6 SSC bypass before running NPD secure efuse transfer.
+		 * CPM6 has no dedicated supply (tied to vccint_pslp, always on), so
+		 * the presence of the CPM6 power node is the trigger, regardless of
+		 * whether CPM6 is enabled.
 		 */
-		#if defined(XC2VP3202) || defined(XC2VP3602)
-		/* Remove LPD_CPM6_DFX isolation */
-		Status = XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_LPD_CPM6_DFX, FALSE_IMMEDIATE);
-		if (XST_SUCCESS != Status) {
-			DbgErr = XPM_INT_ERR_LPD_CPM6_DFX_ISO;
-			goto done;
+		if (NULL != XPmPower_GetById(PM_POWER_CPM6)) {
+			/* Remove LPD_CPM6_DFX isolation */
+			Status = XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_LPD_CPM6_DFX, FALSE_IMMEDIATE);
+			if (XST_SUCCESS != Status) {
+				DbgErr = XPM_INT_ERR_LPD_CPM6_DFX_ISO;
+				goto done;
+			}
 		}
-		#endif
 
 		Status = XPmPowerDomain_SecureEfuseTransfer(PM_POWER_NOC);
 	}
