@@ -330,6 +330,7 @@ int XAxiCdma_SelectKeyHole(XAxiCdma *InstancePtr, u32 Direction, u32 Select)
  *****************************************************************************/
 int XAxiCdma_SwitchMode(XAxiCdma *InstancePtr, int Mode)
 {
+	XAxiCdma_Bd *BdPtr;
 
 	if (Mode == XAXICDMA_SIMPLE_MODE) {
 
@@ -343,14 +344,19 @@ int XAxiCdma_SwitchMode(XAxiCdma *InstancePtr, int Mode)
 			return XST_DEVICE_BUSY;
 		}
 
-		/* Keep the CDESC so that CDESC will be
-		 * reloaded when switch to SG mode again
+		/* Keep the next BD so that CDESC will be reloaded when
+		 * switching back to SG mode. Store a physical address
+		 * because BdaRestart is written into the CDESC register.
 		 *
 		 * We know CDESC is valid because the hardware can only
 		 * be in SG mode if a SG transfer has been submitted.
 		 */
-		InstancePtr->BdaRestart = XAxiCdma_BdRingNext(InstancePtr,
-					  XAxiCdma_BdRingGetCurrBd(InstancePtr));
+		BdPtr = XAxiCdma_BdRingNext(InstancePtr,
+					   XAxiCdma_BdRingGetCurrBd(InstancePtr));
+		if (BdPtr != NULL) {
+			InstancePtr->BdaRestart = (XAxiCdma_Bd *)(void *)
+				XAxiCdma_BdGetPhysAddr(BdPtr);
+		}
 
 		/* Update the CR register to switch to simple mode
 		 */

@@ -159,23 +159,49 @@ void XAxiCdma_BdSetCurBdPtr(XAxiCdma *InstancePtr, UINTPTR CurBdPtr)
 
 /*****************************************************************************/
 /**
+ * @brief Converts a physical BD address to its virtual address in the ring.
+ *
+ * @param[in] InstancePtr is the driver instance for the BD ring
+ * @param[in] BdPhysAddr is the physical address of the BD
+ *
+ * @return	The virtual address of the BD in the ring
+ *
+ *****************************************************************************/
+static XAxiCdma_Bd *XAxiCdma_BdRingGetVirtAddr(XAxiCdma *InstancePtr,
+					       UINTPTR BdPhysAddr)
+{
+	return (XAxiCdma_Bd *)(void *)(InstancePtr->FirstBdAddr +
+			(BdPhysAddr - InstancePtr->FirstBdPhysAddr));
+}
+
+/*****************************************************************************/
+/**
  * @brief Reads the current BD pointer from the hardware.
+ *
+ * The hardware CDESC register contains a physical address. This routine
+ * translates that address to the virtual address used by BD ring APIs.
  *
  * @param[in] InstancePtr is the driver instance we are working on
  *
- * @return	The BD pointer in CDESC register
+ * @return	The virtual address of the BD pointed to by CDESC
  *
  *
  *****************************************************************************/
 XAxiCdma_Bd *XAxiCdma_BdRingGetCurrBd(XAxiCdma *InstancePtr)
 {
+	UINTPTR CurrBdPhysAddr;
 
 	if (InstancePtr->AddrWidth > 32) {
-		return (XAxiCdma_Bd *)(UINTPTR)((XAxiCdma_BdRead(InstancePtr->BaseAddr, XAXICDMA_CDESC_OFFSET)) |
-						((uint64_t)(XAxiCdma_BdRead(InstancePtr->BaseAddr, XAXICDMA_CDESC_MSB_OFFSET)) << 32U));
+		CurrBdPhysAddr = (UINTPTR)((XAxiCdma_BdRead(InstancePtr->BaseAddr,
+							       XAXICDMA_CDESC_OFFSET)) |
+				((uint64_t)(XAxiCdma_BdRead(InstancePtr->BaseAddr,
+							       XAXICDMA_CDESC_MSB_OFFSET)) << 32U));
 	} else {
-		return (XAxiCdma_Bd *)(UINTPTR)(XAxiCdma_BdRead(InstancePtr->BaseAddr, XAXICDMA_CDESC_OFFSET));
+		CurrBdPhysAddr = (UINTPTR)XAxiCdma_BdRead(InstancePtr->BaseAddr,
+							     XAXICDMA_CDESC_OFFSET);
 	}
+
+	return XAxiCdma_BdRingGetVirtAddr(InstancePtr, CurrBdPhysAddr);
 }
 
 /*****************************************************************************/
@@ -210,9 +236,10 @@ u32 XAxiCdma_BdRingGetFreeCnt(XAxiCdma *InstancePtr)
 
 /*****************************************************************************/
 /**
- * @brief Reads the current BD pointer from the hardware.
+ * @brief Reads and saves the current BD pointer from the hardware.
  * It is normally used to prepare for the hardware reset. The snapshot of the
  * current BD pointer should be reloaded once the reset is done.
+ * The restart pointer is saved as a physical address for programming CDESC.
  *
  * @param[in] InstancePtr is the driver instance we are working on
  *
@@ -222,9 +249,13 @@ void XAxiCdma_BdRingSnapShotCurrBd(XAxiCdma *InstancePtr)
 {
 	XAxiCdma_Bd *BdPtr;
 
-	BdPtr =	XAxiCdma_BdRingGetCurrBd(InstancePtr);
+	BdPtr = XAxiCdma_BdRingGetCurrBd(InstancePtr);
 
-	InstancePtr->BdaRestart = XAxiCdma_BdRingNext(InstancePtr, BdPtr);
+	BdPtr = XAxiCdma_BdRingNext(InstancePtr, BdPtr);
+	if (BdPtr != NULL) {
+		InstancePtr->BdaRestart = (XAxiCdma_Bd *)(void *)
+			XAxiCdma_BdGetPhysAddr(BdPtr);
+	}
 
 	return;
 }
