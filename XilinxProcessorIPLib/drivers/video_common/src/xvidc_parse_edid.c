@@ -2608,18 +2608,20 @@ xvidc_parse_displayid_serial_number(const u8 *x, XV_VidC_EdidCntrlParam *EdidCtr
     u32 offset = XVIDC_DISPLAYID_DATA_BLOCK_HEADER_LEN;
     u32 i = 0;
 
-    while (i < XVIDC_DISPLAYID_STRING_MAX_LEN && offset < (u32)(length + 3) && offset < 128 && x[offset] != 0x0A && x[offset] != 0x00) {
-        EdidCtrlParam->DispIdProductString[i] = x[offset];
+    while (i < sizeof(EdidCtrlParam->DispIdSerialString) - 1 &&
+           offset < (u32)(length + 3) && offset < 128 &&
+           x[offset] != 0x0A && x[offset] != 0x00) {
+        EdidCtrlParam->DispIdSerialString[i] = x[offset];
         i++;
         offset++;
     }
-    EdidCtrlParam->DispIdProductString[i] = 0x00;
-    EdidCtrlParam->DispIdProductStringLen = i;
+    EdidCtrlParam->DispIdSerialString[i] = 0x00;
+    EdidCtrlParam->DispIdSerialStringLen = i;
 
 #if XVIDC_EDID_VERBOSITY > 0
     if (VerboseEn) {
         xil_printf("    Serial Number Data Block\r\n");
-        xil_printf("    Value: %s\r\n", EdidCtrlParam->DispIdProductString);
+        xil_printf("    Value: %s\r\n", EdidCtrlParam->DispIdSerialString);
     }
 #endif
 }
