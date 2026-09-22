@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2013 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -66,7 +66,7 @@
 *                        range in XilSKey_ZynqMp_EfusePs_Temp_Vol_Checks
 * 7.2   am      07/13/21 Fixed doxygen warnings
 * 7.5   ng      07/13/23 added SDT support
-*
+* 8.0   rpu     09/22/26 Fixed MISRA-C violation.
 * </pre>
 *
  *****************************************************************************/
@@ -1186,7 +1186,7 @@ u32 XilSKey_CrcCalculation(const u8 *Key)
 	u32 Length = Xil_Strnlen((const char *)Key,
 		XSK_EFUSEPS_AES_KEY_SIZE_IN_CHARS + 1U);
 
-	if (Length > XSK_EFUSEPS_AES_KEY_SIZE_IN_CHARS) {
+	if ((Length == 0U) || (Length > XSK_EFUSEPS_AES_KEY_SIZE_IN_CHARS)) {
 		CrcReturn = (u32)XSK_EFUSEPL_ERROR_NOT_VALID_KEY_LENGTH;
 		goto END;
 	}
