@@ -59,10 +59,10 @@
 
 /**************************** Function Prototypes *****************************/
 
-extern u32 DpPsu_PlatformInit(void);
-extern u32 DpPsu_StreamSrcSync(XDpPsu *InstancePtr);
-extern u32 DpPsu_StreamSrcSetup(XDpPsu *InstancePtr);
-extern u32 DpPsu_StreamSrcConfigure(XDpPsu *InstancePtr);
+u32 DpPsu_PlatformInit(void);
+u32 DpPsu_StreamSrcSync(XDpPsu *InstancePtr);
+u32 DpPsu_StreamSrcSetup(XDpPsu *InstancePtr);
+u32 DpPsu_StreamSrcConfigure(XDpPsu *InstancePtr);
 
 u32 DpPsu_SetupExample(XDpPsu *InstancePtr, u32 BaseAddress);
 u32 DpPsu_StartLink(XDpPsu *InstancePtr);

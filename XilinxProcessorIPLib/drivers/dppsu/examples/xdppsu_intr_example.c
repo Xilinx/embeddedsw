@@ -18,9 +18,9 @@
  * @note	For this example to display output, the user will need to
  *		select the Test Pattern Generator or initialize and select an
  *		appropriate source.
- * @note	The functions DpPsu_PlatformInit and DpPsu_StreamSrc* are
- *		declared extern in xdppsu_common_example.h and are left up to the
- *		user to implement.
+ * @note	DpPsu_PlatformInit and the DpPsu_StreamSrc* functions are empty
+ *		stubs in xdppsu_common_example.c for the user to fill in as
+ *		needed.
  *
  * <pre>
  * MODIFICATION HISTORY:

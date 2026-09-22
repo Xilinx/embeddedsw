@@ -19,9 +19,9 @@
  *		stream source in order to provide the DisplayPort core with
  *		input (DpPsu_StreamSrc* - called in xdppsu_common_example.c).
  *
- * @note	The functions DpPsu_PlatformInit and DpPsu_StreamSrc* are declared
- *		extern in xdppsu_common_example.h and are left up to the user to
- *		implement.
+ * @note	DpPsu_PlatformInit and the DpPsu_StreamSrc* functions are empty
+ *		stubs in xdppsu_common_example.c for the user to fill in as
+ *		needed.
  *
  * <pre>
  * MODIFICATION HISTORY:
