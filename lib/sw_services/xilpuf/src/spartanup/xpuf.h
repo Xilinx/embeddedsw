@@ -23,6 +23,8 @@
 * 2.7   bha  01/22/2026 Added ID - Only regeneration support
 *       mb   04/23/2026 Remove unused macros
 *       rpu  06/25/2026 Added XPUF_GVF_MASK macro
+* 2.8   mb   09/19/2026 Clarify trimmed HD is PDI/hash format, not eFUSE.
+*
 * </pre>
 *
 *******************************************************************************/
@@ -46,7 +48,7 @@ extern "C" {
 		/**< PUF 4K syndrome data length in words */
 
 #define XPUF_EFUSE_TRIM_SYN_DATA_IN_WORDS		(127U)
-		/**< Efuse trimmed syndrome data length in words */
+		/**< Trimmed syndrome data length in words */
 
 #define XPUF_ID_LEN_IN_WORDS				(0x8U)	/**< PUF ID length in words */
 
@@ -65,7 +67,7 @@ extern "C" {
 				/**< Trimmed syndrome data length in bytes */
 
 #define XPUF_EFUSE_TRIM_MASK				(0xFFFFF000U)
-			/**< Mask for trimming syndrome data to be stored in eFuses */
+			/**< Mask for trimming syndrome data to be stored in PDI/RAM */
 
 #define XPUF_LAST_WORD_OFFSET				(126U)
 			/**< Offset for last word for PUF Syndrome data */
@@ -115,7 +117,7 @@ typedef struct _XPuf_Data {
 	u32 PufID[XPUF_ID_LEN_IN_WORDS]; /**< PUF ID */
 	u32 SyndromeAddr; /**< Address of syndrome data */
 	u32 TrimmedSynData[XPUF_EFUSE_TRIM_SYN_DATA_IN_WORDS];
-		/**< Trimmed syndrome data*/
+		/**< Trimmed syndrome data for PDI storage and HD hash */
 	u32 RoSwapVal; /**< PUF Ring Oscillator Swap setting */
 	u32 PufOperation;
 	/**< PUF Registration/ Regeneration On-Demand/ ID only regeneration) */

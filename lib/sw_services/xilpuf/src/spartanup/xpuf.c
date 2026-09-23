@@ -21,6 +21,7 @@
 *       aa   07/14/2025 Fixed MISRA-C violations
 *       mb   09/26/2025 Minor updates in xilpuf library
 * 2.7   bha  01/22/2026 Added ID - Only regeneration support
+* 2.8   mb   09/19/2026 Clarify TrimPufData for PDI/hash, not eFUSE.
 *
 * </pre>
 *
@@ -340,8 +341,8 @@ END:
 
 /*****************************************************************************/
 /**
- * @brief	This function regenerates PUF data using helper data stored in eFUSE
- *		or external memory.
+ * @brief	This function regenerates PUF data using helper data from external
+ *		memory or a PUF helper-data PDI.
  *
  * @param	PufData Pointer to XPuf_Data structure which includes options
  *					to configure PUF.
@@ -352,6 +353,11 @@ END:
  *			waiting for PUF Syndrome data
  *		- XPUF_ERROR_KEY_NOT_CONVERGED When PUF key is not converged
  *		- XST_FAILURE  Unexpected event
+ *
+ * @note	Spartan UltraScale+ has no dedicated PUF helper-data eFUSEs.
+ *		Store packed syndrome, CHASH and AUX outside eFUSE (PDI/RAM)
+ *		and program only the hash of that packed helper data into a
+ *		PPK eFUSE slot: (PPK2 on SU10P/SU25P/SU35P) or (PPK1 on SCU200P).
  *
  *****************************************************************************/
 int XPuf_Regeneration(XPuf_Data *PufData)
@@ -546,8 +552,7 @@ static int XPuf_CapturePufID(XPuf_Data *PufData)
 /*****************************************************************************/
 /**
  *
- * @brief	Converts the PUF Syndrome data to eFUSE writing format.
- *
+ * @brief	Packs 4K PUF syndrome data by removing unused bits.
  *
  * @param	PufData	Pointer to XPuf_Data structure which includes options
  *					to configure PUF.
@@ -558,7 +563,10 @@ static int XPuf_CapturePufID(XPuf_Data *PufData)
  *		- XST_INVALID_PARAM Input parameters for Xil_SMemCpy are NULL
  *
  * @note
- *		Formatted data will be available at PufData->TrimmedSynData
+ *		Packed data is written to PufData->TrimmedSynData. On Spartan
+ *		UltraScale+ this blob is not programmed into eFUSE. Use it in
+ *		the PUF helper-data PDI and hash it (with CHASH and AUX) into
+ *		the PPK eFUSE slot.
  *
  ******************************************************************************/
 int XPuf_TrimPufData(XPuf_Data *PufData)
@@ -593,18 +601,17 @@ int XPuf_TrimPufData(XPuf_Data *PufData)
 	/**
 	 * Trimming logic for PUF Syndrome Data:
 	 *
-	 * Space allocated in eFUSE for syndrome data = 4060bits
-	 *
-	 * eFUSE02 - 2032bits
-	 *
-	 * eFUSE03 - 2028bits
+	 * Packed syndrome data is 4060 valid bits held in 127 words.
+	 * On Spartan UltraScale+ there are no dedicated helper-data eFUSEs,
+	 * the packed blob is stored in the PUF helper-data PDI / RAM and
+	 * hashed into a PPK slot.
 	 *
 	 * PUF Helper data generated for 4K Mode through registration
 	 * is 140 Words = 140*32 = 4480 bits.
 	 * Remove lower 12 bits of every fourth word of syndrome data.
 	 *
 	 * After removing these bits remaining syndrome data will be
-	 * exactly 4060bits which will fit into eFUSE.
+	 * exactly 4060 bits.
 	 *
 	 *
 	 * Illustration:

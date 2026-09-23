@@ -49,6 +49,7 @@
  *       bha  02/25/26 Removed ICCARM related code
  *       mb   05/25/26 Remove hard code shared_mem section address
  * 2.8   rpu  06/25/26 Updated print statement to print GVF along with shutter value
+ *       mb   09/19/26 Clarify trim packs HD for PDI/RAM, not eFUSE.
  * </pre>
  * @note
  *
@@ -285,7 +286,7 @@ static int XPuf_GenerateKey(void)
 		XPuf_ShowData((u8 *)PufData.PufID, XPUF_ID_LEN_IN_BYTES);
 
 		/**
-		 * Trim PUF data for eFUSE storage format (Spartan-specific compression)
+		 * Pack 4K syndrome for PDI/RAM storage and HD hash (not eFUSE)
 		 */
 		Status = XPuf_TrimPufData(&PufData);
 		if (Status != XST_SUCCESS) {
@@ -325,7 +326,7 @@ static int XPuf_GenerateKey(void)
 	else if (XPUF_KEY_GENERATE_OPTION == XPUF_ON_DEMAND_REGEN){
 
 		/**
-		 * Decompress syndrome data from eFUSE-compatible format (Spartan-specific)
+		 * Expand packed syndrome back to 4K words for PUF regeneration
 		 */
 		Status = XPuf_DecompressPufHd(XPUF_SYNDROME_DATA_WRITE_ADDR, (u32*)(UINTPTR)&PufData.SyndromeData);
 		if (Status != XST_SUCCESS) {

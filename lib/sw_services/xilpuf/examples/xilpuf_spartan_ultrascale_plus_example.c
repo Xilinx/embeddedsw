@@ -8,8 +8,8 @@
   *
   * @file xilpuf_spartan_ultrascale_plus_example.c
   *
-  * This file illustrates encryption of red key using PUF KEY and
-  * programming the black key and helper data.
+ * This file illustrates encryption of red key using PUF KEY and
+ * programming the black key and the hash of packed PUF helper data.
   *
   * This example is supported for spartan ultrascale plus devices.
   *
@@ -63,8 +63,9 @@
   *       tus  05/15/26 Remove 128-bit key support from XPuf_FormatAesKey
   *                     as it is not supported during boot
   * 2.8   rpu  06/25/26 Updated print statement to print GVF along with shutter value
-  *       rap  08/12/26 Changed empty parameter lists '()' to '(void)' in static
-  *                     function declarations to fix MISRA-C violation
+ *        rap  08/12/26 Changed empty parameter lists '()' to '(void)' in static
+ *                     function declarations to fix MISRA-C violation
+ *        mb   09/19/26 Clarify trim packs HD for PDI/hash, not PHD eFUSE.
   * </pre>
   *
   *@note
@@ -210,7 +211,7 @@ int main(void)
 		goto END;
 	}
 
-	/* Generate PUF KEY and program helper data into eFUSE if required*/
+	/* Generate PUF KEY; optionally program HD hash into PPK eFUSE */
 	Status = XPuf_GenerateKey(&PmcDmaInstance);
 	if (Status == XST_SUCCESS) {
 		xil_printf("Successfully generated PUF KEY %x\r\n", Status);
@@ -269,7 +270,7 @@ END:
 /**
  *
  * @brief	This function validates user input provided for programming
- * 			PUF helper data and black key.
+ * 			PUF helper-data hash and black key.
  *
  * @note	This function checks if PUF hash can be programmed to eFUSE.
  * 			For detailed information about eFUSE register usage, refer to
@@ -380,6 +381,10 @@ static int XPuf_GenerateKey(XPmcDma *DmaPtr)
 		xil_printf("PUF ID : ");
 		XPuf_ShowData((u8 *)PufData.PufID, XPUF_ID_LEN_IN_BYTES);
 
+		/*
+		 * Pack 4480-bit syndrome to 4060-bit HD format for the PDI
+		 * and for the SHA input. Do not program this blob into eFUSE.
+		 */
 		Status = XPuf_TrimPufData(&PufData);
 		if (Status != XST_SUCCESS) {
 			goto END;
@@ -497,7 +502,7 @@ END:
 
 /******************************************************************************/
 /**
- * @brief	This function calculates hash of given PUF syndrome data.
+ * @brief	This function calculates hash of given PUF packed syndrome data.
  *
  * @param	DmaPtr Pointer to XPmcDma instance
  * @param   PufSyndromeData Pointer to PUF syndrome data
@@ -557,8 +562,8 @@ END:
 
 /******************************************************************************/
 /**
- * @brief       This function is used to decompress the PUF helper data before pushing it
- *              to PUF. It is called only in case of PUF 4k mode
+ * @brief       Expand packed PUF helper data back to 4K syndrome words
+ *              before loading it into the PUF.
  *
  * @param       SynAddress - Address of Syndrome data to be decompress
  * @param       DeSynData - Pointer to store Decompressed Syndrome data

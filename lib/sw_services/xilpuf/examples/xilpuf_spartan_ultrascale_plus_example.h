@@ -25,6 +25,7 @@
 *                        added PUF-ID only Regeneration support
 *       tus     05/18/26 Remove 128 bit key support description from example as
 *                        it is not supported during boot
+* 2.8   mb      09/19/26 Clarify HD hash goes to PPK eFUSE, not raw PHD.
 * </pre>
 *
 * User configurable parameters for PUF
@@ -68,8 +69,9 @@
 * by performing PUF registration and writing the helper data on the UART.
 *
 * \#define XPUF_WRITE_PUF_HASH_IN_EFUSE		(FALSE)
-* If this option is configured as TRUE then hash of PUF helper data is written into the
-* eFuse.
+* If this option is configured as TRUE then the hash of packed PUF helper data
+* (trimmed syndrome + CHASH + AUX, padded) is written into the PPK eFUSE slot
+* (PPK2 on SU10P/SU25P/SU35P) or (PPK1 on SCU200P).
 *
 * \#define XPUF_WRITE_BLACK_KEY_OPTION		(FALSE)
 * This option controls whether to program the encrypted black key and IV into eFUSE.
