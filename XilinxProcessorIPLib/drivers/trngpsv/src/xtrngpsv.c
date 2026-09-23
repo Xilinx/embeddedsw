@@ -29,6 +29,9 @@
  * 1.8   bha  01/07/26 Fixed Doxygen warnings
  * 1.9   tus  07/09/26 Fixed DRNG SeedLife off-by-one and reseed-required error
  *                     state handling in XTrngpsv_Generate
+ *       ks   09/15/26 Fixed random buffer overflow in PTRNG mode with DF, cleared
+ *                     the DF input and output of the instance on all the DF flows
+ *                     and added temporal redundancy
  *
  * </pre>
  *
@@ -82,6 +85,7 @@ static s32 XTrngpsv_ReseedInternal(XTrngpsv *InstancePtr, const u8 *ExtSeedPtr, 
 static s32 XTrngpsv_WriteRegs(const XTrngpsv *InstancePtr, u32 StartRegOffset, u32 NumRegs,
 		const u8 *InitBuf);
 static s32 XTrngpsv_CheckSeedPattern(u8 *EntropyData, u32 EntropyLength);
+static s32 XTrngpsv_ClearDFScratch(XTrngpsv *InstancePtr);
 static inline u32 XTrngpsv_ReadReg(UINTPTR BaseAddress, u32 RegOffset);
 static inline void XTrngpsv_WriteReg(UINTPTR BaseAddress, u32 RegOffset, u32 RegValue);
 static inline void XTrngpsv_RMW32(UINTPTR BaseAddress, u32 RegOffset, u32 RegMask, u32 RegValue);
@@ -444,7 +448,9 @@ END:
  *		but set now.
  *		- XTRNGPSV_ERROR_RESEEDING_REQUIRED if SeedLife elapsed.
  *		- XTRNGPSV_ERROR_RESEED_REQD_PREDRES if seed is consumed and has Pred Resistance.
+ *		- XTRNGPSV_ERROR_DF_CPY if copy of the DF output to the caller buffer failed.
  *		- XTRNGPSV_ERROR_GLITCH if error caused due to glitch conditions.
+ *		- XTRNGPSV_FAILURE if clearing of the DF scratch buffers of the instance failed.
  *		- Other error codes from the called functions as defined in XTrngpsv_ErrorCodes.
  *
  *************************************************************************************************/
@@ -452,6 +458,8 @@ s32 XTrngpsv_Generate(XTrngpsv *InstancePtr, u8 *RandBufPtr, u32 RandBufSize, u8
 {
 
 	volatile s32 Status = XTRNGPSV_FAILURE;
+	volatile s32 StatusTmp = XTRNGPSV_FAILURE;
+	volatile s32 ClrStatus = XTRNGPSV_FAILURE;
 	u8 *RandGenBuf;
 	u32 NumBytes = XTRNGPSV_SEC_STRENGTH_BYTES;
 
@@ -602,8 +610,11 @@ s32 XTrngpsv_Generate(XTrngpsv *InstancePtr, u8 *RandBufPtr, u32 RandBufSize, u8
 		}
 	}
 
-	/** - Collect random data based on above configuration */
-	XSECURE_TEMPORAL_CHECK(SET_ERR, Status, XTrngpsv_CollectRandData,
+	/**
+	 * - Collect random data based on above configuration. On failure the flow still goes
+	 *   through DF_CLEAR, so the entropy already collected into the instance is cleared.
+	 */
+	XSECURE_TEMPORAL_CHECK(DF_CLEAR, Status, XTrngpsv_CollectRandData,
 			InstancePtr, (u32*)RandGenBuf, NumBytes);
 
 	InstancePtr->TrngStats.RandBytesReseed += NumBytes;
@@ -615,10 +626,32 @@ s32 XTrngpsv_Generate(XTrngpsv *InstancePtr, u8 *RandBufPtr, u32 RandBufSize, u8
 	 */
 	if (InstancePtr->UsrCfg.DFDisable == XTRNGPSV_FALSE) {
 		if (InstancePtr->UsrCfg.Mode == XTRNGPSV_PTRNG) {
-			Status = XTrngpsv_DF(InstancePtr, RandBufPtr, DF_RAND, NULL);
-			if (Status != XTRNGPSV_SUCCESS) {
-				goto SET_ERR;
+			/** - DF output is of XTRNGPSV_SEED_LEN_BYTES, so use instance buffer. */
+			XSECURE_TEMPORAL_CHECK(DF_CLEAR, Status, XTrngpsv_DF, InstancePtr,
+					(u8 *)InstancePtr->DFOutput, DF_RAND, NULL);
+
+			/** - Copy XTRNGPSV_SEC_STRENGTH_BYTES of it to the caller buffer. */
+			XSECURE_TEMPORAL_IMPL(Status, StatusTmp, Xil_SMemCpy, RandBufPtr,
+					RandBufSize, InstancePtr->DFOutput,
+					XTRNGPSV_SEC_STRENGTH_BYTES, XTRNGPSV_SEC_STRENGTH_BYTES);
+			if ((Status != XTRNGPSV_SUCCESS) || (StatusTmp != XTRNGPSV_SUCCESS)) {
+				Status = (s32)XTRNGPSV_ERROR_DF_CPY;
 			}
+		}
+	}
+
+DF_CLEAR:
+	/**
+	 * - Clear the DF scratch of the instance once the random data is copied out. The label
+	 *   is at function scope so that the paths which fail before or inside the DF also clear
+	 *   the entropy which was already collected into the instance.
+	 */
+	if ((InstancePtr->UsrCfg.DFDisable == XTRNGPSV_FALSE)
+			&& (InstancePtr->UsrCfg.Mode == XTRNGPSV_PTRNG)) {
+		ClrStatus = XTRNGPSV_FAILURE;
+		ClrStatus = XTrngpsv_ClearDFScratch(InstancePtr);
+		if (Status == XTRNGPSV_SUCCESS) {
+			Status = ClrStatus;
 		}
 	}
 
@@ -628,6 +661,37 @@ SET_ERR:
 	}
 
 END:
+	return Status;
+}
+
+/*************************************************************************************************/
+/**
+ * @brief
+ * This function clears the DF input and output buffers of the instance. DFInput holds the raw
+ * entropy or the external seed which was fed to the DF and DFOutput holds the random data or the
+ * seed produced from it. The DF uses a fixed key, so the entropy left in DFInput is by itself
+ * enough to recompute DFOutput, and both are therefore cleared together.
+ *
+ * @param	InstancePtr is a pointer to the XTrngpsv instance to be worked on.
+ *
+ * @return
+ *		- XTRNGPSV_SUCCESS if both the buffers were cleared.
+ *		- XTRNGPSV_FAILURE if clearing of either of the buffers failed.
+ *
+ **************************************************************************************************/
+static s32 XTrngpsv_ClearDFScratch(XTrngpsv *InstancePtr)
+{
+	volatile s32 Status = XTRNGPSV_FAILURE;
+	volatile s32 StatusTmp = XTRNGPSV_FAILURE;
+
+	/** - Clear both the buffers before evaluating the result. */
+	Status = Xil_SecureZeroize((u8 *)&InstancePtr->DFInput, (u32)sizeof(InstancePtr->DFInput));
+	StatusTmp = Xil_SecureZeroize(InstancePtr->DFOutput, XTRNGPSV_SEED_LEN_BYTES);
+
+	if ((Status != XTRNGPSV_SUCCESS) || (StatusTmp != XTRNGPSV_SUCCESS)) {
+		Status = XTRNGPSV_FAILURE;
+	}
+
 	return Status;
 }
 
@@ -1014,6 +1078,8 @@ END:
  *		- XTRNGPSV_ERROR_RESEED_TIMEOUT if timeout occurred waiting for done of reseeding.
  *		- XTRNGPSV_ERROR_CERTF if CTF flag is set in STATUS register.
  *		- XTRNGPSV_ERROR_GLITCH if error caused due to glitch conditions.
+ *		- XTRNGPSV_FAILURE if clearing of the DF scratch of the instance or of the local
+ *		entropy buffer failed.
  *		- Other error codes from the called functions as defined in XTrngpsv_ErrorCodes.
  *
  **************************************************************************************************/
@@ -1022,6 +1088,7 @@ static s32 XTrngpsv_ReseedInternal(XTrngpsv *InstancePtr, const u8 *ExtSeedPtr, 
 {
 	volatile s32 Status = XTRNGPSV_FAILURE;
 	volatile s32 StatusTemp = XTRNGPSV_FAILURE;
+	volatile s32 ClrStatus = XTRNGPSV_FAILURE;
 	volatile u32 RegVal;
 	volatile u32 RegValTmp;
 	u8 EntropyOutput[XTRNGPSV_ENTROPY_SEED_LEN_BYTES];
@@ -1240,6 +1307,25 @@ static s32 XTrngpsv_ReseedInternal(XTrngpsv *InstancePtr, const u8 *ExtSeedPtr, 
 	Status = XTRNGPSV_SUCCESS;
 
 SET_ERR:
+	/**
+	 * - In DF mode the new seed is already programmed into the external seed registers by this
+	 *   point, so clear the DF scratch of the instance on every exit of the reseed.
+	 */
+	if (InstancePtr->UsrCfg.DFDisable == XTRNGPSV_FALSE) {
+		ClrStatus = XTRNGPSV_FAILURE;
+		ClrStatus = XTrngpsv_ClearDFScratch(InstancePtr);
+		if (Status == XTRNGPSV_SUCCESS) {
+			Status = ClrStatus;
+		}
+	}
+
+	/** - Clear the local buffer which holds the entropy used as seed in the non DF mode. */
+	ClrStatus = XTRNGPSV_FAILURE;
+	ClrStatus = Xil_SecureZeroize(EntropyOutput, XTRNGPSV_ENTROPY_SEED_LEN_BYTES);
+	if (Status == XTRNGPSV_SUCCESS) {
+		Status = ClrStatus;
+	}
+
 	if (Status != XTRNGPSV_SUCCESS) {
 		InstancePtr->State = XTRNGPSV_ERROR;
 	}

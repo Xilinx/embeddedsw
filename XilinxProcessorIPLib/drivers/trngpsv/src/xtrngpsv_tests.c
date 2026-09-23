@@ -22,6 +22,7 @@
  * 1.1   ssc  03/24/22 Updates based on Security best practices
  * 1.2   ssc  08/25/22 Enhanced KAT to include explicit Reseed and made a doxygen update
  * 1.9   rap  08/28/26 Fixed Doxygen warnings
+ *       ks   09/15/26 Added PTRNG mode DF Generate test to the KAT
  * </pre>
  *
  **************************************************************************************************/
@@ -42,6 +43,8 @@
 #define HEALTH_TEST_DFLENMUL	7U	/**< DF length multiplier for Health test */
 #define KAT_SEEDLIFE            5U	/**< Seed life for KAT */
 #define KAT_DFLENMUL            2U	/**< DF length multiplier for KAT */
+/** Length of the guard pattern placed after the requested bytes in the PTRNG mode test. */
+#define KAT_GUARD_LEN_BYTES	(XTRNGPSV_SEED_LEN_BYTES - XTRNGPSV_GEN_LEN_BYTES)
 /** @} */
 
 /************************************** Type Definitions *****************************************/
@@ -128,7 +131,9 @@ END:
  * @brief
  * KAT can be run at startup and on demand. 256 bits are generated and ignored. This test can be
  * run when the TRNG is configured in DRNG and HRNG modes. For HRNG mode too, tests should be run
- * in DRNG mode. If KAT fails, driver has to be put in Error state.
+ * in DRNG mode. The Generate of the PTRNG mode is covered by a guard pattern check, as the
+ * random data of that mode is not reproducible. If KAT fails, driver has to be put in Error
+ * state.
  *
  * @param	InstancePtr is a pointer to the XTrngpsv instance to be worked on.
  *
@@ -136,7 +141,8 @@ END:
  *		- XTRNGPSV_SUCCESS if KAT is successful.
  *		- XTRNGPSV_ERROR_INVALID_PARAM if invalid parameter passed to this function.
  *		- XTRNGPSV_ERROR_USRCFG_CPY_KAT if copy of seed/personalization string failed.
- *		- XTRNGPSV_ERROR_KAT_MISMATCH if KAT result doesn't match with expected output (OR)
+ *		- XTRNGPSV_ERROR_KAT_MISMATCH if KAT result doesn't match with expected output.
+ *		- XTRNGPSV_FAILURE if clearing of the local buffer of the PTRNG mode test failed (OR)
  *		other error codes from the called functions as defined in XTrngpsv_ErrorCodes.
  *
  *************************************************************************************************/
@@ -145,6 +151,7 @@ s32 XTrngpsv_RunKAT(XTrngpsv *InstancePtr)
 
 	volatile s32 Status = XTRNGPSV_FAILURE;
 	volatile s32 Result =  XTRNGPSV_FAILURE;
+	volatile s32 ClrStatus = XTRNGPSV_FAILURE;
 	XTrngpsv_UsrCfg UsrCfgTests;
 
 	const u8 ExtSeed[XTRNGPSV_SEED_LEN_BYTES] = {
@@ -181,7 +188,15 @@ s32 XTrngpsv_RunKAT(XTrngpsv *InstancePtr)
 			0x73U, 0xEDU, 0xDDU, 0x3FU, 0x07U, 0x23U, 0xD8U, 0x52U,
 	};
 
+	const u8 GuardPattern[KAT_GUARD_LEN_BYTES] = {
+			0x2FU, 0x1DU, 0xC4U, 0x86U, 0x53U, 0xE0U, 0x7AU, 0x9BU,
+			0x64U, 0xB1U, 0x08U, 0xDFU, 0x35U, 0x72U, 0xACU, 0x91U,
+	};
+
+	u32 Index;
+	u8 CopyEvidence = 0U;
 	u8 RandBufOut[XTRNGPSV_GEN_LEN_BYTES] = {0};
+	u8 RandBufGuarded[XTRNGPSV_GEN_LEN_BYTES + KAT_GUARD_LEN_BYTES] = {0};
 
 	if (InstancePtr == NULL) {
 		Status = (s32)XTRNGPSV_ERROR_INVALID_PARAM;
@@ -250,10 +265,82 @@ s32 XTrngpsv_RunKAT(XTrngpsv *InstancePtr)
 		goto SET_ERR;
 	}
 
+	/** - Uninstantiate driver instance after the DRNG mode KAT. */
+	Status = XTrngpsv_Uninstantiate(InstancePtr);
+	if (Status != XTRNGPSV_SUCCESS) {
+		goto SET_ERR;
+	}
+
+	/**
+	 * - Generate in PTRNG mode with DF follows a separate path in which the DF output is
+	 *   copied to the caller buffer. Random data of this mode is not reproducible, so
+	 *   place a known pattern right after the requested bytes and check that the Generate
+	 *   operation leaves it untouched.
+	 */
+	Status = Xil_SMemSet((u8*)&UsrCfgTests, (u32)sizeof(UsrCfgTests), 0U, (u32)sizeof(UsrCfgTests));
+	if (Status != XTRNGPSV_SUCCESS) {
+		goto SET_ERR;
+	}
+
+	UsrCfgTests.Mode = XTRNGPSV_PTRNG;
+	UsrCfgTests.SeedLife = 0U;
+	UsrCfgTests.PredResistanceEn = XTRNGPSV_FALSE;
+	UsrCfgTests.DFDisable = XTRNGPSV_FALSE;
+	UsrCfgTests.DFLenMul = KAT_DFLENMUL;
+	UsrCfgTests.PersStrPresent = XTRNGPSV_FALSE;
+	UsrCfgTests.InitSeedPresent = XTRNGPSV_FALSE;
+
+	Status = Xil_SMemCpy(&RandBufGuarded[XTRNGPSV_GEN_LEN_BYTES], KAT_GUARD_LEN_BYTES,
+			GuardPattern, (u32)sizeof(GuardPattern), (u32)sizeof(GuardPattern));
+	if (Status != XTRNGPSV_SUCCESS) {
+		goto SET_ERR;
+	}
+
+	Status = XTrngpsv_Instantiate(InstancePtr, &UsrCfgTests);
+	if (Status != XTRNGPSV_SUCCESS) {
+		goto SET_ERR;
+	}
+
+	Status = XTrngpsv_Generate(InstancePtr, RandBufGuarded, XTRNGPSV_GEN_LEN_BYTES,
+			XTRNGPSV_FALSE);
+	if (Status != XTRNGPSV_SUCCESS) {
+		goto SET_ERR;
+	}
+
+	/**
+	 * - The copy out of the DF output is the only write to the caller buffer in this
+	 *   mode, so error out if the requested bytes were left untouched.
+	 */
+	for (Index = 0U; Index < XTRNGPSV_GEN_LEN_BYTES; Index++) {
+		CopyEvidence |= RandBufGuarded[Index];
+	}
+
+	if (CopyEvidence == 0U) {
+		Status = (s32)XTRNGPSV_ERROR_KAT_MISMATCH;
+		goto SET_ERR;
+	}
+
+	/**
+	 * - If the bytes beyond the requested random data got modified, error out.
+	 */
+	Result = XTRNGPSV_FAILURE;
+	Result = Xil_SMemCmp(&RandBufGuarded[XTRNGPSV_GEN_LEN_BYTES], KAT_GUARD_LEN_BYTES,
+			GuardPattern, (u32)sizeof(GuardPattern), (u32)sizeof(GuardPattern));
+	if (Result != XTRNGPSV_SUCCESS) {
+		Status = (s32)XTRNGPSV_ERROR_KAT_MISMATCH;
+		goto SET_ERR;
+	}
+
 	/** - Uninstantiate driver instance after KAT */
 	Status = XTrngpsv_Uninstantiate(InstancePtr);
 
 SET_ERR:
+	/** - Clear the random data left in the local buffer of the PTRNG mode test. */
+	ClrStatus = Xil_SecureZeroize(RandBufGuarded, (u32)sizeof(RandBufGuarded));
+	if (Status == XTRNGPSV_SUCCESS) {
+		Status = ClrStatus;
+	}
+
 	if (Status != XTRNGPSV_SUCCESS) {
 		InstancePtr->State = XTRNGPSV_ERROR;
 	}

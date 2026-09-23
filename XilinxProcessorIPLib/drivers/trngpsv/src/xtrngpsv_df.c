@@ -24,6 +24,8 @@
  * 1.2   kpt  08/03/22 Added volatile keyword to avoid compiler optimization of loop redundancy check
  * 1.3   kpt  01/31/23 Fixed issue when DF length is greater than 5
  *       kpt  01/20/23 Clear key schedule array after DF operation is done
+ * 1.9   ks   09/15/26 Used the instance DF output buffer in the second part of
+ *                     DF and validated the output buffer
  *
  * </pre>
  *
@@ -61,7 +63,9 @@
  * 10.3.3 of the NIST.SP.800-90Ar1 document.
  *
  * @param	InstancePtr is a pointer to the XTrngpsv instance to be worked on.
- * @param	DFOutput points to the buffer to which output of DF operation is stored.
+ * @param	DFOutput points to the buffer to which output of DF operation is stored. It
+ * 		should be the DFOutput buffer of the instance, which is of
+ * 		XTRNGPSV_SEED_LEN_BYTES size.
  * @param	DF_Flag is the flag used to indicate if this function is used to generate seed
  * 		or random number (used in the PTRNG mode)
  * @param	PersStrPtr is the pointer to Personalization string. If no personalization string
@@ -69,6 +73,7 @@
  *
  * @return
  *		- XTRNGPSV_SUCCESS if successful.
+ *		- XTRNGPSV_ERROR_INVALID_PARAM if invalid parameter passed to this function.
  *		- XTRNGPSV_ERROR_DF_CPY if MemCpy failure
  *		- XTRNGPSV_ERROR_GLITCH if error caused due to glitch conditions.
  *
@@ -94,6 +99,12 @@ s32 XTrngpsv_DF(XTrngpsv *InstancePtr, u8 *DFOutput, u32 DF_Flag, const u8 *Pers
 			8U, 9U, 10U, 11U, 12U, 13U, 14U, 15U,
 			16U, 17U, 18U, 19U, 20U, 21U, 22U, 23U,
 			24U, 25U, 26U, 27U, 28U, 29U, 30U, 31U};
+
+	/** - Validate that the output buffer is the DFOutput buffer of the instance. */
+	if (DFOutput != InstancePtr->DFOutput) {
+		Status = (s32)XTRNGPSV_ERROR_INVALID_PARAM;
+		goto SET_ERR;
+	}
 
 	/**
 	 * - EntropyData member of DFInputis already populated by calling functions, remaining members
@@ -208,13 +219,14 @@ s32 XTrngpsv_DF(XTrngpsv *InstancePtr, u8 *DFOutput, u32 DF_Flag, const u8 *Pers
 
 	for (Index = 0U; Index < XTRNGPSV_SEED_LEN_BYTES; Index += AES_BLK_SIZE) {
 		if (Index == 0U) {
-			AesInBlkPtr = &DFOutput[XTRNGPSV_SEC_STRENGTH_BYTES];
+			/** - Initial block is the output of the first part of the DF. */
+			AesInBlkPtr = &InstancePtr->DFOutput[XTRNGPSV_SEC_STRENGTH_BYTES];
 		}
 		else {
-			AesInBlkPtr = &DFOutput[Index - AES_BLK_SIZE];
+			AesInBlkPtr = &InstancePtr->DFOutput[Index - AES_BLK_SIZE];
 		}
 
-		AesOutBlkPtr = &DFOutput[Index];
+		AesOutBlkPtr = &InstancePtr->DFOutput[Index];
 		aesEncrypt(AesInBlkPtr, AesOutBlkPtr);
 	}
 
