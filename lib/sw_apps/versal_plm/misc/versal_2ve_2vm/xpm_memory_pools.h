@@ -8,10 +8,11 @@
 #define XPM_MEMORY_POOLS_H
 
 /* Memory pool size compile-time constants */
-/** @brief Topology pool capacity in bytes. */
-#define MAX_TOPO_POOL_SIZE     0xAD48U
+/** @brief Topology memory pool capacity in bytes. */
+#define MAX_TOPO_POOL_SIZE     0xB148U
 #define MAX_SUBSYS_POOL_SIZE   0x400U
-#define MAX_REQM_POOL_SIZE     0x3800U
+/** @brief Requirement pool capacity in bytes. */
+#define MAX_REQM_POOL_SIZE     0x3400U
 #define MAX_DEVOPS_POOL_SIZE   0x1400U
 #define MAX_OTHER_POOL_SIZE    0x2000U
 #define MAX_BOARD_POOL_SIZE    0x400U

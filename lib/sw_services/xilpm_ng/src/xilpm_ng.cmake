@@ -76,9 +76,9 @@ configure_file(${CMAKE_CURRENT_SOURCE_DIR}/xpm_config.h.in ${CMAKE_BINARY_DIR}/i
 
 # Memory Pool Configuration
 
-set(XILPM_NG_TOPO_POOL_SIZE "0xAD48" CACHE STRING "Topology pool size")  # Topology pool size 44360 bytes
+set(XILPM_NG_TOPO_POOL_SIZE "0xB148" CACHE STRING "Topology pool size")  # Topology pool size 45384 bytes
 set(XILPM_NG_SUBSYS_POOL_SIZE "0x400" CACHE STRING "Subsystem pool size") # Subsystem pool size 1KB
-set(XILPM_NG_REQM_POOL_SIZE "0x3800" CACHE STRING "Requirement pool size") # Requirement pool size 14KB
+set(XILPM_NG_REQM_POOL_SIZE "0x3400" CACHE STRING "Requirement pool size") # Requirement pool size 13KB
 set(XILPM_NG_DEVOPS_POOL_SIZE "0x1400" CACHE STRING "DevOps pool size") # DevOps pool size 5KB
 set(XILPM_NG_OTHER_POOL_SIZE "0x2000" CACHE STRING "Other pool size") # Other pool size 8KB
 set(XILPM_NG_BOARD_POOL_SIZE "0x400" CACHE STRING "Board pool size") # Board pool size 1KB

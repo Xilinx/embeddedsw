@@ -6,9 +6,9 @@
  *****************************************************************************/
 
 /* Memory pool sizes - used by linker script for fixed memory layout */
-MAX_TOPO_POOL_SIZE = 0xAD48;
+MAX_TOPO_POOL_SIZE = 0xB148;
 MAX_SUBSYS_POOL_SIZE = 0x400;
-MAX_REQM_POOL_SIZE = 0x3800;
+MAX_REQM_POOL_SIZE = 0x3400;
 MAX_DEVOPS_POOL_SIZE = 0x1400;
 MAX_OTHER_POOL_SIZE = 0x2000;
 MAX_BOARD_POOL_SIZE = 0x400;
