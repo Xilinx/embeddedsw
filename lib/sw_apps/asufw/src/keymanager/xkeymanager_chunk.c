@@ -330,7 +330,7 @@ static s32 XKeyManager_CryptOneBlock(XAsufw_Dma *DmaPtr, XAes *AesInstancePtr,
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	Status = CryptFn(DmaPtr, AesInstancePtr, &CbcParams);
 	if (XASUFW_SUCCESS != Status) {
-		goto END;
+		goto END_CLR;
 	}
 
 	/**
@@ -344,9 +344,10 @@ static s32 XKeyManager_CryptOneBlock(XAsufw_Dma *DmaPtr, XAes *AesInstancePtr,
 			     (u32)sizeof(ParamsPtr->ScratchPtr->UnitBuf), ParamsPtr->BlockLen);
 	if (XASUFW_SUCCESS != Status) {
 		Status = XASUFW_MEM_COPY_FAIL;
-		goto END;
+		goto END_CLR;
 	}
 
+END_CLR:
 	/** The scratch held plaintext, so it is wiped before the block is left. */
 	XFIH_CALL(Xil_SecureZeroize, XFihBlock, ClearStatus, ParamsPtr->ScratchPtr->UnitBuf,
 		  ParamsPtr->BlockLen);

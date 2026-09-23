@@ -1500,7 +1500,7 @@ s32 XKeyManager_GenerateRsaKeyPair(XAsufw_Dma *DmaPtr, const XAsu_KeyManagerPara
 				ParamsPtr->KeyObjectAddr);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_RSA_KEY_PAIR_GENERATION_FAIL);
-		goto END;
+		goto END_CLR;
 	}
 
 	if (ParamsPtr->KeyObjectAddr == 0U) {
@@ -1647,7 +1647,7 @@ s32 XKeyManager_GenerateEccKeyPair(XAsufw_Dma *DmaPtr, const XAsu_KeyManagerPara
 				(u64)(UINTPTR)PubKey);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_ECC_KEY_PAIR_GENERATION_FAIL);
-		goto END;
+		goto END_CLR;
 	}
 
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
