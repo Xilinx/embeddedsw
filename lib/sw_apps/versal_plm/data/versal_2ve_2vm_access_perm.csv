@@ -153,7 +153,6 @@ aes_decrypt_final,0x50f,1,1,1,1,1,1,0,0,IPI,Aes Decrypt Final
 aes_key_zero,0x510,1,1,1,1,1,1,0,0,IPI,Aes Key Zero
 aes_write_key,0x511,1,1,1,1,1,1,0,0,IPI,Aes Write Key
 aes_lock_user_key,0x512,1,1,1,1,1,1,0,0,IPI,Aes Lock User Key
-aes_kek_decrypt,0x513,1,1,1,1,1,1,0,0,IPI,Aes Kek Decrypt
 aes_set_dpa_cm,0x514,1,1,1,1,1,1,0,0,IPI,Aes Set Dpa Cm
 kat,0x515,1,1,1,1,1,1,0,0,IPI,Kat
 trng_generate,0x516,0,0,0,0,0,0,0,0,Unsupported,Generate

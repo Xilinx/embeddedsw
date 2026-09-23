@@ -47,6 +47,8 @@
 *    	obs   09/23/25   Added support for Verifying Address Range
 * 5.7   tvp   03/12/26   Configure DmaSwap before transferring IV to AES engine
 *                        for versal_2vp_p
+* 5.8   ks    09/22/26   Removed the AES KEK decrypt IPI handler as the client
+*                        API is deprecated
 *
 * </pre>
 *
@@ -69,14 +71,8 @@
 
 #ifndef PLM_SECURE_EXCLUDE
 /************************** Constant Definitions *****************************/
-#define XSECURE_AES_DEC_KEY_SRC_MASK	(0x000000FFU)
-			/**< AES decrypt key source mask for KEK decryption */
-#define XSECURE_AES_DST_KEY_SRC_MASK	(0x0000FF00U)
-			/**< AES destination key source mask for KEK decryption */
-#define XSECURE_AES_KEY_SIZE_MASK	(0xFFFF0000U)
-			/**< Key Size mask */
 #define XSECURE_PMCDMA_DEVICEID		(PMCDMA_0_DEVICE_ID)
-			/**< AES destination key source mask for KEK decryption */
+			/**< PMC DMA device ID. */
 
 /************************** Function Prototypes *****************************/
 static int XSecure_AesOperationInit(u32 SubsystemId, u32 SrcAddrLow, u32 SrcAddrHigh);
@@ -87,7 +83,6 @@ static int XSecure_AesEncFinal(u32 SubsystemId, u32 DstAddrLow, u32 DstAddrHigh)
 static int XSecure_AesDecUpdate(u32 SubsystemId, u32 SrcAddrLow, u32 SrcAddrHigh,
 	u32 DstAddrLow, u32 DstAddrHigh);
 static int XSecure_AesDecFinal(u32 SubsystemId, u32 SrcAddrLow, u32 SrcAddrHigh);
-static int XSecure_AesDecryptKek(u32 SubsystemId, u32 KeyInfo, u32 IvAddrLow, u32 IvAddrHigh);
 static int XSecure_AesSetDpaCmConfig(u8 DpaCmCfg);
 static int XSecure_IsKeySrcValid(u32 KeySrc);
 static int XSecure_AesConfig(u32 OperationId, u32 KeySrc, u32 KeySize, u64 IvAddr);
@@ -165,10 +160,6 @@ int XSecure_AesIpiHandler(XPlmi_Cmd *Cmd)
 		/**   - XSecure_AesKeyWrite */
 		Status = XSecure_AesKeyWrite(Cmd->SubsystemId, (u8)Pload[0], (u8)Pload[1], Pload[2],
 				Pload[3]);
-		break;
-	case XSECURE_API(XSECURE_API_AES_KEK_DECRYPT):
-		/**   - XSecure_AesDecryptKek */
-		Status = XSecure_AesDecryptKek(Cmd->SubsystemId, Pload[0], Pload[1], Pload[2]);
 		break;
 	case XSECURE_API(XSECURE_API_AES_SET_DPA_CM):
 		/**   - XSecure_AesSetDpaCmConfig */
@@ -526,53 +517,6 @@ int XSecure_AesKeyWrite(u32 SubsystemId, u8 KeySize, u8 KeySrc,
 	Status = XSecure_AesWriteKey(XSecureAesInstPtr,
 				(XSecure_AesKeySrc)KeySrc,
 				(XSecure_AesKeySize)KeySize, KeyAddr);
-
-END:
-	return Status;
-}
-
-/*****************************************************************************/
-/**
- * @brief	This function handler calls XSecure_AesDecryptKek server API
- *
- * @param 	SubsystemId	Subsystem ID.
- * @param	KeyInfo		KeyInfo contains KeySize, KeyDst and KeySrc
- * @param	IvAddrLow	Lower 32 bit address of the IV
- * @param	IvAddrHigh	Higher 32 bit address of the IV
- *
- * @return
- *		 - XST_SUCCESS - If the decryption is successful
- *		 - XSECURE_AES_INVALID_PARAM - On invalid parameter
- *		 - XST_FAILURE - If timeout has occurred
- *
- ******************************************************************************/
-static int XSecure_AesDecryptKek(u32 SubsystemId, u32 KeyInfo, u32 IvAddrLow, u32 IvAddrHigh)
-{
-	volatile int Status = XST_FAILURE;
-	u64 IvAddr;
-	XSecure_AesKeySrc DstKeySrc;
-	XSecure_AesKeySize KeySize;
-	XSecure_Aes *XSecureAesInstPtr;
-	XSecure_AesKeySrc DecKeySrc = (XSecure_AesKeySrc)(KeyInfo &
-		XSECURE_AES_DEC_KEY_SRC_MASK);
-	IvAddr = ((u64)IvAddrHigh << 32U) | (u64)IvAddrLow;
-
-	XPLMI_VERIFY_ADDR_RANGE(SubsystemId, IvAddr, XSECURE_AES_IV_SIZE_IN_BYTES, Status, XSECURE_ERR_INVALID_ADDR_RANGE, END);
-
-	/** - Check for valid decryption key source */
-	if ((DecKeySrc != XSECURE_AES_EFUSE_USER_KEY_0) &&
-		(DecKeySrc != XSECURE_AES_EFUSE_USER_KEY_1)) {
-		Status = (int)XSECURE_AES_INVALID_PARAM;
-		goto END;
-	}
-	DstKeySrc = (XSecure_AesKeySrc)(KeyInfo &
-		XSECURE_AES_DST_KEY_SRC_MASK);
-	KeySize = (XSecure_AesKeySize)(KeyInfo &
-		XSECURE_AES_KEY_SIZE_MASK);
-	XSecureAesInstPtr = XSecure_GetAesInstance();
-
-	Status = XSecure_AesKekDecrypt(XSecureAesInstPtr, DecKeySrc, DstKeySrc,
-				IvAddr, KeySize);
 
 END:
 	return Status;

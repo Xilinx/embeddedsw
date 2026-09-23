@@ -153,7 +153,6 @@ aes_decrypt_final,0x50f,0,0,0,0,0,0,1,0,IPI,Aes Decrypt Final
 aes_key_zero,0x510,0,0,0,0,0,0,1,0,IPI,Aes Key Zero
 aes_write_key,0x511,0,0,0,0,0,0,1,0,IPI,Aes Write Key
 aes_lock_user_key,0x512,0,0,0,0,0,0,1,0,IPI,Aes Lock User Key
-aes_kek_decrypt,0x513,0,0,0,0,0,0,1,0,IPI,Aes Kek Decrypt
 aes_set_dpa_cm,0x514,0,0,0,0,0,0,1,0,IPI,Aes Set Dpa Cm
 kat,0x515,0,0,0,0,0,0,1,0,IPI,Kats of crypto engines
 trng_generate,0x516,0,0,0,0,0,0,0,0,Unsupported,Generate Trng

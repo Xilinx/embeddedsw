@@ -20,6 +20,7 @@
 *       am   02/24/25 Moved XSECURE_API_ASU_KEY_TRANSFER to xilplmi
 *       pre  03/02/25 Added API IDs for SHA2 operation
 * 5.7   tvp  04/30/26 Added API IDs for ELLIPTIC_PRIVATE_KEY_GEN
+* 5.8   ks   09/22/26 Reserved API Id 19 as the AES KEK decrypt IPI is removed
 *
 * </pre>
 *
@@ -149,8 +150,8 @@ typedef enum {
 	XSECURE_API_AES_KEY_ZERO,		/**< 16U */
 	XSECURE_API_AES_WRITE_KEY,		/**< 17U */
 	XSECURE_API_AES_LOCK_USER_KEY,		/**< 18U */
-	XSECURE_API_AES_KEK_DECRYPT,		/**< 19U */
-	XSECURE_API_AES_SET_DPA_CM,		/**< 20U */
+	/* API Id 19 is reserved */
+	XSECURE_API_AES_SET_DPA_CM = 20U,	/**< 20U */
 	XSECURE_API_KAT,			/**< 21U */
 	XSECURE_API_TRNG_GENERATE,		/**< 22U */
 	XSECURE_API_AES_PERFORM_OPERATION, 	/**< 23U */

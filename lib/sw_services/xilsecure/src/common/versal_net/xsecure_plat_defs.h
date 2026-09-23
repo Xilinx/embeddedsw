@@ -37,6 +37,7 @@
 * 5.5   vss  04/25/25 Updated minor version
 * 5.6   vss  09/30/25 Moved crypto algorithm version code to it's corresponding files.
 * 5.7   tvp  04/04/26 Define macros for RSA key status in RTCA
+* 5.8   ks   09/22/26 Reserved API Id 19 as the AES KEK decrypt IPI is removed
 *
 * </pre>
 *
@@ -107,8 +108,8 @@ typedef enum {
 	XSECURE_API_AES_KEY_ZERO,		/**< 16U */
 	XSECURE_API_AES_WRITE_KEY,		/**< 17U */
 	XSECURE_API_AES_LOCK_USER_KEY,		/**< 18U */
-	XSECURE_API_AES_KEK_DECRYPT,		/**< 19U */
-	XSECURE_API_AES_SET_DPA_CM,		/**< 20U */
+	/* API Id 19 is reserved */
+	XSECURE_API_AES_SET_DPA_CM = 20U,	/**< 20U */
 	XSECURE_API_KAT,			/**< 21U */
 	XSECURE_API_TRNG_GENERATE,		/**< 22U */
 	XSECURE_API_AES_PERFORM_OPERATION, /**< 23U */

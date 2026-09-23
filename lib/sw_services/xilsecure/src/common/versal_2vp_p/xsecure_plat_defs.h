@@ -19,6 +19,7 @@
 *       tvp  03/18/26 Add MLDSA API ids
 *       tvp  03/20/26 Add SLHDSA API ids
 * 5.8   tbk  06/17/26 Added IPI response buffer indices for algorithm info query
+*       ks   09/22/26 Reserved API Id 19 as the AES KEK decrypt IPI is removed
 *
 * </pre>
 *
@@ -117,8 +118,8 @@ typedef enum {
 	XSECURE_API_AES_KEY_ZERO,		/**< 16U */
 	XSECURE_API_AES_WRITE_KEY,		/**< 17U */
 	XSECURE_API_AES_LOCK_USER_KEY,		/**< 18U */
-	XSECURE_API_AES_KEK_DECRYPT,		/**< 19U */
-	XSECURE_API_AES_SET_DPA_CM,		/**< 20U */
+	/* API Id 19 is reserved */
+	XSECURE_API_AES_SET_DPA_CM = 20U,	/**< 20U */
 	XSECURE_API_KAT,			/**< 21U */
 	XSECURE_API_TRNG_GENERATE,		/**< 22U */
 	XSECURE_API_AES_PERFORM_OPERATION, 	/**< 23U */
