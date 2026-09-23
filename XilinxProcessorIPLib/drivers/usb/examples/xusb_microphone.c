@@ -31,6 +31,8 @@
  * 5.6   pm   07/05/23 Removed powerpc support.
  * 5.6   pm   07/05/23 Added support for system device-tree flow.
  * 5.8   ka   01/29/26 Fixed codespell errors.
+ * 5.9   sm   09/23/26 Added Xil_AssertVoid checks to fix GCC warnings
+ *			(CR-1276275).
  *
  * </pre>
  *****************************************************************************/
@@ -351,6 +353,7 @@ void Ep0IntrHandler(void *CallBackRef, u8 EpNum, u32 IntrStatus)
 	u32 EpCfgReg;
 
 	InstancePtr = (XUsb *) CallBackRef;
+	Xil_AssertVoid(EpNum == 0);
 
 	/*
 	 * Process the end point zero buffer interrupt.
@@ -414,6 +417,7 @@ void Ep1IntrHandler(void *CallBackRef, u8 EpNum, u32 IntrStatus)
 	XUsb *InstancePtr;
 
 	InstancePtr = (XUsb *) CallBackRef;
+	Xil_AssertVoid(EpNum == 1);
 
 	/*
 	 * Process the End point 1 interrupts.

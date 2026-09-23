@@ -1,7 +1,7 @@
 /******************************************************************************
 * Copyright (C) 2006 Vreelin Engineering, Inc.  All Rights Reserved.
 * Copyright (C) 2007 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -30,6 +30,8 @@
  *		       dma transfer is over.
  * 5.6   pm   07/05/23 Removed powerpc support.
  * 5.6   pm   07/05/23 Added support for system device-tree flow.
+ * 5.7   sm   09/23/26 Added Xil_AssertVoid checks to fix GCC warnings
+ *			(CR-1276275).
  * </pre>
  *****************************************************************************/
 /***************************** Include Files *********************************/
@@ -364,6 +366,7 @@ void Ep0IntrHandler(void *CallBackRef, u8 EpNum, u32 IntrStatus)
 	int SetupRequest;
 
 	InstancePtr = (XUsb *) CallBackRef;
+	Xil_AssertVoid(EpNum == 0);
 
 	/*
 	 * Process the end point zero buffer interrupt.
@@ -426,7 +429,7 @@ void Ep1IntrHandler(void *CallBackRef, u8 EpNum, u32 IntrStatus)
 	XUsb *InstancePtr;
 
 	InstancePtr = (XUsb *) CallBackRef;
-
+	Xil_AssertVoid(EpNum == 1);
 
 	/*
 	 * Process the End point 1 interrupts.
@@ -517,6 +520,7 @@ void Ep2IntrHandler(void *CallBackRef, u8 EpNum, u32 IntrStatus)
 	XUsb *InstancePtr;
 
 	InstancePtr = (XUsb *) CallBackRef;
+	Xil_AssertVoid(EpNum == 2);
 
 	/*
 	 * Process end point 2 interrupts.

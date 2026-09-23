@@ -1,7 +1,7 @@
 /******************************************************************************
 * Copyright (C) 2006 Vreelin Engineering, Inc.  All Rights Reserved.
 * Copyright (C) 2007 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2023 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -58,6 +58,8 @@
  * 5.6   pm   07/05/23 Added support for system device-tree flow.
  * 5.8   bdk  12/08/25 Updated comments to support SDT flow for Doxygen
  *                     documentation.
+ * 5.9   sm   09/23/26 Added Xil_AssertVoid checks to fix GCC warnings
+ *			(CR-1276275).
  * </pre>
  *****************************************************************************/
 /***************************** Include Files *********************************/
@@ -468,6 +470,7 @@ void Ep0IntrHandler(void *CallBackRef, u8 EpNum, u32 IntrStatus)
 	int SetupRequest;
 
 	InstancePtr = (XUsb *)CallBackRef;
+	Xil_AssertVoid(EpNum == 0);
 
 	/*
 	 * Process the end point zero buffer interrupt.
@@ -530,7 +533,7 @@ void Ep1IntrHandler(void *CallBackRef, u8 EpNum, u32 IntrStatus)
 	InstancePtr = (XUsb *)CallBackRef;
 
 	u32 EpReg;
-
+	Xil_AssertVoid(EpNum == 1);
 	/*
 	 * Process the End point 1 interrupts.
 	 */
