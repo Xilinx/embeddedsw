@@ -40,6 +40,54 @@
 
 /************************** Function Definitions *****************************/
 
+/*****************************************************************************/
+/**
+ * @brief Returns the highest valid channel ID for a channel count.
+ *
+ * Channel arrays are 1-based and sized XMCDMA_MAX_CHAN_PER_DEVICE.
+ * The maximum valid channel ID is XMCDMA_MAX_CHAN_PER_DEVICE.
+ *
+ * @param[in]	NumChannels is the configured number of channels.
+ *
+ * @return	The maximum valid channel ID.
+ *
+ *****************************************************************************/
+static u16 XMcdma_GetMaxChanId(int NumChannels)
+{
+	u16 MaxChanId = (u16)(XMCDMA_MAX_CHAN_PER_DEVICE);
+
+	if (NumChannels <= 0) {
+		return 0U;
+	}
+
+	if ((u16)NumChannels < MaxChanId) {
+		MaxChanId = (u16)NumChannels;
+	}
+
+	return MaxChanId;
+}
+
+/*****************************************************************************/
+/**
+ * @brief Returns the interrupt service mask for configured channels.
+ *
+ * Channel IDs are 1-based, so bit 0 corresponds to channel 1.
+ *
+ * @param[in]	NumChannels is the configured number of channels.
+ *
+ * @return	A bit mask for valid channel interrupt service bits.
+ *
+ *****************************************************************************/
+static u32 XMcdma_GetValidChanMask(int NumChannels)
+{
+	u16 MaxChanId = XMcdma_GetMaxChanId(NumChannels);
+
+	if (MaxChanId == 0U) {
+		return 0U;
+	}
+
+	return (u32)((1ULL << MaxChanId) - 1U);
+}
 
 /*****************************************************************************/
 /**
@@ -184,20 +232,25 @@ void XMcdma_IntrHandler(void *Instance)
 	XMcdma *InstancePtr = (XMcdma *)((void *)Instance);
 	u32 IrqStatus;
 	u16 Chan_id = 1;
+	u16 MaxChanId;
 	XMcdma_ChanCtrl *Chan = NULL;
 	u32 i;
 	u32 Chan_SerMask;
+
+	MaxChanId = XMcdma_GetMaxChanId(InstancePtr->Config.RxNumChannels);
 
 	/* Serviced Channel Numbers */
 	while (1) {
 		Chan_SerMask = XMcdma_ReadReg(InstancePtr->Config.BaseAddress,
 					      XMCDMA_RX_OFFSET + XMCDMA_RXINT_SER_OFFSET);
+		Chan_SerMask &= XMcdma_GetValidChanMask(InstancePtr->Config.RxNumChannels);
 
 		if (!Chan_SerMask) {
 			goto out;
 		}
 
-		for (i = 1, Chan_id = 1; i != 0 && i <= Chan_SerMask;
+		for (i = 1, Chan_id = 1;
+		     i != 0 && Chan_id <= MaxChanId && i <= Chan_SerMask;
 		     i <<= 1, Chan_id++) {
 			if (Chan_SerMask & i) {
 				Chan = XMcdma_GetMcdmaRxChan(InstancePtr,
@@ -264,20 +317,25 @@ void XMcdma_TxIntrHandler(void *Instance)
 	XMcdma *InstancePtr = (XMcdma *)((void *)Instance);
 	u32 IrqStatus;
 	u16 Chan_id = 1;
+	u16 MaxChanId;
 	XMcdma_ChanCtrl *Chan = NULL;
 	u32 i;
 	u32 Chan_SerMask;
+
+	MaxChanId = XMcdma_GetMaxChanId(InstancePtr->Config.TxNumChannels);
 
 	/* Serviced Channel Numbers */
 	while (1) {
 		Chan_SerMask = XMcdma_ReadReg(InstancePtr->Config.BaseAddress,
 					      XMCDMA_TXINT_SER_OFFSET);
+		Chan_SerMask &= XMcdma_GetValidChanMask(InstancePtr->Config.TxNumChannels);
 
 		if (!Chan_SerMask) {
 			goto out;
 		}
 
-		for (i = 1, Chan_id = 1; i != 0 && i <= Chan_SerMask;
+		for (i = 1, Chan_id = 1;
+		     i != 0 && Chan_id <= MaxChanId && i <= Chan_SerMask;
 		     i <<= 1, Chan_id++) {
 			if (Chan_SerMask & i) {
 				Chan = XMcdma_GetMcdmaTxChan(InstancePtr, Chan_id);
