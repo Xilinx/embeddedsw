@@ -62,6 +62,7 @@
 * 5.2   ng  07/05/23 Added support for system device tree flow
 * 5.3	vss 10/18/23 Fixed INIT_TO_NULL coverity warning
 *	ss  04/05/24 Fixed doxygen warnings
+* 5.8   ks  09/07/26 Bounded failure path zeroization to the decrypted data
 *
 * </pre>
 *
@@ -1441,6 +1442,7 @@ s32 XSecure_AesDecrypt(XSecure_Aes *InstancePtr, u8 *Dst, const u8 *Src,
 	u8 *GcmTagAddr;
 	u32 BlockType;
 	u32 ImageLen = 0x0U;
+	u32 DecryptedLen = 0x0U;
 	u32 KeyClearStatus;
 	u32 DecryptStatus;
 
@@ -1534,6 +1536,15 @@ s32 XSecure_AesDecrypt(XSecure_Aes *InstancePtr, u8 *Dst, const u8 *Src,
 						((const u8 *)GcmTagAddr),
 						NextBlkLen, BlockType);
 
+		/*
+		 * A data block is written to the destination before its GCM tag
+		 * is verified, and CurrentImgLen already covers the block just
+		 * decrypted, so it is the span that needs zeroizing on failure.
+		 * The secure header writes nothing, leaving the span at zero.
+		 *
+		 ******/
+		DecryptedLen = CurrentImgLen;
+
 		/** - If decryption failed then return error. */
 		if(Status != (u32)XST_SUCCESS)
 		{
@@ -1615,7 +1626,7 @@ ENDF:
 		(Dst != (u8*)XSECURE_DESTINATION_PCAP_ADDR)) {
 		DecryptStatus = Status;
 		/** - Zeroize the decrypted data */
-		Status = (u32)XSecure_Zeroize(Dst,ImageLen);
+		Status = (u32)XSecure_Zeroize(Dst,DecryptedLen);
 		if (Status != (u32)XST_SUCCESS) {
 			Status = (u32)XSECURE_CSU_AES_ZEROIZATION_ERROR |
 					DecryptStatus;
