@@ -62,6 +62,7 @@ void XDpTxSs_ReportSinkCapInfo(XDpTxSs *InstancePtr)
 	/* Verify argument. */
 	Xil_AssertVoid(InstancePtr != NULL);
 
+	u8 ExtCapField[3] = {0};
 	u8 *Dpcd = InstancePtr->DpPtr->TxInstance.RxConfig.DpcdRxCapsField;
 
 	u8 DpcdRevMajor = (Dpcd[XDP_DPCD_REV] &
@@ -115,9 +116,11 @@ void XDpTxSs_ReportSinkCapInfo(XDpTxSs *InstancePtr)
 	u8 TraingAuxReadInt = Dpcd[XDP_DPCD_TRAIN_AUX_RD_INTERVAL];
 	u8 AdapterForceLoadSenseCap = Dpcd[XDP_DPCD_ADAPTER_CAP] & (0x01);
 	u8 AdapterAltI2CPatternCap = Dpcd[XDP_DPCD_ADAPTER_CAP] & (0x02);
-	u8 FauxCap = Dpcd[XDP_DPCD_FAUX_CAP] & XDP_DPCD_FAUX_CAP_MASK;
-	u8 MstmCap = Dpcd[XDP_DPCD_MSTM_CAP] & XDP_DPCD_MST_CAP_MASK;
-	u8 NumAudioEps = Dpcd[XDP_DPCD_NUM_AUDIO_EPS];
+
+	XDp_TxAuxRead(InstancePtr->DpPtr, XDP_DPCD_FAUX_CAP, 3, ExtCapField);
+	u8 FauxCap = ExtCapField[0] & XDP_DPCD_FAUX_CAP_MASK;
+	u8 MstmCap = ExtCapField[1] & XDP_DPCD_MST_CAP_MASK;
+	u8 NumAudioEps = ExtCapField[2];
 
 	xil_printf("RX capabilities:\n\r"
 		"\tDPCD rev major (0x00000): %d\n\r"
