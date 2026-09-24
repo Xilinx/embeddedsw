@@ -11,6 +11,8 @@
 * assigned to clock wizard 1. Modify this value as per your dynamic clock
 * reconfiguration Clocking wizard
 *
+* @note This example targets ZynqMP platforms.
+*
 * <pre>
 * MODIFICATION HISTORY:
 *
@@ -23,6 +25,7 @@
 * 1.11 vlt 12/17/25 Update Doxygen comments to include SDT flow details.
 * 1.12 ss  8/15/26  Updated specifiers.
 * 1.12 vn  09/3/26  Fix doxygen warnings.
+* 1.12 ss  9/23/26  Document platform note.
 * </pre>
 *
 ******************************************************************************/
