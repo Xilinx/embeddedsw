@@ -1211,7 +1211,7 @@ u32 XDp_TxRemoteIicRead(XDp *InstancePtr, u8 LinkCountTotal,
 		/* Send remote I2C read sideband message. */
 		Status = XDp_TxSendSbMsgRemoteIicRead(InstancePtr,
 			LinkCountTotal, RelativeAddress, IicAddress, Offset,
-			BytesLeft, ReadData);
+			CurrBytesToRead, ReadData);
 		if (Status != XST_SUCCESS) {
 			return Status;
 		}
