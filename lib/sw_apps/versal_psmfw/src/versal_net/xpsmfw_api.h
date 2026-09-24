@@ -186,6 +186,7 @@ extern "C" {
 #define XPSMFW_PROC_MARKER		(0x19U)
 #define XPSMFW_PROC_LOCATION_ADDRESS	(0xEBC26000U)
 #define XPSMFW_PROC_LOCATION_LENGTH	(0x2000U)
+#define XPSMFW_PROC_LOCATION_END	(XPSMFW_PROC_LOCATION_ADDRESS + XPSMFW_PROC_LOCATION_LENGTH) /**< First address past the proc buffer */
 /** @} */
 /** @} */
 

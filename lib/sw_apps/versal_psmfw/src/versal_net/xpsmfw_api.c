@@ -59,9 +59,14 @@ static XStatus XPsmFw_ProcessCdo(u32 CdoStartAddr, u32 Length)
 	u32 CmdLength = 0U;
 	u32 Len = Length;
 	XPsmFw_PmCmdHeader CmdHeader;
-	/*Sanity check boundary to make sure the CdoStart Address in bound of dedicated region from PSMX RAM*/
+	/*
+	 * Sanity check boundary to make sure the CdoStart Address in bound of dedicated region from PSMX RAM.
+	 * Bound Len by subtracting the start address from the window end, so neither
+	 * the word to byte scaling nor an end address sum can wrap.
+	 */
 	if ((CdoStartAddr >= XPSMFW_PROC_LOCATION_ADDRESS) && \
-		((CdoStartAddr + (Len * 4U)) <= (XPSMFW_PROC_LOCATION_ADDRESS + XPSMFW_PROC_LOCATION_LENGTH))) {
+		(CdoStartAddr < XPSMFW_PROC_LOCATION_END) && \
+		(Len <= ((XPSMFW_PROC_LOCATION_END - CdoStartAddr) >> 2U))) {
 		u32* CmdPtr = (u32*)CdoStartAddr;
 		while (0U != Len) {
 			CmdHeader.Value = CmdPtr[0];
