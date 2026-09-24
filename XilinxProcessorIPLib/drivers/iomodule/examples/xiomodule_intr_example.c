@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2011 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -54,16 +54,15 @@
  */
 #ifndef TESTAPP_GEN
 #ifndef SDT
-#define IOMODULE_DEVICE_ID XPAR_IOMODULE_0_DEVICE_ID
+#define IOMODULE_DEVICE_ID XPAR_IOMODULE_0_DEVICE_ID /**< Device ID for the IOModule instance under test. */
 #else
-#define IOMODULE_DEVICE_ID XPAR_IOMODULE_0_BASEADDR
+#define IOMODULE_DEVICE_ID XPAR_IOMODULE_0_BASEADDR /**< Device base address for SDT build. */
 #endif
 #endif
 
-#define MAX_INTR_COUNT		3
-#define MIN_TIMER_BITS		8
-#define RESET_VALUE		((1 << MIN_TIMER_BITS) - 1)
-
+#define MAX_INTR_COUNT		3 /**< Maximum interrupt count before timer is stopped. */
+#define MIN_TIMER_BITS		8 /**< Minimum number of timer bits for the example. */
+#define RESET_VALUE		((1 << MIN_TIMER_BITS) - 1) /**< Timer reset value derived from MIN_TIMER_BITS. */
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
@@ -78,13 +77,13 @@ void IOModuleDisableIntr(XIOModule *IOModuleInstancePtr);
 
 /************************** Variable Definitions *****************************/
 #ifndef TESTAPP_GEN
-static XIOModule IOModule; /* Instance of the IO Module */
+static XIOModule IOModule; /**< Instance of the IO Module. */
 #endif
 /*
  * The following variables are shared between non-interrupt processing and
  * interrupt processing such that they must be global.
  */
-static volatile int TimerExpired[XTC_DEVICE_TIMER_COUNT];
+static volatile int TimerExpired[XTC_DEVICE_TIMER_COUNT]; /**< Timer expiry count per channel. */
 
 /*****************************************************************************/
 /**
@@ -92,11 +91,7 @@ static volatile int TimerExpired[XTC_DEVICE_TIMER_COUNT];
 * This is the main function for the IO Module example. This function is not
 * included if the example is generated from the TestAppGen test tool.
 *
-* @param    None.
-*
 * @return   XST_SUCCESS to indicate success, otherwise XST_FAILURE.
-*
-* @note     None.
 *
 ******************************************************************************/
 #ifndef TESTAPP_GEN
@@ -128,9 +123,9 @@ int main(void)
 *
 * This function uses interrupt driven mode of the IO Module.
 *
-* @param	IOModuleInstancePtr is a pointer to the IO Module driver
+* @param[in] IOModuleInstancePtr is a pointer to the IO Module driver
 *		Instance
-* @param	DeviceId is the XPAR_<IOModule_instance>_DEVICE_ID value from
+* @param[in] DeviceId is the XPAR_<IOModule_instance>_DEVICE_ID value from
 *		xparameters.h
 *
 * @return	XST_SUCCESS if the Test is successful, otherwise XST_FAILURE
@@ -261,13 +256,9 @@ XStatus IOModuleIntrExample(XIOModule *IOModuleInstancePtr, u32 DeviceId)
 * This handler provides an example of how to handle Programmable Interval
 * Timer interrupts but is application specific.
 *
-* @param	CallBackRef is a pointer to the callback function
-* @param	Timer is the number of the interrupt this handler is
+* @param[in] CallBackRef is a pointer to the callback function
+* @param[in] Timer is the number of the interrupt this handler is
 *		associated with.
-*
-* @return	None.
-*
-* @note		None.
 *
 ******************************************************************************/
 void IOModuleHandler(void *CallBackRef, u8 Timer)
@@ -295,12 +286,6 @@ void IOModuleHandler(void *CallBackRef, u8 Timer)
 * This function initializes and enables exception handling for interrupts in
 * the processor.
 *
-* @param	IOModuleInstancePtr is the reference to the IO Module instance.
-*
-* @return	None.
-*
-* @note		None.
-*
 ******************************************************************************/
 void IOModuleSetupIntrSystem(void)
 {
@@ -327,12 +312,8 @@ void IOModuleSetupIntrSystem(void)
 *
 * This function disables the interrupts for the IO Module.
 *
-* @param	IOModuleInstancePtr is a reference to the IO Module driver
+* @param[in] IOModuleInstancePtr is a reference to the IO Module driver
 *		Instance.
-*
-* @return	None.
-*
-* @note		None.
 *
 ******************************************************************************/
 void IOModuleDisableIntr(XIOModule *IOModuleInstancePtr)

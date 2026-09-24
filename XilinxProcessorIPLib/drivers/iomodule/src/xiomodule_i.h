@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2011 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -23,6 +24,7 @@
 * 2.11  mus  05/07/21  Fixed warnings reported by doxygen tool. It fixes
 *                      CR#1088640.
 * 2.12  mus  07/19/21 Fixed compilation warnings CR#1105405.
+* 2.21  ml   21/09/26 Fixed doxygen 1.15.0 and compliance checker warnings.
 * </pre>
 *
 ******************************************************************************/
@@ -55,11 +57,9 @@ extern "C" {
 *
 * Update the statistics of the instance.
 *
-* @param	InstancePtr is a pointer to the XIOMOdule instance.
-* @param	StatusRegister contains the contents of the UART status
+* @param[in] InstancePtr is a pointer to the XIOMOdule instance.
+* @param[in] StatusRegister contains the contents of the UART status
 *		register to update the statistics with.
-*
-* @return	None.
 *
 * @note
 *
@@ -91,6 +91,7 @@ unsigned int XIOModule_ReceiveBuffer(XIOModule *InstancePtr);
 
 /************************** Variable Definitions *****************************/
 
+/** @brief Bit-position mask lookup table shared across driver instances. */
 extern u32 XIOModule_BitPosMask[];
 
 extern XIOModule_Config XIOModule_ConfigTable[];
@@ -99,5 +100,7 @@ extern XIOModule_Config XIOModule_ConfigTable[];
 }
 #endif
 
+/** @cond NODOC */
 #endif
+/** @endcond */
 /** @} */

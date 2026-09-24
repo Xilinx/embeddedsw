@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2011 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -42,6 +42,7 @@
 *                     to comply with MISRA-C R15.5
 * 2.20  bdk  12/08/25 Updated comments to support SDT flow for Doxygen
 *                     documentation.
+* 2.21  ml   21/09/26 Fixed doxygen 1.15.0 and compliance checker warnings.
 * </pre>
 *
 ******************************************************************************/
@@ -67,12 +68,7 @@
 
 /************************** Variable Definitions *****************************/
 
-/*
- * Array of masks associated with the bit position, improves performance
- * in the ISR and acknowledge functions, this table is shared between all
- * instances of the driver, this table is not statically initialized because
- * the size of the table is based upon the maximum used interrupt id
- */
+/** @brief Bit-position mask lookup table for interrupt ID to mask conversion. */
 u32 XIOModule_BitPosMask[XPAR_IOMODULE_INTC_MAX_INTR_SIZE];
 
 /************************** Function Prototypes ******************************/
@@ -91,12 +87,12 @@ static void StubHandler(void *CallBackRef);
 *	- Interrupt output is disabled
 *	- All timers are initialized
 *
-* @param	InstancePtr is a pointer to the XIOModule instance to be
+* @param[in] InstancePtr is a pointer to the XIOModule instance to be
 *		worked on.
 * @if SDT
-* @param	BaseAddress is the base address of the device
+* @param[in] BaseAddress is the base address of the device
 * @else
-* @param	DeviceId is the unique id of the device controlled by this
+* @param[in] DeviceId is the unique id of the device controlled by this
 *		XIOModule instance.  Passing in a device id associates the
 *		generic XIOModule instance to a specific device, as chosen
 *		by the caller or application developer.
@@ -247,12 +243,8 @@ END:
 * It is necessary for the caller to connect the interrupt handler of this
 * component to the proper interrupt source.
 *
-* @param	InstancePtr is a pointer to the XIOModule instance to be
+* @param[in] InstancePtr is a pointer to the XIOModule instance to be
 *		worked on.
-*
-* @return	None.
-*
-* @note		None.
 *
 ******************************************************************************/
 void XIOModule_HandlerTable_Initialize(XIOModule *InstancePtr)
@@ -301,7 +293,7 @@ void XIOModule_HandlerTable_Initialize(XIOModule *InstancePtr)
 * It is necessary for the caller to connect the interrupt handler of this
 * component to the proper interrupt source.
 *
-* @param	InstancePtr is a pointer to the XIOModule instance to be
+* @param[in] InstancePtr is a pointer to the XIOModule instance to be
 *		worked on.
 *
 * @return
@@ -335,12 +327,8 @@ s32 XIOModule_Start(XIOModule *InstancePtr)
 * Stops the interrupt controller by disabling the output from the controller
 * so that no interrupts will be caused by the interrupt controller.
 *
-* @param	InstancePtr is a pointer to the XIOModule instance to be
+* @param[in] InstancePtr is a pointer to the XIOModule instance to be
 *		worked on.
-*
-* @return	None.
-*
-* @note		None.
 *
 ******************************************************************************/
 void XIOModule_Stop(XIOModule *InstancePtr)
@@ -362,13 +350,13 @@ void XIOModule_Stop(XIOModule *InstancePtr)
 * argument provided in this call as the Callbackref is used as the argument
 * for the handler when it is called.
 *
-* @param	InstancePtr is a pointer to the XIOModule instance to be
+* @param[in] InstancePtr is a pointer to the XIOModule instance to be
 *               worked on.
-* @param	Id contains the ID of the interrupt source and should be in the
+* @param[in] Id contains the ID of the interrupt source and should be in the
 *		range of 0 to XPAR_IOMODULE_INTC_MAX_INTR_SIZE - 1 with 0
 *               being the highest priority interrupt.
-* @param	Handler to the handler for that interrupt.
-* @param	CallBackRef is the callback reference, usually the instance
+* @param[in] Handler to the handler for that interrupt.
+* @param[in] CallBackRef is the callback reference, usually the instance
 *		pointer of the connecting driver.
 *
 * @return
@@ -408,15 +396,11 @@ s32 XIOModule_Connect(XIOModule *InstancePtr, u8 Id,
 * location pointed at by the Id. This effectively disconnects that interrupt
 * source from any handler. The interrupt is disabled also.
 *
-* @param	InstancePtr is a pointer to the XIOModule instance to be
+* @param[in] InstancePtr is a pointer to the XIOModule instance to be
 *               worked on.
-* @param	Id contains the ID of the interrupt source and should be in the
+* @param[in] Id contains the ID of the interrupt source and should be in the
 *		range of 0 to XPAR_IOMODULE_INTC_MAX_INTR_SIZE - 1 with 0
 *               being the highest priority interrupt.
-*
-* @return	None.
-*
-* @note		None.
 *
 ****************************************************************************/
 void XIOModule_Disconnect(XIOModule *InstancePtr, u8 Id)
@@ -458,15 +442,11 @@ void XIOModule_Disconnect(XIOModule *InstancePtr, u8 Id)
 * interrupt condition for the specified Id will occur after this function is
 * called.
 *
-* @param	InstancePtr is a pointer to the XIOModule instance to be
+* @param[in] InstancePtr is a pointer to the XIOModule instance to be
 *		worked on.
-* @param	Id contains the ID of the interrupt source and should be in the
+* @param[in] Id contains the ID of the interrupt source and should be in the
 *		range of 0 to XPAR_IOMODULE_INTC_MAX_INTR_SIZE - 1 with 0
 *		being the highest priority interrupt.
-*
-* @return	None.
-*
-* @note		None.
 *
 ****************************************************************************/
 void XIOModule_Enable(XIOModule *InstancePtr, u8 Id)
@@ -504,15 +484,11 @@ void XIOModule_Enable(XIOModule *InstancePtr, u8 Id)
 * interrupt controller will continue to hold an interrupt condition for the
 * Id, but will not cause an interrupt.
 *
-* @param	InstancePtr is a pointer to the XIOModule instance to be
+* @param[in] InstancePtr is a pointer to the XIOModule instance to be
 *               worked on.
-* @param	Id contains the ID of the interrupt source and should be in
+* @param[in] Id contains the ID of the interrupt source and should be in
 *		the range of 0 to XPAR_IOMODULE_INTC_MAX_INTR_SIZE - 1
 *		with 0 being the highest priority interrupt.
-*
-* @return	None.
-*
-* @note		None.
 *
 ****************************************************************************/
 void XIOModule_Disable(XIOModule *InstancePtr, u8 Id)
@@ -549,15 +525,11 @@ void XIOModule_Disable(XIOModule *InstancePtr, u8 Id)
 * interrupt is acknowledged, it causes the interrupt controller to clear its
 * interrupt condition.
 *
-* @param	InstancePtr is a pointer to the XIOModule instance to be
+* @param[in] InstancePtr is a pointer to the XIOModule instance to be
 *               worked on.
-* @param	Id contains the ID of the interrupt source and should be in
+* @param[in] Id contains the ID of the interrupt source and should be in
 *		the range of 0 to XPAR_IOMODULE_INTC_MAX_INTR_SIZE - 1
 *		with 0 being the highest priority interrupt.
-*
-* @return	None.
-*
-* @note		None.
 *
 ****************************************************************************/
 void XIOModule_Acknowledge(XIOModule *InstancePtr, u8 Id)
@@ -591,11 +563,7 @@ void XIOModule_Acknowledge(XIOModule *InstancePtr, u8 Id)
 * A stub for the asynchronous callback. The stub is here in case the upper
 * layers forget to set the handler.
 *
-* @param	CallBackRef is a pointer to the upper layer callback reference
-*
-* @return	None.
-*
-* @note		None.
+* @param[in] CallBackRef is a pointer to the upper layer callback reference
 *
 ******************************************************************************/
 static void StubHandler(void *CallBackRef)
@@ -618,9 +586,9 @@ static void StubHandler(void *CallBackRef)
 * A table contains the configuration info for each device in the system.
 *
 * @if SDT
-* @param	BaseAddress contains the base address of the device
+* @param[in] BaseAddress contains the base address of the device
 * @else
-* @param	DeviceId is the unique identifier for a device.
+* @param[in] DeviceId is the unique identifier for a device.
 * @endif
 *
 * @return	A pointer to the XIOModule configuration structure for the
@@ -668,11 +636,11 @@ XIOModule_Config *XIOModule_LookupConfig(u32 BaseAddress)
 * Makes the connection between the Id of the interrupt source and the
 * associated handler that is to run when the interrupt is recognized.
 *
-* @param	InstancePtr is a pointer to the XIOModule instance.
-* @param	Id contains the ID of the interrupt source and should be in the
+* @param[in] InstancePtr is a pointer to the XIOModule instance.
+* @param[in] Id contains the ID of the interrupt source and should be in the
 *		range of 0 to XPAR_INTC_MAX_NUM_INTR_INPUTS - 1 with 0 being the
 *		highest priority interrupt.
-* @param	Handler to the handler for that interrupt.
+* @param[in] Handler to the handler for that interrupt.
 *
 * @return
 * 		- XST_SUCCESS if the handler was connected correctly.
@@ -755,12 +723,10 @@ s32 XIOModule_ConnectFastHandler(XIOModule *InstancePtr, u8 Id,
 * Mode Register, by resetting the vector to (BaseVector & 0xFFFFFF80) | 0x10
 * and selecting normal mode.
 *
-* @param	InstancePtr is a pointer to the XIOModule instance.
-* @param	Id contains the ID of the interrupt source and should be in the
+* @param[in] InstancePtr is a pointer to the XIOModule instance.
+* @param[in] Id contains the ID of the interrupt source and should be in the
 *		range of 0 to XPAR_INTC_MAX_NUM_INTR_INPUTS - 1 with 0 being the
 *		highest priority interrupt.
-*
-* @return	None.
 *
 * @note		Only used with fast interrupt mode.
 *
@@ -831,9 +797,9 @@ void XIOModule_SetNormalIntrMode(XIOModule *InstancePtr, u8 Id)
 /**
 * Read state of discretes for the specified GPI channel.
 *
-* @param	InstancePtr is a pointer to an XIOModule instance to be
+* @param[in] InstancePtr is a pointer to an XIOModule instance to be
 *               worked on.
-* @param	Channel contains the channel of the GPI (1, 2, 3 or 4) to
+* @param[in] Channel contains the channel of the GPI (1, 2, 3 or 4) to
 *               operate on.
 *
 * @return	Current copy of the discretes register.
@@ -853,13 +819,11 @@ u32 XIOModule_DiscreteRead(XIOModule *InstancePtr, u32 Channel)
 /**
 * Write to discretes register for the specified GPO channel.
 *
-* @param	InstancePtr is a pointer to an XIOModule instance to be
+* @param[in] InstancePtr is a pointer to an XIOModule instance to be
 *               worked on.
-* @param	Channel contains the channel of the GPO (1, 2, 3 or 4) to
+* @param[in] Channel contains the channel of the GPO (1, 2, 3 or 4) to
 *               operate on.
-* @param	Data is the value to be written to the discretes register.
-*
-* @return	None.
+* @param[in] Data is the value to be written to the discretes register.
 *
 *****************************************************************************/
 void XIOModule_DiscreteWrite(XIOModule *InstancePtr,
@@ -884,11 +848,11 @@ void XIOModule_DiscreteWrite(XIOModule *InstancePtr,
 * Initializes a specific timer instance/driver. Initialize fields of the
 * XIOModule structure, then reset the timer
 *
-* @param	InstancePtr is a pointer to the XIOModule instance.
+* @param[in] InstancePtr is a pointer to the XIOModule instance.
 * @if SDT
-* @param	BaseAddress is the base address of the device
+* @param[in] BaseAddress is the base address of the device
 * @else
-* @param	DeviceId is the unique id of the device controlled by this
+* @param[in] DeviceId is the unique id of the device controlled by this
 *		XIOModule component.  Passing in a device id associates the
 *		generic XIOModule component to a specific device, as chosen by
 *		the caller or application developer.
@@ -1003,15 +967,11 @@ END:
 * typically an interrupt controller, and enable the interrupt within the
 * interrupt controller.
 *
-* @param	InstancePtr is a pointer to the XIOModule instance.
-* @param	TimerNumber is the timer of the device to operate on.
+* @param[in] InstancePtr is a pointer to the XIOModule instance.
+* @param[in] TimerNumber is the timer of the device to operate on.
 *		Each device may contain multiple timers. The timer
 *		number is a zero based number with a range of
 *		0 to (XTC_DEVICE_TIMER_COUNT - 1).
-*
-* @return	None.
-*
-* @note		None.
 *
 ******************************************************************************/
 void XIOModule_Timer_Start(XIOModule *InstancePtr, u8 TimerNumber)
@@ -1048,15 +1008,11 @@ void XIOModule_Timer_Start(XIOModule *InstancePtr, u8 TimerNumber)
 * timer from the interrupt source, typically an interrupt controller,
 * and disable the interrupt within the interrupt controller.
 *
-* @param	InstancePtr is a pointer to the XIOModule instance.
-* @param	TimerNumber is the timer counter of the device to operate on.
+* @param[in] InstancePtr is a pointer to the XIOModule instance.
+* @param[in] TimerNumber is the timer counter of the device to operate on.
 *		Each device may contain multiple timer counters. The timer
 *		number is a zero based number with a range of
 *		0 to (XTC_DEVICE_TIMER_COUNT - 1).
-*
-* @return	None.
-*
-* @note		None.
 *
 ******************************************************************************/
 void XIOModule_Timer_Stop(XIOModule *InstancePtr, u8 TimerNumber)
@@ -1093,15 +1049,13 @@ void XIOModule_Timer_Stop(XIOModule *InstancePtr, u8 TimerNumber)
 * may be either incrementing or decrementing based upon the current mode of
 * operation.
 *
-* @param	InstancePtr is a pointer to the XIOModule instance.
-* @param	TimerNumber is the timer counter of the device to operate on.
+* @param[in] InstancePtr is a pointer to the XIOModule instance.
+* @param[in] TimerNumber is the timer counter of the device to operate on.
 *		Each device may contain multiple timer counters. The timer
 *		number is a zero based number  with a range of
 *		0 to (XTC_DEVICE_TIMER_COUNT - 1).
 *
 * @return	The current value for the timer counter.
-*
-* @note		None.
 *
 ******************************************************************************/
 u32 XIOModule_GetValue(XIOModule *InstancePtr, u8 TimerNumber)
@@ -1123,17 +1077,13 @@ u32 XIOModule_GetValue(XIOModule *InstancePtr, u8 TimerNumber)
 * that is loaded into the timer counter when it is reset. This value is also
 * loaded when the timer counter is started.
 *
-* @param	InstancePtr is a pointer to the XIOModule instance.
-* @param	TimerNumber is the timer counter of the device to operate on.
+* @param[in] InstancePtr is a pointer to the XIOModule instance.
+* @param[in] TimerNumber is the timer counter of the device to operate on.
 *		Each device may contain multiple timer counters. The timer
 *		number is a zero based number  with a range of
 *		0 to (XTC_DEVICE_TIMER_COUNT - 1).
-* @param	ResetValue contains the value to be used to reset the timer
+* @param[in] ResetValue contains the value to be used to reset the timer
 *		counter.
-*
-* @return	None.
-*
-* @note		None.
 *
 ******************************************************************************/
 void XIOModule_SetResetValue(XIOModule *InstancePtr, u8 TimerNumber,
@@ -1157,15 +1107,13 @@ void XIOModule_SetResetValue(XIOModule *InstancePtr, u8 TimerNumber,
 * Returns the timer counter value that was captured the last time the external
 * capture input was asserted.
 *
-* @param	InstancePtr is a pointer to the XIOModule instance.
-* @param	TimerNumber is the timer counter of the device to operate on.
+* @param[in] InstancePtr is a pointer to the XIOModule instance.
+* @param[in] TimerNumber is the timer counter of the device to operate on.
 *		Each device may contain multiple timer counters. The timer
 *		number is a zero based number  with a range of
 *		0 to (XTC_DEVICE_TIMER_COUNT - 1).
 *
 * @return	The current capture value for the indicated timer counter.
-*
-* @note		None.
 *
 *******************************************************************************/
 u32 XIOModule_GetCaptureValue(XIOModule *InstancePtr, u8 TimerNumber)
@@ -1184,15 +1132,11 @@ u32 XIOModule_GetCaptureValue(XIOModule *InstancePtr, u8 TimerNumber)
 * Resets the specified timer counter of the device. A reset causes the timer
 * counter to set it's value to the reset value.
 *
-* @param	InstancePtr is a pointer to the XIOModule instance.
-* @param	TimerNumber is the timer counter of the device to operate on.
+* @param[in] InstancePtr is a pointer to the XIOModule instance.
+* @param[in] TimerNumber is the timer counter of the device to operate on.
 *		Each device may contain multiple timer counters. The timer
 *		number is a zero based number  with a range of
 *		0 to (XTC_DEVICE_TIMER_COUNT - 1).
-*
-* @return	None.
-*
-* @note		None.
 *
 ******************************************************************************/
 void XIOModule_Reset(XIOModule *InstancePtr, u8 TimerNumber)
@@ -1234,15 +1178,13 @@ void XIOModule_Reset(XIOModule *InstancePtr, u8 TimerNumber)
 * When interrupts are enabled, the expiration causes an interrupt. This function
 * is typically used to poll a timer counter to determine when it has expired.
 *
-* @param	InstancePtr is a pointer to the XIOModule instance.
-* @param	TimerNumber is the timer counter of the device to operate on.
+* @param[in] InstancePtr is a pointer to the XIOModule instance.
+* @param[in] TimerNumber is the timer counter of the device to operate on.
 *		Each device may contain multiple timer counters. The timer
 *		number is a zero based number  with a range of
 *		0 to (XTC_DEVICE_TIMER_COUNT - 1).
 *
 * @return	TRUE if the timer has expired, and FALSE otherwise.
-*
-* @note		None.
 *
 ******************************************************************************/
 s32 XIOModule_IsExpired(XIOModule *InstancePtr, u8 TimerNumber)
@@ -1260,7 +1202,7 @@ s32 XIOModule_IsExpired(XIOModule *InstancePtr, u8 TimerNumber)
 	 * Check if timer is expired
 	 */
 	if ((bool)(InstancePtr->CurrentTCSR[TimerNumber] & XTC_CSR_AUTO_RELOAD_MASK)) {
-		goto END; /* Always expired for reload */
+		goto END; /**< Always expired for reload */
 	} else {
 		CounterReg = XIOModule_ReadReg(InstancePtr->BaseAddress,
 					       TimerOffset + XTC_TCR_OFFSET);
@@ -1281,9 +1223,9 @@ END:
 /**
 * Read 32-bit word from the IO Bus memory mapped IO
 *
-* @param	InstancePtr is a pointer to an XIOModule instance to be
+* @param[in] InstancePtr is a pointer to an XIOModule instance to be
 *		worked on.
-* @param	ByteOffset is a byte offset from the beginning of the
+* @param[in] ByteOffset is a byte offset from the beginning of the
 *		IO Bus address area
 *
 * @return	Value read from the IO Bus - 32-bit word
@@ -1301,9 +1243,9 @@ u32 XIOModule_IoReadWord(XIOModule *InstancePtr, u32 ByteOffset)
 /**
 * Read 16-bit halfword from the IO Bus memory mapped IO
 *
-* @param	InstancePtr is a pointer to an XIOModule instance to be
+* @param[in] InstancePtr is a pointer to an XIOModule instance to be
 *		worked on.
-* @param	ByteOffset is a byte offset from the beginning of the
+* @param[in] ByteOffset is a byte offset from the beginning of the
 *		IO Bus address area
 *
 * @return	Value read from the IO Bus - 16-bit halfword
@@ -1321,9 +1263,9 @@ u16 XIOModule_IoReadHalfword(XIOModule *InstancePtr, u32 ByteOffset)
 /**
 * Read byte from the IO Bus memory mapped IO
 *
-* @param	InstancePtr is a pointer to an XIOModule instance to be
+* @param[in] InstancePtr is a pointer to an XIOModule instance to be
 *		worked on.
-* @param	ByteOffset is a byte offset from the beginning of the
+* @param[in] ByteOffset is a byte offset from the beginning of the
 *		IO Bus address area
 *
 * @return	Value read from the IO Bus - 8-bit byte
@@ -1341,13 +1283,11 @@ u8 XIOModule_IoReadByte(XIOModule *InstancePtr, u32 ByteOffset)
 /**
 * Write 32-bit word to the IO Bus memory mapped IO
 *
-* @param	InstancePtr is a pointer to an XIOModule instance to be
+* @param[in] InstancePtr is a pointer to an XIOModule instance to be
 *		worked on.
-* @param	ByteOffset is a byte offset from the beginning of the
+* @param[in] ByteOffset is a byte offset from the beginning of the
 * 		IO Bus address area
-* @param	Data is the value to be written to the IO Bus - 32-bit
-*
-* @return	None.
+* @param[in] Data is the value to be written to the IO Bus - 32-bit
 *
 *****************************************************************************/
 void XIOModule_IoWriteWord(XIOModule *InstancePtr,
@@ -1364,13 +1304,11 @@ void XIOModule_IoWriteWord(XIOModule *InstancePtr,
 /**
 * Write 16-bit word to the IO Bus memory mapped IO
 *
-* @param	InstancePtr is a pointer to an XIOModule instance to be
+* @param[in] InstancePtr is a pointer to an XIOModule instance to be
 *		worked on.
-* @param	ByteOffset is a byte offset from the beginning of the
+* @param[in] ByteOffset is a byte offset from the beginning of the
 * 		IO Bus address area
-* @param	Data is the value to be written to the IO Bus - 16-bit
-*
-* @return	None.
+* @param[in] Data is the value to be written to the IO Bus - 16-bit
 *
 *****************************************************************************/
 void XIOModule_IoWriteHalfword(XIOModule *InstancePtr,
@@ -1387,13 +1325,11 @@ void XIOModule_IoWriteHalfword(XIOModule *InstancePtr,
 /**
 * Write 8-bit word to the IO Bus memory mapped IO
 *
-* @param	InstancePtr is a pointer to an XIOModule instance to be
+* @param[in] InstancePtr is a pointer to an XIOModule instance to be
 *		worked on.
-* @param	ByteOffset is a byte offset from the beginning of the
+* @param[in] ByteOffset is a byte offset from the beginning of the
 * 		IO Bus address area
-* @param	Data is the value to be written to the IO Bus - 8-bit
-*
-* @return	None.
+* @param[in] Data is the value to be written to the IO Bus - 8-bit
 *
 *****************************************************************************/
 void XIOModule_IoWriteByte(XIOModule *InstancePtr,

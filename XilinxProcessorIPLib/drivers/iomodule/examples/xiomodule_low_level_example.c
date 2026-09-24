@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2011 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -51,14 +51,14 @@
  * change all the needed parameters in one place.
  */
 #ifndef SDT
-#define	IOMODULE_BASEADDR	XPAR_IOMODULE_SINGLE_BASEADDR
-#define	IOMODULE_DEVICE_ID	XPAR_IOMODULE_SINGLE_DEVICE_ID
-#define	IOMODULE_DEVICE_INTR_ID		XPAR_IOMODULE_0_SYSTEM_INTC_INTERRUPT_7_INTR
-#define	IOMODULE_DEVICE_INT_MASK	XPAR_IOMODULE_0_SYSTEM_INTC_INTERRUPT_7_MASK
+#define	IOMODULE_BASEADDR	XPAR_IOMODULE_SINGLE_BASEADDR /**< Base address of the IOModule peripheral. */
+#define	IOMODULE_DEVICE_ID	XPAR_IOMODULE_SINGLE_DEVICE_ID /**< Device ID of the IOModule instance. */
+#define	IOMODULE_DEVICE_INTR_ID		XPAR_IOMODULE_0_SYSTEM_INTC_INTERRUPT_7_INTR /**< Interrupt ID for the IOModule device. */
+#define	IOMODULE_DEVICE_INT_MASK	XPAR_IOMODULE_0_SYSTEM_INTC_INTERRUPT_7_MASK /**< Interrupt mask for the IOModule device. */
 #else
-#define	IOMODULE_BASEADDR	XPAR_IOMODULE_0_BASEADDR
-#define	IOMODULE_DEVICE_INTR_ID		0x7U
-#define	IOMODULE_DEVICE_INT_MASK	0x80U
+#define	IOMODULE_BASEADDR	XPAR_IOMODULE_0_BASEADDR /**< Base address of the IOModule peripheral. */
+#define	IOMODULE_DEVICE_INTR_ID		0x7U /**< Interrupt ID for the IOModule device. */
+#define	IOMODULE_DEVICE_INT_MASK	0x80U /**< Interrupt mask for the IOModule device. */
 #endif
 
 /**************************** Type Definitions *******************************/
@@ -82,7 +82,7 @@ void DeviceDriverHandler(void *CallbackRef);
  * Create a shared variable to be used by the main thread of processing and
  * the interrupt processing.
  */
-static volatile u32 InterruptProcessed = 0;
+static volatile u32 InterruptProcessed = 0; /**< Flag set when interrupt is processed. */
 
 
 /*****************************************************************************/
@@ -90,11 +90,7 @@ static volatile u32 InterruptProcessed = 0;
 *
 * This is the main function for the IO Module Low Level example.
 *
-* @param    None.
-*
 * @return   XST_SUCCESS to indicate success, otherwise XST_FAILURE.
-*
-* @note     None.
 *
 ******************************************************************************/
 int main(void)
@@ -125,11 +121,9 @@ int main(void)
 * the IO Module is not properly connected to the processor in either software
 * or hardware.
 *
-* @param    IOModuleBaseAddress is Base Address of the the IO Module Device
+* @param[in] IOModuleBaseAddress is Base Address of the the IO Module Device
 *
 * @return   XST_SUCCESS to indicate success, otherwise XST_FAILURE
-*
-* @note     None.
 *
 ******************************************************************************/
 XStatus IOModuleLowLevelExample(u32 IOModuleBaseAddress)
@@ -189,12 +183,6 @@ XStatus IOModuleLowLevelExample(u32 IOModuleBaseAddress)
 * application.  Each processor or RTOS may require unique processing to connect
 * the interrupt handler.
 *
-* @param    None.
-*
-* @return   None.
-*
-* @note     None.
-*
 ******************************************************************************/
 void SetupInterruptSystem()
 {
@@ -220,17 +208,13 @@ void SetupInterruptSystem()
 * the device driver.  Many drivers already provide this handler and the user
 * is not required to create it.
 *
-* @param    CallbackRef is passed back to the device driver's interrupt handler
+* @param[in] CallbackRef is passed back to the device driver's interrupt handler
 *           by the XIOModule driver.  It was given to the XIOModule driver in
 *           the XIOModule_Connect() function call.  It is typically a pointer
 *           to the device driver instance variable if using the Xilinx Level 1
 *           device drivers.  In this example, we do not care about the callback
 *           reference, so we passed it a 0 when connecting the handler to the
 *           XIOModule driver and we make no use of it here.
-*
-* @return   None.
-*
-* @note     None.
 *
 ******************************************************************************/
 void DeviceDriverHandler(void *CallbackRef)

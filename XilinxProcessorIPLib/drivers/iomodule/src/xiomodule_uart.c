@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2011 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -30,6 +30,7 @@
 * 2.14  dp   08/08/22 Fix doxygen warnings.
 * 2.15  ml   02/27/23 Converted signed macros into unsigned macros to
 *                     fix misra-c violations.
+* 2.21  ml   21/09/26 Fixed doxygen 1.15.0 and compliance checker warnings.
 * </pre>
 *
 *****************************************************************************/
@@ -75,14 +76,14 @@ static void StubHandler(void *CallBackRef, unsigned int ByteCount);
 * interrupts. The baud rate and format of the data are fixed in the hardware
 * at hardware build time, except if programmable baud rate is selected.
 *
-* @param	InstancePtr is a pointer to the XIOModule instance.
-* @param	Config is a reference to a structure containing information
+* @param[in] InstancePtr is a pointer to the XIOModule instance.
+* @param[in] Config is a reference to a structure containing information
 *		about a specific IO Module device. This function initializes an
 *		InstancePtr object for a specific device specified by the
 *		contents of Config. This function can initialize multiple
 *		instance objects with the use of multiple calls giving different
 *		Config information on each call.
-* @param 	EffectiveAddr is the device register base address. Use
+* @param[in] EffectiveAddr is the device register base address. Use
 *		Config->BaseAddress for this parameters, passing the physical
 *		address.
 *
@@ -150,15 +151,13 @@ s32 XIOModule_CfgInitialize(XIOModule *InstancePtr, XIOModule_Config *Config,
 * XIOModule component. It is necessary for initialization and for the user
 * available function that sets the data format.
 *
-* @param	InstancePtr is a pointer to the XIOModule instance.
-* @param	BaudRate to be set in the hardware.
+* @param[in] InstancePtr is a pointer to the XIOModule instance.
+* @param[in] BaudRate to be set in the hardware.
 *
 * @return
 *		- XST_SUCCESS if everything configures as expected
 * 		- XST_UART_BAUD_ERROR if the requested rate is not available
 *		because there was too much error due to the input clock
-*
-* @note		None.
 *
 *****************************************************************************/
 s32 XIOModule_SetBaudRate(XIOModule *InstancePtr, u32 BaudRate)
@@ -233,14 +232,10 @@ s32 XIOModule_SetBaudRate(XIOModule *InstancePtr, u32 BaudRate)
 * This function provides a stub handler such that if the application does not
 * define a handler but enables interrupts, this function will be called.
 *
-* @param	CallBackRef has no purpose but is necessary to match the
+* @param[in] CallBackRef has no purpose but is necessary to match the
 *		interface for a handler.
-* @param	ByteCount has no purpose but is necessary to match the
+* @param[in] ByteCount has no purpose but is necessary to match the
 *		interface for a handler.
-*
-* @return	None.
-*
-* @note		None.
 *
 *****************************************************************************/
 static void StubHandler(void *CallBackRef, unsigned int ByteCount)

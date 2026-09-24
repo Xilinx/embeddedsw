@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2011 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -14,7 +14,6 @@
 * This header file contains identifiers and low-level driver functions (or
 * macros) that can be used to access the device.  The user should refer to the
 * hardware device specification for more details of the device operation.
-*
 *
 * Note that users of the driver interface given in this file can register
 * an interrupt handler dynamically (at run-time) using the
@@ -52,6 +51,7 @@
 *                     Fix misra-c violations.
 * 2.16  asa  04/19/24 Ensure that for non-SDT flow, xio.h is included
 *                     only for MB and MB-V based platforms.
+* 2.21  ml   21/09/26 Fixed doxygen 1.15.0 and compliance checker warnings.
 * </pre>
 *
 ******************************************************************************/
@@ -221,6 +221,7 @@ typedef struct {
 	void *CallBackRef;         /**< Data to be passed while invoking handler */
 } XIOModule_VectorTableEntry;
 
+/** @brief Fast interrupt handler type for zero-latency interrupt dispatch. */
 typedef void (*XFastInterruptHandler) (void);
 
 /***************** Macros (Inline Functions) Definitions *********************/
@@ -230,13 +231,11 @@ typedef void (*XFastInterruptHandler) (void);
 *
 * Enable specific interrupt(s) in the interrupt controller.
 *
-* @param	BaseAddress is the base address of the device
-* @param	EnableMask is the 32-bit value to write to the enable register.
+* @param[in] BaseAddress is the base address of the device
+* @param[in] EnableMask is the 32-bit value to write to the enable register.
 *		Each bit of the mask corresponds to an interrupt input signal
 *		that is connected to the interrupt controller (INT0 = LSB).
 *		Only the bits which are set in the mask will enable interrupts.
-*
-* @return	None.
 *
 * @note		C-style signature:
 *		void XIOModule_EnableIntr(UINTPTR BaseAddress,
@@ -251,13 +250,11 @@ typedef void (*XFastInterruptHandler) (void);
 *
 * Disable specific interrupt(s) in the interrupt controller.
 *
-* @param	BaseAddress is the base address of the device
-* @param	DisableMask is the 32-bit value to write to enable register.
+* @param[in] BaseAddress is the base address of the device
+* @param[in] DisableMask is the 32-bit value to write to enable register.
 *		Each bit of the mask corresponds to an interrupt input signal
 *		that is connected to the interrupt controller (INT0 = LSB).
 *		Only bits which are set in the mask will disable interrupts.
-*
-* @return	None.
 *
 * @note		C-style signature:
 *		void XIOModule_DisableIntr(UINTPTR BaseAddress,
@@ -272,14 +269,12 @@ typedef void (*XFastInterruptHandler) (void);
 *
 * Acknowledge specific interrupt(s) in the interrupt controller.
 *
-* @param	BaseAddress is the base address of the device
-* @param	AckMask is the 32-bit value to write to the acknowledge
+* @param[in] BaseAddress is the base address of the device
+* @param[in] AckMask is the 32-bit value to write to the acknowledge
 *		register. Each bit of the mask corresponds to an interrupt
 *               input signal that is connected to the interrupt controller
 *               (INT0 =	LSB).  Only the bits which are set in the mask will
 *               acknowledge interrupts.
-*
-* @return	None.
 *
 * @note		C-style signature:
 *		void XIOModule_AckIntr(UINTPTR BaseAddress, u32 AckMask);
@@ -294,7 +289,7 @@ typedef void (*XFastInterruptHandler) (void);
 * Get the interrupt status from the interrupt controller which indicates
 * which interrupts are active and enabled.
 *
-* @param	BaseAddress is the base address of the device
+* @param[in] BaseAddress is the base address of the device
 *
 * @return	The 32-bit contents of the interrupt status register. Each bit
 *		corresponds to an interrupt input signal that is connected to
@@ -315,7 +310,7 @@ typedef void (*XFastInterruptHandler) (void);
 * Get the contents of the UART status register. Use the XUL_SR_* constants
 * defined above to interpret the bit-mask returned.
 *
-* @param	BaseAddress is the  base address of the device
+* @param[in] BaseAddress is the  base address of the device
 *
 * @return	A 32-bit value representing the contents of the status
 *               register.
@@ -332,7 +327,7 @@ typedef void (*XFastInterruptHandler) (void);
 *
 * Check to see if the UART receiver has data.
 *
-* @param	BaseAddress is the  base address of the device
+* @param[in] BaseAddress is the  base address of the device
 *
 * @return	TRUE if the receiver is empty, FALSE if there is data present.
 *
@@ -350,7 +345,7 @@ typedef void (*XFastInterruptHandler) (void);
 *
 * Check to see if the transmitter is full.
 *
-* @param	BaseAddress is the  base address of the device
+* @param[in] BaseAddress is the  base address of the device
 *
 * @return	TRUE if the transmitter is full, FALSE otherwise.
 *
@@ -370,11 +365,9 @@ typedef void (*XFastInterruptHandler) (void);
 * GPO component is implemented in a smaller width, only the least
 * significant data is written.
 *
-* @param	BaseAddress is the base address of the GPO device.
-* @param	RegOffset is the register offset from the base to write to.
-* @param	Data is the data written to the register.
-*
-* @return	None.
+* @param[in] BaseAddress is the base address of the GPO device.
+* @param[in] RegOffset is the register offset from the base to write to.
+* @param[in] Data is the data written to the register.
 *
 * @note		C-style signature:
 *		void XIOModule_WriteReg(UINTPTR BaseAddress,
@@ -392,8 +385,8 @@ typedef void (*XFastInterruptHandler) (void);
 * significant data is read from the register. The most significant data
 * will be read as 0.
 *
-* @param	BaseAddress is the base address of the GPI device.
-* @param	RegOffset is the register offset from the base to read from.
+* @param[in] BaseAddress is the base address of the GPI device.
+* @param[in] RegOffset is the register offset from the base to read from.
 *
 * @return	Data read from the register.
 *
@@ -438,5 +431,7 @@ void XIOModule_RegisterHandler(UINTPTR BaseAddress,
 }
 #endif
 
+/** @cond NODOC */
 #endif /* end of protection macro */
+/** @endcond */
 /** @} */

@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2011 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -243,6 +243,7 @@
 *                       be called after In-place PLM update
 * 2.17  adk  10/09/24  Add support for stdin/sdtout configuration in
 * 		       system device-tree flow.
+* 2.21  ml   21/09/26 Fixed doxygen 1.15.0 and compliance checker warnings.
 * </pre>
 *
 ******************************************************************************/
@@ -406,11 +407,11 @@ typedef struct {
 /**
  * Signature for the timer callback function.
  *
- * @param	CallBackRef is a callback reference passed in by the upper
+ * @param[in] CallBackRef is a callback reference passed in by the upper
  *              layer when setting the callback functions, and passed back to
  *              the upper layer when the callback is invoked. Its type is
  *		unimportant to the driver, so it is a void pointer.
- * @param 	TimerNumber is the number of the timer within the device. The
+ * @param[in] TimerNumber is the number of the timer within the device. The
  *              device typically contains from one to four timers. The timer
  *              number is a zero based number with a range of 0 to
  *              (XTC_DEVICE_TIMER_COUNT - 1).
@@ -625,5 +626,7 @@ void XIOModule_IoWriteByte(XIOModule *InstancePtr, u32 ByteOffset, u8 Data);
 }
 #endif
 
+/** @cond NODOC */
 #endif /* end of protection macro */
+/** @endcond */
 /** @} */

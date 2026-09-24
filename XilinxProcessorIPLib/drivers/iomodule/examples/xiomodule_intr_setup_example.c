@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2025 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -47,9 +47,9 @@
  */
 #ifndef TESTAPP_GEN
 #ifndef SDT
-#define IOMODULE_DEVICE_ID XPAR_IOMODULE_0_DEVICE_ID
+#define IOMODULE_DEVICE_ID XPAR_IOMODULE_0_DEVICE_ID /**< Device ID for the IOModule instance under test. */
 #else
-#define IOMODULE_DEVICE_ID XPAR_IOMODULE_0_BASEADDR
+#define IOMODULE_DEVICE_ID XPAR_IOMODULE_0_BASEADDR /**< Device base address for SDT build. */
 #endif
 #endif
 
@@ -66,7 +66,7 @@ static void IOModuleSetupIntrSystem(void);
 
 /************************** Variable Definitions *****************************/
 #ifndef TESTAPP_GEN
-static XIOModule IOModule; /* Instance of the IO Module */
+static XIOModule IOModule; /**< Instance of the IO Module. */
 #endif
 
 /*****************************************************************************/
@@ -75,11 +75,7 @@ static XIOModule IOModule; /* Instance of the IO Module */
 * This is the main function for the IO Module example. This function is not
 * included if the example is generated from the TestAppGen test tool.
 *
-* @param    None.
-*
 * @return   XST_SUCCESS to indicate success, otherwise XST_FAILURE.
-*
-* @note     None.
 *
 ******************************************************************************/
 #ifndef TESTAPP_GEN
@@ -108,13 +104,11 @@ int main(void)
 * This function is used by the TestAppGen generated application to setup
 * the IO Module interrupts.
 *
-* @param    IOModuleInstancePtr is the reference to the IO Module instance.
-* @param    DeviceId is device ID of the IO Module Device , typically
+* @param[in] IOModuleInstancePtr is the reference to the IO Module instance.
+* @param[in] DeviceId is device ID of the IO Module Device , typically
 *           XPAR_<IOMODULE_instance>_DEVICE_ID value from xparameters.h
 *
 * @return   XST_SUCCESS to indicate success, otherwise XST_FAILURE
-*
-* @note     None.
 *
 ******************************************************************************/
 XStatus IOModuleInterruptSetup(XIOModule *IOModuleInstancePtr,
@@ -159,12 +153,6 @@ XStatus IOModuleInterruptSetup(XIOModule *IOModuleInstancePtr,
 /**
 * This function initializes and enables exception handling for interrupts in
 * the processor.
-*
-* @param	IOModuleInstancePtr is the reference to the IO Module instance.
-*
-* @return	None.
-*
-* @note		None.
 *
 ******************************************************************************/
 static void IOModuleSetupIntrSystem(void)

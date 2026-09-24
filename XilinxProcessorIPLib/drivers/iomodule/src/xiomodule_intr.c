@@ -22,7 +22,7 @@
 * interrupt handler, XIOModule_VoidInterruptHandler, is provided for
 * systems which use only a single interrupt controller or for systems that
 * cannot otherwise provide an argument to the XIOModule interrupt handler
-* (e.g., the RTOS interrupt vector handler may not provide such a facility).
+* (for example, the RTOS interrupt vector handler may not provide such a facility).
 * The constant XPAR_IOMODULE_SINGLE_DEVICE_ID must be defined for this
 * handler to be included in the driver.  The second interrupt handler,
 * XIOModule_InterruptHandler, uses an input argument which is an instance
@@ -56,6 +56,7 @@
 * 		      from u32 to UINTPTR to support on all platforms.
 * 2.15  ml   04/07/23 Typecast conditional expressions with bool to avoid
 *                     MISRA C violations.
+* 2.21  ml   21/09/26 Fixed doxygen 1.15.0 and compliance checker warnings.
 * </pre>
 *
 * @internal
@@ -78,10 +79,7 @@
 #include <stdbool.h>
 /************************** Constant Definitions *****************************/
 
-/*
- * Array of masks associated with the bit position, improves performance
- * in the ISR, this table is shared between all instances of the driver
- */
+/** @brief Bit-position mask table for timer interrupt performance in the ISR. */
 u32 XIOModule_TimerBitPosMask[XTC_DEVICE_TIMER_COUNT] = {
   1 << XIN_IOMODULE_PIT_1_INTERRUPT_INTR,
   1 << XIN_IOMODULE_PIT_2_INTERRUPT_INTR,
@@ -114,8 +112,6 @@ u32 XIOModule_TimerBitPosMask[XTC_DEVICE_TIMER_COUNT] = {
 * The user must connect this function to the interrupt system such that it is
 * called whenever the devices which are connected to it cause an interrupt.
 *
-* @return	None.
-*
 * @note
 *
 * The constant XPAR_IOMODULE_SINGLE_DEVICE_ID must be defined for this handler
@@ -143,12 +139,8 @@ void XIOModule_VoidInterruptHandler()
 * The user must connect this function to the interrupt system such that it is
 * called whenever the devices which are connected to it cause an interrupt.
 *
-* @param	InstancePtr is a pointer to the XIOModule instance to be
+* @param[in] InstancePtr is a pointer to the XIOModule instance to be
 *               worked on.
-*
-* @return	None.
-*
-* @note		None.
 *
 ******************************************************************************/
 void XIOModule_InterruptHandler(XIOModule * InstancePtr)
@@ -176,12 +168,10 @@ void XIOModule_InterruptHandler(XIOModule * InstancePtr)
 * Sets the timer callback function, which the driver calls when the specified
 * timer times out.
 *
-* @param	InstancePtr is a pointer to the XIOModule instance.
-* @param	CallBackRef is the upper layer callback reference passed back
+* @param[in] InstancePtr is a pointer to the XIOModule instance.
+* @param[in] CallBackRef is the upper layer callback reference passed back
 *		when the callback function is invoked.
-* @param	FuncPtr is the pointer to the callback function.
-*
-* @return	None.
+* @param[in] FuncPtr is the pointer to the callback function.
 *
 * @note
 *
@@ -221,12 +211,8 @@ void XIOModule_SetHandler(XIOModule * InstancePtr,
 * processing for the Programmable Interval Timer and does not save and restore
 * the interrupt context.
 *
-* @param	InstancePtr contains a pointer to the IO Module instance for
+* @param[in] InstancePtr contains a pointer to the IO Module instance for
 *		the interrupt.
-*
-* @return	None.
-*
-* @note		None.
 *
 ******************************************************************************/
 void XIOModule_Timer_InterruptHandler(void *InstancePtr)

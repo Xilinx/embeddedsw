@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2011 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -32,6 +32,7 @@
 * 2.15  ml   02/27/23 Update functions return type and typecast the return
 *                     value to fix misra-c violations.
 *
+* 2.21  ml   21/09/26 Fixed doxygen 1.15.0 and compliance checker warnings.
 * </pre>
 *
 *****************************************************************************/
@@ -59,6 +60,7 @@ static void SendDataHandler(XIOModule *InstancePtr);
 
 /************************** Variable Definitions ****************************/
 
+/** @brief UART interrupt callback function type for send/receive handlers. */
 typedef void (*Handler)(XIOModule *InstancePtr);
 
 
@@ -79,9 +81,9 @@ typedef void (*Handler)(XIOModule *InstancePtr);
 * buffer has been sent. A callback function, as specified by the application,
 * will be called to indicate the completion of sending the buffer.
 *
-* @param	InstancePtr is a pointer to the XIOModule instance.
-* @param	DataBufferPtr is pointer to a buffer of data to be sent.
-* @param	NumBytes contains the number of bytes to be sent. A value of
+* @param[in] InstancePtr is a pointer to the XIOModule instance.
+* @param[in] DataBufferPtr is pointer to a buffer of data to be sent.
+* @param[in] NumBytes contains the number of bytes to be sent. A value of
 *		zero will stop a previous send operation that is in progress
 *		in interrupt mode. Any data that was already put into the
 *		transmit FIFO will be sent.
@@ -160,9 +162,9 @@ u32 XIOModule_Send(XIOModule *InstancePtr, u8 *DataBufferPtr,
 * to indicate the completion of receiving the buffer or when any receive errors
 * or timeouts occur.
 *
-* @param	InstancePtr is a pointer to the XIOModule instance.
-* @param	DataBufferPtr is pointer to buffer for data to be received into.
-* @param	NumBytes is the number of bytes to be received. A value of zero
+* @param[in] InstancePtr is a pointer to the XIOModule instance.
+* @param[in] DataBufferPtr is pointer to buffer for data to be received into.
+* @param[in] NumBytes is the number of bytes to be received. A value of zero
 *		will stop a previous receive operation that is in progress in
 *		interrupt mode.
 *
@@ -226,11 +228,7 @@ u32 XIOModule_Recv(XIOModule *InstancePtr, u8 *DataBufferPtr,
 * This function does nothing, since the UART doesn't have any FIFOs. It is
 * included for compatibility with the UART Lite driver.
 *
-* @param	InstancePtr is a pointer to the XIOModule instance .
-*
-* @return	None.
-*
-* @note		None.
+* @param[in] InstancePtr is a pointer to the XIOModule instance .
 *
 *****************************************************************************/
 void XIOModule_ResetFifos(XIOModule *InstancePtr)
@@ -245,11 +243,9 @@ void XIOModule_ResetFifos(XIOModule *InstancePtr)
 * This function determines if the specified UART is sending data. If the
 * transmitter register is not empty, it is sending data.
 *
-* @param	InstancePtr is a pointer to the XIOModule instance.
+* @param[in] InstancePtr is a pointer to the XIOModule instance.
 *
 * @return	A value of TRUE if the UART is sending data, otherwise FALSE.
-*
-* @note		None.
 *
 *****************************************************************************/
 s32 XIOModule_IsSending(XIOModule *InstancePtr)
@@ -295,12 +291,10 @@ s32 XIOModule_IsSending(XIOModule *InstancePtr)
 * has been sent. A callback function, as specified by the application, will
 * be called to indicate the completion of sending the buffer.
 *
-* @param	InstancePtr is a pointer to the XIOModule instance.
+* @param[in] InstancePtr is a pointer to the XIOModule instance.
 *
 * @return	NumBytes is the number of bytes actually sent (put into the
 *		UART transmitter and/or FIFO).
-*
-* @note		None.
 *
 *****************************************************************************/
 unsigned int XIOModule_SendBuffer(XIOModule *InstancePtr)
@@ -395,11 +389,9 @@ unsigned int XIOModule_SendBuffer(XIOModule *InstancePtr)
 * the completion of receiving the buffer or when any receive errors or timeouts
 * occur.
 *
-* @param	InstancePtr is a pointer to the XIOModule instance.
+* @param[in] InstancePtr is a pointer to the XIOModule instance.
 *
 * @return	The number of bytes received.
-*
-* @note		None.
 *
 *****************************************************************************/
 unsigned int XIOModule_ReceiveBuffer(XIOModule *InstancePtr)
@@ -481,12 +473,10 @@ unsigned int XIOModule_ReceiveBuffer(XIOModule *InstancePtr)
 * occurs in the driver for the UART. The purpose of the handler is to allow
 * application specific processing to be performed.
 *
-* @param	InstancePtr is a pointer to the XIOModule instance.
-* @param	FuncPtr is the pointer to the callback function.
-* @param	CallBackRef is the upper layer callback reference passed back
+* @param[in] InstancePtr is a pointer to the XIOModule instance.
+* @param[in] FuncPtr is the pointer to the callback function.
+* @param[in] CallBackRef is the upper layer callback reference passed back
 *		when the callback function is invoked.
-*
-* @return	None.
 *
 * @note		There is no assert on the CallBackRef since the driver doesn't
 *		know what it is (nor should it)
@@ -514,12 +504,10 @@ void XIOModule_SetRecvHandler(XIOModule *InstancePtr,
 * occurs in the driver for the UART. The purpose of the handler is to allow
 * application specific processing to be performed.
 *
-* @param	InstancePtr is a pointer to the XIOModule instance .
-* @param	FuncPtr is the pointer to the callback function.
-* @param	CallBackRef is the upper layer callback reference passed back
+* @param[in] InstancePtr is a pointer to the XIOModule instance .
+* @param[in] FuncPtr is the pointer to the callback function.
+* @param[in] CallBackRef is the upper layer callback reference passed back
 *		when the callback function is invoked.
-*
-* @return 	None.
 *
 * @note		There is no assert on the CallBackRef since the driver doesn't
 *		know what it is (nor should it)
@@ -549,12 +537,8 @@ void XIOModule_SetSendHandler(XIOModule *InstancePtr,
 * does not save or restore the processor context such that the user must
 * ensure this occurs.
 *
-* @param	InstancePtr contains a pointer to the instance of the IOModule
+* @param[in] InstancePtr contains a pointer to the instance of the IOModule
 *		that the interrupt is for.
-*
-* @return	None.
-*
-* @note		None.
 *
 ******************************************************************************/
 void XIOModule_Uart_InterruptHandler(XIOModule *InstancePtr)
@@ -585,11 +569,7 @@ void XIOModule_Uart_InterruptHandler(XIOModule *InstancePtr)
 * This function handles the interrupt when data is received, either a single
 * byte when FIFOs are not enabled, or multiple bytes with the FIFO.
 *
-* @param	InstancePtr is a pointer to the XIOModule instance.
-*
-* @return	None.
-*
-* @note		None.
+* @param[in] InstancePtr is a pointer to the XIOModule instance.
 *
 *****************************************************************************/
 static void ReceiveDataHandler(XIOModule *InstancePtr)
@@ -626,11 +606,7 @@ static void ReceiveDataHandler(XIOModule *InstancePtr)
 * This function handles the interrupt when data has been sent, the transmit
 * FIFO is empty (transmitter holding register).
 *
-* @param	InstancePtr is a pointer to the XIOModule instance .
-*
-* @return	None.
-*
-* @note		None.
+* @param[in] InstancePtr is a pointer to the XIOModule instance .
 *
 *****************************************************************************/
 static void SendDataHandler(XIOModule *InstancePtr)
@@ -677,11 +653,7 @@ static void SendDataHandler(XIOModule *InstancePtr)
 * data may still be received by the UART but no interrupt will be generated
 * since the hardware device has no way to disable the receiver.
 *
-* @param	InstancePtr is a pointer to the XIOModule instance.
-*
-* @return	None.
-*
-* @note		None.
+* @param[in] InstancePtr is a pointer to the XIOModule instance.
 *
 *****************************************************************************/
 void XIOModule_Uart_DisableInterrupt(XIOModule *InstancePtr)
@@ -706,11 +678,7 @@ void XIOModule_Uart_DisableInterrupt(XIOModule *InstancePtr)
 * This function enables the UART interrupts such that an interrupt will occur
 * when data is received or data has been transmitted.
 *
-* @param	InstancePtr is a pointer to the XIOModule instance.
-*
-* @return	None.
-*
-* @note		None.
+* @param[in] InstancePtr is a pointer to the XIOModule instance.
 *
 *****************************************************************************/
 void XIOModule_Uart_EnableInterrupt(XIOModule *InstancePtr)

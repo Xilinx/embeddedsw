@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2011 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -39,6 +39,7 @@
 *       	       don't pull it for PLM template app case.
 *       ss   07/11/25  Add define for ASUFW as outbyte() specific implementation
 *                      for ASUFW is added
+* 2.21  ml   21/09/26 Fixed doxygen 1.15.0 and compliance checker warnings.
 * </pre>
 *
 ******************************************************************************/
@@ -84,8 +85,6 @@ static XIOModule_Config *LookupConfigByBaseAddress(UINTPTR BaseAddress);
 * The user must connect this function to the interrupt system such that it is
 * called whenever the devices which are connected to it cause an interrupt.
 *
-* @return	None.
-*
 * @note
 *
 * The constant XPAR_IOMODULE_SINGLE_DEVICE_ID must be defined for this handler
@@ -122,15 +121,13 @@ void XIOModule_LowLevelInterruptHandler(void)
 * calling an interrupt handler, except skipping null handlers that indicate
 * use of fast interrupts where the hardware directly jumps to the handler.
 *
-* @param	DeviceId is the zero-based device ID defined in xparameters.h
+* @param[in] DeviceId is the zero-based device ID defined in xparameters.h
 *		of the interrupting interrupt controller. It is used as a direct
 *		index into the configuration data, which contains the vector
 *		table for the interrupt controller. Note that even though the
 *		argument is a void pointer, the value is not a pointer but the
 *		actual device ID.  The void pointer type is necessary to meet
 *		the XInterruptHandler typedef for interrupt handlers.
-*
-* @return	None.
 *
 * @note
 *
@@ -148,7 +145,7 @@ void XIOModule_DeviceInterruptHandler(void *DeviceId)
 	XIOModule_Config *CfgPtr;
 	XIOModule_VectorTableEntry *TablePtr;
 
-	/* Get the configuration data using the device ID */
+	/**< Get the configuration data using the device ID */
 #ifndef SDT
 	CfgPtr = &XIOModule_ConfigTable[(UINTPTR) DeviceId];
 #else
@@ -229,13 +226,11 @@ void XIOModule_DeviceInterruptHandler(void *DeviceId)
 * interface given in this file is to service all outstanding interrupts when an
 * interrupt occurs.
 *
-* @param	BaseAddress is the unique identifier for a device.
-* @param 	Option is XIN_SVC_SGL_ISR_OPTION if you want only a single
+* @param[in] BaseAddress is the unique identifier for a device.
+* @param[in] Option is XIN_SVC_SGL_ISR_OPTION if you want only a single
 *		interrupt serviced when an interrupt occurs, or
 *		XIN_SVC_ALL_ISRS_OPTION if you want all pending interrupts
 *		serviced when an interrupt occurs.
-*
-* @return	None.
 *
 * @note
 *
@@ -264,17 +259,15 @@ void XIOModule_SetIntrSvcOption(UINTPTR BaseAddress, s32 Option)
 * by passing in the XIOModule_DefaultHandler() as the handler and NULL as the
 * callback reference.
 *
-* @param	BaseAddress is the base address of the interrupt controller
+* @param[in] BaseAddress is the base address of the interrupt controller
 *		whose vector table will be modified.
-* @param	InterruptId is the interrupt ID to be associated with the input
+* @param[in] InterruptId is the interrupt ID to be associated with the input
 *		handler.
-* @param	Handler is the function pointer that will be added to
+* @param[in] Handler is the function pointer that will be added to
 *		the vector table for the given interrupt ID.  It adheres to the
 *		XInterruptHandler signature found in xbasic_types.h.
-* @param	CallBackRef is the argument that will be passed to the new
+* @param[in] CallBackRef is the argument that will be passed to the new
 *		handler function when it is called. This is user-specific.
-*
-* @return	None.
 *
 * @note		Only used with normal interrupt mode.
 *		Does not restore normal interrupt mode.
@@ -301,14 +294,12 @@ void XIOModule_RegisterHandler(UINTPTR BaseAddress, s32 InterruptId,
 * Looks up the device configuration based on the base address of the device.
 * A table contains the configuration info for each device in the system.
 *
-* @param	BaseAddress is the unique identifier for a device.
+* @param[in] BaseAddress is the unique identifier for a device.
 *
 * @return
 *
 * A pointer to the configuration structure for the specified device, or
 * NULL if the device was not found.
-*
-* @note		None.
 *
 ******************************************************************************/
 static XIOModule_Config *LookupConfigByBaseAddress(UINTPTR BaseAddress)
@@ -338,12 +329,8 @@ static XIOModule_Config *LookupConfigByBaseAddress(UINTPTR BaseAddress)
 * waits for the transmitter to become non-full before it writes the byte to
 * the transmit register.
 *
-* @param	BaseAddress is the base address of the device
-* @param	Data is the byte of data to send
-*
-* @return	None.
-*
-* @note		None.
+* @param[in] BaseAddress is the base address of the device
+* @param[in] Data is the byte of data to send
 *
 ******************************************************************************/
 void XIOModule_SendByte(UINTPTR BaseAddress, u8 Data)
@@ -361,11 +348,9 @@ void XIOModule_SendByte(UINTPTR BaseAddress, u8 Data)
 * it waits for the receiver to become non-empty before it reads from the
 * receive register.
 *
-* @param	BaseAddress is the base address of the device
+* @param[in] BaseAddress is the base address of the device
 *
 * @return	The byte of data received.
-*
-* @note		None.
 *
 ******************************************************************************/
 u8 XIOModule_RecvByte(UINTPTR BaseAddress)

@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2011 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -27,6 +27,7 @@
 * 2.19  ml   04/15/25 Fixed multiple returns in XIOModule_Intc_SelfTest,
 *                     XIOModule_Timer_SelfTest and XIOModule_SelfTest
 *                     to comply with MISRA-C R15.5
+* 2.21  ml   21/09/26 Fixed doxygen 1.15.0 and compliance checker warnings.
 * </pre>
 *
 ******************************************************************************/
@@ -65,7 +66,7 @@
 * the IO Module configuration) and verifying that they are recognized and can
 * be acknowledged.
 *
-* @param	InstancePtr is a pointer to the XIOModule instance to be
+* @param[in] InstancePtr is a pointer to the XIOModule instance to be
 * 		worked on.
 *
 * @return
@@ -73,8 +74,6 @@
 * 		- XST_INTC_FAIL_SELFTEST if the Interrupt controller
 *                 fails the self-test. It will fail the self test if the
 *                 device has previously been started in real mode.
-*
-* @note		None.
 *
 ******************************************************************************/
 int XIOModule_Intc_SelfTest(XIOModule * InstancePtr)
@@ -121,8 +120,8 @@ int XIOModule_Intc_SelfTest(XIOModule * InstancePtr)
 * specified programmable interval timer of the device can be enabled and
 * increments.
 *
-* @param	InstancePtr is a pointer to the XIOMOdule instance.
-* @param	TimerNumber is the timer of the device to operate on.
+* @param[in] InstancePtr is a pointer to the XIOMOdule instance.
+* @param[in] TimerNumber is the timer of the device to operate on.
 *		Each device may contain multiple timers. The timer
 *		number is a zero based number with a range of
 *		0 to (XTC_DEVICE_TIMER_COUNT - 1).
@@ -205,7 +204,7 @@ END:
 *
 * Runs a self-test on the timer and interrupt controller driver/device.
 *
-* @param	InstancePtr is a pointer to the XIOMOdule instance.
+* @param[in] InstancePtr is a pointer to the XIOMOdule instance.
 *
 * @return
 * 		- XST_SUCCESS if self-test was successful

@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2011 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -27,6 +27,7 @@
 * 2.15  ml   02/27/23 Typecast the variables to fix misra-c violations.
 * 2.19  ml   04/15/25 Fixed multiple returns in XIOModule_SetOptions
 *                     to comply with MISRA-C R15.5
+* 2.21  ml   21/09/26 Fixed doxygen 1.15.0 and compliance checker warnings.
 * </pre>
 *
 ******************************************************************************/
@@ -83,16 +84,14 @@ static Mapping OptionsTable[] = {
 *
 * Set the options for the interrupt controller driver.
 *
-* @param	InstancePtr is a pointer to the XIOModule instance to be
+* @param[in] InstancePtr is a pointer to the XIOModule instance to be
 *               worked on.
-* @param	Options to be set. The available options are described in
+* @param[in] Options to be set. The available options are described in
 *		xiomodule.h.
 *
 * @return
 * 		- XST_SUCCESS if the options were set successfully
 * 		- XST_INVALID_PARAM if the specified option was not valid
-*
-* @note		None.
 *
 ****************************************************************************/
 s32 XIOModule_SetOptions(XIOModule * InstancePtr, u32 Options)
@@ -122,13 +121,11 @@ END:
 *
 * Return the currently set options.
 *
-* @param	InstancePtr is a pointer to the XIOModule instance to be
+* @param[in] InstancePtr is a pointer to the XIOModule instance to be
 *               worked on.
 *
 * @return	The currently set options. The options are described in
 *               xiomodule.h.
-*
-* @note		None.
 *
 ****************************************************************************/
 u32 XIOModule_GetOptions(XIOModule * InstancePtr)
@@ -152,20 +149,16 @@ u32 XIOModule_GetOptions(XIOModule * InstancePtr)
 * XIOModule_Timer_GetOptions() prior to this function and modify the retrieved
 * options to pass into this function to prevent loss of the current options.
 *
-* @param	InstancePtr is a pointer to the XIOModule instance.
-* @param	TimerNumber is the timer of the device to operate on.
+* @param[in] InstancePtr is a pointer to the XIOModule instance.
+* @param[in] TimerNumber is the timer of the device to operate on.
 *		Each device may contain multiple timers. The timer
 *		number is a zero based number with a range of
 *		0 to (XTC_DEVICE_TIMER_COUNT - 1).
-* @param	Options contains the desired options to be set or cleared.
+* @param[in] Options contains the desired options to be set or cleared.
 *		Setting the option to '1' enables the option, clearing the to
 *		'0' disables the option. The options are bit masks such that
 *		multiple options may be set or cleared. The options are
 *		described in xiomodule.h.
-*
-* @return	None.
-*
-* @note		None.
 *
 ******************************************************************************/
 void XIOModule_Timer_SetOptions(XIOModule * InstancePtr, u8 TimerNumber,
@@ -214,8 +207,8 @@ void XIOModule_Timer_SetOptions(XIOModule * InstancePtr, u8 TimerNumber,
 *
 * Get the options for the specified timer.
 *
-* @param	InstancePtr is a pointer to the XIOModule instance.
-* @param	TimerNumber is the timer of the device to operate on
+* @param[in] InstancePtr is a pointer to the XIOModule instance.
+* @param[in] TimerNumber is the timer of the device to operate on
 *		Each device may contain multiple timer. The timer
 *		number is a zero based number with a range of
 *		0 to (XTC_DEVICE_TIMER_COUNT - 1).
@@ -225,8 +218,6 @@ void XIOModule_Timer_SetOptions(XIOModule * InstancePtr, u8 TimerNumber,
 * The currently set options. An option which is set to a '1' is enabled and
 * set to a '0' is disabled. The options are bit masks such that multiple
 * options may be set or cleared. The options are described in xiomodule.h.
-*
-* @note		None.
 *
 ******************************************************************************/
 u32 XIOModel_Timer_GetOptions(XIOModule * InstancePtr, u8 TimerNumber)

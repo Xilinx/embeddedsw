@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2011 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -55,9 +55,9 @@
  */
 #ifndef TESTAPP_GEN
 #ifndef SDT
-#define	IOMODULE_DEVICE_ID	XPAR_IOMODULE_0_DEVICE_ID
+#define	IOMODULE_DEVICE_ID	XPAR_IOMODULE_0_DEVICE_ID /**< Device ID for the IOModule selftest. */
 #else
-#define	IOMODULE_DEVICE_ID	XPAR_IOMODULE_0_BASEADDR
+#define	IOMODULE_DEVICE_ID	XPAR_IOMODULE_0_BASEADDR /**< Device base address for SDT build. */
 #endif
 #endif
 
@@ -73,7 +73,7 @@ XStatus IOModuleSelfTestExample(u32 DeviceId);
 
 /************************** Variable Definitions *****************************/
 
-static XIOModule IOModule; /* Instance of the IO Module */
+static XIOModule IOModule; /**< Instance of the IO Module */
 
 
 /*****************************************************************************/
@@ -82,11 +82,7 @@ static XIOModule IOModule; /* Instance of the IO Module */
 * This is the main function for the IO Module example. This function is not
 * included if the example is generated from the TestAppGen test tool.
 *
-* @param    None.
-*
 * @return   XST_SUCCESS to indicate success, otherwise XST_FAILURE.
-*
-* @note     None.
 *
 ******************************************************************************/
 #ifndef TESTAPP_GEN
@@ -119,12 +115,10 @@ int main(void)
 * return if the IO Module is not properly connected to the processor in
 * either software or hardware.
 *
-* @param    DeviceId is device ID of the IO Module Device, typically
+* @param[in] DeviceId is device ID of the IO Module Device, typically
 *           XPAR_<IOMODULE_instance>_DEVICE_ID value from xparameters.h
 *
 * @return   XST_SUCCESS to indicate success, otherwise XST_FAILURE
-*
-* @note     None.
 *
 ******************************************************************************/
 XStatus IOModuleSelfTestExample(u32 DeviceId)

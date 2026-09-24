@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2011 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -18,6 +19,7 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- -----------------------------------------------
 * 1.00a sa   07/15/11 First release
+* 2.21  ml   21/09/26 Fixed doxygen 1.15.0 and compliance checker warnings.
 * </pre>
 *
 *****************************************************************************/
@@ -49,13 +51,9 @@
 *
 * Returns a snapshot of the current statistics in the structure specified.
 *
-* @param	InstancePtr is a pointer to the XIOModule instance.
-* @param	StatsPtr is a pointer to a XIOModule_Uart_Stats structure to
+* @param[in] InstancePtr is a pointer to the XIOModule instance.
+* @param[out] StatsPtr is a pointer to a XIOModule_Uart_Stats structure to
 *		where the statistics are to be copied.
-*
-* @return	None.
-*
-* @note		None.
 *
 *****************************************************************************/
 void XIOModule_GetStats(XIOModule *InstancePtr, XIOModule_Uart_Stats *StatsPtr)
@@ -90,11 +88,7 @@ void XIOModule_GetStats(XIOModule *InstancePtr, XIOModule_Uart_Stats *StatsPtr)
 *
 * This function zeros the statistics for the given instance.
 *
-* @param	InstancePtr is a pointer to the XIOModule instance.
-*
-* @return	None.
-*
-* @note		None.
+* @param[in] InstancePtr is a pointer to the XIOModule instance.
 *
 *****************************************************************************/
 void XIOModule_ClearStats(XIOModule *InstancePtr)

@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2011 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -27,6 +27,7 @@
 *                     API's argument(Channel) datatype to fix the coverity warning.
 * 2.15  ml   02/27/23 Added suffix U to numerical to make it as unsigned to fix
 *                     misra-c violation.
+* 2.21  ml   21/09/26 Fixed doxygen 1.15.0 and compliance checker warnings.
 * </pre>
 *
 *****************************************************************************/
@@ -53,15 +54,13 @@
 /**
 * Set output discrete(s) to logic 1 for the specified GPO channel.
 *
-* @param	InstancePtr is a pointer to an XIOModule instance to be
+* @param[in] InstancePtr is a pointer to an XIOModule instance to be
 *               worked on.
-* @param	Channel contains the channel of the GPIO (1, 2, 3 or 4) to
+* @param[in] Channel contains the channel of the GPIO (1, 2, 3 or 4) to
 *               operate on.
-* @param	Mask is the set of bits that will be set to 1 in the discrete
+* @param[in] Mask is the set of bits that will be set to 1 in the discrete
 *		data register. All other bits in the data register are
 *		unaffected.
-*
-* @return	None.
 *
 *****************************************************************************/
 void XIOModule_DiscreteSet(XIOModule * InstancePtr, u32 Channel, u32 Mask)
@@ -93,15 +92,13 @@ void XIOModule_DiscreteSet(XIOModule * InstancePtr, u32 Channel, u32 Mask)
 /**
 * Set output discrete(s) to logic 0 for the specified GPO channel.
 *
-* @param	InstancePtr is a pointer to an XIOModule instance to be
+* @param[in] InstancePtr is a pointer to an XIOModule instance to be
 *               worked on.
-* @param	Channel contains the channel of the GPIO (1, 2, 3 or 4) to
+* @param[in] Channel contains the channel of the GPIO (1, 2, 3 or 4) to
 *               operate on.
-* @param	Mask is the set of bits that will be set to 0 in the discrete
+* @param[in] Mask is the set of bits that will be set to 0 in the discrete
 *		data register. All other bits in the data register are
 *		unaffected.
-*
-* @return	None.
 *
 *****************************************************************************/
 void XIOModule_DiscreteClear(XIOModule * InstancePtr,

@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2011 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -20,6 +21,7 @@
 * 1.00a sa   07/15/11 First release
 * 2.11  mus  05/07/21 Fixed warnings reported by doxygen tool. It fixes
 *                     CR#1088640.
+* 2.21  ml   21/09/26 Fixed doxygen 1.15.0 and compliance checker warnings.
 * </pre>
 *
 ******************************************************************************/
@@ -62,5 +64,7 @@ extern "C" {
 }
 #endif
 
+/** @cond NODOC */
 #endif /* end of protection macro */
+/** @endcond */
 /** @} */
