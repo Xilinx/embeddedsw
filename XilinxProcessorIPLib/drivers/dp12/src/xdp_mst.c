@@ -2459,11 +2459,16 @@ u32 XDp_RxHandleDownReq(XDp *InstancePtr)
 		break;
 
 	case XDP_SBMSG_REMOTE_I2C_READ:
-		XDp_RxSetRemoteIicReadReply(InstancePtr, &Msg);
+		if (XDp_RxSetRemoteIicReadReply(InstancePtr, &Msg) != XST_SUCCESS) {
+			/* Do not echo an unmodified/failed body back as a reply. */
+			XDp_RxSetGenericNackReply(InstancePtr, &Msg);
+		}
 		break;
 
 	case XDP_SBMSG_REMOTE_DPCD_READ:
-		XDp_RxSetRemoteDpcdReadReply(InstancePtr, &Msg);
+		if (XDp_RxSetRemoteDpcdReadReply(InstancePtr, &Msg) != XST_SUCCESS) {
+			XDp_RxSetGenericNackReply(InstancePtr, &Msg);
+		}
 		break;
 
 	case XDP_SBMSG_ENUM_PATH_RESOURCES:
