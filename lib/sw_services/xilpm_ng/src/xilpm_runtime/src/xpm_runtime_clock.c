@@ -17,6 +17,7 @@
 #include "xpm_runtime_device.h"
 #include "xpm_pll.h"
 #include "xpm_runtime_pll.h"
+#include "xpm_nodeid.h"
 
 #define CLK_QUERY_NAME_LEN		(MAX_NAME_BYTES)
 #define CLK_INIT_ENABLE_SHIFT		1U
@@ -73,6 +74,37 @@
 		} \
 	} while (0)
 
+/**
+ * SoC-critical clocks that must remain enabled even when no device owns them.
+ * Extend this list as needed.
+ */
+static const u32 XPmClock_SocCriticalClkList[] = {
+	PM_CLK_NPI_REF,
+};
+
+/*****************************************************************************/
+/**
+ * @brief Check whether a clock is on the SoC-critical clock list.
+ *
+ * @param ClkId Clock node ID to check.
+ *
+ * @return 1 if the clock is SoC-critical, 0 otherwise.
+ *****************************************************************************/
+static u8 XPmClock_IsSocCriticalClk(u32 ClkId)
+{
+	u8 IsCritical = 0U;
+	u32 Idx;
+
+	for (Idx = 0U; Idx < ARRAY_SIZE(XPmClock_SocCriticalClkList); Idx++) {
+		if (ClkId == XPmClock_SocCriticalClkList[Idx]) {
+			IsCritical = 1U;
+			break;
+		}
+	}
+
+	return IsCritical;
+}
+
 /*****************************************************************************/
 /**
  * @brief Request a clock and maintain its use count.
@@ -121,6 +153,14 @@ static void XPmClock_RequestInt(XPm_ClockNode *Clk)
 			Clk->Node.State |= XPM_CLK_STATE_REQUESTED;
 			/* Enable clock if gated */
 			(void)XPmClock_SetGate((XPm_OutClockNode *)Clk, 1);
+		}
+
+		/* Hold SoC-critical clocks at a single use count */
+		if ((1U == Clk->UseCount) &&
+		    (1U == XPmClock_IsSocCriticalClk(Clk->Node.Id))) {
+			PmDbg("Request Int: UseCount already 1 for 0x%x (%s), skipping\r\n",
+				Clk->Node.Id, Clk->Name);
+			goto done;
 		}
 
 		/* Increment the use count of clock */
@@ -172,6 +212,14 @@ static void XPmClock_ReleaseInt(XPm_ClockNode *Clk)
 		if (0U == Clk->UseCount) {
 			PmWarn("ReleaseInt: UseCount already 0 for 0x%x (%s), skipping\r\n",
 				Clk->Node.Id, Clk->Name);
+			goto done;
+		}
+
+		/* Do not gate SoC-critical clocks */
+		if ((1U == Clk->UseCount) &&
+		    (1U == XPmClock_IsSocCriticalClk(Clk->Node.Id))) {
+			PmDbg("Blocking release of SoC-critical clock 0x%x\r\n",
+			       Clk->Node.Id);
 			goto done;
 		}
 
