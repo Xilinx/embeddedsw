@@ -359,6 +359,38 @@ static void VsiVvdeviceUnwindCaseLine
 	}
 }
 
+#ifdef XPAR_XV_FRMBUF_WR_NUM_INSTANCES
+static void VsiVvdevicePrintLiloDumpCommands
+(
+	VvbenchVvdev_t *caseCtx,
+	int totalInstance
+)
+{
+#if SPLITTER_ENABLED
+	if (caseCtx->instanceCfgCtx[0].instancePath[CAMDEV_BUFCHAIN_MP].pathEnable) {
+		LOGI(" |  mrd -bin -file splitter.rgb 0x%llx 0x%llx\r\n\n",
+		     (unsigned long long)(uintptr_t)Frame_Array_p[0][0].aligned_addr,
+		     (unsigned long long)(fbwr_bufsize[0] / 4));
+	}
+#else
+	for (int idx = 0; idx < totalInstance; idx++) {
+		int hpId = caseCtx->instanceCfgCtx[idx].hpId;
+
+		if (caseCtx->instanceCfgCtx[idx].instancePath[CAMDEV_BUFCHAIN_MP].pathEnable) {
+			LOGI(" |  mrd -bin -file lilo_ISP%d_MP.rgb 0x%llx 0x%llx\r\n\n",
+			     hpId, (unsigned long long)(uintptr_t)Frame_Array_p[hpId * 2][0].aligned_addr,
+			     (unsigned long long)(fbwr_bufsize[hpId * 2] / 4));
+		}
+		if (caseCtx->instanceCfgCtx[idx].instancePath[CAMDEV_BUFCHAIN_SP1].pathEnable) {
+			LOGI(" |  mrd -bin -file lilo_ISP%d_SP.rgb 0x%llx 0x%llx\r\n\n",
+			     hpId, (unsigned long long)(uintptr_t)Frame_Array_p[hpId * 2 + 1][0].aligned_addr,
+			     (unsigned long long)(fbwr_bufsize[hpId * 2 + 1] / 4));
+		}
+	}
+#endif
+}
+#endif
+
 //class vvinstance_dev mdev;
 int VsiVvdeviceExecuteCaseline
 (
@@ -1551,6 +1583,13 @@ int VsiVvdeviceExecuteCaseline
 					    tempBuf[idx][CAMDEV_BUFCHAIN_SP1]->baseSize / 4);
 				}
 			}
+#ifdef XPAR_XV_FRMBUF_WR_NUM_INSTANCES
+			/* In a combined memory-output + live-output case this loop never
+			 * exits, so report the LILO frame-writer buffers here as well. */
+			if (fbwr_flag == 1) {
+				VsiVvdevicePrintLiloDumpCommands(caseCtx, totalInstance);
+			}
+#endif
 			LOGI("------------------------------------------------------------\r\n");
 			displayInstance = 0;
 		}
@@ -1587,27 +1626,7 @@ int VsiVvdeviceExecuteCaseline
 					LOGI("------------------------------------------------------------\r\n");
 					LOGI(" |  📥 To retrieve the image dump, use the following command:\r\n");
 #ifdef XPAR_XV_FRMBUF_WR_NUM_INSTANCES
-#if SPLITTER_ENABLED
-					if (caseCtx->instanceCfgCtx[0].instancePath[CAMDEV_BUFCHAIN_MP].pathEnable) {
-							LOGI(" |  mrd -bin -file splitter.rgb 0x%llx 0x%llx\r\n\n",
-							     (unsigned long long)(uintptr_t)Frame_Array_p[0][0].aligned_addr,
-							     (unsigned long long)(fbwr_bufsize[0] / 4));
-						}
-#else
-					for (int idx = 0; idx < totalInstance; idx++) {
-						int hpId = caseCtx->instanceCfgCtx[idx].hpId;
-						if (caseCtx->instanceCfgCtx[idx].instancePath[CAMDEV_BUFCHAIN_MP].pathEnable) {
-							LOGI(" |  mrd -bin -file lilo_ISP%d_MP.rgb 0x%llx 0x%llx\r\n\n",
-							     hpId, (unsigned long long)(uintptr_t)Frame_Array_p[hpId * 2][0].aligned_addr,
-							     (unsigned long long)(fbwr_bufsize[hpId * 2] / 4));
-						}
-						if (caseCtx->instanceCfgCtx[idx].instancePath[CAMDEV_BUFCHAIN_SP1].pathEnable) {
-							LOGI(" |  mrd -bin -file lilo_ISP%d_SP.rgb 0x%llx 0x%llx\r\n\n",
-							     hpId, (unsigned long long)(uintptr_t)Frame_Array_p[hpId * 2 + 1][0].aligned_addr,
-							     (unsigned long long)(fbwr_bufsize[hpId * 2 + 1] / 4));
-						}
-					}
-#endif
+					VsiVvdevicePrintLiloDumpCommands(caseCtx, totalInstance);
 #endif
 					LOGI("------------------------------------------------------------\r\n");
 					displayInstance = 0;
