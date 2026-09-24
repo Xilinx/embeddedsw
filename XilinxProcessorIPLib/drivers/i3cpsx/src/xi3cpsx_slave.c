@@ -315,7 +315,9 @@ s32 XI3cPsx_SlaveSendPolled(XI3cPsx *InstancePtr, u8 *MsgPtr,
 *		- XST_FAILURE if timed out.
 *
 * @note		This receive routine is for polled mode transfer only.
-* 		All the FIFO operations are in terms of words.
+* 		All the FIFO operations are in terms of words, so MsgPtr must
+* 		hold a word rounded count. Number of bytes received is
+* 		reported in CurrByteCount.
 *
 ****************************************************************************/
 s32 XI3cPsx_SlaveRecvPolled(XI3cPsx *InstancePtr, u8 *MsgPtr)
@@ -365,6 +367,8 @@ s32 XI3cPsx_SlaveRecvPolled(XI3cPsx *InstancePtr, u8 *MsgPtr)
 		InstancePtr->RecvByteCount = (TotalRecvCount - XI3CPSX_WORD_TO_BYTES(CurRdWordCount));
 		XI3cPsx_RdRxFifo(InstancePtr, (u32 *)MsgPtr, InstancePtr->RecvByteCount);
 	}
+
+	InstancePtr->CurrByteCount = TotalRecvCount;
 
 	if (Response & XI3CPSX_TRANSFER_ERROR)
 		Status = XST_RECV_ERROR;
@@ -497,6 +501,14 @@ void XI3cPsx_SlaveInterruptHandler(XI3cPsx *InstancePtr)
 		ResponseData = XI3cPsx_ReadReg(InstancePtr->Config.BaseAddress,
 					       XI3CPSX_RESPONSE_QUEUE_PORT);
 		InstancePtr->Error = (ResponseData & XI3CPSX_RESPONSE_ERR_STS_MASK) >> XI3CPSX_RESPONSE_ERR_STS_SHIFT;
+
+		/*
+		 * The word based FIFO cannot tell how many bytes of the last
+		 * word are valid, so take the byte count from the response.
+		 */
+		if (!InstancePtr->IsSend) {
+			InstancePtr->CurrByteCount = (u16)(ResponseData & XI3CPSX_DATA_LEN);
+		}
 
 		XI3cPsx_DisableInterrupts(InstancePtr->Config.BaseAddress,
 					  XI3CPSX_INTR_TX_THLD | XI3CPSX_INTR_RX_THLD | XI3CPSX_INTR_RESP_READY |

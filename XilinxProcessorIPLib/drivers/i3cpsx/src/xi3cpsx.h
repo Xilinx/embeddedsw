@@ -275,7 +275,7 @@ typedef struct {
 	u8 *RecvBufferPtr;	/**< Pointer to recv buffer */
 	u16 SendByteCount;	/**< Number of bytes still expected to send */
 	u16 RecvByteCount;	/**< Number of bytes still expected to receive */
-	u16 CurrByteCount;	/**< No. of bytes expected in current transfer */
+	u16 CurrByteCount;	/**< No. of bytes received in the last transfer */
 	u8 Error;	/**< Error status of last transfer, set by the ISR */
 	volatile u32 RespDone;	/**< Set by the master ISR after it consumes a command response */
 

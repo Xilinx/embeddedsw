@@ -203,6 +203,14 @@ void XI3cPsx_WrTxFifo(XI3cPsx *InstancePtr, u32 *TxBuf, u16 TxLen)
 	(void)TxBuf;
 
 	while (TxLen > 0 && InstancePtr->SendByteCount > 0) {
+		/*
+		 * Clear the word accumulator every iteration. The partial
+		 * last-word branch below builds the word with |=, so a stale
+		 * value left over from the previous full word would bleed its
+		 * bits into the trailing 1-3 bytes and corrupt them.
+		 */
+		Data = 0;
+
 		if (InstancePtr->SendByteCount > 3) {
 			Data = (u32)((*(InstancePtr->SendBufferPtr + 0) << 0) |
 				     (*(InstancePtr->SendBufferPtr + 1) << 8) |
@@ -217,7 +225,7 @@ void XI3cPsx_WrTxFifo(XI3cPsx *InstancePtr, u32 *TxBuf, u16 TxLen)
 			for (Index = 0; Index < InstancePtr->SendByteCount; Index++) {
 				Data |= (u32)(*(InstancePtr->SendBufferPtr + Index) << (8*Index));
 			}
-			InstancePtr->SendByteCount -= TxLen;
+			InstancePtr->SendByteCount = 0;
 			TxLen = 0;
 		}
 
@@ -266,6 +274,10 @@ void XI3cPsx_RdRxFifo(XI3cPsx *InstancePtr, u32 *RxBuf, u16 RxLen)
 
 	(void)RxBuf;
 
+	/*
+	 * RxLen comes from the word based FIFO level, so it can exceed the
+	 * bytes left in the buffer.
+	 */
 	if (RxLen > InstancePtr->RecvByteCount) {
 		RxLen = InstancePtr->RecvByteCount;
 	}
