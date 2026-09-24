@@ -1773,13 +1773,15 @@ u32 XDp_TxSendSbMsgRemoteDpcdRead(XDp *InstancePtr, u8 LinkCountTotal,
 		return Status;
 	}
 
-	/* Collect body data into an array. */
-	for (Index = 3; Index < SbMsgReply.Length; Index++) {
+	/* Collect body data into an array, bounded by the caller-supplied
+	 * buffer size in case of an oversized/malicious reply. */
+	for (Index = 3; Index < SbMsgReply.Length &&
+			(u32)(Index - 3) < BytesToRead; Index++) {
 		ReadData[Index - 3] = SbMsgReply.Data[Index];
 	}
 
 	/* The number of bytes actually read does not match that requested. */
-	if (Index < BytesToRead) {
+	if ((u32)(Index - 3) < BytesToRead) {
 		return XST_DATA_LOST;
 	}
 
@@ -1964,13 +1966,15 @@ u32 XDp_TxSendSbMsgRemoteIicRead(XDp *InstancePtr, u8 LinkCountTotal,
 		return Status;
 	}
 
-	/* Collect body data into an array. */
-	for (Index = 3; Index < SbMsgReply.Length; Index++) {
+	/* Collect body data into an array, bounded by the caller-supplied
+	 * buffer size in case of an oversized/malicious reply. */
+	for (Index = 3; Index < SbMsgReply.Length &&
+			(Index - 3) < BytesToRead; Index++) {
 		ReadData[Index - 3] = SbMsgReply.Data[Index];
 	}
 
 	/* The number of bytes actually read does not match that requested. */
-	if (Index < BytesToRead) {
+	if ((Index - 3) < BytesToRead) {
 		return XST_DATA_LOST;
 	}
 
