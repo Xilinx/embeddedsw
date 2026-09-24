@@ -177,7 +177,7 @@ static u32 XDp_TxSendActTrigger(XDp *InstancePtr);
 static u32 XDp_SendSbMsgFragment(XDp *InstancePtr, XDp_SidebandMsg *Msg);
 
 #if XPAR_XDPRXSS_NUM_INSTANCES
-static void XDp_RxReadDownReq(XDp *InstancePtr, XDp_SidebandMsg *Msg);
+static u32 XDp_RxReadDownReq(XDp *InstancePtr, XDp_SidebandMsg *Msg);
 #endif /* XPAR_XDPRXSS_NUM_INSTANCES */
 
 #if XPAR_XDPTXSS_NUM_INSTANCES
@@ -2432,6 +2432,7 @@ void XDp_TxGetGuid(XDp *InstancePtr, u8 LinkCountTotal, u8 *RelativeAddress,
 *******************************************************************************/
 u32 XDp_RxHandleDownReq(XDp *InstancePtr)
 {
+	u32 Status;
 	XDp_SidebandMsg Msg;
 
 	/* Verify arguments. */
@@ -2439,7 +2440,13 @@ u32 XDp_RxHandleDownReq(XDp *InstancePtr)
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 	Xil_AssertNonvoid(XDp_GetCoreType(InstancePtr) == XDP_RX);
 
-	XDp_RxReadDownReq(InstancePtr, &Msg);
+	Status = XDp_RxReadDownReq(InstancePtr, &Msg);
+	if (Status != XST_SUCCESS) {
+		/* The request failed length/CRC validation; NACK it instead of
+		 * dispatching on unparsed data. */
+		XDp_RxSetGenericNackReply(InstancePtr, &Msg);
+		return XDp_RxSendSbMsg(InstancePtr, &Msg);
+	}
 
 	switch (Msg.Body.MsgData[0]) {
 	case XDP_SBMSG_CLEAR_PAYLOAD_ID_TABLE:
@@ -3686,7 +3693,7 @@ static u32 XDp_SendSbMsgFragment(XDp *InstancePtr, XDp_SidebandMsg *Msg)
  * @note	None.
  *
 *******************************************************************************/
-static void XDp_RxReadDownReq(XDp *InstancePtr, XDp_SidebandMsg *Msg)
+static u32 XDp_RxReadDownReq(XDp *InstancePtr, XDp_SidebandMsg *Msg)
 {
 	u8 Data[XDP_MAX_LENGTH_SBMSG];
 	u8 Index;
@@ -3697,7 +3704,7 @@ static void XDp_RxReadDownReq(XDp *InstancePtr, XDp_SidebandMsg *Msg)
 	}
 
 	Msg->FragmentNum = 0;
-	XDp_Transaction2MsgFormat(Data, Msg);
+	return XDp_Transaction2MsgFormat(Data, Msg);
 }
 #endif /* XPAR_XDPrXSS_NUM_INSTANCES */
 
@@ -3914,6 +3921,14 @@ static u32 XDp_Transaction2MsgFormat(u8 *Transaction, XDp_SidebandMsg *Msg)
 	if (CrcCheck != Header->Crc) {
 		/* The calculated CRC for the header did not match the
 		 * response. */
+		return XST_FAILURE;
+	}
+
+	/* Reject a zero-length body, and reject a header/body combination
+	 * that would overrun a single sideband message transaction buffer. */
+	if ((Header->MsgBodyLength == 0) ||
+			((u32)Header->MsgHeaderLength + Header->MsgBodyLength >
+				XDP_MAX_LENGTH_SBMSG)) {
 		return XST_FAILURE;
 	}
 
