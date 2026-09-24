@@ -3203,6 +3203,13 @@ void XDp_RxAllocatePayloadStream(XDp *InstancePtr)
 		XDP_RX_MST_ALLOC_START_TS_SHIFT;
         NumTs = (RegVal & XDP_RX_MST_ALLOC_COUNT_TS_MASK) >>
 		XDP_RX_MST_ALLOC_COUNT_TS_SHIFT;
+        /* Clamp against the payload table size to prevent an OOB write. */
+        if (StartTs >= sizeof(InstancePtr->RxInstance.Topology.PayloadTable)) {
+                StartTs = sizeof(InstancePtr->RxInstance.Topology.PayloadTable) - 1;
+        }
+        if (NumTs > (sizeof(InstancePtr->RxInstance.Topology.PayloadTable) - StartTs)) {
+                NumTs = sizeof(InstancePtr->RxInstance.Topology.PayloadTable) - StartTs;
+        }
         /* Set the virtual channel payload table in software using the
 	 * MST allocation values. */
 	memset(&PayloadTable[StartTs], StreamId, NumTs);
