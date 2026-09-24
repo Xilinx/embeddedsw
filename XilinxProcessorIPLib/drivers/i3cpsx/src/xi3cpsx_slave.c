@@ -154,6 +154,10 @@ void XI3cPsx_SlaveRecv(XI3cPsx *InstancePtr, u8 *MsgPtr, s32 ByteCount)
 ****************************************************************************/
 void XI3cPsx_SlaveSend(XI3cPsx *InstancePtr, u8 *MsgPtr, s32 ByteCount)
 {
+	XI3cPsx_Cmd Cmd;
+	u16 WrFifoSpace;
+	u32 DataLen;
+
 	/*
 	 * Assert validates the input arguments.
 	 */
@@ -166,6 +170,24 @@ void XI3cPsx_SlaveSend(XI3cPsx *InstancePtr, u8 *MsgPtr, s32 ByteCount)
 	InstancePtr->SendBufferPtr = MsgPtr;
 	InstancePtr->SendByteCount = (u16)ByteCount;
 	InstancePtr->IsSend = 1;
+
+	DataLen = (u32)ByteCount;
+
+	WrFifoSpace = XI3cPsx_WrFifoLevel(InstancePtr);
+
+	if (XI3CPSX_WORD_TO_BYTES(WrFifoSpace) > InstancePtr->SendByteCount)
+		ByteCount = InstancePtr->SendByteCount;
+	else
+		ByteCount = XI3CPSX_WORD_TO_BYTES(WrFifoSpace);
+
+	if (ByteCount)
+		XI3cPsx_WrTxFifo(InstancePtr, (u32 *)MsgPtr, ByteCount);
+
+	Cmd.TransArg = 0U;
+	Cmd.TransCmd = COMMAND_PORT_TID(0) |
+		       COMMAND_PORT_ARG_DATA_LEN(DataLen);
+	Cmd.RxBuf = NULL;
+	XI3cPsx_WrCmdFifo(InstancePtr, &Cmd);
 
 	XI3cPsx_EnableInterrupts(InstancePtr->Config.BaseAddress,
 				 XI3CPSX_INTR_TX_THLD | XI3CPSX_INTR_RESP_READY |
@@ -196,6 +218,7 @@ s32 XI3cPsx_SlaveSendPolled(XI3cPsx *InstancePtr, u8 *MsgPtr,
 	s32 Status = XST_FAILURE;
 	u16 WrFifoSpace;
 	u32 Response;
+	u32 DataLen;
 
 	/*
 	 * Assert validates the input arguments
@@ -211,6 +234,7 @@ s32 XI3cPsx_SlaveSendPolled(XI3cPsx *InstancePtr, u8 *MsgPtr,
 		if (ByteCount >= COMMAND_PORT_ARG_DATA_LEN_MAX)
 			return XST_SEND_ERROR;
 
+		DataLen = (u32)ByteCount;
 		InstancePtr->SendByteCount = (u16)ByteCount;
 		InstancePtr->SendBufferPtr = MsgPtr;
 
@@ -230,6 +254,10 @@ s32 XI3cPsx_SlaveSendPolled(XI3cPsx *InstancePtr, u8 *MsgPtr,
 		/*
 		 * Fill Tx command
 		 */
+		Cmds.TransArg = 0U;
+		Cmds.TransCmd = (Cmds.TransCmd & COMMAND_PORT_TID(0xFU)) |
+				COMMAND_PORT_ARG_DATA_LEN(DataLen);
+		Cmds.RxBuf = NULL;
 		XI3cPsx_WrCmdFifo(InstancePtr, &Cmds);
 
 		XferStatus = !!(XI3cPsx_ReadReg(InstancePtr->Config.BaseAddress, XI3CPSX_INTR_STATUS)
