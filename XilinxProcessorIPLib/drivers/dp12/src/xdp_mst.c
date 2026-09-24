@@ -3496,6 +3496,10 @@ static void XDp_TxGetDeviceInfoFromSbMsgLinkAddress(XDp_SidebandReply
 	}
 
 	FormatReply->NumPorts = SbReply->Data[ReplyIndex++];
+	if (FormatReply->NumPorts > XDP_MAX_NPORTS) {
+		/* Clamp against the fixed-size PortDetails array. */
+		FormatReply->NumPorts = XDP_MAX_NPORTS;
+	}
 
 	/* For each port of the current device, obtain the details. */
 	for (Index = 0; Index < FormatReply->NumPorts; Index++) {
