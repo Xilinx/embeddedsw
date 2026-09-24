@@ -56,6 +56,16 @@ typedef char XI3cPsx_DynaAddrListSizeCheck[
 
 #define XI3CPSX_IBI_DATA_SEGMENT_DWORDS 31U	/**< IBI data segment size in Dwords */
 
+/** The response a target left stuck by an earlier overflow produces. */
+#define XI3CPSX_TARGET_STUCK(Err)	((Err) == XI3CPSX_EVENT_ADDRESS_NACK)
+
+/** Tests a command word for a private transfer or a directed CCC, excluding
+ * address assignment and broadcast CCCs, which do not address one target. */
+#define XI3CPSX_TARGETED_CMD(Cmd)					\
+	((((Cmd) & 0x7U) != COMMAND_PORT_ADDR_ASSGN_CMD) &&		\
+	 ((((Cmd) & COMMAND_PORT_CP) == 0U) ||				\
+	  (((Cmd) & COMMAND_PORT_CMD(I3C_CCC_DIRECT)) != 0U)))
+
 /************************** Function Prototypes ******************************/
 static void XI3cPsx_ConfigIbi(XI3cPsx *InstancePtr);
 static void XI3cPsx_CaptureBcr(XI3cPsx *InstancePtr);
@@ -73,6 +83,102 @@ static u32 XI3cPsx_IsHotJoinRejected(XI3cPsx *InstancePtr);
 const u32 XI3C_DynaAddrList[XI3CPSX_MAX_DAT_ENTRIES] = {
 	0x08, 0x09, 0x0a, 0x0b, 0x0c, 0x0d, 0x0e, 0x0f, 0x10, 0x11, 0x12
 };
+
+/*****************************************************************************/
+/**
+* @brief
+* Clears an error a target latched during an earlier transfer.
+*
+* The target's CCC_DEVICE_STATUS is read only, and OVERFLOW_ERR is cleared
+* only when the controller reads that register with a GETSTATUS CCC. Until
+* the read happens the target will not acknowledge its dynamic address, and
+* nothing the target's own software can do will help.
+*
+* @param        InstancePtr is a pointer to the XI3cPsx instance.
+* @param        DatIndex is the device address table index of the target.
+*
+* @return       None.
+*
+******************************************************************************/
+static void XI3cPsx_ClearTargetError(XI3cPsx *InstancePtr, u8 DatIndex)
+{
+	u32 BaseAddress = InstancePtr->Config.BaseAddress;
+	u8 TargetStatus[2] = {0U, 0U};
+	XI3cPsx_Cmd Cmd;
+	u32 StatusEn;
+	s32 Status;
+
+	InstancePtr->RecvByteCount = (u16)sizeof(TargetStatus);
+	InstancePtr->RecvBufferPtr = TargetStatus;
+
+	Cmd.TransArg = COMMAND_PORT_ARG_DATA_LEN((u16)sizeof(TargetStatus)) |
+		       COMMAND_PORT_TRANSFER_ARG;
+	Cmd.TransCmd = (COMMAND_PORT_SPEED(0) |
+			COMMAND_PORT_DEV_INDEX(DatIndex) |
+			COMMAND_PORT_CMD(I3C_CCC_GETSTATUS) |
+			COMMAND_PORT_CP |
+			COMMAND_PORT_READ_TRANSFER |
+			COMMAND_PORT_TOC |
+			COMMAND_PORT_ROC);
+
+	StatusEn = XI3cPsx_ReadReg(BaseAddress, XI3CPSX_INTR_STATUS_EN);
+	XI3cPsx_WriteReg(BaseAddress, XI3CPSX_INTR_STATUS_EN,
+			 StatusEn | XI3CPSX_INTR_RESP_READY);
+
+	XI3cPsx_WrCmdFifo(InstancePtr, &Cmd);
+	Status = XI3cPsx_GetResponse(InstancePtr);
+
+	/*
+	 * Drain only what this response delivered. A timeout leaves
+	 * CurrByteCount at 0, so a GETSTATUS the target did not answer
+	 * pops nothing from the RX FIFO.
+	 */
+	if (Status != XST_TIMEOUT) {
+		InstancePtr->RecvByteCount =
+			(InstancePtr->CurrByteCount > (u16)sizeof(TargetStatus)) ?
+			(u16)sizeof(TargetStatus) : InstancePtr->CurrByteCount;
+		if (InstancePtr->RecvByteCount != 0U) {
+			XI3cPsx_RdRxFifo(InstancePtr, (u32 *)TargetStatus,
+					 InstancePtr->RecvByteCount);
+		}
+	}
+
+	/*
+	 * TargetStatus is on this stack. A timeout never drained, so the
+	 * posted receive would otherwise still point here after return.
+	 */
+	InstancePtr->RecvByteCount = 0U;
+	InstancePtr->RecvBufferPtr = NULL;
+
+	XI3cPsx_WriteReg(BaseAddress, XI3CPSX_INTR_STATUS,
+			 XI3CPSX_INTR_RESP_READY);
+	XI3cPsx_WriteReg(BaseAddress, XI3CPSX_INTR_STATUS_EN, StatusEn);
+
+	if (Status == (s32)XI3CPSX_RESPONSE_ERR_NONE)
+		InstancePtr->OvfPending = 0U;
+}
+
+/*****************************************************************************/
+/**
+* @brief
+* Frees a target that has stopped acknowledging.
+*
+* The master is unhalted and its FIFOs cleared before the CCC goes out. The
+* error response halts the master too, so an untouched master never sends the
+* GETSTATUS, and resetting the FIFOs of a halted core leaves it halted. RESUME
+* alone leaves an untransmitted word behind that misaligns the next transfer.
+* The failing target is the one named by the last command written.
+*
+* @param        InstancePtr is a pointer to the XI3cPsx instance.
+*
+* @return       None.
+*
+******************************************************************************/
+static void XI3cPsx_FreeTarget(XI3cPsx *InstancePtr)
+{
+	XI3cPsx_RecoverFromError(InstancePtr);
+	XI3cPsx_ClearTargetError(InstancePtr, InstancePtr->LastDatIndex);
+}
 
 /*****************************************************************************/
 /**
@@ -264,6 +370,10 @@ s32 XI3cPsx_MasterSend(XI3cPsx *InstancePtr, u8 *MsgPtr,
 	u16 WrFifoSpace;
 	u32 EnableIntr = 0U;
 
+	/* A target an earlier transfer left NACKing is freed here. */
+	if (InstancePtr->OvfPending)
+		XI3cPsx_FreeTarget(InstancePtr);
+
 	if (ByteCount) {
 		if (ByteCount >= COMMAND_PORT_ARG_DATA_LEN_MAX)
 			return XST_SEND_ERROR;
@@ -332,6 +442,10 @@ s32 XI3cPsx_MasterRecv(XI3cPsx *InstancePtr, u8 *MsgPtr,
 	if (ByteCount >= COMMAND_PORT_ARG_DATA_LEN_MAX)
 		return XST_RECV_ERROR;
 
+	/* A target an earlier transfer left NACKing is freed here. */
+	if (InstancePtr->OvfPending)
+		XI3cPsx_FreeTarget(InstancePtr);
+
 	InstancePtr->RecvByteCount  = (u16)ByteCount;
 	InstancePtr->RecvBufferPtr = MsgPtr;
 
@@ -377,9 +491,23 @@ s32 XI3cPsx_MasterRecv(XI3cPsx *InstancePtr, u8 *MsgPtr,
 s32 XI3cPsx_MasterSendPolled(XI3cPsx *InstancePtr, u8 *MsgPtr,
 			     s32 ByteCount, XI3cPsx_Cmd Cmds)
 {
-	bool Resp = FALSE;
-	s32 Status = XST_FAILURE;
+	bool Resp;
+	s32 Status;
 	u16 WrFifoSpace;
+	s32 Pending;
+	int Retried = 0;
+
+	/* A target an earlier transfer left NACKing is freed here. */
+	if (InstancePtr->OvfPending)
+		XI3cPsx_FreeTarget(InstancePtr);
+
+	/* ByteCount becomes a per chunk counter below, so keep the length. */
+	Pending = ByteCount;
+
+RetrySend:
+	Status = XST_FAILURE;
+	Resp = FALSE;
+	ByteCount = Pending;
 
 	if (Cmds.TransCmd & COMMAND_PORT_ROC)
 		XI3cPsx_EnableInterrupts(InstancePtr->Config.BaseAddress, XI3CPSX_INTR_RESP_READY);
@@ -443,6 +571,18 @@ s32 XI3cPsx_MasterSendPolled(XI3cPsx *InstancePtr, u8 *MsgPtr,
 			Status = XST_SUCCESS;
 		XI3cPsx_DisableInterrupts(InstancePtr->Config.BaseAddress,
 					  XI3CPSX_INTR_RESP_READY);
+
+		/* Free the target and retry once before giving up. */
+		if ((Status != XST_SUCCESS) && (Retried == 0) &&
+		    XI3CPSX_TARGET_STUCK(InstancePtr->Error) &&
+		    XI3CPSX_TARGETED_CMD(Cmds.TransCmd)) {
+			XI3cPsx_FreeTarget(InstancePtr);
+			Retried = 1;
+			goto RetrySend;
+		}
+
+		if (Status != XST_SUCCESS)
+			XI3cPsx_RecoverFromError(InstancePtr);
 	} else {
 		Status = XST_SUCCESS;
 	}
@@ -477,13 +617,24 @@ s32 XI3cPsx_MasterRecvPolled(XI3cPsx *InstancePtr, u8 *MsgPtr,
 			     s32 ByteCount, XI3cPsx_Cmd *Cmds)
 {
 
-	bool Resp = FALSE;
+	bool Resp;
 	s32 Status = XST_FAILURE;
 	u16 RdWordCount;
 	s32 RdByteCount;
+	u32 RespErr = 0U;
+	u16 Received;
+	u16 Drained;
+	int Retried = 0;
 
 	if (ByteCount >= COMMAND_PORT_ARG_DATA_LEN_MAX)
 		return XST_RECV_ERROR;
+
+	/* A target an earlier transfer left NACKing is freed here. */
+	if (InstancePtr->OvfPending)
+		XI3cPsx_FreeTarget(InstancePtr);
+
+RetryRecv:
+	Resp = FALSE;
 	InstancePtr->RecvByteCount = (u16)ByteCount;
 	InstancePtr->RecvBufferPtr = MsgPtr;
 
@@ -521,16 +672,57 @@ s32 XI3cPsx_MasterRecvPolled(XI3cPsx *InstancePtr, u8 *MsgPtr,
 			      & XI3CPSX_INTR_RESP_READY);
 	}
 
-	if(InstancePtr->RecvByteCount > 0)
-		XI3cPsx_RdRxFifo(InstancePtr, (u32 *)MsgPtr, InstancePtr->RecvByteCount);
-
 	if (Cmds->TransCmd & COMMAND_PORT_ROC) {
-		if (XI3cPsx_GetResponse(InstancePtr))
-			Status = XST_RECV_ERROR;
-		else
-			Status = XST_SUCCESS;
+		RespErr = (u32)XI3cPsx_GetResponse(InstancePtr);
+
+		/*
+		 * Only the response says how much a short read delivered.
+		 * Draining more pops an empty FIFO into the caller's buffer.
+		 */
+		Received = InstancePtr->CurrByteCount;
+		if (Received > (u16)ByteCount) {
+			Received = (u16)ByteCount;
+		}
+		InstancePtr->CurrByteCount = Received;
+
+		Drained = (u16)ByteCount - InstancePtr->RecvByteCount;
+		if (Received > Drained) {
+			InstancePtr->RecvByteCount = Received - Drained;
+			XI3cPsx_RdRxFifo(InstancePtr, (u32 *)MsgPtr,
+					 InstancePtr->RecvByteCount);
+		} else {
+			InstancePtr->RecvByteCount = 0;
+		}
+
 		XI3cPsx_DisableInterrupts(InstancePtr->Config.BaseAddress, XI3CPSX_INTR_RESP_READY);
+
+		/* Recorded so the response error survives for the caller. */
+		InstancePtr->Error = RespErr;
+
+		if (RespErr != XI3CPSX_RESPONSE_ERR_NONE) {
+			Status = XST_RECV_ERROR;
+
+			/* Free the target and retry once before giving up. */
+			if ((Retried == 0) && XI3CPSX_TARGET_STUCK(RespErr) &&
+			    XI3CPSX_TARGETED_CMD(Cmds->TransCmd)) {
+				XI3cPsx_FreeTarget(InstancePtr);
+				Retried = 1;
+				goto RetryRecv;
+			}
+
+			XI3cPsx_RecoverFromError(InstancePtr);
+		} else {
+			Status = XST_SUCCESS;
+		}
 	} else {
+		/*
+		 * With no response queued there is no count to go by, so the
+		 * outstanding bytes are the only thing left to act on.
+		 */
+		if (InstancePtr->RecvByteCount > 0) {
+			XI3cPsx_RdRxFifo(InstancePtr, (u32 *)MsgPtr,
+					 InstancePtr->RecvByteCount);
+		}
 		Status = XST_SUCCESS;
 	}
 	return Status;
@@ -680,6 +872,19 @@ void XI3cPsx_MasterInterruptHandler(XI3cPsx *InstancePtr)
 		ResponseData = XI3cPsx_ReadReg(InstancePtr->Config.BaseAddress,
 					       XI3CPSX_RESPONSE_QUEUE_PORT);
 		InstancePtr->Error = (ResponseData & XI3CPSX_RESPONSE_ERR_STS_MASK) >> XI3CPSX_RESPONSE_ERR_STS_SHIFT;
+
+		/*
+		 * Taken from the same field as the polled path, so the caller
+		 * is not left reading a count from an earlier transfer.
+		 */
+		InstancePtr->CurrByteCount = (u16)(ResponseData & XI3CPSX_DATA_LEN);
+
+		if (InstancePtr->Error != XI3CPSX_RESPONSE_ERR_NONE)
+			XI3cPsx_RecoverFromError(InstancePtr);
+
+		if (XI3CPSX_TARGET_STUCK(InstancePtr->Error) &&
+		    XI3CPSX_TARGETED_CMD(InstancePtr->LastTransCmd))
+			InstancePtr->OvfPending = 1U;
 
 		XI3cPsx_DisableInterrupts(InstancePtr->Config.BaseAddress,
 					  XI3CPSX_INTR_RESP_READY);

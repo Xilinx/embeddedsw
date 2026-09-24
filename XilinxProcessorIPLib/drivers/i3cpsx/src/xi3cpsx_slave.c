@@ -370,13 +370,21 @@ s32 XI3cPsx_SlaveRecvPolled(XI3cPsx *InstancePtr, u8 *MsgPtr)
 
 	InstancePtr->CurrByteCount = TotalRecvCount;
 
-	if (Response & XI3CPSX_TRANSFER_ERROR)
+	if (Response & XI3CPSX_TRANSFER_ERROR) {
+		InstancePtr->Error = (u8)((Response & XI3CPSX_RESPONSE_ERR_STS_MASK) >>
+					  XI3CPSX_RESPONSE_ERR_STS_SHIFT);
 		Status = XST_RECV_ERROR;
-	else
+	} else {
 		Status = XST_SUCCESS;
+	}
 
 	XI3cPsx_DisableInterrupts(InstancePtr->Config.BaseAddress,
 				  XI3CPSX_INTR_RESP_READY);
+
+	if (Status != XST_SUCCESS) {
+		XI3cPsx_RecoverFromError(InstancePtr);
+	}
+
 	return Status;
 }
 
@@ -424,6 +432,7 @@ void XI3cPsx_SlaveInterruptHandler(XI3cPsx *InstancePtr)
 	s32 ByteCount;
 	u32 ResponseData;
 	u32 StatusEvent = 0U;
+	u32 Reported = 0U;
 
 	/*
 	 * Assert validates the input arguments.
@@ -514,13 +523,22 @@ void XI3cPsx_SlaveInterruptHandler(XI3cPsx *InstancePtr)
 					  XI3CPSX_INTR_TX_THLD | XI3CPSX_INTR_RX_THLD | XI3CPSX_INTR_RESP_READY |
 					  XI3CPSX_INTR_TRANSFER_ERR | XI3CPSX_INTR_TRANSFER_ABORT);
 
+		/* The error halts the core, so unhalt it before reporting. */
+		if (InstancePtr->Error != 0U) {
+			XI3cPsx_RecoverFromError(InstancePtr);
+			Reported = 1U;
+		}
+
 		InstancePtr->StatusHandler(InstancePtr->CallBackRef, InstancePtr->Error);
 	}
 	/*
-	 * Transfer Error interrupt, pass this information to application.
+	 * Transfer Error interrupt, pass this information to application
+	 * unless the response has already reported the same failure.
 	 */
-	if (0U != (IntrStatusReg & XI3CPSX_INTR_STATUS_TRANSFER_ERR_STS_MASK)) {
+	if ((0U != (IntrStatusReg & XI3CPSX_INTR_STATUS_TRANSFER_ERR_STS_MASK)) &&
+	    (Reported == 0U)) {
 		StatusEvent = XI3CPSX_EVENT_TRANSF_ERR;
+		XI3cPsx_RecoverFromError(InstancePtr);
 		InstancePtr->StatusHandler(InstancePtr->CallBackRef,
 					   StatusEvent);
 	}

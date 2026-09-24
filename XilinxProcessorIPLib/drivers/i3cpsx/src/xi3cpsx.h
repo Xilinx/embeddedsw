@@ -145,7 +145,7 @@ extern "C" {
 #define XI3CPSX_CEIL_DIV(a, b)        ((a + b - 1) / b)
 
 #define XI3CPSX_WORD_TO_BYTES(N)		(N * 4)
-#define XI3CPSX_DATA_LEN			0x00FFU		/**< Data length */
+#define XI3CPSX_DATA_LEN			0xFFFFU		/**< Data length */
 #define XI3CPSX_TRANSFER_ERROR			0xF0000000U	/**< Error */
 #define XI3CPSX_TIMEOUT_COUNTER         	2000000U 	/**< Wait for 2 sec in worst case */
 
@@ -277,6 +277,10 @@ typedef struct {
 	u16 RecvByteCount;	/**< Number of bytes still expected to receive */
 	u16 CurrByteCount;	/**< No. of bytes received in the last transfer */
 	u8 Error;	/**< Error status of last transfer, set by the ISR */
+	u8 LastDatIndex;	/**< DAT index of the most recently issued command */
+	u32 LastTransCmd;	/**< Command word of the most recently issued command */
+	volatile u8 OvfPending;	/**< Target latched an overflow; cleared with
+				     GETSTATUS before the next transfer */
 	volatile u32 RespDone;	/**< Set by the master ISR after it consumes a command response */
 
 	s32 UpdateTxSize;	/**< If tx size register has to be updated */
@@ -474,11 +478,16 @@ static inline s32 XI3cPsx_GetResponse(XI3cPsx *InstancePtr)
 #ifdef DEBUG
 		xil_printf("Response error: XST_TIMEOUT\n");
 #endif
+		/* No response word, so the last transfer's length is not valid. */
+		InstancePtr->CurrByteCount = 0U;
 		return XST_TIMEOUT;
 	}
 
 	ResponseData = XI3cPsx_ReadReg(InstancePtr->Config.BaseAddress,
 				       XI3CPSX_RESPONSE_QUEUE_PORT);
+
+	/* Record the number of bytes the response reports for this transfer. */
+	InstancePtr->CurrByteCount = (u16)(ResponseData & XI3CPSX_DATA_LEN);
 
 	/*
 	 * Return response code
@@ -567,6 +576,7 @@ void XI3cPsx_Abort(XI3cPsx *InstancePtr);
 void XI3cPsx_Resume(XI3cPsx *InstancePtr);
 void XI3cPsx_Reset(XI3cPsx *InstancePtr);
 void XI3cPsx_ResetFifos(XI3cPsx *InstancePtr);
+void XI3cPsx_RecoverFromError(XI3cPsx *InstancePtr);
 
 s32 XI3cPsx_BusIsBusy(XI3cPsx *InstancePtr);
 s32 XI3cPsx_TransmitFifoFill(XI3cPsx *InstancePtr);

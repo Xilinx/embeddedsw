@@ -88,6 +88,12 @@ s32 XI3cPsx_CfgInitialize(XI3cPsx *InstancePtr, XI3cPsx_Config *ConfigPtr,
 	/* Indicate the instance is now ready to use, initialized without error */
 	InstancePtr->IsReady = XIL_COMPONENT_IS_READY;
 
+	/* Cleared before the first command, in case the memory was not. */
+	InstancePtr->Error = 0U;
+	InstancePtr->LastDatIndex = 0U;
+	InstancePtr->LastTransCmd = 0U;
+	InstancePtr->OvfPending = 0U;
+
 	/* Discover the DAT geometry, capped by the driver's per-device arrays. */
 	Reg = XI3cPsx_ReadReg(EffectiveAddr, XI3CPSX_DEVICE_ADDR_TABLE_POINTER);
 	InstancePtr->DatStartAddr = XI3CPSX_BASEADDR +
@@ -246,6 +252,13 @@ void XI3cPsx_WrTxFifo(XI3cPsx *InstancePtr, u32 *TxBuf, u16 TxLen)
 ******************************************************************************/
 void XI3cPsx_WrCmdFifo(XI3cPsx *InstancePtr, XI3cPsx_Cmd *Cmd)
 {
+	/*
+	 * Remembered so an overflow reported later, possibly from the
+	 * interrupt handler, can still be tied back to the target.
+	 */
+	InstancePtr->LastTransCmd = Cmd->TransCmd;
+	InstancePtr->LastDatIndex = (u8)((Cmd->TransCmd >> 16) & 0x1FU);
+
 	if (Cmd->TransArg)
 		XI3cPsx_WriteReg(InstancePtr->Config.BaseAddress,
 				 XI3CPSX_COMMAND_QUEUE_PORT, Cmd->TransArg);
