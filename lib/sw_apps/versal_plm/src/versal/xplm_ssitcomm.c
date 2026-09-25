@@ -32,6 +32,7 @@
 *       tvp  04/03/2026 Use generic API to increment IV
 *       obs  04/13/2026 Remove deadcode from xplm_ssitcomm
 *       vss  04/15/2026 Fix for aliasing issue.
+* 1.03  obs  09/24/2026 Truncated unauthenticated secure communication length on slave SLR
 * </pre>
 *
 **************************************************************************************************/
@@ -63,6 +64,8 @@
 #define XPLM_SSIT_COMM_SECURE_MSG       (0x01) /**< Constant value for secure message */
 #define XPLM_SSIT_COMM_NON_SECURE_MSG   (0x00) /**< Constant value for non-secure message */
 #define XPLM_IV_OFFSET_IN_ENCRYPTED_CMD (8U) /**< IV offset in encrypted command */
+/** Payload space of the slave SLR message buffer in bytes */
+#define XPLM_SLAVE_DEC_MAX_BYTES        ((XPLMI_SSIT_MAX_MSG_LEN - PAYLOAD_OFFSET) * XPLMI_WORD_LEN)
 
 /**
  * @brief Calculation of length in bytes from the command header.
@@ -436,6 +439,15 @@ static int XPlm_SsitCommPrepareDecParams(XPlmi_SecCommEstFlag SecSsitCommEst, XP
 			/* Prepare DataLen */
 			if(DecParams->IsCfgSecCommCmd == TRUE) {
 				DecParams->DataLen = XPLM_LEN_CALC(Buf[HEADER_OFFSET]);
+				/*
+				 * The length comes from the unauthenticated header and AES writes
+				 * to Buf, the XPLMI_SSIT_MAX_MSG_LEN word message buffer, before
+				 * the GCM tag is checked. Truncate it to the payload space of Buf;
+				 * a truncated frame fails the GCM tag check.
+				 */
+				if (DecParams->DataLen > XPLM_SLAVE_DEC_MAX_BYTES) {
+					DecParams->DataLen = XPLM_SLAVE_DEC_MAX_BYTES;
+				}
 			}
 			else {
 				DecParams->DataLen = (XPLM_CMD_SIZE - 1U) * XPLMI_WORD_LEN;
