@@ -1,6 +1,6 @@
 /*******************************************************************************
 * Copyright (C) 2015 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -290,15 +290,27 @@ u32 XDp_TxGetRemoteEdidDispIdExt(XDp *InstancePtr, u8 *Data,
 *******************************************************************************/
 u32 XDp_TxGetDispIdDataBlock(u8 *DisplayIdRaw, u8 SectionTag, u8 **DataBlockPtr)
 {
-	u8 Index;
-	u8 DispIdSize = DisplayIdRaw[XDP_TX_DISPID_SIZE];
+	u16 Index;
+	u16 DispIdSize = DisplayIdRaw[XDP_TX_DISPID_SIZE];
 	u8 *DataBlock;
 
 	/* Verify arguments. */
 	Xil_AssertNonvoid(DisplayIdRaw != NULL);
 
+	/* Clamp the sink-supplied size to the actual buffer capacity.
+	 * DisplayIdRaw already skips the 1-byte extension tag of the
+	 * XDP_EDID_BLOCK_SIZE-byte EDID extension block. */
+	if (DispIdSize > (XDP_EDID_BLOCK_SIZE - 1)) {
+		DispIdSize = XDP_EDID_BLOCK_SIZE - 1;
+	}
+
 	/* Search for a section data block matching the specified tag. */
 	for (Index = XDP_TX_DISPID_PAYLOAD_START; Index < DispIdSize; Index++) {
+		/* Ensure the data block's tag/size header stays in bounds. */
+		if ((Index + XDP_TX_DISPID_DB_SEC_SIZE) >= DispIdSize) {
+			break;
+		}
+
 		DataBlock = &DisplayIdRaw[Index];
 
 		/* Check if the tag matches the current section data block. */
