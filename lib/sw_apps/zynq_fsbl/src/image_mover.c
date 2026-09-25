@@ -57,6 +57,7 @@
 * 21.2  ng  03/09/24   Fix format specifier for 32 bit variables
 * 21.3  dsk 09/14/26   Validate partition lengths, partition/checksum source arithmetic
 *                     and DDR transfer bounds
+* 21.4  sd  09/14/26   Validate partition image type and load address
 *
 * </pre>
 *
@@ -283,6 +284,13 @@ u32 LoadBootImage(void)
 
 		fsbl_printf(DEBUG_INFO, "Partition Number: %lu\r\n", PartitionNum);
 
+		/*
+		 * Reset PS/PL flags so stale values from a previous partition
+		 * are not reused when the current header sets neither flag
+		 */
+		PSPartitionFlag = 0;
+		PLPartitionFlag = 0;
+
 		HeaderPtr = &PartitionHeader[PartitionNum];
 
 		/*
@@ -399,7 +407,7 @@ u32 LoadBootImage(void)
 		 * Loop will break when PS load address zero and partition is
 		 * un-signed or un-encrypted
 		 */
-		if ((PSPartitionFlag == 1) && (PartitionLoadAddr < DDR_START_ADDR)) {
+		if ((!PLPartitionFlag) && (PartitionLoadAddr < DDR_START_ADDR)) {
 			if ((PartitionLoadAddr == 0) &&
 					(!((SignedPartitionFlag == 1) ||
 							(EncryptedPartitionFlag == 1)))) {
@@ -412,7 +420,7 @@ u32 LoadBootImage(void)
 			}
 		}
 
-		if (PSPartitionFlag && (PartitionLoadAddr > DDR_END_ADDR)) {
+		if ((!PLPartitionFlag) && (PartitionLoadAddr > DDR_END_ADDR)) {
 			fsbl_printf(DEBUG_GENERAL,
 					"INVALID_LOAD_ADDRESS_FAIL\r\n");
 			OutputStatus(INVALID_LOAD_ADDRESS_FAIL);
@@ -991,6 +999,20 @@ u32 ValidateHeader(PartHeader *Header)
 			((Header->PartitionWordLen << WORD_LENGTH_SHIFT) <
 			RSA_SIGNATURE_SIZE)) {
 		fsbl_printf(DEBUG_GENERAL, "INVALID_PARTITION_LENGTH\r\n");
+		return XST_FAILURE;
+	}
+
+	/*
+	 * Reject partitions whose destination device type is neither PS nor
+	 * PL. Without a valid type both PS/PL flags stay clear, the load
+	 * address range checks are skipped and the partition would be copied
+	 * to an unvalidated LoadAddr.
+	 */
+	if (((Header->PartitionAttr & ATTRIBUTE_IMAGE_TYPE_MASK) !=
+			ATTRIBUTE_PS_IMAGE_MASK) &&
+		((Header->PartitionAttr & ATTRIBUTE_IMAGE_TYPE_MASK) !=
+			ATTRIBUTE_PL_IMAGE_MASK)) {
+		fsbl_printf(DEBUG_GENERAL, "INVALID_PARTITION_IMAGE_TYPE\r\n");
 		return XST_FAILURE;
 	}
 
