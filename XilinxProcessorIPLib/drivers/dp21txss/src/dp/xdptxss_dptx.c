@@ -249,11 +249,16 @@ u32 XDpTxSs_DpTxStart(XDp *InstancePtr, u8 TransportMode, u8 Bpc,
 		if (Dp_GetMstSideBandMsgStatus(InstancePtr)) {
 			/* Read EDID of first sink */
 			Sink1 = InstancePtr->TxInstance.Topology.SinkList[0];
-			XDp_TxGetRemoteEdid(InstancePtr, Sink1->LinkCountTotal,
+			Status = XDp_TxGetRemoteEdid(InstancePtr, Sink1->LinkCountTotal,
 					Sink1->RelativeAddress, Edid);
 		} else {
 			/* Get EDID */
-			XDp_TxGetEdid(InstancePtr, Edid);
+			Status = XDp_TxGetEdid(InstancePtr, Edid);
+		}
+		if (Status != XST_SUCCESS) {
+			xdbg_printf(XDBG_DEBUG_GENERAL,"SS ERR:MST:Failed to read "
+				"sink EDID.\n\r");
+			return Status;
 		}
 		/* Check video mode for EDID preferred video mode */
 		if (VidMode == XVIDC_VM_USE_EDID_PREFERRED) {
