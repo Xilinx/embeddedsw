@@ -872,6 +872,9 @@ int XHdcp1x_RxGetRepeaterInfo(XHdcp1x *InstancePtr,
 
 	/* Copy the KSVList */
 	ksvsToCopy = InstancePtr->RepeaterValues.DeviceCount;
+	if (ksvsToCopy > XHDCP1X_RPTR_MAX_DEVS_COUNT) {
+		ksvsToCopy = XHDCP1X_RPTR_MAX_DEVS_COUNT;
+	}
 
 	for(ksvCount=0 ; ksvCount < ksvsToCopy ; ksvCount++) {
 		InstancePtr->RepeaterValues.KsvList[ksvCount]
@@ -1460,6 +1463,10 @@ void XHdcp1x_RxSetTopologyKSVList(XHdcp1x *InstancePtr, u8 *ListPtr,
 		u32 ListSize)
 {
 	u32 i;
+
+	if (ListSize > XHDCP1X_RPTR_MAX_DEVS_COUNT) {
+		ListSize = XHDCP1X_RPTR_MAX_DEVS_COUNT;
+	}
 
 	for(i=0 ; i<ListSize; i++) {
 		memcpy(&InstancePtr->RepeaterValues.KsvList[i],
