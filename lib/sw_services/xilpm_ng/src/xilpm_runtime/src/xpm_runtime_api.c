@@ -2848,6 +2848,7 @@ XStatus XPm_SystemShutdown(u32 SubsystemId, u32 Type, u32 SubType, u32 CmdType)
 	XStatus Status = XST_FAILURE;
 	XPm_Subsystem *Subsystem;
 	const XPm_ResetNode *Rst;
+	XPm_Power *Fpd = XPmPower_GetById(PM_POWER_FPD);
 
 	PmDbg("%s: SubsystemId=0x%x, Type=0x%x, SubType=0x%x\r\n",
 		SubsystemId, Type, SubType);
@@ -2898,6 +2899,16 @@ XStatus XPm_SystemShutdown(u32 SubsystemId, u32 Type, u32 SubType, u32 CmdType)
 		/* Restore multiboot register value*/
 		XPlmi_RestoreMultiboot();
 
+		/*
+		 * Hold a reference on FPD for the whole restart so that its use
+		 * count cannot drop low enough for the power framework to
+		 * switch the domain off. FPD is not meant to be power cycled by
+		 * a subsystem restart.
+		 */
+		if (NULL != Fpd) {
+			Fpd->UseCount++;
+		}
+
 		if (0U != (SUBSYSTEM_IDLE_SUPPORTED & Subsystem->Flags)) {
 			/* Arm recovery monitoring before waiting for cores to idle. */
 			Status = XPmSubsystem_StartRecoveryTimer(Subsystem, CmdType);
@@ -2908,33 +2919,36 @@ XStatus XPm_SystemShutdown(u32 SubsystemId, u32 Type, u32 SubType, u32 CmdType)
 				 * Error while requesting run time Healthy Boot
 				 * Monitor node
 				 */
-				goto done;
+				goto fpd_restore;
 			} else {
 				/* Required by MISRA */
 			}
 
 			Status = XPmSubsystem_SetState(Subsystem, (u8)PENDING_RESTART);
 			if (XST_SUCCESS != Status) {
-				goto done;
+				goto fpd_restore;
 			}
 			Status = XPm_SubsystemIdleCores(Subsystem);
 			if (XST_SUCCESS != Status) {
-				goto done;
+				goto fpd_restore;
 			}
 		} else {
 			/* Power down immediately and clean up shared system state. */
 			Status = XPmSubsystem_ForcePwrDwn(SubsystemId);
 			if (XST_SUCCESS != Status) {
-				goto done;
+				goto fpd_restore;
 			}
 			Status = XPmSubsystem_ShutdownSystemCleanup(SubsystemId);
 			if (XST_SUCCESS != Status) {
-				goto done;
+				goto fpd_restore;
 			}
 			Status = XPm_SubsystemPwrUp(SubsystemId);
-			if (XST_SUCCESS != Status) {
-				goto done;
-			}
+		}
+
+fpd_restore:
+		/* Restart finished or aborted: release the FPD reference */
+		if ((NULL != Fpd) && (0U < Fpd->UseCount)) {
+			Fpd->UseCount--;
 		}
 		break;
 	case PM_SHUTDOWN_SUBTYPE_RST_SYSTEM:
