@@ -503,6 +503,10 @@ int XHdcp22Tx_VerifySRM(const u8* SrmPtr, int SrmSize,
 
 	int Result = XST_SUCCESS;
 
+	if (SrmSize < XHDCP22_TX_SRM_SIGNATURE_SIZE) {
+		return XST_FAILURE;
+	}
+
 	Result = XHdcp22Tx_RsaSignatureVerify (
 				(u8 *)SrmPtr,
                     SrmSize - XHDCP22_TX_SRM_SIGNATURE_SIZE,
