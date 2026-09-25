@@ -58,7 +58,7 @@
 ******************************************************************************/
 void XDpTxSs_ReportSinkCapInfo(XDpTxSs *InstancePtr)
 {
-	u8 NumAudioEps;
+	u8 NumAudioEps = 0;
 
 	/* Verify argument. */
 	Xil_AssertVoid(InstancePtr != NULL);
@@ -403,7 +403,7 @@ void XDpTxSs_ReportVtcInfo(XDpTxSs *InstancePtr)
 ******************************************************************************/
 void XDpTxSs_ReportLinkInfo(XDpTxSs *InstancePtr)
 {
-	u8 Data[8];
+	u8 Data[8] = {0};
 
 	/* Verify argument. */
 	Xil_AssertVoid(InstancePtr != NULL);
