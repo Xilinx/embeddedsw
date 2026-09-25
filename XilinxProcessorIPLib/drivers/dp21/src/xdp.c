@@ -65,6 +65,18 @@
 /* Error out if checking for a connected device times out more than 50 times. */
 #define XDP_IS_CONNECTED_MAX_TIMEOUT_COUNT 50
 
+ /**
+ * Maximum number of poll attempts for the INTRAHOP_AUX_REPLY_INDICATION bit
+ * (DPCD 0x00205, bit 3) to clear before starting link training.
+ */
+#define XDP_TX_INTRA_HOP_MAX_RETRIES 10
+
+ /**
+ * Delay in microseconds between successive INTRAHOP_AUX_REPLY_INDICATION
+ * poll attempts.
+ */
+#define XDP_TX_INTRA_HOP_POLL_DELAY_US 100
+
 /* Link Status/Adjust Request read interval during Main-Link training sequences */
 #define XDP_LINK_ADJUST_TIMEOUT_IN_USEC 400
 #define XDP_LINK_ADJUST_TIMEOUT_IN_32MSEC 32000
@@ -3105,6 +3117,42 @@ static u32 XDp_TxRunTraining(XDp *InstancePtr)
 
 /******************************************************************************/
 /**
+ * This function verifies that the INTRAHOP_AUX_REPLY_INDICATION state in the
+ * sink's SINK_STATUS register (DPCD 0x00205, bit 3) is cleared before the
+ * source starts link training by writing TRAINING_PATTERN_SET (DPCD 0x00102).
+ *
+ * @param	InstancePtr is a pointer to the XDp instance.
+ *
+ * @return
+ *		- XST_SUCCESS if the intra-hop indication is cleared.
+ *		- XST_FAILURE if the AUX read failed or the bit did not clear.
+ *
+ * @note	None.
+ *
+*******************************************************************************/
+static u32 XDp_TxWaitIntraHopAuxReplyCleared(XDp *InstancePtr)
+{
+	u32 Status;
+	u8 SinkStatus = 0;
+	u32 Retry;
+
+	for (Retry = 0; Retry < XDP_TX_INTRA_HOP_MAX_RETRIES; Retry++) {
+		Status = XDp_TxAuxRead(InstancePtr, XDP_DPCD_SINK_STATUS, 1,
+				       &SinkStatus);
+		if (Status != XST_SUCCESS)
+			return XST_FAILURE;
+
+		if (!(SinkStatus & XDP_DPCD_INTRA_HOP_INDICATION))
+			return XST_SUCCESS;
+
+		XDp_WaitUs(InstancePtr, XDP_TX_INTRA_HOP_POLL_DELAY_US);
+	}
+
+	return XST_FAILURE;
+}
+
+/******************************************************************************/
+/**
  * This function runs the clock recovery sequence as part of link training. The
  * sequence is as follows:
  *	0) Start signaling at the minimum voltage swing, pre-emphasis, and post-
@@ -3182,6 +3230,10 @@ static XDp_TxTrainingState XDp_TxTrainingStateClockRecovery(XDp *InstancePtr, u8
 	if (Status != XST_SUCCESS)
 		return XDP_TX_TS_FAILURE;
 #endif
+
+	Status = XDp_TxWaitIntraHopAuxReplyCleared(InstancePtr);
+	if (Status != XST_SUCCESS)
+		return XDP_TX_TS_FAILURE;
 
 	Status = XDp_TxSetTrainingPattern(InstancePtr,
 					XDP_TX_TRAINING_PATTERN_SET_TP1, NumOfRepeaters);
@@ -5605,6 +5657,10 @@ static XDp_TxTrainingState XDp_Tx_2x_ChannelEqualization(XDp *InstancePtr, u8 Nu
 	/* UCD500 complaince expects the Lane to be set here it has to match the max cap of Sink */
 	Status = XDp_TxSetLinkRate(InstancePtr,
 				    InstancePtr->TxInstance.LinkConfig.LinkRate);
+	if (Status != XST_SUCCESS)
+		return XDP_TX_TS_FAILURE;
+
+	Status = XDp_TxWaitIntraHopAuxReplyCleared(InstancePtr);
 	if (Status != XST_SUCCESS)
 		return XDP_TX_TS_FAILURE;
 
