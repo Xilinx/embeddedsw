@@ -512,8 +512,8 @@ void XDpTxSs_ReportMsaInfo(XDpTxSs *InstancePtr)
 
 		if(InstancePtr->DpPtr->TxInstance.LinkConfig.TrainingMode == XDP_TX_TRAINING_MODE_DP14){
 			xil_printf(
-					"\tM Vid                	(0x1AC) : %u\n\r"
-					"\tN Vid                	(0x1B4) : %u\n\r",
+					"\tM Vid                	(0x1AC) : 0x%08x\n\r"
+					"\tN Vid                	(0x1B4) : 0x%08x\n\r",
 					XDp_ReadReg(TxConfig->BaseAddr, XDP_TX_M_VID+
 								StreamOffset[Stream - 1]),
 					XDp_ReadReg(TxConfig->BaseAddr, XDP_TX_N_VID+
