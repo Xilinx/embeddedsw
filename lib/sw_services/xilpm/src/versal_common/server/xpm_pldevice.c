@@ -843,6 +843,7 @@ static XStatus PldMemCtrlrMap(XPm_PlDevice *PlDevice, const u32 *Args, u32 NumAr
 	u8 CdoSlrIdx = 0U;
 	u8 LocalSlrIdx = XPm_PlatGetSlrIndex();
 	u8 DdrmcAlreadyRegistered = 0U;
+	u8 RegionCount;
 
 	/* Used only under PLM_ENABLE_PLM_TO_PLM_COMM */
 	(void)CdoSlrIdx;
@@ -929,14 +930,30 @@ static XStatus PldMemCtrlrMap(XPm_PlDevice *PlDevice, const u32 *Args, u32 NumAr
 	}
 
 	/* DDRMC address region count */
-	MCDev->RegionCount = (u8)(Args[1U] & 0xFFU);
+	RegionCount = (u8)(Args[1U] & 0xFFU);
 
 	/* Ensure RegionCount does not exceed array bounds */
-	if (MCDev->RegionCount > ARRAY_SIZE(MCDev->Region)) {
+	if (RegionCount > ARRAY_SIZE(MCDev->Region)) {
 		Status = XST_FAILURE;
 		DbgErr = XPM_INT_ERR_OUT_OF_RANGE;
 		goto done;
 	}
+
+	/*
+	 * Each region is described by four words that follow the two header
+	 * words, so the command must actually carry the words the claimed
+	 * region count refers to. Without this the annotation loop below
+	 * would read past the supplied arguments and store the result as a
+	 * region that the address validation logic later trusts.
+	 */
+	if (NumArgs < (Offset + (4U * (u32)RegionCount))) {
+		Status = XST_INVALID_PARAM;
+		DbgErr = XPM_INT_ERR_INVALID_PARAM;
+		goto done;
+	}
+
+	/* Commit to the persistent device object only after validation */
+	MCDev->RegionCount = RegionCount;
 
 	/* DDRMC interleave size and index */
 	MCDev->IntlvSize = (u8)((Args[1U] >> 8U) & 0xFFU);
