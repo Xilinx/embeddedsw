@@ -398,6 +398,9 @@ XVidC_VideoMode XVidC_GetVideoModeId(u32 Width, u32 Height, u32 FrameRate,
 			}
 			/* Check next entry */
 			else {
+				if (Mid >= High) {
+					break;
+				}
 				Mid = Mid + 1;
 				HActive =
 				XVidC_VideoTimingModes[Mid].Timing.HActive;
@@ -565,6 +568,9 @@ XVidC_VideoMode XVidC_GetVideoModeIdExtensive(XVidC_VideoTiming *Timing,
 					ResFound = (TRUE);
 					break;
 				} else {
+					if (Mid >= High) {
+						break;
+					}
 					Mid = Mid + 1;
 					HActive =
 					XVidC_VideoTimingModes[Mid].Timing.HActive;
@@ -575,6 +581,9 @@ XVidC_VideoMode XVidC_GetVideoModeIdExtensive(XVidC_VideoTiming *Timing,
 			}
 			/* Check next entry */
 			else {
+				if (Mid >= High) {
+					break;
+				}
 				Mid = Mid + 1;
 				HActive =
 				XVidC_VideoTimingModes[Mid].Timing.HActive;
