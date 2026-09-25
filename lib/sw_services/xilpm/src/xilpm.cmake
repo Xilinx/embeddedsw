@@ -37,6 +37,11 @@ if (IS_DEVICE_ID_PRESENT)
   set(XC2VP3602 " ") # xc2vp3502 is derivative of xc2vp3602
   set(CPM6_SUPPORTED " ")
 endif()
+string(COMPARE EQUAL "${DEVICE_ID}" "xc2vp3622" IS_DEVICE_ID_PRESENT)
+if (IS_DEVICE_ID_PRESENT)
+  set(XC2VP3602 " ") # xc2vp3622 is derivative of xc2vp3602
+  set(CPM6_SUPPORTED " ")
+endif()
 string(COMPARE EQUAL "${DEVICE_ID}" "xcvm2152" IS_DEVICE_ID_PRESENT)
 if (IS_DEVICE_ID_PRESENT)
   set(XCVM2152 " ")
