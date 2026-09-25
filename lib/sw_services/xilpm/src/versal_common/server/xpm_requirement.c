@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2024, Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2026, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -213,9 +213,18 @@ XStatus XPmRequirement_IsExclusive(const XPm_Requirement *Reqm)
 		goto done;
 	}
 
-	Next_Reqm = Reqm->NextSubsystem;
+	if (NULL == Reqm->Device) {
+		goto done;
+	}
+
+	/*
+	 * New requirements are prepended to the device list, so subsystems
+	 * registered after this one sit ahead of it. Walk the complete list
+	 * from the head and skip only this requirement itself.
+	 */
+	Next_Reqm = Reqm->Device->Requirements;
 	while (NULL != Next_Reqm) {
-		if (1U == Next_Reqm->Allocated) {
+		if ((Next_Reqm != Reqm) && (1U == Next_Reqm->Allocated)) {
 			goto done;
 		}
 		Next_Reqm = Next_Reqm->NextSubsystem;

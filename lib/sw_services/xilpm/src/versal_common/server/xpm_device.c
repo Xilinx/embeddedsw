@@ -1081,10 +1081,16 @@ static XStatus DevRequest(XPm_Device *Device, XPm_Subsystem *Subsystem,
 	/* Check whether this device is shareable */
 	UsagePolicy = USAGE_POLICY(Reqm->Flags);
 	if ((UsagePolicy == (u16)REQ_TIME_SHARED) || (UsagePolicy == (u16)REQ_NONSHARED)) {
-			//Check if it already requested by other subsystem. If yes, return
-			const XPm_Requirement *NextReqm = Reqm->NextSubsystem;
+			/*
+			 * Check if it is already requested by any other
+			 * subsystem. If yes, return. New requirements are
+			 * prepended to the device list, so the scan must start
+			 * from the list head and skip only this requirement.
+			 */
+			const XPm_Requirement *NextReqm = Reqm->Device->Requirements;
 			while (NULL != NextReqm) {
-				if (DEV_ALLOCATED == NextReqm->Allocated) {
+				if ((NextReqm != Reqm) &&
+				    (DEV_ALLOCATED == NextReqm->Allocated)) {
 					Status = XPM_PM_NODE_USED;
 					goto done;
 				}
