@@ -73,6 +73,7 @@
 *       obs  03/17/2025 Fixed GCC Warnings
 * 2.10  obs  08/26/2025 Added support for Verifying address range
 *       vss  04/15/2026 Fix for aliasing issue.
+* 2.20  obs  08/20/2026 Bounded forwarded IPI requests and slave responses
 *
 * </pre>
 *
@@ -97,6 +98,7 @@
 #include "xplmi_defs.h"
 #include "xil_util.h"
 #include "xplmi_err_common.h"
+#include "xplmi_ipi.h"
 
 /************************** Function Prototypes ******************************/
 static u32 XPlmi_SsitGetSlaveErrorMask(void);
@@ -1190,7 +1192,7 @@ END:
 	/* Write the response to the response buffer */
 	Cmd.Response[0U] = (u32)Status;
 	Status = XPlmi_SsitWriteResponseAndAckMsgEvent(Cmd.Response,
-			XPLMI_SSIT_MAX_MSG_LEN);
+			XPLMI_CMD_RESP_SIZE);
 #ifdef PLM_ENABLE_SECURE_PLM_TO_PLM_COMM
 	if (Status == XST_SUCCESS) {
 		Status = (XPlmi_SsitCommPtr->KeyIvUpdate)(&Cmd);
@@ -2070,7 +2072,7 @@ int XPlmi_SendIpiCmdToSlaveSlr(u32 * Payload, u32 * RespBuf)
 {
 	int Status = XST_FAILURE;
 
-#ifdef PLM_ENABLE_PLM_TO_PLM_COMM
+#if defined(PLM_ENABLE_PLM_TO_PLM_COMM) && defined(XPLMI_IPI_DEVICE_ID)
 	u32 SlrIndex = 0U;
 	u32 SlrType = (XPlmi_In32(PMC_TAP_SLR_TYPE) & PMC_TAP_SLR_TYPE_VAL_MASK);
 
@@ -2082,7 +2084,7 @@ int XPlmi_SendIpiCmdToSlaveSlr(u32 * Payload, u32 * RespBuf)
 	Payload[0U] =  Payload[0U] & XPLMI_SLR_ID_ZEROISE;
 
 	if (((SlrIndex >= 1U) && (SlrIndex <= 3U)) && (SlrType != XPLMI_SSIT_MONOLITIC)) {
-		Status = XPlmi_SsitSendMsgEventAndGetResp((u8)SlrIndex, Payload, XPLMI_SSIT_MAX_MSG_LEN,
+		Status = XPlmi_SsitSendMsgEventAndGetResp((u8)SlrIndex, Payload, XPLMI_IPI_MAX_MSG_LEN,
 				RespBuf, XPLMI_CMD_RESP_SIZE, XPLMI_SLV_EVENT_TIMEOUT);
 	} else {
 		Status = XPlmi_UpdateStatus(XPLMI_ERR_CMD_APIID, 0);
@@ -2098,7 +2100,7 @@ END:
 	(void)Payload;
 	(void)RespBuf;
 	Status = (int)XPLMI_SSIT_INTR_NOT_ENABLED;
-#endif /* PLM_ENABLE_PLM_TO_PLM_COMM */
+#endif /* PLM_ENABLE_PLM_TO_PLM_COMM && XPLMI_IPI_DEVICE_ID */
 
 	return Status;
 }
