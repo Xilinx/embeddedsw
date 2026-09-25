@@ -590,10 +590,13 @@ u32 XDpTxSs_DpTxStart(XDp *InstancePtr, u8 TransportMode, u8 Bpc,
 						0].SynchronousClockMode);
 		}
 		else {
-			InstancePtr->TxInstance.MsaConfig[
-				0].DynamicRange = 0;
-			InstancePtr->TxInstance.MsaConfig[
-				0].YCbCrColorimetry = 0;
+			if (InstancePtr->TxInstance.MsaConfig[0].ComponentFormat ==
+					XDP_TX_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_RGB) {
+				InstancePtr->TxInstance.MsaConfig[
+					0].DynamicRange = 0;
+				InstancePtr->TxInstance.MsaConfig[
+					0].YCbCrColorimetry = 0;
+			}
 			/* Enable async clock mode */
 			XDp_TxCfgMsaEnSynchClkMode(InstancePtr,
 						XDP_TX_STREAM_ID1, 0);
