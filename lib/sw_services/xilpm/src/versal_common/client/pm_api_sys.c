@@ -108,6 +108,11 @@
  */
 #define MAX_RESPONSE_ARG	(7U)
 
+/**
+ * @brief Number of IOCTL argument words carried in a PM_IOCTL request.
+ */
+#define MAX_IOCTL_ARG		(3U)
+
 #if !(defined(XPM_SUPPORT) && defined(__aarch64__) && defined(EL1_NONSECURE) && (EL1_NONSECURE == 1))
 /****************************************************************************/
 /**
@@ -1073,6 +1078,7 @@ XStatus XPm_DevIoctl2(u32 DeviceId, pm_ioctl_id IoctlId,
 {
 	XStatus Status = (s32)XST_FAILURE;
 	u32 RetPayload[MAX_RESPONSE_ARG] = {0};
+	u32 Args[MAX_IOCTL_ARG] = {0};
 	u32 i;
 
 	if ((NULL == Payload) || (NULL == Response)) {
@@ -1086,14 +1092,24 @@ XStatus XPm_DevIoctl2(u32 DeviceId, pm_ioctl_id IoctlId,
 	 * Response: 4 for Reserved/CRC
 	 */
 	if (((PAYLOAD_ARG_CNT - 5U) < PayloadSize) ||
+	    (MAX_IOCTL_ARG < PayloadSize) ||
 	    ((RESPONSE_ARG_CNT - 4U) < ResponseSize)) {
 		XPm_Err("Invalid size of Payload/Response buffer %s\r\n", __func__);
 		Status = (s32)XST_INVALID_PARAM;
 		goto done;
 	}
 
+	/*
+	 * Only copy the words the caller actually provided; the remaining
+	 * IOCTL argument words are zero-filled so that no memory beyond the
+	 * caller's buffer is read into the IPI request.
+	 */
+	for (i = 0U; i < PayloadSize; i++) {
+		Args[i] = Payload[i];
+	}
+
 	Status = XPm_GenericRequest(PM_IOCTL, 5U, RetPayload, DeviceId, IoctlId,
-				    Payload[0], Payload[1], Payload[2]);
+				    Args[0], Args[1], Args[2]);
 	if (XST_SUCCESS == Status) {
 		for (i = 0U; i < ResponseSize; i++) {
 			Response[i] = RetPayload[i];
