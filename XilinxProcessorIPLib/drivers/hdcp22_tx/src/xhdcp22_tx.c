@@ -3784,6 +3784,9 @@ static int XHdcp22Tx_ReceiveMsg(XHdcp22_Tx *InstancePtr, u8 MessageId,
 	}
 
 	/* Reading starts on message id */
+	if (ReceivedSize > (sizeof(InstancePtr->MessageBuffer) - 1U)) {
+		ReceivedSize = sizeof(InstancePtr->MessageBuffer) - 1U;
+	}
 	Result = InstancePtr->DdcRead(XHDCP22_TX_DDC_BASE_ADDRESS, ReceivedSize,
 	                              (u8 *)&MsgPtr->Message.MsgId,
 	                              (TRUE), InstancePtr->DdcHandlerRef);
