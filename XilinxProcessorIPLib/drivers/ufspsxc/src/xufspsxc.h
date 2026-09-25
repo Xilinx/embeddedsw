@@ -739,6 +739,85 @@ static INLINE u32 XUfsPsxc_IsValidLun(const XUfsPsxc *InstancePtr, u32 LunId)
 
 /*****************************************************************************/
 /**
+ * @brief	Check whether the PHY RX compensation values indicate an uncalibrated device.
+ *
+ * @param	InstancePtr Pointer to the UFS controller instance.
+ *
+ * @return	1U if the PHY is uncalibrated, otherwise 0U.
+ *
+ *****************************************************************************/
+static INLINE u32 XUfsPsxc_IsPhyUncalibrated(const XUfsPsxc *InstancePtr)
+{
+	return (u32)(((InstancePtr->RxCTLECompValL0 == (u32)0x0U) || (InstancePtr->RxCTLECompValL0 == (u32)0xFFU))
+		&& ((InstancePtr->RxATTCompValL1 == (u32)0x0U) || (InstancePtr->RxATTCompValL1 == (u32)0xFFU))
+		&& ((InstancePtr->RxATTCompValL0 == (u32)0x0U) || (InstancePtr->RxATTCompValL0 == (u32)0xFFU))
+		&& ((InstancePtr->RxCTLECompValL1 == (u32)0x0U) || (InstancePtr->RxCTLECompValL1 == (u32)0xFFU)));
+}
+
+/*****************************************************************************/
+/**
+ * @brief	Flush the request UPIU (and PRDT) from cache based on transaction type.
+ *
+ * @param	CmdDescPtr Pointer to the Command Descriptor.
+ *
+ * @return	XUFSPSXC_SUCCESS or ERROR_CODE for an invalid transaction type.
+ *
+ *****************************************************************************/
+static INLINE u32 XUfsPsxc_FlushReqUpiuCache(const XUfsPsxc_Xfer_CmdDesc *CmdDescPtr)
+{
+	volatile u32 Status = (u32)XUFSPSXC_SUCCESS;
+
+	Xil_DCacheFlushRange((INTPTR)&CmdDescPtr->ReqUpiu.UpiuHeader, (INTPTR)sizeof(CmdDescPtr->ReqUpiu.UpiuHeader));
+	if (CmdDescPtr->ReqUpiu.UpiuHeader.TransactionType == XUFSPSXC_NOP_UPIU_TRANS_CODE) {
+		Xil_DCacheFlushRange((INTPTR)&CmdDescPtr->ReqUpiu.NopOutUpiu, (INTPTR)sizeof(CmdDescPtr->ReqUpiu.NopOutUpiu));
+	} else if (CmdDescPtr->ReqUpiu.UpiuHeader.TransactionType == XUFSPSXC_CMD_UPIU_TRANS_CODE) {
+		Xil_DCacheFlushRange((INTPTR)&CmdDescPtr->ReqUpiu.CmdUpiu, (INTPTR)sizeof(CmdDescPtr->ReqUpiu.CmdUpiu));
+		Xil_DCacheFlushRange((INTPTR)&CmdDescPtr->Prdt, (INTPTR)sizeof(CmdDescPtr->Prdt));
+	} else if (CmdDescPtr->ReqUpiu.UpiuHeader.TransactionType == XUFSPSXC_QRY_UPIU_TRANS_CODE) {
+		Xil_DCacheFlushRange((INTPTR)&CmdDescPtr->ReqUpiu.QueryReqUpiu, (INTPTR)sizeof(CmdDescPtr->ReqUpiu.QueryReqUpiu));
+		Xil_DCacheFlushRange((INTPTR)&CmdDescPtr->ReqUpiu.QueryReqUpiu.Tsf, (INTPTR)sizeof(CmdDescPtr->ReqUpiu.QueryReqUpiu.Tsf));
+	} else {
+		Status = ((u32)XUFSPSXC_GENERAL_ERROR << 8U) | (u32)XUFSPSXC_INVALID_TRANS_CODE;
+	}
+
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	Invalidate the response UPIU and transfer descriptor from cache.
+ *
+ * @param	InstancePtr Pointer to the UFS controller instance.
+ * @param	CmdDescPtr Pointer to the Command Descriptor.
+ *
+ * @return	XUFSPSXC_SUCCESS or ERROR_CODE for an invalid transaction type.
+ *
+ *****************************************************************************/
+static INLINE u32 XUfsPsxc_InvalidateRespUpiuCache(const XUfsPsxc *InstancePtr, const XUfsPsxc_Xfer_CmdDesc *CmdDescPtr)
+{
+	volatile u32 Status = (u32)XUFSPSXC_SUCCESS;
+
+	Xil_DCacheInvalidateRange((INTPTR)&CmdDescPtr->RespUpiu.UpiuHeader, (INTPTR)sizeof(CmdDescPtr->RespUpiu.UpiuHeader));
+	if (CmdDescPtr->ReqUpiu.UpiuHeader.TransactionType == XUFSPSXC_NOP_UPIU_TRANS_CODE) {
+		Xil_DCacheInvalidateRange((INTPTR)&CmdDescPtr->RespUpiu.NopInUpiu, (INTPTR)sizeof(CmdDescPtr->RespUpiu.NopInUpiu));
+	} else if (CmdDescPtr->ReqUpiu.UpiuHeader.TransactionType == XUFSPSXC_CMD_UPIU_TRANS_CODE) {
+		Xil_DCacheInvalidateRange((INTPTR)&CmdDescPtr->RespUpiu.RespUpiu, (INTPTR)sizeof(CmdDescPtr->RespUpiu.RespUpiu));
+	} else if (CmdDescPtr->ReqUpiu.UpiuHeader.TransactionType == XUFSPSXC_QRY_UPIU_TRANS_CODE) {
+		Xil_DCacheInvalidateRange((INTPTR)&CmdDescPtr->RespUpiu.QueryRespUpiu, (INTPTR)sizeof(CmdDescPtr->RespUpiu.QueryRespUpiu));
+		Xil_DCacheInvalidateRange((INTPTR)&CmdDescPtr->RespUpiu.QueryRespUpiu.Tsf, (INTPTR)sizeof(CmdDescPtr->RespUpiu.QueryRespUpiu.Tsf));
+	} else {
+		Status = ((u32)XUFSPSXC_GENERAL_ERROR << 8U) | (u32)XUFSPSXC_INVALID_TRANS_CODE;
+	}
+
+	if (Status == (u32)XUFSPSXC_SUCCESS) {
+		Xil_DCacheInvalidateRange((INTPTR)&InstancePtr->req_desc_baseaddr, (INTPTR)sizeof(InstancePtr->req_desc_baseaddr));
+	}
+
+	return Status;
+}
+
+/*****************************************************************************/
+/**
  * @brief	Fill UPIU header fields.
  *
  * @param	CmdDescPtr Pointer to the Command Descriptor.
@@ -912,7 +991,15 @@ static INLINE void XUfsPsxc_FillUICCmd(XUfsPsxc_UicCmd *UicCmdPtr, u32 MIBAttr_G
 
 /************************** Function Prototypes ******************************/
 
-/* Look up device configuration by base address. */
+/*****************************************************************************/
+/**
+ * @brief	Look up device configuration by base address.
+ *
+ * @param	BaseAddress Base address of the device to look up.
+ *
+ * @return	Pointer to the configuration, or NULL if not found.
+ *
+ *****************************************************************************/
 XUfsPsxc_Config *XUfsPsxc_LookupConfig(UINTPTR BaseAddress);
 /* Initialize driver instance from configuration. */
 void XUfsPsxc_CfgInitialize(XUfsPsxc *InstancePtr,

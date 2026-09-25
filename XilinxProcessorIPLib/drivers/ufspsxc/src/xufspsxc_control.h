@@ -96,6 +96,28 @@ void XUfsPsxc_FillWriteCmdUpiu(XUfsPsxc *InstancePtr,
 /* Set device bRefClkFreq attribute based on reference pad clock. */
 u32 XUfsPsxc_SetbRefClkFreq(XUfsPsxc *InstancePtr, XUfsPsxc_Xfer_CmdDesc *CmdDescPtr);
 
+/* Check whether the given SpeedGear is a supported PWM/HS gear configuration. */
+u32 XUfsPsxc_IsValidSpeedGear(u32 SpeedGear);
+/* Wait for the power mode change to complete after a gear switch. */
+u32 XUfsPsxc_WaitForPowerModeChange(const XUfsPsxc *InstancePtr);
+/* Send Test Unit Ready command and poll until the LUN reports ready. */
+u32 XUfsPsxc_WaitTestUnitReady(XUfsPsxc *InstancePtr, u32 Lun);
+/* Compute the minimum bytes-per-second used for the transfer timeout. */
+u32 XUfsPsxc_GetMinBytesPerSec(u32 PowerMode);
+/* Evaluate the OCS and response UPIU status to determine the transfer result. */
+u32 XUfsPsxc_EvaluateUpiuResponse(const XUfsPsxc *InstancePtr, const XUfsPsxc_Xfer_CmdDesc *CmdDescPtr);
+/* Program the valid (not 0x00/0xFF) PHY RX ATT/CTLE compensation values. */
+u32 XUfsPsxc_ProgramRxCompValues(const XUfsPsxc *InstancePtr, XUfsPsxc_UicCmd *UicCmdPtr);
+/* Bypass RX-AFE auto-calibration on both RX lanes. */
+u32 XUfsPsxc_BypassRxAfeCalib(const XUfsPsxc *InstancePtr, XUfsPsxc_UicCmd *UicCmdPtr);
+/* Program RAWAONLANE_DIG_FW_CALIB_CONFIG[8]=1 on both RX lanes. */
+u32 XUfsPsxc_ProgramRxCalibConfig(const XUfsPsxc *InstancePtr, XUfsPsxc_UicCmd *UicCmdPtr);
+/* Clear the MPHY RX override bit on all connected RX lanes. */
+u32 XUfsPsxc_ClearPhyRxOverride(const XUfsPsxc *InstancePtr, XUfsPsxc_UicCmd *UicCmdPtr, u32 RxLanes);
+/* Configure the high-speed series settings and RX override handling. */
+u32 XUfsPsxc_ConfigureHsSeries(const XUfsPsxc *InstancePtr, XUfsPsxc_UicCmd *UicCmdPtr,
+				u32 Rate, u32 RxLanes, u32 tx_gear, u32 *AdaptVal);
+
 #ifdef __cplusplus
 }
 #endif

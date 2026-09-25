@@ -41,6 +41,9 @@
 #define XUFSPSXC_HIBERN8_STATE		0x1U	/**< TX/RX FSM Hibernate state */
 #define XUFSPSXC_SLEEP_STATE		0x2U	/**< TX/RX FSM Sleep state */
 #define XUFSPSXC_LS_BURST_STATE		0x4U	/**< TX/RX FSM LS-Burst state */
+#define XUFSPSXC_HSG1A_MIN_BPS		78643200U	/**< Minimum bytes per second for HS-G1 Rate A */
+#define XUFSPSXC_HSG1B_MIN_BPS		83886080U	/**< Minimum bytes per second for HS-G1 Rate B */
+#define XUFSPSXC_PWMG1_MIN_BPS		393216U		/**< Minimum bytes per second for PWM-G1 */
 
 /************************** Function Prototypes ******************************/
 
@@ -749,6 +752,100 @@ ERROR:
 /*****************************************************************************/
 /**
 * @brief
+* Send Test Unit Ready command and poll until the LUN reports ready.
+*
+* @param	InstancePtr is a pointer to the XUfsPsxc instance.
+* @param	Lun is the Logical Unit Number to probe.
+*
+* @return	XUFSPSXC_SUCCESS or ERROR_CODE.
+*
+******************************************************************************/
+u32 XUfsPsxc_WaitTestUnitReady(XUfsPsxc *InstancePtr, u32 Lun)
+{
+	volatile u32 Status = (u32)XUFSPSXC_FAILURE;
+	u32 TimeOut = 1000000U;		/* One Second */
+
+	(void)memset((void *)&InstancePtr->CmdDesc, 0, sizeof(XUfsPsxc_Xfer_CmdDesc));
+	InstancePtr->CmdDesc.ReqUpiu.UpiuHeader.LUN = (u8)Lun;
+	XUfsPsxc_FillTestUnitRdyUpiu(InstancePtr, &InstancePtr->CmdDesc);
+	do {
+		Status = XUfsPsxc_ProcessUpiu(InstancePtr, &InstancePtr->CmdDesc);
+		if ((Status == (u32)XUFSPSXC_SUCCESS) &&
+				(InstancePtr->CmdDesc.RespUpiu.UpiuHeader.Status == XUFSPSXC_SCSI_GOOD)) {
+			break;
+		}
+
+		TimeOut = TimeOut - 1U;
+		usleep(1);
+	} while (TimeOut != 0U);
+
+	if (TimeOut == 0U) {
+		Status = ((u32)XUFSPSXC_CMD_TEST_UNIT_RDY_ERROR << 12U) | ((u32)XUFSPSXC_GENERAL_ERROR << 8U) | (u32)XUFSPSXC_FAILURE;
+	}
+
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+* @brief
+* Determine the minimum bytes-per-second for the currently configured gear.
+*
+* @param	PowerMode is the encoded power mode (gear/series) value.
+*
+* @return	Minimum bytes-per-second used to compute the transfer timeout.
+*
+******************************************************************************/
+u32 XUfsPsxc_GetMinBytesPerSec(u32 PowerMode)
+{
+	u32 MinBytes;
+
+	if ((u8)(PowerMode >> 8U) == XUFSPSXC_TX_RX_FAST) {
+		if ((u8)(PowerMode >> 16U) == XUFSPSXC_HSSERIES_A) {
+			MinBytes = XUFSPSXC_HSG1A_MIN_BPS;
+		} else {
+			MinBytes = XUFSPSXC_HSG1B_MIN_BPS;
+		}
+	} else {
+		MinBytes = XUFSPSXC_PWMG1_MIN_BPS;
+	}
+
+	return MinBytes;
+}
+
+/*****************************************************************************/
+/**
+* @brief
+* Evaluate the OCS and response UPIU status to determine the transfer result.
+*
+* @param	InstancePtr is a pointer to the XUfsPsxc instance.
+* @param	CmdDescPtr is a pointer to the XUfsPsxc_Xfer_CmdDesc instance.
+*
+* @return	XUFSPSXC_SUCCESS or ERROR_CODE.
+*
+******************************************************************************/
+u32 XUfsPsxc_EvaluateUpiuResponse(const XUfsPsxc *InstancePtr, const XUfsPsxc_Xfer_CmdDesc *CmdDescPtr)
+{
+	volatile u32 Status;
+
+	if (InstancePtr->req_desc_baseaddr.DW2_Ocs != (u32)XUFSPSXC_OCS_SUCCESS) {
+		Status = ((u32)XUFSPSXC_OCS_ERROR << 8U) | InstancePtr->req_desc_baseaddr.DW2_Ocs;
+	} else if (CmdDescPtr->RespUpiu.UpiuHeader.Response != (u8)XUFSPSXC_SUCCESS) {
+		Status = ((u32)XUFSPSXC_RESPONSE_ERROR << 8U) | (u32)CmdDescPtr->RespUpiu.UpiuHeader.Response;
+	} else if (CmdDescPtr->RespUpiu.UpiuHeader.Status != XUFSPSXC_SCSI_GOOD) {
+		Status = ((u32)XUFSPSXC_STATUS_ERROR << 8U) | CmdDescPtr->RespUpiu.UpiuHeader.Status;
+	} else if (CmdDescPtr->RespUpiu.UpiuHeader.TaskTag != CmdDescPtr->ReqUpiu.UpiuHeader.TaskTag) {
+		Status = ((u32)XUFSPSXC_RESPONSE_TAG_ERROR << 8U) | (u32)XUFSPSXC_TASKTAG_NOT_MATCHED;
+	} else {
+		Status = (u32)XUFSPSXC_SUCCESS;
+	}
+
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+* @brief
 * This API Configures the Tx/Rx Attributes.
 *
 * @param	InstancePtr is a pointer to the XUfsPsxc instance.
@@ -770,9 +867,6 @@ u32 XUfsPsxc_ConfigureTxRxAttributes(const XUfsPsxc *InstancePtr, u32 SpeedGear,
 	u32 Rate;
 	u32 TxLanes;
 	u32 RxLanes;
-	u32 ReadReg;
-	u32 Lane;
-	u32 RateSel;
 	u32 adapt_val;
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -823,61 +917,9 @@ u32 XUfsPsxc_ConfigureTxRxAttributes(const XUfsPsxc *InstancePtr, u32 SpeedGear,
 
 	/* Check for High Speed */
 	if (PowerMode == XUFSPSXC_TX_RX_FAST) {
-		XUfsPsxc_FillUICCmd(&UicCmd, ((u32)0x156AU << 16U), Rate, 0U, XUFSPSXC_DME_SET_OPCODE);	/*  PA_HSSERIES */
-		Status = XUfsPsxc_SendUICCmd(InstancePtr, &UicCmd);
+		Status = XUfsPsxc_ConfigureHsSeries(InstancePtr, &UicCmd, Rate, RxLanes, tx_gear, &adapt_val);
 		if (Status != (u32)XUFSPSXC_SUCCESS) {
 			goto ERROR;
-		}
-
-		if (Rate == XUFSPSXC_HSSERIES_B) {
-			RateSel = 1U;
-		} else {
-			RateSel = 0U;
-		}
-
-		/* RMMI CBRATESEL */
-		XUfsPsxc_FillUICCmd(&UicCmd, ((u32)0x8114U << 16U), RateSel, 0U, XUFSPSXC_DME_SET_OPCODE);
-		Status = XUfsPsxc_SendUICCmd(InstancePtr, &UicCmd);
-		if (Status != (u32)XUFSPSXC_SUCCESS) {
-			goto ERROR;
-		}
-
-		/* L VS_MphyCfgUpdt */
-		XUfsPsxc_FillUICCmd(&UicCmd, ((u32)0xD085U << 16U), 1U, 0U, XUFSPSXC_DME_SET_OPCODE);
-		Status = XUfsPsxc_SendUICCmd(InstancePtr, &UicCmd);
-		if (Status != (u32)XUFSPSXC_SUCCESS) {
-			goto ERROR;
-		}
-
-		/* Override PHY rx_req to 1 */
-		Status = XUfsPsxc_OverridePhyRxReq(InstancePtr, 1U, RxLanes);
-		if (Status != (u32)XUFSPSXC_SUCCESS) {
-			goto ERROR;
-		}
-
-		/* Override PHY rx_req to 0 */
-		Status = XUfsPsxc_OverridePhyRxReq(InstancePtr, 0U, RxLanes);
-		if (Status != (u32)XUFSPSXC_SUCCESS) {
-			goto ERROR;
-		}
-
-		/* Remove PHY rx_req override (Connected lanes) */
-		for (Lane = 0U; Lane < RxLanes; Lane++) {
-			Status = XUfsPsxc_ReadPhyReg(InstancePtr, &UicCmd, (0x3006U + (Lane * 0x100U)), &ReadReg);
-			if (Status != (u32)XUFSPSXC_SUCCESS) {
-				goto ERROR;
-			}
-
-			ReadReg &= ~(0x8U); /* Clear MPHY_RX_OVRD_EN */
-			Status = XUfsPsxc_WritePhyReg(InstancePtr, &UicCmd, (0x3006U + (Lane * 0x100U)), ReadReg);
-			if (Status != (u32)XUFSPSXC_SUCCESS) {
-				goto ERROR;
-			}
-		}
-
-		/* Program initial ADAPT for G4 */
-		if ((tx_gear == XUFSPSXC_GEAR4) && (RxLanes == 2U)) {
-			adapt_val = XUFSPSXC_PA_INITIAL_ADAPT;
 		}
 	}
 

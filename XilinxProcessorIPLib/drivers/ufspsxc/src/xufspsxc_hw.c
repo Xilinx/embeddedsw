@@ -37,10 +37,7 @@
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
-#define SEC_TO_MSEC		1000000U
-#define XUFSPSXC_HSG1A_MIN_BPS		78643200U
-#define XUFSPSXC_HSG1B_MIN_BPS		83886080U
-#define XUFSPSXC_PWMG1_MIN_BPS		393216U
+#define SEC_TO_MSEC		1000000U	/**< Conversion factor from seconds to microseconds */
 /************************** Function Prototypes ******************************/
 
 
@@ -511,6 +508,67 @@ void XUfsPsxc_FillAttrUpiu(XUfsPsxc *InstancePtr, XUfsPsxc_Xfer_CmdDesc *CmdDesc
 /*****************************************************************************/
 /**
 * @brief
+* Check whether the given SpeedGear is a supported PWM/HS gear configuration.
+*
+* @param	SpeedGear is the Power Mode value to be validated.
+*
+* @return	1U if SpeedGear is supported, otherwise 0U.
+*
+******************************************************************************/
+u32 XUfsPsxc_IsValidSpeedGear(u32 SpeedGear)
+{
+	static const u32 ValidGears[] = {
+		XUFSPSXC_PWM_G1, XUFSPSXC_PWM_G2, XUFSPSXC_PWM_G3, XUFSPSXC_PWM_G4,
+		XUFSPSXC_HS_G1, XUFSPSXC_HS_G2, XUFSPSXC_HS_G3, XUFSPSXC_HS_G4,
+		XUFSPSXC_HS_G1_B, XUFSPSXC_HS_G2_B, XUFSPSXC_HS_G3_B, XUFSPSXC_HS_G4_B
+	};
+	u32 Index;
+	u32 IsValid = 0U;
+
+	for (Index = 0U; Index < (u32)(sizeof(ValidGears) / sizeof(ValidGears[0])); Index++) {
+		if (SpeedGear == ValidGears[Index]) {
+			IsValid = 1U;
+			break;
+		}
+	}
+
+	return IsValid;
+}
+
+/*****************************************************************************/
+/**
+* @brief
+* Wait for the power mode change to complete after a gear switch.
+*
+* @param	InstancePtr is a pointer to the XUfsPsxc instance.
+*
+* @return	XUFSPSXC_SUCCESS or ERROR_CODE.
+*
+******************************************************************************/
+u32 XUfsPsxc_WaitForPowerModeChange(const XUfsPsxc *InstancePtr)
+{
+	volatile u32 Status;
+	u32 TimeOut = 1000000;	/* One Second */
+
+	Status = Xil_WaitForEvent(InstancePtr->Config.BaseAddress + XUFSPSXC_IS, XUFSPSXC_IS_PWR_STS_MASK,
+						(u32)XUFSPSXC_IS_PWR_STS_MASK, TimeOut);
+	if (Status != (u32)XUFSPSXC_SUCCESS) {
+		Status = ((u32)XUFSPSXC_GENERAL_ERROR << 8U) | (u32)XUFSPSXC_POWER_MODE_TIMEOUT;
+	} else {
+		TimeOut = 1000000;	/* One Second */
+		Status = Xil_WaitForEvent(InstancePtr->Config.BaseAddress + XUFSPSXC_HCS, XUFSPSXC_HCS_UPMCRS_MASK,
+								(u32)XUFSPSXC_PWR_MODE_VAL, TimeOut);
+		if (Status != (u32)XUFSPSXC_SUCCESS) {
+			Status = ((u32)XUFSPSXC_GENERAL_ERROR << 8U) | (u32)XUFSPSXC_POWER_MODE_FAILURE;
+		}
+	}
+
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+* @brief
 * This API send the UPIU to the UFS device.
 *
 * @param	InstancePtr is a pointer to the XUfsPsxc instance.
@@ -543,47 +601,20 @@ u32 XUfsPsxc_ProcessUpiu(const XUfsPsxc *InstancePtr, const XUfsPsxc_Xfer_CmdDes
 		goto ERROR;
 	}
 
-	if ((u8)(InstancePtr->PowerMode >> 8U) == XUFSPSXC_TX_RX_FAST) {
-		if ((u8)(InstancePtr->PowerMode >> 16U) == XUFSPSXC_HSSERIES_A) {
-			MinBytes = XUFSPSXC_HSG1A_MIN_BPS;
-		} else {
-			MinBytes = XUFSPSXC_HSG1B_MIN_BPS;
-		}
-	} else {
-		MinBytes = XUFSPSXC_PWMG1_MIN_BPS;
-	}
+	MinBytes = XUfsPsxc_GetMinBytesPerSec(InstancePtr->PowerMode);
 
 	TimeOut = ((u32)(Xil_EndianSwap32(CmdDescPtr->ReqUpiu.CmdUpiu.ExpDataXferLen) / MinBytes) * SEC_TO_MSEC) + (5U * SEC_TO_MSEC);
 
 	if (InstancePtr->Config.IsCacheCoherent == 0U) {
-		Xil_DCacheFlushRange((INTPTR)&CmdDescPtr->ReqUpiu.UpiuHeader, (INTPTR)sizeof(CmdDescPtr->ReqUpiu.UpiuHeader));
-		if (CmdDescPtr->ReqUpiu.UpiuHeader.TransactionType == XUFSPSXC_NOP_UPIU_TRANS_CODE) {
-			Xil_DCacheFlushRange((INTPTR)&CmdDescPtr->ReqUpiu.NopOutUpiu, (INTPTR)sizeof(CmdDescPtr->ReqUpiu.NopOutUpiu));
-		} else if (CmdDescPtr->ReqUpiu.UpiuHeader.TransactionType == XUFSPSXC_CMD_UPIU_TRANS_CODE) {
-			Xil_DCacheFlushRange((INTPTR)&CmdDescPtr->ReqUpiu.CmdUpiu, (INTPTR)sizeof(CmdDescPtr->ReqUpiu.CmdUpiu));
-			Xil_DCacheFlushRange((INTPTR)&CmdDescPtr->Prdt, (INTPTR)sizeof(CmdDescPtr->Prdt));
-		} else if (CmdDescPtr->ReqUpiu.UpiuHeader.TransactionType == XUFSPSXC_QRY_UPIU_TRANS_CODE) {
-			Xil_DCacheFlushRange((INTPTR)&CmdDescPtr->ReqUpiu.QueryReqUpiu, (INTPTR)sizeof(CmdDescPtr->ReqUpiu.QueryReqUpiu));
-			Xil_DCacheFlushRange((INTPTR)&CmdDescPtr->ReqUpiu.QueryReqUpiu.Tsf, (INTPTR)sizeof(CmdDescPtr->ReqUpiu.QueryReqUpiu.Tsf));
-		} else {
-			Status = ((u32)XUFSPSXC_GENERAL_ERROR << 8U) | (u32)XUFSPSXC_INVALID_TRANS_CODE;
+		Status = XUfsPsxc_FlushReqUpiuCache(CmdDescPtr);
+		if (Status != (u32)XUFSPSXC_SUCCESS) {
 			goto ERROR;
 		}
 
-		Xil_DCacheInvalidateRange((INTPTR)&CmdDescPtr->RespUpiu.UpiuHeader, (INTPTR)sizeof(CmdDescPtr->RespUpiu.UpiuHeader));
-		if (CmdDescPtr->ReqUpiu.UpiuHeader.TransactionType == XUFSPSXC_NOP_UPIU_TRANS_CODE) {
-			Xil_DCacheInvalidateRange((INTPTR)&CmdDescPtr->RespUpiu.NopInUpiu, (INTPTR)sizeof(CmdDescPtr->RespUpiu.NopInUpiu));
-		} else if (CmdDescPtr->ReqUpiu.UpiuHeader.TransactionType == XUFSPSXC_CMD_UPIU_TRANS_CODE) {
-			Xil_DCacheInvalidateRange((INTPTR)&CmdDescPtr->RespUpiu.RespUpiu, (INTPTR)sizeof(CmdDescPtr->RespUpiu.RespUpiu));
-		} else if (CmdDescPtr->ReqUpiu.UpiuHeader.TransactionType == XUFSPSXC_QRY_UPIU_TRANS_CODE) {
-			Xil_DCacheInvalidateRange((INTPTR)&CmdDescPtr->RespUpiu.QueryRespUpiu, (INTPTR)sizeof(CmdDescPtr->RespUpiu.QueryRespUpiu));
-			Xil_DCacheInvalidateRange((INTPTR)&CmdDescPtr->RespUpiu.QueryRespUpiu.Tsf, (INTPTR)sizeof(CmdDescPtr->RespUpiu.QueryRespUpiu.Tsf));
-		} else {
-			Status = ((u32)XUFSPSXC_GENERAL_ERROR << 8U) | (u32)XUFSPSXC_INVALID_TRANS_CODE;
+		Status = XUfsPsxc_InvalidateRespUpiuCache(InstancePtr, CmdDescPtr);
+		if (Status != (u32)XUFSPSXC_SUCCESS) {
 			goto ERROR;
 		}
-
-		Xil_DCacheInvalidateRange((INTPTR)&InstancePtr->req_desc_baseaddr, (INTPTR)sizeof(InstancePtr->req_desc_baseaddr));
 	}
 
 	/* Start the transfer */
@@ -608,35 +639,13 @@ u32 XUfsPsxc_ProcessUpiu(const XUfsPsxc *InstancePtr, const XUfsPsxc_Xfer_CmdDes
 	}
 
 	if (InstancePtr->Config.IsCacheCoherent == 0U) {
-		Xil_DCacheInvalidateRange((INTPTR)&CmdDescPtr->RespUpiu.UpiuHeader, (INTPTR)sizeof(CmdDescPtr->RespUpiu.UpiuHeader));
-		if (CmdDescPtr->ReqUpiu.UpiuHeader.TransactionType == XUFSPSXC_NOP_UPIU_TRANS_CODE) {
-			Xil_DCacheInvalidateRange((INTPTR)&CmdDescPtr->RespUpiu.NopInUpiu, (INTPTR)sizeof(CmdDescPtr->RespUpiu.NopInUpiu));
-		} else if (CmdDescPtr->ReqUpiu.UpiuHeader.TransactionType == XUFSPSXC_CMD_UPIU_TRANS_CODE) {
-			Xil_DCacheInvalidateRange((INTPTR)&CmdDescPtr->RespUpiu.RespUpiu, (INTPTR)sizeof(CmdDescPtr->RespUpiu.RespUpiu));
-		} else if (CmdDescPtr->ReqUpiu.UpiuHeader.TransactionType == XUFSPSXC_QRY_UPIU_TRANS_CODE) {
-			Xil_DCacheInvalidateRange((INTPTR)&CmdDescPtr->RespUpiu.QueryRespUpiu, (INTPTR)sizeof(CmdDescPtr->RespUpiu.QueryRespUpiu));
-			Xil_DCacheInvalidateRange((INTPTR)&CmdDescPtr->RespUpiu.QueryRespUpiu.Tsf, (INTPTR)sizeof(CmdDescPtr->RespUpiu.QueryRespUpiu.Tsf));
-		} else {
-			Status = ((u32)XUFSPSXC_GENERAL_ERROR << 8U) | (u32)XUFSPSXC_INVALID_TRANS_CODE;
+		Status = XUfsPsxc_InvalidateRespUpiuCache(InstancePtr, CmdDescPtr);
+		if (Status != (u32)XUFSPSXC_SUCCESS) {
 			goto ERROR;
 		}
-
-		Xil_DCacheInvalidateRange((INTPTR)&InstancePtr->req_desc_baseaddr, (INTPTR)sizeof(InstancePtr->req_desc_baseaddr));
 	}
 
-	if (InstancePtr->req_desc_baseaddr.DW2_Ocs != (u32)XUFSPSXC_OCS_SUCCESS) {
-		Status = ((u32)XUFSPSXC_OCS_ERROR << 8U) | InstancePtr->req_desc_baseaddr.DW2_Ocs;
-	} else {
-		if (CmdDescPtr->RespUpiu.UpiuHeader.Response != (u8)XUFSPSXC_SUCCESS) {
-			Status = ((u32)XUFSPSXC_RESPONSE_ERROR << 8U) | (u32)CmdDescPtr->RespUpiu.UpiuHeader.Response;
-		} else if (CmdDescPtr->RespUpiu.UpiuHeader.Status != XUFSPSXC_SCSI_GOOD) {
-			Status = ((u32)XUFSPSXC_STATUS_ERROR << 8U) | CmdDescPtr->RespUpiu.UpiuHeader.Status;
-		} else if (CmdDescPtr->RespUpiu.UpiuHeader.TaskTag != CmdDescPtr->ReqUpiu.UpiuHeader.TaskTag) {
-			Status = ((u32)XUFSPSXC_RESPONSE_TAG_ERROR << 8U) | (u32)XUFSPSXC_TASKTAG_NOT_MATCHED;
-		} else {
-			Status = (u32)XUFSPSXC_SUCCESS;
-		}
-	}
+	Status = XUfsPsxc_EvaluateUpiuResponse(InstancePtr, CmdDescPtr);
 
 ERROR:
 	return Status;
@@ -657,7 +666,6 @@ u32 XUfsPsxc_PhyInit(const XUfsPsxc *InstancePtr)
 	XUfsPsxc_UicCmd UicCmd = {0};
 	volatile u32 Status = (u32)XUFSPSXC_FAILURE;
 	u32 TimeOut;
-	u32 ReadReg;
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
 
@@ -688,73 +696,19 @@ u32 XUfsPsxc_PhyInit(const XUfsPsxc *InstancePtr)
 	}
 
 	/* BYPASS RX-AFE Calibration */
-	Status = XUfsPsxc_ReadPhyReg(InstancePtr, &UicCmd, 0x401CU, &ReadReg);
+	Status = XUfsPsxc_BypassRxAfeCalib(InstancePtr, &UicCmd);
 	if (Status != (u32)XUFSPSXC_SUCCESS) {
 		goto ERROR;
 	}
 
-	Status = XUfsPsxc_WritePhyReg(InstancePtr, &UicCmd, 0x401CU, (ReadReg | 4U));
+	/* Program ATT/CTLE Compensation Values */
+	Status = XUfsPsxc_ProgramRxCompValues(InstancePtr, &UicCmd);
 	if (Status != (u32)XUFSPSXC_SUCCESS) {
 		goto ERROR;
-	}
-
-	Status = XUfsPsxc_ReadPhyReg(InstancePtr, &UicCmd, 0x411CU, &ReadReg);
-	if (Status != (u32)XUFSPSXC_SUCCESS) {
-		goto ERROR;
-	}
-
-	Status = XUfsPsxc_WritePhyReg(InstancePtr, &UicCmd, 0x411CU, (ReadReg | 4U));
-	if (Status != (u32)XUFSPSXC_SUCCESS) {
-		goto ERROR;
-	}
-
-	if ((InstancePtr->RxATTCompValL0 != (u32)0x0U) && (InstancePtr->RxATTCompValL0 != (u32)0xFFU)) {
-		/* Program ATT Compensation Value */
-		Status = XUfsPsxc_WritePhyReg(InstancePtr, &UicCmd, 0x4000U, InstancePtr->RxATTCompValL0);
-		if (Status != (u32)XUFSPSXC_SUCCESS) {
-			goto ERROR;
-		}
-	}
-
-	if ((InstancePtr->RxATTCompValL1 != (u32)0x0U) && (InstancePtr->RxATTCompValL1 != (u32)0xFFU)) {
-		Status = XUfsPsxc_WritePhyReg(InstancePtr, &UicCmd, 0x4100U, InstancePtr->RxATTCompValL1);
-		if (Status != (u32)XUFSPSXC_SUCCESS) {
-			goto ERROR;
-		}
-	}
-
-	if ((InstancePtr->RxCTLECompValL0 != (u32)0x0U) && (InstancePtr->RxCTLECompValL0 != (u32)0xFFU)) {
-		/* Program CTLE Compensation Value */
-		Status = XUfsPsxc_WritePhyReg(InstancePtr, &UicCmd, 0x4001U, InstancePtr->RxCTLECompValL0);
-		if (Status != (u32)XUFSPSXC_SUCCESS) {
-			goto ERROR;
-		}
-	}
-
-	if ((InstancePtr->RxCTLECompValL1 != (u32)0x0U) && (InstancePtr->RxCTLECompValL1 != (u32)0xFFU)) {
-		Status = XUfsPsxc_WritePhyReg(InstancePtr, &UicCmd, 0x4101U, InstancePtr->RxCTLECompValL1);
-		if (Status != (u32)XUFSPSXC_SUCCESS) {
-			goto ERROR;
-		}
 	}
 
 	/* Program RAWAONLANE_DIG_FW_CALIB_CONFIG[8]=1 */
-	Status = XUfsPsxc_ReadPhyReg(InstancePtr, &UicCmd, 0x404DU, &ReadReg);
-	if (Status != (u32)XUFSPSXC_SUCCESS) {
-		goto ERROR;
-	}
-
-	Status = XUfsPsxc_WritePhyReg(InstancePtr, &UicCmd, 0x404DU, (ReadReg | 0x100U));
-	if (Status != (u32)XUFSPSXC_SUCCESS) {
-		goto ERROR;
-	}
-
-	Status = XUfsPsxc_ReadPhyReg(InstancePtr, &UicCmd, 0x414DU, &ReadReg);
-	if (Status != (u32)XUFSPSXC_SUCCESS) {
-		goto ERROR;
-	}
-
-	Status = XUfsPsxc_WritePhyReg(InstancePtr, &UicCmd, 0x414DU, (ReadReg | 0x100U));
+	Status = XUfsPsxc_ProgramRxCalibConfig(InstancePtr, &UicCmd);
 	if (Status != (u32)XUFSPSXC_SUCCESS) {
 		goto ERROR;
 	}
@@ -834,6 +788,40 @@ u32 XUfsPsxc_OverridePhyRxReq(const XUfsPsxc *InstancePtr, u32 RxReq, u32 NumLan
 	}
 
 ERROR:
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+* @brief
+* Clear the MPHY RX override bit on all connected RX lanes.
+*
+* @param	InstancePtr is a pointer to the XUfsPsxc instance.
+* @param	UicCmdPtr is a pointer to the XUfsPsxc_UicCmd instance.
+* @param	RxLanes is the number of connected RX data lanes.
+*
+* @return	XUFSPSXC_SUCCESS or Error codes.
+*
+******************************************************************************/
+u32 XUfsPsxc_ClearPhyRxOverride(const XUfsPsxc *InstancePtr, XUfsPsxc_UicCmd *UicCmdPtr, u32 RxLanes)
+{
+	volatile u32 Status = (u32)XUFSPSXC_SUCCESS;
+	u32 Lane;
+	u32 ReadReg;
+
+	for (Lane = 0U; Lane < RxLanes; Lane++) {
+		Status = XUfsPsxc_ReadPhyReg(InstancePtr, UicCmdPtr, (0x3006U + (Lane * 0x100U)), &ReadReg);
+		if (Status != (u32)XUFSPSXC_SUCCESS) {
+			break;
+		}
+
+		ReadReg &= ~(0x8U); /* Clear MPHY_RX_OVRD_EN */
+		Status = XUfsPsxc_WritePhyReg(InstancePtr, UicCmdPtr, (0x3006U + (Lane * 0x100U)), ReadReg);
+		if (Status != (u32)XUFSPSXC_SUCCESS) {
+			break;
+		}
+	}
+
 	return Status;
 }
 

@@ -141,33 +141,25 @@ u32 XUfsPsxc_ConfigureSpeedGear(XUfsPsxc *InstancePtr, u32 SpeedGear)
 	volatile u32 Status = (u32)XUFSPSXC_FAILURE;
 	u32 TxTermCap;
 	u32 RxTermCap;
-	u32 TimeOut;
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
 
-	if ((SpeedGear != XUFSPSXC_PWM_G1) && (SpeedGear != XUFSPSXC_PWM_G2) && (SpeedGear != XUFSPSXC_PWM_G3) &&
-			(SpeedGear != XUFSPSXC_PWM_G4) && (SpeedGear != XUFSPSXC_HS_G1) && (SpeedGear != XUFSPSXC_HS_G2) &&
-			(SpeedGear != XUFSPSXC_HS_G3) && (SpeedGear != XUFSPSXC_HS_G4) && (SpeedGear != XUFSPSXC_HS_G1_B) &&
-			(SpeedGear != XUFSPSXC_HS_G2_B) && (SpeedGear != XUFSPSXC_HS_G3_B) && (SpeedGear != XUFSPSXC_HS_G4_B)) {
+	if (!XUfsPsxc_IsValidSpeedGear(SpeedGear)) {
 		Status = ((u32)XUFSPSXC_GENERAL_ERROR << 8U) | (u32)XUFSPSXC_INVALID_GEAR_CFG;
 		goto ERROR;
 	}
 
-	if ((SpeedGear == XUFSPSXC_PWM_G1) || (SpeedGear == XUFSPSXC_PWM_G2) || (SpeedGear == XUFSPSXC_PWM_G3) ||
-			(SpeedGear == XUFSPSXC_PWM_G4)) {
-		TxTermCap = 0U;
-		RxTermCap = 0U;
-	} else {
+	if ((u8)(SpeedGear >> 8U) == XUFSPSXC_TX_RX_FAST) {
 		/* For High Speeds, Check if device is calibrated */
-		if (((InstancePtr->RxCTLECompValL0 == (u32)0x0U) || (InstancePtr->RxCTLECompValL0 == (u32)0xFFU))
-		    && ((InstancePtr->RxATTCompValL1 == (u32)0x0U) || (InstancePtr->RxATTCompValL1 == (u32)0xFFU))
-		    && ((InstancePtr->RxATTCompValL0 == (u32)0x0U) || (InstancePtr->RxATTCompValL0 == (u32)0xFFU))
-		    && ((InstancePtr->RxCTLECompValL1 == (u32)0x0U) || (InstancePtr->RxCTLECompValL1 == (u32)0xFFU))) {
+		if (XUfsPsxc_IsPhyUncalibrated(InstancePtr) != 0U) {
 			Status = ((u32)XUFSPSXC_GENERAL_ERROR << 8U) | (u32)XUFSPSXC_PHY_NOT_CALIBRATED;
 			goto ERROR;
 		}
 		TxTermCap = 1U;
 		RxTermCap = 1U;
+	} else {
+		TxTermCap = 0U;
+		RxTermCap = 0U;
 	}
 
 	Status = XUfsPsxc_ConfigureTxRxAttributes(InstancePtr, SpeedGear, RxTermCap, TxTermCap);
@@ -176,19 +168,7 @@ u32 XUfsPsxc_ConfigureSpeedGear(XUfsPsxc *InstancePtr, u32 SpeedGear)
 	}
 
 	/* Wait for Power Mode Status in IS */
-	TimeOut = 1000000;	/* One Second */
-	Status = Xil_WaitForEvent(InstancePtr->Config.BaseAddress + XUFSPSXC_IS, XUFSPSXC_IS_PWR_STS_MASK,
-						(u32)XUFSPSXC_IS_PWR_STS_MASK, TimeOut);
-	if (Status != (u32)XUFSPSXC_SUCCESS) {
-		Status = ((u32)XUFSPSXC_GENERAL_ERROR << 8U) | (u32)XUFSPSXC_POWER_MODE_TIMEOUT;
-	} else {
-		TimeOut = 1000000;	/* One Second */
-		Status = Xil_WaitForEvent(InstancePtr->Config.BaseAddress + XUFSPSXC_HCS, XUFSPSXC_HCS_UPMCRS_MASK,
-								(u32)XUFSPSXC_PWR_MODE_VAL, TimeOut);
-		if (Status != (u32)XUFSPSXC_SUCCESS) {
-			Status = ((u32)XUFSPSXC_GENERAL_ERROR << 8U) | (u32)XUFSPSXC_POWER_MODE_FAILURE;
-		}
-	}
+	Status = XUfsPsxc_WaitForPowerModeChange(InstancePtr);
 
 	XUfsPsxc_WriteReg(InstancePtr->Config.BaseAddress, XUFSPSXC_IS, XUFSPSXC_IS_PWR_STS_MASK);
 
@@ -351,7 +331,6 @@ u32 XUfsPsxc_ReadPolled(XUfsPsxc *InstancePtr, u32 Lun, u64 Address, u32 BlkCnt,
 								const u8 *Buff)
 {
 	volatile u32 Status = (u32)XUFSPSXC_FAILURE;
-	u32 TimeOut = 1000000U;		/* One Second */
 	u32 LunId;
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -383,22 +362,8 @@ u32 XUfsPsxc_ReadPolled(XUfsPsxc *InstancePtr, u32 Lun, u64 Address, u32 BlkCnt,
 	}
 
 	if (InstancePtr->TestUnitRdyLun != Lun) {
-		(void)memset((void *)&InstancePtr->CmdDesc, 0, sizeof(XUfsPsxc_Xfer_CmdDesc));
-		InstancePtr->CmdDesc.ReqUpiu.UpiuHeader.LUN = (u8)Lun;
-		XUfsPsxc_FillTestUnitRdyUpiu(InstancePtr, &InstancePtr->CmdDesc);
-		do {
-			Status = XUfsPsxc_ProcessUpiu(InstancePtr, &InstancePtr->CmdDesc);
-			if ((Status == (u32)XUFSPSXC_SUCCESS) &&
-					(InstancePtr->CmdDesc.RespUpiu.UpiuHeader.Status == XUFSPSXC_SCSI_GOOD)) {
-				break;
-			}
-
-			TimeOut = TimeOut - 1U;
-			usleep(1);
-		} while (TimeOut != 0U);
-
-		if (TimeOut == 0U) {
-			Status = ((u32)XUFSPSXC_CMD_TEST_UNIT_RDY_ERROR << 12U) | ((u32)XUFSPSXC_GENERAL_ERROR << 8U) | (u32)XUFSPSXC_FAILURE;
+		Status = XUfsPsxc_WaitTestUnitReady(InstancePtr, Lun);
+		if (Status != (u32)XUFSPSXC_SUCCESS) {
 			goto ERROR;
 		}
 
@@ -445,7 +410,6 @@ u32 XUfsPsxc_WritePolled(XUfsPsxc *InstancePtr, u32 Lun, u64 Address, u32 BlkCnt
 								const u8 *Buff)
 {
 	volatile u32 Status = XUFSPSXC_FAILURE;
-	u32 TimeOut = 1000000U;		/* One Second */
 	u32 LunId;
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -472,22 +436,8 @@ u32 XUfsPsxc_WritePolled(XUfsPsxc *InstancePtr, u32 Lun, u64 Address, u32 BlkCnt
 	}
 
 	if (InstancePtr->TestUnitRdyLun != LunId) {
-		memset((void *)&InstancePtr->CmdDesc, 0, sizeof(XUfsPsxc_Xfer_CmdDesc));
-		InstancePtr->CmdDesc.ReqUpiu.UpiuHeader.LUN = LunId;
-		XUfsPsxc_FillTestUnitRdyUpiu(InstancePtr, &InstancePtr->CmdDesc);
-		do {
-			Status = XUfsPsxc_ProcessUpiu(InstancePtr, &InstancePtr->CmdDesc);
-			if ((Status == XUFSPSXC_SUCCESS) &&
-					(InstancePtr->CmdDesc.RespUpiu.UpiuHeader.Status == XUFSPSXC_SCSI_GOOD)) {
-				break;
-			}
-
-			TimeOut = TimeOut - 1U;
-			usleep(1);
-		} while (TimeOut != 0U);
-
-		if (TimeOut == 0U) {
-			Status = (XUFSPSXC_CMD_TEST_UNIT_RDY_ERROR << 12U) | (XUFSPSXC_GENERAL_ERROR << 8U) | XUFSPSXC_FAILURE;
+		Status = XUfsPsxc_WaitTestUnitReady(InstancePtr, LunId);
+		if (Status != (u32)XUFSPSXC_SUCCESS) {
 			goto ERROR;
 		}
 
