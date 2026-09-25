@@ -837,7 +837,9 @@ u32 XDp_TxFindAccessibleDpDevices(XDp *InstancePtr, u8 LinkCountTotal,
 	LinkCountTotal++;
 
 	u8 DownBranchesDownPorts[DeviceInfo.NumPorts];
-	for (Index = 0; Index < DeviceInfo.NumPorts; Index++) {
+	for (Index = 0; Index < DeviceInfo.NumPorts &&
+			Topology->NodeTotal < (sizeof(Topology->NodeTable) /
+				sizeof(Topology->NodeTable[0])); Index++) {
 		PortDetails = &DeviceInfo.PortDetails[Index];
 		/* Any downstream device downstream device will have the RAD of
 		 * the current branch device appended with the port number. */
@@ -3506,11 +3508,17 @@ static void XDp_TxAddBranchToList(XDp *InstancePtr,
 			u8 LinkCountTotal, u8 *RelativeAddress)
 {
 	u8 Index;
+	XDp_TxTopology *Topology = &InstancePtr->TxInstance.Topology;
 	XDp_TxTopologyNode *TopologyNode;
 
+	/* Reject the device if the fixed-size node table is already full. */
+	if (Topology->NodeTotal >= (sizeof(Topology->NodeTable) /
+					sizeof(Topology->NodeTable[0]))) {
+		return;
+	}
+
 	/* Add this node to the topology's node list. */
-	TopologyNode = &InstancePtr->TxInstance.Topology.NodeTable[
-				InstancePtr->TxInstance.Topology.NodeTotal];
+	TopologyNode = &Topology->NodeTable[Topology->NodeTotal];
 
 	for (Index = 0; Index < XDP_GUID_NBYTES; Index++) {
 		TopologyNode->Guid[Index] = DeviceInfo->Guid[Index];
@@ -3524,7 +3532,7 @@ static void XDp_TxAddBranchToList(XDp *InstancePtr,
 	TopologyNode->MsgCapStatus = 1;
 
 	/* The branch device has been added to the topology node list. */
-	InstancePtr->TxInstance.Topology.NodeTotal++;
+	Topology->NodeTotal++;
 }
 
 /******************************************************************************/
@@ -3553,6 +3561,14 @@ static void XDp_TxAddSinkToList(XDp *InstancePtr,
 	u8 Index;
 	XDp_TxTopology *Topology = &InstancePtr->TxInstance.Topology;
 	XDp_TxTopologyNode *TopologyNode;
+
+	/* Reject the device if the node or sink table is already full. */
+	if ((Topology->NodeTotal >= (sizeof(Topology->NodeTable) /
+					sizeof(Topology->NodeTable[0]))) ||
+	    (Topology->SinkTotal >= (sizeof(Topology->SinkList) /
+					sizeof(Topology->SinkList[0])))) {
+		return;
+	}
 
 	/* Add this node to the topology's node list. */
 	TopologyNode = &Topology->NodeTable[Topology->NodeTotal];
