@@ -97,6 +97,8 @@
  *                       irrespective of SLR index field
  * 2.4   abh  10/17/2025 Fixed MISRA-C violations
  *       obs  04/03/2026 Fixed XPlMI typo to XPLMI
+ *       obs  08/13/2026 Validated access permissions of the SLR index zeroised
+ *                       Api Id before forwarding it to slave SLR
  *
  * </pre>
  *
@@ -774,11 +776,25 @@ int XPlmi_ValidateIpiCmd(XPlmi_Cmd *Cmd, u32 SrcIndex)
 			if ((Module->InvalidCmdHandler == NULL) || ((SlrIndex == XPLMI_SSIT_MASTER_SLR_INDEX)
 			    && (ModuleId != XPLMI_MODULE_SEM_ID) && (ModuleId != XPLMI_MODULE_STL_ID))) {
 				Status = XPLMI_ERR_VALIDATE_IPI_INVALID_API_ID;
+				goto END;
 			}
-			else {
+			/* SEM and STL handle their master SLR index invalid commands locally */
+			if (SlrIndex == XPLMI_SSIT_MASTER_SLR_INDEX) {
 				Status = XST_SUCCESS;
+				goto END;
 			}
-			goto END;
+			/**
+			 * - The slave SLR validates a forwarded command against the SSIT
+			 * event IPI index and the secure bit of the forwarded header, so
+			 * check the requester's permissions for the Api Id the slave SLR
+			 * executes, with the SLR index bits cleared, before forwarding.
+			 * The Api Id bound also guards the permission lookup below.
+			 */
+			ApiId &= XPLMI_SLR_ID_ZEROISE;
+			if (ApiId >= Module->CmdCnt) {
+				Status = XPLMI_ERR_VALIDATE_IPI_INVALID_API_ID;
+				goto END;
+			}
 		}
 		AccessPerm = (u32)Module->AccessPermBufferPtr[ApiId] >> (XPLMI_ACCESS_PERM_SHIFT * SrcIndex);
 		AccessPerm &= XPLMI_ACCESS_PERM_MASK;
