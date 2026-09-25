@@ -3097,7 +3097,6 @@ void XDpTxSs_SendAudioInfoFrame(XDpTxSs *InstancePtr, XDp_TxAudioInfoFrame *xilI
                         n_aud = 41666;
                         break;
 		default:	/* Default to 1.62 Gbps values */
-			xil_printf("Warning: Unknown link rate 0x%02X, using 1.62Gbps default\r\n", LinkRate);
 			m_aud = 512;
 			n_aud = 3375;
 			break;
@@ -3110,8 +3109,8 @@ void XDpTxSs_SendAudioInfoFrame(XDpTxSs *InstancePtr, XDp_TxAudioInfoFrame *xilI
 	XDp_WriteReg(InstancePtr->DpPtr->Config.BaseAddr, XDP_TX_AUDIO_CONTROL, 0x1);
 
 
-	xil_printf("Audio configured: LinkRate=0x%02X, MAUD=%d, NAUD=%d\r\n",
-			LinkRate, m_aud, n_aud);
+	xdbg_printf(XDBG_DEBUG_GENERAL, "Audio configured: LinkRate=0x%02X, MAUD=%d, NAUD=%d\r\n",
+					LinkRate, m_aud, n_aud);
 }
 
 #if (XPAR_XHDCP_NUM_INSTANCES > 0) || (XPAR_XHDCP22_TX_DP_NUM_INSTANCES > 0)
