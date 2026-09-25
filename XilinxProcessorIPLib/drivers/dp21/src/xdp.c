@@ -379,9 +379,9 @@ u8 XDp_TxGetActiveRepeater(XDp *InstancePtr)
 static void XDp_TxSetActiveRepeater(XDp *InstancePtr, u8 NumOfRepeaters)
 {
 	/* Verify arguments. */
-	Xil_AssertNonvoid(InstancePtr != NULL);
-	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
-	Xil_AssertNonvoid(XDp_GetCoreType(InstancePtr) == XDP_TX);
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+	Xil_AssertVoid(XDp_GetCoreType(InstancePtr) == XDP_TX);
 
 	InstancePtr->TxInstance.LinkConfig.ActiveRepeaterCount = NumOfRepeaters;
 }

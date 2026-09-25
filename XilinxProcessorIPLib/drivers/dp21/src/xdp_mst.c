@@ -314,8 +314,8 @@ void XDp_TxMstCfgModeDisable(XDp *InstancePtr)
 u8 Dp_GetMstSideBandMsgStatus(XDp *InstancePtr)
 {
 	/* Verify arguments. */
-	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid(XDp_GetCoreType(InstancePtr) == XDP_TX);
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(XDp_GetCoreType(InstancePtr) == XDP_TX);
 
 	if (InstancePtr->TxInstance.isRxMstCapable &&
 			InstancePtr->TxInstance.SideBandMsgCapable)
