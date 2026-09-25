@@ -702,7 +702,21 @@ XStatus XPm_IsMemAddressValid(u32 SubsystemId, u64 RegionAddr, u64 RegionSize) {
 
 		for (u32 Cnt = 0U; Cnt < MCDev->RegionCount; Cnt++) {
 			u64 StartAddress = MCDev->Region[Cnt].Address;
-			u64 EndAddress = MCDev->Region[Cnt].Address + MCDev->Region[Cnt].Size - 1U;
+			u64 RegionSz = MCDev->Region[Cnt].Size;
+			u64 EndAddress;
+
+			/*
+			 * Guard against a zero-size region. Size 0 underflows
+			 * the end address calculation below and yields an
+			 * arbitrarily large range, which would make the
+			 * containment check accept addresses that must be
+			 * rejected.
+			 */
+			if (RegionSz < 1U) {
+				continue;
+			}
+
+			EndAddress = StartAddress + RegionSz - 1U;
 			u32 Range = checkAddrRangeContainment(CurrentRegionAddr, (CurrentRegionAddr + CurrentRegionSize - 1U),
 						      StartAddress, EndAddress);
 			if (ADDR_IN_RANGE == Range) {
