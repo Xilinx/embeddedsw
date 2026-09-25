@@ -299,7 +299,7 @@ static XStatus ActionStart(XPm_Device* const Device)
 	 * configuration in the error node.
 	 */
 	XPlmi_UpdateErrorSubsystemId(XIL_NODETYPE_EVENT_ERROR_SW_ERR,
-			(u32)1U << HbMon_Id,
+			HB_MON_SW_ERR_MASK(HbMon_Id),
 			DevOps->PendingReqm->Subsystem->Id);
 	/* Update use count. */
 	if (NULL != Device->Power) {
