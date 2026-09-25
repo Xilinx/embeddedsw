@@ -19,6 +19,17 @@
 #include "xplmi_sysmon.h"
 #include "xplmi_scheduler.h"
 
+#if defined (RAIL_CONTROL)
+/* Number of CmdArr bytes occupied by one 32-bit I2C command word */
+#define XPM_I2C_CMD_WORD_SIZE		(4U)
+/* Number of I2C command words CmdArr is able to hold */
+#define XPM_I2C_CMD_MAX_WORDS		((u32)MAX_I2C_COMMAND_LEN / XPM_I2C_CMD_WORD_SIZE)
+/* Shift of the command length field within a power rail mode word */
+#define XPM_I2C_CMD_LEN_SHIFT		(8U)
+/* Mask of the command length field within a power rail mode word */
+#define XPM_I2C_CMD_LEN_MASK		(0xFFU)
+#endif /* RAIL_CONTROL */
+
 #if defined (XPAR_XIICPS_0_DEVICE_ID) || defined (XPAR_XIICPS_1_DEVICE_ID) || \
     defined (XPAR_XIICPS_2_DEVICE_ID) || defined (XPAR_XIICPS_0_BASEADDR)  || \
     defined (XPAR_XIICPS_1_BASEADDR)  || defined (XPAR_XIICPS_2_BASEADDR)
@@ -163,6 +174,7 @@ static XStatus XPmRail_PMBusControl(const XPm_Rail *Rail, u8 Mode)
 	u16 RegulatorSlaveAddress, MuxAddress;
 	u32 i = 0, j = 0, k = 0, BytesLen = 0, ByteIndex = 0;
 	u32 ControllerID;
+	u32 CmdBytes;
 	u8 PI;
 
 	PI = Rail->ParentIndex;
@@ -217,7 +229,8 @@ static XStatus XPmRail_PMBusControl(const XPm_Rail *Rail, u8 Mode)
 	}
 
 	Status = XST_FAILURE;
-	while (ByteIndex < ((u32)Rail->I2cModes[PI][Mode].CmdLen * 4U)) {
+	CmdBytes = (u32)Rail->I2cModes[PI][Mode].CmdLen * XPM_I2C_CMD_WORD_SIZE;
+	while (ByteIndex < CmdBytes) {
 		BytesLen = Rail->I2cModes[PI][Mode].CmdArr[ByteIndex];
 
 		/*
@@ -230,6 +243,17 @@ static XStatus XPmRail_PMBusControl(const XPm_Rail *Rail, u8 Mode)
 
 		if (BytesLen > 3u) {
 			Status = XST_BUFFER_TOO_SMALL;
+			goto done;
+		}
+
+		/*
+		 * The condition above is only re-tested between commands, so
+		 * check here that this command's payload bytes also lie inside
+		 * CmdArr rather than walking past its end.
+		 */
+		if ((ByteIndex + BytesLen) >= CmdBytes) {
+			DbgErr = XPM_INT_ERR_INVALID_ARGS;
+			Status = XST_INVALID_PARAM;
 			goto done;
 		}
 
@@ -756,8 +780,8 @@ static XStatus XPmRail_InitI2CMode(const u32 *Args, u32 NumArgs)
 	XPm_Rail *Rail;
 	const XPm_Regulator *Regulator;
 	u32 i, j, k;
-	u8 NumModes, Mode;
-	const u32 CopySize = 4U;
+	u8 NumModes, Mode, CmdLen;
+	const u32 CopySize = XPM_I2C_CMD_WORD_SIZE;
 	u8 PI;
 
 	Rail = (XPm_Rail *)XPmPower_GetById(Args[0]);
@@ -808,6 +832,13 @@ static XStatus XPmRail_InitI2CMode(const u32 *Args, u32 NumArgs)
 	 *	       0x02000002 0x01021a02 0x80
 	 */
 	for (i = 0U; i < NumModes; i++) {
+		/* The mode and command length word must be within the payload */
+		if (k >= NumArgs) {
+			DbgErr = XPM_INT_ERR_INVALID_ARGS;
+			Status = XST_INVALID_PARAM;
+			goto done;
+		}
+
 		Mode = (u8)(Args[k] & 0xFFU);
 		if (MAX_MODES <= Mode) {
 			DbgErr = XPM_INT_ERR_INVALID_ARGS;
@@ -815,18 +846,31 @@ static XStatus XPmRail_InitI2CMode(const u32 *Args, u32 NumArgs)
 			goto done;
 		}
 
-		Rail->I2cModes[PI][Mode].CmdLen = (u8)(Args[k] >> 8) & 0xFFU;
+		/*
+		 * Reject a CDO-supplied length beyond what CmdArr can hold,
+		 * before the value is stored or used as a copy count.
+		 */
+		CmdLen = (u8)((Args[k] >> XPM_I2C_CMD_LEN_SHIFT) &
+			      XPM_I2C_CMD_LEN_MASK);
+		if ((u32)CmdLen > XPM_I2C_CMD_MAX_WORDS) {
+			DbgErr = XPM_INT_ERR_INVALID_ARGS;
+			Status = XST_INVALID_PARAM;
+			goto done;
+		}
+
+		Rail->I2cModes[PI][Mode].CmdLen = CmdLen;
 		Rail->ControlType[PI][Mode] = XPM_RAILTYPE_MODE_PMBUS;
 		k++;
-		for (j = 0; j < Rail->I2cModes[PI][Mode].CmdLen; j++) {
+		for (j = 0; j < CmdLen; j++) {
 			if (k >= NumArgs) {
 				DbgErr = XPM_INT_ERR_INVALID_ARGS;
 				Status = XST_INVALID_PARAM;
 				goto done;
 			}
 
-			Status = Xil_SMemCpy(&Rail->I2cModes[PI][Mode].CmdArr[j * 4U],
-					     CopySize, &Args[k], CopySize, CopySize);
+			Status = Xil_SMemCpy(&Rail->I2cModes[PI][Mode].CmdArr[j * CopySize],
+					     ((u32)MAX_I2C_COMMAND_LEN - (j * CopySize)),
+					     &Args[k], CopySize, CopySize);
 			if (XST_SUCCESS != Status) {
 				DbgErr = XPM_INT_ERR_INVALID_PARAM;
 				goto done;
