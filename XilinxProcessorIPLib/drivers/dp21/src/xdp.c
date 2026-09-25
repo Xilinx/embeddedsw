@@ -77,6 +77,12 @@
  */
 #define XDP_TX_INTRA_HOP_POLL_DELAY_US 100
 
+ /**
+ * CR retries at the minimum link rate (reduced bit rate method) before the
+ * lane count is reduced as a last resort.
+ */
+#define XDP_TX_MIN_RATE_CR_MAX_RETRIES 5
+
 /* Link Status/Adjust Request read interval during Main-Link training sequences */
 #define XDP_LINK_ADJUST_TIMEOUT_IN_USEC 400
 #define XDP_LINK_ADJUST_TIMEOUT_IN_32MSEC 32000
@@ -2987,6 +2993,9 @@ static u32 XDp_TxRunTrain8b_10b(XDp *InstancePtr, u8 NumOfRepeaters)
 	u32 Status = 0;
 	XDp_TxTrainingState TrainingState = XDP_TX_TS_CLOCK_RECOVERY;
 
+	InstancePtr->TxInstance.LinkConfig.MinRateCrRetry = 0;
+	InstancePtr->TxInstance.LinkConfig.SkipCrTpOff = 0;
+
 	while (1) {
 		switch (TrainingState) {
 		case XDP_TX_TS_CLOCK_RECOVERY:
@@ -3032,6 +3041,8 @@ static u32 XDp_TxRunTrain8b_10b(XDp *InstancePtr, u8 NumOfRepeaters)
 			if (Status != XST_SUCCESS) {
 				return XST_FAILURE;
 			}
+			if (TrainingState == XDP_TX_TS_ADJUST_LANE_COUNT)
+				InstancePtr->TxInstance.LinkConfig.SkipCrTpOff = 1;
 		}
 	}
 
@@ -3195,12 +3206,19 @@ static XDp_TxTrainingState XDp_TxTrainingStateClockRecovery(XDp *InstancePtr, u8
 	XDp_TxLinkConfig *LinkConfig = &InstancePtr->TxInstance.LinkConfig;
 
 	/* UCD500 complaince expects the training pattern to be set off
-	 * before starting training.
+	 * before starting training. On a fallback restart the state machine
+	 * has already cleared the pattern before reconfiguring, so skip it
+	 * here; otherwise the TP_OFF at the reduced config makes the sink
+	 * treat training as complete and fail the CR fallback at the minimum
+	 * lane count.
 	 */
-	Status = XDp_TxSetTrainingPattern(InstancePtr,
+	if (!LinkConfig->SkipCrTpOff) {
+		Status = XDp_TxSetTrainingPattern(InstancePtr,
 					  XDP_TX_TRAINING_PATTERN_SET_OFF, NumOfRepeaters);
-	if (Status != XST_SUCCESS)
-		return XDP_TX_TS_FAILURE;
+		if (Status != XST_SUCCESS)
+			return XDP_TX_TS_FAILURE;
+	}
+	LinkConfig->SkipCrTpOff = 0;
 	/* Obtain the required delay for clock recovery as specified by the
 	 * RX device. */
 	DelayUs = XDp_TxGetTrainingDelay(InstancePtr, XDP_TX_TS_CLOCK_RECOVERY);
@@ -3546,9 +3564,17 @@ static XDp_TxTrainingState XDp_TxTrainingStateAdjustLinkRate(XDp *InstancePtr)
 		Status = XDP_TX_TS_CLOCK_RECOVERY;
 		break;
 	default:
-	/* Already at the lowest link rate. Try reducing the lane
-	 * count next. */
-		Status = XDP_TX_TS_ADJUST_LANE_COUNT;
+	/* Already at the lowest link rate. Per the DP "reduced bit rate"
+	 * method, keep the lane count and re-attempt clock
+	 * recovery rather than dropping the lane count; only reduce the lane
+	 * count as a last resort so a genuinely bad link still falls back. */
+		if (InstancePtr->TxInstance.LinkConfig.MinRateCrRetry <
+				XDP_TX_MIN_RATE_CR_MAX_RETRIES) {
+			InstancePtr->TxInstance.LinkConfig.MinRateCrRetry++;
+			Status = XDP_TX_TS_CLOCK_RECOVERY;
+		} else {
+			Status = XDP_TX_TS_ADJUST_LANE_COUNT;
+		}
 		break;
 	}
 
@@ -3596,6 +3622,7 @@ static XDp_TxTrainingState XDp_TxTrainingStateAdjustLaneCount(XDp *InstancePtr)
 			Status = XDP_TX_TS_FAILURE;
 			break;
 		}
+		LinkConfig->MinRateCrRetry = 0;
 		Status = XDP_TX_TS_CLOCK_RECOVERY;
 		break;
 	case XDP_TX_LANE_COUNT_SET_2:
@@ -3612,6 +3639,7 @@ static XDp_TxTrainingState XDp_TxTrainingStateAdjustLaneCount(XDp *InstancePtr)
 			Status = XDP_TX_TS_FAILURE;
 			break;
 		}
+		LinkConfig->MinRateCrRetry = 0;
 		Status = XDP_TX_TS_CLOCK_RECOVERY;
 		break;
 	default:
@@ -4219,17 +4247,19 @@ static u32 XDp_TxGetTrainingDelay(XDp *InstancePtr,
 	u8 *Dpcd = InstancePtr->TxInstance.RxConfig.DpcdRxCapsField;
 	u16 Delay;
 
+	/* Per the DP spec, the clock recovery phase always polls the link
+	 * status at 100us. TRAINING_AUX_RD_INTERVAL applies to the channel
+	 * equalization phase only.
+	 */
+	if (TrainingState == XDP_TX_TS_CLOCK_RECOVERY)
+		return 100;
+
 	switch ((Dpcd[XDP_DPCD_TRAIN_AUX_RD_INTERVAL] &
 			 XDP_DPCD_TRAIN_AUX_RD_INT_MASK)) {
 	case XDP_DPCD_TRAIN_AUX_RD_INT_100_400US:
-		if (TrainingState == XDP_TX_TS_CLOCK_RECOVERY) {
-			/* Delay for the clock recovery phase. */
-			Delay = 100;
-		}
-		else {
-			/* Delay for the channel equalization phase. */
-			Delay = 400;
-		}
+		/* Delay for the channel equalization phase; clock recovery
+		 * already returned above. */
+		Delay = 400;
 		break;
 	case XDP_DPCD_TRAIN_AUX_RD_INT_4MS:
 		Delay = 4000;
