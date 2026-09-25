@@ -127,6 +127,16 @@ XStatus XPm_GetRpuDevice(const XPm_Device **Rpu0Device,const XPm_Device **Rpu1De
 u32 XPm_CombTcm(const u32 Id, const u32 Mode);
 XStatus XPm_IsMemAddressValid(u32 SubsystemId, u64 RegionAddr, u64 RegionSize);
 
+/**
+ * @def DDRMC_VALIDATION_LIST_MAX
+ * @brief Maximum number of entries in the DDRMC validation list.
+ */
+#ifdef PLM_ENABLE_PLM_TO_PLM_COMM
+#define DDRMC_VALIDATION_LIST_MAX	(MAX_PLAT_DDRMC_COUNT * 2U)
+#else
+#define DDRMC_VALIDATION_LIST_MAX	MAX_PLAT_DDRMC_COUNT
+#endif
+
 /* DDRMC validation list -- populated by PldMemCtrlrMap, read by XPm_IsMemAddressValid */
 extern const XPm_MemCtrlrDevice *DdrmcValidationList[];
 extern u8 DdrmcValidationCount;

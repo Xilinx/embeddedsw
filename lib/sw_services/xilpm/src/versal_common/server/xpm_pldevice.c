@@ -46,15 +46,6 @@
  * not invalidated during PLD teardown. XPm_IsMemAddressValid() relies on
  * this lifecycle contract when treating remote entries as valid DDR topology.
  */
-/**
- * @def DDRMC_VALIDATION_LIST_MAX
- * @brief Maximum number of entries in the DDRMC validation list.
- */
-#ifdef PLM_ENABLE_PLM_TO_PLM_COMM
-#define DDRMC_VALIDATION_LIST_MAX	(MAX_PLAT_DDRMC_COUNT * 2U)
-#else
-#define DDRMC_VALIDATION_LIST_MAX	MAX_PLAT_DDRMC_COUNT
-#endif
 const XPm_MemCtrlrDevice *DdrmcValidationList[DDRMC_VALIDATION_LIST_MAX];
 u8 DdrmcValidationCount = 0U;
 

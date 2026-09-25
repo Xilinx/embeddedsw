@@ -938,6 +938,16 @@ XStatus XPmUpdate_RestoreAllNodes(void)
 			goto done;
 		}
 	}
+	/*
+	 * Rebuild the DDRMC validation list. It is normally built while the PL
+	 * design CDO is processed, which does not happen on an update, so it
+	 * must be reconstructed from the just-restored DDRMC nodes.
+	 */
+	Status = XPmPlDevice_RebuildDdrmcValidationList();
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
+
 	/* Restore Error Event Nodes */
 	Status = XPmNotifier_RestoreErrorEvents();
 done:

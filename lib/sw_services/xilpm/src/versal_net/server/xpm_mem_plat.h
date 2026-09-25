@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2019 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All rights reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -33,6 +33,8 @@ maybe_unused static inline void XPm_AssignDdrFsm(XPm_MemDevice *MemDevice)
 	(void)MemDevice;
 	return;
 }
+
+XStatus XPmPlDevice_RebuildDdrmcValidationList(void);
 
 #ifdef __cplusplus
 }
