@@ -426,6 +426,19 @@ void XDp_TxCfgMsaUseEdidPreferredTiming(XDp *InstancePtr, u8 Stream, u8 *Edid)
 					MsaConfig->Vtm.Timing.VActive +
 					MsaConfig->Vtm.Timing.F0PVBackPorch);
 
+	if ((MsaConfig->Vtm.Timing.HTotal == 0) ||
+			(MsaConfig->Vtm.Timing.F0PVTotal == 0)) {
+		/* Malformed/zeroed EDID PTM would divide by zero; fall back to
+		 * a safe default video mode instead. */
+		memcpy(&MsaConfig->Vtm,
+			XVidC_GetVideoModeData(XVIDC_VM_640x480_60_P),
+			sizeof(XVidC_VideoTimingMode));
+		MsaConfig->PixelClockHz =
+				XVidC_GetPixelClockHzByVmId(MsaConfig->Vtm.VmId);
+		XDp_TxCfgMsaRecalculate(InstancePtr, Stream);
+		return;
+	}
+
 	MsaConfig->Vtm.FrameRate = MsaConfig->PixelClockHz /
 					(MsaConfig->Vtm.Timing.HTotal *
 					MsaConfig->Vtm.Timing.F0PVTotal);
