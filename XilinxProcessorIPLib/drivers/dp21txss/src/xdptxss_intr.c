@@ -174,6 +174,7 @@ void XDpTxSs_HpdEventProcess(void *InstancePtr)
 	u8 max_cap_local = 0;
 	u8 ext_dpcd_rd = 0;
 	u8 Dpcd_ext [16];
+	u8 lttpr_cap[10];
 	XDpTxSs *XDpTxSsPtr = (XDpTxSs *)InstancePtr;
 
 	/* Verify arguments. */
@@ -183,6 +184,13 @@ void XDpTxSs_HpdEventProcess(void *InstancePtr)
 
 	if (XDp_TxIsConnected(XDpTxSsPtr->DpPtr)) {
 		/* From here is the requirement per DP spec */
+
+		/* CTS requires the PHY Repeater (LTTPR) capability at
+		 * F0000h-F0009h to be read as the first AUX transaction after
+		 * HPD, in a single transaction, before any other DPCD.
+		 */
+		Status |= XDp_TxAuxRead(XDpTxSsPtr->DpPtr,
+				XDP_DPCD_LTTPR_CAPABILITY, 10, lttpr_cap);
 
 		Status |= XDp_TxAuxRead(XDpTxSsPtr->DpPtr,
 				XDP_DPCD_TRAIN_AUX_RD_INTERVAL, 1, &ext_cap);
