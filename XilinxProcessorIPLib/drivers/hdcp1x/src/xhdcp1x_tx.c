@@ -2271,6 +2271,9 @@ u8 *XHdcp1x_TxGetTopologyKSVList(XHdcp1x *InstancePtr)
 
 	memset(DeviceList[0],0,(32*5));
 	DeviceCnt = InstancePtr->RepeaterValues.DeviceCount;
+	if (DeviceCnt > XHDCP1X_RPTR_MAX_DEVS_COUNT) {
+		DeviceCnt = XHDCP1X_RPTR_MAX_DEVS_COUNT;
+	}
 
 	for(i=0;i<DeviceCnt;i++) {
 		memcpy(&DeviceList[i][0],
@@ -2494,8 +2497,8 @@ static int XHdcp1x_TxSetRepeaterInfo(XHdcp1x *InstancePtr)
 	u8 Bksv[8];
 	u32 KsvCount = 0;
 
-	/* Check for repeater */
-	if (XHdcp1x_PortIsRepeater(InstancePtr)) {
+	/* Use the BCAPS result cached in Tx.Flags; do not re-read the sink. */
+	if ((InstancePtr->Tx.Flags & XVPHY_FLAG_IS_REPEATER) != 0) {
 #if (defined(XPAR_XV_HDMITX_NUM_INSTANCES) && \
      (XPAR_XV_HDMITX_NUM_INSTANCES > 0)) || \
     (defined(XPAR_XV_HDMITX1_NUM_INSTANCES) && \
@@ -2559,7 +2562,7 @@ static int XHdcp1x_TxSetRepeaterInfo(XHdcp1x *InstancePtr)
 
 		/* Copy the device count read from
 		 * the downstream HDCP device */
-		if ((Buf & 0x007Fu) > XHDCP1X_RPTR_MAX_DEVS_COUNT) {
+		if ((Buf & 0x007Fu) >= XHDCP1X_RPTR_MAX_DEVS_COUNT) {
 			XHdcp1x_TxDebugLog(InstancePtr,
 				"Repeater maximum devices exceeded");
 			return XST_FAILURE;
@@ -2579,7 +2582,7 @@ static int XHdcp1x_TxSetRepeaterInfo(XHdcp1x *InstancePtr)
 
 		/* Copy the device count read from
 		 * the downstream HDCP device */
-		if ((RepeaterInfo & 0x007Fu) > XHDCP1X_RPTR_MAX_DEVS_COUNT) {
+		if ((RepeaterInfo & 0x007Fu) >= XHDCP1X_RPTR_MAX_DEVS_COUNT) {
 			XHdcp1x_TxDebugLog(InstancePtr,
 				"Repeater maximum devices exceeded");
 			return XST_FAILURE;
