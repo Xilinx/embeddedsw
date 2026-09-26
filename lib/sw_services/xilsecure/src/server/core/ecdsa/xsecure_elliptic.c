@@ -61,6 +61,7 @@
 *       mb   05/23/24 Added P224 urve support
 * 5.7   mb   04/17/26 Update crypto check for AES/SHA/RSA
 * 5.8   ks   08/26/26 Store the generated public key only on success
+* 5.8   rap  07/20/26 Updated input parameter validations
 *
 * </pre>
 *
@@ -443,7 +444,8 @@ int XSecure_EllipticGenerateSignature(XSecure_EllipticCrvTyp CrvType,
 		goto END;
 	}
 
-	if (HashLen > XSECURE_ECC_P521_SIZE_IN_BYTES) {
+	/** - Return XSECURE_ELLIPTIC_INVALID_PARAM if HashLen is zero */
+	if ((HashLen == 0U) || (HashLen > XSECURE_ECC_P521_SIZE_IN_BYTES)) {
 		Status = (int)XSECURE_ELLIPTIC_INVALID_PARAM;
 		goto END;
 	}
@@ -785,7 +787,8 @@ int XSecure_EllipticVerifySign(XSecure_EllipticCrvTyp CrvType, const u8 *Hash,
 		goto END;
 	}
 
-	if (HashLen > XSECURE_ECC_P521_SIZE_IN_BYTES) {
+	/** - Return XSECURE_ELLIPTIC_INVALID_PARAM if HashLen is zero */
+	if ((HashLen == 0U) || (HashLen > XSECURE_ECC_P521_SIZE_IN_BYTES)) {
 		Status = (int)XSECURE_ELLIPTIC_INVALID_PARAM;
 		goto END;
 	}

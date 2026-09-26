@@ -23,6 +23,7 @@
 * 5.4   yog  04/29/24 Fixed doxygen warnings.
 *       pre  08/16/24 Added SSIT support
 * 5.7   tbk  03/16/26 Added SMC support
+* 5.8   rap  07/20/26 Updated input parameter validations
 *
 * </pre>
 *
@@ -238,6 +239,12 @@ int XSecure_EllipticSignVerifyKat(XSecure_ClientInstance *InstancePtr, XSecure_E
 		goto END;
 	}
 
+	/** - Return XST_INVALID_PARAM if CurveClass range invalid */
+	if ((CurveClass != XSECURE_ECC_PRIME) && (CurveClass != XSECURE_ECC_BINARY)) {
+		Status = XST_INVALID_PARAM;
+		goto END;
+	}
+
 	/** - Fill Payload */
 	XSECURE_PACK_PAYLOAD2(Payload, ((InstancePtr->SlrIndex << XSECURE_SLR_INDEX_SHIFT)
 				| XSECURE_API_KAT),
@@ -359,6 +366,12 @@ int XSecure_EllipticSignGenKat(XSecure_ClientInstance *InstancePtr, XSecure_EccC
 	 *   are invalid
 	 */
 	if (InstancePtr == NULL) {
+		Status = XST_INVALID_PARAM;
+		goto END;
+	}
+
+	/** - Return XST_INVALID_PARAM if CurveClass range invalid */
+	if ((CurveClass != XSECURE_ECC_PRIME) && (CurveClass != XSECURE_ECC_BINARY)) {
 		Status = XST_INVALID_PARAM;
 		goto END;
 	}

@@ -34,6 +34,7 @@
 *       hj   10/03/24 Removed XSecure_InputSlrIndex function as it is duplicate of
 *                     XSecure_SetSlrIndex
 * 5.8   tus  08/21/26 Added optional Response argument to XSecure_ProcessMailbox
+*       rap  07/20/26 Updated input parameter validations
 *
 * </pre>
 *
@@ -70,6 +71,7 @@
  *
  * @return
  *		 - XST_SUCCESS  If the IPI send and receive is successful
+ *		 - XST_INVALID_PARAM  On invalid input parameter
  *		 - XST_FAILURE  If there is a failure
  *		 - Response status word received from the server
  *
@@ -90,6 +92,13 @@ int XSecure_ProcessMailbox(XMailbox *MailboxPtr, u32 *MsgPtr, u32 MsgLen, u32 *R
 	 */
 	if (RespPtr == NULL) {
 		RespPtr = LocalResp;
+	}
+
+	/** - Return XST_INVALID_PARAM if NULL pointer and MsgLen range validation failed */
+	if ((MailboxPtr == NULL) || (MsgPtr == NULL) ||
+	    (MsgLen == 0U) || (MsgLen > PAYLOAD_ARG_CNT)) {
+		Status = XST_INVALID_PARAM;
+		goto END;
 	}
 
 	/**
@@ -123,25 +132,25 @@ END:
 * @brief	This function sets the instance of mailbox
 *
 * @param	InstancePtr	Pointer to the client instance
-* @param	MailboxPtr	Pointer to the mailbox instance
+* @param	MailboxPtr	Pointer to the mailbox instance.
 *
 * @return
 *		 - XST_SUCCESS  On successful initialization
-*		 - XST_FAILURE  On failure
+*		 - XST_INVALID_PARAM  On invalid input parameter
 *
 ******************************************************************************/
 int XSecure_ClientInit(XSecure_ClientInstance* const InstancePtr, XMailbox* const MailboxPtr)
 {
-	int Status = XST_FAILURE;
+	int Status = XST_INVALID_PARAM;
 
 	/**
 	 * - Set XMailbox instance provided by the user to client library instance by
 	 *   validating whether provided client instance is not NULL.
 	 */
-	if (InstancePtr != NULL){
-			InstancePtr->MailboxPtr = MailboxPtr;
-			InstancePtr->SlrIndex = 0U;
-			Status = XST_SUCCESS;
+	if (InstancePtr != NULL) {
+		InstancePtr->MailboxPtr = MailboxPtr;
+		InstancePtr->SlrIndex = 0U;
+		Status = XST_SUCCESS;
 	}
 
 	return Status;

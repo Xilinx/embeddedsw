@@ -25,6 +25,7 @@
 * 5.7   tvp      02/23/26 Use XSecure_ShaPlatConfig, platform specific SHA configurations
 *       tvp      02/23/26 Handle XSECURE_SHAKE_256_SLH_DSA_CHAIN enum value
 *       rpu      04/22/26 Fix XSecure_GetRandomNum for non-word-aligned sizes
+* 5.8   rap      09/09/26 Return XSECURE_AES_INVALID_PARAM when AES Size is 0
 * </pre>
 *
 ******************************************************************************/
@@ -258,12 +259,19 @@ void XSecure_ConfigureDmaByteSwap(u32 Op)
  *
  * @return
  *		- XST_SUCCESS - On success
+ *		- XSECURE_AES_INVALID_PARAM - Size is zero
  *		- XSECURE_AES_UNALIGNED_SIZE_ERROR - Size is not 16-byte aligned for non-last chunk
  *
  ******************************************************************************/
 int XSecure_AesValidateSize(u32 Size, u8 IsLastChunk)
 {
 	int Status = XST_FAILURE;
+
+	/** - Return XSECURE_AES_INVALID_PARAM if Size is zero */
+	if (Size == 0U) {
+		Status = (int)XSECURE_AES_INVALID_PARAM;
+		goto END;
+	}
 
 	/**
 	 * - AES engine expect all intermediate updates shall be

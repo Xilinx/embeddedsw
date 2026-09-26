@@ -40,6 +40,7 @@
 * 5.7   tbk  03/16/26 Added SMC support
 * 5.8   tbk  07/06/26 Restricted IPI messaging in XSecure_AesKekDecrypt, made it
 *                     return error and deprecated the API for 2027.2 release
+*       rap  07/20/26 Updated input parameter validations
 *
 * </pre>
 *
@@ -71,14 +72,19 @@
  *
  * @return
  *		 - XST_SUCCESS  If the initialization is successful
+ *		 - XSECURE_AES_INVALID_PARAM  If any input parameter is invalid
  *		 - XST_FAILURE  If there is a failure
  *
  ******************************************************************************/
 int XSecure_AesInitialize(XSecure_ClientInstance *InstancePtr)
 {
 	volatile int Status = XST_FAILURE;
-
+	/**
+	 * - Perform input parameter validation on InstancePtr.
+	 * Return XSECURE_AES_INVALID_PARAM if input parameters are invalid.
+	 */
 	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
+		Status = XSECURE_AES_INVALID_PARAM;
 		goto END;
 	}
 
@@ -98,6 +104,7 @@ END:
  *
  * @return
  *		 - XST_SUCCESS  If the Encrypt init is successful
+ *		 - XSECURE_AES_INVALID_PARAM  If any input parameter is invalid
  *		 - XST_FAILURE  If there is a failure
  *
  ******************************************************************************/
@@ -110,9 +117,18 @@ int XSecure_AesEncryptInit(XSecure_ClientInstance *InstancePtr, XSecure_AesKeySo
 	u32 Payload[PAYLOAD_ARG_CNT];
 
 	/**
-	 * - Perform input parameter validation on InstancePtr. Return XST_FAILURE if input parameters are invalid
+	 * - Perform input parameter validation on InstancePtr.
+	 * Return XSECURE_AES_INVALID_PARAM if input parameters are invalid
 	 */
 	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
+		Status = XSECURE_AES_INVALID_PARAM;
+		goto END;
+	}
+
+	/** - Return XSECURE_AES_INVALID_PARAM if size of the key is not 128 or 256 bits */
+	if ((Size != (u32)XSECURE_AES_KEY_SIZE_128) &&
+		(Size != (u32)XSECURE_AES_KEY_SIZE_256)) {
+		Status = XSECURE_AES_INVALID_PARAM;
 		goto END;
 	}
 
@@ -160,6 +176,7 @@ END:
  *
  * @return
  *		 - XST_SUCCESS  If the Decrypt init is successful
+ *		 - XSECURE_AES_INVALID_PARAM  If any input parameter is invalid
  *		 - XST_FAILURE  If there is a failure
  *
  ******************************************************************************/
@@ -172,9 +189,18 @@ int XSecure_AesDecryptInit(XSecure_ClientInstance *InstancePtr, XSecure_AesKeySo
 	u32 Payload[PAYLOAD_ARG_CNT];
 
 	/**
-	 * - Perform input parameter validation on InstancePtr. Return XST_FAILURE if input parameters are invalid
+	 * - Perform input parameter validation on InstancePtr.
+	 * Return XSECURE_AES_INVALID_PARAM if input parameters are invalid
 	 */
 	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
+		Status = XSECURE_AES_INVALID_PARAM;
+		goto END;
+	}
+
+	/** - Return XSECURE_AES_INVALID_PARAM if size of the key is not 128 or 256 bits */
+	if ((Size != (u32)XSECURE_AES_KEY_SIZE_128) &&
+		(Size != (u32)XSECURE_AES_KEY_SIZE_256)) {
+		Status = XSECURE_AES_INVALID_PARAM;
 		goto END;
 	}
 
@@ -220,6 +246,7 @@ END:
  *
  * @return
  *		 - XST_SUCCESS  If the Aad update is successful
+ *		 - XSECURE_AES_INVALID_PARAM  If any input parameter is invalid
  *		 - XST_FAILURE  If there is a failure
  *
  ******************************************************************************/
@@ -227,9 +254,18 @@ int XSecure_AesUpdateAad(XSecure_ClientInstance *InstancePtr, u64 AadAddr, u32 A
 {
 	volatile int Status = XST_FAILURE;
 
-	/** - Send an IPI request to update AAD to AES engine with LastChunk as FALSE */
-	Status = XSecure_AesGmacUpdateAad(InstancePtr, AadAddr, AadSize, FALSE);
+	/**
+	 * - Perform input parameter validation on InstancePtr.
+	 * Return XSECURE_AES_INVALID_PARAM if input parameters are invalid
+	 */
+	if ((InstancePtr == NULL) || (AadSize == 0U)) {
+		Status = XSECURE_AES_INVALID_PARAM;
+		goto END;
+	}
 
+	/** Send an IPI request to update AAD to AES engine with LastChunk as FALSE */
+	Status = XSecure_AesGmacUpdateAad(InstancePtr, AadAddr, AadSize, FALSE);
+END:
 	return Status;
 }
 
@@ -245,6 +281,7 @@ int XSecure_AesUpdateAad(XSecure_ClientInstance *InstancePtr, u64 AadAddr, u32 A
  *
  * @return
  *		 - XST_SUCCESS  If the Aad update is successful
+ *		 - XSECURE_AES_INVALID_PARAM  If any input parameter is invalid
  *		 - XST_FAILURE  If there is a failure
  *
  * @note
@@ -259,10 +296,23 @@ int XSecure_AesGmacUpdateAad(XSecure_ClientInstance *InstancePtr, u64 AadAddr, u
 	u32 Payload[PAYLOAD_ARG_CNT];
 
 	/**
-	 * - Perform input parameter validation on InstancePtr. Return XST_FAILURE if input parameters
-	 * are invalid
+	 * - Perform input parameter validation on InstancePtr.
+	 * Return XSECURE_AES_INVALID_PARAM if input parameters are invalid
 	 */
 	if (InstancePtr == NULL) {
+		Status = XSECURE_AES_INVALID_PARAM;
+		goto END;
+	}
+
+	/** - Return XSECURE_AES_INVALID_PARAM if AadSize is zero */
+	if (AadSize == 0U) {
+		Status = XSECURE_AES_INVALID_PARAM;
+		goto END;
+	}
+
+	/** - Return XSECURE_AES_INVALID_PARAM if IsLastChunkSrc is not TRUE or FALSE */
+	if ((IsLastChunkSrc != (u32)TRUE) && (IsLastChunkSrc != (u32)FALSE)) {
+		Status = XSECURE_AES_INVALID_PARAM;
 		goto END;
 	}
 
@@ -300,6 +350,7 @@ END:
  *
  * @return
  *		 - XST_SUCCESS  On successful encryption of the data
+ *		 - XSECURE_AES_INVALID_PARAM  If any input parameter is invalid
  *		 - XST_FAILURE  On failure
  *
  *****************************************************************************/
@@ -313,12 +364,25 @@ int XSecure_AesEncryptUpdate(XSecure_ClientInstance *InstancePtr, u64 InDataAddr
 	u32 Payload[PAYLOAD_ARG_CNT];
 
 	/**
-	 * - Perform input parameter validation on InstancePtr. Return XST_FAILURE if input parameters are invalid
+	 * - Perform input parameter validation on InstancePtr.
+	 * Return XSECURE_AES_INVALID_PARAM if input parameters are invalid
 	 */
 	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
+		Status = XSECURE_AES_INVALID_PARAM;
 		goto END;
 	}
 
+	/** - Return XSECURE_AES_INVALID_PARAM if Size is zero */
+	if (Size == 0U) {
+		Status = XSECURE_AES_INVALID_PARAM;
+		goto END;
+	}
+
+	/** - Return XSECURE_AES_INVALID_PARAM if IsLast is not TRUE or FALSE */
+	if ((IsLast != (u32)TRUE) && (IsLast != (u32)FALSE)) {
+		Status = XSECURE_AES_INVALID_PARAM;
+		goto END;
+	}
 	/**
 	 * - Link shared memory of size EncInAddr to EncInAddr structure for IPI usage.
 	 * - Validates the size of the shared memory whether the required size is available or not.
@@ -365,6 +429,7 @@ END:
  *
  * @return
  *		 - XST_SUCCESS  On successful encryption of the data
+ *		 - XSECURE_AES_INVALID_PARAM  If any input parameter is invalid
  *		 - XST_FAILURE  On failure
  *
  *****************************************************************************/
@@ -374,10 +439,11 @@ int XSecure_AesEncryptFinal(XSecure_ClientInstance *InstancePtr, u64 GcmTagAddr)
 	u32 Payload[PAYLOAD_ARG_CNT];
 
 	/**
-	 * - Perform input parameter validation on InstancePtr. Return XST_FAILURE if input parameters
-	 * are invalid
+	 * - Perform input parameter validation on InstancePtr.
+	 * Return XSECURE_AES_INVALID_PARAM if input parameters are invalid
 	 */
 	if (InstancePtr == NULL) {
+		Status = XSECURE_AES_INVALID_PARAM;
 		goto END;
 	}
 
@@ -413,6 +479,7 @@ END:
  *
  * @return
  *		 - XST_SUCCESS  On successful decryption of the data
+ *		 - XSECURE_AES_INVALID_PARAM  If any input parameter is invalid
  *		 - XST_FAILURE  On failure
  *
  *****************************************************************************/
@@ -426,12 +493,25 @@ int XSecure_AesDecryptUpdate(XSecure_ClientInstance *InstancePtr, u64 InDataAddr
 	u32 Payload[PAYLOAD_ARG_CNT];
 
 	/**
-	 * - Perform input parameter validation on InstancePtr. Return XST_FAILURE if input parameters are invalid
+	 * - Perform input parameter validation on InstancePtr.
+	 * Return XSECURE_AES_INVALID_PARAM if input parameters are invalid
 	 */
-	if (InstancePtr == NULL) {
+	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
+		Status = XSECURE_AES_INVALID_PARAM;
 		goto END;
 	}
 
+	/** - Return XSECURE_AES_INVALID_PARAM if Size is zero */
+	if (Size == 0U) {
+		Status = XSECURE_AES_INVALID_PARAM;
+		goto END;
+	}
+
+	/** - Return XSECURE_AES_INVALID_PARAM if IsLast is not TRUE or FALSE */
+	if ((IsLast != (u32)TRUE) && (IsLast != (u32)FALSE)) {
+		Status = XSECURE_AES_INVALID_PARAM;
+		goto END;
+	}
 	/**
 	 * - Link shared memory of size DecInParams to DecInParams structure for IPI usage.
 	 *   Validates the size of the shared memory whether the required size is available or not.
@@ -477,6 +557,7 @@ END:
  *
  * @return
  *		 - XST_SUCCESS  On successful encryption of the data
+ *		 - XSECURE_AES_INVALID_PARAM  If any input parameter is invalid
  *		 - XST_FAILURE  On failure
  *
  *****************************************************************************/
@@ -486,10 +567,11 @@ int XSecure_AesDecryptFinal(XSecure_ClientInstance *InstancePtr, u64 GcmTagAddr)
 	u32 Payload[PAYLOAD_ARG_CNT];
 
 	/**
-	 * - Perform input parameter validation on InstancePtr. Return XST_FAILURE if input parameters
-	 * are invalid
+	 * - Perform input parameter validation on InstancePtr.
+	 * Return XSECURE_AES_INVALID_PARAM if input parameters are invalid
 	 */
 	if (InstancePtr == NULL) {
+		Status = XSECURE_AES_INVALID_PARAM;
 		goto END;
 	}
 
@@ -518,6 +600,7 @@ END:
  *
  * @return
  *		 - XST_SUCCESS  When key zeroization is success
+ *		 - XSECURE_AES_INVALID_PARAM  If any input parameter is invalid
  *		 - XST_FAILURE  On failure
  *
  ******************************************************************************/
@@ -527,10 +610,11 @@ int XSecure_AesKeyZero(XSecure_ClientInstance *InstancePtr, XSecure_AesKeySource
 	u32 Payload[PAYLOAD_ARG_CNT];
 
 	/**
-	 * - Perform input parameter validation on InstancePtr. Return XST_FAILURE if input parameters
-	 * are invalid
+	 * - Perform input parameter validation on InstancePtr.
+	 * Return XSECURE_AES_INVALID_PARAM if input parameters are invalid
 	 */
 	if (InstancePtr == NULL) {
+		Status = XSECURE_AES_INVALID_PARAM;
 		goto END;
 	}
 
@@ -562,6 +646,7 @@ END:
  *
  * @return
  *		 - XST_SUCCESS  On successful key written on AES registers
+ *		 - XSECURE_AES_INVALID_PARAM  If any input parameter is invalid
  *		 - XST_FAILURE  On failure
  *
  ******************************************************************************/
@@ -572,10 +657,18 @@ int XSecure_AesWriteKey(XSecure_ClientInstance *InstancePtr, XSecure_AesKeySourc
 	u32 Payload[PAYLOAD_ARG_CNT];
 
 	/**
-	 * - Perform input parameter validation on InstancePtr. Return XST_FAILURE if input parameters
-	 * are invalid
+	 * - Perform input parameter validation on InstancePtr.
+	 * Return XSECURE_AES_INVALID_PARAM if input parameters are invalid
 	 */
 	if (InstancePtr == NULL) {
+		Status = XSECURE_AES_INVALID_PARAM;
+		goto END;
+	}
+
+	/** - Return XSECURE_AES_INVALID_PARAM if key size is not 128 or 256 */
+	if ((Size != (u32)XSECURE_AES_KEY_SIZE_128) &&
+		(Size != (u32)XSECURE_AES_KEY_SIZE_256)) {
+		Status = (int)XSECURE_AES_INVALID_PARAM;
 		goto END;
 	}
 
@@ -641,6 +734,7 @@ int XSecure_AesKekDecrypt(XSecure_ClientInstance *InstancePtr, u64 IvAddr,
  *
  * @return
  *		 - XST_SUCCESS  If configuration is success
+ *		 - XSECURE_AES_INVALID_PARAM  If any input parameter is invalid
  *		 - XST_FAILURE  If there is a failure
  *
  ******************************************************************************/
@@ -654,6 +748,13 @@ int XSecure_AesSetDpaCm(XSecure_ClientInstance *InstancePtr, u8 DpaCmCfg)
 	 * are invalid
 	 */
 	if (InstancePtr == NULL) {
+		Status = XSECURE_AES_INVALID_PARAM;
+		goto END;
+	}
+
+	/** - Return XSECURE_AES_INVALID_PARAM if DpaCmCfg is not TRUE or FALSE */
+	if ((DpaCmCfg != (u8)TRUE) && (DpaCmCfg != (u8)FALSE)) {
+		Status = XSECURE_AES_INVALID_PARAM;
 		goto END;
 	}
 
@@ -689,6 +790,7 @@ END:
  *
  * @return
  *		 - XST_SUCCESS  On success
+ *		 - XSECURE_AES_INVALID_PARAM  If any input parameter is invalid
  *		 - XST_FAILURE  On failure
  *
  ******************************************************************************/
@@ -701,7 +803,18 @@ int XSecure_AesEncryptData(XSecure_ClientInstance *InstancePtr, XSecure_AesKeySo
 	u32 MemSize;
 	u32 Payload[PAYLOAD_ARG_CNT];
 
+	/**
+	 * - Perform input parameter validation on InstancePtr.
+	 * Return XSECURE_AES_INVALID_PARAM if input parameters are invalid
+	 */
 	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
+		Status = XSECURE_AES_INVALID_PARAM;
+		goto END;
+	}
+
+	/** - Return XSECURE_AES_INVALID_PARAM if Size is zero */
+	if (Size == 0U) {
+		Status = XSECURE_AES_INVALID_PARAM;
 		goto END;
 	}
 
@@ -767,6 +880,7 @@ END:
  *
  * @return
  *		 - XST_SUCCESS  On success
+ *		 - XSECURE_AES_INVALID_PARAM  If any input parameter is invalid
  *		 - XST_FAILURE  On failure
  *
  ******************************************************************************/
@@ -779,7 +893,18 @@ int XSecure_AesDecryptData(XSecure_ClientInstance *InstancePtr, XSecure_AesKeySo
 	u32 MemSize;
 	u32 Payload[PAYLOAD_ARG_CNT];
 
+	/**
+	 * - Perform input parameter validation on InstancePtr.
+	 * Return XSECURE_AES_INVALID_PARAM if input parameters are invalid
+	 */
 	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
+		Status = XSECURE_AES_INVALID_PARAM;
+		goto END;
+	}
+
+	/** - Return XSECURE_AES_INVALID_PARAM if Size is zero */
+	if (Size == 0U) {
+		Status = XSECURE_AES_INVALID_PARAM;
 		goto END;
 	}
 
@@ -851,7 +976,17 @@ int XSecure_AesPerformOperation(const XSecure_ClientInstance *InstancePtr,
 	u32 MemSize;
 	u32 Payload[PAYLOAD_ARG_CNT];
 
+	/**
+	 * - Perform input parameter validation on InstancePtr.
+	 * Return XSECURE_AES_INVALID_PARAM if input parameters are invalid
+	 */
 	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
+		Status = XSECURE_AES_INVALID_PARAM;
+		goto END;
+	}
+
+	/** - Return XSECURE_AES_INVALID_PARAM if AesDataParams is NULL */
+	if (AesDataParams == NULL) {
 		Status = XSECURE_AES_INVALID_PARAM;
 		goto END;
 	}

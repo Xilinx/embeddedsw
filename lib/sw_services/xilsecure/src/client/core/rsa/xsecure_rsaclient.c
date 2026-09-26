@@ -31,6 +31,7 @@
 * 5.4   yog  04/29/24 Fixed doxygen warnings.
 *       pre  08/29/24 APIs are updated for SSIT support
 * 5.7   tbk  03/16/26 Added SMC support
+* 5.8   rap  07/20/26 Updated input parameter validations
 *
 * </pre>
 *
@@ -59,6 +60,7 @@
  *
  * @return
  *		 - XST_SUCCESS  If the update is successful
+ *		 - XST_INVALID_PARAM  On invalid input parameter
  *		 - XST_FAILURE  If there is a failure
  *
  ******************************************************************************/
@@ -72,12 +74,20 @@ int XSecure_RsaPrivateDecrypt(XSecure_ClientInstance *InstancePtr, const u64 Key
 	u32 Payload[PAYLOAD_ARG_CNT];
 
 	/**
-	 * - Perform input parameter validation on InstancePtr. Return XST_FAILURE if input parameters are invalid
+	 * - Return XST_INVALID_PARAM if InstancePtr or its MailboxPtr is NULL
 	 */
 	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
+		Status = XST_INVALID_PARAM;
 		goto END;
 	}
 
+	/** - Return XST_INVALID_PARAM if Size is a unsupported RSA key size */
+	if ((Size != XSECURE_RSA_2048_KEY_SIZE) &&
+	    (Size != XSECURE_RSA_3072_KEY_SIZE) &&
+	    (Size != XSECURE_RSA_4096_KEY_SIZE)) {
+		Status = XST_INVALID_PARAM;
+		goto END;
+	}
 	/**
 	 * - Link shared memory of size RsaParams to RsaParams structure for IPI usage.
 	 *   Validates the size of the shared memory whether the required size is available or not.
@@ -130,6 +140,7 @@ END:
  *
  * @return
  *		 - XST_SUCCESS  If encryption was successful
+ *		 - XST_INVALID_PARAM  On invalid input parameter
  *		 - XST_FAILURE  If there is a failure
  *
  ******************************************************************************/
@@ -143,12 +154,20 @@ int XSecure_RsaPublicEncrypt(XSecure_ClientInstance *InstancePtr, const u64 KeyA
 	u32 Payload[PAYLOAD_ARG_CNT];
 
 	/**
-	 * - Perform input parameter validation on InstancePtr. Return XST_FAILURE if input parameters are invalid
+	 * - Return XST_INVALID_PARAM if InstancePtr or its MailboxPtr is NULL
 	 */
 	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
+		Status = XST_INVALID_PARAM;
 		goto END;
 	}
 
+	/** - Return XST_INVALID_PARAM if Size is a unsupported RSA key size */
+	if ((Size != XSECURE_RSA_2048_KEY_SIZE) &&
+	    (Size != XSECURE_RSA_3072_KEY_SIZE) &&
+	    (Size != XSECURE_RSA_4096_KEY_SIZE)) {
+		Status = XST_INVALID_PARAM;
+		goto END;
+	}
 	/**
 	 * - Link shared memory of size RsaParams to RsaParams structure for IPI usage.
 	 *   Validates the size of the shared memory whether the required size is available or not.
@@ -198,6 +217,7 @@ END:
  *
  * @return
  *		 - XST_SUCCESS  If decryption was successful
+ *		 - XST_INVALID_PARAM  On invalid input parameter
  *		 - XST_FAILURE  In case of mismatch
  *
  *****************************************************************************/
@@ -211,12 +231,18 @@ int XSecure_RsaSignVerification(XSecure_ClientInstance *InstancePtr, const u64 S
 	volatile u32 Payload[PAYLOAD_ARG_CNT] = {0U};
 
 	/**
-	 * - Perform input parameter validation on InstancePtr. Return XST_FAILURE if input parameters are invalid
+	 * - Return XST_INVALID_PARAM if InstancePtr or its MailboxPtr is NULL
 	 */
 	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
+		Status = XST_INVALID_PARAM;
 		goto END;
 	}
 
+	/** - Return XST_INVALID_PARAM if Size is not the supported SHA3 hash length */
+	if (Size != XSECURE_HASH_TYPE_SHA3) {
+		Status = XST_INVALID_PARAM;
+		goto END;
+	}
 	/**
 	 * - Link shared memory of size SignParams to SignParams structure for IPI usage.
 	 *   Validates the size of the shared memory whether the required size is available or not.

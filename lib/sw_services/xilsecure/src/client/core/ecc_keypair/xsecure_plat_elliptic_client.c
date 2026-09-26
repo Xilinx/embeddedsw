@@ -22,6 +22,7 @@
 *       yog  03/18/25 Defined a structure and updated the ECDH input params to that structure.
 * 5.7   tvp  04/30/26 Added XSecure_EllipticPrivateKeyGenerate
 * 5.8   tus  08/21/26 Updated XSecure_ProcessMailbox call for the added response argument
+*       rap  09/09/26 Restricted GenSharedSecret curve types to P-256/P-384/P-521
 *
 * </pre>
 *
@@ -55,7 +56,7 @@
  * 		Elliptic Curve Diffie–Hellman Key Exchange (ECDH)
  *
 * @param	InstancePtr	Pointer to the client instance
-* @param	CrvType		Type of elliptic curve
+* @param	CrvType		Type of elliptic curve (P-256, P-384 or P-521)
 * @param	PrivateKey	Pointer to the private key buffer
 * @param	PublicKey	Pointer to the public key buffer
 * @param	SharedSecret	Pointer to the output buffer which shall
@@ -80,6 +81,23 @@ int XSecure_GenSharedSecret(XSecure_ClientInstance *InstancePtr, u32 CrvType, co
 	u64 SharedSecretAddr = (u64)(UINTPTR)SharedSecret;
 
 	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
+		Status = XST_INVALID_PARAM;
+		goto END;
+	}
+
+	/**
+	 * - Return XST_INVALID_PARAM if CrvType is not a server-supported ECDH
+	 *   curve (P-256, P-384 or P-521)
+	 */
+	if ((CrvType != (u32)XSECURE_ECC_NIST_P256) &&
+		(CrvType != (u32)XSECURE_ECC_NIST_P384) &&
+		(CrvType != (u32)XSECURE_ECC_NIST_P521)) {
+		Status = XST_INVALID_PARAM;
+		goto END;
+	}
+
+	/** - Return XST_INVALID_PARAM if PrivateKey, PublicKey or SharedSecret is NULL */
+	if ((PrivateKey == NULL) || (PublicKey == NULL) || (SharedSecret == NULL)) {
 		Status = XST_INVALID_PARAM;
 		goto END;
 	}

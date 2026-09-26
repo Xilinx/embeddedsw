@@ -123,6 +123,7 @@
 *       tvp  09/01/2026 Fix KEK IV endianness on DMA byte-swap platforms
 *       tbk  09/15/2026 Skip AES reset on KekDecrypt param/state errors and
 *                       bound DstKeySrc before AesKeyLookupTbl access
+*       rap  09/20/2026  Updated input parameter validations
 * </pre>
 *
 ******************************************************************************/
@@ -482,7 +483,7 @@ int XSecure_AesUpdateAad(XSecure_Aes *InstancePtr, u64 AadAddr, u32 AadSize)
 	XSecure_AesDmaCfg AesDmaCfg = {0U};
 
 	/** - Validate the input arguments */
-	if ((InstancePtr == NULL) || (AadAddr == 0x00U)) {
+	if ((InstancePtr == NULL) || (AadSize == 0U)) {
 		Status = (int)XSECURE_AES_INVALID_PARAM;
 		goto END;
 	}
@@ -1377,6 +1378,7 @@ int XSecure_AesDpaCmDecryptData(const XSecure_Aes *AesInstance,
 	u32 Index;
 	u32 ReadReg = 0U;
 
+	/** - Return XSECURE_AESKAT_INVALID_PARAM if input arguments are NULL */
 	if ((KeyPtr == NULL) ||
 	   (DataPtr == NULL) ||
 	   (OutputPtr == NULL) ||
@@ -1858,7 +1860,7 @@ int XSecure_AesUpdateAadAndValidate(XSecure_Aes *InstancePtr, u64 AadAddr,
         volatile u32 GcmStatusTmp = 0U;
 
 	/** - Validate the input arguments */
-	if ((InstancePtr == NULL) || (AadAddr == 0x00U)) {
+	if ((InstancePtr == NULL) || (AadSize == 0U)) {
 		Status = (int)XSECURE_AES_INVALID_PARAM;
 		goto END;
 	}

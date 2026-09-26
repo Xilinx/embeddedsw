@@ -20,6 +20,7 @@
 *       tbk  02/24/26 Correct platform in XSecure_ECCRandInit() header comment and other typo
 *       tbk  02/23/26 Set error status in XSecure_ECCRandInit
 *       rpu  04/22/26 Fix XSecure_GetRandomNum for non-word-aligned sizes
+* 5.8   rap  09/09/26 Return XSECURE_AES_INVALID_PARAM when AES Size is 0
 * </pre>
 *
 ***************************************************************************************************/
@@ -141,12 +142,19 @@ const XSecure_ShaConfig ShaConfigTable[XSECURE_SHA_NUM_OF_INSTANCES] =
  *
  * @return
  *		- XST_SUCCESS  On successful valdation.
+ *		- XSECURE_AES_INVALID_PARAM  If Size is zero.
  *		- XSECURE_AES_UNALIGNED_SIZE_ERROR  If unaligned size is given as input.
  *
  **************************************************************************************************/
 int XSecure_AesValidateSize(u32 Size, u8 IsLastChunk)
 {
 	int Status = XST_FAILURE;
+
+	/** - Return XSECURE_AES_INVALID_PARAM if Size is zero */
+	if (Size == 0U) {
+		Status = (int)XSECURE_AES_INVALID_PARAM;
+		goto END;
+	}
 
 	/** - Validate the size is 4-byte aligned or not */
 	if ((Size % XSECURE_WORD_SIZE) != 0x00U) {

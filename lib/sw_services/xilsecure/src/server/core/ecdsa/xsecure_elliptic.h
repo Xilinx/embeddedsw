@@ -38,6 +38,8 @@
 *       mb   05/23/24 Added support for P-192 Curve
 *       mb   05/23/24 Added support for P-224 Curve
 * 5.7   tbk  03/30/26 Remove unwanted header
+* 5.8   rap  09/09/26 Removed duplicate XSECURE_ECC_P521_SIZE_IN_BYTES;
+*                     canonical definition is in xsecure_defs.h
 *
 * </pre>
 *
@@ -64,8 +66,10 @@ extern "C" {
 /************************** Constant Definitions ****************************/
 #define XSECURE_ECC_P384_SIZE_IN_BYTES	(48U)
 									/**< Size of NIST P-384 curve in bytes */
+#ifndef XSECURE_ECC_P521_SIZE_IN_BYTES
 #define XSECURE_ECC_P521_SIZE_IN_BYTES	(66U)
 									/**< Size of NIST P-521 curve in bytes */
+#endif
 #define XSECURE_ECC_P256_SIZE_IN_BYTES	(32U)
 									/**< Size of NIST P-256 curve in bytes */
 #define XSECURE_ECC_P192_SIZE_IN_BYTES	(24U)

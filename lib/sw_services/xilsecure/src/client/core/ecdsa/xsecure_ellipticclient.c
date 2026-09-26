@@ -32,6 +32,7 @@
 * 5.4   yog  04/29/24 Fixed doxygen warnings.
 *       pre  08/29/24 APIs are updated for SSIT support
 * 5.7   tbk  03/16/26 Added SMC support
+* 5.8   rap  07/20/26 Updated input parameter validations
 *
 * </pre>
 *
@@ -50,7 +51,7 @@
  * 		for a given hash and curve type
  *
  * @param	InstancePtr	Pointer to the client instance
- * @param	CurveType	Type of elliptic curve
+ * @param	CurveType	The value shall be from XSecure_EllipticCrvTyp
  * @param	HashAddr	Address of the hash for which sign has to be
  * 				generated
  * @param	Size		Length of the hash in bytes
@@ -60,6 +61,7 @@
  *
  * @return
  *		 - XST_SUCCESS  On success
+ *		 - XST_INVALID_PARAM  On invalid input parameter
  *		 - XST_FAILURE  On failure
  *
  ******************************************************************************/
@@ -73,12 +75,24 @@ int XSecure_EllipticGenerateSign(XSecure_ClientInstance *InstancePtr, u32 CurveT
 	u32 Payload[PAYLOAD_ARG_CNT];
 
 	/**
-	 * - Perform input parameter validation on InstancePtr. Return XST_FAILURE if input parameters are invalid
+	 * - Return XST_INVALID_PARAM if InstancePtr or its MailboxPtr is NULL
 	 */
 	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
+		Status = XST_INVALID_PARAM;
 		goto END;
 	}
 
+	/** - Return XST_INVALID_PARAM if CurveType is invalid enumeration range */
+	if ((CurveType < (u32)XSECURE_ECC_NIST_P192) || (CurveType > (u32)XSECURE_ECC_NIST_P521)) {
+		Status = XST_INVALID_PARAM;
+		goto END;
+	}
+
+	/** - Return XST_INVALID_PARAM if Size is zero or exceeds the maximum supported hash size */
+	if ((Size == 0U) || (Size > XSECURE_ECC_P521_SIZE_IN_BYTES)) {
+		Status = XST_INVALID_PARAM;
+		goto END;
+	}
 	/**
 	 * - Link shared memory of size EcdsaParams to EcdsaParams structure for IPI usage.
 	 *   Validates the size of the shared memory whether the required size is available or not.
@@ -129,6 +143,7 @@ END:
  *
  * @return
  *		 - XST_SUCCESS  On success
+ *		 - XST_INVALID_PARAM  On invalid input parameter
  *		 - XST_FAILURE  On failure
  *
  ******************************************************************************/
@@ -139,10 +154,18 @@ int XSecure_EllipticGenerateKey(XSecure_ClientInstance *InstancePtr, u32 CurveTy
 	u32 Payload[PAYLOAD_ARG_CNT];
 
 	/**
-	 * - Perform input parameter validation on InstancePtr. Return XST_FAILURE if input parameters
-	 *   are invalid
+	 * - Return XST_INVALID_PARAM if InstancePtr is NULL.
+	 *   MailboxPtr may be NULL for AArch64 EL1 non-secure (SMC) clients;
+	 *   XSecure_SendRequest validates the mailbox on the IPI path.
 	 */
 	if (InstancePtr == NULL) {
+		Status = XST_INVALID_PARAM;
+		goto END;
+	}
+
+	/** - Return XST_INVALID_PARAM if CurveType is invalid enumeration range */
+	if ((CurveType < (u32)XSECURE_ECC_NIST_P192) || (CurveType > (u32)XSECURE_ECC_NIST_P521)) {
+		Status = XST_INVALID_PARAM;
 		goto END;
 	}
 
@@ -175,6 +198,7 @@ END:
  *
  * @return
  *		 - XST_SUCCESS  On success
+ *		 - XST_INVALID_PARAM  On invalid input parameter
  *		 - XST_FAILURE  On failure
  *
  *****************************************************************************/
@@ -184,10 +208,16 @@ int XSecure_EllipticValidateKey(XSecure_ClientInstance *InstancePtr, u32 CurveTy
 	u32 Payload[PAYLOAD_ARG_CNT];
 
 	/**
-	 * - Perform input parameter validation on InstancePtr. Return XST_FAILURE if input parameters
-	 *   are invalid
+	 * - Return XST_INVALID_PARAM if InstancePtr is NULL
 	 */
 	if (InstancePtr == NULL) {
+		Status = XST_INVALID_PARAM;
+		goto END;
+	}
+
+	/** - Return XST_INVALID_PARAM if CurveType is invalid enumeration range */
+	if ((CurveType < (u32)XSECURE_ECC_NIST_P192) || (CurveType > (u32)XSECURE_ECC_NIST_P521)) {
+		Status = XST_INVALID_PARAM;
 		goto END;
 	}
 
@@ -222,6 +252,7 @@ END:
 
  * @return
  *		 - XST_SUCCESS  On success
+ *		 - XST_INVALID_PARAM  On invalid input parameter
  *		 - XST_FAILURE  On failure
  *
  *****************************************************************************/
@@ -235,9 +266,22 @@ int XSecure_EllipticVerifySign(XSecure_ClientInstance *InstancePtr, u32 CurveTyp
 	volatile u32 Payload[PAYLOAD_ARG_CNT] = {0U};
 
 	/**
-	 * - Perform input parameter validation on InstancePtr. Return XST_FAILURE if input parameters are invalid
+	 * - Return XST_INVALID_PARAM if InstancePtr or its MailboxPtr is NULL
 	 */
 	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
+		Status = XST_INVALID_PARAM;
+		goto END;
+	}
+
+	/** - Return XST_INVALID_PARAM if CurveType is invalid enumeration range */
+	if ((CurveType < (u32)XSECURE_ECC_NIST_P192) || (CurveType > (u32)XSECURE_ECC_NIST_P521)) {
+		Status = XST_INVALID_PARAM;
+		goto END;
+	}
+
+	/** - Return XST_INVALID_PARAM if Size is zero or exceeds the maximum supported hash size */
+	if ((Size == 0U) || (Size > XSECURE_ECC_P521_SIZE_IN_BYTES)) {
+		Status = XST_INVALID_PARAM;
 		goto END;
 	}
 

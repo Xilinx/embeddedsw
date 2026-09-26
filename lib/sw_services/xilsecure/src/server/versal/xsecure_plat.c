@@ -21,6 +21,8 @@
 *	vss  09/11/2023 Fixed Coverity warning EXPRESSION_WITH_MAGIC_NUMBERS
 *	ss   04/05/2024 Fixed doxygen warnings
 * 5.4   yog  04/29/2024 Fixed doxygen warnings.
+* 5.8   rap  07/20/2026  Updated input parameter validations
+*       rap  09/09/2026 Return XSECURE_AES_INVALID_PARAM when AES Size is 0
 *
 * </pre>
 *
@@ -137,6 +139,7 @@ const XSecure_ShaConfig ShaConfigTable[XSECURE_SHA_NUM_OF_INSTANCES] =
  *
  * @return
  *		 - XST_SUCCESS  On successful valdation
+ *		 - XSECURE_AES_INVALID_PARAM  If Size is zero
  *		 - XSECURE_AES_UNALIGNED_SIZE_ERROR  If unaligned size is given as input
  *
  ******************************************************************************/
@@ -144,11 +147,18 @@ int XSecure_AesValidateSize(u32 Size, u8 IsLastChunk)
 {
 	int Status = XST_FAILURE;
 
+	/** - Return XSECURE_AES_INVALID_PARAM if Size is zero */
+	if (Size == 0U) {
+		Status = (int)XSECURE_AES_INVALID_PARAM;
+		goto END;
+	}
+
 	/** - Validate the size is 4-byte aligned or not */
 	if ((Size % XSECURE_WORD_SIZE) != 0x00U) {
 		Status = (int)XSECURE_AES_UNALIGNED_SIZE_ERROR;
 		goto END;
 	}
+
 	/** - Validate the size is 16-byte aligned when it is last chunk */
 	if ((IsLastChunk != TRUE) &&
 		((Size % XSECURE_QWORD_SIZE) != 0x00U)) {

@@ -24,6 +24,8 @@
 *       rpu  09/26/2025 Removed status after XPlmi_LoadResourceTimeout
 *       vss  09/30/2025 Updated AES/SHA queueing macro checks.
 * 5.7   tvp  03/22/2026 Update SHA2 free for Versal_2vp_p
+* 5.8   rap  07/20/2026 Updated input parameter validations
+*
 * </pre>
 *
 ******************************************************************************/
@@ -417,15 +419,27 @@ static u32 XSecure_DataContextLost[XPLMI_MAX_CORE];
 * @param    Core is the resource which is to be freed
 *
 * @return
-*		- Always returns XST_SUCCESS
+*		- XST_SUCCESS - On success
+*		- XST_INVALID_PARAM - If Core is invalid
 *
 **********************************************************************************/
 int XSecure_MakeResFree(XPlmi_CoreType Core)
 {
-	/** - Free resource by clearing its IPI mask */
+	int Status = XST_FAILURE;
+
+	/** - Return XST_INVALID_PARAM if Core bounds before array access */
+	if (Core >= XPLMI_MAX_CORE) {
+		Status = XST_INVALID_PARAM;
+		goto END;
+	}
+
+	/** Free resource by clearing its IPI mask */
 	XSecure_ResIpiMask[Core] = XSECURE_IPI_MASK_DEF_VAL;
 
-	return XST_SUCCESS;
+	Status = XST_SUCCESS;
+
+END:
+	return Status;
 }
 
 /********************************************************************************/

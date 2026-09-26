@@ -31,6 +31,7 @@
 *                        value
 * 5.7   Nik     12/04/25  Removed UINTPTR typecast for 64bit data
 *       rpu     04/22/26 Fix XSecure_GetRandomNum for non-word-aligned sizes
+* 5.8   rap     09/09/26 Return XSECURE_AES_INVALID_PARAM when AES Size is 0
 * </pre>
 *
 ******************************************************************************/
@@ -258,6 +259,12 @@ static void XSecure_UpdateEcdsaCryptoStatus(u32 Op)
 int XSecure_AesValidateSize(u32 Size, u8 IsLastChunk)
 {
 	int Status = XST_FAILURE;
+
+	/** - Return XSECURE_AES_INVALID_PARAM if Size is zero */
+	if (Size == 0U) {
+		Status = (int)XSECURE_AES_INVALID_PARAM;
+		goto END;
+	}
 
 	/**
 	 * - AES engine expect all intermediate updates shall be

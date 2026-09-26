@@ -34,6 +34,7 @@
 *                      footprint reduction
 * 5.8   ank   09/01/26 Copy SHA residue with Xil_MemCpy to keep Xil_MemCpy64
 *                      out of the image
+*       rap   09/09/26 Return XSECURE_AES_INVALID_PARAM when AES Size is 0
 *
 * </pre>
 *
@@ -286,7 +287,13 @@ int XSecure_AesValidateSize(u32 Size, u8 IsLastChunk)
 {
 	int Status = XST_FAILURE;
 
-	/** - Validate the Size */
+	/** - Return XSECURE_AES_INVALID_PARAM if Size is zero */
+	if (Size == 0U) {
+		Status = (int)XSECURE_AES_INVALID_PARAM;
+		goto END;
+	}
+
+	/** - Validate the Size is 4-byte aligned or not */
 	if ((Size % XSECURE_WORD_SIZE) != 0x00U) {
 		Status = (int)XSECURE_AES_UNALIGNED_SIZE_ERROR;
 		goto END;

@@ -45,6 +45,8 @@
 * 5.8   tus  08/19/26 Added XSecure_LibCapBit capability bit-position registry for
 *                     the library-info query; library info uses the shared
 *                     Xil_LibInfo container (xil_cryptoalginfo.h)
+*       rap  09/09/26 Moved XSECURE_ECC_P521_SIZE_IN_BYTES here as the single
+*                     client/server definition (same approach as RSA key sizes)
 *
 * </pre>
 *
@@ -125,6 +127,12 @@ extern "C" {
 	/**< This macro is for backward compatibility. For ECC Prime curves, use XSECURE_ECC_PRIME */
 #define XSecure_EllipticCrvClass	XSecure_EccCrvClass
 	/**< Alias for XSecure_EccCrvClass enum for backward compatibility */
+#define XSECURE_ECC_P521_SIZE_IN_BYTES	(66U)
+									/**< Size of NIST P-521 curve in bytes */
+#define XSECURE_RSA_2048_KEY_SIZE	(2048U/8U) /**< RSA 2048 key size */
+#define XSECURE_RSA_3072_KEY_SIZE	(3072U/8U) /**< RSA 3072 key size */
+#define XSECURE_RSA_4096_KEY_SIZE	(4096U/8U) /**< RSA 4096 key size */
+#define XSECURE_HASH_TYPE_SHA3		(48U) /**< SHA-3 hash size in bytes */
 
 /************************** Variable Definitions *****************************/
 

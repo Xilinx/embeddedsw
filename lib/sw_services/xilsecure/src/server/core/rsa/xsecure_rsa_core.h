@@ -51,6 +51,7 @@ extern "C" {
 /***************************** Include Files *********************************/
 #include "xparameters.h"
 #include "xsecure_utils.h"
+#include "xsecure_defs.h"
 /************************** Constant Definitions ****************************/
 #if !defined(PLM_RSA_EXCLUDE) || !defined(PLM_ECDSA_EXCLUDE)
 #define XSECURE_RSA_ECDSA_ZEROIZE_ERROR	(0x80U) /**< for RSA zeroization Error*/
@@ -66,13 +67,8 @@ extern "C" {
 						* data should be lesser than
 						* modulus */
 
-#define XSECURE_HASH_TYPE_SHA3		(48U) /**< SHA-3 hash size */
 #define XSECURE_FSBL_SIG_SIZE		(512U)/**< FSBL signature size */
 #define XSECURE_RSA_PUBLIC_EXPO_SIZE	(4U)	/**< Size of public key expo */
-/* Key size in bytes */
-#define XSECURE_RSA_2048_KEY_SIZE	(2048U/8U) /**< RSA 2048 key size */
-#define XSECURE_RSA_3072_KEY_SIZE	(3072U/8U) /**< RSA 3072 key size */
-#define XSECURE_RSA_4096_KEY_SIZE	(4096U/8U) /**< RSA 4096 key size */
 
 /* Key size in words */
 #define XSECURE_RSA_2048_SIZE_WORDS	(64)	/**< RSA 2048 Size in words */

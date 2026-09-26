@@ -33,6 +33,7 @@
 *       tvp  05/14/25 XSecure_UpdateTrngCryptoStatus is not applicable for Versal_2vp
 * 5.8   tbk  07/02/26 Added redundant P-384-only curve validation for ECC key
 *                     generation APIs
+*       rap  09/09/26 Removed EcdhGetSecret buffer address zero checks
 *
 * </pre>
 *

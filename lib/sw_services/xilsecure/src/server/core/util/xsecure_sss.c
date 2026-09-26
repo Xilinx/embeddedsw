@@ -32,6 +32,7 @@
 *       am      08/18/22 Added volatile keyword and reset the Status variable
 *                        to failure before reuse
 * 5.8   ank     09/01/26 Gate DMA1 validation on spartanup, which has DMA0 only
+*       rap     09/20/26 Updated input parameter validations
 *
 * </pre>
 *
@@ -177,7 +178,8 @@ int XSecure_SssSha(const XSecure_Sss *InstancePtr, u16 DmaId,
 	u32 RegVal;
 
 	/** - Validate the input arguments */
-	if ((InstancePtr == NULL) || (!XSecure_SssIsDmaId(DmaId))) {
+	if ((InstancePtr == NULL) || (!XSecure_SssIsDmaId(DmaId)) ||
+		((u32)Resource >= (u32)XSECURE_SSS_INVALID)) {
 		Status = (int)XSECURE_SSS_INVALID_PARAM;
 		goto END;
 	}
