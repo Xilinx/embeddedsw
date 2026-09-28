@@ -477,8 +477,9 @@ static s32 XOcp_GenerateUdeSelfSignedCert(XAsufw_Dma *DmaPtr, XSha *ShaPtr, cons
 }
 
 /*************************************************************************************************/
- /**
- * @brief	This function generates the UDE response
+/**
+ * @brief	This function generates the UDE response into an ASU local buffer and copies the
+ *		completed response to the client supplied address using DMA.
  *
  * @param	DmaPtr		Pointer to the XAsufw_Dma instance.
  * @param	OcpUdeParamsPtr	Pointer to XAsu_OcpUdeParams structure.
@@ -486,7 +487,9 @@ static s32 XOcp_GenerateUdeSelfSignedCert(XAsufw_Dma *DmaPtr, XSha *ShaPtr, cons
  * @return
  *	- XASUFW_SUCCESS, if the UDE response is generated successfully.
  *	- XASUFW_OCP_INVALID_PARAM, if any input param is invalid.
+ *	- XASUFW_DMA_COPY_FAIL, if copying the response to the client buffer fails.
  *	- Error codes from XOcp_ProcessUdeResponse, if UDE response generation fails.
+ *	- Error code from XAsufw_UpdateBufStatus, if local buffer zeroization fails.
  *
  *************************************************************************************************/
 s32 XOcp_GenerateUdeResponse(XAsufw_Dma *DmaPtr, const XAsu_OcpUdeParams *OcpUdeParamsPtr)
@@ -498,7 +501,9 @@ s32 XOcp_GenerateUdeResponse(XAsufw_Dma *DmaPtr, const XAsu_OcpUdeParams *OcpUde
 	XASUFW_MEASURE_PERF_START(XASU_MODULE_OCP_ID);
 
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
-	XAsu_OcpUdeResponse *OcpUdeResp = NULL;
+	CREATE_VOLATILE(ClearStatus, XASUFW_FAILURE);
+	XFih_Var XFihUde = XFih_VolatileAssignXfihVar(XFIH_FAILURE);
+	XAsu_OcpUdeResponse OcpUdeResp = {0U};
 
 	/** Validate input parameters. */
 	if ((DmaPtr == NULL) || (OcpUdeParamsPtr == NULL)) {
@@ -511,16 +516,29 @@ s32 XOcp_GenerateUdeResponse(XAsufw_Dma *DmaPtr, const XAsu_OcpUdeParams *OcpUde
 		goto END;
 	}
 
-	OcpUdeResp = (XAsu_OcpUdeResponse *)(UINTPTR)OcpUdeParamsPtr->OcpUdeResponseAddr;
-
 	/** Perform core UDE response generation. */
-	Status = XOcp_ProcessUdeResponse(DmaPtr, OcpUdeResp, OcpUdeParamsPtr);
+	Status = XOcp_ProcessUdeResponse(DmaPtr, &OcpUdeResp, OcpUdeParamsPtr);
+	if (Status == XASUFW_SUCCESS) {
+		/** DMA the generated response to the client buffer. */
+		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+		Status = XAsufw_DmaXfr(DmaPtr, (u64)(UINTPTR)&OcpUdeResp,
+				       OcpUdeParamsPtr->OcpUdeResponseAddr,
+				       (u32)sizeof(XAsu_OcpUdeResponse), 0U);
+		if (Status != XASUFW_SUCCESS) {
+			Status = XASUFW_DMA_COPY_FAIL;
+		}
+	}
 
 	/**
 	 * Measure and print the performance time for the OCP UDE response generation operation,
 	 * if performance measurement is enabled.
 	 */
 	XASUFW_MEASURE_PERF_STOP(XASU_MODULE_OCP_ID);
+
+	/** Zeroize the local response buffer. */
+	XFIH_CALL(Xil_SecureZeroize, XFihUde, ClearStatus, (u8 *)&OcpUdeResp,
+		  (u32)sizeof(XAsu_OcpUdeResponse));
+	Status = XAsufw_UpdateBufStatus(Status, ClearStatus);
 
 END:
 	return Status;
@@ -1151,7 +1169,7 @@ static s32 XOcp_BuildUdeResponseData(XAsufw_Dma *DmaPtr, const u8 *UdeDecPvtKey,
 
 	/** Nonce update. */
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-	Status = XAsufw_DmaXfr(DmaPtr, (u64)(UINTPTR)OcpUdeParamsPtr->NonceAddr,
+	Status = XAsufw_DmaXfr(DmaPtr, OcpUdeParamsPtr->NonceAddr,
 			(u64)(UINTPTR)OcpUdeResp->Ude.Nonce, XASU_OCP_UDE_NONCE_SIZE_IN_BYTES, 0U);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XASUFW_OCP_NONCE_UPDATE_FAIL;
