@@ -65,6 +65,12 @@
 
 #include "xlwipconfig.h"
 
+#ifdef USE_JUMBO_FRAMES
+#define XAXIEMACIF_MAX_RX_FRAME_SIZE	XAE_MAX_JUMBO_FRAME_SIZE
+#else
+#define XAXIEMACIF_MAX_RX_FRAME_SIZE	XAE_MAX_FRAME_SIZE
+#endif
+
 #if XPAR_INTC_0_HAS_FAST == 1
 /*********** Function Prototypes *********************************************/
 
@@ -95,7 +101,7 @@ static void
 xllfifo_recv_handler(struct xemac_s *xemac)
 {
 	u32_t frame_length;
-	struct pbuf *p;
+	struct pbuf *p, *q;
 	xaxiemacif_s *xaxiemacif = (xaxiemacif_s *)(xemac->state);
 	XLlFifo *llfifo = &xaxiemacif->axififo;
 
@@ -104,10 +110,24 @@ xllfifo_recv_handler(struct xemac_s *xemac)
 		/* find packet length */
 		frame_length = XLlFifo_RxGetLen(llfifo);
 
+		/* drop invalid or oversized frames */
+		if ((frame_length == 0) ||
+		    (frame_length > XAXIEMACIF_MAX_RX_FRAME_SIZE)) {
+			char tmp_frame[XAXIEMACIF_MAX_RX_FRAME_SIZE];
+			u32_t drop_len = frame_length > XAXIEMACIF_MAX_RX_FRAME_SIZE ?
+					  XAXIEMACIF_MAX_RX_FRAME_SIZE : frame_length;
+#if LINK_STATS
+			lwip_stats.link.lenerr++;
+			lwip_stats.link.drop++;
+#endif
+			XLlFifo_Read(llfifo, tmp_frame, drop_len);
+			continue;
+		}
+
 		/* allocate a pbuf */
 		p = pbuf_alloc(PBUF_RAW, frame_length, PBUF_POOL);
 		if (!p) {
-                        char tmp_frame[XAE_MAX_FRAME_SIZE];
+                        char tmp_frame[XAXIEMACIF_MAX_RX_FRAME_SIZE];
 #if LINK_STATS
 			lwip_stats.link.memerr++;
 			lwip_stats.link.drop++;
@@ -119,7 +139,8 @@ xllfifo_recv_handler(struct xemac_s *xemac)
                 }
 
 		/* receive packet */
-		XLlFifo_Read(llfifo, p->payload, frame_length);
+		for (q = p; q != NULL; q = q->next)
+			XLlFifo_Read(llfifo, q->payload, q->len);
 
 #if ETH_PAD_SIZE
 		len += ETH_PAD_SIZE;		/* allow room for Ethernet padding */
