@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2018 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -75,7 +75,24 @@ void XAudioFormatter_SetMM2SCallback(XAudioFormatter *InstancePtr,
 	}
 }
 
-void *XAudioFormatterS2MMIntrHandler(void *InstancePtr)
+/*****************************************************************************/
+/**
+*
+* This function is the interrupt handler for the Audio Formatter S2MM DMA.
+*
+* This handler reads the pending interrupt from the S2MM status register,
+* determines the source of the interrupt, clears it, and calls the
+* corresponding user-registered callback.
+*
+* @param	InstancePtr is a pointer to the XAudioFormatter instance.
+*
+* @return	None.
+*
+* @note		The application is responsible for connecting this function
+*		to the interrupt system.
+*
+******************************************************************************/
+void XAudioFormatterS2MMIntrHandler(void *InstancePtr)
 {
 	u32 Data;
 
@@ -106,7 +123,24 @@ void *XAudioFormatterS2MMIntrHandler(void *InstancePtr)
 	}
 }
 
-void *XAudioFormatterMM2SIntrHandler(void *InstancePtr)
+/*****************************************************************************/
+/**
+*
+* This function is the interrupt handler for the Audio Formatter MM2S DMA.
+*
+* This handler reads the pending interrupt from the MM2S status register,
+* determines the source of the interrupt, clears it, and calls the
+* corresponding user-registered callback.
+*
+* @param	InstancePtr is a pointer to the XAudioFormatter instance.
+*
+* @return	None.
+*
+* @note		The application is responsible for connecting this function
+*		to the interrupt system.
+*
+******************************************************************************/
+void XAudioFormatterMM2SIntrHandler(void *InstancePtr)
 {
 	u32 Data;
 

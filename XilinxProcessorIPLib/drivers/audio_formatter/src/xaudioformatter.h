@@ -181,8 +181,10 @@ void XAudioFormatter_SetS2MMCallback(XAudioFormatter *InstancePtr,
 void XAudioFormatter_SetMM2SCallback(XAudioFormatter *InstancePtr,
 	XAudioFormatter_HandlerType handler_type, void *CallbackFunc,
 	void *CallbackRef);
-void *XAudioFormatterS2MMIntrHandler(void *InstancePtr);
-void *XAudioFormatterMM2SIntrHandler(void *InstancePtr);
+/** Interrupt handler for the Audio Formatter S2MM DMA. */
+void XAudioFormatterS2MMIntrHandler(void *InstancePtr);
+/** Interrupt handler for the Audio Formatter MM2S DMA. */
+void XAudioFormatterMM2SIntrHandler(void *InstancePtr);
 void XAudioFormatter_InterruptClear(XAudioFormatter *InstancePtr, u32 mask);
 void XAudioFormatterDMAReset(XAudioFormatter *InstancePtr);
 void XAudioFormatterSetFsMultiplier(XAudioFormatter *InstancePtr, u32 Mclk,
