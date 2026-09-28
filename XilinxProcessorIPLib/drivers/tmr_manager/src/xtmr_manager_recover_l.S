@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2017 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 /******************************************************************************
@@ -426,10 +426,10 @@ _xtmr_manager_initialize:
 #define MSR_REGNUM  32
 #define SLR_REGNUM  33
 #define SHR_REGNUM  34
-#define PID_REGNUM  33
-#define TLBX_REGNUM 34
-#define ZPR_REGNUM  35
-#define FSR_REGNUM  36
+#define PID_REGNUM  35
+#define TLBX_REGNUM 36
+#define ZPR_REGNUM  37
+#define FSR_REGNUM  38
 #define MAX_REGNUM  FSR_REGNUM
 
 /*
@@ -458,14 +458,14 @@ _xtmr_manager_initialize:
  *      +-------------+         + 120
  *      |     MSR     |
  *      +-------------+         + 124
- *      |     SRL     |
- *      |     SHR     |
+ *      |     SLR     |         (stack-protection, slot 33)
+ *      |     SHR     |         (stack-protection, slot 34)
  *      +-------------+         + 132
- *      |     PID     |
- *      |     TLBX    |
- *      |     ZPR     |
+ *      |     PID     |         (MMU, slot 35)
+ *      |     TLBX    |         (MMU, slot 36)
+ *      |     ZPR     |         (MMU, slot 37)
  *      +-------------+         + 144
- *      |     FSR     |
+ *      |     FSR     |         (FPU, slot 38)
  *      +-------------+         + 148
  *      |      .      |
  *      |      .      |
@@ -478,7 +478,7 @@ _xtmr_manager_initialize:
 .type _xtmr_manager_break, @function
 _xtmr_manager_break:
 	/* Save context to stack */
-	addik r1, r1, -REG_OFFSET(MAX_REGNUM)
+	addik r1, r1, -(REG_OFFSET(MAX_REGNUM) + 4)
 	swi r1, r0, XTMR_Manager_StackPointer
         PUSH_REG(2)
 	PUSH_REG(3)
@@ -598,12 +598,12 @@ _xtmr_manager_reset:
 	beq r3, r4
 
 	/* Restore context from stack and return from break */
-#ifdef XPAR_MICROBLAZE_USE_MMU
+#if XPAR_MICROBLAZE_USE_MMU > 0
 	POP_SREG(rpid, PID_REGNUM)
 	POP_SREG(rtlbx, TLBX_REGNUM)
 	POP_SREG(rzpr, ZPR_REGNUM)
 #endif
-#ifdef XPAR_MICROBLAZE_USE_STACK_PROTECTION
+#if XPAR_MICROBLAZE_USE_STACK_PROTECTION > 0
 	POP_SREG(rslr, SLR_REGNUM)
 	POP_SREG(rshr, SHR_REGNUM)
 #endif
@@ -642,7 +642,7 @@ _xtmr_manager_reset:
 	POP_REG(29)
 	POP_REG(30)
 	POP_REG(31)
-	addik r1, r1, REG_OFFSET(MAX_REGNUM)
+	addik r1, r1, (REG_OFFSET(MAX_REGNUM) + 4)
 
 	/* Return from break to resume execution */
 	rtbd r16, 0

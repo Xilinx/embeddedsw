@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2017 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -23,6 +23,9 @@
 * 1.3   adk  02/23/22 Added new API XTMR_Manager_Configure_BrkDelay()
 *       	      for configuring break delay.
 * 1.7   adk  04/04/25 Added Interrupt fields in the config struct in SDT flow.
+* 1.10  ml   09/24/26 Fix copy Magic1 field into InstancePtr->Config
+*                     in SDT flow CfgInitialize to prevent assert failure in
+*                     break handler.
 * </pre>
 *
 *****************************************************************************/
@@ -87,7 +90,7 @@ static void StubHandler(void *CallBackRef);
 *
 *****************************************************************************/
 int XTMR_Manager_CfgInitialize(XTMR_Manager *InstancePtr, XTMR_Manager_Config *Config,
-				UINTPTR EffectiveAddr)
+			       UINTPTR EffectiveAddr)
 {
 	(void) Config;
 	u32 cr;
@@ -100,22 +103,25 @@ int XTMR_Manager_CfgInitialize(XTMR_Manager *InstancePtr, XTMR_Manager_Config *C
 	/*
 	 * Perform low-level initialization
 	 */
-        _xtmr_manager_initialize(InstancePtr);
+	_xtmr_manager_initialize(InstancePtr);
 
 	/*
 	 * Set some default values, including setting the callback
 	 * handlers to stubs.
 	 */
 	if (Config->ComparatorsMask) {
-	  InstancePtr->Cmr0 = (u32)(Config->MaskRstValue & 0xffffffff);
-	  InstancePtr->Cmr1 = (u32)(Config->MaskRstValue >> 32);
+		InstancePtr->Cmr0 = (u32)(Config->MaskRstValue & 0xffffffff);
+		InstancePtr->Cmr1 = (u32)(Config->MaskRstValue >> 32);
 	}
-	if (Config->BrkDelayWidth > 0)
+	if (Config->BrkDelayWidth > 0) {
 		InstancePtr->Bdir = Config->BrkDelayRstValue;
-	if (Config->SemInterface > 0)
+	}
+	if (Config->SemInterface > 0) {
 		InstancePtr->SemImr = 0;
-	if (Config->TestComparator == 2)
+	}
+	if (Config->TestComparator == 2) {
 		InstancePtr->Cfir = 0;
+	}
 
 	InstancePtr->PreResetHandler = NULL;
 	InstancePtr->RecoveryHandler = NULL;
@@ -129,21 +135,22 @@ int XTMR_Manager_CfgInitialize(XTMR_Manager *InstancePtr, XTMR_Manager_Config *C
 #ifdef SDT
 	InstancePtr->Config.IntrId = Config->IntrId;
 	InstancePtr->Config.IntrParent = Config->IntrParent;
+	InstancePtr->Config.Magic1 = Config->Magic1;
 #endif
 
 	/*
 	 * Write to the SEM interrupt mask register to disable the interrupts
 	 */
 	XTMR_Manager_WriteReg(InstancePtr->RegBaseAddress,
-				XTM_SEMIMR_OFFSET, 0);
+			      XTM_SEMIMR_OFFSET, 0);
 
 	/*
 	 * Write to the Control Register to set RIR and MACGI1 to allow
-         * recovery reset by default.
+	 * recovery reset by default.
 	 */
-        cr = (1 << XTM_CR_RIR) | Config->Magic1;
+	cr = (1 << XTM_CR_RIR) | Config->Magic1;
 	XTMR_Manager_WriteReg(InstancePtr->RegBaseAddress,
-				XTM_CR_OFFSET, cr);
+			      XTM_CR_OFFSET, cr);
 	InstancePtr->Cr = cr;
 
 	/*

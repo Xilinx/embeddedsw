@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2025 Advanced Micro Devices, Inc. All rights reserved.
+* Copyright (c) 2025 - 2026 Advanced Micro Devices, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -34,6 +34,9 @@
 * ----- ---- -------- -----------------------------------------------
 * 1.3	adk  02/23/22 First release
 * 1.7   adk  04/04/25 Ported example to the SDT flow.
+* 1.10  ml   09/24/26 Fix initialize TMR Manager before first
+*                     xil_printf to prevent reset loop; initialize
+*                     Error_Inject to 0 (was uninitialized).
 * </pre>
 ******************************************************************************/
 
@@ -57,10 +60,7 @@
 #define TMR_INJECT_DEVICE_ID		XPAR_TMR_INJECT_0_BASEADDR
 #endif
 
-
-
 /**************************** Type Definitions *******************************/
-
 
 /***************** Macros (Inline Functions) Definitions *********************/
 #define ERROR_INJECT_CPU_ID	1
@@ -96,6 +96,19 @@ int main(void)
 {
 	int Status;
 
+	/*
+	 * Initialize TMR Manager FIRST before anything else so that the
+	 * break/recovery vector is installed before any TMR fault can fire.
+	 * This prevents a reset loop if a mismatch occurs before main() runs.
+	 */
+	Status = XTMR_Manager_Initialize(&TMR_Manager, TMR_MANAGER_DEVICE_ID);
+	if (Status != XST_SUCCESS) {
+		return XST_FAILURE;
+	}
+	XTMR_Manager_SetPreResetHandler(&TMR_Manager,
+					(void *)TMR_Manager_BreakHandler,
+					&TMR_Manager);
+
 	xil_printf("\r\n--- Entering main() --- \r\n");
 	/*
 	 * Run the TMR_Manager self test example, specify the Device ID that
@@ -104,7 +117,7 @@ int main(void)
 	Status = TMR_ManagerRecoveryExample(TMR_MANAGER_DEVICE_ID,
 					    TMR_INJECT_DEVICE_ID);
 	xil_printf("\n\rTMR Manager Recovery Example Test %s\r\n",
-		   (Status == XST_SUCCESS) ? "passed":"failed");
+		   (Status == XST_SUCCESS) ? "passed" : "failed");
 
 	xil_printf("\n\r--- Exiting main() --- \r\n");
 	return XST_SUCCESS;
@@ -155,10 +168,12 @@ int TMR_ManagerRecoveryExample(UINTPTR TMRManagerBaseAddress, UINTPTR TMRInjectB
 #endif
 {
 	int Status;
-	u32 Error_Inject;
+	u32 Error_Inject = 0; /* Fix: initialize to 0 (was uninitialized) */
 
 	/*
 	 * Initialize the TMR_Inject driver so that it is ready to use.
+	 * Note: injectmask() inside this driver must run from LMB memory
+	 * (see lscript.ld) for TMR Inject IP to intercept the fetch.
 	 */
 #ifndef SDT
 	Status = XTMR_Inject_Initialize(&TMR_Inject, TMRInjectDeviceId);
@@ -170,7 +185,8 @@ int TMR_ManagerRecoveryExample(UINTPTR TMRManagerBaseAddress, UINTPTR TMRInjectB
 	}
 
 	/*
-	 * Initialize the TMR_Manager driver so that it is ready to use.
+	 * TMR Manager was already initialized at the top of main() to install
+	 * the break vector early. Re-initialize here to configure self-test.
 	 */
 #ifndef SDT
 	Status = XTMR_Manager_Initialize(&TMR_Manager, TMRManagerDeviceId);
@@ -191,23 +207,24 @@ int TMR_ManagerRecoveryExample(UINTPTR TMRManagerBaseAddress, UINTPTR TMRInjectB
 
 	/*
 	 * Configure Break Delay Initialization Register to zero so that
-	 * break occurs immediately
+	 * break occurs immediately after fault detection.
 	 */
 	XTMR_Manager_Configure_BrkDelay(&TMR_Manager, 0);
 
-	/* Configure pre reset handler */
+	/* Configure pre reset handler (re-set after re-init above) */
 	XTMR_Manager_SetPreResetHandler(&TMR_Manager, (void *)TMR_Manager_BreakHandler,
 					&TMR_Manager);
 
-	/* Inject the fault */
+	/* Inject the fault — Error_Inject=0 injects bit 2 of address 0x0 */
 	XTMR_Inject_Enable(&TMR_Inject, ERROR_INJECT_CPU_ID);
 	XTMR_Inject_InjectBit(&TMR_Inject, Error_Inject, 2);
 
 	/* Wait for break vector */
 	while (BreakCount == 0);
 
-	if (TMR_Manager.Stats.RecoveryCount == BreakCount)
+	if (TMR_Manager.Stats.RecoveryCount == BreakCount) {
 		return XST_SUCCESS;
-	else
+	} else {
 		return XST_FAILURE;
+	}
 }
