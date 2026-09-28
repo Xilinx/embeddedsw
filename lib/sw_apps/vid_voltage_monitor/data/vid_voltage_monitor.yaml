@@ -1,0 +1,23 @@
+# Copyright (c) 2026 Advanced Micro Devices, Inc.  All rights reserved.
+# SPDX-License-Identifier: MIT
+%YAML 1.2
+---
+title: VID Voltage Monitor
+
+maintainers:
+  - Ronak Jain <ronak.jain@amd.com>
+
+type: apps
+
+description: Queries the PLM for each rail's VID power state over the PM query API, maps the state to a target voltage, and programs the on-board MPQ79500 external voltage monitor with an OV/UV window around that target. Targets the VEK385 (Versal Gen 2) board.
+
+depends_libs:
+    xilpm: {}
+    xiltimer: {}
+
+supported_processors:
+  - cortexr52
+
+supported_os:
+  - standalone
+...
