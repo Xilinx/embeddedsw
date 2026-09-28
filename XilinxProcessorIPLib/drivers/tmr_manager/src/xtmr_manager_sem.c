@@ -1,12 +1,11 @@
 /******************************************************************************
 * Copyright (C) 2017 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
 /****************************************************************************/
 /**
-*
 * @file xtmr_manager_intr.c
 * @addtogroup Overview
 * @{
@@ -20,6 +19,7 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- -----------------------------------------------
 * 1.0   sa   04/05/17 First release
+* 1.10  ml   25/09/26 Fixed doxygen 1.15.0 and compliance checker warnings.
 * </pre>
 *
 *****************************************************************************/
@@ -41,25 +41,19 @@
 
 /************************** Variable Definitions ****************************/
 
+/** @cond INTERNAL_DOC */
 typedef void (*Handler)(XTMR_Manager *InstancePtr);
+/** @endcond */
 
 
 /****************************************************************************/
 /**
+* @brief Sets the handler that will be called when an interrupt event occurs.
 *
-* This function sets the handler that will be called when an event (interrupt)
-* occurs in the driver. The purpose of the handler is to allow application
-* specific processing to be performed.
-*
-* @param	InstancePtr is a pointer to the XTMR_Manager instance .
-* @param	FuncPtr is the pointer to the callback function.
-* @param	CallBackRef is the upper layer callback reference passed back
+* @param[in] InstancePtr is a pointer to the XTMR_Manager instance.
+* @param[in] FuncPtr is the pointer to the callback function.
+* @param[in] CallBackRef is the upper layer callback reference passed back
 *		when the callback function is invoked.
-*
-* @return 	None.
-*
-* @note		There is no assert on the CallBackRef since the driver doesn't
-*		know what it is (nor should it)
 *
 *****************************************************************************/
 void XTMR_Manager_SetHandler(XTMR_Manager *InstancePtr,
@@ -78,18 +72,11 @@ void XTMR_Manager_SetHandler(XTMR_Manager *InstancePtr,
 }
 
 
-/*****************************************************************************/
+/****************************************************************************/
 /**
+* @brief Disables the core interrupt.
 *
-* This function disables the core interrupt. After calling this function,
-* data may still be received by the core but no interrupt will be generated
-* since the hardware device has no way to disable the receiver.
-*
-* @param	InstancePtr is a pointer to the XTMR_Manager instance.
-*
-* @return	None.
-*
-* @note		None.
+* @param[in] InstancePtr is a pointer to the XTMR_Manager instance.
 *
 *****************************************************************************/
 void XTMR_Manager_DisableInterrupt(XTMR_Manager *InstancePtr)
@@ -104,17 +91,13 @@ void XTMR_Manager_DisableInterrupt(XTMR_Manager *InstancePtr)
 				XTM_SEMIMR_OFFSET, 0);
 }
 
-/*****************************************************************************/
+/****************************************************************************/
 /**
+* @brief Enables the core interrupt such that an interrupt will occur
+* when any of the unmasked SEM status signals change value.
 *
-* This function enables the core interrupt such that an interrupt will occur
-* when an unmasked SEM status input changes value.
-*
-* @param	InstancePtr is a pointer to the XTMR_Manager instance.
-*
-* @return	None.
-*
-* @note		None.
+* @param[in] InstancePtr is a pointer to the XTMR_Manager instance.
+* @param[in] mask is a bitmask indicating which SEM signals trigger an interrupt.
 *
 *****************************************************************************/
 void XTMR_Manager_EnableInterrupt(XTMR_Manager *InstancePtr, u32 mask)

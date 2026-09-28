@@ -1,12 +1,11 @@
 /******************************************************************************
 * Copyright (C) 2017 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2025 Advanced Micro Devices, Inc. All rights reserved.
+* Copyright (c) 2025 - 2026 Advanced Micro Devices, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
 /*****************************************************************************/
 /**
-*
 * @file xtmr_manager_low_level_example.c
 *
 * This file contains a design example using the low-level driver functions
@@ -23,6 +22,7 @@
 * ----- ---- -------- ---------------------------------------------------------
 * 1.0   sa   04/05/17 First release
 * 1.7   adk  04/04/25 Ported example to the SDT flow.
+* 1.10  ml   25/09/26 Fixed doxygen 1.15.0 and compliance checker warnings.
 * </pre>
 ******************************************************************************/
 
@@ -41,9 +41,7 @@
  * xparameters.h file. They are defined here such that a user can easily
  * change all the needed parameters in one place.
  */
-#define TMR_MANAGER_BASEADDR	   XPAR_TMR_MANAGER_0_BASEADDR
-
-
+#define TMR_MANAGER_BASEADDR	   XPAR_TMR_MANAGER_0_BASEADDR	/**< TMR Manager base address. */
 /**************************** Type Definitions *******************************/
 
 
@@ -59,14 +57,9 @@ int TMR_ManagerLowLevelExample(u32 TMR_ManagerBaseAddress);
 
 /*****************************************************************************/
 /**
-*
 * Main function to call the example.
 *
-* @param	None.
-*
 * @return	XST_SUCCESS if successful, XST_FAILURE if unsuccessful.
-*
-* @note		None.
 *
 ******************************************************************************/
 int main(void)
@@ -90,17 +83,14 @@ int main(void)
 
 /*****************************************************************************/
 /**
-*
 * This function does a minimal test on the TMR_Manager device using low-level
 * driver macros and functions.
 *
-* @param	TMR_ManagerBaseAddress is the base address of the TMR_Manager
+* @param[in] TMR_ManagerBaseAddress is the base address of the TMR_Manager
 *		device and is the XPAR_<TMRMANAGER_instance>_BASEADDR value
 *		from xparameters.h.
 *
 * @return	XST_SUCCESS if successful, XST_FAILURE if unsuccessful.
-*
-* @note		None.
 *
 ******************************************************************************/
 int TMR_ManagerLowLevelExample(u32 TMR_ManagerBaseAddress)

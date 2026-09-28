@@ -1,12 +1,11 @@
 /******************************************************************************
 * Copyright (C) 2017 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2025 Advanced Micro Devices, Inc. All rights reserved.
+* Copyright (c) 2025 - 2026 Advanced Micro Devices, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
 /******************************************************************************/
 /**
-*
 * @file xtmr_manager_intr_example.c
 *
 * This file contains a design example using the TMR_Manager driver
@@ -24,6 +23,7 @@
 * 1.3	adk  31/01/22 Updated the example independent of SEM IP hardware
 * 		      configuration.
 * 1.7   adk  04/04/25 Ported example to the SDT flow.
+* 1.10  ml   25/09/26 Fixed doxygen 1.15.0 and compliance checker warnings.
 * </pre>
 ******************************************************************************/
 
@@ -46,11 +46,11 @@
  * change all the needed parameters in one place.
  */
 #ifndef SDT
-#define TMR_MANAGER_DEVICE_ID   XPAR_TMR_MANAGER_0_DEVICE_ID
+#define TMR_MANAGER_DEVICE_ID   XPAR_TMR_MANAGER_0_DEVICE_ID	/**< TMR Manager device ID. */
 #define INTC_DEVICE_ID          XPAR_INTC_0_DEVICE_ID
 #define TMR_MANAGER_INT_IRQ_ID  XPAR_INTC_0_TMR_MANAGER_0_VEC_ID
 #else
-#define TMR_MANAGER_DEVICE_ID	XPAR_TMR_MANAGER_0_BASEADDR
+#define TMR_MANAGER_DEVICE_ID	XPAR_TMR_MANAGER_0_BASEADDR	/**< TMR Manager base address. */
 #endif
 
 
@@ -67,15 +67,22 @@ int TMR_ManagerIntrExample(u16 DeviceId);
 int TMR_ManagerIntrExample(UINTPTR BaseAddress);
 #endif
 
+/**
+* @brief Set up the interrupt system for the TMR Manager example.
+*
+* @param[in] TMR_ManagerPtr is a pointer to the TMR Manager instance.
+*
+* @return XST_SUCCESS if successful, otherwise XST_FAILURE.
+*/
 int SetupInterruptSystem(XTMR_Manager *TMR_ManagerPtr);
 
 void Handler(void *CallBackRef);
 
 /************************** Variable Definitions *****************************/
 
- XTMR_Manager TMR_Manager;      /* The instance of the TMR_Manager Device */
+ XTMR_Manager TMR_Manager;      /**< The instance of the TMR_Manager Device */
 
- XIntc InterruptController;     /* The instance of the Interrupt Controller */
+ XIntc InterruptController;     /**< The instance of the Interrupt Controller */
 
 /*
  * The following variables are shared between non-interrupt processing and
@@ -91,14 +98,9 @@ volatile static int TotalEventCount = 0;
 
 /******************************************************************************/
 /**
-*
 * Main function to call the TMR_Manager interrupt example.
 *
-* @param	None
-*
 * @return	XST_SUCCESS if successful, XST_FAILURE if unsuccessful
-*
-* @note		None
 *
 *******************************************************************************/
 int main(void)
@@ -123,7 +125,6 @@ int main(void)
 
 /****************************************************************************/
 /**
-*
 * This function does a minimal test on the TMR_Manager device and driver as a
 * design example. The purpose of this function is to illustrate
 * how to use the XTMR_Manager component.
@@ -136,8 +137,7 @@ int main(void)
 * to the TMR_Manager driver in the handlers should only use the non-blocking
 * calls.
 *
-* @param	DeviceId is the Device ID of the TMR_Manager Device and is the
-*		XPAR_<tmr_manager_instance>_DEVICE_ID value from xparameters.h.
+* @param[in] BaseAddress is the base address of the TMR_Manager device.
 *
 * @return	XST_SUCCESS if successful, otherwise XST_FAILURE.
 *
@@ -209,46 +209,33 @@ int TMR_ManagerIntrExample(UINTPTR BaseAddress)
 
 /*****************************************************************************/
 /**
+* @brief Handles TMR Manager interrupt events from an interrupt context.
 *
-* This function is the handler which performs processing to send data to the
-* TMR_Manager. It is called from an interrupt context such that the amount of
-* processing performed should be minimized. It is called when the transmit
-* FIFO of the TMR_Manager is empty and more data can be sent through the
-* TMR_Manager.
+* This handler provides an example of how to handle data for the
+* TMR_Manager, but is application specific.
 *
-* This handler provides an example of how to handle data for the TMR_Manager,
-* but is application specific.
+* @param[in] CallBackRef contains a callback reference from the driver;
+*		in this case it is the instance pointer for the TMR_Manager.
 *
-* @param	CallBackRef contains a callback reference from the driver.
-*		In this case it is the instance pointer for the TMR_Manager
-*		driver.
-*
-* @return	None.
-*
-* @note		None.
-*
-****************************************************************************/
+*****************************************************************************/
 void Handler(void *CallBackRef)
 {
 	TotalEventCount++;
 }
 
 /****************************************************************************/
-/**
-*
+/*
 * This function sets up the interrupt system such that interrupts can occur
 * for the TMR_Manager device. This function is application specific since the
 * actual system may or may not have an interrupt controller. The TMR_Manager
 * could be directly connected to a processor without an interrupt controller.
 * The user should modify this function to fit the application.
 *
-* @param    TMR_ManagerPtr contains a pointer to the instance of the
+* @param[in] TMR_ManagerPtr contains a pointer to the instance of the
 *           TMR_Manager component which is going to be connected to the
 *           interrupt controller.
 *
 * @return   XST_SUCCESS if successful, otherwise XST_FAILURE.
-*
-* @note     None.
 *
 ****************************************************************************/
 #ifndef SDT

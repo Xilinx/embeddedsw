@@ -1,12 +1,11 @@
 /******************************************************************************
 * Copyright (C) 2017 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2023 - 2025 Advanced Micro Devices, Inc. All rights reserved.
+* Copyright (c) 2023 - 2026 Advanced Micro Devices, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
 /******************************************************************************/
 /**
-*
 * @file xtmr_manager_intr_tapp_example.c
 *
 * This file contains a design example using the TMR_Manager driver and
@@ -26,6 +25,7 @@
 * 		      configuration.
 * 1.7   adk  04/04/25 Ported example to the SDT flow.
 * 1.8   ml   29/07/25 Fixed unused parameter warning
+* 1.10  ml   25/09/26 Fixed doxygen 1.15.0 and compliance checker warnings.
 * </pre>
 ******************************************************************************/
 
@@ -59,21 +59,21 @@
  */
 #ifndef TESTAPP_GEN
 #ifndef SDT
-#define TMR_MANAGER_DEVICE_ID	  XPAR_TMR_MANAGER_0_DEVICE_ID
+#define TMR_MANAGER_DEVICE_ID	  XPAR_TMR_MANAGER_0_DEVICE_ID	/**< TMR Manager device ID. */
 #else
-#define TMR_MANAGER_DEVICE_ID	  XPAR_TMR_MANAGER_0_BASEADDR
+#define TMR_MANAGER_DEVICE_ID	  XPAR_TMR_MANAGER_0_BASEADDR	/**< TMR Manager base address. */
 #endif /* SDT */
 
 
 #ifdef XPAR_INTC_0_DEVICE_ID
-#define TMR_MANAGER_IRPT_INTR   XPAR_INTC_0_TMR_MANAGER_0_VEC_ID
-#define INTC_DEVICE_ID		XPAR_INTC_0_DEVICE_ID
+#define TMR_MANAGER_IRPT_INTR   XPAR_INTC_0_TMR_MANAGER_0_VEC_ID	/**< TMR Manager interrupt vector ID. */
+#define INTC_DEVICE_ID		XPAR_INTC_0_DEVICE_ID	/**< Interrupt controller device ID. */
 #elif defined(XPAR_IOMODULE_0_DEVICE_ID)
-#define TMR_MANAGER_IRPT_INTR   XPAR_IOMODULE_0_TMR_MANAGER_0_VEC_ID
-#define INTC_DEVICE_ID		XPAR_IOMODULE_0_DEVICE_ID
+#define TMR_MANAGER_IRPT_INTR   XPAR_IOMODULE_0_TMR_MANAGER_0_VEC_ID	/**< TMR Manager interrupt vector ID. */
+#define INTC_DEVICE_ID		XPAR_IOMODULE_0_DEVICE_ID	/**< Interrupt controller device ID. */
 #else
-#define TMR_MANAGER_IRPT_INTR   XPAR_SCUGIC_SINGLE_TMR_MANAGER_0_VEC_ID
-#define INTC_DEVICE_ID		XPAR_SCUGIC_SINGLE_DEVICE_ID
+#define TMR_MANAGER_IRPT_INTR   XPAR_SCUGIC_SINGLE_TMR_MANAGER_0_VEC_ID	/**< TMR Manager interrupt vector ID. */
+#define INTC_DEVICE_ID		XPAR_SCUGIC_SINGLE_DEVICE_ID	/**< Interrupt controller device ID. */
 #endif /* XPAR_INTC_0_DEVICE_ID */
 #endif /* TESTAPP_GEN */
 
@@ -128,9 +128,9 @@ static void TMR_ManagerDisableIntrSystem(INTC *IntrInstancePtr,
  */
 #ifndef TESTAPP_GEN
 #ifndef SDT
-static INTC IntcInstance;	/* The instance of the Interrupt Controller */
+static INTC IntcInstance;	/**< The instance of the Interrupt Controller */
 #endif
-static XTMR_Manager TMR_ManagerInst;  /* The instance of the TMR_Manager Device */
+static XTMR_Manager TMR_ManagerInst;  /**< The instance of the TMR_Manager Device */
 #endif
 
 /*
@@ -147,14 +147,9 @@ static volatile int TotalEventCount;
 
 /******************************************************************************/
 /**
-*
 * Main function to call the TMR_Manager interrupt example.
 *
-* @param	None.
-*
 * @return	XST_SUCCESS if successful, else XST_FAILURE.
-*
-* @note		None.
 *
 *******************************************************************************/
 #ifndef TESTAPP_GEN
@@ -187,7 +182,6 @@ int main(void)
 
 /****************************************************************************/
 /**
-*
 * This function does a minimal test on the TMR_Manager device and driver as a
 * design example. The purpose of this function is to illustrate how to use
 * the XTMR_Manager component.
@@ -198,19 +192,10 @@ int main(void)
 * to the TMR_Manager driver in the interrupt handlers, should only use the
 * non-blocking calls.
 *
-* @param	IntcInstancePtr is a pointer to the instance of INTC driver.
-* @param	TMR_ManagerInstPtr is a pointer to the instance of TMR_Manager
-*               driver.
-* @param	TMR_ManagerDeviceId is the Device ID of the TMR_Manager Device
-*		and is the XPAR_<TMR_MANAGER_instance>_DEVICE_ID value from
-*		xparameters.h.
-* @param	TMR_ManagerIntrId is the Interrupt ID and is typically
-*		XPAR_<INTC_instance>_<TMR_MANAGER_instance>_VEC_ID value from
-*		xparameters.h.
+* @param[in] TMR_ManagerInstPtr is a pointer to the instance of the TMR_Manager driver.
+* @param[in] BaseAddress is the base address of the TMR_Manager device.
 *
 * @return	XST_SUCCESS if successful, otherwise XST_FAILURE.
-*
-* @note		None.
 *
 * This function contains an infinite loop such that if interrupts are not
 * working it may never return.
@@ -292,7 +277,6 @@ int TMR_ManagerIntrExample(XTMR_Manager *TMR_ManagerInstPtr,
 
 /****************************************************************************/
 /**
-*
 * This function is the handler which performs processing of the TMR_Manager
 * events. It is called from an interrupt context such that the amount of
 * processing performed should be minimized. It is called when any event that
@@ -301,13 +285,9 @@ int TMR_ManagerIntrExample(XTMR_Manager *TMR_ManagerInstPtr,
 * This handler provides an example of how to handle data for the TMR_Manager,
 * but is application specific.
 *
-* @param	CallBackRef contains a callback reference from the driver,
+* @param[in] CallBackRef contains a callback reference from the driver,
 *		in this case it is the instance pointer for the TMR_Manager
 *               driver.
-*
-* @return	None.
-*
-* @note		None.
 *
 ****************************************************************************/
 static void TMR_ManagerHandler(void *CallBackRef)
@@ -318,24 +298,21 @@ static void TMR_ManagerHandler(void *CallBackRef)
 
 /****************************************************************************/
 /**
-*
 * This function setups the interrupt system such that interrupts can occur
 * for the TMR_Manager. This function is application specific since the actual
 * system may or may not have an interrupt controller. The TMR_Manager could be
 * directly connected to a processor without an interrupt controller. The
 * user should modify this function to fit the application.
 *
-* @param	IntcInstancePtr is a pointer to the instance of INTC driver.
-* @param	TMR_ManagerInstPtr is a pointer to the instance of TMR_Manager
+* @param[in] IntcInstancePtr is a pointer to the instance of INTC driver.
+* @param[in] TMR_ManagerInstPtr is a pointer to the instance of TMR_Manager
 *               driver.
 *		XPAR_<TMR_MANAGER_instance>_DEVICE_ID value from xparameters.h.
-* @param	TMR_ManagerIntrId is the Interrupt ID and is typically
+* @param[in] TMR_ManagerIntrId is the Interrupt ID and is typically
 *		XPAR_<INTC_instance>_<TMR_MANAGER_instance>_VEC_ID
 *		value from xparameters.h.
 *
 * @return	XST_SUCCESS if successful, otherwise XST_FAILURE.
-*
-* @note		None.
 *
 ****************************************************************************/
 #ifndef SDT
@@ -374,7 +351,7 @@ int TMR_ManagerSetupIntrSystem(INTC *IntcInstancePtr,
 	/*
 	 * Start the interrupt controller such that interrupts are enabled for
 	 * all devices that cause interrupts, specific real mode so that
-	 * the core can cause interrupts thru the interrupt controller.
+	 * the core can cause interrupts through the interrupt controller.
 	 */
 	Status = XIntc_Start(IntcInstancePtr, XIN_REAL_MODE);
 	if (Status != XST_SUCCESS) {
@@ -415,7 +392,7 @@ int TMR_ManagerSetupIntrSystem(INTC *IntcInstancePtr,
 	/*
 	 * Start the interrupt controller such that interrupts are enabled for
 	 * all devices that cause interrupts, specific real mode so that
-	 * the core can cause interrupts thru the interrupt controller.
+	 * the core can cause interrupts through the interrupt controller.
 	 */
 	Status = XIOModule_Start(IntcInstancePtr, XIN_REAL_MODE);
 	if (Status != XST_SUCCESS) {
@@ -496,18 +473,13 @@ int TMR_ManagerSetupIntrSystem(INTC *IntcInstancePtr,
 
 /*****************************************************************************/
 /**
-*
 * This function disables the interrupts that occur for the TMR_Manager.
 *
-* @param	IntcInstancePtr is a pointer to the instance of the INTC
+* @param[in] IntcInstancePtr is a pointer to the instance of the INTC
 *               driver.
-* @param	TMR_ManagerIntrId is the Interrupt ID and is typically
+* @param[in] TMR_ManagerIntrId is the Interrupt ID and is typically
 *		XPAR_<INTC_instance>_<TMR_MANAGER_instance>_VEC_ID
 *		value from xparameters.h.
-*
-* @return	None.
-*
-* @note		None.
 *
 ******************************************************************************/
 static void TMR_ManagerDisableIntrSystem(INTC *IntcInstancePtr,

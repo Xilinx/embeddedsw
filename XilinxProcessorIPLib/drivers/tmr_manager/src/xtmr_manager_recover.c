@@ -1,12 +1,11 @@
 /******************************************************************************
 * Copyright (C) 2017 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
 /****************************************************************************/
 /**
-*
 * @file xtmr_manager_recover.c
 * @addtogroup Overview
 * @{
@@ -21,6 +20,7 @@
 * ----- ---- -------- -----------------------------------------------
 * 1.0   sa   04/05/17 First release
 * 1.3   adk  01/07/22 Fixed Assert check in the XTMR_Manager_BreakHandler API.
+* 1.10  ml   25/09/26 Fixed doxygen 1.15.0 and compliance checker warnings.
 * </pre>
 *
 *****************************************************************************/
@@ -56,14 +56,11 @@ extern XTMR_Manager *XTMR_Manager_InstancePtr;
 
 /****************************************************************************/
 /**
-*
 * Break occurred signalling that a recovery should be performed. Call the
 * prerecovery user handler, and then suspend the processor, to signal to
 * the TMR Manager hardware that it should reset the TMR sub-system.
 *
-* @param	InstancePtr is a pointer to the XTMR_Manager instance.
-*
-* @return	None.
+* @param[in] InstancePtr is a pointer to the XTMR_Manager instance.
 *
 * @note		Called from break vector, with interrupts disabled.
 *
@@ -93,10 +90,9 @@ void XTMR_Manager_BreakHandler (XTMR_Manager *InstancePtr)
 
 /****************************************************************************/
 /**
-*
 * Detect and handle recovery reset or cold reset.
 *
-* @param	InstancePtr is a pointer to the XTMR_Manager instance.
+* @param[in] InstancePtr is a pointer to the XTMR_Manager instance.
 *
 * @return	Whether the reset was recovery reset (1) or cold reset (0).
 *
@@ -139,11 +135,11 @@ int XTMR_Manager_ResetHandler (XTMR_Manager *InstancePtr)
 			InstancePtr->PostResetHandler(
 				InstancePtr->PostResetCallBackRef);
 
-		/* Clear First Failing Status after successful recovery */
+		/**< Clear First Failing Status after successful recovery */
 		XTMR_Manager_ClearFirstFailingReg(InstancePtr->RegBaseAddress);
 		InstancePtr->Stats.RecoveryCount++;
 
-		/* Restore saved context and resume execution */
+		/**< Restore saved context and resume execution */
 		return 1;
 	} else {
 		/* Treat as cold reset: Do a complete program restart */
@@ -154,11 +150,13 @@ int XTMR_Manager_ResetHandler (XTMR_Manager *InstancePtr)
 
 /****************************************************************************/
 /**
-*
 * Set the user recovery handler, which can replace the pre-defined handler
 * completely, to do custom recovery.
 *
-* @param	InstancePtr is a pointer to the XTMR_Manager instance.
+* @param[in] InstancePtr is a pointer to the XTMR_Manager instance.
+* @param[in] FuncPtr is the pointer to the callback function.
+* @param[in] CallBackRef is the upper layer callback reference passed back
+*		when the callback function is invoked.
 *
 * @note		This function is run in interrupt context.
 *
@@ -180,11 +178,13 @@ void XTMR_Manager_SetRecoveryHandler(XTMR_Manager *InstancePtr,
 
 /****************************************************************************/
 /**
-*
 * Set the user pre-reset handler, which can be used to save context before
 * reset in a recovery sequence.
 *
-* @param	InstancePtr is a pointer to the XTMR_Manager instance.
+* @param[in] InstancePtr is a pointer to the XTMR_Manager instance.
+* @param[in] FuncPtr is the pointer to the callback function.
+* @param[in] CallBackRef is the upper layer callback reference passed back
+*		when the callback function is invoked.
 *
 * @note		This function is run in interrupt context.
 *
@@ -206,13 +206,13 @@ void XTMR_Manager_SetPreResetHandler(XTMR_Manager *InstancePtr,
 
 /****************************************************************************/
 /**
-*
 * Set the user post-reset handler, which can be used to restore context after
 * reset in a recovery sequence.
 *
-* @param	InstancePtr is a pointer to the XTMR_Manager instance.
-*
-* @note		None.
+* @param[in] InstancePtr is a pointer to the XTMR_Manager instance.
+* @param[in] FuncPtr is the pointer to the callback function.
+* @param[in] CallBackRef is the upper layer callback reference passed back
+*		when the callback function is invoked.
 *
 ******************************************************************************/
 void XTMR_Manager_SetPostResetHandler(XTMR_Manager *InstancePtr,

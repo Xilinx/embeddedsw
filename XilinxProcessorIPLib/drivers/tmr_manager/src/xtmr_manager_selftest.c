@@ -1,12 +1,11 @@
 /******************************************************************************
 * Copyright (C) 2017 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
 /****************************************************************************/
 /**
-*
 * @file xtmr_manager_selftest.c
 * @addtogroup Overview
 * @{
@@ -20,6 +19,7 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- -----------------------------------------------
 * 1.0   sa   04/05/17 First release
+* 1.10  ml   25/09/26 Fixed doxygen 1.15.0 and compliance checker warnings.
 * </pre>
 *
 *****************************************************************************/
@@ -50,21 +50,18 @@
 
 /****************************************************************************/
 /**
-*
 * Runs a self-test on the device hardware. Since there is no way to perform a
 * loopback in the hardware, this test can only check the state of the status
 * register to verify it is correct. This test assumes that the hardware
 * device is still in its reset state, but has been initialized with the
 * Initialize function.
 *
-* @param	InstancePtr is a pointer to the XTMR_Manager instance.
+* @param[in] InstancePtr is a pointer to the XTMR_Manager instance.
 *
 * @return
 * 		- XST_SUCCESS if the self-test was successful.
 * 		- XST_FAILURE if the self-test failed, the status register
 *			value was not correct
-*
-* @note		None.
 *
 ******************************************************************************/
 int XTMR_Manager_SelfTest(XTMR_Manager *InstancePtr)

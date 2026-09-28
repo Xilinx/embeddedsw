@@ -1,12 +1,11 @@
 /******************************************************************************
 * Copyright (C) 2017 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
 /****************************************************************************/
 /**
-*
 * @file xtmr_manager_i.h
 * @addtogroup Overview
 * @{
@@ -20,12 +19,14 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- -----------------------------------------------
 * 1.0   sa   04/05/17 First release
+* 1.10  ml   25/09/26 Fixed doxygen 1.15.0 and compliance checker warnings.
 * </pre>
 *
 *****************************************************************************/
 
 #ifndef XTMR_MANAGER_I_H /* prevent circular inclusions */
-#define XTMR_MANAGER_I_H /* by using protection macros */
+/** @brief Include guard to prevent multiple inclusions. */
+#define XTMR_MANAGER_I_H
 
 #ifdef __cplusplus
 extern "C" {
@@ -42,20 +43,18 @@ extern "C" {
 
 /***************** Macros (Inline Functions) Definitions ********************/
 
-/****************************************************************************
+/****************************************************************************/
+/**
+* @brief Update the statistics of the instance.
 *
-* Update the statistics of the instance.
-*
-* @param	InstancePtr is a pointer to the XTMR_Manager instance.
-* @param	StatusRegister contains the contents of the core status
-*		register to update the statistics with.
-*
-* @return	None.
+* @param[in] InstancePtr is a pointer to the XTMR_Manager instance.
+* @param[in] FirstFailingRegister contains the contents of the first
+*		failing register to update the statistics with.
 *
 * @note
 *
 * Signature: void XTMR_Manager_UpdateStats(XTMR_Manager *InstancePtr,
-*						u32 StatusRegister)
+*						u32 FirstFailingRegister)
 *
 *****************************************************************************/
 #define XTMR_Manager_UpdateStats(InstancePtr, FirstFailingRegister)	\

@@ -1,12 +1,11 @@
 /******************************************************************************
 * Copyright (C) 2017 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
 /****************************************************************************/
 /**
-*
 * @file xtmr_manager.h
 * @addtogroup Overview
 * @{
@@ -76,11 +75,13 @@
 * 		      declared. It does not exist. Remove the
 * 		      XTMR_Manager_InjectionTest API declaration.
 * 1.7   adk  04/04/25 Added Interrupt fields in the config struct in SDT flow.
+* 1.10  ml   25/09/26 Fixed doxygen 1.15.0 and compliance checker warnings.
 * </pre>
 *
 *****************************************************************************/
 
 #ifndef XTMR_MANAGER_H /* prevent circular inclusions */
+/** @brief Include guard to prevent multiple inclusions. */
 #define XTMR_MANAGER_H /* by using protection macros */
 
 #ifdef __cplusplus
@@ -119,7 +120,7 @@ typedef struct {
 #ifndef SDT
 	u16 DeviceId;		/**< Unique ID  of device */
 #else
-	char *Name;
+	char *Name;		/**< Peripheral name in device tree. */
 #endif
 	UINTPTR RegBaseAddr;	/**< Register base address */
 	u32 BrkDelayRstValue;	/**< Value of parameter C_BRK_DLEAY_RST_VALUE */
@@ -144,8 +145,8 @@ typedef struct {
 	u8  UseDebugDisable;	/**< Value of parameter C_USE_DEBUG_DISABLE */
 	u8  UseTmrDisable;	/**< Value of parameter C_USE_TMR_DISABLE */
 #if defined(XIL_INTERRUPT) || defined(SDT)
-	u32 IntrId;
-	UINTPTR IntrParent;		/** Bit[0] Interrupt parent type Bit[64/32:1] Parent base address */
+	u32 IntrId;		/**< Interrupt ID. */
+	UINTPTR IntrParent;		/**< Bit[0] Interrupt parent type Bit[64/32:1] Parent base address. */
 #endif
 } XTMR_Manager_Config;
 
@@ -155,29 +156,29 @@ typedef struct {
  * to a variable of this type is then passed to the driver API functions.
  */
 typedef struct {
-	XTMR_Manager_Stats Stats;	/* Component Statistics */
+	XTMR_Manager_Stats Stats;	/**< Component Statistics */
 #ifdef SDT
-	XTMR_Manager_Config Config;    /* Config structure pointer */
+	XTMR_Manager_Config Config;    /**< Config structure. */
 #endif
-	UINTPTR RegBaseAddress;		/* Base address of registers */
-	u32 IsReady;			/* Device is initialized and ready */
+	UINTPTR RegBaseAddress;		/**< Base address of registers */
+	u32 IsReady;			/**< Device is initialized and ready */
 
-	u32 Cr;				/* Control register value (CR) */
-	u32 Cmr0;			/* Comparison mask 0 (CMR0) */
-	u32 Cmr1;			/* Comparison mask 0 (CMR0) */
-	u32 Bdir;			/* Break delay init (BDIR) */
-	u32 SemImr;			/* SEM interrupt mask (SEMIMR) */
-	u32 Cfir;			/* Comparator fault inject (CFIR) */
+	u32 Cr;				/**< Control register value (CR) */
+	u32 Cmr0;			/**< Comparison mask 0 (CMR0) */
+	u32 Cmr1;			/**< Comparison mask 0 (CMR0) */
+	u32 Bdir;			/**< Break delay init (BDIR) */
+	u32 SemImr;			/**< SEM interrupt mask (SEMIMR) */
+	u32 Cfir;			/**< Comparator fault inject (CFIR) */
 
-	XTMR_Manager_Handler RecoveryHandler;
-	void *RecoveryCallBackRef;	/* Callback ref for handler */
-	XTMR_Manager_Handler PreResetHandler;
-	void *PreResetCallBackRef;	/* Callback ref for handler */
-	XTMR_Manager_Handler PostResetHandler;
-	void *PostResetCallBackRef;	/* Callback ref for handler */
+	XTMR_Manager_Handler RecoveryHandler;	/**< Recovery callback handler. */
+	void *RecoveryCallBackRef;	/**< Callback ref for handler */
+	XTMR_Manager_Handler PreResetHandler;	/**< Pre-reset callback handler. */
+	void *PreResetCallBackRef;	/**< Callback ref for handler */
+	XTMR_Manager_Handler PostResetHandler;	/**< Post-reset callback handler. */
+	void *PostResetCallBackRef;	/**< Callback ref for handler */
 
-	XTMR_Manager_Handler Handler;
-	void *CallBackRef;		/* Callback ref for handler */
+	XTMR_Manager_Handler Handler;		/**< Interrupt callback handler. */
+	void *CallBackRef;		/**< Callback ref for handler */
 } XTMR_Manager;
 
 
@@ -224,7 +225,19 @@ void XTMR_Manager_SetPostResetHandler(XTMR_Manager *InstancePtr,
 /*
  * Functions for internal watchdog, in file xtmr_manager_wdog.c
  */
+/**
+ * @brief Restart the internal watchdog timer.
+ *
+ * @param[in] InstancePtr is a pointer to the XTMR_Manager instance.
+ */
 void XTMR_Manager_RestartWdt(XTMR_Manager *InstancePtr);
+/**
+ * @brief Check whether the internal watchdog timer has expired.
+ *
+ * @param[in] InstancePtr is a pointer to the XTMR_Manager instance.
+ *
+ * @return Non-zero if the watchdog has expired, zero otherwise.
+ */
 u32 XTMR_Manager_IsWdtExpired(XTMR_Manager *InstancePtr);
 
 /*
@@ -235,6 +248,13 @@ void XTMR_Manager_ClearStats(XTMR_Manager *InstancePtr);
 
 /*
  * Functions for SEM control and interrupts, in file xtmr_manager_sem.c
+ */
+/**
+ * @brief Send a SEM command and receive the response.
+ *
+ * @param[in]  InstancePtr is a pointer to the XTMR_Manager instance.
+ * @param[in]  command is the SEM command string to send.
+ * @param[out] response is the buffer to store the SEM response.
  */
 void XTMR_Manager_SemCommand(XTMR_Manager *InstancePtr, char *command,
 			    char *response);

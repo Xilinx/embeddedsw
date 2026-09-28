@@ -6,7 +6,6 @@
 
 /****************************************************************************/
 /**
-*
 * @file xtmr_manager_sinit.c
 * @addtogroup Overview
 * @{
@@ -20,6 +19,7 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- -----------------------------------------------
 * 1.0   sa   04/05/17 First release
+* 1.10  ml   25/09/26 Fixed doxygen 1.15.0 and compliance checker warnings.
 * </pre>
 *
 *****************************************************************************/
@@ -47,17 +47,16 @@
 /************************** Function Prototypes *****************************/
 
 /****************************************************************************
+* @brief Look up TMR Manager configuration by unique device ID (non-SDT flow).
 *
-* Looks up the device configuration based on the unique device ID.  The table
+* Looks up the device configuration based on the unique device ID. The table
 * TMRManagerConfigTable contains the configuration info for each device in
 * the system.
 *
-* @param	DeviceId is the unique device ID to match on.
+* @param[in] DeviceId is the unique device ID to match on.
 *
 * @return	A pointer to the configuration data for the device, or
 *		NULL if no match was found.
-*
-* @note		None.
 *
 ******************************************************************************/
 #ifndef SDT
@@ -76,6 +75,13 @@ XTMR_Manager_Config *XTMR_Manager_LookupConfig(u16 DeviceId)
 	return CfgPtr;
 }
 #else
+/**
+ * @brief Look up TMR Manager configuration by base address (SDT flow).
+ *
+ * @param[in] BaseAddr is the base address of the TMR Manager device.
+ *
+ * @return Pointer to the matching config structure, or NULL if not found.
+ */
 XTMR_Manager_Config *XTMR_Manager_LookupConfig(UINTPTR BaseAddr)
 {
 	XTMR_Manager_Config *CfgPtr = NULL;
@@ -94,7 +100,6 @@ XTMR_Manager_Config *XTMR_Manager_LookupConfig(UINTPTR BaseAddr)
 
 /****************************************************************************/
 /**
-*
 * Initialize a XTMR_Manager instance.  The receive and transmit FIFOs of the
 * core are not flushed, so the user may want to flush them. The hardware
 * device does not have any way to disable the receiver such that any valid
@@ -102,18 +107,13 @@ XTMR_Manager_Config *XTMR_Manager_LookupConfig(UINTPTR BaseAddr)
 * interrupt. The baudrate and format of the data are fixed in the hardware
 * at hardware build time.
 *
-* @param	InstancePtr is a pointer to the XTMR_Manager instance.
-* @param	DeviceId is the unique id of the device controlled by this
-*		XTMR_Manager instance.  Passing in a device id associates the
-*		generic XTMR_Manager instance to a specific device, as chosen by
-*		the caller or application developer.
+* @param[in] InstancePtr is a pointer to the XTMR_Manager instance.
+* @param[in] BaseAddr is the base address of the TMR_Manager device.
 *
 * @return
 * 		- XST_SUCCESS if everything starts up as expected.
 * 		- XST_DEVICE_NOT_FOUND if the device is not found in the
 *			configuration table.
-*
-* @note		None.
 *
 *****************************************************************************/
 #ifndef SDT

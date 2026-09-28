@@ -1,12 +1,11 @@
 /******************************************************************************
 * Copyright (C) 2017 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2025 Advanced Micro Devices, Inc. All rights reserved.
+* Copyright (c) 2025 - 2026 Advanced Micro Devices, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
 /******************************************************************************/
 /**
-*
 * @file xtmr_manager_polled_example.c
 *
 * This file contains a design example using the TMR_Manager driver (XTMR_Manager)
@@ -23,6 +22,7 @@
 * ----- ---- -------- -----------------------------------------------
 * 1.0   sa   04/05/17 First release
 * 1.7   adk  04/04/25 Ported example to the SDT flow.
+* 1.10  ml   25/09/26 Fixed doxygen 1.15.0 and compliance checker warnings.
 * </pre>
 ******************************************************************************/
 
@@ -41,9 +41,9 @@
  * change all the needed parameters in one place.
  */
 #ifndef SDT
-#define TMR_MANAGER_DEVICE_ID	XPAR_TMR_MANAGER_0_DEVICE_ID
+#define TMR_MANAGER_DEVICE_ID	XPAR_TMR_MANAGER_0_DEVICE_ID	/**< TMR Manager device ID. */
 #else
-#define TMR_MANAGER_DEVICE_ID	XPAR_TMR_MANAGER_0_BASEADDR
+#define TMR_MANAGER_DEVICE_ID	XPAR_TMR_MANAGER_0_BASEADDR	/**< TMR Manager base address. */
 #endif
 
 /**************************** Type Definitions *******************************/
@@ -62,19 +62,14 @@ int TMR_ManagerPolledExample(UINTPTR BaseAddress);
 
 /************************** Variable Definitions *****************************/
 
-XTMR_Manager TMR_Manager;	/* Instance of the TMR_Manager Device */
+XTMR_Manager TMR_Manager;	/**< Instance of the TMR_Manager Device */
 
 
 /*****************************************************************************/
 /**
-*
 * Main function to call the TMR Manager polled example.
 *
-* @param	None.
-*
 * @return	XST_SUCCESS if successful, otherwise XST_FAILURE.
-*
-* @note		None.
 *
 ******************************************************************************/
 int main(void)
@@ -106,13 +101,9 @@ int main(void)
 * This function polls the TMR_Manager and does not require the use of
 * interrupts.
 *
-* @param	DeviceId is the Device ID of the TMR_Manager and is the
-*		XPAR_<tmr_manager_instance>_DEVICE_ID value from xparameters.h.
+* @param[in] BaseAddress is the base address of the TMR_Manager device.
 *
 * @return	XST_SUCCESS if successful, XST_FAILURE if unsuccessful.
-*
-*
-* @note		None
 *
 ****************************************************************************/
 #ifndef SDT

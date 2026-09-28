@@ -6,7 +6,6 @@
 
 /****************************************************************************/
 /**
-*
 * @file xtmr_manager.c
 * @addtogroup Overview
 * @{
@@ -26,6 +25,7 @@
 * 1.10  ml   09/24/26 Fix copy Magic1 field into InstancePtr->Config
 *                     in SDT flow CfgInitialize to prevent assert failure in
 *                     break handler.
+* 1.10  ml   25/09/26 Fixed doxygen 1.15.0 and compliance checker warnings.
 * </pre>
 *
 *****************************************************************************/
@@ -50,6 +50,11 @@
 
 /************************** Function Prototypes *****************************/
 
+/**
+ * @brief Perform low-level hardware initialization of the TMR Manager.
+ *
+ * @param[in] InstancePtr is a pointer to the XTMR_Manager instance.
+ */
 extern void _xtmr_manager_initialize(XTMR_Manager *InstancePtr);
 
 static void StubHandler(void *CallBackRef);
@@ -57,7 +62,6 @@ static void StubHandler(void *CallBackRef);
 
 /****************************************************************************/
 /**
-*
 * Initialize a XTMR_Manager instance. The receive and transmit FIFOs of the
 * core are not flushed, so the user may want to flush them. The hardware
 * device does not have any way to disable the receiver such that any valid
@@ -65,14 +69,14 @@ static void StubHandler(void *CallBackRef);
 * interrupt. The baudrate and format of the data are fixed in the hardware
 * at hardware build time.
 *
-* @param	InstancePtr is a pointer to the XTMR_Manager instance.
-* @param	Config is a reference to a structure containing information
+* @param[in] InstancePtr is a pointer to the XTMR_Manager instance.
+* @param[in] Config is a reference to a structure containing information
 *		about a specific TMR Manager device. This function initializes
 *		an InstancePtr object for a specific device specified by the
 *		contents of Config. This function can initialize multiple
 *		instance objects with the use of multiple calls giving different
 *		Config information on each call.
-* @param 	EffectiveAddr is the device base address in the virtual memory
+* @param[in] EffectiveAddr is the device base address in the virtual memory
 *		address space. The caller is responsible for keeping the address
 *		mapping from EffectiveAddr to the device physical base address
 *		unchanged once this function is invoked. Unexpected errors may
@@ -162,17 +166,13 @@ int XTMR_Manager_CfgInitialize(XTMR_Manager *InstancePtr, XTMR_Manager_Config *C
 }
 
 
-/****************************************************************************
-*
+/****************************************************************************/
+/**
 * This function provides a stub handler such that if the application does not
 * define a handler but enables interrupts, this function will be called.
 *
-* @param	CallBackRef has no purpose but is necessary to match the
+* @param[in] CallBackRef has no purpose but is necessary to match the
 *		interface for a handler.
-*
-* @return	None.
-*
-* @note		None.
 *
 *****************************************************************************/
 static void StubHandler(void *CallBackRef)
@@ -185,17 +185,13 @@ static void StubHandler(void *CallBackRef)
 	Xil_AssertVoidAlways();
 }
 
-/****************************************************************************
-*
+/****************************************************************************/
+/**
 * This function configures the break delay value in Break Delay
 * Initialization Register.
 *
-* @param	InstancePtr is a pointer to the XTMR_Manager instance.
-* @param	BrkDelay is the break delay value.
-*
-* @return	None.
-*
-* @note		None.
+* @param[in] InstancePtr is a pointer to the XTMR_Manager instance.
+* @param[in] BrkDelay is the break delay value.
 *
 *****************************************************************************/
 void XTMR_Manager_Configure_BrkDelay(XTMR_Manager *InstancePtr, u32 BrkDelay)
