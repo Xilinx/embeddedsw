@@ -281,6 +281,15 @@ XStatus XPm_GetPsmToPlmEventAddr(void)
 
 	Status = XPm_IpiRead(PSM_IPI_INT_MASK, &Response);
 	if (XST_SUCCESS == Status) {
+		/* PSM picks this address; keep the whole struct in PSM RAM */
+		if ((Response[1] < (u32)XPLMI_PSM_RAM_BASE_ADDR) ||
+		    (Response[1] > (u32)XPLMI_PSM_RAM_HIGH_ADDR) ||
+		    (((u32)XPLMI_PSM_RAM_HIGH_ADDR - Response[1]) <
+		     (u32)(sizeof(struct PsmToPlmEvent_t) - 1U))) {
+			PmErr("Invalid PSM to PLM event address\r\n");
+			Status = XST_FAILURE;
+			goto done;
+		}
 		PsmToPlmEvent = (struct PsmToPlmEvent_t *)Response[1];
 		/* Update PsmToPlmEventInfo in xilplmi */
 #ifdef XPLMI_IPI_DEVICE_ID
