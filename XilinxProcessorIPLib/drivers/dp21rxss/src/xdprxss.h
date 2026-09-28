@@ -95,6 +95,8 @@
 *                   XDpRxss_GetDynamicRange
 * 8.0  jb  01/12/22 Added clk_wizard configuration for rx_dec_clk which is
 *                   required for 8b10b logic.
+*      dnk 09/16/26 Program the decode Clocking Wizard from the driver on
+*                   link-rate change using clk_wiz APIs.
 * </pre>
 *
 ******************************************************************************/
@@ -116,6 +118,9 @@ extern "C" {
 #include "xdprxss_dprx.h"
 #include "xdprxss_iic.h"
 #include "xdprxss_hdcp1x.h"
+#if (XPAR_XCLK_WIZ_NUM_INSTANCES > 0)
+#include "xclk_wiz.h"
+#endif
 #if (XPAR_XHDCP22_RX_DP_NUM_INSTANCES > 0)
 #include "xdprxss_hdcp22.h"
 #endif
@@ -595,6 +600,9 @@ typedef struct {
 	u16 EdidSize[XDP_MAX_NPORTS];	/**< Size of EDID Data */
 	UINTPTR EdidBaseAddr;		/**< BaseAddress of Edid */
 	UINTPTR clk_wiz_abs_addr;	/**< Clock Wizard absolute base address */
+#if (XPAR_XCLK_WIZ_NUM_INSTANCES > 0)
+	XClk_Wiz ClkWiz;		/**< Decode-clock Clocking Wizard instance */
+#endif
 } XDpRxSs;
 
 /***************** Macros (Inline Functions) Definitions *********************/
