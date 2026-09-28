@@ -106,6 +106,9 @@ o	RAW8,RAW10,RAW12,RAW14,RGB888,YUV422-8Bit,User defined  Data types
 *                  generation.
 *     vsa 15/12/17 Add support for Clock Mode
 * 1.2 vsa 02/28/18 Add Frame End Generation feature
+* 1.3 ai  09/17/26 Added multi-VC (NUM_VC 4/8/16) support with per-VC line
+*                  count handlers and 8 pixels-per-clock mode reporting for
+*                  the CSI2 TX subsystem v3.0 IP
 * </pre>
 *
 ******************************************************************************/
@@ -161,6 +164,18 @@ extern "C" {
 #define XCSI2TXSS_HANDLER_LCERRVC1		XCSI2TX_HANDLER_LCERRVC1	/**< Line count error VC1 interrupt handler */
 #define XCSI2TXSS_HANDLER_LCERRVC2		XCSI2TX_HANDLER_LCERRVC2	/**< Line count error VC2 interrupt handler */
 #define XCSI2TXSS_HANDLER_LCERRVC3		XCSI2TX_HANDLER_LCERRVC3	/**< Line count error VC3 interrupt handler */
+#define XCSI2TXSS_HANDLER_LCERRVC4		XCSI2TX_HANDLER_LCERRVC4	/**< Line count error VC4 interrupt handler */
+#define XCSI2TXSS_HANDLER_LCERRVC5		XCSI2TX_HANDLER_LCERRVC5	/**< Line count error VC5 interrupt handler */
+#define XCSI2TXSS_HANDLER_LCERRVC6		XCSI2TX_HANDLER_LCERRVC6	/**< Line count error VC6 interrupt handler */
+#define XCSI2TXSS_HANDLER_LCERRVC7		XCSI2TX_HANDLER_LCERRVC7	/**< Line count error VC7 interrupt handler */
+#define XCSI2TXSS_HANDLER_LCERRVC8		XCSI2TX_HANDLER_LCERRVC8	/**< Line count error VC8 interrupt handler */
+#define XCSI2TXSS_HANDLER_LCERRVC9		XCSI2TX_HANDLER_LCERRVC9	/**< Line count error VC9 interrupt handler */
+#define XCSI2TXSS_HANDLER_LCERRVC10		XCSI2TX_HANDLER_LCERRVC10	/**< Line count error VC10 interrupt handler */
+#define XCSI2TXSS_HANDLER_LCERRVC11		XCSI2TX_HANDLER_LCERRVC11	/**< Line count error VC11 interrupt handler */
+#define XCSI2TXSS_HANDLER_LCERRVC12		XCSI2TX_HANDLER_LCERRVC12	/**< Line count error VC12 interrupt handler */
+#define XCSI2TXSS_HANDLER_LCERRVC13		XCSI2TX_HANDLER_LCERRVC13	/**< Line count error VC13 interrupt handler */
+#define XCSI2TXSS_HANDLER_LCERRVC14		XCSI2TX_HANDLER_LCERRVC14	/**< Line count error VC14 interrupt handler */
+#define XCSI2TXSS_HANDLER_LCERRVC15		XCSI2TX_HANDLER_LCERRVC15	/**< Line count error VC15 interrupt handler */
 /** @} */
 
 #define XCSI2TXSS_MAX_VC			XCSI2TX_MAX_VC	/**< Maximum number of virtual channels */
@@ -218,6 +233,7 @@ typedef struct {
 	u32 PixelFormat;	/**< 1 - Single pixel per beat
 				2 - Dual pixels per beat
 				4 - Quad pixels per beat */
+	u32 NumVC;	/**< Number of Virtual Channels supported (4, 8 or 16) */
 	u32 CsiBuffDepth;	/**< Line buffer Depth set */
 	u32 DphyLineRate;	/**< DPHY Line Rate ranging from
 					*  80-1500 Mbps */

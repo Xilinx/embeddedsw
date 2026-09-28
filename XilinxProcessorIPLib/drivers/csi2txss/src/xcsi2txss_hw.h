@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2016 - 2020 Xilinx, Inc. All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -25,6 +25,8 @@
 * --- --- -------- ------------------------------------------------------------
 * 1.0 sss 07/14/16 Initial release
 * 1.2 vsa 02/28/18 Add Frame End Generation feature
+* 1.3 ai  09/17/26 Added VC4-VC7 line count status/enable mask aliases for
+*                  multi-VC support on the CSI2 TX subsystem v3.0 IP
 * </pre>
 *
 ******************************************************************************/
@@ -49,6 +51,11 @@ extern "C" {
 #define XCSI2TXSS_LCSTAT_VC1_IER_MASK	XCSITX_LCSTAT_VC1_IER_MASK
 #define XCSI2TXSS_LCSTAT_VC2_IER_MASK	XCSITX_LCSTAT_VC2_IER_MASK
 #define XCSI2TXSS_LCSTAT_VC3_IER_MASK	XCSITX_LCSTAT_VC3_IER_MASK
+#define XCSI2TXSS_LCSTAT_VC4_IER_MASK	XCSITX_LCSTAT_VC4_IER_MASK	/**< Line count status VC4 IER mask */
+#define XCSI2TXSS_LCSTAT_VC5_IER_MASK	XCSITX_LCSTAT_VC5_IER_MASK	/**< Line count status VC5 IER mask */
+#define XCSI2TXSS_LCSTAT_VC6_IER_MASK	XCSITX_LCSTAT_VC6_IER_MASK	/**< Line count status VC6 IER mask */
+#define XCSI2TXSS_LCSTAT_VC7_IER_MASK	XCSITX_LCSTAT_VC7_IER_MASK	/**< Line count status VC7 IER mask */
+#define XCSI2TXSS_LCSTAT_VC4_7_IER_MASK	XCSITX_LCSTAT_VC4_7_IER_MASK	/**< Line count status VC4-VC7 IER mask */
 
 /*****************************************************************************/
 /**

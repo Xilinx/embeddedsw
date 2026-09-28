@@ -15,6 +15,7 @@ properties:
       - items:
         - enum:
           - xlnx,mipi-csi2-tx-subsystem-2.2
+          - xlnx,mipi-csi2-tx-subsystem-3.0
   reg:
     description: Physical base address and size of the controller register map
   xlnx,highaddr:
@@ -25,6 +26,8 @@ properties:
     description: Flag for number of lanes.
   xlnx,csi2-tx-pixel-mode:
     description: Pixel mode.
+  xlnx,csi2-tx-num-vc:
+    description: Number of Virtual Channels supported (4, 8 or 16). Defaults to 4 for older IP.
   xlnx,csi2-tx-line-bufr-depth:
     description: Line buffer depth.
   xlnx,dphy-linerate:
@@ -57,6 +60,7 @@ required:
   - xlnx,csi2-tx-lanes
   - xlnx,csi2-tx-data-type
   - xlnx,csi2-tx-pixel-mode
+  - xlnx,csi2-tx-num-vc
   - xlnx,csi2-tx-line-bufr-depth
   - xlnx,dphy-linerate
   - xlnx,dphy-en-reg-if

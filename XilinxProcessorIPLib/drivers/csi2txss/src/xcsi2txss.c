@@ -22,6 +22,10 @@
 * 1.0 sss 07/14/16 Initial release
 *     vsa 15/12/17 Add support for Clock Mode
 * 1.2 vsa 02/28/18 Add Frame End Generation feature
+* 1.3 ai  09/17/26 Added multi-VC (NUM_VC 4/8/16) support: subsystem owns the
+*                  VC count, validates the VC range, widens the line count
+*                  interrupt allow-list and programs the per-bank (VC0-7 and
+*                  VC8-15) line count enables for the CSI2 TX subsystem v3.0 IP
 * </pre>
 *
 ******************************************************************************/
@@ -117,6 +121,13 @@ u32 XCsi2TxSs_CfgInitialize(XCsi2TxSs *InstancePtr, XCsi2TxSs_Config *CfgPtr,
 	InstancePtr->Config = *CfgPtr;
 	InstancePtr->Config.BaseAddr = EffectiveAddr;
 
+	/* Older IP (and older SDT that does not emit the VC count) leaves NumVC
+	 * as 0. Default to 4 to preserve the existing behaviour.
+	 */
+	if (InstancePtr->Config.NumVC == 0) {
+		InstancePtr->Config.NumVC = XCSI2TX_DEFAULT_NUM_VC;
+	}
+
 	/* Determine sub-cores included in provided instance of subsystem */
 	Csi2TxSs_GetIncludedSubCores(InstancePtr);
 
@@ -200,6 +211,7 @@ u32 XCsi2TxSs_Configure(XCsi2TxSs *InstancePtr, u8 ActiveLanes, u32 IntrMask)
 {
 	XCsi2Tx *CsiPtr;
 	u32 Status;
+	u32 AllowMask;
 
 	/* Verify arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -210,20 +222,47 @@ u32 XCsi2TxSs_Configure(XCsi2TxSs *InstancePtr, u8 ActiveLanes, u32 IntrMask)
 	CsiPtr = InstancePtr->CsiPtr;
 
 	if (InstancePtr->Config.FEGenEnabled) {
-		IntrMask &= (XCSI2TX_ISR_ALLINTR_MASK |
-			     XCSITX_LCSTAT_VC0_IER_MASK |
-			     XCSITX_LCSTAT_VC1_IER_MASK |
-			     XCSITX_LCSTAT_VC2_IER_MASK |
-			     XCSITX_LCSTAT_VC3_IER_MASK);
-	} else
+		AllowMask = XCSI2TX_ISR_ALLINTR_MASK |
+			    XCSITX_LCSTAT_VC0_IER_MASK |
+			    XCSITX_LCSTAT_VC1_IER_MASK |
+			    XCSITX_LCSTAT_VC2_IER_MASK |
+			    XCSITX_LCSTAT_VC3_IER_MASK;
+		/* VC4-VC7 line count enables exist when NUM_VC >= 8. For
+		 * NUM_VC=16, VC8-VC15 reuse the same bank-relative bits.
+		 */
+		if (InstancePtr->Config.NumVC >= XCSI2TX_VC_PER_BANK) {
+			AllowMask |= XCSITX_LCSTAT_VC4_7_IER_MASK;
+		}
+		IntrMask &= AllowMask;
+	} else {
 		IntrMask &= XCSI2TX_ISR_ALLINTR_MASK;
+	}
 
+	/* Enable interrupts for bank 0 (VC0-VC7 and the base interrupts).
+	 * The line count enables in IER are bank-relative (muxed by ISR[6]),
+	 * so ensure the bank-0 window is selected before programming when the
+	 * core supports more than one bank.
+	 */
+	if (InstancePtr->Config.NumVC > XCSI2TX_VC_PER_BANK) {
+		XCsi2Tx_SetVcIsrBank(CsiPtr, 0);
+	}
 	XCsi2Tx_IntrEnable(CsiPtr, IntrMask);
 
 	CsiPtr->ActiveLanes = ActiveLanes;
 	Status = XCsi2Tx_Configure(CsiPtr);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
+	}
+
+	/* For NUM_VC=16 the VC8-VC15 line count enables occupy the same IER
+	 * fields but are selected by ISR[6]=1. They must be programmed with a
+	 * second IER write per the HW sequence.
+	 */
+	if (InstancePtr->Config.FEGenEnabled &&
+	    (InstancePtr->Config.NumVC > XCSI2TX_VC_PER_BANK)) {
+		XCsi2Tx_SetVcIsrBank(CsiPtr, 1);
+		XCsi2Tx_IntrEnable(CsiPtr, IntrMask);
+		XCsi2Tx_SetVcIsrBank(CsiPtr, 0);
 	}
 
 	return XST_SUCCESS;
@@ -700,13 +739,14 @@ u32 XCsi2TxSs_GetClkMode(XCsi2TxSs *InstancePtr)
  *
  * @param	InstancePtr is a pointer to the Subsystem instance to be
  *		worked on.
- * @param	VC is which Virtual channel to be configured for (0-3).
+ * @param	VC is which Virtual channel to be configured for
+ *		(0 to NumVC-1).
  * @param	LineCount is valid line count for the Virtual channel.
  *
  * @return
  *		- XST_NO_FEATURE if Frame End generation is not enabled
  *		- XST_INVALID_PARAM if any param is invalid e.g.
- *			VC is always 0 to 3 and Line Count is 0 to 0xFFFF.
+ *			VC is always 0 to NumVC-1 and Line Count is 0 to 0xFFFF.
  *		- XST_FAILURE in case the core is already running.
  *		- XST_SUCCESS otherwise
  *
@@ -722,6 +762,10 @@ u32 XCsi2TxSs_SetLineCountForVC(XCsi2TxSs *InstancePtr, u8 VC, u16 LineCount)
 	if (!InstancePtr->Config.FEGenEnabled)
 		return XST_NO_FEATURE;
 
+	/* VC must be within the number of Virtual Channels supported */
+	if (VC >= InstancePtr->Config.NumVC)
+		return XST_INVALID_PARAM;
+
 	return XCsi2Tx_SetLineCountForVC(InstancePtr->CsiPtr, VC, LineCount);
 }
 
@@ -732,14 +776,15 @@ u32 XCsi2TxSs_SetLineCountForVC(XCsi2TxSs *InstancePtr, u8 VC, u16 LineCount)
  *
  * @param	InstancePtr is a pointer to the Subsystem instance to be
  *		worked on.
- * @param	VC is which Virtual channel to be configured for (0-3).
+ * @param	VC is which Virtual channel to be configured for
+ *		(0 to NumVC-1).
  * @param	LineCount is pointer to variable to be filled with line count
  *		for the Virtual channel
  *
  * @return
  *		- XST_NO_FEATURE if Frame End generation is not enabled
  *		- XST_INVALID_PARAM if any param is invalid e.g.
- *			VC is always 0 to 3 and Line Count is 0 to 0xFFFF.
+ *			VC is always 0 to NumVC-1 and Line Count is 0 to 0xFFFF.
  *		- XST_SUCCESS otherwise
  *
  * @note	None.
@@ -753,6 +798,10 @@ u32 XCsi2TxSs_GetLineCountForVC(XCsi2TxSs *InstancePtr, u8 VC, u16 *LineCount)
 	/* Is Frame End generation feature enabled? */
 	if (!InstancePtr->Config.FEGenEnabled)
 		return XST_NO_FEATURE;
+
+	/* VC must be within the number of Virtual Channels supported */
+	if (VC >= InstancePtr->Config.NumVC)
+		return XST_INVALID_PARAM;
 
 	return XCsi2Tx_GetLineCountForVC(InstancePtr->CsiPtr, VC, LineCount);
 }
