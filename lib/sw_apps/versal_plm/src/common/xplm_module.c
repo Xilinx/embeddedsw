@@ -125,6 +125,9 @@
 #ifdef PLM_TPM
 #include "xtpm.h"
 #endif
+#if (defined(VERSAL_2VE_2VM) && defined(VERSAL_2VP_P))
+#include "xsecure_asu.h"
+#endif
 
 /************************** Constant Definitions *****************************/
 

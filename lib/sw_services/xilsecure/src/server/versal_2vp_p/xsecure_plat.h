@@ -90,16 +90,6 @@ extern "C" {
 								/**< Rep test cutoff */
 #endif
 
-#define XSECURE_AES_KTE_GO_ADDRESS		(0xF11E0234U)	/**< AES KTE GO address */
-#define XSECURE_AES_KTE_RESTART_ADDRESS		(0xF11E0238U)	/**< AES Key Transfer Engine Restart register */
-#define XSECURE_AES_KTE_DONE_ADDRESS		(0xF11E023CU)	/**< AES Key Transfer Engine Done */
-#define XSECURE_AES_KTE_CNT_ADDRESS		(0xF11E0240U)	/**< AES Key Transfer Engine Count address */
-#define XSECURE_AES_KTE_GO_ENABLE		(0x1U)		/**< AES KTE GO enable */
-#define XSECURE_AES_KTE_GO_DISABLE		(0x0U)		/**< AES KTE GO disable */
-#define XSECURE_AES_KTE_DONE_MASK		(0x1U)		/**< AES Key Transfer Engine Done mask */
-#define XSECURE_AES_KTE_CNT_MASK		(0x6U)		/**< AES Key Transfer Engine Count value */
-#define XSECURE_AES_KTE_DONE_POLL_TIMEOUT	(4000U)		/**< AES Key Transfer complete poll timeout */
-
 #define XSECURE_SSS_SBI_MASK			(0xF00000U)	/**< SSS SBI mask */
 #define XSECURE_SSS_AES_MASK			(0xF000U)	/**< SSS AES mask */
 #define XSECURE_SSS_DMA1_MASK			(0xF0U)		/**< SSS DMA1 mask */
@@ -176,7 +166,6 @@ int XSecure_AesPlatPmcDmaCfgAndXfer(XPmcDma *PmcDmaPtr, XSecure_AesDmaCfg *AesDm
 void XSecure_AesPmcDmaCfgEndianness(XPmcDma *InstancePtr, XPmcDma_Channel Channel, u8 EndianType);
 int XSecure_AesValidateSize(u32 Size, u8 IsLastChunk);
 int XSecure_ECCRandInit(void);
-int XSecure_InitiateASUKeyTransfer(void);
 int XSecure_ShaDmaXfer(void *InstancePtr, u64 DataAddr, u32 Size, u8 IsLastUpdate);
 int XSecure_MemCpyAndChangeEndianness(u64 DestAddress, u64 SrcAddress, u32 Length);
 
