@@ -21,6 +21,9 @@
 * --- --- -------- ------------------------------------------------------------
 * 1.0 sss 07/15/16 Initial release
 * 1.1 vsa 02/28/18 Added Frame End Generation feature
+* 1.2 ai  09/17/26 Extended Set/GetLineCountForVC to support up to 16 Virtual
+*                  Channels (banked, packed line-count registers) for the
+*                  CSI2 TX subsystem v3.0 IP
 * </pre>
 ******************************************************************************/
 
@@ -74,6 +77,8 @@ static void StubErrCallBack(void *Callbackref, u32 ErrorMask);
 u32 XCsi2Tx_CfgInitialize(XCsi2Tx *InstancePtr, XCsi2Tx_Config *CfgPtr,
 			UINTPTR EffectiveAddr)
 {
+	u32 Index;
+
 	/* Verify arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(CfgPtr != NULL);
@@ -92,10 +97,10 @@ u32 XCsi2Tx_CfgInitialize(XCsi2Tx *InstancePtr, XCsi2Tx_Config *CfgPtr,
 	InstancePtr->LineBufferCallBack = StubErrCallBack;
 	InstancePtr->WrgDataTypeCallBack = StubErrCallBack;
 	InstancePtr->UnderrunPixelCallBack = StubErrCallBack;
-	InstancePtr->LineCountErrVC0 = StubErrCallBack;
-	InstancePtr->LineCountErrVC1 = StubErrCallBack;
-	InstancePtr->LineCountErrVC2 = StubErrCallBack;
-	InstancePtr->LineCountErrVC3 = StubErrCallBack;
+	/* Set all per-VC Line Count error handlers to the stub */
+	for (Index = 0; Index < XCSI2TX_MAX_VC; Index++) {
+		InstancePtr->LineCountErrVC[Index] = StubErrCallBack;
+	}
 
 	InstancePtr->IsReady = XIL_COMPONENT_IS_READY;
 
@@ -263,8 +268,14 @@ void XCsi2Tx_GetShortPacket(XCsi2Tx *InstancePtr,
 	ShortPacketStruct->Data = ((Value & XCSI2TX_SPKTR_DATA_MASK) >>
 					XCSI2TX_SPKTR_DATA_SHIFT);
 
-	ShortPacketStruct->VirtualChannel = ((Value & XCSI2TX_SPKTR_VC_MASK) >>
-						XCSI2TX_SPKTR_VC_SHIFT);
+	/* The virtual channel spans 4 bits for 16 VC support: the lower 2 bits
+	 * come from vc [7:6] and the upper 2 bits from vc_ext [25:24]. On a
+	 * <=4 VC core vc_ext reads 0, giving the legacy VC0-3 value.
+	 */
+	ShortPacketStruct->VirtualChannel =
+		(((Value & XCSI2TX_SPKTR_VCEXT_MASK) >>
+				XCSI2TX_SPKTR_VCEXT_SHIFT) << 2) |
+		((Value & XCSI2TX_SPKTR_VC_MASK) >> XCSI2TX_SPKTR_VC_SHIFT);
 
 	ShortPacketStruct->DataType = ((Value & XCSI2TX_SPKTR_DT_MASK) >>
 					XCSI2TX_SPKTR_DT_SHIFT);
@@ -312,22 +323,29 @@ u8 XCsi2Tx_IsActiveLaneCountValid(XCsi2Tx *InstancePtr, u8 ActiveLanesCount)
  *
  * @param	InstancePtr is a pointer to the Subsystem instance to be
  *		worked on.
- * @param	VC is which Virtual channel to be configured for (0-3).
+ * @param	VC is which Virtual channel to be configured for (0 to 15).
  * @param	LineCount is valid line count for the Virtual channel.
  *
  * @return
  *		- XST_NO_FEATURE if Frame End generation is not enabled
  *		- XST_INVALID_PARAM if any param is invalid e.g.
- *			VC is always 0 to 3 and Line Count is 0 to 0xFFFF.
+ *			VC is always 0 to 15 and Line Count is 0 to 0xFFFF.
  *		- XST_FAILURE in case the core is already running.
  *		- XST_SUCCESS otherwise
  *
- * @note	None.
+ * @note	Each Line Count register holds two Virtual Channels: the lower
+ *		half [15:0] maps VC0-VC3 (or VC8-VC11) and the upper half
+ *		[31:16] maps VC4-VC7 (or VC12-VC15). The bank (VC0-VC7 vs
+ *		VC8-VC15) is selected via CCR[5] which is only honoured when
+ *		the core is built with NUM_VC=16.
  *
 ******************************************************************************/
 u32 XCsi2Tx_SetLineCountForVC(XCsi2Tx *InstancePtr, u8 VC, u16 LineCount)
 {
 	u32 Val;
+	u8 Bank;
+	u8 Local;
+	u32 RegOffset;
 
 	/* Verify arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -336,7 +354,7 @@ u32 XCsi2Tx_SetLineCountForVC(XCsi2Tx *InstancePtr, u8 VC, u16 LineCount)
 	if (!InstancePtr->Config.FEGenEnabled)
 		return XST_NO_FEATURE;
 
-	/* VC is 0 to 3 */
+	/* VC is 0 to 15 */
 	if (VC >= XCSI2TX_MAX_VC)
 		return XST_INVALID_PARAM;
 
@@ -345,9 +363,28 @@ u32 XCsi2Tx_SetLineCountForVC(XCsi2Tx *InstancePtr, u8 VC, u16 LineCount)
 	if (Val & XCSI2TX_CCR_COREENB_MASK)
 		return XST_FAILURE;
 
-	/* Depending on VC write into corresponding Line Count Reg */
-	XCsi2Tx_WriteReg(InstancePtr->Config.BaseAddr,
-			 XCSI2TX_LINE_COUNT_VC0 + (VC * 4), LineCount);
+	Bank = VC / XCSI2TX_VC_PER_BANK;
+	Local = VC % XCSI2TX_VC_PER_BANK;
+	RegOffset = XCSI2TX_LINE_COUNT_VC0 + ((Local % 4) * 4);
+
+	/* Select the bank that maps this VC (only honoured for NUM_VC=16) */
+	XCsi2Tx_SetLineCountBank(InstancePtr, Bank);
+
+	/* Read-modify-write only the 16-bit half owned by this VC so that the
+	 * sibling VC packed into the other half is preserved.
+	 */
+	Val = XCsi2Tx_ReadReg(InstancePtr->Config.BaseAddr, RegOffset);
+	if (Local >= 4) {
+		Val &= ~0xFFFF0000U;
+		Val |= ((u32)LineCount << 16);
+	} else {
+		Val &= ~0x0000FFFFU;
+		Val |= (u32)LineCount;
+	}
+	XCsi2Tx_WriteReg(InstancePtr->Config.BaseAddr, RegOffset, Val);
+
+	/* Restore the default bank */
+	XCsi2Tx_SetLineCountBank(InstancePtr, 0);
 
 	return XST_SUCCESS;
 }
@@ -359,21 +396,27 @@ u32 XCsi2Tx_SetLineCountForVC(XCsi2Tx *InstancePtr, u8 VC, u16 LineCount)
  *
  * @param	InstancePtr is a pointer to the Subsystem instance to be
  *		worked on.
- * @param	VC is which Virtual channel to be configured for (0-3).
+ * @param	VC is which Virtual channel to be configured for (0 to 15).
  * @param	LineCount is pointer to variable to be filled with line count
  *		for the Virtual channel
  *
  * @return
  *		- XST_NO_FEATURE if Frame End generation is not enabled
  *		- XST_INVALID_PARAM if any param is invalid e.g.
- *			VC is always 0 to 3 and Line Count is 0 to 0xFFFF.
+ *			VC is always 0 to 15 and Line Count is 0 to 0xFFFF.
  *		- XST_SUCCESS otherwise
  *
- * @note	None.
+ * @note	See XCsi2Tx_SetLineCountForVC for the bank/half packing of the
+ *		Line Count registers.
  *
 ******************************************************************************/
 u32 XCsi2Tx_GetLineCountForVC(XCsi2Tx *InstancePtr, u8 VC, u16 *LineCount)
 {
+	u32 Val;
+	u8 Bank;
+	u8 Local;
+	u32 RegOffset;
+
 	/* Verify arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 
@@ -381,13 +424,26 @@ u32 XCsi2Tx_GetLineCountForVC(XCsi2Tx *InstancePtr, u8 VC, u16 *LineCount)
 	if (!InstancePtr->Config.FEGenEnabled)
 		return XST_NO_FEATURE;
 
-	/* VC is 0 to 3 */
+	/* VC is 0 to 15 */
 	if (VC >= XCSI2TX_MAX_VC)
 		return XST_INVALID_PARAM;
 
-	/* Depending on VC read corresponding Line Count Reg */
-	*LineCount = XCsi2Tx_ReadReg(InstancePtr->Config.BaseAddr,
-				     XCSI2TX_LINE_COUNT_VC0 + (VC * 4));
+	Bank = VC / XCSI2TX_VC_PER_BANK;
+	Local = VC % XCSI2TX_VC_PER_BANK;
+	RegOffset = XCSI2TX_LINE_COUNT_VC0 + ((Local % 4) * 4);
+
+	/* Select the bank that maps this VC (only honoured for NUM_VC=16) */
+	XCsi2Tx_SetLineCountBank(InstancePtr, Bank);
+
+	/* Read the 16-bit half owned by this VC */
+	Val = XCsi2Tx_ReadReg(InstancePtr->Config.BaseAddr, RegOffset);
+	if (Local >= 4)
+		*LineCount = (u16)(Val >> 16);
+	else
+		*LineCount = (u16)(Val & 0xFFFF);
+
+	/* Restore the default bank */
+	XCsi2Tx_SetLineCountBank(InstancePtr, 0);
 
 	return XST_SUCCESS;
 }

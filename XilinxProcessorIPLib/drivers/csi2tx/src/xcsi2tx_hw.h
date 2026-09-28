@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2016 - 2020 Xilinx, Inc. All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -20,6 +20,8 @@
 * 1.0 sss 07/15/16 Initial release
 *     vsa 05/12/17 Add support for Clock Mode
 * 1.1 vsa 02/28/18 Added Frame End Generation feature
+* 1.2 ai  09/17/26 Added multi-VC (NUM_VC 4/8/16) register definitions
+*                  and 8 pixels-per-clock mode for CSI2 TX subsystem v3.0
 * </pre>
 *
 *****************************************************************************/
@@ -64,6 +66,7 @@ extern "C" {
 #define XCSI2TX_LINE_COUNT_VC2	0x00000048	/**< Line Count for VC2 */
 #define XCSI2TX_LINE_COUNT_VC3	0x0000004C	/**< Line Count for VC3 */
 #define XCSI2TX_GSP_OFFSET	0x00000078	/* < GSP Status*/
+/** @} */
 
 /** @name Bitmasks and offsets of XCSI_GIER_OFFSET register
  *
@@ -78,7 +81,7 @@ extern "C" {
 #define XCSI2TX_GIER_SET	1	/**< Enable the Global Interrupts */
 #define XCSI2TX_GIER_RESET 	0	/**< Disable the Global Interrupts */
 
-/*@}*/
+/** @} */
 
 /** @name Bitmasks and offsets of XCSI_CCR_OFFSET register
  *
@@ -92,12 +95,15 @@ extern "C" {
 #define XCSI2TX_CSR_RIPCD_MASK		0x00000004 /* Core ready */
 #define XCSI2TX_CCR_ULPS_MASK		0x00000008 /* ULPS */
 #define XCSI2TX_CCR_CLKMODE_MASK	0x00000010 /* Clock Mode */
+#define XCSI2TX_CCR_LCBANKSEL_MASK	0x00000020 /**< Line Count bank select
+						     *  (NUM_VC=16 only) */
 #define XCSI2TX_CCR_COREENB_SHIFT	0 	/* Shift bit for Core Enable*/
 #define XCSI2TX_CCR_SOFTRESET_SHIFT	1 	/* Shift bit for Soft reset */
 #define XCSI2TX_CSR_RIPCD_SHIFT		2 	/* Bit Shift for Core Ready */
 #define XCSI2TX_CCR_ULPS_SHIFT 		3 	/* Shift bits for ulps */
 #define XCSI2TX_CCR_CLKMODE_SHIFT	4 	/* Shift bits for clock mode */
-/*@}*/
+#define XCSI2TX_CCR_LCBANKSEL_SHIFT	5 	/**< Line Count bank select shift */
+/** @} */
 
 /** @name Bitmasks and offset of XCSI2TX_PCR_OFFSET register
  *
@@ -106,18 +112,20 @@ extern "C" {
  * @{
  */
 /* Mask bits */
+#define XCSI2TX_PCR_PIXEL8_MASK		0x00010000 /**< 8 Pixels per clock mode */
 #define XCSI2TX_PCR_LINEGEN_MASK	0x00008000 /* Line generation Mode */
 #define XCSI2TX_PCR_PIXEL_MASK		0x00006000 /* Pixel Mode */
 #define XCSI2TX_PCR_MAXLANES_MASK	0x00000018 /* Maximum lanes in core */
 #define XCSI2TX_PCR_ACTLANES_MASK	0x00000003 /* Active  lanes in core */
 
 /* Shift bits */
+#define XCSI2TX_PCR_PIXEL8_SHIFT	16 	/**< 8 Pixels per clock mode shift */
 #define XCSI2TX_PCR_LINEGEN_SHIFT	15 	/* Line generation */
 #define XCSI2TX_PCR_PIXEL_SHIFT		13 	/* Pixel Mode */
 #define XCSI2TX_PCR_MAXLANES_SHIFT	3 	/* Max Lanes */
 #define XCSI2TX_PCR_ACTLANES_SHIFT	0 	/* Active Lanes */
 
-/*@}*/
+/** @} */
 
 #define XCSI2TX_GSP_MASK		0x00000001F /**< Number of GSPs can
 						    be safely written to GSP
@@ -137,6 +145,10 @@ extern "C" {
 #define XCSI2TX_DPHY_ULPS_MASK		(1<<3)	/* Dphy ulps */
 #define XCSI_GPSFIFO_MASK		(1<<4)	/* GPS fifo full */
 #define XCSI_INCORT_LANE_MASK		(1<<5)	/* Wrong lane configuration */
+
+#define XCSI2TX_ISR_VCBANKSEL_MASK	(1<<6)	/**< VC ISR/IER bank select
+						  *  (NUM_VC=16 only) */
+#define XCSI2TX_ISR_VCBANKSEL_SHIFT	6	/**< VC ISR/IER bank select shift */
 
 #define XCSITX_LCSTAT_VC0_IER_MASK	(1<<8) /**< Line Count Status for
 						 *  VC0 IER */
@@ -172,7 +184,62 @@ extern "C" {
 					      *  VC2 ISR Offset */
 #define XCSITX_LCSTAT_VC3_ISR_OFFSET	(14) /**< Line Count Status for
 					      *  VC3 ISR Offset */
-/*@}*/
+
+/* Line Count Status for VC4-VC7 (or VC12-VC15 in bank 1). These are only
+ * present when NUM_VC >= 8. Unlike VC0-VC3 (whose IER uses a single enable
+ * bit in a sparse layout), the VC4-VC7 IER uses a continuous 2-bit field
+ * that is 1:1 with the corresponding ISR bits.
+ */
+#define XCSITX_LCSTAT_VC4_IER_MASK	(0x3<<16) /**< Line Count Status for
+						    *  VC4 IER */
+#define XCSITX_LCSTAT_VC5_IER_MASK	(0x3<<18) /**< Line Count Status for
+						    *  VC5 IER */
+#define XCSITX_LCSTAT_VC6_IER_MASK	(0x3<<20) /**< Line Count Status for
+						    *  VC6 IER */
+#define XCSITX_LCSTAT_VC7_IER_MASK	(0x3<<22) /**< Line Count Status for
+						    *  VC7 IER */
+
+#define XCSITX_LCSTAT_VC4_IER_OFFSET	(16) /**< Line Count Status for
+					       *  VC4 IER Offset */
+#define XCSITX_LCSTAT_VC5_IER_OFFSET	(18) /**< Line Count Status for
+					       *  VC5 IER Offset */
+#define XCSITX_LCSTAT_VC6_IER_OFFSET	(20) /**< Line Count Status for
+					       *  VC6 IER Offset */
+#define XCSITX_LCSTAT_VC7_IER_OFFSET	(22) /**< Line Count Status for
+					       *  VC7 IER Offset */
+
+#define XCSITX_LCSTAT_VC4_ISR_MASK	(0x3<<16) /**< Line Count Status for
+						    *  VC4 ISR */
+#define XCSITX_LCSTAT_VC5_ISR_MASK	(0x3<<18) /**< Line Count Status for
+						    *  VC5 ISR */
+#define XCSITX_LCSTAT_VC6_ISR_MASK	(0x3<<20) /**< Line Count Status for
+						    *  VC6 ISR */
+#define XCSITX_LCSTAT_VC7_ISR_MASK	(0x3<<22) /**< Line Count Status for
+						    *  VC7 ISR */
+
+#define XCSITX_LCSTAT_VC4_ISR_OFFSET	(16) /**< Line Count Status for
+					       *  VC4 ISR Offset */
+#define XCSITX_LCSTAT_VC5_ISR_OFFSET	(18) /**< Line Count Status for
+					       *  VC5 ISR Offset */
+#define XCSITX_LCSTAT_VC6_ISR_OFFSET	(20) /**< Line Count Status for
+					       *  VC6 ISR Offset */
+#define XCSITX_LCSTAT_VC7_ISR_OFFSET	(22) /**< Line Count Status for
+					       *  VC7 ISR Offset */
+
+/* Aggregate masks for the Line Count Status enables/status of VC4-VC7,
+ * used when NUM_VC >= 8.
+ */
+/** Line Count Status IER aggregate mask for VC4-VC7 */
+#define XCSITX_LCSTAT_VC4_7_IER_MASK	(XCSITX_LCSTAT_VC4_IER_MASK | \
+					 XCSITX_LCSTAT_VC5_IER_MASK | \
+					 XCSITX_LCSTAT_VC6_IER_MASK | \
+					 XCSITX_LCSTAT_VC7_IER_MASK)
+/** Line Count Status ISR aggregate mask for VC4-VC7 */
+#define XCSITX_LCSTAT_VC4_7_ISR_MASK	(XCSITX_LCSTAT_VC4_ISR_MASK | \
+					 XCSITX_LCSTAT_VC5_ISR_MASK | \
+					 XCSITX_LCSTAT_VC6_ISR_MASK | \
+					 XCSITX_LCSTAT_VC7_ISR_MASK)
+/** @} */
 
 /** @name BitMasks Short Packets
  *
@@ -180,12 +247,18 @@ extern "C" {
  */
 #define XCSI2TX_SPKTR_DATA_MASK		0x00FFFF00 /* Short Packet byte0 and 1*/
 #define XCSI2TX_SPKTR_DATA_SHIFT		8
+#define XCSI2TX_SPKTR_VCEXT_MASK	0x03000000 /**< Short Packet Virtual
+						     *  Channel extension - upper
+						     *  2 bits (VC[3:2]) for 16 VC
+						     *  support */
+#define XCSI2TX_SPKTR_VCEXT_SHIFT	24	/**< Short Packet Virtual Channel
+						  *  extension shift */
 #define XCSI2TX_SPKTR_VC_MASK		0x000000C0 /* Short Packet Virtual
 								channel*/
 #define XCSI2TX_SPKTR_VC_SHIFT		6
 #define XCSI2TX_SPKTR_DT_MASK		0x0000003F /* Short Packet Data type*/
 #define XCSI2TX_SPKTR_DT_SHIFT		0
-/*@}*/
+/** @} */
 
 
 /*****************************************************************************/

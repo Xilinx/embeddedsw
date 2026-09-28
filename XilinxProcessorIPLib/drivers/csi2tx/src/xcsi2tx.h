@@ -94,6 +94,9 @@
 *                  for doxygen generation of examples.
 *     vsa 15/12/17 Add support for Clock Mode
 * 1.1 vsa 02/28/18 Added Frame End Generation feature
+* 1.2 ai  09/17/26 Added multi-VC (NUM_VC 4/8/16) support with per-VC line
+*                  count handlers, bank-select helpers and 8 pixels-per-clock
+*                  mode for CSI2 TX subsystem v3.0
 * </pre>
 *
 ******************************************************************************/
@@ -127,8 +130,20 @@ extern "C" {
 #define XCSI2TX_HANDLER_LCERRVC1		8
 #define XCSI2TX_HANDLER_LCERRVC2		9
 #define XCSI2TX_HANDLER_LCERRVC3		10
+#define XCSI2TX_HANDLER_LCERRVC4		11	/**< Line count error VC4 handler */
+#define XCSI2TX_HANDLER_LCERRVC5		12	/**< Line count error VC5 handler */
+#define XCSI2TX_HANDLER_LCERRVC6		13	/**< Line count error VC6 handler */
+#define XCSI2TX_HANDLER_LCERRVC7		14	/**< Line count error VC7 handler */
+#define XCSI2TX_HANDLER_LCERRVC8		15	/**< Line count error VC8 handler */
+#define XCSI2TX_HANDLER_LCERRVC9		16	/**< Line count error VC9 handler */
+#define XCSI2TX_HANDLER_LCERRVC10		17	/**< Line count error VC10 handler */
+#define XCSI2TX_HANDLER_LCERRVC11		18	/**< Line count error VC11 handler */
+#define XCSI2TX_HANDLER_LCERRVC12		19	/**< Line count error VC12 handler */
+#define XCSI2TX_HANDLER_LCERRVC13		20	/**< Line count error VC13 handler */
+#define XCSI2TX_HANDLER_LCERRVC14		21	/**< Line count error VC14 handler */
+#define XCSI2TX_HANDLER_LCERRVC15		22	/**< Line count error VC15 handler */
 
-/*@}*/
+/** @} */
 
 #define XCSI2TX_ENABLE 	1	/**< Flag denoting enabling of CSI */
 #define XCSI2TX_DISABLE	0	/**< Flag denoting disabling of CSI */
@@ -137,7 +152,17 @@ extern "C" {
 #define XCSI2TX_INACTIVE	1
 #define XCSI2TX_READY		0
 
-#define XCSI2TX_MAX_VC		4 /**< Max number of Virtual Channels */
+#define XCSI2TX_MAX_VC		16 /**< Max number of Virtual Channels
+				     *  supported (NUM_VC up to 16) */
+#define XCSI2TX_DEFAULT_NUM_VC	4 /**< Default number of Virtual Channels
+				    *  when not specified (older IP) */
+#define XCSI2TX_VC_PER_BANK	8 /**< Virtual Channels mapped per bank */
+
+/** @name Pixel per clock modes
+ * @{
+ */
+#define XCSI2TX_PIXEL_MODE_8PPC	4 /**< 8 pixels-per-clock mode (PCR[16]) */
+/** @} */
 /**************************** Type Definitions *******************************/
 
 /**
@@ -148,7 +173,7 @@ extern "C" {
 typedef struct {
 	u16 Data;	/**< The Data from Camera Sensor */
 	u8 DataType;	/**< The Data type like RGB, RAW or YUV format */
-	u8 VirtualChannel;	/**< Virtual Channel on which this
+	u8 VirtualChannel;	/**< Virtual Channel (0-15) on which this
 				  *  short packet is sent */
 } XCsi2Tx_SPktData;
 
@@ -224,22 +249,15 @@ typedef struct {
 	XCsi2Tx_CallBack UnderrunPixelCallBack;	/*Callback for Pixel data
 						  underrun interrupts */
 	void *UnderrunPixelRef;	/**< Pixel data underrun interrupt callback */
-	XCsi2Tx_CallBack LineCountErrVC0; /* Callback for Line Count Status
-					     error for VC0 */
-	void *LCErrVC0Ref;	/**< Passed to Line Count Error for
-				  *  VC0 callback */
-	XCsi2Tx_CallBack LineCountErrVC1; /* Callback for Line Count Status
-					     error for VC1 */
-	void *LCErrVC1Ref;	/**< Passed to Line Count Error for
-				  *  VC1 callback */
-	XCsi2Tx_CallBack LineCountErrVC2; /* Callback for Line Count Status
-					     error for VC2 */
-	void *LCErrVC2Ref;	/**< Passed to Line Count Error for
-				  *  VC2 callback */
-	XCsi2Tx_CallBack LineCountErrVC3; /* Callback for Line Count Status
-					     error for VC3 */
-	void *LCErrVC3Ref;	/**< Passed to Line Count Error for
-				  *  VC3 callback */
+	/* Per-Virtual-Channel Line Count Status error callbacks, indexed by
+	 * physical VC (0 to XCSI2TX_MAX_VC-1). VC0-VC3 are used by all IP
+	 * versions; VC4-VC15 are used only on the multi-VC (NUM_VC 8/16) IP.
+	 */
+	XCsi2Tx_CallBack LineCountErrVC[XCSI2TX_MAX_VC]; /**< Line Count Status
+						  *  error callback per VC */
+	void *LCErrVCRef[XCSI2TX_MAX_VC];	/**< Reference passed to the
+						  *  Line Count Status error
+						  *  callback per VC */
 
 	u32 IsReady; /**< Driver is ready */
 } XCsi2Tx;
@@ -517,12 +535,20 @@ static inline u32 XCsi2Tx_GetMaxLaneCount(XCsi2Tx *InstancePtr)
 * @return	0x0  - Single Pixel Mode
 * 		0x1  - Dual Pixel Mode
 * 		0x3  - Quad Pixel Mode
+* 		0x4  - 8 Pixels per clock Mode (XCSI2TX_PIXEL_MODE_8PPC)
 *
-* @note		None
+* @note		The 8 pixels-per-clock mode is reported via PCR[16] on the
+*		CSI2 TX subsystem v3.0 IP.
 *
 ****************************************************************************/
 static inline u32 XCsi2Tx_GetPixelMode(XCsi2Tx *InstancePtr)
 {
+	if (XCsi2Tx_GetBitField(InstancePtr->Config.BaseAddr,
+			XCSI2TX_PCR_OFFSET, XCSI2TX_PCR_PIXEL8_MASK,
+			XCSI2TX_PCR_PIXEL8_SHIFT)) {
+		return XCSI2TX_PIXEL_MODE_8PPC;
+	}
+
 	return XCsi2Tx_GetBitField(InstancePtr->Config.BaseAddr,
 	XCSI2TX_PCR_OFFSET, XCSI2TX_PCR_PIXEL_MASK, XCSI2TX_PCR_PIXEL_SHIFT);
 }
@@ -711,10 +737,11 @@ static inline u32 XCsi2Tx_GetGSPCount(XCsi2Tx *InstancePtr)
 *		worked on.
 *
 * @param	Value
-* 		31:24 Reserved
+* 		31:26 Reserved
+*		25:24 VC extension - upper 2 bits of VC for 16 VC support
 *		23:16 Byte 1 of short packet
 *		15:8  Byte 0 of short packet
-*		7:6   VC value of short packet
+*		7:6   VC value of short packet (lower 2 bits)
 *		5:0   Short packet data type
 *
 * @return	None
@@ -773,6 +800,72 @@ static inline u32 XCsi2Tx_GetClkMode(XCsi2Tx *InstancePtr)
 			XCSI2TX_CCR_OFFSET, XCSI2TX_CCR_CLKMODE_MASK,
 			XCSI2TX_CCR_CLKMODE_SHIFT);
 }
+
+/****************************************************************************/
+/**
+*
+* This function selects the Line Count register bank in the Core Configuration
+* Register. Bank 0 maps VC0-VC7 and bank 1 maps VC8-VC15 onto the Line Count
+* registers. This bit is only honoured when the core is built with NUM_VC=16;
+* it reads back as 0 and ignores writes otherwise.
+*
+* @param	InstancePtr is a pointer to the CSI Instance to be worked on.
+* @param	Bank is 0 (VC0-VC7) or 1 (VC8-VC15).
+*
+* @return	None
+*
+* @note		None
+*
+****************************************************************************/
+static inline void XCsi2Tx_SetLineCountBank(XCsi2Tx *InstancePtr, u8 Bank)
+{
+	XCsi2Tx_SetBitField(InstancePtr->Config.BaseAddr, XCSI2TX_CCR_OFFSET,
+		XCSI2TX_CCR_LCBANKSEL_MASK, XCSI2TX_CCR_LCBANKSEL_SHIFT, Bank);
+}
+
+/****************************************************************************/
+/**
+*
+* This function selects the Virtual Channel interrupt bank in the Interrupt
+* Status Register. Bank 0 maps VC0-VC7 and bank 1 maps VC8-VC15 onto the Line
+* Count status/enable fields. This bit is only honoured when the core is built
+* with NUM_VC=16; it reads back as 0 and ignores writes otherwise.
+*
+* @param	InstancePtr is a pointer to the CSI Instance to be worked on.
+* @param	Bank is 0 (VC0-VC7) or 1 (VC8-VC15).
+*
+* @return	None
+*
+* @note		None
+*
+****************************************************************************/
+static inline void XCsi2Tx_SetVcIsrBank(XCsi2Tx *InstancePtr, u8 Bank)
+{
+	XCsi2Tx_SetBitField(InstancePtr->Config.BaseAddr, XCSI2TX_ISR_OFFSET,
+		XCSI2TX_ISR_VCBANKSEL_MASK, XCSI2TX_ISR_VCBANKSEL_SHIFT, Bank);
+}
+
+/****************************************************************************/
+/**
+*
+* This function returns the Virtual Channel interrupt bank select bit read
+* back from the Interrupt Status Register. It reads back as 1 only on cores
+* built with NUM_VC=16, and is used to gate bank-1 (VC8-VC15) processing.
+*
+* @param	InstancePtr is a pointer to the CSI Instance to be worked on.
+*
+* @return	1 if bank 1 is selected, 0 otherwise.
+*
+* @note		None
+*
+****************************************************************************/
+static inline u32 XCsi2Tx_GetVcIsrBank(XCsi2Tx *InstancePtr)
+{
+	return XCsi2Tx_GetBitField(InstancePtr->Config.BaseAddr,
+		XCSI2TX_ISR_OFFSET, XCSI2TX_ISR_VCBANKSEL_MASK,
+		XCSI2TX_ISR_VCBANKSEL_SHIFT);
+}
+
 /************************** Function Prototypes ******************************/
 
 /* Initialization function in xcsi2tx_sinit.c */

@@ -23,6 +23,9 @@
 * --- --- -------- ------------------------------------------------------------
 * 1.0 sss 07/28/16 Initial release
 * 1.1 vsa 02/28/18 Added Frame End Generation feature
+* 1.2 ai  09/17/26 Added multi-VC (up to 16) line count interrupt handling
+*                  with banked ISR sweep and VC4-VC15 callbacks for the
+*                  CSI2 TX subsystem v3.0 IP
 * </pre>
 ******************************************************************************/
 
@@ -67,6 +70,8 @@ void XCsi2Tx_IntrEnable(XCsi2Tx *InstancePtr, u32 Mask)
 		AllMask |= XCSITX_LCSTAT_VC1_IER_MASK;
 		AllMask |= XCSITX_LCSTAT_VC2_IER_MASK;
 		AllMask |= XCSITX_LCSTAT_VC3_IER_MASK;
+		/* VC4-VC7 (and, in bank 1, VC12-VC15) line count enables */
+		AllMask |= XCSITX_LCSTAT_VC4_7_IER_MASK;
 	}
 	/* Checking for invalid mask bits being set */
 	Xil_AssertVoid((Mask & ~AllMask) == 0);
@@ -102,6 +107,8 @@ void XCsi2Tx_IntrDisable(XCsi2Tx *InstancePtr, u32 Mask)
 		AllMask |= XCSITX_LCSTAT_VC1_IER_MASK;
 		AllMask |= XCSITX_LCSTAT_VC2_IER_MASK;
 		AllMask |= XCSITX_LCSTAT_VC3_IER_MASK;
+		/* VC4-VC7 (and, in bank 1, VC12-VC15) line count enables */
+		AllMask |= XCSITX_LCSTAT_VC4_7_IER_MASK;
 	}
 	/* Checking for invalid mask bits being set */
 	Xil_AssertVoid((Mask & ~AllMask) == 0);
@@ -186,6 +193,8 @@ void XCsi2Tx_InterruptClear(XCsi2Tx *InstancePtr, u32 Mask)
 		AllMask |= XCSITX_LCSTAT_VC1_ISR_MASK;
 		AllMask |= XCSITX_LCSTAT_VC2_ISR_MASK;
 		AllMask |= XCSITX_LCSTAT_VC3_ISR_MASK;
+		/* VC4-VC7 (and, in bank 1, VC12-VC15) line count status */
+		AllMask |= XCSITX_LCSTAT_VC4_7_ISR_MASK;
 	}
 	/* Checking for invalid mask bits being set */
 	Xil_AssertVoid((Mask & ~AllMask) == 0);
@@ -212,10 +221,7 @@ void XCsi2Tx_InterruptClear(XCsi2Tx *InstancePtr, u32 Mask)
 * (XCSI2TX_HANDLER_LINEBUF_FULL)	LineBufferCallBack
 * (XCSI2TX_HANDLER_WRG_DATATYPE)	WrgDataTypeCallBack
 * (XCSI2TX_HANDLER_UNDERRUN_PIXEL)	UnderrunPixelCallBack
-* (XCSI2TX_HANDLER_LCERRVC0)		LineCountErrVC0
-* (XCSI2TX_HANDLER_LCERRVC1)		LineCountErrVC1
-* (XCSI2TX_HANDLER_LCERRVC2)		LineCountErrVC2
-* (XCSI2TX_HANDLER_LCERRVC3)		LineCountErrVC3
+* (XCSI2TX_HANDLER_LCERRVC0..VC15)	LineCountErrVC[0] .. LineCountErrVC[15]
 * </pre>
 *
 * @param	InstancePtr is the XCsi2Tx instance to operate on
@@ -240,6 +246,19 @@ int XCsi2Tx_SetCallBack(XCsi2Tx *InstancePtr, u32 HandleType,
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(Callbackref != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+
+	/* The per-VC Line Count Status error handlers use contiguous handler
+	 * IDs (VC0 to VC15) and are stored in an array indexed by VC, so map
+	 * them directly instead of one case per VC.
+	 */
+	if ((HandleType >= XCSI2TX_HANDLER_LCERRVC0) &&
+	    (HandleType <= XCSI2TX_HANDLER_LCERRVC15)) {
+		u32 Vc = HandleType - XCSI2TX_HANDLER_LCERRVC0;
+
+		InstancePtr->LineCountErrVC[Vc] = Callbackfunc;
+		InstancePtr->LCErrVCRef[Vc] = Callbackref;
+		return XST_SUCCESS;
+	}
 
 	switch (HandleType) {
 		case XCSI2TX_HANDLER_WRG_LANE:
@@ -272,32 +291,56 @@ int XCsi2Tx_SetCallBack(XCsi2Tx *InstancePtr, u32 HandleType,
 			InstancePtr->UnderrunPixelRef = Callbackref;
 			break;
 
-		case XCSI2TX_HANDLER_LCERRVC0:
-			InstancePtr->LineCountErrVC0 = Callbackfunc;
-			InstancePtr->LCErrVC0Ref = Callbackref;
-			break;
-
-		case XCSI2TX_HANDLER_LCERRVC1:
-			InstancePtr->LineCountErrVC1 = Callbackfunc;
-			InstancePtr->LCErrVC1Ref = Callbackref;
-			break;
-
-		case XCSI2TX_HANDLER_LCERRVC2:
-			InstancePtr->LineCountErrVC2 = Callbackfunc;
-			InstancePtr->LCErrVC2Ref = Callbackref;
-			break;
-
-		case XCSI2TX_HANDLER_LCERRVC3:
-			InstancePtr->LineCountErrVC3 = Callbackfunc;
-			InstancePtr->LCErrVC3Ref = Callbackref;
-			break;
-
 		default:
 			/* Invalid value of HandleType */
 			return XST_INVALID_PARAM;
 	}
 
 	return XST_SUCCESS;
+}
+
+/*****************************************************************************/
+/**
+*
+* This static helper processes the Line Count Status for one bank of up to
+* eight Virtual Channels. Each VC line count status is a 2-bit field; within a
+* bank VC0..VC7 occupy ISR bits [9:8], [11:10], ... [23:22]. For every VC that
+* reports a less/more lines condition the corresponding callback is invoked and
+* the bit position is accumulated into the returned mask so the caller can
+* clear the w1c status bits.
+*
+* @param	XCsiPtr is a pointer to the XCsi2Tx core instance.
+* @param	BankIntr is the Interrupt Status Register value for the bank.
+* @param	BankBaseVc is the physical VC of the bank's first channel
+*		(0 for bank 0, XCSI2TX_VC_PER_BANK for bank 1).
+*
+* @return	Mask of the w1c Line Count status bits that were handled and
+*		should be cleared for this bank.
+*
+* @note		None.
+*
+****************************************************************************/
+static u32 Csi2Tx_HandleLcBank(XCsi2Tx *XCsiPtr, u32 BankIntr, u8 BankBaseVc)
+{
+	u32 ClearMask = 0;
+	u32 Shift;
+	u32 Status;
+	u8 Local;
+	u8 Vc;
+
+	for (Local = 0U; Local < XCSI2TX_VC_PER_BANK; Local++) {
+		Shift = XCSITX_LCSTAT_VC0_ISR_OFFSET + ((u32)Local * 2U);
+		Status = (BankIntr >> Shift) & 0x3U;
+		if (Status == XCSI2TX_LC_LESS_LINES ||
+		    Status == XCSI2TX_LC_MORE_LINES) {
+			Vc = BankBaseVc + Local;
+			XCsiPtr->LineCountErrVC[Vc](XCsiPtr->LCErrVCRef[Vc],
+						   Status);
+			ClearMask |= (0x3U << Shift);
+		}
+	}
+
+	return ClearMask;
 }
 
 /*****************************************************************************/
@@ -326,6 +369,8 @@ void XCsi2Tx_IntrHandler(void *InstancePtr)
 {
 	u32 ActiveIntr;
 	u32 Mask;
+	u32 BankIntr;
+	u32 ClearMask;
 
 	XCsi2Tx *XCsiPtr = (XCsi2Tx *)InstancePtr;
 
@@ -333,48 +378,47 @@ void XCsi2Tx_IntrHandler(void *InstancePtr)
 	Xil_AssertVoid(XCsiPtr != NULL);
 	Xil_AssertVoid(XCsiPtr->IsReady == XIL_COMPONENT_IS_READY);
 
-	/* Get Active interrupts */
+	/* Get Active interrupts (bank 0) */
 	ActiveIntr = XCsi2Tx_GetIntrStatus(XCsiPtr);
 
-	/* If Frame End Generation is Enabled then check for
-	 * Line Count Status per Virtual Channel.
+	/* If Frame End Generation is Enabled then check for Line Count Status
+	 * per Virtual Channel. The Line Count status fields are banked: bank 0
+	 * maps VC0-VC7 and bank 1 maps VC8-VC15. Bank 1 only exists on
+	 * NUM_VC=16 cores.
 	 */
 	if (XCsiPtr->Config.FEGenEnabled) {
-		/* Check if the no. of lines received is different from
-		 * the value configured in corresponding VC register.
-		 * To clear the interrupt, we need to write 0x3 in the
-		 * corresponding bitfield of ISR.
+		/* Bank 0 (VC0-VC7) from the snapshot read above */
+		ClearMask = Csi2Tx_HandleLcBank(XCsiPtr, ActiveIntr, 0U);
+		if (ClearMask != 0U) {
+			/* ISR[6] and the base interrupt bits are 0 in ClearMask,
+			 * so only the bank-0 LC status bits are cleared.
+			 */
+			XCsi2Tx_WriteReg(XCsiPtr->Config.BaseAddr,
+					 XCSI2TX_ISR_OFFSET, ClearMask);
+		}
+
+		/* Select bank 1 with a direct write (does not disturb w1c bits)
+		 * and confirm the core actually supports it via read-back.
 		 */
-		Mask = ActiveIntr & XCSITX_LCSTAT_VC0_ISR_MASK;
-		Mask >>= XCSITX_LCSTAT_VC0_ISR_OFFSET;
-		if (Mask == XCSI2TX_LC_LESS_LINES ||
-		    Mask == XCSI2TX_LC_MORE_LINES) {
-			XCsiPtr->LineCountErrVC0(XCsiPtr->LCErrVC0Ref, Mask);
-			ActiveIntr |= XCSITX_LCSTAT_VC0_ISR_MASK;
-		}
+		XCsi2Tx_WriteReg(XCsiPtr->Config.BaseAddr, XCSI2TX_ISR_OFFSET,
+				 XCSI2TX_ISR_VCBANKSEL_MASK);
+		if (XCsi2Tx_GetVcIsrBank(XCsiPtr)) {
+			BankIntr = XCsi2Tx_GetIntrStatus(XCsiPtr);
+			ClearMask = Csi2Tx_HandleLcBank(XCsiPtr, BankIntr,
+							XCSI2TX_VC_PER_BANK);
+			if (ClearMask != 0U) {
+				/* Keep ISR[6]=1 in the write so the w1c clear
+				 * targets bank 1.
+				 */
+				XCsi2Tx_WriteReg(XCsiPtr->Config.BaseAddr,
+						 XCSI2TX_ISR_OFFSET,
+						 ClearMask |
+						 XCSI2TX_ISR_VCBANKSEL_MASK);
+			}
 
-		Mask = ActiveIntr & XCSITX_LCSTAT_VC1_ISR_MASK;
-		Mask >>= XCSITX_LCSTAT_VC1_ISR_OFFSET;
-		if (Mask == XCSI2TX_LC_LESS_LINES ||
-		    Mask == XCSI2TX_LC_MORE_LINES) {
-			XCsiPtr->LineCountErrVC1(XCsiPtr->LCErrVC1Ref, Mask);
-			ActiveIntr |= XCSITX_LCSTAT_VC1_ISR_MASK;
-		}
-
-		Mask = ActiveIntr & XCSITX_LCSTAT_VC2_ISR_MASK;
-		Mask >>= XCSITX_LCSTAT_VC2_ISR_OFFSET;
-		if (Mask == XCSI2TX_LC_LESS_LINES ||
-		    Mask == XCSI2TX_LC_MORE_LINES) {
-			XCsiPtr->LineCountErrVC2(XCsiPtr->LCErrVC2Ref, Mask);
-			ActiveIntr |= XCSITX_LCSTAT_VC2_ISR_MASK;
-		}
-
-		Mask = ActiveIntr & XCSITX_LCSTAT_VC3_ISR_MASK;
-		Mask >>= XCSITX_LCSTAT_VC3_ISR_OFFSET;
-		if (Mask == XCSI2TX_LC_LESS_LINES ||
-		    Mask == XCSI2TX_LC_MORE_LINES) {
-			XCsiPtr->LineCountErrVC3(XCsiPtr->LCErrVC3Ref, Mask);
-			ActiveIntr |= XCSITX_LCSTAT_VC3_ISR_MASK;
+			/* Restore bank 0 (direct write, no w1c clears) */
+			XCsi2Tx_WriteReg(XCsiPtr->Config.BaseAddr,
+					 XCSI2TX_ISR_OFFSET, 0U);
 		}
 	}
 
@@ -418,8 +462,10 @@ void XCsi2Tx_IntrHandler(void *InstancePtr)
 		XCsiPtr->IncorrectLaneCallBack(XCsiPtr->IncorrectLaneRef, Mask);
 	}
 
-	/* Clear handled interrupt(s) */
-	XCsi2Tx_InterruptClear(XCsiPtr, ActiveIntr);
+	/* Clear handled base interrupt(s). The per-VC line count status bits
+	 * were already cleared per bank in the loop above.
+	 */
+	XCsi2Tx_InterruptClear(XCsiPtr, ActiveIntr & XCSI2TX_ISR_ALLINTR_MASK);
 
 	return;
 }
