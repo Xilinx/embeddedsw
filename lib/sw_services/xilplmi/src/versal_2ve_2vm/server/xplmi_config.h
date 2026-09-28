@@ -222,16 +222,10 @@ extern "C" {
 
 /**
  * Enable the below define to enable address range validation in PLM.
- * By default, address range validation is disabled for Versal to reduce code size.
- * When enabled, this feature validates memory access ranges
- * for security-critical functions.
+ * When enabled, this feature validates memory access ranges for
+ * security-critical functions.
  */
 // #define PLM_ENABLE_ADDR_RANGE_VALIDATION
-
-/**
- * Enables redundant check for VerifyaddrRange.
- */
-//#define PLM_ENABLE_VERIFY_ADDR_REDUNDANT_CALL
 
 /* Enable the below define to enable CFI selective read */
 //#define PLM_ENABLE_CFI_SELECTIVE_READ

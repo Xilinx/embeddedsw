@@ -35,6 +35,7 @@
 * 2.30  obs  08/26/2025 Added PLM_ENABLE_VERIFY_ADDR_REDUNDANT_CALL macro
 * 2.0 	sk   10/16/2025 Enabling PLM_I2C_MB_HANDSHAKE macro based on DDR5 IP
 * 2.4   rmv  01/30/2026 Refactor OCP library
+*       ng   09/25/2026 Added PLM_ENABLE_ADDR_RANGE_VALIDATION config option
 *
 * </pre>
 *
@@ -208,9 +209,11 @@ extern "C" {
 //#define PLM_PRINT_PERF_PL
 
 /**
- * Enables redundant check for VerifyaddrRange.
+ * Enable the below define to enable address range validation in PLM.
+ * When enabled, this feature validates memory access ranges for
+ * security-critical functions.
  */
-//#define PLM_ENABLE_VERIFY_ADDR_REDUNDANT_CALL
+//#define PLM_ENABLE_ADDR_RANGE_VALIDATION
 
 /* Enable the below define to enable CFI selective read */
 //#define PLM_ENABLE_CFI_SELECTIVE_READ

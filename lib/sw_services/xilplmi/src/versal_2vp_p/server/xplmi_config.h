@@ -226,11 +226,10 @@ extern "C" {
 
 /**
  * Enable the below define to enable address range validation in PLM.
- * By default, address range validation is enabled for Versal_2VP_P devices
- * When enabled, this feature validates memory access ranges
- * for security-critical functions.
+ * When enabled, this feature validates memory access ranges for
+ * security-critical functions.
  */
-#define PLM_ENABLE_ADDR_RANGE_VALIDATION
+// #define PLM_ENABLE_ADDR_RANGE_VALIDATION
 
 /************************************* Function Prototypes ****************************************/
 

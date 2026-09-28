@@ -466,9 +466,13 @@ extern XPlmi_IsAddrRangeValid_t XPlmi_IsAddrRangeValid;
 
 int XPlmi_VerifyAddrRangeRedundant(u32 SubsystemId, u64 Addr, u64 Size);
 
+/**
+ * @brief Prints the address range validation error code.
+ * Expands to a no-op when PLM_VERIFY_ADDR_RANGE_DEBUG_PRINT is not defined.
+ * @param error is the status returned by the address range check.
+ */
 #ifdef PLM_VERIFY_ADDR_RANGE_DEBUG_PRINT
-#define VERIFY_ADDR_DEBUG_PRINT(error) \
-	xil_printf("VAR_ERR: 0x%x\n\r", error);
+#define VERIFY_ADDR_DEBUG_PRINT(error)	xil_printf("VAR_ERR: 0x%x\n\r", error);
 #else
 #define VERIFY_ADDR_DEBUG_PRINT(error)	/* do nothing, if debug print is disabled */
 #endif
@@ -485,8 +489,6 @@ int XPlmi_VerifyAddrRangeRedundant(u32 SubsystemId, u64 Addr, u64 Size);
  * @param   StatusVar        Status variable to be updated
  * @param   ErrorCode        Error code to set on failure
  * @param   Label            Label to jump to on error
- *
- * @return  None
  *
  ******************************************************************************/
 #ifdef PLM_ENABLE_ADDR_RANGE_VALIDATION

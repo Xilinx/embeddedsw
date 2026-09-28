@@ -91,7 +91,7 @@
 #include "xcfupmc.h"
 #include "xplmi_generic.h"
 #include "xplmi.h"
-#ifdef PLM_ENABLE_VERIFY_ADDR_REDUNDANT_CALL
+#ifdef PLM_ENABLE_ADDR_RANGE_VALIDATION
 #include "xil_sutil.h"	/* for XSECURE_REDUNDANT_CALL */
 #endif
 #include "xplmi_proc.h"
@@ -1103,7 +1103,7 @@ XPlmi_BufferList* XPlmi_GetBufferList(u32 BufferListType)
 	return BufferList;
 }
 
-#ifdef PLM_ENABLE_VERIFY_ADDR_REDUNDANT_CALL
+#ifdef PLM_ENABLE_ADDR_RANGE_VALIDATION
 /*****************************************************************************/
 /**
 * @brief	Out-of-line redundant wrapper around the registered address-range

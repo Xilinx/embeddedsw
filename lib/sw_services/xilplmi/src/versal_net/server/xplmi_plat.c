@@ -50,6 +50,7 @@
 * 2.2   vss  02/11/2025 Updated SSS configuration correctly.
 * 2.4   abh  12/02/2025 Fixed MISRA-C violations
 *       pre  09/19/2026 Fixed IPI serving logic
+*       ng   09/25/2026 Added XPlmi_VerifyAddrRangeRedundant
 *
 * </pre>
 *
@@ -78,6 +79,9 @@
 #include "xcfupmc.h"
 #include "xplmi_generic.h"
 #include "xplmi.h"
+#ifdef PLM_ENABLE_ADDR_RANGE_VALIDATION
+#include "xil_sutil.h"	/* for XSECURE_REDUNDANT_CALL */
+#endif
 #include "xplmi_proc.h"
 #include "xil_util.h"
 #include "xplmi_err.h"
@@ -1156,4 +1160,43 @@ XPlmi_BufferList* XPlmi_GetBufferList(u32 BufferListType)
 	return BufferList;
 }
 
+#ifdef PLM_ENABLE_ADDR_RANGE_VALIDATION
+/*****************************************************************************/
+/**
+ * @brief	Out-of-line redundant wrapper around the registered address-range
+ *		validation handler. The redundant (double) call keeps the glitch
+ *		protection while avoiding the per-site code-size blow-up.
+ *
+ * @param	SubsystemId is the subsystem requesting access
+ * @param	Addr is the start address of the range to validate
+ * @param	Size is the size of the range to validate
+ *
+ * @return	XST_SUCCESS if both calls report the range valid, XST_FAILURE
+ *		otherwise
+ *
+ *****************************************************************************/
+__attribute__((noinline)) int XPlmi_VerifyAddrRangeRedundant(u32 SubsystemId, u64 Addr, u64 Size)
+{
+	volatile int Status = (int)XST_FAILURE;
+	volatile int StatusTmp = (int)XST_FAILURE;
+
+	/* Redundancy to guard against glitches skipping/altering the check */
+	XSECURE_REDUNDANT_CALL(Status, StatusTmp, XPlmi_IsAddrRangeValid,
+			       SubsystemId, Addr, Size);
+	if ((Status != (int)XST_SUCCESS) || (StatusTmp != (int)XST_SUCCESS)) {
+		Status = (int)XST_FAILURE;
+	}
+
+	return Status;
+}
+#else
+int XPlmi_VerifyAddrRangeRedundant(u32 SubsystemId, u64 Addr, u64 Size)
+{
+	(void)SubsystemId;
+	(void)Addr;
+	(void)Size;
+
+	return (int)XST_SUCCESS;
+}
+#endif
 /** @} End of xilplmi_server_apis group */

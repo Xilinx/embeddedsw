@@ -69,6 +69,7 @@
 *       sd   08/20/2026 Included xplmi_wdt_hw.h for PMC WDT definitions
 *       pre  09/02/2026 Added XPLMI_RTCFG_DDRMC_WARM_BOOT_MASK_ADDR macro to store bit mask of
 *                       the DDRMCs for which warm boot is requested in RTCA
+*       ng   09/25/2026 Gated XPLMI_VERIFY_ADDR_RANGE with PLM_ENABLE_ADDR_RANGE_VALIDATION
 *
 * </pre>
 *
@@ -587,21 +588,24 @@ typedef XStatus (*XPlmi_IsAddrRangeValid_t)(u32 SubsystemId, u64 Addr, u64 Size)
 /** Global address range validation handler */
 extern XPlmi_IsAddrRangeValid_t XPlmi_IsAddrRangeValid;
 
+int XPlmi_VerifyAddrRangeRedundant(u32 SubsystemId, u64 Addr, u64 Size);
+
+/**
+ * @brief Prints the address range validation error code.
+ * Expands to a no-op when PLM_VERIFY_ADDR_RANGE_DEBUG_PRINT is not defined.
+ * @param error is the status returned by the address range check.
+ */
 #ifdef PLM_VERIFY_ADDR_RANGE_DEBUG_PRINT
-#define VERIFY_ADDR_DEBUG_PRINT(error) \
-	xil_printf("VAR_ERR: 0x%x\n\r", error);
+#define VERIFY_ADDR_DEBUG_PRINT(error)	xil_printf("VAR_ERR: 0x%x\n\r", error);
 #else
 #define VERIFY_ADDR_DEBUG_PRINT(error)	/* do nothing, if debug print is disabled */
 #endif
 
 /******************************************************************************/
 /**
- *
  * This macro calls the registered address validation handler (XPm_IsMemAddressValid)
  * to ensure memory access is within valid bounds for security-critical functions.
- * Also adds redundancy to XPm_IsMemAddressValid function if PLM_ENABLE_VERIFY_ADDR_REDUNDANT_CALL
- * is defined, this is to avoid glitches from altering the return values of security
- * critical functions.
+ * This feature is conditionally compiled based on PLM_ENABLE_ADDR_RANGE_VALIDATION.
  *
  * @param   SubsysId         Subsystem ID
  * @param   StartAddr        Start address of the range to verify
@@ -610,16 +614,12 @@ extern XPlmi_IsAddrRangeValid_t XPlmi_IsAddrRangeValid;
  * @param   ErrorCode        Error code to set on failure
  * @param   Label            Label to jump to on error
  *
- * @return  None
- *
  ******************************************************************************/
-#ifdef PLM_ENABLE_VERIFY_ADDR_REDUNDANT_CALL
+#ifdef PLM_ENABLE_ADDR_RANGE_VALIDATION
 #define XPLMI_VERIFY_ADDR_RANGE(SubsysId, StartAddr, Len, StatusVar, ErrorCode, Label) \
 	{ \
-		volatile int RedundantStatus = XST_FAILURE; \
-		StatusVar = XPlmi_IsAddrRangeValid(SubsysId, StartAddr, Len); \
-		RedundantStatus = XPlmi_IsAddrRangeValid(SubsysId, StartAddr, Len); \
-		if ((StatusVar != XST_SUCCESS) || (RedundantStatus != XST_SUCCESS)) { \
+		StatusVar = XPlmi_VerifyAddrRangeRedundant(SubsysId, StartAddr, Len); \
+		if (StatusVar != XST_SUCCESS) { \
 			VERIFY_ADDR_DEBUG_PRINT(StatusVar); \
 			StatusVar = ErrorCode; \
 			goto Label; \
@@ -627,14 +627,17 @@ extern XPlmi_IsAddrRangeValid_t XPlmi_IsAddrRangeValid;
 	}
 #else
 #define XPLMI_VERIFY_ADDR_RANGE(SubsysId, StartAddr, Len, StatusVar, ErrorCode, Label) \
-	{ \
-		StatusVar = XPlmi_IsAddrRangeValid(SubsysId, StartAddr, Len); \
-		if (StatusVar != XST_SUCCESS) { \
-			VERIFY_ADDR_DEBUG_PRINT(StatusVar); \
-			StatusVar = ErrorCode; \
+	do { \
+		/* Address range validation disabled; if(FALSE) references Label (unused-label). */ \
+		(void)(SubsysId); \
+		(void)(StartAddr); \
+		(void)(Len); \
+		(void)(StatusVar); \
+		(void)(ErrorCode); \
+		if (FALSE) { \
 			goto Label; \
 		} \
-	}
+	} while(0)
 #endif
 /*****************************************************************************/
 /**

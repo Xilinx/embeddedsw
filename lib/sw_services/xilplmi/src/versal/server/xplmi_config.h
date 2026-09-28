@@ -266,9 +266,8 @@ extern "C" {
 
 /**
  * Enable the below define to enable address range validation in PLM.
- * By default, address range validation is disabled for Versal to reduce code size.
- * When enabled, this feature validates memory access ranges
- * for security-critical functions.
+ * When enabled, this feature validates memory access ranges for
+ * security-critical functions.
  */
 //#define PLM_ENABLE_ADDR_RANGE_VALIDATION
 

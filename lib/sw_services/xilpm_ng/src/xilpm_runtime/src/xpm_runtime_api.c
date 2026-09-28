@@ -4536,9 +4536,8 @@ static XStatus XPm_DoGetEventStatus(XPlmi_Cmd * Cmd)
 	/*
 	 * Validate the FULL request/reply spans (once each) via the standard
 	 * XPLMI_VERIFY_ADDR_RANGE macro, then DMA the request into staging. The
-	 * macro is gated by PLM_ENABLE_VERIFY_ADDR_REDUNDANT_CALL /
-	 * PLM_ENABLE_ADDR_RANGE_VALIDATION and compiles to a no-op on builds where
-	 * neither is set (the default on versal_2ve_2vm); on such builds the caller
+	 * macro is gated by PLM_ENABLE_ADDR_RANGE_VALIDATION and compiles to a no-op
+	 * on builds where it is not set; on such builds the caller
 	 * address is not range-checked here and hardware isolation (XMPU/XPPU) is
 	 * the boundary, as with every other PLM IPI handler.
 	 */

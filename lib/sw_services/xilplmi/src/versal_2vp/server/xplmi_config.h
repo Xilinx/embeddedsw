@@ -227,6 +227,13 @@ extern "C" {
 /* Enable the below define to enable CFI selective read */
 //#define PLM_ENABLE_CFI_SELECTIVE_READ
 
+/**
+ * Enable the below define to enable address range validation in PLM.
+ * When enabled, this feature validates memory access ranges for
+ * security-critical functions.
+ */
+// #define PLM_ENABLE_ADDR_RANGE_VALIDATION
+
 /* Enable the below define to enable PMC I2C Handshake Feature based on DDR5 IP */
 #ifdef NOC_MC_DDR5
 #define PLM_I2C_MB_HANDSHAKE

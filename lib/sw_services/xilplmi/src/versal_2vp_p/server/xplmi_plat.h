@@ -29,6 +29,7 @@
 *       rama 09/16/26 Removed static inline XPlmi_GetSlrIndex stub to
 *                     fix conflicts with the non-static
 *                     XPlmi_GetSlrIndex definition in xplmi_plat.c
+*       ng  09/25/26 Added XPlmi_VerifyAddrRangeRedundant for address range validation
 *
 * </pre>
 *
@@ -617,6 +618,19 @@ typedef XStatus (*XPlmi_IsAddrRangeValid_t)(u32 SubsystemId, u64 Addr, u64 Size)
 /** Global address range validation handler */
 extern XPlmi_IsAddrRangeValid_t XPlmi_IsAddrRangeValid;
 
+int XPlmi_VerifyAddrRangeRedundant(u32 SubsystemId, u64 Addr, u64 Size);
+
+/**
+ * @brief Prints the address range validation error code.
+ * Expands to a no-op when PLM_VERIFY_ADDR_RANGE_DEBUG_PRINT is not defined.
+ * @param error is the status returned by the address range check.
+ */
+#ifdef PLM_VERIFY_ADDR_RANGE_DEBUG_PRINT
+#define VERIFY_ADDR_DEBUG_PRINT(error)	xil_printf("VAR_ERR: 0x%x\n\r", error);
+#else
+#define VERIFY_ADDR_DEBUG_PRINT(error)	/* do nothing, if debug print is disabled */
+#endif
+
 /******************************************************************************/
 /**
  * This macro calls the registered address validation handler (XPm_IsMemAddressValid)
@@ -630,14 +644,13 @@ extern XPlmi_IsAddrRangeValid_t XPlmi_IsAddrRangeValid;
  * @param   ErrorCode        Error code to set on failure
  * @param   Label            Label to jump to on error
  *
- * @return  None
- *
  ******************************************************************************/
 #ifdef PLM_ENABLE_ADDR_RANGE_VALIDATION
 #define XPLMI_VERIFY_ADDR_RANGE(SubsysId, StartAddr, Len, StatusVar, ErrorCode, Label) \
 	{ \
-		StatusVar = XPlmi_IsAddrRangeValid(SubsysId, StartAddr, Len); \
+		StatusVar = XPlmi_VerifyAddrRangeRedundant(SubsysId, StartAddr, Len); \
 		if (StatusVar != XST_SUCCESS) { \
+			VERIFY_ADDR_DEBUG_PRINT(StatusVar); \
 			StatusVar = ErrorCode; \
 			goto Label; \
 		} \
