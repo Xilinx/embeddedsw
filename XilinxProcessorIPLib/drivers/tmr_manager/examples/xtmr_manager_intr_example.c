@@ -93,7 +93,7 @@ void Handler(void *CallBackRef);
  * The following counter is used to determine when SEM input events have
  * occurred.
  */
-volatile static int TotalEventCount = 0;
+static volatile int TotalEventCount = 0;
 
 
 /******************************************************************************/
@@ -220,6 +220,7 @@ int TMR_ManagerIntrExample(UINTPTR BaseAddress)
 *****************************************************************************/
 void Handler(void *CallBackRef)
 {
+	(void)CallBackRef;
 	TotalEventCount++;
 }
 

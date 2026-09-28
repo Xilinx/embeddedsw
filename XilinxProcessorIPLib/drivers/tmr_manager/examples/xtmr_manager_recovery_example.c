@@ -131,6 +131,7 @@ int main(void)
 ******************************************************************************/
 static void TMR_Manager_BreakHandler(void *CallBackRef)
 {
+	(void)CallBackRef;
 	BreakCount++;
 }
 
@@ -154,6 +155,9 @@ int TMR_ManagerRecoveryExample(UINTPTR TMRManagerBaseAddress, UINTPTR TMRInjectB
 {
 	int Status;
 	u32 Error_Inject = 0; /**< Fix: initialize to 0 (was uninitialized) */
+#ifndef TESTAPP_GEN
+	(void)TMRManagerBaseAddress;
+#endif
 
 	/*
 	 * Initialize the TMR_Inject driver so that it is ready to use.
@@ -212,7 +216,7 @@ int TMR_ManagerRecoveryExample(UINTPTR TMRManagerBaseAddress, UINTPTR TMRInjectB
 	/**< Wait for break vector */
 	while (BreakCount == 0);
 
-	if (TMR_Manager.Stats.RecoveryCount == BreakCount) {
+	if (TMR_Manager.Stats.RecoveryCount == (u32)BreakCount) {
 		return XST_SUCCESS;
 	} else {
 		return XST_FAILURE;

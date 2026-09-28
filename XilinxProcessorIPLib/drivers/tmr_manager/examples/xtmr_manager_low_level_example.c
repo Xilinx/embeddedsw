@@ -95,5 +95,6 @@ int main(void)
 ******************************************************************************/
 int TMR_ManagerLowLevelExample(u32 TMR_ManagerBaseAddress)
 {
+	(void)TMR_ManagerBaseAddress;
 	return XST_SUCCESS;
 }

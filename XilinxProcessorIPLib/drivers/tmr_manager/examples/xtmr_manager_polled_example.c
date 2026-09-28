@@ -113,9 +113,6 @@ int TMR_ManagerPolledExample(UINTPTR BaseAddress)
 #endif
 {
 	int Status;
-	unsigned int SentCount;
-	unsigned int ReceivedCount = 0;
-	int Index;
 
 	/*
 	 * Initialize the TMR_Manager driver so that it is ready to use.
