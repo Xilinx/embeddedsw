@@ -55,6 +55,8 @@
 * 		    registers
 * 6.5 dk   07/21/26 Added XDpTxSs_AuxRead and XDpTxSs_AuxWrite APIs to perform
 * 		    AUX channel transactions at subsystem level.
+*      dnk 09/15/26 Program the link Clocking Wizard from the driver on
+*                   link-rate change using clk_wiz APIs.
 * </pre>
 *
 ******************************************************************************/
@@ -95,6 +97,9 @@ static void DpTxSs_GetIncludedSubCores(XDpTxSs *InstancePtr, UINTPTR BaseAddress
 static void DpTxSs_CalculateMsa(XDpTxSs *InstancePtr, u8 Stream);
 static u32 DpTxSs_CheckRxDeviceMode(XDpTxSs *InstancePtr);
 static u32 DpTxSs_SetupSubCores(XDpTxSs *InstancePtr);
+#if (XPAR_XCLK_WIZ_NUM_INSTANCES > 0)
+static u32 DpTxSs_SetLinkClk(XDpTxSs *InstancePtr, u8 LinkRate);
+#endif
 
 #if (XPAR_XHDCP_NUM_INSTANCES > 0)
 static int DpTxSs_HdcpStartTimer(void *InstancePtr, u16 TimeoutInMs);
@@ -166,6 +171,33 @@ u32 XDpTxSs_CfgInitialize(XDpTxSs *InstancePtr, XDpTxSs_Config *CfgPtr,
 
 	/* Get included sub cores in the DisplayPort TX Subsystem */
 	DpTxSs_GetIncludedSubCores(InstancePtr, InstancePtr->Config.BaseAddress);
+
+#if (XPAR_XCLK_WIZ_NUM_INSTANCES > 0)
+	if (InstancePtr->Config.IncludeClkWiz) {
+		XClk_Wiz_Config ClkWizConfig;
+
+		InstancePtr->ClkWizAbsAddr =
+			InstancePtr->Config.BaseAddress +
+			InstancePtr->Config.ClkWizSubCore.ClkWizConfig.BaseAddress;
+
+		/*
+		 * Initialize the Clocking Wizard driver instance so that the
+		 * link clock can be reconfigured through the clk_wiz driver
+		 * APIs instead of direct register writes.
+		 */
+		(void)memset(&ClkWizConfig, 0, sizeof(ClkWizConfig));
+		ClkWizConfig.Name =
+			InstancePtr->Config.ClkWizSubCore.ClkWizConfig.Name;
+		ClkWizConfig.BaseAddr = InstancePtr->ClkWizAbsAddr;
+		ClkWizConfig.NumClocks = 1;
+		Status = XClk_Wiz_CfgInitialize(&InstancePtr->ClkWiz,
+						&ClkWizConfig,
+						InstancePtr->ClkWizAbsAddr);
+		if (Status != XST_SUCCESS) {
+			return XST_FAILURE;
+		}
+	}
+#endif
 
 	/* Check for DisplayPort availability */
 	if (InstancePtr->DpPtr) {
@@ -398,6 +430,10 @@ u32 XDpTxSs_CfgInitialize(XDpTxSs *InstancePtr, XDpTxSs_Config *CfgPtr,
 
 	/* Set the flag to indicate the subsystem is ready */
 	InstancePtr->IsReady = (u32)XIL_COMPONENT_IS_READY;
+#if (XPAR_XCLK_WIZ_NUM_INSTANCES > 0)
+	InstancePtr->LinkRateChangeCallback = NULL;
+	InstancePtr->LinkRateChangeCallbackRef = NULL;
+#endif
 
 	XDpTxSs_SetCallBack(InstancePtr, XDPTXSS_DRV_HANDLER_DP_HPD_EVENT,
 			    XDpTxSs_HpdEventProcess, InstancePtr);
@@ -405,6 +441,13 @@ u32 XDpTxSs_CfgInitialize(XDpTxSs *InstancePtr, XDpTxSs_Config *CfgPtr,
 			    XDpTxSs_HpdPulseProcess, InstancePtr);
 	XDpTxSs_SetCallBack(InstancePtr, XDPTXSS_DRV_HANDLER_DP_EXT_PKT_EVENT,
 			XDpTxSs_WriteVscExtPktProcess, InstancePtr);
+#if (XPAR_XCLK_WIZ_NUM_INSTANCES > 0)
+	if (InstancePtr->Config.IncludeClkWiz) {
+		XDpTxSs_SetCallBack(InstancePtr,
+				    XDPTXSS_DRV_HANDLER_DP_LINK_RATE_CHG,
+				    XDpTxSs_LinkRateChangeProcess, InstancePtr);
+	}
+#endif
 
 	return XST_SUCCESS;
 }
@@ -1007,6 +1050,110 @@ u32 XDpTxSs_SetVidMode(XDpTxSs *InstancePtr, XVidC_VideoMode VidMode)
 
 	return XST_SUCCESS;
 }
+
+#if (XPAR_XCLK_WIZ_NUM_INSTANCES > 0)
+/*****************************************************************************/
+/**
+*
+* This function programs the wizard that generates the link clock.
+*
+* @param	InstancePtr is a pointer to the XDpTxSs instance.
+* @param	LinkRate is the link bandwidth selected by the DP TX core.
+*
+* @return	XST_SUCCESS when configured, XST_NO_FEATURE for an unknown
+*		link rate, otherwise XST_FAILURE.
+*
+******************************************************************************/
+static u32 DpTxSs_SetLinkClk(XDpTxSs *InstancePtr, u8 LinkRate)
+{
+	u64 LinkRateHz;
+	u32 InDiv;
+
+	switch (LinkRate) {
+	case XDPTXSS_LINK_BW_SET_20GBPS:
+		LinkRateHz = 20000000000ULL;
+		break;
+	case XDPTXSS_LINK_BW_SET_135GBPS:
+		LinkRateHz = 13500000000ULL;
+		break;
+	case XDPTXSS_LINK_BW_SET_10GBPS:
+		LinkRateHz = 10000000000ULL;
+		break;
+	case XDPTXSS_LINK_BW_SET_810GBPS:
+		LinkRateHz = 8100000000ULL;
+		break;
+	case XDPTXSS_LINK_BW_SET_540GBPS:
+		LinkRateHz = 5400000000ULL;
+		break;
+	case XDPTXSS_LINK_BW_SET_270GBPS:
+		LinkRateHz = 2700000000ULL;
+		break;
+	case XDPTXSS_LINK_BW_SET_162GBPS:
+		LinkRateHz = 1620000000ULL;
+		break;
+	default:
+		return XST_NO_FEATURE;
+	}
+
+	/*
+	 * The wizard turns the GT clock into the line_rate/40 link clock.
+	 * Octa-pixel (8 PPC) designs are fed line_rate/64, others
+	 * line_rate/32. PayloadDataWidth does not track the GUI PPC and can
+	 * remain 4 on an 8-PPC core, so OctaPixelEn selects the divider.
+	 */
+	InDiv = (InstancePtr->DpPtr->Config.OctaPixelEn != 0U) ? 64U : 32U;
+
+	if (strncmp(InstancePtr->ClkWiz.Config.Name,
+		    "xlnx,clkx5-wiz-", 15U) == 0) {
+		XClk_Wiz_SetInputRate(&InstancePtr->ClkWiz,
+				      (double)(LinkRateHz / InDiv));
+	} else {
+		InstancePtr->ClkWiz.Config.PrimInClkFreq =
+			LinkRateHz / InDiv;
+	}
+
+	return XClk_Wiz_SetRateHz(&InstancePtr->ClkWiz,
+				  LinkRateHz / 40U);
+}
+
+/*****************************************************************************/
+/**
+*
+* This function wraps the application link-rate callback. The application
+* first retunes the GT, then the driver programs and locks the link clock
+* using the new GT output frequency.
+*
+* @param	InstancePtr is a pointer to the XDpTxSs instance.
+*
+******************************************************************************/
+void XDpTxSs_LinkRateChangeProcess(void *InstancePtr)
+{
+	XDpTxSs *DpTxSsPtr = (XDpTxSs *)InstancePtr;
+	u32 ClkStatus;
+
+	Xil_AssertVoid(DpTxSsPtr != NULL);
+	Xil_AssertVoid(DpTxSsPtr->DpPtr != NULL);
+
+	if (DpTxSsPtr->LinkRateChangeCallback != NULL) {
+		DpTxSsPtr->LinkRateChangeCallback(
+			DpTxSsPtr->LinkRateChangeCallbackRef);
+	}
+
+	ClkStatus = DpTxSs_SetLinkClk(
+		DpTxSsPtr,
+		DpTxSsPtr->DpPtr->TxInstance.LinkConfig.LinkRate);
+	if ((ClkStatus == XST_SUCCESS) &&
+	    (XClk_Wiz_WaitForLock(&DpTxSsPtr->ClkWiz) != XST_SUCCESS)) {
+		ClkStatus = XST_FAILURE;
+	}
+
+	if ((ClkStatus != XST_SUCCESS) &&
+	    (ClkStatus != XST_NO_FEATURE)) {
+		xdbg_printf(XDBG_DEBUG_GENERAL,
+			    "SS ERR: TX link clock configuration failed.\n\r");
+	}
+}
+#endif
 
 /******************************************************************************/
 /**

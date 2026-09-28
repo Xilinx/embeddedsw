@@ -501,11 +501,30 @@ u32 XDpTxSs_SetCallBack(XDpTxSs *InstancePtr, u32 HandlerType,
 			break;
 
 		case XDPTXSS_HANDLER_DP_LINK_RATE_CHG:
+#if (XPAR_XCLK_WIZ_NUM_INSTANCES > 0)
+			if (InstancePtr->Config.IncludeClkWiz) {
+				InstancePtr->LinkRateChangeCallback =
+					(XDp_IntrHandler)CallbackFunc;
+				InstancePtr->LinkRateChangeCallbackRef =
+					CallbackRef;
+			} else
+#endif
+			{
+				XDp_TxSetCallback(InstancePtr->DpPtr,
+					XDP_TX_HANDLER_LINKRATECHANGE,
+					CallbackFunc, CallbackRef);
+			}
+			Status = XST_SUCCESS;
+			break;
+
+#if (XPAR_XCLK_WIZ_NUM_INSTANCES > 0)
+		case XDPTXSS_DRV_HANDLER_DP_LINK_RATE_CHG:
 			XDp_TxSetCallback(InstancePtr->DpPtr,
 				XDP_TX_HANDLER_LINKRATECHANGE,
 				CallbackFunc, CallbackRef);
 			Status = XST_SUCCESS;
 			break;
+#endif
 
 		case XDPTXSS_HANDLER_DP_PE_VS_ADJUST:
 			XDp_TxSetCallback(InstancePtr->DpPtr,

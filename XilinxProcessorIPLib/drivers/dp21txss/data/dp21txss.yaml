@@ -41,10 +41,19 @@ properties:
   xlnx,num-streams:
     description: Total number of MST streams supported by this Subsystem core
 
+  xlnx,include-clk-wiz:
+    description: 1 if Subssytem supports clocking wizard support, 0 if not support
+
   hdcp-timer-present:
     description: Sub-core instance presence
 
   hdcp-timer-connected:
+    description: Sub-core instance configuration
+
+  clkWiz-present:
+    description: Sub-core instance presence
+
+  clkWiz-connected:
     description: Sub-core instance configuration
 
   dp21-present:
@@ -111,8 +120,14 @@ required:
     - xlnx,lane-count
     - xlnx,mode
     - xlnx,num-streams
+    - xlnx,include-clk-wiz
     - hdcptimer-present
     - hdcptimer-connected:
+        subnode_phandle:
+          - compatible
+          - reg
+    - clkWiz-present
+    - clkWiz-connected:
         subnode_phandle:
           - compatible
           - reg
