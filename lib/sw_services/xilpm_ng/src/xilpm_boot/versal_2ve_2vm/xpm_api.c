@@ -2403,8 +2403,8 @@ static XStatus XPm_DoInitNode(XPlmi_Cmd *Cmd)
  ****************************************************************************/
 static XStatus XPm_AddNodeIsolation(const u32 *Args, u32 NumArgs)
 {
-	XStatus Status = XST_FAILURE;
-	if (3U > NumArgs) {
+	volatile XStatus Status = XST_FAILURE;
+	if ((NULL == Args) || (3U > NumArgs)) {
 		Status = XST_INVALID_PARAM;
 		goto done;
 	}
@@ -2424,12 +2424,23 @@ static XStatus XPm_AddNodeIsolation(const u32 *Args, u32 NumArgs)
 		NumDependencies = CDO_ISO_DEP_COUNT(Args[Index]);
 		Index++;
 
+		/* Bound every decoded count before consuming record operands. */
+		if (NumDependencies > PM_ISO_MAX_NUM_DEPENDENCIES) {
+			Status = (XStatus)XPM_INT_ERR_ISO_MAX_DEPENDENCIES;
+			goto done;
+		}
+
 		u8 BadFormat = 0U;
 		switch (Format){
 		case SINGLE_WORD_ACTIVE_LOW:
 		case SINGLE_WORD_ACTIVE_HIGH:
 		case PSM_SINGLE_WORD_ACTIVE_LOW:
 		case PSM_SINGLE_WORD_ACTIVE_HIGH:
+			/* Both the register address and its programmable mask are required. */
+			if (XPLMI_CMD_ARG_CNT_TWO > (NumArgs - Index)) {
+				Status = XST_INVALID_PARAM;
+				goto done;
+			}
 			IsoFormat = (u32)Format;
 			/* Extract BaseAddress and Mask*/
 			BaseAddr = Args[Index];
@@ -2438,12 +2449,22 @@ static XStatus XPm_AddNodeIsolation(const u32 *Args, u32 NumArgs)
 			Index++;
 			break;
 		case PM_ISO_FORMAT_AFI_FM:
+			/* The AFI master mask is fixed; only the register address is encoded. */
+			if (XPLMI_CMD_ARG_CNT_ONE > (NumArgs - Index)) {
+				Status = XST_INVALID_PARAM;
+				goto done;
+			}
 			IsoFormat = (u32)Format;
 			BaseAddr = Args[Index];
 			Index++;
 			Mask = AFI_FM_PORT_EN_MASK;
 			break;
 		case PM_ISO_FORMAT_AFI_FS:
+			/* The AFI slave mask is fixed; only the register address is encoded. */
+			if (XPLMI_CMD_ARG_CNT_ONE > (NumArgs - Index)) {
+				Status = XST_INVALID_PARAM;
+				goto done;
+			}
 			IsoFormat = (u32)Format;
 			/* Extract BaseAddress */
 			BaseAddr = Args[Index];
@@ -2451,6 +2472,11 @@ static XStatus XPm_AddNodeIsolation(const u32 *Args, u32 NumArgs)
 			Mask = AFI_FS_PORT_EN_MASK;
 			break;
 		case PM_ISO_FORMAT_CHI_FPD:
+			/* CHI uses a fixed port mask after the encoded register address. */
+			if (XPLMI_CMD_ARG_CNT_ONE > (NumArgs - Index)) {
+				Status = XST_INVALID_PARAM;
+				goto done;
+			}
 			IsoFormat = (u32)Format;
 			/* Extract BaseAddress */
 			BaseAddr = Args[Index];
@@ -2458,6 +2484,11 @@ static XStatus XPm_AddNodeIsolation(const u32 *Args, u32 NumArgs)
 			Mask = CHI_FPD_PORT_EN_MASK;
 			break;
 		case PM_ISO_FORMAT_ACP_APU:
+			/* The node selects the ACP mask; the record still needs an address. */
+			if (XPLMI_CMD_ARG_CNT_ONE > (NumArgs - Index)) {
+				Status = XST_INVALID_PARAM;
+				goto done;
+			}
 			IsoFormat = (u32)Format;
 			/* Extract BaseAddress */
 			BaseAddr = Args[Index];
@@ -2465,6 +2496,11 @@ static XStatus XPm_AddNodeIsolation(const u32 *Args, u32 NumArgs)
 			Mask = ACP_APU_GET_MASK(NodeId);
 			break;
 		case PM_ISO_FORMAT_PS_DTI:
+			/* The node selects the DTI mask; the record still needs an address. */
+			if (XPLMI_CMD_ARG_CNT_ONE > (NumArgs - Index)) {
+				Status = XST_INVALID_PARAM;
+				goto done;
+			}
 			IsoFormat = (u32)Format;
 			/* Extract BaseAddress */
 			BaseAddr = Args[Index];
@@ -2472,16 +2508,14 @@ static XStatus XPm_AddNodeIsolation(const u32 *Args, u32 NumArgs)
 			Mask = PS_DTI_GET_MASK(NodeId);
 			break;
 		case POWER_DOMAIN_DEPENDENCY:
-			/* Format power domain dependencies*/
-			/* To save space in PMC RAM we statically allocate Dependencies list*/
-			if (NumDependencies > PM_ISO_MAX_NUM_DEPENDENCIES){
-				Status = (XStatus)(XPM_INT_ERR_ISO_MAX_DEPENDENCIES);
+			/* This format carries a count-sized tail, without a register or mask. */
+			if (NumDependencies > (NumArgs - Index)) {
+				Status = XST_INVALID_PARAM;
 				goto done;
-			}else {
-				for (u32 i = 0U ; i < NumDependencies; i++){
-					Dependencies[i] = Args[Index];
-					Index++;
-				}
+			}
+			for (u32 i = 0U; i < NumDependencies; i++) {
+				Dependencies[i] = Args[Index];
+				Index++;
 			}
 			break;
 		default:
