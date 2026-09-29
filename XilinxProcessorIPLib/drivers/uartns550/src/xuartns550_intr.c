@@ -4,15 +4,11 @@
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
-/****************************************************************************/
+/*****************************************************************************/
 /**
 *
 * @file xuartns550_intr.c
-* @addtogroup uartns550 Overview
-* @{
-*
-* This file contains the functions that are related to interrupt processing
-* for the 16450/16550 UART driver.
+* @brief Interrupt processing functions for the 16450/16550 UART driver.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -27,17 +23,22 @@
 *		      macro is removed, XUartNs550_ClearStats function should be
 *		      used in its place.
 * 2.02a adk 09/16/13 Updated the ReceiveDataHandler function to be the same as
-*                     ReceiveTimeoutHandler.  The ReceiveTimeoutHandler will
-*		      call the callback function with XUN_EVENT_RECV_TIMEOUT when
+*                     ReceiveTimeoutHandler.  The ReceiveTimeoutHandler calls
+*		      the callback function with XUN_EVENT_RECV_TIMEOUT when
 *		      there is data received which is less than the requested
-*		      data (this will also happen for the case where the
+*		      data (this also happens for the case where the
 *		      data is equal to the threshold).
-*		      The callback function with XUN_EVENT_RECV_DATA will be
+*		      The callback function with XUN_EVENT_RECV_DATA is
 *		      called when all the requested data has been received
 * 3.15  vn  07/30/26 Fix Doxygen warnings
+* 3.15  vn   09/09/26 Align Doxygen comments with AMD standards
 * </pre>
 *
-*****************************************************************************/
+******************************************************************************/
+
+/** @addtogroup uartns550 Overview
+ * @{
+ */
 
 /***************************** Include Files ********************************/
 
@@ -62,11 +63,18 @@ static void ModemHandler(XUartNs550 *InstancePtr);
 
 /************************** Variable Definitions ****************************/
 
+/** @cond INTERNAL */
+/**
+ * @brief Defines the interrupt handler function pointer type.
+ */
 typedef void (*Handler)(XUartNs550 *InstancePtr);
+/** @endcond */
 
-/* The following tables is a function pointer table that contains pointers
- * to each of the handlers for specific kinds of interrupts. The table is
- * indexed by the value read from the interrupt ID register.
+/**
+ * @brief Function pointer table for interrupt handlers.
+ *
+ * Contains pointers to each handler for specific kinds of interrupts.
+ * The table is indexed by the value read from the interrupt ID register.
  */
 static Handler HandlerTable[13] = {
 	ModemHandler,		/* 0 */
@@ -84,24 +92,23 @@ static Handler HandlerTable[13] = {
 	ReceiveTimeoutHandler	/* 12 */
 };
 
-/****************************************************************************/
+/*****************************************************************************/
 /**
 *
-* This function sets the handler that will be called when an event (interrupt)
-* occurs in the driver. The purpose of the handler is to allow application
-* specific processing to be performed.
+* @brief Sets the handler that the driver calls on an event (interrupt).
 *
-* @param	InstancePtr is a pointer to the XUartNs550 instance.
-* @param	FuncPtr is the pointer to the callback function.
-* @param	CallBackRef is the upper layer callback reference passed back
-*		when the callback function is invoked.
+* The handler allows application-specific processing.
+*
+* @param[in,out] InstancePtr Pointer to the XUartNs550 instance.
+* @param[in]     FuncPtr Pointer to the callback function.
+* @param[in]     CallBackRef Upper layer callback reference passed back
+*                 when the callback function is invoked.
 *
 * @note
-*
-* There is no assert on the CallBackRef since the driver doesn't know what it
+* There is no assert on the CallBackRef since the driver does not know what it
 * is (nor should it)
 *
-*****************************************************************************/
+******************************************************************************/
 void XUartNs550_SetHandler(XUartNs550 *InstancePtr,
 				XUartNs550_Handler FuncPtr, void *CallBackRef)
 {
@@ -118,19 +125,18 @@ void XUartNs550_SetHandler(XUartNs550 *InstancePtr,
 	InstancePtr->CallBackRef = CallBackRef;
 }
 
-/****************************************************************************/
+/*****************************************************************************/
 /**
 *
-* This function is the interrupt handler for the 16450/16550 UART driver.
-* It must be connected to an interrupt system by the user such that it is
+* @brief Handles interrupts for the 16450/16550 UART driver.
+*
+* It must be connected to an interrupt system such that it is
 * called when an interrupt for any 16450/16550 UART occurs. This function
-* does not save or restore the processor context such that the user must
-* ensure this occurs.
+* does not save or restore the processor context such that the application
+* must ensure this occurs.
 *
-* @param	InstancePtr contains a pointer to the instance of the UART that
-*		the interrupt is for.
-*
-* @note		None.
+* @param[in]   InstancePtr Pointer to the instance of the UART that
+*               the interrupt is for.
 *
 ******************************************************************************/
 void XUartNs550_InterruptHandler(XUartNs550 *InstancePtr)
@@ -156,24 +162,20 @@ void XUartNs550_InterruptHandler(XUartNs550 *InstancePtr)
 	HandlerTable[IsrStatus](InstancePtr);
 }
 
-/****************************************************************************/
+/*****************************************************************************/
 /**
 *
-* This function handles the case when the value read from the interrupt ID
-* register indicates no interrupt is to be serviced.
+* @brief Handles the case when the value read from the interrupt ID register
+* indicates no interrupt is to be serviced.
 *
-* @param	InstancePtr is a pointer to the XUartNs550 instance .
-*
-* @return	None.
-*
-* @note		None.
+* @param[in]   InstancePtr Pointer to the XUartNs550 instance.
 *
 * @internal
 *
-* The LsrRegister is volatile to ensure that optimization will not cause the
+* The LsrRegister is volatile to ensure that optimization does not cause the
 * statement to be optimized away.
 *
-*****************************************************************************/
+******************************************************************************/
 static void NoInterruptHandler(XUartNs550 *InstancePtr)
 {
 	volatile u32 LsrRegister;
@@ -189,23 +191,22 @@ static void NoInterruptHandler(XUartNs550 *InstancePtr)
 	XUartNs550_UpdateStats(InstancePtr, (u8)LsrRegister);
 }
 
-/****************************************************************************/
+/*****************************************************************************/
 /**
 *
-* This function handles interrupts for receive status updates which include
-* overrun errors, framing errors, parity errors, and the break interrupt.
+* @brief Handles interrupts for receive status updates.
 *
-* @param	InstancePtr is a pointer to the XUartNs550 instance.
+* This includes overrun errors, framing errors, parity errors, and the
+* break interrupt.
 *
-* @return	None.
+* @param[in]   InstancePtr Pointer to the XUartNs550 instance.
 *
-* @note
+* @note        If this handler executes and data is not supposed to be
+*              received, then this probably means data is being received that
+*              contains errors and you may need to clear the receive FIFOs to
+*              dump the data.
 *
-* If this handler executes and data is not supposed to be received, then
-* this probably means data is being received that contains errors and the
-* the user may need to clear the receive FIFOs to dump the data.
-*
-*****************************************************************************/
+******************************************************************************/
 static void ReceiveStatusHandler(XUartNs550 *InstancePtr)
 {
 	u32 LsrRegister;
@@ -241,21 +242,18 @@ static void ReceiveStatusHandler(XUartNs550 *InstancePtr)
 	 */
 	InstancePtr->Stats.StatusInterrupts++;
 }
-/****************************************************************************/
+/*****************************************************************************/
 /**
 *
-* This function handles the receive timeout interrupt. This interrupt occurs
-* whenever a number of bytes have been present in the FIFO for 4 character
-* times, the receiver is not receiving any data, and the number of bytes
-* present is less than the FIFO threshold.
+* @brief Handles the receive timeout interrupt.
 *
-* @param	InstancePtr is a pointer to the XUartNs550 instance.
+* This interrupt occurs whenever a number of bytes have been present in the
+* FIFO for 4 character times, the receiver is not receiving any data, and
+* the number of bytes present is less than the FIFO threshold.
 *
-* @return	None.
+* @param[in]   InstancePtr Pointer to the XUartNs550 instance.
 *
-* @note		None.
-*
-*****************************************************************************/
+******************************************************************************/
 static void ReceiveTimeoutHandler(XUartNs550 *InstancePtr)
 {
 	u32 Event;
@@ -294,19 +292,17 @@ static void ReceiveTimeoutHandler(XUartNs550 *InstancePtr)
 	 */
 	InstancePtr->Stats.ReceiveInterrupts++;
 }
-/****************************************************************************/
+/*****************************************************************************/
 /**
 *
-* This function handles the interrupt when data is received, either a single
-* byte when FIFOs are not enabled, or multiple bytes with the FIFO.
+* @brief Handles the interrupt when the UART receives data.
 *
-* @param	InstancePtr is a pointer to the XUartNs550 instance.
+* Data may be a single byte when FIFOs are not enabled, or multiple bytes
+* with the FIFO.
 *
-* @return	None.
+* @param[in]   InstancePtr Pointer to the XUartNs550 instance.
 *
-* @note		None.
-*
-*****************************************************************************/
+******************************************************************************/
 static void ReceiveDataHandler(XUartNs550 *InstancePtr)
 {
 	u32 Event;
@@ -354,19 +350,16 @@ static void ReceiveDataHandler(XUartNs550 *InstancePtr)
 	InstancePtr->Stats.ReceiveInterrupts++;
 }
 
-/****************************************************************************/
+/*****************************************************************************/
 /**
 *
-* This function handles the interrupt when data has been sent, the transmit
-* FIFO is empty (transmitter holding register).
+* @brief Handles the interrupt when the UART completes sending data.
 *
-* @param	InstancePtr is a pointer to the XUartNs550 instance.
+* The transmit FIFO is empty (transmitter holding register).
 *
-* @return	None.
+* @param[in]   InstancePtr Pointer to the XUartNs550 instance.
 *
-* @note		None.
-*
-*****************************************************************************/
+******************************************************************************/
 static void SendDataHandler(XUartNs550 *InstancePtr)
 {
 	u32 IerRegister;
@@ -406,19 +399,17 @@ static void SendDataHandler(XUartNs550 *InstancePtr)
 	InstancePtr->Stats.TransmitInterrupts++;
 }
 
-/****************************************************************************/
+/*****************************************************************************/
 /**
 *
-* This function handles modem interrupts. It does not do any processing
-* except to call the application handler to indicate a modem event.
+* @brief Handles modem interrupts.
 *
-* @param	InstancePtr is a pointer to the XUartNs550 instance.
+* It does not do any processing except to call the application handler to
+* indicate a modem event.
 *
-* @return	None.
+* @param[in]   InstancePtr Pointer to the XUartNs550 instance.
 *
-* @note		None.
-*
-*****************************************************************************/
+******************************************************************************/
 static void ModemHandler(XUartNs550 *InstancePtr)
 {
 	u32 MsrRegister;

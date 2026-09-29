@@ -1,17 +1,14 @@
 /******************************************************************************
 * Copyright (C) 2002 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
-/****************************************************************************/
+/*****************************************************************************/
 /**
 *
 * @file xuartns550_selftest.c
-* @addtogroup uartns550 Overview
-* @{
-*
-* This file contains the self-test functions for the 16450/16550 UART driver.
+* @brief Self-test functions for the 16450/16550 UART driver.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -26,10 +23,15 @@
 *		      name of all the macro definitions.
 * 2.01a bss  01/13/12 Updated the XUartNs550_SelfTest to use Xil_AssertNonvoid
 *		      in place of XASSERT_NONVOID for CR 641344.
+* 3.15  vn   09/09/26 Align Doxygen comments with AMD standards
 *
 * </pre>
 *
 ******************************************************************************/
+
+/** @addtogroup uartns550 Overview
+ * @{
+ */
 
 /***************************** Include Files *********************************/
 
@@ -46,7 +48,11 @@
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
-#define XUN_TOTAL_BYTES 32
+/** @name Self-test constants
+ * @{
+ */
+#define XUN_TOTAL_BYTES 32 /**< Total bytes used in loopback self-test */
+/** @} */
 
 /************************** Variable Definitions *****************************/
 
@@ -57,25 +63,26 @@ static u8 ReturnString[XUN_TOTAL_BYTES + 1];
 /************************** Function Prototypes ******************************/
 
 
-/****************************************************************************/
+/*****************************************************************************/
 /**
 *
-* This functions runs a self-test on the driver and hardware device. This self
-* test performs a local loopback and verifies data can be sent and received.
+* @brief Runs a self-test on the driver and hardware device.
+*
+* This self test performs a local loopback and verifies data can be sent
+* and received.
 *
 * The statistics are cleared at the end of the test. The time for this test
 * to execute is proportional to the baud rate that has been set prior to
 * calling this function.
 *
-* @param	InstancePtr is a pointer to the XUartNs550 instance.
+* @param[in]   InstancePtr Pointer to the XUartNs550 instance.
 *
 * @return
+*              - XST_SUCCESS if the test was successful.
+*              - XST_UART_TEST_FAIL if the test failed looping back the data.
 *
-* 		- XST_SUCCESS if the test was successful
-* 		- XST_UART_TEST_FAIL if the test failed looping back the data
-*
-* @note 	This function can hang if the hardware is not functioning
-*		properly.
+* @note        This function can hang if the hardware is not functioning
+*              properly.
 *
 ******************************************************************************/
 int XUartNs550_SelfTest(XUartNs550 *InstancePtr)

@@ -4,17 +4,15 @@
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
-/****************************************************************************/
+/*****************************************************************************/
 /**
 *
 * @file xuartns550_selftest_example.c
 *
+* @brief Demonstrates XUartNs550 driver self-test functionality.
+*
 * This file contains a design example using the Uart 16450/550 driver
 * (XUartNs550) and hardware device using polled mode.
-*
-* @note
-*
-* None
 *
 * MODIFICATION HISTORY:
 * <pre>
@@ -29,7 +27,9 @@
 *                     CR-965028.
 * 3.9   gm   07/09/23 Added SDT support.
 * 3.14  vlt  12/18/25 Update Doxygen comments to include SDT flow details.
+* 3.15  vn   09/09/26 Align Doxygen comments with AMD standards
 * </pre>
+*
 ******************************************************************************/
 
 /***************************** Include Files *********************************/
@@ -40,18 +40,23 @@
 
 /************************** Constant Definitions *****************************/
 
-/*
+/** @name Device parameters
+ *
  * The following constants map to the XPAR parameters created in the
  * xparameters.h file. They are defined here such that a user can easily
  * change all the needed parameters in one place.
+ * @{
  */
 #ifndef TESTAPP_GEN
 #ifndef SDT
+/** UART device ID. */
 #define UART_DEVICE_ID			XPAR_UARTNS550_0_DEVICE_ID
 #else
+/** UART base address. */
 #define XUARTNS550_BASEADDRESS		XPAR_XUARTNS550_0_BASEADDR
 #endif
 #endif
+/** @} */
 
 /**************************** Type Definitions *******************************/
 
@@ -69,18 +74,17 @@ int UartNs550SelfTestExample(UINTPTR BaseAddress);
 
 /************************** Variable Definitions *****************************/
 
-XUartNs550 UartNs550;	/* Instance of the UART Device */
+XUartNs550 UartNs550;	/**< Instance of the UART Device. */
 
 /*****************************************************************************/
 /**
 *
-* Main function to call the example. This function is not included if the
-* example is generated from the TestAppGen test tool.
+* @brief Calls the UartNs550 self test example.
 *
+* This function is not included if the example is generated from the
+* TestAppGen test tool.
 *
-* @return	XST_SUCCESS if successful, otherwise XST_FAILURE.
-*
-* @note		None.
+* @return      XST_SUCCESS if successful, otherwise XST_FAILURE.
 *
 ******************************************************************************/
 #ifndef TESTAPP_GEN
@@ -110,24 +114,25 @@ int main(void)
 /*****************************************************************************/
 /**
 *
-* This function does a minimal test on the UartNs550 device and driver as a
-* design example. The purpose of this function is to illustrate how to use the
-* XUartNs550 component.
+* @brief Performs a minimal self-test on the UartNs550 device.
 *
+* This is a design example that tests the device and driver.
+*
+* This function illustrates how to use the XUartNs550 component.
 *
 * @if SDT
-* @param	BaseAddress contains the base address of the device
+* @param[in]   BaseAddress Base address of the device.
 * @else
-* @param	DeviceId is the XPAR_<uartns550_instance>_DEVICE_ID value from
-*		xparameters.h.
+* @param[in]   DeviceId XPAR_<uartns550_instance>_DEVICE_ID value from
+*               xparameters.h.
 * @endif
 *
-* @return	XST_SUCCESS if successful, otherwise XST_FAILURE.
+* @return      XST_SUCCESS if successful, otherwise XST_FAILURE.
 *
 * @note        In XSCT/classic flow, DeviceId is used to look up the device
 *              configuration.
 *
-****************************************************************************/
+******************************************************************************/
 #ifndef SDT
 int UartNs550SelfTestExample(u16 DeviceId)
 #else

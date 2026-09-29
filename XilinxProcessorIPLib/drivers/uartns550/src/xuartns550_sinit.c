@@ -4,15 +4,11 @@
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
-/****************************************************************************/
+/*****************************************************************************/
 /**
 *
 * @file xuartns550_sinit.c
-* @addtogroup uartns550 Overview
-* @{
-*
-* The implementation of the XUartNs550 component's static initialization
-* functionality.
+* @brief Static initialization functionality for the XUartNs550 component.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -24,10 +20,15 @@
 * 2.00a ktn  10/20/09 Updated to use HAL Processor APIs.
 * 3.9   gm   07/09/23 Added SDT support
 * 3.14  vlt  12/18/25 Update Doxygen comments to include SDT flow details.
+* 3.15  vn   09/09/26 Align Doxygen comments with AMD standards
 *
 *</pre>
 *
-*****************************************************************************/
+******************************************************************************/
+
+/** @addtogroup uartns550 Overview
+ * @{
+ */
 
 /***************************** Include Files ********************************/
 
@@ -38,7 +39,7 @@
 /************************** Constant Definitions ****************************/
 
 #ifndef XPAR_DEFAULT_BAUD_RATE
-#define XPAR_DEFAULT_BAUD_RATE 19200
+#define XPAR_DEFAULT_BAUD_RATE 19200 /**< Default baud rate. */
 #endif
 
 /**************************** Type Definitions ******************************/
@@ -52,21 +53,23 @@
 
 /************************** Function Prototypes *****************************/
 
-/****************************************************************************/
+/*****************************************************************************/
 /**
 *
-* Looks up the device configuration based on the unique device ID/BaseAddress.
+* @brief Looks up the device configuration based on the unique device ID or
+* base address.
+*
 * The XUartNs550_ConfigTable[] contains the configuration info for each device
 * in the system.
 * @if SDT
-* @param	BaseAddress contains the base address of the device
+* @param[in]   BaseAddress Base address of the device.
 * @else
-* @param	DeviceId contains the unique ID of the device
+* @param[in]   DeviceId Unique ID of the device.
 * @endif
 *
-* @return       A pointer to the configuration found or NULL if the specified
-*               device ID/BaseAddress was not found. See xuartns550.h for the
-*               definition of XUartNs550_Config.
+* @return      A pointer to the configuration found or NULL if the specified
+*              device ID/BaseAddress was not found. See xuartns550.h for the
+*              definition of XUartNs550_Config.
 *
 * @note        In XSCT/classic flow, DeviceId is used to look up the device
 *              configuration.
@@ -104,10 +107,11 @@ XUartNs550_Config *XUartNs550_LookupConfig(UINTPTR BaseAddress)
 	return CfgPtr;
 }
 #endif
-/****************************************************************************/
+/*****************************************************************************/
 /**
 *
-* Initializes a specific XUartNs550 instance such that it is ready to be used.
+* @brief Initializes a specific XUartNs550 instance for use.
+*
 * The data format of the device is setup for 8 data bits, 1 stop bit, and no
 * parity by default. The baud rate is set to a default value specified by
 * XPAR_DEFAULT_BAUD_RATE if the symbol is defined, otherwise it is set to
@@ -115,29 +119,28 @@ XUartNs550_Config *XUartNs550_LookupConfig(UINTPTR BaseAddress)
 * receive FIFO threshold is set for 8 bytes. The default operating mode of the
 * driver is polled mode.
 *
-* @param	InstancePtr is a pointer to the XUartNs550 instance .
+* @param[in]   InstancePtr Pointer to the XUartNs550 instance.
 * @if SDT
-* @param	BaseAddress contains the base address of the device
+* @param[in]   BaseAddress Base address of the device.
 * @else
-* @param	DeviceId is the unique id of the device controlled by this
-*		XUartNs550 instance. Passing in a device id associates the
-*		generic XUartNs550 instance to a specific device, as chosen
-*		by the caller or application developer.
+* @param[in]   DeviceId Unique id of the device controlled by this
+*               XUartNs550 instance. Passing in a device id associates the
+*               generic XUartNs550 instance to a specific device, as chosen
+*               by the caller or application developer.
 * @endif
 *
 * @return
+*              - XST_SUCCESS if initialization was successful.
+*              - XST_DEVICE_NOT_FOUND if the device ID/BaseAddress could not
+*              be found in the configuration table.
+*              - XST_UART_BAUD_ERROR if the baud rate is not possible because
+*              the input clock frequency is not divisible with an acceptable
+*              amount of error.
 *
-* 		- XST_SUCCESS if initialization was successful
-* 		- XST_DEVICE_NOT_FOUND if the device ID/BaseAddress could not
-* 		be found in the configuration table
-* 		- XST_UART_BAUD_ERROR if the baud rate is not possible because
-*		the input clock frequency is not divisible with an acceptable
-*		amount of error
+* @note        In XSCT/classic flow, DeviceId is used to look up the device
+*              configuration.
 *
-* @note		In XSCT/classic flow, DeviceId is used to look up the device
-*		configuration.
-*
-*****************************************************************************/
+******************************************************************************/
 #ifndef SDT
 int XUartNs550_Initialize(XUartNs550 *InstancePtr, u16 DeviceId)
 #else

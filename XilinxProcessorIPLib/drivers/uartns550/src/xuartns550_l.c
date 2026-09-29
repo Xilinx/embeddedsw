@@ -8,11 +8,9 @@
 /**
 *
 * @file xuartns550_l.c
-* @addtogroup uartns550 Overview
-* @{
+* @brief Low-level driver functions for the 16450/16550 UART device.
 *
-* This file contains low-level driver functions that can be used to access the
-* device.  The user should refer to the hardware device specification for more
+* Refer to the hardware device specification for more
 * details of the device operation.
 *
 * <pre>
@@ -37,10 +35,14 @@
 *       ss   07/11/25 Add define for ASUFW as outbyte() specific implementation
 *                     for ASUFW is added
 * 3.15  vn   07/30/26 Fix Doxygen warnings
+* 3.15  vn   09/09/26 Align Doxygen comments with AMD standards
 * </pre>
 *
 ******************************************************************************/
 
+/** @addtogroup uartns550 Overview
+ * @{
+ */
 
 /***************************** Include Files *********************************/
 
@@ -61,19 +63,18 @@
 /************************** Variable Definitions *****************************/
 
 
-/****************************************************************************/
+/*****************************************************************************/
 /**
 *
-* This function sends a data byte with the UART. This function operates in the
-* polling mode and blocks until the data has been put into the UART transmit
-* holding register.
+* @brief Sends a data byte with the UART.
 *
-* @param	BaseAddress contains the base address of the UART.
-* @param	Data contains the data byte to be sent.
+* This function operates in the polling mode and blocks until the data has
+* been put into the UART transmit holding register.
 *
-* @note		None.
+* @param[in]   BaseAddress Base address of the UART.
+* @param[in]   Data Data byte to send.
 *
-*****************************************************************************/
+******************************************************************************/
 void XUartNs550_SendByte(UINTPTR BaseAddress, u8 Data)
 {
 	/*
@@ -89,19 +90,18 @@ void XUartNs550_SendByte(UINTPTR BaseAddress, u8 Data)
 	XUartNs550_WriteReg(BaseAddress, XUN_THR_OFFSET, (u32)Data);
 }
 
-/****************************************************************************/
+/*****************************************************************************/
 /**
 *
-* This function receives a byte from the UART. It operates in a polling mode
-* and blocks until a byte of data is received.
+* @brief Receives a byte from the UART.
 *
-* @param	BaseAddress contains the base address of the UART.
+* It operates in a polling mode and blocks until a byte of data is received.
 *
-* @return	The data byte received by the UART.
+* @param[in]   BaseAddress Base address of the UART.
 *
-* @note		None.
+* @return      The data byte received by the UART.
 *
-*****************************************************************************/
+******************************************************************************/
 u8 XUartNs550_RecvByte(UINTPTR BaseAddress)
 {
 	/*
@@ -116,19 +116,16 @@ u8 XUartNs550_RecvByte(UINTPTR BaseAddress)
 }
 
 
-/****************************************************************************/
+/*****************************************************************************/
 /**
+* @brief Sets the baud rate for the UART.
 *
-* Set the baud rate for the UART.
+* @param[in]   BaseAddress Base address of the UART.
+* @param[in]   InputClockHz Frequency of the input clock to the device
+*               in Hertz.
+* @param[in]   BaudRate Baud rate to set.
 *
-* @param	BaseAddress contains the base address of the UART.
-* @param	InputClockHz is the frequency of the input clock to the device
-*		in Hertz.
-* @param	BaudRate is the baud rate to be set.
-*
-* @note		None.
-*
-*****************************************************************************/
+******************************************************************************/
 void XUartNs550_SetBaud(UINTPTR BaseAddress, u32 InputClockHz, u32 BaudRate)
 {
 
@@ -176,11 +173,27 @@ void XUartNs550_SetBaud(UINTPTR BaseAddress, u32 InputClockHz, u32 BaudRate)
 }
 #if defined(SDT) && defined(XPAR_STDIN_IS_UARTNS550)
 #if !defined(VERSAL_PLM) && !defined(ASUFW)
+/*****************************************************************************/
+/**
+*
+* @brief Sends a single character to the UART stdout.
+*
+* @param[in]   c Character to send.
+*
+******************************************************************************/
 void outbyte(char c) {
          XUartNs550_SendByte(STDOUT_BASEADDRESS, c);
 }
 #endif
 
+/*****************************************************************************/
+/**
+*
+* @brief Receives a single character from the UART stdin.
+*
+* @return      The received character.
+*
+******************************************************************************/
 char inbyte(void) {
          return XUartNs550_RecvByte(STDIN_BASEADDRESS);
 }

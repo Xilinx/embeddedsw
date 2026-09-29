@@ -4,10 +4,12 @@
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
-/****************************************************************************/
+/*****************************************************************************/
 /**
 *
-* @file     xuartns550_polled_example.c
+* @file xuartns550_polled_example.c
+*
+* @brief Demonstrates XUartNs550 driver usage in polled mode.
 *
 * This file contains a design example using the Uart 16450/550 driver
 * (XUartNs550) and hardware device using polled mode.
@@ -29,7 +31,9 @@
 *                     CR-965028.
 * 3.9   gm   07/09/23 Added SDT support
 * 3.14  vlt  12/18/25 Update Doxygen comments to include SDT flow details.
+* 3.15  vn   09/09/26 Align Doxygen comments with AMD standards
 * </pre>
+*
 ******************************************************************************/
 
 /***************************** Include Files *********************************/
@@ -40,22 +44,30 @@
 
 /************************** Constant Definitions *****************************/
 
-/*
+/** @name Device parameters
+ *
  * The following constants map to the XPAR parameters created in the
  * xparameters.h file. They are defined here such that a user can easily
  * change all the needed parameters in one place.
+ * @{
  */
 #ifndef SDT
+/** UART device ID. */
 #define UART_DEVICE_ID			XPAR_UARTNS550_0_DEVICE_ID
 #else
+/** UART base address. */
 #define XUARTNS550_BASEADDRESS		XPAR_XUARTNS550_0_BASEADDR
 #endif
+/** @} */
 
-/*
- * The following constant controls the length of the buffers to be sent
- * and received with the UART, this constant must be 16 bytes or less since
- * this is a single threaded non-interrupt driven example such that the
- * entire buffer will fit into the transmit and receive FIFOs of the UART
+/**
+ * @brief Length of the send and receive buffers.
+ *
+ * The following constant controls the length of the buffers to be
+ * sent and received with the UART, this constant must be 16 bytes
+ * or less since this is a single threaded non-interrupt driven
+ * example such that the entire buffer fits into the transmit and
+ * receive FIFOs of the UART.
  */
 #define TEST_BUFFER_SIZE 16
 
@@ -75,26 +87,29 @@ int UartNs550PolledExample(UINTPTR BaseAddress);
 
 /************************** Variable Definitions *****************************/
 
-XUartNs550 UartNs550;	/* Instance of the UART Device */
+XUartNs550 UartNs550;	/**< Instance of the UART Device. */
 
-/*
+/**
+ * @name Data buffers
+ *
  * The following buffers are used in this example to send and receive data
  * with the UART.
+ * @{
  */
-u8 SendBuffer[TEST_BUFFER_SIZE];	/* Buffer for Transmitting Data */
-u8 RecvBuffer[TEST_BUFFER_SIZE];	/* Buffer for Receiving Data */
+u8 SendBuffer[TEST_BUFFER_SIZE];	/**< Buffer for Transmitting Data. */
+u8 RecvBuffer[TEST_BUFFER_SIZE];	/**< Buffer for Receiving Data. */
+/** @} */
 
 
 /*****************************************************************************/
 /**
 *
-* Main function to call the example. This function is not included if the
-* example is generated from the TestAppGen test tool.
+* @brief Calls the UART polled mode example.
 *
+* This function is not included if the example is generated from the
+* TestAppGen test tool.
 *
-* @return	XST_SUCCESS if successful, otherwise XST_FAILURE.
-*
-* @note		None.
+* @return      XST_SUCCESS if successful, otherwise XST_FAILURE.
 *
 ******************************************************************************/
 #ifndef TESTAPP_GEN
@@ -126,9 +141,10 @@ int main(void)
 /*****************************************************************************/
 /**
 *
+* @brief Tests the UART 16450/550 device and driver in polled mode.
+*
 * This function does a minimal test on the UART 16450/550 device and driver as a
-* design example.  The purpose of this function is to illustrate how to use
-* the XUartNs550 component.
+* design example. It illustrates how to use the XUartNs550 component.
 *
 * This function sends data and expects to receive the data through the UART
 * using the local loopback mode of the UART hardware.
@@ -136,20 +152,20 @@ int main(void)
 * This function polls the UART and does not require the use of interrupts.
 *
 * @if SDT
-* @param	BaseAddress contains the base address of the device
+* @param[in]   BaseAddress Base address of the device.
 * @else
-* @param	DeviceId is the XPAR_<uartns550_instance>_DEVICE_ID value from
-*		xparameters.h.
+* @param[in]   DeviceId XPAR_<uartns550_instance>_DEVICE_ID value from
+*               xparameters.h.
 * @endif
 *
-* @return	XST_SUCCESS if successful, XST_FAILURE if unsuccessful.
+* @return      XST_SUCCESS if successful, XST_FAILURE if unsuccessful.
 *
-* @note	       - This function polls the UART such that it may be not return
-*		if the hardware is not working correctly.
+* @note        - This function polls the UART such that it may be not return
+*               if the hardware is not working correctly.
 *
 *              - In XSCT/classic flow, DeviceId is used to look up the device
 *               configuration.
-****************************************************************************/
+******************************************************************************/
 #ifndef SDT
 int UartNs550PolledExample(u16 DeviceId)
 #else

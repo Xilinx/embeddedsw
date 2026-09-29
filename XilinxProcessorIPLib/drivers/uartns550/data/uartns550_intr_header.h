@@ -1,11 +1,20 @@
 /******************************************************************************
 * Copyright (C) 2005 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2024 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2024 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
-#ifndef UARTNS550_INTR_HEADER_H		/* prevent circular inclusions */
-#define UARTNS550_INTR_HEADER_H		/* by using protection macros */
+#ifndef UARTNS550_INTR_HEADER_H
+#define UARTNS550_INTR_HEADER_H
+
+/*****************************************************************************/
+/**
+*
+* @file uartns550_intr_header.h
+*
+* @brief Declares prototypes for the UartNs550 interrupt example.
+*
+******************************************************************************/
 
 #ifdef __cplusplus
 extern "C" {
@@ -15,6 +24,7 @@ extern "C" {
 #include "xil_assert.h"
 #include "xstatus.h"
 
+/** @cond INTERNAL */
 #ifdef XPAR_INTC_0_DEVICE_ID
 int UartNs550IntrExample(XIntc* IntcInstancePtr, \
                              XUartNs550* UartLiteInstancePtr, \
@@ -27,6 +37,7 @@ int UartNs550IntrExample(XScuGic* IntcInstancePtr, \
                              u16 UartNs550IntrId);
 
 #endif
+/** @endcond */
 
 #ifdef __cplusplus
 }

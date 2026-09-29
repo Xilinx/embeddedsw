@@ -4,14 +4,12 @@
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
-/****************************************************************************/
+/*****************************************************************************/
 /**
 *
 * @file xuartns550_format.c
-* @addtogroup uartns550 Overview
-* @{
+* @brief Data format functions for the 16450/16550 UART driver.
 *
-* This file contains the data format functions for the 16450/16550 UART driver.
 * The data format functions allow the baud rate, number of data bits, number
 * of stop bits and parity to be set and retrieved.
 *
@@ -27,9 +25,14 @@
 *		      Updated to use HAL Processor APIs. _m is removed from the
 *		      name of all the macro names/definitions.
 * 3.15  vn   07/30/26 Fix Doxygen warnings
+* 3.15  vn   09/09/26 Align Doxygen comments with AMD standards
 * </pre>
 *
-*****************************************************************************/
+******************************************************************************/
+
+/** @addtogroup uartns550 Overview
+ * @{
+ */
 
 /***************************** Include Files ********************************/
 
@@ -53,37 +56,37 @@
 /************************** Function Prototypes *****************************/
 
 
-/****************************************************************************/
+/*****************************************************************************/
 /**
 *
-* Sets the data format for the specified UART. The data format includes the
-* baud rate, number of data bits, number of stop bits, and parity. It is the
+* @brief Sets the data format for the specified UART.
+*
+* The data format includes the baud rate, number of data bits, number of stop
+* bits, and parity. It is the
 * caller's responsibility to ensure that the UART is not sending or receiving
 * data when this function is called.
 *
-* @param	InstancePtr is a pointer to the XUartNs550 instance .
-* @param	FormatPtr is a pointer to a format structure containing the data
-*		format to be set.
+* @param[in]   InstancePtr Pointer to the XUartNs550 instance.
+* @param[in]   FormatPtr Pointer to a format structure containing the data
+*               format to be set.
 *
 * @return
-*
-*		- XST_SUCCESS if the data format was successfully set.
-*		- XST_UART_BAUD_ERROR indicates the baud rate could not be set
-*		because of the amount of error with the baud rate and the input
-*		clock frequency.
-*		- XST_INVALID_PARAM if one of the parameters was not valid.
+*              - XST_SUCCESS if the data format was successfully set.
+*              - XST_UART_BAUD_ERROR indicates the baud rate could not be set
+*              because of the amount of error with the baud rate and the input
+*              clock frequency.
+*              - XST_INVALID_PARAM if one of the parameters was not valid.
 *
 * @note
-*
 * The data types in the format type, data bits and parity, are 32 bit fields
 * to prevent a compiler warning that is a bug with the GNU PowerPC compiler.
-* The asserts in this function will cause a warning if these fields are
+* The asserts in this function cause a warning if these fields are
 * bytes.
 * <br><br>
 * The baud rates tested include: 1200, 2400, 4800, 9600, 19200, 38400, 57600
 * and 115200.
 *
-*****************************************************************************/
+******************************************************************************/
 int XUartNs550_SetDataFormat(XUartNs550 *InstancePtr,
 					XUartNs550Format *FormatPtr)
 {
@@ -164,24 +167,23 @@ int XUartNs550_SetDataFormat(XUartNs550 *InstancePtr,
 
 	return XST_SUCCESS;
 }
-/****************************************************************************/
+/*****************************************************************************/
 /**
+* @brief Gets the data format for the specified UART.
 *
-* Gets the data format for the specified UART. The data format includes the
-* baud rate, number of data bits, number of stop bits, and parity.
+* The data format includes the baud rate, number of data bits, number of stop
+* bits, and parity.
 *
-* @param	InstancePtr is a pointer to the XUartNs550 instance.
-* @param	FormatPtr is a pointer to a format structure that will contain
-*		the data format after this call completes.
-*
-* @note		None.
+* @param[in]   InstancePtr Pointer to the XUartNs550 instance.
+* @param[out]  FormatPtr Pointer to a format structure that contains
+*              the data format after this call completes.
 *
 * @internal
 *
 * This function gets the state of the hardware rather than returning a state
 * that has been stored to ensure that the hardware is correct.
 *
-*****************************************************************************/
+******************************************************************************/
 void XUartNs550_GetDataFormat(XUartNs550 *InstancePtr,
 				XUartNs550Format *FormatPtr)
 {

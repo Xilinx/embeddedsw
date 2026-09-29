@@ -1,17 +1,14 @@
 /******************************************************************************
 * Copyright (C) 2002 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
-/****************************************************************************/
+/*****************************************************************************/
 /**
 *
 * @file xuartns550_options.c
-* @addtogroup uartns550 Overview
-* @{
-*
-* The implementation of the options functions for the XUartNs550 driver.
+* @brief Options functions for the XUartNs550 driver.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -28,9 +25,14 @@
 *		      name of all the macro definitions.
 * 3.4   sk   11/10/15 Used UINTPTR instead of u32 for Baseaddress CR# 867425.
 *                     Changed the prototype of ReadFcrRegister API.
+* 3.15  vn   09/09/26 Align Doxygen comments with AMD standards
 * </pre>
 *
-*****************************************************************************/
+******************************************************************************/
+
+/** @addtogroup uartns550 Overview
+ * @{
+ */
 
 /***************************** Include Files ********************************/
 
@@ -45,19 +47,19 @@
 /***************** Macros (Inline Functions) Definitions ********************/
 
 /************************** Variable Definitions ****************************/
-/*
- * The following data type maps an option to a register and the bits of the
- * register such that getting and setting the options may be table driven.
+/**
+ * @brief Maps an option to a register and bit mask for table-driven access.
  */
 typedef struct {
-	u16 Option;
-	u16 RegisterOffset;
-	u8  Mask;
+	u16 Option;		/**< Option bit mask */
+	u16 RegisterOffset;	/**< Register offset for this option */
+	u8  Mask;		/**< Bit mask within the register */
 } Mapping;
 
-/*
- * Create the table which contains options which are to be processed to get/set
- * the options. These options are table driven to allow easy maintenance and
+/**
+ * @brief Table of options processed to get and set UART options.
+ *
+ * These options are table driven to allow easy maintenance and
  * expansion of the options.
  */
 static Mapping OptionsTable[] = {
@@ -75,30 +77,32 @@ static Mapping OptionsTable[] = {
 	{ XUN_OPTION_RXLINE_INTR, XUN_IER_OFFSET, XUN_IER_RX_LINE }
 };
 
-/* Create a constants for the number of entries in the table */
-
+/** @name Options table size
+ * @{
+ */
+/** Number of entries in OptionsTable. */
 #define XUN_NUM_OPTIONS	  (sizeof(OptionsTable) / sizeof(Mapping))
+/** @} */
 
 /************************** Function Prototypes *****************************/
 
 static u32 ReadFcrRegister(UINTPTR BaseAddress);
 
-/****************************************************************************/
+/*****************************************************************************/
 /**
 *
-* Gets the options for the specified driver instance. The options are
-* implemented as bit masks such that multiple options may be enabled or
-* disabled simultaneously.
+* @brief Gets the options for the specified driver instance.
 *
-* @param	InstancePtr is a pointer to the XUartNs550 instance.
+* The options are implemented as bit masks such that multiple options may be
+* enabled or disabled simultaneously.
 *
-* @return 	The current options for the UART. The options are bit masks
-*		that are contained in the file xuartns550.h and
-*		named XUN_OPTION_*.
+* @param[in]   InstancePtr Pointer to the XUartNs550 instance.
 *
-* @note		None.
+* @return      The current options for the UART. The options are bit masks
+*              that are contained in the file xuartns550.h and
+*              named XUN_OPTION_*.
 *
-*****************************************************************************/
+******************************************************************************/
 u16 XUartNs550_GetOptions(XUartNs550 *InstancePtr)
 {
 	u16 Options = 0;
@@ -141,30 +145,28 @@ u16 XUartNs550_GetOptions(XUartNs550 *InstancePtr)
 	return Options;
 }
 
-/****************************************************************************/
+/*****************************************************************************/
 /**
+* @brief Sets the options for the specified driver instance.
 *
-* Sets the options for the specified driver instance. The options are
-* implemented as bit masks such that multiple options may be enabled or
-* disabled simultaneously.
+* The options are implemented as bit masks such that multiple options may be
+* enabled or disabled simultaneously.
 *
 * The GetOptions function may be called to retrieve the currently enabled
 * options. The result is ORed in the desired new settings to be enabled and
 * ANDed with the inverse to clear the settings to be disabled. The resulting
 * value is then used as the options for the SetOption function call.
 *
-* @param	InstancePtr is a pointer to the XUartNs550 instance.
-* @param	Options contains the options to be set which are bit masks
-*		contained in the file xuartns550.h and named XUN_OPTION_*.
+* @param[in]   InstancePtr Pointer to the XUartNs550 instance.
+* @param[in]   Options Options to set which are bit masks
+*               contained in the file xuartns550.h and named XUN_OPTION_*.
 *
 * @return
-*		- XST_SUCCESS if the options were set successfully.
-*		- XST_UART_CONFIG_ERROR if the options could not be set because
-*		the hardware does not support FIFOs
+*              - XST_SUCCESS if the options were set successfully.
+*              - XST_UART_CONFIG_ERROR if the options could not be set because
+*              the hardware does not support FIFOs.
 *
-* @note		None.
-*
-*****************************************************************************/
+******************************************************************************/
 int XUartNs550_SetOptions(XUartNs550 *InstancePtr, u16 Options)
 {
 	u32 Index;
@@ -221,22 +223,20 @@ int XUartNs550_SetOptions(XUartNs550 *InstancePtr, u16 Options)
 	return XST_SUCCESS;
 }
 
-/****************************************************************************/
+/*****************************************************************************/
 /**
+* @brief Gets the receive FIFO trigger level.
 *
-* This function gets the receive FIFO trigger level. The receive trigger
-* level indicates the number of bytes in the receive FIFO that cause a receive
-* data event (interrupt) to be generated.
+* The receive trigger level indicates the number of bytes in the receive FIFO
+* that cause a receive data event (interrupt) to be generated.
 *
-* @param	InstancePtr is a pointer to the XUartNs550 instance.
+* @param[in]   InstancePtr Pointer to the XUartNs550 instance.
 *
-* @return	The current receive FIFO trigger level. Constants which
-*		define each trigger level are contained in the file
-*		xuartns550.h and named XUN_FIFO_TRIGGER_*.
+* @return      The current receive FIFO trigger level. Constants which
+*              define each trigger level are contained in the file
+*              xuartns550.h and named XUN_FIFO_TRIGGER_*.
 *
-* @note		None.
-*
-*****************************************************************************/
+******************************************************************************/
 u8 XUartNs550_GetFifoThreshold(XUartNs550 *InstancePtr)
 {
 	u32 FcrRegister;
@@ -259,28 +259,26 @@ u8 XUartNs550_GetFifoThreshold(XUartNs550 *InstancePtr)
 	return (u8)(FcrRegister & XUN_FIFO_RX_TRIGGER);
 }
 
-/****************************************************************************/
+/*****************************************************************************/
 /**
+* @brief Sets the receive FIFO trigger level.
 *
-* This functions sets the receive FIFO trigger level. The receive trigger
-* level specifies the number of bytes in the receive FIFO that cause a receive
-* data event (interrupt) to be generated. The FIFOs must be enabled to set the
-* trigger level.
+* The receive trigger level specifies the number of bytes in the receive FIFO
+* that cause a receive data event (interrupt) to be generated. The FIFOs must
+* be enabled to set the trigger level.
 *
-* @param	InstancePtr is a pointer to the XUartNs550 instance.
-* @param	TriggerLevel contains the trigger level to set. Constants which
-*		define each trigger level are contained in the file xuartns550.h
-*		and named XUN_FIFO_TRIGGER_*.
+* @param[in]   InstancePtr Pointer to the XUartNs550 instance.
+* @param[in]   TriggerLevel Trigger level to set. Constants which
+*               define each trigger level are contained in the file xuartns550.h
+*               and named XUN_FIFO_TRIGGER_*.
 *
 * @return
-*		- XST_SUCCESS if the trigger level was set
-*		- XST_UART_CONFIG_ERROR if the trigger level could not be set,
-*		either the hardware does not support the FIFOs or FIFOs
-*		are not enabled
+*              - XST_SUCCESS if the trigger level was set.
+*              - XST_UART_CONFIG_ERROR if the trigger level could not be set,
+*              either the hardware does not support the FIFOs or FIFOs
+*              are not enabled.
 *
-* @note		None.
-*
-*****************************************************************************/
+******************************************************************************/
 int XUartNs550_SetFifoThreshold(XUartNs550 *InstancePtr, u8 TriggerLevel)
 {
 	u32 FcrRegister;
@@ -326,11 +324,11 @@ int XUartNs550_SetFifoThreshold(XUartNs550 *InstancePtr, u8 TriggerLevel)
 	return XST_SUCCESS;
 }
 
-/****************************************************************************/
+/*****************************************************************************/
 /**
+* @brief Returns the last errors that have occurred in the specified UART.
 *
-* This function returns the last errors that have occurred in the specified
-* UART. It also clears the errors such that they cannot be retrieved again.
+* It also clears the errors such that they cannot be retrieved again.
 * The errors include parity error, receive overrun error, framing error, and
 * break detection.
 *
@@ -338,19 +336,17 @@ int XUartNs550_SetFifoThreshold(XUartNs550 *InstancePtr, u8 TriggerLevel)
 * discovered in the driver. A status is checked for each received byte and
 * this status is accumulated in the last errors.
 *
-* If this function is called after receiving a buffer of data, it will indicate
+* If this function is called after receiving a buffer of data, it indicates
 * any errors that occurred for the bytes of the buffer. It does not indicate
 * which bytes contained errors.
 *
-* @param	InstancePtr is a pointer to the XUartNs550 instance.
+* @param[in,out] InstancePtr Pointer to the XUartNs550 instance.
 *
-* @return	The last errors that occurred. The errors are bit masks
-*		that are contained in the file xuartns550.h and
-*		named XUN_ERROR_*.
+* @return        The last errors that occurred. The errors are bit masks
+*                that are contained in the file xuartns550.h and
+*                named XUN_ERROR_*.
 *
-* @note		None.
-*
-*****************************************************************************/
+******************************************************************************/
 u8 XUartNs550_GetLastErrors(XUartNs550 *InstancePtr)
 {
 	u8 Temp = InstancePtr->LastErrors;
@@ -374,26 +370,25 @@ u8 XUartNs550_GetLastErrors(XUartNs550 *InstancePtr)
 	return Temp & XUN_LSR_ERROR_BREAK;
 }
 
-/****************************************************************************/
+/*****************************************************************************/
 /**
+* @brief Gets the modem status from the specified UART.
 *
-* This function gets the modem status from the specified UART. The modem
-* status indicates any changes of the modem signals. This function allows
-* the modem status to be read in a polled mode. The modem status is updated
-* whenever it is read such that reading it twice may not yield the same
-* results.
+* The modem status indicates any changes of the modem signals. This function
+* allows the modem status to be read in a polled mode. The modem status is
+* updated whenever it is read such that reading it twice may not yield the
+* same results.
 *
-* @param	InstancePtr is a pointer to the XUartNs550 instance .
+* @param[in]   InstancePtr Pointer to the XUartNs550 instance.
 *
-* @return 	The modem status which are bit masks that are contained in
-*		the file  xuartns550.h and named XUN_MODEM_*.
+* @return      The modem status which are bit masks that are contained in
+*              the file xuartns550.h and named XUN_MODEM_*.
 *
 * @note
-*
 * The bit masks used for the modem status are the exact bits of the modem
 * status register with no abstraction.
 *
-*****************************************************************************/
+******************************************************************************/
 u8 XUartNs550_GetModemStatus(XUartNs550 *InstancePtr)
 {
 	u32 ModemStatusRegister;
@@ -411,19 +406,17 @@ u8 XUartNs550_GetModemStatus(XUartNs550 *InstancePtr)
 	return (u8) ModemStatusRegister;
 }
 
-/****************************************************************************/
+/*****************************************************************************/
 /**
+* @brief Determines if the specified UART is sending data.
 *
-* This function determines if the specified UART is sending data. If the
-* transmitter register is not empty, it is sending data.
+* If the transmitter register is not empty, it is sending data.
 *
-* @param	InstancePtr is a pointer to the XUartNs550 instance.
+* @param[in]   InstancePtr Pointer to the XUartNs550 instance.
 *
-* @return	A value of TRUE if the UART is sending data, otherwise FALSE.
+* @return      A value of TRUE if the UART is sending data, otherwise FALSE.
 *
-* @note		None.
-*
-*****************************************************************************/
+******************************************************************************/
 int XUartNs550_IsSending(XUartNs550 *InstancePtr)
 {
 	u32 LsrRegister;
@@ -446,22 +439,20 @@ int XUartNs550_IsSending(XUartNs550 *InstancePtr)
 	return ((LsrRegister & XUN_LSR_TX_EMPTY) == 0);
 }
 
-/****************************************************************************/
+/*****************************************************************************/
 /**
+* @brief Reads the FIFO control register.
 *
-* This functions reads the FIFO control register. It's primary purpose is to
-* isolate the special processing for reading this register. It is necessary
-* to write to the line control register, then read the FIFO control register,
-* and then restore the line control register.
+* Its primary purpose is to isolate the special processing for reading this
+* register. It is necessary to write to the line control register, then read
+* the FIFO control register, and then restore the line control register.
 *
-* @param	BaseAddress contains the base address of the registers in the
-*		device.
+* @param[in]   BaseAddress Base address of the registers in the
+*               device.
 *
-* @return	The contents of the FIFO control register.
+* @return      The contents of the FIFO control register.
 *
-* @note		None.
-*
-*****************************************************************************/
+******************************************************************************/
 static u32 ReadFcrRegister(UINTPTR BaseAddress)
 {
 	u32 LcrRegister;

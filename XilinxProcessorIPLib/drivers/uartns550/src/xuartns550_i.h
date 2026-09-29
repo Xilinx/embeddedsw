@@ -1,15 +1,17 @@
 /******************************************************************************
 * Copyright (C) 2002 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
-/****************************************************************************/
+#ifndef XUARTNS550_I_H
+#define XUARTNS550_I_H
+
+/*****************************************************************************/
 /**
 *
 * @file xuartns550_i.h
-* @addtogroup uartns550 Overview
-* @{
+* @brief Declares internal identifiers shared across the driver files.
 *
 * This header file contains internal identifiers, which are those shared
 * between the files of the driver. It is intended for internal use only.
@@ -27,12 +29,14 @@
 *		      name of all the macro definitions. XUartNs550_mClearStats
 *		      macro is removed, XUartNs550_ClearStats function should be
 *		      used in its place.
+* 3.15  vn   09/09/26 Align Doxygen comments with AMD standards
 * </pre>
 *
 ******************************************************************************/
 
-#ifndef XUARTNS550_I_H /* prevent circular inclusions */
-#define XUARTNS550_I_H /* by using protection macros */
+/** @addtogroup uartns550 Overview
+ * @{
+ */
 
 #ifdef __cplusplus
 extern "C" {
@@ -64,11 +68,14 @@ unsigned int XUartNs550_ReceiveBuffer(XUartNs550 *InstancePtr);
 
 /************************** Variable Definitions ****************************/
 
+/**
+ * @brief Holds the configuration entry for each UartNs550 instance.
+ */
 extern XUartNs550_Config XUartNs550_ConfigTable[];
 
 #ifdef __cplusplus
 }
 #endif
 
-#endif /* end of protection macro */
+#endif
 /** @} */

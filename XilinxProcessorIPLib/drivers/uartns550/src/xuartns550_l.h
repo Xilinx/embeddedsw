@@ -4,15 +4,17 @@
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
+#ifndef XUARTNS550_L_H
+#define XUARTNS550_L_H
+
 /*****************************************************************************/
 /**
 *
 * @file xuartns550_l.h
-* @addtogroup uartns550 Overview
-* @{
+* @brief Declares low-level identifiers and access macros for the device.
 *
 * This header file contains identifiers and low-level driver functions (or
-* macros) that can be used to access the device. The user should refer to the
+* macros) that can be used to access the device. Refer to the
 * hardware device specification for more details of the device operation.
 * High-level driver functions are defined in xuartns550.h.
 *
@@ -32,12 +34,14 @@
 *                     XUartNs550_RecvByte, XUartNs550_SetBaud APIs.
 * 3.6   sd   02/03/20 Updated the register macros for DRL and DRM registers.
 * 3.15  vn   07/30/26 Fix Doxygen warnings
+* 3.15  vn   09/09/26 Align Doxygen comments with AMD standards
 * </pre>
 *
 ******************************************************************************/
 
-#ifndef XUARTNS550_L_H /* prevent circular inclusions */
-#define XUARTNS550_L_H /* by using protection macros */
+/** @addtogroup uartns550 Overview
+ * @{
+ */
 
 #ifdef __cplusplus
 extern "C" {
@@ -51,8 +55,8 @@ extern "C" {
 
 /************************** Constant Definitions *****************************/
 
-/*
- * Offset from the device base address to the IP registers.
+/**
+ * @brief Offset from the device base address to the IP registers.
  */
 #define XUN_REG_OFFSET 0x1000
 
@@ -61,78 +65,109 @@ extern "C" {
  * Register offsets for the 16450/16550 compatible UART device.
  * @{
  */
-#define XUN_RBR_OFFSET	(XUN_REG_OFFSET) /**< Receive buffer, read only */
-#define XUN_THR_OFFSET	(XUN_REG_OFFSET) /**< Transmit holding register */
-#define XUN_IER_OFFSET	(XUN_REG_OFFSET + 0x04) /**< Interrupt enable */
-#define XUN_IIR_OFFSET	(XUN_REG_OFFSET + 0x08) /**< Interrupt id, read only */
-#define XUN_FCR_OFFSET	(XUN_REG_OFFSET + 0x08) /**< Fifo control, write only */
-#define XUN_LCR_OFFSET	(XUN_REG_OFFSET + 0x0C) /**< Line Control Register */
-#define XUN_MCR_OFFSET	(XUN_REG_OFFSET + 0x10) /**< Modem Control Register */
-#define XUN_LSR_OFFSET	(XUN_REG_OFFSET + 0x14) /**< Line Status Register */
-#define XUN_MSR_OFFSET	(XUN_REG_OFFSET + 0x18) /**< Modem Status Register */
-#define XUN_DLL_OFFSET	(XUN_REG_OFFSET + 0x00) /**< Divisor Register LSB */
-#define XUN_DLM_OFFSET	(XUN_REG_OFFSET + 0x04) /**< Divisor Register MSB */
-#define XUN_DRLS_OFFSET	(XUN_REG_OFFSET + 0x00) /**< Divisor Register LSB */
-#define XUN_DRLM_OFFSET	(XUN_REG_OFFSET + 0x04) /**< Divisor Register MSB */
+/** Receive buffer, read only */
+#define XUN_RBR_OFFSET	(XUN_REG_OFFSET)
+/** Transmit holding register */
+#define XUN_THR_OFFSET	(XUN_REG_OFFSET)
+/** Interrupt enable */
+#define XUN_IER_OFFSET	(XUN_REG_OFFSET + 0x04)
+/** Interrupt id, read only */
+#define XUN_IIR_OFFSET	(XUN_REG_OFFSET + 0x08)
+/** Fifo control, write only */
+#define XUN_FCR_OFFSET	(XUN_REG_OFFSET + 0x08)
+/** Line Control Register */
+#define XUN_LCR_OFFSET	(XUN_REG_OFFSET + 0x0C)
+/** Modem Control Register */
+#define XUN_MCR_OFFSET	(XUN_REG_OFFSET + 0x10)
+/** Line Status Register */
+#define XUN_LSR_OFFSET	(XUN_REG_OFFSET + 0x14)
+/** Modem Status Register */
+#define XUN_MSR_OFFSET	(XUN_REG_OFFSET + 0x18)
+/** Divisor Register LSB */
+#define XUN_DLL_OFFSET	(XUN_REG_OFFSET + 0x00)
+/** Divisor Register MSB */
+#define XUN_DLM_OFFSET	(XUN_REG_OFFSET + 0x04)
+/** Divisor Register LSB */
+#define XUN_DRLS_OFFSET	(XUN_REG_OFFSET + 0x00)
+/** Divisor Register MSB */
+#define XUN_DRLM_OFFSET	(XUN_REG_OFFSET + 0x04)
 /** @} */
 
-/*
- * The following constant specifies the size of the FIFOs, the size of the
- * FIFOs includes the transmitter and receiver such that it is the total number
- * of bytes that the UART can buffer
+/**
+ * @brief Size of the transmit and receive FIFOs combined.
+ *
+ * Includes the transmitter and receiver, so it is the total number of bytes
+ * that the UART can buffer.
  */
 #define XUN_FIFO_SIZE			16
 
 
 /**
- * @name Interrupt Enable Register (IER) mask(s)
+ * @name Interrupt Enable Register (IER) masks
  * @{
  */
-#define XUN_IER_MODEM_STATUS	0x00000008 /**< Modem status interrupt */
-#define XUN_IER_RX_LINE		0x00000004 /**< Receive status interrupt */
-#define XUN_IER_TX_EMPTY	0x00000002 /**< Transmitter empty interrupt */
-#define XUN_IER_RX_DATA		0x00000001 /**< Receiver data available */
+/** Modem status interrupt */
+#define XUN_IER_MODEM_STATUS	0x00000008
+/** Receive status interrupt */
+#define XUN_IER_RX_LINE		0x00000004
+/** Transmitter empty interrupt */
+#define XUN_IER_TX_EMPTY	0x00000002
+/** Receiver data available */
+#define XUN_IER_RX_DATA		0x00000001
 /** @} */
 
 /**
- * @name Interrupt ID Register (INT_ID) mask(s)
+ * @name Interrupt ID Register (INT_ID) masks
  * @{
  */
-#define XUN_INT_ID_MASK		 0x0000000F /**< Only the interrupt ID */
-#define XUN_INT_ID_FIFOS_ENABLED 0x000000C0 /**< Only the FIFOs enable */
+/** Only the interrupt ID */
+#define XUN_INT_ID_MASK		 0x0000000F
+/** Only the FIFOs enable */
+#define XUN_INT_ID_FIFOS_ENABLED 0x000000C0
 /** @} */
 
 /**
- * @name FIFO Control Register mask(s)
+ * @name FIFO Control Register masks
  * @{
  */
-#define XUN_FIFO_RX_TRIG_MSB	0x00000080 /**< Trigger level MSB */
-#define XUN_FIFO_RX_TRIG_LSB	0x00000040 /**< Trigger level LSB */
-#define XUN_FIFO_TX_RESET	0x00000004 /**< Reset the transmit FIFO */
-#define XUN_FIFO_RX_RESET	0x00000002 /**< Reset the receive FIFO */
-#define XUN_FIFO_ENABLE		0x00000001 /**< Enable the FIFOs */
-#define XUN_FIFO_RX_TRIGGER	0x000000C0 /**< Both trigger level bits */
+#define XUN_FIFO_RX_TRIG_MSB	0x00000080	/**< Trigger level MSB */
+#define XUN_FIFO_RX_TRIG_LSB	0x00000040	/**< Trigger level LSB */
+#define XUN_FIFO_TX_RESET	0x00000004	/**< Reset the transmit FIFO */
+#define XUN_FIFO_RX_RESET	0x00000002	/**< Reset the receive FIFO */
+#define XUN_FIFO_ENABLE		0x00000001	/**< Enable the FIFOs */
+#define XUN_FIFO_RX_TRIGGER	0x000000C0	/**< Both trigger level bits */
 /** @} */
 
 /**
- * @name Line Control Register(LCR) mask(s)
+ * @name Line Control Register(LCR) masks
  * @{
  */
-#define XUN_LCR_DLAB		0x00000080 /**< Divisor latch access */
-#define XUN_LCR_SET_BREAK	0x00000040 /**< Cause a break condition */
-#define XUN_LCR_STICK_PARITY	0x00000020 /**< Stick Parity */
-#define XUN_LCR_EVEN_PARITY	0x00000010 /**< 1 = even, 0 = odd parity */
-#define XUN_LCR_ENABLE_PARITY	0x00000008 /**< 1 = Enable, 0 = Disable parity*/
-#define XUN_LCR_2_STOP_BITS	0x00000004 /**< 1= 2 stop bits,0 = 1 stop bit */
-#define XUN_LCR_8_DATA_BITS	0x00000003 /**< 8 Data bits selection */
-#define XUN_LCR_7_DATA_BITS	0x00000002 /**< 7 Data bits selection */
-#define XUN_LCR_6_DATA_BITS	0x00000001 /**< 6 Data bits selection */
-#define XUN_LCR_LENGTH_MASK	0x00000003 /**< Both length bits mask */
-#define XUN_LCR_PARITY_MASK	0x00000018 /**< Both parity bits mask */
+/** Divisor latch access */
+#define XUN_LCR_DLAB		0x00000080
+/** Cause a break condition */
+#define XUN_LCR_SET_BREAK	0x00000040
+/** Stick Parity */
+#define XUN_LCR_STICK_PARITY	0x00000020
+/** 1 = even, 0 = odd parity */
+#define XUN_LCR_EVEN_PARITY	0x00000010
+/** 1 = Enable, 0 = Disable parity */
+#define XUN_LCR_ENABLE_PARITY	0x00000008
+/** 1= 2 stop bits,0 = 1 stop bit */
+#define XUN_LCR_2_STOP_BITS	0x00000004
+/** 8 Data bits selection */
+#define XUN_LCR_8_DATA_BITS	0x00000003
+/** 7 Data bits selection */
+#define XUN_LCR_7_DATA_BITS	0x00000002
+/** 6 Data bits selection */
+#define XUN_LCR_6_DATA_BITS	0x00000001
+/** Both length bits mask */
+#define XUN_LCR_LENGTH_MASK	0x00000003
+/** Both parity bits mask */
+#define XUN_LCR_PARITY_MASK	0x00000018
 /** @} */
 
 /**
- * @name Mode Control Register(MCR) mask(s)
+ * @name Mode Control Register(MCR) masks
  * @{
  */
 #define XUN_MCR_LOOP		0x00000010 /**< Local loopback */
@@ -143,121 +178,123 @@ extern "C" {
 /** @} */
 
 /**
- * @name Line Status Register(LSR) mask(s)
+ * @name Line Status Register(LSR) masks
  * @{
  */
-#define XUN_LSR_RX_FIFO_ERROR	0x00000080 /**< An errored byte is in FIFO */
-#define XUN_LSR_TX_EMPTY	0x00000040 /**< Transmitter is empty */
-#define XUN_LSR_TX_BUFFER_EMPTY 0x00000020 /**< Transmit holding reg empty */
-#define XUN_LSR_BREAK_INT	0x00000010 /**< Break detected interrupt */
-#define XUN_LSR_FRAMING_ERROR	0x00000008 /**< Framing error on current byte */
-#define XUN_LSR_PARITY_ERROR	0x00000004 /**< Parity error on current byte */
-#define XUN_LSR_OVERRUN_ERROR	0x00000002 /**< Overrun error on receive FIFO */
-#define XUN_LSR_DATA_READY	0x00000001 /**< Receive data ready */
-#define XUN_LSR_ERROR_BREAK	0x0000001E /**< Errors except FIFO error and
-						break detected */
+/** An errored byte is in FIFO */
+#define XUN_LSR_RX_FIFO_ERROR	0x00000080
+/** Transmitter is empty */
+#define XUN_LSR_TX_EMPTY	0x00000040
+/** Transmit holding reg empty */
+#define XUN_LSR_TX_BUFFER_EMPTY 0x00000020
+/** Break detected interrupt */
+#define XUN_LSR_BREAK_INT	0x00000010
+/** Framing error on current byte */
+#define XUN_LSR_FRAMING_ERROR	0x00000008
+/** Parity error on current byte */
+#define XUN_LSR_PARITY_ERROR	0x00000004
+/** Overrun error on receive FIFO */
+#define XUN_LSR_OVERRUN_ERROR	0x00000002
+/** Receive data ready */
+#define XUN_LSR_DATA_READY	0x00000001
+/** Errors except FIFO error and break detected. */
+#define XUN_LSR_ERROR_BREAK	0x0000001E
 /** @} */
 
-#define XUN_DIVISOR_BYTE_MASK	0x000000FF
+#define XUN_DIVISOR_BYTE_MASK	0x000000FF /**< Mask for divisor byte. */
 
 /**************************** Type Definitions *******************************/
 
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
-/****************************************************************************/
+/*****************************************************************************/
 /**
-* Read a UART register.
+* @brief Reads a UART register.
 *
-* @param	BaseAddress contains the base address of the device.
-* @param	RegOffset contains the offset from the 1st register of the
-*		device to select the specific register.
+* @param[in]   BaseAddress Base address of the device.
+* @param[in]   RegOffset Offset from the 1st register of the
+*              device to select the specific register.
 *
-* @return	The value read from the register.
+* @return      The value read from the register.
 *
-* @note		C-Style signature:
-*		u32 XUartNs550_ReadReg(u32 BaseAddress, u32 RegOffset);
+* @note        C-Style signature:
+*              u32 XUartNs550_ReadReg(u32 BaseAddress, u32 RegOffset);
 *
 ******************************************************************************/
 #define XUartNs550_ReadReg(BaseAddress, RegOffset) \
 	Xil_In32((BaseAddress) + (RegOffset))
 
-/****************************************************************************/
+/*****************************************************************************/
 /**
-* Write to a UART register.
+* @brief Writes to a UART register.
 *
-* @param	BaseAddress contains the base address of the device.
-* @param	RegOffset contains the offset from the 1st register of the
-*		device to select the specific register.
-* @param	RegisterValue is the value to be written to the register.
+* @param[in]   BaseAddress Base address of the device.
+* @param[in]   RegOffset Offset from the 1st register of the
+*              device to select the specific register.
+* @param[in]   RegisterValue Value to write to the register.
 *
-* @return	None.
-*
-* @note		C-Style signature:
-*		u32 XUartNs550_WriteReg(u32 BaseAddress, u32 RegOffset,
-*						u32 RegisterValue);
+* @note        C-Style signature:
+*              u32 XUartNs550_WriteReg(u32 BaseAddress, u32 RegOffset,
+*                                              u32 RegisterValue);
 *
 ******************************************************************************/
 #define XUartNs550_WriteReg(BaseAddress, RegOffset, RegisterValue) \
 	Xil_Out32((BaseAddress) + (RegOffset), (RegisterValue))
 
-/****************************************************************************/
+/*****************************************************************************/
 /**
-* Get the UART Line Status Register.
+* @brief Gets the UART Line Status Register.
 *
-* @param	BaseAddress contains the base address of the device.
+* @param[in]   BaseAddress Base address of the device.
 *
-* @return	The value read from the register.
+* @return      The value read from the register.
 *
-* @note		C-Style signature:
-*		u32 XUartNs550_GetLineStatusReg(u32 BaseAddress);
+* @note        C-Style signature:
+*              u32 XUartNs550_GetLineStatusReg(u32 BaseAddress);
 *
 ******************************************************************************/
 #define XUartNs550_GetLineStatusReg(BaseAddress)   \
 	XUartNs550_ReadReg((BaseAddress), XUN_LSR_OFFSET)
 
-/****************************************************************************/
+/*****************************************************************************/
 /**
-* Get the UART Line Status Register.
+* @brief Gets the UART Line Control Register.
 *
-* @param	BaseAddress contains the base address of the device.
+* @param[in]   BaseAddress Base address of the device.
 *
-* @return	The value read from the register.
+* @return      The value read from the register.
 *
-* @note		C-Style signature:
-*		u32 XUartNs550_GetLineControlReg(u32 BaseAddress);
+* @note        C-Style signature:
+*              u32 XUartNs550_GetLineControlReg(u32 BaseAddress);
 *
 ******************************************************************************/
 #define XUartNs550_GetLineControlReg(BaseAddress)  \
 	XUartNs550_ReadReg((BaseAddress), XUN_LCR_OFFSET)
 
-/****************************************************************************/
+/*****************************************************************************/
 /**
-* Set the UART Line Status Register.
+* @brief Sets the UART Line Control Register.
 *
-* @param	BaseAddress contains the base address of the device.
-* @param	RegisterValue is the value to be written to the register.
+* @param[in]   BaseAddress Base address of the device.
+* @param[in]   RegisterValue Value to write to the register.
 *
-* @return	None.
-*
-* @note		C-Style signature:
-*		void XUartNs550_SetLineControlReg(u32 BaseAddress,
-*				u32 RegisterValue);
+* @note        C-Style signature:
+*              void XUartNs550_SetLineControlReg(u32 BaseAddress,
+*                              u32 RegisterValue);
 *
 ******************************************************************************/
 #define XUartNs550_SetLineControlReg(BaseAddress, RegisterValue) \
 	XUartNs550_WriteReg((BaseAddress), XUN_LCR_OFFSET, (RegisterValue))
 
-/****************************************************************************/
+/*****************************************************************************/
 /**
-* Enable the transmit and receive interrupts of the UART.
+* @brief Enables the transmit and receive interrupts of the UART.
 *
-* @param	BaseAddress contains the base address of the device.
+* @param[in]   BaseAddress Base address of the device.
 *
-* @return	None.
-*
-* @note		C-Style signature:
-*		void XUartNs550_EnableIntr(u32 BaseAddress);,
+* @note        C-Style signature:
+*              void XUartNs550_EnableIntr(u32 BaseAddress);
 *
 ******************************************************************************/
 #define XUartNs550_EnableIntr(BaseAddress)				\
@@ -265,16 +302,14 @@ extern "C" {
 			 XUartNs550_ReadReg((BaseAddress), XUN_IER_OFFSET) | \
 			 (XUN_IER_RX_LINE | XUN_IER_TX_EMPTY | XUN_IER_RX_DATA))
 
-/****************************************************************************/
+/*****************************************************************************/
 /**
-* Disable the transmit and receive interrupts of the UART.
+* @brief Disables the transmit and receive interrupts of the UART.
 *
-* @param	BaseAddress contains the base address of the device.
+* @param[in]   BaseAddress Base address of the device.
 *
-* @return	None.
-*
-* @note		C-Style signature:
-*		void XUartNs550_DisableIntr(u32 BaseAddress);,
+* @note        C-Style signature:
+*              void XUartNs550_DisableIntr(u32 BaseAddress);
 *
 ******************************************************************************/
 #define XUartNs550_DisableIntr(BaseAddress)				\
@@ -282,31 +317,31 @@ extern "C" {
 			XUartNs550_ReadReg((BaseAddress), XUN_IER_OFFSET) & \
 			~(XUN_IER_RX_LINE | XUN_IER_TX_EMPTY | XUN_IER_RX_DATA))
 
-/****************************************************************************/
+/*****************************************************************************/
 /**
-* Determine if there is receive data in the receiver and/or FIFO.
+* @brief Determines if there is receive data in the receiver and/or FIFO.
 *
-* @param	BaseAddress contains the base address of the device.
+* @param[in]   BaseAddress Base address of the device.
 *
-* @return	TRUE if there is receive data, FALSE otherwise.
+* @return      TRUE if there is receive data, FALSE otherwise.
 *
-* @note		C-Style signature:
-*		int XUartNs550_IsReceiveData(u32 BaseAddress);,
+* @note        C-Style signature:
+*              int XUartNs550_IsReceiveData(u32 BaseAddress);
 *
 ******************************************************************************/
 #define XUartNs550_IsReceiveData(BaseAddress)				\
 	(XUartNs550_GetLineStatusReg(BaseAddress) & XUN_LSR_DATA_READY)
 
-/****************************************************************************/
+/*****************************************************************************/
 /**
-* Determine if a byte of data can be sent with the transmitter.
+* @brief Determines if a byte of data can be sent with the transmitter.
 *
-* @param	BaseAddress contains the base address of the device.
+* @param[in]   BaseAddress Base address of the device.
 *
-* @return	TRUE if a byte can be sent, FALSE otherwise.
+* @return      TRUE if a byte can be sent, FALSE otherwise.
 *
-* @note		C-Style signature:
-*		int XUartNs550_IsTransmitEmpty(u32 BaseAddress);,
+* @note        C-Style signature:
+*              int XUartNs550_IsTransmitEmpty(u32 BaseAddress);
 *
 ******************************************************************************/
 #define XUartNs550_IsTransmitEmpty(BaseAddress)			\
@@ -326,5 +361,5 @@ void XUartNs550_SetBaud(UINTPTR BaseAddress, u32 InputClockHz, u32 BaudRate);
 }
 #endif
 
-#endif /* end of protection macro */
+#endif
 /** @} */

@@ -1,18 +1,18 @@
 /******************************************************************************
 * Copyright (C) 2002 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
-/******************************************************************************/
+/*****************************************************************************/
 /**
 *
-* @file     xuartns550_hello_world_example.c
+* @file xuartns550_hello_world_example.c
+*
+* @brief Demonstrates XUartNs550 driver usage in polled mode.
 *
 * This file contains a design example using the Uart 16450/550 driver
 * (XUartNs550) and hardware device using polled mode.
-*
-* @note     None.
 *
 * MODIFICATION HISTORY:
 * <pre>
@@ -29,8 +29,10 @@
 * 3.9   gm   07/09/23 Added SDT support
 * 3.13  bkv  07/07/25 Fixed GCC Warnings.
 * 3.14  vlt  12/18/25 Update Doxygen comments to include SDT flow details.
+* 3.15  vn   09/09/26 Align Doxygen comments with AMD standards
 *
 * </pre>
+*
 ******************************************************************************/
 
 /***************************** Include Files *********************************/
@@ -41,16 +43,21 @@
 
 /************************** Constant Definitions *****************************/
 
-/*
+/** @name Device parameters
+ *
  * The following constants map to the XPAR parameters created in the
  * xparameters.h file. They are defined here such that a user can easily
  * change all the needed parameters in one place.
+ * @{
  */
 #ifndef SDT
+/** UART device ID. */
 #define UART_DEVICE_ID			XPAR_UARTNS550_0_DEVICE_ID
 #else
+/** UART base address. */
 #define XUARTNS550_BASEADDRESS		XPAR_XUARTNS550_0_BASEADDR
 #endif
+/** @} */
 
 /**************************** Type Definitions *******************************/
 
@@ -68,19 +75,16 @@ int UartNs550HelloWorldExample(UINTPTR BaseAddress);
 
 /************************** Variable Definitions *****************************/
 
-XUartNs550 UartNs550;		/* The instance of the UART Driver */
+XUartNs550 UartNs550;		/**< The instance of the UART Driver. */
 
 /*****************************************************************************/
 /**
-* Main function to call the example.
-*
+* @brief Calls the UartNs550 hello world example.
 *
 * @return
-*		- XST_FAILURE if the Test Failed.
-*		- A non-negative number indicating the number of
-*		characters sent.
-*
-* @note		None.
+*              - XST_FAILURE if the Test Failed.
+*              - A non-negative number indicating the number of
+*              characters sent.
 *
 ******************************************************************************/
 int main(void)
@@ -107,32 +111,35 @@ int main(void)
 }
 
 
-/******************************************************************************/
+/*****************************************************************************/
 /**
 *
-* This function sends Hello World with the UART 16450/550 device and driver as
-* a design example. The purpose of this function is to illustrate how to use
-* the XUartNs550 driver.
+* @brief Sends "Hello World" over the UART in polled mode.
+*
+* Sends Hello World with the UART 16450/550 device and driver as a design
+* example.
+*
+* This function illustrates how to use the XUartNs550 driver.
 *
 * This function polls the UART and does not require the use of interrupts.
 *
 * @if SDT
-* @param	BaseAddress contains the base address of the device
+* @param[in]   BaseAddress Base address of the device.
 * @else
-* @param	DeviceId is the XPAR_<UARTNS550_instance>_DEVICE_ID value from
-*		xparameters.h
+* @param[in]   DeviceId XPAR_<UARTNS550_instance>_DEVICE_ID value from
+*               xparameters.h.
 * @endif
 *
 * @return
-*		- XST_FAILURE if the UART driver could not be initialized
-*		successfully.
-*		- A non-negative number indicating the number of characters
-*		sent.
+*              - XST_FAILURE if the UART driver could not be initialized
+*              successfully.
+*              - A non-negative number indicating the number of characters
+*              sent.
 *
-* @note         In XSCT/classic flow, DeviceId is used to look up the device
-*               configuration.
+* @note        In XSCT/classic flow, DeviceId is used to look up the device
+*              configuration.
 *
-****************************************************************************/
+******************************************************************************/
 #ifndef SDT
 int UartNs550HelloWorldExample(u16 DeviceId)
 #else

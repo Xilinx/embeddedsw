@@ -4,16 +4,17 @@
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
-/******************************************************************************/
+/*****************************************************************************/
 /**
 *
 * @file xuartns550_intr_example.c
+*
+* @brief Demonstrates XUartNs550 driver usage in interrupt mode.
 *
 * This file contains a design example using the UART 16450/16550 driver
 * (XUartNs550) and hardware device using interrupt mode.
 *
 * @note
-*
 * <pre>
 * MODIFICATION HISTORY:
 *
@@ -38,7 +39,9 @@
 * 3.9   gm   07/09/23 Added SDT support.
 * 3.14  vlt  12/18/25 Update Doxygen comments to include SDT flow details.
 * 3.15  vn   07/30/26 Fix Doxygen warnings
+* 3.15  vn   09/09/26 Align Doxygen comments with AMD standards
 * </pre>
+*
 ******************************************************************************/
 
 /***************************** Include Files **********************************/
@@ -62,45 +65,62 @@
 
 /************************** Constant Definitions ******************************/
 
-/*
+/** @name Device parameters
+ *
  * The following constants map to the XPAR parameters created in the
  * xparameters.h file. They are defined here such that a user can easily
  * change all the needed parameters in one place.
+ * @{
  */
 #ifndef TESTAPP_GEN
 #ifndef SDT
+/** UART device ID. */
 #define UART_DEVICE_ID		XPAR_UARTNS550_0_DEVICE_ID
 
 #ifdef XPAR_INTC_0_DEVICE_ID
+/** Interrupt controller device ID. */
 #define INTC_DEVICE_ID		XPAR_INTC_0_DEVICE_ID
+/** UART interrupt ID. */
 #define UART_IRPT_INTR		XPAR_INTC_0_UARTNS550_0_VEC_ID
 #else
+/** Interrupt controller device ID. */
 #define INTC_DEVICE_ID		XPAR_SCUGIC_SINGLE_DEVICE_ID
+/** UART interrupt ID. */
 #define UART_IRPT_INTR		XPAR_FABRIC_UARTNS550_0_VEC_ID
 #endif /* XPAR_INTC_0_DEVICE_ID */
 #else
+/** UART base address. */
 #define XUARTNS550_BASEADDRESS		XPAR_XUARTNS550_0_BASEADDR
 #endif
 #endif /* TESTAPP_GEN */
+/** @} */
 
-/*
- * The following constant controls the length of the buffers to be sent
- * and received with the UART.
+/**
+ * @brief Length of the send and receive buffers.
+ *
+ * The following constant controls the length of the buffers to be sent and
+ * received with the UART.
  */
 #define TEST_BUFFER_SIZE	100
 
 
 /**************************** Type Definitions ********************************/
 
+/** @name Interrupt controller type definitions
+ * @{
+ */
 #ifndef SDT
 #ifdef XPAR_INTC_0_DEVICE_ID
-#define INTC		XIntc
+#define INTC		XIntc /**< Interrupt controller type. */
+/** Interrupt handler function. */
 #define INTC_HANDLER	XIntc_InterruptHandler
 #else
-#define INTC		XScuGic
+#define INTC		XScuGic /**< Interrupt controller type. */
+/** Interrupt handler function. */
 #define INTC_HANDLER	XScuGic_InterruptHandler
 #endif /* XPAR_INTC_0_DEVICE_ID */
 #endif
+/** @} */
 
 /************************** Function Prototypes *******************************/
 
@@ -127,39 +147,44 @@ static void UartNs550DisableIntrSystem(INTC *IntcInstancePtr, u16 UartIntrId);
 /************************** Variable Definitions ******************************/
 
 #ifndef TESTAPP_GEN
-XUartNs550 UartNs550Instance;	/* Instance of the UART Device */
+XUartNs550 UartNs550Instance;	/**< Instance of the UART Device. */
 #ifndef SDT
-INTC IntcInstance;		/* Instance of the Interrupt Controller */
+INTC IntcInstance;		/**< Instance of the Interrupt Controller. */
 #endif
 #endif
 
-/*
+/**
+ * @name Data buffers
+ *
  * The following buffers are used in this example to send and receive data
  * with the UART.
+ * @{
  */
-u8 SendBuffer[TEST_BUFFER_SIZE];	/* Buffer for Transmitting Data */
-u8 RecvBuffer[TEST_BUFFER_SIZE];	/* Buffer for Receiving Data */
+u8 SendBuffer[TEST_BUFFER_SIZE];	/**< Buffer for Transmitting Data. */
+u8 RecvBuffer[TEST_BUFFER_SIZE];	/**< Buffer for Receiving Data. */
+/** @} */
 
-/*
+/**
+ * @name Transfer counters
+ *
  * The following counters are used to determine when the entire buffer has
  * been sent and received.
+ * @{
  */
-static volatile int TotalReceivedCount;
-static volatile int TotalSentCount;
-static volatile int TotalErrorCount;
+static volatile int TotalReceivedCount; /**< Total bytes received. */
+static volatile int TotalSentCount;     /**< Total bytes sent. */
+static volatile int TotalErrorCount;    /**< Total error count. */
+/** @} */
 
 
-/******************************************************************************/
+/*****************************************************************************/
 /**
 *
-* Main function to call the UartNs550 interrupt example.
+* @brief Calls the UartNs550 interrupt example.
 *
+* @return      XST_SUCCESS if successful, otherwise XST_FAILURE.
 *
-* @return	XST_SUCCESS if successful, otherwise XST_FAILURE.
-*
-* @note		None.
-*
-*******************************************************************************/
+******************************************************************************/
 #ifndef TESTAPP_GEN
 int main(void)
 {
@@ -190,36 +215,38 @@ int main(void)
 /*****************************************************************************/
 /**
 *
-* This function does a minimal test on the UartNs550 device and driver as a
-* design example. The purpose of this function is to illustrate how to use the
-* XUartNs550 component.
+* @brief Performs a minimal interrupt-mode test on the UartNs550 device.
+*
+* This is a design example that tests the device and driver.
+*
+* This function illustrates how to use the XUartNs550 component.
 *
 * This function transmits data and expects to receive the same data through the
 * UART using the local loopback of the hardware.
 *
 * This function uses interrupt driver mode of the UART.
 *
-* @param	UartInstancePtr is a pointer to the instance of the UART .
+* @param[in]   UartInstancePtr Pointer to the instance of the UART .
 * @if SDT
-* @param	BaseAddress contains the base address of the device
+* @param[in]   BaseAddress Base address of the device.
 * @else
-* @param	IntcInstancePtr is a pointer to the instance of the
-*		Interrupt Controller.
-* @param	UartDeviceId is the device Id and is typically
-*		XPAR_<UARTNS550_instance>_DEVICE_ID value from  xparameters.h.
-* @param	UartIntrId is the interrupt Id and is typically
-*		XPAR_<INTC_instance>_<UARTNS550_instance>_IP2INTC_IRPT_INTR
-*		value from xparameters.h.
+* @param[in]   IntcInstancePtr Pointer to the instance of the
+*               Interrupt Controller.
+* @param[in]   UartDeviceId Device Id and is typically
+*               XPAR_<UARTNS550_instance>_DEVICE_ID value from  xparameters.h.
+* @param[in]   UartIntrId Interrupt Id and is typically
+*               XPAR_<INTC_instance>_<UARTNS550_instance>_IP2INTC_IRPT_INTR
+*               value from xparameters.h.
 * @endif
 *
-* @return	XST_SUCCESS if successful, otherwise XST_FAILURE.
+* @return      XST_SUCCESS if successful, otherwise XST_FAILURE.
 *
-* @note     - In XSCT/classic flow, DeviceId is used to look up the device
-*            configuration.
-*           - This function contains an infinite loop such that if interrupts
-*            are not working it may never return.
+* @note        - In XSCT/classic flow, DeviceId is used to look up the device
+*               configuration.
+*              - This function contains an infinite loop such that if interrupts
+*               are not working it may never return.
 *
-*******************************************************************************/
+******************************************************************************/
 #ifndef SDT
 int UartNs550IntrExample(INTC *IntcInstancePtr,
 			 XUartNs550 *UartInstancePtr,
@@ -373,22 +400,21 @@ int UartNs550IntrExample(XUartNs550 *UartInstancePtr,
 /*****************************************************************************/
 /**
 *
-* This function is the handler which performs processing to handle data events
-* from the UartNs550.  It is called from an interrupt context such that the
+* @brief Handles data events from the UartNs550.
+*
+* It is called from an interrupt context such that the
 * amount of processing performed should be minimized.
 *
 * This handler provides an example of how to handle data for the UART and
 * is application specific.
 *
-* @param	CallBackRef contains a callback reference from the driver,
-*		in thiscase it is the instance pointer for the UART driver.
-* @param	Event contains the specific kind of event that has occurred.
-* @param	EventData contains the number of bytes sent or received for sent
-*		and receive events.
+* @param[in]   CallBackRef Callback reference from the driver,
+*               in this case it is the instance pointer for the UART driver.
+* @param[in]   Event Specific kind of event that has occurred.
+* @param[in]   EventData Number of bytes sent or received for sent
+*               and receive events.
 *
-* @note		None.
-*
-*******************************************************************************/
+******************************************************************************/
 void UartNs550IntrHandler(void *CallBackRef, u32 Event, unsigned int EventData)
 {
 	XUartNs550 *UartNs550Ptr = (XUartNs550 *)CallBackRef;
@@ -427,27 +453,28 @@ void UartNs550IntrHandler(void *CallBackRef, u32 Event, unsigned int EventData)
 }
 
 #ifndef SDT
-/******************************************************************************/
+/*****************************************************************************/
 /**
 *
-* This function setups the interrupt system such that interrupts can occur
-* for the UART.  This function is application specific since the actual
-* system may or may not have an interrupt controller.  The UART could be
-* directly connected to a processor without an interrupt controller.  The
-* user should modify this function to fit the application.
+* @brief Sets up the interrupt system for the UART.
 *
-* @param	IntcInstancePtr is a pointer to the instance of the Interrupt
-*		Controller.
-* @param	UartInstancePtr is a pointer to the instance of the UART.
-* @param	UartIntrId is the interrupt Id and is typically
-*		XPAR_<INTC_instance>_<UARTNS550_instance>_VEC_ID value from
-*		xparameters.h.
+* Sets up the interrupt system such that interrupts can occur for the UART.
 *
-* @return	XST_SUCCESS if successful, otherwise XST_FAILURE.
+* This function is application specific since the actual
+* system may or may not have an interrupt controller. The UART could be
+* directly connected to a processor without an interrupt controller. Modify
+* this function to fit the application.
 *
-* @note		None.
+* @param[in]   IntcInstancePtr Pointer to the instance of the Interrupt
+*               Controller.
+* @param[in]   UartInstancePtr Pointer to the instance of the UART.
+* @param[in]   UartIntrId Interrupt Id and is typically
+*               XPAR_<INTC_instance>_<UARTNS550_instance>_VEC_ID value from
+*               xparameters.h.
 *
-*******************************************************************************/
+* @return      XST_SUCCESS if successful, otherwise XST_FAILURE.
+*
+******************************************************************************/
 static int UartNs550SetupIntrSystem(INTC *IntcInstancePtr,
 				    XUartNs550 *UartInstancePtr,
 				    u16 UartIntrId)
@@ -561,17 +588,15 @@ static int UartNs550SetupIntrSystem(INTC *IntcInstancePtr,
 /*****************************************************************************/
 /**
 *
-* This function disables the interrupts that occur for the UartNs550 device.
+* @brief Disables the UartNs550 interrupts.
 *
-* @param	IntcInstancePtr is the pointer to the instance of the Interrupt
-*		Controller.
-* @param	UartIntrId is the interrupt Id and is typically
-*		XPAR_<INTC_instance>_<UARTNS550_instance>_VEC_ID
-*		value from xparameters.h.
+* Disables the interrupts that occur for the UartNs550 device.
 *
-* @return	None.
-*
-* @note		None.
+* @param[in]   IntcInstancePtr Pointer to the instance of the Interrupt
+*               Controller.
+* @param[in]   UartIntrId Interrupt Id and is typically
+*               XPAR_<INTC_instance>_<UARTNS550_instance>_VEC_ID
+*               value from xparameters.h.
 *
 ******************************************************************************/
 static void UartNs550DisableIntrSystem(INTC *IntcInstancePtr, u16 UartIntrId)

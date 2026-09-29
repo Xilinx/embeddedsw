@@ -4,14 +4,14 @@
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
-/******************************************************************************/
+/*****************************************************************************/
 /**
-* @file     xuartns550_low_level_example.c
+* @file xuartns550_low_level_example.c
+*
+* @brief Demonstrates low-level UART NS550 driver usage.
 *
 * This file contains a design example using the low-level driver functions
 * and macros of the UART NS550 driver.
-*
-* @note     None.
 *
 * MODIFICATION HISTORY:
 * <pre>
@@ -29,7 +29,9 @@
 * 3.9   gm   07/09/23 Added SDT support
 * 3.14  vlt  03/15/26 Updated BaseAddress type from u32 to UINTPTR
 *                     to support 64-bit addressing.
+* 3.15  vn   09/09/26 Align Doxygen comments with AMD standards
 * </pre>
+*
 ******************************************************************************/
 
 /***************************** Include Files *********************************/
@@ -41,28 +43,38 @@
 
 /************************** Constant Definitions *****************************/
 
-/*
+/** @name Device parameters
+ *
  * The following constants map to the XPAR parameters created in the
  * xparameters.h file. They are defined here such that a user can easily
  * change all the needed parameters in one place.
+ * @{
  */
 #ifndef SDT
+/** UART base address. */
 #define UART_BASEADDR		XPAR_UARTNS550_0_BASEADDR
+/** UART clock frequency in Hz. */
 #define UART_CLOCK_HZ		XPAR_UARTNS550_0_CLOCK_FREQ_HZ
 #else
+/** UART base address. */
 #define UART_BASEADDR		XPAR_XUARTNS550_0_BASEADDR
+/** UART clock frequency in Hz. */
 #define UART_CLOCK_HZ		XPAR_XUARTNS550_0_CLOCK_FREQ
 #endif
+/** @} */
 
-/*
+/** @name Buffer size and baud rate
+ *
  * The following constant controls the length of the buffers to be sent
  * and received with the UART, this constant must be 16 bytes or less so the
- * entire buffer will fit into the transmit and receive FIFOs of the UART
+ * entire buffer fits into the transmit and receive FIFOs of the UART.
+ * @{
  */
-#define TEST_BUFFER_SIZE 16
+#define TEST_BUFFER_SIZE 16 /**< Length of the send and receive buffers. */
 
 
-#define UART_BAUDRATE		19200   /* Baud Rate */
+#define UART_BAUDRATE		19200   /**< Baud Rate. */
+/** @} */
 
 /**************************** Type Definitions *******************************/
 
@@ -74,23 +86,24 @@ int XUartNs550_LowLevelExample(UINTPTR UartBaseAddress);
 
 /************************** Variable Definitions *****************************/
 
-/*
+/**
+ * @name Data buffers
+ *
  * The following buffers are used in this example to send and receive data
  * with the UART.
+ * @{
  */
-u8 SendBuffer[TEST_BUFFER_SIZE]; /* Buffer for Transmitting Data */
-u8 RecvBuffer[TEST_BUFFER_SIZE]; /* Buffer for Receiving Data */
+u8 SendBuffer[TEST_BUFFER_SIZE]; /**< Buffer for Transmitting Data. */
+u8 RecvBuffer[TEST_BUFFER_SIZE]; /**< Buffer for Receiving Data. */
+/** @} */
 
 
 /*****************************************************************************/
 /**
 *
-* Main function to call the example.
+* @brief Calls the UartNs550 low level example.
 *
-*
-* @return	XST_SUCCESS if successful, XST_FAILURE if unsuccessful.
-*
-* @note		None.
+* @return      XST_SUCCESS if successful, XST_FAILURE if unsuccessful.
 *
 ******************************************************************************/
 int main(void)
@@ -111,23 +124,24 @@ int main(void)
 	return XST_SUCCESS;
 }
 
-/****************************************************************************/
+/*****************************************************************************/
 /**
 *
-* This function does a minimal test on the UART device using the low-level
-* driver macros and functions. This function sends data and expects to receive
-* the data through the UART. A physical loopback must be done by the user with the
-* tranmit and receive signals of the UART.
+* @brief Performs a minimal low-level test on the UART device.
 *
-* @param	UartBaseAddress is the base address of the UARTNS550 device
-*		and is the XPAR_<UARTNS550_instance>_BASEADDR value from
-*		xparameters.h.
+* Tests the UART device using the low-level driver macros and functions.
 *
-* @return	XST_SUCCESS if successful, XST_FAILURE if unsuccessful.
+* This function sends data and expects to receive
+* the data through the UART. A physical loopback must be done with
+* the transmit and receive signals of the UART.
 *
-* @note		None.
+* @param[in]   UartBaseAddress Base address of the UARTNS550 device
+*               and is the XPAR_<UARTNS550_instance>_BASEADDR value from
+*               xparameters.h.
 *
-****************************************************************************/
+* @return      XST_SUCCESS if successful, XST_FAILURE if unsuccessful.
+*
+******************************************************************************/
 int XUartNs550_LowLevelExample(UINTPTR UartBaseAddress)
 {
 	int Index;

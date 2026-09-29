@@ -1,17 +1,15 @@
 /******************************************************************************
 * Copyright (C) 2002 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
-/****************************************************************************/
+/*****************************************************************************/
 /**
 *
 * @file xuartns550.c
-* @addtogroup uartns550 Overview
-* @{
+* @brief Required functions for the 16450/16550 UART driver.
 *
-* This file contains the required functions for the 16450/16550 UART driver.
 * Refer to the header file xuartns550.h for more detailed information.
 *
 * <pre>
@@ -44,9 +42,14 @@
 * 3.4   sk   11/10/15 Used UINTPTR instead of u32 for Baseaddress CR# 867425.
 *                     Changed the prototype of XUartNs550_CfgInitialize API.
 * 3.7   sd   03/02/20 Update the macro names.
+* 3.15  vn   09/09/26 Align Doxygen comments with AMD standards
 * </pre>
 *
-*****************************************************************************/
+******************************************************************************/
+
+/** @addtogroup uartns550 Overview
+ * @{
+ */
 
 /***************************** Include Files ********************************/
 
@@ -57,12 +60,14 @@
 
 /************************** Constant Definitions ****************************/
 
-/* The following constant defines the amount of error that is allowed for
- * a specified baud rate. This error is the difference between the actual
- * baud rate that will be generated using the specified clock and the
- * desired baud rate.
+/** @name Baud rate error tolerance
+ *
+ * Maximum percentage error allowed between the actual baud rate
+ * generated using the specified clock and the desired baud rate.
+ * @{
  */
-#define XUN_MAX_BAUD_ERROR_RATE		3	 /* max % error allowed */
+#define XUN_MAX_BAUD_ERROR_RATE		3 /**< Maximum percent error allowed */
+/** @} */
 
 /**************************** Type Definitions ******************************/
 
@@ -78,41 +83,40 @@
 static void XUartNs550_StubHandler(void *CallBackRef, u32 Event,
 					unsigned int ByteCount);
 
-/****************************************************************************/
+/*****************************************************************************/
 /**
 *
-* Initializes a specific XUartNs550 instance such that it is ready to be used.
+* @brief Initializes a specific XUartNs550 instance for use.
+*
 * The data format of the device is setup for 8 data bits, 1 stop bit, and no
 * parity by default. The baud rate is set to a default value specified by
 * Config->DefaultBaudRate if set, otherwise it is set to 19.2K baud. If the
 * device has FIFOs (16550), they are enabled and the a receive FIFO threshold
 * is set for 8 bytes. The default operating mode of the driver is polled mode.
 *
-* @param 	InstancePtr is a pointer to the XUartNs550 instance.
-* @param 	Config is a reference to a structure containing information
-*		about a specific UART 16450/16550 device. XUartNs550_Init
-*		initializes an InstancePtr object for a specific device
-*		specified by the contents f Config. XUartNs550_Init can
-*		initialize multiple instance objects with the use of multiple
-*		calls giving different Config information on each call.
-* @param 	EffectiveAddr is the device base address in the virtual memory
-*		address	space. The caller is responsible for keeping the
-*		address mapping from EffectiveAddr to the device physical base
-*		address unchanged once this function is invoked. Unexpected
-*		errors may occur if the address mapping changes after this
-*		function is called. If address translation is not used,
-*		use Config->BaseAddress for this parameters, passing the
-*		physical address instead.
+* @param[out]  InstancePtr Pointer to the XUartNs550 instance.
+* @param[in]   Config Reference to a structure containing information
+*               about a specific UART 16450/16550 device. XUartNs550_Init
+*               initializes an InstancePtr object for a specific device
+*               specified by the contents of Config. XUartNs550_Init can
+*               initialize multiple instance objects with the use of multiple
+*               calls giving different Config information on each call.
+* @param[in]   EffectiveAddr Device base address in the virtual memory
+*               address	space. The caller is responsible for keeping the
+*               address mapping from EffectiveAddr to the device physical base
+*               address unchanged once this function is invoked. Unexpected
+*               errors may occur if the address mapping changes after this
+*               function is called. If address translation is not used,
+*               use Config->BaseAddress for this parameter, passing the
+*               physical address instead.
 *
 * @return
-* 		- XST_SUCCESS if initialization was successful.
-* 		- XST_UART_BAUD_ERROR if the baud rate is not possible because
-*		the input clock frequency is not divisible with an acceptable
-*		amount of error.
+*              - XST_SUCCESS if initialization was successful.
+*              - XST_UART_BAUD_ERROR if the baud rate is not possible because
+*              the input clock frequency is not divisible with an acceptable
+*              amount of error.
 *
-* @note		None.
-*
-*****************************************************************************/
+******************************************************************************/
 int XUartNs550_CfgInitialize(XUartNs550 *InstancePtr,
 					XUartNs550_Config *Config,
 					UINTPTR EffectiveAddr)
@@ -192,42 +196,43 @@ int XUartNs550_CfgInitialize(XUartNs550 *InstancePtr,
 	return XST_SUCCESS;
 }
 
-/****************************************************************************/
+/*****************************************************************************/
 /**
 *
-* This functions sends the specified buffer of data using the UART in either
-* polled or interrupt driven modes. This function is non-blocking such that it
-* will return before the data has been sent by the UART. If the UART is busy
-* sending data, it will return and indicate zero bytes were sent.
+* @brief Sends the specified buffer of data using the UART.
 *
-* In a polled mode, this function will only send as much data as the UART can
+* This function operates in either polled or interrupt driven modes. It is
+* non-blocking such that it returns before the data has been sent by the UART.
+* If the UART is busy sending data, it returns and indicates zero bytes
+* were sent.
+*
+* In a polled mode, this function only sends as much data as the UART can
 * buffer, either in the transmitter or in the FIFO if present and enabled. The
 * application may need to call it repeatedly to send a buffer.
 *
-* In interrupt mode, this function will start sending the specified buffer and
-* then the interrupt handler of the driver will continue sending data until the
+* In interrupt mode, this function starts sending the specified buffer and
+* then the interrupt handler of the driver continues sending data until the
 * buffer has been sent. A callback function, as specified by the application,
-* will be called to indicate the completion of sending the buffer.
+* is called to indicate the completion of sending the buffer.
 *
-* @param	InstancePtr is a pointer to the XUartNs550 instance.
-* @param	BufferPtr is pointer to a buffer of data to be sent.
-* @param	NumBytes contains the number of bytes to be sent. A value of
-*		zero will stop a previous send operation that is in progress
-*		in interrupt mode. Any data that was already put into the
-*		transmit FIFO will be sent.
+* @param[in,out] InstancePtr Pointer to the XUartNs550 instance.
+* @param[in]     BufferPtr Pointer to a buffer of data to send.
+* @param[in]     NumBytes Number of bytes to send. A value of
+*                 zero stops a previous send operation that is in progress
+*                 in interrupt mode. Any data that was already put into the
+*                 transmit FIFO is sent.
 *
-* @return	The number of bytes actually sent.
+* @return        The number of bytes actually sent.
 *
 * @note
-*
 * The number of bytes is not asserted so that this function may be called with
 * a value of zero to stop an operation that is already in progress.
 * <br><br>
 * This function and the XUartNs550_SetOptions() function modify shared data
 * such that there may be a need for mutual exclusion in a multithreaded
-* environment and if XUartNs550_SetOptions() if called from a handler.
+* environment and when XUartNs550_SetOptions() is called from a handler.
 *
-*****************************************************************************/
+******************************************************************************/
 unsigned int XUartNs550_Send(XUartNs550 *InstancePtr, u8 *BufferPtr,
 					unsigned int NumBytes)
 {
@@ -277,39 +282,39 @@ unsigned int XUartNs550_Send(XUartNs550 *InstancePtr, u8 *BufferPtr,
 	return BytesSent;
 }
 
-/****************************************************************************/
+/*****************************************************************************/
 /**
+* @brief Attempts to receive a specified number of bytes of data from the UART.
 *
-* This function will attempt to receive a specified number of bytes of data
-* from the UART and store it into the specified buffer. This function is
+* This function stores received data into the specified buffer. It is
 * designed for either polled or interrupt driven modes. It is non-blocking
-* such that it will return if no data has already received by the UART.
+* such that it returns if no data has already been received by the UART.
 *
-* In a polled mode, this function will only receive as much data as the UART
+* In a polled mode, this function only receives as much data as the UART
 * can buffer, either in the receiver or in the FIFO if present and enabled.
 * The application may need to call it repeatedly to receive a buffer. Polled
 * mode is the default mode of operation for the driver.
 *
-* In interrupt mode, this function will start receiving and then the interrupt
-* handler of the driver will continue receiving data until the buffer has been
-* received. A callback function, as specified by the application, will be called
+* In interrupt mode, this function starts receiving and then the interrupt
+* handler of the driver continues receiving data until the buffer has been
+* received. A callback function, as specified by the application, is called
 * to indicate the completion of receiving the buffer or when any receive errors
-* or timeouts occur. Interrupt mode must be enabled using the SetOptions function.
+* or timeouts occur. Interrupt mode must be enabled using the SetOptions
+* function.
 *
-* @param	InstancePtr is a pointer to the XUartNs550 instance.
-* @param	BufferPtr is pointer to buffer for data to be received into
-* @param	NumBytes is the number of bytes to be received. A value of zero
-*		will stop a previous receive operation that is in progress in
-*		interrupt mode.
+* @param[in,out] InstancePtr Pointer to the XUartNs550 instance.
+* @param[out]    BufferPtr Pointer to buffer to receive data into.
+* @param[in]     NumBytes Number of bytes to receive. A value of zero
+*                 stops a previous receive operation that is in progress in
+*                 interrupt mode.
 *
-* @return	The number of bytes received.
+* @return        The number of bytes received.
 *
 * @note
-*
 * The number of bytes is not asserted so that this function may be called with
 * a value of zero to stop an operation that is already in progress.
 *
-*****************************************************************************/
+******************************************************************************/
 unsigned int XUartNs550_Recv(XUartNs550 *InstancePtr, u8 *BufferPtr,
 				unsigned int NumBytes)
 {
@@ -356,35 +361,33 @@ unsigned int XUartNs550_Recv(XUartNs550 *InstancePtr, u8 *BufferPtr,
 	return ReceivedCount;
 }
 
-/****************************************************************************/
+/*****************************************************************************/
 /**
+* @brief Sends the previously specified buffer using the instance variables.
 *
-* This function sends a buffer that has been previously specified by setting
-* up the instance variables of the instance. This function is designed to be
-* an internal function for the XUartNs550 component such that it may be called
-* from a shell function that sets up the buffer or from an interrupt handler.
+* This function is designed to be an internal function for the XUartNs550
+* component such that it may be called from a shell function that sets up the
+* buffer or from an interrupt handler.
 *
 * This function sends the specified buffer of data to the UART in either
-* polled or interrupt driven modes. This function is non-blocking such that
-* it will return before the data has been sent by the UART.
+* polled or interrupt driven modes. It is non-blocking such that it returns
+* before the data has been sent by the UART.
 *
-* In a polled mode, this function will only send as much data as the UART can
+* In a polled mode, this function only sends as much data as the UART can
 * buffer, either in the transmitter or in the FIFO if present and enabled.
 * The application may need to call it repeatedly to send a buffer.
 *
-* In interrupt mode, this function will start sending the specified buffer and
-* then the interrupt handler of the driver will continue until the buffer
-* has been sent. A callback function, as specified by the application, will
-* be called to indicate the completion of sending the buffer.
+* In interrupt mode, this function starts sending the specified buffer and
+* then the interrupt handler of the driver continues until the buffer
+* has been sent. A callback function, as specified by the application, is
+* called to indicate the completion of sending the buffer.
 *
-* @param	InstancePtr is a pointer to the XUartNs550 instance.
+* @param[in,out] InstancePtr Pointer to the XUartNs550 instance.
 *
-* @return	NumBytes is the number of bytes actually sent (put into the
-*		UART tranmitter and/or FIFO).
+* @return        NumBytes is the number of bytes actually sent (put into the
+*                UART transmitter and/or FIFO).
 *
-* @note		None.
-*
-*****************************************************************************/
+******************************************************************************/
 unsigned int XUartNs550_SendBuffer(XUartNs550 *InstancePtr)
 {
 	unsigned int SentCount = 0;
@@ -488,38 +491,36 @@ unsigned int XUartNs550_SendBuffer(XUartNs550 *InstancePtr)
 	return SentCount;
 }
 
-/****************************************************************************/
+/*****************************************************************************/
 /**
+* @brief Receives a buffer previously specified by setting up the instance
+* variables of the instance.
 *
-* This function receives a buffer that has been previously specified by setting
-* up the instance variables of the instance. This function is designed to be
-* an internal function for the XUartNs550 component such that it may be called
-* from a shell function that sets up the buffer or from an interrupt handler.
+* This function is designed to be an internal function for the XUartNs550
+* component such that it may be called from a shell function that sets up the
+* buffer or from an interrupt handler.
 *
-* This function will attempt to receive a specified number of bytes of data
-* from the UART and store it into the specified buffer. This function is
+* This function attempts to receive a specified number of bytes of data
+* from the UART and store it into the specified buffer. It is
 * designed for either polled or interrupt driven modes. It is non-blocking
-* such that it will return if there is no data has already received by the
-* UART.
+* such that it returns if there is no data already received by the UART.
 *
-* In a polled mode, this function will only receive as much data as the UART
+* In a polled mode, this function only receives as much data as the UART
 * can buffer, either in the receiver or in the FIFO if present and enabled.
 * The application may need to call it repeatedly to receive a buffer. Polled
 * mode is the default mode of operation for the driver.
 *
-* In interrupt mode, this function will start receiving and then the interrupt
-* handler of the driver will continue until the buffer has been received. A
-* callback function, as specified by the application, will be called to indicate
+* In interrupt mode, this function starts receiving and then the interrupt
+* handler of the driver continues until the buffer has been received. A
+* callback function, as specified by the application, is called to indicate
 * the completion of receiving the buffer or when any receive errors or timeouts
 * occur. Interrupt mode must be enabled using the SetOptions function.
 *
-* @param	InstancePtr is a pointer to the XUartNs550 instance.
+* @param[in,out] InstancePtr Pointer to the XUartNs550 instance.
 *
-* @return	The number of bytes received.
+* @return        The number of bytes received.
 *
-* @note		None.
-*
-*****************************************************************************/
+******************************************************************************/
 unsigned int XUartNs550_ReceiveBuffer(XUartNs550 *InstancePtr)
 {
 	u32 LsrRegister;
@@ -586,28 +587,28 @@ unsigned int XUartNs550_ReceiveBuffer(XUartNs550 *InstancePtr)
 	return ReceivedCount;
 }
 
-/****************************************************************************
+/*****************************************************************************/
+/**
+* @brief Sets the baud rate for the specified UART.
 *
-* Sets the baud rate for the specified UART. Checks the input value for
-* validity and also verifies that the requested rate can be configured to
-* within the 3 percent error range for RS-232 communications. If the provided
-* rate is not valid, the current setting is unchanged.
+* Checks the input value for validity and also verifies that the requested
+* rate can be configured to within the 3 percent error range for RS-232
+* communications. If the provided rate is not valid, the current setting is
+* unchanged.
 *
 * This function is designed to be an internal function only used within the
-* XUartNs550 component. It is necessary for initialization and for the user
-* available function that sets the data format.
+* XUartNs550 component. It is necessary for initialization and for the
+* application-facing function that sets the data format.
 *
-* @param	InstancePtr is a pointer to the XUartNs550 instance.
-* @param	BaudRate to be set in the hardware.
+* @param[in,out] InstancePtr Pointer to the XUartNs550 instance.
+* @param[in]     BaudRate Baud rate to set in the hardware.
 *
 * @return
-*		- XST_SUCCESS if everything configures as expected
-* 		- XST_UART_BAUD_ERROR if the requested rate is not available
-*		because there was too much error due to the input clock
+*                - XST_SUCCESS if everything configures as expected.
+*                - XST_UART_BAUD_ERROR if the requested rate is not available
+*                because there was too much error due to the input clock.
 *
-* @note		None.
-*
-*****************************************************************************/
+******************************************************************************/
 int XUartNs550_SetBaudRate(XUartNs550 *InstancePtr, u32 BaudRate)
 {
 
@@ -695,23 +696,20 @@ int XUartNs550_SetBaudRate(XUartNs550 *InstancePtr, u32 BaudRate)
 	return XST_SUCCESS;
 }
 
-/****************************************************************************/
+/*****************************************************************************/
 /**
 *
-* This function is a stub handler that is the default handler such that if the
-* application has not set the handler when interrupts are enabled, this
-* function will be called. The function interface has to match the interface
+* @brief Provides a stub handler that is the default handler.
+*
+* This handler is called if the application has not set a handler when
+* interrupts are enabled. The function interface has to match the interface
 * specified for a handler even though none of the arguments are used.
 *
-* @param	CallBackRef is unused by this function.
-* @param	Event is unused by this function.
-* @param	ByteCount is unused by this function.
+* @param[in]   CallBackRef Unused by this function.
+* @param[in]   Event Unused by this function.
+* @param[in]   ByteCount Unused by this function.
 *
-* @return	None.
-*
-* @note		None.
-*
-*****************************************************************************/
+******************************************************************************/
 static void XUartNs550_StubHandler(void *CallBackRef, u32 Event,
 					unsigned int ByteCount)
 {

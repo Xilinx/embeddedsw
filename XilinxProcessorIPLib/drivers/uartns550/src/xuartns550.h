@@ -4,13 +4,16 @@
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
-/****************************************************************************/
+#ifndef XUARTNS550_H
+#define XUARTNS550_H
+
+/*****************************************************************************/
 /**
 *
 * @file xuartns550.h
 * @addtogroup uartns550 Overview
 * @{
-* @details
+* @brief Defines the API for the 16450/16550-compatible UART driver.
 *
 * This driver supports the following features in the Xilinx 16450/16550
 * compatible UART.
@@ -57,8 +60,8 @@
 *
 * The device does not have any way to disable the receiver such that the
 * receive FIFO may contain unwanted data. The FIFOs are not flushed when the
-* driver is initialized, but a function is provided to allow the user to reset
-* the FIFOs if desired.
+* driver is initialized, but a function is provided to allow the caller to
+* reset the FIFOs if desired.
 *
 * The driver defaults to no interrupts at initialization such that interrupts
 * must be enabled if desired. An interrupt is generated for any of the following
@@ -74,12 +77,12 @@
 * The application can control which interrupts are enabled using the SetOptions
 * function.
 *
-* In order to use interrupts, it is necessary for the user to connect the driver
+* To use interrupts, connect the driver
 * interrupt handler, XUartNs550_InterruptHandler(), to the interrupt system of
 * the application. This function does not save and restore the processor context
-* such that the user must provide it. A handler must be set for the driver such
-* that the handler is called when interrupt events occur. The handler is called
-* from interrupt context and is designed to allow application specific
+* such that the caller must provide it. A handler must be set for the driver
+* such that the handler is called when interrupt events occur. The handler is
+* called from interrupt context and is designed to allow application specific
 * processing to be performed.
 *
 * The functions, XUartNs550_Send() and XUartNs550_Recv(), are provided in the
@@ -87,7 +90,6 @@
 * polled or interrupt modes.
 *
 * @note
-*
 * The default configuration for the UART after initialization is:
 *	- 19,200 bps or XPAR_DEFAULT_BAUD_RATE if defined
 *	- 8 data bits
@@ -154,12 +156,10 @@
 *                     don't pull it for PLM template app case.
 * 3.14  vlt  12/18/25 Update Doxygen comments to include SDT flow details.
 * 3.15  vn   07/30/26 Fix Doxygen warnings
+* 3.15  vn   09/09/26 Align Doxygen comments with AMD standards
 * </pre>
 *
-*****************************************************************************/
-
-#ifndef XUARTNS550_H /* prevent circular inclusions */
-#define XUARTNS550_H /* by using protection macros */
+******************************************************************************/
 
 #ifdef __cplusplus
 extern "C" {
@@ -174,22 +174,23 @@ extern "C" {
 
 /************************** Constant Definitions ****************************/
 
-/*
- * The following constants indicate the max and min baud rates and these
- * numbers are based only on the testing that has been done. The hardware
+/** @name Baud rate limits
+ *
+ * Maximum and minimum baud rates based on testing. The hardware
  * is capable of other baud rates.
- */
-#define XUN_NS16550_MAX_RATE		115200
-#define XUN_NS16550_MIN_RATE		300
-
-/** @name Configuration options
  * @{
  */
-/**
+#define XUN_NS16550_MAX_RATE		115200 /**< Maximum baud rate */
+#define XUN_NS16550_MIN_RATE		300    /**< Minimum baud rate */
+/** @} */
+
+/** @name Configuration options
+ *
  * These constants specify the options that may be set or retrieved
  * with the driver, each is a unique bit mask such that multiple options
- * may be specified.  These constants indicate the function of the option
+ * may be specified. These constants indicate the function of the option
  * when in the active state.
+ * @{
  */
 #define XUN_OPTION_RXLINE_INTR		0x0800 /**< Enable status interrupt */
 #define XUN_OPTION_SET_BREAK		0x0400 /**< Set a break condition */
@@ -206,13 +207,12 @@ extern "C" {
 /** @} */
 
 /** @name Data format values
- * @{
- */
-/**
+ *
  * These constants specify the data format that may be set or retrieved
- * with the driver.  The data format includes the number of data bits, the
+ * with the driver. The data format includes the number of data bits, the
  * number of stop bits and parity.
  *
+ * @{
  */
 #define XUN_FORMAT_8_BITS		3 /**< 8 data bits */
 #define XUN_FORMAT_7_BITS		2 /**< 7 data bits */
@@ -228,12 +228,11 @@ extern "C" {
 /** @} */
 
 /** @name FIFO trigger values
- * @{
- */
-/*
- * These constants specify receive FIFO trigger levels which specify
- * the number of bytes at which a receive data event (interrupt) will occur.
  *
+ * These constants specify receive FIFO trigger levels which specify
+ * the number of bytes at which a receive data event (interrupt) occurs.
+ *
+ * @{
  */
 #define XUN_FIFO_TRIGGER_14		0xC0 /**< 14 byte trigger level */
 #define XUN_FIFO_TRIGGER_08		0x80 /**< 8 byte trigger level */
@@ -242,13 +241,12 @@ extern "C" {
 /** @} */
 
 /** @name Modem status values
- * @{
- */
-/**
+ *
  * These constants specify the modem status that may be retrieved
  * from the driver.
  *
-  */
+ * @{
+ */
 #define XUN_MODEM_DCD_DELTA_MASK	0x08 /**< DCD signal changed state */
 #define XUN_MODEM_DSR_DELTA_MASK	0x02 /**< DSR signal changed state */
 #define XUN_MODEM_CTS_DELTA_MASK	0x01 /**< CTS signal changed state */
@@ -260,13 +258,12 @@ extern "C" {
 /** @} */
 
 /** @name Callback events
- * @{
- */
-/**
- * These constants specify the handler events that are passed to
- * a handler from the driver.  These constants are not bit masks such that
- * only one will be passed at a time to the handler.
  *
+ * These constants specify the handler events that are passed to
+ * a handler from the driver. These constants are not bit masks such that
+ * only one is passed at a time to the handler.
+ *
+ * @{
  */
 #define XUN_EVENT_RECV_DATA		1 /**< Data has been received */
 #define XUN_EVENT_RECV_TIMEOUT		2 /**< A receive timeout occurred */
@@ -276,13 +273,12 @@ extern "C" {
 /** @} */
 
 /** @name Error values
- * @{
- */
-/**
+ *
  * These constants specify the errors that may be retrieved from
  * the driver using the XUartNs550_GetLastErrors function. All of them are
  * bit masks, except no error, such that multiple errors may be specified.
  *
+ * @{
  */
 #define XUN_ERROR_BREAK_MASK		0x10 /**< Break detected */
 #define XUN_ERROR_FRAMING_MASK		0x08 /**< Receive framing error */
@@ -291,25 +287,25 @@ extern "C" {
 #define XUN_ERROR_NONE 			0x00 /**< No error */
 /** @} */
 
-/****************************************************************************
+/*****************************************************************************/
+/**
 *
-* This macro updates the status based upon a specified line status register
-* value. The stats that are updated are based upon bits in this register. It
-* also keeps the last errors instance variable updated. The purpose of this
-* macro is to allow common processing between the modules of the component
-* with less overhead than a function in the required module.
+* @brief Updates the status based upon a specified line status register value.
 *
-* @param	InstancePtr is a pointer to the XUartNs550 instance .
-* @param	CurrentLsr contains the Line Status Register value to
-* 		be used for the update.
+* The stats that are updated are based upon bits in this register. It
+* also keeps the last errors instance variable updated. It allows common
+* processing between the modules of the component with less overhead than a
+* function in the required module.
 *
-* @return	None.
+* @param[in]   InstancePtr Pointer to the XUartNs550 instance.
+* @param[in]   CurrentLsr Line Status Register value to
+*              be used for the update.
 *
-* @note		C-Style signature:
+* @note        C-Style signature:
+*              void XUartNs550_UpdateStats(XUartNs550 *InstancePtr,
+*              u8 CurrentLsr)
 *
-* void XUartNs550_UpdateStats(XUartNs550 *InstancePtr, u8 CurrentLsr)
-*
-*****************************************************************************/
+******************************************************************************/
 #define XUartNs550_UpdateStats(InstancePtr, CurrentLsr) \
 {								\
 	InstancePtr->LastErrors |= CurrentLsr;			\
@@ -331,7 +327,7 @@ extern "C" {
 /**************************** Type Definitions ******************************/
 
 /**
- * This typedef contains configuration information for the device.
+ * @brief Contains configuration information for the device.
  */
 typedef struct {
 #ifndef SDT
@@ -341,18 +337,17 @@ typedef struct {
 #endif
 	UINTPTR BaseAddress;	/**< Base address of device */
 	u32 InputClockHz;	/**< Input clock frequency */
-	u32 DefaultBaudRate;	/**< Baud Rate in bps, ie 1200 */
+	u32 DefaultBaudRate;	/**< Baud Rate in bps, for example 1200 */
 #ifdef SDT
 	u16 IntrId;             /**< Bits[11:0] Interrupt-id Bits[15:12]
-				 * trigger type and level flags */
+				 * trigger type and level flags. */
 	UINTPTR IntrParent;     /**< Bit[0] Interrupt parent type Bit[64/32:1]
-				 * Parent base address */
+				 * Parent base address. */
 #endif
 } XUartNs550_Config;
 
 /**
- * The following data type is used to manage the buffers that are handled
- * when sending and receiving data in the interrupt mode.
+ * @brief Manages buffers for sending and receiving data in interrupt mode.
  */
 typedef struct {
 	u8 *NextBytePtr;    /**< Pointer to next byte for transfer */
@@ -361,11 +356,10 @@ typedef struct {
 } XUartNs550Buffer;
 
 /**
- * This data type allows the data format of the device to be set
- * and retrieved.
+ * @brief Holds the data format settings for the device.
  */
 typedef struct {
-	u32 BaudRate;	/**< In bps, ie 1200 */
+	u32 BaudRate;	/**< In bps, for example 1200 */
 	u32 DataBits;	/**< Number of data bits */
 	u32 Parity;	/**< Parity */
 	u8 StopBits;	/**< Number of stop bits */
@@ -373,25 +367,27 @@ typedef struct {
 
 /*****************************************************************************/
 /**
-* This data type defines a handler which the application must define
-* when using interrupt mode.  The handler will be called from the driver in an
+* @brief Defines the handler that the application must define when using
+* interrupt mode.
+*
+* The handler is called from the driver in an
 * interrupt context to handle application specific processing.
 *
-* @param	CallBackRef is a callback reference passed in by the upper layer
-*		when setting the handler, and is passed back to the upper layer
-*		when the handler is called.
-* @param 	Event contains one of the event constants indicating why the
-*		handler is being called.
-* @param	EventData contains the number of bytes sent or received at
-*	 	the time of the call for send and receive events and contains
-*		the modem status for modem events.
+* @param[in]   CallBackRef Callback reference passed in by the upper layer
+*              when setting the handler, and is passed back to the upper layer
+*              when the handler is called.
+* @param[in]   Event One of the event constants indicating why the
+*              handler is being called.
+* @param[in]   EventData Number of bytes sent or received at
+*              the time of the call for send and receive events and contains
+*              the modem status for modem events.
 *
-*****************************************************************************/
+******************************************************************************/
 typedef void (*XUartNs550_Handler)(void *CallBackRef, u32 Event,
 					unsigned int EventData);
 
 /**
- * UART statistics
+ * @brief UART statistics counters.
  */
 typedef struct {
 	u16 TransmitInterrupts;		/**< Number of transmit interrupts */
@@ -407,10 +403,11 @@ typedef struct {
 } XUartNs550Stats;
 
 /**
- * The XUartNs550 driver instance data. The user is required to allocate a
- * variable of this type for every UART 16550/16450 device in the system.
- * A pointer to a variable of this type is then passed to the driver API
- * functions.
+ * @brief XUartNs550 driver instance data.
+ *
+ * Allocate a variable of this type for every UART 16550/16450 device in
+ * the system. A pointer to a variable of this type is then passed to the
+ * driver API functions.
  */
 typedef struct {
 	XUartNs550Stats Stats;	/**< Statistics */
@@ -499,5 +496,5 @@ int XUartNs550_SelfTest(XUartNs550 *InstancePtr);
 }
 #endif
 
-#endif /* end of protection macro */
 /** @} */
+#endif
