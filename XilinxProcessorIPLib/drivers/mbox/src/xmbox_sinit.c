@@ -8,8 +8,7 @@
 /**
 *
 * @file xmbox_sinit.c
-* @addtogroup mbox Overview
-* @{
+* @brief Implements XMbox static initialization.
 *
 * Implements static initialization
 * See xmbox.h for more information about the component.
@@ -24,9 +23,15 @@
 * 4.6   ht   07/06/23 Added support for system device-tree flow.
 * 4.10  vlt  12/14/25 Update Doxygen comments to include SDT flow details.
 * 4.10  ht   02/24/26 Fix doxygen warnings
+* 4.11  tb  09/15/26 Align Doxygen comments with AMD standards.
 * </pre>
 *
 ******************************************************************************/
+
+/**
+* @addtogroup mbox_api MBOX APIs
+* @{
+*/
 
 /****************************** Include Files ********************************/
 #include "xmbox.h"
@@ -49,14 +54,16 @@ extern XMbox_Config XMbox_ConfigTable[];
 /*****************************************************************************/
 /**
 *
+* @brief Looks up mailbox configuration by device ID or base address.
+*
 * Looks up the device configuration based on the unique device ID/BaseAddress.
 * The XMbox_ConfigTable[] contains the configuration info for each device in
 * the system.
 *
 * @if SDT
-* @param	BaseAddress contains the base address of the device
+* @param[in]	BaseAddress Contains the base address of the device.
 * @else
-* @param	DeviceId contains the unique ID of the device
+* @param[in]	DeviceId Contains the unique ID of the device.
 * @endif
 *
 * @return       A pointer to the configuration found or NULL if the specified

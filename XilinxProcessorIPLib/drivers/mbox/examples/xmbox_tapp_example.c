@@ -7,6 +7,7 @@
 /*****************************************************************************/
 /**
 * @file xmbox_tapp_example.c
+* @brief Demonstrates the XMbox TestAppGen example.
 *
 * This file contains a design example for using the Mailbox hardware and
 * driver XMbox
@@ -20,7 +21,7 @@
 * to the initiator so a terminal is required for each processor to verify
 * that the test passed for both sides.
 *
-* The example assumes there are two processors availabile in the system that
+* The example assumes there are two processors available in the system that
 * are expected to inter-communicate. If Mailbox is connected to only one
 * Processor then Data has to be sent from one port and should be received
 * from another port.
@@ -28,11 +29,9 @@
 * This example has been tested on ML505 Hardware Evaluation board.
 *
 * @note
-*
-* These code fragments will illustrate how the XMbox component can be used to:
+* These code fragments illustrate how the XMbox component can be used to:
 *   - Initialize the Mailbox core
 *   - pass data between two processors.
-*
 *
 *<pre>
 * MODIFICATION HISTORY:
@@ -58,6 +57,7 @@
 * 4.9   ht   04/17/25 Update Canonical definition to be inline with xsct flow.
 * 4.10  vlt  12/14/25 Update Doxygen comments to include SDT flow details.
 * 4.10  ht   02/04/26 Fix GCC warnings for unused variables in SDT flow.
+* 4.11  tb  09/15/26 Align Doxygen comments with AMD standards.
 * </pre>
 *****************************************************************************/
 
@@ -76,18 +76,18 @@
 * 2 processors in the system but there must always be a 0
 */
 #if XPAR_CPU_ID != 0
-#define MY_CPU_ID 1
+#define MY_CPU_ID 1 /**< CPU ID used by this example. */
 #else
-#define MY_CPU_ID XPAR_CPU_ID
+#define MY_CPU_ID XPAR_CPU_ID /**< CPU ID used by this example. */
 #endif /* XPAR_CPU_ID != 0 */
 
-#define MSGSIZ		1024 /* Size of the buffer for received message */
+#define MSGSIZ		1024 /**< Size of the receive buffer. */
 
-#define HELLO_SIZE	40
+#define HELLO_SIZE	40 /**< Size of the hello message. */
 
-#define TIMEOUT_MAX_COUNT	2000	/* Max count to wait for the message */
+#define TIMEOUT_MAX_COUNT	2000 /**< Max wait count for the message. */
 
-#define XMBOX_SLEEP_IN_US	1000U	/* Sleep for 1000Us */
+#define XMBOX_SLEEP_IN_US	1000U /**< Sleep duration in microseconds. */
 
 /*
  * The following constants map to the XPAR parameters created in the
@@ -95,20 +95,21 @@
  * change all the needed parameters in one place.
  */
 #ifndef SDT
+/** Mailbox device ID. */
 #define MBOX_DEVICE_ID		XPAR_MBOX_0_DEVICE_ID
 #else
-#define XMBOX_BASEADDRESS XPAR_MBOX_0_BASEADDR
+#define XMBOX_BASEADDRESS XPAR_MBOX_0_BASEADDR /**< Mailbox base address. */
 #endif
 
 /**************************** Type Definitions *******************************/
 
-#define printf xil_printf	/* A smaller footprint printf */
+#define printf xil_printf /**< Smaller-footprint printf. */
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /************************** Variable Definitions *****************************/
 #if !(defined (SDT) && defined (TESTAPP_GEN))
-static XMbox Mbox;	/* Instance of the Mailbox driver */
+static XMbox Mbox;	/**< Instance of the Mailbox driver. */
 #endif
 
 /* Buffer for storing received the message */
@@ -133,12 +134,14 @@ static int MailboxExample_Receive(XMbox *MboxInstancePtr, int CPU_Id);
 
 /*****************************************************************************/
 /**
+* @brief Runs the mailbox TestAppGen example.
+*
 * This function is the main function for the mailbox example.
 *
 
-* @return	XST_SUCCESS if successful, XST_FAILURE if unsuccessful.
-*
-* @note		None.
+* @return
+*		- XST_SUCCESS if successful.
+*		- XST_FAILURE if unsuccessful.
 *
 *****************************************************************************/
 #ifndef TESTAPP_GEN
@@ -166,14 +169,16 @@ int main(void)
 /*****************************************************************************/
 /**
 *
+* @brief Runs the mailbox send and receive example.
+*
 * This function sends a message to and receives a message from the other
 * processor.
 *
 * @if SDT
-* @param	MboxInstancePtr is a pointer to the Mailbox instance
-* @param	BaseAddress contains the base address of the device
+* @param[out]	MboxInstancePtr Pointer to the Mailbox instance.
+* @param[in]	BaseAddress Contains the base address of the device.
 * @else
-* @param	MboxDeviceID is the device Id of the MailBox.
+* @param[in]	MboxDeviceId Device Id of the MailBox.
 * @endif
 *
 * @return
@@ -182,7 +187,6 @@ int main(void)
 *
 * @note	        In XSCT/classic flow, DeviceId is used to look up the
 *               device configuration.
-*
 *
 ******************************************************************************/
 #ifndef SDT
@@ -241,15 +245,16 @@ int MailboxExample(XMbox *MboxInstancePtr, UINTPTR BaseAddress)
 /*****************************************************************************/
 /**
 *
+* @brief Sends the hello message to the other processor.
+*
 * This function sends the hello message to the other processor.
 *
-* @param	MboxInstancePtr is the instance pointer for the XMbox.
-* @param	CPU_Id is the CPU ID for the program that is running on.
+* @param[in]	MboxInstancePtr Instance pointer for the XMbox.
+* @param[in]	CPU_Id CPU ID for the program that is running on.
 *
-* @return	- XST_SUCCESS if the send succeeds.
+* @return
+*		- XST_SUCCESS if the send succeeds.
 *		- XST_FAILURE if the send fails.
-*
-* @note		None.
 *
 ******************************************************************************/
 static int MailboxExample_Send(XMbox *MboxInstancePtr, int CPU_Id)
@@ -278,16 +283,17 @@ static int MailboxExample_Send(XMbox *MboxInstancePtr, int CPU_Id)
 /*****************************************************************************/
 /**
 *
+* @brief Receives the hello message from the other processor.
+*
 * This function receives a message from the other processor and verifies that
 * it's the expected message.
 *
-* @param	MboxInstancePtr is the instance pointer for the XMbox.
-* @param	CPU_Id is the CPU ID for the program that is running on.
+* @param[in]	MboxInstancePtr Instance pointer for the XMbox.
+* @param[in]	CPU_Id CPU ID for the program that is running on.
 *
-* @return	- XST_SUCCESS if the receive succeeds.
+* @return
+*		- XST_SUCCESS if the receive succeeds.
 *		- XST_FAILURE if the receive fails.
-*
-* @note		None.
 *
 ******************************************************************************/
 static int MailboxExample_Receive(XMbox *MboxInstancePtr, int CPU_Id)

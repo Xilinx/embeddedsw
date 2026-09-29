@@ -7,6 +7,7 @@
 /*****************************************************************************/
 /**
 * @file xmbox_intr_example.c
+* @brief Demonstrates the XMbox interrupt example.
 *
 * This file contains a design example for using the Mailbox hardware and
 * driver XMbox.
@@ -20,17 +21,15 @@
 * to the initiator so a terminal is required for each processor to verify
 * that the test passed for both sides.
 *
-* The example assumes there are two processors availabile in the system that
+* The example assumes there are two processors available in the system that
 * are expected to inter-communicate.
 *
 * This example has been tested on ML505 Hardware Evaluation board.
 *
 * @note
-*
-* These code fragments will illustrate how the XMbox component can be used to:
+* These code fragments illustrate how the XMbox component can be used to:
 *   - Initialize the Mailbox core.
 *   - pass data between two processors.
-*
 *
 *<pre>
 * MODIFICATION HISTORY:
@@ -53,6 +52,7 @@
 * 4.10  vlt  12/14/25 Update Doxygen comments to include SDT flow details.
 * 4.10  ht   02/17/26 Fix GCC warnings for unused parameter.
 * 4.10  vn   06/16/26 Fix non-FSL use case in SDT flow.
+* 4.11  tb  09/15/26 Align Doxygen comments with AMD standards.
 * </pre>
 *******************************************************************************/
 
@@ -78,27 +78,22 @@
 * 2 processors in the system but there must always be a 0.
 */
 
-/** CPU ID definition for multi-processor systems */
 #if XPAR_CPU_ID != 0
-#define MY_CPU_ID 1
+#define MY_CPU_ID 1 /**< CPU ID used by this example. */
 #else
-#define MY_CPU_ID XPAR_CPU_ID
+#define MY_CPU_ID XPAR_CPU_ID /**< CPU ID used by this example. */
 #endif /* XPAR_CPU_ID != 0 */
 
-/** Size of the buffer for received message */
-#define MSGSIZ  1024
+#define MSGSIZ  1024 /**< Size of the receive buffer. */
 
-/** Size of the Hello Message */
-#define HELLO_SIZE 40
+#define HELLO_SIZE 40 /**< Size of the hello message. */
 
-/** Max count to wait for message */
+/** Max wait count for the message. */
 #define TIMEOUT_MAX_COUNT	0x10000000
 
 
-/** Mailbox receive interrupt threshold */
-#define MAILBOX_RIT	4
-/** Mailbox send interrupt threshold */
-#define MAILBOX_SIT	4
+#define MAILBOX_RIT	4 /**< Mailbox receive interrupt threshold. */
+#define MAILBOX_SIT	4 /**< Mailbox send interrupt threshold. */
 
 
 /*
@@ -107,35 +102,34 @@
  * change all the needed parameters in one place.
  */
 #ifndef SDT
-/** Mailbox Device ID */
+/** Mailbox device ID. */
 #define MBOX_DEVICE_ID		XPAR_MBOX_0_DEVICE_ID
-/** Interrupt Controller Device ID */
+/** Interrupt controller device ID. */
 #define INTC_DEVICE_ID		XPAR_INTC_0_DEVICE_ID
-/** Mailbox Interrupt ID */
+/** Mailbox interrupt ID. */
 #define MBOX_INTR_ID		XPAR_INTC_0_MBOX_0_VEC_ID
 #else
-#define XMBOX_BASEADDRESS XPAR_MBOX_0_BASEADDR
+#define XMBOX_BASEADDRESS XPAR_MBOX_0_BASEADDR /**< Mailbox base address. */
 #endif
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
-/** A smaller footprint printf */
-#define printf		xil_printf
+#define printf		xil_printf /**< Smaller-footprint printf. */
 
 /************************** Variable Definitions *****************************/
-static XMbox Mbox;
+static XMbox Mbox;	/**< Instance of the Mailbox driver. */
 
 #ifndef SDT
 #ifndef TESTAPP_GEN
-static XIntc IntcInst;
+static XIntc IntcInst;	/**< Instance of the interrupt controller. */
 #endif
 #endif
 
-static volatile int IntrCount = 0;
-static volatile int IntrSTACount = 0;
-static volatile int IntrRTACount = 0;
-static volatile int IntrERRCount = 0;
+static volatile int IntrCount = 0; /**< Total interrupt count. */
+static volatile int IntrSTACount = 0; /**< Send-threshold interrupt count. */
+static volatile int IntrRTACount = 0; /**< Receive-threshold interrupt count. */
+static volatile int IntrERRCount = 0; /**< Error interrupt count. */
 
 /* Buffer for storing received message, aligned to 4-byte boundary */
 char RecvMsg[MSGSIZ] __attribute__ ((aligned(4)));
@@ -165,11 +159,13 @@ static int MailboxSetupIntrSystem(XIntc *IntcInstancePtr,
 #endif
 /*****************************************************************************/
 /**
+* @brief Runs the mailbox interrupt example.
+*
 * This function is the main function for the mailbox interrupt example.
 *
-* @return	XST_SUCCESS if successful, XST_FAILURE if unsuccessful
-*
-* @note		None
+* @return
+*		- XST_SUCCESS if successful.
+*		- XST_FAILURE if unsuccessful.
 *
 ******************************************************************************/
 #ifndef TESTAPP_GEN
@@ -197,26 +193,27 @@ int main(void)
 /*****************************************************************************/
 /**
 *
+* @brief Runs the mailbox interrupt send and receive example.
+*
 * This function sends a message to and receives a message from the other
 * processor. It also uses the interrupt to check whether the other processor
 * has started to send or receive.
 *
 * @if SDT
-* @param	BaseAddress contains the base address of the device
+* @param[in]	BaseAddress Contains the base address of the device.
 * @else
-* @param	IntcInstancePtr is the device instance of the interrupt
-*		controller that is being worked on.
-* @param	MboxDeviceId is the Mailbox device ID.
-* @param	MboxIntrId is the Mailbox interrupt ID.
+* @param[out]	IntcInstancePtr Device instance of the interrupt
+*   controller that is being worked on.
+* @param[in]	MboxDeviceId Mailbox device ID.
+* @param[in]	MboxIntrId Mailbox interrupt ID.
 * @endif
 *
 * @return
-*		- XST_SUCCESS if the test passes
-*		- XST_FAILURE  if the test fails
+*		- XST_SUCCESS if the test passes.
+*		- XST_FAILURE  if the test fails.
 *
 * @note  	In XSCT/classic flow, DeviceId is used to look up the
 *               device configuration.
-*
 *
 *****************************************************************************/
 #ifndef SDT
@@ -318,19 +315,19 @@ int MailboxExample(UINTPTR BaseAddress)
 /*****************************************************************************/
 /**
 *
-* This function waits for a particular variable to exceed the threshold
-* value. If it waits too long, it will time out and returns XST_FAILURE.
+* @brief Waits until a counter exceeds a threshold.
 *
-* @param	Count is the pointer to the variable to be examined.
-* @param	Name is the name of the variable.
-* @param	Threshold is the threshold value to be exceeded.
+* This function waits for a particular variable to exceed the threshold
+* value. If it waits too long, it times out and returns XST_FAILURE.
+*
+* @param[in]	Count Pointer to the variable to be examined.
+* @param[in]	Name Name of the variable.
+* @param[in]	Threshold Threshold value to be exceeded.
 *
 * @return
 *		- XST_SUCCESS if the examined variable exceeds the threshold
 *		 value.
 *		- XST_FAILURE if the wait times out.
-*
-* @note		None
 *
 *****************************************************************************/
 int MailboxExample_Wait(volatile int *Count, char *Name, int Threshold)
@@ -350,18 +347,18 @@ int MailboxExample_Wait(volatile int *Count, char *Name, int Threshold)
 /*****************************************************************************/
 /**
 *
+* @brief Sends the hello message to the other processor.
+*
 * This function sends the hello message to the other processor.
 *
-* @param	MboxInstancePtr is the instance pointer for the XMbox.
-* @param	CPU_Id is the CPU ID for the program that is running on.
-* @param	Blocking is set to 1 for the send to block till the data is
-*		sent.
+* @param[in]	MboxInstancePtr Instance pointer for the XMbox.
+* @param[in]	CPU_Id CPU ID for the program that is running on.
+* @param[in]	Blocking Set to 1 for the send to block till the data is
+*   sent.
 *
 * @return
-*		- XST_SUCCESS if the send succeeds
-*		- XST_FAILURE if the send fails
-*
-* @note		None
+*		- XST_SUCCESS if the send succeeds.
+*		- XST_FAILURE if the send fails.
 *
 ******************************************************************************/
 int MailboxExample_Send(XMbox *MboxInstancePtr, int CPU_Id, int Blocking)
@@ -397,19 +394,19 @@ int MailboxExample_Send(XMbox *MboxInstancePtr, int CPU_Id, int Blocking)
 /*****************************************************************************/
 /**
 *
+* @brief Receives the hello message from the other processor.
+*
 * This function receives a message from the other processor verifies it's the
 * expected message.
 *
-* @param	MboxInstancePtr is the instance pointer for the XMbox.
-* @param	CPU_Id is the CPU ID for the program that is running on.
-* @param	Blocking is set to 1 for the receive to block till the data is
-*		received.
+* @param[in]	MboxInstancePtr Instance pointer for the XMbox.
+* @param[in]	CPU_Id CPU ID for the program that is running on.
+* @param[in]	Blocking Set to 1 for the receive to block till the data is
+*   received.
 *
 * @return
-*		- XST_SUCCESS if the receive succeeds
-*		- XST_FAILURE if the receive fails
-*
-* @note		None
+*		- XST_SUCCESS if the receive succeeds.
+*		- XST_FAILURE if the receive fails.
 *
 ******************************************************************************/
 int MailboxExample_Receive(XMbox *MboxInstancePtr, int CPU_Id, int Blocking)
@@ -455,23 +452,25 @@ int MailboxExample_Receive(XMbox *MboxInstancePtr, int CPU_Id, int Blocking)
 /*****************************************************************************/
 /**
 *
+* @brief Sets up Mailbox interrupts for this example.
+*
 * This function setups the interrupt system such that interrupts can occur
 * for the Mailbox device. This function is application specific since the
 * actual system may or may not have an interrupt controller. The Mailbox
 * device could be directly connected to a processor without an Interrupt
 * controller.  The  user should modify this function to fit the application.
 *
-* @param	IntcInstancePtr is a pointer to the instance of the INTC
-*		component.
-* @param	MboxInstPtr is a pointer to the instance of the Mailbox.
-* @param	IntcDevId is the interrupt controller device ID.
-* @param	MboxIntrId is the interrupt Id and is typically
-*		XPAR_<INTC_instance>_<MBOX_instance>_IP2INTC_IRPT_INTR
-*		value from xparameters.h.
+* @param[out]	IntcInstancePtr Pointer to the instance of the INTC
+*   component.
+* @param[in]	MboxInstPtr Pointer to the instance of the Mailbox.
+* @param[in]	IntcDevId Interrupt controller device ID.
+* @param[in]	MboxIntrId Interrupt Id and is typically
+*   the mailbox interrupt ID
+*   value from xparameters.h.
 *
-* @return	XST_SUCCESS if successful, otherwise XST_FAILURE.
-*
-* @note		None.
+* @return
+*		- XST_SUCCESS if successful.
+*		- XST_FAILURE if unsuccessful.
 *
 *****************************************************************************/
 static int MailboxSetupIntrSystem(XIntc *IntcInstancePtr,
@@ -505,7 +504,7 @@ static int MailboxSetupIntrSystem(XIntc *IntcInstancePtr,
 	}
 
 	/*
-	 * Connect a device driver handler that will be called when an
+	 * Connect a device driver handler that is called when an
 	 * interrupt for the device occurs, the device driver handler
 	 * performs the specific interrupt processing for the device
 	 */
@@ -562,15 +561,13 @@ static int MailboxSetupIntrSystem(XIntc *IntcInstancePtr,
 /*****************************************************************************/
 /**
 *
+* @brief Handles mailbox interrupts for this example.
+*
 * This is the interrupt handler for this example.
 *
-* @param 	CallbackRef is a callback reference passed in by the upper layer
-*		when setting the interrupt handler, and is passed back to the
-*		upper layer when the interrupt handler is called.
-*
-* @return	None.
-*
-* @note		None.
+* @param[in] 	CallbackRef Callback reference passed in by the upper layer
+*   when setting the interrupt handler, and is passed back to the
+*   upper layer when the interrupt handler is called.
 *
 ******************************************************************************/
 static void MailboxIntrHandler(void *CallbackRef)

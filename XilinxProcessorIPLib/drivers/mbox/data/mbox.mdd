@@ -3,7 +3,9 @@
 # Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 # SPDX-License-Identifier: MIT
 #
-#
+# Ver      Who    Date     Changes
+# -------- ------ -------- --------------------------------------------------
+# 4.11    tb     09/11/26  Align Doxygen comments with AMD standards
 ##############################################################################
 ## @BEGIN_CHANGELOG EDK_MS3
 ## 07/25/10 sdm removed support for opb_mailbox
@@ -16,7 +18,7 @@ BEGIN driver mbox
   OPTION supported_peripherals = (xps_mailbox mailbox);
   OPTION driver_state = ACTIVE;
   OPTION copyfiles = all;
-  OPTION VERSION = 4.10;
+  OPTION VERSION = 4.11;
   OPTION NAME = mbox;
 
 END driver

@@ -4,15 +4,17 @@
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
+#ifndef XMBOX_HW_H		/* prevent circular inclusions */
+#define XMBOX_HW_H
+
 /*****************************************************************************/
 /**
 *
 * @file xmbox_hw.h
-* @addtogroup mbox Overview
-* @{
+* @brief Defines XMbox register offsets and accessor macros.
 *
 * This header file contains identifiers and driver macros that can be used to
-* access the device. The user should refer to the hardware device specification
+* access the device. Refer to the hardware device specification
 * for more details of the device operation.
 * The driver functions/APIs are defined in xmbox.h.
 *
@@ -37,12 +39,16 @@
 *			to _IsFullHw.
 * 4.3   sa   04/20/17   Added CTRL register definitions.
 * 4.10  ht   02/24/26   Fix doxygen warnings
+* 4.11  tb  09/15/26 Align Doxygen comments with AMD standards.
 * </pre>
 *
 ******************************************************************************/
 
-#ifndef XMBOX_HW_H		/* prevent circular inclusions */
-#define XMBOX_HW_H		/* by using protection macros */
+/**
+* @addtogroup mbox_api MBOX APIs
+* @{
+*/
+
 
 #ifdef __cplusplus
 extern "C" {
@@ -68,9 +74,9 @@ extern "C" {
 #define XMB_STATUS_REG_OFFSET	0x10	/**< Mbox status reg  */
 #define XMB_ERROR_REG_OFFSET	0x14	/**< Mbox Error reg  */
 #define XMB_SIT_REG_OFFSET	0x18	/**< Mbox send interrupt threshold
-					     register */
+					     register. */
 #define XMB_RIT_REG_OFFSET	0x1C	/**< Mbox receive interrupt threshold
-					     register */
+					     register. */
 #define XMB_IS_REG_OFFSET	0x20	/**< Mbox interrupt status register */
 #define XMB_IE_REG_OFFSET	0x24	/**< Mbox interrupt enable register */
 #define XMB_IP_REG_OFFSET	0x28	/**< Mbox interrupt pending register */
@@ -100,13 +106,13 @@ extern "C" {
 #define XMB_IX_STA		0x01 /**< Send Threshold Active, when the
 					number of Send FIFO entries is less
 					than and equal to Send Interrupt
-					Threshold */
+					Threshold. */
 #define XMB_IX_RTA		0x02 /**< Receive Threshold Active, when the
 					number of Receive FIFO entries is
 					greater than Receive Interrupt
-					Threshold */
+					Threshold. */
 #define XMB_IX_ERR		0x04 /**< Mailbox Error, when read on empty or
-					write on full */
+					write on full. */
 
 /** @} */
 
@@ -138,16 +144,19 @@ extern "C" {
 
 /*****************************************************************************/
 /**
+* @brief Reads a mailbox register.
+*
 * Read one of the mbox registers.
 *
-* @param	BaseAddress contains the base address of the mbox device.
-* @param	RegOffset contains the offset from the 1st register of the mbox
-*		to select the specific register of the mbox.
+* @param[in]	BaseAddress Contains the base address of the mbox device.
+* @param[in]	RegOffset Contains the offset from the 1st register of the
+*		mbox to select the specific register of the mbox.
 *
 * @return	The value read from the register, a 32 bit value.
 *
-* @note		C-style signature:
-*		u32 XMbox_ReadReg(u32 BaseAddress, unsigned RegOffset);
+* @note
+* C-style signature
+*		u32 XMbox_ReadReg(u32 BaseAddress, unsigned RegOffset)
 *
 ******************************************************************************/
 #define XMbox_ReadReg(BaseAddress, RegOffset)			\
@@ -155,17 +164,18 @@ extern "C" {
 
 /*****************************************************************************/
 /**
+* @brief Writes a value to a mailbox register.
+*
 * Write a specified value to a register of a mbox.
 *
-* @param	BaseAddress is the base address of the mbox device.
-* @param	RegOffset contain the offset from the 1st register of the
+* @param[in]	BaseAddress Base address of the mbox device.
+* @param[in]	RegOffset Contains the offset from the 1st register of the
 *		mbox to select the specific register of the mbox.
-* @param	ValueToWrite is the 32 bit value to be written to the register.
+* @param[in]	ValueToWrite 32 bit value to be written to the register.
 *
-* @return	None
-*
-* @note		C-style signature:
-* void XMbox_WriteReg(u32 BaseAddress, unsigned RegOffset, u32 ValueToWrite);
+* @note
+* C-style signature
+* void XMbox_WriteReg(u32 BaseAddress, unsigned RegOffset, u32 ValueToWrite)
 *
 ******************************************************************************/
 #define XMbox_WriteReg(BaseAddress, RegOffset, ValueToWrite)	\
@@ -174,15 +184,16 @@ extern "C" {
 
 /*****************************************************************************/
 /**
+* @brief Writes the mailbox write register.
+*
 * Write the mbox write register.
 *
-* @param	BaseAddress contains the base address of the mbox device.
-* @param	ValueToWrite contains the value to be written.
+* @param[in]	BaseAddress Contains the base address of the mbox device.
+* @param[in]	ValueToWrite Contains the value to be written.
 *
-* @return	None.
-*
-* @note		C-style signature:
-* 		u32 XMbox_WriteMBox(u32 BaseAddress, u32 ValueToWrite);
+* @note
+* C-style signature
+* 		u32 XMbox_WriteMBox(u32 BaseAddress, u32 ValueToWrite)
 *
 ******************************************************************************/
 #define XMbox_WriteMBox(BaseAddress, ValueToWrite)		\
@@ -190,14 +201,17 @@ extern "C" {
 
 /*****************************************************************************/
 /**
+* @brief Reads the mailbox read FIFO.
+*
 * Read the mbox read FIFO.
 *
-* @param	BaseAddress contains the base address of the mbox device.
+* @param[in]	BaseAddress Contains the base address of the mbox device.
 *
 * @return	The value read from the register, a 32 bit value.
 *
-* @note		C-style signature:
-* 		u32 XMbox_ReadMBox(u32 BaseAddress);
+* @note
+* C-style signature
+* 		u32 XMbox_ReadMBox(u32 BaseAddress)
 *
 ******************************************************************************/
 #define XMbox_ReadMBox(BaseAddress)				\
@@ -205,16 +219,19 @@ extern "C" {
 
 /*****************************************************************************/
 /**
+* @brief Checks whether the memory-mapped read FIFO is empty.
+*
 * Checks if the Read FIFO is Empty.
 *
-* @param	BaseAddress contains the base address of the mbox device.
+* @param[in]	BaseAddress Contains the base address of the mbox device.
 *
 * @return
 *		- TRUE if the FIFO is empty.
 *		- FALSE if there is data to be read from the FIFO.
 *
-* @note		C-style signature:
-*		u32 XMbox_IsEmptyHw(u32 BaseAddress);
+* @note
+* C-style signature
+*		u32 XMbox_IsEmptyHw(u32 BaseAddress)
 *
 ******************************************************************************/
 #define XMbox_IsEmptyHw(BaseAddress)				 \
@@ -222,16 +239,19 @@ extern "C" {
 
 /*****************************************************************************/
 /**
+* @brief Checks whether the memory-mapped write FIFO is full.
+*
 * Checks if there is room in the Write FIFO.
 *
-* @param	BaseAddress contains the base address of the mbox device.
+* @param[in]	BaseAddress Contains the base address of the mbox device.
 *
 * @return
 *		- FALSE if there is room in FIFO,
 *		- TRUE if there is no room in the FIFO
 *
-* @note		C-style signature:
-*		u32 XMbox_IsFullHw(u32 BaseAddress);
+* @note
+* C-style signature
+*		u32 XMbox_IsFullHw(u32 BaseAddress)
 *
 ******************************************************************************/
 #define XMbox_IsFullHw(BaseAddress)				\
@@ -245,13 +265,16 @@ extern "C" {
 #if defined (__MICROBLAZE__) || defined (__riscv)
 /*****************************************************************************/
 /**
+* @brief Reads the mailbox FIFO using FSL.
+*
 * Read the mbox FIFO using FSL
 *
-* @param	ID contains the link to the mbox device.
+* @param[in]	ID Contains the link to the mbox device.
 *
 * @return	The value read from the FIFO, a 32 bit value.
 *
-* @note		C-style signature:
+* @note
+* C-style signature
 *		u32 XMbox_FSLReadReg(u32 ID)
 *
 ******************************************************************************/
@@ -264,15 +287,16 @@ rVal;					\
 
 /*****************************************************************************/
 /**
+* @brief Writes a value to the mailbox FIFO using FSL.
+*
 * Write a specified value to mbox FIFO using FSL
 *
-* @param	ID contains the link to the mbox device.
-* @param	ValueToWrite is the 32 bit value to be written to the register.
+* @param[in]	ID Contains the link to the mbox device.
+* @param[in]	ValueToWrite 32 bit value to be written to the register.
 *
-* @return	None
-*
-* @note		C-style signature:
-*		void XMbox_FSLWriteReg(u32 ID, u32 ValueToWrite);
+* @note
+* C-style signature
+*		void XMbox_FSLWriteReg(u32 ID, u32 ValueToWrite)
 *
 ******************************************************************************/
 #define XMbox_FSLWriteMBox(ID, ValueToWrite)			\
@@ -280,15 +304,18 @@ rVal;					\
 
 /*****************************************************************************/
 /**
+* @brief Checks whether the FSL read FIFO is empty.
+*
 * Checks if the Read FIFO is Empty.
 *
-* @param	ID contains the link to the mbox device.
+* @param[in]	ID Contains the link to the mbox device.
 *
 * @return
 *		- TRUE if the Read FIFO is empty.
 *		- FALSE if the Read FIFO is not empty and has data to be read.
 *
-* @note		C-style signature:
+* @note
+* C-style signature
 *		u32 XMbox_FSLIsEmpty(u32 ID)
 *
 ******************************************************************************/
@@ -302,15 +329,18 @@ Empty;					\
 
 /*****************************************************************************/
 /**
+* @brief Checks whether the FSL write FIFO is full.
+*
 * Checks if there is room in the Write FIFO.
 *
-* @param	ID contains the link to the mbox device.
+* @param[in]	ID Contains the link to the mbox device.
 *
 * @return
 *		- TRUE if there is no room in the FIFO (It is Full)
 *		- FALSE if there is room in FIFO
 *
-* @note		C-style signature:
+* @note
+* C-style signature
 *		u32 XMbox_FSLIsFull(u32 ID)
 *
 ******************************************************************************/
@@ -326,9 +356,11 @@ Full;					\
 
 /*****************************************************************************/
 /**
+* @brief Provides a stub FSL read for non-MicroBlaze platforms.
+*
 * Stub implementation of XMbox_FSLReadMBox for non-MicroBlaze platforms.
 *
-* @param	ID is unused.
+* @param[in]	ID Unused.
 *
 * @return	Always returns 0.
 *
@@ -340,12 +372,12 @@ Full;					\
 
 /*****************************************************************************/
 /**
+* @brief Provides a stub FSL write for non-MicroBlaze platforms.
+*
 * Stub implementation of XMbox_FSLWriteMBox for non-MicroBlaze platforms.
 *
-* @param	ID is unused.
-* @param	ValueToWrite is unused.
-*
-* @return	None.
+* @param[in]	ID Unused.
+* @param[in]	ValueToWrite Unused.
 *
 * @note		This is an empty stub to allow compilation on non-MicroBlaze
 *		platforms. FSL access is only available on MicroBlaze.
@@ -355,9 +387,11 @@ Full;					\
 
 /*****************************************************************************/
 /**
+* @brief Provides a stub FSL empty check for non-MicroBlaze platforms.
+*
 * Stub implementation of XMbox_FSLIsEmpty for non-MicroBlaze platforms.
 *
-* @param	ID is unused.
+* @param[in]	ID Unused.
 *
 * @return	Always returns 0.
 *
@@ -369,9 +403,11 @@ Full;					\
 
 /*****************************************************************************/
 /**
+* @brief Provides a stub FSL full check for non-MicroBlaze platforms.
+*
 * Stub implementation of XMbox_FSLIsFull for non-MicroBlaze platforms.
 *
-* @param	ID is unused.
+* @param[in]	ID Unused.
 *
 * @return	Always returns 0.
 *
@@ -391,6 +427,5 @@ Full;					\
 }
 #endif
 
-/** @} */
-
 #endif /* end of protection macro */
+/** @} */

@@ -7,16 +7,18 @@
 /******************************************************************************/
 /**
 * @file data.c
+* @brief Provides the data buffer for XMbox examples.
 *
-* This file contains data buffer for XMbox examples
+* This file contains the data buffer for XMbox examples.
 *
 *<pre>
 * MODIFICATION HISTORY:
 *
 * Ver   Who  Date     Changes
 * ----- ---- -------- -----------------------------------------------
-* 4.5   ms   09/29/21 Added Copyright and license header
+* 4.5   ms   09/29/21 Added license header
 * 4.10  ht   02/24/26 Fix doxygen warnings
+* 4.11  tb  09/15/26 Align Doxygen comments with AMD standards.
 *</pre>
 *******************************************************************************/
 char data[] __attribute__ ((aligned (4))) = {

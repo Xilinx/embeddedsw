@@ -7,21 +7,20 @@
 /******************************************************************************/
 /**
 * @file xmbox_example.c
+* @brief Demonstrates the XMbox polled example.
 *
 * This file contains a design example for using the Mailbox hardware and driver
 * XMbox
 *
-* The example assumes there are two processors availabile in the system that
+* The example assumes there are two processors available in the system that
 * are expected to inter-communicate.
 *
 * This example has been tested on ML505 Hardware Evaluation board.
 *
 * @note
-*
-* These code fragments will illustrate how the XMbox component can be used to:
+* These code fragments illustrate how the XMbox component can be used to:
 *   - Initialize the Mailbox core
 *   - Pass data between two processes
-*
 *
 *<pre>
 * MODIFICATION HISTORY:
@@ -40,6 +39,7 @@
 * 4.6   ht   07/07/23 Added support for system device-tree flow.
 * 4.9   ht   04/17/25 Update Canonical definition to be inline with xsct flow.
 * 4.10  ht   02/17/26 Fix GCC warnings for unused parameter.
+* 4.11  tb  09/15/26 Align Doxygen comments with AMD standards.
 *</pre>
 *******************************************************************************/
 
@@ -51,29 +51,25 @@
 
 /************************** Constant Definitions *****************************/
 
-/** Size of the actual Message */
-#define MSGSIZ  1024
+#define MSGSIZ  1024 /**< Size of the actual message. */
 
-/** Size of the Hello Message */
-#define HELLO_SIZE 40
+#define HELLO_SIZE 40 /**< Size of the hello message. */
 
-/** CPU ID definition for multi-processor systems */
 #if XPAR_CPU_ID == 2
-#define MY_CPU_ID 1
+#define MY_CPU_ID 1 /**< CPU ID used by this example. */
 #else
-#define MY_CPU_ID XPAR_CPU_ID
+#define MY_CPU_ID XPAR_CPU_ID /**< CPU ID used by this example. */
 #endif
 
 #ifdef SDT
-#define XMBOX_BASEADDRESS XPAR_MBOX_0_BASEADDR
+#define XMBOX_BASEADDRESS XPAR_MBOX_0_BASEADDR /**< Mailbox base address. */
 #endif
 
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
-/** A smaller footprint printf */
-#define printf xil_printf
+#define printf xil_printf /**< Smaller-footprint printf. */
 
 /************************** Variable Definitions *****************************/
 
@@ -97,11 +93,13 @@ int ProdCon (void);
 
 /*****************************************************************************/
 /**
+* @brief Runs the mailbox polled example.
+*
 * This function is the main function for the mailbox example.
 *
-* @return	XST_SUCCESS if successful, XST_FAILURE if unsuccessful.
-*
-* @note		None.
+* @return
+*		- XST_SUCCESS if successful.
+*		- XST_FAILURE if unsuccessful.
 *
 ******************************************************************************/
 int main(void)
@@ -127,12 +125,12 @@ int main(void)
 /******************************************************************************/
 /**
 *
+* @brief Runs producer or consumer mailbox transfers for this example.
+*
 * This function performs the producer and consumer console functionality.
 * At compile time the role, producer or consumer, is determined.
 *
 * @return	XST_SUCCESS.
-*
-* @note		None.
 *
 *******************************************************************************/
 int ProdCon ()

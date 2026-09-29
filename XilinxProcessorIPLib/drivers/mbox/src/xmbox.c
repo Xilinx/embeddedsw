@@ -8,8 +8,7 @@
 /**
 *
 * @file xmbox.c
-* @addtogroup mbox Overview
-* @{
+* @brief Implements XMbox interface functions.
 *
 * Contains required functions for the XMbox driver.
 *
@@ -39,9 +38,15 @@
 *                     Changed the prototypes of XMbox_CfgInitialize API.
 * 4.3   sa   04/20/17 Support for FIFO reset using hardware control register.
 * 4.10  ht   02/24/26 Fix doxygen warnings
+* 4.11  tb  09/15/26 Align Doxygen comments with AMD standards.
 * </pre>
 *
 ******************************************************************************/
+
+/**
+* @addtogroup mbox_api MBOX APIs
+* @{
+*/
 
 /***************************** Include Files *********************************/
 
@@ -62,19 +67,19 @@
 /*****************************************************************************/
 /**
 *
+* @brief Initializes a specific mailbox instance.
+*
 * Initializes a specific mailbox.
 *
-* @param	InstancePtr is a pointer to the XMbox instance to be worked on.
-* @param	ConfigPtr is the device configuration structure containing
-*		required HW build data.
-* @param	EffectiveAddress is the Physical address of the hardware in a
-*		Virtual Memory operating system environment. It is the Base
-*		Address in a stand alone environment.
+* @param[out]	InstancePtr Pointer to the XMbox instance to be worked on.
+* @param[in]	ConfigPtr Device configuration structure containing
+*   required HW build data.
+* @param[in]	EffectiveAddress Physical address of the hardware in a
+*   Virtual Memory operating system environment. It is the Base
+*   Address in a stand alone environment.
 *
 * @return
-*		- XST_SUCCESS if initialization was successful
-*
-* @note		None.
+*		- XST_SUCCESS if initialization was successful.
 *
 ******************************************************************************/
 int XMbox_CfgInitialize(XMbox *InstancePtr, XMbox_Config *ConfigPtr,
@@ -98,30 +103,29 @@ int XMbox_CfgInitialize(XMbox *InstancePtr, XMbox_Config *ConfigPtr,
 
 /*****************************************************************************/
 /**
+* @brief Reads requested bytes from the mailbox.
 *
-* Reads requested bytes from the mailbox referenced by InstancePtr,into the
+* Reads requested bytes from the mailbox referenced by InstancePtr, into the
 * buffer pointed to by the provided pointer. The number of bytes must be a
-* multiple of 4 (bytes). If not, the call will fail in an assert.
+* multiple of 4 (bytes). If not, the call fails in an assert.
 *
 * This function is non blocking.
 *
-* @param	InstancePtr is a pointer to the XMbox instance to be worked on.
-* @param	BufferPtr is the buffer to read the mailbox contents into,
-*		aligned to a word boundary.
-* @param	RequestedBytes is the number of bytes of data requested.
-* @param	BytesRecvdPtr is the memory that is updated with the number of
-*		bytes of data actually read.
+* @param[in]	InstancePtr Pointer to the XMbox instance to be worked on.
+* @param[out]	BufferPtr Buffer to read the mailbox contents into,
+*   aligned to a word boundary.
+* @param[in]	RequestedBytes Number of bytes of data requested.
+* @param[out]	BytesRecvdPtr Memory that is updated with the number of
+*   bytes of data actually read.
 *
 * @return
 *		- XST_SUCCESS on success.
-*		- XST_NO_DATA ifthere was no data in the mailbox.
+*		- XST_NO_DATA if there was no data in the mailbox.
 *
 * On success, the number of bytes read is returned through the pointer.  The
 * call may return with fewer bytes placed in the buffer than requested  (not
 * including zero). This is not necessarily an error condition and indicates
 * the amount of data that was currently available in the mailbox.
-*
-* @note		None.
 *
 ******************************************************************************/
 int XMbox_Read(XMbox *InstancePtr, u32 *BufferPtr, u32 RequestedBytes,
@@ -179,15 +183,16 @@ int XMbox_Read(XMbox *InstancePtr, u32 *BufferPtr, u32 RequestedBytes,
 
 /*****************************************************************************/
 /**
+* @brief Reads requested bytes from the mailbox, blocking until complete.
 *
-* Reads requested bytes from the mailbox referenced by InstancePtr,into the
+* Reads requested bytes from the mailbox referenced by InstancePtr, into the
 * buffer pointed to by the provided pointer. The number of bytes must be a
-* multiple of 4 (bytes). If not, the call will fail in an assert.
+* multiple of 4 (bytes). If not, the call fails in an assert.
 *
-* @param	InstancePtr is a pointer to the XMbox instance to be worked on.
-* @param	BufferPtr is the buffer to read the mailbox contents into,
-*		aligned to a word boundary.
-* @param	RequestedBytes is the number of bytes of data requested.
+* @param[in]	InstancePtr Pointer to the XMbox instance to be worked on.
+* @param[out]	BufferPtr Buffer to read the mailbox contents into,
+*   aligned to a word boundary.
+* @param[in]	RequestedBytes Number of bytes of data requested.
 *
 * @note		The call blocks until the number of bytes requested are
 *		available.
@@ -242,23 +247,24 @@ void XMbox_ReadBlocking(XMbox *InstancePtr, u32 *BufferPtr,
 
 /*****************************************************************************/
 /**
+* @brief Writes requested bytes to the mailbox.
+*
 * Writes the requested bytes from the buffer pointed to by the provided
-* pointer into the mailbox referenced by InstancePtr.The number of bytes must
-* be a multiple of 4 (bytes). If not, the call will fail in an assert.
+* pointer into the mailbox referenced by InstancePtr. The number of bytes must
+* be a multiple of 4 (bytes). If not, the call fails in an assert.
 *
 * This function is non blocking.
 *
-* @param	InstancePtr is a pointer to the XMbox instance to be worked on.
-* @param	BufferPtr is the source data buffer, aligned to a word
-*		boundary.
-* @param	RequestedBytes is the number of bytes requested to be written.
-* @param	BytesSentPtr points to memory which is updated with the actual
-*		number of bytes written, return value.
+* @param[in]	InstancePtr Pointer to the XMbox instance to be worked on.
+* @param[in]	BufferPtr Source data buffer, aligned to a word
+*   boundary.
+* @param[in]	RequestedBytes Number of bytes requested to be written.
+* @param[out]	BytesSentPtr Points to memory which is updated with the
+*		actual number of bytes written, return value.
 * @return
-*
 *		- XST_SUCCESS on success.
-*		- XST_FIFO_NO_ROOM if the fifo was full.
-
+*		- XST_FIFO_NO_ROOM if the FIFO was full.
+*
 * On success, the number of bytes successfully written into the destination
 * mailbox is returned in the provided pointer. The call may  return with
 * zero. This is not necessarily an error condition and indicates that the
@@ -327,13 +333,15 @@ int XMbox_Write(XMbox *InstancePtr, u32 *BufferPtr, u32 RequestedBytes,
 
 /*****************************************************************************/
 /**
+* @brief Writes requested bytes to the mailbox, blocking until complete.
+*
 * Writes the requested bytes from the buffer pointed to by the provided
 * pointer into the mailbox referenced by InstancePtr. The number of bytes must
-* be a multiple of 4 (bytes). If not, the call will fail in an assert.
+* be a multiple of 4 (bytes). If not, the call fails in an assert.
 *
-* @param	InstancePtr is a pointer to the XMbox instance to be worked on.
-* @param	BufferPtr is the source data buffer, aligned to a word boundary.
-* @param	RequestedBytes is the number of bytes requested to be written.
+* @param[in]	InstancePtr Pointer to the XMbox instance to be worked on.
+* @param[in]	BufferPtr Source data buffer, aligned to a word boundary.
+* @param[in]	RequestedBytes Number of bytes requested to be written.
 *
 * @note		The call blocks until the number of bytes requested are written.
 *		The provided buffer pointed to by BufferPtr must be aligned to a
@@ -382,15 +390,15 @@ void XMbox_WriteBlocking(XMbox *InstancePtr, u32 *BufferPtr, u32 RequestedBytes)
 /*****************************************************************************/
 /**
 *
+* @brief Checks whether mailbox receive data is available.
+*
 * Checks to see if there is data available to be read.
 *
-* @param	InstancePtr is a pointer to the XMbox instance to be worked on.
+* @param[in]	InstancePtr Pointer to the XMbox instance to be worked on.
 *
 * @return
 *		- FALSE if there is data to be read.
-*		- TRUE is there no data to be read.
-*
-* @note		None.
+*		- TRUE if there is no data to be read.
 *
 ******************************************************************************/
 u32 XMbox_IsEmpty(XMbox *InstancePtr)
@@ -409,15 +417,15 @@ u32 XMbox_IsEmpty(XMbox *InstancePtr)
 /*****************************************************************************/
 /**
 *
+* @brief Checks whether the mailbox write FIFO is full.
+*
 * Checks to see if there is room in the write FIFO.
 *
-* @param	InstancePtr is a pointer to the XMbox instance to be worked on.
+* @param[in]	InstancePtr Pointer to the XMbox instance to be worked on.
 *
 * @return
 *		- FALSE if there is room in write FIFO.
-*		- TRUE if there is room in write FIFO.
-*
-* @note		None.
+*		- TRUE if there is no room in the write FIFO.
 *
 ******************************************************************************/
 u32 XMbox_IsFull(XMbox *InstancePtr)
@@ -436,10 +444,12 @@ u32 XMbox_IsFull(XMbox *InstancePtr)
 /*****************************************************************************/
 /**
 *
+* @brief Flushes mailbox FIFOs by draining the read FIFO.
+*
 * Resets the mailbox FIFOs by emptying the READ FIFO and making sure the
 * Error Status is zero.
 *
-* @param	InstancePtr is a pointer to the XMbox instance to be worked on.
+* @param[in]	InstancePtr Pointer to the XMbox instance to be worked on.
 *
 * @return
 *		- XST_SUCCESS on success.
@@ -471,10 +481,12 @@ int XMbox_Flush(XMbox *InstancePtr)
 /*****************************************************************************/
 /**
 *
+* @brief Resets mailbox FIFOs through the hardware control register.
+*
 * Resets the mailbox FIFOs by clearing the READ and WRITE FIFOs using the
 * hardware control register for memory mapped IO.
 *
-* @param	InstancePtr is a pointer to the XMbox instance to be worked on.
+* @param[in]	InstancePtr Pointer to the XMbox instance to be worked on.
 *
 * @note		Use XMbox_Flush instead for FSL based access.
 *
@@ -498,13 +510,13 @@ void XMbox_ResetFifos(XMbox *InstancePtr)
 
 /*****************************************************************************/
 /**
+* @brief Sets the mailbox interrupt enable register.
+*
 * Sets the interrupt enable register for this mailbox. This function can only
-* be used for Non-FSL interface. If not, the function will fail in an assert.
+* be used for Non-FSL interface. If not, the function fails in an assert.
 *
-* @param	InstancePtr is a pointer to the instance to be worked on.
-* @param	Mask is a logical OR of XMB_IX_* constants found in xmbox_hw.h.
-*
-* @note		None.
+* @param[in]	InstancePtr Pointer to the instance to be worked on.
+* @param[in]	Mask Logical OR of XMB_IX_* constants found in xmbox_hw.h.
 *
 ******************************************************************************/
 void XMbox_SetInterruptEnable(XMbox *InstancePtr, u32 Mask)
@@ -520,18 +532,17 @@ void XMbox_SetInterruptEnable(XMbox *InstancePtr, u32 Mask)
 
 /*****************************************************************************/
 /**
+* @brief Gets the mailbox interrupt enable mask.
+*
 * Retrieves the interrupt enable for the mailbox. AND the result of this
 * function with XMB_IX_* to determine which interrupts of this mailbox
 * are enabled. This function can only be used for Non-FSL interface. If not,
-* the function will fail in an assert.
+* the function fails in an assert.
 *
-* @param	InstancePtr is a pointer to the instance to be worked on.
+* @param[in]	InstancePtr Pointer to the instance to be worked on.
 *
 * @return	Mask of interrupt bits made up of XMB_IX_* constants found
 *		in xmbox_hw.h.
-*
-* @note		None.
-*
 *
 ******************************************************************************/
 u32 XMbox_GetInterruptEnable(XMbox *InstancePtr)
@@ -545,12 +556,14 @@ u32 XMbox_GetInterruptEnable(XMbox *InstancePtr)
 
 /*****************************************************************************/
 /**
+* @brief Gets the mailbox interrupt status mask.
+*
 * Retrieve the interrupt status for the mailbox. AND the results of this
 * function with XMB_IX_* to determine which interrupts are currently pending
 * to the processor. This function can only be used for Non-FSL interface.
-* If not, the function will fail in an assert.
+* If not, the function fails in an assert.
 *
-* @param	InstancePtr is a pointer to the instance to be worked on.
+* @param[in]	InstancePtr Pointer to the instance to be worked on.
 *
 * @return	Mask of interrupt bits made up of XMB_IX_* constants found
 *		in xmbox_hw.h.
@@ -567,17 +580,17 @@ u32 XMbox_GetInterruptStatus(XMbox *InstancePtr)
 
 /*****************************************************************************/
 /**
+* @brief Clears pending mailbox interrupts.
+*
 * Clears pending interrupts with the provided mask. This function should be
 * called after the software has serviced the interrupts that are pending.
 * This function clears the corresponding bits of the Interrupt Status
 * Register. This function can only be used for Non-FSL interface. If not, the
-* function will fail in an assert.
+* function fails in an assert.
 *
-* @param	InstancePtr is a pointer to the instance to be worked on.
-* @param	Mask is a logical OR of XMB_IX_* constants found in
-*		xmbox_hw.h.
-*
-* @note		None.
+* @param[in]	InstancePtr Pointer to the instance to be worked on.
+* @param[in]	Mask Logical OR of XMB_IX_* constants found in
+*   xmbox_hw.h.
 *
 ******************************************************************************/
 void XMbox_ClearInterrupt(XMbox *InstancePtr, u32 Mask)
@@ -594,14 +607,14 @@ void XMbox_ClearInterrupt(XMbox *InstancePtr, u32 Mask)
 
 /*****************************************************************************/
 /**
+* @brief Sets the send interrupt threshold.
+*
 * Sets the Send Interrupt Threshold. This function can only be used for
-* Non-FSL interface. If not, the function will fail in an assert.
+* Non-FSL interface. If not, the function fails in an assert.
 *
-* @param	InstancePtr is a pointer to the instance to be worked on.
-* @param	Value is a value to set for the SIT. Only lower
-*		Log2(FIFO Depth) bits are used.
-*
-* @note		None.
+* @param[in]	InstancePtr Pointer to the instance to be worked on.
+* @param[in]	Value Value to set for the SIT. Only lower
+*   Log2(FIFO Depth) bits are used.
 *
 ******************************************************************************/
 void XMbox_SetSendThreshold(XMbox *InstancePtr, u32 Value)
@@ -618,13 +631,13 @@ void XMbox_SetSendThreshold(XMbox *InstancePtr, u32 Value)
 
 /*****************************************************************************/
 /**
-* Set the Receive Interrupt Threshold. This function can only be used for
-* Non-FSL interface. If not, the function will fail in an assert.
-* @param	InstancePtr is a pointer to the instance to be worked on.
-* @param	Value is a value to set for the RIT. Only lower
-*		Log2(FIFO Depth) bits are used.
+* @brief Sets the receive interrupt threshold.
 *
-* @note		None.
+* Set the Receive Interrupt Threshold. This function can only be used for
+* Non-FSL interface. If not, the function fails in an assert.
+* @param[in]	InstancePtr Pointer to the instance to be worked on.
+* @param[in]	Value Value to set for the RIT. Only lower
+*   Log2(FIFO Depth) bits are used.
 *
 ******************************************************************************/
 void XMbox_SetReceiveThreshold(XMbox *InstancePtr, u32 Value)
@@ -641,13 +654,13 @@ void XMbox_SetReceiveThreshold(XMbox *InstancePtr, u32 Value)
 
 /*****************************************************************************/
 /**
+* @brief Reads the mailbox status register.
+*
 * Returns Status register contents. This function can only be used for
-* Non-FSL interface. If not, the function will fail in an assert.
-* @param	InstancePtr is a pointer to the instance to be worked on.
+* Non-FSL interface. If not, the function fails in an assert.
+* @param[in]	InstancePtr Pointer to the instance to be worked on.
 *
 * @return	Value returns Status Register contents.
-*
-* @note		None.
 *
 ******************************************************************************/
 u32 XMbox_GetStatus(XMbox *InstancePtr)

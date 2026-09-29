@@ -11,7 +11,7 @@ For details, see xmbox_example.c.
 
 @section ex2 xmbox_intr_example.c
 Contains an example on how to use the XMbox driver directly.
-This example assumes there are two processors availabile in the system
+This example assumes there are two processors available in the system
 that are expected to inter-communicate and attempts to send a known
 message through the mailbox from one processor to the other processor.
 The message is received by the receiver and the test passes.
@@ -23,7 +23,7 @@ Contains an example on how to use the XMbox driver directly.
 This example attempts to send a known message through the mailbox
 from one processor to the other processor.The message is received by
 the receiver and the test passes.
-This example assumes there are two processors availabile in the system
+This example assumes there are two processors available in the system
 that are expected to inter-communicate. If Mailbox is connected to only one
 Processor then Data has to be sent from one port and should be received
 from another port.
