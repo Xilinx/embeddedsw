@@ -8,8 +8,7 @@
 /**
 *
 * @file xgpiops_intr.c
-* @addtogroup gpiops Overview
-* @{
+* @brief Implements GPIO PS interrupt handling functions.
 *
 * This file contains functions related to GPIO interrupt handling.
 *
@@ -23,8 +22,8 @@
 * 					  passed to API's. CR# 822636
 * 3.00  kvn  02/13/15 Modified code for MISRA-C:2012 compliance.
 * 3.1	kvn  04/13/15 Add support for Zynq Ultrascale+ MP. CR# 856980.
-* 3.1   aru  07/13/18 Ressolved doxygen reported warnings. CR# 1006331.
-* 3.4   aru  08/09/18 Ressolved cppcheck warnings.
+* 3.1   aru  07/13/18 Resolved doxygen reported warnings. CR# 1006331.
+* 3.4   aru  08/09/18 Resolved cppcheck warnings.
 * 3.4   aru  08/17/18 Resolved MISRA-C mandatory violations. CR# 1007751
 * 3.5   sne  03/01/19 Fixes violations according to MISRAC-2012
 *                     in safety mode and modified the code such as
@@ -37,10 +36,15 @@
 * 3.6   sne  08/14/19 Added interrupt handler support on versal.
 * 3.13  gm   03/15/24 Added multi-core interrupt support.
 * 3.16  vn   07/30/26 Fix Doxygen warnings
+* 3.16  vn   09/10/26 Align Doxygen comments with AMD standards
 *
 * </pre>
 *
 ******************************************************************************/
+
+/** @addtogroup gpiops Overview
+ * @{
+ */
 
 /***************************** Include Files *********************************/
 
@@ -56,21 +60,18 @@
 
 /************************** Function Prototypes ******************************/
 
-/****************************************************************************/
+/*****************************************************************************/
 /**
 *
-* This function enables the interrupts for the specified pins in the specified
-* bank.
+* @brief Enables the interrupts for the specified pins in the specified bank.
 *
-* @param	InstancePtr is a pointer to the XGpioPs instance.
-* @param	Bank is the bank number of the GPIO to operate on.
-* @param	Mask is the bit mask of the pins for which interrupts are to
-*		be enabled. Bit positions of 1 will be enabled. Bit positions
-*		of 0 will keep the previous setting.
+* @param[in,out] InstancePtr Pointer to the XGpioPs instance.
+* @param[in]     Bank Bank number of the GPIO to operate on.
+* @param[in]     Mask Bit mask of the pins for which to enable interrupts.
+*                Bit positions of 1 are enabled. Bit positions of 0 keep the
+*                previous setting.
 *
-* @note		None.
-*
-*****************************************************************************/
+******************************************************************************/
 void XGpioPs_IntrEnable(XGpioPs *InstancePtr, u8 Bank, u32 Mask)
 {
 	Xil_AssertVoid(InstancePtr != NULL);
@@ -92,17 +93,15 @@ void XGpioPs_IntrEnable(XGpioPs *InstancePtr, u8 Bank, u32 Mask)
 	InstancePtr->CoreIntrMask[Bank] |= Mask;
 }
 
-/****************************************************************************/
+/*****************************************************************************/
 /**
 *
-* This function enables the interrupt for the specified pin.
+* @brief Enables the interrupt for the specified pin.
 *
-* @param	InstancePtr is a pointer to the XGpioPs instance.
-* @param	Pin is the pin number for which the interrupt is to be enabled.
+* @param[in,out] InstancePtr Pointer to the XGpioPs instance.
+* @param[in]     Pin Pin number for which to enable the interrupt.
 *
-* @note		None.
-*
-*****************************************************************************/
+******************************************************************************/
 void XGpioPs_IntrEnablePin(XGpioPs *InstancePtr, u32 Pin)
 {
 	u8 Bank;
@@ -129,21 +128,18 @@ void XGpioPs_IntrEnablePin(XGpioPs *InstancePtr, u32 Pin)
 	InstancePtr->CoreIntrMask[Bank] |= IntrReg;
 }
 
-/****************************************************************************/
+/*****************************************************************************/
 /**
 *
-* This function disables the interrupts for the specified pins in the specified
-* bank.
+* @brief Disables the interrupts for the specified pins in the specified bank.
 *
-* @param	InstancePtr is a pointer to the XGpioPs instance.
-* @param	Bank is the bank number of the GPIO to operate on.
-* @param	Mask is the bit mask of the pins for which interrupts are
-*		to be disabled. Bit positions of 1 will be disabled. Bit
-*		positions of 0 will keep the previous setting.
+* @param[in,out] InstancePtr Pointer to the XGpioPs instance.
+* @param[in]     Bank Bank number of the GPIO to operate on.
+* @param[in]     Mask Bit mask of the pins for which to disable interrupts.
+*                Bit positions of 1 are disabled. Bit positions of 0 keep the
+*                previous setting.
 *
-* @note		None.
-*
-*****************************************************************************/
+******************************************************************************/
 void XGpioPs_IntrDisable(XGpioPs *InstancePtr, u8 Bank, u32 Mask)
 {
 	Xil_AssertVoid(InstancePtr != NULL);
@@ -165,17 +161,15 @@ void XGpioPs_IntrDisable(XGpioPs *InstancePtr, u8 Bank, u32 Mask)
 	InstancePtr->CoreIntrMask[Bank] &= ~Mask;
 }
 
-/****************************************************************************/
+/*****************************************************************************/
 /**
 *
-* This function disables the interrupts for the specified pin.
+* @brief Disables the interrupts for the specified pin.
 *
-* @param	InstancePtr is a pointer to the XGpioPs instance.
-* @param	Pin is the pin number for which the interrupt is to be disabled.
+* @param[in,out] InstancePtr Pointer to the XGpioPs instance.
+* @param[in]     Pin Pin number for which to disable the interrupt.
 *
-* @note		None.
-*
-*****************************************************************************/
+******************************************************************************/
 void XGpioPs_IntrDisablePin(XGpioPs *InstancePtr, u32 Pin)
 {
 	u8 Bank;
@@ -202,22 +196,20 @@ void XGpioPs_IntrDisablePin(XGpioPs *InstancePtr, u32 Pin)
 	InstancePtr->CoreIntrMask[Bank] &= ~IntrReg;
 }
 
-/****************************************************************************/
+/*****************************************************************************/
 /**
 *
-* This function returns the interrupt enable status for a bank.
+* @brief Returns the interrupt enable status for a bank.
 *
-* @param	InstancePtr is a pointer to the XGpioPs instance.
-* @param	Bank is the bank number of the GPIO to operate on.
+* @param[in]   InstancePtr Pointer to the XGpioPs instance.
+* @param[in]   Bank Bank number of the GPIO to operate on.
 *
-* @return	Enabled interrupt(s) in a 32-bit format. Bit positions with 1
-*		indicate that the interrupt for that pin is enabled, bit
-*		positions with 0 indicate that the interrupt for that pin is
-*		disabled.
+* @return      Enabled interrupts in a 32-bit format. Bit positions with 1
+*              indicate that the interrupt for that pin is enabled. Bit
+*              positions with 0 indicate that the interrupt for that pin is
+*              disabled.
 *
-* @note		None.
-*
-*****************************************************************************/
+******************************************************************************/
 u32 XGpioPs_IntrGetEnabled(const XGpioPs *InstancePtr, u8 Bank)
 {
 	u32 IntrMask;
@@ -239,22 +231,19 @@ u32 XGpioPs_IntrGetEnabled(const XGpioPs *InstancePtr, u8 Bank)
 	return (~IntrMask);
 }
 
-/****************************************************************************/
+/*****************************************************************************/
 /**
 *
-* This function returns whether interrupts are enabled for the specified pin.
+* @brief Returns whether interrupts are enabled for the specified pin.
 *
-* @param	InstancePtr is a pointer to the XGpioPs instance.
-* @param	Pin is the pin number for which the interrupt enable status
-*		is to be known.
+* @param[in]   InstancePtr Pointer to the XGpioPs instance.
+* @param[in]   Pin Pin number for which to get the interrupt enable status.
 *
 * @return
-*		- TRUE if the interrupt is enabled.
-*		- FALSE if the interrupt is disabled.
+*              - TRUE if the interrupt is enabled.
+*              - FALSE if the interrupt is disabled.
 *
-* @note		None.
-*
-*****************************************************************************/
+******************************************************************************/
 u32 XGpioPs_IntrGetEnabledPin(const XGpioPs *InstancePtr, u32 Pin)
 {
 	u8 Bank;
@@ -279,19 +268,17 @@ u32 XGpioPs_IntrGetEnabledPin(const XGpioPs *InstancePtr, u32 Pin)
 	return (((IntrReg & ((u32)1 << PinNumber)) != (u32)0)? (u32)FALSE : (u32)TRUE);
 }
 
-/****************************************************************************/
+/*****************************************************************************/
 /**
 *
-* This function returns interrupt status read from Interrupt Status Register.
+* @brief Returns the interrupt status read from Interrupt Status Register.
 *
-* @param	InstancePtr is a pointer to the XGpioPs instance.
-* @param	Bank is the bank number of the GPIO to operate on.
+* @param[in]   InstancePtr Pointer to the XGpioPs instance.
+* @param[in]   Bank Bank number of the GPIO to operate on.
 *
-* @return	The value read from Interrupt Status Register.
+* @return      The value read from Interrupt Status Register.
 *
-* @note		None.
-*
-*****************************************************************************/
+******************************************************************************/
 u32 XGpioPs_IntrGetStatus(const XGpioPs *InstancePtr, u8 Bank)
 {
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -310,22 +297,19 @@ u32 XGpioPs_IntrGetStatus(const XGpioPs *InstancePtr, u8 Bank)
 				XGPIOPS_INTSTS_OFFSET);
 }
 
-/****************************************************************************/
+/*****************************************************************************/
 /**
 *
-* This function returns interrupt enable status of the specified pin.
+* @brief Returns the interrupt status of the specified pin.
 *
-* @param	InstancePtr is a pointer to the XGpioPs instance.
-* @param	Pin is the pin number for which the interrupt enable status
-*		is to be known.
+* @param[in]   InstancePtr Pointer to the XGpioPs instance.
+* @param[in]   Pin Pin number for which to get the interrupt status.
 *
 * @return
-*		- TRUE if the interrupt has occurred.
-*		- FALSE if the interrupt has not occurred.
+*              - TRUE if the interrupt has occurred.
+*              - FALSE if the interrupt has not occurred.
 *
-* @note		None.
-*
-*****************************************************************************/
+******************************************************************************/
 u32 XGpioPs_IntrGetStatusPin(const XGpioPs *InstancePtr, u32 Pin)
 {
 	u8 Bank;
@@ -350,22 +334,20 @@ u32 XGpioPs_IntrGetStatusPin(const XGpioPs *InstancePtr, u32 Pin)
 	return (((IntrReg & ((u32)1 << PinNumber)) != (u32)0)? (u32)TRUE : (u32)FALSE);
 }
 
-/****************************************************************************/
+/*****************************************************************************/
 /**
 *
-* This function clears pending interrupt(s) with the provided mask. This
-* function should be called after the software has serviced the interrupts
-* that are pending.
+* @brief Clears the pending interrupts specified by the provided mask.
 *
-* @param	InstancePtr is a pointer to the XGpioPs instance.
-* @param	Bank is the bank number of the GPIO to operate on.
-* @param	Mask is the mask of the interrupts to be cleared. Bit positions
-*		of 1 will be cleared. Bit positions of 0 will not change the
-*		previous interrupt status.
+* Call this function after the software services the pending interrupts.
 *
-* @note		None.
+* @param[in]   InstancePtr Pointer to the XGpioPs instance.
+* @param[in]   Bank Bank number of the GPIO to operate on.
+* @param[in]   Mask Mask of the interrupts to clear. Bit positions of 1 are
+*              cleared. Bit positions of 0 do not change the previous
+*              interrupt status.
 *
-*****************************************************************************/
+******************************************************************************/
 void XGpioPs_IntrClear(const XGpioPs *InstancePtr, u8 Bank, u32 Mask)
 {
 	Xil_AssertVoid(InstancePtr != NULL);
@@ -385,19 +367,17 @@ void XGpioPs_IntrClear(const XGpioPs *InstancePtr, u8 Bank, u32 Mask)
 			  XGPIOPS_INTSTS_OFFSET, Mask);
 }
 
-/****************************************************************************/
+/*****************************************************************************/
 /**
 *
-* This function clears the specified pending interrupt. This function should be
-* called after the software has serviced the interrupts that are pending.
+* @brief Clears the specified pending interrupt.
 *
-* @param	InstancePtr is a pointer to the XGpioPs instance.
-* @param	Pin is the pin number for which the interrupt status is to be
-*		cleared.
+* Call this function after the software services the pending interrupts.
 *
-* @note		None.
+* @param[in]   InstancePtr Pointer to the XGpioPs instance.
+* @param[in]   Pin Pin number for which to clear the interrupt status.
 *
-*****************************************************************************/
+******************************************************************************/
 void XGpioPs_IntrClearPin(const XGpioPs *InstancePtr, u32 Pin)
 {
 	u8 Bank;
@@ -426,31 +406,32 @@ void XGpioPs_IntrClearPin(const XGpioPs *InstancePtr, u32 Pin)
 			  XGPIOPS_INTSTS_OFFSET, IntrReg);
 }
 
-/****************************************************************************/
+/*****************************************************************************/
 /**
 *
-* This function is used for setting the Interrupt Type, Interrupt Polarity and
-* Interrupt On Any for the specified GPIO Bank pins.
+* @brief Sets the interrupt type, polarity, and on-any setting of bank pins.
 *
-* @param	InstancePtr is a pointer to an XGpioPs instance.
-* @param	Bank is the bank number of the GPIO to operate on.
-* @param	IntrType is the 32 bit mask of the interrupt type.
-*		0 means Level Sensitive and 1 means Edge Sensitive.
-* @param	IntrPolarity is the 32 bit mask of the interrupt polarity.
-*		0 means Active Low or Falling Edge and 1 means Active High or
-*		Rising Edge.
-* @param	IntrOnAny is the 32 bit mask of the interrupt trigger for
-*		edge triggered interrupts. 0 means trigger on single edge using
-*		the configured interrupt polarity and 1 means  trigger on both
-*		edges.
+* Sets the Interrupt Type, Interrupt Polarity, and Interrupt On Any for the
+* specified GPIO bank pins.
 *
-* @note		This function is used for setting the interrupt related
-*		properties of all the pins in the specified bank. The previous
-*		state of the pins is not maintained.
-*		To change the Interrupt properties of a single GPIO pin, use the
-*		function XGpioPs_SetPinIntrType().
+* @param[in]   InstancePtr Pointer to the XGpioPs instance.
+* @param[in]   Bank Bank number of the GPIO to operate on.
+* @param[in]   IntrType 32-bit mask of the interrupt type. 0 means Level
+*              Sensitive and 1 means Edge Sensitive.
+* @param[in]   IntrPolarity 32-bit mask of the interrupt polarity. 0 means
+*              Active Low or Falling Edge and 1 means Active High or Rising
+*              Edge.
+* @param[in]   IntrOnAny 32-bit mask of the interrupt trigger for edge
+*              triggered interrupts. 0 means trigger on single edge using the
+*              configured interrupt polarity and 1 means trigger on both
+*              edges.
 *
-*****************************************************************************/
+* @note        Use this function to set the interrupt related properties of
+*              all the pins in the specified bank. The previous state of the
+*              pins is not maintained. To change the interrupt properties of
+*              a single GPIO pin, use XGpioPs_SetPinIntrType().
+*
+******************************************************************************/
 void XGpioPs_SetIntrType(const XGpioPs *InstancePtr, u8 Bank, u32 IntrType,
 			  u32 IntrPolarity, u32 IntrOnAny)
 {
@@ -478,27 +459,27 @@ void XGpioPs_SetIntrType(const XGpioPs *InstancePtr, u8 Bank, u32 IntrType,
 			  XGPIOPS_INTANY_OFFSET, IntrOnAny);
 }
 
-/****************************************************************************/
+/*****************************************************************************/
 /**
 *
-* This function is used for getting the Interrupt Type, Interrupt Polarity and
-* Interrupt On Any for the specified GPIO Bank pins.
+* @brief Gets the interrupt type, polarity, and on-any setting of bank pins.
 *
-* @param	InstancePtr is a pointer to an XGpioPs instance.
-* @param	Bank is the bank number of the GPIO to operate on.
-* @param	IntrType returns the 32 bit mask of the interrupt type.
-*		0 means Level Sensitive and 1 means Edge Sensitive.
-* @param	IntrPolarity returns the 32 bit mask of the interrupt
-*		polarity. 0 means Active Low or Falling Edge and 1 means
-*		Active High or Rising Edge.
-* @param	IntrOnAny returns the 32 bit mask of the interrupt trigger for
-*		edge triggered interrupts. 0 means trigger on single edge using
-*		the configured interrupt polarity and 1 means trigger on both
-*		edges.
+* Gets the Interrupt Type, Interrupt Polarity, and Interrupt On Any for the
+* specified GPIO bank pins.
 *
-* @note		None.
+* @param[in]   InstancePtr Pointer to the XGpioPs instance.
+* @param[in]   Bank Bank number of the GPIO to operate on.
+* @param[out]  IntrType Returns the 32-bit mask of the interrupt type. 0 means
+*              Level Sensitive and 1 means Edge Sensitive.
+* @param[out]  IntrPolarity Returns the 32-bit mask of the interrupt
+*              polarity. 0 means Active Low or Falling Edge and 1 means
+*              Active High or Rising Edge.
+* @param[out]  IntrOnAny Returns the 32-bit mask of the interrupt trigger for
+*              edge triggered interrupts. 0 means trigger on single edge
+*              using the configured interrupt polarity and 1 means trigger on
+*              both edges.
 *
-*****************************************************************************/
+******************************************************************************/
 void XGpioPs_GetIntrType(const XGpioPs *InstancePtr, u8 Bank, u32 *IntrType,
 			  u32 *IntrPolarity, u32 *IntrOnAny)
 
@@ -527,19 +508,17 @@ void XGpioPs_GetIntrType(const XGpioPs *InstancePtr, u8 Bank, u32 *IntrType,
 				      XGPIOPS_INTANY_OFFSET);
 }
 
-/****************************************************************************/
+/*****************************************************************************/
 /**
 *
-* This function is used for setting the IRQ Type of a single GPIO pin.
+* @brief Sets the IRQ type of a single GPIO pin.
 *
-* @param	InstancePtr is a pointer to an XGpioPs instance.
-* @param	Pin is the pin number whose IRQ type is to be set.
-* @param	IrqType is the IRQ type for GPIO Pin. Use XGPIOPS_IRQ_TYPE_*
-*		defined in xgpiops.h to specify the IRQ type.
+* @param[in]   InstancePtr Pointer to the XGpioPs instance.
+* @param[in]   Pin Pin number whose IRQ type is set.
+* @param[in]   IrqType IRQ type for the GPIO pin. Use the XGPIOPS_IRQ_TYPE_*
+*              constants defined in xgpiops.h to specify the IRQ type.
 *
-* @note		None.
-*
-*****************************************************************************/
+******************************************************************************/
 void XGpioPs_SetIntrTypePin(const XGpioPs *InstancePtr, u32 Pin, u8 IrqType)
 {
 	u32 IntrTypeReg;
@@ -596,7 +575,7 @@ void XGpioPs_SetIntrTypePin(const XGpioPs *InstancePtr, u32 Pin, u8 IrqType)
 			IntrPolReg &= ~((u32)1 << (u32)PinNumber);
 			break;
 		default:
-			/**< Default statement is added for MISRA C compliance. */
+			/* Default statement is added for MISRA C compliance. */
 			break;
 	}
 
@@ -613,20 +592,20 @@ void XGpioPs_SetIntrTypePin(const XGpioPs *InstancePtr, u32 Pin, u8 IrqType)
 			  XGPIOPS_INTANY_OFFSET, IntrOnAnyReg);
 }
 
-/****************************************************************************/
+/*****************************************************************************/
 /**
 *
-* This function returns the IRQ Type of a given GPIO pin.
+* @brief Returns the IRQ type of a given GPIO pin.
 *
-* @param	InstancePtr is a pointer to an XGpioPs instance.
-* @param	Pin is the pin number whose IRQ type is to be obtained.
+* @param[in]   InstancePtr Pointer to the XGpioPs instance.
+* @param[in]   Pin Pin number whose IRQ type is obtained.
 *
-* @return	IRQ Type of the given pin.
+* @return      IRQ type of the given pin.
 *
-* @note		Use XGPIOPS_IRQ_TYPE_* defined in xgpiops.h for the IRQ type
-*		returned by this function.
+* @note        Use the XGPIOPS_IRQ_TYPE_* constants defined in xgpiops.h to
+*              interpret the IRQ type returned by this function.
 *
-*****************************************************************************/
+******************************************************************************/
 u8 XGpioPs_GetIntrTypePin(const XGpioPs *InstancePtr, u32 Pin)
 {
 	u32 IntrType;
@@ -688,18 +667,19 @@ u8 XGpioPs_GetIntrTypePin(const XGpioPs *InstancePtr, u32 Pin)
 /*****************************************************************************/
 /**
 *
-* This function sets the status callback function. The callback function is
-* called by the  XGpioPs_IntrHandler when an interrupt occurs.
+* @brief Sets the status callback function.
 *
-* @param	InstancePtr is a pointer to the XGpioPs instance.
-* @param	CallBackRef is the upper layer callback reference passed back
-*		when the callback function is invoked.
-* @param	FuncPointer is the pointer to the callback function.
+* XGpioPs_IntrHandler() calls the callback function when an interrupt
+* occurs.
 *
+* @param[in,out] InstancePtr Pointer to the XGpioPs instance.
+* @param[in]     CallBackRef Upper layer callback reference passed back when
+*                the callback function is invoked.
+* @param[in]     FuncPointer Pointer to the callback function.
 *
-* @note		The handler is called within interrupt context, so it should do
-*		its work quickly and queue potentially time-consuming work to a
-*		task-level thread.
+* @note          The handler is called within interrupt context, so it should
+*                do its work quickly and queue potentially time-consuming work
+*                to a task-level thread.
 *
 ******************************************************************************/
 void XGpioPs_SetCallbackHandler(XGpioPs *InstancePtr, void *CallBackRef,
@@ -716,16 +696,17 @@ void XGpioPs_SetCallbackHandler(XGpioPs *InstancePtr, void *CallBackRef,
 /*****************************************************************************/
 /**
 *
-* This function is the interrupt handler for GPIO interrupts.It checks the
-* interrupt status registers of all the banks to determine the actual bank in
-* which an interrupt has been triggered. It then calls the upper layer callback
-* handler set by the function XGpioPs_SetBankHandler(). The callback is called
-* when an interrupt
+* @brief Handles GPIO interrupts.
 *
-* @param	InstancePtr is a pointer to the XGpioPs instance.
+* Checks the interrupt status registers of all the banks to determine the
+* actual bank in which an interrupt has been triggered. It then calls the
+* upper layer callback handler set by XGpioPs_SetBankHandler(). The
+* callback is called when an interrupt occurs.
 *
-* @note		This function does not save and restore the processor context
-*		such that the user must provide this processing.
+* @param[in]   InstancePtr Pointer to the XGpioPs instance.
+*
+* @note        This function does not save and restore the processor context,
+*              so you must provide this processing.
 *
 ******************************************************************************/
 void XGpioPs_IntrHandler(const XGpioPs *InstancePtr)

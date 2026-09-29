@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -8,8 +8,7 @@
 /**
 *
 * @file xgpiops_g.c
-* @addtogroup gpiops Overview
-* @{
+* @brief Provides the configuration table for GPIO PS devices in the system.
 *
 * This file contains a configuration table that specifies the configuration
 * of GPIO devices in the system.
@@ -21,9 +20,15 @@
 * ----- ---- -------- -----------------------------------------------
 * 1.00a sv   01/15/10 First Release
 * 3.00  kvn  02/13/15 Modified code for MISRA-C:2012 compliance.
+* 3.16  vn   09/10/26 Align Doxygen comments with AMD standards
+*
 * </pre>
 *
 ******************************************************************************/
+
+/** @addtogroup gpiops Overview
+ * @{
+ */
 
 /***************************** Include Files *********************************/
 
@@ -41,8 +46,7 @@
 /************************** Variable Prototypes ******************************/
 
 /**
- * This table contains configuration information for each GPIO device
- * in the system.
+ * @brief Configuration table for GPIO devices in the system.
  */
 XGpioPs_Config XGpioPs_ConfigTable[XPAR_XGPIOPS_NUM_INSTANCES] = {
 	{

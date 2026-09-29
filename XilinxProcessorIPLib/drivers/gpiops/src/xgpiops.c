@@ -8,11 +8,10 @@
 /**
 *
 * @file xgpiops.c
-* @addtogroup gpiops Overview
-* @{
+* @brief Implements the minimum required functions for the XGpioPs driver.
 *
-* The XGpioPs driver. Functions in this file are the minimum required functions
-* for this driver. See xgpiops.h for a detailed description of the driver.
+* The functions in this file are the minimum required functions for the
+* XGpioPs driver. See xgpiops.h for a detailed description of the driver.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -40,10 +39,15 @@
 * 3.14  bkv  02/20/25 Changed data type of effective address from u32 to
 *                     UINTPTR to support both 32-bit and 64-bit platforms.
 * 3.16  vn   07/30/26 Fix Doxygen warnings
+* 3.16  vn   09/10/26 Align Doxygen comments with AMD standards
 *
 * </pre>
 *
 ******************************************************************************/
+
+/** @addtogroup gpiops Overview
+ * @{
+ */
 
 /***************************** Include Files *********************************/
 
@@ -59,26 +63,25 @@
 
 /************************** Function Prototypes ******************************/
 
-void StubHandler(void *CallBackRef, u32 Bank, u32 Status); /**< Stub handler */
+void StubHandler(void *CallBackRef, u32 Bank, u32 Status); /* Stub handler */
 
 /*****************************************************************************/
 /**
 *
-* This function initializes a XGpioPs instance/driver.
-* All members of the XGpioPs instance structure are initialized and
-* StubHandlers are assigned to the Bank Status Handlers.
+* @brief Initializes an XGpioPs instance and driver.
 *
-* @param	InstancePtr is a pointer to the XGpioPs instance.
-* @param	ConfigPtr points to the XGpioPs device configuration structure.
-* @param	EffectiveAddr is the device base address in the virtual memory
-*		address space. If the address translation is not used then the
-*		physical address should be passed.
-*		Unexpected errors may occur if the address mapping is changed
-*		after this function is invoked.
+* Initializes all members of the XGpioPs instance structure and assigns
+* StubHandlers to the bank status handlers.
 *
-* @return	XST_SUCCESS always.
+* @param[in,out] InstancePtr Pointer to the XGpioPs instance.
+* @param[in]     ConfigPtr Pointer to the XGpioPs device configuration
+*                structure.
+* @param[in]     EffectiveAddr Device base address in the virtual memory
+*                address space. If address translation is not used, pass the
+*                physical address. Unexpected errors may occur if the address
+*                mapping changes after this function is invoked.
 *
-* @note		None.
+* @return        XST_SUCCESS always.
 *
 ******************************************************************************/
 s32 XGpioPs_CfgInitialize(XGpioPs *InstancePtr, const XGpioPs_Config *ConfigPtr,
@@ -193,20 +196,19 @@ s32 XGpioPs_CfgInitialize(XGpioPs *InstancePtr, const XGpioPs_Config *ConfigPtr,
 	return Status;
 }
 
-/****************************************************************************/
+/*****************************************************************************/
 /**
 *
-* Read the Data register of the specified GPIO bank.
+* @brief Reads the Data register of the specified GPIO bank.
 *
-* @param	InstancePtr is a pointer to the XGpioPs instance.
-* @param	Bank is the bank number of the GPIO to operate on.
+* @param[in]   InstancePtr Pointer to the XGpioPs instance.
+* @param[in]   Bank Bank number of the GPIO to operate on.
 *
-* @return	Current value of the Data register.
+* @return      Current value of the Data register.
 *
-* @note		This function is used for reading the state of all the GPIO pins
-*		of specified bank.
+* @note        Reads the state of all the GPIO pins of the specified bank.
 *
-*****************************************************************************/
+******************************************************************************/
 u32 XGpioPs_Read(const XGpioPs *InstancePtr, u8 Bank)
 {
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -225,20 +227,19 @@ u32 XGpioPs_Read(const XGpioPs *InstancePtr, u8 Bank)
 				 XGPIOPS_DATA_RO_OFFSET);
 }
 
-/****************************************************************************/
+/*****************************************************************************/
 /**
 *
-* Read Data from the specified pin.
+* @brief Reads data from the specified pin.
 *
-* @param	InstancePtr is a pointer to the XGpioPs instance.
-* @param	Pin is the pin number for which the data has to be read.
+* @param[in]   InstancePtr Pointer to the XGpioPs instance.
+* @param[in]   Pin Pin number from which to read the data.
 *
-* @return	Current value of the Pin (0 or 1).
+* @return      Current value of the pin (0 or 1).
 *
-* @note		This function is used for reading the state of the specified
-*		GPIO pin.
+* @note        Reads the state of the specified GPIO pin.
 *
-*****************************************************************************/
+******************************************************************************/
 u32 XGpioPs_ReadPin(const XGpioPs *InstancePtr, u32 Pin)
 {
 	u8 Bank;
@@ -260,19 +261,19 @@ u32 XGpioPs_ReadPin(const XGpioPs *InstancePtr, u32 Pin)
 
 }
 
-/****************************************************************************/
+/*****************************************************************************/
 /**
 *
-* Write to the Data register of the specified GPIO bank.
+* @brief Writes to the Data register of the specified GPIO bank.
 *
-* @param	InstancePtr is a pointer to the XGpioPs instance.
-* @param	Bank is the bank number of the GPIO to operate on.
-* @param	Data is the value to be written to the Data register.
+* @param[in]   InstancePtr Pointer to the XGpioPs instance.
+* @param[in]   Bank Bank number of the GPIO to operate on.
+* @param[in]   Data Value to write to the Data register.
 *
-* @note		This function is used for writing to all the GPIO pins of
-*		the bank. The previous state of the pins is not maintained.
+* @note        Writes to all the GPIO pins of the bank. The previous state
+*              of the pins is not maintained.
 *
-*****************************************************************************/
+******************************************************************************/
 void XGpioPs_Write(const XGpioPs *InstancePtr, u8 Bank, u32 Data)
 {
 	Xil_AssertVoid(InstancePtr != NULL);
@@ -291,20 +292,19 @@ void XGpioPs_Write(const XGpioPs *InstancePtr, u8 Bank, u32 Data)
 			  XGPIOPS_DATA_OFFSET, Data);
 }
 
-/****************************************************************************/
+/*****************************************************************************/
 /**
 *
-* Write data to the specified pin.
+* @brief Writes data to the specified pin.
 *
-* @param	InstancePtr is a pointer to the XGpioPs instance.
-* @param	Pin is the pin number to which the Data is to be written.
-* @param	Data is the data to be written to the specified pin (0 or 1).
+* @param[in]   InstancePtr Pointer to the XGpioPs instance.
+* @param[in]   Pin Pin number to which to write the data.
+* @param[in]   Data Data to write to the specified pin (0 or 1).
 *
-* @note		This function does a masked write to the specified pin of
-*		the specified GPIO bank. The previous state of other pins
-*		is maintained.
+* @note        Performs a masked write to the specified pin of the specified
+*              GPIO bank. The previous state of other pins is maintained.
 *
-*****************************************************************************/
+******************************************************************************/
 void XGpioPs_WritePin(const XGpioPs *InstancePtr, u32 Pin, u32 Data)
 {
 	u32 RegOffset;
@@ -346,22 +346,21 @@ void XGpioPs_WritePin(const XGpioPs *InstancePtr, u32 Pin, u32 Data)
 
 
 
-/****************************************************************************/
+/*****************************************************************************/
 /**
 *
-* Set the Direction of the pins of the specified GPIO Bank.
+* @brief Sets the direction of the pins of the specified GPIO bank.
 *
-* @param	InstancePtr is a pointer to the XGpioPs instance.
-* @param	Bank is the bank number of the GPIO to operate on.
-* @param	Direction is the 32 bit mask of the Pin direction to be set for
-*		all the pins in the Bank. Bits with 0 are set to Input mode,
-*		bits with 1 are	set to Output Mode.
+* @param[in]   InstancePtr Pointer to the XGpioPs instance.
+* @param[in]   Bank Bank number of the GPIO to operate on.
+* @param[in]   Direction 32-bit mask of the pin direction to set for all the
+*              pins in the bank. Bits with 0 are set to Input mode, and bits
+*              with 1 are set to Output mode.
 *
-* @note		This function is used for setting the direction of all the pins
-*		in the specified bank. The previous state of the pins is
-*		not maintained.
+* @note        Sets the direction of all the pins in the specified bank. The
+*              previous state of the pins is not maintained.
 *
-*****************************************************************************/
+******************************************************************************/
 void XGpioPs_SetDirection(const XGpioPs *InstancePtr, u8 Bank, u32 Direction)
 {
 	Xil_AssertVoid(InstancePtr != NULL);
@@ -380,17 +379,17 @@ void XGpioPs_SetDirection(const XGpioPs *InstancePtr, u8 Bank, u32 Direction)
 			  XGPIOPS_DIRM_OFFSET, Direction);
 }
 
-/****************************************************************************/
+/*****************************************************************************/
 /**
 *
-* Set the Direction of the specified pin.
+* @brief Sets the direction of the specified pin.
 *
-* @param	InstancePtr is a pointer to the XGpioPs instance.
-* @param	Pin is the pin number to which the Data is to be written.
-* @param	Direction is the direction to be set for the specified pin.
-*		Valid values are 0 for Input Direction, 1 for Output Direction.
+* @param[in]   InstancePtr Pointer to the XGpioPs instance.
+* @param[in]   Pin Pin number to which the data is written.
+* @param[in]   Direction Direction to set for the specified pin. Valid values
+*              are 0 for Input direction and 1 for Output direction.
 *
-*****************************************************************************/
+******************************************************************************/
 void XGpioPs_SetDirectionPin(const XGpioPs *InstancePtr, u32 Pin, u32 Direction)
 {
 	u8 Bank;
@@ -423,20 +422,18 @@ void XGpioPs_SetDirectionPin(const XGpioPs *InstancePtr, u32 Pin, u32 Direction)
 			 XGPIOPS_DIRM_OFFSET, DirModeReg);
 }
 
-/****************************************************************************/
+/*****************************************************************************/
 /**
 *
-* Get the Direction of the pins of the specified GPIO Bank.
+* @brief Gets the direction of the pins of the specified GPIO bank.
 *
-* @param	InstancePtr is a pointer to the XGpioPs instance.
-* @param	Bank is the bank number of the GPIO to operate on.
+* @param[in]   InstancePtr Pointer to the XGpioPs instance.
+* @param[in]   Bank Bank number of the GPIO to operate on.
 *
-* @return	Returns a 32 bit mask of the Direction register. Bits with 0 are
-* 		in Input mode, bits with 1 are in Output Mode.
+* @return      32-bit mask of the Direction register. Bits with 0 are in
+*              Input mode, and bits with 1 are in Output mode.
 *
-* @note		None.
-*
-*****************************************************************************/
+******************************************************************************/
 u32 XGpioPs_GetDirection(const XGpioPs *InstancePtr, u8 Bank)
 {
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -455,22 +452,19 @@ u32 XGpioPs_GetDirection(const XGpioPs *InstancePtr, u8 Bank)
 				XGPIOPS_DIRM_OFFSET);
 }
 
-/****************************************************************************/
+/*****************************************************************************/
 /**
 *
-* Get the Direction of the specified pin.
+* @brief Gets the direction of the specified pin.
 *
-* @param	InstancePtr is a pointer to the XGpioPs instance.
-* @param	Pin is the pin number for which the Direction is to be
-*		retrieved.
+* @param[in]   InstancePtr Pointer to the XGpioPs instance.
+* @param[in]   Pin Pin number for which to retrieve the direction.
 *
-* @return	Direction of the specified pin.
-*		- 0 for Input Direction
-*		- 1 for Output Direction
+* @return      Direction of the specified pin.
+*              - 0 for Input direction
+*              - 1 for Output direction
 *
-* @note		None.
-*
-*****************************************************************************/
+******************************************************************************/
 u32 XGpioPs_GetDirectionPin(const XGpioPs *InstancePtr, u32 Pin)
 {
 	u8 Bank;
@@ -492,22 +486,21 @@ u32 XGpioPs_GetDirectionPin(const XGpioPs *InstancePtr, u32 Pin)
 				 XGPIOPS_DIRM_OFFSET) >> (u32)PinNumber) & (u32)1;
 }
 
-/****************************************************************************/
+/*****************************************************************************/
 /**
 *
-* Set the Output Enable of the pins of the specified GPIO Bank.
+* @brief Sets the Output Enable of the pins of the specified GPIO bank.
 *
-* @param	InstancePtr is a pointer to the XGpioPs instance.
-* @param	Bank is the bank number of the GPIO to operate on.
-* @param	OpEnable is the 32 bit mask of the Output Enables to be set for
-*		all the pins in the Bank. The Output Enable of bits with 0 are
-*		disabled, the Output Enable of bits with 1 are enabled.
+* @param[in]   InstancePtr Pointer to the XGpioPs instance.
+* @param[in]   Bank Bank number of the GPIO to operate on.
+* @param[in]   OpEnable 32-bit mask of the Output Enables to set for all the
+*              pins in the bank. Bits with 0 disable the Output Enable, and
+*              bits with 1 enable the Output Enable.
 *
-* @note		This function is used for setting the Output Enables of all the
-*		pins in the specified bank. The previous state of the Output
-*		Enables is not maintained.
+* @note        Sets the Output Enables of all the pins in the specified bank.
+*              The previous state of the Output Enables is not maintained.
 *
-*****************************************************************************/
+******************************************************************************/
 void XGpioPs_SetOutputEnable(const XGpioPs *InstancePtr, u8 Bank, u32 OpEnable)
 {
 	Xil_AssertVoid(InstancePtr != NULL);
@@ -526,21 +519,18 @@ void XGpioPs_SetOutputEnable(const XGpioPs *InstancePtr, u8 Bank, u32 OpEnable)
 			  XGPIOPS_OUTEN_OFFSET, OpEnable);
 }
 
-/****************************************************************************/
+/*****************************************************************************/
 /**
 *
-* Set the Output Enable of the specified pin.
+* @brief Sets the Output Enable of the specified pin.
 *
-* @param	InstancePtr is a pointer to the XGpioPs instance.
-* @param	Pin is the pin number to which the Data is to be written.
-* @param	OpEnable specifies whether the Output Enable for the specified
-*		pin should be enabled.
-*		Valid values are 0 for Disabling Output Enable,
-*		1 for Enabling Output Enable.
+* @param[in]   InstancePtr Pointer to the XGpioPs instance.
+* @param[in]   Pin Pin number to which the data is written.
+* @param[in]   OpEnable Specifies whether to enable the Output Enable for the
+*              specified pin. Valid values are 0 to disable the Output Enable
+*              and 1 to enable the Output Enable.
 *
-* @note		None.
-*
-*****************************************************************************/
+******************************************************************************/
 void XGpioPs_SetOutputEnablePin(const XGpioPs *InstancePtr, u32 Pin, u32 OpEnable)
 {
 	u8 Bank;
@@ -573,21 +563,18 @@ void XGpioPs_SetOutputEnablePin(const XGpioPs *InstancePtr, u32 Pin, u32 OpEnabl
 			  ((u32)(Bank) * XGPIOPS_REG_MASK_OFFSET) +
 			  XGPIOPS_OUTEN_OFFSET, OpEnableReg);
 }
-/****************************************************************************/
+/*****************************************************************************/
 /**
 *
-* Get the Output Enable status of the pins of the specified GPIO Bank.
+* @brief Gets the Output Enable status of the pins of the specified GPIO bank.
 *
-* @param	InstancePtr is a pointer to the XGpioPs instance.
-* @param	Bank is the bank number of the GPIO to operate on.
+* @param[in]   InstancePtr Pointer to the XGpioPs instance.
+* @param[in]   Bank Bank number of the GPIO to operate on.
 *
-* @return	Returns a a 32 bit mask of the Output Enable register.
-*		Bits with 0 are in Disabled state, bits with 1 are in
-*		Enabled State.
+* @return      32-bit mask of the Output Enable register. Bits with 0 are in
+*              the Disabled state, and bits with 1 are in the Enabled state.
 *
-* @note		None.
-*
-*****************************************************************************/
+******************************************************************************/
 u32 XGpioPs_GetOutputEnable(const XGpioPs *InstancePtr, u8 Bank)
 {
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -606,22 +593,19 @@ u32 XGpioPs_GetOutputEnable(const XGpioPs *InstancePtr, u8 Bank)
 				XGPIOPS_OUTEN_OFFSET);
 }
 
-/****************************************************************************/
+/*****************************************************************************/
 /**
 *
-* Get the Output Enable status of the specified pin.
+* @brief Gets the Output Enable status of the specified pin.
 *
-* @param	InstancePtr is a pointer to the XGpioPs instance.
-* @param	Pin is the pin number for which the Output Enable status is to
-*		be retrieved.
+* @param[in]   InstancePtr Pointer to the XGpioPs instance.
+* @param[in]   Pin Pin number for which to retrieve the Output Enable status.
 *
-* @return	Output Enable of the specified pin.
-*		- 0 if Output Enable is disabled for this pin
-*		- 1 if Output Enable is enabled for this pin
+* @return      Output Enable of the specified pin.
+*              - 0 if Output Enable is disabled for this pin
+*              - 1 if Output Enable is enabled for this pin
 *
-* @note		None.
-*
-*****************************************************************************/
+******************************************************************************/
 u32 XGpioPs_GetOutputEnablePin(const XGpioPs *InstancePtr, u32 Pin)
 {
 	u8 Bank;
@@ -643,20 +627,23 @@ u32 XGpioPs_GetOutputEnablePin(const XGpioPs *InstancePtr, u32 Pin)
 				 XGPIOPS_OUTEN_OFFSET) >> (u32)PinNumber) & (u32)1;
 }
 
-/****************************************************************************/
+/*****************************************************************************/
 /**
 *
-* Get the Bank number and the Pin number in the Bank, for the given PinNumber
-* in the GPIO device.
+* @brief Gets the bank number and the pin number in the bank for a GPIO pin.
 *
-* @param	PinNumber is the Pin number in the GPIO device.
-* @param	BankNumber returns the Bank in which this GPIO pin is present.
-*		Valid values are 0 to XGPIOPS_MAX_BANKS - 1.
-* @param	PinNumberInBank returns the Pin Number within the Bank.
+* Converts the given PinNumber in the GPIO device into the bank that contains
+* the pin and the pin number within that bank.
 *
-* @note		None.
+* @if versal
+* @param[in]   InstancePtr Pointer to the XGpioPs instance.
+* @endif
+* @param[in]   PinNumber Pin number in the GPIO device.
+* @param[out]  BankNumber Returns the bank in which this GPIO pin is present.
+*              Valid values are 0 to XGPIOPS_MAX_BANKS - 1.
+* @param[out]  PinNumberInBank Returns the pin number within the bank.
 *
-*****************************************************************************/
+******************************************************************************/
 #ifdef versal
 void XGpioPs_GetBankPin(const XGpioPs *InstancePtr,u8 PinNumber, u8 *BankNumber, u8 *PinNumberInBank)
 #else
@@ -671,8 +658,9 @@ void XGpioPs_GetBankPin(u8 PinNumber, u8 *BankNumber, u8 *PinNumberInBank)
 
 	if (Platform == (u32)XPLAT_ZYNQ_ULTRA_MP) {
 		/*
-		 * This structure defines the mapping of the pin numbers to the banks when
-		 * the driver APIs are used for working on the individual pins.
+		 * This structure defines the mapping of the pin numbers to the
+		 * banks when the driver APIs are used for working on the
+		 * individual pins.
 		 */
 
 		XGpioPsPinTable[0] = (u32)25; /* 0 - 25, Bank 0 */
@@ -792,14 +780,13 @@ void XGpioPs_GetBankPin(u8 PinNumber, u8 *BankNumber, u8 *PinNumberInBank)
 /*****************************************************************************/
 /**
 *
-* This is a stub for the status callback. The stub is here in case the upper
-* layers do not set the handler.
+* @brief Stub for the status callback.
 *
-* @param	CallBackRef is a pointer to the upper layer callback reference
-* @param	Bank is the GPIO Bank in which an interrupt occurred.
-* @param	Status is the Interrupt status of the GPIO bank.
+* The stub is here in case the upper layers do not set the handler.
 *
-* @note		None.
+* @param[in]   CallBackRef Pointer to the upper layer callback reference.
+* @param[in]   Bank GPIO bank in which an interrupt occurred.
+* @param[in]   Status Interrupt status of the GPIO bank.
 *
 ******************************************************************************/
 void StubHandler(void *CallBackRef, u32 Bank, u32 Status)

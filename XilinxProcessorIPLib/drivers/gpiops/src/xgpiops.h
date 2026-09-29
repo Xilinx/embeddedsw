@@ -4,84 +4,85 @@
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
+#ifndef XGPIOPS_H
+#define XGPIOPS_H
+
 /*****************************************************************************/
 /**
 *
 * @file xgpiops.h
 * @addtogroup gpiops Overview
 * @{
+* @brief Defines the software API for the Xilinx PS GPIO driver.
+*
 * @details
 *
-* The Xilinx PS GPIO driver. This driver supports the Xilinx PS GPIO
-* Controller.
+* The Xilinx PS GPIO driver supports the Xilinx PS GPIO Controller.
 *
 * The GPIO Controller supports the following features:
-*	- 6 banks
-*	- Masked writes (There are no masked reads)
-*	- Bypass mode
-*	- Configurable Interrupts (Level/Edge)
+* - Six banks
+* - Masked writes (there are no masked reads)
+* - Bypass mode
+* - Configurable Interrupts (Level/Edge)
 *
-* This driver is intended to be RTOS and processor independent. Any needs for
-* dynamic memory management, threads or thread mutual exclusion, virtual
-* memory, or cache control must be satisfied by the layer above this driver.
+* This driver is intended to be RTOS and processor independent. The layer
+* above this driver must satisfy any needs for dynamic memory management,
+* threads or thread mutual exclusion, virtual memory, or cache control.
 *
-* Here is GPIO Bank and Pin mapping information for different platforms.
-* Zynq:
-*   	PS GPIO contain 4 banks and 118 pins
-* 	Bank 0 MIO pins 0 - 31
-* 	Bank 1 MIO pins 32 - 53
-* 	Bank 2 MIO pins 54 - 85
-* 	Bank 3 EMIO signals 86 - 117
+* The following lists show the GPIO bank and pin mapping for each platform.
 *
-* Zynq Ultrascale+ MP:
-*   PS GPIO contain 6 banks and 174 pins
-*   	Bank 0 MIO pins 0 - 25
-*   	Bank 1 MIO pins 26 - 51
-*   	Bank 2 MIO pins 52 - 77
-*   	Bank 3 EMIO signals 78 - 109
-*   	Bank 4 EMIO signals 110 - 141
-*   	Bank 5 EMIO signals 142 - 173
-
-* Versal: Two GPIOPS instances PMC GPIO and PS GPIO
-*   PMC GPIO contain 4 banks and 116 pins
-*       Bank 0 MIO pins 0 - 25
-*       Bank 1 MIO pins 26 - 51
-*       Bank 3 EMIO signals 52 - 83
-*       Bank 4 EMIO signals 84 - 115
-*   PS GPIO contains 2 banks and 58 pins
-* 	Bank 0 MIO pins 0 - 25
-*   	Bank 3 EMIO signals 26-57
+* - Zynq: PS GPIO contains four banks and 118 pins.
+*   - Bank 0 MIO pins 0 - 31
+*   - Bank 1 MIO pins 32 - 53
+*   - Bank 2 MIO pins 54 - 85
+*   - Bank 3 EMIO signals 86 - 117
+* - Zynq Ultrascale+ MP: PS GPIO contains six banks and 174 pins.
+*   - Bank 0 MIO pins 0 - 25
+*   - Bank 1 MIO pins 26 - 51
+*   - Bank 2 MIO pins 52 - 77
+*   - Bank 3 EMIO signals 78 - 109
+*   - Bank 4 EMIO signals 110 - 141
+*   - Bank 5 EMIO signals 142 - 173
+* - Versal: Two GPIOPS instances, PMC GPIO and PS GPIO.
+*   - PMC GPIO contains four banks and 116 pins.
+*     - Bank 0 MIO pins 0 - 25
+*     - Bank 1 MIO pins 26 - 51
+*     - Bank 3 EMIO signals 52 - 83
+*     - Bank 4 EMIO signals 84 - 115
+*   - PS GPIO contains two banks and 58 pins.
+*     - Bank 0 MIO pins 0 - 25
+*     - Bank 3 EMIO signals 26 - 57
 *
 * This driver supports all the features listed above, if applicable.
 *
 * <b>Driver Description</b>
 *
-* The device driver enables higher layer software (e.g., an application) to
-* communicate to the GPIO.
+* The device driver enables higher layer software (for example, an
+* application) to communicate with the GPIO.
 *
 * <b>Interrupts</b>
 *
 * The driver provides interrupt management functions and an interrupt handler.
-* Users of this driver need to provide callback functions. An interrupt handler
-* example is available with the driver.
+* You need to provide callback functions when you use this driver. An
+* interrupt handler example is available with the driver.
 *
 * <b>Threads</b>
 *
-* This driver is not thread safe. Any needs for threads or thread mutual
-* exclusion must be satisfied by the layer above this driver.
+* This driver is not thread safe. The layer above this driver must satisfy
+* any needs for threads or thread mutual exclusion.
 *
 * <b>Asserts</b>
 *
-* Asserts are used within all Xilinx drivers to enforce constraints on argument
-* values. Asserts can be turned off on a system-wide basis by defining, at
-* compile time, the NDEBUG identifier. By default, asserts are turned on and it
-* is recommended that users leave asserts on during development.
+* All Xilinx drivers use asserts to enforce constraints on argument values.
+* To turn off asserts on a system-wide basis, define the NDEBUG identifier at
+* compile time. By default, asserts are turned on. It is recommended that you
+* leave asserts on during development.
 *
 * <b>Building the driver</b>
 *
-* The XGpioPs driver is composed of several source files. This allows the user
-* to build and link only those parts of the driver that are necessary.
-* <br><br>
+* The XGpioPs driver is composed of several source files. This structure
+* allows you to build and link only those parts of the driver that are
+* necessary.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -134,12 +135,11 @@
 * 3.15  vlt  12/30/25 Update Doxygen comments to include SDT flow details.
 * 3.15  vlt  03/14/26 Updated BaseAddress type from u32 to UINTPTR
 *                     to support 64-bit addressing.
+* 3.16  vn   09/10/26 Align Doxygen comments with AMD standards
 *
 * </pre>
 *
 ******************************************************************************/
-#ifndef XGPIOPS_H		/* prevent circular inclusions */
-#define XGPIOPS_H		/**< by using protection macros */
 
 #ifdef __cplusplus
 extern "C" {
@@ -154,104 +154,120 @@ extern "C" {
 /************************** Constant Definitions *****************************/
 
 /** @name Interrupt types
- *  @{
- * The following constants define the interrupt types that can be set for each
- * GPIO pin.
+ *
+ * The following constants define the interrupt types that you can set for
+ * each GPIO pin.
+ * @{
  */
-#define XGPIOPS_IRQ_TYPE_EDGE_RISING	0x00U  /**< Interrupt on Rising edge */
-#define XGPIOPS_IRQ_TYPE_EDGE_FALLING	0x01U  /**< Interrupt Falling edge */
-#define XGPIOPS_IRQ_TYPE_EDGE_BOTH	0x02U  /**< Interrupt on both edges */
-#define XGPIOPS_IRQ_TYPE_LEVEL_HIGH	0x03U  /**< Interrupt on high level */
-#define XGPIOPS_IRQ_TYPE_LEVEL_LOW	0x04U  /**< Interrupt on low level */
+/** Interrupt on rising edge. */
+#define XGPIOPS_IRQ_TYPE_EDGE_RISING	0x00U
+/** Interrupt on falling edge. */
+#define XGPIOPS_IRQ_TYPE_EDGE_FALLING	0x01U
+/** Interrupt on both edges. */
+#define XGPIOPS_IRQ_TYPE_EDGE_BOTH	0x02U
+/** Interrupt on high level. */
+#define XGPIOPS_IRQ_TYPE_LEVEL_HIGH	0x03U
+/** Interrupt on low level. */
+#define XGPIOPS_IRQ_TYPE_LEVEL_LOW	0x04U
 /** @}*/
 
-#define XGPIOPS_BANK_MAX_PINS		(u32)32 /**< Max pins in a GPIO bank */
-#define XGPIOPS_BANK0			0x00U  /**< GPIO Bank 0 */
-#define XGPIOPS_BANK1			0x01U  /**< GPIO Bank 1 */
-#define XGPIOPS_BANK2			0x02U  /**< GPIO Bank 2 */
-#define XGPIOPS_BANK3			0x03U  /**< GPIO Bank 3 */
-#define XGPIOPS_BANK4			0x04U  /**< GPIO Bank 4 */
-#define XGPIOPS_BANK5			0x05U  /**< GPIO Bank 5 */
+/** Maximum number of pins in a GPIO bank. */
+#define XGPIOPS_BANK_MAX_PINS		(u32)32
+#define XGPIOPS_BANK0			0x00U  /**< GPIO bank 0. */
+#define XGPIOPS_BANK1			0x01U  /**< GPIO bank 1. */
+#define XGPIOPS_BANK2			0x02U  /**< GPIO bank 2. */
+#define XGPIOPS_BANK3			0x03U  /**< GPIO bank 3. */
+#define XGPIOPS_BANK4			0x04U  /**< GPIO bank 4. */
+#define XGPIOPS_BANK5			0x05U  /**< GPIO bank 5. */
 
-#define XGPIOPS_MAX_BANKS_ZYNQMP		0x06U  /**< Max banks in a
-										*	Zynq Ultrascale+ MP GPIO device
-										*/
-#define XGPIOPS_MAX_BANKS		0x04U  /**< Max banks in a Zynq GPIO device */
-#define XGPIOPS_MAX_BANKS_CNT		0x06U  /**< Max banks number of all platforms */
+/** Maximum number of banks in a Zynq Ultrascale+ MP GPIO device. */
+#define XGPIOPS_MAX_BANKS_ZYNQMP		0x06U
+/** Maximum number of banks in a Zynq GPIO device. */
+#define XGPIOPS_MAX_BANKS		0x04U
+/** Maximum number of banks across all platforms. */
+#define XGPIOPS_MAX_BANKS_CNT		0x06U
 
-#define XGPIOPS_DEVICE_MAX_PIN_NUM_ZYNQMP	(u32)174 /**< Max pins in the
-						  *	Zynq Ultrascale+ MP GPIO device
-					      * 0 - 25,  Bank 0
-					      * 26 - 51, Bank 1
-					      *	52 - 77, Bank 2
-					      *	78 - 109, Bank 3
-					      *	110 - 141, Bank 4
-					      *	142 - 173, Bank 5
-					      */
-#define XGPIOPS_DEVICE_MAX_PIN_NUM	(u32)118 /**< Max pins in the Zynq GPIO device
-					      * 0 - 31,  Bank 0
-					      * 32 - 53, Bank 1
-					      *	54 - 85, Bank 2
-					      *	86 - 117, Bank 3
-					      */
+/**
+ * Maximum number of pins in the Zynq Ultrascale+ MP GPIO device.
+ *
+ * Pins 0 - 25 are in bank 0, 26 - 51 in bank 1, 52 - 77 in bank 2,
+ * 78 - 109 in bank 3, 110 - 141 in bank 4, and 142 - 173 in bank 5.
+ */
+#define XGPIOPS_DEVICE_MAX_PIN_NUM_ZYNQMP	(u32)174
+/**
+ * Maximum number of pins in the Zynq GPIO device.
+ *
+ * Pins 0 - 31 are in bank 0, 32 - 53 in bank 1, 54 - 85 in bank 2, and
+ * 86 - 117 in bank 3.
+ */
+#define XGPIOPS_DEVICE_MAX_PIN_NUM	(u32)118
 
 /**************************** Type Definitions *******************************/
 
-/****************************************************************************/
+/*****************************************************************************/
 /**
- * This handler data type allows the user to define a callback function to
- * handle the interrupts for the GPIO device. The application using this
- * driver is expected to define a handler of this type, to support interrupt
- * driven mode. The handler executes in an interrupt context such that minimal
- * processing should be performed.
+ * @brief GPIO interrupt handler callback type.
  *
- * @param	CallBackRef is a callback reference passed in by the upper layer
- *		when setting the callback functions for a GPIO bank. It is
- *		passed back to the upper layer when the callback is invoked. Its
- *		type is not important to the driver component, so it is a void
- *		pointer.
- * @param	Bank is the bank for which the interrupt status has changed.
- * @param	Status is the Interrupt status of the GPIO bank.
+ * This handler data type allows you to define a callback function that
+ * handles the interrupts for the GPIO device. The application that uses this
+ * driver is expected to define a handler of this type to support interrupt
+ * driven mode. The handler executes in an interrupt context, so keep the
+ * processing it performs to a minimum.
+ *
+ * @param[in]   CallBackRef Callback reference passed in by the upper layer
+ *              when it sets the callback functions for a GPIO bank. The
+ *              driver passes it back to the upper layer when it invokes the
+ *              callback. Its type is not important to the driver component,
+ *              so it is a void pointer.
+ * @param[in]   Bank Bank for which the interrupt status has changed.
+ * @param[in]   Status Interrupt status of the GPIO bank.
  *
  *****************************************************************************/
 typedef void (*XGpioPs_Handler) (void *CallBackRef, u32 Bank, u32 Status);
 
 /**
- * This typedef contains configuration information for a device.
+ * @brief Holds configuration information for a device.
  */
 typedef struct {
 #ifndef SDT
-	u16 DeviceId;		/**< Unique ID of device */
+	u16 DeviceId;		/**< Unique ID of the device. */
 #else
-	char *Name;             /**< Name of the device */
+	char *Name;             /**< Name of the device. */
 #endif
-	UINTPTR BaseAddr;		/**< Register base address */
+	UINTPTR BaseAddr;		/**< Register base address. */
 #ifdef SDT
-	u16 IntrId;		/**< Bits[11:0] Interrupt-id Bits[15:12]
-				 * trigger type and level flags */
-	UINTPTR IntrParent; 	/**< Bit[0] Interrupt parent type Bit[64/32:1]
-				 * Parent base address */
+	u16 IntrId;		/**< Interrupt ID in bits[11:0], and trigger
+				  * type and level flags in bits[15:12]. */
+	UINTPTR IntrParent;	/**< Interrupt parent type in bit[0], and
+				  * parent base address in bits[64/32:1]. */
 #endif
 } XGpioPs_Config;
 
 /**
- * The XGpioPs driver instance data. The user is required to allocate a
- * variable of this type for the GPIO device in the system. A pointer
- * to a variable of this type is then passed to the driver API functions.
+ * @brief XGpioPs driver instance data.
+ *
+ * Allocate a variable of this type for the GPIO device in the system. Pass a
+ * pointer to a variable of this type to the driver API functions.
  */
 typedef struct {
-	XGpioPs_Config GpioConfig;	/**< Device configuration */
-	u32 IsReady;			/**< Device is initialized and ready */
-	XGpioPs_Handler Handler;	/**< Status handlers for all banks */
-	void *CallBackRef; 		/**< Callback ref for bank handlers */
-	u32 Platform;			/**< Platform data */
-	u32 MaxPinNum;			/**< Max pins in the GPIO device */
-	u8 MaxBanks;			/**< Max banks in a GPIO device */
-        u32 PmcGpio;                    /**< Flag for accessing PS GPIO for versal*/
-	u32 CoreIntrMask[XGPIOPS_MAX_BANKS_CNT]; /**< Interrupt mask per core */
+	XGpioPs_Config GpioConfig;	/**< Device configuration. */
+	u32 IsReady;			/**< Device is initialized and ready. */
+	XGpioPs_Handler Handler;	/**< Status handlers for all banks. */
+	void *CallBackRef;	/**< Callback reference for bank handlers. */
+	u32 Platform;			/**< Platform data. */
+	u32 MaxPinNum;			/**< Maximum number of pins in the GPIO
+					  * device. */
+	u8 MaxBanks;			/**< Maximum number of banks in the GPIO
+					  * device. */
+	u32 PmcGpio;		/**< Flag for accessing PS GPIO for Versal. */
+	u32 CoreIntrMask[XGPIOPS_MAX_BANKS_CNT]; /**< Interrupt mask
+						   * per core. */
 } XGpioPs;
 
 /************************** Variable Definitions *****************************/
+/**
+ * @brief Holds the configuration entry for each GPIO instance.
+ */
 extern XGpioPs_Config XGpioPs_ConfigTable[];
 
 /***************** Macros (Inline Functions) Definitions *********************/
@@ -321,5 +337,5 @@ XGpioPs_Config *XGpioPs_LookupConfig(UINTPTR BaseAddress);
 }
 #endif
 
-#endif /* end of protection macro */
 /** @} */
+#endif /* end of protection macro */

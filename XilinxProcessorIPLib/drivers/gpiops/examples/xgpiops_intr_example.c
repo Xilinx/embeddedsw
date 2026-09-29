@@ -7,29 +7,30 @@
 /*****************************************************************************/
 /**
 * @file xgpiops_intr_example.c
+* @brief Demonstrates the GPIO PS driver (XGpioPs) in interrupt-driven mode.
 *
-* This file contains a design example using the GPIO driver (XGpioPs) in an
-* interrupt driven mode of operation.
+* This file contains a design example that uses the GPIO driver (XGpioPs) in
+* an interrupt driven mode of operation.
 *
 * The example uses the interrupt capability of the GPIO to detect push button
 * events and set the output LEDs based on the input.
 *
 * @note
-* This example assumes that there is a Uart device in the HW design.
-* This example is to provide support only for zcu102 on ZynqMp Platform and
-* only for zc702 on Zynq Platform.
-* For ZynqMP Platform, Input pin is 22(sw19 on zcu102 board) and Output Pin is
-* 23(DS50 on zcu102 board).
-* For Zynq Platform, Input Pins are 12(sw14 on zc702 board), 14(sw13 on
-* zc702 board) and Output Pin is 10(DS23 on zc702 board). SW15 on zc702 board
-* is a combination of sw13 and sw14. To operate either of the input
-* pins, keep SW15 low(both should be 00).
+* This example assumes that the hardware design contains a UART device.
+* This example supports only the zcu102 board on the ZynqMP platform and only
+* the zc702 board on the Zynq platform.
+* For the ZynqMP platform, the input pin is 22 (sw19 on the zcu102 board) and
+* the output pin is 23 (DS50 on the zcu102 board).
+* For the Zynq platform, the input pins are 12 (sw14 on the zc702 board) and
+* 14 (sw13 on the zc702 board), and the output pin is 10 (DS23 on the zc702
+* board). SW15 on the zc702 board is a combination of sw13 and sw14. To
+* operate either of the input pins, keep SW15 low (both should be 00).
 * This example supports the VCK190 and VMK180 for Versal, but requires a PL
 * shim. See Answer Record AR# 75677 and Figure 61 in AM011 Versal TRM
 * for more details.
-* Driver supports both PS GPIO and PMC GPIO.
-* For accessing PMC GPIOs application you need to set "GPIO.PmcGpio = 1"
-* otherwise it accesses PS GPIO.
+* The driver supports both PS GPIO and PMC GPIO.
+* To access PMC GPIOs, set "GPIO.PmcGpio = 1" in the application. Otherwise,
+* the application accesses PS GPIO.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -46,6 +47,7 @@
 * 3.12  gm   07/11/23 Added SDT support.
 * 3.15  vlt  01/27/26 Fixed codespell issues
 * 3.16  vn   07/30/26 Fix Doxygen warnings
+* 3.16  vn   09/10/26 Align Doxygen comments with AMD standards
 *
 *</pre>
 *
@@ -65,29 +67,41 @@
 
 /************************** Constant Definitions *****************************/
 
-/*
+/** @name Device parameters
+ *
  * The following constants map to the names of the hardware instances that
- * were created in the EDK XPS system.  They are defined here such that
- * the user can easily change all the needed device IDs in one place.
+ * were created in the EDK XPS system. They are defined here so that you can
+ * easily change all the needed device IDs in one place.
+ * @{
  */
 #ifndef SDT
+/** GPIO device ID. */
 #define GPIO_DEVICE_ID		XPAR_XGPIOPS_0_DEVICE_ID
+/** Interrupt controller device ID. */
 #define INTC_DEVICE_ID		XPAR_SCUGIC_SINGLE_DEVICE_ID
 #ifdef versal
+/** GPIO interrupt ID (Versal). */
 #define GPIO_INTERRUPT_ID	XPMC_GPIO_INT_ID
 #else
-#define GPIO_INTERRUPT_ID	XPAR_XGPIOPS_0_INTR
+#define GPIO_INTERRUPT_ID	XPAR_XGPIOPS_0_INTR /**< GPIO interrupt ID. */
 #endif
 #else
+/** GPIO base address. */
 #define	XGPIOPS_BASEADDR	XPAR_XGPIOPS_0_BASEADDR
 #endif
+/** @} */
 
-/* The following constants define the GPIO banks that are used. */
+/** @name GPIO bank constants
+ *
+ * The following constants define the GPIO banks that are used.
+ * @{
+ */
 #ifdef versal
-#define GPIO_BANK	XGPIOPS_BANK3  /* Bank 3 of the GPIO Device */
+#define GPIO_BANK	XGPIOPS_BANK3  /**< Bank 3 of the GPIO Device. */
 #else
-#define GPIO_BANK	XGPIOPS_BANK0  /* Bank 0 of the GPIO Device */
+#define GPIO_BANK	XGPIOPS_BANK0  /**< Bank 0 of the GPIO Device. */
 #endif
+/** @} */
 
 /**************************** Type Definitions *******************************/
 
@@ -105,31 +119,29 @@ static int GpioIntrExample(XGpioPs *Gpio, UINTPTR BaseAddress);
 static void IntrHandler(void *CallBackRef, u32 Bank, u32 Status);
 /************************** Variable Definitions *****************************/
 
-/*
- * The following are declared globally so they are zeroed and so they are
- * easily accessible from a debugger.
+/**
+ * @brief Holds the global GPIO driver instance.
+ *
+ * The instance is declared globally so it is zeroed and easily accessible
+ * from a debugger.
  */
-static XGpioPs Gpio; /* The Instance of the GPIO Driver */
+static XGpioPs Gpio;
 #ifndef SDT
-static XScuGic Intc; /* The Instance of the Interrupt Controller Driver */
+static XScuGic Intc; /**< Instance of the interrupt controller driver. */
 #endif
 
-static u32 AllButtonsPressed; /* Intr status of the bank */
-static u32 Input_Bank_Pin; /* Pin Number within Bank */
-static u32 Input_Pin; /* Switch button */
-static u32 Output_Pin; /* LED button */
+static u32 AllButtonsPressed; /**< Interrupt status of the bank. */
+static u32 Input_Bank_Pin; /**< Pin number within the bank. */
+static u32 Input_Pin; /**< Switch button. */
+static u32 Output_Pin; /**< LED button. */
 
 /****************************************************************************/
 /**
-*
-* Main function that invokes the GPIO Interrupt example.
-*
+* @brief Calls the GPIO interrupt example.
 *
 * @return
-*		- XST_SUCCESS if the example has completed successfully.
-*		- XST_FAILURE if the example has failed.
-*
-* @note		None.
+*              - XST_SUCCESS if the example has completed successfully.
+*              - XST_FAILURE if the example has failed.
 *
 *****************************************************************************/
 int main(void)
@@ -160,27 +172,26 @@ int main(void)
 
 /****************************************************************************/
 /**
-* This function shows the usage of interrupt functionality of the GPIO device.
-* It is responsible for initializing the GPIO device, setting up interrupts and
-* providing a foreground loop such that interrupts can occur in the background.
+* @brief Demonstrates interrupt-driven GPIO usage.
+*
+* Initializes the GPIO device, sets up interrupts, and provides a foreground
+* loop so that interrupts can occur in the background.
 *
 * @if SDT
-* @param	Gpio is a pointer to the XGpioPs driver Instance.
-* @param	BaseAddress is the base address of the GPIO device.
+* @param[out]  Gpio Pointer to the XGpioPs driver instance.
+* @param[in]   BaseAddress Base address of the GPIO device.
 * @else
-* @param	Intc is a pointer to the XScuGic driver Instance.
-* @param	Gpio is a pointer to the XGpioPs driver Instance.
-* @param	DeviceId is the XPAR_<Gpio_Instance>_PS_DEVICE_ID value
-*		from xparameters.h.
-* @param	GpioIntrId is XPAR_<GIC>_<GPIO_Instance>_VEC_ID value
-*		from xparameters.h
+* @param[out]  Intc Pointer to the XScuGic driver instance.
+* @param[out]  Gpio Pointer to the XGpioPs driver instance.
+* @param[in]   DeviceId XPAR_<Gpio_Instance>_PS_DEVICE_ID value from
+*              xparameters.h.
+* @param[in]   GpioIntrId XPAR_<GIC>_<GPIO_Instance>_VEC_ID value from
+*              xparameters.h.
 * @endif
 *
 * @return
-*		- XST_SUCCESS if the example has completed successfully.
-*		- XST_FAILURE if the example has failed.
-*
-* @note		None
+*              - XST_SUCCESS if the example has completed successfully.
+*              - XST_FAILURE if the example has failed.
 *
 *****************************************************************************/
 #ifndef SDT
@@ -284,17 +295,17 @@ int GpioIntrExample(XGpioPs *Gpio, UINTPTR BaseAddress)
 	return XST_SUCCESS;
 }
 
-/****************************************************************************/
+/*****************************************************************************/
 /**
-* This function is the user layer callback function for the bank 0 interrupts of
-* the GPIO device. It checks if all the switches have been pressed to stop the
+* @brief Handles the bank 0 interrupts of the GPIO device.
+*
+* Acts as the user layer callback function for the bank 0 interrupts of the
+* GPIO device. Checks if all the switches have been pressed to stop the
 * interrupt processing and exit from the example.
 *
-* @param	CallBackRef is a pointer to the upper layer callback reference.
-* @param	Bank is the GPIO bank that caused the interrupt.
-* @param	Status is the Interrupt status of the GPIO bank.
-*
-* @note		None.
+* @param[in]   CallBackRef Pointer to the upper layer callback reference.
+* @param[in]   Bank GPIO bank that caused the interrupt.
+* @param[in]   Status Interrupt status of the GPIO bank.
 *
 ******************************************************************************/
 static void IntrHandler(void *CallBackRef, u32 Bank, u32 Status)
@@ -318,23 +329,21 @@ static void IntrHandler(void *CallBackRef, u32 Bank, u32 Status)
 #ifndef SDT
 /*****************************************************************************/
 /**
+* @brief Sets up the interrupt system for the GPIO example.
 *
-* This function sets up the interrupt system for the example. It enables falling
-* edge interrupts for all the pins of bank 0 in the GPIO device.
+* Enables falling edge interrupts for all the pins of bank 0 in the GPIO
+* device.
 *
-* @param	GicInstancePtr is a pointer to the XScuGic driver Instance.
-* @param	GpioInstancePtr contains a pointer to the instance of the GPIO
-*		component which is going to be connected to the interrupt
-*		controller.
-* @param	GpioIntrId is the interrupt Id and is typically
-*		XPAR_<GICPS>_<GPIOPS_instance>_VEC_ID value from
-*		xparameters.h.
+* @param[out]    GicInstancePtr Pointer to the XScuGic driver instance.
+* @param[in,out] Gpio Pointer to the instance of the GPIO component to
+*                connect to the interrupt controller.
+* @param[in]     GpioIntrId Interrupt ID, typically the
+*                XPAR_<GICPS>_<GPIOPS_instance>_VEC_ID value from
+*                xparameters.h.
 *
-* @return	XST_SUCCESS if successful, otherwise XST_FAILURE.
+* @return        XST_SUCCESS if successful, otherwise XST_FAILURE.
 *
-* @note		None.
-*
-****************************************************************************/
+******************************************************************************/
 static int SetupInterruptSystem(XScuGic *GicInstancePtr, XGpioPs *Gpio,
 				u16 GpioIntrId)
 {
@@ -369,7 +378,7 @@ static int SetupInterruptSystem(XScuGic *GicInstancePtr, XGpioPs *Gpio,
 				     GicInstancePtr);
 
 	/*
-	 * Connect the device driver handler that will be called when an
+	 * Connect the device driver handler that is called when an
 	 * interrupt for the device occurs, the handler defined above performs
 	 * the specific interrupt processing for the device.
 	 */

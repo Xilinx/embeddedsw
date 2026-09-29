@@ -2,28 +2,31 @@
 * Copyright (C) 2010 - 2021 Xilinx, Inc.  All rights reserved.
 * Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
-*******************************************************************************/
+******************************************************************************/
 /*****************************************************************************/
 /**
 * @file xgpiops_polled_example.c
+* @brief Demonstrates polled-mode usage of the GPIO PS hardware and driver.
 *
 * This file contains an example for using GPIO hardware and driver. This
-* example provides the usage of APIs for reading/writing to the individual pins.
-* Please see xgpiops.h file for description of the pin numbering.
+* example shows the usage of APIs for reading and writing the individual
+* pins. See xgpiops.h for a description of the pin numbering.
 *
-* @note		This example assumes that there is a Uart device in the HW
-* design. This example is to provide support only for zcu102 on
-* ZynqMp Platform and only for zc702 on Zynq Platform.
-* For ZynqMP Platform, Input pin is 22(sw19 on zcu102 board) and Output Pin is
-* 23(DS50 on zcu102 board).
-* For Zynq Platform, Input Pins are 12(sw14 on zc702 board), 14(sw13 on
-* zc702 board) and Output Pin is 10(DS23 on zc702 board).
+* @note
+* This example assumes that the hardware design contains a UART device.
+* This example supports only the zcu102 board on the ZynqMP platform and only
+* the zc702 board on the Zynq platform.
+* For the ZynqMP platform, the input pin is 22 (sw19 on the zcu102 board) and
+* the output pin is 23 (DS50 on the zcu102 board).
+* For the Zynq platform, the input pins are 12 (sw14 on the zc702 board) and
+* 14 (sw13 on the zc702 board), and the output pin is 10 (DS23 on the zc702
+* board).
 * This example supports the VCK190 and VMK180 for Versal, but requires a PL
 * shim. See Answer Record AR# 75677 and Figure 61 in AM011 Versal TRM
 * for more details.
-* Driver supports both PS GPIO and PMC GPIO.
-* For accessing PMC GPIOs application you need to set "GPIO.PmcGpio = 1"
-* otherwise it accesses PS GPIO.
+* The driver supports both PS GPIO and PMC GPIO.
+* To access PMC GPIOs, set "GPIO.PmcGpio = 1" in the application. Otherwise,
+* the application accesses PS GPIO.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -42,12 +45,13 @@
 * 3.12  gm   07/11/23 Added SDT support.
 * 3.15  vlt  12/12/25 Update Doxygen comments to include SDT flow details.
 * 3.16  vn   07/30/26 Fix Doxygen warnings
+* 3.16  vn   09/10/26 Align Doxygen comments with AMD standards
 *
 * </pre>
 *
-*****************************************************************************/
+******************************************************************************/
 
-/***************************** Include Files ********************************/
+/****************************** Include Files ********************************/
 
 #include "xparameters.h"
 #include "xgpiops.h"
@@ -55,38 +59,46 @@
 #include "xplatform_info.h"
 #include <xil_printf.h>
 
-/************************** Constant Definitions ****************************/
+/*************************** Constant Definitions ****************************/
 
-/*
+/** @name Device parameters
+ *
  * The following constants map to the XPAR parameters created in the
- * xparameters.h file. They are defined here such that a user can easily
- * change all the needed parameters in one place for ZYNQ & ZYNQMP.
+ * xparameters.h file. They are defined here so that you can easily change
+ * all the needed parameters in one place for ZYNQ & ZYNQMP.
+ * @{
  */
-
 #ifndef SDT
 #ifndef GPIO_DEVICE_ID
+/** GPIO device ID. */
 #define GPIO_DEVICE_ID		XPAR_XGPIOPS_0_DEVICE_ID
 #endif
 #else
+/** GPIO base address. */
 #define	XGPIOPS_BASEADDR	XPAR_XGPIOPS_0_BASEADDR
 #endif
+/** @} */
 
-/*
- * The following constant is used to wait after an LED is turned on to make
- * sure that it is visible to the human eye.  This constant might need to be
- * tuned for faster or slower processor speeds.
+/**
+ * @brief LED visibility delay count.
+ *
+ * The example uses this constant to wait after it turns on an LED so that the
+ * LED is visible to the human eye. You might need to tune this constant for
+ * faster or slower processor speeds.
  */
 #define LED_DELAY		10000000
 
-#define LED_MAX_BLINK		0x10	/* Number of times the LED Blinks */
+/** Number of times the LED blinks. */
+#define LED_MAX_BLINK		0x10
 
-#define printf			xil_printf	/* Smalller foot-print printf */
+/** Smaller footprint printf. */
+#define printf			xil_printf
 
-/**************************** Type Definitions ******************************/
+/***************************** Type Definitions ******************************/
 
-/***************** Macros (Inline Functions) Definitions *******************/
+/****************** Macros (Inline Functions) Definitions ********************/
 
-/************************** Function Prototypes ****************************/
+/*************************** Function Prototypes *****************************/
 
 static int GpioOutputExample(void);
 static int GpioInputExample(u32 *DataRead);
@@ -96,27 +108,25 @@ int GpioPolledExample(u16 DeviceId, u32 *DataRead);
 int GpioPolledExample(UINTPTR BaseAddress, u32 *DataRead);
 #endif
 
-/************************** Variable Definitions **************************/
-static u32 Input_Pin; /* Switch button */
-static u32 Output_Pin; /* LED button */
+/*************************** Variable Definitions ****************************/
+static u32 Input_Pin; /**< Switch button. */
+static u32 Output_Pin; /**< LED button. */
 
-/*
- * The following are declared globally so they are zeroed and can be
- * easily accessible from a debugger.
+/**
+ * @brief Holds the global GPIO driver instance.
+ *
+ * The instance is declared globally so it is zeroed and easily accessible
+ * from a debugger.
  */
-XGpioPs Gpio;	/* The driver instance for GPIO Device. */
+XGpioPs Gpio;
 
 /*****************************************************************************/
 /**
-*
-* Main function to call the example.
-*
+* @brief Calls the GPIO polled-mode example.
 *
 * @return
-*		- XST_SUCCESS if the example has completed successfully.
-*		- XST_FAILURE if the example has failed.
-*
-* @note		None
+*              - XST_SUCCESS if the example has completed successfully.
+*              - XST_FAILURE if the example has failed.
 *
 ******************************************************************************/
 int main(void)
@@ -142,26 +152,26 @@ int main(void)
 
 /*****************************************************************************/
 /**
+* @brief Demonstrates LED control and input reads using the GPIO pin APIs.
 *
-* The purpose of this function is to illustrate how to use the GPIO driver to
-* turn on/off an LED and read the inputs using the pin APIs.
+* Turns an LED on and off and reads inputs using the GPIO pin APIs.
 *
 * @if SDT
-* @param	BaseAddress contains the base address of the device
+* @param[in]   BaseAddress Base address of the device.
 * @else
-* @param	DeviceId is the XPAR_<GPIO_instance>_DEVICE_ID value from
-*		xparameters.h
+* @param[in]   DeviceId XPAR_<GPIO_instance>_DEVICE_ID value from
+*              xparameters.h.
 * @endif
-* @param	DataRead is the pointer where the data read from GPIO Input is
-*		returned.
+* @param[out]  DataRead Pointer where the data read from the GPIO input is
+*              returned.
 *
 * @return
-*		- XST_SUCCESS if the example has completed successfully.
-*		- XST_FAILURE if the example has failed.
+*              - XST_SUCCESS if the example has completed successfully.
+*              - XST_FAILURE if the example has failed.
 *
-* @note	       - This function will not return if the test is running.
-*	       - In XSCT/classic flow, DeviceId is used to look up the
-*	         device configuration.
+* @note        This function does not return if the test is running.
+*              In XSCT/classic flow, DeviceId is used to look up the device
+*              configuration.
 *
 ******************************************************************************/
 #ifndef SDT
@@ -223,15 +233,13 @@ int GpioPolledExample(UINTPTR BaseAddress, u32 *DataRead)
 
 /*****************************************************************************/
 /**
+* @brief Performs a minimal test on the GPIO device configured as output.
 *
-* This function does a minimal test on the GPIO device configured as OUTPUT.
+* @return
+*              - XST_SUCCESS if the example has completed successfully.
+*              - XST_FAILURE if the example has failed.
 *
-* @return	- XST_SUCCESS if the example has completed successfully.
-*		- XST_FAILURE if the example has failed.
-*
-* @note		None.
-*
-****************************************************************************/
+******************************************************************************/
 static int GpioOutputExample(void)
 {
 	u32 Data;
@@ -291,19 +299,16 @@ static int GpioOutputExample(void)
 	return XST_SUCCESS;
 }
 
-/******************************************************************************/
+/*****************************************************************************/
 /**
+* @brief Tests the GPIO driver and device with the GPIO configured as input.
 *
-* This function performs a test on the GPIO driver/device with the GPIO
-* configured as INPUT.
+* @param[out]  DataRead Pointer where the data read from the GPIO input is
+*              returned.
 *
-* @param	DataRead is the pointer where the data read from GPIO Input is
-*		returned
-*
-* @return	- XST_SUCCESS if the example has completed successfully.
-*		- XST_FAILURE if the example has failed.
-*
-* @note		None.
+* @return
+*              - XST_SUCCESS if the example has completed successfully.
+*              - XST_FAILURE if the example has failed.
 *
 ******************************************************************************/
 static int GpioInputExample(u32 *DataRead)

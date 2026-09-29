@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -8,12 +8,10 @@
 /**
 *
 * @file xgpiops_selftest.c
-* @addtogroup gpiops Overview
-* @{
+* @brief Implements the diagnostic self-test function for the XGpioPs driver.
 *
 * This file contains a diagnostic self-test function for the XGpioPs driver.
-*
-* Read xgpiops.h file for more information.
+* See xgpiops.h for more information.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -27,9 +25,15 @@
 *                     Use of mixed mode arithmetic,Declared the pointer param
 *                     as Pointer to const,Casting operation to a pointer,
 *                     Literal value requires a U suffix.
+* 3.16  vn   09/10/26 Align Doxygen comments with AMD standards
+*
 * </pre>
 *
-*****************************************************************************/
+******************************************************************************/
+
+/** @addtogroup gpiops Overview
+ * @{
+ */
 
 /***************************** Include Files ********************************/
 
@@ -50,15 +54,15 @@
 /*****************************************************************************/
 /**
 *
-* This function runs a self-test on the GPIO driver/device. This function
-* does a register read/write test on some of the Interrupt Registers.
+* @brief Runs a self-test on the GPIO driver and device.
 *
-* @param	InstancePtr is a pointer to the XGpioPs instance.
+* Performs a register read/write test on some of the interrupt registers.
+*
+* @param[in,out] InstancePtr Pointer to the XGpioPs instance.
 *
 * @return
-*		- XST_SUCCESS if the self-test passed.
-* 		- XST_FAILURE otherwise.
-*
+*                - XST_SUCCESS if the self-test passed.
+*                - XST_FAILURE otherwise.
 *
 ******************************************************************************/
 s32 XGpioPs_SelfTest(XGpioPs *InstancePtr)

@@ -8,13 +8,10 @@
 /**
 *
 * @file xgpiops_sinit.c
-* @addtogroup gpiops Overview
-* @{
+* @brief Implements static initialization functionality of the XGpioPs driver.
 *
 * This file contains the implementation of the XGpioPs driver's static
 * initialization functionality.
-*
-* @note		None.
 *
 * <pre>
 *
@@ -28,10 +25,15 @@
 * 3.15  vlt  12/12/25 Update Doxygen comments to include SDT flow details.
 * 3.15  vlt  03/14/26 Updated BaseAddress type from u32 to UINTPTR
 *                     to support 64-bit addressing.
+* 3.16  vn   09/10/26 Align Doxygen comments with AMD standards
 *
 * </pre>
 *
 ******************************************************************************/
+
+/** @addtogroup gpiops Overview
+ * @{
+ */
 
 /***************************** Include Files *********************************/
 
@@ -50,19 +52,20 @@
 /*****************************************************************************/
 /**
 *
-* Looks up the device configuration based on the unique device ID/BaseAddress.
-* The XGpioPs_ConfigTable[] contains the configuration info for each device in
-* the system.
+* @brief Looks up the device configuration by device ID or base address.
+*
+* The XGpioPs_ConfigTable[] contains the configuration information for each
+* device in the system.
 *
 * @if SDT
-* @param	BaseAddress contains the base address of the device
+* @param[in]   BaseAddress Base address of the device.
 * @else
-* @param	DeviceId contains the unique ID of the device
+* @param[in]   DeviceId Unique ID of the device.
 * @endif
 *
-* @return       A pointer to the configuration found or NULL if the specified
-*               device ID/BaseAddress was not found. See xgpiops.h for the
-*               definition of XGpioPs_Config.
+* @return      A pointer to the configuration found, or NULL if the specified
+*              device ID or base address is not found. See xgpiops.h for the
+*              definition of XGpioPs_Config.
 *
 * @note        In XSCT/classic flow, DeviceId is used to look up the device
 *              configuration.
