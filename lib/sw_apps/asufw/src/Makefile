@@ -93,7 +93,7 @@ EXEC := asufw.elf
 INCLUDEPATH := -I../misc/asufw_bsp/asu_0/include -I./ -I./task -I./xfih \
 	-I./sha -I./trng -I./ecc -I./aes -I./rsa_ecc -I./hmac -I./kdf -I./ecies -I./keywrap \
 	-I./x509 -I./ocp -I./keymanager -I./lms -I./overlay -I./provision -I./mldsa -I./mlkem \
-	-I./slhdsa
+	-I./slhdsa -I./versal_2ve_2vm
 LIBPATH := -L../misc/asufw_bsp/asu_0/lib
 
 all: $(EXEC)
