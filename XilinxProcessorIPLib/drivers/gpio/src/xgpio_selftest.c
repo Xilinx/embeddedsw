@@ -1,17 +1,14 @@
 /******************************************************************************
 * Copyright (C) 2002 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
 /*****************************************************************************/
 /**
 * @file xgpio_selftest.c
-* @addtogroup gpio_api GPIO APIs
-* @{
+* @brief Implements the self-test function for the XGpio driver.
 *
-* The xgpio_selftest.c file contains implementation of the self test function
-* of the XGpio driver.
 * See xgpio.h for more information about the driver.
 *
 * <pre>
@@ -23,9 +20,14 @@
 * 2.00a jhl  01/13/04 Addition of dual channels and interrupts.
 * 2.11a mta  03/21/07 Updated to new coding style
 * 3.00a sv   11/21/09 Updated to use HAL Processor APIs.
+* 4.14  vn   09/10/26 Align Doxygen comments with AMD standards
 * </pre>
 *
-*****************************************************************************/
+******************************************************************************/
+
+/** @addtogroup gpio_api GPIO APIs
+ * @{
+ */
 
 /***************************** Include Files ********************************/
 #include "xgpio.h"
@@ -41,26 +43,24 @@
 /************************** Function Prototypes *****************************/
 
 
-/******************************************************************************/
+/*****************************************************************************/
 /**
-* Runs a self-test on the driver/device. This function performs a minimal test
-* in which the data register is read. It only does a read without any kind
-* of test because the hardware has been parameterized such that it may be only
-* an input and the state of the input is unknown.
+* @brief Runs a self-test on the driver and device.
+*
+* This function performs a minimal test in which the data register is read.
+* It only does a read without any kind of test. The hardware may be
+* parameterized as input only, and the state of the input is unknown.
 *
 * All other hardware features of the device are not guaranteed to be in the
 * hardware since they are parameterizable.
 *
+* @param[in]   InstancePtr Pointer to the XGpio instance to operate on.
+*              This parameter must be initialized with XGpio_Initialize().
 *
-* @param	InstancePtr Pointer to the XGpio instance to be worked on.
-*		This parameter must be initialized with XGpio_Initialize().
-*
-* @return 	XST_SUCCESS always. If the GPIO device was not present in the
-*		hardware a bus error is generated. Other indicators of a
-*		bus error, such as registers in bridges or buses, may be
-*		necessary to determine if this function caused a bus error.
-*
-* @note		None.
+* @return      XST_SUCCESS always. If the GPIO device is not present in the
+*              hardware a bus error is generated. Other indicators of a
+*              bus error, such as registers in bridges or buses, may be
+*              necessary to determine if this function caused a bus error.
 *
 ******************************************************************************/
 int XGpio_SelfTest(XGpio * InstancePtr)

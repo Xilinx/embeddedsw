@@ -7,15 +7,12 @@
 /*****************************************************************************/
 /**
 * @file xgpio_intr.c
-* @addtogroup gpio_api GPIO APIs
-* @{
+* @brief Implements GPIO interrupt processing functions for the XGpio driver.
 *
-* The xgpio_intr.c file contains the implementation of GPIO interrupt
-* processing functions for the XGpio driver.
 * See xgpio.h for more information about the driver.
 *
 * The functions in this file require the hardware device to be built with
-* interrupt capabilities. The functions will assert if called using hardware
+* interrupt capabilities. The functions assert if called using hardware
 * that does not have interrupt capabilities.
 *
 * <pre>
@@ -31,12 +28,16 @@
 *		      XGpio_mWriteReg to XGpio_WriteReg, and XGpio_mReadReg
 *		      to XGpio_ReadReg.
 * 4.14  vn   07/30/26 Fix Doxygen warnings
-
+* 4.14  vn   09/10/26 Align Doxygen comments with AMD standards
 * </pre>
 *
-*****************************************************************************/
+******************************************************************************/
 
-/***************************** Include Files ********************************/
+/** @addtogroup gpio_api GPIO APIs
+ * @{
+ */
+
+/****************************** Include Files ********************************/
 #include "xgpio.h"
 
 
@@ -51,20 +52,19 @@
 /************************** Function Prototypes *****************************/
 
 
-/****************************************************************************/
+/*****************************************************************************/
 /**
-* Enables the interrupt output signal. Interrupts enabled through
-* XGpio_InterruptEnable() will not be passed through until the global enable
-* bit is set by this function. This function is designed to allow all
-* interrupts (both channels) to be enabled easily for exiting a critical
-* section. This function will assert if the hardware device has not been
-* built with interrupt capabilities.
+* @brief Enables the interrupt output signal.
 *
-* @param	InstancePtr GPIO instance to operate on.
+* Interrupts enabled through XGpio_InterruptEnable() are not passed
+* through until the global enable bit is set by this function. This
+* function is designed to allow all interrupts (both channels) to be
+* enabled easily for exiting a critical section. This function asserts if
+* the hardware device has not been built with interrupt capabilities.
 *
-* @note		None.
+* @param[in]   InstancePtr Pointer to the XGpio instance to operate on.
 *
-*****************************************************************************/
+******************************************************************************/
 void XGpio_InterruptGlobalEnable(XGpio *InstancePtr)
 {
 	Xil_AssertVoid(InstancePtr != NULL);
@@ -76,17 +76,17 @@ void XGpio_InterruptGlobalEnable(XGpio *InstancePtr)
 }
 
 
-/****************************************************************************/
+/*****************************************************************************/
 /**
-* Disables the interrupt output signal. Interrupts enabled through
-* XGpio_InterruptEnable() will no longer be passed through until the global
-* enable bit is set by XGpio_InterruptGlobalEnable(). This function is
-* designed to allow all interrupts (both channels) to be disabled easily for
-* entering a critical section. This function will assert if the hardware
-* device has not been built with interrupt capabilities.
+* @brief Disables the interrupt output signal.
 *
-* @param	InstancePtr GPIO instance to operate on.
+* Interrupts enabled through XGpio_InterruptEnable() are no longer passed
+* through until the global enable bit is set by XGpio_InterruptGlobalEnable().
+* This function is designed to allow all interrupts (both channels) to be
+* disabled easily for entering a critical section. This function asserts
+* if the hardware device has not been built with interrupt capabilities.
 *
+* @param[in]   InstancePtr Pointer to the XGpio instance to operate on.
 *
 *****************************************************************************/
 void XGpio_InterruptGlobalDisable(XGpio *InstancePtr)
@@ -103,15 +103,17 @@ void XGpio_InterruptGlobalDisable(XGpio *InstancePtr)
 
 /****************************************************************************/
 /**
-* Enable interrupts. The global interrupt must also be enabled by calling
-* XGpio_InterruptGlobalEnable() for interrupts to occur. This function will
-* assert if the hardware device has not been built with interrupt capabilities.
+* @brief Enables interrupts for the specified channels.
 *
-* @param	InstancePtr GPIO instance to operate on.
-* @param	Mask Mask to enable. Bit positions of 1 are enabled.
-*		This mask is formed by OR'ing bits from XGPIO_IR* bits which
-*		are contained in xgpio_l.h.
+* Also call XGpio_InterruptGlobalEnable() to enable the global interrupt;
+* otherwise, no interrupts occur. This function
+* asserts if the hardware device has not been built with interrupt
+* capabilities.
 *
+* @param[in]   InstancePtr Pointer to the XGpio instance to operate on.
+* @param[in]   Mask Mask to enable. Bit positions of 1 are enabled.
+*              This mask is a bitwise OR of XGPIO_IR* bits, which are
+*              contained in xgpio_l.h.
 *
 *****************************************************************************/
 void XGpio_InterruptEnable(XGpio *InstancePtr, u32 Mask)
@@ -136,15 +138,16 @@ void XGpio_InterruptEnable(XGpio *InstancePtr, u32 Mask)
 
 /****************************************************************************/
 /**
-* Disable interrupts. This function allows specific interrupts for each
-* channel to be disabled. This function will assert if the hardware device
-* has not been built with interrupt capabilities.
+* @brief Disables interrupts for the specified channels.
 *
-* @param	InstancePtr GPIO instance to operate on.
-* @param 	Mask Mask to disable. Bits set to 1 are disabled. This
-*		mask is formed by OR'ing bits from XGPIO_IR* bits which are
-*		contained in xgpio_l.h.
+* This function disables specific interrupts for each channel. This function
+* asserts if the hardware device has not been built with interrupt
+* capabilities.
 *
+* @param[in]   InstancePtr Pointer to the XGpio instance to operate on.
+* @param[in]   Mask Mask to disable. Bits set to 1 are disabled. This
+*              mask is a bitwise OR of XGPIO_IR* bits, which are contained
+*              in xgpio_l.h.
 *
 *****************************************************************************/
 void XGpio_InterruptDisable(XGpio *InstancePtr, u32 Mask)
@@ -167,18 +170,18 @@ void XGpio_InterruptDisable(XGpio *InstancePtr, u32 Mask)
 
 /****************************************************************************/
 /**
-* Clears pending interrupts with the provided mask. This function should be
-* called after the software has serviced the interrupts that are pending.
-* This function will assert if the hardware device has not been built with
-* interrupt capabilities.
+* @brief Clears pending interrupts with the provided mask.
 *
-* @param 	InstancePtr GPIO instance to operate on.
-* @param 	Mask Mask to clear pending interrupts. Bit positions
-*		of 1 are cleared. This mask is formed by OR'ing bits from
-*		XGPIO_IR* bits which are contained in xgpio_l.h.
+* Call this function after the software has serviced the
+* interrupts that are pending. This function asserts if the hardware
+* device has not been built with interrupt capabilities.
 *
+* @param[in]   InstancePtr Pointer to the XGpio instance to operate on.
+* @param[in]   Mask Mask to clear pending interrupts. Bit positions
+*              of 1 are cleared. This mask is a bitwise OR of XGPIO_IR*
+*              bits, which are contained in xgpio_l.h.
 *
-*****************************************************************************/
+******************************************************************************/
 void XGpio_InterruptClear(XGpio * InstancePtr, u32 Mask)
 {
 	u32 Register;
@@ -201,18 +204,19 @@ void XGpio_InterruptClear(XGpio * InstancePtr, u32 Mask)
 }
 
 
-/****************************************************************************/
+/*****************************************************************************/
 /**
-* Returns the interrupt enable mask. This function will assert if the
-* hardware device has not been built with interrupt capabilities.
+* @brief Returns the interrupt enable mask.
 *
-* @param	InstancePtr GPIO instance to operate on.
+* This function asserts if the hardware device has not been built with
+* interrupt capabilities.
 *
-* @return	A mask of bits made from XGPIO_IR* bits which are contained in
-*		xgpio_l.h.
+* @param[in]   InstancePtr Pointer to the XGpio instance to operate on.
 *
+* @return      A mask of bits made from XGPIO_IR* bits which are contained in
+*              xgpio_l.h.
 *
-*****************************************************************************/
+******************************************************************************/
 u32 XGpio_InterruptGetEnabled(XGpio * InstancePtr)
 {
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -223,24 +227,24 @@ u32 XGpio_InterruptGetEnabled(XGpio * InstancePtr)
 }
 
 
-/****************************************************************************/
+/*****************************************************************************/
 /**
-* Returns the status of interrupt signals. Any bit in the mask set to 1
-* indicates that the channel associated with the bit has asserted an interrupt
-* condition. This function will assert if the hardware device has not been
-* built with interrupt capabilities.
+* @brief Returns the status of interrupt signals.
 *
-* @param	InstancePtr GPIO instance to operate on.
+* Any bit in the mask set to 1 indicates that the channel associated with
+* the bit has asserted an interrupt condition. This function asserts if
+* the hardware device has not been built with interrupt capabilities.
 *
-* @return	A pointer to a mask of bits made from XGPIO_IR* bits which are
-*		 contained in xgpio_l.h.
-*
-*
-* The interrupt status indicates the status of the device regardless if
-* the interrupts from the devices have been enabled or not through
+* The interrupt status indicates the status of the device regardless of
+* whether the interrupts from the devices have been enabled or not through
 * XGpio_InterruptEnable().
 *
-*****************************************************************************/
+* @param[in]   InstancePtr Pointer to the XGpio instance to operate on.
+*
+* @return      Mask of bits made from XGPIO_IR* bits which are contained in
+*              xgpio_l.h.
+*
+******************************************************************************/
 u32 XGpio_InterruptGetStatus(XGpio * InstancePtr)
 {
 	Xil_AssertNonvoid(InstancePtr != NULL);

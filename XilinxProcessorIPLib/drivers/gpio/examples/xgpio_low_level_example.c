@@ -1,15 +1,16 @@
 /******************************************************************************
 * Copyright (C) 2002 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
 /*****************************************************************************/
 /**
 * @file xgpio_low_level_example.c
+* @brief Demonstrates usage of the GPIO low-level driver and hardware device.
 *
 * This file contains a design example using the General Purpose I/O (GPIO) low
-* level driver and hardware device. It only uses a channel 1 of a GPIO device.
+* level driver and hardware device. It only uses channel 1 of a GPIO device.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -31,7 +32,7 @@
 *                     CR-965028.
 * 4.5   sne  06/12/19 Fixed IAR compiler warning.
 * 4.10  gm   07/11/23 Added SDT support.
-*
+* 4.14  vn   09/10/26 Align Doxygen comments with AMD standards
 * </pre>
 *
 ******************************************************************************/
@@ -44,29 +45,37 @@
 
 /************************** Constant Definitions *****************************/
 
-#define LED 0x01 /* Assumes bit 0 of GPIO is connected to an LED */
+#define LED 0x01 /**< Assumes bit 0 of GPIO is connected to an LED. */
 
-/*
+/** @name Device parameters
+ *
  * The following constants map to the XPAR parameters created in the
- * xparameters.h file. They are defined here such that a user can easily
- * change all the needed parameters in one place.
+ * xparameters.h file. They are defined here so that all the needed
+ * parameters can be easily changed in one place.
+ * @{
  */
 #ifndef SDT
-#define GPIO_REG_BASEADDR	XPAR_GPIO_0_BASEADDR
+#define GPIO_REG_BASEADDR	XPAR_GPIO_0_BASEADDR /**< GPIO base address. */
 #else
+/** GPIO base address. */
 #define GPIO_REG_BASEADDR	XPAR_XGPIO_0_BASEADDR
 #endif
+/** @} */
 
-/*
+/**
+ * @brief LED visibility delay count.
+ *
  * The following constant is used to wait after an LED is turned on to make
- * sure that it is visible to the human eye.  This constant might need to be
+ * sure that it is visible to the human eye. This constant might need to be
  * tuned for faster or slower processor speeds.
  */
 #define LED_DELAY	 1000000
 
-/*
+/**
+ * @brief LED channel selection.
+ *
  * The following constant is used to determine which channel of the GPIO is
- * used for the LED if there are 2 channels supported.
+ * used for the LED if there are two channels supported.
  */
 #define LED_CHANNEL	1
 
@@ -84,14 +93,12 @@
 
 /*****************************************************************************/
 /**
-* The purpose of this function is to illustrate how to use the GPIO low level
-* driver to turn on and off an LED.
+* @brief Demonstrates turning on and off an LED using the GPIO low-level driver.
 *
+* @return      Always 0.
 *
-* @return	Always 0
-*
-* @note
-* The main function is returning an integer to prevent compiler warnings.
+* @note        The main function returns an integer to prevent compiler
+*              warnings.
 *
 ******************************************************************************/
 int main(void)

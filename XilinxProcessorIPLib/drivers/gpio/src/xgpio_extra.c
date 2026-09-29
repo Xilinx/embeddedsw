@@ -7,18 +7,12 @@
 /*****************************************************************************/
 /**
 * @file xgpio_extra.c
-* @addtogroup  gpio_api GPIO APIs
-* @{
+* @brief Implements the advanced discrete functions of the XGpio driver.
 *
-* The xgpio_extra.c file contains implementation of the advanced discrete functions
-* of the XGpio driver.
 * See xgpio.h for more information about the driver.
 *
-* @note
-*
-* These APIs can only be used if the GPIO_IO ports in the IP are used for
-* connecting to the external output ports.
-*
+* @note        These APIs can only be used if the GPIO_IO ports in the IP
+*              are used for connecting to the external output ports.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -32,11 +26,16 @@
 *		      XGpio_mWriteReg to XGpio_WriteReg, and XGpio_mReadReg
 *		      to XGpio_ReadReg.
 * 4.14  vn   07/30/26 Fix Doxygen warnings
+* 4.14  vn   09/10/26 Align Doxygen comments with AMD standards
 * </pre>
 *
-*****************************************************************************/
+******************************************************************************/
 
-/***************************** Include Files ********************************/
+/** @addtogroup gpio_api GPIO APIs
+ * @{
+ */
+
+/****************************** Include Files ********************************/
 
 #include "xgpio.h"
 #include "xgpio_i.h"
@@ -52,25 +51,23 @@
 /************************** Function Prototypes *****************************/
 
 
-/****************************************************************************/
+/*****************************************************************************/
 /**
-* Set output discrete(s) to logic 1 for the specified GPIO channel.
+* @brief Sets output discretes to logic 1 for the specified GPIO channel.
 *
-* @param	InstancePtr Pointer to an XGpio instance to be worked on.
-* @param	Channel Contains the channel of the GPIO (1 or 2) to operate on.
-* @param	Mask Set of bits that will be set to 1 in the discrete
-*		data register. All other bits in the data register are
-*		unaffected.
+* @param[in]   InstancePtr Pointer to the XGpio instance to operate on.
+* @param[in]   Channel GPIO channel (1 or 2) to operate on.
+* @param[in]   Mask Set of bits that are set to 1 in the discrete
+*              data register. All other bits in the data register are
+*              unaffected.
 *
-* @note
+* @note        The hardware must be built for dual channels if this
+*              function is used with any channel other than 1. If it is
+*              not, this function asserts.<br><br>
+*              This API can only be used if the GPIO_IO ports in the IP
+*              are used for connecting to the external output ports.
 *
-* The hardware must be built for dual channels if this function is used
-* with any channel other than 1.  If it is not, this function will assert.
-*
-* This API can only be used if the GPIO_IO ports in the IP are used for
-* connecting to the external output ports.
-*
-*****************************************************************************/
+******************************************************************************/
 void XGpio_DiscreteSet(XGpio * InstancePtr, unsigned Channel, u32 Mask)
 {
 	u32 Current;
@@ -94,24 +91,23 @@ void XGpio_DiscreteSet(XGpio * InstancePtr, unsigned Channel, u32 Mask)
 }
 
 
-/****************************************************************************/
+/*****************************************************************************/
 /**
-* Set output discrete(s) to logic 0 for the specified GPIO channel.
+* @brief Sets output discretes to logic 0 for the specified GPIO channel.
 *
-* @param	InstancePtr Pointer to an XGpio instance to be worked on.
-* @param	Channel Contains the channel of the GPIO (1 or 2) to operate on.
-* @param	Mask Set of bits that will be set to 0 in the discrete
-*		data register. All other bits in the data register are
-*		unaffected.
+* @param[in]   InstancePtr Pointer to the XGpio instance to operate on.
+* @param[in]   Channel GPIO channel (1 or 2) to operate on.
+* @param[in]   Mask Set of bits that are set to 0 in the discrete
+*              data register. All other bits in the data register are
+*              unaffected.
 *
+* @note        The hardware must be built for dual channels if this
+*              function is used with any channel other than 1. If it is
+*              not, this function asserts.<br><br>
+*              This API can only be used if the GPIO_IO ports in the IP
+*              are used for connecting to the external output ports.
 *
-* The hardware must be built for dual channels if this function is used
-* with any channel other than 1.  If it is not, this function will assert.
-*
-* This API can only be used if the GPIO_IO ports in the IP are used for
-* connecting to the external output ports.
-*
-*****************************************************************************/
+******************************************************************************/
 void XGpio_DiscreteClear(XGpio * InstancePtr, unsigned Channel, u32 Mask)
 {
 	u32 Current;

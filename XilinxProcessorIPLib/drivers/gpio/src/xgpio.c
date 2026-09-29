@@ -7,11 +7,9 @@
 /*****************************************************************************/
 /**
 * @file xgpio.c
-* @addtogroup gpio_api GPIO APIs
-* @{
+* @brief Implements the basic functionality of the XGpio driver.
 *
-* This section explains the implementation of the basic functionality of the XGpio driver.
-* This header file contains the software API definition of the Xilinx General Purpose I/O
+* Provides the software API definition of the Xilinx General Purpose I/O
 * device driver.
 *
 * <pre>
@@ -39,9 +37,14 @@
 *                     Changed the prototype of XGpio_CfgInitialize API.
 * 4.9   pm   11/30/21 Addressed Doxygen warning
 * 4.14  vn   07/30/26 Fix Doxygen warnings
+* 4.14  vn   09/10/26 Align Doxygen comments with AMD standards
 * </pre>
 *
 *****************************************************************************/
+
+/** @addtogroup gpio_api GPIO APIs
+ * @{
+ */
 
 /***************************** Include Files ********************************/
 
@@ -62,34 +65,30 @@
 
 /****************************************************************************/
 /**
-* Initializes the XGpio instance provided by the caller based on the
-* given configuration data.
+* @brief Initializes the XGpio instance based on the given configuration data.
 *
-* Nothing is done except to initialize the InstancePtr.
+* This function initializes only InstancePtr.
 *
-* @param	InstancePtr Pointer to an XGpio instance. The memory the
-*		pointer references must be pre-allocated by the caller. Further
-*		calls to manipulate the driver through the XGpio API must be
-*		made with this pointer.
-* @param	Config Reference to a structure containing information
-*		about a specific GPIO device. This function initializes an
-*		InstancePtr object for a specific device specified by the
-*		contents of Config. This function can initialize multiple
-*		instance objects with the use of multiple calls giving different
-*		Config information on each call.
-* @param 	EffectiveAddr Device base address in the virtual memory
-*		address space. The caller is responsible for keeping the address
-*		mapping from EffectiveAddr to the device physical base address
-*		unchanged once this function is invoked. Unexpected errors may
-*		occur if the address mapping changes after this function is
-*		called. If address translation is not used, use
-*		Config->BaseAddress for this parameters, passing the physical
-*		address instead.
+* @param[out]  InstancePtr Pointer to an XGpio instance. The memory the
+*              pointer references must be pre-allocated by the caller. Further
+*              calls to manipulate the driver through the XGpio API must be
+*              made with this pointer.
+* @param[in]   Config Pointer to a structure containing information
+*              about a specific GPIO device. This function initializes an
+*              InstancePtr object for a specific device specified by the
+*              contents of Config. This function can initialize multiple
+*              instance objects with the use of multiple calls giving
+*              different Config information on each call.
+* @param[in]   EffectiveAddr Device base address in the virtual memory
+*              address space. The caller is responsible for keeping the address
+*              mapping from EffectiveAddr to the device physical base address
+*              unchanged once this function is invoked. Unexpected errors may
+*              occur if the address mapping changes after this function is
+*              called. If address translation is not used, use
+*              Config->BaseAddress for this parameter, passing the physical
+*              address instead.
 *
-* @return
-* 		- XST_SUCCESS if the initialization is successful.
-*
-* @note		None.
+* @return      XST_SUCCESS if the initialization is successful.
 *
 *****************************************************************************/
 int XGpio_CfgInitialize(XGpio * InstancePtr, XGpio_Config * Config,
@@ -114,18 +113,17 @@ int XGpio_CfgInitialize(XGpio * InstancePtr, XGpio_Config * Config,
 
 /****************************************************************************/
 /**
-* Sets the input/output direction of all discrete signals for the specified
-* GPIO channel.
+* @brief Sets the I/O direction of all discrete signals for a GPIO channel.
 *
-* @param	InstancePtr Pointer to an XGpio instance to be worked on.
-* @param	Channel Contains the channel of the GPIO (1 or 2) to operate on.
-* @param	DirectionMask Bitmask specifying which discretes are input
-*		and which are output. Bits set to 0 are output and bits set to 1
-*		are input.
+* @param[in]   InstancePtr Pointer to the XGpio instance to operate on.
+* @param[in]   Channel GPIO channel (1 or 2) to operate on.
+* @param[in]   DirectionMask Bitmask specifying which discretes are input
+*              and which are output. Bits set to 0 are output and bits set to 1
+*              are input.
 *
-* @note		The hardware must be built for dual channels if this function
-*		is used with any channel other than 1.  If it is not, this
-*		function will assert.
+* @note        The hardware must be built for dual channels if this function
+*              is used with any channel other than 1. If it is not, this
+*              function asserts.
 *
 *****************************************************************************/
 void XGpio_SetDataDirection(XGpio *InstancePtr, unsigned Channel,
@@ -143,20 +141,18 @@ void XGpio_SetDataDirection(XGpio *InstancePtr, unsigned Channel,
 
 /****************************************************************************/
 /**
-* Gets the input/output direction of all discrete signals for the specified
-* GPIO channel.
+* @brief Gets the I/O direction of all discrete signals for a GPIO channel.
 *
-* @param	InstancePtr Pointer to an XGpio instance to be worked on.
-* @param	Channel Contains the channel of the GPIO (1 or 2) to operate on.
+* @param[in]   InstancePtr Pointer to the XGpio instance to operate on.
+* @param[in]   Channel GPIO channel (1 or 2) to operate on.
 *
-* @return	Bitmask specifying which discretes are input and
-*		which are output. Bits set to 0 are output and bits set to 1 are
-*		input.
+* @return      Bitmask specifying which discretes are input and
+*              which are output. Bits set to 0 are output and bits set to 1 are
+*              input.
 *
-* @note
-*
-* The hardware must be built for dual channels if this function is used
-* with any channel other than 1.  If it is not, this function will assert.
+* @note        The hardware must be built for dual channels if this function
+*              is used with any channel other than 1. If it is not, this
+*              function asserts.
 *
 *****************************************************************************/
 u32 XGpio_GetDataDirection(XGpio *InstancePtr, unsigned Channel)
@@ -173,16 +169,16 @@ u32 XGpio_GetDataDirection(XGpio *InstancePtr, unsigned Channel)
 
 /****************************************************************************/
 /**
-* Reads state of discretes for the specified GPIO channel.
+* @brief Reads the state of the discretes for the specified GPIO channel.
 *
-* @param	InstancePtr Pointer to an XGpio instance to be worked on.
-* @param	Channel Contains the channel of the GPIO (1 or 2) to operate on.
+* @param[in]   InstancePtr Pointer to the XGpio instance to operate on.
+* @param[in]   Channel GPIO channel (1 or 2) to operate on.
 *
-* @return	Current copy of the discretes register.
+* @return      Current copy of the discretes register.
 *
-* @note		The hardware must be built for dual channels if this function
-*		is used with any channel other than 1. If it is not, this
-*		function will assert.
+* @note        The hardware must be built for dual channels if this function
+*              is used with any channel other than 1. If it is not, this
+*              function asserts.
 *
 *****************************************************************************/
 u32 XGpio_DiscreteRead(XGpio * InstancePtr, unsigned Channel)
@@ -199,16 +195,16 @@ u32 XGpio_DiscreteRead(XGpio * InstancePtr, unsigned Channel)
 
 /****************************************************************************/
 /**
-* Writes to discretes register for the specified GPIO channel.
+* @brief Writes to the discretes register for the specified GPIO channel.
 *
-* @param	InstancePtr Pointer to an XGpio instance to be worked on.
-* @param	Channel Contains the channel of the GPIO (1 or 2) to operate on.
-* @param	Mask Value to be written to the discretes register.
+* @param[in]   InstancePtr Pointer to the XGpio instance to operate on.
+* @param[in]   Channel GPIO channel (1 or 2) to operate on.
+* @param[in]   Mask Value to be written to the discretes register.
 *
-* @note		The hardware must be built for dual channels if this function
-*		is  used with any channel other than 1.  If it is not, this
-*		function will assert. See also XGpio_DiscreteSet() and
-*		XGpio_DiscreteClear().
+* @note        The hardware must be built for dual channels if this function
+*              is used with any channel other than 1. If it is not, this
+*              function asserts. See also XGpio_DiscreteSet() and
+*              XGpio_DiscreteClear().
 *
 *****************************************************************************/
 void XGpio_DiscreteWrite(XGpio * InstancePtr, unsigned Channel, u32 Mask)

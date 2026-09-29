@@ -7,17 +7,18 @@
 /*****************************************************************************/
 /**
 * @file xgpio_intr_tapp_example.c
+* @brief Demonstrates usage of the GPIO driver (XGpio) in interrupt-driven mode.
 *
 * This file contains a design example using the GPIO driver (XGpio) in an
-* interrupt driven mode of operation. This example does assume that there is
+* interrupt-driven mode of operation. This example assumes that there is
 * an interrupt controller in the hardware system and the GPIO device is
 * connected to the interrupt controller.
 *
 * This file is used in the Peripheral Tests Application in SDK to include a
-* simplified test for gpio interrupts.
-
-* The buttons and LEDs are on 2 separate channels of the GPIO so that interrupts
-* are not caused when the LEDs are turned on and off.
+* simplified test for GPIO interrupts.
+*
+* The buttons and LEDs are on two separate channels of the GPIO. This
+* separation prevents interrupts when the LEDs turn on and off.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -40,6 +41,7 @@
 * 4.13 vlt   12/02/25 Added GlobalIntrMask initialization for SDT flow.
 * 4.13  vlt  12/12/25 Update Doxygen comments to include SDT flow details.
 * 4.14  vn   07/30/26 Fix Doxygen warnings
+* 4.14  vn   09/10/26 Align Doxygen comments with AMD standards
 *
 *</pre>
 *
@@ -65,70 +67,93 @@
 
 /************************** Constant Definitions *****************************/
 #ifndef TESTAPP_GEN
-/*
+/** @name Device parameters
+ *
  * The following constants map to the XPAR parameters created in the
- * xparameters.h file. They are defined here such that a user can easily
- * change all the needed parameters in one place.
+ * xparameters.h file. They are defined here so that all the needed
+ * parameters can be easily changed in one place.
+ * @{
  */
 #ifndef SDT
-#define GPIO_DEVICE_ID		XPAR_GPIO_0_DEVICE_ID
+#define GPIO_DEVICE_ID		XPAR_GPIO_0_DEVICE_ID /**< Device ID. */
 #else
-#define	XGPIO_AXI_BASEADDRESS	XPAR_XGPIO_0_BASEADDR
+#define	XGPIO_AXI_BASEADDRESS	XPAR_XGPIO_0_BASEADDR /**< Base address. */
 #endif
-#define GPIO_CHANNEL1		1
+#define GPIO_CHANNEL1		1 /**< GPIO channel 1. */
 
 #ifndef SDT
 #ifdef XPAR_INTC_0_DEVICE_ID
+/** GPIO interrupt ID. */
 #define INTC_GPIO_INTERRUPT_ID	XPAR_INTC_0_GPIO_0_VEC_ID
-#define INTC_DEVICE_ID	XPAR_INTC_0_DEVICE_ID
+#define INTC_DEVICE_ID	XPAR_INTC_0_DEVICE_ID /**< INTC device ID. */
 #else
+/** GPIO interrupt ID. */
 #define INTC_GPIO_INTERRUPT_ID	XPAR_FABRIC_AXI_GPIO_0_IP2INTC_IRPT_INTR
+/** INTC device ID. */
 #define INTC_DEVICE_ID	XPAR_SCUGIC_SINGLE_DEVICE_ID
 #endif /* XPAR_INTC_0_DEVICE_ID */
 #endif
+/** @} */
 
-/*
- * The following constants define the positions of the buttons and LEDs each
- * channel of the GPIO
+/** @name Button and LED masks
+ *
+ * The following constants define the positions of the buttons and LEDs in
+ * each channel of the GPIO.
+ * @{
  */
-#define GPIO_ALL_LEDS		0xFFFF
-#define GPIO_ALL_BUTTONS	0xFFFF
+#define GPIO_ALL_LEDS		0xFFFF /**< All LED bits mask. */
+#define GPIO_ALL_BUTTONS	0xFFFF /**< All button bits mask. */
+/** @} */
 
-/*
+/** @name Channel definitions
+ *
  * The following constants define the GPIO channel that is used for the buttons
  * and the LEDs. They allow the channels to be reversed easily.
+ * @{
  */
-#define BUTTON_CHANNEL	 1	/* Channel 1 of the GPIO Device */
-#define LED_CHANNEL	 2	/* Channel 2 of the GPIO Device */
-#define BUTTON_INTERRUPT XGPIO_IR_CH1_MASK  /* Channel 1 Interrupt Mask */
+#define BUTTON_CHANNEL	 1	/**< Channel 1 of the GPIO device. */
+#define LED_CHANNEL	 2	/**< Channel 2 of the GPIO device. */
+#define BUTTON_INTERRUPT XGPIO_IR_CH1_MASK  /**< Channel 1 interrupt mask. */
+/** @} */
 
-/*
+/**
+ * @brief Interrupt control value.
+ *
  * The following constant determines which buttons must be pressed at the same
- * time to cause interrupt processing to stop and start
+ * time to cause interrupt processing to stop and start.
  */
 #define INTERRUPT_CONTROL_VALUE 0x7
 
-/*
+/**
+ * @brief LED visibility delay count.
+ *
  * The following constant is used to wait after an LED is turned on to make
- * sure that it is visible to the human eye.  This constant might need to be
+ * sure that it is visible to the human eye. This constant might need to be
  * tuned for faster or slower processor speeds.
  */
 #define LED_DELAY	1000000
 
 #endif /* TESTAPP_GEN */
 
-#define INTR_DELAY	0x00FFFFFF
+#define INTR_DELAY	0x00FFFFFF /**< Interrupt delay count. */
 
 #ifndef SDT
+/** @name Interrupt controller abstraction
+ *
+ * The following constants abstract the interrupt controller type.
+ * @{
+ */
 #ifdef XPAR_INTC_0_DEVICE_ID
-#define INTC_DEVICE_ID	XPAR_INTC_0_DEVICE_ID
-#define INTC		XIntc
-#define INTC_HANDLER	XIntc_InterruptHandler
+#define INTC_DEVICE_ID	XPAR_INTC_0_DEVICE_ID /**< INTC device ID. */
+#define INTC		XIntc /**< Interrupt controller type. */
+#define INTC_HANDLER	XIntc_InterruptHandler /**< Interrupt handler. */
 #else
+/** INTC device ID. */
 #define INTC_DEVICE_ID	XPAR_SCUGIC_SINGLE_DEVICE_ID
-#define INTC		XScuGic
-#define INTC_HANDLER	XScuGic_InterruptHandler
+#define INTC		XScuGic /**< Interrupt controller type. */
+#define INTC_HANDLER	XScuGic_InterruptHandler /**< Interrupt handler. */
 #endif /* XPAR_INTC_0_DEVICE_ID */
+/** @} */
 #endif
 
 /************************** Function Prototypes ******************************/
@@ -152,35 +177,36 @@ int GpioIntrExample(XGpio *InstancePtr,
 #endif
 /************************** Variable Definitions *****************************/
 
-/*
- * The following are declared globally so they are zeroed and so they are
- * easily accessible from a debugger
+/**
+ * @brief Holds the global GPIO driver instance.
+ *
+ * The instance is declared globally so it is zeroed and easily accessible
+ * from a debugger.
  */
-XGpio Gpio; /* The Instance of the GPIO Driver */
+XGpio Gpio;
 
 #ifndef SDT
-INTC Intc; /* The Instance of the Interrupt Controller Driver */
+INTC Intc; /**< Instance of the interrupt controller driver. */
 #endif
 
-static u16 GlobalIntrMask; /* GPIO channel mask that is needed by
-			    * the Interrupt Handler */
+/** GPIO channel mask that is needed by the interrupt handler. */
+static u16 GlobalIntrMask;
 
-static volatile u32 IntrFlag; /* Interrupt Handler Flag */
+static volatile u32 IntrFlag; /**< Interrupt handler flag. */
 
-/****************************************************************************/
+/*****************************************************************************/
 /**
-* This function is the main function of the GPIO example.  It is responsible
-* for initializing the GPIO device, setting up interrupts and providing a
-* foreground loop such that interrupt can occur in the background.
+* @brief Runs the GPIO interrupt example.
 *
+* This is the main function of the GPIO example. It is responsible for
+* initializing the GPIO device, setting up interrupts, and providing a
+* foreground loop so that interrupts can occur in the background.
 *
 * @return
-*		- XST_SUCCESS to indicate success.
-*		- XST_FAILURE to indicate failure.
+*               - XST_SUCCESS to indicate success.
+*               - XST_FAILURE to indicate failure.
 *
-* @note		None.
-*
-*****************************************************************************/
+******************************************************************************/
 #ifndef TESTAPP_GEN
 int main(void)
 {
@@ -215,33 +241,35 @@ int main(void)
 }
 #endif
 
-/******************************************************************************/
+/*****************************************************************************/
 /**
+* @brief Tests GPIO interrupts when enabled.
 *
-* This is the entry function from the TestAppGen tool generated application
-* which tests the interrupts when enabled in the GPIO
+* This is the entry function from the TestAppGen tool generated application,
+* which tests the interrupts when enabled in the GPIO.
 *
-* @param	InstancePtr is a reference to the GPIO driver Instance
 * @if SDT
-* @param	BaseAddress contains the base address of the device
+* @param[out]    InstancePtr Pointer to the GPIO driver instance.
+* @param[in]     BaseAddress Base address of the device.
 * @else
-* @param	IntcInstancePtr is a reference to the Interrupt Controller
-*		driver Instance
-* @param	DeviceId is the XPAR_<GPIO_instance>_DEVICE_ID value from
-*		xparameters.h
-* @param	IntrId is XPAR_<INTC_instance>_<GPIO_instance>_IP2INTC_IRPT_INTR
-*		value from xparameters.h
+* @param[in,out] IntcInstancePtr Pointer to the Interrupt Controller
+*                driver instance.
+* @param[out]    InstancePtr Pointer to the GPIO driver instance.
+* @param[in]     DeviceId XPAR_<GPIO_instance>_DEVICE_ID value from
+*                xparameters.h.
+* @param[in]     IntrId XPAR_<INTC_instance>_<GPIO_instance>_IP2INTC_IRPT_INTR
+*                value from xparameters.h.
 * @endif
-* @param	IntrMask is the GPIO channel mask
-* @param	DataRead is the pointer where the data read from GPIO Input is
-*		returned
+* @param[in]     IntrMask GPIO channel mask.
+* @param[out]    DataRead Pointer where the data read from the GPIO input
+*                is returned.
 *
 * @return
-*		- XST_SUCCESS if the Test is successful
-*		- XST_FAILURE if the test is not successful
+*               - XST_SUCCESS if the test is successful.
+*               - XST_FAILURE if the test is not successful.
 *
-* @note  	In XSCT/classic flow, DeviceId is used to look up the
-*               device configuration.
+* @note          In XSCT/classic flow, DeviceId is used to look up the device
+*                configuration.
 *
 ******************************************************************************/
 #ifndef SDT
@@ -303,23 +331,21 @@ int GpioIntrExample(XGpio *InstancePtr, UINTPTR BaseAddress,
 }
 
 #ifndef SDT
-/******************************************************************************/
+/*****************************************************************************/
 /**
+* @brief Sets up the GPIO interrupt system.
 *
-* This function performs the GPIO set up for Interrupts
+* @param[in,out] IntcInstancePtr Pointer to the Interrupt Controller
+*                driver instance.
+* @param[in]     InstancePtr Pointer to the GPIO driver instance.
+* @param[in]     DeviceId XPAR_<GPIO_instance>_DEVICE_ID value from
+*                xparameters.h.
+* @param[in]     IntrId XPAR_<INTC_instance>_<GPIO_instance>_IP2INTC_IRPT_INTR
+*                value from xparameters.h.
+* @param[in]     IntrMask GPIO channel mask.
 *
-* @param	IntcInstancePtr is a reference to the Interrupt Controller
-*		driver Instance
-* @param	InstancePtr is a reference to the GPIO driver Instance
-* @param	DeviceId is the XPAR_<GPIO_instance>_DEVICE_ID value from
-*		xparameters.h
-* @param	IntrId is XPAR_<INTC_instance>_<GPIO_instance>_IP2INTC_IRPT_INTR
-*		value from xparameters.h
-* @param	IntrMask is the GPIO channel mask
-*
-* @return	XST_SUCCESS if the Test is successful, otherwise XST_FAILURE
-*
-* @note		None.
+* @return        XST_SUCCESS if the test is successful, otherwise
+*                XST_FAILURE.
 *
 ******************************************************************************/
 int GpioSetupIntrSystem(INTC *IntcInstancePtr, XGpio *InstancePtr,
@@ -385,7 +411,7 @@ int GpioSetupIntrSystem(INTC *IntcInstancePtr, XGpio *InstancePtr,
 				       0xA0, 0x3);
 
 	/*
-	 * Connect the interrupt handler that will be called when an
+	 * Connect the interrupt handler that is called when an
 	 * interrupt occurs for the device.
 	 */
 	Result = XScuGic_Connect(IntcInstancePtr, IntrId,
@@ -421,14 +447,11 @@ int GpioSetupIntrSystem(INTC *IntcInstancePtr, XGpio *InstancePtr,
 }
 #endif
 
-/******************************************************************************/
+/*****************************************************************************/
 /**
+* @brief Handles GPIO interrupts.
 *
-* This is the interrupt handler routine for the GPIO for this example.
-*
-* @param	CallbackRef is the Callback reference for the handler.
-*
-* @note		None.
+* @param[in]   CallbackRef Callback reference for the handler.
 *
 ******************************************************************************/
 void GpioHandler(void *CallbackRef)
@@ -443,21 +466,16 @@ void GpioHandler(void *CallbackRef)
 }
 
 #ifndef SDT
-/******************************************************************************/
+/*****************************************************************************/
 /**
+* @brief Disables GPIO interrupts.
 *
-* This function disables the interrupts for the GPIO
-*
-* @param	IntcInstancePtr is a pointer to the Interrupt Controller
-*		driver Instance
-* @param	InstancePtr is a pointer to the GPIO driver Instance
-* @param	IntrId is XPAR_<INTC_instance>_<GPIO_instance>_VEC
-*		value from xparameters.h
-* @param	IntrMask is the GPIO channel mask
-*
-* @return	None
-*
-* @note		None.
+* @param[in,out] IntcInstancePtr Pointer to the Interrupt Controller
+*                driver instance.
+* @param[in]     InstancePtr Pointer to the GPIO driver instance.
+* @param[in]     IntrId XPAR_<INTC_instance>_<GPIO_instance>_VEC value from
+*                xparameters.h.
+* @param[in]     IntrMask GPIO channel mask.
 *
 ******************************************************************************/
 void GpioDisableIntr(INTC *IntcInstancePtr, XGpio *InstancePtr,

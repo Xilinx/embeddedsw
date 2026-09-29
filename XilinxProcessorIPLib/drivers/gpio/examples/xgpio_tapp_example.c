@@ -7,14 +7,11 @@
 /*****************************************************************************/
 /**
 * @file xgpio_tapp_example.c
+* @brief Demonstrates usage of AXI GPIO hardware and driver.
 *
-* This file contains a example for using AXI GPIO hardware and driver.
+* This file contains an example for using AXI GPIO hardware and driver.
 * This example assumes that there is a UART Device or STDIO Device in the
 * hardware system.
-*
-* @note
-*
-* None
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -33,7 +30,7 @@
 * 4.10  gm   07/11/23 Added SDT support.
 * 4.10  gm   08/28/23 Update example to support peripheral tests.
 * 4.13  vlt  12/17/25 Update Doxygen comments to include SDT flow details.
-*
+* 4.14  vn   09/10/26 Align Doxygen comments with AMD standards
 * </pre>
 *
 *****************************************************************************/
@@ -48,37 +45,48 @@
 
 /************************** Constant Definitions ****************************/
 
-/*
+/**
+ * @brief LED visibility delay count.
+ *
  * The following constant is used to wait after an LED is turned on to make
- * sure that it is visible to the human eye.  This constant might need to be
+ * sure that it is visible to the human eye. This constant might need to be
  * tuned for faster or slower processor speeds.
  */
 #define LED_DELAY	  1000000
 
-/* The following constant is used to determine which channel of the GPIO is
- * used if there are 2 channels supported in the GPIO.
+/**
+ * @brief LED channel selection.
+ *
+ * The following constant is used to determine which channel of the GPIO is
+ * used if there are two channels supported in the GPIO.
  */
 #define LED_CHANNEL 1
 
-#define LED_MAX_BLINK	0x1	/* Number of times the LED Blinks */
+#define LED_MAX_BLINK	0x1	/**< Number of times the LED blinks. */
 
-#define GPIO_BITWIDTH	16	/* This is the width of the GPIO */
+#define GPIO_BITWIDTH	16	/**< Width of the GPIO. */
 
-#define printf xil_printf	/* A smaller footprint printf */
+#define printf xil_printf	/**< Smaller footprint printf. */
 
-/*
+/** @name Device parameters
+ *
  * The following constants map to the XPAR parameters created in the
- * xparameters.h file. They are defined here such that a user can easily
- * change all the needed parameters in one place.
+ * xparameters.h file. They are defined here so that all the needed
+ * parameters can be easily changed in one place.
+ * @{
  */
 #ifndef SDT
 #ifndef TESTAPP_GEN
+/** Output device ID. */
 #define GPIO_OUTPUT_DEVICE_ID	XPAR_GPIO_0_DEVICE_ID
+/** Input device ID. */
 #define GPIO_INPUT_DEVICE_ID	XPAR_GPIO_0_DEVICE_ID
 #endif /* TESTAPP_GEN */
 #else
+/** Base address. */
 #define	XGPIO_BASEADDRESS	XPAR_XGPIO_0_BASEADDR
 #endif
+/** @} */
 
 /**************************** Type Definitions ******************************/
 
@@ -96,29 +104,33 @@ int GpioOutputExample(XGpio *GpioOutputPtr, UINTPTR BaseAddress);
 int GpioInputExample(UINTPTR BaseAddress, u32 *DataRead);
 #endif
 
+/** @cond INTERNAL */
 void GpioDriverHandler(void *CallBackRef);
+/** @endcond */
 
 
 /************************** Variable Definitions **************************/
 
-/*
+/** @name Global GPIO driver instances
+ *
  * The following are declared globally so they are zeroed and so they are
- * easily accessible from a debugger
+ * easily accessible from a debugger.
+ * @{
  */
-XGpio GpioOutput; /* The driver instance for GPIO Device configured as O/P */
-XGpio GpioInput;  /* The driver instance for GPIO Device configured as I/P */
+XGpio GpioOutput; /**< Driver instance for the GPIO device used as output. */
+XGpio GpioInput;  /**< Driver instance for the GPIO device used as input. */
+/** @} */
 
 /*****************************************************************************/
 /**
-* Main function to call the example. This function is not included if the
-* example is generated from the Peripheral Tests in SDK.
+* @brief Runs the GPIO output and input examples.
 *
+* This function is not included if the example is generated from the
+* Peripheral Tests in SDK.
 *
 * @return
-*		- XST_SUCCESS if successful
-*		- XST_FAILURE if unsuccessful
-*
-* @note		None
+*               - XST_SUCCESS if successful.
+*               - XST_FAILURE if unsuccessful.
 *
 ******************************************************************************/
 #ifndef TESTAPP_GEN
@@ -157,26 +169,23 @@ int main(void)
 
 /*****************************************************************************/
 /**
-*
-* This function does a minimal test on the GPIO device configured as OUTPUT
-* and driver as a example.
-*
+* @brief Runs a minimal test on the GPIO device configured as output.
 *
 * @if SDT
-* @param	GpioOutputPtr is a pointer to the GPIO driver Instance
-* @param	BaseAddress contains the base address of the device
+* @param[in]   GpioOutputPtr Pointer to the GPIO driver instance.
+* @param[in]   BaseAddress Base address of the device.
 * @else
-* @param	DeviceId is the XPAR_<GPIO_instance>_DEVICE_ID value from
-*		xparameters.h
-* @param	GpioWidth is the width of the GPIO
+* @param[in]   DeviceId XPAR_<GPIO_instance>_DEVICE_ID value from
+*              xparameters.h.
+* @param[in]   GpioWidth Width of the GPIO.
 * @endif
 *
 * @return
-*		- XST_SUCCESS if successful
-*		- XST_FAILURE if unsuccessful
+*               - XST_SUCCESS if successful.
+*               - XST_FAILURE if unsuccessful.
 *
-* @note	        In XSCT/classic flow, DeviceId is used to look up the
-*               device configuration.
+* @note        In XSCT/classic flow, DeviceId is used to look up the device
+*              configuration.
 *
 ****************************************************************************/
 #ifndef SDT
@@ -256,24 +265,22 @@ int GpioOutputExample(XGpio *GpioOutputPtr, UINTPTR BaseAddress)
 
 /******************************************************************************/
 /**
-*
-* This function  performs a test on the GPIO driver/device with the GPIO
-* configured as INPUT
+* @brief Tests the GPIO device configured as input.
 *
 * @if SDT
-* @param	BaseAddress contains the base address of the device
+* @param[in]   BaseAddress Base address of the device.
 * @else
-* @param	DeviceId is the XPAR_<GPIO_instance>_DEVICE_ID value from
-*		xparameters.h
+* @param[in]   DeviceId XPAR_<GPIO_instance>_DEVICE_ID value from
+*              xparameters.h.
 * @endif
-* @param	DataRead is the pointer where the data read from GPIO Input is
-*		returned
+* @param[out]  DataRead Pointer where the data read from the GPIO input is
+*              returned.
 *
 * @return
-*		- XST_SUCCESS if the Test is successful
-*		- XST_FAILURE if the test is not successful
+*               - XST_SUCCESS if the test is successful.
+*               - XST_FAILURE if the test is not successful.
 *
-* @note	       In XSCT/classic flow, DeviceId is used to look up the device
+* @note        In XSCT/classic flow, DeviceId is used to look up the device
 *              configuration.
 *
 ******************************************************************************/

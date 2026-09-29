@@ -1,17 +1,19 @@
 /******************************************************************************
 * Copyright (C) 2002 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
+
+#ifndef XGPIO_I_H
+#define XGPIO_I_H
 
 /******************************************************************************/
 /**
 * @file xgpio_i.h
-* @addtogroup gpio_api GPIO APIs
-* @{
+* @brief Declares internal identifiers shared among XGpio driver files.
 *
-* The xgpio_i.h header file contains internal identifiers, which are
-* shared among the files of the driver. It is intended for internal use only.
+* Contains internal identifiers, which are shared among the files of the
+* driver. It is intended for internal use only.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -20,11 +22,14 @@
 * ----- ---- -------- -----------------------------------------------
 * 1.00a rmm  03/13/02 First release
 * 2.11a mta  03/21/07 Updated to new coding style
+* 4.14  vn   09/10/26 Align Doxygen comments with AMD standards
 * </pre>
+*
 ******************************************************************************/
 
-#ifndef XGPIO_I_H		/* prevent circular inclusions */
-#define XGPIO_I_H		/**< by using protection macros */
+/** @addtogroup gpio_api GPIO APIs
+ * @{
+ */
 
 #ifdef __cplusplus
 extern "C" {
@@ -48,11 +53,14 @@ extern "C" {
 
 /************************** Variable Definitions ****************************/
 
+/**
+ * @brief Holds the configuration entry for each GPIO instance.
+ */
 extern XGpio_Config XGpio_ConfigTable[];
 
 #ifdef __cplusplus
 }
 #endif
 
-#endif /* end of protection macro */
 /** @} */
+#endif /* end of protection macro */

@@ -4,13 +4,31 @@
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
+#ifndef XGPIO_H
+#define XGPIO_H
+
 /*****************************************************************************/
 /**
 * @file xgpio.h
 * @addtogroup gpio_api GPIO APIs
 * @{
+* @brief Defines the software API for the XGpio driver.
+*
 * @details
 *
+* The Xilinx AXI GPIO driver. This driver supports the Xilinx AXI General
+* Purpose I/O (GPIO) device.
+*
+* The AXI GPIO device provides general purpose input and output access to
+* discrete signals. The driver supports the following features:
+*   - One or two channels of discrete inputs and outputs. Dual channel is
+*     optional and device dependent.
+*   - Configurable data bus width per channel.
+*   - Per-bit direction control to configure each signal as an input or an
+*     output.
+*   - Reading input discretes and writing output discretes.
+*   - Setting and clearing individual output discretes.
+*   - Optional interrupt support for reporting input channel changes.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -60,63 +78,68 @@
 * 4.10  gm   07/11/23 Added SDT support.
 * 4.10  gm   08/28/23 Added Width member to XGpio_Config in SDT flow.
 * 4.13  vlt  12/30/25 Update Doxygen comments to include SDT flow details.
-*
+* 4.14  vn   09/10/26 Align Doxygen comments with AMD standards
 * </pre>
-*****************************************************************************/
-
-#ifndef XGPIO_H			/* prevent circular inclusions */
-#define XGPIO_H			/**< by using protection macros */
+******************************************************************************/
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-/***************************** Include Files ********************************/
+/****************************** Include Files ********************************/
 
 #include "xil_types.h"
 #include "xil_assert.h"
 #include "xstatus.h"
 #include "xgpio_l.h"
 
-/************************** Constant Definitions ****************************/
+/*************************** Constant Definitions ****************************/
 
-/**************************** Type Definitions ******************************/
+/***************************** Type Definitions ******************************/
 
 /**
- * This typedef contains configuration information for the device.
+ * @brief Holds configuration information for the device.
  */
 typedef struct {
 #ifndef SDT
-	u16 DeviceId;		/**< Unique ID  of device */
+	u16 DeviceId;		/**< Unique ID of device. */
 #else
-	char *Name;             /**< Name of the device */
+	char *Name;             /**< Name of the device. */
 #endif
-	UINTPTR BaseAddress;	/**< Device base address */
-	int InterruptPresent;	/**< Are interrupts supported in h/w */
-	int IsDual;		/**< Are 2 channels supported in h/w */
+	UINTPTR BaseAddress;	/**< Device base address. */
+	int InterruptPresent;	/**< Indicates whether interrupts are
+				  * supported in hardware. */
+	int IsDual;		/**< Indicates whether two channels are
+				  * supported in hardware. */
 #ifdef SDT
-	u16 IntrId; /**< Bits[11:0] Interrupt-id Bits[15:12] trigger type and level flags */
-	UINTPTR IntrParent; /**< Bit[0] Interrupt parent type Bit[64/32:1] Parent base address */
-	u16 Width;  /**< Gpio width */
+	u16 IntrId;		/**< Interrupt ID in Bits[11:0], and trigger
+				  * type and level flags in Bits[15:12]. */
+	UINTPTR IntrParent;	/**< Interrupt parent type in Bit[0], and
+				  * parent base address in Bit[64/32:1]. */
+	u16 Width;		/**< GPIO width. */
 #endif
 } XGpio_Config;
 
 /**
- * The XGpio driver instance data. The user is required to allocate a
- * variable of this type for every GPIO device in the system. A pointer
- * to a variable of this type is then passed to the driver API functions.
+ * @brief Holds the XGpio driver instance data.
+ *
+ * Allocate a variable of this type for every GPIO device in the system.
+ * A pointer to a variable of this type is then passed to the driver API
+ * functions.
  */
 typedef struct {
-	UINTPTR BaseAddress;	/**< Device base address */
-	u32 IsReady;		/**< Device is initialized and ready */
-	int InterruptPresent;	/**< Are interrupts supported in h/w */
-	int IsDual;		/**< Are 2 channels supported in h/w */
+	UINTPTR BaseAddress;	/**< Device base address. */
+	u32 IsReady;		/**< Device is initialized and ready. */
+	int InterruptPresent;	/**< Indicates whether interrupts are
+				  * supported in hardware. */
+	int IsDual;		/**< Indicates whether two channels are
+				  * supported in hardware. */
 } XGpio;
 
-/***************** Macros (Inline Functions) Definitions ********************/
+/****************** Macros (Inline Functions) Definitions ********************/
 
 
-/************************** Function Prototypes *****************************/
+/*************************** Function Prototypes *****************************/
 
 /*
  * Initialization functions in xgpio_sinit.c
@@ -167,5 +190,5 @@ u32 XGpio_InterruptGetStatus(XGpio *InstancePtr);
 }
 #endif
 
-#endif /* end of protection macro */
 /** @} */
+#endif /* end of protection macro */
