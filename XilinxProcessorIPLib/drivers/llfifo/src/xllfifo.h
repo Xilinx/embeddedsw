@@ -4,19 +4,22 @@
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
+#ifndef XLLFIFO_H		/* prevent circular inclusions */
+#define XLLFIFO_H
+
 /*****************************************************************************/
 /**
  *
  * @file xllfifo.h
 * @addtogroup llfifo Overview
 * @{
-* @details
- *
- * The Xilinx Dual Channel Fifo driver component. This driver supports the
- * Virtex-5(TM) and Virtex-4(TM) XPS_ll_Fifo and the AxiFifo.
- *
- * For a full description of the bridge features, please see the HW spec. This
- * driver supports the following features:
+* @brief Defines the XLlFifo driver software API.
+*
+* The Xilinx Dual Channel Fifo driver component. This driver supports the
+* Virtex-5(TM) and Virtex-4(TM) XPS_ll_Fifo and the AxiFifo.
+*
+* For a full description of the bridge features, see the hardware spec. This
+* driver supports the following features:
  *   - Memory mapped access to host interface registers
  *   - API for polled frame transfers
  *   - API for interrupt driven frame transfers
@@ -167,11 +170,10 @@
  * 6.1 vlt    12/30/25 Update Doxygen comments to include SDT flow details.
  * 6.1 vlt    03/14/26 Updated BaseAddress type from u32 to UINTPTR
  *                     to support 64-bit addressing.
+ * 6.2   tb  09/15/26 Align Doxygen comments with AMD standards.
  * </pre>
  *
  *****************************************************************************/
-#ifndef XLLFIFO_H		/* prevent circular inclusions */
-#define XLLFIFO_H		/* by using preprocessor symbols */
 
 /* force C linkage */
 #ifdef __cplusplus
@@ -187,24 +189,21 @@ extern "C" {
 /**************************** Type Definitions *******************************/
 
 /**
+ * @brief Defines the XLlFifo driver instance.
+ *
  * This typedef defines a run-time instance of an XLlFifo device.
  */
 typedef struct XLlFifo {
-	UINTPTR BaseAddress;  /**< BaseAddress is the physical base address of the
-	                   *   device's registers
-	                   */
+	UINTPTR BaseAddress; /**< Physical base address of the device
+	                      *  registers.
+	                      */
 
 	u32 IsReady;           /**< IsReady is non-zero if the driver instance
 	                        *   has been initialized.
 	                        */
 
-	UINTPTR Axi4BaseAddress;	/**< BaseAddress if the FIFO Data interface is
-				 *	AXI4 this address should use for FIFO
-				 *	access
-				 */
-	u32 Datainterface;	/**< Data interface of the FIFO. This value is zero
-				 *	if the Datainterface is AXI4-lite.
-				 */
+	UINTPTR Axi4BaseAddress; /**< AXI4 FIFO data-path base address. */
+	u32 Datainterface; /**< Zero if the data interface is AXI4-Lite. */
 	XStrm_RxFifoStreamer RxStreamer; /**< RxStreamer is the byte streamer
 	                                  *   instance for the receive channel.
 	                                  */
@@ -218,6 +217,9 @@ typedef struct XLlFifo {
 #endif
 } XLlFifo;
 
+/**
+ * @brief Defines the XLlFifo hardware configuration.
+ */
 typedef struct XLlFifo_Config {
 #ifndef SDT
 	u32 DeviceId;		/**< Deviceid of the AXI FIFO */
@@ -236,19 +238,17 @@ typedef struct XLlFifo_Config {
 
 /****************************************************************************/
 /**
+* @brief Resets both FIFO channels and the local-link interface.
 *
-* XLlFifo_Reset resets both the Tx and Rx channels and the local link interface
-* the FIFO specified by <i>InstancePtr</i>. XLlFifo_TxReset resets also sends a
-* reset pulse to the downstream device (e.g. TEMAC). XLlFifo_Reset drops any
-* bytes in the FIFO not yet retrieved. XLlFifo_Reset drops any bytes in the FIFO
-* not yet transmitted.
+* XLlFifo_Reset resets both the Tx and Rx channels and the local-link
+* interface of the FIFO specified by <i>InstancePtr</i>. XLlFifo_TxReset
+* also sends a reset pulse to the downstream device (for example, TEMAC).
+* XLlFifo_Reset drops any bytes in the FIFO not yet retrieved or transmitted.
 *
-* @param    InstancePtr references the FIFO on which to operate.
-*
-* @return   N/A
+* @param[in]    InstancePtr References the FIFO on which to operate.
 *
 * @note
-* C-style signature:
+* C-style signature
 *    void XLlFifo_Reset(XLlFifo *InstancePtr)
 *
 *****************************************************************************/
@@ -259,19 +259,20 @@ typedef struct XLlFifo_Config {
 
 /****************************************************************************/
 /**
+* @brief Returns the FIFO interrupt status mask.
 *
 * XLlFifo_Status returns a bit mask of the interrupt status register (ISR)
 * for the FIFO specified by <i>InstancePtr</i>. XLlFifo_Status can be used
 * to query the status of the FIFO without having to have interrupts enabled.
 *
-* @param    InstancePtr references the FIFO on which to operate.
+* @param[in]    InstancePtr References the FIFO on which to operate.
 *
 * @return   XLlFifo_IntStatus returns a bit mask of the status conditions.
-*           The mask will be a set of bitwise or'd values from the
+*           The mask is a set of bitwise or'd values from the
 *           <code>XLLF_INT_*_MASK</code> preprocessor symbols.
 *
 * @note
-* C-style signature:
+* C-style signature
 *    u32 XLlFifo_IntStatus(XLlFifo *InstancePtr)
 *
 *****************************************************************************/
@@ -280,21 +281,19 @@ typedef struct XLlFifo_Config {
 
 /****************************************************************************/
 /**
+* @brief Enables selected FIFO interrupts.
 *
 * XLlFifo_IntEnable enables the interrupts specified in <i>Mask</i> for the
 * FIFO specified by <i>InstancePtr</i>. The corresponding interrupt for each bit
-* set to 1 in <i>Mask</i>, will be enabled.
+* set to 1 in <i>Mask</i> is enabled.
 *
-* @param    InstancePtr references the FIFO on which to operate.
-*
-* @param    Mask contains a bit mask of the interrupts to enable. The mask
-*           can be formed using a set of bitwise or'd values from the
-*           <code>XLLF_INT_*_MASK</code> preprocessor symbols.
-*
-* @return   N/A
+* @param[in]    InstancePtr References the FIFO on which to operate.
+* @param[in]    Mask Contains a bit mask of the interrupts to enable. The mask
+*               can be formed using a set of bitwise or'd values from the
+*               <code>XLLF_INT_*_MASK</code> preprocessor symbols.
 *
 * @note
-* C-style signature:
+* C-style signature
 *    void XLlFifo_IntEnable(XLlFifo *InstancePtr, u32 Mask)
 *
 *****************************************************************************/
@@ -309,22 +308,20 @@ typedef struct XLlFifo_Config {
 
 /****************************************************************************/
 /**
+* @brief Disables selected FIFO interrupts.
 *
 * XLlFifo_IntDisable disables the interrupts specified in <i>Mask</i> for the
 * FIFO specified by <i>InstancePtr</i>. The corresponding interrupt for each bit
-* set to 1 in <i>Mask</i>, will be disabled. In other words, XLlFifo_IntDisable
+* set to 1 in <i>Mask</i> is disabled. In other words, XLlFifo_IntDisable
 * uses the "set a bit to clear it" scheme.
 *
-* @param    InstancePtr references the FIFO on which to operate.
-*
-* @param    Mask contains a bit mask of the interrupts to disable. The mask
-*           can be formed using a set of bitwise or'd values from the
-*           <code>XLLF_INT_*_MASK</code> preprocessor symbols.
-*
-* @return   N/A
+* @param[in]    InstancePtr References the FIFO on which to operate.
+* @param[in]    Mask Contains a bit mask of the interrupts to disable. The
+*               mask can be formed using a set of bitwise or'd values from the
+*               <code>XLLF_INT_*_MASK</code> preprocessor symbols.
 *
 * @note
-* C-style signature:
+* C-style signature
 *    void XLlFifo_IntDisable(XLlFifo *InstancePtr, u32 Mask)
 *
 *****************************************************************************/
@@ -339,19 +336,20 @@ typedef struct XLlFifo_Config {
 
 /****************************************************************************/
 /**
+* @brief Returns the pending FIFO interrupt mask.
 *
 * XLlFifo_IntPending returns a bit mask of the pending interrupts for the
 * FIFO specified by <i>InstancePtr</i>. Each bit set to 1 in the return value
 * represents a pending interrupt.
 *
-* @param    InstancePtr references the FIFO on which to operate.
+* @param[in]    InstancePtr References the FIFO on which to operate.
 *
 * @return   XLlFifo_IntPending returns a bit mask of the interrupts that are
-*           pending. The mask will be a set of bitwise or'd values from the
+*           pending. The mask is a set of bitwise or'd values from the
 *           <code>XLLF_INT_*_MASK</code> preprocessor symbols.
 *
 * @note
-* C-style signature:
+* C-style signature
 *    u32 XLlFifo_IntPending(XLlFifo *InstancePtr)
 *
 *****************************************************************************/
@@ -372,20 +370,20 @@ extern u32 _xllfifo_ipis_value;
 
 /****************************************************************************/
 /**
+* @brief Clears selected pending FIFO interrupts.
 *
 * XLlFifo_IntClear clears pending interrupts specified in <i>Mask</i> for the
 * FIFO specified by <i>InstancePtr</i>. The corresponding pending interrupt for
-* each bit set to 1 in <i>Mask</i>, will be cleared. In other words,
+* each bit set to 1 in <i>Mask</i> is cleared. In other words,
 * XLlFifo_IntClear uses the "set a bit to clear it" scheme.
 *
-* @param    InstancePtr references the FIFO on which to operate.
-*
-* @param    Mask contains a bit mask of the pending interrupts to clear. The
-*           mask can be formed using a set of bitwise or'd values from the
-*           <code>XLLF_INT_*_MASK</code> preprocessor symbols.
+* @param[in]    InstancePtr References the FIFO on which to operate.
+* @param[in]    Mask Contains a bit mask of the pending interrupts to clear.
+*               The mask can be formed using a set of bitwise or'd values from
+*               the <code>XLLF_INT_*_MASK</code> preprocessor symbols.
 *
 * @note
-* C-style signature:
+* C-style signature
 *    void XLlFifo_IntClear(XLlFifo *InstancePtr, u32 Mask)
 *
 *****************************************************************************/
@@ -395,6 +393,7 @@ extern u32 _xllfifo_ipis_value;
 
 /****************************************************************************/
 /**
+* @brief Resets the FIFO receive channel.
 *
 * XLlFifo_RxReset resets the receive channel of the FIFO specified by
 * <i>InstancePtr</i>. XLlFifo_RxReset drops any bytes in the FIFO not yet
@@ -404,12 +403,10 @@ extern u32 _xllfifo_ipis_value;
 * reading the interrupt status (IS) register and testing for the Rx Reset
 * complete (RRC) bit.
 *
-* @param    InstancePtr references the FIFO on which to operate.
-*
-* @return   N/A
+* @param[in]    InstancePtr References the FIFO on which to operate.
 *
 * @note
-* C-style signature:
+* C-style signature
 *    void XLlFifo_RxReset(XLlFifo *InstancePtr)
 *
 *****************************************************************************/
@@ -419,17 +416,18 @@ extern u32 _xllfifo_ipis_value;
 
 /****************************************************************************/
 /**
+* @brief Reports whether the receive channel is empty.
 *
 * XLlFifo_IsRxEmpty returns true if the receive channel of the FIFO, specified
 * by <i>InstancePtr</i>, is empty.
 *
-* @param    InstancePtr references the FIFO on which to operate.
+* @param[in]    InstancePtr References the FIFO on which to operate.
 *
 * @return   XLlFifo_IsRxEmpty returns TRUE when the receive channel of the
 *           FIFO is empty. Otherwise, XLlFifo_IsRxEmpty returns FALSE.
 *
 * @note
-* C-style signature:
+* C-style signature
 *    int XLlFifo_IsRxEmpty(XLlFifo *InstancePtr)
 *
 *****************************************************************************/
@@ -440,23 +438,25 @@ extern u32 _xllfifo_ipis_value;
 
 /*****************************************************************************/
 /**
+* @brief Returns receive occupancy in 32-bit words.
 *
-* XLlFifo_RxOccupancy returns the number of 32-bit words available (occupancy) to
-* be read from the receive channel of the FIFO, specified by <i>InstancePtr</i>.
+* XLlFifo_RxOccupancy returns the number of 32-bit words available (occupancy)
+* to be read from the receive channel of the FIFO specified by
+* <i>InstancePtr</i>.
 *
 * The xps_ll_fifo core uses the same fifo to store data values and frame length
-* values. Upon initialization, the XLlFifo_RxOccupancy will give the value of
+* values. Upon initialization, the XLlFifo_RxOccupancy gives the value of
 * 1, which means one length value (a reserved fifo location) and no data
 * values.
 *
-* @param    InstancePtr references the FIFO on which to operate.
+* @param[in]    InstancePtr References the FIFO on which to operate.
 *
 * @return   XLlFifo_RxOccupancy returns the occupancy count for the specified
 *           packet FIFO.
 *
 * @note
-*
-* C Signature: u32 XLlFifo_RxOccupancy(XLlFifo *InstancePtr)
+* C-style signature
+*    u32 XLlFifo_RxOccupancy(XLlFifo *InstancePtr)
 *
 ******************************************************************************/
 #define XLlFifo_RxOccupancy(InstancePtr) \
@@ -464,6 +464,7 @@ extern u32 _xllfifo_ipis_value;
 
 /*****************************************************************************/
 /**
+* @brief Returns the next receive frame length in bytes.
 *
 * XLlFifo_RxGetLen notifies the hardware that the program is ready to receive
 * the next frame from the receive channel of the FIFO, specified by
@@ -472,14 +473,14 @@ extern u32 _xllfifo_ipis_value;
 * Note that the program must first call XLlFifo_RxGetLen before pulling data
 * out of the receive channel of the FIFO with XLlFifo_Read.
 *
-* @param    InstancePtr references the FIFO on which to operate.
+* @param[in,out]    InstancePtr References the FIFO on which to operate.
 *
 * @return   XLlFifo_RxGetLen returns the number of bytes available in the next
 *           frame.
 *
 * @note
-*
-* C Signature: u32 XLlFifo_RxGetLen(XLlFifo *InstancePtr)
+* C-style signature
+*    u32 XLlFifo_RxGetLen(XLlFifo *InstancePtr)
 *
 ******************************************************************************/
 #define XLlFifo_RxGetLen(InstancePtr) \
@@ -487,6 +488,7 @@ extern u32 _xllfifo_ipis_value;
 
 /*****************************************************************************/
 /**
+* @brief Reads bytes from the FIFO receive channel.
 *
 * XLlFifo_Read reads <i>Bytes</i> bytes from the receive channel of the FIFO
 * referenced by <i>InstancePtr</i> to the block of memory, referenced by
@@ -496,18 +498,15 @@ extern u32 _xllfifo_ipis_value;
 * calls to XLlFifo_Read() does not exceed the number of bytes available given
 * from the last call to XLlFifo_RxGetLen().
 *
-* @param    InstancePtr references the FIFO on which to operate.
-*
-* @param    BufPtr specifies the memory address to place the data read.
-*
-* @param    Bytes specifies the number of bytes to read.
-*
-* @return   N/A
+* @param[in,out]    InstancePtr References the FIFO on which to operate.
+* @param[out]    BufPtr Specifies the memory address to place the data read.
+* @param[in]    Bytes Specifies the number of bytes to read.
 *
 * @note
 * Error handling is handled through hardware exceptions and interrupts.
 *
-* C Signature: void XLlFifo_Read(XLlFifo *InstancePtr, void *BufPtr, unsigned Bytes)
+* C-style signature
+*    void XLlFifo_Read(XLlFifo *InstancePtr, void *BufPtr, unsigned Bytes)
 *
 ******************************************************************************/
 #define XLlFifo_Read(InstancePtr, BufPtr, Bytes) \
@@ -515,6 +514,7 @@ extern u32 _xllfifo_ipis_value;
 
 /****************************************************************************/
 /**
+* @brief Resets the FIFO transmit channel.
 *
 * XLlFifo_TxReset resets the transmit channel of the FIFO specified by
 * <i>InstancePtr</i>. XLlFifo_TxReset drops any bytes in the FIFO not yet
@@ -524,12 +524,10 @@ extern u32 _xllfifo_ipis_value;
 * reading the interrupt status (IS) register and testing for the Tx Reset
 * complete (TRC) bit.
 *
-* @param    InstancePtr references the FIFO on which to operate.
-*
-* @return   N/A
+* @param[in]    InstancePtr References the FIFO on which to operate.
 *
 * @note
-* C-style signature:
+* C-style signature
 *    void XLlFifo_TxReset(XLlFifo *InstancePtr)
 *
 *****************************************************************************/
@@ -539,19 +537,20 @@ extern u32 _xllfifo_ipis_value;
 
 /****************************************************************************/
 /**
+* @brief Reports whether transmit is complete.
 *
 * XLlFifo_IsTxDone returns true if the transmission in the transmit channel
 * of the FIFO, specified by <i>InstancePtr</i>, is complete. XLlFifo_IsTxDone
 * works only if the TC bit in the IS register is cleared before sending a
 * frame.
 *
-* @param    InstancePtr references the FIFO on which to operate.
+* @param[in]    InstancePtr References the FIFO on which to operate.
 *
 * @return   XLlFifo_IsTxDone returns TRUE when the transmit channel of the
 *           FIFO is complete. Otherwise, XLlFifo_IsTxDone returns FALSE.
 *
 * @note
-* C-style signature:
+* C-style signature
 *    int XLlFifo_IsTxDone(XLlFifo *InstancePtr)
 *
 *****************************************************************************/
@@ -562,19 +561,20 @@ extern u32 _xllfifo_ipis_value;
 
 /****************************************************************************/
 /**
+* @brief Reports whether receive is complete.
 *
 * XLlFifo_IsRxDone returns true if the reception in the receive channel
 * of the FIFO, specified by <i>InstancePtr</i>, is complete. XLlFifo_IsRxDone
 * works only if the RC bit in the ISR register is cleared before receiving a
 * frame.
 *
-* @param    InstancePtr references the FIFO on which to operate.
+* @param[in]    InstancePtr References the FIFO on which to operate.
 *
 * @return   XLlFifo_IsRxDone returns TRUE when the receive channel of the
 *           FIFO is complete. Otherwise, XLlFifo_IsRxDone returns FALSE.
 *
 * @note
-* C-style signature:
+* C-style signature
 *    int XLlFifo_IsRxDone(XLlFifo *InstancePtr)
 *
 *****************************************************************************/
@@ -585,22 +585,23 @@ extern u32 _xllfifo_ipis_value;
 
 /****************************************************************************/
 /**
+* @brief Returns transmit vacancy in 32-bit words.
 *
 * XLlFifo_TxVacancy returns the number of unused 32 bit words available
 * (vacancy) in the send channel of the FIFO specified by <i>InstancePtr</i>.
 *
-* The xps_ll_fifo core uses tXLLF_he same fifo to store data values and frame length
-* values. Upon initialization, the XLlFifo_TxVacancy will give the value of
+* The xps_ll_fifo core uses the same fifo to store data values and frame length
+* values. Upon initialization, the XLlFifo_TxVacancy gives the value of
 * FIFO_WIDTH - 1, which means one length value used (a reserved fifo location)
 * and no data values yet present.
 *
-* @param    InstancePtr references the FIFO on which to operate.
+* @param[in]    InstancePtr References the FIFO on which to operate.
 *
 * @return   XLlFifo_TxVacancy returns the vacancy count in 32-bit words for
 *           the specified FIFO.
 *
 * @note
-* C-style signature:
+* C-style signature
 *    u32 XLlFifo_TxVacancy(XLlFifo *InstancePtr)
 *
 *****************************************************************************/
@@ -609,19 +610,17 @@ extern u32 _xllfifo_ipis_value;
 
 /*****************************************************************************/
 /**
+* @brief Starts a transmit of the given byte length.
 *
 * XLlFifo_TxSetLen begins a hardware transfer of <i>Bytes</i> bytes out of the
 * transmit channel of the FIFO specified by <i>InstancePtr</i>.
 *
-* @param    InstancePtr references the FIFO on which to operate.
-*
-* @param    Bytes specifies the frame length in bytes.
-*
-* @return   N/A
+* @param[in,out]    InstancePtr References the FIFO on which to operate.
+* @param[in]    Bytes Specifies the frame length in bytes.
 *
 * @note
-*
-* C Signature: void XLlFifo_TxSetLen(XLlFifo *InstancePtr, u32 Bytes)
+* C-style signature
+*    void XLlFifo_TxSetLen(XLlFifo *InstancePtr, u32 Bytes)
 *
 ******************************************************************************/
 #define XLlFifo_TxSetLen(InstancePtr, Bytes) \
@@ -629,6 +628,7 @@ extern u32 _xllfifo_ipis_value;
 
 /*****************************************************************************/
 /**
+* @brief Writes bytes to the FIFO transmit channel.
 *
 * XLlFifo_Write writes <i>Bytes</i> bytes of the block of memory, referenced by
 * <i>BufPtr</i>, to the transmit channel of the FIFO referenced by
@@ -638,18 +638,15 @@ extern u32 _xllfifo_ipis_value;
 * more calls to XLlFifo_Write() matches the number of bytes given in the next
 * call to XLlFifo_TxSetLen().
 *
-* @param    InstancePtr references the FIFO on which to operate.
-*
-* @param    BufPtr specifies the memory address of data to write.
-*
-* @param    Bytes specifies the number of bytes to write.
-*
-* @return   N/A
+* @param[in,out]    InstancePtr References the FIFO on which to operate.
+* @param[in]    BufPtr Specifies the memory address of data to write.
+* @param[in]    Bytes Specifies the number of bytes to write.
 *
 * @note
 * Error handling is handled through hardware exceptions and interrupts.
 *
-* C Signature: void XLlFifo_Write(XLlFifo *InstancePtr, void *BufPtr, unsigned Bytes)
+* C-style signature
+*    void XLlFifo_Write(XLlFifo *InstancePtr, void *BufPtr, unsigned Bytes)
 *
 ******************************************************************************/
 #define XLlFifo_Write(InstancePtr, BufPtr, Bytes) \
@@ -658,6 +655,7 @@ extern u32 _xllfifo_ipis_value;
 
 /*****************************************************************************/
 /**
+* @brief Writes the transmit destination address.
 *
 * XLlFifo_WriteTdr writes to the Transmit Destination Register (TDR)
 *
@@ -668,13 +666,12 @@ extern u32 _xllfifo_ipis_value;
 *  - Write the packet data to the Transmit Data FIFO next
 *  - Write the length of the packet into the Transmit Length Register.
 *
-* @param    InstancePtr references the FIFO on which to operate.
-* @param    Tdest is the Transmit Destination address to be written to TDR.
+* @param[in]    InstancePtr References the FIFO on which to operate.
+* @param[in]    Tdest Transmit Destination address to be written to TDR.
 *
-* @return   N/A
-*
-* @note		C Signature:
-*		void XLlFifo_WriteTdr(XLlFifo *InstancePtr, u32 Tdest);
+* @note
+* C-style signature
+*    void XLlFifo_WriteTdr(XLlFifo *InstancePtr, u32 Tdest)
 *
 ******************************************************************************/
 #define XLlFifo_WriteTdr(InstancePtr, Tdest) \
@@ -683,6 +680,7 @@ extern u32 _xllfifo_ipis_value;
 
 /*****************************************************************************/
 /**
+* @brief Reads the receive destination address.
 *
 * XLlFifo_ReadTdr returns the contents of the Receive Destination Register(RDR).
 *
@@ -695,12 +693,13 @@ extern u32 _xllfifo_ipis_value;
 * The RDR value for the subsequent packet to be processed is moved to the RDR
 * when the previous RDR value has been read.
 *
-* @param    	InstancePtr references the FIFO on which to operate.
+* @param[in]    	InstancePtr References the FIFO on which to operate.
 *
 * @return   	The Receive Destination address  read from the RDR.
 *
-* @note		C Signature:
-*		u32 XLlFifo_ReadRdr(XLlFifo *InstancePtr)
+* @note
+* C-style signature
+*    u32 XLlFifo_ReadRdr(XLlFifo *InstancePtr)
 *
 ******************************************************************************/
 #define XLlFifo_ReadRdr(InstancePtr) 				\
@@ -728,5 +727,5 @@ void XLlFifo_TxPutWord(XLlFifo *InstancePtr, u32 Word);
 #ifdef __cplusplus
 }
 #endif
-#endif				/* XLLFIFO_H  end of preprocessor protection symbols */
+#endif				/* XLLFIFO_H */
 /** @} */

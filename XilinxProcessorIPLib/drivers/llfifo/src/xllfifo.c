@@ -8,11 +8,10 @@
 /**
  *
  * @file xllfifo.c
-* @addtogroup llfifo Overview
-* @{
- *
- * The Xilinx local link FIFO driver component. This driver supports the
- * Xilinx xps_ll_fifo core.
+* @brief Implements XLlFifo interface functions.
+*
+* The Xilinx local link FIFO driver component. This driver supports the
+* Xilinx xps_ll_fifo core.
  *
  * <pre>
  * MODIFICATION HISTORY:
@@ -36,8 +35,14 @@
  *		       type casting to fix gcc warnings.
  * 5.6   sd   07/7/23  Add system devicetree support.
  * 6.2   vn   08/26/26 Fix Doxygen warnings.
+ * 6.2   tb  09/15/26 Align Doxygen comments with AMD standards.
  * </pre>
  ******************************************************************************/
+
+/**
+ * @addtogroup llfifo_api LLFIFO APIs
+ * @{
+ */
 
 
 /***************************** Include Files *********************************/
@@ -47,7 +52,7 @@
 #include "xil_assert.h"
 
 /************************** Constant Definitions *****************************/
-#define FIFO_WIDTH_BYTES 4
+#define FIFO_WIDTH_BYTES 4 /**< FIFO keyhole width in bytes. */
 
 /*
  * Implementation Notes:
@@ -73,7 +78,7 @@
  * Operation
  * Once the streamer objects are set up, the API routines in this driver, just
  * call through to the streamer driver to perform the read/write operations.
- * The streamer driver will eventually make calls back into the routines (which
+ * The streamer driver makes calls back into the routines (which
  * reside in this driver) given at initialization to perform the actual I/O.
  *
  * Interrupts
@@ -88,12 +93,13 @@ xdbg_stmnt(u32 _xllfifo_ipis_value;)
 
 /*****************************************************************************/
 /**
+* @brief Returns receive occupancy in 32-bit words.
 *
 * XLlFifo_iRxOccupancy returns the number of 32-bit words available (occupancy)
 * to be read from the receive channel of the FIFO, specified by
 * <i>InstancePtr</i>.
 *
-* @param    InstancePtr references the FIFO on which to operate.
+* @param[in]    InstancePtr References the FIFO on which to operate.
 *
 * @return   XLlFifo_iRxOccupancy returns the occupancy count in 32-bit words for
 *           the specified FIFO.
@@ -109,14 +115,16 @@ u32 XLlFifo_iRxOccupancy(XLlFifo *InstancePtr)
 
 /*****************************************************************************/
 /**
+* @brief Returns the next receive frame length in bytes.
 *
-* XLlFifo_iRxGetLen notifies the hardware that the program is ready to receive the
-* next frame from the receive channel of the FIFO specified by <i>InstancePtr</i>.
+* XLlFifo_iRxGetLen notifies the hardware that the program is ready to
+* receive the next frame from the receive channel of the FIFO specified by
+* <i>InstancePtr</i>.
 *
 * Note that the program must first call XLlFifo_iRxGetLen before pulling data
 * out of the receive channel of the FIFO with XLlFifo_Read.
 *
-* @param    InstancePtr references the FIFO on which to operate.
+* @param[in]    InstancePtr References the FIFO on which to operate.
 *
 * @return   XLlFifo_iRxGetLen returns the number of bytes available in the next
 *           frame.
@@ -132,9 +140,10 @@ u32 XLlFifo_iRxGetLen(XLlFifo *InstancePtr)
 
 /*****************************************************************************/
 /**
+* @brief Reads aligned 32-bit words from the receive FIFO.
 *
-* XLlFifo_iRead_Aligned reads, <i>WordCount</i>, words from the FIFO referenced by
-* <i>InstancePtr</i> to the block of memory, referenced by <i>BufPtr</i>.
+* XLlFifo_iRead_Aligned reads <i>WordCount</i> words from the FIFO referenced
+* by <i>InstancePtr</i> to the block of memory referenced by <i>BufPtr</i>.
 *
 * XLlFifo_iRead_Aligned assumes that <i>BufPtr</i> is already aligned according
 * to the following hardware limitations:
@@ -148,11 +157,9 @@ u32 XLlFifo_iRxGetLen(XLlFifo *InstancePtr)
 * the nearest whole 32 bit word) available given from the last call to
 * XLlFifo_RxGetLen().
 *
-* @param    InstancePtr references the FIFO on which to operate.
-*
-* @param    BufPtr specifies the memory address to place the data read.
-*
-* @param    WordCount specifies the number of 32 bit words to read.
+* @param[in]    InstancePtr References the FIFO on which to operate.
+* @param[out]    BufPtr Specifies the memory address to place the data read.
+* @param[in]    WordCount Specifies the number of 32 bit words to read.
 *
 * @return   XLlFifo_iRead_Aligned always returns XST_SUCCESS. Error handling is
 *           otherwise handled through hardware exceptions and interrupts.
@@ -187,11 +194,12 @@ int XLlFifo_iRead_Aligned(XLlFifo *InstancePtr, void *BufPtr,
 
 /****************************************************************************/
 /**
+* @brief Returns transmit vacancy in 32-bit words.
 *
 * XLlFifo_iTxVacancy returns the number of unused 32 bit words available
 * (vacancy) in the send channel of the FIFO, specified by <i>InstancePtr</i>.
 *
-* @param    InstancePtr references the FIFO on which to operate.
+* @param[in]    InstancePtr References the FIFO on which to operate.
 *
 * @return   XLlFifo_iTxVacancy returns the vacancy count in 32-bit words for
 *           the specified FIFO.
@@ -207,18 +215,18 @@ u32 XLlFifo_iTxVacancy(XLlFifo *InstancePtr)
 
 /*****************************************************************************/
 /**
+* @brief Starts a transmit of the given byte length.
 *
 * XLlFifo_iTxSetLen begins a hardware transfer of data out of the transmit
-* channel of the FIFO, specified by <i>InstancePtr</i>. <i>Bytes</i> specifies the number
-* of bytes in the frame to transmit.
+* channel of the FIFO specified by <i>InstancePtr</i>. <i>Bytes</i> specifies
+* the number of bytes in the frame to transmit.
 *
-* Note that <i>Bytes</i> (rounded up to the nearest whole 32 bit word) must be same
-* number of words just written using one or more calls to
-* XLlFifo_iWrite_Aligned()
+* Note that <i>Bytes</i> (rounded up to the nearest whole 32-bit word) must
+* match the number of words just written using one or more calls to
+* XLlFifo_iWrite_Aligned().
 *
-* @param    InstancePtr references the FIFO on which to operate.
-*
-* @param    Bytes specifies the number of bytes to transmit.
+* @param[in]    InstancePtr References the FIFO on which to operate.
+* @param[in]    Bytes Specifies the number of bytes to transmit.
 *
 ******************************************************************************/
 void XLlFifo_iTxSetLen(XLlFifo *InstancePtr, u32 Bytes)
@@ -231,9 +239,10 @@ void XLlFifo_iTxSetLen(XLlFifo *InstancePtr, u32 Bytes)
 
 /*****************************************************************************/
 /**
+* @brief Writes aligned 32-bit words to the transmit FIFO.
 *
-* XLlFifo_iWrite_Aligned writes, <i>WordCount</i>, words to the FIFO referenced by
-* <i>InstancePtr</i> from the block of memory, referenced by <i>BufPtr</i>.
+* XLlFifo_iWrite_Aligned writes <i>WordCount</i> words to the FIFO referenced
+* by <i>InstancePtr</i> from the block of memory referenced by <i>BufPtr</i>.
 *
 * XLlFifo_iWrite_Aligned assumes that <i>BufPtr</i> is already aligned according
 * to the following hardware limitations:
@@ -247,19 +256,12 @@ void XLlFifo_iTxSetLen(XLlFifo *InstancePtr, u32 Bytes)
 * to the nearest whole 32 bit word) given in the next call to
 * XLlFifo_iTxSetLen().
 *
-* @param    InstancePtr references the FIFO on which to operate.
-*
-* @param    BufPtr specifies the memory address to place the data read.
-*
-* @param    WordCount specifies the number of 32 bit words to read.
+* @param[in]    InstancePtr References the FIFO on which to operate.
+* @param[in]    BufPtr Specifies the memory address of the data to write.
+* @param[in]    WordCount Specifies the number of 32-bit words to write.
 *
 * @return   XLlFifo_iWrite_Aligned always returns XST_SUCCESS. Error handling is
 *           otherwise handled through hardware exceptions and interrupts.
-*
-* @note
-*
-* C Signature: int XLlFifo_iWrite_Aligned(XLlFifo *InstancePtr,
-*                      void *BufPtr, unsigned WordCount);
 *
 ******************************************************************************/
 int XLlFifo_iWrite_Aligned(XLlFifo *InstancePtr, void *BufPtr,
@@ -292,24 +294,23 @@ int XLlFifo_iWrite_Aligned(XLlFifo *InstancePtr, void *BufPtr,
 
 /*****************************************************************************/
 /**
+* @brief Initializes the XLlFifo driver from a config.
 *
 * XLlFifo_CfgInitialize initializes an XPS_ll_Fifo device along with the
 * <i>InstancePtr</i> that references it.
 *
-* @param       InstancePtr is a pointer to the Axi Streaming FIFO instance
-*              to be worked on.
-* @param	Config references the structure holding the hardware
-*		configuration for the Axi Streaming FIFO core to initialize.
-* @param 	EffectiveAddress is the device base address in the virtual memory
-*		address	space. The caller is responsible for keeping the
-*		address mapping from EffectiveAddr to the device physical base
-*		address unchanged once this function is invoked. Unexpected
-*		errors may occur if the address mapping changes after this
-*		function is called. If address translation is not used,
-*		use Config->BaseAddress for this parameters, passing the
-*		physical address instead.
+* @param[out]  InstancePtr Pointer to the AXI Streaming FIFO instance
+*   to be worked on.
+* @param[in]  Config Hardware configuration for the core.
+* @param[in]  EffectiveAddress Device base address in the virtual
+*   memory address space. The caller must keep the mapping from
+*   EffectiveAddr to the physical base address unchanged after this
+*   call. If address translation is not used, pass
+*   Config->BaseAddress as the physical address.
 *
-* @return   N/A
+* @return
+*              - XST_SUCCESS if initialization succeeds.
+*              - XST_INVALID_PARAM if Config is NULL.
 *
 ******************************************************************************/
 int XLlFifo_CfgInitialize(XLlFifo *InstancePtr,
@@ -370,21 +371,18 @@ int XLlFifo_CfgInitialize(XLlFifo *InstancePtr,
 
 /****************************************************************************/
 /**
+* @brief Reads one 32-bit word from the receive FIFO.
 *
 * XLlFifo_RxGetWord reads one 32 bit word from the FIFO specified by
 * <i>InstancePtr</i>.
 *
 * XLlFifo_RxGetLen or XLlFifo_iRxGetLen must be called before calling
-* XLlFifo_RxGetWord. Otherwise, the hardware will raise an <i>Over Read
+* XLlFifo_RxGetWord. Otherwise, the hardware raises an <i>Over Read
 * Exception</i>.
 *
-* @param    InstancePtr references the FIFO on which to operate.
+* @param[in]    InstancePtr References the FIFO on which to operate.
 *
 * @return   XLlFifo_RxGetWord returns the 32 bit word read from the FIFO.
-*
-* @note
-* C-style signature:
-*    u32 XLlFifo_RxGetWord(XLlFifo *InstancePtr)
 *
 *****************************************************************************/
 u32 XLlFifo_RxGetWord(XLlFifo *InstancePtr)
@@ -399,16 +397,13 @@ u32 XLlFifo_RxGetWord(XLlFifo *InstancePtr)
 
 /****************************************************************************/
 /**
+* @brief Writes one 32-bit word to the transmit FIFO.
 *
 * XLlFifo_TxPutWord writes the 32 bit word, <i>Word</i> to the FIFO specified by
 * <i>InstancePtr</i>.
 *
-* @param    InstancePtr references the FIFO on which to operate.
-* @param    Word is the data word to be written to FIFO.
-*
-* @note
-* C-style signature:
-*    void XLlFifo_TxPutWord(XLlFifo *InstancePtr, u32 Word)
+* @param[in]    InstancePtr References the FIFO on which to operate.
+* @param[in]    Word Data word to be written to FIFO.
 *
 *****************************************************************************/
 void XLlFifo_TxPutWord(XLlFifo *InstancePtr, u32 Word)
@@ -424,15 +419,15 @@ void XLlFifo_TxPutWord(XLlFifo *InstancePtr, u32 Word)
 
 /*****************************************************************************/
 /**
+* @brief Initializes the XLlFifo driver from a base address.
 *
 * XLlFifo_Initialize initializes an XPS_ll_Fifo device along with the
 * <i>InstancePtr</i> that references it.
 *
-* @param    InstancePtr references the memory instance to be associated with
+* @param[out]   InstancePtr References the memory instance to be associated with
 *           the FIFO device upon initialization.
-*
-* @param    BaseAddress is the processor address used to access the
-*           base address of the Fifo device.
+* @param[in]    BaseAddress Processor address used to access the
+*   base address of the Fifo device.
 *
 ******************************************************************************/
 void XLlFifo_Initialize(XLlFifo *InstancePtr, UINTPTR BaseAddress)
@@ -474,4 +469,5 @@ void XLlFifo_Initialize(XLlFifo *InstancePtr, UINTPTR BaseAddress)
 			(XStrm_SetLenFnType)XLlFifo_iTxSetLen,
 			(XStrm_GetVacancyFnType)XLlFifo_iTxVacancy);
 }
+
 /** @} */

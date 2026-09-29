@@ -7,7 +7,9 @@
 /*****************************************************************************/
 /**
  *
- * @file XLlFifo_polling_example.c
+ * @file xllfifo_polling_example.c
+ * @brief Demonstrates XLlFifo polled transmit and receive.
+ *
  * This file demonstrates how to use the Streaming fifo driver on the xilinx AXI
  * Streaming FIFO IP.The AXI4-Stream FIFO core allows memory mapped access to a
  * AXI-Stream interface. The core can be used to interface to AXI Streaming IPs
@@ -18,8 +20,8 @@
  * h/w level FIFO is connected in loopback.In these we write known amount of
  * data to the FIFO and Receive the data and compare with the data transmitted.
  *
- * Note: The TDEST Must be enabled in the H/W design inorder to
- * get correct RDR value.
+ * Note: Enable TDEST in the hardware design in order to get
+ * the correct RDR value.
  *
  * <pre>
  * MODIFICATION HISTORY:
@@ -46,14 +48,12 @@
  *                      no data being received.
  * 6.1   vlt 12/18/25 Update Doxygen comments to include SDT flow details.
  * 6.2   vn  08/26/26 Fix Doxygen warnings.
+ * 6.2   tb  09/15/26 Align Doxygen comments with AMD standards.
  * </pre>
  *
  * ***************************************************************************
  */
 
-/** @addtogroup llfifo_polling_example
- * @{
- */
 
 /***************************** Include Files *********************************/
 #include "xparameters.h"
@@ -72,15 +72,17 @@
 /***************** Macros (Inline Functions) Definitions *********************/
 
 #ifndef SDT
+/** AXI FIFO device ID. */
 #define FIFO_DEV_ID	   	XPAR_AXI_FIFO_0_DEVICE_ID
 #endif
 
-#define WORD_SIZE 4			/* Size of words in bytes */
+#define WORD_SIZE 4			/**< Word size in bytes. */
 
-#define MAX_PACKET_LEN 4
+#define MAX_PACKET_LEN 4		/**< Packet length in words. */
 
-#define NO_OF_PACKETS 64
+#define NO_OF_PACKETS 64		/**< Number of packets to transfer. */
 
+/** Buffer size in words. */
 #define MAX_DATA_BUFFER_SIZE NO_OF_PACKETS*MAX_PACKET_LEN
 
 #undef DEBUG
@@ -103,23 +105,22 @@ int RxReceive(XLlFifo *InstancePtr, u32 *DestinationAddr);
 /*
  * Device instance definitions
  */
-XLlFifo FifoInstance;
+XLlFifo FifoInstance; /**< Driver instance for the AXI FIFO. */
 
+/** Transmit data buffer. */
 u32 SourceBuffer[MAX_DATA_BUFFER_SIZE * WORD_SIZE];
+/** Receive data buffer. */
 u32 DestinationBuffer[MAX_DATA_BUFFER_SIZE * WORD_SIZE];
 
 /*****************************************************************************/
 /**
+* @brief Runs the XLlFifo polling example.
 *
-* Main function
-*
-* This function is the main entry of the Axi FIFO Polling test.
+* This function is the main entry of the AXI FIFO polling test.
 *
 * @return
-*		- XST_SUCCESS if tests pass
-* 		- XST_FAILURE if fails.
-*
-* @note		None
+*		- XST_SUCCESS if the example succeeds.
+*		- XST_FAILURE if the example fails.
 *
 ******************************************************************************/
 int main()
@@ -147,6 +148,7 @@ int main()
 
 /*****************************************************************************/
 /**
+* @brief Demonstrates polled XLlFifo transmit and receive.
 *
 * This function demonstrates the usage AXI FIFO
 * It does the following:
@@ -157,19 +159,18 @@ int main()
 *	- Compare the data
 *	- Return the result
 *
-* @param	InstancePtr is a pointer to the instance of the
-*		XLlFifo component.
+* @param[out]	InstancePtr Pointer to the instance of the
+*   XLlFifo component.
 * @if SDT
-* @param	BaseAddress contains the base address of the device
+* @param[in]	BaseAddress Contains the base address of the device.
 * @else
-* @param	DeviceId is Device ID of the Axi Fifo Device instance,
-*		typically XPAR_<AXI_FIFO_instance>_DEVICE_ID value from
-*		xparameters.h.
+* @param[in]	DeviceId Device ID of the Axi Fifo Device instance,
+*   typically the AXI FIFO device ID from xparameters.h.
 * @endif
 *
 * @return
-*		-XST_SUCCESS to indicate success
-*		-XST_FAILURE to indicate failure
+*		- XST_SUCCESS if the operation succeeds.
+*		- XST_FAILURE if the operation fails.
 *
 * @note	        In XSCT/classic flow, DeviceId is used to look up the
 *               device configuration.
@@ -263,20 +264,16 @@ int XLlFifoPollingExample(XLlFifo *InstancePtr, UINTPTR BaseAddress)
 
 /*****************************************************************************/
 /**
+* @brief Sends packets through the XLlFifo transmit channel.
 *
-* TxSend routine, It will send the requested amount of data at the
-* specified addr.
+* Sends the requested amount of data at the specified address.
 *
-* @param	InstancePtr is a pointer to the instance of the
-*		XLlFifo component.
-*
-* @param	SourceAddr is the address where the FIFO stars writing
+* @param[in]	InstancePtr Pointer to the XLlFifo instance.
+* @param[in]	SourceAddr Address of the source data to transmit.
 *
 * @return
-*		-XST_SUCCESS to indicate success
-*		-XST_FAILURE to indicate failure
-*
-* @note		None
+*		- XST_SUCCESS if the operation succeeds.
+*		- XST_FAILURE if the operation fails.
 *
 ******************************************************************************/
 int TxSend(XLlFifo *InstancePtr, u32  *SourceAddr)
@@ -316,19 +313,17 @@ int TxSend(XLlFifo *InstancePtr, u32  *SourceAddr)
 
 /*****************************************************************************/
 /**
+* @brief Receives packets from the XLlFifo receive channel.
 *
-* RxReceive routine.It will receive the data from the FIFO.
+* RxReceive routine.It receives the data from the FIFO.
 *
-* @param	InstancePtr is a pointer to the instance of the
-*		XLlFifo instance.
-*
-* @param	DestinationAddr is the address where to copy the received data.
+* @param[in]	InstancePtr Pointer to the instance of the
+*   XLlFifo instance.
+* @param[out]	DestinationAddr Address where to copy the received data.
 *
 * @return
-*		-XST_SUCCESS to indicate success
-*		-XST_FAILURE to indicate failure
-*
-* @note		None
+*		- XST_SUCCESS if the operation succeeds.
+*		- XST_FAILURE if the operation fails.
 *
 ******************************************************************************/
 int RxReceive (XLlFifo *InstancePtr, u32* DestinationAddr)
@@ -361,15 +356,10 @@ int RxReceive (XLlFifo *InstancePtr, u32* DestinationAddr)
 
 #ifdef XPAR_UARTNS550_0_BASEADDR
 /*****************************************************************************/
-/*
+/**
+* @brief Configures the UART16550 for example output.
 *
 * Uart16550 setup routine, need to set baudrate to 9600 and data bits to 8
-*
-* @param	None
-*
-* @return	None
-*
-* @note		None
 *
 ******************************************************************************/
 static void Uart550_Setup(void)
@@ -382,4 +372,3 @@ static void Uart550_Setup(void)
 			XUN_LCR_8_DATA_BITS);
 }
 #endif
-/** @} */

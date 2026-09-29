@@ -7,10 +7,9 @@
 /*****************************************************************************/
 /**
 * @file xstreamer.c
-* @addtogroup llfifo Overview
-* @{
+* @brief Implements XLlFifo byte-streamer functions.
 *
-* See xtreamer.h for a description on how to use this driver.
+* See xstreamer.h for a description on how to use this driver.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -26,8 +25,14 @@
 * 5.5   sk   06/15/20  In XStrm_Read and XStrm_Write add type casting to fix
 *		       gcc warnings.
 * 6.2   vn   08/26/26  Fix Doxygen warnings.
+* 6.2   tb  09/15/26 Align Doxygen comments with AMD standards.
 * </pre>
 ******************************************************************************/
+
+/**
+* @addtogroup llfifo_api LLFIFO APIs
+* @{
+*/
 
 /***************************** Include Files *********************************/
 
@@ -42,7 +47,7 @@
  * The basic algorithm for receiving bytes through this byte streamer copies a
  * fifo key-hole width chunk from the fifo into a holding buffer and then doles
  * out the bytes from the holding buffer. In some cases, when the buffer given
- * happens to already be aligned in memory, this algorithm will bypass the
+ * happens to already be aligned in memory, this algorithm bypasses the
  * holding buffer.
  *
  * Here is a picture to depict this process:
@@ -85,13 +90,12 @@
  *
  * repeat this process ^^^
  *
- *
  * --- Transmit ---
  *
  * The basic algorithm for transmitting bytes through this byte streamer copies
  * bytes into a holding buffer and then writes the holding buffer into the fifo
  * when it is full.  In some cases, when the buffer given happens to already be
- * aligned in memory, this algorithm will bypass the holding buffer.
+ * aligned in memory, this algorithm bypasses the holding buffer.
  *
  * Here is a picture to depict this process:
  *
@@ -134,38 +138,34 @@
  */
 
 #ifndef min
+/**
+* @brief Returns the smaller of two values.
+*/
 #define min(x, y) (((x) < (y)) ? (x) : (y))
 #endif
 
+/** @cond INTERNAL */
 xdbg_stmnt(u32 _xstrm_ro_value;)
 xdbg_stmnt(u32 _xstrm_buffered;)
+/** @endcond */
 
 /*****************************************************************************/
 /**
+* @brief Initializes a receive byte-streamer instance.
 *
 * XStrm_RxInitialize initializes the XStrm_RxFifoStreamer object referenced by
 * <i>InstancePtr</i>.
 *
-* @param    InstancePtr references the tx streamer on which to operate.
-*
-* @param    FifoWidth specifies the FIFO keyhole size in bytes.
-*
-* @param    FifoInstance references the FIFO driver instance that this streamer
-*           object should use to transfer data into the the actual fifo.
-*
-* @param    ReadFn specifies a routine to use to read data from the actual
-*           FIFO. It is assumed that this read routine will handle only reads
-*           from an aligned buffer. (Otherwise, why are we using this streamer
-*           driver?)
-*
-* @param    GetLenFn specifies a routine to use to initiate a receive on the
-*           actual FIFO.
-*
-* @param    GetOccupancyFn specifies a routine to use to retrieve the occupancy
-*           in the actual FIFO. The true occupancy value needs to come through
-*           this streamer driver because it holds some of the bytes.
-*
-* @return   N/A
+* @param[out]   InstancePtr References the receive streamer to initialize.
+* @param[in]    FifoWidth Specifies the FIFO keyhole size in bytes.
+* @param[in]    FifoInstance FIFO driver instance this streamer uses
+*   to transfer data into the actual FIFO.
+* @param[in]    ReadFn Reads data from the FIFO. The routine must handle only
+*               aligned buffers.
+* @param[in]    GetLenFn Starts a receive on the actual FIFO.
+* @param[in]    GetOccupancyFn Returns occupancy of the actual FIFO. The true
+*               occupancy comes through this streamer because it holds some
+*               of the bytes.
 *
 ******************************************************************************/
 void XStrm_RxInitialize(XStrm_RxFifoStreamer *InstancePtr, unsigned FifoWidth,
@@ -186,28 +186,21 @@ void XStrm_RxInitialize(XStrm_RxFifoStreamer *InstancePtr, unsigned FifoWidth,
 
 /*****************************************************************************/
 /**
+* @brief Initializes a transmit byte-streamer instance.
 *
 * XStrm_TxInitialize initializes the XStrm_TxFifoStreamer object referenced by
 * <i>InstancePtr</i>.
 *
-* @param    InstancePtr references the tx streamer on which to operate.
-*
-* @param    FifoWidth specifies the FIFO keyhole size in bytes.
-*
-* @param    FifoInstance references the FIFO driver instance that this streamer
-*           object should use to transfer data into the the actual fifo.
-*
-* @param    WriteFn specifies a routine to use to write data into the actual
-*           FIFO. It is assumed that this write routine will handle only writes
-*           from an aligned buffer. (Otherwise, why are we using this streamer
-*           driver?)
-*
-* @param    SetLenFn specifies a routine to use to initiate a transmit on the
-*           actual FIFO.
-*
-* @param    GetVacancyFn specifies a routine to use to retrieve the vacancy in
-*           the actual FIFO. The true vacancy value needs to come through this
-*           streamer driver because it holds some of the bytes.
+* @param[out]   InstancePtr References the transmit streamer to initialize.
+* @param[in]    FifoWidth Specifies the FIFO keyhole size in bytes.
+* @param[in]    FifoInstance FIFO driver instance this streamer uses
+*   to transfer data into the actual FIFO.
+* @param[in]    WriteFn Writes data into the FIFO. The routine must handle only
+*               aligned buffers.
+* @param[in]    SetLenFn Starts a transmit on the actual FIFO.
+* @param[in]    GetVacancyFn Returns vacancy of the actual FIFO. The true
+*               vacancy comes through this streamer because it holds some
+*               of the bytes.
 *
 ******************************************************************************/
 void XStrm_TxInitialize(XStrm_TxFifoStreamer *InstancePtr, unsigned FifoWidth,
@@ -228,6 +221,7 @@ void XStrm_TxInitialize(XStrm_TxFifoStreamer *InstancePtr, unsigned FifoWidth,
 
 /*****************************************************************************/
 /**
+* @brief Returns the next receive frame length in bytes.
 *
 * XStrm_RxGetLen notifies the hardware that the program is ready to receive the
 * next frame from the receive channel of the FIFO, specified by
@@ -236,7 +230,7 @@ void XStrm_TxInitialize(XStrm_TxFifoStreamer *InstancePtr, unsigned FifoWidth,
 * Note that the program must first call XStrm_RxGetLen before pulling data
 * out of the receive channel of the FIFO with XStrm_Read.
 *
-* @param    InstancePtr references the FIFO on which to operate.
+* @param[in,out]    InstancePtr References the FIFO on which to operate.
 *
 * @return   XStrm_RxGetLen returns the number of bytes available in the next
 *           frame.
@@ -254,6 +248,7 @@ u32 XStrm_RxGetLen(XStrm_RxFifoStreamer *InstancePtr)
 
 /*****************************************************************************/
 /**
+* @brief Reads bytes from the receive streamer.
 *
 * XStrm_Read reads <i>Bytes</i> bytes from the FIFO specified by
 * <i>InstancePtr</i> to the block of memory, referenced by <i>BufPtr</i>.
@@ -262,11 +257,9 @@ u32 XStrm_RxGetLen(XStrm_RxFifoStreamer *InstancePtr)
 * calls to XStrm_Read() does not exceed the number of bytes available given
 * from the last call to XStrm_RxGetLen().
 *
-* @param    InstancePtr references the FIFO on which to operate.
-*
-* @param    BufPtr specifies the memory address to place the data read.
-*
-* @param    Bytes specifies the number of bytes to read.
+* @param[in,out]    InstancePtr References the FIFO on which to operate.
+* @param[out]    BufPtr Specifies the memory address to place the data read.
+* @param[in]    Bytes Specifies the number of bytes to read.
 *
 ******************************************************************************/
 void XStrm_Read(XStrm_RxFifoStreamer *InstancePtr, void *BufPtr,
@@ -282,7 +275,8 @@ void XStrm_Read(XStrm_RxFifoStreamer *InstancePtr, void *BufPtr,
 		xdbg_printf(XDBG_DEBUG_FIFO_RX, "XStrm_Read: BytesRemaining: %d\n", BytesRemaining);
 		/* Case 1: There are bytes in the holding buffer
 		 *
-		 *   1) Read the bytes from the holding buffer to the target buffer.
+		 *   1) Read the bytes from the holding buffer to the target
+		 *   buffer.
 		 *   2) Loop back around and handle the rest of the transfer.
 		 */
 		if (InstancePtr->HeadIndex != InstancePtr->FifoWidth) {
@@ -307,7 +301,8 @@ void XStrm_Read(XStrm_RxFifoStreamer *InstancePtr, void *BufPtr,
 		 *         the number of bytes remaining to transfer is greater
 		 *         than or equal to the fifo width.
 		 *
-		 *   1) We can go fast by reading a long string of fifo words right out
+		 *   1) We can go fast by reading a long string of fifo words
+		 *   right out
 		 *      of the fifo into the target buffer.
 		 *   2) Loop back around to transfer the last few bytes.
 		 */
@@ -327,7 +322,8 @@ void XStrm_Read(XStrm_RxFifoStreamer *InstancePtr, void *BufPtr,
 				FifoWordsToXfer * InstancePtr->FifoWidth;
 		}
 		/* Case 3: There are no more bytes in the holding buffer and
-		 *         the number of bytes remaining to transfer is less than
+		 *         the number of bytes remaining to transfer is less
+		 *         than
 		 *         the fifo width or
 		 *         things just don't line up.
 		 *
@@ -337,8 +333,10 @@ void XStrm_Read(XStrm_RxFifoStreamer *InstancePtr, void *BufPtr,
 		else {
 			xdbg_printf(XDBG_DEBUG_FIFO_RX, "XStrm_Read: Case 3\n");
 			/*
-			 * At the tail end, read one fifo word into the local holding
-			 * buffer and loop back around to take care of the transfer.
+			 * At the tail end, read one fifo word into the local
+			 * holding
+			 * buffer and loop back around to take care of the
+			 * transfer.
 			 */
 			(*InstancePtr->ReadFn) (InstancePtr->FifoInstance,
 						&(InstancePtr->AlignedBuffer.
@@ -353,15 +351,15 @@ void XStrm_Read(XStrm_RxFifoStreamer *InstancePtr, void *BufPtr,
 
 /*****************************************************************************/
 /**
+* @brief Flushes the streamer and starts a transmit.
 *
 * XStrm_TxSetLen flushes to the FIFO, specified by <i>InstancePtr</i>, any
 * bytes remaining in internal buffers and begins a hardware transfer of data
 * out of the transmit channel of the FIFO. <i>Bytes</i> specifies the number
 * of bytes in the frame to transmit.
 *
-* @param    InstancePtr references the FIFO Streamer on which to operate.
-*
-* @param    Bytes specifies the frame length in bytes.
+* @param[in,out] InstancePtr References the FIFO Streamer on which to operate.
+* @param[in]    Bytes Specifies the frame length in bytes.
 *
 ******************************************************************************/
 void XStrm_TxSetLen(XStrm_TxFifoStreamer *InstancePtr, u32 Bytes)
@@ -384,6 +382,7 @@ void XStrm_TxSetLen(XStrm_TxFifoStreamer *InstancePtr, u32 Bytes)
 
 /*****************************************************************************/
 /**
+* @brief Writes bytes to the transmit streamer.
 *
 * XStrm_Write writes <i>Bytes</i> bytes of the block of memory, referenced by
 * <i>BufPtr</i>, to the transmit channel of the FIFO referenced by
@@ -393,11 +392,9 @@ void XStrm_TxSetLen(XStrm_TxFifoStreamer *InstancePtr, u32 Bytes)
 * more calls to XStrm_Write() matches the number of bytes given in the next
 * call to XStrm_TxSetLen().
 *
-* @param    InstancePtr references the FIFO on which to operate.
-*
-* @param    BufPtr specifies the memory address of data to write.
-*
-* @param    Bytes specifies the number of bytes to write.
+* @param[in,out]    InstancePtr References the FIFO on which to operate.
+* @param[in]    BufPtr Specifies the memory address of data to write.
+* @param[in]    Bytes Specifies the number of bytes to write.
 *
 ******************************************************************************/
 void XStrm_Write(XStrm_TxFifoStreamer *InstancePtr, void *BufPtr,
@@ -433,7 +430,8 @@ void XStrm_Write(XStrm_TxFifoStreamer *InstancePtr, void *BufPtr,
 		 *         the number of bytes remaining to transfer is greater
 		 *         than or equal to the fifo width.
 		 *
-		 *   1) We can go fast by writing a long string of fifo words right out
+		 *   1) We can go fast by writing a long string of fifo words
+		 *   right out
 		 *      of the source buffer into the fifo.
 		 *   2) Loop back around to transfer the last few bytes.
 		 */
@@ -484,4 +482,5 @@ void XStrm_Write(XStrm_TxFifoStreamer *InstancePtr, void *BufPtr,
 		}
 	}
 }
+
 /** @} */

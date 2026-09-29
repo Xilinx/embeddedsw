@@ -4,12 +4,14 @@
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
+#ifndef XLLFIFO_HW_H		/* prevent circular inclusions */
+#define XLLFIFO_HW_H
+
 /*****************************************************************************/
 /**
 *
 * @file xllfifo_hw.h
-* @addtogroup llfifo Overview
-* @{
+* @brief Defines XLlFifo register offsets and accessor macros.
 *
 * This header file contains identifiers and low-level driver functions (or
 * macros) that can be used to access the xps_ll_fifo core.
@@ -30,12 +32,16 @@
 *		       AXI4-Stream FIFO core (v2.01a and later)
 * 6.1  vlt   01/22/26  Fixed codespell issues
 * 6.2  vn    08/26/26  Fix Doxygen warnings.
+* 6.2   tb  09/15/26 Align Doxygen comments with AMD standards.
 * </pre>
 *
 ******************************************************************************/
 
-#ifndef XLLFIFO_HW_H		/* prevent circular inclusions */
-#define XLLFIFO_HW_H		/* by using protection macros */
+/**
+* @addtogroup llfifo_api LLFIFO APIs
+* @{
+*/
+
 
 #ifdef __cplusplus
 extern "C" {
@@ -97,13 +103,13 @@ extern "C" {
 #define XLLF_INT_TRC_MASK         0x01000000 /**< Transmit reset complete */
 #define XLLF_INT_RRC_MASK         0x00800000 /**< Receive reset complete */
 #define XLLF_INT_TFPF_MASK        0x00400000 /**< Tx FIFO Programmable Full,
-						* AXI FIFO MM2S Only */
+						* AXI FIFO MM2S Only. */
 #define XLLF_INT_TFPE_MASK        0x00200000 /**< Tx FIFO Programmable Empty
-						* AXI FIFO MM2S Only */
+						* AXI FIFO MM2S Only. */
 #define XLLF_INT_RFPF_MASK        0x00100000 /**< Rx FIFO Programmable Full
-						* AXI FIFO MM2S Only */
+						* AXI FIFO MM2S Only. */
 #define XLLF_INT_RFPE_MASK        0x00080000 /**< Rx FIFO Programmable Empty
-						* AXI FIFO MM2S Only */
+						* AXI FIFO MM2S Only. */
 #define XLLF_INT_ALL_MASK         0xfff80000 /**< All the ints */
 #define XLLF_INT_ERROR_MASK       0xf2000000 /**< Error status ints */
 #define XLLF_INT_RXERROR_MASK     0xe0000000 /**< Receive Error status ints */
@@ -124,7 +130,16 @@ extern "C" {
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
-/**** debug macros ****/
+/** @name Debug register helpers
+ * @{
+ */
+/**
+* @brief Returns a debug name string for an XLlFifo register offset.
+*
+* @param[in]    RegOffset FIFO register offset.
+*
+* @return   A short register name string.
+*/
 #define XLlFifo_reg_name(RegOffset) \
 	(((RegOffset) == XLLF_ISR_OFFSET) ? "ISR": \
 	((RegOffset) == XLLF_IER_OFFSET) ? "IER": \
@@ -138,31 +153,45 @@ extern "C" {
 	((RegOffset) == XLLF_RLF_OFFSET) ? "RLF {rx length}": \
 	"unknown")
 
+/**
+* @brief Prints an XLlFifo register write in debug builds.
+*
+* @param[in]    BaseAddress Device base address.
+* @param[in]    RegOffset FIFO register offset.
+* @param[in]    Value Value being written.
+*/
 #define XLlFifo_print_reg_o(BaseAddress, RegOffset, Value) \
 	 xdbg_printf(XDBG_DEBUG_FIFO_REG, "0x%08x -> %s(0x%08x)\n", (Value), \
 			  XLlFifo_reg_name(RegOffset), \
 			 (RegOffset) + (BaseAddress))
 
+/**
+* @brief Prints an XLlFifo register read in debug builds.
+*
+* @param[in]    BaseAddress Device base address.
+* @param[in]    RegOffset FIFO register offset.
+* @param[in]    Value Value that was read.
+*/
 #define XLlFifo_print_reg_i(BaseAddress, RegOffset, Value) \
 	xdbg_printf(XDBG_DEBUG_FIFO_REG, "%s(0x%08x) -> 0x%08x\n", \
 			 XLlFifo_reg_name(RegOffset), \
 			(RegOffset) + (BaseAddress), (Value))
-/**** end debug macros ****/
+/** @} */
 
 /****************************************************************************/
 /**
+* @brief Reads an XLlFifo register value.
 *
 * XLlFifo_ReadReg returns the value of the register at the offset,
 * <i>RegOffset</i>, from the memory mapped base address, <i>BaseAddress</i>.
 *
-* @param    BaseAddress specifies the base address of the device.
-*
-* @param    RegOffset specifies the offset from BaseAddress.
+* @param[in]    BaseAddress Specifies the base address of the device.
+* @param[in]    RegOffset Specifies the offset from BaseAddress.
 *
 * @return   XLlFifo_ReadReg returns the value of the specified register.
 *
 * @note
-* C-style signature:
+* C-style signature
 *    u32 XLlFifo_ReadReg(u32 BaseAddress, u32 RegOffset)
 *
 *****************************************************************************/
@@ -182,21 +211,18 @@ extern u32 _xllfifo_rr_value;
 
 /****************************************************************************/
 /**
+* @brief Writes an XLlFifo register value.
 *
 * XLlFifo_WriteReg writes the value, <i>Value</i>, to the register at the
 * offset, <i>RegOffset</i>, from the memory mapped base address,
 * <i>BaseAddress</i>.
 *
-* @param    BaseAddress specifies the base address of the device.
-*
-* @param    RegOffset specifies the offset from BaseAddress.
-*
-* @param    Value is value to write to the register.
-*
-* @return   N/A
+* @param[in]    BaseAddress Specifies the base address of the device.
+* @param[in]    RegOffset Specifies the offset from BaseAddress.
+* @param[in]    Value Value to write to the register.
 *
 * @note
-* C-style signature:
+* C-style signature
 *    void XLlFifo_WriteReg(u32 BaseAddress, u32 RegOffset, u32 Value)
 *
 *****************************************************************************/

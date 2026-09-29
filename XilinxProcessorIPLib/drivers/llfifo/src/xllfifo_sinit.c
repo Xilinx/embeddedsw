@@ -8,8 +8,7 @@
 /**
 *
 * @file xllfifo_sinit.c
-* @addtogroup llfifo Overview
-* @{
+* @brief Implements XLlFifo static initialization.
 *
 * This file contains static initialization functionality for Axi Streaming FIFO
 * driver.
@@ -21,9 +20,15 @@
 * ----- ---- -------- -------------------------------------------------------
 * 3.00a adk 9/10/2013 initial release
 * 6.1   vlt 12/12/25 Update Doxygen comments to include SDT flow details.
+* 6.2   tb  09/15/26 Align Doxygen comments with AMD standards.
 * </pre>
 *
 ******************************************************************************/
+
+/**
+* @addtogroup llfifo_api LLFIFO APIs
+* @{
+*/
 
 /***************************** Include Files *********************************/
 
@@ -34,15 +39,16 @@
 
 /*****************************************************************************/
 /**
+* @brief Looks up the XLlFifo configuration.
 *
 * Looks up the device configuration based on the unique device ID/BaseAddress.
 * The XLlFifo_ConfigTable[] contains the configuration info for each device
 * in the system.
 *
 * @if SDT
-* @param	BaseAddress contains the base address of the device
+* @param[in]	BaseAddress Contains the base address of the device.
 * @else
-* @param	DeviceId contains the unique ID of the device
+* @param[in]	DeviceId Contains the unique ID of the device.
 * @endif
 *
 * @return      A pointer to the configuration found or NULL if the specified

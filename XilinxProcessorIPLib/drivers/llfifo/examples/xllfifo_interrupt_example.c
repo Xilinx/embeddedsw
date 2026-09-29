@@ -8,6 +8,8 @@
 /**
  *
  * @file xllfifo_interrupt_example.c
+ * @brief Demonstrates XLlFifo interrupt transmit and receive.
+ *
  * This file demonstrates how to use the Streaming fifo driver on the xilinx AXI
  * Streaming FIFO IP.The AXI4-Stream FIFO core allows memory mapped access to a
  * AXI-Stream interface. The core can be used to interface to AXI Streaming IPs
@@ -19,8 +21,8 @@
  * data to the FIFO and wait for interrupts and after completely receiving the
  * data compares it with the data transmitted.
  *
- * Note: The TDEST Must be enabled in the H/W design inorder to get
- * correct RDR value.
+ * Note: Enable TDEST in the hardware design in order to get
+ * the correct RDR value.
  *
  * <pre>
  * MODIFICATION HISTORY:
@@ -48,14 +50,12 @@
  * 5.6   sd  07/7/23    Add system devicetree support.
  * 6.1   vlt 12/18/25 Update Doxygen comments to include SDT flow details.
  * 6.2   vn  08/26/26 Fix Doxygen warnings.
+ * 6.2   tb  09/15/26 Align Doxygen comments with AMD standards.
  * </pre>
  *
  * ***************************************************************************
  */
 
-/** @addtogroup llfifo_interrupt_example
- * @{
- */
 
 /***************************** Include Files *********************************/
 #include "xparameters.h"
@@ -85,32 +85,38 @@
 /***************** Macros (Inline Functions) Definitions *********************/
 
 #ifndef SDT
+/** AXI FIFO device ID. */
 #define FIFO_DEV_ID	   	XPAR_AXI_FIFO_0_DEVICE_ID
 
 #ifdef XPAR_INTC_0_DEVICE_ID
+/** Interrupt controller device ID. */
 #define INTC_DEVICE_ID          XPAR_INTC_0_DEVICE_ID
+/** FIFO interrupt ID. */
 #define FIFO_INTR_ID		XPAR_INTC_0_LLFIFO_0_VEC_ID
 #else
+/** Interrupt controller device ID. */
 #define INTC_DEVICE_ID          XPAR_SCUGIC_SINGLE_DEVICE_ID
+/** FIFO interrupt ID. */
 #define FIFO_INTR_ID            XPAR_FABRIC_LLFIFO_0_VEC_ID
 #endif
 
 #ifdef XPAR_INTC_0_DEVICE_ID
- #define INTC           XIntc
- #define INTC_HANDLER   XIntc_InterruptHandler
+ #define INTC           XIntc /**< Interrupt controller type. */
+ #define INTC_HANDLER   XIntc_InterruptHandler /**< Interrupt handler. */
 #else
- #define INTC           XScuGic
- #define INTC_HANDLER   XScuGic_InterruptHandler
+ #define INTC           XScuGic /**< Interrupt controller type. */
+ #define INTC_HANDLER   XScuGic_InterruptHandler /**< Interrupt handler. */
 #endif
 #endif
 
 
-#define WORD_SIZE 4			/* Size of words in bytes */
+#define WORD_SIZE 4			/**< Word size in bytes. */
 
-#define MAX_PACKET_LEN 4
+#define MAX_PACKET_LEN 4		/**< Packet length in words. */
 
-#define NO_OF_PACKETS 64
+#define NO_OF_PACKETS 64		/**< Number of packets to transfer. */
 
+/** Buffer size in words. */
 #define MAX_DATA_BUFFER_SIZE NO_OF_PACKETS*MAX_PACKET_LEN
 
 #undef DEBUG
@@ -137,38 +143,37 @@ static void FifoErrorHandler(XLlFifo *InstancePtr, u32 Pending);
 /*
  * Flags interrupt handlers use to notify the application context the events.
  */
-volatile int Done;
-volatile int Error;
+volatile int Done; /**< Non-zero when a transfer completes. */
+volatile int Error; /**< Non-zero when an error interrupt occurs. */
 
 /************************** Variable Definitions *****************************/
 
 /*
  * Device instance definitions
  */
-XLlFifo FifoInstance;
+XLlFifo FifoInstance; /**< Driver instance for the AXI FIFO. */
 
 /*
  * Instance of the Interrupt Controller
  */
 #ifndef SDT
-static INTC Intc;
+static INTC Intc; /**< Interrupt controller instance. */
 #endif
 
+/** Transmit data buffer. */
 u32 SourceBuffer[MAX_DATA_BUFFER_SIZE * WORD_SIZE];
+/** Receive data buffer. */
 u32 DestinationBuffer[MAX_DATA_BUFFER_SIZE * WORD_SIZE];
 
 /*****************************************************************************/
 /**
-*
-* Main function
+* @brief Runs the XLlFifo interrupt example.
 *
 * This function is the main entry of the AXI FIFO interrupt test.
 *
 * @return
-*		- XST_SUCCESS if tests pass
-* 		- XST_FAILURE if fails.
-*
-* @note		None
+*		- XST_SUCCESS if the example succeeds.
+*		- XST_FAILURE if the example fails.
 *
 ******************************************************************************/
 int main()
@@ -196,6 +201,7 @@ int main()
 
 /*****************************************************************************/
 /**
+* @brief Demonstrates interrupt-mode XLlFifo traffic.
 *
 * This function demonstrates the usage of AXI FIFO
 * It does the following:
@@ -206,19 +212,18 @@ int main()
 *	- Compare the data
 *	- Return the result
 *
-* @param	InstancePtr is a pointer to the instance of the
-*		XLlFifo instance.
+* @param[out]	InstancePtr Pointer to the instance of the
+*   XLlFifo instance.
 * @if SDT
-* @param	BaseAddress contains the base address of the device
+* @param[in]	BaseAddress Contains the base address of the device.
 * @else
-* @param	DeviceId is Device ID of the Axi Fifo Device instance,
-*		typically XPAR_<AXI_FIFO_instance>_DEVICE_ID value from
-*		xparameters.h.
+* @param[in]	DeviceId Device ID of the Axi Fifo Device instance,
+*   typically the AXI FIFO device ID from xparameters.h.
 * @endif
 *
 * @return
-*		-XST_SUCCESS to indicate success
-*		-XST_FAILURE to indicate failure
+*		- XST_SUCCESS if the operation succeeds.
+*		- XST_FAILURE if the operation fails.
 *
 * @note	        In XSCT/classic flow, DeviceId is used to look up the
 *               device configuration.
@@ -335,20 +340,16 @@ int XLlFifoInterruptExample(XLlFifo *InstancePtr, UINTPTR BaseAddress)
 
 /*****************************************************************************/
 /**
+* @brief Sends packets through the XLlFifo transmit channel.
 *
-* TxSend routine, It will send the requested amount of data at the
-* specified addr.
+* Sends the requested amount of data at the specified address.
 *
-* @param	InstancePtr is a pointer to the instance of the
-*		XLlFifo component.
-*
-* @param	SourceAddr is the address of the memory
+* @param[in]	InstancePtr Pointer to the XLlFifo instance.
+* @param[in]	SourceAddr Address of the source data to transmit.
 *
 * @return
-*		-XST_SUCCESS to indicate success
-*		-XST_FAILURE to indicate failure
-*
-* @note		None
+*		- XST_SUCCESS if the operation succeeds.
+*		- XST_FAILURE if the operation fails.
 *
 ******************************************************************************/
 int TxSend(XLlFifo *InstancePtr, u32  *SourceAddr)
@@ -382,15 +383,12 @@ int TxSend(XLlFifo *InstancePtr, u32  *SourceAddr)
 
 /*****************************************************************************/
 /**
+* @brief Handles AXI FIFO interrupts.
 *
 * This is the interrupt handler for the fifo it checks for the type of interrupt
 * and proceeds according to it.
 *
-* @param	InstancePtr is a reference to the Fifo device instance.
-*
-* @return	None.
-*
-* @note		None.
+* @param[in]	InstancePtr Reference to the Fifo device instance.
 *
 ******************************************************************************/
 static void FifoHandler(XLlFifo *InstancePtr)
@@ -418,14 +416,11 @@ static void FifoHandler(XLlFifo *InstancePtr)
 
 /*****************************************************************************/
 /**
+* @brief Handles a receive-complete interrupt.
 *
 * This is the Receive handler callback function.
 *
-* @param	InstancePtr is a reference to the Fifo device instance.
-*
-* @return	None.
-*
-* @note		None.
+* @param[in]	InstancePtr Reference to the Fifo device instance.
 *
 ******************************************************************************/
 static void FifoRecvHandler(XLlFifo *InstancePtr)
@@ -447,17 +442,14 @@ static void FifoRecvHandler(XLlFifo *InstancePtr)
 }
 
 /*****************************************************************************/
-/*
+/**
+* @brief Handles a transmit-complete interrupt.
 *
 * This is the transfer Complete Interrupt handler function.
 *
 * This clears the transmit complete interrupt and set the done flag.
 *
-* @param	InstancePtr is a pointer to Instance of AXI FIFO device.
-*
-* @return	None
-*
-* @note		None
+* @param[in]	InstancePtr Pointer to Instance of AXI FIFO device.
 *
 ******************************************************************************/
 static void FifoSendHandler(XLlFifo *InstancePtr)
@@ -469,17 +461,13 @@ static void FifoSendHandler(XLlFifo *InstancePtr)
 
 /*****************************************************************************/
 /**
+* @brief Handles AXI FIFO error interrupts.
 *
 * This is the Error handler callback function and this function increments the
 * the error counter so that the main thread knows the number of errors.
 *
-* @param	InstancePtr is a pointer to Instance of AXI FIFO device.
-*
-* @param	Pending is a bitmask of the pending interrupts.
-*
-* @return	None.
-*
-* @note		None.
+* @param[in]	InstancePtr Pointer to Instance of AXI FIFO device.
+* @param[in]	Pending Bitmask of the pending interrupts.
 *
 ******************************************************************************/
 static void FifoErrorHandler(XLlFifo *InstancePtr, u32 Pending)
@@ -499,20 +487,22 @@ static void FifoErrorHandler(XLlFifo *InstancePtr, u32 Pending)
 
 /****************************************************************************/
 /**
+* @brief Connects the FIFO to the interrupt controller.
 *
-* This function setups the interrupt system such that interrupts can occur
-* for the FIFO device. This function is application specific since the
-* actual system may or may not have an interrupt controller. The FIFO
-* could be directly connected to a processor without an interrupt controller.
-* The user should modify this function to fit the application.
+* This function sets up the interrupt system so that FIFO interrupts can
+* occur. This function is application specific because the system may not
+* have an interrupt controller. The FIFO can be connected directly to a
+* processor without an interrupt controller. Adapt this function to the
+* application.
 *
-* @param    InstancePtr contains a pointer to the instance of the FIFO
-*           component which is going to be connected to the interrupt
-*           controller.
+* @param[out]	IntcInstancePtr Pointer to the interrupt controller
+*   instance.
+* @param[in]	InstancePtr Pointer to the FIFO instance to connect.
+* @param[in]	FifoIntrId FIFO interrupt ID.
 *
-* @return   XST_SUCCESS if successful, otherwise XST_FAILURE.
-*
-* @note     None.
+* @return
+*		- XST_SUCCESS if the interrupt system is set up.
+*		- XST_FAILURE if interrupt setup fails.
 *
 ****************************************************************************/
 #ifndef SDT
@@ -534,7 +524,7 @@ int SetupInterruptSystem(INTC *IntcInstancePtr, XLlFifo *InstancePtr,
 
 
 	/*
-	 * Connect a device driver handler that will be called when an interrupt
+	 * Connect a device driver handler that is called when an interrupt
 	 * for the device occurs, the device driver handler performs the
 	 * specific interrupt processing for the device.
 	 */
@@ -580,7 +570,7 @@ int SetupInterruptSystem(INTC *IntcInstancePtr, XLlFifo *InstancePtr,
 	XScuGic_SetPriorityTriggerType(IntcInstancePtr, FifoIntrId, 0xA0, 0x3);
 
 	/*
-	 * Connect the device driver handler that will be called when an
+	 * Connect the device driver handler that is called when an
 	 * interrupt for the device occurs, the handler defined above performs
 	 * the specific interrupt processing for the device.
 	 */
@@ -615,15 +605,12 @@ int SetupInterruptSystem(INTC *IntcInstancePtr, XLlFifo *InstancePtr,
 }
 /*****************************************************************************/
 /**
+* @brief Disables FIFO interrupts.
 *
 * This function disables the interrupts for the AXI FIFO device.
 *
-* @param	IntcInstancePtr is the pointer to the INTC component instance
-* @param	FifoIntrId is interrupt ID associated for the FIFO component
-*
-* @return	None
-*
-* @note		None
+* @param[in,out]	IntcInstancePtr Pointer to the INTC component instance.
+* @param[in]	FifoIntrId Interrupt ID associated for the FIFO component.
 *
 ******************************************************************************/
 static void DisableIntrSystem(INTC *IntcInstancePtr, u16 FifoIntrId)
@@ -639,15 +626,10 @@ static void DisableIntrSystem(INTC *IntcInstancePtr, u16 FifoIntrId)
 
 #ifdef XPAR_UARTNS550_0_BASEADDR
 /*****************************************************************************/
-/*
+/**
+* @brief Configures the UART16550 for example output.
 *
 * Uart16550 setup routine, need to set baudrate to 9600 and data bits to 8
-*
-* @param	None
-*
-* @return	None
-*
-* @note		None
 *
 ******************************************************************************/
 static void Uart550_Setup(void)
@@ -660,4 +642,3 @@ static void Uart550_Setup(void)
 			XUN_LCR_8_DATA_BITS);
 }
 #endif
-/** @} */

@@ -1,17 +1,19 @@
 /******************************************************************************
 * Copyright (C) 2005 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
+
+#ifndef XSTREAMER_H		/* prevent circular inclusions */
+#define XSTREAMER_H
 
 /*****************************************************************************/
 /**
  *
  * @file xstreamer.h
-* @addtogroup llfifo Overview
-* @{
- *
- * The Xilinx byte streamer for packet FIFOs.
+* @brief Defines the XLlFifo byte-streamer API.
+*
+* The Xilinx byte streamer for packet FIFOs.
  *
  * <h2>Driver Description</h2>
  *
@@ -31,7 +33,6 @@
  * Send and receive channels are initialized separately. The receive channel is
  * initiailzed using XStrm_RxInitialize(). The send channel is initialized
  * using XStrm_TxInitialize().
- *
  *
  * <h2>Usage</h2>
  * It is fairly simple to use the API provided by this byte streamer
@@ -93,11 +94,15 @@
  * 2.00a hbm  01/20/10  Hal phase 1 support, bump up major release
  * 2.02a asa  12/28/11  The macro XStrm_IsRxInternalEmpty is changed to use
  *			FrmByteCnt instead of HeadIndex.
+ * 6.2   tb  09/15/26 Align Doxygen comments with AMD standards.
  * </pre>
  *
  *****************************************************************************/
-#ifndef XSTREAMER_H		/* prevent circular inclusions */
-#define XSTREAMER_H		/* by using preprocessor symbols */
+
+/**
+ * @addtogroup llfifo_api LLFIFO APIs
+ * @{
+ */
 
 /* force C linkage */
 #ifdef __cplusplus
@@ -108,9 +113,7 @@ extern "C" {
 #include "xdebug.h"
 #include "xil_types.h"
 
-/*
- * key hole size in 32 bit words
- */
+/** FIFO keyhole size in 32-bit words. */
 #define LARGEST_FIFO_KEYHOLE_SIZE_WORDS 4
 
 /*
@@ -131,10 +134,13 @@ typedef u32 (*XStrm_GetOccupancyFnType) (void *FifoInstance);
 typedef u32 (*XStrm_GetVacancyFnType) (void *FifoInstance);
 
 /**
+ * @brief Defines the receive byte-streamer instance.
+ *
  * This typedef defines a run-time instance of a receive byte-streamer.
  */
 typedef struct XStrm_RxFifoStreamer {
 	union XStrm_AlignedBufferType AlignedBuffer;
+			/**< FIFO holding buffer. */
 	unsigned HeadIndex;  /**< HeadIndex is the index to the AlignedBuffer
 	                      *   as bytes.
                               */
@@ -162,10 +168,13 @@ typedef struct XStrm_RxFifoStreamer {
 } XStrm_RxFifoStreamer;
 
 /**
+ * @brief Defines the transmit byte-streamer instance.
+ *
  * This typedef defines a run-time instance of a transmit byte-streamer.
  */
 typedef struct XStrm_TxFifoStreamer {
 	union XStrm_AlignedBufferType AlignedBuffer;
+			/**< FIFO holding buffer. */
 	unsigned TailIndex; /**< TailIndex is the index to the AlignedBuffer
 	                     *   as bytes
                              */
@@ -190,19 +199,20 @@ typedef struct XStrm_TxFifoStreamer {
 } XStrm_TxFifoStreamer;
 
 /*****************************************************************************/
-/*
+/**
+* @brief Returns transmit vacancy in 32-bit words.
 *
 * XStrm_TxVacancy returns the number of unused 32-bit words available (vacancy)
 * between the streamer, specified by <i>InstancePtr</i>, and the FIFO this
 * streamer is using.
 *
-* @param    InstancePtr references the streamer on which to operate.
+* @param[in]    InstancePtr References the streamer on which to operate.
 *
 * @return   XStrm_TxVacancy returns the vacancy count in number of 32 bit words.
 *
 * @note
-*
-* C Signature: u32 XStrm_TxVacancy(XStrm_TxFifoStreamer *InstancePtr)
+* C-style signature
+*    u32 XStrm_TxVacancy(XStrm_TxFifoStreamer *InstancePtr)
 *
 * The amount of bytes in the holding buffer (rounded up to whole 32-bit words)
 * is subtracted from the vacancy value of FIFO this streamer is using. This is
@@ -215,24 +225,25 @@ typedef struct XStrm_TxFifoStreamer {
 			(((InstancePtr)->TailIndex + 3) / 4))
 
 /*****************************************************************************/
-/*
+/**
+* @brief Returns receive occupancy in 32-bit words.
 *
 * XStrm_RxOccupancy returns the number of 32-bit words available (occupancy) to
 * be read from the streamer, specified by <i>InstancePtr</i>, and FIFO this
 * steamer is using.
 *
-* @param    InstancePtr references the streamer on which to operate.
+* @param[in]    InstancePtr References the streamer on which to operate.
 *
 * @return   XStrm_RxOccupancy returns the occupancy count in number of 32 bit
 *           words.
 *
 * @note
-*
-* C Signature: u32 XStrm_RxOccupancy(XStrm_RxFifoStreamer *InstancePtr)
+* C-style signature
+*    u32 XStrm_RxOccupancy(XStrm_RxFifoStreamer *InstancePtr)
 *
 * The amount of bytes in the holding buffer (rounded up to whole 32-bit words)
 * is added to the occupancy value of FIFO this streamer is using. This is to
-* ensure the caller will get a little more accurate occupancy value.
+* ensure the caller gets a little more accurate occupancy value.
 *
 ******************************************************************************/
 #ifdef DEBUG
@@ -261,21 +272,22 @@ extern u32 _xstrm_buffered;
 #endif
 
 /****************************************************************************/
-/*
+/**
+* @brief Reports whether the streamer holding buffer is empty.
 *
 * XStrm_IsRxInternalEmpty returns true if the streamer, specified by
 * <i>InstancePtr</i>, is not holding any bytes in it's  internal buffers. Note
 * that this routine does not reflect information about the state of the
 * FIFO used by this streamer.
 *
-* @param    InstancePtr references the streamer on which to operate.
+* @param[in]    InstancePtr References the streamer on which to operate.
 *
 * @return   XStrm_IsRxInternalEmpty returns TRUE when the streamer is not
 *           holding any bytes in it's internal buffers. Otherwise,
 *           XStrm_IsRxInternalEmpty returns FALSE.
 *
 * @note
-* C-style signature:
+* C-style signature
 *    int XStrm_IsRxInternalEmpty(XStrm_RxFifoStreamer *InstancePtr)
 *
 *****************************************************************************/
@@ -305,5 +317,5 @@ void XStrm_Read(XStrm_RxFifoStreamer *InstancePtr, void *BufPtr,
 #ifdef __cplusplus
 }
 #endif
-#endif				/* XSTREAMER_H  end of preprocessor protection symbols */
+#endif				/* XSTREAMER_H */
 /** @} */
