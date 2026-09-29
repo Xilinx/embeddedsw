@@ -8,14 +8,7 @@
 /**
 *
 * @file xcoresightpsdcc.c
-* @addtogroup coresightps_dcc Overview
-* @{
-*
-* Functions in this file are the minimum required functions for the
-* XCoreSightPs driver.
-*
-* @note 	None.
-*
+* @brief Implements the minimum required XCoreSightPs DCC functions.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -35,9 +28,15 @@
 * 1.10  ml     11/15/23 Fix compilation errors reported with -std=c2x compiler flag
 * 1.13  ml     07/21/25 Fixed GCC warnings
 * 1.14  vn     07/30/26 Fix Doxygen warnings
+* 1.14  tb     09/10/26 Align Doxygen comments with AMD standards
 * </pre>
 *
 ******************************************************************************/
+
+/**
+* @addtogroup coresightps_dcc_api CORESIGHTPS_DCC APIs
+* @{
+*/
 
 /***************************** Include Files *********************************/
 #if defined (__MICROBLAZE__) || defined (__riscv)
@@ -49,29 +48,31 @@
 #include "xcoresightpsdcc.h"
 
 #ifdef __ICCARM__
-#define INLINE
+#define INLINE /**< Compiler inline keyword. */
 #else
-#define INLINE __inline
+#define INLINE __inline /**< Compiler inline keyword. */
 #endif
 
-/* DCC Status Bits */
-#define XCORESIGHTPS_DCC_STATUS_RX (1 << 30)
-#define XCORESIGHTPS_DCC_STATUS_TX (1 << 29)
+/** @name DCC status bits
+ * @{
+ */
+#define XCORESIGHTPS_DCC_STATUS_RX (1 << 30) /**< RX is full. */
+#define XCORESIGHTPS_DCC_STATUS_TX (1 << 29) /**< TX is full. */
+/** @} */
 
 static INLINE u32 XCoresightPs_DccGetStatus(void);
 
 /****************************************************************************/
 /**
+* @brief Sends a single byte using the DCC.
 *
-* This functions sends a single byte using the DCC. It is blocking in that it
-* waits for the transmitter to become non-full before it writes the byte to
-* the transmit register.
+* This function is blocking.
+* It waits until the transmitter is not full,
+* then writes the byte to the transmit register.
 *
-* @param	BaseAddress is a dummy parameter to match the function proto
-*		of functions for other stdio devices.
-* @param	Data is the byte of data to send
-*
-* @note		None.
+* @param[in]	BaseAddress Dummy parameter to match other stdio device
+*		function prototypes.
+* @param[in]	Data Byte of data to send.
 *
 ******************************************************************************/
 void XCoresightPs_DccSendByte(u32 BaseAddress, u8 Data)
@@ -99,17 +100,16 @@ void XCoresightPs_DccSendByte(u32 BaseAddress, u8 Data)
 
 /****************************************************************************/
 /**
+* @brief Receives a single byte using the DCC.
 *
-* This functions receives a single byte using the DCC. It is blocking in that
-* it waits for the receiver to become non-empty before it reads from the
-* receive register.
+* This function is blocking.
+* It waits until the receiver is not empty,
+* then reads the byte from the receive register.
 *
-* @param	BaseAddress is a dummy parameter to match the function proto
-*		of functions for other stdio devices.
+* @param[in]	BaseAddress Dummy parameter to match other stdio device
+*		function prototypes.
 *
 * @return	The byte of data received.
-*
-* @note		None.
 *
 ******************************************************************************/
 u8 XCoresightPs_DccRecvByte(u32 BaseAddress)
@@ -138,13 +138,10 @@ u8 XCoresightPs_DccRecvByte(u32 BaseAddress)
 }
 
 /****************************************************************************/
-/**INLINE
+/**
+* @brief Reads the DCC status register.
 *
-* This functions read the status register of the DCC.
-*
-* @return	The contents of the Status Register.
-*
-* @note		None.
+* @return	The contents of the status register.
 *
 ******************************************************************************/
 static INLINE u32 XCoresightPs_DccGetStatus(void)
@@ -166,11 +163,25 @@ static INLINE u32 XCoresightPs_DccGetStatus(void)
 }
 
 #ifdef XPAR_STDIN_IS_CORESIGHTPS_DCC
+/****************************************************************************/
+/**
+* @brief Sends one byte to the CoreSight DCC stdout device.
+*
+* @param[in]	c Byte to send.
+*
+******************************************************************************/
 void outbyte(char c)
 {
 	XCoresightPs_DccSendByte(STDOUT_BASEADDRESS, c);
 }
 
+/****************************************************************************/
+/**
+* @brief Receives one byte from the CoreSight DCC stdin device.
+*
+* @return	The byte received.
+*
+******************************************************************************/
 char inbyte(void)
 {
 	return XCoresightPs_DccRecvByte(STDIN_BASEADDRESS);

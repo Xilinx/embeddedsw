@@ -1,8 +1,11 @@
 /******************************************************************************
 * Copyright (C) 2015 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
+
+#ifndef XCORESIGHTPSDCC_H                /* prevent circular inclusions */
+#define XCORESIGHTPSDCC_H
 
 /*****************************************************************************/
 /**
@@ -10,17 +13,15 @@
 * @file xcoresightpsdcc.h
 * @addtogroup coresightps_dcc Overview
 * @{
-* @details
+* @brief Provides CoreSight Debug Communication Channel (DCC) byte I/O.
 *
 * CoreSight driver component.
 *
-* The coresight is a part of debug communication channel (DCC) group. Jtag UART
-* for ARM uses DCC. Each ARM core has its own DCC, so one need to select an
-* ARM target in XSDB console before running the jtag terminal command. Using the
-* coresight driver component, the output stream can be directed to a log file.
-*
-* @note 	None.
-*
+* Coresight is part of the Debug Communication Channel (DCC) group.
+* JTAG UART for ARM uses DCC. Each ARM core has its own DCC.
+* Select an ARM target in the XSDB console before running
+* the jtag terminal command.
+* The CoreSight driver can direct the output stream to a log file.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -35,14 +36,13 @@
 *                       fixes the CR#953056.
 * 1.5   sne    01/19/19 Fixed MISRA-C Violations CR#1025101.
 * 1.10  mus    10/06/23 Fix compilation error for Microblaze RISC-V processor.
+* 1.14  tb     09/10/26 Align Doxygen comments with AMD standards
 *
 * </pre>
 *
 ******************************************************************************/
 
 /***************************** Include Files *********************************/
-#ifndef XCORESIGHTPSDCC_H                /* prevent circular inclusions */
-#define XCORESIGHTPSDCC_H                /* by using protection macros */
 
 #ifdef __cplusplus
 extern "C" {
