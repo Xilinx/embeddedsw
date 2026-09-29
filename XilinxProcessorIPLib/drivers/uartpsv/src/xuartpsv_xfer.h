@@ -1,18 +1,18 @@
 /******************************************************************************
 * Copyright (C) 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 Advanced Micro Devices, Inc. All rights reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
+
+#ifndef XUARTPSV_XFER_H
+#define XUARTPSV_XFER_H
 
 /*****************************************************************************/
 /**
 *
 * @file xuartpsv_xfer.h
-* @addtogroup uartpsv Overview
-* @{
 *
-* The xuartpsv_xfer.h header file contains the prototypes of objects used
-* internally.
+* @brief Declares internal transfer function prototypes for the XUartPsv driver.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -20,12 +20,15 @@
 * Ver  Who  Date      Changes
 * ---  ---  --------- -----------------------------------------------
 * 1.3  rna  05/18/20  First release
+* 1.15  vn   09/10/26 Align Doxygen comments with AMD standards
 * </pre>
 *
 ******************************************************************************/
+
+/** @addtogroup uartpsv Overview
+ * @{
+ */
 /** @cond INTERNAL */
-#ifndef XUARTPSV_XFER_H		/* prevent circular inclusions */
-#define XUARTPSV_XFER_H		/**< by using protection macros */
 
 #ifdef __cplusplus
 extern "C" {
@@ -53,6 +56,6 @@ u32 XUartPsv_Send_NoWait(XUartPsv *InstancePtr, u8 *BufferPtr, u32 NumBytes);
 }
 #endif
 
-#endif /* end of protection macro */
 /** @endcond */
 /** @} */
+#endif

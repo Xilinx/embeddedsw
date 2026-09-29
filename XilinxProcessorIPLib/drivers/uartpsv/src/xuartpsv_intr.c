@@ -8,10 +8,8 @@
 /**
 *
 * @file xuartpsv_intr.c
-* @addtogroup uartpsv Overview
-* @{
 *
-* The xuartpsv_intr.c file contains the functions for interrupt handling.
+* @brief Implements the interrupt handling functions for the XUartPsv driver.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -21,12 +19,18 @@
 * 1.0  sg   09/18/17  First Release
 * 1.2  rna  01/20/20  Modify the  Interrupt sub routine
 *		      Add support for Rx errors
-*		      Change the Tx interrupt  path to support > 32 byte transfers
+*		      Change the Tx interrupt  path to support > 32 byte
+*		      transfers
 * 1.3  rna  04/05/20  Correct XUartPsv_SetInterruptMask function clear IMSC
 * 1.15 vn   07/30/26  Fix Doxygen warnings
+* 1.15 vn   09/10/26  Align Doxygen comments with AMD standards
 * </pre>
 *
 ******************************************************************************/
+
+/** @addtogroup uartpsv Overview
+ * @{
+ */
 
 /***************************** Include Files *********************************/
 
@@ -51,15 +55,13 @@ static void XUartPsv_ModemHandler(XUartPsv *InstancePtr);
 /*****************************************************************************/
 /**
 *
-* This function gets the interrupt mask
+* @brief Retrieves the current interrupt mask.
 *
-* @param	InstancePtr is a pointer to the XUartPsv instance.
+* @param[in]   InstancePtr Pointer to the XUartPsv instance.
 *
 * @return
-*		The current interrupt mask. The mask indicates which
-*		interrupts are enabled.
-*
-* @note 	None.
+*              The current interrupt mask. The mask indicates which
+*              interrupts are enabled.
 *
 ******************************************************************************/
 u32 XUartPsv_GetInterruptMask(XUartPsv *InstancePtr)
@@ -75,13 +77,11 @@ u32 XUartPsv_GetInterruptMask(XUartPsv *InstancePtr)
 /*****************************************************************************/
 /**
 *
-* This function sets the interrupt mask.
+* @brief Sets the interrupt mask.
 *
-* @param	InstancePtr is a pointer to the XUartPsv instance
-* @param	Mask contains the interrupts to be enabled or disabled.
-*		A '1' enables an interrupt, and a '0' disables.
-*
-* @note 	None.
+* @param[in]   InstancePtr Pointer to the XUartPsv instance.
+* @param[in]   Mask Interrupts to enable or disable.
+*               A '1' enables an interrupt, and a '0' disables.
 *
 ******************************************************************************/
 void XUartPsv_SetInterruptMask(XUartPsv *InstancePtr, u32 Mask)
@@ -101,16 +101,16 @@ void XUartPsv_SetInterruptMask(XUartPsv *InstancePtr, u32 Mask)
 /*****************************************************************************/
 /**
 *
-* This function sets the handler that will be called when an event (interrupt)
-* occurs that needs application's attention.
+* @brief Sets the handler called when an event (interrupt) occurs that needs
+* the application's attention.
 *
-* @param	InstancePtr is a pointer to the XUartPsv instance
-* @param	FuncPtr is the pointer to the callback function.
-* @param	CallBackRef is the upper layer callback reference passed back
-*		when the callback function is invoked.
+* @param[in,out] InstancePtr Pointer to the XUartPsv instance.
+* @param[in]     FuncPtr Pointer to the callback function.
+* @param[in]     CallBackRef Upper layer callback reference passed back
+*                 when the callback function is invoked.
 *
 * @note
-* There is no assert on the CallBackRef since the driver doesn't know what it
+* There is no assert on the CallBackRef since the driver does not know what it
 * is (nor should it)
 *
 ******************************************************************************/
@@ -132,13 +132,12 @@ void XUartPsv_SetHandler(XUartPsv *InstancePtr, XUartPsv_Handler FuncPtr,
 /*****************************************************************************/
 /**
 *
-* This function is the interrupt handler for the driver.
-* It must be connected to an interrupt system by the application such that it
+* @brief Handles interrupts for the XUartPsv driver.
+*
+* Must be connected to an interrupt system by the application such that it
 * can be called when an interrupt occurs.
 *
-* @param	InstancePtr contains a pointer to the driver instance
-*
-* @note 	None.
+* @param[in]   InstancePtr Pointer to the driver instance.
 *
 ******************************************************************************/
 void XUartPsv_InterruptHandler(XUartPsv *InstancePtr)
@@ -213,13 +212,9 @@ void XUartPsv_InterruptHandler(XUartPsv *InstancePtr)
 /*****************************************************************************/
 /**
 *
-* This function handles the interrupt when there is overrun error in Rx path
+* @brief Handles the overrun error interrupt in the Rx path.
 *
-* @param	InstancePtr is a pointer to the XUartPsv instance
-*
-* @return	None.
-*
-* @note 	None.
+* @param[in]   InstancePtr Pointer to the XUartPsv instance.
 *
 ******************************************************************************/
 static void XUartPsv_ReceiveErrorHandler(XUartPsv *InstancePtr)
@@ -247,13 +242,9 @@ static void XUartPsv_ReceiveErrorHandler(XUartPsv *InstancePtr)
 /*****************************************************************************/
 /**
 *
-* This function handles the interrupt when data is in RX FIFO.
+* @brief Handles the interrupt when data is in the RX FIFO.
 *
-* @param	InstancePtr is a pointer to the XUartPsv instance
-*
-* @return	None.
-*
-* @note 	None.
+* @param[in]   InstancePtr Pointer to the XUartPsv instance.
 *
 ******************************************************************************/
 static void XUartPsv_ReceiveDataHandler(XUartPsv *InstancePtr)
@@ -285,14 +276,11 @@ static void XUartPsv_ReceiveDataHandler(XUartPsv *InstancePtr)
 /*****************************************************************************/
 /**
 *
-* This function handles the interrupt when data has been sent, the transmit
-* FIFO is empty (transmitter holding register).
+* @brief Handles the transmit data interrupt when the TX FIFO is empty.
 *
-* @param	InstancePtr is a pointer to the XUartPsv instance
+* The empty transmit FIFO is the transmitter holding register.
 *
-* @return	None.
-*
-* @note 	None.
+* @param[in]   InstancePtr Pointer to the XUartPsv instance.
 *
 ******************************************************************************/
 static void XUartPsv_SendDataHandler(XUartPsv *InstancePtr)
@@ -321,14 +309,12 @@ static void XUartPsv_SendDataHandler(XUartPsv *InstancePtr)
 /*****************************************************************************/
 /**
 *
-* This function handles modem interrupts.  It does not do any processing
-* except to call the application handler to indicate a modem event.
+* @brief Handles modem interrupts by calling the application handler.
 *
-* @param	InstancePtr is a pointer to the XUartPsv instance
+* Does not do any processing except to call the application handler to
+* indicate a modem event.
 *
-* @return	None.
-*
-* @note 	None.
+* @param[in]   InstancePtr Pointer to the XUartPsv instance.
 *
 ******************************************************************************/
 static void XUartPsv_ModemHandler(XUartPsv *InstancePtr)

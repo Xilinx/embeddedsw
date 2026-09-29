@@ -8,11 +8,8 @@
 /**
 *
 * @file xuartpsv_sinit.c
-* @addtogroup uartpsv Overview
-* @{
 *
-* The xuartpsv_sinit.c file contains the implementation of the XUartPsv driver's
-* static initialization functionality.
+* @brief Implements the static initialization for the XUartPsv driver.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -21,10 +18,15 @@
 * ---  ---  --------- -----------------------------------------------
 * 1.0  sg   09/18/17  First Release
 * 1.14 vlt 12/18/25  Update Doxygen comments to include SDT flow details.
+* 1.15  vn   09/10/26 Align Doxygen comments with AMD standards
 *
 * </pre>
 *
 ******************************************************************************/
+
+/** @addtogroup uartpsv Overview
+ * @{
+ */
 
 /***************************** Include Files *********************************/
 
@@ -47,19 +49,21 @@
 /*****************************************************************************/
 /**
 *
-* Looks up the device configuration based on the unique device ID/BaseAddress.
+* @brief Looks up the device configuration based on the unique device ID or
+* base address.
+*
 * The XUartPsv_ConfigTable[] contains the configuration info for each device
 * in the system.
 *
 * @if SDT
-* @param	BaseAddress contains the base address of the device
+* @param[in]   BaseAddress Base address of the device.
 * @else
-* @param	DeviceId contains the unique ID of the device
+* @param[in]   DeviceId Unique ID of the device.
 * @endif
 *
-* @return       A pointer to the configuration found or NULL if the specified
-*               device ID/BaseAddress was not found. See xuartpsv.h for the
-*               definition of XUartPsv_Config.
+* @return      A pointer to the configuration found or NULL if the specified
+*              device ID/BaseAddress was not found. See xuartpsv.h for the
+*              definition of XUartPsv_Config.
 *
 * @note        In XSCT/classic flow, DeviceId is used to look up the device
 *              configuration.

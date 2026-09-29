@@ -8,11 +8,8 @@
 /**
 *
 * @file xuartpsv_options.c
-* @addtogroup uartpsv Overview
-* @{
 *
-* The xuartpsv_options.c file contains the implementation of the options
-* functions for the XUartPsv driver.
+* @brief Implements the options functions for the XUartPsv driver.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -25,9 +22,14 @@
 * 1.3  rna  04/08/20  Format is corrected in XUartPsv_SetDataFormat function
 *      rna  05/18/20  Fix MISRA-C violations
 * 1.15 vn   07/30/26  Fix Doxygen warnings
+* 1.15 vn   09/10/26  Align Doxygen comments with AMD standards
 * </pre>
 *
 ******************************************************************************/
+
+/** @addtogroup uartpsv Overview
+ * @{
+ */
 
 /***************************** Include Files *********************************/
 
@@ -41,8 +43,7 @@
 
 /************************** Variable Definitions *****************************/
 /**
- * The following data type is a map from an option to the offset in the
- * register to which it belongs as well as its bit mask in that register.
+ * @brief Maps an option to the register offset and bit mask.
  */
 typedef struct {
 	u16 Option;			/**< Option to select */
@@ -50,7 +51,9 @@ typedef struct {
 	u32 Mask;			/**< Mask to set/clear in register */
 } Mapping;
 
-/*
+/**
+ * @brief Option-to-register mapping table for get/set operations.
+ *
  * Create the table which contains options which are to be processed to
  * get/set the options. These options are table driven to allow easy
  * maintenance and expansion of the options.
@@ -77,24 +80,24 @@ static Mapping XUartPsv_OptionsTable[] = {
 
 /* Create a constant for the number of entries in the table */
 
-#define XUARTPSV_NUM_OPTIONS	  (sizeof(XUartPsv_OptionsTable) / sizeof(Mapping)) /**< No. of options */
+/** No. of options */
+#define XUARTPSV_NUM_OPTIONS	  (sizeof(XUartPsv_OptionsTable) / sizeof(Mapping))
 
 /************************** Function Prototypes ******************************/
 
 /*****************************************************************************/
 /**
 *
-* Gets the options for the specified driver instance. The options are
-* implemented as bit masks such that multiple options may be enabled or
-* disabled simultaneously.
+* @brief Retrieves the current options for the specified driver instance.
 *
-* @param	InstancePtr is a pointer to the XUartPsv instance.
+* The options are implemented as bit masks such that multiple options may
+* be enabled or disabled simultaneously.
 *
-* @return	The current options for the UART. The options are bit masks
-* 		that are contained in the file xuartpsv.h and named
-*		XUARTPSV_OPTION_*.
+* @param[in]   InstancePtr Pointer to the XUartPsv instance.
 *
-* @note 	None.
+* @return      The current options for the UART. The options are bit masks
+*              that are contained in the file xuartpsv.h and named
+*              XUARTPSV_OPTION_*.
 *
 ******************************************************************************/
 u16 XUartPsv_GetOptions(XUartPsv *InstancePtr)
@@ -132,20 +135,19 @@ u16 XUartPsv_GetOptions(XUartPsv *InstancePtr)
 /*****************************************************************************/
 /**
 *
-* Sets the options for the specified driver instance. The options are
-* implemented as bit masks such that multiple options may be enabled or
-* disabled simultaneously.
+* @brief Sets the options for the specified driver instance.
+*
+* The options are implemented as bit masks such that multiple options may
+* be enabled or disabled simultaneously.
 *
 * The GetOptions function may be called to retrieve the currently enabled
 * options. The result is ORed in the desired new settings to be enabled and
 * ANDed with the inverse to clear the settings to be disabled. The resulting
 * value is then used as the options for the SetOption function call.
 *
-* @param	InstancePtr is a pointer to the XUartPsv instance.
-* @param	Options contains the options to be set which are bit masks
-*		contained in the file xuartpsv.h and named XUARTPSV_OPTION_*.
-*
-* @note 	None.
+* @param[in]   InstancePtr Pointer to the XUartPsv instance.
+* @param[in]   Options Options to set which are bit masks
+*               contained in the file xuartpsv.h and named XUARTPSV_OPTION_*.
 *
 ******************************************************************************/
 void XUartPsv_SetOptions(XUartPsv *InstancePtr, u16 Options)
@@ -182,15 +184,15 @@ void XUartPsv_SetOptions(XUartPsv *InstancePtr, u16 Options)
 /*****************************************************************************/
 /**
 *
-* This function gets the Tx and Rx FIFO trigger level. The receive or transmit
-* trigger level specifies the number of bytes in the FIFO that cause a receive
-* or transmit data event (interrupt) to be generated.
-* @param	InstancePtr is a pointer to the XUartPsv instance.
+* @brief Retrieves the Tx and Rx FIFO trigger level.
 *
-* @return	The current receive FIFO trigger level. This is a value
-*		from 0-63.
+* The receive or transmit trigger level specifies the number of bytes in the
+* FIFO that cause a receive or transmit data event (interrupt) to be generated.
 *
-* @note 	None.
+* @param[in]   InstancePtr Pointer to the XUartPsv instance.
+*
+* @return      The current receive FIFO trigger level. This is a value
+*              from 0-63.
 *
 ******************************************************************************/
 u8 XUartPsv_GetFifoThreshold(XUartPsv *InstancePtr)
@@ -219,17 +221,15 @@ u8 XUartPsv_GetFifoThreshold(XUartPsv *InstancePtr)
 /*****************************************************************************/
 /**
 *
-* This functions sets the Tx and Rx FIFO trigger level to the 'TriggerLevel'
-* argument. The same value is set for Tx and Rx FIFOs.
-* The receive or transmit trigger level specifies the number of bytes
-* in the FIFO that cause a receive or transmit data event (interrupt)
-* to be generated.
+* @brief Sets the Tx and Rx FIFO trigger level.
 *
-* @param	InstancePtr is a pointer to the XUartPsv instance.
-* @param	TriggerLevel contains the trigger level to set. This is a value
-* 			from 0-7
+* The same value is set for Tx and Rx FIFOs. The receive or transmit
+* trigger level specifies the number of bytes in the FIFO that cause a
+* receive or transmit data event (interrupt) to be generated.
 *
-* @note 	None.
+* @param[in]   InstancePtr Pointer to the XUartPsv instance.
+* @param[in]   TriggerLevel Trigger level to set. This is a
+*               value from 0-7.
 *
 ******************************************************************************/
 void XUartPsv_SetFifoThreshold(XUartPsv *InstancePtr, u8 TriggerLevel)
@@ -264,18 +264,17 @@ void XUartPsv_SetFifoThreshold(XUartPsv *InstancePtr, u8 TriggerLevel)
 /*****************************************************************************/
 /**
 *
-* This functions sets the Tx FIFO trigger level to the 'TriggerLevel'
-* argument. This value is set for Tx FIFO. Rx FIFO trigger level is unchanged.
-* The receive or transmit trigger level specifies the number of bytes
-* in the FIFO that cause a receive or transmit data event (interrupt)
-* to be generated.
+* @brief Sets the Tx FIFO trigger level.
 *
-* @param	InstancePtr is a pointer to the XUartPsv instance.
-* @param	TriggerLevel contains the trigger level to set. This is a value
-* 			from 0-4 (XUARTPSV_UARTIFLS_TXIFLSEL_1_8 -
-* 			XUARTPSV_UARTIFLS_TXIFLSEL_7_8)
+* This value is set for Tx FIFO. The Rx FIFO trigger level is unchanged.
+* The receive or transmit trigger level specifies the number of bytes in
+* the FIFO that cause a receive or transmit data event (interrupt) to be
+* generated.
 *
-* @note 	None.
+* @param[in]   InstancePtr Pointer to the XUartPsv instance.
+* @param[in]   TriggerLevel Trigger level to set. This is a
+*               value from 0-4 (XUARTPSV_UARTIFLS_TXIFLSEL_1_8 -
+*               XUARTPSV_UARTIFLS_TXIFLSEL_7_8).
 *
 ******************************************************************************/
 void XUartPsv_SetTxFifoThreshold(XUartPsv *InstancePtr, u8 TriggerLevel)
@@ -308,18 +307,17 @@ void XUartPsv_SetTxFifoThreshold(XUartPsv *InstancePtr, u8 TriggerLevel)
 /*****************************************************************************/
 /**
 *
-* This functions sets the Rx FIFO trigger level to the 'TriggerLevel'
-* argument. This value is set for Rx FIFO. Tx FIFO trigger level is unchanged.
-* The receive or transmit trigger level specifies the number of bytes
-* in the FIFO that cause a receive or transmit data event (interrupt)
-* to be generated.
+* @brief Sets the Rx FIFO trigger level.
 *
-* @param	InstancePtr is a pointer to the XUartPsv instance.
-* @param	TriggerLevel contains the trigger level to set. This is a value
-* 			from 0-32 (XUARTPSV_UARTIFLS_RXIFLSEL_1_8 -
-* 			XUARTPSV_UARTIFLS_RXIFLSEL_7_8)
+* This value is set for Rx FIFO. The Tx FIFO trigger level is unchanged.
+* The receive or transmit trigger level specifies the number of bytes in
+* the FIFO that cause a receive or transmit data event (interrupt) to be
+* generated.
 *
-* @note 	None.
+* @param[in]   InstancePtr Pointer to the XUartPsv instance.
+* @param[in]   TriggerLevel Trigger level to set. This is a
+*               value from 0-32 (XUARTPSV_UARTIFLS_RXIFLSEL_1_8 -
+*               XUARTPSV_UARTIFLS_RXIFLSEL_7_8).
 *
 ******************************************************************************/
 void XUartPsv_SetRxFifoThreshold(XUartPsv *InstancePtr, u8 TriggerLevel)
@@ -351,16 +349,17 @@ void XUartPsv_SetRxFifoThreshold(XUartPsv *InstancePtr, u8 TriggerLevel)
 /*****************************************************************************/
 /**
 *
-* This function gets the modem status from the specified UART. The modem
-* status indicates any changes of the modem signals. This function allows
-* the modem status to be read in a polled mode. The modem status is updated
-* whenever it is read such that reading it twice may not yield the same
-* results.
+* @brief Retrieves the modem status from the specified UART.
 *
-* @param	InstancePtr is a pointer to the XUartPsv instance.
+* The modem status indicates any changes of the modem signals. This
+* function allows the modem status to be read in polled mode. The modem
+* status is updated whenever it is read such that reading it twice may
+* not yield the same results.
 *
-* @return	The modem status which are bit masks that are contained
-* 		in the file xuartpsv.h and named XUARTPSV_UARTRIS_*.
+* @param[in]   InstancePtr Pointer to the XUartPsv instance.
+*
+* @return      The modem status which are bit masks that are contained
+*              in the file xuartpsv.h and named XUARTPSV_UARTRIS_*.
 *
 * @note
 * The bit masks used for the modem status are the exact bits of the modem
@@ -385,15 +384,13 @@ u16 XUartPsv_GetModemStatus(XUartPsv *InstancePtr)
 /*****************************************************************************/
 /**
 *
-* This function determines if the specified UART is sending data.
+* @brief Determines if the specified UART is sending data.
 *
-* @param	InstancePtr is a pointer to the XUartPsv instance.
+* @param[in]   InstancePtr Pointer to the XUartPsv instance.
 *
 * @return
-*		- TRUE if the UART is sending data
-*		- FALSE if UART is not sending data
-*
-* @note 	None.
+*              - TRUE if the UART is sending data.
+*              - FALSE if UART is not sending data.
 *
 ******************************************************************************/
 u32 XUartPsv_IsSending(XUartPsv *InstancePtr)
@@ -429,16 +426,15 @@ u32 XUartPsv_IsSending(XUartPsv *InstancePtr)
 /*****************************************************************************/
 /**
 *
-* This function gets the operational mode of the UART. The UART can operate
-* in one of four modes: Normal, Local Loopback, Remote Loopback, or automatic
-* echo.
+* @brief Retrieves the operational mode of the UART.
 *
-* @param	InstancePtr is a pointer to the XUartPsv instance.
+* The UART can operate in one of four modes: Normal, Local Loopback,
+* Remote Loopback, or automatic echo.
 *
-* @return	The operational mode is specified by constants defined in
-* 		xuartpsv.h. The constants are named XUARTPSV_OPER_MODE_*
+* @param[in]   InstancePtr Pointer to the XUartPsv instance.
 *
-* @note 	None.
+* @return      The operational mode is specified by constants defined in
+*              xuartpsv.h. The constants are named XUARTPSV_OPER_MODE_*.
 *
 ******************************************************************************/
 u8 XUartPsv_GetOperMode(XUartPsv *InstancePtr)
@@ -479,14 +475,13 @@ u8 XUartPsv_GetOperMode(XUartPsv *InstancePtr)
 /*****************************************************************************/
 /**
 *
-* This function sets the operational mode of the UART. The UART can operate
-* in one of four modes: Normal, Local Loopback, Remote Loopback, or automatic
-* echo.
+* @brief Sets the operational mode of the UART.
 *
-* @param	InstancePtr is a pointer to the XUartPsv instance.
-* @param	OperationMode is the mode of the UART.
+* The UART can operate in one of four modes: Normal, Local Loopback,
+* Remote Loopback, or automatic echo.
 *
-* @note 	None.
+* @param[in]   InstancePtr Pointer to the XUartPsv instance.
+* @param[in]   OperationMode Mode of the UART.
 *
 ******************************************************************************/
 void XUartPsv_SetOperMode(XUartPsv *InstancePtr, u8 OperationMode)
@@ -524,26 +519,27 @@ void XUartPsv_SetOperMode(XUartPsv *InstancePtr, u8 OperationMode)
 /*****************************************************************************/
 /**
 *
-* Sets the data format for the device. The data format includes the
-* baud rate, number of data bits, number of stop bits, and parity. It is the
-* caller's responsibility to ensure that the UART is not sending or receiving
-* data when this function is called.
+* @brief Sets the data format for the device.
 *
-* @param	InstancePtr is a pointer to the XUartPsv instance.
-* @param	FormatPtr is a pointer to a format structure containing the
-*		data format to be set.
+* The data format includes the baud rate, number of data bits, number of
+* stop bits, and parity. It is the caller's responsibility to ensure that
+* the UART is not sending or receiving data when this function is called.
+*
+* @param[in]   InstancePtr Pointer to the XUartPsv instance.
+* @param[in]   FormatPtr Pointer to a format structure containing the
+*               data format to be set.
 *
 * @return
-*		- XST_SUCCESS if the data format was successfully set.
-*		- XST_UART_BAUD_ERROR indicates the baud rate could not be
-*		  set because of the amount of error with the baud rate and
-*		  the input clock frequency.
-*		- XST_INVALID_PARAM if one of the parameters was not valid.
+*              - XST_SUCCESS if the data format was successfully set.
+*              - XST_UART_BAUD_ERROR indicates the baud rate could not be
+*                set because of the amount of error with the baud rate and
+*                the input clock frequency.
+*              - XST_INVALID_PARAM if one of the parameters was not valid.
 *
 * @note
 * The data types in the format type, data bits and parity, are 32 bit fields
 * to prevent a compiler warning.
-* The asserts in this function will cause a warning if these fields are
+* The asserts in this function cause a warning if these fields are
 * bytes.
 * <br><br>
 *
@@ -633,15 +629,14 @@ s32 XUartPsv_SetDataFormat(XUartPsv *InstancePtr,
 /*****************************************************************************/
 /**
 *
-* Gets the data format for the specified UART. The data format includes the
-* baud rate, number of data bits, number of stop bits, and parity.
+* @brief Retrieves the data format for the specified UART.
 *
-* @param	InstancePtr is a pointer to the XUartPsv instance.
-* @param	FormatPtr is a pointer to a format structure that will
-*		contain the data format after this call completes.
+* The data format includes the baud rate, number of data bits, number of
+* stop bits, and parity.
 *
-* @note 	None.
-*
+* @param[in]   InstancePtr Pointer to the XUartPsv instance.
+* @param[out]  FormatPtr Pointer to a format structure that
+*               contains the data format after this call completes.
 *
 ******************************************************************************/
 void XUartPsv_GetDataFormat(XUartPsv *InstancePtr,

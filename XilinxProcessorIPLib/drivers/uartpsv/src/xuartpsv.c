@@ -8,12 +8,10 @@
 /**
 *
 * @file xuartpsv.c
-* @addtogroup uartpsv Overview
-* @{
 *
-* The xuartpsv.c file contains the implementation of the interface functions for
-* XUartPsv driver. Refer to the header file xuartpsv.h for more detailed
-* information.
+* @brief Implements the interface functions for the XUartPsv driver.
+*
+* Refer to the header file xuartpsv.h for more detailed information.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -30,9 +28,14 @@
 * 		      and Tx buffers.
 * 1.14 vlt  01/27/26  Fixed codespell issues
 * 1.15 vn   07/30/26  Fix Doxygen warnings
+* 1.15 vn   09/10/26  Align Doxygen comments with AMD standards
 * </pre>
 *
 ******************************************************************************/
+
+/** @addtogroup uartpsv Overview
+ * @{
+ */
 
 /***************************** Include Files *********************************/
 
@@ -43,13 +46,15 @@
 
 /************************** Constant Definitions *****************************/
 
-/*
- * The following constant defines the amount of error that is allowed for
+/**
+ * @brief Maximum baud rate error percentage allowed.
+ *
+ * The following constant defines the amount of error allowed for
  * a specified baud rate. This error is the difference between the actual
- * baud rate that will be generated using the specified clock and the
+ * baud rate generated using the specified clock and the
  * desired baud rate.
  */
-#define XUARTPSV_MAX_BAUD_ERROR_RATE	3U	/**< max % error allowed */
+#define XUARTPSV_MAX_BAUD_ERROR_RATE	3U
 
 /**************************** Type Definitions *******************************/
 
@@ -64,29 +69,30 @@ static void XUartPsv_StubHandler(void *CallBackRef, u32 Event, u32 ByteCount);
 /*****************************************************************************/
 /**
 *
-* Initializes a specific XUartPsv instance such that it is ready to be used.
+* @brief Initializes a specific XUartPsv instance for use.
+*
 * The data format of the device is setup for 8 data bits, 1 stop bit, and no
 * parity by default. The baud rate is set to a default value specified by
 * Config->DefaultBaudRate if set, otherwise it is set to 19.2K baud. The
 * receive FIFO threshold is set for 8 bytes. The default operating mode of
 * the driver is polled mode.
 *
-* @param	InstancePtr is a pointer to the XUartPsv instance.
-* @param	Config is a reference to a structure containing information
-*		about a specific XUartPsv driver.
-* @param	EffectiveAddr is the device base address in the virtual memory
-*		address space. The caller is responsible for keeping the
-*		address mapping from EffectiveAddr to the device physical base
-*		address unchanged once this function is invoked. Unexpected
-*		errors may occur if the address mapping changes after this
-*		function is called. If address translation is not used, pass
-*		in the physical address instead.
+* @param[out]  InstancePtr Pointer to the XUartPsv instance.
+* @param[in]   Config Reference to a structure containing information
+*               about a specific XUartPsv driver.
+* @param[in]   EffectiveAddr Device base address in the virtual memory
+*               address space. The caller is responsible for keeping the
+*               address mapping from EffectiveAddr to the device physical base
+*               address unchanged once this function is invoked. Unexpected
+*               errors may occur if the address mapping changes after this
+*               function is called. If address translation is not used, pass
+*               in the physical address instead.
 *
 * @return
-*		- XST_SUCCESS if initialization was successful
-*		- XST_UART_BAUD_ERROR if the baud rate is not possible because
-*		  the inputclock frequency is not divisible with an acceptable
-*		  amount of error
+*              - XST_SUCCESS if initialization was successful.
+*              - XST_UART_BAUD_ERROR if the baud rate is not possible because
+*                the inputclock frequency is not divisible with an acceptable
+*                amount of error.
 *
 * @note
 * The default configuration for the UART after initialization is:
@@ -95,7 +101,7 @@ static void XUartPsv_StubHandler(void *CallBackRef, u32 Event, u32 ByteCount);
 * - 8 data bits
 * - 1 stop bit
 * - no parity
-* - FIFO's are enabled with a threshold of 16 ytes
+* - FIFO's are enabled with a threshold of 16 bytes
 *
 *   All interrupts are disabled.
 *
@@ -190,29 +196,29 @@ s32 XUartPsv_CfgInitialize(XUartPsv *InstancePtr,
 /*****************************************************************************/
 /**
 *
-* This functions sends the specified buffer using the device in either
-* polled or interrupt driven mode. This function is non-blocking, if the
-* device is busy sending data, it will return and indicate zero bytes were
-* sent. Otherwise, it fills the TX FIFO as much as it can, and return the
-* number of bytes sent.
+* @brief Sends the specified buffer in polled or interrupt driven mode.
 *
-* In a polled mode, this function will only send as much data as TX FIFO can
+* This function is non-blocking. If the device is busy sending data, it
+* returns and indicates zero bytes were sent. Otherwise, it fills the TX
+* FIFO as much as it can, and returns the number of bytes sent.
+*
+* In polled mode, this function only sends as much data as the TX FIFO can
 * buffer. The application may need to call it repeatedly to send the entire
 * buffer.
 *
-* In interrupt mode, this function will start sending the specified buffer,
-* then the interrupt handler will continue sending data until the entire
+* In interrupt mode, this function starts sending the specified buffer,
+* then the interrupt handler continues sending data until the entire
 * buffer has been sent. A callback function, as specified by the application,
-* will be called to indicate the completion of sending.
+* is called to indicate the completion of sending.
 *
-* @param	InstancePtr is a pointer to the XUartPsv instance.
-* @param	BufferPtr is pointer to a buffer of data to be sent.
-* @param	NumBytes contains the number of bytes to be sent. A value of
-*		zero will stop a previous send operation that is in progress
-*		in interrupt mode. Any data that was already put into the
-*		transmit FIFO will be sent.
+* @param[in,out] InstancePtr Pointer to the XUartPsv instance.
+* @param[in]     BufferPtr Pointer to a buffer of data to send.
+* @param[in]     NumBytes Number of bytes to send. A value of
+*                 zero stops a previous send operation that is in progress
+*                 in interrupt mode. Any data that was already put into the
+*                 transmit FIFO is sent.
 *
-* @return	The number of bytes actually sent.
+* @return        The number of bytes actually sent.
 *
 * @note
 * The number of bytes is not asserted so that this function may be called with
@@ -242,25 +248,23 @@ u32 XUartPsv_Send(XUartPsv *InstancePtr, u8 *BufferPtr, u32 NumBytes)
 
 /*****************************************************************************/
 /**
- * *
- * * This function sends a buffer that has been previously specified by setting
- * * up the instance variables of the instance.
- * *
- * * This function implemented for RTOS environment and it is an internal
- * * function for the XUartPsv driver such that it's being called from
- * * XUartPsv_Send_NoWait function that sets up the buffer.
- * *
- * * This function sends the specified buffer in polled mode. This function
- * * only sends as much data as the TX FIFO can buffer. The application may
- * * need to call it repeatedly to send the entire buffer.
- * *
- * * @param        InstancePtr is a pointer to the XUartPsv instance
- * *
- * * @return       The number of bytes actually sent
- * *
- * * @note         None.
- * *
- * ******************************************************************************/
+ *
+ * @brief Sends a buffer previously specified by setting up the instance
+ * variables of the instance.
+ *
+ * Implemented for RTOS environment as an internal function for the
+ * XUartPsv driver, called from XUartPsv_Send_NoWait which sets up
+ * the buffer.
+ *
+ * Sends the specified buffer in polled mode. Only sends as much data
+ * as the TX FIFO can buffer. The application may need to call it
+ * repeatedly to send the entire buffer.
+ *
+ * @param[in,out] InstancePtr Pointer to the XUartPsv instance.
+ *
+ * @return        The number of bytes actually sent.
+ *
+ ******************************************************************************/
 static u32 XUartPsv_SendBuffer_NoWait(XUartPsv *InstancePtr)
 {
 	u32 SentCount = 0U;
@@ -291,34 +295,37 @@ static u32 XUartPsv_SendBuffer_NoWait(XUartPsv *InstancePtr)
 
 /*****************************************************************************/
 /**
- * *
- * * This functions sends the specified buffer using the device in polled mode.
- * * This function is non-blocking, if the device is busy sending data, it will
- * * return and indicate zero bytes were sent. Otherwise, it fills the TX FIFO
- * * as much as it can, and return the number of bytes sent. The application may
- * * need to call it repeatedly to send the entire buffer.
- * *
- * * This function implemented for RTOS environment, it will check status and
- * * return without waiting. The caller of XUartPsv_Send_NoWait can wait
- * * based on return value.
- * *
- * * @param        InstancePtr is a pointer to the XUartPsv instance.
- * * @param        BufferPtr is pointer to a buffer of data to be sent.
- * * @param        NumBytes contains the number of bytes to be sent. A value of
- * *               zero will stop a previous send operation that is in progress
- * *               in interrupt mode. Any data that was already put into the
- * *               transmit FIFO will be sent.
- * *
- * * @return       - The number of bytes actually sent, if data successfully sent
- * *		   - 0, if TX is busy. The caller of XUartPsv_Send_NoWait can
- * *		     wait if return 0.
- * *
- * * @note
- * * The number of bytes is not asserted so that this function may be called with
- * * a value of zero to stop an operation that is already in progress.
- * * <br><br>
- * *
- * ******************************************************************************/
+ *
+ * @brief Sends the specified buffer in polled mode without waiting.
+ *
+ * This function is non-blocking. If the device is busy sending data, it
+ * returns and indicates zero bytes were sent. Otherwise, it fills the TX
+ * FIFO as much as it can, and returns the number of bytes sent. The
+ * application may need to call it repeatedly to send the entire buffer.
+ *
+ * Implemented for RTOS environment. It checks status and returns without
+ * waiting. The caller of XUartPsv_Send_NoWait can wait based on the
+ * return value.
+ *
+ * @param[in,out] InstancePtr Pointer to the XUartPsv instance.
+ * @param[in]     BufferPtr Pointer to a buffer of data to send.
+ * @param[in]     NumBytes Number of bytes to send. A value of
+ *                 zero stops a previous send operation that is in progress
+ *                 in interrupt mode. Any data that was already put into the
+ *                 transmit FIFO is sent.
+ *
+ * @return
+ *                - The number of bytes actually sent, if data successfully
+ *                  sent.
+ *                - 0, if TX is busy. The caller of XUartPsv_Send_NoWait can
+ *                  wait if return is 0.
+ *
+ * @note
+ * The number of bytes is not asserted so that this function may be called with
+ * a value of zero to stop an operation that is already in progress.
+ * <br><br>
+ *
+ ******************************************************************************/
 u32 XUartPsv_Send_NoWait(XUartPsv *InstancePtr, u8 *BufferPtr, u32 NumBytes)
 {
         u32 BytesSent;
@@ -352,27 +359,28 @@ u32 XUartPsv_Send_NoWait(XUartPsv *InstancePtr, u8 *BufferPtr, u32 NumBytes)
 /*****************************************************************************/
 /**
 *
-* This function attempts to receive a specified number of bytes of data
-* from the device and store it into the specified buffer. This function works
-* for both polled or interrupt driven modes. It is non-blocking.
+* @brief Attempts to receive a specified number of bytes of data from the
+* device and store it into the specified buffer.
 *
-* In a polled mode, this function will only receive the data already in the
+* Works for both polled and interrupt driven modes. It is non-blocking.
+*
+* In polled mode, this function only receives the data already in the
 * RX FIFO. The application may need to call it repeatedly to receive the
 * entire buffer. Polled mode is the default mode of operation for the device.
 *
-* In interrupt mode, this function will start the receiving, if not the entire
-* buffer has been received, the interrupt handler will continue receiving data
+* In interrupt mode, this function starts the receiving. If not the entire
+* buffer has been received, the interrupt handler continues receiving data
 * until the entire buffer has been received. A callback function, as specified
-* by the application, will be called to indicate the completion of the
+* by the application, is called to indicate completion of the
 * receiving or error conditions.
 *
-* @param	InstancePtr is a pointer to the XUartPsv instance
-* @param	BufferPtr is pointer to buffer for data to be received into
-* @param	NumBytes is the number of bytes to be received. A value of
-*		zero will stop a previous receive operation that is in
-*		progress in interrupt mode.
+* @param[in,out] InstancePtr Pointer to the XUartPsv instance.
+* @param[out]    BufferPtr Pointer to buffer to receive data into.
+* @param[in]     NumBytes Number of bytes to receive. A value of
+*                 zero stops a previous receive operation that is in
+*                 progress in interrupt mode.
 *
-* @return	The number of bytes received.
+* @return        The number of bytes received.
 *
 * @note
 * The number of bytes is not asserted so that this function may be called
@@ -405,29 +413,28 @@ u32 XUartPsv_Recv(XUartPsv *InstancePtr, u8 *BufferPtr, u32 NumBytes)
 /*****************************************************************************/
 /**
 *
-* This function sends a buffer that has been previously specified by setting
-* up the instance variables of the instance. This function is an internal
-* function for the XUartPsv driver such that it may be called from a shell
-* function that sets up the buffer or from an interrupt handler.
+* @brief Sends a buffer previously specified by setting up the instance
+* variables of the instance.
 *
-* This function sends the specified buffer in either polled or interrupt
-* driven modes. This function is non-blocking.
+* This function sends the buffer in either polled or interrupt driven modes.
 *
-* In a polled mode, this function only sends as much data as the TX FIFO
+* This is an internal function for the XUartPsv driver. It may be called
+* from a shell function that sets up the buffer or from an interrupt handler.
+* This function is non-blocking.
+*
+* In polled mode, this function only sends as much data as the TX FIFO
 * can buffer. The application may need to call it repeatedly to send the
 * entire buffer.
 *
-* In interrupt mode, this function starts the sending of the buffer, if not
+* In interrupt mode, this function starts the sending of the buffer. If not
 * the entire buffer has been sent, then the interrupt handler continues the
 * sending until the entire buffer has been sent. A callback function, as
-* specified by the application, will be called to indicate the completion of
+* specified by the application, is called to indicate the completion of
 * sending.
 *
-* @param	InstancePtr is a pointer to the XUartPsv instance
+* @param[in,out] InstancePtr Pointer to the XUartPsv instance.
 *
-* @return	The number of bytes actually sent
-*
-* @note 	None.
+* @return        The number of bytes actually sent.
 *
 ******************************************************************************/
 u32 XUartPsv_SendBuffer(XUartPsv *InstancePtr)
@@ -473,30 +480,29 @@ END:
 /*****************************************************************************/
 /**
 *
-* This function receives a buffer that has been previously specified by
-* setting up the instance variables of the instance. This function is an
-* internal function, and it may be called from a shell function that sets up
-* the buffer or from an interrupt handler.
+* @brief Receives a buffer previously specified by setting up the instance
+* variables of the instance.
 *
-* This function attempts to receive a specified number of bytes from the
-* device and store it into the specified buffer. This function works for
-* either polled or interrupt driven modes. It is non-blocking.
+* This is an internal function. It may be called from a shell function that
+* sets up the buffer or from an interrupt handler.
+*
+* Attempts to receive a specified number of bytes from the device and store
+* them into the specified buffer. Works for either polled or interrupt
+* driven modes. It is non-blocking.
 *
 * In polled mode, this function only receives as much data as in the RX FIFO.
 * The application may need to call it repeatedly to receive the entire
 * buffer. Polled mode is the default mode for the driver.
 *
-* In interrupt mode, this function starts the receiving, if not the entire
-* buffer has been received, the interrupt handler will continue until the
+* In interrupt mode, this function starts the receiving. If not the entire
+* buffer has been received, the interrupt handler continues until the
 * entire buffer has been received. A callback function, as specified by the
-* application, will be called to indicate the completion of the receiving or
+* application, is called to indicate the completion of the receiving or
 * error conditions.
 *
-* @param	InstancePtr is a pointer to the XUartPsv instance
+* @param[in,out] InstancePtr Pointer to the XUartPsv instance.
 *
-* @return	The number of bytes received.
-*
-* @note 	None.
+* @return        The number of bytes received.
 *
 ******************************************************************************/
 u32 XUartPsv_ReceiveBuffer(XUartPsv *InstancePtr)
@@ -544,20 +550,20 @@ u32 XUartPsv_ReceiveBuffer(XUartPsv *InstancePtr)
 /*****************************************************************************/
 /**
 *
-* Sets the baud rate for the device. Checks the input value for
-* validity and also verifies that the requested rate can be configured to
-* within the maximum error range specified by XUARTPSV_MAX_BAUD_ERROR_RATE.
-* If the provided rate is not possible, the current setting is unchanged.
+* @brief Sets the baud rate for the device.
 *
-* @param	InstancePtr is a pointer to the XUartPsv instance
-* @param	BaudRate to be set
+* Checks the input value for validity and also verifies that the requested
+* rate can be configured to within the maximum error range specified by
+* XUARTPSV_MAX_BAUD_ERROR_RATE. If the provided rate is not possible, the
+* current setting is unchanged.
+*
+* @param[in,out] InstancePtr Pointer to the XUartPsv instance.
+* @param[in]     BaudRate Baud rate to set.
 *
 * @return
-*		- XST_SUCCESS if everything configured as expected
-*		- XST_UART_BAUD_ERROR if the requested rate is not available
-*	  	  because there was too much error
-*
-* @note 	None.
+*                - XST_SUCCESS if everything configured as expected.
+*                - XST_UART_BAUD_ERROR if the requested rate is not available
+*                  because there was too much error.
 *
 ******************************************************************************/
 s32 XUartPsv_SetBaudRate(XUartPsv *InstancePtr, u32 BaudRate)
@@ -688,20 +694,17 @@ s32 XUartPsv_SetBaudRate(XUartPsv *InstancePtr, u32 BaudRate)
 /*****************************************************************************/
 /**
  *
- * This function reprograms the control register according to the following
- * sequence mentioned in the TRM
+ * @brief Reprograms the control register per the TRM sequence.
  *
- * Sequence to Program Control Register.
+ * Sequence to Program Control Register:
  * 	1. Disable UART
  * 	2. Check if Busy
  * 	3. Flush the transmit FIFO
  * 	4. Program the Control Register
- * 	5. Enable the Uart
+ * 	5. Enable the UART
  *
- * @param	InstancePtr is a pointer to the XUartPsv instance
- * @param	CtrlRegister value to be written
- *
- * @note 	None.
+ * @param[in]   InstancePtr Pointer to the XUartPsv instance.
+ * @param[in]   CtrlRegister Value to write.
  *
  ******************************************************************************/
 void XUartPsv_ProgramCtrlReg(XUartPsv *InstancePtr, u32 CtrlRegister)
@@ -760,15 +763,11 @@ void XUartPsv_ProgramCtrlReg(XUartPsv *InstancePtr, u32 CtrlRegister)
 /*****************************************************************************/
 /**
 *
-* This function is a cleanup function to  allow resetting Rx NextBytePtr, RemainingBytes and
-* RequestedBytes.
+* @brief Resets the Rx NextBytePtr, RemainingBytes and RequestedBytes.
 *
-* @param	InstancePtr is a pointer to the XUartPsv instance.
-*
-* @note 	None.
+* @param[in,out] InstancePtr Pointer to the XUartPsv instance.
 *
 ******************************************************************************/
-
 void XUartPsv_CleanupRx(XUartPsv *InstancePtr)
 {
 	InstancePtr->ReceiveBuffer.NextBytePtr = NULL;
@@ -779,12 +778,9 @@ void XUartPsv_CleanupRx(XUartPsv *InstancePtr)
 /*****************************************************************************/
 /**
 *
-* This function is a cleanup function to  allow resetting Tx NextBytePtr, RemainingBytes and
-* RequestedBytes.
+* @brief Resets the Tx NextBytePtr, RemainingBytes and RequestedBytes.
 *
-* @param	InstancePtr is a pointer to the XUartPsv instance.
-*
-* @note 	None.
+* @param[in,out] InstancePtr Pointer to the XUartPsv instance.
 *
 ******************************************************************************/
 void XUartPsv_CleanupTx(XUartPsv *InstancePtr)
@@ -798,17 +794,14 @@ void XUartPsv_CleanupTx(XUartPsv *InstancePtr)
 /*****************************************************************************/
 /**
 *
-* This function is a stub handler that is the default handler such that if
-* the application has not set the handler when interrupts are enabled, this
-* function will be called.
+* @brief Provides a default stub handler for interrupt callbacks.
 *
-* @param	CallBackRef is unused by this function.
-* @param	Event is unused by this function.
-* @param	ByteCount is unused by this function.
+* If the application has not set the handler when interrupts are enabled,
+* this function is called.
 *
-* @return	None.
-*
-* @note 	None.
+* @param[in]   CallBackRef Unused by this function.
+* @param[in]   Event Unused by this function.
+* @param[in]   ByteCount Unused by this function.
 *
 ******************************************************************************/
 static void XUartPsv_StubHandler(void *CallBackRef, u32 Event,

@@ -4,15 +4,16 @@
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
-/****************************************************************************/
+/*****************************************************************************/
 /**
 *
-* @file	xuartpsv_polled_example.c
+* @file xuartpsv_polled_example.c
 *
-* This example runs on versal evaluation board (vck190), it sends data and
-* expects to receive the same data through the device using the local loopback
-* mode in polled mode by using XUartPsv driver.
+* @brief Demonstrates the XUartPsv driver in polled mode with loopback.
 *
+* Runs on versal evaluation board (vck190). Sends data and expects to
+* receive the same data through the device using the local loopback
+* mode in polled mode by using the XUartPsv driver.
 *
 * @note
 * If the device does not work properly, the example may hang.
@@ -25,8 +26,10 @@
 * 1.2   rna   01/20/20 Add self test
 * 1.14  vlt   12/18/25 Update Doxygen comments to include SDT flow details.
 * 1.15  vn    07/30/26 Fix Doxygen warnings
+* 1.15  vn    09/10/26 Align Doxygen comments with AMD standards
 * </pre>
-****************************************************************************/
+*
+******************************************************************************/
 
 /***************************** Include Files *******************************/
 
@@ -37,20 +40,27 @@
 
 /************************** Constant Definitions **************************/
 
-/*
+/** @name Device parameters
+ *
  * The following constants map to the XPAR parameters created in the
  * xparameters.h file. They are defined here such that a user can easily
  * change all the needed parameters in one place.
+ * @{
  */
 #ifndef SDT
+/** Device ID */
 #define UARTPSV_DEVICE_ID		XPAR_XUARTPSV_0_DEVICE_ID
 #else
+/** Base address */
 #define XUARTPSV_BASEADDRESS		XPAR_XUARTPSV_0_BASEADDR
 #endif
+/** @} */
 
-/*
+/**
+ * @brief Length of the send and receive buffers.
+ *
  * The following constant controls the length of the buffers to be sent
- * and received with the UART,
+ * and received with the UART.
  */
 #define TEST_BUFFER_SIZE	10
 
@@ -67,28 +77,24 @@ int UartPsvPolledExample(XUartPsv *UartInstPtr, UINTPTR BaseAddress);
 
 /************************** Variable Definitions ***************************/
 
-static XUartPsv UartPsv;		/* Instance of the UART Device */
+static XUartPsv UartPsv;		/**< Instance of the UART Device. */
 
 /*
  * The following buffers are used in this example to send and receive data
  * with the UART.
  */
-static u8 SendBuffer[TEST_BUFFER_SIZE];	/* Buffer for Transmitting Data */
-static u8 RecvBuffer[TEST_BUFFER_SIZE];	/* Buffer for Receiving Data */
+static u8 SendBuffer[TEST_BUFFER_SIZE];	/**< Buffer for Transmitting Data. */
+static u8 RecvBuffer[TEST_BUFFER_SIZE];	/**< Buffer for Receiving Data. */
 
-/**************************************************************************/
+/*****************************************************************************/
 /**
 *
-* Main function to call the Uart Polled mode example.
+* @brief Calls the UART polled mode example.
 *
+* @return      XST_SUCCESS if successful, XST_FAILURE if unsuccessful.
 *
-* @return	XST_SUCCESS if successful, XST_FAILURE if unsuccessful
-*
-* @note		None
-*
-**************************************************************************/
+******************************************************************************/
 #ifndef TESTAPP_GEN
-
 int main(void)
 {
 	int Status;
@@ -110,34 +116,33 @@ int main(void)
 }
 #endif
 
-/**************************************************************************/
+/*****************************************************************************/
 /**
 *
-* This function does a minimal test on the UartPsv device and driver as a
-* design example. The purpose of this function is to illustrate
-* how to use the XUartPsv driver.
+* @brief Performs a minimal test on the UartPsv device and driver.
 *
-* This function does a minimal test on the XUartPs device in polled mode.
-* This function sends data and expects to receive the same data through the
-* device using the local loopback mode.
+* This function is a design example that illustrates how to use the XUartPsv
+* driver. It performs a minimal test on the device in polled mode.
 *
+* Sends data and expects to receive the same data through the device
+* using the local loopback mode.
 *
 * @if SDT
-* @param	UartInstPtr is a pointer to the XUartPsv instance.
-* @param	BaseAddress contains the base address of the device
+* @param[in]   UartInstPtr Pointer to the XUartPsv instance.
+* @param[in]   BaseAddress Base address of the device.
 * @else
-* @param	DeviceId is the device Id of the UART device and is typically
-*		XPAR_<UartPsv_instance>_DEVICE_ID value from xparameters.h.
+* @param[in]   DeviceId Device Id of the UART device and is typically
+*               XPAR_<UartPsv_instance>_DEVICE_ID value from xparameters.h.
 * @endif
 *
-* @return	XST_SUCCESS if successful, otherwise XST_FAILURE.
+* @return      XST_SUCCESS if successful, otherwise XST_FAILURE.
 *
 * @note        - This function polls the UART, it may hang if the hardware is
 *              not working correctly.
 *              - In XSCT/classic flow, DeviceId is used to look up the device
 *              configuration.
 *
-**************************************************************************/
+******************************************************************************/
 #ifndef SDT
 int UartPsvPolledExample(u16 DeviceId)
 #else

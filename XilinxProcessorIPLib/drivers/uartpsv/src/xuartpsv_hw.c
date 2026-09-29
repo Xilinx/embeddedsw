@@ -8,8 +8,8 @@
 /**
 *
 * @file xuartpsv_hw.c
-* @addtogroup uartpsv Overview
-* @{
+*
+* @brief Implements low-level hardware access functions for the XUartPsv driver.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -18,10 +18,15 @@
 * ---  ---  --------- -----------------------------------------------
 * 1.0  sg   09/18/17  First Release
 * 1.15 vn   07/30/26  Fix Doxygen warnings
+* 1.15 vn   09/10/26  Align Doxygen comments with AMD standards
 *
 * </pre>
 *
 ******************************************************************************/
+
+/** @addtogroup uartpsv Overview
+ * @{
+ */
 
 /***************************** Include Files *********************************/
 #include "xuartpsv_hw.h"
@@ -37,14 +42,12 @@
 /*****************************************************************************/
 /**
 *
-* This function sends one byte using the device. This function operates in
-* polled mode and blocks until the data has been put into the TX FIFO
-* register.
+* @brief Sends one byte using the device in polled mode.
 *
-* @param	BaseAddress contains the base address of the device.
-* @param	Data contains the byte to be sent.
+* Blocks until the data has been put into the TX FIFO register.
 *
-* @note 	None.
+* @param[in]   BaseAddress Base address of the device.
+* @param[in]   Data Byte to send.
 *
 ******************************************************************************/
 void XUartPsv_SendByte(UINTPTR BaseAddress, u8 Data)
@@ -61,14 +64,13 @@ void XUartPsv_SendByte(UINTPTR BaseAddress, u8 Data)
 /*****************************************************************************/
 /**
 *
-* This function receives a byte from the device. It operates in polled mode
-* and blocks until a byte has received.
+* @brief Receives a byte from the device in polled mode.
 *
-* @param	BaseAddress contains the base address of the device.
+* Blocks until a byte has been received.
 *
-* @return	The data byte received.
+* @param[in]   BaseAddress Base address of the device.
 *
-* @note 	None.
+* @return      The data byte received.
 *
 ******************************************************************************/
 u8 XUartPsv_RecvByte(UINTPTR BaseAddress)
@@ -86,11 +88,13 @@ u8 XUartPsv_RecvByte(UINTPTR BaseAddress)
 /*****************************************************************************/
 /**
 *
-* This function resets UART. (To be implemented if needed)
+* @brief Resets the UART.
 *
-* @param	BaseAddress contains the base address of the device.
+* This function is to be implemented if needed.
 *
-* @note 	None.
+* @param[in]   BaseAddress Base address of the device.
+*
+* @note        Not implemented.
 *
 ******************************************************************************/
 void XUartPsv_ResetHw(UINTPTR BaseAddress)
@@ -101,11 +105,27 @@ void XUartPsv_ResetHw(UINTPTR BaseAddress)
 #ifdef SDT
 #ifdef XPAR_STDIN_IS_UARTPSV
 #if !defined(VERSAL_PLM) && !defined(ASUFW)
+/*****************************************************************************/
+/**
+*
+* @brief Sends a character to the standard output UART.
+*
+* @param[in]   c Character to send.
+*
+******************************************************************************/
 void outbyte(char c) {
          XUartPsv_SendByte(STDOUT_BASEADDRESS, c);
 }
 #endif
 
+/*****************************************************************************/
+/**
+*
+* @brief Receives a character from the standard input UART.
+*
+* @return      Character received.
+*
+******************************************************************************/
 char inbyte(void) {
          return XUartPsv_RecvByte(STDIN_BASEADDRESS);
 }

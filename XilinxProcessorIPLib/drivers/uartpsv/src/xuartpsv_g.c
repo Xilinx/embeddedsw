@@ -1,17 +1,28 @@
 /******************************************************************************
 * Copyright (C) 2017 - 2021 Xilinx, Inc.  All Rights Reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc.  All Rights Reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc.  All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
+/*****************************************************************************/
+/**
+*
+* @file xuartpsv_g.c
+*
+* @brief Contains the configuration table for the XUartPsv driver.
+*
+******************************************************************************/
+
+/** @addtogroup uartpsv Overview
+ * @{
+ */
 
 #include "xparameters.h"
 #include "xuartpsv.h"
 
-/*
- * The configuration table for devices
+/**
+ * @brief Configuration table for XUartPsv devices.
  */
-
 XUartPsv_Config XUartPsv_ConfigTable[] =
 {
 	{
@@ -21,3 +32,4 @@ XUartPsv_Config XUartPsv_ConfigTable[] =
 		XPAR_SBSA_UART_HAS_MODEM
 	}
 };
+/** @} */

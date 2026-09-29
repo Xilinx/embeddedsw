@@ -4,15 +4,16 @@
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
-/****************************************************************************/
+/*****************************************************************************/
 /**
 *
-* @file	xuartpsv_intr_example.c
+* @file xuartpsv_intr_example.c
 *
-* This example runs on versal evaluation board (vck190), it sends data and
+* @brief Demonstrates the XUartPsv driver in interrupt mode with loopback.
+*
+* Runs on versal evaluation board (vck190). Sends data and
 * expects to receive the same data through the device using the local loopback
-* mode in interrupt mode by using XUartPsv driver.
-*
+* mode in interrupt mode by using the XUartPsv driver.
 *
 * @note
 * The example contains an infinite loop such that if interrupts are not
@@ -27,8 +28,10 @@
 * 1.2   rna   01/20/20 Add selftest, while loop for waiting
 * 1.14  vlt  12/18/25 Update Doxygen comments to include SDT flow details.
 * 1.15  vn   07/30/26 Fix Doxygen warnings
+* 1.15  vn   09/10/26 Align Doxygen comments with AMD standards
 * </pre>
-****************************************************************************/
+*
+******************************************************************************/
 
 /***************************** Include Files *******************************/
 
@@ -49,30 +52,41 @@
 #endif
 /************************** Constant Definitions **************************/
 
-/*
+/** @name Device parameters
+ *
  * The following constants map to the XPAR parameters created in the
  * xparameters.h file. They are defined here such that a user can easily
  * change all the needed parameters in one place.
+ * @{
  */
 #ifndef SDT
+/** Device ID */
 #define UARTPSV_DEVICE_ID		XPAR_XUARTPSV_0_DEVICE_ID
 #else
+/** Base address */
 #define	XUARTPSV_BASEADDRESS		XPAR_XUARTPSV_0_BASEADDR
 #endif
+/** @} */
 #ifndef SDT
 #ifdef XPAR_INTC_0_DEVICE_ID
-#define INTC		XIntc
+#define INTC		XIntc /**< Interrupt controller type. */
+/** Interrupt controller device ID. */
 #define INTC_DEVICE_ID		XPAR_INTC_0_DEVICE_ID
+/** UART interrupt ID. */
 #define UARTPSV_INT_IRQ_ID		XPAR_INTC_0_UARTPSV_0_VEC_ID
 #else
-#define INTC		XScuGic
+#define INTC		XScuGic /**< Interrupt controller type. */
+/** Interrupt controller device ID. */
 #define INTC_DEVICE_ID		XPAR_SCUGIC_SINGLE_DEVICE_ID
+/** UART interrupt ID. */
 #define UARTPSV_INT_IRQ_ID		XPAR_XUARTPS_0_INTR
 #endif
 #endif
-/*
+/**
+ * @brief Length of the send and receive buffers.
+ *
  * The following constant controls the length of the buffers to be sent
- * and received with the UART,
+ * and received with the UART.
  */
 #define TEST_BUFFER_SIZE	60
 
@@ -99,39 +113,39 @@ void Handler(void *CallBackRef, u32 Event, unsigned int EventData);
 
 /************************** Variable Definitions ***************************/
 
-XUartPsv UartPsv	;		/* Instance of the UART Device */
+XUartPsv UartPsv	;		/**< Instance of the UART Device. */
 #ifndef SDT
-INTC InterruptController;	/* Instance of the Interrupt Controller */
+INTC InterruptController;	/**< Instance of the Interrupt Controller. */
 #endif
 
-/*
+/** @name Example data buffers
  * The following buffers are used in this example to send and receive data
  * with the UART.
+ * @{
  */
-static u8 SendBuffer[TEST_BUFFER_SIZE];	/* Buffer for Transmitting Data */
-static u8 RecvBuffer[TEST_BUFFER_SIZE];	/* Buffer for Receiving Data */
+static u8 SendBuffer[TEST_BUFFER_SIZE];	/**< Buffer for Transmitting Data. */
+static u8 RecvBuffer[TEST_BUFFER_SIZE];	/**< Buffer for Receiving Data. */
+/** @} */
 
-/*
+/** @name Example transfer counters
  * The following counters are used to determine when the entire buffer has
  * been sent and received.
+ * @{
  */
-volatile int TotalReceivedCount;
-volatile int TotalSentCount;
-int TotalErrorCount;
+volatile int TotalReceivedCount;	/**< Total bytes received. */
+volatile int TotalSentCount;		/**< Total bytes sent. */
+int TotalErrorCount;			/**< Total error count. */
+/** @} */
 
-/**************************************************************************/
+/*****************************************************************************/
 /**
 *
-* Main function to call the Uart interrupt example.
+* @brief Calls the UART interrupt example.
 *
+* @return      XST_SUCCESS if successful, XST_FAILURE if unsuccessful.
 *
-* @return	XST_SUCCESS if successful, XST_FAILURE if unsuccessful
-*
-* @note		None
-*
-**************************************************************************/
+******************************************************************************/
 #ifndef TESTAPP_GEN
-
 int main(void)
 {
 	int Status;
@@ -153,38 +167,39 @@ int main(void)
 }
 #endif
 
-/**************************************************************************/
+/*****************************************************************************/
 /**
 *
-* This function does a minimal test on the UartPsv device and driver as a
-* design example. The purpose of this function is to illustrate
-* how to use the XUartPsv driver.
+* @brief Performs a minimal test on the UartPsv device and driver.
 *
-* This function sends data and expects to receive the same data through the
-* device using the local loopback mode.
+* This function is a design example that illustrates how to use the XUartPsv
+* driver.
+*
+* Sends data and expects to receive the same data through the device
+* using the local loopback mode.
 *
 * This function uses interrupt mode of the device.
 *
-* @param	UartInstPtr is a pointer to the instance of the UART driver
-*		which is going to be connected to the interrupt controller.
+* @param[in]   UartInstPtr Pointer to the instance of the UART driver
+*               which is going to be connected to the interrupt controller.
 * @if SDT
-* @param	BaseAddress contains the base address of the device
+* @param[in]   BaseAddress Base address of the device.
 * @else
-* @param	IntcInstPtr is a pointer to the instance of the Scu Gic driver.
-* @param	DeviceId is the device Id of the UART device and is typically
-*		XPAR_<UartPsv_instance>_DEVICE_ID value from xparameters.h.
-* @param	UartIntrId is the interrupt Id and is typically
-*		XPAR_<UartPsv_instance>_INTR value from xparameters.h.
+* @param[in]   IntcInstPtr Pointer to the instance of the Scu Gic driver.
+* @param[in]   DeviceId Device Id of the UART device and is typically
+*               XPAR_<UartPsv_instance>_DEVICE_ID value from xparameters.h.
+* @param[in]   UartIntrId Interrupt Id and is typically
+*               XPAR_<UartPsv_instance>_INTR value from xparameters.h.
 * @endif
 *
-* @return	XST_SUCCESS if successful, otherwise XST_FAILURE.
+* @return      XST_SUCCESS if successful, otherwise XST_FAILURE.
 *
 * @note        -  In XSCT/classic flow, DeviceId is used to look up the
 *              device configuration.
 *              - This function contains an infinite loop such that if
 *              interrupts are not working it may never return.
 *
-**************************************************************************/
+******************************************************************************/
 #ifndef SDT
 int UartPsvIntrExample(INTC *IntcInstPtr, XUartPsv *UartInstPtr,
 		       u16 DeviceId, u16 UartIntrId)
@@ -321,25 +336,22 @@ int UartPsvIntrExample(XUartPsv *UartInstPtr, UINTPTR BaseAddress)
 	return XST_SUCCESS;
 }
 
-/**************************************************************************/
+/*****************************************************************************/
 /**
 *
-* This function is the handler which performs processing to handle data events
-* from the device.  It is called from an interrupt context. so the amount of
-* processing should be minimal.
+* @brief Handles data events from the device in interrupt context.
 *
-* This handler provides an example of how to handle data for the device and
-* is application specific.
+* Because it is called from an interrupt context, keep the amount of
+* processing minimal. This handler provides an example of how to handle
+* data for the device and is application specific.
 *
-* @param	CallBackRef contains a callback reference from the driver,
-*		in this case it is the instance pointer for the XUARTPSV driver.
-* @param	Event contains the specific kind of event that has occurred.
-* @param	EventData contains the number of bytes sent or received for sent
-*		and receive events.
+* @param[in]   CallBackRef Callback reference from the driver,
+*               in this case it is the instance pointer for the XUARTPSV driver.
+* @param[in]   Event Specific kind of event that has occurred.
+* @param[in]   EventData Number of bytes sent or received for sent
+*               and receive events.
 *
-* @note		None.
-*
-***************************************************************************/
+******************************************************************************/
 void Handler(void *CallBackRef, u32 Event, unsigned int EventData)
 {
 	(void)CallBackRef;
@@ -395,22 +407,21 @@ void Handler(void *CallBackRef, u32 Event, unsigned int EventData)
 /*****************************************************************************/
 /**
 *
-* This function sets up the interrupt system so interrupts can occur for the
-* Uart. This function is application-specific. The user should modify this
+* @brief Sets up the interrupt system so interrupts can occur for the UART.
+*
+* This function is application-specific. Modify this
 * function to fit the application.
 *
-* @param	IntcInstancePtr is a pointer to the instance of the INTC.
-* @param	UartInstancePtr contains a pointer to the instance of the UART
-*		driver which is going to be connected to the interrupt
-*		controller.
-* @param	UartIntrId is the interrupt Id and is typically
-*		XPAR_<UARTPSV_instance>_INTR value from xparameters.h.
+* @param[in]   IntcInstancePtr Pointer to the instance of the INTC.
+* @param[in]   UartInstancePtr Pointer to the instance of the UART
+*               driver which is going to be connected to the interrupt
+*               controller.
+* @param[in]   UartIntrId Interrupt Id and is typically
+*               XPAR_<UARTPSV_instance>_INTR value from xparameters.h.
 *
-* @return	XST_SUCCESS if successful, otherwise XST_FAILURE.
+* @return      XST_SUCCESS if successful, otherwise XST_FAILURE.
 *
-* @note		None.
-*
-****************************************************************************/
+******************************************************************************/
 static int SetupInterruptSystem(INTC *IntcInstancePtr,
 				XUartPsv *UartInstancePtr,
 				u16 UartIntrId)

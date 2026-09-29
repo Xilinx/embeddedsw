@@ -1,18 +1,21 @@
 /******************************************************************************
 * Copyright (C) 2017 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc.  All Rights Reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc.  All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
+
+#ifndef XUARTPSV_HW_H
+#define XUARTPSV_HW_H
 
 /*****************************************************************************/
 /**
 *
 * @file xuartpsv_hw.h
-* @addtogroup uartpsv Overview
-* @{
 *
-* The xuartpsv_hw.h header file contains the hardware interface of an XUartPsv
-* device.
+* @brief Defines the hardware register interface for the XUartPsv device.
+*
+* Contains register offset definitions, bit masks, and low-level
+* macros for accessing the XUartPsv hardware.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -21,11 +24,14 @@
 * ---  ---  --------- -----------------------------------------------
 * 1.0  sg   09/18/17  First Release
 * 1.2  rna  01/20/20  Add UARTRSR register bit
+* 1.15  vn   09/10/26 Align Doxygen comments with AMD standards
 * </pre>
 *
 ******************************************************************************/
-#ifndef XUARTPSV_HW_H		/* prevent circular inclusions */
-#define XUARTPSV_HW_H		/**< by using protection macros */
+
+/** @addtogroup uartpsv Overview
+ * @{
+ */
 
 #ifdef __cplusplus
 extern "C" {
@@ -44,21 +50,34 @@ extern "C" {
  * Register offsets for the UART.
  * @{
  */
-#define XUARTPSV_UARTDR_OFFSET 	0x0000U	/**< Data */
+/** Data */
+#define XUARTPSV_UARTDR_OFFSET 	0x0000U
+/** Receive Status Register/Error Clear */
 #define XUARTPSV_UARTRSR_OFFSET	0x0004U
-									/**< Receive Status Register/Error Clear */
-#define XUARTPSV_UARTFR_OFFSET 	0x0018U	/**< Flag Register */
-#define XUARTPSV_UARTILPR_OFFSET	0x0020U	/**< IrDA Low-Power Counter */
-#define XUARTPSV_UARTIBRD_OFFSET	0x0024U	/**< Integer Baud Rate */
-#define XUARTPSV_UARTFBRD_OFFSET	0x0028U	/**< Fractional Baud Rate */
-#define XUARTPSV_UARTLCR_OFFSET	0x002CU	/**< Line Control */
-#define XUARTPSV_UARTCR_OFFSET 	0x0030U	/**< Control */
-#define XUARTPSV_UARTIFLS_OFFSET	0x0034U	/**< Interrupt FIFO Level Select */
-#define XUARTPSV_UARTIMSC_OFFSET	0x0038U	/**< Interrupt Mask Set/Clear */
-#define XUARTPSV_UARTRIS_OFFSET	0x003CU	/**< Raw interrupt Status */
-#define XUARTPSV_UARTMIS_OFFSET	0x0040U	/**< Mask interrupt Status */
-#define XUARTPSV_UARTICR_OFFSET	0x0044U	/**< Interrupt Clear */
-#define XUARTPSV_UARTDMACR_OFFSET	0x0048U	/**< DMA Control */
+/** Flag Register */
+#define XUARTPSV_UARTFR_OFFSET 	0x0018U
+/** IrDA Low-Power Counter */
+#define XUARTPSV_UARTILPR_OFFSET	0x0020U
+/** Integer Baud Rate */
+#define XUARTPSV_UARTIBRD_OFFSET	0x0024U
+/** Fractional Baud Rate */
+#define XUARTPSV_UARTFBRD_OFFSET	0x0028U
+/** Line Control */
+#define XUARTPSV_UARTLCR_OFFSET	0x002CU
+/** Control */
+#define XUARTPSV_UARTCR_OFFSET 	0x0030U
+/** Interrupt FIFO Level Select */
+#define XUARTPSV_UARTIFLS_OFFSET	0x0034U
+/** Interrupt Mask Set/Clear */
+#define XUARTPSV_UARTIMSC_OFFSET	0x0038U
+/** Raw interrupt Status */
+#define XUARTPSV_UARTRIS_OFFSET	0x003CU
+/** Mask interrupt Status */
+#define XUARTPSV_UARTMIS_OFFSET	0x0040U
+/** Interrupt Clear */
+#define XUARTPSV_UARTICR_OFFSET	0x0044U
+/** DMA Control */
+#define XUARTPSV_UARTDMACR_OFFSET	0x0048U
 /** @} */
 
 /** @name Receive status register/error clear register
@@ -86,7 +105,7 @@ extern "C" {
 #define XUARTPSV_UARTFR_RXFE	0x00000010U	/**< Receive FIFO empty */
 #define XUARTPSV_UARTFR_BUSY	0x00000008U	/**< UART Busy */
 #define XUARTPSV_UARTFR_DCD 	0x00000004U	/**< Data carrier detect */
-#define XUARTPSV_UARTFR_DSR	0x00000002U	/**<  Data set ready */
+#define XUARTPSV_UARTFR_DSR	0x00000002U	/**< Data set ready */
 #define XUARTPSV_UARTFR_CTS 	0x00000001U	/**< Clear to send */
 /** @} */
 
@@ -98,28 +117,47 @@ extern "C" {
  * Line Control Register Bit Definition
  * @{
  */
-#define XUARTPSV_UARTLCR_SPS	0x00000080U	/**< Stick parity select */
-#define XUARTPSV_UARTLCR_FEN	0x00000010U	/**< Enable FIFOs */
-#define XUARTPSV_UARTLCR_STP2	0x00000008U	/**< Two stop bits selected */
-#define XUARTPSV_UARTLCR_EPS	0x00000004U	/**< Even parity select. */
-#define XUARTPSV_UARTLCR_PEN	0x00000002U	/**< Parity enable */
-#define XUARTPSV_UARTLCR_BRK	0x00000001U	/**< Send break */
+/** Stick parity select */
+#define XUARTPSV_UARTLCR_SPS	0x00000080U
+/** Enable FIFOs */
+#define XUARTPSV_UARTLCR_FEN	0x00000010U
+/** Two stop bits selected */
+#define XUARTPSV_UARTLCR_STP2	0x00000008U
+/** Even parity select. */
+#define XUARTPSV_UARTLCR_EPS	0x00000004U
+/** Parity enable */
+#define XUARTPSV_UARTLCR_PEN	0x00000002U
+/** Send break */
+#define XUARTPSV_UARTLCR_BRK	0x00000001U
 
-#define XUARTPSV_UARTLCR_WLEN_MASK 	0x00000060U	/**< Word length mask */
-#define XUARTPSV_UARTLCR_WLEN_SHIFT	0x00000005U	/**< Word length shift */
-#define XUARTPSV_UARTLCR_WLEN_5_BIT	0x00000000U	/**< 5 bits data */
-#define XUARTPSV_UARTLCR_WLEN_6_BIT	0x00000020U	/**< 6 bits data */
-#define XUARTPSV_UARTLCR_WLEN_7_BIT	0x00000040U	/**< 7 bits data */
-#define XUARTPSV_UARTLCR_WLEN_8_BIT	0x00000060U	/**< 8 bits data */
+/** Word length mask */
+#define XUARTPSV_UARTLCR_WLEN_MASK 	0x00000060U
+/** Word length shift */
+#define XUARTPSV_UARTLCR_WLEN_SHIFT	0x00000005U
+/** 5 bits data */
+#define XUARTPSV_UARTLCR_WLEN_5_BIT	0x00000000U
+/** 6 bits data */
+#define XUARTPSV_UARTLCR_WLEN_6_BIT	0x00000020U
+/** 7 bits data */
+#define XUARTPSV_UARTLCR_WLEN_7_BIT	0x00000040U
+/** 8 bits data */
+#define XUARTPSV_UARTLCR_WLEN_8_BIT	0x00000060U
+/** One stop bits selected */
 #define XUARTPSV_UARTLCR_STP_1_BIT 	0x00000000U
-										/**< One stop bits selected */
-#define XUARTPSV_UARTLCR_STP_MASK  	0x00000008U	/**< Stop bits mask */
-#define XUARTPSV_UARTLCR_STP_SHIFT  	0x00000003U	/**< Stop bits shift */
-#define XUARTPSV_UARTLCR_PARITY_EVEN	0x00000004U	/**< Even parity mode */
-#define XUARTPSV_UARTLCR_PARITY_MASK	0x00000002U	/**< Parity mask */
-#define XUARTPSV_UARTLCR_PARITY_SHIFT	0x00000001U	/**< Parity shift */
-#define XUARTPSV_UARTLCR_PARITY_NONE	0x00000000U	/**< No parity mode */
-#define XUARTPSV_UARTLCR_PARITY_ODD	0x00000000U	/**< Odd parity mode */
+/** Stop bits mask */
+#define XUARTPSV_UARTLCR_STP_MASK  	0x00000008U
+/** Stop bits shift */
+#define XUARTPSV_UARTLCR_STP_SHIFT  	0x00000003U
+/** Even parity mode */
+#define XUARTPSV_UARTLCR_PARITY_EVEN	0x00000004U
+/** Parity mask */
+#define XUARTPSV_UARTLCR_PARITY_MASK	0x00000002U
+/** Parity shift */
+#define XUARTPSV_UARTLCR_PARITY_SHIFT	0x00000001U
+/** No parity mode */
+#define XUARTPSV_UARTLCR_PARITY_NONE	0x00000000U
+/** Odd parity mode */
+#define XUARTPSV_UARTLCR_PARITY_ODD	0x00000000U
 
 /** @} */
 
@@ -131,25 +169,36 @@ extern "C" {
  * Control Register Bit Definition
  * @{
  */
+/** CTS hardware flow control enable */
 #define XUARTPSV_UARTCR_CTSEN	0x00008000U
-								/**< CTS hardware flow control enable */
+/** RTS hardware flow control enable */
 #define XUARTPSV_UARTCR_RTSEN	0x00004000U
-								/**< RTS hardware flow control enable */
+/** UART Out2 modem status output */
 #define XUARTPSV_UARTCR_OUT2	0x00002000U
-								/**< UART Out2 modem status output */
+/** UART Out1 modem status output */
 #define XUARTPSV_UARTCR_OUT1	0x00001000U
-								/**< UART Out1 modem status output */
-#define XUARTPSV_UARTCR_RTS	0x00000800U	/**< Request to send */
-#define XUARTPSV_UARTCR_DTR	0x00000400U	/**< Data transmit ready */
-#define XUARTPSV_UARTCR_RXE	0x00000200U	/**< Receive enable */
-#define XUARTPSV_UARTCR_TXE	0x00000100U	/**< Transmit enable */
-#define XUARTPSV_UARTCR_LBE	0x00000080U	/**< Loop back enable */
-#define XUARTPSV_UARTCR_SIRLP	0x00000004U	/**< SIR low-power IrDA mode */
-#define XUARTPSV_UARTCR_SIREN  	0x00000002U	/**< SIR enable */
-#define XUARTPSV_UARTCR_UARTEN 	0x00000001U	/**< UART enable */
-#define XUARTPSV_UARTCR_MODE_MASK	0x00000080U	/**< Mode mask */
-#define XUARTPSV_UARTCR_MODE_SHIFT	0x00000007U	/**< Mode shift */
-#define XUARTPSV_UARTCR_MODE_NORMAL	0x00000000U	/**< Normal Mode */
+/** Request to send */
+#define XUARTPSV_UARTCR_RTS	0x00000800U
+/** Data transmit ready */
+#define XUARTPSV_UARTCR_DTR	0x00000400U
+/** Receive enable */
+#define XUARTPSV_UARTCR_RXE	0x00000200U
+/** Transmit enable */
+#define XUARTPSV_UARTCR_TXE	0x00000100U
+/** Loop back enable */
+#define XUARTPSV_UARTCR_LBE	0x00000080U
+/** SIR low-power IrDA mode */
+#define XUARTPSV_UARTCR_SIRLP	0x00000004U
+/** SIR enable */
+#define XUARTPSV_UARTCR_SIREN  	0x00000002U
+/** UART enable */
+#define XUARTPSV_UARTCR_UARTEN 	0x00000001U
+/** Mode mask */
+#define XUARTPSV_UARTCR_MODE_MASK	0x00000080U
+/** Mode shift */
+#define XUARTPSV_UARTCR_MODE_SHIFT	0x00000007U
+/** Normal Mode */
+#define XUARTPSV_UARTCR_MODE_NORMAL	0x00000000U
 /** @} */
 
 /** @name Interrupt FIFO Level Select Register
@@ -161,34 +210,34 @@ extern "C" {
  * Interrupt FIFO Level Select Register Register Bit Definition
  * @{
  */
+/** Receive interrupt FIFO level select mask */
 #define XUARTPSV_UARTIFLS_RXIFLSEL_MASK	0x00000038U
-							/**< Receive interrupt FIFO level select mask */
+/** Receive interrupt FIFO level select shift */
 #define XUARTPSV_UARTIFLS_RXIFLSEL_SHIFT	0x00000003U
-							/**< Transmit interrupt FIFO level select shift */
+/** Transmit interrupt FIFO level select mask */
 #define XUARTPSV_UARTIFLS_TXIFLSEL_MASK 	0x00000007U
-							/**< Receive interrupt FIFO level select mask */
+/** Transmit interrupt FIFO level select shift */
 #define XUARTPSV_UARTIFLS_TXIFLSEL_SHIFT	0x00000000U
-							/**< Transmit interrupt FIFO level select shift */
+/** Receive FIFO becomes 1/8 full */
 #define XUARTPSV_UARTIFLS_RXIFLSEL_1_8 	0x00000000U
-							/**< Receive FIFO becomes . 1/8 full */
+/** Receive FIFO becomes 1/4 full */
 #define XUARTPSV_UARTIFLS_RXIFLSEL_1_4 	0x00000008U
-							/**< Receive FIFO becomes . 1/4 full */
+/** Receive FIFO becomes 1/2 full */
 #define XUARTPSV_UARTIFLS_RXIFLSEL_1_2 	0x00000010U
-							/**< Receive FIFO becomes * . 1/2 full */
+/** Receive FIFO becomes 3/4 full */
 #define XUARTPSV_UARTIFLS_RXIFLSEL_3_4 	0x00000018U
-							/**< Receive FIFO becomes * . 3/4 full */
+/** Receive FIFO becomes 7/8 full */
 #define XUARTPSV_UARTIFLS_RXIFLSEL_7_8 	0x00000020U
-							/**< Receive FIFO becomes * . 7/8 full */
+/** Transmit FIFO becomes 1/8 full */
 #define XUARTPSV_UARTIFLS_TXIFLSEL_1_8 	0x00000000U
-							/**< Transmit FIFO becomes * . 1/8 full */
+/** Transmit FIFO becomes 1/4 full */
 #define XUARTPSV_UARTIFLS_TXIFLSEL_1_4 	0x00000001U
-							/**< Transmit FIFO becomes * . 1/4 full */
+/** Transmit FIFO becomes 1/2 full */
 #define XUARTPSV_UARTIFLS_TXIFLSEL_1_2 	0x00000002U
-							/**< Transmit FIFO becomes * . 1/2 full */
+/** Transmit FIFO becomes 3/4 full */
 #define XUARTPSV_UARTIFLS_TXIFLSEL_3_4 	0x00000003U
-							/**< Transmit FIFO becomes * . 3/4 full */
+/** Transmit FIFO becomes 7/8 full */
 #define XUARTPSV_UARTIFLS_TXIFLSEL_7_8 	0x00000004U
-							/**< Transmit FIFO becomes * . 7/8 full */
 /** @} */
 
 /** @name Interrupt Mask Set/Clear Register
@@ -203,22 +252,30 @@ extern "C" {
  * Interrupt Mask Set/Clear Register Bit Definition
  * @{
  */
-#define XUARTPSV_UARTIMSC_OEIM	0x00000400U	/**< Overrun Error Interrupt */
-#define XUARTPSV_UARTIMSC_BEIM	0x00000200U	/**< Break Error Interrupt */
-#define XUARTPSV_UARTIMSC_PEIM	0x00000100U	/**< Parity Error Interrupt */
-#define XUARTPSV_UARTIMSC_FEIM	0x00000080U	/**< Framing Error Interrupt */
-#define XUARTPSV_UARTIMSC_RTIM	0x00000040U	/**< Receive Timeout Interrupt */
-#define XUARTPSV_UARTIMSC_TXIM	0x00000020U	/**< Transmit Interrupt */
-#define XUARTPSV_UARTIMSC_RXIM	0x00000010U	/**< Receive Interrupt */
+/** Overrun Error Interrupt */
+#define XUARTPSV_UARTIMSC_OEIM	0x00000400U
+/** Break Error Interrupt */
+#define XUARTPSV_UARTIMSC_BEIM	0x00000200U
+/** Parity Error Interrupt */
+#define XUARTPSV_UARTIMSC_PEIM	0x00000100U
+/** Framing Error Interrupt */
+#define XUARTPSV_UARTIMSC_FEIM	0x00000080U
+/** Receive Timeout Interrupt */
+#define XUARTPSV_UARTIMSC_RTIM	0x00000040U
+/** Transmit Interrupt */
+#define XUARTPSV_UARTIMSC_TXIM	0x00000020U
+/** Receive Interrupt */
+#define XUARTPSV_UARTIMSC_RXIM	0x00000010U
+/** nUARTDSR modem interrupt */
 #define XUARTPSV_UARTIMSC_DSRMIM	0x00000008U
-										/**< nUARTDSR modem interrupt */
+/** nUARTDCD modem interrupt */
 #define XUARTPSV_UARTIMSC_DCDMIM	0x00000004U
-										/**< nUARTDCD modem interrupt */
+/** nUARTCTS modem interrupt */
 #define XUARTPSV_UARTIMSC_CTSMIM	0x00000002U
-										/**< nUARTCTS modem interrupt */
+/** nUARTRI modem interrupt */
 #define XUARTPSV_UARTIMSC_RIMIM	0x00000001U
-										/**< nUARTRI modem interrupt */
-#define XUARTPSV_UARTIMSC_MASK 	0x000007FFU	/**< Valid bit mask */
+/** Valid bit mask */
+#define XUARTPSV_UARTIMSC_MASK 	0x000007FFU
 /** @} */
 
 /** @name Raw Interrupt Status Register
@@ -230,21 +287,28 @@ extern "C" {
  * Raw Interrupt Status Register Bit Definition
  * @{
  */
-#define XUARTPSV_UARTRIS_OERIS	0x00000400U	/**< Overrun Error Interrupt */
-#define XUARTPSV_UARTRIS_BERIS	0x00000200U	/**< Break Error Interrupt */
-#define XUARTPSV_UARTRIS_PERIS	0x00000100U	/**< Parity Error Interrupt */
-#define XUARTPSV_UARTRIS_FERIS	0x00000080U	/**< Framing Error Interrupt */
-#define XUARTPSV_UARTRIS_RTRIS	0x00000040U	/**< Receive Timeout Interrupt */
-#define XUARTPSV_UARTRIS_TXRIS	0x00000020U	/**< Transmit Interrupt */
-#define XUARTPSV_UARTRIS_RXRIS	0x00000010U	/**< Receive Interrupt */
+/** Overrun Error Interrupt */
+#define XUARTPSV_UARTRIS_OERIS	0x00000400U
+/** Break Error Interrupt */
+#define XUARTPSV_UARTRIS_BERIS	0x00000200U
+/** Parity Error Interrupt */
+#define XUARTPSV_UARTRIS_PERIS	0x00000100U
+/** Framing Error Interrupt */
+#define XUARTPSV_UARTRIS_FERIS	0x00000080U
+/** Receive Timeout Interrupt */
+#define XUARTPSV_UARTRIS_RTRIS	0x00000040U
+/** Transmit Interrupt */
+#define XUARTPSV_UARTRIS_TXRIS	0x00000020U
+/** Receive Interrupt */
+#define XUARTPSV_UARTRIS_RXRIS	0x00000010U
+/** nUARTDSR modem interrupt */
 #define XUARTPSV_UARTRIS_DSRRMIS	0x00000008U
-									/**< nUARTDSR modem interrupt */
+/** nUARTDCD modem interrupt */
 #define XUARTPSV_UARTRIS_DCDRMIS	0x00000004U
-									/**< nUARTDCD modem interrupt */
+/** nUARTCTS modem interrupt */
 #define XUARTPSV_UARTRIS_CTSRMIS	0x00000002U
-									/**< nUARTCTS modem interrupt */
+/** nUARTRI modem interrupt */
 #define XUARTPSV_UARTRIS_RIRMIS	0x00000001U
-									/**< nUARTRI modem interrupt */
 /** @} */
 
 
@@ -258,21 +322,28 @@ extern "C" {
  * Masked Interrupt Status Register Bit Definition
  * @{
  */
-#define XUARTPSV_UARTMIS_OEMIS	0x00000400U	/**< Overrun Error Interrupt */
-#define XUARTPSV_UARTMIS_BEMIS	0x00000200U	/**< Break Error Interrupt */
-#define XUARTPSV_UARTMIS_PEMIS	0x00000100U	/**< Parity Error Interrupt */
-#define XUARTPSV_UARTMIS_FEMIS	0x00000080U	/**< Framing Error Interrupt */
-#define XUARTPSV_UARTMIS_RTMIS	0x00000040U	/**< Receive Timeout Interrupt */
-#define XUARTPSV_UARTMIS_TXMIS	0x00000020U	/**< Transmit Interrupt */
-#define XUARTPSV_UARTMIS_RXMIS	0x00000010U	/**< Receive Interrupt */
+/** Overrun Error Interrupt */
+#define XUARTPSV_UARTMIS_OEMIS	0x00000400U
+/** Break Error Interrupt */
+#define XUARTPSV_UARTMIS_BEMIS	0x00000200U
+/** Parity Error Interrupt */
+#define XUARTPSV_UARTMIS_PEMIS	0x00000100U
+/** Framing Error Interrupt */
+#define XUARTPSV_UARTMIS_FEMIS	0x00000080U
+/** Receive Timeout Interrupt */
+#define XUARTPSV_UARTMIS_RTMIS	0x00000040U
+/** Transmit Interrupt */
+#define XUARTPSV_UARTMIS_TXMIS	0x00000020U
+/** Receive Interrupt */
+#define XUARTPSV_UARTMIS_RXMIS	0x00000010U
+/** nUARTDSR modem interrupt */
 #define XUARTPSV_UARTMIS_DSRMMIS	0x00000008U
-									/**< nUARTDSR modem interrupt */
+/** nUARTDCD modem interrupt */
 #define XUARTPSV_UARTMIS_DCDMMIS	0x00000004U
-									/**< nUARTDCD modem interrupt */
+/** nUARTCTS modem interrupt */
 #define XUARTPSV_UARTMIS_CTSMMIS	0x00000002U
-									/**< nUARTCTS modem interrupt */
+/** nUARTRI modem interrupt */
 #define XUARTPSV_UARTMIS_RIRMMIS	0x00000001U
-									/**< nUARTRI modem interrupt */
 /** @} */
 
 
@@ -286,22 +357,28 @@ extern "C" {
  * Interrupt Clear Register Bit Definition
  * @{
  */
-#define XUARTPSV_UARTICR_OEIC  	0x00000400U	/**< Overrun Error Interrupt */
-#define XUARTPSV_UARTICR_BEIC  	0x00000200U	/**< Break Error Interrupt */
-#define XUARTPSV_UARTICR_PEIC  	0x00000100U	/**< Parity Error Interrupt */
-#define XUARTPSV_UARTICR_FEIC  	0x00000080U	/**< Framing Error Interrupt */
+/** Overrun Error Interrupt */
+#define XUARTPSV_UARTICR_OEIC  	0x00000400U
+/** Break Error Interrupt */
+#define XUARTPSV_UARTICR_BEIC  	0x00000200U
+/** Parity Error Interrupt */
+#define XUARTPSV_UARTICR_PEIC  	0x00000100U
+/** Framing Error Interrupt */
+#define XUARTPSV_UARTICR_FEIC  	0x00000080U
+/** Receive Timeout Interrupt */
 #define XUARTPSV_UARTICR_RTIC  	0x00000040U
-									/**< Receive Timeout Interrupt */
-#define XUARTPSV_UARTICR_TXIC  	0x00000020U	/**< Transmit Interrupt */
-#define XUARTPSV_UARTICR_RXIC  	0x00000010U	/**< Receive Interrupt */
+/** Transmit Interrupt */
+#define XUARTPSV_UARTICR_TXIC  	0x00000020U
+/** Receive Interrupt */
+#define XUARTPSV_UARTICR_RXIC  	0x00000010U
+/** nUARTDSR modem interrupt */
 #define XUARTPSV_UARTICR_DSRMIC	0x00000008U
-									/**< nUARTDSR modem interrupt */
+/** nUARTDCD modem interrupt */
 #define XUARTPSV_UARTICR_DCDMIC	0x00000004U
-									/**< nUARTDCD modem interrupt */
+/** nUARTCTS modem interrupt */
 #define XUARTPSV_UARTICR_CTSMIC	0x00000002U
-									/**< nUARTCTS modem interrupt */
+/** nUARTRI modem interrupt */
 #define XUARTPSV_UARTICR_RIMIC 	0x00000001U
-									/**< nUARTRI modem interrupt */
 /** @} */
 
 /** @name DMA Control Register
@@ -312,9 +389,12 @@ extern "C" {
  * DMA Control Register Bit Definition
  * @{
  */
-#define XUARTPSV_UARTDMACR_DMAONERR	0x00000004U	/**< DMA on error */
-#define XUARTPSV_UARTDMACR_TXDMAE	0x00000002U 	/**< Transmit DMA enable */
-#define XUARTPSV_UARTDMACR_RXDMAE	0x00000001U	/**< Receive DMA enable */
+/** DMA on error */
+#define XUARTPSV_UARTDMACR_DMAONERR	0x00000004U
+/** Transmit DMA enable */
+#define XUARTPSV_UARTDMACR_TXDMAE	0x00000002U
+/** Receive DMA enable */
+#define XUARTPSV_UARTDMACR_RXDMAE	0x00000001U
 /** @} */
 
 /** @name Integer Baud Rate Register
@@ -322,10 +402,10 @@ extern "C" {
  * The UARTIBRD Register is the integer part of the baud rate divisor value
  * @{
  */
+/** 16 UARTIBRD bit mask */
 #define XUARTPSV_UARTIBRD_BAUD_DIVINT_MASK			0x0000FFFFU
-												/**< 16 UARTIBRD bit mask */
+/** Reset value */
 #define XUARTPSV_UARTIBRD_BAUD_DIVINT_RESET_VAL	0x00000000U
-												/**< Reset value */
 /** @} */
 
 
@@ -340,10 +420,10 @@ extern "C" {
  * fractional value (BAUD DIVFRAC)
  * @{
  */
+/** 6 UARTFBRD bit mask */
 #define XUARTPSV_UARTFBRD_BAUD_DIVFRAC_MASK		0x0000003FU
-												/**< 6 UARTFBRD bit mask */
+/** Reset value */
 #define XUARTPSV_UARTFBRD_BAUD_DIVFRAC_RESET_VAL	0x00000000U
-												/**< Reset value */
 /** @} */
 
 
@@ -354,7 +434,7 @@ extern "C" {
  *
  * @{
  */
-#define XUARTPSV_RXTOUT_DISABLE	0x00000000U  /**< Disable time out */
+#define XUARTPSV_RXTOUT_DISABLE	0x00000000U	/**< Disable time out */
 #define XUARTPSV_RXTOUT_MASK		0x000000FFU  /**< Valid bits mask */
 /** @} */
 
@@ -365,10 +445,12 @@ extern "C" {
  * @{
  */
 
+/** Disable RX trigger interrupt */
 #define XUARTPSV_RXWM_DISABLE  	0x00000000U
-									/**< Disable RX trigger interrupt */
-#define XUARTPSV_RXWM_MASK 		0x0000003FU	/**< Valid bits mask */
-#define XUARTPSV_RXWM_RESET_VAL	0x00000020U	/**< Reset value */
+/** Valid bits mask */
+#define XUARTPSV_RXWM_MASK 		0x0000003FU
+/** Reset value */
+#define XUARTPSV_RXWM_RESET_VAL	0x00000020U
 /** @} */
 
 /** @name Transmit FIFO Trigger Level Register
@@ -379,7 +461,7 @@ extern "C" {
  */
 
 #define XUARTPSV_TXWM_MASK 		0x0000003FU 	/**< Valid bits mask */
-#define XUARTPSV_TXWM_RESET_VAL	0x00000020U 	/**< Reset value */
+#define XUARTPSV_TXWM_RESET_VAL	0x00000020U	/**< Reset value */
 /** @} */
 
 /** @name Modem Control Register
@@ -407,24 +489,32 @@ extern "C" {
  *
  * @{
  */
-#define XUARTPSV_MODEMSR_FCMS	0x00000100U  /**< Flow control mode (FCMS) */
-#define XUARTPSV_MODEMSR_DCD	0x00000080U  /**< Complement of DCD input */
-#define XUARTPSV_MODEMSR_RI	0x00000040U  /**< Complement of RI input */
-#define XUARTPSV_MODEMSR_DSR	0x00000020U  /**< Complement of DSR input */
-#define XUARTPSV_MODEMSR_CTS	0x00000010U  /**< Complement of CTS input */
-#define XUARTPSV_MODEMSR_DDCD	0x00000008U  /**< Delta DCD indicator */
+/** Flow control mode (FCMS) */
+#define XUARTPSV_MODEMSR_FCMS	0x00000100U
+/** Complement of DCD input */
+#define XUARTPSV_MODEMSR_DCD	0x00000080U
+/** Complement of RI input */
+#define XUARTPSV_MODEMSR_RI	0x00000040U
+/** Complement of DSR input */
+#define XUARTPSV_MODEMSR_DSR	0x00000020U
+/** Complement of CTS input */
+#define XUARTPSV_MODEMSR_CTS	0x00000010U
+/** Delta DCD indicator */
+#define XUARTPSV_MODEMSR_DDCD	0x00000008U
+/** Trailing Edge Ring Indicator */
 #define XUARTPSV_MODEMSR_TERI	0x00000004U
-								/**< Trailing Edge Ring Indicator */
-#define XUARTPSV_MODEMSR_DDSR	0x00000002U  /**< Change of DSR */
-#define XUARTPSV_MODEMSR_DCTS	0x00000001U  /**< Change of CTS */
+/** Change of DSR */
+#define XUARTPSV_MODEMSR_DDSR	0x00000002U
+/** Change of CTS */
+#define XUARTPSV_MODEMSR_DCTS	0x00000001U
 /** @} */
 
 /** @name Flow Delay Register
  *
  * Operation of the flow delay register (FLOWDEL) is very similar to the
  * receive FIFO trigger register. An internal trigger signal activates when
- * the FIFO is filled to the level set by this register. This trigger will not
- * cause an interrupt, although it can be read through the channel status
+ * the FIFO is filled to the level set by this register. This trigger does
+ * not cause an interrupt, although it can be read through the channel status
  * register. In hardware flow control mode, RTS is deactivated when the trigger
  * becomes active. RTS only resets when the FIFO level is four less than the
  * level of the flow delay trigger and the flow delay trigger is not activated.
@@ -444,20 +534,32 @@ extern "C" {
  * Receiver FIFO Byte Status Register Bit Definition
  * @{
  */
-#define XUARTPSV_RXBS_BYTE3_BRKE	0x00000800U /**< Byte3 Break Error */
-#define XUARTPSV_RXBS_BYTE3_FRME	0x00000400U /**< Byte3 Frame Error */
-#define XUARTPSV_RXBS_BYTE3_PARE	0x00000200U /**< Byte3 Parity Error */
-#define XUARTPSV_RXBS_BYTE2_BRKE	0x00000100U /**< Byte2 Break Error */
-#define XUARTPSV_RXBS_BYTE2_FRME	0x00000080U /**< Byte2 Frame Error */
-#define XUARTPSV_RXBS_BYTE2_PARE	0x00000040U /**< Byte2 Parity Error */
-#define XUARTPSV_RXBS_BYTE1_BRKE	0x00000020U /**< Byte1 Break Error */
-#define XUARTPSV_RXBS_BYTE1_FRME	0x00000010U /**< Byte1 Frame Error */
-#define XUARTPSV_RXBS_BYTE1_PARE	0x00000008U /**< Byte1 Parity Error */
-#define XUARTPSV_RXBS_BYTE0_BRKE	0x00000004U /**< Byte0 Break Error */
-#define XUARTPSV_RXBS_BYTE0_FRME	0x00000002U /**< Byte0 Frame Error */
-#define XUARTPSV_RXBS_BYTE0_PARE	0x00000001U /**< Byte0 Parity Error */
+/** Byte3 Break Error */
+#define XUARTPSV_RXBS_BYTE3_BRKE	0x00000800U
+/** Byte3 Frame Error */
+#define XUARTPSV_RXBS_BYTE3_FRME	0x00000400U
+/** Byte3 Parity Error */
+#define XUARTPSV_RXBS_BYTE3_PARE	0x00000200U
+/** Byte2 Break Error */
+#define XUARTPSV_RXBS_BYTE2_BRKE	0x00000100U
+/** Byte2 Frame Error */
+#define XUARTPSV_RXBS_BYTE2_FRME	0x00000080U
+/** Byte2 Parity Error */
+#define XUARTPSV_RXBS_BYTE2_PARE	0x00000040U
+/** Byte1 Break Error */
+#define XUARTPSV_RXBS_BYTE1_BRKE	0x00000020U
+/** Byte1 Frame Error */
+#define XUARTPSV_RXBS_BYTE1_FRME	0x00000010U
+/** Byte1 Parity Error */
+#define XUARTPSV_RXBS_BYTE1_PARE	0x00000008U
+/** Byte0 Break Error */
+#define XUARTPSV_RXBS_BYTE0_BRKE	0x00000004U
+/** Byte0 Frame Error */
+#define XUARTPSV_RXBS_BYTE0_FRME	0x00000002U
+/** Byte0 Parity Error */
+#define XUARTPSV_RXBS_BYTE0_PARE	0x00000001U
+/** 3 bit RX byte status mask */
 #define XUARTPSV_RXBS_MASK 		0x0000000FU
-									/**< 3 bit RX byte status mask */
 /** @} */
 
 /**************************** Type Definitions *******************************/
@@ -466,16 +568,16 @@ extern "C" {
 
 /*****************************************************************************/
 /**
-* Read a UART register.
+* @brief Reads a UART register.
 *
-* @param	BaseAddress contains the base address of the device.
-* @param	RegOffset contains the offset from the base address of the
-*			device.
+* @param[in]   BaseAddress Base address of the device.
+* @param[in]   RegOffset Offset from the base address of the
+*                       device.
 *
-* @return	The value read from the register.
+* @return      The value read from the register.
 *
-* @note 	C-Style signature:
-*			u32 XUartPsv_ReadReg(UINTPTR BaseAddress, int RegOffset)
+* @note        C-Style signature:
+*                      u32 XUartPsv_ReadReg(UINTPTR BaseAddress, int RegOffset)
 *
 ******************************************************************************/
 #define XUartPsv_ReadReg(BaseAddress, RegOffset) \
@@ -483,18 +585,16 @@ extern "C" {
 
 /*****************************************************************************/
 /**
-* Write a UART register.
+* @brief Writes a UART register.
 *
-* @param	BaseAddress contains the base address of the device.
-* @param	RegOffset contains the offset from the base address of the
-*			device.
-* @param	RegisterValue is the value to be written to the register.
+* @param[in]   BaseAddress Base address of the device.
+* @param[in]   RegOffset Offset from the base address of the
+*                       device.
+* @param[in]   RegisterValue Value to write to the register.
 *
-* @return	None.
-*
-* @note 	C-Style signature:
-*			void XUartPsv_WriteReg(UINTPTR BaseAddress, int RegOffset,
-*			u16 RegisterValue)
+* @note        C-Style signature:
+*                      void XUartPsv_WriteReg(UINTPTR BaseAddress,
+*                      int RegOffset, u16 RegisterValue)
 *
 ******************************************************************************/
 #define XUartPsv_WriteReg(BaseAddress, RegOffset, RegisterValue) \
@@ -503,14 +603,14 @@ extern "C" {
 
 /*****************************************************************************/
 /**
-* Determine if there is receive data in the receiver and/or FIFO.
+* @brief Determines if there is receive data in the receiver and/or FIFO.
 *
-* @param	BaseAddress contains the base address of the device.
+* @param[in]   BaseAddress Base address of the device.
 *
-* @return	TRUE if there is receive data, FALSE otherwise.
+* @return      TRUE if there is receive data, FALSE otherwise.
 *
-* @note 	C-Style signature:
-*			u32 XUartPsv_IsReceiveData(UINTPTR BaseAddress)
+* @note        C-Style signature:
+*                      u32 XUartPsv_IsReceiveData(UINTPTR BaseAddress)
 *
 ******************************************************************************/
 #define XUartPsv_IsReceiveData(BaseAddress) \
@@ -521,15 +621,15 @@ extern "C" {
 
 /*****************************************************************************/
 /**
-* Determine if a byte of data can be sent with the transmitter.
+* @brief Determines if a byte of data can be sent with the transmitter.
 *
-* @param	BaseAddress contains the base address of the device.
+* @param[in]   BaseAddress Base address of the device.
 *
-* @return	TRUE if the TX FIFO is full, FALSE if a byte can be put in
-*			the FIFO.
+* @return      TRUE if the TX FIFO is full, FALSE if a byte can be put in
+*                      the FIFO.
 *
-* @note 	C-Style signature:
-*			u32 XUartPsv_IsTransmitFull(UINTPTR BaseAddress)
+* @note        C-Style signature:
+*                      u32 XUartPsv_IsTransmitFull(UINTPTR BaseAddress)
 *
 ******************************************************************************/
 #define XUartPsv_IsTransmitFull(BaseAddress) \
@@ -539,15 +639,15 @@ extern "C" {
 
 /*****************************************************************************/
 /**
-* Determine if a byte of data can be sent with the transmitter.
+* @brief Determines if the transmitter is busy.
 *
-* @param	BaseAddress contains the base address of the device.
+* @param[in]   BaseAddress Base address of the device.
 *
-* @return	TRUE if the TX is busy, FALSE if a byte can be put in the
-*			FIFO.
+* @return      TRUE if the TX is busy, FALSE if a byte can be put in the
+*                      FIFO.
 *
-* @note 	C-Style signature:
-*			u32 XUartPsv_IsTransmitFull(UINTPTR BaseAddress)
+* @note        C-Style signature:
+*                      u32 XUartPsv_IsTransmitbusy(UINTPTR BaseAddress)
 *
 ******************************************************************************/
 #define XUartPsv_IsTransmitbusy(BaseAddress) \
@@ -569,5 +669,5 @@ void XUartPsv_ResetHw(UINTPTR BaseAddress);
 }
 #endif
 
-#endif /* end of protection macro */
 /** @} */
+#endif

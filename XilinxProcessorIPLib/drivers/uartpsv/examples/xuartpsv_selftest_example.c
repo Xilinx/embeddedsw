@@ -9,12 +9,10 @@
 *
 * @file xuartpsv_selftest_example.c
 *
-* This example runs on versal evaluation board (vck190), it performs self test
-* by using XUartPsv driver.
+* @brief Demonstrates the self-test functionality of the XUartPsv driver.
 *
-* @note
-*
-* None
+* Runs on versal evaluation board (vck190) and performs a self-test
+* by using the XUartPsv driver.
 *
 * MODIFICATION HISTORY:
 * <pre>
@@ -22,7 +20,9 @@
 * ---  ---  --------- -----------------------------------------------
 * 1.0  sg   09/18/17  First Release
 * 1.14 vlt  12/18/25 Update Doxygen comments to include SDT flow details.
+* 1.15  vn   09/10/26 Align Doxygen comments with AMD standards
 * </pre>
+*
 ******************************************************************************/
 
 /***************************** Include Files *********************************/
@@ -33,16 +33,21 @@
 
 /************************** Constant Definitions *****************************/
 
-/*
+/** @name Device parameters
+ *
  * The following constants map to the XPAR parameters created in the
  * xparameters.h file. They are defined here such that a user can easily
  * change all the needed parameters in one place.
+ * @{
  */
 #ifndef SDT
+/** Device ID */
 #define UARTPSV_DEVICE_ID		XPAR_XUARTPSV_0_DEVICE_ID
 #else
+/** Base address */
 #define XUARTPSV_BASEADDRESS		XPAR_XUARTPSV_0_BASEADDR
 #endif
+/** @} */
 
 /**************************** Type Definitions *******************************/
 
@@ -58,17 +63,14 @@ int UartPsvSelfTestExample(UINTPTR BaseAddress);
 
 /************************** Variable Definitions *****************************/
 
-XUartPsv Uart_Psv;		/* Instance of the UARTPSV Device */
+XUartPsv Uart_Psv;		/**< Instance of the UARTPSV Device. */
 
 /*****************************************************************************/
 /**
 *
-* Main function to call the example.
+* @brief Calls the self-test example.
 *
-*
-* @return	XST_SUCCESS if successful, otherwise XST_FAILURE
-*
-* @note 	None
+* @return      XST_SUCCESS if successful, otherwise XST_FAILURE.
 *
 ******************************************************************************/
 int main(void)
@@ -95,22 +97,21 @@ int main(void)
 /*****************************************************************************/
 /**
 *
-* This function does a minimal test on the XUartPsv driver.
-*
+* @brief Performs a minimal test on the XUartPsv driver.
 *
 * @if SDT
-* @param	BaseAddress contains the base address of the device
+* @param[in]   BaseAddress Base address of the device.
 * @else
-* @param	DeviceId is the XPAR_<UARTPSV_instance>_DEVICE_ID value from
-*			xparameters.h
+* @param[in]   DeviceId The XPAR_<UARTPSV_instance>_DEVICE_ID value from
+*                       xparameters.h.
 * @endif
 *
-* @return	XST_SUCCESS if successful, otherwise XST_FAILURE
+* @return      XST_SUCCESS if successful, otherwise XST_FAILURE.
 *
-* @note 	In XSCT/classic flow, DeviceId is used to look up the device
-*               configuration.
+* @note        In XSCT/classic flow, DeviceId is used to look up the device
+*              configuration.
 *
-****************************************************************************/
+******************************************************************************/
 #ifndef SDT
 int UartPsvSelfTestExample(u16 DeviceId)
 #else

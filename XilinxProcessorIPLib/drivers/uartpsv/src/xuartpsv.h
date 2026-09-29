@@ -1,9 +1,11 @@
 /******************************************************************************
 * Copyright (C) 2017 - 2021 Xilinx, Inc.  All rights reserved.
 * Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc.  All Rights Reserved.
-* A table contains the configuration info for each device in the system.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
+
+#ifndef XUARTPSV_H
+#define XUARTPSV_H
 
 /*****************************************************************************/
 /**
@@ -11,10 +13,10 @@
 * @file xuartpsv.h
 * @addtogroup uartpsv Overview
 * @{
-* @details
 *
-* This section contains the implementation of the interface functions for
-* XUartPsv driver. The UartPsv driver supports the following features:
+* @brief Provides the API and data structures for the XUartPsv driver.
+*
+* The UartPsv driver supports the following features:
 *
 * - Dynamic data format (baud rate, data bits, stop bits, parity)
 * - Polled mode
@@ -55,7 +57,7 @@
 * <b>Interrupts</b>
 *
 * The FIFOs are not flushed when the driver is initialized, but a function is
-* provided to allow the user to reset the FIFOs if desired.
+* provided to allow resetting the FIFOs if desired.
 *
 * The driver defaults to no interrupts at initialization such that interrupts
 * must be enabled if desired. An interrupt is generated for one of the
@@ -75,7 +77,7 @@
 * The application can control which interrupts are enabled using the
 * XUartPsv_SetInterruptMask() function.
 *
-* In order to use interrupts, it is necessary for the user to connect the
+* To use interrupts, connect the
 * driver interrupt handler, XUartPsv_InterruptHandler(), to the interrupt
 * system of the application. A separate handler should be provided by the
 * application to communicate with the interrupt system, and conduct
@@ -89,7 +91,6 @@
 * polled or interrupt mode.
 *
 * @note
-*
 * The default configuration for the UART after initialization is:
 *
 * - 9,600 bps or XPAR_DFT_BAUDRATE if defined
@@ -118,12 +119,10 @@
 * 		      CIPS3 designs when stdout is configured as none.
 * 1.9  adk  04/14/23  Added support for system device-tree flow.
 * 1.14 vlt  12/30/25  Update Doxygen comments to include SDT flow details.
+* 1.15  vn   09/10/26 Align Doxygen comments with AMD standards
 * </pre>
 *
 ******************************************************************************/
-
-#ifndef XUARTPSV_H		/* prevent circular inclusions */
-#define XUARTPSV_H		/**< by using protection macros */
 
 #ifdef __cplusplus
 extern "C" {
@@ -140,15 +139,17 @@ extern "C" {
 
 /************************** Constant Definitions *****************************/
 
-/*
+/** @name Baud rate limits
+ *
  * The following constants indicate the max and min baud rates and these
  * numbers are based only on the testing that has been done. The hardware
  * is capable of other baud rates.
+ * @{
  */
 #define XUARTPSV_MAX_RATE  	921600U		/**< Maximum baud rate */
 #define XUARTPSV_MIN_RATE  	110U		/**< Minimum baud rate */
-
 #define XUARTPSV_DFT_BAUDRATE	115200U 	/**< Default baud rate */
+/** @} */
 
 /** @name Configuration options
  * @{
@@ -161,10 +162,11 @@ extern "C" {
  *
  */
 
-#define XUARTPSV_OPTION_SET_BREAK	0x0080U	/**< Starts break transmission */
+/** Starts break transmission */
+#define XUARTPSV_OPTION_SET_BREAK	0x0080U
 #define XUARTPSV_OPTION_STOP_BREAK	0x0040U	/**< Stops break transmission */
+/** Reset the receive timeout */
 #define XUARTPSV_OPTION_RESET_TMOUT	0x0020U
-										/**< Reset the receive timeout */
 #define XUARTPSV_OPTION_RESET_TX	0x0010U	/**< Reset the transmitter */
 #define XUARTPSV_OPTION_RESET_RX	0x0008U	/**< Reset the receiver */
 #define XUARTPSV_OPTION_ASSERT_RTS	0x0004U	/**< Assert the RTS bit */
@@ -228,17 +230,18 @@ extern "C" {
 #define XUARTPSV_EVENT_SENT_DATA	3U /**< Data transmission done */
 #define XUARTPSV_EVENT_RECV_ERROR	4U /**< A receive error detected */
 #define XUARTPSV_EVENT_MODEM   	5U /**< Modem status changed */
+/** A receive parity, frame,break error detected */
 #define XUARTPSV_EVENT_PARE_FRAME_BRKE 6U
-					/**< A receive parity, frame,break error detected */
-#define XUARTPSV_EVENT_RECV_ORERR	7U /**< A receive overrun error detected */
+/** A receive overrun error detected */
+#define XUARTPSV_EVENT_RECV_ORERR	7U
 /** @} */
 
-#define TIMEOUT_COUNTER			1000000U /* Wait for 1 sec */
+#define TIMEOUT_COUNTER			1000000U /**< Wait for 1 sec. */
 
 /**************************** Type Definitions *******************************/
 
 /**
- * This typedef contains configuration information for the device.
+ * @brief Contains configuration information for the device.
  */
 typedef struct {
 #ifndef SDT
@@ -246,34 +249,33 @@ typedef struct {
 #else
 	char *Name;                            /**< Name of the device */
 #endif
-	UINTPTR BaseAddress;			/**< Base address of device (IPIF) */
+	UINTPTR BaseAddress;		/**< Base address of device (IPIF) */
 	u32 InputClockHz;			/**< Input clock frequency */
-	s32 ModemPinsConnected; 	/**< Specifies whether modem pins are
-								  *  connected to MIO or FMIO */
+	s32 ModemPinsConnected;		/**< Specifies whether modem pins are
+					 * connected to MIO or FMIO. */
 	u32 BaudRate;				/**< Current baud rate */
 #ifdef SDT
-	u32 IntrId;             /**< Bits[11:0] Interrupt-id Bits[15:12]
-				 * trigger type and level flags */
-	UINTPTR IntrParent;     /**< Bit[0] Interrupt parent type Bit[64/32:1]
-				 * Parent base address */
+	u32 IntrId;		/**< Bits[11:0] Interrupt-id Bits[15:12]
+				 * trigger type and level flags. */
+	UINTPTR IntrParent;	/**< Bit[0] Interrupt parent type Bit[64/32:1]
+				 * Parent base address. */
 #endif
 } XUartPsv_Config;
 
 /**
- * Keep track of state information about a data buffer in the
- * interrupt mode.
+ * @brief Tracks state information about a data buffer in interrupt mode.
  */
 typedef struct {
-	u8 *NextBytePtr;			/**< Pointer to hold byte address */
-	u32 RequestedBytes;			/**< Number of bytes requested in transfer */
-	u32 RemainingBytes;			/**< Number of bytes remaining in transfer */
+	u8 *NextBytePtr;	/**< Pointer to hold byte address */
+	u32 RequestedBytes;	/**< Number of bytes requested in transfer */
+	u32 RemainingBytes;	/**< Number of bytes remaining in transfer */
 } XUartPsvBuffer;
 
 /**
- * Keep track of data format setting of a device.
+ * @brief Tracks data format settings of a device.
  */
 typedef struct {
-	u32 BaudRate;			/**< In bps, ie 1200 */
+	u32 BaudRate;			/**< In bps, for example 1200 */
 	u32 DataBits;			/**< Number of data bits */
 	u32 Parity; 			/**< Parity */
 	u8 StopBits;			/**< Number of stop bits */
@@ -281,55 +283,60 @@ typedef struct {
 
 /*****************************************************************************/
 /**
- * This data type defines a handler that an application defines to communicate
- * with interrupt system to retrieve state information about an application.
+ * @brief Defines a handler that an application defines to communicate with
+ * the interrupt system to retrieve state information about an application.
  *
- * @param	CallBackRef is a callback reference passed in by the upper layer
- *		when setting the handler, and is passed back to the upper layer
- *		when the handler is called. It is used to find the device driver
- *		instance.
- * @param	Event contains one of the event constants indicating events that
- *		have occurred.
- * @param	EventData contains the number of bytes sent or received at the
- *		time of the call for send and receive events and contains the
- *		modem status for modem events.
+ * @param[in]   CallBackRef Callback reference passed in by the upper layer
+ *              when setting the handler, and is passed back to the upper layer
+ *              when the handler is called. It is used to find the device driver
+ *              instance.
+ * @param[in]   Event One of the event constants indicating events that
+ *              have occurred.
+ * @param[in]   EventData Number of bytes sent or received at the
+ *              time of the call for send and receive events and contains the
+ *              modem status for modem events.
  *
  *****************************************************************************/
 typedef void (*XUartPsv_Handler) (void *CallBackRef, u32 Event,u32 EventData);
 
 /**
- * The XUartPsv driver instance data structure. A pointer to an instance data
- * structure is passed around by functions to refer to a specific driver
- * instance.
+ * @brief Represents the XUartPsv driver instance data structure.
+ *
+ * A pointer to an instance data structure is passed around by functions
+ * to refer to a specific driver instance.
  */
 typedef struct {
 	XUartPsv_Config Config; 	/**< Configuration data structure */
 	u32 InputClockHz;			/**< Input clock frequency */
-	u32 IsReady;				/**< Device is initialized and ready */
+	u32 IsReady;		/**< Device is initialized and ready */
 	u32 BaudRate;				/**< Current baud rate */
 
 	XUartPsvBuffer SendBuffer;		/**< Buffer to hold tx data */
 	XUartPsvBuffer ReceiveBuffer;		/**< Buffer to hold rx data */
 
-	XUartPsv_Handler Handler;		/**< Function ptr to hold user handler */
-	void *CallBackRef;			/**< Callback reference for event handler */
+	XUartPsv_Handler Handler;	/**< Function ptr to hold user
+					 * handler */
+	void *CallBackRef;	/**< Callback reference for event handler */
 } XUartPsv;
 
 /************************** Variable Definitions *****************************/
-extern XUartPsv_Config XUartPsv_ConfigTable[];	/**< Config structure */
+/**
+ * @brief Holds the configuration entry for each UartPsv instance.
+ */
+extern XUartPsv_Config XUartPsv_ConfigTable[];
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /*****************************************************************************/
 /**
-* Get the UART Channel Status Register.
+* @brief Reads the UART Channel Status Register.
 *
-* @param	InstancePtr is a pointer to the XUartPsv instance.
+* @param[in]   InstancePtr Pointer to the XUartPsv instance.
 *
-* @return	The value read from the register.
+* @return      The value read from the register.
 *
-* @note 	C-Style signature:
-*			u16 XUartPsv_GetChannelStatus(XUartPsv *InstancePtr)
+* @note        C-Style signature:
+*                      u16 XUartPsv_GetChannelStatus(XUartPsv *InstancePtr)
 *
 ******************************************************************************/
 #define XUartPsv_GetChannelStatus(InstancePtr) \
@@ -338,14 +345,14 @@ extern XUartPsv_Config XUartPsv_ConfigTable[];	/**< Config structure */
 
 /*****************************************************************************/
 /**
-* Get the UART Mode Control Register.
+* @brief Reads the UART Mode Control Register.
 *
-* @param	InstancePtr is a pointer to the XUartPsv instance.
+* @param[in]   InstancePtr Pointer to the XUartPsv instance.
 *
-* @return	The value read from the register.
+* @return      The value read from the register.
 *
-* @note 	C-Style signature:
-*			u32 XUartPsv_GetControl(XUartPsv *InstancePtr)
+* @note        C-Style signature:
+*                      u32 XUartPsv_GetModeControl(XUartPsv *InstancePtr)
 *
 ******************************************************************************/
 #define XUartPsv_GetModeControl(InstancePtr) \
@@ -354,16 +361,14 @@ extern XUartPsv_Config XUartPsv_ConfigTable[];	/**< Config structure */
 
 /*****************************************************************************/
 /**
-* Set the UART Mode Control Register.
+* @brief Writes the UART Mode Control Register.
 *
-* @param	InstancePtr is a pointer to the XUartPsv instance.
-* @param	RegisterValue is the value to be written to the register.
+* @param[in]   InstancePtr Pointer to the XUartPsv instance.
+* @param[in]   RegisterValue Value to write to the register.
 *
-* @return	None.
-*
-* @note 	C-Style signature:
-*			void XUartPsv_SetModeControl(XUartPsv *InstancePtr,
-*			u16 RegisterValue)
+* @note        C-Style signature:
+*                      void XUartPsv_SetModeControl(XUartPsv *InstancePtr,
+*                      u16 RegisterValue)
 *
 ******************************************************************************/
 #define XUartPsv_SetModeControl(InstancePtr, RegisterValue) \
@@ -372,14 +377,12 @@ extern XUartPsv_Config XUartPsv_ConfigTable[];	/**< Config structure */
 
 /*****************************************************************************/
 /**
-* Enable the transmitter and receiver of the UART.
+* @brief Enables the transmitter and receiver of the UART.
 *
-* @param	InstancePtr is a pointer to the XUartPsv instance.
+* @param[in]   InstancePtr Pointer to the XUartPsv instance.
 *
-* @return	None.
-*
-* @note 	C-Style signature:
-*			void XUartPsv_EnableUart(XUartPsv *InstancePtr)
+* @note        C-Style signature:
+*                      void XUartPsv_EnableUart(XUartPsv *InstancePtr)
 *
 ******************************************************************************/
 #define XUartPsv_EnableUart(InstancePtr) \
@@ -391,14 +394,12 @@ extern XUartPsv_Config XUartPsv_ConfigTable[];	/**< Config structure */
 
 /*****************************************************************************/
 /**
-* Disable the transmitter and receiver of the UART.
+* @brief Disables the transmitter and receiver of the UART.
 *
-* @param	InstancePtr is a pointer to the XUartPsv instance.
+* @param[in]   InstancePtr Pointer to the XUartPsv instance.
 *
-* @return	None.
-*
-* @note 	C-Style signature:
-*			void XUartPsv_DisableUart(XUartPsv *InstancePtr)
+* @note        C-Style signature:
+*                      void XUartPsv_DisableUart(XUartPsv *InstancePtr)
 *
 ******************************************************************************/
 #define XUartPsv_DisableUart(InstancePtr) \
@@ -410,16 +411,16 @@ extern XUartPsv_Config XUartPsv_ConfigTable[];	/**< Config structure */
 
 /*****************************************************************************/
 /**
-* Determine if the transmitter FIFO is empty.
+* @brief Determines if the transmitter FIFO is empty.
 *
-* @param	InstancePtr is a pointer to the XUartPsv instance.
+* @param[in]   InstancePtr Pointer to the XUartPsv instance.
 *
 * @return
-*		- TRUE if a byte can be sent
-*		- FALSE if the Transmitter Fifo is not empty
+*              - TRUE if a byte can be sent.
+*              - FALSE if the Transmitter Fifo is not empty.
 *
-* @note 	C-Style signature:
-*			u32 XUartPsv_IsTransmitEmpty(XUartPsv InstancePtr)
+* @note        C-Style signature:
+*                      u32 XUartPsv_IsTransmitEmpty(XUartPsv *InstancePtr)
 *
 ******************************************************************************/
 #define XUartPsv_IsTransmitEmpty(InstancePtr) \
@@ -498,5 +499,5 @@ s32 XUartPsv_SelfTest(XUartPsv *InstancePtr);
 }
 #endif
 
-#endif /* end of protection macro */
 /** @} */
+#endif
