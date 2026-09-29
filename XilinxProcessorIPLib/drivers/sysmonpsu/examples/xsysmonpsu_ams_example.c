@@ -8,15 +8,14 @@
 /**
 *
 * @file xsysmonpsu_ams_example.c
+* @brief Demonstrates AMS block voltage measurement with the driver.
 *
 * This file contains a design example using the driver functions of the
 * System Monitor driver.
 * This example here shows the usage of the driver/device in single channel
 * sequencer off mode to measure AMS block voltages.
 *
-*
 * @note
-*
 * This code assumes that no Operating System is being used.
 *
 * The value of the on-chip Vccint voltage is read from the device and then the
@@ -34,6 +33,7 @@
 *			support
 * 2.9   cog    07/20/23 Added support for SDT flow.
 * 3.4   vn     07/30/26 Fix Doxygen warnings
+* 3.4   vn     09/29/26 Align Doxygen comments with AMD standards
 *
 * </pre>
 *
@@ -59,10 +59,11 @@
  * change all the needed parameters in one place.
  */
 
-#define SYSMON_DEVICE_ID	XPAR_XSYSMONPSU_0_DEVICE_ID
+#define SYSMON_DEVICE_ID	XPAR_XSYSMONPSU_0_DEVICE_ID /**< Device ID. */
 #else
-#define SYSMON_DEVICE_ID	0xffa50000
+#define SYSMON_DEVICE_ID	0xffa50000 /**< Device ID. */
 #endif
+/** Timeout count while polling for the end of conversion. */
 #define EOC_POLLING_TIMEOUT 1000000
 
 
@@ -85,13 +86,11 @@ static XSysMonPsu SysMonInst; 	  /* System Monitor driver instance */
 /****************************************************************************/
 /**
 *
-* Main function that invokes the Single Channel AMS polled example.
+* @brief Invokes the single channel AMS polled example.
 *
 * @return
-*		- XST_SUCCESS if the example has completed successfully.
-*		- XST_FAILURE if the example has failed.
-*
-* @note		None.
+*              - XST_SUCCESS if the example has completed successfully.
+*              - XST_FAILURE if the example has failed.
 *
 *****************************************************************************/
 int main(void)
@@ -118,22 +117,21 @@ int main(void)
 /*****************************************************************************/
 /**
 *
-* This function polls an address periodically until a condition is met or till the
-* timeout occurs.
+* @brief Polls an address periodically until a condition is met or the timeout
+* occurs.
+*
 * The minimum timeout for calling this macro is 100us. If the timeout is less
 * than 100us, it still waits for 100us. Also the unit for the timeout is 100us.
 * If the timeout is not a multiple of 100us, it waits for a timeout of
 * the next usec value which is a multiple of 100us.
 *
-* @param            Addr - Address to be polled
-* @param            Val - variable to read the value
-* @param            Condition - Condition to checked (usually involves Val)
-* @param            TimeOutUs - timeout in micro seconds
+* @param[in]   Addr Address to be polled.
+* @param[out]  Val Variable that receives the read value.
+* @param[in]   Condition Condition to check (usually involves Val).
+* @param[in]   TimeOutUs Timeout in microseconds.
 *
-* @return           0 - when the condition is met
-*                   -1 - when the condition is not met till the timeout period
-*
-* @note             none
+* @return      0 - when the condition is met
+*              -1 - when the condition is not met till the timeout period.
 *
 *****************************************************************************/
 static s32 XSysmonPsu_Poll_timeout(u32 Addr, u64 *Val, u32 Condition, u64 TimeOutUs)
@@ -159,8 +157,7 @@ static s32 XSysmonPsu_Poll_timeout(u32 Addr, u64 *Val, u32 Condition, u64 TimeOu
 /****************************************************************************/
 /**
 *
-* This function runs a test on the System Monitor device using the
-* driver APIs.
+* @brief Runs a test on the System Monitor device using the driver APIs.
 *
 * The function does the following tasks:
 *	- Initiate the System Monitor device driver instance
@@ -171,15 +168,15 @@ static s32 XSysmonPsu_Poll_timeout(u32 Addr, u64 *Val, u32 Condition, u64 TimeOu
 *	- wait for interrupt status bit to set
 *	- print voltage values
 *
-* @param	SysMonInstPtr is a pointer to the XSysMon driver Instance.
-* @param	SysMonDeviceId is the XPAR_<SYSMON_instance>_DEVICE_ID value
-*		from xparameters.h.
+* @param[in]   SysMonInstPtr Pointer to the XSysMon driver Instance.
+* @param[in]   SysMonDeviceId XPAR_<SYSMON_instance>_DEVICE_ID value
+*              from xparameters.h.
 *
 * @return
-*		- XST_SUCCESS if the example has completed successfully.
-*		- XST_FAILURE if the example has failed.
+*              - XST_SUCCESS if the example has completed successfully.
+*              - XST_FAILURE if the example has failed.
 *
-* @note		This function may never return if no interrupt occurs.
+* @note        This function may never return if no interrupt occurs.
 *
 ****************************************************************************/
 int SysMonPsuAMSExample(XSysMonPsu* SysMonInstPtr,
@@ -472,12 +469,14 @@ int SysMonPsuAMSExample(XSysMonPsu* SysMonInstPtr,
 /****************************************************************************/
 /**
 *
+* @brief Converts the fraction part of a floating point number to an integer.
+*
 * This function converts the fraction part of the given floating point number
-* (after the decimal point)to an integer.
+* (after the decimal point) to an integer.
 *
-* @param        FloatNum is the floating point number.
+* @param[in]   FloatNum Floating point number.
 *
-* @return       Integer number to a precision of 3 digits.
+* @return      Integer number to a precision of 3 digits.
 *
 * @note
 * This function is used in the printing of floating point data to a STDIO

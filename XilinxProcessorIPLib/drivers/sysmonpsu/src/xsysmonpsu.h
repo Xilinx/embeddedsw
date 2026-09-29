@@ -4,10 +4,16 @@
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
+#ifndef XSYSMONPSU_H_
+#define XSYSMONPSU_H_
+
 /*****************************************************************************/
 /**
 * @file xsysmonpsu.h
 * @addtogroup Overview
+* @{
+*
+* @brief Defines the driver API for the Xilinx System Monitor device.
 *
 * The XSysMon driver supports the Xilinx System Monitor device.
 *
@@ -27,13 +33,11 @@
 *	- Optional interrupt request generation
 *	- External Mux
 *
-*
 * The user should refer to the hardware device specification for detailed
 * information about the device.
 *
 * This header file contains the prototypes of driver functions that can
 * be used to access the System Monitor device.
-*
 *
 * <b> System Monitor Channel Sequencer Modes </b>
 *
@@ -55,17 +59,15 @@
 *		The System Monitor can operate either in a Continuous or Event
 *		driven sampling mode in the single channel mode.
 *
-*
 * <b> Initialization and Configuration </b>
 *
-* The device driver enables higher layer software (e.g., an application) to
-* communicate to the System Monitor device.
+* The device driver enables higher layer software (for example, an
+* application) to communicate to the System Monitor device.
 *
 * XSysMonPsu_CfgInitialize() API is used to initialize the System Monitor
 * device. The user needs to first call the XSysMonPsu_LookupConfig() API which
 * returns the Configuration structure pointer which is passed as a parameter to
 * the XSysMonPsu_CfgInitialize() API.
-*
 *
 * <b>Interrupts</b>
 *
@@ -77,18 +79,15 @@
 * the interrupt example provided with this driver for details on using the
 * device in interrupt mode.
 *
-*
 * <b> Virtual Memory </b>
 *
 * This driver supports Virtual Memory. The RTOS is responsible for calculating
 * the correct device base address in Virtual Memory space.
 *
-*
 * <b> Threads </b>
 *
 * This driver is not thread safe. Any needs for threads or thread mutual
 * exclusion must be satisfied by the layer above this driver.
-*
 *
 * <b> Asserts </b>
 *
@@ -97,12 +96,10 @@
 * compile time, the NDEBUG identifier. By default, asserts are turned on and it
 * is recommended that users leave asserts on during development.
 *
-*
 * <b> Building the driver </b>
 *
-* The XSysMonPsu driver is composed of several source files. This allows the user
-* to build and link only those parts of the driver that are necessary.
-*
+* The XSysMonPsu driver is composed of several source files. This allows the
+* user to build and link only those parts of the driver that are necessary.
 *
 * <b> Limitations of the driver </b>
 *
@@ -111,10 +108,7 @@
 * of the device by both these interfaces. The user has to take care of this
 * situation in the user application code.
 *
-*
-*
 * <br><br>
-*
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -166,14 +160,12 @@
 *                       to enable over-temperature default value override.
 * 3.3   dc     02/18/26 Correct spelling errors
 * 3.4   vn     07/30/26 Fix Doxygen warnings
+* 3.4   vn     09/29/26 Align Doxygen comments with AMD standards
 *
 * </pre>
 *
 ******************************************************************************/
 
-
-#ifndef XSYSMONPSU_H_			/* prevent circular inclusions */
-#define XSYSMONPSU_H_			/* by using protection macros */
 
 #ifdef __cplusplus
 extern "C" {
@@ -207,7 +199,8 @@ extern "C" {
 #define XSM_CH_SUPPLY5		0x0EU /**< SUPPLY5 VCC_PSIO3_503 */
 #define XSM_CH_SUPPLY6		0x0FU /**< SUPPLY6 VCC_PSIO0_500 */
 #define XSM_CH_AUX_MIN		16U   /**< Channel number for 1st Aux Channel */
-#define XSM_CH_AUX_MAX		31U   /**< Channel number for Last Aux channel */
+/** Channel number for Last Aux channel */
+#define XSM_CH_AUX_MAX		31U
 #define XSM_CH_SUPPLY7      32U   /**< SUPPLY7 VCC_PSIO1_501 */
 #define XSM_CH_SUPPLY8      33U   /**< SUPPLY8 VCC_PSIO2_502 */
 #define XSM_CH_SUPPLY9      34U   /**< SUPPLY9 PS_MGTRAVCC */
@@ -349,8 +342,10 @@ extern "C" {
  * @name Alarm masks for channels in Configuration registers 1
  * @{
  */
-#define XSM_CFR_ALM_SUPPLY13_MASK	0x200000 /**< Alarm 13 - FPD Temperature */
-#define XSM_CFR_ALM_SUPPLY12_MASK	0x100000 /**< Alarm 12 - VCCAMS/VCCADC */
+/** Alarm 13 - FPD Temperature */
+#define XSM_CFR_ALM_SUPPLY13_MASK	0x200000
+/** Alarm 12 - VCCAMS/VCCADC */
+#define XSM_CFR_ALM_SUPPLY12_MASK	0x100000
 #define XSM_CFR_ALM_SUPPLY11_MASK	0x080000 /**< Alarm 11 - SUPPLY10 */
 #define XSM_CFR_ALM_SUPPLY10_MASK	0x040000 /**< Alarm 10 - SUPPLY9 */
 #define XSM_CFR_ALM_SUPPLY9_MASK	0x020000 /**< Alarm 9 - SUPPLY8 */
@@ -365,58 +360,72 @@ extern "C" {
 #define XSM_CFR_ALM_OT_MASK		0x0001 /**< Over Temperature Alarm */
 
 /** @} */
-#define XSM_POLL_TIMEOUT		0XFFFFFFFFU
+
+/** @name Miscellaneous constants
+ * @{
+ */
+#define XSM_POLL_TIMEOUT	0XFFFFFFFFU /**< Poll timeout count */
+
+/** @} */
 
 /**************************** Type Definitions *******************************/
 
 /******************************************************************************/
 /**
- * This data type defines a handler that an application defines to communicate
- * with interrupt system to retrieve state information about an application.
+ * @brief Defines the callback handler for System Monitor interrupt events.
  *
- * @param	CallBackRef is a callback reference passed in by the upper layer
- *		when setting the handler, and is passed back to the upper layer
- *		when the handler is called. It is used to find the device driver
- *		instance.
+ * An application defines this handler to communicate with the interrupt system
+ * and retrieve state information about an application.
+ *
+ * @param[in]   CallBackRef Callback reference passed in by the upper layer
+ *              when setting the handler, and passed back to the upper layer
+ *              when the handler is called. It is used to find the device driver
+ *              instance.
  *
  ******************************************************************************/
 typedef void (*XSysMonPsu_Handler) (void *CallBackRef);
 
 /**
- * This typedef contains configuration information for a device.
+ * @brief Holds configuration information for a device.
  */
 typedef struct {
 #ifndef SDT
 	u16 DeviceId;		/**< Unique ID of device */
 #else
-	char *Name;
+	char *Name;		/**< Compatible device name */
 #endif
 	UINTPTR BaseAddress;	/**< Register base address */
 	u16 InputClockMHz;	/**< Input clock frequency */
 } XSysMonPsu_Config;
 
 /**
- * The XSysmonPsu driver instance data. The user is required to allocate a
- * variable of this type for the SYSMON device in the system. A pointer
- * to a variable of this type is then passed to the driver API functions.
+ * @brief Holds the XSysMonPsu driver instance data.
+ *
+ * The user must allocate a variable of this type for the SYSMON device in the
+ * system. A pointer to a variable of this type is then passed to the driver
+ * API functions.
  */
 typedef struct {
-	XSysMonPsu_Config Config; 	/**< Device configuration */
-	u32 IsReady;				/**< Device is initialized and ready */
-	XSysMonPsu_Handler Handler;
-	void *CallBackRef;			/**< Callback reference for event handler */
+	XSysMonPsu_Config Config;	/**< Device configuration */
+	u32 IsReady;			/**< Device is initialized and ready */
+	XSysMonPsu_Handler Handler;	/**< Event handler callback */
+	void *CallBackRef;		/**< Callback reference for handler */
 	u32 IsPlAccessibleByPs;		/**< PL is accessible by PS */
 } XSysMonPsu;
 
-/* BaseAddress Offsets */
-#define XSYSMON_PS 1U
-#define XSYSMON_PL 2U
-#define XSYSMON_AMS 3U
-#define XPS_BA_OFFSET   0x00000800U
-#define XPL_BA_OFFSET   0x00000C00U
-#define XSM_ADC_CH_OFFSET 0x00000200U
-#define XSM_AMS_CH_OFFSET 0x00000060U
-#define XSM_MIN_MAX_CH_OFFSET 0x00000080U
+/** @name Base address offsets and Sysmon block selectors
+ * @{
+ */
+#define XSYSMON_PS 1U		/**< PS Sysmon block selector */
+#define XSYSMON_PL 2U		/**< PL Sysmon block selector */
+#define XSYSMON_AMS 3U		/**< AMS controller register selector */
+#define XPS_BA_OFFSET   0x00000800U /**< PS Sysmon base address offset */
+#define XPL_BA_OFFSET   0x00000C00U /**< PL Sysmon base address offset */
+#define XSM_ADC_CH_OFFSET 0x00000200U /**< ADC channel data offset */
+#define XSM_AMS_CH_OFFSET 0x00000060U /**< AMS channel data offset */
+#define XSM_MIN_MAX_CH_OFFSET 0x00000080U /**< Min/Max channel data offset */
+
+/** @} */
 
 /************************* Variable Definitions ******************************/
 
@@ -425,15 +434,14 @@ typedef struct {
 /****************************************************************************/
 /**
 *
-* This macro converts System Monitor Raw Data to Temperature(centigrades)
-* for On-Chip Sensors.
+* @brief Converts raw data to on-chip sensor temperature in centigrade.
 *
-* @param	AdcData is the SysMon Raw ADC Data.
+* @param[in]   AdcData SysMon Raw ADC Data.
 *
-* @return 	The Temperature in centigrades.
+* @return      The Temperature in centigrades.
 *
-* @note		C-Style signature:
-*		float XSysMon_RawToTemperature_OnChip(u32 AdcData)
+* @note        C-Style signature:
+*              float XSysMonPsu_RawToTemperature_OnChip(u32 AdcData)
 *
 *****************************************************************************/
 #define XSysMonPsu_RawToTemperature_OnChip(AdcData)				\
@@ -442,15 +450,14 @@ typedef struct {
 /****************************************************************************/
 /**
 *
-* This macro converts System Monitor 12-bit OT Raw Data to Temperature(centigrades)
-* for On-Chip Sensors.
+* @brief Converts 12-bit OT raw data to on-chip temperature in centigrade.
 *
-* @param	AdcData is the SysMon 12-bit Raw ADC Data.
+* @param[in]   AdcData SysMon 12-bit Raw ADC Data.
 *
-* @return 	The Temperature in centigrades.
+* @return      The Temperature in centigrades.
 *
-* @note		C-Style signature:
-*		float XSysMonPsu_RawToTemperature_OT_OnChip(u32 AdcData)
+* @note        C-Style signature:
+*              float XSysMonPsu_RawToTemperature_OT_OnChip(u32 AdcData)
 *
 *****************************************************************************/
 #define XSysMonPsu_RawToTemperature_OT_OnChip(AdcData)				\
@@ -459,15 +466,14 @@ typedef struct {
 /****************************************************************************/
 /**
 *
-* This macro converts System Monitor Raw Data to Temperature(centigrades)
-* for external reference.
+* @brief Converts raw data to external-reference temperature in centigrade.
 *
-* @param	AdcData is the SysMon Raw ADC Data.
+* @param[in]   AdcData SysMon Raw ADC Data.
 *
-* @return 	The Temperature in centigrades.
+* @return      The Temperature in centigrades.
 *
-* @note		C-Style signature:
-*		float XSysMon_RawToTemperature_ExternalRef(u32 AdcData)
+* @note        C-Style signature:
+*              float XSysMonPsu_RawToTemperature_ExternalRef(u32 AdcData)
 *
 *****************************************************************************/
 #define XSysMonPsu_RawToTemperature_ExternalRef(AdcData)			\
@@ -476,15 +482,15 @@ typedef struct {
 /****************************************************************************/
 /**
 *
-* This macro converts System Monitor 12-bit OT Raw Data to Temperature(centigrades)
-* for external reference.
+* @brief Converts 12-bit OT raw data to external-reference temperature in
+* centigrade.
 *
-* @param	AdcData is the SysMon 12-bit Raw ADC Data.
+* @param[in]   AdcData SysMon 12-bit Raw ADC Data.
 *
-* @return 	The Temperature in centigrades.
+* @return      The Temperature in centigrades.
 *
-* @note		C-Style signature:
-*		float XSysMonPsu_RawToTemperature_OT_ExternalRef(u32 AdcData)
+* @note        C-Style signature:
+*              float XSysMonPsu_RawToTemperature_OT_ExternalRef(u32 AdcData)
 *
 *****************************************************************************/
 #define XSysMonPsu_RawToTemperature_OT_ExternalRef(AdcData)			\
@@ -492,15 +498,14 @@ typedef struct {
 /****************************************************************************/
 /**
 *
-* This macro converts System Monitor Raw Data to Voltage(volts) for VpVn
-* supply.
+* @brief Converts System Monitor raw data to VpVn supply voltage in volts.
 *
-* @param	AdcData is the System Monitor ADC Raw Data.
+* @param[in]   AdcData System Monitor ADC Raw Data.
 *
-* @return 	The Voltage in volts.
+* @return      The Voltage in volts.
 *
-* @note		C-Style signature:
-*		float XSysMon_VpVnRawToVoltage(u32 AdcData)
+* @note        C-Style signature:
+*              float XSysMonPsu_VpVnRawToVoltage(u32 AdcData)
 *
 *****************************************************************************/
 #define XSysMonPsu_VpVnRawToVoltage(AdcData) 					\
@@ -509,15 +514,15 @@ typedef struct {
 /****************************************************************************/
 /**
 *
-* This macro converts System Monitor Raw Data to Voltage(volts) other than
-* VCCO_PSIO supply.
+* @brief Converts raw data to voltage in volts for supplies other than
+* VCCO_PSIO.
 *
-* @param	AdcData is the System Monitor ADC Raw Data.
+* @param[in]   AdcData System Monitor ADC Raw Data.
 *
-* @return 	The Voltage in volts.
+* @return      The Voltage in volts.
 *
-* @note		C-Style signature:
-*		float XSysMon_RawToVoltage(u32 AdcData)
+* @note        C-Style signature:
+*              float XSysMonPsu_RawToVoltage(u32 AdcData)
 *
 *****************************************************************************/
 #define XSysMonPsu_RawToVoltage(AdcData) 					\
@@ -526,15 +531,14 @@ typedef struct {
 /****************************************************************************/
 /**
 *
-* This macro converts System Monitor Raw Data to Voltage(volts) for
-* VCCO_PSIO supply.
+* @brief Converts System Monitor raw data to VCCO_PSIO supply voltage in volts.
 *
-* @param	AdcData is the System Monitor ADC Raw Data.
+* @param[in]   AdcData System Monitor ADC Raw Data.
 *
-* @return 	The Voltage in volts.
+* @return      The Voltage in volts.
 *
-* @note		C-Style signature:
-*		float XSysMon_RawToVoltage(u32 AdcData)
+* @note        C-Style signature:
+*              float XSysMonPsu_VccopsioRawToVoltage(u32 AdcData)
 *
 *****************************************************************************/
 #define XSysMonPsu_VccopsioRawToVoltage(AdcData) 					\
@@ -543,16 +547,15 @@ typedef struct {
 /****************************************************************************/
 /**
 *
-* This macro converts Temperature in centigrades to System Monitor Raw Data
-* for On-Chip Sensors.
+* @brief Converts on-chip temperature in centigrade to System Monitor raw data.
 *
-* @param	Temperature is the Temperature in centigrades to be
-*		converted to System Monitor ADC Raw Data.
+* @param[in]   Temperature Temperature in centigrades to be
+*              converted to System Monitor ADC Raw Data.
 *
-* @return 	The System Monitor ADC Raw Data.
+* @return      The System Monitor ADC Raw Data.
 *
-* @note		C-Style signature:
-*		int XSysMon_TemperatureToRaw_OnChip(float Temperature)
+* @note        C-Style signature:
+*              int XSysMonPsu_TemperatureToRaw_OnChip(float Temperature)
 *
 *****************************************************************************/
 #define XSysMonPsu_TemperatureToRaw_OnChip(Temperature)				\
@@ -561,16 +564,16 @@ typedef struct {
 /****************************************************************************/
 /**
 *
-* This macro converts Temperature in centigrades to System Monitor 12-bit OT Raw Data
-* for On-Chip Sensors.
+* @brief Converts on-chip temperature in centigrade to 12-bit OT System
+* Monitor raw data.
 *
-* @param	Temperature is the Temperature in centigrades to be
-*		converted to System Monitor ADC 12-bit Raw Data.
+* @param[in]   Temperature Temperature in centigrades to be
+*              converted to System Monitor ADC 12-bit Raw Data.
 *
-* @return 	The System Monitor ADC 12-bit Raw Data.
+* @return      The System Monitor ADC 12-bit Raw Data.
 *
-* @note		C-Style signature:
-*		int XSysMonPsu_TemperatureToRaw_OT_OnChip(float Temperature)
+* @note        C-Style signature:
+*              int XSysMonPsu_TemperatureToRaw_OT_OnChip(float Temperature)
 *
 *****************************************************************************/
 #define XSysMonPsu_TemperatureToRaw_OT_OnChip(Temperature)			\
@@ -579,16 +582,16 @@ typedef struct {
 /****************************************************************************/
 /**
 *
-* This macro converts Temperature in centigrades to System Monitor Raw Data
-* for external reference.
+* @brief Converts external-reference temperature in centigrade to System
+* Monitor raw data.
 *
-* @param	Temperature is the Temperature in centigrades to be
-*		converted to System Monitor ADC Raw Data.
+* @param[in]   Temperature Temperature in centigrades to be
+*              converted to System Monitor ADC Raw Data.
 *
-* @return 	The System Monitor ADC Raw Data.
+* @return      The System Monitor ADC Raw Data.
 *
-* @note		C-Style signature:
-*		int XSysMon_TemperatureToRaw_ExternalRef(float Temperature)
+* @note        C-Style signature:
+*              int XSysMonPsu_TemperatureToRaw_ExternalRef(float Temperature)
 *
 *****************************************************************************/
 #define XSysMonPsu_TemperatureToRaw_ExternalRef(Temperature)		\
@@ -597,16 +600,17 @@ typedef struct {
 /****************************************************************************/
 /**
 *
-* This macro converts Temperature in centigrades to System Monitor 12-bit OT Raw Data
-* for external reference.
+* @brief Converts external-reference temperature in centigrade to 12-bit OT
+* raw data.
 *
-* @param	Temperature is the Temperature in centigrades to be
-*		converted to System Monitor ADC 12-bit Raw Data.
+* @param[in]   Temperature Temperature in centigrades to be
+*              converted to System Monitor ADC 12-bit Raw Data.
 *
-* @return 	The System Monitor ADC 12-bit Raw Data.
+* @return      The System Monitor ADC 12-bit Raw Data.
 *
-* @note		C-Style signature:
-*		int XSysMonPsu_TemperatureToRaw_OT_ExternalRef(float Temperature)
+* @note        C-Style signature:
+*              int XSysMonPsu_TemperatureToRaw_OT_ExternalRef(
+*                  float Temperature)
 *
 *****************************************************************************/
 #define XSysMonPsu_TemperatureToRaw_OT_ExternalRef(Temperature)		\
@@ -614,16 +618,16 @@ typedef struct {
 /****************************************************************************/
 /**
 *
-* This macro converts Voltage in Volts to System Monitor Raw Data other than
-* VCCO_PSIO supply
+* @brief Converts voltage in volts to raw data for supplies other than
+* VCCO_PSIO.
 *
-* @param	Voltage is the Voltage in volts to be converted to
-*		System Monitor/ADC Raw Data.
+* @param[in]   Voltage Voltage in volts to be converted to
+*              System Monitor/ADC Raw Data.
 *
-* @return 	The System Monitor ADC Raw Data.
+* @return      The System Monitor ADC Raw Data.
 *
-* @note		C-Style signature:
-*		int XSysMon_VoltageToRaw(float Voltage)
+* @note        C-Style signature:
+*              int XSysMonPsu_VoltageToRaw(float Voltage)
 *
 *****************************************************************************/
 #define XSysMonPsu_VoltageToRaw(Voltage)			 		\
@@ -632,16 +636,15 @@ typedef struct {
 /****************************************************************************/
 /**
 *
-* This macro converts Voltage in Volts to System Monitor Raw Data for
-* VCCO_PSIO supply
+* @brief Converts VCCO_PSIO supply voltage in volts to System Monitor raw data.
 *
-* @param	Voltage is the Voltage in volts to be converted to
-*		System Monitor/ADC Raw Data.
+* @param[in]   Voltage Voltage in volts to be converted to
+*              System Monitor/ADC Raw Data.
 *
-* @return 	The System Monitor ADC Raw Data.
+* @return      The System Monitor ADC Raw Data.
 *
-* @note		C-Style signature:
-*		int XSysMon_VoltageToRaw(float Voltage)
+* @note        C-Style signature:
+*              int XSysMonPsu_VccopsioVoltageToRaw(float Voltage)
 *
 *****************************************************************************/
 #define XSysMonPsu_VccopsioVoltageToRaw(Voltage)			 		\
@@ -650,16 +653,17 @@ typedef struct {
 /****************************************************************************/
 /**
 *
-* This static inline macro calculates the effective baseaddress based on the
-* Sysmon instance. For PS Sysmon, use additional offset XPS_BA_OFFSET and For
-* PL Sysmon, use additional offset XPL_BA_OFFSET.
+* @brief Calculates the effective base address for the Sysmon instance.
 *
-* @param	BaseAddress is the starting address of the SysMon block in
-* 		register database.
-* @param	SysmonBlk is the value that tells whether it is for PS Sysmon block
-*       or PL Sysmon block or the AMS controller register region.
+* For PS Sysmon, use additional offset XPS_BA_OFFSET and for PL Sysmon, use
+* additional offset XPL_BA_OFFSET.
 *
-* @return 	Returns the effective baseaddress of the sysmon instance.
+* @param[in]   BaseAddress Starting address of the SysMon block in
+*              register database.
+* @param[in]   SysmonBlk Value that tells whether it is for PS Sysmon
+*              block or PL Sysmon block or the AMS controller register region.
+*
+* @return      Returns the effective baseaddress of the sysmon instance.
 *
 *****************************************************************************/
 static inline UINTPTR XSysMonPsu_GetEffBaseAddress(UINTPTR BaseAddress,
@@ -752,5 +756,7 @@ XSysMonPsu_Config *XSysMonPsu_LookupConfig(u32 BaseAddress);
 #ifdef __cplusplus
 }
 #endif
+
+/** @} */
 
 #endif /* XSYSMONPSU_H_ */

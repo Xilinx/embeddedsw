@@ -8,22 +8,21 @@
 /**
 *
 * @file xsysmonpsu_intr_example.c
+* @brief Demonstrates interrupt-mode use of the System Monitor driver.
 *
 * This file contains a design example using the driver functions
 * of the System Monitor driver. This example here shows the usage of the
 * driver/device in interrupt mode to handle on-chip temperature and voltage
 * alarm interrupts.
 *
-*
 * @note
-*
 * This code assumes that no Operating System is being used.
 *
-* The values of the on-chip Temperature, Supply 1 voltage and Supply 3 voltage are
-* read from the device and then the alarm thresholds are set in such a manner
-* that the alarms occur.
+* The values of the on-chip Temperature, Supply 1 voltage and Supply 3
+* voltage are read from the device and then the alarm thresholds are set
+* in such a manner that the alarms occur.
 *
-* This examples also assumes that there is a STDIO device in the system.
+* This example also assumes that there is a STDIO device in the system.
 * This example has floating point calculations and uses printfs for outputting
 * floating point data, therefore the memory allocated for the Stack must be
 * more.
@@ -47,6 +46,7 @@
 * 2.9   cog    07/20/23 Added support for SDT flow
 * 3.3   dc     02/18/26 Correct spelling errors
 * 3.4   vn     07/30/26 Fix Doxygen warnings
+* 3.4   vn     09/29/26 Align Doxygen comments with AMD standards
 *
 * </pre>
 *
@@ -70,22 +70,26 @@
  * xparameters.h file. They are defined here such that a user can easily
  * change all the needed parameters in one place.
  */
-#define SYSMON_DEVICE_ID	XPAR_XSYSMONPSU_0_DEVICE_ID
+#define SYSMON_DEVICE_ID	XPAR_XSYSMONPSU_0_DEVICE_ID /**< Device ID. */
 
 /* SCUGIC Interrupt Controller */
+/** SCUGIC device ID. */
 #define XSCUGIC_DEVICE_ID	XPAR_SCUGIC_SINGLE_DEVICE_ID
+/** System Monitor interrupt ID. */
 #define INTR_ID			XPAR_XSYSMONPSU_INTR
 #else
-#define SYSMON_DEVICE_ID	0xffa50000
-#define XSCUGIC_DEVICE_ID	0
-#define INTR_ID	(56U + 32U)
+#define SYSMON_DEVICE_ID	0xffa50000 /**< Device ID. */
+#define XSCUGIC_DEVICE_ID	0 /**< SCUGIC device ID. */
+#define INTR_ID	(56U + 32U) /**< System Monitor interrupt ID. */
 #endif
 /* User needs to define the macro PL_EXAMPLE to run the code on PL SYSMON.
- * By default the example will run on XSYSMON_PS
+ * By default the example runs on XSYSMON_PS
  */
 #ifdef PL_EXAMPLE
+/** System Monitor type used by the example. */
 #define XSYSMON_TYPE	XSYSMON_PL
 #else
+/** System Monitor type used by the example. */
 #define XSYSMON_TYPE	XSYSMON_PS
 #endif
 
@@ -94,16 +98,16 @@
  * the threshold registers. The user needs to change these according to the
  * needs of the application.
  */
-#define TEST_TEMP_UPPER		85.0f /* Temperature Upper Alarm Limit */
-#define TEST_TEMP_LOWER		65.0f /* Temperature Lower Alarm Limit */
+#define TEST_TEMP_UPPER		85.0f /**< Temperature Upper Alarm Limit. */
+#define TEST_TEMP_LOWER		65.0f /**< Temperature Lower Alarm Limit. */
 
-#define TEST_Supply_1_UPPER	1.05f /* Supply 1 Upper Alarm Limit */
-#define TEST_Supply_1_LOWER	0.95f /* Supply 1 Lower Alarm Limit */
+#define TEST_Supply_1_UPPER	1.05f /**< Supply 1 Upper Alarm Limit. */
+#define TEST_Supply_1_LOWER	0.95f /**< Supply 1 Lower Alarm Limit. */
 
-#define TEST_Supply_3_UPPER	2.625f /* Supply 3 Upper Alarm Limit */
-#define TEST_Supply_3_LOWER	2.375f /* Supply 3 Lower Alarm Limit */
+#define TEST_Supply_3_UPPER	2.625f /**< Supply 3 Upper Alarm Limit. */
+#define TEST_Supply_3_LOWER	2.375f /**< Supply 3 Lower Alarm Limit. */
 
-#define printf xil_printf 	/* Small foot-print printf function */
+#define printf xil_printf /**< Small foot-print printf function. */
 
 /**************************** Type Definitions ******************************/
 
@@ -115,7 +119,6 @@ int SysMonPsuIntrExample(XScuGic* XScuGicInstPtr,
 			XSysMonPsu* SysMonInstPtr,
 			u32 SysMonDeviceId,
 			u16 SysMonIntrId);
-
 
 static void SysMonPsuInterruptHandler(void *CallBackRef);
 
@@ -141,13 +144,11 @@ static volatile int Supply3Intr = FALSE;	/* Supply 3 alarm interrupt */
 /****************************************************************************/
 /**
 *
-* Main function that invokes the Interrupt example.
+* @brief Invokes the interrupt example.
 *
 * @return
-*		- XST_SUCCESS if the example has completed successfully.
-*		- XST_FAILURE if the example has failed.
-*
-* @note		None.
+*              - XST_SUCCESS if the example has completed successfully.
+*              - XST_FAILURE if the example has failed.
 *
 *****************************************************************************/
 int main(void)
@@ -178,8 +179,7 @@ int main(void)
 /****************************************************************************/
 /**
 *
-* This function runs a test on the System Monitor device using the
-* driver APIs.
+* @brief Runs a test on the System Monitor device using the driver APIs.
 *
 * The function does the following tasks:
 *	- Initiate the System Monitor device driver instance
@@ -194,19 +194,19 @@ int main(void)
 *	- Wait until temperature alarm interrupt or Supply 1 alarm interrupt
 *	or Supply 3 alarm interrupt occurs
 *
-* @param	XScuGicInstPtr is a pointer to the Interrupt Controller
-*		driver Instance.
-* @param	SysMonInstPtr is a pointer to the XSysMonPsu driver Instance.
-* @param	SysMonDeviceId is the XPAR_<SYSMON_instance>_DEVICE_ID
-*		value from xparameters.h.
-* @param	SysMonIntrId is
-*		XPAR_<SYSMON_instance>_INTR value from xparameters_ps.h
+* @param[in]   XScuGicInstPtr Pointer to the Interrupt Controller
+*              driver Instance.
+* @param[in]   SysMonInstPtr Pointer to the XSysMonPsu driver Instance.
+* @param[in]   SysMonDeviceId XPAR_<SYSMON_instance>_DEVICE_ID
+*              value from xparameters.h.
+* @param[in]   SysMonIntrId XPAR_<SYSMON_instance>_INTR
+*              value from xparameters_ps.h.
 *
 * @return
-*		- XST_SUCCESS if the example has completed successfully.
-*		- XST_FAILURE if the example has failed.
+*              - XST_SUCCESS if the example has completed successfully.
+*              - XST_FAILURE if the example has failed.
 *
-* @note		This function may never return if no interrupt occurs.
+* @note        This function may never return if no interrupt occurs.
 *
 ****************************************************************************/
 int SysMonPsuIntrExample(XScuGic* XScuGicInstPtr, XSysMonPsu* SysMonInstPtr,
@@ -562,21 +562,19 @@ int SysMonPsuIntrExample(XScuGic* XScuGicInstPtr, XSysMonPsu* SysMonInstPtr,
 /*****************************************************************************/
 /**
 *
-* This function is the Interrupt Service Routine for the System Monitor device.
-* It will be called by the processor whenever an interrupt is asserted
-* by the device.
+* @brief Services interrupts for the System Monitor device.
+*
+* The processor calls this routine whenever the device asserts an interrupt.
 *
 * This function only handles ALARM 0, ALARM 1 and ALARM 2 interrupts.
 * User of this code may need to modify the code to meet the needs of the
 * application.
 *
-* @param	CallBackRef is the callback reference passed from the Interrupt
-*		controller driver, which in our case is a pointer to the
-*		driver instance.
+* @param[in]   CallBackRef Callback reference passed from the Interrupt
+*              controller driver, which in our case is a pointer to the
+*              driver instance.
 *
-* @return	None.
-*
-* @note		This function is called within interrupt context.
+* @note        This function is called within interrupt context.
 *
 ******************************************************************************/
 static void SysMonPsuInterruptHandler(void *CallBackRef)
@@ -662,24 +660,23 @@ static void SysMonPsuInterruptHandler(void *CallBackRef)
 /****************************************************************************/
 /**
 *
-* This function sets up the interrupt system so interrupts can occur for the
-* System Monitor.  The function is application-specific since the actual
+* @brief Sets up the interrupt system so interrupts can occur for the System
+*	 Monitor.
+*
+* The function is application-specific since the actual
 * system may or may not have an interrupt controller. The System Monitor
 * device could be directly connected to a processor without an interrupt
 * controller. The user should modify this function to fit the application.
 *
-* @param	XScuGicInstPtr is a pointer to the Interrupt Controller driver
-*		Instance.
-* @param	SysMonPtr is a pointer to the driver instance for the System
-* 		Monitor device which is going to be connected to the interrupt
-*		controller.
-* @param	IntrId is XPAR_<SYSMON_instance>_INTR
-*		value from xparameters_ps.h
+* @param[in]   XScuGicInstPtr Pointer to the Interrupt Controller driver
+*              Instance.
+* @param[in]   SysMonPtr Pointer to the driver instance for the System
+*              Monitor device which is going to be connected to the interrupt
+*              controller.
+* @param[in]   IntrId XPAR_<SYSMON_instance>_INTR
+*              value from xparameters_ps.h.
 *
-* @return	XST_SUCCESS if successful, or XST_FAILURE.
-*
-* @note		None.
-*
+* @return      XST_SUCCESS if successful, or XST_FAILURE.
 *
 ****************************************************************************/
 static int SysMonPsuSetupInterruptSystem(XScuGic* XScuGicInstPtr, XSysMonPsu *SysMonPtr,
@@ -736,12 +733,14 @@ static int SysMonPsuSetupInterruptSystem(XScuGic* XScuGicInstPtr, XSysMonPsu *Sy
 /****************************************************************************/
 /**
 *
+* @brief Converts the fraction part of a floating point number to an integer.
+*
 * This function converts the fraction part of the given floating point number
-* (after the decimal point)to an integer.
+* (after the decimal point) to an integer.
 *
-* @param	FloatNum is the floating point number.
+* @param[in]   FloatNum Floating point number.
 *
-* @return	Integer number to a precision of 3 digits.
+* @return      Integer number to a precision of 3 digits.
 *
 * @note
 * This function is used in the printing of floating point data to a STDIO

@@ -8,12 +8,10 @@
 /**
 *
 * @file xsysmonpsu_sinit.c
-* @addtogroup Overview
+* @brief Implements static initialization for the XSysMonPsu driver.
 *
 * This file contains the implementation of the XSysMonPsu driver's static
 * initialization functionality.
-*
-* @note		None.
 *
 * <pre>
 *
@@ -24,10 +22,15 @@
 * 1.0   kvn    12/15/15 First release.
 * 2.9   cog    07/20/23 Added support for SDT flow.
 * 3.4   vn     07/30/26 Fix Doxygen warnings
+* 3.4   vn     09/29/26 Align Doxygen comments with AMD standards
 *
 * </pre>
 *
 ******************************************************************************/
+
+/** @addtogroup Overview
+ * @{
+ */
 
 /***************************** Include Files *********************************/
 
@@ -46,6 +49,9 @@
 
 /************************** Variable Definitions *****************************/
 
+/**
+ * @brief Configuration table of SYSMONPSU device instances.
+ */
 #ifndef SDT
 extern XSysMonPsu_Config XSysMonPsu_ConfigTable[XPAR_XSYSMONPSU_NUM_INSTANCES];
 #else
@@ -55,20 +61,19 @@ extern XSysMonPsu_Config XSysMonPsu_ConfigTable[];
 /*****************************************************************************/
 /**
 *
-* This function looks for the device configuration based on the unique device
-* ID. The table XSysmonPsu_ConfigTable[] contains the configuration information
-* for each device in the system.
+* @brief Looks up the device configuration based on the unique device ID.
+*
+* The table XSysmonPsu_ConfigTable[] contains the configuration information for
+* each device in the system.
 *
 * @if SDT
-* @param	BaseAddress is the base address of the device.
+* @param[in]   BaseAddress Base address of the device.
 * @else
-* @param	DeviceId is the unique device ID of the device being looked up.
+* @param[in]   DeviceId Unique device ID of the device being looked up.
 * @endif
 *
-* @return	A pointer to the configuration table entry corresponding to the
-*		given device ID, or NULL if no match is found.
-*
-* @note		None.
+* @return      A pointer to the configuration table entry corresponding to the
+*              given device ID, or NULL if no match is found.
 *
 ******************************************************************************/
 #ifndef SDT
@@ -104,3 +109,5 @@ XSysMonPsu_Config *XSysMonPsu_LookupConfig(u32 BaseAddress)
 	return CfgPtr;
 }
 #endif
+
+/** @} */

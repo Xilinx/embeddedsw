@@ -8,15 +8,13 @@
 /**
 *
 * @file xsysmonpsu_selftest.c
-* @addtogroup Overview
+* @brief Implements the diagnostic self-test for the XSysMon driver.
 *
 * This file contains a diagnostic self test function for the XSysMon driver.
 * The self test function does a simple read/write test of the Alarm Threshold
 * Register.
 *
 * See xsysmonpsu.h for more information.
-*
-* @note	None.
 *
 * <pre>
 *
@@ -28,10 +26,15 @@
 * 2.5   mn     07/06/18 Fixed Doxygen warnings
 * 2.7   aad    10/21/20 Modified code for MISRA-C:2012 Compliance.
 * 3.4   vn     07/30/26 Fix Doxygen warnings
+* 3.4   vn     09/29/26 Align Doxygen comments with AMD standards
 *
 * </pre>
 *
 *****************************************************************************/
+
+/** @addtogroup Overview
+ * @{
+ */
 
 /***************************** Include Files ********************************/
 
@@ -39,9 +42,9 @@
 
 /************************** Constant Definitions ****************************/
 
-/*
+/**
  * The following constant defines the test value to be written
- * to the Alarm Threshold Register
+ * to the Alarm Threshold Register.
  */
 #define XSM_ATR_TEST_VALUE 		0x55U
 
@@ -56,23 +59,24 @@
 /*****************************************************************************/
 /**
 *
-* Run a self-test on the driver/device. The test
+* @brief Runs a self-test on the driver and device.
+*
+* The test:
 *	- Resets the device,
 *	- Writes a value into the Alarm Threshold register and reads it back
 *	for comparison.
 *	- Resets the device again.
 *
-*
-* @param	InstancePtr is a pointer to the XSysMonPsu instance.
+* @param[in]   InstancePtr Pointer to the XSysMonPsu instance.
 *
 * @return
-*		- XST_SUCCESS if the value read from the Alarm Threshold
-*		register is the same as the value written.
-*		- XST_FAILURE Otherwise
+*              - XST_SUCCESS if the value read from the Alarm Threshold
+*              register is the same as the value written.
+*              - XST_FAILURE Otherwise.
 *
-* @note		This is a destructive test in that resets of the device are
-*		performed. Refer to the device specification for the
-*		device status after the reset operation.
+* @note        This is a destructive test in that resets of the device are
+*              performed. Refer to the device specification for the
+*              device status after the reset operation.
 *
 ******************************************************************************/
 s32 XSysMonPsu_SelfTest(XSysMonPsu *InstancePtr)
@@ -108,3 +112,5 @@ s32 XSysMonPsu_SelfTest(XSysMonPsu *InstancePtr)
 	/* Return the test result. */
 	return Status;
 }
+
+/** @} */

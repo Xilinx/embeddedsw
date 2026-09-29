@@ -8,14 +8,14 @@
 /**
 *
 * @file xsysmonpsu_polled_example.c
+* @brief Demonstrates polled-mode use of the System Monitor driver.
 *
 * This file contains a design example using the driver functions
 * of the System Monitor driver. The example here shows the
 * driver/device in polled mode to check the on-chip temperature and voltages.
 *
 * @note
-*
-* This examples also assumes that there is a STDIO device in the system.
+* This example also assumes that there is a STDIO device in the system.
 *
 * <pre>
 *
@@ -33,6 +33,7 @@
 *       aad   11/22/19 Added support for XSYSMON_PL
 * 2.9   cog    07/20/23 Added support for SDT flow
 * 3.4   vn     07/30/26 Fix Doxygen warnings
+* 3.4   vn     09/29/26 Align Doxygen comments with AMD standards
 * </pre>
 *
 *****************************************************************************/
@@ -53,9 +54,9 @@
  * xparameters.h file. They are defined here such that a user can easily
  * change all the needed parameters in one place.
  */
-#define SYSMON_DEVICE_ID 	XPAR_XSYSMONPSU_0_DEVICE_ID
+#define SYSMON_DEVICE_ID 	XPAR_XSYSMONPSU_0_DEVICE_ID /**< Device ID. */
 #else
-#define SYSMON_DEVICE_ID 	0xffa50000
+#define SYSMON_DEVICE_ID 	0xffa50000 /**< Device ID. */
 #endif
 
 /**************************** Type Definitions ******************************/
@@ -64,15 +65,17 @@
 /***************** Macros (Inline Functions) Definitions ********************/
 
 /* User needs to define the macro PL_EXAMPLE to run the code on PL SYSMON.
- * By default the example will run on XSYSMON_PS
+ * By default the example runs on XSYSMON_PS
  */
 #ifdef PL_EXAMPLE
+/** System Monitor type used by the example. */
 #define XSYSMON_TYPE	XSYSMON_PL
 #else
+/** System Monitor type used by the example. */
 #define XSYSMON_TYPE	XSYSMON_PS
 #endif
 
-#define printf xil_printf /* Small foot-print printf function */
+#define printf xil_printf /**< Small foot-print printf function. */
 
 /************************** Function Prototypes *****************************/
 
@@ -86,13 +89,11 @@ static XSysMonPsu SysMonInst;      /* System Monitor driver instance */
 /****************************************************************************/
 /**
 *
-* Main function that invokes the polled example in this file.
+* @brief Invokes the polled example in this file.
 *
 * @return
-*		- XST_SUCCESS if the example has completed successfully.
-*		- XST_FAILURE if the example has failed.
-*
-* @note		None.
+*              - XST_SUCCESS if the example has completed successfully.
+*              - XST_FAILURE if the example has failed.
 *
 *****************************************************************************/
 int main(void)
@@ -123,8 +124,8 @@ int main(void)
 /****************************************************************************/
 /**
 *
-* This function runs a test on the System Monitor device using the
-* driver APIs.
+* @brief Runs a test on the System Monitor device using the driver APIs.
+*
 * This function does the following tasks:
 *	- Initiate the System Monitor device driver instance
 *	- Run self-test on the device
@@ -133,14 +134,12 @@ int main(void)
 *	- Setup configuration registers to start the sequence
 *	- Read the latest on-chip temperature, Supply 1 and Supply 3
 *
-* @param	SysMonDeviceId is the XPAR_<SYSMON_instance>_DEVICE_ID value
-*		from xparameters.h.
+* @param[in]   SysMonDeviceId XPAR_<SYSMON_instance>_DEVICE_ID value
+*              from xparameters.h.
 *
 * @return
-*		- XST_SUCCESS if the example has completed successfully.
-*		- XST_FAILURE if the example has failed.
-*
-* @note   	None
+*              - XST_SUCCESS if the example has completed successfully.
+*              - XST_FAILURE if the example has failed.
 *
 ****************************************************************************/
 int SysMonPsuPolledPrintfExample(u32 SysMonDeviceId)
@@ -302,12 +301,14 @@ int SysMonPsuPolledPrintfExample(u32 SysMonDeviceId)
 /****************************************************************************/
 /**
 *
+* @brief Converts the fraction part of a floating point number to an integer.
+*
 * This function converts the fraction part of the given floating point number
-* (after the decimal point)to an integer.
+* (after the decimal point) to an integer.
 *
-* @param	FloatNum is the floating point number.
+* @param[in]   FloatNum Floating point number.
 *
-* @return	Integer number to a precision of 3 digits.
+* @return      Integer number to a precision of 3 digits.
 *
 * @note
 * This function is used in the printing of floating point data to a STDIO device

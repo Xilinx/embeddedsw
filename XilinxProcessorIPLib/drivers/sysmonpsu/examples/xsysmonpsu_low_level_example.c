@@ -8,18 +8,16 @@
 /**
 *
 * @file xsysmonpsu_low_level_example.c
+* @brief Demonstrates low-level polled use of the System Monitor driver.
 *
 * This file contains a design example using the basic driver functions
 * of the System Monitor driver. The example here shows using the
 * driver/device in polled mode to check the on-chip temperature and voltages.
 *
-*
 * @note
-*
 * The values of the on-chip temperature and the on-chip Vccaux voltage are read
 * from the device and then the alarm thresholds are set in such a manner that
 * the alarms occur.
-*
 *
 * <pre>
 *
@@ -33,6 +31,7 @@
 * 2.6   aad    11/21/19 Removed reading of AUX channels
 * 2.9   cog    07/20/23 Added support for SDT flow
 * 3.4   vn     07/30/26 Fix Doxygen warnings
+* 3.4   vn     09/29/26 Align Doxygen comments with AMD standards
 * </pre>
 *
 *****************************************************************************/
@@ -53,9 +52,10 @@
  * xparameters.h file. They are defined here such that a user can easily
  * change all the needed parameters in one place.
  */
+/** System Monitor base address. */
 #define SYSMON_BASEADDR		XPAR_XSYSMONPSU_0_BASEADDR
 #else
-#define SYSMON_BASEADDR		0xffa50000
+#define SYSMON_BASEADDR		0xffa50000 /**< System Monitor base address. */
 #endif
 
 /**************************** Type Definitions ******************************/
@@ -71,13 +71,11 @@ int SysMonPsuLowLevelExample(u32 BaseAddress);
 /****************************************************************************/
 /**
 *
-* Main function that invokes the example given in this file.
+* @brief Invokes the example given in this file.
 *
 * @return
-*		- XST_SUCCESS if the example has completed successfully.
-*		- XST_FAILURE if the example has failed.
-*
-* @note		None.
+*              - XST_SUCCESS if the example has completed successfully.
+*              - XST_FAILURE if the example has failed.
 *
 *****************************************************************************/
 int main(void)
@@ -101,8 +99,9 @@ int main(void)
 /****************************************************************************/
 /**
 *
-* This function runs a test on the System Monitor device using the
-* basic driver functions.
+* @brief Runs a test on the System Monitor device using the basic driver
+*	 functions.
+*
 * The function does the following tasks:
 *	- Reset the device
 *	- Setup alarm thresholds for on-chip temperature and VCCAUX.
@@ -112,12 +111,10 @@ int main(void)
 *	- Read latest on-chip temperature and VCCAUX, as well as their maximum
 *	 and minimum values. Also check if alarm(s) are set.
 *
-* @param	BaseAddress is the XPAR_<SYSMON_instance>_BASEADDRESS value
-*		from xparameters.h.
+* @param[in]   BaseAddress XPAR_<SYSMON_instance>_BASEADDRESS value
+*              from xparameters.h.
 *
-* @return	XST_SUCCESS
-*
-* @note		None.
+* @return      XST_SUCCESS.
 *
 ****************************************************************************/
 int SysMonPsuLowLevelExample(u32 BaseAddress)

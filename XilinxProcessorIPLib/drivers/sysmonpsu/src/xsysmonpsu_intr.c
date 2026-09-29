@@ -8,7 +8,7 @@
 /**
 *
 * @file xsysmonpsu_intr.c
-* @addtogroup Overview
+* @brief Implements interrupt handling for the SYSMONPSU driver.
 *
 * This file contains functions related to SYSMONPSU interrupt handling.
 *
@@ -19,9 +19,14 @@
 * ----- -----  -------- -----------------------------------------------
 * 1.0   kvn    12/15/15 First release
 * 3.4   vn     07/30/26 Fix Doxygen warnings
+* 3.4   vn     09/29/26 Align Doxygen comments with AMD standards
 * </pre>
 *
 ******************************************************************************/
+
+/** @addtogroup Overview
+ * @{
+ */
 
 /***************************** Include Files *********************************/
 
@@ -42,16 +47,14 @@
 /****************************************************************************/
 /**
 *
-* This function enables the specified interrupts in the device.
+* @brief Enables the specified interrupts in the device.
 *
-* @param	InstancePtr is a pointer to the XSysMonPsu instance.
-* @param	Mask is the 64 bit-mask of the interrupts to be enabled.
-*		Bit positions of 1 will be enabled. Bit positions of 0 will
-*		keep the previous setting. This mask is formed by OR'ing
-*		XSYSMONPSU_IER_0_* and XSYSMONPSU_IER_1_* bits defined in
-*		xsysmonpsu_hw.h.
-*
-* @note		None.
+* @param[in]   InstancePtr Pointer to the XSysMonPsu instance.
+* @param[in]   Mask 64 bit-mask of the interrupts to be enabled.
+*              Bit positions of 1 are enabled. Bit positions of 0
+*              keep the previous setting. This mask is formed by OR'ing
+*              XSYSMONPSU_IER_0_* and XSYSMONPSU_IER_1_* bits defined in
+*              xsysmonpsu_hw.h.
 *
 *****************************************************************************/
 void XSysMonPsu_IntrEnable(XSysMonPsu *InstancePtr, u64 Mask)
@@ -79,16 +82,14 @@ void XSysMonPsu_IntrEnable(XSysMonPsu *InstancePtr, u64 Mask)
 /****************************************************************************/
 /**
 *
-* This function disables the specified interrupts in the device.
+* @brief Disables the specified interrupts in the device.
 *
-* @param	InstancePtr is a pointer to the XSysMonPsu instance.
-* @param	Mask is the 64 bit-mask of the interrupts to be disabled.
-*		Bit positions of 1 will be disabled. Bit positions of 0 will
-*		keep the previous setting. This mask is formed by OR'ing
-*		XSYSMONPSU_IDR_0_* and XSYSMONPSU_IDR_1_* bits defined in
-*		xsysmonpsu_hw.h.
-*
-* @note		None.
+* @param[in]   InstancePtr Pointer to the XSysMonPsu instance.
+* @param[in]   Mask 64 bit-mask of the interrupts to be disabled.
+*              Bit positions of 1 are disabled. Bit positions of 0
+*              keep the previous setting. This mask is formed by OR'ing
+*              XSYSMONPSU_IDR_0_* and XSYSMONPSU_IDR_1_* bits defined in
+*              xsysmonpsu_hw.h.
 *
 *****************************************************************************/
 void XSysMonPsu_IntrDisable(XSysMonPsu *InstancePtr, u64 Mask)
@@ -116,16 +117,15 @@ void XSysMonPsu_IntrDisable(XSysMonPsu *InstancePtr, u64 Mask)
 /****************************************************************************/
 /**
 *
-* This function returns the enabled interrupts read from the Interrupt Enable
-* Register (IER). Use the XSYSMONPSU_IER_0_* and XSYSMONPSU_IER_1_* constants
-* defined in xsysmonpsu_hw.h to interpret the returned value.
+* @brief Returns the enabled interrupts read from the Interrupt Enable Register.
 *
-* @param	InstancePtr is a pointer to the XSysMonPsu instance.
+* Use the XSYSMONPSU_IER_0_* and XSYSMONPSU_IER_1_* constants defined in
+* xsysmonpsu_hw.h to interpret the returned value.
 *
-* @return	A 64-bit value representing the contents of the Interrupt Mask
-* 			Registers (IMR1 IMR0).
+* @param[in]   InstancePtr Pointer to the XSysMonPsu instance.
 *
-* @note		None.
+* @return      A 64-bit value representing the contents of the Interrupt Mask
+*                      Registers (IMR1 IMR0).
 *
 *****************************************************************************/
 u64 XSysMonPsu_IntrGetEnabled(XSysMonPsu *InstancePtr)
@@ -149,16 +149,15 @@ u64 XSysMonPsu_IntrGetEnabled(XSysMonPsu *InstancePtr)
 /****************************************************************************/
 /**
 *
-* This function returns the interrupt status read from Interrupt Status
-* Register(ISR). Use the XSYSMONPSU_ISR_0_* and XSYSMONPSU_ISR_1_ constants
-* defined in xsysmonpsu_hw.h to interpret the returned value.
+* @brief Returns the interrupt status read from the Interrupt Status Register.
 *
-* @param	InstancePtr is a pointer to the XSysMonPsu instance.
+* Use the XSYSMONPSU_ISR_0_* and XSYSMONPSU_ISR_1_ constants defined in
+* xsysmonpsu_hw.h to interpret the returned value.
 *
-* @return	A 64-bit value representing the contents of the Interrupt Status
-* 			Registers (ISR1 ISR0).
+* @param[in]   InstancePtr Pointer to the XSysMonPsu instance.
 *
-* @note		None.
+* @return      A 64-bit value representing the contents of the Interrupt Status
+*                      Registers (ISR1 ISR0).
 *
 *****************************************************************************/
 u64 XSysMonPsu_IntrGetStatus(XSysMonPsu *InstancePtr)
@@ -182,17 +181,14 @@ u64 XSysMonPsu_IntrGetStatus(XSysMonPsu *InstancePtr)
 /****************************************************************************/
 /**
 *
-* This function clears the specified interrupts in the Interrupt Status
-* Register (ISR).
+* @brief Clears the specified interrupts in the Interrupt Status Register.
 *
-* @param	InstancePtr is a pointer to the XSysMonPsu instance.
-* @param	Mask is the 64 bit-mask of the interrupts to be cleared.
-*		Bit positions of 1 will be cleared. Bit positions of 0 will not
-* 		change the previous interrupt status. This mask is formed by
-* 		OR'ing the XSYSMONPSU_ISR_0_* and XSYSMONPSU_ISR_1_* bits
-* 		which are defined in xsysmonpsu_hw.h.
-*
-* @note		None.
+* @param[in]   InstancePtr Pointer to the XSysMonPsu instance.
+* @param[in]   Mask 64 bit-mask of the interrupts to be cleared.
+*              Bit positions of 1 are cleared. Bit positions of 0 do not
+*              change the previous interrupt status. This mask is formed by
+*              OR'ing the XSYSMONPSU_ISR_0_* and XSYSMONPSU_ISR_1_* bits
+*              which are defined in xsysmonpsu_hw.h.
 *
 *****************************************************************************/
 void XSysMonPsu_IntrClear(XSysMonPsu *InstancePtr, u64 Mask)
@@ -217,3 +213,4 @@ void XSysMonPsu_IntrClear(XSysMonPsu *InstancePtr, u64 Mask)
 			  (u32)RegValue);
 }
 
+/** @} */

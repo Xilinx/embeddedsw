@@ -8,12 +8,10 @@
 /**
 *
 * @file xsysmonpsu.c
-* @addtogroup Overview
+* @brief Implements the minimum required functions for the XSysMonPsu driver.
 *
 * Functions in this file are the minimum required functions for the XSysMonPsu
 * driver. See xsysmonpsu.h for a detailed description of the driver.
-*
-* @note 	None.
 *
 * <pre>
 *
@@ -58,9 +56,14 @@
 * 3.1   sa     12/10/24 Modified code for MISRA-C:2012 Compliance
 * 3.3   dc     02/18/26 Correct spelling errors
 * 3.4   vn     07/30/26 Fix Doxygen warnings
+* 3.4   vn     09/29/26 Align Doxygen comments with AMD standards
 * </pre>
 *
 ******************************************************************************/
+
+/** @addtogroup Overview
+ * @{
+ */
 
 /***************************** Include Files *********************************/
 
@@ -72,15 +75,18 @@
 #endif
 /************************** Constant Definitions ****************************/
 
-#define XSYSMONPSU_CLOCK_DIV_CODE_ZERO 0x0U
-#define XSYSMONPSU_CLOCK_DIV_CODE_MIN 0x2U
-#define XSYSMONPSU_CLOCK_DIV_CODE_MAX 0xFFU
+#define XSYSMONPSU_CLOCK_DIV_CODE_ZERO 0x0U /**< Clock divider code 0. */
+#define XSYSMONPSU_CLOCK_DIV_CODE_MIN 0x2U /**< Minimum clock divider code. */
+#define XSYSMONPSU_CLOCK_DIV_CODE_MAX 0xFFU /**< Maximum clock divider code. */
 
+/** PS clock divisor used for divider code 0. */
 #define XSYSMONPSU_CLOCK_DIV_PS_ZERO 8U
-#define XSYSMONPSU_CLOCK_DIV_MIN 2U
+#define XSYSMONPSU_CLOCK_DIV_MIN 2U /**< Minimum clock divisor. */
 
-#define XSYSMONPSU_ADCCLK_MIN 1.0
+#define XSYSMONPSU_ADCCLK_MIN 1.0 /**< Minimum ADC clock frequency in MHz. */
+/** Maximum ADC clock frequency for PL SysMon in MHz. */
 #define XSYSMONPSU_ADCCLK_PL_MAX 5.2
+/** Maximum ADC clock frequency for PS SysMon in MHz. */
 #define XSYSMONPSU_ADCCLK_PS_MAX 26.0
 
 /**************************** Type Definitions ******************************/
@@ -96,23 +102,25 @@ static void XSysMonPsu_StubHandler(void *CallBackRef);
 /*****************************************************************************/
 /**
 *
-* This function initializes XSysMonPsu device/instance. This function
-* must be called prior to using the System Monitor device.
+* @brief Initializes the XSysMonPsu device instance.
 *
-* @param	InstancePtr is a pointer to the XSysMonPsu instance.
-* @param	ConfigPtr points to the XSysMonPsu device configuration structure.
-* @param	EffectiveAddr is the device base address in the virtual memory
-*		address space. If the address translation is not used then the
-*		physical address is passed.
-*		Unexpected errors may occur if the address mapping is changed
-*		after this function is invoked.
+* Call this function before using the System Monitor device.
+*
+* @param[in,out] InstancePtr Pointer to the XSysMonPsu instance.
+* @param[in]     ConfigPtr Pointer to the XSysMonPsu device configuration
+*                structure.
+* @param[in]     EffectiveAddr Device base address in the virtual memory
+*                address space. If the address translation is not used then the
+*                physical address is passed.
+*                Unexpected errors may occur if the address mapping is changed
+*                after this function is invoked.
 *
 * @return
-*		- XST_SUCCESS if successful.
+*                - XST_SUCCESS if successful.
 *
-* @note		The user needs to first call the XSysMonPsu_LookupConfig() API
-*		which returns the Configuration structure pointer which is
-*		passed as a parameter to the XSysMonPsu_CfgInitialize() API.
+* @note          The user needs to first call the XSysMonPsu_LookupConfig() API
+*                which returns the Configuration structure pointer which is
+*                passed as a parameter to the XSysMonPsu_CfgInitialize() API.
 *
 ******************************************************************************/
 s32 XSysMonPsu_CfgInitialize(XSysMonPsu *InstancePtr, XSysMonPsu_Config *ConfigPtr,
@@ -177,13 +185,12 @@ s32 XSysMonPsu_CfgInitialize(XSysMonPsu *InstancePtr, XSysMonPsu_Config *ConfigP
 /****************************************************************************/
 /**
 *
-* This function is a stub handler that is the default handler such that if the
-* application has not set the handler when interrupts are enabled, this
-* function will be called.
+* @brief Provides the default stub interrupt handler.
 *
-* @param	CallBackRef is unused by this function.
+* This handler is called when the application has not set a handler and
+* interrupts are enabled.
 *
-* @note		None.
+* @param[in]   CallBackRef Unused by this function.
 *
 *****************************************************************************/
 static void XSysMonPsu_StubHandler(void *CallBackRef)
@@ -197,14 +204,14 @@ static void XSysMonPsu_StubHandler(void *CallBackRef)
 /*****************************************************************************/
 /**
 *
-* This function resets the SystemMonitor
+* @brief Resets the System Monitor.
 *
-* @param	InstancePtr is a pointer to the XSysMonPsu instance.
+* @param[in]   InstancePtr Pointer to the XSysMonPsu instance.
 *
-* @note		Upon reset, all Maximum and Minimum status registers will be
-*		reset to their default values. Currently running and any averaging
-*		will restart. Refer to the device data sheet for the device status and
-*		register values after the reset.
+* @note        Upon reset, all Maximum and Minimum status registers are
+*              reset to their default values. Currently running and any
+*              averaging restarts. Refer to the device data sheet for the
+*              device status and register values after the reset.
 *
 ******************************************************************************/
 void XSysMonPsu_Reset(XSysMonPsu *InstancePtr)
@@ -242,17 +249,16 @@ void XSysMonPsu_Reset(XSysMonPsu *InstancePtr)
 /****************************************************************************/
 /**
 *
-* This function reads the contents of the Status Register.
+* @brief Reads the contents of the Status Register.
 *
-* @param	InstancePtr is a pointer to the XSysMonPsu instance.
-* @param	SysmonBlk is the value that tells whether it is for PS Sysmon
-*       block or PL Sysmon block register region.
+* @param[in]   InstancePtr Pointer to the XSysMonPsu instance.
+* @param[in]   SysmonBlk Value that tells whether it is for PS Sysmon
+*              block or PL Sysmon block register region.
 *
-* @return	A 32-bit value representing the contents of the Status Register.
-*		Use the XSYSMONPSU_MON_STS_* constants defined in xsysmonpsu_hw.h to
-*		interpret the returned value.
+* @return      A 32-bit value representing the contents of the Status Register.
+*              Use the XSYSMONPSU_MON_STS_* constants defined in
+*              xsysmonpsu_hw.h to interpret the returned value.
 *
-* @note		None.
 *****************************************************************************/
 u32 XSysMonPsu_GetStatus(XSysMonPsu *InstancePtr, u32 SysmonBlk)
 {
@@ -278,16 +284,17 @@ u32 XSysMonPsu_GetStatus(XSysMonPsu *InstancePtr, u32 SysmonBlk)
 /****************************************************************************/
 /**
 *
-* This function starts the ADC conversion in the Single Channel event driven
-* sampling mode. The EOC bit in Status Register will be set once the conversion
-* is finished. Refer to the device specification for more details.
+* @brief Starts the ADC conversion in single channel event-driven sampling mode.
 *
-* @param	InstancePtr is a pointer to the XSysMonPsu instance.
+* The EOC bit in the Status Register is set once the conversion finishes.
+* Refer to the device specification for more details.
 *
-* @note		The default state of the CONVST bit is a logic 0. The conversion
-*		is started when the CONVST bit is set to 1 from 0.
-*		This bit is self-clearing so that the next conversion
-*		can be started by setting this bit.
+* @param[in]   InstancePtr Pointer to the XSysMonPsu instance.
+*
+* @note        The default state of the CONVST bit is a logic 0. The conversion
+*              is started when the CONVST bit is set to 1 from 0.
+*              This bit is self-clearing so that the next conversion
+*              can be started by setting this bit.
 *
 *****************************************************************************/
 void XSysMonPsu_StartAdcConversion(XSysMonPsu *InstancePtr)
@@ -316,21 +323,21 @@ void XSysMonPsu_StartAdcConversion(XSysMonPsu *InstancePtr)
 /****************************************************************************/
 /**
 *
-* Get the ADC converted data for the specified channel.
+* @brief Gets the ADC converted data for the specified channel.
 *
-* @param	InstancePtr is a pointer to the XSysMonPsu instance.
-* @param	Channel is the channel number. Use the XSM_CH_* defined in
-*		the file xsysmonpsu.h. The valid channels for PS / PL SysMon are 0 - 6,
-*		8 - 10 and 13 - 37. For AMS, 38 - 53 channels are valid.
-* @param	Block is the value that tells whether it is for PS Sysmon block
-*       or PL Sysmon block or the AMS controller register region.
+* @param[in]   InstancePtr Pointer to the XSysMonPsu instance.
+* @param[in]   Channel Channel number. Use the XSM_CH_* defined in
+*              the file xsysmonpsu.h. The valid channels for PS / PL SysMon are
+*              0 - 6, 8 - 10 and 13 - 37. For AMS, 38 - 53 channels are valid.
+* @param[in]   Block Value that tells whether it is for PS Sysmon block
+*              or PL Sysmon block or the AMS controller register region.
 *
-* @return	A 16-bit value representing the ADC converted data for the
-*		specified channel. The System Monitor device guarantees
-* 		a 10 bit resolution for the ADC converted data and data is the
-*		10 MSB bits of the 16 data read from the device.
+* @return      A 16-bit value representing the ADC converted data for the
+*              specified channel. The System Monitor device guarantees
+*              a 10 bit resolution for the ADC converted data and data is the
+*              10 MSB bits of the 16 data read from the device.
 *
-* @note		Please make sure that the proper channel number is passed.
+* @note        Ensure that the proper channel number is passed.
 *
 *****************************************************************************/
 u16 XSysMonPsu_GetAdcData(XSysMonPsu *InstancePtr, u8 Channel, u32 Block)
@@ -374,22 +381,19 @@ u16 XSysMonPsu_GetAdcData(XSysMonPsu *InstancePtr, u8 Channel, u32 Block)
 /****************************************************************************/
 /**
 *
-* This function gets the calibration coefficient data for the specified
-* parameter.
+* @brief Gets the calibration coefficient data for the specified parameter.
 *
-* @param	InstancePtr is a pointer to the XSysMonPsu instance.
-* @param	CoeffType specifies the calibration coefficient
-*		to be read. Use XSM_CALIB_* constants defined in xsysmonpsu.h to
-*		specify the calibration coefficient to be read.
-* @param	SysmonBlk is the value that tells whether it is for PS Sysmon
-*       block or PL Sysmon block register region.
+* @param[in]   InstancePtr Pointer to the XSysMonPsu instance.
+* @param[in]   CoeffType Calibration coefficient
+*              to be read. Use XSM_CALIB_* constants defined in xsysmonpsu.h to
+*              specify the calibration coefficient to be read.
+* @param[in]   SysmonBlk Value that tells whether it is for PS Sysmon
+*              block or PL Sysmon block register region.
 *
-* @return	A 16-bit value representing the calibration coefficient.
-*		The System Monitor device guarantees a 10 bit resolution for
-*		the ADC converted data and data is the 10 MSB bits of the 16
-*		data read from the device.
-*
-* @note		None.
+* @return      A 16-bit value representing the calibration coefficient.
+*              The System Monitor device guarantees a 10 bit resolution for
+*              the ADC converted data and data is the 10 MSB bits of the 16
+*              data read from the device.
 *
 *****************************************************************************/
 u16 XSysMonPsu_GetCalibCoefficient(XSysMonPsu *InstancePtr, u8 CoeffType,
@@ -419,22 +423,23 @@ u16 XSysMonPsu_GetCalibCoefficient(XSysMonPsu *InstancePtr, u8 CoeffType,
 /****************************************************************************/
 /**
 *
-* This function reads the Minimum/Maximum measurement for one of the
-* XSM_MIN_* or XSM_MAX_* constants defined in xsysmonpsu.h
+* @brief Reads the minimum/maximum measurement for a channel.
 *
-* @param	InstancePtr is a pointer to the XSysMonPsu instance.
-* @param	MeasurementType specifies the parameter for which the
-*		Minimum/Maximum measurement has to be read.
-*		Use XSM_MAX_* and XSM_MIN_* constants defined in xsysmonpsu.h to
-*		specify the data to be read.
-* @param	SysmonBlk is the value that tells whether it is for PS Sysmon
-*       block or PL Sysmon block register region.
+* Uses one of the XSM_MIN_* or XSM_MAX_* constants defined in xsysmonpsu.h.
 *
-* @return	A 16-bit value representing the maximum/minimum measurement for
-*		specified parameter.
-*		The System Monitor device guarantees a 10 bit resolution for
-*		the ADC converted data and data is the 10 MSB bits of  16 bit
-*		data read from the device.
+* @param[in]   InstancePtr Pointer to the XSysMonPsu instance.
+* @param[in]   MeasurementType Parameter for which the
+*              Minimum/Maximum measurement has to be read.
+*              Use XSM_MAX_* and XSM_MIN_* constants defined in xsysmonpsu.h to
+*              specify the data to be read.
+* @param[in]   SysmonBlk Value that tells whether it is for PS Sysmon
+*              block or PL Sysmon block register region.
+*
+* @return      A 16-bit value representing the maximum/minimum measurement for
+*              specified parameter.
+*              The System Monitor device guarantees a 10 bit resolution for
+*              the ADC converted data and data is the 10 MSB bits of  16 bit
+*              data read from the device.
 *
 *****************************************************************************/
 u16 XSysMonPsu_GetMinMaxMeasurement(XSysMonPsu *InstancePtr, u8 MeasurementType,
@@ -470,22 +475,20 @@ u16 XSysMonPsu_GetMinMaxMeasurement(XSysMonPsu *InstancePtr, u8 MeasurementType,
 /****************************************************************************/
 /**
 *
-* This function sets the number of samples of averaging that is to be done for
-* all the channels in both the single channel mode and sequence mode of
-* operations.
+* @brief Sets the number of averaging samples for all channels.
 *
-* @param	InstancePtr is a pointer to the XSysMonPsu instance.
-* @param	Average is the number of samples of averaging programmed to the
-*		Configuration Register 0. Use the XSM_AVG_* definitions defined
-*		in xsysmonpsu.h file :
-*		- XSM_AVG_0_SAMPLES for no averaging
-*		- XSM_AVG_16_SAMPLES for 16 samples of averaging
-*		- XSM_AVG_64_SAMPLES for 64 samples of averaging
-*		- XSM_AVG_256_SAMPLES for 256 samples of averaging
-* @param	SysmonBlk is the value that tells whether it is for PS Sysmon
-*       block or PL Sysmon block register region.
+* Applies to both the single channel mode and sequence mode of operations.
 *
-* @note		None.
+* @param[in]   InstancePtr Pointer to the XSysMonPsu instance.
+* @param[in]   Average Number of samples of averaging programmed to the
+*              Configuration Register 0. Use the XSM_AVG_* definitions defined
+*              in xsysmonpsu.h file :
+*              - XSM_AVG_0_SAMPLES for no averaging
+*              - XSM_AVG_16_SAMPLES for 16 samples of averaging
+*              - XSM_AVG_64_SAMPLES for 64 samples of averaging
+*              - XSM_AVG_256_SAMPLES for 256 samples of averaging.
+* @param[in]   SysmonBlk Value that tells whether it is for PS Sysmon
+*              block or PL Sysmon block register region.
 *
 *****************************************************************************/
 void XSysMonPsu_SetAvg(XSysMonPsu *InstancePtr, u8 Average, u32 SysmonBlk)
@@ -515,22 +518,21 @@ void XSysMonPsu_SetAvg(XSysMonPsu *InstancePtr, u8 Average, u32 SysmonBlk)
 /****************************************************************************/
 /**
 *
-* This function returns the number of samples of averaging configured for all
-* the channels in the Configuration Register 0.
+* @brief Returns the number of averaging samples configured for all channels.
 *
-* @param	InstancePtr is a pointer to the XSysMonPsu instance.
-* @param	SysmonBlk is the value that tells whether it is for PS Sysmon
-*       block or PL Sysmon block register region.
+* Reads the setting from the Configuration Register 0.
 *
-* @return	The averaging read from the Configuration Register 0 is
-*		returned. Use the XSM_AVG_* bit definitions defined in xsysmonpsu.h
-*		file to interpret the returned value :
-*		- XSM_AVG_0_SAMPLES means no averaging
-*		- XSM_AVG_16_SAMPLES means 16 samples of averaging
-*		- XSM_AVG_64_SAMPLES means 64 samples of averaging
-*		- XSM_AVG_256_SAMPLES means 256 samples of averaging
+* @param[in]   InstancePtr Pointer to the XSysMonPsu instance.
+* @param[in]   SysmonBlk Value that tells whether it is for PS Sysmon
+*              block or PL Sysmon block register region.
 *
-* @note		None.
+* @return      The averaging read from the Configuration Register 0 is
+*              returned. Use the XSM_AVG_* bit definitions defined in
+*              xsysmonpsu.h file to interpret the returned value :
+*              - XSM_AVG_0_SAMPLES means no averaging.
+*              - XSM_AVG_16_SAMPLES means 16 samples of averaging.
+*              - XSM_AVG_64_SAMPLES means 64 samples of averaging.
+*              - XSM_AVG_256_SAMPLES means 256 samples of averaging.
 *
 *****************************************************************************/
 u8 XSysMonPsu_GetAvg(XSysMonPsu *InstancePtr, u32 SysmonBlk)
@@ -558,40 +560,41 @@ u8 XSysMonPsu_GetAvg(XSysMonPsu *InstancePtr, u32 SysmonBlk)
 /****************************************************************************/
 /**
 *
-* The function sets the given parameters in the Configuration Register 0 in
-* the single channel mode.
+* @brief Sets the given parameters in Configuration Register 0.
 *
-* @param	InstancePtr is a pointer to the XSysMonPsu instance.
-* @param	Channel is the channel number for conversion. The valid
-*		channels are 0 - 6, 8 - 10, 13 - 37.
-* @param	IncreaseAcqCycles is a boolean parameter which specifies whether
-*		the Acquisition time for the external channels has to be
-*		increased to 10 ADCCLK cycles (specify TRUE) or remain at the
-*		default 4 ADCCLK cycles (specify FALSE). This parameter is
-*		only valid for the external channels.
-* @param	IsEventMode is a boolean parameter that specifies continuous
-*		sampling (specify FALSE) or event driven sampling mode (specify
-*		TRUE) for the given channel.
-* @param	IsDifferentialMode is a boolean parameter which specifies
-*		unipolar(specify FALSE) or differential mode (specify TRUE) for
-*		the analog inputs. The 	input mode is only valid for the
-*		external channels.
-* @param	SysmonBlk is the value that tells whether it is for PS Sysmon
-*       block or PL Sysmon block register region.
+* Applies in the single channel mode.
+*
+* @param[in]   InstancePtr Pointer to the XSysMonPsu instance.
+* @param[in]   Channel Channel number for conversion. The valid
+*              channels are 0 - 6, 8 - 10, 13 - 37.
+* @param[in]   IncreaseAcqCycles Boolean parameter which specifies
+*              whether the Acquisition time for the external channels has to be
+*              increased to 10 ADCCLK cycles (specify TRUE) or remain at the
+*              default 4 ADCCLK cycles (specify FALSE). This parameter is
+*              only valid for the external channels.
+* @param[in]   IsEventMode Boolean parameter that specifies continuous
+*              sampling (specify FALSE) or event driven sampling mode (specify
+*              TRUE) for the given channel.
+* @param[in]   IsDifferentialMode Boolean parameter which specifies
+*              unipolar(specify FALSE) or differential mode (specify TRUE) for
+*              the analog inputs. The 	input mode is only valid for the
+*              external channels.
+* @param[in]   SysmonBlk Value that tells whether it is for PS Sysmon
+*              block or PL Sysmon block register region.
 *
 * @return
-*		- XST_SUCCESS if the given values were written successfully to
-*		the Configuration Register 0.
-*		- XST_FAILURE if the channel sequencer is enabled or the input
-*		parameters are not valid for the selected channel.
+*              - XST_SUCCESS if the given values were written successfully to
+*              the Configuration Register 0.
+*              - XST_FAILURE if the channel sequencer is enabled or the input
+*              parameters are not valid for the selected channel.
 *
 * @note
-*		- The number of samples for the averaging for all the channels
-*		is set by using the function XSysMonPsu_SetAvg.
-*		- The calibration of the device is done by doing a ADC
-*		conversion on the calibration channel(channel 8). The input
-*		parameters IncreaseAcqCycles, IsDifferentialMode and
-*		IsEventMode are not valid for this channel.
+*              - The number of samples for the averaging for all the channels
+*              is set by using the function XSysMonPsu_SetAvg.
+*              - The calibration of the device is done by doing a ADC
+*              conversion on the calibration channel(channel 8). The input
+*              parameters IncreaseAcqCycles, IsDifferentialMode and
+*              IsEventMode are not valid for this channel.
 *
 *****************************************************************************/
 s32 XSysMonPsu_SetSingleChParams(XSysMonPsu *InstancePtr, u8 Channel,
@@ -683,11 +686,13 @@ End:
 /****************************************************************************/
 /**
 *
-* This function enables the alarm outputs for the specified alarms in the
-* Configuration Registers 1:
+* @brief Enables the alarm outputs for the specified alarms.
+*
+* Configures the alarm outputs in the Configuration Registers 1:
 *
 *		- OT for Over Temperature (XSYSMONPSU_CFR_REG1_ALRM_OT_MASK)
-*		- ALM0 for On board Temperature (XSYSMONPSU_CFR_REG1_ALRM_TEMP_MASK)
+*		- ALM0 for On board Temperature
+*		  (XSYSMONPSU_CFR_REG1_ALRM_TEMP_MASK)
 *		- ALM1 for SUPPLY1 (XSYSMONPSU_CFR_REG1_ALRM_SUPPLY1_MASK)
 *		- ALM2 for SUPPLY2 (XSYSMONPSU_CFR_REG1_ALRM_SUPPLY2_MASK)
 * 		- ALM3 for SUPPLY3 (XSYSMONPSU_CFR_REG1_ALRM_SUPPLY3_MASK)
@@ -695,23 +700,24 @@ End:
 *		- ALM5 for SUPPLY5 (XSYSMONPSU_CFR_REG1_ALRM_SUPPLY5_MASK)
 * 		- ALM6 for SUPPLY6 (XSYSMONPSU_CFR_REG1_ALRM_SUPPLY6_MASK)
 *
-* @param	InstancePtr is a pointer to the XSysMonPsu instance.
-* @param	AlmEnableMask is the bit-mask of the alarm outputs to be enabled
-*		in the Configuration Registers 1 and 3.
-*		Bit positions of 1 will be enabled. Bit positions of 0 will be
-*		disabled. This mask is formed by OR'ing XSYSMONPSU_CFR_REG1_ALRM_*_MASK
-*		masks defined in xsysmonpsu.h, but XSM_CFR_ALM_SUPPLY8_MASK to
-*		XSM_CFR_ALM_SUPPLY13_MASK are applicable only for PS.
-* @param	SysmonBlk is the value that tells whether it is for PS Sysmon
-*       block or PL Sysmon block register region.
+* @param[in]   InstancePtr Pointer to the XSysMonPsu instance.
+* @param[in]   AlmEnableMask Bit-mask of the alarm outputs to be
+*              enabled in the Configuration Registers 1 and 3.
+*              Bit positions of 1 are enabled. Bit positions of 0 are
+*              disabled. This mask is formed by OR'ing
+*              XSYSMONPSU_CFR_REG1_ALRM_*_MASK masks defined in
+*              xsysmonpsu.h, but XSM_CFR_ALM_SUPPLY8_MASK to
+*              XSM_CFR_ALM_SUPPLY13_MASK are applicable only for PS.
+* @param[in]   SysmonBlk Value that tells whether it is for PS Sysmon
+*              block or PL Sysmon block register region.
 *
-* @note		The implementation of the alarm enables in the Configuration
-*		register 1 is such that the alarms for bit positions of 0 will
-*		be enabled and alarms for bit positions of 1 will be disabled.
-*		The alarm outputs specified by the AlmEnableMask are negated
-*		before writing to the Configuration Register 1 because it
-*		was Disable register bits.
-*		Upper 16 bits of AlmEnableMask are applicable only for PS.
+* @note        The implementation of the alarm enables in the Configuration
+*              register 1 is such that the alarms for bit positions of 0 are
+*              enabled and alarms for bit positions of 1 are disabled.
+*              The alarm outputs specified by the AlmEnableMask are negated
+*              before writing to the Configuration Register 1 because it
+*              was Disable register bits.
+*              Upper 16 bits of AlmEnableMask are applicable only for PS.
 *
 *****************************************************************************/
 void XSysMonPsu_SetAlarmEnables(XSysMonPsu *InstancePtr, u32 AlmEnableMask,
@@ -759,28 +765,29 @@ void XSysMonPsu_SetAlarmEnables(XSysMonPsu *InstancePtr, u32 AlmEnableMask,
 /****************************************************************************/
 /**
 *
-* This function gets the status of the alarm output enables in the
-* Configuration Register 1.
+* @brief Gets the status of the alarm output enables.
 *
-* @param	InstancePtr is a pointer to the XSysMonPsu instance.
-* @param	SysmonBlk is the value that tells whether it is for PS Sysmon
-*       block or PL Sysmon block register region.
+* Reads the enables from the Configuration Register 1.
 *
-* @return	This is the bit-mask of the enabled alarm outputs in the
-*		Configuration Register 1. Use the masks XSYSMONPSU_CFG_REG1_ALRM_*_MASK
-*		masks defined in xsysmonpsu.h to interpret the returned value.
+* @param[in]   InstancePtr Pointer to the XSysMonPsu instance.
+* @param[in]   SysmonBlk Value that tells whether it is for PS Sysmon
+*              block or PL Sysmon block register region.
+*
+* @return      This is the bit-mask of the enabled alarm outputs in the
+*              Configuration Register 1. Use the masks
+*              XSYSMONPSU_CFG_REG1_ALRM_*_MASK masks defined in xsysmonpsu.h to
+*              interpret the returned value.
 *
 *		Bit positions of 1 indicate that the alarm output is enabled.
 *		Bit positions of 0 indicate that the alarm output is disabled.
 *
-*
-* @note		The implementation of the alarm enables in the Configuration
-*		register 1 is such that alarms for the bit positions of 1 will
-*		be disabled and alarms for bit positions of 0 will be enabled.
-*		The enabled alarm outputs returned by this function is the
-*		negated value of the the data read from the Configuration
-*		Register 1. Upper 16 bits of return value are valid only if the
-*		channel selected is PS.
+* @note        The implementation of the alarm enables in the Configuration
+*              register 1 is such that alarms for the bit positions of 1 are
+*              disabled and alarms for bit positions of 0 are enabled.
+*              The enabled alarm outputs returned by this function is the
+*              negated value of the the data read from the Configuration
+*              Register 1. Upper 16 bits of return value are valid only if the
+*              channel selected is PS.
 *
 *****************************************************************************/
 u32 XSysMonPsu_GetAlarmEnables(XSysMonPsu *InstancePtr, u32 SysmonBlk)
@@ -820,21 +827,22 @@ u32 XSysMonPsu_GetAlarmEnables(XSysMonPsu *InstancePtr, u32 SysmonBlk)
 /****************************************************************************/
 /**
 *
-* This function sets the specified Channel Sequencer Mode in the Configuration
-* Register 1 :
+* @brief Sets the specified channel sequencer mode.
+*
+* Writes the mode to the Configuration Register 1:
 *		- Default safe mode (XSM_SEQ_MODE_SAFE)
 *		- One pass through sequence (XSM_SEQ_MODE_ONEPASS)
 *		- Continuous channel sequencing (XSM_SEQ_MODE_CONTINPASS)
 *		- Single Channel/Sequencer off (XSM_SEQ_MODE_SINGCHAN)
 *		- Olympus sampling mode (XSM_SEQ_MODE_OYLMPUS)
 *
-* @param	InstancePtr is a pointer to the XSysMonPsu instance.
-* @param	SequencerMode is the sequencer mode to be set.
-*		Use XSM_SEQ_MODE_* bits defined in xsysmonpsu.h.
-* @param	SysmonBlk is the value that tells whether it is for PS Sysmon
-*       block or PL Sysmon block register region.
+* @param[in]   InstancePtr Pointer to the XSysMonPsu instance.
+* @param[in]   SequencerMode Sequencer mode to be set.
+*              Use XSM_SEQ_MODE_* bits defined in xsysmonpsu.h.
+* @param[in]   SysmonBlk Value that tells whether it is for PS Sysmon
+*              block or PL Sysmon block register region.
 *
-* @note		Only one of the modes can be enabled at a time.
+* @note        Only one of the modes can be enabled at a time.
 *
 *****************************************************************************/
 void XSysMonPsu_SetSequencerMode(XSysMonPsu *InstancePtr, u8 SequencerMode,
@@ -868,21 +876,20 @@ void XSysMonPsu_SetSequencerMode(XSysMonPsu *InstancePtr, u8 SequencerMode,
 /****************************************************************************/
 /**
 *
-* This function gets the channel sequencer mode from the Configuration
-* Register 1.
+* @brief Gets the channel sequencer mode.
 *
-* @param	InstancePtr is a pointer to the XSysMonPsu instance.
-* @param	SysmonBlk is the value that tells whether it is for PS Sysmon
-*       block or PL Sysmon block register region.
+* Reads the mode from the Configuration Register 1.
 *
-* @return	The channel sequencer mode :
-*		- XSM_SEQ_MODE_SAFE : Default safe mode
-*		- XSM_SEQ_MODE_ONEPASS : One pass through sequence
-*		- XSM_SEQ_MODE_CONTINPASS : Continuous channel sequencing
-*		- XSM_SEQ_MODE_SINGCHAN : Single channel/Sequencer off
-*		- XSM_SEQ_MODE_OLYMPUS : Olympus sampling mode
+* @param[in]   InstancePtr Pointer to the XSysMonPsu instance.
+* @param[in]   SysmonBlk Value that tells whether it is for PS Sysmon
+*              block or PL Sysmon block register region.
 *
-* @note		None.
+* @return      The channel sequencer mode :
+*              - XSM_SEQ_MODE_SAFE : Default safe mode.
+*              - XSM_SEQ_MODE_ONEPASS : One pass through sequence.
+*              - XSM_SEQ_MODE_CONTINPASS : Continuous channel sequencing.
+*              - XSM_SEQ_MODE_SINGCHAN : Single channel/Sequencer off.
+*              - XSM_SEQ_MODE_OLYMPUS : Olympus sampling mode.
 *
 *****************************************************************************/
 u8 XSysMonPsu_GetSequencerMode(XSysMonPsu *InstancePtr, u32 SysmonBlk)
@@ -911,16 +918,14 @@ u8 XSysMonPsu_GetSequencerMode(XSysMonPsu *InstancePtr, u32 SysmonBlk)
 /****************************************************************************/
 /**
 *
-* The function enables the Event mode or Continuous mode in the sequencer mode.
+* @brief Enables the event mode or continuous mode in the sequencer mode.
 *
-* @param	InstancePtr is a pointer to the XSysMonPsu instance.
-* @param	IsEventMode is a boolean parameter that specifies continuous
-*		sampling (specify FALSE) or event driven sampling mode (specify
-*		TRUE) for the channel.
-* @param	SysmonBlk is the value that tells whether it is for PS Sysmon
-*       block or PL Sysmon block register region.
-*
-* @note		None.
+* @param[in]   InstancePtr Pointer to the XSysMonPsu instance.
+* @param[in]   IsEventMode Boolean parameter that specifies continuous
+*              sampling (specify FALSE) or event driven sampling mode (specify
+*              TRUE) for the channel.
+* @param[in]   SysmonBlk Value that tells whether it is for PS Sysmon
+*              block or PL Sysmon block register region.
 *
 *****************************************************************************/
 void XSysMonPsu_SetSequencerEvent(XSysMonPsu *InstancePtr, u32 IsEventMode,
@@ -958,16 +963,14 @@ void XSysMonPsu_SetSequencerEvent(XSysMonPsu *InstancePtr, u32 IsEventMode,
 /****************************************************************************/
 /**
 *
-* The function returns the mode of the sequencer.
+* @brief Returns the mode of the sequencer.
 *
-* @param	InstancePtr is a pointer to the XSysMonPsu instance.
-* @param	SysmonBlk is the value that tells whether it is for PS Sysmon
-*       block or PL Sysmon block register region.
+* @param[in]   InstancePtr Pointer to the XSysMonPsu instance.
+* @param[in]   SysmonBlk Value that tells whether it is for PS Sysmon
+*              block or PL Sysmon block register region.
 *
-* @return	Returns the Sequencer mode. XSYSMONPSU_EVENT_MODE for Event mode
-* 		and XSYSMONPSU_CONTINUOUS_MODE for continuous mode.
-*
-* @note		None.
+* @return      Returns the Sequencer mode. XSYSMONPSU_EVENT_MODE for Event mode
+*              and XSYSMONPSU_CONTINUOUS_MODE for continuous mode.
 *
 *****************************************************************************/
 s32 XSysMonPsu_GetSequencerEvent(XSysMonPsu *InstancePtr, u32 SysmonBlk)
@@ -1004,15 +1007,13 @@ s32 XSysMonPsu_GetSequencerEvent(XSysMonPsu *InstancePtr, u32 SysmonBlk)
 /****************************************************************************/
 /**
 *
-* The function enables the external mux and connects a channel to the mux.
+* @brief Enables the external mux and connects a channel to the mux.
 *
-* @param	InstancePtr is a pointer to the XSysMonPsu instance.
-* @param	Channel is the channel number used to connect to the external
-*		Mux. The valid channels are 0 to 5 and 16 to 31.
-* @param	SysmonBlk is the value that tells whether it is for PS Sysmon
-*       block or PL Sysmon block register region.
-*
-* @note		None.
+* @param[in]   InstancePtr Pointer to the XSysMonPsu instance.
+* @param[in]   Channel Channel number used to connect to the external
+*              Mux. The valid channels are 0 to 5 and 16 to 31.
+* @param[in]   SysmonBlk Value that tells whether it is for PS Sysmon
+*              block or PL Sysmon block register region.
 *
 *****************************************************************************/
 void XSysMonPsu_SetExtenalMux(XSysMonPsu *InstancePtr, u8 Channel, u32 SysmonBlk)
@@ -1050,16 +1051,14 @@ void XSysMonPsu_SetExtenalMux(XSysMonPsu *InstancePtr, u8 Channel, u32 SysmonBlk
 /****************************************************************************/
 /**
 *
-* The function returns the external mux channel.
+* @brief Returns the external mux channel.
 *
-* @param	InstancePtr is a pointer to the XSysMonPsu instance.
-* @param	SysmonBlk is the value that tells whether it is for PS Sysmon
-*       block or PL Sysmon block register region.
+* @param[in]   InstancePtr Pointer to the XSysMonPsu instance.
+* @param[in]   SysmonBlk Value that tells whether it is for PS Sysmon
+*              block or PL Sysmon block register region.
 *
-* @return	Returns the channel number used to connect to the external
-*		Mux. The valid channels are 0 to 6, 8 to 16, and 31 to 36..
-*
-* @note		None.
+* @return      Returns the channel number used to connect to the external
+*              Mux. The valid channels are 0 to 6, 8 to 16, and 31 to 36..
 *
 *****************************************************************************/
 u32 XSysMonPsu_GetExtenalMux(XSysMonPsu *InstancePtr, u32 SysmonBlk)
@@ -1091,27 +1090,28 @@ u32 XSysMonPsu_GetExtenalMux(XSysMonPsu *InstancePtr, u32 SysmonBlk)
 /****************************************************************************/
 /**
 *
-* The function sets the frequency of the ADCCLK by configuring the DCLK to
-* ADCCLK ratio in the Configuration Register #2.
+* @brief Sets the ADCCLK frequency.
 *
-* @param	InstancePtr is a pointer to the XSysMonPsu instance.
-* @param	Divisor is clock divisor used to derive ADCCLK from DCLK.
-*		Valid values of the divisor are
-*		PS:
-*		 - 0 means divide by 8.
-*		 - 1,2 means divide by 2.
-*		 - 3 to 255 means divide by that value.
-*       PL:
-*		 - 0,1,2 means divide by 2.
-*		 - 3 to 255 means divide by that value.
-*		Refer to the device specification for more details.
-* @param	SysmonBlk is the value that tells whether it is for PS Sysmon
-*       block or PL Sysmon block register region.
+* Configures the DCLK to ADCCLK ratio in the Configuration Register #2.
 *
-* @note		- The ADCCLK is an internal clock used by the ADC and is
-*		synchronized to the DCLK clock. The ADCCLK is equal to DCLK
-*		divided by the user selection in the Configuration Register 2.
-*		- There is no Assert on the minimum value of the Divisor.
+* @param[in]   InstancePtr Pointer to the XSysMonPsu instance.
+* @param[in]   Divisor Clock divisor used to derive ADCCLK from DCLK.
+*              Valid values of the divisor are
+*              PS:
+*              - 0 means divide by 8.
+*              - 1,2 means divide by 2.
+*              - 3 to 255 means divide by that value.
+*                PL:
+*              - 0,1,2 means divide by 2.
+*              - 3 to 255 means divide by that value.
+*                Refer to the device specification for more details.
+* @param[in]   SysmonBlk Value that tells whether it is for PS Sysmon
+*              block or PL Sysmon block register region.
+*
+* @note        - The ADCCLK is an internal clock used by the ADC and is
+*              synchronized to the DCLK clock. The ADCCLK is equal to DCLK
+*              divided by the user selection in the Configuration Register 2.
+*              - There is no Assert on the minimum value of the Divisor.
 *
 *****************************************************************************/
 void XSysMonPsu_SetAdcClkDivisor(XSysMonPsu *InstancePtr, u8 Divisor,
@@ -1149,17 +1149,17 @@ void XSysMonPsu_SetAdcClkDivisor(XSysMonPsu *InstancePtr, u8 Divisor,
 /****************************************************************************/
 /**
 *
-* The function gets the ADCCLK divisor from the Configuration Register 2.
+* @brief Gets the ADCCLK divisor from the Configuration Register 2.
 *
-* @param	InstancePtr is a pointer to the XSysMon instance.
-* @param	SysmonBlk is the value that tells whether it is for PS Sysmon
-*       block or PL Sysmon block register region.
+* @param[in]   InstancePtr Pointer to the XSysMon instance.
+* @param[in]   SysmonBlk Value that tells whether it is for PS Sysmon
+*              block or PL Sysmon block register region.
 *
-* @return	The divisor read from the Configuration Register 2.
+* @return      The divisor read from the Configuration Register 2.
 *
-* @note		The ADCCLK is an internal clock used by the ADC and is
-*		synchronized to the DCLK clock. The ADCCLK is equal to DCLK
-*		divided by the user selection in the Configuration Register 2.
+* @note        The ADCCLK is an internal clock used by the ADC and is
+*              synchronized to the DCLK clock. The ADCCLK is equal to DCLK
+*              divided by the user selection in the Configuration Register 2.
 *
 *****************************************************************************/
 u8 XSysMonPsu_GetAdcClkDivisor(XSysMonPsu *InstancePtr, u32 SysmonBlk)
@@ -1187,19 +1187,19 @@ u8 XSysMonPsu_GetAdcClkDivisor(XSysMonPsu *InstancePtr, u32 SysmonBlk)
 /****************************************************************************/
 /**
 *
-* The function update the ADCCLK divisor to the Configuration Register 2.
+* @brief Updates the ADCCLK divisor in the Configuration Register 2.
 *
-* @param	InstancePtr is a pointer to the XSysMon instance.
-* @param	SysmonBlk is the value that tells whether it is for PS Sysmon
-*       block or PL Sysmon block register region.
-* @param	DivCode is a pointer to be populated with the divisor code.
+* @param[in]   InstancePtr Pointer to the XSysMon instance.
+* @param[in]   SysmonBlk Value that tells whether it is for PS Sysmon
+*              block or PL Sysmon block register region.
+* @param[out]  DivCode Pointer to be populated with the divisor code.
 *
-* @return	- XST_SUCCESS if valid divisor found and applied.
-*		- XST_FAILURE if valid divisor does not exist.
+* @return      - XST_SUCCESS if valid divisor found and applied.
+*              - XST_FAILURE if valid divisor does not exist.
 *
-* @note		The ADCCLK is an internal clock used by the ADC and is
-*		synchronized to the DCLK clock. The ADCCLK is equal to DCLK
-*		divided by the user selection in the Configuration Register 2.
+* @note        The ADCCLK is an internal clock used by the ADC and is
+*              synchronized to the DCLK clock. The ADCCLK is equal to DCLK
+*              divided by the user selection in the Configuration Register 2.
 *
 *****************************************************************************/
 u32 XSysMonPsu_UpdateAdcClkDivisor(XSysMonPsu *InstancePtr, u32 SysmonBlk, u8 *DivCode)
@@ -1276,26 +1276,25 @@ u32 XSysMonPsu_UpdateAdcClkDivisor(XSysMonPsu *InstancePtr, u32 SysmonBlk, u8 *D
 /****************************************************************************/
 /**
 *
-* This function enables the specified channels in the ADC Channel Selection
-* Sequencer Registers. The sequencer must be in the Safe Mode before writing
-* to these registers.
+* @brief Enables the specified channels in the sequencer selection registers.
 *
-* @param	InstancePtr is a pointer to the XSysMonPsu instance.
-* @param	ChEnableMask is the bit mask of all the channels to be enabled.
-*		Use XSYSMONPSU_SEQ_CH* defined in xsysmon_hw.h to specify the Channel
-*		numbers. Bit masks of 1 will be enabled and bit mask of 0 will
-*		be disabled.
-*		The ChEnableMask is a 64 bit mask that is written to the three
-*		16 bit ADC Channel Selection Sequencer Registers.
-* @param	SysmonBlk is the value that tells whether it is for PS Sysmon
-*       block or PL Sysmon block register region.
+* Writes to the ADC Channel Selection Sequencer Registers. The sequencer must
+* be in the Safe Mode before writing to these registers.
+*
+* @param[in]   InstancePtr Pointer to the XSysMonPsu instance.
+* @param[in]   ChEnableMask Bit mask of all the channels to be enabled.
+*              Use XSYSMONPSU_SEQ_CH* defined in xsysmon_hw.h to specify the
+*              Channel numbers. Bit masks of 1 are enabled and bit mask of 0
+*              are disabled.
+*              The ChEnableMask is a 64 bit mask that is written to the three
+*              16 bit ADC Channel Selection Sequencer Registers.
+* @param[in]   SysmonBlk Value that tells whether it is for PS Sysmon
+*              block or PL Sysmon block register region.
 *
 * @return
-*		- XST_SUCCESS if the given values were written successfully to
-*		the ADC Channel Selection Sequencer Registers.
-*		- XST_FAILURE if the channel sequencer is enabled.
-*
-* @note		None.
+*              - XST_SUCCESS if the given values were written successfully to
+*              the ADC Channel Selection Sequencer Registers.
+*              - XST_FAILURE if the channel sequencer is enabled.
 *
 *****************************************************************************/
 s32 XSysMonPsu_SetSeqChEnables(XSysMonPsu *InstancePtr, u64 ChEnableMask,
@@ -1342,19 +1341,18 @@ s32 XSysMonPsu_SetSeqChEnables(XSysMonPsu *InstancePtr, u64 ChEnableMask,
 /****************************************************************************/
 /**
 *
-* This function gets the channel enable bits status from the ADC Channel
-* Selection Sequencer Registers.
+* @brief Gets the channel enable bits status.
 *
-* @param	InstancePtr is a pointer to the XSysMonPsu instance.
-* @param	SysmonBlk is the value that tells whether it is for PS Sysmon
-*       block or PL Sysmon block register region.
+* Reads from the ADC Channel Selection Sequencer Registers.
 *
-* @return	Gets the channel enable bits. Use XSYSMONPSU_SEQ_CH* defined in
-*		xsysmonpsu_hw.h to interpret the Channel numbers. Bit masks of 1
-*		are the channels that are enabled and bit mask of 0 are
-*		the channels that are disabled.
+* @param[in]   InstancePtr Pointer to the XSysMonPsu instance.
+* @param[in]   SysmonBlk Value that tells whether it is for PS Sysmon
+*              block or PL Sysmon block register region.
 *
-* @note		None.
+* @return      Gets the channel enable bits. Use XSYSMONPSU_SEQ_CH* defined in
+*              xsysmonpsu_hw.h to interpret the Channel numbers. Bit masks of 1
+*              are the channels that are enabled and bit mask of 0 are
+*              the channels that are disabled.
 *
 *****************************************************************************/
 u64 XSysMonPsu_GetSeqChEnables(XSysMonPsu *InstancePtr, u32 SysmonBlk)
@@ -1391,26 +1389,26 @@ u64 XSysMonPsu_GetSeqChEnables(XSysMonPsu *InstancePtr, u32 SysmonBlk)
 /****************************************************************************/
 /**
 *
-* This function enables the averaging for the specified channels in the ADC
-* Channel Averaging Enable Sequencer Registers. The sequencer must be in
-* the Safe Mode before writing to these registers.
+* @brief Enables averaging for the specified channels.
 *
-* @param	InstancePtr is a pointer to the XSysMonPsu instance.
-* @param	AvgEnableChMask is the bit mask of all the channels for which
-*		averaging is to be enabled. Use XSYSMONPSU_SEQ_AVERAGE* defined in
-*		xsysmonpsu_hw.h to specify the Channel numbers. Averaging will be
-*		enabled for bit masks of 1 and disabled for bit mask of 0.
-*		The AvgEnableChMask is a 64 bit mask that is written to the
-*		three 16 bit ADC Channel Averaging Enable Sequencer Registers.
-* @param	SysmonBlk is the value that tells whether it is for PS Sysmon
-*       block or PL Sysmon block register region.
+* Writes to the ADC Channel Averaging Enable Sequencer Registers. The sequencer
+* must be in the Safe Mode before writing to these registers.
+*
+* @param[in]   InstancePtr Pointer to the XSysMonPsu instance.
+* @param[in]   AvgEnableChMask Bit mask of all the channels for which
+*              averaging is to be enabled. Use XSYSMONPSU_SEQ_AVERAGE*
+*              defined in xsysmonpsu_hw.h to specify the Channel numbers.
+*              Averaging is enabled for bit masks of 1 and disabled for bit
+*              mask of 0.
+*              The AvgEnableChMask is a 64 bit mask that is written to the
+*              three 16 bit ADC Channel Averaging Enable Sequencer Registers.
+* @param[in]   SysmonBlk Value that tells whether it is for PS Sysmon
+*              block or PL Sysmon block register region.
 *
 * @return
-*		- XST_SUCCESS if the given values were written successfully to
-*		the ADC Channel Averaging Enables Sequencer Registers.
-*		- XST_FAILURE if the channel sequencer is enabled.
-*
-* @note		None.
+*              - XST_SUCCESS if the given values were written successfully to
+*              the ADC Channel Averaging Enables Sequencer Registers.
+*              - XST_FAILURE if the channel sequencer is enabled.
 *
 *****************************************************************************/
 s32 XSysMonPsu_SetSeqAvgEnables(XSysMonPsu *InstancePtr, u64 AvgEnableChMask,
@@ -1463,20 +1461,19 @@ s32 XSysMonPsu_SetSeqAvgEnables(XSysMonPsu *InstancePtr, u64 AvgEnableChMask,
 /****************************************************************************/
 /**
 *
-* This function returns the channels for which the averaging has been enabled
-* in the ADC Channel Averaging Enables Sequencer Registers.
+* @brief Returns the channels for which averaging is enabled.
 *
-* @param	InstancePtr is a pointer to the XSysMonPsu instance.
-* @param	SysmonBlk is the value that tells whether it is for PS Sysmon
-*       block or PL Sysmon block register region.
+* Reads from the ADC Channel Averaging Enables Sequencer Registers.
 *
-* @returns 	The status of averaging (enabled/disabled) for all the channels.
-*		Use XSYSMONPSU_SEQ_AVERAGE* defined in xsysmonpsu_hw.h to interpret the
-*		Channel numbers. Bit masks of 1 are the channels for which
-*		averaging is enabled and bit mask of 0 are the channels for
-*		averaging is disabled.
+* @param[in]   InstancePtr Pointer to the XSysMonPsu instance.
+* @param[in]   SysmonBlk Value that tells whether it is for PS Sysmon
+*              block or PL Sysmon block register region.
 *
-* @note		None.
+* @returns     The status of averaging (enabled/disabled) for all the channels.
+*              Use XSYSMONPSU_SEQ_AVERAGE* defined in xsysmonpsu_hw.h to
+*              interpret the Channel numbers. Bit masks of 1 are the channels
+*              for which averaging is enabled and bit mask of 0 are the
+*              channels for averaging is disabled.
 *
 *****************************************************************************/
 u64 XSysMonPsu_GetSeqAvgEnables(XSysMonPsu *InstancePtr, u32 SysmonBlk)
@@ -1513,27 +1510,26 @@ u64 XSysMonPsu_GetSeqAvgEnables(XSysMonPsu *InstancePtr, u32 SysmonBlk)
 /****************************************************************************/
 /**
 *
-* This function sets the Analog input mode for the specified channels in the
-* ADC Channel Analog-Input Mode Sequencer Registers. The sequencer must be in
-* the Safe Mode before writing to these registers.
+* @brief Sets the analog input mode for the specified channels.
 *
-* @param	InstancePtr is a pointer to the XSysMonPsu instance.
-* @param	InputModeChMask is the bit mask of all the channels for which
-*		the input mode is differential mode. Use XSYSMONPSU_SEQ_INPUT_MDE*
-*		defined in xsysmonpsu_hw.h to specify the channel numbers. Differential
-*		or  Bipolar input mode will be set for bit masks of 1 and unipolar input
-*		mode for bit masks of 0.
-*		The InputModeChMask is a 64 bit mask that is written to the three
-*		16 bit ADC Channel Analog-Input Mode Sequencer Registers.
-* @param	SysmonBlk is the value that tells whether it is for PS Sysmon
-*       block or PL Sysmon block register region.
+* Writes to the ADC Channel Analog-Input Mode Sequencer Registers. The
+* sequencer must be in the Safe Mode before writing to these registers.
+*
+* @param[in]   InstancePtr Pointer to the XSysMonPsu instance.
+* @param[in]   InputModeChMask Bit mask of all the channels for which
+*              the input mode is differential mode. Use
+*              XSYSMONPSU_SEQ_INPUT_MDE* defined in xsysmonpsu_hw.h to specify
+*              the channel numbers. Differential or  Bipolar input mode is set
+*              for bit masks of 1 and unipolar input mode for bit masks of 0.
+*              The InputModeChMask is a 64 bit mask that is written to the
+*              three 16 bit ADC Channel Analog-Input Mode Sequencer Registers.
+* @param[in]   SysmonBlk Value that tells whether it is for PS Sysmon
+*              block or PL Sysmon block register region.
 *
 * @return
-*		- XST_SUCCESS if the given values were written successfully to
-*		the ADC Channel Analog-Input Mode Sequencer Registers.
-*		- XST_FAILURE if the channel sequencer is enabled.
-*
-* @note		None.
+*              - XST_SUCCESS if the given values were written successfully to
+*              the ADC Channel Analog-Input Mode Sequencer Registers.
+*              - XST_FAILURE if the channel sequencer is enabled.
 *
 *****************************************************************************/
 s32 XSysMonPsu_SetSeqInputMode(XSysMonPsu *InstancePtr, u64 InputModeChMask,
@@ -1584,20 +1580,19 @@ s32 XSysMonPsu_SetSeqInputMode(XSysMonPsu *InstancePtr, u64 InputModeChMask,
 /****************************************************************************/
 /**
 *
-* This function gets the Analog input mode for all the channels from
-* the ADC Channel Analog-Input Mode Sequencer Registers.
+* @brief Gets the analog input mode for all channels.
 *
-* @param	InstancePtr is a pointer to the XSysMonPsu instance.
-* @param	SysmonBlk is the value that tells whether it is for PS Sysmon
-*       block or PL Sysmon block register region.
+* Reads from the ADC Channel Analog-Input Mode Sequencer Registers.
 *
-* @returns 	The input mode for all the channels.
-*		Use XSYSMONPSU_SEQ_INPUT_MDE* defined in xsysmonpsu_hw.h to interpret the
-*		Channel numbers. Bit masks of 1 are the channels for which
-*		input mode is differential/Bipolar and bit mask of 0 are the channels
-*		for which input mode is unipolar.
+* @param[in]   InstancePtr Pointer to the XSysMonPsu instance.
+* @param[in]   SysmonBlk Value that tells whether it is for PS Sysmon
+*              block or PL Sysmon block register region.
 *
-* @note		None.
+* @returns     The input mode for all the channels.
+*              Use XSYSMONPSU_SEQ_INPUT_MDE* defined in xsysmonpsu_hw.h to
+*              interpret the Channel numbers. Bit masks of 1 are the channels
+*              for which input mode is differential/Bipolar and bit mask of 0
+*              are the channels for which input mode is unipolar.
 *
 *****************************************************************************/
 u64 XSysMonPsu_GetSeqInputMode(XSysMonPsu *InstancePtr, u32 SysmonBlk)
@@ -1634,28 +1629,27 @@ u64 XSysMonPsu_GetSeqInputMode(XSysMonPsu *InstancePtr, u32 SysmonBlk)
 /****************************************************************************/
 /**
 *
-* This function sets the number of Acquisition cycles in the ADC Channel
-* Acquisition Time Sequencer Registers. The sequencer must be in the Safe Mode
-* before writing to these registers.
+* @brief Sets the number of acquisition cycles.
 *
-* @param	InstancePtr is a pointer to the XSysMonPsu instance.
-* @param	AcqCyclesChMask is the bit mask of all the channels for which
-*		the number of acquisition cycles is to be extended.
-*		Use XSYSMONPSU_SEQ_ACQ* defined in xsysmonpsu_hw.h to specify the Channel
-*		numbers. Acquisition cycles will be extended to 10 ADCCLK cycles
-*		for bit masks of 1 and will be the default 4 ADCCLK cycles for
-*		bit masks of 0.
-*		The AcqCyclesChMask is a 64 bit mask that is written to the three
-*		16 bit ADC Channel Acquisition Time Sequencer Registers.
-* @param	SysmonBlk is the value that tells whether it is for PS Sysmon
-*       block or PL Sysmon block register region.
+* Writes to the ADC Channel Acquisition Time Sequencer Registers. The sequencer
+* must be in the Safe Mode before writing to these registers.
+*
+* @param[in]   InstancePtr Pointer to the XSysMonPsu instance.
+* @param[in]   AcqCyclesChMask Bit mask of all the channels for which
+*              the number of acquisition cycles is to be extended.
+*              Use XSYSMONPSU_SEQ_ACQ* defined in xsysmonpsu_hw.h to specify
+*              the Channel numbers. Acquisition cycles are extended to 10
+*              ADCCLK cycles for bit masks of 1 and are the default 4 ADCCLK
+*              cycles for bit masks of 0.
+*              The AcqCyclesChMask is a 64 bit mask that is written to the
+*              three 16 bit ADC Channel Acquisition Time Sequencer Registers.
+* @param[in]   SysmonBlk Value that tells whether it is for PS Sysmon
+*              block or PL Sysmon block register region.
 *
 * @return
-*		- XST_SUCCESS if the given values were written successfully to
-*		the Channel Sequencer Registers.
-*		- XST_FAILURE if the channel sequencer is enabled.
-*
-* @note		None.
+*              - XST_SUCCESS if the given values were written successfully to
+*              the Channel Sequencer Registers.
+*              - XST_FAILURE if the channel sequencer is enabled.
 *
 *****************************************************************************/
 s32 XSysMonPsu_SetSeqAcqTime(XSysMonPsu *InstancePtr, u64 AcqCyclesChMask,
@@ -1703,20 +1697,19 @@ s32 XSysMonPsu_SetSeqAcqTime(XSysMonPsu *InstancePtr, u64 AcqCyclesChMask,
 /****************************************************************************/
 /**
 *
-* This function gets the status of acquisition time from the ADC Channel Acquisition
-* Time Sequencer Registers.
+* @brief Gets the acquisition time status.
 *
-* @param	InstancePtr is a pointer to the XSysMonPsu instance.
-* @param	SysmonBlk is the value that tells whether it is for PS Sysmon
-*       block or PL Sysmon block register region.
+* Reads from the ADC Channel Acquisition Time Sequencer Registers.
 *
-* @returns 	The acquisition time for all the channels.
-*		Use XSYSMONPSU_SEQ_ACQ* defined in xsysmonpsu_hw.h to interpret the
-*		Channel numbers. Bit masks of 1 are the channels for which
-*		acquisition cycles are extended and bit mask of 0 are the
-*		channels for which acquisition cycles are not extended.
+* @param[in]   InstancePtr Pointer to the XSysMonPsu instance.
+* @param[in]   SysmonBlk Value that tells whether it is for PS Sysmon
+*              block or PL Sysmon block register region.
 *
-* @note		None.
+* @returns     The acquisition time for all the channels.
+*              Use XSYSMONPSU_SEQ_ACQ* defined in xsysmonpsu_hw.h to interpret
+*              the Channel numbers. Bit masks of 1 are the channels for which
+*              acquisition cycles are extended and bit mask of 0 are the
+*              channels for which acquisition cycles are not extended.
 *
 *****************************************************************************/
 u64 XSysMonPsu_GetSeqAcqTime(XSysMonPsu *InstancePtr, u32 SysmonBlk)
@@ -1753,17 +1746,15 @@ u64 XSysMonPsu_GetSeqAcqTime(XSysMonPsu *InstancePtr, u32 SysmonBlk)
 /****************************************************************************/
 /**
 *
-* This functions sets the contents of the given Alarm Threshold Register.
+* @brief Sets the contents of the given Alarm Threshold Register.
 *
-* @param	InstancePtr is a pointer to the XSysMonPsu instance.
-* @param	AlarmThrReg is the index of an Alarm Threshold Register to
-*		be set. Use XSM_ATR_* constants defined in xsysmonpsu.h to
-*		specify the index.
-* @param	Value is the 16-bit threshold value to write into the register.
-* @param	SysmonBlk is the value that tells whether it is for PS Sysmon
-*       block or PL Sysmon block register region.
-*
-* @note		None.
+* @param[in]   InstancePtr Pointer to the XSysMonPsu instance.
+* @param[in]   AlarmThrReg Index of an Alarm Threshold Register to
+*              be set. Use XSM_ATR_* constants defined in xsysmonpsu.h to
+*              specify the index.
+* @param[in]   Value 16-bit threshold value to write into the register.
+* @param[in]   SysmonBlk Value that tells whether it is for PS Sysmon
+*              block or PL Sysmon block register region.
 *
 *****************************************************************************/
 void XSysMonPsu_SetAlarmThreshold(XSysMonPsu *InstancePtr, u8 AlarmThrReg,
@@ -1818,19 +1809,17 @@ void XSysMonPsu_SetAlarmThreshold(XSysMonPsu *InstancePtr, u8 AlarmThrReg,
 /****************************************************************************/
 /**
 *
-* This function returns the contents of the specified Alarm Threshold Register.
+* @brief Returns the contents of the specified Alarm Threshold Register.
 *
-* @param	InstancePtr is a pointer to the XSysMonPsu instance.
-* @param	AlarmThrReg is the index of an Alarm Threshold Register
-*		to be read. Use XSM_ATR_* constants defined in xsysmonpsu.h
-*		to specify the index.
-* @param	SysmonBlk is the value that tells whether it is for PS Sysmon
-*       block or PL Sysmon block register region.
+* @param[in]   InstancePtr Pointer to the XSysMonPsu instance.
+* @param[in]   AlarmThrReg Index of an Alarm Threshold Register
+*              to be read. Use XSM_ATR_* constants defined in xsysmonpsu.h
+*              to specify the index.
+* @param[in]   SysmonBlk Value that tells whether it is for PS Sysmon
+*              block or PL Sysmon block register region.
 *
-* @return	A 16-bit value representing the contents of the selected Alarm
-*		Threshold Register.
-*
-* @note		None.
+* @return      A 16-bit value representing the contents of the selected Alarm
+*              Threshold Register.
 *
 *****************************************************************************/
 u16 XSysMonPsu_GetAlarmThreshold(XSysMonPsu *InstancePtr, u8 AlarmThrReg,
@@ -1888,11 +1877,11 @@ u16 XSysMonPsu_GetAlarmThreshold(XSysMonPsu *InstancePtr, u8 AlarmThrReg,
 /****************************************************************************/
 /**
 *
-* This function sets the conversion to be automatic for PS SysMon.
+* @brief Sets the conversion to be automatic for PS SysMon.
 *
-* @param	InstancePtr is a pointer to the XSysMonPsu instance.
+* @param[in]   InstancePtr Pointer to the XSysMonPsu instance.
 *
-* @note		In the auto-trigger mode, sample rate is of 1 Million samples.
+* @note        In the auto-trigger mode, sample rate is of 1 Million samples.
 *
 *****************************************************************************/
 void XSysMonPsu_SetPSAutoConversion(XSysMonPsu *InstancePtr)
@@ -1914,14 +1903,12 @@ void XSysMonPsu_SetPSAutoConversion(XSysMonPsu *InstancePtr)
 /****************************************************************************/
 /**
 *
-* This function gets the AMS monitor status.
+* @brief Gets the AMS monitor status.
 *
-* @param	InstancePtr is a pointer to the XSysMonPsu instance.
+* @param[in]   InstancePtr Pointer to the XSysMonPsu instance.
 *
-* @return	Returns the monitor status. See XSYSMONPSU_MON_STS_*_MASK
-* 		definitions present in xsysmonpsu_hw.h for knowing the status.
-*
-* @note		None
+* @return      Returns the monitor status. See XSYSMONPSU_MON_STS_*_MASK
+*              definitions present in xsysmonpsu_hw.h for knowing the status.
 *
 *****************************************************************************/
 u32 XSysMonPsu_GetMonitorStatus(XSysMonPsu *InstancePtr)
@@ -1945,17 +1932,17 @@ u32 XSysMonPsu_GetMonitorStatus(XSysMonPsu *InstancePtr)
 /*****************************************************************************/
 /**
 *
-* This function initializes XSysMonPsu device/instance.
+* @brief Initializes the XSysMonPsu device instance.
 *
-* @param	InstancePtr is a pointer to the XSysMonPsu instance.
-* @param	ConfigPtr points to the XSysMonPsu device configuration
-*		structure.
+* @param[out]  InstancePtr Pointer to the XSysMonPsu instance.
+* @param[in]   ConfigPtr Pointer to the XSysMonPsu device configuration
+*              structure.
 *
-* @note 	The user needs to first call the XSysMonPsu_LookupConfig() API
-*		which returns the Configuration structure pointer, this pointer
-*		is then passed as a parameter to the XSysMonPsu_InitInstance()
-*		API. Note that this function just initializes the instance and
-*		doesn't configure the System Monitor device.
+* @note        The user needs to first call the XSysMonPsu_LookupConfig() API
+*              which returns the Configuration structure pointer, this pointer
+*              is then passed as a parameter to the XSysMonPsu_InitInstance()
+*              API. Note that this function just initializes the instance and
+*              does not configure the System Monitor device.
 *
 ******************************************************************************/
 void XSysMonPsu_InitInstance(XSysMonPsu *InstancePtr,
@@ -1975,3 +1962,4 @@ void XSysMonPsu_InitInstance(XSysMonPsu *InstancePtr,
 	InstancePtr->IsReady = XIL_COMPONENT_IS_READY;
 }
 
+/** @} */

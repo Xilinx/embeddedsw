@@ -8,15 +8,14 @@
 /**
 *
 * @file xsysmonpsu_single_ch_intr_example.c
+* @brief Demonstrates single-channel interrupt-mode use of the driver.
 *
 * This file contains a design example using the driver functions of the
 * System Monitor driver.
 * This example here shows the usage of the driver/device in single channel
 * interrupt mode to handle End of Conversion (EOC) and VCCINT alarm interrupts.
 *
-*
 * @note
-*
 * This code assumes that no Operating System is being used.
 *
 * The value of the on-chip Vccint voltage is read from the device and then the
@@ -34,6 +33,7 @@
 *       mn     03/08/18 Update code to run at higher frequency
 * 2.9   cog    07/20/23 Added support for SDT flow
 * 3.4   vn     07/30/26 Fix Doxygen warnings
+* 3.4   vn     09/29/26 Align Doxygen comments with AMD standards
 *
 * </pre>
 *
@@ -56,13 +56,15 @@
  * change all the needed parameters in one place.
  */
 
-#define SYSMON_DEVICE_ID	XPAR_XSYSMONPSU_0_DEVICE_ID
+#define SYSMON_DEVICE_ID	XPAR_XSYSMONPSU_0_DEVICE_ID /**< Device ID. */
+/** SCUGIC device ID. */
 #define SCUGIC_DEVICE_ID		XPAR_SCUGIC_SINGLE_DEVICE_ID
+/** System Monitor interrupt ID. */
 #define INTR_ID			XPAR_XSYSMONPSU_INTR
 #else
-#define SYSMON_DEVICE_ID	0xffa50000
-#define SCUGIC_DEVICE_ID	0
-#define INTR_ID	(56U + 32U)
+#define SYSMON_DEVICE_ID	0xffa50000 /**< Device ID. */
+#define SCUGIC_DEVICE_ID	0 /**< SCUGIC device ID. */
+#define INTR_ID	(56U + 32U) /**< System Monitor interrupt ID. */
 #endif
 
 /**************************** Type Definitions ******************************/
@@ -75,7 +77,6 @@ int SysMonPsuSingleChannelIntrExample(XScuGic* XScuGicInstancePtr,
 			XSysMonPsu* SysMonInstPtr,
 			u32 SysMonDeviceId,
 			u16 SysMonIntrId);
-
 
 static void SysMonPsuInterruptHandler(void *CallBackRef);
 
@@ -96,13 +97,11 @@ static volatile int VccintIntr = FALSE;	  	/* VCCINT alarm interrupt */
 /****************************************************************************/
 /**
 *
-* Main function that invokes the Single Channel Interrupt example.
+* @brief Invokes the single channel interrupt example.
 *
 * @return
-*		- XST_SUCCESS if the example has completed successfully.
-*		- XST_FAILURE if the example has failed.
-*
-* @note		None.
+*              - XST_SUCCESS if the example has completed successfully.
+*              - XST_FAILURE if the example has failed.
 *
 *****************************************************************************/
 int main(void)
@@ -129,8 +128,7 @@ int main(void)
 /****************************************************************************/
 /**
 *
-* This function runs a test on the System Monitor device using the
-* driver APIs.
+* @brief Runs a test on the System Monitor device using the driver APIs.
 *
 * The function does the following tasks:
 *	- Initiate the System Monitor device driver instance
@@ -143,20 +141,19 @@ int main(void)
 *	- Enable interrupts
 *	- Wait until the VCCINT alarm interrupt occurs
 *
-* @param	XScuGicInstancePtr is a pointer to the Interrupt Controller
-*		driver Instance.
-* @param	SysMonInstPtr is a pointer to the XSysMon driver Instance.
-* @param	SysMonDeviceId is the XPAR_<SYSMON_instance>_DEVICE_ID value
-*		from xparameters.h.
-* @param	SysMonIntrId is
-*		XPAR_<SYSMON_instance>_VEC_ID
-*		value from xparameters_ps.h
+* @param[in]   XScuGicInstancePtr Pointer to the Interrupt Controller
+*              driver Instance.
+* @param[in]   SysMonInstPtr Pointer to the XSysMon driver Instance.
+* @param[in]   SysMonDeviceId XPAR_<SYSMON_instance>_DEVICE_ID value
+*              from xparameters.h.
+* @param[in]   SysMonIntrId XPAR_<SYSMON_instance>_VEC_ID
+*              value from xparameters_ps.h.
 *
 * @return
-*		- XST_SUCCESS if the example has completed successfully.
-*		- XST_FAILURE if the example has failed.
+*              - XST_SUCCESS if the example has completed successfully.
+*              - XST_FAILURE if the example has failed.
 *
-* @note		This function may never return if no interrupt occurs.
+* @note        This function may never return if no interrupt occurs.
 *
 ****************************************************************************/
 int SysMonPsuSingleChannelIntrExample(XScuGic* XScuGicInstancePtr,
@@ -277,9 +274,9 @@ int SysMonPsuSingleChannelIntrExample(XScuGic* XScuGicInstancePtr,
 /*****************************************************************************/
 /**
 *
-* This function is the Interrupt Service Routine for the System Monitor device.
-* It will be called by the processor whenever an interrupt is asserted
-* by the device.
+* @brief Services interrupts for the System Monitor device.
+*
+* The processor calls this routine whenever the device asserts an interrupt.
 *
 * There are 8 different interrupt types supported
 *	- Over Temperature
@@ -294,13 +291,11 @@ int SysMonPsuSingleChannelIntrExample(XScuGic* XScuGicInstancePtr,
 * This function only handles the EOC interrupt and ALARM 1 interrupt.
 * User of this code should modify the code to meet needs of the application.
 *
-* @param	CallBackRef is the callback reference passed from the Interrupt
-*		controller driver, which in our case is a pointer to the
-*		driver instance.
+* @param[in]   CallBackRef Callback reference passed from the Interrupt
+*              controller driver, which in our case is a pointer to the
+*              driver instance.
 *
-* @return	None.
-*
-* @note		This function is called within interrupt context.
+* @note        This function is called within interrupt context.
 *
 ******************************************************************************/
 static void SysMonPsuInterruptHandler(void *CallBackRef)
@@ -341,24 +336,23 @@ static void SysMonPsuInterruptHandler(void *CallBackRef)
 /****************************************************************************/
 /**
 *
-* This function sets up the interrupt system so interrupts can occur for the
-* System Monitor.  The function is application-specific since the actual
+* @brief Sets up the interrupt system so interrupts can occur for the System
+*	 Monitor.
+*
+* The function is application-specific since the actual
 * system may or may not have an interrupt controller. The System Monitor
 * device could be directly connected to a processor without an interrupt
 * controller. The user should modify this function to fit the application.
 *
-* @param	XScuGicInstancePtr is a pointer to the Interrupt Controller
-*		driver Instance
-* @param	SysMonPtr is a pointer to the driver instance for the System
-* 		Monitor device which is going to be connected to the interrupt
-*		controller
-* @param	IntrId is XPAR_<SYSMON_instance>_VEC_ID
-*		value from xparameters.h
+* @param[in]   XScuGicInstancePtr Pointer to the Interrupt Controller
+*              driver Instance.
+* @param[in]   SysMonPtr Pointer to the driver instance for the System
+*              Monitor device which is going to be connected to the interrupt
+*              controller.
+* @param[in]   IntrId XPAR_<SYSMON_instance>_VEC_ID
+*              value from xparameters.h.
 *
-* @return	XST_SUCCESS if successful, or XST_FAILURE.
-*
-* @note		None.
-*
+* @return      XST_SUCCESS if successful, or XST_FAILURE.
 *
 ****************************************************************************/
 static int SysMonPsuSetupInterruptSystem(XScuGic* XScuGicInstancePtr,
