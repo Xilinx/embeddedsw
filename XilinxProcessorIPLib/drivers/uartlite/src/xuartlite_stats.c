@@ -4,15 +4,11 @@
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
-/****************************************************************************/
+/*****************************************************************************/
 /**
 *
 * @file xuartlite_stats.c
-* @addtogroup uartlite Overview
-* @{
-*
-* This file contains the statistics functions for the UART Lite component
-* (XUartLite).
+* @brief Statistics functions for the UART Lite component (XUartLite).
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -24,9 +20,14 @@
 * 2.00a ktn  10/20/09 Updated to use HAL Processor APIs.
 *		      XUartLite_mClearStats macro is removed.
 * 3.14  vn   08/26/26 Fix Doxygen warnings
+* 3.14  vn   09/09/26 Align Doxygen comments with AMD standards
 * </pre>
 *
-*****************************************************************************/
+******************************************************************************/
+
+/** @addtogroup uartlite Overview
+ * @{
+ */
 
 /***************************** Include Files ********************************/
 
@@ -50,18 +51,17 @@
 /************************** Function Prototypes *****************************/
 
 
-/****************************************************************************/
+/*****************************************************************************/
 /**
 *
-* Returns a snapshot of the current statistics in the structure specified.
+* @brief Returns a snapshot of the current statistics in the structure
+* specified.
 *
-* @param	InstancePtr is a pointer to the XUartLite instance.
-* @param	StatsPtr is a pointer to a XUartLiteStats structure to where the
-*		statistics are to be copied.
+* @param[in]   InstancePtr Pointer to the XUartLite instance.
+* @param[out]  StatsPtr Pointer to a XUartLiteStats structure to where the
+*              statistics are to be copied.
 *
-* @note		None.
-*
-*****************************************************************************/
+******************************************************************************/
 void XUartLite_GetStats(XUartLite *InstancePtr, XUartLite_Stats *StatsPtr)
 {
 	/*
@@ -85,16 +85,14 @@ void XUartLite_GetStats(XUartLite *InstancePtr, XUartLite_Stats *StatsPtr)
 	StatsPtr->ReceiveParityErrors = InstancePtr->Stats.ReceiveParityErrors;
 }
 
-/****************************************************************************/
+/*****************************************************************************/
 /**
 *
-* This function zeros the statistics for the given instance.
+* @brief Zeros the statistics for the given instance.
 *
-* @param	InstancePtr is a pointer to the XUartLite instance.
+* @param[in,out] InstancePtr Pointer to the XUartLite instance.
 *
-* @note		None.
-*
-*****************************************************************************/
+******************************************************************************/
 void XUartLite_ClearStats(XUartLite *InstancePtr)
 {
 	/*

@@ -4,24 +4,29 @@
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
-/****************************************************************************/
+#ifndef XUARTLITE_H
+#define XUARTLITE_H
+
+/*****************************************************************************/
 /**
 *
 * @file xuartlite.h
 * @addtogroup uartlite Overview
 * @{
+* @brief Defines the API and data structures for the UART Lite driver.
+*
 * @details
 *
 * This component contains the implementation of the XUartLite component which is
 * the driver for the Xilinx UART Lite device. This UART is a minimal hardware
-* implementation with minimal features.  Most of the features, including baud
+* implementation with minimal features. Most of the features, including baud
 * rate, parity, and number of data bits are only configurable when the hardware
 * device is built, rather than at run time by software.
 *
 * The device has 16 byte transmit and receive FIFOs and supports interrupts.
 * The device does not have any way to disable the receiver such that the
-* receive FIFO may contain unwanted data.  The FIFOs are not flushed when the
-* driver is initialized, but a function is provided to allow the user to
+* receive FIFO may contain unwanted data. The FIFOs are not flushed when the
+* driver is initialized, but a function is provided to allow you to
 * reset the FIFOs if desired.
 *
 * The driver defaults to no interrupts at initialization such that interrupts
@@ -29,13 +34,13 @@
 * transitions from having data to being empty or when any data is contained in
 * the receive FIFO.
 *
-* In order to use interrupts, it's necessary for the user to connect the driver
-* interrupt handler, XUartLite_InterruptHandler, to the interrupt system of the
-* application.  This function does not save and restore the processor context
-* such that the user must provide it.  Send and receive handlers may be set for
-* the driver such that the handlers are called when transmit and receive
-* interrupts occur.  The handlers are called from interrupt context and are
-* designed to allow application specific processing to be performed.
+* To use interrupts, connect the driver interrupt handler,
+* XUartLite_InterruptHandler, to the interrupt system of the application.
+* This function does not save or restore the processor context; the caller
+* must provide it. Send and receive handlers may be set for the driver so
+* that the handlers are called when transmit and receive interrupts occur.
+* The handlers are called from interrupt context and allow application
+* specific processing.
 *
 * The functions, XUartLite_Send and XUartLite_Recv, are provided in the driver
 * to allow data to be sent and received. They are designed to be used in
@@ -66,13 +71,12 @@
 *
 * <b>RTOS Independence</b>
 *
-* This driver is intended to be RTOS and processor independent.  It works
-* with physical addresses only.  Any needs for dynamic memory management,
+* This driver is intended to be RTOS and processor independent. It works
+* with physical addresses only. Any needs for dynamic memory management,
 * threads or thread mutual exclusion, virtual memory, or cache control must
 * be satisfied by the layer above this driver.
 *
 * @note
-*
 * The driver is partitioned such that a minimal implementation may be used.
 * More features require additional files to be linked in.
 *
@@ -130,30 +134,30 @@
 * 		      made in the uartlite_tapp.tcl file.
 * 3.9	ht  07/18/23  Fixed GCC warnings.i
 * 3.13  vlt  12/30/25 Update Doxygen comments to include SDT flow details.
+* 3.14  vn   09/09/26 Align Doxygen comments with AMD standards
 *
 * </pre>
 *
-*****************************************************************************/
-
-#ifndef XUARTLITE_H /* prevent circular inclusions */
-#define XUARTLITE_H /* by using protection macros */
+******************************************************************************/
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-/***************************** Include Files ********************************/
+/****************************** Include Files ********************************/
 
 #include "xil_types.h"
 #include "xil_assert.h"
 #include "xstatus.h"
 
-/************************** Constant Definitions ****************************/
+/*************************** Constant Definitions ****************************/
 
-/**************************** Type Definitions ******************************/
+/***************************** Type Definitions ******************************/
 
 /**
- * Callback function.  The first argument is a callback reference passed in by
+ * @brief Defines the callback function type for send and receive operations.
+ *
+ * The first argument is a callback reference passed in by
  * the upper layer when setting the callback functions, and passed back to the
  * upper layer when the callback is invoked.
  * The second argument is the ByteCount which is the number of bytes that
@@ -162,69 +166,76 @@ extern "C" {
 typedef void (*XUartLite_Handler)(void *CallBackRef, unsigned int ByteCount);
 
 /**
- * Statistics for the XUartLite driver
+ * @brief Statistics for the XUartLite driver.
  */
 typedef struct {
-	u32 TransmitInterrupts;		/**< Number of transmit interrupts */
-	u32 ReceiveInterrupts;		/**< Number of receive interrupts */
-	u32 CharactersTransmitted;	/**< Number of characters transmitted */
-	u32 CharactersReceived;		/**< Number of characters received */
-	u32 ReceiveOverrunErrors;	/**< Number of receive overruns */
-	u32 ReceiveParityErrors;	/**< Number of receive parity errors */
-	u32 ReceiveFramingErrors;	/**< Number of receive framing errors */
+	u32 TransmitInterrupts;		/**< Number of transmit interrupts. */
+	u32 ReceiveInterrupts;		/**< Number of receive interrupts. */
+	u32 CharactersTransmitted;	/**< Number of characters sent. */
+	u32 CharactersReceived;		/**< Number of characters received. */
+	u32 ReceiveOverrunErrors;	/**< Number of receive overruns. */
+	u32 ReceiveParityErrors;	/**< Number of receive parity errors. */
+	u32 ReceiveFramingErrors;	/**< Number of receive framing
+					 * errors. */
 } XUartLite_Stats;
 
 /**
+ * @brief Buffer descriptor for send and receive operations.
+ *
  * The following data type is used to manage the buffers that are handled
  * when sending and receiving data in the interrupt mode. It is intended
  * for internal use only.
  */
 typedef struct {
-	u8 *NextBytePtr;
-	unsigned int RequestedBytes;
-	unsigned int RemainingBytes;
+	u8 *NextBytePtr;		/**< Pointer to the next byte to send
+					 * or receive. */
+	unsigned int RequestedBytes;	/**< Total number of bytes requested. */
+	unsigned int RemainingBytes;	/**< Number of bytes still to be
+					 * processed. */
 } XUartLite_Buffer;
 
 /**
- * This typedef contains configuration information for the device.
+ * @brief Holds configuration information for the UART Lite device.
  */
 typedef struct {
 #ifndef SDT
-	u16 DeviceId;		/**< Unique ID  of device */
+	u16 DeviceId;		/**< Unique ID of the device. */
 #else
-	char *Name;            /**< Name of the device */
+	char *Name;            /**< Name of the device. */
 #endif
-	UINTPTR RegBaseAddr;	/**< Register base address */
-	u32 BaudRate;		/**< Fixed baud rate */
-	u8  UseParity;		/**< Parity generator enabled when TRUE */
+	UINTPTR RegBaseAddr;	/**< Register base address. */
+	u32 BaudRate;		/**< Fixed baud rate. */
+	u8  UseParity;		/**< Parity generator enabled when TRUE. */
 	u8  ParityOdd;		/**< Parity generated is odd when TRUE, even
-					when FALSE */
-	u8  DataBits;		/**< Fixed data bits */
+				 * when FALSE. */
+	u8  DataBits;		/**< Fixed data bits. */
 #ifdef SDT
 	u16 IntrId;             /**< Bits[11:0] Interrupt-id Bits[15:12]
-				 * trigger type and level flags */
+				 * trigger type and level flags. */
 	UINTPTR IntrParent;     /**< Bit[0] Interrupt parent type Bit[64/32:1]
-				 * Parent base address */
+				 * Parent base address. */
 #endif
 } XUartLite_Config;
 
 /**
- * The XUartLite driver instance data. The user is required to allocate a
- * variable of this type for every UART Lite device in the system. A pointer
- * to a variable of this type is then passed to the driver API functions.
+ * @brief Driver instance data for the UART Lite.
+ *
+ * Allocate a variable of this type for every UART Lite device in the system.
+ * A pointer to a variable of this type is then passed to the driver API
+ * functions.
  */
 typedef struct {
-	XUartLite_Stats Stats;		/* Component Statistics */
-	UINTPTR RegBaseAddress;		/* Base address of registers */
-	u32 IsReady;			/* Device is initialized and ready */
+	XUartLite_Stats Stats;		/**< Component statistics. */
+	UINTPTR RegBaseAddress;		/**< Base address of registers. */
+	u32 IsReady;			/**< Device is initialized and ready. */
 
-	XUartLite_Buffer SendBuffer;   /**< Transmit buffer descriptor */
-	XUartLite_Buffer ReceiveBuffer; /**< Receive buffer descriptor */
+	XUartLite_Buffer SendBuffer;   /**< Transmit buffer descriptor. */
+	XUartLite_Buffer ReceiveBuffer; /**< Receive buffer descriptor. */
 
-	XUartLite_Handler RecvHandler;  /**< receive interrupt handler */
-	void *RecvCallBackRef;		/**< Callback ref for recv handler */
-	XUartLite_Handler SendHandler;  /**< send interrupt handler */
-	void *SendCallBackRef;		/**< Callback ref for send handler */
+	XUartLite_Handler RecvHandler;  /**< Receive interrupt handler. */
+	void *RecvCallBackRef;		/**< Callback ref for recv handler. */
+	XUartLite_Handler SendHandler;  /**< Send interrupt handler. */
+	void *SendCallBackRef;		/**< Callback ref for send handler. */
 } XUartLite;
 
 
@@ -288,6 +299,6 @@ void XUartLite_InterruptHandler(XUartLite *InstancePtr);
 }
 #endif
 
-#endif			/* end of protection macro */
+#endif
 
 /** @} */

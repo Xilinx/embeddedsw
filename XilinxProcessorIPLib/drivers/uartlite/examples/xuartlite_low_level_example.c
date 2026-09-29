@@ -9,13 +9,11 @@
 *
 * @file xuartlite_low_level_example.c
 *
-* This file contains a design example using the low-level driver functions
-* and macros of the UartLite driver (XUartLite).
+* @brief Demonstrates the low-level UartLite driver functions.
 *
 * @note
-*
-* The user must provide a physical loopback such that data which is
-* transmitted will be received.
+* A physical loopback must be provided such that data which is transmitted is
+* received.
 *
 * MODIFICATION HISTORY:
 * <pre>
@@ -33,7 +31,9 @@
 * 3.13  vlt  12/18/25 Update Doxygen comments to include SDT flow details.
 * 3.13  vlt  03/15/26 Updated BaseAddress type from u32 to UINTPTR
 *                     to support 64-bit addressing
+* 3.14  vn   09/09/26 Align Doxygen comments with AMD standards
 * </pre>
+*
 ******************************************************************************/
 
 /***************************** Include Files *********************************/
@@ -46,23 +46,30 @@
 /************************** Constant Definitions *****************************/
 
 
-/*
+/** @name Device parameters
+ *
  * The following constants map to the XPAR parameters created in the
  * xparameters.h file. They are defined here such that a user can easily
  * change all the needed parameters in one place.
+ * @{
  */
 #ifndef SDT
+/** UartLite base address. */
 #define UARTLITE_BASEADDR	   XPAR_UARTLITE_0_BASEADDR
 #else
+/** UartLite base address. */
 #define UARTLITE_BASEADDR	   XPAR_XUARTLITE_0_BASEADDR
 #endif
+/** @} */
 
-/*
- * The following constant controls the length of the buffers to be sent
- * and received with the UartLite, this constant must be 16 bytes or less so the
- * entire buffer will fit into the transmit and receive FIFOs of the UartLite.
+/** @name Buffer size
+ *
+ * This constant must be 16 bytes or less so the entire buffer fits into
+ * the transmit and receive FIFOs of the UartLite.
+ * @{
  */
-#define TEST_BUFFER_SIZE 16
+#define TEST_BUFFER_SIZE 16	/**< Length of the send and receive buffers. */
+/** @} */
 
 
 /**************************** Type Definitions *******************************/
@@ -80,23 +87,16 @@ int UartLiteLowLevelExample(UINTPTR BaseAddress);
 
 /************************** Variable Definitions *****************************/
 
-/*
- * The following buffers are used in this example to send and receive data
- * with the UartLite.
- */
-u8 SendBuffer[TEST_BUFFER_SIZE]; /* Buffer for Transmitting Data */
-u8 RecvBuffer[TEST_BUFFER_SIZE]; /* Buffer for Receiving Data */
+u8 SendBuffer[TEST_BUFFER_SIZE];	/**< Buffer for transmitting data. */
+u8 RecvBuffer[TEST_BUFFER_SIZE];	/**< Buffer for receiving data. */
 
 
 /*****************************************************************************/
 /**
 *
-* Main function to call the example.
+* @brief Calls the UartLite low-level example.
 *
-*
-* @return	XST_SUCCESS if successful, XST_FAILURE if unsuccessful.
-*
-* @note		None.
+* @return      XST_SUCCESS if successful, XST_FAILURE if unsuccessful.
 *
 ******************************************************************************/
 int main(void)
@@ -121,22 +121,24 @@ int main(void)
 /*****************************************************************************/
 /**
 *
-* This function does a minimal test on the UartLite device using the low-level
-* driver macros and functions. This function sends data and expects to receive
-* the data through the UartLite. A physical loopback must be done by the user
-* with the transmit and receive signals of the UartLite.
+* @brief Performs a minimal test on the UartLite device using the low-level
+* driver macros and functions.
+*
+* This function sends data and expects to receive the data through the
+* UartLite. A physical loopback must be provided with the transmit
+* and receive signals of the UartLite.
 *
 * @if SDT
-* @param	UartliteBaseAddress contains the base address of the device
+* @param[in]   UartliteBaseAddress Base address of the device.
 * @else
-* @param	UartliteBaseAddress is the base address of the UartLite device
-*		and is the XPAR_<UARTLITE_instance>_BASEADDR value from
-*		xparameters.h.
+* @param[in]   UartliteBaseAddress Base address of the UartLite device
+*              and is the XPAR_<UARTLITE_instance>_BASEADDR value from
+*              xparameters.h.
 * @endif
 *
-* @return	XST_SUCCESS if successful, XST_FAILURE if unsuccessful.
+* @return      XST_SUCCESS if successful, XST_FAILURE if unsuccessful.
 *
-* @note	        In XSCT/classic flow, the base address is used directly.
+* @note        In XSCT/classic flow, the base address is used directly.
 *
 ******************************************************************************/
 #ifndef SDT

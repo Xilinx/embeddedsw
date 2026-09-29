@@ -1,17 +1,19 @@
 /******************************************************************************
 * Copyright (C) 2002 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
-/****************************************************************************/
+#ifndef XUARTLITE_I_H
+#define XUARTLITE_I_H
+
+/*****************************************************************************/
 /**
 *
 * @file xuartlite_i.h
-* @addtogroup uartlite Overview
-* @{
 *
-* Contains data which is shared between the files of the XUartLite component.
+* @brief Internal data shared between files of the XUartLite component.
+*
 * It is intended for internal use only.
 *
 * <pre>
@@ -27,12 +29,14 @@
 *		      the name. XUartLite_mClearStats macro is removed and
 *		      XUartLite_ClearStats function should be used in its place.
 * 3.6   rna  02/19/21 Added 'XUartLite_GetSR' internal API.
+* 3.14  vn   09/09/26 Align Doxygen comments with AMD standards
 * </pre>
 *
-*****************************************************************************/
+******************************************************************************/
 
-#ifndef XUARTLITE_I_H /* prevent circular inclusions */
-#define XUARTLITE_I_H /* by using protection macros */
+/** @addtogroup uartlite Overview
+ * @{
+ */
 
 #ifdef __cplusplus
 extern "C" {
@@ -49,22 +53,19 @@ extern "C" {
 
 /***************** Macros (Inline Functions) Definitions ********************/
 
-/****************************************************************************
+/*****************************************************************************/
+/**
+* @brief Updates the statistics of the instance.
 *
-* Update the statistics of the instance.
-*
-* @param	InstancePtr is a pointer to the XUartLite instance.
-* @param	StatusRegister contains the contents of the UART status
-*		register to update the statistics with.
-*
-* @return	None.
+* @param[in]   InstancePtr Pointer to the XUartLite instance.
+* @param[in]   StatusRegister Contents of the UART status
+*              register to update the statistics with.
 *
 * @note
-*
 * Signature: void XUartLite_UpdateStats(XUartLite *InstancePtr,
 *						u32 StatusRegister)
 *
-*****************************************************************************/
+******************************************************************************/
 #define XUartLite_UpdateStats(InstancePtr, StatusRegister)	\
 {								\
 	if ((StatusRegister) & XUL_SR_OVERRUN_ERROR)		\
@@ -84,6 +85,9 @@ extern "C" {
 /************************** Variable Definitions ****************************/
 
 /* the configuration table */
+/**
+ * @brief Holds the configuration entry for each UART Lite instance.
+ */
 extern XUartLite_Config XUartLite_ConfigTable[];
 
 /************************** Function Prototypes *****************************/
@@ -96,6 +100,6 @@ u8 XUartLite_GetSR(XUartLite *InstancePtr);
 }
 #endif
 
-#endif		/* end of protection macro */
+#endif
 
 /** @} */

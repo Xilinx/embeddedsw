@@ -1,18 +1,20 @@
 /******************************************************************************
 * Copyright (C) 2002 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
-/****************************************************************************/
+#ifndef XUARTLITE_L_H
+#define XUARTLITE_L_H
+
+/*****************************************************************************/
 /**
 *
 * @file xuartlite_l.h
-* @addtogroup uartlite Overview
-* @{
+* @brief Low-level driver identifiers and functions for the UART Lite device.
 *
 * This header file contains identifiers and low-level driver functions (or
-* macros) that can be used to access the device.  High-level driver functions
+* macros) that can be used to access the device. High-level driver functions
 * are defined in xuartlite.h.
 *
 * <pre>
@@ -30,12 +32,14 @@
 * 3.2   sk   11/10/15 Used UINTPTR instead of u32 for Baseaddress CR# 867425.
 *                     Changed the prototypes of XUartLite_SendByte,
 *                     XUartLite_RecvByte APIs.
+* 3.14  vn   09/09/26 Align Doxygen comments with AMD standards
 * </pre>
 *
-*****************************************************************************/
+******************************************************************************/
 
-#ifndef XUARTLITE_L_H /* prevent circular inclusions */
-#define XUARTLITE_L_H /* by using protection macros */
+/** @addtogroup uartlite Overview
+ * @{
+ */
 
 #ifdef __cplusplus
 extern "C" {
@@ -47,11 +51,15 @@ extern "C" {
 #include "xil_assert.h"
 #include "xil_io.h"
 
-/*
- * XPAR_XUARTLITE_USE_DCR_BRIDGE has to be set to 1 if the UartLite device is
- * accessed through a DCR bus connected to a bridge.
+/** @name DCR bus bridge configuration
+ *
+ * Set to 1 if the UartLite device is accessed through a DCR bus
+ * connected to a bridge.
+ * @{
  */
+/** DCR bus bridge access flag. */
 #define XPAR_XUARTLITE_USE_DCR_BRIDGE 0
+/** @} */
 
 #if (XPAR_XUARTLITE_USE_DCR_BRIDGE != 0)
 #include "xio_dcr.h"
@@ -60,239 +68,262 @@ extern "C" {
 
 /************************** Constant Definitions ****************************/
 
-/* UART Lite register offsets */
-
+/** @name UART Lite register offsets
+ * @{
+ */
 #if (XPAR_XUARTLITE_USE_DCR_BRIDGE != 0)
-#define XUL_RX_FIFO_OFFSET		0	/* receive FIFO, read only */
-#define XUL_TX_FIFO_OFFSET		1	/* transmit FIFO, write only */
-#define XUL_STATUS_REG_OFFSET		2	/* status register, read only */
-#define XUL_CONTROL_REG_OFFSET		3	/* control reg, write only */
+#define XUL_RX_FIFO_OFFSET		0	/**< Receive FIFO, read only. */
+#define XUL_TX_FIFO_OFFSET		1	/**< Transmit FIFO, write only. */
+#define XUL_STATUS_REG_OFFSET		2	/**< Status register, read only. */
+#define XUL_CONTROL_REG_OFFSET		3	/**< Control register, write only. */
 
 #else
 
-#define XUL_RX_FIFO_OFFSET		0	/* receive FIFO, read only */
-#define XUL_TX_FIFO_OFFSET		4	/* transmit FIFO, write only */
-#define XUL_STATUS_REG_OFFSET		8	/* status register, read only */
-#define XUL_CONTROL_REG_OFFSET		12	/* control reg, write only */
+#define XUL_RX_FIFO_OFFSET		0	/**< Receive FIFO, read only. */
+#define XUL_TX_FIFO_OFFSET		4	/**< Transmit FIFO, write only. */
+#define XUL_STATUS_REG_OFFSET		8	/**< Status register, read only. */
+#define XUL_CONTROL_REG_OFFSET		12	/**< Control register, write only. */
 
 #endif
+/** @} */
 
-/* Control Register bit positions */
+/** @name Control register bit positions
+ * @{
+ */
+#define XUL_CR_ENABLE_INTR		0x10	/**< Enable interrupt. */
+#define XUL_CR_FIFO_RX_RESET		0x02	/**< Reset receive FIFO. */
+#define XUL_CR_FIFO_TX_RESET		0x01	/**< Reset transmit FIFO. */
+/** @} */
 
-#define XUL_CR_ENABLE_INTR		0x10	/* enable interrupt */
-#define XUL_CR_FIFO_RX_RESET		0x02	/* reset receive FIFO */
-#define XUL_CR_FIFO_TX_RESET		0x01	/* reset transmit FIFO */
+/** @name Status register bit positions
+ * @{
+ */
+#define XUL_SR_PARITY_ERROR		0x80	/**< Parity error detected. */
+#define XUL_SR_FRAMING_ERROR		0x40	/**< Framing error detected. */
+#define XUL_SR_OVERRUN_ERROR		0x20	/**< Overrun error detected. */
+#define XUL_SR_INTR_ENABLED		0x10	/**< Interrupt enabled. */
+#define XUL_SR_TX_FIFO_FULL		0x08	/**< Transmit FIFO full. */
+#define XUL_SR_TX_FIFO_EMPTY		0x04	/**< Transmit FIFO empty. */
+#define XUL_SR_RX_FIFO_FULL		0x02	/**< Receive FIFO full. */
+#define XUL_SR_RX_FIFO_VALID_DATA	0x01	/**< Data in receive FIFO. */
+/** @} */
 
-/* Status Register bit positions */
-
-#define XUL_SR_PARITY_ERROR		0x80
-#define XUL_SR_FRAMING_ERROR		0x40
-#define XUL_SR_OVERRUN_ERROR		0x20
-#define XUL_SR_INTR_ENABLED		0x10	/* interrupt enabled */
-#define XUL_SR_TX_FIFO_FULL		0x08	/* transmit FIFO full */
-#define XUL_SR_TX_FIFO_EMPTY		0x04	/* transmit FIFO empty */
-#define XUL_SR_RX_FIFO_FULL		0x02	/* receive FIFO full */
-#define XUL_SR_RX_FIFO_VALID_DATA	0x01	/* data in receive FIFO */
-
-/* The following constant specifies the size of the Transmit/Receive FIFOs.
- * The FIFO size is fixed to 16 in the Uartlite IP and the size is not
- * configurable. This constant is not used in the driver.
+/** @name FIFO and serial line constants
+ *
+ * Fixed hardware parameters for the UartLite IP.
+ * @{
+ */
+/** Transmit/receive FIFO size in bytes. Fixed to 16 in the UartLite IP,
+ * not configurable, and not used by the driver.
  */
 #define XUL_FIFO_SIZE			16
-
-/* Stop bits are fixed at 1. Baud, parity, and data bits are fixed on a
- * per instance basis
+/** Stop bits, fixed at 1. Baud, parity, and data bits are fixed on a
+ * per-instance basis.
  */
 #define XUL_STOP_BITS			1
+/** @} */
 
-/* Parity definitions
+/** @name Parity definitions
+ * @{
  */
-#define XUL_PARITY_NONE			0
-#define XUL_PARITY_ODD			1
-#define XUL_PARITY_EVEN			2
+#define XUL_PARITY_NONE			0/**< No parity. */
+#define XUL_PARITY_ODD			1/**< Odd parity. */
+#define XUL_PARITY_EVEN			2/**< Even parity. */
+/** @} */
 
 /**************************** Type Definitions ******************************/
 
 /***************** Macros (Inline Functions) Definitions ********************/
 
-/*
+/** @name I/O access method macros
+ *
  * Define the appropriate I/O access method to memory mapped I/O or DCR.
+ * @{
  */
 #if (XPAR_XUARTLITE_USE_DCR_BRIDGE != 0)
 
+/** DCR 32-bit input operation. */
 #define XUartLite_In32  XIo_DcrIn
+/** DCR 32-bit output operation. */
 #define XUartLite_Out32 XIo_DcrOut
 
 #else
 
+/** Memory-mapped 32-bit input operation. */
 #define XUartLite_In32  Xil_In32
+/** Memory-mapped 32-bit output operation. */
 #define XUartLite_Out32 Xil_Out32
 
 #endif
+/** @} */
 
 
-/****************************************************************************/
+/*****************************************************************************/
 /**
 *
-* Write a value to a UartLite register. A 32 bit write is performed.
+* @brief Writes a value to a UartLite register.
 *
-* @param	BaseAddress is the base address of the UartLite device.
-* @param	RegOffset is the register offset from the base to write to.
-* @param	Data is the data written to the register.
+* A 32 bit write is performed.
 *
-* @return	None.
+* @param[in]   BaseAddress Base address of the UartLite device.
+* @param[in]   RegOffset Register offset from the base to write to.
+* @param[in]   Data Data written to the register.
 *
-* @note		C-style signature:
-*		void XUartLite_WriteReg(u32 BaseAddress, u32 RegOffset,
-*					u32 Data)
+* @note        C-style signature:
+*              void XUartLite_WriteReg(u32 BaseAddress, u32 RegOffset,
+*                                      u32 Data)
 *
-****************************************************************************/
+******************************************************************************/
 #define XUartLite_WriteReg(BaseAddress, RegOffset, Data) \
 	XUartLite_Out32((BaseAddress) + (RegOffset), (u32)(Data))
 
-/****************************************************************************/
+/*****************************************************************************/
 /**
 *
-* Read a value from a UartLite register. A 32 bit read is performed.
+* @brief Reads a value from a UartLite register.
 *
-* @param	BaseAddress is the base address of the UartLite device.
-* @param	RegOffset is the register offset from the base to read from.
+* A 32 bit read is performed.
 *
-* @return	Data read from the register.
+* @param[in]   BaseAddress Base address of the UartLite device.
+* @param[in]   RegOffset Register offset from the base to read from.
 *
-* @note		C-style signature:
-*		u32 XUartLite_ReadReg(u32 BaseAddress, u32 RegOffset)
+* @return      Data read from the register.
 *
-****************************************************************************/
+* @note        C-style signature:
+*              u32 XUartLite_ReadReg(u32 BaseAddress, u32 RegOffset)
+*
+******************************************************************************/
 #define XUartLite_ReadReg(BaseAddress, RegOffset) \
 	XUartLite_In32((BaseAddress) + (RegOffset))
 
 
-/****************************************************************************/
+/*****************************************************************************/
 /**
 *
-* Set the contents of the control register. Use the XUL_CR_* constants defined
-* above to create the bit-mask to be written to the register.
+* @brief Sets the contents of the control register.
 *
-* @param	BaseAddress is the base address of the device
-* @param	Mask is the 32-bit value to write to the control register
+* Use the XUL_CR_* constants defined above to create the bit-mask to be
+* written to the register.
 *
-* @return	None.
+* @param[in]   BaseAddress Base address of the device.
+* @param[in]   Mask The 32-bit value to write to the control register.
 *
-* @note		C-style Signature:
-*		void XUartLite_SetControlReg(u32 BaseAddress, u32 Mask);
+* @note        C-style Signature:
+*              void XUartLite_SetControlReg(u32 BaseAddress, u32 Mask);
 *
-*****************************************************************************/
+******************************************************************************/
 #define XUartLite_SetControlReg(BaseAddress, Mask) \
 	XUartLite_WriteReg((BaseAddress), XUL_CONTROL_REG_OFFSET, (Mask))
 
 
-/****************************************************************************/
+/*****************************************************************************/
 /**
 *
-* Get the contents of the status register. Use the XUL_SR_* constants defined
-* above to interpret the bit-mask returned.
+* @brief Returns the contents of the status register.
 *
-* @param	BaseAddress is the  base address of the device
+* Use the XUL_SR_* constants defined above to interpret the bit-mask
+* returned.
 *
-* @return	A 32-bit value representing the contents of the status register.
+* @param[in]   BaseAddress Base address of the device.
 *
-* @note		C-style Signature:
-*		u32 XUartLite_GetStatusReg(u32 BaseAddress);
+* @return      A 32-bit value representing the contents of the status register.
 *
-*****************************************************************************/
+* @note        C-style Signature:
+*              u32 XUartLite_GetStatusReg(u32 BaseAddress);
+*
+******************************************************************************/
 #define XUartLite_GetStatusReg(BaseAddress) \
 		XUartLite_ReadReg((BaseAddress), XUL_STATUS_REG_OFFSET)
 
 
-/****************************************************************************/
+/*****************************************************************************/
 /**
 *
-* Check to see if the receiver has data.
+* @brief Checks if the receiver has data.
 *
-* @param	BaseAddress is the  base address of the device
+* @param[in]   BaseAddress Base address of the device.
 *
-* @return	TRUE if the receiver is empty, FALSE if there is data present.
+* @return      TRUE if the receiver is empty, FALSE if there is data present.
 *
-* @note		C-style Signature:
-*		int XUartLite_IsReceiveEmpty(u32 BaseAddress);
+* @note        C-style Signature:
+*              int XUartLite_IsReceiveEmpty(u32 BaseAddress);
 *
-*****************************************************************************/
+******************************************************************************/
 #define XUartLite_IsReceiveEmpty(BaseAddress) \
   ((XUartLite_GetStatusReg((BaseAddress)) & XUL_SR_RX_FIFO_VALID_DATA) != \
 	XUL_SR_RX_FIFO_VALID_DATA)
 
 
-/****************************************************************************/
+/*****************************************************************************/
 /**
 *
-* Check to see if the transmitter is full.
+* @brief Checks if the transmitter is full.
 *
-* @param	BaseAddress is the  base address of the device
+* @param[in]   BaseAddress Base address of the device.
 *
-* @return	TRUE if the transmitter is full, FALSE otherwise.
+* @return      TRUE if the transmitter is full, FALSE otherwise.
 *
-* @note		C-style Signature:
-* 		int XUartLite_IsTransmitFull(u32 BaseAddress);
+* @note        C-style Signature:
+*              int XUartLite_IsTransmitFull(u32 BaseAddress);
 *
-*****************************************************************************/
+******************************************************************************/
 #define XUartLite_IsTransmitFull(BaseAddress) \
 	((XUartLite_GetStatusReg((BaseAddress)) & XUL_SR_TX_FIFO_FULL) == \
 	  XUL_SR_TX_FIFO_FULL)
 
 
-/****************************************************************************/
+/*****************************************************************************/
 /**
 *
-* Check to see if the interrupt is enabled.
+* @brief Checks if the interrupt is enabled.
 *
-* @param	BaseAddress is the  base address of the device
+* @param[in]   BaseAddress Base address of the device.
 *
-* @return	TRUE if the interrupt is enabled, FALSE otherwise.
+* @return      TRUE if the interrupt is enabled, FALSE otherwise.
 *
-* @note		C-style Signature:
-*		int XUartLite_IsIntrEnabled(u32 BaseAddress);
+* @note        C-style Signature:
+*              int XUartLite_IsIntrEnabled(u32 BaseAddress);
 *
-*****************************************************************************/
+******************************************************************************/
 #define XUartLite_IsIntrEnabled(BaseAddress) \
 	((XUartLite_GetStatusReg((BaseAddress)) & XUL_SR_INTR_ENABLED) == \
 	  XUL_SR_INTR_ENABLED)
 
 
-/****************************************************************************/
+/*****************************************************************************/
 /**
 *
-* Enable the device interrupt. We cannot read the control register, so we
-* just write the enable interrupt bit and clear all others. Since the only
-* other ones are the FIFO reset bits, this works without side effects.
+* @brief Enables the device interrupt.
 *
-* @param	BaseAddress is the  base address of the device
+* The control register cannot be read, so this macro just writes the enable
+* interrupt bit and clears all others. Since the only other ones are the
+* FIFO reset bits, this works without side effects.
 *
-* @return	None.
+* @param[in]   BaseAddress Base address of the device.
 *
-* @note		C-style Signature:
-* 		void XUartLite_EnableIntr(u32 BaseAddress);
+* @note        C-style Signature:
+*              void XUartLite_EnableIntr(u32 BaseAddress);
 *
-*****************************************************************************/
+******************************************************************************/
 #define XUartLite_EnableIntr(BaseAddress) \
 		XUartLite_SetControlReg((BaseAddress), XUL_CR_ENABLE_INTR)
 
 
-/****************************************************************************/
+/*****************************************************************************/
 /**
 *
-* Disable the device interrupt. We cannot read the control register, so we
-* just clear all bits. Since the only other ones are the FIFO reset bits,
-* this works without side effects.
+* @brief Disables the device interrupt.
 *
-* @param	BaseAddress is the  base address of the device
+* The control register cannot be read, so this macro just clears all bits.
+* Since the only other ones are the FIFO reset bits, this works without side
+* effects.
 *
-* @return	None.
+* @param[in]   BaseAddress Base address of the device.
 *
-* @note		C-style Signature:
-* 		void XUartLite_DisableIntr(u32 BaseAddress);
+* @note        C-style Signature:
+*              void XUartLite_DisableIntr(u32 BaseAddress);
 *
-*****************************************************************************/
+******************************************************************************/
 #define XUartLite_DisableIntr(BaseAddress) \
 		XUartLite_SetControlReg((BaseAddress), 0)
 
@@ -305,7 +336,7 @@ u8 XUartLite_RecvByte(UINTPTR BaseAddress);
 }
 #endif
 
-#endif /* end of protection macro */
+#endif
 
 
 /** @} */

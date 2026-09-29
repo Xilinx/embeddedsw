@@ -4,17 +4,12 @@
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
-/****************************************************************************/
+/*****************************************************************************/
 /**
 *
 * @file xuartlite_selftest_example.c
 *
-* This file contains a design example using the UartLite driver (XUartLite) and
-* hardware device.
-*
-* @note
-*
-* None
+* @brief Demonstrates a self-test using the UartLite driver.
 *
 * MODIFICATION HISTORY:
 * <pre>
@@ -29,7 +24,9 @@
 *                     CR-965028.
 * 3.9   gm   07/08/23 Added SDT support
 * 3.13  vlt  12/18/25 Update Doxygen comments to include SDT flow details.
+* 3.14  vn   09/09/26 Align Doxygen comments with AMD standards
 * </pre>
+*
 ******************************************************************************/
 
 /***************************** Include Files *********************************/
@@ -40,16 +37,21 @@
 
 /************************** Constant Definitions *****************************/
 
-/*
+/** @name Device parameters
+ *
  * The following constants map to the XPAR parameters created in the
  * xparameters.h file. They are defined here such that a user can easily
  * change all the needed parameters in one place.
+ * @{
  */
 #ifndef SDT
+/** UartLite device ID. */
 #define UARTLITE_DEVICE_ID		XPAR_UARTLITE_0_DEVICE_ID
 #else
+/** UartLite base address. */
 #define XUARTLITE_BASEADDRESS		XPAR_XUARTLITE_0_BASEADDR
 #endif
+/** @} */
 
 
 /**************************** Type Definitions *******************************/
@@ -67,18 +69,17 @@ int UartLiteSelfTestExample(UINTPTR BaseAddress);
 
 /************************** Variable Definitions *****************************/
 
-XUartLite UartLite;		 /* Instance of the UartLite device */
+XUartLite UartLite;		 /**< Instance of the UartLite device. */
 
 /*****************************************************************************/
 /**
 *
-* Main function to call the example. This function is not included if the
-* example is generated from the TestAppGen test tool.
+* @brief Calls the UartLite self-test example.
 *
+* This function is not included if the example is generated from the
+* TestAppGen test tool.
 *
-* @return	XST_SUCCESS if successful, otherwise XST_FAILURE.
-*
-* @note		None.
+* @return      XST_SUCCESS if successful, otherwise XST_FAILURE.
 *
 ******************************************************************************/
 #ifndef TESTAPP_GEN
@@ -109,24 +110,24 @@ int main(void)
 /*****************************************************************************/
 /**
 *
-* This function does a minimal test on the UartLite device and driver as a
-* design example. The purpose of this function is to illustrate
-* how to use the XUartLite component.
+* @brief Performs a minimal test on the UartLite device and driver.
 *
+* This function is a design example that illustrates how to use the XUartLite
+* component.
 *
 * @if SDT
-* @param	BaseAddress contains the base address of the device
+* @param[in]   BaseAddress Base address of the device.
 * @else
-* @param	DeviceId is the XPAR_<uartlite_instance>_DEVICE_ID value from
-*		xparameters.h.
+* @param[in]   DeviceId The XPAR_<uartlite_instance>_DEVICE_ID value from
+*              xparameters.h.
 * @endif
 *
-* @return	XST_SUCCESS if successful, otherwise XST_FAILURE.
+* @return      XST_SUCCESS if successful, otherwise XST_FAILURE.
 *
-* @note		In XSCT/classic flow, DeviceId is used to look up the device
-*               configuration.
+* @note        In XSCT/classic flow, DeviceId is used to look up the device
+*              configuration.
 *
-****************************************************************************/
+******************************************************************************/
 #ifndef SDT
 int UartLiteSelfTestExample(u16 DeviceId)
 #else

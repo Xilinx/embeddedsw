@@ -4,18 +4,16 @@
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
-/******************************************************************************/
+/*****************************************************************************/
 /**
 *
 * @file xuartlite_polled_example.c
 *
-* This file contains a design example using the UartLite driver (XUartLite) and
-* hardware device using the polled mode.
+* @brief Demonstrates the UartLite driver in polled mode.
 *
 * @note
-*
-* The user must provide a physical loopback such that data which is
-* transmitted will be received.
+* A physical loopback must be provided such that data which is transmitted is
+* received.
 *
 * MODIFICATION HISTORY:
 * <pre>
@@ -32,7 +30,9 @@
 *                     CR-965028.
 * 3.9   gm   07/08/23 Added SDT support
 * 3.13  vlt 12/18/25 Update Doxygen comments to include SDT flow details.
+* 3.14  vn   09/09/26 Align Doxygen comments with AMD standards
 * </pre>
+*
 ******************************************************************************/
 
 /***************************** Include Files *********************************/
@@ -44,24 +44,31 @@
 
 /************************** Constant Definitions *****************************/
 
-/*
+/** @name Device parameters
+ *
  * The following constants map to the XPAR parameters created in the
  * xparameters.h file. They are defined here such that a user can easily
  * change all the needed parameters in one place.
+ * @{
  */
 #ifndef SDT
+/** UartLite device ID. */
 #define UARTLITE_DEVICE_ID	XPAR_UARTLITE_0_DEVICE_ID
 #else
+/** UartLite base address. */
 #define XUARTLITE_BASEADDRESS	XPAR_XUARTLITE_0_BASEADDR
 #endif
+/** @} */
 
-/*
- * The following constant controls the length of the buffers to be sent
- * and received with the UartLite, this constant must be 16 bytes or less since
- * this is a single threaded non-interrupt driven example such that the
- * entire buffer will fit into the transmit and receive FIFOs of the UartLite.
+/** @name Buffer size
+ *
+ * This constant must be 16 bytes or less since this is a single threaded
+ * non-interrupt driven example such that the entire buffer fits into the
+ * transmit and receive FIFOs of the UartLite.
+ * @{
  */
-#define TEST_BUFFER_SIZE 16
+#define TEST_BUFFER_SIZE 16	/**< Length of the send and receive buffers. */
+/** @} */
 
 /**************************** Type Definitions *******************************/
 
@@ -78,24 +85,17 @@ int UartLitePolledExample(UINTPTR BaseAddress);
 
 /************************** Variable Definitions *****************************/
 
-XUartLite UartLite;		/* Instance of the UartLite Device */
+XUartLite UartLite;		/**< Instance of the UartLite device. */
 
-/*
- * The following buffers are used in this example to send and receive data
- * with the UartLite.
- */
-u8 SendBuffer[TEST_BUFFER_SIZE];	/* Buffer for Transmitting Data */
-u8 RecvBuffer[TEST_BUFFER_SIZE];	/* Buffer for Receiving Data */
+u8 SendBuffer[TEST_BUFFER_SIZE];	/**< Buffer for transmitting data. */
+u8 RecvBuffer[TEST_BUFFER_SIZE];	/**< Buffer for receiving data. */
 
 /*****************************************************************************/
 /**
 *
-* Main function to call the Uartlite polled example.
+* @brief Calls the UartLite polled example.
 *
-*
-* @return	XST_SUCCESS if successful, otherwise XST_FAILURE.
-*
-* @note		None.
+* @return      XST_SUCCESS if successful, otherwise XST_FAILURE.
 *
 ******************************************************************************/
 int main(void)
@@ -122,35 +122,36 @@ int main(void)
 }
 
 
-/****************************************************************************/
+/*****************************************************************************/
 /**
-* This function does a minimal test on the UartLite device and driver as a
-* design example. The purpose of this function is to illustrate
-* how to use the XUartLite component.
+* @brief Performs a minimal test on the UartLite device and driver.
 *
-* This function sends data and expects to receive the data through the UartLite
-* such that a  physical loopback must be done with the transmit and receive
-* signals of the UartLite.
+* This function is a design example that illustrates how to use the XUartLite
+* component.
 *
-* This function polls the UartLite and does not require the use of interrupts.
+* This function sends data and expects to receive the data through the
+* UartLite such that a physical loopback must be done with the transmit
+* and receive signals of the UartLite.
+*
+* This function polls the UartLite and does not require the use of
+* interrupts.
 *
 * @if SDT
-* @param	BaseAddress contains the base address of the device
+* @param[in]   BaseAddress Base address of the device.
 * @else
-* @param	DeviceId is the Device ID of the UartLite and is the
-*		XPAR_<uartlite_instance>_DEVICE_ID value from xparameters.h.
+* @param[in]   DeviceId Device ID of the UartLite and is the
+*              XPAR_<uartlite_instance>_DEVICE_ID value from xparameters.h.
 * @endif
 *
-* @return	XST_SUCCESS if successful, XST_FAILURE if unsuccessful.
+* @return      XST_SUCCESS if successful, XST_FAILURE if unsuccessful.
 *
+* @note        - In XSCT/classic flow, DeviceId is used to look up the device
+*              configuration.
+*              - This function calls the UartLite driver functions in a blocking
+*              mode such that if the transmit data does not loopback to the
+*              receive, this function may not return.
 *
-* @note       - In XSCT/classic flow, DeviceId is used to look up the device
-*             configuration.
-*             - This function calls the UartLite driver functions in a blocking
-*             mode such that if the transmit data does not loopback to the
-*             receive, this function may not return.
-*
-****************************************************************************/
+******************************************************************************/
 #ifndef SDT
 int UartLitePolledExample(u16 DeviceId)
 #else

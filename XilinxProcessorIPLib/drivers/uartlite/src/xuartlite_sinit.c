@@ -4,15 +4,11 @@
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
-/****************************************************************************/
+/*****************************************************************************/
 /**
 *
 * @file xuartlite_sinit.c
-* @addtogroup uartlite Overview
-* @{
-*
-* The implementation of the XUartLite component's static initialization
-* functionality.
+* @brief Static initialization for the XUartLite component.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -22,9 +18,14 @@
 * 1.01a jvb  10/13/05 First release
 * 2.00a ktn  10/20/09 Updated to use HAL Processor APIs.
 * 3.13  vlt  12/18/25 Update Doxygen comments to include SDT flow details.
+* 3.14  vn   09/09/26 Align Doxygen comments with AMD standards
 * </pre>
 *
-*****************************************************************************/
+******************************************************************************/
+
+/** @addtogroup uartlite Overview
+ * @{
+ */
 
 /***************************** Include Files ********************************/
 
@@ -46,21 +47,23 @@
 
 /************************** Function Prototypes *****************************/
 
-/****************************************************************************
+/*****************************************************************************/
+/**
+* @brief Looks up the device configuration based on the unique device ID or
+* base address.
 *
-* Looks up the device configuration based on the unique device ID/BaseAddress.
 * The XUartLite_ConfigTable[] contains the configuration info for each device
 * in the system.
 *
 * @if SDT
-* @param	BaseAddress contains the base address of the device
+* @param[in]   BaseAddress Base address of the device.
 * @else
-* @param	DeviceId contains the unique ID of the device
+* @param[in]   DeviceId Unique ID of the device.
 * @endif
 *
-* @return       A pointer to the configuration found or NULL if the specified
-*               device ID/BaseAddress was not found. See xuartlite.h for the
-*               definition of XUartLite_Config.
+* @return      A pointer to the configuration found or NULL if the specified
+*              device ID/BaseAddress was not found. See xuartlite.h for the
+*              definition of XUartLite_Config.
 *
 * @note        In XSCT/classic flow, DeviceId is used to look up the device
 *              configuration.
@@ -98,35 +101,36 @@ XUartLite_Config *XUartLite_LookupConfig(UINTPTR BaseAddress)
 	return CfgPtr;
 }
 #endif
-/****************************************************************************/
+/*****************************************************************************/
 /**
 *
-* Initialize a XUartLite instance.  The receive and transmit FIFOs of the
-* UART are not flushed, so the user may want to flush them. The hardware
-* device does not have any way to disable the receiver such that any valid
-* data may be present in the receive FIFO. This function disables the UART
-* interrupt. The baudrate and format of the data are fixed in the hardware
-* at hardware build time.
+* @brief Initializes a XUartLite instance.
 *
-* @param	InstancePtr is a pointer to the XUartLite instance.
+* The receive and transmit FIFOs of the UART are not flushed, so they
+* may be flushed if desired. The hardware device does not have any way to
+* disable the receiver such that any valid data may be present in the
+* receive FIFO. This function disables the UART interrupt. The baudrate
+* and format of the data are fixed in the hardware at hardware build time.
+*
+* @param[in]   InstancePtr Pointer to the XUartLite instance.
 * @if SDT
-* @param	BaseAddress contains the base address of the device
+* @param[in]   BaseAddress Base address of the device.
 * @else
-* @param	DeviceId is the unique id of the device controlled by this
-*		XUartLite instance.  Passing in a device id associates the
-*		generic XUartLite instance to a specific device, as chosen by
-*		the caller or application developer.
+* @param[in]   DeviceId Unique id of the device controlled by this
+*              XUartLite instance. Passing in a device id associates the
+*              generic XUartLite instance to a specific device, as chosen by
+*              the caller or application developer.
 * @endif
 *
 * @return
-* 		- XST_SUCCESS if everything starts up as expected.
-* 		- XST_DEVICE_NOT_FOUND if the device is not found in the
-*			configuration table.
+*              - XST_SUCCESS if everything starts up as expected.
+*              - XST_DEVICE_NOT_FOUND if the device is not found in the
+*                      configuration table.
 *
-* @note		In XSCT/classic flow, DeviceId is used to look up the device
-*		configuration.
+* @note        In XSCT/classic flow, DeviceId is used to look up the device
+*              configuration.
 *
-*****************************************************************************/
+******************************************************************************/
 #ifndef SDT
 int XUartLite_Initialize(XUartLite *InstancePtr, u16 DeviceId)
 #else

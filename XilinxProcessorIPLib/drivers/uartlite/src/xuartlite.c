@@ -4,15 +4,13 @@
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
-/****************************************************************************/
+/*****************************************************************************/
 /**
 *
 * @file xuartlite.c
-* @addtogroup uartlite Overview
-* @{
+* @brief Implements the required functions for the XUartLite driver.
 *
-* Contains required functions for the XUartLite driver. See the xuartlite.h
-* header file for more details on this driver.
+* See the xuartlite.h header file for more details on this driver.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -55,65 +53,71 @@
 *                     directly.
 * 3.13  vlt  01/27/26 Fixed codespell issues
 * 3.14  vn   08/26/26 Fix Doxygen warnings
+* 3.14  vn   09/09/26 Align Doxygen comments with AMD standards
 *
 * </pre>
 *
-*****************************************************************************/
+******************************************************************************/
 
-/***************************** Include Files ********************************/
+/** @addtogroup uartlite Overview
+ * @{
+ */
+
+/****************************** Include Files ********************************/
 
 #include "xuartlite.h"
 #include "xuartlite_i.h"
 #include "xil_io.h"
 
-/************************** Constant Definitions ****************************/
+/*************************** Constant Definitions ****************************/
 
 
-/**************************** Type Definitions ******************************/
+/***************************** Type Definitions ******************************/
 
 
-/***************** Macros (Inline Functions) Definitions ********************/
+/****************** Macros (Inline Functions) Definitions ********************/
 
 
-/************************** Variable Definitions ****************************/
-/************************** Function Prototypes *****************************/
+/*************************** Variable Definitions ****************************/
+/*************************** Function Prototypes *****************************/
 
 static void StubHandler(void *CallBackRef, unsigned int ByteCount);
 
-/****************************************************************************/
+/*****************************************************************************/
 /**
 *
-* Initialize a XUartLite instance. The receive and transmit FIFOs of the
-* UART are not flushed, so the user may want to flush them. The hardware
-* device does not have any way to disable the receiver such that any valid
-* data may be present in the receive FIFO.  This function disables the UART
-* interrupt. The baudrate and format of the data are fixed in the hardware
-* at hardware build time.
+* @brief Initializes a XUartLite instance.
 *
-* @param	InstancePtr is a pointer to the XUartLite instance.
-* @param	Config is a reference to a structure containing information
-*		about a specific UART Lite device. This function initializes an
-*		InstancePtr object for a specific device specified by the
-*		contents of Config. This function can initialize multiple
-*		instance objects with the use of multiple calls giving different
-*		Config information on each call.
-* @param 	EffectiveAddr is the device base address in the virtual memory
-*		address space. The caller is responsible for keeping the address
-*		mapping from EffectiveAddr to the device physical base address
-*		unchanged once this function is invoked. Unexpected errors may
-*		occur if the address mapping changes after this function is
-*		called. If address translation is not used, use
-*		Config->BaseAddress for this parameters, passing the physical
-*		address instead.
+* The receive and transmit FIFOs of the UART are not flushed, so you
+* may want to flush them. The hardware device does not have any way to
+* disable the receiver such that any valid data may be present in the
+* receive FIFO. This function disables the UART interrupt. The baudrate
+* and format of the data are fixed in the hardware at hardware build time.
+*
+* @param[out]  InstancePtr Pointer to the XUartLite instance.
+* @param[in]   Config Reference to a structure containing information
+*              about a specific UART Lite device. This function initializes an
+*              InstancePtr object for a specific device specified by the
+*              contents of Config. This function can initialize multiple
+*              instance objects with the use of multiple calls giving different
+*              Config information on each call.
+* @param[in]   EffectiveAddr Device base address in the virtual memory
+*              address space. The caller is responsible for keeping the address
+*              mapping from EffectiveAddr to the device physical base address
+*              unchanged once this function is invoked. Unexpected errors may
+*              occur if the address mapping changes after this function is
+*              called. If address translation is not used, use
+*              Config->BaseAddress for this parameters, passing the physical
+*              address instead.
 *
 * @return
-* 		- XST_SUCCESS if everything starts up as expected.
+*              - XST_SUCCESS if everything starts up as expected.
 *
-* @note		The Config pointer argument is not used by this function,
-*		but is provided to keep the function signature consistent
-*		with other drivers.
+* @note        The Config pointer argument is not used by this function,
+*              but is provided to keep the function signature consistent
+*              with other drivers.
 *
-*****************************************************************************/
+******************************************************************************/
 int XUartLite_CfgInitialize(XUartLite *InstancePtr, XUartLite_Config *Config,
 				UINTPTR EffectiveAddr)
 {
@@ -160,35 +164,37 @@ int XUartLite_CfgInitialize(XUartLite *InstancePtr, XUartLite_Config *Config,
 	return XST_SUCCESS;
 }
 
-/****************************************************************************/
+/*****************************************************************************/
 /**
 *
-* This functions sends the specified buffer of data using the UART in either
-* polled or interrupt driven modes. This function is non-blocking such that it
-* will return before the data has been sent by the UART. If the UART is busy
-* sending data, it will return and indicate zero bytes were sent.
+* @brief Sends the specified buffer of data using the UART.
 *
-* In a polled mode, this function will only send as much data as the UART can
+* This function operates in either polled or interrupt driven modes. It is
+* non-blocking such that it returns before the data has been sent by the
+* UART. If the UART is busy sending data, it returns and indicates zero
+* bytes were sent.
+*
+* In a polled mode, this function only sends as much data as the UART can
 * buffer in the FIFO. The application may need to call it repeatedly to
 * send a buffer.
 *
-* In interrupt mode, this function will start sending the specified buffer and
-* then the interrupt handler of the driver will continue sending data until the
+* In interrupt mode, this function starts sending the specified buffer and
+* then the interrupt handler of the driver continues sending data until the
 * buffer has been sent. A callback function, as specified by the application,
-* will be called to indicate the completion of sending the buffer.
+* is called to indicate the completion of sending the buffer.
 *
-* @param	InstancePtr is a pointer to the XUartLite instance.
-* @param	DataBufferPtr is pointer to a buffer of data to be sent.
-* @param	NumBytes contains the number of bytes to be sent. A value of
-*		zero will stop a previous send operation that is in progress
-*		in interrupt mode. Any data that was already put into the
-*		transmit FIFO will be sent.
+* @param[in,out] InstancePtr Pointer to the XUartLite instance.
+* @param[in]     DataBufferPtr Pointer to a buffer of data to send.
+* @param[in]     NumBytes Number of bytes to send. A value of
+*                zero stops a previous send operation that is in progress
+*                in interrupt mode. Any data that was already put into the
+*                transmit FIFO is sent.
 *
-* @return	The number of bytes actually sent.
+* @return        The number of bytes actually sent.
 *
-* @note		The number of bytes is not asserted so that this function may
-*		be called with a value of zero to stop an operation that is
-*		already in progress.
+* @note          The number of bytes is not asserted so that this function may
+*                be called with a value of zero to stop an operation that is
+*                already in progress.
 *
 ******************************************************************************/
 unsigned int XUartLite_Send(XUartLite *InstancePtr, u8 *DataBufferPtr,
@@ -243,37 +249,40 @@ unsigned int XUartLite_Send(XUartLite *InstancePtr, u8 *DataBufferPtr,
 }
 
 
-/****************************************************************************/
+/*****************************************************************************/
 /**
 *
-* This function will attempt to receive a specified number of bytes of data
-* from the UART and store it into the specified buffer. This function is
-* designed for either polled or interrupt driven modes. It is non-blocking
-* such that it will return if no data has already received by the UART.
+* @brief Receives a specified number of bytes of data from the UART.
 *
-* In a polled mode, this function will only receive as much data as the UART
+* This function attempts to receive the data and store it into the specified
+* buffer. It is designed for either polled or interrupt driven modes. It is
+* non-blocking such that it returns if no data has already been received by
+* the UART.
+*
+* In a polled mode, this function only receives as much data as the UART
 * can buffer in the FIFO. The application may need to call it repeatedly to
-* receive a buffer. Polled mode is the default mode of operation for the driver.
+* receive a buffer. Polled mode is the default mode of operation for the
+* driver.
 *
-* In interrupt mode, this function will start receiving and then the interrupt
-* handler of the driver will continue receiving data until the buffer has been
-* received. A callback function, as specified by the application, will be called
-* to indicate the completion of receiving the buffer or when any receive errors
-* or timeouts occur.
+* In interrupt mode, this function starts receiving and then the interrupt
+* handler of the driver continues receiving data until the buffer has been
+* received. A callback function, as specified by the application, is called
+* to indicate the completion of receiving the buffer or when any receive
+* errors or timeouts occur.
 *
-* @param	InstancePtr is a pointer to the XUartLite instance.
-* @param	DataBufferPtr is pointer to buffer for data to be received into.
-* @param	NumBytes is the number of bytes to be received. A value of zero
-*		will stop a previous receive operation that is in progress in
-*		interrupt mode.
+* @param[in,out] InstancePtr Pointer to the XUartLite instance.
+* @param[out]    DataBufferPtr Pointer to buffer to receive data into.
+* @param[in]     NumBytes Number of bytes to receive. A value of zero
+*                stops a previous receive operation that is in progress in
+*                interrupt mode.
 *
-* @return	The number of bytes received.
+* @return        The number of bytes received.
 *
-* @note 	The number of bytes is not asserted so that this function
-*		may be called with a value of zero to stop an operation
-*		that is already in progress.
+* @note          The number of bytes is not asserted so that this function
+*                may be called with a value of zero to stop an operation
+*                that is already in progress.
 *
-*****************************************************************************/
+******************************************************************************/
 unsigned int XUartLite_Recv(XUartLite *InstancePtr, u8 *DataBufferPtr,
 				unsigned int NumBytes)
 {
@@ -325,19 +334,18 @@ unsigned int XUartLite_Recv(XUartLite *InstancePtr, u8 *DataBufferPtr,
 
 }
 
-/****************************************************************************/
+/*****************************************************************************/
 /**
 *
-* This function resets the FIFOs, both transmit and receive, of the UART such
-* that they are emptied.  Since the UART does not have any way to disable it
+* @brief Resets the FIFOs, both transmit and receive, of the UART.
+*
+* The FIFOs are emptied. Since the UART does not have any way to disable it
 * from receiving data, it may be necessary for the application to reset the
 * FIFOs to get rid of any unwanted data.
 *
-* @param	InstancePtr is a pointer to the XUartLite instance .
+* @param[in]   InstancePtr Pointer to the XUartLite instance.
 *
-* @note		None.
-*
-*****************************************************************************/
+******************************************************************************/
 void XUartLite_ResetFifos(XUartLite *InstancePtr)
 {
 	u32 Register;
@@ -364,19 +372,18 @@ void XUartLite_ResetFifos(XUartLite *InstancePtr)
 			Register | XUL_CR_FIFO_TX_RESET | XUL_CR_FIFO_RX_RESET);
 }
 
-/****************************************************************************/
+/*****************************************************************************/
 /**
 *
-* This function determines if the specified UART is sending data. If the
-* transmitter register is not empty, it is sending data.
+* @brief Determines if the specified UART is sending data.
 *
-* @param	InstancePtr is a pointer to the XUartLite instance.
+* If the transmitter register is not empty, it is sending data.
 *
-* @return	A value of TRUE if the UART is sending data, otherwise FALSE.
+* @param[in]   InstancePtr Pointer to the XUartLite instance.
 *
-* @note		None.
+* @return      A value of TRUE if the UART is sending data, otherwise FALSE.
 *
-*****************************************************************************/
+******************************************************************************/
 int XUartLite_IsSending(XUartLite *InstancePtr)
 {
 	u32 StatusRegister;
@@ -399,21 +406,19 @@ int XUartLite_IsSending(XUartLite *InstancePtr)
 }
 
 
-/****************************************************************************
+/*****************************************************************************/
+/**
+* @brief Provides a stub handler for unregistered interrupt callbacks.
 *
-* This function provides a stub handler such that if the application does not
-* define a handler but enables interrupts, this function will be called.
+* If the application does not define a handler but enables interrupts,
+* this function is called.
 *
-* @param	CallBackRef has no purpose but is necessary to match the
-*		interface for a handler.
-* @param	ByteCount has no purpose but is necessary to match the
-*		interface for a handler.
+* @param[in]   CallBackRef Unused, but required to match the
+*              interface for a handler.
+* @param[in]   ByteCount Unused, but required to match the
+*              interface for a handler.
 *
-* @return	None.
-*
-* @note		None.
-*
-*****************************************************************************/
+******************************************************************************/
 static void StubHandler(void *CallBackRef, unsigned int ByteCount)
 {
 	(void) CallBackRef;
@@ -425,35 +430,35 @@ static void StubHandler(void *CallBackRef, unsigned int ByteCount)
 }
 
 
-/****************************************************************************/
+/*****************************************************************************/
 /**
 *
-* This function sends a buffer that has been previously specified by setting
-* up the instance variables of the instance. This function is designed to be
-* an internal function for the XUartLite component such that it may be called
-* from a shell function that sets up the buffer or from an interrupt handler.
+* @brief Sends a previously specified buffer of data to the UART.
 *
-* This function sends the specified buffer of data to the UART in either
-* polled or interrupt driven modes. This function is non-blocking such that
-* it will return before the data has been sent by the UART.
+* The buffer is specified beforehand by setting up the instance variables
+* of the instance. This function is designed to be an internal function
+* for the XUartLite component such that it may be called from a shell
+* function that sets up the buffer or from an interrupt handler.
 *
-* In a polled mode, this function will only send as much data as the UART can
+* It sends the specified buffer of data to the UART in either polled or
+* interrupt driven modes. It is non-blocking such that it returns before
+* the data has been sent by the UART.
+*
+* In a polled mode, this function only sends as much data as the UART can
 * buffer, either in the transmitter or in the FIFO if present and enabled.
 * The application may need to call it repeatedly to send a buffer.
 *
-* In interrupt mode, this function will start sending the specified buffer and
-* then the interrupt handler of the driver will continue until the buffer
-* has been sent. A callback function, as specified by the application, will
-* be called to indicate the completion of sending the buffer.
+* In interrupt mode, this function starts sending the specified buffer and
+* then the interrupt handler of the driver continues until the buffer
+* has been sent. A callback function, as specified by the application, is
+* called to indicate the completion of sending the buffer.
 *
-* @param	InstancePtr is a pointer to the XUartLite instance.
+* @param[in,out] InstancePtr Pointer to the XUartLite instance.
 *
-* @return	NumBytes is the number of bytes actually sent (put into the
-*		UART transmitter and/or FIFO).
+* @return        The number of bytes actually sent (put into the UART
+*                transmitter and/or FIFO).
 *
-* @note		None.
-*
-*****************************************************************************/
+******************************************************************************/
 unsigned int XUartLite_SendBuffer(XUartLite *InstancePtr)
 {
 	unsigned int SentCount = 0;
@@ -522,38 +527,37 @@ unsigned int XUartLite_SendBuffer(XUartLite *InstancePtr)
 	return SentCount;
 }
 
-/****************************************************************************/
+/*****************************************************************************/
 /**
 *
-* This function receives a buffer that has been previously specified by setting
-* up the instance variables of the instance. This function is designed to be
-* an internal function for the XUartLite component such that it may be called
-* from a shell function that sets up the buffer or from an interrupt handler.
+* @brief Receives a previously specified buffer of data from the UART.
 *
-* This function will attempt to receive a specified number of bytes of data
-* from the UART and store it into the specified buffer. This function is
-* designed for either polled or interrupt driven modes. It is non-blocking
-* such that it will return if there is no data has already received by the
-* UART.
+* The buffer is specified beforehand by setting up the instance variables
+* of the instance. This function is designed to be an internal function
+* for the XUartLite component such that it may be called from a shell
+* function that sets up the buffer or from an interrupt handler.
 *
-* In a polled mode, this function will only receive as much data as the UART
+* It attempts to receive a specified number of bytes of data from the UART
+* and store it into the specified buffer. It is designed for either polled
+* or interrupt driven modes. It is non-blocking such that it returns if
+* there is no data already received by the UART.
+*
+* In a polled mode, this function only receives as much data as the UART
 * can buffer, either in the receiver or in the FIFO if present and enabled.
-* The application may need to call it repeatedly to receive a buffer. Polled
-* mode is the default mode of operation for the driver.
+* The application may need to call it repeatedly to receive a buffer.
+* Polled mode is the default mode of operation for the driver.
 *
-* In interrupt mode, this function will start receiving and then the interrupt
-* handler of the driver will continue until the buffer has been received. A
-* callback function, as specified by the application, will be called to indicate
-* the completion of receiving the buffer or when any receive errors or timeouts
-* occur.
+* In interrupt mode, this function starts receiving and then the interrupt
+* handler of the driver continues until the buffer has been received. A
+* callback function, as specified by the application, is called to indicate
+* the completion of receiving the buffer or when any receive errors or
+* timeouts occur.
 *
-* @param	InstancePtr is a pointer to the XUartLite instance.
+* @param[in,out] InstancePtr Pointer to the XUartLite instance.
 *
-* @return	The number of bytes received.
+* @return        The number of bytes received.
 *
-* @note		None.
-*
-*****************************************************************************/
+******************************************************************************/
 unsigned int XUartLite_ReceiveBuffer(XUartLite *InstancePtr)
 {
 	u8 StatusRegister;
@@ -623,23 +627,23 @@ unsigned int XUartLite_ReceiveBuffer(XUartLite *InstancePtr)
 	return ReceivedCount;
 }
 
-/****************************************************************************/
+/*****************************************************************************/
 /**
 *
-* This function reads the status register and updates the error stats, before
-* returning the status register value. The status register is a clear on read
-* register, so the errors if occurred have to be recorded every time status
-* register is read. This function is designed to be an internal function for
-* the XUartLite component such that it may be called from wherever the status
-* register needs to be read from the other driver functions.
+* @brief Reads the status register and updates the error stats before
+* returning the status register value.
 *
-* @param        InstancePtr is a pointer to the XUartLite instance.
+* The status register is a clear on read register, so the errors if
+* occurred have to be recorded every time the status register is read.
+* This function is designed to be an internal function for the XUartLite
+* component such that it may be called from wherever the status register
+* needs to be read from the other driver functions.
 *
-* @return       The value of status register.
+* @param[in]   InstancePtr Pointer to the XUartLite instance.
 *
-* @note         None.
+* @return      The value of status register.
 *
-*****************************************************************************/
+******************************************************************************/
 u8 XUartLite_GetSR(XUartLite *InstancePtr)
 {
 	u8 StatusRegister;

@@ -4,17 +4,12 @@
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
-/******************************************************************************/
+/*****************************************************************************/
 /**
 *
 * @file xuartlite_intr_tapp_example.c
 *
-* This file contains a design example using the UartLite driver and
-* hardware device using the interrupt mode for transmission of data.
-*
-* @note
-*
-* None.
+* @brief Demonstrates interrupt-mode transmission with the UartLite driver.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -35,11 +30,13 @@
 * 3.12  bkv  07/07/25 Fixed GCC Warnings.
 * 3.13  vlt  12/18/25 Update Doxygen comments to include SDT flow details.
 * 3.14  vn   08/26/26 Fix Doxygen warnings
+* 3.14  vn   09/09/26 Align Doxygen comments with AMD standards
 *
 * </pre>
+*
 ******************************************************************************/
 
-/** @addtogroup xuartlite_intr_example
+/** @addtogroup xuartlite_intr_tapp_example
  * @{
  */
 
@@ -62,45 +59,59 @@
 
 /************************** Constant Definitions *****************************/
 
-/*
+/** @name Device parameters
+ *
  * The following constants map to the XPAR parameters created in the
- * xparameters.h file. They are defined here such that a user can easily
- * change all the needed parameters in one place.
+ * xparameters.h file. They are defined here so that all needed parameters
+ * can be changed in one place.
+ * @{
  */
 #ifndef SDT
 #ifndef TESTAPP_GEN
+/** UartLite device ID. */
 #define UARTLITE_DEVICE_ID	  XPAR_UARTLITE_0_DEVICE_ID
 
 #ifdef XPAR_INTC_0_DEVICE_ID
+/** Interrupt controller device ID. */
 #define INTC_DEVICE_ID		XPAR_INTC_0_DEVICE_ID
+/** UartLite interrupt vector ID. */
 #define UARTLITE_IRPT_INTR	  XPAR_INTC_0_UARTLITE_0_VEC_ID
 #else
+/** GIC device ID. */
 #define INTC_DEVICE_ID		XPAR_SCUGIC_SINGLE_DEVICE_ID
+/** UartLite interrupt vector ID. */
 #define UARTLITE_IRPT_INTR	  XPAR_FABRIC_UARTLITE_0_VEC_ID
 #endif /* XPAR_INTC_0_DEVICE_ID */
 #endif /* TESTAPP_GEN */
 #else
+/** UartLite base address. */
 #define XUARTLITE_BASEADDRESS	XPAR_XUARTLITE_0_BASEADDR
 #endif
+/** @} */
 
-/*
- * The following constant controls the length of the buffers to be sent
- * and received with the UartLite device.
+/** @name Buffer size
+ * @{
  */
-#define TEST_BUFFER_SIZE		100
-
+#define TEST_BUFFER_SIZE		100 /**< Length of the send buffer. */
+/** @} */
 
 /**************************** Type Definitions *******************************/
 
+/** @name Interrupt controller type definitions
+ * @{
+ */
 #ifndef SDT
 #ifdef XPAR_INTC_0_DEVICE_ID
-#define INTC		XIntc
+#define INTC		XIntc /**< Interrupt controller type. */
+/** Interrupt handler function. */
 #define INTC_HANDLER	XIntc_InterruptHandler
 #else
-#define INTC		XScuGic
+#define INTC		XScuGic /**< Interrupt controller type. */
+/** Interrupt handler function. */
 #define INTC_HANDLER	XScuGic_InterruptHandler
 #endif /* XPAR_INTC_0_DEVICE_ID */
 #endif
+/** @} */
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
@@ -132,45 +143,41 @@ static void UartLiteDisableIntrSystem(INTC *IntrInstancePtr,
 
 /************************** Variable Definitions *****************************/
 
-/*
+/** @name Device driver instances
+ *
  * The instances to support the device drivers are global such that they
  * are initialized to zero each time the program runs.
+ * @{
  */
 #ifndef TESTAPP_GEN
 #ifndef SDT
-static INTC IntcInstance;	/* The instance of the Interrupt Controller */
+static INTC IntcInstance;	/**< Instance of the Interrupt Controller. */
 #endif
-static XUartLite UartLiteInst;  /* The instance of the UartLite Device */
+static XUartLite UartLiteInst;  /**< The instance of the UartLite Device. */
 #endif
+/** @} */
 
-/*
+/** @name Shared example variables
+ *
  * The following variables are shared between non-interrupt processing and
- * interrupt processing such that they must be global.
+ * interrupt processing such that they must be global. The counter determines
+ * when the entire buffer has been sent.
+ * @{
  */
+u8 SendBuffer[TEST_BUFFER_SIZE];	/**< Buffer for transmitting data. */
 
-/*
- * The following buffer is used in this example to send data  with the UartLite.
- */
-u8 SendBuffer[TEST_BUFFER_SIZE];
-
-/*
- * The following counter is used to determine when the entire buffer has
- * been sent.
- */
-static volatile int TotalSentCount;
+static volatile int TotalSentCount;	/**< Counter for total bytes sent. */
+/** @} */
 
 
-/******************************************************************************/
+/*****************************************************************************/
 /**
 *
-* Main function to call the UartLite interrupt example.
+* @brief Calls the UartLite interrupt example.
 *
+* @return      XST_SUCCESS if successful, else XST_FAILURE.
 *
-* @return	XST_SUCCESS if successful, else XST_FAILURE.
-*
-* @note		None.
-*
-*******************************************************************************/
+******************************************************************************/
 #ifndef TESTAPP_GEN
 int main(void)
 {
@@ -198,40 +205,41 @@ int main(void)
 }
 #endif
 
-/****************************************************************************/
+/*****************************************************************************/
 /**
 *
-* This function does a minimal test on the UartLite device and driver as a
-* design example. The purpose of this function is to illustrate how to use
-* the XUartLite component.
+* @brief Performs a minimal test on the UartLite device and driver.
+*
+* This function is a design example that illustrates how to use the XUartLite
+* component.
 *
 * This function sends data through the UartLite.
 *
-* This function uses the interrupt driver mode of the UartLite.  The calls to
-* the  UartLite driver in the interrupt handlers, should only use the
+* This function uses the interrupt driver mode of the UartLite. The calls to
+* the UartLite driver in the interrupt handlers, should only use the
 * non-blocking calls.
 *
-* @param	UartLiteInstPtr is a pointer to the instance of UartLite driver.
+* @param[in]   UartLiteInstPtr Pointer to the instance of UartLite driver.
 * @if SDT
-* @param	BaseAddress contains the base address of the device
+* @param[in]   BaseAddress Base address of the device.
 * @else
-* @param	IntcInstancePtr is a pointer to the instance of INTC driver.
-* @param	UartLiteDeviceId is the Device ID of the UartLite Device and
-*		is the XPAR_<UARTLITE_instance>_DEVICE_ID value from
-*		xparameters.h.
-* @param	UartLiteIntrId is the Interrupt ID and is typically
-*		XPAR_<INTC_instance>_<UARTLITE_instance>_VEC_ID value from
-*		xparameters.h.
+* @param[in]   IntcInstancePtr Pointer to the instance of INTC driver.
+* @param[in]   UartLiteDeviceId Device ID of the UartLite Device and
+*              is the XPAR_<UARTLITE_instance>_DEVICE_ID value from
+*              xparameters.h.
+* @param[in]   UartLiteIntrId Interrupt ID and is typically
+*              XPAR_<INTC_instance>_<UARTLITE_instance>_VEC_ID value from
+*              xparameters.h.
 * @endif
 *
-* @return	XST_SUCCESS if successful, otherwise XST_FAILURE.
+* @return      XST_SUCCESS if successful, otherwise XST_FAILURE.
 *
-* @note	       - In XSCT/classic flow, DeviceId is used to look up the device
+* @note        - In XSCT/classic flow, DeviceId is used to look up the device
 *               configuration.
 *              - This function contains an infinite loop such that if
 *              interrupts are not working it may never return.
 *
-****************************************************************************/
+******************************************************************************/
 #ifndef SDT
 int UartLiteIntrExample(INTC *IntcInstancePtr,
 			XUartLite *UartLiteInstPtr,
@@ -333,53 +341,48 @@ int UartLiteIntrExample(XUartLite *UartLiteInstPtr,
 /*****************************************************************************/
 /**
 *
-* This function is the handler which performs processing to send data to the
-* UartLite. It is called from an interrupt context such that the amount of
+* @brief Handles the send complete interrupt event.
+*
+* This function is called from an interrupt context such that the amount of
 * processing performed should be minimized. It is called when the transmit
-* FIFO of the UartLite is empty and more data can be sent through the UartLite.
+* FIFO of the UartLite is empty and more data can be sent through the
+* UartLite.
 *
-* This handler provides an example of how to handle data for the UartLite, but
-* is application specific.
+* This handler provides an example of how to handle data for the UartLite,
+* but is application specific.
 *
-* @param	CallBackRef contains a callback reference from the driver.
-*		In this case it is the instance pointer for the UartLite driver.
-* @param	EventData contains the number of bytes sent or received for sent
-*		and receive events.
+* @param[in]   CallBackRef Callback reference from the driver.
+*              In this case it is the instance pointer for the UartLite driver.
+* @param[in]   EventData Number of bytes sent or received for sent
+*              and receive events.
 *
-* @return	None.
-*
-* @note		None.
-*
-****************************************************************************/
+******************************************************************************/
 static void UartLiteSendHandler(void *CallBackRef, unsigned int EventData)
 {
 	(void)CallBackRef;
 	TotalSentCount = EventData;
 }
 
-/****************************************************************************/
+/*****************************************************************************/
 /**
 *
-* This function is the handler which performs processing to receive data from
-* the UartLite. It is called from an interrupt context such that the amount of
+* @brief Handles the receive data interrupt event.
+*
+* This function is called from an interrupt context such that the amount of
 * processing performed should be minimized. It is called when any data is
 * present in the receive FIFO of the UartLite such that the data can be
-* retrieved from the UartLite. The amount of data present in the FIFO is not
-* known when this function is called.
+* retrieved from the UartLite. The amount of data present in the FIFO is
+* not known when this function is called.
 *
-* This handler provides an example of how to handle data for the UartLite, but
-* is application specific.
+* This handler provides an example of how to handle data for the UartLite,
+* but is application specific.
 *
-* @param	CallBackRef contains a callback reference from the driver,
-*		in this case it is the instance pointer for the UartLite driver.
-* @param	EventData contains the number of bytes sent or received for sent
-*		and receive events.
+* @param[in]   CallBackRef Callback reference from the driver,
+*              in this case it is the instance pointer for the UartLite driver.
+* @param[in]   EventData Number of bytes sent or received for sent
+*              and receive events.
 *
-* @return	None.
-*
-* @note		None.
-*
-****************************************************************************/
+******************************************************************************/
 static void UartLiteRecvHandler(void *CallBackRef, unsigned int EventData)
 {
 	(void)CallBackRef;
@@ -387,27 +390,27 @@ static void UartLiteRecvHandler(void *CallBackRef, unsigned int EventData)
 }
 
 #ifndef SDT
-/****************************************************************************/
+/*****************************************************************************/
 /**
 *
-* This function setups the interrupt system such that interrupts can occur
-* for the UartLite. This function is application specific since the actual
+* @brief Sets up the interrupt system such that interrupts can occur for the
+* UartLite.
+*
+* This function is application specific since the actual
 * system may or may not have an interrupt controller. The UartLite could be
-* directly connected to a processor without an interrupt controller. The
-* user should modify this function to fit the application.
+* directly connected to a processor without an interrupt controller.
+* Modify this function to fit the application.
 *
-* @param	IntcInstancePtr is a pointer to the instance of INTC driver.
-* @param	UartLiteInstPtr is a pointer to the instance of UartLite driver.
-*		XPAR_<UARTLITE_instance>_DEVICE_ID value from xparameters.h.
-* @param	UartLiteIntrId is the Interrupt ID and is typically
-*		XPAR_<INTC_instance>_<UARTLITE_instance>_VEC_ID
-*		value from xparameters.h.
+* @param[in]   IntcInstancePtr Pointer to the instance of INTC driver.
+* @param[in]   UartLiteInstPtr Pointer to the instance of UartLite driver.
+*              XPAR_<UARTLITE_instance>_DEVICE_ID value from xparameters.h.
+* @param[in]   UartLiteIntrId Interrupt ID and is typically
+*              XPAR_<INTC_instance>_<UARTLITE_instance>_VEC_ID
+*              value from xparameters.h.
 *
-* @return	XST_SUCCESS if successful, otherwise XST_FAILURE.
+* @return      XST_SUCCESS if successful, otherwise XST_FAILURE.
 *
-* @note		None.
-*
-****************************************************************************/
+******************************************************************************/
 int UartLiteSetupIntrSystem(INTC *IntcInstancePtr,
 			    XUartLite *UartLiteInstPtr,
 			    u16 UartLiteIntrId)
@@ -526,16 +529,12 @@ int UartLiteSetupIntrSystem(INTC *IntcInstancePtr,
 /*****************************************************************************/
 /**
 *
-* This function disables the interrupts that occur for the UartLite.
+* @brief Disables the interrupts for the UartLite.
 *
-* @param	IntcInstancePtr is a pointer to the instance of the INTC driver.
-* @param	UartLiteIntrId is the Interrupt ID and is typically
-*		XPAR_<INTC_instance>_<UARTLITE_instance>_VEC_ID
-*		value from xparameters.h.
-*
-* @return	None.
-*
-* @note		None.
+* @param[in]   IntcInstancePtr Pointer to the instance of the INTC driver.
+* @param[in]   UartLiteIntrId Interrupt ID and is typically
+*              XPAR_<INTC_instance>_<UARTLITE_instance>_VEC_ID
+*              value from xparameters.h.
 *
 ******************************************************************************/
 static void UartLiteDisableIntrSystem(INTC *IntcInstancePtr,

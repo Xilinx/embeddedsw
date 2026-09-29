@@ -1,18 +1,15 @@
 /******************************************************************************
 * Copyright (C) 2002 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
-/****************************************************************************/
+/*****************************************************************************/
 /**
 *
 * @file xuartlite_selftest.c
-* @addtogroup uartlite Overview
-* @{
 *
-* This file contains the self-test functions for the UART Lite component
-* (XUartLite).
+* @brief Self-test functions for the UART Lite component (XUartLite).
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -29,9 +26,14 @@
 *		      instance in the h/w design.
 * 3.8	gm   09/25/22 Use XUartLite_GetSR instead of accessing status register
 *                     directly.
+* 3.14  vn   09/09/26 Align Doxygen comments with AMD standards
 * </pre>
 *
-*****************************************************************************/
+******************************************************************************/
+
+/** @addtogroup uartlite Overview
+ * @{
+ */
 
 /***************************** Include Files ********************************/
 
@@ -57,23 +59,22 @@
 /************************** Function Prototypes *****************************/
 
 
-/****************************************************************************/
+/*****************************************************************************/
 /**
 *
-* Runs a self-test on the device hardware. Since there is no way to perform a
-* loopback in the hardware, this test can only check the state of the status
-* register to verify it is correct. This test assumes that the hardware
-* device is still in its reset state, but has been initialized with the
-* Initialize function.
+* @brief Runs a self-test on the device hardware.
 *
-* @param	InstancePtr is a pointer to the XUartLite instance.
+* Since there is no way to perform a loopback in the hardware, this test
+* can only check the state of the status register to verify it is correct.
+* This test assumes that the hardware device is still in its reset state,
+* but has been initialized with the Initialize function.
+*
+* @param[in]   InstancePtr Pointer to the XUartLite instance.
 *
 * @return
-* 		- XST_SUCCESS if the self-test was successful.
-* 		- XST_FAILURE if the self-test failed, the status register
-*			value was not correct
-*
-* @note		None.
+*              - XST_SUCCESS if the self-test was successful.
+*              - XST_FAILURE if the self-test failed, the status register
+*                      value was not correct.
 *
 ******************************************************************************/
 int XUartLite_SelfTest(XUartLite *InstancePtr)
