@@ -8,8 +8,7 @@
 /**
 *
 * @file xclk_wiz.c
-* @addtogroup Overview
-* @{
+* @brief Implements CLK_WIZ interface functions.
 *
 * This file implements the functions to get the CLK_WIZ GUI information and
 * Clock Monitor Interrupt status
@@ -39,8 +38,14 @@
 *					clk_in_sel register control APIs.
 * 1.12 ss  8/18/26 Added PFD range validation to divisor calculations.
 * 1.12 vn  09/3/26  Fix doxygen warnings.
+* 1.12  tb  09/16/26 Align Doxygen comments with AMD standards.
 * </pre>
 ******************************************************************************/
+
+/**
+* @addtogroup clk_wiz_api CLK_WIZ APIs
+* @{
+*/
 
 /***************************** Include Files *********************************/
 
@@ -60,10 +65,9 @@
 /************************** Function Prototypes ******************************/
 
 /*
-* Each of callback functions to be called on different types of interrupts.
-* These stub functions are set during XClk_Wiz_CfgInitialize as default
-* callback functions. If application is not registered any of the callback
-* function, these functions will be called for doing nothing.
+* Stub callbacks for each interrupt type. XClk_Wiz_CfgInitialize
+* installs them as the default. If the application registers no
+* callback, these functions are called and do nothing.
 */
 static void StubErrCallBack(void *CallBackRef, u32 ErrorMask);
 
@@ -71,22 +75,22 @@ static void StubErrCallBack(void *CallBackRef, u32 ErrorMask);
 
 /****************************************************************************/
 /**
+* @brief Initializes a CLK_WIZ driver instance.
+*
 * Initialize the XClk_Wiz instance provided by the caller based on the
 * given Config structure.
 *
-* @param	InstancePtr is the XClk_Wiz instance to operate on.
-* @param	CfgPtr is the device configuration structure containing
-*			information about a specific CLK_WIZ.
-* @param	EffectiveAddr is the base address of the device. If address
-*		translation is being used, then this parameter must reflect the
-*		virtual base address. Otherwise, the physical address should be
-*		used.
+* @param[out] InstancePtr XClk_Wiz instance to operate on.
+* @param[in] CfgPtr Device configuration structure containing information about
+*   a specific CLK_WIZ.
+* @param[in] EffectiveAddr Base address of the device. If address translation is
+*   being used, then this parameter must reflect the virtual base address.
+*   Otherwise, the physical address should be used.
 *
 * @return
 *		- XST_SUCCESS Initialization was successful.
 *		- XST_FAILURE Initialization was failure.
 *
-* @note		None
 *****************************************************************************/
 u32 XClk_Wiz_CfgInitialize(XClk_Wiz *InstancePtr, XClk_Wiz_Config *CfgPtr,
 			   UINTPTR EffectiveAddr)
@@ -121,17 +125,18 @@ u32 XClk_Wiz_CfgInitialize(XClk_Wiz *InstancePtr, XClk_Wiz_Config *CfgPtr,
 
 /****************************************************************************/
 /**
+* @brief Calculates M, D, and O values for a rate in MHz.
+*
 * Calculate the M, D, and O values for the given SetRate frequency.
 *
-* @param	InstancePtr is the XClk_Wiz instance to operate on.
-* @param	SetRate is the frequency for which the M, D and O values are to
-*		be calculated.
+* @param[in,out] InstancePtr XClk_Wiz instance to operate on.
+* @param[in] SetRate Frequency for which the M, D and O values are to be
+*   calculated.
 *
 * @return
-*		- XST_SUCCESS Initialization was successful.
-*		- XST_FAILURE Initialization was failure.
+*		- XST_SUCCESS if the divisors were calculated.
+*		- XST_FAILURE otherwise.
 *
-* @note		None
 *****************************************************************************/
 static u32  XClk_Wiz_CalculateDivisors (XClk_Wiz  *InstancePtr, u64 SetRate)
 {
@@ -228,17 +233,18 @@ static u32  XClk_Wiz_CalculateDivisors (XClk_Wiz  *InstancePtr, u64 SetRate)
 
 /****************************************************************************/
 /**
+* @brief Calculates M, D, and O values for a rate in Hz.
+*
 * Calculate the M, D, and O values for the given SetRate frequency.
 *
-* @param	InstancePtr is the XClk_Wiz instance to operate on.
-* @param	SetRate is the frequency for which the M, D and O values are to
-*		be calculated in Hz.
+* @param[in,out] InstancePtr XClk_Wiz instance to operate on.
+* @param[in] SetRate Frequency for which the M, D and O values are to be
+*   calculated in Hz.
 *
 * @return
-*		- XST_SUCCESS Initialization was successful.
-*		- XST_FAILURE Initialization was failure.
+*		- XST_SUCCESS if the divisors were calculated.
+*		- XST_FAILURE otherwise.
 *
-* @note		None
 *****************************************************************************/
 static u32  XClk_Wiz_CalculateDivisorsHz (XClk_Wiz  *InstancePtr, u64 SetRate)
 {
@@ -333,10 +339,12 @@ static u32  XClk_Wiz_CalculateDivisorsHz (XClk_Wiz  *InstancePtr, u64 SetRate)
 
 /****************************************************************************/
 /**
+* @brief Sets the minimum frequency-error margin.
+*
 * Set the Minimum error that can be tolerated.
 *
-* @param	InstancePtr is the XClk_Wiz instance to operate on.
-* @param	Minerr is the error margin that can be tolerated in Hz.
+* @param[in,out] InstancePtr XClk_Wiz instance to operate on.
+* @param[in] Minerr Error margin that can be tolerated in Hz.
 *
 * @note		Should be called only if there is only one output clock.
 *****************************************************************************/
@@ -346,6 +354,14 @@ void XClk_Wiz_SetMinErr(XClk_Wiz  *InstancePtr, u64 Minerr)
 	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 	InstancePtr->MinErr  = Minerr;
 }
+/*****************************************************************************/
+/**
+* @brief Programs the output-divider registers for one clock.
+*
+* @param[in,out] InstancePtr Pointer to the CLK_WIZ instance.
+* @param[in] ClockId Output clock identifier.
+*
+*****************************************************************************/
 static void XClk_Wiz_UpdateO(XClk_Wiz  *InstancePtr, u32 ClockId)
 {
 	u32 HighTime;
@@ -380,6 +396,13 @@ static void XClk_Wiz_UpdateO(XClk_Wiz  *InstancePtr, u32 ClockId)
 	RegisterOffset = RegisterOffset + 4;
 	XClk_Wiz_WriteReg((InstancePtr)->Config.BaseAddr, RegisterOffset, Reg);
 }
+/*****************************************************************************/
+/**
+* @brief Programs the input-divider registers.
+*
+* @param[in] InstancePtr Pointer to the CLK_WIZ instance.
+*
+*****************************************************************************/
 static void XClk_Wiz_UpdateD(XClk_Wiz  *InstancePtr)
 {
 	u32 HighTime;
@@ -397,6 +420,13 @@ static void XClk_Wiz_UpdateD(XClk_Wiz  *InstancePtr)
 
 }
 
+/*****************************************************************************/
+/**
+* @brief Programs the feedback-multiplier and lock registers.
+*
+* @param[in] InstancePtr Pointer to the CLK_WIZ instance.
+*
+*****************************************************************************/
 static void XClk_Wiz_UpdateM(XClk_Wiz  *InstancePtr)
 {
 	u32 HighTime;
@@ -645,12 +675,14 @@ static void XClk_Wiz_UpdateM(XClk_Wiz  *InstancePtr)
 
 /****************************************************************************/
 /**
+* @brief Stores M, D, and O divisor values on the instance.
+*
 * Set the M, D, and O divisor values directly on the instance.
 *
-* @param	InstancePtr is the XClk_Wiz instance to operate on.
-* @param	Mvalue is the feedback multiplier value.
-* @param	Dvalue is the input divider value.
-* @param	Ovalue is the output divider value.
+* @param[in,out] InstancePtr XClk_Wiz instance to operate on.
+* @param[in] Mvalue Feedback multiplier value.
+* @param[in] Dvalue Input divider value.
+* @param[in] Ovalue Output divider value.
 *
 * @return
 *		- XST_SUCCESS when divisor values are valid.
@@ -710,17 +742,18 @@ u32 XClk_Wiz_UpdateDivisors(XClk_Wiz  *InstancePtr, u32 Mvalue, u32 Dvalue, u32 
 
 /****************************************************************************/
 /**
+* @brief Reconfigures CLK_WIZ hardware from stored divisors.
+*
 * Reconfigure the clock wizard hardware with the current M, D, and O values
 * stored in the instance. For Versal, updates output, input, and feedback
 * divider registers then triggers a load. For UltraScale/ZynqMP, writes the
 * combined M/D and O registers directly.
 *
-* @param	InstancePtr is the XClk_Wiz instance to operate on.
+* @param[in,out] InstancePtr XClk_Wiz instance to operate on.
 *
 * @return
 *		- XST_SUCCESS always.
 *
-* @note		None.
 *****************************************************************************/
 u32 XClk_Wiz_Reconfig(XClk_Wiz  *InstancePtr)
 {
@@ -754,10 +787,12 @@ u32 XClk_Wiz_Reconfig(XClk_Wiz  *InstancePtr)
 
 /****************************************************************************/
 /**
+* @brief Sets the output frequency in Hz.
+*
 * Change the frequency to the given rate in Hz.
 *
-* @param	InstancePtr is the XClk_Wiz instance to operate on.
-* @param	SetRate is the frequency in Hz to be set.
+* @param[in,out] InstancePtr XClk_Wiz instance to operate on.
+* @param[in] SetRate Frequency in Hz to be set.
 *
 * @return
 *		- XST_SUCCESS Frequency setting was successful.
@@ -786,6 +821,18 @@ u32 XClk_Wiz_SetRateHz(XClk_Wiz  *InstancePtr, u64 SetRate)
 	return XST_SUCCESS;
 }
 
+/*****************************************************************************/
+/**
+* @brief Returns the VCO frequency in Hz.
+*
+* Computes the frequency from the input rate and the divider
+* registers.
+*
+* @param[in] InstancePtr Pointer to the CLK_WIZ instance.
+*
+* @return VCO frequency in Hz.
+*
+*****************************************************************************/
 static u64 XClk_Wiz_GetVco(XClk_Wiz  *InstancePtr)
 {
 	u32 Reg;
@@ -831,11 +878,13 @@ static u64 XClk_Wiz_GetVco(XClk_Wiz  *InstancePtr)
 }
 /****************************************************************************/
 /**
+* @brief Gets the output frequency for a clock ID.
+*
 * Get the clock frequency for the given ClockId.
 *
-* @param	InstancePtr is the XClk_Wiz instance to operate on.
-* @param	ClockId is the output clock.
-* @param	Rate clock rate in Hz.
+* @param[in] InstancePtr XClk_Wiz instance to operate on.
+* @param[in] ClockId Output clock.
+* @param[out] Rate Clock rate in Hz.
 *
 * @return
 *		- XST_SUCCESS getting the frequency was successful.
@@ -904,11 +953,13 @@ s32 XClk_Wiz_GetRate(XClk_Wiz  *InstancePtr, u32 ClockId, u64 *Rate)
 
 /****************************************************************************/
 /**
+* @brief Sets one output-clock frequency in Hz.
+*
 * Set the clock rate frequency for the given ClockId.
 *
-* @param	InstancePtr is the XClk_Wiz instance to operate on.
-* @param	ClockId is the output clock.
-* @param	SetRate clock rate in Hz.
+* @param[in,out] InstancePtr XClk_Wiz instance to operate on.
+* @param[in] ClockId Output clock.
+* @param[in] SetRate Clock rate in Hz.
 *
 * @return
 *		- XST_SUCCESS Setting the rate was successful.
@@ -954,10 +1005,12 @@ s32 XClk_Wiz_SetLeafRateHz(XClk_Wiz  *InstancePtr, u32 ClockId, u64 SetRate)
 }
 /****************************************************************************/
 /**
+* @brief Sets the output frequency in MHz.
+*
 * Change the frequency to the given rate.
 *
-* @param	InstancePtr is the XClk_Wiz instance to operate on.
-* @param	SetRate is the frequency for which is requested in MHz.
+* @param[in,out] InstancePtr XClk_Wiz instance to operate on.
+* @param[in] SetRate Frequency for which is requested in MHz.
 *
 * @return
 *		- XST_SUCCESS frequency setting was successful.
@@ -987,14 +1040,16 @@ u32 XClk_Wiz_SetRate(XClk_Wiz  *InstancePtr, u64 SetRate)
 }
 /****************************************************************************/
 /**
+* @brief Enables the specified output clock.
+*
 * Enable Clock for the given ClockId.
 *
-* @param	InstancePtr is the XClk_Wiz instance to operate on.
-* @param	ClockId is the output clock.
+* @param[in] InstancePtr XClk_Wiz instance to operate on.
+* @param[in] ClockId Output clock.
 *
 * @return
-*		- XST_SUCCESS Initialization was successful.
-*		- XST_FAILURE Initialization was failure.
+*		- XST_SUCCESS if the clock was enabled.
+*		- XST_FAILURE otherwise.
 *
 *****************************************************************************/
 u32 XClk_Wiz_EnableClock(XClk_Wiz  *InstancePtr, u32 ClockId)
@@ -1028,14 +1083,16 @@ u32 XClk_Wiz_EnableClock(XClk_Wiz  *InstancePtr, u32 ClockId)
 
 /****************************************************************************/
 /**
+* @brief Disables the specified output clock.
+*
 * Disable Clock for the given ClockId.
 *
-* @param	InstancePtr is the XClk_Wiz instance to operate on.
-* @param	ClockId is the output clock.
+* @param[in] InstancePtr XClk_Wiz instance to operate on.
+* @param[in] ClockId Output clock.
 *
 * @return
-*		- XST_SUCCESS Initialization was successful.
-*		- XST_FAILURE Initialization was failure.
+*		- XST_SUCCESS if the clock was disabled.
+*		- XST_FAILURE otherwise.
 *
 *****************************************************************************/
 u32 XClk_Wiz_DisableClock(XClk_Wiz  *InstancePtr, u32 ClockId)
@@ -1068,9 +1125,11 @@ u32 XClk_Wiz_DisableClock(XClk_Wiz  *InstancePtr, u32 ClockId)
 
 /****************************************************************************/
 /**
+* @brief Waits until the clocking wizard locks.
+*
 * Wait till the clocking wizard is locked to the frequency.
 *
-* @param	InstancePtr is the XClk_Wiz instance to operate on.
+* @param[in] InstancePtr XClk_Wiz instance to operate on.
 *
 * @return
 *		- XST_SUCCESS if lock was successful.
@@ -1088,13 +1147,15 @@ u32 XClk_Wiz_WaitForLock(XClk_Wiz  *InstancePtr)
 }
 /****************************************************************************/
 /**
+* @brief Sets the input clock frequency.
+*
 * Change the Input frequency to the given rate.
 *
-* @param	InstancePtr is the XClk_Wiz instance to operate on.
-* @param	Rate is the frequency for which is to be set.
+* @param[in,out] InstancePtr XClk_Wiz instance to operate on.
+* @param[in] Rate Frequency for which is to be set.
 *
-* @note		Should be called only if the input provider clock is changed eg
-* 		input clock is si570.
+* @note		Should be called only if the input provider clock is
+*		changed, for example input clock is si570.
 *****************************************************************************/
 void XClk_Wiz_SetInputRate(XClk_Wiz  *InstancePtr, double Rate)
 {
@@ -1146,14 +1207,16 @@ void XClk_Wiz_SetInputRate(XClk_Wiz  *InstancePtr, double Rate)
 
 /****************************************************************************/
 /**
+* @brief Gets the input clock frequency in Hz.
+*
 * Get the Input frequency.
 *
-* @param	InstancePtr is the XClk_Wiz instance to operate on.
+* @param[in] InstancePtr XClk_Wiz instance to operate on.
 *
 * @return 	Clock frequency in Hz
 *
-* @note		Should be called only if the input provider clock is changed eg
-* 		input clock is si570.
+* @note		Should be called only if the input provider clock is
+*		changed, for example input clock is si570.
 *****************************************************************************/
 u32 XClk_Wiz_GetInputRate(XClk_Wiz  *InstancePtr)
 {
@@ -1185,7 +1248,7 @@ u32 XClk_Wiz_GetInputRate(XClk_Wiz  *InstancePtr)
 		RegLow = XClk_Wiz_ReadReg((InstancePtr)->Config.BaseAddr, XCLK_WIZ_PRIM_L_OFFSET);
 		RateKhz = (XClk_Wiz_ReadReg((InstancePtr)->Config.BaseAddr, XCLK_WIZ_PRIM_H_OFFSET) << 16) | RegLow;
 	} else {
-		/* Non-clkx5 SDT fallback uses configured primary input rate in Hz. */
+		/* Non-clkx5 SDT uses the configured primary input rate. */
 		return (u32)InstancePtr->Config.PrimInClkFreq;
 	}
 
@@ -1198,10 +1261,12 @@ u32 XClk_Wiz_GetInputRate(XClk_Wiz  *InstancePtr)
 }
 /*****************************************************************************/
 /**
-* XClk_Wiz_GetInterruptSettings will get the information from  clock wizard
+* @brief Reads CLK_WIZ interrupt enable and status.
+*
+* XClk_Wiz_GetInterruptSettings gets the information from  clock wizard
 * IER  and ISR Registers.
 *
-* @param	InstancePtr is the XClk_Wiz instance to operate on.
+* @param[in,out] InstancePtr XClk_Wiz instance to operate on.
 *
 ****************************************************************************/
 void XClk_Wiz_GetInterruptSettings(XClk_Wiz  *InstancePtr)
@@ -1218,22 +1283,24 @@ void XClk_Wiz_GetInterruptSettings(XClk_Wiz  *InstancePtr)
 
 /*****************************************************************************/
 /**
+* @brief Selects the software-controlled clock input.
+*
 * Set the clock input selection via the software-programmed value.
 *
-* @param	InstancePtr is the XClk_Wiz instance to operate on.
-* @param	Clkinputnumber is the input clock selection value
-*		(XCLK_WIZ_CLKINSEL_CLKIN2 for clk_in2,
-*		 XCLK_WIZ_CLKINSEL_CLKIN1 for clk_in1).
+* @param[in] InstancePtr XClk_Wiz instance to operate on.
+* @param[in] Clkinputnumber Input clock selection value
+*   (XCLK_WIZ_CLKINSEL_CLKIN2 for clk_in2, XCLK_WIZ_CLKINSEL_CLKIN1 for
+*   clk_in1).
 *
 * @return
 *		- XST_SUCCESS setting the input selection was successful.
-*		- XST_FAILURE setting the input selection failed (device not ready,
+* - XST_FAILURE setting the input selection failed (device not ready,
 *		  unsupported build/device, invalid selection, or other errors).
 *
 * @note		This function sets Bit[16] (clk_in_sel_src) to 1 to enable
-*		software control and sets Bit[17] (clk_in_sel_reg) to the specified
-*		value. The effective selection (Bit[18]) will reflect this change.
-*		Supported only for SDT + xlnx,clkx5-wiz versions greater than 1.0.
+* software control and sets Bit[17] (clk_in_sel_reg) to the specified
+*		value. The effective selection (Bit[18]) reflects this change.
+* Supported only for SDT + xlnx,clkx5-wiz versions greater than 1.0.
 *****************************************************************************/
 u32 XClk_Wiz_SetClkInSel(XClk_Wiz  *InstancePtr, u32 Clkinputnumber)
 {
@@ -1276,19 +1343,21 @@ u32 XClk_Wiz_SetClkInSel(XClk_Wiz  *InstancePtr, u32 Clkinputnumber)
 
 /*****************************************************************************/
 /**
+* @brief Gets the active clock-input selection.
+*
 * Get the current clock input selection.
 *
-* @param	InstancePtr is the XClk_Wiz instance to operate on.
-* @param	Clkinputnumber is a pointer to store input clock selection.
+* @param[in] InstancePtr XClk_Wiz instance to operate on.
+* @param[out] Clkinputnumber Pointer to store input clock selection.
 *
 * @return
 *		- XST_SUCCESS if selection read was successful.
-*		- XST_FAILURE if arguments are invalid or operation is unsupported
+* - XST_FAILURE if arguments are invalid or operation is unsupported
 *		  on this build/device.
 *
 * @note		This function reads Bit[18] (clk_in_sel_final), which is the
 *		effective clock input selection currently applied to the MMCM.
-*		Supported only for SDT + xlnx,clkx5-wiz versions greater than 1.0.
+* Supported only for SDT + xlnx,clkx5-wiz versions greater than 1.0.
 *****************************************************************************/
 u32 XClk_Wiz_GetClkInSel(XClk_Wiz  *InstancePtr, u32 *Clkinputnumber)
 {
@@ -1321,21 +1390,24 @@ u32 XClk_Wiz_GetClkInSel(XClk_Wiz  *InstancePtr, u32 *Clkinputnumber)
 
 /*****************************************************************************/
 /**
+* @brief Gets an input-clock frequency in kHz.
+*
 * Get the input clock frequency in kHz.
 *
-* @param	InstancePtr is the XClk_Wiz instance to operate on.
-* @param	Clkinputnumber is the input clock number to query (0 for PRIMARY,
-*		1 for SECONDARY).
-* @param	RateKhz is a pointer to store the input clock frequency in kHz.
+* @param[in] InstancePtr XClk_Wiz instance to operate on.
+* @param[in] Clkinputnumber Input clock number to query (0 for PRIMARY, 1 for
+*   SECONDARY).
+* @param[out] RateKhz Pointer to store the input clock frequency in kHz.
 *
 * @return
 *		- XST_SUCCESS getting the input frequency was successful.
-*		- XST_FAILURE getting the input frequency failed (device not ready,
+* - XST_FAILURE getting the input frequency failed (device not ready,
 *		  unsupported clock number, invalid pointer, or other errors).
 *
 * @note		Supports both PRIMARY (0) and SECONDARY (1) input clocks.
 * 		PRIMARY uses XClk_Wiz_GetInputRate internally.
-*  	 	SECONDARY is supported only for SDT + xlnx,clkx5-wiz versions greater than 1.0;
+* SECONDARY is supported only for SDT + xlnx,clkx5-wiz versions greater than
+*   1.0;
 * 		otherwise this API returns XST_FAILURE.
 *****************************************************************************/
 u32 XClk_Wiz_GetInFreqkHz(XClk_Wiz  *InstancePtr, u32 Clkinputnumber, u32 *RateKhz)
@@ -1388,7 +1460,7 @@ u32 XClk_Wiz_GetInFreqkHz(XClk_Wiz  *InstancePtr, u32 Clkinputnumber, u32 *RateK
 			*RateKhz = RegHigh;
 		}
 	} else {
-		/* Non-clkx5 SDT fallback: only PRIMARY config frequency is available. */
+		/* Non-clkx5 SDT has only the PRIMARY config frequency. */
 		if (Clkinputnumber != 0U) {
 			return Status;
 		}
@@ -1418,22 +1490,24 @@ u32 XClk_Wiz_GetInFreqkHz(XClk_Wiz  *InstancePtr, u32 Clkinputnumber, u32 *RateK
 
 /*****************************************************************************/
 /**
+* @brief Sets an input-clock frequency in kHz.
+*
 * Set the input clock frequency in kHz.
 *
-* @param	InstancePtr is the XClk_Wiz instance to operate on.
-* @param	Clkinputnumber is the input clock number to configure (0 for PRIMARY,
-*		1 for SECONDARY).
-* @param	RateKhz is the input clock frequency in kHz to be set.
+* @param[in,out] InstancePtr XClk_Wiz instance to operate on.
+* @param[in] Clkinputnumber Input clock number to configure (0 for PRIMARY, 1
+*   for SECONDARY).
+* @param[in] RateKhz Input clock frequency in kHz to be set.
 *
 * @return
 *		- XST_SUCCESS setting the input frequency was successful.
-*		- XST_FAILURE setting the input frequency failed (device not ready,
+* - XST_FAILURE setting the input frequency failed (device not ready,
 *		  unsupported clock number, or other errors).
 *
 * @note		Supports both PRIMARY (0) and SECONDARY (1) input clocks.
-* 		On SDT + xlnx,clkx5-wiz > 1.0, this API switches clk_in_sel to the
-* 		requested input before programming the rate via XClk_Wiz_SetInputRate.
-* 		Otherwise, SECONDARY is unsupported and this API returns XST_FAILURE.
+* On SDT + xlnx,clkx5-wiz > 1.0, this API switches clk_in_sel to the
+* requested input before programming the rate via XClk_Wiz_SetInputRate.
+* Otherwise, SECONDARY is unsupported and this API returns XST_FAILURE.
 *****************************************************************************/
 u32 XClk_Wiz_SetInFreqkHz(XClk_Wiz  *InstancePtr, u32 Clkinputnumber, u32 RateKhz)
 {
@@ -1477,19 +1551,21 @@ u32 XClk_Wiz_SetInFreqkHz(XClk_Wiz  *InstancePtr, u32 Clkinputnumber, u32 RateKh
 
 /*****************************************************************************/
 /**
+* @brief Gets an output-clock frequency in kHz.
+*
 * Get the output clock frequency in kHz for a given output clock.
 *
-* @param	InstancePtr is the XClk_Wiz instance to operate on.
-* @param	Clkoutputnumber is the output clock number to query (0 to NumClocks-1).
-* @param	RateKhz is a pointer to store the output clock frequency in kHz.
+* @param[in] InstancePtr XClk_Wiz instance to operate on.
+* @param[in] Clkoutputnumber Output clock number to query (0 to NumClocks-1).
+* @param[out] RateKhz Pointer to store the output clock frequency in kHz.
 *
 * @return
 *		- XST_SUCCESS getting the output frequency was successful.
-*		- XST_FAILURE getting the output frequency failed (device not ready,
+* - XST_FAILURE getting the output frequency failed (device not ready,
 *		  invalid clock number, invalid pointer, or other errors).
 *
-* @note		The output clock number must be within the valid range defined by
-*		the device configuration (0 to NumClocks-1). Returned frequency is
+* @note The output clock number must be within the valid range defined by
+* the device configuration (0 to NumClocks-1). Returned frequency is
 *		in kHz.
 *****************************************************************************/
 u32 XClk_Wiz_GetOutFreqkHz(XClk_Wiz  *InstancePtr, u32 Clkoutputnumber, u32 *RateKhz)
@@ -1519,20 +1595,23 @@ u32 XClk_Wiz_GetOutFreqkHz(XClk_Wiz  *InstancePtr, u32 Clkoutputnumber, u32 *Rat
 
 /*****************************************************************************/
 /**
+* @brief Sets an output-clock frequency in kHz.
+*
 * Set the output clock frequency in kHz for a given output clock.
 *
-* @param	InstancePtr is the XClk_Wiz instance to operate on.
-* @param	Clkoutputnumber is the output clock number to configure (0 to NumClocks-1).
-* @param	RateKhz is the output clock frequency in kHz to be set.
+* @param[in,out] InstancePtr XClk_Wiz instance to operate on.
+* @param[in] Clkoutputnumber Output clock number to configure (0 to
+*   NumClocks-1).
+* @param[in] RateKhz Output clock frequency in kHz to be set.
 *
 * @return
 *		- XST_SUCCESS setting the output frequency was successful.
-*		- XST_FAILURE setting the output frequency failed (device not ready,
+* - XST_FAILURE setting the output frequency failed (device not ready,
 *		  invalid clock number, or other errors).
 *
-* @note		The output clock number must be within the valid range defined by
+* @note The output clock number must be within the valid range defined by
 *		the device configuration (0 to NumClocks-1).
-*		Clock 0 uses full reconfiguration; non-zero outputs use leaf-rate
+* Clock 0 uses full reconfiguration; non-zero outputs use leaf-rate
 *		programming via XClk_Wiz_SetLeafRateHz().
 *****************************************************************************/
 u32 XClk_Wiz_SetOutFreqkHz(XClk_Wiz  *InstancePtr, u32 Clkoutputnumber, u32 RateKhz)
@@ -1570,21 +1649,19 @@ u32 XClk_Wiz_SetOutFreqkHz(XClk_Wiz  *InstancePtr, u32 Clkoutputnumber, u32 Rate
 
 /*****************************************************************************/
 /**
+* @brief Handles an unregistered CLK_WIZ error callback.
+*
 * This routine is a stub for the asynchronous error interrupt callback. The
 * stub is here in case the upper layer forgot to set the handler. On
 * initialization, Error interrupt handler is set to this callback. It is
 * considered an error for this handler to be invoked.
 *
-* @param	CallBackRef is a callback reference passed in by the upper
-*		layer when setting the callback functions, and passed back to
-*		the upper layer when the callback is invoked.
-* @param 	ErrorMask is a bit mask indicating the cause of the error. Its
-*		value equals 'OR'ing one or more XCLK_WIZ_ISR_*_MASK values
-*		defined in xclk_wiz_hw.h.
-*
-* @return	None
-*
-* @note		None
+* @param[in] CallBackRef Callback reference passed in by the upper layer when
+*   setting the callback functions, and passed back to the upper layer when the
+*   callback is invoked.
+* @param[in] ErrorMask Bit mask indicating the cause of the error. Its value
+*   equals 'OR'ing one or more XCLK_WIZ_ISR_*_MASK values defined in
+*   xclk_wiz_hw.h.
 *
 ******************************************************************************/
 static void StubErrCallBack(void *CallBackRef, u32 ErrorMask)

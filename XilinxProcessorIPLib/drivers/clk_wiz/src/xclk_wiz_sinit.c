@@ -8,12 +8,11 @@
 /**
 *
 * @file xclk_wiz_sinit.c
-* @addtogroup Overview
-* @{
+* @brief Implements CLK_WIZ static initialization.
 *
 * Look up the hardware settings using device ID. The hardware setting is inside
 * the configuration table in xclk_wiz_g.c, generated automatically by XPS or
-* manually by the user.
+* manually.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -23,9 +22,15 @@
 * 1.0 ram 02/12/16 Initial version for Clock Wizard
 * 1.6 sd  7/07/23 Added SDT support.
 * 1.11 vlt 12/12/25 Update Doxygen comments to include SDT flow details.
+* 1.12 tb  09/16/26 Align Doxygen comments with AMD standards.
 * </pre>
 *
 ******************************************************************************/
+
+/**
+* @addtogroup clk_wiz_api CLK_WIZ APIs
+* @{
+*/
 
 /***************************** Include Files *********************************/
 
@@ -38,14 +43,16 @@
 /*****************************************************************************/
 /**
 *
+* @brief Looks up CLK_WIZ configuration by ID or base address.
+*
 * Looks up the device configuration based on the unique device ID/BaseAddress.
 * The XClk_Wiz_ConfigTable[] contains the configuration info for each device
 * in the system.
 *
 * @if SDT
-* @param	BaseAddress contains the base address of the device
+* @param[in] BaseAddress Contains the base address of the device.
 * @else
-* @param	DeviceId contains the unique ID of the device
+* @param[in] DeviceId Contains the unique ID of the device.
 * @endif
 *
 * @return       A pointer to the configuration found or NULL if the specified

@@ -8,14 +8,16 @@
 /**
 *
 * @file xclk_wiz_intr_example.c
+* @brief Runs the CLK_WIZ interrupt example.
 *
-* This file contains a design example using the XClk_Wiz driver with interrupts
-* it will generate interrupt for clok glitch, clock overflow and underflow
-* The user should have setup with 2 clocking wizard instances, one instance act
-* as clocking monitor (Enable clock monitor in GUI), In another instance enable
-* dynamic clock reconfiguration. In the present example XCLK_WIZ_DYN_DEVICE_ID
-* assigned to clock wizard 1. Modify this value as per your dynamic clock
-* reconfiguration Clocking wizard
+* This file contains a design example using the XClk_Wiz driver
+* with interrupts. It generates interrupts for a clock glitch,
+* clock overflow, and underflow. Set up two clocking wizard
+* instances. One instance acts as the clock monitor (enable the
+* clock monitor in the GUI). On the other instance, enable
+* dynamic clock reconfiguration. This example assigns
+* XCLK_WIZ_DYN_DEVICE_ID to clock wizard 1. Modify this value
+* for the dynamic-reconfiguration clocking wizard.
 *
 * @note		This example requires an interrupt controller connected to the
 *		processor and the MIPI CLK_WIZ  in the system.
@@ -32,6 +34,7 @@
 * 1.7 ml 11/15/23  Fix compilation errors reported with -std=c2x compiler flag
 * 1.11 vlt 12/17/25 Update Doxygen comments to include SDT flow details.
 * 1.12 vn  09/3/26  Fix doxygen warnings.
+* 1.12  tb  09/16/26 Align Doxygen comments with AMD standards.
 * </pre>
 *
 ******************************************************************************/
@@ -66,14 +69,19 @@
 * needed device IDs in one place.
 */
 #ifndef SDT
+/** CLK_WIZ monitor example device ID. */
 #define XCLK_WIZ_DEVICE_ID		XPAR_CLK_WIZ_0_DEVICE_ID
 
 #ifdef XPAR_INTC_0_DEVICE_ID
+/** CLK_WIZ interrupt vector ID. */
 #define XINTC_CLK_WIZ_INTERRUPT_ID	XPAR_INTC_0_CLK_WIZ_0_VEC_ID
-#define XINTC_DEVICE_ID	XPAR_INTC_0_DEVICE_ID
+/** Interrupt-controller device ID. */
+#define XINTC_DEVICE_ID			XPAR_INTC_0_DEVICE_ID
 #else
+/** CLK_WIZ interrupt vector ID. */
 #define XINTC_CLK_WIZ_INTERRUPT_ID	XPAR_FABRIC_AXI_CLK_WIZ_0_INTERRUPT_INTR
-#define XINTC_DEVICE_ID	XPAR_SCUGIC_SINGLE_DEVICE_ID
+/** Interrupt-controller device ID. */
+#define XINTC_DEVICE_ID			XPAR_SCUGIC_SINGLE_DEVICE_ID
 #endif /* XPAR_INTC_0_DEVICE_ID */
 
 /*
@@ -82,6 +90,7 @@
 * example clokc wizard 1 configured as clock wizard 1 as dynamic
 * reconfigurable parameter
 */
+/** Dynamic CLK_WIZ example device ID. */
 #define XCLK_WIZ_DYN_DEVICE_ID		XPAR_CLK_WIZ_1_DEVICE_ID
 #endif
 
@@ -91,35 +100,50 @@
 * needed parameters
 */
 
+/** Clock-lock status bit value. */
 #define CLK_LOCK			1
 
 /*FIXED Value */
+/** Example VCO frequency in MHz. */
 #define VCO_FREQ			600
+/** Scaled VCO frequency factor. */
 #define CLK_WIZ_VCO_FACTOR		(VCO_FREQ * 10000)
 
 /*Input frequency in MHz */
+/** Example input frequency in MHz. */
 #define DYNAMIC_INPUT_FREQ		100
+/** Scaled input-frequency factor. */
 #define DYNAMIC_INPUT_FREQ_FACTOR	(DYNAMIC_INPUT_FREQ * 10000)
 
 /*
  * Output frequency in MHz. User need to change this value to
  * generate grater/lesser interrupt as per input frequency
  */
+/** Example output frequency in MHz. */
 #define DYNAMIC_OUTPUT_FREQ		175
+/** Scaled output-frequency factor. */
 #define DYNAMIC_OUTPUT_FREQFACTOR	(DYNAMIC_OUTPUT_FREQ * 10000)
 
+/** Reconfigured output frequency in MHz. */
 #define CLK_WIZ_RECONFIG_OUTPUT		DYNAMIC_OUTPUT_FREQ
+/** Fractional-divide enable value. */
 #define CLK_FRAC_EN			1
 
 #ifndef SDT
 #ifdef XPAR_INTC_0_DEVICE_ID
-#define XINTC_DEVICE_ID	XPAR_INTC_0_DEVICE_ID
-#define INTC		XIntc
-#define INTC_HANDLER	XIntc_InterruptHandler
+/** Interrupt-controller device ID. */
+#define XINTC_DEVICE_ID			XPAR_INTC_0_DEVICE_ID
+/** Interrupt-controller instance type. */
+#define INTC				XIntc
+/** Interrupt-controller handler function. */
+#define INTC_HANDLER			XIntc_InterruptHandler
 #else
-#define XINTC_DEVICE_ID	XPAR_SCUGIC_SINGLE_DEVICE_ID
-#define INTC		XScuGic
-#define INTC_HANDLER	XScuGic_InterruptHandler
+/** Interrupt-controller device ID. */
+#define XINTC_DEVICE_ID			XPAR_SCUGIC_SINGLE_DEVICE_ID
+/** Interrupt-controller instance type. */
+#define INTC				XScuGic
+/** Interrupt-controller handler function. */
+#define INTC_HANDLER			XScuGic_InterruptHandler
 #endif /* XPAR_INTC_0_DEVICE_ID */
 #endif
 
@@ -161,17 +185,15 @@ INTC Intc;
 
 /*****************************************************************************/
 /**
+* @brief Waits for the dynamic clock wizard to lock.
 *
-* This is the Wait_For_Lock function, it will wait for lock to settle change
-* frequency value
+* Waits for the lock to settle after a frequency change.
 *
-* @param	CfgPtr_Dynamic provides pointer to clock wizard dynamic config
+* @param[in] CfgPtr_Dynamic Provides pointer to clock wizard dynamic config.
 *
 * @return
 *		- Error 0 for pass scenario
 *		- Error > 0 for failure scenario
-*
-* @note		None
 *
 ******************************************************************************/
 int Wait_For_Lock(XClk_Wiz_Config *CfgPtr_Dynamic)
@@ -191,15 +213,14 @@ int Wait_For_Lock(XClk_Wiz_Config *CfgPtr_Dynamic)
 
 /******************************************************************************/
 /**
+* @brief Delays for a number of seconds.
 *
 * For Microblaze we use an assembly loop that is roughly the same regardless of
 * optimization level, although caches and memory access time can make the delay
 * vary.  Just keep in mind that after resetting or updating the PHY modes,
 * the PHY typically needs time to recover.
 *
-* @param	Seconds is the number of seconds to sleep
-*
-* @note		None
+* @param[in] Seconds Number of seconds to sleep.
 *
 ******************************************************************************/
 void Delay(u32 Seconds)
@@ -208,13 +229,15 @@ void Delay(u32 Seconds)
 	static s32 WarningFlag = 0;
 
 	/* If MB caches are disabled or do not exist, this delay loop could
-	 * take minutes instead of seconds (e.g., 30x longer).  Print a warning
-	 * message for the user (once).  If only MB had a built-in timer!
+	 * take minutes instead of seconds (for example, 30x longer).
+	 * Print a warning
+	 * message once.  If only MB had a built-in timer!
 	 */
 	if (((mfmsr() & 0x20) == 0) && (!WarningFlag)) {
 		WarningFlag = 1;
 	}
 
+/** MicroBlaze delay-loop iterations per second. */
 #define ITERS_PER_SEC   (XPAR_CPU_CORE_CLOCK_FREQ_HZ / 6)
 	__asm volatile ("\n"
 			      "1:               \n\t"
@@ -233,17 +256,16 @@ void Delay(u32 Seconds)
 
 /*****************************************************************************/
 /**
+* @brief Reconfigures dynamic-clock frequencies.
 *
-* This is the Clk_Wiz_Reconfig function, it will reconfigure frequencies as
+* This is the Clk_Wiz_Reconfig function, it reconfigures frequencies as
 * per input array
 *
-* @param	CfgPtr_Dynamic provides pointer to clock wizard dynamic config
+* @param[in] CfgPtr_Dynamic Provides pointer to clock wizard dynamic config.
 *
 * @return
 *		-  Error 0 for pass scenario
 *		-  Error > 0 for failure scenario
-*
-* @note	 None
 *
 ******************************************************************************/
 int Clk_Wiz_Reconfig(XClk_Wiz_Config *CfgPtr_Dynamic)
@@ -331,7 +353,7 @@ int Clk_Wiz_Reconfig(XClk_Wiz_Config *CfgPtr_Dynamic)
 	}
 
 	if (Frac_divide) {
-		/* if fraction part exists, Frac_en is shifted to 18 for output Freq */
+		/* If a fraction exists, Frac_en shifts to bit 18. */
 		Frac_en = (CLK_FRAC_EN << 18);
 	} else {
 		Frac_en = 0;
@@ -365,15 +387,16 @@ int Clk_Wiz_Reconfig(XClk_Wiz_Config *CfgPtr_Dynamic)
 
 /*****************************************************************************/
 /**
+* @brief Runs the CLK_WIZ example.
 *
 * This is the main function for XClk_Wiz interrupt example. If the
 * ClkWiz_IntrExample function which sets up the system succeeds, this function
-* will wait for the interrupts. Notify the events
+* waits for the interrupts. Notify the events
 *
 * @return
 *		- XST_FAILURE if the interrupt example was unsuccessful.
 *
-* @note		Unless setup failed, main will never return since
+* @note		Unless setup failed, main never returns since
 *		ClkWiz_IntrExample is blocking (it is waiting on interrupts
 *		for Hot-Plug-Detect (HPD) events.
 *
@@ -407,23 +430,23 @@ int main()
 #ifndef SDT
 /****************************************************************************/
 /**
+* @brief Connects CLK_WIZ interrupts to the system.
 *
 * This function setups the interrupt system such that interrupts can occur
 * for the CLK_WIZ device. This function is application specific since the
 * actual system may or may not have an interrupt controller. The CLK_WIZ
 * could be directly connected to a processor without an interrupt controller.
-* The user should modify this function to fit the application.
+* Modify this function to fit the application.
 *
-* @param	IntcInstancePtr is a pointer to the instance of the interrupt
-*		controller.
+* @param[out] IntcInstancePtr Pointer to the instance of the interrupt
+*   controller.
 *
-* @param	ClkWizPtr contains a pointer to the instance of the CLK_WIZ
-*		component which is going to be connected to the interrupt
-*		controller.
+* @param[in,out] ClkWizPtr Contains a pointer to the instance of the CLK_WIZ
+*   component which is going to be connected to the interrupt controller.
 *
-* @return	XST_SUCCESS if successful, otherwise XST_FAILURE.
-*
-* @note		None
+* @return
+*		- XST_SUCCESS if successful.
+*		- XST_FAILURE if the interrupt controller setup fails.
 *
 ****************************************************************************/
 int SetupInterruptSystem(INTC *IntcInstancePtr, XClk_Wiz *ClkWizPtr)
@@ -450,7 +473,7 @@ int SetupInterruptSystem(INTC *IntcInstancePtr, XClk_Wiz *ClkWizPtr)
 	}
 
 	/*
-	 * Connect a device driver handler that will be called when an interrupt
+	 * Connect a device driver handler that is called when an interrupt
 	 * for the device occurs, the device driver handler performs the
 	 * specific interrupt processing for the device.
 	 */
@@ -498,7 +521,7 @@ int SetupInterruptSystem(INTC *IntcInstancePtr, XClk_Wiz *ClkWizPtr)
 				       0xA0, 0x3);
 
 	/*
-	 * Connect the interrupt handler that will be called when an
+	 * Connect the interrupt handler that is called when an
 	 * interrupt occurs for the device.
 	 */
 	Status = XScuGic_Connect(IntcInstancePtr, XINTC_CLK_WIZ_INTERRUPT_ID,
@@ -533,18 +556,18 @@ int SetupInterruptSystem(INTC *IntcInstancePtr, XClk_Wiz *ClkWizPtr)
 
 /*****************************************************************************/
 /**
+* @brief Runs the CLK_WIZ interrupt example.
 *
 * This function is the main entry point for the interrupt example using the
-* XClk_Wiz driver. This function will set up the system with interrupts
+* XClk_Wiz driver. This function sets up the system with interrupts
 * handlers.
 *
 * @if SDT
-* @param	BaseAddress contains the base address of the device
+* @param[in] BaseAddress Contains the base address of the device.
 * @else
-* @param	IntcInstancePtr is a pointer to the instance of the interrupt
-*		controller.
-* @param	DeviceId is the unique device ID of the CLK_WIZ
-*		Subsystem core.
+* @param[in] IntcInstancePtr Pointer to the instance of the interrupt
+*   controller.
+* @param[in] DeviceId Unique device ID of the CLK_WIZ Subsystem core.
 * @endif
 *
 * @return
@@ -620,8 +643,8 @@ u32 ClkWiz_IntrExample(UINTPTR BaseAddress)
 	}
 
 	/*
-	 * Connect the CLK_WIZ to the interrupt subsystem such that interrupts can
-	 * occur. This function is application specific.
+	 * Connect the CLK_WIZ to the interrupt subsystem so interrupts
+	 * can occur. This function is application specific.
 	 */
 
 #ifndef SDT
@@ -664,16 +687,15 @@ u32 ClkWiz_IntrExample(UINTPTR BaseAddress)
 
 /*****************************************************************************/
 /**
+* @brief Handles a clock out-of-range interrupt.
 *
 * This function is called when a clock out of range is received by
 * the CLK_WIZ  Subsystem core.
 *
-* @param	CallBackRef contains a callback reference from the driver.
-*		In this case it is the instance pointer for the ClkWiz_Mon driver.
+* @param[in] CallBackRef Contains a callback reference from the driver. In this
+*   case it is the instance pointer for the ClkWiz_Mon driver.
 *
-* @param	Mask of interrupt which caused this event
-*
-* @note		None
+* @param[in] Mask Of interrupt which caused this event.
 *
 ******************************************************************************/
 void ClkWiz_ClkOutOfRangeEventHandler(void *CallBackRef, u32 Mask)
@@ -715,16 +737,15 @@ void ClkWiz_ClkOutOfRangeEventHandler(void *CallBackRef, u32 Mask)
 
 /*****************************************************************************/
 /**
+* @brief Handles a clock-glitch interrupt.
 *
 * This function is called when a clock glitch event is received by
 * the CLK_WIZ Subsystem core.
 *
-* @param	CallBackRef contains a callback reference from the driver.
-*		In this case it is the instance pointer for the ClkWiz_Mon driver.
+* @param[in] CallBackRef Contains a callback reference from the driver. In this
+*   case it is the instance pointer for the ClkWiz_Mon driver.
 *
-* @param	Mask of interrupt which caused this event
-*
-* @note		None
+* @param[in] Mask Of interrupt which caused this event.
 *
 ******************************************************************************/
 void ClkWiz_ClkGlitchEventHandler(void *CallBackRef, u32 Mask)
@@ -746,15 +767,14 @@ void ClkWiz_ClkGlitchEventHandler(void *CallBackRef, u32 Mask)
 
 /*****************************************************************************/
 /**
+* @brief Handles a clock-stop interrupt.
 *
 * This function is called when a clock stop event is received by
 * the CLK_WIZ Subsystem core.
 *
-* @param	CallBackRef is a pointer to the XClk_Wiz instance.
+* @param[in] CallBackRef Pointer to the XClk_Wiz instance.
 *
-* @param	Mask of interrupt which caused this event
-*
-* @note		None
+* @param[in] Mask Of interrupt which caused this event.
 *
 ******************************************************************************/
 void ClkWiz_ClkStopEventHandler(void *CallBackRef, u32 Mask)

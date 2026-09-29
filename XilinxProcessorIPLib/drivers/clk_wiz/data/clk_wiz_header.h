@@ -1,11 +1,20 @@
 /******************************************************************************
 * Copyright (C) 2016 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2024 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2024 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
-#ifndef XCLK_WIZ_HEADER_H		/* prevent circular inclusions */
-#define XCLK_WIZ_HEADER_H		/* by using protection macros */
+#ifndef XCLK_WIZ_HEADER_H
+#define XCLK_WIZ_HEADER_H
+
+/*****************************************************************************/
+/**
+*
+* @file clk_wiz_header.h
+*
+* @brief Declares prototypes for the CLK_WIZ driver examples.
+*
+******************************************************************************/
 
 #ifdef __cplusplus
 extern "C" {
@@ -15,7 +24,9 @@ extern "C" {
 #include "xil_assert.h"
 #include "xstatus.h"
 
+/** @cond INTERNAL */
 u32 ClkWiz_IntrExample(u32 DeviceId);
+/** @endcond */
 
 #ifdef __cplusplus
 }

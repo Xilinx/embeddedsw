@@ -8,8 +8,7 @@
 /**
 *
 * @file xclk_wiz_intr.c
-* @addtogroup Overview
-* @{
+* @brief Implements CLK_WIZ interrupt handlers.
 *
 * This file implements the functions which handle the interrupts in the CLK_WIZ
 * Controller.
@@ -24,8 +23,14 @@
 * 1.6 sd  07/07/23 Added SDT support.
 * 1.11 vlt 01/27/26 Fixed codespell issues
 * 1.12 vn  09/3/26  Fix doxygen warnings.
+* 1.12 tb  09/16/26 Align Doxygen comments with AMD standards.
 * </pre>
 ******************************************************************************/
+
+/**
+* @addtogroup clk_wiz_api CLK_WIZ APIs
+* @{
+*/
 
 /***************************** Include Files *********************************/
 
@@ -53,13 +58,13 @@
 
 /*****************************************************************************/
 /**
-* XClk_Wiz_InterruptEnable will enable the interrupts present in the interrupt
+* @brief Enables interrupts in the CLK_WIZ mask.
+*
+* XClk_Wiz_InterruptEnable enables the interrupts present in the interrupt
 * mask passed onto the function
 *
-* @param	InstancePtr is the XClk_Wiz instance to operate on
-* @param	Mask is the interrupt mask which need to be enabled in core
-*
-* @note		None
+* @param[in] InstancePtr XClk_Wiz instance to operate on.
+* @param[in] Mask Interrupt mask which need to be enabled in core.
 *
 ****************************************************************************/
 void XClk_Wiz_InterruptEnable(XClk_Wiz *InstancePtr, u32 Mask)
@@ -76,13 +81,13 @@ void XClk_Wiz_InterruptEnable(XClk_Wiz *InstancePtr, u32 Mask)
 
 /*****************************************************************************/
 /**
-* XClk_Wiz_InterruptDisable will disable the interrupts present in the
+* @brief Disables interrupts in the CLK_WIZ mask.
+*
+* XClk_Wiz_InterruptDisable disables the interrupts present in the
 * interrupt mask passed onto the function
 *
-* @param	InstancePtr is the XClk_Wiz instance to operate on
-* @param	Mask is the interrupt mask which need to be enabled in core
-*
-* @note		None
+* @param[in] InstancePtr XClk_Wiz instance to operate on.
+* @param[in] Mask Interrupt mask which need to be enabled in core.
 *
 ****************************************************************************/
 void XClk_Wiz_InterruptDisable(XClk_Wiz *InstancePtr, u32 Mask)
@@ -97,15 +102,15 @@ void XClk_Wiz_InterruptDisable(XClk_Wiz *InstancePtr, u32 Mask)
 
 /*****************************************************************************/
 /**
-* XClk_Wiz_InterruptGetEnabled will get the interrupt mask set (enabled) in the
+* @brief Returns the enabled CLK_WIZ interrupt mask.
+*
+* XClk_Wiz_InterruptGetEnabled gets the interrupt mask set (enabled) in the
 * CLK_WIZ core
 *
-* @param	InstancePtr is the XClk_Wiz instance to operate on
+* @param[in] InstancePtr XClk_Wiz instance to operate on.
 *
 * @return	Interrupt Mask with bits set for corresponding interrupt in
 *		Interrupt enable register
-*
-* @note		None
 *
 ****************************************************************************/
 u32 XClk_Wiz_InterruptGetEnabled(XClk_Wiz *InstancePtr)
@@ -121,15 +126,15 @@ u32 XClk_Wiz_InterruptGetEnabled(XClk_Wiz *InstancePtr)
 
 /*****************************************************************************/
 /**
-* XClk_Wiz_InterruptGetStatus will get the list of interrupts pending in the
+* @brief Returns pending CLK_WIZ interrupt status.
+*
+* XClk_Wiz_InterruptGetStatus gets the list of interrupts pending in the
 * Interrupt Status Register of the CLK_WIZ core
 *
-* @param	InstancePtr is the XClk_Wiz instance to operate on
+* @param[in] InstancePtr XClk_Wiz instance to operate on.
 *
 * @return	Interrupt Mask with bits set for corresponding interrupt in
 *		Interrupt Status register
-*
-* @note		None
 *
 ****************************************************************************/
 u32 XClk_Wiz_InterruptGetStatus(XClk_Wiz *InstancePtr)
@@ -145,14 +150,14 @@ u32 XClk_Wiz_InterruptGetStatus(XClk_Wiz *InstancePtr)
 
 /*****************************************************************************/
 /**
-* XClk_Wiz_InterruptClear will clear the interrupts set in the Interrupt Status
+* @brief Clears pending CLK_WIZ interrupt status bits.
+*
+* XClk_Wiz_InterruptClear clears the interrupts set in the Interrupt Status
 * Register of the CLK_WIZ core
 *
-* @param	InstancePtr is the XClk_Wiz instance to operate on
-* @param	Mask is Interrupt Mask with bits set for corresponding interrupt
-*		to be cleared in the Interrupt Status register
-*
-* @note		None
+* @param[in] InstancePtr XClk_Wiz instance to operate on.
+* @param[in] Mask Interrupt Mask with bits set for corresponding interrupt to be
+*   cleared in the Interrupt Status register.
 *
 ****************************************************************************/
 void XClk_Wiz_InterruptClear(XClk_Wiz *InstancePtr, u32 Mask)
@@ -168,6 +173,7 @@ void XClk_Wiz_InterruptClear(XClk_Wiz *InstancePtr, u32 Mask)
 
 /*****************************************************************************/
 /**
+* @brief Registers a CLK_WIZ interrupt callback.
 *
 * This routine installs an asynchronous callback function for the given
 * HandlerType:
@@ -181,15 +187,15 @@ void XClk_Wiz_InterruptClear(XClk_Wiz *InstancePtr, u32 Mask)
 * XCLK_WIZ_HANDLER_OTHERERROR		Any other type of interrupts
 * </pre>
 *
-* @param	InstancePtr is the XClk_Wiz instance to operate on
+* @param[in,out] InstancePtr XClk_Wiz instance to operate on.
 *
-* @param 	HandleType is the type of call back to be registered.
+* @param[in] HandleType Type of call back to be registered.
 *
-* @param	CallBackFunc is the pointer to a call back function which
-* 		is called when a particular event occurs.
+* @param[in] CallBackFunc Pointer to a call back function which is called when a
+*   particular event occurs.
 *
-* @param 	CallBackRef is a void pointer to data to be referenced to
-* 		by the CallBackFunc
+* @param[in] CallBackRef Void pointer to data to be referenced to by the
+*   CallBackFunc.
 *
 * @return
 * 		- XST_SUCCESS when handler is installed.
@@ -233,6 +239,7 @@ int XClk_Wiz_SetCallBack(XClk_Wiz *InstancePtr, u32 HandleType,
 
 /*****************************************************************************/
 /**
+* @brief Handles CLK_WIZ interrupts.
 *
 * This function is the interrupt handler for the CLK_WIZ core.
 *
@@ -246,7 +253,7 @@ int XClk_Wiz_SetCallBack(XClk_Wiz *InstancePtr, u32 HandleType,
 * callbacks to handle interrupts and installing the callbacks using
 * XClk_Wiz_SetCallBack() during initialization phase.
 *
-* @param	InstancePtr is a pointer to the XClk_Wiz core instance.
+* @param[in] InstancePtr Pointer to the XClk_Wiz core instance.
 *
 * @note		Interrupt should be enabled to execute interrupt handler.
 *

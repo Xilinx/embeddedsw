@@ -1,15 +1,39 @@
 /*******************************************************************
 * Copyright (C) 2016 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023-2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************/
+
+/*****************************************************************************/
+/**
+*
+* @file xclk_wiz_g.c
+* @brief Provides the CLK_WIZ configuration table.
+*
+* This file contains a configuration table that specifies the parameters of
+* CLK_WIZ devices.
+*
+* <pre>
+* MODIFICATION HISTORY:
+*
+* Ver Who Date     Changes
+* ----- ---- -------- -------------------------------------------------------
+* 1.12  tb  09/16/26 Align Doxygen comments with AMD standards.
+* </pre>
+*
+******************************************************************************/
+
+/**
+* @addtogroup clk_wiz_api CLK_WIZ APIs
+* @{
+*/
 
 #include "xparameters.h"
 #include "xclk_wiz.h"
 
-/*
-* The configuration table for devices
-*/
+/**
+ * @brief Holds CLK_WIZ configuration-table entries.
+ */
 
 XClk_Wiz_Config XClk_Wiz_ConfigTable[] = {
 	{
@@ -47,3 +71,4 @@ XClk_Wiz_Config XClk_Wiz_ConfigTable[] = {
 		XPAR_CLK_WIZ_DYN_RECONFIG_ENABLE_PLL1
 	}
 };
+/** @} */

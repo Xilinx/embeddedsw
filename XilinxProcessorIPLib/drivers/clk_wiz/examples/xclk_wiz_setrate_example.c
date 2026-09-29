@@ -6,9 +6,10 @@
 /**
 *
 * @file xclk_wiz_setrate_example.c
+* @brief Runs the CLK_WIZ set-rate example.
 *
-* This file contains a design example using the XClk_Wiz driver with different rates.
-* assigned to clock wizard 1. Modify this value as per your dynamic clock
+* This file contains a design example using the XClk_Wiz driver with different
+* rates assigned to clock wizard 1. Modify this value as per your dynamic clock
 * reconfiguration Clocking wizard
 *
 * @note This example targets ZynqMP platforms.
@@ -26,6 +27,7 @@
 * 1.12 ss  8/15/26  Updated specifiers.
 * 1.12 vn  09/3/26  Fix doxygen warnings.
 * 1.12 ss  9/23/26  Document platform note.
+* 1.12 tb  09/16/26 Align Doxygen comments with AMD standards.
 * </pre>
 *
 ******************************************************************************/
@@ -51,9 +53,11 @@
 * needed device IDs in one place.
 */
 #ifndef SDT
+/** CLK_WIZ example device ID. */
 #define XCLK_WIZARD_DEVICE_ID		XPAR_CLK_WIZ_0_DEVICE_ID
 #endif
-#define XCLK_US_WIZ_RECONFIG_OFFSET	0x0000025C  /**< Reconfig Register */
+/** Reconfig Register. */
+#define XCLK_US_WIZ_RECONFIG_OFFSET	0x0000025C
 
 /*
 * The following constants are part of clock dynamic reconfiguration
@@ -61,6 +65,7 @@
 * needed parameters
 */
 
+/** Clock-lock status bit value. */
 #define CLK_LOCK			1
 
 /***************** Macros (Inline Functions) Definitions *********************/
@@ -82,14 +87,15 @@ XClk_Wiz ClkWiz_Dynamic; /* The instance of the ClkWiz_Dynamic */
 
 /*****************************************************************************/
 /**
+* @brief Runs the CLK_WIZ example.
 *
 * This is the main function for XClk_Wiz rate example. If the
 * ClkWiz_Example function which sets up the system succeeds, this function
-* will set the desired rate.
+* sets the desired rate.
 *
-* @return	XST_SUCCESS if successful, otherwise XST_FAILURE.
-*
-* @note		None
+* @return
+*		- XST_SUCCESS if successful.
+*		- XST_FAILURE if ClkWiz_Example fails.
 *
 ******************************************************************************/
 #ifndef TESTAPP_GEN
@@ -119,15 +125,15 @@ int main()
 
 /*****************************************************************************/
 /**
+* @brief Runs the CLK_WIZ rate example.
 *
 * This function is the main entry point for the example using the
 * XClk_Wiz driver.
 *
 * @if SDT
-* @param	BaseAddress contains the base address of the device
+* @param[in] BaseAddress Contains the base address of the device.
 * @else
-* @param	DeviceId is the unique device ID of the CLK_WIZ
-*		Subsystem core.
+* @param[in] DeviceId Unique device ID of the CLK_WIZ Subsystem core.
 * @endif
 *
 * @return
