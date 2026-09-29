@@ -1,14 +1,13 @@
 /******************************************************************************
 * Copyright (C) 2007 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
 /*****************************************************************************/
 /**
 * @file xmutex_g.c
-* @addtogroup mutex Overview
-* @{
+* @brief Defines the Mutex configuration table.
 *
 * This file contains a configuration table that specifies the configuration
 * of Mutex devices in the system.
@@ -19,11 +18,15 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- ---------------------------------------------------
 * 1.00a ecm  06/01/07 Cleanup, new coding standard, check into XCS
+* 4.12  tb   09/11/26 Align Doxygen comments with AMD standards
 * </pre>
 *
-* @note	None.
-*
 ******************************************************************************/
+
+/**
+* @addtogroup mutex_api MUTEX APIs
+* @{
+*/
 
 /***************************** Include Files *********************************/
 #include "xmutex.h"

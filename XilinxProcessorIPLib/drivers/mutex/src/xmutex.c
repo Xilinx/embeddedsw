@@ -8,8 +8,7 @@
 /**
 *
 * @file xmutex.c
-* @addtogroup mutex Overview
-* @{
+* @brief Implements Mutex interface functions.
 *
 * Contains required functions for the XMutex driver.
 *
@@ -31,9 +30,15 @@
 * 4.2   mi   09/22/16 Fixed compilation warnings.
 * 4.7   ht   06/21/23 Added support for system device-tree flow.
 * 4.11  ht   02/24/26 Fix doxygen warnings.
+* 4.12  tb   09/11/26 Align Doxygen comments with AMD standards.
 * </pre>
 *
 ******************************************************************************/
+
+/**
+* @addtogroup mutex_api MUTEX APIs
+* @{
+*/
 
 /***************************** Include Files *********************************/
 
@@ -57,20 +62,19 @@
 
 /*****************************************************************************/
 /**
+* @brief Initializes a specific Mutex instance.
 *
 * Initializes a specific Mutex instance/driver.
 *
-* @param	InstancePtr is a pointer to the XMutex instance to be worked on.
-* @param	ConfigPtr is the device configuration structure containing
-*		required HW build data.
-* @param	EffectiveAddress is the Physical address of the hardware in a
-*		Virtual Memory operating system environment.
-*		It is the Base Address in a stand alone environment.
+* @param[out] InstancePtr Pointer to the XMutex instance to be worked on.
+* @param[in] ConfigPtr Device configuration structure containing
+*   required HW build data.
+* @param[in] EffectiveAddress Physical address of the hardware in a
+*   Virtual Memory operating system environment. It is the Base
+*   Address in a stand alone environment.
 *
 * @return
-*		- XST_SUCCESS if initialization was successful
-*
-* @note		None.
+*        - XST_SUCCESS if initialization was successful.
 *
 ******************************************************************************/
 int XMutex_CfgInitialize(XMutex *InstancePtr, XMutex_Config *ConfigPtr,
@@ -98,22 +102,22 @@ int XMutex_CfgInitialize(XMutex *InstancePtr, XMutex_Config *ConfigPtr,
 
 /*****************************************************************************/
 /**
+* @brief Locks a Mutex within a Mutex device.
 *
 * Locks a particular Mutex lock within a Mutex device. Call blocks till the
 * Mutex is locked.
 *
-* @param	InstancePtr is a pointer to the XMutex instance to be worked on.
-* @param	MutexNumber is the specific Mutex lock within the device to
-*		operate on. Each device may contain multiple Mutex locks.
-*		The Mutex number is a zero based number  with a range of
-*		0 - (InstancePtr->Config.NumMutex - 1).
+* @param[in] InstancePtr Pointer to the XMutex instance to be worked on.
+* @param[in] MutexNumber Specific Mutex lock within the device to
+*   operate on. Each device may contain multiple Mutex locks. The
+*   Mutex number is a zero based number with a range of
+*   0 - (InstancePtr->Config.NumMutex - 1).
 *
 * @note
-*		- XMutex_Trylock is a blocking call. This call blocks until the
-*		  user gets the lock.
-*		- Use XMutex_Trylock for a Non-Blocking call. The user gets the
-*		  lock if it is available and returns immediately if the lock
-*		  is not available.
+*        - XMutex_Lock blocks until the caller gets the lock.
+*        - Use XMutex_Trylock for a non-blocking call. The caller gets the
+*          lock if it is available and returns immediately if the lock is
+*          not available.
 *
 ******************************************************************************/
 void XMutex_Lock(XMutex *InstancePtr, u8 MutexNumber)
@@ -138,24 +142,25 @@ void XMutex_Lock(XMutex *InstancePtr, u8 MutexNumber)
 
 /*****************************************************************************/
 /**
+* @brief Tries to lock a Mutex without blocking.
 *
 * Locks a particular Mutex lock within a Mutex device. Call returns immediately
 * if the Mutex is already locked (This is Non-Blocking call).
 *
-* @param	InstancePtr is a pointer to the XMutex instance to be worked on.
-* @param	MutexNumber is the specific Mutex lock within the device to
-*		operate on. Each device may contain multiple Mutex locks.
-*		The Mutex number is a zero based number with a range of
-*		0 - (InstancePtr->Config.NumMutex - 1).
+* @param[in] InstancePtr Pointer to the XMutex instance to be worked on.
+* @param[in] MutexNumber Specific Mutex lock within the device to
+*   operate on. Each device may contain multiple Mutex locks. The
+*   Mutex number is a zero based number with a range of
+*   0 - (InstancePtr->Config.NumMutex - 1).
 *
 * @return
-*		- XST_SUCCESS if locking was successful.
-*		- XST_DEVICE_BUSY if the Mutex was found to be already locked
+*        - XST_SUCCESS if locking was successful.
+*        - XST_DEVICE_BUSY if the Mutex was found to be already locked.
 *
 * @note
-*		- This is Non-Blocking call, the user gets the lock if it is
-*		available else XST_DEVICE_BUSY is returned.
-*		- Use XMutex_Lock if you need to block until a lock is obtained.
+*        - This is a non-blocking call. The caller gets the lock if it is
+*          available. Otherwise, XST_DEVICE_BUSY is returned.
+*        - Use XMutex_Lock if you need to block until a lock is obtained.
 *
 ******************************************************************************/
 int XMutex_Trylock(XMutex *InstancePtr, u8 MutexNumber)
@@ -180,22 +185,20 @@ int XMutex_Trylock(XMutex *InstancePtr, u8 MutexNumber)
 
 /*****************************************************************************/
 /**
+* @brief Unlocks a Mutex within a Mutex device.
 *
 * Unlocks a particular Mutex lock within a Mutex device.
 *
-* @param	InstancePtr is a pointer to the XMutex instance to be worked on.
-* @param	MutexNumber is the specific Mutex lock within the device to
-*		operate on. Each device may contain multiple Mutex locks.
-*		The Mutex number is a zero based number with a range of
-*		0 - (InstancePtr->Config.NumMutex - 1).
+* @param[in] InstancePtr Pointer to the XMutex instance to be worked on.
+* @param[in] MutexNumber Specific Mutex lock within the device to
+*   operate on. Each device may contain multiple Mutex locks. The
+*   Mutex number is a zero based number with a range of
+*   0 - (InstancePtr->Config.NumMutex - 1).
 *
 * @return
-*
-*		- XST_SUCCESS if locking was successful.
-*		- XST_FAILURE if the Mutex was locked by process with
-*		  different ID.
-*
-* @note		None.
+*        - XST_SUCCESS if unlocking was successful.
+*        - XST_FAILURE if the Mutex was locked by process with
+*          different ID.
 *
 ******************************************************************************/
 int XMutex_Unlock(XMutex *InstancePtr, u8 MutexNumber)
@@ -222,20 +225,19 @@ int XMutex_Unlock(XMutex *InstancePtr, u8 MutexNumber)
 
 /*****************************************************************************/
 /**
+* @brief Returns whether a Mutex is locked.
 *
 * Gets the current lock state of a Mutex lock within a Mutex device.
 *
-* @param	InstancePtr is a pointer to the XMutex instance to be worked on.
-* @param	MutexNumber is the specific Mutex lock within the device to
-*		operate on. Each device may contain multiple Mutex locks.
-*		The Mutex number is a zero based number with a range of
-*		0 - (InstancePtr->Config.NumMutex - 1).
+* @param[in] InstancePtr Pointer to the XMutex instance to be worked on.
+* @param[in] MutexNumber Specific Mutex lock within the device to
+*   operate on. Each device may contain multiple Mutex locks. The
+*   Mutex number is a zero based number with a range of
+*   0 - (InstancePtr->Config.NumMutex - 1).
 *
 * @return
-*		- TRUE if locked
-*		- FALSE if unlocked
-*
-* @note		None.
+*        - TRUE if locked
+*        - FALSE if unlocked
 *
 ******************************************************************************/
 int XMutex_IsLocked(XMutex *InstancePtr, u8 MutexNumber)
@@ -253,23 +255,22 @@ int XMutex_IsLocked(XMutex *InstancePtr, u8 MutexNumber)
 
 /*****************************************************************************/
 /**
+* @brief Gets the lock status and owner of a Mutex.
 *
 * Gets the current status of a Mutex lock within a Mutex device.
 *
-* @param	InstancePtr is a pointer to the XMutex instance to be worked on.
-* @param	MutexNumber is the specific Mutex lock within the device to
-*		operate on. Each device may contain multiple Mutex locks.
-*		The Mutex number is a zero based number with a range of
-*		0 - (InstancePtr->Config.NumMutex - 1).
-* @param	Locked is a pointer where the current lock status is stored.
-*		Sets memory pointed to by 'Locked' to 1 if the Mutex is locked
-*		and 0 if it is unlocked.
-* @param	Owner is a pointer where the current owner status is stored.
-*.		If the Mutex is locked, the memory pointed to by 'Owner' is
-*		updated to reflect the CPU ID that has currently locked this
-*		Mutex.
-*
-* @note		None.
+* @param[in] InstancePtr Pointer to the XMutex instance to be worked on.
+* @param[in] MutexNumber Specific Mutex lock within the device to
+*   operate on. Each device may contain multiple Mutex locks. The
+*   Mutex number is a zero based number with a range of
+*   0 - (InstancePtr->Config.NumMutex - 1).
+* @param[out] Locked Pointer where the current lock status is stored.
+*   Sets memory pointed to by 'Locked' to 1 if the Mutex is locked
+*   and 0 if it is unlocked.
+* @param[out] Owner Pointer where the current owner status is stored.
+*   If the Mutex is locked, the memory pointed to by 'Owner' is
+*   updated to reflect the CPU ID that has currently locked this
+*   Mutex.
 *
 ******************************************************************************/
 void XMutex_GetStatus(XMutex *InstancePtr, u8 MutexNumber, u32 *Locked,
@@ -290,23 +291,23 @@ void XMutex_GetStatus(XMutex *InstancePtr, u8 MutexNumber, u32 *Locked,
 
 /*****************************************************************************/
 /**
+* @brief Reads the USER register of a Mutex.
 *
 * Gets the USER register of a Mutex lock within a Mutex device.
 *
-* @param	InstancePtr is a pointer to the XMutex instance to be worked on.
-* @param	MutexNumber is the specific Mutex lock within the device to
-*		operate on. Each device may contain multiple Mutex locks.
-*		The Mutex number is a zero based number with a range of
-*		0 - (InstancePtr->Config.NumMutex - 1).
-* @param	User is a pointer to an u32 where the current user register
-		value is stored by this function.
-* @return
-*		- XST_SUCCESS if successful. Memory pointed to by User is
-*		  updated to reflect the contents of the user register.
-*		- XST_NO_FEATURE if the Mutex was not configured with a USER
-*		  register.
+* @param[in] InstancePtr Pointer to the XMutex instance to be worked on.
+* @param[in] MutexNumber Specific Mutex lock within the device to
+*   operate on. Each device may contain multiple Mutex locks. The
+*   Mutex number is a zero based number with a range of
+*   0 - (InstancePtr->Config.NumMutex - 1).
+* @param[out] User Pointer to an u32 where the current user register
+*   value is stored by this function.
 *
-* @note		None.
+* @return
+*        - XST_SUCCESS if successful. Memory pointed to by User is
+*          updated to reflect the contents of the user register.
+*        - XST_NO_FEATURE if the Mutex was not configured with a USER
+*          register.
 *
 ******************************************************************************/
 int XMutex_GetUser(XMutex *InstancePtr, u8 MutexNumber, u32 *User)
@@ -326,24 +327,22 @@ int XMutex_GetUser(XMutex *InstancePtr, u8 MutexNumber, u32 *User)
 
 /*****************************************************************************/
 /**
+* @brief Writes the USER register of a Mutex.
 *
 * Sets the USER register of a Mutex lock within a Mutex device.
 *
-* @param	InstancePtr is a pointer to the XMutex instance to be worked on.
-* @param	MutexNumber is the specific Mutex lock within the device to
-*		operate on. Each device may contain multiple Mutex locks.
-*		The Mutex number is a zero based number with a range of
-*		0 - (InstancePtr->Config.NumMutex - 1).
-* @param	User is the value to update the USER register with.
+* @param[in] InstancePtr Pointer to the XMutex instance to be worked on.
+* @param[in] MutexNumber Specific Mutex lock within the device to
+*   operate on. Each device may contain multiple Mutex locks. The
+*   Mutex number is a zero based number with a range of
+*   0 - (InstancePtr->Config.NumMutex - 1).
+* @param[in] User Value to update the USER register with.
 *
 * @return
-*		- XST_SUCCESS if the USER register is written with the
-*		  given value .
-*		- XST_NO_FEATURE if the Mutex was not configured with a
-*		  USER register.
-*
-* @note		None.
-
+*        - XST_SUCCESS if the USER register is written with the
+*          given value .
+*        - XST_NO_FEATURE if the Mutex was not configured with a
+*          USER register.
 *
 ******************************************************************************/
 int XMutex_SetUser(XMutex *InstancePtr, u8 MutexNumber, u32 User)

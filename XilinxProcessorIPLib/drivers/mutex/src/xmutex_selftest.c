@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2007 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -8,8 +8,7 @@
 /**
 *
 * @file xmutex_selftest.c
-* @addtogroup mutex Overview
-* @{
+* @brief Implements Mutex self-test.
 *
 * Contains XMutex driver selftest code.
 *
@@ -22,9 +21,15 @@
 * 1.00a ecm  06/01/07 Cleanup, new coding standard, check into XCS
 * 3.00a hbm  10/15/09 Migrated to HAL phase 1 to use xil_io, xil_types,
 *			and xil_assert.
+* 4.12  tb   09/11/26 Align Doxygen comments with AMD standards.
 * </pre>
 *
 ******************************************************************************/
+
+/**
+* @addtogroup mutex_api MUTEX APIs
+* @{
+*/
 
 /***************************** Include Files *********************************/
 
@@ -45,21 +50,20 @@
 
 /*****************************************************************************/
 /**
+* @brief Runs a destructive self-test on a Mutex core.
 *
 * Selftest a particular Mutex hardware core.
 *
-* @param	InstancePtr is a pointer to the XMutex instance to be worked on.
+* @param[in] InstancePtr Pointer to the XMutex instance to be worked on.
 *
 * @return
-*		- XST_SUCCESS if test was successful.
-*		- XST_FAILURE if test was not successful.
+*        - XST_SUCCESS if test was successful.
+*        - XST_FAILURE if test was not successful.
 *
-* @note
-*
-* This test is destructive. It will fail if the Mutex is currently being used.
-* This is also a blocking call, if there is another process which has the
-* Mutex, the first _lock will hand the test until the other process releases
-* it.
+* @note This test is destructive. It fails if the Mutex is currently
+*       being used. This is also a blocking call, if there is another process
+*       which has the Mutex, the first lock hangs the test until the
+*       other process releases it.
 *
 ******************************************************************************/
 int XMutex_SelfTest(XMutex *InstancePtr)

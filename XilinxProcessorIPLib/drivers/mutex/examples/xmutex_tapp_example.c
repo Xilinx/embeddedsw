@@ -7,6 +7,7 @@
 /******************************************************************************/
 /**
 * @file xmutex_tapp_example.c
+* @brief Runs a two-processor Mutex lock example.
 *
 * This file contains a design example for using the Mutex hardware and driver
 * XMutex
@@ -25,11 +26,9 @@
 * This example has been tested on ML505 Hardware Evaluation board.
 *
 * @note
-*
-* These code fragments will illustrate how the XMutex driver can be used to:
+* These code fragments illustrate how the XMutex driver can be used to:
 *   - Initialize the Mutex core
 *   - Lock, Unlock and query the status of the hardware
-*
 *
 *<pre>
 * MODIFICATION HISTORY:
@@ -50,6 +49,7 @@
 * 4.11  vlt  12/14/25 Update Doxygen comments to include SDT flow details.
 *       vlt  01/27/26 Fixed codespell issues
 *       ht   02/24/26 Fix doxygen warnings
+* 4.12  tb   09/11/26 Align Doxygen comments with AMD standards
 *</pre>
 *******************************************************************************/
 
@@ -73,7 +73,7 @@
 #endif
 
 #define MUTEX_NUM 		0 /**< The Mutex number on which this
-				   *   example is run
+				   *   example is run.
 				   */
 
 #define LOCK_TIMEOUT		2000000	/* Number of attempts before error */
@@ -86,10 +86,10 @@
 
 /************************** Variable Definitions *****************************/
 
-XMutex Mutex;	/* Mutex instance */
+XMutex Mutex;	/**< Mutex instance. */
 
 #ifndef SDT
-XMutex *MutexInstPtr = &Mutex;	/* Mutex instance pointer */
+XMutex *MutexInstPtr = &Mutex;	/**< Mutex instance pointer. */
 #endif
 
 /************************** Function Prototypes ******************************/
@@ -102,14 +102,13 @@ int MutexExample (XMutex *MutexInstPtr, UINTPTR BaseAddress);
 
 /*****************************************************************************/
 /**
+* @brief Runs the Mutex example application.
 *
 * This function is the main function for the Mutex example.
 *
 * @return
-*		- XST_SUCCESS if successful.
-*		- XST_FAILURE if unsuccessful.
-*
-* @note		None.
+*        - XST_SUCCESS if successful.
+*        - XST_FAILURE if unsuccessful.
 *
 ******************************************************************************/
 #ifndef TESTAPP_GEN
@@ -136,6 +135,8 @@ int main(void)
 
 /*****************************************************************************/
 /**
+* @brief Locks the Mutex from each processor and checks the result.
+*
 * This function contains the actual functionality for the XMutex TestApp
 * example. he idea is to have this application running on two processors which
 * share the same bus and have access to the Mutex hardware. CPU 0 is considered
@@ -143,18 +144,18 @@ int main(void)
 * Mutex.
 *
 * @if SDT
-* @param	MutexInstPtr is a pointer to the Mutex instance
-* @param	BaseAddress contains the base address of the device
+* @param[out] MutexInstPtr Pointer to the Mutex instance.
+* @param[in] BaseAddress Contains the base address of the device.
 * @else
-* @param	MutexDeviceID is the device id to be initialized and used.
+* @param[in] MutexDeviceID Device id to be initialized and used.
 * @endif
 *
 * @return
-*		- XST_SUCCESS if successful
-*		- XST_FAILURE if unsuccessful
+*        - XST_SUCCESS if successful.
+*        - XST_FAILURE if unsuccessful.
 *
-* @note	        In XSCT/classic flow, DeviceId is used to look up the
-*               device configuration.
+* @note In XSCT/classic flow, DeviceId is used to look up the device
+*       configuration.
 *
 ******************************************************************************/
 #ifndef SDT

@@ -8,8 +8,7 @@
 /**
 *
 * @file xmutex_sinit.c
-* @addtogroup mutex Overview
-* @{
+* @brief Implements Mutex static initialization.
 *
 * Implements static initialization
 * See xmutex.h for more information about the driver.
@@ -24,10 +23,16 @@
 * 4.7   ht   06/21/23 Added support for system device-tree flow.
 * 4.11  vlt  12/14/25 Update Doxygen comments to include SDT flow details.
 *       ht   02/24/26 Fix doxygen warnings
+* 4.12  tb   09/11/26 Align Doxygen comments with AMD standards
 *
 * </pre>
 *
 ******************************************************************************/
+
+/**
+* @addtogroup mutex_api MUTEX APIs
+* @{
+*/
 
 /****************************** Include Files ********************************/
 #include "xmutex.h"
@@ -49,23 +54,24 @@ extern XMutex_Config XMutex_ConfigTable[];
 
 /*****************************************************************************/
 /**
+* @brief Looks up Mutex configuration by device ID or base address.
 *
 * Looks up the device configuration based on the unique device ID/BaseAddress.
 * The XMutex_ConfigTable[] contains the configuration info for each device in
 * the system.
 *
 * @if SDT
-* @param	BaseAddress contains the base address of the device
+* @param[in] BaseAddress Contains the base address of the device.
 * @else
-* @param	DeviceId contains the unique ID of the device
+* @param[in] DeviceId Contains the unique ID of the device.
 * @endif
 *
-* @return       A pointer to the configuration found or NULL if the specified
-*               device ID/BaseAddress was not found. See xmutex.h for the
-*               definition of XMutex_Config.
+* @return A pointer to the configuration found or NULL if the specified
+*         device ID/BaseAddress was not found. See xmutex.h for the
+*         definition of XMutex_Config.
 *
-* @note        In XSCT/classic flow, DeviceId is used to look up the device
-*              configuration.
+* @note In XSCT/classic flow, DeviceId is used to look up the device
+*       configuration.
 *
 ******************************************************************************/
 #ifndef SDT

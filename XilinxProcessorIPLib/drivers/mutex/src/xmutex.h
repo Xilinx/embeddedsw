@@ -4,13 +4,16 @@
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
+#ifndef XMUTEX_H		/* prevent circular inclusions */
+#define XMUTEX_H
+
 /*****************************************************************************/
 /**
 *
 * @file xmutex.h
 * @addtogroup mutex Overview
 * @{
-* @details
+* @brief Provides the Xilinx Mutex driver for the Mutex core.
 *
 * The Xilinx Mutex driver. This driver supports the Xilinx Mutex Core. More
 * detailed description of the driver operation can be found in the xmutex.c
@@ -46,7 +49,7 @@
 *
 *   - XMutex_LookupConfig (DeviceId) - Use the device identifier to find the
 *     static configuration structure defined in XMutex_g.c. This is setup by
-*     the tools. For some operating systems the config structure will be
+*     the tools. For some operating systems the config structure is
 *     initialized by the software and this call is not needed. This function
 *     returns the CfgPtr argument used by the CfgInitialize function described
 *     below.
@@ -56,8 +59,8 @@
 *     with address translation, the provided virtual memory base address
 *     replaces the physical address present in the configuration structure.
 *     The EffectiveAddress argument is required regardless of operating system
-*     environment, i.e. in standalone, ConfigPtr->BaseAddress is recommended and
-*     not the xparameters definition..
+*     environment, that is, in standalone, ConfigPtr->BaseAddress is recommended
+*     and not the xparameters definition.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -94,12 +97,11 @@
 * 4.6   sd   02/09/20 Updated makefile for parallel execution.
 * 4.7   ht   06/21/23 Added support for system device-tree flow.
 * 4.11  vlt  12/30/25 Update Doxygen comments to include SDT flow details.
+* 4.12  tb   09/11/26 Align Doxygen comments with AMD standards.
 * </pre>
 *
 ******************************************************************************/
 
-#ifndef XMUTEX_H		/* prevent circular inclusions */
-#define XMUTEX_H		/* by using protection macros */
 
 #ifdef __cplusplus
 extern "C" {
@@ -131,7 +133,7 @@ typedef struct {
 
 
 /**
- * The XMutex driver instance data. The user is required to allocate a
+ * The XMutex driver instance data. Allocate a
  * variable of this type for every Mutex device in the system. A
  * pointer to a variable of this type is then passed to the driver API
  * functions.
