@@ -32,6 +32,7 @@
 * 2.5   tvp  08/03/26 Added Jtag DAP config support for Non-Secure debug
 *       pre  07/24/26 Enabled TPM feature for VERSAL_2VP devices
 *       pre  08/19/26 Implemented DDRMC calibration skip flag clearing if PComplete is not set
+*       abh  09/22/26 Fixed Doxygen Warnings
 *
 * </pre>
 *
@@ -901,9 +902,6 @@ END:
 /**
  * @brief	This function logs the measurement module availability status once
  * 		at boot. Subsequent calls are no-ops.
- *
- * @return
- * 		None.
  *
  **************************************************************************************************/
 static void XLoader_LogMeasurementModuleStatus(void)

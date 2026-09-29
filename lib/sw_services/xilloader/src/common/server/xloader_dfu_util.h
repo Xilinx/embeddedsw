@@ -24,6 +24,7 @@
 * 1.02   bsv 08/31/2021 Code clean up
 * 2.4    aa  04/01/2026 Added macro for USB DFU status
 *        aa  04/10/2026 Renamed DFU macro
+* 2.5    abh 09/22/2026 Fixed Doxygen Warnings
 *
 * </pre>
 *
@@ -216,6 +217,8 @@ extern "C" {
 /*
  * Standard USB structures as per 2.0 specification
  */
+
+/** @brief Standard USB device descriptor structure. */
 typedef struct {
 	u8 Length;
 	u8 DescriptorType;
@@ -233,6 +236,7 @@ typedef struct {
 	u8 NumConfigurations;
 } __attribute__((__packed__))XLoaderPs_UsbStdDevDesc;
 
+/** @brief Standard USB configuration descriptor structure. */
 typedef struct {
 	u8 Length;
 	u8 Type;
@@ -244,6 +248,7 @@ typedef struct {
 	u8 MaxPower;
 }  __attribute__((__packed__))XLoaderPs_UsbStdCfgDesc;
 
+/** @brief Standard USB interface descriptor structure. */
 typedef struct {
 	u8 Length;
 	u8 DescriptorType;
@@ -256,6 +261,7 @@ typedef struct {
 	u8 Interface;
 }  __attribute__((__packed__))XLoaderPs_UsbStdIfDesc;
 
+/** @brief USB DFU functional descriptor structure. */
 typedef struct {
 	u8 Length;
 	u8 DescriptorType;
@@ -265,6 +271,7 @@ typedef struct {
 	u16 BcdDfuVersion;
 }  __attribute__((__packed__))XLoaderPs_UsbDfuFuncDesc;
 
+/** @brief Standard USB endpoint descriptor structure. */
 typedef struct {
 	u8 Length;
 	u8 DescriptorType;
@@ -275,8 +282,8 @@ typedef struct {
 	u8 Interval;
 }  __attribute__((__packed__))XLoaderPs_UsbStdEpDesc;
 
-/*
- * SUPERSPEED USB ENDPOINT COMPANION descriptor structure
+/**
+ * @brief SuperSpeed USB endpoint companion descriptor structure.
  */
 typedef struct {
   u8 Length;
@@ -286,12 +293,14 @@ typedef struct {
   u16 BytesPerInterval;
 } __attribute__((__packed__))XLoaderPs_UsbStdEpSsCompDesc;
 
+/** @brief Standard USB string descriptor structure. */
 typedef struct {
 	u8 Length;
 	u8 DescriptorType;
 	u16 LangId[XLOADER_STRING_SIZE];
 }  __attribute__((__packed__))XLoaderPs_UsbStdStringDesc;
 
+/** @brief USB 2.0 DFU configuration descriptor set. */
 typedef struct {
 	XLoaderPs_UsbStdCfgDesc StdCfg;
 	XLoaderPs_UsbStdIfDesc IfCfg;
@@ -301,6 +310,7 @@ typedef struct {
 	XLoaderPs_UsbDfuFuncDesc DfuFuncDesc;
 } __attribute__((__packed__))XLoaderPs_UsbConfig;
 
+/** @brief USB 3.0 DFU configuration descriptor set. */
 typedef struct {
 	XLoaderPs_UsbStdCfgDesc StdCfg;
 	XLoaderPs_UsbStdIfDesc IfCfg;
@@ -312,6 +322,7 @@ typedef struct {
 	XLoaderPs_UsbDfuFuncDesc DfuFuncDesc;
 } __attribute__((__packed__))XLoaderPs_Usb30Config;
 
+/** @brief Standard USB BOS (Binary Object Store) descriptor structure. */
 typedef struct {
 	u8 Length;
 	u8 DescriptorType;
@@ -319,6 +330,7 @@ typedef struct {
 	u8 NumDeviceCaps;
 } __attribute__((__packed__))XLoaderPs_UsbStdBosDesc;
 
+/** @brief USB device capability descriptor (7-byte). */
 typedef struct {
 	u8 Length;
 	u8 DescriptorType;
@@ -326,6 +338,7 @@ typedef struct {
 	u32 Attributes;
 } __attribute__((__packed__))XLoaderPs_UsbStdDeviceCap7Byte;
 
+/** @brief USB device capability descriptor (10-byte). */
 typedef struct {
 	u8 Length;
 	u8 DescriptorType;
@@ -337,12 +350,14 @@ typedef struct {
 	u8 U2DevExitLat;
 } __attribute__((__packed__))XLoaderPs_UsbStdDeviceCap10Byte;
 
+/** @brief USB BOS descriptor set with device capabilities. */
 typedef struct{
 	XLoaderPs_UsbStdBosDesc	BosDesc;
 	XLoaderPs_UsbStdDeviceCap7Byte DevCap7;
 	XLoaderPs_UsbStdDeviceCap10Byte DevCap10;
 } __attribute__((__packed__))XLoaderPs_UsbBosDesc;
 
+/** @brief DFU interface runtime state. */
 struct XLoaderPs_DfuIf {
 	struct Usb_DevData* InstancePtr;
 	u8 CurrState;
@@ -358,6 +373,7 @@ struct XLoaderPs_DfuIf {
 	u8 RuntimeToDfu;
 };
 
+/** @brief Container for USB Chapter 9 handler function pointers. */
 typedef struct {
 	u8 (*XLoaderPs_Ch9SetupDevDescReply)(const struct Usb_DevData* InstancePtr,
 		u8 *BufPtr, u32 BufferLen);
@@ -379,6 +395,7 @@ typedef struct {
                 SetupPacket *SetupData, u8 *BufPtr);
 }XLoader_Ch9Func_Container;
 
+/** @brief USB Chapter 9 data context. */
 typedef struct {
 	XLoader_Ch9Func_Container Ch9_func;
 	void * Data_ptr;
