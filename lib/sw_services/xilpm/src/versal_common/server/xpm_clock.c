@@ -1114,6 +1114,12 @@ XStatus XPmClock_GetMaxDivisor(u32 ClockId, u32 DivType, u32 *Resp)
 		goto done;
 	}
 
+	/* Max divisor is allowed only on output clocks, which alone have a Topology */
+	if (!ISOUTCLK(ClockId)) {
+		Status = XST_INVALID_PARAM;
+		goto done;
+	}
+
 	Ptr = XPmClock_GetTopologyNode(Clk, DivType);
 	if (NULL == Ptr) {
 		Status = XST_INVALID_PARAM;
