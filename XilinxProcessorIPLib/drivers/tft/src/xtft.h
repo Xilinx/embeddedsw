@@ -4,13 +4,16 @@
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
+#ifndef XTFT_H /* prevent circular inclusions */
+#define XTFT_H
+
 /***************************************************************************/
 /**
 *
 * @file xtft.h
 * @addtogroup tft Overview
 * @{
-* @details
+* @brief Defines the XTft driver software API.
 *
 * This header file contains the definitions and declarations for the
 * high level driver to access the Xilinx TFT Controller Device.
@@ -30,7 +33,6 @@
 *
 * Each base color Red, Green, Blue is encoded using 6 bits which sums up to
 * 18bits which is stored in the Dual port BRAM.
-*
 *
 * <b>Initialization & Configuration</b>
 *
@@ -61,7 +63,6 @@
 * with physical addresses only. Any needs for dynamic memory management,
 * threads or thread mutual exclusion, virtual memory, or cache control must
 * be satisfied by the layer above this driver.
-*
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -110,11 +111,10 @@
 * 6.3   sd   02/09/20 Updated makefile for parallel execution.
 * 6.4   sd   07/08/23 Added SDT support.
 * 6.8   vlt  12/30/25 Update Doxygen comments to include SDT flow details.
+* 6.9  tb   09/16/26 Align Doxygen comments with AMD standards.
 *</pre>
 *
 ****************************************************************************/
-#ifndef XTFT_H /* prevent circular inclusions */
-#define XTFT_H /* by using protection macros */
 
 #ifdef __cplusplus
 extern "C" {
@@ -140,14 +140,15 @@ extern "C" {
  * These values can range from 0 to 0xFFFFFFFF as each color is ranging
  * from 0 to 3F. The default value for column and row is 0.
  */
-#define XTFT_DEF_FGCOLOR 0x00FFFFFF	/**< Foreground Color - White */
-#define XTFT_DEF_BGCOLOR 0x0		/**< Background Color - Black */
-#define XTFT_DEF_COLVAL  0x0		/**< Default Column Value */
-#define XTFT_DEF_ROWVAL	 0x0		/**< Default Row Value */
+#define XTFT_DEF_FGCOLOR 0x00FFFFFF	/**< Foreground Color - White. */
+#define XTFT_DEF_BGCOLOR 0x0		/**< Background Color - Black. */
+#define XTFT_DEF_COLVAL  0x0		/**< Default Column Value. */
+#define XTFT_DEF_ROWVAL	 0x0		/**< Default Row Value. */
 
 /**************************** Type Definitions *****************************/
 
 /**
+ * @brief Holds TFT device configuration data.
  * @struct XTft_Config
  *
  * This structure holds the Device base address, video memory base address
@@ -155,30 +156,30 @@ extern "C" {
  */
 typedef struct {
 #ifndef SDT
-	u16 DeviceId;			/**< Unique ID of device */
+	u16 DeviceId;			/**< Unique ID of device. */
 #else
-	char *Name;                     /**< Name of the device */
+	char *Name;                     /**< Name of the device. */
 #endif
-	UINTPTR BaseAddress;		/**< Base address of device */
-	UINTPTR VideoMemBaseAddr;	/**< Video Memory Base address */
-	u32 AddrWidth;			/**< Address Width */
+	UINTPTR BaseAddress;		/**< Base address of device. */
+	UINTPTR VideoMemBaseAddr;	/**< Video Memory Base address. */
+	u32 AddrWidth;			/**< Address Width. */
 } XTft_Config;
 
 
 /**
- * This structure is the base for whole of the operations that are to be
- * performed  on the TFT screen. With this we will get a handle to the driver
- * through which we access different members  like  base address, deviceID
- * and using them we navigate, fill colors etc.
+ * @brief Holds instance data for a TFT device.
+ *
+ * This structure is the handle for TFT screen operations. It exposes
+ * the base address and device ID used to navigate and fill colors.
  */
 typedef struct {
 
-	XTft_Config TftConfig;	/**< Instance of Config Structure */
-	u32 IsReady;		/**< Status of Instance */
-	u32 ColVal;		/**< Column position */
-	u32 RowVal;		/**< Row position */
-	u32 FgColor;		/**< Foreground Color */
-	u32 BgColor;		/**< Background Color */
+	XTft_Config TftConfig;	/**< Instance of Config Structure. */
+	u32 IsReady;		/**< Status of Instance. */
+	u32 ColVal;		/**< Column position. */
+	u32 RowVal;		/**< Row position. */
+	u32 FgColor;		/**< Foreground Color. */
+	u32 BgColor;		/**< Background Color. */
 
 } XTft;
 

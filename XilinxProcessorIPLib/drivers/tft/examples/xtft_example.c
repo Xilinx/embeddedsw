@@ -8,6 +8,7 @@
 /**
 *
 * @file xtft_example.c
+* @brief Demonstrates the XTft driver.
 *
 * This file contains a design example using the driver functions of the XTft
 * driver. This example shows the usage of the driver/device to
@@ -15,12 +16,8 @@
 * - Draw a line
 * - Turn ON/OFF the TFT Device
 *
-*
-* @note
-*
-* TFT_FRAME_ADDR specifies the starting address of the 2MB space for storing the
-* frame data and has to be defined by the user based on the system memory map.
-*
+* @note TFT_FRAME_ADDR specifies the starting address of the 2MB space
+*   for storing the frame data. Define it from the system memory map.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -45,7 +42,7 @@
 * 6.8   vlt    12/18/25 Update Doxygen comments to include SDT flow details.
 * 6.8   vlt    01/06/26 fixed GCC warnings.
 * 6.9   vn     07/30/26 Fix Doxygen warnings
-*
+* 6.9  tb     09/16/26 Align Doxygen comments with AMD standards.
 * </pre>
 *
 *****************************************************************************/
@@ -63,22 +60,29 @@
  * change all the needed parameters in one place.
  */
 #ifndef SDT
+/** TFT example device identifier. */
 #define TFT_DEVICE_ID	XPAR_TFT_0_DEVICE_ID
 #endif
 
 
 
 #ifdef XPAR_V6DDR_0_S_AXI_HIGHADDR
+/** Upper address of the frame-buffer memory. */
 #define DDR_HIGH_ADDR		XPAR_V6DDR_0_S_AXI_HIGHADDR
 #elif XPAR_S6DDR_0_S0_AXI_HIGHADDR
+/** Upper address of the frame-buffer memory. */
 #define DDR_HIGH_ADDR		XPAR_S6DDR_0_S0_AXI_HIGHADDR
 #elif XPAR_AXI_7SDDR_0_S_AXI_HIGHADDR
+/** Upper address of the frame-buffer memory. */
 #define DDR_HIGH_ADDR		XPAR_AXI_7SDDR_0_S_AXI_HIGHADDR
 #elif XPAR_MPMC_0_MPMC_HIGHADDR
+/** Upper address of the frame-buffer memory. */
 #define DDR_HIGH_ADDR		XPAR_MPMC_0_MPMC_HIGHADDR
 #elif XPAR_BRAM_0_HIGHADDR
+/** Upper address of the frame-buffer memory. */
 #define DDR_HIGH_ADDR		XPAR_BRAM_0_HIGHADDR
 #elif XPAR_XBRAM_0_HIGHADDR
+/** Upper address of the frame-buffer memory. */
 #define DDR_HIGH_ADDR		XPAR_XBRAM_0_HIGHADDR
 #endif
 
@@ -100,17 +104,19 @@
 /**
  * Color Values.
  */
-#define FGCOLOR_VALUE		0x0000FF00	/**< Foreground Color - Green */
-#define BGCOLOR_VALUE		0x0		/**< Background Color - Black */
-#define WHITECOLOR_VALUE 	0x00FFFFFF	/**< Color - White */
+/** Foreground Color - Green. */
+#define FGCOLOR_VALUE		0x0000FF00
+/** Background Color - Black. */
+#define BGCOLOR_VALUE		0x0
+#define WHITECOLOR_VALUE 	0x00FFFFFF	/**< Color - White. */
 
 /**
  * Start and End point Coordinates for the line.
  */
-#define X1POS	100	/**< Column Start Position */
-#define X2POS	100	 /**< Column End Position */
-#define Y1POS	50 	/**< Row Start Position */
-#define Y2POS	450	 /**< Row End Position */
+#define X1POS	100	/**< Column Start Position. */
+#define X2POS	100	 /**< Column End Position. */
+#define Y1POS	50 	/**< Row Start Position. */
+#define Y2POS	450	 /**< Row End Position. */
 
 /************************** Function Prototypes *****************************/
 
@@ -130,14 +136,13 @@ static XTft TftInstance;
 /************************** Function Definitions ****************************/
 /*****************************************************************************/
 /**
+* @brief Runs the TFT example.
 *
 * Main function that invokes the Tft example.
 *
 * @return
 *		- XST_SUCCESS if successful.
 *		- XST_FAILURE if unsuccessful.
-*
-* @note		None.
 *
 ******************************************************************************/
 int main()
@@ -159,6 +164,7 @@ int main()
 
 /*****************************************************************************/
 /**
+* @brief Demonstrates TFT character, string, and line drawing.
 *
 * This is the example function which performs the following operations on
 * the TFT device -
@@ -171,9 +177,9 @@ int main()
 * - Enable the TFT display
 *
 * @if SDT
-* @param	BaseAddress contains the base address of the device
+* @param[in] BaseAddress Contains the base address of the device.
 * @else
-* @param	TftDeviceId is the unique Id of the device.
+* @param[in] TftDeviceId Unique Id of the device.
 * @endif
 *
 * @return
@@ -244,7 +250,7 @@ int TftExample(UINTPTR BaseAddress)
 
 	/*
 	 * Write the character two times starting from top left corner
-	 * (i.e. origin) of screen.
+	 * (that is, the origin) of the screen.
 	 */
 	XTft_Write(&TftInstance, VarChar);
 	XTft_Write(&TftInstance, VarChar);
@@ -261,7 +267,7 @@ int TftExample(UINTPTR BaseAddress)
 	/*
 	 * Draw a line between the coordinates (X1,Y1) and (X2,Y2) which
 	 * displays a vertical line in white color.
-	 * Scroll the screen, so the two characters and string will be
+	 * Scroll the screen, so the two characters and string are
 	 * erased on screen.
 	 */
 	Status = TftDrawLine(&TftInstance, X1POS, Y1POS, X2POS, Y2POS,
@@ -272,7 +278,7 @@ int TftExample(UINTPTR BaseAddress)
 	XTft_Scroll(&TftInstance);
 
 	/*
-	 * Disable the display, the screen will be turned off.
+	 * Disable the display, the screen turns off.
 	 */
 	XTft_DisableDisplay(&TftInstance);
 
@@ -291,7 +297,7 @@ int TftExample(UINTPTR BaseAddress)
 	}
 
 	/*
-	 * Enable the display. Screen will display two lines in white color.
+	 * Enable the display. The screen displays two lines in white color.
 	 * The first line from the left of screen is slightly above the
 	 * second one indicating the scroll was successful.
 	 */
@@ -302,17 +308,17 @@ int TftExample(UINTPTR BaseAddress)
 
 /*****************************************************************************/
 /**
+* @brief Writes a null-terminated string to the TFT.
+*
 * Write a string of characters to the TFT.
 *
-* @param	InstancePtr is a pointer to the XTft instance.
-* @param	CharValue is a pointer to the character array to be written
-*		to the TFT screen.
+* @param[in,out] InstancePtr Pointer to the XTft instance.
+* @param[in] CharValue Pointer to the character array to be written to the TFT
+*   screen.
 *
 * @return
 *		- XST_SUCCESS if successful.
 *		- XST_FAILURE if unsuccessful.
-*
-* @note		None.
 *
 ******************************************************************************/
 static int TftWriteString(XTft *InstancePtr, const u8 *CharValue)
@@ -331,24 +337,24 @@ static int TftWriteString(XTft *InstancePtr, const u8 *CharValue)
 
 /*****************************************************************************/
 /**
+* @brief Draws a line between two points.
+*
 * Draws a line between two points with a specified color.
 *
-* @param	InstancePtr is a pointer to the XTft instance.
-* @param	ColStartPos is the Start point of Column.
-*		The valid value is 0 to (XTFT_DISPLAY_WIDTH - 1).
-* @param	RowStartPos is the Start point of Row.
-*		The valid value is 0 to (XTFT_DISPLAY_HEIGHT - 1).
-* @param	ColEndPos is the End point of Column.
-*		The valid value is 0 to (XTFT_DISPLAY_WIDTH - 1).
-* @param	RowEndPos is the End point of Row.
-*		The valid value is 0 to (XTFT_DISPLAY_HEIGHT - 1).
-* @param	PixelVal is the Color Value to be put at pixel.
+* @param[in] InstancePtr Pointer to the XTft instance.
+* @param[in] ColStartPos Start point of Column. The valid value is 0 to
+*   (XTFT_DISPLAY_WIDTH - 1).
+* @param[in] RowStartPos Start point of Row. The valid value is 0 to
+*   (XTFT_DISPLAY_HEIGHT - 1).
+* @param[in] ColEndPos End point of Column. The valid value is 0 to
+*   (XTFT_DISPLAY_WIDTH - 1).
+* @param[in] RowEndPos End point of Row. The valid value is 0 to
+*   (XTFT_DISPLAY_HEIGHT - 1).
+* @param[in] PixelVal Color Value to be put at pixel.
 *
 * @return
 *		- XST_SUCCESS if successful.
 *		- XST_FAILURE if unsuccessful.
-*
-* @note		None.
 *
 ******************************************************************************/
 static int TftDrawLine(XTft *InstancePtr, u32 ColStartPos, u32 RowStartPos,

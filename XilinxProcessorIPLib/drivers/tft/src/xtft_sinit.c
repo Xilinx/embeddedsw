@@ -8,12 +8,10 @@
 /**
 *
 * @file xtft_sinit.c
-* @addtogroup tft Overview
-* @{
+* @brief Implements XTft static initialization.
 *
 * This file defines the implementation of Tft device static initialization
 * functionality.
-*
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -23,9 +21,15 @@
 * 1.00a  sg    03/24/08  First release
 * 6.4   sd     07/08/23  Added SDT support.
 * 6.8  vlt  12/18/25 Update Doxygen comments to include SDT flow details.
+* 6.9   tb    09/16/26 Align Doxygen comments with AMD standards.
 * </pre>
 *
 *****************************************************************************/
+
+/**
+* @addtogroup tft_api TFT APIs
+* @{
+*/
 
 /***************************** Include Files ********************************/
 #ifndef SDT
@@ -47,23 +51,24 @@ extern XTft_Config XTft_ConfigTable[];
 /************************** Function Definitions ****************************/
 /****************************************************************************/
 /**
+* @brief Looks up TFT configuration by ID or base address.
 *
 * Looks up the device configuration based on the unique device ID/BaseAddress.
 * The XTft_ConfigTable[] contains the configuration info for each device in
 * the system.
 *
 * @if SDT
-* @param	BaseAddress contains the base address of the device
+* @param[in] BaseAddress Contains the base address of the device.
 * @else
-* @param	DeviceId contains the unique ID of the device
+* @param[in] DeviceId Contains the unique ID of the device.
 * @endif
 *
-* @return       A pointer to the configuration found or NULL if the specified
-*               device ID/BaseAddress was not found. See xtft.h for the
-*               definition of XTft_Config.
+* @return	A pointer to the configuration found, or NULL if the specified
+*		device ID or base address was not found. See xtft.h for the
+*		definition of XTft_Config.
 *
-* @note        In XSCT/classic flow, DeviceId is used to look up the device
-*              configuration.
+* @note		In XSCT/classic flow, DeviceId is used to look up the
+*		device configuration.
 *
 *****************************************************************************/
 #ifndef SDT

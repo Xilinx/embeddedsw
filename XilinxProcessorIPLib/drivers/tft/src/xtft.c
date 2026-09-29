@@ -8,8 +8,7 @@
 /**
 *
 * @file xtft.c
-* @addtogroup tft Overview
-* @{
+* @brief Implements XTft interface functions.
 *
 * This file defines all the functions for the XTft driver. See the xtft.h
 * header file for more details on this driver.
@@ -43,9 +42,15 @@
 * 6.4    sd    07/07/23  Added SDT support.
 * 6.7    ml    07/24/25  Fixed GCC Warnings.
 * 6.9    vn    07/30/26  Fix Doxygen warnings
+* 6.9   tb    09/16/26 Align Doxygen comments with AMD standards.
 * </pre>
 *
 ****************************************************************************/
+
+/**
+* @addtogroup tft_api TFT APIs
+* @{
+*/
 
 /***************************** Include Files *******************************/
 #include "xtft.h"
@@ -68,26 +73,21 @@ static void XTft_WriteChar(XTft* InstancePtr, u8 CharValue,
 
 /***************************************************************************/
 /**
+* @brief Initializes a TFT driver instance.
 *
 * This function initializes a TFT Driver Instance.
 *
-* @param	InstancePtr is a pointer to the XTft instance.
-* @param	ConfigPtr is a pointer to a XTft_Config configuration
-*		structure.This structure will contain the requested
-*		configuration for the device. Typically, this is a local
-*		structure and the content of which will be copied into the
-*		configuration structure within XTft.
-* @param	EffectiveAddr is the device base address in the virtual
-*		memory address space. If the address translation is not used
-*		then the physical address is passed. Unexpected errors may
-*		occur if the address mapping is changed after this function
-*		is invoked.
+* @param[out] InstancePtr Pointer to the XTft instance to initialize.
+* @param[in] ConfigPtr Pointer to a XTft_Config configuration structure, whose
+*   contents are copied into the configuration structure within XTft.
+* @param[in] EffectiveAddr Device base address in the virtual memory address
+*   space. If the address translation is not used then the physical address is
+*   passed. Unexpected errors may occur if the address mapping is changed after
+*   this function is invoked.
 *
 * @return
 *		- XST_SUCCESS if successful.
 *		- XST_FAILURE if unsuccessful.
-*
-* @note		None.
 *
 ****************************************************************************/
 int XTft_CfgInitialize(XTft *InstancePtr, XTft_Config *ConfigPtr,
@@ -136,19 +136,16 @@ int XTft_CfgInitialize(XTft *InstancePtr, XTft_Config *ConfigPtr,
 
 /***************************************************************************/
 /**
+* @brief Updates the cursor column and row.
 *
 * This function updates the column, row position in the Instance structure
 * of driver.
 *
-* @param	InstancePtr is a pointer to the XTft instance.
-* @param	ColVal is the column number to which ColVal member of
-*		Instance structure is updated. The valid values are
-*		0 to (XTFT_DISPLAY_WIDTH - 1).
-* @param	RowVal is the row number to which RowVal member of
-*		Instance structure is updated. The valid values are
-*		0 to (XTFT_DISPLAY_HEIGHT - 1).
-*
-* @note		None.
+* @param[in,out] InstancePtr Pointer to the XTft instance.
+* @param[in] ColVal Column number to which ColVal member of Instance structure
+*   is updated. The valid values are 0 to (XTFT_DISPLAY_WIDTH - 1).
+* @param[in] RowVal Row number to which RowVal member of Instance structure is
+*   updated. The valid values are 0 to (XTFT_DISPLAY_HEIGHT - 1).
 *
 ****************************************************************************/
 void XTft_SetPos(XTft *InstancePtr, u32 ColVal, u32 RowVal)
@@ -171,22 +168,21 @@ void XTft_SetPos(XTft *InstancePtr, u32 ColVal, u32 RowVal)
 
 /***************************************************************************/
 /**
+* @brief Updates the cursor so the next character fits.
 *
 * This function changes the column, row position in the Instance structure
 * of driver. It is used to correct the position for the next character to
 * be written if column and row position cross limits.
 *
-* @param	InstancePtr is a pointer to the XTft instance.
-* @param	ColVal is the column number to which ColVal member of
-*		Instance structure is updated. If ColVal crosses
-*		(XTFT_DISPLAY_WIDTH - 1) -  XTFT_CHAR_WIDTH, position is
-*		moved to next line. The valid values are 0 to
-*		(XTFT_DISPLAY_WIDTH - 1).
-* @param	RowVal is the row number to which RowVal member of
-*		Instance structure is updated. If RowVal crosses
-*		(XTFT_DISPLAY_HEIGHT - 1)- XTFT_CHAR_HEIGHT, the first line
-*		will be deleted. The valid values are 0 to
-*		(XTFT_DISPLAY_HEIGHT - 1).
+* @param[in,out] InstancePtr Pointer to the XTft instance.
+* @param[in] ColVal Column number to which ColVal member of Instance structure
+*   is updated. If ColVal crosses (XTFT_DISPLAY_WIDTH - 1) - XTFT_CHAR_WIDTH,
+*   position is moved to next line. The valid values are 0 to
+*   (XTFT_DISPLAY_WIDTH - 1).
+* @param[in] RowVal Row number to which RowVal member of Instance structure is
+*   updated. If RowVal crosses (XTFT_DISPLAY_HEIGHT - 1)- XTFT_CHAR_HEIGHT, the
+*   first line is deleted. The valid values are 0 to (XTFT_DISPLAY_HEIGHT -
+*   1).
 *
 * @note		This function differs from the function XTft_SetPos because
 *		you cannot move to any position on the screen as we have
@@ -231,14 +227,15 @@ void XTft_SetPosChar(XTft *InstancePtr, u32 ColVal, u32 RowVal)
 
 /***************************************************************************/
 /**
+* @brief Sets the foreground and background colors.
 *
 * This function changes the color values in the instance structure of driver.
 *
-* @param	InstancePtr is a pointer to the XTft instance.
-* @param 	FgColor is the color with which member FgColor of Instance
-*		structure is updated.
-* @param 	BgColor is the color with which member BgColor of Instance
-*		structure is updated.
+* @param[in,out] InstancePtr Pointer to the XTft instance.
+* @param[in] FgColor Color with which member FgColor of Instance structure is
+*   updated.
+* @param[in] BgColor Color with which member BgColor of Instance structure is
+*   updated.
 *
 * @note		Color Values must be 32bit. They can range from 0x0 to
 *		0xFFFFFFFF, out of these only 18 bits are valid data. These
@@ -265,17 +262,18 @@ void XTft_SetColor(XTft *InstancePtr, u32 FgColor, u32 BgColor)
 
 /***************************************************************************/
 /**
+* @brief Writes a pixel color at a column and row.
 *
 * This function sets the pixel with the given color at the given column, row
 * position.
 *
-* @param	InstancePtr is a pointer to the XTft instance.
-* @param	ColVal represents the column on the screen. The valid
-*		values are 0 to (XTFT_DISPLAY_WIDTH - 1).
-* @param	RowVal represents the row on the screen. The valid
-*		values are 0 to (XTFT_DISPLAY_HEIGHT - 1).
-* @param	PixelVal represents the color with which it will be
-*		filled on screen.
+* @param[in] InstancePtr Pointer to the XTft instance.
+* @param[in] ColVal Represents the column on the screen. The valid values are 0
+*   to (XTFT_DISPLAY_WIDTH - 1).
+* @param[in] RowVal Represents the row on the screen. The valid values are 0 to
+*   (XTFT_DISPLAY_HEIGHT - 1).
+* @param[in] PixelVal Represents the color with which it is filled on
+*   screen.
 *
 * @note		This API is independent of the interface the TFT
 *		Controller is connected to. The data is written
@@ -303,17 +301,18 @@ void XTft_SetPixel(XTft *InstancePtr, u32 ColVal, u32 RowVal, u32 PixelVal)
 
 /***************************************************************************/
 /**
+* @brief Reads a pixel color at a column and row.
 *
 * This function gets the color of the pixel at the given column, row
 * position.
 *
-* @param	InstancePtr is a pointer to the XTft instance.
-* @param	ColVal represents the column on the screen. The valid
-*		values are 0 to (XTFT_DISPLAY_WIDTH - 1).
-* @param	RowVal represents the row on the screen. The valid
-*		values are 0 to (XTFT_DISPLAY_HEIGHT - 1).
-* @param	PixelVal stores the color value on the screen pointed by
-*		given Column and Row position.
+* @param[in] InstancePtr Pointer to the XTft instance.
+* @param[in] ColVal Represents the column on the screen. The valid values are 0
+*   to (XTFT_DISPLAY_WIDTH - 1).
+* @param[in] RowVal Represents the row on the screen. The valid values are 0 to
+*   (XTFT_DISPLAY_HEIGHT - 1).
+* @param[out] PixelVal Stores the color value on the screen pointed by given
+*   Column and Row position.
 *
 * @note		This API is independent of the interface the TFT
 *		Controller is connected to. The data is read
@@ -340,6 +339,7 @@ void XTft_GetPixel(XTft *InstancePtr, u32 ColVal, u32 RowVal, u32 *PixelVal)
 
 /***************************************************************************/
 /**
+* @brief Writes a character or handles CR/LF at the cursor.
 *
 * This function performs one of the following three operations based on the
 * CharValue passed :
@@ -348,9 +348,8 @@ void XTft_GetPixel(XTft *InstancePtr, u32 ColVal, u32 RowVal, u32 *PixelVal)
 * - Write a particular character and update the column position by the
 *   width of the character.
 *
-* @param	InstancePtr is a pointer to the XTft instance.
-* @param	CharValue is the ASCII code value of the character to be
-*		written.
+* @param[in,out] InstancePtr Pointer to the XTft instance.
+* @param[in] CharValue ASCII code value of the character to be written.
 *
 * @note		As the character bitmap array does not support some of the
 *		ASCII values, to support some of those which carry
@@ -408,13 +407,12 @@ void XTft_Write(XTft *InstancePtr, u8 CharValue)
 
 /***************************************************************************/
 /**
+* @brief Scrolls the screen up by one character row.
 *
 * This function inserts a new blank line at the bottom of the screen, it
 * deletes the first line and moves the remaining lines up by one line.
 *
-* @param	InstancePtr is a pointer to the XTft instance.
-*
-* @note		None.
+* @param[in] InstancePtr Pointer to the XTft instance.
 *
 ****************************************************************************/
 void XTft_Scroll(XTft *InstancePtr)
@@ -459,12 +457,11 @@ void XTft_Scroll(XTft *InstancePtr)
 
 /***************************************************************************/
 /**
+* @brief Fills the screen with the background color.
 *
 * This function re-initializes all the pixels to the default background color.
 *
-* @param	InstancePtr is a pointer to the XTft instance.
-*
-* @note		None.
+* @param[in,out] InstancePtr Pointer to the XTft instance.
 *
 ****************************************************************************/
 void XTft_ClearScreen(XTft *InstancePtr)
@@ -483,7 +480,7 @@ void XTft_ClearScreen(XTft *InstancePtr)
 			InstancePtr->BgColor);
 
 	/*
-	 * Initialize the column, row positions to (0, 0)origin.
+	 * Initialize the column, row positions to (0, 0) origin.
 	 */
 	InstancePtr->ColVal = XTFT_DEF_COLVAL;
 	InstancePtr->RowVal = XTFT_DEF_ROWVAL;
@@ -492,21 +489,22 @@ void XTft_ClearScreen(XTft *InstancePtr)
 
 /***************************************************************************/
 /**
+* @brief Fills a rectangle with a pixel color.
 *
 * This function fills the screen with the range defined by the start and end
 * values of column and row with the color passed as argument.
 *
-* @param	InstancePtr is a pointer to the XTft instance.
-* @param	ColStartVal is the value of the starting column. The valid
-*		values are 0 to (XTFT_DISPLAY_WIDTH - 1).
-* @param	RowStartVal is the value of the starting row. The valid
-*		values are 0 to (XTFT_DISPLAY_HEIGHT - 1).
-* @param	ColEndVal is the value of the ending column. The valid
-*		values are 0 to (XTFT_DISPLAY_WIDTH - 1).
-* @param	RowEndVal is the value of the ending row. The valid
-*		values are 0 to (XTFT_DISPLAY_HEIGHT - 1).
-* @param	PixelVal represents the color with which it will be
-*		filled on screen.
+* @param[in] InstancePtr Pointer to the XTft instance.
+* @param[in] ColStartVal Value of the starting column. The valid values are 0 to
+*   (XTFT_DISPLAY_WIDTH - 1).
+* @param[in] RowStartVal Value of the starting row. The valid values are 0 to
+*   (XTFT_DISPLAY_HEIGHT - 1).
+* @param[in] ColEndVal Value of the ending column. The valid values are 0 to
+*   (XTFT_DISPLAY_WIDTH - 1).
+* @param[in] RowEndVal Value of the ending row. The valid values are 0 to
+*   (XTFT_DISPLAY_HEIGHT - 1).
+* @param[in] PixelVal Represents the color with which it is filled on
+*   screen.
 *
 * @note		It must be taken care to pass values such that column start
 *		position should not exceed column end position, same is the
@@ -544,13 +542,12 @@ void XTft_FillScreen(XTft* InstancePtr, u32 ColStartVal, u32 RowStartVal,
 
 /***************************************************************************/
 /**
+* @brief Enables the TFT display.
 *
 * This function enables the TFT display by setting the Display Enable bit in
 * the Control register.
 *
-* @param	InstancePtr is a pointer to the XTft instance.
-*
-* @note		None.
+* @param[in] InstancePtr Pointer to the XTft instance.
 *
 ****************************************************************************/
 void XTft_EnableDisplay(XTft* InstancePtr)
@@ -582,13 +579,12 @@ void XTft_EnableDisplay(XTft* InstancePtr)
 
 /***************************************************************************/
 /**
+* @brief Disables the TFT display.
 *
 * This function disables the TFT display by clearing the Display Enable bit
 * in the Control register.
 *
-* @param	InstancePtr is a pointer to the XTft instance.
-*
-* @note		None.
+* @param[in] InstancePtr Pointer to the XTft instance.
 *
 ****************************************************************************/
 void XTft_DisableDisplay(XTft* InstancePtr)
@@ -620,11 +616,12 @@ void XTft_DisableDisplay(XTft* InstancePtr)
 
 /***************************************************************************/
 /**
+* @brief Enables reverse display scan.
 *
 * This function enables reverse scan by setting the Display Scan Control(DPS)
 * bit in the Control register.
 *
-* @param	InstancePtr is a pointer to the XTft instance.
+* @param[in] InstancePtr Pointer to the XTft instance.
 *
 * @note		By default the scan direction is reverse, the image we see in
 * 		reverse scan mode is the horizontal and vertical mirror image
@@ -660,13 +657,12 @@ void XTft_ScanReverse(XTft* InstancePtr)
 
 /***************************************************************************/
 /**
+* @brief Enables normal display scan.
 *
 * This function enables normal scan by clearing the Display Scan Control(DPS)
 * bit in the Control register.
 *
-* @param	InstancePtr is a pointer to the XTft instance.
-*
-* @note		None.
+* @param[in] InstancePtr Pointer to the XTft instance.
 *
 ****************************************************************************/
 void XTft_ScanNormal(XTft* InstancePtr)
@@ -698,13 +694,14 @@ void XTft_ScanNormal(XTft* InstancePtr)
 
 /***************************************************************************/
 /**
+* @brief Sets the video memory base address.
 *
 * This function changes the Video Memory Base address stored in the Address
 * Register.
 *
-* @param	InstancePtr is a pointer to the XTft instance.
-* @param 	NewFrameBaseAddr is the new memory address value to be
-*		written to the Address register.
+* @param[in,out] InstancePtr Pointer to the XTft instance.
+* @param[in] NewFrameBaseAddr New memory address value to be written to the
+*   Address register.
 *
 * @note		The new memory address must be in the address range of
 *		external memory and it must be taken care that 2MB memory is
@@ -745,15 +742,13 @@ void XTft_SetFrameBaseAddr(XTft *InstancePtr, UINTPTR NewFrameBaseAddr)
 
 /***************************************************************************/
 /**
+* @brief Writes a 32-bit value to a TFT register.
 *
 * Write a value to a TFT register. A 32 bit write is performed.
 *
-* @param	InstancePtr is a pointer to the XTft instance.
-* @param	RegOffset is the register offset from the base to write to.
-* @param	Data is the data written to the register.
-*
-* @note		None.
-*
+* @param[in] InstancePtr Pointer to the XTft instance.
+* @param[in] RegOffset Register offset from the base to write to.
+* @param[in] Data Data written to the register.
 *
 ****************************************************************************/
 void XTft_WriteReg(XTft* InstancePtr, u32 RegOffset, u32 Data)
@@ -770,16 +765,14 @@ void XTft_WriteReg(XTft* InstancePtr, u32 RegOffset, u32 Data)
 
 /***************************************************************************/
 /**
+* @brief Reads a 32-bit value from a TFT register.
 *
 * Read a value from a TFT register. A 32 bit read is performed.
 *
-* @param	InstancePtr is a pointer to the XTft instance.
-* @param	RegOffset is the register offset from the base to read from.
+* @param[in] InstancePtr Pointer to the XTft instance.
+* @param[in] RegOffset Register offset from the base to read from.
 *
 * @return	Data read from the register.
-*
-* @note		None.
-*
 *
 ****************************************************************************/
 u32 XTft_ReadReg(XTft* InstancePtr, u32 RegOffset)
@@ -801,20 +794,21 @@ u32 XTft_ReadReg(XTft* InstancePtr, u32 RegOffset)
 
 /***************************************************************************/
 /**
+* @brief Draws a character glyph at a screen position.
 *
 * This function writes a particular character onto the screen using
 * the character bitmap values.
 *
-* @param	InstancePtr is a pointer to the XTft instance.
-* @param	CharValue is the value of the ASCII character.
-* @param	ColStartVal is the value of the starting column. The valid
-*		values are 0 to (XTFT_DISPLAY_WIDTH - 1).
-* @param	RowStartVal is the value of the starting row. The valid
-*		values are 0 to (XTFT_DISPLAY_HEIGHT - 1).
-* @param	FgColor is the value with which the pixels will be filled
-*		to highlight the character.
-* @param	BgColor is the value with which the pixels will be filled
-*		with a different color from foreground.
+* @param[in] InstancePtr Pointer to the XTft instance.
+* @param[in] CharValue Value of the ASCII character.
+* @param[in] ColStartVal Value of the starting column. The valid values are 0 to
+*   (XTFT_DISPLAY_WIDTH - 1).
+* @param[in] RowStartVal Value of the starting row. The valid values are 0 to
+*   (XTFT_DISPLAY_HEIGHT - 1).
+* @param[in] FgColor Value with which the pixels are filled to highlight the
+*   character.
+* @param[in] BgColor Value with which the pixels are filled with a different
+*   color from foreground.
 *
 * @note		It must be taken care that the ASCII character which is to
 *		be written has value greater than 31 as character bitmap
@@ -877,13 +871,12 @@ static void XTft_WriteChar(XTft* InstancePtr,
 
 /***************************************************************************/
 /**
+* @brief Enables the Vsync interrupt.
 *
 * This function enables the Vsync Interrupt in the Interrupt Enable and Status
 * Register.
 *
-* @param	InstancePtr is a pointer to the XTft instance.
-*
-* @note		None.
+* @param[in] InstancePtr Pointer to the XTft instance.
 *
 ****************************************************************************/
 void XTft_IntrEnable(XTft* InstancePtr)
@@ -906,13 +899,12 @@ void XTft_IntrEnable(XTft* InstancePtr)
 }
 /***************************************************************************/
 /**
+* @brief Disables the Vsync interrupt.
 *
 * This function disables the Vsync Interrupt in the Interrupt Enable and Status
 * Register.
 *
-* @param	InstancePtr is a pointer to the XTft instance.
-*
-* @note		None.
+* @param[in] InstancePtr Pointer to the XTft instance.
 *
 ****************************************************************************/
 void XTft_IntrDisable(XTft* InstancePtr)
@@ -936,11 +928,12 @@ void XTft_IntrDisable(XTft* InstancePtr)
 
 /***************************************************************************/
 /**
+* @brief Returns the Vsync address-latch status.
 *
 * This function gets the Vsync(Video address latch) status from the Interrupt
 * Enable and Status Register.
 *
-* @param	InstancePtr is a pointer to the XTft instance.
+* @param[in] InstancePtr Pointer to the XTft instance.
 *
 * @return
 *		- TRUE if Vsync pulse has occurred after displaying the
@@ -948,9 +941,9 @@ void XTft_IntrDisable(XTft* InstancePtr)
 *		- FALSE if the TFT core has not completed displaying the
 *		  current frame.
 *
-* @note		Vsync(Video address latch) Status bit will be cleared by the HW
-*		after it loads the address from the Address Register and starts
-*		displaying the Frame.
+* @note		Vsync(Video address latch) status bit is cleared by
+*		the HW after it loads the address from the Address Register
+*		and starts displaying the Frame.
 *
 ****************************************************************************/
 int XTft_GetVsyncStatus(XTft* InstancePtr)

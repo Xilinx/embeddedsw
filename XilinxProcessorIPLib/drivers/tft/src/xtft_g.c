@@ -8,8 +8,7 @@
 /**
 *
 * @file xtft_g.c
-* @addtogroup tft Overview
-* @{
+* @brief Provides the XTft configuration table.
 *
 * This file contains a configuration table that specifies the parameters of
 * TFT devices.
@@ -24,10 +23,15 @@
 *			 XPAR_TFT_0_DCR_BASEADDR as AXI TFT controller
 *			 does not support them
 * 6.8    vlt   01/27/26  Fixed codespell issues
-*
+* 6.9   tb   09/16/26 Align Doxygen comments with AMD standards.
 * </pre>
 *
 ****************************************************************************/
+
+/**
+* @addtogroup tft_api TFT APIs
+* @{
+*/
 
 /***************************** Include Files *******************************/
 #include "xtft.h"

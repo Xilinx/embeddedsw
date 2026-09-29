@@ -1,15 +1,17 @@
 /******************************************************************************
 * Copyright (C) 2008 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
+
+#ifndef XTFT_CHARCODE_H /* prevent circular inclusions */
+#define XTFT_CHARCODE_H
 
 /***************************************************************************/
 /**
 *
 * @file xtft_charcode.h
-* @addtogroup tft Overview
-* @{
+* @brief Defines TFT character bitmap data.
 *
 * This file contains the macro and variable definitions of character
 * dimensions and character array of bitmaps of ASCII characters.
@@ -20,11 +22,15 @@
 * Ver    Who   Date      Changes
 * -----  ----  --------  -----------------------------------------------
 * 1.00a  sg    03/24/08  First release
+* 6.9   tb   09/16/26 Align Doxygen comments with AMD standards.
 *</pre>
 *
 ****************************************************************************/
-#ifndef XTFT_CHARCODE_H /* prevent circular inclusions */
-#define XTFT_CHARCODE_H /* by using protection macros */
+
+/**
+* @addtogroup tft_api TFT APIs
+* @{
+*/
 
 #ifdef __cplusplus
 extern "C" {
@@ -41,23 +47,25 @@ extern "C" {
 /***************** Macros (Inline Functions) Definitions *******************/
 
 /**
+ * @brief Packs eight character-bitmap bits into one byte.
  *
  * Compression method for the character bitmaps.
  *
- * @param	a7 is bit value at 8th position.
- * @param	a6 is bit value at 7th position.
- * @param	a5 is bit value at 6th position.
- * @param	a4 is bit value at 5th position.
- * @param	a3 is bit value at 4th position.
- * @param	a2 is bit value at 3rd position.
- * @param	a1 is bit value at 2nd position.
- * @param	a0 is bit value at 1st position.
+ * @param[in] a7 Bit value at the 8th position.
+ * @param[in] a6 Bit value at the 7th position.
+ * @param[in] a5 Bit value at the 6th position.
+ * @param[in] a4 Bit value at the 5th position.
+ * @param[in] a3 Bit value at the 4th position.
+ * @param[in] a2 Bit value at the 3rd position.
+ * @param[in] a1 Bit value at the 2nd position.
+ * @param[in] a0 Bit value at the 1st position.
  *
- * @return	Bit Value - either 0 or 1.
+ * @return	Packed value with a7 in bit 7 down to a0 in bit 0.
  *
- * @note	C-style signature:
+ * @note
+ * C-style signature
  *		int GenPixels(int a7, int a6, int a5, int a4, int a3, int a2,
- * 				int a1, int a0).
+ *		int a1, int a0)
  */
 #define GenPixels(a7, a6, a5, a4, a3, a2, a1, a0) (   ((a7) << 7) | 	\
 		((a6) << 6) | ((a5) << 5) | ((a4) << 4) | ((a3) << 3) | \
@@ -68,6 +76,8 @@ extern "C" {
 /************************** Variable Definitions ***************************/
 
 /**
+ * @brief Defines the 96-character 8x12 bitmap table.
+ *
  * Character array of 96 characters with each character having dimensions
  * of width 8 and height 12 pixels. It starts with space as first character.
  */
