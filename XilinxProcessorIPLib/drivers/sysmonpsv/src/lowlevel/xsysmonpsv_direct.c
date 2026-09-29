@@ -8,10 +8,11 @@
 /**
 *
 * @file xsysmonpsv_direct.c
-* @addtogroup sysmonpsv_api SYSMONPSV APIs
 *
-* The xsysmonpsv_direct.c file contains the function implementation for low level sysmon APIs.
+* @brief Implements the low-level register access APIs for SysMon.
 *
+* The xsysmonpsv_direct.c file implements the low-level SysMon register access
+* functions.
 *
 * <pre>
 *
@@ -24,10 +25,16 @@
 *                       standardize return values to XST_FAILURE
 *       se     03/13/26 Fix secure mode and PCSR re-lock in SDT flow
 * 5.4   vn     07/30/26 Fix Doxygen warnings
+* 5.4   vn     09/29/26 Align Doxygen comments with AMD standards
 *
 * </pre>
 *
 ******************************************************************************/
+
+/**
+ * @addtogroup sysmonpsv_api SYSMONPSV APIs
+ * @{
+ */
 
 /***************************** Include Files *********************************/
 #include "xsysmonpsv_lowlevel.h"
@@ -38,11 +45,11 @@
 #if !defined(XSYSMONPSV_SECURE_MODE)
 /******************************************************************************/
 /**
- * Reads the register value.
+ * @brief Reads the register value.
  *
- * @param	InstancePtr Pointer to the driver instance.
- * @param	Offset Offset address for the register.
- * @param	Data Value to be read.
+ * @param[in]   InstancePtr Pointer to the driver instance.
+ * @param[in]   Offset Offset address of the register.
+ * @param[out]  Data Value read from the register.
  *
 *******************************************************************************/
 void XSysMonPsv_ReadReg32(XSysMonPsv *InstancePtr, u32 Offset, u32 *Data)
@@ -54,11 +61,11 @@ void XSysMonPsv_ReadReg32(XSysMonPsv *InstancePtr, u32 Offset, u32 *Data)
 
 /******************************************************************************/
 /**
- * Writes the register value.
+ * @brief Writes the register value.
  *
- * @param	InstancePtr Pointer to the driver instance.
- * @param	Offset Offset address of the register.
- * @param	Data Value to be written.
+ * @param[in]   InstancePtr Pointer to the driver instance.
+ * @param[in]   Offset Offset address of the register.
+ * @param[in]   Data Value to be written.
  *
 *******************************************************************************/
 void XSysMonPsv_WriteReg32(XSysMonPsv *InstancePtr, u32 Offset, u32 Data)
@@ -71,12 +78,12 @@ void XSysMonPsv_WriteReg32(XSysMonPsv *InstancePtr, u32 Offset, u32 Data)
 
 /******************************************************************************/
 /**
- * Updates the register value.
+ * @brief Updates the register value.
  *
- * @param	InstancePtr Pointer to the driver instance.
- * @param	Offset Offset addtress of the register.
- * @param	Mask Bits to be masked.
- * @param	Data Value to be written.
+ * @param[in]   InstancePtr Pointer to the driver instance.
+ * @param[in]   Offset Offset address of the register.
+ * @param[in]   Mask Bits to be masked.
+ * @param[in]   Data Value to be written.
  *
 *******************************************************************************/
 void XSysMonPsv_UpdateReg32(XSysMonPsv *InstancePtr, u32 Offset, u32 Mask,
@@ -91,3 +98,5 @@ void XSysMonPsv_UpdateReg32(XSysMonPsv *InstancePtr, u32 Offset, u32 Mask,
 			     (Val & ~Mask) | (Mask & Data));
 }
 #endif
+
+/** @} */

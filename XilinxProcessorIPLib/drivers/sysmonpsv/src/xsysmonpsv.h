@@ -4,17 +4,18 @@
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
+#ifndef XSYSMONPSV_H_
+#define XSYSMONPSV_H_
+
 /*****************************************************************************/
 /**
 * @file xsysmonpsv.h
 * @addtogroup sysmonpsv_api SYSMONPSV APIs
 * @{
 *
-*
-*
+* @brief Declares the System Monitor driver API for AMD Versal devices.
 *
 * <br><br>
-*
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -42,13 +43,11 @@
 *                       voltage supplies and temperature satellites.
 * 5.2   se     08/24/25 Microblaze support added
 * 5.4   vn     07/30/26 Fix Doxygen warnings
+* 5.4   vn     09/29/26 Align Doxygen comments with AMD standards
 *
 * </pre>
 *
 ******************************************************************************/
-
-#ifndef XSYSMONPSV_H_ /**< prevent circular inclusions */
-#define XSYSMONPSV_H_ /**< by using protection macros */
 
 #ifdef __cplusplus
 extern "C" {
@@ -69,58 +68,47 @@ extern "C" {
 #endif
 /**************************** Type Definitions *******************************/
 
-/** @} */
-
 /**
- * @brief This typedef defines Threshold types.
- * @{
+ * @brief Defines the temperature and supply threshold types.
  */
 typedef enum {
-	XSYSMONPSV_TH_LOWER, /**< Lower Threshold */
-	XSYSMONPSV_TH_UPPER, /**< Upper Threshold */
+	XSYSMONPSV_TH_LOWER, /**< Lower threshold. */
+	XSYSMONPSV_TH_UPPER, /**< Upper threshold. */
 } XSysMonPsv_Threshold;
 
-/** @} */
-
 /**
- * @name This array contains the names of the supplies
+ * @name Supply name strings
+ *
+ * Holds the names of the supplies enabled in the design.
  * @{
  */
 extern const char *XSysMonPsv_Supply_Arr[]; /**< Names of the supplies
-                                                enabled in the design */
+                                             *   enabled in the design. */
 /** @} */
 
 /**
- * @brief This typedef defines value types for voltage readings.
- * @{
+ * @brief Defines the value types for voltage and temperature readings.
  */
 typedef enum {
-	XSYSMONPSV_VAL, /**< Current Value for temperature
-                                         (for production silicon only)
-                                          and supply */
-	XSYSMONPSV_VAL_MIN, /**< Minimum Value reached since
-                                          reset */
-	XSYSMONPSV_VAL_MAX, /**< Maximum Value reached since
-                                          reset */
+	XSYSMONPSV_VAL, /**< Current value for temperature
+                         *   (production silicon only) and supply. */
+	XSYSMONPSV_VAL_MIN, /**< Minimum value reached since reset. */
+	XSYSMONPSV_VAL_MAX, /**< Maximum value reached since reset. */
 	XSYSMONPSV_VAL_VREF_MIN, /**< Minimum value reached for a
-                                          temperature since last VRef */
+                                  *   temperature since last VRef. */
 	XSYSMONPSV_VAL_VREF_MAX, /**< Maximum value reached for a
-                                          temperature since last VRef */
+                                  *   temperature since last VRef. */
 } XSysMonPsv_Val;
 
-/** @} */
-
 /**
- * @brief This typedef defines types of supply values.
- * @{
+ * @brief Defines the supply value formats.
  */
 typedef enum {
-	XSYSMONPSV_1V_UNIPOLAR, /**< 1V unipolar fmt */
-	XSYSMONPSV_2V_UNIPOLAR, /**< 2V unipolar fmt */
-	XSYSMONPSV_4V_UNIPOLAR, /**< 4V unipolar fmt */
-	XSYSMONPSV_1V_BIPOLAR, /**< 1V bipolar fmt */
+	XSYSMONPSV_1V_UNIPOLAR, /**< 1V unipolar format. */
+	XSYSMONPSV_2V_UNIPOLAR, /**< 2V unipolar format. */
+	XSYSMONPSV_4V_UNIPOLAR, /**< 4V unipolar format. */
+	XSYSMONPSV_1V_BIPOLAR, /**< 1V bipolar format. */
 } XSysMonPsv_VoltageScale;
-/** @} */
 
 /************************* Variable Definitions ******************************/
 
@@ -128,13 +116,16 @@ typedef enum {
 /****************************************************************************/
 /**
 *
-* This macro returns the XSYSMONPSV_NEW_ALARMn_MASK for a configured supply.
+* @brief Returns the XSYSMONPSV_NEW_ALARMn_MASK for a configured supply.
 *
-* @param        InstancePtr Instance of sysmon driver
-* @param        Supply Type enum of supply enabled
+* @param[in]   InstancePtr Instance of the SysMon driver.
+* @param[in]   Supply Enum of the enabled supply.
 *
-* @return       A 32 bit mask to be used for configuring interrupts
+* @return      A 32-bit mask used for configuring interrupts.
 *
+* @note        C-style signature:
+*              void XSysMonPsv_GetAlarmMask(XSysMonPsv *InstancePtr,
+*              XSysMonPsv_Supply Supply);
 *
 *****************************************************************************/
 #define XSysMonPsv_GetAlarmMask(InstancePtr, Supply)                           \
@@ -143,12 +134,11 @@ typedef enum {
 /****************************************************************************/
 /**
 *
-* Converts raw AdcData into Voltage value.
+* @brief Converts raw ADC data into a voltage value.
 *
-* @param        AdcData System Monitor ADC Raw Data.
+* @param[in]   AdcData System Monitor ADC raw data.
 *
-* @return       The Voltage in volts.
-*
+* @return      The voltage in volts.
 *
 *****************************************************************************/
 static inline float XSysMonPsv_RawToVoltage(u32 AdcData)
@@ -175,15 +165,14 @@ static inline float XSysMonPsv_RawToVoltage(u32 AdcData)
 /****************************************************************************/
 /**
 *
-* Converts raw AdcData into Voltage value.
+* @brief Converts a voltage value into raw ADC format.
 *
-* @param        Volts Voltage value to be converted.
-* @param        Type Type of supply:
-*               Type = 0, Unipolar
-*               Type = 1, Bipolar
+* @param[in]   Volts Voltage value to be converted.
+* @param[in]   Type Type of supply:
+*              Type = 0, Unipolar
+*              Type = 1, Bipolar.
 *
-* @return       The Voltage in Raw ADC format.
-*
+* @return      The voltage in raw ADC format.
 *
 *****************************************************************************/
 static inline u16 XSysMonPsv_VoltageToRaw(float Volts,
@@ -226,12 +215,11 @@ static inline u16 XSysMonPsv_VoltageToRaw(float Volts,
 /****************************************************************************/
 /**
 *
-* Converts the fixed point to degree celsius.
+* @brief Converts a fixed-point value to degrees Celsius.
 *
-* @param        FixedQFmt Q8.7 representation of temperature value.
+* @param[in]   FixedQFmt Q8.7 representation of the temperature value.
 *
-* @return       The Temperature in degree celsisus.
-*
+* @return      The temperature in degrees Celsius.
 *
 *****************************************************************************/
 static inline float XSysMonPsv_FixedToFloat(u32 FixedQFmt)
@@ -252,12 +240,11 @@ static inline float XSysMonPsv_FixedToFloat(u32 FixedQFmt)
 /****************************************************************************/
 /**
 *
-* Converts the floating point to Fixed Q8.7 format.
+* @brief Converts a floating-point value to fixed Q8.7 format.
 *
-* @param        Temp Temperature value in Deg Celsius.
+* @param[in]   Temp Temperature value in degrees Celsius.
 *
-* @return       Temperature value in fixed Q8.7 format.
-*
+* @return      Temperature value in fixed Q8.7 format.
 *
 *****************************************************************************/
 static inline u16 XSysMonPsv_FloatToFixed(float Temp)
@@ -394,5 +381,7 @@ XSysMonPsv_Config *XSysMonPsv_LookupConfig(void);
 #ifdef __cplusplus
 }
 #endif
+
+/** @} */
 
 #endif /* XSYSMONPSV_H_ */

@@ -9,13 +9,13 @@
 *
 * @file xsysmonpsv_polled_example.c
 *
-* This file contains a design example using the driver functions
-* of the System Monitor driver. The example here shows the
-* driver/device in polled mode to check the on-chip temperature and voltages.
+* @brief Demonstrates the polled-mode usage of the System Monitor driver.
 *
-* @note
+* This file contains a design example that uses the driver functions of the
+* System Monitor driver. The example shows the driver and device in polled
+* mode to check the on-chip temperature and voltages.
 *
-* This examples also assumes that there is a STDIO device in the system.
+* @note        This example assumes that a STDIO device exists in the system.
 *
 * <pre>
 *
@@ -35,6 +35,7 @@
 *                       printed on milli scale.
 * 5.3   se     03/13/26 Fix secure mode and PCSR re-lock in SDT flow
 *       se     03/20/26 Use static for driver instance structs
+* 5.4   vn     09/29/26 Align Doxygen comments with AMD standards
 *
 * </pre>
 *
@@ -50,23 +51,26 @@
 /************************** Constant Definitions ****************************/
 #if defined(XSYSMONPSV_SECURE_MODE)
 #ifndef SDT
+	/** IPI base address. */
 	#define XSYSMONPSV_IPI_BASE_ADDR XPAR_XIPIPSU_0_BASEADDR
 #else
+	/** IPI base address. */
 	#define XSYSMONPSV_IPI_BASE_ADDR XPAR_XIPIPSU_0_BASEADDR
 #endif
 #endif
 
 /************************** Function Prototypes *****************************/
-
+/** @cond INTERNAL */
 int SysMonPsvPolledExample();
+/** @endcond */
 
 /****************************************************************************/
 /**
 *
-* Main function that invokes the polled example in this file.
+* @brief Invokes the polled example in this file.
 *
-* @return	- XST_SUCCESS if the example has completed successfully.
-*		- XST_FAILURE if the example has failed.
+* @return      - XST_SUCCESS if the example has completed successfully.
+*              - XST_FAILURE if the example has failed.
 *
 *****************************************************************************/
 int main(void)
@@ -90,15 +94,15 @@ int main(void)
 /****************************************************************************/
 /**
 *
-* This function runs a test on the System Monitor device using the
-* driver APIs.
-* This function does the following tasks:
-*	- Initiate the System Monitor device driver instance
-*	- Read supply configuration.
-*	- Read the latest on-chip temperatures and confiured supplies
+* @brief Runs a test on the System Monitor device using the driver APIs.
 *
-* @return	- XST_SUCCESS if the example has completed successfully.
-*		- XST_FAILURE if the example has failed.
+* This function performs the following tasks:
+*	- Initiates the System Monitor device driver instance.
+*	- Reads the supply configuration.
+*	- Reads the latest on-chip temperatures and configured supplies.
+*
+* @return      - XST_SUCCESS if the example has completed successfully.
+*              - XST_FAILURE if the example has failed.
 *
 ****************************************************************************/
 int SysMonPsvPolledExample()

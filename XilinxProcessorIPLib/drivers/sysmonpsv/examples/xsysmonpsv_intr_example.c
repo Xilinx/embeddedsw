@@ -9,13 +9,13 @@
 *
 * @file xsysmonpsv_intr_example.c
 *
-* This file contains a design example using the driver functions
-* of the System Monitor driver. The example here shows the
-* driver/device in intr mode to check the on-chip temperature and voltages.
+* @brief Demonstrates the interrupt-mode usage of the System Monitor driver.
 *
-* @note
+* This file contains a design example that uses the driver functions of the
+* System Monitor driver. The example shows the driver and device in interrupt
+* mode to check the on-chip temperature and voltages.
 *
-* This examples also assumes that there is a STDIO device in the system.
+* @note        This example assumes that a STDIO device exists in the system.
 *
 * <pre>
 *
@@ -36,6 +36,7 @@
 * 5.3   se     03/13/26 Fix secure mode and PCSR re-lock in SDT flow
 *       se     03/20/26 Use static for driver instance structs
 * 5.4   vn     07/30/26 Fix Doxygen warnings
+* 5.4   vn     09/29/26 Align Doxygen comments with AMD standards
 *
 * </pre>
 *
@@ -56,26 +57,31 @@
  */
 #if	defined(XSYSMONPSV_SECURE_MODE)
 #ifndef SDT
+	/** IPI interrupt ID. */
 	#define XSYSMONPSV_IPI_INT_ID (XPAR_XIPIPSU_0_INT_ID)
+	/** IPI device ID. */
 	#define XSYSMONPSV_IPI_DEVICE_ID XPAR_XIPIPSU_0_DEVICE_ID
 #else
+	/** IPI base address. */
 	#define XSYSMONPSV_IPI_BASE_ADDR XPAR_XIPIPSU_0_BASEADDR
 #endif
 #endif
 /****************************************************************************/
 /************************** Function Prototypes *****************************/
+/** @cond INTERNAL */
 int SysMonPsvIntrExample();
 void Temp_CallbackFunc(void *data);
 void Supply_CallbackFunc(void *data);
 int TempInterruptOccured;
 int SupplyInterruptOccured;
+/** @endcond */
 /****************************************************************************/
 /**
  *
- * Main function that invokes the intr example in this file.
+ * @brief Invokes the interrupt example in this file.
  *
- * @return	- XST_SUCCESS if the example has completed successfully.
- *		- XST_FAILURE if the example has failed.
+ * @return      - XST_SUCCESS if the example has completed successfully.
+ *              - XST_FAILURE if the example has failed.
  *
  *****************************************************************************/
 int main(void)
@@ -95,9 +101,9 @@ int main(void)
 /****************************************************************************/
 /**
  *
- * Callback function to notify temperature event.
+ * @brief Notifies a temperature event.
  *
- * @param	data is the data needed by the callback function.
+ * @param[in]   data Data needed by the callback function.
  *
  *****************************************************************************/
 void Temp_CallbackFunc(void *data)
@@ -110,9 +116,9 @@ void Temp_CallbackFunc(void *data)
 /****************************************************************************/
 /**
  *
- * Callback function to notify supply event.
+ * @brief Notifies a supply event.
  *
- * @param	data is the data needed by the callback function.
+ * @param[in]   data Data needed by the callback function.
  *
  *****************************************************************************/
 void Supply_CallbackFunc(void *data)
@@ -125,18 +131,17 @@ void Supply_CallbackFunc(void *data)
 /****************************************************************************/
 /**
  *
- * This function runs a test on the System Monitor device using the
- * driver APIs.
- * This function does the following tasks:
- *	- Initiate the System Monitor device driver instance
- *	- Enable OT interrupt
- *	- Setup call back for interrupts
- *	- Read supply configuration.
- *	- Read the latest on-chip temperatures and confiured supplies
+ * @brief Runs a test on the System Monitor device using the driver APIs.
  *
+ * This function performs the following tasks:
+ *	- Initiates the System Monitor device driver instance.
+ *	- Enables the OT interrupt.
+ *	- Sets up the callback for interrupts.
+ *	- Reads the supply configuration.
+ *	- Reads the latest on-chip temperatures and configured supplies.
  *
- * @return	- XST_SUCCESS if the example has completed successfully.
- *		- XST_FAILURE if the example has failed.
+ * @return      - XST_SUCCESS if the example has completed successfully.
+ *              - XST_FAILURE if the example has failed.
  *
  ****************************************************************************/
 int SysMonPsvIntrExample()

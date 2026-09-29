@@ -4,15 +4,18 @@
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
+#ifndef XSYSMONPSV_HW_H_
+#define XSYSMONPSV_HW_H_
+
 /*****************************************************************************/
 /**
 *
 * @file xsysmonpsv_hw.h
-* @addtogroup sysmonpsv_api SYSMONPSV APIs
-* @{
 *
-* The xsysmonpsv_hw.h header file contains the identifiers and basic driver functions (or
-* macros) that can be used to access the device.
+* @brief Defines the register identifiers and access macros for the device.
+*
+* The xsysmonpsv_hw.h header file defines the identifiers and basic driver
+* macros used to access the device.
 *
 * <pre>
 *
@@ -33,13 +36,16 @@
 *       se     03/25/26 Fix Coverity/MISRA-C violations: U suffix,
 *                       (void) cast, sign conversion, parentheses
 * 5.4   vn     07/30/26 Fix Doxygen warnings
+* 5.4   vn     09/29/26 Align Doxygen comments with AMD standards
 *
 * </pre>
 *
 ******************************************************************************/
 
-#ifndef XSYSMONPSV_HW_H_
-#define XSYSMONPSV_HW_H_
+/**
+ * @addtogroup sysmonpsv_api SYSMONPSV APIs
+ * @{
+ */
 
 #ifdef __cplusplus
 extern "C" {
@@ -101,7 +107,11 @@ extern "C" {
 /**< PCSR Lock State Mask */
 /** @} */
 
+/** @name Interrupt mask
+ * @{
+ */
 #define XSYSMONPSV_INTR_MASK 0xFFFFFFFFU /**< All interrupt Mask */
+/** @} */
 
 /**
  * @name Register: XSYSMONPSV_ISR
@@ -945,6 +955,8 @@ extern "C" {
                                                             Mode Shift */
 #define XSYSMONPSV_ALARM_CONFIG_OT_ALARM_MODE_MASK 0X00000001U
 /**< OT Temp Alarm */
+/** @} */
+
 /**
  * @name Register: XSYSMONPSV_STATUS_RESET
  * @{
@@ -984,11 +996,15 @@ extern "C" {
 
 /**
  * @name Register: XSYSMONPSV_TEMP_SAT
+ * @{
  */
 #define XSYSMONPSV_TEMP_SAT 0X00001FACU /**< Internal Temp Reg */
 
 /** @} */
 
+/** @name Supply, data format, and alarm mode definitions
+ * @{
+ */
 #define XSYSMONPSV_INVALID_SUPPLY 160U /**< Invalid Supply */
 #define XSYSMONPSV_PMBUS_INTERFACE 0U /**< PMBus interface select */
 #define XSYSMONPSV_I2C_INTERFACE 1U /**< I2C interface select */
@@ -997,7 +1013,7 @@ extern "C" {
 #define XSYSMONPSV_QFMT_SIGN 15U /**< Q format signed bit */
 #define XSYSMONPSV_QFMT_FRACTION 128 /**< Q format fractional val */
 #define XSYSMONPSV_UP_SAT_SIGNED                                               \
-	32767 /**< Upper limit staurated
+	32767 /**< Upper limit saturated
                                                   signed val */
 #define XSYSMONPSV_UP_SAT                                                      \
 	65535 /**< Upper limit saturated
@@ -1024,19 +1040,22 @@ extern "C" {
 #define XSYSMONPSV_DISABLE 0U /**< Disable */
 #define XSYSMONPSV_HYSTERESIS 1U /**< Hysteresis Mode */
 #define XSYSMONPSV_WINDOW 0U /**< Window Mode */
+/** @} */
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /****************************************************************************/
 /**
 *
-* This macro reads the given register.
+* @brief Reads the given register.
 *
-* @param        RegisterAddr Register address in the address
-*               space of the SYSMONPSV device.
+* @param[in]   RegisterAddr Register address in the address
+*              space of the SYSMONPSV device.
 *
-* @return       The 32-bit value of the register
+* @return      The 32-bit value of the register.
 *
+* @note        C-style signature:
+*              u32 XSysMonPsv_ReadReg(u32 RegisterAddr);
 *
 *****************************************************************************/
 #define XSysMonPsv_ReadReg(RegisterAddr) Xil_In32(RegisterAddr)
@@ -1044,14 +1063,14 @@ extern "C" {
 /****************************************************************************/
 /**
 *
-* This macro writes the given register.
+* @brief Writes the given register.
 *
-* @param        RegisterAddr Register address in the address
-*               space of the SYSMONPSV device.
-* @param        Data 32-bit value to write to the register.
+* @param[in]   RegisterAddr Register address in the address
+*              space of the SYSMONPSV device.
+* @param[in]   Data 32-bit value to write to the register.
 *
-* @return       None.
-*
+* @note        C-style signature:
+*              void XSysMonPsv_WriteReg(u32 RegisterAddr, u32 Data);
 *
 *****************************************************************************/
 #define XSysMonPsv_WriteReg(RegisterAddr, Data)                 \

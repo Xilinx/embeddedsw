@@ -4,13 +4,17 @@
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
+#ifndef _XSYSMONPSV_COMMON_H_
+#define _XSYSMONPSV_COMMON_H_
+
 /*****************************************************************************/
 /**
 * @file xsysmonpsv_common.h
-* @addtogroup sysmonpsv_api SYSMONPSV APIs
 *
-* Functions in the xsysmonpsv_common.h file are basic driver functions which will be used in the
-* in services or directly by the user.
+* @brief Declares the basic driver functions for the XSysMonPsv driver.
+*
+* The xsysmonpsv_common.h file declares basic driver functions used in the
+* services or directly by the application.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -22,12 +26,16 @@
 * 5.3   dc     02/18/26 Correct spelling errors
 *       se     03/25/26 Fix Coverity/MISRA-C violations: U suffix,
 *                       (void) cast, sign conversion, parentheses
+* 5.4   vn     09/29/26 Align Doxygen comments with AMD standards
 *
 * </pre>
 *
 ******************************************************************************/
-#ifndef _XSYSMONPSV_COMMON_H_
-#define _XSYSMONPSV_COMMON_H_
+
+/**
+ * @addtogroup sysmonpsv_api SYSMONPSV APIs
+ * @{
+ */
 
 #ifdef __cplusplus
 extern "C" {
@@ -65,19 +73,62 @@ extern "C" {
 
 #define XSYSMONPSV_MILLI_SCALE 1000 /**< Milli scale factor */
 
+/**
+ * @brief Compares a threshold with the current value.
+ *
+ * @param[in]   val Current value.
+ * @param[in]   thresh Threshold value.
+ *
+ * @note        C-style signature:
+ *              int compare(u32 val, u32 thresh);
+ */
 #define compare(val, thresh)                                                   \
 	(((val)&0x8000U) || ((thresh)&0x8000U) ?                                 \
 		 ((val) < (thresh)) :                                          \
-		 ((val) > (thresh))) /**< Macro to compare threshold
-									  with current value */
+		 ((val) > (thresh)))
 
+/**
+ * @brief Computes the 2's complement of a value.
+ *
+ * @param[in]   val Value to convert.
+ *
+ * @note        C-style signature:
+ *              u32 twoscomp(u32 val);
+ */
 #define twoscomp(val)                                                          \
-	((((val) ^ 0xFFFFU) + 1U) & 0x0000FFFFU) /**< Macro for 2's complement */
+	((((val) ^ 0xFFFFU) + 1U) & 0x0000FFFFU)
+
+/**
+ * @brief Returns the alarm register offset for a supply.
+ *
+ * @param[in]   address Supply address.
+ *
+ * @note        C-style signature:
+ *              u32 ALARM_REG(u32 address);
+ */
 #define ALARM_REG(address)                                                     \
-	((address) / 32U) /**< Alarm Register offset for supply */
+	((address) / 32U)
+
+/**
+ * @brief Returns the supply bit position in the alarm register.
+ *
+ * @param[in]   address Supply address.
+ *
+ * @note        C-style signature:
+ *              u32 ALARM_SHIFT(u32 address);
+ */
 #define ALARM_SHIFT(address)                                                   \
-	((address) % 32U) /**< Supply bit in Alarm Register */
-#define GET_BIT(nr) (1UL << (nr)) /**< Macro for bit shifter */
+	((address) % 32U)
+
+/**
+ * @brief Returns a bit mask for the given bit number.
+ *
+ * @param[in]   nr Bit number.
+ *
+ * @note        C-style signature:
+ *              unsigned long GET_BIT(unsigned nr);
+ */
+#define GET_BIT(nr) (1UL << (nr))
 
 /** Event direction for threshold comparison. */
 typedef enum {
@@ -128,4 +179,7 @@ void XSysMonPsv_UnlockRegspace(XSysMonPsv *InstancePtr);
 #ifdef __cplusplus
 }
 #endif
+
+/** @} */
+
 #endif /* _XSYSMONPSV_COMMON_H_ */

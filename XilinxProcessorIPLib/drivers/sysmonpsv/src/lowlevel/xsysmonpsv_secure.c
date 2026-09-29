@@ -7,10 +7,11 @@
 /**
 *
 * @file xsysmonpsv_secure.c
-* @addtogroup sysmonpsv_api SYSMONPSV APIs
 *
-* The xsysmonpsv_secure.c file contains basic driver functions.
+* @brief Implements the secure-mode driver functions for SysMon.
 *
+* The xsysmonpsv_secure.c file implements the basic secure-mode driver
+* functions.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -20,10 +21,17 @@
 * 5.3   se     03/12/26 Enhancements: NULL checks, range validation,
 *                       standardize return values to XST_FAILURE
 *       se     03/13/26 Fix secure mode and PCSR re-lock in SDT flow
+* 5.4   vn     09/29/26 Align Doxygen comments with AMD standards
 *
 * </pre>
 *
 ******************************************************************************/
+
+/**
+ * @addtogroup sysmonpsv_api SYSMONPSV APIs
+ * @{
+ */
+
 #if defined(XSYSMONPSV_SECURE_MODE)
 /***************************** Include Files *********************************/
 
@@ -32,13 +40,11 @@
 
 /******************************************************************************/
 /**
- * Functions as an Empty IPI Irq Handler.
+ * @brief Provides an empty IPI IRQ handler.
  *
- * @param	Pointer Instance to XSysMonPsv.
+ * @param[in]   InstancePtr Pointer to the XIpiPsu instance.
  *
- * @return	None
- *
- * @note	XScuGic_Connect requires an irq handler.
+ * @note        XScuGic_Connect requires an IRQ handler.
  *
 *******************************************************************************/
 static void XSysMonPsv_IpiIrqHandler(XIpiPsu *InstancePtr)
@@ -48,14 +54,14 @@ static void XSysMonPsv_IpiIrqHandler(XIpiPsu *InstancePtr)
 
 /******************************************************************************/
 /**
- * Configures IPI.
+ * @brief Configures the IPI.
  *
- * @param	Pointer Instance to XScuGic.
- * @param	Pointer Instance to XIpiPsu.
+ * @param[in]   InstancePtr Pointer to the XSysMonPsv instance.
+ * @param[in]   GicInst Pointer to the XScuGic instance.
+ * @param[in]   IpiInst Pointer to the XIpiPsu instance.
  *
- * @return 	XST_SUCCESS if successful else XST_FAILURE or an error code
- * or a reason code.
- *
+ * @return      XST_SUCCESS if successful, else XST_FAILURE, an error code,
+ *              or a reason code.
  *
 *******************************************************************************/
 static XStatus XSysMonPsv_IpiConfigure(XSysMonPsv *InstancePtr, XScuGic *const GicInst, XIpiPsu *const IpiInst)
@@ -113,14 +119,14 @@ done:
 
 /******************************************************************************/
 /**
- * Initializes the IPI.
+ * @brief Initializes the IPI.
  *
- * @param	Pointer Instance to XScuGic.
- * @param	Pointer Instance to XIpiPsu.
+ * @param[in]   InstancePtr Pointer to the XSysMonPsv instance.
+ * @param[in]   GicInst Pointer to the XScuGic instance.
+ * @param[in]   IpiInst Pointer to the XIpiPsu instance.
  *
- * @return 	XST_SUCCESS if successful else XST_FAILURE or an error code
- * or a reason code.
- *
+ * @return      XST_SUCCESS if successful, else XST_FAILURE, an error code,
+ *              or a reason code.
  *
 *******************************************************************************/
 static XStatus XSysMonPsv_IpiInit(XSysMonPsv *InstancePtr, XScuGic *const GicInst, XIpiPsu *const IpiInst)
@@ -143,14 +149,14 @@ done:
 
 /******************************************************************************/
 /**
- * Initializes the XIL PM.
+ * @brief Initializes XilPM.
  *
- * @param	Pointer Instance to XScuGic.
- * @param	Pointer Instance to XIpiPsu.
+ * @param[in]   InstancePtr Pointer to the XSysMonPsv instance.
+ * @param[in]   GicInst Pointer to the XScuGic instance.
+ * @param[in]   IpiInst Pointer to the XIpiPsu instance.
  *
- * @return	XST_SUCCESS if successful else XST_FAILURE or an error code
- * or a reason code.
- *
+ * @return      XST_SUCCESS if successful, else XST_FAILURE, an error code,
+ *              or a reason code.
  *
 *******************************************************************************/
 int XSysMonPsv_Xilpm_Init(XSysMonPsv *InstancePtr, XScuGic *const GicInst, XIpiPsu *const IpiInst)
@@ -184,14 +190,11 @@ done:
 
 /******************************************************************************/
 /**
- * Reads register value in secure mode.
+ * @brief Reads a register value in secure mode.
  *
- * @param	Pointer Instance to XSysMonPsv.
- * @param	Offset Offset of the register.
- * @param   value Value to be read.
- *
- * @return	None
- *
+ * @param[in]   InstancePtr Pointer to the XSysMonPsv instance.
+ * @param[in]   Offset Offset of the register.
+ * @param[out]  Data Value read from the register.
  *
 *******************************************************************************/
 void XSysMonPsv_ReadReg32(XSysMonPsv *InstancePtr, u32 Offset, u32 *Data)
@@ -210,14 +213,11 @@ void XSysMonPsv_ReadReg32(XSysMonPsv *InstancePtr, u32 Offset, u32 *Data)
 
 /******************************************************************************/
 /**
- * Writes value to register in secure mode.
+ * @brief Writes a value to a register in secure mode.
  *
- * @param	Pointer Instance to XSysMonPsv.
- * @param	Offset Offset of the register.
- * @param   value Value to be written in register.
- *
- * @return	None
- *
+ * @param[in]   InstancePtr Pointer to the XSysMonPsv instance.
+ * @param[in]   Offset Offset of the register.
+ * @param[in]   Data Value to be written to the register.
  *
 *******************************************************************************/
 void XSysMonPsv_WriteReg32(XSysMonPsv *InstancePtr, u32 Offset, u32 Data)
@@ -237,14 +237,12 @@ void XSysMonPsv_WriteReg32(XSysMonPsv *InstancePtr, u32 Offset, u32 Data)
 
 /******************************************************************************/
 /**
- * Updates register value in secure mode.
+ * @brief Updates a register value in secure mode.
  *
- * @param	InstancePtr Pointer to the driver instance.
- * @param	Offset Offset addtress of the register.
- * @param	Mask Bits to be masked.
- * @param	Data value to be written.
- *
- * @return	None.
+ * @param[in]   InstancePtr Pointer to the driver instance.
+ * @param[in]   Offset Offset address of the register.
+ * @param[in]   Mask Bits to be masked.
+ * @param[in]   Data Value to be written.
  *
 *******************************************************************************/
 void XSysMonPsv_UpdateReg32(XSysMonPsv *InstancePtr, u32 Offset, u32 Mask,
@@ -259,3 +257,5 @@ void XSysMonPsv_UpdateReg32(XSysMonPsv *InstancePtr, u32 Offset, u32 Mask,
 			     (Val & ~Mask) | (Mask & Data));
 }
 #endif
+
+/** @} */

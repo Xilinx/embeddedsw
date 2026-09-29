@@ -1,20 +1,21 @@
 /******************************************************************************
 * Copyright (C) 2016 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
+#ifndef _XSYSMONPSV_LOWLEVEL_H_
+#define _XSYSMONPSV_LOWLEVEL_H_
+
 /*****************************************************************************/
 /**
- *
+*
 * @file xsysmonpsv_lowlevel.h
-* @addtogroup sysmonpsv_api SYSMONPSV APIs
 *
+* @brief Declares the low-level register access functions for the driver.
 *
-*
-* The xsysmonpsv_lowlevel.h header file contains low level driver functions that are use to read and
-* write sysmon registers.
-*
+* The xsysmonpsv_lowlevel.h header file declares low-level driver functions
+* used to read and write SysMon registers.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -22,13 +23,16 @@
 * ----- -----  -------- -----------------------------------------------
 * 3.0   cog    03/25/21 Driver Restructure
 * 4.0   se     11/10/22 Secure and Non-Secure mode integration
+* 5.4   vn     09/29/26 Align Doxygen comments with AMD standards
 *
 * </pre>
 *
 ******************************************************************************/
 
-#ifndef _XSYSMONPSV_LOWLEVEL_H_
-#define _XSYSMONPSV_LOWLEVEL_H_
+/**
+ * @addtogroup sysmonpsv_api SYSMONPSV APIs
+ * @{
+ */
 
 #ifdef __cplusplus
 extern "C" {
@@ -47,4 +51,7 @@ void XSysMonPsv_UpdateReg32(XSysMonPsv *InstancePtr, u32 Offset, u32 Mask,
 #ifdef __cplusplus
 }
 #endif
+
+/** @} */
+
 #endif /* _XSYSMONPSV_LOWLEVEL_H_ */

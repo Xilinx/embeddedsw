@@ -4,24 +4,25 @@
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
+#ifndef _XSYSMONPSV_DRIVER_H_
+#define _XSYSMONPSV_DRIVER_H_
+
 /*****************************************************************************/
 /**
 * @file xsysmonpsv_driver.h
-* @addtogroup sysmonpsv_api SYSMONPSV APIs
 *
-* SysMon driver supports the AMD System Monitor device on Versal.
+* @brief Declares the driver data structures for the AMD Versal System Monitor.
+*
+* The SysMon driver supports the AMD System Monitor device on Versal.
 *
 * The System Monitor device has the following features:
-*		- Measure and monitor up to 160 voltages across the chip
-*		- Automatic alarms based on user defined limis for the
-*		  on-chip temperature.
-*		- Optional interrupt request generation
+*		- Measures and monitors up to 160 voltages across the chip.
+*		- Provides automatic alarms based on user-defined limits for
+*		  the on-chip temperature.
+*		- Provides optional interrupt request generation.
 *
-*
-* The user should refer to the hardware device specification for detailed
-* information about the device.
-*
-*
+* Refer to the hardware device specification for detailed information about
+* the device.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -37,13 +38,16 @@
 * 5.2   se     08/24/25 Microblaze support added
 * 5.3   se     03/13/26 Fix secure mode and PCSR re-lock in SDT flow
 * 5.4   vn     07/30/26 Fix Doxygen warnings
+* 5.4   vn     09/29/26 Align Doxygen comments with AMD standards
 *
 * </pre>
 *
 ******************************************************************************/
 
-#ifndef _XSYSMONPSV_DRIVER_H_
-#define _XSYSMONPSV_DRIVER_H_
+/**
+ * @addtogroup sysmonpsv_api SYSMONPSV APIs
+ * @{
+ */
 
 #ifdef __cplusplus
 extern "C" {
@@ -61,72 +65,65 @@ extern "C" {
 
 /******************************************************************************/
 /**
- * This data type defines a handler that an application defines to communicate
- * with interrupt system to retrieve state information about an application.
+ * @brief Defines an application handler for the interrupt system.
  *
- * @param       CallbackRef Callback reference passed in by the upper layer
- *              when setting the handler, and is passed back to the upper layer
- *              when the handler is called. It is used to find the device driver
- *              instance.
+ * An application defines this handler to communicate with the interrupt
+ * system and retrieve application state information.
+ *
+ * @param[in]   CallbackRef Callback reference passed in by the upper layer
+ *              when setting the handler, and passed back to the upper layer
+ *              when the handler is called. It is used to find the device
+ *              driver instance.
  *
  ******************************************************************************/
 typedef void (*XSysMonPsv_Handler)(void *CallbackRef);
 
 /**
- * @brief This typedef contains configuration information for a device.
- * @{
+ * @brief Holds the configuration information for a device.
  */
 typedef struct {
 #ifdef SDT
-	char *Name;
+	char *Name; /**< Device name. */
 #endif
-	UINTPTR BaseAddress; /**< Register base address */
+	UINTPTR BaseAddress; /**< Register base address. */
 #ifdef SDT
-	u16 IntrId;
-	UINTPTR IntrParent;
+	u16 IntrId; /**< Interrupt ID. */
+	UINTPTR IntrParent; /**< Interrupt parent. */
 #endif
 	u8 Supply_List[XSYSMONPSV_MAX_SUPPLIES]; /**< Maps voltage supplies in
-                                                  use to the Supply registers */
+                                              *   use to the supply
+                                              *   registers. */
 } XSysMonPsv_Config;
 
-/** @} */
-
 /**
- * @brief This is an interrupt callback structure where callbacks and the
- * callback reference is stored.
- * @{
+ * @brief Stores the interrupt callbacks and their callback references.
  */
 typedef struct {
-	XSysMonPsv_Handler Handler; /**< Event handler */
-	void *CallbackRef; /**< Callback reference for
-                                          event handler */
-	XSysMonPsv_Supply Supply; /**< Supply for which event is set */
-	u32 IsCallbackSet; /**< Flag to check if a callback has
-                                          been set */
+	XSysMonPsv_Handler Handler; /**< Event handler. */
+	void *CallbackRef; /**< Callback reference for the event handler. */
+	XSysMonPsv_Supply Supply; /**< Supply for which the event is set. */
+	u32 IsCallbackSet; /**< Flag to check if a callback has been set. */
 } XSysMonPsv_EventHandler;
 
-/** @} */
-
 /**
- * @brief The XSysmonPsv driver instance data. The user is required to allocate a
- * variable of this type for the SYSMON device in the system. A pointer
- * to a variable of this type is then passed to the driver API functions.
+ * @brief Holds the XSysMonPsv driver instance data.
  *
- * @{
+ * Allocate a variable of this type for the SYSMON device in the system. A
+ * pointer to a variable of this type is then passed to the driver API
+ * functions.
  */
 typedef struct {
-	XSysMonPsv_Config Config; /**< Device configuration */
+	XSysMonPsv_Config Config; /**< Device configuration. */
 #if defined (ARMR5) || defined (__aarch64__) || defined (PLATFORM_MB)
 	XSysMonPsv_EventHandler
-		SupplyEvent[XSYSMONPSV_MAX_SUPPLIES]; /**< EventList will
-                                                          have callbacks for
-                                                          events supported
-                                                          by sysmon */
-	XSysMonPsv_EventHandler TempEvent; /**< Device Temperature event
-                                            handler information */
-	XSysMonPsv_EventHandler OTEvent; /**< OT event handler information */
+		SupplyEvent[XSYSMONPSV_MAX_SUPPLIES]; /**< Holds callbacks for
+                                               *   events supported by
+                                               *   SysMon. */
+	XSysMonPsv_EventHandler TempEvent; /**< Device temperature event
+                                        *   handler information. */
+	XSysMonPsv_EventHandler OTEvent; /**< OT event handler information. */
 #endif
-	u32 IsReady; /**< Is device ready */
+	u32 IsReady; /**< Is the device ready. */
 #if defined (XSYSMONPSV_SECURE_MODE)
 	u32 IpiIntrId; /**< Secure mode IPI Interrupt ID*/
 #ifndef SDT
@@ -140,5 +137,7 @@ typedef struct {
 #ifdef __cplusplus
 }
 #endif
-#endif /* _XSYSMONPSV_DRIVER_H_ */
+
 /** @} */
+
+#endif /* _XSYSMONPSV_DRIVER_H_ */

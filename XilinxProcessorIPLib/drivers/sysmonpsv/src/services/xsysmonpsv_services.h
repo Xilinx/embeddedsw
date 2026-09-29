@@ -1,16 +1,20 @@
 /******************************************************************************
 * Copyright (C) 2016 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
+
+#ifndef _XSYSMONPSV_SERVICES_H_
+#define _XSYSMONPSV_SERVICES_H_
 
 /*****************************************************************************/
 /**
 * @file xsysmonpsv_services.h
-* @addtogroup sysmonpsv_api SYSMONPSV APIs
 *
-* The xsysmonpsv_services.h file contains Services layers APIs such as temperature and
-* voltage alarms.
+* @brief Declares the services-layer APIs for the XSysMonPsv driver.
+*
+* The xsysmonpsv_services.h file declares services-layer APIs such as
+* temperature and voltage alarms.
 *
 * <pre>
 *
@@ -22,13 +26,17 @@
 *                       arch64 architecture
 * 4.0   se     11/10/22 Secure and Non-Secure mode integration
 * 5.2   se     08/24/25 Microblaze support added
+* 5.4   vn     09/29/26 Align Doxygen comments with AMD standards
 *
 * </pre>
 *
 ******************************************************************************/
 
-#ifndef _XSYSMONPSV_SERVICES_H_
-#define _XSYSMONPSV_SERVICES_H_
+/**
+ * @addtogroup sysmonpsv_api SYSMONPSV APIs
+ * @{
+ */
+
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -72,4 +80,7 @@ int XSysMonPsv_SetupInterrupts(XScuGic *IntcInstancePtr,
 #ifdef __cplusplus
 }
 #endif
+
+/** @} */
+
 #endif /* _XSYSMONPSV_SERVICES_H_ */
