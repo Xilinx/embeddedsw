@@ -23,6 +23,7 @@ extern "C" {
  * @{
  */
 
+/** Doubly-linked list node used internally by libmetal. */
 struct metal_list {
 	struct metal_list *next, *prev;
 };

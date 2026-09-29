@@ -30,6 +30,7 @@
 *       ma   08/08/2022 Fix SW-BP-MAGIC-NUM warning
 *       mss  03/13/2024 MISRA-C violation Rule 17.8 fixed
 * 2.40  obs  02/12/2025 Removed XSysMonPsv driver dependency
+* 2.5   abh  09/22/2026 Fixed Doxygen Warnings
 *
 * </pre>
 *
@@ -52,7 +53,9 @@ extern "C" {
 
 /************************** Constant Definitions *****************************/
 
-/** @name SysMon Base Address and Register Offsets */
+/** @name SysMon Base Address and Register Offsets
+ * @{
+ */
 #define XPLMI_SYSMON_BASEADDR			(0xF1270000U) /**< SysMon Base Address */
 #define XPLMI_SYSMON_PCSR_MASK			(0x00000000U) /**< PCSR Mask Register Offset */
 #define XPLMI_SYSMON_PCSR_CONTROL		(0x00000004U) /**< PCSR Control Register Offset */
@@ -68,12 +71,16 @@ extern "C" {
 #define XPLMI_SYSMON_TEMP_SAT			(0x00001FACU) /**< Internal Temperature Register */
 /** @} */
 
-/** @name SysMon Interrupt and Control Masks */
+/** @name SysMon Interrupt and Control Masks
+ * @{
+ */
 #define XPLMI_SYSMON_IER0_OT_MASK		(0x00000100U) /**< Over Temperature Enable Mask */
 #define XPLMI_SYSMON_ISR_OT_MASK		(0x00000100U) /**< Over Temperature Status Mask */
 /** @} */
 
-/** @name SysMon Supply Format Constants */
+/** @name SysMon Supply Format Constants
+ * @{
+ */
 #define XPLMI_SYSMON_SUPPLY_MANTISSA_MASK	(0x0000FFFFU) /**< Supply Mantissa Mask */
 #define XPLMI_SYSMON_SUPPLY_FMT_MASK		(0x00010000U) /**< Supply Format Mask */
 #define XPLMI_SYSMON_SUPPLY_FMT_SHIFT		(16U) /**< Supply Format Shift */
@@ -82,18 +89,24 @@ extern "C" {
 #define XPLMI_SYSMON_SUPPLY_MANTISSA_SIGN	(15U) /**< Supply Mantissa Sign Bit */
 /** @} */
 
-/** @name Temperature Format Constants */
+/** @name Temperature Format Constants
+ * @{
+ */
 #define XPLMI_SYSMON_EXPONENT_RANGE_16		(16U) /**< Voltage exponent value bit */
 #define XPLMI_SYSMON_QFMT_SIGN			(15U) /**< Q format signed bit */
 #define XPLMI_SYSMON_QFMT_FRACTION		(128U) /**< Q format fractional value */
 /** @} */
 
-/** @name PCSR Lock/Unlock Values */
+/** @name PCSR Lock/Unlock Values
+ * @{
+ */
 #define XPLMI_SYSMON_PCSR_UNLOCK_VAL		(0xF9E8D7C6U) /**< PCSR Unlock Value */
 #define XPLMI_SYSMON_PCSR_LOCK_VAL		(0x00000000U) /**< PCSR Lock Value */
 /** @} */
 
-/** @name Miscellaneous Constants */
+/** @name Miscellaneous Constants
+ * @{
+ */
 #define XPLMI_SYSMON_NO_WAIT_TIME		(0x0U) /**< No wait time */
 #define XPLMI_SYSMON_MAX_SUPPLIES		(160U) /**< Max number of supplies */
 /** @} */

@@ -27,6 +27,7 @@
 *        rama 09/22/26 Add no-op implementations to fix build errors
 *                      for libxilsem.a
 *        ng   09/25/26 Added XPlmi_VerifyAddrRangeRedundant
+*        abh  09/22/26 Fixed Doxygen Warnings
 *
 * </pre>
 *
@@ -852,6 +853,8 @@ static u32 XPlmi_GetIoIntrMask(void)
 /*****************************************************************************/
 /**
  * @brief	This function enables the IOModule interrupts with provided value.
+ *
+ * @param	Value is the interrupt enable mask to write.
  *
  *****************************************************************************/
 static void XPlmi_SetIoIntrMask(u32 Value)

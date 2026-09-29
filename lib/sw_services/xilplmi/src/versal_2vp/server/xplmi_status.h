@@ -33,6 +33,7 @@
 *       obs  07/14/2026 Updated XLOADER_ERR_IMGHDR_TBL description for meta
 *                       header image/partition count check
 *       pre  07/24/2026 Enabled TPM feature for VERSAL_2VP devices
+*       abh  09/22/2026 Updated Doxygen comments
 *
 * </pre>
 *
@@ -604,22 +605,22 @@ typedef enum {
 	XOCP_ERR_STORE_APP_VERSION_FOR_DEVAK_CERT,	/**< 0x6D3 Error in storing app version
 							  for DevAk certificate */
 	XOCP_ERR_DIGEST_CALC,	/**< 0x6D4 Error in digest calculation */
-	XOCP_ERR_AES_KEY_ZEROIZE,	/**< 0x6D4 Error while clearing AES key */
-	XOCP_ERR_AES_ENC_INIT,	/**< 0x6D5 Error while initializing AES key */
-	XOCP_ERR_AES_ENC_DATA,	/**< 0x6D6 Error while AES encrypting data */
-	XOCP_ERR_PUF_REGENERATION,	/**< 0x6D7 Error while PUF regeneration */
-	XOCP_ERR_KDF_FAILED,	/**< 0x6D8 Error while PUF regeneration */
-	XOCP_ERR_HASH_COPY_FAILED,	/**< 0x6D8 Error while copying Hash */
-	XOCP_ERR_DME_PARAM_COPY_FAILED,	/**< 0x6D9 Error while copying DME input params */
-	XOCP_ERR_DME_SIGN_COPY_FAILED,	/**< 0x6DA Error while copying DME signature */
-	XOCP_ERR_DME_CH_SIGN,	/**< 0x6DA Error while DME challenge signature */
-	XOCP_ERR_DME_DEC_PRIV_KEY,	/**< 0x6DB Error while decrypting DME private key */
-	XOCP_ERR_GEN_DME_PUB_KEY,	/**< 0x6DC Error while generating DME public key */
-	XOCP_ERR_DME_PWCT,	/**< 0x6DD Error in pair wise consistency  test for DME keys */
-	XOCP_ERR_GEN_ECC_KEY,	/**< 0x6DE Error while generating ephemeral key */
-	XOCP_ERR_GEN_DME_SIGN,	/**< 0x6DF Error while generating DME signature */
-	XOCP_ERR_DME_SIGN_VERIF_FAILED,	/**< 0x6DF Error while verifying DME signature */
-	XOCP_ERR_DME_MEAS_COPY_FAILED,	/**< 0x6E0 Error while copying DME measurement */
+	XOCP_ERR_AES_KEY_ZEROIZE,	/**< 0x6D5 Error while clearing AES key */
+	XOCP_ERR_AES_ENC_INIT,	/**< 0x6D6 Error while initializing AES key */
+	XOCP_ERR_AES_ENC_DATA,	/**< 0x6D7 Error while AES encrypting data */
+	XOCP_ERR_PUF_REGENERATION,	/**< 0x6D8 Error while PUF regeneration */
+	XOCP_ERR_KDF_FAILED,	/**< 0x6D9 Error in KDF */
+	XOCP_ERR_HASH_COPY_FAILED,	/**< 0x6DA Error while copying Hash */
+	XOCP_ERR_DME_PARAM_COPY_FAILED,	/**< 0x6DB Error while copying DME input params */
+	XOCP_ERR_DME_SIGN_COPY_FAILED,	/**< 0x6DC Error while copying DME signature */
+	XOCP_ERR_DME_CH_SIGN,	/**< 0x6DD Error while DME challenge signature */
+	XOCP_ERR_DME_DEC_PRIV_KEY,	/**< 0x6DE Error while decrypting DME private key */
+	XOCP_ERR_GEN_DME_PUB_KEY,	/**< 0x6DF Error while generating DME public key */
+	XOCP_ERR_DME_PWCT,	/**< 0x6E0 Error in pair wise consistency  test for DME keys */
+	XOCP_ERR_GEN_ECC_KEY,	/**< 0x6E1 Error while generating ephemeral key */
+	XOCP_ERR_GEN_DME_SIGN,	/**< 0x6E2 Error while generating DME signature */
+	XOCP_ERR_DME_SIGN_VERIF_FAILED,	/**< 0x6E3 Error while verifying DME signature */
+	XOCP_ERR_DME_MEAS_COPY_FAILED,	/**< 0x6E4 Error while copying DME measurement */
 	XPLMI_ERR_CDO_CMD = 0x2000,	/**< 0x2XXX, CDO command handler has failed. [12:8] contains
 					  Module ID, [7:0] contains API ID. Refer Minor code for
 					  Handler error code */

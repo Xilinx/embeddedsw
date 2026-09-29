@@ -77,6 +77,7 @@
 *                       header image/partition count check
 *       vm   07/14/2026 Added ASUFW keep-alive error codes.
 *       vm   08/22/2026 Added error codes for in-place ASU update compatibility check
+*       abh  09/22/2026 Updated Doxygen comments
 *
 * </pre>
 *
@@ -842,7 +843,7 @@ typedef enum {
 
 	XSECURE_ERR_ADD_TASK_SCHEDULER = 0x6E0,  /**< 0x6E0 Error while adding task to
 						the scheduler */
-	XSECURE_ERR_REMOVE_TASK_SCHEDULER, /**< 0x6E0 Error while Removing task from
+	XSECURE_ERR_REMOVE_TASK_SCHEDULER, /**< 0x6E1 Error while Removing task from
 						the scheduler */
 
 		/**< */
