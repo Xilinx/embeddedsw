@@ -4,11 +4,11 @@
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
-/****************************************************************************/
+/*****************************************************************************/
 /**
-* @file     xuartps_low_echo_example.c
+* @file xuartps_low_echo_example.c
 *
-* This file contains a design example using the hardware interface.
+* @brief Demonstrates the XUartPs hardware interface with character echo.
 *
 * First, certain character sequence is output onto the terminal. Then any
 * characters typed in are echoed back, for letters, cases are switched.
@@ -23,7 +23,7 @@
 * 	. no parity
 *
 * @note
-* The test hangs if communication channel from the user terminal to the device
+* The test hangs if communication channel from the terminal to the device
 * is broken.
 *
 * MODIFICATION HISTORY:
@@ -37,8 +37,10 @@
 *                       CR-965028.
 * 3.18  vlt    03/15/26 Updated BaseAddress type from u32 to UINTPTR
 *                       to support 64-bit addressing.
+* 3.19  vn   09/10/26 Align Doxygen comments with AMD standards
 * </pre>
-****************************************************************************/
+*
+******************************************************************************/
 
 /***************************** Include Files *******************************/
 
@@ -51,21 +53,27 @@
 
 /************************** Constant Definitions ***************************/
 
-/*
+/** @name Device parameters
+ *
  * The following constants map to the XPAR parameters created in the
  * xparameters.h file. They are defined here such that a user can easily
  * change all the needed parameters in one place.
+ * @{
  */
+/** UART base address. */
 #define UART_BASEADDR		XPAR_XUARTPS_0_BASEADDR
+/** UART clock frequency. */
 #define UART_CLOCK_HZ		XPAR_XUARTPS_0_CLOCK_HZ
-/*
+/** @} */
+
+/**
  * The following constant controls the length of the buffers to be sent
  * and received with the device. This constant must be 32 bytes or less so the
- * entire buffer will fit into the TX and RX FIFOs of the device.
+ * entire buffer fits into the TX and RX FIFOs of the device.
  */
 #define TEST_BUFFER_SIZE	16
 
-#define CHAR_ESC		0x1b	/* 'ESC' character is used as terminator */
+#define CHAR_ESC		0x1b /**< 'ESC' character used as terminator. */
 
 /**************************** Type Definitions *****************************/
 
@@ -77,24 +85,24 @@ int UartPsEchoExample(UINTPTR UartBaseAddress);
 
 /************************** Variable Definitions ***************************/
 
-/*
+/** @name Data buffers
+ *
  * The following buffers are used in this example to send and receive data
  * with the UART.
+ * @{
  */
-u8 SendBuffer[TEST_BUFFER_SIZE];	/* Buffer for Transmitting Data */
+u8 SendBuffer[TEST_BUFFER_SIZE];	/**< Buffer for Transmitting Data. */
+/** @} */
 
 
-/***************************************************************************/
+/*****************************************************************************/
 /**
 *
-* Main function to call the Uart Echo example.
+* @brief Calls the UART Echo example.
 *
+* @return      XST_SUCCESS if successful, XST_FAILURE if unsuccessful.
 *
-* @return	XST_SUCCESS if successful, XST_FAILURE if unsuccessful
-*
-* @note		None
-*
-****************************************************************************/
+******************************************************************************/
 int main(void)
 {
 	int Status;
@@ -114,19 +122,16 @@ int main(void)
 }
 
 
-/**************************************************************************/
+/*****************************************************************************/
 /**
 *
-* This function does a minimal test on the UART device using the hardware
-* interface.
+* @brief Performs a minimal UART echo test using the hardware interface.
 *
-* @param	UartBaseAddress is the base address of the device
+* @param[in]   UartBaseAddress Base address of the device.
 *
-* @return	XST_SUCCESS if successful, XST_FAILURE if unsuccessful
+* @return      XST_SUCCESS if successful, XST_FAILURE if unsuccessful.
 *
-* @note		None.
-*
-**************************************************************************/
+******************************************************************************/
 int UartPsEchoExample(UINTPTR UartBaseAddress)
 {
 	int Index;

@@ -4,18 +4,15 @@
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
-/****************************************************************************/
+/*****************************************************************************/
 /**
 *
 * @file xuartps_selftest_example.c
 *
-* This example runs on zynqmp evaluation board (zcu102), it performs self test
-* on the device by using XUartPs driver.
+* @brief Demonstrates the XUartPs self-test functionality.
 *
-*
-* @note
-*
-* None
+* The example runs on the ZynqMP evaluation board (ZCU102). It performs a
+* self-test on the device by using the XUartPs driver.
 *
 * MODIFICATION HISTORY:
 * <pre>
@@ -26,7 +23,9 @@
 *			the device ID to use the first Device Id
 *			Removed the printf at the start of the main
 * 3.18  vlt 12/18/25 Update Doxygen comments to include SDT flow details.
+* 3.19  vn   09/10/26 Align Doxygen comments with AMD standards
 * </pre>
+*
 ******************************************************************************/
 
 /***************************** Include Files *********************************/
@@ -37,16 +36,20 @@
 
 /************************** Constant Definitions *****************************/
 
-/*
+/** @name Device parameters
+ *
  * The following constants map to the XPAR parameters created in the
  * xparameters.h file. They are defined here such that a user can easily
  * change all the needed parameters in one place.
+ * @{
  */
 #ifndef SDT
-#define UART_DEVICE_ID		XPAR_XUARTPS_0_DEVICE_ID
+#define UART_DEVICE_ID		XPAR_XUARTPS_0_DEVICE_ID /**< UART device ID. */
 #else
+/** UART base address. */
 #define	XUARTPS_BASEADDRESS	XPAR_XUARTPS_0_BASEADDR
 #endif
+/** @} */
 
 /**************************** Type Definitions *******************************/
 
@@ -62,17 +65,14 @@ int UartPsSelfTestExample(UINTPTR BaseAddress);
 #endif
 /************************** Variable Definitions *****************************/
 
-XUartPs Uart_Ps;		/* Instance of the UART Device */
+XUartPs Uart_Ps;		/**< Instance of the UART Device */
 
 /*****************************************************************************/
 /**
 *
-* Main function to call the example.
+* @brief Calls the UART self-test example.
 *
-*
-* @return   XST_SUCCESS if successful, otherwise XST_FAILURE
-*
-* @note     None
+* @return      XST_SUCCESS if successful, otherwise XST_FAILURE.
 *
 ******************************************************************************/
 int main(void)
@@ -97,22 +97,21 @@ int main(void)
 /*****************************************************************************/
 /**
 *
-* This function does a minimal test on the XUartPs driver.
-*
+* @brief Performs a minimal self-test on the XUartPs driver.
 *
 * @if SDT
-* @param    BaseAddress contains the base address of the device
+* @param[in]   BaseAddress Base address of the device.
 * @else
-* @param    DeviceId is the XPAR_<UARTPS_instance>_DEVICE_ID value from
-*           xparameters.h
+* @param[in]   DeviceId XPAR_<UARTPS_instance>_DEVICE_ID value from
+*              xparameters.h.
 * @endif
 *
-* @return   XST_SUCCESS if successful, otherwise XST_FAILURE
+* @return      XST_SUCCESS if successful, otherwise XST_FAILURE.
 *
-* @note     In XSCT/classic flow, DeviceId is used to look up the device
-*           configuration.
+* @note        In XSCT/classic flow, DeviceId is used to look up the device
+*              configuration.
 *
-****************************************************************************/
+******************************************************************************/
 #ifndef SDT
 int UartPsSelfTestExample(u16 DeviceId)
 #else

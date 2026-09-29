@@ -4,13 +4,17 @@
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
-/****************************************************************************/
+#ifndef XUARTPS_H
+#define XUARTPS_H
+
+/*****************************************************************************/
 /**
 *
 * @file xuartps.h
 * @addtogroup uartps Overview
 * @{
-* @details
+*
+* @brief Provides the driver interface for the XUartPs UART device.
 *
 * This driver supports the following features:
 *
@@ -53,14 +57,14 @@
 * <b>Interrupts</b>
 *
 * The FIFOs are not flushed when the driver is initialized, but a function is
-* provided to allow the user to reset the FIFOs if desired.
+* provided to allow resetting the FIFOs if desired.
 *
 * The driver defaults to no interrupts at initialization such that interrupts
 * must be enabled if desired. An interrupt is generated for one of the
 * following conditions.
 *
 * - A change in the modem signals
-* - Data in the receive FIFO for a configuable time without receiver activity
+* - Data in the receive FIFO for a configurable time without receiver activity
 * - A parity error
 * - A framing error
 * - An overrun error
@@ -73,7 +77,7 @@
 * The application can control which interrupts are enabled using the
 * XUartPs_SetInterruptMask() function.
 *
-* In order to use interrupts, it is necessary for the user to connect the
+* To use interrupts, connect the
 * driver interrupt handler, XUartPs_InterruptHandler(), to the interrupt
 * system of the application. A separate handler should be provided by the
 * application to communicate with the interrupt system, and conduct
@@ -87,7 +91,6 @@
 * polled or interrupt mode.
 *
 * @note
-*
 * The default configuration for the UART after initialization is:
 *
 * - 9,600 bps or XPAR_DFT_BAUDRATE if defined
@@ -133,9 +136,11 @@
 * 3.0   vm     12/09/14 Modified source code according to misrac guideline.
 *			Support for Zynq Ultrascale Mp added.
 * 3.1	kvn    04/10/15 Modified code for latest RTL changes. Also added
-*						platform variable in driver instance structure.
+*						platform variable in driver
+*						instance structure.
 * 3.1   adk   14/03/16  Include interrupt examples in the peripheral test when
-*			uart is connected to a valid interrupt controller CR#946803.
+*			uart is connected to a valid interrupt controller
+*			CR#946803.
 * 3.2   rk     07/20/16 Modified the logic for transmission break bit set
 * 3.4   ms     01/23/17 Added xil_printf statement in main function for all
 *                       examples to ensure that "Successfully ran" and "Failed"
@@ -154,12 +159,10 @@
 * 3.18  vlt    03/14/26 Updated BaseAddress type from u32 to UINTPTR
 *                       to support 64-bit addressing.
 * 3.19  vn     08/26/26 Fix Doxygen warnings
+* 3.19  vn   09/10/26 Align Doxygen comments with AMD standards
 * </pre>
 *
-*****************************************************************************/
-
-#ifndef XUARTPS_H		/* prevent circular inclusions */
-#define XUARTPS_H		/* by using protection macros */
+******************************************************************************/
 
 #ifdef __cplusplus
 extern "C" {
@@ -179,15 +182,18 @@ extern "C" {
 
 /************************** Constant Definitions ****************************/
 
-/*
+/** @name Baud rate limits
+ *
  * The following constants indicate the max and min baud rates and these
  * numbers are based only on the testing that has been done. The hardware
  * is capable of other baud rates.
+ * @{
  */
-#define XUARTPS_MAX_RATE	 6240000U
-#define XUARTPS_MIN_RATE	 110U
+#define XUARTPS_MAX_RATE	 6240000U /**< Maximum baud rate. */
+#define XUARTPS_MIN_RATE	 110U     /**< Minimum baud rate. */
 
-#define XUARTPS_DFT_BAUDRATE  115200U   /* Default baud rate */
+#define XUARTPS_DFT_BAUDRATE  115200U   /**< Default baud rate. */
+/** @} */
 
 /** @name Configuration options
  * @{
@@ -195,19 +201,22 @@ extern "C" {
 /**
  * These constants specify the options that may be set or retrieved
  * with the driver, each is a unique bit mask such that multiple options
- * may be specified.  These constants indicate the available options
+ * may be specified. These constants indicate the available options
  * in active state.
  *
  */
 
-#define XUARTPS_OPTION_SET_BREAK	0x0080U /**< Starts break transmission */
+/** Starts break transmission */
+#define XUARTPS_OPTION_SET_BREAK	0x0080U
 #define XUARTPS_OPTION_STOP_BREAK	0x0040U /**< Stops break transmission */
-#define XUARTPS_OPTION_RESET_TMOUT	0x0020U /**< Reset the receive timeout */
+/** Reset the receive timeout */
+#define XUARTPS_OPTION_RESET_TMOUT	0x0020U
 #define XUARTPS_OPTION_RESET_TX		0x0010U /**< Reset the transmitter */
 #define XUARTPS_OPTION_RESET_RX		0x0008U /**< Reset the receiver */
 #define XUARTPS_OPTION_ASSERT_RTS	0x0004U /**< Assert the RTS bit */
 #define XUARTPS_OPTION_ASSERT_DTR	0x0002U /**< Assert the DTR bit */
-#define XUARTPS_OPTION_SET_FCM		0x0001U /**< Turn on flow control mode */
+/** Turn on flow control mode */
+#define XUARTPS_OPTION_SET_FCM		0x0001U
 /** @} */
 
 
@@ -219,10 +228,14 @@ extern "C" {
  * @{
  */
 
-#define XUARTPS_OPER_MODE_NORMAL		(u8)0x00U	/**< Normal Mode */
-#define XUARTPS_OPER_MODE_AUTO_ECHO		(u8)0x01U	/**< Auto Echo Mode */
-#define XUARTPS_OPER_MODE_LOCAL_LOOP	(u8)0x02U	/**< Local Loopback Mode */
-#define XUARTPS_OPER_MODE_REMOTE_LOOP	(u8)0x03U	/**< Remote Loopback Mode */
+/** Normal Mode */
+#define XUARTPS_OPER_MODE_NORMAL		(u8)0x00U
+/** Auto Echo Mode */
+#define XUARTPS_OPER_MODE_AUTO_ECHO		(u8)0x01U
+/** Local Loopback Mode */
+#define XUARTPS_OPER_MODE_LOCAL_LOOP	(u8)0x02U
+/** Remote Loopback Mode */
+#define XUARTPS_OPER_MODE_REMOTE_LOOP	(u8)0x03U
 
 /** @} */
 
@@ -240,7 +253,7 @@ extern "C" {
 
 #define XUARTPS_FORMAT_NO_PARITY	4U /**< No parity */
 #define XUARTPS_FORMAT_MARK_PARITY	3U /**< Mark parity */
-#define XUARTPS_FORMAT_SPACE_PARITY	2U /**< parity */
+#define XUARTPS_FORMAT_SPACE_PARITY	2U /**< Space parity */
 #define XUARTPS_FORMAT_ODD_PARITY	1U /**< Odd parity */
 #define XUARTPS_FORMAT_EVEN_PARITY	0U /**< Even parity */
 
@@ -258,22 +271,28 @@ extern "C" {
  * @{
  */
 #define XUARTPS_EVENT_RECV_DATA			1U /**< Data receiving done */
-#define XUARTPS_EVENT_RECV_TOUT			2U /**< A receive timeout occurred */
-#define XUARTPS_EVENT_SENT_DATA			3U /**< Data transmission done */
-#define XUARTPS_EVENT_RECV_ERROR		4U /**< A receive error detected */
-#define XUARTPS_EVENT_MODEM				5U /**< Modem status changed */
-#define XUARTPS_EVENT_PARE_FRAME_BRKE	6U /**< A receive parity, frame, break
-											 *	error detected */
-#define XUARTPS_EVENT_RECV_ORERR		7U /**< A receive overrun error detected */
+/** A receive timeout occurred */
+#define XUARTPS_EVENT_RECV_TOUT			2U
+/** Data transmission done */
+#define XUARTPS_EVENT_SENT_DATA			3U
+/** A receive error detected */
+#define XUARTPS_EVENT_RECV_ERROR		4U
+/** Modem status changed */
+#define XUARTPS_EVENT_MODEM				5U
+/** A receive parity, frame, break error detected */
+#define XUARTPS_EVENT_PARE_FRAME_BRKE	6U
+/** A receive overrun error detected */
+#define XUARTPS_EVENT_RECV_ORERR		7U
 
 /** @} */
 
-#define TIMEOUT_VAL				1000000U /**< Wait for 1 sec in worst case */
+/** Wait for 1 sec in worst case */
+#define TIMEOUT_VAL				1000000U
 
 /**************************** Type Definitions ******************************/
 
 /**
- * This typedef contains configuration information for the device.
+ * @brief Holds configuration information for the device.
  */
 typedef struct {
 #ifndef SDT
@@ -284,19 +303,21 @@ typedef struct {
 	UINTPTR BaseAddress; /**< Base address of device (IPIF) */
 	u32 InputClockHz;/**< Input clock frequency */
 	s32 ModemPinsConnected; /**< Specifies whether modem pins are connected
-				 *  to MIO or FMIO */
+				 * to MIO or FMIO. */
 #if defined  (XCLOCKING) || defined(SDT)
 	u32 RefClk;             /**< Input clock frequency */
 #endif
 #if defined(SDT)
 	u32 IntrId;             /**< Bits[11:0] Interrupt-id Bits[15:12]
-				 * trigger type and level flags */
+				 * trigger type and level flags. */
 	UINTPTR IntrParent;     /**< Bit[0] Interrupt parent type Bit[64/32:1]
-				 * Parent base address */
+				 * Parent base address. */
 #endif
 } XUartPs_Config;
 
-/* Keep track of state information about a data buffer in the interrupt mode. */
+/**
+ * @brief Tracks state information about a data buffer in interrupt mode.
+ */
 typedef struct {
 	u8 *NextBytePtr;     /**< Pointer to next byte for transfer */
 	u32 RequestedBytes;  /**< Total bytes requested */
@@ -304,114 +325,112 @@ typedef struct {
 } XUartPsBuffer;
 
 /**
- * Keep track of data format setting of a device.
+ * @brief Tracks the data format setting of a device.
  */
 typedef struct {
-	u32 BaudRate;	/**< In bps, ie 1200 */
+	u32 BaudRate;	/**< In bps, for example 1200 */
 	u32 DataBits;	/**< Number of data bits */
 	u32 Parity;		/**< Parity */
 	u8 StopBits;	/**< Number of stop bits */
 } XUartPsFormat;
 
-/******************************************************************************/
+/*****************************************************************************/
 /**
- * This data type defines a handler that an application defines to communicate
- * with interrupt system to retrieve state information about an application.
+ * @brief Defines a handler that an application defines to communicate with
+ * the interrupt system to retrieve state information about an application.
  *
- * @param	CallBackRef is a callback reference passed in by the upper layer
- *		when setting the handler, and is passed back to the upper layer
- *		when the handler is called. It is used to find the device driver
- *		instance.
- * @param	Event contains one of the event constants indicating events that
- *		have occurred.
- * @param	EventData contains the number of bytes sent or received at the
- *		time of the call for send and receive events and contains the
- *		modem status for modem events.
+ * @param[in]   CallBackRef Callback reference passed in by the upper layer
+ *              when setting the handler, and is passed back to the upper layer
+ *              when the handler is called. It is used to find the device driver
+ *              instance.
+ * @param[in]   Event One of the event constants indicating events that
+ *              have occurred.
+ * @param[in]   EventData Number of bytes sent or received at the
+ *              time of the call for send and receive events and contains the
+ *              modem status for modem events.
  *
  ******************************************************************************/
 typedef void (*XUartPs_Handler) (void *CallBackRef, u32 Event,
 				  u32 EventData);
 
 /**
- * The XUartPs driver instance data structure. A pointer to an instance data
- * structure is passed around by functions to refer to a specific driver
- * instance.
+ * @brief Represents the XUartPs driver instance data structure.
+ *
+ * A pointer to an instance data structure is passed around by functions
+ * to refer to a specific driver instance.
  */
 typedef struct {
-	XUartPs_Config Config;	/* Configuration data structure */
-	u32 InputClockHz;	/* Input clock frequency */
-	u32 IsReady;		/* Device is initialized and ready */
-	u32 BaudRate;		/* Current baud rate */
+	XUartPs_Config Config;	/**< Configuration data structure. */
+	u32 InputClockHz;	/**< Input clock frequency. */
+	u32 IsReady;		/**< Device is initialized and ready. */
+	u32 BaudRate;		/**< Current baud rate. */
 
-	XUartPsBuffer SendBuffer;
-	XUartPsBuffer ReceiveBuffer;
+	XUartPsBuffer SendBuffer;   /**< Transmit buffer. */
+	XUartPsBuffer ReceiveBuffer; /**< Receive buffer. */
 
-	XUartPs_Handler Handler;
-	void *CallBackRef;	/* Callback reference for event handler */
-	u32 Platform;
-	u8 is_rxbs_error;
+	XUartPs_Handler Handler;    /**< Interrupt callback handler. */
+	void *CallBackRef;	/**< Callback reference for event handler. */
+	u32 Platform;		/**< Platform identifier. */
+	u8 is_rxbs_error;	/**< RX byte status error flag. */
 } XUartPs;
 
 
 /***************** Macros (Inline Functions) Definitions ********************/
 
-/****************************************************************************/
+/*****************************************************************************/
 /**
-* Get the UART Channel Status Register.
+* @brief Gets the UART Channel Status Register.
 *
-* @param	InstancePtr is a pointer to the XUartPs instance.
+* @param[in]   InstancePtr Pointer to the XUartPs instance.
 *
-* @return	The value read from the register.
+* @return      The value read from the register.
 *
-* @note		C-Style signature:
-*		u16 XUartPs_GetChannelStatus(XUartPs *InstancePtr)
+* @note        C-Style signature:
+*              u16 XUartPs_GetChannelStatus(XUartPs *InstancePtr)
 *
 ******************************************************************************/
 #define XUartPs_GetChannelStatus(InstancePtr)   \
 	Xil_In32(((InstancePtr)->Config.BaseAddress) + (u32)XUARTPS_SR_OFFSET)
 
-/****************************************************************************/
+/*****************************************************************************/
 /**
-* Get the UART Mode Control Register.
+* @brief Gets the UART Mode Control Register.
 *
-* @param	InstancePtr is a pointer to the XUartPs instance.
+* @param[in]   InstancePtr Pointer to the XUartPs instance.
 *
-* @return	The value read from the register.
+* @return      The value read from the register.
 *
-* @note		C-Style signature:
-*		u32 XUartPs_GetControl(XUartPs *InstancePtr)
+* @note        C-Style signature:
+*              u32 XUartPs_GetModeControl(XUartPs *InstancePtr)
 *
 ******************************************************************************/
 #define XUartPs_GetModeControl(InstancePtr)  \
 	Xil_In32(((InstancePtr)->Config.BaseAddress) + (u32)XUARTPS_CR_OFFSET)
 
-/****************************************************************************/
+/*****************************************************************************/
 /**
-* Set the UART Mode Control Register.
+* @brief Sets the UART Mode Control Register.
 *
-* @param	InstancePtr is a pointer to the XUartPs instance.
-* @param	RegisterValue is the value to be written to the register.
+* @param[in]   InstancePtr Pointer to the XUartPs instance.
+* @param[in]   RegisterValue Value to write to the register.
 *
-* @return	None.
-*
-* @note		C-Style signature:
-*	void XUartPs_SetModeControl(XUartPs *InstancePtr, u16 RegisterValue)
+* @note        C-Style signature:
+*              void XUartPs_SetModeControl(XUartPs *InstancePtr,
+*              u16 RegisterValue)
 *
 ******************************************************************************/
 #define XUartPs_SetModeControl(InstancePtr, RegisterValue) \
    Xil_Out32(((InstancePtr)->Config.BaseAddress) + (u32)XUARTPS_CR_OFFSET, \
 			(u32)(RegisterValue))
 
-/****************************************************************************/
+/*****************************************************************************/
 /**
-* Enable the transmitter and receiver of the UART.
+* @brief Enables the transmitter and receiver of the UART.
 *
-* @param	InstancePtr is a pointer to the XUartPs instance.
+* @param[in]   InstancePtr Pointer to the XUartPs instance.
 *
-* @return	None.
-*
-* @note		C-Style signature:
-*		void XUartPs_EnableUart(XUartPs *InstancePtr)
+* @note        C-Style signature:
+*              void XUartPs_EnableUart(XUartPs *InstancePtr)
 *
 ******************************************************************************/
 #define XUartPs_EnableUart(InstancePtr) \
@@ -419,16 +438,14 @@ typedef struct {
 	  ((Xil_In32((InstancePtr)->Config.BaseAddress + (u32)XUARTPS_CR_OFFSET) & \
 	  (u32)(~XUARTPS_CR_EN_DIS_MASK)) | ((u32)XUARTPS_CR_RX_EN | (u32)XUARTPS_CR_TX_EN)))
 
-/****************************************************************************/
+/*****************************************************************************/
 /**
-* Disable the transmitter and receiver of the UART.
+* @brief Disables the transmitter and receiver of the UART.
 *
-* @param	InstancePtr is a pointer to the XUartPs instance.
+* @param[in]   InstancePtr Pointer to the XUartPs instance.
 *
-* @return	None.
-*
-* @note		C-Style signature:
-*		void XUartPs_DisableUart(XUartPs *InstancePtr)
+* @note        C-Style signature:
+*              void XUartPs_DisableUart(XUartPs *InstancePtr)
 *
 ******************************************************************************/
 #define XUartPs_DisableUart(InstancePtr) \
@@ -436,18 +453,18 @@ typedef struct {
 	  (((Xil_In32((InstancePtr)->Config.BaseAddress + (u32)XUARTPS_CR_OFFSET)) & \
 	  (u32)(~XUARTPS_CR_EN_DIS_MASK)) | ((u32)XUARTPS_CR_RX_DIS | (u32)XUARTPS_CR_TX_DIS)))
 
-/****************************************************************************/
+/*****************************************************************************/
 /**
-* Determine if the transmitter FIFO is empty.
+* @brief Determines if the transmitter FIFO is empty.
 *
-* @param	InstancePtr is a pointer to the XUartPs instance.
+* @param[in]   InstancePtr Pointer to the XUartPs instance.
 *
 * @return
-*		- TRUE if a byte can be sent
-*		- FALSE if the Transmitter Fifo is not empty
+*              - TRUE if a byte can be sent.
+*              - FALSE if the Transmitter Fifo is not empty.
 *
-* @note		C-Style signature:
-*		u32 XUartPs_IsTransmitEmpty(XUartPs InstancePtr)
+* @note        C-Style signature:
+*              u32 XUartPs_IsTransmitEmpty(XUartPs *InstancePtr)
 *
 ******************************************************************************/
 #define XUartPs_IsTransmitEmpty(InstancePtr)				\
@@ -522,5 +539,5 @@ s32 XUartPs_SelfTest(XUartPs *InstancePtr);
 }
 #endif
 
-#endif /* end of protection macro */
+#endif
 /** @} */

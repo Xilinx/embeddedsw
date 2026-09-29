@@ -4,14 +4,12 @@
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
-/****************************************************************************/
+/*****************************************************************************/
 /**
 *
 * @file xuartps_options.c
-* @addtogroup uartps Overview
-* @{
 *
-* The implementation of the options functions for the XUartPs driver.
+* @brief Implements the options functions for the XUartPs driver.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -24,10 +22,15 @@
 * 3.00  kvn    02/13/15 Modified code for MISRA-C:2012 compliance.
 * 3.2   rk     07/20/16 Modified the logic for transmission break bit set
 * 3.19  vn     08/26/26 Fix Doxygen warnings
+* 3.19  vn   09/10/26 Align Doxygen comments with AMD standards
 *
 * </pre>
 *
-*****************************************************************************/
+******************************************************************************/
+
+/** @addtogroup uartps Overview
+ * @{
+ */
 
 /***************************** Include Files ********************************/
 
@@ -40,17 +43,21 @@
 /***************** Macros (Inline Functions) Definitions ********************/
 
 /************************** Variable Definitions ****************************/
-/*
+/**
+ * @brief Maps an option to its register offset and bit mask.
+ *
  * The following data type is a map from an option to the offset in the
  * register to which it belongs as well as its bit mask in that register.
  */
 typedef struct {
-	u16 Option;
-	u16 RegisterOffset;
-	u32 Mask;
+	u16 Option;		/**< Option bit mask. */
+	u16 RegisterOffset;	/**< Register offset for this option. */
+	u32 Mask;		/**< Bit mask within the register. */
 } Mapping;
 
-/*
+/**
+ * @brief Option-to-register mapping table for get/set operations.
+ *
  * Create the table which contains options which are to be processed to get/set
  * the options. These options are table driven to allow easy maintenance and
  * expansion of the options.
@@ -69,29 +76,26 @@ static Mapping OptionsTable[] = {
 	{XUARTPS_OPTION_SET_FCM, XUARTPS_MODEMCR_OFFSET, XUARTPS_MODEMCR_FCM}
 };
 
-/* Create a constant for the number of entries in the table */
-
+/** @brief Number of entries in the options table. */
 #define XUARTPS_NUM_OPTIONS	  (sizeof(OptionsTable) / sizeof(Mapping))
 
 /************************** Function Prototypes *****************************/
 
-/****************************************************************************/
+/*****************************************************************************/
 /**
 *
-* Gets the options for the specified driver instance. The options are
-* implemented as bit masks such that multiple options may be enabled or
-* disabled simultaneously.
+* @brief Gets the options for the specified driver instance.
 *
-* @param	InstancePtr is a pointer to the XUartPs instance.
+* The options are implemented as bit masks such that multiple options may be
+* enabled or disabled simultaneously.
+*
+* @param[in]   InstancePtr Pointer to the XUartPs instance.
 *
 * @return
-*
 * The current options for the UART. The options are bit masks that are
 * contained in the file xuartps.h and named XUARTPS_OPTION_*.
 *
-* @note		None.
-*
-*****************************************************************************/
+******************************************************************************/
 u16 XUartPs_GetOptions(XUartPs *InstancePtr)
 {
 	u16 Options = 0U;
@@ -125,25 +129,24 @@ u16 XUartPs_GetOptions(XUartPs *InstancePtr)
 	return Options;
 }
 
-/****************************************************************************/
+/*****************************************************************************/
 /**
 *
-* Sets the options for the specified driver instance. The options are
-* implemented as bit masks such that multiple options may be enabled or
-* disabled simultaneously.
+* @brief Sets the options for the specified driver instance.
+*
+* The options are implemented as bit masks such that multiple options may be
+* enabled or disabled simultaneously.
 *
 * The GetOptions function may be called to retrieve the currently enabled
 * options. The result is ORed in the desired new settings to be enabled and
 * ANDed with the inverse to clear the settings to be disabled. The resulting
 * value is then used as the options for the SetOption function call.
 *
-* @param	InstancePtr is a pointer to the XUartPs instance.
-* @param	Options contains the options to be set which are bit masks
-*		contained in the file xuartps.h and named XUARTPS_OPTION_*.
+* @param[in]   InstancePtr Pointer to the XUartPs instance.
+* @param[in]   Options Options to set which are bit masks
+*               contained in the file xuartps.h and named XUARTPS_OPTION_*.
 *
-* @note		None.
-*
-*****************************************************************************/
+******************************************************************************/
 void XUartPs_SetOptions(XUartPs *InstancePtr, u16 Options)
 {
 	u32 Index;
@@ -190,21 +193,20 @@ void XUartPs_SetOptions(XUartPs *InstancePtr, u16 Options)
 
 }
 
-/****************************************************************************/
+/*****************************************************************************/
 /**
 *
-* This function gets the receive FIFO trigger level. The receive trigger
-* level indicates the number of bytes in the receive FIFO that cause a receive
-* data event (interrupt) to be generated.
+* @brief Gets the receive FIFO trigger level.
 *
-* @param	InstancePtr is a pointer to the XUartPs instance.
+* The receive trigger level indicates the number of bytes in the receive FIFO
+* that cause a receive data event (interrupt) to be generated.
 *
-* @return	The current receive FIFO trigger level. This is a value
-*		from 0-31.
+* @param[in]   InstancePtr Pointer to the XUartPs instance.
 *
-* @note		None.
+* @return      The current receive FIFO trigger level. This is a value
+*              from 0-31.
 *
-*****************************************************************************/
+******************************************************************************/
 u8 XUartPs_GetFifoThreshold(XUartPs *InstancePtr)
 {
 	u8 RtrigRegister;
@@ -226,19 +228,18 @@ u8 XUartPs_GetFifoThreshold(XUartPs *InstancePtr)
 	return RtrigRegister;
 }
 
-/****************************************************************************/
+/*****************************************************************************/
 /**
 *
-* This functions sets the receive FIFO trigger level. The receive trigger
-* level specifies the number of bytes in the receive FIFO that cause a receive
-* data event (interrupt) to be generated.
+* @brief Sets the receive FIFO trigger level.
 *
-* @param	InstancePtr is a pointer to the XUartPs instance.
-* @param	TriggerLevel contains the trigger level to set.
+* The receive trigger level specifies the number of bytes in the receive FIFO
+* that cause a receive data event (interrupt) to be generated.
 *
-* @note		None.
+* @param[in]   InstancePtr Pointer to the XUartPs instance.
+* @param[in]   TriggerLevel Trigger level to set.
 *
-*****************************************************************************/
+******************************************************************************/
 void XUartPs_SetFifoThreshold(XUartPs *InstancePtr, u8 TriggerLevel)
 {
 	u32 RtrigRegister;
@@ -259,28 +260,27 @@ void XUartPs_SetFifoThreshold(XUartPs *InstancePtr, u8 TriggerLevel)
 
 }
 
-/****************************************************************************/
+/*****************************************************************************/
 /**
 *
-* This function gets the modem status from the specified UART. The modem
-* status indicates any changes of the modem signals. This function allows
-* the modem status to be read in a polled mode. The modem status is updated
-* whenever it is read such that reading it twice may not yield the same
-* results.
+* @brief Gets the modem status from the specified UART.
 *
-* @param	InstancePtr is a pointer to the XUartPs instance.
+* The modem status indicates any changes of the modem signals. This function
+* allows the modem status to be read in a polled mode. The modem status is
+* updated whenever it is read such that reading it twice may not yield the
+* same results.
+*
+* @param[in]   InstancePtr Pointer to the XUartPs instance.
 *
 * @return
-*
 * The modem status which are bit masks that are contained in the file
 * xuartps.h and named XUARTPS_MODEM_*.
 *
 * @note
-*
 * The bit masks used for the modem status are the exact bits of the modem
 * status register with no abstraction.
 *
-*****************************************************************************/
+******************************************************************************/
 u16 XUartPs_GetModemStatus(XUartPs *InstancePtr)
 {
 	u32 ModemStatusRegister;
@@ -297,20 +297,18 @@ u16 XUartPs_GetModemStatus(XUartPs *InstancePtr)
 	return TmpRegister;
 }
 
-/****************************************************************************/
+/*****************************************************************************/
 /**
 *
-* This function determines if the specified UART is sending data.
+* @brief Determines if the specified UART is sending data.
 *
-* @param	InstancePtr is a pointer to the XUartPs instance.
+* @param[in]   InstancePtr Pointer to the XUartPs instance.
 *
 * @return
-*		- TRUE if the UART is sending data
-*		- FALSE if UART is not sending data
+*              - TRUE if the UART is sending data.
+*              - FALSE if UART is not sending data.
 *
-* @note		None.
-*
-*****************************************************************************/
+******************************************************************************/
 u32 XUartPs_IsSending(XUartPs *InstancePtr)
 {
 	u32 ChanStatRegister;
@@ -344,23 +342,21 @@ u32 XUartPs_IsSending(XUartPs *InstancePtr)
 	return ChanTmpSRegister;
 }
 
-/****************************************************************************/
+/*****************************************************************************/
 /**
 *
-* This function gets the operational mode of the UART. The UART can operate
-* in one of four modes: Normal, Local Loopback, Remote Loopback, or automatic
-* echo.
+* @brief Gets the operational mode of the UART.
 *
-* @param	InstancePtr is a pointer to the XUartPs instance.
+* The UART can operate in one of four modes: Normal, Local Loopback,
+* Remote Loopback, or automatic echo.
+*
+* @param[in]   InstancePtr Pointer to the XUartPs instance.
 *
 * @return
-*
 * The operational mode is specified by constants defined in xuartps.h. The
-* constants are named XUARTPS_OPER_MODE_*
+* constants are named XUARTPS_OPER_MODE_*.
 *
-* @note		None.
-*
-*****************************************************************************/
+******************************************************************************/
 u8 XUartPs_GetOperMode(XUartPs *InstancePtr)
 {
 	u32 ModeRegister;
@@ -399,19 +395,18 @@ u8 XUartPs_GetOperMode(XUartPs *InstancePtr)
 	return OperMode;
 }
 
-/****************************************************************************/
+/*****************************************************************************/
 /**
 *
-* This function sets the operational mode of the UART. The UART can operate
-* in one of four modes: Normal, Local Loopback, Remote Loopback, or automatic
-* echo.
+* @brief Sets the operational mode of the UART.
 *
-* @param	InstancePtr is a pointer to the XUartPs instance.
-* @param	OperationMode is the mode of the UART.
+* The UART can operate in one of four modes: Normal, Local Loopback,
+* Remote Loopback, or automatic echo.
 *
-* @note		None.
+* @param[in]   InstancePtr Pointer to the XUartPs instance.
+* @param[in]   OperationMode Mode of the UART.
 *
-*****************************************************************************/
+******************************************************************************/
 void XUartPs_SetOperMode(XUartPs *InstancePtr, u8 OperationMode)
 {
 	u32 ModeRegister;
@@ -452,24 +447,22 @@ void XUartPs_SetOperMode(XUartPs *InstancePtr, u8 OperationMode)
 
 }
 
-/****************************************************************************/
+/*****************************************************************************/
 /**
 *
-* This function sets the Flow Delay.
-* 0 - 3: Flow delay inactive
+* @brief Gets the Flow Delay setting.
+*
+* 0 - 3: Flow delay inactive.
 * 4 - 32: If Flow Control mode is enabled, UART_rtsN is deactivated when the
 * receive FIFO fills to this level.
 *
-* @param	InstancePtr is a pointer to the XUartPs instance.
+* @param[in]   InstancePtr Pointer to the XUartPs instance.
 *
 * @return
-*
 * The Flow Delay is specified by constants defined in xuartps_hw.h. The
-* constants are named XUARTPS_FLOWDEL*
+* constants are named XUARTPS_FLOWDEL*.
 *
-* @note		None.
-*
-*****************************************************************************/
+******************************************************************************/
 u8 XUartPs_GetFlowDelay(XUartPs *InstancePtr)
 {
 	u32 FdelTmpRegister;
@@ -487,20 +480,19 @@ u8 XUartPs_GetFlowDelay(XUartPs *InstancePtr)
 	return  FdelTmpRegister;
 }
 
-/****************************************************************************/
+/*****************************************************************************/
 /**
 *
-* This function sets the Flow Delay.
-* 0 - 3: Flow delay inactive
+* @brief Sets the Flow Delay.
+*
+* 0 - 3: Flow delay inactive.
 * 4 - 63: If Flow Control mode is enabled, UART_rtsN is deactivated when the
 * receive FIFO fills to this level.
 *
-* @param	InstancePtr is a pointer to the XUartPs instance.
-* @param	FlowDelayValue is the Setting for the flow delay.
+* @param[in]   InstancePtr Pointer to the XUartPs instance.
+* @param[in]   FlowDelayValue Setting for the flow delay.
 *
-* @note		None.
-*
-*****************************************************************************/
+******************************************************************************/
 void XUartPs_SetFlowDelay(XUartPs *InstancePtr, u8 FlowDelayValue)
 {
 	u32 FdelRegister;
@@ -521,18 +513,16 @@ void XUartPs_SetFlowDelay(XUartPs *InstancePtr, u8 FlowDelayValue)
 
 }
 
-/****************************************************************************/
+/*****************************************************************************/
 /**
 *
-* This function gets the Receive Timeout of the UART.
+* @brief Gets the Receive Timeout of the UART.
 *
-* @param	InstancePtr is a pointer to the XUartPs instance.
+* @param[in]   InstancePtr Pointer to the XUartPs instance.
 *
-* @return	The current setting for receive time out.
+* @return      The current setting for receive time out.
 *
-* @note		None.
-*
-*****************************************************************************/
+******************************************************************************/
 u8 XUartPs_GetRecvTimeout(XUartPs *InstancePtr)
 {
 	u32 RtoRegister;
@@ -551,20 +541,19 @@ u8 XUartPs_GetRecvTimeout(XUartPs *InstancePtr)
 	return RtoRTmpRegister;
 }
 
-/****************************************************************************/
+/*****************************************************************************/
 /**
 *
-* This function sets the Receive Timeout of the UART.
+* @brief Sets the Receive Timeout of the UART.
 *
-* @param	InstancePtr is a pointer to the XUartPs instance.
-* @param	RecvTimeout setting allows the UART to detect an idle connection
-*		on the receiver data line.
-*		Timeout duration = RecvTimeout x 4 x Bit Period. 0 disables the
-*		timeout function.
+* @param[in]   InstancePtr Pointer to the XUartPs instance.
+* @param[in]   RecvTimeout Setting that allows the UART to detect an idle
+*               connection
+*               on the receiver data line.
+*               Timeout duration = RecvTimeout x 4 x Bit Period. 0 disables the
+*               timeout function.
 *
-* @note		None.
-*
-*****************************************************************************/
+******************************************************************************/
 void XUartPs_SetRecvTimeout(XUartPs *InstancePtr, u8 RecvTimeout)
 {
 	u32 RtoRegister;
@@ -587,34 +576,34 @@ void XUartPs_SetRecvTimeout(XUartPs *InstancePtr, u8 RecvTimeout)
 			   (RtoRegister | XUARTPS_CR_TORST));
 
 }
-/****************************************************************************/
+/*****************************************************************************/
 /**
 *
-* Sets the data format for the device. The data format includes the
-* baud rate, number of data bits, number of stop bits, and parity. It is the
-* caller's responsibility to ensure that the UART is not sending or receiving
-* data when this function is called.
+* @brief Sets the data format for the device.
 *
-* @param	InstancePtr is a pointer to the XUartPs instance.
-* @param	FormatPtr is a pointer to a format structure containing the data
-*		format to be set.
+* The data format includes the baud rate, number of data bits, number of stop
+* bits, and parity. It is the caller's responsibility to ensure that the UART
+* is not sending or receiving data when this function is called.
+*
+* @param[in]   InstancePtr Pointer to the XUartPs instance.
+* @param[in]   FormatPtr Pointer to a format structure containing the data
+*               format to be set.
 *
 * @return
-*		- XST_SUCCESS if the data format was successfully set.
-*		- XST_UART_BAUD_ERROR indicates the baud rate could not be
-*		set because of the amount of error with the baud rate and
-*		the input clock frequency.
-*		- XST_INVALID_PARAM if one of the parameters was not valid.
+*              - XST_SUCCESS if the data format was successfully set.
+*              - XST_UART_BAUD_ERROR indicates the baud rate could not be
+*              set because of the amount of error with the baud rate and
+*              the input clock frequency.
+*              - XST_INVALID_PARAM if one of the parameters was not valid.
 *
 * @note
-*
 * The data types in the format type, data bits and parity, are 32 bit fields
 * to prevent a compiler warning.
-* The asserts in this function will cause a warning if these fields are
+* The asserts in this function cause a warning if these fields are
 * bytes.
 * <br><br>
 *
-*****************************************************************************/
+******************************************************************************/
 s32 XUartPs_SetDataFormat(XUartPs *InstancePtr,
 			XUartPsFormat * FormatPtr)
 {
@@ -679,20 +668,19 @@ s32 XUartPs_SetDataFormat(XUartPs *InstancePtr,
 	return Status;
 }
 
-/****************************************************************************/
+/*****************************************************************************/
 /**
 *
-* Gets the data format for the specified UART. The data format includes the
-* baud rate, number of data bits, number of stop bits, and parity.
+* @brief Gets the data format for the specified UART.
 *
-* @param	InstancePtr is a pointer to the XUartPs instance.
-* @param	FormatPtr is a pointer to a format structure that will contain
-*		the data format after this call completes.
+* The data format includes the baud rate, number of data bits, number of stop
+* bits, and parity.
 *
-* @note		None.
+* @param[in]   InstancePtr Pointer to the XUartPs instance.
+* @param[out]  FormatPtr Pointer to a format structure that contains
+*               the data format after this call completes.
 *
-*
-*****************************************************************************/
+******************************************************************************/
 void XUartPs_GetDataFormat(XUartPs *InstancePtr, XUartPsFormat * FormatPtr)
 {
 	u32 ModeRegister;

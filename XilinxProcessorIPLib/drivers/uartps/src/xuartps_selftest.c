@@ -1,17 +1,15 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
-/****************************************************************************/
+/*****************************************************************************/
 /**
 *
 * @file xuartps_selftest.c
-* @addtogroup uartps Overview
-* @{
 *
-* This file contains the self-test functions for the XUartPs driver.
+* @brief Implements the self-test functions for the XUartPs driver.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -22,9 +20,14 @@
 * 3.00  kvn    02/13/15 Modified code for MISRA-C:2012 compliance.
 * 3.9   sd     02/06/20 Added clock support
 * 3.12	gm     11/04/22 Added timeout support using Xil_WaitForEvent
+* 3.19  vn   09/10/26 Align Doxygen comments with AMD standards
 * </pre>
 *
 ******************************************************************************/
+
+/** @addtogroup uartps Overview
+ * @{
+ */
 
 /***************************** Include Files *********************************/
 
@@ -39,7 +42,7 @@
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
-#define XUARTPS_TOTAL_BYTES (u8)32
+#define XUARTPS_TOTAL_BYTES (u8)32 /**< Total bytes for self test. */
 
 /************************** Variable Definitions *****************************/
 
@@ -49,25 +52,24 @@ static u8 ReturnString[XUARTPS_TOTAL_BYTES];
 /************************** Function Prototypes ******************************/
 
 
-/****************************************************************************/
+/*****************************************************************************/
 /**
 *
-* This function runs a self-test on the driver and hardware device. This self
-* test performs a local loopback and verifies data can be sent and received.
+* @brief Runs a self-test on the driver and hardware device.
 *
+* Performs a local loopback and verifies data can be sent and received.
 * The time for this test is proportional to the baud rate that has been set
 * prior to calling this function.
 *
 * The mode and control registers are restored before return.
 *
-* @param	InstancePtr is a pointer to the XUartPs instance
+* @param[in]   InstancePtr Pointer to the XUartPs instance.
 *
 * @return
-*		 - XST_SUCCESS if the test was successful
-*		- XST_UART_TEST_FAIL if the test failed looping back the data
+*              - XST_SUCCESS if the test was successful.
+*              - XST_UART_TEST_FAIL if the test failed looping back the data.
 *
 * @note
-*
 * This function can hang if the hardware is not functioning properly.
 *
 ******************************************************************************/

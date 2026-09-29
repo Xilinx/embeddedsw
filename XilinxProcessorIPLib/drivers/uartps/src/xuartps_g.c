@@ -1,18 +1,18 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
-/****************************************************************************/
+/*****************************************************************************/
 /**
 *
 * @file xuartps_g.c
-* @addtogroup uartps Overview
-* @{
 *
-* This file contains a configuration table where each entry is a configuration
-* structure for an XUartPs device in the system.
+* @brief Defines the configuration table for XUartPs devices in the system.
+*
+* Each entry in the configuration table is a configuration structure
+* for an XUartPs device in the system.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -22,9 +22,14 @@
 * 1.00  drg/jz 05/13/08 First Release
 * 2.00  hk     22/01/14 Added check for selecting uart0 instance.
 * 3.00  kvn    02/13/15 Modified code for MISRA-C:2012 compliance.
+* 3.19  vn   09/10/26 Align Doxygen comments with AMD standards
 * </pre>
 *
 ******************************************************************************/
+
+/** @addtogroup uartps Overview
+ * @{
+ */
 
 /***************************** Include Files *********************************/
 
@@ -46,6 +51,8 @@
 /************************** Variable Prototypes ******************************/
 
 /**
+ * @brief Defines the configuration table for XUartPs devices.
+ *
  * Each XUartPs device in the system has an entry in this table.
  */
 XUartPs_Config XUartPs_ConfigTable[XPAR_XUARTPS_NUM_INSTANCES] = {

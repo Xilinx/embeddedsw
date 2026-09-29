@@ -4,14 +4,12 @@
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
-/****************************************************************************/
+/*****************************************************************************/
 /**
 *
 * @file xuartps_hw.c
-* @addtogroup uartps Overview
-* @{
 *
-*
+* @brief Implements the XUartPs low-level hardware interface functions.
 * <pre>
 * MODIFICATION HISTORY:
 *
@@ -23,9 +21,14 @@
 * 4.00  sd     02/02/24 Added wait for transmission done function
 * 3.18  vlt    01/27/26 Fixed codespell issues
 * 3.19  vn     08/26/26 Fix Doxygen warnings
+* 3.19  vn   09/10/26 Align Doxygen comments with AMD standards
 * </pre>
 *
-*****************************************************************************/
+******************************************************************************/
+
+/** @addtogroup uartps Overview
+ * @{
+ */
 
 /***************************** Include Files ********************************/
 #include "xuartps_hw.h"
@@ -41,18 +44,17 @@
 
 /************************** Variable Definitions *****************************/
 
-/****************************************************************************/
+/*****************************************************************************/
 /**
 *
-* This function sends one byte using the device. This function operates in
-* polled mode and blocks until the data has been put into the TX FIFO register.
+* @brief Sends one byte using the device in polled mode.
 *
-* @param	BaseAddress contains the base address of the device.
-* @param	Data contains the byte to be sent.
+* Blocks until the data has been put into the TX FIFO register.
 *
-* @note		None.
+* @param[in]   BaseAddress Base address of the device.
+* @param[in]   Data Byte to send.
 *
-*****************************************************************************/
+******************************************************************************/
 void XUartPs_SendByte(u32 BaseAddress, u8 Data)
 {
 	/* Wait until there is space in TX FIFO */
@@ -64,19 +66,18 @@ void XUartPs_SendByte(u32 BaseAddress, u8 Data)
 	XUartPs_WriteReg(BaseAddress, XUARTPS_FIFO_OFFSET, (u32)Data);
 }
 
-/****************************************************************************/
+/*****************************************************************************/
 /**
 *
-* This function receives a byte from the device. It operates in polled mode
-* and blocks until a byte has received.
+* @brief Receives a byte from the device in polled mode.
 *
-* @param	BaseAddress contains the base address of the device.
+* Blocks until a byte has been received.
 *
-* @return	The data byte received.
+* @param[in]   BaseAddress Base address of the device.
 *
-* @note		None.
+* @return      The data byte received.
 *
-*****************************************************************************/
+******************************************************************************/
 u8 XUartPs_RecvByte(u32 BaseAddress)
 {
 	u32 RecievedByte;
@@ -89,16 +90,14 @@ u8 XUartPs_RecvByte(u32 BaseAddress)
 	return (u8)RecievedByte;
 }
 
-/****************************************************************************/
+/*****************************************************************************/
 /**
 *
-* This function resets UART
+* @brief Resets the UART.
 *
-* @param	BaseAddress contains the base address of the device.
+* @param[in]   BaseAddress Base address of the device.
 *
-* @note		None.
-*
-*****************************************************************************/
+******************************************************************************/
 void XUartPs_ResetHw(u32 BaseAddress)
 {
 
@@ -152,16 +151,14 @@ void XUartPs_ResetHw(u32 BaseAddress)
 
 }
 
-/****************************************************************************/
+/*****************************************************************************/
 /**
 *
-* This function waits for transmission to complete
+* @brief Waits for transmission to complete.
 *
-* @param	BaseAddress contains the base address of the device.
+* @param[in]   BaseAddress Base address of the device.
 *
-* @note		None.
-*
-*****************************************************************************/
+******************************************************************************/
 void XUartPs_WaitTransmitDone(u32 BaseAddress)
 {
 	/* Wait until Transmitter FIFO is empty */
@@ -177,10 +174,26 @@ void XUartPs_WaitTransmitDone(u32 BaseAddress)
 
 #ifdef SDT
 #ifdef XPAR_STDIN_IS_UARTPS
+/*****************************************************************************/
+/**
+*
+* @brief Sends a character to the standard output UART.
+*
+* @param[in]   c Character to send.
+*
+******************************************************************************/
 void outbyte(char c) {
          XUartPs_SendByte(STDOUT_BASEADDRESS, c);
 }
 
+/*****************************************************************************/
+/**
+*
+* @brief Receives a character from the standard input UART.
+*
+* @return      Character received.
+*
+******************************************************************************/
 char inbyte(void) {
          return XUartPs_RecvByte(STDIN_BASEADDRESS);
 }

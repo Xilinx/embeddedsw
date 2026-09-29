@@ -4,14 +4,12 @@
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
-/****************************************************************************/
+/*****************************************************************************/
 /**
 *
 * @file xuartps_intr.c
-* @addtogroup uartps Overview
-* @{
 *
-* This file contains the functions for interrupt handling
+* @brief Implements the interrupt handling functions for the XUartPs driver.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -23,9 +21,14 @@
 * 3.1	kvn    04/10/15 Modified code for latest RTL changes.
 * 3.7   aru    08/17/18 Resolved MISRA-C mandatory violations.(CR#1007755)
 * 3.19  vn     08/26/26 Fix Doxygen warnings
+* 3.19  vn   09/10/26 Align Doxygen comments with AMD standards
 * </pre>
 *
-*****************************************************************************/
+******************************************************************************/
+
+/** @addtogroup uartps Overview
+ * @{
+ */
 
 /***************************** Include Files ********************************/
 
@@ -52,22 +55,22 @@ extern u32 XUartPs_SendBuffer(XUartPs *InstancePtr);
 
 /************************** Variable Definitions ****************************/
 
+/** @cond INTERNAL */
 typedef void (*Handler)(XUartPs *InstancePtr);
+/** @endcond */
 
-/****************************************************************************/
+/*****************************************************************************/
 /**
 *
-* This function gets the interrupt mask
+* @brief Gets the interrupt mask.
 *
-* @param	InstancePtr is a pointer to the XUartPs instance.
+* @param[in]   InstancePtr Pointer to the XUartPs instance.
 *
 * @return
-*		The current interrupt mask. The mask indicates which interrupts
-*		are enabled.
+*              The current interrupt mask. The mask indicates which interrupts
+*              are enabled.
 *
-* @note		None.
-*
-*****************************************************************************/
+******************************************************************************/
 u32 XUartPs_GetInterruptMask(XUartPs *InstancePtr)
 {
 	/* Assert validates the input argument */
@@ -78,18 +81,16 @@ u32 XUartPs_GetInterruptMask(XUartPs *InstancePtr)
 			 XUARTPS_IMR_OFFSET));
 }
 
-/****************************************************************************/
+/*****************************************************************************/
 /**
 *
-* This function sets the interrupt mask.
+* @brief Sets the interrupt mask.
 *
-* @param	InstancePtr is a pointer to the XUartPs instance
-* @param	Mask contains the interrupts to be enabled or disabled.
-*		A '1' enables an interrupt, and a '0' disables.
+* @param[in]   InstancePtr Pointer to the XUartPs instance.
+* @param[in]   Mask Interrupts to enable or disable.
+*               A '1' enables an interrupt, and a '0' disables.
 *
-* @note		None.
-*
-*****************************************************************************/
+******************************************************************************/
 void XUartPs_SetInterruptMask(XUartPs *InstancePtr, u32 Mask)
 {
 	u32 TempMask = Mask;
@@ -108,23 +109,23 @@ void XUartPs_SetInterruptMask(XUartPs *InstancePtr, u32 Mask)
 
 }
 
-/****************************************************************************/
+/*****************************************************************************/
 /**
 *
-* This function sets the handler that will be called when an event (interrupt)
-* occurs that needs application's attention.
+* @brief Sets the handler for an event that needs the application's attention.
 *
-* @param	InstancePtr is a pointer to the XUartPs instance
-* @param	FuncPtr is the pointer to the callback function.
-* @param	CallBackRef is the upper layer callback reference passed back
-*		when the callback function is invoked.
+* The driver calls the handler when an event (interrupt) occurs.
+*
+* @param[in,out] InstancePtr Pointer to the XUartPs instance.
+* @param[in]     FuncPtr Pointer to the callback function.
+* @param[in]     CallBackRef Upper layer callback reference passed back
+*                 when the callback function is invoked.
 *
 * @note
-*
-* There is no assert on the CallBackRef since the driver doesn't know what it
+* There is no assert on the CallBackRef since the driver does not know what it
 * is (nor should it)
 *
-*****************************************************************************/
+******************************************************************************/
 void XUartPs_SetHandler(XUartPs *InstancePtr, XUartPs_Handler FuncPtr,
 		 void *CallBackRef)
 {
@@ -140,16 +141,15 @@ void XUartPs_SetHandler(XUartPs *InstancePtr, XUartPs_Handler FuncPtr,
 	InstancePtr->CallBackRef = CallBackRef;
 }
 
-/****************************************************************************/
+/*****************************************************************************/
 /**
 *
-* This function is the interrupt handler for the driver.
-* It must be connected to an interrupt system by the application such that it
+* @brief Handles interrupts for the XUartPs driver.
+*
+* Must be connected to an interrupt system by the application such that it
 * can be called when an interrupt occurs.
 *
-* @param	InstancePtr contains a pointer to the driver instance
-*
-* @note		None.
+* @param[in]   InstancePtr Pointer to the driver instance.
 *
 ******************************************************************************/
 void XUartPs_InterruptHandler(XUartPs *InstancePtr)
@@ -205,19 +205,15 @@ void XUartPs_InterruptHandler(XUartPs *InstancePtr)
 
 }
 
-/****************************************************************************/
-/*
+/*****************************************************************************/
+/**
 *
-* This function handles interrupts for receive errors which include
-* overrun errors, framing errors, parity errors, and the break interrupt.
+* @brief Handles overrun, framing, parity, and break receive error interrupts.
 *
-* @param	InstancePtr is a pointer to the XUartPs instance.
+* @param[in,out] InstancePtr Pointer to the XUartPs instance.
+* @param[in]     IsrStatus Interrupt status register value.
 *
-* @return	None.
-*
-* @note		None.
-*
-*****************************************************************************/
+******************************************************************************/
 static void ReceiveErrorHandler(XUartPs *InstancePtr, u32 IsrStatus)
 {
 	u32 EventData;
@@ -254,21 +250,18 @@ static void ReceiveErrorHandler(XUartPs *InstancePtr, u32 IsrStatus)
 	}
 }
 
-/****************************************************************************/
+/*****************************************************************************/
 /**
 *
-* This function handles the receive timeout interrupt. This interrupt occurs
-* whenever a number of bytes have been present in the RX FIFO and the receive
-* data line has been idle for at lease 4 or more character times, (the timeout
-* is set using XUartPs_SetrecvTimeout() function).
+* @brief Handles the receive timeout interrupt.
 *
-* @param	InstancePtr is a pointer to the XUartPs instance
+* This interrupt occurs whenever a number of bytes have been present in the
+* RX FIFO and the receive data line has been idle for at least 4 or more
+* character times (the timeout is set using XUartPs_SetRecvTimeout()).
 *
-* @return	None.
+* @param[in]   InstancePtr Pointer to the XUartPs instance.
 *
-* @note		None.
-*
-*****************************************************************************/
+******************************************************************************/
 static void ReceiveTimeoutHandler(XUartPs *InstancePtr)
 {
 	u32 Event;
@@ -304,18 +297,14 @@ static void ReceiveTimeoutHandler(XUartPs *InstancePtr)
 				 InstancePtr->ReceiveBuffer.RemainingBytes);
 
 }
-/****************************************************************************/
+/*****************************************************************************/
 /**
 *
-* This function handles the interrupt when data is in RX FIFO.
+* @brief Handles the interrupt when data is in the RX FIFO.
 *
-* @param	InstancePtr is a pointer to the XUartPs instance
+* @param[in]   InstancePtr Pointer to the XUartPs instance.
 *
-* @return	None.
-*
-* @note		None.
-*
-*****************************************************************************/
+******************************************************************************/
 static void ReceiveDataHandler(XUartPs *InstancePtr)
 {
 	/*
@@ -341,20 +330,17 @@ static void ReceiveDataHandler(XUartPs *InstancePtr)
 
 }
 
-/****************************************************************************/
+/*****************************************************************************/
 /**
 *
-* This function handles the interrupt when data has been sent, the transmit
-* FIFO is empty (transmitter holding register).
+* @brief Handles the interrupt when data has been sent.
 *
-* @param	InstancePtr is a pointer to the XUartPs instance
-* @param	IsrStatus is the register value for channel status register
+* The transmit FIFO is empty (transmitter holding register).
 *
-* @return	None.
+* @param[in]   InstancePtr Pointer to the XUartPs instance.
+* @param[in]   IsrStatus Register value for channel status register.
 *
-* @note		None.
-*
-*****************************************************************************/
+******************************************************************************/
 static void SendDataHandler(XUartPs *InstancePtr, u32 IsrStatus)
 {
 
@@ -385,19 +371,17 @@ static void SendDataHandler(XUartPs *InstancePtr, u32 IsrStatus)
 	}
 }
 
-/****************************************************************************/
+/*****************************************************************************/
 /**
 *
-* This function handles modem interrupts.  It does not do any processing
-* except to call the application handler to indicate a modem event.
+* @brief Handles modem interrupts.
 *
-* @param	InstancePtr is a pointer to the XUartPs instance
+* It does not do any processing except to call the application handler to
+* indicate a modem event.
 *
-* @return	None.
+* @param[in]   InstancePtr Pointer to the XUartPs instance.
 *
-* @note		None.
-*
-*****************************************************************************/
+******************************************************************************/
 static void ModemHandler(XUartPs *InstancePtr)
 {
 	u32 MsrRegister;

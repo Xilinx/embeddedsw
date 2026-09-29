@@ -4,14 +4,16 @@
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
-/****************************************************************************/
+/*****************************************************************************/
 /**
 *
-* @file     xuartps_polled_example.c
+* @file xuartps_polled_example.c
 *
-* This example runs on zynqmp evaluation board (zcu102), it sends data and
+* @brief Demonstrates the XUartPs driver in polled mode using local loopback.
+*
+* The example runs on the ZynqMP evaluation board (ZCU102). It sends data and
 * expects to receive the same data through the device using the local loopback
-* mode in polled mode by using XUartPs driver.
+* mode in polled mode by using the XUartPs driver.
 *
 * @note
 * If the device does not work properly, the example may hang.
@@ -25,7 +27,9 @@
 * 			Removed the printf at the start of the main
 * 3.18    vlt 12/18/25 Update Doxygen comments to include SDT flow details.
 * 3.19    vn  08/26/26 Fix Doxygen warnings
+* 3.19  vn   09/10/26 Align Doxygen comments with AMD standards
 * </pre>
+*
 ******************************************************************************/
 
 /***************************** Include Files *********************************/
@@ -36,19 +40,25 @@
 
 /************************** Constant Definitions *****************************/
 
-/*
+/** @name Device parameters
+ *
  * The following constants map to the XPAR parameters created in the
  * xparameters.h file. They are defined here such that a user can easily
  * change all the needed parameters in one place.
+ * @{
  */
 #ifndef SDT
+/** UART device ID. */
 #define UART_DEVICE_ID              XPAR_XUARTPS_0_DEVICE_ID
 #else
+/** UART base address. */
 #define	XUARTPS_BASEADDRESS	XPAR_XUARTPS_0_BASEADDR
 #endif
-/*
+/** @} */
+
+/**
  * The following constant controls the length of the buffers to be sent
- * and received with the device, this constant must be 32 bytes or less since
+ * and received with the device. Must be 32 bytes or less since
  * only as much as FIFO size data can be sent or received in polled mode.
  */
 #define TEST_BUFFER_SIZE 32
@@ -65,25 +75,25 @@ int UartPsPolledExample(XUartPs *UartInstPtr, UINTPTR BaseAddress);
 #endif
 /************************** Variable Definitions *****************************/
 
-XUartPs Uart_PS;		/* Instance of the UART Device */
+XUartPs Uart_PS;		/**< Instance of the UART Device. */
 
-/*
+/** @name Data buffers
+ *
  * The following buffers are used in this example to send and receive data
  * with the UART.
+ * @{
  */
-static u8 SendBuffer[TEST_BUFFER_SIZE];	/* Buffer for Transmitting Data */
-static u8 RecvBuffer[TEST_BUFFER_SIZE];	/* Buffer for Receiving Data */
+static u8 SendBuffer[TEST_BUFFER_SIZE];	/**< Buffer for Transmitting Data. */
+static u8 RecvBuffer[TEST_BUFFER_SIZE];	/**< Buffer for Receiving Data. */
+/** @} */
 
 
 /*****************************************************************************/
 /**
 *
-* Main function to call the Uart Polled mode example.
+* @brief Calls the UART Polled mode example.
 *
-*
-* @return	XST_SUCCESS if successful, otherwise XST_FAILURE
-*
-* @note		None
+* @return      XST_SUCCESS if successful, otherwise XST_FAILURE.
 *
 ******************************************************************************/
 #ifndef TESTAPP_GEN
@@ -113,27 +123,26 @@ int main(void)
 /*****************************************************************************/
 /**
 *
-* This function does a minimal test on the XUartPs device in polled mode.
+* @brief Performs a minimal test on the XUartPs device in polled mode.
 *
-* This function sends data and expects to receive the data through the UART
+* Sends data and expects to receive the data through the UART
 * using the local loopback mode.
 *
-*
 * @if SDT
-* @param	UartInstPtr is a pointer to the XUartPs instance.
-* @param	BaseAddress contains the base address of the device
+* @param[in]   UartInstPtr Pointer to the XUartPs instance.
+* @param[in]   BaseAddress Base address of the device.
 * @else
-* @param	DeviceId is the unique device id from hardware build.
+* @param[in]   DeviceId Unique device id from hardware build.
 * @endif
 *
-* @return	XST_SUCCESS if successful, XST_FAILURE if unsuccessful
+* @return      XST_SUCCESS if successful, XST_FAILURE if unsuccessful.
 *
 * @note        - In XSCT/classic flow, DeviceId is used to look up the
 *              device configuration.
 *              - This function polls the UART, it may hang if the hardware
 *              is not working correctly.
 *
-****************************************************************************/
+******************************************************************************/
 #ifndef SDT
 int UartPsPolledExample(u16 DeviceId)
 #else

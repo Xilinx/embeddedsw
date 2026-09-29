@@ -4,15 +4,12 @@
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
-/****************************************************************************/
+/*****************************************************************************/
 /**
 *
 * @file xuartps_sinit.c
-* @addtogroup uartps Overview
-* @{
 *
-* The implementation of the XUartPs driver's static initialization
-* functionality.
+* @brief Implements the static initialization for the XUartPs driver.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -24,9 +21,14 @@
 * 3.18  vlt    12/18/25 Update Doxygen comments to include SDT flow details.
 * 3.18  vlt    03/14/26 Updated BaseAddress type from u32 to UINTPTR
 *                       to support 64-bit addressing.
+* 3.19  vn   09/10/26 Align Doxygen comments with AMD standards
 * </pre>
 *
-*****************************************************************************/
+******************************************************************************/
+
+/** @addtogroup uartps Overview
+ * @{
+ */
 
 /***************************** Include Files ********************************/
 
@@ -43,6 +45,9 @@
 /***************** Macros (Inline Functions) Definitions ********************/
 
 /************************** Variable Definitions ****************************/
+/**
+ * @brief Holds the configuration entry for each UartPs instance.
+ */
 #ifndef SDT
 extern XUartPs_Config XUartPs_ConfigTable[XPAR_XUARTPS_NUM_INSTANCES];
 #else
@@ -52,22 +57,24 @@ extern XUartPs_Config XUartPs_ConfigTable[];
 
 /************************** Function Prototypes *****************************/
 
-/****************************************************************************/
+/*****************************************************************************/
 /**
 *
-* Looks up the device configuration based on the unique device ID/BaseAddress.
+* @brief Looks up the device configuration based on the unique device ID or
+* base address.
+*
 * The XUartPs_ConfigTable[] contains the configuration info for each device
 * in the system.
 *
 * @if SDT
-* @param	BaseAddress contains the base address of the device
+* @param[in]   BaseAddress Base address of the device.
 * @else
-* @param	DeviceId contains the unique ID of the device
+* @param[in]   DeviceId Unique ID of the device.
 * @endif
 *
-* @return       A pointer to the configuration found or NULL if the specified
-*               device ID/BaseAddress was not found. See xuartps.h for the
-*               definition of XUartPs_Config.
+* @return      A pointer to the configuration found or NULL if the specified
+*              device ID/BaseAddress was not found. See xuartps.h for the
+*              definition of XUartPs_Config.
 *
 * @note        In XSCT/classic flow, DeviceId is used to look up the device
 *              configuration.

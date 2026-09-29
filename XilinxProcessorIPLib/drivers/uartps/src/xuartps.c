@@ -4,15 +4,14 @@
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
-/****************************************************************************/
+/*****************************************************************************/
 /**
 *
 * @file xuartps.c
-* @addtogroup uartps Overview
-* @{
 *
-* This file contains the implementation of the interface functions for XUartPs
-* driver. Refer to the header file xuartps.h for more detailed information.
+* @brief Implements the interface functions for the XUartPs driver.
+*
+* Refer to the header file xuartps.h for more detailed information.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -28,9 +27,14 @@
 * 3.7   aru    08/17/18 Resolved MISRA-C mandatory violations.(CR#1007755)
 * 3.9   sd     02/06/20 Added clock support
 * 3.18  sd     01/08/26 Added a wait for the RX and TX reset
+* 3.19  vn   09/10/26 Align Doxygen comments with AMD standards
 * </pre>
 *
-*****************************************************************************/
+******************************************************************************/
+
+/** @addtogroup uartps Overview
+ * @{
+ */
 
 /***************************** Include Files ********************************/
 
@@ -40,12 +44,15 @@
 
 /************************** Constant Definitions ****************************/
 
-/* The following constant defines the amount of error that is allowed for
+/**
+ * @brief Maximum baud rate error percentage allowed.
+ *
+ * The following constant defines the amount of error allowed for
  * a specified baud rate. This error is the difference between the actual
- * baud rate that will be generated using the specified clock and the
+ * baud rate generated using the specified clock and the
  * desired baud rate.
  */
-#define XUARTPS_MAX_BAUD_ERROR_RATE		 3U	/* max % error allowed */
+#define XUARTPS_MAX_BAUD_ERROR_RATE		 3U
 
 /**************************** Type Definitions ******************************/
 
@@ -64,36 +71,35 @@ u32  XUartPs_ReceiveBuffer(XUartPs *InstancePtr);
 
 /************************** Variable Definitions ****************************/
 
-/****************************************************************************/
+/*****************************************************************************/
 /**
 *
-* Initializes a specific XUartPs instance such that it is ready to be used.
+* @brief Initializes a specific XUartPs instance so it is ready for use.
+*
 * The data format of the device is setup for 8 data bits, 1 stop bit, and no
 * parity by default. The baud rate is set to a default value specified by
 * Config->DefaultBaudRate if set, otherwise it is set to 19.2K baud. The
 * receive FIFO threshold is set for 8 bytes. The default operating mode of the
 * driver is polled mode.
 *
-* @param	InstancePtr is a pointer to the XUartPs instance.
-* @param	Config is a reference to a structure containing information
-*		about a specific XUartPs driver.
-* @param	EffectiveAddr is the device base address in the virtual memory
-*		address space. The caller is responsible for keeping the address
-*		mapping from EffectiveAddr to the device physical base address
-*		unchanged once this function is invoked. Unexpected errors may
-*		occur if the address mapping changes after this function is
-*		called. If address translation is not used, pass in the physical
-*		address instead.
+* @param[out]  InstancePtr Pointer to the XUartPs instance.
+* @param[in]   Config Reference to a structure containing information
+*               about a specific XUartPs driver.
+* @param[in]   EffectiveAddr Device base address in the virtual memory
+*               address space. The caller is responsible for keeping the address
+*               mapping from EffectiveAddr to the device physical base address
+*               unchanged once this function is invoked. Unexpected errors may
+*               occur if the address mapping changes after this function is
+*               called. If address translation is not used, pass in the physical
+*               address instead.
 *
 * @return
-*
-*		- XST_SUCCESS if initialization was successful
-*		- XST_UART_BAUD_ERROR if the baud rate is not possible because
-*		  the inputclock frequency is not divisible with an acceptable
-*		  amount of error
+*              - XST_SUCCESS if initialization was successful.
+*              - XST_UART_BAUD_ERROR if the baud rate is not possible because
+*                the inputclock frequency is not divisible with an acceptable
+*                amount of error.
 *
 * @note
-*
 * The default configuration for the UART after initialization is:
 *
 * - 19,200 bps or XPAR_DFT_BAUDRATE if defined
@@ -105,7 +111,7 @@ u32  XUartPs_ReceiveBuffer(XUartPs *InstancePtr);
 *
 *   All interrupts are disabled.
 *
-*****************************************************************************/
+******************************************************************************/
 s32 XUartPs_CfgInitialize(XUartPs *InstancePtr,
 				   XUartPs_Config * Config, u32 EffectiveAddr)
 {
@@ -197,40 +203,39 @@ s32 XUartPs_CfgInitialize(XUartPs *InstancePtr,
 	return Status;
 }
 
-/****************************************************************************/
+/*****************************************************************************/
 /**
 *
-* This functions sends the specified buffer using the device in either
-* polled or interrupt driven mode. This function is non-blocking, if the device
-* is busy sending data, it will return and indicate zero bytes were sent.
-* Otherwise, it fills the TX FIFO as much as it can, and return the number of
-* bytes sent.
+* @brief Sends the specified buffer in polled or interrupt driven mode.
 *
-* In a polled mode, this function will only send as much data as TX FIFO can
+* This function is non-blocking. If the device is busy sending data, it
+* returns and indicates zero bytes were sent. Otherwise, it fills the TX FIFO
+* as much as it can, and returns the number of bytes sent.
+*
+* In polled mode, this function only sends as much data as the TX FIFO can
 * buffer. The application may need to call it repeatedly to send the entire
 * buffer.
 *
-* In interrupt mode, this function will start sending the specified buffer,
-* then the interrupt handler will continue sending data until the entire
+* In interrupt mode, this function starts sending the specified buffer,
+* then the interrupt handler continues sending data until the entire
 * buffer has been sent. A callback function, as specified by the application,
-* will be called to indicate the completion of sending.
+* is called to indicate the completion of sending.
 *
-* @param	InstancePtr is a pointer to the XUartPs instance.
-* @param	BufferPtr is pointer to a buffer of data to be sent.
-* @param  	NumBytes contains the number of bytes to be sent. A value of
-*		zero will stop a previous send operation that is in progress
-*		in interrupt mode. Any data that was already put into the
-*		transmit FIFO will be sent.
+* @param[in,out] InstancePtr Pointer to the XUartPs instance.
+* @param[in]     BufferPtr Pointer to a buffer of data to send.
+* @param[in]     NumBytes Number of bytes to send. A value of
+*                 zero stops a previous send operation that is in progress
+*                 in interrupt mode. Any data that was already put into the
+*                 transmit FIFO is sent.
 *
-* @return	The number of bytes actually sent.
+* @return        The number of bytes actually sent.
 *
 * @note
-*
 * The number of bytes is not asserted so that this function may be called with
 * a value of zero to stop an operation that is already in progress.
 * <br><br>
 *
-*****************************************************************************/
+******************************************************************************/
 u32 XUartPs_Send(XUartPs *InstancePtr, u8 *BufferPtr,
 			   u32 NumBytes)
 {
@@ -265,37 +270,37 @@ u32 XUartPs_Send(XUartPs *InstancePtr, u8 *BufferPtr,
 	return BytesSent;
 }
 
-/****************************************************************************/
+/*****************************************************************************/
 /**
 *
-* This function attempts to receive a specified number of bytes of data
-* from the device and store it into the specified buffer. This function works
-* for both polled or interrupt driven modes. It is non-blocking.
+* @brief Receives a specified number of bytes of data from the device.
 *
-* In a polled mode, this function will only receive the data already in the
+* Attempts to receive data and store it into the specified buffer. Works
+* for both polled or interrupt driven modes. This function is non-blocking.
+*
+* In polled mode, this function only receives the data already in the
 * RX FIFO. The application may need to call it repeatedly to receive the
 * entire buffer. Polled mode is the default mode of operation for the device.
 *
-* In interrupt mode, this function will start the receiving, if not the entire
-* buffer has been received, the interrupt handler will continue receiving data
+* In interrupt mode, this function starts the receiving. If not the entire
+* buffer has been received, the interrupt handler continues receiving data
 * until the entire buffer has been received. A callback function, as specified
-* by the application, will be called to indicate the completion of the
+* by the application, is called to indicate the completion of the
 * receiving or error conditions.
 *
-* @param	InstancePtr is a pointer to the XUartPs instance
-* @param	BufferPtr is pointer to buffer for data to be received into
-* @param	NumBytes is the number of bytes to be received. A value of zero
-*		will stop a previous receive operation that is in progress in
-*		interrupt mode.
+* @param[in,out] InstancePtr Pointer to the XUartPs instance.
+* @param[out]    BufferPtr Pointer to buffer to receive data into.
+* @param[in]     NumBytes Number of bytes to receive. A value of zero
+*                 stops a previous receive operation that is in progress in
+*                 interrupt mode.
 *
-* @return	The number of bytes received.
+* @return        The number of bytes received.
 *
 * @note
-*
 * The number of bytes is not asserted so that this function may be called
 * with a value of zero to stop an operation that is already in progress.
 *
-*****************************************************************************/
+******************************************************************************/
 u32 XUartPs_Recv(XUartPs *InstancePtr,
 			  u8 *BufferPtr, u32 NumBytes)
 {
@@ -334,34 +339,32 @@ u32 XUartPs_Recv(XUartPs *InstancePtr,
 	return ReceivedCount;
 }
 
-/****************************************************************************/
-/*
+/*****************************************************************************/
+/**
 *
-* This function sends a buffer that has been previously specified by setting
-* up the instance variables of the instance. This function is an internal
-* function for the XUartPs driver such that it may be called from a shell
-* function that sets up the buffer or from an interrupt handler.
+* @brief Sends the previously specified buffer from the instance variables.
 *
-* This function sends the specified buffer in either polled or interrupt
-* driven modes. This function is non-blocking.
+* This is an internal function for the XUartPs driver that may be called
+* from a shell function that sets up the buffer or from an interrupt handler.
 *
-* In a polled mode, this function only sends as much data as the TX FIFO
+* Sends the specified buffer in either polled or interrupt driven modes.
+* This function is non-blocking.
+*
+* In polled mode, this function only sends as much data as the TX FIFO
 * can buffer. The application may need to call it repeatedly to send the
 * entire buffer.
 *
-* In interrupt mode, this function starts the sending of the buffer, if not
+* In interrupt mode, this function starts the sending of the buffer. If not
 * the entire buffer has been sent, then the interrupt handler continues the
 * sending until the entire buffer has been sent. A callback function, as
-* specified by the application, will be called to indicate the completion of
+* specified by the application, is called to indicate the completion of
 * sending.
 *
-* @param	InstancePtr is a pointer to the XUartPs instance
+* @param[in,out] InstancePtr Pointer to the XUartPs instance.
 *
-* @return	The number of bytes actually sent
+* @return        The number of bytes actually sent.
 *
-* @note		None.
-*
-*****************************************************************************/
+******************************************************************************/
 u32 XUartPs_SendBuffer(XUartPs *InstancePtr)
 {
 	u32 SentCount = 0U;
@@ -409,35 +412,33 @@ u32 XUartPs_SendBuffer(XUartPs *InstancePtr)
 	return SentCount;
 }
 
-/****************************************************************************/
-/*
+/*****************************************************************************/
+/**
 *
-* This function receives a buffer that has been previously specified by setting
-* up the instance variables of the instance. This function is an internal
-* function, and it may be called from a shell function that sets up the buffer
-* or from an interrupt handler.
+* @brief Receives the previously specified buffer from the instance variables.
 *
-* This function attempts to receive a specified number of bytes from the
-* device and store it into the specified buffer. This function works for
-* either polled or interrupt driven modes. It is non-blocking.
+* This is an internal function that may be called from a shell function
+* that sets up the buffer or from an interrupt handler.
+*
+* Attempts to receive a specified number of bytes from the device and store
+* them into the specified buffer. Works for either polled or interrupt
+* driven modes. This function is non-blocking.
 *
 * In polled mode, this function only receives as much data as in the RX FIFO.
 * The application may need to call it repeatedly to receive the entire buffer.
 * Polled mode is the default mode for the driver.
 *
-* In interrupt mode, this function starts the receiving, if not the entire
-* buffer has been received, the interrupt handler will continue until the
+* In interrupt mode, this function starts the receiving. If not the entire
+* buffer has been received, the interrupt handler continues until the
 * entire buffer has been received. A callback function, as specified by the
-* application, will be called to indicate the completion of the receiving or
+* application, is called to indicate the completion of the receiving or
 * error conditions.
 *
-* @param	InstancePtr is a pointer to the XUartPs instance
+* @param[in,out] InstancePtr Pointer to the XUartPs instance.
 *
-* @return	The number of bytes received.
+* @return        The number of bytes received.
 *
-* @note		None.
-*
-*****************************************************************************/
+******************************************************************************/
 u32 XUartPs_ReceiveBuffer(XUartPs *InstancePtr)
 {
 	u32 CsrRegister;
@@ -502,22 +503,22 @@ u32 XUartPs_ReceiveBuffer(XUartPs *InstancePtr)
 /*****************************************************************************/
 /**
 *
-* Sets the baud rate for the device. Checks the input value for
-* validity and also verifies that the requested rate can be configured to
-* within the maximum error range specified by XUARTPS_MAX_BAUD_ERROR_RATE.
-* If the provided rate is not possible, the current setting is unchanged.
+* @brief Sets the baud rate for the device.
 *
-* @param	InstancePtr is a pointer to the XUartPs instance
-* @param	BaudRate to be set
+* Checks the input value for validity and also verifies that the requested
+* rate can be configured to within the maximum error range specified by
+* XUARTPS_MAX_BAUD_ERROR_RATE. If the provided rate is not possible, the
+* current setting is unchanged.
+*
+* @param[in,out] InstancePtr Pointer to the XUartPs instance.
+* @param[in]     BaudRate Baud rate to set.
 *
 * @return
-*		- XST_SUCCESS if everything configured as expected
-*		- XST_UART_BAUD_ERROR if the requested rate is not available
-*		  because there was too much error
+*                - XST_SUCCESS if everything configured as expected.
+*                - XST_UART_BAUD_ERROR if the requested rate is not available
+*                  because there was too much error.
 *
-* @note		None.
-*
-*****************************************************************************/
+******************************************************************************/
 s32 XUartPs_SetBaudRate(XUartPs *InstancePtr, u32 BaudRate)
 {
 	u32 IterBAUDDIV;	/* Iterator for available baud divisor values */
@@ -615,22 +616,18 @@ s32 XUartPs_SetBaudRate(XUartPs *InstancePtr, u32 BaudRate)
 
 }
 
-/****************************************************************************/
+/*****************************************************************************/
 /**
 *
-* This function is a stub handler that is the default handler such that if the
-* application has not set the handler when interrupts are enabled, this
-* function will be called.
+* @brief Serves as the default stub handler for interrupts.
 *
-* @param	CallBackRef is unused by this function.
-* @param	Event is unused by this function.
-* @param	ByteCount is unused by this function.
+* Called when the application has not set a handler and interrupts are enabled.
 *
-* @return	None.
+* @param[in]   CallBackRef Unused by this function.
+* @param[in]   Event Unused by this function.
+* @param[in]   ByteCount Unused by this function.
 *
-* @note		None.
-*
-*****************************************************************************/
+******************************************************************************/
 static void XUartPs_StubHandler(void *CallBackRef, u32 Event,
 				 u32 ByteCount)
 {

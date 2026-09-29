@@ -7,9 +7,9 @@
 /*****************************************************************************/
 /**
 *
-* @file		xuartps_hello_world_example.c
+* @file xuartps_hello_world_example.c
 *
-* This file contains a design example using the XUartPs driver in polled mode
+* @brief Sends "Hello World" using the XUartPs driver in polled mode.
 *
 * The example uses the default setting in the XUartPs driver:
 *	. baud rate 9600
@@ -34,8 +34,10 @@
 *                       CR-965028.
 * 3.17  bkv    07/08/25 Fixed GCC Warning.
 * 3.18  vlt    12/18/25 Update Doxygen comments to include SDT flow details.
+* 3.19  vn   09/10/26 Align Doxygen comments with AMD standards
 *
 * </pre>
+*
 ******************************************************************************/
 
 /***************************** Include Files *********************************/
@@ -46,16 +48,21 @@
 
 /************************** Constant Definitions *****************************/
 
-/*
+/** @name Device parameters
+ *
  * The following constants map to the XPAR parameters created in the
  * xparameters.h file. They are defined here such that a user can easily
  * change all the needed parameters in one place.
+ * @{
  */
 #ifndef SDT
+/** UART device ID. */
 #define UART_DEVICE_ID                  XPAR_XUARTPS_0_DEVICE_ID
 #else
+/** UART base address. */
 #define	XUARTPS_BASEADDRESS		XPAR_XUARTPS_0_BASEADDR
 #endif
+/** @} */
 
 /**************************** Type Definitions *******************************/
 
@@ -69,20 +76,17 @@ int UartPsHelloWorldExample(UINTPTR BaseAddress);
 #endif
 /************************** Variable Definitions *****************************/
 
-XUartPs Uart_Ps;		/* The instance of the UART Driver */
+XUartPs Uart_Ps;		/**< The instance of the UART Driver */
 
 /*****************************************************************************/
 /**
 *
-* Main function to call the Hello World example.
-*
+* @brief Calls the Hello World example.
 *
 * @return
-*		- XST_FAILURE if the Test Failed .
-*		- A non-negative number indicating the number of characters
-*		  sent.
-*
-* @note		None
+*              - XST_FAILURE if the test failed.
+*              - A non-negative number indicating the number of characters
+*                sent.
 *
 ******************************************************************************/
 int main(void)
@@ -108,29 +112,29 @@ int main(void)
 	return Status;
 }
 
-/****************************************************************************/
+/*****************************************************************************/
 /**
 *
-* This function sends 'Hello World' to an external terminal in polled mode.
-* The purpose of this function is to illustrate how to use the XUartPs driver.
+* @brief Sends 'Hello World' to an external terminal in polled mode.
 *
+* Illustrates how to use the XUartPs driver.
 *
 * @if SDT
-* @param	BaseAddress contains the base address of the device
+* @param[in]   BaseAddress Base address of the device.
 * @else
-* @param	DeviceId is the unique ID for the device from hardware build.
+* @param[in]   DeviceId Unique ID for the device from hardware build.
 * @endif
 *
 * @return
-*		- XST_FAILURE if the UART driver could not be initialized
-*		  successfully.
-*		- A non-negative number indicating the number of characters
-*		  sent.
+*              - XST_FAILURE if the UART driver could not be initialized
+*                successfully.
+*              - A non-negative number indicating the number of characters
+*                sent.
 *
-* @note         In XSCT/classic flow, DeviceId is used to look up the device
-*               configuration.
+* @note        In XSCT/classic flow, DeviceId is used to look up the device
+*              configuration.
 *
-****************************************************************************/
+******************************************************************************/
 #ifndef SDT
 int UartPsHelloWorldExample(u16 DeviceId)
 #else
