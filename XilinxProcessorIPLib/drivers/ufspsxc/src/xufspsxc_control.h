@@ -3,15 +3,17 @@
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
+#ifndef XUFSPSXC_LOWLEVEL_H_ /* prevent circular inclusions */
+#define XUFSPSXC_LOWLEVEL_H_
+
 /*****************************************************************************/
 /**
 *
 * @file xufspsxc_control.h
-* @addtogroup ufspsxc Overview
-* @{
+* @brief Declares UFSPSXC low-level driver functions.
 *
 * This is the header file for the low-level functions of UFSPSXC driver.
-* These functions will be used internally by the user API's.
+* The high-level API calls these functions internally.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -20,11 +22,15 @@
 * ----- --- -------- -----------------------------------------------.
 * 1.0   sk  01/16/24 First release
 *
+* 1.3   tb  09/16/26 Align Doxygen comments with AMD standards.
 * </pre>
 *
 ******************************************************************************/
-#ifndef XUFSPSXC_LOWLEVEL_H_		/**< prevent circular inclusions */
-#define XUFSPSXC_LOWLEVEL_H_		/**< by using protection macros */
+
+/**
+* @addtogroup ufspsxc_api UFSPSXC APIs
+* @{
+*/
 
 #ifdef __cplusplus
 extern "C" {

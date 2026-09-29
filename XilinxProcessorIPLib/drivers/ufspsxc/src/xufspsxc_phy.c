@@ -7,8 +7,7 @@
 /**
 *
 * @file xufspsxc_phy.c
-* @addtogroup ufspsxc Overview
-* @{
+* @brief Implements UFSPSXC PHY calibration and HS series helpers.
 *
 * This file implements the PHY calibration and high-speed series configuration
 * helpers used by the functions in xufspsxc_hw.c and xufspsxc_init.c files.
@@ -20,9 +19,15 @@
 * ----- --- -------- -----------------------------------------------
 * 1.3   an  09/25/26 First release
 *
+* 1.3   tb  09/29/26 Align Doxygen comments with AMD standards.
 * </pre>
 *
 ******************************************************************************/
+
+/**
+* @addtogroup ufspsxc_api UFSPSXC APIs
+* @{
+*/
 
 /***************************** Include Files *********************************/
 
@@ -41,13 +46,14 @@
 
 /*****************************************************************************/
 /**
-* @brief
-* Program the valid (not 0x00/0xFF) PHY RX ATT/CTLE compensation values.
+* @brief Programs valid (not 0x00/0xFF) PHY RX ATT/CTLE compensation values.
 *
-* @param	InstancePtr is a pointer to the XUfsPsxc instance.
-* @param	UicCmdPtr is a pointer to the XUfsPsxc_UicCmd instance.
+* @param[in] InstancePtr Pointer to the XUfsPsxc instance.
+* @param[out] UicCmdPtr Pointer to the XUfsPsxc_UicCmd instance.
 *
-* @return	XUFSPSXC_SUCCESS or Error codes.
+* @return
+*		- XUFSPSXC_SUCCESS if successful.
+*		- Error codes on failure.
 *
 ******************************************************************************/
 u32 XUfsPsxc_ProgramRxCompValues(const XUfsPsxc *InstancePtr, XUfsPsxc_UicCmd *UicCmdPtr)
@@ -76,13 +82,14 @@ u32 XUfsPsxc_ProgramRxCompValues(const XUfsPsxc *InstancePtr, XUfsPsxc_UicCmd *U
 
 /*****************************************************************************/
 /**
-* @brief
-* Bypass RX-AFE auto-calibration on both RX lanes.
+* @brief Bypasses RX-AFE auto-calibration on both RX lanes.
 *
-* @param	InstancePtr is a pointer to the XUfsPsxc instance.
-* @param	UicCmdPtr is a pointer to the XUfsPsxc_UicCmd instance.
+* @param[in] InstancePtr Pointer to the XUfsPsxc instance.
+* @param[out] UicCmdPtr Pointer to the XUfsPsxc_UicCmd instance.
 *
-* @return	XUFSPSXC_SUCCESS or Error codes.
+* @return
+*		- XUFSPSXC_SUCCESS if successful.
+*		- Error codes on failure.
 *
 ******************************************************************************/
 u32 XUfsPsxc_BypassRxAfeCalib(const XUfsPsxc *InstancePtr, XUfsPsxc_UicCmd *UicCmdPtr)
@@ -114,13 +121,14 @@ ERROR:
 
 /*****************************************************************************/
 /**
-* @brief
-* Program RAWAONLANE_DIG_FW_CALIB_CONFIG[8]=1 on both RX lanes.
+* @brief Programs RAWAONLANE_DIG_FW_CALIB_CONFIG[8]=1 on both RX lanes.
 *
-* @param	InstancePtr is a pointer to the XUfsPsxc instance.
-* @param	UicCmdPtr is a pointer to the XUfsPsxc_UicCmd instance.
+* @param[in] InstancePtr Pointer to the XUfsPsxc instance.
+* @param[out] UicCmdPtr Pointer to the XUfsPsxc_UicCmd instance.
 *
-* @return	XUFSPSXC_SUCCESS or Error codes.
+* @return
+*		- XUFSPSXC_SUCCESS if successful.
+*		- Error codes on failure.
 *
 ******************************************************************************/
 u32 XUfsPsxc_ProgramRxCalibConfig(const XUfsPsxc *InstancePtr, XUfsPsxc_UicCmd *UicCmdPtr)
@@ -152,17 +160,18 @@ ERROR:
 
 /*****************************************************************************/
 /**
-* @brief
-* Configure the high-speed series settings and RX override handling.
+* @brief Configures high-speed series settings and RX override handling.
 *
-* @param	InstancePtr is a pointer to the XUfsPsxc instance.
-* @param	UicCmdPtr is a pointer to the XUfsPsxc_UicCmd instance.
-* @param	Rate is the HS rate series value.
-* @param	RxLanes is the number of connected RX data lanes.
-* @param	tx_gear is the configured TX gear.
-* @param	AdaptVal is a pointer to the adapt value that may be updated for G4.
+* @param[in] InstancePtr Pointer to the XUfsPsxc instance.
+* @param[out] UicCmdPtr Pointer to the XUfsPsxc_UicCmd instance.
+* @param[in] Rate HS rate series value.
+* @param[in] RxLanes Number of connected RX data lanes.
+* @param[in] tx_gear Configured TX gear.
+* @param[out] AdaptVal Pointer to the adapt value that may be updated for G4.
 *
-* @return	XUFSPSXC_SUCCESS or Error codes.
+* @return
+*		- XUFSPSXC_SUCCESS if successful.
+*		- Error codes on failure.
 *
 ******************************************************************************/
 u32 XUfsPsxc_ConfigureHsSeries(const XUfsPsxc *InstancePtr, XUfsPsxc_UicCmd *UicCmdPtr,

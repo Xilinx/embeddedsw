@@ -7,11 +7,10 @@
 /**
 *
 * @file xufspsxc.c
-* @addtogroup ufspsxc Overview
-* @{
+* @brief Implements UFSPSXC transfer interface functions.
 *
 * This file implements the functions required to use the UFSPSXC hardware to
-* perform a transfer. These are accessible to the user via XOspiPsv.h.
+* perform a transfer through the interfaces in xufspsxc.h.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -21,9 +20,15 @@
 * 1.0   sk  01/16/24 First release
 * 1.3   vn  07/30/26 Fix Doxygen warnings
 *
+* 1.3   tb  09/16/26 Align Doxygen comments with AMD standards.
 * </pre>
 *
 ******************************************************************************/
+
+/**
+* @addtogroup ufspsxc_api UFSPSXC APIs
+* @{
+*/
 
 /***************************** Include Files *********************************/
 
@@ -43,14 +48,14 @@
 
 /*****************************************************************************/
 /**
-* @brief
+* @brief Initializes a UFSPSXC driver instance.
+*
 * Initializes a specific XUfsPsxc instance such that the driver is ready to use.
 *
-* @param	InstancePtr is a pointer to the XUfsPsxc instance.
-* @param	ConfigPtr is a reference to a structure containing information
-*			about a specific UFSPSXC device. This function initializes an
-*			InstancePtr object for a specific device specified by the
-*			contents of Config.
+* @param[out] InstancePtr Pointer to the XUfsPsxc instance.
+* @param[in] ConfigPtr Reference to a structure containing information about a
+*   specific UFSPSXC device. This function initializes an InstancePtr object for
+*   a specific device specified by the contents of Config.
 *
 ******************************************************************************/
 void XUfsPsxc_CfgInitialize(XUfsPsxc *InstancePtr,
@@ -83,12 +88,16 @@ void XUfsPsxc_CfgInitialize(XUfsPsxc *InstancePtr,
 
 /*****************************************************************************/
 /**
-* @brief
+* @brief Initializes the host controller and UFS device.
+*
 * Initializes the Host Controller and UFS device.
 *
-* @param	InstancePtr is a pointer to the XUfsPsxc instance.
+* @param[in,out] InstancePtr Pointer to the XUfsPsxc instance.
 *
-* @return	XUFSPSXC_SUCCESS, XUFSPSXC_FAILURE, UIC Error Codes in xufspsxc.h file.
+* @return
+*		- XUFSPSXC_SUCCESS if successful.
+*		- XUFSPSXC_FAILURE if unsuccessful.
+*		- UIC error codes as defined in xufspsxc.h.
 *
 ******************************************************************************/
 u32 XUfsPsxc_Initialize(XUfsPsxc *InstancePtr)
@@ -126,14 +135,17 @@ ERROR:
 
 /*****************************************************************************/
 /**
-* @brief
+* @brief Configures the UFS power mode.
+*
 * This API Configures the Power Mode.
 *
-* @param	InstancePtr is a pointer to the XUfsPsxc instance.
-* @param	SpeedGear is the Power Mode value to be set.
-*           Refer XUFSPSXC_PWM_* XUFSPSXC_HS_* macros in xufspsxc.h file.
+* @param[in,out] InstancePtr Pointer to the XUfsPsxc instance.
+* @param[in] SpeedGear Power Mode value to be set. Refer XUFSPSXC_PWM_*
+*   XUFSPSXC_HS_* macros in xufspsxc.h file.
 *
-* @return	XUFSPSXC_SUCCESS or ERROR_CODE.
+* @return
+*		- XUFSPSXC_SUCCESS if successful.
+*		- Error codes on failure.
 *
 ******************************************************************************/
 u32 XUfsPsxc_ConfigureSpeedGear(XUfsPsxc *InstancePtr, u32 SpeedGear)
@@ -183,12 +195,15 @@ ERROR:
 
 /*****************************************************************************/
 /**
-* @brief
+* @brief Checks boot-enable and boot-LUN requirements.
+*
 * This API check boot requirements like BootEnable and bBootLunEn.
 *
-* @param	InstancePtr is a pointer to the XUfsPsxc instance.
+* @param[in,out] InstancePtr Pointer to the XUfsPsxc instance.
 *
-* @return	XUFSPSXC_SUCCESS or ERROR_CODE.
+* @return
+*		- XUFSPSXC_SUCCESS if successful.
+*		- Error codes on failure.
 *
 ******************************************************************************/
 u32 XUfsPsxc_CheckBootReq(XUfsPsxc *InstancePtr)
@@ -242,13 +257,16 @@ ERROR:
 
 /*****************************************************************************/
 /**
-* @brief
+* @brief Switches the active boot logical unit.
+*
 * This API switch the Boot-LU(1->2 or 2->1) by modifying the Attributes and
 * also set the block size to 4K if it is not 4K.
 *
-* @param	InstancePtr is a pointer to the XUfsPsxc instance.
+* @param[in,out] InstancePtr Pointer to the XUfsPsxc instance.
 *
-* @return	XUFSPSXC_SUCCESS or ERROR_CODE.
+* @return
+*		- XUFSPSXC_SUCCESS if successful.
+*		- Error codes on failure.
 *
 ******************************************************************************/
 u32 XUfsPsxc_SwitchBootLUN(XUfsPsxc *InstancePtr)
@@ -315,16 +333,21 @@ ERROR:
 
 /*****************************************************************************/
 /**
-* @brief
+* @brief Reads data from the UFS device in polled mode.
+*
 * This API perform the data read from the UFS device.
 *
-* @param	InstancePtr is a pointer to the XUfsPsxc instance.
-* @param	Lun is a Logical Unit Number.
-* @param	Address is the starting Logical Unit number.
-* @param	BlkCnt is the number of blocks to be read.
-* @param	Buff is a pointer to the destination data buffer.
+* @param[in,out] InstancePtr Pointer to the XUfsPsxc instance.
+* @param[in] Lun Logical Unit Number.
+* @param[in] Address Starting Logical Unit number.
+* @param[in] BlkCnt Number of blocks to be read.
+* @param[out] Buff Pointer to the destination data buffer.
 *
-* @return	XUFSPSXC_SUCCESS, XUFSPSXC_FAILURE.
+* @return
+*		- XUFSPSXC_SUCCESS if successful.
+*		- XUFSPSXC_FAILURE if unsuccessful.
+*
+* @note		The controller writes the read data into Buff by DMA.
 *
 ******************************************************************************/
 u32 XUfsPsxc_ReadPolled(XUfsPsxc *InstancePtr, u32 Lun, u64 Address, u32 BlkCnt,
@@ -394,16 +417,19 @@ ERROR:
 
 /*****************************************************************************/
 /**
-* @brief
+* @brief Writes data to the UFS device in polled mode.
+*
 * This API perform the data Write to the UFS device.
 *
-* @param	InstancePtr is a pointer to the XUfsPsxc instance.
-* @param	Lun is a Logical Unit Number.
-* @param	Address is the starting Logical Unit number.
-* @param	BlkCnt is the number of blocks to be read.
-* @param	Buff is a pointer to the destination data buffer.
+* @param[in,out] InstancePtr Pointer to the XUfsPsxc instance.
+* @param[in] Lun Logical Unit Number.
+* @param[in] Address Starting Logical Unit number.
+* @param[in] BlkCnt Number of blocks to write.
+* @param[in] Buff Pointer to the source data buffer.
 *
-* @return	XUFSPSXC_SUCCESS, XUFSPSXC_FAILURE.
+* @return
+*		- XUFSPSXC_SUCCESS if successful.
+*		- XUFSPSXC_FAILURE if unsuccessful.
 *
 ******************************************************************************/
 u32 XUfsPsxc_WritePolled(XUfsPsxc *InstancePtr, u32 Lun, u64 Address, u32 BlkCnt,

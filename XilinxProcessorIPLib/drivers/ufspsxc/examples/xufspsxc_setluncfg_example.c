@@ -7,10 +7,10 @@
 /**
 *
 * @file xufspsxc_setluncfg_example.c
+* @brief Demonstrates UFSPSXC LUN configuration.
 *
 * This example is used to set the device configuration and
 * test read and write transfers on UFS interface.
-*
 *
 * Modify the offset and Size macros to test different UFS memory offset and
 * size.
@@ -24,6 +24,7 @@
 * 1.1   sk  01/13/25 Enable the LU before configuring the Boot LUN ID.
 * 1.3   vn  07/30/26 Fix Doxygen warnings
 *
+* 1.3   tb  09/16/26 Align Doxygen comments with AMD standards.
 *</pre>
 *
 ******************************************************************************/
@@ -45,15 +46,18 @@ int UfsPsxcRawTest(void);
 u32 SetConfigurationDesc(XUfsPsxc *InstancePtr);
 
 /************************** Variable Definitions *****************************/
+/** Enable UFS read/write test when set to 1. */
 #define ENABLE_READ_WRITE			0
+/** Enable boot-LUN switch test when set to 1. */
 #define ENABLE_SWITCH_BLUN_TEST		0
 
-#define XPAR_XUFSPSXC_0_DEVICE_ID 0x0
+/** Example UFSPSXC device ID. */
+#define XPAR_XUFSPSXC_0_DEVICE_ID	0x0
 
-/* Number of SD blocks to test */
-#define NUM_BLOCKS 5
-/* Sector offset to test */
-#define SECTOR_OFFSET 0x0
+/** Number of blocks to test. */
+#define NUM_BLOCKS			5
+/** Starting sector offset for the test. */
+#define SECTOR_OFFSET			0x0
 
 #ifdef __ICCARM__
 #pragma data_alignment = 32
@@ -72,7 +76,8 @@ static XUfsPsxc UfsInstance;
 static XUfsPsxc_Xfer_CmdDesc CmdDescBuf __attribute__ ((aligned(128))) = {0};
 u8 ConfigDesc[256];
 
-#define TEST 0x52
+/** Test pattern byte written to the source buffer. */
+#define TEST				0x52
 
 /* Configuration Parameters */
 static u8 LunEnable[32] = {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
@@ -80,18 +85,24 @@ static u8 BootLunId[32] = {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 static u8 Mem_Type[32] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 static u32 SIZE_MB[32] = {1024, 1024, 4096, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 
-#define XUFSPSXC_PRIMARY_LUN		XUFSPSXC_BLUN_A		/* Boot-LUN Enable Attribute ID */
-#define XUFSPSXC_SECONDARY_LUN		XUFSPSXC_BLUN_B		/* Boot-LUN Enable Attribute ID */
+/**
+* @brief Defines Boot LUN A as primary for the Boot-LUN Enable attribute.
+*/
+#define XUFSPSXC_PRIMARY_LUN	XUFSPSXC_BLUN_A
+/**
+* @brief Defines Boot LUN B as secondary for the Boot-LUN Enable attribute.
+*/
+#define XUFSPSXC_SECONDARY_LUN	XUFSPSXC_BLUN_B
 
 /*****************************************************************************/
 /**
+* @brief Runs the UFSPSXC LUN-configuration example.
 *
 * Main function to call the UFS example.
 *
-*
-* @return	XST_SUCCESS if successful, otherwise XST_FAILURE.
-*
-* @note		None
+* @return
+*		- XST_SUCCESS if successful.
+*		- XST_FAILURE if unsuccessful.
 *
 ******************************************************************************/
 int main(void)
@@ -114,12 +125,13 @@ int main(void)
 
 /*****************************************************************************/
 /**
+* @brief Performs the UFS raw read and write test.
 *
 * This function performs the UFS Raw Read/ Write Test.
 *
-* @return	XST_SUCCESS if successful, otherwise XST_FAILURE.
-*
-* @note		None
+* @return
+*		- XST_SUCCESS if successful.
+*		- XST_FAILURE if unsuccessful.
 *
 ******************************************************************************/
 int UfsPsxcRawTest(void)
@@ -245,6 +257,17 @@ int UfsPsxcRawTest(void)
 	return XST_SUCCESS;
 }
 
+/*****************************************************************************/
+/**
+* @brief Writes the configuration descriptor and boot-LUN attribute.
+*
+* @param[in,out] InstancePtr Pointer to the XUfsPsxc instance.
+*
+* @return
+*		- XST_SUCCESS if successful.
+*		- An error code if unsuccessful.
+*
+******************************************************************************/
 u32 SetConfigurationDesc(XUfsPsxc *InstancePtr)
 {
 	u32 Status;
@@ -254,8 +277,8 @@ u32 SetConfigurationDesc(XUfsPsxc *InstancePtr)
 	u32 NumAllocUnits;
 	u32 MemType;
 
-	/* Read Configuration Descriptor */
 	for (Index = 0U; Index < InstancePtr->NumOfLuns / 8U; Index++) {
+		/* Read Configuration Descriptor */
 		memset((void *)&CmdDescBuf, 0, sizeof(XUfsPsxc_Xfer_CmdDesc));
 		Tsf_DW0 = (XUFSPSXC_CONFIG_DESC_IDN << 8U | Index << 16U);
 		XUfsPsxc_FillDescUpiu(InstancePtr, &CmdDescBuf, Tsf_DW0, XUFSPSXC_READ, XUFSPSXC_CFG_DESC_LEN(InstancePtr));

@@ -7,8 +7,7 @@
 /**
 *
 * @file xufspsxc_init.c
-* @addtogroup ufspsxc Overview
-* @{
+* @brief Implements UFSPSXC host and card initialization.
 *
 * This file implements the low host and card initialize functions used by the
 * APIs in xufspsxc.c file.
@@ -20,9 +19,15 @@
 * ----- --- -------- -----------------------------------------------
 * 1.0   sk  01/16/24 First release
 *
+* 1.3   tb  09/16/26 Align Doxygen comments with AMD standards.
 * </pre>
 *
 ******************************************************************************/
+
+/**
+* @addtogroup ufspsxc_api UFSPSXC APIs
+* @{
+*/
 
 /***************************** Include Files *********************************/
 
@@ -36,14 +41,22 @@
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
-#define XUFSPSXC_MAX_UD0_OFFSET		0x16U	/**< Max Unit Descriptor 0 base offset */
-#define XUFSPSXC_MAX_UD0_LENGTH		0x1AU	/**< Max Unit Descriptor length */
-#define XUFSPSXC_HIBERN8_STATE		0x1U	/**< TX/RX FSM Hibernate state */
-#define XUFSPSXC_SLEEP_STATE		0x2U	/**< TX/RX FSM Sleep state */
-#define XUFSPSXC_LS_BURST_STATE		0x4U	/**< TX/RX FSM LS-Burst state */
-#define XUFSPSXC_HSG1A_MIN_BPS		78643200U	/**< Minimum bytes per second for HS-G1 Rate A */
-#define XUFSPSXC_HSG1B_MIN_BPS		83886080U	/**< Minimum bytes per second for HS-G1 Rate B */
-#define XUFSPSXC_PWMG1_MIN_BPS		393216U		/**< Minimum bytes per second for PWM-G1 */
+/** Max Unit Descriptor 0 base offset. */
+#define XUFSPSXC_MAX_UD0_OFFSET		0x16U
+/** Max Unit Descriptor length. */
+#define XUFSPSXC_MAX_UD0_LENGTH		0x1AU
+/** TX/RX FSM Hibernate state. */
+#define XUFSPSXC_HIBERN8_STATE		0x1U
+/** TX/RX FSM Sleep state. */
+#define XUFSPSXC_SLEEP_STATE		0x2U
+/** TX/RX FSM LS-Burst state. */
+#define XUFSPSXC_LS_BURST_STATE		0x4U
+/** Minimum bytes per second for HS-G1 Rate A. */
+#define XUFSPSXC_HSG1A_MIN_BPS		78643200U
+/** Minimum bytes per second for HS-G1 Rate B. */
+#define XUFSPSXC_HSG1B_MIN_BPS		83886080U
+/** Minimum bytes per second for PWM-G1. */
+#define XUFSPSXC_PWMG1_MIN_BPS		393216U
 
 /************************** Function Prototypes ******************************/
 
@@ -52,12 +65,16 @@
 
 /*****************************************************************************/
 /**
-* @brief
+* @brief Initializes the UFS host controller.
+*
 * Initializes the Host Controller.
 *
-* @param	InstancePtr is a pointer to the XUfsPsxc instance.
+* @param[in,out] InstancePtr Pointer to the XUfsPsxc instance.
 *
-* @return	XUFSPSXC_SUCCESS, XUFSPSXC_FAILURE, UIC Error Codes in xufspsxc.h file.
+* @return
+*		- XUFSPSXC_SUCCESS if successful.
+*		- XUFSPSXC_FAILURE if unsuccessful.
+*		- UIC error codes as defined in xufspsxc.h.
 *
 ******************************************************************************/
 u32 XUfsPsxc_HostInitialize(XUfsPsxc *InstancePtr)
@@ -196,13 +213,16 @@ ERROR:
 
 /*****************************************************************************/
 /**
-* @brief
+* @brief Partially initializes the UFS device.
+*
 * This API Partially Initialize the UFS device.
 *
-* @param	InstancePtr is a pointer to the XUfsPsxc instance.
-* @param	CmdDescPtr is a pointer to the XUfsPsxc_Xfer_CmdDesc instance.
+* @param[in,out] InstancePtr Pointer to the XUfsPsxc instance.
+* @param[out] CmdDescPtr Pointer to the XUfsPsxc_Xfer_CmdDesc instance.
 *
-* @return	XUFSPSXC_SUCCESS, XUFSPSXC_FAILURE.
+* @return
+*		- XUFSPSXC_SUCCESS if successful.
+*		- XUFSPSXC_FAILURE if unsuccessful.
 *
 ******************************************************************************/
 u32 XUfsPsxc_CardInitialize(XUfsPsxc *InstancePtr, XUfsPsxc_Xfer_CmdDesc *CmdDescPtr)
@@ -261,13 +281,16 @@ ERROR:
 
 /*****************************************************************************/
 /**
-* @brief
+* @brief Reads UFS device and geometry information.
+*
 * This API read the UFS device information.
 *
-* @param	InstancePtr is a pointer to the XUfsPsxc instance.
-* @param	CmdDescPtr is a pointer to the XUfsPsxc_Xfer_CmdDesc instance.
+* @param[in,out] InstancePtr Pointer to the XUfsPsxc instance.
+* @param[out] CmdDescPtr Pointer to the XUfsPsxc_Xfer_CmdDesc instance.
 *
-* @return	XUFSPSXC_SUCCESS, XUFSPSXC_FAILURE.
+* @return
+*		- XUFSPSXC_SUCCESS if successful.
+*		- XUFSPSXC_FAILURE if unsuccessful.
 *
 ******************************************************************************/
 u32 XUfsPsxc_ReadDeviceInfo(XUfsPsxc *InstancePtr, XUfsPsxc_Xfer_CmdDesc *CmdDescPtr)
@@ -359,14 +382,17 @@ ERROR:
 
 /*****************************************************************************/
 /**
-* @brief
+* @brief Updates logical-unit information from the configuration descriptor.
+*
 * This API update the Logical Unit information structure by reading the
 * configuration descriptor.
 *
-* @param	InstancePtr is a pointer to the XUfsPsxc instance.
-* @param	CmdDescPtr is a pointer to the XUfsPsxc_Xfer_CmdDesc instance.
+* @param[in,out] InstancePtr Pointer to the XUfsPsxc instance.
+* @param[out] CmdDescPtr Pointer to the XUfsPsxc_Xfer_CmdDesc instance.
 *
-* @return	XUFSPSXC_SUCCESS, XUFSPSXC_FAILURE.
+* @return
+*		- XUFSPSXC_SUCCESS if successful.
+*		- XUFSPSXC_FAILURE if unsuccessful.
 *
 ******************************************************************************/
 u32 XUfsPsxc_GetLUNInfo(XUfsPsxc *InstancePtr, XUfsPsxc_Xfer_CmdDesc *CmdDescPtr)
@@ -428,7 +454,7 @@ u32 XUfsPsxc_GetLUNInfo(XUfsPsxc *InstancePtr, XUfsPsxc_Xfer_CmdDesc *CmdDescPtr
 					(((u64)InstancePtr->LUNInfo[(Index * 8U) + LUIndex].NumAllocUnits * (u64)InstancePtr->AllocUnitSize * (u64)InstancePtr->SegmentSize * (u64)512U) / ((u64)InstancePtr->CapAdjFactor[InstancePtr->LUNInfo[(Index * 8U) + LUIndex].MemoryType] * 1024U * 1024U));
 		}
 
-		/* Copy Configuration descriptor to the global array for future use */
+		/* Copy the configuration descriptor into the global array. */
 		(void)memcpy(&InstancePtr->Config_Desc_Data[XUFSPSXC_CFG_DESC_OFFSET(InstancePtr, Index)], &CmdDescPtr->RespUpiu.QueryRespUpiu.Data[0], XUFSPSXC_CFG_DESC_LEN(InstancePtr));
 	}
 
@@ -449,13 +475,16 @@ ERROR:
 
 /*****************************************************************************/
 /**
-* @brief
+* @brief Sets the boot LUN block size to 4 KB.
+*
 * This API set the block size to 4K for Boot LUN
 *
-* @param	InstancePtr is a pointer to the XUfsPsxc instance.
-* @param	CmdDescPtr is a pointer to the XUfsPsxc_Xfer_CmdDesc instance.
+* @param[in,out] InstancePtr Pointer to the XUfsPsxc instance.
+* @param[out] CmdDescPtr Pointer to the XUfsPsxc_Xfer_CmdDesc instance.
 *
-* @return	XUFSPSXC_SUCCESS, XUFSPSXC_FAILURE.
+* @return
+*		- XUFSPSXC_SUCCESS if successful.
+*		- XUFSPSXC_FAILURE if unsuccessful.
 *
 ******************************************************************************/
 u32 XUfsPsxc_Set4KBlkSize(XUfsPsxc *InstancePtr, XUfsPsxc_Xfer_CmdDesc *CmdDescPtr)
@@ -506,15 +535,18 @@ ERROR:
 
 /*****************************************************************************/
 /**
-* @brief
+* @brief Writes a PHY register through UIC indirect access.
+*
 * This API does PHY register write with the required sequence.
 *
-* @param	InstancePtr is a pointer to the XUfsPsxc instance.
-* @param	UicCmdPtr is a pointer to the XUfsPsxc_UicCmd instance.
-* @param	Address is Address of the PHy register.
-* @param	Value is Value to be written to the PHY register.
+* @param[in] InstancePtr Pointer to the XUfsPsxc instance.
+* @param[out] UicCmdPtr Pointer to the XUfsPsxc_UicCmd instance.
+* @param[in] Address Address of the PHy register.
+* @param[in] Value Value to be written to the PHY register.
 *
-* @return	XUFSPSXC_SUCCESS or Error codes.
+* @return
+*		- XUFSPSXC_SUCCESS if successful.
+*		- Error codes on failure.
 *
 ******************************************************************************/
 u32 XUfsPsxc_WritePhyReg(const XUfsPsxc *InstancePtr, XUfsPsxc_UicCmd *UicCmdPtr,
@@ -564,15 +596,18 @@ ERROR:
 
 /*****************************************************************************/
 /**
-* @brief
+* @brief Reads a PHY register through UIC indirect access.
+*
 * This API does PHY register read with the required sequence.
 *
-* @param	InstancePtr is a pointer to the XUfsPsxc instance.
-* @param	UicCmdPtr is a pointer to the XUfsPsxc_UicCmd instance.
-* @param	Address is Address of the PHy register.
-* @param	Value is a pointer to store the PHY register data.
+* @param[in] InstancePtr Pointer to the XUfsPsxc instance.
+* @param[out] UicCmdPtr Pointer to the XUfsPsxc_UicCmd instance.
+* @param[in] Address Address of the PHy register.
+* @param[out] Value Pointer to store the PHY register data.
 *
-* @return	XUFSPSXC_SUCCESS or Error codes.
+* @return
+*		- XUFSPSXC_SUCCESS if successful.
+*		- Error codes on failure.
 *
 ******************************************************************************/
 u32 XUfsPsxc_ReadPhyReg(const XUfsPsxc *InstancePtr, XUfsPsxc_UicCmd *UicCmdPtr,
@@ -628,12 +663,15 @@ ERROR:
 
 /*****************************************************************************/
 /**
-* @brief
+* @brief Sets RMMI configuration for the M-PHY.
+*
 * This API setup RMMI configurations.
 *
-* @param	InstancePtr is a pointer to the XUfsPsxc instance.
+* @param[in] InstancePtr Pointer to the XUfsPsxc instance.
 *
-* @return	XUFSPSXC_SUCCESS or Error codes.
+* @return
+*		- XUFSPSXC_SUCCESS if successful.
+*		- Error codes on failure.
 *
 ******************************************************************************/
 u32 XUfsPsxc_SetRmmiConfig(const XUfsPsxc *InstancePtr)
@@ -670,12 +708,15 @@ ERROR:
 
 /*****************************************************************************/
 /**
-* @brief
+* @brief Enables the M-PHY and waits for TX/RX ready.
+*
 * This API enable the MPHY and wait for Rx/Tx busy de-assertion.
 *
-* @param	InstancePtr is a pointer to the XUfsPsxc instance.
+* @param[in] InstancePtr Pointer to the XUfsPsxc instance.
 *
-* @return	XUFSPSXC_SUCCESS or Error codes.
+* @return
+*		- XUFSPSXC_SUCCESS if successful.
+*		- Error codes on failure.
 *
 ******************************************************************************/
 u32 XUfsPsxc_EnableMPhy(const XUfsPsxc *InstancePtr)
@@ -751,13 +792,14 @@ ERROR:
 
 /*****************************************************************************/
 /**
-* @brief
-* Send Test Unit Ready command and poll until the LUN reports ready.
+* @brief Sends Test Unit Ready and polls until the LUN reports ready.
 *
-* @param	InstancePtr is a pointer to the XUfsPsxc instance.
-* @param	Lun is the Logical Unit Number to probe.
+* @param[in,out] InstancePtr Pointer to the XUfsPsxc instance.
+* @param[in] Lun Logical Unit Number to probe.
 *
-* @return	XUFSPSXC_SUCCESS or ERROR_CODE.
+* @return
+*		- XUFSPSXC_SUCCESS if successful.
+*		- Error codes on failure.
 *
 ******************************************************************************/
 u32 XUfsPsxc_WaitTestUnitReady(XUfsPsxc *InstancePtr, u32 Lun)
@@ -788,12 +830,11 @@ u32 XUfsPsxc_WaitTestUnitReady(XUfsPsxc *InstancePtr, u32 Lun)
 
 /*****************************************************************************/
 /**
-* @brief
-* Determine the minimum bytes-per-second for the currently configured gear.
+* @brief Determines the minimum bytes-per-second for the configured gear.
 *
-* @param	PowerMode is the encoded power mode (gear/series) value.
+* @param[in] PowerMode Encoded power mode (gear/series) value.
 *
-* @return	Minimum bytes-per-second used to compute the transfer timeout.
+* @return Minimum bytes-per-second used to compute the transfer timeout.
 *
 ******************************************************************************/
 u32 XUfsPsxc_GetMinBytesPerSec(u32 PowerMode)
@@ -815,13 +856,14 @@ u32 XUfsPsxc_GetMinBytesPerSec(u32 PowerMode)
 
 /*****************************************************************************/
 /**
-* @brief
-* Evaluate the OCS and response UPIU status to determine the transfer result.
+* @brief Evaluates the OCS and response UPIU status to get the transfer result.
 *
-* @param	InstancePtr is a pointer to the XUfsPsxc instance.
-* @param	CmdDescPtr is a pointer to the XUfsPsxc_Xfer_CmdDesc instance.
+* @param[in] InstancePtr Pointer to the XUfsPsxc instance.
+* @param[in] CmdDescPtr Pointer to the XUfsPsxc_Xfer_CmdDesc instance.
 *
-* @return	XUFSPSXC_SUCCESS or ERROR_CODE.
+* @return
+*		- XUFSPSXC_SUCCESS if successful.
+*		- Error codes on failure.
 *
 ******************************************************************************/
 u32 XUfsPsxc_EvaluateUpiuResponse(const XUfsPsxc *InstancePtr, const XUfsPsxc_Xfer_CmdDesc *CmdDescPtr)
@@ -845,15 +887,18 @@ u32 XUfsPsxc_EvaluateUpiuResponse(const XUfsPsxc *InstancePtr, const XUfsPsxc_Xf
 
 /*****************************************************************************/
 /**
-* @brief
+* @brief Configures TX and RX attributes for a power-mode change.
+*
 * This API Configures the Tx/Rx Attributes.
 *
-* @param	InstancePtr is a pointer to the XUfsPsxc instance.
-* @param	SpeedGear is the Power Mode value to be set.
-* @param	RxTermCap is the Rx Termination Capability.
-* @param	TxTermCap is the Tx Termination Capability.
+* @param[in] InstancePtr Pointer to the XUfsPsxc instance.
+* @param[in] SpeedGear Power Mode value to be set.
+* @param[in] RxTermCap Rx Termination Capability.
+* @param[in] TxTermCap Tx Termination Capability.
 *
-* @return	XUFSPSXC_SUCCESS or Error codes.
+* @return
+*		- XUFSPSXC_SUCCESS if successful.
+*		- Error codes on failure.
 *
 ******************************************************************************/
 u32 XUfsPsxc_ConfigureTxRxAttributes(const XUfsPsxc *InstancePtr, u32 SpeedGear,
@@ -951,7 +996,8 @@ ERROR:
 
 /*****************************************************************************/
 /**
-* @brief
+* @brief Sets the device bRefClkFreq attribute.
+*
 * This API sets the reference clock frequency attribute (bRefClkFreq) on the
 * UFS device based on the configured reference pad clock frequency.
 *
@@ -959,10 +1005,12 @@ ERROR:
 * configuration to the appropriate UFS attribute value and writes it to the
 * device using a query command.
 *
-* @param	InstancePtr Pointer to the XUfsPsxc instance.
-* @param	CmdDescPtr Pointer to the XUfsPsxc_Xfer_CmdDesc instance
+* @param[in,out]	InstancePtr Pointer to the XUfsPsxc instance.
+* @param[out] CmdDescPtr Pointer to the XUfsPsxc_Xfer_CmdDesc instance.
 *
-* @return	XUFSPSXC_SUCCESS on success or Error Codes.
+* @return
+*		- XUFSPSXC_SUCCESS if successful.
+*		- Error codes on failure.
 *
 * @note		The supported reference clock frequencies are:
 *		- 19.2 MHz (XUFSPSXC_CLK_SEL_19P2)

@@ -7,8 +7,7 @@
 /**
 *
 * @file xufspsxc_hw.c
-* @addtogroup ufspsxc Overview
-* @{
+* @brief Implements UFSPSXC low-level transfer helpers.
 *
 * This file implements the low level functions used by the APIs in xufspsxc.c
 * file.
@@ -21,9 +20,15 @@
 * 1.0   sk  01/16/24 First release
 * 1.3   vn  07/30/26 Fix Doxygen warnings
 *
+* 1.3   tb  09/16/26 Align Doxygen comments with AMD standards.
 * </pre>
 *
 ******************************************************************************/
+
+/**
+* @addtogroup ufspsxc_api UFSPSXC APIs
+* @{
+*/
 
 /***************************** Include Files *********************************/
 
@@ -37,7 +42,8 @@
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
-#define SEC_TO_MSEC		1000000U	/**< Conversion factor from seconds to microseconds */
+/** Conversion factor from seconds to microseconds. */
+#define SEC_TO_MSEC		1000000U
 /************************** Function Prototypes ******************************/
 
 
@@ -45,13 +51,16 @@
 
 /*****************************************************************************/
 /**
-* @brief
+* @brief Sends a UIC command to the controller.
+*
 * Send UIC Command.
 *
-* @param	InstancePtr is a pointer to the XUfsPsxc instance.
-* @param	UicCmdPtr is a pointer to the XUfsPsxc_UicCmd instance.
+* @param[in] InstancePtr Pointer to the XUfsPsxc instance.
+* @param[in,out] UicCmdPtr Pointer to the XUfsPsxc_UicCmd instance.
 *
-* @return	Refer UIC Error Codes in xufspsxc.h file.
+* @return
+*		- XUFSPSXC_SUCCESS if successful.
+*		- UIC error codes as defined in xufspsxc.h.
 *
 ******************************************************************************/
 u32 XUfsPsxc_SendUICCmd(const XUfsPsxc *InstancePtr, XUfsPsxc_UicCmd *UicCmdPtr)
@@ -130,14 +139,16 @@ ERROR:
 
 /*****************************************************************************/
 /**
-* @brief
+* @brief Enables or disables the host controller.
+*
 * Perform the Host Controller Enable/Disable.
 *
-* @param	InstancePtr is a pointer to the XUfsPsxc instance.
-* @param	Value is used to enable/disable Host Controller.
+* @param[in] InstancePtr Pointer to the XUfsPsxc instance.
+* @param[in] Value Used to enable/disable Host Controller.
 *
-* @return	XUFSPSXC_SUCCESS for Success
-* 			XUFSPSXC_FAILURE for failure
+* @return
+*		- XUFSPSXC_SUCCESS if successful.
+*		- XUFSPSXC_FAILURE if unsuccessful.
 *
 ******************************************************************************/
 u32 XUfsPsxc_SetHce(const XUfsPsxc *InstancePtr, u32 Value)
@@ -161,11 +172,12 @@ u32 XUfsPsxc_SetHce(const XUfsPsxc *InstancePtr, u32 Value)
 
 /*****************************************************************************/
 /**
-* @brief
-* This API Fill the transfer request descriptor for NOP-OUT UPIU.
+* @brief Fills a NOP OUT UPIU transfer request.
 *
-* @param	InstancePtr is a pointer to the XUfsPsxc instance.
-* @param	CmdDescPtr is a pointer to the XUfsPsxc_Xfer_CmdDesc instance.
+* Fills the transfer-request descriptor for a NOP OUT UPIU.
+*
+* @param[out] InstancePtr Pointer to the XUfsPsxc instance.
+* @param[out] CmdDescPtr Pointer to the XUfsPsxc_Xfer_CmdDesc instance.
 *
 ******************************************************************************/
 void XUfsPsxc_FillNopOutUpiu(XUfsPsxc *InstancePtr,
@@ -187,11 +199,12 @@ void XUfsPsxc_FillNopOutUpiu(XUfsPsxc *InstancePtr,
 
 /*****************************************************************************/
 /**
-* @brief
-* This API Fill the transfer request descriptor for TEST UNIT READY Command.
+* @brief Fills a TEST UNIT READY UPIU transfer request.
 *
-* @param	InstancePtr is a pointer to the XUfsPsxc instance.
-* @param	CmdDescPtr is a pointer to the XUfsPsxc_Xfer_CmdDesc instance.
+* Fills the transfer-request descriptor for a TEST UNIT READY command.
+*
+* @param[in,out] InstancePtr Pointer to the XUfsPsxc instance.
+* @param[out] CmdDescPtr Pointer to the XUfsPsxc_Xfer_CmdDesc instance.
 *
 ******************************************************************************/
 void XUfsPsxc_FillTestUnitRdyUpiu(XUfsPsxc *InstancePtr,
@@ -216,14 +229,15 @@ void XUfsPsxc_FillTestUnitRdyUpiu(XUfsPsxc *InstancePtr,
 
 /*****************************************************************************/
 /**
-* @brief
-* This API Fill the transfer request descriptor for READ Command.
+* @brief Fills a SCSI READ command UPIU with PRDT entries.
 *
-* @param	InstancePtr is a pointer to the XUfsPsxc instance.
-* @param	CmdDescPtr is a pointer to the XUfsPsxc_Xfer_CmdDesc instance.
-* @param	Address specifies the first logical block accessed by this command.
-* @param	BlkCnt is the number of blocks to be read.
-* @param	Buff is a pointer to the destination data buffer.
+* Fills the transfer-request descriptor for a READ command.
+*
+* @param[in,out] InstancePtr Pointer to the XUfsPsxc instance.
+* @param[out] CmdDescPtr Pointer to the XUfsPsxc_Xfer_CmdDesc instance.
+* @param[in] Address Specifies the first logical block accessed by this command.
+* @param[in] BlkCnt Number of blocks to be read.
+* @param[in] Buff Pointer to the destination data buffer.
 *
 ******************************************************************************/
 void XUfsPsxc_FillReadCmdUpiu(XUfsPsxc *InstancePtr,
@@ -296,14 +310,15 @@ void XUfsPsxc_FillReadCmdUpiu(XUfsPsxc *InstancePtr,
 
 /*****************************************************************************/
 /**
-* @brief
-* This API Fill the transfer request descriptor for WRITE Command.
+* @brief Fills a SCSI WRITE command UPIU with PRDT entries.
 *
-* @param	InstancePtr is a pointer to the XUfsPsxc instance.
-* @param	CmdDescPtr is a pointer to the XUfsPsxc_Xfer_CmdDesc instance.
-* @param	Address specifies the first logical block accessed by this command.
-* @param	BlkCnt is the number of blocks to write.
-* @param	Buff is a pointer to the destination data buffer.
+* Fills the transfer-request descriptor for a WRITE command.
+*
+* @param[in,out] InstancePtr Pointer to the XUfsPsxc instance.
+* @param[out] CmdDescPtr Pointer to the XUfsPsxc_Xfer_CmdDesc instance.
+* @param[in] Address Specifies the first logical block accessed by this command.
+* @param[in] BlkCnt Number of blocks to write.
+* @param[in] Buff Pointer to the source data buffer.
 *
 ******************************************************************************/
 void XUfsPsxc_FillWriteCmdUpiu(XUfsPsxc *InstancePtr,
@@ -367,13 +382,14 @@ void XUfsPsxc_FillWriteCmdUpiu(XUfsPsxc *InstancePtr,
 
 /*****************************************************************************/
 /**
-* @brief
-* This API Fill the transfer request descriptor for READ/SET FLAG Command.
+* @brief Fills a Query Flag UPIU for read or set operations.
 *
-* @param	InstancePtr is a pointer to the XUfsPsxc instance.
-* @param	CmdDescPtr is a pointer to the XUfsPsxc_Xfer_CmdDesc instance.
-* @param	IsRead is a flag to indicate whether the operation is read or write.
-* @param    FlagIDn is a Flag Identification number.
+* Fills the transfer-request descriptor for a read or set flag command.
+*
+* @param[out] InstancePtr Pointer to the XUfsPsxc instance.
+* @param[out] CmdDescPtr Pointer to the XUfsPsxc_Xfer_CmdDesc instance.
+* @param[in] IsRead Flag to indicate whether the operation is read or write.
+* @param[in] FlagIDn Flag Identification number.
 *
 ******************************************************************************/
 void XUfsPsxc_FillFlagUpiu(XUfsPsxc *InstancePtr, XUfsPsxc_Xfer_CmdDesc *CmdDescPtr,
@@ -392,7 +408,7 @@ void XUfsPsxc_FillFlagUpiu(XUfsPsxc *InstancePtr, XUfsPsxc_Xfer_CmdDesc *CmdDesc
 		QueryTaskMangFn = XUFSPSXC_QRY_READ;
 		Opcode = XUFSPSXC_QRY_READ_FLAG_CMD;
 
-		/* Write 1 to the RespUpiu value as we are expecting 0 for fDeviceInit flag */
+		/* Write 1 to RespUpiu. Expect 0 for fDeviceInit. */
 		CmdDescPtr->RespUpiu.QueryRespUpiu.Tsf.Value = ((u32)1U << 24U);
 	} else {
 		TaskTag = (u32)XUFSPSXC_QRY_SET_FLAG_TASK_TAG;
@@ -413,16 +429,18 @@ void XUfsPsxc_FillFlagUpiu(XUfsPsxc *InstancePtr, XUfsPsxc_Xfer_CmdDesc *CmdDesc
 
 /*****************************************************************************/
 /**
-* @brief
-* This API Fill the transfer request descriptor for read or write Descriptor Command.
+* @brief Fills a Query Descriptor UPIU for read or write operations.
 *
-* @param	InstancePtr is a pointer to the XUfsPsxc instance.
-* @param	CmdDescPtr is a pointer to the XUfsPsxc_Xfer_CmdDesc instance.
-* @param	Tsf_DW0 contains information about Description identification Number(3rd byte),
-*           Index(2nd byte) and Selector(1st byte).
-* @param	IsRead is a flag to indicate whether the operation is read or write
-*           descriptor.
-* @param	Length is the number of bytes to read the descriptor.
+* Fills the transfer-request descriptor for a read or write
+* descriptor command.
+*
+* @param[out] InstancePtr Pointer to the XUfsPsxc instance.
+* @param[out] CmdDescPtr Pointer to the XUfsPsxc_Xfer_CmdDesc instance.
+* @param[in] Tsf_DW0 Contains information about Description identification
+*   Number(3rd byte), Index(2nd byte) and Selector(1st byte).
+* @param[in] IsRead Flag to indicate whether the operation is read or write
+*   descriptor.
+* @param[in] Length Number of bytes to read the descriptor.
 *
 ******************************************************************************/
 void XUfsPsxc_FillDescUpiu(XUfsPsxc *InstancePtr, XUfsPsxc_Xfer_CmdDesc *CmdDescPtr,
@@ -462,15 +480,16 @@ void XUfsPsxc_FillDescUpiu(XUfsPsxc *InstancePtr, XUfsPsxc_Xfer_CmdDesc *CmdDesc
 
 /*****************************************************************************/
 /**
-* @brief
-* This API Fill the transfer request descriptor for read or write Attribute Command.
+* @brief Fills a Query Attribute UPIU for read or write operations.
 *
-* @param	InstancePtr is a pointer to the XUfsPsxc instance.
-* @param	CmdDescPtr is a pointer to the XUfsPsxc_Xfer_CmdDesc instance.
-* @param	IsRead is a flag to indicate whether the operation is read or write
-*           descriptor.
-* @param    AttrIDn is a Attribute Identification number.
-* @param	Value is value to be written to the attributes.
+* Fills the transfer-request descriptor for a read or write
+* attribute command.
+*
+* @param[out] InstancePtr Pointer to the XUfsPsxc instance.
+* @param[out] CmdDescPtr Pointer to the XUfsPsxc_Xfer_CmdDesc instance.
+* @param[in] IsRead Flag to indicate whether the operation is read or write.
+* @param[in] AttrIDn Attribute Identification number.
+* @param[in] Value Value to be written to the attributes.
 *
 ******************************************************************************/
 void XUfsPsxc_FillAttrUpiu(XUfsPsxc *InstancePtr, XUfsPsxc_Xfer_CmdDesc *CmdDescPtr,
@@ -507,12 +526,11 @@ void XUfsPsxc_FillAttrUpiu(XUfsPsxc *InstancePtr, XUfsPsxc_Xfer_CmdDesc *CmdDesc
 
 /*****************************************************************************/
 /**
-* @brief
-* Check whether the given SpeedGear is a supported PWM/HS gear configuration.
+* @brief Checks whether SpeedGear is a supported PWM/HS gear configuration.
 *
-* @param	SpeedGear is the Power Mode value to be validated.
+* @param[in] SpeedGear Power Mode value to be validated.
 *
-* @return	1U if SpeedGear is supported, otherwise 0U.
+* @return 1U if SpeedGear is supported, otherwise 0U.
 *
 ******************************************************************************/
 u32 XUfsPsxc_IsValidSpeedGear(u32 SpeedGear)
@@ -537,12 +555,13 @@ u32 XUfsPsxc_IsValidSpeedGear(u32 SpeedGear)
 
 /*****************************************************************************/
 /**
-* @brief
-* Wait for the power mode change to complete after a gear switch.
+* @brief Waits for the power mode change to complete after a gear switch.
 *
-* @param	InstancePtr is a pointer to the XUfsPsxc instance.
+* @param[in] InstancePtr Pointer to the XUfsPsxc instance.
 *
-* @return	XUFSPSXC_SUCCESS or ERROR_CODE.
+* @return
+*		- XUFSPSXC_SUCCESS if successful.
+*		- Error codes on failure.
 *
 ******************************************************************************/
 u32 XUfsPsxc_WaitForPowerModeChange(const XUfsPsxc *InstancePtr)
@@ -568,13 +587,16 @@ u32 XUfsPsxc_WaitForPowerModeChange(const XUfsPsxc *InstancePtr)
 
 /*****************************************************************************/
 /**
-* @brief
-* This API send the UPIU to the UFS device.
+* @brief Sends a UPIU to the UFS device and waits for completion.
 *
-* @param	InstancePtr is a pointer to the XUfsPsxc instance.
-* @param	CmdDescPtr is a pointer to the XUfsPsxc_Xfer_CmdDesc instance.
+* Sends the UPIU to the UFS device.
 *
-* @return	Refer OCS in xufspsxc.h file, XUFSPSXC_FAILURE
+* @param[in] InstancePtr Pointer to the XUfsPsxc instance.
+* @param[in] CmdDescPtr Pointer to the XUfsPsxc_Xfer_CmdDesc instance.
+*
+* @return
+*		- OCS codes as defined in xufspsxc.h.
+*		- XUFSPSXC_FAILURE if unsuccessful.
 *
 ******************************************************************************/
 u32 XUfsPsxc_ProcessUpiu(const XUfsPsxc *InstancePtr, const XUfsPsxc_Xfer_CmdDesc *CmdDescPtr)
@@ -630,7 +652,7 @@ u32 XUfsPsxc_ProcessUpiu(const XUfsPsxc *InstancePtr, const XUfsPsxc_Xfer_CmdDes
 	ReadReg = XUfsPsxc_ReadReg(InstancePtr->Config.BaseAddress, XUFSPSXC_IS);
 	XUfsPsxc_WriteReg(InstancePtr->Config.BaseAddress, XUFSPSXC_IS, ReadReg);
 
-	/* Wait for the controller to clear the corresponding UTRLDBR bit to ZERO */
+	/* Wait for the controller to clear the UTRLDBR bit. */
 	TimeOut = 1000000U;	/* One Second */
 	Status = Xil_WaitForEvent(InstancePtr->Config.BaseAddress + XUFSPSXC_UTRLDBR, 1U, 0U, TimeOut);
 	if (Status != (u32)XUFSPSXC_SUCCESS) {
@@ -653,12 +675,15 @@ ERROR:
 
 /*****************************************************************************/
 /**
-* @brief
-* This API does PHY Initialization sequence.
+* @brief Runs the PHY initialization sequence.
 *
-* @param	InstancePtr is a pointer to the XUfsPsxc instance.
+* Runs the PHY initialization sequence.
 *
-* @return	XUFSPSXC_SUCCESS or Error codes.
+* @param[in] InstancePtr Pointer to the XUfsPsxc instance.
+*
+* @return
+*		- XUFSPSXC_SUCCESS if successful.
+*		- Error codes on failure.
 *
 ******************************************************************************/
 u32 XUfsPsxc_PhyInit(const XUfsPsxc *InstancePtr)
@@ -724,14 +749,17 @@ ERROR:
 
 /*****************************************************************************/
 /**
-* @brief
-* This API Overrides the PHY rx_req.
+* @brief Overrides the PHY rx_req for lane initialization.
 *
-* @param	InstancePtr is a pointer to the XUfsPsxc instance.
-* @param	RxReq indicates PHY should be receiver mode or not
-* @param	NumLanes indicates Number of connected lanes
+* Overrides the PHY rx_req.
 *
-* @return	XUFSPSXC_SUCCESS or Error codes.
+* @param[in] InstancePtr Pointer to the XUfsPsxc instance.
+* @param[in] RxReq Indicates PHY should be receiver mode or not.
+* @param[in] NumLanes Indicates Number of connected lanes.
+*
+* @return
+*		- XUFSPSXC_SUCCESS if successful.
+*		- Error codes on failure.
 *
 ******************************************************************************/
 u32 XUfsPsxc_OverridePhyRxReq(const XUfsPsxc *InstancePtr, u32 RxReq, u32 NumLanes)
@@ -793,14 +821,15 @@ ERROR:
 
 /*****************************************************************************/
 /**
-* @brief
-* Clear the MPHY RX override bit on all connected RX lanes.
+* @brief Clears the MPHY RX override bit on all connected RX lanes.
 *
-* @param	InstancePtr is a pointer to the XUfsPsxc instance.
-* @param	UicCmdPtr is a pointer to the XUfsPsxc_UicCmd instance.
-* @param	RxLanes is the number of connected RX data lanes.
+* @param[in] InstancePtr Pointer to the XUfsPsxc instance.
+* @param[out] UicCmdPtr Pointer to the XUfsPsxc_UicCmd instance.
+* @param[in] RxLanes Number of connected RX data lanes.
 *
-* @return	XUFSPSXC_SUCCESS or Error codes.
+* @return
+*		- XUFSPSXC_SUCCESS if successful.
+*		- Error codes on failure.
 *
 ******************************************************************************/
 u32 XUfsPsxc_ClearPhyRxOverride(const XUfsPsxc *InstancePtr, XUfsPsxc_UicCmd *UicCmdPtr, u32 RxLanes)
