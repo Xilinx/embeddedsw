@@ -8,8 +8,7 @@
 /**
 *
 * @file xrfdc_mixer.c
-* @addtogroup Overview
-* @{
+* @brief Implements the mixer settings functions of the XRFdc driver.
 *
 * Contains the interface functions of the Mixer Settings in XRFdc driver.
 * See xrfdc.h for a detailed description of the device and driver.
@@ -58,9 +57,14 @@
 * 11.1  cog    11/16/21 Upversion.
 *       cog    01/18/22 Added safety checks.
 * 13.2  vn     08/11/26 Fix Doxygen warnings.
+* 13.2  vn     09/29/26 Align Doxygen comments with AMD standards
 * </pre>
 *
 ******************************************************************************/
+
+/** @addtogroup Overview
+ * @{
+ */
 
 /***************************** Include Files *********************************/
 #include "xrfdc.h"
@@ -81,28 +85,29 @@ static void XRFdc_MixersOff(XRFdc *InstancePtr, u32 BaseAddr);
 
 /*****************************************************************************/
 /**
-* The API is used to update various mixer settings, fine, coarse, NCO etc.
-* Mixer/NCO settings passed are used to update the corresponding
-* block level registers. Driver structure is updated with the new values.
+* @brief Updates various mixer settings such as fine, coarse, and NCO.
 *
-* @param    InstancePtr is a pointer to the XRfdc instance.
-* @param    Type is ADC or DAC. 0 for ADC and 1 DAC
-* @param    Tile_Id Valid values are 0-3.
-* @param    Block_Id is ADC/DAC block number inside the tile. Valid values
-*           are 0-3.
-* @param    MixerSettingsPtr Pointer to the XRFdc_Mixer_Settings structure
-*           in which the Mixer/NCO settings are passed.
+* Mixer/NCO settings passed are used to update the corresponding block
+* level registers. Driver structure is updated with the new values.
+*
+* @param[in,out] InstancePtr Pointer to the XRfdc instance.
+* @param[in]     Type ADC or DAC. 0 for ADC and 1 DAC.
+* @param[in]     Tile_Id Valid values are 0-3.
+* @param[in]     Block_Id ADC/DAC block number inside the tile. Valid
+*                values are 0-3.
+* @param[in]     MixerSettingsPtr Pointer to the XRFdc_Mixer_Settings structure
+*                in which the Mixer/NCO settings are passed.
 *
 * @return
-*           - XRFDC_SUCCESS if successful.
-*           - XRFDC_FAILURE if error occurs.
+*                - XRFDC_SUCCESS if successful.
+*                - XRFDC_FAILURE if error occurs.
 *
-* @note     FineMixerScale in Mixer_Settings structure can have 3 values.
-*           XRFDC_MIXER_SCALE_* represents the valid values.
-*           XRFDC_MIXER_SCALE_AUTO - If mixer mode is R2C, Mixer Scale is
-*           set to 1 and for other modes mixer scale is set to 0.7
-*           XRFDC_MIXER_SCALE_1P0 - To set fine mixer scale to 1.
-*           XRFDC_MIXER_SCALE_0P7 - To set fine mixer scale to 0.7.
+* @note          FineMixerScale in Mixer_Settings structure can have 3 values.
+*                XRFDC_MIXER_SCALE_* represents the valid values.
+*                XRFDC_MIXER_SCALE_AUTO - If mixer mode is R2C, Mixer Scale is
+*                set to 1 and for other modes mixer scale is set to 0.7
+*                XRFDC_MIXER_SCALE_1P0 - To set fine mixer scale to 1.
+*                XRFDC_MIXER_SCALE_0P7 - To set fine mixer scale to 0.7.
 *
 ******************************************************************************/
 u32 XRFdc_SetMixerSettings(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 Block_Id,
@@ -371,21 +376,19 @@ RETURN_PATH:
 
 /*****************************************************************************/
 /**
-* Static API used to do the Mixer Settings range check.
+* @brief Performs the mixer settings range check.
 *
-* @param    InstancePtr is a pointer to the XRfdc instance.
-* @param    Type is ADC or DAC. 0 for ADC and 1 for DAC
-* @param    Tile_Id Valid values are 0-3.
-* @param    Block_Id is ADC/DAC block number inside the tile. Valid values
-*           are 0-3.
-* @param    MixerSettingsPtr Pointer to the XRFdc_Mixer_Settings structure
-*           in which the Mixer/NCO settings are passed.
+* @param[in]   InstancePtr Pointer to the XRfdc instance.
+* @param[in]   Type ADC or DAC. 0 for ADC and 1 for DAC.
+* @param[in]   Tile_Id Valid values are 0-3.
+* @param[in]   Block_Id ADC/DAC block number inside the tile. Valid
+*              values are 0-3.
+* @param[in]   MixerSettingsPtr Pointer to the XRFdc_Mixer_Settings structure in
+*              which the Mixer/NCO settings are passed.
 *
 * @return
-*           - XRFDC_SUCCESS if mixer settings are within the range.
-*           - XRFDC_FAILURE if mixer settings are not in valid range
-*
-* @note     None.
+*              - XRFDC_SUCCESS if mixer settings are within the range.
+*              - XRFDC_FAILURE if mixer settings are not in valid range.
 *
 ******************************************************************************/
 static u32 XRFdc_MixerRangeCheck(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 Block_Id,
@@ -519,15 +522,12 @@ RETURN_PATH:
 
 /*****************************************************************************/
 /**
-* Static API used to turn off Fine & Coarse Mixers.
+* @brief Turns off the fine and coarse mixers.
 *
-* @param    InstancePtr is a pointer to the XRfdc instance.
-* @param    BaseAddr is ADC or DAC base address.
+* @param[in]   InstancePtr Pointer to the XRfdc instance.
+* @param[in]   BaseAddr ADC or DAC base address.
 *
-* @return
-*           - None
-*
-* @note     Static API
+* @note        Static API
 *
 ******************************************************************************/
 static void XRFdc_MixersOff(XRFdc *InstancePtr, u32 BaseAddr)
@@ -541,17 +541,14 @@ static void XRFdc_MixersOff(XRFdc *InstancePtr, u32 BaseAddr)
 
 /*****************************************************************************/
 /**
-* Static API used to set the Fine Mixer.
+* @brief Sets the fine mixer.
 *
-* @param    InstancePtr is a pointer to the XRfdc instance.
-* @param    BaseAddr is ADC or DAC base address.
-* @param    MixerSettingsPtr Pointer to the XRFdc_Mixer_Settings structure
-*           in which the Mixer/NCO settings are passed.
+* @param[in]   InstancePtr Pointer to the XRfdc instance.
+* @param[in]   BaseAddr ADC or DAC base address.
+* @param[in]   MixerSettingsPtr Pointer to the XRFdc_Mixer_Settings structure in
+*              which the Mixer/NCO settings are passed.
 *
-* @return
-*           - None
-*
-* @note     Static API
+* @note        Static API
 *
 ******************************************************************************/
 static void XRFdc_SetFineMixer(XRFdc *InstancePtr, u32 BaseAddr, XRFdc_Mixer_Settings *MixerSettingsPtr)
@@ -582,21 +579,18 @@ static void XRFdc_SetFineMixer(XRFdc *InstancePtr, u32 BaseAddr, XRFdc_Mixer_Set
 
 /*****************************************************************************/
 /**
-* Static API used to set the Coarse Mixer.
+* @brief Sets the coarse mixer.
 *
-* @param    InstancePtr is a pointer to the XRfdc instance.
-* @param    Type is ADC or DAC. 0 for ADC and 1 for DAC
-* @param    BaseAddr is ADC or DAC base address.
-* @param    Tile_Id Valid values are 0-3.
-* @param    Block_Id is ADC/DAC block number inside the tile.
-* @param    CoarseMixFreq is ADC or DAC Coarse mixer frequency.
-* @param    MixerSettingsPtr Pointer to the XRFdc_Mixer_Settings structure
-*           in which the Mixer/NCO settings are passed.
+* @param[in]   InstancePtr Pointer to the XRfdc instance.
+* @param[in]   Type ADC or DAC. 0 for ADC and 1 for DAC.
+* @param[in]   BaseAddr ADC or DAC base address.
+* @param[in]   Tile_Id Valid values are 0-3.
+* @param[in]   Block_Id ADC/DAC block number inside the tile.
+* @param[in]   CoarseMixFreq ADC or DAC Coarse mixer frequency.
+* @param[in]   MixerSettingsPtr Pointer to the XRFdc_Mixer_Settings structure in
+*              which the Mixer/NCO settings are passed.
 *
-* @return
-*           - None
-*
-* @note     Static API
+* @note        Static API
 *
 ******************************************************************************/
 static void XRFdc_SetCoarseMixer(XRFdc *InstancePtr, u32 Type, u32 BaseAddr, u32 Tile_Id, u32 Block_Id,
@@ -740,26 +734,26 @@ static void XRFdc_SetCoarseMixer(XRFdc *InstancePtr, u32 Type, u32 BaseAddr, u32
 /*****************************************************************************/
 /**
 *
-* The API returns back Mixer/NCO settings to the caller.
+* @brief Returns the mixer and NCO settings to the caller.
 *
-* @param    InstancePtr is a pointer to the XRfdc instance.
-* @param    Type is ADC or DAC. 0 for ADC and 1 for DAC
-* @param    Tile_Id Valid values are 0-3.
-* @param    Block_Id is ADC/DAC block number inside the tile. Valid values
-*           are 0-3.
-* @param    MixerSettingsPtr Pointer to the XRFdc_Mixer_Settings structure
-*           in which the Mixer/NCO settings are passed.
+* @param[in]   InstancePtr Pointer to the XRfdc instance.
+* @param[in]   Type ADC or DAC. 0 for ADC and 1 for DAC.
+* @param[in]   Tile_Id Valid values are 0-3.
+* @param[in]   Block_Id ADC/DAC block number inside the tile. Valid
+*              values are 0-3.
+* @param[out]  MixerSettingsPtr Pointer to the XRFdc_Mixer_Settings structure
+*              in which the Mixer/NCO settings are passed.
 *
 * @return
-*           - XRFDC_SUCCESS if successful.
-*           - XRFDC_FAILURE if error occurs.
+*              - XRFDC_SUCCESS if successful.
+*              - XRFDC_FAILURE if error occurs.
 *
-* @note     FineMixerScale in Mixer_Settings structure can have 3 values.
-*           XRFDC_MIXER_SCALE_* represents the valid values.
-*           XRFDC_MIXER_SCALE_AUTO - If mixer mode is R2C, Mixer Scale is
-*           set to 1 and for other modes mixer scale is set to 0.7
-*           XRFDC_MIXER_SCALE_1P0 - To set fine mixer scale to 1.
-*           XRFDC_MIXER_SCALE_0P7 - To set fine mixer scale to 0.7.
+* @note        FineMixerScale in Mixer_Settings structure can have 3 values.
+*              XRFDC_MIXER_SCALE_* represents the valid values.
+*              XRFDC_MIXER_SCALE_AUTO - If mixer mode is R2C, Mixer Scale is
+*              set to 1 and for other modes mixer scale is set to 0.7
+*              XRFDC_MIXER_SCALE_1P0 - To set fine mixer scale to 1.
+*              XRFDC_MIXER_SCALE_0P7 - To set fine mixer scale to 0.7.
 *
 ******************************************************************************/
 u32 XRFdc_GetMixerSettings(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 Block_Id,
@@ -1057,19 +1051,17 @@ RETURN_PATH:
 /*****************************************************************************/
 /**
 *
-* Resets the NCO phase of the current block phase accumulator.
+* @brief Resets the NCO phase of the current block phase accumulator.
 *
-* @param    InstancePtr is a pointer to the XRfdc instance.
-* @param    Type is ADC or DAC. 0 for ADC and 1 for DAC
-* @param    Tile_Id Valid values are 0-3.
-* @param    Block_Id is ADC/DAC block number inside the tile. Valid values
-*           are 0-3.
+* @param[in]   InstancePtr Pointer to the XRfdc instance.
+* @param[in]   Type ADC or DAC. 0 for ADC and 1 for DAC.
+* @param[in]   Tile_Id Valid values are 0-3.
+* @param[in]   Block_Id ADC/DAC block number inside the tile. Valid values are
+*              0-3.
 *
 * @return
-*           - XRFDC_SUCCESS if successful.
-*           - XRFDC_FAILURE if error occurs.
-*
-* @note     None.
+*              - XRFDC_SUCCESS if successful.
+*              - XRFDC_FAILURE if error occurs.
 *
 ******************************************************************************/
 u32 XRFdc_ResetNCOPhase(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 Block_Id)
@@ -1114,17 +1106,17 @@ RETURN_PATH:
 /*****************************************************************************/
 /**
 *
-* Get Mixer Input Data Type for ADC/DAC block.
+* @brief Gets the mixer input data type for an ADC or DAC block.
 *
-* @param    InstancePtr is a pointer to the XRfdc instance.
-* @param    Type is ADC or DAC. 0 for ADC and 1 for DAC
-* @param    Tile_Id Valid values are 0-3.
-* @param    Block_Id is ADC/DAC block number inside the tile. Valid values
-*           are 0-3.
+* @param[in]   InstancePtr Pointer to the XRfdc instance.
+* @param[in]   Type ADC or DAC. 0 for ADC and 1 for DAC.
+* @param[in]   Tile_Id Valid values are 0-3.
+* @param[in]   Block_Id ADC/DAC block number inside the tile. Valid values are
+*              0-3.
 *
 * @return
-*           - Return MixerInputDataType of ADC/DAC block.
-*           - Return 0 if invalid
+*              - Return MixerInputDataType of ADC/DAC block.
+*              - Return 0 if invalid.
 *
 ******************************************************************************/
 u32 XRFdc_GetDataType(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 Block_Id)

@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2018 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -7,6 +8,7 @@
 /**
 *
 * @file xrfdc_clk.c
+* @brief Demonstrates programming the LMX2594 and LMK04208 clock generators.
 *
 * This file contains a programming example for using the lmx2594 and lmk04028
 * clock generator.
@@ -14,7 +16,6 @@
 * then the chip is powered down.
 * For zcu111 board users are expected to define XPS_BOARD_ZCU111 macro
 * while compiling this example.
-*
 *
 * <pre>
 *
@@ -26,6 +27,7 @@
 * 4.0   sd     05/22/18 Updated lmx configuration
 * 5.0   sd     09/05/18 Updated lmx reset sequence
 * 8.0   cog    04/09/20 Fixed error in PLL B for 1474.56 MHz
+* 13.2  vn     09/29/26 Align Doxygen comments with AMD standards
 *
 * </pre>
 *
@@ -50,8 +52,9 @@
 #include <sys/ioctl.h>
 #include <linux/i2c-dev.h>
 
-#define XIIC_BLOCK_MAX	16	/* Max data length */
-#define I2C_SMBUS_WRITE	0
+#define XIIC_BLOCK_MAX	16 /**< Max data length. */
+#define I2C_SMBUS_WRITE	0 /**< SMBus write direction. */
+/** SMBus transaction type for an I2C block transfer. */
 #define I2C_SMBUS_I2C_BLOCK  6
 
 #else
@@ -68,9 +71,9 @@ XIicPs Iic; /* Instance of the IIC Device */
 #endif
 #include "xrfdc_clk.h"
 
-#define LMK04208_count 26
-#define LMX2594_A_count 113
-#define MAX_FREQ  27
+#define LMK04208_count 26 /**< Number of LMK04208 registers. */
+#define LMX2594_A_count 113 /**< Number of LMX2594 registers. */
+#define MAX_FREQ  27 /**< Number of entries in the LMX2594 frequency table. */
 typedef struct {
 	int XFrequency;
 	unsigned int LMX2594_A[LMX2594_A_count];
@@ -460,6 +463,17 @@ XClockingLmx ClockingLmx[MAX_FREQ] = {
 
 #ifndef __BAREMETAL__
 
+/*****************************************************************************/
+/**
+*
+* @brief Writes a block of data to the I2C device using the SMBus ioctl.
+*
+* @param[in]   XIicDevFile File descriptor of the I2C device.
+* @param[in]   command Command byte to write.
+* @param[in]   length Number of data bytes to write.
+* @param[in]   values Pointer to the data bytes to write.
+*
+******************************************************************************/
 static inline void IicWriteData(int XIicDevFile, unsigned char command,
                                                    unsigned char length,
                                                    const unsigned char *values)
@@ -477,6 +491,18 @@ static inline void IicWriteData(int XIicDevFile, unsigned char command,
 	ioctl(XIicDevFile,I2C_SMBUS,&args);
 }
 
+/*****************************************************************************/
+/**
+*
+* @brief Programs the LMX2594 registers over I2C.
+*
+* The device is reset first. The registers are then written in array order,
+* and r[112] is written once more with FCAL_EN = 1.
+*
+* @param[in]   XIicDevFile File descriptor of the I2C device.
+* @param[in]   r Array of LMX2594 register values.
+*
+******************************************************************************/
 static void Lmx2594Updatei2c(int XIicDevFile,unsigned int  r[LMX2594_A_count])
 {
 	int Index=0;
@@ -518,6 +544,21 @@ static void Lmx2594Updatei2c(int XIicDevFile,unsigned int  r[LMX2594_A_count])
 	printf("LMX configured \n");
 	IicWriteData(XIicDevFile, 0xd, 3, tx_array);
 }
+
+/*****************************************************************************/
+/**
+*
+* @brief Configures the LMX2594 for the requested frequency.
+*
+* If XFrequency is 0, register R0 is written with 0x3 and no table lookup is
+* done. If no table entry matches XFrequency, the first table entry is used.
+*
+* @param[in]   XIicDevFile File descriptor of the I2C device.
+* @param[in]   XFrequency Requested frequency.
+*
+* @return      Always 0.
+*
+******************************************************************************/
 static int Lmx2594UpdateFreq(int XIicDevFile,int  XFrequency)
 {
 	int XFreqIndex=0;
@@ -542,6 +583,18 @@ static int Lmx2594UpdateFreq(int XIicDevFile,int  XFrequency)
 	Lmx2594Updatei2c( XIicDevFile, ClockingLmx[0].LMX2594_A);
 	return 0;
 }
+
+/*****************************************************************************/
+/**
+*
+* @brief Writes the LMK04208 register values over I2C.
+*
+* @param[in]   XIicDevFile File descriptor of the I2C device.
+* @param[in]   LMK04208_CKin Array of LMK04208 register values.
+*
+* @return      Always 0.
+*
+******************************************************************************/
 static int Lmk04208UpdateFreq(int XIicDevFile, unsigned int LMK04208_CKin[1][26] )
 {
 	int Index;
@@ -561,18 +614,14 @@ static int Lmk04208UpdateFreq(int XIicDevFile, unsigned int LMK04208_CKin[1][26]
 /****************************************************************************/
 /**
 *
-* This function is used to configure LMK04208
+* @brief Configures the LMK04208.
 *
-* @param	XIicBus is the Controller Id/Bus number.
-*           - For Baremetal it is the I2C controller Id to which LMK04208
-*             deviceis connected.
-*           - For Linux it is the Bus Id to which LMK04208 device is connected.
-* @param	LMK04208_CKin is the configuration array to configure the LMK04208.
-*
-* @return
-*		- None
-*
-* @note   	None
+* @param[in]   XIicBus Controller Id/Bus number.
+*              - For Baremetal it is the I2C controller Id to
+*                which LMK04208 device is connected.
+*              - For Linux it is the Bus Id to which LMK04208
+*                device is connected.
+* @param[in]   LMK04208_CKin Configuration array to configure the LMK04208.
 *
 ****************************************************************************/
 void LMK04208ClockConfig(int XIicBus, unsigned int LMK04208_CKin[1][26])
@@ -685,18 +734,14 @@ void LMK04208ClockConfig(int XIicBus, unsigned int LMK04208_CKin[1][26])
 /****************************************************************************/
 /**
 *
-* This function is used to configure LMX2594
+* @brief Configures the LMX2594.
 *
-* @param	XIicBus is the Controller Id/Bus number.
-*           - For Baremetal it is the I2C controller Id to which LMX2594 device
-*             is connected.
-*           - For Linux it is the Bus Id to which LMX2594 device is connected.
-* @param	XFrequency is the frequency used to configure the LMX2594.
-*
-* @return
-*		- None
-*
-* @note   	None
+* @param[in]   XIicBus Controller Id/Bus number.
+*              - For Baremetal it is the I2C controller Id to which
+*                LMX2594 device is connected.
+*              - For Linux it is the Bus Id to which LMX2594 device
+*                is connected.
+* @param[in]   XFrequency Frequency used to configure the LMX2594.
 *
 ****************************************************************************/
 void LMX2594ClockConfig(int XIicBus, int XFrequency)

@@ -8,8 +8,7 @@
 /**
 *
 * @file xrfdc_clock.c
-* @addtogroup Overview
-* @{
+* @brief Implements the clock settings functions of the XRFdc driver.
 *
 * Contains the interface functions of the Clock Settings in XRFdc driver.
 * See xrfdc.h for a detailed description of the device and driver.
@@ -85,9 +84,14 @@
 * 13.0  cog    01/15/25 Allow changing of single tile PLL frequency.
 * 13.1  dc     02/18/26 Correct spelling errors
 * 13.2  vn     08/11/26 Fix Doxygen warnings.
+* 13.2  vn     09/29/26 Align Doxygen comments with AMD standards
 * </pre>
 *
 ******************************************************************************/
+
+/** @addtogroup Overview
+ * @{
+ */
 
 /***************************** Include Files *********************************/
 #include "xrfdc.h"
@@ -105,10 +109,10 @@ static u32 PllTuningMatrix[8][4][2] = {
 };
 
 /**************************** Type Definitions *******************************/
-#define XRFDC_MAX_DLY_INIT 0U
-#define XRFDC_MIN_DLY_INIT 0xFFU
-#define XRFDC_DLY_UNIT 2U
-#define XRFDC_MAX_DISTRS 8U
+#define XRFDC_MAX_DLY_INIT 0U /**< Initial value of the maximum delay. */
+#define XRFDC_MIN_DLY_INIT 0xFFU /**< Initial value of the minimum delay. */
+#define XRFDC_DLY_UNIT 2U /**< Delay unit. */
+#define XRFDC_MAX_DISTRS 8U /**< Maximum number of clock distributions. */
 
 /***************** Macros (Inline Functions) Definitions *********************/
 static u32 XRFdc_CheckClkDistValid(XRFdc *InstancePtr, XRFdc_Distribution_Settings *DistributionSettingsPtr);
@@ -121,16 +125,16 @@ static u8 XRFdc_TypeTile2DistTile(XRFdc *InstancePtr, u32 Type, u32 Tile_Id);
 /*****************************************************************************/
 /**
 *
-* This function is used to set the clock settings
+* @brief Sets the clock settings.
 *
-* @param    InstancePtr is a pointer to the XRfdc instance.
-* @param    Type indicates ADC/DAC.
-* @param    Tile_Id indicates Tile number (0-3).
-* @param    SettingsPtr pointer to set the clock settings
+* @param[in]     InstancePtr Pointer to the XRfdc instance.
+* @param[in]     Type ADC/DAC.
+* @param[in]     Tile_Id Tile number (0-3).
+* @param[in,out] SettingsPtr Pointer to set the clock settings.
 *
 * @return
-*           - XRFDC_SUCCESS if successful.
-*           - XRFDC_FAILURE if no valid distribution found.
+*                - XRFDC_SUCCESS if successful.
+*                - XRFDC_FAILURE if no valid distribution found.
 *
 ******************************************************************************/
 static u32 XRFdc_SetTileClkSettings(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, XRFdc_Tile_Clock_Settings *SettingsPtr)
@@ -335,14 +339,15 @@ RETURN_PATH:
 /*****************************************************************************/
 /**
 *
-* This function is used to check the distribution chosen is valid
+* @brief Checks whether the chosen distribution is valid.
 *
-* @param        InstancePtr is a pointer to the XRfdc instance.
-* @param        DistributionSettingsPtr pointer to the distribution settings struct
+* @param[in]   InstancePtr Pointer to the XRfdc instance.
+* @param[in]   DistributionSettingsPtr Pointer to the distribution settings
+*              struct.
 *
 * @return
-*           - XRFDC_SUCCESS if valid.
-*           - XRFDC_FAILURE if not valid.
+*              - XRFDC_SUCCESS if valid.
+*              - XRFDC_FAILURE if not valid.
 *
 ******************************************************************************/
 static u32 XRFdc_CheckClkDistValid(XRFdc *InstancePtr, XRFdc_Distribution_Settings *DistributionSettingsPtr)
@@ -462,14 +467,15 @@ RETURN_PATH:
 /*****************************************************************************/
 /**
 *
-* This function is used to start the distribution tiles
+* @brief Starts the distribution tiles.
 *
-* @param        InstancePtr is a pointer to the XRfdc instance.
-* @param        DistributionSettingsPtr pointer to the distribution settings struct
+* @param[in]   InstancePtr Pointer to the XRfdc instance.
+* @param[in]   DistributionSettingsPtr Pointer to the distribution settings
+*              struct.
 *
 * @return
-*           - XRFDC_SUCCESS if valid.
-*           - XRFDC_FAILURE if not valid.
+*              - XRFDC_SUCCESS if valid.
+*              - XRFDC_FAILURE if not valid.
 *
 ******************************************************************************/
 static u32 XRFdc_StartUpDist(XRFdc *InstancePtr, XRFdc_Distribution_Settings *DistributionSettingsPtr)
@@ -504,14 +510,15 @@ static u32 XRFdc_StartUpDist(XRFdc *InstancePtr, XRFdc_Distribution_Settings *Di
 /*****************************************************************************/
 /**
 *
-* This function is used to set the clock distribution
+* @brief Sets the clock distribution.
 *
-* @param        InstancePtr is a pointer to the XRfdc instance.
-* @param        DistributionSettingsPtr pointer to the distribution settings struct
+* @param[in]     InstancePtr Pointer to the XRfdc instance.
+* @param[in,out] DistributionSettingsPtr Pointer to the distribution settings
+*                struct.
 *
 * @return
-*           - XRFDC_SUCCESS if successful.
-*           - XRFDC_FAILURE if could not set distribution.
+*                - XRFDC_SUCCESS if successful.
+*                - XRFDC_FAILURE if could not set distribution.
 *
 ******************************************************************************/
 u32 XRFdc_SetClkDistribution(XRFdc *InstancePtr, XRFdc_Distribution_Settings *DistributionSettingsPtr)
@@ -884,14 +891,15 @@ RETURN_PATH:
 /*****************************************************************************/
 /**
 *
-* This function is used to get the clock distribution
+* @brief Gets the clock distribution.
 *
-* @param        InstancePtr is a pointer to the XRfdc instance.
-* @param        DistributionSystemPtr pointer to get the distribution settings
+* @param[in]   InstancePtr Pointer to the XRfdc instance.
+* @param[out]  DistributionSystemPtr Pointer to get the distribution
+*              settings.
 *
 * @return
-*           - XRFDC_SUCCESS if successful.
-*           - XRFDC_FAILURE if no valid distribution found.
+*              - XRFDC_SUCCESS if successful.
+*              - XRFDC_FAILURE if no valid distribution found.
 *
 ******************************************************************************/
 u32 XRFdc_GetClkDistribution(XRFdc *InstancePtr, XRFdc_Distribution_System_Settings *DistributionSystemPtr)
@@ -1054,18 +1062,16 @@ RETURN_PATH:
 /*****************************************************************************/
 /**
 *
-* This function gets Clock source
+* @brief Gets the clock source.
 *
-* @param    InstancePtr is a pointer to the XRfdc instance.
-* @param    Type indicates ADC/DAC.
-* @param    Tile_Id indicates Tile number (0-3).
-* @param    ClockSourcePtr Pointer to return the clock source
+* @param[in]   InstancePtr Pointer to the XRfdc instance.
+* @param[in]   Type ADC/DAC.
+* @param[in]   Tile_Id Tile number (0-3).
+* @param[out]  ClockSourcePtr Pointer to return the clock source.
 *
 * @return
-*           - XRFDC_SUCCESS if successful.
-*           - XRFDC_FAILURE if tile not enabled.
-*
-* @note     None.
+*              - XRFDC_SUCCESS if successful.
+*              - XRFDC_FAILURE if tile not enabled.
 *
 ******************************************************************************/
 u32 XRFdc_GetClockSource(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 *ClockSourcePtr)
@@ -1108,18 +1114,16 @@ RETURN_PATH:
 /*****************************************************************************/
 /**
 *
-* This function gets PLL lock status
+* @brief Gets the PLL lock status.
 *
-* @param    InstancePtr is a pointer to the XRfdc instance.
-* @param    Type indicates ADC/DAC.
-* @param    Tile_Id indicates Tile number (0-3).
-* @param    LockStatusPtr Pointer to return the PLL lock status
+* @param[in]   InstancePtr Pointer to the XRfdc instance.
+* @param[in]   Type ADC/DAC.
+* @param[in]   Tile_Id Tile number (0-3).
+* @param[out]  LockStatusPtr Pointer to return the PLL lock status.
 *
 * @return
-*           - XRFDC_SUCCESS if successful.
-*           - XRFDC_FAILURE if error occurs.
-*
-* @note     None.
+*              - XRFDC_SUCCESS if successful.
+*              - XRFDC_FAILURE if error occurs.
 *
 ******************************************************************************/
 u32 XRFdc_GetPLLLockStatus(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 *LockStatusPtr)
@@ -1169,20 +1173,20 @@ RETURN_PATH:
 /*****************************************************************************/
 /**
 *
-* This function used for configuring the internal PLL registers
-* based on reference clock and sampling rate
+* @brief Configures the internal PLL registers.
 *
-* @param    InstancePtr is a pointer to the XRfdc instance.
-* @param    Type indicates ADC/DAC.
-* @param    Tile_Id indicates Tile number (0-3).
-* @param    RefClkFreq Reference Clock Frequency MHz(50MHz - 1.2GHz)
-* @param    SamplingRate Sampling Rate in MHz(0.5- 4 GHz)
+* The PLL registers are configured based on the reference clock and
+* sampling rate.
+*
+* @param[in,out] InstancePtr Pointer to the XRfdc instance.
+* @param[in]     Type ADC/DAC.
+* @param[in]     Tile_Id Tile number (0-3).
+* @param[in]     RefClkFreq Reference Clock Frequency MHz(50MHz - 1.2GHz).
+* @param[in]     SamplingRate Sampling Rate in MHz(0.5- 4 GHz).
 *
 * @return
-*           - XRFDC_SUCCESS if successful.
-*           - XRFDC_FAILURE if error occurs.
-*
-* @note     None.
+*                - XRFDC_SUCCESS if successful.
+*                - XRFDC_FAILURE if error occurs.
 *
 ******************************************************************************/
 static u32 XRFdc_SetPLLConfig(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, double RefClkFreq, double SamplingRate)
@@ -1526,19 +1530,17 @@ static u32 XRFdc_SetPLLConfig(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, double 
 /*****************************************************************************/
 /**
 *
-* This API is used to get the PLL Configurations.
+* @brief Gets the PLL configurations.
 *
-* @param    InstancePtr is a pointer to the XRfdc instance.
-* @param    Type represents ADC or DAC.
-* @param    Tile_Id Valid values are 0-3.
-* @param    PLLSettings pointer to the XRFdc_PLL_Settings structure to get
-*           the PLL configurations
+* @param[in]   InstancePtr Pointer to the XRfdc instance.
+* @param[in]   Type Represents ADC or DAC.
+* @param[in]   Tile_Id Valid values are 0-3.
+* @param[out]  PLLSettings Pointer to the XRFdc_PLL_Settings structure to get
+*              the PLL configurations.
 *
 * @return
-*           - XRFDC_SUCCESS if successful.
-*           - XRFDC_FAILURE if error occurs.
-*
-* @note     None.
+*              - XRFDC_SUCCESS if successful.
+*              - XRFDC_FAILURE if error occurs.
 *
 ******************************************************************************/
 u32 XRFdc_GetPLLConfig(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, XRFdc_PLL_Settings *PLLSettings)
@@ -1677,24 +1679,28 @@ RETURN_PATH:
 /*****************************************************************************/
 /**
 *
-* This function used for dynamically switch between internal PLL and
-* external clcok source and configuring the internal PLL
+* @brief Switches between the internal PLL and external clock source.
 *
-* @param    InstancePtr is a pointer to the XRfdc instance.
-* @param    Type indicates ADC/DAC
-* @param    Tile_Id indicates Tile number (0-3)
-* @param    Source Clock source internal PLL or external clock source
-* @param    RefClkFreq Reference Clock Frequency in MHz(102.40625MHz - 1.2GHz)
-* @param    SamplingRate Sampling Rate in MHz(0.1- 6.554GHz for DAC and
-*           0.5/1.0 - 2.058/4.116GHz for ADC based on the device package).
+* The switch is dynamic. The function also configures the internal PLL.
+*
+* @param[in,out] InstancePtr Pointer to the XRfdc instance.
+* @param[in]     Type ADC/DAC.
+* @param[in]     Tile_Id Tile number (0-3).
+* @param[in]     Source Clock source internal PLL or external clock
+*                source.
+* @param[in]     RefClkFreq Reference Clock Frequency in MHz(102.40625MHz -
+*                1.2GHz).
+* @param[in]     SamplingRate Sampling Rate in MHz(0.1- 6.554GHz for DAC and
+*                0.5/1.0 - 2.058/4.116GHz for ADC based on the
+*                device package).
 *
 * @return
-*           - XRFDC_SUCCESS if successful.
-*           - XRFDC_FAILURE if error occurs.
+*                - XRFDC_SUCCESS if successful.
+*                - XRFDC_FAILURE if error occurs.
 *
-* @note     This API enables automatic selection of the VCO which will work in
-*           IP version 2.0.1 and above. Using older version of IP this API is
-*           not likely to work.
+* @note          This API enables automatic selection of the VCO which works in
+*                IP version 2.0.1 and above. Using older version of IP this API
+*                is not likely to work.
 *
 ******************************************************************************/
 u32 XRFdc_DynamicPLLConfig(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u8 Source, double RefClkFreq, double SamplingRate)
@@ -2042,6 +2048,18 @@ u32 XRFdc_DynamicPLLConfig(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u8 Source,
 RETURN_PATH:
 	return Status;
 }
+
+/*****************************************************************************/
+/**
+*
+* @brief Converts a distribution tile number to a tile type and tile ID.
+*
+* @param[in]   InstancePtr Pointer to the XRfdc instance.
+* @param[in]   DistTile Distribution tile number.
+* @param[out]  Type Pointer to the tile type (ADC or DAC).
+* @param[out]  Tile_Id Pointer to the tile ID.
+*
+******************************************************************************/
 static void XRFdc_DistTile2TypeTile(XRFdc *InstancePtr, u32 DistTile, u32 *Type, u32 *Tile_Id)
 {
 	u8 DACEdgeTile;
@@ -2057,6 +2075,19 @@ static void XRFdc_DistTile2TypeTile(XRFdc *InstancePtr, u32 DistTile, u32 *Type,
 		*Tile_Id = DACEdgeTile - DistTile;
 	}
 }
+
+/*****************************************************************************/
+/**
+*
+* @brief Converts a tile type and tile ID to a distribution tile number.
+*
+* @param[in]   InstancePtr Pointer to the XRfdc instance.
+* @param[in]   Type ADC or DAC. 0 for ADC and 1 for DAC.
+* @param[in]   Tile_Id Tile number.
+*
+* @return      Distribution tile number.
+*
+******************************************************************************/
 static u8 XRFdc_TypeTile2DistTile(XRFdc *InstancePtr, u32 Type, u32 Tile_Id)
 {
 	u8 DACEdgeTile;

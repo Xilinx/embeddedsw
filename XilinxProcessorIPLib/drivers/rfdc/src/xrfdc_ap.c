@@ -8,13 +8,12 @@
 /**
 *
 * @file xrfdc_ap.c
-* @addtogroup Overview
-* @{
+* @brief Implements the analog path settings functions of the XRFdc driver.
 *
-* Contains the interface functions of the Analogue Path Settings in XRFdc driver.
-* Although these features are digital in reality, due to their position in the
-* datapath (being between the crossbar and the converter) they are referred to as
-* "analogue path" blocks.
+* Contains the interface functions of the Analogue Path Settings in XRFdc
+* driver. Although these features are digital in reality, due to their position
+* in the datapath (being between the crossbar and the converter) they are
+* referred to as "analogue path" blocks.
 * See xrfdc.h for a detailed description of the device and driver.
 *
 * <pre>
@@ -45,10 +44,15 @@
 *                       for HSADCs.
 * 13.1  dc     02/18/26 Correct spelling errors
 * 13.2  vn     08/11/26 Fix Doxygen warnings.
+* 13.2  vn     09/29/26 Align Doxygen comments with AMD standards
 *
 * </pre>
 *
 ******************************************************************************/
+
+/** @addtogroup Overview
+ * @{
+ */
 
 /***************************** Include Files *********************************/
 #include "xrfdc.h"
@@ -58,40 +62,46 @@
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
+/** DAC link coupling value for AC coupling. */
 #define XRFDC_DAC_LINK_COUPLING_AC 0x0U
+/** Minimum VOP output current for ES1 silicon with AC coupling in uA. */
 #define XRFDC_VOP_ES1_AC_MIN_UA 6435U
+/** Maximum VOP output current for ES1 silicon with AC coupling in uA. */
 #define XRFDC_VOP_ES1_AC_MAX_UA 32000U
+/** Minimum VOP output current with AC coupling in uA. */
 #define XRFDC_VOP_AC_MIN_UA 2250U
+/** Maximum VOP output current with AC coupling in uA. */
 #define XRFDC_VOP_AC_MAX_UA 40500U
+/** Minimum VOP output current with DC coupling in uA. */
 #define XRFDC_VOP_DC_MIN_UA 6400U
+/** Maximum VOP output current with DC coupling in uA. */
 #define XRFDC_VOP_DC_MAX_UA 32000U
-#define XRFDC_MIN_I_UA_INT 1400U
-#define XRFDC_STEP_I_UA 43.75
-#define XRFDC_BLDR_GAIN 0x0000U
-#define XRFDC_CSCAS_BLDR 0xE000U
-#define XRFDC_OPCAS_BIAS 0x001BU
+#define XRFDC_MIN_I_UA_INT 1400U /**< Minimum output current in uA. */
+#define XRFDC_STEP_I_UA 43.75 /**< Output current step in uA. */
+#define XRFDC_BLDR_GAIN 0x0000U /**< Bleeder gain value. */
+#define XRFDC_CSCAS_BLDR 0xE000U /**< CSCAS bleeder value. */
+#define XRFDC_OPCAS_BIAS 0x001BU /**< OPCAS bias value. */
 /************************** Function Prototypes ******************************/
 
 /*****************************************************************************/
 /*****************************************************************************/
 /**
-* This API is used to update various QMC settings, eg gain, phase, offset etc.
-* QMC settings passed are used to update the corresponding
-* block level registers. Driver structure is updated with the new values.
+* @brief Updates various QMC settings such as gain, phase, and offset.
 *
-* @param    InstancePtr is a pointer to the XRfdc instance.
-* @param    Type is ADC or DAC. 0 for ADC and 1 for DAC
-* @param    Tile_Id Valid values are 0-3.
-* @param    Block_Id is ADC/DAC block number inside the tile. Valid values
-*           are 0-3.
-* @param    QMCSettingsPtr is Pointer to the XRFdc_QMC_Settings structure
-*           in which the QMC settings are passed.
+* QMC settings passed are used to update the corresponding block level
+* registers. Driver structure is updated with the new values.
+*
+* @param[in]   InstancePtr Pointer to the XRfdc instance.
+* @param[in]   Type ADC or DAC. 0 for ADC and 1 for DAC.
+* @param[in]   Tile_Id Valid values are 0-3.
+* @param[in]   Block_Id ADC/DAC block number inside the tile. Valid values
+*              are 0-3.
+* @param[in]   QMCSettingsPtr Pointer to the XRFdc_QMC_Settings structure in
+*              which the QMC settings are passed.
 *
 * @return
-*           - XRFDC_SUCCESS if successful.
-*           - XRFDC_FAILURE if error occurs.
-*
-* @note     None.
+*              - XRFDC_SUCCESS if successful.
+*              - XRFDC_FAILURE if error occurs.
 *
 ******************************************************************************/
 u32 XRFdc_SetQMCSettings(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 Block_Id, XRFdc_QMC_Settings *QMCSettingsPtr)
@@ -285,21 +295,19 @@ RETURN_PATH:
 /*****************************************************************************/
 /**
 *
-* QMC settings are returned back to the caller through this API.
+* @brief Returns the QMC settings to the caller.
 *
-* @param    InstancePtr is a pointer to the XRfdc instance.
-* @param    Type is ADC or DAC. 0 for ADC and 1 for DAC
-* @param    Tile_Id Valid values are 0-3.
-* @param    Block_Id is ADC/DAC block number inside the tile. Valid values
-*           are 0-3.
-* @param    QMCSettingsPtr Pointer to the XRFdc_QMC_Settings structure
-*           in which the QMC settings are passed.
+* @param[in]   InstancePtr Pointer to the XRfdc instance.
+* @param[in]   Type ADC or DAC. 0 for ADC and 1 for DAC.
+* @param[in]   Tile_Id Valid values are 0-3.
+* @param[in]   Block_Id ADC/DAC block number inside the tile. Valid values
+*              are 0-3.
+* @param[out]  QMCSettingsPtr Pointer to the XRFdc_QMC_Settings structure in
+*              which the QMC settings are passed.
 *
 * @return
-*           - XRFDC_SUCCESS if successful.
-*           - XRFDC_FAILURE if error occurs.
-*
-* @note     None.
+*              - XRFDC_SUCCESS if successful.
+*              - XRFDC_FAILURE if error occurs.
 *
 ******************************************************************************/
 u32 XRFdc_GetQMCSettings(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 Block_Id, XRFdc_QMC_Settings *QMCSettingsPtr)
@@ -386,22 +394,23 @@ RETURN_PATH:
 /*****************************************************************************/
 /**
 *
-* Coarse delay settings passed are used to update the corresponding
+* @brief Updates the coarse delay settings in the corresponding registers.
+*
+* The coarse delay settings passed are used to update the corresponding
 * block level registers. Driver structure is updated with the new values.
 *
-* @param    InstancePtr is a pointer to the XRfdc instance.
-* @param    Type is ADC or DAC. 0 for ADC and 1 for DAC
-* @param    Tile_Id Valid values are 0-3.
-* @param    Block_Id is ADC/DAC block number inside the tile. Valid values
-*           are 0-3.
-* @param    CoarseDelaySettingsPtr is Pointer to the XRFdc_CoarseDelay_Settings
-*           structure in which the CoarseDelay settings are passed.
+* @param[in]   InstancePtr Pointer to the XRfdc instance.
+* @param[in]   Type ADC or DAC. 0 for ADC and 1 for DAC.
+* @param[in]   Tile_Id Valid values are 0-3.
+* @param[in]   Block_Id ADC/DAC block number inside the tile. Valid
+*              values are 0-3.
+* @param[in]   CoarseDelaySettingsPtr Pointer to the XRFdc_CoarseDelay_Settings
+*              structure in which the CoarseDelay settings
+*              are passed.
 *
 * @return
-*           - XRFDC_SUCCESS if successful.
-*           - XRFDC_FAILURE if error occurs.
-*
-* @note     None.
+*              - XRFDC_SUCCESS if successful.
+*              - XRFDC_FAILURE if error occurs.
 *
 ******************************************************************************/
 u32 XRFdc_SetCoarseDelaySettings(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 Block_Id,
@@ -509,21 +518,20 @@ RETURN_PATH:
 /*****************************************************************************/
 /**
 *
-* Coarse delay settings are returned back to the caller.
+* @brief Returns the coarse delay settings to the caller.
 *
-* @param    InstancePtr is a pointer to the XRfdc instance.
-* @param    Type is ADC or DAC. 0 for ADC and 1 for DAC
-* @param    Tile_Id Valid values are 0-3.
-* @param    Block_Id is ADC/DAC block number inside the tile. Valid values
-*           are 0-3.
-* @param    CoarseDelaySettingsPtr Pointer to the XRFdc_CoarseDelay_Settings
-*           structure in which the Coarse Delay settings are passed.
+* @param[in]   InstancePtr Pointer to the XRfdc instance.
+* @param[in]   Type ADC or DAC. 0 for ADC and 1 for DAC.
+* @param[in]   Tile_Id Valid values are 0-3.
+* @param[in]   Block_Id ADC/DAC block number inside the tile.
+*              Valid values are 0-3.
+* @param[out]  CoarseDelaySettingsPtr Pointer to the XRFdc_CoarseDelay_Settings
+*              structure in which the Coarse Delay
+*              settings are passed.
 *
 * @return
-*           - XRFDC_SUCCESS if successful.
-*           - XRFDC_FAILURE if error occurs.
-*
-* @note     None.
+*              - XRFDC_SUCCESS if successful.
+*              - XRFDC_FAILURE if error occurs.
 *
 ******************************************************************************/
 u32 XRFdc_GetCoarseDelaySettings(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 Block_Id,
@@ -570,20 +578,20 @@ RETURN_PATH:
 /*****************************************************************************/
 /**
 *
-* This API is to clear the Sticky bit in threshold config registers.
+* @brief Clears the sticky bit in the threshold config registers.
 *
-* @param    InstancePtr is a pointer to the XRfdc instance.
-* @param    Tile_Id Valid values are 0-3.
-* @param    Block_Id is ADC/DAC block number inside the tile. Valid values
-*           are 0-3.
-* @param    ThresholdToUpdate Select which Threshold (Threshold0 or
-*           Threshold1 or both) to update.
+* @param[in]   InstancePtr Pointer to the XRfdc instance.
+* @param[in]   Tile_Id Valid values are 0-3.
+* @param[in]   Block_Id ADC/DAC block number inside the tile. Valid
+*              values are 0-3.
+* @param[in]   ThresholdToUpdate Select which Threshold (Threshold0 or
+*              Threshold1 or both) to update.
 *
 * @return
-*           - XRFDC_SUCCESS if successful.
-*           - XRFDC_FAILURE if error occurs.
+*              - XRFDC_SUCCESS if successful.
+*              - XRFDC_FAILURE if error occurs.
 *
-* @note     Only ADC blocks
+* @note        Only ADC blocks
 *
 ******************************************************************************/
 u32 XRFdc_ThresholdStickyClear(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u32 ThresholdToUpdate)
@@ -661,23 +669,25 @@ RETURN_PATH:
 /*****************************************************************************/
 /**
 *
-* This API sets the threshold clear mode. The clear mode can be through
-* explicit DRP access (manual) or auto clear (QMC gain update event).
+* @brief Sets the threshold clear mode.
 *
-* @param    InstancePtr is a pointer to the XRfdc instance.
-* @param    Tile_Id Valid values are 0-3.
-* @param    Block_Id is ADCC block number inside the tile. Valid values
-*           are 0-3.
-* @param    ThresholdToUpdate Select which Threshold (Threshold0 or
-*           Threshold1 or both) to update.
-* @param    ClrMode can be DRP access (manual) or auto clear (QMC gain
-*           update event).
+* The clear mode can be through explicit DRP access (manual) or auto clear
+* (QMC gain update event).
+*
+* @param[in]   InstancePtr Pointer to the XRfdc instance.
+* @param[in]   Tile_Id Valid values are 0-3.
+* @param[in]   Block_Id ADCC block number inside the tile. Valid values
+*              are 0-3.
+* @param[in]   ThresholdToUpdate Select which Threshold (Threshold0 or
+*              Threshold1 or both) to update.
+* @param[in]   ClrMode Can be DRP access (manual) or auto clear (QMC
+*              gain update event).
 *
 * @return
-*           - XRFDC_SUCCESS if successful.
-*           - XRFDC_FAILURE if error occurs.
+*              - XRFDC_SUCCESS if successful.
+*              - XRFDC_FAILURE if error occurs.
 *
-* @note     Only ADC blocks
+* @note        Only ADC blocks
 *
 ******************************************************************************/
 u32 XRFdc_SetThresholdClrMode(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u32 ThresholdToUpdate, u32 ClrMode)
@@ -772,24 +782,25 @@ RETURN_PATH:
 /*****************************************************************************/
 /**
 *
-* Threshold settings are updated into the relevant registers. Driver structure
-* is updated with the new values. There can be two threshold settings:
-* threshold0 and threshold1. Both of them are independent of each other.
-* The function returns the requested threshold (which can be threshold0,
-* threshold1, or both.
+* @brief Updates the threshold settings in the relevant registers.
 *
-* @param    InstancePtr is a pointer to the XRfdc instance.
-* @param    Tile_Id Valid values are 0-3.
-* @param    Block_Id is ADC/DAC block number inside the tile. Valid values
-*           are 0-3.
-* @param    ThresholdSettingsPtr Pointer through which the register settings for
-*           thresholds are passed to the API.
+* Driver structure is updated with the new values. There can be two
+* threshold settings: threshold0 and threshold1. Both of them are
+* independent of each other. The function returns the requested threshold
+* (which can be threshold0, threshold1, or both).
+*
+* @param[in]   InstancePtr Pointer to the XRfdc instance.
+* @param[in]   Tile_Id Valid values are 0-3.
+* @param[in]   Block_Id ADC/DAC block number inside the tile. Valid
+*              values are 0-3.
+* @param[in]   ThresholdSettingsPtr Pointer through which the register settings
+*              for thresholds are passed to the API.
 *
 * @return
-*           - XRFDC_SUCCESS if successful.
-*           - XRFDC_FAILURE if error occurs.
+*              - XRFDC_SUCCESS if successful.
+*              - XRFDC_FAILURE if error occurs.
 *
-* @note     Only ADC blocks
+* @note        Only ADC blocks
 *
 ******************************************************************************/
 u32 XRFdc_SetThresholdSettings(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id,
@@ -920,24 +931,25 @@ RETURN_PATH:
 /*****************************************************************************/
 /**
 *
-* Threshold settings are read from the corresponding registers and are passed
-* back to the caller. There can be two threshold settings:
-* threshold0 and threshold1. Both of them are independent of each other.
-* The function returns the requested threshold (which can be threshold0,
-* threshold1, or both.
+* @brief Reads the threshold settings from the corresponding registers.
 *
-* @param    InstancePtr is a pointer to the XRfdc instance.
-* @param    Tile_Id Valid values are 0-3.
-* @param    Block_Id is ADC/DAC block number inside the tile. Valid values
-*           are 0-3.
-* @param    ThresholdSettingsPtr Pointer through which the register settings
-*           for thresholds are passed back..
+* The threshold settings are passed back to the caller. There can be two
+* threshold settings: threshold0 and threshold1. Both of them are
+* independent of each other. The function returns the requested threshold
+* (which can be threshold0, threshold1, or both).
+*
+* @param[in]   InstancePtr Pointer to the XRfdc instance.
+* @param[in]   Tile_Id Valid values are 0-3.
+* @param[in]   Block_Id ADC/DAC block number inside the tile.
+*              Valid values are 0-3.
+* @param[out]  ThresholdSettingsPtr Pointer through which the register
+*              settings for thresholds are passed back..
 *
 * @return
-*           - XRFDC_SUCCESS if successful.
-*           - XRFDC_FAILURE if error occurs.
+*              - XRFDC_SUCCESS if successful.
+*              - XRFDC_FAILURE if error occurs.
 *
-* @note     Only for ADC blocks
+* @note        Only for ADC blocks
 *
 ******************************************************************************/
 u32 XRFdc_GetThresholdSettings(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id,
@@ -1001,21 +1013,23 @@ RETURN_PATH:
 /*****************************************************************************/
 /**
 *
-* Decoder mode is updated into the relevant registers. Driver structure is
-* updated with the new values.
+* @brief Updates the decoder mode in the relevant registers.
 *
-* @param    InstancePtr is a pointer to the XRfdc instance.
-* @param    Tile_Id Valid values are 0-3.
-* @param    Block_Id is DAC block number inside the tile. Valid values
-*           are 0-3.
-* @param    DecoderMode Valid values are 1 (Maximum SNR, for non-
-*           randomized decoder), 2 (Maximum Linearity, for randomized decoder)
+* Driver structure is updated with the new values.
+*
+* @param[in]   InstancePtr Pointer to the XRfdc instance.
+* @param[in]   Tile_Id Valid values are 0-3.
+* @param[in]   Block_Id DAC block number inside the tile. Valid values are
+*              0-3.
+* @param[in]   DecoderMode Valid values are 1 (Maximum SNR, for non- randomized
+*              decoder), 2 (Maximum Linearity, for randomized
+*              decoder).
 *
 * @return
-*           - XRFDC_SUCCESS if successful.
-*           - XRFDC_FAILURE if error occurs.
+*              - XRFDC_SUCCESS if successful.
+*              - XRFDC_FAILURE if error occurs.
 *
-* @note     Only DAC blocks
+* @note        Only DAC blocks
 *
 ******************************************************************************/
 u32 XRFdc_SetDecoderMode(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u32 DecoderMode)
@@ -1054,20 +1068,21 @@ RETURN_PATH:
 /*****************************************************************************/
 /**
 *
-* Decoder mode is read and returned back.
+* @brief Reads and returns the decoder mode.
 *
-* @param    InstancePtr is a pointer to the XRfdc instance.
-* @param    Tile_Id Valid values are 0-3.
-* @param    Block_Id is DAC block number inside the tile. Valid values
-*           are 0-3.
-* @param    DecoderModePtr Valid values are 1 (Maximum SNR, for non-randomized
-*           decoder), 2 (Maximum Linearity, for randomized decoder)
+* @param[in]   InstancePtr Pointer to the XRfdc instance.
+* @param[in]   Tile_Id Valid values are 0-3.
+* @param[in]   Block_Id DAC block number inside the tile. Valid values are
+*              0-3.
+* @param[out]  DecoderModePtr Valid values are 1 (Maximum SNR, for
+*              non-randomized decoder), 2 (Maximum Linearity, for
+*              randomized decoder).
 *
 * @return
-*           - XRFDC_SUCCESS if successful.
-*           - XRFDC_FAILURE if error occurs.
+*              - XRFDC_SUCCESS if successful.
+*              - XRFDC_FAILURE if error occurs.
 *
-* @note     Only for DAC blocks
+* @note        Only for DAC blocks
 *
 ******************************************************************************/
 u32 XRFdc_GetDecoderMode(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u32 *DecoderModePtr)
@@ -1096,16 +1111,16 @@ RETURN_PATH:
 /*****************************************************************************/
 /**
 *
-* Get Output Current for DAC block.
+* @brief Gets the output current for a DAC block.
 *
-* @param    InstancePtr is a pointer to the XRfdc instance.
-* @param    Tile_Id Valid values are 0-3.
-* @param    Block_Id is ADC/DAC block number inside the tile. Valid values
-*           are 0-3.
-* @param    OutputCurrPtr pointer to return the output current.
+* @param[in]   InstancePtr Pointer to the XRfdc instance.
+* @param[in]   Tile_Id Valid values are 0-3.
+* @param[in]   Block_Id ADC/DAC block number inside the tile. Valid
+*              values are 0-3.
+* @param[out]  OutputCurrPtr Pointer to return the output current.
 *
 * @return
-*           - Return Output Current for DAC block
+*              - Return Output Current for DAC block.
 *
 ******************************************************************************/
 u32 XRFdc_GetOutputCurr(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u32 *OutputCurrPtr)
@@ -1158,20 +1173,20 @@ RETURN_PATH:
 /*****************************************************************************/
 /**
 *
-* Set the Nyquist zone.
+* @brief Sets the Nyquist zone.
 *
-* @param    InstancePtr is a pointer to the XRfdc instance.
-* @param    Type is ADC or DAC. 0 for ADC and 1 for DAC
-* @param    Tile_Id Valid values are 0-3.
-* @param    Block_Id is ADC/DAC block number inside the tile. Valid values
-*           are 0-3.
-* @param    NyquistZone valid values are 1 (Odd),2 (Even).
+* @param[in,out] InstancePtr Pointer to the XRfdc instance.
+* @param[in]     Type ADC or DAC. 0 for ADC and 1 for DAC.
+* @param[in]     Tile_Id Valid values are 0-3.
+* @param[in]     Block_Id ADC/DAC block number inside the tile. Valid values
+*                are 0-3.
+* @param[in]     NyquistZone Valid values are 1 (Odd),2 (Even).
 *
 * @return
-*           - XRFDC_SUCCESS if successful.
-*           - XRFDC_FAILURE if error occurs.
+*                - XRFDC_SUCCESS if successful.
+*                - XRFDC_FAILURE if error occurs.
 *
-* @note     Common API for ADC/DAC blocks
+* @note          Common API for ADC/DAC blocks
 *
 ******************************************************************************/
 u32 XRFdc_SetNyquistZone(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 Block_Id, u32 NyquistZone)
@@ -1258,20 +1273,20 @@ RETURN_PATH:
 /*****************************************************************************/
 /**
 *
-* Get the Nyquist zone.
+* @brief Gets the Nyquist zone.
 *
-* @param    InstancePtr is a pointer to the XRfdc instance.
-* @param    Type is ADC or DAC. 0 for ADC and 1 for DAC
-* @param    Tile_Id Valid values are 0-3.
-* @param    Block_Id is ADC/DAC block number inside the tile. Valid values
-*           are 0-3.
-* @param    NyquistZonePtr Pointer to return the Nyquist zone.
+* @param[in]   InstancePtr Pointer to the XRfdc instance.
+* @param[in]   Type ADC or DAC. 0 for ADC and 1 for DAC.
+* @param[in]   Tile_Id Valid values are 0-3.
+* @param[in]   Block_Id ADC/DAC block number inside the tile. Valid
+*              values are 0-3.
+* @param[out]  NyquistZonePtr Pointer to return the Nyquist zone.
 *
 * @return
-*           - XRFDC_SUCCESS if successful.
-*           - XRFDC_FAILURE if error occurs.
+*              - XRFDC_SUCCESS if successful.
+*              - XRFDC_FAILURE if error occurs.
 *
-* @note     Common API for ADC/DAC blocks
+* @note        Common API for ADC/DAC blocks
 *
 ******************************************************************************/
 u32 XRFdc_GetNyquistZone(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 Block_Id, u32 *NyquistZonePtr)
@@ -1347,19 +1362,19 @@ RETURN_PATH:
 /*****************************************************************************/
 /**
 *
-* This API is to set the Calibration mode.
+* @brief Sets the calibration mode.
 *
-* @param    InstancePtr is a pointer to the XRfdc instance.
-* @param    Tile_Id Valid values are 0-3.
-* @param    Block_Id is ADC/DAC block number inside the tile. Valid values
-*           are 0-3.
-* @param    CalibrationMode valid values are 0(Gen 3 only), 1 and 2.
+* @param[in,out] InstancePtr Pointer to the XRfdc instance.
+* @param[in]     Tile_Id Valid values are 0-3.
+* @param[in]     Block_Id ADC/DAC block number inside the tile. Valid
+*                values are 0-3.
+* @param[in]     CalibrationMode Valid values are 0(Gen 3 only), 1 and 2.
 *
 * @return
-*           - XRFDC_SUCCESS if successful.
-*           - XRFDC_FAILURE if error occurs.
+*                - XRFDC_SUCCESS if successful.
+*                - XRFDC_FAILURE if error occurs.
 *
-* @note     Only for ADC blocks
+* @note          Only for ADC blocks
 *
 ******************************************************************************/
 u32 XRFdc_SetCalibrationMode(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u8 CalibrationMode)
@@ -1490,19 +1505,19 @@ u32 XRFdc_SetCalibrationMode(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u8 C
 /*****************************************************************************/
 /**
 *
-* This API is to get the Calibration mode.
+* @brief Gets the calibration mode.
 *
-* @param    InstancePtr is a pointer to the XRfdc instance.
-* @param    Tile_Id Valid values are 0-3.
-* @param    Block_Id is ADC/DAC block number inside the tile. Valid values
-*           are 0-3.
-* @param    CalibrationModePtr pointer to get the calibration mode.
+* @param[in]   InstancePtr Pointer to the XRfdc instance.
+* @param[in]   Tile_Id Valid values are 0-3.
+* @param[in]   Block_Id ADC/DAC block number inside the tile. Valid
+*              values are 0-3.
+* @param[out]  CalibrationModePtr Pointer to get the calibration mode.
 *
 * @return
-*           - XRFDC_SUCCESS if successful.
-*           - XRFDC_FAILURE if error occurs.
+*              - XRFDC_SUCCESS if successful.
+*              - XRFDC_FAILURE if error occurs.
 *
-* @note     Only for ADC blocks
+* @note        Only for ADC blocks
 *
 ******************************************************************************/
 u32 XRFdc_GetCalibrationMode(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u8 *CalibrationModePtr)
@@ -1568,19 +1583,17 @@ RETURN_PATH:
 /*****************************************************************************/
 /**
  *
- * This function is used to get the Coupling mode.
+ * @brief Gets the coupling mode.
  *
- * @param    InstancePtr is a pointer to the XRfdc instance.
- * @param    Type is ADC or DAC. 0 for ADC and 1 for DAC.
- * @param    Tile_Id indicates Tile number.
- * @param    Block_Id indicates Block number.
- * @param    ModePtr pointer to get link coupling mode.
+* @param[in]    InstancePtr Pointer to the XRfdc instance.
+* @param[in]    Type ADC or DAC. 0 for ADC and 1 for DAC.
+* @param[in]    Tile_Id Tile number.
+* @param[in]    Block_Id Block number.
+* @param[out]   ModePtr Pointer to get link coupling mode.
  *
  * @return
- *           - XRFDC_SUCCESS if successful.
- *           - XRFDC_FAILURE if error occurs.
- *
- * @note     None.
+ *              - XRFDC_SUCCESS if successful.
+ *              - XRFDC_FAILURE if error occurs.
  *
  ******************************************************************************/
 u32 XRFdc_GetCoupling(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 Block_Id,
@@ -1649,18 +1662,18 @@ RETURN_PATH:
 /*****************************************************************************/
 /**
 *
-* This function is used to get the Link Coupling mode.
+* @brief Gets the link coupling mode.
 *
-* @param    InstancePtr is a pointer to the XRfdc instance.
-* @param    Tile_Id indicates Tile number (0-3).
-* @param    Block_Id indicates Block number(0-3 for 2G, 0-1 for 4G).
-* @param    ModePtr pointer to get link coupling mode.
+* @param[in]   InstancePtr Pointer to the XRfdc instance.
+* @param[in]   Tile_Id Tile number (0-3).
+* @param[in]   Block_Id Block number(0-3 for 2G, 0-1 for 4G).
+* @param[out]  ModePtr Pointer to get link coupling mode.
 *
 * @return
-*           - XRFDC_SUCCESS if successful.
-*           - XRFDC_FAILURE if error occurs.
+*              - XRFDC_SUCCESS if successful.
+*              - XRFDC_FAILURE if error occurs.
 *
-* @note     Only for ADC blocks
+* @note        Only for ADC blocks
 *
 ******************************************************************************/
 u32 XRFdc_GetLinkCoupling(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u32 *ModePtr)
@@ -1707,19 +1720,18 @@ RETURN_PATH:
 /*****************************************************************************/
 /**
 *
-* This function is used to set the IM3 Dither mode.
+* @brief Sets the IM3 dither mode.
 *
-* @param    InstancePtr is a pointer to the XRfdc instance.
-* @param    Tile_Id indicates Tile number (0-3).
-* @param    Block_Id indicates Block number(0-3 for LS, 0-1 for HS).
-* @param    Mode 0: Disable
-*                1: Enable
+* @param[in]   InstancePtr Pointer to the XRfdc instance.
+* @param[in]   Tile_Id Tile number (0-3).
+* @param[in]   Block_Id Block number(0-3 for LS, 0-1 for HS).
+* @param[in]   Mode 0: Disable 1: Enable.
 *
 * @return
-*           - XRFDC_SUCCESS if successful.
-*           - XRFDC_FAILURE if error occurs.
+*              - XRFDC_SUCCESS if successful.
+*              - XRFDC_FAILURE if error occurs.
 *
-* @note     Only for ADC blocks
+* @note        Only for ADC blocks
 *
 ******************************************************************************/
 u32 XRFdc_SetDither(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u32 Mode)
@@ -1769,18 +1781,18 @@ RETURN_PATH:
 /*****************************************************************************/
 /**
 *
-* This function is used to get the IM3 Dither mode.
+* @brief Gets the IM3 dither mode.
 *
-* @param    InstancePtr is a pointer to the XRfdc instance.
-* @param    Tile_Id indicates Tile number (0-3).
-* @param    Block_Id indicates Block number(0-3 for LS, 0-1 for HS).
-* @param    ModePtr pointer to get link coupling mode.
+* @param[in]   InstancePtr Pointer to the XRfdc instance.
+* @param[in]   Tile_Id Tile number (0-3).
+* @param[in]   Block_Id Block number(0-3 for LS, 0-1 for HS).
+* @param[out]  ModePtr Pointer to get link coupling mode.
 *
 * @return
-*           - XRFDC_SUCCESS if successful.
-*           - XRFDC_FAILURE if error occurs.
+*              - XRFDC_SUCCESS if successful.
+*              - XRFDC_FAILURE if error occurs.
 *
-* @note     Only for ADC blocks
+* @note        Only for ADC blocks
 *
 ******************************************************************************/
 u32 XRFdc_GetDither(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u32 *ModePtr)
@@ -1820,19 +1832,19 @@ RETURN_PATH:
 /*****************************************************************************/
 /**
 *
-* This function is used to set the ADC Signal Detector Settings.
+* @brief Sets the ADC signal detector settings.
 *
-* @param    InstancePtr is a pointer to the XRfdc instance.
-* @param    Tile_Id indicates Tile number (0-3).
-* @param    Block_Id indicates Block number(0-3 for LS, 0-1 for HS).
-* @param    SettingsPtr pointer to the XRFdc_Signal_Detector_Settings structure
-*           to set the signal detector configurations
+* @param[in]   InstancePtr Pointer to the XRfdc instance.
+* @param[in]   Tile_Id Tile number (0-3).
+* @param[in]   Block_Id Block number(0-3 for LS, 0-1 for HS).
+* @param[in]   SettingsPtr Pointer to the XRFdc_Signal_Detector_Settings
+*              structure to set the signal detector configurations.
 *
 * @return
-*           - XRFDC_SUCCESS if successful.
-*           - XRFDC_FAILURE if tile not enabled, or invalid values.
+*              - XRFDC_SUCCESS if successful.
+*              - XRFDC_FAILURE if tile not enabled, or invalid values.
 *
-* @note     Only for ADC blocks
+* @note        Only for ADC blocks
 *
 ******************************************************************************/
 u32 XRFdc_SetSignalDetector(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, XRFdc_Signal_Detector_Settings *SettingsPtr)
@@ -1933,19 +1945,19 @@ RETURN_PATH:
 /*****************************************************************************/
 /**
 *
-* This function is used to get the ADC Signal Detector Settings.
+* @brief Gets the ADC signal detector settings.
 *
-* @param    InstancePtr is a pointer to the XRfdc instance.
-* @param    Tile_Id indicates Tile number (0-3).
-* @param    Block_Id indicates Block number(0-3 for LS, 0-1 for HS).
-* @param    SettingsPtr pointer to the XRFdc_Signal_Detector_Settings structure
-*           to get the signal detector configurations
+* @param[in]   InstancePtr Pointer to the XRfdc instance.
+* @param[in]   Tile_Id Tile number (0-3).
+* @param[in]   Block_Id Block number(0-3 for LS, 0-1 for HS).
+* @param[out]  SettingsPtr Pointer to the XRFdc_Signal_Detector_Settings
+*              structure to get the signal detector configurations.
 *
 * @return
-*           - XRFDC_SUCCESS if successful.
-*           - XRFDC_FAILURE if error occurs.
+*              - XRFDC_SUCCESS if successful.
+*              - XRFDC_FAILURE if error occurs.
 *
-* @note     Only for ADC blocks
+* @note        Only for ADC blocks
 *
 ******************************************************************************/
 u32 XRFdc_GetSignalDetector(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, XRFdc_Signal_Detector_Settings *SettingsPtr)
@@ -1999,18 +2011,18 @@ RETURN_PATH:
 /*****************************************************************************/
 /**
 *
-* This function is used to disable Calibration Coefficients override.
+* @brief Disables the calibration coefficients override.
 *
-* @param    InstancePtr is a pointer to the XRfdc instance.
-* @param    Tile_Id indicates Tile number (0-3).
-* @param    Block_Id indicates Block number(0-3 for LS, 0-1 for HS).
-* @param    CalibrationBlock indicates the calibration block.
+* @param[in]   InstancePtr Pointer to the XRfdc instance.
+* @param[in]   Tile_Id Tile number (0-3).
+* @param[in]   Block_Id Block number(0-3 for LS, 0-1 for HS).
+* @param[in]   CalibrationBlock Calibration block.
 *
 * @return
-*           - XRFDC_SUCCESS if successful.
-*           - XRFDC_FAILURE if error occurs.
+*              - XRFDC_SUCCESS if successful.
+*              - XRFDC_FAILURE if error occurs.
 *
-* @note     Only for ADC blocks
+* @note        Only for ADC blocks
 *
 ******************************************************************************/
 u32 XRFdc_DisableCoefficientsOverride(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u32 CalibrationBlock)
@@ -2127,20 +2139,20 @@ RETURN_PATH:
 /*****************************************************************************/
 /**
 *
-* This function is used to set the ADC Calibration Coefficients.
+* @brief Sets the ADC calibration coefficients.
 *
-* @param    InstancePtr is a pointer to the XRfdc instance.
-* @param    Tile_Id indicates Tile number (0-3).
-* @param    Block_Id indicates Block number(0-3 for LS, 0-1 for HS).
-* @param    CalibrationBlock indicates the block to be written to.
-* @param    CoeffPtr is pointer to the XRFdc_Calibration_Coefficients structure
-*           to set the calibration coefficients.
+* @param[in]   InstancePtr Pointer to the XRfdc instance.
+* @param[in]   Tile_Id Tile number (0-3).
+* @param[in]   Block_Id Block number(0-3 for LS, 0-1 for HS).
+* @param[in]   CalibrationBlock Block to be written to.
+* @param[in]   CoeffPtr Pointer to the XRFdc_Calibration_Coefficients
+*              structure to set the calibration coefficients.
 *
 * @return
-*           - XRFDC_SUCCESS if successful.
-*           - XRFDC_FAILURE if error occurs.
+*              - XRFDC_SUCCESS if successful.
+*              - XRFDC_FAILURE if error occurs.
 *
-* @note     Only for ADC blocks
+* @note        Only for ADC blocks
 *
 ******************************************************************************/
 u32 XRFdc_SetCalCoefficients(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u32 CalibrationBlock,
@@ -2350,20 +2362,20 @@ RETURN_PATH:
 /*****************************************************************************/
 /**
 *
-* This function is used to get the ADC Calibration Coefficients.
+* @brief Gets the ADC calibration coefficients.
 *
-* @param    InstancePtr is a pointer to the XRfdc instance.
-* @param    Tile_Id indicates Tile number (0-3).
-* @param    Block_Id indicates Block number(0-3 for LS, 0-1 for HS).
-* @param    CalibrationBlock indicates the block to be read from
-* @param    CoeffPtr is pointer to the XRFdc_Calibration_Coefficients structure
-*           to get the calibration coefficients.
+* @param[in]   InstancePtr Pointer to the XRfdc instance.
+* @param[in]   Tile_Id Tile number (0-3).
+* @param[in]   Block_Id Block number(0-3 for LS, 0-1 for HS).
+* @param[in]   CalibrationBlock Block to be read from.
+* @param[out]  CoeffPtr Pointer to the XRFdc_Calibration_Coefficients
+*              structure to get the calibration coefficients.
 *
 * @return
-*           - XRFDC_SUCCESS if successful.
-*           - XRFDC_FAILURE if error occurs.
+*              - XRFDC_SUCCESS if successful.
+*              - XRFDC_FAILURE if error occurs.
 *
-* @note     Only for ADC blocks
+* @note        Only for ADC blocks
 *
 ******************************************************************************/
 u32 XRFdc_GetCalCoefficients(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u32 CalibrationBlock,
@@ -2555,18 +2567,18 @@ RETURN_PATH:
 /*****************************************************************************/
 /**
 *
-* This function is used to set calibration freeze settings.
+* @brief Sets the calibration freeze settings.
 *
-* @param    InstancePtr is a pointer to the XRfdc instance.
-* @param    Tile_Id indicates Tile number (0-3).
-* @param    Block_Id indicates Block number(0-3 for LS, 0-1 for HS).
-* @param    CalFreezePtr pointer to the settings to be applied.
+* @param[in]   InstancePtr Pointer to the XRfdc instance.
+* @param[in]   Tile_Id Tile number (0-3).
+* @param[in]   Block_Id Block number(0-3 for LS, 0-1 for HS).
+* @param[in]   CalFreezePtr Pointer to the settings to be applied.
 *
 * @return
-*           - XRFDC_SUCCESS if successful.
-*           - XRFDC_FAILURE if error occurs.
+*              - XRFDC_SUCCESS if successful.
+*              - XRFDC_FAILURE if error occurs.
 *
-* @note     Only for ADC blocks
+* @note        Only for ADC blocks
 *
 ******************************************************************************/
 u32 XRFdc_SetCalFreeze(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, XRFdc_Cal_Freeze_Settings *CalFreezePtr)
@@ -2627,18 +2639,18 @@ RETURN_PATH:
 /*****************************************************************************/
 /**
 *
-* This function is used to get calibration freeze settings and status.
+* @brief Gets the calibration freeze settings and status.
 *
-* @param    InstancePtr is a pointer to the XRfdc instance.
-* @param    Tile_Id indicates Tile number (0-3).
-* @param    Block_Id indicates Block number(0-3 for LS, 0-1 for HS).
-* @param    CalFreezePtr pointer to be filled the settings/status.
+* @param[in]   InstancePtr Pointer to the XRfdc instance.
+* @param[in]   Tile_Id Tile number (0-3).
+* @param[in]   Block_Id Block number(0-3 for LS, 0-1 for HS).
+* @param[out]  CalFreezePtr Pointer to be filled the settings/status.
 *
 * @return
-*           - XRFDC_SUCCESS if successful.
-*           - XRFDC_FAILURE if error occurs.
+*              - XRFDC_SUCCESS if successful.
+*              - XRFDC_FAILURE if error occurs.
 *
-* @note     Only for ADC blocks
+* @note        Only for ADC blocks
 *
 ******************************************************************************/
 u32 XRFdc_GetCalFreeze(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, XRFdc_Cal_Freeze_Settings *CalFreezePtr)
@@ -2681,19 +2693,19 @@ RETURN_PATH:
 /*****************************************************************************/
 /**
 *
-* Set Output Current for DAC block.
+* @brief Sets the output current for a DAC block.
 *
-* @param    InstancePtr is a pointer to the XRfdc instance.
-* @param    Tile_Id Valid values are 0-3.
-* @param    Block_Id is ADC/DAC block number inside the tile. Valid values
-*           are 0-3.
-* @param    uACurrent is the current in uA.
+* @param[in]   InstancePtr Pointer to the XRfdc instance.
+* @param[in]   Tile_Id Valid values are 0-3.
+* @param[in]   Block_Id ADC/DAC block number inside the tile. Valid values are
+*              0-3.
+* @param[in]   uACurrent Current in uA.
 *
 * @return
-*           - XRFDC_SUCCESS if successful.
-*           - XRFDC_FAILURE if error occurs.
+*              - XRFDC_SUCCESS if successful.
+*              - XRFDC_FAILURE if error occurs.
 *
-* @note     Range 6425 - 32000 uA with 25 uA resolution.
+* @note        Range 6425 - 32000 uA with 25 uA resolution.
 ******************************************************************************/
 u32 XRFdc_SetDACVOP(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u32 uACurrent)
 {
@@ -2835,20 +2847,19 @@ RETURN_PATH:
 /*****************************************************************************/
 /**
 *
-* Gets VOP compatibility mode.
+* @brief Gets VOP compatibility mode.
 *
-* @param    InstancePtr is a pointer to the XRfdc instance.
-* @param    Tile_Id Valid values are 0-3.
-* @param    Block_Id is ADC/DAC block number inside the tile. Valid values
-*           are 0-3.
-* @param    EnabledPtr is pointer a that is filled with whether the mode is
-*           enabled (1) or disabled(0).
+* @param[in]   InstancePtr Pointer to the XRfdc instance.
+* @param[in]   Tile_Id Valid values are 0-3.
+* @param[in]   Block_Id ADC/DAC block number inside the tile. Valid values
+*              are 0-3.
+* @param[out]  EnabledPtr Pointer a that is filled with whether the mode is
+*              enabled (1) or disabled(0).
 *
 * @return
-*           - XRFDC_SUCCESS if successful.
-*           - XRFDC_FAILURE if error occurs.
+*              - XRFDC_SUCCESS if successful.
+*              - XRFDC_FAILURE if error occurs.
 *
-* @note     None.
 ******************************************************************************/
 u32 XRFdc_GetDACCompMode(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u32 *EnabledPtr)
 {
@@ -2884,20 +2895,19 @@ RETURN_PATH:
 /*****************************************************************************/
 /**
 *
-* Sets VOP compatibility mode.
+* @brief Sets VOP compatibility mode.
 *
-* @param    InstancePtr is a pointer to the XRfdc instance.
-* @param    Tile_Id Valid values are 0-3.
-* @param    Block_Id is ADC/DAC block number inside the tile. Valid values
-*           are 0-3.
-* @param    Enable is whether to enable (1) or disable(0) the compatibility
-*           mode.
+* @param[in]   InstancePtr Pointer to the XRfdc instance.
+* @param[in]   Tile_Id Valid values are 0-3.
+* @param[in]   Block_Id ADC/DAC block number inside the tile. Valid values are
+*              0-3.
+* @param[in]   Enable Whether to enable (1) or disable(0) the compatibility
+*              mode.
 *
 * @return
-*           - XRFDC_SUCCESS if successful.
-*           - XRFDC_FAILURE if error occurs.
+*              - XRFDC_SUCCESS if successful.
+*              - XRFDC_FAILURE if error occurs.
 *
-* @note     None.
 ******************************************************************************/
 u32 XRFdc_SetDACCompMode(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u32 Enable)
 {
@@ -2938,20 +2948,20 @@ RETURN_PATH:
 /*****************************************************************************/
 /**
 *
-* Set DSA for ADC block.
+* @brief Sets the DSA for an ADC block.
 *
-* @param    InstancePtr is a pointer to the XRfdc instance.
-* @param    Tile_Id Valid values are 0-3.
-* @param    Block_Id is ADC/DAC block number inside the tile. Valid values
-*           are 0-3.
-* @param    SettingsPtr is pointer to the DSA settings structure.
+* @param[in]   InstancePtr Pointer to the XRfdc instance.
+* @param[in]   Tile_Id Valid values are 0-3.
+* @param[in]   Block_Id ADC/DAC block number inside the tile. Valid values are
+*              0-3.
+* @param[in]   SettingsPtr Pointer to the DSA settings structure.
 *
 * @return
-*           - XRFDC_SUCCESS if successful.
-*           - XRFDC_FAILURE if error occurs.
+*              - XRFDC_SUCCESS if successful.
+*              - XRFDC_FAILURE if error occurs.
 *
-* @note  Range 0 - 11 dB with 0.5 dB resolution ES1 Si.
-*        Range 0 - 27 dB with 1 dB resolution for Production Si.
+* @note        Range 0 - 11 dB with 0.5 dB resolution ES1 Si.
+*              Range 0 - 27 dB with 1 dB resolution for Production Si.
 ******************************************************************************/
 u32 XRFdc_SetDSA(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, XRFdc_DSA_Settings *SettingsPtr)
 {
@@ -3022,20 +3032,20 @@ RETURN_PATH:
 /*****************************************************************************/
 /**
 *
-* Get DSA for ADC block.
+* @brief Gets the DSA for an ADC block.
 *
-* @param    InstancePtr is a pointer to the XRfdc instance.
-* @param    Tile_Id Valid values are 0-3.
-* @param    Block_Id is ADC/DAC block number inside the tile. Valid values
-*           are 0-3.
-* @param    SettingsPtr is pointer to the DSA settings structure.
+* @param[in]   InstancePtr Pointer to the XRfdc instance.
+* @param[in]   Tile_Id Valid values are 0-3.
+* @param[in]   Block_Id ADC/DAC block number inside the tile. Valid values
+*              are 0-3.
+* @param[out]  SettingsPtr Pointer to the DSA settings structure.
 *
 * @return
-*           - XRFDC_SUCCESS if successful.
-*           - XRFDC_FAILURE if error occurs.
+*              - XRFDC_SUCCESS if successful.
+*              - XRFDC_FAILURE if error occurs.
 *
-* @note  Range 0 - 11 dB with 0.5 dB resolution ES1 Si.
-*        Range 0 - 27 dB with 1 dB resolution for Production Si.
+* @note        Range 0 - 11 dB with 0.5 dB resolution ES1 Si.
+*              Range 0 - 27 dB with 1 dB resolution for Production Si.
 ******************************************************************************/
 u32 XRFdc_GetDSA(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, XRFdc_DSA_Settings *SettingsPtr)
 {
@@ -3092,15 +3102,15 @@ RETURN_PATH:
 /*****************************************************************************/
 /**
 *
-* Checks whether DAC block is available or not.
+* @brief Checks whether DAC block is available or not.
 *
-* @param    InstancePtr is a pointer to the XRfdc instance.
-* @param    Tile_Id Valid values are 0-3.
-* @param    Block_Id is ADC/DAC block number inside the tile. Valid values
-*           are 0-3.
+* @param[in]   InstancePtr Pointer to the XRfdc instance.
+* @param[in]   Tile_Id Valid values are 0-3.
+* @param[in]   Block_Id ADC/DAC block number inside the tile. Valid values are
+*              0-3.
 *
 * @return
-*           - Return 1 if DAC block is available, otherwise 0.
+*              - Return 1 if DAC block is available, otherwise 0.
 *
 ******************************************************************************/
 u32 XRFdc_IsDACBlockEnabled(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id)
@@ -3132,15 +3142,15 @@ u32 XRFdc_IsDACBlockEnabled(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id)
 /*****************************************************************************/
 /**
 *
-* Checks whether ADC block is available or not.
+* @brief Checks whether ADC block is available or not.
 *
-* @param    InstancePtr is a pointer to the XRfdc instance.
-* @param    Tile_Id Valid values are 0-3.
-* @param    Block_Id is ADC/DAC block number inside the tile. Valid values
-*           are 0-3 in DAC/ADC-2GSPS and 0-1 in ADC-4GSPS.
+* @param[in]   InstancePtr Pointer to the XRfdc instance.
+* @param[in]   Tile_Id Valid values are 0-3.
+* @param[in]   Block_Id ADC/DAC block number inside the tile. Valid values are
+*              0-3 in DAC/ADC-2GSPS and 0-1 in ADC-4GSPS.
 *
 * @return
-*           - Return 1 if ADC block is available, otherwise 0.
+*              - Return 1 if ADC block is available, otherwise 0.
 *
 ******************************************************************************/
 u32 XRFdc_IsADCBlockEnabled(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id)
@@ -3184,17 +3194,17 @@ RETURN_PATH:
 /*****************************************************************************/
 /**
 *
-* Checks whether ADC/DAC block is enabled or not.
+* @brief Checks whether ADC/DAC block is enabled or not.
 *
-* @param    InstancePtr is a pointer to the XRfdc instance.
-* @param    Type is ADC or DAC. 0 for ADC and 1 for DAC.
-* @param    Tile_Id Valid values are 0-3.
-* @param    Block_Id is ADC/DAC block number inside the tile. Valid values
-*           are 0-3.
+* @param[in]   InstancePtr Pointer to the XRfdc instance.
+* @param[in]   Type ADC or DAC. 0 for ADC and 1 for DAC.
+* @param[in]   Tile_Id Valid values are 0-3.
+* @param[in]   Block_Id ADC/DAC block number inside the tile. Valid values are
+*              0-3.
 *
 * @return
-*           - XRFDC_SUCCESS if block enabled.
-*           - XRFDC_FAILURE if block not enabled.
+*              - XRFDC_SUCCESS if block enabled.
+*              - XRFDC_FAILURE if block not enabled.
 *
 ******************************************************************************/
 u32 XRFdc_CheckBlockEnabled(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 Block_Id)
@@ -3230,16 +3240,16 @@ RETURN_PATH:
 /*****************************************************************************/
 /**
 *
-* Get Inversesync filter for DAC block.
+* @brief Gets the inverse-sinc filter for a DAC block.
 *
-* @param    InstancePtr is a pointer to the XRfdc instance.
-* @param    Tile_Id Valid values are 0-3.
-* @param    Block_Id is ADC/DAC block number inside the tile. Valid values
-*           are 0-3.
+* @param[in]   InstancePtr Pointer to the XRfdc instance.
+* @param[in]   Tile_Id Valid values are 0-3.
+* @param[in]   Block_Id ADC/DAC block number inside the tile. Valid values are
+*              0-3.
 *
 * @return
-*           - Return Inversesync filter for DAC block
-*           - Return 0 if invalid
+*              - Return Inversesync filter for DAC block.
+*              - Return 0 if invalid.
 *
 ******************************************************************************/
 u32 XRFdc_GetInverseSincFilter(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id)
@@ -3263,16 +3273,16 @@ u32 XRFdc_GetInverseSincFilter(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id)
 /*****************************************************************************/
 /**
 *
-* Get Mixed mode for DAC block.
+* @brief Gets the mixed mode for a DAC block.
 *
-* @param    InstancePtr is a pointer to the XRfdc instance.
-* @param    Tile_Id Valid values are 0-3.
-* @param    Block_Id is ADC/DAC block number inside the tile. Valid values
-*           are 0-3.
+* @param[in]   InstancePtr Pointer to the XRfdc instance.
+* @param[in]   Tile_Id Valid values are 0-3.
+* @param[in]   Block_Id ADC/DAC block number inside the tile. Valid values are
+*              0-3.
 *
 * @return
-*           - Return mixed mode for DAC block
-*           - Return 0 if invalid
+*              - Return mixed mode for DAC block.
+*              - Return 0 if invalid.
 *
 ******************************************************************************/
 u32 XRFdc_GetMixedMode(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id)
@@ -3296,19 +3306,19 @@ u32 XRFdc_GetMixedMode(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id)
 /*****************************************************************************/
 /**
 *
-* Set data scaler for DAC block.
+* @brief Sets the data scaler for a DAC block.
 *
-* @param    InstancePtr is a pointer to the XRfdc instance.
-* @param    Tile_Id Valid values are 0-3.
-* @param    Block_Id is ADC/DAC block number inside the tile. Valid values
-*           are 0-3.
-* @param    Enable  valid values are 1 (enable) and 0 (disable).
+* @param[in]   InstancePtr Pointer to the XRfdc instance.
+* @param[in]   Tile_Id Valid values are 0-3.
+* @param[in]   Block_Id ADC/DAC block number inside the tile. Valid values are
+*              0-3.
+* @param[in]   Enable Valid values are 1 (enable) and 0 (disable).
 *
 * @return
-*           - XRFDC_SUCCESS if successful.
-*           - XRFDC_FAILURE if error occurs.
+*              - XRFDC_SUCCESS if successful.
+*              - XRFDC_FAILURE if error occurs.
 *
-* @note     DAC blocks only.
+* @note        DAC blocks only.
 ******************************************************************************/
 u32 XRFdc_SetDACDataScaler(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u32 Enable)
 {
@@ -3341,19 +3351,19 @@ RETURN_PATH:
 /*****************************************************************************/
 /**
 *
-* Get data scaler for DAC block.
+* @brief Gets the data scaler for a DAC block.
 *
-* @param    InstancePtr is a pointer to the XRfdc instance.
-* @param    Tile_Id Valid values are 0-3.
-* @param    Block_Id is ADC/DAC block number inside the tile. Valid values
-*           are 0-3.
-* @param    EnablePtr valid values are 1 (enable) and 0 (disable).
+* @param[in]   InstancePtr Pointer to the XRfdc instance.
+* @param[in]   Tile_Id Valid values are 0-3.
+* @param[in]   Block_Id ADC/DAC block number inside the tile. Valid values
+*              are 0-3.
+* @param[out]  EnablePtr Valid values are 1 (enable) and 0 (disable).
 *
 * @return
-*           - XRFDC_SUCCESS if successful.
-*           - XRFDC_FAILURE if error occurs.
+*              - XRFDC_SUCCESS if successful.
+*              - XRFDC_FAILURE if error occurs.
 *
-* @note     DAC blocks only.
+* @note        DAC blocks only.
 ******************************************************************************/
 u32 XRFdc_GetDACDataScaler(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u32 *EnablePtr)
 {

@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2017 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -7,8 +8,7 @@
 /**
 *
 * @file xrfdc_g.c
-* @addtogroup Overview
-* @{
+* @brief Defines the configuration table for RFdc devices in the system.
 *
 * This file contains a configuration table that specifies the configuration of
 * RFdc devices in the system.
@@ -28,10 +28,16 @@
 * 10.0  cog    11/26/20 Refactor and split files.
 * 11.0  cog    05/31/21 Upversion.
 * 11.1  cog    11/16/21 Upversion.
+* 13.2  vn     09/29/26 Align Doxygen comments with AMD standards
 *
 * </pre>
 *
 ******************************************************************************/
+
+/** @addtogroup Overview
+ * @{
+ */
+
 #ifdef __BAREMETAL__
 /***************************** Include Files ********************************/
 #include "xparameters.h"
@@ -44,7 +50,7 @@
 
 /************************** Variable Definitions ****************************/
 /**
- * The configuration table for devices
+ * @brief Configuration table that holds the settings for each RFdc device.
  */
 
 XRFdc_Config XRFdc_ConfigTable[XPAR_XRFDC_NUM_INSTANCES] = {

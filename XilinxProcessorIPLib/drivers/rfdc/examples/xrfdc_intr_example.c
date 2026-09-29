@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2017 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -8,6 +8,7 @@
 /**
 *
 * @file xrfdc_intr_example.c
+* @brief Demonstrates RFdc interrupt handling for error reporting.
 *
 * For the RFSoC Data Converter, the interrupts are mostly used for error
 * reporting.
@@ -56,6 +57,7 @@
 * 13.1  dc     02/18/26 Correct spelling errors
 * 13.2  akm    08/06/26 Fix missing field initializer warnings.
 * 13.2  vn     08/11/26 Fix Doxygen warnings.
+* 13.2  vn     09/29/26 Align Doxygen comments with AMD standards
 *
 * </pre>
 *
@@ -79,22 +81,27 @@
  * change all the needed parameters in one place.
  */
 #ifdef __BAREMETAL__
-#define RFDC_DEVICE_ID 	XPAR_XRFDC_0_DEVICE_ID
+#define RFDC_DEVICE_ID 	XPAR_XRFDC_0_DEVICE_ID /**< Device ID. */
+/** RFDC interrupt vector ID. */
 #define RFDC_IRQ_VECT_ID                XPS_FPGA0_INT_ID
-#define INTC_DEVICE_ID		XPAR_SCUGIC_0_DEVICE_ID
-#define XRFDC_BASE_ADDR		XPAR_XRFDC_0_BASEADDR
+#define INTC_DEVICE_ID		XPAR_SCUGIC_0_DEVICE_ID /**< INTC device ID. */
+#define XRFDC_BASE_ADDR		XPAR_XRFDC_0_BASEADDR /**< RFDC base address. */
+/** Base address of the DAC stimulus generator. */
 #define STIM_BASE_ADDR	XPAR_STIMULUS_GEN_AXI_S_0_BASEADDR
+/** Base address of the ADC data capture. */
 #define CAP_BASE_ADDR	XPAR_DATA_CAPTURE_AXI_S_0_BASEADDR
-#define BUS_NAME        "generic"
-#define RFDC_DEV_NAME    XPAR_XRFDC_0_DEV_NAME
-#define I2CBUS	1
+#define BUS_NAME        "generic" /**< libmetal bus name. */
+#define RFDC_DEV_NAME    XPAR_XRFDC_0_DEV_NAME /**< RFDC device name. */
+#define I2CBUS	1 /**< I2C bus ID used to configure the clock devices. */
 #else
-#define RFDC_DEVICE_ID  0
-#define BUS_NAME        "platform"
-#define I2CBUS	12
+#define RFDC_DEVICE_ID  0 /**< Device ID. */
+#define BUS_NAME        "platform" /**< libmetal bus name. */
+#define I2CBUS	12 /**< I2C bus ID used to configure the clock devices. */
 #endif
 
+/** Name of the DAC stimulus BRAM device. */
 #define STIM_DEV_NAME    "a0000000.exdes_rfdac_data_bram_stim"
+/** Name of the ADC capture BRAM device. */
 #define CAP_DEV_NAME    "a0400000.exdes_rfadc_data_bram_capture"
 
 /**************************** Type Definitions ******************************/
@@ -102,7 +109,7 @@
 
 /***************** Macros (Inline Functions) Definitions ********************/
 #ifdef __BAREMETAL__
-#define printf xil_printf
+#define printf xil_printf /**< Smaller footprint printf. */
 #endif
 /************************** Function Prototypes *****************************/
 
@@ -110,16 +117,20 @@ static int RFdcFabricRateExample(u16 SysMonDeviceId);
 static int CompareFabricRate(u32 SetDecoderMode, u32 GetDecoderMode);
 #ifdef __BAREMETAL__
 int init_irq();
+/** @cond INTERNAL */
 int register_metal_device(void);
+/** @endcond */
 #endif
+/** @cond INTERNAL */
 int sys_init();
+/** @endcond */
 void RFdcHandler(void *CallBackRef, u32 Type, int Tile_Id,
 						u32 Block_Id, u32 StatusEvent);
 
 /************************** Variable Definitions ****************************/
 
 static XRFdc RFdcInst;      /* RFdc driver instance */
-volatile int InterruptOccured;
+volatile int InterruptOccured; /**< Flag for an interrupt occurrence. */
 #ifdef XPS_BOARD_ZCU111
 unsigned int LMK04208_CKin[1][26] = {
 		{0x00160040,0x80140320,0x80140321,0x80140322,
@@ -129,15 +140,18 @@ unsigned int LMK04208_CKin[1][26] = {
 		0x0021201C,0x0180033D,0x0200033E,0x003F001F }};
 #endif
 
-struct metal_device *deviceptr;
+struct metal_device *deviceptr; /**< Pointer to the libmetal device. */
+/** libmetal device of the DAC stimulus BRAM. */
 struct metal_device *device_stim;
-struct metal_io_region *io_stim;
+struct metal_io_region *io_stim; /**< I/O region of the DAC stimulus BRAM. */
+/** libmetal device of the ADC capture BRAM. */
 struct metal_device *device_cap;
-struct metal_io_region *io_cap;
+struct metal_io_region *io_cap; /**< I/O region of the ADC capture BRAM. */
 
 #ifdef __BAREMETAL__
-XScuGic InterruptController;
+XScuGic InterruptController; /**< Instance of the interrupt controller. */
 
+/** Base addresses of the RFDC, DAC stimulus, and ADC capture devices. */
 const metal_phys_addr_t metal_phys[] = {
 		XRFDC_BASE_ADDR,
 		STIM_BASE_ADDR,
@@ -212,13 +226,11 @@ static struct metal_device metal_dev_cap = {
 /****************************************************************************/
 /**
 *
-* Main function that invokes the polled example in this file.
+* @brief Invokes the polled example in this file.
 *
 * @return
-*		- XRFDC_SUCCESS if the example has completed successfully.
-*		- XRFDC_FAILURE if the example has failed.
-*
-* @note		None.
+*              - XRFDC_SUCCESS if the example has completed successfully.
+*              - XRFDC_FAILURE if the example has failed.
 *
 *****************************************************************************/
 int main(void)
@@ -244,22 +256,20 @@ int main(void)
 /****************************************************************************/
 /**
 *
-* This function runs a test on the RFSoC data converter device using the
-* driver APIs.
+* @brief Runs a test on the RFSoC data converter device using the driver APIs.
+*
 * This function does the following tasks:
 *	- Initialize the RFdc device driver instance
 *	- Set the Fabric Rate.
 *	- Get the Fabric Rate.
 *	- Compare Set and Get Rates
 *
-* @param	RFdcDeviceId is the XPAR_<XRFDC_instance>_DEVICE_ID value
-*		from xparameters.h.
+* @param[in]   RFdcDeviceId XPAR_<XRFDC_instance>_DEVICE_ID value from
+*              xparameters.h.
 *
 * @return
-*		- XRFDC_SUCCESS if the example has completed successfully.
-*		- XRFDC_FAILURE if the example has failed.
-*
-* @note   	None
+*              - XRFDC_SUCCESS if the example has completed successfully.
+*              - XRFDC_FAILURE if the example has failed.
 *
 ****************************************************************************/
 int RFdcFabricRateExample(u16 RFdcDeviceId)
@@ -439,19 +449,18 @@ printf("\n Configuring the Clock \r\n");
 }
 
 /****************************************************************************/
-/*
+/**
 *
-* This function compares the two Fabric Rate variables and return 0 if
-* same and returns 1 if not same.
+* @brief Compares two fabric rate values.
 *
-* @param	SetFabricRate Fabric Rate value set.
-* @param	GetFabricRate Fabric Rate value get.
+* Returns 0 if the values are the same and 1 if they are not.
+*
+* @param[in]   SetFabricRate Fabric rate value that was set.
+* @param[in]   GetFabricRate Fabric rate value that was read.
 *
 * @return
-*			- 0 if both structures are same.
-*			- 1 if both structures are not same.
-*
-* @note		None
+*              - 0 if both values are the same.
+*              - 1 if both values are not the same.
 *
 *****************************************************************************/
 static int CompareFabricRate(u32 SetFabricRate, u32 GetFabricRate)
@@ -463,11 +472,9 @@ static int CompareFabricRate(u32 SetFabricRate, u32 GetFabricRate)
 }
 #ifdef __BAREMETAL__
 /**
- * @brief init_irq() - Initialize GIC and connect IPI interrupt
- *        This function will initialize the GIC and connect the IPI
- *        interrupt.
+ * @brief Initializes the GIC and connects the IPI interrupt.
  *
- * @return 0 - succeeded, non-0 for failures
+ * @return      0 - succeeded, non-0 for failures.
  */
 int init_irq()
 {
@@ -514,15 +521,13 @@ int init_irq()
 /*****************************************************************************/
 /**
 *
-* Callback handler.
+* @brief Handles the RFdc status callback.
 *
-* @param    CallBackRef is a pointer to the upper layer callback reference.
-* @param    Type is ADC or DAC. 0 for ADC and 1 for DAC.
-* @param    Tile_Id indicates Tile number (0-3).
-* @param    Block_Id indicates Block number (0-3).
-* @param    StatusEvent indicates the interrupt event.
-*
-* @note		None.
+* @param[in]   CallBackRef Pointer to the upper layer callback reference.
+* @param[in]   Type ADC or DAC. 0 for ADC and 1 for DAC.
+* @param[in]   Tile_Id Tile number (0-3).
+* @param[in]   Block_Id Block number (0-3).
+* @param[in]   StatusEvent Interrupt event.
 *
 *****************************************************************************/
 void RFdcHandler (void *CallBackRef, u32 Type, int Tile_Id,

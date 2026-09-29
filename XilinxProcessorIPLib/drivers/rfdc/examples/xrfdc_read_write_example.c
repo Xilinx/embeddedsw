@@ -8,6 +8,7 @@
 /**
 *
 * @file xrfdc_read_write_example.c
+* @brief Demonstrates configuring and reading back RFdc block settings.
 *
 * This example uses multiple driver "set" APIs to configure the targeted
 * AMS block.
@@ -24,7 +25,7 @@
 * and DAC using driver functions.
 *
 * NOTE: The purpose of the example is to show how to use the driver APIs.
-* For real user scenarios this example will not be relevant.
+* For real user scenarios this example is not relevant.
 *
 * For zcu111 board users are expected to define XPS_BOARD_ZCU111 macro
 * while compiling this example.
@@ -68,6 +69,7 @@
 *       dc     04/15/26 Add base address definition to SDT flow
 * 13.2  akm    08/06/26 Fix missing field initializer warnings.
 * 13.2  vn     08/11/26 Fix Doxygen warnings.
+* 13.2  vn     09/29/26 Align Doxygen comments with AMD standards
 * </pre>
 *
 *****************************************************************************/
@@ -89,21 +91,22 @@
  */
 #ifdef __BAREMETAL__
 #ifndef SDT
-#define RFDC_DEVICE_ID 	XPAR_XRFDC_0_DEVICE_ID
-#define I2CBUS	1
-#define XRFDC_BASE_ADDR		XPAR_XRFDC_0_BASEADDR
-#define RFDC_DEV_NAME    XPAR_XRFDC_0_DEV_NAME
+#define RFDC_DEVICE_ID 	XPAR_XRFDC_0_DEVICE_ID /**< Device ID. */
+#define I2CBUS	1 /**< I2C bus ID used to configure the clock devices. */
+#define XRFDC_BASE_ADDR		XPAR_XRFDC_0_BASEADDR /**< RFDC base address. */
+#define RFDC_DEV_NAME    XPAR_XRFDC_0_DEV_NAME /**< RFDC device name. */
 #else
-#define XRFDC_BASE_ADDR		XPAR_XRFDC_0_BASEADDR
-#define RFDC_DEVICE_ID 	0
-#define I2CBUS	1
+#define XRFDC_BASE_ADDR		XPAR_XRFDC_0_BASEADDR /**< RFDC base address. */
+#define RFDC_DEVICE_ID 	0 /**< Device ID. */
+#define I2CBUS	1 /**< I2C bus ID used to configure the clock devices. */
 #endif
 #else
-#define RFDC_DEVICE_ID 	0
-#define I2CBUS	12
+#define RFDC_DEVICE_ID 	0 /**< Device ID. */
+#define I2CBUS	12 /**< I2C bus ID used to configure the clock devices. */
 #endif
 
-#define REG_BOND_NSLICES 4U
+#define REG_BOND_NSLICES 4U /**< Number of slices on regular bondout devices. */
+/** Number of slices on alternate bondout devices. */
 #define ALT_BOND_NSLICES 2U
 
 /**************************** Type Definitions ******************************/
@@ -111,7 +114,7 @@
 
 /***************** Macros (Inline Functions) Definitions ********************/
 #ifdef __BAREMETAL__
-#define printf xil_printf
+#define printf xil_printf /**< Smaller footprint printf. */
 #endif
 /************************** Function Prototypes *****************************/
 
@@ -128,10 +131,10 @@ static int CompareThresholdSettings(XRFdc_Threshold_Settings *SetThresholdSettin
 /************************** Variable Definitions ****************************/
 
 static XRFdc RFdcInst;      /* RFdc driver instance */
-struct metal_device *deviceptr = NULL;
+struct metal_device *deviceptr = NULL; /**< Pointer to the libmetal device. */
 
 #ifdef __BAREMETAL__
-metal_phys_addr_t metal_phys = XRFDC_BASE_ADDR;
+metal_phys_addr_t metal_phys = XRFDC_BASE_ADDR; /**< RFDC base address. */
 static struct metal_device CustomDev = {
 	/* RFdc device */
 	.name = NULL,
@@ -157,13 +160,11 @@ static struct metal_device CustomDev = {
 /****************************************************************************/
 /**
 *
-* Main function that invokes the polled example in this file.
+* @brief Invokes the polled example in this file.
 *
 * @return
-*		- XRFDC_SUCCESS if the example has completed successfully.
-*		- XRFDC_FAILURE if the example has failed.
-*
-* @note		None.
+*              - XRFDC_SUCCESS if the example has completed successfully.
+*              - XRFDC_FAILURE if the example has failed.
 *
 *****************************************************************************/
 int main(void)
@@ -189,20 +190,18 @@ int main(void)
 /****************************************************************************/
 /**
 *
-* This function runs a test on the RFSoC data converter device using the
-* driver APIs.
+* @brief Runs a test on the RFSoC data converter device using the driver APIs.
+*
 * This function does the following tasks:
 *	- Initialize the RFdc device driver instance
 *	- Compare Set and Get settings
 *
-* @param	RFdcDeviceId is the XPAR_<XRFDC_instance>_DEVICE_ID value
-*		from xparameters.h.
+* @param[in]   RFdcDeviceId XPAR_<XRFDC_instance>_DEVICE_ID value from
+*              xparameters.h.
 *
 * @return
-*		- XRFDC_SUCCESS if the example has completed successfully.
-*		- XRFDC_FAILURE if the example has failed.
-*
-* @note   	None
+*              - XRFDC_SUCCESS if the example has completed successfully.
+*              - XRFDC_FAILURE if the example has failed.
 *
 ****************************************************************************/
 int RFdcReadWriteExample(u16 RFdcDeviceId)
@@ -1340,19 +1339,18 @@ int RFdcReadWriteExample(u16 RFdcDeviceId)
 }
 
 /****************************************************************************/
-/*
+/**
 *
-* This function compares the two mixer settings structures and return 0 if
-* same and returns 1 if not same.
+* @brief Compares two mixer settings structures.
 *
-* @param	SetMixerSettings Pointer to the XRFdc_Mixer_Settings structure.
-* @param	GetMixerSettings Pointer to the XRFdc_Mixer_Settings structure.
+* Returns 0 if the structures are the same and 1 if they are not.
+*
+* @param[in]   SetMixerSettings Pointer to the set XRFdc_Mixer_Settings.
+* @param[in]   GetMixerSettings Pointer to the read XRFdc_Mixer_Settings.
 *
 * @return
-*			- 0 if both structures are same.
-*			- 1 if both structures are not same.
-*
-* @note		None
+*              - 0 if both structures are the same.
+*              - 1 if both structures are not the same.
 *
 *****************************************************************************/
 static int CompareMixerSettings(XRFdc_Mixer_Settings *SetMixerSettings,
@@ -1377,19 +1375,18 @@ static int CompareMixerSettings(XRFdc_Mixer_Settings *SetMixerSettings,
 }
 
 /****************************************************************************/
-/*
+/**
 *
-* This function compares the two QMC settings structures and return 0 if
-* same and returns 1 if not same.
+* @brief Compares two QMC settings structures.
 *
-* @param	SetQMCSettings Pointer to the XRFdc_QMC_Settings structure.
-* @param	GetQMCSettings Pointer to the XRFdc_QMC_Settings structure.
+* Returns 0 if the structures are the same and 1 if they are not.
+*
+* @param[in]   SetQMCSettings Pointer to the set XRFdc_QMC_Settings.
+* @param[in]   GetQMCSettings Pointer to the read XRFdc_QMC_Settings.
 *
 * @return
-*			- 0 if both structures are same.
-*			- 1 if both structures are not same.
-*
-* @note		None
+*              - 0 if both structures are the same.
+*              - 1 if both structures are not the same.
 *
 *****************************************************************************/
 static int CompareQMCSettings(XRFdc_QMC_Settings *SetQMCSettings,
@@ -1406,19 +1403,20 @@ static int CompareQMCSettings(XRFdc_QMC_Settings *SetQMCSettings,
 }
 
 /****************************************************************************/
-/*
+/**
 *
-* This function compares the two CoarseDelay settings structures and return 0 if
-* same and returns 1 if not same.
+* @brief Compares two coarse delay settings structures.
 *
-* @param	SetQMCSettings Pointer to the XRFdc_CoarseDelay_Settings structure.
-* @param	GetQMCSettings Pointer to the XRFdc_CoarseDelay_Settings structure.
+* Returns 0 if the structures are the same and 1 if they are not.
+*
+* @param[in]   SetCoarseDlySettings Pointer to the set
+*              XRFdc_CoarseDelay_Settings.
+* @param[in]   GetCoarseDlySettings Pointer to the read
+*              XRFdc_CoarseDelay_Settings.
 *
 * @return
-*			- 0 if both structures are same.
-*			- 1 if both structures are not same.
-*
-* @note		None
+*              - 0 if both structures are the same.
+*              - 1 if both structures are not the same.
 *
 *****************************************************************************/
 static int CompareCoarseDelaySettings(XRFdc_CoarseDelay_Settings *SetCoarseDlySettings,
@@ -1433,19 +1431,19 @@ static int CompareCoarseDelaySettings(XRFdc_CoarseDelay_Settings *SetCoarseDlySe
 }
 
 /****************************************************************************/
-/*
+/**
 *
-* This function compares the two Threshold settings structures and return 0 if
-* same and returns 1 if not same.
+* @brief Compares two threshold settings structures.
 *
-* @param	SetQMCSettings Pointer to the XRFdc_CoarseDelay_Settings structure.
-* @param	GetQMCSettings Pointer to the XRFdc_CoarseDelay_Settings structure.
+* Returns 0 if the structures are the same and 1 if they are not.
+*
+* @param[in]   SetThresholdSettings Pointer to the set XRFdc_Threshold_Settings.
+* @param[in]   GetThresholdSettings Pointer to the read
+*              XRFdc_Threshold_Settings.
 *
 * @return
-*			- 0 if both structures are same.
-*			- 1 if both structures are not same.
-*
-* @note		None
+*              - 0 if both structures are the same.
+*              - 1 if both structures are not the same.
 *
 *****************************************************************************/
 static int CompareThresholdSettings(XRFdc_Threshold_Settings *SetThresholdSettings,

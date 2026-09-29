@@ -8,8 +8,7 @@
 /**
 *
 * @file xrfdc_mts.c
-* @addtogroup Overview
-* @{
+* @brief Implements the multi-tile sync functions of the XRFdc driver.
 *
 * Contains the multi tile sync functions of the XRFdc driver.
 *
@@ -60,10 +59,15 @@
 *                       XRFdc_MTS_Latency.
 * 13.1  dc     02/18/26 Correct spelling errors
 * 13.2  vn     08/11/26 Fix Doxygen warnings.
+* 13.2  vn     09/29/26 Align Doxygen comments with AMD standards
 *
 * </pre>
 *
 ******************************************************************************/
+
+/** @addtogroup Overview
+ * @{
+ */
 
 /***************************** Include Files *********************************/
 #include "xrfdc.h"
@@ -73,36 +77,72 @@
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
-#define XRFDC_MTS_NUM_DTC 128U
-#define XRFDC_MTS_REF_TARGET 64U
-#define XRFDC_MTS_MAX_CODE 16U
-#define XRFDC_MTS_MIN_GAP_T1 10U
-#define XRFDC_MTS_MIN_GAP_GEN3 5U
-#define XRFDC_MTS_MIN_GAP_PLL 5U
-#define XRFDC_MTS_SR_TIMEOUT 4096U
-#define XRFDC_MTS_DTC_COUNT 10U
-#define XRFDC_MTS_MARKER_COUNT 4U
-#define XRFDC_MTS_SRCOUNT_TIMEOUT 1000U
-#define XRFDC_MTS_DELAY_MAX 31U
-#define XRFDC_MTS_CHECK_ALL_FIFOS 0U
+#define XRFDC_MTS_NUM_DTC 128U /**< Number of DTC codes. */
+#define XRFDC_MTS_REF_TARGET 64U /**< Reference DTC target code. */
+#define XRFDC_MTS_MAX_CODE 16U /**< Maximum number of codes. */
+#define XRFDC_MTS_MIN_GAP_T1 10U /**< Minimum gap allowed for T1. */
+#define XRFDC_MTS_MIN_GAP_GEN3 5U /**< Minimum gap allowed for Gen 3 devices. */
+#define XRFDC_MTS_MIN_GAP_PLL 5U /**< Minimum gap allowed for the PLL. */
+#define XRFDC_MTS_SR_TIMEOUT 4096U /**< SYSREF timeout. */
+#define XRFDC_MTS_DTC_COUNT 10U /**< SYSREF count used for the DTC scan. */
+#define XRFDC_MTS_MARKER_COUNT 4U /**< SYSREF count used for the marker. */
+#define XRFDC_MTS_SRCOUNT_TIMEOUT 1000U /**< SYSREF counter timeout. */
+#define XRFDC_MTS_DELAY_MAX 31U /**< Maximum MTS delay. */
+#define XRFDC_MTS_CHECK_ALL_FIFOS 0U /**< Checks all the FIFOs. */
 
-#define XRFDC_MTS_SRCAP_T1_EN 0x4000U
-#define XRFDC_MTS_SRCAP_T1_RST 0x0800U
-#define XRFDC_MTS_SRFLAG_T1 0x4U
-#define XRFDC_MTS_SRFLAG_PLL 0x2U
-#define XRFDC_MTS_FIFO_DEFAULT 0x0000U
+#define XRFDC_MTS_SRCAP_T1_EN 0x4000U /**< SYSREF T1 capture enable bit. */
+#define XRFDC_MTS_SRCAP_T1_RST 0x0800U /**< SYSREF T1 capture reset bit. */
+#define XRFDC_MTS_SRFLAG_T1 0x4U /**< SYSREF T1 flag bit. */
+#define XRFDC_MTS_SRFLAG_PLL 0x2U /**< SYSREF PLL flag bit. */
+#define XRFDC_MTS_FIFO_DEFAULT 0x0000U /**< Default FIFO control value. */
+/** FIFO control value to enable the FIFO. */
 #define XRFDC_MTS_FIFO_ENABLE 0x0003U
+/** FIFO control value to disable the FIFO. */
 #define XRFDC_MTS_FIFO_DISABLE 0x0002U
-#define XRFDC_MTS_AMARK_LOC_S 0x10U
-#define XRFDC_MTS_AMARK_DONE_S 0x14U
-#define XRFDC_MTS_DLY_ALIGNER0 0x28U
-#define XRFDC_MTS_DLY_ALIGNER1 0x2CU
-#define XRFDC_MTS_DLY_ALIGNER2 0x30U
-#define XRFDC_MTS_DLY_ALIGNER3 0x34U
-#define XRFDC_MTS_DIR_FIFO_PTR 0x40U
+#define XRFDC_MTS_AMARK_LOC_S 0x10U /**< ADC marker location shift. */
+#define XRFDC_MTS_AMARK_DONE_S 0x14U /**< ADC marker done shift. */
+#define XRFDC_MTS_DLY_ALIGNER0 0x28U /**< Delay aligner 0 register offset. */
+#define XRFDC_MTS_DLY_ALIGNER1 0x2CU /**< Delay aligner 1 register offset. */
+#define XRFDC_MTS_DLY_ALIGNER2 0x30U /**< Delay aligner 2 register offset. */
+#define XRFDC_MTS_DLY_ALIGNER3 0x34U /**< Delay aligner 3 register offset. */
+#define XRFDC_MTS_DIR_FIFO_PTR 0x40U /**< Direct FIFO pointer bit. */
 
+/**
+* @brief Returns the DAC marker location mask.
+*
+* @param[in]   X IP type.
+*
+* @return      0x7 if the IP type is below XRFDC_GEN3, otherwise 0xF.
+*
+* @note        C-style signature:
+*              u32 XRFDC_MTS_DAC_MARKER_LOC_MASK(u32 X)
+*/
 #define XRFDC_MTS_DAC_MARKER_LOC_MASK(X) ((X < XRFDC_GEN3) ? 0x7U : 0xFU)
+/**
+* @brief Returns a read-modify-write value.
+*
+* @param[in]   read Value read from the register.
+* @param[in]   mask Mask of the bits to modify.
+* @param[in]   data New value of the masked bits.
+*
+* @return      The read value with the masked bits replaced by data.
+*
+* @note        C-style signature:
+*              u32 XRFDC_MTS_RMW(u32 read, u32 mask, u32 data)
+*/
 #define XRFDC_MTS_RMW(read, mask, data) (((read) & ~(mask)) | ((data) & (mask)))
+/**
+* @brief Extracts a field from a register value.
+*
+* @param[in]   data Register value.
+* @param[in]   mask Mask of the field.
+* @param[in]   shift Bit shift of the field.
+*
+* @return      Value of the field.
+*
+* @note        C-style signature:
+*              u32 XRFDC_MTS_FIELD(u32 data, u32 mask, u32 shift)
+*/
 #define XRFDC_MTS_FIELD(data, mask, shift) (((data) & (mask)) >> (shift))
 /************************** Function Prototypes ******************************/
 
@@ -127,16 +167,11 @@ static u32 XRFdc_MTS_Latency(XRFdc *InstancePtr, u32 Type, XRFdc_MultiConverter_
 /*****************************************************************************/
 /**
 *
-* This API enables the master tile sysref Tx/Rx
+* @brief Enables the master tile sysref Tx/Rx.
 *
-*
-* @param    InstancePtr is a pointer to the XRfdc instance.
-* @param    Enable the master tile sysref for Tx/Rx, valid values are 0 and 1.
-*
-* @return
-*           - None.
-*
-* @note     None.
+* @param[in]   InstancePtr Pointer to the XRfdc instance.
+* @param[in]   Enable The master tile sysref for Tx/Rx, valid values are 0
+*              and 1.
 *
 ******************************************************************************/
 static void XRFdc_MTS_Sysref_TRx(XRFdc *InstancePtr, u32 Enable)
@@ -153,20 +188,14 @@ static void XRFdc_MTS_Sysref_TRx(XRFdc *InstancePtr, u32 Enable)
 /*****************************************************************************/
 /**
 *
-* This API Control SysRef Capture Settings
+* @brief Controls the SYSREF capture settings.
 *
-*
-* @param    InstancePtr is a pointer to the XRfdc instance.
-* @param    Type is ADC or DAC. 0 for ADC and 1 for DAC
-* @param    Tile_Id Valid values are 0-3.
-* @param    Is_PLL Valid values are 0 and 1.
-* @param    Enable_Cap Valid values are 0 and 1.
-* @param    Enable_Div_Reset Valid values are 0 and 1.
-*
-* @return
-*           - None.
-*
-* @note     None.
+* @param[in]   InstancePtr Pointer to the XRfdc instance.
+* @param[in]   Type ADC or DAC. 0 for ADC and 1 for DAC.
+* @param[in]   Tile_Id Valid values are 0-3.
+* @param[in]   Is_PLL Valid values are 0 and 1.
+* @param[in]   Enable_Cap Valid values are 0 and 1.
+* @param[in]   Enable_Div_Reset Valid values are 0 and 1.
 *
 ******************************************************************************/
 static void XRFdc_MTS_Sysref_Ctrl(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 Is_PLL, u32 Enable_Cap,
@@ -212,17 +241,14 @@ static void XRFdc_MTS_Sysref_Ctrl(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32
 /*****************************************************************************/
 /**
 *
-* This API Update SysRef Distribution between tiles
+* @brief Updates the SYSREF distribution between tiles.
 *
-*
-* @param    InstancePtr is a pointer to the XRfdc instance.
-* @param    Num_DAC is number of DAC tiles
+* @param[in]   InstancePtr Pointer to the XRfdc instance.
+* @param[in]   Num_DAC Number of DAC tiles.
 *
 * @return
-*           - XRFDC_MTS_OK if successful.
-*           - XRFDC_MTS_NOT_SUPPORTED
-*
-* @note     None.
+*              - XRFDC_MTS_OK if successful.
+*              - XRFDC_MTS_NOT_SUPPORTED.
 *
 ******************************************************************************/
 static u32 XRFdc_MTS_Sysref_Dist(XRFdc *InstancePtr, int Num_DAC)
@@ -262,18 +288,15 @@ static u32 XRFdc_MTS_Sysref_Dist(XRFdc *InstancePtr, int Num_DAC)
 /*****************************************************************************/
 /**
 *
-* This API Wait for a number of sysref's to be captured
+* @brief Waits for a number of SYSREFs to be captured.
 *
-*
-* @param    InstancePtr is a pointer to the XRfdc instance.
-* @param    Type is ADC or DAC. 0 for ADC and 1 for DAC
-* @param    Count_Val to wait for a number of sysref's to be captured.
+* @param[in]   InstancePtr Pointer to the XRfdc instance.
+* @param[in]   Type ADC or DAC. 0 for ADC and 1 for DAC.
+* @param[in]   Count_Val To wait for a number of sysref's to be captured.
 *
 * @return
-*           - XRFDC_MTS_OK if successful.
-*           - XRFDC_MTS_TIMEOUT if timeout occurs.
-*
-* @note     None.
+*              - XRFDC_MTS_OK if successful.
+*              - XRFDC_MTS_TIMEOUT if timeout occurs.
 *
 ******************************************************************************/
 static u32 XRFdc_MTS_Sysref_Count(XRFdc *InstancePtr, u32 Type, u32 Count_Val)
@@ -310,18 +333,13 @@ static u32 XRFdc_MTS_Sysref_Count(XRFdc *InstancePtr, u32 Type, u32 Count_Val)
 /*****************************************************************************/
 /**
 *
-* This API print the DTC scan results
+* @brief Prints the DTC scan results.
 *
-*
-* @param    FlagsPtr is for internal usage.
-* @param    Type is ADC or DAC. 0 for ADC and 1 for DAC
-* @param    Tile_Id Valid values are 0-3.
-* @param    Target is for internal usage.
-* @param    Picked is for internal usage.
-*
-* @note     None.
-*
-* @note     None.
+* @param[in]   FlagsPtr For internal usage.
+* @param[in]   Type ADC or DAC. 0 for ADC and 1 for DAC.
+* @param[in]   Tile_Id Valid values are 0-3.
+* @param[in]   Target For internal usage.
+* @param[in]   Picked For internal usage.
 *
 ******************************************************************************/
 static void XRFdc_MTS_Dtc_Flag_Debug(u8 *FlagsPtr, u32 Type, u32 Tile_Id, u32 Target, u32 Picked)
@@ -349,20 +367,17 @@ static void XRFdc_MTS_Dtc_Flag_Debug(u8 *FlagsPtr, u32 Type, u32 Tile_Id, u32 Ta
 /*****************************************************************************/
 /**
 *
-* This API Calculate the best DTC code to use
+* @brief Calculates the best DTC code to use.
 *
-*
-* @param    InstancePtr is a pointer to the XRfdc instance.
-* @param    Type is ADC or DAC. 0 for ADC and 1 for DAC
-* @param    Tile_Id Valid values are 0-3.
-* @param    SettingsPtr dtc settings structure.
-* @param    FlagsPtr is for internal usage.
+* @param[in]     InstancePtr Pointer to the XRfdc instance.
+* @param[in]     Type ADC or DAC. 0 for ADC and 1 for DAC.
+* @param[in]     Tile_Id Valid values are 0-3.
+* @param[in,out] SettingsPtr Dtc settings structure.
+* @param[in,out] FlagsPtr For internal usage.
 *
 * @return
-* 		- XRFDC_MTS_OK if successful.
-*           - XRFDC_MTS_NOT_SUPPORTED if MTS is not supported.
-*
-* @note     None.
+*                - XRFDC_MTS_OK if successful.
+*                - XRFDC_MTS_NOT_SUPPORTED if MTS is not supported.
 *
 ******************************************************************************/
 static u32 XRFdc_MTS_Dtc_Calc(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, XRFdc_MTS_DTC_Settings *SettingsPtr,
@@ -519,24 +534,22 @@ static u32 XRFdc_MTS_Dtc_Calc(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, XRFdc_M
 /*****************************************************************************/
 /**
 *
-* This API Set a DTC code and wait for it to be updated. Return early/late
-* flags, if set
+* @brief Sets a DTC code and waits for it to be updated.
 *
+* It returns the early/late flags, if set.
 *
-* @param    InstancePtr is a pointer to the XRfdc instance.
-* @param    Type is ADC or DAC. 0 for ADC and 1 for DAC
-* @param    BaseAddr is for internal usage.
-* @param    SRCtrlAddr is for internal usage.
-* @param    DTCAddr is for internal usage.
-* @param    SRctl is for internal usage.
-* @param    SRclr_m is for internal usage.
-* @param    Code is for internal usage.
+* @param[in]   InstancePtr Pointer to the XRfdc instance.
+* @param[in]   Type ADC or DAC. 0 for ADC and 1 for DAC.
+* @param[in]   BaseAddr For internal usage.
+* @param[in]   SRCtrlAddr For internal usage.
+* @param[in]   DTCAddr For internal usage.
+* @param[in]   SRctl For internal usage.
+* @param[in]   SRclr_m For internal usage.
+* @param[in]   Code For internal usage.
 *
 * @return
-* 		- XRFDC_MTS_OK if successful.
-*           - XRFDC_MTS_TIMEOUT if timeout occurs.
-*
-* @note     None.
+*              - XRFDC_MTS_OK if successful.
+*              - XRFDC_MTS_TIMEOUT if timeout occurs.
 *
 ******************************************************************************/
 static u32 XRFdc_MTS_Dtc_Code(XRFdc *InstancePtr, u32 Type, u32 BaseAddr, u32 SRCtrlAddr, u32 DTCAddr, u16 SRctl,
@@ -561,20 +574,18 @@ static u32 XRFdc_MTS_Dtc_Code(XRFdc *InstancePtr, u32 Type, u32 BaseAddr, u32 SR
 /*****************************************************************************/
 /**
 *
-* This API Scan the DTC codes and determine the optimal capture code for
-* both PLL and T1 cases
+* @brief Scans the DTC codes to find the optimal capture code.
 *
+* This applies to both PLL and T1 cases.
 *
-* @param    InstancePtr is a pointer to the XRfdc instance.
-* @param    Type is ADC or DAC. 0 for ADC and 1 for DAC
-* @param    Tile_Id Valid values are 0-3.
-* @param    SettingsPtr dtc settings structure.
+* @param[in]   InstancePtr Pointer to the XRfdc instance.
+* @param[in]   Type ADC or DAC. 0 for ADC and 1 for DAC.
+* @param[in]   Tile_Id Valid values are 0-3.
+* @param[in]   SettingsPtr Dtc settings structure.
 *
 * @return
-* 		- XRFDC_MTS_OK if successful.
-*           - XRFDC_MTS_TIMEOUT if timeout occurs.
-*
-* @note     None.
+*              - XRFDC_MTS_OK if successful.
+*              - XRFDC_MTS_TIMEOUT if timeout occurs.
 *
 ******************************************************************************/
 static u32 XRFdc_MTS_Dtc_Scan(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, XRFdc_MTS_DTC_Settings *SettingsPtr)
@@ -637,20 +648,19 @@ static u32 XRFdc_MTS_Dtc_Scan(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, XRFdc_M
 /*****************************************************************************/
 /**
 *
-* This API Scans the DTC codes and determine the optimal capture code for
-* PLL cases
+* @brief Scans the DTC codes to find the optimal capture code.
 *
+* This applies to PLL cases.
 *
-* @param    InstancePtr is a pointer to the XRfdc instance.
-* @param    Type is ADC or DAC. 0 for ADC and 1 for DAC
-* @param    Tile_Id Valid values are 0-3.
-* @param    ConfigPtr is pointer to the MultiConverter sync config structure.
+* @param[in]     InstancePtr Pointer to the XRfdc instance.
+* @param[in]     Type ADC or DAC. 0 for ADC and 1 for DAC.
+* @param[in]     Tile_Id Valid values are 0-3.
+* @param[in,out] ConfigPtr Pointer to the MultiConverter sync config
+*                structure.
 *
 * @return
-*         - XRFDC_MTS_OK if successful.
-*         - XRFDC_MTS_TIMEOUT if timeout occurs.
-*
-* @note     None.
+*                - XRFDC_MTS_OK if successful.
+*                - XRFDC_MTS_TIMEOUT if timeout occurs.
 *
 ******************************************************************************/
 static u32 XRFdc_MTS_Dtc_Scan_PLL(XRFdc *InstancePtr, u32 Type, u32 Tile_Id,
@@ -695,18 +705,16 @@ static u32 XRFdc_MTS_Dtc_Scan_PLL(XRFdc *InstancePtr, u32 Type, u32 Tile_Id,
 /*****************************************************************************/
 /**
 *
-* This API Control the FIFO enable for the group. If Tiles_to_clear has bits
-* set, the FIFOs of those tiles will have their FIFO flags cleared.
+* @brief Controls the FIFO enable for the group.
 *
+* If Tiles_to_clear has bits set, the FIFOs of those tiles have their FIFO
+* flags cleared.
 *
-* @param    InstancePtr is a pointer to the XRfdc instance.
-* @param    Type is ADC or DAC. 0 for ADC and 1 for DAC
-* @param    FIFO_Mode is fifo mode.
-* @param    Tiles_To_Clear bits set, FIFO flags will be cleared for those tiles.
-*
-* @note     None.
-*
-* @note     None.
+* @param[in]   InstancePtr Pointer to the XRfdc instance.
+* @param[in]   Type ADC or DAC. 0 for ADC and 1 for DAC.
+* @param[in]   FIFO_Mode Fifo mode.
+* @param[in]   Tiles_To_Clear Bits set, FIFO flags are cleared for those
+*              tiles.
 *
 ******************************************************************************/
 static void XRFdc_MTS_FIFOCtrl(XRFdc *InstancePtr, u32 Type, u32 FIFO_Mode, u32 Tiles_To_Clear)
@@ -735,21 +743,15 @@ static void XRFdc_MTS_FIFOCtrl(XRFdc *InstancePtr, u32 Type, u32 FIFO_Mode, u32 
 /*****************************************************************************/
 /**
 *
-* This API Read-back the marker data for an ADC or DAC
+* @brief Reads back the marker data for an ADC or DAC.
 *
-*
-* @param    InstancePtr is a pointer to the XRfdc instance.
-* @param    Type is ADC or DAC. 0 for ADC and 1 for DAC
-* @param    Tile_Id Valid values are 0-3.
-* @param    FIFO_Id is FIFO number.
-* @param    CountPtr is pointer to return marker count.
-* @param    LocPtr is pointer to return marker location.
-* @param    DonePtr is pointer to return marker done status.
-*
-* @return
-* 		- None.
-*
-* @note     None.
+* @param[in]   InstancePtr Pointer to the XRfdc instance.
+* @param[in]   Type ADC or DAC. 0 for ADC and 1 for DAC.
+* @param[in]   Tile_Id Valid values are 0-3.
+* @param[in]   FIFO_Id FIFO number.
+* @param[out]  CountPtr Pointer to return marker count.
+* @param[out]  LocPtr Pointer to return marker location.
+* @param[out]  DonePtr Pointer to return marker done status.
 *
 ******************************************************************************/
 static void XRFdc_MTS_Marker_Read(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 FIFO_Id, u32 *CountPtr, u32 *LocPtr,
@@ -831,23 +833,19 @@ static void XRFdc_MTS_Marker_Read(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32
 /*****************************************************************************/
 /**
 *
-* This API Run the marker counter and read the results
+* @brief Runs the marker counter and reads the results.
 *
-*
-* @param    InstancePtr is a pointer to the XRfdc instance.
-* @param    Type is ADC or DAC. 0 for ADC and 1 for DAC
-* @param    Tiles is tiles to get marker
-* @param    MarkersPtr mts marker structure.
-* @param    Marker_Delay is marker delay.
+* @param[in]   InstancePtr Pointer to the XRfdc instance.
+* @param[in]   Type ADC or DAC. 0 for ADC and 1 for DAC.
+* @param[in]   Tiles Tiles to get marker.
+* @param[out]  MarkersPtr Mts marker structure.
+* @param[in]   Marker_Delay Marker delay.
 *
 * @return
-* 		- XRFDC_MTS_OK if successful.
-* 		- XRFDC_MTS_TIMEOUT if timeout occurs.
-* 		- XRFDC_MTS_MARKER_RUN
-* 		- XRFDC_MTS_MARKER_MISM
-* 		-
-*
-* @note     None.
+*              - XRFDC_MTS_OK if successful.
+*              - XRFDC_MTS_TIMEOUT if timeout occurs.
+*              - XRFDC_MTS_MARKER_RUN.
+*              - XRFDC_MTS_MARKER_MISM.
 *
 ******************************************************************************/
 static u32 XRFdc_MTS_GetMarker(XRFdc *InstancePtr, u32 Type, u32 Tiles, XRFdc_MTS_Marker *MarkersPtr, int Marker_Delay)
@@ -947,22 +945,20 @@ static u32 XRFdc_MTS_GetMarker(XRFdc *InstancePtr, u32 Type, u32 Tiles, XRFdc_MT
 /*****************************************************************************/
 /**
 *
-* This API Calculate the absolute/relative latencies
+* @brief Calculates the absolute and relative latencies.
 *
-*
-* @param    InstancePtr is a pointer to the XRfdc instance.
-* @param    Type is ADC or DAC. 0 for ADC and 1 for DAC
-* @param    ConfigPtr is mts config structure.
-* @param    MarkersPtr is mts marker structure.
+* @param[in]     InstancePtr Pointer to the XRfdc instance.
+* @param[in]     Type ADC or DAC. 0 for ADC and 1 for DAC.
+* @param[in,out] ConfigPtr Mts config structure.
+* @param[in]     MarkersPtr Mts marker structure.
 *
 * @return
-* 		- XRFDC_MTS_OK if successful.
-* 		- XRFDC_MTS_DELAY_OVER
-* 		- XRFDC_MTS_TARGET_LOW
-* 		-
+*                - XRFDC_MTS_OK if successful.
+*                - XRFDC_MTS_DELAY_OVER.
+*                - XRFDC_MTS_TARGET_LOW.
 *
-* @note     Latency calculation will use Sysref frequency counters
-*           logic which will work with IP version 2.0.1 and above.
+* @note          Latency calculation uses Sysref frequency counters
+*                logic which works with IP version 2.0.1 and above.
 *
 ******************************************************************************/
 static u32 XRFdc_MTS_Latency(XRFdc *InstancePtr, u32 Type, XRFdc_MultiConverter_Sync_Config *ConfigPtr,
@@ -1156,18 +1152,15 @@ static u32 XRFdc_MTS_Latency(XRFdc *InstancePtr, u32 Type, XRFdc_MultiConverter_
 /*****************************************************************************/
 /**
 *
-* This API is used to enable/disable the sysref.
+* @brief Enables or disables the SYSREF.
 *
-*
-* @param    InstancePtr is a pointer to the XRfdc instance.
-* @param    DACSyncConfigPtr is pointer to DAC Multi-Tile Sync config structure.
-* @param    ADCSyncConfigPtr is pointer to ADC Multi-Tile Sync config structure.
-* @param    SysRefEnable valid values are 0(disable) and 1(enable).
+* @param[in]   InstancePtr Pointer to the XRfdc instance.
+* @param[in]   DACSyncConfigPtr Pointer to DAC Multi-Tile Sync config structure.
+* @param[in]   ADCSyncConfigPtr Pointer to ADC Multi-Tile Sync config structure.
+* @param[in]   SysRefEnable Valid values are 0(disable) and 1(enable).
 *
 * @return
-* 		- XRFDC_MTS_OK if successful.
-*
-* @note     None.
+*              - XRFDC_MTS_OK if successful.
 *
 ******************************************************************************/
 u32 XRFdc_MTS_Sysref_Config(XRFdc *InstancePtr, XRFdc_MultiConverter_Sync_Config *DACSyncConfigPtr,
@@ -1202,20 +1195,19 @@ u32 XRFdc_MTS_Sysref_Config(XRFdc *InstancePtr, XRFdc_MultiConverter_Sync_Config
 /*****************************************************************************/
 /**
 *
-* This API Initializes the multi-tile sync config structures.
-* Optionally allows target codes to be provided for the Pll/T1
-* analog sysref capture
+* @brief Initializes the multi-tile sync config structures.
 *
-* @param    ConfigPtr pointer to Multi-tile sync config structure.
-* @param    PLL_CodesPtr pointer to PLL analog sysref capture.
-* @param    T1_CodesPtr pointer to T1 analog sysref capture.
-* @param    RefTile the tile ID of the reference tile.
+* Optionally allows target codes to be provided for the PLL/T1 analog
+* sysref capture.
+*
+* @param[out]  ConfigPtr Pointer to Multi-tile sync config structure.
+* @param[in]   PLL_CodesPtr Pointer to PLL analog sysref capture.
+* @param[in]   T1_CodesPtr Pointer to T1 analog sysref capture.
+* @param[in]   RefTile The tile ID of the reference tile.
 *
 * @return
-*       - XRFDC_MTS_OK if successful.
-*       - XRFDC_MTS_BAD_REF_TILE if bad reference tile value is supplied.
-*
-* @note     None.
+*              - XRFDC_MTS_OK if successful.
+*              - XRFDC_MTS_BAD_REF_TILE if bad reference tile value is supplied.
 *
 ******************************************************************************/
 u32 XRFdc_MultiConverter_Init(XRFdc_MultiConverter_Sync_Config *ConfigPtr, int *PLL_CodesPtr, int *T1_CodesPtr,
@@ -1264,22 +1256,18 @@ RETURN_PATH:
 /*****************************************************************************/
 /**
 *
-* This is the top level API which will be used for Multi-tile
-* Synchronization.
+* @brief Runs the top-level multi-tile synchronization.
 *
-*
-* @param    InstancePtr is a pointer to the XRfdc instance.
-* @param    Type is ADC or DAC. 0 for ADC and 1 for DAC
-* @param    ConfigPtr Multi-tile sync config structure.
+* @param[in]     InstancePtr Pointer to the XRfdc instance.
+* @param[in]     Type ADC or DAC. 0 for ADC and 1 for DAC.
+* @param[in,out] ConfigPtr Multi-tile sync config structure.
 *
 * @return
-* 		- XRFDC_MTS_OK if successful.
-*           - XRFDC_MTS_TIMEOUT if timeout occurs.
-* 		- XRFDC_MTS_MARKER_RUN
-* 		- XRFDC_MTS_MARKER_MISM
-* 		- XRFDC_MTS_NOT_SUPPORTED if MTS is not supported.
-*
-* @note     None.
+*                - XRFDC_MTS_OK if successful.
+*                - XRFDC_MTS_TIMEOUT if timeout occurs.
+*                - XRFDC_MTS_MARKER_RUN.
+*                - XRFDC_MTS_MARKER_MISM.
+*                - XRFDC_MTS_NOT_SUPPORTED if MTS is not supported.
 *
 ******************************************************************************/
 u32 XRFdc_MultiConverter_Sync(XRFdc *InstancePtr, u32 Type, XRFdc_MultiConverter_Sync_Config *ConfigPtr)
@@ -1377,20 +1365,18 @@ u32 XRFdc_MultiConverter_Sync(XRFdc *InstancePtr, u32 Type, XRFdc_MultiConverter
 /*****************************************************************************/
 /**
 *
-* This is the top level API which will be used to check if Multi-tile
-* is enabled.
+* @brief Checks whether multi-tile synchronization is enabled.
 *
+* This is the top-level API for this check.
 *
-* @param    InstancePtr is a pointer to the XRfdc instance.
-* @param    Type is ADC or DAC. 0 for ADC and 1 for DAC.
-* @param    Tile_Id indicates Tile number (0-3).
-* @param    EnablePtr to be filled with the enable state.
+* @param[in]   InstancePtr Pointer to the XRfdc instance.
+* @param[in]   Type ADC or DAC. 0 for ADC and 1 for DAC.
+* @param[in]   Tile_Id Tile number (0-3).
+* @param[out]  EnablePtr To be filled with the enable state.
 *
 * @return
-*           - XRFDC_SUCCESS if successful.
-*           - XRFDC_SUCCESS if error occurs.
-*
-* @note     None.
+*              - XRFDC_SUCCESS if successful.
+*              - XRFDC_SUCCESS if error occurs.
 *
 ******************************************************************************/
 u32 XRFdc_GetMTSEnable(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 *EnablePtr)
@@ -1424,14 +1410,14 @@ RETURN_PATH:
 /*****************************************************************************/
 /**
 *
-* Get Master Tile for ADC/DAC tiles.
+* @brief Gets the master tile for ADC or DAC tiles.
 *
-* @param    InstancePtr is a pointer to the XRfdc instance.
-* @param    Type is ADC or DAC. 0 for ADC and 1 for DAC
+* @param[in]   InstancePtr Pointer to the XRfdc instance.
+* @param[in]   Type ADC or DAC. 0 for ADC and 1 for DAC.
 *
 * @return
-*           - Return Master Tile for ADC/DAC tiles
-*           - Return XRFDC_TILE_ID_INV if invalid tile
+*              - Return Master Tile for ADC/DAC tiles.
+*              - Return XRFDC_TILE_ID_INV if invalid tile.
 *
 ******************************************************************************/
 u32 XRFdc_GetMasterTile(XRFdc *InstancePtr, u32 Type)
@@ -1458,14 +1444,14 @@ u32 XRFdc_GetMasterTile(XRFdc *InstancePtr, u32 Type)
 /*****************************************************************************/
 /**
 *
-* Get Sysref source for ADC/DAC tile.
+* @brief Gets the SYSREF source for an ADC or DAC tile.
 *
-* @param    InstancePtr is a pointer to the XRfdc instance.
-* @param    Type is ADC or DAC. 0 for ADC and 1 for DAC
+* @param[in]   InstancePtr Pointer to the XRfdc instance.
+* @param[in]   Type ADC or DAC. 0 for ADC and 1 for DAC.
 *
 * @return
-*           - Return Sysref source for ADC/DAC tile
-*           - Return XRFDC_TILE_ID_INV if invalid tile
+*              - Return Sysref source for ADC/DAC tile.
+*              - Return XRFDC_TILE_ID_INV if invalid tile.
 *
 ******************************************************************************/
 u32 XRFdc_GetSysRefSource(XRFdc *InstancePtr, u32 Type)

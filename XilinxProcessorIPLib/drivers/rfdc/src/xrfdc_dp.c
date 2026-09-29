@@ -8,8 +8,7 @@
 /**
 *
 * @file xrfdc_dp.c
-* @addtogroup Overview
-* @{
+* @brief Implements the digital path settings functions of the XRFdc driver.
 *
 * Contains the interface functions of the Digital Path Settings in XRFdc driver.
 * See xrfdc.h for a detailed description of the device and driver.
@@ -30,10 +29,15 @@
 * 12.0  cog    09/01/22 Gen 3 devices now allowed to divide fabric clock
 *                       by 1.
 * 13.2  vn     08/11/26 Fix Doxygen warnings.
+* 13.2  vn     09/29/26 Align Doxygen comments with AMD standards
 *
 * </pre>
 *
 ******************************************************************************/
+
+/** @addtogroup Overview
+ * @{
+ */
 
 /***************************** Include Files *********************************/
 #include "xrfdc.h"
@@ -50,22 +54,25 @@ static void XRFdc_IntResetInternalFIFOWidth(XRFdc *InstancePtr, u32 Type, u32 Ti
 /*****************************************************************************/
 /**
 *
-* This function is to set the decimation factor and also update the FIFO write
-* words w.r.t to decimation factor for both the actual and observtion FIFOs.
+* @brief Sets the decimation factor and updates the FIFO write words.
 *
-* @param    InstancePtr is a pointer to the XRfdc instance.
-* @param    Tile_Id Valid values are 0-3.
-* @param    Block_Id is ADC/DAC block number inside the tile. Valid values
-*           are 0-3.
-* @param    DecimationFactor to be set for DAC block.
-*           XRFDC_INTERP_DECIM_* defines the valid values.
-* @param    Channel is FIFO channel. Valid values are XRFDC_FIFO_CHANNEL_*.
+* The FIFO write words are updated with respect to the decimation factor
+* for both the actual and observation FIFOs.
+*
+* @param[in]   InstancePtr Pointer to the XRfdc instance.
+* @param[in]   Tile_Id Valid values are 0-3.
+* @param[in]   Block_Id ADC/DAC block number inside the tile. Valid
+*              values are 0-3.
+* @param[in]   DecimationFactor To be set for DAC block. XRFDC_INTERP_DECIM_*
+*              defines the valid values.
+* @param[in]   Channel FIFO channel. Valid values are
+*              XRFDC_FIFO_CHANNEL_*.
 *
 * @return
-*           - XRFDC_SUCCESS if successful.
-*           - XRFDC_FAILURE if error occurs.
+*              - XRFDC_SUCCESS if successful.
+*              - XRFDC_FAILURE if error occurs.
 *
-* @note     Only ADC blocks
+* @note        Only ADC blocks
 *
 ******************************************************************************/
 static u32 XRFdc_SetDecimationFactorInt(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u32 DecimationFactor,
@@ -181,21 +188,22 @@ RETURN_PATH:
 /*****************************************************************************/
 /**
 *
-* This API is to set the decimation factor and also update the FIFO write
-* words w.r.t to decimation factor.
+* @brief Sets the decimation factor and updates the FIFO write words.
 *
-* @param    InstancePtr is a pointer to the XRfdc instance.
-* @param    Tile_Id Valid values are 0-3.
-* @param    Block_Id is ADC/DAC block number inside the tile. Valid values
-*           are 0-3.
-* @param    DecimationFactor to be set for DAC block.
-*           XRFDC_INTERP_DECIM_* defines the valid values.
+* The FIFO write words are updated with respect to the decimation factor.
+*
+* @param[in]   InstancePtr Pointer to the XRfdc instance.
+* @param[in]   Tile_Id Valid values are 0-3.
+* @param[in]   Block_Id ADC/DAC block number inside the tile. Valid
+*              values are 0-3.
+* @param[in]   DecimationFactor To be set for DAC block. XRFDC_INTERP_DECIM_*
+*              defines the valid values.
 *
 * @return
-*           - XRFDC_SUCCESS if successful.
-*           - XRFDC_FAILURE if error occurs.
+*              - XRFDC_SUCCESS if successful.
+*              - XRFDC_FAILURE if error occurs.
 *
-* @note     Only ADC blocks
+* @note        Only ADC blocks
 *
 ******************************************************************************/
 u32 XRFdc_SetDecimationFactor(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u32 DecimationFactor)
@@ -205,21 +213,23 @@ u32 XRFdc_SetDecimationFactor(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u32
 /*****************************************************************************/
 /**
 *
-* This API is to set the decimation factor and also update the FIFO write
-* words w.r.t to decimation factor for the observation FIFO.
+* @brief Sets the decimation factor and updates the FIFO write words.
 *
-* @param    InstancePtr is a pointer to the XRfdc instance.
-* @param    Tile_Id Valid values are 0-3.
-* @param    Block_Id is ADC/DAC block number inside the tile. Valid values
-*           are 0-3.
-* @param    DecimationFactor to be set for DAC block.
-*           XRFDC_INTERP_DECIM_* defines the valid values.
+* The FIFO write words are updated with respect to the decimation factor
+* for the observation FIFO.
+*
+* @param[in]   InstancePtr Pointer to the XRfdc instance.
+* @param[in]   Tile_Id Valid values are 0-3.
+* @param[in]   Block_Id ADC/DAC block number inside the tile. Valid
+*              values are 0-3.
+* @param[in]   DecimationFactor To be set for DAC block. XRFDC_INTERP_DECIM_*
+*              defines the valid values.
 *
 * @return
-*           - XRFDC_SUCCESS if successful.
-*           - XRFDC_FAILURE if error occurs.
+*              - XRFDC_SUCCESS if successful.
+*              - XRFDC_FAILURE if error occurs.
 *
-* @note     Only ADC blocks
+* @note        Only ADC blocks
 *
 ******************************************************************************/
 u32 XRFdc_SetDecimationFactorObs(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u32 DecimationFactor)
@@ -230,21 +240,21 @@ u32 XRFdc_SetDecimationFactorObs(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, 
 /*****************************************************************************/
 /**
 *
-* This function will trigger the update event for an event.
+* @brief Triggers the update event for an event.
 *
-* @param    InstancePtr is a pointer to the XRfdc instance.
-* @param    Type is ADC or DAC. 0 for ADC and 1 for DAC
-* @param    Tile_Id Valid values are 0-3.
-* @param    Block_Id is ADC/DAC block number inside the tile. Valid values
-*           are 0-3.
-* @param    Event is for which dynamic update event will trigger.
-*           XRFDC_EVENT_* defines the different events.
+* @param[in]   InstancePtr Pointer to the XRfdc instance.
+* @param[in]   Type ADC or DAC. 0 for ADC and 1 for DAC.
+* @param[in]   Tile_Id Valid values are 0-3.
+* @param[in]   Block_Id ADC/DAC block number inside the tile. Valid values are
+*              0-3.
+* @param[in]   Event For which dynamic update event triggers.
+*              XRFDC_EVENT_* defines the different events.
 *
 * @return
-*           - XRFDC_SUCCESS if successful.
-*           - XRFDC_FAILURE if error occurs.
+*              - XRFDC_SUCCESS if successful.
+*              - XRFDC_FAILURE if error occurs.
 *
-* @note     Common API for ADC/DAC blocks
+* @note        Common API for ADC/DAC blocks
 *
 ******************************************************************************/
 u32 XRFdc_UpdateEvent(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 Block_Id, u32 Event)
@@ -351,21 +361,23 @@ RETURN_PATH:
 /*****************************************************************************/
 /**
 *
-* This API is to set the interpolation factor and also update the FIFO read
-* words w.r.t to interpolation factor.
+* @brief Sets the interpolation factor and updates the FIFO read words.
 *
-* @param    InstancePtr is a pointer to the XRfdc instance.
-* @param    Tile_Id Valid values are 0-3.
-* @param    Block_Id is ADC/DAC block number inside the tile. Valid values
-*           are 0-3.
-* @param    InterpolationFactor to be set for DAC block.
-*           XRFDC_INTERP_DECIM_* defines the valid values.
+* The FIFO read words are updated with respect to the interpolation
+* factor.
+*
+* @param[in]   InstancePtr Pointer to the XRfdc instance.
+* @param[in]   Tile_Id Valid values are 0-3.
+* @param[in]   Block_Id ADC/DAC block number inside the tile. Valid
+*              values are 0-3.
+* @param[in]   InterpolationFactor To be set for DAC block. XRFDC_INTERP_DECIM_*
+*              defines the valid values.
 *
 * @return
-*           - XRFDC_SUCCESS if successful.
-*           - XRFDC_FAILURE if error occurs.
+*              - XRFDC_SUCCESS if successful.
+*              - XRFDC_FAILURE if error occurs.
 *
-* @note     Only DAC blocks
+* @note        Only DAC blocks
 *
 ******************************************************************************/
 u32 XRFdc_SetInterpolationFactor(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u32 InterpolationFactor)
@@ -509,20 +521,20 @@ RETURN_PATH:
 /*****************************************************************************/
 /**
 *
-* Interpolation factor are returned back to the caller.
+* @brief Returns the interpolation factor to the caller.
 *
-* @param    InstancePtr is a pointer to the XRfdc instance.
-* @param    Tile_Id Valid values are 0-3.
-* @param    Block_Id is ADC/DAC block number inside the tile. Valid values
-*           are 0-3.
-* @param    InterpolationFactorPtr Pointer to return the interpolation factor
-*           for DAC blocks.
+* @param[in]   InstancePtr Pointer to the XRfdc instance.
+* @param[in]   Tile_Id Valid values are 0-3.
+* @param[in]   Block_Id ADC/DAC block number inside the tile.
+*              Valid values are 0-3.
+* @param[out]  InterpolationFactorPtr Pointer to return the interpolation
+*              factor for DAC blocks.
 *
 * @return
-*           - XRFDC_SUCCESS if successful.
-*           - XRFDC_FAILURE if error occurs.
+*              - XRFDC_SUCCESS if successful.
+*              - XRFDC_FAILURE if error occurs.
 *
-* @note     Only for DAC blocks
+* @note        Only for DAC blocks
 *
 ******************************************************************************/
 u32 XRFdc_GetInterpolationFactor(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u32 *InterpolationFactorPtr)
@@ -564,22 +576,22 @@ RETURN_PATH:
 /*****************************************************************************/
 /**
 *
-* Decimation factor are returned back to the caller for both actual and
-* observation FIFO.
+* @brief Returns the decimation factor for the actual and observation FIFOs.
 *
-* @param    InstancePtr is a pointer to the XRfdc instance.
-* @param    Tile_Id Valid values are 0-3.
-* @param    Block_Id is ADC/DAC block number inside the tile. Valid values
-*           are 0-3.
-* @param    DecimationFactorPtr Pointer to return the Decimation factor
-*           for DAC blocks.
-* @param    Channel is FIFO channel. Valid values are XRFDC_FIFO_CHANNEL_*.
+* @param[in]   InstancePtr Pointer to the XRfdc instance.
+* @param[in]   Tile_Id Valid values are 0-3.
+* @param[in]   Block_Id ADC/DAC block number inside the tile.
+*              Valid values are 0-3.
+* @param[out]  DecimationFactorPtr Pointer to return the Decimation factor
+*              for DAC blocks.
+* @param[in]   Channel FIFO channel. Valid values are
+*              XRFDC_FIFO_CHANNEL_*.
 *
 * @return
-*           - XRFDC_SUCCESS if successful.
-*           - XRFDC_FAILURE if error occurs.
+*              - XRFDC_SUCCESS if successful.
+*              - XRFDC_FAILURE if error occurs.
 *
-* @note     Only for ADC blocks
+* @note        Only for ADC blocks
 *
 ******************************************************************************/
 static u32 XRFdc_GetDecimationFactorInt(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u32 *DecimationFactorPtr,
@@ -631,20 +643,20 @@ RETURN_PATH:
 /*****************************************************************************/
 /**
 *
-* Decimation factor are returned back to the caller.
+* @brief Returns the decimation factor to the caller.
 *
-* @param    InstancePtr is a pointer to the XRfdc instance.
-* @param    Tile_Id Valid values are 0-3.
-* @param    Block_Id is ADC/DAC block number inside the tile. Valid values
-*           are 0-3.
-* @param    DecimationFactorPtr Pointer to return the Decimation factor
-*           for DAC blocks.
+* @param[in]   InstancePtr Pointer to the XRfdc instance.
+* @param[in]   Tile_Id Valid values are 0-3.
+* @param[in]   Block_Id ADC/DAC block number inside the tile. Valid
+*              values are 0-3.
+* @param[out]  DecimationFactorPtr Pointer to return the Decimation factor for
+*              DAC blocks.
 *
 * @return
-*           - XRFDC_SUCCESS if successful.
-*           - XRFDC_FAILURE if error occurs.
+*              - XRFDC_SUCCESS if successful.
+*              - XRFDC_FAILURE if error occurs.
 *
-* @note     Only for ADC blocks
+* @note        Only for ADC blocks
 *
 ******************************************************************************/
 u32 XRFdc_GetDecimationFactor(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u32 *DecimationFactorPtr)
@@ -655,20 +667,20 @@ u32 XRFdc_GetDecimationFactor(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u32
 /*****************************************************************************/
 /**
 *
-* Decimation factor are returned back to the caller for the observation FIFO.
+* @brief Returns the decimation factor for the observation FIFO.
 *
-* @param    InstancePtr is a pointer to the XRfdc instance.
-* @param    Tile_Id Valid values are 0-3.
-* @param    Block_Id is ADC/DAC block number inside the tile. Valid values
-*           are 0-3.
-* @param    DecimationFactorPtr Pointer to return the Decimation factor
-*           for DAC blocks.
+* @param[in]   InstancePtr Pointer to the XRfdc instance.
+* @param[in]   Tile_Id Valid values are 0-3.
+* @param[in]   Block_Id ADC/DAC block number inside the tile. Valid
+*              values are 0-3.
+* @param[out]  DecimationFactorPtr Pointer to return the Decimation factor for
+*              DAC blocks.
 *
 * @return
-*           - XRFDC_SUCCESS if successful.
-*           - XRFDC_FAILURE if error occurs.
+*              - XRFDC_SUCCESS if successful.
+*              - XRFDC_FAILURE if error occurs.
 *
-* @note     Only for ADC blocks
+* @note        Only for ADC blocks
 *
 ******************************************************************************/
 u32 XRFdc_GetDecimationFactorObs(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u32 *DecimationFactorPtr)
@@ -680,20 +692,20 @@ u32 XRFdc_GetDecimationFactorObs(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, 
 /*****************************************************************************/
 /**
 *
-* This API is used to set the mode for the Inverse-Sinc filter.
+* @brief Sets the mode for the inverse-sinc filter.
 *
-* @param    InstancePtr is a pointer to the XRfdc instance.
-* @param    Tile_Id Valid values are 0-3.
-* @param    Block_Id is DAC block number inside the tile. Valid values
-*           are 0-3.
-* @param    Mode valid values are 0(disable),  1(1st Nyquist zone)
-			and 2(2nd Nyquist zone).
+* @param[in]   InstancePtr Pointer to the XRfdc instance.
+* @param[in]   Tile_Id Valid values are 0-3.
+* @param[in]   Block_Id DAC block number inside the tile. Valid values are
+*              0-3.
+* @param[in]   Mode Valid values are 0(disable), 1(1st Nyquist zone) and
+*              2(2nd Nyquist zone).
 *
 * @return
-*           - XRFDC_SUCCESS if successful.
-*           - XRFDC_FAILURE if block not enabled/invalid mode.
+*              - XRFDC_SUCCESS if successful.
+*              - XRFDC_FAILURE if block not enabled/invalid mode.
 *
-* @note     Only DAC blocks
+* @note        Only DAC blocks
 *
 ******************************************************************************/
 u32 XRFdc_SetInvSincFIR(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u16 Mode)
@@ -742,20 +754,21 @@ RETURN_PATH:
 /*****************************************************************************/
 /**
 *
-* This API is used to get the Inverse-Sinc filter mode.
+* @brief Gets the inverse-sinc filter mode.
 *
-* @param    InstancePtr is a pointer to the XRfdc instance.
-* @param    Tile_Id Valid values are 0-3.
-* @param    Block_Id is DAC block number inside the tile. Valid values
-*           are 0-3.
-* @param    ModePtr is a pointer to get the inv-sinc status. valid values
-*           are 0(disable),  1(1st Nyquist zone) and 2(2nd Nyquist zone).
+* @param[in]   InstancePtr Pointer to the XRfdc instance.
+* @param[in]   Tile_Id Valid values are 0-3.
+* @param[in]   Block_Id DAC block number inside the tile. Valid values are
+*              0-3.
+* @param[out]  ModePtr Pointer to get the inv-sinc status. valid values are
+*              0(disable), 1(1st Nyquist zone) and 2(2nd Nyquist
+*              zone).
 *
 * @return
-*           - XRFDC_SUCCESS if successful.
-*           - XRFDC_FAILURE if error occurs.
+*              - XRFDC_SUCCESS if successful.
+*              - XRFDC_FAILURE if error occurs.
 *
-* @note     Only DAC blocks
+* @note        Only DAC blocks
 *
 ******************************************************************************/
 u32 XRFdc_GetInvSincFIR(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u16 *ModePtr)
@@ -785,15 +798,15 @@ RETURN_PATH:
 /*****************************************************************************/
 /**
 *
-* Checks whether DAC Digital path is enabled or not.
+* @brief Checks whether DAC Digital path is enabled or not.
 *
-* @param    InstancePtr is a pointer to the XRfdc instance.
-* @param    Tile_Id Valid values are 0-3.
-* @param    Block_Id is ADC/DAC block number inside the tile. Valid values
-*           are 0-3.
+* @param[in]   InstancePtr Pointer to the XRfdc instance.
+* @param[in]   Tile_Id Valid values are 0-3.
+* @param[in]   Block_Id ADC/DAC block number inside the tile. Valid values are
+*              0-3.
 *
 * @return
-*           - Return 1 if DAC digital path is enabled, otherwise 0.
+*              - Return 1 if DAC digital path is enabled, otherwise 0.
 *
 ******************************************************************************/
 u32 XRFdc_IsDACDigitalPathEnabled(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id)
@@ -812,15 +825,15 @@ u32 XRFdc_IsDACDigitalPathEnabled(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id)
 /*****************************************************************************/
 /**
 *
-* Checks whether ADC digital path is enabled or not.
+* @brief Checks whether ADC digital path is enabled or not.
 *
-* @param    InstancePtr is a pointer to the XRfdc instance.
-* @param    Tile_Id Valid values are 0-3.
-* @param    Block_Id is ADC/DAC block number inside the tile. Valid values
-*           are 0-3 in DAC/ADC-2GSPS and 0-1 in ADC-4GSPS.
+* @param[in]   InstancePtr Pointer to the XRfdc instance.
+* @param[in]   Tile_Id Valid values are 0-3.
+* @param[in]   Block_Id ADC/DAC block number inside the tile. Valid values are
+*              0-3 in DAC/ADC-2GSPS and 0-1 in ADC-4GSPS.
 *
 * @return
-*           - Return 1 if ADC digital path is enabled, otherwise 0.
+*              - Return 1 if ADC digital path is enabled, otherwise 0.
 *
 ******************************************************************************/
 u32 XRFdc_IsADCDigitalPathEnabled(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id)
@@ -851,17 +864,17 @@ RETURN_PATH:
 /*****************************************************************************/
 /**
 *
-* Checks whether ADC/DAC Digital path is enabled or not.
+* @brief Checks whether ADC/DAC Digital path is enabled or not.
 *
-* @param    InstancePtr is a pointer to the XRfdc instance.
-* @param    Type is ADC or DAC. 0 for ADC and 1 for DAC.
-* @param    Tile_Id Valid values are 0-3.
-* @param    Block_Id is ADC/DAC block number inside the tile. Valid values
-*           are 0-3.
+* @param[in]   InstancePtr Pointer to the XRfdc instance.
+* @param[in]   Type ADC or DAC. 0 for ADC and 1 for DAC.
+* @param[in]   Tile_Id Valid values are 0-3.
+* @param[in]   Block_Id ADC/DAC block number inside the tile. Valid values are
+*              0-3.
 *
 * @return
-*           - XRFDC_SUCCESS if Digital path is enabled.
-*           - XRFDC_FAILURE if Digital path is not enabled.
+*              - XRFDC_SUCCESS if Digital path is enabled.
+*              - XRFDC_FAILURE if Digital path is not enabled.
 *
 ******************************************************************************/
 u32 XRFdc_CheckDigitalPathEnabled(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 Block_Id)
@@ -894,19 +907,19 @@ RETURN_PATH:
 /*****************************************************************************/
 /**
 *
-* This API is to set the divider for clock fabric out.
+* @brief Sets the divider for the clock fabric out.
 *
-* @param    InstancePtr is a pointer to the XRfdc instance.
-* @param    Type is ADC or DAC. 0 for ADC and 1 for DAC
-* @param    Tile_Id Valid values are 0-3.
-* @param    FabClkDiv to be set for a tile.
-*           XRFDC_FAB_CLK_* defines the valid divider values.
+* @param[in]   InstancePtr Pointer to the XRfdc instance.
+* @param[in]   Type ADC or DAC. 0 for ADC and 1 for DAC.
+* @param[in]   Tile_Id Valid values are 0-3.
+* @param[in]   FabClkDiv To be set for a tile. XRFDC_FAB_CLK_* defines the
+*              valid divider values.
 *
 * @return
-*           - XRFDC_SUCCESS if successful.
-*           - XRFDC_FAILURE if error occurs.
+*              - XRFDC_SUCCESS if successful.
+*              - XRFDC_FAILURE if error occurs.
 *
-* @note     ADC and DAC Tiles
+* @note        ADC and DAC Tiles
 *
 ******************************************************************************/
 u32 XRFdc_SetFabClkOutDiv(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u16 FabClkDiv)
@@ -953,19 +966,19 @@ RETURN_PATH:
 /*****************************************************************************/
 /**
 *
-* This API is to get the divider for clock fabric out.
+* @brief Gets the divider for the clock fabric out.
 *
-* @param    InstancePtr is a pointer to the XRfdc instance.
-* @param    Type is ADC or DAC. 0 for ADC and 1 for DAC
-* @param    Tile_Id Valid values are 0-3.
-* @param    FabClkDivPtr is a pointer to get fabric clock for a tile.
-*           XRFDC_FAB_CLK_* defines the valid divider values.
+* @param[in]   InstancePtr Pointer to the XRfdc instance.
+* @param[in]   Type ADC or DAC. 0 for ADC and 1 for DAC.
+* @param[in]   Tile_Id Valid values are 0-3.
+* @param[out]  FabClkDivPtr Pointer to get fabric clock for a tile.
+*              XRFDC_FAB_CLK_* defines the valid divider values.
 *
 * @return
-*           - XRFDC_SUCCESS if successful.
-*           - XRFDC_FAILURE if error occurs.
+*              - XRFDC_SUCCESS if successful.
+*              - XRFDC_FAILURE if error occurs.
 *
-* @note     API is applicable for both ADC and DAC Tiles
+* @note        API is applicable for both ADC and DAC Tiles
 *
 ******************************************************************************/
 u32 XRFdc_GetFabClkOutDiv(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u16 *FabClkDivPtr)
@@ -1000,21 +1013,22 @@ RETURN_PATH:
 /*****************************************************************************/
 /**
 *
-* Fabric data rate for the requested DAC block is set by writing to the
-* corresponding register. The function writes the number of valid write words
-* for the requested DAC block.
+* @brief Sets the fabric data rate for the requested DAC block.
 *
-* @param    InstancePtr is a pointer to the XRfdc instance.
-* @param    Tile_Id Valid values are 0-3.
-* @param    Block_Id is ADC/DAC block number inside the tile. Valid values
-*           are 0-3.
-* @param    FabricWrVldWords is write fabric rate to be set for DAC block.
+* The rate is set by writing to the corresponding register. The function
+* writes the number of valid write words for the requested DAC block.
+*
+* @param[in]   InstancePtr Pointer to the XRfdc instance.
+* @param[in]   Tile_Id Valid values are 0-3.
+* @param[in]   Block_Id ADC/DAC block number inside the tile. Valid
+*              values are 0-3.
+* @param[in]   FabricWrVldWords Write fabric rate to be set for DAC block.
 *
 * @return
-*           - XRFDC_SUCCESS if successful.
-*           - XRFDC_FAILURE if error occurs.
+*              - XRFDC_SUCCESS if successful.
+*              - XRFDC_FAILURE if error occurs.
 *
-* @note     Only for DAC blocks
+* @note        Only for DAC blocks
 *
 ******************************************************************************/
 u32 XRFdc_SetFabWrVldWords(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u32 FabricWrVldWords)
@@ -1052,22 +1066,25 @@ RETURN_PATH:
 /*****************************************************************************/
 /**
 *
-* Fabric data rate for the requested ADC block is set by writing to the
-* corresponding register. The function writes the number of valid read words
-* for the requested ADC block. This is for both the actual and observation FIFO.
+* @brief Sets the fabric data rate for the requested ADC block.
 *
-* @param    InstancePtr is a pointer to the XRfdc instance.
-* @param    Tile_Id Valid values are 0-3.
-* @param    Block_Id is ADC block number inside the tile. Valid values
-*           are 0-3.
-* @param    FabricRdVldWords is Read fabric rate to be set for ADC block.
-* @param    Channel is FIFO channel. Valid values are XRFDC_FIFO_CHANNEL_*.
+* The rate is set by writing to the corresponding register. The function
+* writes the number of valid read words for the requested ADC block. This
+* is for both the actual and observation FIFO.
+*
+* @param[in]   InstancePtr Pointer to the XRfdc instance.
+* @param[in]   Tile_Id Valid values are 0-3.
+* @param[in]   Block_Id ADC block number inside the tile. Valid values
+*              are 0-3.
+* @param[in]   FabricRdVldWords Read fabric rate to be set for ADC block.
+* @param[in]   Channel FIFO channel. Valid values are
+*              XRFDC_FIFO_CHANNEL_*.
 *
 * @return
-*           - XRFDC_SUCCESS if successful.
-*           - XRFDC_FAILURE if error occurs.
+*              - XRFDC_SUCCESS if successful.
+*              - XRFDC_FAILURE if error occurs.
 *
-* @note     Only for ADC blocks
+* @note        Only for ADC blocks
 *
 ******************************************************************************/
 static u32 XRFdc_SetFabRdVldWordsInt(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u32 FabricRdVldWords, u32 Channel)
@@ -1125,21 +1142,22 @@ RETURN_PATH:
 /*****************************************************************************/
 /**
 *
-* Fabric data rate for the requested ADC block is set by writing to the
-* corresponding register. The function writes the number of valid read words
-* for the requested ADC block.
+* @brief Sets the fabric data rate for the requested ADC block.
 *
-* @param    InstancePtr is a pointer to the XRfdc instance.
-* @param    Tile_Id Valid values are 0-3.
-* @param    Block_Id is ADC block number inside the tile. Valid values
-*           are 0-3.
-* @param    FabricRdVldWords is Read fabric rate to be set for ADC block.
+* The rate is set by writing to the corresponding register. The function
+* writes the number of valid read words for the requested ADC block.
+*
+* @param[in]   InstancePtr Pointer to the XRfdc instance.
+* @param[in]   Tile_Id Valid values are 0-3.
+* @param[in]   Block_Id ADC block number inside the tile. Valid values
+*              are 0-3.
+* @param[in]   FabricRdVldWords Read fabric rate to be set for ADC block.
 *
 * @return
-*           - XRFDC_SUCCESS if successful.
-*           - XRFDC_FAILURE if error occurs.
+*              - XRFDC_SUCCESS if successful.
+*              - XRFDC_FAILURE if error occurs.
 *
-* @note     Only for ADC blocks
+* @note        Only for ADC blocks
 *
 ******************************************************************************/
 u32 XRFdc_SetFabRdVldWords(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u32 FabricRdVldWords)
@@ -1149,21 +1167,23 @@ u32 XRFdc_SetFabRdVldWords(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u32 Fa
 /*****************************************************************************/
 /**
 *
-* Fabric data rate for the requested ADC block is set by writing to the
-* corresponding register. The function writes the number of valid read words
-* for the requested ADC block. This is for the observation FIFO.
+* @brief Sets the fabric data rate for the requested ADC block.
 *
-* @param    InstancePtr is a pointer to the XRfdc instance.
-* @param    Tile_Id Valid values are 0-3.
-* @param    Block_Id is ADC block number inside the tile. Valid values
-*           are 0-3.
-* @param    FabricRdVldWords is Read fabric rate to be set for ADC block.
+* The rate is set by writing to the corresponding register. The function
+* writes the number of valid read words for the requested ADC block. This
+* is for the observation FIFO.
+*
+* @param[in]   InstancePtr Pointer to the XRfdc instance.
+* @param[in]   Tile_Id Valid values are 0-3.
+* @param[in]   Block_Id ADC block number inside the tile. Valid values
+*              are 0-3.
+* @param[in]   FabricRdVldWords Read fabric rate to be set for ADC block.
 *
 * @return
-*           - XRFDC_SUCCESS if successful.
-*           - XRFDC_FAILURE if error occurs.
+*              - XRFDC_SUCCESS if successful.
+*              - XRFDC_FAILURE if error occurs.
 *
-* @note     Only for ADC blocks
+* @note        Only for ADC blocks
 *
 ******************************************************************************/
 u32 XRFdc_SetFabRdVldWordsObs(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u32 FabricRdVldWords)
@@ -1174,23 +1194,25 @@ u32 XRFdc_SetFabRdVldWordsObs(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u32
 /*****************************************************************************/
 /**
 *
-* This function returns the the number of fabric write valid words requested
-* for the block. For ADCs this is for both the actual and observation FIFO.
+* @brief Returns the number of fabric write valid words requested for a block.
 *
-* @param    InstancePtr is a pointer to the XRfdc instance.
-* @param    Type is ADC or DAC. 0 for ADC and 1 for DAC
-* @param    Tile_Id Valid values are 0-3.
-* @param    Block_Id is ADC/DAC block number inside the tile. Valid values
-*           are 0-3.
-* @param    FabricWrVldWordsPtr Pointer to return the fabric data rate for
-*           DAC block
-* @param    Channel is FIFO channel. Valid values are XRFDC_FIFO_CHANNEL_*.
+* For ADCs this is for both the actual and observation FIFO.
+*
+* @param[in]   InstancePtr Pointer to the XRfdc instance.
+* @param[in]   Type ADC or DAC. 0 for ADC and 1 for DAC.
+* @param[in]   Tile_Id Valid values are 0-3.
+* @param[in]   Block_Id ADC/DAC block number inside the tile. Valid
+*              values are 0-3.
+* @param[out]  FabricWrVldWordsPtr Pointer to return the fabric data rate for
+*              DAC block.
+* @param[in]   Channel FIFO channel. Valid values are
+*              XRFDC_FIFO_CHANNEL_*.
 *
 * @return
-*           - XRFDC_SUCCESS if successful.
-*           - XRFDC_FAILURE if error occurs.
+*              - XRFDC_SUCCESS if successful.
+*              - XRFDC_FAILURE if error occurs.
 *
-* @note     ADC/DAC blocks
+* @note        ADC/DAC blocks
 *
 ******************************************************************************/
 static u32 XRFdc_GetFabWrVldWordsInt(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 Block_Id, u32 *FabricWrVldWordsPtr,
@@ -1239,22 +1261,21 @@ RETURN_PATH:
 /*****************************************************************************/
 /**
 *
-* This API returns the number of fabric write valid words requested
-* for the block.
+* @brief Returns the number of fabric write valid words requested for a block.
 *
-* @param    InstancePtr is a pointer to the XRfdc instance.
-* @param    Type is ADC or DAC. 0 for ADC and 1 for DAC
-* @param    Tile_Id Valid values are 0-3.
-* @param    Block_Id is ADC/DAC block number inside the tile. Valid values
-*           are 0-3.
-* @param    FabricWrVldWordsPtr Pointer to return the fabric data rate for
-*           DAC block
+* @param[in]   InstancePtr Pointer to the XRfdc instance.
+* @param[in]   Type ADC or DAC. 0 for ADC and 1 for DAC.
+* @param[in]   Tile_Id Valid values are 0-3.
+* @param[in]   Block_Id ADC/DAC block number inside the tile. Valid
+*              values are 0-3.
+* @param[out]  FabricWrVldWordsPtr Pointer to return the fabric data rate for
+*              DAC block.
 *
 * @return
-*           - XRFDC_SUCCESS if successful.
-*           - XRFDC_FAILURE if error occurs.
+*              - XRFDC_SUCCESS if successful.
+*              - XRFDC_FAILURE if error occurs.
 *
-* @note     ADC/DAC blocks
+* @note        ADC/DAC blocks
 *
 ******************************************************************************/
 u32 XRFdc_GetFabWrVldWords(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 Block_Id, u32 *FabricWrVldWordsPtr)
@@ -1265,22 +1286,23 @@ u32 XRFdc_GetFabWrVldWords(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 Block_
 /*****************************************************************************/
 /**
 *
-* This API returns the number of fabric write valid words requested
-* for the block. This is for the observation FIFO.
+* @brief Returns the number of fabric write valid words requested for a block.
 *
-* @param    InstancePtr is a pointer to the XRfdc instance.
-* @param    Type is ADC or DAC. 0 for ADC and 1 for DAC
-* @param    Tile_Id Valid values are 0-3.
-* @param    Block_Id is ADC/DAC block number inside the tile. Valid values
-*           are 0-3.
-* @param    FabricWrVldWordsPtr Pointer to return the fabric data rate for
-*           DAC block
+* This is for the observation FIFO.
+*
+* @param[in]   InstancePtr Pointer to the XRfdc instance.
+* @param[in]   Type ADC or DAC. 0 for ADC and 1 for DAC.
+* @param[in]   Tile_Id Valid values are 0-3.
+* @param[in]   Block_Id ADC/DAC block number inside the tile. Valid
+*              values are 0-3.
+* @param[out]  FabricWrVldWordsPtr Pointer to return the fabric data rate for
+*              DAC block.
 *
 * @return
-*           - XRFDC_SUCCESS if successful.
-*           - XRFDC_FAILURE if error occurs.
+*              - XRFDC_SUCCESS if successful.
+*              - XRFDC_FAILURE if error occurs.
 *
-* @note     ADC blocks only
+* @note        ADC blocks only
 *
 ******************************************************************************/
 u32 XRFdc_GetFabWrVldWordsObs(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 Block_Id, u32 *FabricWrVldWordsPtr)
@@ -1292,23 +1314,25 @@ u32 XRFdc_GetFabWrVldWordsObs(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 Blo
 /*****************************************************************************/
 /**
 *
-* This function returns the number of fabric read valid words requested
-* for the block. For ADCs this is for both the actual and observation FIFO.
+* @brief Returns the number of fabric read valid words requested for a block.
 *
-* @param    InstancePtr is a pointer to the XRfdc instance.
-* @param    Type is ADC or DAC. 0 for ADC and 1 for DAC
-* @param    Tile_Id Valid values are 0-3.
-* @param    Block_Id is ADC/DAC block number inside the tile. Valid values
-*           are 0-3.
-* @param    FabricRdVldWordsPtr Pointer to return the fabric data rate for
-*           ADC/DAC block
-* @param    Channel is FIFO channel. Valid values are XRFDC_FIFO_CHANNEL_*.
+* For ADCs this is for both the actual and observation FIFO.
+*
+* @param[in]   InstancePtr Pointer to the XRfdc instance.
+* @param[in]   Type ADC or DAC. 0 for ADC and 1 for DAC.
+* @param[in]   Tile_Id Valid values are 0-3.
+* @param[in]   Block_Id ADC/DAC block number inside the tile.
+*              Valid values are 0-3.
+* @param[out]  FabricRdVldWordsPtr Pointer to return the fabric data rate for
+*              ADC/DAC block.
+* @param[in]   Channel FIFO channel. Valid values are
+*              XRFDC_FIFO_CHANNEL_*.
 *
 * @return
-*           - XRFDC_SUCCESS if successful.
-*           - XRFDC_FAILURE if error occurs.
+*              - XRFDC_SUCCESS if successful.
+*              - XRFDC_FAILURE if error occurs.
 *
-* @note     ADC/DAC blocks
+* @note        ADC/DAC blocks
 *
 ******************************************************************************/
 static u32 XRFdc_GetFabRdVldWordsInt(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 Block_Id, u32 *FabricRdVldWordsPtr,
@@ -1359,22 +1383,21 @@ RETURN_PATH:
 /*****************************************************************************/
 /**
 *
-* This API returns the number of fabric read valid words requested
-* for the block.
+* @brief Returns the number of fabric read valid words requested for a block.
 *
-* @param    InstancePtr is a pointer to the XRfdc instance.
-* @param    Type is ADC or DAC. 0 for ADC and 1 for DAC
-* @param    Tile_Id Valid values are 0-3.
-* @param    Block_Id is ADC/DAC block number inside the tile. Valid values
-*           are 0-3.
-* @param    FabricRdVldWordsPtr Pointer to return the fabric data rate for
-*           ADC/DAC block
+* @param[in]   InstancePtr Pointer to the XRfdc instance.
+* @param[in]   Type ADC or DAC. 0 for ADC and 1 for DAC.
+* @param[in]   Tile_Id Valid values are 0-3.
+* @param[in]   Block_Id ADC/DAC block number inside the tile. Valid
+*              values are 0-3.
+* @param[out]  FabricRdVldWordsPtr Pointer to return the fabric data rate for
+*              ADC/DAC block.
 *
 * @return
-*           - XRFDC_SUCCESS if successful.
-*           - XRFDC_FAILURE if error occurs.
+*              - XRFDC_SUCCESS if successful.
+*              - XRFDC_FAILURE if error occurs.
 *
-* @note     ADC/DAC blocks
+* @note        ADC/DAC blocks
 *
 ******************************************************************************/
 u32 XRFdc_GetFabRdVldWords(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 Block_Id, u32 *FabricRdVldWordsPtr)
@@ -1385,22 +1408,23 @@ u32 XRFdc_GetFabRdVldWords(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 Block_
 /*****************************************************************************/
 /**
 *
-* This function returns the number of fabric read valid words requested
-* for the block. This is for the observation FIFO.
+* @brief Returns the number of fabric read valid words requested for a block.
 *
-* @param    InstancePtr is a pointer to the XRfdc instance.
-* @param    Type is ADC or DAC. 0 for ADC and 1 for DAC
-* @param    Tile_Id Valid values are 0-3.
-* @param    Block_Id is ADC/DAC block number inside the tile. Valid values
-*           are 0-3.
-* @param    FabricRdVldWordsPtr Pointer to return the fabric data rate for
-*           ADC/DAC block
+* This is for the observation FIFO.
+*
+* @param[in]   InstancePtr Pointer to the XRfdc instance.
+* @param[in]   Type ADC or DAC. 0 for ADC and 1 for DAC.
+* @param[in]   Tile_Id Valid values are 0-3.
+* @param[in]   Block_Id ADC/DAC block number inside the tile. Valid
+*              values are 0-3.
+* @param[out]  FabricRdVldWordsPtr Pointer to return the fabric data rate for
+*              ADC/DAC block.
 *
 * @return
-*           - XRFDC_SUCCESS if successful.
-*           - XRFDC_FAILURE if error occurs.
+*              - XRFDC_SUCCESS if successful.
+*              - XRFDC_FAILURE if error occurs.
 *
-* @note     ADC blocks only
+* @note        ADC blocks only
 *
 ******************************************************************************/
 u32 XRFdc_GetFabRdVldWordsObs(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 Block_Id, u32 *FabricRdVldWordsPtr)
@@ -1411,20 +1435,21 @@ u32 XRFdc_GetFabRdVldWordsObs(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 Blo
 /*****************************************************************************/
 /**
 *
-* Enable and Disable the ADC/DAC FIFO. For ADCs this is for the actual and
-* observtion FIFO.
+* @brief Enables or disables the ADC or DAC FIFO.
 *
-* @param    InstancePtr is a pointer to the XRfdc instance.
-* @param    Type is ADC or DAC. 0 for ADC and 1 for DAC
-* @param    Tile_Id Valid values are 0-3.
-* @param    Enable valid values are 1 (FIFO enable) and 0 (FIFO Disable)
-* @param    Channel is FIFO channel. Valid values are XRFDC_FIFO_CHANNEL_*.
+* For ADCs this is for the actual and observation FIFO.
+*
+* @param[in]   InstancePtr Pointer to the XRfdc instance.
+* @param[in]   Type ADC or DAC. 0 for ADC and 1 for DAC.
+* @param[in]   Tile_Id Valid values are 0-3.
+* @param[in]   Enable Valid values are 1 (FIFO enable) and 0 (FIFO Disable).
+* @param[in]   Channel FIFO channel. Valid values are XRFDC_FIFO_CHANNEL_*.
 *
 * @return
-*           - XRFDC_SUCCESS if successful.
-*           - XRFDC_FAILURE if error occurs.
+*              - XRFDC_SUCCESS if successful.
+*              - XRFDC_FAILURE if error occurs.
 *
-* @note     Common API for ADC/DAC blocks
+* @note        Common API for ADC/DAC blocks
 *
 ******************************************************************************/
 static u32 XRFdc_SetupFIFOInt(XRFdc *InstancePtr, u32 Type, int Tile_Id, u8 Enable, u32 Channel)
@@ -1499,18 +1524,18 @@ RETURN_PATH:
 /*****************************************************************************/
 /**
 *
-* Enable and Disable the ADC/DAC FIFO.
+* @brief Enables or disables the ADC or DAC FIFO.
 *
-* @param    InstancePtr is a pointer to the XRfdc instance.
-* @param    Type is ADC or DAC. 0 for ADC and 1 for DAC
-* @param    Tile_Id Valid values are 0-3.
-* @param    Enable valid values are 1 (FIFO enable) and 0 (FIFO Disable)
+* @param[in]   InstancePtr Pointer to the XRfdc instance.
+* @param[in]   Type ADC or DAC. 0 for ADC and 1 for DAC.
+* @param[in]   Tile_Id Valid values are 0-3.
+* @param[in]   Enable Valid values are 1 (FIFO enable) and 0 (FIFO Disable).
 *
 * @return
-*           - XRFDC_SUCCESS if successful.
-*           - XRFDC_FAILURE if error occurs.
+*              - XRFDC_SUCCESS if successful.
+*              - XRFDC_FAILURE if error occurs.
 *
-* @note     Common API for ADC/DAC blocks
+* @note        Common API for ADC/DAC blocks
 *
 ******************************************************************************/
 u32 XRFdc_SetupFIFO(XRFdc *InstancePtr, u32 Type, int Tile_Id, u8 Enable)
@@ -1520,18 +1545,18 @@ u32 XRFdc_SetupFIFO(XRFdc *InstancePtr, u32 Type, int Tile_Id, u8 Enable)
 /*****************************************************************************/
 /**
 *
-* Enable and Disable the ADC/DAC FIFO. For ADCs this is for the observtion FIFO.
+* @brief Enables or disables the ADC or DAC observation FIFO.
 *
-* @param    InstancePtr is a pointer to the XRfdc instance.
-* @param    Type is ADC or DAC. 0 for ADC and 1 for DAC
-* @param    Tile_Id Valid values are 0-3.
-* @param    Enable valid values are 1 (FIFO enable) and 0 (FIFO Disable)
+* @param[in]   InstancePtr Pointer to the XRfdc instance.
+* @param[in]   Type ADC or DAC. 0 for ADC and 1 for DAC.
+* @param[in]   Tile_Id Valid values are 0-3.
+* @param[in]   Enable Valid values are 1 (FIFO enable) and 0 (FIFO Disable).
 *
 * @return
-*           - XRFDC_SUCCESS if successful.
-*           - XRFDC_FAILURE if error occurs.
+*              - XRFDC_SUCCESS if successful.
+*              - XRFDC_FAILURE if error occurs.
 *
-* @note     ADC blocks only
+* @note        ADC blocks only
 *
 ******************************************************************************/
 u32 XRFdc_SetupFIFOObs(XRFdc *InstancePtr, u32 Type, int Tile_Id, u8 Enable)
@@ -1541,18 +1566,18 @@ u32 XRFdc_SetupFIFOObs(XRFdc *InstancePtr, u32 Type, int Tile_Id, u8 Enable)
 /*****************************************************************************/
 /**
 *
-* Enable and Disable the ADC/DAC FIFO. Thisis for the actual and observtion FIFO.
+* @brief Enables or disables the ADC or DAC actual and observation FIFO.
 *
-* @param    InstancePtr is a pointer to the XRfdc instance.
-* @param    Type is ADC or DAC. 0 for ADC and 1 for DAC
-* @param    Tile_Id Valid values are 0-3.
-* @param    Enable valid values are 1 (FIFO enable) and 0 (FIFO Disable)
+* @param[in]   InstancePtr Pointer to the XRfdc instance.
+* @param[in]   Type ADC or DAC. 0 for ADC and 1 for DAC.
+* @param[in]   Tile_Id Valid values are 0-3.
+* @param[in]   Enable Valid values are 1 (FIFO enable) and 0 (FIFO Disable).
 *
 * @return
-*           - XRFDC_SUCCESS if successful.
-*           - XRFDC_FAILURE if error occurs.
+*              - XRFDC_SUCCESS if successful.
+*              - XRFDC_FAILURE if error occurs.
 *
-* @note    ADC blocks only
+* @note        ADC blocks only
 *
 ******************************************************************************/
 u32 XRFdc_SetupFIFOBoth(XRFdc *InstancePtr, u32 Type, int Tile_Id, u8 Enable)
@@ -1562,20 +1587,22 @@ u32 XRFdc_SetupFIFOBoth(XRFdc *InstancePtr, u32 Type, int Tile_Id, u8 Enable)
 /*****************************************************************************/
 /**
 *
-* Current status of ADC/DAC FIFO. For ADCs this is for both the actual and
-* observations FIFOs.
+* @brief Gets the current status of the ADC or DAC FIFO.
 *
-* @param    InstancePtr is a pointer to the XRfdc instance.
-* @param    Type is ADC or DAC. 0 for ADC and 1 for DAC
-* @param    Tile_Id Valid values are 0-3.
-* @param    EnablePtr valid values are 1 (FIFO enable) and 0 (FIFO Disable)
-* @param    Channel is FIFO channel. Valid values are XRFDC_FIFO_CHANNEL_*.
+* For ADCs this is for both the actual and observation FIFOs.
+*
+* @param[in]   InstancePtr Pointer to the XRfdc instance.
+* @param[in]   Type ADC or DAC. 0 for ADC and 1 for DAC.
+* @param[in]   Tile_Id Valid values are 0-3.
+* @param[out]  EnablePtr Valid values are 1 (FIFO enable) and 0 (FIFO
+*              Disable).
+* @param[in]   Channel FIFO channel. Valid values are XRFDC_FIFO_CHANNEL_*.
 *
 * @return
-*           - XRFDC_SUCCESS if successful.
-*           - XRFDC_FAILURE if error occurs.
+*              - XRFDC_SUCCESS if successful.
+*              - XRFDC_FAILURE if error occurs.
 *
-* @note     Common API for ADC/DAC blocks
+* @note        Common API for ADC/DAC blocks
 *
 ******************************************************************************/
 u32 XRFdc_GetFIFOStatusInt(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u8 *EnablePtr, u32 Channel)
@@ -1621,18 +1648,18 @@ RETURN_PATH:
 /*****************************************************************************/
 /**
 *
-* Current status of ADC/DAC FIFO.
+* @brief Gets the current status of the ADC or DAC FIFO.
 *
-* @param    InstancePtr is a pointer to the XRfdc instance.
-* @param    Type is ADC or DAC. 0 for ADC and 1 for DAC
-* @param    Tile_Id Valid values are 0-3.
-* @param    EnablePtr valid values are 1 (FIFO enable) and 0 (FIFO Disable)
+* @param[in]   InstancePtr Pointer to the XRfdc instance.
+* @param[in]   Type ADC or DAC. 0 for ADC and 1 for DAC.
+* @param[in]   Tile_Id Valid values are 0-3.
+* @param[out]  EnablePtr Valid values are 1 (FIFO enable) and 0 (FIFO Disable).
 *
 * @return
-*           - XRFDC_SUCCESS if successful.
-*           - XRFDC_FAILURE if error occurs.
+*              - XRFDC_SUCCESS if successful.
+*              - XRFDC_FAILURE if error occurs.
 *
-* @note     Common API for ADC/DAC blocks
+* @note        Common API for ADC/DAC blocks
 *
 ******************************************************************************/
 u32 XRFdc_GetFIFOStatus(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u8 *EnablePtr)
@@ -1642,18 +1669,18 @@ u32 XRFdc_GetFIFOStatus(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u8 *EnablePtr
 /*****************************************************************************/
 /**
 *
-* Current status of ADC/DAC FIFO. This is for the observation FIFO.
+* @brief Gets the current status of the ADC or DAC observation FIFO.
 *
-* @param    InstancePtr is a pointer to the XRfdc instance.
-* @param    Type is ADC or DAC. 0 for ADC and 1 for DAC
-* @param    Tile_Id Valid values are 0-3.
-* @param    EnablePtr valid values are 1 (FIFO enable) and 0 (FIFO Disable)
+* @param[in]   InstancePtr Pointer to the XRfdc instance.
+* @param[in]   Type ADC or DAC. 0 for ADC and 1 for DAC.
+* @param[in]   Tile_Id Valid values are 0-3.
+* @param[out]  EnablePtr Valid values are 1 (FIFO enable) and 0 (FIFO Disable).
 *
 * @return
-*           - XRFDC_SUCCESS if successful.
-*           - XRFDC_FAILURE if error occurs.
+*              - XRFDC_SUCCESS if successful.
+*              - XRFDC_FAILURE if error occurs.
 *
-* @note     ADC blocks only
+* @note        ADC blocks only
 *
 ******************************************************************************/
 u32 XRFdc_GetFIFOStatusObs(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u8 *EnablePtr)
@@ -1662,19 +1689,15 @@ u32 XRFdc_GetFIFOStatusObs(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u8 *Enable
 }
 /*****************************************************************************/
 /**
-* Set the correct FIFO width for current mixer & rate change settings (int).
+* @brief Sets the correct FIFO width for current mixer and rate change settings.
 *
-* @param    InstancePtr is a pointer to the XRfdc instance.
-* @param    Type is ADC or DAC. 0 for ADC and 1 for DAC
-* @param    Tile_Id Valid values are 0-3.
-* @param    Block_Id Valid values are 0-3.
-* @param    Channel Valid values are 0 for actual FIFO 1 for obs FIFO.
+* @param[in]   InstancePtr Pointer to the XRfdc instance.
+* @param[in]   Type ADC or DAC. 0 for ADC and 1 for DAC.
+* @param[in]   Tile_Id Valid values are 0-3.
+* @param[in]   Block_Id Valid values are 0-3.
+* @param[in]   Channel Valid values are 0 for actual FIFO 1 for obs FIFO.
 *
-* @return
-*           - XRFDC_SUCCESS if successful.
-*           - XRFDC_FAILURE if error occurs.
-*
-* @note     Common API for ADC/DAC blocks
+* @note        Common API for ADC/DAC blocks
 *
 ******************************************************************************/
 static void XRFdc_IntResetInternalFIFOWidth(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 Block_Id, u32 Channel)
@@ -1860,18 +1883,18 @@ static void XRFdc_IntResetInternalFIFOWidth(XRFdc *InstancePtr, u32 Type, u32 Ti
 
 /*****************************************************************************/
 /**
-* Set the correct FIFO width for current mixer & rate change settings.
+* @brief Sets the correct FIFO width for current mixer and rate change settings.
 *
-* @param    InstancePtr is a pointer to the XRfdc instance.
-* @param    Type is ADC or DAC. 0 for ADC and 1 for DAC
-* @param    Tile_Id Valid values are 0-3.
-* @param    Block_Id Valid values are 0-3.
+* @param[in]   InstancePtr Pointer to the XRfdc instance.
+* @param[in]   Type ADC or DAC. 0 for ADC and 1 for DAC.
+* @param[in]   Tile_Id Valid values are 0-3.
+* @param[in]   Block_Id Valid values are 0-3.
 *
 * @return
-*           - XRFDC_SUCCESS if successful.
-*           - XRFDC_FAILURE if error occurs.
+*              - XRFDC_SUCCESS if successful.
+*              - XRFDC_FAILURE if error occurs.
 *
-* @note     Common API for ADC/DAC blocks
+* @note        Common API for ADC/DAC blocks
 *
 ******************************************************************************/
 u32 XRFdc_ResetInternalFIFOWidth(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 Block_Id)
@@ -1904,18 +1927,19 @@ RETURN_PATH:
 /*****************************************************************************/
 /**
 *
-* Set the correct Observation FIFO width for current mixer & rate change
-* settings.
+* @brief Sets the correct observation FIFO width.
 *
-* @param    InstancePtr is a pointer to the XRfdc instance.
-* @param    Tile_Id Valid values are 0-3.
-* @param    Block_Id Valid values are 0-3.
+* The width matches the current mixer and rate change settings.
+*
+* @param[in]   InstancePtr Pointer to the XRfdc instance.
+* @param[in]   Tile_Id Valid values are 0-3.
+* @param[in]   Block_Id Valid values are 0-3.
 *
 * @return
-*           - XRFDC_SUCCESS if successful.
-*           - XRFDC_FAILURE if error occurs.
+*              - XRFDC_SUCCESS if successful.
+*              - XRFDC_FAILURE if error occurs.
 *
-* @note     ADC blocks only
+* @note        ADC blocks only
 *
 ******************************************************************************/
 u32 XRFdc_ResetInternalFIFOWidthObs(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id)
@@ -1948,14 +1972,14 @@ RETURN_PATH:
 /*****************************************************************************/
 /**
 *
-* Get Fabric Clock frequency.
+* @brief Gets the fabric clock frequency.
 *
-* @param    InstancePtr is a pointer to the XRfdc instance.
-* @param    Type is ADC or DAC. 0 for ADC and 1 for DAC
-* @param    Tile_Id Valid values are 0-3.
+* @param[in]   InstancePtr Pointer to the XRfdc instance.
+* @param[in]   Type ADC or DAC. 0 for ADC and 1 for DAC.
+* @param[in]   Tile_Id Valid values are 0-3.
 *
 * @return
-*           - Return Fabric Clock frequency for ADC/DAC tile
+*              - Return Fabric Clock frequency for ADC/DAC tile.
 *
 ******************************************************************************/
 double XRFdc_GetFabClkFreq(XRFdc *InstancePtr, u32 Type, u32 Tile_Id)
@@ -1986,16 +2010,16 @@ double XRFdc_GetFabClkFreq(XRFdc *InstancePtr, u32 Type, u32 Tile_Id)
 /*****************************************************************************/
 /**
 *
-* Get whether FIFO is enabled or not.
+* @brief Gets whether the FIFO is enabled.
 *
-* @param    InstancePtr is a pointer to the XRfdc instance.
-* @param    Type is ADC or DAC. 0 for ADC and 1 for DAC
-* @param    Tile_Id Valid values are 0-3.
-* @param    Block_Id is ADC/DAC block number inside the tile. Valid values
-*           are 0-3.
+* @param[in]   InstancePtr Pointer to the XRfdc instance.
+* @param[in]   Type ADC or DAC. 0 for ADC and 1 for DAC.
+* @param[in]   Tile_Id Valid values are 0-3.
+* @param[in]   Block_Id ADC/DAC block number inside the tile. Valid values are
+*              0-3.
 *
 * @return
-*           - Return 1 if FIFO is enabled, otherwise 0.
+*              - Return 1 if FIFO is enabled, otherwise 0.
 *
 ******************************************************************************/
 u32 XRFdc_IsFifoEnabled(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 Block_Id)

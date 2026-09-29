@@ -8,8 +8,7 @@
 /**
 *
 * @file xrfdc_intr.c
-* @addtogroup Overview
-* @{
+* @brief Implements the interrupt handling functions of the XRFdc driver.
 *
 * This file contains functions related to RFdc interrupt handling.
 *
@@ -56,10 +55,15 @@
 * 11.0  cog    05/31/21 Upversion.
 * 11.1  cog    11/16/21 Upversion.
 * 13.2  vn     08/11/26 Fix Doxygen warnings.
+* 13.2  vn     09/29/26 Align Doxygen comments with AMD standards
 *
 * </pre>
 *
 ******************************************************************************/
+
+/** @addtogroup Overview
+ * @{
+ */
 
 /***************************** Include Files *********************************/
 
@@ -80,21 +84,19 @@
 /****************************************************************************/
 /**
 *
-* This function sets the interrupt mask.
+* @brief Sets the interrupt mask.
 *
-* @param    InstancePtr is a pointer to the XRFdc instance
-* @param    Type is ADC or DAC. 0 for ADC and 1 for DAC
-* @param    Tile_Id Valid values are 0-3, and -1.
-* @param    Block_Id is ADC/DAC block number inside the tile. Valid values
-*           are 0-3.
-* @param    IntrMask contains the interrupts to be enabled.
-*           '1' enables an interrupt, and '0' disables.
+* @param[in]   InstancePtr Pointer to the XRFdc instance.
+* @param[in]   Type ADC or DAC. 0 for ADC and 1 for DAC.
+* @param[in]   Tile_Id Valid values are 0-3, and -1.
+* @param[in]   Block_Id ADC/DAC block number inside the tile. Valid values are
+*              0-3.
+* @param[in]   IntrMask Interrupts to be enabled. '1' enables an interrupt,
+*              and '0' disables.
 *
 * @return
-*           - XRFDC_SUCCESS if successful.
-*           - XRFDC_FAILURE if block not available.
-*
-* @note     None.
+*              - XRFDC_SUCCESS if successful.
+*              - XRFDC_FAILURE if block not available.
 *
 *****************************************************************************/
 u32 XRFdc_IntrEnable(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 Block_Id, u32 IntrMask)
@@ -233,21 +235,19 @@ RETURN_PATH:
 /****************************************************************************/
 /**
 *
-* This function clears the interrupt mask.
+* @brief Clears the interrupt mask.
 *
-* @param    InstancePtr is a pointer to the XRFdc instance
-* @param    Type is ADC or DAC. 0 for ADC and 1 for DAC
-* @param    Tile_Id Valid values are 0-3, and -1.
-* @param    Block_Id is ADC/DAC block number inside the tile. Valid values
-*           are 0-3.
-* @param    IntrMask contains the interrupts to be disabled.
-*           '1' disables an interrupt, and '0' remains no change.
+* @param[in]   InstancePtr Pointer to the XRFdc instance.
+* @param[in]   Type ADC or DAC. 0 for ADC and 1 for DAC.
+* @param[in]   Tile_Id Valid values are 0-3, and -1.
+* @param[in]   Block_Id ADC/DAC block number inside the tile. Valid values are
+*              0-3.
+* @param[in]   IntrMask Interrupts to be disabled. '1' disables an interrupt,
+*              and '0' remains no change.
 *
 * @return
-*           - XRFDC_SUCCESS if successful.
-*           - XRFDC_FAILURE if block not available.
-*
-* @note     None.
+*              - XRFDC_SUCCESS if successful.
+*              - XRFDC_FAILURE if block not available.
 *
 *****************************************************************************/
 u32 XRFdc_IntrDisable(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 Block_Id, u32 IntrMask)
@@ -371,22 +371,20 @@ RETURN_PATH:
 /****************************************************************************/
 /**
 *
-* This function gets a mask of enabled interrupts.
+* @brief Gets a mask of enabled interrupts.
 *
-* @param    InstancePtr is a pointer to the XRFdc instance
-* @param    Type is ADC or DAC. 0 for ADC and 1 for DAC
-* @param    Tile_Id Valid values are 0-3, and -1.
-* @param    Block_Id is ADC/DAC block number inside the tile. Valid values
+* @param[in]   InstancePtr Pointer to the XRFdc instance.
+* @param[in]   Type ADC or DAC. 0 for ADC and 1 for DAC.
+* @param[in]   Tile_Id Valid values are 0-3, and -1.
+* @param[in]   Block_Id ADC/DAC block number inside the tile. Valid values
 *              are 0-3.
-* @param    IntrMask is a pointer to the mask of enabled interrupts.
-*              '1' denotes an enabled interrupt, and '0' denotes a disabled
-*        interrupt.
+* @param[out]  IntrMask Pointer to the mask of enabled interrupts. '1'
+*              denotes an enabled interrupt, and '0' denotes a
+*              disabled interrupt.
 *
 * @return
-*           - XRFDC_SUCCESS if successful.
-*           - XRFDC_FAILURE if block not available.
-*
-* @note     None.
+*              - XRFDC_SUCCESS if successful.
+*              - XRFDC_FAILURE if block not available.
 *
 *****************************************************************************/
 u32 XRFdc_GetEnabledInterrupts(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 Block_Id, u32 *IntrMask)
@@ -514,23 +512,20 @@ RETURN_PATH:
 /****************************************************************************/
 /**
 *
-* This function returns the interrupt status read from Interrupt Status
-* Register(ISR).
+* @brief Returns the interrupt status read from Interrupt Status Register (ISR).
 *
-* @param    InstancePtr is a pointer to the XRFdc instance.
-* @param    Type is ADC or DAC. 0 for ADC and 1 for DAC
-* @param    Tile_Id Valid values are 0-3, and -1.
-* @param    Block_Id is ADC/DAC block number inside the tile. Valid values
-*           are 0-3.
-* @param    IntrStsPtr is pointer to a32-bit value representing the contents of
-* 			the Interrupt Status Registers (FIFO interface, Decoder interface,
-* 			Data Path Interface).
+* @param[in]   InstancePtr Pointer to the XRFdc instance.
+* @param[in]   Type ADC or DAC. 0 for ADC and 1 for DAC.
+* @param[in]   Tile_Id Valid values are 0-3, and -1.
+* @param[in]   Block_Id ADC/DAC block number inside the tile. Valid values
+*              are 0-3.
+* @param[out]  IntrStsPtr Pointer to a32-bit value representing the contents
+*              of the Interrupt Status Registers (FIFO interface,
+*              Decoder interface, Data Path Interface).
 *
 * @return
-*           - XRFDC_SUCCESS if successful.
-*           - XRFDC_FAILURE if block not available.
-*
-* @note     None.
+*              - XRFDC_SUCCESS if successful.
+*              - XRFDC_FAILURE if block not available.
 *
 *****************************************************************************/
 u32 XRFdc_GetIntrStatus(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 Block_Id, u32 *IntrStsPtr)
@@ -619,20 +614,18 @@ RETURN_PATH:
 /****************************************************************************/
 /**
 *
-* This function clear the interrupts.
+* @brief Clears the interrupts.
 *
-* @param    InstancePtr is a pointer to the XRFdc instance
-* @param    Type is ADC or DAC. 0 for ADC and 1 for DAC
-* @param    Tile_Id Valid values are 0-3, and -1.
-* @param    Block_Id is ADC/DAC block number inside the tile. Valid values
-*           are 0-3.
-* @param    IntrMask contains the interrupts to be cleared.
+* @param[in]   InstancePtr Pointer to the XRFdc instance.
+* @param[in]   Type ADC or DAC. 0 for ADC and 1 for DAC.
+* @param[in]   Tile_Id Valid values are 0-3, and -1.
+* @param[in]   Block_Id ADC/DAC block number inside the tile. Valid values are
+*              0-3.
+* @param[in]   IntrMask Interrupts to be cleared.
 *
 * @return
-*           - XRFDC_SUCCESS if successful.
-*           - XRFDC_FAILURE if block not available.
-*
-* @note     None.
+*              - XRFDC_SUCCESS if successful.
+*              - XRFDC_FAILURE if block not available.
 *
 *****************************************************************************/
 u32 XRFdc_IntrClr(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 Block_Id, u32 IntrMask)
@@ -757,23 +750,22 @@ RETURN_PATH:
 /****************************************************************************/
 /**
 *
-* This function is the interrupt handler for the driver.
-* It must be connected to an interrupt system by the application such that it
-* can be called when an interrupt occurs.
+* @brief Handles the interrupts for the driver.
 *
-* @param    Vector is interrupt vector number. Libmetal status handler
-*           expects two parameters in the handler prototype, hence
-*           kept this parameter. This is not used inside
-*           the interrupt handler API.
-* @param    XRFdcPtr contains a pointer to the driver instance
+* It must be connected to an interrupt system by the application such that
+* it can be called when an interrupt occurs.
+*
+* @param[in]   Vector Interrupt vector number. Libmetal status handler expects
+*              two parameters in the handler prototype, hence kept this
+*              parameter. This is not used inside the interrupt handler
+*              API.
+* @param[in]   XRFdcPtr Pointer to the driver instance.
 *
 * @return
-*           - XRFDC_SUCCESS if successful.
+*              - XRFDC_SUCCESS if successful.
 *
-* @note     None.
-*
-* @note     Vector param is not useful inside the interrupt handler, hence
-*           typecast with void to remove compilation warning.
+* @note        Vector param is not useful inside the interrupt handler, hence
+*              typecast with void to remove compilation warning.
 *
 ******************************************************************************/
 u32 XRFdc_IntrHandler(u32 Vector, void *XRFdcPtr)
@@ -936,21 +928,19 @@ END_OF_BLOCK_LEVEL:
 /*****************************************************************************/
 /**
 *
-* This function sets the status callback function, the status handler, which the
-* driver calls when it encounters conditions that should be reported to the
-* higher layer software. The handler executes in an interrupt context, so
-* the amount of processing should be minimized
+* @brief Sets the status callback function (the status handler).
 *
+* The driver calls the status handler when it encounters conditions that
+* should be reported to the higher layer software. The handler executes in
+* an interrupt context, so the amount of processing should be minimized.
 *
-* @param    InstancePtr is a pointer to the XRFdc instance.
-* @param    CallBackRef is the upper layer callback reference passed back
-*           when the callback function is invoked.
-* @param    FunctionPtr is the pointer to the callback function.
+* @param[in,out] InstancePtr Pointer to the XRFdc instance.
+* @param[in]     CallBackRef Upper layer callback reference passed back when
+*                the callback function is invoked.
+* @param[in]     FunctionPtr Pointer to the callback function.
 *
-* @note     None.
-*
-* @note     The handler is called within interrupt context, so it should finish
-*           its work quickly.
+* @note          The handler is called within interrupt context, so it should
+*                finish its work quickly.
 *
 ******************************************************************************/
 void XRFdc_SetStatusHandler(XRFdc *InstancePtr, void *CallBackRef, XRFdc_StatusHandler FunctionPtr)

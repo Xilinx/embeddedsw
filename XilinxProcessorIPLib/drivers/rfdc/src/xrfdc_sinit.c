@@ -8,8 +8,7 @@
 /**
 *
 * @file xrfdc_sinit.c
-* @addtogroup Overview
-* @{
+* @brief Implements the static initialization for the XRFdc component.
 *
 * The implementation of the XRFdc component's static initialization
 * functionality.
@@ -24,7 +23,7 @@
 *                       tree instead of xrfdc_g.c, to obtain
 *                       XRFdc_Config for provided device id.It is being
 *                       achieved through "param-list" property in RFDC
-*                       device node, it will be having 1:1 mapping with
+*                       device node, it has 1:1 mapping with
 *                       the XRFdc_Config structure. Said changes
 *                       have been done, to remove the xparameters.h
 *                       dependency from RFDC Linux user space driver.
@@ -42,10 +41,15 @@
 * 12.1  cog    07/04/23 Add support for SDT.
 *       cog    07/14/23 Fix issues with SDT flow.
 * 13.1  dc     03/08/26 Correct compiler warnings
+* 13.2  vn     09/29/26 Align Doxygen comments with AMD standards
 *
 * </pre>
 *
 ******************************************************************************/
+
+/** @addtogroup Overview
+ * @{
+ */
 
 /***************************** Include Files *********************************/
 #include "xrfdc.h"
@@ -65,14 +69,19 @@
 
 /************************** Function Prototypes ******************************/
 #ifndef __BAREMETAL__
+/** @cond INTERNAL */
 extern int metal_linux_get_device_property(struct metal_device *device,
 					   const char *property_name,
 					   void *output, int len);
+/** @endcond */
 #endif
 
 
 /************************** Variable Definitions *****************************/
 #ifdef __BAREMETAL__
+/**
+ * @brief Configuration table that holds the settings for each RFdc device.
+ */
 extern XRFdc_Config XRFdc_ConfigTable[];
 #else
 static XRFdc_Config *XRFdc_ConfigTablePtr = NULL;
@@ -82,19 +91,17 @@ static XRFdc_Config *XRFdc_ConfigTablePtr = NULL;
 /*****************************************************************************/
 /**
 *
-* Compare two strings in the reversed order.This function compares only
-* the last "Count" number of characters of Str1Ptr and Str2Ptr.
+* @brief Compares two strings in reversed order.
 *
-* @param    Str1Ptr is base address of first string
-* @param    Str2Ptr is base address of second string
-* @param    Count is number of last characters  to be compared between
-*           Str1Ptr and Str2Ptr
+* Compares only the last "Count" number of characters of Str1Ptr and Str2Ptr.
 *
-* @return
-*           0 if last "Count" number of bytes matches between Str1Ptr and
-*           Str2Ptr, else difference in unmatched character.
+* @param[in]   Str1Ptr Base address of the first string.
+* @param[in]   Str2Ptr Base address of the second string.
+* @param[in]   Count Number of trailing characters to compare between
+*              Str1Ptr and Str2Ptr.
 *
-*@note     None.
+* @return      0 if the last "Count" bytes match between Str1Ptr and Str2Ptr,
+*              otherwise the difference in the unmatched character.
 *
 ******************************************************************************/
 static s32 XRFdc_Strrncmp(const char *Str1Ptr, const char *Str2Ptr, size_t Count)
@@ -118,20 +125,21 @@ static s32 XRFdc_Strrncmp(const char *Str1Ptr, const char *Str2Ptr, size_t Count
 /*****************************************************************************/
 /**
 *
-* Traverse "/sys/bus/platform/device" directory, to find RFDC device entry,
-* corresponding to provided device id. If device entry corresponding to said
-* device id is found, store it in output buffer DevNamePtr.
+* @brief Finds the RFDC device name for a given device ID.
 *
-* @param    DevNamePtr is base address of char array, where device name
-*           will be stored
-* @param    DevId contains the ID of the device to look up the
-*           RFDC device name entry in "/sys/bus/platform/device"
+* Traverses the "/sys/bus/platform/device" directory to find the RFDC device
+* entry that corresponds to the provided device ID. If the entry is found,
+* stores it in the output buffer DevNamePtr.
+*
+* @param[out]  DevNamePtr Base address of the char array where the device
+*              name is stored.
+* @param[in]   DevId ID of the device to look up the RFDC device name
+*              entry in "/sys/bus/platform/device".
 *
 * @return
- *           - XRFDC_SUCCESS if successful.
- *           - XRFDC_FAILURE if device entry not found for given device id.
- *
- *@note     None.
+*              - XRFDC_SUCCESS if successful.
+*              - XRFDC_FAILURE if the device entry is not found for the given
+*                device ID.
 *
 ******************************************************************************/
 s32 XRFdc_GetDeviceNameByDeviceId(char *DevNamePtr, u16 DevId)
@@ -183,30 +191,43 @@ s32 XRFdc_GetDeviceNameByDeviceId(char *DevNamePtr, u16 DevId)
 	return Status;
 }
 #endif
+#ifdef __BAREMETAL__
+#ifndef SDT
 /*****************************************************************************/
 /**
 *
-* Looks up the device configuration based on the unique device ID. A table
-* contains the configuration info for each device in the system.
+* @brief Looks up the device configuration based on the unique device ID.
 *
-* @param    DeviceId contains the ID of the device to look up the
-*           configuration for.
+* A table contains the configuration information for each device in the
+* system.
 *
-* @return
+* @param[in]   DeviceId ID of the device to look up the configuration for.
 *
-* A pointer to the configuration found or NULL if the specified device ID was
-* not found. See xrfdc.h for the definition of XRFdc_Config.
-*
-* @note     None.
+* @return      Pointer to the configuration found, or NULL if the specified
+*              device is not found. See xrfdc.h for the definition of
+*              XRFdc_Config.
 *
 ******************************************************************************/
-#ifdef __BAREMETAL__
-#ifndef SDT
 XRFdc_Config *XRFdc_LookupConfig(u16 DeviceId)
 #else
 XRFdc_Config *XRFdc_LookupConfig(metal_phys_addr_t BaseAddr)
 #endif
 #else
+/*****************************************************************************/
+/**
+*
+* @brief Looks up the device configuration based on the unique device ID.
+*
+* A table contains the configuration information for each device in the
+* system.
+*
+* @param[in]   DeviceId ID of the device to look up the configuration for.
+*
+* @return      Pointer to the configuration found, or NULL if the specified
+*              device is not found. See xrfdc.h for the definition of
+*              XRFdc_Config.
+*
+******************************************************************************/
 XRFdc_Config *XRFdc_LookupConfig(u16 DeviceId)
 #endif
 {
@@ -277,17 +298,15 @@ RETURN_PATH2:
 /*****************************************************************************/
 /**
 *
-* Register/open the deviceand map RFDC to the IO region.
+* @brief Registers and opens the device and maps RFDC to the IO region.
 *
-* @param    InstancePtr is a pointer to the XRfdc instance.
-* @param    DeviceId contains the ID of the device to register/map
-* @param    DevicePtr is a pointer to the metal device.
+* @param[in,out] InstancePtr Pointer to the XRFdc instance.
+* @param[in]     DeviceId ID of the device to register or map.
+* @param[in,out] DevicePtr Pointer to the metal device.
 *
 * @return
-*           - XRFDC_SUCCESS if successful.
-*           - XRFDC_FAILURE if error occurs.
-*
-* @note     None.
+*                - XRFDC_SUCCESS if successful.
+*                - XRFDC_FAILURE if an error occurs.
 *
 ******************************************************************************/
 u32 XRFdc_RegisterMetal(XRFdc *InstancePtr, u16 DeviceId, struct metal_device **DevicePtr)

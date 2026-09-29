@@ -8,8 +8,7 @@
 /**
 *
 * @file xrfdc_mb.c
-* @addtogroup Overview
-* @{
+* @brief Implements the multiband settings functions of the XRFdc driver.
 *
 * Contains the interface functions of the Mixer Settings in XRFdc driver.
 * See xrfdc.h for a detailed description of the device and driver.
@@ -45,10 +44,15 @@
 *                       XRFdc_GetMultibandConfig in XRFdc_UpdateMBConfig.
 * 13.1  dc     02/18/26 Correct spelling errors
 * 13.2  vn     08/11/26 Fix Doxygen warnings.
+* 13.2  vn     09/29/26 Align Doxygen comments with AMD standards
 *
 * </pre>
 *
 ******************************************************************************/
+
+/** @addtogroup Overview
+ * @{
+ */
 
 /***************************** Include Files *********************************/
 #include "xrfdc.h"
@@ -74,22 +78,20 @@ static void XRFdc_AltQMCRouting(XRFdc *InstancePtr, u32 Tile_Id, u32 Enable);
 /*****************************************************************************/
 /**
 *
-* Static API to setup Singleband configuration for C2C MixerInOutDataType
+* @brief Sets up the single-band configuration for the C2C mixer data type.
 *
-* @param    InstancePtr is a pointer to the XRfdc instance.
-* @param    Type is ADC or DAC. 0 for ADC and 1 for DAC
-* @param    Tile_Id Valid values are 0-3.
-* @param    MixerInOutDataType is mixer data type, valid values are XRFDC_MB_DATATYPE_*
-* @param    Mode is connection mode SB/MB_2X/MB_4X.
-* @param    DataPathIndex is the array that represents the blocks enabled in
-*           DigitalData Path.
-* @param    BlockIndex is the array that represents the blocks enabled in
-*           Analog Path(Data Converters).
+* @param[in,out] InstancePtr Pointer to the XRfdc instance.
+* @param[in]     Type ADC or DAC. 0 for ADC and 1 for DAC.
+* @param[in]     Tile_Id Valid values are 0-3.
+* @param[in]     MixerInOutDataType Mixer data type, valid values are
+*                XRFDC_MB_DATATYPE_*.
+* @param[in]     Mode Connection mode SB/MB_2X/MB_4X.
+* @param[in,out] DataPathIndex Array that represents the blocks enabled in
+*                DigitalData Path.
+* @param[in]     BlockIndex Array that represents the blocks enabled in
+*                Analog Path(Data Converters).
 *
-* @return
-*           - None
-*
-* @note     Static API for ADC/DAC blocks
+* @note          Static API for ADC/DAC blocks
 *
 ******************************************************************************/
 static void XRFdc_SB_C2C(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 MixerInOutDataType, u32 Mode,
@@ -182,22 +184,20 @@ static void XRFdc_SB_C2C(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 MixerInO
 /*****************************************************************************/
 /**
 *
-* Static API to setup Singleband configuration for C2R and R2C MultiBandDataTypes
+* @brief Sets up the single-band configuration for C2R and R2C data types.
 *
-* @param    InstancePtr is a pointer to the XRfdc instance.
-* @param    Type is ADC or DAC. 0 for ADC and 1 for DAC
-* @param    Tile_Id Valid values are 0-3.
-* @param    MixerInOutDataType is mixer data type, valid values are XRFDC_MB_DATATYPE_*
-* @param    Mode is connection mode SB/MB_2X/MB_4X.
-* @param    DataPathIndex is the array that represents the blocks enabled in
-*           DigitalData Path.
-* @param    BlockIndex is the array that represents the blocks enabled in
-*           Analog Path(Data Converters).
+* @param[in,out] InstancePtr Pointer to the XRfdc instance.
+* @param[in]     Type ADC or DAC. 0 for ADC and 1 for DAC.
+* @param[in]     Tile_Id Valid values are 0-3.
+* @param[in]     MixerInOutDataType Mixer data type, valid values are
+*                XRFDC_MB_DATATYPE_*.
+* @param[in]     Mode Connection mode SB/MB_2X/MB_4X.
+* @param[in,out] DataPathIndex Array that represents the blocks enabled in
+*                DigitalData Path.
+* @param[in,out] BlockIndex Array that represents the blocks enabled in
+*                Analog Path(Data Converters).
 *
-* @return
-*           - None
-*
-* @note     Static API for ADC/DAC blocks
+* @note          Static API for ADC/DAC blocks
 *
 ******************************************************************************/
 static void XRFdc_SB_R2C_C2R(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 MixerInOutDataType, u32 Mode,
@@ -246,23 +246,21 @@ static void XRFdc_SB_R2C_C2R(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 Mixe
 /*****************************************************************************/
 /**
 *
-* Static API to setup Multiband configuration for C2C MixerInOutDataType
+* @brief Sets up the multiband configuration for the C2C mixer data type.
 *
-* @param    InstancePtr is a pointer to the XRfdc instance.
-* @param    Type is ADC or DAC. 0 for ADC and 1 for DAC
-* @param    Tile_Id Valid values are 0-3.
-* @param    NoOfDataPaths is number of data paths enabled.
-* @param    MixerInOutDataType is mixer data type, valid values are XRFDC_MB_DATATYPE_*
-* @param    Mode is connection mode SB/MB_2X/MB_4X.
-* @param    DataPathIndex is the array that represents the blocks enabled in
-*           DigitalData Path.
-* @param    BlockIndex is the array that represents the blocks enabled in
-*           Analog Path(Data Converters).
+* @param[in,out] InstancePtr Pointer to the XRfdc instance.
+* @param[in]     Type ADC or DAC. 0 for ADC and 1 for DAC.
+* @param[in]     Tile_Id Valid values are 0-3.
+* @param[in]     NoOfDataPaths Number of data paths enabled.
+* @param[in]     MixerInOutDataType Mixer data type, valid values are
+*                XRFDC_MB_DATATYPE_*.
+* @param[in]     Mode Connection mode SB/MB_2X/MB_4X.
+* @param[in]     DataPathIndex Array that represents the blocks enabled in
+*                DigitalData Path.
+* @param[in]     BlockIndex Array that represents the blocks enabled in
+*                Analog Path(Data Converters).
 *
-* @return
-*           - None
-*
-* @note     Static API for ADC/DAC blocks
+* @note          Static API for ADC/DAC blocks
 *
 ******************************************************************************/
 static void XRFdc_MB_C2C(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u8 NoOfDataPaths, u32 MixerInOutDataType, u32 Mode,
@@ -426,23 +424,21 @@ static void XRFdc_MB_C2C(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u8 NoOfDataP
 /*****************************************************************************/
 /**
 *
-* Static API to setup Multiband configuration for C2C MixerInOutDataType
+* @brief Sets up the multiband configuration for the C2C mixer data type.
 *
-* @param    InstancePtr is a pointer to the XRfdc instance.
-* @param    Type is ADC or DAC. 0 for ADC and 1 for DAC
-* @param    Tile_Id Valid values are 0-3.
-* @param    NoOfDataPaths is number of data paths enabled.
-* @param    MixerInOutDataType is mixer data type, valid values are XRFDC_MB_DATATYPE_*
-* @param    Mode is connection mode SB/MB_2X/MB_4X.
-* @param    DataPathIndex is the array that represents the blocks enabled in
-*           DigitalData Path.
-* @param    BlockIndex is the array that represents the blocks enabled in
-*           Analog Path(Data Converters).
+* @param[in,out] InstancePtr Pointer to the XRfdc instance.
+* @param[in]     Type ADC or DAC. 0 for ADC and 1 for DAC.
+* @param[in]     Tile_Id Valid values are 0-3.
+* @param[in]     NoOfDataPaths Number of data paths enabled.
+* @param[in]     MixerInOutDataType Mixer data type, valid values are
+*                XRFDC_MB_DATATYPE_*.
+* @param[in]     Mode Connection mode SB/MB_2X/MB_4X.
+* @param[in]     DataPathIndex Array that represents the blocks enabled in
+*                DigitalData Path.
+* @param[in,out] BlockIndex Array that represents the blocks enabled in
+*                Analog Path(Data Converters).
 *
-* @return
-*           - None
-*
-* @note     Static API for ADC/DAC blocks
+* @note          Static API for ADC/DAC blocks
 *
 ******************************************************************************/
 static void XRFdc_MB_R2C_C2R(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u8 NoOfDataPaths, u32 MixerInOutDataType,
@@ -590,21 +586,23 @@ static void XRFdc_MB_R2C_C2R(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u8 NoOfD
 /*****************************************************************************/
 /**
 *
-* Static API to update mode and MultibandConfig
+* @brief Updates the mode and multiband configuration.
 *
-* @param    InstancePtr is a pointer to the XRfdc instance.
-* @param    Type is ADC or DAC. 0 for ADC and 1 for DAC
-* @param    Tile_Id Valid values are 0-3.
-* @param    NoOfDataPaths is number of DataPaths enabled.
-* @param    ModePtr is a pointer to connection mode SB/MB_2X/MB_4X.
-* @param    DataPathIndex is the array that represents the blocks enabled in
-*           DigitalData Path.
-* @param    MixerInOutDataType is mixer data type, valid values are XRFDC_MB_DATATYPE_*
+* @param[in,out] InstancePtr Pointer to the XRfdc instance.
+* @param[in]     Type ADC or DAC. 0 for ADC and 1 for DAC.
+* @param[in]     Tile_Id Valid values are 0-3.
+* @param[in]     NoOfDataPaths Number of DataPaths enabled.
+* @param[out]    ModePtr Pointer to connection mode SB/MB_2X/MB_4X.
+* @param[in]     DataPathIndex Array that represents the blocks enabled in
+*                DigitalData Path.
+* @param[in]     MixerInOutDataType Mixer data type, valid values are
+*                XRFDC_MB_DATATYPE_*.
 *
 * @return
-*           - None
+*                - XRFDC_SUCCESS if successful.
+*                - XRFDC_FAILURE if error occurs.
 *
-* @note     Static API for ADC/DAC blocks
+* @note          Static API for ADC/DAC blocks
 *
 ******************************************************************************/
 static u32 XRFdc_UpdateMBConfig(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u8 NoOfDataPaths, u32 *ModePtr,
@@ -678,16 +676,15 @@ RETURN_PATH:
 /*****************************************************************************/
 /**
 *
-* Static API to route QMC settings if switching to and from complex mode on
-* alternate bodnout devices.
+* @brief Routes QMC settings when switching to or from complex mode.
 *
-* @param    InstancePtr is a pointer to the XRfdc instance.
-* @param    Tile_Id Valid values are 0-3.
-* @param    Enable 0 for normal routing, 1 for IQ routing.
-* @return
-*           - None
+* This applies to alternate bondout devices.
 *
-* @note     Static API for DAC Tiles
+* @param[in]   InstancePtr Pointer to the XRfdc instance.
+* @param[in]   Tile_Id Valid values are 0-3.
+* @param[in]   Enable 0 for normal routing, 1 for IQ routing.
+*
+* @note        Static API for DAC Tiles
 *
 ******************************************************************************/
 static void XRFdc_AltQMCRouting(XRFdc *InstancePtr, u32 Tile_Id, u32 Enable)
@@ -729,22 +726,25 @@ static void XRFdc_AltQMCRouting(XRFdc *InstancePtr, u32 Tile_Id, u32 Enable)
 /*****************************************************************************/
 /**
 *
-* User-level API to setup multiband configuration.
+* @brief Sets up the multiband configuration.
 *
-* @param    InstancePtr is a pointer to the XRfdc instance.
-* @param    Type is ADC or DAC. 0 for ADC and 1 for DAC
-* @param    Tile_Id Valid values are 0-3.
-* @param    DigitalDataPathMask is the DataPath mask. First 4 bits represent
-*           4 data paths, 1 means enabled and 0 means disabled.
-* @param    MixerInOutDataType is mixer data type, valid values are XRFDC_MB_DATATYPE_*
-* @param    DataConverterMask is block enabled mask (input/output driving
-*           blocks). 1 means enabled and 0 means disabled.
+* This is a user-level API.
+*
+* @param[in]   InstancePtr Pointer to the XRfdc instance.
+* @param[in]   Type ADC or DAC. 0 for ADC and 1 for DAC.
+* @param[in]   Tile_Id Valid values are 0-3.
+* @param[in]   DigitalDataPathMask DataPath mask. First 4 bits represent 4 data
+*              paths, 1 means enabled and 0 means disabled.
+* @param[in]   MixerInOutDataType Mixer data type, valid values are
+*              XRFDC_MB_DATATYPE_*.
+* @param[in]   DataConverterMask Block enabled mask (input/output driving
+*              blocks). 1 means enabled and 0 means disabled.
 *
 * @return
-*           - XRFDC_SUCCESS if successful.
-*           - XRFDC_FAILURE if error occurs.
+*              - XRFDC_SUCCESS if successful.
+*              - XRFDC_FAILURE if error occurs.
 *
-* @note     Common API for ADC/DAC blocks
+* @note        Common API for ADC/DAC blocks
 *
 ******************************************************************************/
 u32 XRFdc_MultiBand(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u8 DigitalDataPathMask, u32 MixerInOutDataType,
@@ -886,22 +886,21 @@ RETURN_PATH:
 /*****************************************************************************/
 /**
 *
-* Sets up signal flow configuration.
+* @brief Sets up signal flow configuration.
 *
-* @param    InstancePtr is a pointer to the XRfdc instance.
-* @param    Type is ADC or DAC. 0 for ADC and 1 for DAC
-* @param    Tile_Id Valid values are 0-3.
-* @param    Mode is connection mode SB/MB_2X/MB_4X.
-* @param    DigitalDataPathId for the requested I or Q data.
-* @param    MixerInOutDataType is mixer data type, valid values are XRFDC_MB_DATATYPE_*
-* @param    ConnectIData is analog blocks that are connected to
-*           DigitalDataPath I.
-* @param    ConnectQData is analog blocks that are connected to
-*           DigitalDataPath Q.
+* @param[in]   InstancePtr Pointer to the XRfdc instance.
+* @param[in]   Type ADC or DAC. 0 for ADC and 1 for DAC.
+* @param[in]   Tile_Id Valid values are 0-3.
+* @param[in]   Mode Connection mode SB/MB_2X/MB_4X.
+* @param[in]   DigitalDataPathId For the requested I or Q data.
+* @param[in]   MixerInOutDataType Mixer data type, valid values are
+*              XRFDC_MB_DATATYPE_*.
+* @param[in]   ConnectIData Analog blocks that are connected to
+*              DigitalDataPath I.
+* @param[in]   ConnectQData Analog blocks that are connected to
+*              DigitalDataPath Q.
 *
-* @note     None.
-*
-* @note     static API used internally.
+* @note        static API used internally.
 *
 ******************************************************************************/
 static void XRFdc_SetSignalFlow(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 Mode, u32 DigitalDataPathId,
@@ -972,18 +971,20 @@ static void XRFdc_SetSignalFlow(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 M
 /*****************************************************************************/
 /**
 *
-* Get Data Converter connected for digital data paths I & Q.
+* @brief Gets the data converter connected for digital data paths I and Q.
 *
-* @param    InstancePtr is a pointer to the XRfdc instance.
-* @param    Type is ADC or DAC. 0 for ADC and 1 for DAC
-* @param    Tile_Id Valid values are 0-3.
-* @param    Block_Id is Digital Data Path number.
-* @param    ConnectedIData is pointer to return the connected I data converter.
-* @param    ConnectedQData is pointer to return the connected Q data converter.
+* @param[in]   InstancePtr Pointer to the XRfdc instance.
+* @param[in]   Type ADC or DAC. 0 for ADC and 1 for DAC.
+* @param[in]   Tile_Id Valid values are 0-3.
+* @param[in]   Block_Id Digital Data Path number.
+* @param[out]  ConnectedIData Pointer to return the connected I data
+*              converter.
+* @param[out]  ConnectedQData Pointer to return the connected Q data
+*              converter.
 *
 * @return
-*           - XRFDC_SUCCESS if successful.
-*           - XRFDC_FAILURE if error occurs.
+*              - XRFDC_SUCCESS if successful.
+*              - XRFDC_FAILURE if error occurs.
 *
 ******************************************************************************/
 u32 XRFdc_GetConnectedIQData(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 Block_Id, int *ConnectedIData,
@@ -1123,15 +1124,15 @@ RETURN_PATH:
 /*****************************************************************************/
 /**
 *
-* Get Data Converter connected for digital data path I
+* @brief Gets the data converter connected for digital data path I.
 *
-* @param    InstancePtr is a pointer to the XRfdc instance.
-* @param    Type is ADC or DAC. 0 for ADC and 1 for DAC
-* @param    Tile_Id Valid values are 0-3.
-* @param    Block_Id is Digital Data Path number.
+* @param[in]   InstancePtr Pointer to the XRfdc instance.
+* @param[in]   Type ADC or DAC. 0 for ADC and 1 for DAC.
+* @param[in]   Tile_Id Valid values are 0-3.
+* @param[in]   Block_Id Digital Data Path number.
 *
 * @return
-*           - Return Data converter Id.
+*              - Return Data converter Id.
 *
 ******************************************************************************/
 int XRFdc_GetConnectedIData(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 Block_Id)
@@ -1164,15 +1165,15 @@ int XRFdc_GetConnectedIData(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 Block
 /*****************************************************************************/
 /**
 *
-* Get Data Converter connected for digital data path Q
+* @brief Gets the data converter connected for digital data path Q.
 *
-* @param    InstancePtr is a pointer to the XRfdc instance.
-* @param    Type is ADC or DAC. 0 for ADC and 1 for DAC
-* @param    Tile_Id Valid values are 0-3.
-* @param    Block_Id is Digital Data Path number.
+* @param[in]   InstancePtr Pointer to the XRfdc instance.
+* @param[in]   Type ADC or DAC. 0 for ADC and 1 for DAC.
+* @param[in]   Tile_Id Valid values are 0-3.
+* @param[in]   Block_Id Digital Data Path number.
 *
 * @return
-*           - Return Data converter Id.
+*              - Return Data converter Id.
 *
 ******************************************************************************/
 int XRFdc_GetConnectedQData(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 Block_Id)
@@ -1205,16 +1206,14 @@ int XRFdc_GetConnectedQData(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 Block
 /*****************************************************************************/
 /**
 *
-* Set Data Converter connected for digital data path I and Q
+* @brief Sets the data converter connected for digital data paths I and Q.
 *
-* @param    InstancePtr is a pointer to the XRfdc instance.
-* @param    Type is ADC or DAC. 0 for ADC and 1 for DAC
-* @param    Tile_Id Valid values are 0-3.
-* @param    Block_Id is Digital Data Path number.
-* @param    ConnectedIData is Converter Id to which DigitalPathI connected.
-* @param    ConnectedQData is Converter Id to which DigitalPathQ connected.
-*
-* @note     None.
+* @param[in,out] InstancePtr Pointer to the XRfdc instance.
+* @param[in]     Type ADC or DAC. 0 for ADC and 1 for DAC.
+* @param[in]     Tile_Id Valid values are 0-3.
+* @param[in]     Block_Id Digital Data Path number.
+* @param[in]     ConnectedIData Converter Id to which DigitalPathI connected.
+* @param[in]     ConnectedQData Converter Id to which DigitalPathQ connected.
 *
 ******************************************************************************/
 void XRFdc_SetConnectedIQData(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 Block_Id, int ConnectedIData,
@@ -1250,15 +1249,15 @@ void XRFdc_SetConnectedIQData(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 Blo
 /*****************************************************************************/
 /**
 *
-* Get Multiband Config data
+* @brief Gets the multiband configuration data.
 *
-* @param    InstancePtr is a pointer to the XRfdc instance.
-* @param    Type is ADC or DAC. 0 for ADC and 1 for DAC
-* @param    Tile_Id Valid values are 0-3.
+* @param[in]   InstancePtr Pointer to the XRfdc instance.
+* @param[in]   Type ADC or DAC. 0 for ADC and 1 for DAC.
+* @param[in]   Tile_Id Valid values are 0-3.
 *
 * @return
-*           - Return Multiband Configuration.
-*           - Return 0 if invalid.
+*              - Return Multiband Configuration.
+*              - Return 0 if invalid.
 *
 ******************************************************************************/
 u32 XRFdc_GetMultibandConfig(XRFdc *InstancePtr, u32 Type, u32 Tile_Id)
