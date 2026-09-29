@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2023 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -8,9 +8,7 @@
 /**
 *
 * @file xddrcpsu_sinit.c
-* @addtogroup ddrcpsu Overview
-* @{
-*
+* @brief Implements XDdrcPsu configuration lookup.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -18,9 +16,15 @@
 * Ver   Who     Date     Changes
 * ----- ------  -------- ---------------------------------------------------
 * 1.5	ht	08/03/2023 Added support for system device-tree flow.
+* 1.9   tb      09/11/26 Align Doxygen comments with AMD standards.
 * </pre>
 *
 ******************************************************************************/
+
+/**
+* @addtogroup ddrcpsu_api DDRCPSU APIs
+* @{
+*/
 
 /***************************** Include Files *********************************/
 
@@ -45,20 +49,16 @@
 #ifdef SDT
 /*****************************************************************************/
 /**
+* @brief Looks up XDdrcPsu configuration by base address.
 *
-* XDdrcPsu_LookupConfig returns a reference to an XDdrcpsu_Config structure
-* based on the unique device id, <i>DeviceId</i>. The return value will refer
-* to an entry in the device configuration table defined in the xddrcpsu_g.c
-* file.
+* Returns a reference to an XDdrcpsu_Config record in the configuration table
+* defined in xddrcpsu_g.c.
 *
-* @param	BaseAddress is the unique base address of the device for the
-* 		lookup operation.
+* @param[in] BaseAddress Unique base address of the device for the lookup
+*                        operation.
 *
-* @return	CfgPtr is a reference to a config record in the configuration
-*		table (in xddrcpsu_g.c) corresponding to <i>BaseAddress</i>, or
-*		NULL if no match is found.
+* @return Pointer to the matching config record, or NULL if no match is found.
 *
-* @note		None.
 ******************************************************************************/
 XDdrcpsu_Config *XDdrcPsu_LookupConfig(UINTPTR BaseAddress)
 {
