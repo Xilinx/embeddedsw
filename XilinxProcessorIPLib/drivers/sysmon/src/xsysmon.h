@@ -4,13 +4,17 @@
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
+#ifndef XSYSMON_H
+#define XSYSMON_H
+
 /****************************************************************************/
 /**
 *
 * @file xsysmon.h
 * @addtogroup Overview
 * @{
-* @details
+*
+* @brief Declares the driver API for the System Monitor/ADC device.
 *
 * The XSysMon driver supports the Xilinx System Monitor/ADC device.
 *
@@ -29,13 +33,11 @@
 *	- Optional interrupt request generation
 *	- External Mux (7 Series and Zynq XADC)
 *
-*
 * The user should refer to the hardware device specification for detailed
 * information about the device.
 *
 * This header file contains the prototypes of driver functions that can
 * be used to access the System Monitor/ADC device.
-*
 *
 * <b> System Monitor Channel Sequencer Modes </b>
 *
@@ -57,8 +59,9 @@
 *		The System Monitor can operate either in a Continuous or Event
 *		driven sampling mode in the single channel mode.
 *   - <b> Simultaneous sampling mode</b>: This mode is available only in
-*		7 Series and Zynq XADC devices. In this mode both ADCs sample and
-*		digitizes two different analog input signals at the same time.
+*		7 Series and Zynq XADC devices. In this mode both ADCs sample
+*		and digitize two different analog input signals at the same
+*		time.
 *   - <b> Independent ADC mode</b>: This mode is available only in 7 Series and
 *		Zynq XADC devices. In this mode ADC A is used to implement a
 *		fixed monitoring mode which is similar to default mode, but the
@@ -67,14 +70,13 @@
 *
 * <b> Initialization and Configuration </b>
 *
-* The device driver enables higher layer software (e.g., an application) to
-* communicate to the System Monitor/ADC device.
+* The device driver enables higher layer software (for example, an
+* application) to communicate to the System Monitor/ADC device.
 *
 * XSysMon_CfgInitialize() API is used to initialize the System Monitor/ADC
 * device. The user needs to first call the XSysMon_LookupConfig() API which
 * returns the Configuration structure pointer which is passed as a parameter to
 * the XSysMon_CfgInitialize() API.
-*
 *
 * <b>Interrupts</b>
 *
@@ -89,18 +91,15 @@
 * the interrupt example provided with this driver for details on using the
 * device in interrupt mode.
 *
-*
 * <b> Virtual Memory </b>
 *
 * This driver supports Virtual Memory. The RTOS is responsible for calculating
 * the correct device base address in Virtual Memory space.
 *
-*
 * <b> Threads </b>
 *
 * This driver is not thread safe. Any needs for threads or thread mutual
 * exclusion must be satisfied by the layer above this driver.
-*
 *
 * <b> Asserts </b>
 *
@@ -108,7 +107,6 @@
 * values. Asserts can be turned off on a system-wide basis by defining, at
 * compile time, the NDEBUG identifier. By default, asserts are turned on and it
 * is recommended that users leave asserts on during development.
-*
 *
 * <b> Building the driver </b>
 *
@@ -121,8 +119,6 @@
 * interface. The driver implementation does not support the simultaneous access
 * of the device by both these interfaces. The user has to care of this situation
 * in the user application code.
-*
-*
 *
 * <br><br>
 *
@@ -203,12 +199,10 @@
 * 7.8  cog  07/20/23 Added support for SDT flow
 * 8.0  se   03/05/26 Added SDT interrupt support and IP type detection
 * 8.1  vn   07/30/26 Fix Doxygen warnings
+* 8.1  vn   09/29/26 Align Doxygen comments with AMD standards
 * </pre>
 *
 *****************************************************************************/
-
-#ifndef XSYSMON_H /* Prevent circular inclusions */
-#define XSYSMON_H /* by using protection macros  */
 
 #ifdef __cplusplus
 extern "C" {
@@ -357,45 +351,49 @@ extern "C" {
 
 /** @} */
 
-/* For backwards compatibility */
-#define XSM_CH_CALIBRATION	XSM_CH_ADC_CALIB
-#define XSM_ATR_BRAM_UPPER	XSM_ATR_VBRAM_UPPER
-#define XSM_ATR_BRAM_LOWER	XSM_ATR_VBRAM_LOWER
+/** @name Backward compatibility aliases
+ * @{
+ */
+#define XSM_CH_CALIBRATION	XSM_CH_ADC_CALIB   /**< ADC calib channel */
+#define XSM_ATR_BRAM_UPPER	XSM_ATR_VBRAM_UPPER /**< VBRAM upper alias */
+#define XSM_ATR_BRAM_LOWER	XSM_ATR_VBRAM_LOWER /**< VBRAM lower alias */
+/** @} */
 
 /**************************** Type Definitions ******************************/
 
 /**
- * This typedef contains configuration information for the System Monitor/ADC
- * device.
+ * @brief Holds configuration information for the System Monitor/ADC device.
  */
 typedef struct {
 #ifndef SDT
 	u16  DeviceId;		/**< Unique ID of device */
 #else
-	char *Name;
+	char *Name;		/**< Unique name of the device */
 #endif
 	UINTPTR  BaseAddress;	/**< Device base address */
 	int  IncludeInterrupt; 	/**< Supports Interrupt driven mode */
-	u8   IpType;		/**< 1 - System Management */
-				/**< 0 - XADC/System Monoitor */
+	u8   IpType;		/**< IP type: 1 for System Management,
+				 *   0 for XADC/System Monitor. */
 #if defined(XIL_INTERRUPT) || defined(SDT)
 	u32 IntrId;		/**< Interrupt ID */
-	UINTPTR IntrParent;	/**< Bit[0] Interrupt parent type
-				     Bit[64/32:1] Parent base address */
+	UINTPTR IntrParent;	/**< Bit[0] interrupt parent type;
+				 *   Bit[64/32:1] parent base address. */
 #endif
 } XSysMon_Config;
 
 
 /**
- * The driver's instance data. The user is required to allocate a variable
- * of this type for every System Monitor/ADC device in the system. A pointer to
- * a variable of this type is then passed to the driver API functions.
+ * @brief Holds the driver instance data.
+ *
+ * Allocate a variable of this type for every System Monitor/ADC device in the
+ * system. Pass a pointer to a variable of this type to the driver API
+ * functions.
  */
 typedef struct {
 	XSysMon_Config Config;	/**< XSysMon_Config of current device */
 	u32  IsReady;		/**< Device is initialized and ready  */
 	u32  Mask;		/**< Store the previously written value
-					in CONVST register */
+				 *   in CONVST register. */
 } XSysMon;
 
 /***************** Macros (Inline Functions) Definitions ********************/
@@ -403,16 +401,16 @@ typedef struct {
 /****************************************************************************/
 /**
 *
-* This macro checks if the SysMonitor/ADC device is in Event Sampling mode.
+* @brief Checks if the SysMonitor/ADC device is in Event Sampling mode.
 *
-* @param	InstancePtr is a pointer to the XSysMon instance.
+* @param[in]   InstancePtr Pointer to the XSysMon instance.
 *
 * @return
-*		- TRUE if the device is in Event Sampling Mode.
-*		- FALSE if the device is in Continuous Sampling Mode.
+*              - TRUE if the device is in Event Sampling Mode.
+*              - FALSE if the device is in Continuous Sampling Mode.
 *
-* @note		C-Style signature:
-*		int XSysMon_IsEventSamplingMode(XSysMon *InstancePtr);
+* @note        C-Style signature:
+*              int XSysMon_IsEventSamplingModeSet(XSysMon *InstancePtr);
 *
 *****************************************************************************/
 #define XSysMon_IsEventSamplingModeSet(InstancePtr)			\
@@ -423,17 +421,17 @@ typedef struct {
 /****************************************************************************/
 /**
 *
-* This macro checks if the Dynamic Reconfiguration Port (DRP) transaction from
-* the JTAG is in progress.
+* @brief Checks if a Dynamic Reconfiguration Port (DRP) transaction from the
+* JTAG is in progress.
 *
-* @param	InstancePtr is a pointer to the XSysMon instance.
+* @param[in]   InstancePtr Pointer to the XSysMon instance.
 *
 * @return
-*		- TRUE if the DRP transaction from JTAG is in Progress.
-*		- FALSE if there is no DRP transaction from the JTAG.
+*              - TRUE if the DRP transaction from JTAG is in Progress.
+*              - FALSE if there is no DRP transaction from the JTAG.
 *
-* @note		C-Style signature:
-*		int XSysMon_IsDrpBusy(XSysMon *InstancePtr);
+* @note        C-Style signature:
+*              int XSysMon_IsDrpBusy(XSysMon *InstancePtr);
 *
 *****************************************************************************/
 #define XSysMon_IsDrpBusy(InstancePtr)					  \
@@ -444,17 +442,17 @@ typedef struct {
 /****************************************************************************/
 /**
 *
-* This macro checks if the Dynamic Reconfiguration Port (DRP) is locked by the
+* @brief Checks if the Dynamic Reconfiguration Port (DRP) is locked by the
 * JTAG.
 *
-* @param	InstancePtr is a pointer to the XSysMon instance.
+* @param[in]   InstancePtr Pointer to the XSysMon instance.
 *
 * @return
-*		- TRUE if the DRP is locked by the JTAG.
-*		- FALSE if the DRP is not locked by the JTAG.
+*              - TRUE if the DRP is locked by the JTAG.
+*              - FALSE if the DRP is not locked by the JTAG.
 *
-* @note		C-Style signature:
-*		int XSysMon_IsDrpLocked(XSysMon *InstancePtr);
+* @note        C-Style signature:
+*              int XSysMon_IsDrpLocked(XSysMon *InstancePtr);
 *
 *****************************************************************************/
 #define XSysMon_IsDrpLocked(InstancePtr)				    \
@@ -465,14 +463,14 @@ typedef struct {
 /****************************************************************************/
 /**
 *
-* This macro converts System Monitor/ADC Raw Data to Temperature(centigrades).
+* @brief Converts System Monitor/ADC raw data to temperature in centigrades.
 *
-* @param	AdcData is the SysMon Raw ADC Data.
+* @param[in]   AdcData SysMon Raw ADC Data.
 *
-* @return 	The Temperature in centigrades.
+* @return      The Temperature in centigrades.
 *
-* @note		C-Style signature:
-*		float XSysMon_RawToTemperature(u32 AdcData);
+* @note        C-Style signature:
+*              float XSysMon_RawToTemperature(u32 AdcData);
 *
 *****************************************************************************/
 #if XSM_IP_TYPE == SYSTEM_MANAGEMENT
@@ -489,14 +487,14 @@ typedef struct {
 /****************************************************************************/
 /**
 *
-* This macro converts System Monitor/ADC Raw Data to Voltage(volts).
+* @brief Converts System Monitor/ADC raw data to voltage in volts.
 *
-* @param	AdcData is the System Monitor/ADC Raw Data.
+* @param[in]   AdcData System Monitor/ADC Raw Data.
 *
-* @return 	The Voltage in volts.
+* @return      The Voltage in volts.
 *
-* @note		C-Style signature:
-*		float XSysMon_RawToVoltage(u32 AdcData);
+* @note        C-Style signature:
+*              float XSysMon_RawToVoltage(u32 AdcData);
 *
 *****************************************************************************/
 #define XSysMon_RawToVoltage(AdcData) 					\
@@ -505,15 +503,15 @@ typedef struct {
 /****************************************************************************/
 /**
 *
-* This macro converts Temperature in centigrades to System Monitor/ADC Raw Data.
+* @brief Converts temperature in centigrades to System Monitor/ADC raw data.
 *
-* @param	Temperature is the Temperature in centigrades to be
-*		converted to System Monitor/ADC Raw Data.
+* @param[in]   Temperature Temperature in centigrades to be
+*              converted to System Monitor/ADC Raw Data.
 *
-* @return 	The System Monitor/ADC Raw Data.
+* @return      The System Monitor/ADC Raw Data.
 *
-* @note		C-Style signature:
-*		int XSysMon_TemperatureToRaw(float Temperature);
+* @note        C-Style signature:
+*              int XSysMon_TemperatureToRaw(float Temperature);
 *
 *****************************************************************************/
 #if XSM_IP_TYPE == SYSTEM_MANAGEMENT
@@ -530,15 +528,15 @@ typedef struct {
 /****************************************************************************/
 /**
 *
-* This macro converts Voltage in Volts to System Monitor/ADC Raw Data.
+* @brief Converts voltage in volts to System Monitor/ADC raw data.
 *
-* @param	Voltage is the Voltage in volts to be converted to
-*		System Monitor/ADC Raw Data.
+* @param[in]   Voltage Voltage in volts to be converted to
+*              System Monitor/ADC Raw Data.
 *
-* @return 	The System Monitor/ADC Raw Data.
+* @return      The System Monitor/ADC Raw Data.
 *
-* @note		C-Style signature:
-*		int XSysMon_VoltageToRaw(float Voltage);
+* @note        C-Style signature:
+*              int XSysMon_VoltageToRaw(float Voltage);
 *
 *****************************************************************************/
 #define XSysMon_VoltageToRaw(Voltage)			 		\
@@ -547,7 +545,7 @@ typedef struct {
 
 /************************** Function Prototypes *****************************/
 
-/**
+/*
  * Functions in xsysmon_sinit.c
  */
 #ifndef SDT
@@ -556,7 +554,7 @@ XSysMon_Config *XSysMon_LookupConfig(u16 DeviceId);
 XSysMon_Config *XSysMon_LookupConfig(u32 BaseAddress);
 #endif
 
-/**
+/*
  * Functions in xsysmon.c
  */
 int XSysMon_CfgInitialize(XSysMon *InstancePtr,
@@ -626,12 +624,12 @@ void XSysMon_DisableTempUpdate(XSysMon *InstancePtr);
 void XSysMon_SetTempWaitCycles(XSysMon *InstancePtr, u16 WaitCycles);
 
 
-/**
+/*
  * Functions in xsysmon_selftest.c
  */
 int XSysMon_SelfTest(XSysMon *InstancePtr);
 
-/**
+/*
  * Functions in xsysmon_intr.c
  */
 void XSysMon_IntrGlobalEnable(XSysMon *InstancePtr);

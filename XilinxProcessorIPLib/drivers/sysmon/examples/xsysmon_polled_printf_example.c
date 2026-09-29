@@ -9,12 +9,13 @@
 *
 * @file xsysmon_polled_printf_example.c
 *
+* @brief Demonstrates polled-mode monitoring with printf-based reporting.
+*
 * This file contains a design example using the driver functions
 * of the System Monitor driver. The example here shows the
 * driver/device in polled mode to check the on-chip temperature and voltages.
 *
 * @note
-*
 * This examples also assumes that there is a STDIO device in the system.
 *
 * <pre>
@@ -40,6 +41,7 @@
 *                     generation.
 * 7.8   cog  07/20/23 Added support for SDT flow
 * 8.1   vn   07/30/26 Fix Doxygen warnings
+* 8.1   vn   09/29/26 Align Doxygen comments with AMD standards
 * </pre>
 *
 *****************************************************************************/
@@ -58,9 +60,9 @@
  * xparameters.h file. They are defined here such that a user can easily
  * change all the needed parameters in one place.
  */
-#define SYSMON_DEVICE_ID 	XPAR_SYSMON_0_DEVICE_ID
+#define SYSMON_DEVICE_ID 	XPAR_SYSMON_0_DEVICE_ID /**< Device ID. */
 #else
-#define SYSMON_DEVICE_ID 	0
+#define SYSMON_DEVICE_ID 	0 /**< Device ID. */
 #endif
 
 /**************************** Type Definitions ******************************/
@@ -68,7 +70,7 @@
 
 /***************** Macros (Inline Functions) Definitions ********************/
 
-#define printf xil_printf /* Small foot-print printf function */
+#define printf xil_printf /**< Small foot-print printf function. */
 
 /************************** Function Prototypes *****************************/
 
@@ -82,13 +84,11 @@ static XSysMon SysMonInst;      /* System Monitor driver instance */
 /****************************************************************************/
 /**
 *
-* Main function that invokes the polled example in this file.
+* @brief Invokes the polled example in this file.
 *
 * @return
-*		- XST_SUCCESS if the example has completed successfully.
-*		- XST_FAILURE if the example has failed.
-*
-* @note		None.
+*              - XST_SUCCESS if the example has completed successfully.
+*              - XST_FAILURE if the example has failed.
 *
 *****************************************************************************/
 int main(void)
@@ -114,8 +114,8 @@ int main(void)
 /****************************************************************************/
 /**
 *
-* This function runs a test on the System Monitor/ADC device using the
-* driver APIs.
+* @brief Runs a polled-mode test with printf reporting on the device.
+*
 * This function does the following tasks:
 *	- Initiate the System Monitor device driver instance
 *	- Run self-test on the device
@@ -124,14 +124,12 @@ int main(void)
 *	- Setup configuration registers to start the sequence
 *	- Read the latest on-chip temperature, VCCINT and VCCAUX
 *
-* @param	SysMonDeviceId is the XPAR_<SYSMON_ADC_instance>_DEVICE_ID value
-*		from xparameters.h.
+* @param[in]   SysMonDeviceId XPAR_<SYSMON_ADC_instance>_DEVICE_ID
+*              value from xparameters.h.
 *
 * @return
-*		- XST_SUCCESS if the example has completed successfully.
-*		- XST_FAILURE if the example has failed.
-*
-* @note   	None
+*              - XST_SUCCESS if the example has completed successfully.
+*              - XST_FAILURE if the example has failed.
 *
 ****************************************************************************/
 int SysMonPolledPrintfExample(u16 SysMonDeviceId)
@@ -342,12 +340,11 @@ int SysMonPolledPrintfExample(u16 SysMonDeviceId)
 /****************************************************************************/
 /**
 *
-* This function converts the fraction part of the given floating point number
-* (after the decimal point)to an integer.
+* @brief Converts the fractional part of a floating point number to an integer.
 *
-* @param	FloatNum is the floating point number.
+* @param[in]   FloatNum Floating point number.
 *
-* @return	Integer number to a precision of 3 digits.
+* @return      Integer number to a precision of 3 digits.
 *
 * @note
 * This function is used in the printing of floating point data to a STDIO device

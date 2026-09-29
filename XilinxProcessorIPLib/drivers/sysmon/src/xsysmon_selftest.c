@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2007 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -8,16 +8,14 @@
 /**
 *
 * @file xsysmon_selftest.c
-* @addtogroup Overview
-* @{
+*
+* @brief Implements a diagnostic self test function for the XSysMon driver.
 *
 * This file contains a diagnostic self test function for the XSysMon driver.
 * The self test function does a simple read/write test of the Alarm Threshold
 * Register.
 *
 * See xsysmon.h for more information.
-*
-* @note	None.
 *
 * <pre>
 *
@@ -27,10 +25,15 @@
 * ----- -----  -------- -----------------------------------------------------
 * 1.00a xd/sv  05/22/07 First release
 * 4.00a ktn    10/22/09 Updated the file to use the HAL APIs/macros.
+* 8.1   vn     09/29/26 Align Doxygen comments with AMD standards
 *
 * </pre>
 *
 *****************************************************************************/
+
+/** @addtogroup Overview
+ * @{
+ */
 
 /***************************** Include Files ********************************/
 
@@ -38,9 +41,8 @@
 
 /************************** Constant Definitions ****************************/
 
-/*
- * The following constant defines the test value to be written
- * to the Alarm Threshold Register
+/**
+ * Test value written to the Alarm Threshold Register during the self test.
  */
 #define XSM_ATR_TEST_VALUE 		0x55
 
@@ -55,23 +57,24 @@
 /*****************************************************************************/
 /**
 *
-* Run a self-test on the driver/device. The test
+* @brief Runs a self-test on the driver/device.
+*
+* The test:
 *	- Resets the device,
 *	- Writes a value into the Alarm Threshold register and reads it back
 *	for comparison.
 *	- Resets the device again.
 *
-*
-* @param	InstancePtr is a pointer to the XSysMon instance.
+* @param[in]   InstancePtr Pointer to the XSysMon instance.
 *
 * @return
-*		- XST_SUCCESS if the value read from the Alarm Threshold
-*		register is the same as the value written.
-*		- XST_FAILURE Otherwise
+*              - XST_SUCCESS if the value read from the Alarm Threshold
+*              register is the same as the value written.
+*              - XST_FAILURE Otherwise.
 *
-* @note		This is a destructive test in that resets of the device are
-*		performed. Refer to the device specification for the
-*		device status after the reset operation.
+* @note        This is a destructive test in that resets of the device are
+*              performed. Refer to the device specification for the
+*              device status after the reset operation.
 *
 ******************************************************************************/
 int XSysMon_SelfTest(XSysMon *InstancePtr)

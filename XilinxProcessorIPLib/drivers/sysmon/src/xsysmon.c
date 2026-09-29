@@ -8,15 +8,13 @@
 /**
 *
 * @file xsysmon.c
-* @addtogroup Overview
-* @{
+*
+* @brief Implements the driver API functions for the System Monitor/ADC device.
 *
 * This file contains the driver API functions that can be used to access
 * the System Monitor/ADC device.
 *
 * Refer to the xsysmon.h header file for more information about this driver.
-*
-* @note 	None.
 *
 * <pre>
 *
@@ -56,9 +54,14 @@
 * 7.8   cog   07/20/23 Added support for SDT flow
 * 8.0   se    03/05/26 Added SDT interrupt support and IP type detection
 * 8.1   vn    07/30/26 Fix Doxygen warnings
+* 8.1   vn    09/29/26 Align Doxygen comments with AMD standards
 * </pre>
 *
 *****************************************************************************/
+
+/** @addtogroup Overview
+ * @{
+ */
 
 /***************************** Include Files ********************************/
 
@@ -77,23 +80,24 @@
 /*****************************************************************************/
 /**
 *
-* This function initializes a specific XSysMon device/instance. This function
-* must be called prior to using the System Monitor/ADC device.
+* @brief Initializes a specific XSysMon device instance.
 *
-* @param	InstancePtr is a pointer to the XSysMon instance.
-* @param	ConfigPtr points to the XSysMon device configuration structure.
-* @param	EffectiveAddr is the device base address in the virtual memory
-*		address space. If the address translation is not used then the
-*		physical address is passed.
-*		Unexpected errors may occur if the address mapping is changed
-*		after this function is invoked.
+* Call this function prior to using the System Monitor/ADC device.
+*
+* @param[out]  InstancePtr Pointer to the XSysMon instance.
+* @param[in]   ConfigPtr Pointer to the XSysMon device configuration structure.
+* @param[in]   EffectiveAddr Device base address in the virtual memory
+*              address space. If the address translation is not used then the
+*              physical address is passed.
+*              Unexpected errors may occur if the address mapping is changed
+*              after this function is invoked.
 *
 * @return
-*		- XST_SUCCESS if successful.
+*              - XST_SUCCESS if successful.
 *
-* @note		The user needs to first call the XSysMon_LookupConfig() API
-*		which returns the Configuration structure pointer which is
-*		passed as a parameter to the XSysMon_CfgInitialize() API.
+* @note        The user needs to first call the XSysMon_LookupConfig() API
+*              which returns the Configuration structure pointer which is
+*              passed as a parameter to the XSysMon_CfgInitialize() API.
 *
 ******************************************************************************/
 int XSysMon_CfgInitialize(XSysMon *InstancePtr, XSysMon_Config *ConfigPtr,
@@ -131,19 +135,18 @@ int XSysMon_CfgInitialize(XSysMon *InstancePtr, XSysMon_Config *ConfigPtr,
 /*****************************************************************************/
 /**
 *
-* This function forces the software reset of the complete SystemMonitor/ADC
-* Hard Macro and the SYSMON ADC Core Logic.
+* @brief Forces a software reset of the complete SystemMonitor/ADC Hard Macro
+* and the SYSMON ADC Core Logic.
 *
+* @param[in]   InstancePtr Pointer to the XSysMon instance.
 *
-* @param	InstancePtr is a pointer to the XSysMon instance.
-*
-* @note		The Control registers in the SystemMonitor/ADC Hard Macro
-*		are not affected by this reset, only the Status registers
-*		are reset.
-*		Refer to the device data sheet for the device status and
-*		register values after the reset.
-*		Use the XSysMon_ResetAdc() to reset only the SystemMonitor/ADC
-*		Hard Macro.
+* @note        The Control registers in the SystemMonitor/ADC Hard Macro
+*              are not affected by this reset, only the Status registers
+*              are reset.
+*              Refer to the device data sheet for the device status and
+*              register values after the reset.
+*              Use the XSysMon_ResetAdc() to reset only the SystemMonitor/ADC
+*              Hard Macro.
 *
 ******************************************************************************/
 void XSysMon_Reset(XSysMon *InstancePtr)
@@ -165,15 +168,13 @@ void XSysMon_Reset(XSysMon *InstancePtr)
 /****************************************************************************/
 /**
 *
-* The functions reads the contents of the Status Register.
+* @brief Reads the contents of the Status Register.
 *
-* @param	InstancePtr is a pointer to the XSysMon instance.
+* @param[in]   InstancePtr Pointer to the XSysMon instance.
 *
-* @return	A 32-bit value representing the contents of the Status Register.
-*		Use the XSM_SR_*_MASK constants defined in xsysmon_hw.h to
-*		interpret the returned value.
-*
-* @note		None.
+* @return      A 32-bit value representing the contents of the Status Register.
+*              Use the XSM_SR_*_MASK constants defined in xsysmon_hw.h to
+*              interpret the returned value.
 *
 *****************************************************************************/
 u32 XSysMon_GetStatus(XSysMon *InstancePtr)
@@ -193,15 +194,13 @@ u32 XSysMon_GetStatus(XSysMon *InstancePtr)
 /****************************************************************************/
 /**
 *
-* This function reads the contents of Alarm Output Register.
+* @brief Reads the contents of the Alarm Output Register.
 *
-* @param	InstancePtr is a pointer to the XSysMon instance.
+* @param[in]   InstancePtr Pointer to the XSysMon instance.
 *
-* @return	A 32-bit value read from the Alarm Output Register.
-*		Use the XSM_AOR_*_MASK constants defined in xsysmon_hw.h to
-*		interpret the value.
-*
-* @note		None.
+* @return      A 32-bit value read from the Alarm Output Register.
+*              Use the XSM_AOR_*_MASK constants defined in xsysmon_hw.h to
+*              interpret the value.
 *
 *****************************************************************************/
 u32 XSysMon_GetAlarmOutputStatus(XSysMon *InstancePtr)
@@ -222,16 +221,17 @@ u32 XSysMon_GetAlarmOutputStatus(XSysMon *InstancePtr)
 /****************************************************************************/
 /**
 *
-* This function starts the ADC conversion in the Single Channel event driven
-* sampling mode. The EOC bit in Status Register will be set once the conversion
-* is finished. Refer to the device specification for more details.
+* @brief Starts an ADC conversion in Single Channel event driven sampling mode.
 *
-* @param	InstancePtr is a pointer to the XSysMon instance.
+* The EOC bit in the Status Register is set once the conversion finishes.
+* Refer to the device specification for more details.
 *
-* @note		The default state of the CONVST bit is a logic 0. The conversion
-*		is started when the CONVST bit is set to 1 from 0.
-*		This bit is cleared in this function so that the next conversion
-*		can be started by setting this bit.
+* @param[in]   InstancePtr Pointer to the XSysMon instance.
+*
+* @note        The default state of the CONVST bit is a logic 0. The conversion
+*              is started when the CONVST bit is set to 1 from 0.
+*              This bit is cleared in this function so that the next conversion
+*              can be started by setting this bit.
 *
 *****************************************************************************/
 void XSysMon_StartAdcConversion(XSysMon *InstancePtr)
@@ -263,18 +263,18 @@ void XSysMon_StartAdcConversion(XSysMon *InstancePtr)
 /*****************************************************************************/
 /**
 *
-* This function resets the SystemMonitor/ADC Hard Macro in the device.
+* @brief Resets the SystemMonitor/ADC Hard Macro in the device.
 *
-* @param	InstancePtr is a pointer to the XSysMon instance.
+* @param[in]   InstancePtr Pointer to the XSysMon instance.
 *
-* @note		The Control registers in the SystemMonitor/ADC Hard Macro
-*		are not affected by this reset, only the Status registers
-*		are reset.
-*		This reset causes the ADC to begin with a new conversion.
-* 		Refer to the device data sheet for the device status and
-*		register values after the reset.
-* 		Use the XSysMon_Reset() API to reset both the SystemMonitor/ADC
-* 		Hard Macro and the SYSMON ADC Core Logic.
+* @note        The Control registers in the SystemMonitor/ADC Hard Macro
+*              are not affected by this reset, only the Status registers
+*              are reset.
+*              This reset causes the ADC to begin with a new conversion.
+*              Refer to the device data sheet for the device status and
+*              register values after the reset.
+*              Use the XSysMon_Reset() API to reset both the SystemMonitor/ADC
+*              Hard Macro and the SYSMON ADC Core Logic.
 *
 ******************************************************************************/
 void XSysMon_ResetAdc(XSysMon *InstancePtr)
@@ -301,24 +301,24 @@ void XSysMon_ResetAdc(XSysMon *InstancePtr)
 /****************************************************************************/
 /**
 *
-* Get the ADC converted data for the specified channel.
+* @brief Gets the ADC converted data for the specified channel.
 *
-* @param	InstancePtr is a pointer to the XSysMon instance.
-* @param	Channel is the channel number. Use the XSM_CH_* defined in
-*		the file xsysmon.h.
-*		The valid channels are 0 to 5 and 16 to 31 for all the device
-*		families. Channel 6 is valid for 7 Series and Zynq.
-*		Channel 13, 14, 15 are valid for Zynq. 32 to 35 are valid for
-*		Ultrascale.
+* @param[in]   InstancePtr Pointer to the XSysMon instance.
+* @param[in]   Channel Channel number. Use the XSM_CH_* defined in
+*              the file xsysmon.h.
+*              The valid channels are 0 to 5 and 16 to 31 for all the device
+*              families. Channel 6 is valid for 7 Series and Zynq.
+*              Channel 13, 14, 15 are valid for Zynq. 32 to 35 are valid for
+*              Ultrascale.
 *
-* @return	A 16-bit value representing the ADC converted data for the
-*		specified channel. The System Monitor/ADC device guarantees
-* 		a 10 bit resolution for the ADC converted data and data is the
-*		10 MSB bits of the 16 data read from the device.
+* @return      A 16-bit value representing the ADC converted data for the
+*              specified channel. The System Monitor/ADC device guarantees
+*              a 10 bit resolution for the ADC converted data and data is the
+*              10 MSB bits of the 16 data read from the device.
 *
-* @note		The channels 7,8,9 are used for calibration of the device and
-*           	hence there is no associated data with this channel.
-*		Please make sure that the proper channel number is passed.
+* @note        The channels 7,8,9 are used for calibration of the device and
+*              hence there is no associated data with this channel.
+*              Make sure that the proper channel number is passed.
 *
 *****************************************************************************/
 u16 XSysMon_GetAdcData(XSysMon *InstancePtr, u8 Channel)
@@ -355,20 +355,17 @@ u16 XSysMon_GetAdcData(XSysMon *InstancePtr, u8 Channel)
 /****************************************************************************/
 /**
 *
-* This function gets the calibration coefficient data for the specified
-* parameter.
+* @brief Gets the calibration coefficient data for the specified parameter.
 *
-* @param	InstancePtr is a pointer to the XSysMon instance.
-* @param	CoeffType specifies the calibration coefficient
-*		to be read. Use XSM_CALIB_* constants defined in xsysmon.h to
-*		specify the calibration coefficient to be read.
+* @param[in]   InstancePtr Pointer to the XSysMon instance.
+* @param[in]   CoeffType Calibration coefficient
+*              to be read. Use XSM_CALIB_* constants defined in xsysmon.h to
+*              specify the calibration coefficient to be read.
 *
-* @return	A 16-bit value representing the calibration coefficient.
-*		The System Monitor/ADC device guarantees a 10 bit resolution for
-*		the ADC converted data and data is the 10 MSB bits of the 16
-*		data read from the device.
-*
-* @note		None.
+* @return      A 16-bit value representing the calibration coefficient.
+*              The System Monitor/ADC device guarantees a 10 bit resolution for
+*              the ADC converted data and data is the 10 MSB bits of the 16
+*              data read from the device.
 *
 *****************************************************************************/
 u16 XSysMon_GetCalibCoefficient(XSysMon *InstancePtr, u8 CoeffType)
@@ -394,8 +391,9 @@ u16 XSysMon_GetCalibCoefficient(XSysMon *InstancePtr, u8 CoeffType)
 /****************************************************************************/
 /**
 *
-* This function reads the Minimum/Maximum measurement for one of the
-* following parameters :
+* @brief Reads the Minimum/Maximum measurement for one of the listed parameters.
+*
+* The parameter is one of the following:
 *		- Minimum Temperature (XSM_MIN_TEMP) - All families
 *		- Minimum VCCINT (XSM_MIN_VCCINT) - All families
 *		- Minimum VCCAUX (XSM_MIN_VCCAUX) - All families
@@ -419,17 +417,17 @@ u16 XSysMon_GetCalibCoefficient(XSysMon *InstancePtr, u8 CoeffType)
 *		- Minimum VUSER2 (XSM_MIN_VUSR2) - Ultrascale
 *		- Minimum VUSER3 (XSM_MIN_VUSR3) - Ultrascale
 *
-* @param	InstancePtr is a pointer to the XSysMon instance.
-* @param	MeasurementType specifies the parameter for which the
-*		Minimum/Maximum measurement has to be read.
-*		Use XSM_MAX_* and XSM_MIN_* constants defined in xsysmon.h to
-*		specify the data to be read.
+* @param[in]   InstancePtr Pointer to the XSysMon instance.
+* @param[in]   MeasurementType Parameter for which the
+*              Minimum/Maximum measurement has to be read.
+*              Use XSM_MAX_* and XSM_MIN_* constants defined in xsysmon.h to
+*              specify the data to be read.
 *
-* @return	A 16-bit value representing the maximum/minimum measurement for
-*		specified parameter.
-*		The System Monitor/ADC device guarantees a 10 bit resolution for
-*		the ADC converted data and data is the 10 MSB bits of  16 bit
-*		data read from the device.
+* @return      A 16-bit value representing the maximum/minimum measurement for
+*              specified parameter.
+*              The System Monitor/ADC device guarantees a 10 bit resolution for
+*              the ADC converted data and data is the 10 MSB bits of  16 bit
+*              data read from the device.
 *
 *****************************************************************************/
 u16 XSysMon_GetMinMaxMeasurement(XSysMon *InstancePtr, u8 MeasurementType)
@@ -460,20 +458,19 @@ u16 XSysMon_GetMinMaxMeasurement(XSysMon *InstancePtr, u8 MeasurementType)
 /****************************************************************************/
 /**
 *
-* This function sets the number of samples of averaging that is to be done for
-* all the channels in both the single channel mode and sequence mode of
-* operations.
+* @brief Sets the number of averaging samples for all channels.
 *
-* @param	InstancePtr is a pointer to the XSysMon instance.
-* @param	Average is the number of samples of averaging programmed to the
-*		Configuration Register 0. Use the XSM_AVG_* definitions defined
-*		in xsysmon.h file :
-*		- XSM_AVG_0_SAMPLES for no averaging
-*		- XSM_AVG_16_SAMPLES for 16 samples of averaging
-*		- XSM_AVG_64_SAMPLES for 64 samples of averaging
-*		- XSM_AVG_256_SAMPLES for 256 samples of averaging
+* The averaging applies to both single channel mode and sequence mode of
+* operation.
 *
-* @note		None.
+* @param[in]   InstancePtr Pointer to the XSysMon instance.
+* @param[in]   Average Number of samples of averaging programmed to the
+*              Configuration Register 0. Use the XSM_AVG_* definitions defined
+*              in xsysmon.h file :
+*              - XSM_AVG_0_SAMPLES for no averaging
+*              - XSM_AVG_16_SAMPLES for 16 samples of averaging
+*              - XSM_AVG_64_SAMPLES for 64 samples of averaging
+*              - XSM_AVG_256_SAMPLES for 256 samples of averaging.
 *
 *****************************************************************************/
 void XSysMon_SetAvg(XSysMon *InstancePtr, u8 Average)
@@ -501,20 +498,18 @@ void XSysMon_SetAvg(XSysMon *InstancePtr, u8 Average)
 /****************************************************************************/
 /**
 *
-* This function returns the number of samples of averaging configured for all
-* the channels in the Configuration Register 0.
+* @brief Returns the number of averaging samples configured for all channels
+* in the Configuration Register 0.
 *
-* @param	InstancePtr is a pointer to the XSysMon instance.
+* @param[in]   InstancePtr Pointer to the XSysMon instance.
 *
-* @return	The averaging read from the Configuration Register 0 is
-*		returned. Use the XSM_AVG_* bit definitions defined in xsysmon.h
-*		file to interpret the returned value :
-*		- XSM_AVG_0_SAMPLES means no averaging
-*		- XSM_AVG_16_SAMPLES means 16 samples of averaging
-*		- XSM_AVG_64_SAMPLES means 64 samples of averaging
-*		- XSM_AVG_256_SAMPLES means 256 samples of averaging
-*
-* @note		None.
+* @return      The averaging read from the Configuration Register 0 is
+*              returned. Use the XSM_AVG_* bit definitions defined in xsysmon.h
+*              file to interpret the returned value :
+*              - XSM_AVG_0_SAMPLES means no averaging.
+*              - XSM_AVG_16_SAMPLES means 16 samples of averaging.
+*              - XSM_AVG_64_SAMPLES means 64 samples of averaging.
+*              - XSM_AVG_256_SAMPLES means 256 samples of averaging.
 *
 *****************************************************************************/
 u8 XSysMon_GetAvg(XSysMon *InstancePtr)
@@ -539,39 +534,39 @@ u8 XSysMon_GetAvg(XSysMon *InstancePtr)
 /****************************************************************************/
 /**
 *
-* The function sets the given parameters in the Configuration Register 0 in
-* the single channel mode.
+* @brief Sets the given parameters in the Configuration Register 0 in single
+* channel mode.
 *
-* @param	InstancePtr is a pointer to the XSysMon instance.
-* @param	Channel is the channel number for conversion. The valid
-*		channels are 0 to 5, 8, and 16 to 31. Channel 6 is
-*		valid for 7 series and Zynq XADC. Channel 32 to 35 are valid
-*		for Ultrascale.
-* @param	IncreaseAcqCycles is a boolean parameter which specifies whether
-*		the Acquisition time for the external channels has to be
-*		increased to 10 ADCCLK cycles (specify TRUE) or remain at the
-*		default 4 ADCCLK cycles (specify FALSE). This parameter is
-*		only valid for the external channels.
-* @param	IsEventMode is a boolean parameter that specifies continuous
-*		sampling (specify FALSE) or event driven sampling mode (specify
-*		TRUE) for the given channel.
-* @param	IsDifferentialMode is a boolean parameter which specifies
-*		unipolar(specify FALSE) or differential mode (specify TRUE) for
-*		the analog inputs. The 	input mode is only valid for the
-*		external channels.
+* @param[in]   InstancePtr Pointer to the XSysMon instance.
+* @param[in]   Channel Channel number for conversion. The valid
+*              channels are 0 to 5, 8, and 16 to 31. Channel 6 is
+*              valid for 7 series and Zynq XADC. Channel 32 to 35 are valid
+*              for Ultrascale.
+* @param[in]   IncreaseAcqCycles Boolean parameter which specifies
+*              whether the Acquisition time for the external channels has to be
+*              increased to 10 ADCCLK cycles (specify TRUE) or remain at the
+*              default 4 ADCCLK cycles (specify FALSE). This parameter is
+*              only valid for the external channels.
+* @param[in]   IsEventMode Boolean parameter that specifies continuous
+*              sampling (specify FALSE) or event driven sampling mode (specify
+*              TRUE) for the given channel.
+* @param[in]   IsDifferentialMode Boolean parameter which specifies
+*              unipolar(specify FALSE) or differential mode (specify TRUE) for
+*              the analog inputs. The 	input mode is only valid for the
+*              external channels.
 * @return
-*		- XST_SUCCESS if the given values were written successfully to
-*		the Configuration Register 0.
-*		- XST_FAILURE if the channel sequencer is enabled or the input
-*		parameters are not valid for the selected channel.
+*              - XST_SUCCESS if the given values were written successfully to
+*              the Configuration Register 0.
+*              - XST_FAILURE if the channel sequencer is enabled or the input
+*              parameters are not valid for the selected channel.
 *
 * @note
-*		- The number of samples for the averaging for all the channels
-*		is set by using the function XSysMon_SetAvg.
-*		- The calibration of the device is done by doing a ADC
-*		conversion on the calibration channel(channel 8). The input
-*		parameters IncreaseAcqCycles, IsDifferentialMode and
-*		IsEventMode are not valid for this channel.
+*              - The number of samples for the averaging for all the channels
+*              is set by using the function XSysMon_SetAvg.
+*              - The calibration of the device is done by doing a ADC
+*              conversion on the calibration channel(channel 8). The input
+*              parameters IncreaseAcqCycles, IsDifferentialMode and
+*              IsEventMode are not valid for this channel.
 *
 *****************************************************************************/
 int XSysMon_SetSingleChParams(XSysMon *InstancePtr, u8 Channel,
@@ -657,8 +652,9 @@ int XSysMon_SetSingleChParams(XSysMon *InstancePtr, u8 Channel,
 /****************************************************************************/
 /**
 *
-* This function enables the alarm outputs for the specified alarms in the
-* Configuration Registers 1 and 3:
+* @brief Enables the alarm outputs for the specified alarms.
+*
+* The alarms are set in the Configuration Registers 1 and 3:
 *
 *		- OT for Over Temperature (XSM_CFR_OT_MASK)
 *		- ALM0 for On board Temperature (XSM_CFR_ALM_TEMP_MASK)
@@ -673,19 +669,19 @@ int XSysMon_SetSingleChParams(XSysMon *InstancePtr, u8 Channel,
 * 		- ALM10 for VUSER2 (XSM_CFR_ALM_VUSR2_MASK) for Ultrascale
 * 		- ALM11 for VUSER3 (XSM_CFR_ALM_VUSR3_MASK) for Ultrascale
 *
-* @param	InstancePtr is a pointer to the XSysMon instance.
-* @param	AlmEnableMask is the bit-mask of the alarm outputs to be enabled
-*		in the Configuration Register 1.
-*		Bit positions of 1 will be enabled. Bit positions of 0 will be
-*		disabled. This mask is formed by OR'ing XSM_CFR_ALM_*_MASK,
-*		XSM_CFR_ALM_*_MASK and XSM_CFR_OT_MASK masks defined in
-*		xsysmon_hw.h.
+* @param[in]   InstancePtr Pointer to the XSysMon instance.
+* @param[in]   AlmEnableMask Bit-mask of the alarm outputs to be
+*              enabled in the Configuration Register 1.
+*              Bit positions of 1 enable and bit positions of 0 disable the
+*              outputs. This mask is formed by OR'ing XSM_CFR_ALM_*_MASK,
+*              XSM_CFR_ALM_*_MASK and XSM_CFR_OT_MASK masks defined in
+*              xsysmon_hw.h.
 *
-* @note		The implementation of the alarm enables in the Configuration
-*		register 1 is such that the alarms for bit positions of 1 will
-*		be disabled and alarms for bit positions of 0 will be enabled.
-*		The alarm outputs specified by the AlmEnableMask are negated
-*		before writing to the Configuration Register 1.
+* @note        The implementation of the alarm enables in the Configuration
+*              register 1 is such that the alarms for bit positions of 1 are
+*              disabled and alarms for bit positions of 0 are enabled.
+*              The alarm outputs specified by the AlmEnableMask are negated
+*              before writing to the Configuration Register 1.
 *
 *****************************************************************************/
 void XSysMon_SetAlarmEnables(XSysMon *InstancePtr, u32 AlmEnableMask)
@@ -729,26 +725,25 @@ void XSysMon_SetAlarmEnables(XSysMon *InstancePtr, u32 AlmEnableMask)
 /****************************************************************************/
 /**
 *
-* This function gets the status of the alarm output enables in the
-* Configuration Register 1.
+* @brief Gets the status of the alarm output enables in the Configuration
+* Register 1.
 *
-* @param	InstancePtr is a pointer to the XSysMon instance.
+* @param[in]   InstancePtr Pointer to the XSysMon instance.
 *
-* @return	This is the bit-mask of the enabled alarm outputs in the
-*		Configuration Register 1. Use the masks XSM_CFR_ALM_*,
-*		XSM_CFR_ALM*_* and XSM_CFR_OT_MASK defined in
-*		xsysmon_hw.h to interpret the returned value.
+* @return      This is the bit-mask of the enabled alarm outputs in the
+*              Configuration Register 1. Use the masks XSM_CFR_ALM_*,
+*              XSM_CFR_ALM*_* and XSM_CFR_OT_MASK defined in
+*              xsysmon_hw.h to interpret the returned value.
 *
 *		Bit positions of 1 indicate that the alarm output is enabled.
 *		Bit positions of 0 indicate that the alarm output is disabled.
 *
-*
-* @note		The implementation of the alarm enables in the Configuration
-*		register 1 is such that alarms for the bit positions of 1 will
-*		be disabled and alarms for bit positions of 0 will be enabled.
-*		The enabled alarm outputs returned by this function is the
-*		negated value of the the data read from the Configuration
-*		Register 1.
+* @note        The implementation of the alarm enables in the Configuration
+*              register 1 is such that alarms for the bit positions of 1 are
+*              disabled and alarms for bit positions of 0 are enabled.
+*              The enabled alarm outputs returned by this function is the
+*              negated value of the the data read from the Configuration
+*              Register 1.
 *
 *****************************************************************************/
 u32 XSysMon_GetAlarmEnables(XSysMon *InstancePtr)
@@ -789,8 +784,9 @@ u32 XSysMon_GetAlarmEnables(XSysMon *InstancePtr)
 /****************************************************************************/
 /**
 *
-* This function enables the specified calibration in the Configuration
-* Register 1 :
+* @brief Enables the specified calibration in the Configuration Register 1.
+*
+* The calibration is one of the following:
 *
 *	- XSM_CFR1_CAL_ADC_OFFSET_MASK : Calibration 0 -ADC offset correction
 *	- XSM_CFR1_CAL_ADC_GAIN_OFFSET_MASK : Calibration 1 -ADC gain and offset
@@ -801,15 +797,13 @@ u32 XSysMon_GetAlarmEnables(XSysMon *InstancePtr)
 *	gain and offset correction
 *	- XSM_CFR1_CAL_DISABLE_MASK : No Calibration
 *
-* @param	InstancePtr is a pointer to the XSysMon instance.
-* @param	Calibration is the Calibration to be applied.
-*		Use XSM_CFR1_CAL*_* bits defined in xsysmon_hw.h.
-*		Multiple calibrations can be enabled at a time by oring the
-*		XSM_CFR1_CAL_ADC_* and XSM_CFR1_CAL_PS_* bits.
-*		Calibration can be disabled by specifying
-*		XSM_CFR1_CAL_DISABLE_MASK;
-*
-* @note		None.
+* @param[in]   InstancePtr Pointer to the XSysMon instance.
+* @param[in]   Calibration Calibration to be applied.
+*              Use XSM_CFR1_CAL*_* bits defined in xsysmon_hw.h.
+*              Multiple calibrations can be enabled at a time by oring the
+*              XSM_CFR1_CAL_ADC_* and XSM_CFR1_CAL_PS_* bits.
+*              Calibration can be disabled by specifying
+*              XSM_CFR1_CAL_DISABLE_MASK.
 *
 *****************************************************************************/
 void XSysMon_SetCalibEnables(XSysMon *InstancePtr, u16 Calibration)
@@ -840,23 +834,21 @@ void XSysMon_SetCalibEnables(XSysMon *InstancePtr, u16 Calibration)
 /****************************************************************************/
 /**
 *
-* This function reads the value of the calibration enables from the
-* Configuration Register 1.
+* @brief Reads the value of the calibration enables from the Configuration
+* Register 1.
 *
-* @param	InstancePtr is a pointer to the XSysMon instance.
+* @param[in]   InstancePtr Pointer to the XSysMon instance.
 *
-* @return	The value of the calibration enables in the Configuration
-*		Register 1 :
-*		- XSM_CFR1_CAL_ADC_OFFSET_MASK : ADC offset correction
-*		- XSM_CFR1_CAL_ADC_GAIN_OFFSET_MASK : ADC gain and offset
-*		correction
-*		- XSM_CFR1_CAL_PS_OFFSET_MASK : Power Supply sensor offset
-*		correction
-*		- XSM_CFR1_CAL_PS_GAIN_OFFSET_MASK : Power Supply sensor gain
-*		and offset correction
-*		- XSM_CFR1_CAL_DISABLE_MASK : No Calibration
-*
-* @note		None.
+* @return      The value of the calibration enables in the Configuration
+*              Register 1 :
+*              - XSM_CFR1_CAL_ADC_OFFSET_MASK : ADC offset correction.
+*              - XSM_CFR1_CAL_ADC_GAIN_OFFSET_MASK : ADC gain and offset
+*              correction.
+*              - XSM_CFR1_CAL_PS_OFFSET_MASK : Power Supply sensor offset
+*              correction.
+*              - XSM_CFR1_CAL_PS_GAIN_OFFSET_MASK : Power Supply sensor gain
+*              and offset correction.
+*              - XSM_CFR1_CAL_DISABLE_MASK : No Calibration.
 *
 *****************************************************************************/
 u16 XSysMon_GetCalibEnables(XSysMon *InstancePtr)
@@ -877,8 +869,9 @@ u16 XSysMon_GetCalibEnables(XSysMon *InstancePtr)
 /****************************************************************************/
 /**
 *
-* This function sets the specified Channel Sequencer Mode in the Configuration
-* Register 1 :
+* @brief Sets the specified Channel Sequencer Mode in Configuration Register 1.
+*
+* The mode is one of the following:
 *		- Default safe mode (XSM_SEQ_MODE_SAFE)
 *		- One pass through sequence (XSM_SEQ_MODE_ONEPASS)
 *		- Continuous channel sequencing (XSM_SEQ_MODE_CONTINPASS)
@@ -886,11 +879,11 @@ u16 XSysMon_GetCalibEnables(XSysMon *InstancePtr)
 *		- Simultaneous sampling mode (XSM_SEQ_MODE_SIMUL)
 *		- Independent mode (XSM_SEQ_MODE_INDEPENDENT)
 *
-* @param	InstancePtr is a pointer to the XSysMon instance.
-* @param	SequencerMode is the sequencer mode to be set.
-*		Use XSM_SEQ_MODE_* bits defined in xsysmon.h.
+* @param[in]   InstancePtr Pointer to the XSysMon instance.
+* @param[in]   SequencerMode Sequencer mode to be set.
+*              Use XSM_SEQ_MODE_* bits defined in xsysmon.h.
 *
-* @note		Only one of the modes can be enabled at a time.
+* @note        Only one of the modes can be enabled at a time.
 *
 *****************************************************************************/
 void XSysMon_SetSequencerMode(XSysMon *InstancePtr, u8 SequencerMode)
@@ -920,20 +913,17 @@ void XSysMon_SetSequencerMode(XSysMon *InstancePtr, u8 SequencerMode)
 /****************************************************************************/
 /**
 *
-* This function gets the channel sequencer mode from the Configuration
-* Register 1.
+* @brief Gets the channel sequencer mode from the Configuration Register 1.
 *
-* @param	InstancePtr is a pointer to the XSysMon instance.
+* @param[in]   InstancePtr Pointer to the XSysMon instance.
 *
-* @return	The channel sequencer mode :
-*		- XSM_SEQ_MODE_SAFE : Default safe mode
-*		- XSM_SEQ_MODE_ONEPASS : One pass through sequence
-*		- XSM_SEQ_MODE_CONTINPASS : Continuous channel sequencing
-*		- XSM_SEQ_MODE_SINGCHAN : Single channel/Sequencer off
-*		- XSM_SEQ_MODE_SIMUL : Simultaneous sampling mode
-*		- XSM_SEQ_MODE_INDEPENDENT : Independent mode
-*
-* @note		None.
+* @return      The channel sequencer mode :
+*              - XSM_SEQ_MODE_SAFE : Default safe mode.
+*              - XSM_SEQ_MODE_ONEPASS : One pass through sequence.
+*              - XSM_SEQ_MODE_CONTINPASS : Continuous channel sequencing.
+*              - XSM_SEQ_MODE_SINGCHAN : Single channel/Sequencer off.
+*              - XSM_SEQ_MODE_SIMUL : Simultaneous sampling mode.
+*              - XSM_SEQ_MODE_INDEPENDENT : Independent mode.
 *
 *****************************************************************************/
 u8 XSysMon_GetSequencerMode(XSysMon *InstancePtr)
@@ -955,15 +945,15 @@ u8 XSysMon_GetSequencerMode(XSysMon *InstancePtr)
 /****************************************************************************/
 /**
 *
-* The function enables the Event mode or Continuous mode in the sequencer mode.
+* @brief Enables the Event mode or Continuous mode in the sequencer mode.
 *
-* @param	InstancePtr is a pointer to the XSysMon instance.
-* @param	IsEventMode is a boolean parameter that specifies continuous
-*		sampling (specify FALSE) or event driven sampling mode (specify
-*		TRUE) for the given channel.
+* @param[in]   InstancePtr Pointer to the XSysMon instance.
+* @param[in]   IsEventMode Boolean parameter that specifies continuous
+*              sampling (specify FALSE) or event driven sampling mode (specify
+*              TRUE) for the given channel.
 *
-* @note		The Event mode is only available in 7 Series XADC and Zynq.
-*		This API should be used only with 7 Series XADC and Zynq .
+* @note        The Event mode is only available in 7 Series XADC and Zynq.
+*              This API should be used only with 7 Series XADC and Zynq .
 *
 *****************************************************************************/
 void XSysMon_SetSequencerEvent(XSysMon *InstancePtr, int IsEventMode)
@@ -999,14 +989,14 @@ void XSysMon_SetSequencerEvent(XSysMon *InstancePtr, int IsEventMode)
 /****************************************************************************/
 /**
 *
-* The function enables the external mux and connects a channel to the mux.
+* @brief Enables the external mux and connects a channel to the mux.
 *
-* @param	InstancePtr is a pointer to the XSysMon instance.
-* @param	Channel is the channel number used to connect to the external
-*		Mux. The valid channels are 0 to 6, 8, and 16 to 31.
+* @param[in]   InstancePtr Pointer to the XSysMon instance.
+* @param[in]   Channel Channel number used to connect to the external
+*              Mux. The valid channels are 0 to 6, 8, and 16 to 31.
 *
-* @note		The External Mux is only available in 7 Series and Zynq XADC.
-*		This API should be used only with 7 Series and Zynq XADC.
+* @note        The External Mux is only available in 7 Series and Zynq XADC.
+*              This API should be used only with 7 Series and Zynq XADC.
 *
 *****************************************************************************/
 void XSysMon_SetExtenalMux(XSysMon *InstancePtr, u8 Channel)
@@ -1042,23 +1032,23 @@ void XSysMon_SetExtenalMux(XSysMon *InstancePtr, u8 Channel)
 /****************************************************************************/
 /**
 *
-* The function sets the frequency of the ADCCLK by configuring the DCLK to
-* ADCCLK ratio in the Configuration Register #2.
+* @brief Sets the ADCCLK frequency by configuring the DCLK to ADCCLK ratio in
+* the Configuration Register #2.
 *
-* @param	InstancePtr is a pointer to the XSysMon instance.
-* @param	Divisor is clock divisor used to derive ADCCLK from DCLK.
-*		Valid values of the divisor are
-*		 - 8 to 255 for V5 SysMon.
-*		 - 0 to 255 for V6/7 Series and Zynq XADC.
+* @param[in]   InstancePtr Pointer to the XSysMon instance.
+* @param[in]   Divisor Clock divisor used to derive ADCCLK from DCLK.
+*              Valid values of the divisor are
+*              - 8 to 255 for V5 SysMon.
+*              - 0 to 255 for V6/7 Series and Zynq XADC.
 *                Values 0, 1, 2 are all mapped to 2.
-*		Refer to the device specification for more details.
+*                Refer to the device specification for more details.
 *
-* @note		- The ADCCLK is an internal clock used by the ADC and is
-*		synchronized to the DCLK clock. The ADCCLK is equal to DCLK
-*		divided by the user selection in the Configuration Register 2.
-*		- There is no Assert on the minimum value of the Divisor. Users
-*		must take care such that the minimum value of Divisor used is
-*		8, in case of V5 SysMon.
+* @note        - The ADCCLK is an internal clock used by the ADC and is
+*              synchronized to the DCLK clock. The ADCCLK is equal to DCLK
+*              divided by the user selection in the Configuration Register 2.
+*              - There is no Assert on the minimum value of the Divisor. Users
+*              must take care such that the minimum value of Divisor used is
+*              8, in case of V5 SysMon.
 *
 *****************************************************************************/
 void XSysMon_SetAdcClkDivisor(XSysMon *InstancePtr, u8 Divisor)
@@ -1080,15 +1070,15 @@ void XSysMon_SetAdcClkDivisor(XSysMon *InstancePtr, u8 Divisor)
 /****************************************************************************/
 /**
 *
-* The function gets the ADCCLK divisor from the Configuration Register 2.
+* @brief Gets the ADCCLK divisor from the Configuration Register 2.
 *
-* @param	InstancePtr is a pointer to the XSysMon instance.
+* @param[in]   InstancePtr Pointer to the XSysMon instance.
 *
-* @return	The divisor read from the Configuration Register 2.
+* @return      The divisor read from the Configuration Register 2.
 *
-* @note		The ADCCLK is an internal clock used by the ADC and is
-*		synchronized to the DCLK clock. The ADCCLK is equal to DCLK
-*		divided by the user selection in the Configuration Register 2.
+* @note        The ADCCLK is an internal clock used by the ADC and is
+*              synchronized to the DCLK clock. The ADCCLK is equal to DCLK
+*              divided by the user selection in the Configuration Register 2.
 *
 *****************************************************************************/
 u8 XSysMon_GetAdcClkDivisor(XSysMon *InstancePtr)
@@ -1113,24 +1103,23 @@ u8 XSysMon_GetAdcClkDivisor(XSysMon *InstancePtr)
 /****************************************************************************/
 /**
 *
-* This function enables the specified channels in the ADC Channel Selection
-* Sequencer Registers. The sequencer must be in the Safe Mode before writing
-* to these registers.
+* @brief Enables the specified channels in the ADC Channel Selection Sequencer
+* Registers.
 *
-* @param	InstancePtr is a pointer to the XSysMon instance.
-* @param	ChEnableMask is the bit mask of all the channels to be enabled.
-*		Use XSM_SEQ_CH_* defined in xsysmon_hw.h to specify the Channel
-*		numbers. Bit masks of 1 will be enabled and bit mask of 0 will
-*		be disabled.
-*		The ChEnableMask is a 64 bit mask that is written to the three
-*		16 bit ADC Channel Selection Sequencer Registers.
+* The sequencer must be in the Safe Mode before writing to these registers.
+*
+* @param[in]   InstancePtr Pointer to the XSysMon instance.
+* @param[in]   ChEnableMask Bit mask of all the channels to be enabled.
+*              Use XSM_SEQ_CH_* defined in xsysmon_hw.h to specify the Channel
+*              numbers. A bit set to 1 enables and a bit set to 0 disables the
+*              channel.
+*              The ChEnableMask is a 64 bit mask that is written to the three
+*              16 bit ADC Channel Selection Sequencer Registers.
 *
 * @return
-*		- XST_SUCCESS if the given values were written successfully to
-*		the ADC Channel Selection Sequencer Registers.
-*		- XST_FAILURE if the channel sequencer is enabled.
-*
-* @note		None.
+*              - XST_SUCCESS if the given values were written successfully to
+*              the ADC Channel Selection Sequencer Registers.
+*              - XST_FAILURE if the channel sequencer is enabled.
 *
 *****************************************************************************/
 int XSysMon_SetSeqChEnables(XSysMon *InstancePtr, u64 ChEnableMask)
@@ -1174,17 +1163,15 @@ int XSysMon_SetSeqChEnables(XSysMon *InstancePtr, u64 ChEnableMask)
 /****************************************************************************/
 /**
 *
-* This function gets the channel enable bits status from the ADC Channel
-* Selection Sequencer Registers.
+* @brief Gets the channel enable bits status from the ADC Channel Selection
+* Sequencer Registers.
 *
-* @param	InstancePtr is a pointer to the XSysMon instance.
+* @param[in]   InstancePtr Pointer to the XSysMon instance.
 *
-* @return	Gets the channel enable bits. Use XSM_SEQ_CH_* defined in
-*		xsysmon_hw.h to interpret the Channel numbers. Bit masks of 1
-*		are the channels that are enabled and bit mask of 0 are
-*		the channels that are disabled.
-*
-* @note		None.
+* @return      Gets the channel enable bits. Use XSM_SEQ_CH_* defined in
+*              xsysmon_hw.h to interpret the Channel numbers. Bit masks of 1
+*              are the channels that are enabled and bit mask of 0 are
+*              the channels that are disabled.
 *
 *****************************************************************************/
 u64 XSysMon_GetSeqChEnables(XSysMon *InstancePtr)
@@ -1222,24 +1209,23 @@ u64 XSysMon_GetSeqChEnables(XSysMon *InstancePtr)
 /****************************************************************************/
 /**
 *
-* This function enables the averaging for the specified channels in the ADC
-* Channel Averaging Enable Sequencer Registers. The sequencer must be in
-* the Safe Mode before writing to these registers.
+* @brief Enables averaging for the specified channels in the ADC Channel
+* Averaging Enable Sequencer Registers.
 *
-* @param	InstancePtr is a pointer to the XSysMon instance.
-* @param	AvgEnableChMask is the bit mask of all the channels for which
-*		averaging is to be enabled. Use XSM_SEQ_CH__* defined in
-*		xsysmon_hw.h to specify the Channel numbers. Averaging will be
-*		enabled for bit masks of 1 and disabled for bit mask of 0.
-*		The AvgEnableChMask is a 64 bit mask that is written to the
-*		three 16 bit ADC Channel Averaging Enable Sequencer Registers.
+* The sequencer must be in the Safe Mode before writing to these registers.
+*
+* @param[in]   InstancePtr Pointer to the XSysMon instance.
+* @param[in]   AvgEnableChMask Bit mask of all the channels for which
+*              averaging is to be enabled. Use XSM_SEQ_CH__* defined in
+*              xsysmon_hw.h to specify the Channel numbers. Averaging is
+*              enabled for bit masks of 1 and disabled for bit mask of 0.
+*              The AvgEnableChMask is a 64 bit mask that is written to the
+*              three 16 bit ADC Channel Averaging Enable Sequencer Registers.
 *
 * @return
-*		- XST_SUCCESS if the given values were written successfully to
-*		the ADC Channel Averaging Enables Sequencer Registers.
-*		- XST_FAILURE if the channel sequencer is enabled.
-*
-* @note		None.
+*              - XST_SUCCESS if the given values were written successfully to
+*              the ADC Channel Averaging Enables Sequencer Registers.
+*              - XST_FAILURE if the channel sequencer is enabled.
 *
 *****************************************************************************/
 int XSysMon_SetSeqAvgEnables(XSysMon *InstancePtr, u64 AvgEnableChMask)
@@ -1282,18 +1268,16 @@ int XSysMon_SetSeqAvgEnables(XSysMon *InstancePtr, u64 AvgEnableChMask)
 /****************************************************************************/
 /**
 *
-* This function returns the channels for which the averaging has been enabled
-* in the ADC Channel Averaging Enables Sequencer Registers.
+* @brief Returns the channels for which averaging is enabled in the ADC
+* Channel Averaging Enables Sequencer Registers.
 *
-* @param	InstancePtr is a pointer to the XSysMon instance.
+* @param[in]   InstancePtr Pointer to the XSysMon instance.
 *
-* @returns 	The status of averaging (enabled/disabled) for all the channels.
-*		Use XSM_SEQ_CH__* defined in xsysmon_hw.h to interpret the
-*		Channel numbers. Bit masks of 1 are the channels for which
-*		averaging is enabled and bit mask of 0 are the channels for
-*		averaging is disabled.
-*
-* @note		None.
+* @returns     The status of averaging (enabled/disabled) for all the channels.
+*              Use XSM_SEQ_CH__* defined in xsysmon_hw.h to interpret the
+*              Channel numbers. Bit masks of 1 are the channels for which
+*              averaging is enabled and bit mask of 0 are the channels for
+*              averaging is disabled.
 *
 *****************************************************************************/
 u64 XSysMon_GetSeqAvgEnables(XSysMon *InstancePtr)
@@ -1331,25 +1315,24 @@ u64 XSysMon_GetSeqAvgEnables(XSysMon *InstancePtr)
 /****************************************************************************/
 /**
 *
-* This function sets the Analog input mode for the specified channels in the
-* ADC Channel Analog-Input Mode Sequencer Registers. The sequencer must be in
-* the Safe Mode before writing to these registers.
+* @brief Sets the analog input mode for the specified channels in the ADC
+* Channel Analog-Input Mode Sequencer Registers.
 *
-* @param	InstancePtr is a pointer to the XSysMon instance.
-* @param	InputModeChMask is the bit mask of all the channels for which
-*		the input mode is differential mode. Use XSM_SEQ_CH__* defined
-*		in xsysmon_hw.h to specify the channel numbers. Differential
-*		input mode will be set for bit masks of 1 and unipolar input
-*		mode for bit masks of 0.
-*		The InputModeChMask is a 32 bit mask that is written to the two
-*		16 bit ADC Channel Analog-Input Mode Sequencer Registers.
+* The sequencer must be in the Safe Mode before writing to these registers.
+*
+* @param[in]   InstancePtr Pointer to the XSysMon instance.
+* @param[in]   InputModeChMask Bit mask of all the channels for which
+*              the input mode is differential mode. Use XSM_SEQ_CH__* defined
+*              in xsysmon_hw.h to specify the channel numbers. Differential
+*              input mode is set for bit masks of 1 and unipolar input
+*              mode for bit masks of 0.
+*              The InputModeChMask is a 32 bit mask that is written to the two
+*              16 bit ADC Channel Analog-Input Mode Sequencer Registers.
 *
 * @return
-*		- XST_SUCCESS if the given values were written successfully to
-*		the ADC Channel Analog-Input Mode Sequencer Registers.
-*		- XST_FAILURE if the channel sequencer is enabled.
-*
-* @note		None.
+*              - XST_SUCCESS if the given values were written successfully to
+*              the ADC Channel Analog-Input Mode Sequencer Registers.
+*              - XST_FAILURE if the channel sequencer is enabled.
 *
 *****************************************************************************/
 int XSysMon_SetSeqInputMode(XSysMon *InstancePtr, u32 InputModeChMask)
@@ -1388,18 +1371,16 @@ int XSysMon_SetSeqInputMode(XSysMon *InstancePtr, u32 InputModeChMask)
 /****************************************************************************/
 /**
 *
-* This function gets the Analog input mode for all the channels from
-* the ADC Channel Analog-Input Mode Sequencer Registers.
+* @brief Gets the analog input mode for all channels from the ADC Channel
+* Analog-Input Mode Sequencer Registers.
 *
-* @param	InstancePtr is a pointer to the XSysMon instance.
+* @param[in]   InstancePtr Pointer to the XSysMon instance.
 *
-* @returns 	The input mode for all the channels.
-*		Use XSM_SEQ_CH_* defined in xsysmon_hw.h to interpret the
-*		Channel numbers. Bit masks of 1 are the channels for which
-*		input mode is differential and bit mask of 0 are the channels
-*		for which input mode is unipolar.
-*
-* @note		None.
+* @returns     The input mode for all the channels.
+*              Use XSM_SEQ_CH_* defined in xsysmon_hw.h to interpret the
+*              Channel numbers. Bit masks of 1 are the channels for which
+*              input mode is differential and bit mask of 0 are the channels
+*              for which input mode is unipolar.
 *
 *****************************************************************************/
 u32 XSysMon_GetSeqInputMode(XSysMon *InstancePtr)
@@ -1428,26 +1409,25 @@ u32 XSysMon_GetSeqInputMode(XSysMon *InstancePtr)
 /****************************************************************************/
 /**
 *
-* This function sets the number of Acquisition cycles in the ADC Channel
-* Acquisition Time Sequencer Registers. The sequencer must be in the Safe Mode
-* before writing to these registers.
+* @brief Sets the number of acquisition cycles in the ADC Channel Acquisition
+* Time Sequencer Registers.
 *
-* @param	InstancePtr is a pointer to the XSysMon instance.
-* @param	AcqCyclesChMask is the bit mask of all the channels for which
-*		the number of acquisition cycles is to be extended.
-*		Use XSM_SEQ_CH__* defined in xsysmon_hw.h to specify the Channel
-*		numbers. Acquisition cycles will be extended to 10 ADCCLK cycles
-*		for bit masks of 1 and will be the default 4 ADCCLK cycles for
-*		bit masks of 0.
-*		The AcqCyclesChMask is a 32 bit mask that is written to the two
-*		16 bit ADC Channel Acquisition Time Sequencer Registers.
+* The sequencer must be in the Safe Mode before writing to these registers.
+*
+* @param[in]   InstancePtr Pointer to the XSysMon instance.
+* @param[in]   AcqCyclesChMask Bit mask of all the channels for which
+*              the number of acquisition cycles is to be extended.
+*              Use XSM_SEQ_CH__* defined in xsysmon_hw.h to specify the Channel
+*              numbers. Acquisition cycles are extended to 10 ADCCLK cycles
+*              for bit masks of 1 and are the default 4 ADCCLK cycles for
+*              bit masks of 0.
+*              The AcqCyclesChMask is a 32 bit mask that is written to the two
+*              16 bit ADC Channel Acquisition Time Sequencer Registers.
 *
 * @return
-*		- XST_SUCCESS if the given values were written successfully to
-*		the Channel Sequencer Registers.
-*		- XST_FAILURE if the channel sequencer is enabled.
-*
-* @note		None.
+*              - XST_SUCCESS if the given values were written successfully to
+*              the Channel Sequencer Registers.
+*              - XST_FAILURE if the channel sequencer is enabled.
 *
 *****************************************************************************/
 int XSysMon_SetSeqAcqTime(XSysMon *InstancePtr, u32 AcqCyclesChMask)
@@ -1486,18 +1466,16 @@ int XSysMon_SetSeqAcqTime(XSysMon *InstancePtr, u32 AcqCyclesChMask)
 /****************************************************************************/
 /**
 *
-* This function gets the status of acquisition from the ADC Channel Acquisition
-* Time Sequencer Registers.
+* @brief Gets the acquisition status from the ADC Channel Acquisition Time
+* Sequencer Registers.
 *
-* @param	InstancePtr is a pointer to the XSysMon instance.
+* @param[in]   InstancePtr Pointer to the XSysMon instance.
 *
-* @returns 	The acquisition time for all the channels.
-*		Use XSM_SEQ_CH__* defined in xsysmon_hw.h to interpret the
-*		Channel numbers. Bit masks of 1 are the channels for which
-*		acquisition cycles are extended and bit mask of 0 are the
-*		channels for which acquisition cycles are not extended.
-*
-* @note		None.
+* @returns     The acquisition time for all the channels.
+*              Use XSM_SEQ_CH__* defined in xsysmon_hw.h to interpret the
+*              Channel numbers. Bit masks of 1 are the channels for which
+*              acquisition cycles are extended and bit mask of 0 are the
+*              channels for which acquisition cycles are not extended.
 *
 *****************************************************************************/
 u32 XSysMon_GetSeqAcqTime(XSysMon *InstancePtr)
@@ -1526,23 +1504,23 @@ u32 XSysMon_GetSeqAcqTime(XSysMon *InstancePtr)
 /****************************************************************************/
 /**
 *
-* This functions sets the contents of the given Alarm Threshold Register.
+* @brief Sets the contents of the given Alarm Threshold Register.
 *
-* @param	InstancePtr is a pointer to the XSysMon instance.
-* @param	AlarmThrReg is the index of an Alarm Threshold Register to
-*		be set. Use XSM_ATR_* constants defined in xsysmon.h to
-*		specify the index.
-* @param	Value is the 16-bit threshold value to write into the register.
+* @param[in]   InstancePtr Pointer to the XSysMon instance.
+* @param[in]   AlarmThrReg Index of an Alarm Threshold Register to
+*              be set. Use XSM_ATR_* constants defined in xsysmon.h to
+*              specify the index.
+* @param[in]   Value 16-bit threshold value to write into the register.
 *
-* @note		Over Temperature upper threshold is programmable only in V6,
-*		7 Series/Zynq  XADC and UltraScale.
-*		BRAM high and low voltage threshold registers are available only
-*		in 7 Series XADC and UltraScale.
-*		VUSER0 to VUSER3 threshold registers are available only in
-*		UltraScale.
-*		All the remaining Alarm Threshold registers specified by the
-*		constants XSM_ATR_*, are available in all the families of the
-*		Sysmon.
+* @note        Over Temperature upper threshold is programmable only in V6,
+*              7 Series/Zynq  XADC and UltraScale.
+*              BRAM high and low voltage threshold registers are available only
+*              in 7 Series XADC and UltraScale.
+*              VUSER0 to VUSER3 threshold registers are available only in
+*              UltraScale.
+*              All the remaining Alarm Threshold registers specified by the
+*              constants XSM_ATR_*, are available in all the families of the
+*              Sysmon.
 *
 *****************************************************************************/
 void XSysMon_SetAlarmThreshold(XSysMon *InstancePtr, u8 AlarmThrReg, u16 Value)
@@ -1567,23 +1545,23 @@ void XSysMon_SetAlarmThreshold(XSysMon *InstancePtr, u8 AlarmThrReg, u16 Value)
 /****************************************************************************/
 /**
 *
-* This function returns the contents of the specified Alarm Threshold Register.
+* @brief Returns the contents of the specified Alarm Threshold Register.
 *
-* @param	InstancePtr is a pointer to the XSysMon instance.
-* @param	AlarmThrReg is the index of an Alarm Threshold Register
-*		to be read. Use XSM_ATR_* constants defined in xsysmon.h
-*		to specify the index.
+* @param[in]   InstancePtr Pointer to the XSysMon instance.
+* @param[in]   AlarmThrReg Index of an Alarm Threshold Register
+*              to be read. Use XSM_ATR_* constants defined in xsysmon.h
+*              to specify the index.
 *
-* @return	A 16-bit value representing the contents of the selected Alarm
-*		Threshold Register.
+* @return      A 16-bit value representing the contents of the selected Alarm
+*              Threshold Register.
 *
-* @note		Over Temperature upper threshold is programmable only in V6 and
-*		7 Series XADC
-*		BRAM high and low voltage threshold registers are available only
-*		in 7 Series and Zynq XADC.
-*		All the remaining Alarm Threshold registers specified by the
-*		constants XSM_ATR_*, are available in all the families of the
-*		Sysmon.
+* @note        Over Temperature upper threshold is programmable only in V6 and
+*              7 Series XADC
+*              BRAM high and low voltage threshold registers are available only
+*              in 7 Series and Zynq XADC.
+*              All the remaining Alarm Threshold registers specified by the
+*              constants XSM_ATR_*, are available in all the families of the
+*              Sysmon.
 *
 *****************************************************************************/
 u16 XSysMon_GetAlarmThreshold(XSysMon *InstancePtr, u8 AlarmThrReg)
@@ -1612,18 +1590,18 @@ u16 XSysMon_GetAlarmThreshold(XSysMon *InstancePtr, u8 AlarmThrReg)
 /****************************************************************************/
 /**
 *
-* This function sets the powerdown temperature for the OverTemp signal in the
-* OT Powerdown register.
+* @brief Sets the powerdown temperature for the OverTemp signal in the OT
+* Powerdown register.
 *
-* @param	InstancePtr is a pointer to the XSysMon instance.
-* @param	Value is the 16-bit OT Upper Alarm Register powerdown value.
-*		Valid values are 0 to 0x0FFF.
+* @param[in]   InstancePtr Pointer to the XSysMon instance.
+* @param[in]   Value 16-bit OT Upper Alarm Register powerdown value.
+*              Valid values are 0 to 0x0FFF.
 *
-* @note		This API has been deprecated. Use XSysMon_SetAlarmThreshold(),
-*		instead.
-*		This API should be used only with V6/7 Series since the
-*		upper threshold of OverTemp is programmable in in only V6
-*		SysMon/7 Series and Zynq XADC.
+* @note        This API has been deprecated. Use XSysMon_SetAlarmThreshold(),
+*              instead.
+*              This API should be used only with V6/7 Series since the
+*              upper threshold of OverTemp is programmable in in only V6
+*              SysMon/7 Series and Zynq XADC.
 *
 *****************************************************************************/
 void XSysMon_SetOverTemp(XSysMon *InstancePtr, u16 Value)
@@ -1656,18 +1634,18 @@ void XSysMon_SetOverTemp(XSysMon *InstancePtr, u16 Value)
 /****************************************************************************/
 /**
 *
-* This function returns the powerdown temperature of the OverTemp signal in
-* the OT Powerdown register.
+* @brief Returns the powerdown temperature of the OverTemp signal in the OT
+* Powerdown register.
 *
-* @param	InstancePtr is a pointer to the XSysMon instance.
+* @param[in]   InstancePtr Pointer to the XSysMon instance.
 *
-* @return	A 12-bit OT Upper Alarm Register powerdown value.
+* @return      A 12-bit OT Upper Alarm Register powerdown value.
 *
-* @note		This API has been deprecated. Use XSysMon_GetAlarmThreshold(),
-*		instead.
-*		This API should be used only with V6/7 Series since the
-*		upper threshold of OverTemp is programmable in  only V6
-*		SysMon/7 Series and Zynq XADC.
+* @note        This API has been deprecated. Use XSysMon_GetAlarmThreshold(),
+*              instead.
+*              This API should be used only with V6/7 Series since the
+*              upper threshold of OverTemp is programmable in  only V6
+*              SysMon/7 Series and Zynq XADC.
 *
 *****************************************************************************/
 u16 XSysMon_GetOverTemp(XSysMon *InstancePtr)
@@ -1694,14 +1672,14 @@ u16 XSysMon_GetOverTemp(XSysMon *InstancePtr)
 /****************************************************************************/
 /**
 *
-* This function enables programming of the powerdown temperature for the
-* OverTemp signal in the OT Powerdown register.
+* @brief Enables programming of the powerdown temperature for the OverTemp
+* signal in the OT Powerdown register.
 *
-* @param	InstancePtr is a pointer to the XSysMon instance.
+* @param[in]   InstancePtr Pointer to the XSysMon instance.
 *
-* @note		This API should be used only with V6/7 Series since the
-*		upper threshold of OverTemp is programmable in only V6
-*		SysMon/7 Series and Zynq XADC.
+* @note        This API should be used only with V6/7 Series since the
+*              upper threshold of OverTemp is programmable in only V6
+*              SysMon/7 Series and Zynq XADC.
 *
 *****************************************************************************/
 void XSysMon_EnableUserOverTemp(XSysMon *InstancePtr)
@@ -1733,14 +1711,14 @@ void XSysMon_EnableUserOverTemp(XSysMon *InstancePtr)
 /****************************************************************************/
 /**
 *
-* This function disables programming of the powerdown temperature for the
-* OverTemp signal in the OT Powerdown register.
+* @brief Disables programming of the powerdown temperature for the OverTemp
+* signal in the OT Powerdown register.
 *
-* @param	InstancePtr is a pointer to the XSysMon instance.
+* @param[in]   InstancePtr Pointer to the XSysMon instance.
 *
-* @note		This API should be used only with V6 SysMon/7 Series and Zynq
-* 		XADC since the upper threshold of OverTemp is programmable
-*		in only V6 SysMon/7 Series and Zynq XADC.
+* @note        This API should be used only with V6 SysMon/7 Series and Zynq
+*              XADC since the upper threshold of OverTemp is programmable
+*              in only V6 SysMon/7 Series and Zynq XADC.
 *
 *****************************************************************************/
 void XSysMon_DisableUserOverTemp(XSysMon *InstancePtr)
@@ -1767,12 +1745,10 @@ void XSysMon_DisableUserOverTemp(XSysMon *InstancePtr)
 /****************************************************************************/
 /**
 *
-* This function enables the Temperature updation logic so that temperature
-* can be sent over TEMP_OUT port.
+* @brief Enables the temperature update logic so that the temperature can be
+* sent over the TEMP_OUT port.
 *
-* @param	InstancePtr is a pointer to the XSysMon instance.
-*
-* @note		None
+* @param[in,out] InstancePtr Pointer to the XSysMon instance.
 *
 *****************************************************************************/
 void XSysMon_EnableTempUpdate(XSysMon *InstancePtr)
@@ -1797,11 +1773,9 @@ void XSysMon_EnableTempUpdate(XSysMon *InstancePtr)
 /****************************************************************************/
 /**
 *
-* This function disables the Temperature updation logic for TEMP_OUT port
+* @brief Disables the temperature update logic for the TEMP_OUT port.
 *
-* @param	InstancePtr is a pointer to the XSysMon instance.
-*
-* @note		None
+* @param[in,out] InstancePtr Pointer to the XSysMon instance.
 *
 *****************************************************************************/
 void XSysMon_DisableTempUpdate(XSysMon *InstancePtr)
@@ -1825,12 +1799,12 @@ void XSysMon_DisableTempUpdate(XSysMon *InstancePtr)
 /****************************************************************************/
 /**
 *
-* This function sets the number of Wait Cycles for Temperature updation logic
+* @brief Sets the number of wait cycles for the temperature update logic.
 *
-* @param	InstancePtr is a pointer to the XSysMon instance.
-* @param	WaitCycles is number of wait cycles
+* @param[in,out] InstancePtr Pointer to the XSysMon instance.
+* @param[in]     WaitCycles Number of wait cycles.
 *
-* @note		The default number of wait cycles are 1000(0x3E8).
+* @note          The default number of wait cycles are 1000(0x3E8).
 *
 *****************************************************************************/
 void XSysMon_SetTempWaitCycles(XSysMon *InstancePtr, u16 WaitCycles)

@@ -9,17 +9,16 @@
 *
 * @file xsysmon_polled_example.c
 *
+* @brief Demonstrates polled-mode monitoring of on-chip temperature and voltage.
+*
 * This file contains a design example using the driver functions
 * of the System Monitor driver. The example here shows the
 * driver/device in polled mode to check the on-chip temperature and voltages.
 *
-*
 * @note
-*
 * The values of the on-chip temperature and the on-chip Vccaux voltage are read
 * from the device and then the alarm thresholds are set in such a manner that
 * the alarms occur.
-*
 *
 * <pre>
 *
@@ -42,6 +41,7 @@
 *                     CR-965028.
 * 7.8   cog  07/20/23 Added support for SDT flow
 * 8.1   vn   07/30/26 Fix Doxygen warnings
+* 8.1   vn   09/29/26 Align Doxygen comments with AMD standards
 * </pre>
 *
 *****************************************************************************/
@@ -59,9 +59,9 @@
  * xparameters.h file. They are defined here such that a user can easily
  * change all the needed parameters in one place.
  */
-#define SYSMON_DEVICE_ID 	XPAR_SYSMON_0_DEVICE_ID
+#define SYSMON_DEVICE_ID 	XPAR_SYSMON_0_DEVICE_ID /**< Device ID. */
 #else
-#define SYSMON_DEVICE_ID 	0
+#define SYSMON_DEVICE_ID 	0 /**< Device ID. */
 #endif
 
 /**************************** Type Definitions ******************************/
@@ -81,13 +81,11 @@ static XSysMon SysMonInst;      /* System Monitor driver instance */
 /****************************************************************************/
 /**
 *
-* Main function that invokes the polled example in this file.
+* @brief Invokes the polled example in this file.
 *
 * @return
-*		- XST_SUCCESS if the example has completed successfully.
-*		- XST_FAILURE if the example has failed.
-*
-* @note		None.
+*              - XST_SUCCESS if the example has completed successfully.
+*              - XST_FAILURE if the example has failed.
 *
 *****************************************************************************/
 int main(void)
@@ -114,8 +112,8 @@ int main(void)
 /****************************************************************************/
 /**
 *
-* This function runs a test on the System Monitor/ADC device using the
-* driver APIs.
+* @brief Runs a polled-mode test on the System Monitor/ADC device.
+*
 * This function does the following tasks:
 *	- Initiate the System Monitor device driver instance
 *	- Run self-test on the device
@@ -126,16 +124,14 @@ int main(void)
 *	- Read latest on-chip temperature and VCCAUX, as well as their maximum
 *	 and minimum values. Also check if alarm(s) are set
 *
-* @param	SysMonDeviceId is the XPAR_<SYSMON_ADC_instance>_DEVICE_ID value
-*		from xparameters.h.
-* @param	Temp is an output parameter, it is a pointer through which the
-*		current temperature value is returned to the main function.
+* @param[in]   SysMonDeviceId XPAR_<SYSMON_ADC_instance>_DEVICE_ID
+*              value from xparameters.h.
+* @param[out]  Temp Output parameter, it is a pointer through which the
+*              current temperature value is returned to the main function.
 *
 * @return
-*		- XST_SUCCESS if the example has completed successfully.
-*		- XST_FAILURE if the example has failed.
-*
-* @note   	None
+*              - XST_SUCCESS if the example has completed successfully.
+*              - XST_FAILURE if the example has failed.
 *
 ****************************************************************************/
 int SysMonPolledExample(u16 SysMonDeviceId, int *Temp)

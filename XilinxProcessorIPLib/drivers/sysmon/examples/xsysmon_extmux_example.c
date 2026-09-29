@@ -9,6 +9,8 @@
 *
 * @file xsysmon_extmux_example.c
 *
+* @brief Demonstrates interrupt-mode XADC monitoring through an external mux.
+*
 * This file contains a design example using the driver functions
 * of the System Monitor/ADC driver. This example shows the usage of the
 * driver/device in interrupt mode with external mux and XADC in Simulateneous
@@ -17,9 +19,7 @@
 * external mux.
 *
 * @note
-*
 * This code assumes that no Operating System is being used.
-*
 *
 * <pre>
 *
@@ -39,6 +39,7 @@
 * 7.8   cog  07/20/23 Added support for SDT flow
 * 8.0   se   03/05/26 Added SDT interrupt support and IP type detection
 * 8.1   vn   07/30/26 Fix Doxygen warnings
+* 8.1   vn   09/29/26 Align Doxygen comments with AMD standards
 * </pre>
 *
 *****************************************************************************/
@@ -68,21 +69,22 @@
  * xparameters.h file. They are defined here such that a user can easily
  * change all the needed parameters in one place.
  */
-#define SYSMON_DEVICE_ID	XPAR_SYSMON_0_DEVICE_ID
-#define INTC_DEVICE_ID		XPAR_INTC_0_DEVICE_ID
+#define SYSMON_DEVICE_ID	XPAR_SYSMON_0_DEVICE_ID /**< Device ID. */
+#define INTC_DEVICE_ID		XPAR_INTC_0_DEVICE_ID /**< INTC device ID. */
+/** System Monitor interrupt ID. */
 #define INTR_ID			XPAR_INTC_0_SYSMON_0_VEC_ID
-#define INTC		XIntc
-#define INTC_HANDLER	XIntc_InterruptHandler
+#define INTC		XIntc /**< Interrupt controller type. */
+#define INTC_HANDLER	XIntc_InterruptHandler /**< Interrupt handler. */
 #else
-#define SYSMON_DEVICE_ID	0
-#define INTC_DEVICE_ID		0
+#define SYSMON_DEVICE_ID	0 /**< Device ID. */
+#define INTC_DEVICE_ID		0 /**< INTC device ID. */
 #if (XSM_IP_TYPE == XADC)
-#define INTR_ID			(32U + 29U)
+#define INTR_ID			(32U + 29U) /**< System Monitor interrupt ID. */
 #else
-#define INTR_ID			(32U + 89U)
+#define INTR_ID			(32U + 89U) /**< System Monitor interrupt ID. */
 #endif
 #endif
-#define printf xil_printf 	/* Small foot-print printf function */
+#define printf xil_printf /**< Small foot-print printf function. */
 
 /**************************** Type Definitions ******************************/
 
@@ -120,13 +122,11 @@ volatile static int EosFlag = FALSE;	/* EOS interrupt */
 /****************************************************************************/
 /**
 *
-* Main function that invokes the Interrupt example.
+* @brief Invokes the Interrupt example.
 *
 * @return
-*		- XST_SUCCESS if the example has completed successfully.
-*		- XST_FAILURE if the example has failed.
-*
-* @note		None.
+*              - XST_SUCCESS if the example has completed successfully.
+*              - XST_FAILURE if the example has failed.
 *
 *****************************************************************************/
 int main(void)
@@ -156,7 +156,7 @@ int main(void)
 /****************************************************************************/
 /**
 *
-* This function runs a test on the XADC device using the driver APIs.
+* @brief Runs an interrupt-mode test on the XADC device using the driver APIs.
 *
 * The function does the following tasks:
 *	- Initiate the XADC device driver instance
@@ -171,24 +171,23 @@ int main(void)
 *	- Wait until End of sequence interrupt occurs and read the conversion
 *	  data
 *
-* @param	SysMonInstPtr is a pointer to the XSysMon driver Instance.
+* @param[in,out] SysMonInstPtr Pointer to the XSysMon driver Instance.
 * @if SDT
-* @param	BaseAddr is the base address of the device.
+* @param[in]     BaseAddr Base address of the device.
 * @else
-* @param	IntcInstPtr is a pointer to the Interrupt Controller
-*		driver Instance.
-* @param	SysMonDeviceId is the XPAR_<SYSMON_ADC_instance>_DEVICE_ID value
-*		from xparameters.h.
-* @param	SysMonIntrId is
-*		XPAR_<INTC_instance>_<SYSMON_ADC_instance>_VEC_ID value from
-*		xparameters.h.
+* @param[in,out] IntcInstPtr Pointer to the Interrupt Controller
+*                driver Instance.
+* @param[in]     SysMonDeviceId XPAR_<SYSMON_ADC_instance>_DEVICE_ID
+*                value from xparameters.h.
+* @param[in]     SysMonIntrId XPAR_<INTC_instance>_<SYSMON_ADC_instance>_VEC_ID
+*                value from xparameters.h.
 * @endif
 *
 * @return
-*		- XST_SUCCESS if the example has completed successfully.
-*		- XST_FAILURE if the example has failed.
+*                - XST_SUCCESS if the example has completed successfully.
+*                - XST_FAILURE if the example has failed.
 *
-* @note		This function may never return if no interrupt occurs.
+* @note          This function may never return if no interrupt occurs.
 *
 ****************************************************************************/
 #ifndef SDT
@@ -325,8 +324,9 @@ static int SysMonIntrExample(XSysMon* SysMonInstPtr, UINTPTR BaseAddr)
 /*****************************************************************************/
 /**
 *
-* This function is the Interrupt Service Routine for the XADC device.
-* It will be called by the processor when an interrupt is asserted by the
+* @brief Services interrupts for the XADC device.
+*
+* The processor calls this routine when an interrupt is asserted by the
 * device.
 *
 * There are 10 different interrupts supported
@@ -345,13 +345,11 @@ static int SysMonIntrExample(XSysMon* SysMonInstPtr, UINTPTR BaseAddr)
 * User of this code may need to modify the code to meet the needs of the
 * application.
 *
-* @param	CallBackRef is the callback reference passed from the Interrupt
-*		controller driver, which in our case is a pointer to the
-*		driver instance.
+* @param[in]   CallBackRef Callback reference passed from the Interrupt
+*              controller driver, which in our case is a pointer to the
+*              driver instance.
 *
-* @return	None.
-*
-* @note		This function is called within interrupt context.
+* @note        This function is called within interrupt context.
 *
 ******************************************************************************/
 static void SysMonInterruptHandler(void *CallBackRef)
@@ -382,24 +380,23 @@ static void SysMonInterruptHandler(void *CallBackRef)
 /****************************************************************************/
 /**
 *
-* This function sets up the interrupt system so interrupts can occur for the
-* System Monitor/ADC.  The function is application-specific since the actual
-* system may or may not have an interrupt controller. The System Monitor/ADC
-* device could be directly connected to a processor without an interrupt
-* controller. The user should modify this function to fit the application.
+* @brief Sets up the interrupt system so interrupts can occur for the System
+* Monitor/ADC.
 *
-* @param	IntcInstPtr is a pointer to the Interrupt Controller driver
-*		Instance.
-* @param	SysMonPtr is a pointer to the driver instance for the System
-* 		Monitor device which is going to be connected to the interrupt
-*		controller.
-* @param	IntrId is XPAR_<INTC_instance>_<SYSMON_ADC_instance>_VEC_ID
-*		value from xparameters.h
+* The function is application-specific since the actual system may or may not
+* have an interrupt controller. The System Monitor/ADC device could be
+* directly connected to a processor without an interrupt controller. Modify
+* this function to fit the application.
 *
-* @return	XST_SUCCESS if successful, or XST_FAILURE.
+* @param[in,out] IntcInstPtr Pointer to the Interrupt Controller driver
+*                Instance.
+* @param[in,out] SysMonPtr Pointer to the driver instance for the System
+*                Monitor device which is going to be connected to the interrupt
+*                controller.
+* @param[in]     IntrId XPAR_<INTC_instance>_<SYSMON_ADC_instance>_VEC_ID
+*                value from xparameters.h.
 *
-* @note		None.
-*
+* @return        XST_SUCCESS if successful, or XST_FAILURE.
 *
 ****************************************************************************/
 #ifndef SDT

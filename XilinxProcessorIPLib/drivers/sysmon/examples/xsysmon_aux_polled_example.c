@@ -9,6 +9,8 @@
 *
 * @file xsysmon_aux_polled_example.c
 *
+* @brief Demonstrates polled-mode monitoring of auxiliary channels via mux.
+*
 * This file contains a design example using the driver functions
 * of the System Monitor/ADC driver. This example shows the usage of the
 * driver/device in polled mode with external mux and XADC in continuous pass
@@ -23,6 +25,7 @@
 * 7.5   mn     09/12/18 First release
 * 7.8   cog    07/20/23 Added support for SDT flow
 * 8.1   vn     07/30/26 Fix Doxygen warnings
+* 8.1   vn     09/29/26 Align Doxygen comments with AMD standards
 * </pre>
 *
 *****************************************************************************/
@@ -40,11 +43,11 @@
  * xparameters.h file. They are defined here such that a user can easily
  * change all the needed parameters in one place.
  */
-#define SYSMON_DEVICE_ID 	XPAR_SYSMON_0_DEVICE_ID
+#define SYSMON_DEVICE_ID 	XPAR_SYSMON_0_DEVICE_ID /**< Device ID. */
 #else
-#define SYSMON_DEVICE_ID	0
+#define SYSMON_DEVICE_ID	0 /**< Device ID. */
 #endif
-/* Use four External Channels for this Example */
+/** Use four External Channels for this Example. */
 #define XSM_SEQ_CH_AUX_MASK	XSM_SEQ_CH_AUX00 | \
 				XSM_SEQ_CH_AUX01 | \
 				XSM_SEQ_CH_AUX02 | \
@@ -71,13 +74,11 @@ static XSysMon SysMonInst;      /* System Monitor driver instance */
 /****************************************************************************/
 /**
 *
-* Main function that invokes the polled example in this file.
+* @brief Invokes the polled example in this file.
 *
 * @return
-*		- XST_SUCCESS if the example has completed successfully.
-*		- XST_FAILURE if the example has failed.
-*
-* @note		None.
+*              - XST_SUCCESS if the example has completed successfully.
+*              - XST_FAILURE if the example has failed.
 *
 *****************************************************************************/
 int main(void)
@@ -104,8 +105,8 @@ int main(void)
 /****************************************************************************/
 /**
 *
-* This function runs a test on the System Monitor/ADC device using the
-* driver APIs.
+* @brief Runs a test on the System Monitor/ADC device using the driver APIs.
+*
 * This function does the following tasks:
 *	- Initiate the XADC device driver instance
 *	- Run self-test on the device
@@ -117,14 +118,12 @@ int main(void)
 *	- Wait until End of sequence interrupt occurs and read the conversion
 *	  data
 *
-* @param	SysMonDeviceId is the XPAR_<SYSMON_ADC_instance>_DEVICE_ID value
-*		from xparameters.h.
+* @param[in]   SysMonDeviceId XPAR_<SYSMON_ADC_instance>_DEVICE_ID
+*              value from xparameters.h.
 *
 * @return
-*		- XST_SUCCESS if the example has completed successfully.
-*		- XST_FAILURE if the example has failed.
-*
-* @note   	None
+*              - XST_SUCCESS if the example has completed successfully.
+*              - XST_FAILURE if the example has failed.
 *
 ****************************************************************************/
 int SysMonAuxPolledExample(u16 SysMonDeviceId)
@@ -244,12 +243,11 @@ int SysMonAuxPolledExample(u16 SysMonDeviceId)
 /****************************************************************************/
 /**
 *
-* This function converts the fraction part of the given floating point number
-* (after the decimal point)to an integer.
+* @brief Converts the fractional part of a floating point number to an integer.
 *
-* @param	FloatNum is the floating point number.
+* @param[in]   FloatNum Floating point number.
 *
-* @return	Integer number to a precision of 3 digits.
+* @return      Integer number to a precision of 3 digits.
 *
 * @note
 * This function is used in the printing of floating point data to a STDIO

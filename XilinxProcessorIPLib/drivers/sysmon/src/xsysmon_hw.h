@@ -4,19 +4,20 @@
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
+#ifndef XSYSMON_HW_H
+#define XSYSMON_HW_H
+
 /****************************************************************************/
 /**
 *
 * @file xsysmon_hw.h
-* @addtogroup Overview
-* @{
+*
+* @brief Defines register offsets and access macros for System Monitor/ADC.
 *
 * This header file contains identifiers and basic driver functions (or
 * macros) that can be used to access the System Monitor/ADC device or XADC.
 *
 * Refer to the device specification for more information about this driver.
-*
-* @note	 None.
 *
 * <pre>
 *
@@ -46,13 +47,15 @@
 * 7.10  cog     03/13/24 Fixed issue with interrupt masks.
 * 7.11  dc      02/18/26 Correct spelling errors
 * 8.1   vn      07/30/26 Fix Doxygen warnings
+* 8.1   vn      09/29/26 Align Doxygen comments with AMD standards
 *
 * </pre>
 *
 *****************************************************************************/
 
-#ifndef XSYSMON_HW_H /* Prevent circular inclusions */
-#define XSYSMON_HW_H /* by using protection macros  */
+/** @addtogroup Overview
+ * @{
+ */
 
 #ifdef __cplusplus
 extern "C" {
@@ -69,24 +72,32 @@ extern "C" {
 
 /************************** Constant Definitions ****************************/
 
-#define SYSTEM_MANAGEMENT	1	/* Ultrascale */
-#define XADC			0	/* 7 Series, Zynq */
+/** @name IP type definitions
+ * @{
+ */
+/** IP type value for System Management (Ultrascale). */
+#define SYSTEM_MANAGEMENT	1
+/** IP type value for XADC (7 Series, Zynq). */
+#define XADC			0
 
 #ifndef SDT
-#define XSM_IP_TYPE XPAR_SYSMON_0_IP_TYPE
+#define XSM_IP_TYPE XPAR_SYSMON_0_IP_TYPE /**< System Monitor IP type. */
 #else
 #ifdef XSM_ZYNQMP
-#define XSM_IP_TYPE SYSTEM_MANAGEMENT
+#define XSM_IP_TYPE SYSTEM_MANAGEMENT /**< System Monitor IP type. */
 #else
-#define XSM_IP_TYPE XADC
+#define XSM_IP_TYPE XADC /**< System Monitor IP type. */
 #endif
 #endif
 
 #if XSM_IP_TYPE == SYSTEM_MANAGEMENT
+/** Offset of the System Monitor registers for the IP type. */
 #define XSM_IP_OFFSET	0x200
 #else
+/** Offset of the System Monitor registers for the IP type. */
 #define XSM_IP_OFFSET	0x00
 #endif
+/** @} */
 
 /**@name Register offsets
  *
@@ -446,7 +457,7 @@ extern "C" {
  *	 and Threshold data.
  * @{
  */
-#define XSM_ADCDATA_MAX_MASK	0x03FF
+#define XSM_ADCDATA_MAX_MASK	0x03FF /**< Mask for the ADC converted data. */
 
 /** @} */
 
@@ -534,7 +545,7 @@ extern "C" {
 #define XSM_CFR3_ALM_VUSR1_MASK		  0x0002 /**< VUSER 2 Supply */
 #define XSM_CFR3_ALM_VUSR0_MASK		  0x0001 /**< VUSER 3 Supply */
 
-/* Mask for all Alarms in CFR1 and CFR3 */
+/** Mask for all Alarms in CFR1 and CFR3. */
 #define XSM_CFR_ALM_ALL_MASK		  0xF0F0F
 
 /** @} */
@@ -636,16 +647,18 @@ extern "C" {
 /*****************************************************************************/
 /**
 *
-* Read a register of the System Monitor/ADC device. This macro provides register
-* access to all registers using the register offsets defined above.
+* @brief Reads a register of the System Monitor/ADC device.
 *
-* @param	BaseAddress contains the base address of the device.
-* @param	RegOffset is the offset of the register to read.
+* This macro provides register access to all registers using the register
+* offsets defined above.
 *
-* @return	The contents of the register.
+* @param[in]   BaseAddress Base address of the device.
+* @param[in]   RegOffset Offset of the register to read.
 *
-* @note		C-style Signature:
-*		u32 XSysMon_ReadReg(u32 BaseAddress, u32 RegOffset);
+* @return      The contents of the register.
+*
+* @note        C-style Signature:
+*              u32 XSysMon_ReadReg(u32 BaseAddress, u32 RegOffset);
 *
 ******************************************************************************/
 #define XSysMon_ReadReg(BaseAddress, RegOffset) \
@@ -654,18 +667,18 @@ extern "C" {
 /*****************************************************************************/
 /**
 *
-* Write a register of the System Monitor/ADC device. This macro provides
-* register access to all registers using the register offsets defined above.
+* @brief Writes a register of the System Monitor/ADC device.
 *
-* @param	BaseAddress contains the base address of the device.
-* @param	RegOffset is the offset of the register to write.
-* @param	Data is the value to write to the register.
+* This macro provides register access to all registers using the register
+* offsets defined above.
 *
-* @return	None.
+* @param[in]   BaseAddress Base address of the device.
+* @param[in]   RegOffset Offset of the register to write.
+* @param[in]   Data Value to write to the register.
 *
-* @note 	C-style Signature:
-*		void XSysMon_WriteReg(u32 BaseAddress,
-*					u32 RegOffset,u32 Data)
+* @note        C-style Signature:
+*              void XSysMon_WriteReg(u32 BaseAddress,
+*                                      u32 RegOffset,u32 Data)
 *
 ******************************************************************************/
 #define XSysMon_WriteReg(BaseAddress, RegOffset, Data) \
