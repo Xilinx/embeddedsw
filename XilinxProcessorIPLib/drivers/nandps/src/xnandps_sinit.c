@@ -8,13 +8,10 @@
 /**
 *
 * @file xnandps_sinit.c
-* @addtogroup nandps Overview
-* @{
+* @brief Implements the static initialization functions of the XNandPs driver.
 *
 * This file contains the implementation of the XNand driver's static
 * initialization functionality.
-*
-* @note	None.
 *
 * <pre>
 *
@@ -26,9 +23,14 @@
 * 2.8  akm   07/06/23    Update the driver to support for system device-tree flow.
 * 2.10 akm   10/04/24    Retrieve the 'reg' property value from smcc node 'ranges'
 * 2.11 vlt   12/14/25    Update Doxygen comments to include SDT flow details.
+* 2.12 vn    09/29/26    Align Doxygen comments with AMD standards
 * </pre>
 *
 ******************************************************************************/
+
+/** @addtogroup nandps Overview
+ * @{
+ */
 
 /***************************** Include Files *********************************/
 
@@ -46,24 +48,29 @@
 /************************** Function Prototypes ******************************/
 
 /************************** Variable Definitions *****************************/
+/**
+ * @brief Configuration table of all NAND flash device instances.
+ */
 extern XNandPs_Config XNandPs_ConfigTable[];
 
 /*****************************************************************************/
 /**
 *
-* Looks up the device configuration based on the unique device ID/BaseAddress.
-* The XNandPs_ConfigTable[] contains the configuration info for each device in
-* the system.
+* @brief Looks up the device configuration based on the unique device ID or
+*	 base address.
+*
+* The XNandPs_ConfigTable[] contains the configuration information for each
+* device in the system.
 *
 * @if SDT
-* @param	BaseAddress contains the base address of the device
+* @param[in]   BaseAddress Base address of the device.
 * @else
-* @param	DeviceId contains the unique ID of the device
+* @param[in]   DeviceId Unique ID of the device.
 * @endif
 *
-* @return       A pointer to the configuration found or NULL if the specified
-*               device ID/BaseAddress was not found. See xnandps.h for the
-*               definition of XNandPs_Config.
+* @return      A pointer to the configuration found or NULL if the specified
+*              device ID/BaseAddress was not found. See xnandps.h for the
+*              definition of XNandPs_Config.
 *
 * @note        In XSCT/classic flow, DeviceId is used to look up the device
 *              configuration.

@@ -4,12 +4,14 @@
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
+#ifndef ONFI_H
+#define ONFI_H
+
 /*****************************************************************************/
 /**
 *
 * @file xnandps_onfi.h
-* @addtogroup nandps Overview
-* @{
+* @brief Implements ONFI specific commands to read parameter page information.
 *
 * This file implements ONFI specific commands which are used to get the
 * parameter page information.
@@ -23,8 +25,6 @@
 * 	- Get Features
 * 	- Set Features
 *
-* @note		None
-*
 * <pre>
 * MODIFICATION HISTORY:
 *
@@ -33,11 +33,14 @@
 * 1.00a nm     12/10/2010  First release
 * 1.04a nm     04/25/2013  Implemented PR# 699544. Added page cache read
 *			   and program commands to ONFI command list.
+* 2.12  vn     09/29/26    Align Doxygen comments with AMD standards
 * </pre>
 *
 ******************************************************************************/
-#ifndef ONFI_H		/* prevent circular inclusions */
-#define ONFI_H		/* by using protection macros */
+
+/** @addtogroup nandps Overview
+ * @{
+ */
 
 #ifdef __cplusplus
 extern "C" {
@@ -162,7 +165,7 @@ extern "C" {
 
 
 /**
- * This enum defines the onfi commands.
+ * @brief Enumerates the ONFI commands.
  */
 enum OnfiCommandsEnum {
 	READ = 0,			/**< ONFI Read */
@@ -183,11 +186,10 @@ enum OnfiCommandsEnum {
 
 /**************************** Type Definitions *******************************/
 /**
- * ONFI 1.0 support
- */
-/*
- * Parameter page structure of ONFI 1.0 specification.
- * Enhanced this structure to include ONFI 2.3 information for EZ NAND support.
+ * @brief Describes the ONFI 1.0 parameter page structure.
+ *
+ * Parameter page structure of the ONFI 1.0 specification. Enhanced to include
+ * ONFI 2.3 information for EZ NAND support.
  */
 #ifdef __ICCARM__
 #pragma pack(push, 1)

@@ -7,6 +7,7 @@
 /*****************************************************************************/
 /**
 * @file xnandps_cache_example.c
+* @brief Demonstrates NAND page cache read and write using the XNandPs driver.
 *
 * This file contains a design example using the NAND driver (XNandPs).
 * This example tests NAND page cache read and write commands. The page cache
@@ -15,11 +16,8 @@
 *
 * This example tests the block erase, block read and block write features.
 * The flash blocks are erased and written. The data is read back and compared
-* with the data written for correctness. The bad blocks are not erased/programmed.
-*
-* @note
-*
-* None.
+* with the data written for correctness. The bad blocks are not
+* erased/programmed.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -49,7 +47,7 @@
  * change all the needed parameters in one place.
  */
 #ifndef SDT
-#define NAND_DEVICE_ID		XPAR_XNANDPS_0_DEVICE_ID
+#define NAND_DEVICE_ID		XPAR_XNANDPS_0_DEVICE_ID /**< Device ID. */
 #endif
 /* Test parameters */
 #define NAND_TEST_START_BLOCK	64	/**< Starting block to test */
@@ -63,15 +61,17 @@
 
 /************************** Function Prototypes ******************************/
 
+/** @cond INTERNAL */
 #ifndef SDT
 int NandReadWriteCacheExample(u32 NandDeviceId);
 #else
 int NandReadWriteCacheExample(UINTPTR BaseAddress);
 #endif
+/** @endcond */
 
 /************************** Variable Definitions *****************************/
-XNandPs NandInstance; /* XNand Instance. */
-XNandPs *NandInstPtr = &NandInstance;
+XNandPs NandInstance; /**< XNand Instance. */
+XNandPs *NandInstPtr = &NandInstance; /**< Pointer to the XNandPs instance. */
 /*
  * Buffers used during read and write transactions.
  */
@@ -82,14 +82,11 @@ u8 WriteBuffer[NAND_TEST_BLOCK_SIZE];	/**< Block sized write buffer */
 /****************************************************************************/
 /**
 *
-* Main function to execute the Nand Flash read write example.
-*
+* @brief Runs the NAND flash page cache read write example.
 *
 * @return
-*		- XST_SUCCESS if the example has completed successfully.
-*		- XST_FAILURE if the example has failed.
-*
-* @note		None.
+*              - XST_SUCCESS if the example has completed successfully.
+*              - XST_FAILURE if the example has failed.
 *
 *****************************************************************************/
 int main(void)
@@ -120,30 +117,31 @@ int main(void)
 /****************************************************************************/
 /**
 *
-* This function runs a test on the NAND flash device using the basic driver
-* functions.
+* @brief Runs a test on the NAND flash device using the basic driver
+*	 functions.
+*
 * The function does the following tasks:
 *	- Initialize the driver.
 *	- Erase the blocks.
 *	- Write in to all the blocks.
 *	- Read back the data from the blocks.
-*	- Compare the data read against the data Written.
+*	- Compare the data read against the data written.
 *
 * @if SDT
-* @param	BaseAddress contains the base address of the device
+* @param[in]   BaseAddress Base address of the device.
 * @else
-* @param	NandDeviceId is is the XPAR_<NAND_instance>_DEVICE_ID value
-*		from xparameters.h.
+* @param[in]   NandDeviceId The XPAR_<NAND_instance>_DEVICE_ID value from
+*              xparameters.h.
 * @endif
 *
 * @return
-*		- XST_SUCCESS if successful.
-*		- XST_FAILURE if failed.
+*              - XST_SUCCESS if successful.
+*              - XST_FAILURE if failed.
 *
-* @note	        -In XSCT/classic flow, DeviceId is used to look up the
-*                device configuration.
-*               -When bad blocks are encountered, they are not erased and
-*		programmed.
+* @note        -In XSCT/classic flow, DeviceId is used to look up the
+*               device configuration.
+*              -When bad blocks are encountered, they are not erased and
+*              programmed.
 *
 ****************************************************************************/
 #ifndef SDT

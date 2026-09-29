@@ -4,13 +4,16 @@
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
+#ifndef XNANDPS_H
+#define XNANDPS_H
+
 /*****************************************************************************/
 /**
 *
 * @file xnandps.h
 * @addtogroup nandps Overview
 * @{
-* @details
+* @brief Implements the driver for the NAND flash controller.
 *
 * This file implements a driver for the NAND flash controller.
 *
@@ -37,8 +40,8 @@
 * and not the other way around. To change a cell back to a logic 1, the
 * entire block containing that cell must be erased. When a block is erased
 * all bytes contain the value 0xFF. The number of times a block can be
-* erased is finite. Eventually the block will wear out and will no longer
-* be capable of erasure. As of this writing, the typical flash block can
+* erased is finite. Eventually the block wears out and is no longer
+* capable of erasure. As of this writing, the typical flash block can
 * be erased 100,000 or more times.
 *
 * The jobs done by this driver typically are:
@@ -103,7 +106,6 @@
 * This call reads spare bytes of a page into user specified buffer.
 *
 * @note
-*
 * This driver is intended to be RTOS and processor independent. It works with
 * physical addresses only. Any needs for dynamic memory management, threads,
 * mutual exclusion, virtual memory, cache control, or HW write protection
@@ -163,12 +165,10 @@
 * 2.10 akm     10/04/24    Retrieve the 'reg' property value from smcc node 'ranges'
 * 2.11 vlt   12/30/25    Update Doxygen comments to include SDT flow details.
 * 2.12 vn    07/30/26    Fix Doxygen warnings
+* 2.12 vn    09/29/26    Align Doxygen comments with AMD standards
 * </pre>
 *
 ******************************************************************************/
-
-#ifndef XNANDPS_H		/* prevent circular inclusions */
-#define XNANDPS_H		/* by using protection macros */
 
 #ifdef __cplusplus
 extern "C" {
@@ -190,7 +190,8 @@ extern "C" {
 #define XNANDPS_MAX_SPARE_SIZE		512	/**< Max spare bytes of a NAND
 						  flash page */
 #define XNANDPS_MAX_LUNS		8	/**< Max number of LUNs */
-#define XNANDPS_MAX_PAGES_PER_BLOCK	512 	/**< Max number pages per block */
+#define XNANDPS_MAX_PAGES_PER_BLOCK	512	/**< Max number pages per
+						  block */
 #define XNANDPS_ECC_BLOCK_SIZE		512	/**< ECC block size */
 #define XNANDPS_ECC_BYTES		3	/**< ECC bytes per ECC block */
 
@@ -281,7 +282,7 @@ extern "C" {
 
 /**************************** Type Definitions *******************************/
 /**
- * This enum contains ECC Mode
+ * @brief Enumerates the ECC modes supported by the driver.
  */
 typedef enum {
 	XNANDPS_ECC_NONE = 0,	/**< No ECC */
@@ -291,7 +292,7 @@ typedef enum {
 } XNandPs_EccMode;
 
 /**
- * This typedef contains configuration information for the flash device.
+ * @brief Holds configuration information for the flash device.
  */
 typedef struct {
 #ifndef SDT
@@ -304,7 +305,7 @@ typedef struct {
 	u32  FlashWidth;	/**< Flash width */
 } XNandPs_Config;
 /**
- * Flash geometry
+ * @brief Describes the flash geometry.
  */
 typedef struct {
 	u32 BytesPerPage;       /**< Bytes per page */
@@ -322,16 +323,17 @@ typedef struct {
 } XNandPs_Geometry;
 
 /**
- * ONFI Features and Optional commands supported
- * See parameter page byte 6-7 and 8-9
+ * @brief Holds ONFI features and optional commands supported.
+ *
+ * See parameter page byte 6-7 and 8-9.
  */
 typedef struct {
-	int ProgramCache;
-	int ReadCache;
+	int ProgramCache;	/**< Program page cache command support */
+	int ReadCache;		/**< Read page cache command support */
 } XNandPs_Features;
 
 /**
- * Bad block table descriptor
+ * @brief Describes the bad block table descriptor.
  */
 typedef struct {
 	u32 PageOffset;		/**< Page offset where BBT resides */
@@ -345,7 +347,7 @@ typedef struct {
 } XNandPs_BbtDesc;
 
 /**
- * Bad block pattern
+ * @brief Describes the bad block pattern.
  */
 typedef struct {
 	u32 Options;		/**< Options to search the bad block pattern */
@@ -355,8 +357,7 @@ typedef struct {
 } XNandPs_BadBlockPattern;
 
 /**
- * ECC configuration structure.
- * Contains information related to ECC.
+ * @brief Holds ECC configuration information.
  */
 typedef struct {
 	u32 NumSteps;		/**< Number of ECC steps for the flash page */
@@ -368,9 +369,10 @@ typedef struct {
 } XNandPs_EccConfig;
 
 /**
- * The XNandPs driver instance data. The user is required to allocate a
- * variable of this type for every flash device in the system. A pointer to a
- * variable of this type is then passed to the driver API functions.
+ * @brief Holds the XNandPs driver instance data.
+ *
+ * Allocate a variable of this type for every flash device in the system. Pass
+ * a pointer to a variable of this type to the driver API functions.
  */
 typedef struct XNandPsTag {
 	u32 IsReady;			/**< Device is initialized and ready */
@@ -387,7 +389,8 @@ typedef struct XNandPsTag {
 	XNandPs_BadBlockPattern BbPattern;	/**< Bad block pattern to
 						  search */
 	u8 Bbt[XNANDPS_MAX_BLOCKS >> 2];	/**< Bad block table array */
-	u8 FlashBbt[XNANDPS_MAX_BLOCKS >> 2];	/**< BBT buffer for partial read/writes */
+	u8 FlashBbt[XNANDPS_MAX_BLOCKS >> 2];	/**< BBT buffer for partial
+						  read/writes */
 	u8 DataBuf[XNANDPS_MAX_PAGE_SIZE + XNANDPS_MAX_SPARE_SIZE];
 	/**< Data buffer for partial read/writes */
 	u8 *SpareBufPtr;		/**< Pointer to store spare buffer */
@@ -402,7 +405,7 @@ typedef struct XNandPsTag {
 } XNandPs;
 
 /**
- * NAND Command format structures
+ * @brief Describes the NAND command format.
  */
 typedef struct {
 	int StartCmd;	/**< Start command */
@@ -413,8 +416,14 @@ typedef struct {
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /**
- * OneHot is used to check if one and only one bit is set.
- * This Macro returns 1 if the value passed is OneHot.
+ * @brief Checks whether one and only one bit is set in a value.
+ *
+ * @param[in]   Value Value to test.
+ *
+ * @return      1 if the value has a single bit set, 0 otherwise.
+ *
+ * @note        C-style signature:
+ *              int OneHot(u32 Value);
  */
 #define OneHot(Value)	(!((Value) & (Value - 1)))
 

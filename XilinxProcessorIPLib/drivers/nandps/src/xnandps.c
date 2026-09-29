@@ -8,18 +8,15 @@
 /**
 *
 * @file xnandps.c
-* @addtogroup nandps Overview
-* @{
+* @brief Implements the interface functions of the XNandPs driver.
 *
 * This file contains the implementation of the interface functions for
 * XNandPs driver. Refer to the header file xnandps.h for more detailed
 * information.
 *
 * This module supports for NAND flash memory devices that conform to the
-* "Open NAND Flash Interface" (ONFI) Specification. This modules implements
+* "Open NAND Flash Interface" (ONFI) Specification. This module implements
 * basic flash operations like read, write and erase.
-*
-* @note		None
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -55,9 +52,14 @@
 *			   write operations.
 * 2.8  akm     07/06/23    Update the driver to support for system device-tree flow.
 * 2.12 vn      07/30/26    Fix Doxygen warnings
+* 2.12 vn      09/29/26    Align Doxygen comments with AMD standards
 * </pre>
 *
 ******************************************************************************/
+
+/** @addtogroup nandps Overview
+ * @{
+ */
 
 /***************************** Include Files *********************************/
 #include "xnandps.h"
@@ -128,21 +130,23 @@ extern XNandPs_CommandFormat OnfiCommands[];	/**< ONFI commands */
 /*****************************************************************************/
 /**
 *
-* This function initializes a specific XNandPs device/instance. This function
-* must be called prior to using the flash device to read or write any data.
+* @brief Initializes a specific XNandPs instance.
 *
-* @param	InstancePtr is a pointer to the XNandPs instance.
-* @param	ConfigPtr points to the XNandPs device configuration structure.
-* @param	SmcBaseAddr is the base address of SMC controller.
-* @param	FlashBaseAddr is the base address of NAND flash.
+* Call this function before using the flash device to read or write any data.
+*
+* @param[in,out] InstancePtr Pointer to the XNandPs instance.
+* @param[in]     ConfigPtr Pointer to the XNandPs device configuration
+*                structure.
+* @param[in]     SmcBaseAddr Base address of the SMC controller.
+* @param[in]     FlashBaseAddr Base address of the NAND flash.
 *
 * @return
-*		- XST_SUCCESS if successful.
-*		- XST_FAILURE if fail.
+*                - XST_SUCCESS if successful.
+*                - XST_FAILURE if fail.
 *
-* @note		The user needs to first call the XNandPs_LookupConfig() API
-*		which returns the Configuration structure pointer which is
-*		passed as a parameter to the XNandPs_CfgInitialize() API.
+* @note          First call the XNandPs_LookupConfig() API, which returns the
+*                configuration structure pointer passed as a parameter to the
+*                XNandPs_CfgInitialize() API.
 *
 ******************************************************************************/
 int XNandPs_CfgInitialize(XNandPs *InstancePtr, XNandPs_Config *ConfigPtr,
@@ -247,14 +251,10 @@ int XNandPs_CfgInitialize(XNandPs *InstancePtr, XNandPs_Config *ConfigPtr,
 /*****************************************************************************/
 /**
 *
-* This function initializes the HW ECC block based on flash.
+* @brief Initializes the HW ECC block based on the flash.
 *
-* @param	InstancePtr is a pointer to the XNandPs instance.
-* @param	EccConfig is the value of ECC config to update.
-*
-* @return	None
-*
-* @note		None
+* @param[in]   InstancePtr Pointer to the XNandPs instance.
+* @param[in]   EccConfig ECC configuration value to write.
 *
 *****************************************************************************/
 static void XNandPs_EccSetCfg(XNandPs *InstancePtr, u32 EccConfig)
@@ -276,14 +276,10 @@ static void XNandPs_EccSetCfg(XNandPs *InstancePtr, u32 EccConfig)
 /*****************************************************************************/
 /**
 *
-* This function writes ECC MEM CMD1 register with EccCmd value.
+* @brief Writes the ECC MEM CMD1 register with the given value.
 *
-* @param	InstancePtr is a pointer to the XNandPs instance.
-* @param	EccCmd is register value to write.
-*
-* @return	None
-*
-* @note		None
+* @param[in]   InstancePtr Pointer to the XNandPs instance.
+* @param[in]   EccCmd Register value to write.
 *
 *****************************************************************************/
 static void XNandPs_EccSetMemCmd1(XNandPs *InstancePtr, u32 EccCmd)
@@ -299,14 +295,10 @@ static void XNandPs_EccSetMemCmd1(XNandPs *InstancePtr, u32 EccCmd)
 /*****************************************************************************/
 /**
 *
-* This function writes ECC MEM CMD2 register with EccCmd value.
+* @brief Writes the ECC MEM CMD2 register with the given value.
 *
-* @param	InstancePtr is a pointer to the XNandPs instance.
-* @param	EccCmd is register value to write.
-*
-* @return	None
-*
-* @note		None
+* @param[in]   InstancePtr Pointer to the XNandPs instance.
+* @param[in]   EccCmd Register value to write.
 *
 *****************************************************************************/
 static void XNandPs_EccSetMemCmd2(XNandPs *InstancePtr, u32 EccCmd)
@@ -322,13 +314,9 @@ static void XNandPs_EccSetMemCmd2(XNandPs *InstancePtr, u32 EccCmd)
 /*****************************************************************************/
 /**
 *
-* This function disables ECC block.
+* @brief Disables the ECC block.
 *
-* @param	InstancePtr is a pointer to the XNandPs instance.
-*
-* @return	None
-*
-* @note		None
+* @param[in]   InstancePtr Pointer to the XNandPs instance.
 *
 *****************************************************************************/
 static void XNandPs_EccDisable(XNandPs *InstancePtr)
@@ -347,15 +335,13 @@ static void XNandPs_EccDisable(XNandPs *InstancePtr)
 /*****************************************************************************/
 /**
 *
-* This function initializes the HW ECC block based on flash.
+* @brief Initializes the HW ECC block based on the flash.
 *
-* @param	InstancePtr is a pointer to the XNandPs instance.
+* @param[in]   InstancePtr Pointer to the XNandPs instance.
 *
 * @return
-*		- XST_SUCCESS if successful.
-*		- XST_FAILURE if the flash is not supported.
-*
-* @note		None
+*              - XST_SUCCESS if successful.
+*              - XST_FAILURE if the flash is not supported.
 *
 *****************************************************************************/
 static int XNandPs_EccHwInit(XNandPs *InstancePtr)
@@ -400,16 +386,16 @@ static int XNandPs_EccHwInit(XNandPs *InstancePtr)
 /*****************************************************************************/
 /**
 *
-* This function initializes the software variables related
-* to ECC generation, ECC checking and writing ECC bytes in spare bytes.
+* @brief Initializes the software variables related to ECC.
 *
-* @param	InstancePtr is a pointer to the XNandPs instance.
+* Initializes the variables for ECC generation, ECC checking, and writing ECC
+* bytes into the spare bytes.
+*
+* @param[in,out] InstancePtr Pointer to the XNandPs instance.
 *
 * @return
-*		- XST_SUCCESS if successful.
-*		- XST_FAILURE if the flash is not supported.
-*
-* @note		None
+*                - XST_SUCCESS if successful.
+*                - XST_FAILURE if the flash is not supported.
 *
 *****************************************************************************/
 static int XNandPs_EccSwInit(XNandPs *InstancePtr)
@@ -468,23 +454,22 @@ static int XNandPs_EccSwInit(XNandPs *InstancePtr)
 /*****************************************************************************/
 /**
 *
-* This function reads the data from the Flash device and copies it into the
-* specified user buffer. It doesn't check for the bad blocks while reading
-* the flash pages that cross block boundary. User must take care of handling
-* bad blocks.
+* @brief Reads data from the flash device into the user buffer.
 *
-* @param	InstancePtr is the pointer to the XNandPs instance.
-* @param	Offset is the flash data address to read from.
-* @param	Length is number of bytes to read.
-* @param	DestPtr is the destination address to copy data to.
-* @param	UserSparePtr is the user buffer to which spare data must be
-*		copied.
+* This function does not check for bad blocks while reading flash pages that
+* cross a block boundary. The caller must handle bad blocks.
+*
+* @param[in,out] InstancePtr Pointer to the XNandPs instance.
+* @param[in]     Offset Flash data address to read from.
+* @param[in]     Length Number of bytes to read.
+* @param[out]    DestPtr Destination address to copy data to.
+* @param[out]    UserSparePtr User buffer to which spare data is copied.
 *
 * @return
-*		- XST_SUCCESS if successful.
-*		- XST_FAILURE if fail.
+*                - XST_SUCCESS if successful.
+*                - XST_FAILURE if fail.
 *
-* @note		This function reads sequential pages from the Flash device.
+* @note          Reads sequential pages from the flash device.
 *
 ******************************************************************************/
 int XNandPs_Read(XNandPs *InstancePtr, u64 Offset, u32 Length, void *DestPtr,
@@ -586,23 +571,23 @@ int XNandPs_Read(XNandPs *InstancePtr, u64 Offset, u32 Length, void *DestPtr,
 /*****************************************************************************/
 /**
 *
-* This function reads the data from the Flash device using read page cache
-* command and copies it into the specified user buffer.
-* It doesn't check for the bad blocks while reading the flash pages that
-* cross block boundary. User must take care of handling bad blocks.
+* @brief Reads data from the flash device using the read page cache command.
 *
-* @param	InstancePtr is the pointer to the XNandPs instance.
-* @param	Offset is the flash data address to read from.
-* @param	Length is number of bytes to read.
-* @param	DestPtr is the destination address to copy data to.
-* @param	UserSparePtr is the user buffer to which spare data must be
-*		copied.
+* Copies the data into the user buffer. This function does not check for bad
+* blocks while reading flash pages that cross a block boundary. The caller must
+* handle bad blocks.
+*
+* @param[in,out] InstancePtr Pointer to the XNandPs instance.
+* @param[in]     Offset Flash data address to read from.
+* @param[in]     Length Number of bytes to read.
+* @param[out]    DestPtr Destination address to copy data to.
+* @param[out]    UserSparePtr User buffer to which spare data is copied.
 *
 * @return
-*		- XST_SUCCESS if successful.
-*		- XST_FAILURE if fail.
+*                - XST_SUCCESS if successful.
+*                - XST_FAILURE if fail.
 *
-* @note		This function reads sequential pages from the Flash device.
+* @note          Reads sequential pages from the flash device.
 *
 ******************************************************************************/
 int XNandPs_ReadCache(XNandPs *InstancePtr, u64 Offset, u32 Length,
@@ -785,26 +770,25 @@ int XNandPs_ReadCache(XNandPs *InstancePtr, u64 Offset, u32 Length,
 /*****************************************************************************/
 /**
 *
-* This function programs the flash device(s) with data specified in the user
-* buffer. The source and destination address must be aligned to the width of the
-* flash's data bus. It doesn't check for the bad blocks while writing to
-* the flash pages that cross block boundary. User must take care of handling
-* bad blocks.
+* @brief Programs the flash device with data from the user buffer.
 *
-* @param	InstancePtr is the pointer to the XNandPs instance.
-* @param	Offset is the flash data address to write to.
-* @param	Length is number of bytes to write.
-* @param	SrcPtr is the source address to write the data from.
-* @param	UserSparePtr is the user buffer which contains buffer to write
-*		into spare data area.
+* The source and destination addresses must be aligned to the width of the
+* flash data bus. This function does not check for bad blocks while writing
+* flash pages that cross a block boundary. The caller must handle bad blocks.
+*
+* @param[in,out] InstancePtr Pointer to the XNandPs instance.
+* @param[in]     Offset Flash data address to write to.
+* @param[in]     Length Number of bytes to write.
+* @param[in]     SrcPtr Source address to write the data from.
+* @param[in]     UserSparePtr User buffer that holds data to write into the
+*                spare data area.
 *
 * @return
-*		- XST_SUCCESS if successful.
-*		- XST_FAILURE if fail.
-*		- XST_NAND_WRITE_PROTECTED if the flash is write protected.
+*                - XST_SUCCESS if successful.
+*                - XST_FAILURE if fail.
+*                - XST_NAND_WRITE_PROTECTED if the flash is write protected.
 *
-* @note		This function writes number of sequential pages into the
-*		Flash device.
+* @note          Writes a number of sequential pages into the flash device.
 *
 ******************************************************************************/
 int XNandPs_Write(XNandPs *InstancePtr, u64 Offset, u32 Length, void *SrcPtr,
@@ -892,27 +876,26 @@ int XNandPs_Write(XNandPs *InstancePtr, u64 Offset, u32 Length, void *SrcPtr,
 /*****************************************************************************/
 /**
 *
-* This function programs the flash device(s) with data specified in the user
-* buffer using program cache command.
-* The source and destination address must be aligned to the width of the
-* flash's data bus. It doesn't check for the bad blocks while writing to
-* the flash pages that cross block boundary. User must take care of handling
-* bad blocks.
+* @brief Programs the flash device using the program cache command.
 *
-* @param	InstancePtr is the pointer to the XNandPs instance.
-* @param	Offset is the flash data address to write to.
-* @param	Length is number of bytes to write.
-* @param	SrcPtr is the source address to write the data from.
-* @param	UserSparePtr is the user buffer which contains buffer to write
-*		into spare data area.
+* Writes data from the user buffer. The source and destination addresses must
+* be aligned to the width of the flash data bus. This function does not check
+* for bad blocks while writing flash pages that cross a block boundary. The
+* caller must handle bad blocks.
+*
+* @param[in,out] InstancePtr Pointer to the XNandPs instance.
+* @param[in]     Offset Flash data address to write to.
+* @param[in]     Length Number of bytes to write.
+* @param[in]     SrcPtr Source address to write the data from.
+* @param[in]     UserSparePtr User buffer that holds data to write into the
+*                spare data area.
 *
 * @return
-*		- XST_SUCCESS if successful.
-*		- XST_FAILURE if fail.
-*		- XST_NAND_WRITE_PROTECTED if the flash is write protected.
+*                - XST_SUCCESS if successful.
+*                - XST_FAILURE if fail.
+*                - XST_NAND_WRITE_PROTECTED if the flash is write protected.
 *
-* @note		This function writes number of sequential pages into the
-*		Flash device.
+* @note          Writes a number of sequential pages into the flash device.
 *
 ******************************************************************************/
 int XNandPs_WriteCache(XNandPs *InstancePtr, u64 Offset, u32 Length,
@@ -1031,14 +1014,12 @@ int XNandPs_WriteCache(XNandPs *InstancePtr, u64 Offset, u32 Length,
 /**************************************************************************/
 /**
 *
-* This function sends a NAND command to the flash device.
+* @brief Sends a NAND command to the flash device.
 *
-* @param	InstancePtr is the pointer to XNandPs structure
-* @param	Command is the NAND command to send
-* @param	Page is the page offset required for specific commands
-* @param	Column the column offset required for specific commands
-*
-* @note		None
+* @param[in,out] InstancePtr Pointer to the XNandPs instance.
+* @param[in,out] Command NAND command to send.
+* @param[in]     Page Page offset required for specific commands.
+* @param[in]     Column Column offset required for specific commands.
 *
 ***************************************************************************/
 void XNandPs_SendCommand(XNandPs *InstancePtr, XNandPs_CommandFormat
@@ -1143,17 +1124,15 @@ void XNandPs_SendCommand(XNandPs *InstancePtr, XNandPs_CommandFormat
 /*****************************************************************************/
 /**
 *
-* This function reads the spare area of a page.
+* @brief Reads the spare area of a page.
 *
-* @param	InstancePtr is the pointer to the XNandPs instance.
-* @param	Page is the page number from where spare data is read.
-* @param	Buf is pointer to the buffer where the spare data is filled.
+* @param[in,out] InstancePtr Pointer to the XNandPs instance.
+* @param[in]     Page Page number to read spare data from.
+* @param[out]    Buf Buffer where the spare data is filled.
 *
 * @return
-*		- XST_SUCCESS if successful.
-*		- XST_FAILURE if fail.
-*
-* @note		None.
+*                - XST_SUCCESS if successful.
+*                - XST_FAILURE if fail.
 *
 ******************************************************************************/
 int XNandPs_ReadSpareBytes(XNandPs *InstancePtr, u32 Page, u8 *Buf)
@@ -1245,17 +1224,15 @@ int XNandPs_ReadSpareBytes(XNandPs *InstancePtr, u32 Page, u8 *Buf)
 /*****************************************************************************/
 /**
 *
-* This function write to the spare area of a page.
+* @brief Writes to the spare area of a page.
 *
-* @param	InstancePtr is the pointer to the XNandPs instance.
-* @param	Page is the page number to write.
-* @param	Buf is pointer to the buffer which holds the data.
+* @param[in,out] InstancePtr Pointer to the XNandPs instance.
+* @param[in]     Page Page number to write.
+* @param[in]     Buf Buffer that holds the data to write.
 *
 * @return
-*		- XST_SUCCESS if successful.
-*		- XST_FAILURE if fail.
-*
-* @note		None.
+*                - XST_SUCCESS if successful.
+*                - XST_FAILURE if fail.
 *
 ******************************************************************************/
 int XNandPs_WriteSpareBytes(XNandPs *InstancePtr, u32 Page, u8 *Buf)
@@ -1330,14 +1307,13 @@ int XNandPs_WriteSpareBytes(XNandPs *InstancePtr, u32 Page, u8 *Buf)
 /*****************************************************************************/
 /**
 *
-* This function checks whether SMC controller busy in processing a request.
+* @brief Checks whether the SMC controller is busy processing a request.
 *
-* @param	InstancePtr is a pointer to the XNandPs instance.
+* @param[in]   InstancePtr Pointer to the XNandPs instance.
 *
-* @return	- TRUE if SMC is busy
-*		- FALSE if SMC is free
-*
-* @note		None.
+* @return
+*              - TRUE if SMC is busy.
+*              - FALSE if SMC is free.
 *
 ******************************************************************************/
 static int XNandPs_IsBusy(XNandPs *InstancePtr)
@@ -1360,16 +1336,14 @@ static int XNandPs_IsBusy(XNandPs *InstancePtr)
 /*****************************************************************************/
 /**
 *
-* This function calculates the ECC value from the ECC registers.
+* @brief Calculates the ECC value from the ECC registers.
 *
-* @param	InstancePtr is a pointer to the XNandPs instance.
-* @param	EccData is the buffer to fill the ECC value.
+* @param[in]   InstancePtr Pointer to the XNandPs instance.
+* @param[out]  EccData Buffer to fill with the ECC value.
 *
 * @return
-*		- XST_SUCCESS if successful.
-*		- XST_FAILURE if fail.
-*
-* @note		None
+*              - XST_SUCCESS if successful.
+*              - XST_FAILURE if fail.
 *
 ******************************************************************************/
 static int XNandPs_EccCalculate(XNandPs *InstancePtr, u8 *EccData)
@@ -1412,17 +1386,15 @@ static int XNandPs_EccCalculate(XNandPs *InstancePtr, u8 *EccData)
 /*****************************************************************************/
 /**
 *
-* This function corrects the ECC errors.
+* @brief Corrects the ECC errors.
 *
-* @param	Buf is the buffer which holds the data read from the page.
-* @param	EccCalc is the calculated ECC value.
-* @param	EccCode is the ECC read from the spare area.
+* @param[in,out] Buf Buffer that holds the data read from the page.
+* @param[in]     EccCalc Calculated ECC value.
+* @param[in]     EccCode ECC read from the spare area.
 *
 * @return
-*		- XST_SUCCESS if the ECC error is corrected.
-*		- XST_FAILURE if the ECC error is not corrected.
-*
-* @note		None
+*                - XST_SUCCESS if the ECC error is corrected.
+*                - XST_FAILURE if the ECC error is not corrected.
 *
 ******************************************************************************/
 static int XNandPs_EccCorrect(u8 *Buf, u8 *EccCalc, u8 *EccCode)
@@ -1490,17 +1462,17 @@ static int XNandPs_EccCorrect(u8 *Buf, u8 *EccCalc, u8 *EccCode)
 /*****************************************************************************/
 /**
 *
-* This function reads a specific page from NAND device using HW ECC block.
-* It checks for the ECC errors and corrects single bit errors. The multiple bit
-* error are reported as failure.
+* @brief Reads a specific page from the NAND device using the HW ECC block.
 *
-* @param	InstancePtr is a pointer to the XNandPs instance.
-* @param	DstPtr is a pointer to the destination buffer.
+* Checks for ECC errors and corrects single-bit errors. Multiple-bit errors
+* are reported as a failure.
+*
+* @param[in,out] InstancePtr Pointer to the XNandPs instance.
+* @param[out]    DstPtr Pointer to the destination buffer.
+*
 * @return
-*		- XST_SUCCESS if successful.
-*		- XST_FAILURE if fail.
-*
-* @note		None
+*                - XST_SUCCESS if successful.
+*                - XST_FAILURE if fail.
 *
 ******************************************************************************/
 static int XNandPs_ReadPage_HwEcc(XNandPs *InstancePtr, u8 *DstPtr)
@@ -1596,16 +1568,16 @@ static int XNandPs_ReadPage_HwEcc(XNandPs *InstancePtr, u8 *DstPtr)
 /*****************************************************************************/
 /**
 *
-* This function reads a specific page from NAND device. This doesn't use the
-* HW ECC block for checking ECC errors.
+* @brief Reads a specific page from the NAND device.
 *
-* @param	InstancePtr is a pointer to the XNandPs instance.
-* @param	DstPtr is a pointer to the destination buffer.
+* This function does not use the HW ECC block for checking ECC errors.
+*
+* @param[in,out] InstancePtr Pointer to the XNandPs instance.
+* @param[out]    DstPtr Pointer to the destination buffer.
+*
 * @return
-*		- XST_SUCCESS if successful.
-*		- XST_FAILURE if fail.
-*
-* @note		None
+*                - XST_SUCCESS if successful.
+*                - XST_FAILURE if fail.
 *
 ******************************************************************************/
 static int XNandPs_ReadPage(XNandPs *InstancePtr, u8 *DstPtr)
@@ -1671,16 +1643,16 @@ static int XNandPs_ReadPage(XNandPs *InstancePtr, u8 *DstPtr)
 /*****************************************************************************/
 /**
 *
-* This function writes a specific page in the NAND device using HW ECC block.
-* The ECC code is written into the spare bytes of the page.
+* @brief Writes a specific page to the NAND device using the HW ECC block.
 *
-* @param	InstancePtr is a pointer to the XNandPs instance.
-* @param	SrcPtr is a pointer to the source buffer.
+* Writes the ECC code into the spare bytes of the page.
+*
+* @param[in,out] InstancePtr Pointer to the XNandPs instance.
+* @param[in]     SrcPtr Pointer to the source buffer.
+*
 * @return
-*		- XST_SUCCESS if successful.
-*		- XST_FAILURE if fail.
-*
-* @note		None
+*                - XST_SUCCESS if successful.
+*                - XST_FAILURE if fail.
 *
 ******************************************************************************/
 static int XNandPs_WritePage_HwEcc(XNandPs *InstancePtr, u8 *SrcPtr)
@@ -1778,16 +1750,16 @@ static int XNandPs_WritePage_HwEcc(XNandPs *InstancePtr, u8 *SrcPtr)
 /*****************************************************************************/
 /**
 *
-* This function writes a specific page in the NAND device. This doesn't use the
-* HW ECC block for ECC code generation.
+* @brief Writes a specific page to the NAND device.
 *
-* @param	InstancePtr is a pointer to the XNandPs instance.
-* @param	SrcPtr is a pointer to the source buffer.
+* This function does not use the HW ECC block for ECC code generation.
+*
+* @param[in,out] InstancePtr Pointer to the XNandPs instance.
+* @param[in]     SrcPtr Pointer to the source buffer.
+*
 * @return
-*		- XST_SUCCESS if successful.
-*		- XST_FAILURE if fail.
-*
-* @note		None
+*                - XST_SUCCESS if successful.
+*                - XST_FAILURE if fail.
 *
 ******************************************************************************/
 static int XNandPs_WritePage(XNandPs *InstancePtr, u8 *SrcPtr)
@@ -1849,17 +1821,16 @@ static int XNandPs_WritePage(XNandPs *InstancePtr, u8 *SrcPtr)
 /*****************************************************************************/
 /**
 *
-* This function erases a specific block in the NAND device.
+* @brief Erases a specific block in the NAND device.
 *
-* @param	InstancePtr is a pointer to the XNandPs instance.
-* @param	BlockNum is the block number of the device.
+* @param[in,out] InstancePtr Pointer to the XNandPs instance.
+* @param[in]     BlockNum Block number of the device.
+*
 * @return
-*		- XST_SUCCESS if successful.
-*		- XST_FAILURE if fail.
-*		- XST_NAND_WRITE_PROTECTED if the flash is write
-*			protected.
-*
-* @note		None
+*                - XST_SUCCESS if successful.
+*                - XST_FAILURE if fail.
+*                - XST_NAND_WRITE_PROTECTED if the flash is write
+*                        protected.
 *
 ******************************************************************************/
 int XNandPs_EraseBlock(XNandPs *InstancePtr, u32 BlockNum)
@@ -1910,14 +1881,11 @@ int XNandPs_EraseBlock(XNandPs *InstancePtr, u32 BlockNum)
 /*****************************************************************************/
 /**
 *
-* This function reads the page data from the AXI Data Phase Address.
+* @brief Reads the page data from the AXI data phase address.
 *
-* @param	InstancePtr is a pointer to the XNandPs instance.
-* @param	Buf is the buffer pointer to store the byte.
-* @param	Length is the number of bytes to read.
-*
-* @return
-*		- None.
+* @param[in]   InstancePtr Pointer to the XNandPs instance.
+* @param[out]  Buf Buffer pointer to store the data.
+* @param[in]   Length Number of bytes to read.
 *
 ******************************************************************************/
 static void XNandPs_ReadBuf(XNandPs *InstancePtr, u8 *Buf, u32 Length)
@@ -1934,14 +1902,11 @@ static void XNandPs_ReadBuf(XNandPs *InstancePtr, u8 *Buf, u32 Length)
 /*****************************************************************************/
 /**
 *
-* This function writes the data to the AXI Data Phase Address.
+* @brief Writes the data to the AXI data phase address.
 *
-* @param	InstancePtr is a pointer to the XNandPs instance.
-* @param	Buf is the buffer pointer to write the data from.
-* @param	Length is the number of bytes to write.
-*
-* @return
-*		- None.
+* @param[in]   InstancePtr Pointer to the XNandPs instance.
+* @param[in]   Buf Buffer pointer to write the data from.
+* @param[in]   Length Number of bytes to write.
 *
 ******************************************************************************/
 static void XNandPs_WriteBuf(XNandPs *InstancePtr, u8 *Buf, u32 Length)

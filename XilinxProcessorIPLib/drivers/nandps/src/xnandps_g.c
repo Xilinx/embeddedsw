@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2009 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -8,15 +8,12 @@
 /**
 *
 * @file xnandps_g.c
-* @addtogroup nandps Overview
-* @{
+* @brief Defines the configuration table for NAND flash devices.
 *
 * This file contains a configuration table that specifies the configuration
 * of NAND flash devices in the system.
 *
 * See xnandps.h for more information about this driver.
-*
-* @note None.
 *
 * <pre>
 *
@@ -25,9 +22,14 @@
 * Ver   Who    Date    	   Changes
 * ----- ----   ----------  -----------------------------------------------
 * 1.00a nm     12/10/2010  First release
+* 2.12 vn      09/29/26    Align Doxygen comments with AMD standards
 * </pre>
 *
 ******************************************************************************/
+
+/** @addtogroup nandps Overview
+ * @{
+ */
 
 /***************************** Include Files *********************************/
 
@@ -45,8 +47,8 @@
 /************************** Variable Prototypes ******************************/
 
 /**
- * This table contains configuration information for each System Monitor/ADC
- * device in the system.
+ * @brief Contains configuration information for each NAND flash device in the
+ *        system.
  */
 XNandPs_Config XNandPs_ConfigTable[XPAR_XNANDPS_NUM_INSTANCES] = {
 	{

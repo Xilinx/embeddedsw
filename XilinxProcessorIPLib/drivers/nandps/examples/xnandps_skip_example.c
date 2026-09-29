@@ -7,16 +7,13 @@
 /*****************************************************************************/
 /**
 * @file xnandps_skip_example.c
+* @brief Demonstrates the skip block erase, read, and write method.
 *
 * This file contains a design example using the NAND driver (XNandPs).
 * This example tests the skip block method of erase/read/write operations.
 * The skip block method is useful while reading/writing images on to the flash.
 * The flash is erased and programming by considering the bad blocks. The data is
 * read back and compared with the data written for correctness.
-*
-* @note
-*
-* None.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -47,7 +44,7 @@
  * change all the needed parameters in one place.
  */
 #ifndef SDT
-#define NAND_DEVICE_ID		XPAR_XNANDPS_0_DEVICE_ID
+#define NAND_DEVICE_ID		XPAR_XNANDPS_0_DEVICE_ID /**< Device ID. */
 #endif
 /* Test parameters */
 #define NAND_TEST_OFFSET	0x01000000	/**< Flash Test Offset */
@@ -59,6 +56,7 @@
 
 /************************** Function Prototypes ******************************/
 
+/** @cond INTERNAL */
 #ifndef SDT
 int NandSkipBlockExample(u32 NandDeviceId);
 #else
@@ -72,28 +70,26 @@ int XNandPs_SkipWrite(XNandPs *InstancePtr, u64 Offset, u32 Length, void
 		*SrcPtr);
 
 int XNandPs_SkipErase(XNandPs *InstancePtr, u64 Offset, u32 Length);
+/** @endcond */
 
 /************************** Variable Definitions *****************************/
-XNandPs NandInstance; /* XNand Instance. */
-XNandPs *NandInstPtr = &NandInstance;
+XNandPs NandInstance; /**< XNand Instance. */
+XNandPs *NandInstPtr = &NandInstance; /**< Pointer to the XNandPs instance. */
 /*
  * Buffers used during read and write transactions.
  */
-u8 ReadBuffer[NAND_TEST_LENGTH];
-u8 WriteBuffer[NAND_TEST_LENGTH];
+u8 ReadBuffer[NAND_TEST_LENGTH]; /**< Buffer used during read transactions. */
+u8 WriteBuffer[NAND_TEST_LENGTH]; /**< Buffer used during write transactions. */
 /************************** Function Definitions ******************************/
 
 /****************************************************************************/
 /**
 *
-* Main function to execute the Skip Block based Nand read/write example.
-*
+* @brief Runs the skip block based NAND read write example.
 *
 * @return
-*		- XST_SUCCESS if the example has completed successfully.
-*		- XST_FAILURE if the example has failed.
-*
-* @note		None.
+*              - XST_SUCCESS if the example has completed successfully.
+*              - XST_FAILURE if the example has failed.
 *
 *****************************************************************************/
 int main(void)
@@ -124,8 +120,9 @@ int main(void)
 /****************************************************************************/
 /**
 *
-* This function runs a test on the NAND flash device using the basic driver
-* functions.
+* @brief Runs a test on the NAND flash device using the basic driver
+*	 functions.
+*
 * The function does the following tasks:
 *	- Initialize the driver.
 *	- Erase the required length of bytes by taking bad blocks into account.
@@ -133,22 +130,21 @@ int main(void)
 *		into account.
 *	- Read the number of bytes from given offset by taking bad blocks
 *		into account.
-*	- Compare the data read against the data Written.
+*	- Compare the data read against the data written.
 *
 * @if SDT
-* @param	BaseAddress contains the base address of the device
+* @param[in]   BaseAddress Base address of the device.
 * @else
-* @param	NandDeviceId is the XPAR_<NAND_instance>_DEVICE_ID value
-*		from xparameters.h.
+* @param[in]   NandDeviceId The XPAR_<NAND_instance>_DEVICE_ID value from
+*              xparameters.h.
 * @endif
 *
 * @return
-*		- XST_SUCCESS if successful.
-*		- XST_FAILURE if failed.
+*              - XST_SUCCESS if successful.
+*              - XST_FAILURE if failed.
 *
-* @note	        In XSCT/classic flow, DeviceId is used to look up the
-*               device configuration.
-*
+* @note        In XSCT/classic flow, DeviceId is used to look up the
+*              device configuration.
 *
 ****************************************************************************/
 #ifndef SDT
@@ -230,17 +226,13 @@ int NandSkipBlockExample(UINTPTR BaseAddress)
 /*****************************************************************************/
 /**
 *
-* This function returns the length including bad blocks from a given offset and
-* length.
+* @brief Returns the length including bad blocks for a given offset and length.
 *
-* @param	InstancePtr is the pointer to the XNandPs instance.
-* @param	Offset is the flash data address to read from.
-* @param	Length is number of bytes to read.
+* @param[in]   InstancePtr Pointer to the XNandPs instance.
+* @param[in]   Offset Flash data address to read from.
+* @param[in]   Length Number of bytes to read.
 *
-* @return
-*		- Return actual length including bad blocks.
-*
-* @note		None.
+* @return      The actual length including bad blocks.
 *
 ******************************************************************************/
 u32 XNandPs_CalculateLength(XNandPs *InstancePtr, u64 Offset, u32 Length)
@@ -276,20 +268,19 @@ u32 XNandPs_CalculateLength(XNandPs *InstancePtr, u64 Offset, u32 Length)
 /*****************************************************************************/
 /**
 *
-* This function reads the data from the Flash device and copies it into the
-* specified user buffer. This function considers bad blocks and skips them
-* to read next blocks.
+* @brief Reads data from the flash device, skipping bad blocks.
 *
-* @param	InstancePtr is the pointer to the XNandPs instance.
-* @param	Offset is the flash data address to read from.
-* @param	Length is number of bytes to read.
-* @param	DestPtr is the destination address to copy data to.
+* Copies the data into the user buffer. Considers bad blocks and skips them to
+* read the next blocks.
+*
+* @param[in,out] InstancePtr Pointer to the XNandPs instance.
+* @param[in]     Offset Flash data address to read from.
+* @param[in]     Length Number of bytes to read.
+* @param[out]    DestPtr Destination address to copy data to.
 *
 * @return
-*		- XST_SUCCESS if successful.
-*		- XST_FAILURE if fail.
-*
-* @note		None.
+*                - XST_SUCCESS if successful.
+*                - XST_FAILURE if fail.
 *
 ******************************************************************************/
 int XNandPs_SkipRead(XNandPs *InstancePtr, u64 Offset, u32 Length, void
@@ -356,19 +347,16 @@ int XNandPs_SkipRead(XNandPs *InstancePtr, u64 Offset, u32 Length, void
 /*****************************************************************************/
 /**
 *
-* This function programs the flash device(s) with data specified in the user
-* buffer. This function considers bad blocks and skips them.
+* @brief Programs the flash device with user data, skipping bad blocks.
 *
-* @param	InstancePtr is the pointer to the XNandPs instance.
-* @param	Offset is the flash data address to write to.
-* @param	Length is number of bytes to write.
-* @param	SrcPtr is the source address to write the data from.
+* @param[in,out] InstancePtr Pointer to the XNandPs instance.
+* @param[in]     Offset Flash data address to write to.
+* @param[in]     Length Number of bytes to write.
+* @param[in]     SrcPtr Source address to write the data from.
 *
 * @return
-*		- XST_SUCCESS if successful.
-*		- XST_FAILURE if fail.
-*
-* @note		None.
+*                - XST_SUCCESS if successful.
+*                - XST_FAILURE if fail.
 *
 ******************************************************************************/
 int XNandPs_SkipWrite(XNandPs *InstancePtr, u64 Offset, u32 Length, void
@@ -438,18 +426,17 @@ int XNandPs_SkipWrite(XNandPs *InstancePtr, u64 Offset, u32 Length, void
 /*****************************************************************************/
 /**
 *
-* This function erases length bytes in the flash device from a given offset.
-* The Offset and Length must be block aligned. This functions skips bad blocks.
+* @brief Erases length bytes in the flash device from a given offset.
 *
-* @param	InstancePtr is the pointer to the XNand instance.
-* @param	Offset is the flash address to start erasing from.
-* @param	Length is number of bytes to erase.
+* The offset and length must be block aligned. This function skips bad blocks.
+*
+* @param[in,out] InstancePtr Pointer to the XNandPs instance.
+* @param[in]     Offset Flash address to start erasing from.
+* @param[in]     Length Number of bytes to erase.
 *
 * @return
-*		- XST_SUCCESS if successful.
-*		- XST_FAILURE if error in erase.
-*
-* @note		None.
+*                - XST_SUCCESS if successful.
+*                - XST_FAILURE if error in erase.
 *
 ******************************************************************************/
 int XNandPs_SkipErase(XNandPs *InstancePtr, u64 Offset, u32 Length)

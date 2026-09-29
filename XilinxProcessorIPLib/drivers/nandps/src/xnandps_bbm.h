@@ -1,15 +1,17 @@
 /******************************************************************************
 * Copyright (C) 2009 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
+
+#ifndef BBM_H
+#define BBM_H
 
 /*****************************************************************************/
 /**
 *
 * @file xnandps_bbm.h
-* @addtogroup nandps Overview
-* @{
+* @brief Declares the Bad Block Management (BBM) interface.
 *
 * This file implements the Bad Block Management(BBM) functionality. This is
 * similar to the Bad Block Management which is a part of the MTD subsystem in
@@ -53,19 +55,20 @@
 * XNandPs_IsBlockBad and take the action based on the return value. Also user
 * can update the bad block table using XNandPs_MarkBlockBad API.
 *
-* @note		None
-*
 * <pre>
 * MODIFICATION HISTORY:
 *
 * Ver   Who    Date    	   Changes
 * ----- ----   ----------  -----------------------------------------------
 * 1.00a nm     12/10/2010  First release
+* 2.12  vn     09/29/26    Align Doxygen comments with AMD standards
 * </pre>
 *
 ******************************************************************************/
-#ifndef BBM_H		/* prevent circular inclusions */
-#define BBM_H		/* by using protection macros */
+
+/** @addtogroup nandps Overview
+ * @{
+ */
 
 #ifdef __cplusplus
 extern "C" {
@@ -136,13 +139,14 @@ extern "C" {
 /****************************************************************************/
 /**
 *
-* This macro returns the Block shift value corresponding to a Block.
+* @brief Returns the block shift value corresponding to a block.
 *
-* @param        Block is the block number.
+* @param[in]   Block Block number.
 *
-* @return       Block shift value
+* @return      Block shift value.
 *
-* @note         None.
+* @note        C-style signature:
+*              u32 XNandPs_BbtBlockShift(u32 Block);
 *
 *****************************************************************************/
 #define XNandPs_BbtBlockShift(Block) \

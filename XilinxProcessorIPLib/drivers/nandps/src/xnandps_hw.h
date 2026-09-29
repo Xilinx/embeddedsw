@@ -4,18 +4,18 @@
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
+#ifndef XNANDPS_HW_H
+#define XNANDPS_HW_H
+
 /*****************************************************************************/
 /**
 *
 * @file xnandps_hw.h
-* @addtogroup nandps Overview
-* @{
+* @brief Defines low-level identifiers and macros for the NAND controller.
 *
 * This file contains identifiers and low-level macros/functions for the NAND
 * Flash controller driver.
 * See xnandps.h for more information.
-*
-* @note		None
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -24,12 +24,14 @@
 * ----- ----   ----------  -----------------------------------------------
 * 1.00a nm     12/10/2010  First release
 * 2.12  vn     07/30/26    Fix Doxygen warnings
+* 2.12  vn     09/29/26    Align Doxygen comments with AMD standards
 * </pre>
 *
 ******************************************************************************/
 
-#ifndef XNANDPS_HW_H		/* prevent circular inclusions */
-#define XNANDPS_HW_H		/* by using protection macros */
+/** @addtogroup nandps Overview
+ * @{
+ */
 
 #ifdef __cplusplus
 extern "C" {
@@ -40,8 +42,8 @@ extern "C" {
 
 /************************** Constant Definitions *****************************/
 
-/*
- * Memory controller configuration register offset
+/** @name Memory controller configuration register offset
+ *  @{
  */
 #define XNANDPS_MEMC_STATUS_OFFSET		0x000	/**< Controller status
 							  reg, RO */
@@ -61,9 +63,10 @@ extern "C" {
 							  reg, RW */
 #define XNANDPS_REFRESH_PERIOD_1_OFFSET	0x024	/**< Refresh period_1
 							  reg, RW */
+/** @} */
 
-/*
- * Chip configuration register offset
+/** @name Chip configuration register offset
+ *  @{
  */
 #define XNANDPS_IF0_CHIP_0_CONFIG_OFFSET	0x100	/**< Interface 0 chip 0
 							  config */
@@ -81,63 +84,183 @@ extern "C" {
 							  config */
 #define XNANDPS_IF1_CHIP_3_CONFIG_OFFSET	0x1E0	/**< Interface 1 chip 3
 							  config */
+/** @} */
 
-/*
- * nand_cycles (RO), sram_cycles (RO) and opmode_x_n (RO) registers offsets
+/** @name nand_cycles, sram_cycles, and opmode_x_n (RO) register offsets
+ *  @{
  */
-#define XNANDPS_FLASH_CYCLES(addr)		(0x000 + addr) /**< NAND & SRAM
-								 cycle,RO*/
-#define XNANDPS_OPMODE(addr)			(0x004 + addr) /**< Chip opmode
-								 reg, RO */
+/**
+* @brief Returns the NAND and SRAM cycles register offset (read-only).
+*
+* @param[in]   addr Base offset of the register set.
+*
+* @return      Register offset.
+*
+* @note        C-style signature:
+*              u32 XNANDPS_FLASH_CYCLES(u32 addr)
+*/
+#define XNANDPS_FLASH_CYCLES(addr)		(0x000 + addr)
+/**
+* @brief Returns the chip opmode register offset (read-only).
+*
+* @param[in]   addr Base offset of the register set.
+*
+* @return      Register offset.
+*
+* @note        C-style signature:
+*              u32 XNANDPS_OPMODE(u32 addr)
+*/
+#define XNANDPS_OPMODE(addr)			(0x004 + addr)
+/** @} */
 
-/*
- * User configuration register offset
+/** @name User configuration register offset
+ *  @{
  */
 #define XNANDPS_USER_STATUS_OFFSET		0x200	/**< User status reg,
 							  RO */
 #define XNANDPS_USER_CONFIG_OFFSET		0x204	/**< User config reg,
 							  WO */
+/** @} */
 
-/*
- * ECC register offset
+/** @name ECC register offset
+ *  @{
  */
 #define XNANDPS_IF0_ECC_OFFSET			0x300	/**< Interface 0 ECC
 							  register */
 #define XNANDPS_IF1_ECC_OFFSET			0x400	/**< Interface 1 ECC
 							  register */
-#define XNANDPS_ECC_STATUS_OFFSET(addr)	(0x000 + addr) /**< ECC status
-								 register */
-#define XNANDPS_ECC_MEMCFG_OFFSET(addr)	(0x004 + addr) /**< ECC mem
-								 config reg */
-#define XNANDPS_ECC_MEMCMD1_OFFSET(addr)	(0x008 + addr) /**< ECC mem
-								 com1 reg*/
-#define XNANDPS_ECC_MEMCMD2_OFFSET(addr)	(0x00C + addr) /**< ECC mem
-								 com2 reg*/
-#define XNANDPS_ECC_ADDR0_OFFSET(addr)		(0x010 + addr) /**< ECC
-								 address0 reg
-								 */
-#define XNANDPS_ECC_ADDR1_OFFSET(addr)		(0x014 + addr) /**< ECC
-								 address1 reg
-								 */
-#define XNANDPS_ECC_VALUE0_OFFSET(addr)	(0x018 + addr) /**< ECC value 0
-								 reg */
-#define XNANDPS_ECC_VALUE1_OFFSET(addr)	(0x01C + addr) /**< ECC value 1
-								 reg */
-#define XNANDPS_ECC_VALUE2_OFFSET(addr)	(0x020 + addr) /**< ECC value 2
-								 reg */
-#define XNANDPS_ECC_VALUE3_OFFSET(addr)	(0x024 + addr) /**< ECC value 3
-								 reg */
-#define XNANDPS_ECC_VALUE4_OFFSET(addr)	(0x028 + addr) /**< ECC value 4
-								 reg */
+/**
+* @brief Returns the ECC status register offset.
+*
+* @param[in]   addr ECC register block offset of the interface.
+*
+* @return      Register offset.
+*
+* @note        C-style signature:
+*              u32 XNANDPS_ECC_STATUS_OFFSET(u32 addr)
+*/
+#define XNANDPS_ECC_STATUS_OFFSET(addr)	(0x000 + addr)
+/**
+* @brief Returns the ECC memory configuration register offset.
+*
+* @param[in]   addr ECC register block offset of the interface.
+*
+* @return      Register offset.
+*
+* @note        C-style signature:
+*              u32 XNANDPS_ECC_MEMCFG_OFFSET(u32 addr)
+*/
+#define XNANDPS_ECC_MEMCFG_OFFSET(addr)	(0x004 + addr)
+/**
+* @brief Returns the ECC memory command 1 register offset.
+*
+* @param[in]   addr ECC register block offset of the interface.
+*
+* @return      Register offset.
+*
+* @note        C-style signature:
+*              u32 XNANDPS_ECC_MEMCMD1_OFFSET(u32 addr)
+*/
+#define XNANDPS_ECC_MEMCMD1_OFFSET(addr)	(0x008 + addr)
+/**
+* @brief Returns the ECC memory command 2 register offset.
+*
+* @param[in]   addr ECC register block offset of the interface.
+*
+* @return      Register offset.
+*
+* @note        C-style signature:
+*              u32 XNANDPS_ECC_MEMCMD2_OFFSET(u32 addr)
+*/
+#define XNANDPS_ECC_MEMCMD2_OFFSET(addr)	(0x00C + addr)
+/**
+* @brief Returns the ECC address 0 register offset.
+*
+* @param[in]   addr ECC register block offset of the interface.
+*
+* @return      Register offset.
+*
+* @note        C-style signature:
+*              u32 XNANDPS_ECC_ADDR0_OFFSET(u32 addr)
+*/
+#define XNANDPS_ECC_ADDR0_OFFSET(addr)		(0x010 + addr)
+/**
+* @brief Returns the ECC address 1 register offset.
+*
+* @param[in]   addr ECC register block offset of the interface.
+*
+* @return      Register offset.
+*
+* @note        C-style signature:
+*              u32 XNANDPS_ECC_ADDR1_OFFSET(u32 addr)
+*/
+#define XNANDPS_ECC_ADDR1_OFFSET(addr)		(0x014 + addr)
+/**
+* @brief Returns the ECC value 0 register offset.
+*
+* @param[in]   addr ECC register block offset of the interface.
+*
+* @return      Register offset.
+*
+* @note        C-style signature:
+*              u32 XNANDPS_ECC_VALUE0_OFFSET(u32 addr)
+*/
+#define XNANDPS_ECC_VALUE0_OFFSET(addr)	(0x018 + addr)
+/**
+* @brief Returns the ECC value 1 register offset.
+*
+* @param[in]   addr ECC register block offset of the interface.
+*
+* @return      Register offset.
+*
+* @note        C-style signature:
+*              u32 XNANDPS_ECC_VALUE1_OFFSET(u32 addr)
+*/
+#define XNANDPS_ECC_VALUE1_OFFSET(addr)	(0x01C + addr)
+/**
+* @brief Returns the ECC value 2 register offset.
+*
+* @param[in]   addr ECC register block offset of the interface.
+*
+* @return      Register offset.
+*
+* @note        C-style signature:
+*              u32 XNANDPS_ECC_VALUE2_OFFSET(u32 addr)
+*/
+#define XNANDPS_ECC_VALUE2_OFFSET(addr)	(0x020 + addr)
+/**
+* @brief Returns the ECC value 3 register offset.
+*
+* @param[in]   addr ECC register block offset of the interface.
+*
+* @return      Register offset.
+*
+* @note        C-style signature:
+*              u32 XNANDPS_ECC_VALUE3_OFFSET(u32 addr)
+*/
+#define XNANDPS_ECC_VALUE3_OFFSET(addr)	(0x024 + addr)
+/**
+* @brief Returns the ECC value 4 register offset.
+*
+* @param[in]   addr ECC register block offset of the interface.
+*
+* @return      Register offset.
+*
+* @note        C-style signature:
+*              u32 XNANDPS_ECC_VALUE4_OFFSET(u32 addr)
+*/
+#define XNANDPS_ECC_VALUE4_OFFSET(addr)	(0x028 + addr)
+/** @} */
 
-/*
- * Integration test register offset
+/** @name Integration test register offset
+ *  @{
  */
 #define XNANDPS_INTGTEST_OFFSET		0xE00	/**< Integration test
 								offset */
+/** @} */
 
-/*
- * ID configuration register offset
+/** @name ID configuration register offset
+ *  @{
  */
 #define XNANDPS_PERIPH_ID0_OFFSET		0xFE0	/**< Peripheral id0
 							  register */
@@ -155,6 +278,7 @@ extern "C" {
 							  register */
 #define XNANDPS_PCELL_ID3_OFFSET		0xFFC	/**< Primecell id3
 							  register */
+/** @} */
 
 /** @name Memory controller status register bit definitions and masks
  *  @{
@@ -350,18 +474,19 @@ extern "C" {
 #define XNANDPS_OPMODE_WR_SYNC_MASK			0x00000040
 /**< Opmode wr_sync mask */
 #define XNANDPS_OPMODE_WR_BL_MASK			0x00000380
-/**< Opmode BAA mask */
+/**< Opmode wr_bl mask */
 #define XNANDPS_OPMODE_BAA_MASK			0x00000400
-/**< Opmode ADV mask */
+/**< Opmode BAA mask */
 #define XNANDPS_OPMODE_ADV_MASK			0x00000800
-/**< Opmode BLS mask */
+/**< Opmode ADV mask */
 #define XNANDPS_OPMODE_BLS_MASK			0x00001000
-/**< Opmode Burst align mask */
+/**< Opmode BLS mask */
 #define XNANDPS_OPMODE_BURST_ALIGN_MASK		0x0000E000
-/**< Opmode Address mask */
+/**< Opmode Burst align mask */
 #define XNANDPS_OPMODE_ADDRESS_MASK			0x00FF0000
-/**< Opmode Address match mask */
+/**< Opmode Address mask */
 #define XNANDPS_OPMODE_ADDRESS_MATCH_MASK		0xFF000000
+/**< Opmode Address match mask */
 /** @} */
 
 /** @name User status register bit definitions and masks
