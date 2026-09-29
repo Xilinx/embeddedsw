@@ -32,7 +32,7 @@
  * error events bit 10-13.
  */
 #define HB_MON_SW_ERR_MASK(Idx) \
-	(((Idx) < XPM_NODEIDX_DEV_HB_MON_4) ? ((u32)1U << (Idx)) : \
+	(((Idx) < (u32)XPM_NODEIDX_DEV_HB_MON_4) ? ((u32)1U << (Idx)) : \
 	 ((u32)1U << ((Idx) + 6U)))
 
 static struct XPm_PeriphOps GenericOps = {
@@ -136,7 +136,7 @@ static XStatus HandleHbMonDeviceState(XPm_Device* const Device, const u32 NextSt
 			 * configuration in the error node.
 			 */
 			XPlmi_UpdateErrorSubsystemId(XIL_NODETYPE_EVENT_ERROR_SW_ERR,
-							(u32)1U << HbMon_Id,
+							HB_MON_SW_ERR_MASK(HbMon_Id),
 							Device->Requirements->Subsystem->Id);
 			/* Update use count. */
 			Status = XPmDevice_BringUp(Device);
