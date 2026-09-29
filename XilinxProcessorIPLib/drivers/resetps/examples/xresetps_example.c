@@ -9,14 +9,13 @@
 *
 * @file xresetps_example.c
 *
-* This file contains a design example using the Reset Controller (ResetPs)
-* driver. A list of peripheral blocks to be reset is maintained. The list
-* has a peripheral reset ID, a register address that is to be modified, value
-* to be modified and value after reset for that register. The register provided
-* for a peripheral block is modified with the value provided. The peripheral is
-* then reset and the register value is certified with reset value.
+* @brief Demonstrates usage of the Reset Controller (ResetPs) driver.
 *
-* @note
+* The example maintains a list of peripheral blocks to reset. Each list entry
+* has a peripheral reset ID, a register address to modify, the value to write,
+* and the value of that register after reset. The example writes the provided
+* value to the register of each peripheral block. It then resets the
+* peripheral and verifies the register value against the reset value.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -30,6 +29,7 @@
 * 1.8   vlt    03/15/26 Updated BaseAddress type from u32 to UINTPTR
 *                       to support 64-bit addressing.
 * 1.9   vn     07/30/26 Fix Doxygen warnings
+* 1.9   vn     09/10/26 Align Doxygen comments with AMD standards
 * </pre>
 *
 ******************************************************************************/
@@ -42,15 +42,18 @@
 
 /************************** Constant Definitions *****************************/
 #ifndef SDT
-#define RESET_DEVICE_ID    (XPAR_XRESETPS_DEVICE_ID)
+#define RESET_DEVICE_ID    (XPAR_XRESETPS_DEVICE_ID) /**< Reset device ID. */
 #endif
 
 /**************************** Type Definitions *******************************/
+/**
+* @brief Holds a peripheral block entry of the reset list.
+*/
 typedef struct {
-	const XResetPs_RstId ResetID;    /* Peripheral to reset */
-	const u32            RegAddr;    /* Register to modify */
-	const u32            ResetVal;   /* Reset value of register */
-	const u32            ModifVal;   /* Value to modify before reset */
+	const XResetPs_RstId ResetID;    /**< Peripheral to reset. */
+	const u32            RegAddr;    /**< Register to modify. */
+	const u32            ResetVal;   /**< Reset value of the register. */
+	const u32            ModifVal;   /**< Value to modify before reset. */
 } ResetPsPeripherals;
 
 /***************** Macros (Inline Functions) Definitions *********************/
@@ -63,7 +66,8 @@ static XStatus ResetPsExample(XResetPs *ResetInstancePtr, UINTPTR BaseAddress);
 #endif
 
 /************************** Variable Definitions *****************************/
-XResetPs ResetInstance;		/* Instance of Reset Controller */
+XResetPs ResetInstance;		/**< Instance of the reset controller. */
+/** List of peripheral blocks to reset. */
 static ResetPsPeripherals PeriList[] = {
 	{XRESETPS_RSTID_RTC,   0xFFA60040, 0x01000000, 0x00000000},
 	{XRESETPS_RSTID_CAN1,  0xFF070004, 0x00000000, 0x00000002},
@@ -72,15 +76,14 @@ static ResetPsPeripherals PeriList[] = {
 	{XRESETPS_RSTID_I2C0,  0xFF020000, 0x00000000, 0x00000002},
 };
 
+/** Number of entries in PeriList. */
 static u8 NumPeripherals = sizeof(PeriList)/sizeof(PeriList[0]);
 
 /*****************************************************************************/
 /**
-* Main function to call Reset example.
+* @brief Runs the reset controller example.
 *
-* @return	XST_SUCCESS if successful, otherwise XST_FAILURE.
-*
-* @note		None.
+* @return      XST_SUCCESS if successful, otherwise XST_FAILURE.
 *
 ******************************************************************************/
 int main(void)
@@ -107,19 +110,23 @@ int main(void)
 /*****************************************************************************/
 /**
 *
-* This function tests the functioning of the Reset controller driver by
-* resetting peripheral blocks listed in PeriList[].
+* @brief Tests the reset controller driver by resetting peripheral blocks.
 *
-* This function modifies the value of peripheral's register. It then reset's
-* the peripheral and validates the value of peripheral's register with reset
-* value of the register.
+* The function tests the reset controller driver by resetting the peripheral
+* blocks listed in PeriList[].
 *
-* @param	ResetInstancePtr is a pointer to instance of XResetPs driver.
-* @param	BaseAddress contains the base address of the device.
+* The function modifies the value of the peripheral register. It then resets
+* the peripheral and validates the register value against the reset value of
+* the register.
 *
-* @return	XST_SUCCESS if successful, otherwise XST_FAILURE.
+* @param[out]  ResetInstancePtr Pointer to the XResetPs instance.
+* @if SDT
+* @param[in]   BaseAddress Base address of the device.
+* @else
+* @param[in]   ResetDeviceId Device ID of the reset controller.
+* @endif
 *
-* @note		None.
+* @return      XST_SUCCESS if successful, otherwise XST_FAILURE.
 *
 ******************************************************************************/
 #ifndef SDT

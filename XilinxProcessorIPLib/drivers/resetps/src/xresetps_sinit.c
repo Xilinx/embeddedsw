@@ -8,11 +8,8 @@
 /**
 *
 * @file xresetps_sinit.c
-* @addtogroup resetps Overview
-* @{
 *
-* This file contains method for static initialization (compile-time) of the
-* driver.
+* @brief Implements the static (compile-time) initialization of the driver.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -25,9 +22,14 @@
 * 1.8   vlt    12/16/25 Update Doxygen comments to include SDT flow details.
 * 1.8   vlt    03/14/26 Updated BaseAddress type from u32 to UINTPTR
 *                       to support 64-bit addressing.
+* 1.9   vn     09/10/26 Align Doxygen comments with AMD standards
 * </pre>
 *
 ******************************************************************************/
+
+/** @addtogroup resetps Overview
+ * @{
+ */
 
 /***************************** Include Files *********************************/
 
@@ -44,6 +46,9 @@
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /*************************** Variable Definitions ****************************/
+/**
+ * @brief Holds the configuration entry for each reset instance.
+ */
 #ifndef SDT
 extern XResetPs_Config XResetPs_ConfigTable[XPAR_XRESETPS_NUM_INSTANCES];
 #else
@@ -55,22 +60,23 @@ extern XResetPs_Config XResetPs_ConfigTable[];
 /*****************************************************************************/
 /**
 *
-* Looks up the device configuration based on the unique device ID/BaseAddress.
-* The XResetPs_ConfigTable[] contains the configuration info for each device
-* in the system.
+* @brief Looks up the device configuration by unique device ID or base address.
+*
+* XResetPs_ConfigTable[] contains the configuration information for each
+* device in the system.
 *
 * @if SDT
-* @param	BaseAddress contains the base address of the device
+* @param[in]   BaseAddress Base address of the device.
 * @else
-* @param	DeviceId contains the unique ID of the device
+* @param[in]   DeviceId Unique ID of the device.
 * @endif
 *
-* @return       A pointer to the configuration found or NULL if the specified
-*               device ID/BaseAddress was not found. See xresetps.h for the
-*               definition of XResetPs_Config.
+* @return      A pointer to the configuration found, or NULL if the specified
+*              device ID or base address is not found. See xresetps.h for the
+*              definition of XResetPs_Config.
 *
-* @note        In XSCT/classic flow, DeviceId is used to look up the device
-*              configuration.
+* @note        In the XSCT/classic flow, the function uses DeviceId to look up
+*              the device configuration.
 *
 ******************************************************************************/
 #ifndef SDT

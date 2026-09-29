@@ -8,10 +8,9 @@
 /**
 *
 * @file xresetps.c
-* @addtogroup resetps Overview
-* @{
 *
-* Contains the implementation of interface functions of the XResetPs driver.
+* @brief Implements the interface functions of the XResetPs driver.
+*
 * See xresetps.h for a description of the driver.
 *
 * <pre>
@@ -27,9 +26,14 @@
 * 1.6   sd     07/07/23 Added SDT support.
 * 1.8   vlt    01/27/26 Fixed codespell issues.
 * 1.9   vn     07/30/26 Fix Doxygen warnings
+* 1.9  vn   09/10/26 Align Doxygen comments with AMD standards
 * </pre>
 *
 ******************************************************************************/
+
+/** @addtogroup resetps Overview
+ * @{
+ */
 
 /***************************** Include Files *********************************/
 #include "xresetps.h"
@@ -37,25 +41,34 @@
 #include "xil_types.h"
 
 /************************** Constant Definitions *****************************/
-#define XRESETPS_RSTID_BASE             (1000)
+/** @name Internal reset constants
+ * @{
+ */
+#define XRESETPS_RSTID_BASE             (1000)          /**< Base reset ID. */
+/** Invalid register address. */
 #define XRESETPS_REGADDR_INVALID        (0xFFFFFFFFU)
-#define XRESETPS_BM_INVALID             (0xFFFFFFFFU)
+#define XRESETPS_BM_INVALID             (0xFFFFFFFFU)   /**< Invalid bitmask. */
+/** @} */
 
 /**************************** Type Definitions *******************************/
+/**
+ * @brief Reset lookup table entry for a peripheral.
+ */
 typedef struct {
-	const u32                 SlcrregAddr;
-	const u32                 SlcrregBitmask;
-	const u32                 PwrStateBitmask;
-	const XResetPs_PulseTypes PulseType;
-	const u8                  SupportedActions;
+	const u32                 SlcrregAddr;      /**< Control register. */
+	const u32                 SlcrregBitmask;   /**< Control bitmask. */
+	const u32                 PwrStateBitmask;  /**< Power state bitmask. */
+	const XResetPs_PulseTypes PulseType;        /**< Pulse type. */
+	const u8                  SupportedActions; /**< Supported actions. */
 } XResetPs_Lookup;
 
 /************************** Variable Definitions *****************************/
 #if !(defined (__aarch64__) && (EL1_NONSECURE == 1))
+/** Reset lookup table, indexed by the XResetPs_RstId reset ID. */
 static const XResetPs_Lookup ResetMap[] = {
 	/*
 	 *	{Control Register, Control Bitmask,
-	 *	 Power State Bitask, Pulse Type,
+	 *	 Power State Bitmask, Pulse Type,
 	 *	 Supported Actions},
 	 */
 	{
@@ -647,16 +660,16 @@ static const XResetPs_Lookup ResetMap[] = {
 /****************************************************************************/
 /**
 *
-* Initialize a specific reset controller instance/driver. This function
-* must be called before other functions of the driver are called.
+* @brief Initializes a specific reset controller instance or driver.
 *
-* @param	InstancePtr is a pointer to the XResetPs instance.
-* @param	ConfigPtr is the config structure.
+* This function must be called before other functions of the driver are
+* called.
+*
+* @param[out]  InstancePtr Pointer to the XResetPs instance.
+* @param[in]   ConfigPtr Pointer to the configuration structure.
 *
 * @return
-*		- XST_SUCCESS if initialization was successful.
-*
-* @note		None.
+*              - XST_SUCCESS if initialization is successful.
 *
 ******************************************************************************/
 XStatus XResetPs_CfgInitialize(XResetPs *InstancePtr,
@@ -680,13 +693,14 @@ XStatus XResetPs_CfgInitialize(XResetPs *InstancePtr,
 /****************************************************************************/
 /**
 *
-* Pulse Reset RPU.
+* @brief Pulse resets the RPU.
 *
 * @return
-*		- XST_SUCCESS if successful else error code.
+*              - XST_SUCCESS if successful, or an error code otherwise.
 *
-* @note		The pulse reset sequence is referred from ug1085(v1.3)
-*		chapter-38. Few changes to the sequence are adpoted from PMUFW.
+* @note        The pulse reset sequence is referred from UG1085 (v1.3),
+*              chapter 38. A few changes to the sequence are adopted from
+*              PMUFW.
 *
 ******************************************************************************/
 static XStatus XResetPs_PulseResetRpuLs(void)
@@ -780,13 +794,14 @@ static XStatus XResetPs_PulseResetRpuLs(void)
 /****************************************************************************/
 /**
 *
-* Pulse Reset PS only.
+* @brief Pulse resets PS only.
 *
 * @return
-*		- XST_SUCCESS if successful else error code.
+*              - XST_SUCCESS if successful, or an error code otherwise.
 *
-* @note		The pulse reset sequence is referred from ug1085(v1.3)
-*		chapter-38. Few changes to the sequence are adpoted from PMUFW.
+* @note        The pulse reset sequence is referred from UG1085 (v1.3),
+*              chapter 38. A few changes to the sequence are adopted from
+*              PMUFW.
 *
 ******************************************************************************/
 static XStatus XResetPs_PulseResetPsOnly(void)
@@ -865,13 +880,14 @@ static XStatus XResetPs_PulseResetPsOnly(void)
 /****************************************************************************/
 /**
 *
-* Pulse Reset FPD.
+* @brief Pulse resets the FPD.
 *
 * @return
-*		- XST_SUCCESS if successful else error code.
+*              - XST_SUCCESS if successful, or an error code otherwise.
 *
-* @note		The pulse reset sequence is referred from ug1085(v1.3)
-*		chapter-38. Few changes to the sequence are adpoted from PMUFW.
+* @note        The pulse reset sequence is referred from UG1085 (v1.3),
+*              chapter 38. A few changes to the sequence are adopted from
+*              PMUFW.
 *
 ******************************************************************************/
 static XStatus XResetPs_PulseResetFpd(void)
@@ -948,16 +964,14 @@ static XStatus XResetPs_PulseResetFpd(void)
 /****************************************************************************/
 /**
 *
-* Assert reset for specific peripheral based on reset ID.
+* @brief Asserts reset for a specific peripheral based on reset ID.
 *
-* @param	InstancePtr is a pointer to the XResetPs instance.
-* @param	ResetID is the ID of the peripheral.
+* @param[in]   InstancePtr Pointer to the XResetPs instance.
+* @param[in]   ResetID ID of the peripheral.
 *
 * @return
-*		- XST_SUCCESS if reset assertion was successful.
-*		- Error Code otherwise.
-*
-* @note		None.
+*              - XST_SUCCESS if reset assertion is successful.
+*              - Error code otherwise.
 *
 ******************************************************************************/
 XStatus XResetPs_ResetAssert(XResetPs *InstancePtr,
@@ -1007,16 +1021,14 @@ XStatus XResetPs_ResetAssert(XResetPs *InstancePtr,
 /****************************************************************************/
 /**
 *
-* Deassert reset for specific peripheral based on reset ID.
+* @brief Deasserts reset for a specific peripheral based on reset ID.
 *
-* @param	InstancePtr is a pointer to the XResetPs instance.
-* @param	ResetID is the ID of the peripheral.
+* @param[in]   InstancePtr Pointer to the XResetPs instance.
+* @param[in]   ResetID ID of the peripheral.
 *
 * @return
-*		- XST_SUCCESS if reset deassertion was successful.
-*		- Error Code otherwise.
-*
-* @note		None.
+*              - XST_SUCCESS if reset deassertion is successful.
+*              - Error code otherwise.
 *
 ******************************************************************************/
 XStatus XResetPs_ResetDeassert(XResetPs *InstancePtr,
@@ -1066,16 +1078,14 @@ XStatus XResetPs_ResetDeassert(XResetPs *InstancePtr,
 /****************************************************************************/
 /**
 *
-* Pulse reset for specific peripheral based on reset ID.
+* @brief Pulse resets a specific peripheral based on reset ID.
 *
-* @param	InstancePtr is a pointer to the XResetPs instance.
-* @param	ResetID is the ID of the peripheral.
+* @param[in]   InstancePtr Pointer to the XResetPs instance.
+* @param[in]   ResetID ID of the peripheral.
 *
 * @return
-*		- XST_SUCCESS if pulse reset was successful.
-*		- Error Code otherwise.
-*
-* @note		None.
+*              - XST_SUCCESS if pulse reset is successful.
+*              - Error code otherwise.
 *
 ******************************************************************************/
 XStatus XResetPs_ResetPulse(XResetPs *InstancePtr, const XResetPs_RstId ResetID)
@@ -1168,18 +1178,16 @@ XStatus XResetPs_ResetPulse(XResetPs *InstancePtr, const XResetPs_RstId ResetID)
 /****************************************************************************/
 /**
 *
-* Get reset status for specific peripheral based on reset ID.
+* @brief Gets the reset status for a specific peripheral based on reset ID.
 *
-* @param	InstancePtr is a pointer to the XResetPs instance.
-* @param	ResetID is the ID of the peripheral.
-* @param	Status is the status of reset for ResetID.
-*		1 if asserted and 0 if released
+* @param[in]   InstancePtr Pointer to the XResetPs instance.
+* @param[in]   ResetID ID of the peripheral.
+* @param[out]  Status Status of the reset for ResetID: 1 if asserted and 0 if
+*              released.
 *
 * @return
-*		- XST_SUCCESS if status fetched successful.
-*		- Error Code otherwise.
-*
-* @note		None.
+*              - XST_SUCCESS if the status is fetched successfully.
+*              - Error code otherwise.
 *
 ******************************************************************************/
 XStatus XResetPs_ResetStatus(XResetPs *InstancePtr,
@@ -1215,7 +1223,7 @@ XStatus XResetPs_ResetStatus(XResetPs *InstancePtr,
 
 	/*
 	 * @NOTE:
-	 * This will always move to else part as GPO3 are ignored because
+	 * This always moves to else part as GPO3 are ignored because
 	 * XRESETPS_PMU_LCL_READ_CTRL is not accessible.
 	 */
 	/* GPO3PL have status address different from control address */
@@ -1238,5 +1246,4 @@ XStatus XResetPs_ResetStatus(XResetPs *InstancePtr,
 	return XST_SUCCESS;
 #endif
 }
-
 /** @} */
