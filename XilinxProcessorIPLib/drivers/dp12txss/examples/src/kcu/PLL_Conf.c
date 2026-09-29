@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2020 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -41,19 +41,19 @@ int PLL_init_Seting(XSpi *SPI_LMK04906) {
 		{ 0x4000001,  3 }, //    ***
             { 0x4000000,  4 }, //    ***
 		{ 0x4000000,  5 }, // CLKOut5_PD   = 1 (Disable)
-			// CLKOut0_TYPE = 0x01 (LVDS) , CLKOut0_ADLY = 0x00 (Analog Dealy 0)
+			// CLKOut0_TYPE = 0x01 (LVDS) , CLKOut0_ADLY = 0x00 (Analog Delay 0)
 		{ 0x0888000,  6 },
 		{ 0x0888000,  7 }, //    ***
 
 	    /* 10 */
-			// CLKOut5_TYPE = 0x01 (LVDS) , CLKOut5_ADLY = 0x00 (Analog Dealy 0)
+			// CLKOut5_TYPE = 0x01 (LVDS) , CLKOut5_ADLY = 0x00 (Analog Delay 0)
 		{ 0x0888000,  8 },
-		{ 0x2AAAAAA,  9 }, // === Defaulte ===
+		{ 0x2AAAAAA,  9 }, // === Default ===
 		{ 0x08A0200, 10 }, // EN_OSCout0 = 1 (Enable)
 //    		{ 0x0820200, 10 }, // EN_OSCout0 = 0 (Disable)
 		{ 0x02C0881, 11 }, // xxxx MODE = 5'b00000 Dual PLL, Internal VCO
 			// LD_MUX = 3(PLL1 & 2 DLD) , LD_TYPE = 3(Output (Push-Pull)) ,
-			// SYNC_PLL2_DLD = 0(Nomal),SYNC_PLL1_DLD = 0(Nomal),EN_TRACK = 1
+			// SYNC_PLL2_DLD = 0(Normal),SYNC_PLL1_DLD = 0(Normal),EN_TRACK = 1
 			// (Enable) HOLDOVER_MODE = 2(Enable)
 		{ 0x0D8600B, 12 },
 
@@ -91,24 +91,24 @@ int PLL_init_Seting(XSpi *SPI_LMK04906) {
 }
 
 void CLK81MHz_Out (XSpi *SPI_LMK04906 , u32 CLKout_Num){
-	if(0 <= CLKout_Num && CLKout_Num <= 5){
+	if(CLKout_Num <= 5){
 		PLL_RegWrite(SPI_LMK04906,0x000001E, CLKout_Num);
 	}
 }
 
 void CLK135MHz_Out (XSpi *SPI_LMK04906 , u32 CLKout_Num){
-	if(0 <= CLKout_Num && CLKout_Num <= 5){
+	if(CLKout_Num <= 5){
 		PLL_RegWrite(SPI_LMK04906,0x0000012,CLKout_Num);
 	}
 }
 
 void CLK162MHz_Out (XSpi *SPI_LMK04906 , u32 CLKout_Num){
-	if(0 <= CLKout_Num && CLKout_Num <= 5){
+	if(CLKout_Num <= 5){
 		PLL_RegWrite(SPI_LMK04906,0x000000F,CLKout_Num);
 	}
 }
 void CLK270MHz_Out (XSpi *SPI_LMK04906 , u32 CLKout_Num){
-	if(0 <= CLKout_Num && CLKout_Num <= 5){
+	if(CLKout_Num <= 5){
 		PLL_RegWrite(SPI_LMK04906,0x0000009,CLKout_Num);
 	}
 }

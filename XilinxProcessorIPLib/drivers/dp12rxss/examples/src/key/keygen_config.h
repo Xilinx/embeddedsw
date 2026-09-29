@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2020 - 2021  Xilinx, Inc.  All rights reserved.
-* Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -11,8 +11,9 @@
 extern "C" {
 #endif
 
-/* Please update the ID of IIC that is being used to read from EEPROM */
-#define		EEPROM_IIC_1_DEVICE_ID				XPAR_IIC_0_DEVICE_ID
+/* Base address of the IIC that is used to read from EEPROM.
+ * The SDT flow locates drivers by base address, not by device ID. */
+#define		EEPROM_IIC_1_BASEADDR				XPAR_XIIC_0_BASEADDR
 
 /* Please put the size of the key block array in EEPROM. Current implementation
  * is tested for 736 on KC705 */
@@ -24,4 +25,4 @@ extern "C" {
 #ifdef __cplusplus
 }
 #endif
-#endif /* KEYGNE_CONFIG_H_ */
+#endif /* KEYGEN_CONFIG_H_ */

@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2020 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -35,7 +35,7 @@ extern "C" {
 #include "xclk_wiz.h"
 /************************** Constant Definitions *****************************/
 
-#ifdef __MICROBLAZE__
+#if defined(__MICROBLAZE__) || defined(__riscv)
 #define XILINX_DISPLAYPORT_VID_BASE_ADDRESS		XPAR_AV_PAT_GEN_0_BASEADDR
 #define XILINX_DISPLAYPORT_VID2_BASE_ADDRESS		XPAR_AV_PAT_GEN_0_BASEADDR
 #define XILINX_DISPLAYPORT_VID3_BASE_ADDRESS		XPAR_AV_PAT_GEN_0_BASEADDR

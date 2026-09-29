@@ -23,7 +23,6 @@
 
 #ifndef DPAPP_H_
 #define DPAPP_H_
-
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -38,6 +37,7 @@ extern "C" {
 #include "xuartlite_l.h"
 #include "xtmrctr.h"
 #include "xintc.h"
+#include "sleep.h"
 #include "xvphy.h"
 #include "xvidc_edid.h"
 #include "xvidc.h"
@@ -98,11 +98,6 @@ typedef unsigned int    UINT32;
 			XPAR_INTC_0_DP12RXSS_0_DPRXSS_DP_IRQ_VEC_ID
 #define XINTC_DPRXSS_IIC_INTERRUPT_ID  	\
 			XPAR_INTC_0_DPRXSS_0_DPRXSS_IIC_IRQ_VEC_ID
-#define XDPRXSS_DEVICE_ID		      	XPAR_DPRXSS_0_DEVICE_ID
-#define XINTC_DEVICE_ID					XPAR_INTC_0_DEVICE_ID
-#define XDPTXSS_DEVICE_ID		      	XPAR_DPTXSS_0_DEVICE_ID
-#define IIC_DEVICE_ID                  	\
-			XPAR_PROCESSOR_SUBSYSTEM_INTERCONNECT_AXI_IIC_1_DEVICE_ID
 
 #define XINTC_TIMER_0 					XPAR_INTC_0_TMRCTR_0_VEC_ID
 #define XINTC_HDCP_TIMER_ID				\

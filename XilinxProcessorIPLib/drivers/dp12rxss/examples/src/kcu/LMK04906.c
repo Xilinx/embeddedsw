@@ -49,11 +49,11 @@ void LMK04906_init(XSpi *SPI_LMK04906){
 
     //Reset
     Soft_Reset();
+
     // Get Option
     SPI_Option = Get_Option();
     // Set Option
     SPI_Option = ((SPI_Option|0x00000066)&0xFFFFFEFE);
-//    xil_printf("SPI Set option %x\n\r",SPI_Option);
     Set_Option(SPI_Option);
     XSpi_WriteReg(LMK04906_DEVICE_BASEADDR,0x70, 0xFFFF);
 }
@@ -61,13 +61,36 @@ void LMK04906_init(XSpi *SPI_LMK04906){
 int LMK04906_RegWrite(XSpi *SPI_LMK04906 , u32 RegData ,u32 RegAddr){
 
 	const u32 WriteData = (RegData << 5)|RegAddr ;
-	volatile u32 wait_cnt = 0;
-    XSpi_WriteReg(LMK04906_DEVICE_BASEADDR,0x70, 0x0000);
+	u32 timeout = LMK04906_SPI_TIMEOUT;
 
-//	printf("TX Data : [%08x]\n\r",WriteData);
-    Tx_Data_Write(WriteData);
-    while(wait_cnt++ != 200);
-    XSpi_WriteReg(LMK04906_DEVICE_BASEADDR,0x70, 0xFFFF);
+	(void)SPI_LMK04906;
+
+	XSpi_WriteReg(LMK04906_DEVICE_BASEADDR,0x70, 0x0000);
+
+	if (Tx_Data_Write(WriteData) != XST_SUCCESS) {
+		XSpi_WriteReg(LMK04906_DEVICE_BASEADDR,0x70, 0xFFFF);
+		return XST_FAILURE;
+	}
+
+	while ((Get_Status() & LMK04906_SPISR_RX_EMPTY) && (timeout != 0)) {
+		timeout--;
+	}
+	if (timeout == 0) {
+		static int WarnedNoRx = 0;
+
+		if (WarnedNoRx == 0) {
+			WarnedNoRx = 1;
+			xil_printf("WARN: LMK04906 SPI returns no RX word "
+				   "(SPISR=%x); using fixed settle delays\r\n",
+				   (unsigned int)Get_Status());
+		}
+		usleep(50);
+	}
+
+	(void)XSpi_ReadReg(LMK04906_DEVICE_BASEADDR,0x6C);
+
+	XSpi_WriteReg(LMK04906_DEVICE_BASEADDR,0x70, 0xFFFF);
+	usleep(5);
 
 	return XST_SUCCESS;
 }
@@ -76,6 +99,8 @@ int IF_LoopBack_Test(XSpi *SPI_LMK04906) {
 
     u32 SPI_Option;
     int Count;
+
+    (void)SPI_LMK04906;
 
     SPI_Option = Get_Option();
     SPI_Option  |= (u32)0x00000001;
@@ -89,7 +114,7 @@ int IF_LoopBack_Test(XSpi *SPI_LMK04906) {
 	}
 	for (Count = 0; Count < 15; Count++) {
 		// RX DATA
-	    if(Rx_Data_Read() != Count){
+	    if(Rx_Data_Read() != (u32)Count){
 	        SPI_Option  &= (u32)0xFFFFFFFE;
 	        Set_Option( SPI_Option);
 		xil_printf("Internal LoopBack FAILED \n\r");
@@ -103,10 +128,8 @@ int IF_LoopBack_Test(XSpi *SPI_LMK04906) {
 }
 
 void Soft_Reset(){
-	//Reset
 	XSpi_WriteReg(LMK04906_DEVICE_BASEADDR,0x40, 0xa);
 	usleep(100);
-	XSpi_WriteReg(LMK04906_DEVICE_BASEADDR,0x40, 0x0);
 }
 void Set_Option(u32 Option){
     XSpi_WriteReg(LMK04906_DEVICE_BASEADDR,0x60, Option);
@@ -127,8 +150,21 @@ u32 Rx_Data_Read(){
 	return XSpi_ReadReg(LMK04906_DEVICE_BASEADDR,0x6C);
 
 }
-void Tx_Data_Write(u32 WriteData){
-	while(Get_Status()&0x8);
-    XSpi_WriteReg(LMK04906_DEVICE_BASEADDR,0x68, WriteData);
+int Tx_Data_Write(u32 WriteData){
+	u32 timeout = LMK04906_SPI_TIMEOUT;
 
+	while ((Get_Status() & LMK04906_SPISR_TX_FULL) && (timeout != 0)) {
+		timeout--;
+	}
+	if (timeout == 0) {
+		xil_printf("ERR: LMK04906 SPI TX FIFO stayed full - "
+			   "the SPI core is not shifting data out "
+			   "(SPISR=%x, SPICR=%x)\r\n",
+			   (unsigned int)Get_Status(),
+			   (unsigned int)Get_Option());
+		return XST_FAILURE;
+	}
+
+	XSpi_WriteReg(LMK04906_DEVICE_BASEADDR,0x68, WriteData);
+	return XST_SUCCESS;
 }

@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2020 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -22,6 +22,7 @@
 ******************************************************************************/
 
 #include "dppt_vdma.h"
+#include "sleep.h"
 
 
 int WriteSetup(struct dma_chan_parms define_function[1],
@@ -31,6 +32,10 @@ int WriteSetup(struct dma_chan_parms define_function[1],
 	u32 Addr;
 	int Status;
 	int n = 0;
+
+	if ((dp_hres == 0) || (dp_vres == 0) || (pixel == 0)) {
+		return XST_FAILURE;
+	}
 //                for (n = 0; n < NUMBER_OF_DMAS; n++)
 //                {
 	define_function[n].WriteCfg.VertSizeInput = dp_vres;
@@ -83,7 +88,9 @@ int ReadSetup(struct dma_chan_parms define_function[1], u32 dp_hres,
 	int Status;
 	int n = 0;
 
-//        for (n = 0; n < NUMBER_OF_DMAS; n++)
+	if ((dp_hres == 0) || (dp_vres == 0) || (pixel == 0)) {
+		return XST_FAILURE;
+	}
 //        {
 	define_function[n].ReadCfg.VertSizeInput = dp_vres;
 	define_function[n].ReadCfg.HoriSizeInput = (dp_hres * BPC) / pixel;

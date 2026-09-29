@@ -46,19 +46,13 @@ typedef u8 AddressType;
  * xparameters.h file. They are defined here such that a user can easily
  * change all the needed parameters in one place.
  */
-#define IIC_DEVICE_ID	XPAR_IIC_0_DEVICE_ID
-
-#ifdef XPAR_INTC_0_DEVICE_ID
- #define INTC_DEVICE_ID	XPAR_INTC_0_DEVICE_ID
- #define IIC_INTR_ID	XPAR_INTC_0_IIC_0_VEC_ID
- #define INTC			XIntc
- #define INTC_HANDLER	XIntc_InterruptHandler
-#else
- #define INTC_DEVICE_ID		XPAR_SCUGIC_SINGLE_DEVICE_ID
- #define IIC_INTR_ID		XPAR_FABRIC_IIC_0_VEC_ID
- #define INTC			 	XScuGic
- #define INTC_HANDLER		XScuGic_InterruptHandler
-#endif
+/*
+ * The System Device Tree (SDT) flow does not generate *_DEVICE_ID or
+ * XPAR_INTC_0_*_VEC_ID macros. Drivers are located by base address and
+ * interrupts are registered with XSetupInterruptSystem() using the
+ * IntrId/IntrParent fields of the driver config structure.
+ */
+#define IIC_BASEADDR	XPAR_XIIC_0_BASEADDR
 
 
 /*
@@ -113,6 +107,7 @@ extern u8 MasterReadBuffer[1024];
 extern u32 MasterReadBufIndex;
 extern u16 EepromIicAddr;		/* Variable for storing Eeprom IIC address */
 
+XStatus Init_IIC();
 int IicSetHandler();
 int IicEepromReadWrite(const u8 *DataToWrite, u32 data_size);
 int EepromWriteData(u16 ByteCount);

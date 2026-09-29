@@ -102,6 +102,7 @@ void ComputeMandD(XDp *InstancePtr, u32 VidFreq)
 //	XDp_TxLinkConfig *LinkConfig = &InstancePtr->TxInstance.LinkConfig;
 
 	u32 RefFreq;
+	(void)InstancePtr;
 	u32 m, d, Div, Freq, Diff, Fvco;
 	u32 Minerr = 10000;
 	u32 MVal = 0;

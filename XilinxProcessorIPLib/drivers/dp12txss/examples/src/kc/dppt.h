@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2020 - 2021  Xilinx, Inc.  All rights reserved.
-* Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -28,7 +28,6 @@ extern "C" {
 #endif
 
 #include <stdio.h>
-#include "xbasic_types.h"
 #include "xil_types.h"
 #include "xparameters.h"
 #include "xil_cache.h"
@@ -37,6 +36,7 @@ extern "C" {
 #include "xuartlite_l.h"
 #include "xtmrctr.h"
 #include "xintc.h"
+#include "sleep.h"
 #include "xvphy.h"
 #include "xvphy_i.h"
 #include "xvidc_edid.h"
@@ -178,7 +178,6 @@ typedef unsigned int    UINT32;
 
 #define BUFFER_BYPASS                   \
 	XPAR_VID_PHY_CONTROLLER_0_TX_BUFFER_BYPASS
-
 #ifdef __cplusplus
 }
 #endif

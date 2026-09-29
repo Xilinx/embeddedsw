@@ -88,6 +88,7 @@ u32 Edid_PrintDecodeBase(u8 *EdidRaw)
 
 void Edid_Print_Supported_VideoModeTable(u8 *EdidRaw)
 {
+	(void)EdidRaw;
 //	u8 Index;
 
 //	xil_printf("Supported resolutions from video mode table:\n\r");
@@ -387,6 +388,7 @@ static void Edid_Print_BaseBasicDisp(u8 *EdidRaw)
 
 static void Edid_Print_ColorChar(u8 *EdidRaw)
 {
+	(void)EdidRaw;
 //	xil_printf("Color characteristics:\n\r");
 //	xil_printf("Red_x:%d.%09d +- 0.0005\n\r",
 //		(u32)XEDID_GET_CC_REDX(EdidRaw),
@@ -628,8 +630,7 @@ void XDptx_DbgPrintEdid(XDp *InstancePtr)
 			SinkNum = XUartLite_RecvByte(STDIN_BASEADDRESS) - '0';
 		}
 
-		if ((SinkNum < 0) ||
-				(SinkNum > (InstancePtr->TxInstance.Topology.SinkTotal - 1))) {
+		if (SinkNum > (InstancePtr->TxInstance.Topology.SinkTotal - 1)) {
 		xil_printf("%d ", SinkNum);
 		xil_printf("is an invalid choice. Returning to main menu.\n\r");
 		return;

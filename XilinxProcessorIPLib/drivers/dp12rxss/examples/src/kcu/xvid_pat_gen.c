@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2020 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -70,6 +71,7 @@ static void VidgenComputeMVid(XDp *InstancePtr,
 ******************************************************************************/
 int Vpg_StreamSrcSetup(XDp *InstancePtr)
 {
+	(void)InstancePtr;
 //	XDp_WriteReg((XILINX_DISPLAYPORT_VID_BASE_ADDRESS), 0x0, 0x2); //0x2
 //	XDp_WriteReg((XILINX_DISPLAYPORT_VID_BASE_ADDRESS), 0x0, 0x0); //0x0
 
@@ -166,6 +168,7 @@ int Vpg_StreamSrcConfigure(XDp *InstancePtr, u8 VSplitMode, u8 first_time)
 ******************************************************************************/
 int Vpg_StreamSrcSync(XDp *InstancePtr)
 {
+	(void)InstancePtr;
 //	u8 StreamIndex;
 //
 //	/* Check MST enable flag */
@@ -273,6 +276,8 @@ static void VidgenSetConfig(XDp *InstancePtr, Vpg_VidgenConfig *VidgenConfig,
 //	u32 MVidOriginal;
 //	u32 VidClkDCalculatedBy2;
 	XVidC_VideoMode VmId;
+
+	(void)first_time;
 
 	VmId = MsaConfig->Vtm.VmId;
 

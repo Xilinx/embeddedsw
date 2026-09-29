@@ -17,7 +17,6 @@
 #include "keymgmt.h"
 #include "xparameters.h"
 #include "keygen_config.h"
-#include "xintc.h"
 
 XIic IicInstance;	/* The instance of the IIC device. */
 
@@ -35,10 +34,10 @@ u32 MasterReadBufIndex;
 u16 EepromIicAddr;		/* Variable for storing Eeprom IIC address */
 
 
-#define XINTC                       XIntc
-
-extern XINTC Intc;
-#define INTRCNTRL 	Intc
+/*
+ * The interrupt controller is no longer referenced directly. IIC interrupts
+ * are connected in DpPt_SetupIntrSystem() via XSetupInterruptSystem().
+ */
 
 
 
@@ -54,9 +53,9 @@ static int MuxInit(void);
 
 #define DEBUG_EEPROM_READ_SETADDR 	1
 
-static void SendHandler(XIic *InstancePtr);
-static void ReceiveHandler(XIic *InstancePtr);
-static void StatusHandler(XIic *InstancePtr, int Event);
+static void SendHandler(void *CallBackRef, int ByteCount);
+static void ReceiveHandler(void *CallBackRef, int ByteCount);
+static void StatusHandler(void *CallBackRef, int StatusEvent);
 
 /************************** Function Definitions *****************************/
 
@@ -64,13 +63,13 @@ XStatus Init_IIC()
 {
 
 	XStatus Status;
-	XIic_Config *ConfigPtr_IIC;	/* Pointer to configuration data */
 
 	/*
 	 * Initialize the IIC driver so that it is ready to use.
 	 */
 #if 0
-	ConfigPtr_IIC = XIic_LookupConfig(EEPROM_IIC_1_DEVICE_ID);
+	XIic_Config *ConfigPtr_IIC;	/* Pointer to configuration data */
+	ConfigPtr_IIC = XIic_LookupConfig(EEPROM_IIC_1_BASEADDR);
 	if (ConfigPtr_IIC == NULL) {
 		return XST_FAILURE;
 	}
@@ -113,12 +112,9 @@ int IicSetHandler(){
 	int mux_resetn = 0x1;
 
 	/* Set the Handlers for transmit and reception. */
-	XIic_SetSendHandler(&IicInstance, &IicInstance,
-				(XIic_Handler) SendHandler);
-	XIic_SetRecvHandler(&IicInstance, &IicInstance,
-				(XIic_Handler) ReceiveHandler);
-	XIic_SetStatusHandler(&IicInstance, &IicInstance,
-				  (XIic_StatusHandler) StatusHandler);
+	XIic_SetSendHandler(&IicInstance, &IicInstance, SendHandler);
+	XIic_SetRecvHandler(&IicInstance, &IicInstance, ReceiveHandler);
+	XIic_SetStatusHandler(&IicInstance, &IicInstance, StatusHandler);
 
 	/* Bring the MUX out of Reset */
 	Status = SetGPOMuxReset(mux_resetn);
@@ -426,8 +422,10 @@ int EepromReadDataOffset(u8 *BufferPtr, u16 ByteCount, u32 offset){
 * @note		None.
 *
 ******************************************************************************/
-static void SendHandler(XIic *InstancePtr)
+static void SendHandler(void *CallBackRef, int ByteCount)
 {
+	(void)CallBackRef;
+	(void)ByteCount;
 	TransmitComplete = 0;
 }
 
@@ -444,8 +442,10 @@ static void SendHandler(XIic *InstancePtr)
 * @note		None.
 *
 ******************************************************************************/
-static void ReceiveHandler(XIic *InstancePtr)
+static void ReceiveHandler(void *CallBackRef, int ByteCount)
 {
+	(void)CallBackRef;
+	(void)ByteCount;
 	ReceiveComplete = 0;
 }
 
@@ -463,9 +463,10 @@ static void ReceiveHandler(XIic *InstancePtr)
 * @note		None.
 *
 ******************************************************************************/
-static void StatusHandler(XIic *InstancePtr, int Event)
+static void StatusHandler(void *CallBackRef, int StatusEvent)
 {
-
+	(void)CallBackRef;
+	(void)StatusEvent;
 }
 
 #ifdef IIC_MUX_ENABLE

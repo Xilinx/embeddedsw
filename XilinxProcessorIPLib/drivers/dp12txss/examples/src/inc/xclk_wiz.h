@@ -23,7 +23,6 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
-
 #include "xparameters.h"
 #include "xil_types.h"
 #include "../src/xvid_pat_gen.h"
@@ -48,6 +47,7 @@ int wait_for_lock();
 void ComputeMandD(XDp *InstancePtr, u32 VidFreq);
 void ComputeMandD_txlnk(u32 VidFreq, u16 Link_rate);
 void ComputeMandD_rxlnk(u32 VidFreq, u16 Link_rate);
+
 #ifdef __cplusplus
 }
 #endif

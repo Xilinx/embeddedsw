@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2020 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -28,6 +28,7 @@
 #include "xvphy.h"
 #include "xspi.h"
 #include "dppt_vid_phy_config.h"
+#include "sleep.h"
 
 #define CLK135MHz_DIVIDER 18
 #define CLK270MHz_DIVIDER 9
@@ -47,24 +48,24 @@ void lmk() {
 void PLLRefClkSel (XVphy *InstancePtr, u8 link_rate) {
 switch (link_rate) {
 case 0x6:
-        XVphy_CfgQuadRefClkFreq(InstancePtr, 0, ONBOARD_REF_CLK, 270000000);
-        XVphy_CfgQuadRefClkFreq(InstancePtr, 0, DP159_FORWARDED_CLK, 81000000);
+        XVphy_CfgQuadRefClkFreq(InstancePtr, 0, (XVphy_PllRefClkSelType)ONBOARD_REF_CLK, 270000000);
+        XVphy_CfgQuadRefClkFreq(InstancePtr, 0, (XVphy_PllRefClkSelType)DP159_FORWARDED_CLK, 81000000);
         XVphy_CfgLineRate(InstancePtr, 0, XVPHY_CHANNEL_ID_CHA,
 						XVPHY_DP_LINK_RATE_HZ_162GBPS);
         XVphy_CfgLineRate(InstancePtr, 0, XVPHY_CHANNEL_ID_CMN1,
 						XVPHY_DP_LINK_RATE_HZ_162GBPS);
         break;
 case 0x14:
-        XVphy_CfgQuadRefClkFreq(InstancePtr, 0, ONBOARD_REF_CLK, 270000000);
-        XVphy_CfgQuadRefClkFreq(InstancePtr, 0, DP159_FORWARDED_CLK, 270000000);
+        XVphy_CfgQuadRefClkFreq(InstancePtr, 0, (XVphy_PllRefClkSelType)ONBOARD_REF_CLK, 270000000);
+        XVphy_CfgQuadRefClkFreq(InstancePtr, 0, (XVphy_PllRefClkSelType)DP159_FORWARDED_CLK, 270000000);
         XVphy_CfgLineRate(InstancePtr, 0, XVPHY_CHANNEL_ID_CHA,
 						XVPHY_DP_LINK_RATE_HZ_540GBPS);
         XVphy_CfgLineRate(InstancePtr, 0, XVPHY_CHANNEL_ID_CMN1,
 						XVPHY_DP_LINK_RATE_HZ_540GBPS);
         break;
 default:
-        XVphy_CfgQuadRefClkFreq(InstancePtr, 0, ONBOARD_REF_CLK, 270000000);
-        XVphy_CfgQuadRefClkFreq(InstancePtr, 0, DP159_FORWARDED_CLK, 135000000);
+        XVphy_CfgQuadRefClkFreq(InstancePtr, 0, (XVphy_PllRefClkSelType)ONBOARD_REF_CLK, 270000000);
+        XVphy_CfgQuadRefClkFreq(InstancePtr, 0, (XVphy_PllRefClkSelType)DP159_FORWARDED_CLK, 135000000);
         XVphy_CfgLineRate(InstancePtr, 0, XVPHY_CHANNEL_ID_CHA,
 						XVPHY_DP_LINK_RATE_HZ_270GBPS);
         XVphy_CfgLineRate(InstancePtr, 0, XVPHY_CHANNEL_ID_CMN1,
@@ -89,8 +90,8 @@ u32 PHY_Configuration_Tx(XVphy *InstancePtr,
 	u32 Status2 = XST_FAILURE;
 	u32 retries = 0;
 
-	QpllRefClkSel   		= PHY_User_Config_Table.QPLLRefClkSrc;
-	CpllRefClkSel   		= PHY_User_Config_Table.CPLLRefClkSrc;
+	QpllRefClkSel   		= (XVphy_PllRefClkSelType)PHY_User_Config_Table.QPLLRefClkSrc;
+	CpllRefClkSel   		= (XVphy_PllRefClkSelType)PHY_User_Config_Table.CPLLRefClkSrc;
 	TxPllSelect             = PHY_User_Config_Table.TxPLL;
 	RxPllSelect             = PHY_User_Config_Table.RxPLL;
 	TxChId                  = PHY_User_Config_Table.TxChId;
@@ -137,6 +138,8 @@ u32 PHY_tx_reconfig (XVphy *InstancePtr, XVphy_ChannelId ChId,
 									XVphy_DirectionType Dir, u8 QuadId)
 {
     u32 Status = XST_FAILURE;
+    (void)ChId;
+    (void)Dir;
     u32 Status1 = XST_FAILURE;
     u32 Status2 = XST_FAILURE;
     u32 retries = 0;
@@ -182,8 +185,8 @@ u32 PHY_Configuration_Rx(XVphy *InstancePtr,
 	u32 Status;
 
 
-	QpllRefClkSel   = PHY_User_Config_Table.QPLLRefClkSrc;
-	CpllRefClkSel   = PHY_User_Config_Table.CPLLRefClkSrc;
+	QpllRefClkSel   = (XVphy_PllRefClkSelType)PHY_User_Config_Table.QPLLRefClkSrc;
+	CpllRefClkSel   = (XVphy_PllRefClkSelType)PHY_User_Config_Table.CPLLRefClkSrc;
 	TxPllSelect             = PHY_User_Config_Table.TxPLL;
 	RxPllSelect             = PHY_User_Config_Table.RxPLL;
 //	TxChId                  = PHY_User_Config_Table.TxChId;
@@ -214,6 +217,9 @@ u32 PHY_Configuration_Rx(XVphy *InstancePtr,
 //Board specific - Ref Clock settings
 void Dppt_Tx_SetRefClocks(u8 DPLinkRate_Value, u8 Prog, u8 is_TX_CPLL)
 {
+	(void)DPLinkRate_Value;
+	(void)Prog;
+	(void)is_TX_CPLL;
 //	XSpi SPI_LMK04906;  /* SPI Device Point*/
 
 //	PLL_init_Seting(&SPI_LMK04906, CLK270MHz_DIVIDER);

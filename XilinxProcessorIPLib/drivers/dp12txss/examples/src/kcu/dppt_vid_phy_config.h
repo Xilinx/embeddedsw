@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2020 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -20,7 +20,6 @@
 * </pre>
 *
 ******************************************************************************/
-
 #ifdef __cplusplus
 extern "C" {
 #endif

@@ -12,27 +12,27 @@
 #include "xuartlite_l.h"
 #include "xparameters.h"
 #include "xtmrctr.h"
+#include "sleep.h"
 
 char xil_getc(u32 timeout_ms){
 	char c;
 	u32 timeout = 0;
 
-	  extern XTmrCtr TmrCtr;
+	  /* Platform-independent timing via the XilTimer usleep() API.
+	   * Poll the UART in small increments and accumulate elapsed time. */
+	  u32 elapsed_us = 0;
+	  const u32 poll_us = 100;
 
 	  //dbg_printf ("timeout_ms = %x\n\r",timeout_ms);
-	    // Reset and start timer
-	  if ( timeout_ms > 0 && timeout_ms != 0xff ){
-		  XTmrCtr_Start(&TmrCtr, 0);
-		  //dbg_printf ("timeout_ms = %x\n\r",timeout_ms);
-	  }
 		while(XUartLite_IsReceiveEmpty(STDIN_BASEADDRESS) && (timeout == 0)){
 		    if ( timeout_ms == 0 ){ // no timeout - wait for ever
 			   timeout = 0;
 		    } else if ( timeout_ms == 0xff ) { // no wait - special case
 			   timeout = 1;
 		    } else if(timeout_ms > 0){
-				if(XTmrCtr_GetValue(&TmrCtr, 0) >
-				  (timeout_ms * (XPAR_CPU_CORE_CLOCK_FREQ_HZ / 1000))){
+				usleep(poll_us);
+				elapsed_us += poll_us;
+				if(elapsed_us >= (timeout_ms * 1000U)){
 					timeout = 1;
 				}
 		    }

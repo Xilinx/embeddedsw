@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2020 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -71,6 +71,7 @@ static void VidgenComputeMVid(XDp *InstancePtr,
 ******************************************************************************/
 int Vpg_StreamSrcSetup(XDp *InstancePtr)
 {
+	(void)InstancePtr;
 //	XDp_WriteReg((XILINX_DISPLAYPORT_VID_BASE_ADDRESS), 0x0, 0x2); //0x2
 //	XDp_WriteReg((XILINX_DISPLAYPORT_VID_BASE_ADDRESS), 0x0, 0x0); //0x0
 
@@ -138,14 +139,11 @@ int Vpg_StreamSrcConfigure(XDp *InstancePtr, u8 VSplitMode, u8 first_time)
 		VidgenWriteConfig(InstancePtr, &VidgenConfig,
 					(XDP_TX_STREAM_ID1));
 
-	//	if(!first_time){
-			/* Set pattern to stream 1 */
-			Vpg_VidgenSetTestPattern(InstancePtr, (XDP_TX_STREAM_ID1));
-	//	}
+		/* Set pattern to stream 1 */
+		Vpg_VidgenSetTestPattern(InstancePtr, (XDP_TX_STREAM_ID1));
 
 		/* Enable VPG for only one stream */
 		XDp_WriteReg(XILINX_DISPLAYPORT_VID_BASE_ADDRESS, 0x0, 0x1);
-//		xil_printf ("Kapil VPG\r\n");
 	}
 
 	return (XST_SUCCESS);
@@ -167,6 +165,7 @@ int Vpg_StreamSrcConfigure(XDp *InstancePtr, u8 VSplitMode, u8 first_time)
 ******************************************************************************/
 int Vpg_StreamSrcSync(XDp *InstancePtr)
 {
+	(void)InstancePtr;
 //	u8 StreamIndex;
 //
 //	/* Check MST enable flag */
@@ -275,10 +274,18 @@ static void VidgenSetConfig(XDp *InstancePtr, Vpg_VidgenConfig *VidgenConfig,
 //	u32 VidClkDCalculatedBy2;
 	XVidC_VideoMode VmId;
 
+	(void)first_time;
+
 	VmId = MsaConfig->Vtm.VmId;
 
-//	xil_printf("Clk in HZ:%d, PW:%d\n\r",MsaConfig->PixelClockHz,
-//			MsaConfig->UserPixelWidth);
+	/* Guard against an unpopulated MSA. This function can be invoked from the
+	 * "colorbar" path (track_count1 == 10) before Dprx_DetectResolution() has
+	 * run, so MsaConfig->UserPixelWidth may still be 0. A divide-by-zero here
+	 * programs a invalid video clock (fatal on rv32i where divide is emulated),
+	 * so clamp to a safe pixel width of 1 until the real MSA is available. */
+	if (MsaConfig->UserPixelWidth == 0) {
+		MsaConfig->UserPixelWidth = 1;
+	}
 
 	ComputeMandD(InstancePtr,
 			((MsaConfig->PixelClockHz/1000)/MsaConfig->UserPixelWidth) );

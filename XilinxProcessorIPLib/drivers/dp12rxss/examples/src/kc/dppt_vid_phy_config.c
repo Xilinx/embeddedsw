@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2020 - 2021  Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -21,12 +22,12 @@
 ******************************************************************************/
 
 #include <stdio.h>
-#include "xbasic_types.h"
 #include "xil_types.h"
 #include "xparameters.h"
 #include "xvphy.h"
 #include "xspi.h"
 #include "dppt_vid_phy_config.h"
+#include "sleep.h"
 
 int PLL_init_Seting(XSpi *SPI_LMK04906);
 void CLK135MHz_Out (XSpi *SPI_LMK04906 , u32 CLKout_Num);
@@ -44,9 +45,9 @@ void PLLRefClkSel (XVphy *InstancePtr, u8 link_rate)
 	switch (link_rate) {
 		case 0x6:
 			XVphy_CfgQuadRefClkFreq(InstancePtr, 0,
-						ONBOARD_REF_CLK, 135000000);
+						(XVphy_PllRefClkSelType)ONBOARD_REF_CLK, 135000000);
 			XVphy_CfgQuadRefClkFreq(InstancePtr, 0,
-						DP159_FORWARDED_CLK, 81000000);
+						(XVphy_PllRefClkSelType)DP159_FORWARDED_CLK, 81000000);
 			XVphy_CfgLineRate(InstancePtr, 0, XVPHY_CHANNEL_ID_CHA,
 						XVPHY_DP_LINK_RATE_HZ_162GBPS);
 			XVphy_CfgLineRate(InstancePtr, 0, XVPHY_CHANNEL_ID_CMN,
@@ -54,17 +55,17 @@ void PLLRefClkSel (XVphy *InstancePtr, u8 link_rate)
 			break;
 		case 0x14:
 			XVphy_CfgQuadRefClkFreq(InstancePtr, 0,
-						ONBOARD_REF_CLK, 135000000);
+						(XVphy_PllRefClkSelType)ONBOARD_REF_CLK, 135000000);
 			XVphy_CfgQuadRefClkFreq(InstancePtr, 0,
-						DP159_FORWARDED_CLK, 270000000);
+						(XVphy_PllRefClkSelType)DP159_FORWARDED_CLK, 270000000);
 			XVphy_CfgLineRate(InstancePtr, 0, XVPHY_CHANNEL_ID_CHA,
 						XVPHY_DP_LINK_RATE_HZ_540GBPS);
 			break;
 		default:
 			XVphy_CfgQuadRefClkFreq(InstancePtr, 0,
-						ONBOARD_REF_CLK, 135000000);
+						(XVphy_PllRefClkSelType)ONBOARD_REF_CLK, 135000000);
 			XVphy_CfgQuadRefClkFreq(InstancePtr, 0,
-						DP159_FORWARDED_CLK, 135000000);
+						(XVphy_PllRefClkSelType)DP159_FORWARDED_CLK, 135000000);
 			XVphy_CfgLineRate(InstancePtr, 0, XVPHY_CHANNEL_ID_CHA,
 						XVPHY_DP_LINK_RATE_HZ_270GBPS);
 			break;
@@ -86,8 +87,8 @@ u32 PHY_Configuration_Tx(XVphy *InstancePtr,
 	u32 Status1;
 	u32 Status2;
 
-	QpllRefClkSel   = PHY_User_Config_Table.QPLLRefClkSrc;
-	CpllRefClkSel   = PHY_User_Config_Table.CPLLRefClkSrc;
+	QpllRefClkSel   = (XVphy_PllRefClkSelType)PHY_User_Config_Table.QPLLRefClkSrc;
+	CpllRefClkSel   = (XVphy_PllRefClkSelType)PHY_User_Config_Table.CPLLRefClkSrc;
 	TxPllSelect     = PHY_User_Config_Table.TxPLL;
 	RxPllSelect     = PHY_User_Config_Table.RxPLL;
 	TxChId          = PHY_User_Config_Table.TxChId;
@@ -131,8 +132,8 @@ u32 PHY_Configuration_Rx(XVphy *InstancePtr,
 	u8 QuadId = 0;
 	u32 Status;
 
-	QpllRefClkSel   = PHY_User_Config_Table.QPLLRefClkSrc;
-	CpllRefClkSel   = PHY_User_Config_Table.CPLLRefClkSrc;
+	QpllRefClkSel   = (XVphy_PllRefClkSelType)PHY_User_Config_Table.QPLLRefClkSrc;
+	CpllRefClkSel   = (XVphy_PllRefClkSelType)PHY_User_Config_Table.CPLLRefClkSrc;
 	TxPllSelect     = PHY_User_Config_Table.TxPLL;
 	RxPllSelect     = PHY_User_Config_Table.RxPLL;
 //	TxChId          = PHY_User_Config_Table.TxChId;
@@ -160,11 +161,10 @@ u32 PHY_Configuration_Rx(XVphy *InstancePtr,
 //Board specific - Ref Clock settings
 void Dppt_Tx_SetRefClocks(u8 DPLinkRate_Value, u8 is_TX_CPLL)
 {
+	(void)DPLinkRate_Value;
 
-//	XSpi SPI_LMK04906;  /* SPI Device Point*/
-//	LMK04906_init(&SPI_LMK04906);
 	PLL_init_Seting(&SPI_LMK04906);
-//        // Programs LMK04960B - GTREFCLK0
+	/* Programs LMK04960B - GTREFCLK0 */
 	if (is_TX_CPLL == 1) {
 		CLK135MHz_Out(&SPI_LMK04906, 0);
 		xil_printf ("Programming fixed clock of 135Mhz..\r\n");

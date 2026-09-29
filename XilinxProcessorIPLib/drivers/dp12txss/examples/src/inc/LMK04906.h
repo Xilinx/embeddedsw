@@ -25,11 +25,23 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
+
 #include <stdlib.h>
 #include "xspi.h"
 #include "xparameters.h"
+#include "sleep.h"
 
 #define  LMK04906_DEVICE_BASEADDR  XPAR_XSPI_0_BASEADDR
+
+#define  LMK04906_SPISR_RX_EMPTY   0x1
+#define  LMK04906_SPISR_TX_EMPTY   0x4
+#define  LMK04906_SPISR_TX_FULL    0x8
+
+/*
+ * Bound for the SPI status poll loops. These loops used to be unbounded and
+ * would hang the application if the SPI core stopped draining its TX FIFO.
+ */
+#define  LMK04906_SPI_TIMEOUT      100000U
 
 typedef struct {
 	u32 SPI_BaseAddr;
@@ -45,7 +57,8 @@ void Set_Option(u32 Option);
 u32  Get_Option();
 u32  Get_Status();
 u32  Rx_Data_Read();
-void Tx_Data_Write(u32 WriteData);
+int  Tx_Data_Write(u32 WriteData);
+
 #ifdef __cplusplus
 }
 #endif

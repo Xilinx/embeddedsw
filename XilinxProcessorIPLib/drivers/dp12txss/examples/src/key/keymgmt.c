@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2020 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -18,14 +19,13 @@
 #include "keymgmt_debug.h"
 #include "keymgmt_device.h"
 #include "keymgmt_loader.h"
-//#include <stdlib.h>
-//#include <string.h>
+#include <stdlib.h>
+#include <string.h>
 
 #include "eeprom.h"
 
 /* Local Globals */
 static int  gIsInitialized = FALSE;
-XStatus Init_IIC();
 
 /*****************************************************************************/
 /**
