@@ -4,12 +4,16 @@
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
+#ifndef XCLOCK_H /* prevent circular inclusions */
+#define XCLOCK_H
+
 /****************************************************************************/
 /**
 *
 * @file xclockps.h
 * @addtogroup clockps Overview
 * @{
+* @brief Defines the CLOCKPS driver software API.
 *
 * The Xilinx Clock controller driver provides APIs to control clock parameters.
 * Below are the feature of the driver:
@@ -39,12 +43,10 @@
 * 1.7   vlt    12/30/25 Update Doxygen comments to include SDT flow details.
 * 1.7   vlt    04/14/26 Updated LookupConfig BaseAddress type from u32 to UINTPTR
 *                       to support 64-bit addressing
-
+* 1.8   tb     09/17/26 Align Doxygen comments with AMD standards.
 * </pre>
 *
 ******************************************************************************/
-#ifndef XCLOCK_H		/* prevent circular inclusions */
-#define XCLOCK_H		/* by using protection macros */
 
 #ifdef __cplusplus
 extern "C" {
@@ -65,45 +67,96 @@ extern "C" {
  * hardware with other driver and hence this wrapper defines are required
  */
 #ifndef SDT
+/** Number of CLOCKPS instances. */
 #define XPAR_XCLOCKPS_NUM_INSTANCES  (XPAR_XCRPSU_NUM_INSTANCES)
+/** CLOCKPS device identifier. */
 #define XPAR_XCLOCKPS_DEVICE_ID      (XPAR_XCRPSU_0_DEVICE_ID)
 #endif
 
 /* Fixed clock rate definitions */
+/** Fixed video clock rate in Hz. */
 #define XCLOCK_FIX_RATE_VIDEO_CLK    (27000000U)
 #define XCLOCK_FIX_RATE_PSS_ALT_REF_CLK \
-	(0U)
+	(0U)	/**< Fixed PSS alternate reference clock rate in Hz. */
 #define XCLOCK_FIX_RATE_GT_CRX_REF_CLK \
-	(108000000U)
+	(108000000U)	/**< Fixed GT CRX reference clock rate in Hz. */
+/** Fixed auxiliary reference clock rate in Hz. */
 #define XCLOCK_FIX_RATE_AUX_REF_CLK  (27000000U)
+/** Fixed DisplayPort ACLK rate in Hz. */
 #define XCLOCK_FIX_RATE_DP_ACLK      (100000000U)
 
 /* Miscellaneous defines */
+/** Invalid parent identifier. */
 #define XCLOCK_INVALID_PARENT        (0xFFFF)
+/** Parent-type field mask. */
 #define XCLOCK_PARENT_TYPE_MASK      (0xFF00)
+/** Parent-index field mask. */
 #define XCLOCK_PARENT_IDX_MASK       (0x00FF)
+/** Invalid clock rate value. */
 #define XCLOCK_INVALID_RATE          (0)
+/** Divider field width in bits. */
 #define XCLOCK_DIVIDERS_BITWIDTH     (6)
+/** Maximum divider value. */
 #define XCLOCK_MAX_DIV_VAL           XCLOCK_VALUE_MASK(XCLOCK_DIVIDERS_BITWIDTH)
+/** Invalid divider database index. */
 #define XCLOCK_INVALID_DIV_INDEX     (MAX_DIVIDER + 1)
+/** Invalid PLL database index. */
 #define XCLOCK_INVALID_PLL_INDEX     (MAX_PLL + 1)
 
 /* Clock Flags */
-#define XCLOCK_CLOCK_IS_CRITICAL     BIT(0)	/**< Clock is critical and will not be disabled */
+/** Clock is critical and is not disabled. */
+#define XCLOCK_CLOCK_IS_CRITICAL     BIT(0)
 
-/* Bit mask of specific length */
+/**
+ * @brief Returns a bit mask of the given length.
+ * @param[in] masklen Width of the mask in bits.
+ *
+ * @note
+ * C-style signature
+ *	u32 XCLOCK_VALUE_MASK(u32 masklen)
+ */
 #define XCLOCK_VALUE_MASK(masklen)   ((1 << masklen) - 1)
 
-/* Bit shift */
+/**
+ * @brief Returns a mask for bit n.
+ * @param[in] n Bit index.
+ *
+ * @note
+ * C-style signature
+ *	u32 BIT(u32 n)
+ */
 #define BIT(n)		             (1 << (n))
 
-/* Calculates array size */
+/**
+ * @brief Returns the number of elements in an array.
+ * @param[in] x Array identifier.
+ *
+ * @note
+ * C-style signature
+ *	size_t CLK_ARRAY_SIZE(ElementType x[])
+ */
 #define CLK_ARRAY_SIZE(x)	             (sizeof(x) / sizeof((x)[0]))
 
-/* Division rounded to closest integer */
+/**
+ * @brief Divides two values and rounds to the nearest integer.
+ * @param[in] a Dividend.
+ * @param[in] b Divisor.
+ *
+ * @note
+ * C-style signature
+ *	XClockRate XCLOCK_ROUND_DIV(XClockRate a, XClockRate b)
+ */
 #define XCLOCK_ROUND_DIV(a, b)       ((a + (b / 2)) / b)
 
-/* Division rounded to integer greater than actual value */
+/**
+ * @brief Divides two values and rounds up.
+ * @param[in] a Dividend.
+ * @param[in] b Divisor.
+ *
+ * @note
+ * C-style signature
+ *	XClockRate XCLOCK_CEIL_DIV(XClockRate a, XClockRate b)
+ */
 #define XCLOCK_CEIL_DIV(a, b)        ((a + b - 1) / b)
 
 /**
@@ -123,15 +176,33 @@ extern "C" {
 #define XCLOCK_GENERATE_PARENT_ID(type, idx) \
 	((u16)((u16)(type << 8) | (u8)(idx)))
 
-/* Parse parent to fetch out parent type */
+/**
+ * @brief Parses parent to fetch out parent type.
+ *
+ * @note
+ * C-style signature
+ *	u8 XCLOCK_FETCH_PARENT_TYPE(u16 parent)
+ */
 #define XCLOCK_FETCH_PARENT_TYPE(parent) \
 	((parent & XCLOCK_PARENT_TYPE_MASK) >> 8)
 
-/* Parse parent to fetch out parent database index */
+/**
+ * @brief Parses parent to fetch out parent database index.
+ *
+ * @note
+ * C-style signature
+ *	u8 XCLOCK_FETCH_PARENT_INDEX(u16 parent)
+ */
 #define XCLOCK_FETCH_PARENT_INDEX(parent) \
 	(parent & XCLOCK_PARENT_IDX_MASK)
 
-/* Limits the value within min and max */
+/**
+ * @brief Limits the value within min and max.
+ *
+ * @note
+ * C-style signature
+ *	void XCLOCK_LIMIT_VALUE(u32 val, u32 min, u32 max)
+ */
 #define XCLOCK_LIMIT_VALUE(val, min, max) \
 	do { \
 		if (val < min) { \
@@ -177,7 +248,13 @@ extern "C" {
 		} \
 	} while (0)
 
-/* This macro validates pointer to not be null */
+/**
+ * @brief Validates pointer to not be null.
+ *
+ * @note
+ * C-style signature
+ *	void XCLOCK_VALIDATE_PTR(void *ptr)
+ */
 #define XCLOCK_VALIDATE_PTR(ptr) \
 	do { \
 		if (NULL == ptr) { \
@@ -186,45 +263,60 @@ extern "C" {
 	} while (0)
 
 /**************************** Type Definitions *******************************/
-/* Type defined for Rate */
+/**
+ * @brief Holds a CLOCKPS rate value.
+ *
+ * Type defined for Rate.
+ */
 #if defined (__aarch64__)
 typedef u64 XClockRate;
 #else
 typedef u32 XClockRate;
 #endif
 
-/* This typedef contains configuration information for the device */
+/**
+ * @brief Holds CLOCKPS device configuration data.
+ */
 typedef struct {
 #ifndef SDT
-	u16 DeviceId;                    /**< Unique ID of device */
+	u16 DeviceId;                    /**< Unique ID of device. */
 #else
-	char *Name;                       /**< Name of the device */
-	UINTPTR BaseAddress;                  /**< Base address of the device */
+	char *Name;                       /**< Name of the device. */
+	/** Base address of the device. */
+	UINTPTR BaseAddress;
 #endif
 } XClockPs_Config;
 
 /**
- * The XClockPs driver instance data. The user is required to allocate a
- * variable of this type for every clock controller device in the system.
- * A pointer to a variable of this type is then passed to the driver API
+ * @brief Holds instance data for a CLOCKPS device.
+ *
+ * Allocate a variable of this type for every clock controller in the
+ * system. Pass a pointer to that variable to the driver API
  * functions.
  */
 typedef struct {
-	XClockPs_Config Config;          /**< Hardware Configuration */
+	XClockPs_Config Config;          /**< Hardware Configuration. */
 } XClock;
 
-/* Type of clock nodes */
+/**
+ * @brief Lists CLOCKPS node types.
+ */
 typedef enum {
-	XCLOCK_TYPE_IP,
-	XCLOCK_TYPE_PLL,
-	XCLOCK_TYPE_MUX,
-	XCLOCK_TYPE_GATE,
-	XCLOCK_TYPE_DIVIDER,
-	XCLOCK_TYPE_FIXEDFACTOR,
-	XCLOCK_TYPE_MAX
+	XCLOCK_TYPE_IP, /**< Fixed input-clock node type. */
+	XCLOCK_TYPE_PLL, /**< PLL node type. */
+	XCLOCK_TYPE_MUX, /**< Mux node type. */
+	XCLOCK_TYPE_GATE, /**< Gate node type. */
+	XCLOCK_TYPE_DIVIDER, /**< Divider node type. */
+	XCLOCK_TYPE_FIXEDFACTOR, /**< Fixed-factor node type. */
+	XCLOCK_TYPE_MAX /**< Sentinel for clock node types. */
 } XClock_Types;
 
-/* List of output clocks */
+/**
+ * @brief Lists CLOCKPS output clocks.
+ *
+ * Each enumerator identifies the output clock with the same name. MIN_OP
+ * and MAX_OP mark the first and last identifiers.
+ */
 typedef enum  {
 	MIN_OP,
 	IOPLL = MIN_OP, RPLL, APLL, DPLL, VPLL,
@@ -264,277 +356,291 @@ typedef enum  {
 	MAX_OP = WDT,
 } XClock_OutputClks;
 
-/* List of input clocks */
+/**
+ * @brief Lists CLOCKPS input clocks.
+ */
 typedef enum {
-	MIN_IP,
-	PSS_REF_CLK = MIN_IP,
-	VIDEO_CLK,
-	PSS_ALT_REF_CLK,
-	GT_CRX_REF_CLK,
-	AUX_REF_CLK,
-	DP_ACLK,
-	MAX_IP = DP_ACLK,
+	MIN_IP, /**< First input-clock identifier. */
+	PSS_REF_CLK = MIN_IP, /**< PSS REF CLK input clock. */
+	VIDEO_CLK, /**< VIDEO CLK input clock. */
+	PSS_ALT_REF_CLK, /**< PSS ALT REF CLK input clock. */
+	GT_CRX_REF_CLK, /**< GT CRX REF CLK input clock. */
+	AUX_REF_CLK, /**< AUX REF CLK input clock. */
+	DP_ACLK, /**< DP ACLK input clock. */
+	MAX_IP = DP_ACLK, /**< Last input-clock identifier. */
 } XClock_InputClks;
 
-/* Divider database indices */
+/**
+ * @brief Lists CLOCKPS divider database indices.
+ */
 typedef enum {
-	MIN_DIVIDER,
-	PL0_DIV0 = MIN_DIVIDER,
-	PL0_DIV1,
-	PL1_DIV0,
-	PL1_DIV1,
-	PL2_DIV0,
-	PL2_DIV1,
-	PL3_DIV0,
-	PL3_DIV1,
-	APLL_TO_LPD_DIV0,
-	DPLL_TO_LPD_DIV0,
-	VPLL_TO_LPD_DIV0,
-	IOPLL_TO_FPD_DIV0,
-	RPLL_TO_FPD_DIV0,
-	ACPU_DIV0,
-	DDR_REF_DIV0,
-	GEM0_REF_DIV0,
-	GEM0_REF_DIV1,
-	GEM1_REF_DIV0,
-	GEM1_REF_DIV1,
-	GEM2_REF_DIV0,
-	GEM2_REF_DIV1,
-	GEM3_REF_DIV0,
-	GEM3_REF_DIV1,
-	TIMESTAMP_REF_DIV0,
-	DBG_TRACE_DIV0,
-	DBG_FPD_DIV0,
-	DBG_LPD_DIV0,
-	DBG_TSTMP_DIV0,
-	DP_VIDEO_REF_DIV0,
-	DP_VIDEO_REF_DIV1,
-	DP_AUDIO_REF_DIV0,
-	DP_AUDIO_REF_DIV1,
-	DP_STC_REF_DIV0,
-	DP_STC_REF_DIV1,
-	GPU_REF_DIV0,
-	SATA_REF_DIV0,
-	PCIE_REF_DIV0,
-	GDMA_REF_DIV0,
-	DPDMA_REF_DIV0,
-	TOPSW_MAIN_DIV0,
-	TOPSW_LSBUS_DIV0,
-	GTGREF0_REF_DIV0,
-	USB3_DUAL_REF_DIV0,
-	USB3_DUAL_REF_DIV1,
-	USB0_BUS_REF_DIV0,
-	USB0_BUS_REF_DIV1,
-	USB1_BUS_REF_DIV0,
-	USB1_BUS_REF_DIV1,
-	GEM_TSU_REF_DIV0,
-	GEM_TSU_REF_DIV1,
-	QSPI_REF_DIV0,
-	QSPI_REF_DIV1,
-	SDIO0_REF_DIV0,
-	SDIO0_REF_DIV1,
-	SDIO1_REF_DIV0,
-	SDIO1_REF_DIV1,
-	UART0_REF_DIV0,
-	UART0_REF_DIV1,
-	UART1_REF_DIV0,
-	UART1_REF_DIV1,
-	SPI0_REF_DIV0,
-	SPI0_REF_DIV1,
-	SPI1_REF_DIV0,
-	SPI1_REF_DIV1,
-	CAN0_REF_DIV0,
-	CAN0_REF_DIV1,
-	CAN1_REF_DIV0,
-	CAN1_REF_DIV1,
-	CPU_R5_DIV0,
-	IOU_SWITCH_DIV0,
-	CSU_PLL_DIV0,
-	PCAP_DIV0,
-	LPD_SWITCH_DIV0,
-	LPD_LSBUS_DIV0,
-	NAND_REF_DIV0,
-	NAND_REF_DIV1,
-	ADMA_REF_DIV0,
-	AMS_REF_DIV0,
-	AMS_REF_DIV1,
-	I2C0_REF_DIV0,
-	I2C0_REF_DIV1,
-	I2C1_REF_DIV0,
-	I2C1_REF_DIV1,
-	MAX_DIVIDER = I2C1_REF_DIV1,
+	MIN_DIVIDER, /**< First divider-database index. */
+	PL0_DIV0 = MIN_DIVIDER, /**< PL0 DIV0 divider index. */
+	PL0_DIV1, /**< PL0 DIV1 divider index. */
+	PL1_DIV0, /**< PL1 DIV0 divider index. */
+	PL1_DIV1, /**< PL1 DIV1 divider index. */
+	PL2_DIV0, /**< PL2 DIV0 divider index. */
+	PL2_DIV1, /**< PL2 DIV1 divider index. */
+	PL3_DIV0, /**< PL3 DIV0 divider index. */
+	PL3_DIV1, /**< PL3 DIV1 divider index. */
+	APLL_TO_LPD_DIV0, /**< APLL TO LPD DIV0 divider index. */
+	DPLL_TO_LPD_DIV0, /**< DPLL TO LPD DIV0 divider index. */
+	VPLL_TO_LPD_DIV0, /**< VPLL TO LPD DIV0 divider index. */
+	IOPLL_TO_FPD_DIV0, /**< IOPLL TO FPD DIV0 divider index. */
+	RPLL_TO_FPD_DIV0, /**< RPLL TO FPD DIV0 divider index. */
+	ACPU_DIV0, /**< ACPU DIV0 divider index. */
+	DDR_REF_DIV0, /**< DDR REF DIV0 divider index. */
+	GEM0_REF_DIV0, /**< GEM0 REF DIV0 divider index. */
+	GEM0_REF_DIV1, /**< GEM0 REF DIV1 divider index. */
+	GEM1_REF_DIV0, /**< GEM1 REF DIV0 divider index. */
+	GEM1_REF_DIV1, /**< GEM1 REF DIV1 divider index. */
+	GEM2_REF_DIV0, /**< GEM2 REF DIV0 divider index. */
+	GEM2_REF_DIV1, /**< GEM2 REF DIV1 divider index. */
+	GEM3_REF_DIV0, /**< GEM3 REF DIV0 divider index. */
+	GEM3_REF_DIV1, /**< GEM3 REF DIV1 divider index. */
+	TIMESTAMP_REF_DIV0, /**< TIMESTAMP REF DIV0 divider index. */
+	DBG_TRACE_DIV0, /**< DBG TRACE DIV0 divider index. */
+	DBG_FPD_DIV0, /**< DBG FPD DIV0 divider index. */
+	DBG_LPD_DIV0, /**< DBG LPD DIV0 divider index. */
+	DBG_TSTMP_DIV0, /**< DBG TSTMP DIV0 divider index. */
+	DP_VIDEO_REF_DIV0, /**< DP VIDEO REF DIV0 divider index. */
+	DP_VIDEO_REF_DIV1, /**< DP VIDEO REF DIV1 divider index. */
+	DP_AUDIO_REF_DIV0, /**< DP AUDIO REF DIV0 divider index. */
+	DP_AUDIO_REF_DIV1, /**< DP AUDIO REF DIV1 divider index. */
+	DP_STC_REF_DIV0, /**< DP STC REF DIV0 divider index. */
+	DP_STC_REF_DIV1, /**< DP STC REF DIV1 divider index. */
+	GPU_REF_DIV0, /**< GPU REF DIV0 divider index. */
+	SATA_REF_DIV0, /**< SATA REF DIV0 divider index. */
+	PCIE_REF_DIV0, /**< PCIE REF DIV0 divider index. */
+	GDMA_REF_DIV0, /**< GDMA REF DIV0 divider index. */
+	DPDMA_REF_DIV0, /**< DPDMA REF DIV0 divider index. */
+	TOPSW_MAIN_DIV0, /**< TOPSW MAIN DIV0 divider index. */
+	TOPSW_LSBUS_DIV0, /**< TOPSW LSBUS DIV0 divider index. */
+	GTGREF0_REF_DIV0, /**< GTGREF0 REF DIV0 divider index. */
+	USB3_DUAL_REF_DIV0, /**< USB3 DUAL REF DIV0 divider index. */
+	USB3_DUAL_REF_DIV1, /**< USB3 DUAL REF DIV1 divider index. */
+	USB0_BUS_REF_DIV0, /**< USB0 BUS REF DIV0 divider index. */
+	USB0_BUS_REF_DIV1, /**< USB0 BUS REF DIV1 divider index. */
+	USB1_BUS_REF_DIV0, /**< USB1 BUS REF DIV0 divider index. */
+	USB1_BUS_REF_DIV1, /**< USB1 BUS REF DIV1 divider index. */
+	GEM_TSU_REF_DIV0, /**< GEM TSU REF DIV0 divider index. */
+	GEM_TSU_REF_DIV1, /**< GEM TSU REF DIV1 divider index. */
+	QSPI_REF_DIV0, /**< QSPI REF DIV0 divider index. */
+	QSPI_REF_DIV1, /**< QSPI REF DIV1 divider index. */
+	SDIO0_REF_DIV0, /**< SDIO0 REF DIV0 divider index. */
+	SDIO0_REF_DIV1, /**< SDIO0 REF DIV1 divider index. */
+	SDIO1_REF_DIV0, /**< SDIO1 REF DIV0 divider index. */
+	SDIO1_REF_DIV1, /**< SDIO1 REF DIV1 divider index. */
+	UART0_REF_DIV0, /**< UART0 REF DIV0 divider index. */
+	UART0_REF_DIV1, /**< UART0 REF DIV1 divider index. */
+	UART1_REF_DIV0, /**< UART1 REF DIV0 divider index. */
+	UART1_REF_DIV1, /**< UART1 REF DIV1 divider index. */
+	SPI0_REF_DIV0, /**< SPI0 REF DIV0 divider index. */
+	SPI0_REF_DIV1, /**< SPI0 REF DIV1 divider index. */
+	SPI1_REF_DIV0, /**< SPI1 REF DIV0 divider index. */
+	SPI1_REF_DIV1, /**< SPI1 REF DIV1 divider index. */
+	CAN0_REF_DIV0, /**< CAN0 REF DIV0 divider index. */
+	CAN0_REF_DIV1, /**< CAN0 REF DIV1 divider index. */
+	CAN1_REF_DIV0, /**< CAN1 REF DIV0 divider index. */
+	CAN1_REF_DIV1, /**< CAN1 REF DIV1 divider index. */
+	CPU_R5_DIV0, /**< CPU R5 DIV0 divider index. */
+	IOU_SWITCH_DIV0, /**< IOU SWITCH DIV0 divider index. */
+	CSU_PLL_DIV0, /**< CSU PLL DIV0 divider index. */
+	PCAP_DIV0, /**< PCAP DIV0 divider index. */
+	LPD_SWITCH_DIV0, /**< LPD SWITCH DIV0 divider index. */
+	LPD_LSBUS_DIV0, /**< LPD LSBUS DIV0 divider index. */
+	NAND_REF_DIV0, /**< NAND REF DIV0 divider index. */
+	NAND_REF_DIV1, /**< NAND REF DIV1 divider index. */
+	ADMA_REF_DIV0, /**< ADMA REF DIV0 divider index. */
+	AMS_REF_DIV0, /**< AMS REF DIV0 divider index. */
+	AMS_REF_DIV1, /**< AMS REF DIV1 divider index. */
+	I2C0_REF_DIV0, /**< I2C0 REF DIV0 divider index. */
+	I2C0_REF_DIV1, /**< I2C0 REF DIV1 divider index. */
+	I2C1_REF_DIV0, /**< I2C1 REF DIV0 divider index. */
+	I2C1_REF_DIV1, /**< I2C1 REF DIV1 divider index. */
+	MAX_DIVIDER = I2C1_REF_DIV1, /**< Last divider-database index. */
 } XClock_DivIndices;
 
-/* Mux database indices */
+/**
+ * @brief Lists CLOCKPS mux database indices.
+ */
 typedef enum {
-	MIN_MUX,
-	IOPLL_PRE_SRC_MUX = MIN_MUX,
-	IOPLL_INT_MUX,
-	IOPLL_POST_SRC_MUX,
-	IOPLL_MUX,
-	RPLL_PRE_SRC_MUX,
-	RPLL_INT_MUX,
-	RPLL_POST_SRC_MUX,
-	RPLL_MUX,
-	APLL_PRE_SRC_MUX,
-	APLL_INT_MUX,
-	APLL_POST_SRC_MUX,
-	APLL_MUX,
-	DPLL_PRE_SRC_MUX,
-	DPLL_INT_MUX,
-	DPLL_POST_SRC_MUX,
-	DPLL_MUX,
-	VPLL_PRE_SRC_MUX,
-	VPLL_INT_MUX,
-	VPLL_POST_SRC_MUX,
-	VPLL_MUX,
-	ACPU_MUX,
-	WDT_MUX,
-	DDR_MUX,
-	PL0_MUX,
-	PL1_MUX,
-	PL2_MUX,
-	PL3_MUX,
-	DBG_TRACE_MUX,
-	DBG_FPD_MUX,
-	DBG_LPD_MUX,
-	DBG_TSTMP_MUX,
-	DP_VIDEO_REF_MUX,
-	DP_AUDIO_REF_MUX,
-	DP_STC_REF_MUX,
-	GPU_REF_MUX,
-	SATA_REF_MUX,
-	PCIE_REF_MUX,
-	GDMA_REF_MUX,
-	DPDMA_REF_MUX,
-	TOPSW_MAIN_MUX,
-	TOPSW_LSBUS_MUX,
-	GTGREF0_REF_MUX,
-	USB3_DUAL_REF_MUX,
-	USB0_BUS_REF_MUX,
-	USB1_BUS_REF_MUX,
-	GEM0_REF_MUX,
-	GEM0_TX_MUX,
-	GEM1_REF_MUX,
-	GEM1_TX_MUX,
-	GEM2_REF_MUX,
-	GEM2_TX_MUX,
-	GEM3_REF_MUX,
-	GEM3_TX_MUX,
-	GEM_TSU_REF_MUX,
-	GEM_TSU_MUX,
-	QSPI_REF_MUX,
-	SDIO0_REF_MUX,
-	SDIO1_REF_MUX,
-	UART0_REF_MUX,
-	UART1_REF_MUX,
-	SPI0_REF_MUX,
-	SPI1_REF_MUX,
-	CAN0_REF_MUX,
-	CAN0_MIO_MUX,
-	CAN0_MUX,
-	CAN1_REF_MUX,
-	CAN1_MIO_MUX,
-	CAN1_MUX,
-	CPU_R5_MUX,
-	IOU_SWITCH_MUX,
-	CSU_PLL_MUX,
-	PCAP_MUX,
-	LPD_SWITCH_MUX,
-	LPD_LSBUS_MUX,
-	NAND_REF_MUX,
-	ADMA_REF_MUX,
-	DLL_REF_MUX,
-	AMS_REF_MUX,
-	I2C0_REF_MUX,
-	I2C1_REF_MUX,
-	TIMESTAMP_REF_MUX,
-	MAX_MUX = TIMESTAMP_REF_MUX,
+	MIN_MUX, /**< First mux-database index. */
+	IOPLL_PRE_SRC_MUX = MIN_MUX, /**< IOPLL PRE SRC MUX mux index. */
+	IOPLL_INT_MUX, /**< IOPLL INT MUX mux index. */
+	IOPLL_POST_SRC_MUX, /**< IOPLL POST SRC MUX mux index. */
+	IOPLL_MUX, /**< IOPLL MUX mux index. */
+	RPLL_PRE_SRC_MUX, /**< RPLL PRE SRC MUX mux index. */
+	RPLL_INT_MUX, /**< RPLL INT MUX mux index. */
+	RPLL_POST_SRC_MUX, /**< RPLL POST SRC MUX mux index. */
+	RPLL_MUX, /**< RPLL MUX mux index. */
+	APLL_PRE_SRC_MUX, /**< APLL PRE SRC MUX mux index. */
+	APLL_INT_MUX, /**< APLL INT MUX mux index. */
+	APLL_POST_SRC_MUX, /**< APLL POST SRC MUX mux index. */
+	APLL_MUX, /**< APLL MUX mux index. */
+	DPLL_PRE_SRC_MUX, /**< DPLL PRE SRC MUX mux index. */
+	DPLL_INT_MUX, /**< DPLL INT MUX mux index. */
+	DPLL_POST_SRC_MUX, /**< DPLL POST SRC MUX mux index. */
+	DPLL_MUX, /**< DPLL MUX mux index. */
+	VPLL_PRE_SRC_MUX, /**< VPLL PRE SRC MUX mux index. */
+	VPLL_INT_MUX, /**< VPLL INT MUX mux index. */
+	VPLL_POST_SRC_MUX, /**< VPLL POST SRC MUX mux index. */
+	VPLL_MUX, /**< VPLL MUX mux index. */
+	ACPU_MUX, /**< ACPU MUX mux index. */
+	WDT_MUX, /**< WDT MUX mux index. */
+	DDR_MUX, /**< DDR MUX mux index. */
+	PL0_MUX, /**< PL0 MUX mux index. */
+	PL1_MUX, /**< PL1 MUX mux index. */
+	PL2_MUX, /**< PL2 MUX mux index. */
+	PL3_MUX, /**< PL3 MUX mux index. */
+	DBG_TRACE_MUX, /**< DBG TRACE MUX mux index. */
+	DBG_FPD_MUX, /**< DBG FPD MUX mux index. */
+	DBG_LPD_MUX, /**< DBG LPD MUX mux index. */
+	DBG_TSTMP_MUX, /**< DBG TSTMP MUX mux index. */
+	DP_VIDEO_REF_MUX, /**< DP VIDEO REF MUX mux index. */
+	DP_AUDIO_REF_MUX, /**< DP AUDIO REF MUX mux index. */
+	DP_STC_REF_MUX, /**< DP STC REF MUX mux index. */
+	GPU_REF_MUX, /**< GPU REF MUX mux index. */
+	SATA_REF_MUX, /**< SATA REF MUX mux index. */
+	PCIE_REF_MUX, /**< PCIE REF MUX mux index. */
+	GDMA_REF_MUX, /**< GDMA REF MUX mux index. */
+	DPDMA_REF_MUX, /**< DPDMA REF MUX mux index. */
+	TOPSW_MAIN_MUX, /**< TOPSW MAIN MUX mux index. */
+	TOPSW_LSBUS_MUX, /**< TOPSW LSBUS MUX mux index. */
+	GTGREF0_REF_MUX, /**< GTGREF0 REF MUX mux index. */
+	USB3_DUAL_REF_MUX, /**< USB3 DUAL REF MUX mux index. */
+	USB0_BUS_REF_MUX, /**< USB0 BUS REF MUX mux index. */
+	USB1_BUS_REF_MUX, /**< USB1 BUS REF MUX mux index. */
+	GEM0_REF_MUX, /**< GEM0 REF MUX mux index. */
+	GEM0_TX_MUX, /**< GEM0 TX MUX mux index. */
+	GEM1_REF_MUX, /**< GEM1 REF MUX mux index. */
+	GEM1_TX_MUX, /**< GEM1 TX MUX mux index. */
+	GEM2_REF_MUX, /**< GEM2 REF MUX mux index. */
+	GEM2_TX_MUX, /**< GEM2 TX MUX mux index. */
+	GEM3_REF_MUX, /**< GEM3 REF MUX mux index. */
+	GEM3_TX_MUX, /**< GEM3 TX MUX mux index. */
+	GEM_TSU_REF_MUX, /**< GEM TSU REF MUX mux index. */
+	GEM_TSU_MUX, /**< GEM TSU MUX mux index. */
+	QSPI_REF_MUX, /**< QSPI REF MUX mux index. */
+	SDIO0_REF_MUX, /**< SDIO0 REF MUX mux index. */
+	SDIO1_REF_MUX, /**< SDIO1 REF MUX mux index. */
+	UART0_REF_MUX, /**< UART0 REF MUX mux index. */
+	UART1_REF_MUX, /**< UART1 REF MUX mux index. */
+	SPI0_REF_MUX, /**< SPI0 REF MUX mux index. */
+	SPI1_REF_MUX, /**< SPI1 REF MUX mux index. */
+	CAN0_REF_MUX, /**< CAN0 REF MUX mux index. */
+	CAN0_MIO_MUX, /**< CAN0 MIO MUX mux index. */
+	CAN0_MUX, /**< CAN0 MUX mux index. */
+	CAN1_REF_MUX, /**< CAN1 REF MUX mux index. */
+	CAN1_MIO_MUX, /**< CAN1 MIO MUX mux index. */
+	CAN1_MUX, /**< CAN1 MUX mux index. */
+	CPU_R5_MUX, /**< CPU R5 MUX mux index. */
+	IOU_SWITCH_MUX, /**< IOU SWITCH MUX mux index. */
+	CSU_PLL_MUX, /**< CSU PLL MUX mux index. */
+	PCAP_MUX, /**< PCAP MUX mux index. */
+	LPD_SWITCH_MUX, /**< LPD SWITCH MUX mux index. */
+	LPD_LSBUS_MUX, /**< LPD LSBUS MUX mux index. */
+	NAND_REF_MUX, /**< NAND REF MUX mux index. */
+	ADMA_REF_MUX, /**< ADMA REF MUX mux index. */
+	DLL_REF_MUX, /**< DLL REF MUX mux index. */
+	AMS_REF_MUX, /**< AMS REF MUX mux index. */
+	I2C0_REF_MUX, /**< I2C0 REF MUX mux index. */
+	I2C1_REF_MUX, /**< I2C1 REF MUX mux index. */
+	TIMESTAMP_REF_MUX, /**< TIMESTAMP REF MUX mux index. */
+	MAX_MUX = TIMESTAMP_REF_MUX, /**< Last mux-database index. */
 } XClock_MuxIndices;
 
-/* Fixed factor database indices */
+/**
+ * @brief Lists CLOCKPS fixed-factor database indices.
+ */
 typedef enum {
-	MIN_FIXEDFACTOR,
+	MIN_FIXEDFACTOR, /**< First fixed-factor database index. */
+	/** IOPLL INT HALF FF fixed-factor index. */
 	IOPLL_INT_HALF_FF = MIN_FIXEDFACTOR,
-	RPLL_INT_HALF_FF,
-	APLL_INT_HALF_FF,
-	DPLL_INT_HALF_FF,
-	VPLL_INT_HALF_FF,
-	ACPU_HALF_DIV_FF,
+	RPLL_INT_HALF_FF, /**< RPLL INT HALF FF fixed-factor index. */
+	APLL_INT_HALF_FF, /**< APLL INT HALF FF fixed-factor index. */
+	DPLL_INT_HALF_FF, /**< DPLL INT HALF FF fixed-factor index. */
+	VPLL_INT_HALF_FF, /**< VPLL INT HALF FF fixed-factor index. */
+	ACPU_HALF_DIV_FF, /**< ACPU HALF DIV FF fixed-factor index. */
+	/** Last fixed-factor database index. */
 	MAX_FIXEDFACTOR = ACPU_HALF_DIV_FF,
 } XClock_FixFactIndices;
 
-/* Gate database indices */
+/**
+ * @brief Lists CLOCKPS gate database indices.
+ */
 typedef enum {
-	MIN_GATE,
-	ACPU_GATE = MIN_GATE,
-	ACPU_HALF_GATE,
-	PL0_GATE,
-	PL1_GATE,
-	PL2_GATE,
-	PL3_GATE,
-	DBG_TRACE_GATE,
-	DBG_FPD_GATE,
-	DBG_LPD_GATE,
-	DP_VIDEO_REF_GATE,
-	DP_AUDIO_REF_GATE,
-	DP_STC_REF_GATE,
-	GPU_REF_GATE,
-	GPU_PP0_REF_GATE,
-	GPU_PP1_REF_GATE,
-	SATA_REF_GATE,
-	PCIE_REF_GATE,
-	GDMA_REF_GATE,
-	DPDMA_REF_GATE,
-	TOPSW_MAIN_GATE,
-	TOPSW_LSBUS_GATE,
-	GTGREF0_REF_GATE,
-	USB3_DUAL_REF_GATE,
-	USB0_BUS_REF_GATE,
-	USB1_BUS_REF_GATE,
-	GEM0_TX_GATE,
-	GEM0_REF_GATE,
-	GEM1_TX_GATE,
-	GEM1_REF_GATE,
-	GEM2_TX_GATE,
-	GEM2_REF_GATE,
-	GEM3_TX_GATE,
-	GEM3_REF_GATE,
-	GEM_TSU_REF_GATE,
-	QSPI_REF_GATE,
-	SDIO0_REF_GATE,
-	SDIO1_REF_GATE,
-	UART0_REF_GATE,
-	UART1_REF_GATE,
-	SPI0_REF_GATE,
-	SPI1_REF_GATE,
-	CAN0_REF_GATE,
-	CAN1_REF_GATE,
-	CPU_R5_GATE,
-	CPU_R5_CORE_GATE,
-	IOU_SWITCH_GATE,
-	CSU_PLL_GATE,
-	PCAP_GATE,
-	LPD_SWITCH_GATE,
-	LPD_LSBUS_GATE,
-	NAND_REF_GATE,
-	ADMA_REF_GATE,
-	AMS_REF_GATE,
-	I2C0_REF_GATE,
-	I2C1_REF_GATE,
-	TIMESTAMP_REF_GATE,
-	MAX_GATE = TIMESTAMP_REF_GATE,
+	MIN_GATE, /**< First gate-database index. */
+	ACPU_GATE = MIN_GATE, /**< ACPU GATE gate index. */
+	ACPU_HALF_GATE, /**< ACPU HALF GATE gate index. */
+	PL0_GATE, /**< PL0 GATE gate index. */
+	PL1_GATE, /**< PL1 GATE gate index. */
+	PL2_GATE, /**< PL2 GATE gate index. */
+	PL3_GATE, /**< PL3 GATE gate index. */
+	DBG_TRACE_GATE, /**< DBG TRACE GATE gate index. */
+	DBG_FPD_GATE, /**< DBG FPD GATE gate index. */
+	DBG_LPD_GATE, /**< DBG LPD GATE gate index. */
+	DP_VIDEO_REF_GATE, /**< DP VIDEO REF GATE gate index. */
+	DP_AUDIO_REF_GATE, /**< DP AUDIO REF GATE gate index. */
+	DP_STC_REF_GATE, /**< DP STC REF GATE gate index. */
+	GPU_REF_GATE, /**< GPU REF GATE gate index. */
+	GPU_PP0_REF_GATE, /**< GPU PP0 REF GATE gate index. */
+	GPU_PP1_REF_GATE, /**< GPU PP1 REF GATE gate index. */
+	SATA_REF_GATE, /**< SATA REF GATE gate index. */
+	PCIE_REF_GATE, /**< PCIE REF GATE gate index. */
+	GDMA_REF_GATE, /**< GDMA REF GATE gate index. */
+	DPDMA_REF_GATE, /**< DPDMA REF GATE gate index. */
+	TOPSW_MAIN_GATE, /**< TOPSW MAIN GATE gate index. */
+	TOPSW_LSBUS_GATE, /**< TOPSW LSBUS GATE gate index. */
+	GTGREF0_REF_GATE, /**< GTGREF0 REF GATE gate index. */
+	USB3_DUAL_REF_GATE, /**< USB3 DUAL REF GATE gate index. */
+	USB0_BUS_REF_GATE, /**< USB0 BUS REF GATE gate index. */
+	USB1_BUS_REF_GATE, /**< USB1 BUS REF GATE gate index. */
+	GEM0_TX_GATE, /**< GEM0 TX GATE gate index. */
+	GEM0_REF_GATE, /**< GEM0 REF GATE gate index. */
+	GEM1_TX_GATE, /**< GEM1 TX GATE gate index. */
+	GEM1_REF_GATE, /**< GEM1 REF GATE gate index. */
+	GEM2_TX_GATE, /**< GEM2 TX GATE gate index. */
+	GEM2_REF_GATE, /**< GEM2 REF GATE gate index. */
+	GEM3_TX_GATE, /**< GEM3 TX GATE gate index. */
+	GEM3_REF_GATE, /**< GEM3 REF GATE gate index. */
+	GEM_TSU_REF_GATE, /**< GEM TSU REF GATE gate index. */
+	QSPI_REF_GATE, /**< QSPI REF GATE gate index. */
+	SDIO0_REF_GATE, /**< SDIO0 REF GATE gate index. */
+	SDIO1_REF_GATE, /**< SDIO1 REF GATE gate index. */
+	UART0_REF_GATE, /**< UART0 REF GATE gate index. */
+	UART1_REF_GATE, /**< UART1 REF GATE gate index. */
+	SPI0_REF_GATE, /**< SPI0 REF GATE gate index. */
+	SPI1_REF_GATE, /**< SPI1 REF GATE gate index. */
+	CAN0_REF_GATE, /**< CAN0 REF GATE gate index. */
+	CAN1_REF_GATE, /**< CAN1 REF GATE gate index. */
+	CPU_R5_GATE, /**< CPU R5 GATE gate index. */
+	CPU_R5_CORE_GATE, /**< CPU R5 CORE GATE gate index. */
+	IOU_SWITCH_GATE, /**< IOU SWITCH GATE gate index. */
+	CSU_PLL_GATE, /**< CSU PLL GATE gate index. */
+	PCAP_GATE, /**< PCAP GATE gate index. */
+	LPD_SWITCH_GATE, /**< LPD SWITCH GATE gate index. */
+	LPD_LSBUS_GATE, /**< LPD LSBUS GATE gate index. */
+	NAND_REF_GATE, /**< NAND REF GATE gate index. */
+	ADMA_REF_GATE, /**< ADMA REF GATE gate index. */
+	AMS_REF_GATE, /**< AMS REF GATE gate index. */
+	I2C0_REF_GATE, /**< I2C0 REF GATE gate index. */
+	I2C1_REF_GATE, /**< I2C1 REF GATE gate index. */
+	TIMESTAMP_REF_GATE, /**< TIMESTAMP REF GATE gate index. */
+	MAX_GATE = TIMESTAMP_REF_GATE, /**< Last gate-database index. */
 } XClock_GateIndices;
 
-/* Pll database indices */
+/**
+ * @brief Lists CLOCKPS PLL database indices.
+ */
 typedef enum {
-	MIN_PLL,
-	IOPLL_INT_PLL = MIN_PLL,
-	RPLL_INT_PLL,
-	APLL_INT_PLL,
-	DPLL_INT_PLL,
-	VPLL_INT_PLL,
-	MAX_PLL = VPLL_INT_PLL,
+	MIN_PLL, /**< First PLL-database index. */
+	IOPLL_INT_PLL = MIN_PLL, /**< IOPLL INT PLL PLL index. */
+	RPLL_INT_PLL, /**< RPLL INT PLL PLL index. */
+	APLL_INT_PLL, /**< APLL INT PLL PLL index. */
+	DPLL_INT_PLL, /**< DPLL INT PLL PLL index. */
+	VPLL_INT_PLL, /**< VPLL INT PLL PLL index. */
+	MAX_PLL = VPLL_INT_PLL, /**< Last PLL-database index. */
 } XClock_PllIndices;
 
 /************************** Variable Definitions *****************************/
@@ -542,13 +648,16 @@ typedef enum {
 /***************** Macros (Inline Functions) Definitions *********************/
 /****************************************************************************/
 /**
+* @brief Reads a 32-bit CLOCKPS register.
+*
 * Read the given register.
 *
-* @param        RegAddr is the address of the register to read
-* @param        Value is the pointer to variable holding read value
+* @param[in] RegAddr Address of the register to read.
+* @param[out] Value Pointer to variable holding read value.
 *
-* @return       XST_SUCCESS if successful
-* 		XST_FAILURE if unsuccessful
+* @return
+*		- XST_SUCCESS if successful.
+*		- XST_FAILURE if unsuccessful.
 *
 * @note         Read from  register may fail in case driver doesn't have proper
 * 		access at EL1 NONSECURE
@@ -574,14 +683,16 @@ static inline XStatus XClock_ReadReg(u32 RegAddr, u32 *Value)
 
 /****************************************************************************/
 /**
+* @brief Writes a 32-bit CLOCKPS register.
 *
 * Write the given register.
 *
-* @param        RegAddr is the address of the register to write
-* @param        Value is the 32-bit value to write to the register
+* @param[in] RegAddr Address of the register to write.
+* @param[in] Value 32-bit value to write to the register.
 *
-* @return       XST_SUCCESS if successful
-* 		XST_FAILURE if unsuccessful
+* @return
+*		- XST_SUCCESS if successful.
+*		- XST_FAILURE if unsuccessful.
 *
 * @note         Write to register may fail in case driver doesn't have proper
 * 		access at EL1 NONSECURE.
@@ -619,42 +730,60 @@ void XClock_GateRegisterFuncs(void);
 void XClock_DivRegisterFuncs(void);
 void XClock_FixedFactorRegisterFuncs(void);
 
-/* Function pointer holding update rate functions for nodes */
+/**
+ * @brief Points to a node's update-rate handler.
+ */
 typedef void (*XClock_UpdateRateFuncPtr)(u8 NodeIdx);
 extern XClock_UpdateRateFuncPtr XClock_NodeUpdateRate[XCLOCK_TYPE_MAX];
 
-/* Function pointer holding Get Rate functions for nodes */
+/**
+ * @brief Points to a node's get-rate handler.
+ */
 typedef XStatus (*XClock_FetchRateFuncPtr)(u8 NodeIdx, XClockRate *GetRate);
 extern XClock_FetchRateFuncPtr XClock_NodeGetRate[XCLOCK_TYPE_MAX];
 
-/* Function pointer holding Set Rate functions for nodes */
+/**
+ * @brief Points to a node's set-rate handler.
+ */
 typedef XStatus (*XClock_SetRateFuncPtr)(u8 NodeIdx, XClockRate ParentRate,
 		XClockRate Rate, XClockRate *SetRate, u8 DryRun);
 extern XClock_SetRateFuncPtr XClock_NodeSetRate[XCLOCK_TYPE_MAX];
 
-/* Function pointer holding parent fetch functions for nodes */
+/**
+ * @brief Points to a node's fetch-parent handler.
+ */
 typedef XStatus (*XClock_FetchParentFuncPtr)(XClock_Types *NodeType,
 		u8 *NodeIdx);
 extern XClock_FetchParentFuncPtr XClock_NodeFetchParent[XCLOCK_TYPE_MAX];
 
-/* Function pointer holding database index fetch functions for nodes */
+/**
+ * @brief Points to a node's fetch-index handler.
+ */
 typedef XStatus (*XClock_FetchIdxFuncPtr)(XClock_OutputClks ClockId,
 		u8 *NodeIdx);
 extern XClock_FetchIdxFuncPtr XClock_NodeFetchIdx[XCLOCK_TYPE_MAX];
 
-/* Function pointer holding disable functions for nodes */
+/**
+ * @brief Points to a node's disable handler.
+ */
 typedef XStatus (*XClock_DisableNodeFuncPtr)(u8 NodeIdx);
 extern XClock_DisableNodeFuncPtr XClock_NodeDisable[XCLOCK_TYPE_MAX];
 
-/* Function pointer holding Enable functions for nodes */
+/**
+ * @brief Points to a node's enable handler.
+ */
 typedef XStatus (*XClock_EnableNodeFuncPtr)(u8 NodeIdx);
 extern XClock_EnableNodeFuncPtr XClock_NodeEnable[XCLOCK_TYPE_MAX];
 
-/* Function pointer holding Init functions for nodes */
+/**
+ * @brief Points to a node's init handler.
+ */
 typedef void (*XClock_InitClkFuncPtr)(u8 NodeIdx);
 extern XClock_InitClkFuncPtr XClock_NodeInit[XCLOCK_TYPE_MAX];
 
-/* Function pointer holding parent set function for mux */
+/**
+ * @brief Points to the mux set-parent handler.
+ */
 typedef XStatus (*XClock_SetParentFuncPtr)(u8 NodeIdx, u8 SetParentIdx);
 extern XClock_SetParentFuncPtr XClock_MuxSetParent;
 

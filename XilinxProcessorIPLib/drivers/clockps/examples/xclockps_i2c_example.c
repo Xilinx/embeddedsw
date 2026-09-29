@@ -8,11 +8,10 @@
 /**
 *
 * @file xclockps_i2c_example.c
+* @brief Runs the CLOCKPS I2C example.
 *
 * This file contains a design example using the Clock Controller (ClockPs)
 * driver. It uses I2C peripheral clock for clock operations
-*
-* @note
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -23,6 +22,7 @@
 * 1.7   vlt    03/14/26 Updated BaseAddress type from u32 to UINTPTR
 *                       to support 64-bit addressing.
 * 1.8   vn     07/30/26 Fix Doxygen warnings
+* 1.8   tb     09/17/26 Align Doxygen comments with AMD standards.
 * </pre>
 *
 ******************************************************************************/
@@ -35,9 +35,12 @@
 
 /************************** Constant Definitions *****************************/
 #ifndef SDT
+/** CLOCKPS example device identifier. */
 #define CLOCK_DEVICE_ID              (XPAR_XCLOCKPS_DEVICE_ID)
 #endif
+/** First I2C0_REF example rate in Hz. */
 #define XCLOCK_I2C0_REF_RATE1        (1428428)
+/** Second I2C0_REF example rate in Hz. */
 #define XCLOCK_I2C0_REF_RATE2        (33330000)
 
 /**************************** Type Definitions *******************************/
@@ -57,11 +60,13 @@ XClockPs_Config *ConfigPtr;
 
 /*****************************************************************************/
 /**
+* @brief Runs the CLOCKPS I2C example.
+*
 * Main function to call Clock example.
 *
-* @return	XST_SUCCESS if successful, otherwise XST_FAILURE.
-*
-* @note		None.
+* @return
+*		- XST_SUCCESS if successful.
+*		- XST_FAILURE otherwise.
 *
 ******************************************************************************/
 int main(void)
@@ -87,21 +92,21 @@ int main(void)
 
 /*****************************************************************************/
 /**
+* @brief Tests CLOCKPS operations on the I2C0_REF clock.
 *
 * This function tests the functioning of the clock controller driver by
 * undergoing clock operations for I2C0_REF clock.
 *
-*
-* @param	ClockInstancePtr is a pointer to instance of XClockPs driver.
+* @param[out] ClockInstancePtr Pointer to instance of XClockPs driver.
 * @if SDT
-* @param	BaseAddress is the base address of clock controller.
+* @param[in] BaseAddress Base address of clock controller.
 * @else
-* @param	ClockDeviceId is the device ID of clock controller.
+* @param[in] ClockDeviceId Device ID of clock controller.
 * @endif
 *
-* @return	XST_SUCCESS if successful, otherwise XST_FAILURE.
-*
-* @note		None.
+* @return
+*		- XST_SUCCESS if successful.
+*		- XST_FAILURE otherwise.
 *
 ******************************************************************************/
 #ifndef SDT

@@ -8,8 +8,7 @@
 /**
 *
 * @file xclockps_fixedfactor.c
-* @addtogroup clockps Overview
-* @{
+* @brief Implements CLOCKPS fixed-factor operations.
 *
 * This file handles fixed factor related definition and operations.
 *
@@ -20,16 +19,30 @@
 * 1.00  cjp    02/09/18 First release
 * 1.2   sd     02/13/20 Rename ARRAY_SIZE
 * 1.7   vlt    01/27/26 Fixed codespell issues
+* 1.8   tb    09/17/26 Align Doxygen comments with AMD standards.
 * </pre>
 *
 ******************************************************************************/
+
+/**
+* @addtogroup clockps_api CLOCKPS APIs
+* @{
+*/
+
 /***************************** Include Files *********************************/
 #include "xclockps.h"
 
 /************************** Constant Definitions *****************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
-/* Assign structure elements for fixed factors */
+/**
+ * @brief Assigns structure elements for fixed factors.
+ *
+ * @note
+ * C-style signature
+ *	XClock_TypeFixedFactor XCLOCK_ASSIGN_FIXEDFACTORS(
+ *		XClock_Types ParentTypeVal, u8 FixFactIndexVal)
+ */
 #define XCLOCK_ASSIGN_FIXEDFACTORS(ParentTypeVal, FixFactIndexVal) \
 { \
 	.Multiplier = 1, \
@@ -41,14 +54,17 @@
 }
 
 /**************************** Type Definitions *******************************/
-/* This typedef holds information for fixed factors */
+/**
+ * @brief Holds fixed factors.
+ */
 typedef struct {
-	u8          Multiplier;
-	u8          Divisor;
-	u8          IsInit;
-	u8          EnableCount;
-	u16         Parent;
-	XClockRate  Rate;
+	u8          Multiplier; /**< Multiplier. */
+	u8          Divisor; /**< Divisor. */
+	u8          IsInit; /**< Isinit. */
+	u8          EnableCount; /**< Enablecount. */
+	u16         Parent; /**< Parent. */
+	XClockRate  Rate; /**< Rate. */
+
 } XClock_TypeFixedFactor;
 
 /************************** Variable Definitions *****************************/
@@ -63,19 +79,19 @@ static XClock_TypeFixedFactor FixedFactors[] = {
 };
 
 /*****************************************************************************/
-/*
+/**
+* @brief Recalculates a fixed-factor rate.
 *
 * Recalculate fixed factor rate.
 *
-* @param	FixFactIndex is the database index of fixed factor to
-*		recalculate rate for.
-* @param	ParentRate is the rate of fixed factor parent.
-* @param	Rate is the pointer to variable holding recalculated rate.
+* @param[in] FixFactIndex Database index of fixed factor to recalculate rate
+*   for.
+* @param[in] ParentRate Rate of fixed factor parent.
+* @param[out] Rate Pointer to variable holding recalculated rate.
 *
-* @return	XST_SUCCESS if successful.
-*		XST_INVALID_PARAM if invalid argument.
-*
-* @note		None.
+* @return
+*		- XST_SUCCESS if successful.
+*		- XST_INVALID_PARAM if invalid argument.
 *
 ******************************************************************************/
 static XStatus XClock_FixedFactorRecalcRate(u8 FixFactIndex,
@@ -92,16 +108,12 @@ static XStatus XClock_FixedFactorRecalcRate(u8 FixFactIndex,
 }
 
 /*****************************************************************************/
-/*
+/**
+* @brief Initializes a fixed-factor node.
 *
 * Initialize fixed factor node.
 *
-* @param	FixFactIndex is the database index of fixed factor to
-*		initialize.
-*
-* @return	None.
-*
-* @note		None.
+* @param[in] FixFactIndex Database index of fixed factor to initialize.
 *
 ******************************************************************************/
 static void XClock_FixedFactorInit(u8 FixFactIndex)
@@ -136,17 +148,17 @@ static void XClock_FixedFactorInit(u8 FixFactIndex)
 }
 
 /*****************************************************************************/
-/*
+/**
+* @brief Enables a fixed-factor node.
 *
 * Enable function for fixed factors.
 *
-* @param	FixFactIndex is the database index of fixed factor to enable.
+* @param[in] FixFactIndex Database index of fixed factor to enable.
 *
-* @return	XST_SUCCESS if successful.
-*		XST_INVALID_PARAM if arguments are invalid.
-*		XST_FAILURE otherwise.
-*
-* @note		None.
+* @return
+*		- XST_SUCCESS if successful.
+*		- XST_INVALID_PARAM if arguments are invalid.
+*		- XST_FAILURE otherwise.
 *
 ******************************************************************************/
 static XStatus XClock_FixedFactorEnable(u8 FixFactIndex)
@@ -174,17 +186,17 @@ static XStatus XClock_FixedFactorEnable(u8 FixFactIndex)
 }
 
 /*****************************************************************************/
-/*
+/**
+* @brief Disables a fixed-factor node.
 *
 * Disable function for fixed factors.
 *
-* @param	FixFactIndex is the database index of fixed factor to disable.
+* @param[in] FixFactIndex Database index of fixed factor to disable.
 *
-* @return	XST_SUCCESS if successful.
-*		XST_INVALID_PARAM if arguments are invalid.
-*		XST_FAILURE otherwise.
-*
-* @note		None.
+* @return
+*		- XST_SUCCESS if successful.
+*		- XST_INVALID_PARAM if arguments are invalid.
+*		- XST_FAILURE otherwise.
 *
 ******************************************************************************/
 static XStatus XClock_FixedFactorDisable(u8 FixFactIndex)
@@ -217,18 +229,17 @@ static XStatus XClock_FixedFactorDisable(u8 FixFactIndex)
 }
 
 /*****************************************************************************/
-/*
+/**
+* @brief Fetches the parent of a fixed-factor node.
 *
 * This function fetches the parent based on index in database.
 *
-* @param	ClockId is the identifier for output clock.
-* @param	NodeType is the pointer holding type of the node.
-* @param	FixFactIndex is the pointer holding index of parent in database.
+* @param[out] NodeType Pointer receiving the parent node type.
+* @param[in,out] FixFactIndex Pointer holding index of parent in database.
 *
-* @return	XST_SUCCESS if successful.
-*		XST_INVALID_PARAM if output clock mapping not found.
-*
-* @note		None.
+* @return
+*		- XST_SUCCESS if successful.
+*		- XST_INVALID_PARAM if output clock mapping not found.
 *
 ******************************************************************************/
 static XStatus XClock_FixedFactorFetchParent(XClock_Types *NodeType,
@@ -248,18 +259,17 @@ static XStatus XClock_FixedFactorFetchParent(XClock_Types *NodeType,
 }
 
 /*****************************************************************************/
-/*
+/**
+* @brief Gets a fixed-factor rate.
 *
 * Get Fixed factor rate.
 *
-* @param	FixFactIndex is the database index of fixed factor to fetch
-*		rate for.
-* @param	GetRate is pointer to variable holding fixed factor rate.
+* @param[in] FixFactIndex Database index of fixed factor to fetch rate for.
+* @param[out] GetRate Pointer to variable holding fixed factor rate.
 *
-* @return	XST_SUCCESS if successful.
-*		XST_INVALID_PARAM for invalid function arguments.
-*
-* @note		None.
+* @return
+*		- XST_SUCCESS if successful.
+*		- XST_INVALID_PARAM for invalid function arguments.
 *
 ******************************************************************************/
 static XStatus XClock_FixedFactorGetRate(u8 FixFactIndex, XClockRate *GetRate)
@@ -274,16 +284,12 @@ static XStatus XClock_FixedFactorGetRate(u8 FixFactIndex, XClockRate *GetRate)
 }
 
 /*****************************************************************************/
-/*
+/**
+* @brief Updates the rate of a fixed-factor node.
 *
 * The function updates the rate of fixed factor node.
 *
-* @param	FixFactIndex is the database index of fixed factor to
-*		update rate for.
-*
-* @return	None.
-*
-* @note		None.
+* @param[in] FixFactIndex Database index of fixed factor to update rate for.
 *
 ******************************************************************************/
 static void XClock_FixedFactorUpdateRate(u8 FixFactIndex)
@@ -315,15 +321,10 @@ static void XClock_FixedFactorUpdateRate(u8 FixFactIndex)
 }
 
 /*****************************************************************************/
-/*
+/**
+* @brief Registers fixed-factor callback functions.
 *
 * Register functions for fixed factor node.
-*
-* @param	None.
-*
-* @return	None.
-*
-* @note		None.
 *
 ******************************************************************************/
 void XClock_FixedFactorRegisterFuncs(void)
@@ -343,13 +344,10 @@ void XClock_FixedFactorRegisterFuncs(void)
 		&XClock_FixedFactorUpdateRate;
 }
 /*****************************************************************************/
-/*
+/**
+* @brief Initializes all fixed-factor nodes.
 *
 * Begin Initialization of all fixed factor node.
-*
-* @param	None.
-*
-* @return	None.
 *
 * @note		This function loops over all the fixed factor nodes and
 *		initializes them.

@@ -8,8 +8,7 @@
 /**
 *
 * @file xclockps_sinit.c
-* @addtogroup clockps Overview
-* @{
+* @brief Implements CLOCKPS static initialization.
 *
 * This file contains method for static initialization (compile-time) of the
 * driver.
@@ -22,9 +21,15 @@
 * 1.7   vlt    12/12/25 Update Doxygen comments to include SDT flow details.
 * 1.7   vlt    03/14/26 Updated BaseAddress type from u32 to UINTPTR
 *                       to support 64-bit addressing.
+* 1.8   tb    09/17/26 Align Doxygen comments with AMD standards.
 * </pre>
 *
 ******************************************************************************/
+
+/**
+* @addtogroup clockps_api CLOCKPS APIs
+* @{
+*/
 
 /***************************** Include Files *********************************/
 #include "xclockps.h"
@@ -40,7 +45,9 @@
 
 /*************************** Variable Definitions ****************************/
 /**
- * configuration table defined in xclockps_g.c
+ * @brief Declares the CLOCKPS configuration table.
+ *
+ * Configuration table defined in xclockps_g.c.
  */
 #ifndef SDT
 extern XClockPs_Config XClockPs_ConfigTable[XPAR_XCLOCKPS_NUM_INSTANCES];
@@ -51,15 +58,16 @@ extern XClockPs_Config XClockPs_ConfigTable[];
 /************************** Function Prototypes ******************************/
 /*****************************************************************************/
 /**
+* @brief Looks up CLOCKPS configuration by ID or base address.
 *
 * Looks up the device configuration based on the unique device ID/BaseAddress.
 * The XClockPs_ConfigTable[] contains the configuration info for each device
 * in the system.
 *
 * @if SDT
-* @param	BaseAddress contains the base address of the device
+* @param[in] BaseAddress Contains the base address of the device.
 * @else
-* @param	DeviceId contains the unique ID of the device
+* @param[in] DeviceId Contains the unique ID of the device.
 * @endif
 *
 * @return       A pointer to the configuration found or NULL if the

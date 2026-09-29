@@ -8,8 +8,7 @@
 /**
 *
 * @file xclockps.c
-* @addtogroup clockps Overview
-* @{
+* @brief Implements CLOCKPS interface functions.
 *
 * Contains the implementation of interface functions of the clock driver.
 * See xclock.h for a description of the driver.
@@ -25,9 +24,15 @@
 * 1.2   sd     02/13/20 Rename ARRAY_SIZE
 * 1.5   sd     07/10/23 Added SDT support
 * 1.8   vn     07/30/26 Fix Doxygen warnings
+* 1.8   tb     09/17/26 Align Doxygen comments with AMD standards.
 * </pre>
 *
 ******************************************************************************/
+
+/**
+* @addtogroup clockps_api CLOCKPS APIs
+* @{
+*/
 
 /***************************** Include Files *********************************/
 #include "xclockps.h"
@@ -40,16 +45,25 @@ static void XClock_SetupClockModules(void);
 static inline u32 XClock_Absolute_Difference(XClockRate Rate, XClockRate CurrRate);
 
 /***************** Macros (Inline Functions) Definitions *********************/
-/* Assign structure elements for input clocks */
+/**
+ * @brief Assigns structure elements for input clocks.
+ *
+ * @note
+ * C-style signature
+ *	XClock_TypeIp XCLOCK_ASSIGN_IP(XClockRate RateVal)
+ */
 #define XCLOCK_ASSIGN_IP(RateVal) \
 	{ \
 		.Rate = RateVal, \
 	}
 
 /**************************** Type Definitions *******************************/
-/* This typedef holds information for input clock */
+/**
+ * @brief Holds input clock.
+ */
 typedef struct {
-	XClockRate Rate;
+	XClockRate Rate; /**< Rate. */
+
 } XClock_TypeIp;
 
 /************************** Variable Definitions *****************************/
@@ -82,13 +96,13 @@ XClock_InitClkFuncPtr     XClock_NodeInit[XCLOCK_TYPE_MAX];
 XClock_SetParentFuncPtr   XClock_MuxSetParent;
 
 /*****************************************************************************/
-/*
+/**
+* @brief Initializes a CLOCKPS driver instance.
 *
 * This function initializes a XClockPs instance/driver.
 *
-* @param	InstancePtr is a pointer to the XClockPs instance.
-* @param	ConfigPtr points to the XClockPs device configuration
-*		structure.
+* @param[out] InstancePtr Pointer to the XClockPs instance.
+* @param[in] ConfigPtr Points to the XClockPs device configuration structure.
 *
 * @return	XST_SUCCESS always.
 *
@@ -118,15 +132,10 @@ XStatus XClock_CfgInitialize(XClock *InstancePtr, XClockPs_Config *ConfigPtr)
 }
 
 /*****************************************************************************/
-/*
+/**
+* @brief Initializes CLOCKPS clock nodes.
 *
 * This function handles initialization for clock nodes.
-*
-* @param	None.
-*
-* @return	None.
-*
-* @note	None.
 *
 ******************************************************************************/
 static void XClock_NodeBeginInit(void)
@@ -147,13 +156,10 @@ static void XClock_NodeBeginInit(void)
 }
 
 /*****************************************************************************/
-/*
+/**
+* @brief Enables clocks required at initialization.
 *
 * This function enables acpu and ddr_ref clocks during initialization.
-*
-* @param	None.
-*
-* @return	None.
 *
 * @note		An array with list of clocks to be enabled at initialization
 *		is maintained. This function walks through that array and
@@ -174,13 +180,10 @@ static void XClock_EnableInitClocks(void)
 }
 
 /*****************************************************************************/
-/*
+/**
+* @brief Sets up CLOCKPS modules before clock operations.
 *
 * This function handles prerequisites required for clock operations.
-*
-* @param	None.
-*
-* @return	None.
 *
 * @note		Prerequisites for clock operations are handled here. Anything
 *		that is to be done before clock operations must be included
@@ -197,16 +200,15 @@ static void XClock_SetupClockModules(void)
 }
 
 /*****************************************************************************/
-/*
+/**
+* @brief Enables a CLOCKPS clock sub-node.
 *
 * This function is a wrapper to enable clock sub nodes.
 *
-* @param	NodeType is type of clock node.
-* @param	NodeIdx is the index of the node.
+* @param[in] NodeType Type of clock node.
+* @param[in] NodeIdx Index of the node.
 *
 * @return	XST_SUCCESS if successful else failure error code.
-*
-* @note		None.
 *
 ******************************************************************************/
 XStatus XClock_EnableClkNode(XClock_Types NodeType, u8 NodeIdx)
@@ -227,16 +229,15 @@ XStatus XClock_EnableClkNode(XClock_Types NodeType, u8 NodeIdx)
 }
 
 /*****************************************************************************/
-/*
+/**
+* @brief Disables a CLOCKPS clock sub-node.
 *
 * This function is a wrapper to disable clock sub nodes.
 *
-* @param	NodeType is type of clock node.
-* @param	NodeIdx is the index of the node.
+* @param[in] NodeType Type of clock node.
+* @param[in] NodeIdx Index of the node.
 *
 * @return	XST_SUCCESS if successful else failure error code.
-*
-* @note		None.
 *
 ******************************************************************************/
 XStatus XClock_DisableClkNode(XClock_Types NodeType, u8 NodeIdx)
@@ -257,18 +258,18 @@ XStatus XClock_DisableClkNode(XClock_Types NodeType, u8 NodeIdx)
 }
 
 /*****************************************************************************/
-/*
+/**
+* @brief Fetches node type and index for an output clock.
 *
 * This function queries each of the sub nodes for output clock information.
 *
-* @param	ClockId is the identifier for output clock.
-* @param	NodeType is pointer to variable storing node type.
-* @param	NodeIdx is pointer to variable storing node index.
+* @param[in] ClockId Identifier for output clock.
+* @param[out] NodeType Pointer to variable storing node type.
+* @param[out] NodeIdx Pointer to variable storing node index.
 *
-* @return	XST_SUCCESS if successful.
-*		XST_INVALID_PARAM if no node has output clock information.
-*
-* @note		None.
+* @return
+*		- XST_SUCCESS if successful.
+*		- XST_INVALID_PARAM if no node has output clock information.
 *
 ******************************************************************************/
 static XStatus XClock_FetchClockInfo(XClock_OutputClks ClockId,
@@ -295,17 +296,16 @@ static XStatus XClock_FetchClockInfo(XClock_OutputClks ClockId,
 }
 
 /*****************************************************************************/
-/*
+/**
+* @brief Fetches configurable node data for an output clock.
 *
 * Fetch Configurable node information for output clock.
 *
-* @param	ClockId is the output clock id.
-* @param	PllIndex is the pointer to variable holding Pll database index.
-* @param	DivIndex is the pointer to variable holding Div database index.
-* @param	PllParentRate is the pointer to variable holding rate of Pll
-*		parent.
-* @param	DivParentRate is the pointer to variable holding rate of Div
-*		parent.
+* @param[in] ClockId Output clock id.
+* @param[out] PllIndex Pointer to variable holding Pll database index.
+* @param[out] DivIndex Pointer to variable holding Div database index.
+* @param[out] PllParentRate Pointer to variable holding rate of Pll parent.
+* @param[out] DivParentRate Pointer to variable holding rate of Div parent.
 *
 * @return	XST_SUCCESS if successful else failure error code.
 *
@@ -379,19 +379,18 @@ static XStatus XClock_GetConfigNodeInfo(XClock_OutputClks ClockId,
 }
 
 /*****************************************************************************/
-/*
+/**
+* @brief Configures dividers to reach a requested rate.
 *
 * Configure Divs to achieve requested rate. The rate is rounded so the nearest
 * possible value is returned.
 *
-* @param	DivIdx is the pointer to database index of Dividers.
-* @param	ParRate is the rate of parent.
-* @param	Rate is the clock rate to set.
-* @param	SetRate is the pointer to variable holding rate that is set.
+* @param[in] DivIdx Pointer to database index of Dividers.
+* @param[in] ParRate Rate of parent.
+* @param[in] Rate Clock rate to set.
+* @param[out] SetRate Pointer to variable holding rate that is set.
 *
 * @return	XST_SUCCESS if successful else failure error code.
-*
-* @note		None.
 *
 ******************************************************************************/
 static XStatus XClock_ConfigDivs(u8 *DivIdx, XClockRate ParRate,
@@ -512,18 +511,17 @@ static XStatus XClock_ConfigDivs(u8 *DivIdx, XClockRate ParRate,
 }
 
 /*****************************************************************************/
-/*
+/**
+* @brief Configures PLLs to reach a requested rate.
 *
 * Configure Plls to achieve desirable rate.
 *
-* @param	PllIdx is the pointer to database index of Pll.
-* @param	ParRate is the rate of parent.
-* @param	Rate is the clock rate to set.
-* @param	SetRate is the pointer to variable holding rate that is set.
+* @param[in] PllIdx Pointer to database index of Pll.
+* @param[in] ParRate Rate of parent.
+* @param[in] Rate Clock rate to set.
+* @param[out] SetRate Pointer to variable holding rate that is set.
 *
 * @return	XST_SUCCESS if successful else failure error code.
-*
-* @note		None.
 *
 ******************************************************************************/
 static XStatus XClock_ConfigPlls(u8 *PllIdx, XClockRate ParRate,
@@ -572,16 +570,13 @@ static XStatus XClock_ConfigPlls(u8 *PllIdx, XClockRate ParRate,
 }
 
 /*****************************************************************************/
-/*
+/**
+* @brief Initializes a CLOCKPS clock node.
 *
 * This function is a wrapper to init clock nodes.
 *
-* @param	NodeType is the node type of clock to init.
-* @param	NodeIdx is the database index of node to init.
-*
-* @return	None.
-*
-* @note		None.
+* @param[in] NodeType Node type of clock to init.
+* @param[in] NodeIdx Database index of node to init.
 *
 ******************************************************************************/
 void XClock_InitClk(XClock_Types NodeType, u8 NodeIdx)
@@ -592,17 +587,14 @@ void XClock_InitClk(XClock_Types NodeType, u8 NodeIdx)
 }
 
 /*****************************************************************************/
-/*
+/**
+* @brief Updates rates for topologies that match a node.
 *
 * This function is updates rate for the topology having matching node type and
 * index.
 *
-* @param	NodeType is the node type of clock to match
-* @param	NodeIdx is the database index of node to match
-*
-* @return	None.
-*
-* @note		None.
+* @param[in] MatchType Node type of clock to match.
+* @param[in] MatchIdx Database index of node to match.
 *
 ******************************************************************************/
 void XClock_UpdateTopologyRates(XClock_Types MatchType, u8 MatchIdx)
@@ -646,16 +638,13 @@ void XClock_UpdateTopologyRates(XClock_Types MatchType, u8 MatchIdx)
 }
 
 /*****************************************************************************/
-/*
+/**
+* @brief Updates the rate for a CLOCKPS node.
 *
 * This function is a wrapper to update rates.
 *
-* @param	NodeType is the node type of clock to update rate for.
-* @param	NodeIdx is the database index of node to update rate for.
-*
-* @return	None.
-*
-* @note		None.
+* @param[in] NodeType Node type of clock to update rate for.
+* @param[in] NodeIdx Database index of node to update rate for.
 *
 ******************************************************************************/
 void XClock_UpdateRate(XClock_Types NodeType, u8 NodeIdx)
@@ -666,16 +655,15 @@ void XClock_UpdateRate(XClock_Types NodeType, u8 NodeIdx)
 }
 
 /*****************************************************************************/
-/*
+/**
+* @brief Fetches the rate of a CLOCKPS node.
 *
 * This function is a wrapper to fetch clock node rates.
 *
-* @param	NodeType is pointer to variable storing node type.
-* @param	NodeIdx is pointer to variable storing node index.
+* @param[in] NodeType Type of the clock node.
+* @param[in] NodeIdx Database index of the clock node.
 *
 * @return	Rate of the node.
-*
-* @note		None.
 *
 ******************************************************************************/
 XClockRate XClock_FetchRate(XClock_Types NodeType, u8 NodeIdx)
@@ -700,17 +688,14 @@ XClockRate XClock_FetchRate(XClock_Types NodeType, u8 NodeIdx)
 }
 
 /*****************************************************************************/
-/*
+/**
+* @brief Fetches the parent of an output clock.
 *
-* This function is used to fetch intermediate parent for output clock.
-*
-* @param	ClockId is the identifier for output clock.
-* @param	NodeType is pointer to variable storing node type.
-* @param	NodeIdx is pointer to variable storing node index.
+* @param[in] ClockId Identifier for output clock.
+* @param[out] NodeType Pointer to variable storing node type.
+* @param[out] NodeIdx Pointer to variable storing node index.
 *
 * @return	XST_SUCCESS if successful else failure error code.
-*
-* @note		None.
 *
 ******************************************************************************/
 XStatus XClock_GetParent(XClock_OutputClks ClockId,
@@ -736,13 +721,12 @@ XStatus XClock_GetParent(XClock_OutputClks ClockId,
 }
 
 /*****************************************************************************/
-/*
+/**
+* @brief Sets the parent of an output clock.
 *
-* This function is used to set parent for output clock.
-*
-* @param	ClockId is the identifier for output clock.
-* @param	MuxIdx is the index of mux to set parent for.
-* @param	SetParentIdx is the index of parent to set.
+* @param[in] ClockId Identifier for output clock.
+* @param[in] MuxIdx Index of mux to set parent for.
+* @param[in] SetParentIdx Index of parent to set.
 *
 * @return	XST_SUCCESS if successful else failure error code.
 *
@@ -808,16 +792,13 @@ XStatus XClock_SetParent(XClock_OutputClks ClockId, u8 MuxIdx,
 }
 
 /*****************************************************************************/
-/*
+/**
+* @brief Fetches the rate of an output clock.
 *
-* This function is used to fetch rate of output clock.
-*
-* @param	ClockId is the identifier for output clock.
-* @param	Rate is pointer to variable storing rate.
+* @param[in] ClockId Identifier for output clock.
+* @param[out] Rate Pointer to variable storing rate.
 *
 * @return	XST_SUCCESS if successful else failure error code.
-*
-* @note		None.
 *
 ******************************************************************************/
 XStatus XClock_GetRate(XClock_OutputClks ClockId, XClockRate *Rate)
@@ -841,17 +822,14 @@ XStatus XClock_GetRate(XClock_OutputClks ClockId, XClockRate *Rate)
 }
 
 /*****************************************************************************/
-/*
+/**
+* @brief Sets the rate of an output clock.
 *
-* This function is used to set rate for output clock.
-*
-* @param	ClockId is the identifier for output clock.
-* @param	Rate is the clock rate to set.
-* @param	SetRate is the pointer to variable holding rate that is set.
+* @param[in] ClockId Identifier for output clock.
+* @param[in] Rate Clock rate to set.
+* @param[out] SetRate Pointer to variable holding rate that is set.
 *
 * @return	XST_SUCCESS if successful else failure error code.
-*
-* @note		None.
 *
 ******************************************************************************/
 XStatus XClock_SetRate(XClock_OutputClks ClockId, XClockRate Rate,
@@ -931,18 +909,17 @@ XStatus XClock_SetRate(XClock_OutputClks ClockId, XClockRate Rate,
 }
 
 /*****************************************************************************/
-/*
+/**
+* @brief Enables an output clock by clock ID.
 *
 * This function enables output clock based on clock ID. The API looks up for the
 * end node of the specified clock Id. It then enables the node and recursively
 * looks up for the parents and enables them if they are disabled. The recursive
 * lookup and enable occurs until fixed input clock appears in the topology.
 *
-* @param	ClockId is the identifier for output clock.
+* @param[in] ClockId Identifier for output clock.
 *
 * @return	XST_SUCCESS if successful else failure error code.
-*
-* @note		None.
 *
 ******************************************************************************/
 XStatus XClock_EnableClock(XClock_OutputClks ClockId)
@@ -965,15 +942,14 @@ XStatus XClock_EnableClock(XClock_OutputClks ClockId)
 }
 
 /*****************************************************************************/
-/*
+/**
+* @brief Disables an output clock by clock ID.
 *
 * This function disables output clock based on clock ID.
 *
-* @param	ClockId is the identifier for output clock.
+* @param[in] ClockId Identifier for output clock.
 *
 * @return	XST_SUCCESS if successful else failure error code.
-*
-* @note		None.
 *
 ******************************************************************************/
 XStatus XClock_DisableClock(XClock_OutputClks ClockId)
@@ -995,17 +971,14 @@ XStatus XClock_DisableClock(XClock_OutputClks ClockId)
 	return Status;
 }
 /*****************************************************************************/
-/*
+/**
+* @brief Returns the absolute difference of two rates.
 *
 * This function returns the absolute difference of 2 values.
+* @param[in] Rate First rate value.
+* @param[in] CurrRate Second rate value.
 *
-* @param	variable of XClockRate type
-*
-* @param        variable of XClockRate type
-*
-* @return	difference between the two variables
-*
-* @note		None.
+* @return	Difference between the two rate values.
 *
 ******************************************************************************/
 static inline u32 XClock_Absolute_Difference(XClockRate Rate, XClockRate CurrRate)

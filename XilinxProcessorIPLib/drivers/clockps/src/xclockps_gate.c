@@ -8,8 +8,7 @@
 /**
 *
 * @file xclockps_gate.c
-* @addtogroup clockps Overview
-* @{
+* @brief Implements CLOCKPS gate node operations.
 *
 * This file handles Gate related definitions and operations
 *
@@ -20,23 +19,44 @@
 * 1.00  cjp    02/09/18 First release
 * 1.2   sd     02/13/20 Rename ARRAY_SIZE
 * 1.7   vlt    01/27/26 Fixed codespell issues
+* 1.8   tb    09/17/26 Align Doxygen comments with AMD standards.
 * </pre>
 *
 ******************************************************************************/
+
+/**
+* @addtogroup clockps_api CLOCKPS APIs
+* @{
+*/
+
 /***************************** Include Files *********************************/
 #include "xclockps.h"
 
 /************************** Constant Definitions *****************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
-/* Assign structure elements for output clock mappings */
+/**
+ * @brief Assigns structure elements for output clock mappings.
+ *
+ * @note
+ * C-style signature
+ *	XClock_GateMappings XCLOCK_GATE_ASSIGN_INDICES(
+ *		XClock_OutputClks ClockIdVal, XClock_GateIndices GateIndexVal)
+ */
 #define XCLOCK_GATE_ASSIGN_INDICES(ClockIdVal, GateIndexVal) \
 { \
 	.ClockId = ClockIdVal, \
 	.GateIndex = GateIndexVal \
 }
 
-/* Assign structure elements for Gates */
+/**
+ * @brief Assigns structure elements for Gates.
+ *
+ * @note
+ * C-style signature
+ *	XClock_TypeGate XCLOCK_ASSIGN_GATES(XClock_Types ParentTypeVal,
+ *		u8 GateIndexVal, u32 CtrlRegVal, u8 BitVal)
+ */
 #define XCLOCK_ASSIGN_GATES(ParentTypeVal, GateIndexVal, CtrlRegVal, BitVal) \
 { \
 	.BitIndex = BitVal, \
@@ -48,20 +68,26 @@
 }
 
 /**************************** Type Definitions *******************************/
-/* This typedef holds information for output clocks mapped to gates */
+/**
+ * @brief Holds output clocks mapped to gates.
+ */
 typedef struct {
-	XClock_OutputClks ClockId;
-	XClock_GateIndices GateIndex;
+	XClock_OutputClks ClockId; /**< Clockid. */
+	XClock_GateIndices GateIndex; /**< Gateindex. */
+
 } XClock_GateMappings;
 
-/* This typedef holds information for gates */
+/**
+ * @brief Holds gates.
+ */
 typedef struct {
-	u8          BitIndex;
-	u8          EnableCount;
-	u8          IsInit;
-	u16         Parent;
-	u32         CtrlReg;
-	XClockRate  Rate;
+	u8          BitIndex; /**< Bitindex. */
+	u8          EnableCount; /**< Enablecount. */
+	u8          IsInit; /**< Isinit. */
+	u16         Parent; /**< Parent. */
+	u32         CtrlReg; /**< Ctrlreg. */
+	XClockRate  Rate; /**< Rate. */
+
 } XClock_TypeGate;
 
 /************************** Variable Definitions *****************************/
@@ -242,19 +268,18 @@ static XClock_TypeGate Gates[] = {
 };
 
 /*****************************************************************************/
-/*
+/**
+* @brief Checks whether a gate is enabled.
 *
 * The function checks if the gate is enabled.
 *
-* @param	GateIndex is the database index of gate to check for.
-* @param	GateState is the pointer to variable holding state of the gate.
-*			1 - Gate is enabled.
-*			0 - Gate is disabled.
+* @param[in] GateIndex Database index of gate to check for.
+* @param[out] GateState Pointer to variable holding state of the gate. 1 - Gate
+*   is enabled. 0 - Gate is disabled.
 *
-* @return	XST_SUCCESS if successful.
-*		XST_INVALID_PARAM if invalid arguments.
-*
-* @note		None.
+* @return
+*		- XST_SUCCESS if successful.
+*		- XST_INVALID_PARAM if invalid arguments.
 *
 ******************************************************************************/
 static XStatus XClock_GateIsEnabled(u8 GateIndex, u8 *GateState)
@@ -268,15 +293,12 @@ static XStatus XClock_GateIsEnabled(u8 GateIndex, u8 *GateState)
 }
 
 /*****************************************************************************/
-/*
+/**
+* @brief Enables a gate in the control register.
 *
 * The function enables the gate by writing into control register.
 *
-* @param	GateIndex is the database index of gate to enable.
-*
-* @return	None.
-*
-* @note		None.
+* @param[in] GateIndex Database index of gate to enable.
 *
 ******************************************************************************/
 static void XClock_GateEnableSet(u8 GateIndex)
@@ -309,15 +331,12 @@ static void XClock_GateEnableSet(u8 GateIndex)
 }
 
 /*****************************************************************************/
-/*
+/**
+* @brief Disables a gate in the control register.
 *
 * The function disables the gate by writing into control register.
 *
-* @param	GateIndex is the database index of gate to disable.
-*
-* @return	None.
-*
-* @note		None.
+* @param[in] GateIndex Database index of gate to disable.
 *
 ******************************************************************************/
 static void XClock_GateDisableSet(u8 GateIndex)
@@ -350,15 +369,12 @@ static void XClock_GateDisableSet(u8 GateIndex)
 }
 
 /*****************************************************************************/
-/*
+/**
+* @brief Initializes a gate node.
 *
 * Initialize gate node.
 *
-* @param	GateIndex is the database index of gate to initialize.
-*
-* @return	None.
-*
-* @note		None.
+* @param[in] GateIndex Database index of gate to initialize.
 *
 ******************************************************************************/
 static void XClock_GateInit(u8 GateIndex)
@@ -382,17 +398,17 @@ static void XClock_GateInit(u8 GateIndex)
 }
 
 /*****************************************************************************/
-/*
+/**
+* @brief Enables a gate node.
 *
 * Enable function for the gate.
 *
-* @param	GateIndex is the database index of gate to enable.
+* @param[in] GateIndex Database index of gate to enable.
 *
-* @return	XST_SUCCESS if successful.
-*		XST_INVALID_PARAM if arguments are invalid.
-*		XST_FAILURE otherwise.
-*
-* @note		None.
+* @return
+*		- XST_SUCCESS if successful.
+*		- XST_INVALID_PARAM if arguments are invalid.
+*		- XST_FAILURE otherwise.
 *
 ******************************************************************************/
 XStatus XClock_GateEnable(u8 GateIndex)
@@ -423,17 +439,17 @@ XStatus XClock_GateEnable(u8 GateIndex)
 }
 
 /*****************************************************************************/
-/*
+/**
+* @brief Disables a gate node.
 *
 * Disable function for the gate.
 *
-* @param	GateIndex is the database index of gate to disable.
+* @param[in] GateIndex Database index of gate to disable.
 *
-* @return	XST_SUCCESS if successful.
-*		XST_INVALID_PARAM if arguments are invalid.
-*		XST_FAILURE otherwise.
-*
-* @note		None.
+* @return
+*		- XST_SUCCESS if successful.
+*		- XST_INVALID_PARAM if arguments are invalid.
+*		- XST_FAILURE otherwise.
 *
 ******************************************************************************/
 static XStatus XClock_GateDisable(u8 GateIndex)
@@ -468,18 +484,18 @@ static XStatus XClock_GateDisable(u8 GateIndex)
 }
 
 /*****************************************************************************/
-/*
+/**
+* @brief Looks up the gate index for an output clock.
 *
 * This function looks for the output clock mapped to gates and returns the
 * gate index.
 *
-* @param	ClockId is the identifier for output clock.
-* @param	GateIndex is the index of output clock in gate database.
+* @param[in] ClockId Identifier for output clock.
+* @param[out] GateIndex Index of output clock in gate database.
 *
-* @return	XST_SUCCESS if successful.
-*		XST_INVALID_PARAM if output clock mapping not found.
-*
-* @note		None.
+* @return
+*		- XST_SUCCESS if successful.
+*		- XST_INVALID_PARAM if output clock mapping not found.
 *
 ******************************************************************************/
 static XStatus XClock_GateFetchIdx(XClock_OutputClks ClockId, u8 *GateIndex)
@@ -501,18 +517,17 @@ static XStatus XClock_GateFetchIdx(XClock_OutputClks ClockId, u8 *GateIndex)
 }
 
 /*****************************************************************************/
-/*
+/**
+* @brief Fetches the parent of a gate node.
 *
 * This function fetches the parent based on index in database.
 *
-* @param	ClockId is the identifier for output clock.
-* @param	NodeType is the pointer holding type of the node.
-* @param	GateIndex is the pointer holding index of parent in database.
+* @param[out] NodeType Pointer receiving the parent node type.
+* @param[in,out] GateIndex Pointer holding index of parent in database.
 *
-* @return	XST_SUCCESS if successful.
-*		XST_INVALID_PARAM if output clock mapping not found.
-*
-* @note		None.
+* @return
+*		- XST_SUCCESS if successful.
+*		- XST_INVALID_PARAM if output clock mapping not found.
 *
 ******************************************************************************/
 static XStatus XClock_GateFetchParent(XClock_Types *NodeType, u8 *GateIndex)
@@ -529,17 +544,17 @@ static XStatus XClock_GateFetchParent(XClock_Types *NodeType, u8 *GateIndex)
 }
 
 /*****************************************************************************/
-/*
+/**
+* @brief Gets a gate rate.
 *
 * Get gate rate.
 *
-* @param	GateIndex is the database index of gate to fetch rate for.
-* @param	GetRate is pointer to variable holding gate rate.
+* @param[in] GateIndex Database index of gate to fetch rate for.
+* @param[out] GetRate Pointer to variable holding gate rate.
 *
-* @return	XST_SUCCESS if successful.
-*		XST_INVALID_PARAM for invalid function arguments.
-*
-* @note		None.
+* @return
+*		- XST_SUCCESS if successful.
+*		- XST_INVALID_PARAM for invalid function arguments.
 *
 ******************************************************************************/
 static XStatus XClock_GateGetRate(u8 GateIndex, XClockRate *GetRate)
@@ -554,15 +569,12 @@ static XStatus XClock_GateGetRate(u8 GateIndex, XClockRate *GetRate)
 }
 
 /*****************************************************************************/
-/*
+/**
+* @brief Updates the rate of a gate node.
 *
 * The function updates the rate of gate node.
 *
-* @param	GateIndex is the database index of gate to update rate for.
-*
-* @return	None.
-*
-* @note		None.
+* @param[in] GateIndex Database index of gate to update rate for.
 *
 ******************************************************************************/
 static void XClock_GateUpdateRate(u8 GateIndex)
@@ -582,15 +594,10 @@ static void XClock_GateUpdateRate(u8 GateIndex)
 }
 
 /*****************************************************************************/
-/*
+/**
+* @brief Registers gate node callback functions.
 *
 * Register functions for gate nodes.
-*
-* @param	None.
-*
-* @return	None.
-*
-* @note		None.
 *
 ******************************************************************************/
 void XClock_GateRegisterFuncs(void)
@@ -606,13 +613,10 @@ void XClock_GateRegisterFuncs(void)
 }
 
 /*****************************************************************************/
-/*
+/**
+* @brief Initializes all gate nodes.
 *
 * Begin Initialization of all gate nodes.
-*
-* @param	None.
-*
-* @return	None.
 *
 * @note		This function loops over all the gate nodes and initializes
 *		them.

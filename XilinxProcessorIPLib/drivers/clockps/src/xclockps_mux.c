@@ -8,8 +8,7 @@
 /**
 *
 * @file xclockps_mux.c
-* @addtogroup clockps Overview
-* @{
+* @brief Implements CLOCKPS mux node operations.
 *
 * This file handles Mux related definition and operations.
 *
@@ -21,54 +20,79 @@
 * 1.2   sd     02/13/20 Rename ARRAY_SIZE
 * 1.7   vlt    01/27/26 Fixed codespell issues
 * 1.8   ss     09/10/26 Fix invalid parent handling in MuxFetchParent
+* 1.8   tb    09/17/26 Align Doxygen comments with AMD standards.
 * </pre>
 *
 ******************************************************************************/
+
+/**
+* @addtogroup clockps_api CLOCKPS APIs
+* @{
+*/
+
 /***************************** Include Files *********************************/
 #include "xclockps.h"
 
 /************************** Constant Definitions *****************************/
 /* Register offset defines */
-#define XCLOCK_PLL_NXT_REG_OFFSET    4
-#define XCLOCK_GEM_NXT_REG_OFFSET    2
-#define XCLOCK_CAN_NXT_REG_OFFSET    3
+#define XCLOCK_PLL_NXT_REG_OFFSET    4	/**< Pll nxt reg offset. */
+#define XCLOCK_GEM_NXT_REG_OFFSET    2	/**< Gem nxt reg offset. */
+#define XCLOCK_CAN_NXT_REG_OFFSET    3	/**< Can nxt reg offset. */
 
 /* Mux parent types defines */
-#define XCLOCK_PARENT_DIVS_MUX       (BIT(2))
+#define XCLOCK_PARENT_DIVS_MUX       (BIT(2))	/**< Parent divs mux. */
+/** Parent muxs div. */
 #define XCLOCK_PARENT_MUXS_DIV       (BIT(0) | BIT(1))
+/** Parent div muxs. */
 #define XCLOCK_PARENT_DIV_MUXS       (BIT(1) | BIT(2))
+/** Parent mux div mux. */
 #define XCLOCK_PARENT_MUX_DIV_MUX    (BIT(0) | BIT(2))
+/** Parent all muxs. */
 #define XCLOCK_PARENT_ALL_MUXS       (BIT(0) | BIT(1) | BIT(2))
-#define XCLOCK_DEFAULT_MUX_PARENT    0
-#define XCLOCK_PARENT_EXTERNAL       0xFFFE
+#define XCLOCK_DEFAULT_MUX_PARENT    0	/**< Default mux parent. */
+#define XCLOCK_PARENT_EXTERNAL       0xFFFE	/**< Parent external. */
 
 /* Number of parents */
-#define XCLOCK_NUM_PLL_SRC_PARENTS   8
-#define XCLOCK_NUM_PLL_PARENTS       2
-#define XCLOCK_NUM_PERI_PARENTS      4
-#define XCLOCK_NUM_DDR_PARENTS       2
-#define XCLOCK_NUM_WDT_PARENTS       2
-#define XCLOCK_NUM_TSTMP_PARENTS     8
-#define XCLOCK_NUM_GEM_PARENTS       2
-#define XCLOCK_NUM_GEM_TSU_PARENTS   4
-#define XCLOCK_NUM_CAN_PARENTS       2
-#define XCLOCK_NUM_DLL_REF_PARENTS   2
-#define XCLOCK_NUM_CAN_MIO_PARENTS   77
+#define XCLOCK_NUM_PLL_SRC_PARENTS   8	/**< Num pll src parents. */
+#define XCLOCK_NUM_PLL_PARENTS       2	/**< Num pll parents. */
+#define XCLOCK_NUM_PERI_PARENTS      4	/**< Num peri parents. */
+#define XCLOCK_NUM_DDR_PARENTS       2	/**< Num ddr parents. */
+#define XCLOCK_NUM_WDT_PARENTS       2	/**< Num wdt parents. */
+#define XCLOCK_NUM_TSTMP_PARENTS     8	/**< Num tstmp parents. */
+#define XCLOCK_NUM_GEM_PARENTS       2	/**< Num gem parents. */
+#define XCLOCK_NUM_GEM_TSU_PARENTS   4	/**< Num gem tsu parents. */
+#define XCLOCK_NUM_CAN_PARENTS       2	/**< Num can parents. */
+#define XCLOCK_NUM_DLL_REF_PARENTS   2	/**< Num dll ref parents. */
+#define XCLOCK_NUM_CAN_MIO_PARENTS   77	/**< Num can mio parents. */
 
 /* Number of peripherals */
-#define XCLOCK_NUM_PLL               5
-#define XCLOCK_NUM_GEM               4
-#define XCLOCK_NUM_CAN               2
+#define XCLOCK_NUM_PLL               5	/**< Num pll. */
+#define XCLOCK_NUM_GEM               4	/**< Num gem. */
+#define XCLOCK_NUM_CAN               2	/**< Num can. */
 
 /***************** Macros (Inline Functions) Definitions *********************/
-/* Assign structure elements for output clock mappings */
+/**
+ * @brief Assigns structure elements for output clock mappings.
+ *
+ * @note
+ * C-style signature
+ *	XClock_MuxMappings XCLOCK_MUX_ASSIGN_INDICES(
+ *		XClock_OutputClks ClockIdVal, XClock_MuxIndices MuxIndexVal)
+ */
 #define XCLOCK_MUX_ASSIGN_INDICES(ClockIdVal, MuxIndexVal) \
 { \
 	.ClockId = (XClock_OutputClks)ClockIdVal, \
 	.MuxIndex = (XClock_MuxIndices)MuxIndexVal \
 }
 
-/* Assign structure elements for muxes */
+/**
+ * @brief Assigns structure elements for muxes.
+ *
+ * @note
+ * C-style signature
+ *	XClock_TypeMux XCLOCK_ASSIGN_MUXES(u16 *ParentVal, u8 NumParVal,
+ *		u32 CtrlRegVal, u8 ShiftVal, u8 WidthVal)
+ */
 #define XCLOCK_ASSIGN_MUXES(ParentVal, \
 				NumParVal, CtrlRegVal, ShiftVal, WidthVal) \
 { \
@@ -84,7 +108,14 @@
 	.Rate = XCLOCK_INVALID_RATE, \
 }
 
-/* Assign structure elements for muxes having 8 parents */
+/**
+ * @brief Assigns structure elements for muxes having 8 parents.
+ *
+ * @note
+ * C-style signature
+ *	XClock_TypeMux XCLOCK_ASSIGN_MUXES_P8(u16 *ParentVal, u32 CtrlRegVal,
+ *		u8 ShiftVal, u8 WidthVal)
+ */
 #define XCLOCK_ASSIGN_MUXES_P8(ParentVal, CtrlRegVal, ShiftVal, WidthVal) \
 { \
 	.Shift = ShiftVal, \
@@ -99,7 +130,14 @@
 	.Rate = XCLOCK_INVALID_RATE, \
 }
 
-/* Assign structure elements for muxes having 4 parents */
+/**
+ * @brief Assigns structure elements for muxes having 4 parents.
+ *
+ * @note
+ * C-style signature
+ *	XClock_TypeMux XCLOCK_ASSIGN_MUXES_P4(u16 *ParentVal, u32 CtrlRegVal,
+ *		u8 ShiftVal, u8 WidthVal)
+ */
 #define XCLOCK_ASSIGN_MUXES_P4(ParentVal, CtrlRegVal, ShiftVal, WidthVal) \
 { \
 	.Shift = ShiftVal, \
@@ -114,7 +152,14 @@
 	.Rate = XCLOCK_INVALID_RATE, \
 }
 
-/* Assign structure elements for muxes having 2 parents */
+/**
+ * @brief Assigns structure elements for muxes having 2 parents.
+ *
+ * @note
+ * C-style signature
+ *	XClock_TypeMux XCLOCK_ASSIGN_MUXES_P2(u16 *ParentVal, u32 CtrlRegVal,
+ *		u8 ShiftVal, u8 WidthVal)
+ */
 #define XCLOCK_ASSIGN_MUXES_P2(ParentVal, CtrlRegVal, ShiftVal, WidthVal) \
 { \
 	.Shift = ShiftVal, \
@@ -130,24 +175,30 @@
 }
 
 /**************************** Type Definitions *******************************/
-/* This typedef holds information for output clocks mapped to muxes */
+/**
+ * @brief Holds output clocks mapped to muxes.
+ */
 typedef struct {
-	XClock_OutputClks ClockId;
-	XClock_MuxIndices MuxIndex;
+	XClock_OutputClks ClockId; /**< Clockid. */
+	XClock_MuxIndices MuxIndex; /**< Muxindex. */
+
 } XClock_MuxMappings;
 
-/* This typedef holds information for muxes */
+/**
+ * @brief Holds muxes.
+ */
 typedef struct {
-	u8          Shift;
-	u8          Width;
-	u8          ActiveParent;
-	u8          DefaultParent;
-	u8          IsInit;
-	u8          NumParents;
-	u8          EnableCount;
-	u16         *Parent;
-	u32         CtrlReg;
-	XClockRate  Rate;
+	u8          Shift; /**< Shift. */
+	u8          Width; /**< Width. */
+	u8          ActiveParent; /**< Activeparent. */
+	u8          DefaultParent; /**< Defaultparent. */
+	u8          IsInit; /**< Isinit. */
+	u8          NumParents; /**< Numparents. */
+	u8          EnableCount; /**< Enablecount. */
+	u16         *Parent; /**< Parent. */
+	u32         CtrlReg; /**< Ctrlreg. */
+	XClockRate  Rate; /**< Rate. */
+
 } XClock_TypeMux;
 
 /* This typedef defines parent indices for peripherals */
@@ -378,18 +429,17 @@ static XClock_TypeMux Muxes[] = {
 };
 
 /*****************************************************************************/
-/*
+/**
+* @brief Allocates peripheral parent IDs for a mux.
 *
 * This function allocates peripheral parents for the mux based on type of the
 * parent.
 *
-* @param	ParentGroup is pointer to mux parent variable.
-* @param	GroupType is the type of group parents belong to.
-* @param	Par1 is the parent belonging to parent group.
-* @param	Par2 is the parent belonging to parent group.
-* @param	Par3 is the parent belonging to parent group.
-*
-* @return	None.
+* @param[out] ParentGroup Pointer to mux parent variable.
+* @param[in] GroupType Type of group parents belong to.
+* @param[in] Par1 Parent belonging to parent group.
+* @param[in] Par2 Parent belonging to parent group.
+* @param[in] Par3 Parent belonging to parent group.
 *
 * @note		Here the bits in group type indicate the type of parent.
 *		Specific bit corresponds to specific parent as in Bit 0
@@ -429,13 +479,13 @@ static void XClock_AllocPeriphMuxParents(u16 *ParentGroup, u8 GroupType,
 }
 
 /*****************************************************************************/
-/*
+/**
+* @brief Fetches the default parent of a mux.
 *
 * This function fetches current default parent for the mux specified by
 * mux index.
 *
-* @param	NodeIdx is the index of mux in database for which parent is to
-*		be fetched.
+* @param[in] NodeIdx Index of mux in database for which parent is to be fetched.
 *
 * @return	Index of default parent.
 *
@@ -506,17 +556,14 @@ static u8 XClock_MuxFetchDefaultParent(u8 NodeIdx)
 }
 
 /*****************************************************************************/
-/*
+/**
+* @brief Allocates parents for supported muxes.
 *
 * This function allocates parents for supported peripherals.
 *
-* @param	None.
-*
-* @return	None.
-*
 * @note		This function must be called before calling any other function
 *		related to mux operations. Without call to this function no
-*		mux will be having parent information.
+*		mux has parent information.
 *
 ******************************************************************************/
 static void XClock_AllocMuxParents(void)
@@ -733,18 +780,16 @@ static void XClock_AllocMuxParents(void)
 };
 
 /*****************************************************************************/
-/*
+/**
+* @brief Sets the active parent of a mux.
 *
-* This function is used to set active parent for mux.
+* @param[in] MuxIndex Database index of mux to look parent for.
+* @param[in] SetParentIdx Index of parent to set for mux.
 *
-* @param	MuxIndex is the database index of mux to look parent for.
-* @param	SetParentIndex is the index of parent to set for mux.
-*
-* @return	XST_SUCCESS if successful.
-*		XCLOCK_INVALID_PARAM for invalid function arguments.
-*		XST_FAILURE if read/write fails.
-*
-* @note		None.
+* @return
+*		- XST_SUCCESS if successful. XCLOCK_INVALID_PARAM for invalid
+*		function arguments.
+*		- XST_FAILURE if read/write fails.
 *
 ******************************************************************************/
 static XStatus XClock_MuxSetActiveParent(u8 MuxIndex, u8 SetParentIdx)
@@ -798,15 +843,12 @@ static XStatus XClock_MuxSetActiveParent(u8 MuxIndex, u8 SetParentIdx)
 }
 
 /*****************************************************************************/
-/*
+/**
+* @brief Initializes a mux node.
 *
 * Initialize mux node.
 *
-* @param	MuxIndex is the database index of mux to initialize.
-*
-* @return	None.
-*
-* @note		None.
+* @param[in] MuxIndex Database index of mux to initialize.
 *
 ******************************************************************************/
 static void XClock_MuxInit(u8 MuxIndex)
@@ -838,17 +880,17 @@ static void XClock_MuxInit(u8 MuxIndex)
 }
 
 /*****************************************************************************/
-/*
+/**
+* @brief Enables a mux node.
 *
 * Enable function for the mux.
 *
-* @param	MuxIndex is the database index of mux to enable.
+* @param[in] MuxIndex Database index of mux to enable.
 *
-* @return	XST_SUCCESS if successful.
-*		XST_INVALID_PARAM if arguments are invalid.
-*		XST_FAILURE otherwise.
-*
-* @note		None.
+* @return
+*		- XST_SUCCESS if successful.
+*		- XST_INVALID_PARAM if arguments are invalid.
+*		- XST_FAILURE otherwise.
 *
 ******************************************************************************/
 static XStatus XClock_MuxEnable(u8 MuxIndex)
@@ -885,17 +927,17 @@ static XStatus XClock_MuxEnable(u8 MuxIndex)
 }
 
 /*****************************************************************************/
-/*
+/**
+* @brief Disables a mux node.
 *
 * Disable function for the mux.
 *
-* @param	MuxIndex is the database index of mux to disable.
+* @param[in] MuxIndex Database index of mux to disable.
 *
-* @return	XST_SUCCESS if successful.
-*		XST_INVALID_PARAM if arguments are invalid.
-*		XST_FAILURE otherwise.
-*
-* @note		None.
+* @return
+*		- XST_SUCCESS if successful.
+*		- XST_INVALID_PARAM if arguments are invalid.
+*		- XST_FAILURE otherwise.
 *
 ******************************************************************************/
 static XStatus XClock_MuxDisable(u8 MuxIndex)
@@ -940,18 +982,18 @@ static XStatus XClock_MuxDisable(u8 MuxIndex)
 }
 
 /*****************************************************************************/
-/*
+/**
+* @brief Looks up the mux index for an output clock.
 *
 * This function looks for the output clock mapped to mux and returns the
 * mux index.
 *
-* @param	ClockId is the identifier for output clock.
-* @param	MuxIndex is the index of output clock in mux database.
+* @param[in] ClockId Identifier for output clock.
+* @param[out] MuxIndex Index of output clock in mux database.
 *
-* @return	XST_SUCCESS if successful.
-*		XST_INVALID_PARAM if output clock mapping not found.
-*
-* @note		None.
+* @return
+*		- XST_SUCCESS if successful.
+*		- XST_INVALID_PARAM if output clock mapping not found.
 *
 ******************************************************************************/
 static XStatus XClock_MuxFetchIdx(XClock_OutputClks ClockId, u8 *MuxIndex)
@@ -973,18 +1015,17 @@ static XStatus XClock_MuxFetchIdx(XClock_OutputClks ClockId, u8 *MuxIndex)
 }
 
 /*****************************************************************************/
-/*
+/**
+* @brief Fetches the parent of a mux node.
 *
 * This function fetches the parent based on index in database.
 *
-* @param	ClockId is the identifier for output clock.
-* @param	NodeType is the pointer holding type of the node.
-* @param	MuxIndex is the pointer holding index of parent in database.
+* @param[out] NodeType Pointer receiving the parent node type.
+* @param[in,out] MuxIndex Pointer holding index of parent in database.
 *
-* @return	XST_SUCCESS if successful.
-*		XST_INVALID_PARAM if output clock mapping not found.
-*
-* @note		None.
+* @return
+*		- XST_SUCCESS if successful.
+*		- XST_INVALID_PARAM if output clock mapping not found.
 *
 ******************************************************************************/
 static XStatus XClock_MuxFetchParent(XClock_Types *NodeType, u8 *MuxIndex)
@@ -1023,17 +1064,17 @@ static XStatus XClock_MuxFetchParent(XClock_Types *NodeType, u8 *MuxIndex)
 }
 
 /*****************************************************************************/
-/*
+/**
+* @brief Gets a mux rate.
 *
 * Get mux rate.
 *
-* @param	MuxIndex is the database index of mux to fetch rate for.
-* @param	GetRate is pointer to variable holding mux rate.
+* @param[in] MuxIndex Database index of mux to fetch rate for.
+* @param[out] GetRate Pointer to variable holding mux rate.
 *
-* @return	XST_SUCCESS if successful.
-*		XST_INVALID_PARAM for invalid function arguments.
-*
-* @note		None.
+* @return
+*		- XST_SUCCESS if successful.
+*		- XST_INVALID_PARAM for invalid function arguments.
 *
 ******************************************************************************/
 static XStatus XClock_MuxGetRate(u8 MuxIndex, XClockRate *GetRate)
@@ -1048,15 +1089,12 @@ static XStatus XClock_MuxGetRate(u8 MuxIndex, XClockRate *GetRate)
 }
 
 /*****************************************************************************/
-/*
+/**
+* @brief Updates the rate of a mux node.
 *
 * The function updates the rate of mux node.
 *
-* @param	MuxIndex is the database index of mux to update rate for.
-*
-* @return	None.
-*
-* @note		None.
+* @param[in] MuxIndex Database index of mux to update rate for.
 *
 ******************************************************************************/
 static void XClock_MuxUpdateRate(u8 MuxIndex)
@@ -1085,15 +1123,10 @@ static void XClock_MuxUpdateRate(u8 MuxIndex)
 }
 
 /*****************************************************************************/
-/*
+/**
+* @brief Registers mux node callback functions.
 *
 * Register functions for mux node.
-*
-* @param	None.
-*
-* @return	None.
-*
-* @note		None.
 *
 ******************************************************************************/
 void XClock_MuxRegisterFuncs(void)
@@ -1110,13 +1143,10 @@ void XClock_MuxRegisterFuncs(void)
 }
 
 /*****************************************************************************/
-/*
+/**
+* @brief Initializes all mux nodes.
 *
 * Begin Initialization of all mux node.
-*
-* @param	None.
-*
-* @return	None.
 *
 * @note		This function loops over all the mux nodes and initializes
 *		them.

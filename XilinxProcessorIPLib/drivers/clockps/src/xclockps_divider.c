@@ -8,8 +8,7 @@
 /**
 *
 * @file xclockps_divider.c
-* @addtogroup clockps Overview
-* @{
+* @brief Implements CLOCKPS divider node operations.
 *
 * Contains the implementation of interface functions of the clock driver.
 * See xclock.h for a description of the driver.
@@ -21,16 +20,30 @@
 * 1.00  cjp    02/09/18 First release
 * 1.2   sd     02/13/20 Rename ARRAY_SIZE
 * 1.7   vlt    01/27/26 Fixed codespell issues
+* 1.8   tb     09/17/26 Align Doxygen comments with AMD standards.
 * </pre>
 *
 ******************************************************************************/
+
+/**
+* @addtogroup clockps_api CLOCKPS APIs
+* @{
+*/
+
 /***************************** Include Files *********************************/
 #include "xclockps.h"
 
 /************************** Constant Definitions *****************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
-/* Assign structure elements for output clock mappings */
+/**
+ * @brief Assigns structure elements for output clock mappings.
+ *
+ * @note
+ * C-style signature
+ *	XClock_DivMappings XCLOCK_DIV_ASSIGN_INDICES(
+ *		XClock_OutputClks ClockIdVal, XClock_DivIndices DivIndexVal)
+ */
 #define XCLOCK_DIV_ASSIGN_INDICES(ClockIdVal, DivIndexVal) \
 { \
 	.ClockId = ClockIdVal, \
@@ -66,20 +79,26 @@
 }
 
 /**************************** Type Definitions *******************************/
-/* This typedef holds information for output clocks mapped to divisors */
+/**
+ * @brief Holds output clocks mapped to divisors.
+ */
 typedef struct {
-	XClock_OutputClks ClockId;
-	XClock_DivIndices DivIndex;
+	XClock_OutputClks ClockId; /**< Clockid. */
+	XClock_DivIndices DivIndex; /**< Divindex. */
+
 } XClock_DivMappings;
 
-/* This typedef holds information for divisors */
+/**
+ * @brief Holds divisors.
+ */
 typedef struct {
-	u8          Shift;
-	u8          IsInit;
-	u8          EnableCount;
-	u16         Parent;
-	u32         CtrlReg;
-	XClockRate  Rate;
+	u8          Shift; /**< Shift. */
+	u8          IsInit; /**< Isinit. */
+	u8          EnableCount; /**< Enablecount. */
+	u16         Parent; /**< Parent. */
+	u32         CtrlReg; /**< Ctrlreg. */
+	XClockRate  Rate; /**< Rate. */
+
 } XClock_TypeDiv;
 
 /************************** Variable Definitions *****************************/
@@ -265,20 +284,19 @@ static XClock_TypeDiv Dividers[] = {
 };
 
 /*****************************************************************************/
-/*
+/**
+* @brief Recalculates a divider rate from hardware.
 *
 * Recalculate divider rate.
 *
-* @param	DivIndex is the database index of divider to recalculate rate
-*		for.
-* @param	ParentRate is the rate of divider parent.
-* @param	Rate is the pointer to variable holding recalculated rate.
+* @param[in] DivIndex Database index of divider to recalculate rate for.
+* @param[in] ParentRate Rate of divider parent.
+* @param[out] Rate Pointer to variable holding recalculated rate.
 *
-* @return	XST_SUCCESS if successful.
-*		XST_INVALID_PARAM if invalid arguments.
-*		XST_FAILURE if read/write fails.
-*
-* @note		None.
+* @return
+*		- XST_SUCCESS if successful.
+*		- XST_INVALID_PARAM if invalid arguments.
+*		- XST_FAILURE if read/write fails.
 *
 ******************************************************************************/
 static XStatus XClock_DivRecalcRate(u8 DivIndex, XClockRate ParentRate,
@@ -307,15 +325,12 @@ static XStatus XClock_DivRecalcRate(u8 DivIndex, XClockRate ParentRate,
 }
 
 /*****************************************************************************/
-/*
+/**
+* @brief Initializes a divider node.
 *
 * Initialize divider node.
 *
-* @param	DivIndex is the database index of divider to initialize.
-*
-* @return	None.
-*
-* @note		None.
+* @param[in] DivIndex Database index of divider to initialize.
 *
 ******************************************************************************/
 static void XClock_DivInit(u8 DivIndex)
@@ -348,17 +363,17 @@ static void XClock_DivInit(u8 DivIndex)
 }
 
 /*****************************************************************************/
-/*
+/**
+* @brief Enables a divider node.
 *
 * Enable function for the divider.
 *
-* @param	DivIndex is the database index of divider to enable.
+* @param[in] DivIndex Database index of divider to enable.
 *
-* @return	XST_SUCCESS if successful.
-*		XST_INVALID_PARAM if arguments are invalid.
-*		XST_FAILURE otherwise.
-*
-* @note		None.
+* @return
+*		- XST_SUCCESS if successful.
+*		- XST_INVALID_PARAM if arguments are invalid.
+*		- XST_FAILURE otherwise.
 *
 ******************************************************************************/
 static XStatus XClock_DivEnable(u8 DivIndex)
@@ -384,17 +399,17 @@ static XStatus XClock_DivEnable(u8 DivIndex)
 }
 
 /*****************************************************************************/
-/*
+/**
+* @brief Disables a divider node.
 *
 * Disable function for the divider.
 *
-* @param	DivIndex is the database index of divider to disable.
+* @param[in] DivIndex Database index of divider to disable.
 *
-* @return	XST_SUCCESS if successful.
-*		XST_INVALID_PARAM if arguments are invalid.
-*		XST_FAILURE otherwise.
-*
-* @note		None.
+* @return
+*		- XST_SUCCESS if successful.
+*		- XST_INVALID_PARAM if arguments are invalid.
+*		- XST_FAILURE otherwise.
 *
 ******************************************************************************/
 static XStatus XClock_DivDisable(u8 DivIndex)
@@ -425,18 +440,18 @@ static XStatus XClock_DivDisable(u8 DivIndex)
 }
 
 /*****************************************************************************/
-/*
+/**
+* @brief Looks up the divider index for an output clock.
 *
 * This function looks for the output clock mapped to divider and returns the
 * divider index.
 *
-* @param	ClockId is the identifier for output clock.
-* @param	DivIndex is the index of output clock in divider database.
+* @param[in] ClockId Identifier for output clock.
+* @param[out] DivIndex Index of output clock in divider database.
 *
-* @return	XST_SUCCESS if successful.
-*		XST_INVALID_PARAM if output clock mapping not found.
-*
-* @note		None.
+* @return
+*		- XST_SUCCESS if successful.
+*		- XST_INVALID_PARAM if output clock mapping not found.
 *
 ******************************************************************************/
 static XStatus XClock_DivFetchIdx(XClock_OutputClks ClockId, u8 *DivIndex)
@@ -458,18 +473,17 @@ static XStatus XClock_DivFetchIdx(XClock_OutputClks ClockId, u8 *DivIndex)
 }
 
 /*****************************************************************************/
-/*
+/**
+* @brief Fetches the parent of a divider node.
 *
 * This function fetches the parent based on index in database.
 *
-* @param	ClockId is the identifier for output clock.
-* @param	NodeType is the pointer holding type of the node.
-* @param	DivIndex is the pointer holding index of parent in database.
+* @param[out] NodeType Pointer receiving the parent node type.
+* @param[in,out] DivIndex Pointer holding index of parent in database.
 *
-* @return	XST_SUCCESS if successful.
-*		XST_INVALID_PARAM if output clock mapping not found.
-*
-* @note		None.
+* @return
+*		- XST_SUCCESS if successful.
+*		- XST_INVALID_PARAM if output clock mapping not found.
 *
 ******************************************************************************/
 static XStatus XClock_DivFetchParent(XClock_Types *NodeType, u8 *DivIndex)
@@ -486,23 +500,22 @@ static XStatus XClock_DivFetchParent(XClock_Types *NodeType, u8 *DivIndex)
 }
 
 /*****************************************************************************/
-/*
+/**
+* @brief Sets a divider rate.
 *
 * Set divider rate.
 *
-* @param	DivIndex is the database index of divider to set rate for.
-* @param	ParentRate is the rate of divider parent.
-* @param	Rate is the rate of divider to set.
-* @param	SetRate is pointer to variable holding actual rate, set for
-*		divider.
-* @param	DryRun if set, divisors are not configured and only achievable
-*		frequency is calculated.
+* @param[in] DivIndex Database index of divider to set rate for.
+* @param[in] ParentRate Rate of divider parent.
+* @param[in] Rate Rate of divider to set.
+* @param[out] SetRate Pointer to variable holding actual rate, set for divider.
+* @param[in] DryRun If set, divisors are not configured and only achievable
+*   frequency is calculated.
 *
-* @return	XST_SUCCESS if successful.
-*		XST_INVALID_PARAM for invalid function arguments.
-*		XST_FAILURE if read/write fails.
-*
-* @note		None.
+* @return
+*		- XST_SUCCESS if successful.
+*		- XST_INVALID_PARAM for invalid function arguments.
+*		- XST_FAILURE if read/write fails.
 *
 ******************************************************************************/
 static XStatus XClock_DivSetRate(u8 DivIndex, XClockRate ParentRate,
@@ -547,17 +560,17 @@ static XStatus XClock_DivSetRate(u8 DivIndex, XClockRate ParentRate,
 }
 
 /*****************************************************************************/
-/*
+/**
+* @brief Gets a divider rate.
 *
 * Get divider rate.
 *
-* @param	DivIndex is the database index of divider to fetch rate for.
-* @param	GetRate is pointer to variable holding divider rate.
+* @param[in] DivIndex Database index of divider to fetch rate for.
+* @param[out] GetRate Pointer to variable holding divider rate.
 *
-* @return	XST_SUCCESS if successful.
-*		XST_INVALID_PARAM for invalid function arguments.
-*
-* @note		None.
+* @return
+*		- XST_SUCCESS if successful.
+*		- XST_INVALID_PARAM for invalid function arguments.
 *
 ******************************************************************************/
 static XStatus XClock_DivGetRate(u8 DivIndex, XClockRate *GetRate)
@@ -571,15 +584,12 @@ static XStatus XClock_DivGetRate(u8 DivIndex, XClockRate *GetRate)
 }
 
 /*****************************************************************************/
-/*
+/**
+* @brief Updates the rate of a divider node.
 *
 * The function updates the rate of divider node.
 *
-* @param	DivIndex is the database index of divider to update rate for.
-*
-* @return	None.
-*
-* @note		None.
+* @param[in] DivIndex Database index of divider to update rate for.
 *
 ******************************************************************************/
 static void XClock_DivUpdateRate(u8 DivIndex)
@@ -606,15 +616,10 @@ static void XClock_DivUpdateRate(u8 DivIndex)
 }
 
 /*****************************************************************************/
-/*
+/**
+* @brief Registers divider node callback functions.
 *
 * Register functions for divider node.
-*
-* @param	None.
-*
-* @return	None.
-*
-* @note		None.
 *
 ******************************************************************************/
 void XClock_DivRegisterFuncs(void)
@@ -631,13 +636,10 @@ void XClock_DivRegisterFuncs(void)
 }
 
 /*****************************************************************************/
-/*
+/**
+* @brief Initializes all divider nodes.
 *
 * Begin Initialization of all divider node.
-*
-* @param	None.
-*
-* @return	None.
 *
 * @note		This function loops over all the divider nodes and initializes
 *		them.
