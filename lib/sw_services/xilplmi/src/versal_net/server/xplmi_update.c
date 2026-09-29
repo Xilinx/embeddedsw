@@ -48,6 +48,7 @@
 * 2.4   abh  10/14/2025 Fixed MISRA-C Violations
 * 2.5   obs  09/02/2026 Run compatibility check before optional-data parse
 *       obs  09/15/2026 Clarified the registered compatibility handler ordering
+*       aa   09/29/2026 restore ROM_RSVD update-disable check before compatibility
 * </pre>
 *
 ******************************************************************************/
@@ -689,6 +690,18 @@ int XPlmi_PlmUpdate(XPlmi_Cmd *Cmd)
 		UpdatePdiAddr = Cmd->Payload[INDEX_ONE];
 	}
 
+	/* Check if PLM update is enabled in ROM_RSVD efuse*/
+	RomRsvd = XPlmi_In32(EFUSE_CACHE_ROM_RSVD) &
+			EFUSE_PLM_UPDATE_MASK;
+	RomRsvdTmp = XPlmi_In32(EFUSE_CACHE_ROM_RSVD) &
+			EFUSE_PLM_UPDATE_MASK;
+	if ((RomRsvd == EFUSE_PLM_UPDATE_MASK) ||
+		(RomRsvdTmp == EFUSE_PLM_UPDATE_MASK)) {
+		XPlmi_Printf(DEBUG_GENERAL, "Update Disabled\n\r");
+		Status = XPLMI_ERR_INPLACE_UPDATE_DISABLED;
+		goto END;
+	}
+
 	/*
 	 * Run the registered compatibility handler before any optional-data
 	 * parser dereferences addresses derived from the update PDI.
@@ -712,17 +725,6 @@ int XPlmi_PlmUpdate(XPlmi_Cmd *Cmd)
 	XPlmi_Printf(DEBUG_GENERAL, "In-Place Firmware Update started with new PLM and PSM "
 			"from PDI Address: 0x%x\n\r", UpdatePdiAddr);
 #endif
-	/* Check if PLM Update is enabled in ROM_RSVD efuse */
-	RomRsvd = XPlmi_In32(EFUSE_CACHE_ROM_RSVD) &
-			EFUSE_PLM_UPDATE_MASK;
-	RomRsvdTmp = XPlmi_In32(EFUSE_CACHE_ROM_RSVD) &
-			EFUSE_PLM_UPDATE_MASK;
-	if ((RomRsvd == EFUSE_PLM_UPDATE_MASK) ||
-		(RomRsvdTmp == EFUSE_PLM_UPDATE_MASK)) {
-		XPlmi_Printf(DEBUG_GENERAL, "Update Disabled\n\r");
-		Status = XPLMI_ERR_INPLACE_UPDATE_DISABLED;
-		goto END;
-	}
 
 	Status = XST_FAILURE;
 	PlmUpdateState |= XPLMI_UPDATE_IN_PROGRESS;
