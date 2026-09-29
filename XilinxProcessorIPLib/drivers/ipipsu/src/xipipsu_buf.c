@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2020 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -8,11 +8,8 @@
 /**
 *
 * @file xipipsu_buf.c
-* @addtogroup ipipsu_api IPIPSU APIs
-* @{
+* @brief Implements the buffer access functions of the XIpiPsu driver.
 *
-* The xipipsu_buf.c file contains the implementation of the buffer access
-* functions for XIpiPsu driver.
 * Refer to the header file xipipsu_buf.h for more detailed information.
 *
 * <pre>
@@ -22,9 +19,15 @@
 * ----- ------ -------- ----------------------------------------------
 * 2.6	sd	04/02/20	Restructured the code for more readability and modularity
 * 2.14	ht	06/13/23	Restructured the code for more modularity
+* 2.20	vn	09/10/26	Align Doxygen comments with AMD standards
 * </pre>
 *
 *****************************************************************************/
+
+/**
+* @addtogroup ipipsu_api IPIPSU APIs
+* @{
+*/
 
 /***************************** Include Files ********************************/
 #include "xipipsu.h"
@@ -35,18 +38,19 @@
 
 
 /**
- * @brief	Gets the Buffer Address for a given pair of CPUs
+ * @brief	Gets the buffer address for a given pair of CPUs.
  *
- * @param	InstancePtr Pointer to current IPI instance
- * @param	SrcCpuMask Mask for Source CPU
- * @param	DestCpuMask Mask for Destination CPU
- * @param	BufferType Type of buffer either XIPIPSU_BUF_TYPE_MSG or XIPIPSU_BUF_TYPE_RESP
+ * @param[in]	InstancePtr Pointer to the IPI instance.
+ * @param[in]	SrcCpuMask Mask for the source CPU.
+ * @param[in]	DestCpuMask Mask for the destination CPU.
+ * @param[in]	BufferType Type of buffer, either XIPIPSU_BUF_TYPE_MSG or
+ *			XIPIPSU_BUF_TYPE_RESP.
  *
- * @return	Valid Buffer Address if no error
- * 			NULL if an error occurs in calculating address
+ * @return
+ *		- Valid buffer address if no error.
+ *		- NULL if an error occurs while calculating the address.
  *
  */
-
 u32 *XIpiPsu_GetBufferAddress(XIpiPsu *InstancePtr, u32 SrcCpuMask,
 			      u32 DestCpuMask, u32 BufferType)
 {

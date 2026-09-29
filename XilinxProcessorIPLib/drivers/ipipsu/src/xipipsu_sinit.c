@@ -7,11 +7,7 @@
 /**
 *
 * @file xipipsu_sinit.c
-* @addtogroup ipipsu_api IPIPSU APIs
-* @{
-*
-* The xipipsu_sinit.c file contains the implementation of the XIpiPsu
-* component's static initialization functionality.
+* @brief Implements the static initialization of the XIpiPsu driver.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -24,10 +20,16 @@
 * 2.19  vlt  12/12/25 Update Doxygen comments to include SDT flow details
 * 2.19  vlt  03/14/26 Updated BaseAddress type from u32 to UINTPTR
 *                     to support 64-bit addressing
+* 2.20  vn   09/10/26 Align Doxygen comments with AMD standards
 *
 * </pre>
 *
 ******************************************************************************/
+
+/**
+* @addtogroup ipipsu_api IPIPSU APIs
+* @{
+*/
 
 /***************************** Include Files *********************************/
 #include "xil_types.h"
@@ -40,22 +42,25 @@
 
 /**
 *
-* Looks up the device configuration based on the unique device ID/BaseAddress.
-* The XIpiPsu_ConfigTable[] contains the configuration info for each device in
-* the system.
+* @brief	Looks up the device configuration based on the unique device ID
+*		or base address.
+*
+* The XIpiPsu_ConfigTable[] array holds the configuration information for each
+* device in the system.
 *
 * @if SDT
-* @param	BaseAddress contains the base address of the device
+* @param[in]	BaseAddress Base address of the device.
 * @else
-* @param	DeviceId contains the unique ID of the device
+* @param[in]	DeviceId Unique ID of the device.
 * @endif
 *
-* @return       A pointer to the configuration found or NULL if the specified
-*               device ID/BaseAddress was not found. See xipipsu.h for the
-*               definition of XIpiPsu_Config.
+* @return	Pointer to the configuration found, or NULL if the specified
+*		device ID or base address is not found. See xipipsu.h for the
+*		definition of XIpiPsu_Config.
 *
-* @note        In XSCT/classic flow, DeviceId is used to look up the device
-*              configuration.
+* @note	In the XSCT/Classic flow, DeviceId selects the device
+*		configuration. In the system device-tree flow, BaseAddress
+*		selects it.
 *
 ******************************************************************************/
 #ifndef SDT

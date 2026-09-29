@@ -5,16 +5,16 @@
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
+#ifndef XIPIPSU_BUF_H_
+#define XIPIPSU_BUF_H_
+
 /*****************************************************************************/
 /**
  * @file xipipsu_buf.h
- * @addtogroup ipipsu_api IPIPSU APIs
- * @{
+ * @brief Declares the buffer-address and CRC helper functions of the driver.
  *
- * The xipipsu_buf.h is the header file for implementation of IPIPSU driver
- * get buffer and calculate CRC functions.
- * Inter Processor Interrupt (IPI) is used for communication between
- * different processors.
+ * The Inter-Processor Interrupt (IPI) provides communication between
+ * processors.
  *
  * <pre>
  * MODIFICATION HISTORY:
@@ -25,13 +25,16 @@
  * 2.14	ht	06/13/23	Restructured the code for more modularity
  * 	ht	07/28/23	Fix MISRA-C warnings
  * 2.20 vn      07/30/26        Fix Doxygen warnings
+ * 2.20 vn      09/10/26        Align Doxygen comments with AMD standards
  *
  * </pre>
  *
  *****************************************************************************/
-/** @cond INTERNAL */
-#ifndef XIPIPSU_BUF_H_
-#define XIPIPSU_BUF_H_
+
+/**
+ * @addtogroup ipipsu_api IPIPSU APIs
+ * @{
+ */
 
 #ifdef __cplusplus
 extern "C" {
@@ -55,5 +58,4 @@ u32 XIpiPsu_CalculateCRC(u32 BufAddr, u32 BufSize);
 #endif
 
 #endif /* XIPIPSU_BUF_H_ */
-/** @endcond */
 /** @} */

@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2023 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -7,12 +7,7 @@
 /**
 *
 * @file xipipsu_helper.c
-* @addtogroup ipipsu_api IPIPSU APIs
-* @{
-*
-* The xipipsu_helper.c file contains the implementation of the XIpiPsu_CalculateCRC
-* and XIpiPsu_GetBufferIndex.
-*
+* @brief Implements the XIpiPsu_CalculateCRC and XIpiPsu_GetBufferIndex helpers.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -22,10 +17,16 @@
 * 2.14	ht	06/13/23 Restructured the code for more modularity
 *     	ht	07/28/23 Fix MISRA-C warnings
 * 2.17	ma	04/05/25 Read always in 4 bytes from IPI buffer
+* 2.20	vn	09/10/26 Align Doxygen comments with AMD standards
 *
 * </pre>
 *
 *****************************************************************************/
+
+/**
+* @addtogroup ipipsu_api IPIPSU APIs
+* @{
+*/
 
 /***************************** Include Files ********************************/
 #include "xipipsu.h"
@@ -34,13 +35,13 @@
 
 /************************** Constant Definitions *****************************/
 #ifdef ENABLE_IPI_CRC
-#define POLYNOM					0x8005U /**< Polynomial */
-#define INITIAL_CRC_VAL			0x4F4EU		/**< Initial crc value */
-#define CRC16_MASK				0xFFFFU /**< CRC mask */
-#define BYTE_MASK				0xFFU /**< Mask for byte */
-#define CRC16_HIGH_BIT_MASK		0x8000U		/**< CRC high bit mask */
-#define NUM_BITS_IN_BYTE		0x8U		/**< 8 bits in a byte */
-#define WORD_LEN_IN_BYTES		0x4U /**< Word length in bytes */
+#define POLYNOM					0x8005U /**< CRC polynomial. */
+#define INITIAL_CRC_VAL			0x4F4EU /**< Initial CRC value. */
+#define CRC16_MASK				0xFFFFU /**< CRC mask. */
+#define BYTE_MASK				0xFFU /**< Mask for a byte. */
+#define CRC16_HIGH_BIT_MASK		0x8000U /**< CRC high bit mask. */
+#define NUM_BITS_IN_BYTE		0x8U /**< Number of bits in a byte. */
+#define WORD_LEN_IN_BYTES		0x4U /**< Word length in bytes. */
 #endif
 
 /************************** Variable Definitions *****************************/
@@ -48,12 +49,12 @@
 /****************************************************************************/
 #ifdef ENABLE_IPI_CRC
 /**
- * @brief Calculate CRC for IPI buffer data
+ * @brief Calculates the CRC for the IPI buffer data.
  *
- * @param	BufAddr - buffer on which CRC is calculated
- * @param	BufSize - size of the buffer in bytes
+ * @param[in]	BufAddr Address of the buffer on which the CRC is calculated.
+ * @param[in]	BufSize Size of the buffer in bytes.
  *
- * @return	Checksum - 16 bit CRC value
+ * @return	16-bit CRC checksum value.
  */
 u32 XIpiPsu_CalculateCRC(u32 BufAddr, u32 BufSize)
 {
@@ -95,13 +96,14 @@ u32 XIpiPsu_CalculateCRC(u32 BufAddr, u32 BufSize)
 
 /****************************************************************************/
 /**
- * @brief	Gets the Buffer Index for a CPU specified by Mask
+ * @brief	Gets the buffer index for a CPU specified by the mask.
  *
- * @param	InstancePtr Pointer to current IPI instance
- * @param	CpuMask Mask of the CPU form which Index is required
+ * @param[in]	InstancePtr Pointer to the IPI instance.
+ * @param[in]	CpuMask Mask of the CPU for which the index is required.
  *
- * @return	Buffer Index value if CPU Mask is valid
- * 			XIPIPSU_MAX_BUFF_INDEX+1 if not valid
+ * @return
+ *		- Buffer index value if the CPU mask is valid.
+ *		- XIPIPSU_MAX_BUFF_INDEX + 1 if not valid.
  *
  */
 u32 XIpiPsu_GetBufferIndex(const XIpiPsu *InstancePtr, u32 CpuMask)

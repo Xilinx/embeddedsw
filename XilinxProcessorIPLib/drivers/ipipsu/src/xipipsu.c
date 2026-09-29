@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2015 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -8,11 +8,8 @@
 /**
 *
 * @file xipipsu.c
-* @addtogroup ipipsu_api IPIPSU APIs
-* @{
+* @brief Implements the interface functions of the XIpiPsu driver.
 *
-* The xipipsu.c file contains the implementation of the interface functions for
-* XIpiPsu driver.
 * Refer to the header file xipipsu.h for more detailed information.
 *
 * <pre>
@@ -40,9 +37,15 @@
 * 2.17	ht	11/08/24	Update description of Msglength for XIpiPsu_ReadMessage
 * 				and XIpiPsu_WriteMessage.
 * 2.18  an	08/07/25	Fix pointer to integer cast warning
+* 2.20  vn	09/10/26	Align Doxygen comments with AMD standards
 * </pre>
 *
 *****************************************************************************/
+
+/**
+* @addtogroup ipipsu_api IPIPSU APIs
+* @{
+*/
 
 /***************************** Include Files ********************************/
 #include "xipipsu.h"
@@ -53,19 +56,17 @@
 
 /****************************************************************************/
 /**
- * Initializes the Instance pointer based on a given Config Pointer
+ * @brief Initializes an IPI instance from a given configuration record.
  *
- * @param	InstancePtr Pointer to the instance to be worked on
- * @param	CfgPtr Device configuration structure containing required
- *		  	hardware build data
- * @param	EffectiveAddress Base address of the device. If address
- *        	translation is not utilized, this parameter can be passed in using
- *        	CfgPtr->Config. BaseAddress to specify the physical base address.
- * @return	XST_SUCCESS if initialization was successful
- * 			XST_FAILURE in case of failure
+ * @param[out]	InstancePtr Pointer to the IPI instance.
+ * @param[in]	CfgPtr Device configuration structure containing the required
+ *		  	hardware build data.
+ * @param[in]	EffectiveAddress Base address of the device. If address
+ *        	translation is not used, pass CfgPtr->BaseAddress to specify the
+ *        	physical base address.
+ * @return	XST_SUCCESS after successful initialization.
  *
  */
-
 XStatus XIpiPsu_CfgInitialize(XIpiPsu *InstancePtr, XIpiPsu_Config *CfgPtr,
 			      UINTPTR EffectiveAddress)
 {
@@ -103,13 +104,13 @@ XStatus XIpiPsu_CfgInitialize(XIpiPsu *InstancePtr, XIpiPsu_Config *CfgPtr,
 
 /**
  * @brief	Resets the given IPI register set.
- *        	This function can be called to disable the IPIs from all
- *        	the sources and clear any pending IPIs in status register
  *
- * @param 	InstancePtr Pointer to current IPI instance
+ * Disables the IPIs from all sources and clears any pending IPIs in the status
+ * register.
+ *
+ * @param[in]	InstancePtr Pointer to the IPI instance.
  *
  */
-
 void XIpiPsu_Reset(XIpiPsu *InstancePtr)
 {
 
@@ -128,16 +129,13 @@ void XIpiPsu_Reset(XIpiPsu *InstancePtr)
 }
 
 /**
- * @brief	Triggers an IPI to a Destination CPU
+ * @brief	Triggers an IPI to a destination CPU.
  *
- * @param	InstancePtr Pointer to current IPI instance
- * @param	DestCpuMask Mask of the CPU to which IPI is to be triggered
+ * @param[in]	InstancePtr Pointer to the IPI instance.
+ * @param[in]	DestCpuMask Mask of the CPU to which the IPI is triggered.
  *
- *
- * @return	XST_SUCCESS if successful
- * 			XST_FAILURE if an error occurred
+ * @return	XST_SUCCESS after the trigger register is written.
  */
-
 XStatus XIpiPsu_TriggerIpi(XIpiPsu *InstancePtr, u32 DestCpuMask)
 {
 	/* Validate the input arguments */
@@ -152,16 +150,17 @@ XStatus XIpiPsu_TriggerIpi(XIpiPsu *InstancePtr, u32 DestCpuMask)
 }
 
 /**
- * @brief Polls for an acknowledgement using Observation Register
+ * @brief Polls for an acknowledgment using the observation register.
  *
- * @param	InstancePtr Pointer to current IPI instance
- * @param	DestCpuMask Mask of the destination CPU from which ACK is expected
- * @param	TimeOutCount Count after which the routines returns failure
+ * @param[in]	InstancePtr Pointer to the IPI instance.
+ * @param[in]	DestCpuMask Mask of the destination CPU from which the
+ *			acknowledgment is expected.
+ * @param[in]	TimeOutCount Count after which the routine returns failure.
  *
- * @return	XST_SUCCESS if successful
- * 			XST_FAILURE if a timeout occurred
+ * @return
+ *		- XST_SUCCESS if successful.
+ *		- XST_FAILURE if a timeout occurs.
  */
-
 XStatus XIpiPsu_PollForAck(const XIpiPsu *InstancePtr, u32 DestCpuMask,
 			   u32 TimeOutCount)
 {
@@ -192,18 +191,23 @@ XStatus XIpiPsu_PollForAck(const XIpiPsu *InstancePtr, u32 DestCpuMask,
 
 
 /**
- * @brief	Read an Incoming Message from a Source.
+ * @brief	Reads an incoming message from a source.
  *
- * @param 	InstancePtr Pointer to current IPI instance
- * @param 	SrcCpuMask Device Mask for the CPU which has sent the message
- * @param 	MsgPtr Pointer to Buffer to which the read message needs to be stored
- * @param 	MsgLength Number of messages (each message is 4bytes)
- * @param 	BufferType Type of buffer (XIPIPSU_BUF_TYPE_MSG or XIPIPSU_BUF_TYPE_RESP)
+ * @param[in]	InstancePtr Pointer to the IPI instance.
+ * @param[in]	SrcCpuMask Device mask for the CPU that sent the message.
+ * @param[out]	MsgPtr Buffer that receives the read message. Must not be NULL
+ *			and must hold at least MsgLength words.
+ * @param[in]	MsgLength Number of words to read (each word is 4 bytes). Must
+ *			not exceed XIPIPSU_MAX_MSG_LEN.
+ * @param[in]	BufferType Type of buffer (XIPIPSU_BUF_TYPE_MSG or
+ *			XIPIPSU_BUF_TYPE_RESP).
  *
- * @return	XST_SUCCESS if successful
- * 			XST_FAILURE if an error occurred
+ * @return
+ *		- XST_SUCCESS if successful.
+ *		- XIPIPSU_CRC_ERROR if the CRC check fails (when CRC is
+ *		  enabled).
+ *		- XST_FAILURE if the buffer address is not valid.
  */
-
 XStatus XIpiPsu_ReadMessage(XIpiPsu *InstancePtr, u32 SrcCpuMask, u32 *MsgPtr,
 			    u32 MsgLength, u8 BufferType)
 {
@@ -249,18 +253,21 @@ END:
 
 
 /**
- * @brief	Sends a Message to Destination
+ * @brief	Sends a message to a destination.
  *
- * @param	InstancePtr Pointer to current IPI instance
- * @param	DestCpuMask Device Mask for the destination CPU
- * @param	MsgPtr Pointer to Buffer which contains the message to be sent
- * @param	MsgLength Number of messages (each message is 4bytes)
- * @param	BufferType Type of buffer (XIPIPSU_BUF_TYPE_MSG or XIPIPSU_BUF_TYPE_RESP)
+ * @param[in]	InstancePtr Pointer to the IPI instance.
+ * @param[in]	DestCpuMask Device mask for the destination CPU.
+ * @param[in]	MsgPtr Buffer that contains the message to send. Must not
+ *			be NULL and must hold at least MsgLength words.
+ * @param[in]	MsgLength Number of words to send (each word is 4 bytes). Must
+ *			not exceed XIPIPSU_MAX_MSG_LEN.
+ * @param[in]	BufferType Type of buffer (XIPIPSU_BUF_TYPE_MSG or
+ *			XIPIPSU_BUF_TYPE_RESP).
  *
- * @return	XST_SUCCESS if successful
- * 			XST_FAILURE if an error occurred
+ * @return
+ *		- XST_SUCCESS if successful.
+ *		- XST_FAILURE if the buffer address is not valid.
  */
-
 XStatus XIpiPsu_WriteMessage(XIpiPsu *InstancePtr, u32 DestCpuMask, const u32 *MsgPtr,
 			     u32 MsgLength, u8 BufferType)
 {
@@ -295,28 +302,24 @@ XStatus XIpiPsu_WriteMessage(XIpiPsu *InstancePtr, u32 DestCpuMask, const u32 *M
 	return Status;
 }
 
+#ifndef SDT
 /*****************************************************************************/
 /**
 *
-* Sets up the device configuration based on the unique device ID. A table
-* contains the configuration info for each device in the system.
+* @brief	Sets up the device configuration based on the unique device ID.
 *
-* @param	DeviceId Contains the ID of the device to set up the
-*			configuration for.
- * @param	ConfigTblPtr Device configuration structure containing required
- *		  	hardware build data
+* A table contains the configuration information for each device in the system.
 *
-* @return	A pointer to the device configuration for the specified
-*			device ID. See xipipsu.h for the definition of
-*			XIpiPsu_Config.
+* @param[in]	DeviceId ID of the device to set up the configuration for.
+* @param[in]	ConfigTblPtr Device configuration structure containing the
+*			required hardware build data.
 *
-* @note		This is for safety use case where in this function has to
-* 			be called before CfgInitialize so that driver will be
-* 			initialized with the provided configuration. For non-safe
-* 			use cases, this is not required.
+* @note		Call this function before XIpiPsu_CfgInitialize in the safety
+*		use case. The driver then initializes from the provided
+*		configuration. Non-safety use cases do not require it.<br><br>
+*		This function is available only in the XSCT/Classic flow.
 *
 ******************************************************************************/
-#ifndef SDT
 void XIpiPsu_SetConfigTable(u32 DeviceId, XIpiPsu_Config *ConfigTblPtr)
 {
 	u32 Index;
