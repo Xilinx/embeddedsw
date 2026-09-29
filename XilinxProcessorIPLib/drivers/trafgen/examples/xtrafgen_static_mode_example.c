@@ -8,6 +8,7 @@
 /**
  *
  * @file xtrafgen_static_mode_example.c
+ * @brief Demonstrates static-mode use of the xtrafgen driver.
  *
  * This file demonstrates how to use the xtrafgen driver on the Xilinx AXI
  * Traffic Generator core. The AXI Traffic Generator IP is designed to 
@@ -35,6 +36,7 @@
  * 4.9  vlt  12/18/25 Update Doxygen comments to include SDT flow details.
  *      vlt  01/27/26 Fixed codespell issues.
  * 4.10 vn   07/30/26 Fix Doxygen warnings
+ * 4.10 vn   09/29/26 Align Doxygen comments with AMD standards
  * </pre>
  *
  * ***************************************************************************
@@ -54,14 +56,17 @@
 /***************** Macros (Inline Functions) Definitions *********************/
 
 #ifndef SDT
-#define TRAFGEN_DEV_ID	XPAR_XTRAFGEN_0_DEVICE_ID
+#define TRAFGEN_DEV_ID	XPAR_XTRAFGEN_0_DEVICE_ID /**< Device ID. */
 #endif
-#define BURST_LEN	255
+#define BURST_LEN	255 /**< Burst length. */
 #ifndef SDT
+/** Base address of the memory used by the example. */
 #define MEM_ADDR	XPAR_AXI_BRAM_CTRL_2_S_AXI_BASEADDR
 #else
+/** Base address of the memory used by the example. */
 #define MEM_ADDR	XPAR_AXI_BRAM_0_BASEADDRESS
 #endif
+/** Fixed data that the core writes in static mode. */
 #define DATA 		0xc0015afe
 
 #undef DEBUG
@@ -80,20 +85,17 @@ static void Uart550_Setup(void);
 /*
  * Device instance definitions
  */
-XTrafGen XTrafGenInstance;
+XTrafGen XTrafGenInstance; /**< Instance of the Traffic Generator. */
 
 /*****************************************************************************/
 /**
+* @brief Runs the traffic generator static mode example test.
 *
-* Main function
-*
-* This function is the main entry of the traffic generator test. 
+* This function is the main entry of the traffic generator test.
 *
 * @return
-*				- XST_SUCCESS if tests pass
-*               - XST_FAILURE if fails.
-*
-* @note         None.
+*              - XST_SUCCESS if tests pass.
+*              - XST_FAILURE if fails.
 *
 ******************************************************************************/
 int main()
@@ -121,32 +123,32 @@ int main()
 
 /*****************************************************************************/
 /**
+* @brief Demonstrates the usage of the Traffic Generator in static mode.
 *
-* This function demonstrates the usage Traffic Generator
 * It does the following:
 *       - Set up the output terminal if UART16550 is in the hardware build
 *       - Initialize the AXI Traffic Generator device
-*	- Fill's the Target memory with required data
-*	- Enable the Traffic generation
-*	- Disable the Traffic generation
+*       - Fills the Target memory with required data
+*       - Enable the Traffic generation
+*       - Disable the Traffic generation
 *       - Return test status and exit
 *
-* @param	InstancePtr is a pointer to the instance of the
-*			XTrafGen component.
+* @param[in,out] InstancePtr Pointer to the instance of the
+*                XTrafGen component.
 * @if SDT
-* @param	BaseAddress contains the base address of the device
+* @param[in]     BaseAddress Base address of the device.
 * @else
-* @param	DeviceId is Device ID of the Axi Traffic Generator Device,
-*			typically XPAR_<TRAFGEN_instance>_DEVICE_ID value from
-*			xparameters.h.
+* @param[in]     DeviceId Device ID of the Axi Traffic Generator Device,
+*                typically XPAR_<TRAFGEN_instance>_DEVICE_ID value from
+*                xparameters.h.
 * @endif
 *
 * @return
-*		-XST_SUCCESS to indicate success
-*		-XST_FAILURE to indicate failure
+*                -XST_SUCCESS to indicate success
+*                -XST_FAILURE to indicate failure.
 *
-* @note		In XSCT/classic flow, DeviceId is used to look up the device
-*               configuration.
+* @note          In XSCT/classic flow, DeviceId is used to look up the device
+*                configuration.
 *
 *****************************************************************************/
 #ifndef SDT
@@ -263,15 +265,9 @@ int XTrafGenStaticModeExample(XTrafGen *InstancePtr, UINTPTR BaseAddress)
 
 #ifdef XPAR_UARTNS550_0_BASEADDR
 /*****************************************************************************/
-/*
+/**
 *
-* Uart16550 setup routine, need to set baudrate to 9600 and data bits to 8
-*
-* @param        None
-*
-* @return       None
-*
-* @note         None.
+* @brief Sets up the UART16550 with a baud rate of 9600 and 8 data bits.
 *
 ******************************************************************************/
 static void Uart550_Setup(void)

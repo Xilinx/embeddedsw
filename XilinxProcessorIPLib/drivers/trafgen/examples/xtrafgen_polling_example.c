@@ -8,6 +8,7 @@
 /**
  *
  * @file xtrafgen_polling_example.c
+ * @brief Demonstrates polling-mode use of the xtrafgen driver.
  *
  * This file demonstrates how to use the xtrafgen driver on the Xilinx AXI
  * Traffic Generator core. The AXI Traffic Generator IP is designed to 
@@ -18,10 +19,10 @@
  * loaded into COMMAND and PARAMETER RAMs.
  *
  * This example demonstrates by programming known data to Master RAM and
- * commands to Command and Param RAM. Initiating the master logic will take 
- * the data from Master RAM (from a location) and generate data for slave 
- * transactions which will be stored in Master RAM at a different location
- * specified by commands. The test passes when the master logic completes and  
+ * commands to Command and Param RAM. Initiating the master logic takes
+ * the data from Master RAM (from a location) and generates data for slave
+ * transactions that are stored in Master RAM at a different location
+ * specified by commands. The test passes when the master logic completes and
  * verifies for data to be same.
  *
  * <pre>
@@ -38,6 +39,7 @@
  *                     proper documentation while generating doxygen.
  * 4.9  vlt  12/18/25 Update Doxygen comments to include SDT flow details.
  * 4.10 vn   07/30/26 Fix Doxygen warnings
+ * 4.10 vn   09/29/26 Align Doxygen comments with AMD standards
  * </pre>
  *
  * ***************************************************************************
@@ -57,33 +59,38 @@
 /***************** Macros (Inline Functions) Definitions *********************/
 
 #ifndef SDT
-#define TRAFGEN_DEV_ID	XPAR_XTRAFGEN_0_DEVICE_ID
+#define TRAFGEN_DEV_ID	XPAR_XTRAFGEN_0_DEVICE_ID /**< Device ID. */
 #endif
 
 #ifdef XPAR_V6DDR_0_S_AXI_BASEADDR
-#define DDR_BASE_ADDR	XPAR_V6DDR_0_S_AXI_BASEADDR
+#define DDR_BASE_ADDR	XPAR_V6DDR_0_S_AXI_BASEADDR /**< DDR base address. */
 #elif XPAR_S6DDR_0_S0_AXI_BASEADDR
-#define DDR_BASE_ADDR	XPAR_S6DDR_0_S0_AXI_BASEADDR
+#define DDR_BASE_ADDR	XPAR_S6DDR_0_S0_AXI_BASEADDR /**< DDR base address. */
 #elif XPAR_AXI_7SDDR_0_S_AXI_BASEADDR
+/** DDR base address. */
 #define DDR_BASE_ADDR	XPAR_AXI_7SDDR_0_S_AXI_BASEADDR
 #elif XPAR_MIG_7SERIES_1_BASEADDR
-#define DDR_BASE_ADDR XPAR_MIG_7SERIES_1_BASEADDR
+#define DDR_BASE_ADDR XPAR_MIG_7SERIES_1_BASEADDR /**< DDR base address. */
 #elif XPAR_MIG7SERIES_0_BASEADDR
-#define DDR_BASE_ADDR XPAR_MIG7SERIES_0_BASEADDR
+#define DDR_BASE_ADDR XPAR_MIG7SERIES_0_BASEADDR /**< DDR base address. */
 #elif XPAR_MIG_0_BASEADDRESS
-#define DDR_BASE_ADDR XPAR_MIG_0_BASEADDRESS
+#define DDR_BASE_ADDR XPAR_MIG_0_BASEADDRESS /**< DDR base address. */
 #endif
 
 #ifndef DDR_BASE_ADDR
 #warning CHECK FOR THE VALID DDR ADDRESS IN XPARAMETERS.H, \
                         DEFAULT SET TO 0x01000000
+/** Base address of the memory used by the example. */
 #define MEM_BASE_ADDR	0x01000000
 #else
+/** Base address of the memory used by the example. */
 #define MEM_BASE_ADDR	(DDR_BASE_ADDR + 0x1000000)
 #endif
 
+/** AXI address used in the commands. */
 #define AXI_ADDRESS		MEM_BASE_ADDR
-#define TEST_LENGTH		0x8
+#define TEST_LENGTH		0x8 /**< Number of words in the test data. */
+/** Master RAM index used in the commands. */
 #define MSTRRAM_INDEX	(TEST_LENGTH) * 4
 
 #undef DEBUG
@@ -103,10 +110,10 @@ static void Uart550_Setup(void);
 /*
  * Device instance definitions
  */
-XTrafGen XTrafGenInstance;
+XTrafGen XTrafGenInstance; /**< Instance of the Traffic Generator. */
 
-/*
- * Test Data to write into Master RAM
+/**
+ * Test Data to write into Master RAM.
  */
 u32 MasterRamData[TEST_LENGTH] = {0x00000000,
 				0x11111111,
@@ -117,23 +124,20 @@ u32 MasterRamData[TEST_LENGTH] = {0x00000000,
 				0x66666666,
 				0x77777777,
 			};
-/*
- * Data read from Master RAM
+/**
+ * Data read from Master RAM.
  */
 u32 VerifyRamData[TEST_LENGTH];
 
 /*****************************************************************************/
 /**
+* @brief Runs the traffic generator polling example test.
 *
-* Main function
-*
-* This function is the main entry of the traffic generator test. 
+* This function is the main entry of the traffic generator test.
 *
 * @return
-*				- XST_SUCCESS if tests pass
-*               - XST_FAILURE if fails.
-*
-* @note         None.
+*              - XST_SUCCESS if tests pass.
+*              - XST_FAILURE if fails.
 *
 ******************************************************************************/
 int main()
@@ -161,36 +165,36 @@ int main()
 
 /*****************************************************************************/
 /**
+* @brief Demonstrates the usage of the Traffic Generator in polling mode.
 *
-* This function demonstrates the usage Traffic Generator
 * It does the following:
 *       - Set up the output terminal if UART16550 is in the hardware build
 *       - Initialize the AXI Traffic Generator device
-*	- Initialize Master RAM
+*       - Initialize Master RAM
 *       - Initialize commands and add them to list
 *       - Program internal command and parameter RAMs
-*	- Start Master Logic
+*       - Start Master Logic
 *       - Wait for the master logic to finish
 *       - Check for errors
 *       - Read Master RAM and verify data
 *       - Return test status and exit
 *
-* @param	InstancePtr is a pointer to the instance of the
-*			XTrafGen component.
+* @param[in,out] InstancePtr Pointer to the instance of the
+*                XTrafGen component.
 * @if SDT
-* @param	BaseAddress contains the base address of the device
+* @param[in]     BaseAddress Base address of the device.
 * @else
-* @param	DeviceId is Device ID of the Axi Traffic Generator Device,
-*			typically XPAR_<TRAFGEN_instance>_DEVICE_ID value from
-*			xparameters.h.
+* @param[in]     DeviceId Device ID of the Axi Traffic Generator Device,
+*                typically XPAR_<TRAFGEN_instance>_DEVICE_ID value from
+*                xparameters.h.
 * @endif
 *
 * @return
-*			-XST_SUCCESS to indicate success
-*			-XST_FAILURE to indicate failure
+*                -XST_SUCCESS to indicate success
+*                -XST_FAILURE to indicate failure.
 *
-* @note	       In XSCT/classic flow, DeviceId is used to look up the device
-*              configuration.
+* @note          In XSCT/classic flow, DeviceId is used to look up the device
+*                configuration.
 *
 ******************************************************************************/
 #ifndef SDT
@@ -371,15 +375,9 @@ int XTrafGenPollingExample(XTrafGen *InstancePtr, UINTPTR BaseAddress)
 
 #ifdef XPAR_UARTNS550_0_BASEADDR
 /*****************************************************************************/
-/*
+/**
 *
-* Uart16550 setup routine, need to set baudrate to 9600 and data bits to 8
-*
-* @param        None
-*
-* @return       None
-*
-* @note         None.
+* @brief Sets up the UART16550 with a baud rate of 9600 and 8 data bits.
 *
 ******************************************************************************/
 static void Uart550_Setup(void)
@@ -394,15 +392,11 @@ static void Uart550_Setup(void)
 #endif
 
 /*****************************************************************************/
-/*
+/**
 *
-* Initialize default command fields
+* @brief Initializes the default command fields.
 *
-* @param        XTrafGen_Cmd is a pointer to command structure
-*
-* @return       None.
-*
-* @note         None.
+* @param[out]  CmdPtr Pointer to command structure.
 *
 ******************************************************************************/
 void InitDefaultCommands(XTrafGen_Cmd *CmdPtr)

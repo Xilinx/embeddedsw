@@ -6,15 +6,12 @@
 
 /*****************************************************************************/
 /**
-*
 * @file xtrafgen.c
-* @addtogroup trafgen Overview
-* @{
+* @brief Implements the AXI Traffic Generator initialization and control.
 *
 * This file implements AXI Traffic Generator device-wise initialization and
 * control functions.
 * For more information on the implementation of this driver, see xtrafgen.h.
-*
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -25,8 +22,14 @@
 * 1.01a adk  03/09/13 Updated driver to Support Static and Streaming mode.
 * 2.00a adk  16/09/13 Fixed CR:737291
 * 4.10  vn   07/30/26 Fix Doxygen warnings
+* 4.10  vn   09/29/26 Align Doxygen comments with AMD standards
 * </pre>
+*
 ******************************************************************************/
+
+/** @addtogroup trafgen Overview
+ * @{
+ */
 
 /***************************** Include Files *********************************/
 
@@ -40,16 +43,16 @@
 
 /*****************************************************************************/
 /**
-* Get Command Info pointer
+* @brief Returns a pointer to the Command Info structure.
 *
-* @param        InstancePtr is a pointer to the Axi TrafGen instance to be
-*               worked on.
+* @param[in]   InstancePtr Pointer to the Axi TrafGen instance to be
+*              worked on.
 *
-* @return       Pointer to the Command Info structure
+* @return      Pointer to the Command Info structure.
 *
-* @note         C-style signature:
-*               XTrafGen_CmdInfo *XTrafGen_GetCmdInfo(XTrafGen
-*				*InstancePtr)
+* @note        C-style signature:
+*              XTrafGen_CmdInfo *XTrafGen_GetCmdInfo(XTrafGen
+*                              *InstancePtr)
 *
 *****************************************************************************/
 #define XTrafGen_GetCmdInfo(InstancePtr) \
@@ -67,28 +70,29 @@ static int XTrafGen_ProgramParamRam(XTrafGen *InstancePtr, u8 RdWrFlag);
 
 /*****************************************************************************/
 /**
- * This function initializes a AXI Traffic Generator device.  This function
- * must be called prior to using a AXI Traffic Generator Device.  Initializing
- * a engine includes setting up the register base address, setting up the
+ * @brief Initializes an AXI Traffic Generator device.
+ *
+ * Call this function before using an AXI Traffic Generator device. Initializing
+ * an engine includes setting up the register base address, setting up the
  * instance data, and ensuring the hardware is in a quiescent state.
  *
- * @param       InstancePtr is a pointer to the Axi Traffic Generator instance
+ * @param[out]  InstancePtr Pointer to the Axi Traffic Generator instance
  *              to be worked on.
- * @param	Config references the structure holding the hardware
- *		configuration for the Axi Traffic Generator core to initialize.
- * @param 	EffectiveAddress is the device base address in the virtual memory
- *		address	space. The caller is responsible for keeping the
- *		address mapping from EffectiveAddr to the device physical base
- *		address unchanged once this function is invoked. Unexpected
- *		errors may occur if the address mapping changes after this
- *		function is called. If address translation is not used,
- *		use Config->BaseAddress for this parameters, passing the
- *		physical address instead.
+ * @param[in]   Config Structure holding the hardware
+ *              configuration for the Axi Traffic Generator core to initialize.
+ * @param[in]   EffectiveAddress Device base address in the virtual
+ *              memory address space. The caller is responsible for keeping the
+ *              address mapping from EffectiveAddr to the device physical base
+ *              address unchanged once this function is invoked. Unexpected
+ *              errors may occur if the address mapping changes after this
+ *              function is called. If address translation is not used,
+ *              use Config->BaseAddress for this parameters, passing the
+ *              physical address instead.
  *
  * @return
- *              - XST_SUCCESS for successful initialization
+ *              - XST_SUCCESS for successful initialization.
  *              - XST_INVALID_PARAM if pointer to the configuration structure
- *              is NULL
+ *              is NULL.
  *
  *****************************************************************************/
 int XTrafGen_CfgInitialize(XTrafGen *InstancePtr,
@@ -171,22 +175,22 @@ int XTrafGen_CfgInitialize(XTrafGen *InstancePtr,
 
 /*****************************************************************************/
 /**
-* Add a command to the software list of commands.
+* @brief Adds a command to the software list of commands.
 *
-* This function prepares the four Command Words and one Parameter Word from
-* the Command structure passed from the user application.  It then adds to a
-* list of commands (maintained in the software). Both CMDRAM and PARAMRAM are
-* divided into two regions, one for reads and one for writes. Each region can
-* hold 256 commands with each entry containing four Command RAM words and one
+* Prepares the four Command Words and one Parameter Word from the Command
+* structure passed by the user application, then adds them to a list of
+* commands maintained in software. Both CMDRAM and PARAMRAM are divided into
+* two regions, one for reads and one for writes. Each region can hold 256
+* commands, with each entry containing four Command RAM words and one
 * Parameter RAM word.
 *
-* @param        InstancePtr is a pointer to the Axi TrafGen instance to be
-*               worked on.
-* @param	CmdPtr is a pointer to Command structure.
+* @param[in,out] InstancePtr Pointer to the Axi TrafGen instance to be
+*                worked on.
+* @param[in]     CmdPtr Pointer to Command structure.
 *
 * @return
-*		- XST_SUCCESS if successful
-*		- XST_FAILURE if reached max number of command entries
+*                - XST_SUCCESS if successful.
+*                - XST_FAILURE if reached max number of command entries.
 *
 *****************************************************************************/
 int XTrafGen_AddCommand(XTrafGen *InstancePtr, XTrafGen_Cmd *CmdPtr)
@@ -242,17 +246,16 @@ int XTrafGen_AddCommand(XTrafGen *InstancePtr, XTrafGen_Cmd *CmdPtr)
 
 /*****************************************************************************/
 /**
-* Get last Valid Command Index of Write/Read region
+* @brief Returns the last valid command index of the write or read region.
 *
 * The last valid command index is used to set 'my_depend' and 'other_depend'
 * fields of the Command RAM (Word 2).
-
-* @param        InstancePtr is a pointer to the Axi TrafGen instance to be
-*               worked on.
-* @param	RdWrFlag specifies a Read or Write Region
 *
-* @return
-*		- Last Valid Command Index
+* @param[in]   InstancePtr Pointer to the Axi TrafGen instance to be
+*              worked on.
+* @param[in]   RdWrFlag Read or Write Region.
+*
+* @return      Last Valid Command Index.
 *
 *****************************************************************************/
 int XTrafGen_GetLastValidIndex(XTrafGen *InstancePtr, u32 RdWrFlag)
@@ -276,16 +279,16 @@ int XTrafGen_GetLastValidIndex(XTrafGen *InstancePtr, u32 RdWrFlag)
 
 /*****************************************************************************/
 /**
-* Write Commands to internal Command and Parameter RAMs
+* @brief Writes commands to the internal Command and Parameter RAMs.
 *
-* This function writes all the prepared commands to hardware.
-
-* @param        InstancePtr is a pointer to the Axi TrafGen instance to be
-*               worked on.
+* Writes all the prepared commands to hardware.
+*
+* @param[in]   InstancePtr Pointer to the Axi TrafGen instance to be
+*              worked on.
 *
 * @return
-*		- XST_SUCCESS if successful
-*	        - XST_FAILURE if programming internal RAMs failed
+*              - XST_SUCCESS if successful.
+*              - XST_FAILURE if programming internal RAMs failed.
 *
 *****************************************************************************/
 int XTrafGen_WriteCmdsToHw(XTrafGen *InstancePtr)
@@ -313,17 +316,17 @@ int XTrafGen_WriteCmdsToHw(XTrafGen *InstancePtr)
 
 /*****************************************************************************/
 /**
-* Erase all Command Entry values
+* @brief Erases all command entry values.
 *
-* This function erases all the 256 entries of both write and read regions with
-* each entry containing four command words and parameter word.
+* Erases all 256 entries of both write and read regions, with each entry
+* containing four command words and one parameter word.
 *
-* @param        InstancePtr is a pointer to the Axi TrafGen instance to be
-*               worked on.
+* @param[in,out] InstancePtr Pointer to the Axi TrafGen instance to be
+*                worked on.
 *
 * @return
-*		- XST_SUCCESS if successful
-*	        - XST_FAILURE if programming internal RAMs failed
+*                - XST_SUCCESS if successful.
+*                - XST_FAILURE if programming internal RAMs failed.
 *
 *****************************************************************************/
 int XTrafGen_EraseAllCommands(XTrafGen *InstancePtr)
@@ -362,19 +365,19 @@ int XTrafGen_EraseAllCommands(XTrafGen *InstancePtr)
 
 /*****************************************************************************/
 /**
-* Write or Read Master RAM
+* @brief Writes or reads the Master RAM.
 *
 * The MSTRAM has 8 KB of internal RAM used for the following:
 * - Take data from this RAM for write transactions
 * - Store data to this RAM for read transaction
 *
-* @param        InstancePtr is a pointer to the Axi TrafGen instance to be
-*               worked on.
-* @param	Offset is the offset value in Master RAM.
-* @param	Length is the size of data to write/read.
-* @param	RdWrFlag specifies whether to write or read
-* @param 	Data is the pointer to array which contains data to write or
-*		reads data into.
+* @param[in]     InstancePtr Pointer to the Axi TrafGen instance to be
+*                worked on.
+* @param[in]     Offset Offset value in Master RAM.
+* @param[in]     Length Size of data to write/read.
+* @param[in]     RdWrFlag Specifies whether to write or read.
+* @param[in,out] Data Pointer to the array which contains data to write
+*                or into which data is read.
 *
 *****************************************************************************/
 void XTrafGen_AccessMasterRam(XTrafGen *InstancePtr, u32 Offset,
@@ -405,17 +408,17 @@ void XTrafGen_AccessMasterRam(XTrafGen *InstancePtr, u32 Offset,
 
 /*****************************************************************************/
 /**
-* Prepares all the four Command RAM Words
+* @brief Prepares all four Command RAM words.
 *
 * The CMDRAM is divided into two 4 KB regions, one for reads and one for
-* writes. Each region of CMDRAM can hold 256 commands each of 128 bits i.e.
-* Four command words each of size 32 bits. This function prepares these
-* command words from the user specified configuration.
+* writes. Each region of CMDRAM can hold 256 commands each of 128 bits, that
+* is, four command words each of size 32 bits. Prepares these command words
+* from the user-specified configuration.
 *
-* @param        InstancePtr is a pointer to the Axi TrafGen instance to be
-*               worked on.
-* @param	CmdPtr is a pointer to Command structure.
-* @param	CmdWords is a pointer to an array of four command words.
+* @param[in]   InstancePtr Pointer to the Axi TrafGen instance to be
+*              worked on.
+* @param[in]   CmdPtr Pointer to Command structure.
+* @param[out]  CmdWords Pointer to an array of four command words.
 *
 *****************************************************************************/
 static void XTrafGen_PrepCmdWords(XTrafGen *InstancePtr,
@@ -472,16 +475,16 @@ static void XTrafGen_PrepCmdWords(XTrafGen *InstancePtr,
 
 /*****************************************************************************/
 /**
-* Prepares Parameter RAM Word
+* @brief Prepares the Parameter RAM word.
 *
 * The PARAMRAM extends the command programmability provided through command
-* RAM, by adding extra 32 bits to the decode of each command. This function
-* prepares this 32 bit Parameter RAM word.
+* RAM by adding extra 32 bits to the decode of each command. Prepares this
+* 32-bit Parameter RAM word.
 *
-* @param        InstancePtr is a pointer to the Axi TrafGen instance to be
-*               worked on.
-* @param	CmdPtr is a pointer to Command structure.
-* @param	ParamWord is a pointer to an value of Parameter RAM word.
+* @param[in]   InstancePtr Pointer to the Axi TrafGen instance to be
+*              worked on.
+* @param[in]   CmdPtr Pointer to Command structure.
+* @param[out]  ParamWord Pointer to the value of the Parameter RAM word.
 *
 *****************************************************************************/
 static void XTrafGen_PrepParamWord(XTrafGen *InstancePtr,
@@ -529,18 +532,18 @@ static void XTrafGen_PrepParamWord(XTrafGen *InstancePtr,
 
 /*****************************************************************************/
 /**
-* Program Command RAM
+* @brief Programs the Command RAM.
 *
-* This function write the list of Command Words prepared by using
-* *_AddCommand() to Command RAM till the last command entry added.
-
-* @param        InstancePtr is a pointer to the Axi TrafGen instance to be
-*               worked on.
-* @param	RdWrFlag specifies Read or Write Region
+* Writes the list of Command Words prepared by using *_AddCommand() to the
+* Command RAM up to the last command entry added.
+*
+* @param[in]   InstancePtr Pointer to the Axi TrafGen instance to be
+*              worked on.
+* @param[in]   RdWrFlag Read or Write Region.
 *
 * @return
-*		- XST_SUCCESS if successful
-*		- XST_FAILURE if no valid commands present
+*              - XST_SUCCESS if successful.
+*              - XST_FAILURE if no valid commands present.
 *
 *****************************************************************************/
 static int XTrafGen_ProgramCmdRam(XTrafGen *InstancePtr, u8 RdWrFlag)
@@ -596,18 +599,18 @@ static int XTrafGen_ProgramCmdRam(XTrafGen *InstancePtr, u8 RdWrFlag)
 
 /*****************************************************************************/
 /**
-* Program Parameter RAM
+* @brief Programs the Parameter RAM.
 *
-* This function write the list of Parameter Words prepared by using
-* *_AddCommand() to Parameter RAM till the last command entry added.
-
-* @param        InstancePtr is a pointer to the Axi TrafGen instance to be
-*               worked on.
-* @param	RdWrFlag specifies Read or Write Region
+* Writes the list of Parameter Words prepared by using *_AddCommand() to the
+* Parameter RAM up to the last command entry added.
+*
+* @param[in]   InstancePtr Pointer to the Axi TrafGen instance to be
+*              worked on.
+* @param[in]   RdWrFlag Read or Write Region.
 *
 * @return
-*		- XST_SUCCESS if successful
-*		- XST_FAILURE if no valid commands present
+*              - XST_SUCCESS if successful.
+*              - XST_FAILURE if no valid commands present.
 *
 *****************************************************************************/
 static int XTrafGen_ProgramParamRam(XTrafGen *InstancePtr, u8 RdWrFlag)
@@ -652,13 +655,13 @@ static int XTrafGen_ProgramParamRam(XTrafGen *InstancePtr, u8 RdWrFlag)
 
 /*****************************************************************************/
 /**
-* Display Command Entry values
+* @brief Displays the command entry values.
 *
-* This function prints all the 256 entries of both write and read regions with
-* each entry containing four command words and parameter word.
+* Prints all 256 entries of both write and read regions, with each entry
+* containing four command words and one parameter word.
 *
-* @param        InstancePtr is a pointer to the Axi TrafGen instance to be
-*               worked on.
+* @param[in]   InstancePtr Pointer to the Axi TrafGen instance to be
+*              worked on.
 *
 *****************************************************************************/
 void XTrafGen_PrintCmds(XTrafGen *InstancePtr)

@@ -8,6 +8,7 @@
 /**
  *
  * @file xtrafgen_master_streaming_example.c
+ * @brief Demonstrates master-only streaming-mode use of the xtrafgen driver.
  *
  * This file demonstrates how to use the xtrafgen driver on the Xilinx AXI
  * Traffic Generator core. The AXI Traffic Generator IP is designed to 
@@ -15,8 +16,9 @@
  * interconnect connected in the system. 
  *
  * This example demonstrates how to use Streaming mode in Axi Traffic Generator
- * When Configured in Master only mode.In this mode the core generates Streaming 
- * Traffic based on the transfer length and transfer count configured.
+ * When Configured in Master only mode. In this mode the core generates
+ * Streaming Traffic based on the transfer length and transfer count
+ * configured.
  * To test this example hardware Must contain a Streaming FIFO and the 
  * Connections To Axi TrafficGen needs to made As shown below
  *                                    ________________
@@ -47,6 +49,7 @@
  * 4.9 vlt  12/18/25 Update Doxygen comments to include SDT flow details.
  *     vlt  01/27/26 Fixed codespell issues.
  * 4.10 vn  07/30/26 Fix Doxygen warnings
+ * 4.10 vn  09/29/26 Align Doxygen comments with AMD standards
  * </pre>
  *
  * ***************************************************************************
@@ -70,30 +73,34 @@
 /***************** Macros (Inline Functions) Definitions *********************/
 
 #ifndef SDT
-#define TRAFGEN_DEV_ID	XPAR_AXI_TRAFFIC_GEN_2_DEVICE_ID
+#define TRAFGEN_DEV_ID	XPAR_AXI_TRAFFIC_GEN_2_DEVICE_ID /**< Device ID. */
 #endif
 
 #ifdef XPAR_V6DDR_0_S_AXI_BASEADDR
-#define DDR_BASE_ADDR	XPAR_V6DDR_0_S_AXI_BASEADDR
+#define DDR_BASE_ADDR	XPAR_V6DDR_0_S_AXI_BASEADDR /**< DDR base address. */
 #elif XPAR_S6DDR_0_S0_AXI_BASEADDR
-#define DDR_BASE_ADDR	XPAR_S6DDR_0_S0_AXI_BASEADDR
+#define DDR_BASE_ADDR	XPAR_S6DDR_0_S0_AXI_BASEADDR /**< DDR base address. */
 #elif XPAR_AXI_7SDDR_0_S_AXI_BASEADDR
+/** DDR base address. */
 #define DDR_BASE_ADDR	XPAR_AXI_7SDDR_0_S_AXI_BASEADDR
 #elif XPAR_MIG7SERIES_0_BASEADDR
-#define DDR_BASE_ADDR XPAR_MIG_1_BASEADDR
+#define DDR_BASE_ADDR XPAR_MIG_1_BASEADDR /**< DDR base address. */
 #elif XPAR_MIG_0_BASEADDRESS
-#define DDR_BASE_ADDR XPAR_MIG_0_BASEADDRESS
+#define DDR_BASE_ADDR XPAR_MIG_0_BASEADDRESS /**< DDR base address. */
 #endif
 
 #ifndef DDR_BASE_ADDR
 #warning CHECK FOR THE VALID DDR ADDRESS IN XPARAMETERS.H, \
                         DEFAULT SET TO 0x01000000
+/** Base address of the memory used by the example. */
 #define MEM_BASE_ADDR	0x01000000
 #else
+/** Base address of the memory used by the example. */
 #define MEM_BASE_ADDR	(DDR_BASE_ADDR + 0x1000000)
 #endif
 
-#define BURST_LEN	255
+#define BURST_LEN	255 /**< Burst length. */
+/** Base address of the AXI-Stream FIFO. */
 #define STR_FIFO0_ADDR   XPAR_AXI_FIFO_0_BASEADDR
 #undef DEBUG
 
@@ -111,22 +118,19 @@ static void Uart550_Setup(void);
 /*
  * Device instance definitions
  */
-XTrafGen XTrafGenInstance;
-XLlFifo  XLlFifoInstance;
+XTrafGen XTrafGenInstance; /**< Instance of the Traffic Generator. */
+XLlFifo  XLlFifoInstance; /**< Instance of the AXI-Stream FIFO. */
 
 
 /*****************************************************************************/
 /**
+* @brief Runs the traffic generator streaming example test.
 *
-* Main function
-*
-* This function is the main entry of the traffic generator test. 
+* This function is the main entry of the traffic generator test.
 *
 * @return
-*				- XST_SUCCESS if tests pass
-*               - XST_FAILURE if fails.
-*
-* @note         None.
+*              - XST_SUCCESS if tests pass.
+*              - XST_FAILURE if fails.
 *
 ******************************************************************************/
 int main()
@@ -156,33 +160,33 @@ int main()
 
 /*****************************************************************************/
 /**
+* @brief Demonstrates the usage of the Traffic Generator in streaming mode.
 *
-* This function demonstrates the usage Traffic Generator
 * It does the following:
 *       - Set up the output terminal if UART16550 is in the hardware build
 *       - Initialize the AXI Traffic Generator device
 *       - Initialize the Streaming FIFO device
-*	- Set the Desired Transfer Count and Transfer Length
-*	- Enable the Traffic Generation on the Core
-*	- Check for the Streaming data on the FIFO 
+*       - Set the Desired Transfer Count and Transfer Length
+*       - Enable the Traffic Generation on the Core
+*       - Check for the Streaming data on the FIFO
 *       - Return test status and exit
 *
-* @param	InstancePtr is a pointer to the instance of the
-*			XTrafGen component.
+* @param[in,out] InstancePtr Pointer to the instance of the
+*                XTrafGen component.
 * @if SDT
-* @param	BaseAddress contains the base address of the device
+* @param[in]     BaseAddress Base address of the device.
 * @else
-* @param	DeviceId is Device ID of the Axi Traffic Generator Device,
-*			typically XPAR_<TRAFGEN_instance>_DEVICE_ID value from
-*			xparameters.h.
+* @param[in]     DeviceId Device ID of the Axi Traffic Generator Device,
+*                typically XPAR_<TRAFGEN_instance>_DEVICE_ID value from
+*                xparameters.h.
 * @endif
 *
 * @return
-*			-XST_SUCCESS to indicate success
-*			-XST_FAILURE to indicate failure
+*                -XST_SUCCESS to indicate success
+*                -XST_FAILURE to indicate failure.
 *
-* @note	       In XSCT/classic flow, DeviceId is used to look up the device
-*              configuration.
+* @note          In XSCT/classic flow, DeviceId is used to look up the device
+*                configuration.
 *
 *****************************************************************************/
 #ifndef SDT
@@ -308,15 +312,9 @@ int XTrafGenStremingModeMasterExample(XTrafGen *InstancePtr, UINTPTR BaseAddress
 
 #ifdef XPAR_UARTNS550_0_BASEADDR
 /*****************************************************************************/
-/*
+/**
 *
-* Uart16550 setup routine, need to set baudrate to 9600 and data bits to 8
-*
-* @param        None
-*
-* @return       None
-*
-* @note         None.
+* @brief Sets up the UART16550 with a baud rate of 9600 and 8 data bits.
 *
 ******************************************************************************/
 static void Uart550_Setup(void)

@@ -8,6 +8,7 @@
 /**
  *
  * @file xtrafgen_interrupt_example.c
+ * @brief Demonstrates interrupt-mode use of the xtrafgen driver.
  *
  * This file demonstrates how to use the xtrafgen driver on the Xilinx AXI
  * Traffic Generator core. The AXI Traffic Generator IP is designed to 
@@ -18,9 +19,9 @@
  * loaded into COMMAND and PARAMETER RAMs.
  *
  * This example demonstrates by programming known data to Master RAM and
- * commands to Command and Param RAM. Initiating the master logic will take 
- * the data from Master RAM (from a location) and generate data for slave 
- * transactions which will be stored in Master RAM at a different location
+ * commands to Command and Param RAM. Initiating the master logic takes
+ * the data from Master RAM (from a location) and generates data for slave
+ * transactions that are stored in Master RAM at a different location
  * specified by commands. The test passes when the master logic interrupt
  * asserts and verifies for data to be same.
  *
@@ -40,6 +41,7 @@
  * 4.7   ar   03/07/24 Fix the interrupt ID sequence in the SDT flow.
  * 4.9  vlt  12/18/25 Update Doxygen comments to include SDT flow details.
  * 4.10 vn   07/30/26 Fix Doxygen warnings
+ * 4.10 vn   09/29/26 Align Doxygen comments with AMD standards
  * </pre>
  *
  * ***************************************************************************
@@ -70,54 +72,64 @@
 /***************** Macros (Inline Functions) Definitions *********************/
 
 #ifndef SDT
-#define TRAFGEN_DEV_ID	XPAR_XTRAFGEN_0_DEVICE_ID
+#define TRAFGEN_DEV_ID	XPAR_XTRAFGEN_0_DEVICE_ID /**< Device ID. */
 #endif
 
 #ifdef XPAR_V6DDR_0_S_AXI_BASEADDR
-#define DDR_BASE_ADDR	XPAR_V6DDR_0_S_AXI_BASEADDR
+#define DDR_BASE_ADDR	XPAR_V6DDR_0_S_AXI_BASEADDR /**< DDR base address. */
 #elif XPAR_S6DDR_0_S0_AXI_BASEADDR
-#define DDR_BASE_ADDR	XPAR_S6DDR_0_S0_AXI_BASEADDR
+#define DDR_BASE_ADDR	XPAR_S6DDR_0_S0_AXI_BASEADDR /**< DDR base address. */
 #elif XPAR_AXI_7SDDR_0_S_AXI_BASEADDR
+/** DDR base address. */
 #define DDR_BASE_ADDR	XPAR_AXI_7SDDR_0_S_AXI_BASEADDR
 #elif XPAR_MIG7SERIES_0_BASEADDR
-#define DDR_BASE_ADDR XPAR_MIG7SERIES_0_BASEADDR
+#define DDR_BASE_ADDR XPAR_MIG7SERIES_0_BASEADDR /**< DDR base address. */
 #endif
 
 #ifndef DDR_BASE_ADDR
 #warning CHECK FOR THE VALID DDR ADDRESS IN XPARAMETERS.H, \
                         DEFAULT SET TO 0x01000000
+/** Base address of the memory used by the example. */
 #define MEM_BASE_ADDR	0x01000000
 #else
+/** Base address of the memory used by the example. */
 #define MEM_BASE_ADDR	(DDR_BASE_ADDR + 0x1000000)
 #endif
 
+/** AXI address used in the commands. */
 #define AXI_ADDRESS		MEM_BASE_ADDR
-#define TEST_LENGTH		0x8
+#define TEST_LENGTH		0x8 /**< Number of words in the test data. */
+/** Master RAM index used in the commands. */
 #define MSTRRAM_INDEX	(TEST_LENGTH) * 4
 
 #ifndef SDT
 #ifdef XPAR_INTC_0_DEVICE_ID
+/** Error interrupt ID. */
 #define ERR_INTR_ID              XPAR_INTC_0_TRAFGEN_0_ERR_OUT_VEC_ID
+/** Master Logic Complete interrupt ID. */
 #define CMP_INTR_ID              XPAR_INTC_0_TRAFGEN_0_IRQ_OUT_VEC_ID
 #else
+/** Error interrupt ID. */
 #define ERR_INTR_ID              XPAR_FABRIC_TRAFGEN_0_ERR_OUT_VEC_ID
+/** Master Logic Complete interrupt ID. */
 #define CMP_INTR_ID              XPAR_FABRIC_TRAFGEN_0_IRQ_OUT_VEC_ID
 #endif
 
 #ifdef XPAR_INTC_0_DEVICE_ID
-#define INTC_DEVICE_ID          XPAR_INTC_0_DEVICE_ID
+#define INTC_DEVICE_ID          XPAR_INTC_0_DEVICE_ID /**< INTC device ID. */
 #else
+/** INTC device ID. */
 #define INTC_DEVICE_ID          XPAR_SCUGIC_SINGLE_DEVICE_ID
 #endif
 #endif
 
 #ifndef SDT
 #ifdef XPAR_INTC_0_DEVICE_ID
- #define INTC           XIntc
- #define INTC_HANDLER   XIntc_InterruptHandler
+ #define INTC           XIntc /**< Interrupt controller type. */
+ #define INTC_HANDLER   XIntc_InterruptHandler /**< Interrupt handler. */
 #else
- #define INTC           XScuGic
- #define INTC_HANDLER   XScuGic_InterruptHandler
+ #define INTC           XScuGic /**< Interrupt controller type. */
+ #define INTC_HANDLER   XScuGic_InterruptHandler /**< Interrupt handler. */
 #endif
 #endif
 
@@ -145,7 +157,7 @@ static void ErrIntrHandler(void *Callback);
 /*
  * Device instance definitions
  */
-XTrafGen XTrafGenInstance;
+XTrafGen XTrafGenInstance; /**< Instance of the Traffic Generator. */
 
 /*
  * Instance of the Interrupt Controller
@@ -154,8 +166,8 @@ XTrafGen XTrafGenInstance;
 static INTC Intc;
 #endif
 
-/*
- * Test Data to write into Master RAM
+/**
+ * Test Data to write into Master RAM.
  */
 u32 MasterRamData[TEST_LENGTH] = {0x00000000,
 				0x11111111,
@@ -166,29 +178,27 @@ u32 MasterRamData[TEST_LENGTH] = {0x00000000,
 				0x66666666,
 				0x77777777,
 			};
-/*
- * Data read from Master RAM
+/**
+ * Data read from Master RAM.
  */
 u32 VerifyRamData[TEST_LENGTH];
 
 /*
  * Flags interrupt handlers use to notify the application context the events.
  */
+/** Flag set by the Master Logic Complete interrupt handler. */
 volatile int Done;
-volatile int Error;
+volatile int Error; /**< Flag set by the Error interrupt handler. */
 
 /*****************************************************************************/
 /**
+* @brief Runs the traffic generator interrupt example test.
 *
-* Main function
-*
-* This function is the main entry of the traffic generator test. 
+* This function is the main entry of the traffic generator test.
 *
 * @return
-*		- XST_SUCCESS if tests pass
-* 		- XST_FAILURE if fails.
-*
-* @note		None
+*              - XST_SUCCESS if tests pass.
+*              - XST_FAILURE if fails.
 *
 ******************************************************************************/
 int main()
@@ -216,36 +226,36 @@ int main()
 
 /*****************************************************************************/
 /**
+* @brief Demonstrates the usage of the Traffic Generator in interrupt mode.
 *
-* This function demonstrates the usage Traffic Generator
 * It does the following:
 *       - Set up the output terminal if UART16550 is in the hardware build
 *       - Initialize the AXI Traffic Generator device
-*	- Initialize Master RAM
+*       - Initialize Master RAM
 *       - Initialize commands and add them to list
 *       - Program internal command and parameter RAMs
-*	- Start Master Logic
+*       - Start Master Logic
 *       - Wait for the master logic to finish
 *       - Check for errors
 *       - Read Master RAM and verify data
 *       - Return test status and exit
 *
-* @param	InstancePtr is a pointer to the instance of the
-*		XTrafGen component.
+* @param[in,out] InstancePtr Pointer to the instance of the
+*                XTrafGen component.
 * @if SDT
-* @param	BaseAddress contains the base address of the device
+* @param[in]     BaseAddress Base address of the device.
 * @else
-* @param	DeviceId is Device ID of the Axi Traffic Generator Device,
-*		typically XPAR_<TRAFGEN_instance>_DEVICE_ID value from
-*		xparameters.h.
+* @param[in]     DeviceId Device ID of the Axi Traffic Generator Device,
+*                typically XPAR_<TRAFGEN_instance>_DEVICE_ID value from
+*                xparameters.h.
 * @endif
 *
 * @return
-*		-XST_SUCCESS to indicate success
-*		-XST_FAILURE to indicate failure
+*                -XST_SUCCESS to indicate success
+*                -XST_FAILURE to indicate failure.
 *
-* @note		In XSCT/classic flow, DeviceId is used to look up the device
-*               configuration.
+* @note          In XSCT/classic flow, DeviceId is used to look up the device
+*                configuration.
 *
 *****************************************************************************/
 #ifndef SDT
@@ -451,15 +461,9 @@ int XTrafGenInterruptExample(XTrafGen *InstancePtr, UINTPTR BaseAddress)
 
 #ifdef XPAR_UARTNS550_0_BASEADDR
 /*****************************************************************************/
-/*
+/**
 *
-* Uart16550 setup routine, need to set baudrate to 9600 and data bits to 8
-*
-* @param	None
-*
-* @return	None
-*
-* @note		None
+* @brief Sets up the UART16550 with a baud rate of 9600 and 8 data bits.
 *
 ******************************************************************************/
 static void Uart550_Setup(void)
@@ -474,15 +478,11 @@ static void Uart550_Setup(void)
 #endif
 
 /*****************************************************************************/
-/*
+/**
 *
-* Initialize default command fields
+* @brief Initializes the default command fields.
 *
-* @param	XTrafGen_Cmd is a pointer to command structure
-*
-* @return	XST_SUCCESS if successful
-*
-* @note		None
+* @param[out]  CmdPtr Pointer to command structure.
 *
 ******************************************************************************/
 void InitDefaultCommands(XTrafGen_Cmd *CmdPtr)
@@ -514,17 +514,13 @@ void InitDefaultCommands(XTrafGen_Cmd *CmdPtr)
 }
 
 /*****************************************************************************/
-/*
+/**
 *
-* This is the Master Logic Complete Interrupt handler function.
+* @brief Handles the Master Logic Complete interrupt.
 *
-* This clears the master complete interrupt and set the done flag.
+* Clears the master complete interrupt and sets the done flag.
 *
-* @param	Callback is a pointer to Instance of Traffic Generator device.
-*
-* @return	None
-*
-* @note		None
+* @param[in]   Callback Pointer to Instance of Traffic Generator device.
 *
 ******************************************************************************/
 static void MasterCompleteIntrHandler(void *Callback)
@@ -537,17 +533,13 @@ static void MasterCompleteIntrHandler(void *Callback)
 }
 
 /*****************************************************************************/
-/*
+/**
 *
-* This is the Error Interrupt handler function.
+* @brief Handles the Error interrupt.
 *
-* This clears the errors and set the error flag.
+* Clears the errors and sets the error flag.
 *
-* @param	Callback is a pointer to Instance of Traffic Generator device.
-*
-* @return	None
-*
-* @note		None
+* @param[in]   Callback Pointer to Instance of Traffic Generator device.
 *
 ******************************************************************************/
 static void ErrIntrHandler(void *Callback)
@@ -564,22 +556,22 @@ static void ErrIntrHandler(void *Callback)
 }
 
 /*****************************************************************************/
-/*
+/**
 *
-* This function setups the interrupt system so interrupts can occur for the
-* Traffic Generator, it assumes INTC component exists in the hardware system.
+* @brief Sets up the interrupt system for the Traffic Generator.
 *
-* @param	IntcInstancePtr is a pointer to the instance of the INTC.
-* @param	InstancePtr is a pointer to the instance of the Traffic
-*		Generator Device.
-* @param	CmpIntrId is the Master Complete Interrupt ID.
-* @param	ErrIntrId is the Error Interrupt ID.
+* Sets up the interrupt system so interrupts can occur for the Traffic
+* Generator. It assumes an INTC component exists in the hardware system.
+*
+* @param[in,out] IntcInstancePtr Pointer to the instance of the INTC.
+* @param[in]     InstancePtr Pointer to the instance of the Traffic
+*                Generator Device.
+* @param[in]     CmpIntrId Master Complete Interrupt ID.
+* @param[in]     ErrIntrId Error Interrupt ID.
 *
 * @return
-* 		- XST_SUCCESS if successful,
-* 		- XST_FAILURE if not successful
-*
-* @note		None.
+*                - XST_SUCCESS if successful,.
+*                - XST_FAILURE if not successful.
 *
 ******************************************************************************/
 #ifndef SDT
@@ -681,18 +673,13 @@ static int SetupIntrSystem(INTC * IntcInstancePtr,
 
 /*****************************************************************************/
 /**
+* @brief Disables the interrupts for the Traffic Generator.
 *
-* This function disables the interrupts for Traffic Generator.
-*
-* @param	IntcInstancePtr is the pointer to the INTC component instance
-* @param	CmpIntrId is interrupt ID associated w/ Master logic
-*		compleetion
-* @param	ErrIntrId is interrupt ID associated w/ Master or Slave
-*		errors.
-*
-* @return	None
-*
-* @note		None
+* @param[in]   IntcInstancePtr Pointer to the INTC component instance.
+* @param[in]   CmpIntrId Interrupt ID associated with Master logic
+*              completion.
+* @param[in]   ErrIntrId Interrupt ID associated with Master or Slave
+*              errors.
 *
 ******************************************************************************/
 #ifndef SDT

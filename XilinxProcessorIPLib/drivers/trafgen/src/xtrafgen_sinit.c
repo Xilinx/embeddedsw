@@ -6,10 +6,8 @@
 
 /*****************************************************************************/
 /**
-*
 * @file xtrafgen_sinit.c
-* @addtogroup trafgen Overview
-* @{
+* @brief Implements static initialization for the Axi Traffic Generator driver.
 *
 * This file contains static initialization functionality for Axi Traffic
 * Generator driver.
@@ -21,9 +19,14 @@
 * ----- ---- -------- -------------------------------------------------------
 * 1.00a srt  01/24/13 First release
 * 4.9  vlt  12/18/25 Update Doxygen comments to include SDT flow details.
+* 4.10 vn   09/29/26 Align Doxygen comments with AMD standards
 * </pre>
 *
 ******************************************************************************/
+
+/** @addtogroup trafgen Overview
+ * @{
+ */
 
 /***************************** Include Files *********************************/
 
@@ -35,14 +38,16 @@
 /*****************************************************************************/
 /**
 *
+* @brief Looks up the device configuration by device ID or base address.
+*
 * Looks up the device configuration based on the unique device ID/BaseAddress.
 * The XTrafGen_ConfigTable[] contains the configuration info for each device
 * in the system.
 *
 * @if SDT
-* @param	BaseAddress contains the base address of the device
+* @param[in]   BaseAddress Base address of the device.
 * @else
-* @param	DeviceId contains the unique ID of the device
+* @param[in]   DeviceId Unique ID of the device.
 * @endif
 *
 * @return      A pointer to the configuration found or NULL if the specified

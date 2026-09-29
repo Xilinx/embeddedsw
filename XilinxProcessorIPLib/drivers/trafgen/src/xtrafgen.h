@@ -4,13 +4,16 @@
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
+#ifndef XTRAFGEN_H
+#define XTRAFGEN_H
+
 /*****************************************************************************/
 /**
 *
 * @file xtrafgen.h
 * @addtogroup trafgen Overview
 * @{
-* @details
+* @brief Defines the AXI Traffic Generator driver API and data structures.
 *
 * This file contains the implementation of the AXI Traffic Generator driver.
 * User documentation for the driver functions is contained in this file in the
@@ -64,7 +67,7 @@
 *
 * - XTrafGen_LookupConfig(DeviceId) - Use the divide identifier to find the
 *   static configuration structure defined in xtrafgen_g.c. This is setup
-*   by the tools. For some operating systems the config structure will be
+*   by the tools. For some operating systems the config structure is
 *   initialized by the software and this call is not needed.
 *
 * - XTrafGen_CfgInitialize(InstancePtr, CfgPtr, EffectiveAddr) - Uses a
@@ -186,11 +189,9 @@
 * 4.8   ht   12/01/24 Fixed GCC warnings.
 * 4.9   vlt  12/30/25 Update Doxygen comments to include SDT flow details.
 *       vlt  01/27/25 Fixed codespell issues.
+* 4.10  vn   09/29/26 Align Doxygen comments with AMD standards
 * </pre>
 ******************************************************************************/
-
-#ifndef XTRAFGEN_H          /* prevent circular inclusions */
-#define XTRAFGEN_H          /* by using protection macros */
 
 #ifdef __cplusplus
 extern "C" {
@@ -208,44 +209,60 @@ extern "C" {
 #define MAX_NUM_ENTRIES	256	/**< Number of command entries per region */
 #define NUM_BLOCKS	2	/**< Number of Read and write regions */
 
-/* Direction Flags */
+/** @name Direction Flags
+ *  @{
+ */
 #define XTG_WRITE	1	/**< Write Direction Flag */
 #define XTG_READ	0	/**< Read Direction Flag */
+/** @} */
 
-/* Operating Mode flags */
+/** @name Operating Mode flags
+ *  @{
+ */
 #define XTG_MODE_FULL		0	/**< Full Mode */
 #define XTG_MODE_BASIC		1	/**< Basic Mode */
 #define XTG_MODE_STATIC		2	/**< Static Mode */
 #define XTG_MODE_STREAMING	3	/**< Streaming Mode */
 #define XTG_MODE_SYS_INIT	4	/**< System Init Mode */
+/** @} */
 
-/* Master Width Flags */
+/** @name Master Width Flags
+ *  @{
+ */
 #define XTG_MWIDTH_32	0	/**< Master Width - 32 */
 #define XTG_MWIDTH_64	1	/**< Master Width - 64 */
+/** @} */
 
-/* Slave Width Flags */
+/** @name Slave Width Flags
+ *  @{
+ */
 #define XTG_SWIDTH_32	0	/**< Slave Width - 32 */
 #define XTG_SWIDTH_64	1	/**< Slave Width - 64 */
+/** @} */
 
-/* Internal RAM Sizes */
+/** @name Internal RAM Sizes
+ *  @{
+ */
 #define XTG_PRM_RAM_BLOCK_SIZE	0x400	/**< PARAM Block Size (1KB) */
 #define XTG_CMD_RAM_BLOCK_SIZE	0x1000 	/**< Cmd RAM Block Size (4KB) */
 #define XTG_EXTCMD_RAM_BLOCK_SIZE 0x400	/**< Extended CMDRAM Block Size (1KB) */
 #define XTG_PARAM_RAM_SIZE	0x800	/**< Parameter RAM (2KB) */
 #define XTG_COMMAND_RAM_SIZE	0x2000	/**< Command RAM (8KB) */
 #define XTG_MASTER_RAM_SIZE	0x2000	/**< Master RAM (8KB) */
+/** @} */
 
-/* Interrupt ID Index */
-
+/** @name Interrupt ID Index
+ *  @{
+ */
 #define ERROR_INTRID  0		/**< Error Interrupt Handler */
 #define MASTER_INTRID 1		/**< Master Complete Interrupt Handler */
+/** @} */
 
 
 /************************** Type Definitions *****************************/
 
 /**
- *  Command Ram word fields
- *
+ * @brief Command RAM word fields.
  */
 typedef struct XTrafGen_CRamCmd {
 	UINTPTR Address;		/**< Address Driven to a*_addr line */
@@ -255,7 +272,7 @@ typedef struct XTrafGen_CRamCmd {
 	u32 Id;			/**< Driven to a*_id line */
 	u32 Size;		/**< Driven to a*_size line */
 	u32 Burst;		/**< Driven to a*_burst line */
-	u32 Lock;		/** Driven to a*_lock line */
+	u32 Lock;		/**< Driven to a*_lock line */
 	u32 Length;		/**< Driven to a*_len line  */
 	u32 MyDepend;		/**< My depend command no */
 	u32 OtherDepend;	/**< Other depend Command no */
@@ -267,8 +284,7 @@ typedef struct XTrafGen_CRamCmd {
 } XTrafGen_CRamCmd;
 
 /**
- *  Parameter Ram word fields
- *
+ * @brief Parameter RAM word fields.
  */
 typedef struct XTrafGen_PRamCmd {
 	u32 OpCntl0;		/**< Control field 0 */
@@ -281,10 +297,9 @@ typedef struct XTrafGen_PRamCmd {
 } XTrafGen_PRamCmd;
 
 /**
- *  Command structure exposed to user
+ * @brief Command structure exposed to the user.
  *
- *  This structure should be updated by user with required
- *  configuration
+ * Update this structure with the required configuration.
  */
 typedef struct XTrafGen_Cmd {
 	XTrafGen_CRamCmd CRamCmd; /**< Command RAM struct */
@@ -294,9 +309,9 @@ typedef struct XTrafGen_Cmd {
 } XTrafGen_Cmd;
 
 /**
- * Command Entry structure
+ * @brief Command entry structure.
  *
- * This structure denotes each entry of 256 commands.
+ * Represents each entry of 256 commands.
  */
 typedef struct XTrafGen_CmdEntry {
 	u32 CmdWords[5];	/**< Command Ram words */
@@ -304,9 +319,9 @@ typedef struct XTrafGen_CmdEntry {
 } XTrafGen_CmdEntry;
 
 /**
- * The configuration structure for Traffic Generator device
+ * @brief The configuration structure for the Traffic Generator device.
  *
- * This structure passes the hardware building information to the driver
+ * This structure passes the hardware building information to the driver.
  */
 typedef struct XTrafGen_Config {
 #ifndef SDT
@@ -327,9 +342,9 @@ typedef struct XTrafGen_Config {
 } XTrafGen_Config;
 
 /**
- * Command Information Structure
+ * @brief Command information structure.
  *
- * This structure is maintained by the driver
+ * This structure is maintained by the driver.
  */
 typedef struct XTrafGen_CmdInfo {
 	u32 WrIndex;	/**< Write Region Command Index */
@@ -346,8 +361,9 @@ typedef struct XTrafGen_CmdInfo {
 } XTrafGen_CmdInfo;
 
 /**
- * The XTrafGen driver instance data. An instance must be allocated for
- * each Traffic Generator device in use.
+ * @brief The XTrafGen driver instance data.
+ *
+ * An instance must be allocated for each Traffic Generator device in use.
  */
 typedef struct XTrafGen {
 	XTrafGen_Config Config; /**< Config Structure */
@@ -366,15 +382,15 @@ typedef struct XTrafGen {
 /****************************************************************************/
 /**
 *
-* XTrafGen_ReadCoreRevision reads revision of core.
+* @brief Reads the core revision.
 *
-* @param        InstancePtr is a pointer to the Axi TrafGen instance to be
-*               worked on.
+* @param[in]   InstancePtr Pointer to the Axi TrafGen instance to be
+*              worked on.
 *
-* @return	Core Revision Value
+* @return      Core Revision Value.
 *
-* @note         C-style signature:
-*               u8 XTrafGen_ReadCoreRevision(XTrafGen *InstancePtr)
+* @note        C-style signature:
+*              u8 XTrafGen_ReadCoreRevision(XTrafGen *InstancePtr)
 *
 *****************************************************************************/
 #define XTrafGen_ReadCoreRevision(InstancePtr)	\
@@ -385,15 +401,15 @@ typedef struct XTrafGen {
 /****************************************************************************/
 /**
 *
-* XTrafGen_ReadIdWidth reads M_ID_WIDTH.
+* @brief Reads the master ID width (M_ID_WIDTH).
 *
-* @param        InstancePtr is a pointer to the Axi TrafGen instance to be
-*               worked on.
+* @param[in]   InstancePtr Pointer to the Axi TrafGen instance to be
+*              worked on.
 *
-* @return	Value of M_ID_WIDTH
+* @return      Value of M_ID_WIDTH.
 *
-* @note         C-style signature:
-*               u8 XTrafGen_ReadIdWidth(XTrafGen *InstancePtr)
+* @note        C-style signature:
+*              u8 XTrafGen_ReadIdWidth(XTrafGen *InstancePtr)
 *
 *****************************************************************************/
 #define XTrafGen_ReadIdWidth(InstancePtr)	\
@@ -404,15 +420,13 @@ typedef struct XTrafGen {
 /****************************************************************************/
 /**
 *
-* XTrafGen_StartMasterLogic starts traffic generator master logic.
+* @brief Starts the traffic generator master logic.
 *
-* @param        InstancePtr is a pointer to the Axi TrafGen instance to be
-*               worked on.
+* @param[in]   InstancePtr Pointer to the Axi TrafGen instance to be
+*              worked on.
 *
-* @return	None
-*
-* @note         C-style signature:
-*               void XTrafGen_StartMasterLogic(XTrafGen *InstancePtr)
+* @note        C-style signature:
+*              void XTrafGen_StartMasterLogic(XTrafGen *InstancePtr)
 *
 *****************************************************************************/
 #define XTrafGen_StartMasterLogic(InstancePtr)	\
@@ -424,17 +438,17 @@ typedef struct XTrafGen {
 /****************************************************************************/
 /**
 *
-* XTrafGen_IsMasterLogicDone checks for traffic generator master logic
-* completed bit.
+* @brief Checks the traffic generator master logic completed bit.
 *
-* @param        InstancePtr is a pointer to the Axi TrafGen instance to be
-*               worked on.
+* @param[in]   InstancePtr Pointer to the Axi TrafGen instance to be
+*              worked on.
 *
-* @return	TRUE if master logic completed.
-*		FALSE if master logic not completed.
+* @return
+*              - TRUE if master logic completed.
+*              - FALSE if master logic not completed.
 *
-* @note         C-style signature:
-*               u8 XTrafGen_IsMasterLogicDone(XTrafGen *InstancePtr)
+* @note        C-style signature:
+*              u8 XTrafGen_IsMasterLogicDone(XTrafGen *InstancePtr)
 *
 *****************************************************************************/
 #define XTrafGen_IsMasterLogicDone(InstancePtr)	\
@@ -445,16 +459,16 @@ typedef struct XTrafGen {
 /****************************************************************************/
 /**
 *
-* XTrafGen_LoopEnable loops through the command set created using CMDRAM and
-* PARAMRAM indefinitely in Advanced mode/Basic mode of ATG.
+* @brief Loops through the command set indefinitely in Advanced or Basic mode.
 *
-* @param        InstancePtr is a pointer to the Axi TrafGen instance to be
-*               worked on.
+* Loops through the command set created using CMDRAM and PARAMRAM indefinitely
+* in Advanced mode or Basic mode of ATG.
 *
-* @return	None
+* @param[in]   InstancePtr Pointer to the Axi TrafGen instance to be
+*              worked on.
 *
-* @note         C-style signature:
-*               void XTrafGen_LoopEnable(XTrafGen *InstancePtr)
+* @note        C-style signature:
+*              void XTrafGen_LoopEnable(XTrafGen *InstancePtr)
 *
 *****************************************************************************/
 #define XTrafGen_LoopEnable(InstancePtr)	\
@@ -466,16 +480,16 @@ typedef struct XTrafGen {
 /****************************************************************************/
 /**
 *
-* XTrafGen_LoopDisable Disables the loop bit in Master control regiset in
-* Advanced mode/Basic mode of ATG.
+* @brief Disables the loop bit in the Master Control register.
 *
-* @param        InstancePtr is a pointer to the Axi TrafGen instance to be
-*               worked on.
+* Disables the loop bit in the Master Control register in Advanced mode or
+* Basic mode of ATG.
 *
-* @return	None
+* @param[in]   InstancePtr Pointer to the Axi TrafGen instance to be
+*              worked on.
 *
-* @note         C-style signature:
-*               void XTrafGen_LoopDisable(XTrafGen *InstancePtr)
+* @note        C-style signature:
+*              void XTrafGen_LoopDisable(XTrafGen *InstancePtr)
 *
 *****************************************************************************/
 #define XTrafGen_LoopDisable(InstancePtr)	\
@@ -487,18 +501,18 @@ typedef struct XTrafGen {
 /****************************************************************************/
 /**
 *
-* XTrafGen_WriteSlaveControlReg enables control bits of Slave Control
-* Register. This API will write the value passed from the user.
+* @brief Writes the Slave Control register with the supplied value.
 *
-* @param        InstancePtr is a pointer to the Axi TrafGen instance to be
-*               worked on.
-* @param	Value is the Slave Control Register value to set
+* Enables control bits of the Slave Control register by writing the value
+* passed by the caller.
 *
-* @return	None
+* @param[in]   InstancePtr Pointer to the Axi TrafGen instance to be
+*              worked on.
+* @param[in]   Value Slave Control Register value to set.
 *
-* @note         C-style signature:
-*               void XTrafGen_WriteSlaveControlReg(XTrafGen *InstancePtr,
-*						u32 Value)
+* @note        C-style signature:
+*              void XTrafGen_WriteSlaveControlReg(XTrafGen *InstancePtr,
+*                                              u32 Value)
 *****************************************************************************/
 #define XTrafGen_WriteSlaveControlReg(InstancePtr, Value)	\
 	XTrafGen_WriteReg((InstancePtr)->Config.BaseAddress,	\
@@ -507,16 +521,17 @@ typedef struct XTrafGen {
 /****************************************************************************/
 /**
 *
-* XTrafGen_CheckforMasterComplete checks for master complete.
+* @brief Checks for master complete.
 *
-* @param        InstancePtr is a pointer to the Axi TrafGen instance to be
-*               worked on.
+* @param[in]   InstancePtr Pointer to the Axi TrafGen instance to be
+*              worked on.
 *
-* @return      	TRUE if master complete bit is set.
-*               FALSE if master complete bit is not set.
+* @return
+*              - TRUE if master complete bit is set.
+*              - FALSE if master complete bit is not set.
 *
-* @note         C-style signature:
-*               u8 XTrafGen_CheckforMasterComplete(XTrafGen *InstancePtr)
+* @note        C-style signature:
+*              u8 XTrafGen_CheckforMasterComplete(XTrafGen *InstancePtr)
 *
 *****************************************************************************/
 #define XTrafGen_CheckforMasterComplete(InstancePtr)	\
@@ -526,15 +541,15 @@ typedef struct XTrafGen {
 /****************************************************************************/
 /**
 *
-* XTrafGen_ReadErrors read master and slave errors.
+* @brief Reads the master and slave errors.
 *
-* @param        InstancePtr is a pointer to the Axi TrafGen instance to be
-*               worked on.
+* @param[in]   InstancePtr Pointer to the Axi TrafGen instance to be
+*              worked on.
 *
-* @return	Both Master and Slave error value.
+* @return      Both Master and Slave error value.
 *
-* @note         C-style signature:
-*               u32 XTrafGen_ReadErrors(XTrafGen *InstancePtr)
+* @note        C-style signature:
+*              u32 XTrafGen_ReadErrors(XTrafGen *InstancePtr)
 *
 *****************************************************************************/
 #define XTrafGen_ReadErrors(InstancePtr)	\
@@ -544,15 +559,13 @@ typedef struct XTrafGen {
 /****************************************************************************/
 /**
 *
-* XTrafGen_EnableMasterCmpInterrupt enables Master logic complete bit.
+* @brief Enables the master logic complete bit.
 *
-* @param        InstancePtr is a pointer to the Axi TrafGen instance to be
-*               worked on.
+* @param[in]   InstancePtr Pointer to the Axi TrafGen instance to be
+*              worked on.
 *
-* @return       None.
-*
-* @note         C-style signature:
-*               void XTrafGen_EnableMasterCmpInterrupt(XTrafGen *InstancePtr)
+* @note        C-style signature:
+*              void XTrafGen_EnableMasterCmpInterrupt(XTrafGen *InstancePtr)
 *
 *****************************************************************************/
 #define XTrafGen_EnableMasterCmpInterrupt(InstancePtr)	\
@@ -565,15 +578,13 @@ typedef struct XTrafGen {
 /****************************************************************************/
 /**
 *
-* XTrafGen_ClearMasterCmpInterrupt clear Master logic complete interrupt bit.
+* @brief Clears the master logic complete interrupt bit.
 *
-* @param        InstancePtr is a pointer to the Axi TrafGen instance to be
-*               worked on.
+* @param[in]   InstancePtr Pointer to the Axi TrafGen instance to be
+*              worked on.
 *
-* @return       None.
-*
-* @note         C-style signature:
-*               u8 XTrafGen_ClearMasterCmpInterrupt(XTrafGen *InstancePtr)
+* @note        C-style signature:
+*              u8 XTrafGen_ClearMasterCmpInterrupt(XTrafGen *InstancePtr)
 *
 *****************************************************************************/
 #define XTrafGen_ClearMasterCmpInterrupt(InstancePtr)	\
@@ -586,21 +597,19 @@ typedef struct XTrafGen {
 /****************************************************************************/
 /**
 *
-* XTrafGen_ClearErrors clear errors specified in <i>Mask</i>.
-* The corresponding error for each bit set to 1 in <i>Mask</i>, will be
-* enabled.
+* @brief Clears the errors specified in <i>Mask</i>.
 *
-* @param        InstancePtr is a pointer to the Axi TrafGen instance to be
-*               worked on.
-* @param        Mask contains a bit mask of the errors to clear. The mask
-*               can be formed using a set of bit wise or'd values from the
-*               definitions in xtrafgen_hw.h file.
+* The corresponding error for each bit set to 1 in <i>Mask</i> is enabled.
 *
-* @return       None.
+* @param[in]   InstancePtr Pointer to the Axi TrafGen instance to be
+*              worked on.
+* @param[in]   Mask Bit mask of the errors to clear. The mask
+*              can be formed using a set of bit wise or'd values from the
+*              definitions in xtrafgen_hw.h file.
 *
-* @note         C-style signature:
-*               void XTrafGen_ClearErrors(XTrafGen *InstancePtr,
-*                                               u32 Mask)
+* @note        C-style signature:
+*              void XTrafGen_ClearErrors(XTrafGen *InstancePtr,
+*                                              u32 Mask)
 *
 *****************************************************************************/
 #define XTrafGen_ClearErrors(InstancePtr, Mask)	\
@@ -612,21 +621,19 @@ typedef struct XTrafGen {
 /****************************************************************************/
 /**
 *
-* XTrafGen_EnableErrors enable errors specified in <i>Mask</i>.  The
-* corresponding error for each bit set to 1 in <i>Mask</i>, will be
-* enabled.
+* @brief Enables the errors specified in <i>Mask</i>.
 *
-* @param        InstancePtr is a pointer to the Axi TrafGen instance to be
-*               worked on.
-* @param        Mask contains a bit mask of the errors to enable. The mask
-*               can be formed using a set of bit wise or'd values from the
-*               definitions in xtrafgen_hw.h file.
+* The corresponding error for each bit set to 1 in <i>Mask</i> is enabled.
 *
-* @return       None.
+* @param[in]   InstancePtr Pointer to the Axi TrafGen instance to be
+*              worked on.
+* @param[in]   Mask Bit mask of the errors to enable. The mask
+*              can be formed using a set of bit wise or'd values from the
+*              definitions in xtrafgen_hw.h file.
 *
-* @note         C-style signature:
-*               void XTrafGen_EnableErrors(XTrafGen *InstancePtr,
-*                                               u32 Mask)
+* @note        C-style signature:
+*              void XTrafGen_EnableErrors(XTrafGen *InstancePtr,
+*                                              u32 Mask)
 *
 *****************************************************************************/
 #define XTrafGen_EnableErrors(InstancePtr, Mask)	\
@@ -638,15 +645,13 @@ typedef struct XTrafGen {
 /*****************************************************************************/
 /**
 *
-* XTrafGen_MasterErrIntrEnable enables Global Master error bit.
+* @brief Enables the global master error bit.
 *
-* @param        InstancePtr is a pointer to the Axi TrafGen instance to be
-*               worked on.
+* @param[in]   InstancePtr Pointer to the Axi TrafGen instance to be
+*              worked on.
 *
-* @return	None
-*
-* @note         C-style signature:
-*               void XTrafGen_MasterErrIntrEnable(XTrafGen *InstancePtr)
+* @note        C-style signature:
+*              void XTrafGen_MasterErrIntrEnable(XTrafGen *InstancePtr)
 *
 ******************************************************************************/
 #define XTrafGen_MasterErrIntrEnable(InstancePtr)                     \
@@ -659,15 +664,13 @@ typedef struct XTrafGen {
 /*****************************************************************************/
 /**
 *
-* XTrafGen_MasterErrIntrDisable disables Global Master error bit.
+* @brief Disables the global master error bit.
 *
-* @param        InstancePtr is a pointer to the Axi TrafGen instance to be
-*               worked on.
+* @param[in]   InstancePtr Pointer to the Axi TrafGen instance to be
+*              worked on.
 *
-* @return	None
-*
-* @note         C-style signature:
-*               void XTrafGen_MasterErrIntrDisable(XTrafGen *InstancePtr)
+* @note        C-style signature:
+*              void XTrafGen_MasterErrIntrDisable(XTrafGen *InstancePtr)
 *
 ******************************************************************************/
 #define XTrafGen_MasterErrIntrDisable(InstancePtr)                     \
@@ -680,15 +683,13 @@ typedef struct XTrafGen {
 /*****************************************************************************/
 /**
 *
-* XTrafGen_SlaveErrIntrEnable enables Global Slave error bit.
+* @brief Enables the global slave error bit.
 *
-* @param        InstancePtr is a pointer to the Axi TrafGen instance to be
-*               worked on.
+* @param[in]   InstancePtr Pointer to the Axi TrafGen instance to be
+*              worked on.
 *
-* @return	None
-*
-* @note         C-style signature:
-*               void XTrafGen_SlaveErrIntrEnable(XTrafGen *InstancePtr)
+* @note        C-style signature:
+*              void XTrafGen_SlaveErrIntrEnable(XTrafGen *InstancePtr)
 *
 ******************************************************************************/
 #define XTrafGen_SlaveErrIntrEnable(InstancePtr)                     \
@@ -700,15 +701,13 @@ typedef struct XTrafGen {
 /*****************************************************************************/
 /**
 *
-* XTrafGen_SlaveErrIntrDisable disables Global Slave error bit.
+* @brief Disables the global slave error bit.
 *
-* @param        InstancePtr is a pointer to the Axi TrafGen instance to be
-*               worked on.
+* @param[in]   InstancePtr Pointer to the Axi TrafGen instance to be
+*              worked on.
 *
-* @return	None
-*
-* @note         C-style signature:
-*               void XTrafGen_SlaveErrIntrDisable(XTrafGen *InstancePtr)
+* @note        C-style signature:
+*              void XTrafGen_SlaveErrIntrDisable(XTrafGen *InstancePtr)
 *
 ******************************************************************************/
 #define XTrafGen_SlaveErrIntrDisable(InstancePtr)	\
@@ -721,15 +720,15 @@ typedef struct XTrafGen {
 /*****************************************************************************/
 /**
 *
-* XTrafGen_ReadConfigStatus reads Config status register.
+* @brief Reads the Config Status register.
 *
-* @param        InstancePtr is a pointer to the Axi TrafGen instance to be
-*               worked on.
+* @param[in]   InstancePtr Pointer to the Axi TrafGen instance to be
+*              worked on.
 *
-* @return	Config Status Register value
+* @return      Config Status Register value.
 *
-* @note         C-style signature:
-*               u32 XTrafGen_ReadConfigStatus(XTrafGen *InstancePtr)
+* @note        C-style signature:
+*              u32 XTrafGen_ReadConfigStatus(XTrafGen *InstancePtr)
 *
 ******************************************************************************/
 #define XTrafGen_ReadConfigStatus(InstancePtr)                     \
@@ -739,15 +738,13 @@ typedef struct XTrafGen {
 /*****************************************************************************/
 /**
 *
-* XTrafGen_StaticEnable enable the traffic generation when the core is
-* configured Static Mode.
-* @param        InstancePtr is a pointer to the Axi TrafGen instance to be
-*               worked on.
+* @brief Enables traffic generation when the core is configured in Static mode.
 *
-* @return       None.
+* @param[in]   InstancePtr Pointer to the Axi TrafGen instance to be
+*              worked on.
 *
-* @note         C-style signature:
-*               void XTrafGen_StaticEnable(XTrafGen *InstancePtr)
+* @note        C-style signature:
+*              void XTrafGen_StaticEnable(XTrafGen *InstancePtr)
 *
 *****************************************************************************/
 #define XTrafGen_StaticEnable(InstancePtr)				\
@@ -759,15 +756,13 @@ typedef struct XTrafGen {
 /*****************************************************************************/
 /**
 *
-* XTrafGen_StaticDisable disables the traffic generation on the Axi TrafGen
-* when the core is configured in Static Mode
-* @param        InstancePtr is a pointer to the Axi TrafGen instance to be
-*               worked on.
+* @brief Disables traffic generation when the core is configured in Static mode.
 *
-* @return       None.
+* @param[in]   InstancePtr Pointer to the Axi TrafGen instance to be
+*              worked on.
 *
-* @note         C-style signature:
-*               void XTrafGen_StaticDisable(XTrafGen *InstancePtr)
+* @note        C-style signature:
+*              void XTrafGen_StaticDisable(XTrafGen *InstancePtr)
 *
 *****************************************************************************/
 #define XTrafGen_StaticDisable(InstancePtr)				\
@@ -779,15 +774,15 @@ typedef struct XTrafGen {
 /*****************************************************************************/
 /**
 *
-* XTrafGen_StaticVersion returns the version value for the Axi TrafGen
-* When configured in Static Mode
-* @param        InstancePtr is a pointer to the Axi TrafGen instance to be
-*               worked on.
+* @brief Returns the version value when configured in Static mode.
 *
-* @return       Static version value.
+* @param[in]   InstancePtr Pointer to the Axi TrafGen instance to be
+*              worked on.
 *
-* @note         C-style signature:
-*               u32 XTrafGen_StaticVersion(XTrafGen *InstancePtr)
+* @return      Static version value.
+*
+* @note        C-style signature:
+*              u32 XTrafGen_StaticVersion(XTrafGen *InstancePtr)
 *
 *****************************************************************************/
 #define XTrafGen_StaticVersion(InstancePtr)				\
@@ -798,17 +793,16 @@ typedef struct XTrafGen {
 /*****************************************************************************/
 /**
 *
-* XTrafGen_SetStaticBurstLen Configures the Burst Length for AxiTrafGen
-* In Static Mode
-* @param        InstancePtr is a pointer to the Axi TrafGen instance to be
-*               worked on.
-* @param	Value is the Burst length to set in the Static length register.
+* @brief Configures the burst length in Static mode.
 *
-* @return       None.
+* @param[in]   InstancePtr Pointer to the Axi TrafGen instance to be
+*              worked on.
+* @param[in]   Value Burst length to set in the Static length
+*              register.
 *
-* @note         C-style signature:
-*               void XTrafGen_SetStaticBurstLen(XTrafGen *InstancePtr,
-*						u32 Value)
+* @note        C-style signature:
+*              void XTrafGen_SetStaticBurstLen(XTrafGen *InstancePtr,
+*                                              u32 Value)
 *****************************************************************************/
 #define XTrafGen_SetStaticBurstLen(InstancePtr,Value)			\
 	(XTrafGen_WriteReg((InstancePtr)->Config.BaseAddress,	\
@@ -817,14 +811,15 @@ typedef struct XTrafGen {
 /*****************************************************************************/
 /**
 *
-* XTrafGen_GetStaticBurstLen Gets the Burst Length for AxiTrafGen in StaticMode
-* @param        InstancePtr is a pointer to the Axi TrafGen instance to be
-*               worked on.
+* @brief Returns the burst length in Static mode.
 *
-* @return       Burst length value.
+* @param[in]   InstancePtr Pointer to the Axi TrafGen instance to be
+*              worked on.
 *
-* @note         C-style signature:
-*               u32 XTrafGen_GetStaticBurstLen(XTrafGen *InstancePtr)
+* @return      Burst length value.
+*
+* @note        C-style signature:
+*              u32 XTrafGen_GetStaticBurstLen(XTrafGen *InstancePtr)
 *
 *****************************************************************************/
 #define XTrafGen_GetStaticBurstLen(InstancePtr)			\
@@ -834,16 +829,18 @@ typedef struct XTrafGen {
 /*****************************************************************************/
 /**
 *
-* XTrafGen_GetStaticTransferDone gets the state of Transfer done bit
-* in Control register When the TraficGen is configured in Static Mode.
+* @brief Returns the state of the transfer done bit in Static mode.
 *
-* @param        InstancePtr is a pointer to the Axi TrafGen instance to be
-*               worked on.
+* Returns the state of the Transfer Done bit in the Control register when the
+* Traffic Generator is configured in Static mode.
 *
-* @return       Value of the Transfer Done bit.
+* @param[in]   InstancePtr Pointer to the Axi TrafGen instance to be
+*              worked on.
 *
-* @note         C-style signature:
-*               u32 XTrafGen_GetStaticTransferDone(XTrafGen *InstancePtr)
+* @return      Value of the Transfer Done bit.
+*
+* @note        C-style signature:
+*              u32 XTrafGen_GetStaticTransferDone(XTrafGen *InstancePtr)
 *
 *****************************************************************************/
 #define XTrafGen_GetStaticTransferDone(InstancePtr)			\
@@ -853,16 +850,16 @@ typedef struct XTrafGen {
 /*****************************************************************************/
 /**
 *
-* XTrafGen_SetStaticTransferDone sets the Transfer done bit in Control register
-* When AxiTrafGen is Configured in Static Mode.
+* @brief Sets the transfer done bit in the Control register in Static mode.
 *
-* @param        InstancePtr is a pointer to the Axi TrafGen instance to be
-*               worked on.
+* Sets the Transfer Done bit in the Control register when the Axi TrafGen is
+* configured in Static mode.
 *
-* @return       None.
+* @param[in]   InstancePtr Pointer to the Axi TrafGen instance to be
+*              worked on.
 *
-* @note         C-style signature:
-*               void XTrafGen_SetStaticTransferDone(XTrafGen *InstancePtr)
+* @note        C-style signature:
+*              void XTrafGen_SetStaticTransferDone(XTrafGen *InstancePtr)
 *
 *****************************************************************************/
 #define XTrafGen_SetStaticTransferDone(InstancePtr)   			\
@@ -874,17 +871,20 @@ typedef struct XTrafGen {
 /****************************************************************************/
 /**
 *
-* XTrafGen_IsStaticTransferDone checks for reset value  When Static Traffic generation
-* Completed by reading Control Register.
+* @brief Checks the reset value after Static traffic generation completes.
 *
-* @param        InstancePtr is a pointer to the Axi TrafGen instance to be
-*               worked on.
+* Checks for the reset value by reading the Control register when Static
+* traffic generation completes.
 *
-* @return	TRUE if reset Success full
-*		FALSE if failed to reset
+* @param[in]   InstancePtr Pointer to the Axi TrafGen instance to be
+*              worked on.
 *
-* @note         C-style signature:
-*               u8 XTrafGen_IsStaticTransferDone(XTrafGen *InstancePtr)
+* @return
+*              - TRUE if reset successful.
+*              - FALSE if failed to reset.
+*
+* @note        C-style signature:
+*              u8 XTrafGen_IsStaticTransferDone(XTrafGen *InstancePtr)
 *
 *****************************************************************************/
 #define XTrafGen_IsStaticTransferDone(InstancePtr)	\
@@ -896,15 +896,14 @@ typedef struct XTrafGen {
 /*****************************************************************************/
 /**
 *
-* XTrafGen_StreamEnable enable the traffic generation on the Axi TrafGen
-* When the core is configured in Streaming Mode
-* @param        InstancePtr is a pointer to the Axi TrafGen instance to be
-*               worked on.
+* @brief Enables traffic generation when the core is configured in Streaming
+* mode.
 *
-* @return       None.
+* @param[in]   InstancePtr Pointer to the Axi TrafGen instance to be
+*              worked on.
 *
-* @note         C-style signature:
-*               void XTrafGen_StreamEnable(XTrafGen *InstancePtr)
+* @note        C-style signature:
+*              void XTrafGen_StreamEnable(XTrafGen *InstancePtr)
 *
 *****************************************************************************/
 #define XTrafGen_StreamEnable(InstancePtr) 				\
@@ -916,15 +915,14 @@ typedef struct XTrafGen {
 /*****************************************************************************/
 /**
 *
-* XTrafGen_StreamDisable Disable the traffic generation on the Axi TrafGen
-* When core is configured in Streaming Mode
-* @param        InstancePtr is a pointer to the Axi TrafGen instance to be
-*               worked on.
+* @brief Disables traffic generation when the core is configured in Streaming
+* mode.
 *
-* @return       None.
+* @param[in]   InstancePtr Pointer to the Axi TrafGen instance to be
+*              worked on.
 *
-* @note         C-style signature:
-*               void XTrafGen_StreamDisable(XTrafGen *InstancePtr)
+* @note        C-style signature:
+*              void XTrafGen_StreamDisable(XTrafGen *InstancePtr)
 *
 *****************************************************************************/
 #define XTrafGen_StreamDisable(InstancePtr)			\
@@ -936,15 +934,15 @@ typedef struct XTrafGen {
 /*****************************************************************************/
 /**
 *
-* XTrafGen_StreamVersion returns the version value for the Axi TrafGen
-* When configured in  Streaming Mode
-* @param        InstancePtr is a pointer to the Axi TrafGen instance to be
-*               worked on.
+* @brief Returns the version value when configured in Streaming mode.
 *
-* @return       Streaming Version Value.
+* @param[in]   InstancePtr Pointer to the Axi TrafGen instance to be
+*              worked on.
 *
-* @note         C-style signature:
-*               u8 XTrafGen_StreamVersion(XTrafGen *InstancePtr)
+* @return      Streaming Version Value.
+*
+* @note        C-style signature:
+*              u8 XTrafGen_StreamVersion(XTrafGen *InstancePtr)
 *
 *****************************************************************************/
 #define XTrafGen_StreamVersion(InstancePtr)		\
@@ -955,18 +953,16 @@ typedef struct XTrafGen {
 /*****************************************************************************/
 /**
 *
-* XTrafGen_SetStreamingTransLen Configures the length of transaction for
-* AxiTrafGen in Streaming Mode.
-* @param        InstancePtr is a pointer to the Axi TrafGen instance to be
-*               worked on.
-* @param	Value is the transfer length to set in the transfer length
-*		Register.
+* @brief Configures the transaction length in Streaming mode.
 *
-* @return       None.
+* @param[in]   InstancePtr Pointer to the Axi TrafGen instance to be
+*              worked on.
+* @param[in]   Value Transfer length to set in the transfer length
+*              Register.
 *
-* @note         C-style signature:
-*               void XTrafGen_SetStreamingTransLen(XTrafGen *InstancePtr,
-*						u32 Value)
+* @note        C-style signature:
+*              void XTrafGen_SetStreamingTransLen(XTrafGen *InstancePtr,
+*                                              u32 Value)
 *****************************************************************************/
 #define XTrafGen_SetStreamingTransLen(InstancePtr,Value)		\
 	(XTrafGen_WriteReg((InstancePtr)->Config.BaseAddress,		\
@@ -977,16 +973,15 @@ typedef struct XTrafGen {
 /*****************************************************************************/
 /**
 *
-* XTrafGen_GetStreamingTransLen Gets the length of transaction for
-* AxiTrafGen in Streaming Mode
+* @brief Returns the transaction length in Streaming mode.
 *
-* @param        InstancePtr is a pointer to the Axi TrafGen instance to be
-*               worked on.
+* @param[in]   InstancePtr Pointer to the Axi TrafGen instance to be
+*              worked on.
 *
-* @return       Transfer Length value.
+* @return      Transfer Length value.
 *
-* @note         C-style signature:
-*               u16 XTrafGen_GetStreamingTransLen(XTrafGen *InstancePtr)
+* @note        C-style signature:
+*              u16 XTrafGen_GetStreamingTransLen(XTrafGen *InstancePtr)
 *
 *****************************************************************************/
 #define XTrafGen_GetStreamingTransLen(InstancePtr)		\
@@ -996,16 +991,15 @@ typedef struct XTrafGen {
 /*****************************************************************************/
 /**
 *
-* XTrafGen_GetStreamingTransCnt Gets the transfer count for AxiTrafGen in
-* Streaming Mode
+* @brief Returns the transfer count in Streaming mode.
 *
-* @param        InstancePtr is a pointer to the Axi TrafGen instance to be
-*               worked on.
+* @param[in]   InstancePtr Pointer to the Axi TrafGen instance to be
+*              worked on.
 *
-* @return       Transfer Count value.
+* @return      Transfer Count value.
 *
-* @note         C-style signature:
-*               u16 XTrafGen_GetStreamingTransCnt(XTrafGen *InstancePtr)
+* @note        C-style signature:
+*              u16 XTrafGen_GetStreamingTransCnt(XTrafGen *InstancePtr)
 *
 *****************************************************************************/
 #define XTrafGen_GetStreamingTransCnt(InstancePtr)		\
@@ -1016,18 +1010,16 @@ typedef struct XTrafGen {
 /*****************************************************************************/
 /**
 *
-* XTrafGen_SetStreamingRandomLen Configures the random transaction length
-* for AxiTrafGen in Streaming Mode.
-* @param        InstancePtr is a pointer to the Axi TrafGen instance to be
-*               worked on.
-* @param 	Value is the random length that's need to be Configure in the
-*		Streaming Config register.
+* @brief Configures the random transaction length in Streaming mode.
 *
-* @return       None.
+* @param[in]   InstancePtr Pointer to the Axi TrafGen instance to be
+*              worked on.
+* @param[in]   Value Random length to configure in the Streaming
+*              Config register.
 *
-* @note         C-style signature:
-*               void XTrafGen_SetStreamingRandomLen(XTrafGen *InstancePtr,
-*						u32 Value)
+* @note        C-style signature:
+*              void XTrafGen_SetStreamingRandomLen(XTrafGen *InstancePtr,
+*                                              u32 Value)
 *
 *****************************************************************************/
 #define XTrafGen_SetStreamingRandomLen(InstancePtr,Value)		\
@@ -1039,16 +1031,15 @@ typedef struct XTrafGen {
 /*****************************************************************************/
 /**
 *
-* XTrafGen_GetStreamingProgDelay Gets the Programmable Delay for AxiTrafGen in
-* Streaming Mode.
+* @brief Returns the programmable delay in Streaming mode.
 *
-* @param        InstancePtr is a pointer to the Axi TrafGen instance to be
-*               worked on.
+* @param[in]   InstancePtr Pointer to the Axi TrafGen instance to be
+*              worked on.
 *
-* @return       Propagation Delay Value
+* @return      Propagation Delay Value.
 *
-* @note         C-style signature:
-*               u16 XTrafGen_GetProgDelay(XTrafGen *InstancePtr)
+* @note        C-style signature:
+*              u16 XTrafGen_GetStreamingProgDelay(XTrafGen *InstancePtr)
 *
 *****************************************************************************/
 #define XTrafGen_GetStreamingProgDelay(InstancePtr)	\
@@ -1059,18 +1050,16 @@ typedef struct XTrafGen {
 /*****************************************************************************/
 /**
 *
-* XTrafGen_SetStreamingTransCnt Configures the transfer count for
-* AxiTrafGen in Streaming Mode.
-* @param        InstancePtr is a pointer to the Axi TrafGen instance to be
-*               worked on.
-* @param	Value is the transfer length that needs to be configured in
-*		Transfer length register.
+* @brief Configures the transfer count in Streaming mode.
 *
-* @return       None.
+* @param[in]   InstancePtr Pointer to the Axi TrafGen instance to be
+*              worked on.
+* @param[in]   Value Transfer length that needs to be configured in
+*              Transfer length register.
 *
-* @note         C-style signature:
-*               void XTrafGen_SetStreamingTransCnt(XTrafGen *InstancePtr,
-*						u32 Value)
+* @note        C-style signature:
+*              void XTrafGen_SetStreamingTransCnt(XTrafGen *InstancePtr,
+*                                              u32 Value)
 *
 *****************************************************************************/
 #define XTrafGen_SetStreamingTransCnt(InstancePtr, Value) \
@@ -1083,18 +1072,16 @@ typedef struct XTrafGen {
 /*****************************************************************************/
 /**
 *
-* XTrafGen_SetStreamingProgDelay Configures the Programmable Delay for
-* AxiTrafGen in Streaming Mode.
-* @param        InstancePtr is a pointer to the Axi TrafGen instance to be
-*               worked on.
-* @param	Value is the value that's need to be configure in the Stream
-*		Config Register.
+* @brief Configures the programmable delay in Streaming mode.
 *
-* @return       None.
+* @param[in]   InstancePtr Pointer to the Axi TrafGen instance to be
+*              worked on.
+* @param[in]   Value Value to configure in the Stream Config
+*              register.
 *
-* @note         C-style signature:
-*               void XTrafGen_SetStreamingProgDelay(XTrafGen *InstancePtr,
-*						u32 Value)
+* @note        C-style signature:
+*              void XTrafGen_SetStreamingProgDelay(XTrafGen *InstancePtr,
+*                                              u32 Value)
 *
 *****************************************************************************/
 #define XTrafGen_SetStreamingProgDelay(InstancePtr, Value) \
@@ -1107,17 +1094,15 @@ typedef struct XTrafGen {
 /*****************************************************************************/
 /**
 *
-* XTrafGen_SetStreamingTdestPort Configures the Value to drive on TDEST port
-* for Axi TrafGen in Streaming Mode.
-* @param        InstancePtr is a pointer to the Axi TrafGen instance to be
-*               worked on.
-* @param	Value is the Port value that's need to be set.
+* @brief Configures the value driven on the TDEST port in Streaming mode.
 *
-* @return       None.
+* @param[in]   InstancePtr Pointer to the Axi TrafGen instance to be
+*              worked on.
+* @param[in]   Value Port value to set.
 *
-* @note         C-style signature:
-*               void XTrafGen_SetStreamingTdestPort(XTrafGen *InstancePtr,
-*						u8 Value)
+* @note        C-style signature:
+*              void XTrafGen_SetStreamingTdestPort(XTrafGen *InstancePtr,
+*                                              u8 Value)
 *
 *****************************************************************************/
 #define XTrafGen_SetStreamingTdestPort(InstancePtr, Value) \
@@ -1130,16 +1115,16 @@ typedef struct XTrafGen {
 /*****************************************************************************/
 /**
 *
-* XTrafGen_SetTransferDone sets the Transfer done bit in Control register
-* When AxiTrafGen is Configured in  Streaming Mode.
+* @brief Sets the transfer done bit in the Control register in Streaming mode.
 *
-* @param        InstancePtr is a pointer to the Axi TrafGen instance to be
-*               worked on.
+* Sets the Transfer Done bit in the Control register when the Axi TrafGen is
+* configured in Streaming mode.
 *
-* @return       None.
+* @param[in]   InstancePtr Pointer to the Axi TrafGen instance to be
+*              worked on.
 *
-* @note         C-style signature:
-*               void XTrafGen_SetStreamingTransferDone(XTrafGen *InstancePtr)
+* @note        C-style signature:
+*              void XTrafGen_SetStreamingTransferDone(XTrafGen *InstancePtr)
 *
 *****************************************************************************/
 #define XTrafGen_SetStreamingTransferDone(InstancePtr)   \
@@ -1151,17 +1136,20 @@ typedef struct XTrafGen {
 /****************************************************************************/
 /**
 *
-* XTrafGen_IsStreamingTransferDone checks for reset value  When Streaming Traffic
-* generation is Completed by reading Stream Control Register.
+* @brief Checks the reset value after Streaming traffic generation completes.
 *
-* @param        InstancePtr is a pointer to the Axi TrafGen instance to be
-*               worked on.
+* Checks for the reset value by reading the Stream Control register when
+* Streaming traffic generation completes.
 *
-* @return	TRUE if reset Success full
-*		FALSE if failed to reset
+* @param[in]   InstancePtr Pointer to the Axi TrafGen instance to be
+*              worked on.
 *
-* @note         C-style signature:
-*               u8 XTrafGen_IsStreamingTransferDone(XTrafGen *InstancePtr)
+* @return
+*              - TRUE if reset successful.
+*              - FALSE if failed to reset.
+*
+* @note        C-style signature:
+*              u8 XTrafGen_IsStreamingTransferDone(XTrafGen *InstancePtr)
 *
 *****************************************************************************/
 #define XTrafGen_IsStreamingTransferDone(InstancePtr)	\
@@ -1173,15 +1161,13 @@ typedef struct XTrafGen {
 /*****************************************************************************/
 /**
 *
-* XTrafGen_ResetStreamingRandomLen resets the random transaction length
-* for AxiTrafGen in Streaming Mode.
-* @param        InstancePtr is a pointer to the Axi TrafGen instance to be
-*               worked on.
+* @brief Resets the random transaction length in Streaming mode.
 *
-* @return       None.
+* @param[in]   InstancePtr Pointer to the Axi TrafGen instance to be
+*              worked on.
 *
-* @note         C-style signature:
-*               void XTrafGen_ResetStreamingRandomLen(XTrafGen *InstancePtr)
+* @note        C-style signature:
+*              void XTrafGen_ResetStreamingRandomLen(XTrafGen *InstancePtr)
 *
 *****************************************************************************/
 #define XTrafGen_ResetStreamingRandomLen(InstancePtr)		\

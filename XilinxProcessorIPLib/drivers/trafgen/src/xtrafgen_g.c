@@ -1,19 +1,17 @@
 /******************************************************************************
 * Copyright (C) 2013 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
 /*****************************************************************************/
 /**
-*
 * @file xtrafgen_g.c
-* @addtogroup trafgen Overview
-* @{
+* @brief Provides a template for defining hardware configuration settings.
 *
 * Provide a template for user to define their own hardware settings.
 *
-* If using XPS, this file will be automatically generated.
+* When using XPS, this file is generated automatically.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -23,10 +21,15 @@
 * 1.00a srt  01/24/13 First release
 * 1.01a adk  03/09/13 Updated driver to Support Static and Streaming mode.
 * 2.00a adk  16/09/13 Fixed CR:737291
+* 4.10  vn   09/29/26 Align Doxygen comments with AMD standards
 *
 * </pre>
 *
 ******************************************************************************/
+
+/** @addtogroup trafgen Overview
+ * @{
+ */
 
 /***************************** Include Files *********************************/
 
@@ -35,6 +38,9 @@
 
 /************************** Constant Definitions *****************************/
 
+/**
+ * @brief Configuration table of AXI Traffic Generator devices.
+ */
 XTrafGen_Config XTrafGen_ConfigTable[] = {
 	{
 		XPAR_XTRAFGEN_0_DEVICE_ID,

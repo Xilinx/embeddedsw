@@ -4,18 +4,17 @@
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
+#ifndef XTRAFGEN_HW_H
+#define XTRAFGEN_HW_H
+
 /*****************************************************************************/
 /**
-*
 * @file xtrafgen_hw.h
-* @addtogroup trafgen Overview
-* @{
+* @brief Defines the AXI Traffic Generator hardware register interface.
 *
 * This header file contains identifiers and macros that can be used to access
 * the Axi Traffic Generator device. The driver APIs/functions are defined in
 * xtrafgen.h.
-*
-* @note
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -35,11 +34,14 @@
 *		      bit.
 * 4.9   vlt  01/27/26 Fixed codespell issues.
 * 4.10  vn   07/30/26 Fix Doxygen warnings
+* 4.10  vn   09/29/26 Align Doxygen comments with AMD standards
 * </pre>
-
+*
 ******************************************************************************/
-#ifndef XTRAFGEN_HW_H		/* prevent circular inclusions */
-#define XTRAFGEN_HW_H		/* by using protection macros */
+
+/** @addtogroup trafgen Overview
+ * @{
+ */
 
 /***************************** Include Files *********************************/
 
@@ -69,9 +71,7 @@ extern "C" {
 #define XTG_STREAM_CFG_OFFSET	0x34    /**< Streaming Config */
 #define XTG_STREAM_TL_OFFSET	0x38    /**< Streaming Transfer Length */
 
-/**
- *  Static Mode Register Descriptions
- */
+/* Static Mode Register Descriptions */
 #define XTG_STATIC_CNTL_OFFSET	0x60	/**< Static Control */
 #define XTG_STATIC_LEN_OFFSET	0x64	/**< Static Length */
 
@@ -170,10 +170,10 @@ extern "C" {
  *  These bits are associated with the XTG_CFG_STS_OFFSET register.
  * @{
  */
-#define XTG_CFG_STS_MWIDTH_SHIFT	28		/**< Master Width Shift */
-#define XTG_CFG_STS_MWIDTH_MASK		0x70000000	/**< Master Width Mask */
+#define XTG_CFG_STS_MWIDTH_SHIFT	28	/**< Master Width Shift */
+#define XTG_CFG_STS_MWIDTH_MASK	0x70000000	/**< Master Width Mask */
 
-#define XTG_CFG_STS_SWIDTH_SHIFT	25		/**< Slave Width Shift */
+#define XTG_CFG_STS_SWIDTH_SHIFT	25	/**< Slave Width Shift */
 #define XTG_CFG_STS_SWIDTH_MASK		0x0E000000	/**< Slave Width Mask */
 
 #define XTG_CFG_STS_MFULL_MASK		0x01000000	/**< Full Mode */
@@ -185,61 +185,61 @@ extern "C" {
  *  These bits are associated with the XTG_STR_CFG_OFFSET register.
  * @{
  */
-#define XTG_STREAM_CNTL_VER_SHIFT		24		/**< Version Shift */
-#define XTG_STREAM_CNTL_VER_MASK		0xFF000000	/**< Version Mask */
+#define XTG_STREAM_CNTL_VER_SHIFT	24	/**< Version Shift */
+#define XTG_STREAM_CNTL_VER_MASK	0xFF000000	/**< Version Mask */
 
-#define XTG_STREAM_CNTL_TD_SHIFT		1		/**< Transfer Done Shift */
-#define XTG_STREAM_CNTL_TD_MASK			0x00000002	/**< Transfer Done Mask */
+#define XTG_STREAM_CNTL_TD_SHIFT	1	/**< Transfer Done Shift */
+#define XTG_STREAM_CNTL_TD_MASK	0x00000002	/**< Transfer Done Mask */
 
-#define XTG_STREAM_CNTL_STEN_MASK		0x00000001	/**< Streaming Enable Mask */
-#define XTG_STREAM_CNTL_RESET_MASK		0x00000000	/**< Streaming Disable Mask */
+#define XTG_STREAM_CNTL_STEN_MASK 0x00000001 /**< Streaming Enable Mask */
+#define XTG_STREAM_CNTL_RESET_MASK 0x00000000 /**< Streaming Disable Mask */
 /** @} */
 
 /** @name Streaming Config Register bit definitions.
  *  These bits are associated with the XTG_STR_CFG_OFFSET register.
  * @{
  */
-#define XTG_STREAM_CFG_PDLY_SHIFT		16	 	/**< Programmable Delay Shift */
-#define XTG_STREAM_CFG_PDLY_MASK		0xFFFF0000	/**< Programmable Delay Mask */
+#define XTG_STREAM_CFG_PDLY_SHIFT	16	/**< Programmable Delay Shift */
+#define XTG_STREAM_CFG_PDLY_MASK 0xFFFF0000 /**< Programmable Delay Mask */
 
-#define XTG_STREAM_CFG_TDEST_SHIFT		8		/**< TDEST PORT Shift */
-#define XTG_STREAM_CFG_TDEST_MASK		0x0000FF00	/**< TDEST PORT Mask */
+#define XTG_STREAM_CFG_TDEST_SHIFT	8	/**< TDEST PORT Shift */
+#define XTG_STREAM_CFG_TDEST_MASK	0x0000FF00	/**< TDEST PORT Mask */
 
-#define XTG_STREAM_CFG_RANDLY_SHIFT		1		/**< Random Delay Shift */
-#define XTG_STREAM_CFG_RANDLY_MASK		0x00000002	/**< Random Delay Mask */
+#define XTG_STREAM_CFG_RANDLY_SHIFT	1	/**< Random Delay Shift */
+#define XTG_STREAM_CFG_RANDLY_MASK 0x00000002 /**< Random Delay Mask */
 
-#define XTG_STREAM_CFG_RANDL_MASK		0x00000001	/**< Random Length Mask */
+#define XTG_STREAM_CFG_RANDL_MASK 0x00000001 /**< Random Length Mask */
 /** @} */
 
 /** @name Streaming Transfer Length Register bit definitions.
  *  These bits are associated with the XTG_STR_TL_OFFSET register.
  * @{
  */
-#define XTG_STREAM_TL_TCNT_SHIFT		16	 	/**< Transfer Count Shift */
-#define XTG_STREAM_TL_TCNT_MASK		0xFFFF0000	/**< Transfer Count Mask */
+#define XTG_STREAM_TL_TCNT_SHIFT	16	/**< Transfer Count Shift */
+#define XTG_STREAM_TL_TCNT_MASK	0xFFFF0000	/**< Transfer Count Mask */
 
-#define XTG_STREAM_TL_TLEN_MASK		0x0000FFFF	/**< Transfer Length Mask */
+#define XTG_STREAM_TL_TLEN_MASK	0x0000FFFF	/**< Transfer Length Mask */
 /** @} */
 
 /** @name Static Control Register bit definitions.
  *  These bits are associated with the XTG_STATIC_CNTL_OFFSET register.
  * @{
  */
-#define XTG_STATIC_CNTL_VER_SHIFT		24		/**< Version Shift */
-#define XTG_STATIC_CNTL_VER_MASK		0xFF000000	/**< Version Mask */
+#define XTG_STATIC_CNTL_VER_SHIFT	24	/**< Version Shift */
+#define XTG_STATIC_CNTL_VER_MASK	0xFF000000	/**< Version Mask */
 
-#define XTG_STATIC_CNTL_TD_SHIFT		1		/**< Transfer Done Shift */
-#define XTG_STATIC_CNTL_TD_MASK			0x00000002	/**< Transfer Done Mask */
+#define XTG_STATIC_CNTL_TD_SHIFT	1	/**< Transfer Done Shift */
+#define XTG_STATIC_CNTL_TD_MASK	0x00000002	/**< Transfer Done Mask */
 
-#define XTG_STATIC_CNTL_STEN_MASK		0x00000001	/**< Static enable Mask */
-#define XTG_STATIC_CNTL_RESET_MASK		0x00000000	/**< Static Disable Mask */
+#define XTG_STATIC_CNTL_STEN_MASK 0x00000001 /**< Static enable Mask */
+#define XTG_STATIC_CNTL_RESET_MASK 0x00000000 /**< Static Disable Mask */
 /** @} */
 
 /** @name Static Length Register bit definitions.
  *  These bits are associated with the XTG_STATIC_LEN_OFFSET register.
  * @{
  */
-#define XTG_STATIC_LEN_BLEN_MASK		0x000000FF	 /**< Burst length Mask */
+#define XTG_STATIC_LEN_BLEN_MASK 0x000000FF /**< Burst length Mask */
 /** @} */
 
 /** @name Axi Traffic Generator Command Entry field mask/shifts
@@ -332,16 +332,15 @@ extern "C" {
 /****************************************************************************/
 /**
 *
-* XTrafGen_ReadReg returns the value read from the register specified by
-* <i>RegOffset</i>.
+* @brief Reads the value from the register specified by <i>RegOffset</i>.
 *
-* @param	BaseAddress is the base address of the Axi TrafGen device.
-* @param	RegOffset is the offset of the register to be read.
+* @param[in]   BaseAddress Base address of the Axi TrafGen device.
+* @param[in]   RegOffset Offset of the register to be read.
 *
-* @return	Returns the 32-bit value of the register.
+* @return      Returns the 32-bit value of the register.
 *
-* @note		C-style signature:
-*		u32 XTrafGen_ReadReg(u32 BaseAddress, u32 RegOffset)
+* @note        C-style signature:
+*              u32 XTrafGen_ReadReg(u32 BaseAddress, u32 RegOffset)
 *
 *****************************************************************************/
 #define XTrafGen_ReadReg(BaseAddress, RegOffset) \
@@ -350,18 +349,15 @@ extern "C" {
 /****************************************************************************/
 /**
 *
-* XTrafGen_WriteReg, writes <i>Data</i> to the register specified by
-* <i>RegOffset</i>.
+* @brief Writes <i>Data</i> to the register specified by <i>RegOffset</i>.
 *
-* @param	BaseAddress is the base address of the Axi TrafGen device.
-* @param	RegOffset is the offset of the register to be written.
-* @param	Data is the 32-bit value to write to the register.
-*
-* @return	None.
+* @param[in]   BaseAddress Base address of the Axi TrafGen device.
+* @param[in]   RegOffset Offset of the register to be written.
+* @param[in]   Data 32-bit value to write to the register.
 *
 * @note
-* 	C-style signature:
-*	void XTrafGen_WriteReg(u32 BaseAddress, u32 RegOffset, u32 Data)
+*              C-style signature:
+*              void XTrafGen_WriteReg(u32 BaseAddress, u32 RegOffset, u32 Data)
 *
 *****************************************************************************/
 #define XTrafGen_WriteReg(BaseAddress, RegOffset, Data) \
@@ -370,16 +366,15 @@ extern "C" {
 /****************************************************************************/
 /**
 *
-* XTrafGen_ReadParamRam returns the value read from the Parameter RAM
-* specified by <i>Offset</i>.
+* @brief Reads the value from the Parameter RAM specified by <i>Offset</i>.
 *
-* @param	BaseAddress is the base address of the Axi TrafGen device.
-* @param	Offset is the offset of the Parameter RAM to be read.
+* @param[in]   BaseAddress Base address of the Axi TrafGen device.
+* @param[in]   Offset Offset of the Parameter RAM to be read.
 *
-* @return	Returns the 32-bit value of the memory location.
+* @return      Returns the 32-bit value of the memory location.
 *
-* @note		C-style signature:
-*		u32 XTrafGen_ReadParamRam(u32 BaseAddress, u32 Offset)
+* @note        C-style signature:
+*              u32 XTrafGen_ReadParamRam(u32 BaseAddress, u32 Offset)
 *
 *****************************************************************************/
 #define XTrafGen_ReadParamRam(BaseAddress, Offset)	\
@@ -388,19 +383,17 @@ extern "C" {
 /****************************************************************************/
 /**
 *
-* XTrafGen_WriteParamRam, writes <i>Data</i> to the Parameter RAM
-* specified by <i>Offset</i>.
+* @brief Writes <i>Data</i> to the Parameter RAM specified by <i>Offset</i>.
 *
-* @param	BaseAddress is the base address of the Axi TrafGen device.
-* @param	Offset is the offset of the location in Parameter RAM
-*		to be written.
-* @param	Data is the 32-bit value to write to the Parameter RAM.
-*
-* @return	None.
+* @param[in]   BaseAddress Base address of the Axi TrafGen device.
+* @param[in]   Offset Offset of the location in Parameter RAM
+*              to be written.
+* @param[in]   Data 32-bit value to write to the Parameter RAM.
 *
 * @note
-* 	C-style signature:
-*	void XTrafGen_WriteParamRam(u32 BaseAddress, u32 Offset, u32 Data)
+*              C-style signature:
+*              void XTrafGen_WriteParamRam(u32 BaseAddress, u32 Offset,
+*              u32 Data)
 *
 *****************************************************************************/
 #define XTrafGen_WriteParamRam(BaseAddress, Offset, Data) \
@@ -409,16 +402,15 @@ extern "C" {
 /****************************************************************************/
 /**
 *
-* XTrafGen_ReadCmdRam returns the value read from the Command RAM
-* specified by <i>Offset</i>.
+* @brief Reads the value from the Command RAM specified by <i>Offset</i>.
 *
-* @param	BaseAddress is the base address of the Axi TrafGen device.
-* @param	Offset is the offset of the Command RAM to be read.
+* @param[in]   BaseAddress Base address of the Axi TrafGen device.
+* @param[in]   Offset Offset of the Command RAM to be read.
 *
-* @return	Returns the 32-bit value of the memory location.
+* @return      Returns the 32-bit value of the memory location.
 *
-* @note		C-style signature:
-*		u32 XTrafGen_ReadCmdRam(u32 BaseAddress, u32 Offset)
+* @note        C-style signature:
+*              u32 XTrafGen_ReadCmdRam(u32 BaseAddress, u32 Offset)
 *
 *****************************************************************************/
 #define XTrafGen_ReadCmdRam(BaseAddress, Offset) \
@@ -427,16 +419,16 @@ extern "C" {
 /****************************************************************************/
 /**
 *
-* XTrafGen_ReadCmdRam_Msb returns the value read from the Command RAM
-* specified by <i>Offset</i>.
+* @brief Reads the value from the Command RAM MSB specified by <i>Offset</i>.
 *
-* @param	BaseAddress is the MSB of base address of the Axi TrafGen device.
-* @param	Offset is the offset of the Command RAM to be read.
+* @param[in]   BaseAddress MSB of base address of the Axi TrafGen
+*              device.
+* @param[in]   Offset Offset of the Command RAM to be read.
 *
-* @return	Returns the 32-bit value of the memory location.
+* @return      Returns the 32-bit value of the memory location.
 *
-* @note		C-style signature:
-*		u32 XTrafGen_ReadCmdRam_Msb(u32 BaseAddress, u32 Offset)
+* @note        C-style signature:
+*              u32 XTrafGen_ReadCmdRam_Msb(u32 BaseAddress, u32 Offset)
 *
 *****************************************************************************/
 #define XTrafGen_ReadCmdRam_Msb(BaseAddress, Offset) \
@@ -444,19 +436,16 @@ extern "C" {
 /****************************************************************************/
 /**
 *
-* XTrafGen_WriteCmdRam, writes <i>Data</i> to the Command RAM specified by
-* <i>Offset</i>.
+* @brief Writes <i>Data</i> to the Command RAM specified by <i>Offset</i>.
 *
-* @param	BaseAddress is the base address of the Axi TrafGen device.
-* @param	Offset is the offset of the location in Command RAM
-*		to be written.
-* @param	Data is the 32-bit value to write to the Command RAM.
-*
-* @return	None.
+* @param[in]   BaseAddress Base address of the Axi TrafGen device.
+* @param[in]   Offset Offset of the location in Command RAM
+*              to be written.
+* @param[in]   Data 32-bit value to write to the Command RAM.
 *
 * @note
-* 	C-style signature:
-*	void XTrafGen_WriteCmdRam(u32 BaseAddress, u32 Offset, u32 Data)
+*              C-style signature:
+*              void XTrafGen_WriteCmdRam(u32 BaseAddress, u32 Offset, u32 Data)
 *
 *****************************************************************************/
 #define XTrafGen_WriteCmdRam(BaseAddress, Offset, Data) \
@@ -464,19 +453,18 @@ extern "C" {
 /****************************************************************************/
 /**
 *
-* XTrafGen_WriteCmdRam_Msb, writes <i>Data</i> to the Command RAM specified by
-* <i>Offset</i>.
+* @brief Writes <i>Data</i> to the Command RAM MSB specified by <i>Offset</i>.
 *
-* @param	BaseAddress is the MSB of base address of the Axi TrafGen device.
-* @param	Offset is the offset of the location in Command RAM
-*		to be written.
-* @param	Data is the 32-bit value to write to the Command RAM.
-*
-* @return	None.
+* @param[in]   BaseAddress MSB of base address of the Axi TrafGen
+*              device.
+* @param[in]   Offset Offset of the location in Command RAM
+*              to be written.
+* @param[in]   Data 32-bit value to write to the Command RAM.
 *
 * @note
-* 	C-style signature:
-*	void XTrafGen_WriteCmdRam_Msb(u32 BaseAddress, u32 Offset, u32 Data)
+*              C-style signature:
+*              void XTrafGen_WriteCmdRam_Msb(u32 BaseAddress, u32 Offset,
+*              u32 Data)
 *
 *****************************************************************************/
 #define XTrafGen_WriteCmdRam_Msb(BaseAddress, Offset, Data) \
@@ -485,16 +473,15 @@ extern "C" {
 /****************************************************************************/
 /**
 *
-* XTrafGen_ReadMasterRam returns the value read from the Master RAM
-* specified by <i>Offset</i>.
+* @brief Reads the value from the Master RAM specified by <i>Offset</i>.
 *
-* @param	BaseAddress is the base address of the Axi TrafGen device.
-* @param	Offset is the offset of the Master RAM to be read.
+* @param[in]   BaseAddress Base address of the Axi TrafGen device.
+* @param[in]   Offset Offset of the Master RAM to be read.
 *
-* @return	Returns the 32-bit value of the memory location.
+* @return      Returns the 32-bit value of the memory location.
 *
-* @note		C-style signature:
-*		u32 XTrafGen_ReadMasterRam(u32 BaseAddress, u32 Offset)
+* @note        C-style signature:
+*              u32 XTrafGen_ReadMasterRam(u32 BaseAddress, u32 Offset)
 *
 *****************************************************************************/
 #define XTrafGen_ReadMasterRam(BaseAddress, Offset)	\
@@ -503,19 +490,17 @@ extern "C" {
 /****************************************************************************/
 /**
 *
-* XTrafGen_WriteMasterRam, writes <i>Data</i> to the Master RAM specified
-* by <i>Offset</i>.
+* @brief Writes <i>Data</i> to the Master RAM specified by <i>Offset</i>.
 *
-* @param	BaseAddress is the base address of the Axi TrafGen device.
-* @param	Offset is the offset of the location in Master RAM
-*		to be written.
-* @param	Data is the 32-bit value to write to the Master RAM.
-*
-* @return	None.
+* @param[in]   BaseAddress Base address of the Axi TrafGen device.
+* @param[in]   Offset Offset of the location in Master RAM
+*              to be written.
+* @param[in]   Data 32-bit value to write to the Master RAM.
 *
 * @note
-* 	C-style signature:
-*	void XTrafGen_WriteMasterRam(u32 BaseAddress, u32 Offset, u32 Data)
+*              C-style signature:
+*              void XTrafGen_WriteMasterRam(u32 BaseAddress, u32 Offset,
+*              u32 Data)
 *
 *****************************************************************************/
 #define XTrafGen_WriteMasterRam(BaseAddress, Offset, Data) \
