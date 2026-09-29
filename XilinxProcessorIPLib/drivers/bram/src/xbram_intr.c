@@ -8,15 +8,14 @@
 /*****************************************************************************/
 /**
 * @file xbram_intr.c
-* @addtogroup bram Overview
-* @{
+* @brief Implements XBram interrupt processing functions.
 *
 * Implements BRAM interrupt processing functions for the
 * XBram driver. See xbram.h for more information
 * about the driver.
 *
 * The functions in this file require the hardware device to be built with
-* interrupt capabilities. The functions will assert if called using hardware
+* interrupt capabilities. The functions assert if called using hardware
 * that does not have interrupt capabilities.
 *
 * <pre>
@@ -27,9 +26,15 @@
 * 1.00a sa   05/11/10 Initial release
 * 4.15  vn   07/30/26 Fix Doxygen warnings
 * 4.15  ss   08/24/26 Fix interrupt status register read
+* 4.15  tb  09/15/26 Align Doxygen comments with AMD standards.
 * </pre>
 *
 *****************************************************************************/
+
+/**
+* @addtogroup bram_api BRAM APIs
+* @{
+*/
 
 /***************************** Include Files ********************************/
 #include "xbram.h"
@@ -48,15 +53,15 @@
 
 /****************************************************************************/
 /**
-* Enable interrupts. This function will assert if the hardware device has not
-* been built with interrupt capabilities.
+* @brief Enables selected BRAM interrupts.
 *
-* @param	InstancePtr is the BRAM instance to operate on.
-* @param	Mask is the mask to enable. Bit positions of 1 are enabled.
-*		This mask is formed by OR'ing bits from XBRAM_IR*
-*		bits which are contained in xbram_hw.h.
+* This function asserts if the hardware device has not been built with
+* interrupt capabilities.
 *
-* @note		None.
+* @param[in] InstancePtr BRAM instance to operate on.
+* @param[in] Mask Mask to enable. Bit positions of 1 are enabled.
+*   This mask is formed by OR'ing bits from XBRAM_IR* bits which
+*   are contained in xbram_hw.h.
 *
 *****************************************************************************/
 void XBram_InterruptEnable(XBram *InstancePtr, u32 Mask)
@@ -81,16 +86,16 @@ void XBram_InterruptEnable(XBram *InstancePtr, u32 Mask)
 
 /****************************************************************************/
 /**
-* Disable interrupts. This function allows each specific interrupt to be
-* disabled. This function will assert if the hardware device has not been
-* built with interrupt capabilities.
+* @brief Disables selected BRAM interrupts.
 *
-* @param	InstancePtr is the BRAM instance to operate on.
-* @param 	Mask is the mask to disable. Bits set to 1 are disabled. This
-*		mask is formed by OR'ing bits from XBRAM_IR* bits
-*		which are contained in xbram_hw.h.
+* This function allows each specific interrupt to be disabled. This function
+* asserts if the hardware device has not been built with interrupt
+* capabilities.
 *
-* @note		None.
+* @param[in] InstancePtr BRAM instance to operate on.
+* @param[in] Mask Mask to disable. Bits set to 1 are disabled. This
+*   mask is formed by OR'ing bits from XBRAM_IR* bits which are
+*   contained in xbram_hw.h.
 *
 *****************************************************************************/
 void XBram_InterruptDisable(XBram *InstancePtr, u32 Mask)
@@ -114,18 +119,16 @@ void XBram_InterruptDisable(XBram *InstancePtr, u32 Mask)
 
 /****************************************************************************/
 /**
-* Clear pending interrupts with the provided mask. This function should be
-* called after the software has serviced the interrupts that are pending.
-* This function will assert if the hardware device has not been built with
+* @brief Clears pending BRAM interrupts for the provided mask.
+*
+* Call this function after the software has serviced the pending interrupts.
+* This function asserts if the hardware device has not been built with
 * interrupt capabilities.
 *
-* @param 	InstancePtr is the BRAM instance to operate on.
-* @param 	Mask is the mask to clear pending interrupts for. Bit positions
-*		of 1 are cleared. This mask is formed by OR'ing bits from
-*		XBRAM_IR* bits which are contained in
-*		xbram_hw.h.
-*
-* @note		None.
+* @param[in] InstancePtr BRAM instance to operate on.
+* @param[in] Mask Mask to clear pending interrupts for. Bit
+*   positions of 1 are cleared. This mask is formed by OR'ing bits
+*   from XBRAM_IR* bits which are contained in xbram_hw.h.
 *
 *****************************************************************************/
 void XBram_InterruptClear(XBram *InstancePtr, u32 Mask)
@@ -154,17 +157,15 @@ void XBram_InterruptClear(XBram *InstancePtr, u32 Mask)
 
 /****************************************************************************/
 /**
-* Returns the interrupt enable mask. This function will assert if the
-* hardware device has not been built with interrupt capabilities.
+* @brief Returns the BRAM interrupt enable mask.
 *
-* @param	InstancePtr is the BRAM instance to operate on.
+* This function asserts if the hardware device has not been built with
+* interrupt capabilities.
 *
-* @return	A mask of bits made from XBRAM_IR* bits which
-*		are contained in xbram_hw.h.
+* @param[in] InstancePtr BRAM instance to operate on.
 *
-* @return	None.
-*
-* @note		None.
+* @return A mask of bits made from XBRAM_IR* bits which are contained in
+*         xbram_hw.h.
 *
 *****************************************************************************/
 u32 XBram_InterruptGetEnabled(XBram *InstancePtr)
@@ -180,21 +181,20 @@ u32 XBram_InterruptGetEnabled(XBram *InstancePtr)
 
 /****************************************************************************/
 /**
-* Returns the status of interrupt signals. Any bit in the mask set to 1
-* indicates that the channel associated with the bit has asserted an interrupt
-* condition. This function will assert if the hardware device has not been
-* built with interrupt capabilities.
+* @brief Returns the status of BRAM interrupt signals.
 *
-* @param	InstancePtr is the BRAM instance to operate on.
+* Any bit in the mask set to 1 indicates that the channel associated with
+* the bit has asserted an interrupt condition. This function asserts if the
+* hardware device has not been built with interrupt capabilities.
 *
-* @return	A pointer to a mask of bits made from XBRAM_IR*
-*		bits which are contained in xbram_hw.h.
+* @param[in] InstancePtr BRAM instance to operate on.
 *
-* @note
+* @return A mask of bits made from XBRAM_IR* bits which are contained in
+*         xbram_hw.h.
 *
-* The interrupt status indicates the status of the device regardless if
-* the interrupts from the devices have been enabled or not through
-* XBram_InterruptEnable().
+* @note The interrupt status indicates the status of the device regardless
+*       of whether interrupts have been enabled through
+*       XBram_InterruptEnable().
 *
 *****************************************************************************/
 u32 XBram_InterruptGetStatus(XBram *InstancePtr)

@@ -7,15 +7,10 @@
 /*****************************************************************************/
 /**
 * @file xbram_sinit.c
-* @addtogroup bram Overview
-* @{
+* @brief Implements XBram static initialization.
 *
 * The implementation of the XBram driver's static initialization
 * functionality.
-*
-* @note
-*
-* None
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -27,9 +22,15 @@
 * 4.2   ms   08/07/17 Fixed compilation warnings.
 * 4.9   sd   07/07/23 Added SDT support.
 * 4.14  vlt  12/12/25 Update Doxygen comments to include SDT flow details.
+* 4.15  tb  09/15/26 Align Doxygen comments with AMD standards.
 * </pre>
 *
 *****************************************************************************/
+
+/**
+* @addtogroup bram_api BRAM APIs
+* @{
+*/
 
 /***************************** Include Files ********************************/
 
@@ -53,23 +54,23 @@ extern XBram_Config XBram_ConfigTable[];
 
 /*****************************************************************************/
 /**
+* @brief Looks up the device configuration for a BRAM instance.
 *
-* Looks up the device configuration based on the unique device ID/BaseAddress.
-* The XBram_ConfigTable[] contains the configuration info for each device
-* in the system.
+* Uses XBram_ConfigTable[] which contains the configuration info for each
+* device in the system.
 *
 * @if SDT
-* @param	BaseAddress contains the base address of the device
+* @param[in] BaseAddress Contains the base address of the device.
 * @else
-* @param	DeviceId contains the unique ID of the device
+* @param[in] DeviceId Contains the unique ID of the device.
 * @endif
 *
-* @return       A pointer to the configuration found or NULL if the
-*               specified device ID/BaseAddress was not found. See
-*               xbram.h for the definition of XBram_Config.
+* @return A pointer to the configuration found, or NULL if the specified
+*         device ID or base address was not found. See xbram.h for the
+*         definition of XBram_Config.
 *
-* @note         In XSCT/classic flow, DeviceId is used to look up the device
-*               configuration.
+* @note In XSCT/classic flow, DeviceId is used to look up the device
+*       configuration.
 *
 ******************************************************************************/
 #ifndef SDT

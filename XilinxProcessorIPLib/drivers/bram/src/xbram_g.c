@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -8,8 +8,7 @@
 /**
 *
 * @file xbram_g.c
-* @addtogroup bram Overview
-* @{
+* @brief Provides the XBram configuration table.
 *
 * This file contains a configuration table that specifies the configuration
 * of BRAM devices in the system.
@@ -20,9 +19,15 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- -----------------------------------------------
 * 1.00a sa   11/05/10 First release
+* 4.15  tb  09/15/26 Align Doxygen comments with AMD standards.
 * </pre>
 *
 ******************************************************************************/
+
+/**
+* @addtogroup bram_api BRAM APIs
+* @{
+*/
 
 /***************************** Include Files *********************************/
 

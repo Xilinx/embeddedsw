@@ -7,18 +7,12 @@
 /*****************************************************************************/
 /**
 * @file xbram_selftest.c
-* @addtogroup bram Overview
-* @{
+* @brief Implements the XBram self-test.
 *
 * The implementation of the XBram driver's self test function. This SelfTest
 * is only applicable if ECC is enabled.
-* If ECC is not enabled then this function will return XST_SUCCESS.
+* If ECC is not enabled then this function returns XST_SUCCESS.
 * See xbram.h for more information about the driver.
-* Temp change
-*
-* @note
-*
-* None
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -44,8 +38,14 @@
 * 4.5    mn 04/12/20   Resolve build warnings for ARMCC toolchain
 * 4.15   vn 07/30/26   Fix Doxygen warnings
 *
+* 4.15  tb  09/15/26 Align Doxygen comments with AMD standards.
 * </pre>
 *****************************************************************************/
+
+/**
+* @addtogroup bram_api BRAM APIs
+* @{
+*/
 
 /***************************** Include Files ********************************/
 #include "xbram.h"
@@ -79,15 +79,13 @@ static void InjectErrors(XBram *InstancePtr, UINTPTR Addr,
 
 /*****************************************************************************/
 /**
-* Generate a pseudo random number.
+* @brief Generates a pseudo-random number.
 *
-* @param	PrngResult is the previous random number in the pseudo
-*		random sequence, also known as the seed. It is modified to
-*		the calculated pseudo random number by the function.
+* @param[in,out] PrngResult Previous random number in the pseudo
+*   random sequence, also known as the seed. It is modified to
+*   the calculated pseudo random number by the function.
 *
-* @return 	The generated pseudo random number
-*
-* @note		None.
+* @return The generated pseudo-random number.
 *
 ******************************************************************************/
 static INLINE u32 PrngData(u32 *PrngResult)
@@ -99,13 +97,11 @@ static INLINE u32 PrngData(u32 *PrngResult)
 
 /*****************************************************************************/
 /**
-* Calculate ECC from Data.
+* @brief Calculates the ECC value for the supplied data.
 *
-* @param	Data is the Data Value
+* @param[in] Data Data value.
 *
-* @return 	The calculated ECC
-*
-* @note		None.
+* @return The calculated ECC.
 *
 ******************************************************************************/
 static INLINE u32 CalculateEcc(u32 Data)
@@ -155,21 +151,19 @@ static INLINE u32 CalculateEcc(u32 Data)
 
 /*****************************************************************************/
 /**
-* Inject errors using the hardware fault injection functionality, and write
-* random data and read it back using the indicated location.
+* @brief Injects errors and reads back the indicated memory location.
 *
-* @param	InstancePtr is a pointer to the XBram instance to
-*		be worked on.
-* @param	Addr is the indicated memory location to use
-* @param	Index1 is the bit location of the first injected error
-* @param	Index2 is the bit location of the second injected error
-* @param	Width is the data byte width
-* @param	ActualData is filled in with expected data for checking
-* @param	ActualEcc is filled in with expected ECC for checking
+* Uses the hardware fault injection functionality, writes random data, and
+* reads it back.
 *
-* @return 	None
-*
-* @note		None.
+* @param[in] InstancePtr Pointer to the XBram instance to be worked
+*   on.
+* @param[in] Addr Indicated memory location to use.
+* @param[in] Index1 Bit location of the first injected error.
+* @param[in] Index2 Bit location of the second injected error.
+* @param[in] Width Data byte width.
+* @param[out] ActualData Filled in with expected data for checking.
+* @param[out] ActualEcc Filled in with expected ECC for checking.
 *
 ******************************************************************************/
 static void InjectErrors(XBram *InstancePtr, const UINTPTR Addr,
@@ -215,31 +209,31 @@ static void InjectErrors(XBram *InstancePtr, const UINTPTR Addr,
 
 /*****************************************************************************/
 /**
-* Run a self-test on the driver/device. Unless fault injection is implemented
-* in hardware, this function only does a minimal test in which available
-* registers (if any) are written and read.
+* @brief Runs a self-test on the BRAM driver and device.
+*
+* Unless fault injection is implemented in hardware, this function only
+* does a minimal test in which available registers (if any) are written
+* and read.
 *
 * With fault injection, all possible single-bit and double-bit errors are
-* injected, and checked to the extent possible, given the implemented hardware.
+* injected, and checked to the extent possible, given the implemented
+* hardware.
 *
-* @param	InstancePtr is a pointer to the XBram instance.
-* @param	IntMask is the interrupt mask to use. When testing
-*		with interrupts, this should be set to allow interrupt
-*		generation, otherwise it should be 0.
+* @param[in] InstancePtr Pointer to the XBram instance.
+* @param[in] IntMask Interrupt mask to use. When testing with
+*   interrupts, this should be set to allow interrupt generation,
+*   otherwise it should be 0.
 *
 * @return
-*		- XST_SUCCESS if fault injection/detection is working properly OR
-*		  if ECC is Not Enabled in the HW.
-*		- XST_FAILURE if the injected fault is not correctly detected or
-*		  the Control Base Address is Zero when ECC is enabled.
-*		.
+* - XST_SUCCESS if fault injection and detection are working, or if ECC
+*   is not enabled in the hardware.
+* - XST_FAILURE if the injected fault is not correctly detected, or the
+*   control base address is zero when ECC is enabled.
 *
-*		If the BRAM device is not present in the
-*		hardware a bus error could be generated. Other indicators of a
-*		bus error, such as registers in bridges or buses, may be
-*		necessary to determine if this function caused a bus error.
-*
-* @note		None.
+* If the BRAM device is not present in the hardware a bus error could be
+* generated. Other indicators of a bus error, such as registers in bridges
+* or buses, may be necessary to determine if this function caused a bus
+* error.
 *
 ******************************************************************************/
 int XBram_SelfTest(XBram *InstancePtr, u8 IntMask)
@@ -259,7 +253,7 @@ int XBram_SelfTest(XBram *InstancePtr, u8 IntMask)
 
 	/*
 	 * Only 32-bit data width is supported as of yet. 64-bit and 128-bit
-	 * widths will be supported in future.
+	 * widths are not supported.
 	 */
 	if (InstancePtr->Config.DataWidth != 32) {
 		return (XST_SUCCESS);
@@ -422,7 +416,7 @@ int XBram_SelfTest(XBram *InstancePtr, u8 IntMask)
 							     &ActualData,
 							     &ActualEcc);
 
-						/* Check that UE is set */
+						/* Check uncorrectable status */
 						if (InstancePtr->Config.
 						    EccStatusInterruptPresent) {
 							CHECK(ECC_STATUS_OFFSET,
@@ -430,7 +424,8 @@ int XBram_SelfTest(XBram *InstancePtr, u8 IntMask)
 							      Result);
 						}
 
-						/* Check that address, data, ECC are correct */
+						/* Check that address, data, */
+						/* and ECC are correct */
 						if (InstancePtr->Config.
 						    UncorrectableFailingRegisters) {
 							CHECK(UE_FFA_0_OFFSET, Addr[WordIndex],
@@ -441,7 +436,8 @@ int XBram_SelfTest(XBram *InstancePtr, u8 IntMask)
 							      Result);
 						}
 
-						/* Restore correct data in the used word */
+						/* Restore correct data */
+						/* in the used word */
 						XBram_Out32(Addr[WordIndex],
 							    SavedWords[WordIndex]);
 

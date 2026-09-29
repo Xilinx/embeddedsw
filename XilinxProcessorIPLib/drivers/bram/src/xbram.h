@@ -4,12 +4,15 @@
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
+#ifndef XBRAM_H		/* prevent circular inclusions */
+#define XBRAM_H
+
 /*****************************************************************************/
 /**
 * @file xbram.h
 * @addtogroup bram Overview
 * @{
-* @details
+* @brief Defines the XBram driver software API.
 *
 * If ECC is not enabled, this driver exists only to allow the tools to
 * create a memory test application and to populate xparameters.h with memory
@@ -27,7 +30,7 @@
 *   - Supports optional BRAM error correction and detection.
 *
 * The driver provides interrupt management functions. Implementation of
-* interrupt handlers is left to the user. Refer to the provided interrupt
+* interrupt handlers is left to the caller. Refer to the provided interrupt
 * example in the examples directory for details.
 *
 * This driver is intended to be RTOS and processor independent. Any needs for
@@ -50,7 +53,6 @@
 *     replaces the physical address present in the configuration structure.
 *
 * @note
-*
 * This API utilizes 32 bit I/O to the BRAM registers. With less
 * than 32 bits, the unused bits from registers are read as zero and written as
 * don't cares.
@@ -104,10 +106,9 @@
 * 		     instances are present.
 * 4.9   sd  07/07/23 Added SDT support.
 * 4.14  vlt 12/30/25 Update Doxygen comments to include SDT flow details.
+* 4.15  tb  09/15/26 Align Doxygen comments with AMD standards.
 * </pre>
 *****************************************************************************/
-#ifndef XBRAM_H		/* prevent circular inclusions */
-#define XBRAM_H		/* by using protection macros */
 
 #ifdef __cplusplus
 extern "C" {
@@ -126,7 +127,7 @@ extern "C" {
 /**************************** Type Definitions ******************************/
 
 /**
- * This typedef contains configuration information for the device.
+ * @brief Holds configuration information for the BRAM device.
  */
 typedef struct {
 #ifndef SDT
@@ -162,21 +163,23 @@ typedef struct {
 	UINTPTR CtrlBaseAddress;		   /**< Device register base address.*/
 	UINTPTR CtrlHighAddress;		   /**< Device register base address.*/
 #ifdef SDT
-	u32 IntId;			   /**< Interrupt ID on GIC **/
+	u32 IntId;			   /**< Interrupt ID on GIC. */
 	UINTPTR IntrParent; 		   /**< Bit[0] Interrupt parent type Bit[64/32:1]
 						 * Parent base address */
 #endif
 } XBram_Config;
 
 /**
- * The XBram driver instance data. The user is required to
- * allocate a variable of this type for every BRAM device in the
+ * @brief Holds instance data for a BRAM device.
+ *
+ * The XBram driver instance data.
+ * Allocate a variable of this type for every BRAM device in the
  * system. A pointer to a variable of this type is then passed to the driver
  * API functions.
  */
 typedef struct {
-	XBram_Config  Config;		/* BRAM config structure */
-	u32 IsReady;			/* Device is initialized and ready */
+	XBram_Config  Config; /**< BRAM configuration structure. */
+	u32 IsReady; /**< Device is initialized and ready. */
 } XBram;
 
 /***************** Macros (Inline Functions) Definitions ********************/

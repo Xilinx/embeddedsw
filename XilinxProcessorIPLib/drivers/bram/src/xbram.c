@@ -1,21 +1,16 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
 
 /**
 * @file xbram.c
-* @addtogroup bram Overview
-* @{
+* @brief Implements XBram interface functions.
 *
 * The implementation of the XBram driver's basic functionality.
 * See xbram.h for more information about the driver.
-*
-* @note
-*
-* None
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -29,9 +24,15 @@
 * 4.1   sk   11/10/15 Used UINTPTR instead of u32 for Baseaddress CR# 867425.
 *                     Changed the prototype of XBram_CfgInitialize API.
 * 4.9   sd   07/07/23 Added SDT support.
+* 4.15  tb  09/15/26 Align Doxygen comments with AMD standards.
 *</pre>
 *
 *****************************************************************************/
+
+/**
+* @addtogroup bram_api BRAM APIs
+* @{
+*/
 
 /***************************** Include Files ********************************/
 
@@ -52,34 +53,32 @@
 
 /****************************************************************************/
 /**
-* Initialize the XBram instance provided by the caller based on the given
-* configuration data.
+* @brief Initializes a specific XBram instance.
 *
-* Nothing is done except to initialize the InstancePtr.
+* Uses a configuration structure provided by the caller. Nothing is done
+* except to initialize InstancePtr.
 *
-* @param	InstancePtr is a pointer to an XBram instance.
-*		The memory the pointer references must be pre-allocated by
-*		the caller. Further calls to manipulate the driver through
-*		the XBram API must be made with this pointer.
-* @param	Config is a reference to a structure containing information
-*		about a specific BRAM device. This function
-*		initializes an InstancePtr object for a specific device
-*		specified by the contents of Config. This function can
-*		initialize multiple instance objects with the use of multiple
-*		calls giving different Config information on each call.
-* @param 	EffectiveAddr is the device base address in the virtual memory
-*		address space. The caller is responsible for keeping the
-*		address	mapping from EffectiveAddr to the device physical base
-*		address	unchanged once this function is invoked. Unexpected
-*		errors may occur if the address mapping changes after this
-*		function is called. If address translation is not used, use
-*		Config->BaseAddress for this parameters, passing the physical
-*		address instead.
+* @param[out] InstancePtr Pointer to an XBram instance. The memory
+*   the pointer references must be pre-allocated by the caller.
+*   Further calls to manipulate the driver through the XBram API
+*   must be made with this pointer.
+* @param[in] Config Reference to a structure containing information
+*   about a specific BRAM device. This function initializes an
+*   InstancePtr object for a specific device specified by Config.
+*   This function can initialize multiple instance objects with
+*   multiple calls giving different Config information on each
+*   call.
+* @param[in] EffectiveAddr Device base address in the virtual memory
+*   address space. The caller is responsible for keeping the
+*   address mapping from EffectiveAddr to the device physical base
+*   address unchanged once this function is invoked. Unexpected
+*   errors may occur if the address mapping changes after this
+*   function is called. If address translation is not used, use
+*   Config->BaseAddress for this parameter, passing the physical
+*   address instead.
 *
 * @return
-* 		- XST_SUCCESS	Initialization was successful.
-*
-* @note		None.
+* - XST_SUCCESS if initialization was successful.
 *
 *****************************************************************************/
 int XBram_CfgInitialize(XBram *InstancePtr,

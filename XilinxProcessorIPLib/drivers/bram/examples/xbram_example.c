@@ -7,9 +7,9 @@
 /*****************************************************************************/
 /**
 * @file xbram_example.c
+* @brief Demonstrates the XBram polled self-test example.
 *
 * This file contains a self test example using the BRAM driver (XBram).
-*
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -26,6 +26,7 @@
 * 4.9   sd   07/07/23 Added SDT support.
 * 4.14  vlt  12/17/25 Update Doxygen comments to include SDT flow details.
 * 4.15  vn   07/30/26 Fix Doxygen warnings
+* 4.15  tb  09/15/26 Align Doxygen comments with AMD standards.
 *</pre>
 *
 ******************************************************************************/
@@ -66,19 +67,16 @@ static void InitializeECC(XBram_Config *ConfigPtr, u32 EffectiveAddr);
  * The following are declared globally so they are zeroed and so they are
  * easily accessible from a debugger
  */
-XBram Bram;	/* The Instance of the BRAM Driver */
+XBram Bram;	/**< The instance of the BRAM driver. */
 
 
 /****************************************************************************/
 /**
-*
-* This function is the main function of the BRAM example.
+* @brief Runs the BRAM polled example.
 *
 * @return
-*		- XST_SUCCESS to indicate success.
-*		- XST_FAILURE to indicate failure.
-*
-* @note		None.
+* - XST_SUCCESS to indicate success.
+* - XST_FAILURE to indicate failure.
 *
 *****************************************************************************/
 #ifndef TESTAPP_GEN
@@ -99,22 +97,21 @@ int main(void)
 
 /*****************************************************************************/
 /**
-*
-* This is the entry point for the BRAM example.
+* @brief Runs the BRAM polled example for one device.
 *
 * @if SDT
-* @param	BaseAddress contains the base address of the device
+* @param[in] BaseAddress Contains the base address of the device.
 * @else
-* @param	DeviceId is the XPAR_<BRAM_instance>_DEVICE_ID value from
-*		xparameters.h
+* @param[in] DeviceId BRAM device ID value from
+*   xparameters.h.
 * @endif
 *
 * @return
-*		- XST_SUCCESS to indicate success.
-*		- XST_FAILURE to indicate failure.
+* - XST_SUCCESS to indicate success.
+* - XST_FAILURE to indicate failure.
 *
-* @note	        In XSCT/classic flow, DeviceId is used to look up the device
-*               configuration.
+* @note In XSCT/classic flow, DeviceId is used to look up the device
+*       configuration.
 *
 *****************************************************************************/
 #ifndef SDT
@@ -168,21 +165,16 @@ int BramExample(UINTPTR BaseAddress)
 
 /****************************************************************************/
 /**
+* @brief Initializes ECC in BRAM when hardware initialization is not available.
 *
-* This function ensures that ECC in the BRAM is initialized if no hardware
-* initialization is available. The ECC bits are initialized by reading and
-* writing data in the memory. This code is not optimized to only read data
-* in initialized sections of the BRAM.
+* The ECC bits are initialized by reading and writing data in the memory.
+* This code is not optimized to only read data in initialized sections of
+* the BRAM.
 *
-* @param	ConfigPtr is a reference to a structure containing information
-*		about a specific BRAM device.
-* @param 	EffectiveAddr is the device base address in the virtual memory
-*		address space.
-*
-* @return
-*		None
-*
-* @note		None.
+* @param[in] ConfigPtr Reference to a structure containing information
+*   about a specific BRAM device.
+* @param[in] EffectiveAddr Device base address in the virtual memory
+*   address space.
 *
 *****************************************************************************/
 void InitializeECC(XBram_Config *ConfigPtr, u32 EffectiveAddr)

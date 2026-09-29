@@ -7,12 +7,12 @@
 /*****************************************************************************/
 /**
 * @file xbram_intr_example.c
+* @brief Demonstrates the XBram interrupt example.
 *
 * This file contains a design example using the BRAM driver
 * (XBram) in an interrupt driven mode of operation. This example assumes
 * that there is an interrupt controller in the hardware system and the
 * BRAM device is connected to the interrupt controller.
-*
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -33,6 +33,7 @@
 * 4.13  ml   07/14/25 Fix GCC warnings.
 * 4.14  vlt  12/12/25 Update Doxygen comments to include SDT flow details.
 * 4.15  vn   07/30/26 Fix Doxygen warnings
+* 4.15  tb  09/15/26 Align Doxygen comments with AMD standards.
 * </pre>
 *
 ******************************************************************************/
@@ -92,26 +93,25 @@ static void BramDisableIntr(XIntc* IntcInstancePtr, XBram* InstancePtr,
  * easily accessible from a debugger
  */
  #ifndef TESTAPP_GEN
-XBram Bram;	/* The Instance of the BRAM Driver */
+XBram Bram;	/**< The instance of the BRAM driver. */
 
 #ifndef SDT
-XIntc Intc;	/* The Instance of the Interrupt Controller Driver */
+XIntc Intc;	/**< The instance of the interrupt controller driver. */
 #endif
 #endif
 
-static volatile u32 IntrCount;		/* Total number of interrupts */
-static volatile int ExceptionCount;	/* Total number of exceptions */
+static volatile u32 IntrCount; /**< Total number of interrupts. */
+static volatile int ExceptionCount; /**< Total number of exceptions. */
 
 /****************************************************************************/
 /**
-* This function is the main function of the BRAM example.  It is
-* for initializing the BRAM device and setting up interrupts.
+* @brief Runs the BRAM interrupt example.
+*
+* Initializes the BRAM device and sets up interrupts.
 *
 * @return
 *		- XST_SUCCESS to indicate success.
 *		- XST_FAILURE to indicate failure.
-*
-* @note		None.
 *
 *****************************************************************************/
 #ifndef TESTAPP_GEN
@@ -138,19 +138,18 @@ int main(void)
 /*****************************************************************************/
 /**
 *
-* This is the entry function from the TestAppGen tool generated application
-* which tests the interrupts when enabled in the BRAM
+* @brief Tests BRAM interrupts from a TestAppGen application.
 *
-* @param	InstancePtr is a reference to the BRAM driver Instance
+* @param[out]	InstancePtr Reference to the BRAM driver Instance.
 * @if SDT
-* @param	BaseAddress contains the base address of the device
+* @param[in]	BaseAddress Contains the base address of the device.
 * @else
-* @param	IntcInstancePtr is a reference to the Interrupt Controller
-*		driver Instance
-* @param	DeviceId is the XPAR_<BRAM_instance>_DEVICE_ID
-*		value from xparameters.h
-* @param	IntrId is XPAR_<INTC_instance>_<BRAM_instance>_VEC_ID
-*		value from xparameters.h
+* @param[out]	IntcInstancePtr Reference to the Interrupt Controller
+*   driver Instance.
+* @param[in]	DeviceId BRAM device ID value from
+*   xparameters.h.
+* @param[in]	IntrId BRAM interrupt vector ID value from
+*   xparameters.h.
 * @endif
 *
 * @return
@@ -218,7 +217,7 @@ int BramIntrExample(XBram* InstancePtr, UINTPTR BaseAddress)
 
 	/*
 	 * Execute the BRAM driver selftest, and then disable exceptions again.
-	 * Running the driver test will inject errors if Fault Injection is
+	 * Running the driver test injects errors if Fault Injection is
 	 * enabled.
 	 */
 	Status = XBram_SelfTest(InstancePtr, XBRAM_IR_ALL_MASK);
@@ -251,21 +250,19 @@ int BramIntrExample(XBram* InstancePtr, UINTPTR BaseAddress)
 /*****************************************************************************/
 /**
 *
-* This function performs the BRAM set up for Interrupts
+* @brief Sets up BRAM interrupts.
 *
-* @param	IntcInstancePtr is a reference to the Interrupt Controller
-*		driver Instance
-* @param	InstancePtr is a reference to the BRAM driver Instance
-* @param	DeviceId is the XPAR_<BRAM_instance>_DEVICE_ID
-*		value from xparameters.h
-* @param	IntrId is XPAR_<INTC_instance>_<BRAM_instance>_INTERRUPT_INTR
-*		value from xparameters.h
+* @param[out]	IntcInstancePtr Reference to the Interrupt Controller
+*   driver Instance.
+* @param[in]	InstancePtr Reference to the BRAM driver Instance.
+* @param[in]	DeviceId BRAM device ID value from
+*   xparameters.h.
+* @param[in]	IntrId BRAM interrupt ID value from
+*   xparameters.h.
 *
 * @return
 *		- XST_SUCCESS if the interrupt setup is successful.
 *		- XST_FAILURE if interrupt setup is not successful.
-*
-* @note		None.
 *
 ******************************************************************************/
 static int BramSetupIntrSystem(XIntc* IntcInstancePtr, XBram* InstancePtr,
@@ -345,21 +342,17 @@ static int BramSetupIntrSystem(XIntc* IntcInstancePtr, XBram* InstancePtr,
 
 /****************************************************************************/
 /**
+* @brief Initializes ECC in BRAM when hardware initialization is not available.
 *
-* This function ensures that ECC in the BRAM is initialized if no hardware
+* Ensures that ECC in the BRAM is initialized if no hardware
 * initialization is available. The ECC bits are initialized by reading and
 * writing data in the memory. This code is not optimized to only read data
 * in initialized sections of the BRAM.
 *
-* @param	ConfigPtr is a reference to a structure containing information
-*		about a specific BRAM device.
-* @param 	EffectiveAddr is the device base address in the virtual memory
-*		address space.
-*
-* @return
-*		None
-*
-* @note		None.
+* @param[in] ConfigPtr Reference to a structure containing information
+*   about a specific BRAM device.
+* @param[in] EffectiveAddr Device base address in the virtual memory
+*   address space.
 *
 *****************************************************************************/
 static void InitializeECC(XBram_Config *ConfigPtr, u32 EffectiveAddr)
@@ -384,13 +377,9 @@ static void InitializeECC(XBram_Config *ConfigPtr, u32 EffectiveAddr)
 /*****************************************************************************/
 /**
 *
-* This is the interrupt handler routine for the BRAM interrupt for this example.
+* @brief Handles the BRAM interrupt for this example.
 *
-* @param	CallbackRef is the Callback reference for the handler.
-*
-* @return	None.
-*
-* @note		None.
+* @param[in]	CallbackRef Callback reference for the handler.
 *
 ******************************************************************************/
 static void BramDriverHandler(void *CallbackRef)
@@ -410,17 +399,13 @@ static void BramDriverHandler(void *CallbackRef)
 /*****************************************************************************/
 /**
 *
-* This function disables the interrupts for the BRAM and disables Exceptions.
+* @brief Disables BRAM interrupts and exceptions.
 *
-* @param	IntcInstancePtr is a pointer to the Interrupt Controller
-*		driver Instance
-* @param	InstancePtr is a pointer to the BRAM driver Instance
-* @param	IntrId is XPAR_<INTC_instance>_<BRAM_instance>_VEC_ID
-*		value from xparameters.h
-*
-* @return	None
-*
-* @note		None
+* @param[in]	IntcInstancePtr Pointer to the Interrupt Controller
+*   driver Instance.
+* @param[in]	InstancePtr Pointer to the BRAM driver Instance.
+* @param[in]	IntrId BRAM interrupt vector ID value from
+*   xparameters.h.
 *
 ******************************************************************************/
 static void BramDisableIntr(XIntc* IntcInstancePtr, XBram* InstancePtr, u16 IntrId)
@@ -436,14 +421,9 @@ static void BramDisableIntr(XIntc* IntcInstancePtr, XBram* InstancePtr, u16 Intr
 
 /*****************************************************************************/
 /**
-* Exception handler, invoked when an instruction bus exception or a data bus
-* exception orrurs. The handler just counts exceptions, and returns.
+* @brief Counts instruction or data bus exceptions.
 *
-* @param	InstancePtr points to the exception instance
-*
-* @return	None
-*
-* @note		None
+* @param[in]	InstancePtr Points to the exception instance.
 *
 ******************************************************************************/
 #ifndef SDT
