@@ -890,10 +890,106 @@ done:
 
 /****************************************************************************/
 /**
+ * @brief  Request all preallocated devices in a subsystem that match the
+ * class, subclass, and type encoded in DeviceId. Used during a kexec-based
+ * kernel reload (Linux sends the PM_DEV_ALL_PERIPH node with index
+ * XPM_NODEIDX_DEV_ALL) after a bulk release, so devices needed for subsystem
+ * bring-up (e.g. USB, eMMC) are re-requested.
+ *
+ * @param SubsystemId	Subsystem making the request.
+ * @param DeviceId	Node whose class/subclass/type selects the devices.
+ *
+ * @return XST_SUCCESS if successful else XST_FAILURE or an error code
+ * or a reason code
+ *
+ ****************************************************************************/
+static XStatus XPm_RequestAllPreallocDevices(const u32 SubsystemId,
+					     const u32 DeviceId)
+{
+	volatile XStatus Status = XST_FAILURE;
+	const XPm_Subsystem *Subsystem = NULL;
+	u32 TargetClass = NODECLASS(DeviceId);
+	u32 TargetSubclass = NODESUBCLASS(DeviceId);
+	u32 TargetType = NODETYPE(DeviceId);
+	u32 ReqmDeviceId;
+
+	/* Ensure the subsystem is valid: in-range and not the PMC subsystem */
+	if ((MAX_NUM_SUBSYSTEMS <= NODEINDEX(SubsystemId)) ||
+	    (PM_SUBSYS_PMC == SubsystemId)) {
+		Status = XPM_INVALID_SUBSYSID;
+		goto done;
+	}
+
+	/* Retrieve target subsystem */
+	Subsystem = XPmSubsystem_GetById(SubsystemId);
+	if (NULL == Subsystem) {
+		Status = XPM_INVALID_SUBSYSID;
+		goto done;
+	}
+
+	/* Request unallocated preallocated devices matching class/subclass/type */
+	LIST_FOREACH(Subsystem->Requirements, ReqmNode) {
+		const XPm_Requirement *Reqm = NULL;
+
+		if (NULL == ReqmNode->Data) {
+			PmErr("Invalid requirement node\n\r");
+			Status = XST_FAILURE;
+			goto done;
+		}
+		Reqm = ReqmNode->Data;
+		if (NULL == Reqm->Device) {
+			Status = XST_FAILURE;
+			goto done;
+		}
+		ReqmDeviceId = Reqm->Device->Node.Id;
+
+		/*
+		 * Skip devices that are already allocated, not preallocated,
+		 * or that do not match class, subclass, and type.
+		 */
+		if ((1U == Reqm->Allocated) ||
+		    (1U != PREALLOC((u32)Reqm->Flags)) ||
+		    (TargetClass != NODECLASS(ReqmDeviceId)) ||
+		    (TargetSubclass != NODESUBCLASS(ReqmDeviceId)) ||
+		    (TargetType != NODETYPE(ReqmDeviceId))) {
+			continue;
+		}
+
+		/*
+		 * Re-request with the original prealloc capabilities. Use a
+		 * secure command type so the request matches boot-time
+		 * preallocation, independent of the IPI security of the
+		 * bulk REQUEST_NODE from Linux.
+		 */
+		Status = XPmDevice_Request(SubsystemId, ReqmDeviceId,
+					   Reqm->PreallocCaps,
+					   Reqm->PreallocQoS,
+					   XPLMI_CMD_SECURE);
+		if (XST_SUCCESS != Status) {
+			PmErr("Requesting prealloc device 0x%x failed.\n\r",
+			      ReqmDeviceId);
+			Status = XPM_ERR_DEVICE_REQ;
+			goto done;
+		}
+	}
+
+	Status = XST_SUCCESS;
+
+done:
+	if (XST_SUCCESS != Status) {
+		PmErr("0x%x\n\r", Status);
+	}
+
+	return Status;
+}
+
+/****************************************************************************/
+/**
  * @brief Handle a device request command.
  *
  * Resolves the indexed device ID and requests the device with the supplied
- * capabilities, quality of service, and command security type.
+ * capabilities, quality of service, and command security type. A device ID
+ * with index XPM_NODEIDX_DEV_ALL bulk-requests matching preallocated devices.
  *
  * @param Cmd Pointer to the command payload, request metadata, and response.
  *
@@ -913,19 +1009,28 @@ static XStatus XPm_DoRequestDevice(XPlmi_Cmd* Cmd) {
 	/* Resolve the external device index before submitting the request. */
 	Status = XPm_ResolveIndexedNodeId(IndexedDeviceId, &DeviceId);
 	if (XST_SUCCESS != Status) {
-		Cmd->Response[0] = (u32)Status;
+		goto done;
+	}
+
+	/*
+	 * Bulk-request path: Linux sends the PM_DEV_ALL_PERIPH node (device
+	 * index XPM_NODEIDX_DEV_ALL) during kexec to re-request preallocated
+	 * peripheral devices after a bulk release.
+	 */
+	if ((u32)XPM_NODEIDX_DEV_ALL == NODEINDEX(DeviceId)) {
+		Status = XPm_RequestAllPreallocDevices(SubsystemId, DeviceId);
 		goto done;
 	}
 
 	/* Request ownership with the caller's capabilities and QoS. */
 	Status = XPmDevice_Request(SubsystemId, DeviceId, Capabilities,
 				   QoS, CmdType);
+
+done:
 	if (XST_SUCCESS != Status) {
 		PmErr("0x%x\n\r", Status);
 	}
 	Cmd->Response[0] = (u32)Status;
-
-done:
 	return Status;
 }
 

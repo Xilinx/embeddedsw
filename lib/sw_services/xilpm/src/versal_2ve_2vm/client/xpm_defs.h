@@ -667,11 +667,13 @@ enum XPmNotifyEvent {
 /* Version 3 supports the CPU idling feature during force power down */
 #define XST_API_SELF_SUSPEND_VERSION		(3U)
 #define XST_API_FORCE_POWERDOWN_VERSION		(2U)
-/*
+/**
  * Version 2 supports some extra security checks for REQ_ACCESS_SECURE
  * and REQ_ACCESS_SECURE_NONSECURE policies.
+ * Version 3 supports requesting all devices in the subsystem that match
+ * the subclass and type of the specified device ID and are preallocated.
  */
-#define XST_API_REQUEST_NODE_VERSION		(2U)
+#define XST_API_REQUEST_NODE_VERSION		(3U)
 /**
  * @brief Version 3 supports bulk release of peripheral devices
  * (PM_DEV_ALL_PERIPH)
