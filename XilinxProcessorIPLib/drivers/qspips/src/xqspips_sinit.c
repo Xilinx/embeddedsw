@@ -8,11 +8,7 @@
 /**
 *
 * @file xqspips_sinit.c
-* @addtogroup qspips Overview
-* @{
-*
-* The implementation of the XQspiPs component's static initialization
-* functionality.
+* @brief Implements the XQspiPs component's static initialization functionality.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -22,9 +18,15 @@
 * 1.00  sdm 11/25/10 First release
 * 3.11	akm 07/10/23 Update the driver to support for system device-tree flow.
 * 3.15  vlt 12/16/25 Update Doxygen comments to include SDT flow details.
+* 3.16  tb  09/30/26 Align Doxygen comments with AMD documentation standards
 * </pre>
 *
 ******************************************************************************/
+
+/**
+* @addtogroup qspips_api QSPIPS APIs
+* @{
+*/
 
 /***************************** Include Files *********************************/
 
@@ -49,22 +51,24 @@ extern XQspiPs_Config XQspiPs_ConfigTable[];
 /*****************************************************************************/
 /**
 *
-* Looks up the device configuration based on the unique device ID/BaseAddress.
+* @brief Looks up the device configuration based on the unique device
+* ID/BaseAddress.
+*
 * The XQspiPs_ConfigTable[] contains the configuration info for each device
 * in the system.
 *
 * @if SDT
-* @param	BaseAddress contains the base address of the device
+* @param[in]	BaseAddress The base address of the device.
 * @else
-* @param	DeviceId contains the unique ID of the device
+* @param[in]	DeviceId The unique ID of the device.
 * @endif
 *
 * @return       A pointer to the configuration found or NULL if the specified
 *               device ID/BaseAddress was not found. See xqspips.h for the
 *               definition of XQspiPs_Config.
 *
-* @note        In XSCT/classic flow, DeviceId is used to look up the device
-*              configuration.
+* @note        In XSCT/classic flow, the device configuration is looked up
+*              based on DeviceId.
 *
 ******************************************************************************/
 #ifndef SDT

@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -8,10 +8,7 @@
 /**
 *
 * @file xqspips_g.c
-* @addtogroup qspips Overview
-* @{
-*
-* This file contains a configuration table that specifies the configuration of
+* @brief Contains a configuration table that specifies the configuration of
 * QSPI devices in the system.
 *
 * <pre>
@@ -20,9 +17,15 @@
 * Ver   Who Date     Changes
 * ----- --- -------- -----------------------------------------------
 * 1.00  sdm 11/25/10 First release
+* 3.16  tb  09/30/26 Align Doxygen comments with AMD documentation standards
 * </pre>
 *
 ******************************************************************************/
+
+/**
+* @addtogroup qspips_api QSPIPS APIs
+* @{
+*/
 
 /***************************** Include Files *********************************/
 
@@ -44,8 +47,7 @@
 /************************** Variable Prototypes ******************************/
 
 /**
- * This table contains configuration information for each QSPI device
- * in the system.
+ * Holds the configuration information for each QSPI device in the system.
  */
 XQspiPs_Config XQspiPs_ConfigTable[XPAR_XQSPIPS_NUM_INSTANCES] = {
 	{

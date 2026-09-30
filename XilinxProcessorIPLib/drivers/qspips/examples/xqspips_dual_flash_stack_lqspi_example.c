@@ -8,22 +8,18 @@
 /**
 *
 * @file xqspips_dual_flash_stack_lqspi_example.c
-*
-* This file contains a design example using the QSPI driver (XQspiPs) in
+* @brief Implements a design example using the QSPI driver (XQspiPs) in
 * Linear QSPI mode, with two serial Flash devices in stacked mode.
-* One flash s accessed at a time on a common bus by using separate selects.
-* This example writes to the two flash memories in  QSPI mode and reads
+*
+* One flash is accessed at a time on a common bus by using separate selects.
+* The example writes to the two flash memories in QSPI mode and reads
 * the data back from the flash memories, in Linear QSPI mode.
 * It is recommended to use Manual CS + Auto start for best performance.
 *
 * The hardware which this example runs on, must have a serial Flash (Numonyx
-* N25Q, Winbond W25Q, Spansion S25FL, ISSI IS25WP) for it to run. This example
+* N25Q, Winbond W25Q, Spansion S25FL, ISSI IS25WP) for it to run. The example
 * has been tested with the Numonyx Serial Flash (N25Q128) and IS25WP series
 * flash parts.
-*
-* @note
-*
-* None.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -42,6 +38,7 @@
 * 3.14  sb  03/25/25 Fixed gcc and g++ warnings.
 * 3.15  vlt 12/18/25 Update Doxygen comments to include SDT flow details.
 * 3.16  vn  08/26/26 Fix Doxygen warnings
+* 3.16  tb  09/30/26 Align Doxygen comments with AMD documentation standards
 * </pre>
 *
 ******************************************************************************/
@@ -66,27 +63,27 @@
  * change all the needed parameters in one place.
  */
 #ifndef SDT
-#define QSPI_DEVICE_ID		XPAR_XQSPIPS_0_DEVICE_ID
+#define QSPI_DEVICE_ID		XPAR_XQSPIPS_0_DEVICE_ID /**< QSPI device ID. */
 #endif
 
 /*
  * The following constants define the commands which may be sent to the Flash
  * device.
  */
-#define WRITE_STATUS_CMD	0x01
-#define WRITE_CMD		0x02
-#define READ_CMD		0x03
-#define WRITE_DISABLE_CMD	0x04
-#define READ_STATUS_CMD		0x05
-#define WRITE_ENABLE_CMD	0x06
-#define FAST_READ_CMD		0x0B
-#define DUAL_READ_CMD		0x3B
-#define QUAD_READ_CMD		0x6B
-#define BULK_ERASE_CMD		0xC7
-#define	SEC_ERASE_CMD		0xD8
-#define READ_ID			0x9F
-#define READ_CONFIG_CMD		0x35
-#define WRITE_CONFIG_CMD	0x01
+#define WRITE_STATUS_CMD	0x01	/**< Write status register command. */
+#define WRITE_CMD		0x02	/**< Write (page program) command. */
+#define READ_CMD		0x03	/**< Normal read command. */
+#define WRITE_DISABLE_CMD	0x04	/**< Write disable command. */
+#define READ_STATUS_CMD		0x05	/**< Read status register command. */
+#define WRITE_ENABLE_CMD	0x06	/**< Write enable command. */
+#define FAST_READ_CMD		0x0B	/**< Fast read command. */
+#define DUAL_READ_CMD		0x3B	/**< Dual read command. */
+#define QUAD_READ_CMD		0x6B	/**< Quad read command. */
+#define BULK_ERASE_CMD		0xC7	/**< Bulk erase command. */
+#define	SEC_ERASE_CMD		0xD8	/**< Sector erase command. */
+#define READ_ID			0x9F	/**< Read ID command. */
+#define READ_CONFIG_CMD		0x35	/**< Read config register command. */
+#define WRITE_CONFIG_CMD	0x01	/**< Write config register command. */
 
 /*
  * The following constants define the offsets within a FlashBuffer data
@@ -95,25 +92,26 @@
  * duplex transfers such that the number of bytes received is the number
  * sent and received.
  */
-#define COMMAND_OFFSET		0 /* Flash instruction */
-#define ADDRESS_1_OFFSET	1 /* MSB byte of address to read or write */
-#define ADDRESS_2_OFFSET	2 /* Middle byte of address to read or write */
-#define ADDRESS_3_OFFSET	3 /* LSB byte of address to read or write */
-#define DATA_OFFSET		4 /* Start of Data for Read/Write */
-#define DUMMY_OFFSET		4 /* Dummy byte offset for fast, dual and quad
-				   * reads
+#define COMMAND_OFFSET		0 /**< Flash instruction. */
+#define ADDRESS_1_OFFSET	1 /**< MSB byte of address to read or write. */
+/** Middle byte of address to read or write. */
+#define ADDRESS_2_OFFSET	2
+#define ADDRESS_3_OFFSET	3 /**< LSB byte of address to read or write. */
+#define DATA_OFFSET		4 /**< Start of Data for Read/Write. */
+#define DUMMY_OFFSET		4 /**< Dummy byte offset for fast, dual and quad
+				   * reads.
 				   */
-#define DUMMY_SIZE		1 /* Number of dummy bytes for fast, dual and
-				   * quad reads
+#define DUMMY_SIZE		1 /**< Number of dummy bytes for fast, dual and
+				   * quad reads.
 				   */
-#define RD_ID_SIZE		4 /* Read ID command + 3 bytes ID response */
-#define BULK_ERASE_SIZE		1 /* Bulk Erase command size */
-#define SEC_ERASE_SIZE		4 /* Sector Erase command + Sector address */
-#define RD_CFG_SIZE		2 /* 1 byte Configuration register + RD CFG
-				   * command
+#define RD_ID_SIZE		4 /**< Read ID command + 3 bytes ID response. */
+#define BULK_ERASE_SIZE		1 /**< Bulk Erase command size. */
+#define SEC_ERASE_SIZE		4 /**< Sector Erase command + Sector address. */
+#define RD_CFG_SIZE		2 /**< 1 byte Configuration register + RD CFG
+				   * command.
 				   */
-#define WR_CFG_SIZE		3 /* WRR command + 1 byte each Status and
-				   * Config Reg
+#define WR_CFG_SIZE		3 /**< WRR command + 1 byte each Status and
+				   * Config Reg.
 				   */
 
 /*
@@ -121,58 +119,60 @@
  * Flash on the QSPI interface, that are not data, but control information
  * which includes the command and address
  */
-#define OVERHEAD_SIZE		4
+#define OVERHEAD_SIZE		4	/**< Command and address byte count. */
 
 /*
  * The following constants specify the page size, sector size, and number of
  * pages and sectors for the Flash.  The page size specifies a max number of
  * bytes that can be written to the Flash with a single transfer.
  */
-#define SECTOR_SIZE		0x10000
-#define NUM_SECTORS		0x200		/* 100 sectors from each flash */
-#define NUM_PAGES		0x20000		/* 10000 pages from each flash */
-#define PAGE_SIZE		256
+#define SECTOR_SIZE		0x10000	/**< Sector size in bytes. */
+#define NUM_SECTORS		0x200	/**< 100 sectors from each flash. */
+#define NUM_PAGES		0x20000	/**< 10000 pages from each flash. */
+#define PAGE_SIZE		256	/**< Page size in bytes. */
 
 /* The following defines are for dual flash stacked mode interface. */
-#define LQSPI_CR_FAST_QUAD_READ		0x0000006B /* Fast Quad Read output */
-#define LQSPI_CR_1_DUMMY_BYTE		0x00000100 /* 1 Dummy Byte between
-						     address and return data */
-#define LQSPI_CR_FAST_READ			0x0000000B /* Fast Read */
-#define LQSPI_CR_NORMAL_READ		0x00000003 /* Fast Read */
+/** Fast Quad Read output. */
+#define LQSPI_CR_FAST_QUAD_READ		0x0000006B
+#define LQSPI_CR_1_DUMMY_BYTE		0x00000100 /**< 1 Dummy Byte between
+						     address and return data. */
+#define LQSPI_CR_FAST_READ			0x0000000B /**< Fast Read. */
+#define LQSPI_CR_NORMAL_READ		0x00000003 /**< Normal Read. */
 
+/** LQSPI configuration register value for writing to the stacked flash. */
 #define DUAL_STACK_CONFIG_WRITE		(XQSPIPS_LQSPI_CR_TWO_MEM_MASK | \
 					 LQSPI_CR_1_DUMMY_BYTE | \
 					 LQSPI_CR_FAST_QUAD_READ)
 
+/** LQSPI configuration register value for quad reads of stacked flash. */
 #define DUAL_STACK_CONFIG_QUAD_READ	(XQSPIPS_LQSPI_CR_LINEAR_MASK | \
 					 XQSPIPS_LQSPI_CR_TWO_MEM_MASK | \
 					 LQSPI_CR_1_DUMMY_BYTE | \
 					 LQSPI_CR_FAST_QUAD_READ)
 
-/* Number of flash pages to be written.*/
+/** Number of flash pages to be written. */
 #define PAGE_COUNT		16
 
-/*
+/**
  * Flash address to which data is to be written.
  * Test address defined so as to cover both flash devices
  */
 #define TEST_ADDRESS		0xFFF800
 
 
-#define UNIQUE_VALUE		0x0C
+#define UNIQUE_VALUE		0x0C	/**< Start value of the data pattern. */
 /*
  * The following constants specify the max amount of data and the size of the
  * the buffer required to hold the data and overhead to transfer the data to
  * and from the Flash.
  */
+/** Maximum amount of data transferred to and from the Flash. */
 #define MAX_DATA		(PAGE_COUNT * PAGE_SIZE)
 
-/* Base address of Flash1 and Flash2*/
-#define FLASH1BASE 0x0000000
-#define FLASH2BASE 0x1000000
+#define FLASH1BASE 0x0000000	/**< Base address of Flash1. */
+#define FLASH2BASE 0x1000000	/**< Base address of Flash2. */
 
-/* Mask for sector start address*/
-#define SECTORMASK 0xFFF0000
+#define SECTORMASK 0xFFF0000	/**< Mask for sector start address. */
 
 
 /**************************** Type Definitions *******************************/
@@ -197,14 +197,14 @@ int DualStackExample(XQspiPs *QspiInstancePtr, UINTPTR BaseAddress);
 
 /************************** Variable Definitions *****************************/
 
-/*
+/**
  * The instances to support the device drivers are global such that they
  * are initialized to zero each time the program runs. They could be local
  * but should at least be static so they are zeroed.
  */
 static XQspiPs QspiInstance;
 
-/*
+/**
  * The following variable allows a test value to be added to the values that
  * are written to the Flash such that unique values can be generated to
  * guarantee the writes to the Flash were successful
@@ -215,18 +215,15 @@ int Test = 2;
  * The following variables are used to read and write to the flash and they
  * are global to avoid having large buffers on the stack
  */
-u8 ReadBuffer[MAX_DATA + DATA_OFFSET + DUMMY_SIZE];
-u8 WriteBuffer[PAGE_SIZE + DATA_OFFSET];
+u8 ReadBuffer[MAX_DATA + DATA_OFFSET + DUMMY_SIZE];	/**< Read buffer. */
+u8 WriteBuffer[PAGE_SIZE + DATA_OFFSET];	/**< Write buffer. */
 
 /*****************************************************************************/
 /**
 *
-* Main function to call the QSPI Dual Stack example.
-*
+* @brief Runs the QSPI Dual Stack example.
 *
 * @return	XST_SUCCESS if successful, otherwise XST_FAILURE.
-*
-* @note		None
 *
 ******************************************************************************/
 int main(void)
@@ -253,24 +250,24 @@ int main(void)
 /*****************************************************************************/
 /**
 *
-* The purpose of this function is to illustrate how to use the XQspiPs
-* device driver with two Flash devices in Stacked mode.
-* This function writes data to the serial Flash in QSPI mode and
+* @brief Illustrates how to use the XQspiPs device driver with two Flash
+* devices in Stacked mode.
+*
+* The function writes data to the serial Flash in QSPI mode and
 * reads data in Linear QSPI mode.
 *
-* @param        QspiInstancePtr is a pointer to the QSPIPS driver to use.
+* @param[in]        QspiInstancePtr Pointer to the QSPIPS driver to use.
 * @if SDT
-* @param        BaseAddress contains the base address of the device
+* @param[in]        BaseAddress The base address of the device
 * @else
-* @param        QspiDeviceId is the XPAR_<QSPIPS_instance>_DEVICE_ID value
+* @param[in]        QspiDeviceId The XPAR_<QSPIPS_instance>_DEVICE_ID value
 *		from xparameters.h.
 * @endif
 *
 * @return	XST_SUCCESS if successful, else XST_FAILURE.
 *
-* @note	        In XSCT/classic flow, DeviceId is used to look up the device
-*               configuration.
-*
+* @note	        In XSCT/classic flow, the device configuration is looked up
+*               based on DeviceId.
 *
 *****************************************************************************/
 #ifndef SDT
@@ -470,18 +467,17 @@ int DualStackExample(XQspiPs *QspiInstancePtr, UINTPTR BaseAddress)
 /*****************************************************************************/
 /**
 *
-* This function writes to the  serial Flash connected to the QSPI interface.
+* @brief Writes to the serial Flash connected to the QSPI interface.
+*
 * All the data put into the buffer must be in the same page of the device with
 * page boundaries being on 256 byte boundaries.
 *
-* @param	QspiPtr is a pointer to the QSPI driver component to use.
-* @param	Address contains the address to write data to in the Flash.
-* @param	ByteCount contains the number of bytes to write.
-* @param	Command is the command used to write data to the flash. QSPI
+* @param[in,out]	QspiPtr Pointer to the QSPI driver component to use.
+* @param[in]	Address The address to write data to in the Flash.
+* @param[in]	ByteCount The number of bytes to write.
+* @param[in]	Command The command used to write data to the flash. QSPI
 *		device supports only Page Program command to write data to the
 *		flash.
-*
-* @note		None.
 *
 ******************************************************************************/
 void FlashWrite(XQspiPs *QspiPtr, u32 Address, u32 ByteCount, u8 Command)
@@ -571,15 +567,12 @@ void FlashWrite(XQspiPs *QspiPtr, u32 Address, u32 ByteCount, u8 Command)
 /*****************************************************************************/
 /**
 *
-* This function erases the sectors in the  serial Flash connected to the
-* QSPI interface.
+* @brief Erases the sectors in the serial Flash connected to the QSPI interface.
 *
-* @param	QspiPtr is a pointer to the QSPI driver component to use.
-* @param	Address contains the address of the first sector which needs to
+* @param[in,out]	QspiPtr Pointer to the QSPI driver component to use.
+* @param[in]	Address The address of the first sector which needs to
 *		be erased.
-* @param	ByteCount contains the total size to be erased.
-*
-* @note		None.
+* @param[in]	ByteCount The total size to be erased.
 *
 ******************************************************************************/
 void FlashErase(XQspiPs *QspiPtr, u32 Address, u32 ByteCount)
@@ -874,12 +867,9 @@ void FlashErase(XQspiPs *QspiPtr, u32 Address, u32 ByteCount)
 
 /**
  *
- * This function reads serial FLASH ID connected to the SPI interface.
- *
+ * @brief Reads serial FLASH ID connected to the SPI interface.
  *
  * @return	XST_SUCCESS if read id, otherwise XST_FAILURE.
- *
- * @note	None.
  *
  ******************************************************************************/
 int FlashReadID(void)
@@ -906,13 +896,9 @@ int FlashReadID(void)
 
 /**
  *
- * This function enables quad mode in the serial flash connected to the
- * SPI interface.
+ * @brief Enables quad mode in the serial flash connected to the SPI interface.
  *
- * @param	QspiPtr is a pointer to the QSPI driver component to use.
- *
- *
- * @note	None.
+ * @param[in,out]	QspiPtr Pointer to the QSPI driver component to use.
  *
  ******************************************************************************/
 void FlashQuadEnable(XQspiPs *QspiPtr)

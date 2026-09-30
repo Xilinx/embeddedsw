@@ -8,24 +8,19 @@
 /**
 *
 * @file xqspips_g128_flash_example.c
+* @brief Implements a design example using the QSPI driver (XQspiPs)
+* with a serial Flash device greater than 128Mb.
 *
-*
-* This file contains a design example using the QSPI driver (XQspiPs)
-* with a serial Flash device greater than 128Mb. The example writes to flash
-* and reads it back in I/O mode. This examples performs
-* some transfers in Auto mode and Manual start mode, to illustrate the modes
-* available. It is recommended to use Manual CS + Auto start for
+* The example writes to flash and reads it back in I/O mode. The example
+* performs some transfers in Auto mode and Manual start mode, to illustrate
+* the modes available. It is recommended to use Manual CS + Auto start for
 * best performance.
-* This example illustrates single, parallel and stacked modes.
+* The example illustrates single, parallel and stacked modes.
 * Both the flash devices have to be of the same make and size.
 * The hardware which this example runs on, must have a serial Flash (Micron
-* N25Q or Spansion S25FL) for it to run. This example has been
+* N25Q or Spansion S25FL) for it to run. The example has been
 * tested with the Micron Serial Flash (N25Q256, N25Q512 & N25Q00AA) and
 * Spansion (S25FL256 & S25FL512)
-*
-* @note
-*
-* None.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -43,6 +38,7 @@
 * 3.14 sb  03/25/25 Fixed gcc and g++ warnings.
 * 3.15 vlt 12/18/25 Update Doxygen comments to include SDT flow details.
 * 3.16 vn  08/26/26 Fix Doxygen warnings
+* 3.16 tb  09/30/26 Align Doxygen comments with AMD documentation standards
 * </pre>
 *
 ******************************************************************************/
@@ -64,27 +60,27 @@
  * The following constants define the commands which may be sent to the Flash
  * device.
  */
-#define WRITE_STATUS_CMD	0x01
-#define WRITE_CMD			0x02
-#define READ_CMD			0x03
-#define WRITE_DISABLE_CMD	0x04
-#define READ_STATUS_CMD		0x05
-#define WRITE_ENABLE_CMD	0x06
-#define FAST_READ_CMD		0x0B
-#define DUAL_READ_CMD		0x3B
-#define QUAD_READ_CMD		0x6B
-#define BULK_ERASE_CMD		0xC7
-#define	SEC_ERASE_CMD		0xD8
-#define READ_ID				0x9F
-#define READ_CONFIG_CMD		0x35
-#define WRITE_CONFIG_CMD	0x01
-#define BANK_REG_RD			0x16
-#define BANK_REG_WR			0x17
-/* Bank register is called Extended Address Register in Micron */
+#define WRITE_STATUS_CMD	0x01	/**< Write status register command. */
+#define WRITE_CMD			0x02	/**< Page program command. */
+#define READ_CMD			0x03	/**< Normal read command. */
+#define WRITE_DISABLE_CMD	0x04	/**< Write disable command. */
+#define READ_STATUS_CMD		0x05	/**< Read status register command. */
+#define WRITE_ENABLE_CMD	0x06	/**< Write enable command. */
+#define FAST_READ_CMD		0x0B	/**< Fast read command. */
+#define DUAL_READ_CMD		0x3B	/**< Dual read command. */
+#define QUAD_READ_CMD		0x6B	/**< Quad read command. */
+#define BULK_ERASE_CMD		0xC7	/**< Bulk erase command. */
+#define	SEC_ERASE_CMD		0xD8	/**< Sector erase command. */
+#define READ_ID				0x9F	/**< Read ID command. */
+#define READ_CONFIG_CMD		0x35	/**< Read config register command. */
+#define WRITE_CONFIG_CMD	0x01	/**< Write config register command. */
+#define BANK_REG_RD			0x16	/**< Bank register read. */
+#define BANK_REG_WR			0x17	/**< Bank register write. */
+/** Extended Address Register read; Micron name for the Bank register. */
 #define EXTADD_REG_RD		0xC8
-#define EXTADD_REG_WR		0xC5
-#define	DIE_ERASE_CMD		0xC4
-#define READ_FLAG_STATUS_CMD	0x70
+#define EXTADD_REG_WR		0xC5	/**< Extended address register write. */
+#define	DIE_ERASE_CMD		0xC4	/**< Die erase command. */
+#define READ_FLAG_STATUS_CMD	0x70	/**< Read flag status command. */
 
 /*
  * The following constants define the offsets within a FlashBuffer data
@@ -93,49 +89,52 @@
  * duplex transfers such that the number of bytes received is the number
  * sent and received.
  */
-#define COMMAND_OFFSET		0 /* Flash instruction */
-#define ADDRESS_1_OFFSET	1 /* MSB byte of address to read or write */
-#define ADDRESS_2_OFFSET	2 /* Middle byte of address to read or write */
-#define ADDRESS_3_OFFSET	3 /* LSB byte of address to read or write */
-#define DATA_OFFSET		4 /* Start of Data for Read/Write */
-#define DUMMY_OFFSET		4 /* Dummy byte offset for fast, dual and quad
-				     reads */
-#define DUMMY_SIZE		1 /* Number of dummy bytes for fast, dual and
-				     quad reads */
-#define RD_ID_SIZE		4 /* Read ID command + 3 bytes ID response */
-#define BULK_ERASE_SIZE		1 /* Bulk Erase command size */
-#define SEC_ERASE_SIZE		4 /* Sector Erase command + Sector address */
-#define BANK_SEL_SIZE	2 /* BRWR or EARWR command + 1 byte bank value */
-#define RD_CFG_SIZE		2 /* 1 byte Configuration register + RD CFG command*/
-#define WR_CFG_SIZE		3 /* WRR command + 1 byte each Status and Config Reg*/
-#define DIE_ERASE_SIZE	4	/* Die Erase command + Die address */
+#define COMMAND_OFFSET		0 /**< Flash instruction. */
+#define ADDRESS_1_OFFSET	1 /**< MSB byte of address to read or write. */
+/** Middle byte of address to read or write. */
+#define ADDRESS_2_OFFSET	2
+#define ADDRESS_3_OFFSET	3 /**< LSB byte of address to read or write. */
+#define DATA_OFFSET		4 /**< Start of Data for Read/Write. */
+#define DUMMY_OFFSET		4 /**< Dummy byte offset for fast, dual and quad
+				     reads. */
+#define DUMMY_SIZE		1 /**< Number of dummy bytes for fast, dual and
+				     quad reads. */
+#define RD_ID_SIZE		4 /**< Read ID command + 3 bytes ID response. */
+#define BULK_ERASE_SIZE		1 /**< Bulk Erase command size. */
+#define SEC_ERASE_SIZE		4 /**< Sector Erase command + Sector address. */
+#define BANK_SEL_SIZE	2 /**< BRWR or EARWR command + 1 byte bank value. */
+/** 1 byte Configuration register + RD CFG command. */
+#define RD_CFG_SIZE		2
+/** WRR command + 1 byte each Status and Config Reg. */
+#define WR_CFG_SIZE		3
+#define DIE_ERASE_SIZE	4	/**< Die Erase command + Die address. */
 
 /*
  * The following constants specify the extra bytes which are sent to the
  * Flash on the QSPI interface, that are not data, but control information
  * which includes the command and address
  */
-#define OVERHEAD_SIZE		4
+#define OVERHEAD_SIZE		4	/**< Command and address byte count. */
 
-/*
+/**
  * Base address of Flash1
  */
 #define FLASH1BASE 0x0000000
 
-/*
+/**
  * Sixteen MB
  */
 #define SIXTEENMB 0x1000000
 
 
-/*
+/**
  * Mask for quad enable bit in Flash configuration register
  */
 #define FLASH_QUAD_EN_MASK 0x02
 
-#define FLASH_SRWD_MASK 0x80
+#define FLASH_SRWD_MASK 0x80	/**< Status register write disable bit mask. */
 
-/*
+/**
  * Bank mask
  */
 #define BANKMASK 0xF000000
@@ -153,78 +152,118 @@
  * Byte 2 is second byte of Device ID describes flash size:
  * 128Mbit : 0x18; 256Mbit : 0x19; 512Mbit : 0x20
  */
-#define MICRON_ID_BYTE0		0x20
-#define MICRON_ID_BYTE2_128	0x18
-#define MICRON_ID_BYTE2_256	0x19
-#define MICRON_ID_BYTE2_512	0x20
-#define MICRON_ID_BYTE2_1G	0x21
+#define MICRON_ID_BYTE0		0x20	/**< Micron manufacturer ID. */
+#define MICRON_ID_BYTE2_128	0x18	/**< Micron 128Mbit size ID. */
+#define MICRON_ID_BYTE2_256	0x19	/**< Micron 256Mbit size ID. */
+#define MICRON_ID_BYTE2_512	0x20	/**< Micron 512Mbit size ID. */
+#define MICRON_ID_BYTE2_1G	0x21	/**< Micron 1Gbit size ID. */
 
-#define SPANSION_ID_BYTE0		0x01
-#define SPANSION_ID_BYTE2_128	0x18
-#define SPANSION_ID_BYTE2_256	0x19
-#define SPANSION_ID_BYTE2_512	0x20
+#define SPANSION_ID_BYTE0		0x01 /**< Spansion manufacturer ID. */
+#define SPANSION_ID_BYTE2_128	0x18	/**< Spansion 128Mbit size ID. */
+#define SPANSION_ID_BYTE2_256	0x19	/**< Spansion 256Mbit size ID. */
+#define SPANSION_ID_BYTE2_512	0x20	/**< Spansion 512Mbit size ID. */
 
-#define WINBOND_ID_BYTE0		0xEF
-#define WINBOND_ID_BYTE2_128	0x18
+#define WINBOND_ID_BYTE0		0xEF	/**< Winbond manufacturer ID. */
+#define WINBOND_ID_BYTE2_128	0x18	/**< Winbond 128Mbit size ID. */
 
-#define MACRONIX_ID_BYTE0		0xC2
-#define MACRONIX_ID_BYTE2_256	0x19
-#define MACRONIX_ID_BYTE2_512	0x1A
-#define MACRONIX_ID_BYTE2_1G	0x1B
+#define MACRONIX_ID_BYTE0		0xC2 /**< Macronix manufacturer ID. */
+#define MACRONIX_ID_BYTE2_256	0x19	/**< Macronix 256Mbit size ID. */
+#define MACRONIX_ID_BYTE2_512	0x1A	/**< Macronix 512Mbit size ID. */
+#define MACRONIX_ID_BYTE2_1G	0x1B	/**< Macronix 1Gbit size ID. */
 
-#define ISSI_ID_BYTE0			0x9D
-#define ISSI_ID_BYTE2_256		0x19
+#define ISSI_ID_BYTE0			0x9D	/**< ISSI manufacturer ID. */
+#define ISSI_ID_BYTE2_256		0x19	/**< ISSI 256Mbit size ID. */
 /*
  * The index for Flash config table
  */
 /* Spansion*/
-#define SPANSION_INDEX_START			0
+#define SPANSION_INDEX_START			0 /**< Spansion start index. */
+/** Spansion 128Mbit single mode config table index. */
 #define FLASH_CFG_TBL_SINGLE_128_SP		SPANSION_INDEX_START
+/** Spansion 128Mbit stacked mode config table index. */
 #define FLASH_CFG_TBL_STACKED_128_SP	(SPANSION_INDEX_START + 1)
+/** Spansion 128Mbit parallel mode config table index. */
 #define FLASH_CFG_TBL_PARALLEL_128_SP	(SPANSION_INDEX_START + 2)
+/** Spansion 256Mbit single mode config table index. */
 #define FLASH_CFG_TBL_SINGLE_256_SP		(SPANSION_INDEX_START + 3)
+/** Spansion 256Mbit stacked mode config table index. */
 #define FLASH_CFG_TBL_STACKED_256_SP	(SPANSION_INDEX_START + 4)
+/** Spansion 256Mbit parallel mode config table index. */
 #define FLASH_CFG_TBL_PARALLEL_256_SP	(SPANSION_INDEX_START + 5)
+/** Spansion 512Mbit single mode config table index. */
 #define FLASH_CFG_TBL_SINGLE_512_SP		(SPANSION_INDEX_START + 6)
+/** Spansion 512Mbit stacked mode config table index. */
 #define FLASH_CFG_TBL_STACKED_512_SP	(SPANSION_INDEX_START + 7)
+/** Spansion 512Mbit parallel mode config table index. */
 #define FLASH_CFG_TBL_PARALLEL_512_SP	(SPANSION_INDEX_START + 8)
 
 /* Micron */
+/** Micron start index. */
 #define MICRON_INDEX_START				(FLASH_CFG_TBL_PARALLEL_512_SP + 1)
+/** Micron 128Mbit single mode config table index. */
 #define FLASH_CFG_TBL_SINGLE_128_MC		MICRON_INDEX_START
+/** Micron 128Mbit stacked mode config table index. */
 #define FLASH_CFG_TBL_STACKED_128_MC	(MICRON_INDEX_START + 1)
+/** Micron 128Mbit parallel mode config table index. */
 #define FLASH_CFG_TBL_PARALLEL_128_MC	(MICRON_INDEX_START + 2)
+/** Micron 256Mbit single mode config table index. */
 #define FLASH_CFG_TBL_SINGLE_256_MC		(MICRON_INDEX_START + 3)
+/** Micron 256Mbit stacked mode config table index. */
 #define FLASH_CFG_TBL_STACKED_256_MC	(MICRON_INDEX_START + 4)
+/** Micron 256Mbit parallel mode config table index. */
 #define FLASH_CFG_TBL_PARALLEL_256_MC	(MICRON_INDEX_START + 5)
+/** Micron 512Mbit single mode config table index. */
 #define FLASH_CFG_TBL_SINGLE_512_MC		(MICRON_INDEX_START + 6)
+/** Micron 512Mbit stacked mode config table index. */
 #define FLASH_CFG_TBL_STACKED_512_MC	(MICRON_INDEX_START + 7)
+/** Micron 512Mbit parallel mode config table index. */
 #define FLASH_CFG_TBL_PARALLEL_512_MC	(MICRON_INDEX_START + 8)
+/** Micron 1Gbit single mode config table index. */
 #define FLASH_CFG_TBL_SINGLE_1GB_MC		(MICRON_INDEX_START + 9)
+/** Micron 1Gbit stacked mode config table index. */
 #define FLASH_CFG_TBL_STACKED_1GB_MC	(MICRON_INDEX_START + 10)
+/** Micron 1Gbit parallel mode config table index. */
 #define FLASH_CFG_TBL_PARALLEL_1GB_MC	(MICRON_INDEX_START + 11)
 
 /* Winbond */
+/** Winbond start index. */
 #define WINBOND_INDEX_START				(FLASH_CFG_TBL_PARALLEL_1GB_MC + 1)
+/** Winbond 128Mbit single mode config table index. */
 #define FLASH_CFG_TBL_SINGLE_128_WB		WINBOND_INDEX_START
+/** Winbond 128Mbit stacked mode config table index. */
 #define FLASH_CFG_TBL_STACKED_128_WB	(WINBOND_INDEX_START + 1)
+/** Winbond 128Mbit parallel mode config table index. */
 #define FLASH_CFG_TBL_PARALLEL_128_WB	(WINBOND_INDEX_START + 2)
 
 /* Macronix */
+/** Macronix start index. */
 #define MACRONIX_INDEX_START			(FLASH_CFG_TBL_PARALLEL_128_WB + 1 - 3)
+/** Macronix 256Mbit single mode config table index. */
 #define FLASH_CFG_TBL_SINGLE_256_MX		MACRONIX_INDEX_START
+/** Macronix 256Mbit stacked mode config table index. */
 #define FLASH_CFG_TBL_STACKED_256_MX	(MACRONIX_INDEX_START + 1)
+/** Macronix 256Mbit parallel mode config table index. */
 #define FLASH_CFG_TBL_PARALLEL_256_MX	(MACRONIX_INDEX_START + 2)
+/** Macronix 512Mbit single mode config table index. */
 #define FLASH_CFG_TBL_SINGLE_512_MX		(MACRONIX_INDEX_START + 3)
+/** Macronix 512Mbit stacked mode config table index. */
 #define FLASH_CFG_TBL_STACKED_512_MX	(MACRONIX_INDEX_START + 4)
+/** Macronix 512Mbit parallel mode config table index. */
 #define FLASH_CFG_TBL_PARALLEL_512_MX	(MACRONIX_INDEX_START + 5)
+/** Macronix 1Gbit single mode config table index. */
 #define FLASH_CFG_TBL_SINGLE_1G_MX		(MACRONIX_INDEX_START + 6)
+/** Macronix 1Gbit stacked mode config table index. */
 #define FLASH_CFG_TBL_STACKED_1G_MX		(MACRONIX_INDEX_START + 7)
+/** Macronix 1Gbit parallel mode config table index. */
 #define FLASH_CFG_TBL_PARALLEL_1G_MX	(MACRONIX_INDEX_START + 8)
 /* ISSI */
+/** ISSI start index. */
 #define ISSI_INDEX_START				(FLASH_CFG_TBL_PARALLEL_1G_MX + 1)
+/** ISSI 256Mbit single mode config table index. */
 #define FLASH_CFG_TBL_SINGLE_256_ISSI	ISSI_INDEX_START
+/** ISSI 256Mbit stacked mode config table index. */
 #define FLASH_CFG_TBL_STACKED_256_ISSI	(ISSI_INDEX_START + 1)
+/** ISSI 256Mbit parallel mode config table index. */
 #define FLASH_CFG_TBL_PARALLEL_256_ISSI	(ISSI_INDEX_START + 2)
 /*
  * The following constants map to the XPAR parameters created in the
@@ -232,58 +271,68 @@
  * change all the needed parameters in one place.
  */
 #ifndef SDT
-#define QSPI_DEVICE_ID		XPAR_XQSPIPS_0_DEVICE_ID
+#define QSPI_DEVICE_ID		XPAR_XQSPIPS_0_DEVICE_ID /**< QSPI device ID. */
 #endif
 /*
  * The following defines are for dual flash stacked mode interface.
  */
-#define LQSPI_CR_FAST_QUAD_READ		0x0000006B /* Fast Quad Read output */
-#define LQSPI_CR_1_DUMMY_BYTE		0x00000100 /* 1 Dummy Byte between
-						     address and return data */
+/** Fast Quad Read output. */
+#define LQSPI_CR_FAST_QUAD_READ		0x0000006B
+#define LQSPI_CR_1_DUMMY_BYTE		0x00000100 /**< 1 Dummy Byte between
+						     address and return data. */
 
+/** LQSPI configuration register value for dual stacked flash mode. */
 #define DUAL_STACK_CONFIG_WRITE		(XQSPIPS_LQSPI_CR_TWO_MEM_MASK | \
 					 LQSPI_CR_1_DUMMY_BYTE | \
 					 LQSPI_CR_FAST_QUAD_READ)
 
+/** LQSPI configuration register value for dual parallel flash mode. */
 #define DUAL_QSPI_CONFIG_WRITE		(XQSPIPS_LQSPI_CR_TWO_MEM_MASK | \
 					 XQSPIPS_LQSPI_CR_SEP_BUS_MASK | \
 					 LQSPI_CR_1_DUMMY_BYTE | \
 					 LQSPI_CR_FAST_QUAD_READ)
 
-/*
+/**
  * Number of flash pages to be written.
  */
 #define PAGE_COUNT		32
 
-/*
+/**
  * Max page size to initialize write and read buffer
  */
 #define MAX_PAGE_SIZE 1024
 
-/*
+/**
  * Flash address to which data is to be written.
  */
 #define TEST_ADDRESS		0x000000
 
 
-#define UNIQUE_VALUE		0x06
+#define UNIQUE_VALUE		0x06	/**< Start value of the data pattern. */
 
 /**************************** Type Definitions *******************************/
 
+/**
+ * @brief Holds the configuration information of a flash device.
+ */
 typedef struct{
-	u32 SectSize;		/* Individual sector size or
+	u32 SectSize;		/**< Individual sector size or
 						 * combined sector size in case of parallel config*/
-	u32 NumSect;		/* Total no. of sectors in one/two flash devices */
-	u32 PageSize;		/* Individual page size or
+	/** Total no. of sectors in one/two flash devices. */
+	u32 NumSect;
+	u32 PageSize;		/**< Individual page size or
 						 * combined page size in case of parallel config*/
-	u32 NumPage;		/* Total no. of pages in one/two flash devices */
-	u32 FlashDeviceSize;	/* This is the size of one flash device
+	/** Total no. of pages in one/two flash devices. */
+	u32 NumPage;
+	u32 FlashDeviceSize;	/**< Size of one flash device
 						 * NOT the combination of both devices, if present
 						 */
-	u8 ManufacturerID;	/* Manufacturer ID - used to identify make */
-	u8 DeviceIDMemSize;	/* Byte of device ID indicating the memory size */
-	u32 SectMask;		/* Mask to get sector start address */
-	u8 NumDie;			/* No. of die forming a single flash */
+	u8 ManufacturerID;	/**< Manufacturer ID - used to identify make. */
+	/** Byte of device ID indicating the memory size. */
+	u8 DeviceIDMemSize;
+	u32 SectMask;		/**< Mask to get sector start address. */
+	/** No. of die forming a single flash. */
+	u8 NumDie;
 
 }FlashInfo;
 
@@ -395,35 +444,36 @@ FlashInfo Flash_Config_Table[34] = {
 				ISSI_ID_BYTE0, ISSI_ID_BYTE2_256, 0xFFFF0000, 1}
 };				/**< Flash Config Table */
 
-u32 FlashMake;
-u32 FCTIndex;	/* Flash configuration table index */
+u32 FlashMake;	/**< Flash manufacturer ID. */
+u32 FCTIndex;	/**< Flash configuration table index. */
 
 
-/*
+/**
  * The instances to support the device drivers are global such that they
  * are initialized to zero each time the program runs. They could be local
  * but should at least be static so they are zeroed.
  */
 static XQspiPs QspiInstance;
 
-/*
+/**
  * The following variable allows a test value to be added to the values that
  * are written to the Flash such that unique values can be generated to
  * guarantee the writes to the Flash were successful
  */
 int Test = 1;
 
-/*
- * The following variables are used to read and write to the flash and they
- * are global to avoid having large buffers on the stack
+/**
+ * The following variables hold the data read from and written to the flash
+ * and they are global to avoid having large buffers on the stack.
  * The buffer size accounts for maximum page size and maximum banks -
- * for each bank separate read will be performed leading to that many
- * (overhead+dummy) bytes
+ * a separate read is performed for each bank, leading to that many
+ * (overhead+dummy) bytes.
  */
 u8 ReadBuffer[(PAGE_COUNT * MAX_PAGE_SIZE) + (DATA_OFFSET + DUMMY_SIZE)*8];
+/** Write buffer. */
 u8 WriteBuffer[(PAGE_COUNT * MAX_PAGE_SIZE) + DATA_OFFSET];
 
-/*
+/**
  * The following constants specify the max amount of data and the size of the
  * the buffer required to hold the data and overhead to transfer the data to
  * and from the Flash. Initialized to single flash page size.
@@ -433,12 +483,9 @@ u32 MaxData = PAGE_COUNT*256;
 /*****************************************************************************/
 /**
 *
-* Main function to call the QSPI Flash example.
-*
+* @brief Runs the QSPI greater than 128Mb flash example.
 *
 * @return	XST_SUCCESS if successful, otherwise XST_FAILURE.
-*
-* @note		None
 *
 ******************************************************************************/
 int main(void)
@@ -467,23 +514,23 @@ int main(void)
 /*****************************************************************************/
 /**
 *
-* The purpose of this function is to illustrate how to use the XQspiPs
-* device driver in single, parallel and stacked modes using
-* flash devices greater than 128Mb.
-* This function reads and writes data in I/O mode.
+* @brief Illustrates how to use the XQspiPs device driver in single, parallel
+* and stacked modes using flash devices greater than 128Mb.
 *
-* @param	QspiInstancePtr is a pointer to the QSPIPS driver to use.
+* The function reads and writes data in I/O mode.
+*
+* @param[in]	QspiInstancePtr Pointer to the QSPIPS driver to use.
 * @if SDT
-* @param        BaseAddress contains the base address of the device
+* @param[in]        BaseAddress The base address of the device
 * @else
-* @param        QspiDeviceId is the XPAR_<QSPIPS_instance>_DEVICE_ID value
+* @param[in]        QspiDeviceId The XPAR_<QSPIPS_instance>_DEVICE_ID value
 *               from xparameters.h
 * @endif
 *
 * @return	XST_SUCCESS if successful, else XST_FAILURE.
 *
-* @note	        In XSCT/classic flow, DeviceId is used to look up the device
-*               configuration.
+* @note	        In XSCT/classic flow, the device configuration is looked up
+*               based on DeviceId.
 *
 *****************************************************************************/
 #ifndef SDT
@@ -676,20 +723,19 @@ int QspiG128FlashExample(XQspiPs *QspiInstancePtr, UINTPTR BaseAddress)
 /*****************************************************************************/
 /**
 *
+* @brief Writes to the serial Flash connected to the QSPI interface.
 *
-* This function writes to the  serial Flash connected to the QSPI interface.
 * All the data put into the buffer must be in the same page of the device with
 * page boundaries being on 256 byte boundaries.
 *
-* @param	QspiPtr is a pointer to the QSPI driver component to use.
-* @param	Address contains the address to write data to in the Flash.
-* @param	ByteCount contains the number of bytes to write.
-* @param	Command is the command used to write data to the flash. QSPI
+* @param[in,out]	QspiPtr Pointer to the QSPI driver component to use.
+* @param[in]	Address The address to write data to in the Flash.
+* @param[in]	ByteCount The number of bytes to write.
+* @param[in]	Command The command used to write data to the flash. QSPI
 *		device supports only Page Program command to write data to the
 *		flash.
-* @param	WriteBfrPtr is the pointer to the write buffer(which is to be transmitted)
-*
-* @note		None.
+* @param[in,out] WriteBfrPtr Pointer to the write buffer(which is to be
+*		transmitted)
 *
 ******************************************************************************/
 void FlashWrite(XQspiPs *QspiPtr, u32 Address, u32 ByteCount, u8 Command,
@@ -793,18 +839,14 @@ void FlashWrite(XQspiPs *QspiPtr, u32 Address, u32 ByteCount, u8 Command,
 /*****************************************************************************/
 /**
 *
+* @brief Erases the sectors in the serial Flash connected to the QSPI interface.
 *
-* This function erases the sectors in the  serial Flash connected to the
-* QSPI interface.
-*
-* @param	QspiPtr is a pointer to the QSPI driver component to use.
-* @param	Address contains the address of the first sector which needs to
+* @param[in,out]	QspiPtr Pointer to the QSPI driver component to use.
+* @param[in]	Address The address of the first sector which needs to
 *		be erased.
-* @param	ByteCount contains the total size to be erased.
-* @param	WriteBfrPtr is Pointer to the write buffer
+* @param[in]	ByteCount The total size to be erased.
+* @param[in,out]	WriteBfrPtr Pointer to the write buffer
 *		(which is to be transmitted)
-*
-* @note		None.
 *
 ******************************************************************************/
 void FlashErase(XQspiPs *QspiPtr, u32 Address, u32 ByteCount, u8 *WriteBfrPtr)
@@ -1035,22 +1077,21 @@ void FlashErase(XQspiPs *QspiPtr, u32 Address, u32 ByteCount, u8 *WriteBfrPtr)
 /*****************************************************************************/
 /**
 *
-* This function reads serial Flash ID connected to the SPI interface.
+* @brief Reads serial Flash ID connected to the SPI interface.
+*
 * It then deduces the make and size of the flash and obtains the
 * connection mode to point to corresponding parameters in the flash
-* configuration table. The flash driver will function based on this and
+* configuration table. The flash driver functions based on this and
 * it presently supports Micron and Spansion - 128, 256 and 512Mbit and
 * Winbond 128Mbit
 *
-* @param	QspiPtr is a pointer to the QSPI driver component to use.
-* @param	WriteBfrPtr is pointer to the write buffer
+* @param[in,out]	QspiPtr Pointer to the QSPI driver component to use.
+* @param[in,out]	WriteBfrPtr Pointer to the write buffer
 *		(which is to be transmitted)
-* @param	ReadBfrPtr is pointer to the read buffer to which valid
+* @param[out]	ReadBfrPtr Pointer to the read buffer to which valid
 *		received data should be written.
 *
 * @return	XST_SUCCESS if read id, otherwise XST_FAILURE.
-*
-* @note		None.
 *
 ******************************************************************************/
 int FlashReadID(XQspiPs *QspiPtr, u8 *WriteBfrPtr, u8 *ReadBfrPtr)
@@ -1214,20 +1255,17 @@ int FlashReadID(XQspiPs *QspiPtr, u8 *WriteBfrPtr, u8 *ReadBfrPtr)
 /*****************************************************************************/
 /**
 *
-* This function performs an I/O read.
+* @brief Performs an I/O read.
 *
-* @param	QspiPtr is a pointer to the QSPI driver component to use.
-* @param	Address contains the address of the first sector which needs to
-*			be erased.
-* @param	ByteCount contains the total size to be erased.
-* @param	Command is the command used to read data from the flash. Supports
+* @param[in,out]	QspiPtr Pointer to the QSPI driver component to use.
+* @param[in]	Address The address to read data from in the Flash.
+* @param[in]	ByteCount The number of bytes to read.
+* @param[in]	Command The command used to read data from the flash. Supports
 * 			normal, fast, dual and quad read commands.
-* @param	WriteBfrPtr is pointer to the write buffer which contains
+* @param[in,out]	WriteBfrPtr Pointer to the write buffer which contains
 *		data to be transmitted
-* @param	ReadBfrPtr is pointer to the read buffer to which valid
+* @param[out]	ReadBfrPtr Pointer to the read buffer to which valid
 *		received data should be written
-*
-* @note		None.
 *
 ******************************************************************************/
 void FlashRead(XQspiPs *QspiPtr, u32 Address, u32 ByteCount, u8 Command,
@@ -1332,16 +1370,14 @@ void FlashRead(XQspiPs *QspiPtr, u32 Address, u32 ByteCount, u8 Command,
 /*****************************************************************************/
 /**
 *
-* This functions selects the current bank
+* @brief Selects the current bank.
 *
-* @param	QspiPtr is a pointer to the QSPI driver component to use.
-* @param	WriteBfrPtr to the write buffer which contains data to be
-*			transmitted.
-* @param	BankSel is the bank to be selected in the flash device(s).
+* @param[in,out]	QspiPtr Pointer to the QSPI driver component to use.
+* @param[in,out] WriteBfrPtr Pointer to the write buffer which contains data
+*			to be transmitted.
+* @param[in]	BankSel The bank to be selected in the flash device(s).
 *
 * @return	XST_SUCCESS if bank selected, otherwise XST_FAILURE.
-*
-* @note		None.
 *
 ******************************************************************************/
 int SendBankSelect(XQspiPs *QspiPtr, u8 *WriteBfrPtr, u32 BankSel)
@@ -1390,13 +1426,12 @@ int SendBankSelect(XQspiPs *QspiPtr, u8 *WriteBfrPtr, u32 BankSel)
 /*****************************************************************************/
 /**
 *
-* This functions performs a bulk erase operation when the
-* flash device has a single die. Works for both Spansion and Micron
+* @brief Performs a bulk erase operation when the flash device has a single die.
 *
-* @param	QspiPtr is a pointer to the QSPI driver component to use.
-* @param	WriteBfrPtr is the pointer to command+address to be sent
+* Works for both Spansion and Micron.
 *
-* @note		None.
+* @param[in,out]	QspiPtr Pointer to the QSPI driver component to use.
+* @param[in,out]	WriteBfrPtr Pointer to command+address to be sent
 *
 ******************************************************************************/
 void BulkErase(XQspiPs *QspiPtr, u8 *WriteBfrPtr)
@@ -1454,14 +1489,12 @@ void BulkErase(XQspiPs *QspiPtr, u8 *WriteBfrPtr)
 /*****************************************************************************/
 /**
 *
-* This functions performs a die erase operation on all the die in
-* the flash device. This function uses the die erase command for
-* Micron 512Mbit and 1Gbit
+* @brief Performs a die erase operation on all the die in the flash device.
 *
-* @param	QspiPtr is a pointer to the QSPI driver component to use.
-* @param	WriteBfrPtr is the pointer to command+address to be sent
+* The function uses the die erase command for Micron 512Mbit and 1Gbit.
 *
-* @note		None.
+* @param[in,out]	QspiPtr Pointer to the QSPI driver component to use.
+* @param[in,out]	WriteBfrPtr Pointer to command+address to be sent
 *
 ******************************************************************************/
 void DieErase(XQspiPs *QspiPtr, u8 *WriteBfrPtr)
@@ -1538,17 +1571,17 @@ void DieErase(XQspiPs *QspiPtr, u8 *WriteBfrPtr)
 /*****************************************************************************/
 /**
 *
-* This functions translates the address based on the type of interconnection.
-* In case of stacked, this function asserts the corresponding slave select.
+* @brief Translates the address based on the type of interconnection.
 *
-* @param	QspiPtr is a pointer to the QSPI driver component to use.
-* @param	Address which is to be accessed (for erase, write or read)
+* In case of stacked, the function asserts the corresponding slave select.
+*
+* @param[in]	QspiPtr Pointer to the QSPI driver component to use.
+* @param[in]	Address Address which is to be accessed (for erase, write or
+*		read).
 *
 * @return	RealAddr is the translated address - for single it is unchanged;
 * 			for stacked, the lower flash size is subtracted;
 * 			for parallel the address is divided by 2.
-*
-* @note		None.
 *
 ******************************************************************************/
 u32 GetRealAddr(XQspiPs *QspiPtr, u32 Address)

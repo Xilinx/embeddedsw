@@ -8,10 +8,8 @@
 /**
 *
 * @file xqspips_options.c
-* @addtogroup qspips Overview
-* @{
-*
-* Contains functions for the configuration of the XQspiPs driver component.
+* @brief Contains functions for the configuration of the XQspiPs driver
+* component.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -36,9 +34,15 @@
 * 3.3   sk  11/07/15 Modified the API prototypes according to MISRAC standards
 *                    to remove compilation warnings. CR# 868893.
 * 3.16  vn  08/26/26 Fix Doxygen warnings
+* 3.16  tb  09/30/26 Align Doxygen comments with AMD documentation standards
 *</pre>
 *
 ******************************************************************************/
+
+/**
+* @addtogroup qspips_api QSPIPS APIs
+* @{
+*/
 
 /***************************** Include Files *********************************/
 
@@ -54,16 +58,19 @@
 
 /************************** Variable Definitions *****************************/
 
-/*
- * Create the table of options which are processed to get/set the device
- * options. These options are table driven to allow easy maintenance and
- * expansion of the options.
+/**
+ * @brief Holds an entry of the table of options which are processed to get/set
+ * the device options.
+ *
+ * These options are table driven to allow easy maintenance and expansion of
+ * the options.
  */
 typedef struct {
-	u32 Option;
-	u32 Mask;
+	u32 Option;	/**< Driver option bit. */
+	u32 Mask;	/**< Configuration register mask of the option. */
 } OptionsMap;
 
+/** Table of the options and their configuration register masks. */
 static OptionsMap OptionsTable[] = {
 	{XQSPIPS_CLK_ACTIVE_LOW_OPTION, XQSPIPS_CR_CPOL_MASK},
 	{XQSPIPS_CLK_PHASE_1_OPTION, XQSPIPS_CR_CPHA_MASK},
@@ -72,17 +79,20 @@ static OptionsMap OptionsTable[] = {
 	{XQSPIPS_HOLD_B_DRIVE_OPTION, XQSPIPS_CR_HOLD_B_MASK},
 };
 
+/** Number of entries in the options table. */
 #define XQSPIPS_NUM_OPTIONS	(sizeof(OptionsTable) / sizeof(OptionsMap))
 
 /*****************************************************************************/
 /**
 *
-* This function sets the options for the QSPI device driver. The options control
-* how the device behaves relative to the QSPI bus. The device must be idle
-* rather than busy transferring data before setting these device options.
+* @brief Sets the options for the QSPI device driver.
 *
-* @param	InstancePtr is a pointer to the XQspiPs instance.
-* @param	Options contains the specified options to be set. This is a bit
+* The options control how the device behaves relative to the QSPI bus. The
+* device must be idle rather than busy transferring data before setting these
+* device options.
+*
+* @param[in]	InstancePtr Pointer to the XQspiPs instance.
+* @param[in]	Options The specified options to be set. This is a bit
 *		mask where a 1 means to turn the option on, and a 0 means to
 *		turn the option off. One or more bit values may be contained in
 *		the mask. See the bit definitions named XQSPIPS_*_OPTIONS in
@@ -93,8 +103,7 @@ static OptionsMap OptionsTable[] = {
 *		- XST_DEVICE_BUSY if the device is currently transferring data.
 *		The transfer must complete or be aborted before setting options.
 *
-* @note
-* This function is not thread-safe.
+* @note		The function is not thread-safe.
 *
 ******************************************************************************/
 s32 XQspiPs_SetOptions(XQspiPs *InstancePtr, u32 Options)
@@ -165,18 +174,15 @@ s32 XQspiPs_SetOptions(XQspiPs *InstancePtr, u32 Options)
 /*****************************************************************************/
 /**
 *
-* This function gets the options for the QSPI device. The options control how
-* the device behaves relative to the QSPI bus.
+* @brief Gets the options for the QSPI device.
 *
-* @param	InstancePtr is a pointer to the XQspiPs instance.
+* The options control how the device behaves relative to the QSPI bus.
 *
-* @return
+* @param[in]	InstancePtr Pointer to the XQspiPs instance.
 *
-* Options contains the specified options currently set. This is a bit value
-* where a 1 means the option is on, and a 0 means the option is off.
-* See the bit definitions named XQSPIPS_*_OPTIONS in file xqspips.h.
-*
-* @note		None.
+* @return	The options currently set. This is a bit value where a 1 means
+*		the option is on, and a 0 means the option is off. See the bit
+*		definitions named XQSPIPS_*_OPTIONS in file xqspips.h.
 *
 ******************************************************************************/
 u32 XQspiPs_GetOptions(XQspiPs *InstancePtr)
@@ -219,12 +225,13 @@ u32 XQspiPs_GetOptions(XQspiPs *InstancePtr)
 /*****************************************************************************/
 /**
 *
-* This function sets the clock prescaler for an QSPI device. The device
-* must be idle rather than busy transferring data before setting these device
-* options.
+* @brief Sets the clock prescaler for an QSPI device.
 *
-* @param	InstancePtr is a pointer to the XQspiPs instance.
-* @param	Prescaler is the value that determine how much the clock should
+* The device must be idle rather than busy transferring data before setting
+* these device options.
+*
+* @param[in]	InstancePtr Pointer to the XQspiPs instance.
+* @param[in]	Prescaler The value that determine how much the clock should
 *		be divided by. Use the XQSPIPS_CLK_PRESCALE_* constants defined
 *		in xqspips.h for this setting.
 *
@@ -233,8 +240,7 @@ u32 XQspiPs_GetOptions(XQspiPs *InstancePtr)
 *		- XST_DEVICE_BUSY if the device is currently transferring data.
 *		The transfer must complete or be aborted before setting options.
 *
-* @note
-* This function is not thread-safe.
+* @note		The function is not thread-safe.
 *
 ******************************************************************************/
 s32 XQspiPs_SetClkPrescaler(XQspiPs *InstancePtr, u8 Prescaler)
@@ -275,14 +281,11 @@ s32 XQspiPs_SetClkPrescaler(XQspiPs *InstancePtr, u8 Prescaler)
 /*****************************************************************************/
 /**
 *
-* This function gets the clock prescaler of an QSPI device.
+* @brief Gets the clock prescaler of an QSPI device.
 *
-* @param	InstancePtr is a pointer to the XQspiPs instance.
+* @param[in]	InstancePtr Pointer to the XQspiPs instance.
 *
 * @return	The prescaler value.
-*
-* @note		None.
-*
 *
 ******************************************************************************/
 u8 XQspiPs_GetClkPrescaler(XQspiPs *InstancePtr)
@@ -303,23 +306,24 @@ u8 XQspiPs_GetClkPrescaler(XQspiPs *InstancePtr)
 /*****************************************************************************/
 /**
 *
-* This function sets the delay register for the QSPI device driver.
+* @brief Sets the delay register for the QSPI device driver.
+*
 * The delay register controls the Delay Between Transfers, Delay After
 * Transfers, and the Delay Initially. The default value is 0x0. The range of
 * each delay value is 0-255.
 *
-* @param	InstancePtr is a pointer to the XQspiPs instance.
-* @param	DelayNss is the delay to de-assert slave select between
+* @param[in]	InstancePtr Pointer to the XQspiPs instance.
+* @param[in]	DelayNss The delay to de-assert slave select between
 *		two word transfers.
-* @param	DelayBtwn is the delay between one Slave Select being
+* @param[in]	DelayBtwn The delay between one Slave Select being
 *		de-activated and the activation of another slave. The delay is
 *		the number of master clock periods given by DelayBtwn + 2.
-* @param	DelayAfter define the delay between the last bit of the current
+* @param[in]	DelayAfter Define the delay between the last bit of the current
 *		byte transfer and the first bit of the next byte transfer.
 *		The delay in number of master clock periods is given as:
 *		CHPA=0:DelayInit+DelayAfter+3
 *		CHPA=1:DelayAfter+1
-* @param	DelayInit is the delay between asserting the slave select signal
+* @param[in]	DelayInit The delay between asserting the slave select signal
 *		and the first bit transfer. The delay int number of master clock
 *		periods is DelayInit+1.
 *
@@ -327,8 +331,6 @@ u8 XQspiPs_GetClkPrescaler(XQspiPs *InstancePtr)
 *		- XST_SUCCESS if delays are successfully set.
 *		- XST_DEVICE_BUSY if the device is currently transferring data.
 *		The transfer must complete or be aborted before setting options.
-*
-* @note		None.
 *
 ******************************************************************************/
 int XQspiPs_SetDelays(XQspiPs *InstancePtr, u8 DelayNss, u8 DelayBtwn,
@@ -362,21 +364,17 @@ int XQspiPs_SetDelays(XQspiPs *InstancePtr, u8 DelayNss, u8 DelayBtwn,
 /*****************************************************************************/
 /**
 *
-* This function gets the delay settings for an QSPI device.
+* @brief Gets the delay settings for an QSPI device.
+*
 * The delay register controls the Delay Between Transfers, Delay After
 * Transfers, and the Delay Initially. The default value is 0x0.
 *
-* @param	InstancePtr is a pointer to the XQspiPs instance.
-* @param	DelayNss is a pointer to the Delay to de-assert slave select
+* @param[in]	InstancePtr Pointer to the XQspiPs instance.
+* @param[out]	DelayNss Pointer to the Delay to de-assert slave select
 *		between two word transfers.
-* @param	DelayBtwn is a pointer to the Delay Between transfers value.
-*		This is a return parameter.
-* @param	DelayAfter is a pointer to the Delay After transfer value.
-*		This is a return parameter.
-* @param	DelayInit is a pointer to the Delay Initially value. This is
-*		a return parameter.
-*
-* @note		None.
+* @param[out]	DelayBtwn Pointer to the Delay Between transfers value.
+* @param[out]	DelayAfter Pointer to the Delay After transfer value.
+* @param[out]	DelayInit Pointer to the Delay Initially value.
 *
 ******************************************************************************/
 void XQspiPs_GetDelays(XQspiPs *InstancePtr, u8 *DelayNss, u8 *DelayBtwn,

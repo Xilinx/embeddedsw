@@ -8,10 +8,8 @@
 /**
 *
 * @file xqspips.c
-* @addtogroup qspips Overview
-* @{
+* @brief Implements the interface functions of the XQspiPs driver.
 *
-* Contains implements the interface functions of the XQspiPs driver.
 * See xqspips.h for a detailed description of the device and driver.
 *
 * <pre>
@@ -88,10 +86,16 @@
 *			XQspiPs_InterruptHandler() APIs to fill TX FIFO with valid
 *			data when RX buffer is not NULL.
 * 3.16 vn 08/26/26 Fix Doxygen warnings
+* 3.16 tb 09/30/26 Align Doxygen comments with AMD documentation standards
 *
 * </pre>
 *
 ******************************************************************************/
+
+/**
+* @addtogroup qspips_api QSPIPS APIs
+* @{
+*/
 
 /***************************** Include Files *********************************/
 
@@ -103,7 +107,7 @@
 /**************************** Type Definitions *******************************/
 
 /**
- * This typedef defines qspi flash instruction format
+ * @brief Describes the QSPI flash instruction format.
  */
 typedef struct {
 	u8 OpCode;	/**< Operational code of the instruction */
@@ -114,7 +118,27 @@ typedef struct {
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
+/****************************************************************************/
+/**
+*
+* @brief Returns the number of elements in an array.
+*
+* @param[in]	Array Array whose number of elements is computed.
+*
+* @return	The number of elements in the array.
+*
+* @note
+* C-style signature
+*	size_t ARRAY_SIZE(Array)
+*
+******************************************************************************/
 #define ARRAY_SIZE(Array)		(sizeof(Array) / sizeof((Array)[0]))
+
+/**
+ * @def XPAR_PS7_QSPI_LINEAR_0_S_AXI_BASEADDR
+ * Default LQSPI base address. XQspiPs_LqspiRead() defines it when
+ * xparameters.h does not.
+ */
 
 /************************** Function Prototypes ******************************/
 static void XQspiPs_GetReadData(XQspiPs *InstancePtr, u32 Data, u8 Size);
@@ -123,8 +147,8 @@ static void StubStatusHandler(void *CallBackRef, u32 StatusEvent,
 
 /************************** Variable Definitions *****************************/
 
-/*
- * List of all the QSPI instructions and its format
+/**
+ * @brief Lists all QSPI instructions and their formats.
  */
 static XQspiPsInstFormat FlashInst[] = {
 	{ XQSPIPS_FLASH_OPCODE_WREN, 1, XQSPIPS_TXD_01_OFFSET },
@@ -159,7 +183,8 @@ static XQspiPsInstFormat FlashInst[] = {
 /*****************************************************************************/
 /**
 *
-* Initializes a specific XQspiPs instance such that the driver is ready to use.
+* @brief Initializes a specific XQspiPs instance such that the driver is ready
+* to use.
 *
 * The state of the device after initialization is:
 *   - Master mode
@@ -171,12 +196,12 @@ static XQspiPsInstFormat FlashInst[] = {
 *   - No chip select active
 *   - Manual CS and Manual Start disabled
 *
-* @param	InstancePtr is a pointer to the XQspiPs instance.
-* @param	ConfigPtr is a reference to a structure containing information
-*		about a specific QSPI device. This function initializes an
-*		InstancePtr object for a specific device specified by the
+* @param[in,out]	InstancePtr Pointer to the XQspiPs instance.
+* @param[in]	ConfigPtr A reference to a structure containing information
+*		about a specific QSPI device. The InstancePtr object is
+*		initialized for a specific device specified by the
 *		contents of Config.
-* @param	EffectiveAddr is the device base address in the virtual memory
+* @param[in]	EffectiveAddr The device base address in the virtual memory
 *		address space. The caller is responsible for keeping the address
 *		mapping from EffectiveAddr to the device physical base address
 *		unchanged once this function is invoked. Unexpected errors may
@@ -188,8 +213,6 @@ static XQspiPsInstFormat FlashInst[] = {
 *		- XST_SUCCESS if successful.
 *		- XST_DEVICE_IS_STARTED if the device is already started.
 *		It must be stopped to re-initialize.
-*
-* @note		None.
 *
 ******************************************************************************/
 int XQspiPs_CfgInitialize(XQspiPs *InstancePtr, XQspiPs_Config *ConfigPtr,
@@ -237,15 +260,15 @@ int XQspiPs_CfgInitialize(XQspiPs *InstancePtr, XQspiPs_Config *ConfigPtr,
 /*****************************************************************************/
 /**
 *
-* Resets the QSPI device. Reset must only be called after the driver has been
-* initialized. Any data transfer that is in progress is aborted.
+* @brief Resets the QSPI device.
+*
+* Reset must only be called after the driver has been initialized. Any data
+* transfer that is in progress is aborted.
 *
 * The upper layer software is responsible for re-configuring (if necessary)
 * and restarting the QSPI device after the reset.
 *
-* @param	InstancePtr is a pointer to the XQspiPs instance.
-*
-* @note		None.
+* @param[in,out]	InstancePtr Pointer to the XQspiPs instance.
 *
 ******************************************************************************/
 void XQspiPs_Reset(XQspiPs *InstancePtr)
@@ -275,15 +298,15 @@ void XQspiPs_Reset(XQspiPs *InstancePtr)
 /*****************************************************************************/
 /**
 *
-* Aborts a transfer in progress by disabling the device and flush the RxFIFO.
+* @brief Aborts a transfer in progress by disabling the device and flushing the
+* RxFIFO.
+*
 * The byte counts are cleared, the busy flag is cleared.
 *
-* @param	InstancePtr is a pointer to the XQspiPs instance.
+* @param[in,out]	InstancePtr Pointer to the XQspiPs instance.
 *
-* @note
-*
-* This function does a read/modify/write of the config register. The user of
-* this function needs to take care of critical sections.
+* @note		Performs a read/modify/write of the config register. The user
+*		of this function needs to take care of critical sections.
 *
 ******************************************************************************/
 void XQspiPs_Abort(XQspiPs *InstancePtr)
@@ -335,9 +358,10 @@ void XQspiPs_Abort(XQspiPs *InstancePtr)
 /*****************************************************************************/
 /**
 *
-* Transfers specified data on the QSPI bus. Initiates bus communication and
-* sends/receives data to/from the selected QSPI slave. For every byte sent,
-* a byte is received.
+* @brief Transfers specified data on the QSPI bus.
+*
+* Initiates bus communication and sends/receives data to/from the selected
+* QSPI slave. For every byte sent, a byte is received.
 *
 * The caller has the option of providing two different buffers for send and
 * receive, or one buffer for both send and receive, or no buffer for receive.
@@ -373,15 +397,15 @@ void XQspiPs_Abort(XQspiPs *InstancePtr)
 * the entire buffer has been transferred. The status callback function is
 * called when the entire buffer has been sent/received.
 *
-* This function is non-blocking. The SetSlaveSelect function must be called
+* The function is non-blocking. The SetSlaveSelect function must be called
 * prior to this function.
 *
-* @param	InstancePtr is a pointer to the XQspiPs instance.
-* @param	SendBufPtr is a pointer to a data buffer that needs to be
+* @param[in,out]	InstancePtr Pointer to the XQspiPs instance.
+* @param[in]	SendBufPtr Pointer to a data buffer that needs to be
 *		transmitted. This buffer must not be NULL.
-* @param	RecvBufPtr is a pointer to a buffer for received data.
+* @param[out]	RecvBufPtr Pointer to a buffer for received data.
 *		This argument can be NULL if do not care about receiving.
-* @param	ByteCount contains the number of bytes to send/receive.
+* @param[in]	ByteCount The number of bytes to send/receive.
 *		The number of bytes received always equals the number of bytes
 *		sent.
 *
@@ -391,10 +415,9 @@ void XQspiPs_Abort(XQspiPs *InstancePtr)
 *		- XST_DEVICE_BUSY indicates that a data transfer is already in
 *		  progress. This is determined by the driver.
 *
-* @note
-*
-* This function is not thread-safe.  The higher layer software must ensure that
-* no two threads are transferring data on the QSPI bus at the same time.
+* @note		The function is not thread-safe. The higher layer software
+*		must ensure that no two threads are transferring data on the
+*		QSPI bus at the same time.
 *
 ******************************************************************************/
 s32 XQspiPs_Transfer(XQspiPs *InstancePtr, u8 *SendBufPtr, u8 *RecvBufPtr,
@@ -601,8 +624,8 @@ s32 XQspiPs_Transfer(XQspiPs *InstancePtr, u8 *SendBufPtr, u8 *RecvBufPtr,
 		/*
 		 * In case of Write fill the Tx FIFO with data to be transmitted.
 		 * In case of Read fill the TX FIFO with first 4bytes(1Byte Command + 3Byte Address)
-		 * of data from TX Buffer and the remaining bytes(i.e., RequestedBytes - 4)
-		 * with DUMMY.
+		 * of data from TX Buffer and the remaining bytes
+		 * (RequestedBytes - 4) with DUMMY.
 		 */
 		if (InstancePtr->RecvBufferPtr &&
 		    ((InstancePtr->RequestedBytes - InstancePtr->RemainingBytes) > 4)) {
@@ -647,7 +670,7 @@ s32 XQspiPs_Transfer(XQspiPs *InstancePtr, u8 *SendBufPtr, u8 *RecvBufPtr,
 
 /*****************************************************************************/
 /**
-* Transfers specified data on the QSPI bus in polled mode.
+* @brief Transfers specified data on the QSPI bus in polled mode.
 *
 * The caller has the option of providing two different buffers for send and
 * receive, or one buffer for both send and receive, or no buffer for receive.
@@ -678,12 +701,12 @@ s32 XQspiPs_Transfer(XQspiPs *InstancePtr, u8 *SendBufPtr, u8 *RecvBufPtr,
 *
 * </pre>
 *
-* @param	InstancePtr is a pointer to the XQspiPs instance.
-* @param	SendBufPtr is a pointer to a data buffer that needs to be
+* @param[in,out]	InstancePtr Pointer to the XQspiPs instance.
+* @param[in]	SendBufPtr Pointer to a data buffer that needs to be
 *		transmitted. This buffer must not be NULL.
-* @param	RecvBufPtr is a pointer to a buffer for received data.
+* @param[out]	RecvBufPtr Pointer to a buffer for received data.
 *		This argument can be NULL if do not care about receiving.
-* @param	ByteCount contains the number of bytes to send/receive.
+* @param[in]	ByteCount The number of bytes to send/receive.
 *		The number of bytes received always equals the number of bytes
 *		sent.
 * @return
@@ -692,10 +715,9 @@ s32 XQspiPs_Transfer(XQspiPs *InstancePtr, u8 *SendBufPtr, u8 *RecvBufPtr,
 *		- XST_DEVICE_BUSY indicates that a data transfer is already in
 *		  progress. This is determined by the driver.
 *
-* @note
-*
-* This function is not thread-safe.  The higher layer software must ensure that
-* no two threads are transferring data on the QSPI bus at the same time.
+* @note		The function is not thread-safe. The higher layer software
+*		must ensure that no two threads are transferring data on the
+*		QSPI bus at the same time.
 *
 ******************************************************************************/
 s32 XQspiPs_PolledTransfer(XQspiPs *InstancePtr, u8 *SendBufPtr,
@@ -903,8 +925,8 @@ s32 XQspiPs_PolledTransfer(XQspiPs *InstancePtr, u8 *SendBufPtr,
 		/*
 		 * In case of Write fill the Tx FIFO with data to be transmitted.
 		 * In case of Read fill the TX FIFO with first 4bytes(1Byte Command + 3Byte Address)
-		 * of data from TX Buffer and the remaining bytes(i.e., RequestedBytes - 4)
-		 * with DUMMY.
+		 * of data from TX Buffer and the remaining bytes
+		 * (RequestedBytes - 4) with DUMMY.
 		 */
 		if (InstancePtr->RecvBufferPtr &&
 		    ((InstancePtr->RequestedBytes - InstancePtr->RemainingBytes) > 4)) {
@@ -936,8 +958,8 @@ s32 XQspiPs_PolledTransfer(XQspiPs *InstancePtr, u8 *SendBufPtr,
 			/*
 			 * In case of Write fill the Tx FIFO with data to be transmitted.
 			 * In case of Read fill the TX FIFO with first 4bytes(1Byte Command + 3Byte Address)
-			 * of data from TX Buffer and the remaining bytes(i.e., RequestedBytes - 4)
-			 * with DUMMY.
+			 * of data from TX Buffer and the remaining bytes
+			 * (RequestedBytes - 4) with DUMMY.
 			 */
 			if (InstancePtr->RecvBufferPtr &&
 			    ((InstancePtr->RequestedBytes - InstancePtr->RemainingBytes) > 4)) {
@@ -1066,20 +1088,17 @@ s32 XQspiPs_PolledTransfer(XQspiPs *InstancePtr, u8 *SendBufPtr,
 /*****************************************************************************/
 /**
 *
-* Read the flash in Linear QSPI mode.
+* @brief Reads the flash in Linear QSPI mode.
 *
-* @param	InstancePtr is a pointer to the XQspiPs instance.
-* @param	RecvBufPtr is a pointer to a buffer for received data.
-* @param	Address is the starting address within the flash from
+* @param[in]	InstancePtr Pointer to the XQspiPs instance.
+* @param[out]	RecvBufPtr Pointer to a buffer for received data.
+* @param[in]	Address The starting address within the flash from
 *		from where data needs to be read.
-* @param	ByteCount contains the number of bytes to receive.
+* @param[in]	ByteCount The number of bytes to receive.
 *
 * @return
 *		- XST_SUCCESS if read is performed
 *		- XST_FAILURE if Linear mode is not set
-*
-* @note		None.
-*
 *
 ******************************************************************************/
 int XQspiPs_LqspiRead(XQspiPs *InstancePtr, u8 *RecvBufPtr,
@@ -1092,7 +1111,7 @@ int XQspiPs_LqspiRead(XQspiPs *InstancePtr, u8 *RecvBufPtr,
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
 #ifndef XPAR_PS7_QSPI_LINEAR_0_S_AXI_BASEADDR
-#define	XPAR_PS7_QSPI_LINEAR_0_S_AXI_BASEADDR 0xFC000000
+#define	XPAR_PS7_QSPI_LINEAR_0_S_AXI_BASEADDR 0xFC000000 /**< LQSPI base. */
 #endif
 	/*
 	 * Enable the controller
@@ -1121,11 +1140,11 @@ int XQspiPs_LqspiRead(XQspiPs *InstancePtr, u8 *RecvBufPtr,
 /*****************************************************************************/
 /**
 *
-* Selects the slave with which the master communicates.
+* @brief Selects the slave with which the master communicates.
 *
 * The user is not allowed to select the slave while a transfer is in progress.
 *
-* @param	InstancePtr is a pointer to the XQspiPs instance.
+* @param[in]	InstancePtr Pointer to the XQspiPs instance.
 *
 * @return
 *		- XST_SUCCESS if the slave is selected or deselected
@@ -1133,10 +1152,9 @@ int XQspiPs_LqspiRead(XQspiPs *InstancePtr, u8 *RecvBufPtr,
 *		- XST_DEVICE_BUSY if a transfer is in progress, slave cannot be
 *		  changed.
 *
-* @note
-*
-* This function only sets the slave which will be selected when a transfer
-* occurs. The slave is not selected when the QSPI is idle.
+* @note		The function only sets the slave that is selected when a
+*		transfer occurs. The slave is not selected when the QSPI is
+*		idle.
 *
 ******************************************************************************/
 int XQspiPs_SetSlaveSelect(XQspiPs *InstancePtr)
@@ -1169,11 +1187,13 @@ int XQspiPs_SetSlaveSelect(XQspiPs *InstancePtr)
 /*****************************************************************************/
 /**
 *
-* Sets the status callback function, the status handler, which the driver
-* calls when it encounters conditions that should be reported to upper
-* layer software. The handler executes in an interrupt context, so it must
-* minimize the amount of processing performed. One of the following status
-* events is passed to the status handler.
+* @brief Sets the status callback function, the status handler, which the
+* driver calls when it encounters conditions that should be reported to upper
+* layer software.
+*
+* The handler executes in an interrupt context, so it must minimize the amount
+* of processing performed. One of the following status events is passed to
+* the status handler.
 *
 * <pre>
 *
@@ -1190,15 +1210,14 @@ int XQspiPs_SetSlaveSelect(XQspiPs *InstancePtr)
 *				but the receive data register/FIFO was full.
 *
 * </pre>
-* @param	InstancePtr is a pointer to the XQspiPs instance.
-* @param	CallBackRef is the upper layer callback reference passed back
+* @param[in,out]	InstancePtr Pointer to the XQspiPs instance.
+* @param[in]	CallBackRef The upper layer callback reference passed back
 *		when the callback function is invoked.
-* @param	FuncPtr is the pointer to the callback function.
+* @param[in]	FuncPtr Pointer to the callback function.
 *
-* @note
-*
-* The handler is called within interrupt context, so it should do its work
-* quickly and queue potentially time-consuming work to a task-level thread.
+* @note		The handler is called within interrupt context, so it should do
+*		its work quickly and queue potentially time-consuming work to a
+*		task-level thread.
 *
 ******************************************************************************/
 void XQspiPs_SetStatusHandler(XQspiPs *InstancePtr, void *CallBackRef,
@@ -1215,15 +1234,14 @@ void XQspiPs_SetStatusHandler(XQspiPs *InstancePtr, void *CallBackRef,
 /*****************************************************************************/
 /**
 *
-* This is a stub for the status callback. The stub is here in case the upper
-* layers forget to set the handler.
+* @brief Implements a stub for the status callback.
 *
-* @param	CallBackRef is a pointer to the upper layer callback reference
-* @param	StatusEvent is the event that just occurred.
-* @param	ByteCount is the number of bytes transferred up until the event
+* The stub is here in case the upper layers forget to set the handler.
+*
+* @param[in]	CallBackRef Pointer to the upper layer callback reference.
+* @param[in]	StatusEvent The event that just occurred.
+* @param[in]	ByteCount The number of bytes transferred up until the event
 *		occurred.
-*
-* @note		None.
 *
 ******************************************************************************/
 static void StubStatusHandler(void *CallBackRef, u32 StatusEvent,
@@ -1239,11 +1257,12 @@ static void StubStatusHandler(void *CallBackRef, u32 StatusEvent,
 /*****************************************************************************/
 /**
 *
-* The interrupt handler for QSPI interrupts. This function must be connected
-* by the user to an interrupt controller.
+* @brief Handles QSPI interrupts.
+*
+* The interrupt handler must be connected by the user to an interrupt
+* controller.
 *
 * The interrupts that are handled are:
-*
 *
 * - Data Transmit Register (FIFO) Empty. This interrupt is generated when the
 *   transmit register or FIFO is empty. The driver uses this interrupt during a
@@ -1261,12 +1280,10 @@ static void StubStatusHandler(void *CallBackRef, u32 StatusEvent,
 *   manner.  No action is taken by the driver other than to inform the upper
 *   layer software of the error.
 *
-* @param	InstancePtr is a pointer to the XQspiPs instance.
+* @param[in]	InstancePtr Pointer to the XQspiPs instance.
 *
-* @note
-*
-* The slave select register is being set to deselect the slave when a transfer
-* is complete.
+* @note		The slave select register is being set to deselect the slave
+*		when a transfer is complete.
 *
 ******************************************************************************/
 void XQspiPs_InterruptHandler(void *InstancePtr)
@@ -1360,8 +1377,8 @@ void XQspiPs_InterruptHandler(void *InstancePtr)
 			 * Send more data.
 			 * In case of Write fill the Tx FIFO with data to be transmitted.
 			 * In case of Read fill the TX FIFO with first 4bytes(1Byte Command + 3Byte Address)
-			 * of data from TX Buffer and the remaining bytes(i.e., RequestedBytes - 4)
-			 * with DUMMY.
+			 * of data from TX Buffer and the remaining bytes
+			 * (RequestedBytes - 4) with DUMMY.
 			 */
 			if (QspiPtr->RecvBufferPtr &&
 			    ((QspiPtr->RequestedBytes - QspiPtr->RemainingBytes) > 4)) {
@@ -1527,13 +1544,11 @@ void XQspiPs_InterruptHandler(void *InstancePtr)
 /*****************************************************************************/
 /**
 *
-* Copies data from Data to the Receive buffer.
+* @brief Copies data from Data to the Receive buffer.
 *
-* @param	InstancePtr is a pointer to the XQspiPs instance.
-* @param	Data is the data which needs to be copied to the Rx buffer.
-* @param	Size is the number of bytes to be copied to the Receive buffer.
-*
-* @note		None.
+* @param[in,out]	InstancePtr Pointer to the XQspiPs instance.
+* @param[in]	Data The data which needs to be copied to the Rx buffer.
+* @param[in]	Size The number of bytes to be copied to the Receive buffer.
 *
 ******************************************************************************/
 static void XQspiPs_GetReadData(XQspiPs *InstancePtr, u32 Data, u8 Size)

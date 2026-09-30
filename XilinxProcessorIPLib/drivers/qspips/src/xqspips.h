@@ -4,17 +4,20 @@
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
+#ifndef XQSPIPS_H
+#define XQSPIPS_H
+
 /*****************************************************************************/
 /**
 *
 * @file xqspips.h
 * @addtogroup qspips Overview
 * @{
-* @details
+* @brief Contains the implementation of the XQspiPs driver.
 *
-* This file contains the implementation of the XQspiPs driver. It supports only
-* master mode. User documentation for the driver functions is contained in this
-* file in the form of comment blocks at the front of each function.
+* The driver supports only master mode. User documentation for the driver
+* functions is contained in the form of comment blocks at the front of each
+* function.
 *
 * A QSPI device connects to an QSPI bus through a 4-wire serial interface.
 * The QSPI bus is a full-duplex, synchronous bus that facilitates communication
@@ -26,7 +29,7 @@
 * data as fast or as slow as the master does.
 *
 * <b> Linear Mode </b>
-* The Linear Quad-SPI Controller extends the existing Quad-SPI Controller�s
+* The Linear Quad-SPI Controller extends the existing Quad-SPI Controller's
 * functionality by adding a linear addressing scheme that allows the SPI flash
 * memory subsystem to behave like a typical ROM device.  The new feature hides
 * the normal SPI protocol from a master reading from the SPI flash memory. The
@@ -46,7 +49,7 @@
 * following way:
 *	- XQspiPs_LookupConfig(DeviceId) - Use the device identifier to find
 *	  static configuration structure defined in xqspips_g.c. This is setup
-*	  by the tools. For some operating systems the config structure will be
+*	  by the tools. For some operating systems the config structure is
 *	  initialized by the software and this call is not needed.
 *	- XQspiPs_CfgInitialize(InstancePtr, CfgPtr, EffectiveAddr) - Uses a
 *	  configuration structure provided by the caller. If running in a system
@@ -87,13 +90,13 @@
 * - Auto CS with Manual or Auto Start: It is very difficult for software to
 *   keep the TXFIFO filled. Whenever the TXFIFO runs empty, CS is de asserted.
 *   This results in a single transaction to be split into multiple pieces each
-*   with its own chip select. This will result in garbage data to be sent.
+*   with its own chip select. This results in garbage data being sent.
 *
 * <b>Interrupts</b>
 *
 * The user must connect the interrupt handler of the driver,
-* XQspiPs_InterruptHandler, to an interrupt system such that it will be
-* called when an interrupt occurs. This function does not save and restore
+* XQspiPs_InterruptHandler, to an interrupt system such that it is
+* called when an interrupt occurs. The handler does not save and restore
 * the processor context such that the user must provide this processing.
 *
 * The driver handles the following interrupts:
@@ -127,7 +130,6 @@
 * problem with the higher layer protocol, or a problem with the slave
 * performance.
 *
-*
 * <b>Polled Operation</b>
 *
 * Transfer in polled mode is supported through a separate interface function
@@ -151,12 +153,12 @@
 *
 * <b>RTOS Independence</b>
 *
-* This driver is intended to be RTOS and processor independent.  It works with
+* The driver is intended to be RTOS and processor independent.  It works with
 * physical addresses only.  Any needs for dynamic memory management, threads or
 * thread mutual exclusion, virtual memory, or cache control must be satisfied
 * by the layer above this driver.
 *
-* NOTE: This driver was always tested with endianness set to little-endian.
+* NOTE: The driver was always tested with endianness set to little-endian.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -277,12 +279,11 @@
 * 3.15  vlt 03/15/26 Updated BaseAddress type from u32 to UINTPTR
 *                    to support 64-bit addressing.
 * 3.16  vn  08/26/26 Fix Doxygen warnings
+* 3.16  tb  09/30/26 Align Doxygen comments with AMD documentation standards
 *
 * </pre>
 *
 ******************************************************************************/
-#ifndef XQSPIPS_H		/* prevent circular inclusions */
-#define XQSPIPS_H		/* by using protection macros */
 
 #ifdef __cplusplus
 extern "C" {
@@ -302,7 +303,6 @@ extern "C" {
  * an QSPI device.  Each of the options is a bit mask, so more than one may be
  * specified.
  *
- *
  * The <b>Active Low Clock option</b> configures the device's clock polarity.
  * Setting this option means the clock is active low and the SCK signal idles
  * high. By default, the clock is active high and SCK idles low.
@@ -313,34 +313,33 @@ extern "C" {
  * has been asserted. A clock phase of 1 means data is valid on the second SCK
  * edge (rising or falling) after SS has been asserted.
  *
- *
- * The <b>QSPI Force Slave Select option</b> is used to enable manual control of
+ * The <b>QSPI Force Slave Select option</b> enables manual control of
  * the slave select signal.
  * 0: The SPI_SS signal is controlled by the QSPI controller during
  * transfers. (Default)
  * 1: The SPI_SS signal is forced active (driven low) regardless of any
  * transfers in progress.
  *
- * NOTE: The driver will handle setting and clearing the Slave Select when
- * the user sets the "FORCE_SSELECT_OPTION". Using this option will allow the
+ * NOTE: The driver handles setting and clearing the Slave Select when
+ * the user sets the "FORCE_SSELECT_OPTION". Using this option allows the
  * QSPI clock to be set to a faster speed. If the QSPI clock is too fast, the
  * processor cannot empty and refill the FIFOs before the TX FIFO is empty
  * When the QSPI hardware is controlling the Slave Select signals, this
- * will cause slave to be de-selected and terminate the transfer.
+ * causes the slave to be de-selected and terminates the transfer.
  *
- * The <b>Manual Start option</b> is used to enable manual control of
+ * The <b>Manual Start option</b> enables manual control of
  * the Start command to perform data transfer.
  * 0: The Start command is controlled by the QSPI controller during
  * transfers(Default). Data transmission starts as soon as there is data in
  * the TXFIFO and stalls when the TXFIFO is empty
  * 1: The Start command must be issued by software to perform data transfer.
- * Bit 15 of Configuration register is used to issue Start command. This bit
+ * Bit 15 of Configuration register issues the Start command. This bit
  * must be set whenever TXFIFO is filled with new data.
  *
- * NOTE: The driver will set the Manual Start Enable bit in Configuration
- * Register, if Manual Start option is selected. Software will issue
+ * NOTE: The driver sets the Manual Start Enable bit in Configuration
+ * Register, if Manual Start option is selected. Software issues
  * Manual Start command whenever TXFIFO is filled with data. When there is
- * no further data, driver will clear the Manual Start Enable bit.
+ * no further data, driver clears the Manual Start Enable bit.
  *
  * @{
  */
@@ -351,7 +350,6 @@ extern "C" {
 #define XQSPIPS_LQSPI_MODE_OPTION	0x80 /**< Linear QPSI mode */
 #define XQSPIPS_HOLD_B_DRIVE_OPTION	0x100 /**< Drive HOLD_B Pin */
 /** @} */
-
 
 /** @name QSPI Clock Prescaler options
  * The QSPI Clock Prescaler Configuration bits are used to program master mode
@@ -371,12 +369,11 @@ extern "C" {
 
 /** @} */
 
-
 /** @name Callback events
  *
  * These constants specify the handler events that are passed to
  * a handler from the driver.  These constants are not bit masks such that
- * only one will be passed at a time to the handler.
+ * only one is passed at a time to the handler.
  *
  * @{
  */
@@ -394,36 +391,39 @@ extern "C" {
  *
  * @{
  */
-#define	XQSPIPS_FLASH_OPCODE_WRSR	0x01 /* Write status register */
-#define	XQSPIPS_FLASH_OPCODE_PP		0x02 /* Page program */
-#define	XQSPIPS_FLASH_OPCODE_NORM_READ	0x03 /* Normal read data bytes */
-#define	XQSPIPS_FLASH_OPCODE_WRDS	0x04 /* Write disable */
-#define	XQSPIPS_FLASH_OPCODE_RDSR1	0x05 /* Read status register 1 */
-#define	XQSPIPS_FLASH_OPCODE_WREN	0x06 /* Write enable */
-#define	XQSPIPS_FLASH_OPCODE_FAST_READ	0x0B /* Fast read data bytes */
-#define	XQSPIPS_FLASH_OPCODE_BE_4K	0x20 /* Erase 4KiB block */
-#define	XQSPIPS_FLASH_OPCODE_RDSR2	0x35 /* Read status register 2 */
-#define	XQSPIPS_FLASH_OPCODE_DUAL_READ	0x3B /* Dual read data bytes */
-#define	XQSPIPS_FLASH_OPCODE_BE_32K	0x52 /* Erase 32KiB block */
-#define	XQSPIPS_FLASH_OPCODE_QUAD_READ	0x6B /* Quad read data bytes */
-#define	XQSPIPS_FLASH_OPCODE_ERASE_SUS	0x75 /* Erase suspend */
-#define	XQSPIPS_FLASH_OPCODE_ERASE_RES	0x7A /* Erase resume */
-#define	XQSPIPS_FLASH_OPCODE_RDID	0x9F /* Read JEDEC ID */
-#define	XQSPIPS_FLASH_OPCODE_BE		0xC7 /* Erase whole flash block */
-#define	XQSPIPS_FLASH_OPCODE_SE		0xD8 /* Sector erase (usually 64KB)*/
-#define XQSPIPS_FLASH_OPCODE_DUAL_IO_READ 0xBB /* Read data using Dual I/O */
-#define XQSPIPS_FLASH_OPCODE_QUAD_IO_READ 0xEB /* Read data using Quad I/O */
-#define XQSPIPS_FLASH_OPCODE_BRWR	0x17 /* Bank Register Write */
-#define XQSPIPS_FLASH_OPCODE_BRRD	0x16 /* Bank Register Read */
-/* Extende Address Register Write - Micron's equivalent of Bank Register */
+#define	XQSPIPS_FLASH_OPCODE_WRSR	0x01 /**< Write status register. */
+#define	XQSPIPS_FLASH_OPCODE_PP		0x02 /**< Page program. */
+#define	XQSPIPS_FLASH_OPCODE_NORM_READ	0x03 /**< Normal read data bytes. */
+#define	XQSPIPS_FLASH_OPCODE_WRDS	0x04 /**< Write disable. */
+#define	XQSPIPS_FLASH_OPCODE_RDSR1	0x05 /**< Read status register 1. */
+#define	XQSPIPS_FLASH_OPCODE_WREN	0x06 /**< Write enable. */
+#define	XQSPIPS_FLASH_OPCODE_FAST_READ	0x0B /**< Fast read data bytes. */
+#define	XQSPIPS_FLASH_OPCODE_BE_4K	0x20 /**< Erase 4KiB block. */
+#define	XQSPIPS_FLASH_OPCODE_RDSR2	0x35 /**< Read status register 2. */
+#define	XQSPIPS_FLASH_OPCODE_DUAL_READ	0x3B /**< Dual read data bytes. */
+#define	XQSPIPS_FLASH_OPCODE_BE_32K	0x52 /**< Erase 32KiB block. */
+#define	XQSPIPS_FLASH_OPCODE_QUAD_READ	0x6B /**< Quad read data bytes. */
+#define	XQSPIPS_FLASH_OPCODE_ERASE_SUS	0x75 /**< Erase suspend. */
+#define	XQSPIPS_FLASH_OPCODE_ERASE_RES	0x7A /**< Erase resume. */
+#define	XQSPIPS_FLASH_OPCODE_RDID	0x9F /**< Read JEDEC ID. */
+#define	XQSPIPS_FLASH_OPCODE_BE		0xC7 /**< Erase whole flash block. */
+/** Sector erase (usually 64KB). */
+#define	XQSPIPS_FLASH_OPCODE_SE		0xD8
+#define XQSPIPS_FLASH_OPCODE_DUAL_IO_READ 0xBB /**< Read data using Dual I/O. */
+#define XQSPIPS_FLASH_OPCODE_QUAD_IO_READ 0xEB /**< Read data using Quad I/O. */
+#define XQSPIPS_FLASH_OPCODE_BRWR	0x17 /**< Bank Register Write. */
+#define XQSPIPS_FLASH_OPCODE_BRRD	0x16 /**< Bank Register Read. */
+/** Extended Address Register Write - Micron's equivalent of Bank Register. */
 #define XQSPIPS_FLASH_OPCODE_EARWR	0xC5
-/* Extende Address Register Read - Micron's equivalent of Bank Register */
+/** Extended Address Register Read - Micron's equivalent of Bank Register. */
 #define XQSPIPS_FLASH_OPCODE_EARRD	0xC8
-#define XQSPIPS_FLASH_OPCODE_DIE_ERASE	0xC4
+#define XQSPIPS_FLASH_OPCODE_DIE_ERASE	0xC4	/**< Die erase. */
+/** Read flag status register. */
 #define XQSPIPS_FLASH_OPCODE_READ_FLAG_SR	0x70
+/** Clear flag status register. */
 #define XQSPIPS_FLASH_OPCODE_CLEAR_FLAG_SR	0x50
-#define XQSPIPS_FLASH_OPCODE_READ_LOCK_REG	0xE8	/* Lock Reg Read */
-#define XQSPIPS_FLASH_OPCODE_WRITE_LOCK_REG	0xE5	/* Lock Reg Write */
+#define XQSPIPS_FLASH_OPCODE_READ_LOCK_REG	0xE8	/**< Lock Reg Read. */
+#define XQSPIPS_FLASH_OPCODE_WRITE_LOCK_REG	0xE5	/**< Lock Reg Write. */
 
 /** @} */
 
@@ -434,10 +434,10 @@ extern "C" {
  *
  * @{
  */
-#define XQSPIPS_SIZE_ONE	1
-#define XQSPIPS_SIZE_TWO	2
-#define XQSPIPS_SIZE_THREE	3
-#define XQSPIPS_SIZE_FOUR	4
+#define XQSPIPS_SIZE_ONE	1	/**< Instruction size of one byte. */
+#define XQSPIPS_SIZE_TWO	2	/**< Instruction size of two bytes. */
+#define XQSPIPS_SIZE_THREE	3	/**< Instruction size of three bytes. */
+#define XQSPIPS_SIZE_FOUR	4	/**< Instruction size of four bytes. */
 
 /** @} */
 
@@ -448,9 +448,9 @@ extern "C" {
  *
  * @{
  */
-#define XQSPIPS_CONNECTION_MODE_SINGLE		0
-#define XQSPIPS_CONNECTION_MODE_STACKED		1
-#define XQSPIPS_CONNECTION_MODE_PARALLEL	2
+#define XQSPIPS_CONNECTION_MODE_SINGLE		0	/**< Single mode. */
+#define XQSPIPS_CONNECTION_MODE_STACKED		1	/**< Stacked mode. */
+#define XQSPIPS_CONNECTION_MODE_PARALLEL	2	/**< Parallel mode. */
 
 /** @} */
 
@@ -461,26 +461,29 @@ extern "C" {
  *
  * @{
  */
+/** Optimal Rx FIFO threshold in words. */
 #define XQSPIPS_RXFIFO_THRESHOLD_OPT		32
 
 /** @} */
 
 /**************************** Type Definitions *******************************/
 /**
+ * @brief Describes the status callback handler type for the QSPI device.
+ *
  * The handler data type allows the user to define a callback function to
  * handle the asynchronous processing for the QSPI device.  The application
  * using this driver is expected to define a handler of this type to support
  * interrupt driven mode.  The handler executes in an interrupt context, so
  * only minimal processing should be performed.
  *
- * @param	CallBackRef is the callback reference passed in by the upper
+ * @param[in]	CallBackRef The callback reference passed in by the upper
  *		layer when setting the callback functions, and passed back to
  *		the upper layer when the callback is invoked. Its type is
  *		not important to the driver, so it is a void pointer.
- * @param	StatusEvent holds one or more status events that have occurred.
+ * @param[in]	StatusEvent Holds one or more status events that have occurred.
  *		See the XQspiPs_SetStatusHandler() for details on the status
  *		events that can be passed in the callback.
- * @param	ByteCount indicates how many bytes of data were successfully
+ * @param[in]	ByteCount Indicates how many bytes of data were successfully
  *		transferred.  This may be less than the number of bytes
  *		requested if the status event indicates an error.
  */
@@ -488,7 +491,7 @@ typedef void (*XQspiPs_StatusHandler) (void *CallBackRef, u32 StatusEvent,
 				       unsigned ByteCount);
 
 /**
- * This typedef contains configuration information for the device.
+ * @brief Holds the configuration information for the device.
  */
 typedef struct {
 #ifndef SDT
@@ -508,9 +511,11 @@ typedef struct {
 } XQspiPs_Config;
 
 /**
- * The XQspiPs driver instance data. The user is required to allocate a
- * variable of this type for every QSPI device in the system. A pointer
- * to a variable of this type is then passed to the driver API functions.
+ * @brief Holds the XQspiPs driver instance data.
+ *
+ * The user is required to allocate a variable of this type for every QSPI
+ * device in the system. A pointer to a variable of this type is then passed
+ * to the driver API functions.
  */
 typedef struct {
 	XQspiPs_Config Config;	 /**< Configuration structure */
@@ -521,7 +526,7 @@ typedef struct {
 	int RequestedBytes;	 /**< Number of bytes to transfer (state) */
 	int RemainingBytes;	 /**< Number of bytes left to transfer(state) */
 	u32 IsBusy;		 /**< A transfer is in progress (state) */
-	XQspiPs_StatusHandler StatusHandler;
+	XQspiPs_StatusHandler StatusHandler;	/**< Status callback handler. */
 	void *StatusRef;	 /**< Callback reference for status handler */
 	u32 ShiftReadData;	 /**<  Flag to indicate whether the data
 				   *   read from the Rx FIFO needs to be shifted
@@ -533,18 +538,19 @@ typedef struct {
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /****************************************************************************/
-/*
+/**
 *
-* Check in OptionsTable if Manual Start Option is enabled or disabled.
+* @brief Checks in OptionsTable if Manual Start Option is enabled or disabled.
 *
-* @param	InstancePtr is a pointer to the XQspiPs instance.
+* @param[in]	InstancePtr Pointer to the XQspiPs instance.
 *
 * @return
 *		- TRUE if option is set
 *		- FALSE if option is not set
 *
-* @note		C-Style signature:
-*		u8 XQspiPs_IsManualStart(XQspiPs *InstancePtr);
+* @note
+* C-style signature
+*	u8 XQspiPs_IsManualStart(XQspiPs *InstancePtr)
 *
 *****************************************************************************/
 #define XQspiPs_IsManualStart(InstancePtr) \
@@ -552,18 +558,20 @@ typedef struct {
 	  XQSPIPS_MANUAL_START_OPTION) ? TRUE : FALSE)
 
 /****************************************************************************/
-/*
+/**
 *
-* Check in OptionsTable if Manual Chip Select Option is enabled or disabled.
+* @brief Checks in OptionsTable if Manual Chip Select Option is enabled or
+* disabled.
 *
-* @param	InstancePtr is a pointer to the XSpiPs instance.
+* @param[in]	InstancePtr Pointer to the XQspiPs instance.
 *
 * @return
 *		- TRUE if option is set
 *		- FALSE if option is not set
 *
-* @note		C-Style signature:
-*		u8 XQspiPs_IsManualChipSelect(XQspiPs *InstancePtr);
+* @note
+* C-style signature
+*	u8 XQspiPs_IsManualChipSelect(XQspiPs *InstancePtr)
 *
 *****************************************************************************/
 #define XQspiPs_IsManualChipSelect(InstancePtr) \
@@ -573,17 +581,15 @@ typedef struct {
 /****************************************************************************/
 /**
 *
-* Set the contents of the slave idle count register.
+* @brief Sets the contents of the slave idle count register.
 *
-* @param	InstancePtr is a pointer to the XQspiPs instance.
-* @param	RegisterValue is the value to be written, valid values are
+* @param[in]	InstancePtr Pointer to the XQspiPs instance.
+* @param[in]	RegisterValue The value to be written, valid values are
 *		0-255.
 *
-* @return	None
-*
-* @note		C-Style signature:
-*		void XQspiPs_SetSlaveIdle(XQspiPs *InstancePtr,
-*			u32 RegisterValue)
+* @note
+* C-style signature
+*	void XQspiPs_SetSlaveIdle(XQspiPs *InstancePtr, u32 RegisterValue)
 *
 *****************************************************************************/
 #define XQspiPs_SetSlaveIdle(InstancePtr, RegisterValue)	\
@@ -593,15 +599,18 @@ typedef struct {
 /****************************************************************************/
 /**
 *
-* Get the contents of the slave idle count register. Use the XQSPIPS_SICR_*
-* constants defined in xqspips_hw.h to interpret the bit-mask returned.
+* @brief Gets the contents of the slave idle count register.
 *
-* @param	InstancePtr is a pointer to the XQspiPs instance.
+* Use the XQSPIPS_SICR_* constants defined in xqspips_hw.h to interpret the
+* bit-mask returned.
+*
+* @param[in]	InstancePtr Pointer to the XQspiPs instance.
 *
 * @return	An 8-bit value representing Slave Idle Count.
 *
-* @note		C-Style signature:
-*		u32 XQspiPs_GetSlaveIdle(XQspiPs *InstancePtr)
+* @note
+* C-style signature
+*	u32 XQspiPs_GetSlaveIdle(XQspiPs *InstancePtr)
 *
 *****************************************************************************/
 #define XQspiPs_GetSlaveIdle(InstancePtr)				\
@@ -611,16 +620,14 @@ typedef struct {
 /****************************************************************************/
 /**
 *
-* Set the contents of the transmit FIFO watermark register.
+* @brief Sets the contents of the transmit FIFO watermark register.
 *
-* @param	InstancePtr is a pointer to the XQspiPs instance.
-* @param	RegisterValue is the value to be written, valid values are 1-63.
+* @param[in]	InstancePtr Pointer to the XQspiPs instance.
+* @param[in]	RegisterValue The value to be written, valid values are 1-63.
 *
-* @return	None.
-*
-* @note		C-Style signature:
-*		void XQspiPs_SetTXWatermark(XQspiPs *InstancePtr,
-*			u32 RegisterValue)
+* @note
+* C-style signature
+*	void XQspiPs_SetTXWatermark(XQspiPs *InstancePtr, u32 RegisterValue)
 *
 *****************************************************************************/
 #define XQspiPs_SetTXWatermark(InstancePtr, RegisterValue)		\
@@ -630,15 +637,17 @@ typedef struct {
 /****************************************************************************/
 /**
 *
-* Get the contents of the transmit FIFO watermark register.
+* @brief Gets the contents of the transmit FIFO watermark register.
+*
 * Valid values are in the range 1-63.
 *
-* @param	InstancePtr is a pointer to the XQspiPs instance.
+* @param[in]	InstancePtr Pointer to the XQspiPs instance.
 *
 * @return	A 6-bit value representing Tx Watermark level.
 *
-* @note		C-Style signature:
-*		u32 XQspiPs_GetTXWatermark(XQspiPs *InstancePtr)
+* @note
+* C-style signature
+*	u32 XQspiPs_GetTXWatermark(XQspiPs *InstancePtr)
 *
 *****************************************************************************/
 #define XQspiPs_GetTXWatermark(InstancePtr)				\
@@ -647,16 +656,14 @@ typedef struct {
 /****************************************************************************/
 /**
 *
-* Set the contents of the receive FIFO watermark register.
+* @brief Sets the contents of the receive FIFO watermark register.
 *
-* @param	InstancePtr is a pointer to the XQspiPs instance.
-* @param	RegisterValue is the value to be written, valid values are 1-63.
+* @param[in]	InstancePtr Pointer to the XQspiPs instance.
+* @param[in]	RegisterValue The value to be written, valid values are 1-63.
 *
-* @return	None.
-*
-* @note		C-Style signature:
-*		void XQspiPs_SetRXWatermark(XQspiPs *InstancePtr,
-*			u32 RegisterValue)
+* @note
+* C-style signature
+*	void XQspiPs_SetRXWatermark(XQspiPs *InstancePtr, u32 RegisterValue)
 *
 *****************************************************************************/
 #define XQspiPs_SetRXWatermark(InstancePtr, RegisterValue)		\
@@ -666,15 +673,17 @@ typedef struct {
 /****************************************************************************/
 /**
 *
-* Get the contents of the receive FIFO watermark register.
+* @brief Gets the contents of the receive FIFO watermark register.
+*
 * Valid values are in the range 1-63.
 *
-* @param	InstancePtr is a pointer to the XQspiPs instance.
+* @param[in]	InstancePtr Pointer to the XQspiPs instance.
 *
 * @return	A 6-bit value representing Rx Watermark level.
 *
-* @note		C-Style signature:
-*		u32 XQspiPs_GetRXWatermark(XQspiPs *InstancePtr)
+* @note
+* C-style signature
+*	u32 XQspiPs_GetRXWatermark(XQspiPs *InstancePtr)
 *
 *****************************************************************************/
 #define XQspiPs_GetRXWatermark(InstancePtr)				\
@@ -683,14 +692,13 @@ typedef struct {
 /****************************************************************************/
 /**
 *
-* Enable the device and uninhibit master transactions.
+* @brief Enables the device and uninhibits master transactions.
 *
-* @param	InstancePtr is a pointer to the XQspiPs instance.
+* @param[in]	InstancePtr Pointer to the XQspiPs instance.
 *
-* @return	None.
-*
-* @note		C-Style signature:
-*		void XQspiPs_Enable(XQspiPs *InstancePtr)
+* @note
+* C-style signature
+*	void XQspiPs_Enable(XQspiPs *InstancePtr)
 *
 *****************************************************************************/
 #define XQspiPs_Enable(InstancePtr)					\
@@ -700,14 +708,13 @@ typedef struct {
 /****************************************************************************/
 /**
 *
-* Disable the device.
+* @brief Disables the device.
 *
-* @param	InstancePtr is a pointer to the XQspiPs instance.
+* @param[in]	InstancePtr Pointer to the XQspiPs instance.
 *
-* @return	None.
-*
-* @note		C-Style signature:
-*		void XQspiPs_Disable(XQspiPs *InstancePtr)
+* @note
+* C-style signature
+*	void XQspiPs_Disable(XQspiPs *InstancePtr)
 *
 *****************************************************************************/
 #define XQspiPs_Disable(InstancePtr)					\
@@ -716,17 +723,15 @@ typedef struct {
 /****************************************************************************/
 /**
 *
-* Set the contents of the Linear QSPI Configuration register.
+* @brief Sets the contents of the Linear QSPI Configuration register.
 *
-* @param	InstancePtr is a pointer to the XQspiPs instance.
-* @param	RegisterValue is the value to be written to the Linear QSPI
+* @param[in]	InstancePtr Pointer to the XQspiPs instance.
+* @param[in]	RegisterValue The value to be written to the Linear QSPI
 *		configuration register.
 *
-* @return	None.
-*
-* @note		C-Style signature:
-*		void XQspiPs_SetLqspiConfigReg(XQspiPs *InstancePtr,
-*			u32 RegisterValue)
+* @note
+* C-style signature
+*	void XQspiPs_SetLqspiConfigReg(XQspiPs *InstancePtr, u32 RegisterValue)
 *
 *****************************************************************************/
 #define XQspiPs_SetLqspiConfigReg(InstancePtr, RegisterValue)		\
@@ -736,15 +741,16 @@ typedef struct {
 /****************************************************************************/
 /**
 *
-* Get the contents of the Linear QSPI Configuration register.
+* @brief Gets the contents of the Linear QSPI Configuration register.
 *
-* @param	InstancePtr is a pointer to the XQspiPs instance.
+* @param[in]	InstancePtr Pointer to the XQspiPs instance.
 *
 * @return	A 32-bit value representing the contents of the LQSPI Config
 *		register.
 *
-* @note		C-Style signature:
-*		u32 XQspiPs_GetLqspiConfigReg(u32 *InstancePtr)
+* @note
+* C-style signature
+*	u32 XQspiPs_GetLqspiConfigReg(XQspiPs *InstancePtr)
 *
 *****************************************************************************/
 #define XQspiPs_GetLqspiConfigReg(InstancePtr)				\

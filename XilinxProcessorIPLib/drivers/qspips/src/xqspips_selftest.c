@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -8,11 +8,7 @@
 /**
 *
 * @file xqspips_selftest.c
-* @addtogroup qspips Overview
-* @{
-*
-* This file contains the implementation of selftest function for the QSPI
-* device.
+* @brief Contains the implementation of selftest function for the QSPI device.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -23,10 +19,16 @@
 * 2.01a sg  02/03/13 Delay Register test is added with DelayNss parameter.
 * 3.1   hk  06/19/14 Remove checks for CR and ISR register values as they are
 *                    reset in the previous step.
+* 3.16  tb  09/30/26 Align Doxygen comments with AMD documentation standards
 *
 * </pre>
 *
 ******************************************************************************/
+
+/**
+* @addtogroup qspips_api QSPIPS APIs
+* @{
+*/
 
 /***************************** Include Files *********************************/
 
@@ -45,20 +47,20 @@
 /*****************************************************************************/
 /**
 *
-* Runs a self-test on the driver/device. The self-test is destructive in that
-* a reset of the device is performed in order to check the reset values of
-* the registers and to get the device into a known state.
+* @brief Runs a self-test on the driver/device.
+*
+* The self-test is destructive in that a reset of the device is performed in
+* order to check the reset values of the registers and to get the device into
+* a known state.
 *
 * Upon successful return from the self-test, the device is reset.
 *
-* @param	InstancePtr is a pointer to the XQspiPs instance.
+* @param[in,out]	InstancePtr Pointer to the XQspiPs instance.
 *
 * @return
 * 		- XST_SUCCESS if successful
 *		- XST_REGISTER_ERROR indicates a register did not read or write
 *		correctly.
-*
-* @note		None.
 *
 ******************************************************************************/
 int XQspiPs_SelfTest(XQspiPs *InstancePtr)

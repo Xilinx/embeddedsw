@@ -7,13 +7,8 @@
 /******************************************************************************/
 /**
 * @file xqspips_selftest_example.c
-*
-* This file contains an example for using the QSPI Hardware, it does a simple
+* @brief Implements an example for using the QSPI Hardware, it does a simple
 * hardware connection check.
-*
-* @note
-*
-* None
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -24,6 +19,7 @@
 * 3.11  akm    07/10/23 Add support for system device-tree flow for example.
 * 3.15  vlt    12/18/25 Update Doxygen comments to include SDT flow details.
 * 3.16  vn     08/26/26 Fix Doxygen warnings
+* 3.16  tb     09/30/26 Align Doxygen comments with AMD documentation standards
 * </pre>
 *
 *******************************************************************************/
@@ -48,7 +44,7 @@
  * change all the needed parameters in one place.
  */
 #ifndef SDT
-#define QSPI_DEVICE_ID		XPAR_XQSPIPS_0_DEVICE_ID
+#define QSPI_DEVICE_ID		XPAR_XQSPIPS_0_DEVICE_ID /**< QSPI device ID. */
 #endif
 
 /**************************** Type Definitions ********************************/
@@ -64,19 +60,16 @@ int QspiPsSelfTestExample(UINTPTR BaseAddress);
 
 /************************** Variable Definitions ******************************/
 
-XQspiPs Qspi;			/* The instance of the QSPI device */
+XQspiPs Qspi;			/**< The instance of the QSPI device. */
 
+#ifndef TESTAPP_GEN
 /******************************************************************************/
 /**
-* Main function to call the Qspi Selftest example.
-*
+* @brief Runs the Qspi Selftest example.
 *
 * @return	XST_SUCCESS if successful, XST_FAILURE if unsuccessful
 *
-* @note		None
-*
 *******************************************************************************/
-#ifndef TESTAPP_GEN
 int main(void)
 {
 	int Status;
@@ -105,22 +98,22 @@ int main(void)
 /*****************************************************************************/
 /**
 *
-* This function does a selftest on the QSPI device and XQspiPs driver as an
-* example. The purpose of this function is to illustrate the usage of the
-* XQspiPs driver.
+* @brief Runs a selftest on the QSPI device and XQspiPs driver as an example.
 *
+* The purpose of this function is to illustrate the usage of the XQspiPs
+* driver.
 *
 * @if SDT
-* @param	BaseAddress contains the base address of the device
+* @param[in]	BaseAddress The base address of the device.
 * @else
-* @param	DeviceId is the XPAR_<QSPIPS_instance>_DEVICE_ID value from
-*		xparameters.h
+* @param[in]	DeviceId The XPAR_<QSPIPS_instance>_DEVICE_ID value from
+*		xparameters.h.
 * @endif
 *
 * @return	XST_SUCCESS if successful, XST_FAILURE if unsuccessful
 *
-* @note	        In XSCT/classic flow, DeviceId is used to look up the device
-*               configuration.
+* @note	        In XSCT/classic flow, the device configuration is looked up
+*               based on DeviceId.
 *
 ****************************************************************************/
 #ifndef SDT
