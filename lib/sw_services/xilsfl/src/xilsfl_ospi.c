@@ -5,13 +5,11 @@
 
 /*****************************************************************************/
 /**
- *
  * @file xilsfl_ospi.c
- * @addtogroup xilsfl overview
- * @{
+ * @brief Implements the OSPI controller interface of the SFL library.
  *
- * The xilsfl_ospi.c file implements the functions required to use the OSPIPS hardware to
- * perform a transfer. These are used by sfl library.
+ * This file implements the functions required to use the OSPIPS hardware to
+ * perform a transfer. The serial flash library (SFL) uses these functions.
  *
  * <pre>
  * MODIFICATION HISTORY:
@@ -24,10 +22,15 @@
  * 1.1   sb  01/28/25  Add support to read in stig when DMA is not available.
  * 1.1   sb  02/11/25  Add support for x2/x4 operation.
  * 1.4   sb  09/01/26  Fix stale flash message fields.
+ * 1.4   vn  09/30/26  Align Doxygen comments with AMD standards
  *
  * </pre>
  *
  ******************************************************************************/
+
+/** @addtogroup xilsfl overview
+ * @{
+ */
 
 /***************************** Include Files *********************************/
 #include "xparameters.h"	/* SDK generated parameters */
@@ -51,20 +54,19 @@ u32 XSfl_OspiTransferDmaDone(u8 Index);
 u32 XSfl_OspiNonBlockingTransfer(u8 Index, XSfl_Msg *SflMsg) ;
 
 /************************** Variable Definitions *****************************/
-u8 Index=0;
-XOspiPsv OspiInstance;
+u8 Index=0; /**< Index of the XOspiPsv instance. */
+XOspiPsv OspiInstance; /**< OSPI driver instance. */
 
 /*****************************************************************************/
 /**
- * @brief
- * Configures TX and RX DLL Delay. Based on the mode and reference clock
- * this API calculates the RX delay and configure them in PHY configuration
- * register.
+ * @brief Configures the TX and RX DLL delay.
  *
+ * Based on the mode and reference clock, this API calculates the RX delay and
+ * configures it in the PHY configuration register.
  *
  * @return
- *		- XST_SUCCESS if successful.
- *		- XST_FAILURE if fails.
+ *              - XST_SUCCESS if successful.
+ *              - XST_FAILURE if it fails.
  *
  ******************************************************************************/
 u32 XSfl_OspiRxTuning(){
@@ -79,21 +81,21 @@ u32 XSfl_OspiRxTuning(){
 
 /*****************************************************************************/
 /**
- * @brief
- * Used to select the specific flash device
- * This API should be called at least once in the
- * application. If desired, it can be called multiple times when switching
- * between communicating to different flash devices/using different configuration.
+ * @brief Selects the specific flash device.
  *
- * @param	ChipSelect Flash Chip Select.
+ * Call this API at least once in the application. If desired, call it multiple
+ * times when switching between communicating with different flash devices or
+ * using different configurations.
+ *
+ * @param[in]   ChipSelNum Flash chip select.
  *
  * @return
- *		- XST_SUCCESS if successful.
- *		- XST_FAILURE if fail to set.
- * @note
- * 		If this function is not called at least once in the application,
- *		the driver assumes there is a single flash connected to the
- *		lower bus and CS line.
+ *              - XST_SUCCESS if successful.
+ *              - XST_FAILURE if it fails to set.
+ *
+ * @note        If the application does not call this function, the driver
+ *              assumes that a single flash is connected to the lower bus and
+ *              CS line.
  *
  ******************************************************************************/
 u32 XSfl_OspiSelectFlash(u8 ChipSelNum){
@@ -109,15 +111,15 @@ u32 XSfl_OspiSelectFlash(u8 ChipSelNum){
 
 /*****************************************************************************/
 /**
- * @brief
- * Configures the Ospi controller.
+ * @brief Configures the OSPI controller.
  *
- * @param	Mode Edge mode. XOSPIPSV_EDGE_MODE_* represents valid values.
- * @param	DualByteOpCode (1/2) to enable dual-byte opcode, 0 to disable.
+ * @param[in]   Mode Edge mode. XOSPIPSV_EDGE_MODE_* represents valid values.
+ * @param[in]   DualByteOpCode 1 or 2 to enable the dual-byte opcode, 0 to
+ *              disable it.
  *
  * @return
- *		- XST_SUCCESS if successful.
- *		- XST_FAILURE if fail to set.
+ *              - XST_SUCCESS if successful.
+ *              - XST_FAILURE if it fails to set.
  *
  ******************************************************************************/
 u32 XSfl_OspiSetSdrDdr(u8 Mode, u8 DualByteOpCode){
@@ -141,15 +143,14 @@ u32 XSfl_OspiSetSdrDdr(u8 Mode, u8 DualByteOpCode){
 
 /*****************************************************************************/
 /**
- * @brief
- * Prepares the Flash message to transfer to the driver.
+ * @brief Prepares the flash message to transfer to the driver.
  *
- * @param	Index is the XOspiPsv instance index in the instance array.
- * @param	SflMsg Pointer to the structure containing transfer data.
+ * @param[in]   Index XOspiPsv instance index in the instance array.
+ * @param[in]   SflMsg Pointer to the structure containing transfer data.
  *
  * @return
- *		- XST_SUCCESS if successful.
- *		- XST_FAILURE if fail to set.
+ *              - XST_SUCCESS if successful.
+ *              - XST_FAILURE if it fails to set.
  *
  ******************************************************************************/
 u32 XSfl_OspiTransfer(u8 Index, XSfl_Msg *SflMsg) {
@@ -194,15 +195,14 @@ u32 XSfl_OspiTransfer(u8 Index, XSfl_Msg *SflMsg) {
 
 /*****************************************************************************/
 /**
- * @brief
- * Prepares the Flash message for non blocking transfer.
+ * @brief Prepares the flash message for a nonblocking transfer.
  *
- * @param	Index is the XOspiPsv instance index in the instance array.
- * @param	SflMsg Pointer to the structure containing transfer data.
+ * @param[in]   Index XOspiPsv instance index in the instance array.
+ * @param[in]   SflMsg Pointer to the structure containing transfer data.
  *
  * @return
- *		- XST_SUCCESS if successful.
- *		- XST_FAILURE if fail to set.
+ *              - XST_SUCCESS if successful.
+ *              - XST_FAILURE if it fails to set.
  *
  ******************************************************************************/
 u32 XSfl_OspiNonBlockingTransfer(u8 Index, XSfl_Msg *SflMsg) {
@@ -246,14 +246,13 @@ u32 XSfl_OspiNonBlockingTransfer(u8 Index, XSfl_Msg *SflMsg) {
 }
 /*****************************************************************************/
 /**
- * @brief
- * Checks for DMA transfer complete.
+ * @brief Checks for DMA transfer completion.
  *
- * @param	array index of the XOspiPsv instance.
+ * @param[in]   Index Array index of the XOspiPsv instance.
  *
  * @return
- *		- XST_SUCCESS if DMA transfer complete.
- *		- XST_FAILURE if DMA transfer is not completed.
+ *              - XST_SUCCESS if the DMA transfer is complete.
+ *              - XST_FAILURE if the DMA transfer is not complete.
  *
  ******************************************************************************/
 u32 XSfl_OspiTransferDmaDone(u8 Index){
@@ -269,16 +268,15 @@ u32 XSfl_OspiTransferDmaDone(u8 Index){
 
 /*****************************************************************************/
 /**
-* @brief
-* This function reset the OSPI flash device.
-*
-* @param	Type is Reset type.
-*
-* @return
-* 		- XST_SUCCESS if successful.
-*		- XST_FAILURE if reset fails.
-*
-******************************************************************************/
+ * @brief Resets the OSPI flash device.
+ *
+ * @param[in]   Type Reset type.
+ *
+ * @return
+ *              - XST_SUCCESS if successful.
+ *              - XST_FAILURE if reset fails.
+ *
+ ******************************************************************************/
 u32 XSfl_OspiDeviceRest(u8 Type) {
 	u32 Status;
 
@@ -295,18 +293,10 @@ u32 XSfl_OspiDeviceRest(u8 Type) {
 
 /*****************************************************************************/
 /**
- * @brief
- * Initializes a specific XOspiPsv instance so that the driver is ready to use.
+ * @brief Initializes an XOspiPsv instance so that the driver is ready to use.
  *
- * @param	Ptr is pointer to the Sfl_Interface instance.
- * @param	UserConfig the structure containing information
- *		    about a specific OSPI device. This function initializes an
- *		    Instance object for a specific device specified by the
- *		    contents of UserConfig.
- *
- * @return
- *		- XST_SUCCESS if successful.
- *		- XST_FAILURE if init fails.
+ * @note        See xilsfl_control.h, where the parameters and return values
+ *              are documented with the prototype.
  *
  ******************************************************************************/
 u32 XSfl_OspiInit(XSfl_Interface *Ptr, const XSfl_UserConfig *UserConfig) {

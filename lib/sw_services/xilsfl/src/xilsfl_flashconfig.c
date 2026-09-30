@@ -7,10 +7,9 @@
 /**
  *
  * @file xilsfl_flashconfig.c
- * @addtogroup xilsfl overview
- * @{
+ * @brief Defines the flash configuration table of the serial flash library.
  *
- * The xilsfl_flashconfig.c file contains the definitions of flash configuration table.
+ * This file contains the definitions of the flash configuration table.
  *
  * <pre>
  * MODIFICATION HISTORY:
@@ -19,7 +18,7 @@
  * ----- --- -------- -----------------------------------------------
  * 1.0   sb  8/20/24  Initial release
  * 1.1   sb  01/28/25  Add support for micron 1Gb QSPI flash.
- * 1.1   sb  02/11/25  Add support for x2/x4 operartion.
+ * 1.1   sb  02/11/25  Add support for x2/x4 operation.
  * 1.1   sb  02/12/25  Add support for MT25QU128 flash.
  * 1.3   zm  29/01/26  Add support for remaining micron OSPI and QSPI flashes.
  * 1.3   zm  03/09/26  Add support for W25Q128JW Winbond flash.
@@ -27,15 +26,24 @@
  *       zm  08/03/26  Add support for GD25LR512MF GigaDevice flash.
  *       zm  08/03/26  Add support for MX25U6432F Macronix flash.
  * 1.4   vn  08/26/26  Fix Doxygen warnings.
+ * 1.4   vn  09/30/26  Align Doxygen comments with AMD standards
  *
  * </pre>
  *
  ******************************************************************************/
 
+/** @addtogroup xilsfl overview
+ * @{
+ */
+
 /***************************** Include Files *********************************/
 #include "xilsfl_flashconfig.h"
 
 /************************** Variable Definitions *****************************/
+/**
+ *
+ * @brief Holds the configuration of each supported flash device.
+ */
 const XFlashInfo Flash_Config_Table[] = {
 	/* Octal SPI Flash Parts */
 	/* Micron */
@@ -383,12 +391,14 @@ const XFlashInfo Flash_Config_Table[] = {
 /*****************************************************************************/
 /**
  *
- * Identifies the flash in the Flash Configuration Table (FCT).
+ * @brief Identifies the flash in the Flash Configuration Table (FCT).
  *
- * @param	ReadId is the JEDEC read ID of the flash device.
- * @param	FCTIndex is a pointer to store the matching FCT table index.
+ * @param[in]   ReadId JEDEC read ID of the flash device.
+ * @param[out]  FCTIndex Pointer that stores the matching FCT table index.
  *
- * @return	XST_SUCCESS if successful, otherwise XST_FAILURE.
+ * @return
+ *              - XST_SUCCESS if successful.
+ *              - XST_FAILURE otherwise.
  *
  ******************************************************************************/
 u32 XSfl_CalculateFCTIndex(u32 ReadId, u32 *FCTIndex)

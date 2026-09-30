@@ -8,11 +8,10 @@
 /**
  *
  * @file xilsfl_interface.c
- * @addtogroup xilsfl overview
- * @{
+ * @brief Implements the SFL interface functions for flash register transfers.
  *
- * This file implements the functions required to use the SFL interface hardware to
- * perform a transfer.
+ * This file implements the functions required to use the serial flash library
+ * (SFL) interface hardware to perform a transfer.
  *
  * <pre>
  * MODIFICATION HISTORY:
@@ -25,10 +24,15 @@
  *       zm  07/17/26 Set 4-byte address and dummy for Macronix OPI status read.
  *       zm  08/03/26 Add support for MX25U6432F Macronix flash.
  * 1.4   vn  08/26/26 Fix Doxygen warnings.
+ * 1.4   vn  09/30/26 Align Doxygen comments with AMD standards
  *
  * </pre>
  *
  ******************************************************************************/
+
+/** @addtogroup xilsfl overview
+ * @{
+ */
 
 /***************************** Include Files *********************************/
 #include "xilsfl_control.h"
@@ -46,19 +50,23 @@
 /*****************************************************************************/
 /**
  *
- * This API can be used to Read/write to a flash register.
+ * @brief Reads or writes a flash register.
  *
- * @param	SflInstancePtr is a pointer to the interface driver component to use.
- * @param	RxBfrPtr is the pointer to store the read value from flash.
- * @param	TxBfrPtr is the pointer to value to be written into flash.
- * @param	CmdBufferPtr holds command, address, address-size, dummy and byte
- *		count at offsets XSFL_*_OFFSET. The byte count is the payload length;
- *		in DDR-PHY it is rounded up to a minimum of 2.
- * @param	Addrvalid defines the specific read/write requires address or not.
+ * @param[in]   SflInstancePtr Pointer to the interface driver component to use.
+ * @param[out]  RxBfrPtr Pointer that stores the value read from flash.
+ * @param[in]   TxBfrPtr Pointer to the value to write into flash.
+ * @param[in]   CmdBufferPtr Buffer that holds the command, address,
+ *              address-size, dummy, and byte count at offsets XSFL_*_OFFSET.
+ *              The byte count is the payload length. In DDR-PHY mode, it is
+ *              rounded up to a minimum of 2.
+ * @param[in]   Addrvalid Whether the specific read or write requires an
+ *              address.
  *
- * @return	XST_SUCCESS if successful, else error code.
+ * @return
+ *              - XST_SUCCESS if successful.
+ *              - Error code otherwise.
  *
- * @note	This API can only be used for one flash at a time.
+ * @note        Use this API for only one flash at a time.
  *
  ******************************************************************************/
 u32 XSfl_FlashRegisterReadWrite(XSfl_Interface *SflInstancePtr, u8 *RxBfrPtr,u8 *TxBfrPtr,
@@ -107,14 +115,16 @@ u32 XSfl_FlashRegisterReadWrite(XSfl_Interface *SflInstancePtr, u8 *RxBfrPtr,u8 
 /*****************************************************************************/
 /**
  *
- * This API can be used to transfer the command to the flash.
+ * @brief Transfers a command to the flash.
  *
- * @param	SflInstancePtr is a pointer to the interface driver component to use.
- * @param	Cmd is the command to be transferred to the flash.
+ * @param[in]   SflInstancePtr Pointer to the interface driver component to use.
+ * @param[in]   Cmd Command to transfer to the flash.
  *
- * @return	XST_SUCCESS if successful, else error code.
+ * @return
+ *              - XST_SUCCESS if successful.
+ *              - Error code otherwise.
  *
- * @note	This API can only be used for one flash at a time.
+ * @note        Use this API for only one flash at a time.
  *
  ******************************************************************************/
 u32 XSfl_FlashCmdTransfer(XSfl_Interface *SflInstancePtr,u8 Cmd){
@@ -153,13 +163,15 @@ u32 XSfl_FlashCmdTransfer(XSfl_Interface *SflInstancePtr,u8 Cmd){
 /*****************************************************************************/
 /**
  *
- * This API can be used to read status of the flash status register.
+ * @brief Reads the status of the flash status register.
  *
- * @param	SflInstancePtr is a pointer to the interface driver component to use.
+ * @param[in]   SflInstancePtr Pointer to the interface driver component to use.
  *
- * @return	XST_SUCCESS if successful, else error code.
+ * @return
+ *              - XST_SUCCESS if successful.
+ *              - Error code otherwise.
  *
- * @note	This API can only be used for one flash at a time.
+ * @note        Use this API for only one flash at a time.
  *
  ******************************************************************************/
 u32 XSfl_WaitforStatusDone(XSfl_Interface *SflInstancePtr){
@@ -234,17 +246,21 @@ u32 XSfl_WaitforStatusDone(XSfl_Interface *SflInstancePtr){
 /*****************************************************************************/
 /**
  *
- * This functions translates the address based on the type of interconnection.
- * In case of stacked, this function asserts the corresponding slave select.
+ * @brief Translates the address based on the type of interconnection.
  *
- * @param	SflInstancePtr is a pointer to the interface driver component to use.
- * @param	Address which is to be accessed (for erase, write or read)
+ * In case of stacked connection, the function asserts the corresponding slave
+ * select.
  *
- * @return	RealAddr is the translated address - for single it is unchanged;
- *			for stacked, the lower flash size is subtracted;
+ * @param[in]   SflInstancePtr Pointer to the interface driver component to use.
+ * @param[in]   Address Address to access (for erase, write, or read).
  *
- * @note	In addition to get the actual address to work on flash this
- *			function also selects the CS based on the configuration detected.
+ * @return      RealAddr, the translated address. For single connection, it is
+ *              unchanged. For stacked connection, the function subtracts the
+ *              lower flash size when the address is in the upper flash.
+ *
+ * @note        In addition to getting the actual address to work on the flash,
+ *              this function also selects the CS based on the detected
+ *              configuration.
  *
  ******************************************************************************/
 u32 XSfl_GetRealAddr(XSfl_Interface *SflInstancePtr, u32 Address)

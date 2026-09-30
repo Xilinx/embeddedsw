@@ -7,11 +7,10 @@
 /**
  *
  * @file xilsfl.c
- * @addtogroup xilsfl overview
- * @{
+ * @brief Implements the serial flash library (SFL) APIs for flash transfers.
  *
- * The xilsfl.c file implements the functions required to use the SFL library to
- * perform a transfer. These are accessible to the user via sfl.h.
+ * This file implements the functions required to use the SFL library to
+ * perform a transfer. You can access these functions through xilsfl.h.
  *
  * <pre>
  * MODIFICATION HISTORY:
@@ -25,10 +24,15 @@
  * 1.3   zm  03/09/26  Add support for W25Q128JW Winbond flash.
  * 1.3   sb  07/20/26  Add support for Advanced Sector Protection (ASP).
  * 1.4   vn  08/26/26  Fix Doxygen warnings.
+ * 1.4   vn  09/30/26  Align Doxygen comments with AMD standards
  *
  * </pre>
  *
  ******************************************************************************/
+
+/** @addtogroup xilsfl overview
+ * @{
+ */
 
 /***************************** Include Files *********************************/
 #include "xilsfl.h"
@@ -37,8 +41,10 @@
 #if CONFIG_ADVANCED_SECTOR_PROTECTION
 #include <string.h>
 
+/** Micron OCTAL ASP vendor operations table. */
 extern const XSfl_AspVendorOps XSfl_AspMicronOctalAspOpsTable;
 
+/** Stub ASP vendor operations table for flash parts without a vendor table. */
 static const XSfl_AspVendorOps XSfl_AspVendorStubAspOpsTable;
 #endif
 
@@ -51,18 +57,20 @@ static const XSfl_AspVendorOps XSfl_AspVendorStubAspOpsTable;
 /************************** Function Prototypes ******************************/
 
 /************************** Variable Definitions *****************************/
-XSfl  SflInstance;
+XSfl  SflInstance; /**< SFL library instance. */
 
 /*****************************************************************************/
 /**
  *
- * This function initializes controller interface and serial nor flash connected.
+ * @brief Initializes the controller interface and connected serial NOR flash.
  *
- * @param	SflHandler is a pointer to the SFL handler index.
- * @param	SflUserOptions contains the controller and flash configuration info.
- * @param	ControllerInfo contains the type of controller.
+ * @param[out]  SflHandler Pointer to the SFL handler index.
+ * @param[in]   SflUserOptions Controller and flash configuration information.
+ * @param[in]   ControllerInfo Type of controller.
  *
- * @return	SFL index on successful initialization, else Error codes.
+ * @return
+ *              - SFL index on successful initialization.
+ *              - Error codes otherwise.
  *
  ******************************************************************************/
 u32 XSfl_FlashInit(u8 *SflHandler, XSfl_UserConfig SflUserOptions, u8 ControllerInfo){
@@ -263,17 +271,18 @@ set_mode_done:
 /*****************************************************************************/
 /**
  *
- * This function reads from the flash connected to the specific interface.
+ * @brief Reads from the flash connected to the specific interface.
  *
- * @param	SflHandler is a index to the Sfl interface component to use.
- * @param	Address contains the address of the flash that needs to be read.
- * @param	ByteCount contains the total size to be erased.
- * @param	ReadBfrPtr is the pointer to the read buffer to which valid received data should be
- * 			written
- * @param	RxAddr64bit is of the 64bit address of destination read buffer to which
- *              valid received data should be written.
+ * @param[in]   SflHandler Index of the SFL interface component to use.
+ * @param[in]   Address Address of the flash to read.
+ * @param[in]   ByteCount Total size to read.
+ * @param[out]  ReadBfrPtr Read buffer to which valid received data is written.
+ * @param[in]   RxAddr64bit 64-bit address of the destination read buffer to
+ *              which valid received data is written.
  *
- * @return	XST_SUCCESS if successful, else error code.
+ * @return
+ *              - XST_SUCCESS if successful.
+ *              - Error code otherwise.
  *
  ******************************************************************************/
 u32 XSfl_FlashReadStart(u8 SflHandler, u32 Address, u32 ByteCount,
@@ -306,12 +315,13 @@ u32 XSfl_FlashReadStart(u8 SflHandler, u32 Address, u32 ByteCount,
 /*****************************************************************************/
 /**
  *
- * This function used to check read completion status of serial Flash
- * connected to the Specific interface.
+ * @brief Checks the read completion status of the flash on the interface.
  *
- * @param	SflHandler is the index to the Sfl interface driver instance.
+ * @param[in]   SflHandler Index of the SFL interface driver instance.
  *
- * @return	XST_SUCCESS if successful, else error code.
+ * @return
+ *              - XST_SUCCESS if successful.
+ *              - Error code otherwise.
  *
  ******************************************************************************/
 u32 XSfl_FlashReadDone(u8 SflHandler){
@@ -332,17 +342,18 @@ u32 XSfl_FlashReadDone(u8 SflHandler){
 /*****************************************************************************/
 /**
  *
- * This function performs read from the flash.
+ * @brief Reads data from the flash.
  *
- * @param	SflHandler is a index to the Sfl interface component to use.
- * @param	Address contains the address of the flash that needs to be read.
- * @param	ByteCount contains the total size to be erased.
- * @param	ReadBfrPtr is the pointer to the read buffer to which valid received data should be
- * 			written
- * @param	RxAddr64bit is of the 64bit address of destination read buffer to which
- *              valid received data should be written.
+ * @param[in]   SflHandler Index of the SFL interface component to use.
+ * @param[in]   Address Address of the flash to read.
+ * @param[in]   ByteCount Total size to read.
+ * @param[out]  ReadBfrPtr Read buffer to which valid received data is written.
+ * @param[in]   RxAddr64bit 64-bit address of the destination read buffer to
+ *              which valid received data is written.
  *
- * @return	XST_SUCCESS if successful, else error code.
+ * @return
+ *              - XST_SUCCESS if successful.
+ *              - Error code otherwise.
  *
  ******************************************************************************/
 u32 XSfl_FlashRead(u8 SflHandler, u32 Address, u32 ByteCount,
@@ -367,14 +378,17 @@ u32 XSfl_FlashRead(u8 SflHandler, u32 Address, u32 ByteCount,
 /*****************************************************************************/
 /**
  *
- * This function writes to the serial nor flash connected to the interface driver.
+ * @brief Writes to the serial NOR flash connected to the interface driver.
  *
- * @param	SflHandler is a index to the Sfl interface component to use.
- * @param	Address contains the address to write data to in the Flash.
- * @param	ByteCount contains the number of bytes to be write.
- * @param	WriteBfrPtr is Pointer to the write buffer (which is to be transmitted)
+ * @param[in]   SflHandler Index of the SFL interface component to use.
+ * @param[in]   Address Flash address to write the data to.
+ * @param[in]   ByteCount Number of bytes to write.
+ * @param[in]   WriteBfrPtr Pointer to the write buffer that holds the data to
+ *              transmit.
  *
- * @return	XST_SUCCESS if successful, else error code.
+ * @return
+ *              - XST_SUCCESS if successful.
+ *              - Error code otherwise.
  *
  ******************************************************************************/
 u32 XSfl_FlashWrite(u8 SflHandler, u32 Address, u32 ByteCount,
@@ -449,14 +463,16 @@ u32 XSfl_FlashWrite(u8 SflHandler, u32 Address, u32 ByteCount,
 /*****************************************************************************/
 /**
  *
- * This function erases the serial nor flash connected to the
- * specific interface.
+ * @brief Erases the serial NOR flash connected to the specific interface.
  *
- * @param	SflHandler is the index to the Sfl interface driver instance.
- * @param	Address is the sector offset address of the flash at which data to be erased.
- * @param	ByteCount contains the total size to be erased.
+ * @param[in]   SflHandler Index of the SFL interface driver instance.
+ * @param[in]   Address Sector offset address of the flash at which to erase
+ *              the data.
+ * @param[in]   ByteCount Total size to erase.
  *
- * @return	XST_SUCCESS if successful, else error code.
+ * @return
+ *              - XST_SUCCESS if successful.
+ *              - Error code otherwise.
  *
  ******************************************************************************/
 u32 XSfl_FlashErase(u8 SflHandler, u32 Address, u32 ByteCount)
@@ -500,14 +516,15 @@ u32 XSfl_FlashErase(u8 SflHandler, u32 Address, u32 ByteCount)
 /*****************************************************************************/
 /**
  *
- * This function used to get details serial Flash
- * connected to the Specific interface.
+ * @brief Gets the details of the serial flash on the specific interface.
  *
- * @param	SflHandler is the index to the Sfl interface driver instance.
- * @param	Option is to get specific details of the flash.
- * @param	DataPtr is the pointer to the flash info to be copied.
+ * @param[in]   SflHandler Index of the SFL interface driver instance.
+ * @param[in]   Option Option that selects the specific flash detail to get.
+ * @param[out]  DataPtr Pointer to which the flash information is copied.
  *
- * @return	XST_SUCCESS if successful, else error code.
+ * @return
+ *              - XST_SUCCESS if successful.
+ *              - Error code otherwise.
  *
  ******************************************************************************/
 u32 XSfl_FlashGetInfo(u8 SflHandler, u8 Option, u32 *DataPtr){
@@ -546,12 +563,14 @@ u32 XSfl_FlashGetInfo(u8 SflHandler, u8 Option, u32 *DataPtr){
 /*****************************************************************************/
 /**
  *
- * This function assigns the XSfl_Interface ASP vendor ops table pointer based on
- * JEDEC maker ID and configured flash type in the Flash Configuration Table.
+ * @brief Assigns the ASP vendor operations table of an SFL interface.
  *
- * @param	IfPtr is the pointer to the initialized SFL interface whose AspOps fill in.
+ * The function selects the XSfl_Interface ASP vendor ops table pointer. The
+ * selection is based on the JEDEC maker ID and the configured flash type in the
+ * Flash Configuration Table.
  *
- * @return	None.
+ * @param[in,out] IfPtr Pointer to the initialized SFL interface whose AspOps
+ *                field is filled in.
  *
  ******************************************************************************/
 void XSfl_FlashAspAssignVendorOps(XSfl_Interface *IfPtr)
@@ -579,14 +598,18 @@ void XSfl_FlashAspAssignVendorOps(XSfl_Interface *IfPtr)
 /*****************************************************************************/
 /**
  *
- * This function performs the ASP set-password sequence: it verifies password
- * protection is not already active in the SPR, programs the supplied password,
- * reads it back to verify, and commits the SPR to enable password protection.
+ * @brief Performs the ASP set-password sequence.
  *
- * @param	SflHandler is the index to the Sfl interface driver instance.
- * @param	Params carries the password bytes and length.
+ * The function verifies that password protection is not already active in the
+ * SPR. It programs the supplied password, reads it back to verify it, and
+ * commits the SPR to enable password protection.
  *
- * @return	XSFL_ASP_RESULT_OK if successful, else an XSfl_AspResult error code.
+ * @param[in]   SflHandler Index of the SFL interface driver instance.
+ * @param[in]   Params Parameters that carry the password bytes and length.
+ *
+ * @return
+ *              - XSFL_ASP_RESULT_OK if successful.
+ *              - An XSfl_AspResult error code otherwise.
  *
  ******************************************************************************/
 u32 XSfl_AspSetPassword(u8 SflHandler, const XSfl_AspParams *Params)
@@ -657,15 +680,19 @@ u32 XSfl_AspSetPassword(u8 SflHandler, const XSfl_AspParams *Params)
 /*****************************************************************************/
 /**
  *
- * This function locks a range of sectors using ASP nonvolatile lock commands.
- * If password protection is enabled it unlocks first, sets the NV lock bit for
- * each not-already-locked sector in the range, and enables the global freeze
- * bit when protection is active.
+ * @brief Locks a range of sectors using ASP nonvolatile lock commands.
  *
- * @param	SflHandler is the index to the Sfl interface driver instance.
- * @param	Params carries the sector range and optional password.
+ * If password protection is enabled, the function unlocks first. It sets the
+ * NV lock bit for each not-already-locked sector in the range. It enables the
+ * global freeze bit when protection is active.
  *
- * @return	XSFL_ASP_RESULT_OK if successful, else an XSfl_AspResult error code.
+ * @param[in]   SflHandler Index of the SFL interface driver instance.
+ * @param[in]   Params Parameters that carry the sector range and optional
+ *              password.
+ *
+ * @return
+ *              - XSFL_ASP_RESULT_OK if successful.
+ *              - An XSfl_AspResult error code otherwise.
  *
  ******************************************************************************/
 u32 XSfl_AspLockSectors(u8 SflHandler, const XSfl_AspParams *Params)
@@ -749,14 +776,18 @@ u32 XSfl_AspLockSectors(u8 SflHandler, const XSfl_AspParams *Params)
 /*****************************************************************************/
 /**
  *
- * This function erases all ASP nonvolatile lock bits (bulk erase across every
- * sector on all dies). If password protection is enabled it unlocks first and
- * enables the global freeze bit afterwards.
+ * @brief Erases all ASP nonvolatile lock bits.
  *
- * @param	SflHandler is the index to the Sfl interface driver instance.
- * @param	Params carries the optional password.
+ * The erase is a bulk erase across every sector on all dies. If password
+ * protection is enabled, the function unlocks first and enables the global
+ * freeze bit afterwards.
  *
- * @return	XSFL_ASP_RESULT_OK if successful, else an XSfl_AspResult error code.
+ * @param[in]   SflHandler Index of the SFL interface driver instance.
+ * @param[in]   Params Parameters that carry the optional password.
+ *
+ * @return
+ *              - XSFL_ASP_RESULT_OK if successful.
+ *              - An XSfl_AspResult error code otherwise.
  *
  ******************************************************************************/
 u32 XSfl_AspUnlockSectors(u8 SflHandler, const XSfl_AspParams *Params)
@@ -809,13 +840,18 @@ u32 XSfl_AspUnlockSectors(u8 SflHandler, const XSfl_AspParams *Params)
 /*****************************************************************************/
 /**
  *
- * This function reads the nonvolatile lock state for a range of sectors and
- * stores one flag per sector (1 locked, 0 unlocked) into the caller buffer.
+ * @brief Reads the nonvolatile lock state for a range of sectors.
  *
- * @param	SflHandler is the index to the Sfl interface driver instance.
- * @param	Params carries the sector range and the output buffer/capacity.
+ * The function stores one flag per sector (1 locked, 0 unlocked) into the
+ * caller buffer.
  *
- * @return	XSFL_ASP_RESULT_OK if successful, else an XSfl_AspResult error code.
+ * @param[in]   SflHandler Index of the SFL interface driver instance.
+ * @param[in]   Params Parameters that carry the sector range and the output
+ *              buffer and capacity.
+ *
+ * @return
+ *              - XSFL_ASP_RESULT_OK if successful.
+ *              - An XSfl_AspResult error code otherwise.
  *
  ******************************************************************************/
 u32 XSfl_AspReadSectorLock(u8 SflHandler, const XSfl_AspParams *Params)

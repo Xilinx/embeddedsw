@@ -5,26 +5,28 @@
 
 /*****************************************************************************/
 /**
+ *
  * @file xilsfl_micron_asp.c
- * @addtogroup xilsfl overview
- * @{
+ * @brief Implements Micron advanced sector protection for OCTAL and QUAD NOR.
  *
- * Micron advanced sector protection for OCTAL OSPI and QUAD QSPI NOR (volatile
- * locks, non-volatile locks, Sector Protection Register, password register
- * sequences, erase nonvolatile lock bits) using the framing expected when
- * XSfl_AspMicronOctalAspOpsTable binds at initialization. The transfer proto is
- * selected from the Flash Configuration Table, so the same ASP sequences drive
- * both OCTAL (Micron ID 0x2C) and QUAD (Micron ID 0x20) parts.
+ * This file implements Micron Advanced Sector Protection (ASP) for OCTAL OSPI
+ * and QUAD QSPI NOR. It covers volatile locks, nonvolatile (NV) locks, the
+ * Sector Protection Register, password register sequences, and erasing
+ * nonvolatile lock bits. It uses the framing expected when
+ * XSfl_AspMicronOctalAspOpsTable binds at initialization. The Flash
+ * Configuration Table selects the transfer protocol. The same ASP sequences
+ * therefore drive both OCTAL (Micron ID 0x2C) and QUAD (Micron ID 0x20) parts.
  *
- * This module never caches the user password in static RAM. Verification reads
- * the on-device password with READ PASSWORD and compares it to the caller
- * transient buffer for each authenticated operation.
+ * This module never caches the password supplied by the application in static
+ * RAM. Verification reads the on-device password with READ PASSWORD and
+ * compares it to the caller transient buffer for each authenticated operation.
  *
- * NOTE ON RETENTION (datasheet): Micron documents PASSWORD PROGRAM timing (tPASSP)
- * and PASSWORD PROTECTION PROGRAM operations. Password bits may remain programmed
- * across power cycles depending on device configuration (factory default is
- * typically erased). Confirm retention on your silicon step before relying on
- * power-off clearing; volatile sector locks (E1/E0) still clear at reset.
+ * NOTE ON RETENTION (datasheet): Micron documents PASSWORD PROGRAM timing
+ * (tPASSP) and PASSWORD PROTECTION PROGRAM operations. Password bits can remain
+ * programmed across power cycles depending on device configuration (factory
+ * default is typically erased). Confirm retention on your silicon step before
+ * relying on power-off clearing. Volatile sector locks (E1/E0) still clear at
+ * reset.
  *
  * <pre>
  * MODIFICATION HISTORY:
@@ -32,10 +34,15 @@
  * Ver   Who Date     Changes
  * ----- --- -------- -----------------------------------------------
  * 1.3   sb  07/20/26  Initial support for Advanced Sector Protection.
+ * 1.4   vn  09/30/26  Align Doxygen comments with AMD standards
  *
  * </pre>
  *
  ******************************************************************************/
+
+/** @addtogroup xilsfl overview
+ * @{
+ */
 
 #include "xilsfl_config.h"
 
@@ -46,19 +53,23 @@
 #include "xilsfl_micron_asp.h"
 #include <string.h>
 
-extern XSfl SflInstance;
+extern XSfl SflInstance; /**< SFL library instance. */
 
 
 /*****************************************************************************/
 /**
  *
- * This function issues the Micron READ SECTOR PROTECTION command and returns
+ * @brief Reads the Sector Protection Register of the selected chip.
+ *
+ * The function issues the Micron READ SECTOR PROTECTION command and returns
  * the raw 16-bit Sector Protection Register value from the selected chip.
  *
- * @param[in] SflInst is the pointer to the XSfl_Interface instance.
- * @param[in] SprWord is the pointer that receives the 16-bit SPR value.
+ * @param[in]   SflInst Pointer to the XSfl_Interface instance.
+ * @param[out]  SprWord Pointer that receives the 16-bit SPR value.
  *
- * @return	XST_SUCCESS if successful, else error code.
+ * @return
+ *              - XST_SUCCESS if successful.
+ *              - Error code otherwise.
  *
  ******************************************************************************/
 static u32 XSfl_MicronSectorProtectionReadChip(XSfl_Interface *SflInst, u16 *SprWord)
@@ -95,14 +106,18 @@ static u32 XSfl_MicronSectorProtectionReadChip(XSfl_Interface *SflInst, u16 *Spr
 /*****************************************************************************/
 /**
  *
- * This function issues ERASE NONVOLATILE LOCK BITS (E4h) on the currently
- * selected die using the Micron ASP framing path. A bare command transfer is
- * often ignored on MT35X octal parts, so the grouped ASP message path is used
- * instead.
+ * @brief Erases the nonvolatile lock bits on the currently selected die.
  *
- * @param[in] SflInst is the pointer to the XSfl_Interface instance.
+ * The function issues ERASE NONVOLATILE LOCK BITS (E4h) on the currently
+ * selected die using the Micron ASP framing path. MT35X octal parts often
+ * ignore a bare command transfer, so the function uses the grouped ASP message
+ * path instead.
  *
- * @return	XST_SUCCESS if successful, else error code.
+ * @param[in]   SflInst Pointer to the XSfl_Interface instance.
+ *
+ * @return
+ *              - XST_SUCCESS if successful.
+ *              - Error code otherwise.
  *
  ******************************************************************************/
 static u32 XSfl_MicronEraseNvLockBitsCurrentDie(XSfl_Interface *SflInst)
@@ -141,14 +156,18 @@ static u32 XSfl_MicronEraseNvLockBitsCurrentDie(XSfl_Interface *SflInst)
 /*****************************************************************************/
 /**
  *
- * This function issues the Micron READ PASSWORD command and stores the
- * device password register contents into the caller-supplied buffer.
+ * @brief Reads the password register of the selected chip.
  *
- * @param[in] SflInst is the pointer to the XSfl_Interface instance.
- * @param[in] OutPwd is the pointer to the buffer that receives the password bytes.
- * @param[in] DummyOctal is the number of dummy cycles to use for the read transfer.
+ * The function issues the Micron READ PASSWORD command and stores the device
+ * password register contents into the caller-supplied buffer.
  *
- * @return	XST_SUCCESS if successful, else error code.
+ * @param[in]   SflInst Pointer to the XSfl_Interface instance.
+ * @param[out]  OutPwd Pointer to the buffer that receives the password bytes.
+ * @param[in]   DummyOctal Number of dummy cycles to use for the read transfer.
+ *
+ * @return
+ *              - XST_SUCCESS if successful.
+ *              - Error code otherwise.
  *
  ******************************************************************************/
 static u32 XSfl_MicronPasswordReadChip(XSfl_Interface *SflInst, u8 *OutPwd,
@@ -176,15 +195,20 @@ static u32 XSfl_MicronPasswordReadChip(XSfl_Interface *SflInst, u8 *OutPwd,
 /*****************************************************************************/
 /**
  *
- * This function issues write-enable followed by a password write command on
+ * @brief Issues a password write command on the selected chip.
+ *
+ * The function issues write-enable followed by a password write command on
  * the selected chip. The opcode supplied in OpcAfterEnable selects between
  * WRITE PASSWORD (program) and UNLOCK PASSWORD operations.
  *
- * @param[in] SflInst is the pointer to the XSfl_Interface instance.
- * @param[in] Pw is the pointer to the buffer holding the password bytes to transmit.
- * @param[in] OpcAfterEnable is the command opcode to issue after write-enable.
+ * @param[in]   SflInst Pointer to the XSfl_Interface instance.
+ * @param[in]   Pw Pointer to the buffer that holds the password bytes to
+ *              transmit.
+ * @param[in]   OpcAfterEnable Command opcode to issue after write-enable.
  *
- * @return	XST_SUCCESS if successful, else error code.
+ * @return
+ *              - XST_SUCCESS if successful.
+ *              - Error code otherwise.
  *
  ******************************************************************************/
 static u32 XSfl_MicronPasswordWriteChip(XSfl_Interface *SflInst, const u8 *Pw,
@@ -235,13 +259,17 @@ static u32 XSfl_MicronPasswordWriteChip(XSfl_Interface *SflInst, const u8 *Pw,
 /*****************************************************************************/
 /**
  *
- * This function runs the Micron OCTAL ASP READ SECTOR PROTECTION sequence and
+ * @brief Reads the Micron Sector Protection Register.
+ *
+ * The function runs the Micron OCTAL ASP READ SECTOR PROTECTION sequence and
  * stores the raw 16-bit Sector Protection Register value.
  *
- * @param[in] SflHandler is a pointer to the Sfl interface driver component to use.
- * @param[in] SprWord is the pointer that receives the SPR value.
+ * @param[in]   SflHandler Index of the SFL interface driver instance.
+ * @param[out]  SprWord Pointer that receives the SPR value.
  *
- * @return	XST_SUCCESS if successful, else error code.
+ * @return
+ *              - XST_SUCCESS if successful.
+ *              - Error code otherwise.
  *
  ******************************************************************************/
 u32 XSfl_AspMicronSectorProtectionRead(u8 SflHandler, u16 *SprWord)
@@ -256,14 +284,18 @@ u32 XSfl_AspMicronSectorProtectionRead(u8 SflHandler, u16 *SprWord)
 /*****************************************************************************/
 /**
  *
- * This function programs the 16-bit Sector Protection Register field on Micron
- * OCTAL NOR using PROGRAM SECTOR PROTECTION after write-enable, then waits until
- * the device completes the operation.
+ * @brief Programs the Micron Sector Protection Register.
  *
- * @param[in] SflHandler is a pointer to the Sfl interface driver component to use.
- * @param[in] SprWord is the 16-bit Sector Protection Register value to program.
+ * The function programs the 16-bit Sector Protection Register field on Micron
+ * OCTAL NOR using PROGRAM SECTOR PROTECTION after write-enable. It then waits
+ * until the device completes the operation.
  *
- * @return	XST_SUCCESS if successful, else error code.
+ * @param[in]   SflHandler Index of the SFL interface driver instance.
+ * @param[in]   SprWord 16-bit Sector Protection Register value to program.
+ *
+ * @return
+ *              - XST_SUCCESS if successful.
+ *              - Error code otherwise.
  *
  ******************************************************************************/
 u32 XSfl_AspMicronSectorProtectionWrite(u8 SflHandler, u16 SprWord)
@@ -323,13 +355,17 @@ u32 XSfl_AspMicronSectorProtectionWrite(u8 SflHandler, u16 SprWord)
 /*****************************************************************************/
 /**
  *
- * This function issues ERASE NONVOLATILE LOCK BITS on the active die using the Micron
- * ASP framing (write-enable followed by grouped transfer path). Each die CS is
- * selected in turn when the flash is stacked.
+ * @brief Erases the Micron nonvolatile lock bits.
  *
- * @param[in] SflHandler is a pointer to the Sfl interface driver component to use.
+ * The function issues ERASE NONVOLATILE LOCK BITS on the active die using the
+ * Micron ASP framing (write-enable followed by grouped transfer path). When the
+ * flash is stacked, the function selects each die CS in turn.
  *
- * @return	XST_SUCCESS if successful, else error code.
+ * @param[in]   SflHandler Index of the SFL interface driver instance.
+ *
+ * @return
+ *              - XST_SUCCESS if successful.
+ *              - Error code otherwise.
  *
  ******************************************************************************/
 u32 XSfl_AspMicronEraseNVLockBits(u8 SflHandler)
@@ -375,13 +411,17 @@ u32 XSfl_AspMicronEraseNVLockBits(u8 SflHandler)
 /*****************************************************************************/
 /**
  *
- * This function programs the Micron OCTAL NOR non-volatile lock bit covering the
+ * @brief Programs the Micron nonvolatile lock bit of a sector.
+ *
+ * The function programs the Micron OCTAL NOR nonvolatile lock bit covering the
  * sector that contains SectorAddress after sector-boundary validation.
  *
- * @param[in] SflHandler is a pointer to the Sfl interface driver component to use.
- * @param[in] SectorAddress is the aligned sector starting address whose NV lock writes.
+ * @param[in]   SflHandler Index of the SFL interface driver instance.
+ * @param[in]   SectorAddress Aligned start address of the sector to lock.
  *
- * @return	XST_SUCCESS if successful, else error code.
+ * @return
+ *              - XST_SUCCESS if successful.
+ *              - Error code otherwise.
  *
  ******************************************************************************/
 u32 XSfl_AspMicronNVSectorLock(u8 SflHandler, u32 SectorAddress)
@@ -437,14 +477,20 @@ u32 XSfl_AspMicronNVSectorLock(u8 SflHandler, u32 SectorAddress)
 /*****************************************************************************/
 /**
  *
- * This function reads the nonvolatile lock indication for SectorAddress via the Micron
- * READ NONVOLATILE LOCK sequence and translates the inverted device byte into 0 / 1.
+ * @brief Reads the Micron nonvolatile lock state of a sector.
  *
- * @param[in] SflHandler is a pointer to the Sfl interface driver component to use.
- * @param[in] SectorAddress is the aligned sector whose lock state reads.
- * @param[in] IsLocked is the pointer that receives normalized lock flag (1 locked).
+ * The function reads the nonvolatile lock indication for SectorAddress through
+ * the Micron READ NONVOLATILE LOCK sequence. It translates the inverted device
+ * byte into 0 / 1.
  *
- * @return	XST_SUCCESS if successful, else error code.
+ * @param[in]   SflHandler Index of the SFL interface driver instance.
+ * @param[in]   SectorAddress Aligned start address of the sector to query.
+ * @param[out]  IsLocked Pointer that receives the normalized lock flag (1
+ *              locked).
+ *
+ * @return
+ *              - XST_SUCCESS if successful.
+ *              - Error code otherwise.
  *
  ******************************************************************************/
 u32 XSfl_AspMicronNVLockRead(u8 SflHandler, u32 SectorAddress, u8 *IsLocked)
@@ -498,13 +544,17 @@ u32 XSfl_AspMicronNVLockRead(u8 SflHandler, u32 SectorAddress, u8 *IsLocked)
 /*****************************************************************************/
 /**
  *
- * This function programs the ASP password bytes into the Micron NOR password
+ * @brief Programs the Micron ASP password register.
+ *
+ * The function programs the ASP password bytes into the Micron NOR password
  * register using the WRITE PASSWORD command after write-enable.
  *
- * @param[in] SflHandler is a pointer to the Sfl interface driver component to use.
- * @param[in] Password is the buffer holding the password bytes to program.
+ * @param[in]   SflHandler Index of the SFL interface driver instance.
+ * @param[in]   Password Buffer that holds the password bytes to program.
  *
- * @return	XST_SUCCESS if successful, else error code.
+ * @return
+ *              - XST_SUCCESS if successful.
+ *              - Error code otherwise.
  *
  ******************************************************************************/
 u32 XSfl_AspMicronPasswordProgram(u8 SflHandler,
@@ -520,13 +570,18 @@ u32 XSfl_AspMicronPasswordProgram(u8 SflHandler,
 /*****************************************************************************/
 /**
  *
- * This function reads the Micron ASP password register into PasswordOut using READ
- * PASSWORD and zero-pads any tail when the API buffer is larger than the device.
+ * @brief Reads the Micron ASP password register.
  *
- * @param[in] SflHandler is a pointer to the Sfl interface driver component to use.
- * @param[in] PasswordOut is the buffer where the read password is stored.
+ * The function reads the Micron ASP password register into PasswordOut using
+ * READ PASSWORD. It zero-pads any tail when the API buffer is larger than the
+ * device password.
  *
- * @return	XST_SUCCESS if successful, else error code.
+ * @param[in]   SflHandler Index of the SFL interface driver instance.
+ * @param[out]  PasswordOut Buffer where the read password is stored.
+ *
+ * @return
+ *              - XST_SUCCESS if successful.
+ *              - Error code otherwise.
  *
  ******************************************************************************/
 u32 XSfl_AspMicronPasswordRead(u8 SflHandler,
@@ -561,13 +616,17 @@ u32 XSfl_AspMicronPasswordRead(u8 SflHandler,
 /*****************************************************************************/
 /**
  *
- * This function issues UNLOCK PASSWORD on Micron OCTAL NOR with the supplied
+ * @brief Unlocks the Micron flash with the ASP password.
+ *
+ * The function issues UNLOCK PASSWORD on Micron OCTAL NOR with the supplied
  * password buffer after write-enable.
  *
- * @param[in] SflHandler is a pointer to the Sfl interface driver component to use.
- * @param[in] Password is the buffer holding the password supplied for unlock.
+ * @param[in]   SflHandler Index of the SFL interface driver instance.
+ * @param[in]   Password Buffer that holds the password supplied for unlock.
  *
- * @return	XST_SUCCESS if successful, else error code.
+ * @return
+ *              - XST_SUCCESS if successful.
+ *              - Error code otherwise.
  *
  ******************************************************************************/
 u32 XSfl_AspMicronPasswordUnlock(u8 SflHandler,
@@ -584,13 +643,17 @@ u32 XSfl_AspMicronPasswordUnlock(u8 SflHandler,
 /*****************************************************************************/
 /**
  *
- * This function issues WRITE GLOBAL FREEZE BIT (A6h) on Micron OCTAL NOR. Per
- * MT35X Table 12, the command sets the global freeze bit to 0 so nonvolatile
- * lock bits are protected from further PROGRAM or ERASE operations.
+ * @brief Writes the Micron global freeze bit.
  *
- * @param[in] SflHandler is a pointer to the Sfl interface driver component to use.
+ * The function issues WRITE GLOBAL FREEZE BIT (A6h) on Micron OCTAL NOR. Per
+ * MT35X Table 12, the command sets the global freeze bit to 0. This protects
+ * the nonvolatile lock bits from further PROGRAM or ERASE operations.
  *
- * @return	XST_SUCCESS if successful, else error code.
+ * @param[in]   SflHandler Index of the SFL interface driver instance.
+ *
+ * @return
+ *              - XST_SUCCESS if successful.
+ *              - Error code otherwise.
  *
  ******************************************************************************/
 u32 XSfl_AspMicronGlobalFreezeWrite(u8 SflHandler)
@@ -632,8 +695,11 @@ u32 XSfl_AspMicronGlobalFreezeWrite(u8 SflHandler)
 /*****************************************************************************/
 /**
  *
- * Micron OCTAL ASP vendor ops table: bound to XSfl_FlashInfo::AspOps by
- * XSfl_FlashAspAssignVendorOps when maker ID and FCT indicate Micron OCTAL OSPI NOR.
+ * @brief Holds the Micron OCTAL ASP vendor operations.
+ *
+ * Micron OCTAL ASP vendor ops table: XSfl_FlashAspAssignVendorOps binds it to
+ * XSfl_FlashInfo::AspOps when the maker ID and FCT indicate Micron OCTAL OSPI
+ * NOR.
  *
  ******************************************************************************/
 const XSfl_AspVendorOps XSfl_AspMicronOctalAspOpsTable = {

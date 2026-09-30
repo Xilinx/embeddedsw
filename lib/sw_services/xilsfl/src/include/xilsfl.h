@@ -3,16 +3,20 @@
  * SPDX-License-Identifier: MIT
  ******************************************************************************/
 
+#ifndef XILSFL_H
+#define XILSFL_H
+
 /*****************************************************************************/
 /**
- *
  * @file xilsfl.h
  * @addtogroup xilsfl overview
  * @{
+ * @brief Defines the interface of the serial flash library (SFL).
+ *
  * @details
  *
- * This file should be included in the example files and compiled along with
- * the examples (*.c).
+ * Include this file in the example files and compile it along with the
+ * examples (*.c).
  *
  * <pre>
  * MODIFICATION HISTORY:
@@ -30,12 +34,11 @@
  *       zm  08/03/26  Add support for MX25U6432F Macronix flash.
  * 1.3   sb  07/20/26  Add support for Advanced Sector Protection (ASP).
  * 1.4   vn  08/26/26  Fix Doxygen warnings.
+ * 1.4   vn  09/30/26  Align Doxygen comments with AMD standards
  *
  * </pre>
  *
  ******************************************************************************/
-#ifndef XILSFL_H
-#define XILSFL_H
 
 /***************************** Include Files *********************************/
 #include "xparameters.h"	/* SDK generated parameters */
@@ -57,58 +60,68 @@
  */
 #undef XSFL_DEBUG
 
-/*
- * following macro contains the number of interfaces drivers
- */
-#define XSFL_NUM_INSTANCES    1
+#define XSFL_NUM_INSTANCES    1 /**< Number of interface drivers. */
 
-#define XSFL_RXADDR_OVER_32BIT	0x100000000U /**< Rx address over 32 bit */
+/** Rx address above the 32-bit range. */
+#define XSFL_RXADDR_OVER_32BIT	0x100000000U
 
-/*
- * SDR max supported frequency in Mz
- */
+/** SDR maximum supported frequency, in Hz. */
 #define XSFL_SDR_NON_PHY_MAX_FREQ    50000000
 
-/*
- * The following constants define the commands which may be sent to the Flash
- * device.
+/**
+ * @name Flash commands
+ *
+ * Commands that the library can send to the flash device.
+ * @{
  */
-#define XSFL_WRITE_STATUS_CMD        0x01
-#define XSFL_WRITE_DISABLE_CMD       0x04
-#define XSFL_WRITE_ENABLE_CMD        0x06
-#define XSFL_BULK_ERASE_CMD          0xC7
-#define XSFL_DIE_ERASE_CMD           0xC4
-#define XSFL_READ_ID                 0x9F
-#define XSFL_READ_CONFIG_CMD         0x35
-#define XSFL_WRITE_CONFIG_CMD        0x01
-#define XSFL_READ_STATUS_CMD         0x05
-#define XSFL_READ_FLAG_STATUS_CMD    0x70
-#define XSFL_READ_CMD_4B             0x13
-#define XSFL_FAST_READ_CMD_4B        0x0C	/**< 4-byte address single-I/O fast read command. */
-#define XSFL_WRITE_CMD_4B            0x12
+#define XSFL_WRITE_STATUS_CMD        0x01 /**< Write status command. */
+#define XSFL_WRITE_DISABLE_CMD       0x04 /**< Write disable command. */
+#define XSFL_WRITE_ENABLE_CMD        0x06 /**< Write enable command. */
+#define XSFL_BULK_ERASE_CMD          0xC7 /**< Bulk erase command. */
+#define XSFL_DIE_ERASE_CMD           0xC4 /**< Die erase command. */
+#define XSFL_READ_ID                 0x9F /**< Read ID command. */
+#define XSFL_READ_CONFIG_CMD         0x35 /**< Read configuration command. */
+#define XSFL_WRITE_CONFIG_CMD        0x01 /**< Write configuration command. */
+#define XSFL_READ_STATUS_CMD         0x05 /**< Read status command. */
+#define XSFL_READ_FLAG_STATUS_CMD    0x70 /**< Read flag status command. */
+#define XSFL_READ_CMD_4B             0x13 /**< 4-byte address read command. */
+/** 4-byte address single-I/O fast read command. */
+#define XSFL_FAST_READ_CMD_4B        0x0C
+#define XSFL_WRITE_CMD_4B            0x12 /**< 4-byte address write command. */
+/** 4-byte address sector erase command. */
 #define XSFL_SEC_ERASE_CMD_4B        0xDC
+/** 4-byte address octal read command. */
 #define XSFL_READ_CMD_OCTAL_4B       0x7C
+/** 4-byte address octal I/O read command. */
 #define XSFL_READ_CMD_OCTAL_IO_4B    0xCC
-#define XSFL_READ_CMD_OCTAL_DDR      0x9D
+#define XSFL_READ_CMD_OCTAL_DDR      0x9D /**< Octal DDR read command. */
+/** 4-byte address octal write command. */
 #define XSFL_WRITE_CMD_OCTAL_4B      0x84
+/** Enter 4-byte address mode command. */
 #define XSFL_ENTER_4B_ADDR_MODE      0xB7
+/** Exit 4-byte address mode command. */
 #define XSFL_EXIT_4B_ADDR_MODE       0xE9
+/** Write configuration register command. */
 #define XSFL_WRITE_CONFIG_REG        0x81
+/** Read configuration register command. */
 #define XSFL_READ_CONFIG_REG         0x85
-#define XSFL_DUAL_READ_CMD           0x3B
-#define XSFL_QUAD_READ_CMD           0x6B
+#define XSFL_DUAL_READ_CMD           0x3B /**< Dual read command. */
+#define XSFL_QUAD_READ_CMD           0x6B /**< Quad read command. */
+/** 4-byte address dual read command. */
 #define XSFL_DUAL_READ_CMD_4B        0x3C
+/** 4-byte address quad read command. */
 #define XSFL_QUAD_READ_CMD_4B        0x6C
-#define XSFL_QUAD_WRITE_CMD          0x32
-#define XSFL_DUAL_WRITE_CMD          0xA2
-#define XSFL_QUAD_SEC_ERASE_CMD      0xD8
-#define XSFL_WRITE_CMD               0x02
-#define XSFL_READ_CMD                0x03
+#define XSFL_QUAD_WRITE_CMD          0x32 /**< Quad write command. */
+#define XSFL_DUAL_WRITE_CMD          0xA2 /**< Dual write command. */
+#define XSFL_QUAD_SEC_ERASE_CMD      0xD8 /**< Quad sector erase command. */
+#define XSFL_WRITE_CMD               0x02 /**< Write command. */
+#define XSFL_READ_CMD                0x03 /**< Read command. */
 /**
  * @def XSFL_NO_CMD
- * @brief No command / dummy command value (0x00)
+ * @brief No-command or dummy command value (0x00).
  */
 #define XSFL_NO_CMD                  0x00
+/** @} */
 
 /* Commands for Macronix Octal (OPI) Flash */
 /**
@@ -141,8 +154,7 @@
  * @def XSFL_WB_READ_STATUS_REG2_CMD
  * @brief Command for reading the status register 2.
  *
- * This command is used to retrieve the status of the second status
- * register.
+ * This command retrieves the status of the second status register.
  * Winbond Read SR2 (0x35) coincides with XSFL_READ_CONFIG_CMD.
  */
 #define XSFL_WB_READ_STATUS_REG2_CMD    XSFL_READ_CONFIG_CMD
@@ -151,48 +163,63 @@
  * @def XSFL_WB_WRITE_STATUS_REG2_CMD
  * @brief Write Status Register 2 command.
  *
- * This command is used to write the status register 2.
+ * This command writes status register 2.
  */
 #define XSFL_WB_WRITE_STATUS_REG2_CMD   0x31
 
 /* Manufacturer IDs */
 /**
  * @def XSFL_WINBOND_ID_BYTE0
- * @brief The first byte of the Winbond ID.
+ * @brief First byte of the Winbond ID.
  */
 #define XSFL_WINBOND_ID_BYTE0 0xEF
 
-/*
- * Sixteen MB
- */
-#define XSFL_SIXTEENMB 0x1000000
-
-#define XSFL_FLASH_PAGE_SIZE_256           256
-#define XSFL_FLASH_SECTOR_SIZE_4KB         0x1000
-#define XSFL_FLASH_SECTOR_SIZE_256KB       0x40000
-#define XSFL_FLASH_SECTOR_SIZE_64KB        0x10000
-#define XSFL_FLASH_SECTOR_SIZE_128KB       0x20000
-#define XSFL_FLASH_DEVICE_SIZE_128M        0x1000000
-#define XSFL_FLASH_DEVICE_SIZE_256M        0x2000000
-#define XSFL_FLASH_DEVICE_SIZE_512M        0x4000000
-#define XSFL_FLASH_DEVICE_SIZE_1G          0x8000000
-#define XSFL_FLASH_DEVICE_SIZE_2G          0x10000000
+#define XSFL_SIXTEENMB 0x1000000 /**< Sixteen MB. */
 
 /**
+ * @name Flash page, sector, and device sizes
+ * @{
+ */
+#define XSFL_FLASH_PAGE_SIZE_256           256 /**< Page size of 256 bytes. */
+#define XSFL_FLASH_SECTOR_SIZE_4KB         0x1000 /**< Sector size of 4 KB. */
+/** Sector size of 256 KB. */
+#define XSFL_FLASH_SECTOR_SIZE_256KB       0x40000
+#define XSFL_FLASH_SECTOR_SIZE_64KB        0x10000 /**< Sector size of 64 KB. */
+/** Sector size of 128 KB. */
+#define XSFL_FLASH_SECTOR_SIZE_128KB       0x20000
+/** Flash device size of 128 Mb. */
+#define XSFL_FLASH_DEVICE_SIZE_128M        0x1000000
+/** Flash device size of 256 Mb. */
+#define XSFL_FLASH_DEVICE_SIZE_256M        0x2000000
+/** Flash device size of 512 Mb. */
+#define XSFL_FLASH_DEVICE_SIZE_512M        0x4000000
+/** Flash device size of 1 Gb. */
+#define XSFL_FLASH_DEVICE_SIZE_1G          0x8000000
+/** Flash device size of 2 Gb. */
+#define XSFL_FLASH_DEVICE_SIZE_2G          0x10000000
+/** @} */
+
+/**
+ * @name Micron manufacturer IDs
+ * @{
+ */
+/**
  * @def XSFL_MICRON_OCTAL_ID_BYTE0
- * @brief The first byte of the Micron octal flash ID.
+ * @brief First byte of the Micron octal flash ID.
  */
 #define XSFL_MICRON_OCTAL_ID_BYTE0          0x2c
 #define XSFL_MICRON_QUAD_ID_BYTE0           0x20 /**< Micron QUAD flash. */
+/** @} */
+
 /**
  * @def XSFL_MACRONIX_ID_BYTE0
- * @brief The first byte of the Macronix ID.
+ * @brief First byte of the Macronix ID.
  */
 #define XSFL_MACRONIX_ID_BYTE0              0xc2
 
 /**
  * @def XSFL_GIGADEVICE_ID_BYTE0
- * @brief The first byte of the GigaDevice ID.
+ * @brief First byte of the GigaDevice ID.
  */
 #define XSFL_GIGADEVICE_ID_BYTE0            0xc8
 
@@ -221,105 +248,129 @@
  */
 #define XSFL_MX_CONFIG_REG2_SPI             0x00
 
+/**
+ * @name Micron and Macronix register definitions
+ * @{
+ */
+/** Micron block protection bits mask. */
 #define XSFL_MICRON_BP_BITS_MASK		0x7C
+/** Macronix Configuration Register 2 (CR2) volatile address. */
 #define XSFL_CONFIG_REG2_VOLATILE_ADDR_MX 	0x00000300
+/** @} */
 
-/**< Controller Type */
-#define XSFL_OSPI_CNTRL 0x01
+#define XSFL_OSPI_CNTRL 0x01 /**< Controller type. */
 
-/**< Flag to use DMA or not */
-#define	XSFL_BROKEN_DMA 0x01
+#define	XSFL_BROKEN_DMA 0x01 /**< Flag to use DMA or not. */
 
-/**< Max Byte count in Stig Mode */
+/** Maximum byte count in STIG mode. */
 #define	XSFL_MAX_STIG_BYTE_CNT  8
 
-/* Flash Device Type */
-#define XSFL_QSPI_FLASH  0x01
-#define XSFL_OSPI_FLASH  0x02
+/**
+ * @name Flash device type
+ * @{
+ */
+#define XSFL_QSPI_FLASH  0x01 /**< QSPI flash device. */
+#define XSFL_OSPI_FLASH  0x02 /**< OSPI flash device. */
+/** @} */
 
 /**
  * @name Dual Byte opcode selection
+ *
+ * Macros to enable or disable the dual-byte opcode.
  * @{
  */
-/**
- * Macros to enable/disable Dual Byte opcode.
- */
-#define XSFL_DUAL_BYTE_OP_DISABLE  0x00
+#define XSFL_DUAL_BYTE_OP_DISABLE  0x00 /**< Dual-byte opcode disabled. */
+/** Extended opcode is the inverted opcode. */
 #define XSFL_DUAL_BYTE_OP_INVERT   0x01
+/** Extended opcode is the same as the opcode. */
 #define XSFL_DUAL_BYTE_OP_SAME     0x02
 /** @} */
 
 /**
  * @name Edge mode selection
+ *
+ * Macros to select the edge mode: SDR+NON-PHY, SDR+PHY, or DDR+PHY.
  * @{
  */
-/**
- * Macros to select different edge modes like
- * SDR+NON-PHY, SDR+PHY and DDR+PHY.
- */
-#define XSFL_EDGE_MODE_SDR_PHY        0x0U
-#define XSFL_EDGE_MODE_SDR_NON_PHY    0x1U
-#define XSFL_EDGE_MODE_DDR_PHY        0x2U
+#define XSFL_EDGE_MODE_SDR_PHY        0x0U /**< SDR+PHY edge mode. */
+#define XSFL_EDGE_MODE_SDR_NON_PHY    0x1U /**< SDR+NON-PHY edge mode. */
+#define XSFL_EDGE_MODE_DDR_PHY        0x2U /**< DDR+PHY edge mode. */
 /** @} */
 
 /**
  * @name Chip Select selection
+ *
+ * Macros to select CS0 and CS1.
  * @{
  */
-/**
- * Macros to select CS0 and CS1.
- */
-#define XSFL_SELECT_FLASH_CS0	0
-#define XSFL_SELECT_FLASH_CS1	1
+#define XSFL_SELECT_FLASH_CS0	0 /**< Select the flash on CS0. */
+#define XSFL_SELECT_FLASH_CS1	1 /**< Select the flash on CS1. */
 /** @} */
 
 /**
  * @name Connection mode selection
+ *
+ * Macros to select SINGLE, STACKED, and PARALLEL connection modes.
  * @{
  */
-/**
- * Macros to select SINGLE, STACKED and PARALLEL connection modes.
- */
-#define XSFL_CONNECTION_MODE_SINGLE      0x0U
-#define XSFL_CONNECTION_MODE_STACKED     0x1U
+#define XSFL_CONNECTION_MODE_SINGLE      0x0U /**< Single connection mode. */
+#define XSFL_CONNECTION_MODE_STACKED     0x1U /**< Stacked connection mode. */
 /** @} */
 
 /**
- * @name Prototype(Bus width: Cmd_Addr_Data) selection
+ * @name Prototype (Bus width: Cmd_Addr_Data) selection
+ *
+ * Macros to select the read and write prototype. Each digit gives the bus
+ * width of the command, address, and data phases.
  * @{
  */
+#define XSFL_FLASH_PROTO_1_1_1    0U	/**< 1-1-1 prototype. */
+#define XSFL_FLASH_PROTO_1_0_1    1U	/**< 1-0-1 prototype. */
+#define XSFL_FLASH_PROTO_1_1_2    2U	/**< 1-1-2 prototype. */
+#define XSFL_FLASH_PROTO_1_1_8    3U	/**< 1-1-8 prototype. */
+#define XSFL_FLASH_PROTO_1_8_8    4U	/**< 1-8-8 prototype. */
+#define XSFL_FLASH_PROTO_8_8_8    5U	/**< 8-8-8 prototype. */
+#define XSFL_FLASH_PROTO_8_0_0    6U	/**< 8-0-0 prototype. */
+#define XSFL_FLASH_PROTO_8_8_0    7U	/**< 8-8-0 prototype. */
+#define XSFL_FLASH_PROTO_8_0_8    8U	/**< 8-0-8 prototype. */
+#define XSFL_FLASH_PROTO_1_1_4    9U	/**< 1-1-4 prototype. */
+#define XSFL_FLASH_PROTO_4_4_4    10U	/**< 4-4-4 prototype. */
+/** @} */
+
 /**
- * Macros to select Read and Write prototype.
+ * @name Flash information options
+ *
+ * Options that select the flash information to read.
+ * @{
  */
-#define XSFL_FLASH_PROTO_1_1_1    0U
-#define XSFL_FLASH_PROTO_1_0_1    1U
-#define XSFL_FLASH_PROTO_1_1_2    2U
-#define XSFL_FLASH_PROTO_1_1_8    3U
-#define XSFL_FLASH_PROTO_1_8_8    4U
-#define XSFL_FLASH_PROTO_8_8_8    5U
-#define XSFL_FLASH_PROTO_8_0_0    6U
-#define XSFL_FLASH_PROTO_8_8_0    7U
-#define XSFL_FLASH_PROTO_8_0_8    8U
-#define XSFL_FLASH_PROTO_1_1_4    9U
-#define XSFL_FLASH_PROTO_4_4_4    10U
-
-/*
- * following macros contains flash info
+#define XSFL_FLASH_ID      0U /**< Flash device JEDEC ID. */
+/**
+ * Individual device size, or combined size in case of stacked or parallel
+ * configuration.
  */
-#define XSFL_FLASH_ID      0U /* Flash Device jdec_id */
-#define XSFL_DEVICE_SIZE   1U /* Individual device size or combined combined size
-				 in case of Stacked/Parrellel config */
-#define XSFL_SECT_SIZE     2U /* Individual sector size or combined sector size
-                                 in case of Parrellel config */
-#define XSFL_PAGE_SIZE     3U /* Individual sector size or combined sector size
-                                 in case of Parrellel config */
-#define XSFL_FLASH_TYPE    4U /* Flash Type (QSPI/OSPI) */
+#define XSFL_DEVICE_SIZE   1U
+/**
+ * Individual sector size, or combined sector size in case of parallel
+ * configuration.
+ */
+#define XSFL_SECT_SIZE     2U
+/**
+ * Individual sector size, or combined sector size in case of parallel
+ * configuration.
+ */
+#define XSFL_PAGE_SIZE     3U
+#define XSFL_FLASH_TYPE    4U /**< Flash type (QSPI/OSPI). */
+/** @} */
 
-/* Macro for bus width */
-#define XSFL_X1_BUS_WIDTH  0x01
-#define XSFL_X2_BUS_WIDTH  0x02
-#define XSFL_X4_BUS_WIDTH  0x04
-#define XSFL_X8_BUS_WIDTH  0x08
+/**
+ * @name Bus width
+ * @{
+ */
+#define XSFL_X1_BUS_WIDTH  0x01 /**< x1 bus width. */
+#define XSFL_X2_BUS_WIDTH  0x02 /**< x2 bus width. */
+#define XSFL_X4_BUS_WIDTH  0x04 /**< x4 bus width. */
+#define XSFL_X8_BUS_WIDTH  0x08 /**< x8 bus width. */
+/** @} */
 
 /* Register BitFields */
 
@@ -327,6 +378,7 @@
 /**
  * @def XSFL_WB_QUAD_ENABLE_BIT
  * @brief Winbond QE bit: Status Register-2 bit[1] (SR2[1]).
+ *
  * Setting this bit enables Quad SPI transfers.
  */
 #define XSFL_WB_QUAD_ENABLE_BIT 0x02U
@@ -335,118 +387,132 @@
 /**
  * @def XSFL_MX_QUAD_ENABLE_BIT
  * @brief Macronix QE bit: Status Register bit[6] (SR[6]).
+ *
  * Setting this bit enables Quad SPI transfers.
  */
 #define XSFL_MX_QUAD_ENABLE_BIT 0x40U
-/** @} */
 
 /**************************** Type Definitions *******************************/
 
 /**
- * This typedef contains configuration information for a flash message.
+ * @brief Holds the configuration information for a flash message.
  */
 typedef struct {
-	u64 RxAddr64bit;  /**< Provide 64-bit read address for 32-bit platform */
-	u32 ByteCount;    /**< Number of bytes to read or write */
-	u32 Addr;         /**< Device Address */
+	u64 RxAddr64bit;  /**< 64-bit read address for a 32-bit platform. */
+	u32 ByteCount;	  /**< Number of bytes to read or write. */
+	u32 Addr;	  /**< Device address. */
 
-	u8 *TxBfrPtr;     /**< Write buffer pointer */
-	u8 *RxBfrPtr;     /**< Read buffer pointer */
-	u8 Opcode;        /**< Opcode/Command */
-	u8 Dummy;         /**< Number of dummy cycles for opcode */
-	u8 Xfer64bit;     /**< Set to 1 when reading from 64-bit addr otherwise 0 */
+	u8 *TxBfrPtr;	  /**< Write buffer pointer. */
+	u8 *RxBfrPtr;	  /**< Read buffer pointer. */
+	u8 Opcode;	  /**< Opcode/command. */
+	u8 Dummy;	  /**< Number of dummy cycles for the opcode. */
+	u8 Xfer64bit;	  /**< Set to 1 when reading from a 64-bit address,
+			   * otherwise 0. */
 
-	u8 DualByteOpCode; /**< Extended opcode in dual-byte opcode mode */
-	u8 Addrsize;     /**< Size of address in bytes */
-	u8 Addrvalid;    /**< 1 if Address is required for opcode, 0 otherwise */
-	u8 Proto;        /**< Indicate number of Cmd-Addr-Data lines */
+	u8 DualByteOpCode;	/**< Extended opcode in dual-byte opcode
+				 * mode. */
+	u8 Addrsize;	  /**< Size of address in bytes. */
+	u8 Addrvalid;	  /**< 1 if the opcode requires an address, else 0. */
+	u8 Proto;	  /**< Indicates the number of Cmd-Addr-Data lines. */
 } XSfl_Msg;
 
 /**
- * This typedef contains configuration information for the flash device.
+ * @brief Holds the configuration information for the flash device.
  */
 typedef struct {
-	u32 FlashIndex;   /**< Index in the flash_info structure */
-	u32 DeviceSize;   /* This is the size of one flash device
-			   * or combination of both devices, in case of stocked/parallel
-			   * connection.
-			   */
-	u32 SectSize;     /* Individual sector size or
-			   * combined sector size in case of parallel config
-			   */
-	u32 SectCount;    /* Individual sector count or
-			   * combined sector count in case of stocked config
-			   */
-	u32 PageSize;     /* Individual page size or
-			   * combined page size in case of parallel config
-			   */
-	u32 PageCount;    /* Individual page count or
-			   * combined page count in case of stocked config
-			   */
-	u8 ConnectionMode; /**< Type of connection (single/stacked/parallel) */
-	u8 FlashMake;      /**< vendor info */
-	u8 AddrSize;       /**< Size of address in bytes */
+	u32 FlashIndex;	  /**< Index in the flash_info structure. */
+	u32 DeviceSize;	  /**< Size of one flash device, or the combined size of
+			   * both devices in case of stacked/parallel
+			   * connection. */
+	u32 SectSize;	  /**< Individual sector size, or combined sector size
+			   * in case of parallel configuration. */
+	u32 SectCount;	  /**< Individual sector count, or combined sector count
+			   * in case of stacked configuration. */
+	u32 PageSize;	  /**< Individual page size, or combined page size in
+			   * case of parallel configuration. */
+	u32 PageCount;	  /**< Individual page count, or combined page count in
+			   * case of stacked configuration. */
+	u8 ConnectionMode;	/**< Connection type
+				 * (single/stacked/parallel). */
+	u8 FlashMake;	  /**< Vendor information. */
+	u8 AddrSize;	  /**< Size of address in bytes. */
 #if CONFIG_ADVANCED_SECTOR_PROTECTION
-	const XSfl_AspVendorOps *AspOps; /**< Advanced sector-protection / password ops */
+	const XSfl_AspVendorOps *AspOps;	/**< Advanced sector-protection
+						 * and password operations. */
 #endif
 } XSfl_FlashInfo;
 
 /**
- * This typedef contains configuration information for the device.
+ * @brief Holds the configuration information for the controller device.
  */
 typedef struct {
-	u32 *DeviceIdData;	/**< Contains Device Id Data information
-				 * - Is used for configuring SDR/DDR mode */
-	u32 OpMode;             /**< Operating Mode DAC or INDAC */
-	u32 RefClockHz;         /**< Input clock frequency */
-	u8 DeviceId; 		/**< ID  of controller device */
-	u8 ChipSelectNum;	/**< Chip select information */
-	u8 SdrDdrMode;		/**< Edge mode can be SDR or DDR */
-	u8 CntrlType;		/**< Type of the interface controller */
-	u8  BusWidth;		/**< Bus width available on board */
-	u32 (*RxTunning)();	/**< Callback reference for Rx tuning */
+	u32 *DeviceIdData;	/**< Device ID data, used for configuring
+				 * SDR/DDR mode. */
+	u32 OpMode;		/**< Operating mode, DAC or INDAC. */
+	u32 RefClockHz;		/**< Input clock frequency. */
+	u8 DeviceId;		/**< ID of the controller device. */
+	u8 ChipSelectNum;	/**< Chip select information. */
+	u8 SdrDdrMode;		/**< Edge mode, which can be SDR or DDR. */
+	u8 CntrlType;		/**< Type of the interface controller. */
+	u8  BusWidth;		/**< Bus width available on the board. */
+	u32 (*RxTunning)();	/**< Callback reference for Rx tuning. */
 
-	u32 (*SelectFlash)(u8 ChipSelNum);  /**< Callback reference for chip select */
-	u32 (*Transfer)(u8 Index, XSfl_Msg *SflMsg); /**< Callback reference for interface
-						      * transfer function */
-	u32 (*NonBlockingTransfer)(u8 Index, XSfl_Msg *SflMsg); /**< Callback reference for interface
-								 * non blocking transfer function */
-	u32 (*SetSdrDdr)(u8 Mode, u8 DualByteOpCode);	/**< Callback reference for controller configs */
-	u32 (*TransferDone)(u8 Index);		/**< Callback reference for flash read status */
-	u32 (*DeviceReset)(u8 Type);  /**< Callback reference for Device reset */
+	u32 (*SelectFlash)(u8 ChipSelNum);	/**< Callback reference for chip
+						 * select. */
+	u32 (*Transfer)(u8 Index, XSfl_Msg *SflMsg);
+				/**< Callback reference for the interface
+				 * transfer function. */
+	u32 (*NonBlockingTransfer)(u8 Index, XSfl_Msg *SflMsg);
+				/**< Callback reference for the interface
+				 * nonblocking transfer function. */
+	u32 (*SetSdrDdr)(u8 Mode, u8 DualByteOpCode);
+				/**< Callback reference for the controller
+				 * configuration. */
+	u32 (*TransferDone)(u8 Index);	/**< Callback reference for the flash
+					 * read status. */
+	u32 (*DeviceReset)(u8 Type);	/**< Callback reference for device
+					 * reset. */
 
 } XSfl_CntrlInfo;
 
 /**
- * This typedef contains interface information for a sfl library.
+ * @brief Holds the interface information for the SFL library.
  */
 typedef struct {
-	XSfl_CntrlInfo CntrlInfo;		/**< Controller specific information */
-	XSfl_FlashInfo SflFlashInfo;	/**< Flash Specific information */
-	u32 Quirks;		/**< Quirks to handle specific use cases*/
+	XSfl_CntrlInfo CntrlInfo;	/**< Controller-specific information. */
+	XSfl_FlashInfo SflFlashInfo;	/**< Flash-specific information. */
+	u32 Quirks;			/**< Quirks to handle specific use
+					 * cases. */
 
 } XSfl_Interface;
 
 /**
- * This typedef contains information of the sfl library.
+ * @brief Holds the information of the SFL library.
  */
 typedef struct {
-	int Index;
-	XSfl_Interface Instance[XSFL_NUM_INSTANCES];
+	int Index;				/**< Index of the next available
+						 * instance. */
+	XSfl_Interface Instance[XSFL_NUM_INSTANCES];	/**< Interface instances
+							 * of the SFL
+							 * library. */
 } XSfl;
 
 /**
- * This typedef contains configuration information for a flash/controller device.
- * The user is required to allocate a variable of this type. A variable of this type
- * is then passed to the library API functions.
+ * @brief Holds the configuration information for a flash/controller device.
+ *
+ * Allocate a variable of this type and pass it to the library API functions.
  */
 typedef union XSfl_UserConfig{
+	/**
+	 * @brief Holds the OSPI controller configuration.
+	 */
 	struct Ospi_Conig{
-		u32 BaseAddress;	/**< Base address of the device */
-		u8 ReadMode;		/**< Operating Mode DAC or INDAC */
-		u8 ChipSelect;		/**< Chip select information */
-		u32 Quirks;		/**< Quirks to handle specific use cases*/
-	} Ospi_Config;
+		u32 BaseAddress;	/**< Base address of the device. */
+		u8 ReadMode;		/**< Operating mode, DAC or INDAC. */
+		u8 ChipSelect;		/**< Chip select information. */
+		u32 Quirks;		/**< Quirks to handle specific use
+					 * cases. */
+	} Ospi_Config;            /**< OSPI controller configuration. */
 } XSfl_UserConfig;
 
 /************************** Function Prototypes ******************************/
@@ -470,5 +536,5 @@ u32 XSfl_AspReadSectorLock(u8 SflHandler, const XSfl_AspParams *Params);
 #endif
 /************************** Variable Definitions *****************************/
 
-#endif /* XILSFL_H */
 /** @} */
+#endif /* XILSFL_H */

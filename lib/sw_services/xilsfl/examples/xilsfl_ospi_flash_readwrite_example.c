@@ -6,19 +6,14 @@
 
 /******************************************************************************/
 /**
- *
  * @file xilsfl_ospi_flash_readwrite_example.c
+ * @brief Demonstrates erase, write, and read with the serial flash library.
  *
+ * This file contains a design example using the serial flash library (SFL).
+ * The hardware on which this example runs must have an octal serial NOR flash.
  *
- * This file contains a design example using the SFL library
- * The hardware which this example runs on, must have an octal
- * serial nor flash for it to run.
- *
- * This example has been tested with the Micron Octal Serial Flash(MT35XU02GCBA).
- *
- * @note
- *
- * None.
+ * This example has been tested with the Micron Octal Serial Flash
+ * (MT35XU02GCBA).
  *
  * <pre>
  * MODIFICATION HISTORY:
@@ -31,6 +26,7 @@
  * 1.1   sb  02/11/25  Add condition to avoid dma read on Spartanup.
  * 1.4   vn  08/26/26  Fix Doxygen warnings.
  * 1.4   zm  09/05/26  Fix erase size in the OSPI read/write example.
+ * 1.4   vn  09/30/26  Align Doxygen comments with AMD standards
  *
  * </pre>
  ******************************************************************************/
@@ -41,29 +37,26 @@
 
 /************************** Constant Definitions *****************************/
 
-/*
- * The following constants map to the XPAR parameters created in the
- * xparameters.h file. They are defined here such that a user can easily
+/**
+ * OSPI controller base address. This constant maps to the XPAR parameter
+ * created in the xparameters.h file. It is defined here so that you can easily
  * change all the needed parameters in one place.
  */
 #define OSPI_BASEADDR		XPAR_XOSPIPSV_0_BASEADDR
 
-/*
- * Number of flash pages to be written.
- */
-#define PAGE_COUNT		32
-/*
- * Max page size to initialize write and read buffer
+#define PAGE_COUNT		32 /**< Number of flash pages to write. */
+/**
+ * Maximum page size used to initialize the write and read buffers.
  */
 #define MAX_PAGE_SIZE 1024
 
-/*
- * Flash address to which data is to be written.
- * This test address should be aligned with sector offset address.
+/**
+ * Flash address to which the data is written.
+ * Align this test address with the sector offset address.
  */
 #define TEST_ADDRESS		0x00
 
-#define UNIQUE_VALUE		0x0A
+#define UNIQUE_VALUE		0x0A /**< Starting value of the test data. */
 
 /**************************** Type Definitions *******************************/
 
@@ -73,38 +66,37 @@
 int SflReadWriteExample(void);
 
 /************************** Variable Definitions *****************************/
-u8 SflHandler;     /* file descriptor for the XSfl instance*/
+u8 SflHandler;     /**< File descriptor for the XSfl instance. */
 
 /*
- * The following variables are used to read and write to the flash and they
- * are global to avoid having large buffers on the stack
+ * The following variables are used to read and write to the flash. They are
+ * global to avoid having large buffers on the stack.
  */
 #ifdef __ICCARM__
 #pragma data_alignment = 64
-u8 ReadBuffer[(PAGE_COUNT * MAX_PAGE_SIZE)];
+u8 ReadBuffer[(PAGE_COUNT * MAX_PAGE_SIZE)]; /**< Read buffer. */
 #pragma data_alignment = 4
-u8 WriteBuffer[(PAGE_COUNT * MAX_PAGE_SIZE)];
+u8 WriteBuffer[(PAGE_COUNT * MAX_PAGE_SIZE)]; /**< Write buffer. */
 #else
+/** @cond INTERNAL */
 u8 ReadBuffer[(PAGE_COUNT * MAX_PAGE_SIZE)] __attribute__ ((aligned(64)));
 u8 WriteBuffer[(PAGE_COUNT * MAX_PAGE_SIZE)] __attribute__ ((aligned(4)));
+/** @endcond */
 #endif
 
-/*
- * The following variable specify the max amount of data and the size of the
- * the  page size to transfer the data to
- * and from the Flash. Initialized to single flash page size.
+/**
+ * Maximum amount of data and page size used to transfer data to and from the
+ * flash. It is initialized to a single flash page size.
  */
 u32 MaxData;
 
 /*****************************************************************************/
 /**
+ * @brief Calls the SflReadWriteExample function.
  *
- * Main function to call the SflReadWriteExample.
- *
- *
- * @return	XST_SUCCESS if successful, otherwise XST_FAILURE.
- *
- * @note		None
+ * @return
+ *              - XST_SUCCESS if successful.
+ *              - XST_FAILURE otherwise.
  *
  ******************************************************************************/
 int main(void)
@@ -128,13 +120,11 @@ int main(void)
 
 /*****************************************************************************/
 /**
+ * @brief Illustrates how to use the SFL library with SPI, QSPI, or OSPI flash.
  *
- * The purpose of this function is to illustrate how to use the SFL
- * Library with SPI/QSPI/OSPI interfaced with flash devices.
- *
- * @return	XST_SUCCESS if successful, else XST_FAILURE.
- *
- * @note		None.
+ * @return
+ *              - XST_SUCCESS if successful.
+ *              - XST_FAILURE otherwise.
  *
  *****************************************************************************/
 int SflReadWriteExample(void) {

@@ -5,11 +5,12 @@
 
 /*****************************************************************************/
 /**
- * @file xilsfl_asp.c
- * @addtogroup xilsfl overview
- * @{
  *
- * Vendor-neutral ASP dispatch layer. Responsibilities:
+ * @file xilsfl_asp.c
+ * @brief Implements the vendor-neutral ASP dispatch layer of the SFL library.
+ *
+ * Vendor-neutral Advanced Sector Protection (ASP) dispatch layer of the serial
+ * flash library (SFL). Responsibilities:
  *   - Expose all public XSfl_Flash* ASP APIs (vendor-neutral wrappers that
  *     delegate to the ops table bound during XSfl_FlashInit).
  *   - Provide the shared helpers (sector range validation, password unlock)
@@ -26,10 +27,15 @@
  * Ver   Who Date     Changes
  * ----- --- -------- -----------------------------------------------
  * 1.3   sb  07/20/26  Initial support for Advanced Sector Protection.
+ * 1.4   vn  09/30/26  Align Doxygen comments with AMD standards
  *
  * </pre>
  *
  ******************************************************************************/
+
+/** @addtogroup xilsfl overview
+ * @{
+ */
 
 #include "xilsfl_config.h"
 
@@ -40,7 +46,7 @@
 #include "xilsfl_control.h"
 #include <string.h>
 
-extern XSfl SflInstance;
+extern XSfl SflInstance; /**< SFL library instance. */
 
 /*
  * ASP public APIs delegate to XSfl_AspVendorOps hooks bound during XSfl_FlashInit.
@@ -51,13 +57,17 @@ extern XSfl SflInstance;
 /*****************************************************************************/
 /**
  *
- * This function reads the Advanced Sector Protection password register width
+ * @brief Reads the ASP password register width reported by the vendor driver.
+ *
+ * The function reads the Advanced Sector Protection password register width
  * reported by the vendor ASP driver (AspPasswordLenBytes field).
  *
- * @param	SflHandler is the index to the Sfl interface driver instance.
- * @param	LenBytesOut is the pointer that receives the password byte length.
+ * @param[in]   SflHandler Index of the SFL interface driver instance.
+ * @param[out]  LenBytesOut Pointer that receives the password byte length.
  *
- * @return	XST_SUCCESS if successful, else error code.
+ * @return
+ *              - XST_SUCCESS if successful.
+ *              - Error code otherwise.
  *
  ******************************************************************************/
 u32 XSfl_FlashAspGetPasswordByteLen(u8 SflHandler, u8 *LenBytesOut)
@@ -79,13 +89,17 @@ u32 XSfl_FlashAspGetPasswordByteLen(u8 SflHandler, u8 *LenBytesOut)
 /*****************************************************************************/
 /**
  *
- * This function programs the ASP password register on the NOR flash using the
- * vendor-specific password program command (delegates to AspOps).
+ * @brief Programs the ASP password register on the NOR flash.
  *
- * @param	SflHandler is the index to the Sfl interface driver instance.
- * @param	Password is the buffer holding the password bytes to program.
+ * The function uses the vendor-specific password program command (delegates to
+ * AspOps).
  *
- * @return	XST_SUCCESS if successful, else error code.
+ * @param[in]   SflHandler Index of the SFL interface driver instance.
+ * @param[in]   Password Buffer that holds the password bytes to program.
+ *
+ * @return
+ *              - XST_SUCCESS if successful.
+ *              - Error code otherwise.
  *
  ******************************************************************************/
 u32 XSfl_FlashPasswordProgram(u8 SflHandler,
@@ -105,13 +119,17 @@ u32 XSfl_FlashPasswordProgram(u8 SflHandler,
 /*****************************************************************************/
 /**
  *
- * This function reads the ASP password register from NOR flash into the caller
- * buffer using the vendor READ PASSWORD sequence (delegates to AspOps).
+ * @brief Reads the ASP password register from the NOR flash.
  *
- * @param	SflHandler is the index to the Sfl interface driver instance.
- * @param	PasswordOut is the buffer where the read password is stored.
+ * The function reads the register into the caller buffer using the vendor READ
+ * PASSWORD sequence (delegates to AspOps).
  *
- * @return	XST_SUCCESS if successful, else error code.
+ * @param[in]   SflHandler Index of the SFL interface driver instance.
+ * @param[out]  PasswordOut Buffer where the read password is stored.
+ *
+ * @return
+ *              - XST_SUCCESS if successful.
+ *              - Error code otherwise.
  *
  ******************************************************************************/
 u32 XSfl_FlashPasswordRead(u8 SflHandler,
@@ -131,13 +149,16 @@ u32 XSfl_FlashPasswordRead(u8 SflHandler,
 /*****************************************************************************/
 /**
  *
- * This function issues the ASP unlock-password command on NOR flash so that
- * protected operations can proceed (delegates to AspOps).
+ * @brief Issues the ASP unlock-password command on the NOR flash.
  *
- * @param	SflHandler is the index to the Sfl interface driver instance.
- * @param	Password is the buffer holding the password supplied for unlock.
+ * Protected operations can then proceed (delegates to AspOps).
  *
- * @return	XST_SUCCESS if successful, else error code.
+ * @param[in]   SflHandler Index of the SFL interface driver instance.
+ * @param[in]   Password Buffer that holds the password supplied for unlock.
+ *
+ * @return
+ *              - XST_SUCCESS if successful.
+ *              - Error code otherwise.
  *
  ******************************************************************************/
 u32 XSfl_FlashPasswordUnlock(u8 SflHandler,
@@ -157,13 +178,17 @@ u32 XSfl_FlashPasswordUnlock(u8 SflHandler,
 /*****************************************************************************/
 /**
  *
- * This function reads the 16-bit Sector Protection Register (SPR) from NOR
- * flash via the ASP READ SECTOR PROTECTION command (delegates to AspOps).
+ * @brief Reads the 16-bit Sector Protection Register (SPR) from NOR flash.
  *
- * @param	SflHandler is the index to the Sfl interface driver instance.
- * @param	SprWord is the pointer that receives the SPR value.
+ * The function uses the ASP READ SECTOR PROTECTION command (delegates to
+ * AspOps).
  *
- * @return	XST_SUCCESS if successful, else error code.
+ * @param[in]   SflHandler Index of the SFL interface driver instance.
+ * @param[out]  SprWord Pointer that receives the SPR value.
+ *
+ * @return
+ *              - XST_SUCCESS if successful.
+ *              - Error code otherwise.
  *
  ******************************************************************************/
 u32 XSfl_FlashSectorProtectionRead(u8 SflHandler, u16 *SprWord)
@@ -182,13 +207,17 @@ u32 XSfl_FlashSectorProtectionRead(u8 SflHandler, u16 *SprWord)
 /*****************************************************************************/
 /**
  *
- * This function programs the Sector Protection Register on NOR flash using
- * the vendor ASP PROGRAM SECTOR PROTECTION command (delegates to AspOps).
+ * @brief Programs the Sector Protection Register on the NOR flash.
  *
- * @param	SflHandler is the index to the Sfl interface driver instance.
- * @param	SprWord is the 16-bit SPR value to commit to the device.
+ * The function uses the vendor ASP PROGRAM SECTOR PROTECTION command
+ * (delegates to AspOps).
  *
- * @return	XST_SUCCESS if successful, else error code.
+ * @param[in]   SflHandler Index of the SFL interface driver instance.
+ * @param[in]   SprWord 16-bit SPR value to commit to the device.
+ *
+ * @return
+ *              - XST_SUCCESS if successful.
+ *              - Error code otherwise.
  *
  ******************************************************************************/
 u32 XSfl_FlashSectorProtectionWrite(u8 SflHandler, u16 SprWord)
@@ -206,12 +235,16 @@ u32 XSfl_FlashSectorProtectionWrite(u8 SflHandler, u16 SprWord)
 /*****************************************************************************/
 /**
  *
- * This function erases ASP nonvolatile lock bits on NOR flash (delegates to
- * AspOps); stacked devices are handled inside the vendor implementation.
+ * @brief Erases the ASP nonvolatile lock bits on the NOR flash.
  *
- * @param	SflHandler is the index to the Sfl interface driver instance.
+ * The function delegates to AspOps. The vendor implementation handles stacked
+ * devices.
  *
- * @return	XST_SUCCESS if successful, else error code.
+ * @param[in]   SflHandler Index of the SFL interface driver instance.
+ *
+ * @return
+ *              - XST_SUCCESS if successful.
+ *              - Error code otherwise.
  *
  ******************************************************************************/
 u32 XSfl_FlashEraseNVLockBits(u8 SflHandler)
@@ -229,13 +262,17 @@ u32 XSfl_FlashEraseNVLockBits(u8 SflHandler)
 /*****************************************************************************/
 /**
  *
- * This function sets the ASP nonvolatile lock bit for the sector that contains
- * SectorAddress (delegates to AspOps).
+ * @brief Sets the ASP nonvolatile lock bit for a sector.
  *
- * @param	SflHandler is the index to the Sfl interface driver instance.
- * @param	SectorAddress is the byte offset of the sector whose NV lock is set.
+ * The function sets the lock bit for the sector that contains SectorAddress
+ * (delegates to AspOps).
  *
- * @return	XST_SUCCESS if successful, else error code.
+ * @param[in]   SflHandler Index of the SFL interface driver instance.
+ * @param[in]   SectorAddress Byte offset of the sector whose NV lock is set.
+ *
+ * @return
+ *              - XST_SUCCESS if successful.
+ *              - Error code otherwise.
  *
  ******************************************************************************/
 u32 XSfl_FlashNVSectorLock(u8 SflHandler, u32 SectorAddress)
@@ -253,14 +290,19 @@ u32 XSfl_FlashNVSectorLock(u8 SflHandler, u32 SectorAddress)
 /*****************************************************************************/
 /**
  *
- * This function reads ASP nonvolatile sector lock state for the sector that
- * contains SectorAddress (delegates to AspOps).
+ * @brief Reads the ASP nonvolatile sector lock state.
  *
- * @param	SflHandler is the index to the Sfl interface driver instance.
- * @param	SectorAddress is the byte offset used to select the sector for NV lock read.
- * @param	IsLocked is the pointer that receives 1 when locked, 0 when unlocked.
+ * The function reads the lock state for the sector that contains
+ * SectorAddress (delegates to AspOps).
  *
- * @return	XST_SUCCESS if successful, else error code.
+ * @param[in]   SflHandler Index of the SFL interface driver instance.
+ * @param[in]   SectorAddress Byte offset used to select the sector for the NV
+ *              lock read.
+ * @param[out]  IsLocked Pointer that receives 1 when locked, 0 when unlocked.
+ *
+ * @return
+ *              - XST_SUCCESS if successful.
+ *              - Error code otherwise.
  *
  ******************************************************************************/
 u32 XSfl_FlashNVLockRead(u8 SflHandler, u32 SectorAddress, u8 *IsLocked)
@@ -279,12 +321,15 @@ u32 XSfl_FlashNVLockRead(u8 SflHandler, u32 SectorAddress, u8 *IsLocked)
 /*****************************************************************************/
 /**
  *
- * This function writes the ASP global freeze bit on NOR flash (delegates to
- * AspOps).
+ * @brief Writes the ASP global freeze bit on the NOR flash.
  *
- * @param	SflHandler is the index to the Sfl interface driver instance.
+ * The function delegates to AspOps.
  *
- * @return	XST_SUCCESS if successful, else error code.
+ * @param[in]   SflHandler Index of the SFL interface driver instance.
+ *
+ * @return
+ *              - XST_SUCCESS if successful.
+ *              - Error code otherwise.
  *
  ******************************************************************************/
 u32 XSfl_FlashAspWriteGlobalFreeze(u8 SflHandler)
@@ -302,13 +347,17 @@ u32 XSfl_FlashAspWriteGlobalFreeze(u8 SflHandler)
 /*****************************************************************************/
 /**
  *
- * This function returns the number of sectors on the connected flash, derived
- * from the reported device size and sector size.
+ * @brief Returns the number of sectors on the connected flash.
  *
- * @param	SflHandler is the index to the Sfl interface driver instance.
- * @param	NumSectorsOut receives the total sector count.
+ * The function derives the count from the reported device size and sector
+ * size.
  *
- * @return	XST_SUCCESS if successful, else XST_FAILURE.
+ * @param[in]   SflHandler Index of the SFL interface driver instance.
+ * @param[out]  NumSectorsOut Pointer that receives the total sector count.
+ *
+ * @return
+ *              - XST_SUCCESS if successful.
+ *              - XST_FAILURE otherwise.
  *
  ******************************************************************************/
 static u32 XSfl_AspGetNumSectors(u8 SflHandler, u32 *NumSectorsOut)
@@ -335,14 +384,18 @@ static u32 XSfl_AspGetNumSectors(u8 SflHandler, u32 *NumSectorsOut)
 /*****************************************************************************/
 /**
  *
- * This function validates that [StartSector, EndSector] is a well-formed sector
+ * @brief Validates a sector range.
+ *
+ * The function validates that [StartSector, EndSector] is a well-formed sector
  * range that lies within the device.
  *
- * @param	SflHandler is the index to the Sfl interface driver instance.
- * @param	StartSector is the first sector index (inclusive).
- * @param	EndSector is the last sector index (inclusive).
+ * @param[in]   SflHandler Index of the SFL interface driver instance.
+ * @param[in]   StartSector First sector index (inclusive).
+ * @param[in]   EndSector Last sector index (inclusive).
  *
- * @return	XSFL_ASP_RESULT_OK if valid, else an XSfl_AspResult error code.
+ * @return
+ *              - XSFL_ASP_RESULT_OK if valid.
+ *              - An XSfl_AspResult error code otherwise.
  *
  ******************************************************************************/
 u32 XSfl_AspValidateSectorRange(u8 SflHandler, u32 StartSector,

@@ -5,24 +5,24 @@
 
 /******************************************************************************/
 /**
- *
  * @file xilsfl_advanced_sector_protection_example.c
+ * @brief Demonstrates Advanced Sector Protection (ASP) using the SFL library.
  *
- * This file contains a design example using the SFL library for Advanced
- * Sector Protection (ASP) on serial NOR flash. It interacts over stdin:
- * selects an ASP operation id, optionally programs password / NV sector locks,
- * unlocks NV lock bits, and prints NV lock status for a sector range.
+ * This file contains a design example using the serial flash library (SFL) for
+ * ASP on serial NOR flash. It interacts over stdin. It selects an ASP operation
+ * ID and optionally programs the password or nonvolatile (NV) sector locks. It
+ * also unlocks NV lock bits and prints the NV lock status for a sector range.
  *
  * The same example covers both quad (QSPI, 4-4-4) and octal (OSPI, 8-8-8) NOR
- * flash devices: the library drives both through the OSPI controller, and the
- * ASP layer selects the command framing and dummy cycles from the detected
- * flash make. This example has been tested with the Micron Octal Serial Flash
+ * flash devices. The library drives both through the OSPI controller. The ASP
+ * layer selects the command framing and dummy cycles from the detected flash
+ * make. This example has been tested with the Micron Octal Serial Flash
  * (MT35XU02GCBA).
  *
  * @note
- *
- * Console I/O (scanf) is used; password buffers stay on stack only.
- * Requires BSP xilsfl_CONFIG_ADVANCED_SECTOR_PROTECTION=true.
+ * The example uses console I/O (scanf). Password buffers stay on
+ * the stack only. This example requires the BSP setting
+ * xilsfl_CONFIG_ADVANCED_SECTOR_PROTECTION=true.
  *
  *<pre>
  * MODIFICATION HISTORY:
@@ -30,6 +30,7 @@
  * Ver   Who  Date     Changes
  * ----- ---- -------- ---------------------------------------------------------
  * 1.3   sb   07/20/26 Initial support for Advanced Sector Protection.
+ * 1.4   vn   09/30/26 Align Doxygen comments with AMD standards
  *
  *</pre>
  ******************************************************************************/
@@ -55,15 +56,16 @@
 
 /************************** Constant Definitions ****************************/
 
-/*
- * Window size, in sectors, used to fetch NV lock state: it bounds the on-stack
- * status buffer only. Larger spans are read in successive windows of this size,
- * so this is not a device or vendor limit.
+/**
+ * Window size, in sectors, used to fetch the NV lock state. It bounds only the
+ * on-stack status buffer. Larger spans are read in successive windows of this
+ * size, so this is not a device or vendor limit.
  */
 #define ASP_LOCK_STATUS_CHUNK 256U
 
-/*
- * Map to BSP parameters — change in one place for the board/application.
+/**
+ * OSPI controller base address. It maps to the BSP parameters, so you can
+ * change it in one place for the board or application.
  */
 #define OSPI_BASEADDR XPAR_XOSPIPSV_0_BASEADDR
 
@@ -95,17 +97,18 @@ static void AspPrintResult(u32 Result);
 /************************** Variable Definitions *****************************/
 
 /**
- * XSfl handler index populated by XSfl_FlashInit; ASP ops use Micron table when
- * JEDEC + flash-type match BSP assignment logic.
+ * XSfl handler index populated by XSfl_FlashInit. ASP operations use the Micron
+ * table when the JEDEC ID and flash type match the BSP assignment logic.
  */
 static u8 SflHandler;
 
 /*****************************************************************************/
 /**
+ * @brief Runs the Advanced Sector Protection demonstration.
  *
- * Main entry — runs the Advanced Sector Protection demonstration.
- *
- * @return	XST_SUCCESS on success path, otherwise XST_FAILURE.
+ * @return
+ *              - XST_SUCCESS if successful.
+ *              - XST_FAILURE otherwise.
  *
  ******************************************************************************/
 int main(void)
@@ -126,15 +129,18 @@ int main(void)
 
 /*****************************************************************************/
 /**
+ * @brief Runs the primary Advanced Sector Protection example routine.
  *
- * This function is the primary example routine: initializes the controller and
- * NOR flash via XSfl_FlashInit, prints device info, reads an ASP operation id
- * from stdin, and dispatches the selected operation.
+ * This function initializes the controller and NOR flash through
+ * XSfl_FlashInit and prints the device information. It then reads an ASP
+ * operation ID from stdin and dispatches the selected operation.
  *
- * XSFL_OSPI_CNTRL is the controller type for both quad and octal flash devices;
- * the connected device protocol is detected during XSfl_FlashInit.
+ * XSFL_OSPI_CNTRL is the controller type for both quad and octal flash devices.
+ * XSfl_FlashInit detects the protocol of the connected device.
  *
- * @return	XST_SUCCESS on success, else XST_FAILURE.
+ * @return
+ *              - XST_SUCCESS on success.
+ *              - XST_FAILURE otherwise.
  *
  ******************************************************************************/
 static int XsflAdvancedSectorProtectionExample(void)
@@ -209,11 +215,12 @@ done:
 
 /*****************************************************************************/
 /**
+ * @brief Prints the flash identification details of the connected NOR flash.
  *
- * This function prints flash identification details including JEDEC ID, sector
- * size, device size, and total number of sectors for the connected NOR flash.
+ * The details include the JEDEC ID, sector size, device size, and total number
+ * of sectors.
  *
- * @param[in] SflHandlerIdx is the index to the Sfl interface driver instance.
+ * @param[in]   SflHandlerIdx Index of the SFL interface driver instance.
  *
  ******************************************************************************/
 static void PrintFlashInfoAsp(u8 SflHandlerIdx)
@@ -252,14 +259,17 @@ static void PrintFlashInfoAsp(u8 SflHandlerIdx)
 
 /*****************************************************************************/
 /**
+ * @brief Computes the total number of sectors on the connected flash.
  *
- * This function computes the total number of sectors on the connected flash
- * from the device size and sector size reported by XSfl_FlashGetInfo.
+ * The computation uses the device size and sector size that XSfl_FlashGetInfo
+ * reports.
  *
- * @param[in] SflHandler is the index to the Sfl interface driver instance.
- * @param[in] NumSectorsOut is the pointer that receives the total sector count.
+ * @param[in]   SflHandler Index of the SFL interface driver instance.
+ * @param[out]  NumSectorsOut Pointer that receives the total sector count.
  *
- * @return	XST_SUCCESS if successful, else XST_FAILURE.
+ * @return
+ *              - XST_SUCCESS if successful.
+ *              - XST_FAILURE otherwise.
  *
  ******************************************************************************/
 static u32 AspGetNumSectors(u8 SflHandler, u32 *NumSectorsOut)
@@ -285,11 +295,11 @@ static u32 AspGetNumSectors(u8 SflHandler, u32 *NumSectorsOut)
 
 /*****************************************************************************/
 /**
+ * @brief Prints a human-readable status message for an XSfl_AspResult code.
  *
- * This function prints a human-readable status message for an XSfl_AspResult
- * code returned by the XSfl_Asp* operations.
+ * The XSfl_Asp* operations return this code.
  *
- * @param[in] Result is the XSfl_AspResult code to describe.
+ * @param[in]   Result XSfl_AspResult code to describe.
  *
  ******************************************************************************/
 static void AspPrintResult(u32 Result)
@@ -318,15 +328,18 @@ static void AspPrintResult(u32 Result)
 
 /*****************************************************************************/
 /**
+ * @brief Sets the ASP password on the NOR flash.
  *
- * This function sets the ASP password on the NOR flash. It reads the Sector
- * Protection Register to verify password protection is not already active,
- * prompts the user for double-entry hex password, programs the password,
- * verifies by readback, and commits the SPR.
+ * This function reads the Sector Protection Register (SPR) to verify that
+ * password protection is not already active. It prompts for a double-entry hex
+ * password and programs the password. It then verifies the password by
+ * readback and commits the SPR.
  *
- * @param[in] SflHandler is the index to the Sfl interface driver instance.
+ * @param[in]   SflHandler Index of the SFL interface driver instance.
  *
- * @return	XST_SUCCESS if successful, else error code.
+ * @return
+ *              - XST_SUCCESS if successful.
+ *              - Error code otherwise.
  *
  ******************************************************************************/
 static u32 AspSetPassword(u8 SflHandler)
@@ -402,14 +415,16 @@ static u32 AspSetPassword(u8 SflHandler)
 
 /*****************************************************************************/
 /**
+ * @brief Locks a range of sectors using ASP nonvolatile lock commands.
  *
- * This function locks a range of sectors using ASP nonvolatile lock commands.
- * If password protection is enabled in the SPR, it prompts for the password
- * and unlocks before applying NV sector locks over the specified range.
+ * If password protection is enabled in the SPR, this function prompts for the
+ * password and unlocks before applying NV sector locks over the range.
  *
- * @param[in] SflHandler is the index to the Sfl interface driver instance.
+ * @param[in]   SflHandler Index of the SFL interface driver instance.
  *
- * @return	XST_SUCCESS if successful, else error code.
+ * @return
+ *              - XST_SUCCESS if successful.
+ *              - Error code otherwise.
  *
  ******************************************************************************/
 static u32 AspLockSectors(u8 SflHandler)
@@ -483,16 +498,18 @@ static u32 AspLockSectors(u8 SflHandler)
 
 /*****************************************************************************/
 /**
+ * @brief Erases the ASP nonvolatile lock bits for all sectors.
  *
- * This function erases the ASP nonvolatile lock bits for all sectors using a
- * bulk erase operation covering every sector on all dies. No per-sector
- * granularity is available for NV lock erase.
+ * This function uses a bulk erase operation covering every sector on all dies.
+ * No per-sector granularity is available for NV lock erase.
  * If password protection is enabled in the SPR, it prompts for the password
  * and unlocks before erasing the NV lock bits.
  *
- * @param[in] SflHandler is the index to the Sfl interface driver instance.
+ * @param[in]   SflHandler Index of the SFL interface driver instance.
  *
- * @return	XST_SUCCESS if successful, else error code.
+ * @return
+ *              - XST_SUCCESS if successful.
+ *              - Error code otherwise.
  *
  ******************************************************************************/
 static u32 AspUnlockSectors(u8 SflHandler)
@@ -543,13 +560,15 @@ static u32 AspUnlockSectors(u8 SflHandler)
 
 /*****************************************************************************/
 /**
+ * @brief Reads and displays the nonvolatile lock status for a sector range.
  *
- * This function reads and displays the nonvolatile lock status for a range
- * of sectors by issuing READ NV LOCK commands for each sector address.
+ * This function issues READ NV LOCK commands for each sector address.
  *
- * @param[in] SflHandler is the index to the Sfl interface driver instance.
+ * @param[in]   SflHandler Index of the SFL interface driver instance.
  *
- * @return	XST_SUCCESS if successful, else error code.
+ * @return
+ *              - XST_SUCCESS if successful.
+ *              - Error code otherwise.
  *
  ******************************************************************************/
 static u32 AspReadSectorLockStatus(u8 SflHandler)
@@ -643,14 +662,17 @@ static u32 AspReadSectorLockStatus(u8 SflHandler)
 
 /*****************************************************************************/
 /**
+ * @brief Reads a hex password string from stdin and converts it to bytes.
  *
- * This function prompts and reads a hex password string from stdin, validates
- * each character, and converts it into a binary byte array.
+ * This function prompts for and reads a hex password string from stdin. It
+ * validates each character and converts the string into a binary byte array.
  *
- * @param[in] OutPwd is the buffer that receives the parsed password bytes.
- * @param[in] LenBytes is the expected password length in bytes.
+ * @param[out]  OutPwd Buffer that receives the parsed password bytes.
+ * @param[in]   LenBytes Expected password length in bytes.
  *
- * @return	1 if successful, 0 on input or validation failure.
+ * @return
+ *              - 1 if successful.
+ *              - 0 on input or validation failure.
  *
  ******************************************************************************/
 static int AspScanPassword(u8 OutPwd[XSFL_ASP_PASSWORD_MAX_BYTES],
@@ -708,14 +730,16 @@ static int AspScanPassword(u8 OutPwd[XSFL_ASP_PASSWORD_MAX_BYTES],
 
 /*****************************************************************************/
 /**
+ * @brief Checks whether the password buffer contains all zeros.
  *
- * This function checks whether the password buffer contains all zeros, which
- * is not a valid ASP password value.
+ * An all-zero value is not a valid ASP password value.
  *
- * @param[in] Pw is the password buffer to check.
- * @param[in] LenBytes is the number of bytes to examine.
+ * @param[in]   Pw Password buffer to check.
+ * @param[in]   LenBytes Number of bytes to examine.
  *
- * @return	1 if all bytes are zero, 0 otherwise.
+ * @return
+ *              - 1 if all bytes are zero.
+ *              - 0 otherwise.
  *
  ******************************************************************************/
 static int AspPwdBufAllZero(const u8 Pw[XSFL_ASP_PASSWORD_MAX_BYTES],

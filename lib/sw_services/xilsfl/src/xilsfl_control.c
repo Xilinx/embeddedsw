@@ -7,11 +7,10 @@
 /**
  *
  * @file xilsfl_control.c
- * @addtogroup xilsfl overview
- * @{
+ * @brief Implements the low-level flash control functions of the SFL library.
  *
- * The xilsfl_control.c file implements the low level functions used by the functions in
- * xilsfl.c file.
+ * This file implements the low-level functions of the serial flash library
+ * (SFL) that the functions in xilsfl.c use.
  *
  * <pre>
  * MODIFICATION HISTORY:
@@ -29,10 +28,15 @@
  *       zm  08/03/26  Add support for GD25LR512MF GigaDevice flash.
  *       zm  08/03/26  Add support for MX25U6432F Macronix flash.
  * 1.4   vn  08/26/26  Fix Doxygen warnings.
+ * 1.4   vn  09/30/26  Align Doxygen comments with AMD standards
  *
  * </pre>
  *
  ******************************************************************************/
+
+/** @addtogroup xilsfl overview
+ * @{
+ */
 
 /***************************** Include Files *********************************/
 #include "xilsfl_control.h"
@@ -46,18 +50,21 @@
 /************************** Function Prototypes ******************************/
 
 /************************** Variable Definitions *****************************/
-XSfl_Msg SflMsg= {0};
+XSfl_Msg SflMsg= {0}; /**< Flash message used for the flash transfers. */
 
 /*****************************************************************************/
 /**
  *
- * Reads the flash ID and identifies the flash in FCT table.
+ * @brief Reads the flash ID and identifies the flash in the FCT table.
  *
- * @param	SflInstancePtr is a pointer to the XSfl_Interface driver component to use.
- * @param	ChipSelNum is the chip select number.
- * @param	SflReadBuffer is pointer to the read buffer to store flash id.
+ * @param[in,out] SflInstancePtr Pointer to the XSfl_Interface driver
+ *                component to use.
+ * @param[in]     ChipSelNum Chip select number.
+ * @param[out]    SflReadBuffer Read buffer that stores the flash ID.
  *
- * @return	XST_SUCCESS if successful, otherwise error code.
+ * @return
+ *                - XST_SUCCESS if successful.
+ *                - Error code otherwise.
  *
  ******************************************************************************/
 u32 XSfl_FlashIdRead(XSfl_Interface *SflInstancePtr, u8 ChipSelNum, u8 *SflReadBuffer ){
@@ -106,16 +113,20 @@ u32 XSfl_FlashIdRead(XSfl_Interface *SflInstancePtr, u8 ChipSelNum, u8 *SflReadB
 
 /*****************************************************************************/
 /**
- * This API enters the flash device into 4 bytes addressing mode.
- * As per the Micron spec, before issuing the command to enter into 4 byte addr
- * mode, a write enable command is issued.
  *
- * @param	SflInstancePtr is a pointer to the XSfl_Interface driver component to use.
- * @param	Enable is a either 1 or 0 if 1 then enters 4 byte if 0 exits.
- * @param	ChipSelNum is the chip select number.
+ * @brief Enters or exits the 4-byte addressing mode of the flash device.
  *
- * @return	 - XST_SUCCESS if successful.
- * 		 - error code if it fails.
+ * As per the Micron specification, the function issues a write enable command
+ * before it issues the command to enter 4-byte address mode.
+ *
+ * @param[in]   SflInstancePtr Pointer to the XSfl_Interface driver component to
+ *              use.
+ * @param[in]   Enable Either 1 or 0. 1 enters 4-byte mode and 0 exits it.
+ * @param[in]   ChipSelNum Chip select number.
+ *
+ * @return
+ *              - XST_SUCCESS if successful.
+ *              - Error code if it fails.
  *
  ******************************************************************************/
 u32 XSfl_FlashEnterExit4BAddMode(XSfl_Interface *SflInstancePtr, int Enable, u8 ChipSelNum)
@@ -219,14 +230,14 @@ u32 XSfl_FlashEnterExit4BAddMode(XSfl_Interface *SflInstancePtr, int Enable, u8 
 /*****************************************************************************/
 /**
  *
- * This function used to erase the sectors of the serial nor flash connected to the
- * specific interface.
+ * @brief Erases the sectors of the serial NOR flash on the interface.
  *
- * @param	SflInstancePtr is a pointer to the XSfl interface component to use.
- * @param	Address contains the address of the first sector which needs to
- *              be erased.
+ * @param[in]   SflInstancePtr Pointer to the XSfl interface component to use.
+ * @param[in]   Address Address of the first sector to erase.
  *
- * @return	XST_SUCCESS if successful, else error code.
+ * @return
+ *              - XST_SUCCESS if successful.
+ *              - Error code otherwise.
  *
  ******************************************************************************/
 u32 XSfl_SectorErase(XSfl_Interface *SflInstancePtr, u32 Address)
@@ -298,15 +309,17 @@ u32 XSfl_SectorErase(XSfl_Interface *SflInstancePtr, u32 Address)
 /*****************************************************************************/
 /**
  *
- * This function writes to the serial nor flash connected to the specific interface.
+ * @brief Writes to the serial NOR flash connected to the specific interface.
  *
- * @param	SflInstancePtr is a pointer to the Sfl interface component to use.
- * @param	Address contains the address of the first page which needs to
- *              be written.
- * @param	ByteCount contains the number of bytes to write.
- * @param	WriteBfrPtr is Pointer to the write buffer (which is to be transmitted)
+ * @param[in]   SflInstancePtr Pointer to the SFL interface component to use.
+ * @param[in]   Address Address of the first page to write.
+ * @param[in]   ByteCount Number of bytes to write.
+ * @param[in]   WriteBfrPtr Pointer to the write buffer that holds the data to
+ *              transmit.
  *
- * @return	XST_SUCCESS if successful, else Error code.
+ * @return
+ *              - XST_SUCCESS if successful.
+ *              - Error code otherwise.
  *
  ******************************************************************************/
 u32 XSfl_FlashPageWrite(XSfl_Interface *SflInstancePtr, u32 Address, u32 ByteCount,
@@ -390,17 +403,18 @@ u32 XSfl_FlashPageWrite(XSfl_Interface *SflInstancePtr, u32 Address, u32 ByteCou
 /*****************************************************************************/
 /**
  *
- * This function performs read from the serial nor flash connected to specific interface.
+ * @brief Reads from the serial NOR flash connected to the specific interface.
  *
- * @param	SflInstancePtr is a pointer to the XSfl interface component to use.
- * @param	Address contains the address of the flash that needs to be read.
- * @param	ByteCount contains the total size to be erased.
- * @param	ReadBfrPtr is the pointer to the read buffer to which valid received data should be
- * 			written
- * @param	RxAddr64bit is of the 64bit address of destination read buffer to which
- *              valid received data should be written.
+ * @param[in]   SflInstancePtr Pointer to the XSfl interface component to use.
+ * @param[in]   Address Address of the flash to read.
+ * @param[in]   ByteCount Total size to read.
+ * @param[out]  ReadBfrPtr Read buffer to which valid received data is written.
+ * @param[in]   RxAddr64bit 64-bit address of the destination read buffer to
+ *              which valid received data is written.
  *
- * @return	XST_SUCCESS if successful, else Error code.
+ * @return
+ *              - XST_SUCCESS if successful.
+ *              - Error code otherwise.
  *
  ******************************************************************************/
 u32 XSfl_FlashReadProcess(XSfl_Interface *SflInstancePtr, u32 Address, u32 ByteCount,
@@ -511,17 +525,18 @@ u32 XSfl_FlashReadProcess(XSfl_Interface *SflInstancePtr, u32 Address, u32 ByteC
 /*****************************************************************************/
 /**
  *
- * This function performs non-blocking read from the serial nor flash connected to specific interface.
+ * @brief Performs a nonblocking read from the NOR flash on the interface.
  *
- * @param	SflInstancePtr is a pointer to the XSfl interface component to use.
- * @param	Address contains the address of the flash that needs to be read.
- * @param	ByteCount contains the total size to be erased.
- * @param	ReadBfrPtr is the pointer to the read buffer to which valid received data should be
- * 			written
- * @param	RxAddr64bit is of the 64bit address of destination read buffer to which
- *              valid received data should be written.
+ * @param[in]   SflInstancePtr Pointer to the XSfl interface component to use.
+ * @param[in]   Address Address of the flash to read.
+ * @param[in]   ByteCount Total size to read.
+ * @param[out]  ReadBfrPtr Read buffer to which valid received data is written.
+ * @param[in]   RxAddr64bit 64-bit address of the destination read buffer to
+ *              which valid received data is written.
  *
- * @return	XST_SUCCESS if successful, else Error code.
+ * @return
+ *              - XST_SUCCESS if successful.
+ *              - Error code otherwise.
  *
  ******************************************************************************/
 u32 XSfl_FlashNonBlockingReadProcess(XSfl_Interface *SflInstancePtr, u32 Address, u32 ByteCount,
@@ -642,12 +657,14 @@ u32 XSfl_FlashNonBlockingReadProcess(XSfl_Interface *SflInstancePtr, u32 Address
 /*****************************************************************************/
 /**
  *
- * This function used to check  read completion status the serial Flash
- * connected to the Specific interface.
+ * @brief Checks the read completion status of the flash on the interface.
  *
- * @param	SflInstancePtr is a pointer to the XSfl interface driver component to use.
+ * @param[in]   SflInstancePtr Pointer to the XSfl interface driver component
+ *              to use.
  *
- * @return	XST_SUCCESS if successful, else error code.
+ * @return
+ *              - XST_SUCCESS if successful.
+ *              - Error code otherwise.
  *
  ******************************************************************************/
 u32 XSfl_FlashTransferDone(XSfl_Interface *SflInstancePtr){
@@ -665,14 +682,18 @@ u32 XSfl_FlashTransferDone(XSfl_Interface *SflInstancePtr){
 
 /*****************************************************************************/
 /**
- * This API enters the flash device into Octal DDR mode or exit from octal DDR
- * mode (switches to Extended SPI mode).
  *
- * @param	SflInstancePtr is a pointer to the XSfl_Interface driver component to use.
- * @param	Mode is either 1 or 0 if 1 then enter octal DDR mode if 0 exits.
+ * @brief Enters or exits the octal DDR mode of the flash device.
  *
- * @return	 - XST_SUCCESS if successful.
- * 		 - error code if it fails.
+ * Exiting octal DDR mode switches the flash device to Extended SPI mode.
+ *
+ * @param[in,out] SflInstancePtr Pointer to the XSfl_Interface driver
+ *                component to use.
+ * @param[in]     Mode Either 1 or 0. 1 enters octal DDR mode and 0 exits it.
+ *
+ * @return
+ *                - XST_SUCCESS if successful.
+ *                - Error code if it fails.
  *
  ******************************************************************************/
 u32 XSfl_FlashSetSDRDDRMode(XSfl_Interface *SflInstancePtr, int Mode){
@@ -827,13 +848,14 @@ u32 XSfl_FlashSetSDRDDRMode(XSfl_Interface *SflInstancePtr, int Mode){
 /*****************************************************************************/
 /**
  *
- * This function enables Quad mode for flashes which require to enable
- * it before using Quad commands.
+ * @brief Enables Quad mode on flashes that require it before Quad commands.
  *
- * @param   SflInstancePtr is a pointer to the interface driver component to use.
- * @param   ChipSelNum is the chip select number.
+ * @param[in]   SflInstancePtr Pointer to the interface driver component to use.
+ * @param[in]   ChipSelNum Chip select number.
  *
- * @return  XST_SUCCESS if successful, else XST_FAILURE.
+ * @return
+ *              - XST_SUCCESS if successful.
+ *              - XST_FAILURE otherwise.
  *
  ******************************************************************************/
 u32 XSfl_FlashEnableQuadMode(XSfl_Interface *SflInstancePtr, u8 ChipSelNum) {

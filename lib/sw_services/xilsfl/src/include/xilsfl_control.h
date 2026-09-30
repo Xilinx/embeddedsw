@@ -3,12 +3,14 @@
  * SPDX-License-Identifier: MIT
  ******************************************************************************/
 
+#ifndef XILSFL_CONTROL_H
+#define XILSFL_CONTROL_H
+
 /*****************************************************************************/
 /**
  *
  * @file xilsfl_control.h
- * @addtogroup xilsfl overview
- * @{
+ * @brief Declares the flash control functions of the serial flash library.
  *
  * <pre>
  * MODIFICATION HISTORY:
@@ -20,30 +22,40 @@
  * 1.3   zm  03/09/26 Add support for W25Q128JW Winbond flash.
  *       zm  08/03/26 Add support for MX25U6432F Macronix flash.
  * 1.4   vn  08/26/26 Fix Doxygen warnings.
+ * 1.4   vn  09/30/26 Align Doxygen comments with AMD standards
  *
  * </pre>
  *
  ******************************************************************************/
 
-/***************************** Include Files *********************************/
-#ifndef XILSFL_CONTROL_H	/**< prevent circular inclusions */
-#define XILSFL_CONTROL_H	/**< by using protection macros */
+/** @addtogroup xilsfl overview
+ * @{
+ */
 
 /***************************** Include Files *********************************/
 #include "xilsfl_flashconfig.h"
 
 /************************** Constant Definitions *****************************/
-#define XSFL_COMMAND_OFFSET		0 /* Flash instruction */
-#define XSFL_ADDRESS_OFFSET	        1 /* MSB byte of address to read or write */
-#define XSFL_ADDRESS_SIZE_OFFSET	2 /* Address size Offset index */
-#define XSFL_DUMMY_OFFSET            3 /* Dummy cycles */
+/**
+ * @name CmdBuffer indexes
+ * @{
+ */
+#define XSFL_COMMAND_OFFSET		0 /**< Flash instruction. */
+/** MSB byte of address to read or write. */
+#define XSFL_ADDRESS_OFFSET	        1
+#define XSFL_ADDRESS_SIZE_OFFSET	2 /**< Address size offset index. */
+#define XSFL_DUMMY_OFFSET            3 /**< Dummy cycles. */
 /**
  * @def XSFL_BYTE_COUNT_OFFSET
  * @brief CmdBuffer index for register read/write byte count.
  */
 #define XSFL_BYTE_COUNT_OFFSET       4 /* Number of bytes to read or write */
+/** @} */
 
-/** CmdBuffer array length: command/address/address-size/dummy/byte-count slots. */
+/**
+ * CmdBuffer array length: command, address, address-size, dummy, and
+ * byte-count slots.
+ */
 #define XSFL_BUFFER_ARRAY_LEN        5
 
 /**************************** Type Definitions *******************************/
@@ -51,6 +63,21 @@
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /************************** Function Prototypes ******************************/
+/*****************************************************************************/
+/**
+ *
+ * @brief Initializes an XOspiPsv instance so that the driver is ready to use.
+ *
+ * @param[out]  Ptr Pointer to the XSfl_Interface instance.
+ * @param[in]   UserConfig Structure that contains information about a specific
+ *              OSPI device. This function initializes an instance object for
+ *              the specific device that the contents of UserConfig specify.
+ *
+ * @return
+ *              - XST_SUCCESS if successful.
+ *              - XST_FAILURE if initialization fails.
+ *
+ ******************************************************************************/
 u32 XSfl_OspiInit(XSfl_Interface *Ptr, const XSfl_UserConfig *UserConfig);
 u32 XSfl_FlashIdRead(XSfl_Interface *SflInstnacePtr, u8 ChipSelect, u8 *SflReadBuffer );
 u32 XSfl_CalculateFCTIndex(u32 ReadId, u32 *FCTIndex);
@@ -76,5 +103,5 @@ u32 XSfl_FlashEnableQuadMode(XSfl_Interface *SflInstancePtr, u8 ChipSelNum);
 
 /*****************************************************************************/
 
-#endif /* XILSFL_CONTROL_H */
 /** @} */
+#endif /* XILSFL_CONTROL_H */
