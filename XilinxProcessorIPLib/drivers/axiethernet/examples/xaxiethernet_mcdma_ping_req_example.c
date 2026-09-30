@@ -10,7 +10,7 @@
 * @addtogroup axiethernet Overview
 * @{
 *
-*
+* @brief Demonstrates AXI Ethernet MCDMA ping request handling.
 * Contains a Axi Ethernet MCDMA Ping request example in polled mode.
 * This example will generate a ping request for the specified IP address.
 *
@@ -65,7 +65,7 @@
 #include "xil_mmu.h"
 #endif
 #ifdef SDT
-#define XAXIETHERNET_BASEADDRESS XPAR_XAXIETHERNET_0_BASEADDR
+#define XAXIETHERNET_BASEADDRESS XPAR_XAXIETHERNET_0_BASEADDR	/**< AXI Ethernet base address. */
 #endif
 /************************* Constant Definitions *****************************/
 
@@ -75,135 +75,131 @@
  * change all the needed parameters in one place.
  */
 #ifndef SDT
-#define AXIETHERNET_DEVICE_ID	XPAR_AXIETHERNET_0_DEVICE_ID
-#define AXIMCDMA_DEVICE_ID	XPAR_MCDMA_0_DEVICE_ID
+#define AXIETHERNET_DEVICE_ID	XPAR_AXIETHERNET_0_DEVICE_ID	/**< AXI Ethernet device ID. */
+#define AXIMCDMA_DEVICE_ID	XPAR_MCDMA_0_DEVICE_ID	/**< AXI MCDMA device ID. */
 #endif
 /*
  * Change this parameter to limit the number of ping requests sent by this
  * program.
  */
-#define NUM_OF_PING_REQ_PKTS	10	/* Number of ping req it generates */
+#define NUM_OF_PING_REQ_PKTS	10	/**< Number of ping req it generates. */
 
-#define RXBD_CNT			1024	/* Number of RxBDs to use */
-#define TXBD_CNT			1024	/* Number of TxBDs to use */
-#define BD_ALIGNMENT			64	/* Byte alignment of BDs */
+#define RXBD_CNT			1024	/**< Number of RxBDs to use. */
+#define TXBD_CNT			1024	/**< Number of TxBDs to use. */
+#define BD_ALIGNMENT			64	/**< Byte alignment of BDs. */
 
-#define ECHO_REPLY		0x00	/* Echo reply */
-#define HW_TYPE			0x01	/* Hardware type (10/100 Mbps) */
-#define ARP_REQUEST 		0x01	/* ARP Request bits in Rx packet */
-#define ARP_REPLY 		0x02 	/* ARP status bits indicating reply */
-#define IDEN_NUM		0x02	/* ICMP identifier number */
-#define IP_VERSION		0x0604	/* IP version ipv4/ipv6 */
-#define BROADCAST_ADDR 		0xFFFF 	/* Broadcast Address */
-#define CORRECT_CHECKSUM_VALUE	0xFFFF	/* Correct checksum value */
-#define ARP_REQ_PKT_SIZE	0x2A	/* ARP request packet size */
-#define ICMP_PKT_SIZE 		0x4A	/* ICMP packet length 74 Bytes
-					including Src and dest MAC Add */
-#define IP_ADDR_SIZE		4	/* IP Address size in Bytes */
-#define NUM_RX_PACK_CHECK_REQ	10	/* Max num of Rx pack to be checked
-					before sending another request */
-#define NUM_PACK_CHECK_RX_PACK	8000000	/* Max number of pack to be checked
-					before to identify a Rx packet */
-#define DELAY			1000000 /* Used to introduce delay */
+#define ECHO_REPLY		0x00	/**< Echo reply. */
+#define HW_TYPE			0x01	/**< Hardware type (10/100 Mbps). */
+#define ARP_REQUEST 		0x01	/**< ARP Request bits in Rx packet. */
+#define ARP_REPLY 		0x02	/**< ARP status bits indicating reply. */
+#define IDEN_NUM		0x02	/**< ICMP identifier number. */
+#define IP_VERSION		0x0604	/**< IP version ipv4/ipv6. */
+#define BROADCAST_ADDR 		0xFFFF	/**< Broadcast Address. */
+#define CORRECT_CHECKSUM_VALUE	0xFFFF	/**< Correct checksum value. */
+#define ARP_REQ_PKT_SIZE	0x2A	/**< ARP request packet size. */
+#define ICMP_PKT_SIZE 		0x4A	/**< ICMP packet length 74 Bytes including Src and dest MAC Add. */
+#define IP_ADDR_SIZE		4	/**< IP Address size in Bytes. */
+#define NUM_RX_PACK_CHECK_REQ	10	/**< Max num of Rx pack to be checked before sending another request. */
+#define NUM_PACK_CHECK_RX_PACK	8000000	/**< Max number of pack to be checked before to identify a Rx packet. */
+#define DELAY			1000000	/**< Used to introduce delay. */
 
 /*
  * Definitions for the locations and length of some of the fields in a
  * IP packet. The lengths are defined in Half-Words (2 bytes).
  */
 
-#define SRC_MAC_ADDR_LOC	3	/* Src MAC address location */
-#define MAC_ADDR_LEN 		3	/* MAC address length */
-#define ETHER_PROTO_TYPE_LOC	6	/* Ethernet Proto type loc */
+#define SRC_MAC_ADDR_LOC	3	/**< Src MAC address location. */
+#define MAC_ADDR_LEN 		3	/**< MAC address length. */
+#define ETHER_PROTO_TYPE_LOC	6	/**< Ethernet Proto type loc. */
 
-#define IP_ADDR_LEN 		2	/* Size of IP address */
-#define IP_START_LOC 		7	/* IP header start location */
-#define IP_HEADER_INFO_LEN	7	/* IP header information length */
-#define IP_HEADER_LEN 		10 	/* IP header length */
-#define IP_CHECKSUM_LOC		12	/* IP header checksum location */
-#define IP_REQ_SRC_IP_LOC 	13	/* Src IP add loc of ICMP req */
-#define IP_REQ_DEST_IP_LOC	15	/* Dest IP add loc of ICMP req */
+#define IP_ADDR_LEN 		2	/**< Size of IP address. */
+#define IP_START_LOC 		7	/**< IP header start location. */
+#define IP_HEADER_INFO_LEN	7	/**< IP header information length. */
+#define IP_HEADER_LEN 		10	/**< IP header length. */
+#define IP_CHECKSUM_LOC		12	/**< IP header checksum location. */
+#define IP_REQ_SRC_IP_LOC 	13	/**< Src IP add loc of ICMP req. */
+#define IP_REQ_DEST_IP_LOC	15	/**< Dest IP add loc of ICMP req. */
 
-#define ICMP_KNOWN_DATA_LEN	16	/* ICMP known data length */
-#define ICMP_ECHO_FIELD_LOC 	17	/* Echo field loc */
-#define ICMP_DATA_START_LOC 	17	/* Data field start location */
-#define ICMP_DATA_LEN 		18	/* ICMP data length */
-#define ICMP_DATA_CHECKSUM_LOC	18	/* ICMP data checksum location */
-#define ICMP_IDEN_FIELD_LOC	19	/* Identifier field loc */
-#define ICMP_DATA_LOC 		19	/* ICMP data loc including
-					identifier number and sequence number */
-#define ICMP_SEQ_NO_LOC		20	/* sequence number location */
-#define ICMP_DATA_FIELD_LEN 	20 	/* Data field length */
-#define ICMP_KNOWN_DATA_LOC	21	/* ICMP known data start loc */
+#define ICMP_KNOWN_DATA_LEN	16	/**< ICMP known data length. */
+#define ICMP_ECHO_FIELD_LOC 	17	/**< Echo field loc. */
+#define ICMP_DATA_START_LOC 	17	/**< Data field start location. */
+#define ICMP_DATA_LEN 		18	/**< ICMP data length. */
+#define ICMP_DATA_CHECKSUM_LOC	18	/**< ICMP data checksum location. */
+#define ICMP_IDEN_FIELD_LOC	19	/**< Identifier field loc. */
+#define ICMP_DATA_LOC 		19	/**< ICMP data loc including identifier number and sequence number. */
+#define ICMP_SEQ_NO_LOC		20	/**< sequence number location. */
+#define ICMP_DATA_FIELD_LEN 	20	/**< Data field length. */
+#define ICMP_KNOWN_DATA_LOC	21	/**< ICMP known data start loc. */
 
-#define ARP_REQ_STATUS_LOC 	10	/* ARP request loc */
-#define ARP_REQ_SRC_IP_LOC 	14	/* Src IP add loc of ARP req Packet */
+#define ARP_REQ_STATUS_LOC 	10	/**< ARP request loc. */
+#define ARP_REQ_SRC_IP_LOC 	14	/**< Src IP add loc of ARP req Packet. */
 
-#define RXBD_SPACE_BYTES RXBD_CNT * 64 * 16
-#define TXBD_SPACE_BYTES TXBD_CNT * 64 * 16
+#define RXBD_SPACE_BYTES RXBD_CNT * 64 * 16	/**< RXBD SPACE BYTES. */
+#define TXBD_SPACE_BYTES TXBD_CNT * 64 * 16	/**< TXBD SPACE BYTES. */
 
 /*
  * General Ethernet Definitions
  */
-#define XAE_ETHER_PROTO_TYPE_IP         0x0800  /**< IP Protocol */
-#define XAE_ETHER_PROTO_TYPE_ARP        0x0806  /**< ARP Protocol */
-#define XAE_ETHER_PROTO_TYPE_VLAN       0x8100  /**< VLAN Tagged */
-#define XAE_ARP_PACKET_SIZE             28      /**< Max ARP packet size */
-#define XAE_HEADER_IP_LENGTH_OFFSET     16      /**< IP Length Offset */
-#define XAE_VLAN_TAG_SIZE               4       /**< VLAN Tag Size */
+#define XAE_ETHER_PROTO_TYPE_IP         0x0800  /**< IP Protocol. */
+#define XAE_ETHER_PROTO_TYPE_ARP        0x0806  /**< ARP Protocol. */
+#define XAE_ETHER_PROTO_TYPE_VLAN       0x8100  /**< VLAN Tagged. */
+#define XAE_ARP_PACKET_SIZE             28      /**< Max ARP packet size. */
+#define XAE_HEADER_IP_LENGTH_OFFSET     16      /**< IP Length Offset. */
+#define XAE_VLAN_TAG_SIZE               4       /**< VLAN Tag Size. */
 
 
-#define PHY_R0_CTRL_REG		0
-#define PHY_R3_PHY_IDENT_REG	3
+#define PHY_R0_CTRL_REG		0	/**< PHY R0 CTRL REG. */
+#define PHY_R3_PHY_IDENT_REG	3	/**< PHY identifier register address. */
 
-#define PHY_R0_RESET         0x8000
-#define PHY_R0_LOOPBACK      0x4000
-#define PHY_R0_ANEG_ENABLE   0x1000
-#define PHY_R0_DFT_SPD_MASK  0x2040
-#define PHY_R0_DFT_SPD_10    0x0000
-#define PHY_R0_DFT_SPD_100   0x2000
-#define PHY_R0_DFT_SPD_1000  0x0040
-#define PHY_R0_ISOLATE       0x0400
+#define PHY_R0_RESET         0x8000	/**< PHY control register reset bit. */
+#define PHY_R0_LOOPBACK      0x4000	/**< PHY control register loopback bit. */
+#define PHY_R0_ANEG_ENABLE   0x1000	/**< PHY auto-negotiation enable bit. */
+#define PHY_R0_DFT_SPD_MASK  0x2040	/**< PHY default speed field mask. */
+#define PHY_R0_DFT_SPD_10    0x0000	/**< PHY default speed bit for 10 Mbps. */
+#define PHY_R0_DFT_SPD_100   0x2000	/**< PHY default speed bit for 100 Mbps. */
+#define PHY_R0_DFT_SPD_1000  0x0040	/**< PHY default speed bit for 1000 Mbps. */
+#define PHY_R0_ISOLATE       0x0400	/**< PHY R0 ISOLATE. */
 
 /* Marvel PHY 88E1111 Specific definitions */
-#define PHY_R20_EXTND_CTRL_REG	20
-#define PHY_R27_EXTND_STS_REG	27
+#define PHY_R20_EXTND_CTRL_REG	20	/**< PHY R20 EXTND CTRL REG. */
+#define PHY_R27_EXTND_STS_REG	27	/**< PHY R27 EXTND STS REG. */
 
-#define PHY_R20_DFT_SPD_10    	0x20
-#define PHY_R20_DFT_SPD_100   	0x50
-#define PHY_R20_DFT_SPD_1000  	0x60
-#define PHY_R20_RX_DLY		0x80
+#define PHY_R20_DFT_SPD_10    	0x20	/**< PHY R20 DFT SPD 10. */
+#define PHY_R20_DFT_SPD_100   	0x50	/**< PHY R20 DFT SPD 100. */
+#define PHY_R20_DFT_SPD_1000  	0x60	/**< PHY R20 DFT SPD 1000. */
+#define PHY_R20_RX_DLY		0x80	/**< PHY R20 RX DLY. */
 
-#define PHY_R27_MAC_CONFIG_GMII      0x000F
-#define PHY_R27_MAC_CONFIG_MII       0x000F
-#define PHY_R27_MAC_CONFIG_RGMII     0x000B
-#define PHY_R27_MAC_CONFIG_SGMII     0x0004
+#define PHY_R27_MAC_CONFIG_GMII      0x000F	/**< PHY R27 MAC CONFIG GMII. */
+#define PHY_R27_MAC_CONFIG_MII       0x000F	/**< PHY R27 MAC CONFIG MII. */
+#define PHY_R27_MAC_CONFIG_RGMII     0x000B	/**< PHY R27 MAC CONFIG RGMII. */
+#define PHY_R27_MAC_CONFIG_SGMII     0x0004	/**< PHY R27 MAC CONFIG SGMII. */
 
 /* Marvel PHY 88E1116R Specific definitions */
-#define PHY_R22_PAGE_ADDR_REG	22
-#define PHY_PG2_R21_CTRL_REG	21
+#define PHY_R22_PAGE_ADDR_REG	22	/**< PHY R22 PAGE ADDR REG. */
+#define PHY_PG2_R21_CTRL_REG	21	/**< PHY PG2 R21 CTRL REG. */
 
-#define PHY_REG21_10      0x0030
-#define PHY_REG21_100     0x2030
-#define PHY_REG21_1000    0x0070
+#define PHY_REG21_10      0x0030	/**< PHY REG21 10. */
+#define PHY_REG21_100     0x2030	/**< PHY REG21 100. */
+#define PHY_REG21_1000    0x0070	/**< PHY REG21 1000. */
 
 /* Marvel PHY flags */
-#define MARVEL_PHY_88E1111_MODEL	0xC0
-#define MARVEL_PHY_88E1116R_MODEL	0x240
-#define PHY_MODEL_NUM_MASK		0x3F0
+#define MARVEL_PHY_88E1111_MODEL	0xC0	/**< MARVEL PHY 88E1111 MODEL. */
+#define MARVEL_PHY_88E1116R_MODEL	0x240	/**< MARVEL PHY 88E1116R MODEL. */
+#define PHY_MODEL_NUM_MASK		0x3F0	/**< PHY MODEL NUM MASK. */
 
 /* TI PHY flags */
-#define TI_PHY_IDENTIFIER		0x2000
-#define TI_PHY_MODEL			0x230
-#define TI_PHY_CR			0xD
-#define TI_PHY_PHYCTRL			0x10
-#define TI_PHY_CR_SGMII_EN		0x0800
-#define TI_PHY_ADDDR			0xE
-#define TI_PHY_CFGR2			0x14
-#define TI_PHY_SGMIITYPE		0xD3
-#define TI_PHY_CFGR2_SGMII_AUTONEG_EN	0x0080
-#define TI_PHY_SGMIICLK_EN		0x4000
-#define TI_PHY_CR_DEVAD_EN		0x001F
-#define TI_PHY_CR_DEVAD_DATAEN		0x4000
+#define TI_PHY_IDENTIFIER		0x2000	/**< TI PHY IDENTIFIER. */
+#define TI_PHY_MODEL			0x230	/**< TI PHY MODEL. */
+#define TI_PHY_CR			0xD	/**< TI PHY CR. */
+#define TI_PHY_PHYCTRL			0x10	/**< TI PHY PHYCTRL. */
+#define TI_PHY_CR_SGMII_EN		0x0800	/**< TI PHY CR SGMII EN. */
+#define TI_PHY_ADDDR			0xE	/**< TI PHY ADDDR. */
+#define TI_PHY_CFGR2			0x14	/**< TI PHY CFGR2. */
+#define TI_PHY_SGMIITYPE		0xD3	/**< TI PHY SGMIITYPE. */
+#define TI_PHY_CFGR2_SGMII_AUTONEG_EN	0x0080	/**< TI PHY CFGR2 SGMII AUTONEG EN. */
+#define TI_PHY_SGMIICLK_EN		0x4000	/**< TI PHY SGMIICLK EN. */
+#define TI_PHY_CR_DEVAD_EN		0x001F	/**< TI PHY CR DEVAD EN. */
+#define TI_PHY_CR_DEVAD_DATAEN		0x4000	/**< TI PHY CR DEVAD DATAEN. */
 /*************************** Type Definitions *******************************/
 
 
@@ -310,8 +306,10 @@ u16 IpHeaderInfo[IP_HEADER_INFO_LEN] =
 static u8 RxFrame[NUM_OF_PING_REQ_PKTS * XAE_JUMBO_MTU];
 static u8 TxFrame[NUM_OF_PING_REQ_PKTS * XAE_JUMBO_MTU];
 
+/** @cond INTERNAL */
 static int RxBdSetup(XMcdma *McDmaInstPtr, XAxiEthernet *AxiEthernetInstancePtr);
 static int TxBdSetup(XMcdma *McDmaInstPtr, XAxiEthernet *AxiEthernetInstancePtr);
+/** @endcond */
 
 /** @cond INTERNAL */
 char RxBdSpace[RXBD_SPACE_BYTES] __attribute__ ((aligned(BD_ALIGNMENT)));
@@ -347,8 +345,12 @@ int Mcdma_ChanId = 1;
 *
 * @brief Main entry point of the Ping Request example in polled mode.
 *
+****************************************************************************
+*
+* @return XST_SUCCESS on success, otherwise XST_FAILURE.
 *
 *****************************************************************************/
+
 int main()
 {
 	int Status;
@@ -382,9 +384,9 @@ int main()
 * mode. generate specified number of request packets as
 * defined in "NUM_OF_PING_REQ_PKTS.
 *
-* @param[in] AxiEthernetInstancePtr is a pointer to the instance of the
+* @param[in] AxiEthernetInstancePtr is a pointer to the instance of the.
 *		AxiEthernet component.
-* @param[in] DmaInstancePtr is a pointer to the instance of the AXI MCDMA
+* @param[in] DmaInstancePtr is a pointer to the instance of the AXI MCDMA.
 *		component.
 * @if SDT
 * @param[in] AxiEthernetBaseAddress contains the base address of the AxiEthernet device.
@@ -404,7 +406,6 @@ int main()
 *		AxiEthernet. Since AxiMcdma reset line is connected to the
 *		AxiEthernet reset line, a reset of AxiMcdma hardware during its
 *		initialization would reset AxiEthernet.
-*
 *
 ******************************************************************************/
 #ifndef SDT
@@ -617,6 +618,15 @@ int AxiEthernetPingReqExample(XAxiEthernet *AxiEthernetInstancePtr,
 	return XST_SUCCESS;
 }
 
+/****************************************************************************/
+/**
+* @brief Sets up the PHY for the ping example.
+*
+* @param[in] AxiEthernetInstancePtr Pointer to the AXI Ethernet driver instance.
+*
+* @return XST_SUCCESS on success, otherwise an error code.
+*
+*****************************************************************************/
 int PhySetup(XAxiEthernet *AxiEthernetInstancePtr)
 {
 	u16 PhyReg0;
@@ -647,7 +657,6 @@ int PhySetup(XAxiEthernet *AxiEthernetInstancePtr)
 }
 
 /****************************************************************************/
-/** @cond INTERNAL */
 /**
 *
 * @brief Sets up the buffer descriptor chain for the Ingress mcdma Channels.
@@ -660,7 +669,6 @@ int PhySetup(XAxiEthernet *AxiEthernetInstancePtr)
 * @note This function is specific to the ping request example.
 *
 ******************************************************************************/
-/** @endcond */
 static int RxBdSetup(XMcdma *McDmaInstPtr, XAxiEthernet *AxiEthernetInstancePtr)
 {
 	XMcdma_ChanCtrl *Rx_Chan;
@@ -695,7 +703,6 @@ static int RxBdSetup(XMcdma *McDmaInstPtr, XAxiEthernet *AxiEthernetInstancePtr)
 }
 
 /****************************************************************************/
-/** @cond INTERNAL */
 /**
 *
 * @brief Sets up the buffer descriptor chain for the Egress Channels.
@@ -708,7 +715,6 @@ static int RxBdSetup(XMcdma *McDmaInstPtr, XAxiEthernet *AxiEthernetInstancePtr)
 * @note This function is specific to the ping request example.
 *
 ******************************************************************************/
-/** @endcond */
 static int TxBdSetup(XMcdma *McDmaInstPtr, XAxiEthernet *AxiEthernetInstancePtr)
 {
 	XMcdma_ChanCtrl  *Tx_Chan;
@@ -741,6 +747,14 @@ static int TxBdSetup(XMcdma *McDmaInstPtr, XAxiEthernet *AxiEthernetInstancePtr)
 	return XST_SUCCESS;
 }
 
+/****************************************************************************/
+/**
+* @brief Polls for transmit completion status.
+*
+* @param[in] McDmaInstPtr Pointer to the MCDMA driver instance.
+* @param[in] Chan_id MCDMA channel identifier.
+*
+*****************************************************************************/
 static void PollTxData(XMcdma *McDmaInstPtr, u16 Chan_id)
 {
 	int ProcessedBdCnt;
@@ -752,6 +766,15 @@ static void PollTxData(XMcdma *McDmaInstPtr, u16 Chan_id)
 	FramesTx += ProcessedBdCnt;
 }
 
+/****************************************************************************/
+/**
+* @brief Checks the transmit DMA completion result.
+*
+* @param[in] InstancePtr Pointer to the driver instance.
+*
+* @return XST_SUCCESS on success, otherwise an error code.
+*
+*****************************************************************************/
 int CheckTxDmaResult(XMcdma *InstancePtr) {
         u16 Chan_id = 1;
         u32 i, Chan_SerMask;
@@ -766,6 +789,16 @@ int CheckTxDmaResult(XMcdma *InstancePtr) {
         return XST_SUCCESS;
 }
 
+/****************************************************************************/
+/**
+* @brief Polls for receive completion status.
+*
+* @param[in] McDmaInstPtr Pointer to the MCDMA driver instance.
+* @param[in] Chan_id MCDMA channel identifier.
+*
+* @return XST_SUCCESS on success, otherwise an error code.
+*
+*****************************************************************************/
 static int PollRxData(XMcdma *McDmaInstPtr, u32 Chan_id)
 {
 	int ProcessedBdCnt;
@@ -783,6 +816,15 @@ static int PollRxData(XMcdma *McDmaInstPtr, u32 Chan_id)
 }
 
 
+/****************************************************************************/
+/**
+* @brief Receives a frame through AXI Ethernet and MCDMA.
+*
+* @param[in] InstancePtr Pointer to the driver instance.
+*
+* @return XST_SUCCESS on success, otherwise an error code.
+*
+*****************************************************************************/
 int XAxiEnet_Recv(XMcdma *InstancePtr)
 {
 	 u16 Chan_id = 1;
@@ -799,6 +841,18 @@ int XAxiEnet_Recv(XMcdma *InstancePtr)
 	  return len;
 }
 
+/****************************************************************************/
+/**
+* @brief Sets up receive path resources for the example.
+*
+* @param[in] McDmaInstPtr Pointer to the MCDMA driver instance.
+* @param[in] AxiEthernetInstancePtr Pointer to the AXI Ethernet driver instance.
+* @param[in] ChanId MCDMA channel identifier.
+* @param[in] NumPkts Number of packets to process.
+*
+* @return XST_SUCCESS on success, otherwise an error code.
+*
+*****************************************************************************/
 int RxSetup(XMcdma *McDmaInstPtr, XAxiEthernet *AxiEthernetInstancePtr,
 			u8 ChanId, u32 NumPkts)
 {
@@ -834,6 +888,19 @@ int RxSetup(XMcdma *McDmaInstPtr, XAxiEthernet *AxiEthernetInstancePtr,
 
 }
 
+/****************************************************************************/
+/**
+* @brief Sends a frame through AXI Ethernet and MCDMA.
+*
+* @param[in] AxiEthernetInstancePtr Pointer to the AXI Ethernet driver instance.
+* @param[in] DmaInstancePtr Pointer to the DMA driver instance.
+* @param[in] ChanId MCDMA channel identifier.
+* @param[in] TxBufPtr Pointer to the transmit buffer.
+* @param[in] len Length of the frame in bytes.
+*
+* @return XST_SUCCESS on success, otherwise an error code.
+*
+*****************************************************************************/
 int XAxienet_Send(XAxiEthernet *AxiEthernetInstancePtr, XMcdma *DmaInstancePtr,
 		  u8 ChanId, UINTPTR TxBufPtr, u32 len)
 {
@@ -863,6 +930,13 @@ int XAxienet_Send(XAxiEthernet *AxiEthernetInstancePtr, XMcdma *DmaInstancePtr,
 	return XST_SUCCESS;
 }
 
+/****************************************************************************/
+/**
+* @brief Returns a transmit buffer address for the channel.
+*
+* @return XST_SUCCESS on success, otherwise an error code.
+*
+*****************************************************************************/
 int GetBufAddr()
 {
 	UINTPTR TxBufPtr;
@@ -878,6 +952,13 @@ int GetBufAddr()
 	return TxBufPtr;
 }
 
+/****************************************************************************/
+/**
+* @brief Returns a receive buffer address for the channel.
+*
+* @return XST_SUCCESS on success, otherwise an error code.
+*
+*****************************************************************************/
 int GetRxBufAddr()
 {
 	UINTPTR RxBufPtr;
@@ -898,13 +979,11 @@ int GetRxBufAddr()
 *
 * @brief send a ARP request packet.
 *
-* @param[in] AxiEthernetInstancePtr is a pointer to the instance of the
+* @param[in] AxiEthernetInstancePtr is a pointer to the instance of the.
 *		Axi Ethernet component.
-* @param[in] DmaInstancePtr is a pointer to the instance of the Dma
+* @param[in] DmaInstancePtr is a pointer to the instance of the Dma.
 *		component.
 * @param[in] ChanId is the MCDMA Channel number to be operate on.
-*
-*
 *
 ******************************************************************************/
 void SendArpReqFrame(XAxiEthernet *AxiEthernetInstancePtr,
@@ -1012,13 +1091,11 @@ void SendArpReqFrame(XAxiEthernet *AxiEthernetInstancePtr,
 *
 * @brief send a Echo request packet.
 *
-* @param[in] AxiEthernetInstancePtr is a pointer to the instance of the
+* @param[in] AxiEthernetInstancePtr is a pointer to the instance of the.
 *		Axi Ethernet component.
-* @param[in] DmaInstancePtr is a pointer to the instance of the Dma
+* @param[in] DmaInstancePtr is a pointer to the instance of the Dma.
 *		component.
 * @param[in] ChanId is the MCDMA Channel number to be operate on.
-*
-*
 *
 ******************************************************************************/
 void SendEchoReqFrame(XAxiEthernet *AxiEthernetInstancePtr,
@@ -1144,9 +1221,9 @@ void SendEchoReqFrame(XAxiEthernet *AxiEthernetInstancePtr,
 * @brief process the received packet. Sends.
 * the echo request packet based on the ARP reply packet.
 *
-* @param[in] AxiEthernetInstancePtr is a pointer to the instance of the
+* @param[in] AxiEthernetInstancePtr is a pointer to the instance of the.
 *		Axi Ethernet component.
-* @param[in] DmaInstancePtr is a pointer to the instance of the Dma
+* @param[in] DmaInstancePtr is a pointer to the instance of the Dma.
 *		component.
 * @param[in] ChanId is the MCDMA Channel number to be operate on.
 *
@@ -1271,11 +1348,11 @@ int ProcessRecvFrame(XAxiEthernet *AxiEthernetInstancePtr,
 *
 * @brief Calculates the checksum and returns a 16 bit result.
 *
-* @param[in] RxFramePtr is a 16 bit pointer for the data to which checksum
+* @param[in] RxFramePtr is a 16 bit pointer for the data to which checksum.
 * 		is to be calculated.
-* @param[in] StartLoc is the starting location of the data from which the
+* @param[in] StartLoc is the starting location of the data from which the.
 *		checksum has to be calculated.
-* @param[in] Length is the number of halfwords(16 bits) to which checksum is
+* @param[in] Length is the number of halfwords(16 bits) to which checksum is.
 * 		to be calculated.
 *
 * @return	It returns a 16 bit checksum value.
@@ -1320,7 +1397,6 @@ static u16 CheckSumCalculation(u16 *RxFramePtr, int StartLoc, int Length)
 *
 * @return	XST_SUCCESS is returned when both the entities are same,
 *		otherwise XST_FAILURE is returned.
-*
 *
 ******************************************************************************/
 static int CompareData(u16 *LhsPtr, u16 *RhsPtr, int LhsLoc, int RhsLoc,

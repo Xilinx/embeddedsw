@@ -11,7 +11,7 @@
 * @addtogroup axiethernet Overview
 * @{
 *
-*
+* @brief Implements Audio Video Bridging (AVB) helper functions for AXI Ethernet.
 * The top level c file for the AVB driver.
 *
 * <pre>
@@ -67,9 +67,9 @@ static void XAvb_StubHandler(void *CallBackRef, u32 TimestampsUncertain);
 *
 * @brief A function to initialise variables in the data structure records.
 *
-* @param[in] InstancePtr is a pointer to the XAvb instance to be worked on
-* @param[in] ConfigPtr is the Configuration Pointer
-* @param[in] EffectiveAddress is the base address of the Configuration Pointer
+* @param[in] InstancePtr is a pointer to the XAvb instance to be worked on.
+* @param[in] ConfigPtr is the Configuration Pointer.
+* @param[in] EffectiveAddress is the base address of the Configuration Pointer.
 *
 * @return
 *   - XST_SUCCESS if initialization was successful
@@ -124,8 +124,6 @@ XStatus XAvb_CfgInitialize(XAvb *InstancePtr,
 * (reset) defaults.
 *
 * @param[in] InstancePtr is a pointer to the Xavb instance to be worked on.
-*
-*
 *
 ******************************************************************************/
 void XAvb_Reset(XAvb * InstancePtr)
@@ -211,8 +209,6 @@ void XAvb_Reset(XAvb * InstancePtr)
 *
 * @param[in] InstancePtr is a pointer to the Xavb instance to be worked on.
 *
-*
-*
 ******************************************************************************/
 void XAvb_Start(XAvb * InstancePtr)
 {
@@ -227,7 +223,7 @@ void XAvb_Start(XAvb * InstancePtr)
   InstancePtr->PtpIsRunning   = 1;
 
   /* Assume that the Peer is not AS capable until it replies to a pDelay_Req
-    * frame */.
+    * frame */
 
   XAvb_ChangePeerASCapability(InstancePtr, 0);
 
@@ -243,8 +239,6 @@ void XAvb_Start(XAvb * InstancePtr)
 * @brief stop the PTP drivers from running.
 *
 * @param[in] InstancePtr is a pointer to the Xavb instance to be worked on.
-*
-*
 *
 ******************************************************************************/
 void XAvb_Stop(XAvb * InstancePtr)
@@ -266,9 +260,7 @@ void XAvb_Stop(XAvb * InstancePtr)
 * @brief The Interrupt subroutine for the "interruptPtpTimer" signal.  This interrupt.
 * fires regularly on a 1/128 second period (based on the RTC).
 *
-* @param[in] InstancePtr is a pointer to the XAvb instance to be worked on
-*
-*
+* @param[in] InstancePtr is a pointer to the XAvb instance to be worked on.
 *
 *****************************************************************************/
 void XAvb_PtpTimerInterruptHandler(XAvb * InstancePtr) {
@@ -370,7 +362,7 @@ void XAvb_PtpTimerInterruptHandler(XAvb * InstancePtr) {
 
 
           /* No Syncs received from GM for timeout interval: we become
-           * the master */.
+           * the master */
           xil_printf("\r\n*** Sync Timeout : Call XAvb_BecomeRtcMaster() *** \r\n");
           XAvb_BecomeRtcMaster(InstancePtr,0);
 
@@ -436,9 +428,7 @@ void XAvb_PtpTimerInterruptHandler(XAvb * InstancePtr) {
 * fires whenever a PTP frame has been received.  The main function is to
 * identify, decode, and act on the type of PTP frame received.
 *
-* @param[in] InstancePtr is a pointer to the XAvb instance to be worked on
-*
-*
+* @param[in] InstancePtr is a pointer to the XAvb instance to be worked on.
 *
 *****************************************************************************/
 void XAvb_PtpRxInterruptHandler(XAvb * InstancePtr) {
@@ -461,7 +451,7 @@ void XAvb_PtpRxInterruptHandler(XAvb * InstancePtr) {
 
 
     /* RxPtpSoftPointer indicates the bin location of the last frame to be
-     * processed in software. */.
+     * processed in software. */
 
     while (   (InstancePtr->PtpCounters.RxPtpSoftPointer & 0xF)
            != (InstancePtr->PtpCounters.RxPtpHardPointer & 0xF) ) {
@@ -491,21 +481,21 @@ void XAvb_PtpRxInterruptHandler(XAvb * InstancePtr) {
         switch (MessageType) {
 
           /* Sync Frame
-           * ---------- */.
+           * ---------- */
 
           case XAVB_PTP_TYPE_SYNC:
             XAvb_DecodeRxSync(InstancePtr, PtpFrameBaseAddr);
           break;
 
           /* Follow Up Frame
-           * --------------- */.
+           * --------------- */
 
           case XAVB_PTP_TYPE_FOLLOW_UP:
             XAvb_DecodeRxFollowUp(InstancePtr, PtpFrameBaseAddr);
           break;
 
           /* PDelayReq Frame
-           * --------------- */.
+           * --------------- */
 
           case XAVB_PTP_TYPE_PDELAYREQ:
             /* Send a send PDelayResp frame after receiving a PDelayReq Frame */
@@ -517,14 +507,14 @@ void XAvb_PtpRxInterruptHandler(XAvb * InstancePtr) {
           break;
 
           /* PDelayResp Frame
-           * ---------------- */.
+           * ---------------- */
 
           case XAVB_PTP_TYPE_PDELAYRESP:
             XAvb_DecodeRxPDelayResp(InstancePtr, PtpFrameBaseAddr);
           break;
 
           /* PDelayRespFollowUp Frame
-           * ------------------------ */.
+           * ------------------------ */
 
           case XAVB_PTP_TYPE_PDELAYRESP_FOLLOW_UP:
             EchoPTPFramesReceived = 1;
@@ -532,7 +522,7 @@ void XAvb_PtpRxInterruptHandler(XAvb * InstancePtr) {
           break;
 
           /* Announce Frame
-           * -------------- */.
+           * -------------- */
 
           case XAVB_PTP_TYPE_ANNOUNCE:
             XAvb_DecodeRxAnnounceFrame(InstancePtr,
@@ -540,14 +530,14 @@ void XAvb_PtpRxInterruptHandler(XAvb * InstancePtr) {
           break;
 
           /* Signaling Frame
-           * -------------- */.
+           * -------------- */
 
           case XAVB_PTP_TYPE_SIGNALING:
             XAvb_DecodeRxSignaling(InstancePtr, PtpFrameBaseAddr);
           break;
 
           /* Unknown Frame
-           * -------------- */.
+           * -------------- */
 
           default:
 #ifdef DEBUG_XAVB_LEVEL1
@@ -570,11 +560,11 @@ void XAvb_PtpRxInterruptHandler(XAvb * InstancePtr) {
   } else {  /* InstancePtr->PtpIsRunning != 1 */
 
     /* PTP is not running so just consume the packets so they are not left in the
-     * queue and cause problems when we actually start */.
+     * queue and cause problems when we actually start */
 
 
     /* RxPtpSoftPointer indicates the bin location of the last frame to be
-     * processed in software. */.
+     * processed in software. */
 
     while (   (InstancePtr->PtpCounters.RxPtpSoftPointer & 0xF)
            != (InstancePtr->PtpCounters.RxPtpHardPointer & 0xF) ) {
@@ -587,17 +577,11 @@ void XAvb_PtpRxInterruptHandler(XAvb * InstancePtr) {
 
 }
 
-/***************************************************************************
+/**
+* @brief Provides a stub handler when the application does not define one.
 *
-* @brief Provides a stub handler such that if the application does not.
-* define a handler this function will be called.
-*
-* @param[in] CallBackRef has no purpose but is necessary to match the
-*               interface for a handler.
-* @param[in] TimestampsUncertain has no purpose but is necessary to match the
-*               interface for a handler.
-*
-*
+* @param[in] CallBackRef Callback reference provided at registration.
+* @param[in] TimestampsUncertain Indicates whether timestamps are uncertain.
 *
 *****************************************************************************/
 static void XAvb_StubHandler(void *CallBackRef, u32 TimestampsUncertain)
@@ -615,15 +599,13 @@ static void XAvb_StubHandler(void *CallBackRef, u32 TimestampsUncertain)
 * RX Filtering Control Register - such that AV traffic is correctly filtered
 * by the RX Splitter.
 *
-* @param[in] InstancePtr is a pointer to the XAvb instance to be worked on
+* @param[in] InstancePtr is a pointer to the XAvb instance to be worked on.
 *
-* @param[in] VlanPriority contains the 3-bit value to be written to the register
+* @param[in] VlanPriority contains the 3-bit value to be written to the register.
 *         in the correct bit positions as defined in the address map
 *
-* @param[in] SrClass is '0' if VLAN Priority (PCP) A is to be updated and is
+* @param[in] SrClass is '0' if VLAN Priority (PCP) A is to be updated and is.
 *                    '1' if VLAN Priority (PCP) B is to be updated
-*
-*
 *
 *****************************************************************************/
 void XAvb_SetupRxFilterControlPcp(XAvb * InstancePtr,
@@ -652,15 +634,13 @@ void XAvb_SetupRxFilterControlPcp(XAvb * InstancePtr,
 * RX Filtering Control Register - such that AV traffic is correctly filtered
 * by the RX Splitter.
 *
-* @param[in] InstancePtr is a pointer to the XAvb instance to be worked on
+* @param[in] InstancePtr is a pointer to the XAvb instance to be worked on.
 *
-* @param[in] VlanVid contains the 12-bit value to be written to the register
+* @param[in] VlanVid contains the 12-bit value to be written to the register.
 *         in the correct bit positions as defined in the address map
 *
-* @param[in] SrClass is '0' if VLAN VID A is to be updated and is
+* @param[in] SrClass is '0' if VLAN VID A is to be updated and is.
 *                    '1' if VLAN VID B is to be updated
-*
-*
 *
 *****************************************************************************/
 void XAvb_SetupRxFilterControlVid(XAvb * InstancePtr,
@@ -689,12 +669,10 @@ void XAvb_SetupRxFilterControlVid(XAvb * InstancePtr,
 * @brief A function to set the VLAN Match Mode field for the RX Filtering Control.
 * Register - such that AV traffic is correctly filtered by the RX Splitter.
 *
-* @param[in] InstancePtr is a pointer to the XAvb instance to be worked on
+* @param[in] InstancePtr is a pointer to the XAvb instance to be worked on.
 *
-* @param[in] VlanMatchMode contains the 1-bit value to be written to the register
+* @param[in] VlanMatchMode contains the 1-bit value to be written to the register.
 *         in the correct bit position as defined in the address map
-*
-*
 *
 *****************************************************************************/
 void XAvb_SetupRxFilterControlMatchMode(XAvb * InstancePtr,

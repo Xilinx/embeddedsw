@@ -11,6 +11,7 @@
 * @addtogroup axiethernet Overview
 * @{
 *
+* @brief Provides a porting guide for the AXI Ethernet driver.
 * This is a guide on how to move from using the ll temac driver to use the
 * xaxiethernet driver.
 *
@@ -25,7 +26,6 @@
 *
 * Please read the HW Device specification of the AXI Ethernet IP for further
 * information.
-*
 *
 * The AXI Ethernet can be used in a DMA mode using the AXI DMA or
 * used in a FIFO mode using the AXI Streaming FIFO.
@@ -142,7 +142,6 @@
 * XLlTemac_Status(...)			|	XAxiEthernet_GetIntStatus
 * </pre>
 *
-*
 * <b>API Functions That Are New API Functions</b>
 *
 * - XAxiEthernet_GetTemacType(...)
@@ -152,7 +151,6 @@
 * - XAxiEthernet_ClearBadFrmRcvOption(...);
 * - XAxiEthernet_DisableControlFrameLenCheck(...)
 * - XAxiEthernet_EnableControlFrameLenCheck(...)
-*
 *
 ******************************************************************************/
 /** @} */

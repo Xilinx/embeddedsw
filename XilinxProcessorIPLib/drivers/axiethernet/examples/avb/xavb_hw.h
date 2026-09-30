@@ -10,7 +10,7 @@
 * @file xavb_hw.h
 * @addtogroup axiethernet Overview
 *
-*
+* @brief Defines AVB hardware register access macros for AXI Ethernet.
 * Defines the identifiers and basic driver functions (or
 * macros) that can be used to access the device. Other driver functions
 * are defined in xavb.h.
@@ -36,6 +36,7 @@
 ******************************************************************************/
 
 #ifndef XAVB_HW_H    /* prevent circular inclusions */
+/** @brief Include guard for the AVB hardware header. */
 #define XAVB_HW_H    /* by using protection macros */
 
 #ifdef __cplusplus
@@ -91,12 +92,12 @@ extern "C" {
  *        of which only 6 are currently in use.
  *  @{
  */
-#define XAVB_PTP_TX_SYNC_OFFSET                 0x00011000
-#define XAVB_PTP_TX_FOLLOW_UP_OFFSET            0x00011100
-#define XAVB_PTP_TX_PDELAYREQ_OFFSET            0x00011200
-#define XAVB_PTP_TX_PDELAYRESP_OFFSET           0x00011300
-#define XAVB_PTP_TX_PDELAYRESP_FOLLOW_UP_OFFSET 0x00011400
-#define XAVB_PTP_TX_ANNOUNCE_OFFSET             0x00011500
+#define XAVB_PTP_TX_SYNC_OFFSET                 0x00011000 /**< Tx PTP Sync frame buffer offset. */
+#define XAVB_PTP_TX_FOLLOW_UP_OFFSET            0x00011100 /**< Tx PTP Follow_Up frame buffer offset. */
+#define XAVB_PTP_TX_PDELAYREQ_OFFSET            0x00011200 /**< Tx PTP Pdelay_Req frame buffer offset. */
+#define XAVB_PTP_TX_PDELAYRESP_OFFSET           0x00011300 /**< Tx PTP Pdelay_Resp frame buffer offset. */
+#define XAVB_PTP_TX_PDELAYRESP_FOLLOW_UP_OFFSET 0x00011400 /**< Tx PTP Pdelay_Resp_Follow_Up frame buffer offset. */
+#define XAVB_PTP_TX_ANNOUNCE_OFFSET             0x00011500 /**< Tx PTP Announce frame buffer offset. */
 /** @} */
 
 /** @name Base address offset for the Ethernet Audio Video Endpoint Rx
@@ -104,186 +105,182 @@ extern "C" {
  *        stored in 256-byte chunks of BRAM.  This BRAM can store 16 PTP frames.
  *  @{
  */
-#define XAVB_PTP_RX_BASE_OFFSET                 0x00010000
+#define XAVB_PTP_RX_BASE_OFFSET                 0x00010000 /**< Rx PTP frame buffer base offset. */
 /** @} */
 
 /** @name AVB Tx PTP Control Register
  *  @{
  */
-#define XAVB_PTP_TX_SEND_SYNC_FRAME_MASK                     0x00000001
-#define XAVB_PTP_TX_SEND_FOLLOWUP_FRAME_MASK                 0x00000002
-#define XAVB_PTP_TX_SEND_PDELAYREQ_FRAME_MASK                0x00000004
-#define XAVB_PTP_TX_SEND_PDELAYRESP_FRAME_MASK               0x00000008
-#define XAVB_PTP_TX_SEND_PDELAYRESPFOLLOWUP_FRAME_MASK       0x00000010
-#define XAVB_PTP_TX_SEND_ANNOUNCE_FRAME_MASK                 0x00000020
-#define XAVB_PTP_TX_SEND_FRAME6_BIT_MASK                     0x00000040
-#define XAVB_PTP_TX_SEND_FRAME7_BIT_MASK                     0x00000080
-#define XAVB_PTP_TX_WAIT_SYNC_FRAME_MASK                     0x00000100
-#define XAVB_PTP_TX_WAIT_FOLLOWUP_FRAME_MASK                 0x00000200
-#define XAVB_PTP_TX_WAIT_PDELAYREQ_FRAME_MASK                0x00000400
-#define XAVB_PTP_TX_WAIT_PDELAYRESP_FRAME_MASK               0x00000800
-#define XAVB_PTP_TX_WAIT_PDELAYRESPFOLLOWUP_FRAME_MASK       0x00001000
-#define XAVB_PTP_TX_WAIT_ANNOUNCE_FRAME_MASK                 0x00002000
-#define XAVB_PTP_TX_WAIT_FRAME6_BIT_MASK                     0x00004000
-#define XAVB_PTP_TX_WAIT_FRAME7_BIT_MASK                     0x00008000
-#define XAVB_PTP_TX_WAIT_ALL_FRAMES_MASK                     0x0000FF00
-#define XAVB_PTP_TX_PACKET_FIELD_MASK                        0x00070000
+#define XAVB_PTP_TX_SEND_SYNC_FRAME_MASK                     0x00000001 /**< Tx send Sync frame bit mask. */
+#define XAVB_PTP_TX_SEND_FOLLOWUP_FRAME_MASK                 0x00000002 /**< Tx send Follow_Up frame bit mask. */
+#define XAVB_PTP_TX_SEND_PDELAYREQ_FRAME_MASK                0x00000004 /**< Tx send Pdelay_Req frame bit mask. */
+#define XAVB_PTP_TX_SEND_PDELAYRESP_FRAME_MASK               0x00000008 /**< Tx send Pdelay_Resp frame bit mask. */
+#define XAVB_PTP_TX_SEND_PDELAYRESPFOLLOWUP_FRAME_MASK       0x00000010 /**< Tx send Pdelay_Resp_Follow_Up frame bit mask. */
+#define XAVB_PTP_TX_SEND_ANNOUNCE_FRAME_MASK                 0x00000020 /**< Tx send Announce frame bit mask. */
+#define XAVB_PTP_TX_SEND_FRAME6_BIT_MASK                     0x00000040 /**< Tx send frame 6 bit mask. */
+#define XAVB_PTP_TX_SEND_FRAME7_BIT_MASK                     0x00000080 /**< Tx send frame 7 bit mask. */
+#define XAVB_PTP_TX_WAIT_SYNC_FRAME_MASK                     0x00000100 /**< Tx wait Sync frame bit mask. */
+#define XAVB_PTP_TX_WAIT_FOLLOWUP_FRAME_MASK                 0x00000200 /**< Tx wait Follow_Up frame bit mask. */
+#define XAVB_PTP_TX_WAIT_PDELAYREQ_FRAME_MASK                0x00000400 /**< Tx wait Pdelay_Req frame bit mask. */
+#define XAVB_PTP_TX_WAIT_PDELAYRESP_FRAME_MASK               0x00000800 /**< Tx wait Pdelay_Resp frame bit mask. */
+#define XAVB_PTP_TX_WAIT_PDELAYRESPFOLLOWUP_FRAME_MASK       0x00001000 /**< Tx wait Pdelay_Resp_Follow_Up frame bit mask. */
+#define XAVB_PTP_TX_WAIT_ANNOUNCE_FRAME_MASK                 0x00002000 /**< Tx wait Announce frame bit mask. */
+#define XAVB_PTP_TX_WAIT_FRAME6_BIT_MASK                     0x00004000 /**< Tx wait frame 6 bit mask. */
+#define XAVB_PTP_TX_WAIT_FRAME7_BIT_MASK                     0x00008000 /**< Tx wait frame 7 bit mask. */
+#define XAVB_PTP_TX_WAIT_ALL_FRAMES_MASK                     0x0000FF00 /**< Tx wait all frames bit mask. */
+#define XAVB_PTP_TX_PACKET_FIELD_MASK                        0x00070000 /**< Tx PTP packet field bit mask. */
 
 /** @} */
 
 /** @name AVB Rx PTP Control Register
  *  @{
  */
-#define XAVB_PTP_RX_CLEAR_BIT_MASK                           0x00000001
-#define XAVB_PTP_RX_PACKET_FIELD_MASK                        0x00000F00
+#define XAVB_PTP_RX_CLEAR_BIT_MASK                           0x00000001 /**< Rx PTP clear bit mask. */
+#define XAVB_PTP_RX_PACKET_FIELD_MASK                        0x00000F00 /**< Rx PTP packet field bit mask. */
 /** @} */
 
 /** @name AVB Rx Filter Control Register
  *  @{
  */
-#define XAVB_RX_AV_VLAN_PRIORITY_A_MASK                      0x00000007
-#define XAVB_RX_AV_VLAN_VID_A_MASK                           0x00007FF8
-#define XAVB_RX_AV_VLAN_MATCH_MODE_MASK                      0x00008000
-#define XAVB_RX_AV_VLAN_PRIORITY_B_MASK                      0x00070000
-#define XAVB_RX_AV_VLAN_VID_B_MASK                           0x7FF80000
-#define XAVB_RX_LEGACY_PROMISCUOUS_MODE_MASK                 0x80000000
+#define XAVB_RX_AV_VLAN_PRIORITY_A_MASK                      0x00000007 /**< Rx AV VLAN priority A bit mask. */
+#define XAVB_RX_AV_VLAN_VID_A_MASK                           0x00007FF8 /**< Rx AV VLAN VID A bit mask. */
+#define XAVB_RX_AV_VLAN_MATCH_MODE_MASK                      0x00008000 /**< Rx AV VLAN match mode bit mask. */
+#define XAVB_RX_AV_VLAN_PRIORITY_B_MASK                      0x00070000 /**< Rx AV VLAN priority B bit mask. */
+#define XAVB_RX_AV_VLAN_VID_B_MASK                           0x7FF80000 /**< Rx AV VLAN VID B bit mask. */
+#define XAVB_RX_LEGACY_PROMISCUOUS_MODE_MASK                 0x80000000 /**< Rx legacy promiscuous mode bit mask. */
 /** @} */
 
 /** @name AVB Tx rate control sendSlope
  *  @{
  */
-#define XAVB_TX_SENDSLOPE_MASK                               0X000FFFFF
+#define XAVB_TX_SENDSLOPE_MASK                               0X000FFFFF /**< Tx rate control sendSlope bit mask. */
 /** @} */
 
 /** @name AVB Tx rate control idleSlope
  *  @{
  */
-#define XAVB_TX_IDLESLOPE_MASK                               0X000FFFFF
+#define XAVB_TX_IDLESLOPE_MASK                               0X000FFFFF /**< Tx rate control idleSlope bit mask. */
 /** @} */
 
 /** @name AVB Tx rate control hiLimit
  *  @{
  */
-#define XAVB_TX_HILIMIT_MASK                                 0X01FFFFFF
+#define XAVB_TX_HILIMIT_MASK                                 0X01FFFFFF /**< Tx rate control hiLimit bit mask. */
 /** @} */
 
 /** @name AVB Tx rate control loLimit
  *  @{
  */
-#define XAVB_TX_LOLIMIT_MASK                                 0X01FFFFFF
+#define XAVB_TX_LOLIMIT_MASK                                 0X01FFFFFF /**< Tx rate control loLimit bit mask. */
 /** @} */
 
 /** @name RTC field Registers
  *  @{
  */
-#define XAVB_RTC_NS_MASK                                     0x3FFFFFFF
-#define XAVB_RTC_SEC_LOWER_MASK                              0xFFFFFFFF
-#define XAVB_RTC_SEC_UPPER_MASK                              0x0000FFFF
+#define XAVB_RTC_NS_MASK                                     0x3FFFFFFF /**< RTC nanoseconds field bit mask. */
+#define XAVB_RTC_SEC_LOWER_MASK                              0xFFFFFFFF /**< RTC lower seconds field bit mask. */
+#define XAVB_RTC_SEC_UPPER_MASK                              0x0000FFFF /**< RTC upper seconds field bit mask. */
 /** @} */
 
 /** @name RTC Increment Register
  *  @{
  */
-#define XAVB_RTC_INCREMENT_VALUE_MASK                        0x03FFFFFF
-/** This value assumes a 125MHz rtc_clock */
-#define XAVB_RTC_INCREMENT_NOMINAL_RATE                      0x00800000
-/**  Add some rails so that recovery is possible after a
- * string of bad pDelay values.  The RTC should be able to lock.
- *  to within 100ppm of the slowest allowable clock (25 MHz).
- *  This equates to +/-4ps.  Let's arbitrarily set the rails to
- *  400ppm (+/-16ps) just in case someone decides to use a
- *  particularly bad oscillator.  The lowest 20 bits of
- *  NewIncrement are fractions of a nanosecond, which equates
- *  to +/- 0x04189 */
-#define XAVB_RTC_400PPM_OFFSET                               0x00004189
+#define XAVB_RTC_INCREMENT_VALUE_MASK                        0x03FFFFFF /**< RTC increment value bit mask. */
+#define XAVB_RTC_INCREMENT_NOMINAL_RATE                      0x00800000 /**< RTC increment nominal rate for a 125 MHz clock. */
+/** Add rails so recovery is possible after a string of bad pDelay values.
+ * The RTC should lock within 100 ppm of the slowest allowable clock (25 MHz).
+ * This equates to +/-4 ps. The rails are set to 400 ppm (+/-16 ps). The lowest
+ * 20 bits of NewIncrement are fractions of a nanosecond (+/- 0x04189).
+ */
+#define XAVB_RTC_400PPM_OFFSET                               0x00004189 /**< RTC increment offset for approximately 400 ppm. */
 /** @} */
 
 /** @name RTC Interrupt Clear Register
  *  @{
  */
-#define XAVB_RTC_INCREMENT_VALUE_MASK                        0x03FFFFFF
+#define XAVB_RTC_INCREMENT_VALUE_MASK                        0x03FFFFFF /**< RTC increment value bit mask. */
 /** @} */
 
 
 /** @name RTC Interrupt Clear Register
  *  @{
  */
-#define XAVB_RTC_CLEAR_INT_MASK                              0x00000000
+#define XAVB_RTC_CLEAR_INT_MASK                              0x00000000 /**< RTC interrupt clear bit mask. */
 /** @} */
 
 
 /** @name RTC 8k phase offset Register
  *  @{
  */
-#define XAVB_RTC_8K_PHASE_OFFSET_MASK                        0x3FFFFFFF
+#define XAVB_RTC_8K_PHASE_OFFSET_MASK                        0x3FFFFFFF /**< RTC 8 kHz phase offset bit mask. */
 /** @} */
 
 /** @name S/W Reset  Register
  *  @{
  */
-#define XAVB_SW_RESET_TX_AND_RX_PATHS                        0x00000003
+#define XAVB_SW_RESET_TX_AND_RX_PATHS                        0x00000003 /**< Software reset for Tx and Rx paths. */
 /** @} */
 
 
 /** @name AVB MAC MDIO register address space.
  *  @{
  */
-#define XAVB_MAC_MDIO_BASE_OFFSET                            0x00006000
+#define XAVB_MAC_MDIO_BASE_OFFSET                            0x00006000 /**< MAC MDIO register base address offset. */
 /** @} */
 
 
 /** @name MDIO valid data mask (MDIO registers are all 16-bits).
  *  @{
  */
-#define XAVB_MAC_MDIO_DATA_MASK                              0x0000FFFF
+#define XAVB_MAC_MDIO_DATA_MASK                              0x0000FFFF /**< MAC MDIO 16-bit data bit mask. */
 /** @} */
 
 
 /** @name MAC Statistic Counter names and CounterID.
  *  @{
  */
-#define XAVB_STATS_BYTES_TRANSMITTED                         0x00000000
-#define XAVB_STATS_BYTES_RECEIVED                            0x00000001
-#define XAVB_STATS_UNDERSIZED_FRAMES_RECEIVED                0x00000002
-#define XAVB_STATS_FRAGMENT_FRAMES_RECEIVED                  0x00000003
-#define XAVB_STATS_64_BYTE_FRAMES_RECEIVED_OK                0x00000004
-#define XAVB_STATS_65_TO_127_BYTE_FRAMES_RECEIVED_OK         0x00000005
-#define XAVB_STATS_128_TO_255_BYTE_FRAMES_RECEIVED_OK        0x00000006
-#define XAVB_STATS_256_TO_511_BYTE_FRAMES_RECEIVED_OK        0x00000007
-#define XAVB_STATS_512_TO_1023_BYTE_FRAMES_RECEIVED_OK       0x00000008
-#define XAVB_STATS_1024_TO_1518_BYTE_FRAMES_RECEIVED_OK      0x00000009
-#define XAVB_STATS_OVERSIZED_FRAMES_RECEIVED_OK              0x0000000A
-#define XAVB_STATS_64_BYTE_FRAMES_TRANSMITTED_OK             0x0000000B
-#define XAVB_STATS_65_TO_127_BYTE_FRAMES_TRANSMITTED_OK      0x0000000C
-#define XAVB_STATS_128_TO_255_BYTE_FRAMES_TRANSMITTED_OK     0x0000000D
-#define XAVB_STATS_256_TO_511_BYTE_FRAMES_TRANSMITTED_OK     0x0000000E
-#define XAVB_STATS_512_TO_1023_BYTE_FRAMES_TRANSMITTED_OK    0x0000000F
-#define XAVB_STATS_1024_TO_1518_BYTE_FRAMES_TRANSMITTED_OK   0x00000010
-#define XAVB_STATS_OVERSIZE_FRAMES_TRANSMITTED_OK            0x00000011
-#define XAVB_STATS_FRAMES_RECEIVED_OK                        0x00000012
-#define XAVB_STATS_FCS_ERRORS                                0x00000013
-#define XAVB_STATS_BROADCAST_FRAMES_RECEIVED_OK              0x00000014
-#define XAVB_STATS_MULTICAST_FRAMES_RECEIVED_OK              0x00000015
-#define XAVB_STATS_CONTROL_FRAMES_RECEIVED_OK                0x00000016
-#define XAVB_STATS_LENGTH_TYPE_OUT_OF_RANGE                  0x00000017
-#define XAVB_STATS_VLAN_TAGGED_FRAMES_RECEIVED_OK            0x00000018
-#define XAVB_STATS_PAUSE_FRAMES_RECEIVED_OK                  0x00000019
-#define XAVB_STATS_CONTROL_FRAMES_WITH_UNSUPPORTED_OPCODE    0x0000001A
-#define XAVB_STATS_FRAMES_TRANSMITTED                        0x0000001B
-#define XAVB_STATS_BROADCAST_FRAMES_TRANSMITTED              0x0000001C
-#define XAVB_STATS_MULTICAST_FRAMES_TRANSMITTED              0x0000001D
-#define XAVB_STATS_UNDERRUN_ERRORS                           0x0000001E
-#define XAVB_STATS_CONTROL_FRAMES_TRANSMITTED_OK             0x0000001F
-#define XAVB_STATS_VLAN_TAGGED_FRAMES_TRANSMITTED_OK         0x00000020
-#define XAVB_STATS_PAUSE_FRAMES_TRANSMITTED_OK               0x00000021
-#define XAVB_STATS_SINGLE_COLLISION_FRAMES                   0x00000022
-#define XAVB_STATS_MULTI_COLLISION_FRAMES                    0x00000023
-#define XAVB_STATS_DEFERRAL_FRAMES                           0x00000024
-#define XAVB_STATS_LATE_COLLISION_FRAMES                     0x00000025
-#define XAVB_STATS_EXCESS_COLLISION_FRAMES                   0x00000026
-#define XAVB_STATS_EXCESS_DEFERRAL_FRAMES                    0x00000027
-#define XAVB_STATS_CARRIER_SENSE_ERRORS                      0x00000028
-#define XAVB_STATS_ALIGNMENT_ERRORS                          0x00000029
+#define XAVB_STATS_BYTES_TRANSMITTED                         0x00000000 /**< Stats counter ID for bytes transmitted. */
+#define XAVB_STATS_BYTES_RECEIVED                            0x00000001 /**< Stats counter ID for bytes received. */
+#define XAVB_STATS_UNDERSIZED_FRAMES_RECEIVED                0x00000002 /**< Stats counter ID for undersized frames received. */
+#define XAVB_STATS_FRAGMENT_FRAMES_RECEIVED                  0x00000003 /**< Stats counter ID for fragment frames received. */
+#define XAVB_STATS_64_BYTE_FRAMES_RECEIVED_OK                0x00000004 /**< Stats counter ID for 64-byte frames received OK. */
+#define XAVB_STATS_65_TO_127_BYTE_FRAMES_RECEIVED_OK         0x00000005 /**< Stats counter ID for 65 to 127 byte frames received OK. */
+#define XAVB_STATS_128_TO_255_BYTE_FRAMES_RECEIVED_OK        0x00000006 /**< Stats counter ID for 128 to 255 byte frames received OK. */
+#define XAVB_STATS_256_TO_511_BYTE_FRAMES_RECEIVED_OK        0x00000007 /**< Stats counter ID for 256 to 511 byte frames received OK. */
+#define XAVB_STATS_512_TO_1023_BYTE_FRAMES_RECEIVED_OK       0x00000008 /**< Stats counter ID for 512 to 1023 byte frames received OK. */
+#define XAVB_STATS_1024_TO_1518_BYTE_FRAMES_RECEIVED_OK      0x00000009 /**< Stats counter ID for 1024 to 1518 byte frames received OK. */
+#define XAVB_STATS_OVERSIZED_FRAMES_RECEIVED_OK              0x0000000A /**< Stats counter ID for oversized frames received OK. */
+#define XAVB_STATS_64_BYTE_FRAMES_TRANSMITTED_OK             0x0000000B /**< Stats counter ID for 64-byte frames transmitted OK. */
+#define XAVB_STATS_65_TO_127_BYTE_FRAMES_TRANSMITTED_OK      0x0000000C /**< Stats counter ID for 65 to 127 byte frames transmitted OK. */
+#define XAVB_STATS_128_TO_255_BYTE_FRAMES_TRANSMITTED_OK     0x0000000D /**< Stats counter ID for 128 to 255 byte frames transmitted OK. */
+#define XAVB_STATS_256_TO_511_BYTE_FRAMES_TRANSMITTED_OK     0x0000000E /**< Stats counter ID for 256 to 511 byte frames transmitted OK. */
+#define XAVB_STATS_512_TO_1023_BYTE_FRAMES_TRANSMITTED_OK    0x0000000F /**< Stats counter ID for 512 to 1023 byte frames transmitted OK. */
+#define XAVB_STATS_1024_TO_1518_BYTE_FRAMES_TRANSMITTED_OK   0x00000010 /**< Stats counter ID for 1024 to 1518 byte frames transmitted OK. */
+#define XAVB_STATS_OVERSIZE_FRAMES_TRANSMITTED_OK            0x00000011 /**< Stats counter ID for oversize frames transmitted OK. */
+#define XAVB_STATS_FRAMES_RECEIVED_OK                        0x00000012 /**< Stats counter ID for frames received OK. */
+#define XAVB_STATS_FCS_ERRORS                                0x00000013 /**< Stats counter ID for FCS errors. */
+#define XAVB_STATS_BROADCAST_FRAMES_RECEIVED_OK              0x00000014 /**< Stats counter ID for broadcast frames received OK. */
+#define XAVB_STATS_MULTICAST_FRAMES_RECEIVED_OK              0x00000015 /**< Stats counter ID for multicast frames received OK. */
+#define XAVB_STATS_CONTROL_FRAMES_RECEIVED_OK                0x00000016 /**< Stats counter ID for control frames received OK. */
+#define XAVB_STATS_LENGTH_TYPE_OUT_OF_RANGE                  0x00000017 /**< Stats counter ID for length or type out of range. */
+#define XAVB_STATS_VLAN_TAGGED_FRAMES_RECEIVED_OK            0x00000018 /**< Stats counter ID for VLAN tagged frames received OK. */
+#define XAVB_STATS_PAUSE_FRAMES_RECEIVED_OK                  0x00000019 /**< Stats counter ID for pause frames received OK. */
+#define XAVB_STATS_CONTROL_FRAMES_WITH_UNSUPPORTED_OPCODE    0x0000001A /**< Stats counter ID for control frames with unsupported opcode. */
+#define XAVB_STATS_FRAMES_TRANSMITTED                        0x0000001B /**< Stats counter ID for frames transmitted. */
+#define XAVB_STATS_BROADCAST_FRAMES_TRANSMITTED              0x0000001C /**< Stats counter ID for broadcast frames transmitted. */
+#define XAVB_STATS_MULTICAST_FRAMES_TRANSMITTED              0x0000001D /**< Stats counter ID for multicast frames transmitted. */
+#define XAVB_STATS_UNDERRUN_ERRORS                           0x0000001E /**< Stats counter ID for underrun errors. */
+#define XAVB_STATS_CONTROL_FRAMES_TRANSMITTED_OK             0x0000001F /**< Stats counter ID for control frames transmitted OK. */
+#define XAVB_STATS_VLAN_TAGGED_FRAMES_TRANSMITTED_OK         0x00000020 /**< Stats counter ID for VLAN tagged frames transmitted OK. */
+#define XAVB_STATS_PAUSE_FRAMES_TRANSMITTED_OK               0x00000021 /**< Stats counter ID for pause frames transmitted OK. */
+#define XAVB_STATS_SINGLE_COLLISION_FRAMES                   0x00000022 /**< Stats counter ID for single collision frames. */
+#define XAVB_STATS_MULTI_COLLISION_FRAMES                    0x00000023 /**< Stats counter ID for multiple collision frames. */
+#define XAVB_STATS_DEFERRAL_FRAMES                           0x00000024 /**< Stats counter ID for deferral frames. */
+#define XAVB_STATS_LATE_COLLISION_FRAMES                     0x00000025 /**< Stats counter ID for late collision frames. */
+#define XAVB_STATS_EXCESS_COLLISION_FRAMES                   0x00000026 /**< Stats counter ID for excess collision frames. */
+#define XAVB_STATS_EXCESS_DEFERRAL_FRAMES                    0x00000027 /**< Stats counter ID for excess deferral frames. */
+#define XAVB_STATS_CARRIER_SENSE_ERRORS                      0x00000028 /**< Stats counter ID for carrier sense errors. */
+#define XAVB_STATS_ALIGNMENT_ERRORS                          0x00000029 /**< Stats counter ID for alignment errors. */
 /** @} */
 
 
@@ -322,7 +319,6 @@ typedef struct
 *
 * @return The 32-bit value of the register
 *
-*
 *****************************************************************************/
 #define XAvb_ReadReg(BaseAddress, RegOffset) \
       Xil_In32((BaseAddress) + (RegOffset))
@@ -337,8 +333,6 @@ typedef struct
 * @param[in] RegOffset is the register offset to be written
 * @param[in] Data is the 32-bit value to write to the register
 *
-*
-*
 *****************************************************************************/
 #define XAvb_WriteReg(BaseAddress, RegOffset, Data) \
       Xil_Out32((BaseAddress) + (RegOffset), (Data))
@@ -352,10 +346,9 @@ typedef struct
 * @param[in] BaseAddress is the base address of the device
 * @param[in] PtpPacketBaseAddress is the base address of the frame in the PTP
 *         BRAM packet buffer
-  @param  PtpPacketOffset is the offset address within the PTP frame
+* @param[in] PtpPacketOffset is the offset address within the PTP frame
 *
 * @return The 32-bit value of the register
-*
 *
 *****************************************************************************/
 #define XAvb_ReadPtpBuffer(BaseAddress, PtpPacketBaseAddress, PtpPacketOffset)\
@@ -370,10 +363,8 @@ typedef struct
 * @param[in] BaseAddress is the base address of the device
 * @param[in] PtpPacketBaseAddress is the base address of the frame in the PTP
 *         packet buffer
-  @param  PtpPacketOffset is the offset address within the PTP frame
+* @param[in] PtpPacketOffset is the offset address within the PTP frame
 * @param[in] Data is the 32-bit value to write to the register
-*
-*
 *
 *****************************************************************************/
 #define XAvb_WritePtpBuffer(BaseAddress, PtpPacketBaseAddress, \
@@ -391,7 +382,6 @@ typedef struct
 *
 * @return The 32-bit value of the register
 *
-*
 *****************************************************************************/
 #define XAvbMac_ReadConfig(BaseAddress, RegOffset) \
       Xil_In32((BaseAddress) + (RegOffset))
@@ -405,8 +395,6 @@ typedef struct
 * @param[in] BaseAddress is the base address of the device
 * @param[in] RegOffset is the register offset to be written
 * @param[in] Data is the 32-bit value to write to the register
-*
-*
 *
 *****************************************************************************/
 #define XAvbMac_WriteConfig(BaseAddress, RegOffset, Data) \
@@ -424,7 +412,6 @@ typedef struct
 *
 * @return The 32-bit value of the register (upper 16-bits will be all 0's)
 *
-*
 *****************************************************************************/
 #define XAvbMac_ReadMdio(BaseAddress, Phyad, Regad) \
   Xil_In32((BaseAddress) + XAVB_MAC_MDIO_BASE_OFFSET         \
@@ -441,8 +428,6 @@ typedef struct
 * @param[in] Phyad is the Physical Address of the PHY
 * @param[in] Regad is the Address of the MDIO register within the addressed PHY
 * @param[in] Data is the 32-bit value to write
-*
-*
 *
 *****************************************************************************/
 #define XAvbMac_WriteMdio(BaseAddress, Phyad, Regad, Data) \

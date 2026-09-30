@@ -9,6 +9,7 @@
 * @file xaxiethernet.h
 * @addtogroup axiethernet Overview
 *
+* @brief Defines the driver API for the AXI Ethernet MAC.
 * The Xilinx AXI Ethernet MAC driver component. This driver supports hard
 * Ethernet core for Virtex-6(TM) devices and soft Ethernet core for
 * Spartan-6(TM) and other supported devices. The supported speed can be
@@ -478,6 +479,7 @@
 ******************************************************************************/
 
 #ifndef XAXIETHERNET_H		/* prevent circular inclusions */
+/** @brief Include guard for the AXI Ethernet driver header. */
 #define XAXIETHERNET_H		/* by using protection macros */
 
 /**
@@ -498,120 +500,133 @@ extern "C" {
 
 /************************* Constant Declarations *****************************/
 
-/** @name Configuration options
+/**
+ * @name Configuration options
  *
- * Device configuration options. See XAxiEthernet_SetOptions(),
+ * Device configuration options used with XAxiEthernet_SetOptions(),
  * XAxiEthernet_ClearOptions(), and XAxiEthernet_GetOptions().
  * The default state of each option is noted below.
- *
  * XAE_DEFAULT_OPTIONS is the bitmask applied by XAxiEthernet_Reset() and
  * XAxiEthernet_CfgInitialize().
+ * @{
  */
-
-#define XAE_PROMISC_OPTION		0x00000001 /**< Accept all incoming packets; default off (cleared). */
-#define XAE_JUMBO_OPTION		0x00000002 /**< Accept jumbo frames for TX/RX; default off (cleared). */
-#define XAE_VLAN_OPTION			0x00000004 /**< Enable VLAN support for TX/RX; default off (cleared). */
-#define XAE_FLOW_CONTROL_OPTION		0x00000008 /**< Recognize received flow control frames; default on (set). */
-#define XAE_FCS_STRIP_OPTION		0x00000010 /**< Strip FCS and PAD from RX frames; default on (set). */
-#define XAE_FCS_INSERT_OPTION		0x00000020 /**< Insert FCS and PAD on TX frames; default on (set). */
-#define XAE_LENTYPE_ERR_OPTION		0x00000040 /**< Enable Length/Type error checking on RX; default on (set). */
-#define XAE_TRANSMITTER_ENABLE_OPTION	0x00000080 /**< Enable transmitter; default on (set). */
-#define XAE_RECEIVER_ENABLE_OPTION	0x00000100 /**< Enable receiver; default on (set). */
-#define XAE_BROADCAST_OPTION		0x00000200 /**< Receive broadcast frames; default on (set). */
-#define XAE_MULTICAST_OPTION		0x00000400 /**< Receive programmed multicast frames; default off (cleared). */
-#define XAE_EXT_MULTICAST_OPTION	0x00000800 /**< Extended multicast address table; default depends on HW. */
-#define XAE_EXT_TXVLAN_TRAN_OPTION	0x00001000 /**< TX VLAN translation; default depends on HW. */
-#define XAE_EXT_RXVLAN_TRAN_OPTION	0x00002000 /**< RX VLAN translation; default depends on HW. */
-#define XAE_EXT_TXVLAN_TAG_OPTION	0x00004000 /**< TX VLAN tagging; default depends on HW build. */
-#define XAE_EXT_RXVLAN_TAG_OPTION	0x00008000 /**< RX VLAN tagging; default depends on HW build. */
-#define XAE_EXT_TXVLAN_STRP_OPTION	0x00010000 /**< TX VLAN stripping; default depends on HW build. */
-#define XAE_EXT_RXVLAN_STRP_OPTION	0x00020000 /**< RX VLAN stripping; default depends on HW build. */
-#define XAE_DEFAULT_OPTIONS (XAE_FLOW_CONTROL_OPTION | XAE_BROADCAST_OPTION | XAE_FCS_INSERT_OPTION | XAE_FCS_STRIP_OPTION | XAE_LENTYPE_ERR_OPTION | XAE_TRANSMITTER_ENABLE_OPTION | XAE_RECEIVER_ENABLE_OPTION) /**< Options set in XAxiEthernet_Reset() and XAxiEthernet_CfgInitialize(). */
+#define XAE_PROMISC_OPTION		0x00000001 /**< Accepts all incoming packets. Default is off. */
+#define XAE_JUMBO_OPTION		0x00000002 /**< Accepts jumbo frames for TX and RX. Default is off. */
+#define XAE_VLAN_OPTION			0x00000004 /**< Enables VLAN support for TX and RX. Default is off. */
+#define XAE_FLOW_CONTROL_OPTION		0x00000008 /**< Recognizes received flow control frames. Default is on. */
+#define XAE_FCS_STRIP_OPTION		0x00000010 /**< Strips FCS and PAD from RX frames. Default is on. */
+#define XAE_FCS_INSERT_OPTION		0x00000020 /**< Inserts FCS and PAD on TX frames. Default is on. */
+#define XAE_LENTYPE_ERR_OPTION		0x00000040 /**< Enables Length/Type error checking on RX. Default is on. */
+#define XAE_TRANSMITTER_ENABLE_OPTION	0x00000080 /**< Enables the transmitter. Default is on. */
+#define XAE_RECEIVER_ENABLE_OPTION	0x00000100 /**< Enables the receiver. Default is on. */
+#define XAE_BROADCAST_OPTION		0x00000200 /**< Receives broadcast frames. Default is on. */
+#define XAE_MULTICAST_OPTION		0x00000400 /**< Receives programmed multicast frames. Default is off. */
+#define XAE_EXT_MULTICAST_OPTION	0x00000800 /**< Enables the extended multicast address table. Default depends on hardware. */
+#define XAE_EXT_TXVLAN_TRAN_OPTION	0x00001000 /**< Enables TX VLAN translation. Default depends on hardware. */
+#define XAE_EXT_RXVLAN_TRAN_OPTION	0x00002000 /**< Enables RX VLAN translation. Default depends on hardware. */
+#define XAE_EXT_TXVLAN_TAG_OPTION	0x00004000 /**< Enables TX VLAN tagging. Default depends on hardware. */
+#define XAE_EXT_RXVLAN_TAG_OPTION	0x00008000 /**< Enables RX VLAN tagging. Default depends on hardware. */
+#define XAE_EXT_TXVLAN_STRP_OPTION	0x00010000 /**< Enables TX VLAN stripping. Default depends on hardware. */
+#define XAE_EXT_RXVLAN_STRP_OPTION	0x00020000 /**< Enables RX VLAN stripping. Default depends on hardware. */
+#define XAE_DEFAULT_OPTIONS (XAE_FLOW_CONTROL_OPTION | XAE_BROADCAST_OPTION | XAE_FCS_INSERT_OPTION | XAE_FCS_STRIP_OPTION | XAE_LENTYPE_ERR_OPTION | XAE_TRANSMITTER_ENABLE_OPTION | XAE_RECEIVER_ENABLE_OPTION) /**< Default options applied by XAxiEthernet_Reset() and XAxiEthernet_CfgInitialize(). */
+/** @} */
 
 #define XAE_MDIO_DIV_DFT		29 /**< Default MDIO clock divisor. */
 
-/*
- * The next few constants help upper layers determine the size of memory.
- * pools used for Ethernet buffers and descriptor lists.
+/**
+ * @name Ethernet buffer size constants
+ *
+ * Constants that help upper layers size memory pools for Ethernet buffers
+ * and descriptor lists.
+ * @{
  */
-#define XAE_MAC_ADDR_SIZE		6	/* MAC addresses are 6 bytes */
-#define XAE_MTU				1500	/* Max MTU size of an Ethernet
-						 * frame
-						 */
-#define XAE_JUMBO_MTU			8982	/* Max MTU size of a jumbo
-						 * Ethernet frame
-						 */
-#define XAE_HDR_SIZE			14	/* Size of an Ethernet header*/
-#define XAE_HDR_VLAN_SIZE		18	/* Size of an Ethernet header
-						 * with VLAN
-						 */
-#define XAE_TRL_SIZE			4	/* Size of an Ethernet trailer
-						 * (FCS)
-						 */
+#define XAE_MAC_ADDR_SIZE		6	/**< Size of a MAC address in bytes. */
+#define XAE_MTU				1500	/**< Maximum MTU size of an Ethernet frame. */
+#define XAE_JUMBO_MTU			8982	/**< Maximum MTU size of a jumbo Ethernet frame. */
+#define XAE_HDR_SIZE			14	/**< Size of an Ethernet header in bytes. */
+#define XAE_HDR_VLAN_SIZE		18	/**< Size of an Ethernet header with VLAN in bytes. */
+#define XAE_TRL_SIZE			4	/**< Size of an Ethernet trailer (FCS) in bytes. */
 #define XAE_MAX_FRAME_SIZE	 (XAE_MTU + XAE_HDR_SIZE + XAE_TRL_SIZE)
+	/**< Maximum Ethernet frame size including header and trailer. */
 #define XAE_MAX_VLAN_FRAME_SIZE  (XAE_MTU + XAE_HDR_VLAN_SIZE + XAE_TRL_SIZE)
+	/**< Maximum VLAN Ethernet frame size including header and trailer. */
 #define XAE_MAX_JUMBO_FRAME_SIZE (XAE_JUMBO_MTU + XAE_HDR_SIZE + XAE_TRL_SIZE)
+	/**< Maximum jumbo Ethernet frame size including header and trailer. */
+/** @} */
 
-/*
- * Constant values returned by XAxiEthernet_GetPhysicalInterface(). Note that
- * these values match design parameters from the Axi Ethernet spec.
+/**
+ * @name PHY interface type constants
+ *
+ * Values returned by XAxiEthernet_GetPhysicalInterface(). These match design
+ * parameters from the AXI Ethernet specification.
+ * @{
  */
-#define XAE_PHY_TYPE_RGMII		9
-#define XAE_PHY_TYPE_RGMII_ID		10
-#define XAE_PHY_TYPE_RGMII_RXID		11
-#define XAE_PHY_TYPE_RGMII_TXID		12
+#define XAE_PHY_TYPE_RGMII		9	/**< RGMII PHY interface type. */
+#define XAE_PHY_TYPE_RGMII_ID		10	/**< RGMII with internal delay PHY interface type. */
+#define XAE_PHY_TYPE_RGMII_RXID		11	/**< RGMII with RX internal delay PHY interface type. */
+#define XAE_PHY_TYPE_RGMII_TXID		12	/**< RGMII with TX internal delay PHY interface type. */
 
-#define XAE_PHY_INTERFACE_MODE_NA	0
-#define XAE_PHY_TYPE_MII		2
-#define XAE_PHY_TYPE_GMII		3
-#define XAE_PHY_TYPE_SGMII		4
-#define XAE_PHY_TYPE_RGMII_1_3		XAE_PHY_TYPE_RGMII
-#define XAE_PHY_TYPE_RGMII_2_0		XAE_PHY_TYPE_RGMII_RXID
-#define XAE_PHY_TYPE_1000BASE_X		21
+#define XAE_PHY_INTERFACE_MODE_NA	0	/**< PHY interface mode is not applicable. */
+#define XAE_PHY_TYPE_MII		2	/**< MII PHY interface type. */
+#define XAE_PHY_TYPE_GMII		3	/**< GMII PHY interface type. */
+#define XAE_PHY_TYPE_SGMII		4	/**< SGMII PHY interface type. */
+#define XAE_PHY_TYPE_RGMII_1_3		XAE_PHY_TYPE_RGMII	/**< RGMII 1.3 PHY interface type. */
+#define XAE_PHY_TYPE_RGMII_2_0		XAE_PHY_TYPE_RGMII_RXID	/**< RGMII 2.0 PHY interface type. */
+#define XAE_PHY_TYPE_1000BASE_X		21	/**< 1000BASE-X PHY interface type. */
+/** @} */
 
-#define XAE_TPID_MAX_ENTRIES		4
-/**< Number of storable TPIDs in the VLAN table. */
+#define XAE_TPID_MAX_ENTRIES		4 /**< Number of storable TPIDs in the VLAN table. */
 
-/*
- * Constant values passed into XAxiEthernet_SetV[tag|Strp]Mode() and returned by
- * XAxiEthernet_GetV[tag|Strp]Mode().
+/**
+ * @name VLAN tag and strip mode constants
+ *
+ * Values passed into XAxiEthernet_SetVTagMode() and XAxiEthernet_SetVStripMode()
+ * and returned by XAxiEthernet_GetVTagMode() and XAxiEthernet_GetVStripMode().
+ * @{
  */
-#define XAE_VTAG_NONE			0
-/**< No tagging. */
-#define XAE_VTAG_ALL			1
-/**< Tag all frames. */
-#define XAE_VTAG_EXISTED		2
-/**< Tag already tagged frames. */
-#define XAE_VTAG_SELECT		  	3
-/**< Tag selected already tagged frames. */
-#define XAE_DEFAULT_TXVTAG_MODE  	XAE_VTAG_ALL
-#define XAE_DEFAULT_RXVTAG_MODE  	XAE_VTAG_ALL
+#define XAE_VTAG_NONE			0	/**< No VLAN tagging. */
+#define XAE_VTAG_ALL			1	/**< Tag all frames. */
+#define XAE_VTAG_EXISTED		2	/**< Tag already tagged frames. */
+#define XAE_VTAG_SELECT		  	3	/**< Tag selected already tagged frames. */
+#define XAE_DEFAULT_TXVTAG_MODE  	XAE_VTAG_ALL	/**< Default TX VLAN tag mode. */
+#define XAE_DEFAULT_RXVTAG_MODE  	XAE_VTAG_ALL	/**< Default RX VLAN tag mode. */
 
-#define XAE_VSTRP_NONE			0
-/**< No stripping. */
-#define XAE_VSTRP_ALL			1
-/**< Strip one tag from all frames. */
-#define XAE_VSTRP_SELECT		3
-/**< Strip one tag from selected frames. */
-#define XAE_DEFAULT_TXVSTRP_MODE	XAE_VSTRP_ALL
-#define XAE_DEFAULT_RXVSTRP_MODE	XAE_VSTRP_ALL
+#define XAE_VSTRP_NONE			0	/**< No VLAN stripping. */
+#define XAE_VSTRP_ALL			1	/**< Strip one tag from all frames. */
+#define XAE_VSTRP_SELECT		3	/**< Strip one tag from selected frames. */
+#define XAE_DEFAULT_TXVSTRP_MODE	XAE_VSTRP_ALL	/**< Default TX VLAN strip mode. */
+#define XAE_DEFAULT_RXVSTRP_MODE	XAE_VSTRP_ALL	/**< Default RX VLAN strip mode. */
+/** @} */
 
-#define XAE_RX				1 /* Receive direction  */
-#define XAE_TX				2 /* Transmit direction */
+#define XAE_RX				1 /**< Receive direction. */
+#define XAE_TX				2 /**< Transmit direction. */
 
-#define XAE_SOFT_TEMAC_10_100_MBPS	0
-#define XAE_SOFT_TEMAC_10_100_1000_MBPS	1
-#define XAE_HARD_TEMC			2
+/**
+ * @name TEMAC type constants
+ * @{
+ */
+#define XAE_SOFT_TEMAC_10_100_MBPS	0	/**< Soft TEMAC at 10/100 Mbps. */
+#define XAE_SOFT_TEMAC_10_100_1000_MBPS	1	/**< Soft TEMAC at 10/100/1000 Mbps. */
+#define XAE_HARD_TEMC			2	/**< Hard TEMAC type. */
+/** @} */
 
 #if defined(SDT)
-/* AxiEthernet TYPE Enumerations */
-#define XPAR_AXI_FIFO    1U
-#define XPAR_AXI_DMA     2U
-#define XPAR_AXI_MCDMA   3U
+/**
+ * @name AXI Ethernet DMA device type constants
+ * @{
+ */
+#define XPAR_AXI_FIFO    1U	/**< AXI FIFO device type. */
+#define XPAR_AXI_DMA     2U	/**< AXI DMA device type. */
+#define XPAR_AXI_MCDMA   3U	/**< AXI MCDMA device type. */
+/** @} */
 
-/* Axi Ethernet Dev Type Masks */
-#define XAE_AXIDEVTYPE_MASK 	0xF
-#define XAE_AXIBASEADDR_MASK	0xFFFFFFFFFFFFFFF0
+/**
+ * @name AXI Ethernet device type masks
+ * @{
+ */
+#define XAE_AXIDEVTYPE_MASK 	0xF	/**< Mask for the AXI device type field. */
+#define XAE_AXIBASEADDR_MASK	0xFFFFFFFFFFFFFFF0	/**< Mask for the AXI device base address field. */
+/** @} */
 #endif
 
 #ifndef __DOXYGEN__
@@ -626,10 +641,10 @@ extern "C" {
  */
 typedef struct XAxiEthernet_Config {
 #if !defined(SDT)
-	u16 DeviceId;	/**< DeviceId is the unique ID  of the device */
+	u16 DeviceId;	/**< DeviceId is the unique ID  of the device. */
 #endif
 #if defined(SDT)
-	char *Name;	/**< Unique name of the device */
+	char *Name;	/**< Unique name of the device. */
 #endif
 	UINTPTR BaseAddress;/**< BaseAddress is the physical base address of the
 			  * device's registers.
@@ -656,23 +671,23 @@ typedef struct XAxiEthernet_Config {
                           * used (MII, GMII, RGMII, etc.
                           */
 #endif
-	u8 TxVlanTran;  /**< TX VLAN Translation indication */
-	u8 RxVlanTran;  /**< RX VLAN Translation indication */
-	u8 TxVlanTag;   /**< TX VLAN tagging indication */
-	u8 RxVlanTag;   /**< RX VLAN tagging indication */
-	u8 TxVlanStrp;  /**< TX VLAN stripping indication */
-	u8 RxVlanStrp;  /**< RX VLAN stripping indication */
-	u8 ExtMcast;    /**< Extend multicast indication */
-	u8 Stats;	/**< Statistics gathering option */
-	u8 Avb;		/**< Avb option */
-	u8 EnableSgmiiOverLvds;	/**< Enable LVDS option */
-	u8 Enable_1588;	/**< Enable 1588 option */
-	u32 Speed;	/**< Tells whether MAC is 1G or 2p5G */
-	u8 NumTableEntries;	/**< Number of table entries */
+	u8 TxVlanTran;  /**< TX VLAN Translation indication. */
+	u8 RxVlanTran;  /**< RX VLAN Translation indication. */
+	u8 TxVlanTag;   /**< TX VLAN tagging indication. */
+	u8 RxVlanTag;   /**< RX VLAN tagging indication. */
+	u8 TxVlanStrp;  /**< TX VLAN stripping indication. */
+	u8 RxVlanStrp;  /**< RX VLAN stripping indication. */
+	u8 ExtMcast;    /**< Extend multicast indication. */
+	u8 Stats;	/**< Statistics gathering option. */
+	u8 Avb;		/**< Avb option. */
+	u8 EnableSgmiiOverLvds;	/**< Enable LVDS option. */
+	u8 Enable_1588;	/**< Enable 1588 option. */
+	u32 Speed;	/**< Tells whether MAC is 1G or 2p5G. */
+	u8 NumTableEntries;	/**< Number of table entries. */
 #if defined(SDT)
-	u32 PhyAddr;	/**< PHY address for MDIO register access */
-	u16 IntrId; /**< Bits[11:0] Interrupt-id Bits[15:12] trigger type and level flags */
-	UINTPTR IntrParent; /**< Bit[0] Interrupt parent type Bit[64/32:1] Parent base address */
+	u32 PhyAddr;	/**< PHY address for MDIO register access. */
+	u16 IntrId; /**< Bits[11:0] Interrupt-id Bits[15:12] trigger type and level flags. */
+	UINTPTR IntrParent; /**< Bit[0] Interrupt parent type Bit[64/32:1] Parent base address. */
 	UINTPTR AxiDevBaseAddress; /**< Bit[3:0] AxiDevType is the type of device attached to the
 				 * Axi Ethernet's AXI4-Stream interface.
 				 * Bit[64/32:4] AxiDevBaseAddress is the base address of
@@ -681,7 +696,7 @@ typedef struct XAxiEthernet_Config {
                                  */
 #endif
 #if !defined(SDT)
-	u8 TemacIntr;	/**< Axi Ethernet interrupt ID */
+	u8 TemacIntr;	/**< Axi Ethernet interrupt ID. */
 
 	int AxiDevType;  /**< AxiDevType is the type of device attached to the
 			  * Axi Ethernet's AXI4-Stream interface.
@@ -690,12 +705,12 @@ typedef struct XAxiEthernet_Config {
 				 * the device attached to the Axi Ethernet's.
 				 *  AXI4-Stream interface.
 				 */
-	u8 AxiFifoIntr;	/**< AxiFifoIntr interrupt ID (unused if DMA) */
-	u8 AxiDmaRxIntr;/**< Axi DMA RX interrupt ID (unused if FIFO) */
-	u8 AxiDmaTxIntr;/**< Axi DMA TX interrupt ID (unused if FIFO) */
-	u8 AxiMcDmaChan_Cnt;  /**< Axi MCDMA Channel Count */
-	u8 AxiMcDmaRxIntr[16]; /**< Axi MCDMA Rx interrupt ID (unused if AXI DMA or FIFO) */
-	u8 AxiMcDmaTxIntr[16]; /**< AXI MCDMA TX interrupt ID (unused if AXI DMA or FIFO) */
+	u8 AxiFifoIntr;	/**< AxiFifoIntr interrupt ID (unused if DMA). */
+	u8 AxiDmaRxIntr;/**< Axi DMA RX interrupt ID (unused if FIFO). */
+	u8 AxiDmaTxIntr;/**< Axi DMA TX interrupt ID (unused if FIFO). */
+	u8 AxiMcDmaChan_Cnt;  /**< Axi MCDMA Channel Count. */
+	u8 AxiMcDmaRxIntr[16]; /**< Axi MCDMA Rx interrupt ID (unused if AXI DMA or FIFO). */
+	u8 AxiMcDmaTxIntr[16]; /**< AXI MCDMA TX interrupt ID (unused if AXI DMA or FIFO). */
 #endif
 } XAxiEthernet_Config;
 
@@ -707,20 +722,16 @@ typedef struct XAxiEthernet_Config {
  * of this type is then passed to the driver API functions.
  */
 typedef struct XAxiEthernet {
-	XAxiEthernet_Config Config; /**< Hardware configuration */
-	u32 IsStarted;		 /**< Device is currently started */
-	u32 IsReady;		 /**< Device is initialized and ready */
-	u32 Options;		 /**< Current options word */
-	u32 Flags;		 /**< Internal driver flags */
+	XAxiEthernet_Config Config; /**< Hardware configuration. */
+	u32 IsStarted;		 /**< Device is currently started. */
+	u32 IsReady;		 /**< Device is initialized and ready. */
+	u32 Options;		 /**< Current options word. */
+	u32 Flags;		 /**< Internal driver flags. */
 #if defined(SDT)
-	int AxiDevType;	/**< AxiDevType is the type of device attached to the
-			         * Axi Ethernet's AXI4-Stream interface.
-			         */
-	UINTPTR AxiDevBaseAddress;
+	int AxiDevType;	/**< Type of device attached to the AXI4-Stream interface. */
+	UINTPTR AxiDevBaseAddress; /**< Base address of the device attached to the AXI4-Stream interface. */
 #endif
-	u8 PhyMode;		 /**< Phymode indicates which type of PHY interface
-				   * is used(MII, GMII, RGMII, 1000BaseX, etc.
-				   */
+	u8 PhyMode;		 /**< PHY interface type (MII, GMII, RGMII, 1000BaseX, and so on). */
 } XAxiEthernet;
 
 
@@ -1021,7 +1032,6 @@ u8 XAxiEthernet_Get_Phy_Interface(XAxiEthernet *InstancePtr);
 *		can be formed using a set of bit wise or'd values from the
 *		<code>XAE_INT_*_MASK</code> maps in xaxitemac_hw.h file.
 *
-*
 * @note		C-style signature:
 *		void XAxiEthernet_IntEnable(XAxiEthernet *InstancePtr,
 *						u32 Mask)
@@ -1046,7 +1056,6 @@ u8 XAxiEthernet_Get_Phy_Interface(XAxiEthernet *InstancePtr);
 * @param[in] Mask contains a bit mask of the interrupts to disable. The mask
 *		can be formed using a set of bit wise or'd values from the
 *		<code>XAE_INT_*_MASK</code> maps in xaxitemac_hw.h file
-*
 *
 * @note		C-style signature:
 *		void XAxiEthernet_IntDisable(XAxiEthernet *InstancePtr,
@@ -1416,9 +1425,34 @@ void XAxiEthernet_Reset(XAxiEthernet *InstancePtr);
  * Initialization functions in xaxitemac_sinit.c
  */
 #if !defined(SDT)
+/*****************************************************************************/
+/**
+ * @brief Looks up device configuration by device ID.
+ *
+ * A table contains the configuration info for each device in the system.
+ *
+ * @param[in] DeviceId contains the unique ID of the device.
+ *
+ * @return A pointer to the configuration table entry corresponding to the given
+ *         device ID, or NULL if no match is found.
+ *
+ * @note In XSCT/classic flow, DeviceId is used to look up the device
+ *       configuration.
+ *
+ *****************************************************************************/
 XAxiEthernet_Config *XAxiEthernet_LookupConfig(u16 DeviceId);
 #endif
 #if defined(SDT)
+/*****************************************************************************/
+/**
+ * @brief Looks up device configuration by base address.
+ *
+ * @param[in] BaseAddress is the base address of the device to look up.
+ *
+ * @return The configuration structure for the device. If the device base
+ *         address is not found, a NULL pointer is returned.
+ *
+ *****************************************************************************/
 XAxiEthernet_Config *XAxiEthernet_LookupConfig(UINTPTR BaseAddress);
 #endif
 

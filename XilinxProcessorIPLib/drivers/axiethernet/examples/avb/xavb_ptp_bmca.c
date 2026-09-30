@@ -11,7 +11,7 @@
 * @addtogroup axiethernet Overview
 * @{
 *
-*
+* @brief Implements PTP Best Master Clock Algorithm (BMCA) helpers for AVB.
 * The XAvb driver. Functions in this file all relate to the Best Master Clock
 * Algorithm (BMCA) which is performed on the AVB network to select a network
 * Grand Master Clock.
@@ -58,12 +58,11 @@
 * @brief A New Announce Packet has been written to this device to transmit.  We need to.
 * decode it and rerun the Best Master Clock Algorithm (BMCA)
 *
-* @param[in] InstancePtr is a pointer to the XAvb instance to be worked on
+* @param[in] InstancePtr is a pointer to the XAvb instance to be worked on.
 *
 * an updated True/False decision as to whether this device
 *         should operate as a clock master or a slave is written into the
 *         CurrentBmc data structure.
-*
 *
 *****************************************************************************/
 void XAvb_DecodeTxAnnounceFrame(XAvb * InstancePtr) {
@@ -78,7 +77,7 @@ void XAvb_DecodeTxAnnounceFrame(XAvb * InstancePtr) {
                          &TxAnnounceFrame);
 
   /* Compare the clock attributes between then new Announce frame and the
-   * current master */.
+   * current master */
 
   NewMaster = XAvb_BestMasterClockAlgorithm(&TxAnnounceFrame,
                                             &InstancePtr->CurrentBmc);
@@ -112,7 +111,7 @@ void XAvb_DecodeTxAnnounceFrame(XAvb * InstancePtr) {
 #endif
 
     /* Our new Tx Announce Packet has won - so this device must be the
-     * master */.
+     * master */
 
     xil_printf("\r\n*** XAvb_DecodeTxAnnounceFrame() : Call XAvb_BecomeRtcMaster() *** \r\n");
     XAvb_BecomeRtcMaster(InstancePtr,1);
@@ -128,14 +127,13 @@ void XAvb_DecodeTxAnnounceFrame(XAvb * InstancePtr) {
 * @brief A New Announce Packet has been received.  We need to decode it and rerun the.
 * Best Master Clock Algorithm (BMCA)
 *
-* @param[in] InstancePtr is a pointer to the XAvb instance to be worked on
-* @param[in] PtpFrameBaseAddr is the base address of the received Announce Packet
+* @param[in] InstancePtr is a pointer to the XAvb instance to be worked on.
+* @param[in] PtpFrameBaseAddr is the base address of the received Announce Packet.
 *         in the Rx PTP Packet Buffer
 *
 * an updated True/False decision as to whether this device
 *         should operate as a clock master or a slave is written into the
 *         CurrentBmc data structure.
-*
 *
 *****************************************************************************/
 void XAvb_DecodeRxAnnounceFrame(XAvb * InstancePtr,
@@ -150,7 +148,7 @@ void XAvb_DecodeRxAnnounceFrame(XAvb * InstancePtr,
                          &RxAnnounceFrame);
 
   /* If the received packet's clockIdentity matches our
-   * clockIdentity, ignore the packet */.
+   * clockIdentity, ignore the packet */
 
   if( XAvb_ComparePortIdentity(InstancePtr->Config.BaseAddress,
                                InstancePtr->portIdLocal,
@@ -160,7 +158,7 @@ void XAvb_DecodeRxAnnounceFrame(XAvb * InstancePtr,
   }
 
   /* If the received packet's stepsRemoved field is >= 255,
-   * ignore the packet */.
+   * ignore the packet */
 
   if( RxAnnounceFrame.stepsRemoved >= 255 ) {
     xil_printf("Got an announce with stepsRemoved > 255.. ignoring\r\n");
@@ -241,14 +239,13 @@ void XAvb_DecodeRxAnnounceFrame(XAvb * InstancePtr,
 * packet, decode it, and extract the relevant information fields to the
 * "AnnounceFrame" data pointer.
 *
-* @param[in] BaseAddress is the base address of the device
-* @param[in] PtpFrameBaseAddr is the base address of the received Announce Packet
+* @param[in] BaseAddress is the base address of the device.
+* @param[in] PtpFrameBaseAddr is the base address of the received Announce Packet.
 *         in the Rx PTP Packet Buffer
-* @param[in] AnnounceFrame is a pointer to a suitable data structure, designed to
+* @param[in] AnnounceFrame is a pointer to a suitable data structure, designed to.
 *         record the useful fields from the received Announce Packet
 *
 * @note The AnnounceFrame data structure is updated.
-*
 *
 *****************************************************************************/
 void XAvb_ReadAnnounceFrame(u32 BaseAddress,
@@ -305,14 +302,13 @@ void XAvb_ReadAnnounceFrame(u32 BaseAddress,
 * @brief Reads the logMessageinteval from an RX PTP Buffer and updates.
 * the AnnounceFrame struct with the value read.
 *
-* @param[in] BaseAddress is the base address of the device
-* @param[in] PtpFrameBaseAddr is the base address of the received Announce Packet
+* @param[in] BaseAddress is the base address of the device.
+* @param[in] PtpFrameBaseAddr is the base address of the received Announce Packet.
 *         in the Rx PTP Packet Buffer
-* @param[in] AnnounceFrame is a pointer to a suitable data structure, designed to
+* @param[in] AnnounceFrame is a pointer to a suitable data structure, designed to.
 *         record the useful fields from the received Announce Packet
 *
 * @note The AnnounceFrame data structure is updated.
-*
 *
 *****************************************************************************/
 void XAvb_ReadAnnounceReceiptTimeout(u32 BaseAddress,
@@ -342,17 +338,16 @@ void XAvb_ReadAnnounceReceiptTimeout(u32 BaseAddress,
 * Best Master Clock Algorithm (BMCA) is then performed on these two data
 * structures by comparing the data fields
 *
-* @param[in] CurrentBmc is a pointer to a suitable data structure, designed to
+* @param[in] CurrentBmc is a pointer to a suitable data structure, designed to.
 *         record the current fields from the current Grand Master's Announce
 *         Packet.
-* @param[in] AnnounceFrame is a pointer to a suitable data structure, designed to
+* @param[in] AnnounceFrame is a pointer to a suitable data structure, designed to.
 *         record the useful fields from the received Announce Packet
 *
 * @return 1 if the announce frame represents a better master clock, 0 otherwise.
 *
 * @note Provides an updated decision on whether a change of state is required
 *         of Grand Master in the network.
-*
 *
 *****************************************************************************/
 u32 XAvb_BestMasterClockAlgorithm(XAvb_BmcData * AnnounceFrame,
@@ -413,7 +408,7 @@ u32 XAvb_BestMasterClockAlgorithm(XAvb_BmcData * AnnounceFrame,
 #endif
 
       /* Priority2 provides fine grained ordering amongst otherwise equal
-       * clocks */.
+       * clocks */
 
       if (AnnounceFrame->GrandmasterPriority2 <
           CurrentBmc->GrandmasterPriority2) {
@@ -529,7 +524,7 @@ u32 XAvb_BestMasterClockAlgorithm(XAvb_BmcData * AnnounceFrame,
                   NewMaster = 1;
 
                 /* If all else fails, the SourcePortIdentity Port Number must
-                 * act as the tie-breaker */.
+                 * act as the tie-breaker */
 
                 } else if( AnnounceFrame->SourcePortIdentity.PortNumber <
                            CurrentBmc->SourcePortIdentity.PortNumber ) {
@@ -568,14 +563,13 @@ u32 XAvb_BestMasterClockAlgorithm(XAvb_BmcData * AnnounceFrame,
 * information.  The CurrentBmc data structure is then updated with the
 * information from the NewMaster.
 *
-* @param[in] NewMaster is a pointer to a suitable data structure which has recorded
+* @param[in] NewMaster is a pointer to a suitable data structure which has recorded.
 *         the relevant Announce Packet fields of the new (winning) Grand Master.
-* @param[in] CurrentBmc is a pointer to a suitable data structure which has
+* @param[in] CurrentBmc is a pointer to a suitable data structure which has.
 *         recorded the current fields of the current Grand Master's Announce
 *         Packet.
 *
 * @note The CurrentBmc data structure is updated.
-*
 *
 *****************************************************************************/
 void XAvb_UpdateBmcRecords(XAvb_BmcData* NewMaster,
@@ -611,13 +605,11 @@ void XAvb_UpdateBmcRecords(XAvb_BmcData* NewMaster,
 * @brief make any adjustments needed when the node becomes the Grand.
 * Master, including resetting the RTC to its nominal value
 *
-* @param[in] InstancePtr is a pointer to the XAvb instance to be worked on
+* @param[in] InstancePtr is a pointer to the XAvb instance to be worked on.
 *
-* @param[in] txAnnounceHasWon indicates that this function has been called from
+* @param[in] txAnnounceHasWon indicates that this function has been called from.
 *         the function XAvb_DecodeTxAnnounceFrame(). Is this is set then this
 *         function has no need to repeat actions that have been already performed.
-*
-*
 *
 *****************************************************************************/
 void XAvb_BecomeRtcMaster(XAvb *InstancePtr,
@@ -663,9 +655,7 @@ void XAvb_BecomeRtcMaster(XAvb *InstancePtr,
 *
 * @brief make any adjustments needed when the node becomes a PTP slave.
 *
-* @param[in] InstancePtr is a pointer to the XAvb instance to be worked on
-*
-*
+* @param[in] InstancePtr is a pointer to the XAvb instance to be worked on.
 *
 *****************************************************************************/
 void XAvb_BecomeRtcSlave(XAvb *InstancePtr) {
@@ -693,10 +683,8 @@ void XAvb_BecomeRtcSlave(XAvb *InstancePtr) {
 *
 * @brief Operations needed when PTP locks or unlocks.
 *
-* @param[in] InstancePtr is a pointer to the XAvb instance to be worked on
-* @param[in] locked is 1 if changing to locked status, zero if unlocked
-*
-*
+* @param[in] InstancePtr is a pointer to the XAvb instance to be worked on.
+* @param[in] locked is 1 if changing to locked status, zero if unlocked.
 *
 *****************************************************************************/
 void XAvb_ChangePTPLockStatus(XAvb *InstancePtr, u8 locked) {
@@ -733,10 +721,8 @@ void XAvb_ChangePTPLockStatus(XAvb *InstancePtr, u8 locked) {
 *
 * @brief Operations needed when the peer's AS capability changes.
 *
-* @param[in] InstancePtr is a pointer to the XAvb instance to be worked on
-* @param[in] capable is 1 if the peer is ASCapable, 0 otherwise
-*
-*
+* @param[in] InstancePtr is a pointer to the XAvb instance to be worked on.
+* @param[in] capable is 1 if the peer is ASCapable, 0 otherwise.
 *
 *****************************************************************************/
 void XAvb_ChangePeerASCapability(XAvb *InstancePtr, u8 capable) {
@@ -766,9 +752,8 @@ void XAvb_ChangePeerASCapability(XAvb *InstancePtr, u8 capable) {
 *
 * @param[in] InstancePtr is a pointer to the XAvb instance.
 * @param[in] FuncPtr is the pointer to the callback function.
-* @param[in] CallBackRef is the upper layer callback reference passed back
+* @param[in] CallBackRef is the upper layer callback reference passed back.
 *               when the callback function is invoked.
-*
 *
 * @note         There is no assert on the CallBackRef since the driver doesn't
 *               know what it is (nor should it)

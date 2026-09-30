@@ -4,6 +4,11 @@
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
+
+/**
+ * @file xaxiethernet_g.c
+ * @brief Holds the configuration table template for AXI Ethernet devices.
+ */
 #include "xparameters.h"
 #include "xaxiethernet.h"
 

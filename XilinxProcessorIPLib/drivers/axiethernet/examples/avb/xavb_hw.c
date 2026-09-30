@@ -12,7 +12,7 @@
 * @addtogroup axiethernet Overview
 * @{
 *
-*
+* @brief Implements AVB hardware access helpers for AXI Ethernet.
 * The xavb_hw driver. Functions in this file are the minimum required functions
 * for this driver. See xavb_hw.h for a detailed description of the driver.
 *
@@ -56,11 +56,10 @@
 *
 * @brief Reads the given Ethernet Statistic Register.
 *
-* @param[in] BaseAddress is the base address of the device
+* @param[in] BaseAddress is the base address of the device.
 * @param[in] CounterId is the statistic counter to read.
-* @param[in] Value a pointer to the read value of the 64-bit value of the counter
+* @param[in] Value a pointer to the read value of the 64-bit value of the counter.
 *         and it is updated by this function
-*
 *
 * @note   The CounterId values defined here are the same as the Statistic Counter
 *         Addresses as used with the TEMAC core.  Since each counter is 8-bytes
@@ -83,11 +82,10 @@ void XAvbMac_ReadStats(u32 BaseAddress,
 *
 * @brief Reads the current Real Time Counter (RTC) value.
 *
-* @param[in] BaseAddress is the base address of the device
-* @param[in] RtcValue is a pointer to a struct in which to store the value read
+* @param[in] BaseAddress is the base address of the device.
+* @param[in] RtcValue is a pointer to a struct in which to store the value read.
 *         from the RTC (The RTC 48-bit seconds field and the 32-bit ns field
 *         of this struct are updated).
-*
 *
 * @note   This is provided as a basic function since the ns field MUST be read
 *         before the seconds/epoch registers (reading the ns samples the entire
@@ -116,10 +114,9 @@ void XAvb_ReadRtc(u32 BaseAddress,
 *
 * @brief Writes to the Real Time Counter (RTC) Offset Registers.
 *
-* @param[in] BaseAddress is the base address of the device
-* @param[in] RtcValue is the nanoseconds and seconds offset values that should
+* @param[in] BaseAddress is the base address of the device.
+* @param[in] RtcValue is the nanoseconds and seconds offset values that should.
 *         be written to the RTC.
-*
 *
 * @note   This is provided as a basic function since the ns field MUST be
 *         written after the seconds/epoch offset registers (writing to the ns

@@ -10,7 +10,7 @@
 * @addtogroup axiethernet Overview
 * @{
 *
-*
+* @brief Implements utility helpers for the AXI Ethernet examples.
 * Implements the utility functions for the Axi Ethernet example code.
 *
 * <pre>
@@ -59,11 +59,6 @@ char AxiEthernetMAC[6] = { 0x00, 0x0A, 0x35, 0x01, 0x02, 0x03 };
 *
 * @brief Set the MAC addresses in the frame.
 *
-* @param[out] FramePtr is the pointer to the frame.
-* @param[in] DestAddr is the Destination MAC address.
-*
-*
-*
 ******************************************************************************/
 void AxiEthernetUtilFrameHdrFormatMAC(EthernetFrame *FramePtr, char *DestAddr)
 {
@@ -97,11 +92,6 @@ void AxiEthernetUtilFrameHdrFormatMAC(EthernetFrame *FramePtr, char *DestAddr)
 *
 * @brief Set the frame type for the specified frame.
 *
-* @param[out] FramePtr is the pointer to the frame.
-* @param[in] FrameType is the Type to set in frame.
-*
-*
-*
 ******************************************************************************/
 void AxiEthernetUtilFrameHdrFormatType(EthernetFrame *FramePtr, u16 FrameType)
 {
@@ -128,12 +118,6 @@ void AxiEthernetUtilFrameHdrFormatType(EthernetFrame *FramePtr, u16 FrameType)
 * <pre>
 *   0, 1, 2, ... 254, 255, 00, 00, 00, 01, 00, 02, ...
 * </pre>
-*
-* @param[out] FramePtr is a pointer to the frame to change.
-* @param[in] PayloadSize is the number of bytes in the payload that will be
-*		set.
-*
-*
 *
 ******************************************************************************/
 void AxiEthernetUtilFrameSetPayloadData(EthernetFrame *FramePtr,
@@ -177,13 +161,6 @@ void AxiEthernetUtilFrameSetPayloadData(EthernetFrame *FramePtr,
 *
 * @brief Set the frame VLAN info for the specified frame.
 *
-* @param[out] FramePtr is the pointer to the frame.
-* @param[in] VlanNumber is the VlanValue insertion position to set in frame.
-* @param[in] Vid is the 4 bytes Vlan value (TPID, Priority, CFI, VID)
-*		to be set in frame.
-*
-*
-*
 ******************************************************************************/
 void AxiEthernetUtilFrameHdrVlanFormatVid(EthernetFrame *FramePtr,
 	u32 VlanNumber,	u32 Vid)
@@ -207,13 +184,6 @@ void AxiEthernetUtilFrameHdrVlanFormatVid(EthernetFrame *FramePtr,
 /**
 *
 * @brief Set the frame type for the specified frame.
-*
-* @param[out] FramePtr is the pointer to the frame.
-* @param[in] FrameType is the Type to set in frame.
-* @param[in] VlanNumber is the VLAN friendly adjusted insertion position to
-*		set in frame.
-*
-*
 *
 ******************************************************************************/
 void AxiEthernetUtilFrameHdrVlanFormatType(EthernetFrame *FramePtr,
@@ -243,13 +213,6 @@ void AxiEthernetUtilFrameHdrVlanFormatType(EthernetFrame *FramePtr,
 * <pre>
 *   0, 1, 2, ... 254, 255, 00, 00, 00, 01, 00, 02, ...
 * </pre>
-*
-* @param[out] FramePtr is a pointer to the frame to change.
-* @param[in] PayloadSize is the number of bytes in the payload that will be set.
-* @param[in] VlanNumber is the VLAN friendly adjusted insertion position to
-*		set in frame.
-*
-*
 *
 ******************************************************************************/
 void AxiEthernetUtilFrameSetVlanPayloadData(EthernetFrame *FramePtr,
@@ -295,12 +258,6 @@ void AxiEthernetUtilFrameSetVlanPayloadData(EthernetFrame *FramePtr,
 * Validation occurs by comparing the ActualFrame to the header of the
 * CheckFrame. If the headers match, then the payload of ActualFrame is
 * verified for the same pattern Util_FrameSetPayloadData() generates.
-*
-* @param[in] CheckFrame is a pointer to a frame containing the 14 byte header
-*		that should be present in the ActualFrame parameter.
-* @param[in] ActualFrame is a pointer to a frame to validate.
-*
-* @return XST_SUCCESS on success, XST_FAILURE otherwise.
 *
 *
 ******************************************************************************/
@@ -385,8 +342,6 @@ int AxiEthernetUtilFrameVerify(EthernetFrame *CheckFrame,
 /**
 * @brief Sets all bytes of a frame to 0.
 *
-* @param[out] FramePtr is a pointer to the frame itself.
-*
 *
 *
 ******************************************************************************/
@@ -403,27 +358,8 @@ void AxiEthernetUtilFrameMemClear(EthernetFrame *FramePtr)
 	}
 }
 
-/*****************************************************************************/
-/**
-*
-* @brief Detects the PHY address by looking for successful MII status.
-* register contents (PHY register 1). It looks for a PHY that supports
-* auto-negotiation and 10Mbps full-duplex and half-duplex.  So, this code
-* won't work for PHYs that don't support those features, but it's a bit more
-* general purpose than matching a specific PHY manufacturer ID.
-*
-* Note also that on some (older) Xilinx ML4xx boards, PHY address 0 does not
-* properly respond to this query.  But, since the default is 0 and assuming
-* no other address responds, then it seems to work OK.
-*
-* @param[in] The Axi Ethernet driver instance
-*
-* @return	The address of the PHY (defaults to 0 if none detected)
-*
-*
-******************************************************************************/
 /* Use MII register 1 (MII status register) to detect PHY */
-#define PHY_DETECT_REG  1
+#define PHY_DETECT_REG  1	/**< MII status register used to detect the PHY. */
 
 /* Mask used to verify certain PHY features (or register contents)
  * in the register above:
@@ -431,8 +367,21 @@ void AxiEthernetUtilFrameMemClear(EthernetFrame *FramePtr)
  *  0x0800: 10Mbps half duplex support
  *  0x0008: Auto-negotiation support
  */
-#define PHY_DETECT_MASK 0x1808
+#define PHY_DETECT_MASK 0x1808	/**< PHY detect register feature mask. */
 
+/*****************************************************************************/
+/**
+ * @brief Detects the PHY address from MII status register contents.
+ *
+ * Looks for a PHY that supports auto-negotiation and 10 Mbps full-duplex and
+ * half-duplex. On some older boards PHY address 0 may not respond, but 0 is
+ * used as the default when no other address responds.
+ *
+ * @param[in] AxiEthernetInstancePtr is a pointer to the Axi Ethernet instance.
+ *
+ * @return The address of the PHY (defaults to 0 if none is detected).
+ *
+ *****************************************************************************/
 u32 AxiEthernetDetectPHY(XAxiEthernet *AxiEthernetInstancePtr)
 {
 	u16 PhyReg;
@@ -452,14 +401,6 @@ u32 AxiEthernetDetectPHY(XAxiEthernet *AxiEthernetInstancePtr)
 	return 0;		/* Default to zero */
 }
 
-/*****************************************************************************/
-/**
-* @brief Set PHY to loopback mode. This works with the marvell PHY common on ML40x.
-* evaluation boards
-*
-* @param[in] Speed is the loopback speed 10, 100, or 1000 Mbit
-*
-******************************************************************************/
 /* IEEE PHY Specific definitions */
 #define PHY_R0_CTRL_REG		0
 #define PHY_R3_PHY_IDENT_REG	3
@@ -471,7 +412,7 @@ u32 AxiEthernetDetectPHY(XAxiEthernet *AxiEthernetInstancePtr)
 #define PHY_R0_DFT_SPD_10    0x0000
 #define PHY_R0_DFT_SPD_100   0x2000
 #define PHY_R0_DFT_SPD_1000  0x0040
-#define PHY_R0_DFT_SPD_2500  0x0040
+#define PHY_R0_DFT_SPD_2500  0x0040	/**< Default PHY speed bits for 2500 Mbps. */
 #define PHY_R0_ISOLATE       0x0400
 
 /* Marvel PHY 88E1111 Specific definitions */
@@ -804,6 +745,16 @@ int AxiEthernetUtilConfigureInternalPhy(XAxiEthernet *AxiEthernetInstancePtr,
 	return XST_SUCCESS;
 }
 
+/*****************************************************************************/
+/**
+ * @brief Configures a TI PHY for SGMII operation.
+ *
+ * @param[in] AxiEthernetInstancePtr is a pointer to the Axi Ethernet instance.
+ * @param[in] PhyAddr is the PHY address on the MDIO bus.
+ *
+ * @return XST_SUCCESS on success.
+ *
+ *****************************************************************************/
 int AxiEtherentConfigureTIPhy(XAxiEthernet *AxiEthernetInstancePtr, u32 PhyAddr)
 {
 	u16 PhyReg14;

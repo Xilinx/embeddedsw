@@ -10,6 +10,7 @@
 * @addtogroup axiethernet Overview
 * @{
 *
+* @brief Implements AXI Ethernet MAC control and configuration functions.
 * This file has driver APIs related to the controlling of the extended
 * features of the AXI Ethernet device. Please note that APIs for turning on/off
 * any of the driver features are present in axiethernet.c. This file takes care
@@ -26,7 +27,7 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.00a asa  6/30/10 First release based on the ll temac driver
-* 5.7   rsp 01/09/18 Instead of #define XAE_MULTI_MAT_ENTRIES derive multicast table
+* 5.7   rsp 01/09/18 Instead of XAE_MULTI_MAT_ENTRIES define, derive multicast table
 *                    entries max count from ethernet config structure.
 * 5.8   rsp 07/20/18 Fix cppcheck warning in Aptr assignment.
 * </pre>
@@ -69,7 +70,7 @@
 *
 * @param[in] InstancePtr is a pointer to the Axi Ethernet instance to be
 *		worked on.
-* @param[out] AddressPtr is a pointer to the 6-byte Ethernet address to set.
+* @param[in] AddressPtr is a pointer to the 6-byte Ethernet address to set.
 *		The previous address at the location <i>Entry</i> (if any) is
 *		overwritten with the value at <i>AddressPtr</i>.
 * @param[in] Entry is the hardware storage location to program this address
@@ -151,12 +152,11 @@ int XAxiEthernet_MulticastAdd(XAxiEthernet *InstancePtr, void *AddressPtr,
 *
 * @param[in] InstancePtr is a pointer to the Axi Ethernet instance to be
 *		worked on.
-* @param[out] AddressPtr references the memory buffer to store the retrieved
+* @param[in] AddressPtr references the memory buffer to store the retrieved
 *		Ethernet address. This memory buffer must be at least 6 bytes
 *		in length.
 * @param[in] Entry is the hardware storage location from which to retrieve
 *		the address and must be between 0 to (C_Number_of_Table_Entries - 1)
-*
 *
 * This routine works only with normal multicast filtering feature. A maximum
 * of 4 multicast addresses can be stored in the HW provided multicast table.
@@ -285,13 +285,12 @@ int XAxiEthernet_MulticastClear(XAxiEthernet *InstancePtr, int Entry)
 *
 * @param[in] InstancePtr is a pointer to the Axi Ethernet instance to be
 *		worked on.
-* @param[out] AddressPtr is a pointer to the 6-byte Ethernet address to set.
+* @param[in] AddressPtr is a pointer to the 6-byte Ethernet address to set.
 *
 * @return
 *		- XST_SUCCESS on successful completion.
 *		- XST_DEVICE_IS_STARTED if the Axi Ethernet device is not
 *		  stopped.
-*
 *
 ******************************************************************************/
 int XAxiEthernet_SetMacPauseAddress(XAxiEthernet *InstancePtr,
@@ -346,11 +345,9 @@ int XAxiEthernet_SetMacPauseAddress(XAxiEthernet *InstancePtr,
 *
 * @param[in] InstancePtr is a pointer to the Axi Ethernet instance to be
 *		worked on.
-* @param[out] AddressPtr references the memory buffer to store the retrieved
+* @param[in] AddressPtr references the memory buffer to store the retrieved
 *		MAC address. This memory buffer must be at least 6 bytes in
 *		length.
-*
-*
 *
 ******************************************************************************/
 void XAxiEthernet_GetMacPauseAddress(XAxiEthernet *InstancePtr,
@@ -398,7 +395,6 @@ void XAxiEthernet_GetMacPauseAddress(XAxiEthernet *InstancePtr,
 *		- XST_DEVICE_IS_STARTED if the Axi Ethernet device is not
 *		  stopped.
 *
-*
 ******************************************************************************/
 int XAxiEthernet_SendPausePacket(XAxiEthernet *InstancePtr, u16 PauseValue)
 {
@@ -431,7 +427,7 @@ int XAxiEthernet_SendPausePacket(XAxiEthernet *InstancePtr, u16 PauseValue)
 *
 * @param[in] InstancePtr is a pointer to the Axi Ethernet instance to be
 *		worked on.
-* @param[in] SpeedPtr references the location to store the result, which is
+* @param[out] SpeedPtr references the location to store the result, which is
 *		the auto negotiated link speed in units of Mbits/sec, either 0,
 *		10, 100, or 1000.
 *
@@ -501,14 +497,14 @@ int XAxiEthernet_GetSgmiiStatus(XAxiEthernet *InstancePtr, u16 *SpeedPtr)
 *
 * @param[in] InstancePtr is a pointer to the Axi Ethernet instance to be
 *		worked on.
-* @param[in] SpeedPtr references the location to store the result, which is
+* @param[out] SpeedPtr references the location to store the result, which is
 *		the auto negotiated link speed in units of Mbits/sec,
 *		either 0, 10, 100, or 1000.
-* @param[in] IsFullDuplexPtr references the value that is set by this
+* @param[out] IsFullDuplexPtr references the value that is set by this
 *		function to indicate full duplex operation.
 *		<i>IsFullDuplexPtr</i> is set to TRUE when the RGMII link is
 *		operating in full duplex mode, otherwise it is set to FALSE.
-* @param[in] IsLinkUpPtr references the value that is set by this function
+* @param[out] IsLinkUpPtr references the value that is set by this function
 *		to indicate the link status.<i>IsLinkUpPtr</i> is set to TRUE
 *		when the RGMII link up, otherwise it is set to FALSE.
 *
@@ -516,7 +512,6 @@ int XAxiEthernet_GetSgmiiStatus(XAxiEthernet *InstancePtr, u16 *SpeedPtr)
 *		- XST_SUCCESS on successful completion.
 *		- XST_NO_FEATURE if the Axi Ethernet device is not using an
 *		  RGMII interface,
-*
 *
 ******************************************************************************/
 int XAxiEthernet_GetRgmiiStatus(XAxiEthernet *InstancePtr, u16 *SpeedPtr,
@@ -678,7 +673,6 @@ int XAxiEthernet_SetTpid(XAxiEthernet *InstancePtr, u16 Tpid, u8 Entry)
 /**
 * @brief XAxiEthernet_ClearTpid clears the VLAN Tag Protocol Identifier(TPID).
 *
-*
 * @param[in] InstancePtr is a pointer to the Axi Ethernet instance to be
 *		worked on.
 * @param[in] Entry is the hardware storage location to program this address
@@ -752,11 +746,9 @@ int XAxiEthernet_ClearTpid(XAxiEthernet *InstancePtr, u8 Entry)
 *
 * @param[in] InstancePtr is a pointer to the Axi Ethernet instance to be
 *		worked on.
-* @param[in] TpidPtr references the location to store the result.
+* @param[out] TpidPtr references the location to store the result.
 * @param[in] Entry is the hardware storage location to program this address
 *		and must be between 0..XAE_TPID_MAX_ENTRIES.
-*
-*
 *
 *****************************************************************************/
 void XAxiEthernet_GetTpid(XAxiEthernet *InstancePtr, u16 *TpidPtr, u8 Entry)
@@ -882,10 +874,9 @@ int XAxiEthernet_SetVTagMode(XAxiEthernet *InstancePtr, u32 Mode, int Dir)
 *
 * @param[in] InstancePtr is a pointer to the Axi Ethernet instance to be
 		worked on.
-* @param[in] ModePtr references the location to store the VLAN tag mode.
+* @param[out] ModePtr references the location to store the VLAN tag mode.
 *		Value is between b'00-b'11.
 * @param[in] Dir must be either XAE_TX or XAE_RX.
-*
 *
 * The device must be stopped to use this function.<br><br>
 * Mode value shifting is handled in this function. No shifting is required to
@@ -1012,14 +1003,12 @@ int XAxiEthernet_SetVStripMode(XAxiEthernet *InstancePtr, u32 Mode, int Dir)
 /**
 * @brief XAxiEthernet_GetVStripMode gets the VLAN stripping mode.
 *
-*
 * @param[in] InstancePtr is a pointer to the Axi Ethernet instance to be
 *		worked on.
-* @param[in] ModePtr references the location to store the VLAN strip mode
+* @param[out] ModePtr references the location to store the VLAN strip mode
 *		returned by this function. Value is b'00, b'01 or b'11.
 *		Refer XAE_VTSRAP_* in xaxiethernet.h file for the details.
 * @param[in] Dir must be either XAE_TX or XAE_RX.
-*
 *
 * Mode value shifting is handled in this function. No shifting is required to
 * call this function.
@@ -1144,17 +1133,15 @@ int XAxiEthernet_SetVTagValue(XAxiEthernet *InstancePtr, u32 VTagValue,
 /**
 * @brief XAxiEthernet_GetVTagValue gets the configured VLAN tagging value.
 *
-*
 * @param[in] InstancePtr is a pointer to the Axi Ethernet instance to be
 *		worked on.
-* @param[in] VTagValuePtr references the location to store the result.
+* @param[out] VTagValuePtr references the location to store the result.
 *		Format is TPID, one of the following 16 bit values,
 *			  0x8100, 0x88a8, 0x9100, 0x9200.
 *		Priority, 3  bits
 *		CFI,	  1  bit
 *		VID,	  12 bits
 * @param[in] Dir must be either XAE_TX or XAE_RX.
-*
 *
 * Ethernet VLAN frames' VLAN type/length(2B) and tag control information(2B).
 * Bit layout : bbbb bbbb bbbb bbbb bbb b bbbb bbbb bbbb
@@ -1284,17 +1271,16 @@ int XAxiEthernet_SetVidTable(XAxiEthernet *InstancePtr, u32 Entry, u32 Vid,
 * @param[in] Entry is the hardware storage location/index to program
 *		updated VID value, strip, or tag value. The value must be
 *		between 0..0xFFF.
-* @param[in] VidPtr references the location to store the result.
+* @param[out] VidPtr references the location to store the result.
 *		Stores the Vid value indexed by Entry into
 *		this location.
-* @param[in] StripPtr references the location to store the result.
+* @param[out] StripPtr references the location to store the result.
 *		Stores the strip enable bit value indexed
 *		by Entry into this location.
-* @param[in] TagPtr references the location to store the result. This
+* @param[out] TagPtr references the location to store the result. This
 *		function stores the tag enable bit value indexed by Entry
 *		into this location.
 * @param[in] Dir must be either XAE_TX or XAE_RX.
-*
 *
 * The hardware requires the table to be 'indexed' with Entry and
 * must be 0x000..0xFFF.
@@ -1358,7 +1344,7 @@ void XAxiEthernet_GetVidTable(XAxiEthernet *InstancePtr, u32 Entry,
 *
 * @param[in] InstancePtr is a pointer to the Axi Ethernet instance to be
 *		worked on.
-* @param[out] AddressPtr is a pointer to the 6-byte Ethernet address to add.
+* @param[in] AddressPtr is a pointer to the 6-byte Ethernet address to add.
 *
 * @return
 *		- XST_SUCCESS.on successful completion.
@@ -1447,10 +1433,9 @@ int XAxiEthernet_AddExtMulticastGroup(XAxiEthernet *InstancePtr,
 * @brief XAxiEthernet_ClearExtMulticastGroup clears input multicast Ethernet address.
 * group from table.
 *
-*
 * @param[in] InstancePtr is a pointer to the Axi Ethernet instance to be
 *		worked on.
-* @param[out] AddressPtr is a pointer to the 6-byte Ethernet address to clear.
+* @param[in] AddressPtr is a pointer to the 6-byte Ethernet address to clear.
 *
 * @return
 *		- XST_SUCCESS on successful completion, returns XST_SUCCESS.
@@ -1545,7 +1530,7 @@ int XAxiEthernet_ClearExtMulticastGroup(XAxiEthernet *InstancePtr,
 *
 * @param[in] InstancePtr is a pointer to the Axi Ethernet instance to be
 *		worked on.
-* @param[out] AddressPtr is a pointer to the 6-byte Ethernet address.
+* @param[in] AddressPtr is a pointer to the 6-byte Ethernet address.
 *
 * @return
 *		- TRUE if it is an acceptable multicast MAC address
@@ -1609,7 +1594,6 @@ int XAxiEthernet_GetExtMulticastGroup(XAxiEthernet *InstancePtr,
 *
 * @param[in] InstancePtr is a pointer to the Axi Ethernet instance to be
 *		worked on.
-*
 *
 * Hardware requires to 'index' with bit 22-8, 15 bits in
 * total. The least significant byte/8 bits are considered a set.

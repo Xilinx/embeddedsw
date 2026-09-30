@@ -9,6 +9,7 @@
 * @file xaxiethernet_hw.h
 * @addtogroup axiethernet Overview
 *
+* @brief Defines hardware register offsets and constants for AXI Ethernet.
 * Declares identifiers and macros that can be used to access
 * the Axi Ethernet device. The driver APIs/functions appear in
 * xaxiethernet.h.
@@ -31,6 +32,7 @@
 ******************************************************************************/
 
 #ifndef XAXIETHERNET_HW_H		/* prevent circular inclusions */
+/** @brief Include guard for the AXI Ethernet hardware header. */
 #define XAXIETHERNET_HW_H		/* by using protection macros */
 
 /**************************** Include Files *********************************/
@@ -54,18 +56,18 @@ extern "C" {
 /** @name Axi Ethernet registers offset
  *  @{
  */
-#define XAE_RAF_OFFSET		0x00000000 /**< Reset and Address filter */
-#define XAE_TPF_OFFSET		0x00000004 /**< Tx Pause Frame */
-#define XAE_IFGP_OFFSET		0x00000008 /**< Tx Inter-frame gap adjustment*/
-#define XAE_IS_OFFSET		0x0000000C /**< Interrupt status */
-#define XAE_IP_OFFSET		0x00000010 /**< Interrupt pending */
-#define XAE_IE_OFFSET		0x00000014 /**< Interrupt enable */
-#define XAE_TTAG_OFFSET		0x00000018 /**< Tx VLAN TAG */
-#define XAE_RTAG_OFFSET		0x0000001C /**< Rx VLAN TAG */
-#define XAE_UAWL_OFFSET		0x00000020 /**< Unicast address word lower */
-#define XAE_UAWU_OFFSET		0x00000024 /**< Unicast address word upper */
-#define XAE_TPID0_OFFSET	0x00000028 /**< VLAN TPID0 register */
-#define XAE_TPID1_OFFSET	0x0000002C /**< VLAN TPID1 register */
+#define XAE_RAF_OFFSET		0x00000000 /**< Reset and Address filter. */
+#define XAE_TPF_OFFSET		0x00000004 /**< Tx Pause Frame. */
+#define XAE_IFGP_OFFSET		0x00000008 /**< Tx Inter-frame gap adjustment. */
+#define XAE_IS_OFFSET		0x0000000C /**< Interrupt status. */
+#define XAE_IP_OFFSET		0x00000010 /**< Interrupt pending. */
+#define XAE_IE_OFFSET		0x00000014 /**< Interrupt enable. */
+#define XAE_TTAG_OFFSET		0x00000018 /**< Tx VLAN TAG. */
+#define XAE_RTAG_OFFSET		0x0000001C /**< Rx VLAN TAG. */
+#define XAE_UAWL_OFFSET		0x00000020 /**< Unicast address word lower. */
+#define XAE_UAWU_OFFSET		0x00000024 /**< Unicast address word upper. */
+#define XAE_TPID0_OFFSET	0x00000028 /**< VLAN TPID0 register. */
+#define XAE_TPID1_OFFSET	0x0000002C /**< VLAN TPID1 register. */
 
 /*
  * Statistics Counter Registers are from offset 0x200 to 0x3FF
@@ -76,10 +78,10 @@ extern "C" {
  * the Most Significant Word (MSW) are stored in one 32 bit register
  */
 /* Start of statistics counter register offsets */
-#define XAE_RXBL_OFFSET		0x00000200 /**< Received Bytes, LSW */
-#define XAE_RXBU_OFFSET		0x00000204 /**< Received Bytes, MSW */
-#define XAE_TXBL_OFFSET		0x00000208 /**< Transmitted Bytes, LSW */
-#define XAE_TXBU_OFFSET		0x0000020C /**< Transmitted Bytes, MSW */
+#define XAE_RXBL_OFFSET		0x00000200 /**< Received Bytes, LSW. */
+#define XAE_RXBU_OFFSET		0x00000204 /**< Received Bytes, MSW. */
+#define XAE_TXBL_OFFSET		0x00000208 /**< Transmitted Bytes, LSW. */
+#define XAE_TXBU_OFFSET		0x0000020C /**< Transmitted Bytes, MSW. */
 #define XAE_RXUNDRL_OFFSET	0x00000210 /**< Count of undersize(less than
 					     * 64 bytes) frames received,
 					     *  LSW
@@ -292,8 +294,8 @@ extern "C" {
 #define XAE_TXMCU_OFFSET	0x0000031C /**< Multiple Collision Frames
 					     * Transmitted OK, MSW.
 					     */
-#define XAE_TXDEFL_OFFSET	0x00000320 /**< Deferred Tx Frames, LSW */
-#define XAE_TXDEFU_OFFSET	0x00000324 /**< Deferred Tx Frames, MSW */
+#define XAE_TXDEFL_OFFSET	0x00000320 /**< Deferred Tx Frames, LSW. */
+#define XAE_TXDEFU_OFFSET	0x00000324 /**< Deferred Tx Frames, MSW. */
 #define XAE_TXLTCL_OFFSET	0x00000328 /**< Frames transmitted with late
 					     * Collisions, LSW.
 					     */
@@ -320,26 +322,26 @@ extern "C" {
 					     */
 /* End of Statistics Counter Registers Offset constants */
 
-#define XAE_RCW0_OFFSET			0x00000400 /**< Rx Configuration Word 0 */
-#define XAE_RCW1_OFFSET			0x00000404 /**< Rx Configuration Word 1 */
-#define XAE_TC_OFFSET			0x00000408 /**< Tx Configuration */
-#define XAE_FCC_OFFSET			0x0000040C /**< Flow Control Configuration */
-#define XAE_EMMC_OFFSET			0x00000410 /**< EMAC mode configuration */
-#define XAE_RXFC_OFFSET			0x00000414 /**< Rx Max Frm Config Register */
-#define XAE_TXFC_OFFSET			0x00000418 /**< Tx Max Frm Config Register */
+#define XAE_RCW0_OFFSET			0x00000400 /**< Rx Configuration Word 0. */
+#define XAE_RCW1_OFFSET			0x00000404 /**< Rx Configuration Word 1. */
+#define XAE_TC_OFFSET			0x00000408 /**< Tx Configuration. */
+#define XAE_FCC_OFFSET			0x0000040C /**< Flow Control Configuration. */
+#define XAE_EMMC_OFFSET			0x00000410 /**< EMAC mode configuration. */
+#define XAE_RXFC_OFFSET			0x00000414 /**< Rx Max Frm Config Register. */
+#define XAE_TXFC_OFFSET			0x00000418 /**< Tx Max Frm Config Register. */
 #define XAE_TX_TIMESTAMP_ADJ_OFFSET		0x0000041C /**< Transmitter time stamp
 										* adjust control Register.
 										*/
-#define XAE_PHYC_OFFSET		0x00000420 /**< RGMII/SGMII configuration */
+#define XAE_PHYC_OFFSET		0x00000420 /**< RGMII/SGMII configuration. */
 
 /* 0x00000424 to 0x000004F4 are reserved */
 
-#define XAE_IDREG_OFFSET	0x000004F8 /**< Identification Register */
-#define XAE_ARREG_OFFSET	0x000004FC /**< Ability Register */
-#define XAE_MDIO_MC_OFFSET	0x00000500 /**< MII Management Config */
-#define XAE_MDIO_MCR_OFFSET	0x00000504 /**< MII Management Control */
-#define XAE_MDIO_MWD_OFFSET	0x00000508 /**< MII Management Write Data */
-#define XAE_MDIO_MRD_OFFSET	0x0000050C /**< MII Management Read Data */
+#define XAE_IDREG_OFFSET	0x000004F8 /**< Identification Register. */
+#define XAE_ARREG_OFFSET	0x000004FC /**< Ability Register. */
+#define XAE_MDIO_MC_OFFSET	0x00000500 /**< MII Management Config. */
+#define XAE_MDIO_MCR_OFFSET	0x00000504 /**< MII Management Control. */
+#define XAE_MDIO_MWD_OFFSET	0x00000508 /**< MII Management Write Data. */
+#define XAE_MDIO_MRD_OFFSET	0x0000050C /**< MII Management Read Data. */
 
 /* 0x00000510 to 0x000005FC are reserved */
 
@@ -364,12 +366,12 @@ extern "C" {
 
 /* 0x00000664-0x000006FC are reserved */
 
-#define XAE_UAW0_OFFSET		0x00000700  /**< Unicast address word 0 */
-#define XAE_UAW1_OFFSET		0x00000704  /**< Unicast address word 1 */
-#define XAE_FMI_OFFSET		0x00000708  /**< Filter Mask Index */
+#define XAE_UAW0_OFFSET		0x00000700  /**< Unicast address word 0. */
+#define XAE_UAW1_OFFSET		0x00000704  /**< Unicast address word 1. */
+#define XAE_FMI_OFFSET		0x00000708  /**< Filter Mask Index. */
 /* 0x0000070C is reserved */
-#define XAE_AF0_OFFSET		0x00000710  /**< Address Filter 0 */
-#define XAE_AF1_OFFSET		0x00000714  /**< Address Filter 1 */
+#define XAE_AF0_OFFSET		0x00000710  /**< Address Filter 0. */
+#define XAE_AF1_OFFSET		0x00000714  /**< Address Filter 1. */
 
 /* 0x00000718-0x00003FFC are reserved */
 
@@ -379,7 +381,7 @@ extern "C" {
  * VLAN data. The VLAN table will be used by hardware to provide
  * transmit VLAN tagging, stripping, and translation.
  */
-#define XAE_TX_VLAN_DATA_OFFSET 0x00004000 /**< TX VLAN data table address */
+#define XAE_TX_VLAN_DATA_OFFSET 0x00004000 /**< TX VLAN data table address. */
 
 
 /*
@@ -388,7 +390,7 @@ extern "C" {
  * VLAN data. The VLAN table will be used by hardware to provide
  * receive VLAN tagging, stripping, and translation.
  */
-#define XAE_RX_VLAN_DATA_OFFSET 0x00008000 /**< RX VLAN data table address */
+#define XAE_RX_VLAN_DATA_OFFSET 0x00008000 /**< RX VLAN data table address. */
 
 /* 0x0000C000-0x0000FFFC are reserved */
 
@@ -403,7 +405,7 @@ extern "C" {
  * first line of address matching when a multicast frame is reveived. It
  * can minimize the use of CPU/software hence minimize performance impact.
  */
-#define XAE_MCAST_TABLE_OFFSET   0x00020000 /**< Multicast table address */
+#define XAE_MCAST_TABLE_OFFSET   0x00020000 /**< Multicast table address. */
 /** @} */
 
 
@@ -425,11 +427,11 @@ extern "C" {
 						    * broadcast destination.
 						    *   address
 						    */
-#define XAE_RAF_TXVTAGMODE_MASK  	0x00000018 /**< Tx VLAN TAG mode */
-#define XAE_RAF_RXVTAGMODE_MASK  	0x00000060 /**< Rx VLAN TAG mode */
-#define XAE_RAF_TXVSTRPMODE_MASK 	0x00000180 /**< Tx VLAN STRIP mode */
-#define XAE_RAF_RXVSTRPMODE_MASK 	0x00000600 /**< Rx VLAN STRIP mode */
-#define XAE_RAF_NEWFNCENBL_MASK  	0x00000800 /**< New function mode */
+#define XAE_RAF_TXVTAGMODE_MASK  	0x00000018 /**< Tx VLAN TAG mode. */
+#define XAE_RAF_RXVTAGMODE_MASK  	0x00000060 /**< Rx VLAN TAG mode. */
+#define XAE_RAF_TXVSTRPMODE_MASK 	0x00000180 /**< Tx VLAN STRIP mode. */
+#define XAE_RAF_RXVSTRPMODE_MASK 	0x00000600 /**< Rx VLAN STRIP mode. */
+#define XAE_RAF_NEWFNCENBL_MASK  	0x00000800 /**< New function mode. */
 #define XAE_RAF_EMULTIFLTRENBL_MASK 	0x00001000 /**< Extended Multicast
 						     * Filtering mode.
 						     */
@@ -439,16 +441,16 @@ extern "C" {
 #define XAE_RAF_RXBADFRMEN_MASK     	0x00004000 /**< Receive Bad Frame
 						    * Enable.
 						    */
-#define XAE_RAF_TXVTAGMODE_SHIFT 	3	/**< Tx Tag mode shift bits */
-#define XAE_RAF_RXVTAGMODE_SHIFT 	5	/**< Rx Tag mode shift bits */
-#define XAE_RAF_TXVSTRPMODE_SHIFT	7	/**< Tx strip mode shift bits*/
-#define XAE_RAF_RXVSTRPMODE_SHIFT	9	/**< Rx Strip mode shift bits*/
+#define XAE_RAF_TXVTAGMODE_SHIFT 	3	/**< Tx Tag mode shift bits. */
+#define XAE_RAF_RXVTAGMODE_SHIFT 	5	/**< Rx Tag mode shift bits. */
+#define XAE_RAF_TXVSTRPMODE_SHIFT	7	/**< Tx strip mode shift bits. */
+#define XAE_RAF_RXVSTRPMODE_SHIFT	9	/**< Rx Strip mode shift bits. */
 /** @} */
 
 /** @name Transmit Pause Frame Register (TPF) bit masks
  *  @{
  */
-#define XAE_TPF_TPFV_MASK		0x0000FFFF /**< Tx pause frame value */
+#define XAE_TPF_TPFV_MASK		0x0000FFFF /**< Tx pause frame value. */
 /** @} */
 
 /** @name Transmit Inter-Frame Gap Adjustment Register (TFGP) bit masks
@@ -471,15 +473,15 @@ extern "C" {
 #define XAE_INT_AUTONEG_MASK		0x00000002 /**< Auto negotiation
 						     * complete.
 						     */
-#define XAE_INT_RXCMPIT_MASK		0x00000004 /**< Rx complete */
-#define XAE_INT_RXRJECT_MASK		0x00000008 /**< Rx frame rejected */
-#define XAE_INT_RXFIFOOVR_MASK		0x00000010 /**< Rx fifo overrun */
-#define XAE_INT_TXCMPIT_MASK		0x00000020 /**< Tx complete */
-#define XAE_INT_RXDCMLOCK_MASK		0x00000040 /**< Rx Dcm Lock */
-#define XAE_INT_MGTRDY_MASK		0x00000080 /**< MGT clock Lock */
-#define XAE_INT_PHYRSTCMPLT_MASK	0x00000100 /**< Phy Reset complete */
+#define XAE_INT_RXCMPIT_MASK		0x00000004 /**< Rx complete. */
+#define XAE_INT_RXRJECT_MASK		0x00000008 /**< Rx frame rejected. */
+#define XAE_INT_RXFIFOOVR_MASK		0x00000010 /**< Rx fifo overrun. */
+#define XAE_INT_TXCMPIT_MASK		0x00000020 /**< Tx complete. */
+#define XAE_INT_RXDCMLOCK_MASK		0x00000040 /**< Rx Dcm Lock. */
+#define XAE_INT_MGTRDY_MASK		0x00000080 /**< MGT clock Lock. */
+#define XAE_INT_PHYRSTCMPLT_MASK	0x00000100 /**< Phy Reset complete. */
 
-#define XAE_INT_ALL_MASK		0x0000003F /**< All the ints */
+#define XAE_INT_ALL_MASK		0x0000003F /**< All the ints. */
 
 #define XAE_INT_RECV_ERROR_MASK			\
 	(XAE_INT_RXRJECT_MASK | XAE_INT_RXFIFOOVR_MASK) /**< INT bits that
@@ -492,21 +494,21 @@ extern "C" {
 /** @name TPID Register (TPID) bit masks
  *  @{
  */
-#define XAE_TPID_0_MASK			0x0000FFFF   /**< TPID 0 */
-#define XAE_TPID_1_MASK			0xFFFF0000   /**< TPID 1 */
+#define XAE_TPID_0_MASK			0x0000FFFF   /**< TPID 0. */
+#define XAE_TPID_1_MASK			0xFFFF0000   /**< TPID 1. */
 /** @} */
 
 
 /** @name Receive Configuration Word 1 (RCW1) Register bit masks
  *  @{
  */
-#define XAE_RCW1_RST_MASK	0x80000000 /**< Reset */
-#define XAE_RCW1_JUM_MASK	0x40000000 /**< Jumbo frame enable */
+#define XAE_RCW1_RST_MASK	0x80000000 /**< Reset. */
+#define XAE_RCW1_JUM_MASK	0x40000000 /**< Jumbo frame enable. */
 #define XAE_RCW1_FCS_MASK	0x20000000 /**< In-Band FCS enable
 					     * (FCS not stripped) */
 
-#define XAE_RCW1_RX_MASK	0x10000000 /**< Receiver enable */
-#define XAE_RCW1_VLAN_MASK	0x08000000 /**< VLAN frame enable */
+#define XAE_RCW1_RX_MASK	0x10000000 /**< Receiver enable. */
+#define XAE_RCW1_VLAN_MASK	0x08000000 /**< VLAN frame enable. */
 #define XAE_RCW1_LT_DIS_MASK	0x02000000 /**< Length/type field valid check
 					     * disable.
 					     */
@@ -527,32 +529,32 @@ extern "C" {
 /** @name Transmitter Configuration (TC) Register bit masks
  *  @{
  */
-#define XAE_TC_RST_MASK		0x80000000 /**< Reset */
-#define XAE_TC_JUM_MASK		0x40000000 /**< Jumbo frame enable */
+#define XAE_TC_RST_MASK		0x80000000 /**< Reset. */
+#define XAE_TC_JUM_MASK		0x40000000 /**< Jumbo frame enable. */
 #define XAE_TC_FCS_MASK		0x20000000 /**< In-Band FCS enable (FCS not generated). */
-#define XAE_TC_TX_MASK		0x10000000 /**< Transmitter enable */
-#define XAE_TC_VLAN_MASK	0x08000000 /**< VLAN frame enable */
+#define XAE_TC_TX_MASK		0x10000000 /**< Transmitter enable. */
+#define XAE_TC_VLAN_MASK	0x08000000 /**< VLAN frame enable. */
 #define XAE_TC_IFG_MASK		0x02000000 /**< Inter-frame gap adjustment enable. */
-#define XAE_TC_1588_CMD_EN_MASK		0x00400000 /**< 1588 Cmd field enable */
+#define XAE_TC_1588_CMD_EN_MASK		0x00400000 /**< 1588 Cmd field enable. */
 /** @} */
 
 
 /** @name Flow Control Configuration (FCC) Register bit masks
  *  @{
  */
-#define XAE_FCC_FCRX_MASK	0x20000000   /**< Rx flow control enable */
-#define XAE_FCC_FCTX_MASK	0x40000000   /**< Tx flow control enable */
+#define XAE_FCC_FCRX_MASK	0x20000000   /**< Rx flow control enable. */
+#define XAE_FCC_FCTX_MASK	0x40000000   /**< Tx flow control enable. */
 /** @} */
 
 
 /** @name Ethernet MAC Mode Configuration (EMMC) Register bit masks
  * @{
  */
-#define XAE_EMMC_LINKSPEED_MASK 	0xC0000000 /**< Link speed */
-#define XAE_EMMC_RGMII_MASK	 	0x20000000 /**< RGMII mode enable */
-#define XAE_EMMC_SGMII_MASK	 	0x10000000 /**< SGMII mode enable */
-#define XAE_EMMC_GPCS_MASK	 	0x08000000 /**< 1000BaseX mode enable*/
-#define XAE_EMMC_HOST_MASK	 	0x04000000 /**< Host interface enable*/
+#define XAE_EMMC_LINKSPEED_MASK 	0xC0000000 /**< Link speed. */
+#define XAE_EMMC_RGMII_MASK	 	0x20000000 /**< RGMII mode enable. */
+#define XAE_EMMC_SGMII_MASK	 	0x10000000 /**< SGMII mode enable. */
+#define XAE_EMMC_GPCS_MASK	 	0x08000000 /**< 1000BaseX mode enable. */
+#define XAE_EMMC_HOST_MASK	 	0x04000000 /**< Host interface enable. */
 #define XAE_EMMC_TX16BIT	 	0x02000000 /**< 16 bit Tx client
 						    * enable.
 						    */
@@ -574,40 +576,40 @@ extern "C" {
 /** @name RGMII/SGMII Configuration (PHYC) Register bit masks
  * @{
  */
-#define XAE_PHYC_SGMIILINKSPEED_MASK 	0xC0000000 /**< SGMII link speed mask*/
-#define XAE_PHYC_RGMIILINKSPEED_MASK 	0x0000000C /**< RGMII link speed */
-#define XAE_PHYC_RGMIIHD_MASK	 	0x00000002 /**< RGMII Half-duplex */
-#define XAE_PHYC_RGMIILINK_MASK 	0x00000001 /**< RGMII link status */
-#define XAE_PHYC_RGLINKSPD_10		0x00000000 /**< RGMII link 10 Mbit */
-#define XAE_PHYC_RGLINKSPD_100		0x00000004 /**< RGMII link 100 Mbit */
-#define XAE_PHYC_RGLINKSPD_1000 	0x00000008 /**< RGMII link 1000 Mbit */
-#define XAE_PHYC_SGLINKSPD_10		0x00000000 /**< SGMII link 10 Mbit */
-#define XAE_PHYC_SGLINKSPD_100		0x40000000 /**< SGMII link 100 Mbit */
-#define XAE_PHYC_SGLINKSPD_1000 	0x80000000 /**< SGMII link 1000 Mbit */
+#define XAE_PHYC_SGMIILINKSPEED_MASK 	0xC0000000 /**< SGMII link speed mask. */
+#define XAE_PHYC_RGMIILINKSPEED_MASK 	0x0000000C /**< RGMII link speed. */
+#define XAE_PHYC_RGMIIHD_MASK	 	0x00000002 /**< RGMII Half-duplex. */
+#define XAE_PHYC_RGMIILINK_MASK 	0x00000001 /**< RGMII link status. */
+#define XAE_PHYC_RGLINKSPD_10		0x00000000 /**< RGMII link 10 Mbit. */
+#define XAE_PHYC_RGLINKSPD_100		0x00000004 /**< RGMII link 100 Mbit. */
+#define XAE_PHYC_RGLINKSPD_1000 	0x00000008 /**< RGMII link 1000 Mbit. */
+#define XAE_PHYC_SGLINKSPD_10		0x00000000 /**< SGMII link 10 Mbit. */
+#define XAE_PHYC_SGLINKSPD_100		0x40000000 /**< SGMII link 100 Mbit. */
+#define XAE_PHYC_SGLINKSPD_1000 	0x80000000 /**< SGMII link 1000 Mbit. */
 /** @} */
 
 
 /** @name MDIO Management Configuration (MC) Register bit masks
  * @{
  */
-#define XAE_MDIO_MC_MDIOEN_MASK		0x00000040 /**< MII management enable*/
-#define XAE_MDIO_MC_CLOCK_DIVIDE_MAX	0x3F	   /**< Maximum MDIO divisor */
+#define XAE_MDIO_MC_MDIOEN_MASK		0x00000040 /**< MII management enable. */
+#define XAE_MDIO_MC_CLOCK_DIVIDE_MAX	0x3F	   /**< Maximum MDIO divisor. */
 /** @} */
 
 
 /** @name MDIO Management Control Register (MCR) Register bit masks
  * @{
  */
-#define XAE_MDIO_MCR_PHYAD_MASK		0x1F000000 /**< Phy Address Mask */
-#define XAE_MDIO_MCR_PHYAD_SHIFT	24	   /**< Phy Address Shift */
-#define XAE_MDIO_MCR_REGAD_MASK		0x001F0000 /**< Reg Address Mask */
-#define XAE_MDIO_MCR_REGAD_SHIFT	16	   /**< Reg Address Shift */
-#define XAE_MDIO_MCR_OP_MASK		0x0000C000 /**< Operation Code Mask */
-#define XAE_MDIO_MCR_OP_SHIFT		13	   /**< Operation Code Shift */
-#define XAE_MDIO_MCR_OP_READ_MASK	0x00008000 /**< Op Code Read Mask */
-#define XAE_MDIO_MCR_OP_WRITE_MASK	0x00004000 /**< Op Code Write Mask */
-#define XAE_MDIO_MCR_INITIATE_MASK	0x00000800 /**< Ready Mask */
-#define XAE_MDIO_MCR_READY_MASK		0x00000080 /**< Ready Mask */
+#define XAE_MDIO_MCR_PHYAD_MASK		0x1F000000 /**< Phy Address Mask. */
+#define XAE_MDIO_MCR_PHYAD_SHIFT	24	   /**< Phy Address Shift. */
+#define XAE_MDIO_MCR_REGAD_MASK		0x001F0000 /**< Reg Address Mask. */
+#define XAE_MDIO_MCR_REGAD_SHIFT	16	   /**< Reg Address Shift. */
+#define XAE_MDIO_MCR_OP_MASK		0x0000C000 /**< Operation Code Mask. */
+#define XAE_MDIO_MCR_OP_SHIFT		13	   /**< Operation Code Shift. */
+#define XAE_MDIO_MCR_OP_READ_MASK	0x00008000 /**< Op Code Read Mask. */
+#define XAE_MDIO_MCR_OP_WRITE_MASK	0x00004000 /**< Op Code Write Mask. */
+#define XAE_MDIO_MCR_INITIATE_MASK	0x00000800 /**< Ready Mask. */
+#define XAE_MDIO_MCR_READY_MASK		0x00000080 /**< Ready Mask. */
 
 /** @} */
 
@@ -617,7 +619,7 @@ extern "C" {
  *  XAE_IE_OFFSET registers.
  * @{
  */
-#define XAE_MDIO_INT_MIIM_RDY_MASK	0x00000001 /**< MIIM Interrupt */
+#define XAE_MDIO_INT_MIIM_RDY_MASK	0x00000001 /**< MIIM Interrupt. */
 /** @} */
 
 
@@ -639,7 +641,7 @@ extern "C" {
 #define XAE_FMI_PM_MASK			0x80000000   /**< Promiscuous mode
 						      * enable.
 						      */
-#define XAE_FMI_IND_MASK		0x00000003   /**< Index Mask */
+#define XAE_FMI_IND_MASK		0x00000003   /**< Index Mask. */
 
 /** @} */
 
@@ -647,9 +649,9 @@ extern "C" {
 /** @name Extended multicast buffer descriptor bit mask
  * @{
  */
-#define XAE_BD_RX_USR2_BCAST_MASK	0x00000004
-#define XAE_BD_RX_USR2_IP_MCAST_MASK	0x00000002
-#define XAE_BD_RX_USR2_MCAST_MASK	0x00000001
+#define XAE_BD_RX_USR2_BCAST_MASK	0x00000004 /**< Broadcast frame match bit. */
+#define XAE_BD_RX_USR2_IP_MCAST_MASK	0x00000002 /**< IP multicast frame match bit. */
+#define XAE_BD_RX_USR2_MCAST_MASK	0x00000001 /**< MAC multicast frame match bit. */
 /** @} */
 
 /** @name Axi Ethernet Multicast Address Register Word 1 (MAW1)
@@ -679,10 +681,10 @@ extern "C" {
  * @{
  */
 
-#define XAE_SPEED_10_MBPS		10	/**< Speed of 10 Mbps */
-#define XAE_SPEED_100_MBPS		100	/**< Speed of 100 Mbps */
-#define XAE_SPEED_1000_MBPS		1000	/**< Speed of 1000 Mbps */
-#define XAE_SPEED_2500_MBPS		2500	/**< Speed of 2500 Mbps */
+#define XAE_SPEED_10_MBPS		10	/**< Speed of 10 Mbps. */
+#define XAE_SPEED_100_MBPS		100	/**< Speed of 100 Mbps. */
+#define XAE_SPEED_1000_MBPS		1000	/**< Speed of 1000 Mbps. */
+#define XAE_SPEED_2500_MBPS		2500	/**< Speed of 2500 Mbps. */
 
 #define XAE_SOFT_TEMAC_LOW_SPEED	0	/**< For soft cores with 10/100
 						 * Mbps speed.
@@ -743,13 +745,18 @@ extern "C" {
 /**************** Macros (Inline Functions) Definitions *********************/
 /** @cond INTERNAL */
 xdbg_stmnt(extern int indent_on);
-/** @endcond */
 
+/**
+ * @brief Returns a tab indent string for debug register dump formatting.
+ */
 #define XAxiEthernet_indent(RegOffset) \
  ((indent_on && ((RegOffset) >= XAE_RAF_OFFSET) && ((RegOffset) <= 	\
  XAE_AF1_OFFSET)) ? "\t" : "")
 
 
+/**
+ * @brief Returns the symbolic name string for a register offset.
+ */
 #define XAxiEthernet_reg_name(RegOffset) \
 	(((RegOffset) == XAE_RAF_OFFSET) ? "XAE_RAF_OFFSET": \
 	((RegOffset) == XAE_TPF_OFFSET) ? "XAE_TPF_OFFSET": \
@@ -858,15 +865,23 @@ xdbg_stmnt(extern int indent_on);
 	((RegOffset) == XAE_RXAERU_OFFSET) ? "XAE_RXAERU_OFFSET": \
 	"unknown")
 
+/**
+ * @brief Prints a debug message for an outbound register write.
+ */
 #define XAxiEthernet_print_reg_o(BaseAddress, RegOffset, Value) 	\
 	xdbg_printf(XDBG_DEBUG_TEMAC_REG, "%s0x%0x -> %s(0x%0x)\n", 	\
 			XAxiEthernet_indent(RegOffset), (Value), 	\
 			XAxiEthernet_reg_name(RegOffset), (RegOffset)) 	\
 
+/**
+ * @brief Prints a debug message for an inbound register read.
+ */
 #define XAxiEthernet_print_reg_i(BaseAddress, RegOffset, Value) \
 	xdbg_printf(XDBG_DEBUG_TEMAC_REG, "%s%s(0x%0x) -> 0x%0x\n", \
 		XAxiEthernet_indent(RegOffset),  \
 		XAxiEthernet_reg_name(RegOffset),(RegOffset), (Value)) \
+
+/** @endcond */
 
 /***************************************************************************/
 /**
@@ -906,8 +921,6 @@ xdbg_stmnt(extern int indent_on);
 * @param[in] RegOffset is the offset of the register to be written.
 * @param[in] Data is the 32-bit value to write to the register.
 *
-*
-
 * 	C-style signature:
 *	void XAxiEthernet_WriteReg(u32 BaseAddress, u32 RegOffset, u32 Data)
 *

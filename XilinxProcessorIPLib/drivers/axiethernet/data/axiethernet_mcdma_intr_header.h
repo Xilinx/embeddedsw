@@ -1,9 +1,15 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
+
+
+/**
+ * @file axiethernet_mcdma_intr_header.h
+ * @brief Declares the AXI Ethernet MCDMA interrupt example entry point.
+ */
 
 #include "xstatus.h"
 #include "xil_types.h"
@@ -18,12 +24,28 @@ extern "C" {
 #endif
 
 #ifdef XPAR_INTC_0_DEVICE_ID
-#define INTC		XIntc
+#define INTC		XIntc	/**< Interrupt controller type for this example. */
 #else
-#define INTC		XScuGic
+#define INTC		XScuGic	/**< Interrupt controller type for this example. */
 #endif
 
 #ifndef SDT
+/*****************************************************************************/
+/**
+ * @brief Runs the AXI Ethernet MCDMA interrupt example.
+ *
+ * @param[in] IntcInstancePtr is a parameter of the example entry point.
+ * @param[in] AxiEthernetInstancePtr is a parameter of the example entry point.
+ * @param[in] DmaInstancePtr is a parameter of the example entry point.
+ * @param[in] AxiEthernetDeviceId is a parameter of the example entry point.
+ * @param[in] AxiDmaDeviceId is a parameter of the example entry point.
+ * @param[in] AxiEthernetIntrId is a parameter of the example entry point.
+ *
+ * @return
+ *		- XST_SUCCESS if the example completes successfully.
+ *		- XST_FAILURE if the example fails.
+ *
+ *****************************************************************************/
 int AxiEthernetSgDmaIntrExample(INTC * IntcInstancePtr,
 				XAxiEthernet * AxiEthernetInstancePtr,
 				XMcdma * DmaInstancePtr,
@@ -31,6 +53,19 @@ int AxiEthernetSgDmaIntrExample(INTC * IntcInstancePtr,
 				u16 AxiDmaDeviceId,
 				u16 AxiEthernetIntrId);
 #else
+/*****************************************************************************/
+/**
+ * @brief Runs the AXI Ethernet MCDMA interrupt example.
+ *
+ * @param[in] AxiEthernetInstancePtr is a parameter of the example entry point.
+ * @param[in] DmaInstancePtr is a parameter of the example entry point.
+ * @param[in] AxiEthernetBaseAddress is a parameter of the example entry point.
+ *
+ * @return
+ *		- XST_SUCCESS if the example completes successfully.
+ *		- XST_FAILURE if the example fails.
+ *
+ *****************************************************************************/
 int AxiEthernetSgDmaIntrExample(XAxiEthernet *AxiEthernetInstancePtr,
 				XMcdma *DmaInstancePtr,
 				UINTPTR AxiEthernetBaseAddress);

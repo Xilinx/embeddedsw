@@ -10,7 +10,7 @@
 * @file xavb.h
 * @addtogroup axiethernet Overview
 *
-*
+* @brief Defines the Audio Video Bridging (AVB) example interface for AXI Ethernet.
 * Defines the identifiers and basic driver functions (or
 * macros) that can be used to access the device. Other driver functions
 * are defined in xavb.h.
@@ -36,7 +36,7 @@
 ******************************************************************************/
 
 #ifndef XAVB_H    /* prevent circular inclusions */
-#define XAVB_H    /* by using protection macros */
+#define XAVB_H    	/**< by using protection macros. */
 
 #ifdef __cplusplus
 extern "C" {
@@ -60,72 +60,72 @@ extern "C" {
 /** @name MAC Latency Definitions
  *  @{
  */
-#define XAVB_TX_MAC_LATENCY_IN_NS                            80
-#define XAVB_RX_MAC_LATENCY_IN_NS                            80
+#define XAVB_TX_MAC_LATENCY_IN_NS                            80	/**< XAVB TX MAC LATENCY IN NS. */
+#define XAVB_RX_MAC_LATENCY_IN_NS                            80	/**< XAVB RX MAC LATENCY IN NS. */
 /** @} */
 
 
 /** @name PTP Buffer Storage Definitions
  *  @{
  */
-#define XAVB_PTP_TX_SYNC                                     0x0
-#define XAVB_PTP_TX_FOLLOW_UP                                0x1
-#define XAVB_PTP_TX_PDELAYREQ                                0x2
-#define XAVB_PTP_TX_PDELAYRESP                               0x3
-#define XAVB_PTP_TX_PDELAYRESP_FOLLOW_UP                     0x4
-#define XAVB_PTP_TX_ANNOUNCE                                 0x5
-#define XAVB_PTP_TX_SIGNALING                                0x6
+#define XAVB_PTP_TX_SYNC                                     0x0	/**< XAVB PTP TX SYNC. */
+#define XAVB_PTP_TX_FOLLOW_UP                                0x1	/**< XAVB PTP TX FOLLOW UP. */
+#define XAVB_PTP_TX_PDELAYREQ                                0x2	/**< XAVB PTP TX PDELAYREQ. */
+#define XAVB_PTP_TX_PDELAYRESP                               0x3	/**< XAVB PTP TX PDELAYRESP. */
+#define XAVB_PTP_TX_PDELAYRESP_FOLLOW_UP                     0x4	/**< XAVB PTP TX PDELAYRESP FOLLOW UP. */
+#define XAVB_PTP_TX_ANNOUNCE                                 0x5	/**< XAVB PTP TX ANNOUNCE. */
+#define XAVB_PTP_TX_SIGNALING                                0x6	/**< XAVB PTP TX SIGNALING. */
 /** @} */
 
 
 /** @name PTP Packet Message Type Definitions
  *  @{
  */
-#define XAVB_PTP_TYPE_SYNC                                   0x0
-#define XAVB_PTP_TYPE_FOLLOW_UP                              0x8
-#define XAVB_PTP_TYPE_PDELAYREQ                              0x2
-#define XAVB_PTP_TYPE_PDELAYRESP                             0x3
-#define XAVB_PTP_TYPE_PDELAYRESP_FOLLOW_UP                   0xA
-#define XAVB_PTP_TYPE_ANNOUNCE                               0xB
-#define XAVB_PTP_TYPE_SIGNALING                              0xC
+#define XAVB_PTP_TYPE_SYNC                                   0x0	/**< XAVB PTP TYPE SYNC. */
+#define XAVB_PTP_TYPE_FOLLOW_UP                              0x8	/**< XAVB PTP TYPE FOLLOW UP. */
+#define XAVB_PTP_TYPE_PDELAYREQ                              0x2	/**< XAVB PTP TYPE PDELAYREQ. */
+#define XAVB_PTP_TYPE_PDELAYRESP                             0x3	/**< XAVB PTP TYPE PDELAYRESP. */
+#define XAVB_PTP_TYPE_PDELAYRESP_FOLLOW_UP                   0xA	/**< XAVB PTP TYPE PDELAYRESP FOLLOW UP. */
+#define XAVB_PTP_TYPE_ANNOUNCE                               0xB	/**< XAVB PTP TYPE ANNOUNCE. */
+#define XAVB_PTP_TYPE_SIGNALING                              0xC	/**< XAVB PTP TYPE SIGNALING. */
 /** @} */
 
 
 /** @name Common PTP Frame Structure Definitions.
  *  @{
  */
-#define XAVB_PTP_PKT_CAPTURED_TIMESTAMP_OFFSET               0x000000FC
+#define XAVB_PTP_PKT_CAPTURED_TIMESTAMP_OFFSET               0x000000FC	/**< XAVB PTP PKT CAPTURED TIMESTAMP OFFSET. */
 /** @} */
 
 
 /** @name General Tx PTP Frame Structure Definitions.
  *  @{
  */
-#define XAVB_PTP_TX_PKT_SA_UPPER_OFFSET                      0x0000000C
-#define XAVB_PTP_TX_PKT_SA_LOWER_OFFSET                      0x00000010
-#define XAVB_PTP_TX_PKT_TYPE_OFFSET                          0x00000014
-#define XAVB_PTP_TX_PKT_CORRECTION_FIELD_OFFSET              0x00000020
-#define XAVB_PTP_TX_PKT_PORTID_UPPER_OFFSET                  0x00000028
-#define XAVB_PTP_TX_PKT_PORTID_MID_OFFSET                    0x0000002C
-#define XAVB_PTP_TX_PKT_PORTID_LOWER_OFFSET                  0x00000030
-#define XAVB_PTP_TX_PKT_SEQUENCEID_OFFSET                    0x00000034
-#define XAVB_PTP_TX_PKT_TIMESTAMP_UPPER_OFFSET               0x00000038
-#define XAVB_PTP_TX_PKT_TIMESTAMP_MID_OFFSET                 0x0000003C
-#define XAVB_PTP_TX_PKT_TIMESTAMP_LOWER_OFFSET               0x00000040  /* upper 2 bytes */
-#define XAVB_PTP_TX_PKT_REQ_PORTID_UPPER_OFFSET              0x00000040  /* lower 2 bytes */
-#define XAVB_PTP_TX_PKT_REQ_PORTID_MID_OFFSET                0x00000044
-#define XAVB_PTP_TX_PKT_REQ_PORTID_LOWER_OFFSET              0x00000048
+#define XAVB_PTP_TX_PKT_SA_UPPER_OFFSET                      0x0000000C	/**< XAVB PTP TX PKT SA UPPER OFFSET. */
+#define XAVB_PTP_TX_PKT_SA_LOWER_OFFSET                      0x00000010	/**< XAVB PTP TX PKT SA LOWER OFFSET. */
+#define XAVB_PTP_TX_PKT_TYPE_OFFSET                          0x00000014	/**< XAVB PTP TX PKT TYPE OFFSET. */
+#define XAVB_PTP_TX_PKT_CORRECTION_FIELD_OFFSET              0x00000020	/**< XAVB PTP TX PKT CORRECTION FIELD OFFSET. */
+#define XAVB_PTP_TX_PKT_PORTID_UPPER_OFFSET                  0x00000028	/**< XAVB PTP TX PKT PORTID UPPER OFFSET. */
+#define XAVB_PTP_TX_PKT_PORTID_MID_OFFSET                    0x0000002C	/**< XAVB PTP TX PKT PORTID MID OFFSET. */
+#define XAVB_PTP_TX_PKT_PORTID_LOWER_OFFSET                  0x00000030	/**< XAVB PTP TX PKT PORTID LOWER OFFSET. */
+#define XAVB_PTP_TX_PKT_SEQUENCEID_OFFSET                    0x00000034	/**< XAVB PTP TX PKT SEQUENCEID OFFSET. */
+#define XAVB_PTP_TX_PKT_TIMESTAMP_UPPER_OFFSET               0x00000038	/**< XAVB PTP TX PKT TIMESTAMP UPPER OFFSET. */
+#define XAVB_PTP_TX_PKT_TIMESTAMP_MID_OFFSET                 0x0000003C	/**< XAVB PTP TX PKT TIMESTAMP MID OFFSET. */
+#define XAVB_PTP_TX_PKT_TIMESTAMP_LOWER_OFFSET               0x00000040	/**< upper 2 bytes. */
+#define XAVB_PTP_TX_PKT_REQ_PORTID_UPPER_OFFSET              0x00000040	/**< lower 2 bytes. */
+#define XAVB_PTP_TX_PKT_REQ_PORTID_MID_OFFSET                0x00000044	/**< XAVB PTP TX PKT REQ PORTID MID OFFSET. */
+#define XAVB_PTP_TX_PKT_REQ_PORTID_LOWER_OFFSET              0x00000048	/**< XAVB PTP TX PKT REQ PORTID LOWER OFFSET. */
 /** @} */
 
 /** @name Tx Announce PTP Frame Structure Definitions.
  *  @{
  */
-#define XAVB_PTP_TX_PKT_ANNOUNCE_CURR_UTCOFF_OFFSET               0x00000040
-#define XAVB_PTP_TX_PKT_ANNOUNCE_QUAL_LOW_PRI2_GMID_HI_OFFSET     0x00000048
-#define XAVB_PTP_TX_PKT_ANNOUNCE_GMID_MID_OFFSET                  0x0000004C
-#define XAVB_PTP_TX_PKT_ANNOUNCE_GMID_LOW_STEPSREMOVED_HI_OFFSET  0x00000050
-#define XAVB_PTP_TX_PKT_ANNOUNCE_STEPSREMOVED_LOW_TIMESRC_OFFSET  0x00000054
-#define XAVB_PTP_TX_PKT_ANNOUNCE_TLVLEN_PATHSEQ_START_OFFSET      0x00000058
+#define XAVB_PTP_TX_PKT_ANNOUNCE_CURR_UTCOFF_OFFSET               0x00000040	/**< XAVB PTP TX PKT ANNOUNCE CURR UTCOFF OFFSET. */
+#define XAVB_PTP_TX_PKT_ANNOUNCE_QUAL_LOW_PRI2_GMID_HI_OFFSET     0x00000048	/**< XAVB PTP TX PKT ANNOUNCE QUAL LOW PRI2 GMID HI OFFSET. */
+#define XAVB_PTP_TX_PKT_ANNOUNCE_GMID_MID_OFFSET                  0x0000004C	/**< XAVB PTP TX PKT ANNOUNCE GMID MID OFFSET. */
+#define XAVB_PTP_TX_PKT_ANNOUNCE_GMID_LOW_STEPSREMOVED_HI_OFFSET  0x00000050	/**< XAVB PTP TX PKT ANNOUNCE GMID LOW STEPSREMOVED HI OFFSET. */
+#define XAVB_PTP_TX_PKT_ANNOUNCE_STEPSREMOVED_LOW_TIMESRC_OFFSET  0x00000054	/**< XAVB PTP TX PKT ANNOUNCE STEPSREMOVED LOW TIMESRC OFFSET. */
+#define XAVB_PTP_TX_PKT_ANNOUNCE_TLVLEN_PATHSEQ_START_OFFSET      0x00000058	/**< XAVB PTP TX PKT ANNOUNCE TLVLEN PATHSEQ START OFFSET. */
 /** @} */
 
 /** @name PTP frame constant definitions
@@ -134,20 +134,20 @@ extern "C" {
  * Constant value for the control field and LogMeanMessageInterval field for.
  *  pDelayResp and pDelayRespFollowUp PTP frames (defined in IEEE802.1 AS)
  */
-#define XAVB_PDELAY_LOG_MEAN_MESSAGE_INT                     0x7F050000
+#define XAVB_PDELAY_LOG_MEAN_MESSAGE_INT                     0x7F050000	/**< XAVB PDELAY LOG MEAN MESSAGE INT. */
 /** @} */
 
 
 /** @name Default LogMeanInterval values
 *   @{
 */
-#define XAVB_DEFAULT_LOG_MEAN_SYNC_INTERVAL                  (-3)      /** 2^(-3) = 125ms */
-#define XAVB_DEFAULT_LOG_MEAN_PDELAY_REQ_INTERVAL            0         /** 128/128 = 2^(0) = 1 s */
-#define XAVB_DEFAULT_LOG_MEAN_ANNOUNCE_INTERVAL              0         /** 128/128 = 2^(0) = 1 s */
-#define XAVB_PKT_TYPE_DISABLED                               0xffff
+#define XAVB_DEFAULT_LOG_MEAN_SYNC_INTERVAL                  (-3)	/**< * 2^(-3) = 125ms. */
+#define XAVB_DEFAULT_LOG_MEAN_PDELAY_REQ_INTERVAL            0	/**< * 128/128 = 2^(0) = 1 s. */
+#define XAVB_DEFAULT_LOG_MEAN_ANNOUNCE_INTERVAL              0	/**< * 128/128 = 2^(0) = 1 s. */
+#define XAVB_PKT_TYPE_DISABLED                               0xffff	/**< XAVB PKT TYPE DISABLED. */
 
-#define XAVB_MAX_SUPPORTED_LOG_MEAN_INTERVAL                 8         /** 32768/128 = 256 s */
-#define XAVB_MIN_SUPPORTED_LOG_MEAN_INTERVAL                 (-7)      /** 1/128 s */
+#define XAVB_MAX_SUPPORTED_LOG_MEAN_INTERVAL                 8	/**< * 32768/128 = 256 s. */
+#define XAVB_MIN_SUPPORTED_LOG_MEAN_INTERVAL                 (-7)	/**< * 1/128 s. */
 /** @} */
 
 /** @name Announce / Sync Timeout values
@@ -158,14 +158,14 @@ extern "C" {
  *  the GM that are allowed before the GM is assumed to be no
  *  longer present and BMCA should be run again
  */
-#define XAVB_ANNOUNCE_RECEIPT_TIMEOUT                        2
+#define XAVB_ANNOUNCE_RECEIPT_TIMEOUT                        2	/**< XAVB ANNOUNCE RECEIPT TIMEOUT. */
 
 /** XAVB_SYNC_RECEIPT_TIMEOUT is the number of sync intervals
  * without the receipt of an Sync message from the GM that are.
  *  allowed before the GM is assumed to be no longer present and
  *  BMCA should be run again
  */
-#define XAVB_SYNC_RECEIPT_TIMEOUT                            3
+#define XAVB_SYNC_RECEIPT_TIMEOUT                            3	/**< XAVB SYNC RECEIPT TIMEOUT. */
 /** @} */
 
 
@@ -176,13 +176,13 @@ extern "C" {
  * across a full duplex link for which the AVB protocol is allowed to function.
  *  Although this parameter is defined in the IEEE spec, no default is defined.
  */
-#define XAVB_NEIGHBOR_PROP_DELAY_THRESH                      5000
+#define XAVB_NEIGHBOR_PROP_DELAY_THRESH                      5000	/**< XAVB NEIGHBOR PROP DELAY THRESH. */
 
 /** XAVB_ALLOWED_LOST_RESPONSES is the number of Pdelay_Req
  * messages for which a valid response is not received, above.
  *  which the Peer should no longer be considered ASCapable
  */
-#define XAVB_ALLOWED_LOST_RESPONSES                          3
+#define XAVB_ALLOWED_LOST_RESPONSES                          3	/**< XAVB ALLOWED LOST RESPONSES. */
 
 /** @} */
 
@@ -190,53 +190,53 @@ extern "C" {
 /** @name General Rx PTP Frame Structure Definitions.
  *  @{
  */
-#define XAVB_PTP_RX_PKT_SA_UPPER_OFFSET                      0x00000004
-#define XAVB_PTP_RX_PKT_SA_LOWER_OFFSET                      0x00000008
-#define XAVB_PTP_RX_PKT_TYPE_OFFSET                          0x0000000C
-#define XAVB_PTP_RX_PKT_CORRECTION_FIELD_OFFSET              0x00000018
-#define XAVB_PTP_RX_PKT_PORTID_UPPER_OFFSET                  0x00000020
-#define XAVB_PTP_RX_PKT_PORTID_MID_OFFSET                    0x00000024
-#define XAVB_PTP_RX_PKT_PORTID_LOWER_OFFSET                  0x00000028
-#define XAVB_PTP_RX_PKT_SEQUENCEID_OFFSET                    0x0000002C
-#define XAVB_PTP_RX_PKT_TIMESTAMP_UPPER_OFFSET               0x00000030
-#define XAVB_PTP_RX_PKT_TIMESTAMP_MID_OFFSET                 0x00000034
-#define XAVB_PTP_RX_PKT_TIMESTAMP_LOWER_OFFSET               0x00000038  /* upper 2 bytes */
-#define XAVB_PTP_RX_PKT_REQ_PORTID_UPPER_OFFSET              0x00000038  /* lower 2 bytes */
-#define XAVB_PTP_RX_PKT_REQ_PORTID_MID_OFFSET                0x0000003C
-#define XAVB_PTP_RX_PKT_REQ_PORTID_LOWER_OFFSET              0x00000040
+#define XAVB_PTP_RX_PKT_SA_UPPER_OFFSET                      0x00000004	/**< XAVB PTP RX PKT SA UPPER OFFSET. */
+#define XAVB_PTP_RX_PKT_SA_LOWER_OFFSET                      0x00000008	/**< XAVB PTP RX PKT SA LOWER OFFSET. */
+#define XAVB_PTP_RX_PKT_TYPE_OFFSET                          0x0000000C	/**< XAVB PTP RX PKT TYPE OFFSET. */
+#define XAVB_PTP_RX_PKT_CORRECTION_FIELD_OFFSET              0x00000018	/**< XAVB PTP RX PKT CORRECTION FIELD OFFSET. */
+#define XAVB_PTP_RX_PKT_PORTID_UPPER_OFFSET                  0x00000020	/**< XAVB PTP RX PKT PORTID UPPER OFFSET. */
+#define XAVB_PTP_RX_PKT_PORTID_MID_OFFSET                    0x00000024	/**< XAVB PTP RX PKT PORTID MID OFFSET. */
+#define XAVB_PTP_RX_PKT_PORTID_LOWER_OFFSET                  0x00000028	/**< XAVB PTP RX PKT PORTID LOWER OFFSET. */
+#define XAVB_PTP_RX_PKT_SEQUENCEID_OFFSET                    0x0000002C	/**< XAVB PTP RX PKT SEQUENCEID OFFSET. */
+#define XAVB_PTP_RX_PKT_TIMESTAMP_UPPER_OFFSET               0x00000030	/**< XAVB PTP RX PKT TIMESTAMP UPPER OFFSET. */
+#define XAVB_PTP_RX_PKT_TIMESTAMP_MID_OFFSET                 0x00000034	/**< XAVB PTP RX PKT TIMESTAMP MID OFFSET. */
+#define XAVB_PTP_RX_PKT_TIMESTAMP_LOWER_OFFSET               0x00000038	/**< upper 2 bytes. */
+#define XAVB_PTP_RX_PKT_REQ_PORTID_UPPER_OFFSET              0x00000038	/**< lower 2 bytes. */
+#define XAVB_PTP_RX_PKT_REQ_PORTID_MID_OFFSET                0x0000003C	/**< XAVB PTP RX PKT REQ PORTID MID OFFSET. */
+#define XAVB_PTP_RX_PKT_REQ_PORTID_LOWER_OFFSET              0x00000040	/**< XAVB PTP RX PKT REQ PORTID LOWER OFFSET. */
 /** @} */
 
 
 /** @name Rx Announce PTP Frame Structure Definitions.
  *  @{
  */
-#define XAVB_PTP_RX_PKT_ANNOUNCE_PRI1_QUAL_HI_OFFSET              0x0000003C
-#define XAVB_PTP_RX_PKT_ANNOUNCE_QUAL_LOW_PRI2_GMID_HI_OFFSET     0x00000040
-#define XAVB_PTP_RX_PKT_ANNOUNCE_GMID_MID_OFFSET                  0x00000044
-#define XAVB_PTP_RX_PKT_ANNOUNCE_GMID_LOW_STEPSREMOVED_HI_OFFSET  0x00000048
-#define XAVB_PTP_RX_PKT_ANNOUNCE_STEPSREMOVED_LOW_TIMESRC_OFFSET  0x0000004C
+#define XAVB_PTP_RX_PKT_ANNOUNCE_PRI1_QUAL_HI_OFFSET              0x0000003C	/**< XAVB PTP RX PKT ANNOUNCE PRI1 QUAL HI OFFSET. */
+#define XAVB_PTP_RX_PKT_ANNOUNCE_QUAL_LOW_PRI2_GMID_HI_OFFSET     0x00000040	/**< XAVB PTP RX PKT ANNOUNCE QUAL LOW PRI2 GMID HI OFFSET. */
+#define XAVB_PTP_RX_PKT_ANNOUNCE_GMID_MID_OFFSET                  0x00000044	/**< XAVB PTP RX PKT ANNOUNCE GMID MID OFFSET. */
+#define XAVB_PTP_RX_PKT_ANNOUNCE_GMID_LOW_STEPSREMOVED_HI_OFFSET  0x00000048	/**< XAVB PTP RX PKT ANNOUNCE GMID LOW STEPSREMOVED HI OFFSET. */
+#define XAVB_PTP_RX_PKT_ANNOUNCE_STEPSREMOVED_LOW_TIMESRC_OFFSET  0x0000004C	/**< XAVB PTP RX PKT ANNOUNCE STEPSREMOVED LOW TIMESRC OFFSET. */
 /** @} */
 
 
 /** @name Rx Signalling PTP Frame Structure Definitions.
  *  @{
  */
-#define XAVB_PTP_RX_PKT_SIGNALING_DELAY_INTERVAL_OFFSET      0x00000044
+#define XAVB_PTP_RX_PKT_SIGNALING_DELAY_INTERVAL_OFFSET      0x00000044	/**< XAVB PTP RX PKT SIGNALING DELAY INTERVAL OFFSET. */
 /** @} */
 
 /** @name Standard PTP Frame Field Definitions (from IEEE802.1AS specification).
  *  @{
  */
-#define XAVB_PTP_ETHERTYPE                                   0x88F7
-#define XAVB_PTP_VERSION_PTP                                 2
+#define XAVB_PTP_ETHERTYPE                                   0x88F7	/**< XAVB PTP ETHERTYPE. */
+#define XAVB_PTP_VERSION_PTP                                 2	/**< XAVB PTP VERSION PTP. */
 /** @} */
 
 
 /** @name Real Time Clock Definitions.
  *  @{
  */
-#define XAVB_ONE_SECOND            1000000000    /**< Value in ns */
-#define XAVB_PERIOD_8KHZ           125000        /**< Value in ns */
+#define XAVB_ONE_SECOND            1000000000    /**< Value in ns. */
+#define XAVB_PERIOD_8KHZ           125000        /**< Value in ns. */
 /** @} */
 
 /** @name Real Time Clock Locked Definitions.
@@ -245,7 +245,7 @@ extern "C" {
  *  unlocked and link not asCapable.
 * This threshold is not specified in IEEE 802.1as.
  */
-#define XAVB_CLOCK_LOCK_THRESHOLD  1000           /**< Value in ns */
+#define XAVB_CLOCK_LOCK_THRESHOLD  1000           /**< Value in ns. */
 /** @} */
 
 /** @name RTC Increment Value Update Definitions
@@ -254,7 +254,7 @@ extern "C" {
  *  indicates how many good Sync/FollowUp message pairs
  *  are received before the re-calculation is performed.
  */
-#define XAVB_NUM_SYNC_FU_PAIR_CALC_RTC_INCREMENT     2
+#define XAVB_NUM_SYNC_FU_PAIR_CALC_RTC_INCREMENT     2	/**< XAVB NUM SYNC FU PAIR CALC RTC INCREMENT. */
 /** @} */
 
 /*************************** Type Definitions *******************************/
@@ -272,8 +272,8 @@ typedef void (*XAvb_Handler)(void *CallBackRef, u32 TimestampsUncertain);
  * Holds configuration information for a device.
  */
 typedef struct {
-  u16 DeviceId;       /**< Unique ID  of device */
-  u32 BaseAddress;    /**< Register base address */
+  u16 DeviceId;       /**< Unique ID  of device. */
+  u32 BaseAddress;    /**< Register base address. */
 } XAvb_Config;
 
 
@@ -283,9 +283,9 @@ typedef struct {
  */
 typedef struct
 {
-  u32 ClockIdentityUpper;     /**< Upper 4 bytes of ClockIdentity */
-  u32 ClockIdentityLower;     /**< Lower 4 bytes of ClockIdentity*/
-  u16 PortNumber;             /**< PortNumber associated with ClockIdentity*/
+  u32 ClockIdentityUpper;     /**< Upper 4 bytes of ClockIdentity. */
+  u32 ClockIdentityLower;     /**< Lower 4 bytes of ClockIdentity. */
+  u16 PortNumber;             /**< PortNumber associated with ClockIdentity. */
 } XAvb_PortIdentity;
 
 /**
@@ -294,8 +294,8 @@ typedef struct
  */
 typedef struct
 {
-  u32 ClockIdentityUpper;     /**< Upper 4 bytes of ClockIdentity */
-  u32 ClockIdentityLower;     /**< Lower 4 bytes of ClockIdentity*/
+  u32 ClockIdentityUpper;     /**< Upper 4 bytes of ClockIdentity. */
+  u32 ClockIdentityLower;     /**< Lower 4 bytes of ClockIdentity. */
 } XAvb_ClockIdentity;
 
 /**
@@ -303,9 +303,9 @@ typedef struct
  */
 typedef struct
 {
-  u8  clockClass;                /**< Announce message: clockClass */
-  u8  clockAccuracy;             /**< Announce message: clockAccuracy */
-  u16 offsetScaledLogVariance;   /**< Announce message: offsetScaledLogVariance*/
+  u8  clockClass;                /**< Announce message: clockClass. */
+  u8  clockAccuracy;             /**< Announce message: clockAccuracy. */
+  u16 offsetScaledLogVariance;   /**< Announce message: offsetScaledLogVariance. */
 } XAvb_ClockQuality;
 
 /**
@@ -314,18 +314,18 @@ typedef struct
  */
 typedef struct
 {
-  XAvb_PortIdentity SourcePortIdentity;        /**< Announce message: sourcePortIdentity */
-  XAvb_ClockIdentity GrandmasterIdentity;      /**< Announce message: grandmasterIdentity */
-  u16               stepsRemoved;              /**< Announce message: stepsRemoved */
-  XAvb_ClockQuality ClockQuality;              /**< Announce message: grandmasterClockQuality */
-  u8                GrandmasterPriority1;      /**< Announce message: grandmasterPriority1*/
-  u8                GrandmasterPriority2;      /**< Announce message: grandmasterPriority2*/
-  u8                IAmTheRtcMaster;           /**< Boolean: 1 = grandmaster, 0 = slave*/
-  u16               tlvLengthField;            /**< Announce message: lengthField (for TLV)*/
+  XAvb_PortIdentity SourcePortIdentity;        /**< Announce message: sourcePortIdentity. */
+  XAvb_ClockIdentity GrandmasterIdentity;      /**< Announce message: grandmasterIdentity. */
+  u16               stepsRemoved;              /**< Announce message: stepsRemoved. */
+  XAvb_ClockQuality ClockQuality;              /**< Announce message: grandmasterClockQuality. */
+  u8                GrandmasterPriority1;      /**< Announce message: grandmasterPriority1. */
+  u8                GrandmasterPriority2;      /**< Announce message: grandmasterPriority2. */
+  u8                IAmTheRtcMaster;           /**< Boolean: 1 = grandmaster, 0 = slave. */
+  u16               tlvLengthField;            /**< Announce message: lengthField (for TLV). */
   char              logMessageInterval;        /**< Announce message: logMessageInterval.
-                                                * NOTE: 8-bit signed integer */.
+                                                * NOTE: 8-bit signed integer */
 
-  u16               AnnounceIntervalDuration;  /**< Announce Interval in units of 1/128 secs */
+  u16               AnnounceIntervalDuration;  /**< Announce Interval in units of 1/128 secs. */
 } XAvb_BmcData;
 
 
@@ -335,19 +335,19 @@ typedef struct
  */
 typedef struct
 {
-  u32 Nanosec;                 /**< ns value for sync frame tx request   */
-  u32 SlaveSyncTimestamp;      /**< The timestamp taken of a rx'd sync   */
-  u32 MasterCorrectionField;   /**< Correction Field from rx'd follow-up */
-  u32 PDelayTimestampT1;       /**< T1 :PDelayReq Frame transmission     */
-  u32 PDelayTimestampT2;       /**< T2 :PDelayReq rx'd at link partner   */
-  u32 PDelayTimestampT3;       /**< T3 :PDelayResp Frame reception       */
-  u32 PDelayTimestampT4;       /**< T4 :PDelayResp tx'd by link partner  */
-  u32 LinkDelay;               /**< Last calculated value of Link Delay  */
-  u32 NewSlaveTime;            /**< RTC ns at slave for last rx'd sync   */
-  u32 NewMasterTime;           /**< RTC ns at master for last tx'd sync  */
-  u32 OldSlaveTime;            /**< Stored RTC slave ns for past sync rx */
-  u32 OldMasterTime;           /**< Stored RTC master ns for past sync tx*/
-  u32 NsOffsetForPDelayResp;   /**< RTC ns offset at PDelayResp tx time  */
+  u32 Nanosec;                 /**< ns value for sync frame tx request. */
+  u32 SlaveSyncTimestamp;      /**< The timestamp taken of a rx'd sync. */
+  u32 MasterCorrectionField;   /**< Correction Field from rx'd follow-up. */
+  u32 PDelayTimestampT1;       /**< T1 :PDelayReq Frame transmission. */
+  u32 PDelayTimestampT2;       /**< T2 :PDelayReq rx'd at link partner. */
+  u32 PDelayTimestampT3;       /**< T3 :PDelayResp Frame reception. */
+  u32 PDelayTimestampT4;       /**< T4 :PDelayResp tx'd by link partner. */
+  u32 LinkDelay;               /**< Last calculated value of Link Delay. */
+  u32 NewSlaveTime;            /**< RTC ns at slave for last rx'd sync. */
+  u32 NewMasterTime;           /**< RTC ns at master for last tx'd sync. */
+  u32 OldSlaveTime;            /**< Stored RTC slave ns for past sync rx. */
+  u32 OldMasterTime;           /**< Stored RTC master ns for past sync tx. */
+  u32 NsOffsetForPDelayResp;   /**< RTC ns offset at PDelayResp tx time. */
 } XAvb_PtpStruct;
 
 
@@ -357,16 +357,16 @@ typedef struct
  */
 typedef struct
 {
-  u16 SyncSequenceId;            /**< SequenceId of the latest RX'd Sync message  */
-  u16 FollowUpSequenceId;        /**< SequenceId of the latest RX'd FollowUp message  */
-  u16 PDelayReqSequenceId;       /**< SequenceId of the latest TX'd PDelayReq message  */
-  u16 PDelayRespSequenceId;      /**< SequenceId of the latest RX'd PDelayResp message  */
-  u16 PDelayFollowUpSequenceId;  /**< SequenceId of the latest RX'd PDelayRespFollowUp message  */
+  u16 SyncSequenceId;            /**< SequenceId of the latest RX'd Sync message. */
+  u16 FollowUpSequenceId;        /**< SequenceId of the latest RX'd FollowUp message. */
+  u16 PDelayReqSequenceId;       /**< SequenceId of the latest TX'd PDelayReq message. */
+  u16 PDelayRespSequenceId;      /**< SequenceId of the latest RX'd PDelayResp message. */
+  u16 PDelayFollowUpSequenceId;  /**< SequenceId of the latest RX'd PDelayRespFollowUp message. */
   u16 OldSyncSequenceId;         /**< SequenceId of the previous RX'd Sync message used
-                                  * for XAvb_UpdateRtcIncrement() calculations */.
+                                  * for XAvb_UpdateRtcIncrement() calculations */
 
   u16 NewSyncSequenceId;         /**< SequenceId of the current RX'd Sync message used
-                                  * for XAvb_UpdateRtcIncrement() calculations */.
+                                  * for XAvb_UpdateRtcIncrement() calculations */
 
 } XAvb_SequenceIdStruct;
 
@@ -377,9 +377,9 @@ typedef struct
  */
 typedef struct
 {
-  u16  SyncIntervalDuration;      /**< Sync Interval in units of 1/128 seconds */
-  u16  LinkDelayIntervalDuration; /**< Link Delay Interval in units of 1/128 seconds  */
-  u16  AnnounceIntervalDuration;  /**< Announce Interval in units of 1/128 seconds  */
+  u16  SyncIntervalDuration;      /**< Sync Interval in units of 1/128 seconds. */
+  u16  LinkDelayIntervalDuration; /**< Link Delay Interval in units of 1/128 seconds. */
+  u16  AnnounceIntervalDuration;  /**< Announce Interval in units of 1/128 seconds. */
 } XAvb_SignallingFrameData;
 
 
@@ -389,12 +389,12 @@ typedef struct
  */
 typedef struct
 {
-  u8  RxPtpHardPointer;          /**< The Rx PTP Buffer last written to */
-  u8  RxPtpSoftPointer;          /**< The current software pointer to Rx Buffer */
-  u16 CounterSyncInterval;       /**< To count units of 1/128 seconds */
-  u16 CounterLinkDelayInterval;  /**< To count units of 1/128 seconds */
-  u16 CounterAnnounceInterval;   /**< To count units of 1/128 seconds */
-  u8  CounterSyncEvents;         /**< To count the number of Sync Events */
+  u8  RxPtpHardPointer;          /**< The Rx PTP Buffer last written to. */
+  u8  RxPtpSoftPointer;          /**< The current software pointer to Rx Buffer. */
+  u16 CounterSyncInterval;       /**< To count units of 1/128 seconds. */
+  u16 CounterLinkDelayInterval;  /**< To count units of 1/128 seconds. */
+  u16 CounterAnnounceInterval;   /**< To count units of 1/128 seconds. */
+  u8  CounterSyncEvents;         /**< To count the number of Sync Events. */
 } XAvb_Counters;
 
 /** Keep track of state machine data to make sure we're fully
@@ -402,11 +402,11 @@ typedef struct
  */
 typedef struct
 {
-  u8                lostResponses;            /**< Keep track of the state machine errors */
-  u8                rcvdPDelayResp;           /**< Received a valid PDelayResp packet since PDelayReq was sent */
-  u8                rcvdPDelayRespFollowUp;   /**< Received a valid PDelayFollowUp packet since PDelayResp was received */
-  XAvb_PortIdentity respPortIdentity;         /**< sourcePortIdentity of the last PDelayResp packet received */
-  XAvb_PortIdentity respReqPortIdentity;      /**< requestingPortIdentity of the last PDelayResp packet received */
+  u8                lostResponses;            /**< Keep track of the state machine errors. */
+  u8                rcvdPDelayResp;           /**< Received a valid PDelayResp packet since PDelayReq was sent. */
+  u8                rcvdPDelayRespFollowUp;   /**< Received a valid PDelayFollowUp packet since PDelayResp was received. */
+  XAvb_PortIdentity respPortIdentity;         /**< sourcePortIdentity of the last PDelayResp packet received. */
+  XAvb_PortIdentity respReqPortIdentity;      /**< requestingPortIdentity of the last PDelayResp packet received. */
 } XAvb_StateMachineData;
 
 
@@ -493,8 +493,19 @@ XStatus XAvb_CfgInitialize(XAvb *InstancePtr,      \
                            XAvb_Config *ConfigPtr, \
 			   u32 EffectiveAddress);
 
+/**
+ * @brief Looks up the device configuration matching the given device ID.
+ *
+ * @param[in] DeviceId contains the unique ID of the device.
+ *
+ * @return A pointer to the configuration table entry for the given device ID,
+ *         or NULL if no match is found.
+ */
 XAvb_Config *XAvb_LookupConfig(u16 DeviceId);
 
+/**
+ * @brief Implements the XAvb_Reset helper.
+ */
 void XAvb_Reset(XAvb * InstancePtr);
 
 void XAvb_Start(XAvb * InstancePtr);
@@ -503,37 +514,58 @@ void XAvb_Stop(XAvb * InstancePtr);
 
 void XAvb_PtpTimerInterruptHandler(XAvb * InstancePtr);
 
+/**
+ * @brief Implements the XAvb_PtpRxInterruptHandler helper.
+ */
 void XAvb_PtpRxInterruptHandler(XAvb * InstancePtr);
 
 void XAvb_SetupRxFilterControlPcp(XAvb * InstancePtr, \
                                   u32    VlanPriority, \
                                   u8     SrClass);
 
+/**
+ * @brief Implements the XAvb_SetupRxFilterControlVid helper.
+ */
 void XAvb_SetupRxFilterControlVid(XAvb * InstancePtr, \
                                   u32    VlanVid, \
                                   u8     SrClass);
 
+/**
+ * @brief Implements the XAvb_SetupRxFilterControlMatchMode helper.
+ */
 void XAvb_SetupRxFilterControlMatchMode(XAvb * InstancePtr, \
                                         u32    VlanMatchMode);
 
 /*
  * Functions in xavb_ptp_packets.c
  */
+/**
+ * @brief Implements the XAvb_ReorderWord helper.
+ */
 u32  XAvb_ReorderWord(u32 Data);
 u32 XAvb_CompareClockIdentity(u32 BaseAddress, \
                               XAvb_ClockIdentity Identity1, \
                               XAvb_ClockIdentity Identity2);
 
+/**
+ * @brief Implements the XAvb_ComparePortIdentity helper.
+ */
 u32 XAvb_ComparePortIdentity(u32 BaseAddress, \
                              XAvb_PortIdentity Identity1, \
                              XAvb_PortIdentity Identity2);
 
+/**
+ * @brief Implements the XAvb_WriteToMultipleTxPtpFrames helper.
+ */
 void XAvb_WriteToMultipleTxPtpFrames(u32 BaseAddress, \
                                      u32 Address, \
                                      u32 Data, \
                                      u32 DataBitEnable, \
                                      u8  BufferEnable);
 
+/**
+ * @brief Implements the XAvb_IncSequenceId helper.
+ */
 u32  XAvb_IncSequenceId(u32 BaseAddress, \
                         u32 PTPFrameBaseAddress);
 
@@ -542,12 +574,18 @@ void XAvb_GetPortIdentity(u32 BaseAddress, \
                           u32 PortIdOffset, \
                           XAvb_PortIdentity *portID);
 
+/**
+ * @brief Implements the XAvb_WaitOnTxPtpQueue helper.
+ */
 void XAvb_WaitOnTxPtpQueue(XAvb * InstancePtr);
 
 void XAvb_MasterSendAnnounce(XAvb * InstancePtr);
 
 void XAvb_MasterSendSync(XAvb * InstancePtr);
 
+/**
+ * @brief Implements the XAvb_MasterSendFollowUp helper.
+ */
 void XAvb_MasterSendFollowUp(XAvb * InstancePtr);
 
 void XAvb_SendPDelayReq(XAvb * InstancePtr);
@@ -555,29 +593,44 @@ void XAvb_SendPDelayReq(XAvb * InstancePtr);
 void XAvb_SendPDelayResp(XAvb * InstancePtr, \
                          u32    PtpFrameBaseAddr);
 
+/**
+ * @brief Implements the XAvb_SendPDelayRespFollowUp helper.
+ */
 void XAvb_SendPDelayRespFollowUp(XAvb * InstancePtr);
 
 u32  XAvb_IsRxFramePTP(XAvb * InstancePtr, \
                        u32    PtpFrameBaseAddr);
 
+/**
+ * @brief Implements the XAvb_DecodeRxSync helper.
+ */
 void XAvb_DecodeRxSync(XAvb * InstancePtr, \
                        u32    PtpFrameBaseAddr);
 
 void XAvb_DecodeRxFollowUp(XAvb * InstancePtr, \
                            u32    PtpFrameBaseAddr);
 
+/**
+ * @brief Implements the XAvb_DecodeRxPDelayResp helper.
+ */
 void XAvb_DecodeRxPDelayResp(XAvb * InstancePtr, \
                              u32    PtpFrameBaseAddr);
 
 void XAvb_DecodeRxPDelayRespFollowUp(XAvb * InstancePtr, \
                                      u32    PtpFrameBaseAddr);
 
+/**
+ * @brief Implements the XAvb_DecodeRxSignaling helper.
+ */
 void XAvb_DecodeRxSignaling(XAvb * InstancePtr, \
                             u32    PtpFrameBaseAddr);
 
 u16 XAvb_UpdateIntervalDuration(u16   currentIntervalDuration, \
                                 char logMeanVal);
 
+/**
+ * @brief Implements the XAvb_ConvertLogMeanToDuration helper.
+ */
 u16 XAvb_ConvertLogMeanToDuration(char logMeanVal);
 
 char XAvb_ConvertDurationToLogMean(u16 fractionalVal);
@@ -586,37 +639,58 @@ void XAvb_UpdateLogMeanMessageInterval(u32 BaseAddress, \
                                        u32 PtpFrameBaseAddr, \
                                        u16 intervalDuration);
 
+/**
+ * @brief Implements the XAvb_SetupSourcePortIdentity helper.
+ */
 void XAvb_SetupSourcePortIdentity(XAvb * InstancePtr, \
                                   XAvb_PortIdentity systemIdentity);
 
 /*
  * Functions in xavb_ptp_bmca.c
  */
+/**
+ * @brief Implements the XAvb_DecodeTxAnnounceFrame helper.
+ */
 void XAvb_DecodeTxAnnounceFrame(XAvb * InstancePtr);
 
 void XAvb_DecodeRxAnnounceFrame(XAvb * InstancePtr, \
                                 u32    PtpFrameBaseAddr);
 
+/**
+ * @brief Implements the XAvb_ReadAnnounceFrame helper.
+ */
 void XAvb_ReadAnnounceFrame(u32 BaseAddress, \
                             u32 PtpFrameBaseAddr, \
                             XAvb_BmcData* AnnounceFrame);
 
+/**
+ * @brief Implements the XAvb_ReadAnnounceReceiptTimeout helper.
+ */
 void XAvb_ReadAnnounceReceiptTimeout(u32 BaseAddress, \
                                      u32 PtpFrameBaseAddr, \
                                      XAvb_BmcData * AnnounceFrame);
 
+/**
+ * @brief Implements the XAvb_UpdateBmcRecords helper.
+ */
 void XAvb_UpdateBmcRecords(XAvb_BmcData* NewMaster, \
                            XAvb_BmcData* CurrentBmc);
 
 u32  XAvb_BestMasterClockAlgorithm(XAvb_BmcData* AnnounceFrame, \
                                    XAvb_BmcData* CurrentBmc);
 
+/**
+ * @brief Implements the XAvb_BecomeRtcMaster helper.
+ */
 void XAvb_BecomeRtcMaster(XAvb * InstancePtr, u8 txAnnounceHasWon);
 
 void XAvb_BecomeRtcSlave(XAvb * InstancePtr);
 
 void XAvb_ChangePTPLockStatus(XAvb * InstancePtr, u8 locked);
 
+/**
+ * @brief Implements the XAvb_ChangePeerASCapability helper.
+ */
 void XAvb_ChangePeerASCapability(XAvb *InstancePtr, u8 capable);
 
 void XAvb_SetGMDiscontinuityHandler(XAvb *InstancePtr, \
@@ -632,12 +706,15 @@ void XAvb_SetGMDiscontinuityHandler(XAvb *InstancePtr, \
 * @brief Captures the nanosecond timestamp field from a received PTP frame.
 *
 * @param[in] BaseAddress is the base address of the device.
-* @param[in] PtpFrameBaseAddr is the base address of the received PTP frame
+* @param[in] PtpFrameBaseAddr is the base address of the received PTP frame.
 *		in the Rx PTP packet buffer.
 *
 * @return The nanoseconds timestamp field captured from an Rx PTP frame.
 *
 ******************************************************************************/
+/**
+ * @brief Implements the XAvb_CaptureNanoSec helper.
+ */
 u32  XAvb_CaptureNanoSec(u32 BaseAddress, \
                          u32 PtpFrameBaseAddr);
 
@@ -649,6 +726,9 @@ u32  XAvb_CaptureNanoSec(u32 BaseAddress, \
 * @param[in] InstancePtr is a pointer to the XAvb instance.
 *
 ******************************************************************************/
+/**
+ * @brief Implements the XAvb_CalcDelay helper.
+ */
 void XAvb_CalcDelay(XAvb * InstancePtr);
 
 /****************************************************************************/
@@ -657,10 +737,13 @@ void XAvb_CalcDelay(XAvb * InstancePtr);
 * @brief Calculates the slave RTC offset from the grandmaster time.
 *
 * @param[in] InstancePtr is a pointer to the XAvb instance.
-* @param[in] PtpFrameBaseAddr is the base address of the received PTP frame
+* @param[in] PtpFrameBaseAddr is the base address of the received PTP frame.
 *		in the Rx PTP packet buffer.
 *
 ******************************************************************************/
+/**
+ * @brief Implements the XAvb_CalcRtcOffset helper.
+ */
 void XAvb_CalcRtcOffset(XAvb * InstancePtr, \
                         u32    PtpFrameBaseAddr);
 
@@ -672,6 +755,9 @@ void XAvb_CalcRtcOffset(XAvb * InstancePtr, \
 * @param[in] InstancePtr is a pointer to the XAvb instance.
 *
 ******************************************************************************/
+/**
+ * @brief Implements the XAvb_UpdateRtcIncrement helper.
+ */
 void XAvb_UpdateRtcIncrement(XAvb * InstancePtr);
 
 /****************************************************************************/
@@ -683,6 +769,9 @@ void XAvb_UpdateRtcIncrement(XAvb * InstancePtr);
 * @param[in] NewOffset is the new phase offset value.
 *
 ******************************************************************************/
+/**
+ * @brief Implements the XAvb_Adjust8kClock helper.
+ */
 void XAvb_Adjust8kClock(u32 BaseAddress, \
                         u32 NewOffset);
 

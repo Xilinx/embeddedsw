@@ -11,6 +11,7 @@
 * @addtogroup axiethernet Overview
 * @{
 *
+* @brief Implements static initialization and configuration lookup for AXI Ethernet.
 * Contains static initialization functionality for Axi Ethernet driver.
 *
 * @verbatim
@@ -45,17 +46,8 @@
 #ifndef SDT
 /*****************************************************************************/
 /**
- * @brief Looks up device configuration by device ID.
- *
- * A table contains the configuration info for each device in the system.
- *
- * @param[in] DeviceId contains the unique ID of the device
- *
- * @return A pointer to the configuration table entry corresponding to the given
- *         device ID, or NULL if no match is found.
- *
- * @note In XSCT/classic flow, DeviceId is used to look up the device
- *       configuration.
+ * Implementation of XAxiEthernet_LookupConfig(). See xaxiethernet.h for the API
+ * description.
  *
  ******************************************************************************/
 XAxiEthernet_Config *XAxiEthernet_LookupConfig(u16 DeviceId)
@@ -78,12 +70,8 @@ XAxiEthernet_Config *XAxiEthernet_LookupConfig(u16 DeviceId)
 #if defined(SDT)
 /*****************************************************************************/
 /**
- * @brief Looks up device configuration by base address.
- *
- * @param[in] BaseAddress is the base address of the device to look up
- *
- * @return The configuration structure for the device. If the device base
- *         address is not found, a NULL pointer is returned.
+ * Implementation of XAxiEthernet_LookupConfig(). See xaxiethernet.h for the API
+ * description.
  *
  ******************************************************************************/
 XAxiEthernet_Config *XAxiEthernet_LookupConfig(UINTPTR BaseAddress)

@@ -10,6 +10,7 @@
 * @addtogroup axiethernet Overview
 * @{
 *
+* @brief Implements AXI Ethernet MAC initialization and control functions.
 * The APIs in this file takes care of the primary functionalities of the driver.
 * The APIs in this driver take care of the following:
 *	- Starting or stopping the Axi Ethernet device
@@ -51,12 +52,16 @@
 
 /************************* Function Prototypes ******************************/
 
+/** @cond INTERNAL */
 static void InitHw(XAxiEthernet *InstancePtr);	/* HW reset */
+/** @endcond */
 
 /************************* Variable Definitions *****************************/
 
+/** @cond INTERNAL */
 xdbg_stmnt(int indent_on = 0;)
 xdbg_stmnt(u32 _xaxiethernet_rir_value;)
+/** @endcond */
 
 /****************************************************************************/
 /**
@@ -67,9 +72,9 @@ xdbg_stmnt(u32 _xaxiethernet_rir_value;)
 * The PHY is setup independently from the Ethernet core. Use the MII or
 * whatever other interface may be present for setup.
 *
-* @param[in] InstancePtr references the memory instance to be associated
+* @param[out] InstancePtr references the memory instance to be associated
 *		with the AXI Ethernet core instance upon initialization.
-* @param[out] CfgPtr references the structure holding the hardware
+* @param[in] CfgPtr references the structure holding the hardware
 *		configuration for the Axi Ethernet core to initialize.
 * @param[in] EffectiveAddress is the processor address used to access the
 *		base address of the AXI Ethernet instance. In systems with an
@@ -80,7 +85,6 @@ xdbg_stmnt(u32 _xaxiethernet_rir_value;)
 *		same value as <code>ConfigPtr->Config.BaseAddress</code>.
 *
 * @return	XST_SUCCESS.
-*
 *
 ******************************************************************************/
 int XAxiEthernet_CfgInitialize(XAxiEthernet *InstancePtr,
@@ -130,9 +134,9 @@ int XAxiEthernet_CfgInitialize(XAxiEthernet *InstancePtr,
 * The PHY is setup independently from the Ethernet core. Use the MII or
 * whatever other interface may be present for setup.
 *
-* @param[in] InstancePtr references the memory instance to be associated
+* @param[out] InstancePtr references the memory instance to be associated
 *		with the AXI Ethernet core instance upon initialization.
-* @param[out] CfgPtr references the structure holding the hardware
+* @param[in] CfgPtr references the structure holding the hardware
 *		configuration for the Axi Ethernet core to initialize.
 * @param[in] EffectiveAddress is the processor address used to access the
 *		base address of the AXI Ethernet instance. In systems with an
@@ -186,8 +190,6 @@ int XAxiEthernet_Initialize(XAxiEthernet *InstancePtr,
 *
 * @param[in] InstancePtr is a pointer to the Axi Ethernet instance to be
 *		worked on.
-*
-*
 *
 ******************************************************************************/
 void XAxiEthernet_Start(XAxiEthernet *InstancePtr)
@@ -255,8 +257,6 @@ void XAxiEthernet_Start(XAxiEthernet *InstancePtr)
 *
 * @param[in] InstancePtr is a pointer to the Axi Ethernet instance to be
 *		worked on.
-*
-*
 *
 ******************************************************************************/
 void XAxiEthernet_Stop(XAxiEthernet *InstancePtr)
@@ -378,7 +378,6 @@ void XAxiEthernet_Reset(XAxiEthernet *InstancePtr)
 *
 * @param[in] InstancePtr is a pointer to the Axi Ethernet instance to be
 *		worked on.
-*
 *
 ******************************************************************************/
 static void InitHw(XAxiEthernet *InstancePtr)
@@ -771,7 +770,6 @@ static u32 XAxiEthernet_UpdateDepOptions(XAxiEthernet *InstancePtr)
 *		- XST_DEVICE_IS_STARTED if the device has not been stopped.
 *
 * @note See xaxiethernet.h for a description of the available options.
-*
 *
 ******************************************************************************/
 int XAxiEthernet_SetOptions(XAxiEthernet *InstancePtr, u32 Options)
@@ -1340,7 +1338,6 @@ u32 XAxiEthernet_GetOptions(XAxiEthernet *InstancePtr)
  * @return	Link speed in megabits per second (10, 100, or 1000).
  *		Returns 0 if a valid speed is not read from EMMC.
  *
- *
  ******************************************************************************/
 u16 XAxiEthernet_GetOperatingSpeed(XAxiEthernet *InstancePtr)
 {
@@ -1387,8 +1384,6 @@ u16 XAxiEthernet_GetOperatingSpeed(XAxiEthernet *InstancePtr)
  * @return	- XST_SUCCESS on successful setting of speed.
  *		- XST_FAILURE, if the speed cannot be set for the present
  *		  hardware configuration.
- *
- *
  *
  ******************************************************************************/
 int XAxiEthernet_SetOperatingSpeed(XAxiEthernet *InstancePtr, u16 Speed)
@@ -1486,14 +1481,13 @@ int XAxiEthernet_SetOperatingSpeed(XAxiEthernet *InstancePtr, u16 Speed)
 
 /****************************************************************************/
 /**
-* @brief XAxiEthernet_SetBadFrmRcvOption is used to enable the bad frame receive.
-* option. If enabled, this option ensures that bad receive frames are allowed
-* and passed to the AXI4-Stream interface as if they are good frames.
+* @brief Enables the bad frame receive option.
+*
+* When enabled, bad receive frames are allowed and passed to the AXI4-Stream
+* interface as if they are good frames.
 *
 * @param[in] InstancePtr is a pointer to the Axi Ethernet instance to be
 *		worked on.
-*
-*
 *
 ******************************************************************************/
 void XAxiEthernet_SetBadFrmRcvOption(XAxiEthernet *InstancePtr)
@@ -1509,13 +1503,10 @@ void XAxiEthernet_SetBadFrmRcvOption(XAxiEthernet *InstancePtr)
 
 /****************************************************************************/
 /**
-* @brief XAxiEthernet_ClearBadFrmRcvOption is used to disable the bad frame receive.
-* option.
+* @brief Disables the bad frame receive option.
 *
 * @param[in] InstancePtr is a pointer to the Axi Ethernet instance to be
 *		worked on.
-*
-*
 *
 ******************************************************************************/
 void XAxiEthernet_ClearBadFrmRcvOption(XAxiEthernet *InstancePtr)
@@ -1531,14 +1522,13 @@ void XAxiEthernet_ClearBadFrmRcvOption(XAxiEthernet *InstancePtr)
 
 /****************************************************************************/
 /**
-* @brief XAxiEthernet_DisableControlFrameLenCheck is used to disable the length check.
-* for control frames (pause frames). This means once the API is called, control
-* frames larger than the minimum frame length are accepted.
+* @brief Disables the length check for control frames.
+*
+* When this API is called, control frames larger than the minimum frame length
+* are accepted.
 *
 * @param[in] InstancePtr is a pointer to the Axi Ethernet instance to be
 *		worked on.
-*
-*
 *
 ******************************************************************************/
 void XAxiEthernet_DisableControlFrameLenCheck(XAxiEthernet *InstancePtr)
@@ -1555,18 +1545,15 @@ void XAxiEthernet_DisableControlFrameLenCheck(XAxiEthernet *InstancePtr)
 
 /****************************************************************************/
 /**
-* @brief XAxiEthernet_EnableControlFrameLenCheck is used to enable the length check.
-* for control frames (pause frames). After calling the API, all control frames
-* received will be checked for proper length (less than minimum frame length).
-* By default, upon normal start up, control frame length check is enabled.
-* Hence this API needs to be called only if previously the control frame length
-* check has been disabled by calling the API
-* XAxiEthernet_DisableControlFrameLenCheck.
+* @brief Enables the length check for control frames.
+*
+* After calling this API, all control frames received are checked for proper
+* length (less than the minimum frame length). By default, control frame length
+* check is enabled at start up. Call this API only if
+* XAxiEthernet_DisableControlFrameLenCheck was used earlier to disable the check.
 *
 * @param[in] InstancePtr is a pointer to the Axi Ethernet instance to be
 *		worked on.
-*
-*
 *
 ******************************************************************************/
 void XAxiEthernet_EnableControlFrameLenCheck(XAxiEthernet *InstancePtr)
@@ -1606,7 +1593,6 @@ void XAxiEthernet_EnableControlFrameLenCheck(XAxiEthernet *InstancePtr)
 *		operate.
 * @param[in] Divisor is the divisor value to set within the range of 0 to
 *		XAE_MDIO_MC_CLK_DVD_MAX.
-*
 *
 ******************************************************************************/
 void XAxiEthernet_PhySetMdioDivisor(XAxiEthernet *InstancePtr, u8 Divisor)
@@ -1648,8 +1634,6 @@ void XAxiEthernet_PhySetMdioDivisor(XAxiEthernet *InstancePtr, u8 Divisor)
 *		register to write.
 * @param[out] PhyDataPtr is a reference to the location where the 16-bit
 *		result value is stored.
-*
-*
 *
 * There is the possibility that this function will not return if the hardware
 * is broken (i.e., it never sets the status bit indicating that the write is
@@ -1739,7 +1723,6 @@ void XAxiEthernet_PhyRead(XAxiEthernet *InstancePtr, u32 PhyAddress,
 *		register to write.
 * @param[in] PhyData is the 16-bit value that will be written to the
 *		register.
-*
 *
 * There is the possibility that this function will not return if the hardware
 * is broken (i.e., it never sets the status bit indicating that the write is

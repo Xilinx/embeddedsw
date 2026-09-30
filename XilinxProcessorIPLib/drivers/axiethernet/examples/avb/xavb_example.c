@@ -10,7 +10,7 @@
 * @addtogroup axiethernet Overview
 * @{
 *
-*
+* @brief Demonstrates Audio Video Bridging (AVB) with AXI Ethernet.
 * Implements a simple example to show the usage of Audio Video
 * Bridging (AVB) functionality of Axi Ethernet IP in loopback mode.
 * The example uses the PTP Timer and the PTP Rx interrupts. A PDelay_Req packet
@@ -82,35 +82,36 @@
  * xparameters.h file. They are defined here such that a user can easily
  * change all the needed parameters in one place.
  */
-#define AXIETHERNET_DEVICE_ID	XPAR_AXIETHERNET_0_DEVICE_ID
+#define AXIETHERNET_DEVICE_ID	XPAR_AXIETHERNET_0_DEVICE_ID	/**< AXI Ethernet device ID. */
 
+/**
+ * @brief AVB PTP receive interrupt ID.
+ */
 #define AVB_PTP_RX_INTERRUPT_ID  \
-	XPAR_INTC_0_AXIETHERNET_0_AV_INTERRUPT_PTP_RX_VEC_ID  	/*
-							 * AVB PTP Received
-							 * Frame Interrupt ID
-*/
+	XPAR_INTC_0_AXIETHERNET_0_AV_INTERRUPT_PTP_RX_VEC_ID
+/**
+ * @brief AVB PTP timer interrupt ID.
+ */
 #define AVB_PTP_INTERRUPT_ID     \
-	XPAR_INTC_0_AXIETHERNET_0_AV_INTERRUPT_10MS_VEC_ID  	/* AVB PTP Timer
-							 * Interrupt ID
-*/
+	XPAR_INTC_0_AXIETHERNET_0_AV_INTERRUPT_10MS_VEC_ID
 
 /*
  * Other constants used in this file.
  */
 
-#define PHY_DETECT_REG  	1
-#define PHY_DETECT_MASK 	0x1808
+#define PHY_DETECT_REG  	1	/**< PHY DETECT REG. */
+#define PHY_DETECT_MASK 	0x1808	/**< PHY detect register mask. */
 
-#define PHY_R0_RESET		0x8000
-#define PHY_R0_LOOPBACK		0x4000
-#define PHY_R0_DFT_SPD_1000	0x0040
+#define PHY_R0_RESET		0x8000	/**< PHY control register reset bit. */
+#define PHY_R0_LOOPBACK		0x4000	/**< PHY control register loopback bit. */
+#define PHY_R0_DFT_SPD_1000	0x0040	/**< PHY default speed bit for 1000 Mbps. */
 
 /*
  * The source MAC address used in this example. This will also form
  * a part of source port identity field in the PTP messages
  */
-#define ETH_SYSTEM_ADDRESS_EUI48_HIGH  0x000A35
-#define ETH_SYSTEM_ADDRESS_EUI48_LOW   0x010203
+#define ETH_SYSTEM_ADDRESS_EUI48_HIGH  0x000A35	/**< Upper bytes of the Ethernet EUI-48 address. */
+#define ETH_SYSTEM_ADDRESS_EUI48_LOW   0x010203	/**< Lower bytes of the Ethernet EUI-48 address. */
 
 /*****************************************************************************/
 #ifndef DOXYGEN
@@ -148,11 +149,15 @@ volatile u8 EchoPTPFramesReceived = 0;
 *
 * @brief Main entry point for the AVB example.
 *
-*
 * @note		This example will be in a infinite loop if the HW is not working
 *		properly and if the interrupts are not received.
 *
-****************************************************************************/
+***************************************************************************
+*
+* @return XST_SUCCESS on success, otherwise XST_FAILURE.
+*
+*****************************************************************************/
+
 int main()
 {
 
@@ -286,12 +291,11 @@ int main()
 *
 * @brief Configures Axi Ethernet core and AVB module.
 *
-* @param[in] AxiEthernetInstancePtr is a pointer to the Axi Ethernet driver
+* @param[in] AxiEthernetInstancePtr is a pointer to the Axi Ethernet driver.
 *		instance
 * @param[in] AvbInstancePtr is a pointer to the AVB instance.
 *
 * @return XST_SUCCESS on success, XST_FAILURE otherwise.
-*
 *
 ******************************************************************************/
 static int AvbConfigHW(XAxiEthernet *AxiEthernetInstancePtr, XAvb *AvbInstancePtr)
@@ -338,12 +342,11 @@ static int AvbConfigHW(XAxiEthernet *AxiEthernetInstancePtr, XAvb *AvbInstancePt
 * @brief Configures the GMII interface and Axi Ethernet registers for.
 * 1000 Mbps speed configuration.
 *
-* @param[in] InstancePtr is a pointer to the Axi Ethernet driver instance
+* @param[in] InstancePtr is a pointer to the Axi Ethernet driver instance.
 * @param[in] AvbInstancePtr is a pointer to the AVB instance.
 *
 * @return	- XST_SUCCESS if successful.
 *		- XST_FAILURE, in case of failure...
-*
 *
 ******************************************************************************/
 static int AvbConfigureGmii(XAxiEthernet *InstancePtr, XAvb *AvbInstancePtr)
@@ -392,7 +395,6 @@ static int AvbConfigureGmii(XAxiEthernet *InstancePtr, XAvb *AvbInstancePtr)
 * @return	- XST_SUCCESS if successful.
 *		- XST_FAILURE, in case of failure..
 *
-*
 ******************************************************************************/
 static int AvbEnterPhyLoopBack(XAxiEthernet *InstancePtr)
 {
@@ -439,13 +441,12 @@ static int AvbEnterPhyLoopBack(XAxiEthernet *InstancePtr)
 * @brief Sets up the interrupt system so interrupts can occur for the.
 * AVB design.
 *
-* @param[in] InstancePtr contains a pointer to the instance of the AVB
+* @param[in] InstancePtr contains a pointer to the instance of the AVB.
 *		component which is going to be connected to the interrupt
 *		controller.
 *
 * @return	- XST_SUCCESS if successful.
 *		- XST_FAILURE, in case of failure..
-*
 *
 ****************************************************************************/
 static int AvbSetupInterruptSystem(XAvb *InstancePtr)
@@ -512,9 +513,6 @@ static int AvbSetupInterruptSystem(XAvb *InstancePtr)
 * @brief Enables the PTP Timer interrupt and PTP Rx interrupt in the.
 * INTC module.
 *
-*
-*
-*
 ******************************************************************************/
 static void AvbEnablePTPInterrupts(void)
 {
@@ -532,13 +530,11 @@ static void AvbEnablePTPInterrupts(void)
 * This handler provides an example of how to handle this situation -
 * but this function is application specific.
 *
-*
-* @param[in] CallBackRef contains a callback reference from the driver, in
+* @param[in] CallBackRef contains a callback reference from the driver, in.
 *		this case it is the instance pointer for the AVB driver.
-* @param[in] TimestampsUncertain - a value of 1 indicates that there is a
+* @param[in] TimestampsUncertain - a value of 1 indicates that there is a.
 *		possible discontinuity in GrandMaster time. A value of 0
 *		indicates that Timestamps are no longer uncertain.
-*
 *
 * @note		This Handler need to be defined otherwise the XAvb_StubHandler
 *		will generate an error
@@ -560,8 +556,6 @@ void AvbGMDiscontinuityHandler(void *CallBackRef, u32 TimestampsUncertain)
 * vary.  Just keep in mind that after resetting or updating the PHY modes,
 * the PHY typically needs time to recover.
 *
-*
-*
 ******************************************************************************/
 static void AvbUtilPhyDelay(unsigned int Seconds)
 {
@@ -575,7 +569,9 @@ static void AvbUtilPhyDelay(unsigned int Seconds)
 		WarningFlag = 1;
 	}
 
-#define ITERS_PER_SEC   (XPAR_CPU_CORE_CLOCK_FREQ_HZ / 6)
+/** @cond INTERNAL */
+#define ITERS_PER_SEC   (XPAR_CPU_CORE_CLOCK_FREQ_HZ / 6) /**< Delay-loop iterations per second. */
+/** @endcond */
 	__asm volatile ("\n"
 			      "1:               \n\t"
 			      "addik r7, r0, %0 \n\t"
@@ -594,9 +590,7 @@ static void AvbUtilPhyDelay(unsigned int Seconds)
 *
 * @brief Called by example code to display a console message.
 *
-* @param[in] Message is the text explaining the error
-*
-*
+* @param[in] Message is the text explaining the error.
 *
 ******************************************************************************/
 static void AvbUtilPrintMessage(char *Message)
