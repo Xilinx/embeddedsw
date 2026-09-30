@@ -152,8 +152,10 @@ static int XPlm_Init(void)
 	XPlmi_PpuWakeUpDis();
 
 	/**
-	 * - Initialize PLM Update related handlers and perform
-	 * DS restoring. This is applicable only for Versal Net
+	 * - Initialize PLM Update related handlers and perform DS restoring
+	 *   on Versal Net, Versal 2VE/2VM, and Versal 2VP_P.
+	 *   Versal and Versal 2VP use a stub that returns success and does
+	 *   not restore data structures.
 	 */
 	Status = XPlmi_UpdateInit(XPlm_CompatibilityCheck, XLoader_IsPdiAddrLookup, XPlm_CheckPsmPresenceInOD);
 	if (Status != XST_SUCCESS) {

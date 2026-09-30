@@ -316,7 +316,6 @@ static void XPlmi_SSSCfgSbiDma(void)
 			XPLMI_SSS_SBI_DMA1);
 	/*
 	 * Clear SSS Cfg Error set during ROM PCR Extension
-	 * Applicable only for Versal Net
 	 */
 	XPlmi_ClearSSSCfgErr();
 }

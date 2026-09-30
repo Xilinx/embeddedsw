@@ -566,6 +566,10 @@ typedef enum {
 #define XPLMI_SECURE_ECC_DEVAK_PWCT_KAT_MASK				(0x00200000U) /**< DEVAK PWCT KAT mask */
 #define XPLMI_SECURE_FIPS_STATE_MASK					(0xC0000000U) /**< FIPS state mask */
 
+/*
+ * Bits 17 and 18 are clear in XPLMI_ROM_KAT_MASK, so they are excluded
+ * from the ROM part of the FIPS state check.
+ */
 #define XPLMI_ROM_KAT_MASK		(XPLMI_SECURE_SHA3_KAT_MASK | XPLMI_SECURE_RSA_KAT_MASK |\
 					XPLMI_SECURE_ECC_SIGN_VERIFY_SHA3_384_KAT_MASK | XPLMI_SECURE_AES_DEC_KAT_MASK | \
 					XPLMI_SECURE_AES_CMKAT_MASK | XPLMI_SECURE_TRNG_KAT_MASK | \

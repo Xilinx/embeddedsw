@@ -288,7 +288,7 @@ void XPlmi_ErrMgr(int ErrStatusVal)
 #ifdef VERSAL_NET
 			/*
 			 * In case of errors after In-Place PLM Update, perform IPOR.
-			 * This is applicable only for Versal Net
+			 * This applies to Versal Net and Versal 2VE/2VM.
 			 */
 			if ((XPlmi_IsPlmUpdateDone() == (u8)TRUE)) {
 				XPlmi_AckIpi((u32)ErrStatusVal, 0x0U);

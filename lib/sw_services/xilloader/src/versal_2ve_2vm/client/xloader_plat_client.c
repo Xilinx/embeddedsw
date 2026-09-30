@@ -180,7 +180,7 @@ typedef struct {
 	u32 PUID;              /**< Parent UID */
 	u32 FuncID;            /**< Function ID */
 	u64 Reserved;          /**< Reserved */
-	u32 PcrInfo;           /**< PCR information (unused on Versal 2VE/2VM) */
+	u32 PcrInfo;           /**< PCR number and measurement index */
 	u32 Checksum;          /**< Image header checksum */
 } XilLoader_ImgHdr __attribute__ ((aligned(16U)));
 

@@ -72,16 +72,16 @@
 #define XPLMI_ASU_IPI_FULL_ACCESS(ApiId)	[ApiId] = XPLMI_FULL_IPI_ACCESS /**< Value for only ASU mask to be full access */
 
 /**************************** Type Definitions *******************************/
+/** Static function pointer which holds address of Xplmi_PufOnDemandRegeneration. */
 static int (* AsuGeneratePufKEK)(u8* PufRegenStatusFlag) = NULL;
-	/** Static function pointer which holds address of Xplmi_PufOnDemandRegeneration. */
+/** Static function pointer which holds address of XSecure_InitiateASUKeyTransfer. */
 static int (* AsuInitiateKeyXfer)(void) = NULL;
-	/** Static function pointer which holds address of XSecure_InitiateASUKeyTransfer. */
+/** Static function pointer which holds address of XOcp_GetAsuCdiSeed. */
 static int (* AsuGetAsuCdiSeed)(u32 CdiAddr) = NULL;
-	/** Static function pointer which holds address of XOcp_GetAsuCdiSeed. */
+/** Static function pointer which holds address of XOcp_GetSubsysDigest. */
 static int (* AsuGetSubsysDigest)(u32 SubsystemId, u32 SubsysHashAddrPtr) = NULL;
-	/** Static function pointer which holds address of XOcp_GetSubsysDigest. */
+/** Static function pointer which holds address of XOcp_GetOcpEventMask. */
 static void (*AsuGetOcpEventMask)(u32 *EventMask) = NULL;
-	/** Static function pointer which holds address of XOcp_GetOcpEventMask. */
 
 /***************** Macros (Inline Functions) Definitions *********************/
 

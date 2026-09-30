@@ -281,7 +281,7 @@ typedef struct {
 	u32 PUID; /**< Parent UID */
 	u32 FuncID; /**< Function ID */
 	u64 Reserved; /**< Reserved */
-	u32 PcrInfo;/**< PCR information only applicable for Versal Net */
+	u32 PcrInfo;/**< PCR information, providing the PCR number and measurement index */
 	u32 Checksum; /**< Checksum of the image header */
 } XilPdi_ImgHdr __attribute__ ((aligned(16U)));
 

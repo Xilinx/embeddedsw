@@ -293,13 +293,15 @@ int XLoader_SecureInit(XLoader_SecureParams *SecurePtr, XilPdi *PdiPtr,
 	 * - The following initialization is crucial as the authentication
 	 *   certificate and PUF data are now stored in the PMC RAM instead of the
 	 *   PPU1 RAM. During the processing of the first chunk of any partition,
-	 *   the second 32K chunk of the PMC RAM, starting from 0xf2008120,
+	 *   the second 32K chunk of the PMC RAM, starting from XPLMI_PMCRAM_CHUNK_MEMORY_1,
 	 *   contains the authentication certificate and PUF data as applicable.
 	 *   As a result, the second chunk of the partition must be loaded at
-	 *   0xf2000020, not at 0xf2008120. Therefore, double buffering is disabled
+	 *   XPLMI_PMCRAM_CHUNK_MEMORY, not at XPLMI_PMCRAM_CHUNK_MEMORY_1.
+	 *   Therefore, double buffering is disabled
 	 *   when processing the first chunk, and only enabled from the second chunk
-	 *   onwards. The third chunk is loaded at 0xf2008120, and from then on, the
-	 *   chunks are loaded alternatively to the two 32KB chunks of the PMC RAM.
+	 *   onwards. The third chunk is loaded at XPLMI_PMCRAM_CHUNK_MEMORY_1,
+	 *   and from then on, the chunks are loaded alternatively to the two
+	 *   32KB chunks of the PMC RAM.
 	 */
 	SecurePtr->NextChunkAddr = XPLMI_PMCRAM_CHUNK_MEMORY;
 	SecurePtr->BlockNum = 0x00U;
@@ -926,13 +928,15 @@ int XLoader_SecureChunkCopy(XLoader_SecureParams *SecurePtr, u64 SrcAddr,
 	 * - The following initialization is crucial as the authentication
 	 *   certificate and PUF data are now stored in the PMC RAM instead of the
 	 *   PPU1 RAM. During the processing of the first chunk of any partition,
-	 *   the second 32K chunk of the PMC RAM, starting from 0xf2008120,
+	 *   the second 32K chunk of the PMC RAM, starting from XPLMI_PMCRAM_CHUNK_MEMORY_1,
 	 *   contains the authentication certificate and PUF data as applicable.
 	 *   As a result, the second chunk of the partition must be loaded at
-	 *   0xf2000020, not at 0xf2008120. Therefore, double buffering is disabled
+	 *   XPLMI_PMCRAM_CHUNK_MEMORY, not at XPLMI_PMCRAM_CHUNK_MEMORY_1.
+	 *   Therefore, double buffering is disabled
 	 *   when processing the first chunk, and only enabled from the second chunk
-	 *   onwards. The third chunk is loaded at 0xf2008120, and from then on, the
-	 *   chunks are loaded alternatively to the two 32KB chunks of the PMC RAM.
+	 *   onwards. The third chunk is loaded at XPLMI_PMCRAM_CHUNK_MEMORY_1,
+	 *   and from then on, the chunks are loaded alternatively to the two
+	 *   32KB chunks of the PMC RAM.
 	 */
 	if ((Last != (u8)TRUE) && (SecurePtr->BlockNum != 0U) &&
 	((SecurePtr->DmaFlags & XPLMI_PMCDMA_0) != XPLMI_PMCDMA_0)) {
