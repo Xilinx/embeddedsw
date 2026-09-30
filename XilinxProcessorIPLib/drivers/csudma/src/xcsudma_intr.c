@@ -12,8 +12,9 @@
 * @addtogroup csuma_api CSUDMA APIs
 * @{
 *
+* @brief Implements interrupt-related functions for the CSU DMA driver.
+*
 * The xcsudma_intr.c file contains interrupt related functions of Xilinx CSU_DMA core.
-* Refer to the header file xcsudma.h for more details of the driver.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -40,7 +41,7 @@
 /*****************************************************************************/
 /**
 *
-* Reads interrupt status read from Interrupt Status Register.
+* @brief Reads interrupt status read from Interrupt Status Register.
 * Use the XCSUDMA_IXR_*_MASK constants defined in xcsudma_hw.h to interpret the
 * returned value.
 *
@@ -51,7 +52,6 @@
 *		to interpret the returned value.
 *		XCSUDMA_IXR_SRC_MASK   - For Source channel
 *		XCSUDMA_IXR_DST_MASK   - For Destination channel
-*
 *
 ******************************************************************************/
 u32 XCsuDma_IntrGetStatus(XCsuDma *InstancePtr, XCsuDma_Channel Channel)
@@ -75,7 +75,7 @@ u32 XCsuDma_IntrGetStatus(XCsuDma *InstancePtr, XCsuDma_Channel Channel)
 /*****************************************************************************/
 /**
 *
-* Clears interrupts. Every bit set in Interrupt Status
+* @brief Clears interrupts. Every bit set in Interrupt Status.
 * Register indicates that a specific type of interrupt is occurring, and this
 * function clears one or more interrupts by writing a bit mask to Interrupt
 * Clear Register.
@@ -84,7 +84,6 @@ u32 XCsuDma_IntrGetStatus(XCsuDma *InstancePtr, XCsuDma_Channel Channel)
 * @param[in] Channel Channel to operate on (XCSUDMA_SRC_CHANNEL or XCSUDMA_DST_CHANNEL).
 * @param[in] Mask Bit mask of interrupts to clear, formed by OR'ing
 *		XCSUDMA_IXR_* bits defined in xcsudma_hw.h.
-*
 *
 ******************************************************************************/
 void XCsuDma_IntrClear(XCsuDma *InstancePtr, XCsuDma_Channel Channel, u32 Mask)
@@ -112,15 +111,13 @@ void XCsuDma_IntrClear(XCsuDma *InstancePtr, XCsuDma_Channel Channel, u32 Mask)
 /*****************************************************************************/
 /**
 *
-* Enables interrupts. Use the XCSUDMA_IXR_*_MASK constants
+* @brief Enables interrupts. Use the XCSUDMA_IXR_*_MASK constants.
 * defined in xcsudma_hw.h to create the bit-mask to enable interrupts.
 *
 * @param[in] InstancePtr is a pointer to XCsuDma instance to be worked on.
 * @param[in] Channel Channel to operate on (XCSUDMA_SRC_CHANNEL or XCSUDMA_DST_CHANNEL).
 * @param[in] Mask Bit mask of interrupts to enable, formed by OR'ing
 *		XCSUDMA_IXR_*_MASK bits defined in xcsudma_hw.h.
-*
-*
 *
 ******************************************************************************/
 void XCsuDma_EnableIntr(XCsuDma *InstancePtr, XCsuDma_Channel Channel,
@@ -151,15 +148,13 @@ void XCsuDma_EnableIntr(XCsuDma *InstancePtr, XCsuDma_Channel Channel,
 /*****************************************************************************/
 /**
 *
-* Disables interrupts. Use the XCSUDMA_IXR_*_MASK constants
+* @brief Disables interrupts. Use the XCSUDMA_IXR_*_MASK constants.
 * defined in xcsudma_hw.h to create the bit-mask to disable interrupts.
 *
 * @param[in] InstancePtr is a pointer to XCsuDma instance to be worked on.
 * @param[in] Channel Channel to operate on (XCSUDMA_SRC_CHANNEL or XCSUDMA_DST_CHANNEL).
 * @param[in] Mask Bit mask of interrupts to disable, formed by OR'ing
 *		XCSUDMA_IXR_*_MASK bits defined in xcsudma_hw.h.
-*
-*
 *
 ******************************************************************************/
 void XCsuDma_DisableIntr(XCsuDma *InstancePtr, XCsuDma_Channel Channel,
@@ -191,7 +186,7 @@ void XCsuDma_DisableIntr(XCsuDma *InstancePtr, XCsuDma_Channel Channel,
 /*****************************************************************************/
 /**
 *
-* Reads the interrupt mask to know which interrupts are
+* @brief Reads the interrupt mask to know which interrupts are.
 * enabled and which of them were disabled.
 *
 * @param[in] InstancePtr is a pointer to XCsuDma instance to be worked on.
@@ -204,7 +199,6 @@ void XCsuDma_DisableIntr(XCsuDma *InstancePtr, XCsuDma_Channel Channel,
 *		To interpret returned mask use
 *		- XCSUDMA_IXR_SRC_MASK that the For source channel
 *		- XCSUDMA_IXR_DST_MASK that the For destination channel
-*
 *
 ******************************************************************************/
 u32 XCsuDma_GetIntrMask(XCsuDma *InstancePtr, XCsuDma_Channel Channel)

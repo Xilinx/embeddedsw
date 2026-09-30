@@ -5,6 +5,7 @@
 ******************************************************************************/
 
 #ifndef XCSUDMA_HW_H_
+/** @brief Include guard for the CSU DMA hardware header. */
 #define XCSUDMA_HW_H_
 
 /*****************************************************************************/
@@ -13,6 +14,8 @@
 * @file xcsudma_hw.h
 * @addtogroup csuma_api CSUDMA APIs
 * @{
+*
+* @brief Defines hardware register offsets and constants for CSU DMA.
 *
 * The xcsudma_hw.h header file contains identifiers and register-level driver
 * functions (or macros) that can be used to access the CSU_DMA core.
@@ -299,7 +302,7 @@ extern "C" {
 /*****************************************************************************/
 /**
 *
-* Reads a CSU DMA register.
+* @brief Reads a CSU DMA register.
 *
 * @param[in] BaseAddress Base address of the CSU_DMA core.
 * @param[in] RegOffset Register offset of the register.
@@ -316,12 +319,11 @@ extern "C" {
 /*****************************************************************************/
 /**
 *
-* Writes a CSU DMA register.
+* @brief Writes a CSU DMA register.
 *
 * @param[in] BaseAddress Base address of the CSU_DMA core.
 * @param[in] RegOffset Register offset of the register.
 * @param[in] Data 32-bit value to write to the register.
-*
 *
 * @note		C-style signature:
 *		void XCsuDma_WriteReg(u32 BaseAddress, u32 RegOffset, u32 Data)

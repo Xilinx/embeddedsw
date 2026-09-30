@@ -12,8 +12,9 @@
 * @addtogroup csuma_api CSUDMA APIs
 * @{
 *
+* @brief Implements the CSU DMA driver API functions.
+*
 * This section contains the functions of the CSU_DMA driver.
-* Refer to the header file xcsudma.h for more detailed information.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -66,7 +67,7 @@
 /*****************************************************************************/
 /**
 *
-* Initializes the CSU_DMA core. This function must be called
+* @brief Initializes the CSU_DMA core. This function must be called.
 * prior using a CSU_DMA core. Initialization of an CSU_DMA includes setting
 * up the instance data and ensuring the hardware is in a quiescent state.
 *
@@ -83,7 +84,6 @@
 *
 * @return
 *		- XST_SUCCESS if initialization was successful.
-*
 *
 ******************************************************************************/
 s32 XCsuDma_CfgInitialize(XCsuDma *InstancePtr, XCsuDma_Config *CfgPtr,
@@ -116,7 +116,7 @@ s32 XCsuDma_CfgInitialize(XCsuDma *InstancePtr, XCsuDma_Config *CfgPtr,
 /*****************************************************************************/
 /**
 *
-* Sets the starting address and transfer size of the data to be
+* @brief Sets the starting address and transfer size of the data to be.
 * transferred from/to the memory through the AXI interface.
 *
 * @param[in] InstancePtr is a pointer to XCsuDma instance to be worked on.
@@ -132,7 +132,6 @@ s32 XCsuDma_CfgInitialize(XCsuDma *InstancePtr, XCsuDma_Config *CfgPtr,
 * 		ignored for destination channel.
 * 		-	1 - Asserts data_inp_last signal.
 * 		-	0 - data_inp_last will not be asserted.
-*
 *
 * @note		Data_inp_last signal is asserted simultaneously with the
 * 		data_inp_valid signal associated with the final 32-bit word
@@ -225,7 +224,7 @@ void XCsuDma_Transfer(XCsuDma *InstancePtr, XCsuDma_Channel Channel,
 /*****************************************************************************/
 /**
 *
-* Sets the starting address and transfer size of the data to be
+* @brief Sets the starting address and transfer size of the data to be.
 * transferred from/to the memory through the AXI interface.
 * This function is useful for pmu processor to execute
 * a 64-bit DMA transfer.
@@ -246,7 +245,6 @@ void XCsuDma_Transfer(XCsuDma *InstancePtr, XCsuDma_Channel Channel,
 * 		ignored for destination channel.
 * 		-	1 - Asserts data_inp_last signal.
 * 		-	0 - data_inp_last will not be asserted.
-*
 *
 * @note		Data_inp_last signal is asserted simultaneously with the
 * 		data_inp_valid signal associated with the final 32-bit word
@@ -301,7 +299,7 @@ void XCsuDma_64BitTransfer(XCsuDma *InstancePtr, XCsuDma_Channel Channel,
 /*****************************************************************************/
 /**
 *
-* This function returns the current address location of the memory, from where
+* @brief Provides function returns the current address location of the memory, from where.
 * it has to read the data(SRC) or the location where it has to write the data
 * (DST) based on the channel selection.
 *
@@ -311,7 +309,6 @@ void XCsuDma_64BitTransfer(XCsuDma *InstancePtr, XCsuDma_Channel Channel,
 * @return	Address is a 64-bit variable which holds the current address.
 *		- From this location data has to be read(SRC)
 *		- At this location data has to be written(DST)
-*
 *
 ******************************************************************************/
 u64 XCsuDma_GetAddr(XCsuDma *InstancePtr, XCsuDma_Channel Channel)
@@ -339,14 +336,13 @@ u64 XCsuDma_GetAddr(XCsuDma *InstancePtr, XCsuDma_Channel Channel)
 /*****************************************************************************/
 /**
 *
-* This function returns the size of the data yet to be transferred from memory
+* @brief Provides function returns the size of the data yet to be transferred from memory.
 * to CSU_DMA or CSU_DMA to memory based on the channel selection.
 *
 * @param[in] InstancePtr is a pointer to XCsuDma instance to be worked on.
 * @param[in] Channel Channel to operate on (XCSUDMA_SRC_CHANNEL or XCSUDMA_DST_CHANNEL).
 *
 * @return	Returns number of bytes of data yet to be transferred.
-*
 *
 ******************************************************************************/
 u32 XCsuDma_GetSize(XCsuDma *InstancePtr, XCsuDma_Channel Channel)
@@ -370,7 +366,7 @@ u32 XCsuDma_GetSize(XCsuDma *InstancePtr, XCsuDma_Channel Channel)
 /*****************************************************************************/
 /**
 *
-* This function pauses the Channel data transfer to/from memory or to/from stream
+* @brief Provides function pauses the Channel data transfer to/from memory or to/from stream.
 * based on pause type.
 *
 * @param[in] InstancePtr is a pointer to XCsuDma instance to be worked on.
@@ -382,8 +378,6 @@ u32 XCsuDma_GetSize(XCsuDma *InstancePtr, XCsuDma_Channel Channel)
 *		- XCSUDMA_PAUSE_STREAM(1) - Pause stream
 *			- SRC stops the transfer of data from FIFO to Stream.
 *			- DST stops the transfer of data from stream to FIFO.
-*
-*
 *
 ******************************************************************************/
 void XCsuDma_Pause(XCsuDma *InstancePtr, XCsuDma_Channel Channel,
@@ -424,7 +418,7 @@ void XCsuDma_Pause(XCsuDma *InstancePtr, XCsuDma_Channel Channel,
 /*****************************************************************************/
 /**
 *
-* This function checks whether Channel memory/stream is paused
+* @brief Provides function checks whether Channel memory/stream is paused.
 * based on the given pause type.
 *
 * @param[in] InstancePtr is a pointer to XCsuDma instance to be worked on.
@@ -440,7 +434,6 @@ void XCsuDma_Pause(XCsuDma *InstancePtr, XCsuDma_Channel Channel,
 * @return	Returns the pause status.
 *		- TRUE if it is in paused state.
 *		- FALSE if it is not in pause state.
-*
 *
 ******************************************************************************/
 s32 XCsuDma_IsPaused(XCsuDma *InstancePtr, XCsuDma_Channel Channel,
@@ -486,9 +479,8 @@ s32 XCsuDma_IsPaused(XCsuDma *InstancePtr, XCsuDma_Channel Channel,
 /*****************************************************************************/
 /**
 *
-* This function resumes the channel if it is in paused state and continues
+* @brief Provides function resumes the channel if it is in paused state and continues.
 * where it has left. Based on the type of pause, there is no effect if it is not in paused state.
-*
 *
 * @param[in] InstancePtr is a pointer to XCsuDma instance to be worked on.
 * @param[in] Channel Channel to operate on (XCSUDMA_SRC_CHANNEL or XCSUDMA_DST_CHANNEL).
@@ -499,8 +491,6 @@ s32 XCsuDma_IsPaused(XCsuDma *InstancePtr, XCsuDma_Channel Channel,
 *		- XCSUDMA_PAUSE_STREAM(1) - Pause stream
 *			- SRC stops the transfer of data from FIFO to Stream.
 *			- DST stops the transfer of data from stream to FIFO.
-*
-*
 *
 ******************************************************************************/
 void XCsuDma_Resume(XCsuDma *InstancePtr, XCsuDma_Channel Channel,
@@ -538,7 +528,7 @@ void XCsuDma_Resume(XCsuDma *InstancePtr, XCsuDma_Channel Channel,
 /*****************************************************************************/
 /**
 *
-* This function returns the sum of all the data read from AXI memory. It is
+* @brief Provides function returns the sum of all the data read from AXI memory. It is.
 * valid only when using the CSU_DMA source channel.
 *
 * @param[in] InstancePtr is a pointer to XCsuDma instance to be worked on.
@@ -570,7 +560,7 @@ u32 XCsuDma_GetCheckSum(XCsuDma *InstancePtr)
 /*****************************************************************************/
 /**
 *
-* Clears the checksum of data read from AXI memory. Valid only for the
+* @brief Clears the checksum of data read from AXI memory. Valid only for the.
 * CSU_DMA source channel.
 *
 * @param[in] InstancePtr is a pointer to XCsuDma instance to be worked on.
@@ -592,7 +582,7 @@ void XCsuDma_ClearCheckSum(XCsuDma *InstancePtr)
 
 /*****************************************************************************/
 /**
-* This function polls for completion of data transfer periodically until the
+* @brief Provides function polls for completion of data transfer periodically until the.
 * DMA done bit set or until the timeout occurs.
 *
 * @param[in] InstancePtr is a pointer to XCsuDma instance to be worked on.
@@ -600,7 +590,6 @@ void XCsuDma_ClearCheckSum(XCsuDma *InstancePtr)
 *
 * @return	XST_SUCCESS - In case of Success
 *		    XST_FAILURE - In case of Timeout.
-*
 *
 ******************************************************************************/
 u32 XCsuDma_WaitForDoneTimeout(XCsuDma *InstancePtr, XCsuDma_Channel Channel)
@@ -625,7 +614,7 @@ u32 XCsuDma_WaitForDoneTimeout(XCsuDma *InstancePtr, XCsuDma_Channel Channel)
 }
 /*****************************************************************************/
 /**
-* This function configures all the values of CSU_DMA Channels with the values
+* @brief Provides function configures all the values of CSU_DMA Channels with the values.
 * of updated XCsuDma_Configure structure.
 *
 * @param[in] InstancePtr is a pointer to XCsuDma instance to be worked on.
@@ -688,7 +677,6 @@ u32 XCsuDma_WaitForDoneTimeout(XCsuDma *InstancePtr, XCsuDma_Channel Channel)
 *			- Range is 0x0(Up to 1 Outstanding Read command
 *			  allowed) to 0x8 (Up to 9 Outstanding Read
 *			  command allowed)
-*
 *
 * @note		To use timers timeout value Timeout enable field should be
 *		enabled.
@@ -762,7 +750,7 @@ void XCsuDma_SetConfig(XCsuDma *InstancePtr, XCsuDma_Channel Channel,
 /*****************************************************************************/
 /**
 *
-* This function updates XCsuDma_Configure structure members with the configured
+* @brief Provides function updates XCsuDma_Configure structure members with the configured.
 * values of CSU_DMA's Channel.
 *
 * @param[in] InstancePtr is a pointer to XCsuDma instance to be worked on.
@@ -825,8 +813,6 @@ void XCsuDma_SetConfig(XCsuDma *InstancePtr, XCsuDma_Channel Channel,
 *			- Range is 0x0(Up to 1 Outstanding Read command
 *			allowed) to 0x8 (Up to 9 Outstanding Read command
 *			allowed)
-*
-*
 *
 ******************************************************************************/
 void XCsuDma_GetConfig(XCsuDma *InstancePtr, XCsuDma_Channel Channel,
@@ -894,7 +880,7 @@ void XCsuDma_GetConfig(XCsuDma *InstancePtr, XCsuDma_Channel Channel,
 /*****************************************************************************/
 /**
 *
-* Sets the starting address and transfer size of the data to be
+* @brief Sets the starting address and transfer size of the data to be.
 * transferred from/to the memory through the AXI interface in VERSAL NET.
 * ByteAlignedTransfer is defeatured in Versal Net device. However there is a
 * workaround to allow user software to use this feature while handling
@@ -914,7 +900,6 @@ void XCsuDma_GetConfig(XCsuDma *InstancePtr, XCsuDma_Channel Channel,
 * 		and neglected for destination channel.
 * 		-	1 - Asserts data_inp_last signal.
 * 		-	0 - data_inp_last will not be asserted.
-*
 *
 * @note		Data_inp_last signal is asserted simultaneously with the
 * 		data_inp_valid signal associated with the final 32-bit word

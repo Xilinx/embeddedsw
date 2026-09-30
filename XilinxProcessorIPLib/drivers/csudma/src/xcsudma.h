@@ -5,6 +5,7 @@
 ******************************************************************************/
 
 #ifndef XCSUDMA_H_
+/** @brief Include guard for the CSU DMA driver header. */
 #define XCSUDMA_H_
 
 /*****************************************************************************/
@@ -12,6 +13,8 @@
 * @file xcsudma.h
 * @addtogroup csuma_api CSUDMA APIs
 * @{
+*
+* @brief Defines the CSU DMA, PMC DMA, and ASU DMA driver interface.
 *
 * Driver for CSU DMA, PMC DMA, and ASU DMA cores.
 *
@@ -133,7 +136,6 @@ typedef enum {
 *
 * @param[in] DmaType is the type of DMA (PMCDMA0 or PMCDMA1).
 *
-*
 * @note	 C-style signature:
 *		 void XCsuDma_PmcReset(u8 DmaType)
 *
@@ -147,14 +149,13 @@ typedef enum {
 
 /*****************************************************************************/
 /**
-* Polls until the data transfer completes.
+* @brief Polls until the data transfer completes.
 *
 * @param[in] InstancePtr is a pointer to XCsuDma instance to be worked on.
 * @param[in] Channel Represents the type of channel either it is Source or
 *		Destination.
 *		Source channel      - XCSUDMA_SRC_CHANNEL
 *		Destination Channel - XCSUDMA_DST_CHANNEL
-*
 *
 * @note		Call after XCsuDma_Transfer in polled
 *		mode  to wait until the data gets transferred completely.
@@ -232,7 +233,7 @@ typedef enum {
 /*****************************************************************************/
 /**
 *
-* Reads the outstanding command count(src)/write(dst) outstanding
+* @brief Reads the outstanding command count(src)/write(dst) outstanding.
 * commands based on the type of channel selected.
 *
 * @param[in] InstancePtr is a pointer to XCsuDma instance to be worked on.
@@ -255,7 +256,7 @@ typedef enum {
 /*****************************************************************************/
 /**
 *
-* Reads the channel busy status either it is busy or not.
+* @brief Reads the channel busy status either it is busy or not.
 *
 * @param[in] InstancePtr is a pointer to XCsuDma instance to be worked on.
 * @param[in] Channel Channel to operate on (XCSUDMA_SRC_CHANNEL or XCSUDMA_DST_CHANNEL).
@@ -345,8 +346,28 @@ extern XCsuDma_Config XCsuDma_ConfigTable[];
 /************************** Function Prototypes ******************************/
 
 #ifndef SDT
+/*****************************************************************************/
+/**
+ * @brief Looks up device configuration by device ID.
+ *
+ * @param[in] DeviceId contains the unique ID of the device.
+ *
+ * @return A pointer to the configuration table entry corresponding to the given
+ *         device ID, or NULL if no match is found.
+ *
+ *****************************************************************************/
 XCsuDma_Config *XCsuDma_LookupConfig(u16 DeviceId);
 #else
+/*****************************************************************************/
+/**
+ * @brief Looks up device configuration by base address.
+ *
+ * @param[in] BaseAddress contains the base address of the device.
+ *
+ * @return A pointer to the configuration table entry corresponding to the given
+ *         base address, or NULL if no match is found.
+ *
+ *****************************************************************************/
 XCsuDma_Config *XCsuDma_LookupConfig(UINTPTR BaseAddress);
 #endif
 

@@ -12,6 +12,8 @@
 * @addtogroup csuma_api CSUDMA APIs
 * @{
 *
+* @brief Demonstrates the CSU DMA self-test example.
+*
 * This file contains an example using the XCsudma driver to do self test
 * on the device.
 *
@@ -69,12 +71,11 @@ XCsuDma CsuDma;		/**<Instance of the Csu_Dma Device */
 /*****************************************************************************/
 /**
 *
-* Main function to call the example.
+* @brief Mains function to call the example.
 *
 * @return
 *		- XST_SUCCESS if successful.
 *		- XST_FAILURE if failed.
-*
 *
 ******************************************************************************/
 int main(void)
@@ -100,8 +101,7 @@ int main(void)
 /*****************************************************************************/
 /**
 *
-* Performs a minimal self test on the XCsudma driver.
-*
+* @brief Performs a minimal self test on the XCsudma driver.
 *
 * @if SDT
 * @param[in] BaseAddress contains the base address of the device
@@ -113,8 +113,6 @@ int main(void)
 * @return
 *		- XST_SUCCESS if successful.
 *		- XST_FAILURE if failed.
-*
-*
 *
 ******************************************************************************/
 #ifndef SDT

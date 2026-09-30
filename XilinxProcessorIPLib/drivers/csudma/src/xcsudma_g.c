@@ -4,6 +4,13 @@
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
+
+/*****************************************************************************/
+/**
+ * @file xcsudma_g.c
+ * @brief Holds the configuration table template for CSU DMA devices.
+ *
+ *****************************************************************************/
 #include "xparameters.h"
 #include "xcsudma.h"
 

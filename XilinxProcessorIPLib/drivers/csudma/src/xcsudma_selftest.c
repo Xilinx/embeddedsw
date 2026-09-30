@@ -12,8 +12,9 @@
 * @addtogroup csuma_api CSUDMA APIs
 * @{
 *
+* @brief Implements diagnostic and self-test functions for CSU DMA.
+*
 * The xcsudma_selftest.c file contains a diagnostic self-test function for the CSU_DMA driver.
-* Refer to the header file xcsudma.h for detailed information.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -52,7 +53,7 @@
 /*****************************************************************************/
 /**
 *
-* Performs a self test on the driver and hardware device. Performs
+* @brief Performs a self test on the driver and hardware device. Performs.
 * reset of both source and destination channels and checks if reset is working
 * properly or not.
 *
@@ -61,7 +62,6 @@
 * @return
 *		- XST_SUCCESS if the self-test passed.
 * 		- XST_FAILURE otherwise.
-*
 *
 ******************************************************************************/
 s32 XCsuDma_SelfTest(XCsuDma *InstancePtr)

@@ -12,6 +12,8 @@
 * @addtogroup csuma_api CSUDMA APIs
 * @{
 *
+* @brief Demonstrates CSU DMA transfers in interrupt mode.
+*
 * This file contains a design example using the XCsuDma driver in interrupt
 * mode. It sends data and expects to receive the same data through the device
 * using the local loop back mode.
@@ -167,12 +169,11 @@ volatile u32 DstDone = 0;
 /*****************************************************************************/
 /**
 *
-* Main function to call the example.
+* @brief Mains function to call the example.
 *
 * @return
 *		- XST_SUCCESS if successful.
 *		- XST_FAILURE if failed.
-*
 *
 ******************************************************************************/
 int main(void)
@@ -199,7 +200,7 @@ int main(void)
 /*****************************************************************************/
 /**
 *
-* Performs a data transfer in loop back mode in interrupt mode
+* @brief Performs a data transfer in loop back mode in interrupt mode.
 * and verify the data.
 *
 * @if SDT
@@ -218,7 +219,6 @@ int main(void)
 * @return
 *		- XST_SUCCESS if successful.
 *		- XST_FAILURE if failed.
-*
 *
 ******************************************************************************/
 #ifndef SDT
@@ -361,7 +361,7 @@ int XCsuDma_IntrExample(XCsuDma *CsuDmaInstance, UINTPTR BaseAddress)
 /** @cond INTERNAL */
 /*****************************************************************************/
 /**
-* Sets up the interrupt system so interrupts can occur for the CSU DMA.
+* @brief Sets up the interrupt system so interrupts can occur for the CSU DMA.
 * This function is application-specific. The user should modify this
 * function to fit the application.
 *
@@ -488,7 +488,7 @@ static int SetupInterruptSystem(INTC *IntcInstancePtr,
 /*****************************************************************************/
 /**
 *
-* Interrupt handler for the CSU_DMA driver.
+* @brief Interrupts handler for the CSU_DMA driver.
 *
 * This handler reads the interrupt status from the Status register, determines
 * the source of the interrupts, calls according callbacks, and finally clears
@@ -496,8 +496,6 @@ static int SetupInterruptSystem(INTC *IntcInstancePtr,
 *
 * @param[in] CallBackRef is the callback reference passed from the interrupt
 *		handler, which in our case is a pointer to the driver instance.
-*
-*
 *
 ******************************************************************************/
 void IntrHandler(void *CallBackRef)
@@ -532,7 +530,7 @@ void IntrHandler(void *CallBackRef)
 /** @cond INTERNAL */
 /*****************************************************************************/
 /**
-* Handles source channel interrupts.
+* @brief Handles source channel interrupts.
 *
 * @param[in] Event Pending interrupt status for the source channel.
 *
@@ -582,7 +580,7 @@ static void SrcHandler(u32 Event)
 
 /*****************************************************************************/
 /**
-* Handles destination channel interrupts.
+* @brief Handles destination channel interrupts.
 *
 * @param[in] Event Pending interrupt status for the destination channel.
 *

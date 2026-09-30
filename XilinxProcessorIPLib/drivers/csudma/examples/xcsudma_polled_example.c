@@ -12,6 +12,8 @@
 * @addtogroup csuma_api CSUDMA APIs
 * @{
 *
+* @brief Demonstrates CSU DMA transfers in polled mode.
+*
 * This file contains an example using the XCsuDma driver in polled mode.
 *
 * Runs a loopback transfer test and tests whether transfer of data is
@@ -88,12 +90,11 @@ XCsuDma CsuDma;		/**<Instance of the Csu_Dma Device */
 /*****************************************************************************/
 /**
 *
-* Main function to call the example.
+* @brief Mains function to call the example.
 *
 * @return
 *		- XST_SUCCESS if successful.
 *		- XST_FAILURE if failed.
-*
 *
 ******************************************************************************/
 int main(void)
@@ -118,7 +119,7 @@ int main(void)
 /*****************************************************************************/
 /**
 *
-* Performs a data transfer in loop back mode in polled mode
+* @brief Performs a data transfer in loop back mode in polled mode.
 * and verify the data.
 *
 * @if SDT
@@ -131,8 +132,6 @@ int main(void)
 * @return
 *		- XST_SUCCESS if successful.
 *		- XST_FAILURE if failed.
-*
-*
 *
 ******************************************************************************/
 #ifndef SDT
