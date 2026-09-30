@@ -3,13 +3,16 @@
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
+#ifndef XI3C_H       /* prevent circular inclusions */
+#define XI3C_H
+
 /*****************************************************************************/
 /**
 *
 * @file xi3c.h
-* @addtogroup Overview
+* @addtogroup i3c Overview
 * @{
-* @details
+* @brief Implements the AXI I3C driver for master and slave transfers.
 *
 * This is an implementation of I3C driver in the block. The device can
 * be either a master or a slave on the I3C bus. This implementation supports
@@ -31,7 +34,7 @@
 *    - XI3c_LookupConfig(DeviceId) - Use the device identifier to find
 *      the static configuration structure defined in XI3c_g.c. This is
 *      setup by the tools. For some operating systems the config structure
-*      will be initialized by the software and this call is not needed.
+*      is initialized by the software and this call is not needed.
 *
 *    - XI3c_CfgInitialize(InstancePtr, CfgPtr, EffectiveAddr) - Uses a
 *      configuration structure provided by the caller. If running in a
@@ -47,10 +50,10 @@
 *
 * <b>Interrupts</b>
 *
-* The user must connect the interrupt handler of the driver,
-* XI3c_InterruptHandler to an interrupt system such that it will be called
+* The application must connect the interrupt handler of the driver,
+* XI3c_InterruptHandler to an interrupt system such that it is called
 * when an interrupt occurs. This function does not save and restore the
-* processor context such that the user must provide this processing.
+* processor context such that the application must provide this processing.
 *
 * The driver handles the following interrupts:
 * - Transfer complete
@@ -68,12 +71,10 @@
 * 1.3   vlt 11/05/25 Add 64-bit Addressing support.
 *       vlt 01/30/26 Fixed code spell errors.
 * 1.4   vn  07/30/26 Fix Doxygen warnings
+* 1.4   tb  09/21/26 Align Doxygen comments with AMD documentation standards
 * </pre>
 *
 ******************************************************************************/
-
-#ifndef XI3C_H       /* prevent circular inclusions */
-#define XI3C_H       /**< by using protection macros */
 
 #ifdef __cplusplus
 extern "C" {
@@ -90,64 +91,101 @@ extern "C" {
 
 /************************** Constant Definitions *****************************/
 
+/** Maximum dynamic address assignment count. */
 #define XI3C_MAXDAACOUNT		108
+/** Maximum transfer length in bytes. */
 #define XI3C_MAXDATA_LENGTH		4095
+/** Slave information read byte count. */
 #define XI3C_SLAVEINFO_READ_BYTECOUNT	9
 #define TIMEOUT_COUNTER			2000000U /**< Wait for 2 sec in worst case */
-#define XI3C_BROADCAST_ADDRESS		0x7E
+#define XI3C_BROADCAST_ADDRESS		0x7E	/**< I3C broadcast address. */
+/** Number of bytes in one 32-bit word. */
 #define WORD_TO_BYTE			4
+/** Ceiling division helper. */
 #define XI3C_CEIL_DIV(x, y)		(((x) + (y) - 1) / (y))
+/** Maximum broadcast CCC value. */
 #define XI3C_CCC_BRDCAST_MAX_VAL	0x7F
 
 /* Broadcast commands */
+/** Broadcast enable events command. */
 #define XI3C_CCC_BRDCAST_ENEC		0x0
+/** Broadcast disable events command. */
 #define XI3C_CCC_BRDCAST_DISEC		0x1
+/** Broadcast enter activity state 0 command. */
 #define XI3C_CCC_BRDCAST_ENTAS		0x2
+/** Broadcast enter activity state 1 command. */
 #define XI3C_CCC_BRDCAST_ENTAS1		0x3
+/** Broadcast enter activity state 2 command. */
 #define XI3C_CCC_BRDCAST_ENTAS2		0x4
+/** Broadcast enter activity state 3 command. */
 #define XI3C_CCC_BRDCAST_ENTAS3		0x5
+/** Broadcast reset dynamic address assignment. */
 #define XI3C_CCC_BRDCAST_RSTDAA		0x6
+/** Broadcast enter dynamic address assignment. */
 #define XI3C_CCC_BRDCAST_ENTDAA		0x7
+/** Broadcast define list of targets. */
 #define XI3C_CCC_BRDCAST_DEFTGTS	0x8
+/** Broadcast set maximum write length. */
 #define XI3C_CCC_BRDCAST_SETMWL		0x9
+/** Broadcast set maximum read length. */
 #define XI3C_CCC_BRDCAST_SETMRL		0xa
+/** Broadcast reset action command. */
 #define XI3C_CCC_BRDCAST_RSTACT		0x2a
+/** Broadcast reset group address. */
 #define XI3C_CCC_BRDCAST_RSTGRPA	0x2c
+/** Broadcast set all addresses to static address. */
 #define XI3C_CCC_BRDCAST_SETAASA	0x29
 
 /* Unicast commands */
+/** Direct enable events command. */
 #define XI3C_CCC_ENEC			0x80
+/** Direct disable events command. */
 #define XI3C_CCC_DISEC			0x81
+/** Direct enter activity state 0 command. */
 #define XI3C_CCC_ENTAS0			0x82
+/** Direct enter activity state 1 command. */
 #define XI3C_CCC_ENTAS1			0x83
+/** Direct enter activity state 2 command. */
 #define XI3C_CCC_ENTAS2			0x84
+/** Direct enter activity state 3 command. */
 #define XI3C_CCC_ENTAS3			0x85
+/** Set dynamic address from static address. */
 #define XI3C_CCC_SETDASA		0x87
-#define XI3C_CCC_SETNEWDA		0x88
+#define XI3C_CCC_SETNEWDA		0x88	/**< Set new dynamic address. */
+/** Direct set maximum write length. */
 #define XI3C_CCC_SETMWL			0x89
+/** Direct set maximum read length. */
 #define XI3C_CCC_SETMRL			0x8a
+/** Get maximum write length. */
 #define XI3C_CCC_GETMWL			0x8b
-#define XI3C_CCC_GETMRL			0x8c
-#define XI3C_CCC_GETPID			0x8d
+#define XI3C_CCC_GETMRL			0x8c	/**< Get maximum read length. */
+#define XI3C_CCC_GETPID			0x8d	/**< Get provisioned ID. */
+/** Get bus characteristics register. */
 #define XI3C_CCC_GETBCR			0x8e
+/** Get device characteristics register. */
 #define XI3C_CCC_GETDCR			0x8f
-#define XI3C_CCC_GETSTATUS		0x90
-#define XI3C_CCC_GETMXDS		0x94
-#define XI3C_CCC_GETCAPS		0x95
+#define XI3C_CCC_GETSTATUS		0x90	/**< Get device status. */
+#define XI3C_CCC_GETMXDS		0x94	/**< Get maximum data speed. */
+#define XI3C_CCC_GETCAPS		0x95	/**< Get device capabilities. */
+/** Direct reset action command. */
 #define XI3C_CCC_RSTACT			0x9a
-#define XI3C_CCC_SETGRPA		0x9b
+#define XI3C_CCC_SETGRPA		0x9b	/**< Set group address. */
+/** Direct reset group address. */
 #define XI3C_CCC_RSTGRPA		0x9c
 
 /*****************************************************************************/
 /**
-* Checks whether the I3C bus is busy.
+* @brief Checks whether the I3C bus is busy.
 *
-* @param        BaseAddress is the base address of the XI3c instance.
+* @param[in]	BaseAddress The base address of the XI3c instance.
 *
-* @return       None.
+* @return
+*		- Nonzero if the bus is busy.
+*		- 0 otherwise.
 *
-* @note         C-style signature:
-*               s32 XI3c_BusIsBusy(UINTPTR BaseAddress)
+* @note
+* C-style signature
+*	s32 XI3c_BusIsBusy(UINTPTR BaseAddress)
 *
 ******************************************************************************/
 #define XI3c_BusIsBusy(BaseAddress)					     \
@@ -155,15 +193,16 @@ extern "C" {
 
 /*****************************************************************************/
 /**
-* Gets the dynamic address of the I3C.
+* @brief Gets the dynamic address of the I3C.
 *
-* @param        InstancePtr is a pointer to the XI3c instance.
+* @param[in]	InstancePtr Pointer to the XI3c instance.
 *
-* @return       None.
+* @return
+*		The dynamic address, including parity.
 *
 * @note         The address returned includes parity.
-* 		C-style signature:
-*               u8 XI3c_GetDynaAddr(XI3c *InstancePtr)
+* C-style signature
+*	u8 XI3c_GetDynaAddr(XI3c *InstancePtr)
 *
 ******************************************************************************/
 #define XI3c_GetDynaAddr(InstancePtr)				     \
@@ -176,17 +215,14 @@ extern "C" {
 /*****************************************************************************/
 /**
 *
-* @brief
-* Sets scl high time of I3C.
+* @brief Sets the SCL high time.
 *
-* @param        InstancePtr is a pointer to the XI3c instance.
-* @param        Val is scl high time value to be set.
+* @param[in]	InstancePtr Pointer to the XI3c instance.
+* @param[in]	Val SCL high time value to be set.
 *
-* @return       None.
-*
-* @note         Caller need to update other timing parameters if required.
-*		C-style signature:
-*		void XI3c_SetSclHighTime(XI3c *InstancePtr, u32 Val)
+* @note         The caller needs to update other timing parameters if required.
+* C-style signature
+*	void XI3c_SetSclHighTime(XI3c *InstancePtr, u32 Val)
 *
 ******************************************************************************/
 #define XI3c_SetSclHighTime(InstancePtr, Val)				\
@@ -197,15 +233,16 @@ extern "C" {
 /*****************************************************************************/
 /**
 *
-* @brief
-* Gets scl high time of I3C.
+* @brief Gets the SCL high time.
 *
-* @param        InstancePtr is a pointer to the XI3c instance.
+* @param[in]	InstancePtr Pointer to the XI3c instance.
 *
-* @return       None.
+* @return
+*		The SCL high time.
 *
-* @note         C-style signature:
-*		u32 XI3c_GetSclHighTime(XI3c *InstancePtr)
+* @note
+* C-style signature
+*	u32 XI3c_GetSclHighTime(XI3c *InstancePtr)
 *
 ******************************************************************************/
 #define XI3c_GetSclHighTime(InstancePtr)				     \
@@ -215,17 +252,14 @@ extern "C" {
 /*****************************************************************************/
 /**
 *
-* @brief
-* Sets scl low time of I3C.
+* @brief Sets the SCL low time.
 *
-* @param        InstancePtr is a pointer to the XI3c instance.
-* @param        Val is scl low time value to be set.
+* @param[in]	InstancePtr Pointer to the XI3c instance.
+* @param[in]	Val SCL low time value to be set.
 *
-* @return       None.
-*
-* @note         Caller need to update other timing parameters if required.
-*		C-style signature:
-*		void XI3c_SetSclLowTime(XI3c *InstancePtr, u32 Val)
+* @note         The caller needs to update other timing parameters if required.
+* C-style signature
+*	void XI3c_SetSclLowTime(XI3c *InstancePtr, u32 Val)
 *
 ******************************************************************************/
 #define XI3c_SetSclLowTime(InstancePtr, Val)				\
@@ -236,15 +270,16 @@ extern "C" {
 /*****************************************************************************/
 /**
 *
-* @brief
-* Gets scl low time of I3C.
+* @brief Gets the SCL low time.
 *
-* @param        InstancePtr is a pointer to the XI3c instance.
+* @param[in]	InstancePtr Pointer to the XI3c instance.
 *
-* @return       None.
+* @return
+*		The SCL low time.
 *
-* @note         C-style signature:
-*		u32 XI3c_GetSclLowTime(XI3c *InstancePtr)
+* @note
+* C-style signature
+*	u32 XI3c_GetSclLowTime(XI3c *InstancePtr)
 *
 ******************************************************************************/
 #define XI3c_GetSclLowTime(InstancePtr)					    \
@@ -254,17 +289,14 @@ extern "C" {
 /*****************************************************************************/
 /**
 *
-* @brief
-* Sets sda hold time of I3C.
+* @brief Sets the SDA hold time.
 *
-* @param        InstancePtr is a pointer to the XI3c instance.
-* @param        Val is sda hold time value to be set.
+* @param[in]	InstancePtr Pointer to the XI3c instance.
+* @param[in]	Val SDA hold time value to be set.
 *
-* @return       None.
-*
-* @note         Caller need to update other timing parameters if required.
-*		C-style signature:
-*		void XI3c_SetSdaHoldTime(XI3c *InstancePtr, u32 Val)
+* @note         The caller needs to update other timing parameters if required.
+* C-style signature
+*	void XI3c_SetSdaHoldTime(XI3c *InstancePtr, u32 Val)
 *
 ******************************************************************************/
 #define XI3c_SetSdaHoldTime(InstancePtr, Val)				\
@@ -275,15 +307,16 @@ extern "C" {
 /*****************************************************************************/
 /**
 *
-* @brief
-* Gets sda hold time of I3C.
+* @brief Gets the SDA hold time.
 *
-* @param        InstancePtr is a pointer to the XI3c instance.
+* @param[in]	InstancePtr Pointer to the XI3c instance.
 *
-* @return       None.
+* @return
+*		The SDA hold time.
 *
-* @note         C-style signature:
-*		u32 XI3c_GetSdaHoldTime(XI3c *InstancePtr)
+* @note
+* C-style signature
+*	u32 XI3c_GetSdaHoldTime(XI3c *InstancePtr)
 *
 ******************************************************************************/
 #define XI3c_GetSdaHoldTime(InstancePtr)				     \
@@ -293,17 +326,14 @@ extern "C" {
 /*****************************************************************************/
 /**
 *
-* @brief
-* Sets bus idle time of I3C.
+* @brief Sets the bus idle time.
 *
-* @param        InstancePtr is a pointer to the XI3c instance.
-* @param        Val is bus idle time value to be set.
+* @param[in]	InstancePtr Pointer to the XI3c instance.
+* @param[in]	Val Bus idle time value to be set.
 *
-* @return       None.
-*
-* @note         Caller need to update other timing parameters if required.
-*		C-style signature:
-*		void XI3c_SetBusIdleTime(XI3c *InstancePtr, u32 Val)
+* @note         The caller needs to update other timing parameters if required.
+* C-style signature
+*	void XI3c_SetBusIdleTime(XI3c *InstancePtr, u32 Val)
 *
 ******************************************************************************/
 #define XI3c_SetBusIdleTime(InstancePtr, Val)				    \
@@ -313,15 +343,16 @@ extern "C" {
 /*****************************************************************************/
 /**
 *
-* @brief
-* Gets bus idle time of I3C.
+* @brief Gets the bus idle time.
 *
-* @param        InstancePtr is a pointer to the XI3c instance.
+* @param[in]	InstancePtr Pointer to the XI3c instance.
 *
-* @return       None.
+* @return
+*		The bus idle time.
 *
-* @note         C-style signature:
-*		u32 XI3c_GetBusIdleTime(XI3c *InstancePtr)
+* @note
+* C-style signature
+*	u32 XI3c_GetBusIdleTime(XI3c *InstancePtr)
 *
 ******************************************************************************/
 #define XI3c_GetBusIdleTime(InstancePtr)				\
@@ -331,17 +362,14 @@ extern "C" {
 /*****************************************************************************/
 /**
 *
-* @brief
-* Sets Tsu Start time of I3C.
+* @brief Sets the TSU start time.
 *
-* @param        InstancePtr is a pointer to the XI3c instance.
-* @param        Val is Tsu Start time value to be set.
+* @param[in]	InstancePtr Pointer to the XI3c instance.
+* @param[in]	Val TSU start time value to be set.
 *
-* @return       None.
-*
-* @note         Caller need to update other timing parameters if required.
-*		C-style signature:
-*		void XI3c_SetTsuStartTime(XI3c *InstancePtr, u32 Val)
+* @note         The caller needs to update other timing parameters if required.
+* C-style signature
+*	void XI3c_SetTsuStartTime(XI3c *InstancePtr, u32 Val)
 *
 ******************************************************************************/
 #define XI3c_SetTsuStartTime(InstancePtr, Val)				     \
@@ -351,15 +379,16 @@ extern "C" {
 /*****************************************************************************/
 /**
 *
-* @brief
-* Gets Tsu Start time of I3C.
+* @brief Gets the TSU start time.
 *
-* @param        InstancePtr is a pointer to the XI3c instance.
+* @param[in]	InstancePtr Pointer to the XI3c instance.
 *
-* @return       None.
+* @return
+*		The TSU start time.
 *
-* @note         C-style signature:
-*		u32 XI3c_GetTsuStartTime(XI3c *InstancePtr)
+* @note
+* C-style signature
+*	u32 XI3c_GetTsuStartTime(XI3c *InstancePtr)
 *
 ******************************************************************************/
 #define XI3c_GetTsuStartTime(InstancePtr)				 \
@@ -369,17 +398,14 @@ extern "C" {
 /*****************************************************************************/
 /**
 *
-* @brief
-* Sets Thd Start time of I3C.
+* @brief Sets the THD start time.
 *
-* @param        InstancePtr is a pointer to the XI3c instance.
-* @param        Val is Thd Start time value to be set.
+* @param[in]	InstancePtr Pointer to the XI3c instance.
+* @param[in]	Val THD start time value to be set.
 *
-* @return       None.
-*
-* @note         Caller need to update other timing parameters if required.
-*		C-style signature:
-*		void XI3c_SetThdStartTime(XI3c *InstancePtr, u32 Val)
+* @note         The caller needs to update other timing parameters if required.
+* C-style signature
+*	void XI3c_SetThdStartTime(XI3c *InstancePtr, u32 Val)
 *
 ******************************************************************************/
 #define XI3c_SetThdStartTime(InstancePtr, Val)				     \
@@ -389,15 +415,16 @@ extern "C" {
 /*****************************************************************************/
 /**
 *
-* @brief
-* This function gets Thd Start time.
+* @brief Gets the THD start time.
 *
-* @param        InstancePtr is a pointer to the XI3c instance.
+* @param[in]	InstancePtr Pointer to the XI3c instance.
 *
-* @return       None.
+* @return
+*		The THD start time.
 *
-* @note         C-style signature:
-*		u32 XI3c_GetThdStartTime(XI3c *InstancePtr)
+* @note
+* C-style signature
+*	u32 XI3c_GetThdStartTime(XI3c *InstancePtr)
 *
 ******************************************************************************/
 #define XI3c_GetThdStartTime(InstancePtr)				\
@@ -407,17 +434,14 @@ extern "C" {
 /*****************************************************************************/
 /**
 *
-* @brief
-* Sets Tsu Stop time of I3C.
+* @brief Sets the TSU stop time.
 *
-* @param        InstancePtr is a pointer to the XI3c instance.
-* @param        Val is Tsu Stop time value to be set.
+* @param[in]	InstancePtr Pointer to the XI3c instance.
+* @param[in]	Val TSU stop time value to be set.
 *
-* @return       None.
-*
-* @note         Caller need to update other timing parameters if required.
-*		C-style signature:
-*		void XI3c_SetTsuStopTime(XI3c *InstancePtr, u32 Val)
+* @note         The caller needs to update other timing parameters if required.
+* C-style signature
+*	void XI3c_SetTsuStopTime(XI3c *InstancePtr, u32 Val)
 *
 ******************************************************************************/
 #define XI3c_SetTsuStopTime(InstancePtr, Val)				    \
@@ -427,15 +451,16 @@ extern "C" {
 /*****************************************************************************/
 /**
 *
-* @brief
-* Gets Tsu Stop time of I3C.
+* @brief Gets the TSU stop time.
 *
-* @param        InstancePtr is a pointer to the XI3c instance.
+* @param[in]	InstancePtr Pointer to the XI3c instance.
 *
-* @return       None.
+* @return
+*		The TSU stop time.
 *
-* @note         C-style signature:
-*		u32 XI3c_GetTsuStopTime(XI3c *InstancePtr)
+* @note
+* C-style signature
+*	u32 XI3c_GetTsuStopTime(XI3c *InstancePtr)
 *
 ******************************************************************************/
 #define XI3c_GetTsuStopTime(InstancePtr)				\
@@ -445,17 +470,14 @@ extern "C" {
 /*****************************************************************************/
 /**
 *
-* @brief
-* Sets Scl open drain high time of I3C.
+* @brief Sets the SCL open-drain high time.
 *
-* @param        InstancePtr is a pointer to the XI3c instance.
-* @param        Val is Scl open drain high time value to be set.
+* @param[in]	InstancePtr Pointer to the XI3c instance.
+* @param[in]	Val SCL open-drain high time value to be set.
 *
-* @return       None.
-*
-* @note         Caller need to update other timing parameters if required.
-*		C-style signature:
-*		void XI3c_SetSclOdHighTime(XI3c *InstancePtr, u32 Val)
+* @note         The caller needs to update other timing parameters if required.
+* C-style signature
+*	void XI3c_SetSclOdHighTime(XI3c *InstancePtr, u32 Val)
 *
 ******************************************************************************/
 #define XI3c_SetSclOdHighTime(InstancePtr, Val)				\
@@ -466,15 +488,16 @@ extern "C" {
 /*****************************************************************************/
 /**
 *
-* @brief
-* Gets Scl open drain high time of I3C.
+* @brief Gets the SCL open-drain high time.
 *
-* @param        InstancePtr is a pointer to the XI3c instance.
+* @param[in]	InstancePtr Pointer to the XI3c instance.
 *
-* @return       None.
+* @return
+*		The SCL open-drain high time.
 *
-* @note         C-style signature:
-*		u32 XI3c_GetSclOdHighTime(XI3c *InstancePtr)
+* @note
+* C-style signature
+*	u32 XI3c_GetSclOdHighTime(XI3c *InstancePtr)
 *
 ******************************************************************************/
 #define XI3c_GetSclOdHighTime(InstancePtr)				 \
@@ -484,17 +507,14 @@ extern "C" {
 /*****************************************************************************/
 /**
 *
-* @brief
-* Sets Scl open drain low time of I3C.
+* @brief Sets the SCL open-drain low time.
 *
-* @param        InstancePtr is a pointer to the XI3c instance.
-* @param        Val is Scl open drain low time value to be set.
+* @param[in]	InstancePtr Pointer to the XI3c instance.
+* @param[in]	Val SCL open-drain low time value to be set.
 *
-* @return       None.
-*
-* @note         Caller need to update other timing parameters if required.
-*		C-style signature:
-*		void XI3c_SetSclOdLowTime(XI3c *InstancePtr, u32 Val)
+* @note         The caller needs to update other timing parameters if required.
+* C-style signature
+*	void XI3c_SetSclOdLowTime(XI3c *InstancePtr, u32 Val)
 *
 ******************************************************************************/
 #define XI3c_SetSclOdLowTime(InstancePtr, Val)				\
@@ -505,15 +525,16 @@ extern "C" {
 /*****************************************************************************/
 /**
 *
-* @brief
-* Gets Scl open drain low time of I3C.
+* @brief Gets the SCL open-drain low time.
 *
-* @param        InstancePtr is a pointer to the XI3c instance.
+* @param[in]	InstancePtr Pointer to the XI3c instance.
 *
-* @return       None.
+* @return
+*		The SCL open-drain low time.
 *
-* @note         C-style signature:
-*		u32 XI3c_GetSclOdLowTime(XI3c *InstancePtr)
+* @note
+* C-style signature
+*	u32 XI3c_GetSclOdLowTime(XI3c *InstancePtr)
 *
 ******************************************************************************/
 #define XI3c_GetSclOdLowTime(InstancePtr)				\
@@ -523,15 +544,16 @@ extern "C" {
 /*****************************************************************************/
 /**
 *
-* @brief
-* Gets Core Revision number of I3C.
+* @brief Gets the core revision number.
 *
-* @param        InstancePtr is a pointer to the XI3c instance.
+* @param[in]	InstancePtr Pointer to the XI3c instance.
 *
-* @return       None.
+* @return
+*		The core revision number.
 *
-* @note         C-style signature:
-*		u32 XI3c_GetRevisionNumber(XI3c *InstancePtr)
+* @note
+* C-style signature
+*	u32 XI3c_GetRevisionNumber(XI3c *InstancePtr)
 *
 ******************************************************************************/
 #define XI3c_GetRevisionNumber(InstancePtr)					\
@@ -542,15 +564,16 @@ extern "C" {
 /*****************************************************************************/
 /**
 *
-* @brief
-* Gets Response data of I3C.
+* @brief Gets the response data.
 *
-* @param        InstancePtr is a pointer to the XI3c instance.
+* @param[in]	InstancePtr Pointer to the XI3c instance.
 *
-* @return       Response value.
+* @return
+* 		Response value.
 *
-* @note         C-style signature:
-* 		u32 XI3c_GetResponseData(XI3c *InstancePtr)
+* @note
+* C-style signature
+*	u32 XI3c_GetResponseData(XI3c *InstancePtr)
 *
 ******************************************************************************/
 #define XI3c_GetResponseData(InstancePtr)					\
@@ -560,16 +583,17 @@ extern "C" {
 /*****************************************************************************/
 /**
 *
-* @brief
-* Gets error status from response of I3C.
+* @brief Gets the error status from the response.
 *
-* @param        InstancePtr is a pointer to the XI3c instance.
+* @param[in]	InstancePtr Pointer to the XI3c instance.
 *
-* @return       0 		if no error.
+* @return
+* 		0 		if no error.
 * 		error code	if any error.
 *
-* @note         C-style signature:
-*		u32 XI3c_GetErrorStatus(XI3c *InstancePtr)
+* @note
+* C-style signature
+*	u32 XI3c_GetErrorStatus(XI3c *InstancePtr)
 *
 ******************************************************************************/
 #define XI3c_GetErrorStatus(InstancePtr)					\
@@ -579,16 +603,17 @@ extern "C" {
 /*****************************************************************************/
 /**
 *
-* @brief
-* Check the dynamic address assignment status of I3C in slave mode.
+* @brief Checks the dynamic address assignment status of I3C in slave mode.
 *
-* @param        InstancePtr is a pointer to the XI3c instance.
+* @param[in]	InstancePtr Pointer to the XI3c instance.
 *
-* @return       1	if address assigned.
+* @return
+* 		1	if address assigned.
 * 		0	if address not assigned.
 *
-* @note         C-style signature:
-*		u32 XI3c_IsDyncAddrAssigned(XI3c *InstancePtr)
+* @note
+* C-style signature
+*	u32 XI3c_IsDyncAddrAssigned(XI3c *InstancePtr)
 *
 ******************************************************************************/
 #define XI3c_IsDyncAddrAssigned(InstancePtr)					\
@@ -598,16 +623,17 @@ extern "C" {
 /*****************************************************************************/
 /**
 *
-* @brief
-* Check the response status of I3C.
+* @brief Checks the response status of I3C.
 *
-* @param        InstancePtr is a pointer to the XI3c instance.
+* @param[in]	InstancePtr Pointer to the XI3c instance.
 *
-* @return       1	if response available.
+* @return
+* 		1	if response available.
 * 		0	if response not available.
 *
-* @note         C-style signature:
-*		u32 XI3c_IsRespAvailable(XI3c *InstancePtr)
+* @note
+* C-style signature
+*	u32 XI3c_IsRespAvailable(XI3c *InstancePtr)
 *
 ******************************************************************************/
 #define XI3c_IsRespAvailable(InstancePtr)					\
@@ -617,18 +643,15 @@ extern "C" {
 /*****************************************************************************/
 /**
 *
-* @brief
-* Sets device status of I3C.
+* @brief Sets the device status.
 *
-* @param        InstancePtr is a pointer to the XI3c instance.
-* @param        Format1 value of Device status.
-* @param        Format2 value of Device status.
+* @param[in]	InstancePtr Pointer to the XI3c instance.
+* @param[in]	Format1 GETSTATUS format 1 value.
+* @param[in]	Format2 GETSTATUS format 2 value.
 *
-* @return       None.
-*
-* @note         C-style signature:
-*		void XI3c_SetDeviceStatus(XI3c *InstancePtr, u16 Format1,
-*					  u16 Format2)
+* @note
+* C-style signature
+*	void XI3c_SetDeviceStatus(XI3c *InstancePtr, u16 Format1, u16 Format2)
 *
 ******************************************************************************/
 #define XI3c_SetDeviceStatus(InstancePtr, Format1, Format2)		\
@@ -641,18 +664,15 @@ extern "C" {
 /*****************************************************************************/
 /**
 *
-* @brief
-* Sets device Max data speed.
+* @brief Sets the device maximum data speed.
 *
-* @param        InstancePtr is a pointer to the XI3c instance.
-* @param        Format1 value of Device status.
-* @param        Format3 value of Device status.
+* @param[in]	InstancePtr Pointer to the XI3c instance.
+* @param[in]	Format1 GETMXDS format 1 value.
+* @param[in]	Format3 GETMXDS format 3 value.
 *
-* @return       None.
-*
-* @note         C-style signature:
-*		void XI3c_SetMaxDataSpeed(XI3c *InstancePtr, u16 Format1,
-*					  u8 Format3)
+* @note
+* C-style signature
+*	void XI3c_SetMaxDataSpeed(XI3c *InstancePtr, u16 Format1, u8 Format3)
 *
 ******************************************************************************/
 #define XI3c_SetMaxDataSpeed(InstancePtr, Format1, Format3)		\
@@ -665,20 +685,18 @@ extern "C" {
 /*****************************************************************************/
 /**
 *
-* @brief
-* Sets device capabilities format1.
+* @brief Sets the device capabilities in format 1.
 *
-* @param        InstancePtr is a pointer to the XI3c instance.
-* @param        Cap1 of target device.
-* @param        Cap2 of target device.
-* @param        Cap3 of target device.
-* @param        Cap4 of target device.
+* @param[in]	InstancePtr Pointer to the XI3c instance.
+* @param[in]	Cap1 Capability byte 1 of the target device.
+* @param[in]	Cap2 Capability byte 2 of the target device.
+* @param[in]	Cap3 Capability byte 3 of the target device.
+* @param[in]	Cap4 Capability byte 4 of the target device.
 *
-* @return       None.
-*
-* @note         C-style signature:
-*		void XI3c_SetCapsFormat1(XI3c *InstancePtr, u8 Cap1,
-*					  u8 Cap2, u8 Cap3, u8 Cap4)
+* @note
+* C-style signature
+*	void XI3c_SetCapsFormat1(XI3c *InstancePtr, u8 Cap1, u8 Cap2, u8 Cap3,
+*		u8 Cap4)
 *
 ******************************************************************************/
 #define XI3c_SetCapsFormat1(InstancePtr, Cap1, Cap2, Cap3, Cap4)	\
@@ -692,17 +710,15 @@ extern "C" {
 /*****************************************************************************/
 /**
 *
-* @brief
-* Sets device capabilities format2.
+* @brief Sets the device capabilities in format 2.
 *
-* @param        InstancePtr is a pointer to the XI3c instance.
-* @param        Cap1 of target device.
-* @param        Cap2 of target device.
+* @param[in]	InstancePtr Pointer to the XI3c instance.
+* @param[in]	Cap1 Capability byte 1 of the target device.
+* @param[in]	Cap2 Capability byte 2 of the target device.
 *
-* @return       None.
-*
-* @note         C-style signature:
-*		void XI3c_SetCapsFormat2(XI3c *InstancePtr, u8 Cap1, u8 Cap2)
+* @note
+* C-style signature
+*	void XI3c_SetCapsFormat2(XI3c *InstancePtr, u8 Cap1, u8 Cap2)
 *
 ******************************************************************************/
 #define XI3c_SetCapsFormat2(InstancePtr, Cap1, Cap2)			\
@@ -714,29 +730,35 @@ extern "C" {
 /**************************** Type Definitions *******************************/
 
 /**
-* The handler data type allows the user to define a callback function to
-* respond to interrupt events in the system. This function is executed
-* in interrupt context, so amount of processing should be minimized.
+* @brief Defines the handler type for interrupt event callbacks.
 *
-* @param	StatusEvent indicates one or more status events that occurred.
+* The handler data type allows the application to define a callback function to
+* respond to interrupt events in the system. This function is executed in
+* interrupt context, so amount of processing should be minimized.
+*
+* @param[in]	StatusEvent Indicates one or more status events that occurred.
 */
 typedef void (*XI3c_IntrHandler) (u32 StatusEvent);
 
 /**
- * This typedef contains configuration information for the device.
+ * @brief Holds configuration information for the device.
  */
 typedef struct {
 #ifndef SDT
 	u16 DeviceId;     /**< Unique ID  of device */
 #else
-	char *Name;
+	char *Name;	/**< Device name. */
 #endif
 	UINTPTR BaseAddress;  /**< Base address of the device */
 #ifdef SDT
-	u16 IntrId;		/**< Bits[11:0] Interrupt-id Bits[15:12]
-				 * trigger type and level flags */
-	UINTPTR IntrParent;	/**< Bit[0] Interrupt parent type Bit[64/32:1]
-				 * Parent base address */
+	/**
+	 * Bits[11:0] interrupt ID; bits[15:12] trigger type and level flags.
+	 */
+	u16 IntrId;
+	/**
+	 * Bit[0] interrupt parent type; bit[64/32:1] parent base address.
+	 */
+	UINTPTR IntrParent;
 #endif
 	u32 InputClockHz;	/**< Input clock frequency */
 	u8 RwFifoDepth;		/**< Read and write fifo depth */
@@ -758,8 +780,9 @@ typedef struct {
 } XI3c_Cmd;
 
 /**
- * The XI3c slave data. XI3c driver reads from slave devices during DAA
- * and fills these values.
+ * @brief Holds XI3c slave data.
+ *
+ * XI3c driver reads from slave devices during DAA and fills these values.
  */
 typedef struct {
 	u8 DynaAddr;	/**< Dynamic Address */
@@ -769,9 +792,11 @@ typedef struct {
 } XI3c_SlaveInfo;
 
 /**
- * The XI3c driver instance data. The user is required to allocate a
- * variable of this type for each I3C device in the system. A pointer
- * to a variable of this type is then passed to the driver API functions.
+ * @brief Holds XI3c driver instance data.
+ *
+ * The application must allocate a variable of this type for each I3C device
+ * in the system. A pointer to a variable of this type is then passed to the
+ * driver API functions.
  */
 typedef struct {
 	XI3c_Config Config;	/**< Configuration structure */
@@ -842,17 +867,14 @@ void XI3c_SlaveInterruptHandler(XI3c *InstancePtr);
 /*****************************************************************************/
 /**
 *
-* @brief
-* Enables/Disables the I3C. To execute I3C transactions this has to  be
-* Enabled. Any data transfer that is in progress is aborted when disabled and
-* no further I3C transactions will happen till I3C enabled.
+* @brief Enables or disables the I3C.
 *
-* @param        InstancePtr is a pointer to the XI3c instance.
-* @param        Enable is flag indicates to enable or disable the I3C.
+* To execute I3C transactions this has to be Enabled. Any data transfer that is
+* in progress is aborted when disabled and no further I3C transactions
+* happen until I3C is enabled.
 *
-* @return       None.
-*
-* @note         None.
+* @param[in]	InstancePtr Pointer to the XI3c instance.
+* @param[in]	Enable Flag that indicates whether to enable or disable the I3C.
 *
 ******************************************************************************/
 static inline void XI3c_Enable(XI3c *InstancePtr,u8 Enable)
@@ -871,16 +893,12 @@ static inline void XI3c_Enable(XI3c *InstancePtr,u8 Enable)
 /*****************************************************************************/
 /**
 *
-* @brief
-* Abort allows controller to kill existing transcation.
+* @brief Aborts the existing controller transaction.
+*
 * In response Abort request, Controller issues a stop condition after existing
 * transcation is finished. Abort bit is auto cleared after Abort is completed.
 *
-* @param	InstancePtr is a pointer to the XI3c instance.
-*
-* @return	None.
-*
-* @note		None.
+* @param[in]	InstancePtr Pointer to the XI3c instance.
 *
 ******************************************************************************/
 static inline void XI3c_Abort(XI3c *InstancePtr)
@@ -898,17 +916,13 @@ static inline void XI3c_Abort(XI3c *InstancePtr)
 /*****************************************************************************/
 /**
 *
-* @brief
-* Resume allows controller to resume the controller from Abort/Error State.
-* Resume bit will be auto cleared once controller resumes the operation.
-* After Controller goes to Abort/Eroor State. User should handle the necessary
-* action to Abort/Error state (ex: Clearing FIFOs etc)
+* @brief	Resumes the controller from the Abort or Error state.
 *
-* @param	InstancePtr is a pointer to the XI3c instance.
+* Resume bit is auto cleared once controller resumes the operation. After
+* the controller goes to the Abort or Error state, the application handles
+* the necessary action for that state, for example clearing the FIFOs.
 *
-* @return	None.
-*
-* @note		None.
+* @param[in]	InstancePtr Pointer to the XI3c instance.
 *
 ******************************************************************************/
 static inline void XI3c_Resume(XI3c *InstancePtr)
@@ -926,14 +940,9 @@ static inline void XI3c_Resume(XI3c *InstancePtr)
 /*****************************************************************************/
 /**
 *
-* @brief
-* Enable IBI capability
+* @brief Enables IBI capability.
 *
-* @param	InstancePtr is a pointer to the XI3c instance.
-*
-* @return	None.
-*
-* @note		None.
+* @param[in]	InstancePtr Pointer to the XI3c instance.
 *
 ******************************************************************************/
 static inline void XI3c_EnableIbi(XI3c *InstancePtr)
@@ -951,14 +960,9 @@ static inline void XI3c_EnableIbi(XI3c *InstancePtr)
 /*****************************************************************************/
 /**
 *
-* @brief
-* Enable Hot Join capability
+* @brief Enables Hot Join capability.
 *
-* @param	InstancePtr is a pointer to the XI3c instance.
-*
-* @return	None.
-*
-* @note		None.
+* @param[in]	InstancePtr Pointer to the XI3c instance.
 *
 ******************************************************************************/
 static inline void XI3c_EnableHotjoin(XI3c *InstancePtr)
@@ -976,16 +980,13 @@ static inline void XI3c_EnableHotjoin(XI3c *InstancePtr)
 /*****************************************************************************/
 /**
 *
-* @brief
-* Update the slave address and BCR register values of available device
-* to the controller RAM.
+* @brief Updates slave addresses and BCR values in the controller RAM.
 *
-* @param	InstancePtr is a pointer to the XI3c instance.
-* @param	DevIndex is the slave device index of XI3c_SlaveInfoTable.
+* Updates the slave address and BCR register values of available device to the
+* controller RAM.
 *
-* @return	None.
-*
-* @note		None.
+* @param[in]	InstancePtr Pointer to the XI3c instance.
+* @param[in]	DevIndex The slave device index of XI3c_SlaveInfoTable.
 *
 ******************************************************************************/
 static inline void XI3c_UpdateAddrBcr(XI3c *InstancePtr, u16 DevIndex)
@@ -1004,20 +1005,16 @@ static inline void XI3c_UpdateAddrBcr(XI3c *InstancePtr, u16 DevIndex)
 /*****************************************************************************/
 /**
 *
-* @brief
-* Resets the I3C device. Reset must only be called after the driver has been
-* initialized. The configuration of the device after reset is the same as its
-* configuration after initialization.  Any data transfer that is in progress is
-* aborted.
+* @brief	Resets the I3C device.
+*
+* Reset must only be called after the driver has been initialized. The
+* configuration of the device after reset is the same as its configuration after
+* initialization. Any data transfer that is in progress is aborted.
 *
 * The upper layer software is responsible for re-configuring (if necessary)
 * and reenabling interrupts for the I3C device after the reset.
 *
-* @param        InstancePtr is a pointer to the XI3c instance.
-*
-* @return       None.
-*
-* @note         None.
+* @param[in]	InstancePtr Pointer to the XI3c instance.
 *
 ******************************************************************************/
 static inline void XI3c_Reset(XI3c *InstancePtr)
@@ -1039,15 +1036,12 @@ static inline void XI3c_Reset(XI3c *InstancePtr)
 /*****************************************************************************/
 /**
 *
-* @brief
-* Resets the fifos of I3C device. Reset must only be called after the driver has been
-* initialized. Any data transfer that is in progress is aborted.
+* @brief	Resets the fifos of I3C device.
 *
-* @param        InstancePtr is a pointer to the XI3c instance.
+* Reset must only be called after the driver has been initialized. Any data
+* transfer that is in progress is aborted.
 *
-* @return       None.
-*
-* @note         None.
+* @param[in]	InstancePtr Pointer to the XI3c instance.
 *
 ******************************************************************************/
 static inline void XI3c_ResetFifos(XI3c *InstancePtr)
@@ -1069,15 +1063,13 @@ static inline void XI3c_ResetFifos(XI3c *InstancePtr)
 /*****************************************************************************/
 /**
 *
-* @brief
-* Calculates the Odd parity for the dynamic address.
+* @brief Calculates the Odd parity for the dynamic address.
 *
-* @param        Addr is a dynamic address.
+* @param[in]	Addr A dynamic address.
 *
-* @return       - 0 if Addr has odd parity.
+* @return
+* 		- 0 if Addr has odd parity.
 * 		- 1 if Addr has even parity.
-*
-* @note         None.
 *
 ******************************************************************************/
 static inline u8 XI3c_GetOddParity(u8 Addr)

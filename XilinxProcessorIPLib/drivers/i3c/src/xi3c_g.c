@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved
+* Copyright (C) 2024 - 2026 Advanced Micro Devices, Inc. All Rights Reserved
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -7,11 +7,8 @@
 /**
 *
 * @file xi3c_g.c
-* @addtogroup Overview
-* @{
 *
-* This file contains a configuration table that specifies the configuration of
-* I3C devices in the system.
+* @brief Provides the I3C configuration table.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -19,10 +16,16 @@
 * Ver   Who     Date     Changes
 * ----- ------  -------- --------------------------------------------
 * 1.00  gm      02/09/24 First release
+* 1.4   tb      09/21/26 Align Doxygen comments with AMD documentation standards
 *
 * </pre>
 *
 ******************************************************************************/
+
+/**
+* @addtogroup i3c_api I3C APIs
+* @{
+*/
 
 /***************************** Include Files *********************************/
 
@@ -44,8 +47,7 @@
 /************************** Variable Prototypes ******************************/
 
 /**
- * This table contains configuration information for each I3C device
- * in the system.
+ * @brief Lists configuration information for each I3C device in the system.
  */
 XI3c_Config XI3c_ConfigTable[XPAR_XI3C_NUM_INSTANCES] = {
 	{

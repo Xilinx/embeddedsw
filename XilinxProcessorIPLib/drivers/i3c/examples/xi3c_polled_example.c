@@ -7,7 +7,7 @@
 /**
  * @file xi3c_polled_example.c
  *
- * Design example to use the I3C device as master in polled mode.
+ * @brief Shows I3C master polled-mode transfers.
  *
  * It makes the slave static address as their dynamic address.
  * It sends and receives data from slave.
@@ -18,6 +18,7 @@
  * ----- --- -------- -----------------------------------------------
  * 1.00 gm   02/9/24 First release
  * 1.4   vn   07/30/26 Fix Doxygen warnings
+ * 1.4   tb   09/21/26 Align Doxygen comments with AMD documentation standards
  *
  * </pre>
  *
@@ -30,11 +31,12 @@
 #ifndef SDT
 #define XI3C_DEVICE_ID		XPAR_XI3C_0_DEVICE_ID
 #else
+/** I3C instance base address. */
 #define XI3C_BASEADDRESS	XPAR_XI3C_0_BASEADDR
 #endif
 
-#define I3C_DATALEN		90
-#define I3C_SLAVE_ADDR		0x45
+#define I3C_DATALEN		90	/**< Transfer length in bytes. */
+#define I3C_SLAVE_ADDR		0x45	/**< Slave static address. */
 
 XI3c Xi3c_Instance;
 XI3c *InstancePtr = &Xi3c_Instance;
@@ -49,12 +51,11 @@ int I3cMasterPolledExample(UINTPTR BaseAddress);
 /******************************************************************************/
 /**
 *
-* Main function to call the polled example.
+* @brief Runs the I3C polled example.
 *
-*
-* @return	XST_SUCCESS if successful, XST_FAILURE if unsuccessful.
-*
-* @note		None.
+* @return
+* 		- XST_SUCCESS if successful.
+* 		- XST_FAILURE otherwise.
 *
 *******************************************************************************/
 int main(void)
@@ -84,24 +85,23 @@ int main(void)
 /*****************************************************************************/
 /**
 *
-* This function does a minimal test on the I3c device and driver as a
-* design example. The purpose of this function is to illustrate
-* how to use the XI3c driver.
+* @brief Runs a minimal test on the I3c device and driver as a design example.
+*
+* It illustrates how to use the XI3c driver.
 *
 * This function sends data and expects to receive the same data through the I3C
 *
 * This function uses polled driver mode of the I3C.
 *
 * @if SDT
-* @param	BaseAddress is the base address of the device.
+* @param[in]	BaseAddress The base address of the device.
 * @else
-* @param	DeviceId is the Device ID of the I3c Device and is the
+* @param[in]	DeviceId Device ID of the I3C device, from xparameters.h.
 * @endif
-*		XPAR_<I3C_instance>_DEVICE_ID value from xparameters.h
 *
-* @return	XST_SUCCESS if successful, otherwise XST_FAILURE.
-*
-* @note
+* @return
+* 		- XST_SUCCESS if successful.
+* 		- XST_FAILURE otherwise.
 *
 *******************************************************************************/
 #ifndef SDT

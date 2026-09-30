@@ -8,10 +8,8 @@
 /**
 *
 * @file xi3c.c
-* @addtogroup Overview
-* @{
 *
-* Handles init functions.
+* @brief Implements I3C initialization and bus setup.
 *
 * <pre> MODIFICATION HISTORY:
 *
@@ -20,9 +18,15 @@
 * 1.00 	gm   02/09/24 First release
 * 1.3   vlt  01/27/26 Fixed codespell issues
 * 1.4   vn   07/30/26 Fix Doxygen warnings
+* 1.4   tb   09/21/26 Align Doxygen comments with AMD documentation standards
 * </pre>
 *
 ******************************************************************************/
+
+/**
+* @addtogroup i3c_api I3C APIs
+* @{
+*/
 
 /***************************** Include Files *********************************/
 
@@ -52,13 +56,11 @@ u8 XI3C_DynaAddrList[] = { 0x8, 0x9, 0xa, 0xb, 0xc, 0xd, 0xe, 0xf, 0x10, 0x11,
 /*****************************************************************************/
 /**
 *
-* @brief
-* Initializes the XI3c slaves devices by disable/enable events and reset
-* dynamic addresses.
+* @brief Initializes the XI3c slave devices.
 *
-* @param	InstancePtr is a pointer to the XI3c instance.
+* It disables or enables events and resets dynamic addresses.
 *
-* @note		None.
+* @param[in,out]	InstancePtr Pointer to the XI3c instance.
 *
 ******************************************************************************/
 
@@ -111,15 +113,14 @@ void XI3C_BusInit(XI3c *InstancePtr)
 /*****************************************************************************/
 /**
 *
-* @brief
-* Initializes a specific XI3c instance such that the driver is ready to use.
+* @brief	Initializes an XI3c instance so the driver is ready to use.
 *
-* @param	InstancePtr is a pointer to the XI3c instance.
-* @param	ConfigPtr is a reference to a structure containing information
+* @param[in,out]	InstancePtr Pointer to the XI3c instance.
+* @param[in]	ConfigPtr Reference to a structure containing information
 *		about a specific I3C device. This function initializes an
 *		InstancePtr object for a specific device specified by the
 *		contents of Config.
-* @param	EffectiveAddr is the device base address in the virtual memory
+* @param[in]	EffectiveAddr The device base address in the virtual memory
 *		address space. The caller is responsible for keeping the address
 *		mapping from EffectiveAddr to the device physical base address
 *		unchanged once this function is invoked. Unexpected errors may
@@ -128,9 +129,9 @@ void XI3C_BusInit(XI3c *InstancePtr)
 *		ConfigPtr->BaseAddress for this parameter, passing the physical
 *		address instead.
 *
-* @return	The return value is XST_SUCCESS if successful.
-*
-* @note		None.
+* @return
+*		- XST_SUCCESS if successful.
+*		- XST_DEVICE_IS_STARTED if the instance is already initialized.
 *
 ******************************************************************************/
 
@@ -220,13 +221,10 @@ s32 XI3c_CfgInitialize(XI3c *InstancePtr, XI3c_Config *ConfigPtr,
 /*****************************************************************************/
 /**
 *
-* @brief
-* Fill I3C Command fifo
+* @brief Fills the I3C command FIFO.
 *
-* @param	InstancePtr is a pointer to the XI3c instance.
-* @param	Cmd is a pointer to the XI3c_Cmd instance.
-*
-* @note		None.
+* @param[in]	InstancePtr Pointer to the XI3c instance.
+* @param[in]	Cmd Pointer to the XI3c_Cmd instance.
 *
 ******************************************************************************/
 void XI3c_FillCmdFifo(XI3c *InstancePtr, XI3c_Cmd *Cmd)
@@ -248,12 +246,9 @@ void XI3c_FillCmdFifo(XI3c *InstancePtr, XI3c_Cmd *Cmd)
 
 /***************************************************************************/
 /**
-* @brief
-* Fill I3C Write Tx FIFO.
+* @brief Fills I3C Write Tx FIFO.
 *
-* @param	InstancePtr is a pointer to the XI3c instance.
-*
-* @note		None.
+* @param[in,out]	InstancePtr Pointer to the XI3c instance.
 *
 ******************************************************************************/
 void XI3c_WriteTxFifo(XI3c *InstancePtr)
@@ -281,12 +276,9 @@ void XI3c_WriteTxFifo(XI3c *InstancePtr)
 
 /***************************************************************************/
 /**
-* @brief
-* Read RX I3C FIFO.
+* @brief Reads RX I3C FIFO.
 *
-* @param	InstancePtr is a pointer to the XI3c instance.
-*
-* @note		None.
+* @param[in,out]	InstancePtr Pointer to the XI3c instance.
 *
 ******************************************************************************/
 void XI3c_ReadRxFifo(XI3c *InstancePtr)
@@ -314,18 +306,15 @@ void XI3c_ReadRxFifo(XI3c *InstancePtr)
 
 /*****************************************************************************/
 /**
-* @brief
-* This function sends dynamic Address Assignment for available devices.
+* @brief Sends dynamic Address Assignment for available devices.
 *
-* @param	InstancePtr is a pointer to the XI3c instance.
-* @param	DynaAddr is an array of dynamic addresses.
-* @param	DevCount is the number of slave devices present.
+* @param[in,out]	InstancePtr Pointer to the XI3c instance.
+* @param[in]	DynaAddr An array of dynamic addresses.
+* @param[in]	DevCount The number of slave devices present.
 *
 * @return
 *               - XST_SUCCESS if everything went well.
 *               - XST_FAILURE if any error.
-*
-* @note         None.
 *
 ******************************************************************************/
 s32 XI3c_DynaAddrAssign(XI3c *InstancePtr, u8 DynaAddr[], u8 DevCount)
@@ -396,14 +385,13 @@ s32 XI3c_DynaAddrAssign(XI3c *InstancePtr, u8 DynaAddr[], u8 DevCount)
 
 /*****************************************************************************/
 /**
-* @brief
-* This configure target address and BCR register values of available devices
-* to the controller RAM.
+* @brief	Configures target addresses and BCRs in controller RAM.
 *
-* @param	InstancePtr is a pointer to the XI3c instance.
-* @param	DevCount is the number of slave devices present.
+* It writes the target address and BCR register values of available devices to
+* the controller RAM.
 *
-* @note         None.
+* @param[in]	InstancePtr Pointer to the XI3c instance.
+* @param[in]	DevCount The number of slave devices present.
 *
 ******************************************************************************/
 void XI3c_ConfigIbi(XI3c *InstancePtr, u8 DevCount)

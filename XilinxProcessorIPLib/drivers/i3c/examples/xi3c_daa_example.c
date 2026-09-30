@@ -7,14 +7,13 @@
 /**
  * @file xi3c_daa_example.c
  *
- * Design example to use the I3C device as master in polled mode.
+ * @brief Shows I3C master dynamic address assignment in polled mode.
  *
  * It assigns the dynamic addressed to slave addresses.
  * It sends and receives data from slave.
  *
- *
  * Note: Max 108 dynamic addresses are available unconditionally.
- * User need to provide dynamic addresses from the valid dynamic addresses list.
+ * Provide dynamic addresses from the valid dynamic addresses list.
  *
  * <pre> MODIFICATION HISTORY:
  *
@@ -22,6 +21,7 @@
  * ----- --- -------- -----------------------------------------------
  * 1.00 gm   02/09/24 First release
  * 1.4  vn   07/30/26 Fix Doxygen warnings
+ * 1.4  tb   09/21/26 Align Doxygen comments with AMD documentation standards
  *
  * </pre>
  *
@@ -34,11 +34,12 @@
 #ifndef SDT
 #define XI3C_DEVICE_ID		XPAR_XI3C_0_DEVICE_ID
 #else
+/** I3C instance base address. */
 #define XI3C_BASEADDRESS	XPAR_XI3C_0_BASEADDR
 #endif
 
-#define I3C_DATALEN		90
-#define I3C_SLAVES_COUNT	1
+#define I3C_DATALEN		90	/**< Transfer length in bytes. */
+#define I3C_SLAVES_COUNT	1	/**< Number of slave devices. */
 
 XI3c Xi3c_Instance;
 XI3c *InstancePtr = &Xi3c_Instance;
@@ -56,12 +57,11 @@ int I3cMasterDaaExample(UINTPTR BaseAddress);
 /******************************************************************************/
 /**
 *
-* Main function to call the daa example.
+* @brief Runs the I3C dynamic address assignment example.
 *
-*
-* @return	XST_SUCCESS if successful, XST_FAILURE if unsuccessful.
-*
-* @note		None.
+* @return
+* 		- XST_SUCCESS if successful.
+* 		- XST_FAILURE otherwise.
 *
 *******************************************************************************/
 int main(void)
@@ -91,9 +91,9 @@ int main(void)
 /*****************************************************************************/
 /**
 *
-* This function does a minimal test on the I3c device and driver as a
-* design example. The purpose of this function is to illustrate
-* how to use the XI3c driver.
+* @brief Runs a minimal test on the I3c device and driver as a design example.
+*
+* It illustrates how to use the XI3c driver.
 *
 * This function assigns dynamic addresses to slave devices.
 * It sends data and receives the data through the I3C
@@ -101,15 +101,14 @@ int main(void)
 * This function uses polled driver mode of the I3C.
 *
 * @if SDT
-* @param	BaseAddress is the base address of the device.
+* @param[in]	BaseAddress The base address of the device.
 * @else
-* @param	DeviceId is the Device ID of the I3c Device and is the
-*		XPAR_<I3C_instance>_DEVICE_ID value from xparameters.h
+* @param[in]	DeviceId Device ID of the I3C device, from xparameters.h.
 * @endif
 *
-* @return	XST_SUCCESS if successful, otherwise XST_FAILURE.
-*
-* @note
+* @return
+* 		- XST_SUCCESS if successful.
+* 		- XST_FAILURE otherwise.
 *
 *******************************************************************************/
 #ifndef SDT

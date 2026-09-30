@@ -6,11 +6,9 @@
 /*****************************************************************************/
 /**
 *
-* @file xi3c.c
-* @addtogroup Overview
-* @{
+* @file xi3c_options.c
 *
-* Handles init functions.
+* @brief Implements I3C SCL clock configuration.
 *
 * <pre> MODIFICATION HISTORY:
 *
@@ -19,9 +17,15 @@
 * 1.00  gm   03/18/24 Add Scl clock configuration support
 * 1.1   gm   10/07/24 Set Data Hold Time based on IP revision value.
 * 1.4   vn   07/30/26 Fix Doxygen warnings
+* 1.4   tb   09/21/26 Align Doxygen comments with AMD documentation standards
 * </pre>
 *
 ******************************************************************************/
+
+/**
+* @addtogroup i3c_api I3C APIs
+* @{
+*/
 /***************************** Include Files *********************************/
 
 #include "xi3c.h"
@@ -39,16 +43,14 @@
 
 /***************************************************************************/
 /**
-* @brief
-* Sets I3C Scl clock frequency.
+* @brief Sets I3C Scl clock frequency.
 *
-* @param	InstancePtr is a pointer to the XI3c instance.
-* @param	SclkHz is Scl clock to be configured in Hz.
-* @param        Mode is the mode of operation I2C/I3C.
+* @param[in]	InstancePtr Pointer to the XI3c instance.
+* @param[in]	SclkHz Scl clock to be configured in Hz.
+* @param[in]	Mode The mode of operation I2C/I3C.
 *
-* @return       The return value is XST_SUCCESS if successful.
-*
-* @note         None.
+* @return
+* 		XST_SUCCESS if successful.
 *
 ******************************************************************************/
 s32 XI3c_SetSClk(XI3c *InstancePtr, u32 SclkHz, u8 Mode)

@@ -7,7 +7,7 @@
 /**
  * @file xi3c_intr_example.c
  *
- * Design example to use the I3C device as master in interrupt mode.
+ * @brief Shows I3C master interrupt-mode transfers.
  *
  * It makes the slave static address as their dynamic address.
  * It sends and also receives data from slave.
@@ -18,6 +18,7 @@
  * ----- --- -------- -----------------------------------------------
  * 1.00 gm   02/9/24 First release
  * 1.4   vn   07/30/26 Fix Doxygen warnings
+ * 1.4   tb   09/21/26 Align Doxygen comments with AMD documentation standards
  *
  * </pre>
  *
@@ -42,6 +43,7 @@
 #ifndef SDT
 #define XI3C_DEVICE_ID          XPAR_XI3C_0_DEVICE_ID
 #else
+/** I3C instance base address. */
 #define XI3C_BASEADDRESS        XPAR_XI3C_0_BASEADDR
 #endif
 
@@ -59,8 +61,8 @@
 #endif
 #endif
 
-#define I3C_DATALEN		90
-#define I3C_SLAVE_ADDR		0x45
+#define I3C_DATALEN		90	/**< Transfer length in bytes. */
+#define I3C_SLAVE_ADDR		0x45	/**< Slave static address. */
 
 /************************** Function Prototypes *******************************/
 
@@ -91,12 +93,11 @@ volatile u32 TotalErrorCount;
 /******************************************************************************/
 /**
 *
-* Main function to call the interrupt example.
+* @brief Runs the I3C interrupt example.
 *
-*
-* @return	XST_SUCCESS if successful, XST_FAILURE if unsuccessful.
-*
-* @note		None.
+* @return
+* 		- XST_SUCCESS if successful.
+* 		- XST_FAILURE otherwise.
 *
 *******************************************************************************/
 int main(void)
@@ -126,24 +127,23 @@ int main(void)
 /*****************************************************************************/
 /**
 *
-* This function does a minimal test on the I3c device and driver as a
-* design example. The purpose of this function is to illustrate
-* how to use the XI3c driver.
+* @brief Runs a minimal test on the I3c device and driver as a design example.
+*
+* It illustrates how to use the XI3c driver.
 *
 * This function sends and receives data through the I3C.
 *
 * This function uses interrupt driver mode of the I3C.
 *
 * @if SDT
-* @param	BaseAddress is the base address of the device.
+* @param[in]	BaseAddress The base address of the device.
 * @else
-* @param	DeviceId is the Device ID of the I3c Device and is the
+* @param[in]	DeviceId Device ID of the I3C device, from xparameters.h.
 * @endif
-*		XPAR_<I3C_instance>_DEVICE_ID value from xparameters.h
 *
-* @return	XST_SUCCESS if successful, otherwise XST_FAILURE.
-*
-* @note
+* @return
+* 		- XST_SUCCESS if successful.
+* 		- XST_FAILURE otherwise.
 *
 *******************************************************************************/
 #ifndef SDT
@@ -327,18 +327,20 @@ int I3cMasterIntrExample(UINTPTR BaseAddress)
 #ifndef SDT
 /*****************************************************************************/
 /**
-* This function setups the interrupt system so interrupts can occur for the
-* I3C device. The function is application-specific since the actual system may
-* or may not have an interrupt controller. The I3C device could be directly
-* connected to a processor without an interrupt controller. The user should
-* modify this function to fit the application.
+* @brief Sets up the interrupt system for the I3C device.
 *
-* @param	I3cInstPtr contains a pointer to the instance of the I3C device
+* Sets up the interrupt system so interrupts can occur for the I3C device. The
+* function is application-specific since the actual system may or may not have
+* an interrupt controller. The I3C device could be directly connected to a
+* processor without an interrupt controller. Modify this
+* function to fit the application.
+*
+* @param[in]	I3cInstPtr Pointer to the instance of the I3C device
 *		which is going to be connected to the interrupt controller.
 *
-* @return	XST_SUCCESS if successful else XST_FAILURE.
-*
-* @note		None.
+* @return
+* 		- XST_SUCCESS if successful.
+* 		- XST_FAILURE otherwise.
 *
 ******************************************************************************/
 static int SetupInterruptSystem(XI3c *I3cInstPtr)
@@ -441,13 +443,12 @@ static int SetupInterruptSystem(XI3c *I3cInstPtr)
 /*****************************************************************************/
 /**
 *
-* This function is the handler which updates transfer status up on events
-* from the I3C.  It is called from an interrupt context such that the amount
-* of processing performed should be minimized.
+* @brief Updates the transfer status on events from the I3C.
 *
-* @param	Event is the status event from the I3C.
+* It is called from an interrupt context such that the amount of processing
+* performed should be minimized.
 *
-* @note		None.
+* @param[in]	Event The status event from the I3C.
 *
 *******************************************************************************/
 void Handler(u32 Event)

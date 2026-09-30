@@ -7,10 +7,8 @@
 /**
 *
 * @file xi3c_master.c
-* @addtogroup Overview
-* @{
 *
-* Handles master mode transfers.
+* @brief Implements I3C master transfer APIs.
 *
 * <pre> MODIFICATION HISTORY:
 *
@@ -19,9 +17,15 @@
 * 1.00  gm  02/09/24 First release
 * 1.3   vlt 01/30/26 Fixed codespell errors.
 * 1.4   vn  07/30/26 Fix Doxygen warnings
+* 1.4   tb  09/21/26 Align Doxygen comments with AMD documentation standards
 * </pre>
 *
 ******************************************************************************/
+
+/**
+* @addtogroup i3c_api I3C APIs
+* @{
+*/
 
 /***************************** Include Files *********************************/
 
@@ -34,18 +38,15 @@
 
 /*****************************************************************************/
 /**
-* @brief
-* This function reads the response.
+* @brief Reads the response.
 *
 * It waits for the response from slave and reads the response.
 *
-* @param	InstancePtr is a pointer to the XI3c instance.
+* @param[in]	InstancePtr Pointer to the XI3c instance.
 *
 * @return
 *		- Response code on success.
 *		- XST_TIMEOUT on timeout.
-*
-* @note
 *
 ****************************************************************************/
 static s32 XI3c_GetResponse(XI3c *InstancePtr)
@@ -72,18 +73,15 @@ static s32 XI3c_GetResponse(XI3c *InstancePtr)
 
 /*****************************************************************************/
 /**
-* @brief
-* This function sends the command.
+* @brief Sends the command.
 *
-* @param	InstancePtr is a pointer to the XI3c instance.
-* @param	Cmd is a pointer to the XI3c_Cmd.
-* @param	Data is the command value.
+* @param[in,out]	InstancePtr Pointer to the XI3c instance.
+* @param[in,out]	Cmd Pointer to the XI3c_Cmd.
+* @param[in]	Data The command value.
 *
 * @return
 *		- XST_SUCCESS if everything went well.
 *		- XST_FAILURE if any error.
-*
-* @note         None.
 *
 ******************************************************************************/
 s32 XI3c_SendTransferCmd(XI3c *InstancePtr, XI3c_Cmd *Cmd, u8 Data)
@@ -113,24 +111,21 @@ s32 XI3c_SendTransferCmd(XI3c *InstancePtr, XI3c_Cmd *Cmd, u8 Data)
 
 /*****************************************************************************/
 /**
-* @brief
-* This function initiates a interrupt mode send in master mode.
+* @brief Initiates an interrupt mode send in master mode.
 *
 * It sends data to the FIFO and waits for the slave to pick them up.
 * If master fails to send data due arbitration lost or any other,
-* will stop transfer with status.
+* stops the transfer with status.
 *
-* @param	InstancePtr is a pointer to the XI3c instance.
-* @param	Cmd is a pointer to the XI3c_Cmd instance.
-* @param	MsgPtr is the pointer to the send buffer.
-* @param	ByteCount is the number of bytes to be sent.
+* @param[in,out]	InstancePtr Pointer to the XI3c instance.
+* @param[in,out]	Cmd Pointer to the XI3c_Cmd instance.
+* @param[in]	MsgPtr Pointer to the send buffer.
+* @param[in]	ByteCount The number of bytes to be sent.
 *
 * @return
 *		- XST_SUCCESS if everything went well.
 *		- XST_SEND_ERROR if byte count exceeds max.
 *		- XST_NO_DATA if MsgPtr is NULL.
-*
-* @note		None.
 *
 ****************************************************************************/
 s32 XI3c_MasterSend(XI3c *InstancePtr, XI3c_Cmd *Cmd, u8 *MsgPtr, u16 ByteCount)
@@ -185,23 +180,20 @@ s32 XI3c_MasterSend(XI3c *InstancePtr, XI3c_Cmd *Cmd, u8 *MsgPtr, u16 ByteCount)
 
 /*****************************************************************************/
 /**
-* @brief
-* This function initiates a interrupt mode receive in master mode.
+* @brief Initiates an interrupt mode receive in master mode.
 *
 * It sets the transfer size register so the slave can send data to us.
 * The rest of the work is managed by interrupt handler.
 *
-* @param	InstancePtr is a pointer to the XI3c instance.
-* @param	Cmd is a pointer to the XI3c_Cmd instance.
-* @param	MsgPtr is the pointer to the recv buffer.
-* @param	ByteCount is the number of bytes to be recv.
+* @param[in,out]	InstancePtr Pointer to the XI3c instance.
+* @param[in,out]	Cmd Pointer to the XI3c_Cmd instance.
+* @param[out]	MsgPtr Pointer to the recv buffer.
+* @param[in]	ByteCount The number of bytes to be received.
 *
 * @return
 *		- XST_SUCCESS if everything went well.
 *		- XST_RECV_ERROR if byte count exceeds max.
 *		- XST_NO_DATA if MsgPtr is NULL.
-*
-* @note		None.
 *
 ****************************************************************************/
 s32 XI3c_MasterRecv(XI3c *InstancePtr, XI3c_Cmd *Cmd, u8 *MsgPtr, u16 ByteCount)
@@ -240,23 +232,20 @@ s32 XI3c_MasterRecv(XI3c *InstancePtr, XI3c_Cmd *Cmd, u8 *MsgPtr, u16 ByteCount)
 
 /*****************************************************************************/
 /**
-* @brief
-* This function initiates a polled mode send in master mode.
+* @brief Initiates a polled mode send in master mode.
 *
 * It sends data to the FIFO and waits for the slave to pick them up.
 * If master fails to send data due arbitration lost or any other error,
-* will stop transfer status.
+* stops the transfer with status.
 *
-* @param	InstancePtr is a pointer to the XI3c instance.
-* @param	Cmd is a pointer to the XI3c_Cmd instance.
-* @param	MsgPtr is the pointer to the send buffer.
-* @param	ByteCount is the number of bytes to be sent.
+* @param[in,out]	InstancePtr Pointer to the XI3c instance.
+* @param[in,out]	Cmd Pointer to the XI3c_Cmd instance.
+* @param[in]	MsgPtr Pointer to the send buffer.
+* @param[in]	ByteCount The number of bytes to be sent.
 *
 * @return
 *		- XST_SUCCESS if everything went well.
 *		- XST_SEND_ERROR if any error.
-*
-* @note		None.
 *
 ****************************************************************************/
 s32 XI3c_MasterSendPolled(XI3c *InstancePtr, XI3c_Cmd *Cmd, u8 *MsgPtr, u16 ByteCount)
@@ -304,24 +293,21 @@ s32 XI3c_MasterSendPolled(XI3c *InstancePtr, XI3c_Cmd *Cmd, u8 *MsgPtr, u16 Byte
 
 /*****************************************************************************/
 /**
-* @brief
-* This function initiates a polled mode receive in master mode.
+* @brief Initiates a polled mode receive in master mode.
 *
 * It repeatedly sets the transfer size register so the slave can
 * send data to us. It polls the data register for data to come in.
 * If master fails to read data due arbitration lost or any other error,
-* will return with status.
+* returns with status.
 *
-* @param	InstancePtr is a pointer to the XI3c instance.
-* @param	Cmd is a pointer to the XI3c_Cmd instance.
-* @param	MsgPtr is the pointer to the send buffer.
-* @param	ByteCount is the number of bytes to be sent.
+* @param[in,out]	InstancePtr Pointer to the XI3c instance.
+* @param[in,out]	Cmd Pointer to the XI3c_Cmd instance.
+* @param[out]	MsgPtr Pointer to the recv buffer.
+* @param[in]	ByteCount The number of bytes to be received.
 *
 * @return
 *		- XST_SUCCESS if everything went well.
 *		- XST_RECV_ERROR if any error.
-*
-* @note		None.
 *
 ****************************************************************************/
 s32 XI3c_MasterRecvPolled(XI3c *InstancePtr, XI3c_Cmd *Cmd, u8 *MsgPtr, u16 ByteCount)
@@ -372,12 +358,9 @@ s32 XI3c_MasterRecvPolled(XI3c *InstancePtr, XI3c_Cmd *Cmd, u8 *MsgPtr, u16 Byte
 
 /*****************************************************************************/
 /**
-* @brief
-* This function reads the Rx Fifo during IBI.
+* @brief Reads the Rx Fifo during IBI.
 *
-* @param	InstancePtr is a pointer to the XI3c instance.
-*
-* @note
+* @param[in,out]	InstancePtr Pointer to the XI3c instance.
 *
 ****************************************************************************/
 static void XI3c_IbiReadRxFifo(XI3c *InstancePtr)
@@ -396,21 +379,19 @@ static void XI3c_IbiReadRxFifo(XI3c *InstancePtr)
 /*****************************************************************************/
 /**
 *
-* @brief
-* This function sets the status handler, which the driver calls when it
-* encounters conditions that should be reported to the higher layer software.
-* The handler executes in an interrupt context, so the amount of processing
-* should be minimized
+* @brief Sets the status handler for the driver.
+*
+* The driver calls the handler when it encounters conditions that should be
+* reported to the higher layer software. The handler executes in an interrupt
+* context, so the amount of processing should be minimized.
 *
 * Refer to the xi3c.h file for a list of events. The events are defined
 * to start with XI3C_EVENT_*.
 *
-* @param        InstancePtr is a pointer to the XI3c instance.
-* @param        FunctionPtr is the pointer to the callback function.
+* @param[in,out]	InstancePtr Pointer to the XI3c instance.
+* @param[in]	FunctionPtr Pointer to the callback function.
 *
-* @note
-*
-* The handler is called within interrupt context, so it should finish its
+* @note The handler is called within interrupt context, so it should finish its
 * work quickly.
 *
 ******************************************************************************/
@@ -425,8 +406,9 @@ void XI3c_SetStatusHandler(XI3c *InstancePtr, XI3c_IntrHandler FunctionPtr)
 
 /*****************************************************************************/
 /**
-* The interrupt handler for the master mode. It does the protocol handling for
-* the interrupt-driven transfers.
+* @brief	Handles interrupts in master mode.
+*
+* It does the protocol handling for the interrupt-driven transfers.
 *
 * If the Master is receiving data then the data is read from the FIFO and
 * the Master has to request for more data (if there is more data to
@@ -434,9 +416,7 @@ void XI3c_SetStatusHandler(XI3c *InstancePtr, XI3c_IntrHandler FunctionPtr)
 * is signalled to the upper layer by calling the callback handler.
 * It is an error if the amount of received data is more than expected.
 *
-* @param	InstancePtr is a pointer to the XI3c instance.
-*
-* @note 	None.
+* @param[in,out]	InstancePtr Pointer to the XI3c instance.
 *
 ****************************************************************************/
 void XI3c_MasterInterruptHandler(XI3c *InstancePtr)
@@ -553,19 +533,16 @@ void XI3c_MasterInterruptHandler(XI3c *InstancePtr)
 
 /*****************************************************************************/
 /**
-* @brief
-* This function setup for receive during IBI in interrupt mode.
+* @brief Sets up a receive during IBI in interrupt mode.
 *
 * It enables the required interrupts for performing read operation during IBI.
 *
-* @param	InstancePtr is a pointer to the XI3c instance.
-* @param	MsgPtr is the pointer to the recv buffer.
+* @param[in,out]	InstancePtr Pointer to the XI3c instance.
+* @param[out]	MsgPtr Pointer to the recv buffer.
 *
 * @return
 *		- XST_SUCCESS if everything went well.
 *		- XST_NO_DATA if message buffer is NULL.
-*
-* @note		None.
 *
 ****************************************************************************/
 s32 XI3c_IbiRecv(XI3c *InstancePtr, u8 *MsgPtr)
@@ -594,20 +571,17 @@ s32 XI3c_IbiRecv(XI3c *InstancePtr, u8 *MsgPtr)
 
 /*****************************************************************************/
 /**
-* @brief
-* This function receives data during IBI in polled mode.
+* @brief Receives data during IBI in polled mode.
 *
 * It polls the data register for data to come in during IBI.
-* If master fails to read data due to any error, it will return with status.
+* If master fails to read data due to any error, it returns with status.
 *
-* @param	InstancePtr is a pointer to the XI3c instance.
-* @param	MsgPtr is the pointer to the recv buffer.
+* @param[in,out]	InstancePtr Pointer to the XI3c instance.
+* @param[out]	MsgPtr Pointer to the recv buffer.
 *
 * @return
 *		- XST_SUCCESS if everything went well.
 *		- XST_RECV_ERROR if any error.
-*
-* @note		None.
 *
 ****************************************************************************/
 s32 XI3c_IbiRecvPolled(XI3c *InstancePtr, u8 *MsgPtr)

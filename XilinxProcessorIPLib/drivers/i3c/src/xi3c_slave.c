@@ -7,10 +7,8 @@
 /**
 *
 * @file xi3c_slave.c
-* @addtogroup Overview
-* @{
 *
-* Handles slave mode transfers.
+* @brief Implements I3C slave transfer APIs.
 *
 * <pre> MODIFICATION HISTORY:
 *
@@ -18,9 +16,15 @@
 * ----- ---  -------- ---------------------------------------------
 * 1.2   gm  02/18/24 Added slave mode support
 * 1.4   vn  07/30/26 Fix Doxygen warnings
+* 1.4   tb  09/21/26 Align Doxygen comments with AMD documentation standards
 * </pre>
 *
 ******************************************************************************/
+
+/**
+* @addtogroup i3c_api I3C APIs
+* @{
+*/
 
 /***************************** Include Files *********************************/
 
@@ -31,6 +35,18 @@
 
 /**************************** Type Definitions *******************************/
 
+/*****************************************************************************/
+/**
+* @brief Applies enable or disable event CCC on the slave.
+*
+* @param[in,out]	InstancePtr Pointer to the XI3c instance.
+* @param[in]		ByteCount The number of received bytes.
+*
+* @return
+*		- XST_SUCCESS if successful.
+*		- XST_FAILURE otherwise.
+*
+******************************************************************************/
 static s32 XI3c_SlaveEvent(XI3c *InstancePtr, u16 ByteCount)
 {
 	u8 EventCCC;
@@ -67,6 +83,18 @@ static s32 XI3c_SlaveEvent(XI3c *InstancePtr, u16 ByteCount)
 	return XST_SUCCESS;
 }
 
+/*****************************************************************************/
+/**
+* @brief Sets the slave maximum write length from the CCC payload.
+*
+* @param[in,out]	InstancePtr Pointer to the XI3c instance.
+* @param[in]		ByteCount The number of received bytes.
+*
+* @return
+*		- XST_SUCCESS if successful.
+*		- XST_FAILURE otherwise.
+*
+******************************************************************************/
 static s32 XI3c_SlaveSetMWL(XI3c *InstancePtr, u16 ByteCount)
 {
 	u32 MwlVal;
@@ -106,6 +134,18 @@ static s32 XI3c_SlaveSetMWL(XI3c *InstancePtr, u16 ByteCount)
 	return XST_SUCCESS;
 }
 
+/*****************************************************************************/
+/**
+* @brief Sets the slave maximum read length from the CCC payload.
+*
+* @param[in,out]	InstancePtr Pointer to the XI3c instance.
+* @param[in]		ByteCount The number of received bytes.
+*
+* @return
+*		- XST_SUCCESS if successful.
+*		- XST_FAILURE otherwise.
+*
+******************************************************************************/
 static s32 XI3c_SlaveSetMRL(XI3c *InstancePtr, u16 ByteCount)
 {
 	u32 MrlVal;
@@ -145,6 +185,18 @@ static s32 XI3c_SlaveSetMRL(XI3c *InstancePtr, u16 ByteCount)
 	return XST_SUCCESS;
 }
 
+/*****************************************************************************/
+/**
+* @brief Clears the slave group address after a RSTGRPA CCC.
+*
+* @param[in,out]	InstancePtr Pointer to the XI3c instance.
+* @param[in]		ByteCount The number of received bytes.
+*
+* @return
+*		- XST_SUCCESS if successful.
+*		- XST_FAILURE otherwise.
+*
+******************************************************************************/
 static s32 XI3c_RstGrpAddr(XI3c *InstancePtr, u16 ByteCount)
 {
 	u8 RstGrpCCC;
@@ -169,6 +221,17 @@ static s32 XI3c_RstGrpAddr(XI3c *InstancePtr, u16 ByteCount)
 	return XST_SUCCESS;
 }
 
+/*****************************************************************************/
+/**
+* @brief Programs the slave group address from the CCC payload.
+*
+* @param[in,out]	InstancePtr Pointer to the XI3c instance.
+* @param[in]		ByteCount The number of received bytes.
+*
+* @return
+*		XST_SUCCESS if successful.
+*
+******************************************************************************/
 static s32 XI3c_SetGrpAddr(XI3c *InstancePtr, u16 ByteCount)
 {
 	u16 GrpAddr;
@@ -185,6 +248,18 @@ static s32 XI3c_SetGrpAddr(XI3c *InstancePtr, u16 ByteCount)
 	return XST_SUCCESS;
 }
 
+/*****************************************************************************/
+/**
+* @brief Resets the slave and clears the group address.
+*
+* @param[in,out]	InstancePtr Pointer to the XI3c instance.
+* @param[in]		ByteCount The number of received bytes.
+*
+* @return
+*		- XST_SUCCESS if successful.
+*		- XST_FAILURE otherwise.
+*
+******************************************************************************/
 static s32 XI3c_RstAction(XI3c *InstancePtr, u16 ByteCount)
 {
 	u8 RstActCCC;
@@ -209,6 +284,18 @@ static s32 XI3c_RstAction(XI3c *InstancePtr, u16 ByteCount)
 	return XST_SUCCESS;
 }
 
+/*****************************************************************************/
+/**
+* @brief Dispatches a received CCC to the matching slave handler.
+*
+* @param[in,out]	InstancePtr Pointer to the XI3c instance.
+* @param[in]		ResponseData The response FIFO value.
+*
+* @return
+*		- XST_SUCCESS if successful.
+*		- XST_FAILURE otherwise.
+*
+******************************************************************************/
 static s32 XI3c_SlaveHandleCCC(XI3c *InstancePtr, u32 ResponseData)
 {
 	s32 Status = XST_FAILURE;
@@ -279,6 +366,17 @@ static s32 XI3c_SlaveHandleCCC(XI3c *InstancePtr, u32 ResponseData)
 	return Status;
 }
 
+/*****************************************************************************/
+/**
+* @brief Reads received payload bytes from the RX FIFO.
+*
+* @param[in,out]	InstancePtr Pointer to the XI3c instance.
+* @param[in]		ByteCount The number of received bytes.
+*
+* @return
+*		XST_SUCCESS if successful.
+*
+******************************************************************************/
 static s32 XI3c_SlaveHandleRecv(XI3c *InstancePtr, u16 ByteCount)
 {
 	InstancePtr->RecvByteCount = ByteCount;
@@ -291,6 +389,17 @@ static s32 XI3c_SlaveHandleRecv(XI3c *InstancePtr, u16 ByteCount)
 	return XST_SUCCESS;
 }
 
+/*****************************************************************************/
+/**
+* @brief Processes a slave transfer completion from the response FIFO.
+*
+* @param[in,out]	InstancePtr Pointer to the XI3c instance.
+*
+* @return
+*		- XST_SUCCESS if successful.
+*		- An error code otherwise.
+*
+******************************************************************************/
 static s32 XI3c_SlaveTransferHandle(XI3c *InstancePtr)
 {
 	u32 ResponseData;
@@ -322,18 +431,16 @@ static s32 XI3c_SlaveTransferHandle(XI3c *InstancePtr)
 
 /*****************************************************************************/
 /**
-* @brief
-* This function initiates a interrupt mode send in slave mode.
+* @brief Initiates an interrupt mode send in slave mode.
 *
-* @param	InstancePtr is a pointer to the XI3c instance.
-* @param	MsgPtr is the pointer to the send buffer.
-* @param	ByteCount is the number of bytes to be sent.
+* @param[in,out]	InstancePtr Pointer to the XI3c instance.
+* @param[in]	MsgPtr Pointer to the send buffer.
+* @param[in]	ByteCount The number of bytes to be sent.
 *
-* @return	- XST_SUCCESS if everything went well.
+* @return
+* 		- XST_SUCCESS if everything went well.
 *		- XST_NO_DATA if MsgPtr is NULL.
 * 		- Error code if any error.
-*
-* @note		None.
 *
 ****************************************************************************/
 s32 XI3c_SlaveSend(XI3c *InstancePtr, u8 *MsgPtr, u16 ByteCount)
@@ -369,17 +476,14 @@ s32 XI3c_SlaveSend(XI3c *InstancePtr, u8 *MsgPtr, u16 ByteCount)
 
 /*****************************************************************************/
 /**
-* @brief
-* This function initiates a interrupt mode receive in slave mode.
+* @brief Initiates an interrupt mode receive in slave mode.
 *
-* @param	InstancePtr is a pointer to the XI3c instance.
-* @param	MsgPtr is the pointer to the recv buffer.
+* @param[in,out]	InstancePtr Pointer to the XI3c instance.
+* @param[out]	MsgPtr Pointer to the recv buffer.
 *
 * @return
 *		- XST_SUCCESS if everything went well.
 *		- XST_NO_DATA if MsgPtr is NULL.
-*
-* @note		None.
 *
 ****************************************************************************/
 s32 XI3c_SlaveRecv(XI3c *InstancePtr, u8 *MsgPtr)
@@ -399,22 +503,20 @@ s32 XI3c_SlaveRecv(XI3c *InstancePtr, u8 *MsgPtr)
 
 /*****************************************************************************/
 /**
-* @brief
-* This function initiates a polled mode send in slave mode.
+* @brief Initiates a polled mode send in slave mode.
 *
 * It sends data to the FIFO and the master to pick them up.
 *
-* @param	InstancePtr is a pointer to the XI3c instance.
-* @param	MsgPtr is the pointer to the send buffer.
-* @param	ByteCount is the number of bytes to be sent.
+* @param[in,out]	InstancePtr Pointer to the XI3c instance.
+* @param[in]	MsgPtr Pointer to the send buffer.
+* @param[in]	ByteCount The number of bytes to be sent.
 *
 * @return
 *		- XST_SUCCESS if everything went well.
 *		- XST_SEND_ERROR if any error.
 *		- XST_NO_DATA if MsgPtr is NULL.
 *
-* @note
-* 		Caller need to wait for response after calling this function.
+* @note	The caller needs to wait for response after calling this function.
 *
 ****************************************************************************/
 s32 XI3c_SlaveSendPolled(XI3c *InstancePtr, u8 *MsgPtr, u16 ByteCount)
@@ -448,18 +550,15 @@ s32 XI3c_SlaveSendPolled(XI3c *InstancePtr, u8 *MsgPtr, u16 ByteCount)
 
 /*****************************************************************************/
 /**
-* @brief
-* This function initiates a polled mode receive in slave mode.
+* @brief Initiates a polled mode receive in slave mode.
 *
-* @param	InstancePtr is a pointer to the XI3c instance.
-* @param	MsgPtr is the pointer to the send buffer.
+* @param[in,out]	InstancePtr Pointer to the XI3c instance.
+* @param[out]	MsgPtr Pointer to the recv buffer.
 *
 * @return
 *		- XST_SUCCESS if everything went well.
 *		- XST_RECV_ERROR if any error.
 *		- XST_NO_DATA if MsgPtr is NULL.
-*
-* @note		None.
 *
 ****************************************************************************/
 s32 XI3c_SlaveRecvPolled(XI3c *InstancePtr, u8 *MsgPtr)
@@ -482,17 +581,16 @@ s32 XI3c_SlaveRecvPolled(XI3c *InstancePtr, u8 *MsgPtr)
 
 /*****************************************************************************/
 /**
-* The interrupt handler for the slave mode. It does the slave side protocol
-* handling for the interrupt-driven transfers.
+* @brief	Handles interrupts in slave mode.
+*
+* It does the slave side protocol handling for the interrupt-driven transfers.
 *
 * If the slave is receiving data then the data is read from the FIFO and
 * the slave has to send data on master request data need to write to FIFO.
 * If all the data has been transferred then a completion event
 * is signalled to the upper layer by calling the callback handler.
 *
-* @param	InstancePtr is a pointer to the XI3c instance.
-*
-* @note 	None.
+* @param[in,out]	InstancePtr Pointer to the XI3c instance.
 *
 ****************************************************************************/
 void XI3c_SlaveInterruptHandler(XI3c *InstancePtr)

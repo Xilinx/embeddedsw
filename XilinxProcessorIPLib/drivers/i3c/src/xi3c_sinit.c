@@ -6,11 +6,9 @@
 /*****************************************************************************/
 /**
 *
-* @file XI3c_sinit.c
-* @{
+* @file xi3c_sinit.c
 *
-* The implementation of the XI3c component's static initialization
-* functionality.
+* @brief Implements I3C static initialization.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -20,9 +18,15 @@
 * 1.00  gm      01/25/24 First release
 * 1.3   vlt     11/05/25 Add 64-bit Addressing support.
 * 1.4   vn      07/30/26 Fix Doxygen warnings
+* 1.4   tb      09/21/26 Align Doxygen comments with AMD documentation standards
 * </pre>
 *
 ******************************************************************************/
+
+/**
+* @addtogroup i3c_api I3C APIs
+* @{
+*/
 
 /***************************** Include Files *********************************/
 
@@ -45,22 +49,21 @@
 /*****************************************************************************/
 /**
 *
-* @brief
-* Looks up the device configuration based on the unique device ID. A table
-* contains the configuration info for each device in the system.
+* @brief	Looks up the device configuration based on the unique device ID.
+*
+* A table contains the configuration info for each device in the system.
 *
 * @if SDT
-* @param	BaseAddress contains the base address of the device.
+* @param[in]	BaseAddress The base address of the device.
 * @else
-* @param	DeviceId contains the ID of the device to look up the
+* @param[in]	DeviceId The ID of the device to look up the
 *		configuration for.
 * @endif
 *
-* @return	A pointer to the configuration found or NULL if the specified
+* @return
+* 		A pointer to the configuration found or NULL if the specified
 *		device ID was not found. See xi3c.h for the definition of
 *		XI3c_Config.
-*
-* @note		None.
 *
 ******************************************************************************/
 #ifndef SDT
