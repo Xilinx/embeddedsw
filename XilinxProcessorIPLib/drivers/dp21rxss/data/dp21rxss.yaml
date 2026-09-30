@@ -1,5 +1,5 @@
-# Copyright (C) 2023-2024 Advanced Micro Devices, Inc.  All rights reserved.
-# Copyright (c) 2021 Xilinx, Inc.  All rights reserved.
+# Copyright (c) 2021 - 2022 Xilinx, Inc.  All rights reserved.
+# Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 %YAML 1.2
 ---
@@ -42,13 +42,13 @@ properties:
     description: The total number of MST streams supported by this Subsystem core
 
   xlnx,color-format:
-    description: Type of color format supported by this Subssytem core
+    description: Type of color format supported by this Subsystem core
 
   xlnx,include-axi-iic:
     description: 1 if Subsystem supports Axi i2c support, 0 if not support
 
   xlnx,include-clk-wiz:
-    description: 1 if Subssytem supports clocking wizard support, 0 if not support
+    description: 1 if Subsystem supports clocking wizard support, 0 if not support
 
   iic-present:
     description: Sub-core instance presence
@@ -182,7 +182,7 @@ examples:
             - src/dp21_rx_only/xdprxss_dp21_rx.c
             - src/dp21_rx_only/xvidframe_crc.c
             - src/dp21_rx_only/xvidframe_crc.h
-            - src/platforms/vcu_risc/lscript.ld
+            - src/platforms/vcu_risc/rxo/lscript.ld
 
     src/dp21_pt/xdprxss_dp21_pt.c:
         - dependency_files:
