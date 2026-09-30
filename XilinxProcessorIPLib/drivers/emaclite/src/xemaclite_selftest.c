@@ -11,9 +11,11 @@
 * @addtogroup emaclite Overview
 * @{
 *
+* @brief Implements the EmacLite self-test function.
+*
 * Function(s) in this file are the required functions for the Ethernet MAC Lite
 * driver sefftest for the hardware.
-* See xemaclite.h for a detailed description of the driver.
+*
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -45,22 +47,10 @@
 
 /*****************************************************************************/
 /**
-*
-* Performs a SelfTest on the EmacLite device as follows:
-*   - Writes to the mandatory TX buffer and reads back to verify.
-*   - If configured, writes to the secondary TX buffer and reads back to verify.
-*   - Writes to the mandatory RX buffer and reads back to verify.
-*   - If configured, writes to the secondary RX buffer and reads back to verify.
-*
-*
-* @param[in] InstancePtr is a pointer to the XEmacLite instance.
-*
-* @return
-*		- XST_SUCCESS if the device Passed the Self Test.
-* 		- XST_FAILURE if any of the data read backs fail.
-*
-*
-******************************************************************************/
+ * @brief Implementation of XEmacLite_SelfTest(). See xemaclite.h for the API
+ * description.
+ *
+ *****************************************************************************/
 int XEmacLite_SelfTest(XEmacLite *InstancePtr)
 {
 	UINTPTR BaseAddress;

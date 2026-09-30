@@ -4,13 +4,17 @@
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
+#ifndef XEMACLITE_I_H		/* prevent circular inclusions */
+/** @brief Include guard for the EmacLite internal header. */
+#define XEMACLITE_I_H		/* by using protection macros */
+
+
 /******************************************************************************/
 /**
 * @file xemaclite_i.h
 * @addtogroup emaclite Overview
 * @{
-*
-* Defines internal identifiers shared between driver source files.
+* @brief Defines internal identifiers shared between driver source files.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -27,9 +31,6 @@
 *
 * </pre>
 ******************************************************************************/
-
-#ifndef XEMACLITE_I_H		/* prevent circular inclusions */
-#define XEMACLITE_I_H		/* by using protection macros */
 
 #ifdef __cplusplus
 extern "C" {
@@ -48,7 +49,7 @@ extern "C" {
 /****************************************************************************/
 /**
 *
-* Get the TX active location to check status. This is used to check if
+* @brief Get the TX active location to check status. This is used to check if
 * the TX buffer is currently active. There isn't any way in the hardware
 * to implement this but the register is fully populated so the driver can
 * set the bit in the send routine and the ISR can clear the bit when
@@ -69,7 +70,7 @@ extern "C" {
 /****************************************************************************/
 /**
 *
-* Set the TX active location to update status. This is used to set the bit
+* @brief Set the TX active location to update status. This is used to set the bit
 * indicating which TX buffer is currently active. There isn't any way in the
 * hardware to implement this but the register is fully populated so the driver
 * can set the bit in the send routine and the ISR can clear the bit when
@@ -78,7 +79,6 @@ extern "C" {
 *
 * @param[in] BaseAddress is the base address of the device
 * @param[in] Mask is the data to be written
-*
 *
 * @note		C-Style signature:
 * 		void XEmacLite_SetTxActive(u32 BaseAddress, u32 Mask)

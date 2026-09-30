@@ -10,6 +10,8 @@
 * @addtogroup emaclite Overview
 * @{
 *
+* @brief Demonstrates EmacLite ICMP echo request generation.
+*
 * Contains a EmacLite Ping request example in polled mode. This
 * example will generate a ping request for the specified IP address.
 *
@@ -64,66 +66,62 @@
  * change all the needed parameters in one place.
  */
 #ifdef SDT
-#define EMACLITE_BASEADDR	XPAR_XEMACLITE_0_BASEADDR
+#define EMACLITE_BASEADDR	XPAR_XEMACLITE_0_BASEADDR /**< Base address of the EmacLite device. */
 #else
-#define EMAC_DEVICE_ID		  XPAR_EMACLITE_0_DEVICE_ID
+#define EMAC_DEVICE_ID		  XPAR_EMACLITE_0_DEVICE_ID /**< Device ID of the EmacLite device. */
 #endif
 
 /*
  * Change this parameter to limit the number of ping requests sent by this
  * program.
  */
-#define NUM_OF_PING_REQ_PKTS	12	/* Number of ping req it generates */
+#define NUM_OF_PING_REQ_PKTS	12	/**< Number of ping request packets to generate. */
 
-#define ECHO_REPLY		0x00	/* Echo reply */
-#define HW_TYPE			0x01	/* Hardware type (10/100 Mbps) */
-#define ARP_REQUEST 		0x01	/* ARP Request bits in Rx packet */
-#define ARP_REPLY 		0x02 	/* ARP status bits indicating reply */
-#define IDEN_NUM		0x02	/* ICMP identifier number */
-#define IP_VERSION		0x0604	/* IP version ipv4/ipv6 */
-#define BROADCAST_ADDR 		0xFFFF 	/* Broadcast Address */
-#define CORRECT_CHECKSUM_VALUE	0xFFFF	/* Correct checksum value */
-#define ARP_REQ_PKT_SIZE	0x2A	/* ARP request packet size */
-#define ICMP_PKT_SIZE 		0x4A	/* ICMP packet length 74 Bytes
-					including Src and dest MAC Add */
-#define IP_ADDR_SIZE		4	/* IP Address size in Bytes */
-#define NUM_RX_PACK_CHECK_REQ	10	/* Max num of Rx pack to be checked
-					before sending another request */
-#define NUM_PACK_CHECK_RX_PACK	100	/* Max number of pack to be checked
-					before to identify a Rx packet */
-#define DELAY			5000000 /* Used to introduce delay */
+#define ECHO_REPLY		0x00	/**< ICMP echo reply type. */
+#define HW_TYPE			0x01	/**< Hardware type for 10/100 Mbps Ethernet. */
+#define ARP_REQUEST 		0x01	/**< ARP request opcode in a receive packet. */
+#define ARP_REPLY 		0x02 	/**< ARP reply opcode. */
+#define IDEN_NUM		0x02	/**< ICMP identifier number. */
+#define IP_VERSION		0x0604	/**< IP version field for IPv4/IPv6. */
+#define BROADCAST_ADDR 		0xFFFF 	/**< Broadcast address value. */
+#define CORRECT_CHECKSUM_VALUE	0xFFFF	/**< Expected value for a correct checksum. */
+#define ARP_REQ_PKT_SIZE	0x2A	/**< ARP request packet size in bytes. */
+#define ICMP_PKT_SIZE 		0x4A	/**< ICMP packet length of 74 bytes including MAC addresses. */
+#define IP_ADDR_SIZE		4	/**< IP address size in bytes. */
+#define NUM_RX_PACK_CHECK_REQ	10	/**< Max receive packets to check before another request. */
+#define NUM_PACK_CHECK_RX_PACK	100	/**< Max packets to check while identifying a receive packet. */
+#define DELAY			5000000 /**< Loop count used to introduce delay. */
 
 /*
  * Definitions for the locations and length of some of the fields in a
  * IP packet. The lengths are defined in Half-Words (2 bytes).
  */
 
-#define SRC_MAC_ADDR_LOC	3	/* Src MAC address location */
-#define MAC_ADDR_LEN 		3	/* MAC address length */
-#define ETHER_PROTO_TYPE_LOC	6	/* Ethernet Proto type loc */
+#define SRC_MAC_ADDR_LOC	3	/**< Source MAC address location. */
+#define MAC_ADDR_LEN 		3	/**< MAC address length in half-words. */
+#define ETHER_PROTO_TYPE_LOC	6	/**< Ethernet protocol type location. */
 
-#define IP_ADDR_LEN 		2	/* Size of IP address */
-#define IP_START_LOC 		7	/* IP header start location */
-#define IP_HEADER_INFO_LEN	7	/* IP header information length */
-#define IP_HEADER_LEN 		10 	/* IP header length */
-#define IP_CHECKSUM_LOC		12	/* IP header checksum location */
-#define IP_REQ_SRC_IP_LOC 	13	/* Src IP add loc of ICMP req */
-#define IP_REQ_DEST_IP_LOC	15	/* Dest IP add loc of ICMP req */
+#define IP_ADDR_LEN 		2	/**< Size of an IP address in half-words. */
+#define IP_START_LOC 		7	/**< IP header start location. */
+#define IP_HEADER_INFO_LEN	7	/**< IP header information length. */
+#define IP_HEADER_LEN 		10 	/**< IP header length in half-words. */
+#define IP_CHECKSUM_LOC		12	/**< IP header checksum location. */
+#define IP_REQ_SRC_IP_LOC 	13	/**< Source IP address location of an ICMP request. */
+#define IP_REQ_DEST_IP_LOC	15	/**< Destination IP address location of an ICMP request. */
 
-#define ICMP_KNOWN_DATA_LEN	16	/* ICMP known data length */
-#define ICMP_ECHO_FIELD_LOC 	17	/* Echo field loc */
-#define ICMP_DATA_START_LOC 	17	/* Data field start location */
-#define ICMP_DATA_LEN 		18	/* ICMP data length */
-#define ICMP_DATA_CHECKSUM_LOC	18	/* ICMP data checksum location */
-#define ICMP_IDEN_FIELD_LOC	19	/* Identifier field loc */
-#define ICMP_DATA_LOC 		19	/* ICMP data loc including
-					identifier number and sequence number */
-#define ICMP_SEQ_NO_LOC		20	/* sequence number location */
-#define ICMP_DATA_FIELD_LEN 	20 	/* Data field length */
-#define ICMP_KNOWN_DATA_LOC	21	/* ICMP known data start loc */
+#define ICMP_KNOWN_DATA_LEN	16	/**< ICMP known data length in half-words. */
+#define ICMP_ECHO_FIELD_LOC 	17	/**< Echo field location. */
+#define ICMP_DATA_START_LOC 	17	/**< Data field start location. */
+#define ICMP_DATA_LEN 		18	/**< ICMP data length in half-words. */
+#define ICMP_DATA_CHECKSUM_LOC	18	/**< ICMP data checksum location. */
+#define ICMP_IDEN_FIELD_LOC	19	/**< Identifier field location. */
+#define ICMP_DATA_LOC 		19	/**< ICMP data location including identifier and sequence. */
+#define ICMP_SEQ_NO_LOC		20	/**< Sequence number location. */
+#define ICMP_DATA_FIELD_LEN 	20 	/**< Data field length in half-words. */
+#define ICMP_KNOWN_DATA_LOC	21	/**< ICMP known data start location. */
 
-#define ARP_REQ_STATUS_LOC 	10	/* ARP request loc */
-#define ARP_REQ_SRC_IP_LOC 	14	/* Src IP add loc of ARP req Packet */
+#define ARP_REQ_STATUS_LOC 	10	/**< ARP request opcode location. */
+#define ARP_REQ_SRC_IP_LOC 	14	/**< Source IP address location of an ARP request. */
 
 /**************************** Type Definitions *******************************/
 
@@ -226,13 +224,11 @@ static int ArpResolved = 0;
 /****************************************************************************/
 /**
 *
-* Main entry point of the Ping Request example in polled mode.
-*
+* @brief Main entry point of the Ping Request example in polled mode.
 *
 * @return	XST_FAILURE to indicate failure, otherwise it will return
 *		XST_SUCCESS after sending specified number of packets as
-*		defined in "NUM_OF_PING_REQ_PKTS" .
-*
+*		defined in "NUM_OF_PING_REQ_PKTS".
 *
 *****************************************************************************/
 int main()
@@ -259,12 +255,12 @@ int main()
 /*****************************************************************************/
 /**
 *
-* The entry point for the EmacLite driver to ping request example in polled
+* @brief The entry point for the EmacLite driver to ping request example in polled
 * mode. generate specified number of request packets as
 * defined in "NUM_OF_PING_REQ_PKTS.
 *
 * @if SDT
-* @param[in] BaseAddress contains the base address of the EmacLite device
+* @param[in] BaseAddress contains the base address of the EmacLite device.
 * @else
 * @param[in] DeviceId is device ID of the XEmacLite Device.
 * @endif
@@ -399,11 +395,9 @@ static int EmacLitePingReqExample(u16 DeviceId)
 /*****************************************************************************/
 /**
 *
-* send a ARP request packet.
+* @brief send a ARP request packet.
 *
 * @param[in] InstancePtr is a pointer to the instance of the EmacLite.
-*
-*
 *
 ******************************************************************************/
 static void SendArpReqFrame(XEmacLite *InstancePtr)
@@ -501,11 +495,9 @@ static void SendArpReqFrame(XEmacLite *InstancePtr)
 /*****************************************************************************/
 /**
 *
-* send a Echo request packet.
+* @brief send a Echo request packet.
 *
 * @param[in] InstancePtr is a pointer to the instance of the EmacLite.
-*
-*
 *
 ******************************************************************************/
 static void SendEchoReqFrame(XEmacLite *InstancePtr)
@@ -621,10 +613,10 @@ static void SendEchoReqFrame(XEmacLite *InstancePtr)
 	XEmacLite_Send(InstancePtr, (u8 *)&TxFrame, ICMP_PKT_SIZE);
 }
 
+/** @cond INTERNAL */
 /*****************************************************************************/
 /**
-*
-* Processes the received packet and sends
+* @brief Processes the received packet and sends
 * the echo request packet based on the ARP reply packet.
 *
 * @param[in] InstancePtr is a pointer to the instance of the EmacLite.
@@ -741,6 +733,8 @@ static int ProcessRecvFrame(XEmacLite *InstancePtr __attribute__((unused)))
 	}
 	return XST_FAILURE;
 }
+/** @endcond */
+
 /*****************************************************************************/
 /**
 *
@@ -785,7 +779,7 @@ static u16 CheckSumCalculation(u16 *RxFramePtr, int StartLoc, int Length)
 /*****************************************************************************/
 /**
 *
-* Checks the match for the specified number of half words.
+* @brief Checks the match for the specified number of half words.
 *
 * @param[in] LhsPtr is a LHS entity pointer.
 * @param[in] RhsPtr is a RHS entity pointer.
@@ -795,7 +789,6 @@ static u16 CheckSumCalculation(u16 *RxFramePtr, int StartLoc, int Length)
 *
 * @return	XST_SUCCESS is returned when both the entities are same,
 *		otherwise XST_FAILURE is returned.
-*
 *
 ******************************************************************************/
 static int CompareData(u16 *LhsPtr, u16 *RhsPtr, int LhsLoc, int RhsLoc,

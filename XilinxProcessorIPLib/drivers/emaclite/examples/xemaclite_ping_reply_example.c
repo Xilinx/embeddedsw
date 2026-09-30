@@ -10,6 +10,8 @@
 * @addtogroup emaclite Overview
 * @{
 *
+* @brief Demonstrates EmacLite ICMP echo reply handling.
+*
 * Contains an EmacLite ping reply example in polled mode. This example
 * will generate a ping reply when it receives a ping request packet from the
 * external world.
@@ -61,69 +63,66 @@
  * change all the needed parameters in one place.
  */
 #ifdef SDT
-#define EMACLITE_BASEADDR	XPAR_XEMACLITE_0_BASEADDR
+#define EMACLITE_BASEADDR	XPAR_XEMACLITE_0_BASEADDR /**< Base address of the EmacLite device. */
 #else
-#define EMAC_DEVICE_ID		  XPAR_EMACLITE_0_DEVICE_ID
+#define EMAC_DEVICE_ID		  XPAR_EMACLITE_0_DEVICE_ID /**< Device ID of the EmacLite device. */
 #endif
 
 /*
  * Change this parameter to limit the number of ping replies sent by this
  * program.
  */
-#define MAX_PING_REPLIES	10	/* Maximum number of ping replies */
+#define MAX_PING_REPLIES	10	/**< Maximum number of ping replies. */
 
-#define BROADCAST_PACKET	1	/* Broadcast packet */
-#define MAC_MATCHED_PACKET	2 	/* Dest MAC matched with local MAC */
-#define IP_ADDR_SIZE		4	/* IP Address size in Bytes */
-#define ARP_REQUEST 		0x0001	/* ARP Request bits in Rx packet */
-#define ARP_REPLY 		0x0002 	/* ARP status bits indicating reply */
-#define ARP_PACKET_SIZE 	0x3C    /* ARP packet len 60 Bytes */
-#define ICMP_PACKET_SIZE 	0x62    /* ICMP packet length 98 Bytes
-					 * including Src and Dest MAC Address */
-#define BROADCAST_ADDR 		0xFFFF  /* Broadcast Address */
-#define CORRECT_CKSUM_VALUE	0xFFFF  /* Correct checksum value */
-#define IDENT_FIELD_VALUE	0x9263	/* Identification field (random num) */
+#define BROADCAST_PACKET	1	/**< Broadcast packet indicator. */
+#define MAC_MATCHED_PACKET	2 	/**< Destination MAC matched the local MAC. */
+#define IP_ADDR_SIZE		4	/**< IP address size in bytes. */
+#define ARP_REQUEST 		0x0001	/**< ARP request opcode in a receive packet. */
+#define ARP_REPLY 		0x0002 	/**< ARP reply opcode. */
+#define ARP_PACKET_SIZE 	0x3C    /**< ARP packet length of 60 bytes. */
+#define ICMP_PACKET_SIZE 	0x62    /**< ICMP packet length of 98 bytes including MAC addresses. */
+#define BROADCAST_ADDR 		0xFFFF  /**< Broadcast address value. */
+#define CORRECT_CKSUM_VALUE	0xFFFF  /**< Expected value for a correct checksum. */
+#define IDENT_FIELD_VALUE	0x9263	/**< Identification field value (random number). */
 
 /*
  * Definitions for the locations and length of some of the fields in a
  * IP packet. The lengths are defined in Half-Words (2 bytes).
  */
-#define ETHER_PROTO_TYPE_LEN	1  /* Ethernet protocol Type length  */
-#define SRC_MAC_ADDR_LOC	3  /* Source MAC address location */
-#define MAC_ADDR_LEN 		3  /* MAC address length */
-#define ETHER_PROTO_TYPE_LOC	6  /* Ethernet Proto type location */
+#define ETHER_PROTO_TYPE_LEN	1  /**< Ethernet protocol type field length. */
+#define SRC_MAC_ADDR_LOC	3  /**< Source MAC address location. */
+#define MAC_ADDR_LEN 		3  /**< MAC address length in half-words. */
+#define ETHER_PROTO_TYPE_LOC	6  /**< Ethernet protocol type location. */
 
-#define ARP_HW_TYPE_LEN 	1  /* Hardware Type length  */
-#define ARP_PROTO_TYPE_LEN	1  /* Protocol Type length  */
-#define ARP_HW_ADD_LEN		1  /* Hardware address length */
-#define ARP_PROTO_ADD_LEN	1  /* Protocol address length */
-#define ARP_ZEROS_LEN		9  /* Length to be filled with zeros */
-#define ARP_REQ_STATUS_LOC 	10 /* ARP request location */
-#define ARP_REQ_SRC_IP_LOC 	14 /* Src IP address location of ARP request */
-#define ARP_REQ_DEST_IP_LOC_1 	19 /* Destination IP's 1st half word location */
-#define ARP_REQ_DEST_IP_LOC_2 	20 /* Destination IP's 2nd half word location */
+#define ARP_HW_TYPE_LEN 	1  /**< Hardware type field length. */
+#define ARP_PROTO_TYPE_LEN	1  /**< Protocol type field length. */
+#define ARP_HW_ADD_LEN		1  /**< Hardware address length field size. */
+#define ARP_PROTO_ADD_LEN	1  /**< Protocol address length field size. */
+#define ARP_ZEROS_LEN		9  /**< Length filled with zeros in an ARP packet. */
+#define ARP_REQ_STATUS_LOC 	10 /**< ARP request opcode location. */
+#define ARP_REQ_SRC_IP_LOC 	14 /**< Source IP address location of an ARP request. */
+#define ARP_REQ_DEST_IP_LOC_1 	19 /**< Destination IP first half-word location. */
+#define ARP_REQ_DEST_IP_LOC_2 	20 /**< Destination IP second half-word location. */
 
-#define IP_VERSION_LEN 		1  /* IP Version length  */
-#define IP_PACKET_LEN 		1  /* IP Packet length field  */
-#define IP_FRAG_FIELD_LEN	1  /* Fragment field len in ICMP packet */
-#define IP_TTL_ICM_LEN 		1  /* Time to live and ICM fields length */
-#define IP_ADDR_LEN 		2  /* Size of IP address in half-words */
-#define IP_CSUM_LOC_BACK	5  /* IP checksum location from end of frame */
-#define IP_HDR_START_LOC 	7  /* IP header start location */
-#define IP_HDR_LEN 		10 /* IP Header length */
-#define IP_FRAG_FIELD_LOC 	10 /* Fragment field location */
+#define IP_VERSION_LEN 		1  /**< IP version field length. */
+#define IP_PACKET_LEN 		1  /**< IP packet length field size. */
+#define IP_FRAG_FIELD_LEN	1  /**< Fragment field length in an ICMP packet. */
+#define IP_TTL_ICM_LEN 		1  /**< Time-to-live and ICM fields length. */
+#define IP_ADDR_LEN 		2  /**< Size of an IP address in half-words. */
+#define IP_CSUM_LOC_BACK	5  /**< IP checksum location from the end of the frame. */
+#define IP_HDR_START_LOC 	7  /**< IP header start location. */
+#define IP_HDR_LEN 		10 /**< IP header length in half-words. */
+#define IP_FRAG_FIELD_LOC 	10 /**< Fragment field location. */
 
-#define ICMP_TYPE_LEN 		1  /* ICMP Type length */
-#define ICMP_ECHO_FIELD_LEN 	2  /* Echo field length in half-words */
-#define ICMP_REQ_SRC_IP_LOC 	13 /* Src IP address location of ICMP request */
-#define ICMP_ECHO_FIELD_LOC 	17 /* Echo field location */
-#define ICMP_DATA_START_LOC 	17 /* Data field start location */
-#define ICMP_DATA_LEN 		30 /* ICMP data length */
-#define ICMP_DATA_LOC 		19 /* ICMP data location including
-				      identifier number and sequence number */
-#define ICMP_DATA_CSUM_LOC_BACK 31 /* Data checksum location from end of
-					frame */
-#define ICMP_DATA_FIELD_LEN 	32 /* Data field length */
+#define ICMP_TYPE_LEN 		1  /**< ICMP type field length. */
+#define ICMP_ECHO_FIELD_LEN 	2  /**< Echo field length in half-words. */
+#define ICMP_REQ_SRC_IP_LOC 	13 /**< Source IP address location of an ICMP request. */
+#define ICMP_ECHO_FIELD_LOC 	17 /**< Echo field location. */
+#define ICMP_DATA_START_LOC 	17 /**< Data field start location. */
+#define ICMP_DATA_LEN 		30 /**< ICMP data length in half-words. */
+#define ICMP_DATA_LOC 		19 /**< ICMP data location including identifier and sequence. */
+#define ICMP_DATA_CSUM_LOC_BACK 31 /**< Data checksum location from the end of the frame. */
+#define ICMP_DATA_FIELD_LEN 	32 /**< Data field length in half-words. */
 
 /**************************** Type Definitions *******************************/
 
@@ -183,13 +182,11 @@ u32 NumOfPingReplies;
 /****************************************************************************/
 /**
 *
-* Main entry point of the Ping reply example in
+* @brief Main entry point of the Ping reply example in
 * polled mode.
-*
 *
 * @return	XST_FAILURE to indicate failure, otherwise XST_SUCCESS
 *		is returned.
-*
 *
 *****************************************************************************/
 int main()
@@ -216,10 +213,10 @@ int main()
 /*****************************************************************************/
 /**
 *
-* The entry point for the EmacLite Ping reply example in polled mode.
+* @brief The entry point for the EmacLite Ping reply example in polled mode.
 *
 * @if SDT
-* @param[in] BaseAddress contains the base address of the EmacLite device
+* @param[in] BaseAddress contains the base address of the EmacLite device.
 * @else
 * @param[in] DeviceId is device ID of the XEmacLite Device.
 * @endif
@@ -229,7 +226,6 @@ int main()
 *
 * @note		This is in a continuous loop generating a specified number of
 *		ping replies as defined by MAX_PING_REPLIES.
-*
 *
 ******************************************************************************/
 #ifdef SDT
@@ -303,11 +299,10 @@ int EmacLitePingReplyExample(u16 DeviceId)
 /******************************************************************************/
 /**
 *
-* Processes the received packet and generates the corresponding
+* @brief Processes the received packet and generates the corresponding
 * reply packets.
 *
 * @param[in] InstancePtr is a pointer to the instance of the EmacLite.
-*
 *
 * @note		This function assumes MAC does not strip padding or CRC.
 *

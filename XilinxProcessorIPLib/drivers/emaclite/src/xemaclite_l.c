@@ -11,10 +11,11 @@
 * @addtogroup emaclite Overview
 * @{
 *
+* @brief Implements low-level EmacLite register and frame helpers.
+*
 * Contains the minimal, polled functions to send and receive Ethernet
 * frames.
 *
-* Refer to xemaclite.h for more details.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -65,13 +66,12 @@ void XEmacLite_AlignedRead(UINTPTR *SrcPtr, void *DestPtr, unsigned ByteCount);
 /*****************************************************************************/
 /**
 *
-* Send an Ethernet frame. The size is the total frame size, including header.
+* @brief Send an Ethernet frame. The size is the total frame size, including header.
 * Blocks until for the frame to be transmitted.
 *
 * @param[in] BaseAddress is the base address of the device
 * @param[in] FramePtr is a pointer to frame
 * @param[in] ByteCount is the size, in bytes, of the frame
-*
 *
 * @note
 *
@@ -116,7 +116,7 @@ void XEmacLite_SendFrame(UINTPTR BaseAddress, u8 *FramePtr, unsigned ByteCount)
 /*****************************************************************************/
 /**
 *
-* Receive a frame. Wait for a frame to arrive.
+* @brief Receive a frame. Wait for a frame to arrive.
 *
 * @param[in] BaseAddress is the base address of the device
 * @param[in] FramePtr is a pointer to a buffer where the frame will
@@ -195,14 +195,12 @@ u16 XEmacLite_RecvFrame(UINTPTR BaseAddress, u8 *FramePtr)
 /******************************************************************************/
 /**
 *
-* Aligns the incoming data and writes it out to a 32-bit
+* @brief Aligns the incoming data and writes it out to a 32-bit
 * aligned destination address range.
 *
 * @param[in] SrcPtr is a pointer to incoming data of any alignment.
 * @param[in] DestPtr is a pointer to outgoing data of 32-bit alignment.
 * @param[in] ByteCount is the number of bytes to write.
-*
-*
 *
 ******************************************************************************/
 void XEmacLite_AlignedWrite(void *SrcPtr, UINTPTR *DestPtr, unsigned ByteCount)
@@ -351,14 +349,12 @@ void XEmacLite_AlignedWrite(void *SrcPtr, UINTPTR *DestPtr, unsigned ByteCount)
 /******************************************************************************/
 /**
 *
-* Reads from a 32-bit aligned source address range and aligns
+* @brief Reads from a 32-bit aligned source address range and aligns
 * the writes to the provided destination pointer alignment.
 *
 * @param[in] SrcPtr is a pointer to incoming data of 32-bit alignment.
 * @param[in] DestPtr is a pointer to outgoing data of any alignment.
 * @param[in] ByteCount is the number of bytes to read.
-*
-*
 *
 ******************************************************************************/
 void XEmacLite_AlignedRead(UINTPTR *SrcPtr, void *DestPtr, unsigned ByteCount)

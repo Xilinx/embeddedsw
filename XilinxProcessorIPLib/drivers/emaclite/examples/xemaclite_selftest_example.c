@@ -11,8 +11,9 @@
 * @addtogroup emaclite Overview
 * @{
 *
-* Contains a design example using the EmacLite driver.
+* @brief Demonstrates EmacLite self-test example.
 *
+* Contains a design example using the EmacLite driver.
 *
 * MODIFICATION HISTORY:
 *
@@ -41,9 +42,9 @@
  * change all the needed parameters in one place.
  */
 #ifdef SDT
-#define EMACLITE_BASEADDR	XPAR_XEMACLITE_0_BASEADDR
+#define EMACLITE_BASEADDR	XPAR_XEMACLITE_0_BASEADDR /**< Base address of the EmacLite device. */
 #else
-#define EMAC_DEVICE_ID			XPAR_EMACLITE_0_DEVICE_ID
+#define EMAC_DEVICE_ID			XPAR_EMACLITE_0_DEVICE_ID /**< Device ID of the EmacLite device. */
 #endif
 
 /**************************** Type Definitions *******************************/
@@ -67,11 +68,9 @@ static XEmacLite EmacLite;
 /****************************************************************************/
 /**
 *
-* Main entry point of the EmacLite selftest example.
-*
+* @brief Main entry point of the EmacLite selftest example.
 *
 * @return	XST_SUCCESS to indicate success, else XST_FAILURE.
-*
 *
 *****************************************************************************/
 int main(void)
@@ -100,18 +99,16 @@ int main(void)
 /*****************************************************************************/
 /**
 *
-* The main entry point for the EmacLite driver selftest example.
+* @brief The main entry point for the EmacLite driver selftest example.
 *
 * @if SDT
-* @param[in] BaseAddress contains the base address of the EmacLite device
+* @param[in] BaseAddress contains the base address of the EmacLite device.
 * @else
 * @param[in] DeviceId is the XPAR_<xemaclite_instance>_DEVICE_ID value from
-*		xparameters.h
+*		xparameters.h.
 * @endif
 *
 * @return	XST_SUCCESS to indicate success, else XST_FAILURE.
-*
-*
 *
 ******************************************************************************/
 #ifdef SDT

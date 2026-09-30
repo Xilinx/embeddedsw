@@ -11,9 +11,10 @@
 * @addtogroup emaclite Overview
 * @{
 *
+* @brief Implements EmacLite static initialization and lookup helpers.
+*
 * Contains the implementation of the XEmacLite driver's static
 * initialization functionality.
-*
 *
 * <pre>
 *
@@ -47,24 +48,10 @@ extern XEmacLite_Config XEmacLite_ConfigTable[];
 
 /*****************************************************************************/
 /**
-*
-* Looks up the device configuration based on the unique device ID/BaseAddress.
-* A table contains the configuration info for each device in the system.
-*
-* @if SDT
-* @param[in] BaseAddress contains the base address of the device
-* @else
-* @param[in] DeviceId contains the unique ID of the device
-* @endif
-*
-* @return
-*		A pointer to the configuration table entry corresponding to the given
-* 		device ID/BaseAddress, or NULL if no match is found.
-*
-* @note        In XSCT/classic flow, DeviceId is used to look up the device
-*              configuration.
-*
-******************************************************************************/
+ * @brief Implementation of XEmacLite_LookupConfig(). See xemaclite.h for the API
+ * description.
+ *
+ *****************************************************************************/
 #ifdef SDT
 XEmacLite_Config *XEmacLite_LookupConfig(UINTPTR BaseAddress)
 {
@@ -101,7 +88,7 @@ XEmacLite_Config *XEmacLite_LookupConfig(u16 DeviceId)
 /*****************************************************************************/
 /**
 *
-* Initialize a specific XEmacLite instance/driver.  The initialization entails:
+* @brief Initialize a specific XEmacLite instance/driver.  The initialization entails:
 * - Initialize fields of the XEmacLite instance structure.
 *
 * The driver defaults to polled mode operation.
@@ -121,7 +108,6 @@ XEmacLite_Config *XEmacLite_LookupConfig(u16 DeviceId)
 * 		- XST_DEVICE_NOT_FOUND/XST_FAILURE if device configuration
 *		information was not found for a device with the supplied
 *		device ID.
-*
 *
 ******************************************************************************/
 #ifdef SDT

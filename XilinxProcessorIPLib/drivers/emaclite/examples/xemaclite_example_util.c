@@ -11,6 +11,8 @@
 * @addtogroup emaclite Overview
 * @{
 *
+* @brief Implements shared utility functions for EmacLite examples.
+*
 * Implements the utility functions for the EmacLite example code.
 *
 * <pre>
@@ -61,7 +63,7 @@ volatile int TransmitComplete;	/* Flag to indicate that the Transmission
 /******************************************************************************/
 /**
 *
-* Detects the PHY address by looking for successful MII status
+* @brief Detects the PHY address by looking for successful MII status
 * register contents (PHY register 1). It looks for a PHY that supports
 * auto-negotiation and 10Mbps full-duplex and half-duplex. So, this code
 * won't work for PHYs that don't support those features, but it's a bit more
@@ -112,7 +114,7 @@ u32 EmacLitePhyDetect(XEmacLite *InstancePtr)
 /******************************************************************************/
 /**
 *
-* Enables the MAC loopback on the PHY.
+* @brief Enables the MAC loopback on the PHY.
 *
 * @param[in] InstancePtr is the pointer to the instance of EmacLite driver.
 * @param[in] PhyAddress is the address of the Phy device.
@@ -120,7 +122,6 @@ u32 EmacLitePhyDetect(XEmacLite *InstancePtr)
 * @return
 *		- XST_SUCCESS if the loop back is enabled.
 *		- XST_FAILURE if the loop back was not enabled.
-*
 *
 ******************************************************************************/
 int EmacLiteEnablePhyLoopBack(XEmacLite *InstancePtr, u32 PhyAddress)
@@ -163,7 +164,7 @@ int EmacLiteEnablePhyLoopBack(XEmacLite *InstancePtr, u32 PhyAddress)
 /******************************************************************************/
 /**
 *
-* Disables the MAC loopback on the PHY.
+* @brief Disables the MAC loopback on the PHY.
 *
 * @param[in] InstancePtr is the pointer to the instance of EmacLite driver.
 * @param[in] PhyAddress is the address of the Phy device.
@@ -171,7 +172,6 @@ int EmacLiteEnablePhyLoopBack(XEmacLite *InstancePtr, u32 PhyAddress)
 * @return
 *		- XST_SUCCESS if the loop back was disabled.
 *		- XST_FAILURE if the loop back was not disabled.
-*
 *
 ******************************************************************************/
 int EmacLiteDisablePhyLoopBack(XEmacLite *InstancePtr, u32 PhyAddress)
@@ -201,7 +201,7 @@ int EmacLiteDisablePhyLoopBack(XEmacLite *InstancePtr, u32 PhyAddress)
 /******************************************************************************/
 /**
 *
-* For PPC we use a usleep call, for Microblaze we use an assembly loop that
+* @brief For PPC we use a usleep call, for Microblaze we use an assembly loop that
 * is roughly the same regardless of optimization level, although caches and
 * memory access time can make the delay vary.  Just keep in mind that after
 * resetting or updating the PHY modes, the PHY typically needs time to recover.
@@ -226,7 +226,7 @@ void EmacLitePhyDelay(unsigned int Seconds)
 		WarningFlag = 1;
 	}
 
-#define ITERS_PER_SEC   (XPAR_CPU_CORE_CLOCK_FREQ_HZ / 6)
+#define ITERS_PER_SEC   (XPAR_CPU_CORE_CLOCK_FREQ_HZ / 6) /**< Software delay loop iterations per second. */
 	__asm volatile ("\n"
 			      "1:               \n\t"
 			      "addik r7, r0, %0 \n\t"

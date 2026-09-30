@@ -11,8 +11,10 @@
 * @addtogroup emaclite Overview
 * @{
 *
+* @brief Implements the minimum required API functions for the EmacLite driver.
+*
 * Functions in this file are the minimum required functions for the EmacLite
-* driver. See xemaclite.h for a detailed description of the driver.
+* driver.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -69,7 +71,7 @@ static u16 XEmacLite_GetReceiveDataLength(UINTPTR BaseAddress);
 /*****************************************************************************/
 /**
 *
-* Initialize a specific XEmacLite instance/driver.  The initialization entails:
+* @brief Initialize a specific XEmacLite instance/driver.  The initialization entails:
 * - Initialize fields of the XEmacLite instance structure.
 *
 * The driver defaults to polled mode operation.
@@ -149,7 +151,7 @@ int XEmacLite_CfgInitialize(XEmacLite *InstancePtr,
 /*****************************************************************************/
 /**
 *
-* Send an Ethernet frame. The ByteCount is the total frame size, including
+* @brief Send an Ethernet frame. The ByteCount is the total frame size, including
 * header.
 *
 * @param[in] InstancePtr is a pointer to the XEmacLite instance.
@@ -319,7 +321,7 @@ int XEmacLite_Send(XEmacLite *InstancePtr, u8 *FramePtr, unsigned ByteCount)
 /*****************************************************************************/
 /**
 *
-* Receive a frame. Intended to be called from the interrupt context or
+* @brief Receive a frame. Intended to be called from the interrupt context or
 * with a wrapper which waits for the receive frame to be available.
 *
 * @param[in] InstancePtr is a pointer to the XEmacLite instance.
@@ -476,12 +478,11 @@ u16 XEmacLite_Recv(XEmacLite *InstancePtr, u8 *FramePtr)
 /*****************************************************************************/
 /**
 *
-* Set the MAC address for this device.  The address is a 48-bit value.
+* @brief Set the MAC address for this device.  The address is a 48-bit value.
 *
 * @param[in] InstancePtr is a pointer to the XEmacLite instance.
 * @param[in] AddressPtr is a pointer to a 6-byte MAC address.
 *		the format of the MAC address is major octet to minor octet
-*
 *
 * @note
 *
@@ -539,12 +540,10 @@ void XEmacLite_SetMacAddress(XEmacLite *InstancePtr, u8 *AddressPtr)
 /******************************************************************************/
 /**
 *
-* This is a stub for the send and receive callbacks. The stub
+* @brief This is a stub for the send and receive callbacks. The stub
 * is here in case the upper layers forget to set the handlers.
 *
 * @param[in] CallBackRef is a pointer to the upper layer callback reference.
-*
-*
 *
 ******************************************************************************/
 void StubHandler(void *CallBackRef)
@@ -557,7 +556,7 @@ void StubHandler(void *CallBackRef)
 /****************************************************************************/
 /**
 *
-* Determine if there is a transmit buffer available.
+* @brief Determine if there is a transmit buffer available.
 *
 * @param[in] InstancePtr is the pointer to the instance of the driver to
 *		be worked on.
@@ -565,7 +564,6 @@ void StubHandler(void *CallBackRef)
 * @return
 *		- TRUE if there is a TX buffer available for data to be written
 *		- FALSE if Tx Buffer is not available.
-*
 *
 *****************************************************************************/
 int XEmacLite_TxBufferAvailable(XEmacLite *InstancePtr)
@@ -613,12 +611,10 @@ int XEmacLite_TxBufferAvailable(XEmacLite *InstancePtr)
 /****************************************************************************/
 /**
 *
-* Flush the Receive buffers. All data will be lost.
+* @brief Flush the Receive buffers. All data will be lost.
 *
 * @param[in] InstancePtr is the pointer to the instance of the driver to
 *		be worked on.
-*
-*
 *
 *****************************************************************************/
 void XEmacLite_FlushReceive(XEmacLite *InstancePtr)
@@ -679,7 +675,7 @@ void XEmacLite_FlushReceive(XEmacLite *InstancePtr)
 /******************************************************************************/
 /**
 *
-* Read the specified PHY register.
+* @brief Read the specified PHY register.
 *
 * @param[in] InstancePtr is the pointer to the instance of the driver.
 * @param[in] PhyAddress is the address of the PHY device. The valid range is
@@ -768,7 +764,7 @@ int XEmacLite_PhyRead(XEmacLite *InstancePtr, u32 PhyAddress, u32 RegNum,
 /******************************************************************************/
 /**
 *
-* Write the given data to the specified register in the PHY device.
+* @brief Write the given data to the specified register in the PHY device.
 *
 * @param[in] InstancePtr is the pointer to the instance of the driver.
 * @param[in] PhyAddress is the address of the PHY device. The valid range is
@@ -859,11 +855,9 @@ int XEmacLite_PhyWrite(XEmacLite *InstancePtr, u32 PhyAddress, u32 RegNum,
 /****************************************************************************/
 /**
 *
-* Enable Internal loop back functionality.
+* @brief Enable Internal loop back functionality.
 *
 * @param[in] InstancePtr is the pointer to the instance of the driver.
-*
-*
 *
 *****************************************************************************/
 void XEmacLite_EnableLoopBack(XEmacLite *InstancePtr)
@@ -885,11 +879,9 @@ void XEmacLite_EnableLoopBack(XEmacLite *InstancePtr)
 /****************************************************************************/
 /**
 *
-* Disable Internal loop back functionality.
+* @brief Disable Internal loop back functionality.
 *
 * @param[in] InstancePtr is the pointer to the instance of the driver.
-*
-*
 *
 *****************************************************************************/
 void XEmacLite_DisableLoopBack(XEmacLite *InstancePtr)
@@ -912,12 +904,11 @@ void XEmacLite_DisableLoopBack(XEmacLite *InstancePtr)
 /*****************************************************************************/
 /**
 *
-* Return the length of the data in the Receive Buffer.
+* @brief Return the length of the data in the Receive Buffer.
 *
 * @param[in] BaseAddress contains the base address of the device.
 *
 * @return	The type/length field of the frame received.
-*
 *
 ******************************************************************************/
 static u16 XEmacLite_GetReceiveDataLength(UINTPTR BaseAddress)
