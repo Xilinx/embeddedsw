@@ -40,12 +40,19 @@
 #include "xplmi_plat.h"
 #ifndef PLM_RSA_EXCLUDE
 #include "xplmi_dma.h"
+#ifdef SDT
+#include "xsecure_config.h"
+#endif
 #include "xsecure_defs.h"
 #include "xsecure_rsa.h"
 #include "xsecure_rsa_ipihandler.h"
 #include "xsecure_init.h"
 #include "xplmi.h"
 #include "xsecure_error.h"
+#ifdef XSECURE_RSA_PSS_SIGN_VERIFY_ENABLED
+#include "xsecure_rsa_pss.h"
+#include "xil_sutil.h"
+#endif
 
 /************************** Constant Definitions *****************************/
 
@@ -53,6 +60,10 @@
 static int XSecure_RsaEncrypt(u32 SubsystemId, u32 SrcAddrLow, u32 SrcAddrHigh,
 	u32 DstAddrLow, u32 DstAddrHigh);
 static int XSecure_RsaSignVerify(u32 SubsystemId, u32 SrcAddrLow, u32 SrcAddrHigh);
+#ifdef XSECURE_RSA_PSS_SIGN_VERIFY_ENABLED
+static int XSecure_RsaPssSignVerifyHandler(u32 SubsystemId, u32 SrcAddrLow,
+	u32 SrcAddrHigh);
+#endif
 
 /*************************** Function Definitions *****************************/
 
@@ -91,6 +102,13 @@ int XSecure_RsaIpiHandler(XPlmi_Cmd *Cmd)
 		/**    - XSecure_RsaSignVerify */
 		Status = XSecure_RsaSignVerify(Cmd->SubsystemId, Pload[0], Pload[1]);
 		break;
+#ifdef XSECURE_RSA_PSS_SIGN_VERIFY_ENABLED
+	case XSECURE_API(XSECURE_API_RSA_PSS_SIGN_VERIFY):
+		/**    - XSecure_RsaPssSignVerifyHandler */
+		Status = XSecure_RsaPssSignVerifyHandler(Cmd->SubsystemId, Pload[0],
+			Pload[1]);
+		break;
+#endif
 	default:
 		XSecure_Printf(XSECURE_DEBUG_GENERAL, "CMD: INVALID PARAM\r\n");
 		Status = XST_INVALID_PARAM;
@@ -201,6 +219,111 @@ static int XSecure_RsaSignVerify(u32 SubsystemId, u32 SrcAddrLow, u32 SrcAddrHig
 END:
 	return Status;
 }
+
+#ifdef XSECURE_RSA_PSS_SIGN_VERIFY_ENABLED
+/*****************************************************************************/
+/**
+ * @brief	This function handler extracts the payload params with respect
+ * 		to XSECURE_API_RSA_PSS_SIGN_VERIFY IPI command and calls
+ * 		XSecure_RsaPssSignVerify server API.
+ *
+ * @param 	SubsystemId	Subsystem ID.
+ * @param	SrcAddrLow	Lower 32 bit address of the
+ * 				XSecure_RsaPssSignVerifyParams structure
+ * @param	SrcAddrHigh	Higher 32 bit address of the
+ * 				XSecure_RsaPssSignVerifyParams structure
+ *
+ * @return
+ *		 - XST_SUCCESS - If the RSA-PSS sign verification is successful
+ *		 - XST_FAILURE - If there is a failure
+ *
+ ******************************************************************************/
+static int XSecure_RsaPssSignVerifyHandler(u32 SubsystemId, u32 SrcAddrLow,
+	u32 SrcAddrHigh)
+{
+	volatile int Status = XST_FAILURE;
+	volatile int ClearStatus = XST_FAILURE;
+	u64 Addr = ((u64)SrcAddrHigh << 32U) | (u64)SrcAddrLow;
+	XSecure_RsaPssSignVerifyParams PssParams;
+	XSecure_RsaPssSignVerifyInput PssInput;
+	XSecure_Rsa *XSecureRsaInstPtr = XSecure_GetRsaInstance();
+	XSecure_Sha *ShaInstPtr = XSecure_GetSha3Instance(XSECURE_SHA_0_DEVICE_ID);
+	/*
+	 * Encoded message and data block workspaces. These hold intermediates
+	 * only, so the server owns them rather than making the caller hand over
+	 * memory that the server writes into.
+	 */
+	static u8 SignedInputData[XSECURE_RSA_PSS_SIGNED_INPUT_DATA_LEN]
+		__attribute__ ((aligned(32U)));
+	static u8 DataBlock[XSECURE_RSA_PSS_DATA_BLOCK_LEN]
+		__attribute__ ((aligned(32U)));
+
+	XPLMI_VERIFY_ADDR_RANGE(SubsystemId, Addr, sizeof(PssParams), Status,
+		XSECURE_ERR_INVALID_ADDR_RANGE, END);
+
+	Status = XPlmi_MemCpy64((UINTPTR)&PssParams, Addr, sizeof(PssParams));
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	if ((PssParams.KeySize != XSECURE_RSA_2048_KEY_SIZE) &&
+		(PssParams.KeySize != XSECURE_RSA_3072_KEY_SIZE) &&
+		(PssParams.KeySize != XSECURE_RSA_4096_KEY_SIZE)) {
+		Status = XSECURE_RSA_PSS_ERR_INVALID;
+		goto END;
+	}
+
+	if ((PssParams.Exponent == 0U) ||
+		(PssParams.HashBufSize != XSECURE_SHA_384_HASH_SIZE_IN_BYTES)) {
+		Status = XSECURE_RSA_PSS_ERR_INVALID;
+		goto END;
+	}
+
+	/**
+	 * - Validate every input address in the copied structure over exactly the
+	 *   length the server accesses, which follows from KeySize and the
+	 *   SHA3-384 digest size
+	 */
+	XPLMI_VERIFY_ADDR_RANGE(SubsystemId, PssParams.ModulusAddr, PssParams.KeySize,
+		Status, XSECURE_ERR_INVALID_ADDR_RANGE, END);
+	XPLMI_VERIFY_ADDR_RANGE(SubsystemId, PssParams.SignAddr, PssParams.KeySize,
+		Status, XSECURE_ERR_INVALID_ADDR_RANGE, END);
+	XPLMI_VERIFY_ADDR_RANGE(SubsystemId, PssParams.HashAddr, PssParams.HashBufSize, Status,
+		XSECURE_ERR_INVALID_ADDR_RANGE, END);
+
+	Status = XSecure_RsaInitialize_64Bit(XSecureRsaInstPtr, PssParams.ModulusAddr,
+		0U, (u64)(UINTPTR)&PssParams.Exponent);
+	if (Status != XST_SUCCESS) {
+		Status = XSECURE_RSA_PSS_ERR_INVALID;
+		goto END;
+	}
+
+	PssInput.MsgHashAddr = PssParams.HashAddr;
+	PssInput.SignAddr = PssParams.SignAddr;
+	PssInput.KeySize = PssParams.KeySize;
+	PssInput.RsaInstPtr = XSecureRsaInstPtr;
+	PssInput.ShaInstPtr = ShaInstPtr;
+	PssInput.SignedInputData = SignedInputData;
+	PssInput.DataBlock = DataBlock;
+
+	Status = XST_FAILURE;
+	Status = XSecure_RsaPssSignVerify(&PssInput);
+
+END:
+	ClearStatus = Xil_SMemSet(SignedInputData, sizeof(SignedInputData), 0U,
+		sizeof(SignedInputData));
+	if (ClearStatus != XST_SUCCESS) {
+		Status = (Status == XST_SUCCESS) ? XSECURE_RSA_PSS_ERR_CLEAR : Status;
+	}
+
+	ClearStatus = Xil_SMemSet(DataBlock, sizeof(DataBlock), 0U, sizeof(DataBlock));
+	if (ClearStatus != XST_SUCCESS) {
+		Status = (Status == XST_SUCCESS) ? XSECURE_RSA_PSS_ERR_CLEAR : Status;
+	}
+
+	return Status;
+}
+#endif /* XSECURE_RSA_PSS_SIGN_VERIFY_ENABLED */
 
 #endif
 /** @} */

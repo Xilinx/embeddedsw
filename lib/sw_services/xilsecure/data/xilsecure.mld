@@ -75,5 +75,6 @@ BEGIN LIBRARY xilsecure
   PARAM name = xsecure_elliptic_p521_support, desc = "Enables/Disables P-521 curve support", type = enum, values = (xsecure_elliptic_p521_support = "true", xsecure_elliptic_p521_support = "false"), default = "true";
   PARAM name = xsecure_elliptic_p192_support, desc = "Enables/Disables P-192 curve support", type = enum, values = (xsecure_elliptic_p192_support = "true", xsecure_elliptic_p192_support = "false"), default = "false";
   PARAM name = xsecure_elliptic_p224_support, desc = "Enables/Disables P-224 curve support", type = enum, values = (xsecure_elliptic_p224_support = "true", xsecure_elliptic_p224_support = "false"), default = "false";
-  PARAM name = xsecure_key_slot_addr, desc = "Key slot address to store unwrapped keys", type = string, default = 0x00000000
+  PARAM name = xsecure_key_slot_addr, desc = "Key slot address to store unwrapped keys", type = string, default = 0x00000000;
+  PARAM name = rsa_pss_sign_verify_enabled, desc = "Enables RSA-PSS sign verification IPI interface on Versal PLM/PMC", type = bool, default = false;
 END LIBRARY

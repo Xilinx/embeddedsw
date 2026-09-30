@@ -490,4 +490,19 @@ proc xgen_opts_file {libhandle} {
 
 		close $file_handle
 	}
+
+	# On Versal PMC the RSA-PSS sign verification is user configurable, as enabling
+	# it extends the XilSecure IPI command and access permission tables upto the
+	# command id. Every other PMC and all client processors enable it by default.
+	if {$proc_type == "psu_pmc" || $proc_type == "psv_pmc"} {
+		set pss_enable [common::get_property CONFIG.rsa_pss_sign_verify_enabled $libhandle]
+	} else {
+		set pss_enable true
+	}
+	if {$pss_enable == true} {
+		set file_handle [hsi::utils::open_include_file "xparameters.h"]
+		puts $file_handle "\n/* RSA-PSS sign verification */"
+		puts $file_handle "#define XSECURE_RSA_PSS_SIGN_VERIFY_ENABLED\n"
+		close $file_handle
+	}
 }

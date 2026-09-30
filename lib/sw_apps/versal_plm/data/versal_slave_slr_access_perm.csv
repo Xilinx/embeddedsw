@@ -153,6 +153,7 @@ aes_decrypt_final,0x50f,0,0,0,0,0,0,1,0,IPI,Aes Decrypt Final
 aes_key_zero,0x510,0,0,0,0,0,0,1,0,IPI,Aes Key Zero
 aes_write_key,0x511,0,0,0,0,0,0,1,0,IPI,Aes Write Key
 aes_lock_user_key,0x512,0,0,0,0,0,0,1,0,IPI,Aes Lock User Key
+rsa_pss_sign_verify,0x513,0,0,0,0,0,0,0,0,Unsupported,Unsupported command
 aes_set_dpa_cm,0x514,0,0,0,0,0,0,1,0,IPI,Aes Set Dpa Cm
 kat,0x515,0,0,0,0,0,0,1,0,IPI,Kats of crypto engines
 trng_generate,0x516,0,0,0,0,0,0,0,0,Unsupported,Generate Trng
@@ -167,7 +168,6 @@ update_cpm5n_kat_status,0x51e,0,0,0,0,0,0,0,0,Unsupported,Unsupported command
 update_pcide_kat_status,0x51f,0,0,0,0,0,0,0,0,Unsupported,Unsupported command
 update_pki_kat_status,0x520,0,0,0,0,0,0,0,0,Unsupported,Unsupported command
 gen_shared_secret,0x521,0,0,0,0,0,0,0,0,Unsupported,Unsupported command
-get_key_wrap_rsa_public_key,0x522,0,0,0,0,0,0,0,0,Unsupported,Unsupported command
 key_unwrap,0x523,0,0,0,0,0,0,0,0,Unsupported,Unsupported command
 aes_perform_operation_and_zeroize_key,0x524,0,0,0,0,0,0,0,0,Unsupported,Unsupported command
 Rsa_release_key,0x526,0,0,0,0,0,0,0,0,Unsupported,Unsupported command

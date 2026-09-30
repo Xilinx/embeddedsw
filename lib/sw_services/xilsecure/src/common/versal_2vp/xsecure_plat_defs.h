@@ -72,13 +72,14 @@ typedef enum {
 	XSECURE_API_AES_KEY_ZERO,		/**< 16U */
 	XSECURE_API_AES_WRITE_KEY,		/**< 17U */
 	XSECURE_API_AES_LOCK_USER_KEY,		/**< 18U */
-	/* API Id 19 is reserved */
+	XSECURE_API_RSA_PSS_SIGN_VERIFY = 19U,	/**< 19U */
 	XSECURE_API_AES_SET_DPA_CM = 20U,	/**< 20U */
 	XSECURE_API_KAT,			/**< 21U */
 	XSECURE_API_TRNG_GENERATE,		/**< 22U */
 	XSECURE_API_AES_PERFORM_OPERATION = 23U, /**< 23U */
 	/**< 24U to 32U reserved for versal_net*/
 	XSECURE_API_GEN_SHARED_SECRET = 33U,	/**< 33U */
+	/**< 34U to 42U reserved */
 	XSECURE_API_ELLIPTIC_PRIVATE_KEY_GEN = 43U,	/**< 43U */
 	XSECURE_API_MAX,			/**< 44U */
 } XSecure_ApiId;

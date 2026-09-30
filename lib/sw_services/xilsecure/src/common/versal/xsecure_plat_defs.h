@@ -38,6 +38,11 @@ extern "C" {
 #endif
 
 /***************************** Include Files *********************************/
+#ifdef SDT
+#include "xsecure_config.h"
+#else
+#include "xparameters.h"
+#endif
 
 /************************** Constant Definitions ****************************/
 
@@ -71,7 +76,7 @@ typedef enum {
 	XSECURE_API_AES_KEY_ZERO,		/**< 16U */
 	XSECURE_API_AES_WRITE_KEY,		/**< 17U */
 	XSECURE_API_AES_LOCK_USER_KEY,		/**< 18U */
-	/* API Id 19 is reserved */
+	XSECURE_API_RSA_PSS_SIGN_VERIFY = 19U,	/**< 19U */
 	XSECURE_API_AES_SET_DPA_CM = 20U,	/**< 20U */
 	XSECURE_API_KAT,				/**< 21U */
 	/**< 22U reserved for versal_net*/

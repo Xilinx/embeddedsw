@@ -67,11 +67,12 @@ extern "C" {
 #include "xil_types.h"
 #include "xil_cache.h"
 #include "xil_sutil.h"
-#include "xsecure_plat_defs.h"
-
 #ifdef SDT
 #include "xsecure_config.h"
+#else
+#include "xparameters.h"
 #endif
+#include "xsecure_plat_defs.h"
 
 /************************** Constant Definitions ****************************/
 /**
@@ -151,9 +152,11 @@ typedef struct {
 	u32 Size;	/**< Length of hash */
 } XSecure_RsaSignParams;
 
-#define XSECURE_RSA_PSS_SIGNED_INPUT_DATA_LEN	(512U)
-#define XSECURE_RSA_PSS_DATA_BLOCK_LEN		(480U)
-#define XSECURE_RSA_PSS_ENCODED_MSG_HASH_SCRATCH_LEN	(64U)
+/** RSA-PSS sign verification supported key sizes */
+#define XSECURE_RSA_PSS_2048_KEY_SIZE		(256U) /**< RSA-2048 key size in bytes */
+#define XSECURE_RSA_PSS_3072_KEY_SIZE		(384U) /**< RSA-3072 key size in bytes */
+#define XSECURE_RSA_PSS_4096_KEY_SIZE		(512U) /**< RSA-4096 key size in bytes */
+#define XSECURE_RSA_PSS_HASH_SIZE		(48U) /**< SHA3-384 hash size in bytes */
 
 /** RSA-PSS verification errors */
 typedef enum {
@@ -169,6 +172,20 @@ typedef enum {
 	XSECURE_RSA_PSS_ERR_CLEAR,
 	XSECURE_RSA_PSS_ERR_INVALID,
 } XSecure_RsaPssStatus;
+
+/**
+ * Structure for input parameters for RSA-PSS sign verification.
+ * Intermediate workspaces are owned by the server and are not part of this
+ * interface.
+ */
+typedef struct {
+	u64 ModulusAddr;	/**< RSA modulus address, KeySize bytes */
+	u64 SignAddr;		/**< RSA signature address, KeySize bytes */
+	u64 HashAddr;		/**< SHA3-384 message hash address */
+	u32 KeySize;		/**< RSA key size in bytes */
+	u32 Exponent;		/**< RSA public exponent value */
+	u32 HashBufSize;	/**< SHA3-384 message hash buffer size in bytes */
+} XSecure_RsaPssSignVerifyParams;
 
 /** Structure for input parameters for Ellitic Sign generation */
 typedef struct {

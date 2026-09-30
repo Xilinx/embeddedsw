@@ -153,6 +153,7 @@ aes_decrypt_final,0x50f,1,1,1,1,1,1,0,1,IPI,Aes Decrypt Final
 aes_key_zero,0x510,1,1,1,1,1,1,0,1,IPI,Aes Key Zero
 aes_write_key,0x511,1,1,1,1,1,1,0,1,IPI,Aes Write Key
 aes_lock_user_key,0x512,1,1,1,1,1,1,0,1,IPI,Aes Lock User Key
+rsa_pss_sign_verify,0x513,1,1,1,1,1,1,0,1,IPI,RSA PSS sign verification
 aes_set_dpa_cm,0x514,1,1,1,1,1,1,0,1,IPI,Aes Set Dpa Cm
 kat,0x515,1,1,1,1,1,1,0,1,IPI,Kats of crypto engines
 trng_generate,0x516,0,0,0,0,0,0,0,0,IPI,Generate Trng
@@ -167,7 +168,6 @@ update_cpm5n_kat_status,0x51e,1,1,1,1,1,1,0,1,IPI,Update Cpm5N N_Kat Status
 update_pcide_kat_status,0x51f,1,1,1,1,1,1,0,1,IPI,Update Pcide Kat Status
 update_pki_kat_status,0x520,1,1,1,1,1,1,0,1,IPI,Update Pki Kat Status
 gen_shared_secret,0x521,1,1,1,1,1,1,0,1,IPI,Gen Shared Secret
-get_key_wrap_rsa_public_key,0x522,1,1,1,1,1,1,0,1,IPI,Get Key Wrap Rsa Public Key
 key_unwrap,0x523,1,1,1,1,1,1,0,1,IPI,Key Unwrap
 aes_perform_operation_and_zeroize_key,0x524,1,1,1,1,1,1,0,1,IPI,Perform Aes operation and zeroize key
 Rsa_release_key,0x526,3,3,3,3,3,3,0,3,IPI,Destroys the RSA key in use

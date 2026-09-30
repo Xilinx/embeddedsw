@@ -275,4 +275,84 @@ int XSecure_RsaSignVerification(XSecure_ClientInstance *InstancePtr, const u64 S
 END:
 	return Status;
 }
+
+/*****************************************************************************/
+/**
+ * @brief	This function sends IPI request to perform RSA-PSS sign
+ *		verification (SHA3-384).
+ *
+ * @param	InstancePtr	Pointer to the client instance
+ * @param	Params		Pointer to XSecure_RsaPssSignVerifyParams structure
+ *
+ * @return
+ *		 - XST_SUCCESS  If verification is successful
+ *		 - XST_FAILURE  If there is a failure or if any Params field is invalid
+ *
+ *****************************************************************************/
+int XSecure_RsaPssSignVerification(XSecure_ClientInstance *InstancePtr,
+	const XSecure_RsaPssSignVerifyParams *Params)
+{
+	volatile int Status = XST_FAILURE;
+	XSecure_RsaPssSignVerifyParams *PssParams = NULL;
+	u64 BufferAddr;
+	u32 MemSize;
+	volatile u32 Payload[PAYLOAD_ARG_CNT] = {0U};
+
+	/**
+	 * - Perform input parameter validation on InstancePtr and Params.
+	 *   Return XST_FAILURE if input parameters are invalid
+	 */
+	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL) ||
+		(Params == NULL)) {
+		goto END;
+	}
+
+	if ((Params->KeySize != XSECURE_RSA_PSS_2048_KEY_SIZE) &&
+		(Params->KeySize != XSECURE_RSA_PSS_3072_KEY_SIZE) &&
+		(Params->KeySize != XSECURE_RSA_PSS_4096_KEY_SIZE)) {
+		goto END;
+	}
+
+	if ((Params->ModulusAddr == 0U) || (Params->Exponent == 0U) ||
+		(Params->SignAddr == 0U) || (Params->HashAddr == 0U) ||
+		(Params->HashBufSize != XSECURE_RSA_PSS_HASH_SIZE)) {
+		goto END;
+	}
+
+	/**
+	 * - Stage the IPI struct in mailbox shared memory, matching
+	 *   XSecure_RsaSignVerification / XSecure_RsaPublicEncrypt.
+	 */
+	MemSize = XMailbox_GetSharedMem(InstancePtr->MailboxPtr, (u64**)(UINTPTR)&PssParams);
+
+	if ((PssParams == NULL) || (MemSize < sizeof(XSecure_RsaPssSignVerifyParams))) {
+		goto END;
+	}
+
+	PssParams->ModulusAddr = Params->ModulusAddr;
+	PssParams->SignAddr = Params->SignAddr;
+	PssParams->HashAddr = Params->HashAddr;
+	PssParams->KeySize = Params->KeySize;
+	PssParams->Exponent = Params->Exponent;
+	PssParams->HashBufSize = Params->HashBufSize;
+	BufferAddr = (u64)(UINTPTR)PssParams;
+
+	XSecure_DCacheFlushRange(PssParams, sizeof(XSecure_RsaPssSignVerifyParams));
+
+	/** - Fill Payload */
+	XSECURE_PACK_PAYLOAD2(Payload, ((InstancePtr->SlrIndex << XSECURE_SLR_INDEX_SHIFT)
+				| XSECURE_API_RSA_PSS_SIGN_VERIFY),
+				BufferAddr,
+				(BufferAddr >> XSECURE_ADDR_HIGH_SHIFT));
+
+	/**
+	 * - Send request to PLM through generic request API.
+	 *   This internally handles SMC or IPI mailbox based on build configuration.
+	 */
+	Status = XSecure_SendRequest(InstancePtr, (u32 *)Payload, (u32)PAYLOAD_ARG_CNT,
+		NULL, 0U);
+
+END:
+	return Status;
+}
 /** @} */

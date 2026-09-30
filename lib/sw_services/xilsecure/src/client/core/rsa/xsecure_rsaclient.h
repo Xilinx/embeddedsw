@@ -41,6 +41,9 @@ extern "C" {
 /***************************** Include Files *********************************/
 #include "xil_types.h"
 #include "xsecure_mailbox.h"
+#ifdef SDT
+#include "xsecure_config.h"
+#endif
 #include "xsecure_defs.h"
 #include "xsecure_rsaalginfo.h"
 
@@ -57,6 +60,8 @@ int XSecure_RsaPublicEncrypt(XSecure_ClientInstance *InstancePtr, const u64 KeyA
 				const u32 Size, const u64 OutDataAddr);
 int XSecure_RsaSignVerification(XSecure_ClientInstance *InstancePtr, const u64 SignAddr, const u64 HashAddr,
 				const u32 Size);
+int XSecure_RsaPssSignVerification(XSecure_ClientInstance *InstancePtr,
+	const XSecure_RsaPssSignVerifyParams *Params);
 
 /** @} */
 #ifdef __cplusplus

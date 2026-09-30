@@ -202,4 +202,16 @@ if(_IS_VERSALNET AND (NOT _IS_VERSAL_2VE_2VM))
   set(XSECURE_KEY_SLOT_ADDR "${XILSECURE_key_slot_addr}")
 endif()
 
+# On Versal PLM the RSA-PSS sign verification IPI is user configurable. The command
+# id is 19U on all platforms, inside the existing Versal table (XSECURE_API_MAX is
+# 24U). Every other PLM and all client BSPs enable it by default.
+if(_IS_VERSAL_ONLY AND _IS_PLM_MICROBLAZE)
+  option(XILSECURE_rsa_pss_sign_verify_enabled "Enables RSA-PSS sign verification IPI interface (Versal PLM only)" OFF)
+  if(XILSECURE_rsa_pss_sign_verify_enabled)
+    set(XSECURE_RSA_PSS_SIGN_VERIFY_ENABLED " ")
+  endif()
+elseif(_IS_VERSAL OR _IS_VERSALNET)
+  set(XSECURE_RSA_PSS_SIGN_VERIFY_ENABLED " ")
+endif()
+
 configure_file(${CMAKE_CURRENT_SOURCE_DIR}/xsecure_config.h.in ${CMAKE_BINARY_DIR}/include/xsecure_config.h)
