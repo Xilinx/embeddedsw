@@ -15,6 +15,7 @@
 * @addtogroup xxvethernet Overview
 * @{
 *
+* @brief Defines common types and prototypes for XXV Ethernet examples.
 * Defines common data types, prototypes, and includes for the Xxv Ethernet
 * and USXGMII example code in this directory.
 *
@@ -49,9 +50,9 @@ extern "C" {
 
 /************************** Constant Definitions ****************************/
 #ifdef SDT
-#define XXV_AXIDEVTYPE_MASK	0xF
-#define XXV_AXIDMA			0x2
-#define XXV_MCDMA			0x3
+#define XXV_AXIDEVTYPE_MASK	0xF /**< Mask for AXI device type bits in the base address. */
+#define XXV_AXIDMA			0x2 /**< AXI DMA device type identifier. */
+#define XXV_MCDMA			0x3 /**< AXI MCDMA device type identifier. */
 #endif
 
 /***************** Macros (Inline Functions) Definitions *********************/

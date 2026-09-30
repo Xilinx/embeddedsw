@@ -10,6 +10,7 @@
 * @addtogroup xxvethernet Overview
 * @{
 *
+* @brief Implements shared utility functions for XXV Ethernet examples.
 * Implements utility functions for the Xxv Ethernet and USXGMII example code.
 *
 * <pre>
@@ -44,14 +45,11 @@ char DestAddr[6] = { 0x00, 0x00, 0x53, 0x0e, 0x9f, 0xb0 };
 
 /******************************************************************************/
 /**
-*
-* Set the MAC addresses in the frame.
+* @brief Sets the MAC addresses in the frame.
 *
 * @param[in]	FramePtr is the pointer to the frame.
 * @param[in]	DestAddr is the Destination MAC address.
 * @param[in]	SrcAddr is the source MAC address.
-*
-*
 *
 ******************************************************************************/
 void XxvEthernetUtilFrameHdrFormatMAC(EthernetFrame *FramePtr, char *DestAddr, char *SrcAddr)
@@ -76,13 +74,10 @@ void XxvEthernetUtilFrameHdrFormatMAC(EthernetFrame *FramePtr, char *DestAddr, c
 
 /******************************************************************************/
 /**
-*
-* Set the frame type for the specified frame.
+* @brief Sets the frame type for the specified frame.
 *
 * @param[in]	FramePtr is the pointer to the frame.
 * @param[in]	FrameType is the Type to set in frame.
-*
-*
 *
 ******************************************************************************/
 void XxvEthernetUtilFrameHdrFormatType(EthernetFrame *FramePtr, u16 FrameType)
@@ -103,19 +98,19 @@ void XxvEthernetUtilFrameHdrFormatType(EthernetFrame *FramePtr, u16 FrameType)
 
 /******************************************************************************/
 /**
-* Places an incrementing pattern in the payload section of a frame. The pattern
-* is a  8 bit incrementing series of numbers starting with 0.
+* @brief Places an incrementing pattern in the payload section of a frame.
+*
+* The pattern is an 8-bit incrementing series of numbers starting with 0.
 * Once the pattern reaches 256, then the pattern changes to a 16 bit
 * incrementing pattern:
 * <pre>
-*   0, 1, 2, ... 254, 255, 00, 00, 00, 01, 00, 02, ...
+*   0, 1, 2, ... 254, 255, 00, 00, 00, 01, 00, 02, ..
 * </pre>
 *
 * @param[in]	FramePtr is a pointer to the frame to change.
-* @param[in]	PayloadSize is the number of bytes in the payload that will be
+* @param[in]	PayloadSize is the number of bytes in the payload that will be.
+
 *		set.
-*
-*
 *
 ******************************************************************************/
 void XxvEthernetUtilFrameSetPayloadData(EthernetFrame *FramePtr,
@@ -155,20 +150,20 @@ void XxvEthernetUtilFrameSetPayloadData(EthernetFrame *FramePtr,
 
 /******************************************************************************/
 /**
-* Verifies frame data against a CheckFrame.
+* @brief Verifies frame data against a CheckFrame.
 *
 * Validation occurs by comparing the ActualFrame to the header of the
 * CheckFrame. If the headers match, then the payload of ActualFrame is
 * verified for the same pattern Util_FrameSetPayloadData() generates.
 *
-* @param[in]	CheckFrame is a pointer to a frame containing the 14 byte header
+* @param[in]	CheckFrame is a pointer to a frame containing the 14 byte header.
+
 *		that should be present in the ActualFrame parameter.
 * @param[in]	ActualFrame is a pointer to a frame to validate.
 *
 * @return
 *		- XST_SUCCESS if successful.
 *		- XST_FAILURE in case of failure.
-*
 *
 ******************************************************************************/
 int XxvEthernetUtilFrameVerify(EthernetFrame * CheckFrame,
@@ -254,11 +249,9 @@ int XxvEthernetUtilFrameVerify(EthernetFrame * CheckFrame,
 
 /******************************************************************************/
 /**
-* Sets all bytes of a frame to 0.
+* @brief Sets all bytes of a frame to 0.
 *
 * @param[in]	FramePtr is a pointer to the frame itself.
-*
-*
 *
 ******************************************************************************/
 void XxvEthernetUtilFrameMemClear(EthernetFrame * FramePtr)
@@ -276,15 +269,14 @@ void XxvEthernetUtilFrameMemClear(EthernetFrame * FramePtr)
 
 /******************************************************************************/
 /**
+* @brief Sets 10G Ethernet in local loopback mode.
 *
-* Sets 10G Ethernet in local loopback mode.
-*
-* @param[in]	XxvEthernetInstancePtr is a pointer to the instance of the
+* @param[in]	XxvEthernetInstancePtr is a pointer to the instance of the.
+
 *		XxvEthernet component.
 *
 * @return	- XST_SUCCESS if successful.
-*		- XST_FAILURE, in case of failure..
-*
+*		- XST_FAILURE, in case of failure.
 *
 ******************************************************************************/
 int XxvEthernetUtilEnterLocalLoopback(XXxvEthernet *XxvEthernetInstancePtr)
@@ -305,21 +297,20 @@ int XxvEthernetUtilEnterLocalLoopback(XXxvEthernet *XxvEthernetInstancePtr)
 
 /******************************************************************************/
 /**
-*
-* Sets up USXGMII at the specified speed with autonegotiation enabled.
+* @brief Sets up USXGMII at the specified speed with autonegotiation enabled.
 * Autonegotiation is enabled with the selected settings.
 * If autonegotiation fails, it is restarted after a timeout.
 * The function returns success after autonegotiation is completed.
 * Enables RX and performs a GT reset first because USXGMII requires the same.
 *
-* @param[in]	XxvEthernetInstancePtr is a pointer to the instance of the
+* @param[in]	XxvEthernetInstancePtr is a pointer to the instance of the.
+
 *		XxvEthernet component.
 * @param[in]	Rate Line rate to set. Use RATE_1G or RATE_2G5.
 * @param[in]	Duplex Set to 1 for full duplex, or 0 for half duplex.
 *
 * @return	- XST_SUCCESS if successful.
-*		- XST_FAILURE, in case of failure..
-*
+*		- XST_FAILURE, in case of failure.
 *
 ******************************************************************************/
 int XxvEthernetUtilUsxgmiiSetup(XXxvEthernet *XxvEthernetInstancePtr, u32 Rate, u32 Duplex)
@@ -369,20 +360,19 @@ int XxvEthernetUtilUsxgmiiSetup(XXxvEthernet *XxvEthernetInstancePtr, u32 Rate, 
 
 /******************************************************************************/
 /**
-*
-* Sets up USXGMII at the specified speed with autonegotiation bypassed.
+* @brief Sets up USXGMII at the specified speed with autonegotiation bypassed.
 * Autonegotiation is bypassed and the status is checked for completion before
 * returning successfully.
 * Enables RX and performs a GT reset first because USXGMII requires the same.
 *
-* @param[in]	XxvEthernetInstancePtr is a pointer to the instance of the
+* @param[in]	XxvEthernetInstancePtr is a pointer to the instance of the.
+
 *		XxvEthernet component.
 * @param[in]	Rate Line rate to set. Use RATE_1G or RATE_2G5.
 * @param[in]	Duplex Set to 1 for full duplex, or 0 for half duplex.
 *
 * @return	- XST_SUCCESS if successful.
-*		- XST_FAILURE, in case of failure..
-*
+*		- XST_FAILURE, in case of failure.
 *
 ******************************************************************************/
 int XxvEthernetUtilUsxgmiiSetupBypassAN(XXxvEthernet *XxvEthernetInstancePtr, u32 Rate, u32 Duplex)
@@ -432,13 +422,12 @@ int XxvEthernetUtilUsxgmiiSetupBypassAN(XXxvEthernet *XxvEthernetInstancePtr, u3
 
 /******************************************************************************/
 /**
-* Reports an error detected by example code. It
-* can be set as a breakpoint with a debugger or it can be used to print out the
-* given message if there is a UART or STDIO device.
+* @brief Reports an error detected by example code.
 *
-* @param[in]	Message is the text explaining the error
+* It can be set as a breakpoint with a debugger or used to print the given
+* message if a UART or STDIO device is present.
 *
-*
+* @param[in]	Message is the text explaining the error.
 *
 ******************************************************************************/
 void XxvEthernetUtilErrorTrap(const char *Message)

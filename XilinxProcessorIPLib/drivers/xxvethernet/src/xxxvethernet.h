@@ -4,10 +4,9 @@
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
-/** @cond INTERNAL */
 #ifndef XXXVETHERNET_H
+/** @brief Include guard for the XXV Ethernet driver header. */
 #define XXXVETHERNET_H
-/** @endcond */
 
 /**
 *
@@ -15,6 +14,7 @@
 * @addtogroup xxvethernet Overview
 * @{
 *
+* @brief Defines the driver API for the XXV Ethernet and USXGMII MAC.
 * The Xilinx XXV Ethernet MAC driver component. This driver supports both
 * XXV Ethernet core and USXGMII core on Zynq Ultrascale+ MPSoC.
 * The MAC portion of USXMGII and XXV ethernet is similar.
@@ -95,7 +95,6 @@
 * is recommended that users leave asserts on during development. For deployment
 * use -DNDEBUG compiler switch to remove assert code.
 *
-*
 * @note
 *
 * Xilinx drivers are typically composed of two components, one is the driver
@@ -149,68 +148,65 @@ extern "C" {
  * @{
  */
 
-/**< XXE_FCS_STRIP_OPTION specifies the Xxv Ethernet device to strip FCS and
- *   PAD from received frames.
- *   This driver sets this option to enabled (set) by default.
+/**
+ * @brief Strips FCS and PAD from received frames.
+ *
+ * This driver sets this option to enabled (set) by default.
  */
 #define XXE_FCS_STRIP_OPTION		0x00000010
 
-/**< XXE_FCS_INSERT_OPTION specifies the Xxv Ethernet device to generate the
- *   FCS field and add PAD automatically for outgoing frames.
- *   This driver sets this option to enabled (set) by default.
+/**
+ * @brief Generates FCS and adds PAD for outgoing frames.
+ *
+ * This driver sets this option to enabled (set) by default.
  */
 #define XXE_FCS_INSERT_OPTION		0x00000020
 
-/**< XXE_TRANSMITTER_ENABLE_OPTION specifies the Xxv Ethernet device
- *   transmitter to be enabled.
- *   This driver sets this option to enabled (set) by default.
+/**
+ * @brief Enables the Xxv Ethernet device transmitter.
+ *
+ * This driver sets this option to enabled (set) by default.
  */
 #define XXE_TRANSMITTER_ENABLE_OPTION	0x00000080
 
-/**< XXE_RECEIVER_ENABLE_OPTION specifies the Xxv Ethernet device receiver to
- *   be enabled.
- *   This driver sets this option to enabled (set) by default.
+/**
+ * @brief Enables the Xxv Ethernet device receiver.
+ *
+ * This driver sets this option to enabled (set) by default.
  */
 #define XXE_RECEIVER_ENABLE_OPTION	0x00000100
 
+/**
+ * @brief Default options applied in XXxvEthernet_Reset() and XXxvEthernet_CfgInitialize().
+ */
 #define XXE_DEFAULT_OPTIONS				\
 	(XXE_FCS_INSERT_OPTION |		\
 	 XXE_FCS_STRIP_OPTION |			\
 	 XXE_TRANSMITTER_ENABLE_OPTION | 	\
 	 XXE_RECEIVER_ENABLE_OPTION)
-/**< XXE_DEFAULT_OPTIONS specify the options set in XXxvEthernet_Reset() and
- *   XXxvEthernet_CfgInitialize()
- */
 /** @} */
 
 /*
  * The next few constants help upper layers determine the size of memory
  * pools used for Ethernet buffers and descriptor lists.
  */
-#define XXE_MAC_ADDR_SIZE		6	/* MAC addresses are 6 bytes */
-#define XXE_MTU				1500	/* Max MTU size of an Ethernet
-						 * frame
-						 */
-#define XXE_JUMBO_MTU			8982	/* Max MTU size of a jumbo
-						 * Ethernet frame
-						 */
-#define XXE_HDR_SIZE			14	/* Size of an Ethernet header*/
-
-#define XXE_TRL_SIZE			4	/* Size of an Ethernet trailer
-						 * (FCS)
-						 */
-#define XXE_MAX_FRAME_SIZE	 (XXE_MTU + XXE_HDR_SIZE + XXE_TRL_SIZE)
-#define XXE_MAX_JUMBO_FRAME_SIZE (XXE_JUMBO_MTU + XXE_HDR_SIZE + XXE_TRL_SIZE)
+#define XXE_MAC_ADDR_SIZE		6	/**< MAC address size in bytes. */
+#define XXE_MTU				1500	/**< Maximum MTU size of an Ethernet frame. */
+#define XXE_JUMBO_MTU			8982	/**< Maximum MTU size of a jumbo Ethernet frame. */
+#define XXE_HDR_SIZE			14	/**< Size of an Ethernet header in bytes. */
+#define XXE_TRL_SIZE			4	/**< Size of an Ethernet trailer (FCS) in bytes. */
+#define XXE_MAX_FRAME_SIZE	 (XXE_MTU + XXE_HDR_SIZE + XXE_TRL_SIZE) /**< Maximum standard Ethernet frame size. */
+#define XXE_MAX_JUMBO_FRAME_SIZE (XXE_JUMBO_MTU + XXE_HDR_SIZE + XXE_TRL_SIZE) /**< Maximum jumbo Ethernet frame size. */
 
 
-#define XXE_RX				1 /**< Receive direction */
-#define XXE_TX				2 /**< Transmit direction */
+#define XXE_RX				1 /**< Receive direction. */
+#define XXE_TX				2 /**< Transmit direction. */
 
-#define RATE_10M	10 /**< 10 Mbps line rate */
-#define RATE_100M	100 /**< 100 Mbps line rate */
-#define RATE_1G		1000 /**< 1 Gbps line rate */
-#define RATE_2G5	2500 /**< 2.5 Gbps line rate */
-#define RATE_10G	10000 /**< 10 Gbps line rate */
+#define RATE_10M	10 /**< 10 Mbps line rate. */
+#define RATE_100M	100 /**< 100 Mbps line rate. */
+#define RATE_1G		1000 /**< 1 Gbps line rate. */
+#define RATE_2G5	2500 /**< 2.5 Gbps line rate. */
+#define RATE_10G	10000 /**< 10 Gbps line rate. */
 
 /**************************** Type Definitions *******************************/
 
@@ -220,20 +216,18 @@ extern "C" {
  */
 typedef struct XXxvEthernet_Config {
 #ifdef SDT
-	char *Name;	/**< Unique name of the device */
+	char *Name;	/**< Unique name of the device. */
 #else
-	u16 DeviceId;	/**< DeviceId is the unique ID  of the device */
+	u16 DeviceId;	/**< DeviceId is the unique ID  of the device. */
 #endif
 	UINTPTR BaseAddress;/**< BaseAddress is the physical base address of the
-			  *  device's registers
-			  */
-	u8 Stats;	/**< Statistics gathering option */
+			  *  device's registers. */
+	u8 Stats;	/**< Statistics gathering option. */
 
 #ifndef SDT
 	int XxvDevType;  /**< XxvDevType is the type of device attached to the
 			  *   Xxv Ethernet's AXI4-Stream interface -
-			  *   MCDMA in this case
-			  */
+			  *   MCDMA in this case. */
 #endif
 
 	UINTPTR XxvDevBaseAddress; /**< XxvDevBaseAddress is the base address of
@@ -241,9 +235,9 @@ typedef struct XXxvEthernet_Config {
 				 *  AXI4-Stream interface.
 				 */
 #ifndef SDT
-	u8 AxiMcDmaChan_Cnt;	/**< Number of AXI MCDMA channels configured */
-	u8 AxiMcDmaRxIntr[16];	/**< RX interrupt numbers for each DMA channel */
-	u8 AxiMcDmaTxIntr[16];	/**< TX interrupt numbers for each DMA channel */
+	u8 AxiMcDmaChan_Cnt;	/**< Number of AXI MCDMA channels configured. */
+	u8 AxiMcDmaRxIntr[16];	/**< RX interrupt numbers for each DMA channel. */
+	u8 AxiMcDmaTxIntr[16];	/**< TX interrupt numbers for each DMA channel. */
 #endif
 } XXxvEthernet_Config;
 
@@ -256,11 +250,11 @@ typedef struct XXxvEthernet_Config {
  * of this type is then passed to the driver API functions.
  */
 typedef struct XXxvEthernet {
-	XXxvEthernet_Config Config; /**< Hardware configuration */
-	u32 IsStarted;		 /**< Device is currently started */
-	u32 IsReady;		 /**< Device is initialized and ready */
-	u32 Options;		 /**< Current options word */
-	u32 Flags;		 /**< Internal driver flags */
+	XXxvEthernet_Config Config; /**< Hardware configuration. */
+	u32 IsStarted;		 /**< Device is currently started. */
+	u32 IsReady;		 /**< Device is initialized and ready. */
+	u32 Options;		 /**< Current options word. */
+	u32 Flags;		 /**< Internal driver flags. */
 } XXxvEthernet;
 
 
@@ -269,7 +263,7 @@ typedef struct XXxvEthernet {
 /*****************************************************************************/
 /**
 *
-* XXxvEthernet_IsStarted reports if the device is in the started or stopped
+* @brief XXxvEthernet_IsStarted reports if the device is in the started or stopped
 * state. To be in the started state, the calling code must have made a
 * successful call to <i>XXxvEthernet_Start</i>. To be in the stopped state,
 * <i>XXxvEthernet_Stop</i> or <i>XXxvEthernet_CfgInitialize</i> function must
@@ -292,7 +286,7 @@ typedef struct XXxvEthernet {
 /*****************************************************************************/
 /**
 *
-* XXxvEthernet_XxvDevBaseAddress reports the base address of the core connected
+* @brief XXxvEthernet_XxvDevBaseAddress reports the base address of the core connected
 * to the Xxv Ethernet's Axi4 Stream interface (expected to be MCDMA).
 * Reserved for future use because of a limitation in exporting
 * target MCDMA information.
@@ -313,7 +307,7 @@ typedef struct XXxvEthernet {
 /*****************************************************************************/
 /**
 *
-* XXxvEthernet_IsTxErr determines if there is any TX error reported by device.
+* @brief XXxvEthernet_IsTxErr determines if there is any TX error reported by device.
 * The TX status register is read for this to be determined.
 *
 * @param[in]	InstancePtr is a pointer to the Xxv Ethernet instance to be
@@ -334,7 +328,7 @@ typedef struct XXxvEthernet {
 /*****************************************************************************/
 /**
 *
-* XXxvEthernet_IsRxErr determines if there is any RX error reported by device.
+* @brief XXxvEthernet_IsRxErr determines if there is any RX error reported by device.
 * The RX status register is read for this to be determined.
 *
 * @param[in]	InstancePtr is a pointer to the Xxv Ethernet instance to be
@@ -355,7 +349,7 @@ typedef struct XXxvEthernet {
 /****************************************************************************/
 /**
 *
-* XXxvEthernet_GetStatus returns the contents of status register
+* @brief XXxvEthernet_GetStatus returns the contents of status register
 *
 * @param[in]	InstancePtr is a pointer to the Xxv Ethernet instance to be
 *		worked on.
@@ -372,7 +366,7 @@ typedef struct XXxvEthernet {
 /*****************************************************************************/
 /**
 *
-* XXxvEthernet_IsStatsConfigured returns determines if Statistics gathering.
+* @brief XXxvEthernet_IsStatsConfigured returns determines if Statistics gathering.
 * is configured in the hardware or not.
 *
 * @param[in]	InstancePtr is a pointer to the Xxv Ethernet instance to be
@@ -394,7 +388,7 @@ typedef struct XXxvEthernet {
 /*****************************************************************************/
 /**
 *
-* XXxvEthernet_UsxgmiiLinkSts returns the USXGMII link status
+* @brief XXxvEthernet_UsxgmiiLinkSts returns the USXGMII link status
 *
 * @param[in]	InstancePtr is a pointer to the Xxv Ethernet instance to be
 *		worked on.
@@ -414,7 +408,7 @@ typedef struct XXxvEthernet {
 /*****************************************************************************/
 /**
 *
-* XXxvEthernet_SetUsxgmiiAnEnable enables USXGMII autonegotiation.
+* @brief XXxvEthernet_SetUsxgmiiAnEnable enables USXGMII autonegotiation.
 *
 * @param[in]	InstancePtr is a pointer to the Xxv Ethernet instance to be
 *		worked on.
@@ -432,7 +426,7 @@ typedef struct XXxvEthernet {
 /*****************************************************************************/
 /**
 *
-* XXxvEthernet_SetUsxgmiiAnBypass bypasses USXGMII autonegotiation.
+* @brief XXxvEthernet_SetUsxgmiiAnBypass bypasses USXGMII autonegotiation.
 *
 * @param[in]	InstancePtr is a pointer to the Xxv Ethernet instance to be
 *		worked on.
@@ -450,7 +444,7 @@ typedef struct XXxvEthernet {
 /*****************************************************************************/
 /**
 *
-* XXxvEthernet_GetUsxgmiiAnSts returns the contents of USXGMII
+* @brief XXxvEthernet_GetUsxgmiiAnSts returns the contents of USXGMII
 * autonegotiation status register
 *
 * @param[in]	InstancePtr is a pointer to the Xxv Ethernet instance to be
@@ -467,7 +461,7 @@ typedef struct XXxvEthernet {
 /*****************************************************************************/
 /**
 *
-* XXxvEthernet_IsMcDma reports if the device is currently connected to MCDMA.
+* @brief XXxvEthernet_IsMcDma reports if the device is currently connected to MCDMA.
 *
 * @param[in]	InstancePtr is a pointer to the Xxv Ethernet instance to be
 *		worked on.
@@ -497,9 +491,39 @@ void XXxvEthernet_Reset(XXxvEthernet *InstancePtr);
  * Initialization functions in xxxvtemac_sinit.c
  */
 #ifdef SDT
+/*****************************************************************************/
+/**
+ * @brief Looks up device configuration by base address.
+ *
+ * @param[in] BaseAddress contains the base address of the device.
+ *
+ * @return A pointer to the configuration table entry corresponding to the given
+ *         base address, or NULL if no match is found.
+ *
+ *****************************************************************************/
 XXxvEthernet_Config *XXxvEthernet_LookupConfig(UINTPTR BaseAddress);
 #else
+/*****************************************************************************/
+/**
+ * @brief Looks up device configuration by device ID.
+ *
+ * @param[in] DeviceId contains the unique ID of the device.
+ *
+ * @return A pointer to the configuration table entry corresponding to the given
+ *         device ID, or NULL if no match is found.
+ *
+ *****************************************************************************/
 XXxvEthernet_Config *XXxvEthernet_LookupConfig(u16 DeviceId);
+/*****************************************************************************/
+/**
+ * @brief Looks up device configuration by base address.
+ *
+ * @param[in] Baseaddr is the base address of the device to look up.
+ *
+ * @return A pointer to the configuration table entry corresponding to the given
+ *         base address, or NULL if no match is found.
+ *
+ *****************************************************************************/
 XXxvEthernet_Config *XXxvEthernet_LookupConfigBaseAddr(UINTPTR Baseaddr);
 #endif
 
@@ -522,7 +546,5 @@ int XXxvEthernet_Initialize(XXxvEthernet *InstancePtr,
 }
 #endif
 
-/** @} */
-/** @cond INTERNAL */
 #endif /* end of protection macro */
-/** @endcond */
+/** @} */
